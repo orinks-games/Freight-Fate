@@ -4,13 +4,20 @@
 use crate::pyfmt::{fmt_grouped, round_py_n};
 use crate::pyrandom::PyRandom;
 
-/// 2025 annual average diesel prices from Statistics Canada table
-/// 18-10-0001-01, "Diesel fuel at self service filling stations":
-/// Vancouver for British Columbia and Whitehorse for Yukon.
-pub const CANADA_DIESEL_CENTS_PER_L: &[(&str, &str, f64)] = &[
-    ("BC", "British Columbia", 178.475),
-    ("YT", "Yukon", 168.433),
-];
+/// Diesel prices in Canadian cents per litre, after the consumer carbon tax
+/// ended on April 1, 2025, from Statistics Canada table 18-10-0001-01,
+/// "Diesel fuel at self service filling stations".
+///
+/// - Yukon, read: Whitehorse's April to December 2025 average, 162.9
+///   (162.9 every month from May; 163.3 in April).
+/// - British Columbia, derived: Vancouver's April to December 2025 average
+///   (174.1) with Metro Vancouver's extra motor fuel tax taken out, so the
+///   price stands for the province rather than the TransLink region. B.C.
+///   charges 27.50 cents a litre on clear diesel in the Vancouver area and
+///   15.00 elsewhere; taking the 12.50 difference out gives 161.6, and the
+///   table keeps the reviewed 162.0.
+pub const CANADA_DIESEL_CENTS_PER_L: &[(&str, &str, f64)] =
+    &[("BC", "British Columbia", 162.0), ("YT", "Yukon", 162.9)];
 
 /// Litres in one US gallon.
 pub const LITRES_PER_US_GALLON: f64 = 3.785411784;

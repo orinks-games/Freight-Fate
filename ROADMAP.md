@@ -4256,12 +4256,19 @@ branch. The older Phase A/B plan checklists are not a live completion list.
 - [ ] (Found along the way) Alaska on-road diesel has no official source:
       DCCED's survey covers gasoline and heating fuel only and excludes
       Anchorage/Mat-Su, so Alaska keeps the Pacific Northwest price.
-- [ ] (Found along the way) The Vancouver diesel figure applies across BC and
+- [x] (Found along the way) The Vancouver diesel figure applies across BC and
       probably includes Metro Vancouver's regional fuel taxes; northern BC
-      may therefore be priced high. This is unverified.
-- [ ] (Found along the way) Canadian diesel uses fixed 2025 Statistics Canada
-      averages. Offline prices do not follow the monthly series; live mode
-      moves them only with the US national price.
+      may therefore be priced high. Landed: the BC price is derived from
+      Vancouver's April to December 2025 average with Metro Vancouver's
+      extra 12.50 cents a litre of motor fuel tax taken out (the reviewed
+      162.0; the arithmetic gives 161.6), and the Yukon reads Whitehorse's
+      April to December 2025 average, 162.9. Both start after the consumer
+      carbon tax ended on April 1, 2025.
+- [ ] (Found along the way) Canadian diesel uses fixed April to December 2025
+      Statistics Canada averages. Offline prices do not follow the monthly
+      series (2026 prices have since risen sharply); live mode moves them
+      only with the US national price. Northern BC has no StatCan series of
+      its own.
 - [ ] (Found along the way) Every career year replays the 2026 spring-breakup
       dates rather than shifting the notices to new annual dates.
 - [ ] (Found along the way) Anchorage/Mat-Su/Kenai area-wide 75%/50% limits

@@ -629,9 +629,10 @@ impl DrivingState {
         }
         self.bc_limiter_said = true;
         let message = if self.terse_speech(ctx) {
-            "Limiter, 105 kilometres an hour."
+            "Limiter, 105 kilometers per hour."
         } else {
-            "Speed limiter: British Columbia caps heavy trucks at 105 kilometres an hour."
+            "Speed limiter: British Columbia caps heavy trucks at 105 kilometers per hour, about 65 \
+             miles per hour."
         };
         ctx.say_event_with(
             message,

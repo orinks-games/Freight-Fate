@@ -9,8 +9,8 @@ use ff_core::pyfmt::round_py_n;
 fn test_canadian_diesel_prices_convert_for_codes_and_names() {
     let bc = canada_diesel_usd_per_gal("BC").expect("British Columbia has a price");
     let yukon = canada_diesel_usd_per_gal("YT").expect("Yukon has a price");
-    assert_eq!(round_py_n(bc, 2), 4.83);
-    assert_eq!(round_py_n(yukon, 2), 4.56);
+    assert_eq!(round_py_n(bc, 2), 4.39);
+    assert_eq!(round_py_n(yukon, 2), 4.41);
     assert_eq!(canada_diesel_usd_per_gal("British Columbia"), Some(bc));
     assert_eq!(canada_diesel_usd_per_gal("Yukon"), Some(yukon));
     assert!(canada_diesel_usd_per_gal("WA").is_none());
@@ -19,7 +19,8 @@ fn test_canadian_diesel_prices_convert_for_codes_and_names() {
     assert!(canada_diesel_usd_per_gal("Alaska").is_none());
     assert!(canada_diesel_usd_per_gal("bc").is_none());
     assert!(canada_diesel_usd_per_gal("british columbia").is_none());
-    assert!((cad_per_litre(bc) - 1.78475).abs() <= 1e-4);
+    assert!((cad_per_litre(bc) - 1.62).abs() <= 1e-4);
+    assert!((cad_per_litre(yukon) - 1.629).abs() <= 1e-4);
 }
 
 #[test]

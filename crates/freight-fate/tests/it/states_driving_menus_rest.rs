@@ -1543,7 +1543,7 @@ fn test_canadian_pump_label_and_charge_use_the_local_diesel_price() {
     );
     assert!(
         label.contains(&format!(
-            "{} Canadian dollars a litre.",
+            "{} Canadian dollars a liter.",
             fmt_f(cad_per_litre(price), 2)
         )),
         "{label}"

@@ -371,7 +371,7 @@ fn test_whitehorse_garage_quotes_and_charges_the_yukon_diesel_price() {
         profile(&app).truck_specs().fuel_tank_gal,
     );
     let expected_label = format!(
-        "Refuel {} gallons for {} dollars. Diesel here is {} Canadian dollars a litre.",
+        "Refuel {} gallons for {} dollars. Diesel here is {} Canadian dollars a liter.",
         fmt_f(profile(&app).truck_specs().fuel_tank_gal, 0),
         fmt_grouped(cost, 0),
         fmt_f(cad_per_litre(price), 2)

@@ -276,13 +276,37 @@ fn test_bc_hardware_limiter_caps_clean_truck_and_speaks_once() {
     assert_eq!(
         said.iter()
             .filter(|line| line.as_str()
-                == "Speed limiter: British Columbia caps heavy trucks at 105 kilometres an hour.")
+                == "Speed limiter: British Columbia caps heavy trucks at 105 kilometers per hour, about 65 miles per hour.")
             .count(),
         1,
         "{said:?}"
     );
     assert!(
         !said.iter().any(|line| line.contains("limp mode")),
+        "{said:?}"
+    );
+}
+
+#[test]
+fn test_bc_limiter_terse_line_names_kilometers_per_hour() {
+    let mut app = TestApp::new();
+    app.ctx.settings.driving_speech = "quiet".to_string();
+    let mut drive = a_bc_damage_drive(&mut app, LEASED_OWNER_OPERATOR);
+    drive.trip.truck.engine_on = true;
+    drive.update_damage_bands(&mut app.ctx, 1.0 / 60.0);
+    let from = app.ctx.message_log.messages.len();
+    drive.announce_bc_limiter(&mut app.ctx);
+    for _ in 0..5 {
+        drive.update_cruise(&mut app.ctx, 1.0 / 60.0, false, false, false);
+    }
+    let said = logged_since(&app, from);
+    assert!(
+        said.iter()
+            .any(|line| line == "Limiter, 105 kilometers per hour."),
+        "{said:?}"
+    );
+    assert!(
+        !said.iter().any(|line| line.contains("kilometres")),
         "{said:?}"
     );
 }

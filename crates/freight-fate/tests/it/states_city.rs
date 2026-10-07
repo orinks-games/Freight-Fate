@@ -103,7 +103,7 @@ fn test_terminal_garage_price_names_canadian_dollars_only_in_canada() {
     assert_eq!(
         whitehorse,
         format!(
-            "Garage: fuel {} per gallon, {} Canadian dollars a litre",
+            "Garage: fuel {} per gallon, {} Canadian dollars a liter",
             fmt_f(price, 2),
             fmt_f(cad_per_litre(price), 2)
         )

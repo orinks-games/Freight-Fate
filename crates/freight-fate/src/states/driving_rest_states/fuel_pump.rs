@@ -64,7 +64,7 @@ pub trait FuelPump: Menu {
         let cost = ctx.economy.fuel_cost_at(region, &jurisdiction, need) + 35.0;
         if canada_diesel_usd_per_gal(&jurisdiction).is_some() {
             return format!(
-                "Refuel {} gallons for {} dollars. Diesel here is {} Canadian dollars a litre. \
+                "Refuel {} gallons for {} dollars. Diesel here is {} Canadian dollars a liter. \
                  {margin}",
                 fmt_f(need, 0),
                 fmt_grouped(cost, 0),

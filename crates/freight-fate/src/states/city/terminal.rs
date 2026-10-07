@@ -199,7 +199,7 @@ impl CityMenuState {
         };
         if canada_diesel_usd_per_gal(&state_code).is_some() {
             return format!(
-                "Garage: fuel {} per gallon, {} Canadian dollars a litre{live}",
+                "Garage: fuel {} per gallon, {} Canadian dollars a liter{live}",
                 fmt_f(price, 2),
                 fmt_f(cad_per_litre(price), 2)
             );

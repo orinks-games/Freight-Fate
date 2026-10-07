@@ -184,7 +184,7 @@ impl GarageState {
         let cost = ctx.economy.fuel_cost_at(&region, &state_code, need);
         if canada_diesel_usd_per_gal(&state_code).is_some() {
             return format!(
-                "Refuel {} gallons for {} dollars. Diesel here is {} Canadian dollars a litre.",
+                "Refuel {} gallons for {} dollars. Diesel here is {} Canadian dollars a liter.",
                 fmt_f(need, 0),
                 fmt_grouped(cost, 0),
                 fmt_f(cad_per_litre(price), 2)
