@@ -8432,6 +8432,20 @@
             "construction"
           ],
           "source_note": "City of Valdez terminal page https://www.valdezak.gov/296/Ryan-J-Sontag-Valdez-Container-Terminal and its official terminal brochure (1460 Container Terminal Road; published coordinates 61.1271,-146.2972; floating freight pier). The local Geofabrik Alaska OSM extract identifies terminal relation 11301693; Overture did not identify the exact terminal. Container, general, and construction freight roles follow the official terminal description."
+        },
+        {
+          "name": "Silver Bay Seafoods Valdez South",
+          "type": "food_processor",
+          "lat": 61.124854,
+          "lon": -146.348769,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Silver Bay Seafoods operator page https://www.silverbayseafoods.com/operations/southcentral (accessed 2026-10-07) lists Valdez South at 210 S Harbor Drive, the former Peter Pan Seafoods plant; Silver Bay and Peter Pan announced the sale on 2024-04-04 (http://www.aebfish.org/sbsppsf040424.pdf). Position read from the screened local Geofabrik Alaska OSM endpoint way 516449502, still tagged with the Peter Pan name. Roles derived: a salmon plant ships chilled and canned product and receives general supplies; no farm or grain roles."
         }
       ]
     },
@@ -8463,6 +8477,35 @@
           "lat": 60.1248351,
           "lon": -149.4377273,
           "source_note": "Shoreside Petroleum operator page https://www.shoresidepetroleum.com/fuel-stations/essential-one-seward confirms gasoline and diesel at 1801 Seward Highway. Local Geofabrik Alaska OSM way 1306965054 matches the diesel/gasoline station and large-vehicle access; Overture did not return an exact fuel point. Parking/capacity are not verified and are not claimed; no cargo roles."
+        },
+        {
+          "name": "Silver Bay Seafoods Seward",
+          "type": "food_processor",
+          "lat": 60.121285,
+          "lon": -149.436798,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Silver Bay Seafoods operator page https://www.silverbayseafoods.com/operations/southcentral (accessed 2026-10-07) lists its Seward salmon plant at 601 Port Avenue. The plant passed from Icicle Seafoods to OBI Seafoods in 2020, and Silver Bay bought out OBI in March 2025 (SeafoodSource, 2025-03-19, https://www.seafoodsource.com/news/business-finance/silver-bay-seafoods-acquires-remaining-stake-in-obi-from-cooke-subsidiary). Position read from the screened local Geofabrik Alaska OSM endpoint way 438353031, still tagged with the former Icicle name. Roles derived: a salmon plant ships chilled and canned product and receives general supplies; no farm or grain roles."
+        },
+        {
+          "name": "Alaska Railroad Seward Yard",
+          "type": "intermodal_ramp",
+          "lat": 60.127299,
+          "lon": -149.42832,
+          "ships": [
+            "container",
+            "general"
+          ],
+          "receives": [
+            "container",
+            "general"
+          ],
+          "source_note": "Alaska Railroad Seward rail yard behind the freight dock: position read from the screened local Geofabrik Alaska OSM railway-land endpoint way 464455056 (\"Seward Yard\"); the Alaska Railroad 2024 Seward Freight Dock Expansion fact sheet https://www.alaskarailroad.com/sites/default/files/FCTSHT_2024_Seward_Freight_Dock_Expansion_FactSheet.pdf documents rail cargo transfer there. Container and general roles only; automotive, retail and parcel template roles are not claimed."
         }
       ]
     },
@@ -8505,6 +8548,20 @@
             "general"
           ],
           "source_note": "Carlile operator page https://www.carlile.biz/contact-and-terminals/kenai/ confirms 1216 Bridge Access Road and freight receiving, storage, distribution, FTL and LTL service. Local Geofabrik Alaska OSM building way 424614663 matches the address/name; Overture also returned Carlile at that address. General freight only; no unsupported cargo classes inferred."
+        },
+        {
+          "name": "Inlet Fish Producers Kenai",
+          "type": "food_processor",
+          "lat": 60.53634,
+          "lon": -151.256785,
+          "ships": [
+            "refrigerated",
+            "food"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "North Pacific Seafoods operator page https://www.northpacificseafoods.com/inlet-fish-producers.html (accessed 2026-10-07) runs its Kenai River salmon plant as Inlet Fish Producers, bought in 2015 (Marubeni release https://www.marubeni.com/en/news/2015/release/20150701e.pdf, 2000 Columbia Street). Position read from the screened local Geofabrik Alaska OSM endpoint way 428367909. The parent company's current ownership is unverified, so the plant carries its operating name. Roles derived: a salmon plant ships chilled and canned product and receives general supplies; no farm or grain roles."
         }
       ]
     },

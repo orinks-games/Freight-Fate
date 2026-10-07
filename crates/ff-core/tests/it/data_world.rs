@@ -6,8 +6,9 @@ use crate::data_support::{data_dir, shortest, supported, world};
 use ff_core::data::regions::REGIONS;
 use ff_core::data::world::{max_alternate_miles, World};
 use ff_core::data::world_constants::{
-    is_stand_in_market, lookup, set_contains, DEFAULT_POI_ACTIONS, FREIGHT_LOCATION_TYPES,
-    PARKING_CERTAINTY_LABELS, POI_ACTIONS, STOP_DIRECTIONS, STOP_TYPE_LABELS,
+    is_curated_complete_market, is_stand_in_market, lookup, set_contains, DEFAULT_POI_ACTIONS,
+    FREIGHT_LOCATION_TYPES, PARKING_CERTAINTY_LABELS, POI_ACTIONS, STOP_DIRECTIONS,
+    STOP_TYPE_LABELS, TEMPLATE_INTERMODAL_RAMP_DENYLIST_CITY_KEYS,
 };
 use ff_core::data::world_models::{City, Route};
 use serde_json::json;
@@ -2398,15 +2399,195 @@ fn test_alaska_stand_in_markets_preserve_authored_facilities() {
             "{city_key} has a real endpoint"
         );
         assert!(
-            city.locations.iter().any(|location| location.template),
-            "{city_key} must expand its representative market"
-        );
-        assert!(
             city.locations.iter().any(|location| {
                 !location.template && (!location.ships.is_empty() || !location.receives.is_empty())
             }),
             "{city_key} must retain its authored freight endpoint"
         );
+    }
+}
+
+#[test]
+fn test_alaska_curated_freight_towns_get_no_template_businesses() {
+    let world = world();
+    let cases: [(&str, &[(&str, &str)]); 3] = [
+        (
+            "seward_ak_us",
+            &[
+                ("Alaska Railroad Seward Freight Dock", "terminal"),
+                ("Essential One Seward", "travel_center"),
+                ("Silver Bay Seafoods Seward", "food_processor"),
+                ("Alaska Railroad Seward Yard", "intermodal_ramp"),
+            ],
+        ),
+        (
+            "valdez_ak_us",
+            &[
+                ("Ryan J. Sontag Valdez Container Terminal", "terminal"),
+                ("Silver Bay Seafoods Valdez South", "food_processor"),
+            ],
+        ),
+        (
+            "kenai_ak_us",
+            &[
+                ("Carlile Kenai Shipping Terminal", "cross_dock"),
+                ("Inlet Fish Producers Kenai", "food_processor"),
+            ],
+        ),
+    ];
+    for (city_key, want) in cases {
+        assert!(is_curated_complete_market(city_key), "{city_key}");
+        let city = world.cities.get(city_key).expect("Alaska freight city");
+        let have: Vec<(&str, &str)> = city
+            .locations
+            .iter()
+            .map(|l| (l.name.as_str(), l.facility_type.as_str()))
+            .collect();
+        assert_eq!(
+            have,
+            want.to_vec(),
+            "{city_key} must keep only authored sites"
+        );
+        assert!(
+            city.locations.iter().all(|l| !l.template),
+            "{city_key} must not stamp template businesses"
+        );
+    }
+    // Kenai and Valdez have no railroad, so not even a stray market tag may
+    // stamp a rail ramp there.
+    let denied: HashSet<&str> = TEMPLATE_INTERMODAL_RAMP_DENYLIST_CITY_KEYS
+        .iter()
+        .copied()
+        .collect();
+    assert!(denied.contains("kenai_ak_us") && denied.contains("valdez_ak_us"));
+    // The seafood plants ship chilled and canned product, never grain.
+    for (city_key, plant) in [
+        ("seward_ak_us", "Silver Bay Seafoods Seward"),
+        ("valdez_ak_us", "Silver Bay Seafoods Valdez South"),
+        ("kenai_ak_us", "Inlet Fish Producers Kenai"),
+    ] {
+        let city = world.cities.get(city_key).expect("Alaska freight city");
+        let loc = city.locations.iter().find(|l| l.name == plant).unwrap();
+        assert_eq!(loc.ships, vec!["refrigerated", "food"], "{plant} ships");
+        assert_eq!(loc.receives, vec!["general"], "{plant} receives");
+    }
+}
+
+#[test]
+fn test_dalton_highway_data_follows_the_blm_guide() {
+    let world = world();
+    let leg = |a: &str, b: &str| {
+        world
+            .legs
+            .iter()
+            .find(|leg| leg.a == a && leg.b == b)
+            .unwrap_or_else(|| panic!("{a}->{b}"))
+    };
+    // Unposted Dalton stretches match the posted 50 mph, not the 55 fallback.
+    for (a, b, from_mi, to_mi) in [
+        ("coldfoot_ak_us", "deadhorse_ak_us", 0.0, 15.0),
+        ("deadhorse_ak_us", "coldfoot_ak_us", 230.0, 239.0),
+        ("coldfoot_ak_us", "fairbanks_ak_us", 0.0, 50.0),
+        ("fairbanks_ak_us", "coldfoot_ak_us", 215.0, 259.0),
+    ] {
+        let samples = leg(a, b).speed_limits();
+        for sample in samples
+            .iter()
+            .filter(|s| s.at_mi >= from_mi && s.at_mi < to_mi)
+        {
+            assert_eq!(sample.mph, Some(50.0), "{a}->{b} at {}", sample.at_mi);
+        }
+        assert!(
+            samples
+                .iter()
+                .any(|s| s.at_mi == from_mi && s.source.starts_with("Assumed 50 mph")),
+            "{a}->{b} must label the 50 mph fill as assumed"
+        );
+    }
+    for (a, b) in [
+        ("coldfoot_ak_us", "deadhorse_ak_us"),
+        ("deadhorse_ak_us", "coldfoot_ak_us"),
+    ] {
+        let leg = leg(a, b);
+        let steepest = leg
+            .grade_segments()
+            .iter()
+            .map(|g| g.avg_grade_pct.abs())
+            .fold(0.0, f64::max);
+        assert!(steepest <= 12.0, "{a}->{b} grade {steepest}");
+        assert!(leg
+            .grade_segments()
+            .iter()
+            .filter(|g| g.avg_grade_pct.abs() == 12.0)
+            .all(|g| g.source.contains("ASSUMED")));
+        let summit = leg
+            .elevation_samples()
+            .iter()
+            .map(|e| e.elevation_ft)
+            .fold(0.0, f64::max);
+        assert_eq!(summit, 4739.0, "{a}->{b} Atigun Pass summit");
+        let fuel: Vec<_> = leg
+            .stops
+            .iter()
+            .filter(|stop| stop.name == "Colville Fuel Station")
+            .collect();
+        assert_eq!(fuel.len(), 1, "{a}->{b} Deadhorse diesel");
+        assert!(fuel[0].curated());
+        assert!(fuel[0].actions.iter().any(|a| a == "fuel"));
+        assert!(fuel[0].services.iter().any(|s| s == "diesel"));
+        assert!(fuel[0].source.contains("colvilleinc.com"));
+    }
+    let to_deadhorse = leg("coldfoot_ak_us", "deadhorse_ak_us");
+    let back = leg("deadhorse_ak_us", "coldfoot_ak_us");
+    let colville_at = |stops: &[ff_core::data::world_models::Stop]| {
+        stops
+            .iter()
+            .find(|stop| stop.name == "Colville Fuel Station")
+            .unwrap()
+            .at_mi
+    };
+    assert_eq!(
+        colville_at(&to_deadhorse.stops) + colville_at(&back.stops),
+        to_deadhorse.miles
+    );
+}
+
+#[test]
+fn test_richardson_highway_passes_are_spoken_checkpoints() {
+    let world = world();
+    for (a, b, want) in [
+        (
+            "valdez_ak_us",
+            "glennallen_ak_us",
+            &["Keystone Canyon", "Thompson Pass"][..],
+        ),
+        (
+            "glennallen_ak_us",
+            "valdez_ak_us",
+            &["Thompson Pass", "Keystone Canyon"][..],
+        ),
+        (
+            "delta_junction_ak_us",
+            "glennallen_ak_us",
+            &["Isabel Pass"][..],
+        ),
+        (
+            "glennallen_ak_us",
+            "delta_junction_ak_us",
+            &["Isabel Pass"][..],
+        ),
+    ] {
+        let leg = world
+            .legs
+            .iter()
+            .find(|leg| leg.a == a && leg.b == b)
+            .unwrap_or_else(|| panic!("{a}->{b}"));
+        let names: Vec<&str> = leg.checkpoints().iter().map(|c| c.name.as_str()).collect();
+        assert_eq!(names, want.to_vec(), "{a}->{b}");
+        assert!(leg
+            .checkpoints()
+            .iter()
+            .all(|c| c.at_mi > 0.0 && c.at_mi < leg.miles));
     }
 }
 

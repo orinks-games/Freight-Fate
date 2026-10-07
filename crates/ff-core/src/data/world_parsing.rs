@@ -12,14 +12,14 @@ use serde_json::{Map, Value};
 
 use super::legacy_aliases::legacy_city_slug;
 use super::world_constants::{
-    facility_cargo_roles, is_stand_in_market, lookup, set_contains, template_facility_city_gate,
-    BASE_MARKET_FACILITY_TYPES, CITY_MARKET_TAGS, DEFAULT_POI_ACTIONS, DEFAULT_VEHICLE_ACCESS,
-    FACILITY_LEVEL_UNLOCKS, FACILITY_NAME_TEMPLATES, FACILITY_SOURCE_NOTES, FREIGHT_LOCATION_TYPES,
-    MARKET_TAG_FACILITY_TYPES, PARKING_CERTAINTY_LABELS, POI_ACTIONS, POI_DENSITY_MEDIUM_LEG_MILES,
-    POI_DENSITY_SHORT_LEG_MILES, RAW_FACILITY_TEXT_MARKERS, RAW_POI_TEXT_MARKERS,
-    REGION_MARKET_TAGS, SOURCE_BACKED_POI_ACTIONS, STAND_IN_MARKET_FACILITY_TYPE,
-    STATE_MARKET_TAGS, STOP_CURATION_LEVELS, STOP_DIRECTIONS, STOP_TYPE_LABELS,
-    VEHICLE_ACCESS_LEVELS,
+    facility_cargo_roles, is_curated_complete_market, is_stand_in_market, lookup, set_contains,
+    template_facility_city_gate, BASE_MARKET_FACILITY_TYPES, CITY_MARKET_TAGS, DEFAULT_POI_ACTIONS,
+    DEFAULT_VEHICLE_ACCESS, FACILITY_LEVEL_UNLOCKS, FACILITY_NAME_TEMPLATES, FACILITY_SOURCE_NOTES,
+    FREIGHT_LOCATION_TYPES, MARKET_TAG_FACILITY_TYPES, PARKING_CERTAINTY_LABELS, POI_ACTIONS,
+    POI_DENSITY_MEDIUM_LEG_MILES, POI_DENSITY_SHORT_LEG_MILES, RAW_FACILITY_TEXT_MARKERS,
+    RAW_POI_TEXT_MARKERS, REGION_MARKET_TAGS, SOURCE_BACKED_POI_ACTIONS,
+    STAND_IN_MARKET_FACILITY_TYPE, STATE_MARKET_TAGS, STOP_CURATION_LEVELS, STOP_DIRECTIONS,
+    STOP_TYPE_LABELS, VEHICLE_ACCESS_LEVELS,
 };
 use super::world_loader::{RawCity, RawLeg, WorldData};
 use super::world_models::{DataError, Location, Stop};
@@ -222,6 +222,14 @@ pub fn expand_market_locations(
     // Stand-ins that already curate ordinary freight (Winona, Port Huron, …)
     // still expand like any other curated city. Empty stand-ins still get the
     // single company_yard stamp.
+    //
+    // A curated-complete market (Fairbanks job-board pins; the Kenai, Seward
+    // and Valdez freight endpoints) keeps only its authored freight, stand-in
+    // or not: stamping BASE or market-tag templates there would invent a
+    // grain elevator, rail ramp or warehouse skyline the map cannot back.
+    if is_curated_complete_market(city_key) && !explicit_locations.is_empty() {
+        return explicit_locations.to_vec();
+    }
     let listed_stand_in = is_stand_in_market(city_key);
     if listed_stand_in && !explicit_locations.is_empty() {
         let parking_only = explicit_locations.iter().all(|loc| {
@@ -231,12 +239,6 @@ pub fn expand_market_locations(
             )
         });
         if parking_only {
-            return explicit_locations.to_vec();
-        }
-        // Curated-complete Interior stand-ins (Fairbanks job-board pins): keep
-        // only authored freight. Stamping BASE templates would invent a
-        // warehouse skyline the map cannot back.
-        if matches!(city_key, "fairbanks_ak_us") {
             return explicit_locations.to_vec();
         }
     }

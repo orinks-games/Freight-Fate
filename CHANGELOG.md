@@ -29,7 +29,7 @@
 
 - **Heavy trucks in British Columbia are now speed-limited to 105 kilometers per hour, as the law requires.**
 
-- **Alaska roads now reach the Kenai Peninsula, Valdez, and Deadhorse.**
+- **Alaska roads now reach the Kenai Peninsula, Valdez, and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
 
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
 

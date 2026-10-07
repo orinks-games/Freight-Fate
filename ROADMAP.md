@@ -4082,7 +4082,15 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       beyond Soldotna; and the Dalton Highway runs from Fairbanks through
       Coldfoot to Deadhorse. Paid miles remain separate from loaded-semi
       router distances. Verified freight endpoints serve Valdez, Kenai,
-      Seward, and Homer.
+      Seward, and Homer, and those towns carry only their real freight
+      sites: the Valdez container terminal, Silver Bay Seafoods in Valdez and
+      Seward, the Alaska Railroad dock and yard in Seward, and Carlile and
+      Inlet Fish Producers in Kenai, with no template warehouses, grain
+      elevators or rail ramps. The Dalton tops out at Atigun Pass's 4,739 ft,
+      its DEM grade spikes are capped at the BLM's 12%, its unposted
+      stretches run at the Dalton's 50 mph, and Colville sells diesel at
+      Deadhorse. Thompson Pass, Keystone Canyon and Isabel Pass are spoken on
+      the Richardson Highway.
 - [x] **Alaska's 2026 spring-breakup weight limits.** DOT&PF notices apply
       85% limits to listed corridors by leg; dispatch derives each truck's
       axle cap, filters overweight restricted routes from the route menu, and
@@ -4232,8 +4240,10 @@ branch. The older Phase A/B plan checklists are not a live completion list.
 - [ ] **Remaining corridor data work.** Refine the auto-profile
       Blaine–Surrey geometry for trucks; verify remaining Parks and Mat-Su
       fuel lots and any truck-parking capacity. Exact Deadhorse
-      Carlile, Valdez/Deadhorse diesel, and Soldotna receive-only retail pins
-      remain unsupported; Fort St. John–Fort Nelson still has placeholder
+      Carlile, Valdez diesel, and Soldotna receive-only retail pins remain
+      unsupported; Colville's Deadhorse fuel station has no verified truck
+      parking or tractor-trailer access record; Fort St. John–Fort Nelson
+      still has placeholder
       speed profiles; Yukon River Camp truck-parking capacity is unverified,
       and the Dalton gravel surface is not modeled.
 - [ ] (Found along the way) Older maxspeed bakes predate 0.25-mi way
@@ -4252,6 +4262,17 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       (Valdez, Kenai, Seward, Homer, Soldotna, Delta Junction, Coldfoot,
       Deadhorse) have no `facility_approaches.json` chains yet; the last
       approach bake predates them. Re-route them from the Alaska extract.
+- [ ] (Found along the way) The Dalton's 12% grade cap is assumed from the BLM
+      guide's "10% to 12%" wording; a surveyed profile should replace the
+      DEM-derived Atigun and mi 149 segments.
+- [ ] (Found along the way) Kenai's seafood plant carries its operating name,
+      Inlet Fish Producers; North Pacific Seafoods' current parent company is
+      unverified. Seward and Valdez seafood plant owners were verified as
+      Silver Bay Seafoods on 2026-10-07, but the OSM endpoint names still read
+      Icicle and Peter Pan until the next Alaska endpoint re-sweep.
+- [ ] (Found along the way) Yukon km/h speeds are rounded to the nearest 5 mph
+      when baked (100 km/h reads 60 mph, 90 km/h reads 55); exact conversion
+      (62 and 56) needs the maxspeed parser and a Yukon/BC re-bake.
 - [ ] (Found along the way) Border processing times and the secondary-referral
       chance are gameplay assumptions.
 - [ ] (Found along the way) Passport and FAST documents are not modeled.

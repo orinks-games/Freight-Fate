@@ -218,6 +218,7 @@ pub const TEMPLATE_INTERMODAL_RAMP_DENYLIST_CITY_KEYS: &[&str] = &[
     "kearney_ne_us",
     "keene_nh_us",
     "kellogg_id_us",
+    "kenai_ak_us",
     "killeen_tx_us",
     "kirksville_mo_us",
     "klamath_falls_or_us",
@@ -330,6 +331,7 @@ pub const TEMPLATE_INTERMODAL_RAMP_DENYLIST_CITY_KEYS: &[&str] = &[
     "twin_falls_id_us",
     "ukiah_ca_us",
     "utica_ny_us",
+    "valdez_ak_us",
     "vernon_tx_us",
     "vincennes_in_us",
     "vineland_nj_us",
@@ -381,6 +383,24 @@ pub struct TemplateCityGate {
 /// from or go to -- it just stops claiming to hold a warehouse, a cross-dock
 /// and a grocery distribution centre as well.
 pub const STAND_IN_MARKET_FACILITY_TYPE: &str = "company_yard";
+
+/// Markets whose freight is curated complete: every real freight site in the
+/// city is authored by hand, so no template facility is stamped there. A
+/// generic grain elevator, intermodal ramp or warehouse in one of these towns
+/// would be a business the map cannot back (Fairbanks job-board pins; the
+/// Kenai, Seward and Valdez freight endpoints).
+pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
+    "fairbanks_ak_us",
+    "kenai_ak_us",
+    "seward_ak_us",
+    "valdez_ak_us",
+];
+
+/// Whether this city keeps only its authored freight locations. See
+/// [`CURATED_COMPLETE_MARKET_CITY_KEYS`].
+pub fn is_curated_complete_market(city_key: &str) -> bool {
+    CURATED_COMPLETE_MARKET_CITY_KEYS.contains(&city_key)
+}
 
 /// Whether this city's freight market is a stand-in: nothing behind any of
 /// its facilities was surveyed. See [`STAND_IN_MARKET_CITY_KEYS`].
