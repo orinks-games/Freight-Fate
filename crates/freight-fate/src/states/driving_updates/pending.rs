@@ -22,6 +22,10 @@ pub struct EnforcementStopParams {
     pub warned: bool,
     pub construction_zone: bool,
     pub fine_is_final: bool,
+    /// The carrier pays the fine (a company driver's port-running penalty):
+    /// it never leaves the driver's money, but the reputation hit and the
+    /// record entry still land on the driver.
+    pub charged_to_carrier: bool,
     pub inspection_on_stop: bool,
     /// A routine roadside inspection: the stop IS the inspection, at this
     /// level, and the report decides the fine, not the caller.

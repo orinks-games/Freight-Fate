@@ -1,4 +1,5 @@
 use ff_core::achievements::{increment_stat, int_stat};
+use ff_core::models::business_constants::is_owner_operator;
 use ff_core::models::enforcement::{
     BORDER_CA_FIRST_FINE_USD, BORDER_CA_SECOND_FINE_USD, BORDER_CA_THIRD_FINE_USD,
     BORDER_US_FIRST_FINE, BORDER_US_REPEAT_FINE,
@@ -120,12 +121,20 @@ impl DrivingState {
         // to lifetime per-profile counts for each country.
         let (fine, penalty) = border_penalty_and_record(ctx, &booth);
         self.pending_border_clearance = Some(booth.clone());
+        // The penalty is assessed against the carrier: a company driver's
+        // carrier pays it, and an owner-operator is the one who pays.
+        let payer = if border_penalty_charged_to_carrier(ctx) {
+            ", which your carrier pays"
+        } else {
+            ""
+        };
         let summary = format!(
-            "At {}, {} stopped the truck for running the customs booth: {}.",
+            "At {}, {} stopped the truck for running the customs booth: {}{payer}.",
             booth.name, booth.agency, penalty
         );
         let lights_message = format!(
-            "Customs officers are following. Signal with {} and stop on the shoulder.",
+            "{} Signal with {} and stop on the shoulder.",
+            border_chase_line(&booth),
             ctx.control_hint("take_exit")
         );
         self.begin_enforcement_pull_over(
@@ -135,7 +144,7 @@ impl DrivingState {
             &summary,
             fine,
             hos::HOS_REPUTATION_HIT,
-            "Officers walk you back to the customs booth.",
+            BORDER_ESCORT_LINE,
             &lights_message,
         );
         true
@@ -156,6 +165,28 @@ impl DrivingState {
         state.enter(ctx);
         push_over_drive(ctx, state);
     }
+}
+
+/// Spoken once the port-running stop is settled, before customs reopens.
+pub const BORDER_ESCORT_LINE: &str = "Officers escort you and the truck back to the port.";
+
+/// Who comes after a truck that ran the booth: Border Patrol on the US
+/// side, the RCMP on the Canadian side.
+pub fn border_chase_line(booth: &BorderBooth) -> &'static str {
+    if booth.entering_country == "CA" {
+        "An RCMP cruiser is behind you with its lights on."
+    } else {
+        "A Border Patrol vehicle is behind you with its lights on."
+    }
+}
+
+/// Whether a port-running penalty lands on the carrier rather than the
+/// driver's own money: true for a company driver, false for an
+/// owner-operator, who is the carrier that pays.
+pub fn border_penalty_charged_to_carrier(ctx: &GameContext) -> bool {
+    ctx.profile
+        .as_ref()
+        .is_some_and(|profile| !is_owner_operator(&profile.business_status))
 }
 
 fn border_penalty_and_record(ctx: &mut GameContext, booth: &BorderBooth) -> (f64, String) {

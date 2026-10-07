@@ -35,6 +35,7 @@ fn params(title: &str, out_of_service: bool, inspection_on_stop: bool) -> Enforc
         warned: false,
         construction_zone: false,
         fine_is_final: false,
+        charged_to_carrier: false,
         inspection_on_stop,
         inspection_level: None,
     }

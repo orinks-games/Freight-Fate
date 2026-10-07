@@ -2456,7 +2456,17 @@
         ],
         "checkpoints": [
           {
-            "name": "Blaine Pacific Highway POE",
+            "name": "Pacific Highway Port of Entry",
+            "at_mi": 12.7,
+            "type": "border",
+            "state": "British Columbia",
+            "highway": "Hwy 15 / Pacific Highway",
+            "lat": 49.0027525,
+            "lon": -122.7340767,
+            "source": "Canada Border Services Agency Pacific Highway office (813), 28 176th Street, Surrey, BC. Commercial hours read as 24 hours, 7 days a week, and a dedicated FAST lane open 24 hours, from the CBSA Directory of Offices and Services page (https://www.cbsa-asfc.gc.ca/do-rb/offices-bureaux/398-eng.html, Internet Archive 2024 copy; the live page now points to the new cloud directory) and the CBSA FAST contact page (https://www.cbsa-asfc.gc.ca/prog/fast-expres/contact-eng.html, modified 2022-06-06), both read 2026-10-07. Coordinates read from the OSM facility way 144822144 centre. Mile derived: 0.1 mi north of this leg's approximate border crossing, since the inspection plaza sits just north of the line."
+          },
+          {
+            "name": "Blaine Pacific Highway Port of Entry",
             "at_mi": 12.8,
             "type": "border",
             "state": "Washington",
@@ -2481,7 +2491,7 @@
             "at_mi": 12.8,
             "from_state": "British Columbia",
             "state": "Washington",
-            "place": "Blaine Pacific Highway (Pacific Highway POE) on Hwy 15",
+            "place": "Washington\u2013British Columbia border on Hwy 15 at the Pacific Highway Port of Entry",
             "source": "International border on the continuous Pacific Highway truck path; position approximate from public POE coordinates matched to Valhalla geometry (development-time)."
           }
         ],

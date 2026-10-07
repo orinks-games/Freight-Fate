@@ -663,6 +663,7 @@ fn test_an_enforcement_stop_that_suspends_also_ends_the_run() {
             warned: true, // a serious violation: this is the second
             construction_zone: false,
             fine_is_final: false,
+            charged_to_carrier: false,
             inspection_on_stop: false,
             inspection_level: None,
         },
@@ -1261,6 +1262,7 @@ fn test_a_settled_stop_is_read_back_as_history_not_as_a_fresh_charge() {
             warned: false,
             construction_zone: false,
             fine_is_final: false,
+            charged_to_carrier: false,
             inspection_on_stop: false,
             inspection_level: None,
         },

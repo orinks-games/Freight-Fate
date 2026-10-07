@@ -1,4 +1,5 @@
 use ff_core::achievements::{increment_stat, int_stat};
+use ff_core::models::business_constants::LEASED_OWNER_OPERATOR;
 use ff_core::sim::trip_models::BorderBooth;
 
 use freight_fate::playtest::{key_event, PlaytestHarness, RouteSetup};
@@ -18,6 +19,20 @@ fn border_drive(origin: &str, destination: &str) -> PlaytestHarness {
     let mut harness = PlaytestHarness::new();
     harness.start_route(origin, destination, RouteSetup::default());
     harness.prepare_for_driving(12.0);
+    harness
+}
+
+/// An owner-operator is his own carrier: a port-running penalty comes out of
+/// his money.
+fn owner_operator_border_drive(origin: &str, destination: &str) -> PlaytestHarness {
+    let mut harness = border_drive(origin, destination);
+    harness
+        .app
+        .ctx
+        .profile
+        .as_mut()
+        .expect("the drive has a profile")
+        .business_status = LEASED_OWNER_OPERATOR.to_string();
     harness
 }
 
@@ -215,7 +230,7 @@ fn customs_secondary_referral_charges_forty_five_additional_on_duty_minutes() {
 
 #[test]
 fn running_the_alcan_port_charges_the_first_us_penalty() {
-    let mut harness = border_drive("whitehorse_yt_ca", "tok_ak_us");
+    let mut harness = owner_operator_border_drive("whitehorse_yt_ca", "tok_ak_us");
     let booth = booth_named(&harness, "Alcan Port of Entry");
     let money_before = harness
         .app
@@ -241,15 +256,101 @@ fn running_the_alcan_port_charges_the_first_us_penalty() {
         "{transcript}"
     );
     assert!(transcript.contains("5,000"), "{transcript}");
+    assert!(
+        transcript.contains("A Border Patrol vehicle is behind you with its lights on."),
+        "{transcript}"
+    );
+    assert!(!transcript.contains("your carrier pays"), "{transcript}");
     return_to_clearance(&mut harness);
     assert!(
         harness
             .transcript_text()
-            .contains("Officers walk you back to the customs booth."),
+            .contains("Officers escort you and the truck back to the port."),
         "{}",
         harness.transcript_text()
     );
     clear_booth(&mut harness);
+}
+
+#[test]
+fn a_company_drivers_carrier_pays_the_port_running_penalty() {
+    let mut harness = border_drive("whitehorse_yt_ca", "tok_ak_us");
+    let booth = booth_named(&harness, "Alcan Port of Entry");
+    let profile = harness
+        .app
+        .ctx
+        .profile
+        .as_ref()
+        .expect("the drive has a profile");
+    let (money_before, reputation_before) = (profile.money(), profile.career.reputation);
+
+    run_into_booth(&mut harness, &booth, 55.0);
+    let profile = harness
+        .app
+        .ctx
+        .profile
+        .as_ref()
+        .expect("the drive has a profile");
+    assert_eq!(profile.money(), money_before);
+    assert!(profile.career.reputation < reputation_before);
+    let transcript = harness.transcript_text();
+    assert!(
+        transcript.contains("a 5,000 US dollar civil penalty, which your carrier pays."),
+        "{transcript}"
+    );
+    assert!(
+        transcript
+            .contains("Penalty: 5,000 dollars, paid by your carrier. You take the reputation hit."),
+        "{transcript}"
+    );
+    assert!(!transcript.contains("paid on the spot"), "{transcript}");
+    return_to_clearance(&mut harness);
+    clear_booth(&mut harness);
+}
+
+#[test]
+fn the_rcmp_follows_a_truck_that_runs_a_canadian_port() {
+    let mut harness = owner_operator_border_drive("tok_ak_us", "whitehorse_yt_ca");
+    let booth = booth_named(&harness, "Beaver Creek Port of Entry");
+    run_into_booth(&mut harness, &booth, 55.0);
+    let transcript = harness.transcript_text();
+    assert!(
+        transcript.contains("An RCMP cruiser is behind you with its lights on."),
+        "{transcript}"
+    );
+    assert!(!transcript.contains("Border Patrol"), "{transcript}");
+}
+
+#[test]
+fn northbound_blaine_trucks_stop_at_the_canadian_pacific_highway_port() {
+    let mut harness = border_drive("blaine_wa_us", "surrey_bc_ca");
+    harness.app.ctx.settings.place_callouts = "off".to_string();
+    let booth = booth_named(&harness, "Pacific Highway Port of Entry");
+    assert_eq!(booth.entering_country, "CA");
+    assert_eq!(booth.agency, "Canada Border Services Agency");
+    harness.with_drive(|drive, ctx| {
+        drive.trip.position_mi = booth.at_mi - 2.0;
+        drive.trip.truck.velocity_mps = mph_to_mps(12.0);
+        drive.check_border_approach(ctx);
+    });
+    harness.drive_frames(1);
+    let approach = harness.transcript_text();
+    assert!(
+        approach.contains("Pacific Highway Port of Entry ahead in 2.0 miles"),
+        "{approach}"
+    );
+    assert!(
+        approach.contains("Canada Border Services Agency"),
+        "{approach}"
+    );
+    arrive_at_booth_slowly(&mut harness, &booth);
+    harness.expect_state::<BorderClearanceState>("rolling slowly into Pacific Highway");
+    clear_booth(&mut harness);
+    assert!(
+        harness.transcript_text().contains("Welcome to Canada."),
+        "{}",
+        harness.transcript_text()
+    );
 }
 
 #[test]
@@ -320,7 +421,7 @@ fn active_speeding_stop_is_preserved_and_customs_opens_afterward() {
 
 #[test]
 fn running_the_alcan_port_escalates_the_us_penalty_after_a_prior_offence() {
-    let mut harness = border_drive("whitehorse_yt_ca", "tok_ak_us");
+    let mut harness = owner_operator_border_drive("whitehorse_yt_ca", "tok_ak_us");
     increment_stat(
         harness
             .app
@@ -352,7 +453,7 @@ fn running_the_alcan_port_escalates_the_us_penalty_after_a_prior_offence() {
 
 #[test]
 fn running_into_canada_charges_the_converted_amps_penalty() {
-    let mut harness = border_drive("tok_ak_us", "whitehorse_yt_ca");
+    let mut harness = owner_operator_border_drive("tok_ak_us", "whitehorse_yt_ca");
     let booth = booth_named(&harness, "Beaver Creek Port of Entry");
     let money_before = harness
         .app

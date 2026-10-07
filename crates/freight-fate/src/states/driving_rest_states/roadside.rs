@@ -373,6 +373,8 @@ pub struct EnforcementStopState {
     /// citation ladder does not raise it, and a new driver's warning does not
     /// wave it off.
     pub fine_is_final: bool,
+    /// The fine goes to the carrier, not out of the driver's money.
+    pub charged_to_carrier: bool,
     outcome_text: String,
     /// Whether the stop has been told once already. See `announce_entry`: the
     /// fine is charged here, in `resolve`, exactly once, and a later telling
@@ -418,6 +420,7 @@ impl EnforcementStopState {
             inspection_on_stop: params.inspection_on_stop,
             inspection_level: params.inspection_level,
             fine_is_final: params.fine_is_final,
+            charged_to_carrier: params.charged_to_carrier,
             outcome_text: String::new(),
             stop_announced: false,
             presence_detail,
@@ -453,21 +456,32 @@ impl EnforcementStopState {
             self.outcome_text = "The officer lets you go with a warning.".to_string();
             return;
         }
-        d.ticket_fines_paid += self.fine;
+        if !self.charged_to_carrier {
+            d.ticket_fines_paid += self.fine;
+        }
         let hit = self.reputation_hit * if self.signaled { 0.8 } else { 1.0 };
         {
             let p = profile_mut_of(ctx);
-            p.spend(self.fine);
+            if !self.charged_to_carrier {
+                p.spend(self.fine);
+            }
             p.career.reputation = (p.career.reputation - hit).max(0.0);
         }
         ctx.audio.play("ui/error");
         let reason = self.menu.title.clone();
         let ladder = d.log_enforcement(ctx, self.fine, self.warned, false, &reason);
-        self.outcome_text = format!(
-            "Fine: {} dollars, paid on the spot, and a reputation hit.{}",
-            fmt_grouped(self.fine, 0),
-            construction_zone_fine_clause(self.construction_zone)
-        );
+        self.outcome_text = if self.charged_to_carrier {
+            format!(
+                "Penalty: {} dollars, paid by your carrier. You take the reputation hit.",
+                fmt_grouped(self.fine, 0)
+            )
+        } else {
+            format!(
+                "Fine: {} dollars, paid on the spot, and a reputation hit.{}",
+                fmt_grouped(self.fine, 0),
+                construction_zone_fine_clause(self.construction_zone)
+            )
+        };
         if !ladder.is_empty() {
             self.outcome_text.push_str(&format!(" {ladder}"));
         }

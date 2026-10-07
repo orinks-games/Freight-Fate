@@ -4242,8 +4242,12 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       archive currently bake speeds against straight chords between stored
       route points; the Alcan legs now use bake-time Valhalla truck geometry
       through those points, and other archive-less legs need the same re-sweep.
-- [ ] (Found along the way) Blaine northbound CBSA Pacific Highway booth data
-      is missing.
+- [x] (Found along the way) Blaine northbound CBSA Pacific Highway booth data
+      is missing. Landed: the Pacific Highway Port of Entry in Surrey stops
+      northbound trucks, with CBSA's 24-hour commercial hours read from the
+      2024 archived directory page and the FAST lane page. The live CBSA
+      directory has moved to a script-only site, so recheck the hours there
+      when it can be read. Booth hours are data only; no port closes in game.
 - [ ] (Found along the way) The 33 Phase B3 freight and fuel endpoints
       (Valdez, Kenai, Seward, Homer, Soldotna, Delta Junction, Coldfoot,
       Deadhorse) have no `facility_approaches.json` chains yet; the last
@@ -4252,7 +4256,10 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       chance are gameplay assumptions.
 - [ ] (Found along the way) Passport and FAST documents are not modeled.
 - [ ] (Found along the way) Border-penalty escalation uses lifetime counts,
-      not AMPS's 12-month retention period.
+      not AMPS's 12-month retention period. Records should drop out of the
+      escalation count twelve months after the offence. The penalty itself is
+      charged to the carrier (a company driver's carrier pays, an
+      owner-operator pays himself); the driver keeps the reputation hit.
 - [ ] (Found along the way) Alaska on-road diesel has no official source:
       DCCED's survey covers gasoline and heating fuel only and excludes
       Anchorage/Mat-Su, so Alaska keeps the Pacific Northwest price.

@@ -21,7 +21,7 @@
 
 - **Drivers can call dispatch while stopped for trip-specific help.** Report delays, hours, road conditions, truck trouble or load trouble.
 
-- **Trucks now stop for customs at the border on the Alaska Highway and southbound at Blaine.** Driving past the booth brings a penalty.
+- **Trucks now stop for customs at the border on the Alaska Highway and both ways at Blaine.** Driving past the booth brings a penalty, which a company driver's carrier pays.
 
 - **Alaska's spring weight limits now apply.** From April to mid-June, loads on thawing Alaska highways are lighter, and offers name the road setting the limit.
 
@@ -93,7 +93,7 @@
 - City facilities may be typed `travel_center` or `truck_parking` for public tractor lots; ALCAN corridor public stops retyped off `company_yard`.
 - Phase A ALCAN: Tok and Fairbanks resolve to Alaska Time on the shipped-city timezone gate (CONUS-only check widened for the AK terminus).
 - Phase A ALCAN: US job boards stay same-country (no Canadian destinations on the through-freight corridor tip).
-- Phase A ALCAN FIX: I-5 Bellingham↔Blaine uses public Valhalla truck costing and Washington RCW 46.61.410 60 mph HGV speed context; Hwy 15 Blaine↔Surrey keeps paid miles with Valhalla auto densify (FOSSGIS truck costing rejected as dishonest at this POE).
+- Phase A ALCAN FIX: I-5 Bellingham↔Blaine uses public Valhalla truck costing and Washington RCW 46.61.410 60 mph HGV speed context; Hwy 15 Blaine↔Surrey keeps paid miles with Valhalla auto densify (FOSSGIS truck costing rejected as dishonest at this port of entry).
 
 ### Fixed
 

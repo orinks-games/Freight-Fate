@@ -15,6 +15,7 @@ use crate::states::driving_border::BorderClearanceState;
 use crate::states::driving_enforcement::SCALE_REMINDER_REAL_LEAD_S;
 use crate::states::driving_rest_states::EnforcementStopState;
 
+use ff_core::models::business_constants::LEASED_OWNER_OPERATOR;
 use ff_core::sim::enforcement_posts::{
     EnforcementPost, KIND_CMV, KIND_FIXED_SCALE, METHOD_SCALE_SCREEN, METHOD_VISUAL,
 };
@@ -150,7 +151,15 @@ pub fn scale_check_in_guidance() -> Outcome {
 /// Floor it through the Alcan port, take the penalty, clear customs, then
 /// merge back onto the highway.
 pub fn run_the_border() -> Outcome {
-    let mut rig = Rig::new_for_route(RigOptions::default(), "Whitehorse", "Tok");
+    // An owner-operator, so the penalty comes out of the driver's money.
+    let mut rig = Rig::new_for_route(
+        RigOptions {
+            business: Some(LEASED_OWNER_OPERATOR.to_string()),
+            ..RigOptions::default()
+        },
+        "Whitehorse",
+        "Tok",
+    );
     let mut findings = Vec::new();
     rig.prepare(60.0, None);
     let booth = rig
@@ -271,7 +280,7 @@ pub fn run_the_border() -> Outcome {
     }) {
         findings.push("the port-running summary omitted its booth, agency or penalty".to_string());
     }
-    if rig.said("Officers walk you back to the customs booth.") == 0 {
+    if rig.said("Officers escort you and the truck back to the port.") == 0 {
         findings.push("the return-to-booth message was not spoken".to_string());
     }
     let note = format!(

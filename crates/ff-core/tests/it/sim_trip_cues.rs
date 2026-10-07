@@ -971,12 +971,21 @@ fn test_border_booths_follow_inbound_country_crossings() {
                 "U.S. Customs and Border Protection",
             )),
         ),
-        ("blaine_wa_us", "surrey_bc_ca", None),
+        (
+            "blaine_wa_us",
+            "surrey_bc_ca",
+            Some((
+                "Pacific Highway Port of Entry",
+                3.3,
+                "CA",
+                "Canada Border Services Agency",
+            )),
+        ),
         (
             "surrey_bc_ca",
             "blaine_wa_us",
             Some((
-                "Blaine Pacific Highway POE",
+                "Blaine Pacific Highway Port of Entry",
                 12.8,
                 "US",
                 "U.S. Customs and Border Protection",
@@ -1003,15 +1012,32 @@ fn test_border_booths_follow_inbound_country_crossings() {
             }
             None => {
                 assert!(trip.border_booths.is_empty(), "{from} -> {toward}");
-                assert!(trip.navigation_cues.iter().any(|cue| {
-                    cue.kind == "checkpoint"
-                        && cue.near_text.starts_with("Passing ")
-                        && cue.near_text.contains("Blaine Pacific Highway POE")
-                }));
             }
         }
     }
-    assert_eq!(booth_count, 3);
+    assert_eq!(booth_count, 4);
+
+    // Each direction passes the other country's port without stopping, and
+    // no spoken name says "POE".
+    let north = direct_trip("blaine_wa_us", "surrey_bc_ca");
+    let south = direct_trip("surrey_bc_ca", "blaine_wa_us");
+    for (trip, passed) in [
+        (&north, "Passing Blaine Pacific Highway Port of Entry"),
+        (&south, "Passing Pacific Highway Port of Entry"),
+    ] {
+        assert!(
+            trip.navigation_cues
+                .iter()
+                .any(|cue| cue.kind == "checkpoint" && cue.near_text.starts_with(passed)),
+            "{passed}"
+        );
+        for cue in &trip.navigation_cues {
+            assert!(
+                !cue.near_text.contains("POE") && !cue.text.contains("POE"),
+                "{cue:?}"
+            );
+        }
+    }
 
     for route in [
         world

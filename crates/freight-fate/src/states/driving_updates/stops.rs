@@ -176,6 +176,8 @@ impl DrivingState {
         let reputation_hit = self.pull_over_reputation_hit;
         let return_message = self.pull_over_return.clone();
         let fine_is_final = kind == "border_port_running";
+        let charged_to_carrier =
+            fine_is_final && crate::states::driving_border::border_penalty_charged_to_carrier(ctx);
         let construction_zone = self.pull_over_construction_zone && !fine_is_final;
         // Read the tracker before the reset zeroes it.
         let clean_stop = self.pull_over_compliance >= PULL_OVER_FULL_COMPLIANCE;
@@ -203,6 +205,7 @@ impl DrivingState {
                     warned,
                     construction_zone,
                     fine_is_final,
+                    charged_to_carrier,
                     inspection_on_stop: kind == "weigh_station_bypass",
                     inspection_level: match kind.as_str() {
                         "roadside_inspection" => {
@@ -341,6 +344,7 @@ impl DrivingState {
                 warned: true,
                 construction_zone,
                 fine_is_final: false,
+                charged_to_carrier: false,
                 inspection_on_stop: false,
                 inspection_level: None,
             },
