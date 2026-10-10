@@ -1424,26 +1424,36 @@ fn run_game(options: &CliOptions) -> i32 {
 #[cfg(test)]
 mod tests {
     use super::{run_while_pumping, staged_road_handoff};
-    use std::sync::atomic::{AtomicBool, Ordering};
+    use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
     use std::sync::Arc;
-    use std::time::Duration;
+    use std::time::{Duration, Instant};
 
     #[test]
     fn run_while_pumping_pumps_until_the_work_finishes() {
-        let done = Arc::new(AtomicBool::new(false));
-        let flag = Arc::clone(&done);
-        let mut pumps = 0u32;
+        // The work finishes only after it has seen three pumps, so the test
+        // pins "keeps pumping while the work runs" without betting on how
+        // many 10 ms sleeps a busy CI runner fits into a fixed window. The
+        // deadline only stops a broken pump loop from hanging the run.
+        let pumps = Arc::new(AtomicU32::new(0));
+        let seen = Arc::clone(&pumps);
+        let saw_pumps = Arc::new(AtomicBool::new(false));
+        let flag = Arc::clone(&saw_pumps);
         run_while_pumping(
             move || {
-                std::thread::sleep(Duration::from_millis(100));
-                flag.store(true, Ordering::SeqCst);
+                let deadline = Instant::now() + Duration::from_secs(10);
+                while seen.load(Ordering::SeqCst) < 3 && Instant::now() < deadline {
+                    std::thread::sleep(Duration::from_millis(1));
+                }
+                flag.store(seen.load(Ordering::SeqCst) >= 3, Ordering::SeqCst);
             },
-            &mut || pumps += 1,
+            &mut || {
+                pumps.fetch_add(1, Ordering::SeqCst);
+            },
         );
-        assert!(done.load(Ordering::SeqCst), "the work never ran");
         assert!(
-            pumps >= 3,
-            "expected several pumps during 100 ms, got {pumps}"
+            saw_pumps.load(Ordering::SeqCst),
+            "the work finished without the loop pumping, got {} pumps",
+            pumps.load(Ordering::SeqCst)
         );
     }
 
