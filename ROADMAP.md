@@ -459,6 +459,9 @@ Everything found before 2026-09-25 moved to
 - [ ] A listening pass by the owner at quiet and urgent only, at the wheel.
 - [x] Achievement sweep (owner, 2026-10-09): four badges whose triggers
       had fallen behind the map or the job board now match them.
+- [x] A way out of the training fleet (player report, 2026-10-10): a
+      company driver at Great Lakes Training Transport can move to another
+      carrier at level 4 with full dispatch trust.
 - [ ] The exit-call truth test (`test_the_exit_calls_name_the_road_that_is_really_left`)
       failed once on the Linux ARM runner in the v1.9.1 tag build, hearing
       only the two-mile call, and passed on re-run. It passed 80 of 80 runs
@@ -2736,6 +2739,24 @@ as they stand now found three more stale ones.
       Tucumcari, Gallup, Holbrook, Winslow, Kingman, Barstow, Victorville),
       and Shadow of the Giants counts the redwood towns (Ukiah, Willits,
       Fortuna, Eureka, Crescent City) alongside Santa Rosa and Chico.
+
+### October 10 a way out of the training fleet (Found along the way)
+
+A player asked whether a career started at Great Lakes Training Transport
+was stuck there. It was: no company driver ever changed carriers, and the
+termination notice promised a way back up that did not exist. Business
+status now lists the other three company carriers for a company driver at
+Great Lakes once they reach level 4 (Regional Company Driver, where
+dispatch already moves a driver to the regional fleet) with full dispatch
+trust and no pay advance outstanding. One bar for both kinds of driver: a
+trainee meets it by finishing training, a driver who was let go by
+rebuilding what cost them the last seat. The move keeps level, record,
+money and home terminal; only the pay plan and dispatch change. Great Lakes
+stays a starting choice.
+
+- [x] Move to another carrier from Business status at the training fleet.
+- [ ] Changing carriers between the other three is not offered; add it if
+      players ask.
 
 ## 2.0 planned -- the working week and home
 

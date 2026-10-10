@@ -100,7 +100,6 @@ enum Command {
     Stop,
     RequestRefresh,
     Refresh {
-        announce: bool,
         reply: mpsc::Sender<bool>,
     },
     Configure {
@@ -536,8 +535,8 @@ impl ThreadedSpeech {
                                 ));
                                 last_health_poll = Instant::now();
                             }
-                            Command::Refresh { announce, reply } => {
-                                let changed = call!(inner.refresh(announce));
+                            Command::Refresh { reply } => {
+                                let changed = call!(inner.refresh());
                                 call!(publish(&worker_snapshot, inner.as_ref(), &worker_abandoned));
                                 let _ = reply.send(changed);
                             }
@@ -858,12 +857,9 @@ impl SpeechSink for ThreadedSpeech {
         })
     }
 
-    fn refresh(&mut self, announce: bool) -> bool {
+    fn refresh(&mut self) -> bool {
         let (reply_tx, reply_rx) = mpsc::channel();
-        self.send_lossy(Command::Refresh {
-            announce,
-            reply: reply_tx,
-        });
+        self.send_lossy(Command::Refresh { reply: reply_tx });
         // Re-detection really can take a beat; give it longer than the
         // preview, still bounded.
         reply_rx

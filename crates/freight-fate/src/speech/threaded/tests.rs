@@ -115,7 +115,7 @@ impl SpeechSink for StubSink {
             .push(format!("preview {setting}"));
         true
     }
-    fn refresh(&mut self, _announce: bool) -> bool {
+    fn refresh(&mut self) -> bool {
         true
     }
     fn is_speaking(&self) -> bool {
@@ -744,7 +744,7 @@ fn bounded_replies_reach_the_backend_when_it_is_healthy() {
         mut sink, calls, ..
     } = rig();
     assert!(sink.say_adjustment_preview("speech_rate", "faster", false));
-    assert!(sink.refresh(false));
+    assert!(sink.refresh());
     wait_for(&calls, 1);
     assert!(calls.lock().unwrap()[0].starts_with("preview"));
     sink.shutdown();

@@ -166,8 +166,8 @@ impl SpeechSink for TeeSpeech {
     fn say_adjustment_preview(&mut self, setting: &str, text: &str, interrupt: bool) -> bool {
         self.inner.say_adjustment_preview(setting, text, interrupt)
     }
-    fn refresh(&mut self, announce: bool) -> bool {
-        self.inner.refresh(announce)
+    fn refresh(&mut self) -> bool {
+        self.inner.refresh()
     }
     fn shutdown(&mut self) {
         self.inner.shutdown();

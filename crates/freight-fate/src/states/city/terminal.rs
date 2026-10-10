@@ -509,8 +509,9 @@ impl CityMenuState {
         ctx.say(&format!(
             "{former} has ended your employment. Your safety record is past what their \
              insurance will carry, so your seat and your assigned truck go back to the yard. \
-             {} will take you on: lower pay, shorter freight, and a fresh start. Your money, \
-             your levels, and everything you own stay as they are.",
+             {} will take you on: lower pay and shorter freight. Your money, your levels, and \
+             everything you own stay as they are. Once your dispatch trust is full again, \
+             Business status lets you move to another carrier.",
             enforcement::LAST_CHANCE_CARRIER_NAME
         ));
     }

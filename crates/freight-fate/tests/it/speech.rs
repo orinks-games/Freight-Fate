@@ -508,16 +508,60 @@ fn test_say_failure_with_no_live_voice_recovers_when_one_returns() {
     nvda.set_runtime_supported(true); // the screen reader is back
     s.poll(REFRESH_INTERVAL_S);
     assert_eq!(s.backend_name(), "NVDA");
+    assert!(nvda.spoken().is_empty()); // a switch is silent
+}
+
+/// ZDSR as Prism drives it: a screen reader with a braille call that fails
+/// when no display is attached.
+fn zdsr_without_display() -> (Speech, FakeVoice) {
+    let zdsr = FakeVoice::new("ZDSR", 101, VoiceFeatures::BRAILLING);
+    zdsr.set_fail_braille(true);
+    let sapi = FakeVoice::new("SAPI", 97, ADJUSTABLE);
+    let ctx = FakeRegistry::new(vec![zdsr.clone(), sapi]);
+    let speech = Speech::with_registry(Box::new(ctx), None);
+    assert_eq!(speech.backend_name(), "ZDSR");
+    (speech, zdsr)
+}
+
+#[test]
+fn a_failed_braille_call_does_not_drop_a_screen_reader_that_spoke() {
+    // AudioGames forum, 2026-10-10: with ZDSR and no braille display, every
+    // arrow key and every few idle seconds said "Speech is now using ZDSR."
+    // The braille half of each line failed after the speech half worked, so
+    // the line counted as a dead voice, was spoken again, and the health
+    // check rebound ZDSR and announced it.
+    let (mut s, zdsr) = zdsr_without_display();
+    s.say("Main menu", true);
+    s.say("Settings", true);
+    for _ in 0..3 {
+        s.poll(REFRESH_INTERVAL_S);
+    }
+    assert_eq!(s.backend_name(), "ZDSR");
     assert_eq!(
-        nvda.spoken(),
-        spoken(&[("Speech is now using NVDA.", false)])
+        zdsr.spoken(),
+        spoken(&[("Main menu", true), ("Settings", true)])
     );
+}
+
+#[test]
+fn rebinding_a_voice_that_dropped_out_is_silent() {
+    // A screen reader whose speech call reports failure is dropped and
+    // rebound by the health check; the rebind says nothing.
+    let (mut s, zdsr) = zdsr_without_display();
+    zdsr.set_fail_output(true);
+    s.say("Main menu", true);
+    zdsr.set_fail_output(false);
+    for _ in 0..3 {
+        s.poll(REFRESH_INTERVAL_S);
+    }
+    assert_eq!(s.backend_name(), "ZDSR");
+    assert!(zdsr.spoken().is_empty());
 }
 
 #[test]
 fn test_poll_returns_to_the_screen_reader_when_it_comes_back() {
     // The game fell back to SAPI while NVDA was closed; when NVDA reappears
-    // the periodic check must switch back and say so through the new voice.
+    // the periodic check must switch back, silently.
     let (mut s, nvda, sapi) = live_registry(false);
     s.set_main_backend(Some(sapi.boxed()));
     s.poll(REFRESH_INTERVAL_S);
@@ -525,10 +569,7 @@ fn test_poll_returns_to_the_screen_reader_when_it_comes_back() {
     nvda.set_runtime_supported(true);
     s.poll(REFRESH_INTERVAL_S);
     assert_eq!(s.backend_name(), "NVDA");
-    assert_eq!(
-        nvda.spoken(),
-        spoken(&[("Speech is now using NVDA.", false)])
-    );
+    assert!(nvda.spoken().is_empty());
 }
 
 #[test]
@@ -595,7 +636,7 @@ fn test_healthy_backend_is_kept_without_announcements() {
         s.poll(REFRESH_INTERVAL_S);
     }
     assert_eq!(s.backend_name(), "NVDA");
-    assert!(nvda.spoken().is_empty()); // no spurious "speech is now using" chatter
+    assert!(nvda.spoken().is_empty());
 }
 
 #[test]
@@ -603,7 +644,7 @@ fn test_poll_is_safe_without_prism() {
     let mut s = Speech::disabled(); // headless: no context at all
     s.poll(REFRESH_INTERVAL_S); // must not panic
     s.request_refresh();
-    assert!(!s.refresh(true));
+    assert!(!s.refresh());
     assert!(!s.available());
     assert_eq!(s.backend_name(), "none");
     assert_eq!(s.event_backend_name(), "none");
@@ -615,19 +656,14 @@ fn test_poll_is_safe_without_prism() {
 }
 
 #[test]
-fn narrator_route_is_announced_by_the_screen_readers_name() {
-    // The UIA backend is how the game reaches Narrator; players know the
-    // screen reader's name, not the plumbing's.
+fn narrator_route_is_picked_silently() {
     let uia = FakeVoice::new("UIA", 97, SPEAKING);
     let ctx = FakeRegistry::new(vec![uia.clone()]);
     let mut s = Speech::from_parts(Some(Box::new(ctx)), None, None);
     s.set_narrator_probe(narrator_on);
-    assert!(s.refresh(true));
+    assert!(s.refresh());
     assert_eq!(s.backend_name(), "UIA");
-    assert_eq!(
-        uia.spoken(),
-        spoken(&[("Speech is now using Narrator.", false)])
-    );
+    assert!(uia.spoken().is_empty());
 }
 
 #[test]
@@ -766,7 +802,7 @@ fn capture_default_answers_like_the_headless_python_speech() {
     assert!(!capture.event_supports_rate());
     assert!(capture.event_backend_options().is_empty());
     assert!(capture.voice_names().is_empty());
-    assert!(!capture.refresh(true));
+    assert!(!capture.refresh());
     capture.select_event_backend(Some("SAPI"));
     assert!(!capture.has_separate_event_voice()); // nothing to bind headless
     assert_eq!(capture.event_backend_name(), "none");
@@ -887,7 +923,7 @@ fn null_speech_swallows_everything() {
     assert_eq!(null.backend_name(), "none");
     assert!(!null.has_separate_event_voice());
     assert!(!null.say_adjustment_preview("speech_rate", "x", true));
-    assert!(!null.refresh(true));
+    assert!(!null.refresh());
     null.shutdown();
 }
 
@@ -917,11 +953,11 @@ fn braille_only_puts_menu_lines_on_the_display_and_speaks_nothing() {
     assert_eq!(nvda.brailled(), vec!["Main menu".to_string()]);
     assert!(nvda.spoken().is_empty());
 
-    // Off again: back to speech plus braille through `output`.
+    // Off again: back to speech plus braille.
     speech.set_braille_only(false);
     speech.say("Back", true);
     assert_eq!(nvda.spoken(), spoken(&[("Back", true)]));
-    assert_eq!(nvda.brailled().len(), 1);
+    assert_eq!(nvda.brailled().len(), 2);
 }
 
 #[test]
@@ -991,13 +1027,8 @@ fn braille_only_survives_a_voice_switch_and_returns_with_the_screen_reader() {
     speech.poll(REFRESH_INTERVAL_S);
     assert_eq!(speech.backend_name(), "NVDA");
     assert!(speech.supports_braille());
-    // The "Speech is now using NVDA." switch notice went to the display too.
-    assert_eq!(
-        nvda.brailled(),
-        vec!["Speech is now using NVDA.".to_string()]
-    );
     speech.say("Route planner", true);
-    assert_eq!(nvda.brailled().len(), 2);
+    assert_eq!(nvda.brailled(), vec!["Route planner".to_string()]);
     assert!(nvda.spoken().is_empty());
 }
 

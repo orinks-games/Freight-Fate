@@ -462,7 +462,7 @@ impl SpeechSink for CaptureSpeech {
         true
     }
 
-    fn refresh(&mut self, _announce: bool) -> bool {
+    fn refresh(&mut self) -> bool {
         false
     }
 
@@ -531,7 +531,7 @@ impl SpeechSink for NullSpeech {
     fn say_adjustment_preview(&mut self, _setting: &str, _text: &str, _interrupt: bool) -> bool {
         false
     }
-    fn refresh(&mut self, _announce: bool) -> bool {
+    fn refresh(&mut self) -> bool {
         false
     }
     fn shutdown(&mut self) {}

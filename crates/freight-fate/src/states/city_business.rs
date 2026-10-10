@@ -28,6 +28,8 @@ use crate::meaningful_play::MeaningfulPlayReason;
 use crate::states::base::{Label, Menu, MenuCore, MenuItem};
 use crate::states::city::{city_local_zone, profile, profile_mut, py_capitalize};
 
+mod carrier_move;
+
 fn save_business_change(ctx: &mut GameContext) {
     ctx.mark_meaningful_play(MeaningfulPlayReason::BusinessChanged);
     ctx.save_profile();
@@ -45,6 +47,9 @@ pub struct BusinessStatusState {
     /// "Go back to company driving" was pressed once; the next press on it
     /// does it. Hands back every tractor, so it is never a single Enter.
     return_armed: bool,
+    /// The carrier a "Move to" row was pressed for once; the next press on
+    /// the same row moves. There is no moving back to the training fleet.
+    move_armed: Option<&'static str>,
 }
 
 impl Default for BusinessStatusState {
@@ -61,6 +66,7 @@ impl BusinessStatusState {
                  terminal.",
             ),
             return_armed: false,
+            move_armed: None,
         }
     }
 
@@ -367,6 +373,7 @@ impl Menu for BusinessStatusState {
                     .help("The remaining requirements."),
                 );
             }
+            items.extend(self.carrier_move_items(ctx));
         } else {
             items.push(
                 MenuItem::new(
