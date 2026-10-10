@@ -4,6 +4,8 @@
 
 ### Added
 
+- **Drivers at Great Lakes Training Transport can now move to another carrier.** At level 4 with full dispatch trust, Business status lists the other carriers.
+
 - **Interstates now have the sound of distant traffic, louder on busier stretches.**
 
 - **On busy freeways, traffic now comes up beside you and passes.**

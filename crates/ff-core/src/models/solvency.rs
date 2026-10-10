@@ -513,7 +513,8 @@ pub fn apply_company_termination<P: SolvencyProfile + ?Sized>(profile: &mut P) -
             "What changes is the seat. Your assigned tractor goes back to the \
              {former} yard, and you go on the payroll at \
              {LAST_CHANCE_CARRIER_NAME}: shorter freight, lower pay, and \
-             equipment to match, until you build back up with them."
+             equipment to match. Once your dispatch trust is full again, \
+             Business status lets you move to another carrier."
         ),
         BACK_TO_WORK_LINE.to_string(),
     ];

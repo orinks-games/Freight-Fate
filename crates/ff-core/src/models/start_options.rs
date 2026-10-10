@@ -201,7 +201,8 @@ pub const START_OPTIONS: [CareerStartOption; 5] = [
         help_text: "A practical training-fleet start. Stop pay is better on short \
                     loads, and dispatch leans toward shorter training work with a \
                     little more deadline room. Equipment and routine costs stay \
-                    carrier-paid.",
+                    carrier-paid. At level 4 with full dispatch trust, Business \
+                    status lets you move to another carrier.",
         default_city: "Milwaukee",
         company_pay: Some(CompanyPayPlan {
             pay_share: 0.33,

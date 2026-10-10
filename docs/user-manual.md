@@ -78,7 +78,7 @@ Northstar offers balanced company-driver wages and a broad range of dispatch wor
 
 #### Great Lakes Training Transport
 
-Great Lakes gives you more short-haul training work and pays better for stops on short loads. Its deadlines are also slightly more forgiving, giving you more room while you're learning to plan a trip.
+Great Lakes gives you more short-haul training work and pays better for stops on short loads. Its deadlines are also slightly more forgiving, giving you more room while you're learning to plan a trip. Once you reach level 4 with full dispatch trust, Business status lets you move to any of the other three carriers.
 
 #### Prairie Link Regional
 
@@ -274,7 +274,7 @@ Company drivers receive upgrades at levels 4, 9, 13, and 17. Before level 9, dis
 
 ### Dispatch trust
 
-Dispatch considers your reputation, record, CDL validity, and debt when deciding how much work and equipment to entrust to you. Low trust can reduce your load choices and experience earnings or hold back equipment. Career stats and Driver status explain the restriction and how to recover. Held equipment returns when the hold clears. If a company driver's reputation reaches the floor, Great Lakes Training Transport takes over.
+Dispatch considers your reputation, record, CDL validity, and debt when deciding how much work and equipment to entrust to you. Low trust can reduce your load choices and experience earnings or hold back equipment. Career stats and Driver status explain the restriction and how to recover. Held equipment returns when the hold clears. If a company driver's reputation reaches the floor, Great Lakes Training Transport takes over. Once you're back to full trust at level 4 or above, Business status lets you move to another carrier.
 
 When cash is short, you can request a capped advance against your next load. Road stops can also offer one against a load you're already carrying. It comes out of settlement, so treat it as money brought forward. Dispatch won't offer another advance while settlements are already paying down a balance owed.
 

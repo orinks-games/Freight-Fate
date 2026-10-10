@@ -358,6 +358,7 @@ from the words, and synonyms cost them a re-read.
 | The level-18 step from company driver to leased-on owner-operator | the owner-operator buy-in; buy in | lease, lease-purchase, upgrade, promotion | `BusinessStatusState::become_owner_operator`, `OWNER_OPERATOR_BUY_IN` |
 | Choosing the company seat with the buy-in open | stay a company driver; company driver by choice | decline, opt out, refuse, skip the lease | `Profile.owner_operator_declined`, `BusinessStatusState::stay_company_driver` |
 | An owner-operator handing the equipment back for a company seat | go back to company driving | quit the lease, sell out, downgrade, revert | `solvency.apply_return_to_company_driving` |
+| A company driver at the training fleet taking a seat at another carrier | move to another carrier; hires you away | transfer, switch carriers, quit, change jobs, graduate | `carrier_move.apply_carrier_move`, `MOVE_UP_LEVEL` |
 | Equipment the level earns that dispatch trust is withholding | held back | locked, gated, downgraded, nerfed, demoted | `carrier_fleet.equipment_held_back` |
 | Career experience arriving slower in low dispatch trust | reduced rate | XP penalty, multiplier, malus, nerf | `career.standing_xp_rate` |
 | The first damage band: the engine holds power back | reduced power | derate, band two, power loss | `DAMAGE_BAND_REDUCED` |
