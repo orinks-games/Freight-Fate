@@ -51,12 +51,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from generate_sounds import ASSETS, _api_key, stash_master  # noqa: E402
 
-# Current ElevenLabs models (2026-09-11). Eleven v3 is the expressive TTS
-# model; music_v1 is deprecated in favour of music_v2_5. v3 only accepts
-# stability at 0.0, 0.5 or 1.0 (creative, natural, robust) and has no
-# ``style`` knob, so the delivery recipe is the natural setting plus the
-# same similarity the v2 reads used.
-TTS_MODEL = "eleven_v3"
+# Current ElevenLabs models (2026-10-08). Eleven v4 is the expressive TTS
+# model (same audio tags and 1x character cost as v3, which carried the
+# first two waves); music_v1 is deprecated in favour of music_v2_5. v3
+# only accepted stability at 0.0, 0.5 or 1.0 (creative, natural, robust)
+# and had no ``style`` knob, so the delivery recipe is the natural setting
+# plus the same similarity the v2 reads used.
+TTS_MODEL = "eleven_v4"
 MUSIC_MODEL = "music_v2_5"
 TTS_VOICE_SETTINGS = {"stability": 0.5, "similarity_boost": 0.75, "use_speaker_boost": True}
 

@@ -205,7 +205,9 @@ def _project_mi(line: list[tuple[float, float, float]], lat: float, lon: float) 
 
 
 def _query(url: str, body: str, retries: int = 5) -> dict[str, Any]:
-    headers = {"User-Agent": "FreightFateGapFill/1.0 (https://github.com/Orinks/Freight-Fate)"}
+    headers = {
+        "User-Agent": "FreightFateGapFill/1.0 (https://github.com/orinks-games/Freight-Fate)"
+    }
     encoded = body.encode("utf-8")
     for attempt in range(retries):
         request = urllib.request.Request(url, data=encoded, headers=headers)

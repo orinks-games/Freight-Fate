@@ -49,7 +49,7 @@ STABLE_FULL_CHANGELOG = (
     "## Complete change list\n\n"
     "Every change in this release is listed in the "
     "[full Freight Fate {version} changelog]"
-    "(https://github.com/Orinks/Freight-Fate/blob/v{version}/CHANGELOG.md), "
+    "(https://github.com/orinks-games/Freight-Fate/blob/v{version}/CHANGELOG.md), "
     "on GitHub and as CHANGELOG.md in your game folder."
 )
 SECTION_ORDER = ("Added", "Changed", "Improved", "Fixed", "Removed", "Deprecated", "Security")

@@ -85,11 +85,12 @@ DEFAULT_MUSIC_SHA256 = "c56401a2a45057faba0bd4bf7d024ce7dd3908f682f4c35526643a18
 # Channel 3000's clips, packed by tools/build_channel3000.py from the
 # channel3000-clips branch. Its own pack rather than more of music.pak, which
 # the game reads whole into memory; the game opens this one only when the
-# radio is first tuned to 87.7. The digest is of that tool's deterministic
-# build of the branch as of 2026-10-06 (96 clips); the owner publishes the
-# file to the site, and a rebuild that changes the clips moves this pin.
-DEFAULT_CHANNEL3000_URL = "https://www.orinks.net/downloads/channel3000.pak"
-DEFAULT_CHANNEL3000_SHA256 = "af58d90b1236b8a6bd454a7466e63905cb260b17f607963619156b62ebeab32e"
+# radio is first tuned to 87.7. The digest is of that tool's build of the
+# branch after tools/level_channel3000.py --write (98 clips, 2026-10-10). Each
+# rebuild is published under a new name beside the old one, so a branch still
+# pinned to an older pack keeps building; a rebuild moves both lines.
+DEFAULT_CHANNEL3000_URL = "https://crisp-crystal-9a9y.here.now/channel3000-a8343d91.pak"
+DEFAULT_CHANNEL3000_SHA256 = "a8343d916fdd31083a46497dd393865cbc78f4045faa9c6ef42f817f684dd179"
 
 
 def platform_native_exts(platform_name: str = sys.platform) -> set[str]:
@@ -633,6 +634,7 @@ RUST_BAKED_SOURCE_FILES = (
     "local_approaches.json",
     "local_geometry.json",
     "radio_catalog.json",
+    "radio_community.json",
     "radio_imported.json",
     "street_limits.json",
     "world_data/index.json",

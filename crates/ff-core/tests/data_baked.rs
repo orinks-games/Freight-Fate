@@ -391,6 +391,7 @@ fn the_container_holds_every_section_and_nothing_stray() {
         "text:buffs.json",
         "text:channel3000.json",
         "text:radio_catalog.json",
+        "text:radio_community.json",
         "text:radio_imported.json",
         "text:street_limits.json",
     ];

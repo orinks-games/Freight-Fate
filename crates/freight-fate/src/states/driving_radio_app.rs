@@ -193,6 +193,13 @@ impl Menu for RadioAppState {
                 |s: &mut Self, ctx| s.open_list(ctx, "range"),
             )
             .help("Every station that comes in here. Enter on one tunes it."),
+            MenuItem::new("Suggest a station", |_s: &mut Self, ctx| {
+                crate::states::driving_radio_suggest::open_station_suggestion(ctx)
+            })
+            .help(
+                "Send a station that is missing from the dial. Accepted stations join the dial \
+                 for every driver.",
+            ),
             MenuItem::new("Back to Driver apps", |s: &mut Self, ctx| s.go_back(ctx))
                 .help("Return to the driver tablet app list."),
         ]

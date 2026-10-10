@@ -1186,6 +1186,15 @@ fn real_time_empty_bubble_arrival_reaches_the_player_traffic_status() {
 
     let status = trip.npc_traffic_status();
     assert!(!status.contains("no close traffic"), "{status}");
+    // A slow lead is called once it is within earshot, so close on it.
+    if let Some(arrival) = trip
+        .traffic_manager
+        .vehicles
+        .iter()
+        .find(|vehicle| vehicle.key.starts_with("real-time:"))
+    {
+        trip.position_mi = arrival.position_mi - 0.3;
+    }
     trip.check_npc_traffic_cues();
     assert!(
         trip.events

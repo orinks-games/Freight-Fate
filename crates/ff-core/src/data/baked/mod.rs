@@ -141,6 +141,7 @@ pub const TEXT_FILES: &[&str] = &[
     "channel3000.json",
     "radio_catalog.json",
     "radio_imported.json",
+    "radio_community.json",
 ];
 
 /// The `text:` section name for a relative data path.

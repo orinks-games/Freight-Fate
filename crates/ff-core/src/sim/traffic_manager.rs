@@ -55,6 +55,12 @@ pub const REAL_TIME_ARRIVAL_MIN_S: f64 = 8.0;
 pub const REAL_TIME_ARRIVAL_MAX_S: f64 = 90.0;
 /// The same seam `next_situation` uses for a spoken traffic warning.
 pub const TRAFFIC_SITUATION_AHEAD_MI: f64 = 2.2;
+/// A slow vehicle ahead in the truck's lane is called only this close: the
+/// distance its sound carries (half a mile, `driving_traffic_sounds`), so the
+/// call and the sound start together. Called at two miles, a lead the truck
+/// gains on at a few miles per hour was announced twenty minutes before it
+/// could be heard (owner, 2026-10-09).
+pub const SLOW_LEAD_CALLOUT_MI: f64 = 0.5;
 // The mirror check before a lane change: the target lane must be clear this
 // far ahead of the truck and this far behind its drive tires, or the arrival
 // is a sideswipe. Read by the dodge's own arrival check, by the lane-gap cue,
@@ -1437,6 +1443,9 @@ impl TrafficManager {
             return None;
         }
         let vehicle = context.lead.clone();
+        if vehicle.intent == "following" && context.gap_mi > SLOW_LEAD_CALLOUT_MI {
+            return None; // not yet: the call waits until the lead can be heard
+        }
         if self.announced_vehicle_keys.contains(&vehicle.key) {
             return None;
         }
@@ -1735,8 +1744,10 @@ mod tests {
             gap >= NO_SPAWN_AHEAD_MI || gap <= -NO_SPAWN_BEHIND_MI,
             "real-time traffic appeared too close to the player: {gap:.2} miles"
         );
+        // A slow lead is called once it is within earshot, so close on it.
+        let closer = arrival.position_mi - 0.3;
         assert!(
-            manager.next_situation(position_mi, 65.0).is_some(),
+            manager.next_situation(closer, 65.0).is_some(),
             "the admitted vehicle exists internally but is not perceivable"
         );
     }

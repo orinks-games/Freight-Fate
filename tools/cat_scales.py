@@ -49,7 +49,7 @@ from world_source import load_world  # noqa: E402
 
 SNAPSHOT_PATH = Path(__file__).resolve().parent / "cat_scales_snapshot.json"
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
-USER_AGENT = "Freight-Fate data tools (https://github.com/Orinks/Freight-Fate)"
+USER_AGENT = "Freight-Fate data tools (https://github.com/orinks-games/Freight-Fate)"
 QUERY = (
     '[out:json][timeout:190];area["ISO3166-1"="US"][admin_level=2]->.us;'
     'nwr["amenity"="weighbridge"](area.us);out center tags;'

@@ -394,7 +394,7 @@ fn sentence(text: &str) -> String {
 
 /// Where a player can always get the update by hand.
 pub const MANUAL_DOWNLOAD: &str =
-    "To update by hand, download it from github.com/Orinks/Freight-fate/releases.";
+    "To update by hand, download it from github.com/orinks-games/Freight-Fate/releases.";
 
 const PHASE_DOWNLOADING: u8 = 0;
 const PHASE_UNPACKING: u8 = 1;

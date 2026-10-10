@@ -44,6 +44,11 @@ pub enum Tier {
     GitHub,
     /// Live weather and traffic feeds (`real_traffic.FETCH_TIMEOUT_S = 8`).
     Feeds,
+    /// A radio station suggestion: orinks.net plays the first seconds of the
+    /// suggested stream and reads the shipped station list before it
+    /// answers, which the ten seconds of [`Tier::Orinks`] cannot hold. The
+    /// player chose to send it and is waiting on the answer.
+    StationSuggestion,
 }
 
 impl Tier {
@@ -54,6 +59,7 @@ impl Tier {
             Tier::Orinks => 10.0,
             Tier::GitHub => 15.0,
             Tier::Feeds => 8.0,
+            Tier::StationSuggestion => 45.0,
         }
     }
 }
@@ -77,6 +83,8 @@ fn build_agent(timeout_s: f64) -> Agent {
 static ORINKS_AGENT: Lazy<Agent> = Lazy::new(|| build_agent(Tier::Orinks.timeout_s()));
 static GITHUB_AGENT: Lazy<Agent> = Lazy::new(|| build_agent(Tier::GitHub.timeout_s()));
 static FEEDS_AGENT: Lazy<Agent> = Lazy::new(|| build_agent(Tier::Feeds.timeout_s()));
+static STATION_SUGGESTION_AGENT: Lazy<Agent> =
+    Lazy::new(|| build_agent(Tier::StationSuggestion.timeout_s()));
 
 /// The update-download client: same TLS and status policy as the GitHub
 /// tier, its 15 seconds kept on CONNECTING -- and no other deadline at
@@ -123,6 +131,7 @@ pub fn agent(tier: Tier) -> &'static Agent {
         Tier::Orinks => &ORINKS_AGENT,
         Tier::GitHub => &GITHUB_AGENT,
         Tier::Feeds => &FEEDS_AGENT,
+        Tier::StationSuggestion => &STATION_SUGGESTION_AGENT,
     }
 }
 
@@ -537,7 +546,7 @@ pub fn request(
         }
     };
     let status = response.status().as_u16();
-    if tier == Tier::Orinks {
+    if matches!(tier, Tier::Orinks | Tier::StationSuggestion) {
         if let Some(date) = response.headers().get("date") {
             note_server_date(date.to_str().unwrap_or_default());
         }
@@ -759,7 +768,12 @@ mod tests {
     /// still fail fast.
     #[test]
     fn request_tiers_keep_their_global_deadlines() {
-        for tier in [Tier::Orinks, Tier::GitHub, Tier::Feeds] {
+        for tier in [
+            Tier::Orinks,
+            Tier::GitHub,
+            Tier::Feeds,
+            Tier::StationSuggestion,
+        ] {
             assert_eq!(
                 agent(tier).config().timeouts().global,
                 Some(Duration::from_secs_f64(tier.timeout_s())),

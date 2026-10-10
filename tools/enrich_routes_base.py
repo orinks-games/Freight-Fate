@@ -15,7 +15,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 CACHE_PATH = ROOT / ".route-cache"
-USER_AGENT = "Freight-Fate route-enrichment smoke (https://github.com/Orinks/Freight-Fate)"
+USER_AGENT = "Freight-Fate route-enrichment smoke (https://github.com/orinks-games/Freight-Fate)"
 OSRM_ROUTE_URL = "https://router.project-osrm.org/route/v1/driving/{coords}"
 OPEN_METEO_ELEVATION_URL = "https://api.open-meteo.com/v1/elevation"
 # OpenRouteService heavy-goods (truck) routing via the official `openrouteservice`

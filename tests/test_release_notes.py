@@ -936,24 +936,22 @@ def test_career_19_release_requires_and_verifies_every_platform_archive():
     )
 
 
-def test_player_manual_names_the_apple_silicon_mac_archive():
-    manual = (Path(__file__).resolve().parents[1] / "docs" / "user-manual.md").read_text(
-        encoding="utf-8"
-    )
-
-    assert "| macOS, Apple Silicon | `FreightFate-<version>-macos-arm64.zip` |" in manual
-    assert "Intel Mac, the in-game updater will not offer it" in manual
+def test_readme_names_the_apple_silicon_mac_archive():
+    readme = (Path(__file__).resolve().parents[1] / "README.md").read_text(encoding="utf-8")
+    assert "-macos-arm64.zip" in readme
+    assert "Apple Silicon" in readme
 
 
-def test_player_manual_names_both_linux_architectures():
-    manual = (Path(__file__).resolve().parents[1] / "docs" / "user-manual.md").read_text(
-        encoding="utf-8"
-    )
-    assert "| Linux | `FreightFate-<version>-linux-x64.tar.gz` |" in manual
-    assert "| Linux (AppImage) | `FreightFate-<version>-linux-x86_64.AppImage` |" in manual
-    assert "| Linux ARM64 | `FreightFate-<version>-linux-arm64.tar.gz` |" in manual
-    assert "| Linux ARM64 (AppImage) | `FreightFate-<version>-linux-aarch64.AppImage` |" in manual
-    assert "BT Speak" in manual
+def test_readme_names_both_linux_architectures():
+    readme = (Path(__file__).resolve().parents[1] / "README.md").read_text(encoding="utf-8")
+    for archive in (
+        "-linux-x64.tar.gz",
+        "-linux-x86_64.AppImage",
+        "-linux-arm64.tar.gz",
+        "-linux-aarch64.AppImage",
+    ):
+        assert archive in readme
+    assert "BT Speak" in " ".join(readme.split())
 
 
 def test_career_19_snapshot_prepares_bass_before_rust_validation():

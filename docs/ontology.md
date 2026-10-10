@@ -51,6 +51,8 @@ This file catalogues the game layer, and then the spoken vocabulary for both.
 | Radio app (the Driver apps tablet app that searches the dial, tunes by name, and keeps favorites; "Search stations", "Stations in range", "Favorites") | `RadioAppState`, `RadioState.search`, `RadioState.favorites` | `states/driving_radio_app.py`, `radio.py` |
 | Now playing (spoken "Now playing on <station>: <song>"; what a stream says it is playing -- "song information" when there is none) | `_radio_now_playing_text`, `AudioEngine.radio_now_playing`, `parse_icy_stream_title` | `states/driving_updates.py`, `audio.py` |
 | Personal playlist station (one of the player's own playlist files on the dial) | `PERSONAL_PLAYLIST_SOURCE_TYPE`, `load_personal_playlists` | `radio.py` |
+| Station suggestion (spoken "Suggest a station"; a station a player sends from the Radio app for review) | `SuggestKindState`, `StationSuggestionEntryState`, `StationSuggestion` | `states/driving_radio_suggest.rs`, `community_stations.rs` |
+| Community station (a suggested station the owner accepted; shipped in `radio_community.json` and downloaded at launch; an AM or FM one plays near its licensed transmitter, else on the web radio band) | `ff_core::radio::community`, `COMMUNITY_STATIONS_FILE`, `RADIO_COMMUNITY_RESOURCE` | `radio/community.rs`, `tools/fold_community_stations.py` |
 | Save migration | `migrate_save_data`, `SAVE_VERSION` | `models/save_migration.py` |
 | Career from an earlier version (the 1.9 cutover gate; never "legacy" in spoken text) | `created_line`, `LegacyCareerError` | `models/profile.py` |
 | Integrity signature | `SIGNATURE_FIELD`, `ProfileIntegrityError` | `models/profile.py` |
@@ -230,6 +232,7 @@ from the words, and synonyms cost them a re-read.
 | One booked citation or violation with its reason | citation / serious violation / major offense / safety incident, then day, clock, reason, fine, place | ticket entry, infraction, offense record, strike | `enforcement::RecordEntry`, `DrivingRecord.entries` |
 | The freight itself | cargo, the load | payload, goods | `CargoType`, `Job.cargo` |
 | The board of offers | dispatch board | job list, load board | `JobBoard` |
+| Asking the carrier's dispatcher for help on a trip, from the pause menu while stopped | call dispatch; the answer starts "Dispatch:" | radio dispatch, phone home, check call, Qualcomm message | `DispatchCallState`, `DispatchCallRequest` |
 | The vehicle | truck | rig (except as noted) | `TruckModel` |
 | One city-to-city stretch | leg | segment, hop | `Leg` |
 | The real highway a leg follows | corridor | -- | -- |

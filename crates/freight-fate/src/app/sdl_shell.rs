@@ -139,6 +139,20 @@ impl SdlShell {
             .position_centered()
             .build()
             .map_err(|e| e.to_string())?;
+        // The dummy driver (every headless run: CI, the agent server under
+        // FREIGHT_FATE_NO_SPEECH, the playtest benches) has no native window,
+        // and the sdl2 crate PANICS rather than erring when asked for one --
+        // a windowed headless boot died here the day the handle arrived.
+        #[cfg(target_os = "windows")]
+        let window_handle = if video.current_video_driver() == "dummy" {
+            None
+        } else {
+            window_handle(&window)
+        };
+        #[cfg(target_os = "windows")]
+        if let Some(handle) = window_handle {
+            super::win_keys::install(handle);
+        }
         // A dummy window has no GPU surface. Automatic renderer selection can
         // still enter native graphics drivers before falling back to software;
         // AMD's driver fail-fasts there in restricted Windows environments.
@@ -149,16 +163,6 @@ impl SdlShell {
             canvas
         };
         let canvas = canvas.build().map_err(|e| e.to_string())?;
-        // The dummy driver (every headless run: CI, the agent server under
-        // FREIGHT_FATE_NO_SPEECH, the playtest benches) has no native window,
-        // and the sdl2 crate PANICS rather than erring when asked for one --
-        // a windowed headless boot died here the day the handle arrived.
-        #[cfg(target_os = "windows")]
-        let window_handle = if video.current_video_driver() == "dummy" {
-            None
-        } else {
-            window_handle(canvas.window())
-        };
         #[cfg(target_os = "windows")]
         if let Some(handle) = window_handle {
             log::info!(

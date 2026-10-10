@@ -65,9 +65,38 @@ pub fn end_sentence(text: &str) -> String {
 /// leading "cap" -- speech synthesis pronounces "J" and "j" identically, so
 /// without the marker a player arrowing through a typed name has no way to
 /// hear that the first letter capitalized the way they meant it to.
+/// Punctuation is named: most voices say nothing for a bare colon or slash,
+/// so typing a stream address character by character was a run of silent
+/// clicks (owner, 2026-10-09: "I can't type a colon ... I hear a click").
 pub fn spoken_char(ch: char) -> String {
-    if ch == ' ' {
-        return "space".to_string();
+    let name = match ch {
+        ' ' => "space",
+        ':' => "colon",
+        ';' => "semicolon",
+        '/' => "slash",
+        '\\' => "backslash",
+        '.' => "dot",
+        ',' => "comma",
+        '-' => "dash",
+        '_' => "underscore",
+        '?' => "question mark",
+        '!' => "exclamation mark",
+        '=' => "equals",
+        '&' => "and",
+        '%' => "percent",
+        '#' => "number sign",
+        '@' => "at",
+        '~' => "tilde",
+        '+' => "plus",
+        '*' => "star",
+        '\'' => "apostrophe",
+        '"' => "quote",
+        '(' => "left paren",
+        ')' => "right paren",
+        _ => "",
+    };
+    if !name.is_empty() {
+        return name.to_string();
     }
     if ch.is_alphabetic() && ch.is_uppercase() {
         return format!("cap {}", ch.to_lowercase());
@@ -795,7 +824,9 @@ mod tests {
         assert_eq!(spoken_char('J'), "cap j");
         assert_eq!(spoken_char('j'), "j");
         assert_eq!(spoken_char('7'), "7");
-        assert_eq!(spoken_char(','), ",");
+        assert_eq!(spoken_char(','), "comma");
+        assert_eq!(spoken_char(':'), "colon");
+        assert_eq!(spoken_char('/'), "slash");
     }
 
     #[test]

@@ -1627,7 +1627,8 @@ def test_channel3000_download_config_uses_public_defaults(monkeypatch):
     monkeypatch.delenv("FREIGHT_FATE_CHANNEL3000_URL", raising=False)
     monkeypatch.delenv("FREIGHT_FATE_CHANNEL3000_SHA256", raising=False)
     url, sha = build_release.channel3000_download_config()
-    assert url == "https://www.orinks.net/downloads/channel3000.pak"
+    assert url == build_release.DEFAULT_CHANNEL3000_URL
+    assert url.startswith("https://")
     assert sha == build_release.DEFAULT_CHANNEL3000_SHA256
     assert len(sha) == 64
 

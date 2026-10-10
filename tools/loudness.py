@@ -92,3 +92,83 @@ def normalizing_gain(
     if gain > headroom:
         return headroom, True
     return gain, False
+
+
+def ride_gain(
+    samples: np.ndarray,
+    target_lufs: float,
+    *,
+    max_boost_db: float = 8.0,
+    max_cut_db: float = 8.0,
+    gate_below_db: float = 20.0,
+    attack_s: float = 0.5,
+    release_s: float = 3.0,
+) -> np.ndarray:
+    """A slow broadcast leveller: per-sample gain in dB that rides the 3 s
+    short-term loudness toward ``target_lufs``.
+
+    A drama with a talky scene between loud stings has its integrated level
+    set by the stings, so static gain to the target leaves the talking
+    several dB under it. This rides the talk up and the stings down, the
+    way a TV station's processor does, but slowly enough not to pump:
+    the gain falls over ``attack_s`` when a passage gets louder and rises
+    over ``release_s`` when it gets quieter. Passages more than
+    ``gate_below_db`` under the target (pauses, room tone) hold the gain
+    they had rather than being pulled up into hiss. Bounded both ways.
+    """
+    hop = int(0.1 * RATE)
+    power = _k_weighted_power(samples, 3.0, 0.1)
+    # Each 3 s window describes the audio at its centre.
+    level = _lufs(power)
+    wanted = np.clip(target_lufs - level, -max_cut_db, max_boost_db)
+    held = np.empty_like(wanted)
+    current = 0.0
+    for i, (lvl, want) in enumerate(zip(level, wanted, strict=True)):
+        if lvl > target_lufs - gate_below_db:
+            step = 0.1 / (attack_s if want < current else release_s)
+            current += (want - current) * min(1.0, step)
+        held[i] = current
+    centres = np.arange(held.size) * hop + int(1.5 * RATE)
+    n = samples.shape[1]
+    if held.size == 1:
+        return np.full(n, held[0])
+    return np.interp(np.arange(n), centres, held)
+
+
+def _oversampled_peaks(samples: np.ndarray, chunk_s: float = 10.0) -> np.ndarray:
+    """Each sample's 4x oversampled peak over both channels, a chunk at a
+    time with overlap, so a quarter-hour programme does not need gigabytes."""
+    n = samples.shape[1]
+    chunk, pad = int(chunk_s * RATE), 256
+    out = np.empty(n)
+    for start in range(0, n, chunk):
+        lo, hi = max(0, start - pad), min(n, start + chunk + pad)
+        over = np.abs(resample_poly(samples[:, lo:hi], 4, 1, axis=1)).max(axis=0)
+        per = over[: (hi - lo) * 4].reshape(hi - lo, 4).max(axis=1)
+        end = min(n, start + chunk)
+        out[start:end] = per[start - lo : end - lo]
+    return out
+
+
+def limit_true_peak(
+    samples: np.ndarray, ceiling_dbtp: float, lookahead_s: float = 0.005
+) -> np.ndarray:
+    """Hold the 4x oversampled peak at or under ``ceiling_dbtp``.
+
+    A look-ahead peak limiter with no attack overshoot: the gain each sample
+    needs is the minimum over the look-ahead window, then smoothed by a box
+    of the same width, so it has finished falling when the peak arrives.
+    It only touches the few milliseconds around a peak; the leveller above
+    does the audible work.
+    """
+    ceiling = 10.0 ** (ceiling_dbtp / 20.0)
+    n = samples.shape[1]
+    peak = _oversampled_peaks(samples)
+    need = np.minimum(1.0, ceiling / np.maximum(peak, 1e-12))
+    width = max(1, int(lookahead_s * RATE))
+    padded = np.concatenate([need, np.ones(width)])
+    windows = np.lib.stride_tricks.sliding_window_view(padded, width)[:n]
+    floor = windows.min(axis=1)
+    kernel = np.ones(width) / width
+    gain = np.convolve(np.concatenate([np.full(width - 1, floor[0]), floor]), kernel, mode="valid")
+    return samples * gain

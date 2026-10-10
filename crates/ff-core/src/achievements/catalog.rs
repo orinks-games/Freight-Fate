@@ -17,7 +17,7 @@ use super::{Achievement, AchievementCategory};
 /// sha256 over every category and achievement field, as the generator
 /// computed it from the Python catalog (see `catalog_digest` in the
 /// tests for the exact framing).
-pub const CATALOG_DIGEST: &str = "b6a0cbe4b1c75c16033f180f8b66f075dc45e51223ac54442fb8aa97e09b8958";
+pub const CATALOG_DIGEST: &str = "0deede36e314af8a528022ada80507e484e40f2c730c063677f8c670c8bccf16";
 
 /// What a locked, hidden achievement speaks in place of its real name and
 /// description. Keeps a hidden badge's surprise -- the joke, the calendar
@@ -450,7 +450,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "all_regions",
         name: "Been Everywhere, For Real",
-        description: "You've now hauled freight in all fourteen regions on the map. The list of towns is finally long enough to leave somebody breathless.",
+        description: "You've now hauled freight in every region on the map. The list of towns is finally long enough to leave somebody breathless.",
         category: "places",
         inspiration: "Hank Snow - I've Been Everywhere",
         hidden: false,

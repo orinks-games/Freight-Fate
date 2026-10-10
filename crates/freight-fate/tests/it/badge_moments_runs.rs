@@ -7,6 +7,7 @@ use chrono::{DateTime, TimeZone, Utc};
 use ff_core::data::world_models::Route;
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::sim::trip_models::TripEventKind;
+use ff_core::sim::vehicle::{combination_tare_kg, max_legal_cargo_tons, TruckSpecs};
 use ff_core::sim::weather::WeatherKind;
 use freight_fate::app::testing::TestApp;
 use freight_fate::net::testing::set_server_time;
@@ -84,13 +85,16 @@ fn farm_load_is_grain_or_farm_inputs() {
 }
 
 #[test]
-fn max_gross_load_needs_twenty_four_tons() {
+fn max_gross_load_needs_a_load_at_the_legal_ceiling() {
+    // Dispatch never offers more than a stock rig can carry under 80,000 lb,
+    // so the badge has to be reachable below that ceiling.
+    let ceiling = max_legal_cargo_tons(combination_tare_kg(&TruckSpecs::default()));
     let mut app = career_in(CHICAGO);
     let general = &CARGO_CATALOG["general"];
-    let mut drive = run_job(&mut app, chicago_run(), general, 23.0, 1000.0);
+    let mut drive = run_job(&mut app, chicago_run(), general, ceiling - 1.5, 1000.0);
     settle(&mut app, &mut drive);
     assert!(!earned(&app, "max_gross_load"));
-    let mut drive = run_job(&mut app, chicago_run(), general, 24.0, 1000.0);
+    let mut drive = run_job(&mut app, chicago_run(), general, ceiling - 0.5, 1000.0);
     settle(&mut app, &mut drive);
     assert!(earned(&app, "max_gross_load"));
 }

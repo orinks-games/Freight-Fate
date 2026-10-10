@@ -14,6 +14,7 @@ use ff_core::data::world_models::Route;
 use ff_core::models::cargo_condition::cargo_fragility;
 use ff_core::models::jobs::Job;
 use ff_core::pyrandom::PyRandom;
+use ff_core::radio::community::{load_community_stations, new_community_stations};
 use ff_core::radio::{
     default_radio_catalog, load_personal_playlists, RadioState, RadioStation, PLAYLISTS_DIR_NAME,
 };
@@ -241,6 +242,8 @@ impl DrivingState {
         if !channel3000_playable(channel3000.as_ref()) {
             catalog.retain(|station| !DrivingState::is_channel3000(station));
         }
+        let community = load_community_stations(&crate::community_stations::cache_path());
+        catalog.extend(new_community_stations(&catalog, community));
         catalog.extend(load_personal_playlists(&personal_playlists_dir()));
         let radio = RadioState::from_settings(
             catalog,

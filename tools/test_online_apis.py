@@ -145,7 +145,10 @@ def main():
     probe("https://orinks.net/api/board", "orinks.net /api/board", expect_json=False)
     probe_tcp("https://orinks.net/api/players", "orinks.net /api/players")
     # Version / update check
-    probe("https://api.github.com/repos/Orinks/Freight-Fate/releases/latest", "GitHub releases API")
+    probe(
+        "https://api.github.com/repos/orinks-games/Freight-Fate/releases/latest",
+        "GitHub releases API",
+    )
 
     # ── Summary ───────────────────────────────────────────────────────────
     print()

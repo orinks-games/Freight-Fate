@@ -78,7 +78,7 @@ visual display mirrors all speech for sighted players and helpers.
 
 ## Download and play
 
-1. Open [Freight Fate releases](https://github.com/Orinks/Freight-fate/releases).
+1. Open [Freight Fate releases](https://github.com/orinks-games/Freight-Fate/releases).
 2. Choose the latest numbered stable release. Stable is recommended for most
    players. If you want to test Career 1.9, choose the newest prerelease build.
    Its dated tag looks like `1.9-tester-20260829`, spoken as "1 point 9 tester,
@@ -92,14 +92,14 @@ visual display mirrors all speech for sighted players and helpers.
    tarball and an AppImage each for PCs (`-linux-x64.tar.gz`,
    `-linux-x86_64.AppImage`) and for ARM64 machines such as the Blazie BT
    Speak and BT Braille or a Raspberry Pi (`-linux-arm64.tar.gz`,
-   `-linux-aarch64.AppImage`); the player manual says how to tell which
-   you need.
+   `-linux-aarch64.AppImage`). Choose the archive for your machine's
+   processor. AppImages run directly; tarballs need extracting.
 4. Extract the zip file. On Windows, open the extracted `FreightFate` folder
    and run `FreightFate.exe`. On an Apple Silicon Mac, move `FreightFate.app`
-   to Applications and follow the first-launch instructions in the player
-   manual.
+   to Applications. If macOS blocks the first launch, open System Settings,
+   choose Privacy & Security, and allow Freight Fate to open.
 
-For a complete player-facing guide to installing, careers, dispatch, driving,
+For a complete player-facing guide to careers, dispatch, driving,
 route stops, saves, settings, audio, speech, and troubleshooting, see the
 [Freight Fate Player Manual](docs/user-manual.md).
 
@@ -121,7 +121,7 @@ Install these prerequisites first:
 Then clone Career 1.9 and run the game:
 
 ```powershell
-git clone https://github.com/Orinks/Freight-Fate.git
+git clone https://github.com/orinks-games/Freight-Fate.git
 cd Freight-Fate
 uv sync --group dev
 uv run python tools/fetch_bass.py

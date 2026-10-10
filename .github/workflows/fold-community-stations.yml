@@ -1,0 +1,54 @@
+name: Fold community stations
+
+# Copies the radio stations players suggested and the owner accepted on
+# orinks.net into data/radio_community.json on dev, half an hour before the
+# Career 1.9 nightly builds dev, so every snapshot and release ships what was
+# accepted up to the night before. Players also download the list at launch;
+# the shipped copy is for a first launch, an offline one, and a player with
+# the orinks.net services off.
+#
+# A scheduled run executes the copy of this file on the DEFAULT branch
+# (main), so the schedule starts once this file reaches main.
+
+on:
+  schedule:
+    - cron: "7 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fold-community-stations
+  cancel-in-progress: false
+
+jobs:
+  fold:
+    name: Fold
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: dev
+
+      - name: Fold the accepted list
+        # The tool leaves the file alone and exits non-zero when the site
+        # cannot be read, so a site outage fails this run instead of
+        # emptying the shipped stations.
+        run: python3 tools/fold_community_stations.py
+
+      - name: Commit to dev when it changed
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- data/radio_community.json; then
+            echo "No change."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/radio_community.json
+          # The stations are already on every dial through the launch
+          # download, so shipping a copy is not news. [skip changelog]
+          git commit -m "chore(radio): fold accepted community stations [skip changelog]"
+          git push origin HEAD:dev

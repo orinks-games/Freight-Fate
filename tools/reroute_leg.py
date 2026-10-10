@@ -104,7 +104,7 @@ VALHALLA = os.environ.get("FF_VALHALLA_URL", "https://valhalla1.openstreetmap.de
 VALHALLA_ELEVATION = os.environ.get(
     "FF_VALHALLA_ELEVATION_URL", "https://valhalla1.openstreetmap.de"
 ).rstrip("/")
-USER_AGENT = "Freight-Fate rerouting (https://github.com/Orinks/Freight-Fate)"
+USER_AGENT = "Freight-Fate rerouting (https://github.com/orinks-games/Freight-Fate)"
 COSTING = "truck"
 VIA_SEARCH_FILTER = {"min_road_class": "primary", "exclude_ramp": True}
 

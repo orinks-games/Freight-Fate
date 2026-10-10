@@ -171,10 +171,30 @@ impl Trip {
             let forward = self.route.cities[i] == leg.a;
             let toward_key = &self.route.cities[i + 1];
             let toward = self.world.spoken_city(toward_key, None);
-            if facility_route {
+            // A relayed pickup is a corridor joined to the shipper's street
+            // chain, so the chain's streets are city-to-same-city legs inside
+            // a highway route. Read as highway changes they were each called
+            // "Keep right for ... toward Indianapolis", left turns included
+            // (owner drive to Indianapolis Dry Warehouse, 2026-10-10).
+            let street_leg = i > 0 && leg.a == leg.b && self.route.cities[i] == *toward_key;
+            if facility_route || street_leg {
                 // Tier-1 surface segments carry their baked maneuver; speak
                 // it verbatim with the segment distance.
-                if i == 0 {
+                if street_leg && self.route.legs[i - 1].a != self.route.legs[i - 1].b {
+                    // Off the corridor onto the chain: its "Start on" is
+                    // where a chain driven on its own begins, not a corner.
+                    let text = format!("Continue onto {}", leg.highway);
+                    cues.push(
+                        NavigationCue::new(
+                            &format!("local:join:{i}"),
+                            "local_turn",
+                            start,
+                            &lower_first(&text),
+                            &format!("{text}{}.", self.surface_distance_tail(leg.miles)),
+                        )
+                        .with_direction("ahead"),
+                    );
+                } else if i == 0 {
                     let raw = if leg.local_cue.is_empty() {
                         format!("Start on {}.", leg.highway)
                     } else {

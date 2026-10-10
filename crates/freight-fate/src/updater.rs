@@ -40,9 +40,9 @@ use serde_json::Value;
 
 use crate::net::{self, NetError, Tier};
 
-pub const REPO: &str = "Orinks/Freight-fate";
+pub const REPO: &str = "orinks-games/Freight-Fate";
 pub const APP_NAME: &str = "FreightFate";
-pub const API_BASE: &str = "https://api.github.com/repos/Orinks/Freight-fate";
+pub const API_BASE: &str = "https://api.github.com/repos/orinks-games/Freight-Fate";
 pub const USER_AGENT: &str = "FreightFate-updater";
 /// Seconds, per HTTP request.
 pub const TIMEOUT: f64 = 15.0;

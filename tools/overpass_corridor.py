@@ -40,7 +40,7 @@ MIRRORS = (
     tuple(url.strip() for url in os.environ.get("OVERPASS_URLS", "").split(",") if url.strip())
     or DEFAULT_MIRRORS
 )
-USER_AGENT = "Freight-Fate world bake (https://github.com/Orinks/Freight-Fate)"
+USER_AGENT = "Freight-Fate world bake (https://github.com/orinks-games/Freight-Fate)"
 
 # How far along the route one box may reach before the next one starts.
 #

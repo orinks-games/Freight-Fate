@@ -18,7 +18,7 @@ from typing import Any
 from world_source import load_world
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
-USER_AGENT = "Freight-Fate route POI curation smoke (https://github.com/Orinks/Freight-Fate)"
+USER_AGENT = "Freight-Fate route POI curation smoke (https://github.com/orinks-games/Freight-Fate)"
 
 
 def main(argv: list[str] | None = None) -> int:

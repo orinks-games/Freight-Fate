@@ -27,7 +27,7 @@ from world_source import load_world
 
 ROOT = Path(__file__).resolve().parents[1]
 CACHE_PATH = ROOT / ".route-cache"
-USER_AGENT = "Freight-Fate node-picker (https://github.com/Orinks/Freight-Fate)"
+USER_AGENT = "Freight-Fate node-picker (https://github.com/orinks-games/Freight-Fate)"
 GEONAMES_CITIES_URL = "https://download.geonames.org/export/dump/cities15000.zip"
 GEONAMES_ADMIN1_URL = "https://download.geonames.org/export/dump/admin1CodesASCII.txt"
 EARTH_RADIUS_MI = 3958.8

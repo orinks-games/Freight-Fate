@@ -83,7 +83,7 @@ CURVES = ROOT / "data" / "world_data" / "us" / "gameplay" / "curves.jsonl"
 # Default to the public one and let --url point at a local build instead.
 PUBLIC_URL = "https://valhalla1.openstreetmap.de/trace_attributes"
 LOCAL_URL = "http://localhost:8002/trace_attributes"
-USER_AGENT = "Freight-Fate map-matching (https://github.com/Orinks/Freight-Fate)"
+USER_AGENT = "Freight-Fate map-matching (https://github.com/orinks-games/Freight-Fate)"
 COSTING = "truck"  # the vehicle actually being routed, so its restrictions apply
 
 # What the truck actually is. Valhalla's truck costing defaults to 21.77

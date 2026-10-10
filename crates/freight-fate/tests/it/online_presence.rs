@@ -577,7 +577,7 @@ fn test_identity_round_trips_through_disk() {
 fn test_saved_identity_keeps_the_token_out_of_the_json_file() {
     // The public Driver ID stays on disk; the secret never does.
     //
-    // Contributed by trodick in https://github.com/Orinks/Freight-Fate/pull/133.
+    // Contributed by trodick in https://github.com/orinks-games/Freight-Fate/pull/133.
     let (_dir, keyring, store) = store();
     let identity = OnlineIdentity::new("road-star-abcd1234", &"s".repeat(68));
     store.save(&identity).unwrap();

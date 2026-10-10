@@ -41,6 +41,12 @@ bookmarks usable.
 
 ## 1.9 in flight (`feat/career-1.9`)
 
+- [x] Call dispatch, a 2.0 teaser for 1.9.4 (owner, 2026-10-10): the pause
+      menu offers Call dispatch while the truck is stopped, with local answers
+      about the delivery window, hours, the road ahead, truck trouble (which
+      can authorize the roadside mechanic) and load trouble. Ported unchanged
+      from `feat/career-2.0` (`7da21287`); routing calls to a remote
+      dispatcher stays 2.0 work.
 - [x] Traffic sounds (owner, 2026-10-08: "the sounds aren't synced with the
       NPC traffic"): the three nearest NPC vehicles each run a steady class
       loop whose level, pan and pitch are set every frame from where the
@@ -86,6 +92,14 @@ bookmarks usable.
       a daypart schedule by the truck's local hour, from its own
       `channel3000.pak`, opened on first tune-in; off the dial without the
       pack, and in no changelog or manual (`ff_core::channel3000`).
+- [x] Channel 3000 levelled to the other stations (owner, 2026-10-09, a
+      player found it hard to hear): its shows had one static gain to -18
+      LUFS integrated, which the loud themes and stings set, so the talk
+      sat 2 to 4 dB under every other station (median 3 s short-term -19 to
+      -25 LUFS against about -18 for music.pak's songs, hosts and ads). Every
+      clip but the Grimatonics songs now goes through a slow leveller and a
+      true-peak limiter (`tools/level_channel3000.py`); the talk's median
+      is -18 like the rest of the radio.
 
 - [x] Billboards that notice the drive (owner, 2026-09-30): when an
       everyday pool sign comes up, Big Jim answers a collision, a citation
@@ -443,11 +457,23 @@ Everything found before 2026-09-25 moved to
       out makes no sound, and quiet says cruise, keeper and work zone
       updates short. Urgent only now says when a work zone turns cruise off.
 - [ ] A listening pass by the owner at quiet and urgent only, at the wheel.
+- [x] Achievement sweep (owner, 2026-10-09): four badges whose triggers
+      had fallen behind the map or the job board now match them.
 - [ ] The exit-call truth test (`test_the_exit_calls_name_the_road_that_is_really_left`)
       failed once on the Linux ARM runner in the v1.9.1 tag build, hearing
       only the two-mile call, and passed on re-run. It passed 80 of 80 runs
       alone on x86_64 and in its module; the source of the nondeterminism is
       not found yet.
+- [x] A relayed pickup (corridor joined to the shipper's street chain)
+      called every street of the chain "Keep right for ... toward" the city
+      it was already in, left turns included (owner drive into Indianapolis
+      Dry Warehouse, 2026-10-10). The chain's streets now get their baked
+      turn cues, the join is "Continue onto" the first street, and the
+      city passage line no longer fires at the join.
+- [ ] A relayed pickup still posts the corridor's "destination approach"
+      and "facility gate" zones over the chain, not each street's own limit
+      and the yard: the street-detail zones, and the other layers gated on
+      a pure facility route, do not yet look at a joined route's streets.
 
 - [x] Low fuel warning could also fire when remaining range is shorter than
       the distance to the next fuel-capable stop (issue #272 shipped the
@@ -2667,6 +2693,49 @@ on the season or the date found more.
       July (northern DOTs build April to November); deer strikes have no
       November peak (IIHS: twice the yearly average); holiday billboards use
       loose windows ("Happy Thanksgiving" any day Nov 22-28).
+
+### October 9 player-suggested stations
+
+Owner, from a player asking to add stations: suggestions with automatic
+vetting, and a station list that updates without a game release. The Radio
+app's Suggest a station (and orinks.net/freight-fate/suggest-a-station)
+sends a name and stream address, plus call sign, state, city and frequency
+for an AM or FM station. orinks.net plays the stream's first seconds,
+checks it against the shipped dial and earlier suggestions, and puts what
+passes in the owner's daily station digest. Accepted stations are the
+community station list the game downloads at launch and keeps in the saves
+folder; a drive adds them after the shipped dial, which wins every
+collision.
+
+- [x] Suggest a station in the Radio app; community stations on the dial.
+- [x] Control V pastes into every text field.
+- [x] An accepted AM or FM station is placed at its licensed transmitter
+      from the FCC's records when it is accepted, and plays on the AM and
+      FM band near home; one the FCC does not list stays on the web band
+      and is asked about again weekly.
+- [x] Accepted stations ship in every build (`data/radio_community.json`),
+      copied from the site before each nightly, so a first or offline launch
+      has them too.
+
+### October 9 achievement sweep
+
+(Found along the way) Owner: "Been Everywhere" fired at fourteen regions while the map has
+sixteen. A sweep of every badge trigger against the map and the job board
+as they stand now found three more stale ones.
+
+- [x] Been Everywhere, For Real counts the map's own region list and needs
+      all of it; a region name a save kept from an older map no longer
+      counts. Its copy says "every region" so it cannot go stale again. The
+      catalog digest and the invariants export moved with the copy.
+- [x] Grossed Out at the Scale House needed 24 tons of cargo, and dispatch
+      clamps every load to what a stock rig carries under 80,000 lb (about
+      21.8), so nobody could earn it. It now needs a load within a ton of
+      that ceiling.
+- [x] The Mother Road counts the twelve Route 66 towns the map gained
+      (Bloomington and Springfield IL, Rolla, Springfield MO, Joplin,
+      Tucumcari, Gallup, Holbrook, Winslow, Kingman, Barstow, Victorville),
+      and Shadow of the Giants counts the redwood towns (Ukiah, Willits,
+      Fortuna, Eureka, Crescent City) alongside Santa Rosa and Chico.
 
 ## 2.0 planned -- the working week and home
 

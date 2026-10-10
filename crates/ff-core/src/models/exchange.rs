@@ -12,6 +12,7 @@ use sha2::{Digest, Sha256};
 use thiserror::Error;
 
 pub const DRIVER_EXCHANGE_VERSION: u32 = 1;
+pub const DISPATCH_CALL_VERSION: u32 = 1;
 pub const INTERCHANGE_FORMAT: &str = "freightverse.interchange";
 pub const INTERCHANGE_VERSION: u32 = 1;
 
@@ -148,6 +149,106 @@ pub struct UniverseEvent {
     pub occurred_at: String,
     pub source_game: String,
     pub data: JsonObject,
+}
+
+/// A driver's structured request for dispatch help.
+///
+/// The request carries only the facts needed to make a dispatch decision.
+/// It never transfers the game's active trip or save state.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
+pub struct DispatchCallRequest {
+    pub dispatch_call_version: u32,
+    pub request_id: String,
+    pub contract_id: String,
+    pub leg_id: String,
+    pub source_game: String,
+    pub driver_id: String,
+    pub kind: String,
+    pub created_at: String,
+    pub summary: String,
+    pub context: JsonObject,
+}
+
+impl Default for DispatchCallRequest {
+    fn default() -> Self {
+        Self {
+            dispatch_call_version: DISPATCH_CALL_VERSION,
+            request_id: String::new(),
+            contract_id: String::new(),
+            leg_id: String::new(),
+            source_game: String::new(),
+            driver_id: String::new(),
+            kind: String::new(),
+            created_at: String::new(),
+            summary: String::new(),
+            context: JsonObject::new(),
+        }
+    }
+}
+
+impl DispatchCallRequest {
+    pub fn validate(&self) -> Vec<String> {
+        let mut problems = Vec::new();
+        if self.dispatch_call_version == 0 {
+            problems.push("missing or invalid dispatch_call_version".to_string());
+        }
+        required_text(&self.request_id, "request_id", &mut problems);
+        required_text(&self.source_game, "source_game", &mut problems);
+        required_text(&self.driver_id, "driver_id", &mut problems);
+        required_text(&self.kind, "kind", &mut problems);
+        required_text(&self.summary, "summary", &mut problems);
+        timestamp(&self.created_at, "created_at", &mut problems);
+        problems
+    }
+}
+
+/// A dispatcher's immutable answer to one call.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(default)]
+pub struct DispatchCallResponse {
+    pub dispatch_call_version: u32,
+    pub response_id: String,
+    pub request_id: String,
+    pub source_game: String,
+    pub responder_id: String,
+    pub decision: String,
+    pub responded_at: String,
+    pub message: String,
+    pub effects: JsonObject,
+}
+
+impl Default for DispatchCallResponse {
+    fn default() -> Self {
+        Self {
+            dispatch_call_version: DISPATCH_CALL_VERSION,
+            response_id: String::new(),
+            request_id: String::new(),
+            source_game: String::new(),
+            responder_id: String::new(),
+            decision: String::new(),
+            responded_at: String::new(),
+            message: String::new(),
+            effects: JsonObject::new(),
+        }
+    }
+}
+
+impl DispatchCallResponse {
+    pub fn validate(&self) -> Vec<String> {
+        let mut problems = Vec::new();
+        if self.dispatch_call_version == 0 {
+            problems.push("missing or invalid dispatch_call_version".to_string());
+        }
+        required_text(&self.response_id, "response_id", &mut problems);
+        required_text(&self.request_id, "request_id", &mut problems);
+        required_text(&self.source_game, "source_game", &mut problems);
+        required_text(&self.responder_id, "responder_id", &mut problems);
+        required_text(&self.decision, "decision", &mut problems);
+        required_text(&self.message, "message", &mut problems);
+        timestamp(&self.responded_at, "responded_at", &mut problems);
+        problems
+    }
 }
 
 /// One producer's contracts and events in a versioned JSON envelope.
@@ -663,5 +764,73 @@ mod tests {
         assert!(payload.get("money").is_none());
         assert!(payload.get("active_trip").is_none());
         assert!(payload.get("truck").is_none());
+    }
+
+    #[test]
+    fn dispatch_calls_are_forward_compatible_and_exclude_active_trip_state() {
+        let request: DispatchCallRequest = serde_json::from_value(json!({
+            "dispatch_call_version": 2,
+            "request_id": "dispatch_request-1",
+            "contract_id": "contract-1",
+            "leg_id": "road-1",
+            "source_game": "freight_fate",
+            "driver_id": "driver-1",
+            "kind": "delay",
+            "created_at": "2026-10-07T06:00:00Z",
+            "summary": "Running forty minutes behind.",
+            "context": {
+                "delay_minutes": 40,
+                "hours_remaining": 3.5
+            },
+            "future_field": "ignored"
+        }))
+        .unwrap();
+        assert!(request.validate().is_empty());
+        let payload = serde_json::to_value(request).unwrap();
+        assert!(payload.get("active_trip").is_none());
+        assert!(payload.get("profile").is_none());
+        assert!(payload.get("wallet").is_none());
+
+        let response: DispatchCallResponse = serde_json::from_value(json!({
+            "dispatch_call_version": 2,
+            "response_id": "dispatch_response-1",
+            "request_id": "dispatch_request-1",
+            "source_game": "dispatch",
+            "responder_id": "dispatcher-7",
+            "decision": "continue",
+            "responded_at": "2026-10-07T06:01:00Z",
+            "message": "Continue and send an update after the next stop.",
+            "effects": {
+                "appointment_extension_minutes": 0
+            },
+            "future_field": true
+        }))
+        .unwrap();
+        assert!(response.validate().is_empty());
+    }
+
+    #[test]
+    fn dispatch_call_validation_collects_missing_identity_and_timestamps() {
+        let request = DispatchCallRequest::default();
+        let problems = request.validate();
+        assert!(problems
+            .iter()
+            .any(|problem| problem.contains("request_id")));
+        assert!(problems.iter().any(|problem| problem.contains("driver_id")));
+        assert!(problems
+            .iter()
+            .any(|problem| problem.contains("created_at")));
+
+        let response = DispatchCallResponse::default();
+        let problems = response.validate();
+        assert!(problems
+            .iter()
+            .any(|problem| problem.contains("response_id")));
+        assert!(problems
+            .iter()
+            .any(|problem| problem.contains("request_id")));
+        assert!(problems
+            .iter()
+            .any(|problem| problem.contains("responded_at")));
     }
 }

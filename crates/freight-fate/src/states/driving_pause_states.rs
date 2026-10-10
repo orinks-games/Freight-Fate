@@ -20,6 +20,7 @@ use crate::states::driving_core::{
     CHAIN_SAFE_MPH, DRIVE_PHASE_PICKUP, FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE,
     MECHANIC_WAIT_MIN,
 };
+use crate::states::driving_dispatch_call::DispatchCallState;
 use crate::states::driving_menu_states::{keep_rows, push_over_drive, DriveRef};
 use crate::states::driving_rest_states::ShoulderSleepConfirmationState;
 use crate::states::learn_sounds::LearnSoundsState;
@@ -131,6 +132,15 @@ impl PauseMenuState {
             })
             .help("Units, transmission, volumes, weather, voices, update channel, and pacing."),
         ];
+        if d.trip.truck.speed_mph() <= 3.0 {
+            items.insert(
+                2,
+                MenuItem::new("Call dispatch", |s: &mut Self, ctx| {
+                    ctx.push_state(DispatchCallState::new(s.driving.clone()));
+                })
+                .help("Report a delay, hours, road conditions, truck trouble, or load trouble."),
+            );
+        }
         if d.trip.truck.chains_on {
             items.push(
                 MenuItem::new(
@@ -184,8 +194,12 @@ impl PauseMenuState {
             ),
         );
         if d.emergency_shoulder_sleep_reason(ctx).is_some() {
+            let settings_index = items
+                .iter()
+                .position(|item| item.text(self, ctx) == "Settings")
+                .unwrap_or(items.len());
             items.insert(
-                5,
+                settings_index,
                 MenuItem::new("Emergency shoulder sleep", |s: &mut Self, ctx| {
                     s.emergency_shoulder_sleep(ctx)
                 })
@@ -200,48 +214,10 @@ impl PauseMenuState {
     }
 
     fn mechanic(&mut self, ctx: &mut GameContext) {
-        let done = self.driving.clone().call(self, ctx, |_s, ctx, d| {
-            let damage = d.trip.truck.damage_pct;
-            if damage <= FIELD_REPAIR_DAMAGE_PCT {
-                ctx.say(&format!(
-                    "A roadside mechanic helps once damage is past {} percent.",
-                    fmt_f(FIELD_REPAIR_DAMAGE_PCT, 0)
-                ));
-                return None;
-            }
-            if d.trip.truck.speed_mph() > 3.0 {
-                ctx.say("Come to a complete stop first.");
-                return None;
-            }
-            let cost = road_repair_cost(damage, FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE);
-            let carrier_paid = !player_pays_operating_costs(&profile_of(ctx).business_status);
-            if !carrier_paid {
-                // the rescue is never refused; money can go negative
-                profile_mut_of(ctx).spend(cost);
-            }
-            let money = profile_of(ctx).money();
-            d.trip.truck.damage_pct = FIELD_REPAIR_DAMAGE_PCT;
-            advance_rest_clock(d, ctx, MECHANIC_WAIT_MIN, None, "");
-            hos_mut_of(ctx).on_duty(MECHANIC_WAIT_MIN);
-            ctx.audio.play("ui/notify");
-            let billing = if carrier_paid {
-                "on the carrier breakdown account".to_string()
-            } else {
-                format!(
-                    "for {} dollars. You have {} dollars",
-                    fmt_grouped(cost, 0),
-                    fmt_grouped(money, 0)
-                )
-            };
-            let text = format!(
-                "A mobile mechanic patched the truck up to {} percent damage {billing}. Repair \
-                 took an hour and a half. It is {}. {}",
-                fmt_f(FIELD_REPAIR_DAMAGE_PCT, 0),
-                clock_text(d.trip.local_hour()),
-                deadline_text(d, ctx)
-            );
-            Some(text)
-        });
+        let done = self
+            .driving
+            .clone()
+            .call(self, ctx, |_s, ctx, d| perform_roadside_mechanic(d, ctx));
         // `refresh()` rebuilds these rows through the same drive the closure
         // was holding, so it has to run after the borrow is back. Called from
         // inside, the rebuild found the drive busy and left the pause menu
@@ -524,6 +500,47 @@ impl Menu for QuitWhileMovingConfirmationState {
 }
 
 impl_state_for_menu!(QuitWhileMovingConfirmationState);
+
+pub fn perform_roadside_mechanic(d: &mut DrivingState, ctx: &mut GameContext) -> Option<String> {
+    let damage = d.trip.truck.damage_pct;
+    if damage <= FIELD_REPAIR_DAMAGE_PCT {
+        ctx.say(&format!(
+            "A roadside mechanic helps once damage is past {} percent.",
+            fmt_f(FIELD_REPAIR_DAMAGE_PCT, 0)
+        ));
+        return None;
+    }
+    if d.trip.truck.speed_mph() > 3.0 {
+        ctx.say("Come to a complete stop first.");
+        return None;
+    }
+    let cost = road_repair_cost(damage, FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE);
+    let carrier_paid = !player_pays_operating_costs(&profile_of(ctx).business_status);
+    if !carrier_paid {
+        profile_mut_of(ctx).spend(cost);
+    }
+    let money = profile_of(ctx).money();
+    d.trip.truck.damage_pct = FIELD_REPAIR_DAMAGE_PCT;
+    advance_rest_clock(d, ctx, MECHANIC_WAIT_MIN, None, "");
+    hos_mut_of(ctx).on_duty(MECHANIC_WAIT_MIN);
+    ctx.audio.play("ui/notify");
+    let billing = if carrier_paid {
+        "on the carrier breakdown account".to_string()
+    } else {
+        format!(
+            "for {} dollars. You have {} dollars",
+            fmt_grouped(cost, 0),
+            fmt_grouped(money, 0)
+        )
+    };
+    Some(format!(
+        "A mobile mechanic patched the truck up to {} percent damage {billing}. Repair took an \
+         hour and a half. It is {}. {}",
+        fmt_f(FIELD_REPAIR_DAMAGE_PCT, 0),
+        clock_text(d.trip.local_hour()),
+        deadline_text(d, ctx)
+    ))
+}
 
 pub fn mechanic_label(d: &DrivingState) -> String {
     let damage = d.trip.truck.damage_pct;

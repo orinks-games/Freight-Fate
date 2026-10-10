@@ -68,7 +68,7 @@ def _overpass_mirrors() -> tuple[str, ...]:
 
 
 OSRM_ROUTE_URL = "https://router.project-osrm.org/route/v1/driving/{coords}"
-USER_AGENT = "FreightFate interchange curation (https://github.com/Orinks/Freight-Fate)"
+USER_AGENT = "FreightFate interchange curation (https://github.com/orinks-games/Freight-Fate)"
 ACCESSED_DATE = "2026-06-23"
 EARTH_RADIUS_MI = 3958.7613
 

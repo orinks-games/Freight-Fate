@@ -4,11 +4,13 @@
 
 use chrono::{Datelike, Local};
 use ff_core::achievements::{add_unique_stat, increment_stat, reset_stat};
+use ff_core::data::regions::REGIONS;
 use ff_core::models::carrier_fleet::{fleet_tier_for_level, FLEET_TIERS};
 use ff_core::sim::season::{
     date_text, is_friday_the_thirteenth, is_truck_driver_appreciation_week, player_calendar_hours,
     season,
 };
+use ff_core::sim::vehicle::{combination_tare_kg, max_legal_cargo_tons, TruckSpecs};
 use serde_json::Value;
 
 use crate::app::GameContext;
@@ -25,6 +27,66 @@ use crate::states::driving_menu_states::{simple_arrival_badge, ArrivalState};
 /// must not crash a settlement.
 fn live_calendar(ctx: &GameContext, d: &DrivingState) -> bool {
     d.trip.weather.provider.is_some() && ctx.settings.live_weather_controls_calendar
+}
+
+/// How close to the legal ceiling a load has to come to count as "pushing
+/// the legal weight limit". Dispatch clamps every load to what a stock
+/// tractor and trailer can haul under 80,000 lb, so the badge is measured
+/// from that ceiling rather than a fixed tonnage the board can never offer.
+pub const MAX_GROSS_MARGIN_TONS: f64 = 1.0;
+
+/// The cargo weight a load needs for "Grossed Out at the Scale House".
+pub fn max_gross_badge_tons() -> f64 {
+    max_legal_cargo_tons(combination_tare_kg(&TruckSpecs::default())) - MAX_GROSS_MARGIN_TONS
+}
+
+/// Towns strung along the old Mother Road that the map carries.
+pub const ROUTE66: [&str; 20] = [
+    "chicago_il_us",
+    "bloomington_il_us",
+    "springfield_il_us",
+    "st_louis_mo_us",
+    "rolla_mo_us",
+    "springfield_mo_us",
+    "joplin_mo_us",
+    "tulsa_ok_us",
+    "oklahoma_city_ok_us",
+    "amarillo_tx_us",
+    "tucumcari_nm_us",
+    "albuquerque_nm_us",
+    "gallup_nm_us",
+    "holbrook_az_us",
+    "winslow_az_us",
+    "flagstaff_az_us",
+    "kingman_az_us",
+    "barstow_ca_us",
+    "victorville_ca_us",
+    "los_angeles_ca_us",
+];
+
+/// Redwood country: the far-north California towns in the big trees' shade.
+pub const NORCAL_GIANTS: [&str; 7] = [
+    "santa_rosa_ca_us",
+    "chico_ca_us",
+    "ukiah_ca_us",
+    "willits_ca_us",
+    "fortuna_ca_us",
+    "eureka_ca_us",
+    "crescent_city_ca_us",
+];
+
+/// How many of the map's regions the career has hauled through. Only the
+/// current region names count, so a key a save kept from an older map can
+/// neither stand in for one nor push the count past the real total.
+fn canonical_regions_visited(ctx: &GameContext) -> usize {
+    let visited = profile_of(ctx).achievement_stats.get("regions_visited");
+    let visited = visited.and_then(Value::as_array);
+    REGIONS
+        .iter()
+        .filter(|region| {
+            visited.is_some_and(|values| values.iter().any(|v| v.as_str() == Some(**region)))
+        })
+        .count()
 }
 
 fn int_stat(ctx: &GameContext, key: &str) -> i64 {
@@ -132,16 +194,6 @@ pub(crate) fn award_arrival_achievements(
     if (dest_lon - origin_lon).abs() >= 35.0 {
         push(&mut ids, "coast_to_coast");
     }
-    const ROUTE66: [&str; 8] = [
-        "chicago_il_us",
-        "st_louis_mo_us",
-        "tulsa_ok_us",
-        "oklahoma_city_ok_us",
-        "amarillo_tx_us",
-        "albuquerque_nm_us",
-        "flagstaff_az_us",
-        "los_angeles_ca_us",
-    ];
     if ROUTE66.contains(&origin.as_str()) && ROUTE66.contains(&dest.as_str()) {
         push(&mut ids, "route66_run");
     }
@@ -176,7 +228,7 @@ pub(crate) fn award_arrival_achievements(
     }
 
     // -- Challenges: grind milestones, long hauls, spotless runs ----------
-    if region_count >= 14 {
+    if canonical_regions_visited(ctx) >= REGIONS.len() {
         push(&mut ids, "all_regions");
     }
     if deliveries >= 50 {
@@ -257,7 +309,7 @@ pub(crate) fn award_arrival_achievements(
     if let Some((_, badge)) = STATE_BADGES.iter().find(|(name, _)| *name == dest_state) {
         push(&mut ids, badge);
     }
-    // Map coverage milestones across the 623-city network.
+    // Map coverage milestones across the whole city network.
     let city_count = add_unique_stat(profile_mut_of(ctx), "cities_delivered", &dest);
     if city_count >= 25 {
         push(&mut ids, "twenty_five_cities");
@@ -293,8 +345,7 @@ pub(crate) fn award_arrival_achievements(
         // "by Two"
         push(&mut ids, "gulf_coast_by_two");
     }
-    if dest == "santa_rosa_ca_us" || dest == "chico_ca_us" {
-        // big-tree country
+    if NORCAL_GIANTS.contains(&dest.as_str()) {
         push(&mut ids, "norcal_giants");
     }
     const TRIANGLE: [&str; 5] = [
@@ -367,7 +418,7 @@ pub(crate) fn award_arrival_achievements(
     if job.cargo.key == "grain" || job.cargo.key == "farm_inputs" {
         push(&mut ids, "farm_load");
     }
-    if job.weight_tons >= 24.0 {
+    if job.weight_tons >= max_gross_badge_tons() {
         push(&mut ids, "max_gross_load");
     }
 

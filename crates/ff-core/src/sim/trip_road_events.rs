@@ -233,6 +233,19 @@ impl Trip {
                 } else {
                     String::new()
                 };
+                // Off a corridor onto a relayed pickup's street chain the
+                // truck has arrived, not passed through: the turn cue names
+                // the street, and "toward" this same city said nothing.
+                if city == nxt {
+                    if !crossing.is_empty() {
+                        self.emit(
+                            TripEventKind::CityReached,
+                            SpokenMessage::new(crossing.trim_end().to_string()),
+                            TripEventData::default(),
+                        );
+                    }
+                    continue;
+                }
                 let message = format!(
                     "{crossing}Passing {}, {city_state}. Continuing on {highway} toward {}.",
                     world.spoken_city(&city, Some(false)),

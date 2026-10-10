@@ -388,8 +388,8 @@ impl Menu for OnlineHubState {
             )
             .help(
                 "Master switch for the orinks.net and sharing services. Off stops the drivers \
-                 list, profile sharing, cloud backup, Mastodon sharing, and Discord presence \
-                 without losing their settings. Live weather, traffic, and parking have their \
+                 list, profile sharing, cloud backup, Mastodon sharing, station suggestions, and \
+                 Discord presence without losing their settings. Live weather, traffic, and parking have their \
                  own toggles under Settings.",
             ),
             MenuItem::new(
