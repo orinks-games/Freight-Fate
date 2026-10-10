@@ -175,7 +175,19 @@ jobs:
           security set-keychain-settings -lut 21600 "$keychain"
           security unlock-keychain -p "$keychain_password" "$keychain"
           echo "SIGN_KEYCHAIN=$keychain" >> "$GITHUB_ENV"
-          openssl pkcs12 -export -inkey "$SIGNING_DIR/distribution.key.pem" \
+          # OpenSSL 3 writes AES/PBKDF2 PKCS12 files that the macOS keychain
+          # rejects ("MAC verification failed"). Ask for the older 3DES/SHA1
+          # format explicitly when the openssl on PATH is OpenSSL 3; LibreSSL
+          # (/usr/bin/openssl) already writes it by default.
+          openssl_version="$(openssl version)"
+          echo "$openssl_version"
+          p12_flags=()
+          if [[ "$openssl_version" == "OpenSSL 3"* ]]; then
+            p12_flags=(-keypbe PBE-SHA1-3DES -certpbe PBE-SHA1-3DES -macalg sha1)
+          fi
+          # The ${arr[@]+...} form keeps an empty array safe under set -u on bash 3.2.
+          openssl pkcs12 -export ${p12_flags[@]+"${p12_flags[@]}"} \
+            -inkey "$SIGNING_DIR/distribution.key.pem" \
             -in "$SIGNING_DIR/distribution.cert.pem" \
             -out "$SIGNING_DIR/distribution.p12" -passout "pass:$p12_password"
           security import "$SIGNING_DIR/distribution.p12" -k "$keychain" \
