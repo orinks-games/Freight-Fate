@@ -304,7 +304,9 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
                                                      userInfo:nil
                                                       repeats:NO];
     }
-    if (_direction == FFDown && _hold != FF_DEEP_SWIPE_DOWN_BEGAN &&
+    // Only a stroke that has outlasted the flick window (the down hold has
+    // begun) can become the deep swipe; a fast long flick down stays a flick.
+    if (_direction == FFDown && _hold == FF_HOLD_LOWER_BEGAN &&
         dy >= ff_flick_points * ff_deep_factor) {
         [_flickTimer invalidate];
         _flickTimer = nil;
