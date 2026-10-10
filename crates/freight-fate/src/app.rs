@@ -442,6 +442,7 @@ impl App {
         crate::audio::classic_music::register();
         let settings = Settings::load();
         sdl_shell::set_touch_haptics(settings.touch_haptics);
+        sdl_shell::set_touch_tuning(&settings);
         boot_timing::mark("settings");
         // Stations players suggested and the owner accepted; the first drive
         // reads whatever copy is saved, so this never holds up launch. A
@@ -794,6 +795,13 @@ impl App {
     /// Spoken hints follow: from here on they name gestures, until a key or
     /// a controller button is pressed.
     pub fn dispatch_gesture(&mut self, gesture: Gesture) {
+        if matches!(
+            gesture,
+            Gesture::KeyboardConnected | Gesture::KeyboardDisconnected
+        ) {
+            self.ctx.controller.hardware_keyboard = gesture == Gesture::KeyboardConnected;
+            return;
+        }
         self.ctx.controller.note_touch();
         if self
             .ctx
@@ -810,9 +818,36 @@ impl App {
                 return;
             }
         }
+        let driving = self
+            .ctx
+            .state()
+            .is_some_and(|state| state.borrow().as_any().is::<DrivingState>());
+        // Gas may release the parking brake first, and a deep swipe at a stop
+        // is the parking brake: the drive answers those before any key.
+        if driving
+            && matches!(
+                gesture,
+                Gesture::HoldUpperBegan | Gesture::DeepSwipeDownBegan
+            )
+        {
+            let state = self.ctx.state().expect("the drive is still on top");
+            let taken = state.borrow_mut().handle_gesture(&mut self.ctx, gesture);
+            self.ctx.run_deferred();
+            if taken {
+                return;
+            }
+        }
+        // Full lane keeping leaves the lanes to the flicks alone.
+        if driving && gesture.steers() && self.ctx.settings.lane_is_automated() {
+            self.ctx
+                .say("Lane keeping is on full. Flick left or right to change lanes.");
+            return;
+        }
         if let Some(action) = match gesture {
             Gesture::EmergencyBrakeHoldBegan => Some(crate::bindings::Action::EmergencyBrake),
+            Gesture::DeepSwipeDownBegan if driving => Some(crate::bindings::Action::EmergencyBrake),
             Gesture::HornHoldBegan => Some(crate::bindings::Action::Horn),
+            Gesture::StillHoldBegan if driving => Some(crate::bindings::Action::Straighten),
             _ => None,
         } {
             if let Some(previous) = self.touch_bound_hold.take() {

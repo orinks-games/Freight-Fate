@@ -622,3 +622,20 @@ fn test_upcoming_key_does_not_repeat_the_next_exit_key() {
 
     assert!(!last(&app).contains(&text), "{}", last(&app));
 }
+
+#[test]
+fn test_cancelling_a_keeper_only_session_remembers_its_speed_for_resume() {
+    let mut app = TestApp::new();
+    let mut d = a_drive(&mut app);
+    d.trip.truck.set_air_ready(false);
+    d.trip.truck.start_engine();
+    app.ctx.settings.speed_keeper = true;
+    d.trip.truck.velocity_mps = mph_to_mps(27.0);
+    d.engage_keeper(&mut app.ctx, 35.0, "work", None, false);
+    let held = d
+        .keeper_mph
+        .unwrap_or_else(|| panic!("keeper off: {:?}", last(&app)));
+    assert_eq!(d.resume_target_mph, None);
+    d.cancel_keeper(&mut app.ctx, false);
+    assert_eq!(d.resume_target_mph, Some(held));
+}

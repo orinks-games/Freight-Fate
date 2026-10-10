@@ -132,7 +132,12 @@ impl DrivingState {
         // RESUME: braking drops the session, Shift+K brings the speed back.
         // A keeper-only cancel carries no target and must not clobber a
         // remembered one.
-        let remembered = self.speed_control_target_mph.or(self.cruise_mph);
+        // With nothing remembered yet, the keeper's speed is the last one
+        // set, so resume brings that back.
+        let remembered = self
+            .speed_control_target_mph
+            .or(self.cruise_mph)
+            .or(self.keeper_mph.filter(|_| self.resume_target_mph.is_none()));
         if let Some(remembered) = remembered {
             if remembered != 0.0 {
                 self.resume_target_mph = Some(remembered);

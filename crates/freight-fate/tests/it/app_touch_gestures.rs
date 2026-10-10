@@ -224,7 +224,10 @@ fn touch_practice_takes_pedal_and_bound_holds_before_they_press_keys() {
 
     harness.app.dispatch_gesture(Gesture::HoldUpperBegan);
     assert!(
-        harness.transcript().iter().any(|line| line == "Gas."),
+        harness
+            .transcript()
+            .iter()
+            .any(|line| line == "Swipe up and hold: gas. Lift to coast."),
         "{:?}",
         harness.transcript()
     );
@@ -252,12 +255,20 @@ fn touch_practice_names_every_fixed_gesture_command() {
 
     harness.clear_speech();
     harness.app.dispatch_gesture(Gesture::SwipeRight);
-    assert_eq!(harness.transcript(), vec!["Swipe right: Steer right."]);
+    assert_eq!(
+        harness.transcript(),
+        vec!["Flick right: Change lanes right."]
+    );
 
-    for gesture in (0..=38).filter_map(Gesture::from_code) {
+    for gesture in (0..=47).filter_map(Gesture::from_code) {
         if matches!(
             gesture,
-            Gesture::Escape | Gesture::TwoFingerSwipeDown | Gesture::HoldEnded
+            Gesture::Escape
+                | Gesture::TwoFingerSwipeDown
+                | Gesture::HoldEnded
+                | Gesture::SecondSteerEnded
+                | Gesture::KeyboardConnected
+                | Gesture::KeyboardDisconnected
         ) {
             continue;
         }
@@ -417,4 +428,165 @@ fn the_touch_gestures_screen_moves_a_gesture_and_saves_it() {
 
     harness.select_menu_item("Reset every touch gesture to its default");
     assert_eq!(harness.app.ctx.settings.touch_bindings, "");
+}
+
+fn said(harness: &PlaytestHarness, text: &str) -> bool {
+    harness
+        .transcript()
+        .iter()
+        .any(|line| line.to_lowercase().contains(text))
+}
+
+#[test]
+fn a_deep_swipe_at_a_stop_sets_the_parking_brake_and_gas_releases_it() {
+    let mut harness = a_drive("Touch Deep Swipe Stopped");
+    rolling(&mut harness, 0.0);
+    let mut input = TouchInput::new();
+
+    touch(&mut harness, &mut input, Gesture::HoldLowerBegan);
+    touch(&mut harness, &mut input, Gesture::DeepSwipeDownBegan);
+    assert!(harness.with_drive(|drive, _| drive.trip.truck.parking_brake));
+    assert!(
+        said(&harness, "parking brake set"),
+        "{:?}",
+        harness.transcript()
+    );
+    touch(&mut harness, &mut input, Gesture::HoldEnded);
+    harness.with_drive(|drive, _| drive.trip.truck.set_air_pressure_psi(120.0));
+
+    harness.clear_speech();
+    touch(&mut harness, &mut input, Gesture::HoldUpperBegan);
+    assert!(!harness.with_drive(|drive, _| drive.trip.truck.parking_brake));
+    assert!(
+        said(&harness, "parking brake released"),
+        "{:?}",
+        harness.transcript()
+    );
+    assert!(harness.app.ctx.input.physically_down(Key::Up));
+}
+
+#[test]
+fn a_deep_swipe_while_moving_holds_the_emergency_brake() {
+    let mut harness = a_drive("Touch Deep Swipe Moving");
+    rolling(&mut harness, 40.0);
+    assert!(matches!(
+        harness
+            .app
+            .ctx
+            .bindings
+            .set_chord(Action::EmergencyBrake, Chord::plain(Key::Z)),
+        freight_fate::bindings::Rebind::Done
+    ));
+    let mut input = TouchInput::new();
+
+    touch(&mut harness, &mut input, Gesture::HoldLowerBegan);
+    touch(&mut harness, &mut input, Gesture::DeepSwipeDownBegan);
+    assert!(!harness.app.ctx.input.physically_down(Key::Down));
+    assert!(harness.app.ctx.input.physically_down(Key::Z));
+    assert!(!harness.with_drive(|drive, _| drive.trip.truck.parking_brake));
+    touch(&mut harness, &mut input, Gesture::HoldEnded);
+    assert!(!harness.app.ctx.input.physically_down(Key::Z));
+}
+
+#[test]
+fn a_two_finger_turn_starts_and_stops_the_engine() {
+    let mut harness = a_drive("Touch Engine Key");
+    harness.with_drive(|drive, _| drive.trip.truck.engine_on = false);
+    harness.app.dispatch_gesture(Gesture::RotateRight);
+    assert!(harness.with_drive(|drive, _| drive.trip.truck.engine_on));
+    harness.app.dispatch_gesture(Gesture::RotateRight);
+    assert!(harness.with_drive(|drive, _| drive.trip.truck.engine_on));
+    assert!(
+        said(&harness, "already running"),
+        "{:?}",
+        harness.transcript()
+    );
+    harness.app.dispatch_gesture(Gesture::RotateLeft);
+    assert!(!harness.with_drive(|drive, _| drive.trip.truck.engine_on));
+}
+
+#[test]
+fn steering_holds_follow_the_lane_keeping_rule() {
+    let mut harness = a_drive("Touch Steering Holds");
+    rolling(&mut harness, 45.0);
+    let mut input = TouchInput::new();
+
+    harness.app.ctx.settings.lane_keeping = "full".to_string();
+    touch(&mut harness, &mut input, Gesture::HoldLeftBegan);
+    assert!(!harness.app.ctx.input.physically_down(Key::Left));
+    assert!(
+        said(&harness, "flick left or right"),
+        "{:?}",
+        harness.transcript()
+    );
+    touch(&mut harness, &mut input, Gesture::HoldEnded);
+
+    for mode in ["off", "partial"] {
+        harness.app.ctx.settings.lane_keeping = mode.to_string();
+        touch(&mut harness, &mut input, Gesture::HoldRightBegan);
+        assert!(harness.app.ctx.input.physically_down(Key::Right), "{mode}");
+        touch(&mut harness, &mut input, Gesture::HoldEnded);
+        assert!(!harness.app.ctx.input.physically_down(Key::Right), "{mode}");
+    }
+
+    touch(&mut harness, &mut input, Gesture::HoldUpperBegan);
+    touch(&mut harness, &mut input, Gesture::SecondSteerLeftBegan);
+    assert!(harness.app.ctx.input.physically_down(Key::Left));
+    touch(&mut harness, &mut input, Gesture::SecondSteerEnded);
+    assert!(!harness.app.ctx.input.physically_down(Key::Left));
+    assert!(harness.app.ctx.input.physically_down(Key::Up));
+}
+
+#[test]
+fn a_still_hold_straightens_the_wheel_until_it_lifts() {
+    let mut harness = a_drive("Touch Straighten");
+    assert!(matches!(
+        harness
+            .app
+            .ctx
+            .bindings
+            .set_chord(Action::Straighten, Chord::plain(Key::Z)),
+        freight_fate::bindings::Rebind::Done
+    ));
+    let mut input = TouchInput::new();
+    touch(&mut harness, &mut input, Gesture::StillHoldBegan);
+    assert!(harness.app.ctx.input.physically_down(Key::Z));
+    touch(&mut harness, &mut input, Gesture::HoldEnded);
+    assert!(!harness.app.ctx.input.physically_down(Key::Z));
+}
+
+#[test]
+fn a_second_finger_shift_flick_in_automatic_says_the_gear() {
+    let mut harness = a_drive("Touch Automatic Gear");
+    rolling(&mut harness, 30.0);
+    harness.with_drive(|drive, _| drive.trip.truck.transmission.automatic = true);
+    let before = harness.with_drive(|drive, _| drive.gear_text());
+    let mut input = TouchInput::new();
+    touch(&mut harness, &mut input, Gesture::HoldUpperBegan);
+    harness.clear_speech();
+    touch(&mut harness, &mut input, Gesture::UpperHoldSwipeUp);
+    assert!(said(&harness, "automatic"), "{:?}", harness.transcript());
+    assert_eq!(harness.with_drive(|drive, _| drive.gear_text()), before);
+}
+
+#[test]
+fn cruise_flicks_resume_and_set_with_cruise_off() {
+    let mut harness = a_drive("Touch Cruise Flicks");
+    rolling(&mut harness, 45.0);
+    assert!(!speed_control_on(&mut harness));
+    harness.app.dispatch_gesture(Gesture::SwipeDown);
+    assert!(speed_control_on(&mut harness), "{:?}", harness.transcript());
+}
+
+#[test]
+fn without_a_hardware_keyboard_hints_name_gestures() {
+    let mut harness = a_drive("Touch No Keyboard");
+    harness.app.dispatch_gesture(Gesture::KeyboardDisconnected);
+    assert!(!harness.app.ctx.controller.hardware_keyboard);
+    assert_eq!(
+        harness.app.ctx.controller.device(),
+        ff_core::input_hints::TOUCH
+    );
+    harness.app.dispatch_gesture(Gesture::KeyboardConnected);
+    assert!(harness.app.ctx.controller.hardware_keyboard);
 }

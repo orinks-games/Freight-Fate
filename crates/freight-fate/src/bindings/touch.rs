@@ -76,13 +76,13 @@ const SLOTS: &[(Gesture, &str, &str, TouchCommand)] = &[
     (
         Gesture::SwipeUp,
         "swipe_up",
-        "Swipe up",
+        "Flick up",
         run(Action::CruiseUp),
     ),
     (
         Gesture::SwipeDown,
         "swipe_down",
-        "Swipe down",
+        "Flick down",
         run(Action::CruiseDown),
     ),
     (
@@ -124,25 +124,25 @@ const SLOTS: &[(Gesture, &str, &str, TouchCommand)] = &[
     (
         Gesture::UpperHoldSwipeUp,
         "top_hold_swipe_up",
-        "Gas hold, swipe up with a second finger",
+        "Gas hold, flick up with a second finger",
         run(Action::ShiftUp),
     ),
     (
         Gesture::UpperHoldSwipeDown,
         "top_hold_swipe_down",
-        "Gas hold, swipe down with a second finger",
+        "Gas hold, flick down with a second finger",
         run(Action::ShiftDown),
     ),
     (
         Gesture::UpperHoldSwipeLeft,
         "top_hold_swipe_left",
-        "Gas hold, swipe left with a second finger",
+        "Gas hold, flick left with a second finger",
         run(Action::SteerLeft),
     ),
     (
         Gesture::UpperHoldSwipeRight,
         "top_hold_swipe_right",
-        "Gas hold, swipe right with a second finger",
+        "Gas hold, flick right with a second finger",
         run(Action::SteerRight),
     ),
     (
@@ -160,26 +160,26 @@ const SLOTS: &[(Gesture, &str, &str, TouchCommand)] = &[
     (
         Gesture::LowerHoldSwipeUp,
         "bottom_hold_swipe_up",
-        "Brake hold, swipe up with a second finger",
-        TouchCommand::Nothing,
+        "Brake hold, flick up with a second finger",
+        run(Action::ShiftUp),
     ),
     (
         Gesture::LowerHoldSwipeDown,
         "bottom_hold_swipe_down",
-        "Brake hold, swipe down with a second finger",
-        TouchCommand::Nothing,
+        "Brake hold, flick down with a second finger",
+        run(Action::ShiftDown),
     ),
     (
         Gesture::LowerHoldSwipeLeft,
         "bottom_hold_swipe_left",
-        "Brake hold, swipe left with a second finger",
-        TouchCommand::Nothing,
+        "Brake hold, flick left with a second finger",
+        run(Action::SteerLeft),
     ),
     (
         Gesture::LowerHoldSwipeRight,
         "bottom_hold_swipe_right",
-        "Brake hold, swipe right with a second finger",
-        TouchCommand::Nothing,
+        "Brake hold, flick right with a second finger",
+        run(Action::SteerRight),
     ),
 ];
 
@@ -230,24 +230,24 @@ pub fn touch_gesture_noun(gesture: Gesture) -> Option<String> {
     let plain = |noun: &str| Some(noun.to_string());
     match gesture {
         Gesture::Tap => plain("a tap"),
-        Gesture::SwipeUp => plain("a swipe up"),
-        Gesture::SwipeDown => plain("a swipe down"),
+        Gesture::SwipeUp => plain("a flick up"),
+        Gesture::SwipeDown => plain("a flick down"),
         Gesture::TwoFingerTap => plain("a two-finger tap"),
         Gesture::MagicTap => plain("a two-finger double tap"),
         Gesture::ThreeFingerSwipeUp => plain("a three-finger swipe up"),
         Gesture::ThreeFingerSwipeDown => plain("a three-finger swipe down"),
         Gesture::UpperHoldTap => held("gas", "tap"),
         Gesture::UpperHoldDoubleTap => held("gas", "double tap"),
-        Gesture::UpperHoldSwipeUp => held("gas", "swipe up"),
-        Gesture::UpperHoldSwipeDown => held("gas", "swipe down"),
-        Gesture::UpperHoldSwipeLeft => held("gas", "swipe left"),
-        Gesture::UpperHoldSwipeRight => held("gas", "swipe right"),
+        Gesture::UpperHoldSwipeUp => held("gas", "flick up"),
+        Gesture::UpperHoldSwipeDown => held("gas", "flick down"),
+        Gesture::UpperHoldSwipeLeft => held("gas", "flick left"),
+        Gesture::UpperHoldSwipeRight => held("gas", "flick right"),
         Gesture::LowerHoldTap => held("brake", "tap"),
         Gesture::LowerHoldDoubleTap => held("brake", "double tap"),
-        Gesture::LowerHoldSwipeUp => held("brake", "swipe up"),
-        Gesture::LowerHoldSwipeDown => held("brake", "swipe down"),
-        Gesture::LowerHoldSwipeLeft => held("brake", "swipe left"),
-        Gesture::LowerHoldSwipeRight => held("brake", "swipe right"),
+        Gesture::LowerHoldSwipeUp => held("brake", "flick up"),
+        Gesture::LowerHoldSwipeDown => held("brake", "flick down"),
+        Gesture::LowerHoldSwipeLeft => held("brake", "flick left"),
+        Gesture::LowerHoldSwipeRight => held("brake", "flick right"),
         _ => None,
     }
 }
@@ -257,6 +257,9 @@ impl KeyBindings {
     /// the first gesture it is on, else the fixed pedal and steering
     /// gestures, else its row on the driving command list.
     pub fn touch_noun(&self, action: Action) -> String {
+        if action == Action::Engine {
+            return "a two-finger turn to the right".to_string();
+        }
         let on_gesture = SLOTS
             .iter()
             .map(|(gesture, ..)| *gesture)
@@ -266,12 +269,13 @@ impl KeyBindings {
             return noun;
         }
         match action {
-            Action::Accelerate => "a hold anywhere on the screen".to_string(),
-            Action::Brake => "tap, then hold anywhere on the screen".to_string(),
-            Action::EmergencyBrake => "a two-finger hold".to_string(),
-            Action::Horn => "a three-finger hold".to_string(),
-            Action::SteerLeft => "a swipe left".to_string(),
-            Action::SteerRight => "a swipe right".to_string(),
+            Action::Accelerate => "a swipe up and hold".to_string(),
+            Action::Brake => "a swipe down and hold".to_string(),
+            Action::EmergencyBrake => "a deep swipe down".to_string(),
+            Action::Horn => "a two-finger hold".to_string(),
+            Action::SteerLeft => "a flick left".to_string(),
+            Action::SteerRight => "a flick right".to_string(),
+            Action::Straighten => "a still hold for half a second".to_string(),
             Action::TakeExit => "the exit command from the three-finger tap list".to_string(),
             other => format!("{} from the three-finger tap list", other.label()),
         }
@@ -341,7 +345,7 @@ mod tests {
         let mut b = KeyBindings::default();
         assert_eq!(
             b.hint_touch_phrase("engine").as_deref(),
-            Some("a second-finger double tap while holding brake")
+            Some("a two-finger turn to the right")
         );
         assert_eq!(b.hint_touch_phrase("accelerate"), None);
         assert_eq!(
@@ -397,7 +401,6 @@ mod tests {
             Gesture::TwoFingerSwipeLeft,
             Gesture::ThreeFingerSwipeLeft,
             Gesture::ThreeFingerTap,
-            Gesture::ThreeFingerDoubleTap,
             Gesture::HoldUpperBegan,
             Gesture::HoldEnded,
             Gesture::Escape,

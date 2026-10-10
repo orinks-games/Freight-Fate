@@ -19,13 +19,16 @@ use crate::states::base::{spoken_char, InputEvent, Key, State};
 /// The longest string a field takes.
 pub const MAX_LEN: usize = 24;
 
-/// Appended to every field's prompt: on iOS the on-screen keyboard rises
-/// with the field, and the player needs to know how to put it away.
-pub const KEYBOARD_HINT: &str = if cfg!(target_os = "ios") {
-    " Three-finger double tap hides or shows the keyboard."
-} else {
-    ""
-};
+/// A field's controls in gestures, for a touch player with no hardware
+/// keyboard to name keys on. The on-screen keyboard rises with the field.
+pub const TOUCH_FIELD_HELP: &str = "Type with the on-screen keyboard, then double tap. \
+    Flick left or right to review the letters, swipe up or down with three fingers to jump \
+    to the start or end, and swipe down with two fingers to cancel.";
+
+/// Whether a field prompt should name gestures rather than keys.
+pub fn touch_prompt(ctx: &GameContext) -> bool {
+    ctx.controller.device() == ff_core::input_hints::TOUCH
+}
 
 /// The field itself: what the Python class kept on `self`.
 pub struct TextEntryCore {
@@ -98,10 +101,14 @@ pub trait TextEntry: Sized + 'static {
 
     fn enter(&mut self, ctx: &mut GameContext) {
         let heading = self.entry().heading.clone();
+        if touch_prompt(ctx) {
+            ctx.say(&format!("{heading}. {TOUCH_FIELD_HELP}"));
+            return;
+        }
         ctx.say(&format!(
             "{heading}. Type, then press Enter. \
              Left and right arrows review the letters you have typed, \
-             Home and End jump to the start or end. Press Escape to cancel.{KEYBOARD_HINT}"
+             Home and End jump to the start or end. Press Escape to cancel."
         ));
     }
 

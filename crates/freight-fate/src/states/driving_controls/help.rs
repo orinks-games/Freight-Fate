@@ -408,9 +408,26 @@ impl DrivingState {
 impl DrivingState {
     /// The touch-screen layout, from the player's own touch bindings.
     pub fn speak_touch_help(&mut self, ctx: &mut GameContext) {
+        // The core rule comes first; everything after it is an example.
         let mut text = String::from(
-            "Hold anywhere on the screen for gas. Tap, then hold anywhere for brake. \
-             Hold two fingers for emergency brake and three fingers for horn. Swipe left or right to steer, unless lane keeping is on full. ",
+            "A flick is one step. A swipe and hold is continuous. Everything works anywhere \
+             on the screen. Swipe up and hold for gas; lift to coast. Swipe down and hold to \
+             brake. Swipe down three times as deep for the emergency brake; stopped, that \
+             sets the parking brake, and gas releases it. ",
+        );
+        text.push_str(if ctx.settings.lane_is_automated() {
+            "Flick left or right to change lanes; with lane keeping on full, flicks are the \
+             only lane control. "
+        } else {
+            "Flick left or right to change lanes, or swipe left or right and hold to steer. "
+        });
+        text.push_str(
+            "Hold one finger still for half a second to straighten the wheel. With cruise \
+             off, flick up to resume the last speed and flick down to set the current speed. \
+             Turn two fingers right like a key to start the engine, left to stop it. Hold two \
+             fingers for the horn; turning them cancels it. While holding a pedal, a second \
+             finger's flicks and holds work the same way, and in automatic its shift flicks \
+             say the gear. ",
         );
         for gesture in crate::bindings::touch_slots() {
             let (Some(name), Some(command)) = (

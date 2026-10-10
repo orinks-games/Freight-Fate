@@ -285,8 +285,7 @@ impl SdlShell {
     }
 
     /// Follow the active screen: raise the on-screen keyboard when a text
-    /// field opens and lower it when the field goes away. In between, the
-    /// three-finger double tap still hides or shows it.
+    /// field opens and lower it when the field goes away.
     #[cfg(target_os = "ios")]
     pub fn set_text_field(&mut self, open: bool) {
         if open == self.text_field_open {
@@ -318,16 +317,7 @@ impl SdlShell {
             self.touch.release_into(&mut events);
         }
         while let Some(gesture) = next_gesture() {
-            let out = self.touch.handle(gesture);
-            events.extend(out.events);
-            if out.toggle_keyboard {
-                self.keyboard_shown = !self.keyboard_shown;
-                if self.keyboard_shown {
-                    self.video.text_input().start();
-                } else {
-                    self.video.text_input().stop();
-                }
-            }
+            events.extend(self.touch.handle(gesture).events);
         }
         events
     }
@@ -356,6 +346,13 @@ extern "C" {
     fn ff_touch_install(window: *mut std::ffi::c_void) -> i32;
     fn ff_touch_next() -> i32;
     fn ff_touch_set_haptics(enabled: i32);
+    fn ff_touch_set_tuning(
+        flick_points: f64,
+        flick_ms: f64,
+        deep_factor: f64,
+        still_ms: f64,
+        rotate_degrees: f64,
+    );
 }
 
 #[cfg(target_os = "ios")]
@@ -366,6 +363,24 @@ pub(crate) fn set_touch_haptics(enabled: bool) {
 
 #[cfg(not(target_os = "ios"))]
 pub(crate) fn set_touch_haptics(_enabled: bool) {}
+
+/// Hand the gesture thresholds in the settings to the native recognizers.
+#[cfg(target_os = "ios")]
+pub(crate) fn set_touch_tuning(settings: &ff_core::settings::Settings) {
+    // SAFETY: the UIKit shim copies five plain numbers on the app thread.
+    unsafe {
+        ff_touch_set_tuning(
+            settings.touch_flick_points,
+            settings.touch_flick_ms,
+            settings.touch_deep_swipe_factor,
+            settings.touch_still_hold_ms,
+            settings.touch_rotate_degrees,
+        )
+    };
+}
+
+#[cfg(not(target_os = "ios"))]
+pub(crate) fn set_touch_tuning(_settings: &ff_core::settings::Settings) {}
 
 /// Lay the gesture surface (`ios/ff_touch.m`) over SDL's view.
 #[cfg(target_os = "ios")]

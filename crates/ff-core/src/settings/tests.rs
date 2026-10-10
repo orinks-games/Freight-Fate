@@ -87,13 +87,14 @@ fn the_struct_carries_the_persisted_fields_in_python_order() {
     // radio_shuffle_playlists and steering_guide_inverted (2026-09-18), and
     // synth_music and music_seed (2026-09-21), touch_bindings (2026-09-29),
     // assist_preset_chosen (2026-09-30), and touch_haptics and
-    // touch_practice_offered (2026-10-07) were added on the Rust side;
+    // touch_practice_offered (2026-10-07), and the six touch gesture
+    // thresholds (2026-10-08) were added on the Rust side;
     // lane_centering_assist was retired for 1.9.
-    assert_eq!(Settings::FIELD_NAMES.len(), 87);
+    assert_eq!(Settings::FIELD_NAMES.len(), 93);
     assert_eq!(Settings::FIELD_NAMES[0], "online_services");
     assert_eq!(Settings::FIELD_NAMES[79], "settings_layout_notice_from");
     let pairs = Settings::default().ordered_values();
-    assert_eq!(pairs.len(), 87);
+    assert_eq!(pairs.len(), 93);
     for ((name, _), field) in pairs.iter().zip(Settings::FIELD_NAMES) {
         assert_eq!(name, field);
     }
@@ -145,6 +146,8 @@ fn the_defaults_match_the_python_dataclass() {
         "settings_version": 3, "settings_layout_notice_from": -1,
         "key_bindings": "", "pad_bindings": "", "touch_bindings": "",
         "touch_haptics": true, "touch_practice_offered": false,
+        "touch_flick_points": 30.0, "touch_flick_ms": 150.0, "touch_deep_swipe_factor": 3.0,
+        "touch_still_hold_ms": 500.0, "touch_rotate_degrees": 30.0, "touch_parking_brake_mph": 1.0,
         "steering_guide_inverted": false, "assist_preset_chosen": false
     }"#,
     )
@@ -152,7 +155,7 @@ fn the_defaults_match_the_python_dataclass() {
     let Value::Object(expected) = expected else {
         unreachable!()
     };
-    assert_eq!(expected.len(), 87);
+    assert_eq!(expected.len(), 93);
     for (name, value) in s.ordered_values() {
         assert_eq!(Some(&value), expected.get(name), "{name}");
     }
@@ -177,6 +180,9 @@ fn the_file_text_is_what_json_dump_wrote() {
     assert!(text.starts_with("{\n  \"online_services\": true,\n  \"imperial_units\": true,\n"));
     assert!(text.ends_with(
         "  \"pad_bindings\": \"\",\n  \"touch_bindings\": \"\",\n  \"touch_haptics\": true,\n  \"touch_practice_offered\": false,\n  \
+         \"touch_flick_points\": 30.0,\n  \"touch_flick_ms\": 150.0,\n  \
+         \"touch_deep_swipe_factor\": 3.0,\n  \"touch_still_hold_ms\": 500.0,\n  \
+         \"touch_rotate_degrees\": 30.0,\n  \"touch_parking_brake_mph\": 1.0,\n  \
          \"steering_guide_inverted\": false,\n  \"assist_preset_chosen\": false,\n  \"steering_assist\": \"off\"\n}"
     ));
     assert!(text.contains("\n  \"time_scale\": 10.0,\n"));

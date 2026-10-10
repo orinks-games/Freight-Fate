@@ -3,8 +3,10 @@
 //! The iPhone and iPad game is the desktop game, spoken through Prism and
 //! driven by the same states. `ios/ff_touch.m` recognizes the gestures (with
 //! VoiceOver on, through a direct-interaction element) and queues a code for
-//! each; [`TouchInput`] turns the codes into [`InputEvent`]s. A held finger
-//! is a held pedal key. Every other gesture arrives as
+//! each; [`TouchInput`] turns the codes into [`InputEvent`]s. A flick is one
+//! step, a swipe and hold is continuous: a stroke held in a direction is a
+//! held key (gas, brake, steering) until it lifts. Every other gesture
+//! arrives as
 //! [`InputEvent::Gesture`]: the driving state runs the command the player's
 //! touch bindings give it, and every other screen, or a gesture with no
 //! binding, gets the key a keyboard player would press ([`Gesture::key`]).
@@ -31,12 +33,11 @@ pub enum Gesture {
     ThreeFingerSwipeDown,
     ThreeFingerSwipeLeft,
     ThreeFingerSwipeRight,
-    ThreeFingerDoubleTap,
     /// Opens the driving command list, and reads a name field back.
     ThreeFingerTap,
-    /// One finger held still anywhere on the screen (gas).
+    /// A swipe up and hold anywhere on the screen (gas).
     HoldUpperBegan,
-    /// A tap followed by a hold anywhere on the screen (brake).
+    /// A swipe down and hold anywhere on the screen (brake).
     HoldLowerBegan,
     HoldEnded,
     /// VoiceOver's two-finger scrub.
@@ -63,10 +64,32 @@ pub enum Gesture {
     LowerHoldSwipeDown,
     LowerHoldSwipeLeft,
     LowerHoldSwipeRight,
-    /// Two fingers held anywhere (emergency brake).
+    /// The old two-finger emergency brake hold; the native side no longer
+    /// sends it, and the deep swipe took its place.
     EmergencyBrakeHoldBegan,
-    /// Three fingers held anywhere (horn).
+    /// Two or three fingers held anywhere (horn).
     HornHoldBegan,
+    /// A swipe left and hold (steer left).
+    HoldLeftBegan,
+    /// A swipe right and hold (steer right).
+    HoldRightBegan,
+    /// A swipe down about three flicks deep: the emergency brake while
+    /// moving, the parking brake when stopped.
+    DeepSwipeDownBegan,
+    /// One finger held still (straighten the wheel).
+    StillHoldBegan,
+    /// A second finger's swipe left and hold while a pedal is held.
+    SecondSteerLeftBegan,
+    SecondSteerRightBegan,
+    /// The second finger's steering lifted, the pedal still held.
+    SecondSteerEnded,
+    /// Two fingers turned right like a key (start the engine).
+    RotateRight,
+    /// Two fingers turned left (stop the engine).
+    RotateLeft,
+    /// A hardware keyboard connected or went away.
+    KeyboardConnected,
+    KeyboardDisconnected,
 }
 
 impl Gesture {
@@ -86,7 +109,6 @@ impl Gesture {
             10 => Gesture::TwoFingerSwipeRight,
             11 => Gesture::ThreeFingerSwipeUp,
             12 => Gesture::ThreeFingerSwipeDown,
-            13 => Gesture::ThreeFingerDoubleTap,
             14 => Gesture::HoldUpperBegan,
             15 => Gesture::HoldLowerBegan,
             16 => Gesture::HoldEnded,
@@ -112,6 +134,17 @@ impl Gesture {
             36 => Gesture::LowerHoldSwipeRight,
             37 => Gesture::EmergencyBrakeHoldBegan,
             38 => Gesture::HornHoldBegan,
+            39 => Gesture::HoldLeftBegan,
+            40 => Gesture::HoldRightBegan,
+            41 => Gesture::DeepSwipeDownBegan,
+            42 => Gesture::StillHoldBegan,
+            43 => Gesture::SecondSteerLeftBegan,
+            44 => Gesture::SecondSteerRightBegan,
+            45 => Gesture::SecondSteerEnded,
+            46 => Gesture::RotateRight,
+            47 => Gesture::RotateLeft,
+            48 => Gesture::KeyboardConnected,
+            49 => Gesture::KeyboardDisconnected,
             _ => return None,
         })
     }
@@ -123,7 +156,8 @@ impl Gesture {
             Gesture::Tap => Key::Comma,
             Gesture::DoubleTap | Gesture::Activate => Key::Return,
             Gesture::SwipeUp | Gesture::Increment => Key::Up,
-            Gesture::SwipeDown | Gesture::Decrement => Key::Down,
+            // A deep swipe off the road is just a long flick down.
+            Gesture::SwipeDown | Gesture::Decrement | Gesture::DeepSwipeDownBegan => Key::Down,
             Gesture::SwipeLeft => Key::Left,
             Gesture::SwipeRight => Key::Right,
             Gesture::TwoFingerTap => Key::Tab,
@@ -137,12 +171,21 @@ impl Gesture {
             Gesture::ThreeFingerSwipeLeft => Key::PageUp,
             Gesture::ThreeFingerSwipeRight => Key::PageDown,
             Gesture::ThreeFingerTap => Key::F2,
-            Gesture::ThreeFingerDoubleTap
-            | Gesture::HoldUpperBegan
+            Gesture::HoldUpperBegan
             | Gesture::HoldLowerBegan
             | Gesture::HoldEnded
             | Gesture::EmergencyBrakeHoldBegan
             | Gesture::HornHoldBegan
+            | Gesture::HoldLeftBegan
+            | Gesture::HoldRightBegan
+            | Gesture::StillHoldBegan
+            | Gesture::SecondSteerLeftBegan
+            | Gesture::SecondSteerRightBegan
+            | Gesture::SecondSteerEnded
+            | Gesture::RotateRight
+            | Gesture::RotateLeft
+            | Gesture::KeyboardConnected
+            | Gesture::KeyboardDisconnected
             | Gesture::UpperHoldTap
             | Gesture::UpperHoldDoubleTap
             | Gesture::UpperHoldSwipeUp
@@ -158,13 +201,26 @@ impl Gesture {
         })
     }
 
-    /// The fixed pedal key a hold keeps down.
+    /// The fixed key a hold keeps down: the pedals and the wheel.
     pub fn held_key(self) -> Option<Key> {
         match self {
             Gesture::HoldUpperBegan => Some(Key::Up),
             Gesture::HoldLowerBegan => Some(Key::Down),
+            Gesture::HoldLeftBegan | Gesture::SecondSteerLeftBegan => Some(Key::Left),
+            Gesture::HoldRightBegan | Gesture::SecondSteerRightBegan => Some(Key::Right),
             _ => None,
         }
+    }
+
+    /// A hold that steers, which full lane keeping leaves to the flicks.
+    pub fn steers(self) -> bool {
+        matches!(
+            self,
+            Gesture::HoldLeftBegan
+                | Gesture::HoldRightBegan
+                | Gesture::SecondSteerLeftBegan
+                | Gesture::SecondSteerRightBegan
+        )
     }
 
     /// The press that starts [`Self::held_key`].
@@ -192,14 +248,14 @@ impl Gesture {
 #[derive(Debug, Default, PartialEq)]
 pub struct TouchOutput {
     pub events: Vec<InputEvent>,
-    /// Show or hide the on-screen keyboard, for the letter commands.
-    pub toggle_keyboard: bool,
 }
 
-/// The gesture translator, holding the one key a finger can hold.
+/// The gesture translator, holding the key the first finger holds and the
+/// one a second finger steers with.
 #[derive(Debug, Default)]
 pub struct TouchInput {
     held: Option<Key>,
+    second: Option<Key>,
 }
 
 impl TouchInput {
@@ -215,24 +271,38 @@ impl TouchInput {
     pub fn handle(&mut self, gesture: Gesture) -> TouchOutput {
         let mut out = TouchOutput::default();
         match gesture {
-            Gesture::ThreeFingerDoubleTap => out.toggle_keyboard = true,
-            // Gas, brake, emergency brake and horn are held keys, so the
-            // latching brake and the reverse
-            // press-and-hold work exactly as they do on a keyboard.
-            // The hold goes out as its gesture, and the app presses the
-            // key, so the press is known to be the screen's.
-            Gesture::HoldUpperBegan | Gesture::HoldLowerBegan => {
+            // Gas, brake and steering are held keys, so the latching brake
+            // and the reverse press-and-hold work exactly as they do on a
+            // keyboard. The hold goes out as its gesture, and the app
+            // presses the key, so the press is known to be the screen's.
+            Gesture::HoldUpperBegan
+            | Gesture::HoldLowerBegan
+            | Gesture::HoldLeftBegan
+            | Gesture::HoldRightBegan => {
                 self.release_into(&mut out.events);
                 out.events.push(InputEvent::Gesture(gesture));
                 self.held = gesture.held_key();
             }
+            Gesture::SecondSteerLeftBegan | Gesture::SecondSteerRightBegan => {
+                self.release_second_into(&mut out.events);
+                out.events.push(InputEvent::Gesture(gesture));
+                self.second = gesture.held_key();
+            }
+            Gesture::SecondSteerEnded => self.release_second_into(&mut out.events),
+            // A deep swipe grows out of the brake hold: the brake key lets
+            // go, and the app holds what the deep swipe means here.
+            Gesture::DeepSwipeDownBegan => {
+                self.release_into(&mut out.events);
+                out.events.push(InputEvent::Gesture(gesture));
+            }
             // These holds use the player's current keyboard binding.  The
             // application resolves and holds that chord, because this small
             // platform-neutral translator deliberately does not own bindings.
-            Gesture::EmergencyBrakeHoldBegan | Gesture::HornHoldBegan => {
+            Gesture::EmergencyBrakeHoldBegan | Gesture::HornHoldBegan | Gesture::StillHoldBegan => {
                 out.events.push(InputEvent::Gesture(gesture));
             }
             Gesture::HoldEnded => {
+                self.release_second_into(&mut out.events);
                 if self.held.is_some() {
                     self.release_into(&mut out.events);
                 } else {
@@ -246,7 +316,17 @@ impl TouchInput {
 
     /// Let go of a held key, as when the app leaves the foreground.
     pub fn release_into(&mut self, events: &mut Vec<InputEvent>) {
+        self.release_second_into(events);
         if let Some(key) = self.held.take() {
+            events.push(InputEvent::KeyUp {
+                key,
+                mods: Mods::NONE,
+            });
+        }
+    }
+
+    fn release_second_into(&mut self, events: &mut Vec<InputEvent>) {
+        if let Some(key) = self.second.take() {
             events.push(InputEvent::KeyUp {
                 key,
                 mods: Mods::NONE,
@@ -278,7 +358,6 @@ mod tests {
         fn hold_events_output(self) -> TouchOutput {
             TouchOutput {
                 events: self.hold_events(),
-                toggle_keyboard: false,
             }
         }
     }
@@ -295,10 +374,12 @@ mod tests {
 
     #[test]
     fn every_native_code_round_trips_and_unknown_codes_are_ignored() {
-        for code in 0..39 {
+        for code in (0..50).filter(|code| *code != 13) {
             assert!(Gesture::from_code(code).is_some(), "code {code}");
         }
-        assert_eq!(Gesture::from_code(39), None);
+        // 13 was the three-finger double tap, retired with the keyboard toggle.
+        assert_eq!(Gesture::from_code(13), None);
+        assert_eq!(Gesture::from_code(50), None);
         assert_eq!(Gesture::from_code(-1), None);
     }
 
@@ -324,6 +405,7 @@ mod tests {
         for (gesture, key) in [
             (Gesture::SwipeUp, Key::Up),
             (Gesture::SwipeDown, Key::Down),
+            (Gesture::DeepSwipeDownBegan, Key::Down),
             (Gesture::DoubleTap, Key::Return),
             (Gesture::Activate, Key::Return),
             (Gesture::TwoFingerSwipeDown, Key::Escape),
@@ -405,7 +487,11 @@ mod tests {
 
     #[test]
     fn emergency_brake_and_horn_holds_are_left_for_live_bindings() {
-        for gesture in [Gesture::EmergencyBrakeHoldBegan, Gesture::HornHoldBegan] {
+        for gesture in [
+            Gesture::EmergencyBrakeHoldBegan,
+            Gesture::HornHoldBegan,
+            Gesture::StillHoldBegan,
+        ] {
             let mut touch = TouchInput::new();
             assert_eq!(gesture.held_key(), None);
             assert_eq!(
@@ -448,10 +534,70 @@ mod tests {
     }
 
     #[test]
-    fn three_finger_double_tap_asks_for_the_keyboard_and_presses_nothing() {
+    fn steering_holds_keep_the_wheel_key_down_until_the_finger_lifts() {
         let mut touch = TouchInput::new();
-        let out = touch.handle(Gesture::ThreeFingerDoubleTap);
-        assert!(out.toggle_keyboard);
-        assert!(out.events.is_empty());
+        touch.handle(Gesture::HoldLeftBegan);
+        assert_eq!(touch.held(), Some(Key::Left));
+        assert!(Gesture::HoldLeftBegan.steers());
+        assert_eq!(
+            touch.handle(Gesture::HoldEnded).events,
+            vec![InputEvent::KeyUp {
+                key: Key::Left,
+                mods: Mods::NONE,
+            }]
+        );
+    }
+
+    #[test]
+    fn a_second_finger_steers_under_the_held_pedal() {
+        let mut touch = TouchInput::new();
+        touch.handle(Gesture::HoldUpperBegan);
+        assert_eq!(
+            touch.handle(Gesture::SecondSteerRightBegan).events,
+            vec![InputEvent::Gesture(Gesture::SecondSteerRightBegan)]
+        );
+        assert_eq!(
+            touch.handle(Gesture::SecondSteerEnded).events,
+            vec![InputEvent::KeyUp {
+                key: Key::Right,
+                mods: Mods::NONE,
+            }]
+        );
+        assert_eq!(touch.held(), Some(Key::Up));
+        touch.handle(Gesture::SecondSteerLeftBegan);
+        assert_eq!(
+            touch.handle(Gesture::HoldEnded).events,
+            vec![
+                InputEvent::KeyUp {
+                    key: Key::Left,
+                    mods: Mods::NONE,
+                },
+                InputEvent::KeyUp {
+                    key: Key::Up,
+                    mods: Mods::NONE,
+                },
+            ]
+        );
+    }
+
+    #[test]
+    fn a_deep_swipe_lets_the_brake_key_go_first() {
+        let mut touch = TouchInput::new();
+        touch.handle(Gesture::HoldLowerBegan);
+        assert_eq!(
+            touch.handle(Gesture::DeepSwipeDownBegan).events,
+            vec![
+                InputEvent::KeyUp {
+                    key: Key::Down,
+                    mods: Mods::NONE,
+                },
+                InputEvent::Gesture(Gesture::DeepSwipeDownBegan),
+            ]
+        );
+        assert_eq!(touch.held(), None);
+        assert_eq!(
+            touch.handle(Gesture::HoldEnded).events,
+            vec![InputEvent::Gesture(Gesture::HoldEnded)]
+        );
     }
 }

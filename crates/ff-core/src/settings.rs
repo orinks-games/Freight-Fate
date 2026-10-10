@@ -667,6 +667,17 @@ settings_fields! {
     touch_haptics: bool = true => bool_strict,
     /// Whether the one-time iOS gesture-practice offer was made.
     touch_practice_offered: bool = false => bool_strict,
+    /// iOS gesture thresholds: how far (points) a stroke travels and how
+    /// soon (ms) after it must lift to be a flick rather than a hold, how
+    /// many flicks deep the brake swipe goes, how long a still finger waits
+    /// to straighten the wheel, how far two fingers turn the engine key,
+    /// and below what speed the deep swipe sets the parking brake.
+    touch_flick_points: f64 = 30.0 => float_plain,
+    touch_flick_ms: f64 = 150.0 => float_plain,
+    touch_deep_swipe_factor: f64 = 3.0 => float_plain,
+    touch_still_hold_ms: f64 = 500.0 => float_plain,
+    touch_rotate_degrees: f64 = 30.0 => float_plain,
+    touch_parking_brake_mph: f64 = 1.0 => float_plain,
     /// Steer AWAY from the engine's lean instead of toward it, for
     /// drivers who learned that habit in audio racing games.
     steering_guide_inverted: bool = false => bool_strict,

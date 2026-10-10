@@ -1053,12 +1053,18 @@ impl TextEntry for NameEntryState {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
-        ctx.say(&format!(
+        if crate::states::text_entry::touch_prompt(ctx) {
+            ctx.say(&format!(
+                "New career. Type your driver name. {}",
+                crate::states::text_entry::TOUCH_FIELD_HELP
+            ));
+            return;
+        }
+        ctx.say(
             "New career. Type your driver name, then Enter. Left and Right \
              arrows review the letters, Home and End jump to the start or \
-             end. Escape cancels.{}",
-            crate::states::text_entry::KEYBOARD_HINT
-        ));
+             end. Escape cancels.",
+        );
     }
 
     fn confirm(&mut self, ctx: &mut GameContext) {

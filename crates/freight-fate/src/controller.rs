@@ -326,6 +326,10 @@ pub struct ControllerManager {
     slot: Rc<RefCell<PadSlot>>,
     /// Which device the player last used (`active_device`).
     pub active_device: &'static str,
+    /// Whether a hardware keyboard is there to name keys on. Always off
+    /// iOS; on iOS it follows GameController's connect and disconnect
+    /// notifications, and without one no hint names a key.
+    pub hardware_keyboard: bool,
     /// Set while a gesture is played as key presses, so those presses do
     /// not count as the keyboard being used.
     pub touch_keys: bool,
@@ -378,6 +382,7 @@ impl ControllerManager {
         let mut manager = Self {
             slot: Rc::clone(&slot),
             active_device: DEFAULT_DEVICE,
+            hardware_keyboard: !cfg!(target_os = "ios"),
             touch_keys: false,
             instance_id: None,
             name: String::new(),
@@ -648,7 +653,7 @@ impl ControllerManager {
     pub fn device(&self) -> &'static str {
         if self.active() && self.active_device == CONTROLLER {
             CONTROLLER
-        } else if self.active_device == TOUCH {
+        } else if self.active_device == TOUCH || !self.hardware_keyboard {
             TOUCH
         } else {
             KEYBOARD
