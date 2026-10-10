@@ -374,11 +374,18 @@ impl TextEntry for StationSuggestionEntryState {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
+        if crate::states::text_entry::touch_prompt(ctx) {
+            ctx.say(&format!(
+                "{} {}",
+                self.prompt(),
+                crate::states::text_entry::TOUCH_FIELD_HELP
+            ));
+            return;
+        }
         ctx.say(&format!(
             "{} Type each answer, then Enter. Left and Right review the letters, Escape \
-             cancels.{}",
-            self.prompt(),
-            crate::states::text_entry::KEYBOARD_HINT
+             cancels.",
+            self.prompt()
         ));
     }
 
