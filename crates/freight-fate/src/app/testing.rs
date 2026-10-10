@@ -433,8 +433,8 @@ impl SpeechSink for SharedCapture {
             .borrow_mut()
             .say_adjustment_preview(setting, text, interrupt)
     }
-    fn refresh(&mut self, announce: bool) -> bool {
-        self.0.borrow_mut().refresh(announce)
+    fn refresh(&mut self) -> bool {
+        self.0.borrow_mut().refresh()
     }
     fn shutdown(&mut self) {
         self.0.borrow_mut().shutdown()

@@ -26,8 +26,7 @@ pub struct FakeVoiceState {
     pub voice: Option<usize>,
     /// `(text, interrupt)` in the order spoken, `output` and `speak` alike.
     pub spoken: Vec<(String, bool)>,
-    /// Text sent to the braille display only, in order. Never overlaps
-    /// `spoken`: a line goes one way or the other.
+    /// Text sent to the braille display, in order.
     pub brailled: Vec<String>,
     pub stop_calls: u32,
     /// When set, every `output`/`speak` fails the way a quit screen reader
@@ -130,16 +129,23 @@ impl VoiceBackend for FakeVoice {
     }
 
     fn output(&mut self, text: &str, interrupt: bool) -> Result<(), prismer::Error> {
+        // Prism's output() for a braille-capable screen reader: speak, then
+        // braille, and the call fails if the braille half does, after the
+        // line was already spoken.
+        self.speak(text, interrupt)?;
+        if self.state.borrow().features.supports_braille {
+            self.braille(text)?;
+        }
+        Ok(())
+    }
+
+    fn speak(&mut self, text: &str, interrupt: bool) -> Result<(), prismer::Error> {
         let mut state = self.state.borrow_mut();
         if state.fail_output {
             return Err(Self::failure());
         }
         state.spoken.push((text.to_string(), interrupt));
         Ok(())
-    }
-
-    fn speak(&mut self, text: &str, interrupt: bool) -> Result<(), prismer::Error> {
-        self.output(text, interrupt)
     }
 
     fn braille(&mut self, text: &str) -> Result<(), prismer::Error> {

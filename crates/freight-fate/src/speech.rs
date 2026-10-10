@@ -158,12 +158,8 @@ impl PreviewFeature {
 /// warnings) that falls back to the main channel when no separate voice is
 /// bound. `interrupt` cuts off the previous utterance on that channel.
 ///
-/// The "Speech is now using X." line a backend switch produces is spoken by
-/// the object itself, straight through the new main voice and bypassing the
-/// message log -- exactly what `Speech.refresh(announce=True)` did in Python,
-/// where it called its own `say`. No hook and no returned list, because the
-/// caller never saw that line in Python either; a test double that wants to
-/// see it records what `say` received.
+/// A backend switch is silent: the new voice simply carries on with the
+/// next line (owner call, 2026-10-10).
 pub trait SpeechSink {
     /// Speak (and braille, where supported) `text` on the main channel.
     fn say(&mut self, text: &str, interrupt: bool);
@@ -258,8 +254,8 @@ pub trait SpeechSink {
     fn say_adjustment_preview(&mut self, setting: &str, text: &str, interrupt: bool) -> bool;
 
     /// Re-detect which screen reader or voice should be speaking. `true` when
-    /// the main voice changed; with `announce` the new voice says so.
-    fn refresh(&mut self, announce: bool) -> bool;
+    /// the main voice changed.
+    fn refresh(&mut self) -> bool;
 
     /// Whether the main voice is still speaking a line. Sinks that cannot
     /// answer it report `false`.

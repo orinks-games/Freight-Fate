@@ -17,8 +17,7 @@ use super::{PreviewFeature, SpeechSink, EVENT_BACKEND, REFRESH_INTERVAL_S};
 const VOICEOVER_STARTUP_HOLD: Duration = Duration::from_millis(1500);
 
 /// The observer's terminal stream is written at the real speech-sink
-/// boundary. That includes a backend-refresh announcement, but excludes
-/// pacing and transcript bookkeeping that never reaches the player.
+/// boundary. That excludes pacing and transcript bookkeeping that never reaches the player.
 fn stream_player_speech(text: &str) {
     if env::var_os("FREIGHT_FATE_STREAM_TRANSCRIPT").is_some_and(|value| !value.is_empty()) {
         println!("{text}");
@@ -301,7 +300,19 @@ impl Speech {
 
     fn speak_with_backend(backend: &mut dyn VoiceBackend, text: &str, interrupt: bool) -> bool {
         let features = backend.features();
-        let result = if features.supports_output {
+        let result = if features.supports_speak && features.supports_braille {
+            // Prism's output() for a braille-capable screen reader is speak()
+            // then braille(), and it fails the whole call when the braille
+            // half fails, after the line was already spoken. ZDSR with no
+            // display did that on every line, so each one counted as a dead
+            // voice and was spoken twice. Do the two halves here, and let
+            // only speech count.
+            backend.speak(text, interrupt).map(|()| {
+                if let Err(err) = backend.braille(text) {
+                    log::debug!("Braille output failed: {err}");
+                }
+            })
+        } else if features.supports_output {
             backend.output(text, interrupt)
         } else if features.supports_speak {
             backend.speak(text, interrupt)
@@ -503,7 +514,7 @@ impl SpeechSink for Speech {
             // switched. Re-detect immediately and retry once so this line is not
             // lost; if nothing can speak right now, poll() keeps looking.
             self.backend = None;
-            if self.refresh(false) {
+            if self.refresh() {
                 if let Some(backend) = self.backend.as_mut() {
                     spoken =
                         Self::deliver_with_backend(backend.as_mut(), text, interrupt, braille_only);
@@ -559,7 +570,7 @@ impl SpeechSink for Speech {
     // them after the game. These hooks notice within a few seconds and rebind
     // speech to whatever is running instead of leaving the game mute.
 
-    fn refresh(&mut self, announce: bool) -> bool {
+    fn refresh(&mut self) -> bool {
         // Runs the same selection as startup: the environment override first,
         // then the highest-priority backend that is usable right now. When
         // the choice changes, the event voice is re-selected and the player's
@@ -606,16 +617,6 @@ impl SpeechSink for Speech {
         if !self.config.is_empty() {
             self.reapply_config();
         }
-        if announce {
-            // The UIA backend is how the game reaches Narrator; players know
-            // the screen reader's name, not the plumbing's.
-            let display = if new_name == "UIA" {
-                "Narrator"
-            } else {
-                new_name.as_str()
-            };
-            self.say(&format!("Speech is now using {display}."), false);
-        }
         true
     }
 
@@ -628,7 +629,7 @@ impl SpeechSink for Speech {
             return;
         }
         self.refresh_timer = 0.0;
-        self.refresh(true);
+        self.refresh();
     }
 
     fn request_refresh(&mut self) {
