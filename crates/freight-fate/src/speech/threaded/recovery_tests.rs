@@ -141,7 +141,7 @@ impl SpeechSink for ControlledSink {
             self.replay_gate.block();
         }
     }
-    fn refresh(&mut self, _: bool) -> bool {
+    fn refresh(&mut self) -> bool {
         self.record("refresh");
         true
     }
@@ -200,7 +200,7 @@ fn recovery_waits_for_replacement_construction_and_settings_replay() {
     let available_during_replay = sink.available();
     let recovered_during_replay = !sink.wedged;
     replay.release();
-    assert!(sink.refresh(false), "replacement did not finish replay");
+    assert!(sink.refresh(), "replacement did not finish replay");
     sink.poll(0.0);
     let recovered_after_replay = sink.available() && !sink.wedged;
     initial.release();
@@ -272,7 +272,7 @@ fn abandoned_worker_discards_queued_native_commands_when_blocked_call_returns() 
     initial.wait();
     let old_commands = sink.commands.clone();
     age_worker(&mut sink);
-    assert!(sink.refresh(false));
+    assert!(sink.refresh());
     initial.release();
     // A disconnected receiver proves the old worker exited. Barrier markers
     // never invoke a native operation, even in the broken implementation.
