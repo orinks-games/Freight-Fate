@@ -191,6 +191,11 @@ static const NSTimeInterval FF_DOUBLE_TAP_SECONDS = 0.28;
 static const NSTimeInterval FF_SECOND_TAP_MAX_SECONDS = 0.4;
 static const CGFloat FF_HOLD_SLOP = 12.0;
 static const CGFloat FF_TAP_SLOP = 16.0;
+// A finger still travelling when the flick window ends is mid-flick, not
+// holding: it gets up to FF_FLICK_EXTENSIONS more half windows while it keeps
+// moving at least this fraction of ff_flick_points per half window.
+static const CGFloat FF_FLICK_MOVING_FRACTION = 0.4;
+static const int FF_FLICK_EXTENSIONS = 3;
 
 void ff_touch_set_tuning(double flick_points, double flick_ms, double deep_factor,
                          double still_ms, double rotate_degrees) {
@@ -232,6 +237,8 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
     CGPoint _start;
     FFDirection _direction;
     NSTimer *_flickTimer;
+    CGPoint _flickSample;
+    int _flickExtensions;
     NSTimer *_stillTimer;
     int32_t _hold;
     UITouch *_second;
@@ -298,6 +305,8 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
             return; // a still hold already straightening keeps going
         }
         _direction = ff_direction(dx, dy);
+        _flickSample = at;
+        _flickExtensions = 0;
         _flickTimer = [NSTimer scheduledTimerWithTimeInterval:ff_flick_seconds
                                                        target:self
                                                      selector:@selector(flickElapsed)
@@ -322,6 +331,24 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
 - (void)flickElapsed {
     _flickTimer = nil;
     if (self.state != UIGestureRecognizerStatePossible || !_first || _direction == FFNone) {
+        return;
+    }
+    // The window starts when the finger crosses ff_flick_points, so a long,
+    // brisk flick is still on its way when it ends. Judge by whether the
+    // finger is still travelling, not by the clock alone: only a stroke that
+    // has slowed or stopped becomes a hold. Without this, a flick up with
+    // cruise on turned into a gas hold and never stepped the target.
+    CGPoint at = [_first locationInView:self.view];
+    CGFloat moved = hypot(at.x - _flickSample.x, at.y - _flickSample.y);
+    if (_flickExtensions < FF_FLICK_EXTENSIONS &&
+        moved >= ff_flick_points * FF_FLICK_MOVING_FRACTION) {
+        _flickExtensions++;
+        _flickSample = at;
+        _flickTimer = [NSTimer scheduledTimerWithTimeInterval:ff_flick_seconds / 2.0
+                                                       target:self
+                                                     selector:@selector(flickElapsed)
+                                                     userInfo:nil
+                                                      repeats:NO];
         return;
     }
     switch (_direction) {
@@ -485,6 +512,7 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
     [super reset];
     [_flickTimer invalidate];
     _flickTimer = nil;
+    _flickExtensions = 0;
     [_stillTimer invalidate];
     _stillTimer = nil;
     [_secondHoldTimer invalidate];

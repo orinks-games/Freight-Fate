@@ -590,3 +590,53 @@ fn without_a_hardware_keyboard_hints_name_gestures() {
     harness.app.dispatch_gesture(Gesture::KeyboardConnected);
     assert!(harness.app.ctx.controller.hardware_keyboard);
 }
+
+/// The cruise flicks with cruise ON: each flick steps the target one notch
+/// in its direction and cruise stays on. The Rust side was never the fault
+/// when an iPhone flick failed to step it -- a stroke that outlasted the
+/// flick window arrived as a pedal hold instead (`ff_touch.m`).
+#[test]
+fn cruise_flicks_step_the_target_and_keep_cruise_on() {
+    let mut harness = a_drive("Touch Cruise Steps");
+    rolling(&mut harness, 45.0);
+    let mut input = TouchInput::new();
+    touch(&mut harness, &mut input, Gesture::HoldUpperBegan);
+    touch(&mut harness, &mut input, Gesture::UpperHoldTap);
+    touch(&mut harness, &mut input, Gesture::HoldEnded);
+    for (gesture, target) in [
+        (Gesture::SwipeUp, 50.0),
+        (Gesture::SwipeUp, 55.0),
+        (Gesture::SwipeDown, 50.0),
+        (Gesture::SwipeDown, 45.0),
+    ] {
+        touch(&mut harness, &mut input, gesture);
+        harness.app.tick(0.05);
+        let (cruise, set) =
+            harness.with_drive(|drive, _| (drive.cruise_mph, drive.speed_control_target_mph));
+        assert_eq!(cruise, Some(target), "{gesture:?}");
+        assert_eq!(set, Some(target), "{gesture:?}");
+    }
+}
+
+/// A flick is never a pedal press: it must not hold gas or brake keys, so
+/// the brake-cancels-cruise rule cannot fire from one.
+#[test]
+fn a_cruise_flick_presses_no_pedal() {
+    let mut harness = a_drive("Touch Cruise No Pedal");
+    rolling(&mut harness, 45.0);
+    let mut input = TouchInput::new();
+    touch(&mut harness, &mut input, Gesture::HoldUpperBegan);
+    touch(&mut harness, &mut input, Gesture::UpperHoldTap);
+    touch(&mut harness, &mut input, Gesture::HoldEnded);
+    for gesture in [Gesture::SwipeUp, Gesture::SwipeDown] {
+        touch(&mut harness, &mut input, gesture);
+        assert!(
+            !harness.app.ctx.input.physically_down(Key::Up),
+            "{gesture:?}"
+        );
+        assert!(
+            !harness.app.ctx.input.physically_down(Key::Down),
+            "{gesture:?}"
+        );
+    }
+}

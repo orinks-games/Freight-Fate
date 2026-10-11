@@ -12,7 +12,7 @@ on the desktop.
 
 The core rule: **a flick is one step; a swipe and hold is continuous.** A
 stroke that travels 30 points and lifts within 150 ms of getting there is a
-flick. One that stays down is a hold in its direction until you lift. Every
+flick. A finger still travelling briskly when the 150 ms ends is still a flick, so a long fast flick is not a hold. One that stays down is a hold in its direction until you lift. Every
 gesture works anywhere on the screen; nothing depends on where you touch.
 The game asks iOS to defer its edge gestures, so a stroke from an edge reaches
 the game first.
