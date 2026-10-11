@@ -279,8 +279,10 @@ jobs:
           issuer-id: ${{ secrets.ASC_ISSUER_ID }}
           api-key-id: ${{ secrets.ASC_KEY_ID }}
           api-private-key: ${{ env.ASC_KEY_P8 }}
-          # Matches ITSAppUsesNonExemptEncryption in the app's Info.plist.
-          uses-non-exempt-encryption: "false"
+          # Export compliance comes from ITSAppUsesNonExemptEncryption in the
+          # app's Info.plist, which Apple already applies to the build. Do not
+          # pass uses-non-exempt-encryption here: the action would then try to
+          # set a value that is already set and fail with HTTP 409.
           wait-for-processing: "true"
           # Shown to testers as "What to Test".
           release-notes: "Built from ${{ github.ref_name }} at ${{ github.sha }}"
