@@ -76,9 +76,10 @@ ASC_KEY_P8_BASE64 are used as they are. No other secret is needed.
 4. Checks that the app record exists and finds the next build number.
 5. Runs tools/build_ios.py --device --ipa, which builds with Rust, signs and
    packages FreightFate.ipa.
-6. Only when upload is true, uploads it to TestFlight with the export compliance answer "no non-exempt
-   encryption", matching ITSAppUsesNonExemptEncryption in Info.plist, and waits
-   for Apple to finish processing.
+6. Only when upload is true, uploads it to TestFlight and waits for Apple to
+   finish processing. The export compliance answer ("no non-exempt encryption")
+   comes from ITSAppUsesNonExemptEncryption in Info.plist; the workflow does not
+   set it again, because Apple rejects a second update with HTTP 409.
 7. Always, even after a failure: deletes the temporary profile and certificate
    through the API, the keychain and every key file, so runs never use up
    Apple's limit on distribution certificates.

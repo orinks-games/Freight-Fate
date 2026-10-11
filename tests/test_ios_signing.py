@@ -226,3 +226,12 @@ def test_next_build_never_below_run_number() -> None:
 def test_next_build_refuses_lower_version() -> None:
     with pytest.raises(ios_signing.SigningError, match="higher than this build"):
         ios_signing.next_build_number([("1.9.1", "2")], "1.9.0", 1)
+
+
+def test_workflow_leaves_export_compliance_to_info_plist() -> None:
+    """Setting it again after upload fails with HTTP 409 (value already set)."""
+    workflow = (ROOT / ".github" / "workflows" / "ios-testflight.yml").read_text(encoding="utf-8")
+    active = [ln for ln in workflow.splitlines() if not ln.lstrip().startswith("#")]
+    assert not any("uses-non-exempt-encryption" in ln for ln in active)
+    build_ios = (ROOT / "tools" / "build_ios.py").read_text(encoding="utf-8")
+    assert '"ITSAppUsesNonExemptEncryption": False' in build_ios
