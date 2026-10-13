@@ -161,14 +161,21 @@ impl Trip {
     /// in the lane. One reading for the lane-gap cue, the L key, and the
     /// hazard call's named side.
     pub fn lane_blocker_at(&self, mile: Option<f64>, lane_index: i64) -> Option<&TrafficVehicle> {
-        self.traffic_manager.vehicle_in_lane(
-            mile.unwrap_or(self.position_mi),
-            lane_index,
-            DODGE_CLEARANCE_AHEAD_MI + LANE_GAP_MARGIN_MI,
-            DODGE_CLEARANCE_BEHIND_MI + LANE_GAP_MARGIN_MI,
-            LANE_GAP_ACT_REAL_S * self.effective_time_scale() / 3600.0,
-            self.truck.speed_mph(),
-        )
+        let in_lane = |lane| {
+            self.traffic_manager.vehicle_in_lane(
+                mile.unwrap_or(self.position_mi),
+                lane,
+                DODGE_CLEARANCE_AHEAD_MI + LANE_GAP_MARGIN_MI,
+                DODGE_CLEARANCE_BEHIND_MI + LANE_GAP_MARGIN_MI,
+                LANE_GAP_ACT_REAL_S * self.effective_time_scale() / 3600.0,
+                self.truck.speed_mph(),
+            )
+        };
+        // A vehicle on the ramp beside the right lane is about to be in it,
+        // and joins the moment the truck is a safe gap away, which a truck
+        // over in the left lane always is. Left out, the right lane read open
+        // with a box truck alongside on the ramp (player report, 2026-10-13).
+        in_lane(lane_index).or_else(|| (lane_index == 0).then(|| in_lane(-1)).flatten())
     }
 
     /// Which of the truck's neighbouring lanes a dodge can go into right

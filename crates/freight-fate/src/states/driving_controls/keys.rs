@@ -313,6 +313,7 @@ impl DrivingState {
         }
         self.lane_change_target = Some(target);
         self.pass_returning = false; // the driver's own move now
+        self.keeping_lane_change = false;
         self.lane_change_timer = LANE_TAP_CHANGE_S;
         self.lane_signal_timer = 0.0;
         let pan = if direction > 0 { -0.6 } else { 0.6 };

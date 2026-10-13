@@ -1257,7 +1257,11 @@ impl TrafficManager {
                 Some((leg, offset, forward)) => Self::grade_pct_on(leg, offset, forward),
                 None => 0.0,
             };
-            if vehicle.intent == "merging" && vehicle.lane < 0 {
+            // Any vehicle still on the ramp, not only one labelled merging: a
+            // merger that reached road speed while yielding is relabelled
+            // cruising below, and under the old test it then rode the ramp
+            // for good, beside the right lane and never in it.
+            if vehicle.lane < 0 {
                 let safe_gap_mi = vehicle.length_mi
                     + self.truck_speed_mph.abs().max(vehicle.speed_mph.abs())
                         * MERGE_SAFE_HEADWAY_S

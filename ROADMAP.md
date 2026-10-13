@@ -93,6 +93,16 @@ bookmarks usable.
       pulled out into it. An uneven undivided split now gives the smaller
       side both ways (`LaneSegment::your_side`); it costs the real passing
       lane where it is ours.
+- [x] Lane keeping watches the lane it is moving into for the whole move
+      (same player, 2026-10-13: after a pass it moved back right into a box
+      truck that had just come off a ramp, and a pass begun where two lanes
+      became one was billed as a sideswipe of the car being passed). A move
+      lane keeping chose re-reads the lane-gap clearance every frame and is
+      called off, with a spoken line, if the lane fills, closes or ends
+      (`hold_keeping_lane_change`); a move whose lane ends on the way no
+      longer runs the arrival check; the right lane's clearance counts a
+      vehicle on the ramp beside it; and a ramp vehicle relabelled cruising
+      at road speed now joins the lane instead of riding the ramp for good.
 - [ ] (Found along the way) Re-bake the lane segments with each matched
       way's direction against the leg's, so a passing lane our side comes
       back (`tools/bake_lane_segments.py`; needs the Overpass corridor

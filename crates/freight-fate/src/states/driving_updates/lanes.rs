@@ -454,6 +454,7 @@ impl DrivingState {
         if self.lane.crossed != 0 {
             self.on_lane_crossed(ctx);
         }
+        self.hold_keeping_lane_change(ctx);
         self.update_tap_lane_change(ctx, dt);
         self.update_pass_return(ctx);
         self.update_merge(ctx, dt);
@@ -486,6 +487,13 @@ impl DrivingState {
                 ctx.audio.release_cue("vehicle/turn_signal");
             }
             target = target.min(self.lane.lane_count - 1);
+            if target == self.lane.lane {
+                // The lane it was moving to ended on the way: the truck never
+                // left its own, so there is no new lane to check or name. Run
+                // on as an arrival, the check found the vehicle ahead in this
+                // lane and billed it as a sideswipe.
+                return;
+            }
             // Check the closure again on arrival, not just when the key was
             // pressed. A change takes seconds, and in those seconds the truck
             // can reach the cones or the road can narrow and renumber the

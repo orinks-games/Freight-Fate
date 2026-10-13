@@ -296,6 +296,20 @@ fn test_yielding_ramp_traffic_does_not_block_a_lane_change_to_the_right() {
 }
 
 #[test]
+fn test_a_ramp_vehicle_up_to_road_speed_still_joins_the_lane() {
+    // Relabelled cruising once it reached road speed, a vehicle still on the
+    // ramp used to stay there for good, beside the right lane and never in
+    // it.
+    let mut manager = manager(1);
+    manager.sync_environment(55.0, weather("great_lakes", 1).effects());
+    manager.vehicles = vec![v("merge", 0.0, 55.0, 1, "cruising", "car").with_lane(-1)];
+
+    manager.update(0.0, 0.5, 20.0, None, None);
+
+    assert_eq!(manager.vehicles[0].lane, 0);
+}
+
+#[test]
 fn test_slow_lead_is_called_only_once_it_can_be_heard() {
     let mut manager = manager(1);
     manager.vehicles = vec![v("slow", 1.5, 41.0, 0, "following", "box truck")];

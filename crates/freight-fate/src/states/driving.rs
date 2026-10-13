@@ -849,6 +849,9 @@ pub struct DrivingState {
     /// Lane keeping is moving back after a pass: the landing line is the
     /// tail of going around traffic, not a lane change the driver made.
     pub pass_returning: bool,
+    /// Lane keeping chose the change underway, so it keeps watching the lane
+    /// it is moving into and calls the move off if that lane fills or ends.
+    pub keeping_lane_change: bool,
     pub merge_deadline: Option<f64>,
     // Miles of acceleration lane still ahead after pulling out of a
     // facility. None once the lane is behind the truck (or when the run

@@ -653,6 +653,7 @@ impl DrivingState {
             lane_signal_timer: 0.0,
             passing: None,
             pass_returning: false,
+            keeping_lane_change: false,
             merge_deadline: None,
             departure_ramp_mi: None,
             departure_merge_road_mph: 0.0,

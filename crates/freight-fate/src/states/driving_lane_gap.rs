@@ -42,6 +42,7 @@ use ff_core::speech_pacing::SpeechCategory;
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
+use crate::states::driving_updates::lane_count_words;
 
 /// The margin and the forward sweep live with the trip now
 /// (`Trip::lane_blocker_at`), because the hazard call that names the open
@@ -306,6 +307,54 @@ impl DrivingState {
         self.pass_returning = true;
     }
 
+    /// A change lane keeping is making checks the lane it is moving into on
+    /// every frame of the move, not only when it began, and calls the move
+    /// off if a vehicle takes that lane or the road ends it first. The move
+    /// takes seconds, and a vehicle off a ramp can join the lane in them:
+    /// lane keeping finished the move back from a pass anyway, into the side
+    /// of a box truck that had just merged (player report, 2026-10-13).
+    pub fn hold_keeping_lane_change(&mut self, ctx: &mut GameContext) {
+        let Some(target) = self.lane_change_target else {
+            self.keeping_lane_change = false;
+            return;
+        };
+        if !self.keeping_lane_change {
+            return; // the driver's own change is theirs to answer for
+        }
+        let count = self.lane.lane_count;
+        let ended = target >= count;
+        if !ended && Some(target) != self.closed_lane_here() && self.lane_gap_open(target) {
+            return;
+        }
+        self.lane_change_target = None;
+        self.keeping_lane_change = false;
+        let home = self.lane.lane;
+        if std::mem::take(&mut self.pass_returning) {
+            // Still beside the vehicle it passed: try the move back again
+            // once the lane is clear.
+            self.passing = self.passing.or(Some((target, home)));
+        } else if self
+            .passing
+            .is_some_and(|(_, passed_in)| passed_in == target)
+        {
+            // The pass never happened, so the hazard call is the driver's
+            // again and the automatic brake answers it.
+            self.passing = None;
+        }
+        let here = lane_label(home, count);
+        let text = if ended {
+            format!("The road narrows to {}.", lane_count_words(count))
+        } else {
+            format!("Staying in the {here} lane.")
+        };
+        ctx.say_event_with(
+            text,
+            SayEvent::queued()
+                .priority(EventPriority::Route)
+                .category(SpeechCategory::Confirmation),
+        );
+    }
+
     /// Whether an armed exit is close enough that the truck should be
     /// heading for the right lane, not out of it.
     pub fn lining_up_for_exit(&self) -> bool {
@@ -331,6 +380,7 @@ impl DrivingState {
     /// clearance reading has already passed.
     fn begin_lane_change(&mut self, target: i64) {
         self.lane_change_target = Some(target);
+        self.keeping_lane_change = true;
         self.pass_returning = false;
         self.lane_change_timer = LANE_TAP_CHANGE_S;
         self.lane_signal_timer = 0.0;

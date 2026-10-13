@@ -264,3 +264,83 @@ fn lane_keeping_never_passes_into_a_passing_lane_that_may_be_oncoming() {
         }
     }
 }
+
+/// Frames until lane keeping has started moving the truck to `target`.
+fn until_moving_to(harness: &mut PlaytestHarness, target: i64, limit_s: f64) {
+    let mut elapsed = 0.0;
+    while harness.read_drive(|d| d.lane_change_target) != Some(target) {
+        assert!(
+            elapsed < limit_s,
+            "never started for lane {target}: {:#?}",
+            spoken(harness)
+        );
+        frame(harness, DT);
+        elapsed += DT;
+    }
+}
+
+#[test]
+fn a_vehicle_merging_in_while_the_truck_moves_back_calls_the_move_off() {
+    // The right lane was clear when the move back began, and a box truck off
+    // the ramp took it in the seconds the move takes. Lane keeping used to
+    // finish the move anyway, into the side of it (player report,
+    // 2026-10-13: "it crashed my truck into a box truck that entered the
+    // right lane").
+    let mut harness = meet_a_slow_car("Merge On Return", "full", 2, 0, &[], false);
+    until_moving_to(&mut harness, 1, 5.0);
+    while harness.read_drive(|d| d.lane.lane) != 1 {
+        frame(&mut harness, DT);
+    }
+    until_moving_to(&mut harness, 0, 180.0);
+    harness.with_drive(|d, _| {
+        let at = d.trip.position_mi - 0.34;
+        let mut vehicles = d.trip.traffic_manager.vehicles.clone();
+        vehicles.push(
+            TrafficVehicle::new("bench:merger", at, 66.0, 66.0, 2, "merging", "box truck")
+                .with_lane(-1),
+        );
+        d.trip.set_npc_vehicles(vehicles);
+    });
+    for _ in 0..(6.0 / DT) as usize {
+        frame(&mut harness, DT);
+    }
+    assert!(!said_any(&harness, "sideswiped"), "{:#?}", spoken(&harness));
+    assert!(
+        said_any(&harness, "Staying in the left lane."),
+        "{:#?}",
+        spoken(&harness)
+    );
+    // Still passing: it moves back once the box truck is clear.
+    assert_eq!(
+        harness.read_drive(|d| (d.lane.lane, d.passing)),
+        (1, Some((0, 1)))
+    );
+}
+
+#[test]
+fn a_passing_lane_that_ends_mid_move_leaves_the_truck_where_it_was() {
+    // Two lanes became one while lane keeping was pulling out to pass. The
+    // move landed in the only lane left, the one the slow car is in, and was
+    // billed as a sideswipe of the car being passed (player report,
+    // 2026-10-13: "it happens when two lanes become a single lane").
+    let mut harness = meet_a_slow_car("Lane Ends Mid Pass", "full", 2, 0, &[], false);
+    until_moving_to(&mut harness, 1, 5.0);
+    harness.with_drive(|d, _| {
+        let vehicles = d.trip.traffic_manager.vehicles.clone();
+        crate::states_driving_traffic_rate::lane_bench(d, 65.0, 1);
+        d.trip.set_npc_vehicles(vehicles);
+    });
+    for _ in 0..(4.0 / DT) as usize {
+        frame(&mut harness, DT);
+    }
+    assert!(!said_any(&harness, "sideswiped"), "{:#?}", spoken(&harness));
+    assert!(
+        said_any(&harness, "The road narrows to one lane."),
+        "{:#?}",
+        spoken(&harness)
+    );
+    assert_eq!(
+        harness.read_drive(|d| (d.lane.lane, d.lane_change_target, d.passing)),
+        (0, None, None)
+    );
+}
