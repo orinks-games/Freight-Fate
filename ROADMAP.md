@@ -52,7 +52,8 @@ bookmarks usable.
       `.po` file alone, built in or dropped into `saves/lang/`, is offered
       by its `X-Language-Autonym` header with no code change; it gets two
       plural forms and English number separators until a maintainer adds
-      its rules to `l10n::plural`.
+      its rules to `l10n::plural`. Every download carries `lang/` as a
+      `translations` folder (template, language files, glossaries, guide).
 - [ ] (Found along the way) Lines the game assembles from pieces the
       extractor cannot see (turn-by-turn street instructions, some stop
       announcements) stay partly English until each shape is added to
