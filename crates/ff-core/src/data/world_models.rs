@@ -463,12 +463,14 @@ pub fn lane_word(n: i64) -> String {
         .unwrap_or_else(|| n.to_string())
 }
 
-/// Real OSM lane count over `[start_mi, end_mi)` in the leg's native (a->b)
-/// direction. `lanes` follows OSM semantics: on a divided-carriageway `oneway`
-/// way it is the count in that direction; on an undivided two-way it is the
-/// total both ways. `lanes_forward` / `lanes_backward` are the directional
-/// split when OSM tags it (0 = absent). Baked by `tools/bake_lane_segments.py`;
-/// the runtime never sees a raw OSM string.
+/// Real OSM lane count over `[start_mi, end_mi)`, mileposts in the leg's
+/// native (a->b) direction. `lanes` follows OSM semantics: on a
+/// divided-carriageway `oneway` way it is the count in that direction; on an
+/// undivided two-way it is the total both ways. `lanes_forward` /
+/// `lanes_backward` are the directional split when OSM tags it (0 = absent),
+/// relative to the direction the OSM WAY was drawn in, which the bake never
+/// compared with the leg's -- see [`LaneSegment::your_side`]. Baked by
+/// `tools/bake_lane_segments.py`; the runtime never sees a raw OSM string.
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct LaneSegment {
     pub start_mi: f64,
@@ -485,20 +487,35 @@ impl LaneSegment {
         self.oneway
     }
 
-    /// Lanes in the driver's direction of travel.
-    pub fn your_side(&self, forward: bool) -> i64 {
-        if forward && self.lanes_forward != 0 {
-            return self.lanes_forward;
-        }
-        if !forward && self.lanes_backward != 0 {
-            return self.lanes_backward;
-        }
+    /// Lanes in the driver's direction of travel, whichever way the truck
+    /// drives the leg.
+    ///
+    /// On an undivided road with an uneven split -- a two-lane highway with a
+    /// passing lane one way, `lanes=3` with `lanes:forward=2` -- this is the
+    /// SMALLER side, in both directions. OSM's forward means the way the way
+    /// was drawn, and the bake stored it without checking that against the
+    /// leg, so on about half of those stretches the truck was handed the
+    /// oncoming traffic's passing lane, and full lane keeping pulled out into
+    /// it to pass (player report, 2026-10-13: "the cruise control swerves you
+    /// right into oncoming cars"). Until a bake records which way each way
+    /// runs, the truck is never given a lane that may be theirs; what that
+    /// costs is the real passing lane on the stretches where it is ours.
+    pub fn your_side(&self) -> i64 {
         if self.oneway {
             // A divided carriageway: the tagged count is already one direction.
             return self.lanes;
         }
-        // Undivided two-way: split the total, floor at one lane your side.
-        (self.lanes.div_euclid(2)).max(1)
+        let split = match (self.lanes_forward, self.lanes_backward) {
+            (0, 0) => None,
+            (forward, 0) => Some((forward, self.lanes - forward)),
+            (0, backward) => Some((self.lanes - backward, backward)),
+            (forward, backward) => Some((forward, backward)),
+        };
+        match split {
+            Some((forward, backward)) => forward.min(backward).max(1),
+            // Undivided two-way: split the total, floor at one lane your side.
+            None => (self.lanes.div_euclid(2)).max(1),
+        }
     }
 }
 
@@ -970,21 +987,20 @@ mod tests {
             lanes: 3,
             ..Default::default()
         };
-        assert_eq!(undivided.your_side(true), 1);
+        assert_eq!(undivided.your_side(), 1);
         let divided = LaneSegment {
             lanes: 3,
             oneway: true,
             ..Default::default()
         };
-        assert_eq!(divided.your_side(false), 3);
+        assert_eq!(divided.your_side(), 3);
         let split = LaneSegment {
             lanes: 5,
             lanes_forward: 3,
             lanes_backward: 2,
             ..Default::default()
         };
-        assert_eq!(split.your_side(true), 3);
-        assert_eq!(split.your_side(false), 2);
+        assert_eq!(split.your_side(), 2);
         assert_eq!(lane_word(2), "two");
         assert_eq!(lane_word(11), "11");
     }

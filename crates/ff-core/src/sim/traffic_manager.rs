@@ -803,7 +803,7 @@ impl TrafficManager {
     /// and where its pass-by whoosh panned to a side of a road with no side.
     pub fn lane_count_at(&self, mile: f64) -> i64 {
         match self.leg_offset_forward_at(mile) {
-            Some((leg, offset, forward)) => Self::lane_count_on(leg, offset, forward),
+            Some((leg, offset, _)) => Self::lane_count_on(leg, offset),
             None => DEFAULT_LEG_LANES,
         }
     }
@@ -830,10 +830,10 @@ impl TrafficManager {
     }
 
     /// [`TrafficManager::lane_count_at`] for an already resolved leg.
-    fn lane_count_on(leg: &Leg, offset: f64, forward: bool) -> i64 {
+    fn lane_count_on(leg: &Leg, offset: f64) -> i64 {
         for seg in leg.lane_segments() {
             if seg.start_mi <= offset && offset <= seg.end_mi {
-                return 1.max(MAX_DRIVABLE_LANES.min(seg.your_side(forward)));
+                return 1.max(MAX_DRIVABLE_LANES.min(seg.your_side()));
             }
         }
         if leg.divided == Some(false) {
@@ -1235,7 +1235,7 @@ impl TrafficManager {
             // vehicle where this frame found it, so resolve that leg once.
             let road = self.leg_offset_forward_at(vehicle.position_mi);
             let lanes_here = match road {
-                Some((leg, offset, forward)) => Self::lane_count_on(leg, offset, forward),
+                Some((leg, offset, _)) => Self::lane_count_on(leg, offset),
                 None => DEFAULT_LEG_LANES,
             };
             let posted_here = match road {

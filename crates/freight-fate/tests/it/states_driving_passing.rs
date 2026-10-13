@@ -137,3 +137,130 @@ fn lining_up_for_an_exit_the_call_stays_the_drivers() {
     );
     assert_eq!(harness.read_drive(|d| d.lane_change_target), Some(1));
 }
+
+/// A two-lane road with a passing lane one way, the slow car ahead, lane
+/// keeping on full, driven in `forward` (the leg's own direction) or back.
+///
+/// OSM's `lanes:forward=2` names the way's drawing direction, not the
+/// leg's, so the map cannot say whose passing lane it is. Read as ours, the
+/// truck was given a second lane on about half of these stretches and full
+/// lane keeping pulled out to pass into what was really the oncoming
+/// passing lane (player report, 2026-10-13: "the cruise control swerves you
+/// right into oncoming cars").
+fn meet_a_slow_car_beside_a_passing_lane(forward: bool) -> PlaytestHarness {
+    use ff_core::data::world_models::{
+        CorridorDetail, GradeSegment, LaneSegment, Leg, Route, SpeedLimitSample,
+    };
+    use ff_core::sim::lane::MPH_PER_MPS;
+    use ff_core::sim::trip_models::TRAFFIC_WARNING_GAP_S;
+    use ff_core::sim::weather::WeatherKind;
+    use freight_fate::playtest::harness::RouteSetup;
+
+    let mut harness = PlaytestHarness::new();
+    harness.app.ctx.settings.speed_keeper = false;
+    harness.app.ctx.settings.automatic_emergency_braking = true;
+    harness.app.ctx.settings.lane_keeping = "full".to_string();
+    harness.app.ctx.settings.time_scale = 1.0;
+    harness.start_route(
+        "aberdeen_sd_us",
+        "pierre_sd_us",
+        RouteSetup::seeded(7).named("Passing Lane"),
+    );
+    harness.with_drive(move |d, ctx| {
+        let a = d.trip.route.cities[0].clone();
+        let b = d.trip.route.cities.last().cloned().expect("a destination");
+        let detail = CorridorDetail {
+            speed_limits: vec![SpeedLimitSample {
+                at_mi: 0.0,
+                mph: Some(65.0),
+                source: "test bench".to_string(),
+                hgv: false,
+            }],
+            grade_segments: vec![GradeSegment::new(0.0, 200.0, 0.0, "flat", "test bench")],
+            lane_segments: vec![LaneSegment {
+                start_mi: 0.0,
+                end_mi: 200.0,
+                lanes: 3,
+                lanes_forward: 2,
+                lanes_backward: 1,
+                oneway: false,
+                source: "test bench".to_string(),
+            }],
+            ..Default::default()
+        };
+        let mut leg = Leg::new(&a, &b, 200.0, "US-83", "hills", Vec::new()).with_detail(detail);
+        leg.divided = Some(false);
+        leg.lanes = 1;
+        let cities = if forward { vec![a, b] } else { vec![b, a] };
+        d.trip.route = Route::from_legs(cities, vec![leg]);
+        d.trip
+            .traffic_manager
+            .set_route(&d.trip.route, &d.trip.leg_starts);
+        d.reset_turn_state_for_trip();
+        d.trip.zones.clear();
+        d.trip.curves.clear();
+        d.destination_exit_taken = true;
+        d.trip.time_scale = 1.0;
+        d.trip.hazard_check_mi = 1e9;
+        d.trip.inspection_check_mi = 1e9;
+        d.trip.posts.clear();
+        d.weather_mut().current = WeatherKind::Clear;
+        d.departure_checked = true;
+        d.truck_mut().start_engine();
+        d.truck_mut().transmission.automatic = true;
+        d.truck_mut().set_air_ready(false);
+        d.trip.position_mi = 20.0;
+        d.truck_mut().velocity_mps = 65.0 / MPH_PER_MPS;
+        d.trip.traffic_manager.rolling_bubble = false;
+        d.speed_control_armed = true;
+        d.cruise_mph = Some(65.0);
+        if let Some(profile) = ctx.profile.as_mut() {
+            profile.tutorial_done = true;
+        }
+        d.tutorial = None;
+        let position = d.trip.position_mi;
+        let gap_mi = 45.0 * (TRAFFIC_WARNING_GAP_S - 0.4) / 3600.0;
+        d.trip.set_npc_vehicles(vec![TrafficVehicle::new(
+            "bench:lead",
+            position + gap_mi,
+            45.0,
+            45.0,
+            0,
+            "following",
+            "car",
+        )
+        .with_lane(0)]);
+    });
+    harness.clear_speech();
+    release_keys(&mut harness);
+    for _ in 0..120 {
+        frame(&mut harness, DT);
+        if said_any(&harness, "Slow car right ahead") {
+            return harness;
+        }
+    }
+    panic!("no lead warning was spoken: {:#?}", spoken(&harness));
+}
+
+#[test]
+fn lane_keeping_never_passes_into_a_passing_lane_that_may_be_oncoming() {
+    for forward in [true, false] {
+        let mut harness = meet_a_slow_car_beside_a_passing_lane(forward);
+        assert!(
+            !the_call(&harness).contains("Passing"),
+            "driving {}: {}",
+            if forward { "forward" } else { "back" },
+            the_call(&harness)
+        );
+        assert_eq!(harness.read_drive(|d| d.lane.lane_count), 1);
+        for _ in 0..300 {
+            frame(&mut harness, DT);
+            assert_eq!(
+                harness.read_drive(|d| (d.lane.lane, d.lane_change_target)),
+                (0, None),
+                "{:#?}",
+                spoken(&harness)
+            );
+        }
+    }
+}

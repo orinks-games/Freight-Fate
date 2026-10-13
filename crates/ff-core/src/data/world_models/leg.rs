@@ -644,11 +644,10 @@ impl Route {
         let mut miles_by_lanes: Vec<(i64, f64)> = Vec::new();
         let mut divided_mi = 0.0;
         let mut total_mi = 0.0;
-        for (i, leg) in self.legs.iter().enumerate() {
-            let forward = self.cities.get(i).is_some_and(|c| *c == leg.a);
+        for leg in &self.legs {
             for seg in leg.lane_segments() {
                 let span = (seg.end_mi - seg.start_mi).max(0.0);
-                let n = seg.your_side(forward);
+                let n = seg.your_side();
                 match miles_by_lanes.iter_mut().find(|(k, _)| *k == n) {
                     Some(entry) => entry.1 += span,
                     None => miles_by_lanes.push((n, span)),
