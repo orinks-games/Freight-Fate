@@ -32,11 +32,11 @@ fn make_pacer() -> (EventSpeechPacer, FakeClock) {
 }
 
 fn flush(pacer: &mut EventSpeechPacer, text: &str) -> bool {
-    pacer.should_flush(text, EventPriority::Ambient, None)
+    pacer.should_flush(text, EventPriority::Ambient, None, None)
 }
 
 fn flush_at(pacer: &mut EventSpeechPacer, text: &str, priority: EventPriority) -> bool {
-    pacer.should_flush(text, priority, None)
+    pacer.should_flush(text, priority, None, None)
 }
 
 fn interrupt(pacer: &mut EventSpeechPacer, text: &str) -> Option<Cut> {
@@ -482,7 +482,12 @@ fn test_a_superseded_line_is_flushed_and_never_handed_back() {
     let waiting = Rc::new(Cell::new(true));
     let hold = "Stopped at the yield. A car crossing from the left; assistance is holding for \
                 your gap.";
-    pacer.should_flush(hold, EventPriority::Route, always(Rc::clone(&waiting)));
+    pacer.should_flush(
+        hold,
+        EventPriority::Route,
+        None,
+        always(Rc::clone(&waiting)),
+    );
     clock.advance(0.1);
     waiting.set(false); // the gap came
     assert!(flush_at(
@@ -934,3 +939,29 @@ fn test_the_overspeed_nag_dies_once_the_driver_has_slowed() {
 }
 
 mod settings;
+
+/// A confirmation delivered queued does not take the rescue slot, any more
+/// than one delivered interrupting or on the main channel does: the urgent
+/// line that cuts it does not hand it back to be said a second time (QA
+/// drive, 2026-10-13: "The road narrows to two lanes." heard twice around
+/// "Automatic braking.").
+#[test]
+fn test_a_queued_confirmation_is_not_handed_back() {
+    let (mut pacer, _clock) = make_pacer();
+    let narrows = "The road narrows to two lanes.";
+    pacer.should_flush(
+        narrows,
+        EventPriority::Route,
+        Some(SpeechCategory::Confirmation),
+        None,
+    );
+    assert_eq!(interrupt(&mut pacer, "Automatic braking."), None);
+
+    // The same line queued as a route call is still rescued.
+    let (mut pacer, _clock) = make_pacer();
+    pacer.should_flush(narrows, EventPriority::Route, None, None);
+    assert_eq!(
+        interrupt(&mut pacer, "Automatic braking."),
+        cut(narrows, EventPriority::Route)
+    );
+}

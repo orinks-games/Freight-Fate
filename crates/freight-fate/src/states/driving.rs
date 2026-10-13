@@ -852,6 +852,14 @@ pub struct DrivingState {
     /// Lane keeping chose the change underway, so it keeps watching the lane
     /// it is moving into and calls the move off if that lane fills or ends.
     pub keeping_lane_change: bool,
+    /// A cruise ceiling while the move back from a pass is held by a vehicle
+    /// pacing the truck in the right lane: lane keeping eases off so it can
+    /// drop in behind it. None whenever nothing is holding the move back.
+    pub pass_return_ease_mph: Option<f64>,
+    /// Seconds the left lane stays excused after lane keeping's move back
+    /// was called off or held by traffic, so the CB does not blame the
+    /// driver for a hold the assist made.
+    pub keep_right_excused_s: f64,
     pub merge_deadline: Option<f64>,
     // Miles of acceleration lane still ahead after pulling out of a
     // facility. None once the lane is behind the truck (or when the run

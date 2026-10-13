@@ -507,6 +507,12 @@ impl DrivingState {
             working
         });
         let mut target_mph = self.cruise_working_mph.expect("set above");
+        // Lane keeping easing off under a vehicle pacing the truck in the
+        // right lane, so it can drop in behind it. Silent: the move back
+        // that follows is the report.
+        if let Some(ease) = self.pass_return_ease_mph {
+            target_mph = target_mph.min(ease);
+        }
         let exit_cap = self.ramp_approach_cap_mph();
         let exit_capped = exit_cap.is_some_and(|cap| cap < target_mph);
         if exit_capped {

@@ -952,12 +952,16 @@ impl EventSpeechPacer {
     /// announcement gives a backlog of chatter under a second before it goes
     /// in front of it.
     ///
-    /// (As in the Python, the slot is re-armed here WITHOUT a category: a
-    /// confirmation delivered queued still takes it.)
+    /// The slot is re-armed with the line's category, as `note_interrupt`
+    /// and `note_queued` re-arm it, so a confirmation delivered queued does
+    /// not take it either. Without it, lane keeping's "The road narrows to
+    /// two lanes." was handed back after the automatic braking that cut it
+    /// and heard twice, eight seconds apart (QA drive, 2026-10-13).
     pub fn should_flush(
         &mut self,
         text: &str,
         priority: EventPriority,
+        category: Option<SpeechCategory>,
         valid: Option<Valid>,
     ) -> bool {
         let now = self.now();
@@ -971,7 +975,7 @@ impl EventSpeechPacer {
             self.interrupt_deliveries();
             self.restart_projection(now, text, priority);
             self.protected = None;
-            self.track(text, priority, None, valid);
+            self.track(text, priority, category, valid);
             return true;
         }
         let start = now.max(self.clear_at);
@@ -988,7 +992,7 @@ impl EventSpeechPacer {
             // under "Entering ... zone", and every burst logged twice as a
             // requeue (live drive into Abilene, 2026-09-24). It queues.
             self.extend_projection(now, text, priority);
-            self.track(text, priority, None, valid);
+            self.track(text, priority, category, valid);
             return false;
         }
         if start - now > budget && self.only_a_live_line_ahead(now, text) {
@@ -1000,7 +1004,7 @@ impl EventSpeechPacer {
             // dropped its tail ("Light red." cutting the take line). Waiting
             // it out is shorter than the replay, and it is heard once.
             self.extend_projection(now, text, priority);
-            self.track(text, priority, None, valid);
+            self.track(text, priority, category, valid);
             return false;
         }
         if start - now > budget {
@@ -1057,11 +1061,11 @@ impl EventSpeechPacer {
             }
             self.interrupt_deliveries();
             self.restart_projection(now, text, priority);
-            self.track(text, priority, None, valid);
+            self.track(text, priority, category, valid);
             return true;
         }
         self.extend_projection(now, text, priority);
-        self.track(text, priority, None, valid);
+        self.track(text, priority, category, valid);
         false
     }
 

@@ -890,9 +890,10 @@ impl DrivingState {
     }
 
     /// Left-lane time is legitimate while passing slower right-lane
-    /// traffic, or while construction has the right lane coned off.
+    /// traffic, while construction has the right lane coned off, or while
+    /// lane keeping's own move back is held or was just called off.
     pub fn keep_right_justified(&self) -> bool {
-        if self.closed_lane_here() == Some(0) {
+        if self.closed_lane_here() == Some(0) || self.keep_right_excused_s > 0.0 {
             return true;
         }
         let speed = self.trip.truck.speed_mph();
@@ -911,6 +912,7 @@ impl DrivingState {
 
     /// Camping the left lane draws CB grumbling: keep right except to pass.
     pub fn update_keep_right(&mut self, ctx: &mut GameContext, dt: f64) {
+        self.keep_right_excused_s = (self.keep_right_excused_s - dt).max(0.0);
         if self.lane.lane_count < 2
             || self.lane.lane != self.lane.lane_count - 1
             || self.trip.truck.speed_mph() < KEEP_RIGHT_MIN_MPH

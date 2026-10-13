@@ -681,7 +681,10 @@ impl GameContext {
                 cut = self
                     .event_pacer
                     .note_interrupt(&text, priority, category, valid);
-            } else if self.event_pacer.should_flush(&text, priority, valid) {
+            } else if self
+                .event_pacer
+                .should_flush(&text, priority, category, valid)
+            {
                 // The channel is backed up past the point of truth: purging
                 // and speaking fresh IS the queued line's honest delivery.
                 // The purge can still have cut a line that was genuinely
