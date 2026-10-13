@@ -837,3 +837,73 @@ fn shipped_spanish_says_a_yard_once_and_joins_de_el() {
          adelante en la salida 50B."
     );
 }
+
+#[test]
+fn shipped_spanish_says_places_board_rows_and_regions_whole() {
+    // Facility kinds and "in {town}" in Spanish with the names kept; the
+    // market watch, the assigned job row, the region count and the terrain
+    // as whole Spanish sentences.
+    let tr = shipped_spanish();
+    for (english, spanish) in [
+        ("Pulling into freight terminal Bemidji Company Yard in Bemidji.", "Entrando en terminal de carga Bemidji Company Yard en Bemidji."),
+        ("Loaded for freight terminal Macon Terminal in Macon.", "Cargado para terminal de carga Macon Terminal en Macon."),
+        ("Dispatch routed you to retail distribution hub Amazon Fulfillment Center KRB1 in Kenosha, Wisconsin.", "Despacho te ha enviado a centro de distribución comercial Amazon Fulfillment Center KRB1 en Kenosha, Wisconsin."),
+        ("Market watch: automotive tight, farm inputs tight, lumber paper loose, steel loose.", "Vistazo al mercado: automoción al alza, insumos agrícolas al alza, madera y papel a la baja, acero a la baja."),
+        ("16 tons of general freight from Chicago Parcel Hub in Chicago, Illinois to the Fargo metro freight market. 62 miles. Carrier gross 332 dollars. Deadline 3 hours. Equipment: dry van trailer.", "16 toneladas de carga general desde Chicago Parcel Hub en Chicago, Illinois hasta el mercado de carga metropolitano de Fargo. 62 millas. Ingreso bruto de la empresa de transporte: 332 dólares. Plazo de entrega: 3 horas. Equipo: remolque de furgón seco."),
+        ("16 tons of general freight from Chicago Parcel Hub in Chicago, Illinois to Amazon Fulfillment Center KRB1 in Kenosha, Wisconsin. 62 miles. Gross revenue 332 dollars. Deadline 12 hours, planned around the 10-hour rest your hours will force. Equipment: dry van trailer.", "16 toneladas de carga general desde Chicago Parcel Hub en Chicago, Illinois hasta Amazon Fulfillment Center KRB1 en Kenosha, Wisconsin. 62 millas. Ingresos brutos: 332 dólares. Plazo de entrega: 12 horas, contando el descanso de 10 horas que te impondrán tus horas de servicio. Equipo: remolque de furgón seco."),
+        (
+            "Dispatch accepted from Chicago Company Yard. Deadhead 1.1 miles on South Canal Street to pickup at Chicago Parcel Hub in Chicago, Illinois.",
+            "Despacho aceptado desde Patio de la empresa Chicago. Trayecto en vacío de 1,1 millas por South Canal Street hasta la recogida en Chicago Parcel Hub en Chicago, Illinois.",
+        ),
+        (
+            "Pulling into port Port of Tacoma in Tacoma, Washington.",
+            "Entrando en puerto Port of Tacoma en Tacoma, Washington.",
+        ),
+        (
+            "Loaded for warehouse Acme Storage in Reno, Nevada.",
+            "Cargado para almacén Acme Storage en Reno, Nevada.",
+        ),
+        (
+            "On I-5 toward Portland, Oregon. One lane your side. Current grade 0.1 percent downhill, terrain hills.",
+            "En I-5 hacia Portland, Oregon. Un carril en tu sentido. Pendiente actual 0,1 por ciento de bajada, terreno de colinas.",
+        ),
+        (
+            "On I-5 toward Portland, Oregon. Divided, one lane your side.",
+            "En I-5 hacia Portland, Oregon. Con calzadas separadas, un carril en tu sentido.",
+        ),
+        (
+            "Down to two lanes your side. Road widens to three lanes your side.",
+            "Se reduce a dos carriles en tu sentido. La carretera se ensancha a tres carriles en tu sentido.",
+        ),
+        ("Great Lakes (29 cities). 8 of 16.", "Great Lakes (29 ciudades). 8 de 16."),
+        ("Current grade 2.0 percent downhill, terrain hills.", "Pendiente actual 2,0 por ciento de bajada, terreno de colinas."),
+        ("You have 5,000 dollars. First-day objective: open the dispatch board and accept your assigned trainer-recommended load.", "Tienes 5.000 dólares. Objetivo del primer día: abre el tablón de trabajos y acepta la carga asignada que recomienda el instructor."),
+    ] {
+        assert_eq!(tr.translate(english), spanish);
+    }
+}
+
+#[test]
+fn every_facility_kind_and_market_class_has_its_phrases() {
+    // lang/extra.pot carries a whole phrase per facility kind and per
+    // market class; a new kind or class needs its own.
+    let extra = include_str!("../../../../lang/extra.pot");
+    for (_, label) in crate::data::world_constants::LOCATION_TYPE_LABELS {
+        if *label == "metro freight market" {
+            continue;
+        }
+        for phrase in [
+            format!("{label} {{place_name}} in {{city}}"),
+            format!("{label} {{place_name}} near {{town}} in {{city}}"),
+        ] {
+            assert!(extra.contains(&format!("msgid \"{phrase}\"")), "{phrase}");
+        }
+    }
+    for key in crate::models::market::MARKET_CARGO_KEYS {
+        let class = key.replace('_', " ");
+        for condition in ["tight", "loose"] {
+            let phrase = format!("{class} {condition}");
+            assert!(extra.contains(&format!("msgid \"{phrase}\"")), "{phrase}");
+        }
+    }
+}

@@ -790,6 +790,41 @@ impl Pass<'_, '_> {
 
     /// The best template the line fills, rendered with its captures, and
     /// that template's literal weight.
+    /// A name with a catalog frame of its own whose every hole is a name
+    /// ("freight terminal Macon Terminal in Macon"): the frame translated,
+    /// the names kept.
+    fn place_phrase(&self, raw: &str) -> Option<String> {
+        if !raw.contains(' ') {
+            return None;
+        }
+        let (template, captures) = self.catalog.templates.best_match(raw, |template, caps| {
+            // "{place_name} in {city}" has few letters of its own, but here
+            // every hole is a name, so it is a frame around names.
+            template.segs.iter().any(|seg| {
+                    matches!(seg, Seg::Lit(text) if text.ends_with(" in ") || text.contains(" near "))
+                })
+                && caps.iter().all(|(name, value)| {
+                    is_proper_name_hole(name) && reads_as_name(value) && !value.contains(": ")
+                })
+        })?;
+        let mut out = String::new();
+        for part in &template.translation {
+            match part {
+                Part::Lit(text) => out.push_str(text),
+                Part::Hole(name) => {
+                    let raw = captures.get(name.as_str()).copied().unwrap_or_default();
+                    let bare = name
+                        .starts_with("the_")
+                        .then(|| raw.strip_prefix("the ").or(raw.strip_prefix("The ")))
+                        .flatten();
+                    out.push_str(bare.unwrap_or(raw));
+                }
+                Part::Plural(..) => return None,
+            }
+        }
+        Some(out)
+    }
+
     fn template(&mut self, core: &str, depth: usize) -> Option<(usize, String)> {
         // A one-sentence template never swallows several sentences into a
         // hole: "It is {tod}." must not match "It is 9:00. Fuel is low.",
@@ -819,6 +854,18 @@ impl Pass<'_, '_> {
             }) {
                 return false;
             }
+            // A name that opens a template reads as one: "{the_city} metro
+            // freight market" must not take "12 tons of general freight
+            // from Aberdeen yard in Aberdeen to the Fargo" as its city.
+            if let Some(Seg::Hole(first)) = template.segs.first() {
+                if is_proper_name_hole(first)
+                    && caps
+                        .get(first.as_str())
+                        .is_some_and(|value| !reads_as_place(value))
+                {
+                    return false;
+                }
+            }
             // Only a hole that ends the template or opens a sentence of it
             // may hold sentences of its own ("ELD: {summary}", "How to play.
             // {controls} {page_title}"): "{pct} percent {direction}
@@ -838,6 +885,16 @@ impl Pass<'_, '_> {
                 Part::Lit(text) => out.push_str(text),
                 Part::Hole(name) => {
                     let raw = captures.get(name.as_str()).copied().unwrap_or_default();
+                    if is_proper_name_hole(name) && depth < MAX_DEPTH {
+                        // A name hole can hold a place phrase around names:
+                        // "retail distribution hub {place_name} in {city}"
+                        // says its kind and "in" in the language, the names
+                        // as they are.
+                        if let Some(phrase) = self.place_phrase(raw) {
+                            out.push_str(&phrase);
+                            continue;
+                        }
+                    }
                     if is_proper_name_hole(name) || depth >= MAX_DEPTH {
                         // "{the_city}" holds "the Chicago" in English; the
                         // translation brings its own article, if any.
@@ -987,6 +1044,21 @@ fn reads_as_name(text: &str) -> bool {
             .chars()
             .find(|c| c.is_alphanumeric())
             .is_some_and(char::is_lowercase)
+    })
+}
+
+/// Reads as a place's name with its small words: "Amazon Fulfillment
+/// Center KRB1 in Kenosha", "the Fargo", never "12 tons of general freight".
+fn reads_as_place(text: &str) -> bool {
+    const SMALL: &[&str] = &[
+        "the", "of", "in", "near", "and", "at", "on", "de", "la", "du",
+    ];
+    text.split_whitespace().all(|word| {
+        SMALL.contains(&word)
+            || !word
+                .chars()
+                .find(|c| c.is_alphanumeric())
+                .is_some_and(char::is_lowercase)
     })
 }
 

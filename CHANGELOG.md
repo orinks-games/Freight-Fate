@@ -104,6 +104,10 @@
 
 - **Lane keeping no longer pulls out to pass into the oncoming lane on two-lane roads.** Where a passing lane serves only the other direction, the truck stays in its own lane.
 
+- **Translated speech now says facility types, the dispatch board's market and job rows, and region city counts in your language.** Facility and town names stay as they are, and Spanish lane counts say carril.
+
+- **The favorites count on the Tab Radio screen now opens your favorite stations.** Press Enter on it, then Enter on a station to tune it.
+
 - **Controller button names are translated, and the Driver screen's clock reads its time zone in your language.** The terminal greeting also loses a stray double space.
 
 - **Translated speech no longer mixes English into lines the language file covers.** Settings values, the drive start, the terminal, How to play, the F1 help, the Driver screen, the ELD app and the dispatch board's career objective now speak whole sentences in your language.

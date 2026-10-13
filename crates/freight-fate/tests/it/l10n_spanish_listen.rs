@@ -61,16 +61,6 @@ fn every_yard_arrival_is_whole_spanish() {
     }
 }
 
-/// A facility named with its kind and town ("retail distribution hub
-/// Amazon Fulfillment Center KRB1 in Kenosha") stays English for now.
-fn names_a_facility(sentence: &str) -> bool {
-    sentence.contains(" in ")
-        && sentence.split(" in ").count() > 1
-        && ["hub ", "terminal ", "center ", "Center "]
-            .iter()
-            .any(|kind| sentence.contains(kind))
-}
-
 #[test]
 fn the_chicago_start_and_kenosha_drive_are_whole_spanish() {
     let es = spanish();
@@ -87,17 +77,31 @@ fn the_chicago_start_and_kenosha_drive_are_whole_spanish() {
         let said = lines.join(" ");
         assert!(said.contains("Chicago Company Yard"), "{said}");
         assert!(said.contains("toward Kenosha"), "{said}");
+        assert!(said.contains("to pickup at"), "{said}");
         let mut leaks = Vec::new();
-        // The dispatch board's market and offer rows are a known follow-up.
-        for line in lines
-            .iter()
-            .filter(|l| !l.starts_with("Dispatch board.") && !l.starts_with("Accept assigned"))
-        {
-            let left: Vec<String> = english_left(&es, line)
-                .into_iter()
-                .filter(|s| !names_a_facility(s))
-                .collect();
-            leaks.extend(left);
+        // The board's market and offer rows and the facility phrases
+        // ("retail distribution hub ... in Kenosha") included.
+        for line in &lines {
+            leaks.extend(english_left(&es, line));
+            let spanish = es.translate(line);
+            for fragment in [
+                "tons of",
+                "Market watch",
+                "Carrier gross",
+                "Deadline",
+                "distribution hub",
+                " in Kenosha",
+                " in Chicago",
+                " in ",
+                "trainer-recommended",
+                "de recomendado",
+                " tight",
+                " loose",
+            ] {
+                if spanish.contains(fragment) {
+                    leaks.push(format!("{fragment}: {spanish}"));
+                }
+            }
         }
         assert_eq!(leaks, Vec::<String>::new());
     }

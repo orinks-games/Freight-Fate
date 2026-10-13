@@ -3062,7 +3062,7 @@ msgstr ""
 msgid "json"
 msgstr ""
 
-#: crates/ff-core/src/data/baked/mod.rs crates/freight-fate/src/states/main_menu_career.rs
+#: crates/ff-core/src/data/baked/mod.rs
 msgid "cities"
 msgstr ""
 
@@ -7564,15 +7564,15 @@ msgstr ""
 msgid "company driver"
 msgstr ""
 
-#: crates/ff-core/src/models/business.rs
+#: crates/ff-core/src/models/business.rs crates/ff-core/src/models/jobs.rs
 msgid "Direct gross"
 msgstr ""
 
-#: crates/ff-core/src/models/business.rs
+#: crates/ff-core/src/models/business.rs crates/ff-core/src/models/jobs.rs
 msgid "Gross revenue"
 msgstr ""
 
-#: crates/ff-core/src/models/business.rs
+#: crates/ff-core/src/models/business.rs crates/ff-core/src/models/jobs.rs
 msgid "Carrier gross"
 msgstr ""
 
@@ -10800,55 +10800,60 @@ msgstr ""
 msgid " Requires {credentials_clause}."
 msgstr ""
 
-#. placeholders: {origin_offer_text}
+#. placeholders: {tons}, {cargo}, {pickup}, {dropoff}
 #: crates/ff-core/src/models/jobs.rs
-msgid "from {origin_offer_text}"
-msgstr ""
-
-#. placeholders: {destination_offer_text}
-#: crates/ff-core/src/models/jobs.rs
-msgid "to {destination_offer_text}"
+msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
 msgstr ""
 
 #: crates/ff-core/src/models/jobs.rs
 msgid "Pays"
 msgstr ""
 
+#. placeholders: {pay}
 #: crates/ff-core/src/models/jobs.rs
-msgid ", planned around the 10-hour rest your hours will force. "
+msgid "Pays {pay} dollars."
 msgstr ""
 
-#. one clause of a longer line
+#. placeholders: {pay}
 #: crates/ff-core/src/models/jobs.rs
-msgid "planned around the 10-hour rest your hours will force."
+msgid "Carrier gross {pay} dollars."
 msgstr ""
 
-#. placeholders: {f2}, {rest}, {equipment_text}, {trailer}, {preview}, {market}, {endorsement}
+#. placeholders: {pay}
+#: crates/ff-core/src/models/jobs.rs
+msgid "Direct gross {pay} dollars."
+msgstr ""
+
+#. placeholders: {pay}
+#: crates/ff-core/src/models/jobs.rs
+msgid "Gross revenue {pay} dollars."
+msgstr ""
+
+#. placeholders: {hours}
+#: crates/ff-core/src/models/jobs.rs
+msgid ""
+"Deadline {hours} hours, planned around the 10-hour rest your hours will "
+"force."
+msgstr ""
+
+#. placeholders: {hours}
+#: crates/ff-core/src/models/jobs.rs
+msgid "Deadline {hours} hours."
+msgstr ""
+
+#. placeholders: {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
 #. one sentence of a longer line
 #: crates/ff-core/src/models/jobs.rs
 msgid ""
-"Deadline {f2} hours{rest}Equipment: "
-"{equipment_text}.{trailer}{preview}{market}{endorsement}"
+"{pay_text} {deadline} Equipment: "
+"{equipment}.{trailer}{preview}{market}{endorsement}"
 msgstr ""
 
-#. placeholders: {pay_label}, {grouped}
-#. one sentence of a longer line
-#: crates/ff-core/src/models/jobs.rs
-msgid "{pay_label} {grouped} dollars."
-msgstr ""
-
-#. placeholders: {prefix}, {f}, {label}, {origin}, {dest}
-#. one sentence of a longer line
-#: crates/ff-core/src/models/jobs.rs
-msgid "{prefix}{f} tons of {label} {origin} {dest}."
-msgstr ""
-
-#. placeholders: {prefix}, {f}, {label}, {origin}, {dest}, {distance}, {pay_label}, {grouped}, {f2}, {rest}, {equipment_text}, {trailer}, {preview}, {market}, {endorsement}
+#. placeholders: {prefix}, {load}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
 #: crates/ff-core/src/models/jobs.rs
 msgid ""
-"{prefix}{f} tons of {label} {origin} {dest}. {distance}. {pay_label} "
-"{grouped} dollars. Deadline {f2} hours{rest}Equipment: "
-"{equipment_text}.{trailer}{preview}{market}{endorsement}"
+"{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
+"{equipment}.{trailer}{preview}{market}{endorsement}"
 msgstr ""
 
 #. placeholders: {min_level}
@@ -19425,7 +19430,7 @@ msgstr ""
 msgid "community-stations"
 msgstr ""
 
-#: crates/freight-fate/src/community_stations.rs crates/freight-fate/src/states/city/held_load.rs crates/freight-fate/src/states/city.rs crates/freight-fate/src/states/main_menu_career.rs
+#: crates/freight-fate/src/community_stations.rs crates/freight-fate/src/states/city/held_load.rs crates/freight-fate/src/states/city.rs
 msgid "city"
 msgstr ""
 
@@ -32326,6 +32331,12 @@ msgstr ""
 msgid "{accessorial_clause} Business status: {status_label}."
 msgstr ""
 
+#. placeholders: {pay_label}, {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
+msgid "{pay_label} {grouped} dollars."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
 msgid "on time"
 msgstr ""
@@ -33195,6 +33206,18 @@ msgid "Receivable stations:"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
+msgid "Favorites saved:"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_radio_app.rs
+msgid "favorites"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_radio_app.rs
+msgid "Your saved stations. Enter on one tunes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid "Back to the status screens."
 msgstr ""
 
@@ -33810,14 +33833,6 @@ msgstr ""
 #. placeholders: {favorites}
 #: crates/freight-fate/src/states/driving_radio_app.rs
 msgid "Favorites: {favorites} saved"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_radio_app.rs
-msgid "favorites"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_radio_app.rs
-msgid "Your saved stations. Enter on one tunes it."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_radio_app.rs
@@ -40520,6 +40535,26 @@ msgstr ""
 msgid "Home region for your {carrier_name} career."
 msgstr ""
 
+#. placeholders: {place}
+#: crates/freight-fate/src/states/main_menu_career.rs
+msgid "{place} (1 city)"
+msgstr ""
+
+#. placeholders: {place}
+#: crates/freight-fate/src/states/main_menu_career.rs
+msgid "{place}, 1 city."
+msgstr ""
+
+#. placeholders: {place}, {count}
+#: crates/freight-fate/src/states/main_menu_career.rs
+msgid "{place} ({count} cities)"
+msgstr ""
+
+#. placeholders: {place}, {count}
+#: crates/freight-fate/src/states/main_menu_career.rs
+msgid "{place}, {count} cities."
+msgstr ""
+
 #: crates/freight-fate/src/states/main_menu_career.rs
 msgid "Home terminal"
 msgstr ""
@@ -44994,4 +45029,443 @@ msgstr ""
 
 #: lang/extra.pot
 msgid "dry van {unit}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "air cargo area {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "air cargo area {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "automotive plant {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "automotive plant {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "chemical and petroleum terminal {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "chemical and petroleum terminal {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "cold storage {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "cold storage {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "company yard {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "company yard {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "construction materials yard {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "construction materials yard {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "cross-dock {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "cross-dock {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "distribution center {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "distribution center {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "dry warehouse {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "dry warehouse {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "farm elevator {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "farm elevator {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "food terminal {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "food terminal {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "food processor {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "food processor {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "grocery and retail distribution center {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid ""
+"grocery and retail distribution center {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "industrial park {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "industrial park {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "intermodal yard {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "intermodal yard {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "intermodal ramp {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "intermodal ramp {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "lumber and paper facility {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "lumber and paper facility {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "manufacturing plant {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "manufacturing plant {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "mine or quarry {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "mine or quarry {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "parcel hub {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "parcel hub {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "port {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "port {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "port terminal {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "port terminal {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "rail yard {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "rail yard {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "retail distribution hub {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "retail distribution hub {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "steel and industrial plant {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "steel and industrial plant {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "freight terminal {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "freight terminal {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "warehouse {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "warehouse {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "the {city} metro freight market"
+msgstr ""
+
+#: lang/extra.pot
+msgid "general tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "general loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "retail tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "retail loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "parcel tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "parcel loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "container tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "container loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "bulk tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "bulk loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "grain tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "grain loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "farm inputs tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "farm inputs loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "construction tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "construction loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "lumber paper tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "lumber paper loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "automotive tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "automotive loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "machinery tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "machinery loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "steel tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "steel loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "food tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "food loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "refrigerated tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "refrigerated loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "chemicals tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "chemicals loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "electronics tight"
+msgstr ""
+
+#: lang/extra.pot
+msgid "electronics loose"
+msgstr ""
+
+#: lang/extra.pot
+msgid "terrain flat"
+msgstr ""
+
+#: lang/extra.pot
+msgid "terrain hills"
+msgstr ""
+
+#: lang/extra.pot
+msgid "terrain mountain"
+msgstr ""
+
+#: lang/extra.pot
+msgid ", terrain flat"
+msgstr ""
+
+#: lang/extra.pot
+msgid ", terrain hills"
+msgstr ""
+
+#: lang/extra.pot
+msgid ", terrain mountain"
+msgstr ""
+
+#: lang/extra.pot
+msgid ""
+"First-day objective: open the dispatch board and accept your assigned "
+"trainer-recommended load."
+msgstr ""
+
+#: lang/extra.pot
+msgid "First-day objective: run this trainer-recommended load cleanly."
+msgstr ""
+
+#: lang/extra.pot
+msgid "First-day objective: pick a trainer-recommended load."
+msgstr ""
+
+#: lang/extra.pot
+msgid "{place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "{place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "one lane your side"
+msgstr ""
+
+#: lang/extra.pot
+msgid "divided, one lane your side"
+msgstr ""
+
+#: lang/extra.pot
+msgid "Down to one lane your side."
+msgstr ""
+
+#: lang/extra.pot
+msgid "{lane_word} lanes your side"
+msgstr ""
+
+#: lang/extra.pot
+msgid "divided, {lane_word} lanes your side"
+msgstr ""
+
+#: lang/extra.pot
+msgid "Down to {lane_word} lanes your side."
+msgstr ""
+
+#: lang/extra.pot
+msgid "mostly divided, one lane your side"
+msgstr ""
+
+#: lang/extra.pot
+msgid "mostly divided, {lane_word} lanes your side"
+msgstr ""
+
+#: lang/extra.pot
+msgid "One lane your side."
+msgstr ""
+
+#: lang/extra.pot
+msgid "Divided, one lane your side."
+msgstr ""
+
+#: lang/extra.pot
+msgid "Mostly divided, one lane your side."
 msgstr ""

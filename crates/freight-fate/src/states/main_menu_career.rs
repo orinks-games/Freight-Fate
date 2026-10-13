@@ -183,16 +183,20 @@ impl Menu for HomeTerminalState {
     fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         let mut items = Vec::new();
         for region in &self.regions {
-            let name = region_menu_name(region);
+            // The region is a name; the count is words a catalog has whole.
+            let place = region_menu_name(region);
             let count = self.cities_by_region[region].len();
-            let noun = if count == 1 { "city" } else { "cities" };
+            let (label, help) = if count == 1 {
+                (format!("{place} (1 city)"), format!("{place}, 1 city."))
+            } else {
+                (
+                    format!("{place} ({count} cities)"),
+                    format!("{place}, {count} cities."),
+                )
+            };
             let r = region.clone();
             items.push(
-                MenuItem::new(
-                    format!("{name} ({count} {noun})"),
-                    move |s: &mut Self, ctx| s.pick_region(ctx, &r),
-                )
-                .help(format!("{name}, {count} {noun}.")),
+                MenuItem::new(label, move |s: &mut Self, ctx| s.pick_region(ctx, &r)).help(help),
             );
         }
         items

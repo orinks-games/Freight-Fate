@@ -89,7 +89,8 @@ bookmarks usable.
       its stream at full strength, spoken "streaming", so it never fades,
       crackles or hands the dial over (`RadioState::reception`). A streamed
       favorite is not counted as the strongest signal here when another
-      station fades out.
+      station fades out. The Tab Radio screen's favorites count opens the
+      same favorites list as the Radio app (Orinks, 2026-10-13).
 - [x] Call dispatch, a 2.0 teaser for 1.9.4 (owner, 2026-10-10): the pause
       menu offers Call dispatch while the truck is stopped, with local answers
       about the delivery window, hours, the road ahead, truck trouble (which

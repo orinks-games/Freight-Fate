@@ -20,6 +20,7 @@ use crate::states::driving_core::{
 use crate::states::driving_menu_states::apps::DriverAppsState;
 use crate::states::driving_menu_states::commands::DrivingCommandsState;
 use crate::states::driving_menu_states::DriveRef;
+use crate::states::driving_radio_app::RadioStationListState;
 use crate::states::driving_stop_detail::StopDetailState;
 
 /// Live driving status, grouped into screens you open one at a time.
@@ -503,6 +504,9 @@ impl DrivingStatusScreenState {
     }
 }
 
+/// How the Radio screen's favorites count begins; Enter on it opens the list.
+const FAVORITES_SAVED_PREFIX: &str = "Favorites saved:";
+
 enum MapRow {
     Say(String),
     Stop(String, RoadStop),
@@ -530,7 +534,23 @@ impl Menu for DrivingStatusScreenState {
         let mut items = if self.screen == "map" {
             self.map_items(ctx)
         } else {
-            self.lines(ctx).into_iter().map(say_item).collect()
+            let radio = self.screen == "radio";
+            self.lines(ctx)
+                .into_iter()
+                .map(|line| {
+                    if radio && line.starts_with(FAVORITES_SAVED_PREFIX) {
+                        // The count reads like a row you can open, and the
+                        // Radio app's count opens the list, so this one does.
+                        MenuItem::new(line, |s: &mut Self, ctx: &mut GameContext| {
+                            let state = RadioStationListState::new(s.driving.clone(), "favorites");
+                            ctx.push_state(state);
+                        })
+                        .help("Your saved stations. Enter on one tunes it.")
+                    } else {
+                        say_item(line)
+                    }
+                })
+                .collect()
         };
         items.push(
             MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx))

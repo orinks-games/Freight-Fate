@@ -12,7 +12,7 @@ use freight_fate::app::testing::TestApp;
 use freight_fate::app::SharedState;
 use freight_fate::states::base::{Key, Menu};
 use freight_fate::states::driving_core::Instructor;
-use freight_fate::states::driving_menu_states::DriveRef;
+use freight_fate::states::driving_menu_states::{DriveRef, DrivingStatusScreenState};
 use freight_fate::states::driving_radio_app::{
     RadioAppState, RadioCategoryState, RadioSearchEntryState, RadioStationListState,
 };
@@ -218,6 +218,29 @@ fn test_favorites_are_saved_listed_and_tuned_from_the_app() {
     let rows = with_top_ctx::<RadioStationListState, _>(&mut app, build_labels);
     assert!(rows[0].starts_with(&tuned), "{rows:?}");
     assert!(rows[0].ends_with("favorite"), "{rows:?}");
+}
+
+#[test]
+fn test_the_tab_radio_screen_favorites_count_opens_the_list() {
+    let mut app = TestApp::new();
+    let drive = a_radio_drive(&mut app);
+    drive_and_ctx(&drive, &mut app, |d, ctx| {
+        d.trip.truck.start_engine();
+        d.toggle_radio_favorite(ctx);
+    });
+    let tuned = with_drive(&drive, |d| d.radio.current_station().display_name());
+    let mut state = DrivingStatusScreenState::new(DriveRef::of(&drive), "radio");
+    Menu::enter(&mut state, &mut app.ctx);
+    let rows = labels(&state, &app.ctx);
+    assert!(
+        rows.contains(&"Favorites saved: 1.".to_string()),
+        "{rows:?}"
+    );
+
+    activate(&mut state, &mut app.ctx, "Favorites saved:");
+    assert!(top_is::<RadioStationListState>(&app));
+    let rows = with_top_ctx::<RadioStationListState, _>(&mut app, build_labels);
+    assert!(rows[0].starts_with(&tuned), "{rows:?}");
 }
 
 #[test]

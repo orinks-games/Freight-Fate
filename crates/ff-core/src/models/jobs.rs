@@ -250,36 +250,42 @@ impl Job {
         } else {
             format!(" Requires {}.", credentials_clause(self.cargo.credentials))
         };
-        let origin = format!("from {}", self.origin_offer_text());
-        let dest = format!("to {}", self.destination_offer_text());
+        // Whole sentences, so a catalog has each one with its words: the
+        // load, the pay and the deadline are each a line of their own.
+        let tons = fmt_f(self.weight_tons, 0);
+        let cargo = self.cargo.label;
+        let pickup = self.origin_offer_text();
+        let dropoff = self.destination_offer_text();
+        let load = format!("{tons} tons of {cargo} from {pickup} to {dropoff}.");
         let trailer = if opts.trailer_note.is_empty() {
             String::new()
         } else {
             format!(" {}", opts.trailer_note)
         };
-        let pay = opts.display_pay.unwrap_or(self.pay);
-        let pay_label = if opts.pay_label.is_empty() {
-            "Pays"
-        } else {
-            opts.pay_label
+        let pay = fmt_grouped(opts.display_pay.unwrap_or(self.pay), 0);
+        let pay_text = match opts.pay_label {
+            "" | "Pays" => format!("Pays {pay} dollars."),
+            "Carrier gross" => format!("Carrier gross {pay} dollars."),
+            "Direct gross" => format!("Direct gross {pay} dollars."),
+            "Gross revenue" => format!("Gross revenue {pay} dollars."),
+            other => format!("{other} {pay} dollars."),
         };
         let distance = if opts.distance_text.is_empty() {
             format!("{} miles", fmt_f(self.distance_mi, 0))
         } else {
             opts.distance_text.to_string()
         };
-        let rest = if self.deadline_covers_rest {
-            ", planned around the 10-hour rest your hours will force. "
+        let hours = fmt_f(self.deadline_game_h, 0);
+        let deadline = if self.deadline_covers_rest {
+            format!(
+                "Deadline {hours} hours, planned around the 10-hour rest your hours will force."
+            )
         } else {
-            ". "
+            format!("Deadline {hours} hours.")
         };
+        let equipment = self.cargo.equipment_text();
         format!(
-            "{prefix}{} tons of {} {origin} {dest}. {distance}. {pay_label} {} dollars. Deadline {} hours{rest}Equipment: {}.{trailer}{preview}{market}{endorsement}",
-            fmt_f(self.weight_tons, 0),
-            self.cargo.label,
-            fmt_grouped(pay, 0),
-            fmt_f(self.deadline_game_h, 0),
-            self.cargo.equipment_text(),
+            "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: {equipment}.{trailer}{preview}{market}{endorsement}"
         )
     }
 

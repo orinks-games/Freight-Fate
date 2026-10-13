@@ -5927,7 +5927,7 @@ msgid "terminal"
 msgstr "terminal"
 
 msgid "warehouse"
-msgstr "warehouse"
+msgstr "almacén"
 
 msgid "distribution"
 msgstr "distribution"
@@ -6172,7 +6172,7 @@ msgid "manufacturing"
 msgstr "manufacturing"
 
 msgid "port"
-msgstr "port"
+msgstr "puerto"
 
 msgid "rail"
 msgstr "rail"
@@ -6993,22 +6993,22 @@ msgstr "colinas onduladas"
 #. placeholders: {lane_word}, {lane_word2}
 msgid "mostly divided, {lane_word} to {lane_word2} lanes your side"
 msgstr ""
-"en su mayoría con calzadas separadas, de {lane_word} a {lane_word2} vías en "
-"tu sentido"
+"en su mayoría con calzadas separadas, de {lane_word} a {lane_word2} "
+"carriles en tu sentido"
 
 #. placeholders: {lane_word}, {lane_word2}
 msgid "{lane_word} to {lane_word2} lanes your side"
-msgstr "de {lane_word} a {lane_word2} vías en tu sentido"
+msgstr "de {lane_word} a {lane_word2} carriles en tu sentido"
 
 #. placeholders: {lane_word}, {s_ending}
 msgid "mostly divided, {lane_word} lane{s_ending} your side"
 msgstr ""
-"en su mayoría con calzadas separadas, {lane_word} vía{s_ending} en tu "
+"en su mayoría con calzadas separadas, {lane_word} carril{s_ending} en tu "
 "sentido"
 
 #. placeholders: {lane_word}, {s_ending}
 msgid "{lane_word} lane{s_ending} your side"
-msgstr "{lane_word} vía{s_ending} en tu sentido"
+msgstr "{lane_word} carril{s_ending} en tu sentido"
 
 #. placeholders: {f}
 msgid "{f} miles"
@@ -10334,54 +10334,57 @@ msgstr " Nota de la ruta: el mercado está {condition}."
 msgid " Requires {credentials_clause}."
 msgstr " Requiere {credentials_clause}."
 
-#. placeholders: {origin_offer_text}
-msgid "from {origin_offer_text}"
-msgstr "desde {origin_offer_text}"
-
-#. placeholders: {destination_offer_text}
-msgid "to {destination_offer_text}"
-msgstr "hasta {destination_offer_text}"
+#. placeholders: {tons}, {cargo}, {pickup}, {dropoff}
+msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
+msgstr "{tons} toneladas de {cargo} desde {pickup} hasta {dropoff}."
 
 msgid "Pays"
 msgstr "Paga"
 
-msgid ", planned around the 10-hour rest your hours will force. "
-msgstr ""
-", planificado en torno al descanso de 10 horas que te impondrán tus horas. "
+#. placeholders: {pay}
+msgid "Pays {pay} dollars."
+msgstr "Paga {pay} dólares."
 
-#. one clause of a longer line
-msgid "planned around the 10-hour rest your hours will force."
-msgstr ""
-"planificado en torno al descanso de 10 horas que te impondrán tus horas."
+#. placeholders: {pay}
+msgid "Carrier gross {pay} dollars."
+msgstr "Ingreso bruto de la empresa de transporte: {pay} dólares."
 
-#. placeholders: {f2}, {rest}, {equipment_text}, {trailer}, {preview}, {market}, {endorsement}
+#. placeholders: {pay}
+msgid "Direct gross {pay} dollars."
+msgstr "Ingreso bruto directo: {pay} dólares."
+
+#. placeholders: {pay}
+msgid "Gross revenue {pay} dollars."
+msgstr "Ingresos brutos: {pay} dólares."
+
+#. placeholders: {hours}
+msgid ""
+"Deadline {hours} hours, planned around the 10-hour rest your hours will "
+"force."
+msgstr ""
+"Plazo de entrega: {hours} horas, contando el descanso de 10 horas que te "
+"impondrán tus horas de servicio."
+
+#. placeholders: {hours}
+msgid "Deadline {hours} hours."
+msgstr "Plazo de entrega: {hours} horas."
+
+#. placeholders: {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
 #. one sentence of a longer line
 msgid ""
-"Deadline {f2} hours{rest}Equipment: "
-"{equipment_text}.{trailer}{preview}{market}{endorsement}"
+"{pay_text} {deadline} Equipment: "
+"{equipment}.{trailer}{preview}{market}{endorsement}"
 msgstr ""
-"Plazo de entrega {f2} horas{rest}Equipo: "
-"{equipment_text}.{trailer}{preview}{market}{endorsement}"
+"{pay_text} {deadline} Equipo: "
+"{equipment}.{trailer}{preview}{market}{endorsement}"
 
-#. placeholders: {pay_label}, {grouped}
-#. one sentence of a longer line
-msgid "{pay_label} {grouped} dollars."
-msgstr "{pay_label} {grouped} dólares."
-
-#. placeholders: {prefix}, {f}, {label}, {origin}, {dest}
-#. one sentence of a longer line
-msgid "{prefix}{f} tons of {label} {origin} {dest}."
-msgstr "{prefix}{f} toneladas de {label} {origin} {dest}."
-
-#. placeholders: {prefix}, {f}, {label}, {origin}, {dest}, {distance}, {pay_label}, {grouped}, {f2}, {rest}, {equipment_text}, {trailer}, {preview}, {market}, {endorsement}
+#. placeholders: {prefix}, {load}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
 msgid ""
-"{prefix}{f} tons of {label} {origin} {dest}. {distance}. {pay_label} "
-"{grouped} dollars. Deadline {f2} hours{rest}Equipment: "
-"{equipment_text}.{trailer}{preview}{market}{endorsement}"
+"{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
+"{equipment}.{trailer}{preview}{market}{endorsement}"
 msgstr ""
-"{prefix}{f} toneladas de {label} {origin} {dest}. {distance}. {pay_label} "
-"{grouped} dólares. Plazo de entrega {f2} horas{rest}Equipo: "
-"{equipment_text}.{trailer}{preview}{market}{endorsement}"
+"{prefix}{load} {distance}. {pay_text} {deadline} Equipo: "
+"{equipment}.{trailer}{preview}{market}{endorsement}"
 
 #. placeholders: {min_level}
 msgid "Level {min_level} drivers unlock this cargo."
@@ -14140,7 +14143,7 @@ msgstr "En {highway} hacia {toward_text}."
 
 #. placeholders: {lane_word}, {s_ending}
 msgid "divided, {lane_word} lane{s_ending} your side"
-msgstr "con calzadas separadas, {lane_word} vía{s_ending} en tu sentido"
+msgstr "con calzadas separadas, {lane_word} carril{s_ending} en tu sentido"
 
 msgid "Current grade 0.0 percent, level"
 msgstr "Pendiente actual 0,0 por ciento, llano"
@@ -14232,11 +14235,11 @@ msgstr "entrada de la instalación"
 
 #. placeholders: {lane_word}
 msgid "Road widens to {lane_word} lanes your side."
-msgstr "La carretera se ensancha a {lane_word} vías en tu sentido."
+msgstr "La carretera se ensancha a {lane_word} carriles en tu sentido."
 
 #. placeholders: {lane_word}, {s_ending}
 msgid "Down to {lane_word} lane{s_ending} your side."
-msgstr "Se reduce a {lane_word} vía{s_ending} en tu sentido."
+msgstr "Se reduce a {lane_word} carril{s_ending} en tu sentido."
 
 #. placeholders: {distance}
 msgid ", then {distance} on it"
@@ -29817,6 +29820,11 @@ msgstr "Aparcado en {name}, en el área de servicio de {destination2}."
 msgid "{accessorial_clause} Business status: {status_label}."
 msgstr "{accessorial_clause} Estado del negocio: {status_label}."
 
+#. placeholders: {pay_label}, {grouped}
+#. one sentence of a longer line
+msgid "{pay_label} {grouped} dollars."
+msgstr "{pay_label} {grouped} dólares."
+
 msgid "on time"
 msgstr "a tiempo"
 
@@ -30578,6 +30586,15 @@ msgstr "Posición aproximada de la radio del camión: {f}, {f2}."
 msgid "Receivable stations:"
 msgstr "Emisoras que se reciben:"
 
+msgid "Favorites saved:"
+msgstr "Favoritas guardadas:"
+
+msgid "favorites"
+msgstr "favorites"
+
+msgid "Your saved stations. Enter on one tunes it."
+msgstr "Tus emisoras guardadas. Enter en una la sintoniza."
+
 msgid "Back to the status screens."
 msgstr "De vuelta a las pantallas de estado."
 
@@ -31128,12 +31145,6 @@ msgstr "Guarda o quita la emisora sintonizada de favoritas."
 #. placeholders: {favorites}
 msgid "Favorites: {favorites} saved"
 msgstr "Favoritas: {favorites} guardadas"
-
-msgid "favorites"
-msgstr "favorites"
-
-msgid "Your saved stations. Enter on one tunes it."
-msgstr "Tus emisoras guardadas. Enter en una la sintoniza."
 
 msgid "Search stations"
 msgstr "Buscar emisoras"
@@ -37496,6 +37507,22 @@ msgstr ""
 msgid "Home region for your {carrier_name} career."
 msgstr "Región de origen para tu carrera con {carrier_name}."
 
+#. placeholders: {place}
+msgid "{place} (1 city)"
+msgstr "{place} (1 ciudad)"
+
+#. placeholders: {place}
+msgid "{place}, 1 city."
+msgstr "{place}, 1 ciudad."
+
+#. placeholders: {place}, {count}
+msgid "{place} ({count} cities)"
+msgstr "{place} ({count} ciudades)"
+
+#. placeholders: {place}, {count}
+msgid "{place}, {count} cities."
+msgstr "{place}, {count} ciudades."
+
 msgid "Home terminal"
 msgstr "Terminal base"
 
@@ -42254,6 +42281,382 @@ msgstr "El intercambio de remolque llevó {f} minutos."
 
 msgid "dry van {unit}"
 msgstr "furgón seco {unit}"
+
+msgid "air cargo area {place_name} in {city}"
+msgstr "zona de carga aérea {place_name} en {city}"
+
+msgid "air cargo area {place_name} near {town} in {city}"
+msgstr "zona de carga aérea {place_name} cerca de {town} en {city}"
+
+msgid "automotive plant {place_name} in {city}"
+msgstr "planta de automoción {place_name} en {city}"
+
+msgid "automotive plant {place_name} near {town} in {city}"
+msgstr "planta de automoción {place_name} cerca de {town} en {city}"
+
+msgid "chemical and petroleum terminal {place_name} in {city}"
+msgstr "terminal química y petrolera {place_name} en {city}"
+
+msgid "chemical and petroleum terminal {place_name} near {town} in {city}"
+msgstr "terminal química y petrolera {place_name} cerca de {town} en {city}"
+
+msgid "cold storage {place_name} in {city}"
+msgstr "almacén frigorífico {place_name} en {city}"
+
+msgid "cold storage {place_name} near {town} in {city}"
+msgstr "almacén frigorífico {place_name} cerca de {town} en {city}"
+
+msgid "company yard {place_name} in {city}"
+msgstr "patio de la empresa {place_name} en {city}"
+
+msgid "company yard {place_name} near {town} in {city}"
+msgstr "patio de la empresa {place_name} cerca de {town} en {city}"
+
+msgid "construction materials yard {place_name} in {city}"
+msgstr "patio de materiales de construcción {place_name} en {city}"
+
+msgid "construction materials yard {place_name} near {town} in {city}"
+msgstr ""
+"patio de materiales de construcción {place_name} cerca de {town} en {city}"
+
+msgid "cross-dock {place_name} in {city}"
+msgstr "centro de transbordo {place_name} en {city}"
+
+msgid "cross-dock {place_name} near {town} in {city}"
+msgstr "centro de transbordo {place_name} cerca de {town} en {city}"
+
+msgid "distribution center {place_name} in {city}"
+msgstr "centro de distribución {place_name} en {city}"
+
+msgid "distribution center {place_name} near {town} in {city}"
+msgstr "centro de distribución {place_name} cerca de {town} en {city}"
+
+msgid "dry warehouse {place_name} in {city}"
+msgstr "almacén de carga seca {place_name} en {city}"
+
+msgid "dry warehouse {place_name} near {town} in {city}"
+msgstr "almacén de carga seca {place_name} cerca de {town} en {city}"
+
+msgid "farm elevator {place_name} in {city}"
+msgstr "silo agrícola {place_name} en {city}"
+
+msgid "farm elevator {place_name} near {town} in {city}"
+msgstr "silo agrícola {place_name} cerca de {town} en {city}"
+
+msgid "food terminal {place_name} in {city}"
+msgstr "terminal de alimentos {place_name} en {city}"
+
+msgid "food terminal {place_name} near {town} in {city}"
+msgstr "terminal de alimentos {place_name} cerca de {town} en {city}"
+
+msgid "food processor {place_name} in {city}"
+msgstr "procesadora de alimentos {place_name} en {city}"
+
+msgid "food processor {place_name} near {town} in {city}"
+msgstr "procesadora de alimentos {place_name} cerca de {town} en {city}"
+
+msgid "grocery and retail distribution center {place_name} in {city}"
+msgstr ""
+"centro de distribución de alimentación y comercio {place_name} en {city}"
+
+msgid ""
+"grocery and retail distribution center {place_name} near {town} in {city}"
+msgstr ""
+"centro de distribución de alimentación y comercio {place_name} cerca de "
+"{town} en {city}"
+
+msgid "industrial park {place_name} in {city}"
+msgstr "polígono industrial {place_name} en {city}"
+
+msgid "industrial park {place_name} near {town} in {city}"
+msgstr "polígono industrial {place_name} cerca de {town} en {city}"
+
+msgid "intermodal yard {place_name} in {city}"
+msgstr "patio intermodal {place_name} en {city}"
+
+msgid "intermodal yard {place_name} near {town} in {city}"
+msgstr "patio intermodal {place_name} cerca de {town} en {city}"
+
+msgid "intermodal ramp {place_name} in {city}"
+msgstr "rampa intermodal {place_name} en {city}"
+
+msgid "intermodal ramp {place_name} near {town} in {city}"
+msgstr "rampa intermodal {place_name} cerca de {town} en {city}"
+
+msgid "lumber and paper facility {place_name} in {city}"
+msgstr "instalación de madera y papel {place_name} en {city}"
+
+msgid "lumber and paper facility {place_name} near {town} in {city}"
+msgstr ""
+"instalación de madera y papel {place_name} cerca de {town} en {city}"
+
+msgid "manufacturing plant {place_name} in {city}"
+msgstr "planta de fabricación {place_name} en {city}"
+
+msgid "manufacturing plant {place_name} near {town} in {city}"
+msgstr "planta de fabricación {place_name} cerca de {town} en {city}"
+
+msgid "mine or quarry {place_name} in {city}"
+msgstr "mina o cantera {place_name} en {city}"
+
+msgid "mine or quarry {place_name} near {town} in {city}"
+msgstr "mina o cantera {place_name} cerca de {town} en {city}"
+
+msgid "parcel hub {place_name} in {city}"
+msgstr "centro de paquetería {place_name} en {city}"
+
+msgid "parcel hub {place_name} near {town} in {city}"
+msgstr "centro de paquetería {place_name} cerca de {town} en {city}"
+
+msgid "port {place_name} in {city}"
+msgstr "puerto {place_name} en {city}"
+
+msgid "port {place_name} near {town} in {city}"
+msgstr "puerto {place_name} cerca de {town} en {city}"
+
+msgid "port terminal {place_name} in {city}"
+msgstr "terminal portuaria {place_name} en {city}"
+
+msgid "port terminal {place_name} near {town} in {city}"
+msgstr "terminal portuaria {place_name} cerca de {town} en {city}"
+
+msgid "rail yard {place_name} in {city}"
+msgstr "patio ferroviario {place_name} en {city}"
+
+msgid "rail yard {place_name} near {town} in {city}"
+msgstr "patio ferroviario {place_name} cerca de {town} en {city}"
+
+msgid "retail distribution hub {place_name} in {city}"
+msgstr "centro de distribución comercial {place_name} en {city}"
+
+msgid "retail distribution hub {place_name} near {town} in {city}"
+msgstr ""
+"centro de distribución comercial {place_name} cerca de {town} en {city}"
+
+msgid "steel and industrial plant {place_name} in {city}"
+msgstr "planta siderúrgica e industrial {place_name} en {city}"
+
+msgid "steel and industrial plant {place_name} near {town} in {city}"
+msgstr ""
+"planta siderúrgica e industrial {place_name} cerca de {town} en {city}"
+
+msgid "freight terminal {place_name} in {city}"
+msgstr "terminal de carga {place_name} en {city}"
+
+msgid "freight terminal {place_name} near {town} in {city}"
+msgstr "terminal de carga {place_name} cerca de {town} en {city}"
+
+msgid "warehouse {place_name} in {city}"
+msgstr "almacén {place_name} en {city}"
+
+msgid "warehouse {place_name} near {town} in {city}"
+msgstr "almacén {place_name} cerca de {town} en {city}"
+
+msgid "the {city} metro freight market"
+msgstr "el mercado de carga metropolitano de {city}"
+
+msgid "general tight"
+msgstr "carga general al alza"
+
+msgid "general loose"
+msgstr "carga general a la baja"
+
+msgid "retail tight"
+msgstr "comercio minorista al alza"
+
+msgid "retail loose"
+msgstr "comercio minorista a la baja"
+
+msgid "parcel tight"
+msgstr "paquetería al alza"
+
+msgid "parcel loose"
+msgstr "paquetería a la baja"
+
+msgid "container tight"
+msgstr "contenedores al alza"
+
+msgid "container loose"
+msgstr "contenedores a la baja"
+
+msgid "bulk tight"
+msgstr "granel al alza"
+
+msgid "bulk loose"
+msgstr "granel a la baja"
+
+msgid "grain tight"
+msgstr "grano al alza"
+
+msgid "grain loose"
+msgstr "grano a la baja"
+
+msgid "farm inputs tight"
+msgstr "insumos agrícolas al alza"
+
+msgid "farm inputs loose"
+msgstr "insumos agrícolas a la baja"
+
+msgid "construction tight"
+msgstr "construcción al alza"
+
+msgid "construction loose"
+msgstr "construcción a la baja"
+
+msgid "lumber paper tight"
+msgstr "madera y papel al alza"
+
+msgid "lumber paper loose"
+msgstr "madera y papel a la baja"
+
+msgid "automotive tight"
+msgstr "automoción al alza"
+
+msgid "automotive loose"
+msgstr "automoción a la baja"
+
+msgid "machinery tight"
+msgstr "maquinaria al alza"
+
+msgid "machinery loose"
+msgstr "maquinaria a la baja"
+
+msgid "steel tight"
+msgstr "acero al alza"
+
+msgid "steel loose"
+msgstr "acero a la baja"
+
+msgid "food tight"
+msgstr "alimentos al alza"
+
+msgid "food loose"
+msgstr "alimentos a la baja"
+
+msgid "refrigerated tight"
+msgstr "carga refrigerada al alza"
+
+msgid "refrigerated loose"
+msgstr "carga refrigerada a la baja"
+
+msgid "chemicals tight"
+msgstr "químicos al alza"
+
+msgid "chemicals loose"
+msgstr "químicos a la baja"
+
+msgid "electronics tight"
+msgstr "electrónica al alza"
+
+msgid "electronics loose"
+msgstr "electrónica a la baja"
+
+msgid "terrain flat"
+msgstr "terreno llano"
+
+msgid "terrain hills"
+msgstr "terreno de colinas"
+
+msgid "terrain mountain"
+msgstr "terreno montañoso"
+
+msgid ", terrain flat"
+msgstr ", terreno llano"
+
+msgid ", terrain hills"
+msgstr ", terreno de colinas"
+
+msgid ", terrain mountain"
+msgstr ", terreno montañoso"
+
+msgid ""
+"First-day objective: open the dispatch board and accept your assigned "
+"trainer-recommended load."
+msgstr ""
+"Objetivo del primer día: abre el tablón de trabajos y acepta la carga "
+"asignada que recomienda el instructor."
+
+msgid "First-day objective: run this trainer-recommended load cleanly."
+msgstr ""
+"Objetivo del primer día: haz sin problemas esta carga que recomienda el "
+"instructor."
+
+msgid "First-day objective: pick a trainer-recommended load."
+msgstr ""
+"Objetivo del primer día: elige una carga que recomiende el instructor."
+
+msgid "{place_name} in {city}"
+msgstr "{place_name} en {city}"
+
+msgid "{place_name} near {town} in {city}"
+msgstr "{place_name} cerca de {town} en {city}"
+
+msgid "one lane your side"
+msgstr "un carril en tu sentido"
+
+msgid "divided, one lane your side"
+msgstr "con calzadas separadas, un carril en tu sentido"
+
+msgid "Down to one lane your side."
+msgstr "Se reduce a un carril en tu sentido."
+
+msgid "{lane_word} lanes your side"
+msgstr "{lane_word} carriles en tu sentido"
+
+msgid "divided, {lane_word} lanes your side"
+msgstr "con calzadas separadas, {lane_word} carriles en tu sentido"
+
+msgid "Down to {lane_word} lanes your side."
+msgstr "Se reduce a {lane_word} carriles en tu sentido."
+
+msgid "mostly divided, one lane your side"
+msgstr "en su mayoría con calzadas separadas, un carril en tu sentido"
+
+msgid "mostly divided, {lane_word} lanes your side"
+msgstr ""
+"en su mayoría con calzadas separadas, {lane_word} carriles en tu sentido"
+
+msgid "One lane your side."
+msgstr "Un carril en tu sentido."
+
+msgid "Divided, one lane your side."
+msgstr "Con calzadas separadas, un carril en tu sentido."
+
+msgid "Mostly divided, one lane your side."
+msgstr "En su mayoría con calzadas separadas, un carril en tu sentido."
+
+#~ msgid "from {origin_offer_text}"
+#~ msgstr "desde {origin_offer_text}"
+
+#~ msgid "to {destination_offer_text}"
+#~ msgstr "hasta {destination_offer_text}"
+
+#~ msgid ", planned around the 10-hour rest your hours will force. "
+#~ msgstr ""
+#~ ", planificado en torno al descanso de 10 horas que te impondrán tus horas. "
+
+#~ msgid "planned around the 10-hour rest your hours will force."
+#~ msgstr ""
+#~ "planificado en torno al descanso de 10 horas que te impondrán tus horas."
+
+#~ msgid ""
+#~ "Deadline {f2} hours{rest}Equipment: "
+#~ "{equipment_text}.{trailer}{preview}{market}{endorsement}"
+#~ msgstr ""
+#~ "Plazo de entrega {f2} horas{rest}Equipo: "
+#~ "{equipment_text}.{trailer}{preview}{market}{endorsement}"
+
+#~ msgid "{prefix}{f} tons of {label} {origin} {dest}."
+#~ msgstr "{prefix}{f} toneladas de {label} {origin} {dest}."
+
+#~ msgid ""
+#~ "{prefix}{f} tons of {label} {origin} {dest}. {distance}. {pay_label} "
+#~ "{grouped} dollars. Deadline {f2} hours{rest}Equipment: "
+#~ "{equipment_text}.{trailer}{preview}{market}{endorsement}"
+#~ msgstr ""
+#~ "{prefix}{f} toneladas de {label} {origin} {dest}. {distance}. {pay_label} "
+#~ "{grouped} dólares. Plazo de entrega {f2} horas{rest}Equipo: "
+#~ "{equipment_text}.{trailer}{preview}{market}{endorsement}"
 
 #~ msgid "{label} ahead at {exit_label}"
 #~ msgstr "{label} más adelante en la {exit_label}"
