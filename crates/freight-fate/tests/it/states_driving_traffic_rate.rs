@@ -58,7 +58,7 @@ impl Corridor {
 fn lanes_your_side(leg: &ff_core::data::world_models::Leg, offset_mi: f64) -> i64 {
     for seg in leg.lane_segments() {
         if seg.start_mi <= offset_mi && offset_mi <= seg.end_mi {
-            return seg.your_side(true).max(1);
+            return seg.your_side().max(1);
         }
     }
     if leg.divided == Some(false) {

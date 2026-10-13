@@ -132,6 +132,25 @@ bookmarks usable.
 - [ ] (Found along the way) Bubble vehicles in one lane pass through each
       other: there is no NPC-to-NPC following, which more vehicles per mile
       make more likely to be heard as two sounds in one place.
+- [x] Lane keeping no longer passes into an oncoming passing lane (player
+      report relayed by the owner, 2026-10-13: "the cruise control swerves
+      you right into oncoming cars", three damaged loads). The lane bake
+      stores OSM `lanes:forward`/`lanes:backward` relative to the way's
+      drawing direction and never compared it with the leg's, so on a
+      two-lane road with a passing lane one way the truck was given the
+      other direction's lane about half the time, and full lane keeping
+      pulled out into it. An uneven undivided split now gives the smaller
+      side both ways (`LaneSegment::your_side`); it costs the real passing
+      lane where it is ours.
+- [ ] (Found along the way) Re-bake the lane segments with each matched
+      way's direction against the leg's, so a passing lane our side comes
+      back (`tools/bake_lane_segments.py`; needs the Overpass corridor
+      query again).
+- [ ] (Found along the way) 49 non-interstate legs with no divided flag
+      fall back to the leg's two lanes a side over about 390 miles with no
+      lane segment. That count comes from the traffic-volume bake, which
+      assumes two when the survey has none; where the road is really two
+      lanes total, the second lane is the oncoming one. Check those legs.
 - [x] The radio status screen names the Playlists folder's full location
       while no personal playlist is on the dial and streamer-safe mode is
       off (issue #289: a player saw the shuffle setting and could not find

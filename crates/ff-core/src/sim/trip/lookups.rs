@@ -76,7 +76,7 @@ impl Trip {
         let sample_offset = if forward { offset } else { leg.miles - offset };
         for seg in leg.lane_segments() {
             if seg.start_mi <= sample_offset && sample_offset <= seg.end_mi {
-                return Some((seg.your_side(forward), seg.divided()));
+                return Some((seg.your_side(), seg.divided()));
             }
         }
         None
@@ -971,7 +971,7 @@ impl Trip {
                 runs.push(LaneRun {
                     start_mi: s,
                     end_mi: e,
-                    lanes: MAX_DRIVABLE_LANES.min(seg.your_side(forward)),
+                    lanes: MAX_DRIVABLE_LANES.min(seg.your_side()),
                     divided: seg.divided(),
                 });
             }
