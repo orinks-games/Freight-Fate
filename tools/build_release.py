@@ -143,6 +143,10 @@ def stage_sound_pack(build_dir: Path, root: Path | None = None) -> None:
     shutil.copy2(credits, root / "SOUND_CREDITS.md")
 
 
+# Where the translator's kit lands in a release, beside the manual.
+TRANSLATIONS_DIR = "translations"
+
+
 def stage_release_docs(build_dir: Path, root: Path | None = None) -> None:
     """Copy player-facing release documents into the packaged runtime."""
     changelog = ROOT / "CHANGELOG.md"
@@ -178,6 +182,15 @@ def stage_release_docs(build_dir: Path, root: Path | None = None) -> None:
         test_book.read_text(encoding="utf-8"), title="Freight Fate Alpha Test Book"
     )
     (root / "ALPHA_TEST_BOOK.html").write_text(test_book_html, encoding="utf-8")
+
+    # The translator's kit: the template a new language starts from, every
+    # language file to correct, the glossaries and the guide (README.md),
+    # whose links are relative to this folder. The game itself reads the
+    # copies compiled into it, never these.
+    lang = ROOT / "lang"
+    if not (lang / "freight-fate.pot").exists():
+        raise RuntimeError(f"Translation template was not found: {lang / 'freight-fate.pot'}")
+    shutil.copytree(lang, root / TRANSLATIONS_DIR, dirs_exist_ok=True)
 
 
 def verify_sound_packs(root: Path) -> None:
@@ -1342,6 +1355,8 @@ def verify_rust_payload(build_dir: Path, platform_name: str = sys.platform) -> N
         root / "USER_MANUAL.html",
         root / "ALPHA_TEST_BOOK.md",
         root / "ALPHA_TEST_BOOK.html",
+        root / TRANSLATIONS_DIR / "freight-fate.pot",
+        root / TRANSLATIONS_DIR / "README.md",
         root / "SOUND_CREDITS.md",
         root / "freight_fate" / "sounds.pak",
         root / "freight_fate" / "music.pak",

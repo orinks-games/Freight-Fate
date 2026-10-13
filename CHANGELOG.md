@@ -14,6 +14,8 @@
 
 - **A translator can add a new language with its translation file alone.** The game offers it in Settings by the name the file gives.
 
+- **Every download has a translations folder.** It holds the template for a new language, each language file, and the translator's guide.
+
 - **The main menu now has background sound under the music, picked by your career.** A truck stop at night, your rig in the yard, or the dispatch office.
 
 - **The Radio app can browse by category.** List all stations or one category, in-range and local stations first, repeats removed.

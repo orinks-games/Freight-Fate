@@ -698,6 +698,11 @@ def test_macos_stage_is_a_player_ready_app_bundle(tmp_path, monkeypatch):
         "USER_MANUAL.html",
         "ALPHA_TEST_BOOK.md",
         "ALPHA_TEST_BOOK.html",
+        "translations/freight-fate.pot",
+        "translations/extra.pot",
+        "translations/README.md",
+        "translations/es.po",
+        "translations/glossary/en.md",
     ):
         assert (resources / name).is_file()
     frameworks = app / "Contents" / "Frameworks"
@@ -1242,6 +1247,8 @@ def test_full_macos_bundle_verification_reads_packs_from_resources(tmp_path, mon
         "USER_MANUAL.html",
         "ALPHA_TEST_BOOK.md",
         "ALPHA_TEST_BOOK.html",
+        "translations/freight-fate.pot",
+        "translations/README.md",
         "SOUND_CREDITS.md",
         "freight_fate/sounds.pak",
         "freight_fate/music.pak",
@@ -1309,6 +1316,8 @@ def test_macos_staged_payload_rejects_each_missing_runtime_library(
         "USER_MANUAL.html",
         "ALPHA_TEST_BOOK.md",
         "ALPHA_TEST_BOOK.html",
+        "translations/freight-fate.pot",
+        "translations/README.md",
         "SOUND_CREDITS.md",
         "freight_fate/sounds.pak",
         "freight_fate/music.pak",
