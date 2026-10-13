@@ -4,6 +4,7 @@
 
 ### Added
 
+- **The game can speak French.** Choose Français under Settings, Speech, Language; the radio stays in English.
 - **The game can speak Spanish.** Choose Español under Settings, Speech, Language; the radio stays in English.
 
 - **Key and button practice says what each key or button does at the wheel.** Shift F1 or Back plus Start opens it anywhere.
