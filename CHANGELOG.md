@@ -4,6 +4,8 @@
 
 ### Added
 
+- **The game can speak Japanese.** Choose 日本語 under Settings, Speech, Language; the radio stays in English.
+
 - **Key and button practice says what each key or button does at the wheel.** Shift F1 or Back plus Start opens it anywhere.
 
 - **A Language setting lets the game speak other languages.** It is the first row of Settings, Speech; Automatic follows your system language, and the radio stays English.
