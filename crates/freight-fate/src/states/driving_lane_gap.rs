@@ -52,9 +52,39 @@ const PASS_RETURN_EASE_MPH: f64 = 10.0;
 /// called off or held by traffic.
 pub const KEEP_RIGHT_EXCUSE_S: f64 = 30.0;
 
-/// Room past the arrival check's forward reach a vehicle ahead must have
-/// before the truck drops in behind it.
-const DROP_IN_MARGIN_MI: f64 = 0.02;
+/// The time gap the move back keeps to a vehicle in the lane it moves into:
+/// to the one ahead at the truck's speed, and from the one behind at its own.
+const DROP_IN_HEADWAY_S: f64 = 3.0;
+
+/// The rig, cab to trailer tail. The truck's position is its front bumper.
+const RIG_LENGTH_MI: f64 = 72.0 / 5280.0;
+
+/// A traffic vehicle's real length, by kind. `TrafficVehicle::length_mi` is
+/// a quarter mile for every vehicle, a deliberately wide footprint the
+/// collision and clearance checks share; a move back that keeps a real
+/// headway reads the vehicle at its own size instead.
+fn real_length_mi(vehicle_class: &str) -> f64 {
+    let feet = match vehicle_class {
+        "car" => 15.0,
+        "state trooper" => 17.0,
+        "box truck" => 26.0,
+        "semi" => 72.0,
+        _ => 20.0,
+    };
+    feet / 5280.0
+}
+
+/// What lane keeping says when it eases off to let a vehicle pacing it in
+/// the right lane by, whole per kind so a translation can say each its way.
+fn easing_off_line(vehicle_class: &str) -> &'static str {
+    match vehicle_class {
+        "car" => "Easing off to let the car by.",
+        "box truck" => "Easing off to let the box truck by.",
+        "semi" => "Easing off to let the semi by.",
+        "state trooper" => "Easing off to let the state trooper by.",
+        _ => "Easing off to let traffic by.",
+    }
+}
 
 /// The margin and the forward sweep live with the trip now
 /// (`Trip::lane_blocker_at`), because the hazard call that names the open
@@ -285,9 +315,10 @@ impl DrivingState {
     /// ahead in that lane holds the truck where it is. Dropped without a word
     /// if the truck is no longer in the lane it passed in (the driver moved
     /// it, or the road took the lane away) or leaves the highway.
-    pub fn update_pass_return(&mut self, ctx: &GameContext) {
+    pub fn update_pass_return(&mut self, ctx: &mut GameContext) {
         self.pass_return_ease_mph = None;
         let Some((home, passed_in)) = self.passing else {
+            self.pass_return_ease_said = false;
             return;
         };
         if self.lane_change_target.is_some() {
@@ -316,10 +347,11 @@ impl DrivingState {
             // Held by traffic, which is lane keeping's call and not the
             // driver's: the left lane is excused while it lasts.
             self.keep_right_excused_s = KEEP_RIGHT_EXCUSE_S;
-            self.ease_for_pacer(home);
+            self.ease_for_pacer(ctx, home);
             return;
         }
         self.passing = None;
+        self.pass_return_ease_said = false;
         // "In the right lane." on arrival is the whole report; the blinker
         // says it is coming.
         self.begin_lane_change(home);
@@ -388,50 +420,62 @@ impl DrivingState {
         );
     }
 
-    /// Whether the move back from a pass can go into `lane` now. The same
-    /// clearance reading as any lane change, except that a vehicle far
-    /// enough ahead and no slower than the truck does not hold it: the truck
-    /// drops in behind it, and the gap only opens while it moves over.
-    pub fn pass_return_open(&self, lane: i64) -> bool {
-        let Some(blocker) = self.lane_gap_blocker(lane) else {
-            return true;
-        };
+    /// The vehicle keeping the move back from a pass out of `lane`, or None.
+    ///
+    /// A real headway, not the wide footprint a lane change otherwise reads:
+    /// a vehicle ahead must stay `DROP_IN_HEADWAY_S` ahead of the cab at the
+    /// truck's speed, and one behind that far behind the trailer at its own,
+    /// through the seconds the move takes. The truck drops in behind a
+    /// vehicle that has just gone by, the way a driver would, instead of
+    /// waiting for it to be a third of a mile up the road. A vehicle on the
+    /// ramp beside the right lane counts as in it.
+    pub fn pass_return_blocker(&self, lane: i64) -> Option<&TrafficVehicle> {
         let speed = self.trip.truck.speed_mph();
-        let ahead = blocker.position_mi - self.trip.position_mi;
-        if ahead <= DODGE_CLEARANCE_AHEAD_MI + DROP_IN_MARGIN_MI || blocker.speed_mph < speed {
-            return false;
-        }
-        // The vehicle ahead answered for the lane, so the ramp beside it was
-        // never asked about.
-        lane != 0
-            || self
-                .trip
-                .traffic_manager
-                .vehicle_in_lane(
-                    self.trip.position_mi,
-                    -1,
-                    DODGE_CLEARANCE_AHEAD_MI + LANE_GAP_MARGIN_MI,
-                    DODGE_CLEARANCE_BEHIND_MI + LANE_GAP_MARGIN_MI,
-                    LANE_GAP_ACT_REAL_S * self.trip.effective_time_scale() / 3600.0,
-                    speed,
-                )
-                .is_none()
+        let horizon_hr = LANE_GAP_ACT_REAL_S * self.trip.effective_time_scale() / 3600.0;
+        let ahead_need = speed * DROP_IN_HEADWAY_S / 3600.0;
+        self.trip
+            .traffic_manager
+            .vehicles
+            .iter()
+            .filter(|v| v.lane == lane || (lane == 0 && v.lane == -1))
+            .find(|v| {
+                let rear = v.position_mi - self.trip.position_mi;
+                let front = rear + real_length_mi(&v.vehicle_class);
+                let drift = (v.speed_mph - speed) * horizon_hr;
+                let behind_need = RIG_LENGTH_MI + v.speed_mph * DROP_IN_HEADWAY_S / 3600.0;
+                rear.min(rear + drift) < ahead_need && front.max(front + drift) > -behind_need
+            })
+    }
+
+    /// Whether the move back from a pass can go into `lane` now.
+    pub fn pass_return_open(&self, lane: i64) -> bool {
+        self.pass_return_blocker(lane).is_none()
     }
 
     /// A vehicle holding the right lane at the truck's speed or faster
     /// paces it, and lane keeping would wait in the left lane for as long as
     /// that lasts. Ease off under it, so it pulls ahead and the truck drops
-    /// in behind. A slower vehicle there is the one being passed, and the
-    /// pass carries on at speed.
-    fn ease_for_pacer(&mut self, lane: i64) {
-        let Some(pacer) = self.lane_gap_blocker(lane) else {
+    /// in behind, and say so once: the cruise setting still reads the set
+    /// speed. A slower vehicle there is the one being passed, and the pass
+    /// carries on at speed.
+    fn ease_for_pacer(&mut self, ctx: &mut GameContext, lane: i64) {
+        let Some(pacer) = self.pass_return_blocker(lane) else {
             return;
         };
         if pacer.speed_mph + 2.0 < self.trip.truck.speed_mph() {
             return;
         }
+        let line = easing_off_line(&pacer.vehicle_class);
         self.pass_return_ease_mph =
             Some((pacer.speed_mph - PASS_RETURN_EASE_MPH).max(LANE_MIN_MPH));
+        if self.cruise_mph.is_some() && !std::mem::replace(&mut self.pass_return_ease_said, true) {
+            ctx.say_event_with(
+                line,
+                SayEvent::queued()
+                    .priority(EventPriority::Route)
+                    .category(SpeechCategory::Confirmation),
+            );
+        }
     }
 
     /// Whether an armed exit is close enough that the truck should be

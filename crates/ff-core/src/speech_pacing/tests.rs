@@ -965,3 +965,53 @@ fn test_a_queued_confirmation_is_not_handed_back() {
         cut(narrows, EventPriority::Route)
     );
 }
+
+/// A confirmation queued behind a protected line leaves it protected: the
+/// turn call it followed is still handed back when braking cuts it, as it
+/// was before queued lines carried their category.
+#[test]
+fn test_a_queued_confirmation_leaves_the_turn_call_ahead_of_it_protected() {
+    let (mut pacer, _clock) = make_pacer();
+    let turn = "Exit 50B in half a mile, keep right.";
+    pacer.should_flush(
+        turn,
+        EventPriority::Route,
+        Some(SpeechCategory::Navigation),
+        None,
+    );
+    pacer.should_flush(
+        "Cruise set to 60.",
+        EventPriority::Ambient,
+        Some(SpeechCategory::Confirmation),
+        None,
+    );
+    assert_eq!(
+        interrupt(&mut pacer, "Automatic braking."),
+        cut(turn, EventPriority::Route)
+    );
+}
+
+/// The same for an hours-of-service warning followed by a confirmation at
+/// ROUTE priority: the confirmation used to take the slot itself, and the
+/// warning was lost.
+#[test]
+fn test_a_route_confirmation_leaves_the_warning_ahead_of_it_protected() {
+    let (mut pacer, _clock) = make_pacer();
+    let hos = "You have 30 minutes of driving left before your 11 hour limit.";
+    pacer.should_flush(
+        hos,
+        EventPriority::Route,
+        Some(SpeechCategory::Safety),
+        None,
+    );
+    pacer.should_flush(
+        "Staying in the left lane.",
+        EventPriority::Route,
+        Some(SpeechCategory::Confirmation),
+        None,
+    );
+    assert_eq!(
+        interrupt(&mut pacer, "Automatic braking."),
+        cut(hos, EventPriority::Route)
+    );
+}

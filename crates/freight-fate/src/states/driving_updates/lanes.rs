@@ -543,10 +543,13 @@ impl DrivingState {
         self.keep_right_nags = 0;
         let lane_index = self.lane.lane;
         let lane_count = self.lane.lane_count;
-        let other = self
-            .trip
-            .traffic_manager
-            .vehicle_in_lane(
+        // Lane keeping's move back keeps a real headway (`pass_return_blocker`)
+        // and re-checked it every frame of the move, so dropping in behind a
+        // vehicle that just went by is not contact.
+        let other = if pass_return {
+            self.pass_return_blocker(lane_index)
+        } else {
+            self.trip.traffic_manager.vehicle_in_lane(
                 self.trip.position_mi,
                 lane_index,
                 DODGE_CLEARANCE_AHEAD_MI,
@@ -554,7 +557,8 @@ impl DrivingState {
                 0.0,
                 0.0,
             )
-            .map(|vehicle| vehicle.vehicle_class.clone());
+        }
+        .map(|vehicle| vehicle.vehicle_class.clone());
         if let Some(vehicle_class) = other {
             if self.trip.truck.speed_mph() > LANE_MIN_MPH {
                 if self.sideswipe_cooldown_s > 0.0 {

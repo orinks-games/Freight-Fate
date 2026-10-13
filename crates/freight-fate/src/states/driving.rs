@@ -860,6 +860,8 @@ pub struct DrivingState {
     /// was called off or held by traffic, so the CB does not blame the
     /// driver for a hold the assist made.
     pub keep_right_excused_s: f64,
+    /// The easing-off line has been said for the current held move back.
+    pub pass_return_ease_said: bool,
     pub merge_deadline: Option<f64>,
     // Miles of acceleration lane still ahead after pulling out of a
     // facility. None once the lane is behind the truck (or when the run
