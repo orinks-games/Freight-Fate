@@ -881,6 +881,32 @@ fn test_hanging_chains_leaves_the_pause_menu_with_its_rows() {
     );
 }
 
+#[test]
+fn test_a_snapped_set_of_chains_is_not_offered_again_on_the_same_drive() {
+    // Player report, 2026-10-14: in a Colorado chain zone the set snapped,
+    // the pause menu offered it again, it snapped as soon as the truck
+    // rolled, and round it went until the chain-law ticket. The profile's
+    // wear meter only catches up at a stop, so it still read the set as whole.
+    let mut app = TestApp::new();
+    let drive = a_drive(&mut app);
+    with_drive(&drive, |d| {
+        d.trip.truck.surface = "snow".to_string();
+        d.trip.truck.chain_wear_pct = 100.0;
+    });
+    {
+        let profile = app.ctx.profile.as_mut().expect("a career");
+        profile.set_chains_owned(true);
+        profile.set_chain_wear_pct(0.0);
+    }
+    let mut state = PauseMenuState::with_drive(DriveRef::of(&drive));
+    Menu::enter(&mut state, &mut app.ctx);
+    let rows = labels(&state, &app.ctx);
+    assert!(
+        !rows.iter().any(|row| row.contains("snow chains")),
+        "{rows:?}"
+    );
+}
+
 // -- a rebuild that cannot reach the drive ----------------------------------------------------
 //
 // When a rebuild misses the drive, these screens used to show nothing at all,

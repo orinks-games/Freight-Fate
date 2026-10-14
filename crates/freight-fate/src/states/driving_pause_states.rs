@@ -159,7 +159,11 @@ impl PauseMenuState {
                 .help("Chains grind apart fast on bare pavement."),
             );
         } else if profile_of(ctx).chains_owned()
-            && profile_of(ctx).chain_wear_pct() < 100.0
+            // The truck's own meter, not the profile's: the profile only
+            // catches up at a stop, so a set that snapped this drive still
+            // read as whole there and was offered again, to snap the moment
+            // the wheels turned (player report, Colorado, 2026-10-14).
+            && d.trip.truck.chain_wear_pct < 100.0
             // Offered only where chains would matter: snow or ice under the
             // truck, or a chain law posted on the run. Every pause in an
             // October in Chicago used to offer them (owner, 2026-10-01); the

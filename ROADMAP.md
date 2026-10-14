@@ -625,6 +625,10 @@ Everything found before 2026-09-25 moved to
       one.
 - [ ] States visited is readable only on the online profile; a player
       asked where to hear it in the game (Mastodon, 2026-07-05).
+- [x] Snapped chains offered again (player report, Colorado, 2026-10-14):
+      after a set snapped, the pause menu still offered to hang it, and it
+      snapped again as soon as the truck rolled, until the chain-law ticket.
+      The menu now reads the truck's own wear, so a scrap set stays off.
 - [ ] The exit-call truth test (`test_the_exit_calls_name_the_road_that_is_really_left`)
       failed once on the Linux ARM runner in the v1.9.1 tag build, hearing
       only the two-mile call, and passed on re-run. It passed 80 of 80 runs
@@ -2945,6 +2949,11 @@ terminal becomes the anchor of that week instead of a spawn point.
       cycle pressure, lower pay -- weighted toward new hires in the
       assigned-dispatch levels.
 
+- [ ] Trucks that drive differently (player report, 2026-10-14): models
+      already differ in torque, weight, drag, tank and thirst, but every one
+      shares the same gearbox, RPM band, governed speed and engine recording,
+      so they feel alike. Give each its own gearing, power curve, top speed
+      and engine sound.
 - [ ] genny's instruments in Synthesized music (owner, 2026-10-08): the game
       already composes endless seeded pieces in Rust (`ff_core::music_synth`);
       porting genny's voiced instruments, drums and styles into that renderer

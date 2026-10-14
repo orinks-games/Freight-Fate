@@ -152,6 +152,7 @@
 
 - **Resume speed control now brings back the speed keeper's speed after you brake out of it.**
 
+- **Snapped snow chains are no longer offered again on the same drive.** A broken set stays off until you buy a new one at a garage.
 
 - **Switching screen readers is now silent, and ZDSR no longer repeats "Speech is now using ZDSR" on every key press.**
 - **The jump to Freight Fate stations now lands on the Night Line, not Channel 3000.** Channel 3000 sits at the end of the category.
