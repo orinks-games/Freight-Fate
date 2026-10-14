@@ -348,6 +348,10 @@ settings_fields! {
     acc_following_gap: String = "normal" => str_checked,
     /// friendlier default for new players
     automatic_transmission: bool = true => bool_truthy,
+    /// Alt+J: whether J on an automatic box arms the retarder manager.
+    /// Kept between drives, so a driver who stages the jake by hand is not
+    /// handed back to the manager at every dispatch.
+    automatic_jake: bool = true => bool_truthy,
     /// Simple keeps the familiar hold-through-stop behavior. Deliberate
     /// requires a release and second press before an automatic changes
     /// direction.

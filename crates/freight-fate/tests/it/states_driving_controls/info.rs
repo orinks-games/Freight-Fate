@@ -954,6 +954,29 @@ fn test_alt_j_toggles_whether_j_arms_the_automatic_jake() {
 }
 
 #[test]
+fn test_automatic_jake_off_carries_into_the_next_drive() {
+    let mut app = TestApp::new();
+    let mut d = a_drive(&mut app);
+    d.handle_key_event(&mut app.ctx, &alt(Key::J));
+    assert!(!app.ctx.settings.automatic_jake);
+    let next = a_drive(&mut app);
+    assert!(!next.auto_jake_enabled);
+}
+
+#[test]
+fn test_a_stage_picked_over_a_cruise_raised_jake_is_the_drivers() {
+    let mut app = TestApp::new();
+    let mut d = a_drive(&mut app);
+    d.cruise_jake_stage = 3;
+    d.trip.truck.engine_brake_stage = 3;
+    d.handle_key_event(&mut app.ctx, &key(Key::Num1));
+    assert_eq!(d.cruise_jake_stage, 0);
+    // Cruise handing its retarder back no longer takes the driver's stage.
+    d.clear_cruise(false);
+    assert_eq!(d.trip.truck.engine_brake_stage, 1);
+}
+
+#[test]
 fn test_the_jake_stage_keys_are_dead_while_the_jake_is_off() {
     let mut app = TestApp::new();
     let mut d = a_drive(&mut app);

@@ -697,7 +697,7 @@ impl DrivingState {
             jake_cue_idle_s: 0.0,
             curve_assist_jake: false,
             auto_jake: false,
-            auto_jake_enabled: true,
+            auto_jake_enabled: ctx.settings.automatic_jake,
             resume_target_mph: None,
             auto_jake_hold_mph: None,
             auto_jake_cooldown_s: 0.0,

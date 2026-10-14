@@ -58,6 +58,7 @@ impl DrivingState {
     /// AMT -- for the driver who wants to stage it by hand.
     pub fn toggle_auto_jake_enabled(&mut self, ctx: &mut GameContext) {
         self.auto_jake_enabled = !self.auto_jake_enabled;
+        ctx.settings.automatic_jake = self.auto_jake_enabled;
         if !self.auto_jake_enabled && self.auto_jake {
             // Managing right now: hand the current stage over to the driver.
             self.auto_jake = false;
@@ -87,6 +88,12 @@ impl DrivingState {
         }
         let was_auto = self.auto_jake;
         self.auto_jake = false;
+        // A pick is the driver taking the retarder over, whoever raised it.
+        // Left owned by cruise or the bend assist, the stage went back to
+        // zero the moment their reason ran out ("we see no reason for you to
+        // be doing that", player report, 2026-10-14).
+        self.cruise_jake_stage = 0;
+        self.curve_assist_jake = false;
         self.jake_selected_stage = stage;
         self.trip.truck.engine_brake_stage = stage;
         let suffix = if was_auto { ", manual" } else { "" };

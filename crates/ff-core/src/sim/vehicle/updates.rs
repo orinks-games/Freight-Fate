@@ -30,6 +30,7 @@ impl TruckState {
         let surge = self.surge_force_n();
         let net = self.drive_force() - self.resistance_force() - self.brake_force() + surge;
         let accel = net / self.gross_mass_kg();
+        let jake_decel = self.jake_brake_force() / self.gross_mass_kg();
         let old_v = self.velocity_mps;
         let mut new_v = self.velocity_mps + accel * dt;
         let drive_force = self.drive_force();
@@ -52,8 +53,15 @@ impl TruckState {
         // The freight rides on the same acceleration the tractor just felt --
         // and a liquid load rides it by running to one end of the tank.
         self.update_liquid(dt, accel);
+        // Less the jake's share. A full service stop with the jake on is the
+        // ordinary way a driver stops, and in a low gear the retarder adds a
+        // fifth of a g on top of the drums: counted, it put a stop at a
+        // street corner over the securement line ("the service brakes used
+        // to damage your load for no reason", player report, 2026-10-14).
+        // What the load still feels is the emergency application, a grade
+        // adding its own g, and hitting something.
         let decel_g = if old_v > 0.0 {
-            (-accel / G).max(0.0)
+            ((-accel - jake_decel) / G).max(0.0)
         } else {
             0.0
         };
