@@ -68,7 +68,7 @@ const LANE: SoundCategory = SoundCategory {
                     .hold_s(2.0),
             ],
             "Not a sound of its own: it is the engine you are always hearing, \
-             leaning to one side. Steer toward the lean, unless you have set \
+             leaning to one side. Steer toward the sound, unless you have set \
              the Steering guide row to steer away from it. It leans the way \
              the wheel should go, so it points into a bend before you reach \
              it and away from the edge you are drifting toward. This is the \

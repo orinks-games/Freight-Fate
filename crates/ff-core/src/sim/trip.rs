@@ -138,17 +138,18 @@ pub fn spoken_short_miles(miles: f64, imperial: bool) -> String {
 /// Turn direction for the earcon, read out of a baked maneuver cue;
 /// directionless legacy cues ("Turn onto") return "" and stay speech-only.
 pub fn cue_direction(text: &str) -> &'static str {
-    let lowered = text.to_lowercase();
-    if lowered.contains("left") {
-        return "left";
+    // The maneuver is the cue's opening words, never a word anywhere in it:
+    // read as a substring, "Continue onto North Brighton Boulevard" was a
+    // right turn and chimed in the right ear for a street that runs straight
+    // on (player report, 2026-10-14).
+    let lowered = text.trim().to_lowercase();
+    let mut words = lowered.split_whitespace();
+    match (words.next(), words.next()) {
+        (Some("continue" | "start"), _) => "ahead",
+        (Some(_), Some("left")) => "left",
+        (Some(_), Some("right")) => "right",
+        _ => "",
     }
-    if lowered.contains("right") {
-        return "right";
-    }
-    if lowered.starts_with("continue") || lowered.starts_with("start") {
-        return "ahead";
-    }
-    ""
 }
 
 impl HasLocation for City {
@@ -906,5 +907,12 @@ mod tests {
         assert_eq!(cue_direction("Turn right onto Palm Street"), "right");
         assert_eq!(cue_direction("Continue onto Main Street"), "ahead");
         assert_eq!(cue_direction("Turn onto Elm"), "");
+        assert_eq!(cue_direction("Turn left onto Wright Street"), "left");
+        assert_eq!(cue_direction("Turn right onto Leftwich Road"), "right");
+        assert_eq!(
+            cue_direction("Continue onto North Brighton Boulevard"),
+            "ahead"
+        );
+        assert_eq!(cue_direction("Start on Wright Brothers Boulevard"), "ahead");
     }
 }

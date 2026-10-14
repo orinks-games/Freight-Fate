@@ -899,7 +899,7 @@ If one sound is covering another, adjust that sound's volume rather than lowerin
 | Master volume | Overall game volume. |
 | Gameplay cues volume | Horn, alerts, road, facility, and gameplay cue sounds. |
 | Lane and edge cue volume | Make rumble strips, shoulder sounds, the lane locator, and hairpin warning bars easier to hear. This works alongside Gameplay cues volume and adjusts only these road cues. Quieter keeps them below the engine, Standard brings them to its level, and Louder helps them stand out. Assistance presets leave your choice unchanged. |
-| Steering guide | Which way to steer when the engine leans. Steer toward the lean, the default, or steer away from the lean, for drivers who learned that habit in audio racing games. |
+| Steering guide | Which way to steer when the engine sound moves to one side. Steer toward the sound, the default, or steer away from the sound, for drivers used to that from audio racing games. |
 | Lane guide sound | What leans toward the side to steer: the engine, the default, or a soft tone panned the same way, for setups where the engine is hard to place. |
 | Weather sounds volume | Rain, wind, thunder, snow, and fog sounds. |
 | Engine sounds volume | Engine start, shutdown, and running engine sounds. |

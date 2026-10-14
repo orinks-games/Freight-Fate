@@ -355,7 +355,7 @@ fn test_the_engine_lean_is_taught_as_a_cue_you_steer_toward() {
     // that difference can live, and getting it backwards would teach a blind
     // driver to steer off the road, so it is pinned here rather than trusted.
     let lean = entry("The engine lean");
-    assert!(lean.meaning.contains("Steer toward the lean"));
+    assert!(lean.meaning.contains("Steer toward the sound"));
     // And the bed, which the guide used to ride, must NOT read as something
     // to follow now that it only reports where the truck already is.
     let seat = entry("Where you sit in the lane");

@@ -847,19 +847,18 @@ impl SettingsCategoryState {
                     format!(
                         "Steering guide: {}",
                         if s.steering_guide_inverted {
-                            "steer away from the lean"
+                            "steer away from the sound"
                         } else {
-                            "steer toward the lean"
+                            "steer toward the sound"
                         }
                     )
                 }),
                 adjust(|s, ctx, d| s.toggle_steering_guide_inverted(ctx, d)),
-                "Which way to steer when the engine leans. Toward the lean \
-                 is the default: the engine pans the way you have to turn, \
-                 and comes back to the middle as you turn. Away from the \
-                 lean flips it, for drivers who learned the other habit in \
-                 audio racing games. Everything else about the guide is the \
-                 same either way.",
+                "Which way to steer when the engine sound moves to one side. \
+                 Toward the sound is the default: the engine moves to the \
+                 side you have to turn to, then back to the middle as you \
+                 turn. Away from the sound flips it, for drivers used to \
+                 that from audio racing games.",
             ),
             row(
                 dyn_label(|s| {

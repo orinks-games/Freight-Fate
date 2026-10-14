@@ -58,6 +58,8 @@
 
 ### Changed
 
+- **The Steering guide setting now reads steer toward the sound, or steer away from the sound.**
+
 - **Dispatch trust now changes half a point earlier at each cutoff.** It follows the rounded reputation you hear.
 
 - **The nearest town readout now says only the name.** Alt+3 says "Nearest town: Nashville" without the distance.
@@ -101,6 +103,8 @@
 - **A slower vehicle ahead now plays the slowing-traffic sound, not a passing sound.**
 
 ### Fixed
+
+- **Continuing straight onto a street such as Brighton Boulevard no longer counts as a right turn.**
 
 - **With score display set to percentage only, the dispatch trust line keeps its trust level.**
 
