@@ -1474,6 +1474,50 @@ fn test_loaded_truck_never_skip_shifts() {
     assert!(!steps.is_empty() && steps.iter().all(|step| *step == 1));
 }
 
+#[test]
+fn test_part_loaded_truck_skip_shifts() {
+    // Player report, 2026-10-13: a quarter load went through all ten gears,
+    // because the skip was gated on an empty trailer alone.
+    let mut truck = make_auto_truck();
+    truck.set_air_ready(false);
+    truck.cargo_kg = 0.25 * REFERENCE_CARGO_KG;
+    truck.throttle = 0.45;
+    let steps = gear_steps(&mut truck, 60.0);
+    assert!(steps.contains(&2));
+}
+
+#[test]
+fn test_lighter_loads_take_fewer_shifts() {
+    let shifts = |fraction: f64| {
+        let mut truck = make_auto_truck();
+        truck.set_air_ready(false);
+        truck.cargo_kg = fraction * REFERENCE_CARGO_KG;
+        truck.throttle = 0.7;
+        gear_steps(&mut truck, 90.0).len()
+    };
+    let (empty, half, full) = (shifts(0.0), shifts(0.5), shifts(1.0));
+    assert!(empty < half && half < full, "{empty} {half} {full}");
+}
+
+#[test]
+fn test_gentle_light_launch_holds_its_starting_gear() {
+    // Pulling away gently in third, the box used to drop to second at a
+    // walking pace before shifting back up past it.
+    let mut truck = make_auto_truck();
+    truck.set_air_ready(false);
+    truck.cargo_kg = 0.0;
+    truck.throttle = 0.3;
+    let mut lowest = i32::MAX;
+    for _ in 0..(20 * 60) {
+        truck.auto_shift();
+        truck.update(DT);
+        if truck.transmission.gear > 0 {
+            lowest = lowest.min(truck.transmission.gear);
+        }
+    }
+    assert_eq!(lowest, 3);
+}
+
 // -- tests/test_tanker_surge.py: the load behind the truck -------------------------
 
 const CARGO_KG: f64 = 20_000.0;

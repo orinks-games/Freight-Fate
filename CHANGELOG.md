@@ -58,6 +58,8 @@
 
 ### Changed
 
+- **The automatic skips gears when the load is light enough.** An empty or part-loaded truck shifts less often; a full load still takes every gear.
+
 - **Dispatch trust now changes half a point earlier at each cutoff.** It follows the rounded reputation you hear.
 
 - **The nearest town readout now says only the name.** Alt+3 says "Nearest town: Nashville" without the distance.

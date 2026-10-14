@@ -841,6 +841,13 @@ Everything found before 2026-09-25 moved to
       hardware. For the App Store: a real app icon (TestFlight has a
       placeholder), a privacy manifest, BASS licensing for iOS, and a title
       screen or review note for the blank game screen.
+- [x] Gear skipping follows the load (player report, 2026-10-13): the
+      automatic skips a gear when the one two up still pulls the load, so
+      an empty or part-loaded truck skips more and a full one takes every
+      gear. A gentle launch in third no longer drops to second.
+- [ ] (Found along the way) A clutchless manual option, the way real
+      drivers shift on the road: the clutch only to pull away, the lever
+      between gears when the revs match. Proposed to the owner 2026-10-14.
 
 ### Release gate record
 
