@@ -602,6 +602,9 @@ settings_fields! {
     /// flips true once the server confirms, and board listing further
     /// requires choosing the public visibility on the site.
     online_presence: bool = false => bool_truthy,
+    /// Let a signed-in player send Call Dispatch requests to an opted-in
+    /// remote dispatcher, with the local office as fallback.
+    remote_dispatch_calls: bool = false => bool_truthy,
     /// speak when another driver goes on or off duty
     duty_notifications: bool = false => bool_truthy,
     profile_sharing_consent_version: i64 = 0 => int_lenient,

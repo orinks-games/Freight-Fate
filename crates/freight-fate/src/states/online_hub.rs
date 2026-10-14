@@ -65,10 +65,11 @@ impl OnlineHubState {
         match self.menu.index {
             2 => self.toggle_duty_notifications(ctx, direction),
             5 => self.toggle_online_services(ctx, direction),
-            8 => self.toggle_online_presence(ctx, direction),
-            9 => self.toggle_cloud_saves(ctx, direction),
-            11 => self.toggle_mastodon_sharing(ctx, direction),
-            13 => self.toggle_discord_presence(ctx, direction),
+            6 => self.toggle_remote_dispatch_calls(ctx),
+            9 => self.toggle_online_presence(ctx, direction),
+            10 => self.toggle_cloud_saves(ctx, direction),
+            12 => self.toggle_mastodon_sharing(ctx, direction),
+            14 => self.toggle_discord_presence(ctx, direction),
             _ => {}
         }
     }
@@ -96,6 +97,18 @@ impl OnlineHubState {
     fn toggle_duty_notifications(&mut self, ctx: &mut GameContext, _direction: i64) {
         ctx.settings.duty_notifications = !ctx.settings.duty_notifications;
         ctx.apply_duty_notifications();
+        self.announce(ctx);
+    }
+
+    fn toggle_remote_dispatch_calls(&mut self, ctx: &mut GameContext) {
+        if !ctx.settings.remote_dispatch_calls && load_identity().is_none() {
+            ctx.say(
+                "Remote dispatch calls need your orinks.net account. Choose Set up orinks.net \
+                 account first.",
+            );
+            return;
+        }
+        ctx.settings.remote_dispatch_calls = !ctx.settings.remote_dispatch_calls;
         self.announce(ctx);
     }
 
@@ -388,9 +401,22 @@ impl Menu for OnlineHubState {
             )
             .help(
                 "Master switch for the orinks.net and sharing services. Off stops the drivers \
-                 list, profile sharing, cloud backup, Mastodon sharing, and Discord presence \
-                 without losing their settings. Live weather, traffic, and parking have their \
-                 own toggles under Settings.",
+                 list, profile sharing, remote dispatch calls, cloud backup, Mastodon sharing, \
+                 and Discord presence without losing their settings. Live weather, traffic, and \
+                 parking have their own toggles under Settings.",
+            ),
+            MenuItem::new(
+                Label::dynamic(|_: &Self, ctx| {
+                    format!(
+                        "Let remote dispatchers take my calls: {}",
+                        Self::on_off(ctx.settings.remote_dispatch_calls)
+                    )
+                }),
+                |s: &mut Self, ctx| s.toggle_remote_dispatch_calls(ctx),
+            )
+            .help(
+                "A remote dispatcher may answer your Call Dispatch calls, and the office answers \
+                 if nobody does within a minute. Needs your orinks.net account.",
             ),
             MenuItem::new(
                 Label::dynamic(|_: &Self, _| {

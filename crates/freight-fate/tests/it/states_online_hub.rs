@@ -44,10 +44,36 @@ fn test_main_menu_online_item_opens_the_hub() {
     assert_eq!(rows[3], "Account achievements");
     assert_eq!(rows[4], "Your profile");
     assert_eq!(rows[5], "Online services: on");
+    assert_eq!(rows[6], "Let remote dispatchers take my calls: off");
     let help = helps::<OnlineHubState>(&hub, &app.ctx);
     for (row, help) in rows.iter().zip(help.iter()).take(rows.len() - 1) {
         assert!(!help.is_empty(), "{row} has no help"); // every row but Back explains itself
     }
+}
+
+#[test]
+fn test_remote_dispatch_toggle_requires_an_account_and_persists() {
+    let mut app = TestApp::new();
+    let hub = hub(&mut app);
+    move_to::<OnlineHubState>(&mut app, &hub, "Let remote dispatchers take my calls");
+    let help = helps::<OnlineHubState>(&hub, &app.ctx);
+    assert!(
+        help[6].contains("office answers if nobody does within a minute"),
+        "{}",
+        help[6]
+    );
+
+    app.clear_speech();
+    press(&mut app, Key::Return);
+    assert!(!app.ctx.settings.remote_dispatch_calls);
+    assert!(said(&app).contains("need your orinks.net account"));
+
+    let _identity = install_identity(&app, Some(&identity()));
+    app.clear_speech();
+    press(&mut app, Key::Return);
+    assert!(app.ctx.settings.remote_dispatch_calls);
+    assert!(ff_core::settings::Settings::load().remote_dispatch_calls);
+    assert!(said(&app).contains("Let remote dispatchers take my calls: on"));
 }
 
 #[test]
@@ -68,6 +94,7 @@ fn test_hub_drivers_board_item_opens_the_board() {
     assert_eq!(rows[3], "Account achievements");
     assert_eq!(rows[4], "Your profile");
     assert_eq!(rows[5], "Online services: on");
+    assert_eq!(rows[6], "Let remote dispatchers take my calls: off");
     let help = helps::<OnlineHubState>(&hub, &app.ctx);
     for (row, help) in rows.iter().zip(help.iter()).take(rows.len() - 1) {
         assert!(!help.is_empty(), "{row} has no help"); // every row but Back explains itself

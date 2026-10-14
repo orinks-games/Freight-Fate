@@ -73,6 +73,21 @@ fn test_local_dispatch_uses_a_valid_shared_request_and_repeatable_decision() {
 }
 
 #[test]
+fn test_remote_dispatch_off_preserves_the_local_answer() {
+    let mut app = TestApp::new();
+    let drive = a_drive(&mut app);
+    let expected = drive_and_ctx(&drive, &mut app, |driving, ctx| {
+        let request = dispatch_request(driving, ctx, CALL_DELAY);
+        local_dispatch_response(&request, driving, ctx).message
+    });
+    app.ctx.settings.remote_dispatch_calls = false;
+    let mut call = DispatchCallState::new(DriveRef::of(&drive));
+    app.clear_speech();
+    activate(&mut call, &mut app.ctx, "Report a delay");
+    assert_eq!(last(&app), format!("Dispatch: {expected}"));
+}
+
+#[test]
 fn test_hours_call_answers_on_the_menu_speech_channel() {
     let mut app = TestApp::new();
     let drive = a_drive(&mut app);
@@ -183,6 +198,11 @@ fn test_road_summary_follows_the_distance_unit() {
         let road = dispatch_request(driving, ctx, CALL_ROAD).summary;
         assert!(road.ends_with(" kilometers remain."), "{road}");
         assert!(!road.contains("mile"), "{road}");
+        let request = dispatch_request(driving, ctx, CALL_ROAD);
+        let answer = local_dispatch_response(&request, driving, ctx).message;
+        let distance = road.trim_end_matches('.');
+        assert!(answer.contains(distance), "{answer} / {road}");
+        assert!(!answer.contains("mile"), "{answer}");
         ctx.settings.imperial_units = true;
         let road = dispatch_request(driving, ctx, CALL_ROAD).summary;
         assert!(road.ends_with(" miles remain."), "{road}");

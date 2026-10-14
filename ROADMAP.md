@@ -3445,9 +3445,8 @@ here 2026-09-25. Details stay in the linked dated sections.
       wait. Neither holds on the Dalton Highway or other remote Alaska and
       Canadian roads, where a callout takes far longer; scale both by road
       and remoteness.
-- [ ] **Route calls to a remote dispatcher when one is available.** Deliver
-      the same structured request asynchronously, with a short wait and the
-      local dispatcher as the automatic fallback.
+- [x] **Route Call Dispatch to an opted-in remote dispatcher.** If nobody
+      picks up, the office answers instead.
 - [ ] **Partial: reopen and finish driving school.** The sandboxed
       practice-road foundation and one Rolling Basics lesson exist, with
       profile restoration, stage progression, and manual-start tests in

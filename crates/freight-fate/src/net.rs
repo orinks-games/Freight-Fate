@@ -606,7 +606,46 @@ pub fn request_json(
         None => None,
     };
     let response = request(tier, method, url, data.as_deref(), headers)?;
+    decode_response_json(response)
+}
+
+fn decode_response_json(response: RawResponse) -> Result<Value, NetError> {
+    if !(200..300).contains(&response.status) {
+        return Err(NetError::Http {
+            code: response.status,
+            body: response.body,
+        });
+    }
     decode_json(&response.body)
+}
+
+#[cfg(test)]
+mod response_tests {
+    use super::*;
+
+    #[test]
+    fn json_transport_rejects_non_success_statuses() {
+        let response = RawResponse {
+            status: 302,
+            body: br#"{"status":"answered"}"#.to_vec(),
+        };
+        assert!(matches!(
+            decode_response_json(response),
+            Err(NetError::Http { code: 302, .. })
+        ));
+    }
+
+    #[test]
+    fn json_transport_accepts_success_status_and_valid_json() {
+        let response = RawResponse {
+            status: 200,
+            body: br#"{"status":"answered"}"#.to_vec(),
+        };
+        assert_eq!(
+            decode_response_json(response).unwrap(),
+            serde_json::json!({"status": "answered"})
+        );
+    }
 }
 
 // -- the injectable transport ----------------------------------------------------------
