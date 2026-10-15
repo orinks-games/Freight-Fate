@@ -3026,26 +3026,26 @@ fn test_toll_cues_and_charges_deduplicate() {
     use crate::sim::trip_models::TripEventKind;
 
     let mut trip = make_trip_on("New York", "Philadelphia", seeded(2));
-    trip.position_mi = 6.1;
+    trip.position_mi = 73.6;
     assert!(gps_events(&trip.update(0.0)).is_empty());
 
-    trip.position_mi = 7.2;
+    trip.position_mi = 74.7;
     let advance = trip.update(0.0);
     let repeat = trip.update(0.0);
     assert_eq!(
         gps_messages(&advance),
-        vec!["ticket system toll point ahead, New Jersey Turnpike ticket entry. Estimated toll 18 dollars, billed to carrier settlement."]
+        vec!["E-ZPass toll point ahead, New Jersey Turnpike settlement. Toll 63 dollars, billed to carrier settlement."]
     );
     assert!(gps_events(&repeat).is_empty());
 
-    trip.position_mi = 9.0;
+    trip.position_mi = 76.5;
     let charged = trip.update(0.0);
     let charged_again = trip.update(0.0);
     assert_eq!(
         kind_messages(&charged, TripEventKind::TollCharged),
-        vec!["ticket system toll at New Jersey Turnpike ticket entry, estimated 18 dollars, billed to carrier settlement."]
+        vec!["E-ZPass toll at New Jersey Turnpike settlement, 63 dollars, billed to carrier settlement."]
     );
-    assert_eq!(trip.toll_expense(), 18.0);
+    assert_eq!(trip.toll_expense(), 62.51);
     assert!(kind_messages(&charged_again, TripEventKind::TollCharged).is_empty());
 }
 

@@ -286,11 +286,11 @@ fn test_toll_route_delivery_settlement_records_expense() {
         DRIVE_PHASE_DELIVERY,
         None,
     );
-    // Both I-95 tolls sit at mi 8.9 (NJ Turnpike) and 86.1 (Delaware River)
-    // after the node moved to Hunts Point; drive past both.
+    // Southbound the truck pays the NJ Turnpike where it leaves it (mi 76.4)
+    // and the Delaware River bridge (mi 86.1); drive past both.
     driving.trip.position_mi = 90.0;
     driving.trip.update(0.0);
-    assert_eq!(driving.trip.toll_expense(), 30.0);
+    assert!((driving.trip.toll_expense() - 74.51).abs() < 1e-9);
 
     app.ctx
         .profile
@@ -352,8 +352,8 @@ fn test_toll_route_delivery_settlement_records_expense() {
     );
     let text = arrival.summary_parts.join(" ");
     for phrase in [
-        "Carrier-paid or reimbursed charges 215 dollars",
-        "tolls 30",
+        "Carrier-paid or reimbursed charges 260 dollars",
+        "tolls 75",
         "accessorials carrier-authorized unloading service 185 dollars",
         "not deducted from driver pay",
         "Fines carried over 0 dollars",

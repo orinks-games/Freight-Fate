@@ -1028,12 +1028,14 @@ fn test_toll_metadata_is_explicit_and_separate_from_service_plazas() {
         .collect();
     assert!(toll_names.is_disjoint(&stop_names));
 
-    let event = tolls[0];
-    assert_eq!(event.road, "New Jersey Turnpike");
+    let event = tolls
+        .iter()
+        .find(|event| event.road.starts_with("New Jersey Turnpike"))
+        .expect("the Turnpike is priced");
     assert_eq!(event.authority, "New Jersey Turnpike Authority");
-    assert_eq!(event.method, "ticket_system");
+    assert_eq!(event.method, "ezpass");
     assert!(event.amount > 0.0);
-    assert!(event.estimated);
+    assert!(!event.estimated);
     assert!(event.source.to_lowercase().contains("toll"));
 
     let plazas: Vec<_> = route

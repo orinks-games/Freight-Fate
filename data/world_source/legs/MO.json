@@ -14532,9 +14532,10 @@
             "road": "Will Rogers Turnpike (I-44)",
             "authority": "Oklahoma Turnpike Authority",
             "method": "ezpass",
-            "amount": 15.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Oklahoma Turnpike Authority published rates; https://www.pikepass.com/"
+            "amount": 22.12,
+            "estimated": false,
+            "source": "OTA toll calculator, Will Rogers Turnpike, Tulsa to the Missouri line; researched 2026-07-19 (tools/toll_rates.py ok_will_rogers): https://www.pikepass.com/",
+            "amount_plate": 44.03
           }
         ],
         "restrictions": [
@@ -55384,9 +55385,10 @@
             "road": "Will Rogers Turnpike (I-44)",
             "authority": "Oklahoma Turnpike Authority",
             "method": "ezpass",
-            "amount": 13.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Oklahoma Turnpike Authority published rates; https://www.pikepass.com/"
+            "amount": 22.12,
+            "estimated": false,
+            "source": "OTA toll calculator, Will Rogers Turnpike, Tulsa to the Missouri line; researched 2026-07-19 (tools/toll_rates.py ok_will_rogers): https://www.pikepass.com/",
+            "amount_plate": 44.03
           }
         ],
         "restrictions": [

@@ -3951,7 +3951,23 @@
           "name": "rolling",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "toll_events": [
+          {
+            "name": "I-78 Toll Bridge",
+            "at_mi": 57.7,
+            "road": "I-78 Delaware River Toll Bridge",
+            "authority": "Delaware River Joint Toll Bridge Commission",
+            "method": "ezpass",
+            "amount": 32.5,
+            "estimated": false,
+            "source": "DRJTBC tolls, class 5 at 6.50 per axle E-ZPass and 8.00 per axle by plate, westbound (Pennsylvania-bound) only, effective 2026-01-01; researched 2026-07-19 (tools/toll_rates.py drjtbc_i78_bridge): https://www.drjtbc.org/tolls/",
+            "amount_plate": 40.0,
+            "directions": [
+              "forward"
+            ]
+          }
+        ]
       },
       "stops": [
         {
@@ -5233,7 +5249,34 @@
           "name": "rolling",
           "sections": 189,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "toll_events": [
+          {
+            "name": "New Jersey Turnpike settlement",
+            "at_mi": 12.0,
+            "road": "New Jersey Turnpike western spur (I-95)",
+            "authority": "New Jersey Turnpike Authority",
+            "method": "ezpass",
+            "amount": 15.09,
+            "estimated": false,
+            "source": "NJTA 2026 class 5, entry 15E Newark to exit 18E George Washington Bridge approach, peak rate; researched 2026-07-19 (tools/toll_rates.py nj_western_spur_newark_ny): https://www.njta.gov/toll-calculator/",
+            "amount_plate": 16.55
+          },
+          {
+            "name": "George Washington Bridge toll",
+            "at_mi": 28.3,
+            "road": "I-95 George Washington Bridge upper level",
+            "authority": "Port Authority of New York and New Jersey",
+            "method": "open_road",
+            "amount": 113.35,
+            "estimated": false,
+            "source": "Port Authority of New York and New Jersey commercial toll rates effective July 2026, 5 axles, E-ZPass peak 113.35 (off-peak 108.35, overnight 100.85; 120.85 is the Mid-Tier rate), Tolls by Mail 128.35, matching the April 2026 Truckers' Guide; collected entering New York only; read 2026-10-14: https://www.panynj.gov/bridges-tunnels/en/tolls.html",
+            "amount_plate": 128.35,
+            "directions": [
+              "forward"
+            ]
+          }
+        ]
       },
       "stops": [
         {

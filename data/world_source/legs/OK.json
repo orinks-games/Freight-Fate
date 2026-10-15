@@ -17842,9 +17842,10 @@
             "road": "H.E. Bailey Turnpike (I-44)",
             "authority": "Oklahoma Turnpike Authority",
             "method": "ezpass",
-            "amount": 11.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Oklahoma Turnpike Authority published rates; https://www.pikepass.com/"
+            "amount": 11.7,
+            "estimated": false,
+            "source": "OTA toll calculator, H.E. Bailey, Lawton to Oklahoma City; researched 2026-07-19 (tools/toll_rates.py ok_he_bailey_lawton_okc): https://www.pikepass.com/",
+            "amount_plate": 24.26
           }
         ],
         "restrictions": [
@@ -30394,9 +30395,10 @@
             "road": "Turner Turnpike (I-44)",
             "authority": "Oklahoma Turnpike Authority",
             "method": "ezpass",
-            "amount": 14.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Oklahoma Turnpike Authority published rates; https://www.pikepass.com/"
+            "amount": 22.12,
+            "estimated": false,
+            "source": "OTA toll calculator, Turner Turnpike, I-35/Kilpatrick to Tulsa, class 5; pikepass.com, accessed 2026-07-19; researched 2026-07-19 (tools/toll_rates.py ok_turner_okc_tulsa): https://www.pikepass.com/",
+            "amount_plate": 44.03
           }
         ],
         "restrictions": [

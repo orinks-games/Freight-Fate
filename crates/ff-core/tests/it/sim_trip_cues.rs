@@ -754,37 +754,33 @@ fn test_gps_traffic_cue_deduplicates() {
 fn test_toll_cues_and_charges_deduplicate() {
     let mut trip = make_trip(world(), "New York", "Philadelphia", 2);
 
-    // No advance state-crossing chatter -- the line itself will speak when
-    // the truck reaches it.
-    trip.position_mi = 6.1;
-    let crossing = trip.update(0.0);
-    assert!(gps_events(&crossing).is_empty());
+    // The Turnpike settles where the truck leaves it, at interchange 6.
+    trip.position_mi = 73.6;
+    let quiet = trip.update(0.0);
+    assert!(gps_events(&quiet).is_empty());
 
-    trip.position_mi = 7.2;
+    trip.position_mi = 74.7;
     let advance = trip.update(0.0);
     let repeat = trip.update(0.0);
 
     assert_eq!(
         gps_messages(&advance),
         vec![
-            "ticket system toll point ahead, New Jersey Turnpike ticket entry. \
-             Estimated toll 18 dollars, billed to carrier settlement."
+            "E-ZPass toll point ahead, New Jersey Turnpike settlement. \
+             Toll 63 dollars, billed to carrier settlement."
         ]
     );
     assert!(gps_events(&repeat).is_empty());
 
-    trip.position_mi = 9.0;
+    trip.position_mi = 76.5;
     let charged = trip.update(0.0);
     let charged_again = trip.update(0.0);
 
     assert_eq!(
         messages_of(&charged, TripEventKind::TollCharged),
-        vec![
-            "ticket system toll at New Jersey Turnpike ticket entry, \
-             estimated 18 dollars, billed to carrier settlement."
-        ]
+        vec!["E-ZPass toll at New Jersey Turnpike settlement, 63 dollars, billed to carrier settlement."]
     );
-    assert_eq!(trip.toll_expense(), 18.0);
+    assert_eq!(trip.toll_expense(), 62.51);
     assert!(messages_of(&charged_again, TripEventKind::TollCharged).is_empty());
 }
 
@@ -1194,6 +1190,125 @@ fn test_the_status_browse_says_how_much_to_the_next_level() {}
 #[test]
 #[ignore = "wrong crate: ff-core cannot see the game crate, so this case belongs in crates/freight-fate/tests/ -- AbandonJobConfirmationState"]
 fn test_abandoning_a_bobtail_costs_nothing() {}
+
+#[test]
+fn published_tolls_carry_plate_rates_and_one_way_collection() {
+    let world = world();
+    let tolls = |a: &str, b: &str| {
+        world
+            .legs
+            .iter()
+            .find(|leg| leg.a == a && leg.b == b)
+            .expect("leg")
+            .toll_events()
+            .to_vec()
+    };
+    let bay = |a: &str, b: &str| {
+        tolls(a, b)
+            .into_iter()
+            .find(|toll| toll.name == "Chesapeake Bay Bridge toll")
+            .expect("Bay Bridge toll")
+    };
+    let east = bay("baltimore_md_us", "dover_de_us");
+    assert_eq!(
+        (east.amount, east.plate_amount(), east.estimated),
+        (24.0, 36.0, false)
+    );
+    assert!(east.applies_to_direction(true) && !east.applies_to_direction(false));
+    let west = bay("salisbury_md_us", "baltimore_md_us");
+    assert!(!west.applies_to_direction(true) && west.applies_to_direction(false));
+    let gateway = tolls("pittsburgh_pa_us", "cleveland_oh_us")
+        .into_iter()
+        .find(|toll| toll.name.contains("Gateway"))
+        .expect("Gateway toll");
+    assert!(
+        !gateway.applies_to_direction(true),
+        "no toll westbound into Ohio"
+    );
+    let thruway = tolls("springfield_ma_us", "albany_ny_us");
+    assert_eq!(
+        thruway.len(),
+        2,
+        "Mass Pike and Berkshire Connector both charge"
+    );
+    assert!(thruway
+        .iter()
+        .all(|toll| !toll.estimated && toll.plate_amount() >= toll.amount));
+    let carquinez = tolls("sacramento_ca_us", "san_francisco_ca_us")
+        .into_iter()
+        .find(|toll| toll.name == "Carquinez Bridge toll")
+        .expect("Carquinez toll");
+    assert!(
+        !carquinez.applies_to_direction(true) && carquinez.applies_to_direction(false),
+        "collected eastbound only"
+    );
+    let named = |a: &str, b: &str, name: &str| {
+        tolls(a, b)
+            .into_iter()
+            .filter(|toll| toll.name == name)
+            .collect::<Vec<_>>()
+    };
+    for (from, forward) in [
+        ("newark_nj_us", true),
+        ("allentown_pa_us", true),
+        ("philadelphia_pa_us", false),
+    ] {
+        let (a, b) = if forward {
+            (from, "new_york_ny_us")
+        } else {
+            ("new_york_ny_us", from)
+        };
+        let gwb = named(a, b, "George Washington Bridge toll");
+        assert_eq!(gwb.len(), 1, "{from} to New York pays the GWB");
+        let gwb = &gwb[0];
+        assert_eq!((gwb.amount, gwb.plate_amount()), (113.35, 128.35));
+        assert!(
+            gwb.applies_to_direction(forward) && !gwb.applies_to_direction(!forward),
+            "{from}: collected into New York only"
+        );
+    }
+    for from in ["los_angeles_ca_us", "sacramento_ca_us", "stockton_ca_us"] {
+        let bay = named(
+            from,
+            "san_francisco_ca_us",
+            "San Francisco-Oakland Bay Bridge toll",
+        );
+        assert_eq!(bay.len(), 1, "{from} to San Francisco pays the Bay Bridge");
+        assert!(
+            bay[0].applies_to_direction(true) && !bay[0].applies_to_direction(false),
+            "{from}: collected westbound into San Francisco only"
+        );
+        assert_eq!(bay[0].amount, 30.5);
+    }
+    let golden = named(
+        "san_francisco_ca_us",
+        "santa_rosa_ca_us",
+        "Golden Gate Bridge toll",
+    );
+    assert_eq!(golden.len(), 1);
+    assert_eq!((golden[0].amount, golden[0].plate_amount()), (51.25, 52.5));
+    assert!(
+        !golden[0].applies_to_direction(true) && golden[0].applies_to_direction(false),
+        "collected southbound into San Francisco only"
+    );
+    let turnpike = named(
+        "new_york_ny_us",
+        "philadelphia_pa_us",
+        "New Jersey Turnpike settlement",
+    );
+    assert_eq!(turnpike.len(), 2, "one settlement each way");
+    for forward in [true, false] {
+        let due: Vec<_> = turnpike
+            .iter()
+            .filter(|toll| toll.applies_to_direction(forward))
+            .collect();
+        assert_eq!(due.len(), 1, "forward={forward}");
+        assert_eq!(
+            (due[0].amount, due[0].plate_amount(), due[0].estimated),
+            (62.51, 68.6, false)
+        );
+    }
+}
 
 #[test]
 fn a_saved_trip_resumes_on_the_detour_its_load_was_planned_on() {

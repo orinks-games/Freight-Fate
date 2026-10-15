@@ -12553,9 +12553,10 @@
             "road": "Indiana Toll Road (I-90)",
             "authority": "Indiana Toll Road Concession Company",
             "method": "ezpass",
-            "amount": 12.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Indiana Toll Road Concession Company published rates; https://www.indianatollroad.org/toll-road-rates/"
+            "amount": 11.93,
+            "estimated": false,
+            "source": "Indiana Toll Road Class 5, Gary East to Westpoint; researched 2026-07-19 (tools/toll_rates.py in_gary_illinois): https://www.indianatollroad.org/",
+            "amount_plate": 11.93
           }
         ],
         "restrictions": [],
@@ -15475,9 +15476,10 @@
             "road": "Indiana Toll Road (I-90)",
             "authority": "Indiana Toll Road Concession Company",
             "method": "ezpass",
-            "amount": 20.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Indiana Toll Road Concession Company published rates; https://www.indianatollroad.org/toll-road-rates/"
+            "amount": 39.08,
+            "estimated": false,
+            "source": "Indiana Toll Road Class 5, Gary East to South Bend West; researched 2026-07-19 (tools/toll_rates.py in_gary_south_bend): https://www.indianatollroad.org/",
+            "amount_plate": 39.1
           }
         ],
         "restrictions": [],
@@ -43237,9 +43239,10 @@
             "road": "Indiana Toll Road (I-90)",
             "authority": "Indiana Toll Road Concession Company",
             "method": "ezpass",
-            "amount": 28.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Indiana Toll Road Concession Company published rates; https://www.indianatollroad.org/toll-road-rates/"
+            "amount": 44.8,
+            "estimated": false,
+            "source": "Indiana Toll Road Class 5, South Bend West to Westpoint; researched 2026-07-19 (tools/toll_rates.py in_south_bend_illinois): https://www.indianatollroad.org/",
+            "amount_plate": 44.8
           }
         ],
         "restrictions": [],

@@ -4129,7 +4129,34 @@
           "name": "level",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "toll_events": [
+          {
+            "name": "Delaware Turnpike toll plaza settlement",
+            "at_mi": 14.6,
+            "road": "I-95 Delaware Turnpike",
+            "authority": "Delaware Department of Transportation",
+            "method": "ezpass",
+            "amount": 10.0,
+            "estimated": false,
+            "source": "Delaware Department of Transportation I-95 Newark toll plaza rates, 5 axle, cash and E-ZPass, accessed 2026-10-11: https://deldot.gov/public.ejs?command=PublicTollRateI95",
+            "amount_plate": 10.0
+          },
+          {
+            "name": "JFK Memorial Highway toll settlement",
+            "at_mi": 33.8,
+            "road": "I-95 JFK Memorial Highway",
+            "authority": "Maryland Transportation Authority",
+            "method": "ezpass",
+            "amount": 48.0,
+            "estimated": false,
+            "source": "Maryland Transportation Authority toll rate tables, I-95 John F. Kennedy Memorial Highway, 5 axle E-ZPass and video toll, collected northbound only, accessed 2026-10-11: https://mdta.maryland.gov/TollRatesTables",
+            "amount_plate": 63.0,
+            "directions": [
+              "reverse"
+            ]
+          }
+        ]
       },
       "stops": [
         {

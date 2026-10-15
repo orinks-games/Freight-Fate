@@ -11836,9 +11836,10 @@
             "road": "Massachusetts Turnpike (I-90)",
             "authority": "Massachusetts Department of Transportation",
             "method": "ezpass",
-            "amount": 8.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Massachusetts Department of Transportation published rates; https://www.mass.gov/info-details/massachusetts-toll-rates"
+            "amount": 10.85,
+            "estimated": false,
+            "source": "MassDOT EZDriveMA calculator, I-93 to Auburn I-290/I-395; researched 2026-07-19 (tools/toll_rates.py ma_boston_worcester): https://www.ezdrivema.com/",
+            "amount_plate": 12.95
           }
         ],
         "restrictions": [],
@@ -13941,14 +13942,26 @@
         ],
         "toll_events": [
           {
-            "name": "Mass Pike + Thruway settlement",
+            "name": "Massachusetts Turnpike settlement",
             "at_mi": 34.8,
             "road": "Massachusetts Turnpike (I-90)",
             "authority": "Massachusetts Department of Transportation",
             "method": "ezpass",
-            "amount": 16.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Massachusetts Department of Transportation published rates; https://www.mass.gov/info-details/massachusetts-toll-rates"
+            "amount": 6.0,
+            "estimated": false,
+            "source": "MassDOT calculator, I-291 Springfield to West Stockbridge NY line; researched 2026-07-19 (tools/toll_rates.py ma_springfield_ny_line): https://www.ezdrivema.com/",
+            "amount_plate": 6.9
+          },
+          {
+            "name": "Berkshire Connector toll",
+            "at_mi": 53.5,
+            "road": "New York State Thruway Berkshire Connector (I-90)",
+            "authority": "New York State Thruway Authority",
+            "method": "ezpass",
+            "amount": 10.48,
+            "estimated": false,
+            "source": "NY Thruway calculator 5H, exit 23 to Canaan gantry at the MA line, eff. 2026-01-01; non-NY E-ZPass pays the Tolls-by-Mail rate; researched 2026-07-19 (tools/toll_rates.py ny_berkshire_connector): https://www.thruway.ny.gov/",
+            "amount_plate": 18.34
           }
         ],
         "restrictions": [],
@@ -20590,6 +20603,19 @@
             "lanes": 3,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          }
+        ],
+        "toll_events": [
+          {
+            "name": "Massachusetts Turnpike settlement",
+            "at_mi": 31.2,
+            "road": "Massachusetts Turnpike (I-90)",
+            "authority": "Massachusetts Department of Transportation",
+            "method": "ezpass",
+            "amount": 3.9,
+            "estimated": true,
+            "amount_plate": 4.5,
+            "source": "Estimated 2026-10-14: no published class 5 figure matched for Auburn to Route 128 (Weston); scaled per mile from the MassDOT calculator's West Stockbridge to Auburn class 5 rate (11.70 E-ZPass, 13.50 plate, tools/toll_rates.py ma_ny_line_worcester) over the 29 turnpike miles this leg drives: https://www.ezdrivema.com/"
           }
         ]
       },
