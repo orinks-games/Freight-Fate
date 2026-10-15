@@ -227,6 +227,13 @@ pub fn log_wait_to_hos(clock: &mut HosClock, wait_minutes: i64, closed: bool) {
     }
 }
 
+/// A closed window at a crossing, already waited out on the trip clock.
+struct HoursWait {
+    minutes: i64,
+    text: String,
+    until: NaiveDateTime,
+}
+
 impl Trip {
     /// The time zone of the city a leg starts from: the wall clock its
     /// crossings keep. Eastern, the reference clock, when the city is unknown.
@@ -254,6 +261,7 @@ impl Trip {
         let tank = cargo_type(key).is_some_and(|cargo| cargo.tank);
         CrossingLoad::plain(length_ft, self.truck.rig_width_ft, self.truck.rig_height_ft)
             .with_cargo(key, tank, cargo_lb)
+            .with_hazard_class(self.truck.hazard_class)
             .with_trailer(self.truck.trailer_attached)
             .with_gross((self.truck.gross_mass_kg() / KG_PER_LB).round().max(0.0) as u32)
     }
@@ -326,26 +334,110 @@ impl Trip {
     }
 
     /// A crossing that escorts this load in any weather is a short wait on
-    /// duty, unless a wind escort already took the truck across.
-    fn process_escort(&mut self, leg_index: usize, load: &CrossingLoad) {
-        let Some(text) = self.route.legs.get(leg_index).and_then(|leg| {
-            leg.crossings
-                .iter()
-                .filter_map(|c| c.escort.as_ref())
-                .find(|escort| escort.applies(load))
-                .map(|escort| escort.text.clone())
-        }) else {
-            return;
+    /// duty, unless a wind escort already took the truck across
+    /// (`wind_escorted`). A closed window waited out just before (`before`)
+    /// shares one spoken line with the escort, so the driver hears both waits
+    /// and when the truck may go.
+    fn process_escort(
+        &mut self,
+        leg_index: usize,
+        load: &CrossingLoad,
+        before: Option<HoursWait>,
+        wind_escorted: bool,
+    ) {
+        let escort = if wind_escorted {
+            None
+        } else {
+            self.route.legs.get(leg_index).and_then(|leg| {
+                leg.crossings
+                    .iter()
+                    .filter_map(|c| c.escort.as_ref())
+                    .find(|escort| escort.applies(load))
+                    .map(|escort| escort.text.clone())
+            })
         };
-        self.game_minutes += ESCORT_WAIT_MINUTES;
-        self.weather.update(ESCORT_WAIT_MINUTES);
-        self.log_wind_wait(
-            ESCORT_WAIT_MINUTES,
-            format!(
-                "{text} You wait {} on duty.",
-                wait_text(ESCORT_WAIT_MINUTES as i64)
+        let escorted = escort.is_some();
+        let (minutes, spoken) = match (before, escort) {
+            (None, None) => return,
+            (Some(hours), None) => (
+                hours.minutes as f64,
+                format!(
+                    "{} You wait {} on duty, until {}.",
+                    hours.text,
+                    wait_text(hours.minutes),
+                    clock_text(hours.until)
+                ),
             ),
-        );
+            (None, Some(text)) => (
+                ESCORT_WAIT_MINUTES,
+                format!(
+                    "{text} You wait {} on duty.",
+                    wait_text(ESCORT_WAIT_MINUTES as i64)
+                ),
+            ),
+            (Some(hours), Some(text)) => {
+                let go = hours.until + Duration::minutes(ESCORT_WAIT_MINUTES as i64);
+                (
+                    hours.minutes as f64 + ESCORT_WAIT_MINUTES,
+                    format!(
+                        "{} {text} You wait on duty until {}, then {} for the escort, and may cross at {}.",
+                        hours.text,
+                        clock_text(hours.until),
+                        wait_text(ESCORT_WAIT_MINUTES as i64),
+                        clock_text(go)
+                    ),
+                )
+            }
+        };
+        if escorted {
+            self.game_minutes += ESCORT_WAIT_MINUTES;
+            self.weather.update(ESCORT_WAIT_MINUTES);
+        }
+        self.log_wind_wait(minutes, spoken);
+    }
+
+    /// A crossing closed to this load's class at this hour on its own wall
+    /// clock, such as the Golden Gate Bridge for explosives at weekday rush
+    /// hours, is waited out on duty at the approach until the window ends.
+    /// The clock moves here; the wait is spoken with any escort that follows.
+    fn process_hazmat_hours(&mut self, leg_index: usize, load: &CrossingLoad) -> Option<HoursWait> {
+        let zone = self.leg_start_zone(leg_index);
+        let at = career_datetime(self.career_hours, self.start_hour, self.game_minutes, zone);
+        let weekend = self.career_weekend(career_local_hours(
+            self.career_hours,
+            self.start_hour,
+            self.game_minutes,
+            zone,
+        ));
+        let (minutes, text) = self.route.legs.get(leg_index).and_then(|leg| {
+            leg.crossings.iter().find_map(|c| {
+                let hours = c.hazmat_hours.as_ref()?;
+                Some((
+                    hours.wait_minutes(load, at.time(), weekend)?,
+                    hours.text.clone(),
+                ))
+            })
+        })?;
+        self.game_minutes += minutes as f64;
+        self.weather.update(minutes as f64);
+        Some(HoursWait {
+            minutes,
+            text,
+            until: at + Duration::minutes(minutes),
+        })
+    }
+
+    /// Saturday or Sunday on the calendar the game speaks: the real one when
+    /// the career follows the real date, the career's own otherwise.
+    fn career_weekend(&self, local_hours: f64) -> bool {
+        if self.live_calendar && self.career_hours.is_some() {
+            matches!(
+                crate::sim::season::real_weekday_name(local_hours, None),
+                "Saturday" | "Sunday"
+            )
+        } else {
+            crate::sim::season::is_weekend(local_hours)
+        }
     }
 
     /// Wind at a crossing: an escort is a short wait on duty; a closure is
@@ -507,9 +599,8 @@ impl Trip {
                     let reason = leg
                         .crossings
                         .iter()
-                        .find_map(|c| c.refusal(&load))
-                        .unwrap_or_default()
-                        .to_string();
+                        .find_map(|c| c.refusal_spoken(&load))
+                        .unwrap_or_default();
                     self.emit(
                         TripEventKind::GpsCue,
                         SpokenMessage::new(reason),
@@ -522,11 +613,13 @@ impl Trip {
                 }
             }
         }
-        match self.process_wind_gate(leg_index, &load) {
+        let wind_escorted = match self.process_wind_gate(leg_index, &load) {
             WindGate::Stopped(held) => return held,
-            WindGate::Escorted => {}
-            WindGate::Open => self.process_escort(leg_index, &load),
-        }
+            WindGate::Escorted => true,
+            WindGate::Open => false,
+        };
+        let hours = self.process_hazmat_hours(leg_index, &load);
+        self.process_escort(leg_index, &load, hours, wind_escorted);
         let Some(leg) = self.route.legs.get(leg_index) else {
             return false;
         };

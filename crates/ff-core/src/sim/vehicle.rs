@@ -546,6 +546,8 @@ pub struct TruckState {
     pub cargo_key: String,
     /// A placard is a property of the dispatched load, not of the endorsement.
     pub placarded_hazmat: bool,
+    /// The placarded load's hazard class, where the job names one.
+    pub hazard_class: Option<crate::data::world_models::HazardClass>,
     /// Overall dimensions of the actual combination.  The stock values are
     /// the game's WB-67 combination; tests and future oversize permits may
     /// supply a different measured rig.
@@ -696,6 +698,7 @@ impl TruckState {
             cargo_kg: REFERENCE_CARGO_KG,
             cargo_key: String::new(),
             placarded_hazmat: false,
+            hazard_class: None,
             rig_length_ft: crate::sim::cross_traffic::COMBINATION_LENGTH_FT,
             rig_width_ft: 8.5,
             rig_height_ft: 13.5,

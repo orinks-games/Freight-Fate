@@ -47201,7 +47201,16 @@
           "size_text": "",
           "source_url": "https://www.chp.ca.gov/siteassets/files/ib_hmroutes.pdf",
           "access_date": "2026-10-11",
-          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Assumed: the game's placarded packaged freight names no class, so it is treated as possibly explosive and refused."
+          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Classes: each load names its 49 CFR 172.101 class, so only Division 1.1 to 1.3 explosives, and flammable gas or liquid in a tank, are refused; a load with no class (an old save) matches no class rule.",
+          "banned_classes": [
+            "1.1",
+            "1.2",
+            "1.3"
+          ],
+          "bulk_banned_classes": [
+            "2.1",
+            "3"
+          ]
         }
       ]
     },
@@ -95022,7 +95031,16 @@
           "size_text": "",
           "source_url": "https://www.chp.ca.gov/siteassets/files/ib_hmroutes.pdf",
           "access_date": "2026-10-11",
-          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Assumed: the game's placarded packaged freight names no class, so it is treated as possibly explosive and refused."
+          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Classes: each load names its 49 CFR 172.101 class, so only Division 1.1 to 1.3 explosives, and flammable gas or liquid in a tank, are refused; a load with no class (an old save) matches no class rule.",
+          "banned_classes": [
+            "1.1",
+            "1.2",
+            "1.3"
+          ],
+          "bulk_banned_classes": [
+            "2.1",
+            "3"
+          ]
         }
       ]
     },
@@ -122462,7 +122480,16 @@
           "size_text": "",
           "source_url": "https://www.chp.ca.gov/siteassets/files/ib_hmroutes.pdf",
           "access_date": "2026-10-11",
-          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Assumed: the game's placarded packaged freight names no class, so it is treated as possibly explosive and refused."
+          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Classes: each load names its 49 CFR 172.101 class, so only Division 1.1 to 1.3 explosives, and flammable gas or liquid in a tank, are refused; a load with no class (an old save) matches no class rule.",
+          "banned_classes": [
+            "1.1",
+            "1.2",
+            "1.3"
+          ],
+          "bulk_banned_classes": [
+            "2.1",
+            "3"
+          ]
         }
       ]
     },
@@ -132187,7 +132214,16 @@
           "size_text": "",
           "source_url": "https://www.chp.ca.gov/siteassets/files/ib_hmroutes.pdf",
           "access_date": "2026-10-11",
-          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Assumed: the game's placarded packaged freight names no class, so it is treated as possibly explosive and refused."
+          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Classes: each load names its 49 CFR 172.101 class, so only Division 1.1 to 1.3 explosives, and flammable gas or liquid in a tank, are refused; a load with no class (an old save) matches no class rule.",
+          "banned_classes": [
+            "1.1",
+            "1.2",
+            "1.3"
+          ],
+          "bulk_banned_classes": [
+            "2.1",
+            "3"
+          ]
         }
       ]
     },
@@ -133544,7 +133580,61 @@
         }
       ],
       "divided": true,
-      "lanes": 2
+      "lanes": 2,
+      "crossings": [
+        {
+          "kind": "bridge",
+          "name": "Golden Gate Bridge",
+          "hazmat": "none",
+          "bulk_flammable_banned": false,
+          "tank_banned": false,
+          "regulated_lb_limit": null,
+          "max_length_ft": null,
+          "max_width_ft": null,
+          "max_height_ft": null,
+          "hazmat_text": "",
+          "size_text": "",
+          "source_url": "https://www.law.cornell.edu/regulations/california/13-CCR-1151.5",
+          "access_date": "2026-10-11",
+          "basis": "Read: California rule 13 CCR 1151.5(b)(3) bars vehicles transporting explosives from the Golden Gate Bridge between 06:30 and 09:30 and between 16:00 and 19:00 on weekdays, and has every explosives vehicle stop for inspection and a bridge escort, northbound at the toll plaza and southbound at the north abutment (also listed in the California Highway Patrol route list, https://www.chp.ca.gov/siteassets/files/ib_hmroutes.pdf). Read: Vehicle Code 31600 defines explosives as Divisions 1.1, 1.2, 1.3 and 1.6, and 31600(c) says Division 1.4 is not an explosive under it (https://california.public.law/codes/vehicle_code_section_31600). Derived: 1.5 blasting agents are kept with the explosives, and 1.4 (consumer fireworks) crosses with no wait or escort; a load with no class (an old save) is not treated as explosives. The leg's archived road geometry crosses the span between its south tower and north end. Assumed: the inspection and escort take the game's 20-minute escort wait; state holidays are not modelled.",
+          "banned_classes": [],
+          "bulk_banned_classes": [],
+          "escort": {
+            "placarded": false,
+            "gross_over_lb": null,
+            "classes": [
+              "1.1",
+              "1.2",
+              "1.3",
+              "1.5",
+              "1.6"
+            ],
+            "text": "Explosives stop for inspection and a bridge escort at the Golden Gate Bridge.",
+            "source_url": "https://www.law.cornell.edu/regulations/california/13-CCR-1151.5"
+          },
+          "hazmat_hours": {
+            "classes": [
+              "1.1",
+              "1.2",
+              "1.3",
+              "1.5",
+              "1.6"
+            ],
+            "weekday_closed": [
+              [
+                "06:30",
+                "09:30"
+              ],
+              [
+                "16:00",
+                "19:00"
+              ]
+            ],
+            "text": "Explosives may not use the Golden Gate Bridge at weekday rush hours.",
+            "source_url": "https://www.law.cornell.edu/regulations/california/13-CCR-1151.5"
+          }
+        }
+      ]
     },
     {
       "from": "san_jose_ca_us",
@@ -165854,7 +165944,16 @@
           "size_text": "",
           "source_url": "https://www.chp.ca.gov/siteassets/files/ib_hmroutes.pdf",
           "access_date": "2026-10-11",
-          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Assumed: the game's placarded packaged freight names no class, so it is treated as possibly explosive and refused."
+          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Classes: each load names its 49 CFR 172.101 class, so only Division 1.1 to 1.3 explosives, and flammable gas or liquid in a tank, are refused; a load with no class (an old save) matches no class rule.",
+          "banned_classes": [
+            "1.1",
+            "1.2",
+            "1.3"
+          ],
+          "bulk_banned_classes": [
+            "2.1",
+            "3"
+          ]
         }
       ]
     },

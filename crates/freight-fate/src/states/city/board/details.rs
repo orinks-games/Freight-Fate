@@ -138,8 +138,11 @@ impl JobDetailState {
         // load's deadhead can run longer than the deadline's slack.
         let loaded_departure_h =
             pickup_drive_hours(ctx, job) + (PICKUP_CHECK_IN_MIN + PICKUP_LOADING_MIN) / 60.0;
-        let mut lines = vec![
-            format!("Cargo: {}.", job.spoken_cargo_label()),
+        let mut lines = vec![format!("Cargo: {}.", job.spoken_cargo_label())];
+        if let Some(material) = job.hazmat {
+            lines.push(format!("Material: {}.", material.card_text()));
+        }
+        lines.extend([
             format!("Origin: {}.", job.origin_facility_text()),
             format!("Destination: {destination_text}."),
             format!("Distance: {}.", s.distance_text(job.distance_mi, false)),
@@ -161,7 +164,7 @@ impl JobDetailState {
             ),
             format!("Equipment: {}.", job.equipment_text()),
             format!("Trailer: {}", trailer_note(p, job)),
-        ];
+        ]);
         let locked = locked_reason(p, job);
         if !locked.is_empty() {
             lines.push(format!("Locked: {locked}"));

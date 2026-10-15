@@ -2951,8 +2951,17 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       drive does not yet enforce.
 - [x] **Mackinac Bridge escorts.** Placarded loads and rigs over 40 tons
       gross wait 20 minutes on duty for a bridge escort in any weather.
-- [ ] **Golden Gate explosive-load hours.** Needs hazmat classes on loads
-      first; Mackinac oversize escorts wait for oversize loads.
+- [x] **Hazard classes on placarded loads.** Each placarded load is a real
+      49 CFR 172.101 material with its class; class-rule crossings (Hampton
+      Roads, CBBT, Pennsylvania Turnpike, Bay Bridge) refuse
+      only the classes they ban, on the board, at departure and on the road.
+- [x] **Golden Gate explosive-load hours.** Explosives (not 1.4 consumer
+      fireworks, per Vehicle Code 31600(c)) wait out weekday rush hours on
+      duty, then wait 20 minutes for the inspection and escort.
+- [ ] **Mackinac oversize escorts.** Wait for oversize loads.
+- [ ] **Hazard class follow-ups.** Poison inhalation hazard is not told apart
+      from other Class 6.1 (no game load is 6.1), and Golden Gate hours ignore
+      state holidays.
 - [x] **Chesapeake Bay Bridge (US 50) toll.** Charged eastbound at the
       published 24 dollars E-ZPass, 36 video toll.
 - [x] **Published toll rates.** 74 of 79 toll events read from
