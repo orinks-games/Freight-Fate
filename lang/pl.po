@@ -15070,12 +15070,6 @@ msgstr ""
 msgid "payload"
 msgstr ""
 
-msgid "mastodon"
-msgstr ""
-
-msgid "reasons"
-msgstr ""
-
 msgid "achievement"
 msgstr ""
 
@@ -24162,15 +24156,6 @@ msgstr ""
 msgid "Unlock: {unlock}"
 msgstr ""
 
-msgid "type"
-msgstr ""
-
-msgid "names"
-msgstr ""
-
-msgid "streak"
-msgstr ""
-
 #. placeholders: {names}
 msgid "New achievement! {names}."
 msgstr ""
@@ -28640,7 +28625,7 @@ msgstr ""
 
 msgid ""
 "Drivers on duty, your orinks.net account, cloud backup and restore, and "
-"sharing choices like Mastodon and Discord."
+"Discord presence."
 msgstr ""
 
 msgid "How to play"
@@ -32063,10 +32048,7 @@ msgid ""
 "fallback. Back up this career now uploads immediately."
 msgstr ""
 
-msgid ""
-"Mastodon can share deliveries that earn an achievement, level, or perfect "
-"streak after you link an account. Discord shows broad activity and clears "
-"it after half an hour idle."
+msgid "Discord shows broad activity and clears it after half an hour idle."
 msgstr ""
 
 msgid ""
@@ -32237,11 +32219,6 @@ msgid ""
 "Can I hear a weather warning again? With live weather on, the Weather app "
 "under Driver apps lists active alerts. Comma also steps back through recent "
 "messages."
-msgstr ""
-
-msgid ""
-"Why did a delivery not post to Mastodon? Only deliveries that earn an "
-"achievement, a level, or a perfect streak are shared."
 msgstr ""
 
 msgid ""
@@ -32544,28 +32521,6 @@ msgid ""
 "overwritten until you choose. {base}"
 msgstr ""
 
-msgid ""
-"Sharing to Mastodon needs your orinks.net account. Choose Set up orinks.net "
-"account first."
-msgstr ""
-
-msgid ""
-"Sharing to Mastodon needs a linked Mastodon account. Choose Link a Mastodon "
-"account first."
-msgstr ""
-
-msgid ""
-"Only deliveries that earn an achievement, a level, or a perfect streak are "
-"posted. Posts are public on your own Mastodon account and carry the Freight "
-"Fate Runs hashtag, which is separate from the Freight Fate tag players use "
-"to talk about the game."
-msgstr ""
-
-msgid ""
-"Linking Mastodon needs your orinks.net account. Choose Set up orinks.net "
-"account first."
-msgstr ""
-
 msgid "Driver directory"
 msgstr ""
 
@@ -32604,9 +32559,9 @@ msgstr ""
 
 msgid ""
 "Master switch for the orinks.net and sharing services. Off stops the "
-"drivers list, profile sharing, cloud backup, Mastodon sharing, station "
-"suggestions, and Discord presence without losing their settings. Live "
-"weather, traffic, and parking have their own toggles under Settings."
+"drivers list, profile sharing, cloud backup, station suggestions, and "
+"Discord presence without losing their settings. Live weather, traffic, and "
+"parking have their own toggles under Settings."
 msgstr ""
 
 msgid "orinks.net account: connected"
@@ -32659,38 +32614,6 @@ msgid ""
 "computer. Backups are private and never public downloads. Comes on when you "
 "connect the account. Public profile statistics are read from these backups, "
 "so turning this off empties them."
-msgstr ""
-
-msgid "Share notable deliveries to Mastodon: not set up"
-msgstr ""
-
-#. placeholders: {on_off}
-msgid "Share notable deliveries to Mastodon: {on_off}"
-msgstr ""
-
-msgid "Share notable deliveries to Mastodon: not linked"
-msgstr ""
-
-msgid ""
-"A delivery that earns an achievement, a level, or a perfect streak posts a "
-"short public summary to your Mastodon account with the Freight Fate Runs "
-"hashtag. Routine deliveries are never posted. Needs a linked Mastodon "
-"account."
-msgstr ""
-
-msgid "Mastodon account: linked"
-msgstr ""
-
-#. placeholders: {mastodon_linked_handle}
-msgid "Mastodon account: linked as {mastodon_linked_handle}"
-msgstr ""
-
-msgid "Link a Mastodon account"
-msgstr ""
-
-msgid ""
-"Opens the orinks.net page that authorizes your Mastodon server. Unlinking "
-"happens there too."
 msgstr ""
 
 #. placeholders: {on_off}
@@ -33091,121 +33014,6 @@ msgstr ""
 
 #. placeholders: {count}, {current}
 msgid "{count} on duty. {current}"
-msgstr ""
-
-msgid "Mastodon account"
-msgstr ""
-
-msgid "Checking the Mastodon link"
-msgstr ""
-
-#. placeholders: {mastodon_linked_handle}
-msgid " as {mastodon_linked_handle}"
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Check link status."
-msgstr ""
-
-#. placeholders: {spoken}
-msgid "Check link status. Last known: linked{spoken}"
-msgstr ""
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "Last known: linked{spoken}"
-msgstr ""
-
-msgid "Check link status"
-msgstr ""
-
-msgid "The browser could not be opened. The link is on your clipboard."
-msgstr ""
-
-msgid ""
-"The browser could not be opened and the clipboard did not take the link. In "
-"your browser, go to orinks.net, then Freight Fate, then Online, then "
-"Mastodon."
-msgstr ""
-
-msgid " The link is also on your clipboard."
-msgstr ""
-
-#. placeholders: {clipboard_note}
-msgid "Opening the Mastodon link page in your browser.{clipboard_note}"
-msgstr ""
-
-msgid ""
-"This needs your orinks.net account. Choose Set up orinks.net account on the "
-"Online menu."
-msgstr ""
-
-msgid "Checking with orinks.net."
-msgstr ""
-
-msgid "mastodon-status"
-msgstr ""
-
-msgid "Open the Mastodon link page in my browser"
-msgstr ""
-
-msgid ""
-"Sign in on orinks.net, enter your Mastodon server, and authorize Freight "
-"Fate there."
-msgstr ""
-
-msgid "Asks orinks.net whether a Mastodon account is linked to your driver."
-msgstr ""
-
-msgid "a Mastodon account"
-msgstr ""
-
-#. placeholders: {spoken}
-msgid "Last I checked, {spoken} was linked."
-msgstr ""
-
-msgid "No Mastodon account linked yet."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Linking happens in your browser on orinks.net."
-msgstr ""
-
-#. placeholders: {TITLE}, {known}, {current}
-msgid ""
-"{TITLE}. Linking happens in your browser on orinks.net. {known} {current}"
-msgstr ""
-
-msgid "Back in Freight Fate. Checking your Mastodon link."
-msgstr ""
-
-msgid "Still checking."
-msgstr ""
-
-msgid "Could not reach orinks.net to check the Mastodon link."
-msgstr ""
-
-msgid "your Mastodon account"
-msgstr ""
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "Linked: {spoken}."
-msgstr ""
-
-#. placeholders: {spoken}
-msgid ""
-"Linked: {spoken}. Share notable deliveries to Mastodon can go on from the "
-"Online menu."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Share notable deliveries to Mastodon can go on from the Online menu."
-msgstr ""
-
-msgid ""
-"No Mastodon account linked yet. Open the link page, authorize there, then "
-"check again."
 msgstr ""
 
 msgid "Last on duty less than an hour ago"

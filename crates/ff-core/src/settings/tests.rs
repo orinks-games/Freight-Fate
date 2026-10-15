@@ -97,12 +97,13 @@ fn the_struct_carries_the_persisted_fields_in_python_order() {
     // touch_practice_offered (2026-10-07), the six touch gesture
     // thresholds (2026-10-08), facility_streets (2026-10-11) and language
     // (2026-10-12) and automatic_jake (2026-10-14) were added on the Rust side;
-    // lane_centering_assist was retired for 1.9.
-    assert_eq!(Settings::FIELD_NAMES.len(), 97);
+    // lane_centering_assist was retired for 1.9, and the three Mastodon
+    // sharing fields on 2026-10-15.
+    assert_eq!(Settings::FIELD_NAMES.len(), 94);
     assert_eq!(Settings::FIELD_NAMES[0], "online_services");
-    assert_eq!(Settings::FIELD_NAMES[81], "settings_layout_notice_from");
+    assert_eq!(Settings::FIELD_NAMES[78], "settings_layout_notice_from");
     let pairs = Settings::default().ordered_values();
-    assert_eq!(pairs.len(), 97);
+    assert_eq!(pairs.len(), 94);
     for ((name, _), field) in pairs.iter().zip(Settings::FIELD_NAMES) {
         assert_eq!(name, field);
     }
@@ -150,7 +151,6 @@ fn the_defaults_match_the_python_dataclass() {
         "online_presence": false, "duty_notifications": false,
         "profile_sharing_consent_version": 0,
         "profile_sharing_pending_off": false, "cloud_saves": false,
-        "mastodon_sharing": false, "mastodon_linked": false, "mastodon_linked_handle": "",
         "controller_enabled": true, "haptics_enabled": true, "online_offer_seen": false,
         "settings_version": 3, "settings_layout_notice_from": -1,
         "key_bindings": "", "pad_bindings": "", "touch_bindings": "",
@@ -166,7 +166,7 @@ fn the_defaults_match_the_python_dataclass() {
     let Value::Object(expected) = expected else {
         unreachable!()
     };
-    assert_eq!(expected.len(), 97);
+    assert_eq!(expected.len(), 94);
     for (name, value) in s.ordered_values() {
         assert_eq!(Some(&value), expected.get(name), "{name}");
     }
@@ -270,7 +270,6 @@ fn unknown_keys_are_ignored_and_wrong_shapes_take_the_python_fallbacks() {
         "pedal_latch": 3,
         "event_backend": "",
         "radio_station_id": 12,
-        "mastodon_linked_handle": 4,
         "profile_sharing_consent_version": 3.0,
         "online_presence": true,
         "time_scale": "40",
@@ -293,7 +292,6 @@ fn unknown_keys_are_ignored_and_wrong_shapes_take_the_python_fallbacks() {
     assert_eq!(s.pedal_latch, "on");
     assert_eq!(s.event_backend, "SAPI");
     assert_eq!(s.radio_station_id, "route_playlist");
-    assert_eq!(s.mastodon_linked_handle, "");
     // 3.0 == 3 in Python, so the consent stands and online_presence survives.
     assert_eq!(s.profile_sharing_consent_version, 3);
     assert!(s.online_presence);

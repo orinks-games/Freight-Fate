@@ -21,7 +21,7 @@ list that comes up in almost every screen.
 - **Song and station titles**, radio clips, and anything in quotes that
   names a recording.
 - **Brand and product names**: Freight Fate, orinks.net, CAT Scale, TWIC,
-  CDL, NVDA, JAWS, VoiceOver, Discord, Mastodon.
+  CDL, NVDA, JAWS, VoiceOver, Discord.
 - **Numbers.** Keep every digit exactly as written. "55" stays "55".
 - **Placeholders** in braces, like `{city}` or `{distance}`. Move them
   wherever your grammar needs them, but keep the name inside the braces

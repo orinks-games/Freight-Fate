@@ -399,8 +399,7 @@ impl Inner {
 // -- event payload builders ---------------------------------------------------------
 
 /// The allowlisted facts of a completed delivery the journal publishes:
-/// the profile and job fields `queue_delivery` / `queue_mastodon_share`
-/// read (`Profile` and `Job` are not part of this crate).
+/// the profile and job fields `queue_delivery` reads (`Profile` and `Job` are not part of this crate).
 #[derive(Debug, Clone, PartialEq)]
 pub struct DeliveryFacts {
     /// `profile.name`
@@ -466,54 +465,6 @@ pub fn queue_delivery(
         "payload": Value::Object(inner),
     });
     outbox.enqueue("/api/freight-fate/events/delivery", payload, &event_id)
-}
-
-/// Queue a notable delivery for the player's own Mastodon account.
-///
-/// `reasons` is what made the run notable -- new achievements, a level up, a
-/// perfect-streak milestone. An empty list means the delivery was routine,
-/// and routine runs are never posted: the server refuses reason-free shares
-/// too, so the quiet path is enforced on both ends. The server composes the
-/// actual post text from these allowlisted facts and adds the FreightFateRuns
-/// hashtag -- kept off the bare FreightFate tag so players muting the automated
-/// posts keep the human conversation; nothing free-form leaves the game.
-#[allow(clippy::too_many_arguments)]
-pub fn queue_mastodon_share(
-    outbox: &JournalOutbox,
-    facts: &DeliveryFacts,
-    origin: &str,
-    destination: &str,
-    on_time: bool,
-    occurred_at_ms: i64,
-    reasons: &[Value],
-) -> bool {
-    if reasons.is_empty() {
-        return false;
-    }
-    let event_id = stable_event_id(
-        "mastodon",
-        &[
-            Value::from(facts.profile_name.as_str()),
-            Value::from(facts.deliveries),
-            Value::from(facts.cargo_key.as_str()),
-            Value::from(facts.job_origin.as_str()),
-            Value::from(facts.job_destination.as_str()),
-        ],
-    );
-    let payload = json!({
-        "eventId": event_id,
-        "occurredAt": occurred_at_ms,
-        "payload": {
-            "version": 1,
-            "cargo": facts.cargo_label,
-            "origin": origin,
-            "destination": destination,
-            "distanceMiles": round_py_n(facts.distance_mi, 1),
-            "onTime": on_time,
-            "reasons": reasons,
-        },
-    });
-    outbox.enqueue("/api/freight-fate/mastodon/share", payload, &event_id)
 }
 
 /// `queue_achievement(outbox, achievement, earned_at_ms=...)` with the

@@ -504,18 +504,9 @@ impl App {
             ..Default::default()
         });
         let journal = JournalOutbox::new(
-            identity.clone(),
+            identity,
             settings.online_presence,
             &store.path().with_file_name("online-outbox.json"),
-        );
-        // Mastodon shares ride the same durable-outbox machinery but keep
-        // their own file and enabled flag: posting to the player's own
-        // Mastodon account is a separate consent from public Profile
-        // sharing.
-        let mastodon = JournalOutbox::new(
-            identity,
-            settings.mastodon_sharing,
-            &store.path().with_file_name("online-mastodon-outbox.json"),
         );
         // Every profile save, wherever it happens, queues a cloud backup.
         let backup = cloud.clone();
@@ -559,7 +550,6 @@ impl App {
                 jaws_script: JawsScript::new(),
                 cloud,
                 journal,
-                mastodon,
             },
         });
         // The windowed game speaks the player's language. Headless runs (the
@@ -985,8 +975,8 @@ impl App {
                 // with its own `if`, not the `elif` chain, so the event
                 // carries on to the state; a `match` arm here quietly ate
                 // it, and with it the two screens that wait for the player
-                // to come back from a browser (online setup, the Mastodon
-                // link) -- both sat silent on return.
+                // to come back from a browser (online setup) -- it sat silent
+                // on return.
                 self.dispatch_to_state(event);
             }
             InputEvent::WindowFocusLost => {

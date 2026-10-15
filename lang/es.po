@@ -17323,12 +17323,6 @@ msgstr "Entregado sin nuevos daños en el camión"
 msgid "payload"
 msgstr "payload"
 
-msgid "mastodon"
-msgstr "mastodon"
-
-msgid "reasons"
-msgstr "reasons"
-
 msgid "achievement"
 msgstr "achievement"
 
@@ -27548,15 +27542,6 @@ msgstr ""
 msgid "Unlock: {unlock}"
 msgstr "Desbloqueo: {unlock}"
 
-msgid "type"
-msgstr "type"
-
-msgid "names"
-msgstr "names"
-
-msgid "streak"
-msgstr "streak"
-
 #. placeholders: {names}
 msgid "New achievement! {names}."
 msgstr "¡Nuevo logro! {names}."
@@ -32646,10 +32631,10 @@ msgstr "Logros conseguidos y bloqueados de una carrera guardada."
 
 msgid ""
 "Drivers on duty, your orinks.net account, cloud backup and restore, and "
-"sharing choices like Mastodon and Discord."
+"Discord presence."
 msgstr ""
 "Conductores en servicio, tu cuenta de orinks.net, copia de seguridad y "
-"restauración en la nube, y opciones para compartir como Mastodon y Discord."
+"restauración en la nube, y presencia en Discord."
 
 msgid "How to play"
 msgstr "Cómo jugar"
@@ -37048,14 +37033,10 @@ msgstr ""
 "conserva la partida local sustituida como respaldo. Hacer copia de esta "
 "carrera ahora la sube al instante."
 
-msgid ""
-"Mastodon can share deliveries that earn an achievement, level, or perfect "
-"streak after you link an account. Discord shows broad activity and clears "
-"it after half an hour idle."
+msgid "Discord shows broad activity and clears it after half an hour idle."
 msgstr ""
-"Mastodon puede compartir las entregas que consiguen un logro, un nivel o "
-"una racha perfecta después de vincular una cuenta. Discord muestra la "
-"actividad general y la borra tras media hora de inactividad."
+"Discord muestra la actividad general y la borra tras media hora de "
+"inactividad."
 
 msgid ""
 "Online services switches sharing services off together while remembering "
@@ -37291,13 +37272,6 @@ msgstr ""
 "¿Puedo volver a oír una alerta meteorológica? Con el tiempo en directo "
 "activado, la app Tiempo, en Apps del conductor, enumera las alertas "
 "activas. Coma también recorre hacia atrás los mensajes recientes."
-
-msgid ""
-"Why did a delivery not post to Mastodon? Only deliveries that earn an "
-"achievement, a level, or a perfect streak are shared."
-msgstr ""
-"¿Por qué una entrega no se publicó en Mastodon? Solo se comparten las "
-"entregas que consiguen un logro, un nivel o una racha perfecta."
 
 msgid ""
 "Can I steer myself? Yes. Choose the Realistic preset, or set lane keeping "
@@ -37698,38 +37672,6 @@ msgstr ""
 "Elegir la partida de este ordenador conserva lo que has jugado y lo sube; "
 "no se sobrescribe nada hasta que elijas. {base}"
 
-msgid ""
-"Sharing to Mastodon needs your orinks.net account. Choose Set up orinks.net "
-"account first."
-msgstr ""
-"Compartir en Mastodon necesita tu cuenta de orinks.net. Primero elige "
-"Configurar la cuenta de orinks.net."
-
-msgid ""
-"Sharing to Mastodon needs a linked Mastodon account. Choose Link a Mastodon "
-"account first."
-msgstr ""
-"Compartir en Mastodon necesita una cuenta de Mastodon vinculada. Primero "
-"elige Vincular una cuenta de Mastodon."
-
-msgid ""
-"Only deliveries that earn an achievement, a level, or a perfect streak are "
-"posted. Posts are public on your own Mastodon account and carry the Freight "
-"Fate Runs hashtag, which is separate from the Freight Fate tag players use "
-"to talk about the game."
-msgstr ""
-"Solo se publican las entregas que consiguen un logro, un nivel o una racha "
-"perfecta. Las publicaciones son públicas en tu propia cuenta de Mastodon y "
-"llevan la etiqueta Freight Fate Runs, que es distinta de la etiqueta "
-"Freight Fate que usan los jugadores para hablar del juego."
-
-msgid ""
-"Linking Mastodon needs your orinks.net account. Choose Set up orinks.net "
-"account first."
-msgstr ""
-"Vincular Mastodon necesita tu cuenta de orinks.net. Primero elige "
-"Configurar la cuenta de orinks.net."
-
 msgid "Driver directory"
 msgstr "Directorio de conductores"
 
@@ -37780,15 +37722,15 @@ msgstr "Servicios en línea: {on_off}"
 
 msgid ""
 "Master switch for the orinks.net and sharing services. Off stops the "
-"drivers list, profile sharing, cloud backup, Mastodon sharing, station "
-"suggestions, and Discord presence without losing their settings. Live "
-"weather, traffic, and parking have their own toggles under Settings."
+"drivers list, profile sharing, cloud backup, station suggestions, and "
+"Discord presence without losing their settings. Live weather, traffic, and "
+"parking have their own toggles under Settings."
 msgstr ""
 "Interruptor general de orinks.net y de los servicios para compartir. "
 "Desactivado detiene la lista de conductores, el perfil compartido, la copia "
-"de seguridad en la nube, compartir en Mastodon, las sugerencias de emisoras "
-"y la presencia en Discord sin perder sus ajustes. El tiempo, el tráfico y "
-"el aparcamiento en directo tienen sus propios interruptores en Ajustes."
+"de seguridad en la nube, las sugerencias de emisoras y la presencia en "
+"Discord sin perder sus ajustes. El tiempo, el tráfico y el aparcamiento en "
+"directo tienen sus propios interruptores en Ajustes."
 
 msgid "orinks.net account: connected"
 msgstr "Cuenta de orinks.net: conectada"
@@ -37862,44 +37804,6 @@ msgstr ""
 "otro ordenador. Las copias de seguridad son privadas y nunca son descargas "
 "públicas. Se activa cuando conectas la cuenta. Las estadísticas del perfil "
 "público se leen de estas copias, así que desactivarlo las vacía."
-
-msgid "Share notable deliveries to Mastodon: not set up"
-msgstr "Compartir entregas destacadas en Mastodon: sin configurar"
-
-#. placeholders: {on_off}
-msgid "Share notable deliveries to Mastodon: {on_off}"
-msgstr "Compartir entregas destacadas en Mastodon: {on_off}"
-
-msgid "Share notable deliveries to Mastodon: not linked"
-msgstr "Compartir entregas destacadas en Mastodon: sin vincular"
-
-msgid ""
-"A delivery that earns an achievement, a level, or a perfect streak posts a "
-"short public summary to your Mastodon account with the Freight Fate Runs "
-"hashtag. Routine deliveries are never posted. Needs a linked Mastodon "
-"account."
-msgstr ""
-"Una entrega que consigue un logro, un nivel o una racha perfecta publica un "
-"breve resumen público en tu cuenta de Mastodon con la etiqueta Freight Fate "
-"Runs. Las entregas rutinarias nunca se publican. Necesita una cuenta de "
-"Mastodon vinculada."
-
-msgid "Mastodon account: linked"
-msgstr "Cuenta de Mastodon: vinculada"
-
-#. placeholders: {mastodon_linked_handle}
-msgid "Mastodon account: linked as {mastodon_linked_handle}"
-msgstr "Cuenta de Mastodon: vinculada como {mastodon_linked_handle}"
-
-msgid "Link a Mastodon account"
-msgstr "Vincular una cuenta de Mastodon"
-
-msgid ""
-"Opens the orinks.net page that authorizes your Mastodon server. Unlinking "
-"happens there too."
-msgstr ""
-"Abre la página de orinks.net que autoriza tu servidor de Mastodon. Allí "
-"también se desvincula."
 
 #. placeholders: {on_off}
 msgid "Discord presence: {on_off}"
@@ -38400,141 +38304,6 @@ msgstr "{count} en servicio."
 #. placeholders: {count}, {current}
 msgid "{count} on duty. {current}"
 msgstr "{count} en servicio. {current}"
-
-msgid "Mastodon account"
-msgstr "Cuenta de Mastodon"
-
-msgid "Checking the Mastodon link"
-msgstr "Comprobando el vínculo con Mastodon"
-
-#. placeholders: {mastodon_linked_handle}
-msgid " as {mastodon_linked_handle}"
-msgstr " como {mastodon_linked_handle}"
-
-#. one sentence of a longer line
-msgid "Check link status."
-msgstr "Comprobar el estado del vínculo."
-
-#. placeholders: {spoken}
-msgid "Check link status. Last known: linked{spoken}"
-msgstr ""
-"Comprobar el estado del vínculo. Último estado conocido: vinculada{spoken}"
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "Last known: linked{spoken}"
-msgstr "Último estado conocido: vinculada{spoken}"
-
-msgid "Check link status"
-msgstr "Comprobar el estado del vínculo"
-
-msgid "The browser could not be opened. The link is on your clipboard."
-msgstr "No se pudo abrir el navegador. El enlace está en tu portapapeles."
-
-msgid ""
-"The browser could not be opened and the clipboard did not take the link. In "
-"your browser, go to orinks.net, then Freight Fate, then Online, then "
-"Mastodon."
-msgstr ""
-"No se pudo abrir el navegador y el portapapeles no aceptó el enlace. En tu "
-"navegador, ve a orinks.net, luego Freight Fate, luego Online, luego "
-"Mastodon."
-
-msgid " The link is also on your clipboard."
-msgstr " El enlace también está en tu portapapeles."
-
-#. placeholders: {clipboard_note}
-msgid "Opening the Mastodon link page in your browser.{clipboard_note}"
-msgstr ""
-"Abriendo la página de vínculo con Mastodon en tu navegador.{clipboard_note}"
-
-msgid ""
-"This needs your orinks.net account. Choose Set up orinks.net account on the "
-"Online menu."
-msgstr ""
-"Esto necesita tu cuenta de orinks.net. Elige Configurar la cuenta de "
-"orinks.net en el menú En línea."
-
-msgid "Checking with orinks.net."
-msgstr "Consultando con orinks.net."
-
-msgid "mastodon-status"
-msgstr "mastodon-status"
-
-msgid "Open the Mastodon link page in my browser"
-msgstr "Abrir la página de vínculo con Mastodon en mi navegador"
-
-msgid ""
-"Sign in on orinks.net, enter your Mastodon server, and authorize Freight "
-"Fate there."
-msgstr ""
-"Inicia sesión en orinks.net, introduce tu servidor de Mastodon y autoriza "
-"allí a Freight Fate."
-
-msgid "Asks orinks.net whether a Mastodon account is linked to your driver."
-msgstr ""
-"Pregunta a orinks.net si hay una cuenta de Mastodon vinculada a tu "
-"conductor."
-
-msgid "a Mastodon account"
-msgstr "una cuenta de Mastodon"
-
-#. placeholders: {spoken}
-msgid "Last I checked, {spoken} was linked."
-msgstr "La última vez que lo comprobé, {spoken} estaba vinculada."
-
-msgid "No Mastodon account linked yet."
-msgstr "Todavía no hay ninguna cuenta de Mastodon vinculada."
-
-#. one sentence of a longer line
-msgid "Linking happens in your browser on orinks.net."
-msgstr "La vinculación se hace en tu navegador, en orinks.net."
-
-#. placeholders: {TITLE}, {known}, {current}
-msgid ""
-"{TITLE}. Linking happens in your browser on orinks.net. {known} {current}"
-msgstr ""
-"{TITLE}. La vinculación se hace en tu navegador, en orinks.net. {known} "
-"{current}"
-
-msgid "Back in Freight Fate. Checking your Mastodon link."
-msgstr "De vuelta en Freight Fate. Comprobando tu vínculo con Mastodon."
-
-msgid "Still checking."
-msgstr "Todavía comprobando."
-
-msgid "Could not reach orinks.net to check the Mastodon link."
-msgstr ""
-"No se pudo conectar con orinks.net para comprobar el vínculo con Mastodon."
-
-msgid "your Mastodon account"
-msgstr "tu cuenta de Mastodon"
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "Linked: {spoken}."
-msgstr "Vinculada: {spoken}."
-
-#. placeholders: {spoken}
-msgid ""
-"Linked: {spoken}. Share notable deliveries to Mastodon can go on from the "
-"Online menu."
-msgstr ""
-"Vinculada: {spoken}. Compartir entregas destacadas en Mastodon se puede "
-"activar desde el menú En línea."
-
-#. one sentence of a longer line
-msgid "Share notable deliveries to Mastodon can go on from the Online menu."
-msgstr ""
-"Compartir entregas destacadas en Mastodon se puede activar desde el menú En "
-"línea."
-
-msgid ""
-"No Mastodon account linked yet. Open the link page, authorize there, then "
-"check again."
-msgstr ""
-"Todavía no hay ninguna cuenta de Mastodon vinculada. Abre la página de "
-"vínculo, autoriza allí y luego vuelve a comprobarlo."
 
 msgid "Last on duty less than an hour ago"
 msgstr "En servicio por última vez hace menos de una hora"

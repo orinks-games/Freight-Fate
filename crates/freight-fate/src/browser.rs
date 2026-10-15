@@ -1,8 +1,8 @@
 //! The one door out of the game and into a web browser.
 //!
 //! Three callers open a page: the driver-setup verification page during
-//! device activation, the driver setup page from the Online hub, the
-//! Mastodon link page, and the bug-report form on GitHub. Every one of them
+//! device activation, the driver setup page from the Online hub, and the
+//! bug-report form on GitHub. Every one of them
 //! goes through [`open_url`], and [`open_url`] refuses unless something has
 //! said, in so many words, that this process is the real game.
 //!

@@ -587,7 +587,6 @@ pub(crate) fn award_arrival_achievements(
             state.record_badge(
                 result.award.message.normal.clone(),
                 result.award.achievement.name.to_string(),
-                result.publicly_eligible,
             );
         }
     }

@@ -546,11 +546,8 @@ impl Settings {
         if !BACKUP_ANNOUNCEMENT_MODES.contains(&s.backup_announcements.as_str()) {
             s.backup_announcements = "every".to_string();
         }
-        // (cloud_saves, the mastodon fields, live_weather_controls_calendar
-        // and duck_audio_for_speech were type-checked in the raw copy.)
-        if s.mastodon_linked_handle == coerce::JUNK {
-            s.mastodon_linked_handle = String::new();
-        }
+        // (cloud_saves, live_weather_controls_calendar and
+        // duck_audio_for_speech were type-checked in the raw copy.)
         for level in [
             &mut s.master_volume,
             &mut s.sfx_volume,

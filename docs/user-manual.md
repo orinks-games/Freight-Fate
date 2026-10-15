@@ -52,7 +52,7 @@ Before you've created a career, Achievements tells you there are no saved career
 
 ### Online
 
-Online brings together the public driver lists, account-wide achievements, your orinks.net account, and cloud backup and restore. It's also where you choose sharing options such as Mastodon and Discord. You can decide which parts you want to use.
+Online brings together the public driver lists, account-wide achievements, your orinks.net account, and cloud backup and restore. It's also where you turn Discord presence on or off. You can decide which parts you want to use.
 
 ### How to play
 
@@ -943,7 +943,7 @@ You can browse public driver information without sharing your own. Connect an ac
 | Driver directory | Browse public driver profiles, with active drivers first. Enter opens a profile; Check again refreshes the list. Viewing it shares nothing about you. |
 | Drivers on duty | Hear who's playing and what they're doing. The list refreshes about once a minute; Enter opens a driver's public profile. You don't need to share your own profile to view it. |
 | Say when drivers go on or off duty | Hear when other drivers start or finish playing. Off by default, and urgent driving messages come first. No account is needed. |
-| Online services | Turn orinks.net services, Mastodon sharing, and Discord presence on or off together. Your individual choices are remembered. Live weather, traffic, and parking have separate settings. |
+| Online services | Turn orinks.net services and Discord presence on or off together. Your individual choices are remembered. Live weather, traffic, and parking have separate settings. |
 | Account achievements | Browse achievements from all your careers on this computer in seven categories. For one career's record, use Achievements on the main menu. |
 | Your profile | Read your public driver profile as other players hear it. Requires a connected account and Profile sharing. |
 | Set up orinks.net account | Connect an existing account using your browser. The [account and backup guide](#online-sharing-and-cloud-backups) explains setup. |
@@ -952,8 +952,6 @@ You can browse public driver information without sharing your own. Connect an ac
 | Back up saves to your orinks.net account | Keep private backups after saving, for recovery or play on another computer. |
 | Restore a cloud backup | Choose a backed-up career to restore, or use Back up this career now to upload your current save. |
 | Automatic cloud retention | Keep up to ten cloud careers. Replacing a cloud career leaves its local save intact. |
-| Share notable deliveries to Mastodon | Share deliveries that earn an achievement, level, or perfect streak using FreightFateRuns. Routine deliveries aren't posted. Requires a linked Mastodon account. |
-| Link a Mastodon account | Open orinks.net to authorize your Mastodon account. Use the same page to unlink it. |
 | Discord presence | Show broad activity, route, and cargo in Discord. On by default while Discord is running; no driver profile is needed. It clears after half an hour idle and never shares saves or personal details. |
 
 ### Problem reports
@@ -1102,10 +1100,6 @@ With the engine running, M switches the radio on, and Page Up or Page Down tunes
 ### Can I hear a weather warning again?
 
 With live weather on, the Weather app under Driver apps lists active alerts. Comma also steps back through recent messages.
-
-### Why did a delivery not post to Mastodon?
-
-Only deliveries that earn an achievement, a level, or a perfect streak are shared, and only after you link an account.
 
 ### Can I steer the truck myself?
 

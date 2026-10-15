@@ -367,10 +367,9 @@ IDENTITY_NAMES = frozenset(
         "online.token",
         "cloud_saves.json",
         "online-outbox.json",
-        "online-mastodon-outbox.json",
     }
 )
-OFFLINE_SETTINGS = ("cloud_saves", "online_presence", "online_services", "mastodon_sharing")
+OFFLINE_SETTINGS = ("cloud_saves", "online_presence", "online_services")
 
 
 def _is_identity(path: Path) -> bool:

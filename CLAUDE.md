@@ -342,7 +342,7 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   its own `saves-agent-staging` directory, no careers and no identity copied
   in, its own driver on the staging backend (through the orinks-net `dev`
   preview; the owner enters its spoken code there the first time), cloud
-  backup on, presence and Mastodon off. No agent session ever reaches
+  backup on, presence off. No agent session ever reaches
   production: `--online`, which carried the real driver identity, was removed
   on 2026-09-25.
 
