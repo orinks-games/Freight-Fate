@@ -222,6 +222,7 @@
 
 ### Fixed
 
+- **Toms River to Newark now runs US 9, I-195 and the New Jersey Turnpike instead of the Garden State Parkway and local highways.** The run is 85 miles, up from 66, and pays for every one.
 - **The load you sleep for after an hours warning stays on the dispatch board.** It used to vanish when the rest ran past midnight.
 
 - **On a three-lane road, a hazard call names the lane you can move into.** From the right lane it now says middle lane open, matching the lane change.

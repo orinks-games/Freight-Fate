@@ -9659,34 +9659,384 @@
     {
       "from": "toms_river_nj_us",
       "to": "newark_nj_us",
-      "miles": 66.0,
-      "highway": "Garden State Parkway",
+      "miles": 85,
+      "highway": "I-95",
       "terrain": "flat",
       "corridor": {
         "tollway_detected": true,
+        "source": "Development-time OpenRouteService driving-hgv (truck) route geometry and elevation over OpenStreetMap, with Census/OpenStreetMap state context and curated corridor POIs checked in for offline runtime use.",
+        "checkpoints": [],
+        "landmarks": [
+          {
+            "name": "Pinelands National Reserve",
+            "category": "protected_area",
+            "kind": "zone",
+            "at_mi": 0.9,
+            "lat": 39.96347,
+            "lon": -74.20264,
+            "spoken": "Entering Pinelands National Reserve",
+            "source": "derived 2026-10-01: name, category and kind read from OpenStreetMap tags via classify_narratable_feature; spoken text derived via spoken_landmark_text; entry vertex where the leg's archived dense route geometry first enters OSM relation 11017763 (Pinelands National Reserve); at_mi = cumulative distance at that vertex, rescaled to leg miles. OpenStreetMap via Overpass: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "South Branch Metedeconk River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 10.1,
+            "lat": 40.0855,
+            "lon": -74.21543,
+            "spoken": "Crossing the South Branch Metedeconk River",
+            "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 32430348 (South Branch Metedeconk River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-29: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "North Branch Metedeconk River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 11.8,
+            "lat": 40.11002,
+            "lon": -74.21909,
+            "spoken": "Crossing the North Branch Metedeconk River",
+            "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 32481870 (North Branch Metedeconk River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-29: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Howell Township",
+            "at_mi": 14.0,
+            "off_mi": 0.08,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 2354128793, projected onto the leg's checked-in route geometry",
+            "spoken": "Entering Howell Township"
+          },
+          {
+            "name": "Jackson Township",
+            "at_mi": 23.2,
+            "off_mi": 2.72,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 2354211651, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Jackson Township"
+          },
+          {
+            "name": "Millstone Township",
+            "at_mi": 24.8,
+            "off_mi": 2.92,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 2354113819, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Millstone Township"
+          },
+          {
+            "name": "Upper Freehold Township",
+            "at_mi": 30.3,
+            "off_mi": 2.49,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 2354113166, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Upper Freehold Township"
+          },
+          {
+            "name": "Allentown",
+            "at_mi": 35.2,
+            "off_mi": 0.8,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 158872406, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Allentown"
+          },
+          {
+            "name": "Robbinsville Township",
+            "at_mi": 37.0,
+            "off_mi": 1.37,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 10159654364, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Robbinsville Township"
+          },
+          {
+            "name": "Robbinsville",
+            "at_mi": 37.0,
+            "off_mi": 1.73,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 10159654365, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Robbinsville"
+          },
+          {
+            "name": "Foxmoor",
+            "at_mi": 37.0,
+            "off_mi": 2.7,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 9927671683, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Foxmoor"
+          },
+          {
+            "name": "East Windsor",
+            "at_mi": 44.3,
+            "off_mi": 1.6,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 10159654363, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing East Windsor"
+          },
+          {
+            "name": "Hightstown",
+            "at_mi": 44.9,
+            "off_mi": 0.73,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 158900175, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Hightstown"
+          },
+          {
+            "name": "Twin Rivers",
+            "at_mi": 45.4,
+            "off_mi": 1.03,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 158875353, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Twin Rivers"
+          },
+          {
+            "name": "Cranbury Barn Park",
+            "category": "museum",
+            "kind": "point",
+            "at_mi": 47.1,
+            "lat": 40.29455,
+            "lon": -74.49782,
+            "spoken": "Museum ahead: Cranbury Barn Park",
+            "source": "derived 2026-10-01: name, category and kind read from OpenStreetMap tags via classify_narratable_feature; spoken text derived via spoken_landmark_text; nearest projection of OSM node 1786419652 (Cranbury Barn Park) onto the leg's archived dense route geometry; at_mi = interpolated cumulative distance at the projection, rescaled to leg miles. OpenStreetMap via Overpass: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Cranbury",
+            "at_mi": 47.7,
+            "off_mi": 1.31,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 158827354, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Cranbury"
+          },
+          {
+            "name": "Monroe Township",
+            "at_mi": 51.0,
+            "off_mi": 2.3,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 10159641341, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Monroe Township"
+          },
+          {
+            "name": "Jamesburg",
+            "at_mi": 52.2,
+            "off_mi": 1.64,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 158811036, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Jamesburg"
+          },
+          {
+            "name": "Helmetta",
+            "at_mi": 54.1,
+            "off_mi": 1.92,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 158855701, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Helmetta"
+          },
+          {
+            "name": "East Brunswick",
+            "at_mi": 57.7,
+            "off_mi": 1.02,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 158842957, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing East Brunswick"
+          },
+          {
+            "name": "North Brunswick",
+            "at_mi": 57.9,
+            "off_mi": 2.71,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 10159641340, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing North Brunswick"
+          },
+          {
+            "name": "Milltown",
+            "at_mi": 58.3,
+            "off_mi": 1.2,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 158866057, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Milltown"
+          },
+          {
+            "name": "South River",
+            "at_mi": 59.5,
+            "off_mi": 1.88,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 158851311, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing South River"
+          },
+          {
+            "name": "Highland Park",
+            "at_mi": 61.4,
+            "off_mi": 1.74,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 158873055, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Highland Park"
+          },
+          {
+            "name": "Sayreville",
+            "at_mi": 61.4,
+            "off_mi": 2.47,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 158896243, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Sayreville"
+          },
+          {
+            "name": "Raritan River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 61.6,
+            "lat": 40.48801,
+            "lon": -74.39593,
+            "spoken": "Crossing the Raritan River",
+            "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 31464483 (Raritan River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-29: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Edison",
+            "at_mi": 62.0,
+            "off_mi": 0.69,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 10158037804, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Edison"
+          },
+          {
+            "name": "Metuchen",
+            "at_mi": 64.8,
+            "off_mi": 1.65,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 158811925, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Metuchen"
+          },
+          {
+            "name": "Perth Amboy",
+            "at_mi": 68.7,
+            "off_mi": 2.28,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 158875254, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Perth Amboy"
+          },
+          {
+            "name": "Woodbridge Township",
+            "at_mi": 69.2,
+            "off_mi": 0.39,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 158856860, projected onto the leg's checked-in route geometry",
+            "spoken": "Entering Woodbridge Township"
+          },
+          {
+            "name": "Port Reading",
+            "at_mi": 71.8,
+            "off_mi": 0.42,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 9879366685, projected onto the leg's checked-in route geometry",
+            "spoken": "Entering Port Reading"
+          },
+          {
+            "name": "Carteret",
+            "at_mi": 72.3,
+            "off_mi": 0.8,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 158853099, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Carteret"
+          },
+          {
+            "name": "Rahway",
+            "at_mi": 72.6,
+            "off_mi": 2.53,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 158836766, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Rahway"
+          },
+          {
+            "name": "Rahway River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 73.7,
+            "lat": 40.59918,
+            "lon": -74.23158,
+            "spoken": "Crossing the Rahway River",
+            "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 814564391 (Rahway River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-29: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Linden",
+            "at_mi": 74.5,
+            "off_mi": 1.33,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 158806741, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Linden"
+          },
+          {
+            "name": "Roselle",
+            "at_mi": 75.7,
+            "off_mi": 2.91,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 158801600, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Roselle"
+          },
+          {
+            "name": "Elizabeth River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 77.2,
+            "lat": 40.64526,
+            "lon": -74.2031,
+            "spoken": "Crossing the Elizabeth River",
+            "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 144772010 (Elizabeth River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-29: https://www.openstreetmap.org/."
+          }
+        ],
+        "hpms_terrain": {
+          "type": 2,
+          "name": "rolling",
+          "sections": 800,
+          "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
+        },
         "route_points": [
           {
             "at_mi": 0.0,
             "lat": 39.95367,
-            "lon": -74.19776
+            "lon": -74.19777
           },
           {
-            "at_mi": 16.45,
-            "lat": 40.16616,
-            "lon": -74.10053
+            "at_mi": 25.03,
+            "lat": 40.16062,
+            "lon": -74.39727
           },
           {
-            "at_mi": 33.0,
-            "lat": 40.31471,
-            "lon": -74.26175
+            "at_mi": 50.16,
+            "lat": 40.33634,
+            "lon": -74.47956
           },
           {
-            "at_mi": 49.55,
-            "lat": 40.53692,
-            "lon": -74.29603
+            "at_mi": 75.46,
+            "lat": 40.62259,
+            "lon": -74.21697
           },
           {
-            "at_mi": 66.0,
+            "at_mi": 85.0,
             "lat": 40.73567,
             "lon": -74.17241
           }
@@ -9694,1365 +10044,971 @@
         "elevation_samples": [
           {
             "at_mi": 0.0,
-            "elevation_ft": 26.2,
-            "source": "OpenRouteService driving-hgv route elevation over OpenStreetMap (SRTM/elevation), sampled at development time."
+            "elevation_ft": 16.4,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
           },
           {
-            "at_mi": 16.45,
+            "at_mi": 25.29,
+            "elevation_ft": 150.9,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "at_mi": 50.49,
             "elevation_ft": 134.5,
-            "source": "OpenRouteService driving-hgv route elevation over OpenStreetMap (SRTM/elevation), sampled at development time."
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
           },
           {
-            "at_mi": 33.0,
-            "elevation_ft": 169.9,
-            "source": "OpenRouteService driving-hgv route elevation over OpenStreetMap (SRTM/elevation), sampled at development time."
+            "at_mi": 75.6,
+            "elevation_ft": 9.8,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
           },
           {
-            "at_mi": 49.55,
-            "elevation_ft": 141.1,
-            "source": "OpenRouteService driving-hgv route elevation over OpenStreetMap (SRTM/elevation), sampled at development time."
-          },
-          {
-            "at_mi": 66.0,
-            "elevation_ft": 50.9,
-            "source": "OpenRouteService driving-hgv route elevation over OpenStreetMap (SRTM/elevation), sampled at development time."
-          }
-        ],
-        "grade_segments": [
-          {
-            "start_mi": 0.0,
-            "end_mi": 0.2,
-            "avg_grade_pct": 1.49,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 0.2,
-            "end_mi": 0.81,
-            "avg_grade_pct": -0.02,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 0.81,
-            "end_mi": 1.12,
-            "avg_grade_pct": -0.98,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 1.12,
-            "end_mi": 2.23,
-            "avg_grade_pct": 0.19,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 2.23,
-            "end_mi": 2.64,
-            "avg_grade_pct": 1.3,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 2.64,
-            "end_mi": 2.94,
-            "avg_grade_pct": -0.25,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 2.94,
-            "end_mi": 3.15,
-            "avg_grade_pct": 1.45,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 3.15,
-            "end_mi": 3.76,
-            "avg_grade_pct": 0.24,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 3.76,
-            "end_mi": 4.26,
-            "avg_grade_pct": -0.81,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 4.26,
-            "end_mi": 5.18,
-            "avg_grade_pct": 0.15,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 5.18,
-            "end_mi": 5.38,
-            "avg_grade_pct": -1.11,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 5.38,
-            "end_mi": 6.4,
-            "avg_grade_pct": 0.14,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 6.4,
-            "end_mi": 6.6,
-            "avg_grade_pct": 0.85,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 6.6,
-            "end_mi": 10.26,
-            "avg_grade_pct": -0.28,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 10.26,
-            "end_mi": 10.66,
-            "avg_grade_pct": 1.18,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 10.66,
-            "end_mi": 12.08,
-            "avg_grade_pct": 0.23,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 12.08,
-            "end_mi": 12.69,
-            "avg_grade_pct": 0.23,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 12.69,
-            "end_mi": 12.9,
-            "avg_grade_pct": 0.17,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 12.9,
-            "end_mi": 13.2,
-            "avg_grade_pct": 1.09,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 13.2,
-            "end_mi": 13.5,
-            "avg_grade_pct": 0.52,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 13.5,
-            "end_mi": 16.35,
-            "avg_grade_pct": 0.22,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 16.35,
-            "end_mi": 18.18,
-            "avg_grade_pct": 0.08,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 18.18,
-            "end_mi": 18.48,
-            "avg_grade_pct": -1.19,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 18.48,
-            "end_mi": 18.78,
-            "avg_grade_pct": 0.0,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 18.78,
-            "end_mi": 18.99,
-            "avg_grade_pct": -1.13,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 18.99,
-            "end_mi": 20.21,
-            "avg_grade_pct": 0.55,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 20.21,
-            "end_mi": 20.51,
-            "avg_grade_pct": -4.26,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 20.51,
-            "end_mi": 20.92,
-            "avg_grade_pct": -0.5,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 20.92,
-            "end_mi": 21.22,
-            "avg_grade_pct": 1.24,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 21.22,
-            "end_mi": 21.53,
-            "avg_grade_pct": 0.23,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 21.53,
-            "end_mi": 21.83,
-            "avg_grade_pct": 1.11,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 21.83,
-            "end_mi": 25.69,
-            "avg_grade_pct": -0.05,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 25.69,
-            "end_mi": 25.89,
-            "avg_grade_pct": -1.01,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 25.89,
-            "end_mi": 27.72,
-            "avg_grade_pct": -0.26,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 27.72,
-            "end_mi": 28.94,
-            "avg_grade_pct": 0.92,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 28.94,
-            "end_mi": 29.24,
-            "avg_grade_pct": 0.52,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 29.24,
-            "end_mi": 29.85,
-            "avg_grade_pct": -0.01,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 29.85,
-            "end_mi": 30.97,
-            "avg_grade_pct": 0.34,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 30.97,
-            "end_mi": 31.88,
-            "avg_grade_pct": 0.84,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 31.88,
-            "end_mi": 32.09,
-            "avg_grade_pct": 0.77,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 32.09,
-            "end_mi": 32.49,
-            "avg_grade_pct": -1.76,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 32.49,
-            "end_mi": 36.05,
-            "avg_grade_pct": -0.1,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 36.05,
-            "end_mi": 36.86,
-            "avg_grade_pct": -1.41,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 36.86,
-            "end_mi": 37.57,
-            "avg_grade_pct": 0.16,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 37.57,
-            "end_mi": 37.77,
-            "avg_grade_pct": -1.01,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 37.77,
-            "end_mi": 39.7,
-            "avg_grade_pct": 0.16,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 39.7,
-            "end_mi": 40.21,
-            "avg_grade_pct": -1.73,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 40.21,
-            "end_mi": 40.62,
-            "avg_grade_pct": 0.16,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 40.62,
-            "end_mi": 41.02,
-            "avg_grade_pct": 0.81,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 41.02,
-            "end_mi": 41.73,
-            "avg_grade_pct": 0.21,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 41.73,
-            "end_mi": 42.04,
-            "avg_grade_pct": 1.46,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 42.04,
-            "end_mi": 42.54,
-            "avg_grade_pct": 0.15,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 42.54,
-            "end_mi": 43.76,
-            "avg_grade_pct": 0.93,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 43.76,
-            "end_mi": 44.07,
-            "avg_grade_pct": -3.06,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 44.07,
-            "end_mi": 44.27,
-            "avg_grade_pct": -0.17,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 44.27,
-            "end_mi": 44.88,
-            "avg_grade_pct": 1.35,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 44.88,
-            "end_mi": 45.69,
-            "avg_grade_pct": -0.25,
-            "terrain": "hills",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 45.69,
-            "end_mi": 45.9,
-            "avg_grade_pct": -1.25,
-            "terrain": "hills",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 45.9,
-            "end_mi": 46.2,
-            "avg_grade_pct": -3.63,
-            "terrain": "hills",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 46.2,
-            "end_mi": 46.4,
-            "avg_grade_pct": -2.59,
-            "terrain": "hills",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 46.4,
-            "end_mi": 46.91,
-            "avg_grade_pct": -0.61,
-            "terrain": "hills",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 46.91,
-            "end_mi": 48.84,
-            "avg_grade_pct": 0.91,
-            "terrain": "hills",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 48.84,
-            "end_mi": 49.14,
-            "avg_grade_pct": 0.0,
-            "terrain": "hills",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 49.14,
-            "end_mi": 49.65,
-            "avg_grade_pct": 1.85,
-            "terrain": "hills",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 49.65,
-            "end_mi": 49.96,
-            "avg_grade_pct": -3.82,
-            "terrain": "hills",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 49.96,
-            "end_mi": 50.46,
-            "avg_grade_pct": -1.4,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 50.46,
-            "end_mi": 51.18,
-            "avg_grade_pct": -0.0,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 51.18,
-            "end_mi": 51.78,
-            "avg_grade_pct": 1.42,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 51.78,
-            "end_mi": 52.9,
-            "avg_grade_pct": -0.24,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 52.9,
-            "end_mi": 53.71,
-            "avg_grade_pct": -1.61,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 53.71,
-            "end_mi": 54.73,
-            "avg_grade_pct": -0.24,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 54.73,
-            "end_mi": 55.03,
-            "avg_grade_pct": 1.2,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 55.03,
-            "end_mi": 55.64,
-            "avg_grade_pct": -0.15,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 55.64,
-            "end_mi": 56.15,
-            "avg_grade_pct": -0.12,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 56.15,
-            "end_mi": 57.47,
-            "avg_grade_pct": -0.01,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 57.47,
-            "end_mi": 57.98,
-            "avg_grade_pct": -0.01,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 57.98,
-            "end_mi": 58.28,
-            "avg_grade_pct": -0.62,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 58.28,
-            "end_mi": 58.59,
-            "avg_grade_pct": 0.83,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 58.59,
-            "end_mi": 58.79,
-            "avg_grade_pct": 0.73,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 58.79,
-            "end_mi": 59.1,
-            "avg_grade_pct": -1.04,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 59.1,
-            "end_mi": 59.4,
-            "avg_grade_pct": 0.69,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 59.4,
-            "end_mi": 59.91,
-            "avg_grade_pct": 0.18,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 59.91,
-            "end_mi": 60.21,
-            "avg_grade_pct": -0.44,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 60.21,
-            "end_mi": 60.72,
-            "avg_grade_pct": -0.35,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 60.72,
-            "end_mi": 65.59,
-            "avg_grade_pct": 0.06,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          },
-          {
-            "start_mi": 65.59,
-            "end_mi": 66.0,
-            "avg_grade_pct": 1.13,
-            "terrain": "flat",
-            "source": "OpenRouteService route elevation profile segmented by terrain (development-time)."
-          }
-        ],
-        "source": "Development-time OpenRouteService driving-hgv (truck) route geometry and elevation over OpenStreetMap, with Census/OpenStreetMap state context and curated corridor POIs checked in for offline runtime use.",
-        "checkpoints": [],
-        "state_miles": [
-          {
-            "state": "New Jersey",
-            "miles": 66.0
-          }
-        ],
-        "landmarks": [
-          {
-            "name": "Brick Township",
-            "at_mi": 9.44,
-            "off_mi": 1.52,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 2354203622, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Brick Township"
-          },
-          {
-            "name": "Point Pleasant",
-            "at_mi": 11.88,
-            "off_mi": 3.91,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158846523, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Point Pleasant"
-          },
-          {
-            "name": "Manasquan River",
-            "category": "river",
-            "kind": "point",
-            "at_mi": 14.4,
-            "spoken": "Crossing the Manasquan River",
-            "lat": 40.13798,
-            "lon": -74.11322,
-            "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 254578973 (Manasquan River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-30: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "Brielle",
-            "at_mi": 14.42,
-            "off_mi": 3.64,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158862539, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Brielle"
-          },
-          {
-            "name": "Manasquan",
-            "at_mi": 15.23,
-            "off_mi": 3.41,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158844651, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Manasquan"
-          },
-          {
-            "name": "Wall Township",
-            "at_mi": 17.06,
-            "off_mi": 0.29,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 2354139112, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Entering Wall Township"
-          },
-          {
-            "name": "Spring Lake Heights",
-            "at_mi": 17.06,
-            "off_mi": 2.85,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158909721, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Spring Lake Heights"
-          },
-          {
-            "name": "Lake Como",
-            "at_mi": 17.06,
-            "off_mi": 3.45,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158805081, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Lake Como"
-          },
-          {
-            "name": "Spring Lake",
-            "at_mi": 17.06,
-            "off_mi": 3.55,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158814060, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Spring Lake"
-          },
-          {
-            "name": "Belmar",
-            "at_mi": 17.06,
-            "off_mi": 3.79,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158917555, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Belmar"
-          },
-          {
-            "name": "InfoAge Science Center",
-            "category": "museum",
-            "kind": "point",
-            "at_mi": 17.26,
-            "spoken": "Museum ahead: InfoAge Science Center"
-          },
-          {
-            "name": "Farmingdale",
-            "at_mi": 22.34,
-            "off_mi": 2.47,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158812765, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Farmingdale"
-          },
-          {
-            "name": "Colts Neck",
-            "at_mi": 25.99,
-            "off_mi": 0.83,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158798890, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Colts Neck"
-          },
-          {
-            "name": "Freehold",
-            "at_mi": 29.95,
-            "off_mi": 2.87,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158861735, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Freehold"
-          },
-          {
-            "name": "Marlboro Township",
-            "at_mi": 32.19,
-            "off_mi": 0.45,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158855958, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Entering Marlboro Township"
-          },
-          {
-            "name": "Old Bridge",
-            "at_mi": 38.99,
-            "off_mi": 1.31,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 10159956692, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Old Bridge"
-          },
-          {
-            "name": "Old Bridge Township",
-            "at_mi": 40.51,
-            "off_mi": 0.05,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158811210, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Entering Old Bridge Township"
-          },
-          {
-            "name": "Sayreville",
-            "at_mi": 44.37,
-            "off_mi": 3.39,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158896243, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Sayreville"
-          },
-          {
-            "name": "South Amboy",
-            "at_mi": 45.18,
-            "off_mi": 0.47,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158860956, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Entering South Amboy"
-          },
-          {
-            "name": "Raritan River",
-            "category": "river",
-            "kind": "point",
-            "at_mi": 47.6,
-            "spoken": "Crossing the Raritan River",
-            "lat": 40.50902,
-            "lon": -74.30042,
-            "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 31464483 (Raritan River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-30: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "Perth Amboy",
-            "at_mi": 47.93,
-            "off_mi": 1.45,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158875254, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Perth Amboy"
-          },
-          {
-            "name": "Metuchen",
-            "at_mi": 49.35,
-            "off_mi": 3.52,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158811925, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Metuchen"
-          },
-          {
-            "name": "Woodbridge Township",
-            "at_mi": 50.67,
-            "off_mi": 0.47,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158856860, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Entering Woodbridge Township"
-          },
-          {
-            "name": "Port Reading",
-            "at_mi": 53.41,
-            "off_mi": 2.19,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 9879366685, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Port Reading"
-          },
-          {
-            "name": "Carteret",
-            "at_mi": 53.92,
-            "off_mi": 2.63,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158853099, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Carteret"
-          },
-          {
-            "name": "Clark",
-            "at_mi": 54.32,
-            "off_mi": 2.87,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158798857, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Clark"
-          },
-          {
-            "name": "Rahway River",
-            "category": "river",
-            "kind": "point",
-            "at_mi": 54.4,
-            "spoken": "Crossing the Rahway River",
-            "lat": 40.59936,
-            "lon": -74.2701,
-            "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 1369337793 (Rahway River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-30: https://www.openstreetmap.org/."
-          },
-          {
-            "name": "Rahway",
-            "at_mi": 54.53,
-            "off_mi": 0.69,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158836766, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Rahway"
-          },
-          {
-            "name": "Linden",
-            "at_mi": 55.74,
-            "off_mi": 0.12,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158806741, projected onto the leg's OpenRouteService driving-hgv route, placed ahead of the speed zone it explains",
-            "spoken": "Entering Linden"
-          },
-          {
-            "name": "Winfield",
-            "at_mi": 55.74,
-            "off_mi": 2.32,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 158845046, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Winfield"
-          },
-          {
-            "name": "Cranford",
-            "at_mi": 56.56,
-            "off_mi": 3.78,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158861231, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Cranford"
-          },
-          {
-            "name": "Roselle",
-            "at_mi": 57.78,
-            "off_mi": 1.66,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158801600, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Roselle"
-          },
-          {
-            "name": "Roselle Park",
-            "at_mi": 58.28,
-            "off_mi": 2.38,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158821270, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Roselle Park"
-          },
-          {
-            "name": "Kenilworth",
-            "at_mi": 58.38,
-            "off_mi": 3.86,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=town node 158805413, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Passing Kenilworth"
-          },
-          {
-            "name": "Elizabeth River",
-            "category": "river",
-            "kind": "point",
-            "at_mi": 59.5,
-            "spoken": "Crossing the Elizabeth River",
-            "lat": 40.6567,
-            "lon": -74.21026,
-            "source": "derived 2026-10-01: placed by tools/place_river_crossings.py at the crossing of OSM waterway way 144772010 (Elizabeth River) with the leg's archived dense route geometry; at_mi = cum[i-1] + t*(cum[i]-cum[i-1]) rescaled to leg miles, taking the crossing nearest the previous at_mi when the river crosses more than once. OpenStreetMap, Geofabrik us-latest extract 2026-09-30: https://www.openstreetmap.org/."
+            "at_mi": 85.0,
+            "elevation_ft": 32.8,
+            "source": "Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
           }
         ],
         "speed_limits": [
           {
-            "at_mi": 0.81,
+            "at_mi": 0.8,
             "mph": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
-            "at_mi": 1.12,
+            "at_mi": 1.0,
             "mph": 55,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
-            "at_mi": 2.23,
+            "at_mi": 2.2,
             "mph": 65,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
-            "at_mi": 2.64,
+            "at_mi": 2.4,
             "mph": 55,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
-            "at_mi": 3.96,
-            "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 18.18,
-            "mph": 55,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 20.92,
-            "mph": 50,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 29.55,
-            "mph": 25,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 29.85,
-            "mph": null
-          },
-          {
-            "at_mi": 37.26,
-            "mph": 55,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 44.27,
-            "mph": 50,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 44.58,
-            "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 44.88,
-            "mph": 50,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 54.22,
+            "at_mi": 3.2,
             "mph": 45,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
-            "at_mi": 55.95,
-            "mph": 40,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 57.17,
-            "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 59.1,
-            "mph": 40,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 61.02,
+            "at_mi": 3.5,
             "mph": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
-            "at_mi": 63.66,
+            "at_mi": 7.3,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 12.1,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 16.0,
+            "mph": 65,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 74.9,
             "mph": 55,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
-            "at_mi": 63.97,
-            "mph": 35,
+            "at_mi": 79.5,
+            "mph": 50,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
-            "at_mi": 65.9,
-            "mph": 30,
+            "at_mi": 82.6,
+            "mph": 55,
             "source": "OpenStreetMap maxspeed tags on the corridor highway ways (Overpass), development-time, normalized to mph; maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
-        "restrictions": [],
+        "interchanges": [
+          {
+            "at_mi": 1.1,
+            "exit_ref": "82",
+            "name": "",
+            "destinations": [
+              "Lakehurst",
+              "Seaside Heights",
+              "Island Beach State Park"
+            ],
+            "via": "NJ 37 West",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 25.0,
+            "ramp_advisory_backward": 15.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1121.7,
+            "ramp_terminal_backward": {
+              "node": 104855762,
+              "lat": 39.96392,
+              "lon": -74.207074
+            },
+            "ramp_length_ft_forward": 1137.4,
+            "ramp_terminal_forward": {
+              "node": 104855453,
+              "lat": 39.96387,
+              "lon": -74.205911
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 16.0,
+            "exit_ref": "28B",
+            "name": "",
+            "destinations": [
+              "Freehold",
+              "Shore Points",
+              "Trenton"
+            ],
+            "via": "US 9 North",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 20.0,
+            "ramp_advisory_backward": 20.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1629.4,
+            "ramp_terminal_backward": {
+              "node": 104291669,
+              "lat": 40.1642512,
+              "lon": -74.2351218
+            },
+            "ramp_length_ft_forward": 1385.1,
+            "ramp_terminal_forward": {
+              "node": 104251135,
+              "lat": 40.1649016,
+              "lon": -74.2356603
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 20.2,
+            "exit_ref": "22",
+            "name": "",
+            "destinations": [
+              "Georgia",
+              "Jackson Mills"
+            ],
+            "via": "",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 20.0,
+            "ramp_advisory_backward": 20.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1024.7,
+            "ramp_terminal_backward": {
+              "node": 104895961,
+              "lat": 40.154959,
+              "lon": -74.311894
+            },
+            "ramp_length_ft_forward": 1062.9,
+            "ramp_terminal_forward": {
+              "node": 104931312,
+              "lat": 40.15778,
+              "lon": -74.306919
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 22.2,
+            "exit_ref": "21",
+            "name": "",
+            "destinations": [
+              "Jackson",
+              "Siloam",
+              "Trenton"
+            ],
+            "via": "CR 527;CR 526",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1411.3,
+            "ramp_terminal_backward": {
+              "node": 104933194,
+              "lat": 40.1538445,
+              "lon": -74.3456172
+            },
+            "ramp_length_ft_forward": 1238.2,
+            "ramp_terminal_forward": {
+              "node": 104938360,
+              "lat": 40.155603,
+              "lon": -74.3467653
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 26.3,
+            "exit_ref": "16",
+            "name": "",
+            "destinations": [
+              "Mount Holly",
+              "Six Flags",
+              "Freehold"
+            ],
+            "via": "CR 537",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 30.0,
+            "ramp_advisory_backward": 20.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1366.5,
+            "ramp_terminal_backward": {
+              "node": 777465187,
+              "lat": 40.1598403,
+              "lon": -74.4246143
+            },
+            "ramp_length_ft_forward": 1026.9,
+            "ramp_terminal_forward": {
+              "node": 777465164,
+              "lat": 40.1610835,
+              "lon": -74.4228459
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 31.5,
+            "exit_ref": "11",
+            "name": "",
+            "destinations": [
+              "Coxs Corner",
+              "Imlaystown"
+            ],
+            "via": "",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "stop",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 20.0,
+            "ramp_advisory_backward": 20.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1276.3,
+            "ramp_terminal_backward": {
+              "node": 104266259,
+              "lat": 40.176294,
+              "lon": -74.511807
+            },
+            "ramp_length_ft_forward": 1320.6,
+            "ramp_terminal_forward": {
+              "node": 104323094,
+              "lat": 40.17849,
+              "lon": -74.511457
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 34.7,
+            "exit_ref": "8",
+            "name": "",
+            "destinations": [
+              "Hightstown",
+              "Allentown",
+              "Trenton"
+            ],
+            "via": "CR 539",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_backward": 20.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 907.4,
+            "ramp_terminal_backward": {
+              "node": 104251160,
+              "lat": 40.1849765,
+              "lon": -74.5718825
+            },
+            "ramp_length_ft_forward": 1034.4,
+            "ramp_terminal_forward": {
+              "node": 104080713,
+              "lat": 40.186646,
+              "lon": -74.568693
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 36.7,
+            "exit_ref": "6",
+            "name": "",
+            "destinations": [
+              "New York",
+              "Camden",
+              "Trenton"
+            ],
+            "via": "I 95 Toll;NJTP",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 15.0,
+            "ramp_advisory_backward": 15.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 6008.3,
+            "ramp_length_ft_forward": 7047.8,
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 38.7,
+            "exit_ref": "7A",
+            "name": "",
+            "destinations": [
+              "Trenton",
+              "Shore Points"
+            ],
+            "via": "I 195",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 25.0,
+            "ramp_advisory_backward": 20.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_forward": 1379.5,
+            "ramp_terminal_forward": {
+              "node": 103960235,
+              "lat": 40.1906493,
+              "lon": -74.5921361
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 44.9,
+            "exit_ref": "8",
+            "name": "",
+            "destinations": [
+              "Hightstown",
+              "Freehold",
+              "Trenton"
+            ],
+            "via": "NJ 33;NJ 133",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 25.0,
+            "ramp_advisory_backward": 25.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 2696.1,
+            "ramp_length_ft_forward": 1767.3,
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 51.3,
+            "exit_ref": "8A",
+            "name": "",
+            "destinations": [
+              "Jamesburg",
+              "Cranbury",
+              "Monroe"
+            ],
+            "via": "NJ 32",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_backward": 35.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 5860.9,
+            "ramp_terminal_backward": {
+              "node": 445964640,
+              "lat": 40.3498934,
+              "lon": -74.4807921
+            },
+            "ramp_length_ft_forward": 7044.3,
+            "ramp_terminal_forward": {
+              "node": 445964640,
+              "lat": 40.3498934,
+              "lon": -74.4807921
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 55.6,
+            "exit_ref": "",
+            "name": "",
+            "destinations": [
+              "Joyce Kilmer Service Area"
+            ],
+            "via": "",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_forward": 1360.5,
+            "ramp_terminal_forward": {
+              "node": 303450258,
+              "lat": 40.4143581,
+              "lon": -74.4468563
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 60.9,
+            "exit_ref": "9",
+            "name": "",
+            "destinations": [
+              "New Brunswick",
+              "East Brunswick",
+              "New Jersey Turnpike"
+            ],
+            "via": "NJ 18;US 1",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "stop",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 15.0,
+            "ramp_advisory_backward": 15.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 5232.7,
+            "ramp_terminal_backward": {
+              "node": 104323842,
+              "lat": 40.4813921,
+              "lon": -74.411777
+            },
+            "ramp_length_ft_forward": 5283.4,
+            "ramp_terminal_forward": {
+              "node": 104323842,
+              "lat": 40.4813921,
+              "lon": -74.411777
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 65.6,
+            "exit_ref": "10",
+            "name": "",
+            "destinations": [
+              "Metuchen",
+              "Perth Amboy",
+              "Trenton"
+            ],
+            "via": "I 287 North;NJ 440 North",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 25.0,
+            "ramp_advisory_backward": 15.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 6137.8,
+            "ramp_terminal_backward": {
+              "node": 602885629,
+              "lat": 40.5237406,
+              "lon": -74.33618
+            },
+            "ramp_length_ft_forward": 4104.0,
+            "ramp_terminal_forward": {
+              "node": 602885629,
+              "lat": 40.5237406,
+              "lon": -74.33618
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 68.7,
+            "exit_ref": "11",
+            "name": "",
+            "destinations": [
+              "Garden State Parkway",
+              "Woodbridge",
+              "Trenton"
+            ],
+            "via": "GSP;US 9",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "stop",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 15.0,
+            "ramp_advisory_backward": 15.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_forward": 6664.0,
+            "ramp_terminal_forward": {
+              "node": 251079305,
+              "lat": 40.5335103,
+              "lon": -74.3035757
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 70.7,
+            "exit_ref": "",
+            "name": "",
+            "destinations": [
+              "Thomas Edison Service Area"
+            ],
+            "via": "",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1612.2,
+            "ramp_terminal_backward": {
+              "node": 7837551836,
+              "lat": 40.5597717,
+              "lon": -74.2641045
+            },
+            "ramp_length_ft_forward": 1484.7,
+            "ramp_terminal_forward": {
+              "node": 1042434181,
+              "lat": 40.5573461,
+              "lon": -74.264008
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 73.4,
+            "exit_ref": "12",
+            "name": "",
+            "destinations": [
+              "Carteret",
+              "Rahway"
+            ],
+            "via": "",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 15.0,
+            "ramp_advisory_backward": 15.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 4542.6,
+            "ramp_terminal_backward": {
+              "node": 760283511,
+              "lat": 40.5914875,
+              "lon": -74.2294353
+            },
+            "ramp_length_ft_forward": 2989.0,
+            "ramp_terminal_forward": {
+              "node": 760283511,
+              "lat": 40.5914875,
+              "lon": -74.2294353
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 76.9,
+            "exit_ref": "3A;3B;3C",
+            "name": "",
+            "destinations": [
+              "I-278",
+              "Staten Island",
+              "The New Goethals Bridge"
+            ],
+            "via": "Exit 13",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 10.0,
+            "ramp_advisory_backward": 15.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 6574.3,
+            "ramp_terminal_backward": {
+              "node": 760260436,
+              "lat": 40.6440726,
+              "lon": -74.211301
+            },
+            "ramp_length_ft_forward": 1070.1,
+            "ramp_terminal_forward": {
+              "node": 105441480,
+              "lat": 40.6442524,
+              "lon": -74.2080534
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 79.2,
+            "exit_ref": "",
+            "name": "",
+            "destinations": [
+              "Newark Airport",
+              "Elizabeth Seaport",
+              "Trenton"
+            ],
+            "via": "I 95 South;NJTP South",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 25.0,
+            "ramp_advisory_backward": 25.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 5094.5,
+            "ramp_terminal_backward": {
+              "node": 254000481,
+              "lat": 40.6712066,
+              "lon": -74.182133
+            },
+            "ramp_length_ft_forward": 3377.5,
+            "ramp_terminal_forward": {
+              "node": 254000481,
+              "lat": 40.6712066,
+              "lon": -74.182133
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 82.6,
+            "exit_ref": "58A-B",
+            "name": "",
+            "destinations": [
+              "Hillside",
+              "Union",
+              "Newark Airport"
+            ],
+            "via": "US 22 West",
+            "highway": "I-95",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes and motorway_link destination tags, accessed 2026-06-23. at_mi derived: the mean of the exit's junction nodes projected onto the leg's route polyline (its archived geometry; OSRM only where none is archived), rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 20.0,
+            "ramp_advisory_backward": 15.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1324.9,
+            "ramp_length_ft_forward": 1591.5,
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+          }
+        ],
+        "restrictions": [
+          {
+            "at_mi": 80.8,
+            "kind": "low_clearance",
+            "source": "OpenStreetMap maxheight/maxweight tags on the corridor highway ways, read from a local Geofabrik extract and snapped to checked-in route geometry, accessed 2026-06-23. https://www.openstreetmap.org/",
+            "feet": 14.25
+          },
+          {
+            "at_mi": 81.9,
+            "kind": "low_clearance",
+            "source": "OpenStreetMap maxheight/maxweight tags on the corridor highway ways, read from a local Geofabrik extract and snapped to checked-in route geometry, accessed 2026-06-23. https://www.openstreetmap.org/",
+            "feet": 13.92
+          }
+        ],
         "lane_segments": [
           {
             "start_mi": 0.0,
-            "end_mi": 0.71,
+            "end_mi": 0.8,
             "lanes": 2,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 0.71,
-            "end_mi": 1.02,
-            "lanes": 3,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 1.02,
-            "end_mi": 2.03,
-            "lanes": 1,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 2.03,
-            "end_mi": 7.51,
-            "lanes": 3,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 7.51,
-            "end_mi": 8.12,
+            "start_mi": 0.8,
+            "end_mi": 1.0,
             "lanes": 4,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 8.12,
-            "end_mi": 9.24,
-            "lanes": 3,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 9.24,
-            "end_mi": 9.75,
-            "lanes": 4,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 9.75,
-            "end_mi": 11.78,
-            "lanes": 3,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 11.78,
-            "end_mi": 12.29,
+            "start_mi": 1.0,
+            "end_mi": 2.0,
             "lanes": 1,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 12.29,
-            "end_mi": 16.14,
-            "lanes": 4,
+            "start_mi": 2.0,
+            "end_mi": 2.8,
+            "lanes": 3,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 16.45,
-            "end_mi": 17.06,
+            "start_mi": 3.0,
+            "end_mi": 3.4,
             "lanes": 1,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 17.06,
-            "end_mi": 17.67,
+            "start_mi": 3.4,
+            "end_mi": 3.7,
             "lanes": 2,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 17.67,
-            "end_mi": 18.78,
-            "lanes": 3,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 18.78,
-            "end_mi": 22.64,
+            "start_mi": 3.7,
+            "end_mi": 10.1,
             "lanes": 2,
-            "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 22.64,
-            "end_mi": 25.18,
-            "lanes": 1,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 25.18,
-            "end_mi": 25.89,
-            "lanes": 3,
-            "lanes_forward": 2,
+            "start_mi": 10.1,
+            "end_mi": 10.4,
+            "lanes": 4,
+            "lanes_forward": 3,
             "lanes_backward": 1,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 25.89,
-            "end_mi": 26.5,
+            "start_mi": 10.7,
+            "end_mi": 12.1,
+            "lanes": 4,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 12.1,
+            "end_mi": 15.9,
+            "lanes": 2,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 15.9,
+            "end_mi": 16.2,
             "lanes": 1,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 26.5,
-            "end_mi": 29.34,
+            "start_mi": 16.2,
+            "end_mi": 20.0,
             "lanes": 2,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 29.34,
-            "end_mi": 30.06,
+            "start_mi": 20.0,
+            "end_mi": 20.3,
             "lanes": 3,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 30.06,
-            "end_mi": 32.19,
+            "start_mi": 20.3,
+            "end_mi": 36.7,
             "lanes": 2,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 32.19,
-            "end_mi": 32.8,
+            "start_mi": 36.7,
+            "end_mi": 36.9,
             "lanes": 3,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 32.8,
-            "end_mi": 37.67,
-            "lanes": 2,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 37.67,
-            "end_mi": 44.98,
-            "lanes": 3,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 44.98,
-            "end_mi": 45.79,
-            "lanes": 2,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 45.79,
-            "end_mi": 46.91,
-            "lanes": 3,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 46.91,
-            "end_mi": 48.23,
-            "lanes": 4,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 48.23,
-            "end_mi": 48.84,
-            "lanes": 2,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 49.14,
-            "end_mi": 49.45,
-            "lanes": 3,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 49.45,
-            "end_mi": 49.86,
-            "lanes": 4,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 49.86,
-            "end_mi": 50.57,
-            "lanes": 3,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 50.57,
-            "end_mi": 51.68,
-            "lanes": 2,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 51.68,
-            "end_mi": 53.82,
+            "start_mi": 36.9,
+            "end_mi": 37.5,
             "lanes": 1,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 53.82,
-            "end_mi": 54.73,
-            "lanes": 3,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 54.73,
-            "end_mi": 57.47,
-            "lanes": 4,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 57.47,
-            "end_mi": 58.18,
-            "lanes": 3,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 58.18,
-            "end_mi": 58.59,
-            "lanes": 4,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 58.59,
-            "end_mi": 61.33,
-            "lanes": 3,
-            "oneway": true,
-            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
-          },
-          {
-            "start_mi": 61.33,
-            "end_mi": 63.26,
+            "start_mi": 37.5,
+            "end_mi": 38.3,
             "lanes": 2,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 63.26,
-            "end_mi": 63.56,
+            "start_mi": 38.3,
+            "end_mi": 38.7,
             "lanes": 1,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           },
           {
-            "start_mi": 64.07,
-            "end_mi": 65.39,
+            "start_mi": 38.7,
+            "end_mi": 51.0,
+            "lanes": 3,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 51.0,
+            "end_mi": 55.9,
+            "lanes": 1,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 55.9,
+            "end_mi": 57.9,
+            "lanes": 4,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 57.9,
+            "end_mi": 64.2,
+            "lanes": 3,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 64.2,
+            "end_mi": 65.6,
+            "lanes": 2,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 65.6,
+            "end_mi": 69.8,
+            "lanes": 3,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 69.8,
+            "end_mi": 77.3,
+            "lanes": 4,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 77.3,
+            "end_mi": 78.0,
+            "lanes": 3,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 78.0,
+            "end_mi": 78.6,
+            "lanes": 4,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 78.6,
+            "end_mi": 78.9,
+            "lanes": 5,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 78.9,
+            "end_mi": 79.5,
+            "lanes": 1,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 79.5,
+            "end_mi": 80.0,
+            "lanes": 2,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 80.5,
+            "end_mi": 81.6,
+            "lanes": 3,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 81.6,
+            "end_mi": 82.3,
+            "lanes": 2,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 82.3,
+            "end_mi": 82.6,
+            "lanes": 1,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 82.6,
+            "end_mi": 82.9,
+            "lanes": 3,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 82.9,
+            "end_mi": 83.1,
+            "lanes": 4,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 83.1,
+            "end_mi": 83.8,
             "lanes": 3,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
@@ -11060,90 +11016,313 @@
         ],
         "traffic_aadt": [
           {
-            "at_mi": 0.0,
-            "aadt": 14000.0,
-            "lanes": 1,
-            "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-          },
-          {
-            "at_mi": 5.08,
-            "aadt": 17000.0,
-            "lanes": 1,
-            "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-          },
-          {
-            "at_mi": 10.15,
-            "aadt": 19000.0,
+            "at_mi": 15.0,
+            "aadt": 34000.0,
             "lanes": 2,
             "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
           },
           {
-            "at_mi": 15.23,
-            "aadt": 122000.0,
-            "lanes": 4,
-            "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-          },
-          {
-            "at_mi": 20.31,
-            "aadt": 25000.0,
+            "at_mi": 25.0,
+            "aadt": 44500.0,
             "lanes": 2,
             "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
           },
           {
-            "at_mi": 25.38,
-            "aadt": 38500.0,
+            "at_mi": 40.0,
+            "aadt": 46000.0,
             "lanes": 2,
             "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
           },
           {
-            "at_mi": 35.54,
-            "aadt": 17000.0,
+            "at_mi": 45.0,
+            "aadt": 120000.0,
+            "lanes": 6,
+            "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
+          },
+          {
+            "at_mi": 55.0,
+            "aadt": 136500.0,
+            "lanes": 6,
+            "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
+          },
+          {
+            "at_mi": 65.0,
+            "aadt": 148000.0,
+            "lanes": 6,
+            "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
+          },
+          {
+            "at_mi": 75.0,
+            "aadt": 176500.0,
+            "lanes": 7,
+            "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
+          },
+          {
+            "at_mi": 80.0,
+            "aadt": 24000.0,
             "lanes": 2,
             "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
           },
           {
-            "at_mi": 40.62,
-            "aadt": 10500.0,
-            "lanes": 1,
-            "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-          },
-          {
-            "at_mi": 45.69,
-            "aadt": 17500.0,
-            "lanes": 1,
-            "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-          },
-          {
-            "at_mi": 50.77,
-            "aadt": 19500.0,
-            "lanes": 2,
-            "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-          },
-          {
-            "at_mi": 55.85,
-            "aadt": 13500.0,
-            "lanes": 1,
-            "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-          },
-          {
-            "at_mi": 60.92,
-            "aadt": 15500.0,
-            "lanes": 2,
-            "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-          },
-          {
-            "at_mi": 66.0,
-            "aadt": 16500.0,
+            "at_mi": 85.0,
+            "aadt": 21000.0,
             "lanes": 2,
             "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
           }
         ],
-        "hpms_terrain": {
-          "type": 1,
-          "name": "level",
-          "sections": 724,
-          "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        "grade_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 2.4,
+            "avg_grade_pct": 0.18,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 2.4,
+            "end_mi": 2.7,
+            "avg_grade_pct": 2.69,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 2.7,
+            "end_mi": 8.9,
+            "avg_grade_pct": 0.06,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 8.9,
+            "end_mi": 9.2,
+            "avg_grade_pct": -2.14,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 9.2,
+            "end_mi": 10.5,
+            "avg_grade_pct": -0.08,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 10.5,
+            "end_mi": 11.0,
+            "avg_grade_pct": 0.0,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 11.0,
+            "end_mi": 12.9,
+            "avg_grade_pct": 0.26,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 12.9,
+            "end_mi": 13.2,
+            "avg_grade_pct": 1.69,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 13.2,
+            "end_mi": 21.4,
+            "avg_grade_pct": -0.03,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 21.4,
+            "end_mi": 21.7,
+            "avg_grade_pct": 1.72,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 21.7,
+            "end_mi": 30.7,
+            "avg_grade_pct": 0.11,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 30.7,
+            "end_mi": 31.0,
+            "avg_grade_pct": -1.98,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 31.0,
+            "end_mi": 36.5,
+            "avg_grade_pct": 0.01,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 36.5,
+            "end_mi": 36.7,
+            "avg_grade_pct": -2.28,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 36.7,
+            "end_mi": 37.5,
+            "avg_grade_pct": 0.0,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 37.5,
+            "end_mi": 37.8,
+            "avg_grade_pct": 1.79,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 37.8,
+            "end_mi": 40.3,
+            "avg_grade_pct": -0.14,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 40.3,
+            "end_mi": 40.6,
+            "avg_grade_pct": -1.52,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 40.6,
+            "end_mi": 57.5,
+            "avg_grade_pct": 0.0,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 57.5,
+            "end_mi": 57.8,
+            "avg_grade_pct": -2.39,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 57.8,
+            "end_mi": 58.7,
+            "avg_grade_pct": 0.48,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 58.7,
+            "end_mi": 59.0,
+            "avg_grade_pct": -2.59,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 59.0,
+            "end_mi": 60.5,
+            "avg_grade_pct": 0.23,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 60.5,
+            "end_mi": 60.8,
+            "avg_grade_pct": -2.27,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 60.8,
+            "end_mi": 64.1,
+            "avg_grade_pct": 0.19,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 64.1,
+            "end_mi": 64.4,
+            "avg_grade_pct": 2.03,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 64.4,
+            "end_mi": 66.3,
+            "avg_grade_pct": 0.39,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 66.3,
+            "end_mi": 66.6,
+            "avg_grade_pct": 1.89,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 66.6,
+            "end_mi": 67.6,
+            "avg_grade_pct": -0.23,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 67.6,
+            "end_mi": 67.9,
+            "avg_grade_pct": -1.6,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 67.9,
+            "end_mi": 68.2,
+            "avg_grade_pct": -0.22,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 68.2,
+            "end_mi": 68.5,
+            "avg_grade_pct": -2.2,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 68.5,
+            "end_mi": 69.2,
+            "avg_grade_pct": -0.99,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 69.2,
+            "end_mi": 69.4,
+            "avg_grade_pct": -2.12,
+            "terrain": "hills",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          },
+          {
+            "start_mi": 69.4,
+            "end_mi": 85.0,
+            "avg_grade_pct": 0.03,
+            "terrain": "flat",
+            "source": "Derived: rise over run between elevation samples 0.25 mi apart. Read from Valhalla /height (its own DEM tileset over OpenStreetMap) at 0.1 mi spacing along the leg's checked-in route geometry."
+          }
+        ],
+        "state_miles": [
+          {
+            "state": "New Jersey",
+            "miles": 85.0
+          }
+        ]
       },
       "stops": [
         {
@@ -11168,7 +11347,25 @@
         }
       ],
       "divided": true,
-      "lanes": 2
+      "lanes": 2,
+      "route_via": [
+        {
+          "lat": 40.156991,
+          "lon": -74.312176,
+          "note": "OSM way 1043441340 ref I 195 (hgv=designated), between I-195 Exits 28 and 21 in Howell/Jackson -- pins this leg off the Garden State Parkway, which bans trucks over 10,000 lb north of Interchange 105 (N.J.A.C. 19:9-1.9(b)), and onto US 9 north from Parkway Interchange 83 to I-195 Exit 28, then I-195 west, the nearest National Network road for a 102-inch truck (N.J.A.C. 16:32-1.3, 16:32-1.5). Read 2026-10-06: vertex of a Valhalla truck route (loaded-semi costing) with through locations limited to non-ramp, primary-or-better edges; the edge map-matches to I 195."
+        },
+        {
+          "lat": 40.161088,
+          "lon": -74.426704,
+          "note": "OSM way 11700447 ref I 195 (hgv=designated), west of I-195 Exit 21 -- keeps the truck on I-195 to the Turnpike at Interchange 7A rather than leaving at Exit 21 for county roads 527 and NJ 33. Read 2026-10-06: vertex of a Valhalla truck route (loaded-semi costing) with through locations limited to non-ramp, primary-or-better edges; the edge map-matches to I 195."
+        },
+        {
+          "lat": 40.399119,
+          "lon": -74.452947,
+          "note": "OSM way 37966226 ref I 95;NJTP (hgv=designated), New Jersey Turnpike between Interchanges 8A and 9; signed route pin for I-95 north to Interchange 13A. Read 2026-10-06: vertex of a Valhalla truck route (loaded-semi costing) with through locations limited to non-ramp, primary-or-better edges; the edge map-matches to I 95."
+        }
+      ],
+      "rerouted": true
     },
     {
       "from": "trenton_nj_us",

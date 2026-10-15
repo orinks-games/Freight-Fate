@@ -654,6 +654,24 @@ Everything found before 2026-09-25 moved to
       warning speaks once when it falls short of the next fuel stop this rig
       can use, or of the destination when none comes first.
 
+- [x] Toms River to Newark was labelled for the Garden State Parkway,
+      which bans trucks over 10,000 lb north of Interchange 105, and after
+      Parkway Interchange 98 it ran about 50 miles of state and US highways
+      (NJ 138, NJ 34, NJ 18, US 9, US 1&9) beside I-195 and the Turnpike;
+      a 102-inch truck may use those only to reach a terminal or the
+      National Network directly (2026-10-06, a realism check). It now runs
+      US 9, I-195 and the Turnpike from Interchange 7A to 13A; 66 paid
+      miles became 85.
+- [ ] Thomas Edison still sits on Toms River to Newark at mile 49.55, its
+      place on the old line; the new line passes it at about mile 70. The
+      service-plaza PR (#297) removes it from this leg, so it was left alone.
+- [ ] Toms River to Newark has no northbound Turnpike service plazas
+      (Joyce Kilmer, Grover Cleveland) and no Turnpike toll event (the leg
+      is flagged as a tollway with none).
+- [ ] Toms River to Newark keeps its curated top-level two lanes per
+      direction; the Turnpike's dual roadways from Interchange 6 to 14 carry
+      more (the baked lane segments hold OSM's counts).
+
 - [x] More music on the Terrestrial dial (owner, 2026-10-03, from player
       feedback): 156 commercial music stations in 35 states, each heard
       playing and naming itself from an open network before it went in.
