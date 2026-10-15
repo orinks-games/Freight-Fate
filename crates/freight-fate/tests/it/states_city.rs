@@ -937,6 +937,9 @@ fn test_a_relayed_load_replaces_a_board_slot_and_leads_the_assignment() {
     let mut p = Profile::named_in("Relay Tonopah", "Tonopah");
     p.market.seed = 11;
     p.career.deliveries = 1;
+    // Level 5: Reno and Las Vegas are past a newer driver's relay range
+    // (ff_core::models::jobs::relay::relay_range_mi).
+    p.career.xp = ff_core::models::career::LEVEL_XP[4];
     app.ctx.profile = Some(p.clone());
     open_freight_market(&mut app.ctx);
     app.ctx.run_deferred();
