@@ -112,7 +112,7 @@ Baltimore leg does.
 | --- | --- | --- | --- |
 | San Francisco-Oakland Bay Bridge | Sacramento, Stockton and Los Angeles to San Francisco; San Francisco to Portland and Salt Lake City | Explosives and flammable-placarded tank loads banned; placarded packaged freight refused (classes unnamed) | https://www.chp.ca.gov/siteassets/files/ib_hmroutes.pdf (21 CCR 1402.1) |
 | Mackinac Bridge | Sault Ste. Marie to Traverse City | Toll: 5 dollars per axle, 25 dollars for a five-axle rig, both directions | https://www.mackinacbridge.org/fares-traffic/fare-schedule/ |
-| Mackinac Bridge | Sault Ste. Marie to Traverse City | Wind: escort from 35 mph, closed to trucks from 50, closed to all from 65 | https://www.mackinacbridge.org/about-the-bridge/frequently-asked-questions/ |
+| Mackinac Bridge | Sault Ste. Marie to Traverse City | Wind: escort from 35 mph, closed to trucks from 50, closed to all from 65. Escort in any weather for placarded loads and rigs over 40 tons (80,000 lb) gross | https://www.mackinacbridge.org/about-the-bridge/frequently-asked-questions/ (wind), https://www.mackinacbridge.org/fares-traffic/rules-regulations/ (escorts) |
 | Chesapeake Bay Bridge-Tunnel | Norfolk to Cape Charles | Toll corrected from an estimated 45 to the published 48 dollars (Class 12, initial crossing) | https://www.cbbt.com/tolls/ |
 | Chesapeake Bay Bridge-Tunnel | Norfolk to Cape Charles | Wind: tractor-trailers under 15,000 lb of cargo refused from 40 mph, every truck from 50, closed from 60 | https://cbbt.com/weather/ |
 
@@ -162,8 +162,14 @@ start against the sky's sustained wind.
   are not published; the authorities give the levels only. The CBBT
   advisory (35 mph, 45 mph limit) and the Mackinac advisory (20 to 35 mph)
   are speed advice, not modelled.
-- **Mackinac escorts for placarded, heavy and oversize loads** in calm
-  weather are separate rules and are not modelled yet.
+- **Mackinac escorts in any weather.** Placarded loads and rigs over 40
+  tons gross wait the same 20 minutes on duty for a bridge escort; in
+  escort-level wind the wind escort takes them across, so the wait is not
+  doubled. The bridge's truck permit, which lets trained drivers of some
+  class 2 and 3 placards and heavy rigs cross unescorted
+  (https://www.mackinacbridge.org/oversize-vehicle-escorts/), is not
+  modelled: game drivers hold none. The escort fee for heavy and oversize
+  loads is not published with an amount, so none is charged.
 
 ## Researched and left out
 
@@ -189,9 +195,8 @@ start against the sky's sustained wind.
 - **Golden Gate Bridge (San Francisco to Santa Rosa).** It bans explosive
   loads only at rush hours and escorts them otherwise; the game has no
   explosives cargo or escort, so nothing is refused.
-- **Mackinac Bridge escorts.** Placarded loads, rigs over 40 tons gross and
-  oversize loads cross under bridge escort, not a ban; escorts are not
-  modelled. Its 72-ton maximum is above any legal game rig.
+- **Mackinac Bridge oversize escorts and 72-ton maximum.** Game rigs are
+  never oversize, and the 72-ton maximum is above any legal game rig.
 
 ## Tolls
 

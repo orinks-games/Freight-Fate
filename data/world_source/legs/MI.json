@@ -67585,7 +67585,7 @@
           "size_text": "",
           "source_url": "https://www.mackinacbridge.org/about-the-bridge/frequently-asked-questions/",
           "access_date": "2026-10-11",
-          "basis": "Wind levels read from the Mackinac Bridge Authority FAQ, sustained wind: 35 to 50 mph high-profile vehicles wait for an escort, 50 to 65 mph closed to high-profile vehicles, 65 mph and above closed to all traffic.",
+          "basis": "Wind levels read from the Mackinac Bridge Authority FAQ, sustained wind: 35 to 50 mph high-profile vehicles wait for an escort, 50 to 65 mph closed to high-profile vehicles, 65 mph and above closed to all traffic. Escorts read from the Mackinac Bridge Authority rules and regulations on 2026-10-11: placarded loads require an escort by bridge personnel, and trucks with a gross load over 40 tons (80,000 lb) must request one. The truck permit that waives escorts for some class 2 and 3 placards and heavy trucks (https://www.mackinacbridge.org/oversize-vehicle-escorts/) is not modelled; game drivers hold none.",
           "wind": {
             "escort_mph": 35.0,
             "light_trailer_mph": null,
@@ -67594,6 +67594,12 @@
             "closed_mph": 65.0,
             "escort_text": "High winds on the Mackinac Bridge. Trucks wait for an escort across.",
             "refused_text": "The Mackinac Bridge is closed to trucks in high winds."
+          },
+          "escort": {
+            "placarded": true,
+            "gross_over_lb": 80000,
+            "text": "The Mackinac Bridge escorts placarded and heavy loads across.",
+            "source_url": "https://www.mackinacbridge.org/fares-traffic/rules-regulations/"
           }
         }
       ]

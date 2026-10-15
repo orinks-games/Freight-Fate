@@ -2949,8 +2949,10 @@ branch. The older Phase A/B plan checklists are not a live completion list.
 - [ ] **Wind for the Mackinac escort advisory and CBBT advisory.** The
       20 to 35 mph advice levels (slow to 20 or 45 mph) are speed advice the
       drive does not yet enforce.
-- [ ] **Bridge escorts.** Mackinac placarded, heavy and oversize escorts and
-      Golden Gate explosive-load hours are not modelled.
+- [x] **Mackinac Bridge escorts.** Placarded loads and rigs over 40 tons
+      gross wait 20 minutes on duty for a bridge escort in any weather.
+- [ ] **Golden Gate explosive-load hours.** Needs hazmat classes on loads
+      first; Mackinac oversize escorts wait for oversize loads.
 - [x] **Chesapeake Bay Bridge (US 50) toll.** Charged eastbound at the
       published 24 dollars E-ZPass, 36 video toll.
 - [x] **Published toll rates.** 74 of 79 toll events read from
