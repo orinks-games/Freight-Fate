@@ -223,6 +223,7 @@
 ### Fixed
 
 - **The load you sleep for after an hours warning stays on the dispatch board.** It used to vanish when the rest ran past midnight.
+- **Turnpike and I-95 service plazas now sit on the side they serve, with diesel and food.** The truck-banned Merritt Parkway plaza is gone.
 
 - **On a three-lane road, a hazard call names the lane you can move into.** From the right lane it now says middle lane open, matching the lane change.
 

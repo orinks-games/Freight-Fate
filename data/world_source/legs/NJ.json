@@ -7379,27 +7379,59 @@
       },
       "stops": [
         {
-          "name": "Richard Stockton",
-          "type": "public_rest_area",
-          "at_mi": 48.8,
-          "source": "FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Richard Stockton on I-95 SB in Hamilton, NJ with 42 truck parking spaces, mile post 58.7; at_mi estimated by projecting source coordinates onto checked-in route geometry (0.3 mi from simplified corridor line), accessed 2026-06-17: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query",
+          "name": "Thomas Edison Service Area",
+          "type": "service_plaza",
+          "at_mi": 14.0,
+          "source": "New Jersey Turnpike Authority: Thomas Edison Service Area is on the southbound Turnpike at milepost 92.9 between Interchanges 12 and 11, Woodbridge Township, with a 24/7 Sunoco and food; GPS from the same page, accessed 2026-10-06: https://www.njta.gov/service-area/thomas-edison-service-area-southbound/ at_mi is the leg's own OpenStreetMap motorway_junction signed Thomas Edison Service Area.",
+          "parking": "likely",
           "actions": [
             "park",
             "save",
+            "fuel",
+            "food",
             "break",
             "sleep"
           ],
           "services": [
-            "parking",
-            "restrooms"
+            "diesel",
+            "food",
+            "parking"
           ],
           "directions": [
-            "both"
+            "forward"
+          ],
+          "curation": "curated",
+          "lat": 40.56006,
+          "lon": -74.2646,
+          "vehicle_access": "tractor_trailer"
+        },
+        {
+          "name": "Richard Stockton Service Area",
+          "type": "service_plaza",
+          "at_mi": 48.8,
+          "source": "FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Richard Stockton on I-95 SB in Hamilton, NJ with 42 truck parking spaces, mile post 58.7; at_mi estimated by projecting source coordinates onto checked-in route geometry (0.3 mi from simplified corridor line), accessed 2026-06-17: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query Retyped service_plaza, southbound only: the New Jersey Turnpike Authority lists Richard Stockton on the southbound roadway at milepost 58.7 with a 24/7 Sunoco and food, accessed 2026-10-06: https://www.njta.gov/service-area/richard-stockton-service-area-southbound/ GPS from the same page; it projects onto this leg at mi 48.8.",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking"
+          ],
+          "directions": [
+            "forward"
           ],
           "parking": "confirmed",
           "curation": "curated",
           "parking_spaces": 42,
-          "vehicle_access": "tractor_trailer"
+          "vehicle_access": "tractor_trailer",
+          "lat": 40.17783,
+          "lon": -74.63115
         }
       ],
       "divided": true,
@@ -8576,25 +8608,57 @@
       },
       "stops": [
         {
-          "name": "Joyce Kilmer",
-          "type": "public_rest_area",
-          "at_mi": 31.1,
-          "source": "FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Joyce Kilmer on I-95 NB in East Brunswick, NJ with 53 truck parking spaces, mile post 78.7; at_mi estimated by projecting source coordinates onto checked-in route geometry (2.7 mi from simplified corridor line), accessed 2026-06-17: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query Mile carried across proportionally when the leg was rerouted.",
+          "name": "Thomas Edison Service Area",
+          "type": "service_plaza",
+          "at_mi": 14.0,
+          "source": "New Jersey Turnpike Authority: Thomas Edison Service Area is on the southbound Turnpike at milepost 92.9 between Interchanges 12 and 11, Woodbridge Township, with a 24/7 Sunoco and food; GPS from the same page, accessed 2026-10-06: https://www.njta.gov/service-area/thomas-edison-service-area-southbound/ at_mi is the leg's own OpenStreetMap motorway_junction signed Thomas Edison Service Area.",
+          "parking": "likely",
           "actions": [
             "park",
             "save",
+            "fuel",
+            "food",
             "break",
             "sleep"
           ],
           "services": [
-            "parking",
-            "restrooms"
+            "diesel",
+            "food",
+            "parking"
           ],
           "directions": [
-            "both"
+            "forward"
           ],
-          "parking": "confirmed",
           "curation": "curated",
+          "lat": 40.56006,
+          "lon": -74.2646,
+          "vehicle_access": "tractor_trailer"
+        },
+        {
+          "name": "Molly Pitcher Service Area",
+          "type": "service_plaza",
+          "at_mi": 35.6,
+          "source": "New Jersey Turnpike Authority: Molly Pitcher Service Area is on the southbound roadway at milepost 71.7 between Interchanges 8A and 8, Cranbury Township, with a 24/7 Sunoco and food, accessed 2026-10-06: https://www.njta.gov/service-area/molly-pitcher-service-area-southbound/ at_mi interpolated by milepost between this leg's Interchange 8A (mi 33.4, MP 73.9) and Interchange 8 (mi 39.8, MP 67.5) records. The NJTA page's GPS repeats Richard Stockton's, so the coordinate is the OpenStreetMap rest-area way named Molly Pitcher Service Area on the New Jersey Turnpike (accessed 2026-10-06), which projects onto this leg at mi 35.5.",
+          "parking": "likely",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking"
+          ],
+          "directions": [
+            "forward"
+          ],
+          "curation": "curated",
+          "lat": 40.32106,
+          "lon": -74.48848,
           "vehicle_access": "tractor_trailer"
         }
       ],
@@ -11145,28 +11209,7 @@
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
         }
       },
-      "stops": [
-        {
-          "name": "Thomas Edison Service Area",
-          "type": "public_rest_area",
-          "at_mi": 49.55,
-          "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
-          "parking": "limited",
-          "actions": [
-            "park",
-            "save",
-            "break",
-            "sleep"
-          ],
-          "services": [
-            "parking",
-            "restrooms"
-          ],
-          "lat": 40.55944,
-          "lon": -74.26491,
-          "vehicle_access": "tractor_trailer"
-        }
-      ],
+      "stops": [],
       "divided": true,
       "lanes": 2
     },

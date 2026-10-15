@@ -10574,51 +10574,31 @@
           "exit_source": "exit_ref read: ref tag of the nearest OpenStreetMap highway=motorway_junction node on I95, 0.36 mi from the stop's read coordinates (derived snap, cut 0.6 mi), local Geofabrik extract accessed 2026-09-17; this leg has no interchange record with that number."
         },
         {
-          "name": "RT. 15 New Canaan NB Service Plaza",
-          "type": "public_rest_area",
-          "at_mi": 132.3,
-          "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16.",
-          "parking": "limited",
+          "name": "Darien Service Plaza",
+          "type": "service_plaza",
+          "at_mi": 140.1,
+          "source": "FHWA Jason's Law truck parking inventory (NTAD via BTS) lists CT Service Plaza- Darien SB on I-95S in Darien, CT with 70 truck parking spaces, mile post 10; at_mi estimated by projecting source coordinates onto checked-in route geometry (0.3 mi from simplified corridor line), accessed 2026-06-17: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Retyped service_plaza, southbound I-95 only (the northbound plaza is a separate site): Connecticut Service Plazas lists Darien SB between Exits 10 and 9 with Mobil diesel, food and truck parking, GPS 41.0678549, -73.5234492, accessed 2026-10-06: https://www.ctserviceplazas.com/locations/darien-sb at_mi re-projected onto the leg geometry from that coordinate.",
           "actions": [
             "park",
             "save",
+            "fuel",
+            "food",
             "break",
             "sleep"
           ],
           "services": [
-            "parking",
-            "restrooms"
-          ],
-          "vehicle_access": "tractor_trailer",
-          "lat": 41.114163830601974,
-          "lon": -73.38941855478744,
-          "directions": [
-            "both"
-          ]
-        },
-        {
-          "name": "CT Service Plaza- Darien SB",
-          "type": "public_rest_area",
-          "at_mi": 135.5,
-          "source": "FHWA Jason's Law truck parking inventory (NTAD via BTS) lists CT Service Plaza- Darien SB on I-95S in Darien, CT with 70 truck parking spaces, mile post 10; at_mi estimated by projecting source coordinates onto checked-in route geometry (0.3 mi from simplified corridor line), accessed 2026-06-17: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16.",
-          "actions": [
-            "park",
-            "save",
-            "break",
-            "sleep"
-          ],
-          "services": [
-            "parking",
-            "restrooms"
+            "diesel",
+            "food",
+            "parking"
           ],
           "directions": [
-            "both"
+            "forward"
           ],
           "parking": "confirmed",
           "curation": "curated",
           "vehicle_access": "tractor_trailer",
-          "lat": 41.09743804329619,
-          "lon": -73.44210161049223
+          "lat": 41.06785,
+          "lon": -73.52345
         }
       ],
       "divided": true,
