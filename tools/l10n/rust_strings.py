@@ -108,6 +108,8 @@ SKIP_PATH_PARTS = (
     "/tests.rs",
     "_tests.rs",
     "jaws_script",
+    # The visual display draws text in the window; nothing in it is spoken.
+    "/visuals",
     "/build.rs",
     "/l10n",
     # Place names, song titles and radio clip names stay as they are.

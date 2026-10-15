@@ -25,3 +25,4 @@ pub mod speech;
 pub mod states;
 pub mod touch;
 pub mod updater;
+pub mod visuals;

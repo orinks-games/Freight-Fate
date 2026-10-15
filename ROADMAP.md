@@ -595,6 +595,15 @@ Everything found before 2026-09-25 moved to
 - [x] A way out of the training fleet (player report, 2026-10-10): a
       company driver at Great Lakes Training Transport can move to another
       carrier at level 4 with full dispatch trust.
+- [x] [Visual display](#october-15-the-visual-display-found-along-the-way)
+      (contributor, 2026-10-15): the window draws a road view behind the
+      truck, a dashboard, menu panels and captions, so sighted and
+      low-vision players can play by eye; Settings, Gameplay, Controls,
+      Visual display turns it off. `music.pak` is now read track by track
+      instead of held in memory.
+- [ ] (Found along the way) Visual display follow-ups: a cab camera, the
+      crossroad and its signal or stop sign at a ramp's end, and real exit
+      numbers on the gore signs once interchanges carry them on the drive.
 - [x] Engine brake on the driver's terms (player report, 2026-10-14): a
       full brake stop with the engine brake on no longer damages the load, a
       stage the driver picks is no longer dropped by cruise or the bend
@@ -2928,6 +2937,60 @@ stays a starting choice.
 - [x] Move to another carrier from Business status at the training fleet.
 - [ ] Changing carriers between the other three is not offered; add it if
       players ask.
+
+### October 15 the visual display (Found along the way)
+
+The window was a blank fill: everything lived in speech and sound. It now
+draws what the game knows, for sighted players, low-vision players, and
+anyone watching a stream. Speech, sound and every key are unchanged, and
+the display only reads the game state; it never feeds anything back.
+
+- Road view: a chase camera behind and above the trailer. The road's shape
+  is integrated from the drive's own curve and grade samples, the lane
+  count and the truck's lane, offset and heading come from lane keeping,
+  and traffic is drawn from the traffic bubble in its lanes, with brake
+  lights and signals. Signs are drawn only from route data: posted limits
+  (repeated every four miles at the limit enforced at that spot, and at
+  each drop), curve warnings with the advisory, chevrons around sharp and
+  hairpin bends, work zones with drums down the closed lane, guide signs
+  from the navigation cues, service signs for stops, state lines and the
+  trip's billboards. Trees, posts, power lines and buildings are seeded
+  decoration that follows the landscape (desert, plains, wooded, conifer,
+  mountains) and the season.
+- Sky: the local clock sets the light; the route's coordinates give the
+  road's compass heading, so the sun and moon sit where they are. Weather
+  sets cloud, fog distance, wet or snowy pavement, rain, snow and lightning.
+- Dashboard: speed with the limit and cruise marked, engine speed and gear,
+  telltales, fuel, air, damage, the next bend and maneuver, clock, weather,
+  distance left, and a traffic radar a quarter mile behind to half a mile
+  ahead. Menu screens draw as a panel from each screen's visible lines;
+  captions come from the message history.
+- Cost: one glyph atlas and three draw calls a frame. A frame identical to
+  the last is not drawn or presented (a menu costs nothing between key
+  presses; the old window was cleared and presented 60 times a second), and
+  nothing is drawn while the window is minimized or, on a Mac, fully
+  covered (AppKit's occlusion state; SDL 2.26 does not report it). The
+  display can be turned off outright.
+- Playable by sight: `visuals_play` drives two real stretches with speech
+  ignored and every assist off (lane keeping off, curve assist off,
+  emergency braking off), deciding every key press from the display's
+  capture alone -- a 40 mph mountain bend behind a slow car, and a pass on
+  a two-lane interstate. It found one thing the picture lacked: the game
+  holds a quarter-mile footprint behind each vehicle for sideswipes, so a
+  car drawn a few hundred feet back still blocked the lane. Blind-spot
+  lights on the mirrors and a shaded radar lane now read that same
+  clearance check.
+- In a real window: `tests/real_window.rs` (run by name; it needs a
+  desktop) plays the mountain bend the same way in the game's own window,
+  Metal renderer and event loop, in real time, and saves captures of the
+  window by its macOS window number. It runs as a background app that never
+  takes focus, with `FREIGHT_FATE_ALWAYS_DRAW=1` keeping the covered window
+  drawing -- the same switch capture software needs. Its first run caught
+  saguaros on US-40 in Colorado: the dry West is now sagebrush steppe, and
+  cactus desert is kept to the far Southwest.
+- Memory: `music.pak` (about 380 MB in the Mac download) was read whole
+  into memory at launch. It is now opened like `channel3000.pak` and each
+  track is read when it starts.
 
 ## 2.0 planned -- the working week and home
 

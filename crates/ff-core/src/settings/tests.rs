@@ -96,13 +96,14 @@ fn the_struct_carries_the_persisted_fields_in_python_order() {
     // score_display, assist_preset_chosen (2026-09-30), and touch_haptics and
     // touch_practice_offered (2026-10-07), the six touch gesture
     // thresholds (2026-10-08), facility_streets (2026-10-11) and language
-    // (2026-10-12) and automatic_jake (2026-10-14) were added on the Rust side;
-    // lane_centering_assist was retired for 1.9.
-    assert_eq!(Settings::FIELD_NAMES.len(), 97);
+    // (2026-10-12), automatic_jake (2026-10-14) and visual_display
+    // (2026-10-15) were added on the Rust side; lane_centering_assist was
+    // retired for 1.9.
+    assert_eq!(Settings::FIELD_NAMES.len(), 98);
     assert_eq!(Settings::FIELD_NAMES[0], "online_services");
     assert_eq!(Settings::FIELD_NAMES[81], "settings_layout_notice_from");
     let pairs = Settings::default().ordered_values();
-    assert_eq!(pairs.len(), 97);
+    assert_eq!(pairs.len(), 98);
     for ((name, _), field) in pairs.iter().zip(Settings::FIELD_NAMES) {
         assert_eq!(name, field);
     }
@@ -159,14 +160,14 @@ fn the_defaults_match_the_python_dataclass() {
         "touch_still_hold_ms": 500.0, "touch_rotate_degrees": 30.0, "touch_parking_brake_mph": 1.0,
         "steering_guide_inverted": false, "assist_preset_chosen": false,
         "facility_streets": true,
-        "language": "auto"
+        "language": "auto", "visual_display": true
     }"#,
     )
     .unwrap();
     let Value::Object(expected) = expected else {
         unreachable!()
     };
-    assert_eq!(expected.len(), 97);
+    assert_eq!(expected.len(), 98);
     for (name, value) in s.ordered_values() {
         assert_eq!(Some(&value), expected.get(name), "{name}");
     }
@@ -222,7 +223,7 @@ fn the_file_text_is_what_json_dump_wrote() {
          \"touch_deep_swipe_factor\": 3.0,\n  \"touch_still_hold_ms\": 500.0,\n  \
          \"touch_rotate_degrees\": 30.0,\n  \"touch_parking_brake_mph\": 1.0,\n  \
          \"steering_guide_inverted\": false,\n  \"assist_preset_chosen\": false,\n  \"facility_streets\": true,\n  \"language\": \"auto\",\n  \
-         \"steering_assist\": \"off\"\n}"
+         \"visual_display\": true,\n  \"steering_assist\": \"off\"\n}"
     ));
     assert!(text.contains("\n  \"time_scale\": 10.0,\n"));
     assert!(text.contains("\n  \"radio_volume\": 0.25,\n"));

@@ -483,7 +483,9 @@ to use, modify, and share for any noncommercial purpose, but only the copyright
 holder may sell it or put it to commercial use. This is a source-available
 license, not an OSI-approved open-source license. Bundled audio credits and
 provenance are tracked in
-[the Freight Fate audio credits](assets/sounds/CREDITS.md).
+[the Freight Fate audio credits](assets/sounds/CREDITS.md). The window's text
+is set in [Overpass](https://github.com/RedHatOfficial/Overpass), built into
+the game under the [SIL Open Font License 1.1](assets/fonts/OFL.txt).
 
 **BASS license caveat:** audio playback uses the
 [BASS](https://www.un4seen.com/) library through Freight Fate's Rust bindings.

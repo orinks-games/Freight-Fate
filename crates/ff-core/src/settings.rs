@@ -728,6 +728,11 @@ settings_fields! {
     /// before the setting existed loads as English, so an update never
     /// changes the language a player already hears.
     language: String = "auto" => str_plain,
+    /// Whether the game window draws the road view, dashboard, menus and
+    /// captions for sighted and low-vision players. Off leaves the window a
+    /// plain dark fill that is never redrawn, which saves the battery for a
+    /// player who only listens. Speech and sound are the same either way.
+    visual_display: bool = true => bool_strict,
 }
 
 impl Settings {

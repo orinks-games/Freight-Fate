@@ -887,6 +887,7 @@ This is where you change units, transmission, and eligible shortcuts. Open Keybo
 | Automatic direction changes | In an automatic, both styles now change direction the same way: a fresh press held at a standstill. A brake held through a stop just holds the truck. The setting remains for familiarity. |
 | Controller | Accept controller input alongside the keyboard. The keyboard always stays active. While it is on, it names the controller the game is using. |
 | Haptics | Use controller vibration for hazards, hard braking, rumble strips, and road seams. |
+| Visual display | On by default: the game window draws the road, the dashboard, menus, and captions of what the game says. Off keeps the window dark and saves battery. Speech and sound are the same either way. |
 | Keyboard shortcuts | Choose the control you want to change and press Enter, then press your preferred key, with Shift, Control, or Alt held if you want a chord. A key another control already has is refused by name; Escape keeps the current key. The pause key, Enter, F1, F2, the Control keys that stop the voice, plus and minus, the radio dial keys, and the message review keys stay fixed. Choose the reset option to restore every default shortcut. |
 | Controller buttons | Choose the controller action you want to change and press Enter, then press your preferred button, with the right bumper held for the second layer. Press its current button to keep the assignment. Start, Back, the bumpers, the triggers, and the sticks stay fixed. |
 
@@ -971,6 +972,18 @@ The window shows the core information the game speaks. Speech can come through a
 You can give driving events a separate voice. Either Control key stops that voice, as does Back on a controller while it's speaking, and message review lets you return to anything you missed.
 
 If a sound is unfamiliar, open Learn game sounds, select the cue, and press Enter, or A, to hear it. F1, or Back, explains its meaning. Haptics also reinforce seams, lane edges, hazards, and braking.
+
+### The game window
+
+Everything in Freight Fate can be played by ear, and everything the game says can also be seen, for sighted and low-vision players and for anyone driving with a friend watching.
+
+- **Menus and screens** appear as a large-print panel with the selected choice highlighted and a count such as 3 of 9.
+- **While you drive**, the window shows the road from behind your truck: your lane and the lanes beside you, the traffic around you with brake lights and signals, bends and hills as they come, and the signs on your route, including speed limits, curve warnings with their advisory speed, work zones, exits, rest areas, weigh stations, state lines, and billboards. The sky follows the time of day where you are, and rain, snow, fog, and storms show as they happen.
+- **The dashboard** shows your speed with the posted limit and cruise speed marked on the dial, engine speed and gear, fuel, air pressure, truck and cargo damage, warning lights such as the parking brake and low air, turn signals, the next bend and your next turn, the time and weather, how far you have left, and a traffic display of every vehicle within half a mile.
+- **Blind-spot lights** glow amber on the truck's mirrors, with the lane shaded on the traffic display, while traffic holds the lane beside you. They answer the same way the "lane open" announcement and the L key do: change lanes only once the light on that side is out.
+- **Captions** show each announcement for a few seconds, so nothing the game says is missed.
+
+The window can be resized or made full screen, and everything scales with it. To turn the drawing off, set Visual display to off under Settings, Gameplay, Controls; the window stays dark and uses less power. The game also stops drawing while its window is minimized or, on a Mac, covered by other windows.
 
 | Category | Examples |
 | --- | --- |

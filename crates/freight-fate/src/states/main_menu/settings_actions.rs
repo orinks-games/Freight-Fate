@@ -540,6 +540,12 @@ impl SettingsCategoryState {
         self.announce(ctx);
     }
 
+    /// The window picks the change up on its next frame.
+    pub(super) fn toggle_visual_display(&mut self, ctx: &mut GameContext, _d: i64) {
+        ctx.settings.visual_display = !ctx.settings.visual_display;
+        self.announce(ctx);
+    }
+
     pub(super) fn cycle_driving_speech(&mut self, ctx: &mut GameContext, d: i64) {
         let i = cycle_index(&DRIVING_SPEECH_MODES, &ctx.settings.driving_speech, d, 0);
         ctx.settings.driving_speech = DRIVING_SPEECH_MODES[i].to_string();

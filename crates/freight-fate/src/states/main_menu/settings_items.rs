@@ -450,6 +450,7 @@ impl SettingsCategoryState {
                 adjust(|s, ctx, d| s.cycle_automatic_direction_changes(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_controller(ctx, d)),
                 adjust(|s, ctx, d| s.toggle_haptics(ctx, d)),
+                adjust(|s, ctx, d| s.toggle_visual_display(ctx, d)),
             ],
             "assistance" => {
                 let mut actions = vec![adjust(|s, ctx, d| s.cycle_assist_preset(ctx, d))];
@@ -690,6 +691,19 @@ impl SettingsCategoryState {
                     adjust(|s, ctx, d| s.toggle_haptics(ctx, d)),
                     "Controller rumble for hazards, hard braking, the rumble \
                      strip, and road seams. Needs a controller connected.",
+                ),
+                row(
+                    dyn_label(|s| {
+                        format!(
+                            "Visual display: {}",
+                            if s.visual_display { "on" } else { "off" }
+                        )
+                    }),
+                    adjust(|s, ctx, d| s.toggle_visual_display(ctx, d)),
+                    "Draws the road, the dashboard, menus and captions of what \
+                     is spoken in the game window, for sighted and low-vision \
+                     players. Off keeps the window dark and saves battery. \
+                     Speech and sound are the same either way.",
                 ),
                 // Enter opens each; Left and Right have nothing to step through,
                 // and the adjust table above stops before these rows.

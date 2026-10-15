@@ -1,8 +1,9 @@
 //! A pack read from disk one entry at a time, opened on first use.
 //!
 //! `channel3000.pak` is about 110 MB of Ogg Opus that most drives never
-//! play, so unlike `sounds.pak` and `music.pak` it is never read into
-//! memory and never opened at startup. [`LazyPack`] does nothing until the
+//! play, so unlike `sounds.pak` it is never read into memory and never
+//! opened at startup. `music.pak` uses the same [`StreamedPack`], opened at
+//! startup (the title theme needs it) but read one track at a time. [`LazyPack`] does nothing until the
 //! first `c3k/` name is asked for; then [`StreamedPack`] opens the file and
 //! reads only the zip directory at its end. Each clip is read and unmasked
 //! from its own offset when it is played, so a 15-minute programme costs
@@ -39,14 +40,22 @@ struct MaskedFile {
 
 impl MaskedFile {
     const BASE: u64 = PACK_MAGIC.len() as u64;
+    /// Read-ahead per system call. A track is read start to finish in one
+    /// go, so a larger buffer means fewer calls for the same bytes.
+    const READ_AHEAD: usize = 256 * 1024;
 }
 
 impl Read for MaskedFile {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         let n = self.inner.read(buf)?;
-        let key_len = XOR_KEY.len() as u64;
-        for (i, byte) in buf[..n].iter_mut().enumerate() {
-            *byte ^= XOR_KEY[((self.pos + i as u64) % key_len) as usize];
+        // One division per read, not per byte: a music track is megabytes.
+        let mut key = (self.pos % XOR_KEY.len() as u64) as usize;
+        for byte in &mut buf[..n] {
+            *byte ^= XOR_KEY[key];
+            key += 1;
+            if key == XOR_KEY.len() {
+                key = 0;
+            }
         }
         self.pos += n as u64;
         Ok(n)
@@ -78,7 +87,9 @@ impl Seek for MaskedFile {
 /// A masked pack read entry by entry from its file.
 pub struct StreamedPack {
     archive: Mutex<ZipArchive<MaskedFile>>,
-    names: HashSet<String>,
+    /// Entry names in archive order, and the same names for lookups.
+    names: Vec<String>,
+    name_set: HashSet<String>,
 }
 
 impl StreamedPack {
@@ -90,19 +101,25 @@ impl StreamedPack {
             return Err(PackError::NotAPack(path.to_path_buf()));
         }
         let masked = MaskedFile {
-            inner: BufReader::new(file),
+            inner: BufReader::with_capacity(MaskedFile::READ_AHEAD, file),
             pos: 0,
         };
         let archive = ZipArchive::new(masked)?;
-        let names = archive.file_names().map(str::to_string).collect();
+        let names: Vec<String> = archive.file_names().map(str::to_string).collect();
+        let name_set = names.iter().cloned().collect();
         Ok(Self {
             archive: Mutex::new(archive),
             names,
+            name_set,
         })
     }
 
+    pub fn names(&self) -> Vec<String> {
+        self.names.clone()
+    }
+
     pub fn has(&self, name: &str) -> bool {
-        self.names.contains(name)
+        self.name_set.contains(name)
     }
 
     pub fn len(&self) -> usize {

@@ -26,6 +26,15 @@ path = "tests/agent_server.rs"
 test = false
 required-features = ["agent-server"]
 
+# The visual display in a real window, driven by sight in real time. It
+# needs a desktop and two minutes, so it is run by name, never by a plain
+# `cargo test`: see the file for how.
+[[test]]
+name = "real_window"
+path = "tests/real_window.rs"
+harness = false
+test = false
+
 [features]
 default = ["agent-server"]
 # `--agent-server`: the MCP server that lets an agent play, including a
@@ -66,7 +75,12 @@ discord-rich-presence.workspace = true
 once_cell.workspace = true
 parking_lot.workspace = true
 regex.workspace = true
-sdl2 = { workspace = true, features = ["raw-window-handle"] }
+# `unsafe_textures`: the visual display keeps one glyph-atlas texture for the
+# life of the renderer, which the borrow-checked `Texture<'creator>` cannot
+# live beside in the same struct. The renderer frees it when it goes.
+sdl2 = { workspace = true, features = ["raw-window-handle", "unsafe_textures"] }
+ab_glyph.workspace = true
+memmap2.workspace = true
 url.workspace = true
 form_urlencoded.workspace = true
 webbrowser.workspace = true

@@ -210,6 +210,9 @@ mod windows_subsystem;
 mod states_ramp_assist_control;
 mod states_ramp_signal_timing;
 
+mod sighted_driver;
 mod states_driving_hos_planning;
 mod states_driving_hos_rest_stretch;
 mod states_driving_speech_modes;
+mod visuals_frames;
+mod visuals_play;

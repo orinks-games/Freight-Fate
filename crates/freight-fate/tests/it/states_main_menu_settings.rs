@@ -262,6 +262,7 @@ fn gameplay_subcategory_rows(category: &str) -> &'static [&'static str] {
             "Automatic direction changes",
             "Controller",
             "Haptics",
+            "Visual display",
             "Keyboard shortcuts",
             "Controller buttons",
             "Back",
@@ -448,6 +449,7 @@ fn test_every_gameplay_setting_stays_reachable_after_the_split() {
     assert!(reachable("controls", "Automatic direction changes"));
     assert!(reachable("controls", "Controller"));
     assert!(reachable("controls", "Haptics"));
+    assert!(reachable("controls", "Visual display"));
     assert!(reachable("assistance", "Speed keeper"));
     assert!(!reachable("controls", "Speed keeper"));
     assert!(reachable("difficulty", "Driving mode"));
@@ -1276,4 +1278,26 @@ fn the_controller_row_names_the_connected_controller() {
     );
     app.ctx.settings.controller_enabled = false;
     assert_eq!(controller_row(&mut app), "Controller: disabled");
+}
+
+#[test]
+fn visual_display_row_toggles_says_its_state_and_persists() {
+    let mut app = TestApp::new();
+    assert!(app.ctx.settings.visual_display, "on for a fresh install");
+    open_settings_category(&mut app, "Controls");
+    move_to::<Cat>(&mut app, "Visual display");
+    assert_eq!(current_label::<Cat>(&app), "Visual display: on");
+    app.clear_speech();
+    key(&mut app, Key::Right);
+    assert_eq!(current_label::<Cat>(&app), "Visual display: off");
+    assert!(
+        app.main_lines()
+            .iter()
+            .any(|l| l.contains("Visual display: off")),
+        "{:?}",
+        app.main_lines()
+    );
+    assert!(!Settings::load().visual_display);
+    key(&mut app, Key::Left);
+    assert!(Settings::load().visual_display);
 }

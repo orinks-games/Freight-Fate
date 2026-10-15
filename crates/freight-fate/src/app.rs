@@ -1147,11 +1147,22 @@ impl App {
         lines
     }
 
+    /// Draw the window: the visual display, or the plain fill when the
+    /// player turned it off. Nothing is read from the game while the window
+    /// cannot be seen.
     pub fn render(&mut self) {
-        let lines = self.visible_lines();
-        if let Some(shell) = self.shell.as_mut() {
-            shell.render(&lines);
+        let Some(shell) = self.shell.as_mut() else {
+            return;
+        };
+        if !self.ctx.settings.visual_display {
+            shell.render_plain();
+            return;
         }
+        if !shell.can_be_seen() {
+            return;
+        }
+        let scene = crate::visuals::Scene::capture(&self.ctx);
+        shell.render_scene(scene, &self.ctx.message_log);
     }
 
     /// One whole frame: pump events, tick, render. `dt` is the frame time.

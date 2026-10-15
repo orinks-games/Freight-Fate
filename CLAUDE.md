@@ -181,6 +181,10 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   `test = false` in the crate's Cargo.toml keeps it out of a plain
   `cargo test`, so run it by name (`cargo test -p freight-fate --test
   agent_server`) after touching the agent server. CI runs it as its own step.
+  `crates/freight-fate/tests/real_window.rs` is the same kind of opt-in: it
+  opens the real game window and plays a drive by sight through the visual
+  display, so it needs a desktop and a scratch `FREIGHT_FATE_DATA_DIR`
+  (`FREIGHT_FATE_WINDOW_SHOTS` saves captures of the window); see the file.
 - One test: `cargo test -p freight-fate --test it <name_filter> -- --nocapture`
   (`--test it` skips the unit-test and doc-test binaries; the filter is a
   substring of the test path).

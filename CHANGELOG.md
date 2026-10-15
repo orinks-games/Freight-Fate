@@ -4,8 +4,20 @@
 
 ### Added
 
+- **The game window now shows the road, your truck and the traffic around it.** Signs, bends, hills and weather show as you drive.
+
+- **The dashboard in the game window shows speed, the limit, gear, fuel, air, damage and traffic.** Your next turn and bend show above it.
+
+- **Amber lights on the truck's mirrors show when traffic holds the lane beside you.** Change lanes once the light on that side goes out.
+
+- **Captions show what the game says for a few seconds.** Menus appear as a large-print panel with the choice highlighted.
+
+- **A Visual display setting turns the window's drawing off to save battery.** It is under Settings, Gameplay, Controls; speech and sound stay the same.
+
 - **A broken snow chain can be fixed on the shoulder.** Each chain set comes with two spare repair links. Stopped with a broken chain, the pause menu offers "Repair the broken chain: about 15 minutes", which puts the set back on at 80 percent worn, under the slap warning. The garage restocks the links for 25 dollars.
+
 - **A worn chain warns you before it breaks.** At 85 percent wear the game says "A chain is slapping the fender. Stop soon and tighten it." Tightening takes about 5 minutes and buys back a little wear, once each time the chains go on.
+
 - **The game can speak Spanish.** Choose Español under Settings, Speech, Language; the radio stays in English.
 
 - **Key and button practice says what each key or button does at the wheel.** Shift F1 or Back plus Start opens it anywhere.
@@ -60,14 +72,24 @@
 
 ### Changed
 
+- **The game uses much less memory and power.** Music loads track by track, and the window draws only when it changes.
+
 - **A chain set is now seven chains: four for the drive tires, one for a trailer tire, and two spares,** so putting them on takes about 30 minutes. When a chain breaks, the game now says "A tire chain broke and is flailing. Slow down and pull over to check it."
+
 - **Chain laws post only on real chain-control highways in Colorado, California, Washington, Oregon and Idaho,** not on any steep grade in those states. Chain-law signs now come about a mile before the chain-up area.
+
 - **Colorado's chain-carry rule is enforced.** From September 1 to May 31, a truck with no chains aboard on a Colorado mountain corridor is warned once and can be cited 132 dollars, whatever the weather.
+
 - **Montana reminds you to carry chains.** From October 1 to April 30, a truck with no chains aboard on a Montana mountain run hears it once a season, even across drives and a quit and resume. There's no fine. The carry lines are in Spanish.
+
 - **A chain checkpoint now holds you on the apron until your chains are on.** If you have no chains aboard, the officer tells you to buy a set at the next garage.
+
 - **Chain-law fines follow the state.** Colorado is 579 dollars, Oregon is 880 and Wyoming is 250. Other states keep 580 until their own figures are confirmed. California checks every truck at an active chain control. The checkpoint and hold lines are in Spanish.
+
 - **Trucks must chain under every chain law; winter tires no longer count for a semi.** California, Washington and Oregon chain trucks at every level. Colorado Level 1 chains only single-drive-axle trucks, so your tandem-drive rig chains there at Level 2. Wyoming Level 1 accepts snow tires or chains, and Wyoming Level 2 requires chains on two tires of one drive axle. The signs, the help and the checkpoint all follow this rule.
+
 - **Going too fast with chains on now says "Too fast for chains. Keep under 30 miles per hour."** In metric it gives kilometers per hour. The chain install, garage and help lines are clearer too. The install help gives chain speed in your units, and the new chain lines are in Spanish. In Wyoming at Level 1, a truck on all-season tires with no chains is warned and can be cited.
+
 - **Achievement descriptions are about half as long.** Each badge's description is now one or two short sentences, so the unlock line and the achievements menu finish quickly. A few facts are corrected too: air pressure builds to the governor's cut-out, the flatbed badge names the 50-mile chain re-check, and the brake smoke badge says the brakes started to fade. Spanish is updated; other languages show these lines in English until they are translated again.
 
 - **Nine of the longest billboards are shorter, so they finish while you pass them.** The Bakersfield board no longer says the Crystal Palace has closed.
@@ -588,7 +610,6 @@ Every change since 1.8.8.1, as each tester snapshot listed it.
 
 - **HKC Radio tells you it plays rock.** It used to give no format at all.
 
-
 - **F1 on a course under Licenses and training says what it unlocks.** Also the sponsor level, or the level you can pay early.
 
 - **More facilities start and end with street directions, beginning on the yard's own road.** That first link is spoken as a service road.
@@ -1032,7 +1053,6 @@ Every change since 1.8.8.1, as each tester snapshot listed it.
 
 - **On Linux, speech uses the Speech Dispatcher installed on your computer.** Without it the game still starts, but stays silent.
 
-
 ### Changed
 
 - **Lane centering assistance is gone from Driving assistance.** It never steered; lane keeping full already holds the lane, and old saves lose the row on their next save.
@@ -1090,7 +1110,6 @@ Every change since 1.8.8.1, as each tester snapshot listed it.
 - **Wall Drug sells its famous five-cent coffee and free ice water.** Both ease fatigue at the park-only stops on the Mitchell to Rapid City and Rapid City to Sioux Falls runs.
 
 - **More billboards along the road, without crowding it.** New jokes, attorney and travel-plaza ads, music landmarks, casino and Tejano approaches and dated movie promos, at the same spacing as before; Maine, Vermont, Alaska and Hawaii stay quiet.
-
 
 - **Career stats opens your citations and violations, newest first.** Each
   says what it was, why, what it cost, when, and where.

@@ -62,6 +62,9 @@ memmap2 = "0.9"
 # (no `serde`, no `derive`), so `features = ["serde"]` fails to resolve.
 bincode = { version = "2", features = ["serde"] }
 zstd = "0.13"
+# Glyph outlines for the visual display's text, rasterized on demand. Pure
+# Rust, so the window needs no SDL_ttf (and no FreeType) on any platform.
+ab_glyph = "0.2"
 
 [workspace.lints.rust]
 # `--cfg ci_quick` is what the per-push CI passes so the whole-map sweeps

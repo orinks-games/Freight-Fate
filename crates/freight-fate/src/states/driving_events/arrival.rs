@@ -789,7 +789,7 @@ impl DrivingState {
 
     /// `speed_limit_at(position)` for the window, without the congestion
     /// recompute `Trip::speed_limit_at` performs (`lines()` is `&self`).
-    fn display_speed_limit(&self) -> (f64, Option<String>) {
+    pub(crate) fn display_speed_limit(&self) -> (f64, Option<String>) {
         let mile = self.trip.position_mi;
         let mut best: Option<&Zone> = None;
         for zone in &self.trip.zones {
