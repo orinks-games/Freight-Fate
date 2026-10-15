@@ -5,7 +5,7 @@ through Prism (which on iOS talks to VoiceOver, or to AVSpeech when VoiceOver
 is off), with SDL2 running the UIKit window and game controllers and a small
 Objective-C touch layer (``crates/freight-fate/ios/ff_touch.m``) turning
 gestures into key presses. This script turns a ``cargo build`` for an iOS
-target into an installable ``FreightFate.app``:
+target into ``FreightFate.app`` and, optionally, a device ``FreightFate.ipa``:
 
 * the executable, with the baked world data, the committed loose sounds and
   the sound and music packs beside it (an iOS bundle is flat, so the game's
@@ -15,13 +15,15 @@ target into an installable ``FreightFate.app``:
   desktop libraries (BASS is proprietary and never committed);
 * an ``Info.plist`` declaring controller support, and the app icon compiled
   from ``crates/freight-fate/ios/Assets.xcassets``;
-* a code signature: ad-hoc for the Simulator, or a real identity plus
-  provisioning profile for a device.
+* a code signature: ad-hoc for the Simulator or an IPA to be re-signed by
+  a sideloading tool, or a real identity plus provisioning profile for
+  direct device installation.
 
 Run from the repository root:
 
     uv run python tools/build_ios.py                  # Simulator build
     uv run python tools/build_ios.py --install --launch
+    uv run python tools/build_ios.py --sideload        # IPA for a sideloading tool
     uv run python tools/build_ios.py --device \\
         --sign-identity "Apple Development: ..." \\
         --provisioning-profile path/to/profile.mobileprovision
@@ -31,6 +33,8 @@ Run from the repository root:
 
 The Simulator build targets Apple Silicon Macs (``aarch64-apple-ios-sim``).
 """
+
+# ruff: noqa: W191 -- tabs follow the repository contributor instructions.
 
 from __future__ import annotations
 
@@ -387,7 +391,7 @@ def stage_app(
 
 
 def package_ipa(app: Path) -> Path:
-    """Zip the signed app as ``Payload/FreightFate.app`` for App Store Connect."""
+    """Zip the app as ``Payload/FreightFate.app`` for sideloading or distribution."""
     ipa = IOS_BUILD / f"{APP_NAME}.ipa"
     ipa.unlink(missing_ok=True)
     with tempfile.TemporaryDirectory() as staging:
@@ -406,64 +410,74 @@ def simctl(*args: str) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--device", action="store_true", help="build for a real iPhone or iPad")
-    parser.add_argument("--debug", action="store_true", help="a debug build (default: release)")
-    parser.add_argument("--tag", help="build label (default: the project version)")
-    parser.add_argument(
-        "--no-music", action="store_true", help="skip downloading and staging music.pak"
-    )
-    parser.add_argument(
-        "--build-number",
-        help="CFBundleVersion (default: the project version); must rise per upload",
-    )
-    parser.add_argument("--ipa", action="store_true", help="also package a device build as an .ipa")
-    parser.add_argument("--sign-identity", help="codesign identity for a device build")
-    parser.add_argument(
-        "--provisioning-profile", type=Path, help="provisioning profile for a device build"
-    )
-    parser.add_argument(
-        "--simulator",
-        default="booted",
-        help="Simulator to install into with --install (UDID or 'booted')",
-    )
-    parser.add_argument("--install", action="store_true", help="install into the Simulator")
-    parser.add_argument("--launch", action="store_true", help="launch after installing")
-    args = parser.parse_args(argv)
+	parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+	parser.add_argument(
+		"--sideload",
+		action="store_true",
+		help="build a device .ipa for re-signing in a sideloading tool; no signing credentials needed",
+	)
+	parser.add_argument("--device", action="store_true", help="build for a real iPhone or iPad")
+	parser.add_argument("--debug", action="store_true", help="a debug build (default: release)")
+	parser.add_argument("--tag", help="build label (default: the project version)")
+	parser.add_argument(
+		"--no-music", action="store_true", help="skip downloading and staging music.pak"
+	)
+	parser.add_argument(
+		"--build-number",
+		help="CFBundleVersion (default: the project version); must rise per upload",
+	)
+	parser.add_argument("--ipa", action="store_true", help="also package a device build as an .ipa")
+	parser.add_argument("--sign-identity", help="codesign identity for a device build")
+	parser.add_argument(
+		"--provisioning-profile", type=Path, help="provisioning profile for a device build"
+	)
+	parser.add_argument(
+		"--simulator",
+		default="booted",
+		help="Simulator to install into with --install (UDID or 'booted')",
+	)
+	parser.add_argument("--install", action="store_true", help="install into the Simulator")
+	parser.add_argument("--launch", action="store_true", help="launch after installing")
+	args = parser.parse_args(argv)
 
-    target = DEVICE if args.device else SIMULATOR
-    if args.device and not (args.sign_identity and args.provisioning_profile):
-        parser.error("--device needs --sign-identity and --provisioning-profile")
-    if args.device and (args.install or args.launch):
-        parser.error("--install and --launch are for the Simulator")
-    if args.ipa and not args.device:
-        parser.error("--ipa is for a device build")
+	device = args.device or args.sideload
+	target = DEVICE if device else SIMULATOR
+	if args.sideload and (args.sign_identity or args.provisioning_profile):
+		parser.error("--sideload cannot be combined with signing credentials; use --device --ipa")
+	if device and not args.sideload and not (args.sign_identity and args.provisioning_profile):
+		parser.error("--device needs --sign-identity and --provisioning-profile")
+	if device and (args.install or args.launch):
+		parser.error("--install and --launch are for the Simulator")
+	if args.ipa and not device:
+		parser.error("--ipa is for a device build")
 
-    build_release = load_build_release()
-    label = args.tag or build_release.project_version()
-    profile_dir = cargo_build(target, release=not args.debug)
-    app, frameworks = stage_app(
-        profile_dir, target, label, build_release, not args.no_music, args.build_number
-    )
+	build_release = load_build_release()
+	label = args.tag or build_release.project_version()
+	profile_dir = cargo_build(target, release=not args.debug)
+	app, frameworks = stage_app(
+		profile_dir, target, label, build_release, not args.no_music, args.build_number
+	)
 
-    entitlements = None
-    identity = "-"
-    if args.device:
-        identity = args.sign_identity
-        shutil.copy2(args.provisioning_profile, app / "embedded.mobileprovision")
-        entitlements = IOS_BUILD / "entitlements.plist"
-        with entitlements.open("wb") as f:
-            plistlib.dump(provisioning_entitlements(args.provisioning_profile), f)
-    codesign(app, frameworks, identity, entitlements)
-    print(f"Built {app}")
-    if args.ipa:
-        print(f"Packaged {package_ipa(app)}")
+	entitlements = None
+	identity = "-"
+	if device and not args.sideload:
+		identity = args.sign_identity
+		shutil.copy2(args.provisioning_profile, app / "embedded.mobileprovision")
+		entitlements = IOS_BUILD / "entitlements.plist"
+		with entitlements.open("wb") as f:
+			plistlib.dump(provisioning_entitlements(args.provisioning_profile), f)
+	codesign(app, frameworks, identity, entitlements)
+	print(f"Built {app}")
+	if args.ipa or args.sideload:
+		print(f"Packaged {package_ipa(app)}")
+	if args.sideload:
+		print("Re-sign and install the IPA with your sideloading tool before running it on a device.")
 
-    if args.install or args.launch:
-        simctl("install", args.simulator, str(app))
-    if args.launch:
-        simctl("launch", args.simulator, BUNDLE_ID)
-    return 0
+	if args.install or args.launch:
+		simctl("install", args.simulator, str(app))
+	if args.launch:
+		simctl("launch", args.simulator, BUNDLE_ID)
+	return 0
 
 
 if __name__ == "__main__":

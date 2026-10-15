@@ -884,6 +884,10 @@ Everything found before 2026-09-25 moved to
       VoiceOver gestures as key presses, and F2 or a three-finger tap for a
       spoken list of driving commands. `tools/build_ios.py` packages it;
       `docs/ios.md` has the gestures (2026-09-29).
+- [x] iOS sideload packaging: `tools/build_ios.py --sideload` builds a device
+      IPA without an Apple certificate or provisioning profile, ready for
+      re-signing in a sideloading tool; the signed `--device --ipa` path is
+      documented too (2026-10-08).
 - [x] iOS driving gestures run commands directly and can be rebound in
       Settings, Gameplay, Controls, Touch gestures: a second finger while holding a
       pedal (cruise, shifts, parking brake, engine), plus tap for speed,

@@ -134,14 +134,45 @@ uv sync --group dev
 uv run python tools/build_ios.py --install --launch   # Simulator
 ```
 
-For a device, pass a signing identity and a provisioning profile for the
-bundle identifier `net.orinks.freightfate`:
+### An IPA for sideloading
+
+To build for a real iPhone or iPad and produce an IPA without supplying an
+Apple signing certificate or provisioning profile:
 
 ```bash
-uv run python tools/build_ios.py --device \
+uv run python tools/build_ios.py --sideload
+```
+
+The output is `build/ios/FreightFate.ipa`, containing
+`Payload/FreightFate.app`. Import that IPA into your sideloading tool, such as
+[Sideloadly](https://sideloadly.io/), which signs and installs it using your
+Apple account. The builder applies only an ad-hoc signature; the IPA needs
+to be re-signed before a device can run it. Signing happens in the
+sideloading tool, so the build script does not need your Apple credentials.
+
+This option selects the device target automatically. A Simulator `.app`
+cannot be made into a device build just by zipping it or changing its
+extension. `--sideload` cannot be combined with signing credentials or the
+Simulator's `--install` / `--launch` options. Add `--no-music` for a smaller
+IPA without the music pack.
+
+### An IPA signed with your own certificate
+
+For a signed device IPA, pass a signing identity and a provisioning profile
+for the bundle identifier `net.orinks.freightfate`:
+
+```bash
+uv run python tools/build_ios.py --device --ipa \
     --sign-identity "Apple Development: ..." \
     --provisioning-profile path/to/profile.mobileprovision
 ```
+
+This also writes `build/ios/FreightFate.ipa`. For direct installation,
+use a development or ad-hoc distribution profile that includes your device;
+an App Store profile is for App Store Connect / TestFlight uploads, not
+direct sideloading. See Apple's
+[registered-device distribution guide](https://developer.apple.com/documentation/xcode/distributing-your-app-to-registered-devices).
+Omit `--ipa` if you only need the signed `.app` bundle.
 
 The script builds the Rust game for the iOS target, bakes the world data,
 downloads and verifies the BASS iOS frameworks (never committed), stages the
