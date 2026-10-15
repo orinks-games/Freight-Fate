@@ -257,6 +257,10 @@ impl DrivingState {
         let mut written_up: Vec<&String> = self.written_up.iter().collect();
         written_up.sort_unstable();
         out.insert("written_up".to_string(), json!(written_up));
+        out.insert(
+            "chain_wear_pct".to_string(),
+            json!(self.trip.truck.chain_wear_pct),
+        );
         out.insert("hos".to_string(), json!(hos_of(ctx).to_dict()));
         out.insert("fatigue".to_string(), json!(profile_of(ctx).fatigue));
         out.insert("hos_fine_count".to_string(), json!(self.hos_fine_count));
@@ -450,6 +454,11 @@ impl DrivingState {
             .unwrap_or_default()
             .into_iter()
             .collect();
+        // The chain meter rides with the drive: the profile only catches up
+        // at a stop, so a set that snapped (or wore) since then came back as
+        // it was at the last stop. An older save keeps the profile's value.
+        state.trip.truck.chain_wear_pct =
+            f(data, "chain_wear_pct", state.trip.truck.chain_wear_pct);
         state.trailer_refused = b(data, "trailer_refused", false);
         state.trailer_repaired = b(data, "trailer_repaired", false);
         state.rig_buffs = data

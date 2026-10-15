@@ -17,7 +17,9 @@ use freight_fate::controller::ControllerButton;
 
 use ff_core::sim::roadside_inspection::{InspectionLevel, DECAL_VALID_HOURS, OUT_OF_SERVICE_FINE};
 use freight_fate::app::testing::TestApp;
+use freight_fate::app::{share, SharedState};
 use freight_fate::states::base::{InputEvent, Menu};
+use freight_fate::states::driving::DrivingState;
 use freight_fate::states::driving_core::{
     FIELD_REPAIR_DAMAGE_PCT, INSPECTION_MIN, MECHANIC_WAIT_MIN, ROAD_BRAKE_COST_PER_PCT,
     ROAD_TIRE_COST_PER_PCT, ROAD_TIRE_SPECIALIST_COST_PER_PCT, WALK_AROUND_MIN, WAVE_THROUGH_MIN,
@@ -29,6 +31,7 @@ use freight_fate::states::driving_pause_states::{
 use freight_fate::states::driving_rest_states::{
     LoyaltyRewardsState, ParkingFullState, RestStopState, ShoulderSleepConfirmationState,
 };
+use std::rc::Rc;
 
 use crate::states_driving_menus_support::*;
 
@@ -905,6 +908,71 @@ fn test_a_snapped_set_of_chains_is_not_offered_again_on_the_same_drive() {
         !rows.iter().any(|row| row.contains("snow chains")),
         "{rows:?}"
     );
+}
+
+/// Save the drive mid-run and resume it onto the stack, the way quitting and
+/// continuing does, with the profile's meter still at its last-stop value.
+fn resume_with_chain_wear(app: &mut TestApp, truck_wear: f64, profile_wear: f64) -> SharedState {
+    let drive = a_drive(app);
+    {
+        let profile = app.ctx.profile.as_mut().expect("a career");
+        profile.set_chains_owned(true);
+        profile.set_chain_wear_pct(profile_wear);
+    }
+    let snap = drive_and_ctx(&drive, app, |d, ctx| {
+        d.trip.truck.surface = "snow".to_string();
+        d.trip.truck.chain_wear_pct = truck_wear;
+        d.trip.truck.chains_on = false;
+        d.snapshot(ctx)
+    });
+    assert_eq!(snap["chain_wear_pct"], truck_wear);
+    let mut resumed =
+        DrivingState::from_snapshot(&mut app.ctx, &snap).expect("the snapshot resumes");
+    resumed.trip.truck.surface = "snow".to_string();
+    let shared = share(resumed);
+    app.ctx.push_shared_with(Rc::clone(&shared), false);
+    shared
+}
+
+#[test]
+fn test_a_snapped_set_stays_snapped_after_quit_and_resume() {
+    let mut app = TestApp::new();
+    let drive = resume_with_chain_wear(&mut app, 100.0, 40.0);
+    assert_eq!(with_drive(&drive, |d| d.trip.truck.chain_wear_pct), 100.0);
+    assert!(!with_drive(&drive, |d| d.trip.truck.chains_on));
+    let mut state = PauseMenuState::with_drive(DriveRef::of(&drive));
+    Menu::enter(&mut state, &mut app.ctx);
+    let rows = labels(&state, &app.ctx);
+    assert!(
+        !rows
+            .iter()
+            .any(|row| row.starts_with("Install snow chains")),
+        "{rows:?}"
+    );
+}
+
+#[test]
+fn test_chain_wear_since_the_last_stop_survives_quit_and_resume() {
+    let mut app = TestApp::new();
+    let drive = resume_with_chain_wear(&mut app, 40.0, 10.0);
+    assert_eq!(with_drive(&drive, |d| d.trip.truck.chain_wear_pct), 40.0);
+}
+
+#[test]
+fn test_an_older_save_without_chain_wear_keeps_the_profile_meter() {
+    let mut app = TestApp::new();
+    let drive = a_drive(&mut app);
+    app.ctx
+        .profile
+        .as_mut()
+        .expect("a career")
+        .set_chain_wear_pct(40.0);
+    let mut snap = drive_and_ctx(&drive, &mut app, |d, ctx| d.snapshot(ctx));
+    snap.as_object_mut()
+        .expect("a snapshot object")
+        .remove("chain_wear_pct");
+    let resumed = DrivingState::from_snapshot(&mut app.ctx, &snap).expect("the snapshot resumes");
+    assert_eq!(resumed.trip.truck.chain_wear_pct, 40.0);
 }
 
 // -- a rebuild that cannot reach the drive ----------------------------------------------------
