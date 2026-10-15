@@ -428,6 +428,7 @@ impl NwsFetcher {
 struct CachedObservation {
     kind: WeatherKind,
     temperature_c: Option<f64>,
+    wind_kmh: f64,
     fetched_at: f64,
     observed_at: f64,
 }
@@ -581,6 +582,13 @@ impl RealWeatherProvider {
         entry.temperature_c
     }
 
+    /// The cached station's sustained wind in km/h.
+    pub fn get_wind_kmh(&self, city: &str) -> Option<f64> {
+        let inner = lock_unpoisoned(&self.ctx.inner);
+        let entry = Self::entry_for(&inner, city)?;
+        Self::usable(&self.ctx, entry).then_some(entry.wind_kmh)
+    }
+
     /// Whether usable cached data is due for a network refresh.
     ///
     /// Refresh cadence follows when the response was fetched. The station's
@@ -698,6 +706,10 @@ impl WeatherProvider for RealWeatherProvider {
         RealWeatherProvider::get_temperature(self, city)
     }
 
+    fn get_wind_kmh(&mut self, city: &str) -> Option<f64> {
+        RealWeatherProvider::get_wind_kmh(self, city)
+    }
+
     fn unavailable(&mut self, city: &str) -> bool {
         RealWeatherProvider::unavailable(self, city)
     }
@@ -765,6 +777,7 @@ fn run_worker(ctx: &WorkerContext, city: &str, lat: f64, lon: f64) -> WorkerOutc
                         CachedObservation {
                             kind,
                             temperature_c: fetched.temperature_c,
+                            wind_kmh: fetched.wind_kmh,
                             fetched_at: (ctx.clock)(),
                             observed_at,
                         },

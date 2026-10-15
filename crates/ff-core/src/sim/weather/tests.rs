@@ -27,6 +27,86 @@ fn with_provider(region: &str, seed: i64, provider: Box<dyn WeatherProvider>) ->
 // -- tests/test_weather_trip.py ---------------------------------------------
 
 #[test]
+fn simulated_high_wind_and_storm_gusts_vary_within_their_ranges() {
+    let mut highs = Vec::new();
+    let mut storms = Vec::new();
+    for seed in 0..60 {
+        let mut s = system("heartland", seed);
+        s.forced = Some(WeatherKind::Wind);
+        s.current = WeatherKind::Wind;
+        highs.push(s.wind_mph());
+        s.forced = Some(WeatherKind::Thunderstorm);
+        s.current = WeatherKind::Thunderstorm;
+        storms.push(s.wind_mph());
+    }
+    let spread = |v: &[f64]| {
+        let lo = v.iter().cloned().fold(f64::MAX, f64::min);
+        let hi = v.iter().cloned().fold(f64::MIN, f64::max);
+        (lo, hi)
+    };
+    let (lo, hi) = spread(&highs);
+    assert!(lo >= HIGH_WIND_MPH.0 && hi <= HIGH_WIND_MPH.1, "{lo}..{hi}");
+    assert!(hi - lo > 20.0, "high winds vary: {lo}..{hi}");
+    let (lo, hi) = spread(&storms);
+    assert!(
+        lo >= STORM_GUST_MPH.0 && hi <= STORM_GUST_MPH.1,
+        "{lo}..{hi}"
+    );
+    assert!(hi - lo > 10.0, "storm gusts vary: {lo}..{hi}");
+    let mut again = system("heartland", 7);
+    again.current = WeatherKind::Wind;
+    let mut other = system("heartland", 7);
+    other.current = WeatherKind::Wind;
+    assert_eq!(again.wind_mph(), other.wind_mph(), "seeded peaks repeat");
+}
+
+#[test]
+fn a_simulated_blow_eases_off_over_a_few_hours() {
+    let mut s = system("heartland", 1);
+    s.forced = Some(WeatherKind::Wind);
+    s.current = WeatherKind::Wind;
+    s.blow = Some(WindBlow {
+        kind: WeatherKind::Wind,
+        peak_mph: 55.0,
+        minutes: 0.0,
+    });
+    let mut last = s.wind_mph();
+    assert_eq!(last, 55.0);
+    let mut under_cbbt_level = None;
+    for step in 1..=10 {
+        s.update(30.0);
+        let now = s.wind_mph();
+        assert!(now <= last, "the wind only eases: {last} then {now}");
+        if now < 40.0 && under_cbbt_level.is_none() {
+            under_cbbt_level = Some(step * 30);
+        }
+        last = now;
+    }
+    assert!(
+        under_cbbt_level.is_some_and(|m| m <= 120),
+        "{under_cbbt_level:?}"
+    );
+    assert_eq!(last, HIGH_WIND_MPH.0, "it eases to the least high wind");
+    s.forced = Some(WeatherKind::Clear);
+    s.update(1.0);
+    assert_eq!(s.wind_mph(), BLOW_CALM_MPH, "a spent blow is calm");
+}
+
+#[test]
+fn a_new_blow_starts_when_the_sky_turns_windy() {
+    let mut s = system("heartland", 3);
+    s.forced = Some(WeatherKind::Clear);
+    s.update(1.0);
+    s.blow = None;
+    s.forced = Some(WeatherKind::Thunderstorm);
+    s.update(10.0);
+    let blow = s.blow.expect("a storm blows");
+    assert_eq!(blow.kind, WeatherKind::Thunderstorm);
+    assert_eq!(blow.minutes, 0.0);
+    assert!((STORM_GUST_MPH.0..=STORM_GUST_MPH.1).contains(&blow.peak_mph));
+}
+
+#[test]
 fn test_all_conditions_have_effects() {
     for kind in WeatherKind::ALL {
         assert!(EFFECTS.iter().any(|(k, _)| *k == kind));

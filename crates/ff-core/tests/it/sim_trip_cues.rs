@@ -306,6 +306,247 @@ fn bay_bridge_turns_bulk_fuel_south_and_bridge_tolls_are_read() {
     );
 }
 
+fn wind_trip(from: &str, to: &str, cargo_kg: f64) -> Trip {
+    let world = world();
+    let leg = world
+        .legs
+        .iter()
+        .find(|leg| leg.a == from && leg.b == to)
+        .expect("wind leg")
+        .as_ref()
+        .clone();
+    assert!(leg.crossings.iter().any(|c| c.wind.is_some()));
+    let route = Route::from_legs(vec![from.into(), to.into()], vec![leg]);
+    let mut truck = TruckState::default();
+    truck.start_engine();
+    truck.trailer_attached = true;
+    truck.cargo_key = "general".into();
+    truck.cargo_kg = cargo_kg;
+    truck.velocity_mps = 10.0;
+    Trip::new(
+        route,
+        truck,
+        default_weather(),
+        TripOptions {
+            world: Some(world),
+            ..TripOptions::seeded(93)
+        },
+    )
+}
+
+#[derive(Clone)]
+struct StationWind(std::rc::Rc<std::cell::Cell<f64>>);
+
+impl ff_core::sim::weather::WeatherProvider for StationWind {
+    fn request(&mut self, _city: &str, _lat: f64, _lon: f64) {}
+    fn get(&mut self, _city: &str) -> Option<WeatherKind> {
+        Some(WeatherKind::Wind)
+    }
+    fn get_wind_kmh(&mut self, _city: &str) -> Option<f64> {
+        Some(self.0.get())
+    }
+}
+
+fn blow(peak_mph: f64) -> Option<ff_core::sim::weather::WindBlow> {
+    Some(ff_core::sim::weather::WindBlow {
+        kind: WeatherKind::Wind,
+        peak_mph,
+        minutes: 0.0,
+    })
+}
+
+/// Live wind of `bridge` km/h at a crossing's own station and `around` km/h
+/// everywhere else; records where each station was asked for.
+#[derive(Clone)]
+struct BridgeStation {
+    bridge: f64,
+    around: f64,
+    asked: std::rc::Rc<std::cell::RefCell<Vec<(String, f64, f64)>>>,
+}
+
+impl ff_core::sim::weather::WeatherProvider for BridgeStation {
+    fn request(&mut self, city: &str, lat: f64, lon: f64) {
+        self.asked.borrow_mut().push((city.to_string(), lat, lon));
+    }
+    fn get(&mut self, _city: &str) -> Option<WeatherKind> {
+        Some(WeatherKind::Wind)
+    }
+    fn get_wind_kmh(&mut self, city: &str) -> Option<f64> {
+        Some(if city.starts_with("crossing:") {
+            self.bridge
+        } else {
+            self.around
+        })
+    }
+}
+
+#[test]
+fn mackinac_high_wind_is_an_escort_wait_on_duty() {
+    let mut trip = wind_trip("sault_ste_marie_mi_us", "traverse_city_mi_us", 13_600.0);
+    trip.weather.forced = Some(WeatherKind::Wind);
+    trip.weather.current = WeatherKind::Wind;
+    trip.weather.blow = blow(45.0);
+    let start_minutes = trip.game_minutes;
+    let events = trip.update(1.0);
+    let wait = events
+        .iter()
+        .find(|e| e.data.context.as_deref() == Some("tunnel_wait"))
+        .expect("escort wait");
+    assert_eq!(wait.data.amount, Some(20.0));
+    assert!(
+        trip.game_minutes - start_minutes >= 20.0,
+        "the escort wait moves the trip clock"
+    );
+    assert!(wait.text().contains("wait for an escort"));
+    assert!(wait.text().contains("20 minutes on duty"));
+    for _ in 0..30 {
+        trip.update(1.0);
+    }
+    assert!(trip.position_mi > 0.0);
+}
+
+#[test]
+fn a_simulated_high_wind_eases_so_an_empty_trailer_crosses_the_cbbt_within_the_cap() {
+    let mut trip = wind_trip("norfolk_va_us", "cape_charles_va_us", 0.0);
+    trip.weather.forced = Some(WeatherKind::Wind);
+    trip.weather.current = WeatherKind::Wind;
+    trip.weather.blow = blow(55.0);
+    let start_minutes = trip.game_minutes;
+    let events = trip.update(1.0);
+    let wait = events
+        .iter()
+        .find(|e| e.data.context.as_deref() == Some("tunnel_wait"))
+        .expect("wind wait");
+    let waited = wait.data.amount.expect("minutes");
+    assert!(
+        (30.0..240.0).contains(&waited),
+        "eased inside the cap: {waited}"
+    );
+    assert!(
+        wait.text().contains("for the wind to drop"),
+        "{}",
+        wait.text()
+    );
+    assert!(trip.game_minutes - start_minutes >= waited);
+    assert!(events
+        .iter()
+        .all(|e| e.data.context.as_deref() != Some("crossing_wind_hold")));
+    assert!(trip.wind_held_gates.is_empty());
+    // Whatever the peak, a simulated high wind never outlasts the cap.
+    for _ in 0..12 {
+        let mut trip = wind_trip("norfolk_va_us", "cape_charles_va_us", 0.0);
+        trip.weather.forced = Some(WeatherKind::Wind);
+        trip.weather.current = WeatherKind::Wind;
+        trip.update(1.0);
+        assert!(trip.wind_held_gates.is_empty(), "{:?}", trip.weather.blow);
+    }
+}
+
+#[test]
+fn an_empty_trailer_waits_out_cbbt_wind_on_duty_then_holds() {
+    let mut trip = wind_trip("norfolk_va_us", "cape_charles_va_us", 0.0);
+    let station = std::rc::Rc::new(std::cell::Cell::new(72.5));
+    trip.weather.provider = Some(Box::new(StationWind(station)));
+    trip.weather.city = Some("norfolk_va_us".into());
+    let start_minutes = trip.game_minutes;
+    let events = trip.update(1.0);
+    let wait = events
+        .iter()
+        .find(|e| e.data.context.as_deref() == Some("tunnel_wait"))
+        .expect("wind wait");
+    assert_eq!(wait.data.amount, Some(240.0));
+    assert!(wait.text().contains("Chesapeake Bay Bridge-Tunnel"));
+    assert!(wait.text().contains("4 hours on duty"));
+    assert!(trip.game_minutes - start_minutes >= 240.0);
+    // The way around the bay is far beyond the alternate-route allowance.
+    assert!(events
+        .iter()
+        .any(|e| e.text().contains("You hold here until the wind drops")));
+    assert!(events
+        .iter()
+        .all(|e| e.data.context.as_deref() != Some("crossing_reroute")));
+    let loaded = wind_trip("norfolk_va_us", "cape_charles_va_us", 9_000.0);
+    let mut loaded = loaded;
+    loaded.weather.forced = Some(WeatherKind::Wind);
+    loaded.weather.current = WeatherKind::Wind;
+    loaded.weather.blow = blow(45.0);
+    let events = loaded.update(1.0);
+    assert!(events
+        .iter()
+        .all(|e| e.data.context.as_deref() != Some("tunnel_wait")));
+    for _ in 0..30 {
+        loaded.update(1.0);
+    }
+    assert!(loaded.position_mi > 0.0, "a loaded rig crosses at 45 mph");
+}
+
+#[test]
+fn mackinac_closed_to_trucks_holds_until_the_wind_drops() {
+    let mut trip = wind_trip("sault_ste_marie_mi_us", "traverse_city_mi_us", 13_600.0);
+    let station = std::rc::Rc::new(std::cell::Cell::new(100.0));
+    trip.weather.provider = Some(Box::new(StationWind(station.clone())));
+    trip.weather.city = Some("sault_ste_marie_mi_us".into());
+    let events = trip.update(1.0);
+    assert!(events
+        .iter()
+        .any(|e| e.text().contains("closed to trucks in high winds")));
+    assert!(events
+        .iter()
+        .any(|e| e.text().contains("You hold here until the wind drops")));
+    assert!(!trip.wind_held_gates.is_empty());
+    for _ in 0..10 {
+        let quiet = trip.update(1.0);
+        assert!(quiet
+            .iter()
+            .all(|e| e.data.context.as_deref() != Some("tunnel_wait")));
+    }
+    assert!(trip.position_mi < 0.1, "held at the approach");
+    station.set(20.0);
+    let events = trip.update(1.0);
+    assert!(events
+        .iter()
+        .any(|e| e.text().contains("The wind has dropped")));
+    trip.truck.velocity_mps = 10.0;
+    for _ in 0..30 {
+        trip.update(1.0);
+    }
+    assert!(trip.position_mi > 0.0);
+}
+
+#[test]
+fn live_wind_is_read_at_the_station_nearest_the_bridge() {
+    let asked = std::rc::Rc::new(std::cell::RefCell::new(Vec::new()));
+    let station = |bridge: f64, around: f64| BridgeStation {
+        bridge,
+        around,
+        asked: asked.clone(),
+    };
+    let mut trip = wind_trip("sault_ste_marie_mi_us", "traverse_city_mi_us", 13_600.0);
+    trip.weather.provider = Some(Box::new(station(100.0, 10.0)));
+    trip.weather.city = Some("sault_ste_marie_mi_us".into());
+    let (key, lat, _) = trip.crossing_station(0).expect("the bridge has a station");
+    assert_eq!(key, "crossing:Mackinac Bridge");
+    // St. Ignace, at the north end of the bridge, not Sault Ste. Marie.
+    assert!((45.7..46.0).contains(&lat), "{lat}");
+    let events = trip.update(1.0);
+    assert!(events
+        .iter()
+        .any(|e| e.text().contains("closed to trucks in high winds")));
+    assert!(asked.borrow().iter().any(|(k, _, _)| *k == key));
+
+    let mut calm = wind_trip("sault_ste_marie_mi_us", "traverse_city_mi_us", 13_600.0);
+    calm.weather.provider = Some(Box::new(station(10.0, 100.0)));
+    calm.weather.city = Some("sault_ste_marie_mi_us".into());
+    let events = calm.update(1.0);
+    assert!(
+        events
+            .iter()
+            .all(|e| e.data.context.as_deref() != Some("tunnel_wait")),
+        "a calm bridge is open whatever the wind where the truck starts"
+    );
+    assert!(calm.wind_held_gates.is_empty());
+}
+
 #[test]
 fn a_refused_truck_is_rerouted_at_the_crossing_not_held() {
     let world = world();

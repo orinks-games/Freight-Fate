@@ -114,7 +114,9 @@ pub const MAGIC: &[u8; 8] = b"FFDATA\0\0";
 ///
 /// 9: a leg carries the truck rules at its real tunnels and bridges
 /// (`crossings`).
-pub const FORMAT_VERSION: u32 = 9;
+///
+/// 10: a crossing carries its published wind levels (`wind`).
+pub const FORMAT_VERSION: u32 = 10;
 
 const HEADER_LEN: usize = 32;
 
