@@ -28,9 +28,12 @@ use crate::speech_text::{brake_lights_cue, merging_traffic_cue, slow_lead_cue};
 
 mod beside;
 mod vehicle;
+mod work_zone;
+
 pub use vehicle::{
     braking_cause_line, BrakingZone, TrafficSituation, TrafficVehicle, BRAKING_CAUSE_LINES,
 };
+pub use work_zone::MERGE_ROOM_MI;
 
 // -- the rolling bubble ---------------------------------------------------------
 pub const SPAWN_CELL_MI: f64 = 0.4;
@@ -258,6 +261,9 @@ pub struct TrafficManager {
     pub player_lane: i64,
     /// The lane a tap-change is moving INTO, or None the rest of the time.
     pub player_lane_target: Option<i64>,
+    /// The lane roadwork has coned off where the truck is, in the truck's
+    /// lane numbering, mirrored by the trip each frame (`work_zone.rs`).
+    pub closed_lane: Option<i64>,
     /// Real seconds for which a 1x rolling bubble has contained no vehicles.
     empty_real_time_s: f64,
     /// Keeps successive boundary arrivals deterministic but distinct.
@@ -294,6 +300,7 @@ impl TrafficManager {
             braking_zones: Vec::new(),
             player_lane: 0,
             player_lane_target: None,
+            closed_lane: None,
             empty_real_time_s: 0.0,
             real_time_arrival_seq: 0,
         }
@@ -1227,6 +1234,10 @@ impl TrafficManager {
         }
         let game_hours = dt * time_scale / 3600.0;
         let truck_lanes = self.lane_count_at(position_mi);
+        // A lane closure leaves one lane fewer to pass in, and while the
+        // truck sits in the coned-off lane the lane beside it makes room.
+        let open_lanes = truck_lanes - i64::from(self.closed_lane.is_some());
+        let merge_lane = self.merge_room_lane(truck_lanes);
         let mut kept = Vec::new();
         let vehicles = std::mem::take(&mut self.vehicles);
         for mut vehicle in vehicles {
@@ -1274,6 +1285,8 @@ impl TrafficManager {
                 vehicle.lane = vehicle.lane.min(lanes_here - 1).max(0);
             }
             vehicle.relative_lane = self.player_lane - vehicle.lane;
+            let makes_room =
+                merge_lane == Some(vehicle.lane) && self.makes_merge_room(&vehicle, position_mi);
             // What this driver would be doing on the road UNDER THEM, which
             // is not what they were doing where they were drawn: a US route
             // drops to thirty through every town it passes and climbs back to
@@ -1386,6 +1399,9 @@ impl TrafficManager {
             let delta = target - vehicle.speed_mph;
             vehicle.speed_mph += (-6.0 * dt).max((4.0 * dt).min(delta));
             vehicle.position_mi += vehicle.speed_mph.max(0.0) * game_hours;
+            if makes_room {
+                self.hold_for_merge(&mut vehicle, position_mi, time_scale);
+            }
             // One lane your side: nothing behind the truck can get past it.
             // The bubble draws "passing" traffic behind the truck, and where
             // the road has no passing lane `intent_lane_at` folds it into the
@@ -1393,8 +1409,9 @@ impl TrafficManager {
             // truck, whoosh and all (Shane, 2026-08-13: a cop passing him on
             // a one-lane road). Held to a following gap at the truck's pace
             // instead, the way a queue forms behind a slow truck on a
-            // two-lane highway.
-            if gap < 0.0 && vehicle.lane == self.player_lane && truck_lanes <= 1 {
+            // two-lane highway. A lane closure that leaves the truck one open
+            // lane is the same road for as long as it lasts.
+            if gap < 0.0 && vehicle.lane == self.player_lane && open_lanes <= 1 {
                 let truck_mph = self.truck_speed_mph.abs();
                 let hold_at =
                     position_mi - vehicle.length_mi - truck_mph * HOLD_BEHIND_HEADWAY_S / 3600.0;

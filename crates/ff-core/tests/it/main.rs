@@ -60,3 +60,4 @@ mod sim_trip_resume;
 mod sim_troopers;
 mod sim_vehicle_access;
 mod sim_weigh_station_transponder;
+mod sim_work_zone_merge;

@@ -316,6 +316,7 @@ impl Trip {
         // injected into a jam and updated before the jam was handed over lost
         // its brake lights on the spot.
         self.sync_braking_zones();
+        self.traffic_manager.closed_lane = self.closed_lane_at(None, None);
         self.traffic_manager
             .update(dt, self.position_mi, time_scale, Some(hour), Some(weekend));
         self.check_zones();
