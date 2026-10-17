@@ -323,7 +323,7 @@ impl TruckState {
         // links flail into the fender and the whole set is scrap.
         if self.chains_on && speed > 0.01 {
             let mut rate = CHAIN_WEAR_PCT_PER_MILE;
-            if self.surface != "snow" && self.surface != "ice" {
+            if self.surface != "snow" && self.surface != "ice" && !self.chain_control_road {
                 rate *= CHAIN_WEAR_BARE_MULT;
             }
             if self.speed_mph() > CHAIN_SAFE_MPH {

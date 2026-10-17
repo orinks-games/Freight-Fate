@@ -355,6 +355,27 @@ fn test_no_post_sees_a_chain_law_off_the_posted_grade() {
 }
 
 #[test]
+fn test_a_truck_cited_in_a_chain_control_is_not_cited_again_inside_it() {
+    // The ticket from the checkpoint is in the cab; a patrol further up the
+    // same control does not write it again (player report, 2026-10-17).
+    use ff_core::sim::enforcement_posts::{build_post, KIND_CMV};
+    let mut app = TestApp::new();
+    let drive = law_drive(&mut app, Law::default());
+    let required = || {
+        with_drive(&drive, |d| {
+            let post = build_post(6.0, KIND_CMV, 0, None, 1.0, "", Some(true), 1.0);
+            d.road_sample(&post).chains_required
+        })
+    };
+    assert!(required(), "uncited, a patrol can see it");
+    with_drive(&drive, |d| {
+        let level = d.trip.chain_law_level();
+        d.chain_law_cited.insert((0, level));
+    });
+    assert!(!required(), "cited, the control is settled");
+}
+
+#[test]
 fn test_winter_tires_on_a_level_1_law_still_get_the_checkpoint() {
     let mut app = TestApp::new();
     let seed = (0..40)

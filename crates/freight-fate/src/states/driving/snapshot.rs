@@ -259,6 +259,9 @@ impl DrivingState {
         let mut cited: Vec<(i64, i64)> = self.chain_law_cited.iter().copied().collect();
         cited.sort_unstable();
         out.insert("chain_law_cited".to_string(), json!(cited));
+        let mut written_up: Vec<&String> = self.written_up.iter().collect();
+        written_up.sort_unstable();
+        out.insert("written_up".to_string(), json!(written_up));
         let mut staffed: Vec<(i64, i64, bool)> = self
             .chain_checkpoint_staffed
             .iter()
@@ -473,6 +476,13 @@ impl DrivingState {
         state.chain_law_cited = data
             .get("chain_law_cited")
             .and_then(|v| serde_json::from_value::<Vec<(i64, i64)>>(v.clone()).ok())
+            .unwrap_or_default()
+            .into_iter()
+            .collect();
+        // Absent on older saves: nothing written up yet.
+        state.written_up = data
+            .get("written_up")
+            .and_then(|v| serde_json::from_value::<Vec<String>>(v.clone()).ok())
             .unwrap_or_default()
             .into_iter()
             .collect();

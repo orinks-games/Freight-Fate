@@ -671,6 +671,19 @@ Everything found before 2026-09-25 moved to
       after a set snapped, the pause menu still offered to hang it, and it
       snapped again as soon as the truck rolled, until the chain-law ticket.
       The menu now reads the truck's own wear, so a scrap set stays off.
+- [x] Reputation lost to faults the driver can't fix on the road (player
+      report, 2026-10-17): the deadhead to a pickup was cited for the lamp
+      on the trailer still parked in the shipper's yard; post after post
+      wrote up the same lamp, tires or damage, and a patrol re-cited a chain
+      law the checkpoint had already ticketed; a chain law posted by a live
+      alert on a wet road wore chains at the bare-pavement rate; and Report
+      truck trouble saw only body damage. A fault now counts once per drive
+      (one that parks the truck still counts), chains wear as on snow inside
+      a posted control, and dispatch sends a mechanic for a trailer fault.
+- [ ] (Found along the way) A driver who runs out of chains mid-trip can
+      only wait out the law or turn back, because chains are sold only at
+      the terminal garage. Owner to choose: road service through dispatch,
+      truck stops in chain states, or both.
 - [ ] With several controllers connected (a second pad, or Steam's virtual
       one), the game listens only to the first it found, and the other's
       buttons do nothing. It could switch to whichever controller the

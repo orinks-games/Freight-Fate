@@ -534,6 +534,13 @@ pub struct TruckState {
     pub chain_wear_pct: f64,
     /// One-shot event flag, consumed by the cue layer.
     pub chains_just_snapped: bool,
+    /// Inside a chain control the state has posted. A posted control means
+    /// the road calls for chains, so they wear as on snow whatever the sky
+    /// model reads underfoot: a live winter-storm alert can post the control
+    /// while the simulated surface is still wet, and the bare-pavement rate
+    /// then ground a lawful set to scrap in about a dozen miles at chain
+    /// speed (player report, 2026-10-17).
+    pub chain_control_road: bool,
     pub odometer_mi: f64,
     /// Payload aboard; default = full reference load.
     pub cargo_kg: f64,
@@ -657,6 +664,7 @@ impl TruckState {
             chains_on: false,
             chain_wear_pct: 0.0,
             chains_just_snapped: false,
+            chain_control_road: false,
             odometer_mi: 0.0,
             cargo_kg: REFERENCE_CARGO_KG,
             trailer_attached: true,

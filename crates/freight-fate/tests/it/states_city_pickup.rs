@@ -562,6 +562,45 @@ fn test_an_unrefused_defect_is_what_the_inspector_finds() {
     assert_eq!(defect, expected);
 }
 
+/// The box waiting in the shipper's yard is not on the truck yet. A player
+/// on the deadhead to a pickup was written up twice for its lamp (report,
+/// 2026-10-17).
+#[test]
+fn test_the_deadhead_is_not_cited_for_the_trailer_still_in_the_yard() {
+    use ff_core::sim::roadside_inspection::InspectionLevel;
+    let mut app = TestApp::new();
+    let job = job_with_trailer(true);
+    career(&mut app, "Deadhead", "Chicago");
+    profile_mut(&mut app)
+        .achievements
+        .push("first_dispatch".to_string());
+    let board = freight_fate::states::city::JobBoardState::new(&app.ctx, vec![job]);
+    app.push_state(board);
+    key(&mut app, Key::Return); // accept assigned dispatch
+    assert!(is::<DrivingState>(&app), "the deadhead starts");
+    let (phase, defect, walk, findings) = with_state::<DrivingState, _>(&app, |d, ctx| {
+        (
+            d.phase.to_string(),
+            d.hooked_trailer_defect(ctx),
+            d.walk_around_lines(ctx),
+            d.inspection_report(ctx, InspectionLevel::Full).findings,
+        )
+    });
+    assert_eq!(
+        phase,
+        freight_fate::states::driving_core::DRIVE_PHASE_PICKUP
+    );
+    assert_eq!(defect, None);
+    assert!(
+        !walk.iter().any(|line| line.contains("trailer")),
+        "{walk:?}"
+    );
+    assert!(
+        !findings.iter().any(|f| f.what.contains("trailer")),
+        "{findings:?}"
+    );
+}
+
 /// It said it would wait for departure, so it must not re-engage at the gate.
 #[test]
 fn test_speed_control_stays_paused_until_departure() {

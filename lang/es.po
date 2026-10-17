@@ -12766,20 +12766,20 @@ msgstr "Inspección de nivel 2 con vuelta al vehículo"
 msgid "Level 3 driver inspection"
 msgstr "Inspección del conductor de nivel 3"
 
+msgid "tires worn close to the tread limit"
+msgstr "neumáticos gastados cerca del límite del dibujo"
+
+msgid "visible body damage written up as unsafe equipment"
+msgstr "daños visibles en la carrocería anotados como equipo inseguro"
+
 msgid "driving past the hours-of-service limit"
 msgstr "conducir más allá del límite de horas de servicio"
 
 msgid "a tire below the minimum tread depth"
 msgstr "un neumático por debajo del dibujo mínimo"
 
-msgid "tires worn close to the tread limit"
-msgstr "neumáticos gastados cerca del límite del dibujo"
-
 msgid "body damage past the safe limit"
 msgstr "daños en la carrocería por encima del límite seguro"
-
-msgid "visible body damage written up as unsafe equipment"
-msgstr "daños visibles en la carrocería anotados como equipo inseguro"
 
 msgid "brakes out of adjustment"
 msgstr "frenos desajustados"
@@ -24608,10 +24608,6 @@ msgstr "Llamar a despacho"
 msgid "Choose what you need to report. Escape hangs up."
 msgstr "Elige qué quieres informar. Escape cuelga."
 
-#. placeholders: {message}, {repair}
-msgid "Dispatch: {message} {repair}"
-msgstr "Despacho: {message} {repair}"
-
 #. placeholders: {message}
 msgid "Dispatch: {message}"
 msgstr "Despacho: {message}"
@@ -24640,10 +24636,11 @@ msgstr ""
 msgid "Report truck trouble"
 msgstr "Informar de un problema del camión"
 
-msgid "Report truck damage. Dispatch can authorize the roadside mechanic."
+msgid ""
+"Report damage or a trailer fault. Dispatch can send the roadside mechanic."
 msgstr ""
-"Informa de daños en el camión. Despacho puede autorizar al mecánico en "
-"carretera."
+"Informa de daños o de una avería del remolque. Despacho puede enviar al "
+"mecánico en carretera."
 
 msgid "Report load trouble"
 msgstr "Informar de un problema con la carga"
@@ -24676,6 +24673,13 @@ msgstr "Quedan {remaining_miles} millas."
 #. placeholders: {damage_pct}
 msgid "Truck damage is {damage_pct} percent."
 msgstr "Los daños del camión son del {damage_pct} por ciento."
+
+#. placeholders: {defect}
+msgid " Trailer: {defect}."
+msgstr ""
+
+msgid " No usable chains under an active chain law."
+msgstr ""
 
 #. placeholders: {cargo_damage_pct}
 msgid "Cargo condition is {cargo_damage_pct} percent."
@@ -24817,6 +24821,66 @@ msgstr ""
 "El aviso activo es {alerts}. Sigue la ruta prevista salvo que cierren la "
 "carretera; quedan {remaining}."
 
+msgid "trailer repair"
+msgstr ""
+
+msgid "on the carrier breakdown account"
+msgstr "a cargo de la cuenta de averías de la empresa de transporte"
+
+#. placeholders: {grouped}
+msgid "for {grouped} dollars"
+msgstr "por {grouped} dólares"
+
+#. placeholders: {billing}
+#. one sentence of a longer line
+msgid "A roadside mechanic fixed the trailer {billing}."
+msgstr "Un mecánico en carretera reparó el remolque {billing}."
+
+#. placeholders: {billing}, {clock_text}
+msgid ""
+"A roadside mechanic fixed the trailer {billing}. It took an hour and a "
+"half. It is {clock_text}."
+msgstr ""
+"Un mecánico en carretera reparó el remolque {billing}. Tardó una hora y "
+"media. Son las {clock_text}."
+
+#. one sentence of a longer line
+msgid "It took an hour and a half."
+msgstr "Tardó una hora y media."
+
+msgid ""
+"Roadside repair is authorized. Secure the truck while the mechanic works."
+msgstr ""
+"Reparación en carretera autorizada. Asegura el camión mientras trabaja el "
+"mecánico."
+
+#. placeholders: {defect}
+#. one sentence of a longer line
+msgid "I have the {defect}."
+msgstr "Tengo anotado: {defect}."
+
+#. placeholders: {defect}
+msgid ""
+"I have the {defect}. I'm sending a mechanic out to fix it where you're "
+"parked."
+msgstr ""
+"Tengo anotado: {defect}. Te envío un mecánico para que lo repare donde "
+"estás estacionado."
+
+#. one sentence of a longer line
+msgid "I'm sending a mechanic out to fix it where you're parked."
+msgstr "Te envío un mecánico para que lo repare donde estás estacionado."
+
+msgid "wait"
+msgstr ""
+
+msgid ""
+"You can't go on through the chain law without chains. Wait it out where "
+"you're parked, or turn back. A garage sells a new set."
+msgstr ""
+"No puedes seguir con la ley de cadenas sin cadenas. Espera donde estás "
+"estacionado o da la vuelta. Un taller vende un juego nuevo."
+
 msgid "monitor"
 msgstr "monitor"
 
@@ -24841,12 +24905,6 @@ msgstr "Todavía no hace falta asistencia en carretera."
 #. one sentence of a longer line
 msgid "Watch the gauges and stop if it worsens."
 msgstr "Vigila los indicadores y para si empeora."
-
-msgid ""
-"Roadside repair is authorized. Secure the truck while the mechanic works."
-msgstr ""
-"Reparación en carretera autorizada. Asegura el camión mientras trabaja el "
-"mecánico."
 
 #. one sentence of a longer line
 msgid "Continue and protect it through the next stop."
@@ -24903,6 +24961,19 @@ msgstr "Un policía tiene a alguien parado en el arcén {reason}, no a ti."
 msgid "roadside inspection"
 msgstr "inspección en carretera"
 
+#. one sentence of a longer line
+msgid "Nothing new to write up."
+msgstr "Nada nuevo que anotar."
+
+#. placeholders: {level}, {f}
+#. one sentence of a longer line
+msgid "{level}, {f} minutes."
+msgstr "{level}, {f} minutos."
+
+#. placeholders: {level}, {f}
+msgid "{level}, {f} minutes. Nothing new to write up."
+msgstr "{level}, {f} minutos. Nada nuevo que anotar."
+
 #. placeholders: {level}, {f}
 msgid "Clean {level}, {f} minutes."
 msgstr "{level} sin incidencias, {f} minutos."
@@ -24919,11 +24990,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Written up for {findings}."
 msgstr "Te anotan por {findings}."
-
-#. placeholders: {level}, {f}
-#. one sentence of a longer line
-msgid "{level}, {f} minutes."
-msgstr "{level}, {f} minutos."
 
 #. placeholders: {level}, {f}, {findings}
 msgid "{level}, {f} minutes. Written up for {findings}."
@@ -24962,13 +25028,6 @@ msgstr "arregló el defecto del remolque"
 
 msgid "out-of-service repair"
 msgstr "reparación por fuera de servicio"
-
-msgid "on the carrier breakdown account"
-msgstr "a cargo de la cuenta de averías de la empresa de transporte"
-
-#. placeholders: {grouped}
-msgid "for {grouped} dollars"
-msgstr "por {grouped} dólares"
 
 #. placeholders: {what}, {billing}, {f}
 msgid ""
@@ -40897,6 +40956,81 @@ msgstr "cierra paréntesis"
 msgid "cap {ch}"
 msgstr "mayúscula {ch}"
 
+#~ msgid "Dispatch: {message} {repair}"
+#~ msgstr "Despacho: {message} {repair}"
+
+#~ msgid "Report truck damage. Dispatch can authorize the roadside mechanic."
+#~ msgstr ""
+#~ "Informa de daños en el camión. Despacho puede autorizar al mecánico en "
+#~ "carretera."
+
+#~ msgid ""
+#~ "A hundred deliveries. No fuss, just load after load until the number got "
+#~ "serious."
+#~ msgstr ""
+#~ "Cien entregas. Sin alboroto, solo carga tras carga hasta que el número se "
+#~ "puso serio."
+
+#~ msgid ""
+#~ "Ten thousand miles. The white-line fever isn't a symptom now. It's the job."
+#~ msgstr ""
+#~ "Diez mil millas. La fiebre de la línea blanca ya no es un síntoma. Es el "
+#~ "trabajo."
+
+#~ msgid ""
+#~ "Twenty-five deliveries. Not a rookie, not a veteran, just more road than "
+#~ "most."
+#~ msgstr ""
+#~ "Veinticinco entregas. Ni novato ni veterano, solo más carretera que la "
+#~ "mayoría."
+
+#~ msgid "Two hundred deliveries. Not a phase anymore. It's a body of work."
+#~ msgstr "Doscientas entregas. Ya no es una etapa. Es toda una obra."
+
+#~ msgid ""
+#~ "Twenty-five breaks taken right. It's not the coffee. It's the sitting down."
+#~ msgstr "Veinticinco descansos bien tomados. No es el café. Es sentarse."
+
+#~ msgid " Deadline extended to {f} hours for a 10-hour sleep en route."
+#~ msgstr ""
+#~ " Plazo de entrega ampliado a {f} horas para dormir 10 horas por el camino."
+
+#~ msgid ""
+#~ "Pacing and pressure. Relaxed gives wider hazard windows, gentler damage and "
+#~ "fatigue, calmer speech, and the most time to respond. Standard keeps "
+#~ "balanced pressure and moves the clock twice as fast. Real time keeps "
+#~ "Standard's pressure and runs the driving clock at the speed of a real "
+#~ "clock, lined up with your computer's date and time; delivery time remaining "
+#~ "and hours of service do not move. Changeable mid-drive from the pause menu; "
+#~ "the new pacing starts when the truck next stops."
+#~ msgstr ""
+#~ "Ritmo y presión. Relajado da márgenes más amplios ante los peligros, daños "
+#~ "y fatiga más suaves, una voz más calmada y el máximo tiempo para "
+#~ "reaccionar. Estándar mantiene una presión equilibrada y hace avanzar el "
+#~ "reloj el doble de rápido. Tiempo real mantiene la presión de Estándar y "
+#~ "hace correr el reloj de conducción a la velocidad de un reloj real, "
+#~ "sincronizado con la fecha y la hora de tu ordenador; el tiempo restante de "
+#~ "entrega y las horas de servicio no cambian. Se puede cambiar a mitad de "
+#~ "viaje desde el menú de pausa; el nuevo ritmo empieza la próxima vez que el "
+#~ "camión se detenga."
+
+#~ msgid ""
+#~ "Both hours modes use these limits. Relaxed changes enforcement pressure. "
+#~ "Warnings come at two hours, one hour, and thirty minutes left."
+#~ msgstr ""
+#~ "Los dos modos de horas usan estos límites. Relajado cambia la presión del "
+#~ "control. Los avisos llegan cuando quedan dos horas, una hora y treinta "
+#~ "minutos."
+
+#~ msgid ""
+#~ "Relaxed pacing gives more response time and gentler consequences. Standard "
+#~ "moves driving time and distance twice as fast. Real time follows the "
+#~ "computer clock at real speed."
+#~ msgstr ""
+#~ "El ritmo relajado da más tiempo para reaccionar y consecuencias más suaves. "
+#~ "Estándar hace avanzar el tiempo y la distancia de conducción el doble de "
+#~ "rápido. Tiempo real sigue el reloj del ordenador a velocidad real."
+
 #~ msgid " Deadline extended to {f} hours for a 10-hour sleep en route."
 #~ msgstr ""
 #~ " Plazo de entrega ampliado a {f} horas para dormir 10 horas por el camino."
@@ -47865,3 +47999,14 @@ msgstr "mayúscula {ch}"
 
 #~ msgid "{total} matches, the first {rows} listed."
 #~ msgstr "{total} resultados, se muestran los primeros {rows}."
+
+#~ msgid "Dispatch: {message} {repair}"
+#~ msgstr "Despacho: {message} {repair}"
+
+#~ msgid "Report truck damage. Dispatch can authorize the roadside mechanic."
+#~ msgstr ""
+#~ "Informa de daños en el camión. Despacho puede autorizar al mecánico en "
+#~ "carretera."
+
+#~ msgid "The truck took damage."
+#~ msgstr "El camión sufrió daños."

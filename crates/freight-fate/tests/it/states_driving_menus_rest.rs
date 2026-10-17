@@ -1563,3 +1563,63 @@ fn test_a_break_burns_idle_fuel_only_with_the_engine_running() {
         }
     }
 }
+
+/// One lamp, one citation. A player was written up for the same light at
+/// post after post with no way to fix it before the next shop (report,
+/// 2026-10-17).
+#[test]
+fn test_a_fault_already_written_up_is_not_cited_again_this_drive() {
+    use ff_core::sim::enforcement_posts::{build_post, KIND_CMV};
+    let mut app = TestApp::new();
+    let (drive, defect) = a_drive_with_a_lamp_out(&mut app);
+    with_drive(&drive, |d| {
+        d.trip.truck.tire_wear_pct = 80.0; // past the citation line, short of parked
+        d.trip.truck.brake_wear_pct = 0.0;
+        d.trip.truck.damage_pct = 0.0;
+    });
+    let first = drive_and_ctx(&drive, &mut app, |d, ctx| {
+        let report = d.inspection_report(ctx, InspectionLevel::WalkAround);
+        assert!(
+            report.findings.iter().any(|f| f.what == defect),
+            "{:?}",
+            report.findings
+        );
+        d.settle_inspection(ctx, &report)
+    });
+    assert!(first.contains("Fined"), "{first}");
+    let money = app.ctx.profile.as_ref().unwrap().money();
+
+    let (second, sample) = drive_and_ctx(&drive, &mut app, |d, ctx| {
+        let report = d.inspection_report(ctx, InspectionLevel::Full);
+        assert!(report.clean(), "{:?}", report.findings);
+        let said = d.settle_inspection(ctx, &report);
+        d.refresh_visible_trailer_defect(ctx);
+        let post = build_post(
+            d.trip.position_mi,
+            KIND_CMV,
+            0,
+            None,
+            1.0,
+            "",
+            Some(true),
+            1.0,
+        );
+        (said, d.road_sample(&post))
+    });
+    assert!(second.contains("Nothing new to write up"), "{second}");
+    assert!(!second.contains("decal"), "{second}");
+    assert_eq!(app.ctx.profile.as_ref().unwrap().money(), money);
+    assert!(
+        sample.trailer_defect.is_empty(),
+        "{:?}",
+        sample.trailer_defect
+    );
+    assert_eq!(sample.tire_wear_pct, 0.0);
+
+    // A fault that parks the truck still counts.
+    let parked = drive_and_ctx(&drive, &mut app, |d, ctx| {
+        d.trip.truck.tire_wear_pct = 95.0;
+        d.inspection_report(ctx, InspectionLevel::WalkAround)
+    });
+    assert!(parked.out_of_service(), "{:?}", parked.findings);
+}

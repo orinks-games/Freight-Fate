@@ -673,6 +673,10 @@ pub struct DrivingState {
     // from the pickup plan once per half mile rather than every frame:
     // (defect or empty, mile it was read at).
     pub visible_trailer_defect: (String, f64),
+    // Equipment faults already on an inspection report or citation this
+    // drive (the finding as the officer read it). The driver carries that
+    // paper to the next shop, so no later post writes the same fault again.
+    pub written_up: HashSet<String>,
     pub nice_speed_mi: f64,    // distance held at a very particular speed
     pub double_nickel_mi: f64, // and at the limit Congress retired in 1995
     pub jake_descent_mi: f64,  // downgrade held on the engine alone

@@ -6,10 +6,11 @@
 
 use ff_core::models::safety_record::{refresh_selection_score, safety_band, BAND_TARGETED};
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
+use ff_core::sim::enforcement_observe::WHAT_DAMAGE;
 use ff_core::sim::hos;
 use ff_core::sim::roadside_inspection::{
     decal_valid, inspect, roadcheck_blitz, roadside_inspection_scale, walk_around, InspectionInput,
-    InspectionLevel, InspectionReport, Repair, DECAL_VALID_HOURS,
+    InspectionLevel, InspectionReport, Repair, DAMAGE_FINDING, DECAL_VALID_HOURS,
 };
 
 use crate::app::GameContext;
@@ -60,15 +61,24 @@ impl DrivingState {
         let mode = ctx.settings.hos_mode.clone();
         let over_hours = !hos::HOS_NON_ENFORCED_MODES.contains(&mode.as_str())
             && hos_of(ctx).in_violation(&mode);
-        let trailer = self.hooked_trailer_defect(ctx);
-        inspect(&InspectionInput {
+        let trailer = self.citable_trailer_defect(ctx);
+        let mut report = inspect(&InspectionInput {
             level,
             tire_wear_pct: self.trip.truck.tire_wear_pct,
             brake_wear_pct: self.trip.truck.brake_wear_pct,
             damage_pct: self.trip.truck.damage_pct,
             trailer_defect: trailer.as_deref(),
             over_hours,
-        })
+        });
+        // A fault already on this drive's paperwork is not written again: the
+        // driver can't fix a lamp or a worn tire between shops, and the report
+        // in the cab says the carrier knows (49 CFR 396.9(d) gives it fifteen
+        // days to certify the repair). Anything that parks the truck still
+        // counts, because that gets fixed where it stands.
+        report
+            .findings
+            .retain(|f| f.out_of_service || !self.written_up.contains(&f.what));
+        report
     }
 
     /// Settle the report where the truck stands: the clock, the money, the
@@ -90,6 +100,16 @@ impl DrivingState {
         );
         hos_mut_of(ctx).on_duty(minutes);
         let mut text = String::new();
+        if report.clean() && !self.written_up.is_empty() {
+            // Only the faults already on this drive's paperwork: nothing new
+            // to cite, and no decal for a truck with a write-up open.
+            text.push_str(&format!(
+                "{level}, {} minutes. Nothing new to write up.",
+                fmt_f(minutes, 0)
+            ));
+            self.refresh_roadside_inspection_scale(ctx);
+            return text;
+        }
         if report.clean() {
             record_inspection(ctx);
             text.push_str(&format!("Clean {level}, {} minutes.", fmt_f(minutes, 0)));
@@ -109,6 +129,13 @@ impl DrivingState {
             fmt_f(minutes, 0),
             report.spoken_findings()
         ));
+        for finding in report.findings.iter().filter(|f| !f.out_of_service) {
+            self.written_up.insert(finding.what.clone());
+            if finding.what == DAMAGE_FINDING {
+                // The same fault a patrol reads as unsafe equipment.
+                self.written_up.insert(WHAT_DAMAGE.to_string());
+            }
+        }
         let fine = report.total_fine();
         if fine > 0.0 {
             // One citation for the inspection, at the sum of its items: the

@@ -572,6 +572,7 @@ impl DrivingState {
             trailer_refused: false,
             trailer_repaired: false,
             visible_trailer_defect: (String::new(), f64::NEG_INFINITY),
+            written_up: HashSet::new(),
             nice_speed_mi: 0.0,
             double_nickel_mi: 0.0,
             jake_descent_mi: 0.0,

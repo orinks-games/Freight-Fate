@@ -3,6 +3,7 @@
 use chrono::Utc;
 use ff_core::models::cargo_condition::cargo_condition_text;
 use ff_core::models::exchange::{stable_id, DispatchCallRequest, DispatchCallResponse, JsonObject};
+use ff_core::pyfmt::fmt_grouped;
 use ff_core::sim::hos::duration_text;
 use serde_json::{json, Value};
 
@@ -10,7 +11,10 @@ use crate::app::GameContext;
 use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving::DrivingState;
-use crate::states::driving_core::{hos_of, profile_of, FIELD_REPAIR_DAMAGE_PCT};
+use crate::states::driving_core::{
+    advance_rest_clock, clock_text, hos_mut_of, hos_of, player_pays_operating_costs,
+    profile_mut_of, profile_of, FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN,
+};
 use crate::states::driving_menu_states::DriveRef;
 use crate::states::driving_pause_states::perform_roadside_mechanic;
 
@@ -38,11 +42,20 @@ impl DispatchCallState {
         let result = self.driving.clone().call(self, ctx, |_s, ctx, driving| {
             let request = dispatch_request(driving, ctx, kind);
             let response = local_dispatch_response(&request, driving, ctx);
-            if kind == CALL_TRUCK && driving.trip.truck.damage_pct > FIELD_REPAIR_DAMAGE_PCT {
-                let repair = perform_roadside_mechanic(driving, ctx)?;
-                return Some(format!("Dispatch: {} {repair}", response.message));
+            if kind != CALL_TRUCK {
+                return Some(format!("Dispatch: {}", response.message));
             }
-            Some(format!("Dispatch: {}", response.message))
+            let mut answer = format!("Dispatch: {}", response.message);
+            if driving.trip.truck.damage_pct > FIELD_REPAIR_DAMAGE_PCT {
+                let repair = perform_roadside_mechanic(driving, ctx)?;
+                answer.push(' ');
+                answer.push_str(&repair);
+            }
+            if visible_trailer_defect(driving, ctx).is_some() {
+                answer.push(' ');
+                answer.push_str(&repair_trailer_on_the_road(driving, ctx));
+            }
+            Some(answer)
         });
         if let Some(Some(answer)) = result {
             ctx.audio.play("ui/notify");
@@ -77,7 +90,7 @@ impl Menu for DispatchCallState {
             MenuItem::new("Report truck trouble", |s: &mut Self, ctx| {
                 s.answer(ctx, CALL_TRUCK)
             })
-            .help("Report truck damage. Dispatch can authorize the roadside mechanic."),
+            .help("Report damage or a trailer fault. Dispatch can send the roadside mechanic."),
             MenuItem::new("Report load trouble", |s: &mut Self, ctx| {
                 s.answer(ctx, CALL_LOAD)
             })
@@ -179,7 +192,7 @@ pub fn local_dispatch_response(
         CALL_DELAY => delay_response(driving),
         CALL_HOURS => hours_response(ctx),
         CALL_ROAD => road_response(driving),
-        CALL_TRUCK => truck_response(driving),
+        CALL_TRUCK => truck_response(driving, ctx),
         CALL_LOAD => load_response(driving),
         _ => (
             "acknowledged",
@@ -216,7 +229,16 @@ fn request_summary(driving: &DrivingState, ctx: &GameContext, kind: &str) -> Str
         ),
         CALL_HOURS => hos_of(ctx).summary(&ctx.settings.hos_mode),
         CALL_ROAD => format!("{} miles remain.", driving.trip.remaining_miles()),
-        CALL_TRUCK => format!("Truck damage is {} percent.", driving.trip.truck.damage_pct),
+        CALL_TRUCK => {
+            let mut summary = format!("Truck damage is {} percent.", driving.trip.truck.damage_pct);
+            if let Some(defect) = visible_trailer_defect(driving, ctx) {
+                summary.push_str(&format!(" Trailer: {defect}."));
+            }
+            if chainless_in_chain_law(driving, ctx) {
+                summary.push_str(" No usable chains under an active chain law.");
+            }
+            summary
+        }
         CALL_LOAD => format!(
             "Cargo condition is {} percent.",
             driving.trip.truck.cargo_damage_pct
@@ -324,22 +346,86 @@ fn road_response(driving: &DrivingState) -> (&'static str, String, JsonObject) {
     )
 }
 
-fn truck_response(driving: &DrivingState) -> (&'static str, String, JsonObject) {
+/// The trailer fault the driver can see from the ground and report: a lamp or
+/// a tire, not a brake adjustment, which takes someone under the trailer.
+fn visible_trailer_defect(driving: &DrivingState, ctx: &GameContext) -> Option<String> {
+    driving
+        .hooked_trailer_defect(ctx)
+        .filter(|defect| !defect.contains("brake"))
+}
+
+/// Under an active chain law here with no set that can go on.
+fn chainless_in_chain_law(driving: &DrivingState, ctx: &GameContext) -> bool {
+    let here = driving.trip.position_mi;
+    driving.trip.chain_law_area_at(here).is_some()
+        && driving.trip.chain_law_level() > 0
+        && !driving.trip.rig_compliant_at(here)
+        && !driving.usable_chains_aboard(ctx)
+}
+
+/// Dispatch sends the roadside mechanic to the trailer: the fault is fixed
+/// where the truck is parked, so no later officer finds it.
+fn repair_trailer_on_the_road(driving: &mut DrivingState, ctx: &mut GameContext) -> String {
+    let carrier_paid = !player_pays_operating_costs(&profile_of(ctx).business_status);
+    if !carrier_paid {
+        profile_mut_of(ctx).spend(MECHANIC_CALLOUT_FEE);
+    }
+    driving.trailer_repaired = true;
+    advance_rest_clock(
+        driving,
+        ctx,
+        MECHANIC_WAIT_MIN,
+        Some("on_duty_not_driving"),
+        "trailer repair",
+    );
+    hos_mut_of(ctx).on_duty(MECHANIC_WAIT_MIN);
+    let billing = if carrier_paid {
+        "on the carrier breakdown account".to_string()
+    } else {
+        format!("for {} dollars", fmt_grouped(MECHANIC_CALLOUT_FEE, 0))
+    };
+    format!(
+        "A roadside mechanic fixed the trailer {billing}. It took an hour and a half. It is {}.",
+        clock_text(driving.trip.local_hour())
+    )
+}
+
+fn truck_response(driving: &DrivingState, ctx: &GameContext) -> (&'static str, String, JsonObject) {
     let damage = driving.trip.truck.damage_pct;
-    if damage <= FIELD_REPAIR_DAMAGE_PCT {
+    let trailer = visible_trailer_defect(driving, ctx);
+    let chainless = chainless_in_chain_law(driving, ctx);
+    if damage > FIELD_REPAIR_DAMAGE_PCT {
         return (
-            "monitor",
+            "repair_authorized",
+            "Roadside repair is authorized. Secure the truck while the mechanic works.".to_string(),
+            JsonObject::from_iter([("roadside_repair_authorized".to_string(), json!(true))]),
+        );
+    }
+    if let Some(defect) = trailer {
+        return (
+            "repair_authorized",
             format!(
-                "I have the truck report at {damage:.0} percent damage. It does not need a \
-                 roadside callout yet. Watch the gauges and stop if it worsens."
+                "I have the {defect}. I'm sending a mechanic out to fix it where you're parked."
             ),
-            JsonObject::new(),
+            JsonObject::from_iter([("trailer_repair_authorized".to_string(), json!(true))]),
+        );
+    }
+    if chainless {
+        return (
+            "wait",
+            "You can't go on through the chain law without chains. Wait it out where you're \
+             parked, or turn back. A garage sells a new set."
+                .to_string(),
+            JsonObject::from_iter([("chain_law_wait".to_string(), json!(true))]),
         );
     }
     (
-        "repair_authorized",
-        "Roadside repair is authorized. Secure the truck while the mechanic works.".to_string(),
-        JsonObject::from_iter([("roadside_repair_authorized".to_string(), json!(true))]),
+        "monitor",
+        format!(
+            "I have the truck report at {damage:.0} percent damage. It does not need a \
+             roadside callout yet. Watch the gauges and stop if it worsens."
+        ),
+        JsonObject::new(),
     )
 }
 
