@@ -152,6 +152,42 @@ msgstr ""
 msgid "dry van {unit}"
 msgstr ""
 
+#. Public activity from the online drivers board. The server receives these
+#. strings already assembled, so the source extractor never sees the shapes.
+msgid "Driving: {origin} to {destination}"
+msgstr ""
+
+msgid "{pct}% there"
+msgstr ""
+
+msgid "listening to {station}"
+msgstr ""
+
+#. One assembled detail sentence from the public online drivers board.
+msgid "{cargo}, {pct}% there, {rig}"
+msgstr ""
+
+msgid "{cargo}, {pct}% there, {rig}, listening to {station}"
+msgstr ""
+
+#. The board joins the route and detail into adjacent sentences.
+msgid "Driving: {origin} to {destination}. {cargo}, {pct}% there, {rig}. updated {minutes} minutes ago."
+msgstr ""
+
+msgid "Driving: {origin} to {destination}. {cargo}, {pct}% there, {rig}, listening to {station}. updated just now."
+msgstr ""
+
+#. A licenses-and-training row. Both values are assembled by catalog helpers.
+msgid "{credential} course: {offer}"
+msgstr ""
+
+#. Complete assembled variants keep punctuation and nested values together.
+msgid "{credential} course: {price} dollars, carrier-sponsored free at level {level}."
+msgstr ""
+
+msgid "{credential} course: {price} dollars, background check clears in about {days} days."
+msgstr ""
+
 msgid "air cargo area {place_name} in {city}"
 msgstr ""
 
