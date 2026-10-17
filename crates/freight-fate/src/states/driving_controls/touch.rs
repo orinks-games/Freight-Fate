@@ -22,6 +22,19 @@ impl DrivingState {
     }
 
     fn run_touch_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
+        if self.co_driver_driving()
+            && matches!(
+                gesture,
+                Gesture::HoldUpperBegan
+                    | Gesture::DeepSwipeDownBegan
+                    | Gesture::RotateRight
+                    | Gesture::RotateLeft
+                    | Gesture::SwipeLeft
+                    | Gesture::SwipeRight
+            )
+        {
+            return true;
+        }
         match gesture {
             // Gas releases the parking brake, then drives.
             Gesture::HoldUpperBegan => {
@@ -82,6 +95,13 @@ impl DrivingState {
             }
             _ => command,
         };
+        if let TouchCommand::Action(action) = command {
+            if self.co_driver_driving()
+                && !crate::states::driving_controls::keys::co_driver_leaves_to_player(action)
+            {
+                return true;
+            }
+        }
         match command {
             TouchCommand::Action(Action::ShiftUp | Action::ShiftDown)
                 if self.trip.truck.transmission.automatic =>

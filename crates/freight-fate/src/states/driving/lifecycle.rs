@@ -305,6 +305,9 @@ impl DrivingState {
     /// `exit()`: hand the cab back -- horn off, liquid cues stopped, the
     /// radio's dial written to settings, the world's audio silenced.
     pub fn exit_drive(&mut self, ctx: &mut GameContext) {
+        // The drive is over or set aside: the wheel and the logbook are the
+        // player's again before anything is saved.
+        self.take_wheel_back(ctx);
         ctx.audio.horn_stop();
         // The siren's dead-man's switch only ticks from inside update(), so
         // once this state stops running it can never time itself out --

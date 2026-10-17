@@ -23,8 +23,8 @@ impl DrivingState {
     /// pedal the driver can release, and the downgrade call asks for J with
     /// cruise still pulling up to the crest (agent drive, I-70, 2026-09-25).
     pub fn toggle_engine_brake(&mut self, ctx: &mut GameContext) {
-        let foot_on_it = ctx.bindings.pressed(&ctx.input, Action::Accelerate)
-            || (ctx.controller.active() && ctx.controller.throttle_target() > 0.05);
+        let foot_on_it = self.held(ctx, Action::Accelerate)
+            || (self.pad_live(ctx) && ctx.controller.throttle_target() > 0.05);
         if foot_on_it && !self.trip.truck.engine_brake() {
             ctx.say("Release the accelerator before turning the jake on.");
             return;

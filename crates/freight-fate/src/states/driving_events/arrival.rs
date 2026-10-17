@@ -503,6 +503,11 @@ impl DrivingState {
             return;
         }
         self.arrival_menu_open = true;
+        // A co-driver at the wheel wakes the player for the receiver: the
+        // dock is theirs, on their own logbook.
+        if self.co_driver_driving() {
+            self.co_driver_summon(ctx, "gate");
+        }
         // The frame loop stops here, so the gate on "press Enter to continue"
         // would keep reading the last tick's answer without this.
         live::set_arrival_menu_open(true);

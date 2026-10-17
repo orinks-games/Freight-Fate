@@ -313,7 +313,7 @@ impl Settings {
 
     /// The settings file's text, byte for byte what the Python build wrote.
     pub fn to_file_text(&self) -> String {
-        py_json_dump_flat(&self.file_pairs())
+        py_json_dump_flat(&self.player_owned().file_pairs())
     }
 
     /// Write the file atomically: `settings.json.tmp`, then rename over.

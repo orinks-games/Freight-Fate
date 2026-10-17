@@ -9,6 +9,7 @@ pub mod career_training;
 pub mod cargo_condition;
 pub mod carrier_fleet;
 pub mod carrier_move;
+pub mod co_driver;
 pub mod credentials;
 pub mod dispatch_policy;
 pub mod economy;

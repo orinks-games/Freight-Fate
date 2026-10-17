@@ -81,7 +81,16 @@ impl DrivingState {
             if repeat && matches!(action, Action::CruiseUp | Action::CruiseDown) {
                 return;
             }
+            // The co-driver's truck: a control is a no-op, a question
+            // still gets its answer.
+            if self.co_driver_driving() && !co_driver_leaves_to_player(action) {
+                return;
+            }
             self.run_key_action(ctx, action);
+            return;
+        }
+        if self.co_driver_driving() && (plus || minus || matches!(key, Key::Return | Key::KpEnter))
+        {
             return;
         }
         if plus {
@@ -334,4 +343,38 @@ impl DrivingState {
             lane_label(target, lane_count)
         ));
     }
+}
+
+/// The keys that still work while the co-driver drives: the readouts, the
+/// screens, and the radio. Everything that moves the truck is theirs.
+pub fn co_driver_leaves_to_player(action: Action) -> bool {
+    !matches!(
+        action,
+        Action::Accelerate
+            | Action::Brake
+            | Action::EmergencyBrake
+            | Action::SteerLeft
+            | Action::SteerRight
+            | Action::Straighten
+            | Action::Engine
+            | Action::ParkingBrake
+            | Action::Horn
+            | Action::Cruise
+            | Action::CruiseResume
+            | Action::CruiseUp
+            | Action::CruiseDown
+            | Action::TakeExit
+            | Action::Rest
+            | Action::EngineBrake
+            | Action::AutoJake
+            | Action::JakeStage1
+            | Action::JakeStage2
+            | Action::JakeStage3
+            | Action::CycleJake
+            | Action::ShiftUp
+            | Action::ShiftDown
+            | Action::Neutral
+            | Action::Reverse
+            | Action::TransmissionMode
+    )
 }

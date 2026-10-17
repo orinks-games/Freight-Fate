@@ -1379,3 +1379,24 @@ fn test_chains_fold_into_the_existing_assists_with_no_new_setting() {
     assert_eq!(SETTINGS_VERSION, 3);
     assert_eq!(DRIVING_ASSIST_FIELDS.len(), 9);
 }
+
+#[test]
+fn a_co_driver_drives_on_every_assist_and_the_file_keeps_the_players() {
+    let mut s = Settings::default();
+    s.apply_driving_assistance_preset("realistic");
+    let before = s.to_file_text();
+    s.hand_assists_to_co_driver();
+    assert!(s.lane_is_automated());
+    assert!(s.curve_speed_assist && s.destination_approach_assist);
+    // Saving while the co-driver drives writes the player's own choice.
+    assert_eq!(s.to_file_text(), before);
+    // A second handover does not stash the co-driver's values over the
+    // player's.
+    s.hand_assists_to_co_driver();
+    s.take_assists_back();
+    assert_eq!(s.lane_keeping, "off");
+    assert_eq!(s.driving_assistance_preset, "realistic");
+    assert_eq!(s.to_file_text(), before);
+    s.take_assists_back();
+    assert_eq!(s.to_file_text(), before);
+}

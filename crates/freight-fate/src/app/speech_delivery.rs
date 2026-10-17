@@ -309,6 +309,12 @@ impl GameContext {
             review,
             category,
         } = say;
+        if self.co_driver_away && !self.speech_requested {
+            if let Some(text) = self.render_spoken(&spoken) {
+                transcript!("[co-driver] quiet: {}", text);
+            }
+            return;
+        }
         if !self.settings.speaks(category) && self.ladder_applies() && !self.speech_requested {
             // Suppressed categories stay out of message review.
             //
@@ -634,6 +640,20 @@ impl GameContext {
             valid,
         } = opts;
         let key = key.as_deref();
+        if self.co_driver_away && !force {
+            // Nobody is listening for the road while the co-driver drives.
+            // A line waiting on its delivery receipt is released, so a stop
+            // plan never stalls behind speech that will not come.
+            if let Some(text) = self.render_spoken(&spoken) {
+                if receipt {
+                    if let Some(key) = key {
+                        self.event_pacer.complete_delivery(key, &text);
+                    }
+                }
+                transcript!("[co-driver] quiet: {}", text);
+            }
+            return;
+        }
         if !self.settings.speaks(category) && !force && self.ladder_applies() {
             // Suppressed categories stay out of message review. Status keys
             // still answer on demand. `force`

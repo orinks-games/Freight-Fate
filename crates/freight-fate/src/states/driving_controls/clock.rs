@@ -197,6 +197,9 @@ impl DrivingState {
     /// `_hos_nearest_clause()`: one sentence for the HOS limit that comes
     /// first, or "" when off.
     pub fn hos_nearest_clause(&self, ctx: &GameContext) -> String {
+        if let Some(clause) = self.co_driver_clock_clause(ctx) {
+            return clause;
+        }
         let Some(limit) = hos_of(ctx).next_limit(&ctx.settings.hos_mode) else {
             return String::new();
         };

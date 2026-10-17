@@ -330,6 +330,9 @@ impl DrivingState {
                 Value::String(planned_stop_label)
             },
         );
+        if let Some(team) = &self.team {
+            out.insert("team".to_string(), team.snapshot(ctx));
+        }
         Value::Object(out)
     }
 
@@ -499,6 +502,11 @@ impl DrivingState {
             .and_then(|value| serde_json::from_value(value).ok())
             .unwrap_or_default();
         state.drove_automatic = b(data, "drove_automatic", false);
+        // A team load resumes with the player at the wheel.
+        state.team = data
+            .get("team")
+            .and_then(Value::as_object)
+            .and_then(|team| crate::states::driving_team::TeamDrive::from_snapshot(ctx, team));
         // "speeding_strikes" was a required snapshot field until the silent
         // at-delivery speeding charge was removed. Snapshots written before
         // that still carry it; the key is simply no longer consulted.

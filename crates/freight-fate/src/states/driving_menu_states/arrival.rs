@@ -490,6 +490,8 @@ impl ArrivalState {
                 ));
             }
         }
+        // A team load: the co-driver's share of their miles comes off here.
+        let team_xp_rate = self.settle_team_share(ctx, d, &business_status, &mut net_pay);
         let settled_pay = net_pay;
         // Owner-ops ARE the carrier: detention, lumpers, washouts, and tolls
         // already sit on the existing ledger. Apply that ledger to the wallet
@@ -562,7 +564,7 @@ impl ArrivalState {
             on_time,
             trip_damage,
             xp_class_multiplier(job.cargo),
-            standing_xp_rate(standing),
+            standing_xp_rate(standing) * team_xp_rate,
         );
         {
             let p = profile_of(ctx);

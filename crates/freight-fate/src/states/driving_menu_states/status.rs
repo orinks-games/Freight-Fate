@@ -14,8 +14,8 @@ use crate::bindings::Action;
 use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving_core::{
-    clock_text, deadline_appointment, hos_of, join_phrase, poi_offers_text, profile_of,
-    unique_consecutive, KG_PER_TON,
+    clock_text, deadline_appointment, join_phrase, poi_offers_text, profile_of, unique_consecutive,
+    KG_PER_TON,
 };
 use crate::states::driving_menu_states::apps::DriverAppsState;
 use crate::states::driving_menu_states::commands::DrivingCommandsState;
@@ -214,7 +214,7 @@ impl DrivingStatusScreenState {
                 };
                 let objective = d.objective_text(ctx);
                 let gear = d.gear_text();
-                let hours = hos_of(ctx).summary(&ctx.settings.hos_mode);
+                let hours = d.player_hos_now(ctx).summary(&ctx.settings.hos_mode);
                 let profile = profile_of(ctx);
                 // What is owed sits next to what is held, so a driver can ask
                 // the same question mid-run that the terminal answers between
@@ -277,6 +277,7 @@ impl DrivingStatusScreenState {
                 }
                 let summary = hours.trim_end_matches('.');
                 lines.push(format!("Hours: {summary}"));
+                lines.extend(d.team_status_lines(ctx));
                 lines.push(time_line);
                 lines
             })

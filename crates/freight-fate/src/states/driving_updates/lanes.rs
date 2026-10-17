@@ -24,14 +24,14 @@ impl DrivingState {
     pub fn update_lane(&mut self, ctx: &mut GameContext, dt: f64) {
         let mode = ctx.settings.lane_keeping.clone();
         let mut key_dir = 0i8;
-        if ctx.bindings.pressed(&ctx.input, Action::SteerLeft) {
+        if self.held(ctx, Action::SteerLeft) {
             key_dir -= 1;
         }
-        if ctx.bindings.pressed(&ctx.input, Action::SteerRight) {
+        if self.held(ctx, Action::SteerRight) {
             key_dir += 1;
         }
         // The left stick provides analog steering when the keys are idle.
-        let stick = if ctx.controller.active() {
+        let stick = if self.pad_live(ctx) {
             ctx.controller.steering()
         } else {
             0.0
@@ -40,7 +40,7 @@ impl DrivingState {
         if ctx.settings.lane_is_automated() {
             self.update_stick_lane_change(ctx, stick);
         }
-        self.lane.straighten = ctx.bindings.pressed(&ctx.input, Action::Straighten);
+        self.lane.straighten = self.held(ctx, Action::Straighten);
         // The exit ramp is a single lane; the mainline keeps its leg count.
         self.lane_before_narrow = Some(self.lane.lane);
         let count = if self.ramp_mi.is_some() {

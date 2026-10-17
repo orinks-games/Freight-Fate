@@ -193,6 +193,16 @@ pub const DESCENT_SPEED_CONTROL_MODES: [&str; 4] = ["off", "realistic", "balance
 pub const PEDAL_LATCH_MODES: [&str; 2] = ["on", "off"];
 pub const UPDATE_CHANNELS: [&str; 3] = ["", "stable", "dev"];
 
+/// The player's assist fields, set aside while a co-driver drives.
+#[derive(Clone, Debug, PartialEq)]
+pub struct AssistStash {
+    values: [AssistValue; 9],
+    descent_speed_control: String,
+    lane_keeping: String,
+    preset: String,
+    automatic_transmission: bool,
+}
+
 /// One preset field's value: the assist switches are bools, descent speed
 /// control and lane keeping are modes.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -295,6 +305,12 @@ macro_rules! settings_fields {
             /// instance by the loader.)
             #[serde(skip)]
             pub lane_keeping_unreadable: bool,
+            /// The player's own assists while a co-driver has the wheel.
+            /// The co-driver drives on every assist; the player's choice is
+            /// kept here, written to disk in their place, and put back when
+            /// they take the wheel again. Never saved itself.
+            #[serde(skip)]
+            pub co_driver_stash: Option<Box<AssistStash>>,
         }
 
         impl Default for Settings {
@@ -302,6 +318,7 @@ macro_rules! settings_fields {
                 Self {
                     $( $name: ($default).into(), )*
                     lane_keeping_unreadable: false,
+                    co_driver_stash: None,
                 }
             }
         }
@@ -808,6 +825,52 @@ impl Settings {
             _ => return false,
         }
         true
+    }
+
+    /// Hand every assist to a co-driver taking the wheel: the "all" preset's
+    /// values, with the player's own set aside. Idempotent.
+    pub fn hand_assists_to_co_driver(&mut self) {
+        if self.co_driver_stash.is_some() {
+            return;
+        }
+        self.co_driver_stash = Some(Box::new(AssistStash {
+            values: self.assist_values(),
+            descent_speed_control: self.descent_speed_control.clone(),
+            lane_keeping: self.lane_keeping.clone(),
+            preset: self.driving_assistance_preset.clone(),
+            automatic_transmission: self.automatic_transmission,
+        }));
+        self.automatic_transmission = true;
+        if let Some(values) = driving_assist_preset("all") {
+            for (field, value) in DRIVING_ASSIST_FIELDS.iter().zip(values.iter()) {
+                self.set_assist_value(field, *value);
+            }
+        }
+    }
+
+    /// Put the player's own assists back. Idempotent.
+    pub fn take_assists_back(&mut self) {
+        let Some(stash) = self.co_driver_stash.take() else {
+            return;
+        };
+        for (field, value) in DRIVING_ASSIST_FIELDS.iter().zip(stash.values.iter()) {
+            self.set_assist_value(field, *value);
+        }
+        self.descent_speed_control = stash.descent_speed_control;
+        self.lane_keeping = stash.lane_keeping;
+        self.driving_assistance_preset = stash.preset;
+        self.automatic_transmission = stash.automatic_transmission;
+    }
+
+    /// The settings as the player chose them: these, with any co-driver
+    /// override undone. What the settings file holds.
+    pub fn player_owned(&self) -> std::borrow::Cow<'_, Settings> {
+        if self.co_driver_stash.is_none() {
+            return std::borrow::Cow::Borrowed(self);
+        }
+        let mut own = self.clone();
+        own.take_assists_back();
+        std::borrow::Cow::Owned(own)
     }
 
     /// Set every preset field to the named preset's values. `false` (and no

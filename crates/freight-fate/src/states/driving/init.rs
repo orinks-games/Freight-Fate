@@ -740,6 +740,7 @@ impl DrivingState {
             liquid_settled_said: false,
             liquid_settle_timer_s: 0.0,
             entered_once: false,
+            team: None,
         }
     }
 }

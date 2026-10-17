@@ -39,6 +39,7 @@ use crate::states::main_menu::{
 use crate::touch::Gesture;
 
 pub mod boot_timing;
+mod co_driver;
 pub mod context;
 pub mod held_keys;
 pub mod key_probe;
@@ -158,6 +159,8 @@ pub struct App {
     /// A two- or three-finger touch hold resolved through the live keyboard
     /// bindings. Pedal holds live in `TouchInput`; these actions can be rebound.
     touch_bound_hold: Option<crate::bindings::Chord>,
+    /// The co-driver's place on the screens over the drive.
+    co_driver: co_driver::CoDriverHands,
 }
 
 /// Read-only driving facts available to a normal-input policy.
@@ -573,6 +576,7 @@ impl App {
             world_held: false,
             key_probe: None,
             touch_bound_hold: None,
+            co_driver: co_driver::CoDriverHands::default(),
         }
     }
 
@@ -962,6 +966,15 @@ impl App {
 
     /// One event through the loop's switch: focus, quit, controller, state.
     pub fn handle_event(&mut self, event: &InputEvent) {
+        if self.ctx.co_driver_away {
+            self.handle_player_event_while_away(event);
+        } else {
+            self.route_event(event);
+        }
+    }
+
+    /// [`App::handle_event`]'s switch itself.
+    fn route_event(&mut self, event: &InputEvent) {
         match event {
             InputEvent::WindowFocusGained => {
                 // Switching screen readers happens outside the game;
@@ -1092,6 +1105,7 @@ impl App {
         if let Some(profile) = self.ctx.profile.as_mut() {
             profile.live_calendar = live_calendar;
         }
+        self.co_driver_step(dt);
         if let Some(state) = self.ctx.state() {
             state.borrow_mut().update(&mut self.ctx, dt);
             self.ctx.run_deferred();
@@ -1188,6 +1202,7 @@ impl App {
             probe.end_frame(&self.ctx.input);
         }
         self.tick(dt);
+        self.co_driver_fast_forward();
         self.sync_text_field();
         self.render();
     }

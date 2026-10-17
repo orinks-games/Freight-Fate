@@ -983,6 +983,7 @@ impl DrivingState {
     }
 
     pub fn toggle_radio(&mut self, ctx: &mut GameContext) {
+        self.player_touched_radio(ctx);
         if self.radio_no_power(ctx) {
             return;
         }
@@ -1007,6 +1008,7 @@ impl DrivingState {
     }
 
     pub fn tune_radio(&mut self, ctx: &mut GameContext, direction: i64) {
+        self.player_touched_radio(ctx);
         if self.radio_no_power(ctx) {
             return;
         }
@@ -1020,6 +1022,7 @@ impl DrivingState {
     }
 
     pub fn jump_radio_category(&mut self, ctx: &mut GameContext, direction: i64) {
+        self.player_touched_radio(ctx);
         if self.radio_no_power(ctx) {
             return;
         }
@@ -1039,6 +1042,7 @@ impl DrivingState {
     /// picking a station from a list is asking to hear it. The engine
     /// still has to be running -- the app cannot give the radio power.
     pub fn tune_radio_to(&mut self, ctx: &mut GameContext, station_id: &str) -> String {
+        self.player_touched_radio(ctx);
         if !self.trip.truck.engine_on {
             ctx.audio.play("ui/error");
             return "The engine is off. The radio has no power.".to_string();

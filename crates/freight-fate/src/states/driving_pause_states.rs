@@ -63,6 +63,11 @@ pub struct PauseMenuState {
 }
 
 impl PauseMenuState {
+    /// The drive this menu is over.
+    pub(crate) fn drive(&self) -> &DriveRef {
+        &self.driving
+    }
+
     pub fn new(ctx: &GameContext) -> Self {
         PauseMenuState {
             menu: MenuCore::new("Paused"),
@@ -139,9 +144,14 @@ impl PauseMenuState {
             })
             .help("Units, transmission, volumes, weather, voices, update channel, and pacing."),
         ];
+        let team_rows = self.team_rows(ctx, d);
+        let team_count = team_rows.len();
+        for (offset, row) in team_rows.into_iter().enumerate() {
+            items.insert(1 + offset, row);
+        }
         if d.trip.truck.speed_mph() <= 3.0 {
             items.insert(
-                2,
+                2 + team_count,
                 MenuItem::new("Call dispatch", |s: &mut Self, ctx| {
                     ctx.push_state(DispatchCallState::new(s.driving.clone()));
                 })

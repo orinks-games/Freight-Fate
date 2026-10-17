@@ -77,7 +77,10 @@ impl DrivingState {
                     }
                     return;
                 }
-                ControllerButton::A if self.assisted_facility_confirmation_ready(ctx) => {
+                ControllerButton::A
+                    if self.assisted_facility_confirmation_ready(ctx)
+                        && !self.co_driver_driving() =>
+                {
                     self.open_ready_facility_arrival(ctx);
                     return;
                 }
@@ -87,6 +90,11 @@ impl DrivingState {
         let Some(action) = ctx.bindings.pad_action_for(button, modified) else {
             return;
         };
+        if self.co_driver_driving()
+            && !crate::states::driving_controls::keys::co_driver_leaves_to_player(action)
+        {
+            return;
+        }
         self.run_pad_action(ctx, action);
     }
 

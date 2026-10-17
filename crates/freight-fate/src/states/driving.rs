@@ -1037,6 +1037,8 @@ pub struct DrivingState {
 
     // ---- driving.py: lifecycle -----------------------------------------------------------
     pub entered_once: bool,
+    /// The co-driver for this load, once one has been paired.
+    pub team: Option<crate::states::driving_team::TeamDrive>,
 }
 
 // The accessors onto the trip, the trip swap and the `State` facade live in

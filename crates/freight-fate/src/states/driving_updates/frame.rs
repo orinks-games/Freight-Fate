@@ -151,16 +151,16 @@ impl DrivingState {
         self.brake_lockout_cue_timer = (self.brake_lockout_cue_timer - dt).max(0.0);
         // Controller triggers/clutch are analog held positions blended in below;
         // the keyboard keys keep their ramped behavior so both devices work.
-        let pad_on = ctx.controller.active();
+        let pad_on = self.pad_live(ctx);
         let pad_throttle = if pad_on {
             ctx.controller.throttle()
         } else {
             0.0
         };
         let pad_brake = if pad_on { ctx.controller.brake() } else { 0.0 };
-        let key_up = ctx.bindings.pressed(&ctx.input, Action::Accelerate);
-        let mut key_down = ctx.bindings.pressed(&ctx.input, Action::Brake);
-        let b_held = ctx.bindings.pressed(&ctx.input, Action::EmergencyBrake);
+        let key_up = self.held(ctx, Action::Accelerate);
+        let mut key_down = self.held(ctx, Action::Brake);
+        let b_held = self.held(ctx, Action::EmergencyBrake);
         // A latched brake reads as held right here, so everything
         // downstream -- the reverse gesture, cruise cancel, the hazard's
         // brake answer -- sees one truth. Microsleeps stay on the raw
@@ -445,7 +445,8 @@ impl DrivingState {
         // The clutch is fixed on Shift, read as the key itself: the held-key
         // tracker sees the key before any modifier flag, and the harness holds
         // it the same way.
-        let clutch_pressed = ctx.input.is_pressed(Key::LShift) || ctx.input.is_pressed(Key::RShift);
+        let clutch_pressed = !self.co_driver_driving()
+            && (ctx.input.is_pressed(Key::LShift) || ctx.input.is_pressed(Key::RShift));
         let mut clutch_val: f64 = if clutch_pressed { 1.0 } else { 0.0 };
         if pad_on {
             clutch_val = clutch_val.max(ctx.controller.clutch());

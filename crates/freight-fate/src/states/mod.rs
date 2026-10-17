@@ -34,6 +34,7 @@ pub mod driving_siren;
 pub mod driving_speed_control;
 pub mod driving_stop_detail;
 pub mod driving_stops;
+pub mod driving_team;
 pub mod driving_traffic_sounds;
 pub mod driving_turns;
 pub mod driving_updates;

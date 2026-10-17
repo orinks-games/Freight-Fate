@@ -54,6 +54,21 @@ bookmarks usable.
       plural forms and English number separators until a maintainer adds
       its rules to `l10n::plural`. Every download carries `lang/` as a
       `translations` folder (template, language files, glossaries, guide).
+- [x] Team driving (owner design, 2026-10-17): on a delivery whose rest
+      would need a ten-hour break, the pause menu hands the wheel to a
+      co-driver from the Great Lakes training class, to ride along or sleep
+      through their shift. The co-driver drives through the player's own
+      controls with every assist on, fuels, crosses open scales, pulls over
+      for troopers, and hands back at the end of their hours, at the
+      receiver's gate, or on anything only the driver should decide. Their
+      miles pay half (an owner-operator pays 30 percent) and earn half the
+      experience, and count as sleeper-berth time for the player. The
+      logbooks swap, so every hours rule reads the clock of whoever drives.
+- [ ] (Found along the way) Team driving follow-ups: "Run this load as a
+      team" at the shipper, the surprise pairings as hidden achievements,
+      co-driver miles left out of driving achievements and the road
+      journal, and an owner listening pass on ride along and the wake-up
+      summary.
 - [x] Places visited (player request, 2026-10-14): Career stats counts the
       states and cities delivered to and lists each state's cities; the
       public profile on orinks.net and the in-game driver profile list them

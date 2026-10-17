@@ -103,8 +103,9 @@ impl DrivingState {
 
     /// The driver's own foot on the throttle, key or pad.
     pub fn driver_accelerating(ctx: &GameContext) -> bool {
-        ctx.bindings.pressed(&ctx.input, Action::Accelerate)
-            || (ctx.controller.active() && ctx.controller.throttle() > 0.05)
+        !ctx.co_driver_away
+            && (ctx.bindings.pressed(&ctx.input, Action::Accelerate)
+                || (ctx.controller.active() && ctx.controller.throttle() > 0.05))
     }
 
     /// Work the deceleration lane: publish the ramp's grade, and let the

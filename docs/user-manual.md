@@ -26,6 +26,7 @@ Start at the [main menu](#main-menu), then follow [your first delivery](#quick-s
 - [Enforcement, your record, and your CDL](#enforcement-your-record-and-your-cdl)
 - [When you owe money](#when-you-owe-money)
 - [Hours of service and fatigue](#hours-of-service-and-fatigue)
+- [Team driving](#team-driving)
 - [Status screens](#status-screens)
 - [Driver apps](#driver-apps)
 - [Pause, save, and resume](#pause-save-and-resume)
@@ -693,6 +694,29 @@ Coffee only buys temporary relief. A break helps more, and full sleep clears fat
 If a lot is full, it may offer a motel at your own expense. Sleep 10 hours in the lot gives poor rest; proper sleeper parking gives full rest.
 
 Away from route points, stop fully and use T or the pause menu for emergency shoulder sleep. On a controller, that's the right bumper with D-pad down, or Start for the pause menu. A nearby stop takes priority. Shoulder sleep secures the truck and resets legal hours after ten hours, but fatigue remains. You also risk a ticket or damage, and the delivery deadline keeps advancing.
+
+## Team driving
+
+On a load too long for one shift, a co-driver can take the wheel while you rest in the sleeper. Dispatch pairs a company driver with a classmate from Great Lakes Training Transport for one load. An owner-operator keeps the co-driver they have teamed with most.
+
+When the rest of the delivery would need a ten-hour break, the pause menu offers two rows, each naming your co-driver:
+
+- **Hand the wheel to Dan and ride along.** The drive goes on at the normal pace. You hear the truck and the radio, and the road's announcements stay quiet.
+- **Hand the wheel to Dan and sleep.** The co-driver's shift runs ahead without waiting, with the sound off. You wake when they need you, with a summary of how far they drove and where they fueled.
+
+While the co-driver drives, the keys that move the truck do nothing. The information keys still answer, and Tab, the apps and the pause menu still open. If the radio was on, the co-driver may change the station or switch it off for a while; once you change it yourself, they leave it alone. A radio you left off stays off.
+
+The co-driver uses every assist, fuels when the tank runs low, crosses the open scales and pulls over for a trooper. They hand the wheel back:
+
+- parked at a stop, when their own hours run out;
+- at the receiver's gate, so you can dock and deliver;
+- when the truck takes damage, or something else needs your decision.
+
+To drive again sooner, pause and choose Take the wheel back.
+
+**What it costs.** On a company job, miles the co-driver drives pay you half. An owner-operator pays their co-driver 30 percent of the settlement for those miles, and still pays fuel, tolls and upkeep. Those miles earn half the career experience. The settlement names the co-driver's miles and share.
+
+**Your hours.** Time while the co-driver drives counts as sleeper-berth time, whether you ride along or sleep. Ten hours of it resets your legal hours and clears your fatigue. The co-driver keeps a logbook of their own. The Driver status screen says who is driving and when they need you back, the ELD app reads both logbooks, and C says when the co-driver needs you back.
 
 ## Status screens
 

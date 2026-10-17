@@ -275,6 +275,11 @@ from the words, and synonyms cost them a re-read.
 | Driving time already spent this shift | at the wheel | hours driven, drive time used, hours on the road (that is the run) | `HosClock.wheel_time_summary` |
 | The 14-hour clock that starts when you go on duty | duty window | 14-hour clock, on-duty clock, shift window | `HosClock.duty_min` |
 | The 30 minutes off the wheel the law requires | break | rest break, 30, half-hour rest | `HosClock.break_summary` |
+| The second driver on a team load, who drives while the player is in the sleeper | co-driver, or their name ("Dan needs you back at the wheel.") | partner, teammate, relief driver, autopilot, AI driver | `TeamDrive`, `models::co_driver` |
+| A delivery run with a co-driver | team load | team run, relay, duo | `TeamDrive`, the `team:loads:` counters |
+| Resting in the sleeper while the co-driver drives at the normal pace | ride along ("Hand the wheel to Dan and ride along") | watch, spectate, passenger seat | `TeamMode::RideAlong` |
+| Sleeping while the co-driver's shift runs ahead | sleep ("Hand the wheel to Dan and sleep"); "sleep through it" in the manual | fast-forward, skip, time skip | `TeamMode::SleepThrough` |
+| The co-driver giving the wheel back | needs you back ("Dan needs you back at the wheel."); the pause menu row is "Take the wheel back" | summon, wake call, handoff | `co_driver_summon`, `take_wheel_back` |
 | The in-game time of day (truck-local with a named zone in accelerated modes; computer-anchored and spoken as "local game time" in Real time) | clock | local time, game time | `Trip.local_hour`, `clock_text` |
 | When the load is due | deadline | due time, drop time (the appointment is the named hour) | `Job.deadline_game_h` |
 | The retarder | engine brake; "jake" in short control feedback ("Jake on, stage two") | retarder | `TruckState.engine_brake_stage` |

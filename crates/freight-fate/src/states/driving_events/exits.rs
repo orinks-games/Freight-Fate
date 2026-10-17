@@ -657,7 +657,7 @@ impl DrivingState {
         }
         self.lane.exit_lane_open = due && self.exit_taper_said;
 
-        let right = ctx.bindings.pressed(&ctx.input, Action::SteerRight);
+        let right = self.held(ctx, Action::SteerRight);
         // A quick tap is how full-lane-keeping players change lanes; when the
         // lane work is yours it only nudges the wheel and never reaches the
         // exit lane. Two taps at an open exit lane earn the how-to, once, so
