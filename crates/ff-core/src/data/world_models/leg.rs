@@ -14,6 +14,7 @@ use super::{
 };
 use crate::data::world::World;
 use crate::data::world_corridor::build_leg_corridor;
+use crate::data::world_parsing::FlaggedLimit;
 use crate::pyfmt::fmt_f;
 
 #[derive(Debug, Clone, PartialEq)]
@@ -39,6 +40,9 @@ pub struct CorridorDetail {
     pub toll_events: Vec<TollEvent>,
     pub interchanges: Vec<Interchange>,
     pub speed_limits: Vec<SpeedLimitSample>,
+    /// How many short postings the load-time artifact fold removed from
+    /// `speed_limits` (see `fold_limit_artifacts`); reported by the baker.
+    pub speed_limits_folded: usize,
     pub traffic_volumes: Vec<TrafficVolumeSample>,
     pub hpms_terrain: Option<HpmsTerrain>,
     pub landmarks: Vec<Landmark>,
@@ -58,6 +62,8 @@ pub struct DetailSource {
     pub leg_to: String,
     pub from_state: String,
     pub highway: String,
+    /// This leg's rows of `limit_artifacts.jsonl`.
+    pub flagged_limits: Vec<FlaggedLimit>,
 }
 
 /// Builds one leg's corridor detail on first touch. The baked container hands
@@ -324,6 +330,7 @@ impl Leg {
                         &src.leg_to,
                         &src.from_state,
                         &src.highway,
+                        &src.flagged_limits,
                     ),
                     Some(Deferred::Builder(build)) => build(),
                 }

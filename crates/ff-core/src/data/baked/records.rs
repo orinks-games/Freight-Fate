@@ -148,6 +148,8 @@ pub struct BakedCorridor {
     pub lane_segments: Vec<BakedLaneSegment>,
     #[serde(default)]
     pub billboard_bans: Vec<BakedBillboardBan>,
+    #[serde(default)]
+    pub speed_limits_folded: u32,
 }
 
 impl From<&CorridorDetail> for BakedCorridor {
@@ -168,6 +170,7 @@ impl From<&CorridorDetail> for BakedCorridor {
             restrictions: to_mirror(&detail.restrictions),
             lane_segments: to_mirror(&detail.lane_segments),
             billboard_bans: to_mirror(&detail.billboard_bans),
+            speed_limits_folded: u32::try_from(detail.speed_limits_folded).unwrap_or(u32::MAX),
         }
     }
 }
@@ -190,6 +193,7 @@ impl From<BakedCorridor> for CorridorDetail {
             restrictions: from_mirror(baked.restrictions),
             lane_segments: from_mirror(baked.lane_segments),
             billboard_bans: from_mirror(baked.billboard_bans),
+            speed_limits_folded: baked.speed_limits_folded as usize,
         }
     }
 }

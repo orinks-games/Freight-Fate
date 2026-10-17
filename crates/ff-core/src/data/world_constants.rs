@@ -298,6 +298,15 @@ pub const LIMIT_PLACE_DWELL_REAL_S: f64 = 3.0;
 pub const LIMIT_PLACE_NEAR_MI: f64 = 1.0;
 pub const LIMIT_PLACE_TOWN_MPH: f64 = 45.0;
 pub const LIMIT_EXPLAINING_CATEGORIES: &[&str] = &["village"];
+// The drop-and-return postings `tools/screen_limit_artifacts.py` found off the
+// leg's own highway (a ramp or a city street the route geometry ran over) are
+// folded back into their neighbours at load. Both numbers come from a sample of
+// 100 postings checked by hand against OpenStreetMap (2026-10-17): the longest
+// artifact ran 2.5 miles, and keeping any posting with a village or town within
+// a quarter mile folded none of the 49 real zones.
+pub const LIMIT_ARTIFACT_MAX_RUN_MI: f64 = 2.5;
+pub const LIMIT_ARTIFACT_PLACE_GUARD_MI: f64 = 0.25;
+pub const LIMIT_ARTIFACT_PLACE_CHECKPOINTS: &[&str] = &["place", "village", "town", "hamlet"];
 // Real seconds become miles at the pacing the game actually runs, which the
 // data layer cannot ask the sim for (it never imports it) and must not ask the
 // player's settings for (the world is parsed once, and world data has to be the

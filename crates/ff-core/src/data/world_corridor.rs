@@ -20,13 +20,14 @@
 use serde_json::{Map, Value};
 
 use super::grades::screen_grade_segments;
-use super::world_constants::LIMIT_EXPLAINING_CATEGORIES;
+use super::world_constants::{LIMIT_ARTIFACT_PLACE_CHECKPOINTS, LIMIT_EXPLAINING_CATEGORIES};
 use super::world_models::{CorridorDetail, DataError};
 use super::world_parsing::{
-    list_field, parse_billboard_bans, parse_checkpoint, parse_elevation_sample,
-    parse_grade_segment, parse_hpms_terrain, parse_interchange, parse_landmarks,
-    parse_lane_segments, parse_restrictions, parse_route_point, parse_speed_limits,
-    parse_state_crossing, parse_state_mileage, parse_toll_event, parse_traffic_volumes, py_truthy,
+    fold_limit_artifacts, list_field, parse_billboard_bans, parse_checkpoint,
+    parse_elevation_sample, parse_grade_segment, parse_hpms_terrain, parse_interchange,
+    parse_landmarks, parse_lane_segments, parse_restrictions, parse_route_point,
+    parse_speed_limits, parse_state_crossing, parse_state_mileage, parse_toll_event,
+    parse_traffic_volumes, py_truthy, FlaggedLimit,
 };
 
 static EMPTY: once_cell::sync::Lazy<Map<String, Value>> = once_cell::sync::Lazy::new(Map::new);
@@ -76,6 +77,10 @@ pub fn raw_metadata_complete(corridor: &Value, from_state: &str, to_state: &str)
 /// these fields, so parsing all fifty states' worth at startup was pure
 /// latency. The result is byte-identical to the old eager construction --
 /// same inputs, same parse, same order.
+///
+/// `flagged_limits` are this leg's rows of `limit_artifacts.jsonl`: postings
+/// the offline screen found off the leg's own highway, folded here unless a
+/// place explains them (see [`fold_limit_artifacts`]).
 pub fn build_leg_corridor(
     corridor: &Value,
     miles: f64,
@@ -83,6 +88,7 @@ pub fn build_leg_corridor(
     leg_to: &str,
     from_state: &str,
     highway: &str,
+    flagged_limits: &[FlaggedLimit],
 ) -> Result<CorridorDetail, DataError> {
     let corridor = corridor_map(corridor);
     let route_points = list_field(corridor, "route_points")
@@ -153,6 +159,22 @@ pub fn build_leg_corridor(
         leg_to,
         &places,
     )?;
+    // The fold's guard is wider than the dwell filter's: a town checkpoint is
+    // as good a reason for a short posting as a village landmark.
+    let guard_places: Vec<f64> = places
+        .iter()
+        .copied()
+        .chain(
+            checkpoints
+                .iter()
+                .filter(|cp| {
+                    LIMIT_ARTIFACT_PLACE_CHECKPOINTS.contains(&cp.checkpoint_type.as_str())
+                })
+                .map(|cp| cp.at_mi),
+        )
+        .collect();
+    let (speed_limits, speed_limits_folded) =
+        fold_limit_artifacts(speed_limits, flagged_limits, &guard_places);
     let restrictions = parse_restrictions(
         list_field(corridor, "restrictions"),
         miles,
@@ -175,6 +197,7 @@ pub fn build_leg_corridor(
         toll_events,
         interchanges,
         speed_limits,
+        speed_limits_folded,
         traffic_volumes,
         hpms_terrain,
         landmarks,

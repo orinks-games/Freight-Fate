@@ -23,6 +23,7 @@ mod data_facility_endpoints;
 mod data_interchanges;
 mod data_lane_data;
 mod data_leg_road_agreement;
+mod data_limit_artifacts;
 mod data_local_approaches;
 mod data_local_geometry;
 mod data_regions;
