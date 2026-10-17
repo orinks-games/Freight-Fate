@@ -793,6 +793,9 @@ pub struct TripEventData {
     pub stop: Option<RoadStop>,
     pub suppress_sound: Option<bool>,
     pub limit_change: Option<bool>,
+    /// The posted limit an arrival line names, in mph. Its queued copy is
+    /// worth speaking only while that number still governs the truck.
+    pub limit_mph: Option<f64>,
     pub advance: Option<bool>,
     pub from_zone: Option<TimeZone>,
     pub to_zone: Option<TimeZone>,

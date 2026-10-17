@@ -373,6 +373,9 @@ pub struct Trip {
     /// it is in the yard before it is told it missed the turn.
     pub yard_entry_held: bool,
     pub announced_speed_limit: Option<f64>,
+    /// Where a lower posting the truck passed too fast to be told about
+    /// ends. Until then no speed is charged against it.
+    pub unannounced_limit_end_mi: Option<f64>,
     pub warned_limit_drops: Vec<f64>,
     /// Posted-limit values already spoken for the CURRENT posting.
     pub limit_drop_preannounced: Vec<f64>,
@@ -526,6 +529,7 @@ impl Trip {
             zone_entry_spoken: true,
             yard_entry_held: false,
             announced_speed_limit: None,
+            unannounced_limit_end_mi: None,
             warned_limit_drops: Vec::new(),
             limit_drop_preannounced: Vec::new(),
             event_breather: RoadEventBreather::new(),

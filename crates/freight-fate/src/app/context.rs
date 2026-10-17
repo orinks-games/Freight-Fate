@@ -260,6 +260,7 @@ impl GameContext {
         // The guide tone must exist before a drive starts, not only after
         // the Learn game sounds screen has been opened. Idempotent and cheap.
         ff_core::lane_guide_tone::register_lane_guide_tone();
+        ff_core::cab_sounds::register_cab_sounds();
         Self {
             speech: parts.speech,
             audio: parts.audio,

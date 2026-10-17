@@ -6,9 +6,9 @@ use super::pyjson::{py_float_or, py_iter, py_max, py_repr_str, py_str, py_str_or
 use super::{
     duration_text, is_duty_status, is_non_enforced, limits, positive_minutes, BREAK_MIN,
     HOS_HISTORY_MAX, HOS_SPLIT_REST_HISTORY_MAX, SLEEP_MIN, SPLIT_LONG_ALT_MIN, SPLIT_LONG_MIN,
-    SPLIT_SHORT_ALT_MIN, SPLIT_SHORT_MIN, WARNING_THRESHOLDS_MIN,
+    SPLIT_SHORT_ALT_MIN, SPLIT_SHORT_MIN,
 };
-use crate::pyfmt::{fmt_f, py_str_float};
+use crate::pyfmt::py_str_float;
 
 /// One duty-status entry in the shift ledger.
 #[derive(Clone, Debug, PartialEq)]
@@ -169,18 +169,6 @@ fn shift_over(kind: &str) -> (&'static str, &'static str) {
         ),
         "duty" => ("past your duty window", "Your duty window has closed."),
         other => panic!("no shift-over wording for HOS kind {other:?}"),
-    }
-}
-
-fn threshold_phrase(threshold: f64) -> &'static str {
-    if threshold == 120.0 {
-        "2 hours"
-    } else if threshold == 60.0 {
-        "1 hour"
-    } else if threshold == 30.0 {
-        "30 minutes"
-    } else {
-        panic!("no phrase for HOS warning threshold {threshold}")
     }
 }
 
@@ -514,7 +502,7 @@ impl HosClock {
     // -- rule queries ----------------------------------------------------------
 
     /// (kind, minutes remaining, what is due) per enforced limit.
-    fn statuses(&self, mode: &str) -> Vec<HosLimit> {
+    pub(super) fn statuses(&self, mode: &str) -> Vec<HosLimit> {
         let Some((drive_limit, duty_limit, break_after)) = limits(mode) else {
             return Vec::new();
         };
@@ -603,88 +591,6 @@ impl HosClock {
             })
             .map(str::to_string)
             .collect()
-    }
-
-    /// Speak the countdown again after a rest that did NOT reset the shift.
-    ///
-    /// Warnings fire once per threshold per shift -- correct while driving,
-    /// but a long non-qualifying sleep (a pending sleeper split) left the
-    /// marks in place, so the driver woke to silence and drove straight
-    /// into a window violation with no countdown (owner, 2026-07-24).
-    pub fn re_arm_warnings(&mut self) {
-        self.warned.retain(|w| {
-            !(w.starts_with("drive:") || w.starts_with("duty:") || w.starts_with("break:"))
-        });
-    }
-
-    /// Newly crossed warning messages; each threshold fires once.
-    ///
-    /// Call this every frame while driving. Crossing several thresholds at
-    /// once (a long menu action, say) speaks only the most urgent one, but
-    /// marks them all so nothing fires late.
-    pub fn check_warnings(&mut self, mode: &str) -> Vec<String> {
-        let mut candidates: Vec<(i32, f64, String)> = Vec::new();
-        for HosLimit {
-            kind,
-            remaining_min: rem,
-            due,
-        } in self.statuses(mode)
-        {
-            if rem <= 0.0 {
-                let key = format!("{kind}:violation");
-                if !self.warned.contains(&key) {
-                    self.warned.push(key);
-                    for t in WARNING_THRESHOLDS_MIN {
-                        // swallow the lead-up ones
-                        let k = format!("{kind}:{}", fmt_f(t, 0));
-                        if !self.warned.contains(&k) {
-                            self.warned.push(k);
-                        }
-                    }
-                    let priority = match kind {
-                        "drive" => 0,
-                        "duty" => 1,
-                        "break" => 2,
-                        _ => 9,
-                    };
-                    candidates.push((
-                        priority,
-                        rem,
-                        format!(
-                            "Hours of service violation: {due}. \
-                             Driving on risks fines at inspections."
-                        ),
-                    ));
-                }
-                continue;
-            }
-            let crossed: Vec<f64> = WARNING_THRESHOLDS_MIN
-                .iter()
-                .copied()
-                .filter(|t| rem <= *t && !self.warned.contains(&format!("{kind}:{}", fmt_f(*t, 0))))
-                .collect();
-            if !crossed.is_empty() {
-                for t in &crossed {
-                    self.warned.push(format!("{kind}:{}", fmt_f(*t, 0)));
-                }
-                let smallest = crossed.iter().copied().fold(f64::INFINITY, f64::min);
-                let phrase = threshold_phrase(smallest);
-                candidates.push((10, rem, format!("Hours of service: {phrase} until {due}.")));
-            }
-        }
-        if candidates.is_empty() {
-            return Vec::new();
-        }
-        // Python's min over (priority, remaining) tuples: the first on a tie.
-        let mut best = 0;
-        for i in 1..candidates.len() {
-            let (p, r, _) = &candidates[i];
-            let (bp, br, _) = &candidates[best];
-            if p < bp || (p == bp && r < br) {
-                best = i;
-            }
-        }
-        vec![candidates.swap_remove(best).2]
     }
 
     /// Spoken status for the C key and Tab report.

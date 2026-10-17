@@ -483,6 +483,42 @@ fn test_f1_on_dispatch_job_opens_structured_detail_view() {
 }
 
 #[test]
+fn test_job_details_say_the_hours_and_fuel_the_run_needs() {
+    // A player asked to hear before the trip how much shift time is left
+    // and how full the tank is (player report, 2026-10-17).
+    let mut app = TestApp::new();
+    senior_job_board(&mut app);
+    key(&mut app, Key::F1);
+    let rows = labels::<JobDetailState>(&app);
+    let trip = rows.iter().find(|r| r.starts_with("Trip hours: about "));
+    assert!(trip.is_some(), "{rows:?}");
+    assert!(
+        rows.iter().any(|r| r.starts_with("Driving time left: ")),
+        "{rows:?}"
+    );
+    let fuel = rows
+        .iter()
+        .find(|r| r.starts_with("Fuel: "))
+        .expect("a fuel line");
+    assert!(fuel.contains(" percent, about "), "{fuel}");
+    assert!(fuel.contains(" of range."), "{fuel}");
+}
+
+#[test]
+fn test_job_details_leave_hours_out_with_hours_of_service_off() {
+    let mut app = TestApp::new();
+    senior_job_board(&mut app);
+    app.ctx.settings.hos_mode = "off".to_string();
+    key(&mut app, Key::F1);
+    let rows = labels::<JobDetailState>(&app);
+    assert!(
+        !rows.iter().any(|r| r.starts_with("Trip hours:")),
+        "{rows:?}"
+    );
+    assert!(rows.iter().any(|r| r.starts_with("Fuel: ")), "{rows:?}");
+}
+
+#[test]
 fn test_tab_repeats_only_the_market_watch() {
     let mut app = TestApp::new();
     senior_job_board(&mut app);

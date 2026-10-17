@@ -730,6 +730,10 @@ impl DrivingState {
         live::set_arrival_menu_open(self.arrival_menu_open);
         live::set_gate_stop_prompted(self.arrival_full_stop_said);
         live::set_on_ramp(self.ramp_mi.is_some());
+        live::set_posted_limit_mph(match self.trip.entered_zone.as_ref() {
+            Some(zone) => zone.limit_mph,
+            None => self.trip.corridor_limit_at(self.trip.position_mi),
+        });
         live::set_ramp_holding(
             self.ramp_mi.is_some()
                 && !self.ramp_terminal_done

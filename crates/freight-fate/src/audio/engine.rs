@@ -10,10 +10,10 @@ use ff_core::pyrandom::PyRandom;
 
 use super::{
     asset_bytes, Audio, AudioBackend, AudioError, Buses, HearkenBackend, KeyProbe, NullBackend,
-    SustainLoopSpec, VolumeUpdate, ALERT_HOLD_TIMEOUT_S, CH_AIR, CH_ALERT, CH_AMBIENT, CH_EDGE,
-    CH_HORN, CH_JAKE, CH_LANE_GUIDE, CH_RADIO_FX, CH_ROAD, CH_SCALE, CH_SURGE, CH_TRAFFIC_BED,
-    CH_TRAFFIC_SOUNDS, CH_WEATHER, CH_WEATHER_B, CUE_HOLD_TIMEOUT_S, HORN_LOOP, JAKE_BAND_PREFIX,
-    JAKE_CLASSIC_KEY, JAKE_RECORDED_KEY, SFX_EXTENSIONS,
+    SustainLoopSpec, VolumeUpdate, ALERT_HOLD_TIMEOUT_S, CH_AIR, CH_ALERT, CH_AMBIENT, CH_CAB_FAN,
+    CH_CAB_WIND, CH_EDGE, CH_HORN, CH_JAKE, CH_LANE_GUIDE, CH_RADIO_FX, CH_ROAD, CH_SCALE,
+    CH_SURGE, CH_TRAFFIC_BED, CH_TRAFFIC_SOUNDS, CH_WEATHER, CH_WEATHER_B, CUE_HOLD_TIMEOUT_S,
+    HORN_LOOP, JAKE_BAND_PREFIX, JAKE_CLASSIC_KEY, JAKE_RECORDED_KEY, SFX_EXTENSIONS,
 };
 
 /// Facade over the active backend; the rest of the game talks only to this.
@@ -36,6 +36,8 @@ pub struct AudioEngine {
     // This run asked for sound and did not get it, and nobody has told the
     // player yet. Cleared by `take_silence_notice`.
     silence_notice: bool,
+    // The driver window's lift on the outside sounds; 1.0 with it up.
+    outside_lift: f64,
 }
 
 impl Default for AudioEngine {
@@ -78,6 +80,7 @@ impl AudioEngine {
             rng: PyRandom::new_unseeded(),
             asset_probe: None,
             silence_notice: false,
+            outside_lift: 1.0,
         }
     }
 
@@ -593,7 +596,10 @@ impl Audio for AudioEngine {
     fn set_weather_with(&mut self, key: Option<&str>, intensity: f64) {
         match key {
             None => self.stop_loop_with(CH_WEATHER, 1200),
-            Some(key) => self.start_loop_with(CH_WEATHER, key, intensity.min(1.0), 1200),
+            Some(key) => {
+                let level = intensity.min(1.0) * self.outside_lift;
+                self.start_loop_with(CH_WEATHER, key, level, 1200);
+            }
         }
     }
 
@@ -601,8 +607,14 @@ impl Audio for AudioEngine {
         if intensity < 0.05 {
             self.stop_loop_with(CH_WEATHER_B, 1500);
         } else {
-            self.start_loop_with(CH_WEATHER_B, "weather/wind", intensity.min(1.0), 1500);
+            let level = intensity.min(1.0) * self.outside_lift;
+            self.start_loop_with(CH_WEATHER_B, "weather/wind", level, 1500);
         }
+    }
+
+    fn set_outside_lift(&mut self, lift: f64) {
+        self.outside_lift = lift.max(0.0);
+        self.backend.set_outside_lift(self.outside_lift);
     }
 
     fn set_ambient_with(&mut self, key: Option<&str>, volume: f64) {
@@ -668,9 +680,13 @@ impl Audio for AudioEngine {
             CH_TRAFFIC_SOUNDS[1],
             CH_TRAFFIC_SOUNDS[2],
             CH_TRAFFIC_BED,
+            // The cab's window rush and blower: set every frame at the wheel.
+            CH_CAB_WIND,
+            CH_CAB_FAN,
         ] {
             self.stop_loop_with(ch, 400);
         }
+        self.set_outside_lift(1.0);
     }
 
     /// Stream a music track, e.g. `play_music("menu_theme")`.

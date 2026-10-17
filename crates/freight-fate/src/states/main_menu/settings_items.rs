@@ -502,10 +502,11 @@ impl SettingsCategoryState {
                 row(
                     dyn_label(|s| format!("Driving mode: {}", pace_label(s))),
                     adjust(|s, ctx, d| s.cycle_pace(ctx, d)),
-                    "Pacing and pressure. Relaxed gives wider hazard windows, \
+                    "Pacing and pressure. Relaxed passes about ten minutes of \
+                     road and clock each real minute, with wider hazard windows, \
                      gentler damage and fatigue, calmer speech, and the most \
                      time to respond. Standard keeps balanced pressure and moves \
-                     the clock twice as fast. Real time keeps Standard's \
+                     twice as fast, about twenty minutes each real minute. Real time keeps Standard's \
                      pressure and runs the driving clock at the speed of a real \
                      clock, lined up with your computer's date and time; delivery \
                      time remaining and hours of service do not move. Changeable \

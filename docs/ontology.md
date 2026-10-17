@@ -271,6 +271,7 @@ from the words, and synonyms cost them a re-read.
 | Road the truck needs to stop from here | stopping distance | braking distance, stop room | `TruckState.stopping_distance_m` |
 | The short code a player reads and types into a browser to connect a computer | activation code | user code, device code, pairing code | `Activation.user_code` |
 | The legal driving clock as a whole | hours of service | HOS, the ELD rules, your logbook hours | `HosClock`, `settings.hos_mode` |
+| The driving a dispatch will take, deadhead included, estimated before you accept | trip hours ("Trip hours: about 6.5 driving hours, with a 10-hour sleep.") | run time, drive estimate, trip length | `board::briefing::hours_lines` |
 | The 11-hour clock that limits time at the wheel | driving time left | drive clock, hours left, hours remaining | `HosClock.drive_time_summary` |
 | Driving time already spent this shift | at the wheel | hours driven, drive time used, hours on the road (that is the run) | `HosClock.wheel_time_summary` |
 | The 14-hour clock that starts when you go on duty | duty window | 14-hour clock, on-duty clock, shift window | `HosClock.duty_min` |
@@ -413,6 +414,9 @@ from the words, and synonyms cost them a re-read.
 | Air pressure fallen too low to brake safely | Low air buzzer | low-pressure alarm, air warning | `vehicle/low_air_buzzer` |
 | The parking brake engaging: a hard mechanical clunk of air dumping | Parking brake set | brake set, park brake on | `vehicle/brake_set` |
 | The parking brake releasing, freeing the truck to roll | Parking brake released | brake release, park brake off | `vehicle/brake_release` |
+| The driver's side window, lowered or raised by its motor; with it down the wind rushes in and the outside sounds louder | driver window; "Driver window down." / "Driver window up." | window (alone: "window" is also the duty window), cab window, open/closed | `sim/cab.rs CabState`, `cab/window_motor`, `cab/wind` |
+| The cab blower, off, low, medium or high | fan; "Fan low." | blower, vent, climate fan | `sim/cab.rs FanSpeed`, `cab/fan` |
+| Warm or cold air from the fan | heat; air conditioning | A/C, AC, cooling, climate mode, HVAC | `sim/cab.rs ClimateMode`, `cab/ac_clutch` |
 | The hardest stop the truck has, for a hazard that cannot otherwise be missed | Emergency brake | e-brake (bare abbreviation), panic stop | `vehicle/ebrake` (fallback `vehicle/brake_air`) |
 | The hazard assist taking the truck and stopping it on the service brakes | Automatic braking | AEB, auto brake, emergency braking (that names only the escalation, and the routine stop never reaches it) | `states/driving_updates.py._update_hazard` |
 | Tires losing grip on the road | Tire screech | skid, traction loss | `vehicle/tire_screech` |

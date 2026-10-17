@@ -141,7 +141,7 @@ fn loaded_departure_with_mandatory_sleep_has_an_achievable_deadline() {
             && app
                 .main_lines()
                 .join(" ")
-                .contains(" hours for a 10-hour sleep en route."),
+                .contains("This run needs a 10-hour sleep."),
         "{:?}",
         app.main_lines()
     );

@@ -48,6 +48,7 @@ use crate::states::city_pickup::{
     pickup_snapshot, PickupFacilityState, PickupOptions, PickupSnapshotOptions,
 };
 
+pub(crate) mod briefing;
 mod details;
 mod weight;
 pub use details::{describe_job, JobDetailState};

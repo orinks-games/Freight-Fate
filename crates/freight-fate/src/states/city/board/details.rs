@@ -12,6 +12,7 @@ use crate::states::city::{
     base_menu_current_help, profile, PICKUP_CHECK_IN_MIN, PICKUP_LOADING_MIN,
 };
 
+use super::briefing;
 use super::weight::load_weight_margin;
 use super::{
     locked_reason, market_preview, pay_basis_note, pickup_drive_hours, settlement_for,
@@ -158,8 +159,10 @@ impl JobDetailState {
                 fmt_f(job.deadline_game_h, 0),
                 appointment_text(p.game_hours, loaded_departure_h + job.deadline_game_h, zone)
             ),
-            format!("Equipment: {}.", job.equipment_text()),
         ];
+        lines.extend(briefing::hours_lines(ctx, job));
+        lines.push(briefing::fuel_line(ctx, job));
+        lines.push(format!("Equipment: {}.", job.equipment_text()));
         let weight = load_weight_margin(p, job);
         if !weight.is_empty() {
             lines.insert(4, weight);

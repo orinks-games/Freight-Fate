@@ -287,6 +287,8 @@ pub trait AudioBackend {
     fn set_engine_rpm(&mut self, _rpm: f64, _throttle: f64) {}
     fn set_engine_duck(&mut self, _duck: f64) {}
     fn set_road_noise(&mut self, _speed_mps: f64) {}
+    /// The driver window's lift on the tire loop; see `Audio::set_outside_lift`.
+    fn set_outside_lift(&mut self, _lift: f64) {}
     fn update(&mut self, _dt: f64) {}
     fn reverse_start(&mut self) {}
     fn reverse_stop(&mut self) {}

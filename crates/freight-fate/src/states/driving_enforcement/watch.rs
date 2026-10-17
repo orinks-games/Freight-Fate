@@ -181,6 +181,10 @@ impl DrivingState {
         let (limit, _) = self.trip.speed_limit_at(position);
         if self.trip.truck.speed_mph() <= limit + OBSERVE_LEEWAY_MPH {
             self.over_limit_mi = 0.0;
+        } else if self.trip.in_unannounced_posting() {
+            // A posting too short to be spoken at this pace: nobody told the
+            // driver, so nothing accrues against it.
+            self.over_limit_mi = 0.0;
         } else if self.limit_drop_grace_s > 0.0 {
             // A limit that just dropped under a loaded truck: the driver is
             // braking and has not disregarded anything yet. Nothing accrues,

@@ -2,6 +2,7 @@
 
 use crate::speech::EventPriority;
 use ff_core::models::enforcement;
+use ff_core::models::jobs::hos_stops::STOP_MARGIN_MIN as HOS_STOP_MARGIN_MIN;
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
@@ -24,14 +25,29 @@ impl DrivingState {
             hos_mut_of(ctx).on_duty(gm); // the 14-hour window runs even while parked
         }
         if !hos::HOS_NON_ENFORCED_MODES.contains(&mode.as_str()) && self.hazard_deadline.is_none() {
-            let warnings = hos_mut_of(ctx).check_warnings(&mode);
+            let marks = tuning_for_time_scale(self.trip.time_scale).hos_warning_marks_min;
+            // A countdown to a limit the drive ends inside is no use to the
+            // driver: worked out only when a mark comes due.
+            let destination_min = if hos_of(ctx).mark_due(&mode, marks) {
+                self.hos_stop_advice(ctx)
+                    .map(|advice| advice.destination_travel_min)
+            } else {
+                None
+            };
+            let warnings = hos_mut_of(ctx).check_warnings_with(&mode, marks, |limit| {
+                destination_min
+                    .is_some_and(|minutes| minutes + HOS_STOP_MARGIN_MIN <= limit.remaining_min)
+            });
             for message in warnings {
-                ctx.audio.play("ui/warning");
-                ctx.controller.rumble.alert();
                 // The clock running down is the drive, not colour: even the
                 // non-urgent countdown must not queue behind chatter, and if
-                // something cuts it off it comes back.
+                // something cuts it off it comes back. The alarm and the
+                // rumble are for a violation only; a notice is calm.
                 let urgent = hos::warning_is_urgent(&message);
+                if urgent {
+                    ctx.audio.play("ui/warning");
+                    ctx.controller.rumble.alert();
+                }
                 let opts = SayEvent::new()
                     .interrupt(urgent)
                     .priority(if urgent {

@@ -4,6 +4,7 @@
 
 use crate::pyfmt::round_py_n;
 use crate::sim::hos::clock_text;
+use crate::sim::road_event_pacing::SPOKEN_CHARS_PER_REAL_S;
 use crate::sim::trip_models::*;
 use crate::sim::trip_route_helpers::zone_key;
 use crate::speech_text::SpokenMessage;
@@ -359,21 +360,35 @@ impl Trip {
                 self.construction_zone_grace_start
                     .remove(&zone_key(&previous));
                 let resumed = self.corridor_limit_at(pos);
-                self.announced_speed_limit = Some(resumed);
-                let message = if super::streets::is_street_zone_reason(&previous.reason) {
-                    format!("Speed limit {}.", self.speed_value(resumed))
+                // A rise shares the arrival line's window: a short zone ended
+                // right behind "Speed limit reduced to 45", and two numbers
+                // in one breath outran the voice (player report, 2026-10-17).
+                // Gated, not lost: the open-road check names the limit in
+                // force once the window opens, against the zone's number the
+                // driver last heard.
+                let rise = resumed > previous.limit_mph;
+                if rise && !self.event_breather.ready("limit") {
+                    if self.zone_entry_spoken {
+                        self.announced_speed_limit = Some(previous.limit_mph);
+                    }
                 } else {
-                    format!(
-                        "End of {} zone. Speed limit {}.",
-                        previous.reason,
-                        self.speed_value(resumed)
-                    )
-                };
-                self.emit(
-                    TripEventKind::ZoneExit,
-                    SpokenMessage::new(message),
-                    TripEventData::default(),
-                );
+                    self.announced_speed_limit = Some(resumed);
+                    self.event_breather.spoke("limit");
+                    let message = if super::streets::is_street_zone_reason(&previous.reason) {
+                        format!("Speed limit {}.", self.speed_value(resumed))
+                    } else {
+                        format!(
+                            "End of {} zone. Speed limit {}.",
+                            previous.reason,
+                            self.speed_value(resumed)
+                        )
+                    };
+                    self.emit(
+                        TripEventKind::ZoneExit,
+                        SpokenMessage::new(message),
+                        TripEventData::default(),
+                    );
+                }
                 self.zone_entry_spoken = true;
             }
             self.entered_zone = zone;
@@ -453,23 +468,67 @@ impl Trip {
             return;
         }
         let lowered = limit < announced;
-        // Routine changes breathe; a serious unannounced drop does not wait.
+        // Routine changes breathe; a serious unannounced drop the truck is
+        // actually over does not wait.
         let urgent = lowered
             && announced - limit > 10.0
+            && self.truck.speed_mph() > limit + PACENOTE_MARGIN_MPH
             && !self.limit_drop_preannounced.contains(&round_py_n(limit, 1));
         if !urgent && !self.event_breather.ready("limit") {
             return; // untouched state; the next check self-supersedes
         }
-        self.announced_speed_limit = Some(limit);
         if lowered {
             // The advance pacenote or an assist's "easing to X" line may
-            // already have named this exact number (owner, 2026-08-12).
+            // already have named this exact number (owner, 2026-08-12). The
+            // driver heard it, so the rise out of it is told too.
             let key = round_py_n(limit, 1);
             if let Some(pos) = self.limit_drop_preannounced.iter().position(|v| *v == key) {
                 self.limit_drop_preannounced.remove(pos);
+                self.unannounced_limit_end_mi = None;
+                self.announced_speed_limit = Some(limit);
                 return;
             }
         }
+        let length = self.limit_zone_length(limit);
+        let message = self.limit_arrival_message(limit, lowered, length);
+        // A posting the truck leaves before its line could be spoken is not
+        // spoken: at 10x a third of the map's postings last a mile or less,
+        // and "reduced to 45" for one ended after the truck was back at 55
+        // (player report, 2026-10-17). State stays untouched, so a short
+        // 45 between two 55s says nothing and 55, 45, 65 says 65. Speeding
+        // through a lower posting nobody named is never charged.
+        if let Some(length) = length.filter(|l| self.posting_outruns_line(*l, &message)) {
+            if lowered {
+                self.unannounced_limit_end_mi = Some(self.position_mi + length);
+            }
+            return;
+        }
+        self.unannounced_limit_end_mi = None;
+        self.announced_speed_limit = Some(limit);
+        self.event_breather.spoke("limit");
+        self.emit(
+            TripEventKind::GpsCue,
+            SpokenMessage::new(message),
+            TripEventData {
+                // The road's state, not a turn to act on.
+                limit_change: Some(true),
+                limit_mph: Some(limit),
+                ..Default::default()
+            },
+        );
+    }
+
+    /// Whether the truck is inside a lower posting it passed too fast to be
+    /// told about: no speed is charged against it, and the dash stays quiet.
+    pub fn in_unannounced_posting(&self) -> bool {
+        self.unannounced_limit_end_mi
+            .is_some_and(|end| self.position_mi <= end)
+    }
+
+    /// "Speed limit reduced to 45 approaching Abilene for 3 tenths of a
+    /// mile." `length` is how far the new limit holds, when the scan found
+    /// its end.
+    fn limit_arrival_message(&self, limit: f64, lowered: bool, length: Option<f64>) -> String {
         let verb = if lowered { "reduced" } else { "raised" };
         let near = if lowered {
             self.nearest_urban_city(self.position_mi)
@@ -492,26 +551,16 @@ impl Trip {
         // A short lower zone is a passing event, not a new cruising speed.
         let mut span = String::new();
         if lowered {
-            if let Some(length) = self.limit_zone_length(limit) {
+            if let Some(length) = length {
                 if length <= LIMIT_SHORT_ZONE_MI {
                     span = format!(" for {}", spoken_short_miles(length, self.imperial()));
                 }
             }
         }
-        self.event_breather.spoke("limit");
-        let message = format!(
+        format!(
             "Speed limit {verb} to {}{where_}{span}.",
             self.speed_value(limit)
-        );
-        self.emit(
-            TripEventKind::GpsCue,
-            SpokenMessage::new(message),
-            TripEventData {
-                // The road's state, not a turn to act on.
-                limit_change: Some(true),
-                ..Default::default()
-            },
-        );
+        )
     }
 
     /// Why a drop with no city to blame is happening: a road stop just
@@ -560,15 +609,24 @@ impl Trip {
     /// How far the just-entered corridor limit holds from the current
     /// position, or `None` when it outlasts the scan cap.
     pub fn limit_zone_length(&self, limit: f64) -> Option<f64> {
-        let mut mi = self.position_mi;
+        let start_mi = self.position_mi;
+        let mut mi = start_mi;
         let end = self.total_miles().min(mi + LIMIT_SCAN_MAX_MI);
         while mi < end {
             mi = end.min(mi + LIMIT_SCAN_STRIDE_MI);
             if self.corridor_limit_at(mi) != limit {
-                return Some(mi - self.position_mi);
+                return Some(mi - start_mi);
             }
         }
         None
+    }
+
+    /// Whether a posting `length` miles long goes by, at the truck's pace,
+    /// before `message` could be spoken.
+    fn posting_outruns_line(&self, length: f64, message: &str) -> bool {
+        let mi_per_real_s = self.truck.speed_mph() * self.effective_time_scale() / 3600.0;
+        let speaking_s = message.chars().count() as f64 / SPOKEN_CHARS_PER_REAL_S;
+        mi_per_real_s > 0.0 && length / mi_per_real_s < speaking_s
     }
 
     /// Lead distance for the "drops to X" pacenote, in `LIMIT_WARNING_REAL_S`
@@ -642,15 +700,15 @@ impl Trip {
             return;
         }
         self.warned_limit_drops.push(boundary_mi);
-        let key = round_py_n(limit, 1);
-        if !self.limit_drop_preannounced.contains(&key) {
-            self.limit_drop_preannounced.push(key);
-        }
         let message = format!(
             "Speed limit drops to {} in {}.",
             self.speed_value(limit),
             spoken_short_miles(ahead, self.imperial())
         );
+        let key = round_py_n(limit, 1);
+        if !self.limit_drop_preannounced.contains(&key) {
+            self.limit_drop_preannounced.push(key);
+        }
         self.emit(
             TripEventKind::GpsCue,
             SpokenMessage::new(message),

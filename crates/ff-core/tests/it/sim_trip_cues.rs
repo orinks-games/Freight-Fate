@@ -662,3 +662,47 @@ fn test_the_status_browse_says_how_much_to_the_next_level() {}
 #[test]
 #[ignore = "wrong crate: ff-core cannot see the game crate, so this case belongs in crates/freight-fate/tests/ -- AbandonJobConfirmationState"]
 fn test_abandoning_a_bobtail_costs_nothing() {}
+
+#[test]
+fn test_a_zone_exit_rise_waits_for_the_limit_window() {
+    // A short slow zone ended right behind the arrival line, and two limit
+    // numbers in one breath outran the voice (player report, 2026-10-17).
+    // The exit's rise is held, then named once the window opens.
+    use std::cell::Cell;
+    use std::rc::Rc;
+    let now = Rc::new(Cell::new(0.0));
+    let mut trip = make_trip(world(), "Chicago", "Indianapolis", 2);
+    let clock_now = Rc::clone(&now);
+    trip.event_breather
+        .set_clock(Box::new(move || clock_now.get()));
+    trip.position_mi = 30.0;
+    let corridor = trip.corridor_limit_at(31.0);
+    assert!(corridor > 25.0, "the test needs a rise out of the zone");
+    trip.zones = vec![Zone::new(29.9, 30.5, 25.0, "test")];
+    trip.announced_zone_warnings.clear();
+    trip.pending_zone_warning = None;
+    trip.announced_speed_limit = Some(corridor);
+    trip.check_zones();
+    assert!(trip.entered_zone.is_some());
+    trip.event_breather.spoke("limit");
+
+    trip.events.clear();
+    trip.position_mi = 31.0;
+    trip.check_zones();
+    trip.check_speed_limit();
+    assert!(
+        !trip.events.iter().any(|e| e.text().contains("Speed limit")),
+        "{:?}",
+        trip.events.iter().map(|e| e.text()).collect::<Vec<_>>()
+    );
+
+    now.set(60.0);
+    trip.check_speed_limit();
+    assert!(
+        trip.events
+            .iter()
+            .any(|e| e.text().starts_with("Speed limit raised to")),
+        "{:?}",
+        trip.events.iter().map(|e| e.text()).collect::<Vec<_>>()
+    );
+}

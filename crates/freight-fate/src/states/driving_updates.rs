@@ -35,6 +35,7 @@
 //! when it lands.
 
 pub mod air;
+pub mod cab;
 pub mod conditions;
 pub mod cues;
 pub mod curve_servo;
@@ -278,6 +279,7 @@ pub mod live {
         static ARRIVAL_MENU_OPEN: Cell<bool> = const { Cell::new(false) };
         static GATE_STOP_PROMPTED: Cell<bool> = const { Cell::new(false) };
         static ON_RAMP: Cell<bool> = const { Cell::new(false) };
+        static POSTED_LIMIT_MPH: Cell<f64> = const { Cell::new(0.0) };
         static RAMP_HOLDING: Cell<bool> = const { Cell::new(false) };
         static MOVE_LOCKOUT: Cell<u8> = const { Cell::new(0) };
     }
@@ -310,6 +312,25 @@ pub mod live {
 
     pub fn on_ramp() -> bool {
         ON_RAMP.with(|cell| cell.get())
+    }
+
+    /// The posted limit governing the truck, in mph: the zone's while one is
+    /// entered, else the corridor's. "Speed limit reduced to 45" cut by the
+    /// next line and handed back after "raised to 55" names a limit the
+    /// truck has already left.
+    pub fn set_posted_limit_mph(value: f64) {
+        POSTED_LIMIT_MPH.with(|cell| cell.set(value));
+    }
+
+    pub fn posted_limit_mph() -> f64 {
+        POSTED_LIMIT_MPH.with(|cell| cell.get())
+    }
+
+    /// Whether a mainline limit line is still worth speaking: the truck is
+    /// not on a ramp, and the limit it names (when it names one) still
+    /// governs the truck.
+    pub fn limit_line_holds(named_mph: Option<f64>) -> bool {
+        !on_ramp() && named_mph.is_none_or(|mph| (posted_limit_mph() - mph).abs() < 0.5)
     }
 
     /// Whether the truck is still held at a ramp terminal's bar, waiting for

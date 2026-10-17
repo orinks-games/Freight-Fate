@@ -93,19 +93,22 @@ fn test_enter_then_a_key_moves_the_control_and_saves_it() {
         Some(Action::Engine)
     );
 
-    key(&mut app, Key::Z);
-    assert_eq!(last(&app), "Engine on or off is now Z.");
+    key(&mut app, Key::Backslash);
+    assert_eq!(last(&app), "Engine on or off is now backslash.");
     assert_eq!(with_state::<Shortcuts, _>(&app, |s, _| s.capturing()), None);
-    assert_eq!(current_label::<Shortcuts>(&app), "Engine on or off: Z");
-    assert_eq!(app.ctx.settings.key_bindings, "engine=z");
     assert_eq!(
-        app.ctx.bindings.action_for(Key::Z, Mods::NONE),
+        current_label::<Shortcuts>(&app),
+        "Engine on or off: backslash"
+    );
+    assert_eq!(app.ctx.settings.key_bindings, "engine=backslash");
+    assert_eq!(
+        app.ctx.bindings.action_for(Key::Backslash, Mods::NONE),
         Some(Action::Engine)
     );
     assert_eq!(app.ctx.bindings.action_for(Key::E, Mods::NONE), None);
     // It reached the settings file, not only the running game.
     let on_disk = ff_core::settings::Settings::load();
-    assert_eq!(on_disk.key_bindings, "engine=z");
+    assert_eq!(on_disk.key_bindings, "engine=backslash");
 }
 
 #[test]
@@ -120,9 +123,9 @@ fn test_a_chord_is_captured_whole() {
         with_state::<Shortcuts, _>(&app, |s, _| s.capturing()),
         Some(Action::Horn)
     );
-    app.dispatch_to_state(&InputEvent::key_mods(Key::Z, Mods::ALT));
-    assert_eq!(last(&app), "Horn is now Alt Z.");
-    assert_eq!(app.ctx.settings.key_bindings, "horn=alt+z");
+    app.dispatch_to_state(&InputEvent::key_mods(Key::Backslash, Mods::ALT));
+    assert_eq!(last(&app), "Horn is now Alt backslash.");
+    assert_eq!(app.ctx.settings.key_bindings, "horn=alt+backslash");
 }
 
 #[test]

@@ -23,6 +23,7 @@ mod duty_log;
 mod pyjson;
 #[cfg(test)]
 mod tests;
+mod warnings;
 
 pub use clock::{HosClock, HosEvent, HosLimit};
 pub use duty_log::{DutyLog, DutySegment, DutyTotals};
