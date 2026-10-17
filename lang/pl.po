@@ -21459,7 +21459,8 @@ msgid "Report truck trouble"
 msgstr ""
 
 msgid ""
-"Report damage or a trailer fault. Dispatch can send the roadside mechanic."
+"Report damage, a trailer fault, or missing chains. Dispatch can send road "
+"service."
 msgstr ""
 
 msgid "Report load trouble"
@@ -21648,6 +21649,38 @@ msgstr ""
 msgid "It took an hour and a half."
 msgstr ""
 
+msgid "chain delivery"
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "You have {grouped2} dollars"
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "for {grouped} dollars."
+msgstr ""
+
+#. placeholders: {grouped}, {grouped2}
+msgid "for {grouped} dollars. You have {grouped2} dollars"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Put them on from the pause menu."
+msgstr ""
+
+#. placeholders: {billing}
+#. one sentence of a longer line
+msgid "Road service brought a new set of snow chains {billing}."
+msgstr ""
+
+#. placeholders: {billing}, {clock_text}
+msgid ""
+"Road service brought a new set of snow chains {billing}. It took an hour "
+"and a half. It is {clock_text}. Put them on from the pause menu."
+msgstr ""
+
 msgid ""
 "Roadside repair is authorized. Secure the truck while the mechanic works."
 msgstr ""
@@ -21667,12 +21700,9 @@ msgstr ""
 msgid "I'm sending a mechanic out to fix it where you're parked."
 msgstr ""
 
-msgid "wait"
-msgstr ""
-
 msgid ""
-"You can't go on through the chain law without chains. Wait it out where "
-"you're parked, or turn back. A garage sells a new set."
+"You have no chains that can go on, and the chain law is up. I'm sending "
+"road service out with a new set."
 msgstr ""
 
 msgid "monitor"
@@ -25332,20 +25362,6 @@ msgstr ""
 msgid "A roadside mechanic helps once damage is past {f} percent."
 msgstr ""
 
-#. placeholders: {grouped2}
-#. one sentence of a longer line
-msgid "You have {grouped2} dollars"
-msgstr ""
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-msgid "for {grouped} dollars."
-msgstr ""
-
-#. placeholders: {grouped}, {grouped2}
-msgid "for {grouped} dollars. You have {grouped2} dollars"
-msgstr ""
-
 #. placeholders: {f}, {billing}
 #. one sentence of a longer line
 msgid ""
@@ -27009,6 +27025,45 @@ msgstr ""
 msgid "{ticket} {billing} It is {clock_text}."
 msgstr ""
 
+#. placeholders: {grouped}
+msgid "Buy snow chains: {grouped} dollars"
+msgstr ""
+
+msgid "Buy snow chains, carrier billed"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "A new set with two spare repair links."
+msgstr ""
+
+#. placeholders: {f}
+msgid "A new set with two spare repair links. {f} minutes on duty."
+msgstr ""
+
+#. placeholders: {grouped}, {grouped2}
+msgid ""
+"A set of snow chains costs {grouped} dollars and you have {grouped2} "
+"dollars."
+msgstr ""
+
+#. placeholders: {grouped}, {grouped2}
+msgid "{grouped} dollars. You have {grouped2} dollars."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "A new set of snow chains is in the side box."
+msgstr ""
+
+#. placeholders: {billing}, {clock_text}
+msgid ""
+"A new set of snow chains is in the side box. {billing} It is {clock_text}."
+msgstr ""
+
+#. placeholders: {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{billing} It is {clock_text}."
+msgstr ""
+
 msgid "Return to terminal"
 msgstr ""
 
@@ -28158,8 +28213,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Held at the chain checkpoint. You have no chains. Wait here until the chain "
-"law lifts, or turn back."
+"Held at the chain checkpoint. You have no chains. Call dispatch for a set, "
+"wait here until the chain law lifts, or turn back."
 msgstr ""
 
 #. placeholders: {duration_text}

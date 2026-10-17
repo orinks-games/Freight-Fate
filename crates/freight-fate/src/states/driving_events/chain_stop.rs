@@ -3,6 +3,7 @@
 //! facility stopping assistance both call the same `do_*` actions, so the
 //! work, the time and the lines are the same whoever starts it.
 
+use ff_core::models::profile::CHAIN_REPAIR_LINKS_PER_SET;
 use ff_core::pyfmt::fmt_f;
 use ff_core::sim::hos::limits;
 use ff_core::sim::trip_models::CHAIN_LAW_LEAD_MI;
@@ -56,6 +57,17 @@ impl DrivingState {
     /// snapped (the profile only catches up at a stop).
     pub fn chains_aboard(&self, ctx: &GameContext) -> bool {
         profile_of(ctx).chains_owned() && self.trip.truck.chain_wear_pct < 100.0
+    }
+
+    /// A new set goes in the side box on the road: fresh, with its spare
+    /// repair links. The truck's own meter is reset too, because it is what
+    /// says whether a set aboard can go on.
+    pub fn stow_new_chain_set(&mut self, ctx: &mut GameContext) {
+        let p = profile_mut_of(ctx);
+        p.set_chains_owned(true);
+        p.set_chain_wear_pct(0.0);
+        p.set_chain_repair_links(CHAIN_REPAIR_LINKS_PER_SET);
+        self.trip.truck.chain_wear_pct = 0.0;
     }
 
     /// Put the chains on at a stop (on duty), or None after "Come to a complete stop first."

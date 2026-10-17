@@ -680,10 +680,13 @@ Everything found before 2026-09-25 moved to
       truck trouble saw only body damage. A fault now counts once per drive
       (one that parks the truck still counts), chains wear as on snow inside
       a posted control, and dispatch sends a mechanic for a trailer fault.
-- [ ] (Found along the way) A driver who runs out of chains mid-trip can
-      only wait out the law or turn back, because chains are sold only at
-      the terminal garage. Owner to choose: road service through dispatch,
-      truck stops in chain states, or both.
+- [x] A driver who ran out of chains mid-trip could only wait out the law
+      or turn back, because chains were sold only at the terminal garage
+      (same report). The owner chose both: Report truck trouble under a
+      chain law with no usable set sends road service with one (1,000
+      dollars plus the 500 callout, an hour and a half), and a truck stop
+      in a chain-control state sells a set for 1,000 dollars (assumed: the
+      garage's 750 plus a road markup).
 - [ ] With several controllers connected (a second pad, or Steam's virtual
       one), the game listens only to the first it found, and the other's
       buttons do nothing. It could switch to whichever controller the

@@ -24637,10 +24637,11 @@ msgid "Report truck trouble"
 msgstr "Informar de un problema del camión"
 
 msgid ""
-"Report damage or a trailer fault. Dispatch can send the roadside mechanic."
+"Report damage, a trailer fault, or missing chains. Dispatch can send road "
+"service."
 msgstr ""
-"Informa de daños o de una avería del remolque. Despacho puede enviar al "
-"mecánico en carretera."
+"Informa de daños, de una avería del remolque o de que te faltan cadenas. "
+"Despacho puede enviar asistencia en carretera."
 
 msgid "Report load trouble"
 msgstr "Informar de un problema con la carga"
@@ -24848,6 +24849,41 @@ msgstr ""
 msgid "It took an hour and a half."
 msgstr "Tardó una hora y media."
 
+msgid "chain delivery"
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "You have {grouped2} dollars"
+msgstr "Tienes {grouped2} dólares"
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "for {grouped} dollars."
+msgstr "por {grouped} dólares."
+
+#. placeholders: {grouped}, {grouped2}
+msgid "for {grouped} dollars. You have {grouped2} dollars"
+msgstr "por {grouped} dólares. Tienes {grouped2} dólares"
+
+#. one sentence of a longer line
+msgid "Put them on from the pause menu."
+msgstr "Póntelas desde el menú de pausa."
+
+#. placeholders: {billing}
+#. one sentence of a longer line
+msgid "Road service brought a new set of snow chains {billing}."
+msgstr ""
+"La asistencia en carretera trajo un juego nuevo de cadenas {billing}."
+
+#. placeholders: {billing}, {clock_text}
+msgid ""
+"Road service brought a new set of snow chains {billing}. It took an hour "
+"and a half. It is {clock_text}. Put them on from the pause menu."
+msgstr ""
+"La asistencia en carretera trajo un juego nuevo de cadenas {billing}. Tardó "
+"una hora y media. Son las {clock_text}. Póntelas desde el menú de pausa."
+
 msgid ""
 "Roadside repair is authorized. Secure the truck while the mechanic works."
 msgstr ""
@@ -24871,15 +24907,12 @@ msgstr ""
 msgid "I'm sending a mechanic out to fix it where you're parked."
 msgstr "Te envío un mecánico para que lo repare donde estás estacionado."
 
-msgid "wait"
-msgstr ""
-
 msgid ""
-"You can't go on through the chain law without chains. Wait it out where "
-"you're parked, or turn back. A garage sells a new set."
+"You have no chains that can go on, and the chain law is up. I'm sending "
+"road service out with a new set."
 msgstr ""
-"No puedes seguir con la ley de cadenas sin cadenas. Espera donde estás "
-"estacionado o da la vuelta. Un taller vende un juego nuevo."
+"No tienes cadenas que se puedan poner y la ley de cadenas está en vigor. Te "
+"mando asistencia en carretera con un juego nuevo."
 
 msgid "monitor"
 msgstr "monitor"
@@ -28861,20 +28894,6 @@ msgid "A roadside mechanic helps once damage is past {f} percent."
 msgstr ""
 "Un mecánico en carretera ayuda cuando los daños pasan del {f} por ciento."
 
-#. placeholders: {grouped2}
-#. one sentence of a longer line
-msgid "You have {grouped2} dollars"
-msgstr "Tienes {grouped2} dólares"
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-msgid "for {grouped} dollars."
-msgstr "por {grouped} dólares."
-
-#. placeholders: {grouped}, {grouped2}
-msgid "for {grouped} dollars. You have {grouped2} dollars"
-msgstr "por {grouped} dólares. Tienes {grouped2} dólares"
-
 #. placeholders: {f}, {billing}
 #. one sentence of a longer line
 msgid ""
@@ -30791,6 +30810,50 @@ msgstr ""
 msgid "{ticket} {billing} It is {clock_text}."
 msgstr "{ticket} {billing} Son las {clock_text}."
 
+#. placeholders: {grouped}
+msgid "Buy snow chains: {grouped} dollars"
+msgstr "Comprar cadenas para nieve: {grouped} dólares"
+
+msgid "Buy snow chains, carrier billed"
+msgstr "Comprar cadenas para nieve, a cargo de la empresa"
+
+#. one sentence of a longer line
+msgid "A new set with two spare repair links."
+msgstr "Un juego nuevo con dos eslabones de repuesto."
+
+#. placeholders: {f}
+msgid "A new set with two spare repair links. {f} minutes on duty."
+msgstr ""
+"Un juego nuevo con dos eslabones de repuesto. {f} minutos en servicio."
+
+#. placeholders: {grouped}, {grouped2}
+msgid ""
+"A set of snow chains costs {grouped} dollars and you have {grouped2} "
+"dollars."
+msgstr ""
+"Un juego de cadenas para nieve cuesta {grouped} dólares y tienes {grouped2} "
+"dólares."
+
+#. placeholders: {grouped}, {grouped2}
+msgid "{grouped} dollars. You have {grouped2} dollars."
+msgstr "{grouped} dólares. Tienes {grouped2} dólares."
+
+#. one sentence of a longer line
+msgid "A new set of snow chains is in the side box."
+msgstr "Hay un juego nuevo de cadenas para nieve en el cajón lateral."
+
+#. placeholders: {billing}, {clock_text}
+msgid ""
+"A new set of snow chains is in the side box. {billing} It is {clock_text}."
+msgstr ""
+"Hay un juego nuevo de cadenas para nieve en el cajón lateral. {billing} Son "
+"las {clock_text}."
+
+#. placeholders: {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{billing} It is {clock_text}."
+msgstr "{billing} Son las {clock_text}."
+
 msgid "Return to terminal"
 msgstr "Volver a la terminal"
 
@@ -32070,11 +32133,12 @@ msgstr ""
 "Retenido en el control de cadenas. Pon las cadenas desde el menú de pausa."
 
 msgid ""
-"Held at the chain checkpoint. You have no chains. Wait here until the chain "
-"law lifts, or turn back."
+"Held at the chain checkpoint. You have no chains. Call dispatch for a set, "
+"wait here until the chain law lifts, or turn back."
 msgstr ""
-"Retenido en el control de cadenas. No llevas cadenas. Espera aquí hasta que "
-"se levante la ley de cadenas, o da la vuelta."
+"Retenido en el control de cadenas. No llevas cadenas. Llama a despacho para "
+"pedir un juego, espera aquí hasta que se levante la ley de cadenas, o da la "
+"vuelta."
 
 #. placeholders: {duration_text}
 #. one sentence of a longer line
@@ -40955,6 +41019,26 @@ msgstr "cierra paréntesis"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "mayúscula {ch}"
+
+#~ msgid ""
+#~ "Report damage or a trailer fault. Dispatch can send the roadside mechanic."
+#~ msgstr ""
+#~ "Informa de daños o de una avería del remolque. Despacho puede enviar al "
+#~ "mecánico en carretera."
+
+#~ msgid ""
+#~ "You can't go on through the chain law without chains. Wait it out where "
+#~ "you're parked, or turn back. A garage sells a new set."
+#~ msgstr ""
+#~ "No puedes seguir con la ley de cadenas sin cadenas. Espera donde estás "
+#~ "estacionado o da la vuelta. Un taller vende un juego nuevo."
+
+#~ msgid ""
+#~ "Held at the chain checkpoint. You have no chains. Wait here until the chain "
+#~ "law lifts, or turn back."
+#~ msgstr ""
+#~ "Retenido en el control de cadenas. No llevas cadenas. Espera aquí hasta que "
+#~ "se levante la ley de cadenas, o da la vuelta."
 
 #~ msgid "Dispatch: {message} {repair}"
 #~ msgstr "Despacho: {message} {repair}"

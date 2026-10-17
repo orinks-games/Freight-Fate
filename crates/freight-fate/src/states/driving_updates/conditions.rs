@@ -800,8 +800,8 @@ impl DrivingState {
             let line = if self.usable_chains_aboard(ctx) {
                 "Held at the chain checkpoint. Put your chains on from the pause menu."
             } else {
-                "Held at the chain checkpoint. You have no chains. Wait here until the chain \
-                 law lifts, or turn back."
+                "Held at the chain checkpoint. You have no chains. Call dispatch for a set, \
+                 wait here until the chain law lifts, or turn back."
             };
             ctx.say_event_with(line, SayEvent::new().category(SpeechCategory::Navigation));
         }

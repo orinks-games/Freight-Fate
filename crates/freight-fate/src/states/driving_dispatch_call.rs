@@ -14,6 +14,7 @@ use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
     advance_rest_clock, clock_text, hos_mut_of, hos_of, player_pays_operating_costs,
     profile_mut_of, profile_of, FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN,
+    ROAD_CHAIN_SET_COST,
 };
 use crate::states::driving_menu_states::DriveRef;
 use crate::states::driving_pause_states::perform_roadside_mechanic;
@@ -55,6 +56,10 @@ impl DispatchCallState {
                 answer.push(' ');
                 answer.push_str(&repair_trailer_on_the_road(driving, ctx));
             }
+            if chainless_in_chain_law(driving, ctx) {
+                answer.push(' ');
+                answer.push_str(&bring_chains_on_the_road(driving, ctx));
+            }
             Some(answer)
         });
         if let Some(Some(answer)) = result {
@@ -90,7 +95,7 @@ impl Menu for DispatchCallState {
             MenuItem::new("Report truck trouble", |s: &mut Self, ctx| {
                 s.answer(ctx, CALL_TRUCK)
             })
-            .help("Report damage or a trailer fault. Dispatch can send the roadside mechanic."),
+            .help("Report damage, a trailer fault, or missing chains. Dispatch can send road service."),
             MenuItem::new("Report load trouble", |s: &mut Self, ctx| {
                 s.answer(ctx, CALL_LOAD)
             })
@@ -390,6 +395,40 @@ fn repair_trailer_on_the_road(driving: &mut DrivingState, ctx: &mut GameContext)
     )
 }
 
+/// Road service brings a new set of chains to where the truck is parked: the
+/// set at the truck-stop price plus the callout, and the same wait as a
+/// mechanic. Like the mechanic, it comes whether or not the cash covers it.
+fn bring_chains_on_the_road(driving: &mut DrivingState, ctx: &mut GameContext) -> String {
+    let carrier_paid = !player_pays_operating_costs(&profile_of(ctx).business_status);
+    let cost = ROAD_CHAIN_SET_COST + MECHANIC_CALLOUT_FEE;
+    if !carrier_paid {
+        profile_mut_of(ctx).spend(cost);
+    }
+    driving.stow_new_chain_set(ctx);
+    advance_rest_clock(
+        driving,
+        ctx,
+        MECHANIC_WAIT_MIN,
+        Some("on_duty_not_driving"),
+        "chain delivery",
+    );
+    hos_mut_of(ctx).on_duty(MECHANIC_WAIT_MIN);
+    let billing = if carrier_paid {
+        "on the carrier breakdown account".to_string()
+    } else {
+        format!(
+            "for {} dollars. You have {} dollars",
+            fmt_grouped(cost, 0),
+            fmt_grouped(profile_of(ctx).money(), 0)
+        )
+    };
+    format!(
+        "Road service brought a new set of snow chains {billing}. It took an hour and a half. \
+         It is {}. Put them on from the pause menu.",
+        clock_text(driving.trip.local_hour())
+    )
+}
+
 fn truck_response(driving: &DrivingState, ctx: &GameContext) -> (&'static str, String, JsonObject) {
     let damage = driving.trip.truck.damage_pct;
     let trailer = visible_trailer_defect(driving, ctx);
@@ -412,11 +451,11 @@ fn truck_response(driving: &DrivingState, ctx: &GameContext) -> (&'static str, S
     }
     if chainless {
         return (
-            "wait",
-            "You can't go on through the chain law without chains. Wait it out where you're \
-             parked, or turn back. A garage sells a new set."
+            "repair_authorized",
+            "You have no chains that can go on, and the chain law is up. I'm sending road \
+             service out with a new set."
                 .to_string(),
-            JsonObject::from_iter([("chain_law_wait".to_string(), json!(true))]),
+            JsonObject::from_iter([("chain_delivery_authorized".to_string(), json!(true))]),
         );
     }
     (

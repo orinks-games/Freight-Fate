@@ -115,6 +115,14 @@ pub const ROAD_TIRE_COST_PER_PCT: f64 = 60.0; // everyone else marks tire work u
 pub const ROAD_TIRE_MIN: f64 = 75.0;
 pub const ROAD_BRAKE_COST_PER_PCT: f64 = 55.0; // road-shop premium over the garage's 40
 pub const ROAD_BRAKE_MIN: f64 = 120.0;
+/// A chain set bought on the road: the terminal garage's 750 dollars plus
+/// the third road shops add to tire work (60 a percent against the
+/// garage's 45). ASSUMED; truck stops on chain corridors stock sets, and
+/// nobody publishes a single price.
+pub const ROAD_CHAIN_SET_COST: f64 = 1000.0;
+/// Paying at the counter and stowing the set in the side box, on duty.
+/// ASSUMED, as the terminal garage's 10 minutes.
+pub const ROAD_CHAIN_BUY_MIN: f64 = 10.0;
 pub const FUEL_STOP_MIN: f64 = 20.0; // fueling is on-duty-not-driving work
 /// Fraction of tank remaining that fires the once-per-threshold low-fuel cue.
 /// Re-arms only after a refill climbs back above this line.

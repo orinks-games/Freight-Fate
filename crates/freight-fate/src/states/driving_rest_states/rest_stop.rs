@@ -33,6 +33,7 @@ use crate::states::driving_rest_states::loyalty::LoyaltyRewardsState;
 use crate::states::driving_rest_states::rest_preview::{sleep_preview, SleepChoice};
 
 mod cat_scale;
+mod chains;
 
 const REST_STOP_INTRO_HELP: &str =
     "Select a choice. Sleep reads a preview; select again to sleep. Breaks and sleep move the clock and the deadline.";
@@ -233,6 +234,9 @@ impl RestStopState {
         }
         if self.has_cat_scale() {
             items.push(self.cat_scale_item(ctx, d));
+        }
+        if self.sells_chains(ctx, d) {
+            items.push(self.chains_item(ctx));
         }
         if has("food") {
             items.push(
