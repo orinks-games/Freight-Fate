@@ -59,6 +59,8 @@ pub struct BakeReport {
     /// Legs written, and how many carried a corridor blob.
     pub legs: usize,
     pub legs_with_corridor: usize,
+    /// Short speed-limit postings the load-time artifact fold removed.
+    pub speed_limits_folded: usize,
 }
 
 impl BakeReport {
@@ -226,6 +228,7 @@ pub fn bake_bytes(data_dir: &Path) -> Result<(Vec<u8>, BakeReport), DataError> {
     let mut with_corridor = 0usize;
     for leg in &world.legs {
         let detail = leg.try_corridor()?;
+        writer.report.speed_limits_folded += detail.speed_limits_folded;
         let baked = BakedCorridor::from(detail);
         let plain = encode(&baked)?;
         // An empty corridor is the common case for a fixture-shaped leg and

@@ -3008,6 +3008,14 @@ as they stand now found three more stale ones.
       Tucumcari, Gallup, Holbrook, Winslow, Kingman, Barstow, Victorville),
       and Shadow of the Giants counts the redwood towns (Ukiah, Willits,
       Fortuna, Eureka, Crescent City) alongside Santa Rosa and Chico.
+- [x] Short speed-limit dips off the highway (owner, 2026-10-17, from the
+      Mark's feedback research): 31 postings where the route ran over a
+      ramp or a side street fold back into the highway's limit at load.
+      See [October 17](#october-17-speed-limit-dips-off-the-highway-found-along-the-way).
+- [ ] Re-run the limit screen on the owner's machine for California,
+      Florida, Iowa, New York, North Carolina, Texas and Virginia from their
+      state extracts, which were too large to bring into the session.
+- [ ] The dwell filter drops real village zones (14 of 38 checked).
 
 ### October 10 a way out of the training fleet (Found along the way)
 
@@ -3026,6 +3034,39 @@ stays a starting choice.
 - [x] Move to another carrier from Business status at the training fleet.
 - [ ] Changing carriers between the other three is not offered; add it if
       players ask.
+
+### October 17 speed-limit dips off the highway (Found along the way)
+
+A scan found postings where the limit drops and comes back within a short
+span, US-19 between Albany and Tallahassee going 55, 45, 55 over 0.2 miles
+among them. The load-time dwell filter already drops nearly all of the ones
+under half a mile; 311 drop-and-return postings under 2.5 miles still play.
+
+A hand check of 100 of them against OpenStreetMap (research note
+`speed-limit-artifacts.md`, 2026-10-17) found length does not separate real
+zones from artifacts: real town zones ran 0.2 to 2.3 miles, artifacts 0.2 to
+2.5. What separates them is whether the leg's own highway carries the
+posting. Every artifact was the route geometry leaving the highway (an
+interchange ramp, a city street) or, among the ones already dropped, one way
+tagged differently from its neighbours. Bridges and lane-count splits
+produced none.
+
+`tools/screen_limit_artifacts.py` asks that question of all 311 against the
+state extracts (derived: nearest way carrying a maxspeed within 40 m, every
+0.02 mile) and names 133 in `limit_artifacts.jsonl`. The loader folds a
+named posting unless a village landmark or a town checkpoint sits within a
+quarter mile, which keeps 102 and folds 31 (10 percent); the baker prints the
+count. On the sample this folded 5 of 9 artifacts and none of 49 real zones.
+Seven states came from an older way cache rather than their extracts; on
+the other 43 the two inputs fold the same 31 postings.
+
+- [x] Name off-highway postings offline; fold them at load with a place guard.
+- [ ] Re-run the seven states from their extracts on the owner's machine.
+- [ ] The dwell filter drops real village zones: 14 of 38 checked drops were
+      Duncan NE, Cascade ID, Elliston MT, Hebo OR, West Point NE and others.
+      Enforcement reads the same profile, so no ticket comes of it; the
+      zone simply goes unannounced. The village guard there reads village
+      landmarks only, and most towns are town checkpoints.
 
 ## 2.0 planned -- the working week and home
 

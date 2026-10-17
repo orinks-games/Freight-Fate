@@ -5879,6 +5879,18 @@ msgstr ""
 msgid "village"
 msgstr ""
 
+#: crates/ff-core/src/data/world_constants.rs
+msgid "hamlet"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs
+msgid "place"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_local_data.rs
+msgid "town"
+msgstr ""
+
 #: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/jobs/deadline.rs crates/ff-core/src/models/jobs/hos_stops.rs crates/ff-core/src/sim/hos/clock.rs
 msgid "break"
 msgstr ""
@@ -6645,10 +6657,6 @@ msgstr ""
 msgid "rural"
 msgstr ""
 
-#: crates/ff-core/src/data/world_local_data.rs
-msgid "town"
-msgstr ""
-
 #: crates/ff-core/src/data/world_local_data.rs crates/ff-core/src/sim/cross_traffic.rs crates/freight-fate/src/states/driving_events/ramp_crossing.rs crates/freight-fate/src/states/driving_events/ramp_terminal.rs
 msgid "signal"
 msgstr ""
@@ -6820,10 +6828,6 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_models.rs crates/ff-core/src/models/enforcement.rs crates/freight-fate/src/online_activation.rs
 msgid "eight"
-msgstr ""
-
-#: crates/ff-core/src/data/world_models.rs
-msgid "place"
 msgstr ""
 
 #: crates/ff-core/src/data/world_models.rs

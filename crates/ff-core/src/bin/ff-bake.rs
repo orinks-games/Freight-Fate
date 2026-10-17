@@ -88,6 +88,10 @@ fn run(args: &Args) -> Result<(), String> {
             report.legs_with_corridor,
             args.out.display()
         );
+        println!(
+            "{} short speed-limit postings folded as mapping artifacts",
+            report.speed_limits_folded
+        );
     }
     Ok(())
 }
