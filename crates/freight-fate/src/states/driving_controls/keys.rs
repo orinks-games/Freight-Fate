@@ -186,6 +186,9 @@ impl DrivingState {
             Action::JakeStage3 => self.select_jake_stage(ctx, 3),
             Action::CycleJake => self.cycle_jake_stage(ctx),
             Action::ParkingBrake => self.toggle_parking_brake(ctx),
+            Action::DriverWindow => self.toggle_driver_window(ctx),
+            Action::Fan => self.step_cab_fan(ctx),
+            Action::Climate => self.toggle_cab_climate(ctx),
             Action::Horn => {
                 ctx.audio.horn_start();
                 self.trip.truck.horn_on = true;

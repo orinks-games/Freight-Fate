@@ -609,6 +609,9 @@ Everything found before 2026-09-25 moved to
 - [ ] A listening pass by the owner at quiet and urgent only, at the wheel.
 - [x] Achievement sweep (owner, 2026-10-09): four badges whose triggers
       had fallen behind the map or the job board now match them.
+- [x] Driver window and cab climate (player report, 2026-10-17); see
+      [the dated section](#october-17-the-driver-window-and-the-cab-climate-found-along-the-way).
+      Placeholder sounds and the engine's open-window filter are open there.
 - [x] A way out of the training fleet (player report, 2026-10-10): a
       company driver at Great Lakes Training Transport can move to another
       carrier at level 4 with full dispatch trust.
@@ -616,6 +619,16 @@ Everything found before 2026-09-25 moved to
       full brake stop with the engine brake on no longer damages the load, a
       stage the driver picks is no longer dropped by cruise or the bend
       assist, and automatic engine brake off with Alt J lasts between drives.
+- [x] Speech that keeps up with a compressed road, first slice (player
+      report, 2026-10-17): a cut-off limit line is not replayed after a
+      newer one, a zone's end waits behind a limit line, one shift
+      countdown instead of two, and Job details say the hours and fuel a
+      run needs. See [October 17](#october-17-speech-that-keeps-up-with-the-road-found-along-the-way).
+- [x] The owner took the proposal's recommendations the same day: a
+      posting passed before its line could end is not spoken or charged,
+      one calm countdown notice per driving mode, and a departure line
+      with driving time left and fuel.
+- [ ] The pace governor, after the reporter tries the above.
 - [x] Plainer career and equipment wording, and a Common questions page
       in How to play and the manual (owner, 2026-10-11, from a livestreamer
       asking what the fleets meant and when he could get or buy a truck,
@@ -3025,6 +3038,67 @@ stays a starting choice.
 
 - [x] Move to another carrier from Business status at the training fleet.
 - [ ] Changing carriers between the other three is not offered; add it if
+      players ask.
+
+### October 17 speech that keeps up with the road (Found along the way)
+
+A blind player on a Mac wrote that the speed limit sometimes changed faster
+than his speech could follow, and that the shift countdown ran by
+unrealistically fast on a long trip. He asked to hear before the trip how
+much shift time he had and how full the tank was. A third of the posted
+limits in the map are under a mile long, so at 10x a posting can be gone
+before its line ends. The countdown fired three marks for each of two
+clocks that end in the same sleep, with the alarm tone every time.
+
+- [x] A limit line cut off and handed back speaks only if its number still
+      governs the truck.
+- [x] The end of a zone shares the limit lines' spacing when it raises the
+      limit; the open-road check names the new limit once the window opens.
+- [x] Driving time and the duty window count down as one, by the nearer.
+- [x] The route summary at pickup plans from the driver's current shift.
+- [x] Job details carry Trip hours, driving time left, and fuel with range.
+- [x] A posting the truck leaves before its line could be spoken is not
+      announced, warned of ahead, or charged, and the dash stays quiet in it.
+- [x] One countdown notice per limit: one hour out on Relaxed, two on
+      Standard, all three marks on Real time. None for a limit the trip
+      ends inside, and the alarm and rumble only for a violation.
+- [x] The loaded departure line says driving time left and fuel, and
+      names a break, a sleep or a short tank when the run needs one.
+- [x] The Driving mode help and the manual say Relaxed passes about ten
+      minutes of road and clock per real minute.
+- [ ] A governor that eases the pace where postings cluster (decided:
+      later, after the reporter tries the rest).
+- [ ] Short down-and-back-up postings that are mapping artifacts: sample
+      them against real signs, then screen at load if the sample supports it.
+- [ ] The event pacer assumes 13 characters a second whatever the speech
+      rate, so a slow Mac voice falls behind; measure the rate it should use.
+- [ ] Bridge expansion joints and passing under overpasses (same report).
+- [x] A driver window and climate controls (same report); see the next
+      section.
+
+### October 17 the driver window and the cab climate (Found along the way)
+
+The same player asked to open the window and run the heater or the air
+conditioning. Z lowers or raises the driver window, Alt Z steps the fan
+(off, low, medium, high) and Shift Z switches heat and air conditioning;
+each press is confirmed in a word or two, and the status screen names the
+cab only when it differs from a fresh one. It is pure ambience: no fuel,
+fatigue or comfort effect, because neither has a source the game could
+cite and he plays to relax. With the window down a wind rush rises with
+the square of road speed, panned to the driver's side, and the tires, rain
+and weather wind come up about 4.6 dB over the two seconds the glass
+travels. The fan runs only with the engine. Nothing is saved: every drive
+starts with the window up, the fan off, and heat or air conditioning by
+the outside temperature.
+
+- [x] Driver window, fan and heat or air conditioning at the wheel.
+- [ ] The four cab sounds are synthesized placeholders (window motor, wind
+      rush, blower, compressor clutch); the owner's ear should pick
+      recordings to replace them under the same keys.
+- [ ] The engine keeps its sealed-cab filter with the window down; a
+      crossfade to the "window cracked" variant `cab_filter` already
+      describes would let the engine open up too.
+- [ ] A passenger window (Shift Z is taken; it would need another key) if
       players ask.
 
 ## 2.0 planned -- the working week and home

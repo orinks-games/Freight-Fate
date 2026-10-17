@@ -15,6 +15,7 @@ use ff_core::models::trailer_yard::{
 use ff_core::music::{select_menu_music_sequence, MenuMusicProfile};
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_n};
 use ff_core::settings::Settings;
+use ff_core::sim::hos::{limits, HosClock};
 use ff_core::sim::real_weather_alerts::{route_option_weather_note, warm_route_alerts};
 use ff_core::sim::route_roadwork::{
     choose_dispatch_route, dispatch_route_line, route_option_note, route_planning_note,
@@ -99,8 +100,10 @@ pub fn pickup_snapshot(job: &Job, opts: &PickupSnapshotOptions) -> Map<String, V
     data
 }
 
-pub fn route_planning_summary(route: &Route) -> String {
-    let plan = plan_hos(route.miles(), Some(route), None, None);
+/// `clock` is the driver's hours now, when hours of service are enforced:
+/// mid-shift, a fresh clock left out the sleep the law would force.
+pub fn route_planning_summary(route: &Route, clock: Option<&HosClock>) -> String {
+    let plan = plan_hos(route.miles(), Some(route), None, clock);
     let hos_summary = plan.summary();
     let usable = route.accessible_stop_details(false);
     let fuel_stops = usable
@@ -1368,6 +1371,11 @@ impl Menu for RouteSelectState {
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         let mut items: Vec<MenuItem<Self>> = Vec::new();
+        let clock = ctx
+            .profile
+            .as_ref()
+            .filter(|_| limits(&ctx.settings.hos_mode).is_some())
+            .map(|p| p.hos.clone());
         for (i, route) in self.routes.iter().enumerate() {
             let note = self
                 .opts
@@ -1384,7 +1392,7 @@ impl Menu for RouteSelectState {
                 i + 1,
                 route.describe(&ctx.settings.distance_text(route.miles(), false)),
                 Self::via_text(ctx, route),
-                route_planning_summary(route)
+                route_planning_summary(route, clock.as_ref())
             );
             let mut vias = Self::vias(ctx, route);
             if vias.is_empty() {

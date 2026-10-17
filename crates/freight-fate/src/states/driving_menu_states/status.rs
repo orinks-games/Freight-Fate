@@ -268,6 +268,11 @@ impl DrivingStatusScreenState {
                         "manual"
                     }
                 ));
+                // Only when the driver changed something: a sealed, quiet
+                // cab is the default and not news.
+                if let Some(cab) = d.cab.status_line() {
+                    lines.push(cab.to_string());
+                }
                 lines.push(format!("Fatigue: {} percent", fmt_f(profile.fatigue, 0)));
                 // Where the driver stands is spoken when it changes and
                 // whenever it is asked for, never on a timer.

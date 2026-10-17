@@ -4,6 +4,11 @@
 
 ### Added
 
+- **Job details now say the hours and fuel a run needs.** Trip hours, your driving time left, and your fuel level and range, before you accept.
+
+- **Leaving with a load now tells you your driving time left and fuel.** It adds a break, a sleep or a short tank only when the run needs one.
+
+- **Z lowers the driver window; Alt Z and Shift Z set the fan and heat or air conditioning.** With it down, wind rushes in.
 - **Facility stopping assistance now handles snow chains in chain-law areas.** Before an area that chains your truck, it says so and stops at the chain-up pullout to put your chains on, about 30 minutes on duty or 48 at night. On bare road half a mile past the last area it takes them off in about 10 minutes, unless another area starts within 5 miles. It also pulls over to tighten a slapping chain once and to fix a broken one with a spare link. It never buys chains, and with too little left in your 14-hour window it tells you to find a place to stop instead. Your brake or throttle cancels a stop. The cruise cap of 30 miles per hour with chains on still applies. The lines are in Spanish.
 - **Stop planning reminds you before a chain-law road if you have no chains.** With Hours of service planning hints on, the dispatch board says so before you accept a load that crosses a road where chains must be carried this season (Colorado's chain corridors, Montana and Washington), or, with live weather on, where a weather alert or observed snow or ice puts a chain law on your truck now, while the terminal garage can still sell you a set; Enter again accepts. On the road it speaks about 15 miles before a chain-up area only when a posted chain law requires chains on your truck, and names the exit when the map has one. It never buys anything. The lines are in Spanish.
 - **Career stats and driver profiles now list the places you have delivered to.** Career stats also counts your states and cities; Places visited lists each state's cities.
@@ -62,6 +67,12 @@
 - **Favorite stations now play from anywhere.** A saved local station keeps playing after you leave its area, with no fade or static.
 
 ### Changed
+
+- **The hours of service countdown is one calm notice before each limit.** One hour out on Relaxed, two on Standard, no alarm tone, and nothing when the trip ends first.
+
+- **A speed limit rise at the end of a short zone waits its turn.** Two limit numbers no longer land in one breath.
+
+- **A speed limit posting too short to announce is not announced.** It also never earns a ticket; the S key still reads the limit.
 
 - **The Facility stopping assistance and Hours of service planning hints help now covers chains.** Facility stopping says it may spend on-duty minutes on chains and never buys them; planning hints say they remind you about chains and never buy anything. The help is in Spanish.
 - **Oregon's lower chain level no longer chains your truck.** "Chains or traction tires required" chains only single-drive-axle trucks over 10,000 pounds, so your tandem-drive rig chains in Oregon at the "Chains required" level. The Oregon level 1 sign and the chain help say so, in Spanish too.
@@ -149,6 +160,10 @@
 - **On Linux, the game now needs the ALSA sound library, libasound2, to start.** Nearly every desktop already has it installed.
 
 ### Fixed
+
+- **A speed limit line that was cut off no longer comes back after a newer one.** "Reduced to 45" stays quiet once the limit is 55 again.
+
+- **Route planning counts the hours you have already driven this shift.** Mid-shift, it now names the sleep the run will need.
 
 - **The driving keys help no longer freezes the game in Spanish.** It used to hang for up to a minute before speaking.
 - **A chain checkpoint holds a truck with no chains, and lets it wait or turn back.** A checkpoint used to fine a chainless truck and wave it on. Now every truck without chains is held, as the law requires: "You can't go on without chains. Wait here until the chain law lifts, or turn back." The pause menu offers "Wait for the chain law to lift", which waits on duty half an hour at a time, up to 8 hours or until your 14-hour window runs out, and "Turn back to" the last city on the route, a drive that goes on the odometer and burns fuel at highway rate, and is refused when it would run past your driving or duty hours or your 8 hours of driving before a 30-minute break. While held, "Sleep at the checkpoint (10 hours)" is always in the pause menu, even with a stop nearby, and the checkpoint brings no parking ticket. A sleep there rechecks live weather alerts on waking, so a chain law that lifted overnight releases the truck. A wait rechecks live weather alerts every half hour, so it ends when an alert's chain law lifts. Coming back to the same checkpoint holds you again but never fines you twice. Held with chains aboard, you still put them on from the pause menu.

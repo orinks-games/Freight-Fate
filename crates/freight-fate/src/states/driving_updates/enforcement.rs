@@ -52,6 +52,10 @@ impl DrivingState {
             return; // already stopped; the dash has nothing to add
         }
         let (limit, _) = self.trip.speed_limit_at(self.trip.position_mi);
+        if self.trip.in_unannounced_posting() {
+            // The dash would name a limit the road never got to say.
+            return;
+        }
         self.update_overspeed_warning(ctx, dt, limit);
         // About 2 mph per second of comfortable braking sets the window,
         // capped so the grace cannot be used to coast through a whole

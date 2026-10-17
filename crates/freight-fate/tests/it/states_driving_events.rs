@@ -1908,3 +1908,21 @@ fn test_the_upcoming_readout_moves_as_the_truck_closes() {
     assert!(first.contains("2.4 miles"), "{first:?}");
     assert!(second.contains("1.9 miles"), "{second:?}");
 }
+
+#[test]
+fn test_a_limit_line_handed_back_must_name_the_limit_in_force() {
+    // "Speed limit reduced to 45" cut by "raised to 55" and handed back
+    // named a limit the truck had already left.
+    use freight_fate::states::driving_updates::live;
+    let mut app = TestApp::new();
+    let d = a_real_drive(&mut app);
+    d.refresh_live_facts();
+    let posted = d.trip.corridor_limit_at(d.trip.position_mi);
+    assert_eq!(live::posted_limit_mph(), posted);
+    assert!(live::limit_line_holds(Some(posted)));
+    assert!(!live::limit_line_holds(Some(posted - 10.0)));
+    assert!(
+        live::limit_line_holds(None),
+        "a drop warning names no limit in force"
+    );
+}

@@ -194,14 +194,14 @@ fn emergency_and_horn_holds_follow_rebound_keys() {
             .app
             .ctx
             .bindings
-            .set_chord(Action::EmergencyBrake, Chord::plain(Key::Z)),
+            .set_chord(Action::EmergencyBrake, Chord::plain(Key::Backslash)),
         freight_fate::bindings::Rebind::Done
     ));
     let mut input = TouchInput::new();
     touch(&mut harness, &mut input, Gesture::EmergencyBrakeHoldBegan);
-    assert!(harness.app.ctx.input.physically_down(Key::Z));
+    assert!(harness.app.ctx.input.physically_down(Key::Backslash));
     touch(&mut harness, &mut input, Gesture::HoldEnded);
-    assert!(!harness.app.ctx.input.physically_down(Key::Z));
+    assert!(!harness.app.ctx.input.physically_down(Key::Backslash));
     touch(&mut harness, &mut input, Gesture::HornHoldBegan);
     assert!(harness.app.ctx.input.physically_down(Key::H));
     touch(&mut harness, &mut input, Gesture::HoldEnded);
@@ -216,7 +216,7 @@ fn touch_practice_takes_pedal_and_bound_holds_before_they_press_keys() {
             .app
             .ctx
             .bindings
-            .set_chord(Action::EmergencyBrake, Chord::plain(Key::Z)),
+            .set_chord(Action::EmergencyBrake, Chord::plain(Key::Backslash)),
         freight_fate::bindings::Rebind::Done
     ));
     harness.app.push_state(TouchPracticeState::new());
@@ -245,7 +245,7 @@ fn touch_practice_takes_pedal_and_bound_holds_before_they_press_keys() {
         "{:?}",
         harness.transcript()
     );
-    assert!(!harness.app.ctx.input.physically_down(Key::Z));
+    assert!(!harness.app.ctx.input.physically_down(Key::Backslash));
 }
 
 #[test]
@@ -474,7 +474,7 @@ fn a_deep_swipe_while_moving_holds_the_emergency_brake() {
             .app
             .ctx
             .bindings
-            .set_chord(Action::EmergencyBrake, Chord::plain(Key::Z)),
+            .set_chord(Action::EmergencyBrake, Chord::plain(Key::Backslash)),
         freight_fate::bindings::Rebind::Done
     ));
     let mut input = TouchInput::new();
@@ -482,10 +482,10 @@ fn a_deep_swipe_while_moving_holds_the_emergency_brake() {
     touch(&mut harness, &mut input, Gesture::HoldLowerBegan);
     touch(&mut harness, &mut input, Gesture::DeepSwipeDownBegan);
     assert!(!harness.app.ctx.input.physically_down(Key::Down));
-    assert!(harness.app.ctx.input.physically_down(Key::Z));
+    assert!(harness.app.ctx.input.physically_down(Key::Backslash));
     assert!(!harness.with_drive(|drive, _| drive.trip.truck.parking_brake));
     touch(&mut harness, &mut input, Gesture::HoldEnded);
-    assert!(!harness.app.ctx.input.physically_down(Key::Z));
+    assert!(!harness.app.ctx.input.physically_down(Key::Backslash));
 }
 
 #[test]
@@ -545,14 +545,14 @@ fn a_still_hold_straightens_the_wheel_until_it_lifts() {
             .app
             .ctx
             .bindings
-            .set_chord(Action::Straighten, Chord::plain(Key::Z)),
+            .set_chord(Action::Straighten, Chord::plain(Key::Backslash)),
         freight_fate::bindings::Rebind::Done
     ));
     let mut input = TouchInput::new();
     touch(&mut harness, &mut input, Gesture::StillHoldBegan);
-    assert!(harness.app.ctx.input.physically_down(Key::Z));
+    assert!(harness.app.ctx.input.physically_down(Key::Backslash));
     touch(&mut harness, &mut input, Gesture::HoldEnded);
-    assert!(!harness.app.ctx.input.physically_down(Key::Z));
+    assert!(!harness.app.ctx.input.physically_down(Key::Backslash));
 }
 
 #[test]

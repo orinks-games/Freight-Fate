@@ -79,6 +79,8 @@ pub const CH_LANE_GUIDE: u32 = 20; // optional lane-guide tone, panned by the gu
 /// One sound per nearby NPC vehicle, set every frame from where it is.
 pub const CH_TRAFFIC_SOUNDS: [u32; 3] = [21, 22, 23];
 pub const CH_TRAFFIC_BED: u32 = 24; // the freeway's distant traffic, by its real presence
+pub const CH_CAB_WIND: u32 = 25; // air rushing past the open driver window, by road speed
+pub const CH_CAB_FAN: u32 = 26; // the cab blower at the fan speed the driver chose
 
 // Everything above must be inside the reservation. set_reserved(n) protects
 // channels 0..n-1 from find_channel, and this sat at 14 while CH_RADIO_FX,
@@ -91,7 +93,7 @@ pub const NUM_CHANNELS: u32 = 32;
 // (CH_LANE_GUIDE landed at 20 after RESERVED was set to CH_SURGE + 1 = 20; the
 // reservation only ever mattered to the pygame mixer, so the value is kept as
 // the Python module had it.)
-const _: () = assert!(CH_LANE_GUIDE < NUM_CHANNELS);
+const _: () = assert!(CH_CAB_FAN < NUM_CHANNELS);
 
 /// A held alert tone is a dead man's switch. Its owner re-asserts it every
 /// frame through `hold_alert`, and it stops on its own the moment that stops
@@ -634,6 +636,9 @@ pub trait Audio {
         self.set_weather_with(key, 1.0);
     }
     fn set_wind(&mut self, intensity: f64);
+    /// How much louder the outside sounds (the tires, rain, the weather
+    /// wind) are than with the cab sealed: 1.0 with the driver window up.
+    fn set_outside_lift(&mut self, _lift: f64) {}
     fn set_ambient_with(&mut self, key: Option<&str>, volume: f64);
     fn set_ambient(&mut self, key: Option<&str>) {
         self.set_ambient_with(key, 1.0);

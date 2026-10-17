@@ -802,8 +802,13 @@ impl DrivingState {
             // A mainline limit cut by the take line is about a road the truck
             // has just left: "Speed limit raised to 75." came back after "You
             // take exit 167" (agent drive, Edwards, 2026-09-24).
+            //
+            // An arrival line also has to name the limit still in force: a
+            // short 45 between two 55s, cut by the next line and handed back,
+            // said "reduced to 45" after "raised to 55".
             self.refresh_live_facts();
-            opts = opts.valid(|| !live::on_ramp());
+            let named = event.data.limit_mph;
+            opts = opts.valid(move || live::limit_line_holds(named));
         }
         ctx.say_event_with(message, opts);
         // Any spoken route line pushes spaced ambient chatter back, so

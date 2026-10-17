@@ -85,6 +85,9 @@ impl DrivingState {
         let jake3 = n(Action::JakeStage3);
         let auto_jake = n(Action::AutoJake);
         let transmission_mode = n(Action::TransmissionMode);
+        let window = n(Action::DriverWindow);
+        let fan = n(Action::Fan);
+        let climate = n(Action::Climate);
 
         // Each spoken sentence is one whole literal, so a catalog can
         // translate it as a unit. Sentences are joined with a space.
@@ -307,6 +310,10 @@ impl DrivingState {
              shoulder-sleep warning instead."
         ));
         lines.push(format!("{horn} horn."));
+        lines.push(format!(
+            "{window} lowers or raises the driver window, {fan} steps the fan, \
+             {climate} switches heat and air conditioning."
+        ));
         lines.push(format!(
             "{engine_brake} engine brake; on an automatic it manages its own stage, and \
              {jake1}, {jake2}, {jake3} take manual control."

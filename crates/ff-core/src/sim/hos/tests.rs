@@ -1659,3 +1659,80 @@ fn next_limit_keeps_the_first_on_a_tie() {
     assert_eq!(SHOULDER_DAMAGE_PCT, 3.0);
     assert_eq!(FATIGUE_SEVERE, 80.0);
 }
+
+#[test]
+fn test_drive_and_duty_share_one_sleep_countdown() {
+    // Driving time and the duty window end ten minutes apart, in the same
+    // sleep: the run hears one countdown to it, not two interleaved.
+    let mut c = HosClock::new();
+    c.on_duty(170.0);
+    let msgs = drive_collecting_realistic(&mut c, 655.0);
+    let sleep_lines: Vec<&String> = msgs
+        .iter()
+        .filter(|m| m.contains("10 hours of sleep") && !m.contains("violation"))
+        .collect();
+    assert_eq!(sleep_lines.len(), 3, "{sleep_lines:?}");
+    assert!(sleep_lines.iter().all(|m| m.contains("driving time")));
+}
+
+#[test]
+fn test_duty_window_speaks_when_it_is_the_nearer_limit() {
+    let mut c = HosClock::new();
+    c.on_duty(600.0);
+    let msgs = drive_collecting_realistic(&mut c, 125.0);
+    assert!(
+        msgs.iter()
+            .any(|m| m.contains("2 hours") && m.contains("duty window")),
+        "{msgs:?}"
+    );
+    assert!(!msgs.iter().any(|m| m.contains("driving time")));
+}
+
+#[test]
+fn test_a_driving_mode_speaks_only_its_own_marks() {
+    let mut c = HosClock::new();
+    c.on_duty(170.0);
+    let mut msgs = Vec::new();
+    let mut elapsed = 0.0;
+    while elapsed < 655.0 {
+        c.drive(5.0);
+        elapsed += 5.0;
+        msgs.extend(c.check_warnings_with("realistic", &[60.0], |_| false));
+    }
+    let countdown: Vec<&String> = msgs
+        .iter()
+        .filter(|m| m.starts_with("Hours of service: "))
+        .collect();
+    assert!(
+        countdown.iter().all(|m| m.contains("1 hour")),
+        "{countdown:?}"
+    );
+    assert_eq!(
+        countdown
+            .iter()
+            .filter(|m| m.contains("10 hours of sleep"))
+            .count(),
+        1
+    );
+}
+
+#[test]
+fn test_no_countdown_for_a_limit_the_trip_ends_inside() {
+    let mut c = HosClock::new();
+    c.drive(530.0);
+    c.take_break(30.0);
+    // 130 minutes of driving left; the destination is 90 minutes out.
+    let mut spoken = Vec::new();
+    for _ in 0..3 {
+        c.drive(5.0);
+        spoken.extend(c.check_warnings_with("realistic", &[120.0], |limit| {
+            90.0 + 5.0 <= limit.remaining_min
+        }));
+    }
+    assert!(spoken.is_empty(), "{spoken:?}");
+    // The mark was spent in silence: it does not fire later either.
+    c.drive(5.0);
+    assert!(c
+        .check_warnings_with("realistic", &[120.0], |_| false)
+        .is_empty());
+}

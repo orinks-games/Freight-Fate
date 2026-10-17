@@ -836,6 +836,11 @@ pub const SELF_EXPLANATORY: &[(&str, &str)] = &[
         "Pavement seams: texture, not a decision.",
     ),
     ("vehicle/truck_door", "A door."),
+    (
+        "cab/*",
+        "The driver window, the wind through it and the fan, right after \
+         the key that set them, which says what changed.",
+    ),
     ("vehicle/fuel_pump", "A fuel pump, at a fuel pump."),
     ("vehicle/reverse", "A backup beeper while backing up."),
     ("vehicle/horn", "The player is holding the horn key."),

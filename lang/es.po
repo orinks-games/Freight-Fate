@@ -2263,6 +2263,9 @@ msgstr "unidades de punto de bucle desconocidas: {units}"
 msgid "loop_end must be after loop_start"
 msgstr "loop_end debe ir después de loop_start"
 
+msgid "wav"
+msgstr "wav"
+
 msgid "day"
 msgstr "de día"
 
@@ -6834,9 +6837,6 @@ msgstr "el botón Back"
 
 msgid "Left or Right Control"
 msgstr "Control izquierdo o derecho"
-
-msgid "wav"
-msgstr "wav"
 
 msgid "event"
 msgstr "event"
@@ -11690,6 +11690,75 @@ msgstr "una milla"
 msgid "{meters} meters"
 msgstr "{meters} metros"
 
+msgid "Driver window down."
+msgstr "Ventanilla del conductor abajo."
+
+msgid "Driver window up."
+msgstr "Ventanilla del conductor arriba."
+
+msgid "Fan off."
+msgstr "Ventilador apagado."
+
+msgid "Fan low."
+msgstr "Ventilador bajo."
+
+msgid "Fan medium."
+msgstr "Ventilador medio."
+
+msgid "Fan high."
+msgstr "Ventilador alto."
+
+msgid "Heat."
+msgstr "Calefacción."
+
+msgid "Air conditioning."
+msgstr "Aire acondicionado."
+
+msgid "Cab: driver window down"
+msgstr "Cabina: ventanilla del conductor abajo"
+
+msgid "Cab: fan low, heat"
+msgstr "Cabina: ventilador bajo, calefacción"
+
+msgid "Cab: fan medium, heat"
+msgstr "Cabina: ventilador medio, calefacción"
+
+msgid "Cab: fan high, heat"
+msgstr "Cabina: ventilador alto, calefacción"
+
+msgid "Cab: fan low, air conditioning"
+msgstr "Cabina: ventilador bajo, aire acondicionado"
+
+msgid "Cab: fan medium, air conditioning"
+msgstr "Cabina: ventilador medio, aire acondicionado"
+
+msgid "Cab: fan high, air conditioning"
+msgstr "Cabina: ventilador alto, aire acondicionado"
+
+msgid "Cab: driver window down, fan low, heat"
+msgstr ""
+"Cabina: ventanilla del conductor abajo, ventilador bajo, calefacción"
+
+msgid "Cab: driver window down, fan medium, heat"
+msgstr ""
+"Cabina: ventanilla del conductor abajo, ventilador medio, calefacción"
+
+msgid "Cab: driver window down, fan high, heat"
+msgstr ""
+"Cabina: ventanilla del conductor abajo, ventilador alto, calefacción"
+
+msgid "Cab: driver window down, fan low, air conditioning"
+msgstr ""
+"Cabina: ventanilla del conductor abajo, ventilador bajo, aire acondicionado"
+
+msgid "Cab: driver window down, fan medium, air conditioning"
+msgstr ""
+"Cabina: ventanilla del conductor abajo, ventilador medio, aire acondicionado"
+
+msgid "Cab: driver window down, fan high, air conditioning"
+msgstr ""
+"Cabina: ventanilla del conductor abajo, ventilador alto, aire acondicionado"
+
 msgid "yield"
 msgstr "ceda el paso"
 
@@ -11867,15 +11936,6 @@ msgstr "Tu ventana de servicio se ha cerrado."
 msgid "past your duty window"
 msgstr "fuera de tu ventana de servicio"
 
-msgid "2 hours"
-msgstr "2 horas"
-
-msgid "1 hour"
-msgstr "1 hora"
-
-msgid "30 minutes"
-msgstr "30 minutos"
-
 msgid "driving"
 msgstr "conduciendo"
 
@@ -11897,26 +11957,6 @@ msgstr "tu ventana de servicio de 14 horas había vencido"
 
 msgid "you were past the 30-minute break requirement"
 msgstr "te habías pasado del requisito de la pausa de 30 minutos"
-
-#. one sentence of a longer line
-msgid "Driving on risks fines at inspections."
-msgstr "Seguir conduciendo te expone a multas en las inspecciones."
-
-#. placeholders: {due}
-#. one sentence of a longer line
-msgid "Hours of service violation: {due}."
-msgstr "Infracción de las horas de servicio: {due}."
-
-#. placeholders: {due}
-msgid ""
-"Hours of service violation: {due}. Driving on risks fines at inspections."
-msgstr ""
-"Infracción de las horas de servicio: {due}. Seguir conduciendo te expone a "
-"multas en las inspecciones."
-
-#. placeholders: {phrase}, {due}
-msgid "Hours of service: {phrase} until {due}."
-msgstr "Horas de servicio: {phrase} hasta {due}."
 
 msgid "Hours of service: 30-minute break overdue."
 msgstr "Horas de servicio: la pausa de 30 minutos está vencida."
@@ -12155,6 +12195,35 @@ msgstr "ubicación desconocida"
 
 msgid "segments"
 msgstr "segments"
+
+msgid "2 hours"
+msgstr "2 horas"
+
+msgid "1 hour"
+msgstr "1 hora"
+
+msgid "30 minutes"
+msgstr "30 minutos"
+
+#. one sentence of a longer line
+msgid "Driving on risks fines at inspections."
+msgstr "Seguir conduciendo te expone a multas en las inspecciones."
+
+#. placeholders: {due}
+#. one sentence of a longer line
+msgid "Hours of service violation: {due}."
+msgstr "Infracción de las horas de servicio: {due}."
+
+#. placeholders: {due}
+msgid ""
+"Hours of service violation: {due}. Driving on risks fines at inspections."
+msgstr ""
+"Infracción de las horas de servicio: {due}. Seguir conduciendo te expone a "
+"multas en las inspecciones."
+
+#. placeholders: {phrase}, {due}
+msgid "Hours of service: {phrase} until {due}."
+msgstr "Horas de servicio: {phrase} hasta {due}."
 
 msgid "single"
 msgstr "único"
@@ -13118,6 +13187,9 @@ msgstr "Entrando en zona de {reason}. Límite de velocidad {speed_value}."
 msgid "zone"
 msgstr "zona"
 
+msgid "limit"
+msgstr "límite"
+
 #. placeholders: {reason}
 #. one sentence of a longer line
 msgid "End of {reason} zone."
@@ -13140,9 +13212,6 @@ msgstr "Entrando en {name}. Ahora son las {clock_text}."
 #. one sentence of a longer line
 msgid "It is now {clock_text}."
 msgstr "Ahora son las {clock_text}."
-
-msgid "limit"
-msgstr "límite"
 
 msgid "approaching"
 msgstr "acercándote"
@@ -15197,6 +15266,11 @@ msgstr "Juntas del asfalto: textura, no una decisión."
 msgid "A door."
 msgstr "Una puerta."
 
+msgid ""
+"The driver window, the wind through it and the fan, right after the key "
+"that set them, which says what changed."
+msgstr ""
+
 msgid "A fuel pump, at a fuel pump."
 msgstr "Un surtidor de combustible, en un surtidor."
 
@@ -15959,6 +16033,21 @@ msgstr "Freno de estacionamiento"
 
 msgid "Horn"
 msgstr "Bocina"
+
+msgid "Driver window down or up"
+msgstr "Bajar o subir la ventanilla del conductor"
+
+msgid "Fan speed"
+msgstr "Velocidad del ventilador"
+
+msgid "fan"
+msgstr ""
+
+msgid "climate"
+msgstr ""
+
+msgid "Heat or air conditioning"
+msgstr "Calefacción o aire acondicionado"
 
 msgid "Automatic speed control"
 msgstr "Control automático de velocidad"
@@ -17618,11 +17707,6 @@ msgstr ""
 "estacionamiento cuando hay presión de aire."
 
 #. placeholders: {f}
-msgid " Deadline extended to {f} hours for a 10-hour sleep en route."
-msgstr ""
-" Plazo de entrega ampliado a {f} horas para dormir 10 horas por el camino."
-
-#. placeholders: {f}
 msgid " Deadline extended to {f} hours."
 msgstr " Plazo de entrega ampliado a {f} horas."
 
@@ -18017,6 +18101,53 @@ msgid ""
 msgstr ""
 "La revisión de la ruta tras la recogida cubre descansos, combustible, "
 "peajes, tiempo y restricciones."
+
+#. placeholders: {hours}
+msgid "Trip hours: about {hours} driving hours."
+msgstr "Horas del viaje: unas {hours} horas de conducción."
+
+#. placeholders: {hours}
+msgid "Trip hours: about {hours} driving hours, with a 30-minute break."
+msgstr ""
+"Horas del viaje: unas {hours} horas de conducción, con una pausa de 30 "
+"minutos."
+
+#. placeholders: {hours}
+msgid "Trip hours: about {hours} driving hours, with a 10-hour sleep."
+msgstr ""
+"Horas del viaje: unas {hours} horas de conducción, con un descanso de 10 "
+"horas."
+
+#. placeholders: {hours}, {sleeps}
+msgid ""
+"Trip hours: about {hours} driving hours, with {sleeps} 10-hour sleeps."
+msgstr ""
+"Horas del viaje: unas {hours} horas de conducción, con {sleeps} descansos "
+"de 10 horas."
+
+#. placeholders: {percent}, {range}
+msgid "Fuel: {percent} percent, about {range} of range, short of this trip."
+msgstr ""
+"Combustible: {percent} por ciento, autonomía de unos {range}, insuficiente "
+"para este viaje."
+
+#. placeholders: {percent}, {range}
+msgid "Fuel: {percent} percent, about {range} of range."
+msgstr "Combustible: {percent} por ciento, autonomía de unos {range}."
+
+msgid "This run needs a 30-minute break."
+msgstr "Este viaje necesita una pausa de 30 minutos."
+
+msgid "This run needs a 10-hour sleep."
+msgstr "Este viaje necesita un descanso de 10 horas."
+
+#. placeholders: {sleeps}
+msgid "This run needs {sleeps} 10-hour sleeps."
+msgstr "Este viaje necesita {sleeps} descansos de 10 horas."
+
+#. placeholders: {percent}
+msgid "Fuel: {percent} percent."
+msgstr "Combustible: {percent} por ciento."
 
 #. placeholders: {i}, {total}
 msgid "Job {i} of {total}: "
@@ -22218,6 +22349,14 @@ msgstr ""
 #. placeholders: {horn}
 msgid "{horn} horn."
 msgstr "{horn} el claxon."
+
+#. placeholders: {window}, {fan}, {climate}
+msgid ""
+"{window} lowers or raises the driver window, {fan} steps the fan, {climate} "
+"switches heat and air conditioning."
+msgstr ""
+"{window} baja o sube la ventanilla del conductor, {fan} cambia la velocidad "
+"del ventilador, {climate} alterna entre calefacción y aire acondicionado."
 
 #. placeholders: {engine_brake}, {jake1}, {jake2}, {jake3}
 msgid ""
@@ -34192,23 +34331,25 @@ msgid "Driving mode: {pace_label}"
 msgstr "Modo de conducción: {pace_label}"
 
 msgid ""
-"Pacing and pressure. Relaxed gives wider hazard windows, gentler damage and "
-"fatigue, calmer speech, and the most time to respond. Standard keeps "
-"balanced pressure and moves the clock twice as fast. Real time keeps "
-"Standard's pressure and runs the driving clock at the speed of a real "
-"clock, lined up with your computer's date and time; delivery time remaining "
-"and hours of service do not move. Changeable mid-drive from the pause menu; "
-"the new pacing starts when the truck next stops."
+"Pacing and pressure. Relaxed passes about ten minutes of road and clock "
+"each real minute, with wider hazard windows, gentler damage and fatigue, "
+"calmer speech, and the most time to respond. Standard keeps balanced "
+"pressure and moves twice as fast, about twenty minutes each real minute. "
+"Real time keeps Standard's pressure and runs the driving clock at the speed "
+"of a real clock, lined up with your computer's date and time; delivery time "
+"remaining and hours of service do not move. Changeable mid-drive from the "
+"pause menu; the new pacing starts when the truck next stops."
 msgstr ""
-"Ritmo y presión. Relajado da márgenes más amplios ante los peligros, daños "
-"y fatiga más suaves, una voz más calmada y el máximo tiempo para "
-"reaccionar. Estándar mantiene una presión equilibrada y hace avanzar el "
-"reloj el doble de rápido. Tiempo real mantiene la presión de Estándar y "
-"hace correr el reloj de conducción a la velocidad de un reloj real, "
-"sincronizado con la fecha y la hora de tu ordenador; el tiempo restante de "
-"entrega y las horas de servicio no cambian. Se puede cambiar a mitad de "
-"viaje desde el menú de pausa; el nuevo ritmo empieza la próxima vez que el "
-"camión se detenga."
+"Ritmo y presión. Relajado hace pasar unos diez minutos de carretera y reloj "
+"por cada minuto real, con márgenes más amplios ante los peligros, daños y "
+"fatiga más suaves, una voz más calmada y el máximo tiempo para reaccionar. "
+"Estándar mantiene una presión equilibrada y avanza el doble de rápido, unos "
+"veinte minutos por cada minuto real. Tiempo real mantiene la presión de "
+"Estándar y hace correr el reloj de conducción a la velocidad de un reloj "
+"real, sincronizado con la fecha y la hora de tu ordenador; el tiempo "
+"restante de entrega y las horas de servicio no cambian. Se puede cambiar a "
+"mitad de viaje desde el menú de pausa; el nuevo ritmo empieza la próxima "
+"vez que el camión se detenga."
 
 #. placeholders: {hos_label}
 msgid "Hours of service: {hos_label}"
@@ -36527,11 +36668,15 @@ msgstr ""
 
 msgid ""
 "Both hours modes use these limits. Relaxed changes enforcement pressure. "
-"Warnings come at two hours, one hour, and thirty minutes left."
+"One warning comes before each limit: one hour left in the Relaxed driving "
+"mode, two hours in Standard, and two hours, one hour and thirty minutes in "
+"Real time. None comes for a limit the trip ends inside."
 msgstr ""
 "Los dos modos de horas usan estos límites. Relajado cambia la presión del "
-"control. Los avisos llegan cuando quedan dos horas, una hora y treinta "
-"minutos."
+"control. Llega un aviso antes de cada límite: cuando queda una hora en el "
+"modo de conducción Relajado, dos horas en Estándar, y dos horas, una hora y "
+"treinta minutos en Tiempo real. No llega ninguno para un límite dentro del "
+"cual termina el viaje."
 
 #. one sentence of a longer line
 msgid "Check again as traffic or weather changes."
@@ -37140,13 +37285,14 @@ msgstr ""
 "volúmenes de los avisos."
 
 msgid ""
-"Relaxed pacing gives more response time and gentler consequences. Standard "
-"moves driving time and distance twice as fast. Real time follows the "
-"computer clock at real speed."
+"Relaxed pacing passes about ten minutes of road and clock each real minute, "
+"with more response time and gentler consequences. Standard moves twice as "
+"fast. Real time follows the computer clock at real speed."
 msgstr ""
-"El ritmo relajado da más tiempo para reaccionar y consecuencias más suaves. "
-"Estándar hace avanzar el tiempo y la distancia de conducción el doble de "
-"rápido. Tiempo real sigue el reloj del ordenador a velocidad real."
+"El ritmo relajado hace pasar unos diez minutos de carretera y reloj por "
+"cada minuto real, con más tiempo para reaccionar y consecuencias más "
+"suaves. Estándar avanza el doble de rápido. Tiempo real sigue el reloj del "
+"ordenador a velocidad real."
 
 msgid ""
 "Change pacing mid-drive from pause; it begins when the truck next stops. "
@@ -40329,6 +40475,46 @@ msgstr "cierra paréntesis"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "mayúscula {ch}"
+
+#~ msgid " Deadline extended to {f} hours for a 10-hour sleep en route."
+#~ msgstr ""
+#~ " Plazo de entrega ampliado a {f} horas para dormir 10 horas por el camino."
+
+#~ msgid ""
+#~ "Pacing and pressure. Relaxed gives wider hazard windows, gentler damage and "
+#~ "fatigue, calmer speech, and the most time to respond. Standard keeps "
+#~ "balanced pressure and moves the clock twice as fast. Real time keeps "
+#~ "Standard's pressure and runs the driving clock at the speed of a real "
+#~ "clock, lined up with your computer's date and time; delivery time remaining "
+#~ "and hours of service do not move. Changeable mid-drive from the pause menu; "
+#~ "the new pacing starts when the truck next stops."
+#~ msgstr ""
+#~ "Ritmo y presión. Relajado da márgenes más amplios ante los peligros, daños "
+#~ "y fatiga más suaves, una voz más calmada y el máximo tiempo para "
+#~ "reaccionar. Estándar mantiene una presión equilibrada y hace avanzar el "
+#~ "reloj el doble de rápido. Tiempo real mantiene la presión de Estándar y "
+#~ "hace correr el reloj de conducción a la velocidad de un reloj real, "
+#~ "sincronizado con la fecha y la hora de tu ordenador; el tiempo restante de "
+#~ "entrega y las horas de servicio no cambian. Se puede cambiar a mitad de "
+#~ "viaje desde el menú de pausa; el nuevo ritmo empieza la próxima vez que el "
+#~ "camión se detenga."
+
+#~ msgid ""
+#~ "Both hours modes use these limits. Relaxed changes enforcement pressure. "
+#~ "Warnings come at two hours, one hour, and thirty minutes left."
+#~ msgstr ""
+#~ "Los dos modos de horas usan estos límites. Relajado cambia la presión del "
+#~ "control. Los avisos llegan cuando quedan dos horas, una hora y treinta "
+#~ "minutos."
+
+#~ msgid ""
+#~ "Relaxed pacing gives more response time and gentler consequences. Standard "
+#~ "moves driving time and distance twice as fast. Real time follows the "
+#~ "computer clock at real speed."
+#~ msgstr ""
+#~ "El ritmo relajado da más tiempo para reaccionar y consecuencias más suaves. "
+#~ "Estándar hace avanzar el tiempo y la distancia de conducción el doble de "
+#~ "rápido. Tiempo real sigue el reloj del ordenador a velocidad real."
 
 #~ msgid "smoke: packaged BASS runtime could not initialize: {e}"
 #~ msgstr "smoke: packaged BASS runtime could not initialize: {e}"

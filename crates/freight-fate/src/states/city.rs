@@ -664,9 +664,12 @@ pub fn loaded_departure_line(
             ctx.control_hint("parking_brake")
         )
     };
+    // The hours and tank before the road, so the driver can plan the stops
+    // instead of meeting them as a countdown (player report, 2026-10-17).
     format!(
-        "{lead}{} {next_context} {tail}",
-        crate::states::city_pickup::route_departure_summary(route, &ctx.settings)
+        "{lead}{} {} {next_context} {tail}",
+        crate::states::city_pickup::route_departure_summary(route, &ctx.settings),
+        board::briefing::departure_briefing(ctx, route)
     )
 }
 
@@ -711,17 +714,11 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
             });
             job.deadline_game_h = fair;
             job.deadline_covers_rest |= extra_rest;
-            if extra_rest {
-                format!(
-                    " Deadline extended to {} hours for a 10-hour sleep en route.",
-                    fmt_f(job.deadline_game_h, 1)
-                )
-            } else {
-                format!(
-                    " Deadline extended to {} hours.",
-                    fmt_f(job.deadline_game_h, 1)
-                )
-            }
+            // The departure briefing already names the sleep.
+            format!(
+                " Deadline extended to {} hours.",
+                fmt_f(job.deadline_game_h, 1)
+            )
         } else {
             String::new()
         }

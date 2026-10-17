@@ -161,6 +161,8 @@ pub struct HearkenBackend {
     pub(super) intro_applied: (f64, f64),
     pub(super) engine_last_rpm: f64,
     pub(super) engine_last_throttle: f64,
+    /// The driver window's lift on the tire loop, 1.0 with it up.
+    pub(super) road_lift: f64,
     pub(super) engine_duck: f64,
     pub(super) fades: FadeScheduler,
     pub(super) engine_wobble: Vec<[f64; 2]>,
@@ -254,6 +256,7 @@ impl HearkenBackend {
             intro_applied: (1.0, 0.0),
             engine_last_rpm: ENGINE_RPM_IDLE,
             engine_last_throttle: 0.0,
+            road_lift: 1.0,
             engine_duck: 1.0,
             fades: FadeScheduler::new(),
             engine_wobble: Vec::new(),
@@ -546,7 +549,7 @@ impl HearkenBackend {
             self.stop_loop(CH_ROAD, 500);
             return;
         }
-        self.start_loop(CH_ROAD, "vehicle/road", gain, 400);
+        self.start_loop(CH_ROAD, "vehicle/road", gain * self.road_lift, 400);
         let Some(entry) = self.loops.get_mut(&CH_ROAD) else {
             return;
         };

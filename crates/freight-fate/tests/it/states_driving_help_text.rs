@@ -237,7 +237,7 @@ fn test_dispatch_board_keeps_route_planning_out_of_load_offer() {
     let toll_route = world
         .route_from_cities(&["New York", "Philadelphia"])
         .expect("New York to Philadelphia is a route");
-    let summary = route_planning_summary(&toll_route);
+    let summary = route_planning_summary(&toll_route, None);
     assert!(summary.contains(" driving hours"), "{summary}");
     assert!(summary.contains("Fuel stops:"), "{summary}");
     assert!(

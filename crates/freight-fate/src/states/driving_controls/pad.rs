@@ -133,6 +133,9 @@ impl DrivingState {
             // the one question enforcement acts on (Sarah R., 2026-08-16).
             Action::SpeedLimit => self.speak_speed_limit(ctx),
             Action::ParkingBrake => self.toggle_parking_brake(ctx),
+            Action::DriverWindow => self.toggle_driver_window(ctx),
+            Action::Fan => self.step_cab_fan(ctx),
+            Action::Climate => self.toggle_cab_climate(ctx),
             Action::CycleJake => self.cycle_jake_stage(ctx),
             Action::JakeStage1 => self.select_jake_stage(ctx, 1),
             Action::JakeStage2 => self.select_jake_stage(ctx, 2),

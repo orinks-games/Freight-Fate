@@ -110,6 +110,10 @@ impl AudioBackend for HearkenBackend {
         HearkenBackend::set_road_noise(self, speed_mps);
     }
 
+    fn set_outside_lift(&mut self, lift: f64) {
+        self.road_lift = lift;
+    }
+
     fn update(&mut self, dt: f64) {
         HearkenBackend::update(self, dt);
     }

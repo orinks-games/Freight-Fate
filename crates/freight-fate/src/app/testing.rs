@@ -422,6 +422,8 @@ pub struct AudioCalls {
     pub engine_rpm: Vec<(f64, f64)>,
     /// The loops sounding now, by channel: what a listener would hear.
     pub loops: std::collections::HashMap<u32, RecordedLoop>,
+    /// The last `set_outside_lift`: what the open driver window adds.
+    pub outside_lift: Option<f64>,
 }
 
 /// One running loop as [`RecordingAudio`] last left it.
@@ -539,6 +541,9 @@ impl Audio for RecordingAudio {
     }
     fn stop_loop_with(&mut self, channel: u32, _fade_ms: u32) {
         self.log.borrow_mut().loops.remove(&channel);
+    }
+    fn set_outside_lift(&mut self, lift: f64) {
+        self.log.borrow_mut().outside_lift = Some(lift);
     }
     fn start_sustain_loop_with(
         &mut self,
