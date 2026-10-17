@@ -739,6 +739,11 @@ Everything found before 2026-09-25 moved to
       present: no M6 run had the pack, so no shipped catalog track has been
       opened through Hearken yet (including whether any is HE-AAC or a
       tracker module).
+- [ ] (Found along the way) Replace the other shrill short cues the way the
+      toll sound was replaced on 2026-10-17 (ElevenLabs takes, owner picks
+      by ear): lane drift (a pure 3 kHz beep), inspection warning (mostly
+      above 2.6 kHz), turn left and right (1.5 kHz tones), and the scale
+      and ramp-light green chirps (1.76 kHz).
 - [x] Hearken milestone M6 (2026-10-17): every engine service under the
       game runs on Hearken. That is the speech sink stack, the event-voice
       pacer (the priority ladder stays in `ff-core`), sound, music and the

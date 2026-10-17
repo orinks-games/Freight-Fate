@@ -359,6 +359,16 @@ SPECS: dict[str, tuple[str, float, float]] = {
         20.0,
         0.4,
     ),
+    # The old toll cue was a bright chime around 4 to 5 kHz that clipped;
+    # the owner picked this take (2026-10-17) from eight lower ones. The
+    # shipped take was levelled to a -3 dBFS peak.
+    "events/toll_charged": (
+        "Gentle low dashboard bong, single soft rounded tone like a car "
+        "door-ajar chime but much lower and softer, no high frequencies, "
+        "no speech, no music",
+        0.8,
+        0.7,
+    ),
 }
 
 # Ambience beds loop at runtime; ask the API for a seamless loop when it can.

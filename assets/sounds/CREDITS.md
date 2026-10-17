@@ -97,7 +97,7 @@ not distributed in this repository.
 | Hazard warning | `events/hazard_warning.ogg` | Short in-drive hazard cue |
 | Construction zone | `events/construction_zone.ogg` | Short construction-zone cue |
 | Traffic slowing | `events/traffic_slowing.ogg` | Short traffic-slowing cue |
-| Toll charged | `events/toll_charged.ogg` | Short toll/transponder cue |
+| Toll charged | `events/toll_charged.ogg` | ElevenLabs-generated low, soft dashboard bong |
 | State crossing | `events/state_crossing.ogg` | Short route milestone cue |
 | Inspection warning | `events/inspection_warning.ogg` | Short inspection/weigh-station cue |
 | Scale warning | `events/weigh_station_warning.ogg` | Procedural (numpy) two-part low-thump-then-beep cue for the open-scale approach notice, generated with `tools/generate_sounds.py --weigh-station-warning`, no ElevenLabs credits |

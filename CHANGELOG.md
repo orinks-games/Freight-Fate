@@ -78,6 +78,7 @@
 
 - **A speed limit posting too short to announce is not announced.** It also never earns a ticket; the S key still reads the limit.
 
+- **The toll sound is now a soft, low bong.** The old high, bright chime is gone.
 - **The Facility stopping assistance and Hours of service planning hints help now covers chains.** Facility stopping says it may spend on-duty minutes on chains and never buys them; planning hints say they remind you about chains and never buy anything. The help is in Spanish.
 - **Oregon's lower chain level no longer chains your truck.** "Chains or traction tires required" chains only single-drive-axle trucks over 10,000 pounds, so your tandem-drive rig chains in Oregon at the "Chains required" level. The Oregon level 1 sign and the chain help say so, in Spanish too.
 - **Cruise and the speed keeper hold 30 miles per hour while chains are on.** The game says so once, and your own set speed comes back when the chains come off, so resuming cruise no longer tears up a set. If you cancel cruise while chained, Shift K brings back your own speed once the chains are off. The new lines are in Spanish.
