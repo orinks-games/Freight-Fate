@@ -1105,3 +1105,18 @@ def test_auto_base_follows_the_release_line_the_branch_was_cut_from(tmp_path, mo
 
     # An explicit base is never second-guessed.
     assert release_notes.resolve_base("origin/main") == "origin/main"
+
+
+def test_stable_notes_keep_known_issues_last(tmp_path, monkeypatch):
+    path = tmp_path / "CHANGELOG.md"
+    path.write_text(
+        "# Changelog\n\n## 1.2.3 - 2026-01-01\n\n### Known issues\n\n- Still broken.\n\n"
+        "### Fixed\n\n- Now fixed.\n\n## 1.2.2 - 2025-12-01\n\n### Fixed\n\n- Old.\n",
+        encoding="utf-8",
+    )
+    release_notes = load_release_notes_module()
+    monkeypatch.setattr(release_notes, "changelog_file", lambda: path)
+    out = release_notes.stable_notes("1.2.3")
+    assert out.index("## Fixed") < out.index("## Known issues")
+    assert "- Still broken." in out
+    assert "- Old." not in out

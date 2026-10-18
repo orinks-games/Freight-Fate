@@ -17,6 +17,13 @@
 - **Turning automatic engine brake off with Alt J now lasts between drives.** It used to switch back on at every dispatch.
 - **The favorites count on the Tab Radio screen now opens your favorite stations.** Press Enter on it, then Enter on a station to tune it.
 
+### Known issues
+
+- **Officers can cite a trailer fault on the drive to a pickup, before you hook the trailer.** They can also write up the same fault again at every post. Fixed for 1.9.5.
+- **Old damage on a tractor can count as preventable damage again on the next load.** Fixed for 1.9.5.
+- **Dispatch can send a new driver hundreds of miles empty to a relayed load.** Fixed for 1.9.5.
+- **The posted limit can dip briefly where the map mistook a ramp or side street for the highway.** Fixed for 1.9.5.
+
 ## 1.9.4 - 2026-10-10
 
 ### Added

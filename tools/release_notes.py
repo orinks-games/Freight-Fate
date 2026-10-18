@@ -52,7 +52,16 @@ STABLE_FULL_CHANGELOG = (
     "(https://github.com/orinks-games/Freight-Fate/blob/v{version}/CHANGELOG.md), "
     "on GitHub and as CHANGELOG.md in your game folder."
 )
-SECTION_ORDER = ("Added", "Changed", "Improved", "Fixed", "Removed", "Deprecated", "Security")
+SECTION_ORDER = (
+    "Added",
+    "Changed",
+    "Improved",
+    "Fixed",
+    "Removed",
+    "Deprecated",
+    "Security",
+    "Known issues",
+)
 PLAYER_FACING_SECTIONS = SECTION_ORDER + ("Compatibility",)
 INTERNAL_SECTIONS = (
     "Build",
