@@ -215,6 +215,10 @@ impl DrivingState {
             json!(self.trip.truck.preventable_damage_pct),
         );
         out.insert(
+            "equipment_event_logged".to_string(),
+            json!(self.equipment_event_logged),
+        );
+        out.insert(
             "cargo_damage_pct".to_string(),
             json!(self.trip.truck.cargo_damage_pct),
         );
@@ -423,6 +427,7 @@ impl DrivingState {
         state.out_of_service_creep_s = f(data, "out_of_service_creep_s", 0.0);
         state.worst_damage_band = i(data, "worst_damage_band", state.damage_band as i64) as i32;
         state.trip.truck.preventable_damage_pct = f(data, "preventable_damage_pct", 0.0);
+        state.equipment_event_logged = b(data, "equipment_event_logged", false);
         state.trip.truck.cargo_damage_pct = f(data, "cargo_damage_pct", 0.0);
         state.cargo_cue_at = f(data, "cargo_cue_at", 0.0);
         state.cargo_coaching_said = b(data, "cargo_coaching_said", false);

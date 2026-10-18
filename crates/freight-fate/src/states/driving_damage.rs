@@ -55,7 +55,7 @@ use ff_core::models::trucks::truck_model;
 use ff_core::pyfmt::fmt_grouped;
 use ff_core::settings::Settings;
 use ff_core::sim::trip_models::FACILITY_GATE_ZONE_MI;
-use ff_core::sim::vehicle::{TruckState, COMPONENT_SERVICE_LIMIT_PCT};
+use ff_core::sim::vehicle::{damage_band_for, TruckState, COMPONENT_SERVICE_LIMIT_PCT};
 use ff_core::speech_pacing::{EventPriority, SpeechCategory};
 
 use crate::app::{GameContext, SayEvent};
@@ -125,10 +125,16 @@ pub fn damage_summary_line(
 /// Both numbers scale with the deepest band the run reached rather than the
 /// damage number at the gate, so patching the truck on the shoulder does not
 /// launder the run.
+///
+/// The run has to take the truck into a band it did not leave in. Damage the
+/// tractor carried out of the yard was ruled on the run that did it; grading
+/// it again let one bad trip bill every load after it, until the driver
+/// found the carrier's free repair, for a single shoulder scrape each time.
 pub fn preventable_damage_charge(driving: &DrivingState) -> (f64, f64, String) {
     let preventable = driving.trip.truck.preventable_damage_pct;
     let bands = driving.worst_damage_band;
-    if bands <= DAMAGE_BAND_NONE || preventable < 1.0 {
+    let start_band = damage_band_for(driving.start_damage);
+    if bands <= DAMAGE_BAND_NONE || bands <= start_band || preventable < 1.0 {
         return (0.0, 0.0, String::new());
     }
     // The share of the run's damage the committee would call preventable,
@@ -844,7 +850,15 @@ impl DrivingState {
     /// Deliberately just a counter and a reputation hit: dispatch-trust
     /// regression and losing the seat are owned elsewhere, and there must not
     /// be two paths to either.
+    ///
+    /// One run is one event. A tractor grounded on the road and then ruled
+    /// preventable at the dock is the same incident, and counting it twice
+    /// doubled the record a new driver's carrier reads.
     pub fn record_equipment_event(&mut self, ctx: &mut GameContext) {
+        if self.equipment_event_logged {
+            return;
+        }
+        self.equipment_event_logged = true;
         increment_stat(profile_mut_of(ctx), "preventable_equipment_damage");
     }
 

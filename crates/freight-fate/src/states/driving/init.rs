@@ -449,6 +449,7 @@ impl DrivingState {
             rescue_offered: false,
             damage_band,
             worst_damage_band: damage_band,
+            equipment_event_logged: false,
             limp_cap_mph: None,
             limp_cruise_said: false,
             out_of_service_creep_s: 0.0,

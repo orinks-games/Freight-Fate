@@ -18,6 +18,7 @@
 //! | `monkeypatch.setattr(d, "_terse_speech", ...)` | `settings.driving_speech`, which is where the Rust reading comes from |
 #![allow(clippy::field_reassign_with_default)]
 
+use ff_core::achievements::int_stat;
 use ff_core::models::business::{COMPANY_DRIVER, LEASED_OWNER_OPERATOR};
 use ff_core::models::career::LEVEL_XP;
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
@@ -25,8 +26,9 @@ use ff_core::models::profile::Profile;
 use ff_core::pyfmt::fmt_grouped;
 use ff_core::sim::vehicle::{
     TruckState, DAMAGE_BAND_LAST_CALL, DAMAGE_BAND_LIMP, DAMAGE_BAND_NONE,
-    DAMAGE_BAND_OUT_OF_SERVICE, DAMAGE_BAND_REDUCED, DAMAGE_CREEP_CAP_MPH, DAMAGE_LAST_CALL_PCT,
-    DAMAGE_LIMP_CAP_MPH, DAMAGE_LIMP_PCT, DAMAGE_MAX_PCT, DAMAGE_OUT_OF_SERVICE_PCT,
+    DAMAGE_BAND_OUT_OF_SERVICE, DAMAGE_BAND_REDUCED, DAMAGE_CREEP_CAP_MPH, DAMAGE_DERATE_PCT,
+    DAMAGE_LAST_CALL_PCT, DAMAGE_LIMP_CAP_MPH, DAMAGE_LIMP_PCT, DAMAGE_MAX_PCT,
+    DAMAGE_OUT_OF_SERVICE_PCT,
 };
 use ff_core::sim::weather::WeatherKind;
 
@@ -589,6 +591,68 @@ fn test_the_settlement_grade_round_trips_through_a_snapshot() {
         resumed.trip.truck.preventable_damage_pct
     );
     assert_ne!(DAMAGE_BAND_NONE, resumed.worst_damage_band);
+}
+
+/// The drive as dispatch hands it out in a tractor that left the yard at
+/// `damage` percent, the way `DrivingState::new` reads it off the profile.
+fn left_the_yard_at(drive: &mut DrivingState, damage: f64) {
+    drive.trip.truck.damage_pct = damage;
+    drive.start_damage = damage;
+    drive.damage_band = drive.trip.truck.damage_band();
+    drive.worst_damage_band = drive.damage_band;
+}
+
+#[test]
+fn test_damage_the_truck_left_the_yard_with_is_not_ruled_again() {
+    let mut app = TestApp::new();
+    let mut drive = a_damage_drive(&mut app, COMPANY_DRIVER, 1);
+    rolling(&mut drive, 60.0);
+    left_the_yard_at(&mut drive, DAMAGE_DERATE_PCT + 5.0);
+    // One brush with the rumble strip on a run that never went deeper.
+    drive.trip.truck.add_damage(1.0, true);
+    drive.update_damage_bands(&mut app.ctx, 1.0 / 60.0);
+
+    assert_eq!(preventable_damage_charge(&drive), (0.0, 0.0, String::new()));
+}
+
+#[test]
+fn test_a_run_that_takes_a_damaged_truck_deeper_is_still_ruled() {
+    let mut app = TestApp::new();
+    let mut drive = a_damage_drive(&mut app, COMPANY_DRIVER, 1);
+    rolling(&mut drive, 60.0);
+    left_the_yard_at(&mut drive, DAMAGE_DERATE_PCT + 5.0);
+    drive
+        .trip
+        .truck
+        .add_damage(DAMAGE_LIMP_PCT - DAMAGE_DERATE_PCT, true);
+    drive.update_damage_bands(&mut app.ctx, 1.0 / 60.0);
+
+    let (deductible, reputation, reason) = preventable_damage_charge(&drive);
+
+    assert!(deductible > 0.0);
+    assert!(reputation > 0.0);
+    assert_eq!(reason, "the run finished in limp mode");
+}
+
+#[test]
+fn test_a_grounded_run_is_one_equipment_event_not_two() {
+    let mut app = TestApp::new();
+    let mut drive = a_damage_drive(&mut app, COMPANY_DRIVER, 1);
+    rolling(&mut drive, 0.0);
+    drive.trip.truck.add_damage(DAMAGE_OUT_OF_SERVICE_PCT, true);
+    drive.update_damage_bands(&mut app.ctx, 1.0 / 60.0);
+    let profile = app.ctx.profile.as_mut().expect("a profile");
+    assert_eq!(int_stat(profile, "preventable_equipment_damage"), 1);
+
+    // The dock rules the same run preventable; a reload in between must not
+    // forget that the grounding already counted it.
+    let data = drive.snapshot(&app.ctx);
+    let mut resumed =
+        DrivingState::from_snapshot(&mut app.ctx, &data).expect("the snapshot resumes");
+    resumed.record_equipment_event(&mut app.ctx);
+
+    let profile = app.ctx.profile.as_mut().expect("a profile");
+    assert_eq!(int_stat(profile, "preventable_equipment_damage"), 1);
 }
 
 #[path = "maintenance_limits.rs"]

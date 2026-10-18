@@ -436,6 +436,8 @@ pub struct DrivingState {
     pub damage_band: i32,
     // The deepest band this run reached, for settlement to grade against.
     pub worst_damage_band: i32,
+    // This run already put one preventable-equipment event on the record.
+    pub equipment_event_logged: bool,
     pub limp_cap_mph: Option<f64>,
     pub limp_cruise_said: bool,
     pub out_of_service_creep_s: f64,

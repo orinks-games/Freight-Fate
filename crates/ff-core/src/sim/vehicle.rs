@@ -194,6 +194,23 @@ pub const DAMAGE_BAND_LIMP: i32 = 2;
 pub const DAMAGE_BAND_LAST_CALL: i32 = 3;
 pub const DAMAGE_BAND_OUT_OF_SERVICE: i32 = 4;
 
+/// The named damage band a damage figure falls in.
+pub fn damage_band_for(damage: f64) -> i32 {
+    if damage >= DAMAGE_OUT_OF_SERVICE_PCT {
+        return DAMAGE_BAND_OUT_OF_SERVICE;
+    }
+    if damage >= DAMAGE_LAST_CALL_PCT {
+        return DAMAGE_BAND_LAST_CALL;
+    }
+    if damage >= DAMAGE_LIMP_PCT {
+        return DAMAGE_BAND_LIMP;
+    }
+    if damage >= DAMAGE_DERATE_PCT {
+        return DAMAGE_BAND_REDUCED;
+    }
+    DAMAGE_BAND_NONE
+}
+
 // -- cargo condition ------------------------------------------------------------------
 // What moves freight is what the truck does abruptly, so the rates live with
 // the physics that produce them; what the receiver DOES about the resulting
@@ -747,20 +764,7 @@ impl TruckState {
     /// Derived, never stored: ``damage_pct`` is already the persisted truth,
     /// so a save can never disagree with itself about the band.
     pub fn damage_band(&self) -> i32 {
-        let damage = self.damage_pct;
-        if damage >= DAMAGE_OUT_OF_SERVICE_PCT {
-            return DAMAGE_BAND_OUT_OF_SERVICE;
-        }
-        if damage >= DAMAGE_LAST_CALL_PCT {
-            return DAMAGE_BAND_LAST_CALL;
-        }
-        if damage >= DAMAGE_LIMP_PCT {
-            return DAMAGE_BAND_LIMP;
-        }
-        if damage >= DAMAGE_DERATE_PCT {
-            return DAMAGE_BAND_REDUCED;
-        }
-        DAMAGE_BAND_NONE
+        damage_band_for(self.damage_pct)
     }
 
     /// Torque left after the damage derate; 1.0 below reduced power.
