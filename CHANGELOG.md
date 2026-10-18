@@ -16,12 +16,15 @@
 - **An engine brake stage you pick now stays picked.** Cruise and the bend assist no longer switch it off after they finish slowing you.
 - **Turning automatic engine brake off with Alt J now lasts between drives.** It used to switch back on at every dispatch.
 - **The favorites count on the Tab Radio screen now opens your favorite stations.** Press Enter on it, then Enter on a station to tune it.
+- **The drive to a pickup no longer draws citations for the trailer still waiting in the shipper's yard.**
+- **Officers no longer cite a fault already written up on the same drive.** A trailer lamp, worn tires, body damage or a chain-law ticket counts once per drive.
+- **Snow chains now last through a posted chain law.** Before, they could wear out in about a dozen miles on a wet road.
+- **Damage a tractor already had no longer counts as preventable damage on the next load.** A grounding and its delivery now count as one incident, not two.
+- **Report truck trouble now covers trailer faults.** Dispatch sends a mechanic for a trailer lamp or tire.
+- **Dispatch no longer relays a new driver hundreds of miles empty.** The empty miles to a relayed load now grow with your level, from 75 at level 1.
 
 ### Known issues
 
-- **Officers can cite a trailer fault on the drive to a pickup, before you hook the trailer.** They can also write up the same fault again at every post. Fixed for 1.9.5.
-- **Old damage on a tractor can count as preventable damage again on the next load.** Fixed for 1.9.5.
-- **Dispatch can send a new driver hundreds of miles empty to a relayed load.** Fixed for 1.9.5.
 - **The posted limit can dip briefly where the map mistook a ramp or side street for the highway.** Fixed for 1.9.5.
 
 ## 1.9.4 - 2026-10-10
