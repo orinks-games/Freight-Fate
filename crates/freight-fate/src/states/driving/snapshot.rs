@@ -250,6 +250,9 @@ impl DrivingState {
         );
         out.insert("engine_on".to_string(), json!(self.trip.truck.engine_on));
         out.insert("chains_on".to_string(), json!(self.trip.truck.chains_on));
+        let mut written_up: Vec<&String> = self.written_up.iter().collect();
+        written_up.sort_unstable();
+        out.insert("written_up".to_string(), json!(written_up));
         out.insert("hos".to_string(), json!(hos_of(ctx).to_dict()));
         out.insert("fatigue".to_string(), json!(profile_of(ctx).fatigue));
         out.insert("hos_fine_count".to_string(), json!(self.hos_fine_count));
@@ -435,6 +438,13 @@ impl DrivingState {
             .unwrap_or_else(|| state.maintenance_wear_levels());
         // Chains stay on the drives across a save; absent on older saves.
         state.trip.truck.chains_on = b(data, "chains_on", false);
+        // Absent on older saves: nothing written up yet.
+        state.written_up = data
+            .get("written_up")
+            .and_then(|v| serde_json::from_value::<Vec<String>>(v.clone()).ok())
+            .unwrap_or_default()
+            .into_iter()
+            .collect();
         state.trailer_refused = b(data, "trailer_refused", false);
         state.trailer_repaired = b(data, "trailer_repaired", false);
         state.rig_buffs = data

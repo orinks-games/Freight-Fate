@@ -110,3 +110,32 @@ fn test_dispatch_authorizes_and_applies_a_needed_roadside_repair() {
         last(&app)
     );
 }
+
+/// Dispatch used to see only body damage, so a driver reporting a lamp out
+/// heard the truck was fine (player report, 2026-10-17).
+#[test]
+fn test_dispatch_sends_a_mechanic_for_a_trailer_fault() {
+    let mut app = TestApp::new();
+    let (drive, defect) = a_drive_with_a_lamp_out(&mut app);
+    let before = with_drive(&drive, |d| d.trip.game_minutes);
+    let mut call = DispatchCallState::new(DriveRef::of(&drive));
+    app.clear_speech();
+    activate(&mut call, &mut app.ctx, "Report truck trouble");
+
+    assert!(last(&app).contains(&defect), "{}", last(&app));
+    assert!(
+        last(&app).contains("mechanic fixed the trailer"),
+        "{}",
+        last(&app)
+    );
+    let (repaired, after, left) = drive_and_ctx(&drive, &mut app, |d, ctx| {
+        (
+            d.trailer_repaired,
+            d.trip.game_minutes,
+            d.hooked_trailer_defect(ctx),
+        )
+    });
+    assert!(repaired);
+    assert_eq!(after, before + MECHANIC_WAIT_MIN);
+    assert_eq!(left, None);
+}
