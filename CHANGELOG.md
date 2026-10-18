@@ -22,6 +22,8 @@
 - **Damage a tractor already had no longer counts as preventable damage on the next load.** A grounding and its delivery now count as one incident, not two.
 - **Report truck trouble now covers trailer faults.** Dispatch sends a mechanic for a trailer lamp or tire.
 - **Dispatch no longer relays a new driver hundreds of miles empty.** The empty miles to a relayed load now grow with your level, from 75 at level 1.
+- **Snapped snow chains are no longer offered again on the same drive.** A broken set stays off until you buy a new one at a garage.
+- **Snow chains that broke or wore down on a drive stay that way after you quit and resume.**
 
 ### Known issues
 
