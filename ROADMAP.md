@@ -564,6 +564,11 @@ Everything found before 2026-09-25 moved to
       it. The updater now skips a snapshot unless a stable release or a
       snapshot with real notes came out after the running copy, and the
       orinks.net downloads page hides such a snapshot (2026-10-07).
+- [x] AG Now (owner request 2026-10-18): AG Now launches every session with
+      `AGNOW=1` and updates the game with its own script, and it drops any
+      program a game downloads into its own folder. With the variable set,
+      the game makes no update check, startup or manual, and Settings hides
+      the Updates category.
 - [x] When the updater offers a tester on an older snapshot a quiet one
       because a stable release came out in between, What's new read "No
       user-facing changes", which is untrue for that player: they get the

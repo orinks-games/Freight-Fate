@@ -210,6 +210,31 @@ pub fn is_frozen() -> bool {
     is_frozen_in(&UpdaterEnv::current())
 }
 
+/// Whether a value of the `AGNOW` variable means the game runs on AG Now
+/// (agnow.brynify.me). AG Now sets `AGNOW=1` in every session it launches
+/// and updates the game with its own script; it also drops any program a
+/// game downloads into its own folder when the session ends, so an in-game
+/// update there costs the download and changes nothing.
+pub fn agnow_value_set(value: Option<&std::ffi::OsStr>) -> bool {
+    value.is_some_and(|v| {
+        let v = v.to_string_lossy();
+        let v = v.trim();
+        !v.is_empty() && v != "0"
+    })
+}
+
+/// True when this copy was launched by AG Now.
+pub fn managed_by_agnow() -> bool {
+    agnow_value_set(std::env::var_os("AGNOW").as_deref())
+}
+
+/// Whether this copy may check for, download and apply its own updates:
+/// not on iPhone and iPad ([`SELF_UPDATES`]) and not on AG Now
+/// ([`managed_by_agnow`]), where something else does the updating.
+pub fn self_updates() -> bool {
+    SELF_UPDATES && !managed_by_agnow()
+}
+
 /// The folder holding the executable (and `_internal`).
 /// Undo `fs::canonicalize`'s Windows verbatim prefix (`\\?\C:\...`).
 ///

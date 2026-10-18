@@ -589,7 +589,7 @@ impl MainMenuState {
 
     /// Start a fresh silent check for the next main-menu update cycle.
     pub fn arm_update_check(settings: &ff_core::settings::Settings) {
-        if !updater::is_frozen() || !updater::SELF_UPDATES {
+        if !updater::is_frozen() || !updater::self_updates() {
             return;
         }
         let mut guard = UPDATE_CHECK.lock().unwrap_or_else(|e| e.into_inner());
@@ -893,7 +893,7 @@ impl Menu for MainMenuState {
             MenuItem::new("Settings", |_s: &mut Self, ctx| {
                 ctx.push_state(SettingsState::new())
             })
-            .help(if cfg!(target_os = "ios") {
+            .help(if !updater::self_updates() {
                 "Units, transmission mode, volumes, weather, voices, and trip pacing."
             } else {
                 "Units, transmission mode, volumes, weather, voices, \

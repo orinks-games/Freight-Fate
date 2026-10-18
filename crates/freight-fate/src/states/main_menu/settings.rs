@@ -80,6 +80,9 @@ impl Menu for SettingsState {
         let mut items: Vec<MenuItem<Self>> = Self::CATEGORIES
             .iter()
             .filter(|(_, key)| !Self::HIDDEN_ON_IOS.contains(key) || !cfg!(target_os = "ios"))
+            // AG Now updates the game itself, so the update channel and the
+            // manual check have nothing to do there either.
+            .filter(|(_, key)| *key != "updates" || crate::updater::self_updates())
             .map(|(label, key)| {
                 MenuItem::new(*label, move |s: &mut Self, ctx| s.open(ctx, key))
                     .help(format!("Open {} settings.", label.to_lowercase()))

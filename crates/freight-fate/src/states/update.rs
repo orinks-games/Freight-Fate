@@ -128,6 +128,11 @@ impl State for UpdateCheckState {
             ctx.say(&format!("{} Escape goes back.", self.message));
             return;
         }
+        if updater::managed_by_agnow() {
+            self.message = "AG Now keeps this copy up to date.".to_string();
+            ctx.say(&self.message);
+            return;
+        }
         if !updater::is_frozen() {
             self.message = "Updates are only available in the packaged game. \
                             This copy runs from source; update it with git."
