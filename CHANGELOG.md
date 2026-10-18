@@ -1,6 +1,23 @@
 # Changelog
 
-## Unreleased
+## 1.9.5 - 2026-10-18
+
+### Changed
+
+- **On AG Now, the game no longer checks for or downloads updates.** AG Now keeps it up to date, and Settings has no Updates category there.
+
+### Fixed
+
+- **Lane keeping no longer pulls out to pass into the oncoming lane on two-lane roads.** Where a passing lane serves only the other direction, the truck stays in its own lane.
+- **Lane keeping now calls off a lane change if the lane fills or ends before the truck is across.** You hear "Staying in the left lane" instead of a sideswipe.
+- **After a called-off lane change, lane keeping lets a pacing vehicle by and moves back in behind it.** The CB no longer tells you off for the wait.
+- **Traffic in the open lane now lets you merge at a lane closure.** When the L key calls that lane open, it stays open while you move over.
+- **A full brake stop with the engine brake on no longer damages your load.**
+- **An engine brake stage you pick now stays picked.** Cruise and the bend assist no longer switch it off after they finish slowing you.
+- **Turning automatic engine brake off with Alt J now lasts between drives.** It used to switch back on at every dispatch.
+- **The favorites count on the Tab Radio screen now opens your favorite stations.** Press Enter on it, then Enter on a station to tune it.
+
+## 1.9.4 - 2026-10-10
 
 ### Added
 
