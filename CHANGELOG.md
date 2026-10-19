@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.9.4.2 - 2026-10-19
+
+### Removed
+
+- **Mastodon sharing is gone from the Online menu.** Deliveries are no longer posted to Mastodon, and the Link a Mastodon account row is removed.
+
 ## 1.9.4.1 - 2026-10-18
 
 ### Fixed

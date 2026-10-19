@@ -1,5 +1,5 @@
 //! Port of `tests/test_profile_sharing_sync.py` plus the online-menu half of
-//! `tests/test_delivery_summary_sharing.py` (the Mastodon toggle and link
+//! `tests/test_delivery_summary_sharing.py` (the withdrawn Mastodon toggle and link
 //! status). The clipboard half of that file belongs to the arrival menu.
 
 use crate::states_online_support::*;
@@ -153,60 +153,30 @@ fn open_online_settings(app: &mut TestApp) -> SharedState {
 }
 
 #[test]
-fn test_mastodon_toggle_needs_a_linked_account_first() {
+fn test_online_menu_has_no_mastodon_rows_even_when_linked() {
     let mut app = TestApp::new();
-    let _identity = install_identity(&app, Some(&identity())); // account is set up, but no Mastodon link is known
+    let _identity = install_identity(&app, Some(&identity()));
+    app.ctx.settings.mastodon_linked = true;
+    app.ctx.settings.mastodon_sharing = true;
+    app.ctx.settings.mastodon_linked_handle = "@roadstar@mastodon.example".to_string();
     let cat = open_online_settings(&mut app);
-    move_to::<OnlineHubState>(&mut app, &cat, "Share notable deliveries");
-    assert!(current_label::<OnlineHubState>(&cat, &app.ctx).ends_with("not linked"));
-    press(&mut app, Key::Return);
-    assert!(!app.ctx.settings.mastodon_sharing);
-    assert!(app
-        .main_lines()
-        .last()
-        .unwrap()
-        .contains("Link a Mastodon account"));
+    let rows = labels::<OnlineHubState>(&cat, &app.ctx);
+    assert!(
+        rows.iter().any(|row| row.starts_with("Discord presence")),
+        "{rows:?}"
+    );
+    assert!(!rows.iter().any(|row| row.contains("Mastodon")), "{rows:?}");
 }
 
 #[test]
-fn test_mastodon_toggle_flips_and_discloses_when_linked() {
+fn test_an_old_mastodon_sharing_setting_leaves_the_outbox_off() {
     let mut app = TestApp::new();
     let _identity = install_identity(&app, Some(&identity()));
     app.ctx.adopt_online_identity(Some(identity()));
     app.ctx.settings.mastodon_linked = true;
-    app.ctx.settings.mastodon_linked_handle = "@roadstar@mastodon.example".to_string();
-    let cat = open_online_settings(&mut app);
-    move_to::<OnlineHubState>(&mut app, &cat, "Share notable deliveries");
-    press(&mut app, Key::Return);
-    assert!(app.ctx.settings.mastodon_sharing);
-    assert!(app.ctx.services.mastodon.enabled());
-    // The disclosure names the automated tag, and names it as distinct from
-    // the tag players use themselves -- someone muting the delivery posts
-    // should not have to mute the conversation to do it.
-    let lines = app.main_lines();
-    let disclosure = lines.iter().find(|t| t.contains("hashtag")).unwrap();
-    assert!(disclosure.contains("Freight Fate Runs hashtag"));
-    assert!(disclosure.contains("separate from the Freight Fate tag"));
-    press(&mut app, Key::Left);
-    assert!(!app.ctx.settings.mastodon_sharing);
+    app.ctx.settings.mastodon_sharing = true;
+    app.ctx.apply_mastodon_sharing();
     assert!(!app.ctx.services.mastodon.enabled());
-}
-
-/// Regression: a link can exist with no readable handle (the server could
-/// not fetch the account name). The toggle must gate on the linked flag,
-/// not the display handle, or the player hears "linked" from the status
-/// check while the switch keeps refusing.
-#[test]
-fn test_mastodon_toggle_works_when_linked_without_a_handle() {
-    let mut app = TestApp::new();
-    let _identity = install_identity(&app, Some(&identity()));
-    app.ctx.settings.mastodon_linked = true;
-    app.ctx.settings.mastodon_linked_handle = String::new();
-    let cat = open_online_settings(&mut app);
-    move_to::<OnlineHubState>(&mut app, &cat, "Share notable deliveries");
-    assert!(current_label::<OnlineHubState>(&cat, &app.ctx).ends_with("off"));
-    press(&mut app, Key::Return);
-    assert!(app.ctx.settings.mastodon_sharing);
 }
 
 #[test]

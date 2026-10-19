@@ -736,10 +736,10 @@ impl GameContext {
             ));
     }
 
-    /// Reflect the Mastodon sharing setting (e.g. after a settings change).
+    /// Keep the withdrawn Mastodon outbox off and drop anything an older
+    /// version queued, whatever the old `mastodon_sharing` setting says.
     pub fn apply_mastodon_sharing(&mut self) {
-        let enabled = self.online_enabled(self.settings.mastodon_sharing);
-        self.services.mastodon.set_enabled(enabled);
+        self.services.mastodon.set_enabled(false);
     }
 
     /// The backup service, for the Cloud backup menu.

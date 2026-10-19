@@ -874,7 +874,7 @@ impl Menu for MainMenuState {
             })
             .help(
                 "Drivers on duty, your orinks.net account, cloud backup \
-                 and restore, and sharing choices like Mastodon and Discord.",
+                 and restore, and sharing choices like Discord.",
             ),
         );
         items.push(

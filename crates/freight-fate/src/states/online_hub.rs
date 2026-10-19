@@ -11,7 +11,7 @@
 //! Left changes backward) so nothing moves under a player's fingers; action
 //! rows ignore Left and Right the same way the old category did.
 
-use crate::app::{GameContext, Say};
+use crate::app::GameContext;
 use crate::impl_state_for_menu;
 use crate::online_presence::setup_page_url;
 use crate::states::account_achievements::AccountAchievementsState;
@@ -19,7 +19,7 @@ use crate::states::base::{InputEvent, Key, Label, Menu, MenuCore, MenuItem};
 use crate::states::cloud_save_states::{CloudBackupConsentState, CloudBackupState};
 use crate::states::online_states::{
     load_identity, menu_default_handle_event, open_url, DriverDirectoryState, DriverProfileState,
-    DriversOnlineState, MastodonLinkState, OnlineSetupState, ProfileSharingSyncState,
+    DriversOnlineState, OnlineSetupState, ProfileSharingSyncState,
 };
 
 pub struct OnlineHubState {
@@ -57,7 +57,7 @@ impl OnlineHubState {
 
     fn adjust_row(&mut self, ctx: &mut GameContext, direction: i64) {
         // The board, directory, achievements, your profile, account setup, setup page,
-        // restore, and Mastodon link rows are actions, so left/right does
+        // and restore rows are actions, so left/right does
         // nothing there instead of changing a nearby toggle. This list is
         // positional: a row added to build_items has to be added here at the
         // same index, or every toggle below it starts answering for its
@@ -67,8 +67,7 @@ impl OnlineHubState {
             5 => self.toggle_online_services(ctx, direction),
             8 => self.toggle_online_presence(ctx, direction),
             9 => self.toggle_cloud_saves(ctx, direction),
-            11 => self.toggle_mastodon_sharing(ctx, direction),
-            13 => self.toggle_discord_presence(ctx, direction),
+            11 => self.toggle_discord_presence(ctx, direction),
             _ => {}
         }
     }
@@ -144,8 +143,7 @@ impl OnlineHubState {
 
     /// Open the driver setup page, or hand over the address if it cannot.
     ///
-    /// Same shape as the Mastodon link page's opener: the clipboard write is
-    /// attempted first so the fallback can promise something true, and the
+    /// The clipboard write is attempted first so the fallback can promise something true, and the
     /// browser opener failing is never the end of the road -- a remote or
     /// streamed session is the normal case where it does nothing at all.
     fn open_setup_page(&mut self, ctx: &mut GameContext) {
@@ -269,51 +267,6 @@ impl OnlineHubState {
         ctx.push_state(backup);
     }
 
-    fn toggle_mastodon_sharing(&mut self, ctx: &mut GameContext, _direction: i64) {
-        if load_identity().is_none() {
-            ctx.say(
-                "Sharing to Mastodon needs your orinks.net account. Choose Set up orinks.net \
-                 account first.",
-            );
-            return;
-        }
-        if !ctx.settings.mastodon_linked && !ctx.settings.mastodon_sharing {
-            // No known link: the switch would be inert, so point at the link
-            // item instead of flipping it (same shape as cloud backup).
-            ctx.say(
-                "Sharing to Mastodon needs a linked Mastodon account. Choose Link a Mastodon \
-                 account first.",
-            );
-            return;
-        }
-        ctx.settings.mastodon_sharing = !ctx.settings.mastodon_sharing;
-        ctx.apply_mastodon_sharing();
-        self.announce(ctx);
-        if ctx.settings.mastodon_sharing {
-            // The label said "on"; this says what "on" means, every time.
-            ctx.say_with(
-                "Only deliveries that earn an achievement, a level, or a perfect \
-                 streak are posted. Posts are public on your own Mastodon \
-                 account and carry the Freight Fate Runs hashtag, which is \
-                 separate from the Freight Fate tag players use to talk about \
-                 the game.",
-                Say::queued(),
-            );
-        }
-    }
-
-    fn mastodon_account(&mut self, ctx: &mut GameContext) {
-        if load_identity().is_none() {
-            ctx.say(
-                "Linking Mastodon needs your orinks.net account. Choose Set up orinks.net \
-                 account first.",
-            );
-            return;
-        }
-        let link = MastodonLinkState::new(ctx);
-        ctx.push_state(link);
-    }
-
     fn toggle_discord_presence(&mut self, ctx: &mut GameContext, _direction: i64) {
         ctx.settings.discord_presence = !ctx.settings.discord_presence;
         ctx.apply_presence();
@@ -388,7 +341,7 @@ impl Menu for OnlineHubState {
             )
             .help(
                 "Master switch for the orinks.net and sharing services. Off stops the drivers \
-                 list, profile sharing, cloud backup, Mastodon sharing, station suggestions, and \
+                 list, profile sharing, cloud backup, station suggestions, and \
                  Discord presence without losing their settings. Live weather, traffic, and parking have their \
                  own toggles under Settings.",
             ),
@@ -467,8 +420,7 @@ impl Menu for OnlineHubState {
                  so turning this off empties them.",
             ),
             MenuItem::new(
-                // Dynamic like the Mastodon row below, and for a sharper
-                // reason: a career stops backing up entirely until someone
+                // Dynamic, for a sharp reason: a career stops backing up entirely until someone
                 // picks which copy wins, and this row is the only place that
                 // choice can be made. Under the bare name a player who wants
                 // to KEEP what he has just played reads "Restore" as "replace
@@ -482,49 +434,6 @@ impl Menu for OnlineHubState {
                 |s: &mut Self, ctx| s.cloud_backup_menu(ctx),
             )
             .help(Label::dynamic(|_: &Self, ctx| Self::cloud_backup_help(ctx))),
-            MenuItem::new(
-                // Same freshness rule as Profile sharing: the identity and
-                // linked-handle checks live inside the label.
-                Label::dynamic(|_: &Self, ctx| {
-                    if load_identity().is_none() {
-                        return "Share notable deliveries to Mastodon: not set up".to_string();
-                    }
-                    if ctx.settings.mastodon_linked {
-                        format!(
-                            "Share notable deliveries to Mastodon: {}",
-                            Self::on_off(ctx.settings.mastodon_sharing)
-                        )
-                    } else {
-                        "Share notable deliveries to Mastodon: not linked".to_string()
-                    }
-                }),
-                |s: &mut Self, ctx| s.toggle_mastodon_sharing(ctx, 1),
-            )
-            .help(
-                "A delivery that earns an achievement, a level, or a perfect streak posts a \
-                 short public summary to your Mastodon account with the Freight Fate Runs \
-                 hashtag. Routine deliveries are never posted. Needs a linked Mastodon \
-                 account.",
-            ),
-            MenuItem::new(
-                Label::dynamic(|_: &Self, ctx| {
-                    let s = &ctx.settings;
-                    if s.mastodon_linked {
-                        if s.mastodon_linked_handle.is_empty() {
-                            "Mastodon account: linked".to_string()
-                        } else {
-                            format!("Mastodon account: linked as {}", s.mastodon_linked_handle)
-                        }
-                    } else {
-                        "Link a Mastodon account".to_string()
-                    }
-                }),
-                |s: &mut Self, ctx| s.mastodon_account(ctx),
-            )
-            .help(
-                "Opens the orinks.net page that authorizes your Mastodon server. Unlinking \
-                 happens there too.",
-            ),
             MenuItem::new(
                 Label::dynamic(|_: &Self, ctx| {
                     format!(

@@ -258,7 +258,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
             "Use an activation code in your browser to connect an existing account and enable profile sharing and backup. You can turn either off afterward.",
             "Profile sharing includes your activity, achievements, and road journal. Public profiles omit current cash, full saves, coordinates, and precise location. Career statistics need an accepted private backup.",
             "Cloud backup keeps ten accepted revisions per career and up to ten careers. Restore checks the signed backup and keeps the replaced local save as a fallback. Back up this career now uploads immediately.",
-            "Mastodon can share deliveries that earn an achievement, level, or perfect streak after you link an account. Discord shows broad activity and clears it after half an hour idle.",
+            "Discord shows broad activity and clears it after half an hour idle.",
             "Online services switches sharing services off together while remembering your choices. Live weather, traffic, and parking keep their separate settings.",
         ],
     ),
