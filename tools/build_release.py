@@ -167,18 +167,6 @@ def stage_release_docs(build_dir: Path, root: Path | None = None) -> None:
     )
     (root / "USER_MANUAL.html").write_text(manual_html, encoding="utf-8")
 
-    # The alpha test book travels with the build it describes. A tester who
-    # has to go find the current copy in the repo ends up working an old one,
-    # and its checklists are written against specific builds.
-    test_book = ROOT / "docs" / "alpha-test-book.md"
-    if not test_book.exists():
-        raise RuntimeError(f"Alpha test book was not found: {test_book}")
-    shutil.copy2(test_book, root / "ALPHA_TEST_BOOK.md")
-    test_book_html = _load_tool("manual_html").markdown_to_html(
-        test_book.read_text(encoding="utf-8"), title="Freight Fate Alpha Test Book"
-    )
-    (root / "ALPHA_TEST_BOOK.html").write_text(test_book_html, encoding="utf-8")
-
 
 def verify_sound_packs(root: Path) -> None:
     """Open the staged packs and prove they carry what the game reads."""
@@ -1340,8 +1328,6 @@ def verify_rust_payload(build_dir: Path, platform_name: str = sys.platform) -> N
         root / "CHANGELOG.md",
         root / "USER_MANUAL.md",
         root / "USER_MANUAL.html",
-        root / "ALPHA_TEST_BOOK.md",
-        root / "ALPHA_TEST_BOOK.html",
         root / "SOUND_CREDITS.md",
         root / "freight_fate" / "sounds.pak",
         root / "freight_fate" / "music.pak",
