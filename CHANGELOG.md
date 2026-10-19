@@ -2,10 +2,6 @@
 
 ## 1.9.4.1 - 2026-10-18
 
-### Changed
-
-- **On AG Now, the game no longer checks for or downloads updates.** AG Now keeps it up to date, and Settings has no Updates category there.
-
 ### Fixed
 
 - **Lane keeping no longer pulls out to pass into the oncoming lane on two-lane roads.** Where a passing lane serves only the other direction, the truck stays in its own lane.
