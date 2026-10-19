@@ -54,7 +54,7 @@ sdl2 = "0.38"
 #   [patch."https://github.com/orinks-games/hearken"]
 #   hearken = { path = "../hearken/crates/hearken" }
 # to a cargo config (never commit it).
-hearken = { git = "https://github.com/orinks-games/hearken", branch = "main", default-features = false, features = ["kira", "radio"] }
+hearken = { git = "https://github.com/orinks-games/hearken", rev = "d56387b1ec5c2ced465bc6122d685ca8dcf7abfb", default-features = false, features = ["kira", "radio"] }
 raw-window-handle = "0.6"
 url = "2"
 webbrowser = "1"
