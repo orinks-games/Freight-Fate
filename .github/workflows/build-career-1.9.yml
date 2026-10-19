@@ -105,15 +105,20 @@ jobs:
         # GITHUB_WORKFLOW_SHA is the commit the running workflow file came
         # from: main on a schedule, the dispatched ref otherwise. HEAD is the
         # career branch. A scheduled run on a stale main file must fail here
-        # rather than ship a snapshot missing whole platforms; a dispatch only
-        # warns, so the file can be iterated on the branch first.
+        # rather than ship a snapshot missing whole platforms. So must a
+        # dispatch that would publish: on 2026-10-19 one from main built every
+        # platform for 25 minutes, then its Release job refused the assets
+        # main's stale copy still expected (the update archives dev dropped).
+        # A dry run only warns, so the file can be iterated on a branch first.
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
         run: |
           git fetch --quiet origin "$GITHUB_WORKFLOW_SHA"
           if git diff --quiet "$GITHUB_WORKFLOW_SHA" HEAD -- .github/workflows/build-career-1.9.yml; then
             exit 0
           fi
-          msg="main's .github/workflows/build-career-1.9.yml differs from $CAREER_BRANCH's; push the branch's copy to main."
-          if [ "$GITHUB_EVENT_NAME" = "schedule" ]; then
+          msg="$GITHUB_REF_NAME's .github/workflows/build-career-1.9.yml differs from $CAREER_BRANCH's; push the branch's copy to main."
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ] || { [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ] && [ "$DRY_RUN" != "true" ]; }; then
             echo "::error::$msg"
             exit 1
           fi

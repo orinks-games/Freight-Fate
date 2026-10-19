@@ -345,3 +345,43 @@ def test_the_test_target_guard_passes() -> None:
         text=True,
     )
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def _run_stale_copy_guard(tmp_path: Path, event: str, dry_run: str, differs: bool) -> int:
+    """Run Prepare's stale-copy step with a stand-in git."""
+    import os
+    import subprocess
+
+    prepare = _load(BUILD_WORKFLOW)["jobs"]["prepare"]
+    step = next(
+        s
+        for s in prepare["steps"]
+        if s.get("name") == "Refuse to run a stale copy of this workflow"
+    )
+    fake = tmp_path / "git"
+    fake.write_text(
+        '#!/bin/sh\nif [ "$1" = diff ]; then exit ' + ("1" if differs else "0") + "; fi\nexit 0\n"
+    )
+    fake.chmod(0o755)
+    env = {
+        **os.environ,
+        "PATH": f"{tmp_path}{os.pathsep}{os.environ['PATH']}",
+        "GITHUB_WORKFLOW_SHA": "0" * 40,
+        "GITHUB_EVENT_NAME": event,
+        "GITHUB_REF_NAME": "main",
+        "CAREER_BRANCH": "dev",
+        "DRY_RUN": dry_run,
+    }
+    assert step["env"]["DRY_RUN"] == "${{ inputs.dry_run }}"
+    return subprocess.run(["bash", "-e", "-c", step["run"]], env=env).returncode
+
+
+def test_a_stale_snapshot_workflow_stops_any_run_that_would_publish(tmp_path: Path) -> None:
+    """2026-10-19: a dispatch from main built for 25 minutes, then Release
+    refused the assets main's stale copy expected. A publishing dispatch now
+    stops in Prepare like a scheduled run; a dry run still only warns."""
+    assert _run_stale_copy_guard(tmp_path, "schedule", "", differs=True) != 0
+    assert _run_stale_copy_guard(tmp_path, "workflow_dispatch", "false", differs=True) != 0
+    assert _run_stale_copy_guard(tmp_path, "workflow_dispatch", "true", differs=True) == 0
+    assert _run_stale_copy_guard(tmp_path, "push", "", differs=True) == 0
+    assert _run_stale_copy_guard(tmp_path, "workflow_dispatch", "false", differs=False) == 0
