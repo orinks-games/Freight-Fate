@@ -503,13 +503,11 @@ impl App {
             settings.online_presence,
             &store.path().with_file_name("online-outbox.json"),
         );
-        // Mastodon shares ride the same durable-outbox machinery but keep
-        // their own file and enabled flag: posting to the player's own
-        // Mastodon account is a separate consent from public Profile
-        // sharing.
-        let mastodon = JournalOutbox::new(
+        // Mastodon sharing was withdrawn: the outbox stays off whatever an
+        // older settings file says, and anything an older version queued is
+        // dropped at startup rather than left until Online services flips.
+        let mastodon = JournalOutbox::withdrawn(
             identity,
-            settings.mastodon_sharing,
             &store.path().with_file_name("online-mastodon-outbox.json"),
         );
         // Every profile save, wherever it happens, queues a cloud backup.

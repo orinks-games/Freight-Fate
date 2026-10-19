@@ -32,7 +32,7 @@ mod directory;
 mod profile;
 mod support;
 
-pub use board::{updated_text, DriversOnlineState, MastodonLinkState, MastodonOutcome};
+pub use board::{updated_text, DriversOnlineState};
 pub use directory::{
     directory_row_text, last_on_duty_text, last_on_duty_text_at, DriverDirectoryState,
 };

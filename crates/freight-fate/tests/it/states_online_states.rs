@@ -1,19 +1,14 @@
 //! Port of `tests/test_profile_sharing_sync.py` plus the online-menu half of
-//! `tests/test_delivery_summary_sharing.py` (the Mastodon toggle and link
-//! status). The clipboard half of that file belongs to the arrival menu.
+//! `tests/test_delivery_summary_sharing.py` (the withdrawn Mastodon toggle). The clipboard half of that file belongs to the arrival menu.
 
 use crate::states_online_support::*;
 use freight_fate::app::testing::TestApp;
 use freight_fate::app::SharedState;
 use freight_fate::net::testing::FakeTransport;
 use freight_fate::net::NetError;
-use freight_fate::online_presence::MastodonStatus;
 use freight_fate::states::base::{Key, State};
 use freight_fate::states::online_hub::OnlineHubState;
-use freight_fate::states::online_states::{
-    MastodonLinkState, MastodonOutcome, ProfileSharingSyncState, DISCLOSURE,
-};
-use serde_json::json;
+use freight_fate::states::online_states::{ProfileSharingSyncState, DISCLOSURE};
 
 #[test]
 fn test_disclosure_is_single_profile_sharing_consent() {
@@ -153,80 +148,30 @@ fn open_online_settings(app: &mut TestApp) -> SharedState {
 }
 
 #[test]
-fn test_mastodon_toggle_needs_a_linked_account_first() {
+fn test_online_menu_has_no_mastodon_rows_even_when_linked() {
     let mut app = TestApp::new();
-    let _identity = install_identity(&app, Some(&identity())); // account is set up, but no Mastodon link is known
+    let _identity = install_identity(&app, Some(&identity()));
+    app.ctx.settings.mastodon_linked = true;
+    app.ctx.settings.mastodon_sharing = true;
+    app.ctx.settings.mastodon_linked_handle = "@roadstar@mastodon.example".to_string();
     let cat = open_online_settings(&mut app);
-    move_to::<OnlineHubState>(&mut app, &cat, "Share notable deliveries");
-    assert!(current_label::<OnlineHubState>(&cat, &app.ctx).ends_with("not linked"));
-    press(&mut app, Key::Return);
-    assert!(!app.ctx.settings.mastodon_sharing);
-    assert!(app
-        .main_lines()
-        .last()
-        .unwrap()
-        .contains("Link a Mastodon account"));
+    let rows = labels::<OnlineHubState>(&cat, &app.ctx);
+    assert!(
+        rows.iter().any(|row| row.starts_with("Discord presence")),
+        "{rows:?}"
+    );
+    assert!(!rows.iter().any(|row| row.contains("Mastodon")), "{rows:?}");
 }
 
 #[test]
-fn test_mastodon_toggle_flips_and_discloses_when_linked() {
+fn test_an_old_mastodon_sharing_setting_leaves_the_outbox_off() {
     let mut app = TestApp::new();
     let _identity = install_identity(&app, Some(&identity()));
     app.ctx.adopt_online_identity(Some(identity()));
     app.ctx.settings.mastodon_linked = true;
-    app.ctx.settings.mastodon_linked_handle = "@roadstar@mastodon.example".to_string();
-    let cat = open_online_settings(&mut app);
-    move_to::<OnlineHubState>(&mut app, &cat, "Share notable deliveries");
-    press(&mut app, Key::Return);
-    assert!(app.ctx.settings.mastodon_sharing);
-    assert!(app.ctx.services.mastodon.enabled());
-    // The disclosure names the automated tag, and names it as distinct from
-    // the tag players use themselves -- someone muting the delivery posts
-    // should not have to mute the conversation to do it.
-    let lines = app.main_lines();
-    let disclosure = lines.iter().find(|t| t.contains("hashtag")).unwrap();
-    assert!(disclosure.contains("Freight Fate Runs hashtag"));
-    assert!(disclosure.contains("separate from the Freight Fate tag"));
-    press(&mut app, Key::Left);
-    assert!(!app.ctx.settings.mastodon_sharing);
+    app.ctx.settings.mastodon_sharing = true;
+    app.ctx.apply_mastodon_sharing();
     assert!(!app.ctx.services.mastodon.enabled());
-}
-
-/// Regression: a link can exist with no readable handle (the server could
-/// not fetch the account name). The toggle must gate on the linked flag,
-/// not the display handle, or the player hears "linked" from the status
-/// check while the switch keeps refusing.
-#[test]
-fn test_mastodon_toggle_works_when_linked_without_a_handle() {
-    let mut app = TestApp::new();
-    let _identity = install_identity(&app, Some(&identity()));
-    app.ctx.settings.mastodon_linked = true;
-    app.ctx.settings.mastodon_linked_handle = String::new();
-    let cat = open_online_settings(&mut app);
-    move_to::<OnlineHubState>(&mut app, &cat, "Share notable deliveries");
-    assert!(current_label::<OnlineHubState>(&cat, &app.ctx).ends_with("off"));
-    press(&mut app, Key::Return);
-    assert!(app.ctx.settings.mastodon_sharing);
-}
-
-#[test]
-fn test_status_check_records_linked_flag_even_without_handle() {
-    let mut app = TestApp::new();
-    let mut state = MastodonLinkState::new(&mut app.ctx);
-    state.checking = true;
-    state.outcome.post(MastodonOutcome::Status(MastodonStatus {
-        linked: true,
-        handle: String::new(),
-    }));
-    let shared = push(&mut app, state);
-    app.clear_speech();
-    with_state::<MastodonLinkState, _>(&shared, |s| s.update(&mut app.ctx, 0.0));
-    assert!(app.ctx.settings.mastodon_linked);
-    assert_eq!(app.ctx.settings.mastodon_linked_handle, "");
-    assert!(app
-        .main_lines()
-        .iter()
-        .any(|t| t.starts_with("Linked: your Mastodon account")));
 }
 
 // The online category wires labels and left/right handlers as two
@@ -241,33 +186,4 @@ fn test_online_adjust_rows_still_line_up() {
     move_to::<OnlineHubState>(&mut app, &cat, "Discord presence");
     press(&mut app, Key::Right);
     assert_eq!(app.ctx.settings.discord_presence, !before);
-}
-
-/// The link status check itself, through the real `fetch_mastodon_status`
-/// (no Python counterpart drove it end to end; the mailbox test above
-/// bypasses the call).
-#[test]
-fn test_status_check_asks_orinks_and_speaks_the_link() {
-    let mut app = TestApp::new();
-    let _identity = install_identity(&app, Some(&identity()));
-    let transport =
-        FakeTransport::replying(json!({"ok": true, "linked": true, "handle": "@rig@example"}));
-    let _transport = install_transport(transport.clone());
-    let mut state = MastodonLinkState::new(&mut app.ctx);
-    state.threaded = false;
-    let shared = push(&mut app, state);
-    move_to::<MastodonLinkState>(&mut app, &shared, "Check link status");
-    press(&mut app, Key::Return);
-    with_state::<MastodonLinkState, _>(&shared, |s| s.update(&mut app.ctx, 0.0));
-    assert_eq!(transport.request_count(), 1);
-    assert!(app.ctx.settings.mastodon_linked);
-    assert_eq!(app.ctx.settings.mastodon_linked_handle, "@rig@example");
-    assert!(app
-        .main_lines()
-        .iter()
-        .any(|t| t.starts_with("Linked: @rig@example.")));
-    assert_eq!(
-        labels::<MastodonLinkState>(&shared, &app.ctx)[1],
-        "Check link status. Last known: linked as @rig@example"
-    );
 }

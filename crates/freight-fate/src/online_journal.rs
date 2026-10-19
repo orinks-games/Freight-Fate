@@ -188,6 +188,22 @@ impl JournalOutbox {
         me
     }
 
+    /// The outbox of a withdrawn service: off for good, and whatever an
+    /// older version left queued at `path` is deleted before it loads, so
+    /// it can never be posted.
+    pub fn withdrawn(identity: Option<OnlineIdentity>, path: &Path) -> Self {
+        for stale in [path.to_path_buf(), path.with_extension("tmp")] {
+            match fs::remove_file(&stale) {
+                Ok(()) => log::info!("Dropped a withdrawn outbox: {}", stale.display()),
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => {}
+                Err(e) => log::warn!("Could not drop {}: {e}", stale.display()),
+            }
+        }
+        let me = Self::new(identity, false, path);
+        me.set_enabled(false);
+        me
+    }
+
     pub fn enabled(&self) -> bool {
         self.inner.enabled.load(Ordering::SeqCst)
     }

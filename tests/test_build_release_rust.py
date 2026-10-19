@@ -696,10 +696,10 @@ def test_macos_stage_is_a_player_ready_app_bundle(tmp_path, monkeypatch):
         "LICENSE.txt",
         "USER_MANUAL.md",
         "USER_MANUAL.html",
-        "ALPHA_TEST_BOOK.md",
-        "ALPHA_TEST_BOOK.html",
     ):
         assert (resources / name).is_file()
+    assert not (resources / "ALPHA_TEST_BOOK.md").exists()
+    assert not (resources / "ALPHA_TEST_BOOK.html").exists()
     frameworks = app / "Contents" / "Frameworks"
     for name in (
         "libbass.dylib",
@@ -1240,8 +1240,6 @@ def test_full_macos_bundle_verification_reads_packs_from_resources(tmp_path, mon
         "CHANGELOG.md",
         "USER_MANUAL.md",
         "USER_MANUAL.html",
-        "ALPHA_TEST_BOOK.md",
-        "ALPHA_TEST_BOOK.html",
         "SOUND_CREDITS.md",
         "freight_fate/sounds.pak",
         "freight_fate/music.pak",
@@ -1307,8 +1305,6 @@ def test_macos_staged_payload_rejects_each_missing_runtime_library(
         "CHANGELOG.md",
         "USER_MANUAL.md",
         "USER_MANUAL.html",
-        "ALPHA_TEST_BOOK.md",
-        "ALPHA_TEST_BOOK.html",
         "SOUND_CREDITS.md",
         "freight_fate/sounds.pak",
         "freight_fate/music.pak",

@@ -104,7 +104,7 @@ thread_local! {
 }
 
 /// The transport behind the one-shot orinks.net calls these menus make
-/// (`set_profile_sharing`, `fetch_board`, `fetch_mastodon_status`,
+/// (`set_profile_sharing`, `fetch_board`,
 /// `start_activation`, `poll_activation`): the real network unless a test
 /// installed a fake.
 pub fn online_transport() -> SharedTransport {
