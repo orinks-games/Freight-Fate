@@ -504,10 +504,10 @@ impl App {
             &store.path().with_file_name("online-outbox.json"),
         );
         // Mastodon sharing was withdrawn: the outbox stays off whatever an
-        // older settings file says, so nothing queued before is posted.
-        let mastodon = JournalOutbox::new(
+        // older settings file says, and anything an older version queued is
+        // dropped at startup rather than left until Online services flips.
+        let mastodon = JournalOutbox::withdrawn(
             identity,
-            false,
             &store.path().with_file_name("online-mastodon-outbox.json"),
         );
         // Every profile save, wherever it happens, queues a cloud backup.

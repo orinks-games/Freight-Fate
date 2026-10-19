@@ -16,12 +16,11 @@ use freight_fate::discord_presence::PresenceState;
 use freight_fate::net::testing::{FakeTransport, ManualClock};
 use freight_fate::net::{header, NetError, SharedTransport};
 use freight_fate::online_presence::{
-    base_url, client_version, client_version_for, fetch_board, fetch_mastodon_status,
-    request_headers, set_profile_sharing, take_secret_store_timeout_notice, verify_identity,
-    IdentityStore, MastodonStatus, MemoryStore, OnlineIdentity, OnlinePresence,
-    OnlinePresenceOptions, RefusingStore, SecretStore, HEARTBEAT_INTERVAL_S, IDLE_SIGNOFF_S,
-    MIN_CHANGE_INTERVAL_S, OFF_DUTY_GRACE_S, PACKAGE_VERSION, PAUSED_ACTIVITY, RADIO_CLAUSE,
-    TOKEN_SERVICE,
+    base_url, client_version, client_version_for, fetch_board, request_headers,
+    set_profile_sharing, take_secret_store_timeout_notice, verify_identity, IdentityStore,
+    MemoryStore, OnlineIdentity, OnlinePresence, OnlinePresenceOptions, RefusingStore, SecretStore,
+    HEARTBEAT_INTERVAL_S, IDLE_SIGNOFF_S, MIN_CHANGE_INTERVAL_S, OFF_DUTY_GRACE_S, PACKAGE_VERSION,
+    PAUSED_ACTIVITY, RADIO_CLAUSE, TOKEN_SERVICE,
 };
 use freight_fate::updater::BuildInfo;
 
@@ -970,41 +969,6 @@ fn test_fetch_board_returns_drivers_or_none() {
     );
     assert!(fetch_board(FakeTransport::replying(json!({})).as_ref()).is_none());
     assert!(fetch_board(FakeTransport::failing(NetError::other("OSError", "")).as_ref()).is_none());
-}
-
-#[test]
-fn test_fetch_mastodon_status_reads_the_link_state() {
-    let transport =
-        FakeTransport::replying(json!({"ok": true, "linked": true, "handle": "@rig@m.social"}));
-    assert_eq!(
-        fetch_mastodon_status(&identity(), transport.as_ref()),
-        Some(MastodonStatus {
-            linked: true,
-            handle: "@rig@m.social".to_string()
-        })
-    );
-    assert!(transport.requests()[0]
-        .url
-        .ends_with("/api/freight-fate/mastodon/status?driverId=driver-testtest"));
-    let linked_no_handle =
-        FakeTransport::replying(json!({"ok": true, "linked": true, "handle": null}));
-    assert_eq!(
-        fetch_mastodon_status(&identity(), linked_no_handle.as_ref()),
-        Some(MastodonStatus {
-            linked: true,
-            handle: String::new()
-        })
-    );
-    assert!(fetch_mastodon_status(
-        &identity(),
-        FakeTransport::replying(json!({"ok": false})).as_ref()
-    )
-    .is_none());
-    assert!(fetch_mastodon_status(
-        &identity(),
-        FakeTransport::failing(NetError::other("OSError", "")).as_ref()
-    )
-    .is_none());
 }
 
 // -- build identity reporting --------------------------------------------------

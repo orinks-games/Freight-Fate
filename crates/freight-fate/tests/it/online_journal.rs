@@ -428,3 +428,23 @@ fn test_notable_share_carries_allowlisted_facts_and_posts_once() {
         &reasons,
     ));
 }
+
+#[test]
+fn test_withdrawn_outbox_drops_what_an_older_version_queued() {
+    let dir = tempfile::tempdir().unwrap();
+    let path = dir.path().join("online-mastodon-outbox.json");
+    let old = JournalOutbox::with(Some(identity()), true, &path, ok_transport(), wall_clock());
+    assert!(old.enqueue("/api/freight-fate/mastodon/share", json!({"x": 1}), "evt-1"));
+    drop(old);
+    std::fs::write(path.with_extension("tmp"), "{}").unwrap();
+    assert!(path.exists());
+
+    let outbox = JournalOutbox::withdrawn(Some(identity()), &path);
+    assert!(!outbox.enabled());
+    assert!(outbox.items().is_empty());
+    assert!(!path.with_extension("tmp").exists());
+    let reloaded =
+        JournalOutbox::with(Some(identity()), false, &path, ok_transport(), wall_clock());
+    assert!(reloaded.items().is_empty());
+    assert!(!outbox.enqueue("/api/freight-fate/mastodon/share", json!({"x": 2}), "evt-2"));
+}
