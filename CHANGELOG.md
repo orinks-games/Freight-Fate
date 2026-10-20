@@ -16,6 +16,7 @@
 - **A co-driver hands back once your 10-hour rest is in.** Press C to hear your rest so far and when they hand back.
 - **Team driving is explained the first time a load can be shared.** Job details say when a co-driver is offered.
 - **Career stats lists the co-drivers you have teamed with.** Open Co-drivers there for each one's loads with you and their story.
+- **Co-drivers can show a personality while you ride along.** Turn it on for each driver under Co-drivers or in the pause menu.
 - **Miles a co-driver drives no longer earn driving badges.** Two co-drivers who turn up by surprise each carry a hidden badge.
 - **Truck stops in chain-law states sell snow chains.** With no usable set aboard, the stop menu offers a new set for 1,000 dollars.
 - **Dispatch sends road service with chains when you have none under a chain law.** Report truck trouble; the set arrives in an hour and a half.

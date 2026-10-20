@@ -140,6 +140,7 @@ impl DrivingState {
             (false, true) => format!("{name} took a 30-minute break at {place}."),
             (false, false) => format!("{name} stopped at {place}."),
         };
+        let line = self.personality_at_stop(ctx, line, gallons > 0.0, took_break);
         self.co_driver_note(ctx, line, NoteWeight::Passing);
         self.co_driver_clear_plan_at(stop, making_for);
         true

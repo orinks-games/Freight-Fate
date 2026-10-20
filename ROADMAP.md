@@ -106,6 +106,21 @@ bookmarks usable.
       miles on, and a log check put the player out of service). The
       handover rows' help gives the co-driver's driving time when it falls
       short of the player's 10-hour rest.
+- [x] Co-driver personality (owner request, 2026-10-20): each co-driver
+      has a switch of their own, off until the player turns it on under
+      them in Career stats, Co-drivers, or in the pause menu while they
+      drive. With it on and the player riding along, a co-driver shows a
+      habit now and then: flashing the lights for a passing truck at night,
+      cracking the window in the small hours, coming back from a stop with
+      a coffee, and one signature each (Dan's walk around the trailer,
+      Rusty leaving Grandpa's Radio on, June humming and knowing a diner,
+      Marisol on a long descent, Walt and the weather, Dee leaving Dial-up
+      Summer alone, Nate and The Lone Courier, Lou and Meridian, Ray on a
+      hill). At least 40 game minutes apart, at most four a shift, each
+      once a load, none within five minutes of the co-driver's own news,
+      and none asleep. Designed by a brainstorm across real team driving,
+      the cast's stories, what the drive can detect and the sound pack,
+      then cut by an accessibility and a realism review.
 - [x] Co-driver and assist realism (owner, 2026-10-19): lane keeping on
       full goes around anything sitting in the lane (debris, a car on the
       shoulder, a closure) when a lane is open, and holds
@@ -706,6 +721,9 @@ Everything found before 2026-09-25 moved to
 - [ ] A listening pass by the owner at quiet and urgent only, at the wheel.
 - [ ] A listening pass by the owner on a ride-along shift: the co-driver's
       notes, the hazard calls, and how often they speak.
+- [ ] A listening pass on co-driver personality: whether the moments are
+      too rare to notice or too often, and whether each line suits its
+      driver (2026-10-20).
 - [ ] The co-driver ignores descent control's "can't hold this grade.
       Brake." and keeps gaining speed; their brake would cancel the
       cruise that holds the grade, so it needs its own snub (2026-10-19).

@@ -135,6 +135,7 @@ impl DrivingState {
         // Nobody is listening while the player sleeps.
         if !asleep {
             self.update_co_driver_radio(ctx);
+            self.update_co_driver_personality(ctx, dt);
         }
     }
 

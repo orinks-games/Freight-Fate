@@ -8680,9 +8680,6 @@ msgstr ""
 "Heimatdepot kommen mit, und der nächste Auftrag läuft mit ihrem Lohn und "
 "ihrer Zugmaschine."
 
-msgid "dan"
-msgstr "dan"
-
 msgid "Dan"
 msgstr "Dan"
 
@@ -8692,9 +8689,6 @@ msgid ""
 msgstr ""
 "Der vorsichtigste Fahrer in deinem Ausbildungskurs. Die anderen nennen ihn "
 "Dangerous Dan, nach dem Lied, das er im Roadhouse immer wieder spielen ließ."
-
-msgid "rusty"
-msgstr "rusty"
 
 msgid "Rusty Oxley"
 msgstr "Rusty Oxley"
@@ -8708,9 +8702,6 @@ msgstr ""
 
 msgid "wdlt-memphis"
 msgstr "wdlt-memphis"
-
-msgid "june"
-msgstr "june"
 
 msgid "June"
 msgstr "Juni"
@@ -8731,9 +8722,6 @@ msgstr "krwl-dallas"
 msgid "whwy-nashville"
 msgstr "whwy-nashville"
 
-msgid "marisol"
-msgstr "marisol"
-
 msgid "Marisol"
 msgstr "Marisol"
 
@@ -8753,9 +8741,6 @@ msgstr "krdg-denver"
 msgid "wgrx-chicago"
 msgstr "wgrx-chicago"
 
-msgid "walt"
-msgstr "walt"
-
 msgid "Walt"
 msgstr "Walt"
 
@@ -8769,9 +8754,6 @@ msgstr ""
 msgid "kpln-kansas-city"
 msgstr "kpln-kansas-city"
 
-msgid "dee"
-msgstr "dee"
-
 msgid "Dee"
 msgstr "Dee"
 
@@ -8781,9 +8763,6 @@ msgid ""
 msgstr ""
 "Hat in den Neunzigern einen Sommer online verbracht und ist nie "
 "zurückgekommen. Nutzt jede Fahrer-App, die es gibt."
-
-msgid "nate"
-msgstr "nate"
 
 msgid "Nate"
 msgstr "Nate"
@@ -8818,12 +8797,6 @@ msgstr ""
 "Hat deinen Ausbildungskurs bei Great Lakes geleitet. Fährt eine Ladung mit, "
 "um zu sehen, was aus dir geworden ist."
 
-msgid "ray"
-msgstr "ray"
-
-msgid "lou"
-msgstr "lou"
-
 #. placeholders: {name}
 msgid "{name}, from your training class."
 msgstr "{name}, aus deinem Ausbildungskurs."
@@ -8843,6 +8816,130 @@ msgstr "{name}, zurück von Meridian, mit einer Geschichte."
 #. placeholders: {name}
 msgid "{name}, your old trainer, along for one load."
 msgstr "{name}, dein alter Ausbilder, fährt eine Ladung mit."
+
+#. placeholders: {name}
+msgid "{name}'s personality: on"
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name}'s personality: off"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Nothing they do changes the drive."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid ""
+"While you ride along, {name} now and then shows a habit of their own."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"While you ride along, {name} now and then shows a habit of their own. "
+"Nothing they do changes the drive."
+msgstr ""
+
+msgid "dan"
+msgstr "dan"
+
+msgid "rusty"
+msgstr "rusty"
+
+msgid "june"
+msgstr "june"
+
+msgid "marisol"
+msgstr "marisol"
+
+msgid "walt"
+msgstr "walt"
+
+msgid "dee"
+msgstr "dee"
+
+msgid "nate"
+msgstr "nate"
+
+msgid "lou"
+msgstr "lou"
+
+msgid "ray"
+msgstr "ray"
+
+msgid "rain"
+msgstr "Regen"
+
+msgid "storm"
+msgstr ""
+
+msgid "snow"
+msgstr "Schnee"
+
+#. placeholders: {name}
+msgid "{name} flashes the lights to let a passing truck back in."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} cracks the window for some air."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} brought you some jerky."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} brought you a coffee."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} grumbles at a car that cut in."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} mutters something about four-wheelers."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} walks around the trailer before pulling out."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} leaves this one playing."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} hums along."
+msgstr ""
+
+#. placeholders: {name}, {place}
+msgid "{name} knows {place} from her diner days."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} has hauled water down worse grades than this."
+msgstr ""
+
+#. placeholders: {name}, {weather}
+msgid "{name} saw this {weather} coming."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} leaves the dial alone for once."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} says this one is about him."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} starts to tell you about Meridian, then stops."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} takes the hill slow, the way he taught you."
+msgstr ""
 
 msgid "training"
 msgstr "Schulung"
@@ -12577,9 +12674,6 @@ msgstr "flurr"
 msgid "frost"
 msgstr "Frost"
 
-msgid "snow"
-msgstr "Schnee"
-
 msgid "wintry"
 msgstr "winterlich"
 
@@ -12591,9 +12685,6 @@ msgstr "starker Schauer"
 
 msgid "drizzle"
 msgstr "Nieselregen"
-
-msgid "rain"
-msgstr "Regen"
 
 msgid "spray"
 msgstr "Gischt"
@@ -15533,10 +15624,9 @@ msgstr "Eine Tür."
 
 msgid ""
 "The driver window, the wind through it and the fan, right after the key "
-"that set them, which says what changed."
+"that set them, which says what changed, or with the co-driver's line saying "
+"they cracked the window."
 msgstr ""
-"Das Fahrerfenster, der Wind durchs Fenster und die Lüftung, direkt nach der "
-"Taste, die sie eingestellt hat, und die sagt, was sich geändert hat."
 
 msgid "A fuel pump, at a fuel pump."
 msgstr "Eine Zapfsäule, an einer Zapfsäule."
@@ -17857,7 +17947,8 @@ msgid "Co-drivers"
 msgstr ""
 
 msgid ""
-"Open the list of co-drivers you have teamed with, each with their story."
+"Open the list of co-drivers you have teamed with, each with their story and "
+"their personality switch."
 msgstr ""
 
 msgid "Citations and violations"
@@ -41851,6 +41942,13 @@ msgstr "Klammer zu"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "groß {ch}"
+
+#~ msgid ""
+#~ "The driver window, the wind through it and the fan, right after the key "
+#~ "that set them, which says what changed."
+#~ msgstr ""
+#~ "Das Fahrerfenster, der Wind durchs Fenster und die Lüftung, direkt nach der "
+#~ "Taste, die sie eingestellt hat, und die sagt, was sich geändert hat."
 
 #~ msgid ""
 #~ "Not a sound of its own: it is the engine you are always hearing, leaning to "

@@ -23,6 +23,7 @@ use crate::models::business_constants::is_owner_operator;
 use crate::pyrandom::PyRandom;
 use crate::sim::hos::{self, HosClock};
 
+pub mod personality;
 #[cfg(test)]
 mod tests;
 

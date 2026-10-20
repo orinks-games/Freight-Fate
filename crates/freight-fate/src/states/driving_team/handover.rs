@@ -1,12 +1,13 @@
 //! Handing the wheel over and taking it back, from the pause menu.
 
 use ff_core::models::business_constants::is_owner_operator;
-use ff_core::models::co_driver::{self, Pairing};
+use ff_core::models::co_driver::{self, personality, Pairing};
 use ff_core::models::jobs::Job;
 use ff_core::sim::hos::{self, HosClock};
 
 use crate::app::{GameContext, Say};
-use crate::states::base::MenuItem;
+use crate::states::base::{Label, MenuItem};
+use crate::states::career_stats::{personality_label, toggle_personality};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::profile_of;
 use crate::states::driving_pause_states::PauseMenuState;
@@ -158,10 +159,26 @@ impl PauseMenuState {
                 Some(status) => format!("{status} Wakes you and gives you the wheel."),
                 None => "Wakes you and gives you the wheel.".to_string(),
             };
-            return vec![MenuItem::new("Take the wheel back", |s: &mut Self, ctx| {
+            let mut rows = vec![MenuItem::new("Take the wheel back", |s: &mut Self, ctx| {
                 s.take_the_wheel_back(ctx)
             })
             .help(help)];
+            if let Some(team) = &d.team {
+                // Their personality, from where it is heard: a first team
+                // load finds it here before the Co-drivers list has them.
+                let (key, name) = (team.co_driver.key, team.co_driver.name);
+                rows.push(
+                    MenuItem::new(
+                        Label::dynamic(move |_: &Self, ctx| personality_label(ctx, key, name)),
+                        move |_s: &mut Self, ctx| {
+                            let label = toggle_personality(ctx, key, name);
+                            ctx.say(&label);
+                        },
+                    )
+                    .help(personality::switch_help(name)),
+                );
+            }
+            return rows;
         }
         if !d.handover_offered(ctx) {
             return Vec::new();

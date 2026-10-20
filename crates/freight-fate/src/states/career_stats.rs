@@ -5,6 +5,7 @@ use ff_core::models::business_constants::is_owner_operator;
 use ff_core::models::career::xp_to_next_level;
 use ff_core::models::carrier_fleet::equipment_status_lines;
 use ff_core::models::co_driver;
+use ff_core::models::co_driver::personality;
 use ff_core::models::credentials::{credential, CredentialTier, CREDENTIALS};
 use ff_core::models::enforcement;
 use ff_core::models::profile::Profile;
@@ -13,7 +14,7 @@ use ff_core::pyfmt::{fmt_f, fmt_grouped};
 
 use crate::app::GameContext;
 use crate::impl_state_for_menu;
-use crate::states::base::{Menu, MenuCore, MenuItem, SimpleMenuState};
+use crate::states::base::{Label, Menu, MenuCore, MenuItem, SimpleMenuState};
 use ff_core::sim::hos::clock_text;
 use serde_json::Value;
 use std::collections::BTreeMap;
@@ -219,10 +220,12 @@ impl Menu for CareerStatsState {
         {
             items.push(
                 MenuItem::new("Co-drivers", |_s: &mut Self, ctx| {
-                    let lines = co_driver_lines(ctx);
-                    ctx.push_state(SimpleMenuState::readout("Co-drivers", lines));
+                    ctx.push_state(co_drivers_screen(ctx));
                 })
-                .help("Open the list of co-drivers you have teamed with, each with their story."),
+                .help(
+                    "Open the list of co-drivers you have teamed with, each with their story \
+                     and their personality switch.",
+                ),
             );
         }
         items.push(
@@ -315,6 +318,64 @@ pub fn co_driver_lines(ctx: &GameContext) -> Vec<String> {
             }
         })
         .collect()
+}
+
+/// The Co-drivers screen: each co-driver's line, then the switch for their
+/// personality at the wheel. The switch sits under the driver it belongs to,
+/// so a career meets a co-driver before deciding to hear more of them.
+fn co_drivers_screen(ctx: &GameContext) -> SimpleMenuState {
+    let members: Vec<(&'static str, &'static str)> = ctx
+        .profile
+        .as_ref()
+        .map(|p| {
+            co_driver::teamed_with(&p.achievement_stats)
+                .into_iter()
+                .map(|(member, _)| (member.key, member.name))
+                .collect()
+        })
+        .unwrap_or_default();
+    let mut rows: Vec<MenuItem<SimpleMenuState>> = Vec::new();
+    for (line, (key, name)) in co_driver_lines(ctx).into_iter().zip(members) {
+        let spoken = line.clone();
+        rows.push(
+            MenuItem::new(line, move |_s: &mut SimpleMenuState, ctx| ctx.say(&spoken))
+                .help("Repeat this line."),
+        );
+        rows.push(
+            MenuItem::new(
+                Label::dynamic(move |_: &SimpleMenuState, ctx| personality_label(ctx, key, name)),
+                move |_s: &mut SimpleMenuState, ctx| {
+                    let label = toggle_personality(ctx, key, name);
+                    ctx.save_profile();
+                    ctx.say(&label);
+                },
+            )
+            .help(personality::switch_help(name)),
+        );
+    }
+    rows.push(
+        MenuItem::new("Back", |s: &mut SimpleMenuState, ctx| s.go_back(ctx))
+            .help("Return to the previous menu."),
+    );
+    SimpleMenuState::new("Co-drivers", rows)
+}
+
+/// A co-driver's personality switch as its row reads.
+pub fn personality_label(ctx: &GameContext, key: &str, name: &str) -> String {
+    let on = ctx
+        .profile
+        .as_ref()
+        .is_some_and(|p| personality::personality_on(&p.achievement_stats, key));
+    personality::switch_label(name, on)
+}
+
+/// Flip a co-driver's personality switch; returns the row's new label.
+pub fn toggle_personality(ctx: &mut GameContext, key: &str, name: &str) -> String {
+    if let Some(p) = ctx.profile.as_mut() {
+        let on = !personality::personality_on(&p.achievement_stats, key);
+        personality::set_personality(&mut p.achievement_stats, key, on);
+    }
+    personality_label(ctx, key, name)
 }
 
 /// The record's entries as spoken lines, newest first, then the counts that

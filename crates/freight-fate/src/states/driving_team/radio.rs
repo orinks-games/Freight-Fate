@@ -18,6 +18,9 @@ pub struct RadioMood {
     habits: RadioHabits,
     /// The radio was off at the handover, or the player has touched it.
     pub hands_off: bool,
+    /// A song they leave on to its end (their personality: Rusty and
+    /// Grandpa's Radio, Dee and Dial-up Summer).
+    pub hold_track: Option<String>,
     /// Game minutes until they next reach for the dial.
     next_turn_min: f64,
     /// They switched it off themselves, and switch it back on after this.
@@ -35,6 +38,7 @@ impl RadioMood {
         Self {
             habits: co_driver.habits,
             hands_off: !radio_on,
+            hold_track: None,
             next_turn_min,
             quiet_left_min: None,
             last_game_min: None,
@@ -72,6 +76,7 @@ impl DrivingState {
         let engine_on = self.trip.truck.engine_on;
         let enabled = self.radio.enabled;
         let current = self.radio_station_id.clone();
+        let track = self.co_driver_radio_track();
         let Some(mood) = self
             .team
             .as_mut()
@@ -97,6 +102,14 @@ impl DrivingState {
             mood.next_turn_min -= elapsed;
             if mood.next_turn_min > 0.0 {
                 return;
+            }
+            if mood.hold_track.is_some() {
+                if mood.hold_track == track {
+                    // Still on: they try again in a few minutes.
+                    mood.next_turn_min = 3.0;
+                    return;
+                }
+                mood.hold_track = None;
             }
             mood.next_turn_min = mood.next_gap();
             if !enabled {

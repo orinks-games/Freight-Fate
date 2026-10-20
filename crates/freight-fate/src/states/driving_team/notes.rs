@@ -39,9 +39,11 @@ impl DrivingState {
     /// One line from the co-driver about the shift. Does nothing unless they
     /// hold the wheel.
     pub fn co_driver_note(&mut self, ctx: &mut GameContext, line: String, weight: NoteWeight) {
+        let now = self.trip.game_minutes;
         let Some(wheel) = self.team.as_mut().and_then(|team| team.wheel.as_mut()) else {
             return;
         };
+        wheel.personality.last_note_min = Some(now);
         if weight == NoteWeight::Wake {
             wheel.log.notes.push(line.clone());
         }

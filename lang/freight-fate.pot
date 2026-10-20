@@ -9270,10 +9270,6 @@ msgid ""
 msgstr ""
 
 #: crates/ff-core/src/models/co_driver.rs
-msgid "dan"
-msgstr ""
-
-#: crates/ff-core/src/models/co_driver.rs
 msgid "Dan"
 msgstr ""
 
@@ -9281,10 +9277,6 @@ msgstr ""
 msgid ""
 "The most careful driver in your training class. The others call him "
 "Dangerous Dan after the song he kept asking the Roadhouse to play."
-msgstr ""
-
-#: crates/ff-core/src/models/co_driver.rs
-msgid "rusty"
 msgstr ""
 
 #: crates/ff-core/src/models/co_driver.rs
@@ -9299,10 +9291,6 @@ msgstr ""
 
 #: crates/ff-core/src/models/co_driver.rs
 msgid "wdlt-memphis"
-msgstr ""
-
-#: crates/ff-core/src/models/co_driver.rs
-msgid "june"
 msgstr ""
 
 #: crates/ff-core/src/models/co_driver.rs crates/ff-core/src/sim/season.rs
@@ -9328,10 +9316,6 @@ msgid "whwy-nashville"
 msgstr ""
 
 #: crates/ff-core/src/models/co_driver.rs
-msgid "marisol"
-msgstr ""
-
-#: crates/ff-core/src/models/co_driver.rs
 msgid "Marisol"
 msgstr ""
 
@@ -9354,10 +9338,6 @@ msgid "wgrx-chicago"
 msgstr ""
 
 #: crates/ff-core/src/models/co_driver.rs
-msgid "walt"
-msgstr ""
-
-#: crates/ff-core/src/models/co_driver.rs
 msgid "Walt"
 msgstr ""
 
@@ -9372,10 +9352,6 @@ msgid "kpln-kansas-city"
 msgstr ""
 
 #: crates/ff-core/src/models/co_driver.rs
-msgid "dee"
-msgstr ""
-
-#: crates/ff-core/src/models/co_driver.rs
 msgid "Dee"
 msgstr ""
 
@@ -9383,10 +9359,6 @@ msgstr ""
 msgid ""
 "Spent one summer of the nineties online and never came back. Runs every "
 "driver app there is."
-msgstr ""
-
-#: crates/ff-core/src/models/co_driver.rs
-msgid "nate"
 msgstr ""
 
 #: crates/ff-core/src/models/co_driver.rs
@@ -9423,14 +9395,6 @@ msgid ""
 "you turned out."
 msgstr ""
 
-#: crates/ff-core/src/models/co_driver.rs
-msgid "ray"
-msgstr ""
-
-#: crates/ff-core/src/models/co_driver.rs
-msgid "lou"
-msgstr ""
-
 #. placeholders: {name}
 #: crates/ff-core/src/models/co_driver.rs
 msgid "{name}, from your training class."
@@ -9454,6 +9418,163 @@ msgstr ""
 #. placeholders: {name}
 #: crates/ff-core/src/models/co_driver.rs
 msgid "{name}, your old trainer, along for one load."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name}'s personality: on"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name}'s personality: off"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "Nothing they do changes the drive."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid ""
+"While you ride along, {name} now and then shows a habit of their own."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid ""
+"While you ride along, {name} now and then shows a habit of their own. "
+"Nothing they do changes the drive."
+msgstr ""
+
+#: crates/ff-core/src/models/co_driver/personality.rs crates/ff-core/src/models/co_driver.rs
+msgid "dan"
+msgstr ""
+
+#: crates/ff-core/src/models/co_driver/personality.rs crates/ff-core/src/models/co_driver.rs crates/freight-fate/src/states/driving_team/personality.rs
+msgid "rusty"
+msgstr ""
+
+#: crates/ff-core/src/models/co_driver/personality.rs crates/ff-core/src/models/co_driver.rs crates/freight-fate/src/states/driving_team/personality.rs
+msgid "june"
+msgstr ""
+
+#: crates/ff-core/src/models/co_driver/personality.rs crates/ff-core/src/models/co_driver.rs
+msgid "marisol"
+msgstr ""
+
+#: crates/ff-core/src/models/co_driver/personality.rs crates/ff-core/src/models/co_driver.rs
+msgid "walt"
+msgstr ""
+
+#: crates/ff-core/src/models/co_driver/personality.rs crates/ff-core/src/models/co_driver.rs crates/freight-fate/src/states/driving_team/personality.rs
+msgid "dee"
+msgstr ""
+
+#: crates/ff-core/src/models/co_driver/personality.rs crates/ff-core/src/models/co_driver.rs crates/freight-fate/src/states/driving_team/personality.rs
+msgid "nate"
+msgstr ""
+
+#: crates/ff-core/src/models/co_driver/personality.rs crates/ff-core/src/models/co_driver.rs
+msgid "lou"
+msgstr ""
+
+#: crates/ff-core/src/models/co_driver/personality.rs crates/ff-core/src/models/co_driver.rs
+msgid "ray"
+msgstr ""
+
+#: crates/ff-core/src/models/co_driver/personality.rs crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/weather/tables.rs
+msgid "rain"
+msgstr ""
+
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "storm"
+msgstr ""
+
+#: crates/ff-core/src/models/co_driver/personality.rs crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/weather/tables.rs
+msgid "snow"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} flashes the lights to let a passing truck back in."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} cracks the window for some air."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} brought you some jerky."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} brought you a coffee."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} grumbles at a car that cut in."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} mutters something about four-wheelers."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} walks around the trailer before pulling out."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} leaves this one playing."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} hums along."
+msgstr ""
+
+#. placeholders: {name}, {place}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} knows {place} from her diner days."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} has hauled water down worse grades than this."
+msgstr ""
+
+#. placeholders: {name}, {weather}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} saw this {weather} coming."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} leaves the dial alone for once."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} says this one is about him."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} starts to tell you about Meridian, then stops."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/co_driver/personality.rs
+msgid "{name} takes the hill slow, the way he taught you."
 msgstr ""
 
 #: crates/ff-core/src/models/credentials.rs
@@ -13646,10 +13767,6 @@ msgstr ""
 msgid "frost"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/weather/tables.rs crates/freight-fate/src/states/city/board.rs
-msgid "snow"
-msgstr ""
-
 #: crates/ff-core/src/sim/real_weather.rs
 msgid "wintry"
 msgstr ""
@@ -13664,10 +13781,6 @@ msgstr ""
 
 #: crates/ff-core/src/sim/real_weather.rs
 msgid "drizzle"
-msgstr ""
-
-#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/weather/tables.rs
-msgid "rain"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_weather.rs
@@ -17084,7 +17197,8 @@ msgstr ""
 #: crates/ff-core/src/sound_catalog.rs
 msgid ""
 "The driver window, the wind through it and the fan, right after the key "
-"that set them, which says what changed."
+"that set them, which says what changed, or with the co-driver's line saying "
+"they cracked the window."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
@@ -19540,7 +19654,7 @@ msgstr ""
 msgid "{position} of {count}."
 msgstr ""
 
-#: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_setback.rs
+#: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_setback.rs crates/freight-fate/src/states/career_stats.rs
 msgid "Repeat this line."
 msgstr ""
 
@@ -19548,7 +19662,7 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/logbook.rs
+#: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_stats.rs crates/freight-fate/src/states/logbook.rs
 msgid "Return to the previous menu."
 msgstr ""
 
@@ -19721,7 +19835,8 @@ msgstr ""
 
 #: crates/freight-fate/src/states/career_stats.rs
 msgid ""
-"Open the list of co-drivers you have teamed with, each with their story."
+"Open the list of co-drivers you have teamed with, each with their story and "
+"their personality switch."
 msgstr ""
 
 #: crates/freight-fate/src/states/career_stats.rs

@@ -27,6 +27,7 @@
 pub mod handover;
 pub mod notes;
 pub mod overlay;
+pub mod personality;
 pub mod pilot;
 pub mod radio;
 pub mod readouts;
@@ -36,6 +37,7 @@ pub mod stop_work;
 
 use serde_json::{json, Map, Value};
 
+use ff_core::models::co_driver::personality::Moment;
 use ff_core::models::co_driver::{self, CoDriver, PairingReason};
 use ff_core::sim::hos::{self, HosClock};
 
@@ -44,6 +46,7 @@ use crate::bindings::Action;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 
+use personality::PersonalityMood;
 use pilot::Pilot;
 use radio::RadioMood;
 
@@ -80,6 +83,8 @@ pub struct Wheel {
     pub pedals: Pedals,
     pub pilot: Pilot,
     pub radio: RadioMood,
+    /// Their habits at the wheel, when their personality is on.
+    pub personality: PersonalityMood,
     pub log: ShiftLog,
     /// Why they are handing back, once they are.
     pub summon: Option<String>,
@@ -104,6 +109,8 @@ pub struct TeamDrive {
     pub wheel: Option<Wheel>,
     /// The last wake-up summary, kept for the Driver screen.
     pub last_summary: Vec<String>,
+    /// Personality moments already had on this load: each comes once.
+    pub moments: Vec<Moment>,
 }
 
 impl TeamDrive {
@@ -115,6 +122,7 @@ impl TeamDrive {
             co_driver_mi: 0.0,
             wheel: None,
             last_summary: Vec::new(),
+            moments: Vec::new(),
         }
     }
 
@@ -301,6 +309,7 @@ impl DrivingState {
             pedals: Pedals::default(),
             pilot: Pilot::new(),
             radio: RadioMood::new(team.co_driver, radio_on, seed),
+            personality: PersonalityMood::new(team.co_driver.key, seed, self.trip.game_minutes),
             log: ShiftLog::default(),
             summon: None,
             player_rest_owed,
@@ -332,6 +341,7 @@ impl DrivingState {
 
     /// Give the wheel back to the player. Returns the shift's log.
     pub fn take_wheel_back(&mut self, ctx: &mut GameContext) -> Option<ShiftLog> {
+        self.close_co_driver_window(ctx);
         let team = self.team.as_mut()?;
         let wheel = team.wheel.take()?;
         std::mem::swap(hos_mut_of(ctx), &mut team.off_wheel_hos);

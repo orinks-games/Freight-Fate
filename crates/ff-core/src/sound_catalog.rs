@@ -839,7 +839,8 @@ pub const SELF_EXPLANATORY: &[(&str, &str)] = &[
     (
         "cab/*",
         "The driver window, the wind through it and the fan, right after \
-         the key that set them, which says what changed.",
+         the key that set them, which says what changed, or with the \
+         co-driver's line saying they cracked the window.",
     ),
     ("vehicle/fuel_pump", "A fuel pump, at a fuel pump."),
     ("vehicle/reverse", "A backup beeper while backing up."),

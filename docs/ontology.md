@@ -284,6 +284,7 @@ from the words, and synonyms cost them a re-read.
 | The player's ten hours off in the sleeper while the co-driver drives, which resets their hours and ends the co-driver's shift | rest ("Rest: 3.5 hours of 10 hours."; "Your 10-hour rest is in.") | recovery, reset, sleep credit | `co_driver::rest_complete`, `Wheel.player_rest_owed` |
 | The co-driver giving the wheel back | needs you back ("Dan needs you back at the wheel."); the pause menu row is "Take the wheel back" | summon, wake call, handoff | `co_driver_summon`, `take_wheel_back` |
 | The co-driver's own lines in the message review: their plans, stops, fines, inspections and the hazards they met (one of the categories `[` and `]` step through, present once they have said something) | Co-driver | team log, partner messages, AI log | `MessageCategory::CoDriver`, `co_driver_note` |
+| A co-driver's habits at the wheel while the player rides along, switched on per co-driver | personality ("Dan's personality: on"; "June hums along.") | banter, quirks, chatter, flavour | `co_driver::personality`, `PersonalityMood` |
 | The in-game time of day (truck-local with a named zone in accelerated modes; computer-anchored and spoken as "local game time" in Real time) | clock | local time, game time | `Trip.local_hour`, `clock_text` |
 | When the load is due | deadline | due time, drop time (the appointment is the named hour) | `Job.deadline_game_h` |
 | The retarder | engine brake; "jake" in short control feedback ("Jake on, stage two") | retarder | `TruckState.engine_brake_stage` |

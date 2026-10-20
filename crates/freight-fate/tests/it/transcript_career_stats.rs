@@ -168,21 +168,37 @@ fn test_career_stats_lists_the_co_drivers_only_once_you_have_teamed() {
     with_state_mut::<CareerStatsState, _>(&mut app, |s, ctx| s.refresh(ctx, true));
     select::<CareerStatsState>(&mut app, "Co-drivers");
     let lines = labels::<SimpleMenuState>(&app);
-    assert_eq!(lines.len(), 3, "{lines:?}");
+    assert_eq!(lines.len(), 5, "{lines:?}");
     assert!(
         lines[0].starts_with("Dan, 1 team load. The most careful driver in your training class."),
         "{lines:?}"
     );
+    // Each co-driver's personality switch sits under them, off to start.
+    assert_eq!(lines[1], "Dan's personality: off");
     assert!(
-        lines[1].starts_with("June, your hire, 2 team loads. Grew up waiting tables"),
+        lines[2].starts_with("June, your hire, 2 team loads. Grew up waiting tables"),
         "{lines:?}"
     );
-    assert_eq!(lines[2], "Back");
+    assert_eq!(lines[3], "June's personality: off");
+    assert_eq!(lines[4], "Back");
+
+    // Enter turns one driver's personality on, and only theirs.
+    select::<SimpleMenuState>(&mut app, "June's personality: off");
+    let lines = labels::<SimpleMenuState>(&app);
+    assert_eq!(lines[3], "June's personality: on", "{lines:?}");
+    assert_eq!(lines[1], "Dan's personality: off");
+    let stats = &app.ctx.profile.as_ref().unwrap().achievement_stats;
+    assert!(ff_core::models::co_driver::personality::personality_on(
+        stats, "june"
+    ));
+    assert!(!ff_core::models::co_driver::personality::personality_on(
+        stats, "dan"
+    ));
 
     // Back on a carrier's payroll, June is no longer their hire.
     key(&mut app, Key::Escape);
     app.ctx.profile.as_mut().unwrap().business_status = COMPANY_DRIVER.to_string();
     select::<CareerStatsState>(&mut app, "Co-drivers");
     let lines = labels::<SimpleMenuState>(&app);
-    assert!(lines[1].starts_with("June, 2 team loads."), "{lines:?}");
+    assert!(lines[2].starts_with("June, 2 team loads."), "{lines:?}");
 }
