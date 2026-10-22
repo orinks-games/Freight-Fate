@@ -926,16 +926,6 @@ impl Trip {
         ))
     }
 
-    /// Whether the rig must chain at this milepost under the active law
-    /// (`rig_must_chain`): every level in every state except Colorado
-    /// Level 1, which chains single-drive-axle trucks only.
-    pub fn rig_must_chain_at(&self, mile: f64) -> bool {
-        crate::sim::trip_models::rig_must_chain(
-            self.state_code_at(mile).as_deref(),
-            self.chain_law_level(),
-        )
-    }
-
     /// The truck is on a Colorado chain-carry corridor's mountain run in
     /// carry season (`CO_CHAIN_CARRY_CORRIDORS`), with the career calendar
     /// known. Weather doesn't matter: the rule is to carry, not to chain.

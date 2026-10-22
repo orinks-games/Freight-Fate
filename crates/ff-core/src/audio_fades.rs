@@ -146,12 +146,6 @@ impl Fade {
         self
     }
 
-    /// Use this curve function.
-    pub fn with_curve(mut self, curve: CurveFn) -> Self {
-        self.curve = curve;
-        self
-    }
-
     /// Wait this long before the ramp begins.
     pub fn with_delay(mut self, delay_s: f64) -> Self {
         self.delay = delay_s.max(0.0);

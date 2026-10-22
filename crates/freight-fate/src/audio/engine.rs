@@ -126,10 +126,6 @@ impl AudioEngine {
         self.backend.as_ref()
     }
 
-    pub fn backend_mut(&mut self) -> &mut dyn AudioBackend {
-        self.backend.as_mut()
-    }
-
     pub fn hearken(&self) -> Option<&HearkenBackend> {
         self.backend.as_any().downcast_ref::<HearkenBackend>()
     }

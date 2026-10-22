@@ -273,10 +273,6 @@ impl StationSuggestionEntryState {
         questions(&self.suggestion.kind)[self.step]
     }
 
-    pub fn is_sending(&self) -> bool {
-        self.sending
-    }
-
     /// Put question `step` in the field, with any earlier answer to it.
     fn load_step(&mut self, step: usize) {
         self.step = step;

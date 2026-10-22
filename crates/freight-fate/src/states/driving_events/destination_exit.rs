@@ -61,13 +61,6 @@ impl DrivingState {
         labeled
     }
 
-    /// `_destination_exit_label()`.
-    pub fn destination_exit_label(&mut self, ctx: &mut GameContext) -> String {
-        self.destination_exit_details(ctx, false)
-            .map(|details| details.1)
-            .unwrap_or_default()
-    }
-
     /// `_destination_exit_key(stop)`.
     pub fn destination_exit_key(stop: &RoadStop) -> String {
         format!("{:.3}:{}:{}", stop.at_mi, stop.exit_label, stop.name)

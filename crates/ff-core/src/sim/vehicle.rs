@@ -949,10 +949,6 @@ impl TruckState {
         self.velocity_mps.abs() * 2.23694
     }
 
-    pub fn speed_kmh(&self) -> f64 {
-        self.velocity_mps.abs() * 3.6
-    }
-
     pub fn fuel_fraction(&self) -> f64 {
         self.fuel_gal / self.specs.fuel_tank_gal
     }

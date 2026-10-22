@@ -174,11 +174,6 @@ impl<S: RumbleSink> RumbleEngine<S> {
         &mut self.sink
     }
 
-    /// Give the device back (the manager swaps pads on reconnect).
-    pub fn into_sink(self) -> S {
-        self.sink
-    }
-
     // -- one-shot effects -----------------------------------------------------
 
     /// A short high-frequency blip that accompanies an alert, at the default

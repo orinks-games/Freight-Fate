@@ -126,11 +126,4 @@ impl DrivingState {
         let state = ArrivalState::new_at(ctx, self, arrival_hours);
         ctx.replace_state(state);
     }
-
-    /// `ctx.replace_state(FacilityArrivalState(ctx, self))`.
-    pub fn replace_with_facility_arrival_state(&mut self, ctx: &mut GameContext) {
-        let mut state = FacilityArrivalState::new(ctx);
-        state.enter_over_drive(ctx, self);
-        replace_drive_with(ctx, state);
-    }
 }

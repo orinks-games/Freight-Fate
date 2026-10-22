@@ -294,10 +294,6 @@ pub fn install_target_in(env: &UpdaterEnv) -> PathBuf {
     root
 }
 
-pub fn install_target() -> PathBuf {
-    install_target_in(&UpdaterEnv::current())
-}
-
 /// Read build_info.json from the install folder. Returns `None` when
 /// running from source. Frozen builds that predate the stamp fall back to a
 /// stable identity derived from the package version.

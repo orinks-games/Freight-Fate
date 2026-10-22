@@ -277,10 +277,6 @@ pub fn signing_checks_disabled_when(frozen: bool) -> bool {
     !frozen && std::env::var("FREIGHT_FATE_SKIP_SAVE_SIGNING").as_deref() == Ok("1")
 }
 
-pub fn signing_checks_disabled() -> bool {
-    signing_checks_disabled_when(is_frozen())
-}
-
 /// A career from the 1.8 line (or earlier) that 1.9 does not continue.
 ///
 /// Raised by the load gate *before* any migration or resave machinery runs:

@@ -65,8 +65,6 @@ use sdl_shell::SdlShell;
 pub const WINDOW_SIZE: (u32, u32) = (900, 640);
 pub const FPS: u32 = 60;
 pub const BG_COLOR: (u8, u8, u8) = (12, 12, 16);
-pub const TEXT_COLOR: (u8, u8, u8) = (235, 235, 225);
-pub const HILIGHT_COLOR: (u8, u8, u8) = (255, 210, 90);
 
 /// The game's version (`freight_fate.__version__`): the version
 /// `tools/build_release.py` stamped into `build_info.json` beside the

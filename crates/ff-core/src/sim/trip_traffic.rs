@@ -365,22 +365,6 @@ impl Trip {
         }
     }
 
-    pub fn next_traffic_pressure_within(&self, within_mi: f64) -> Option<TrafficPressure> {
-        self.traffic_pressures
-            .iter()
-            .filter(|p| {
-                p.end_mi >= self.position_mi
-                    && 0.0 <= p.start_mi - self.position_mi
-                    && p.start_mi - self.position_mi <= within_mi
-            })
-            .min_by(|a, b| {
-                a.start_mi
-                    .partial_cmp(&b.start_mi)
-                    .expect("finite mileposts")
-            })
-            .cloned()
-    }
-
     /// `{(highway, state): [(lat, lon), ...]}` from the route legs, each
     /// leg's road filled in about every mile and listed under every state it
     /// runs in, so a leg into California reads Caltrans for its California

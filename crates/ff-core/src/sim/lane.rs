@@ -14,9 +14,6 @@ use crate::pyrandom::PyRandom;
 
 pub const MPH_PER_MPS: f64 = 2.23694;
 
-/// Mirrors `settings.LANE_KEEPING_MODES`: how much lane-holding the truck
-/// does. "full" holds the lane outright, so no drift model runs at all.
-pub const ASSIST_LEVELS: [&str; 3] = ["full", "partial", "off"];
 pub const LANE_EDGE: f64 = 1.0;
 pub const LANE_WIDTH: f64 = 2.0; // offset units from one lane center to the next
 pub const CROSS_AT: f64 = 1.12; // straddling the line this far commits the lane change

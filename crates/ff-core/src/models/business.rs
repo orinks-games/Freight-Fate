@@ -8,8 +8,8 @@
 
 use crate::models::career::CareerProfile;
 use crate::models::career_ladder::{
-    display_rank_for_level, next_company_rank_for_level, next_display_rank_for_level,
-    next_rank_for_level, rank_for_level, STARTER_CARRIER_NAME,
+    display_rank_for_level, next_company_rank_for_level, next_rank_for_level, rank_for_level,
+    STARTER_CARRIER_NAME,
 };
 use crate::models::enforcement::StandingProfile;
 use crate::models::jobs::Job;
@@ -31,8 +31,6 @@ pub use crate::models::business_constants::{
 #[cfg(test)]
 mod tests;
 
-pub const OWNER_OPERATOR_PREP_LEVEL: i64 = 5;
-pub const OWNER_OPERATOR_CANDIDATE_LEVEL: i64 = 11;
 pub const OWNER_OPERATOR_PREP_CHECKLIST_LEVEL: i64 = 14;
 pub const OWNER_OPERATOR_LEVEL: i64 = 18;
 pub const OWNER_OPERATOR_REPUTATION: f64 = 80.0;
@@ -53,7 +51,6 @@ pub const AUTHORITY_ACTIVATION_WORKING_CAPITAL: f64 = 35_000.0;
 
 pub const OWNER_MAINTENANCE_PER_MILE: f64 = 0.18;
 pub const OWNER_INSURANCE_PER_MILE: f64 = 0.09;
-pub const OWNER_TRAILER_PROGRAM_PER_MILE: f64 = 0.12;
 pub const OWNER_TRUCK_PAYMENT_PER_MILE: f64 = 0.22;
 pub const OWNER_SETTLEMENT_FEE_SHARE: f64 = 0.02;
 pub const AUTHORITY_INSURANCE_PER_MILE: f64 = 0.14;
@@ -467,16 +464,6 @@ pub fn display_rank_for<P: CareerProfile + ?Sized>(
     profile: &P,
 ) -> &'static crate::models::career_ladder::CareerRank {
     display_rank_for_level(
-        profile.career().level(),
-        profile.business_status(),
-        profile.owner_operator_declined(),
-    )
-}
-
-pub fn next_display_rank_for<P: CareerProfile + ?Sized>(
-    profile: &P,
-) -> Option<&'static crate::models::career_ladder::CareerRank> {
-    next_display_rank_for_level(
         profile.career().level(),
         profile.business_status(),
         profile.owner_operator_declined(),

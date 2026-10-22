@@ -44,10 +44,6 @@ pub const SAFE_FALLBACK_STATION_ID: &str = "ff-safety-satellite";
 /// the day the Eagle itself will not open.
 pub const AUDIBLE_FALLBACK_STATION_ID: &str = "afn-humphreys";
 pub const RADIO_CATALOG_RESOURCE: &str = "radio_catalog.json";
-/// How many search hits the Radio app lists. A screen reader walks a list one
-/// row at a time, so past this a search is a narrower search, not a longer
-/// list; the app says how many more there were.
-pub const RADIO_SEARCH_LIMIT: usize = 40;
 /// How many search hits one page of the Radio app's results list shows.
 /// Further hits sit behind next and previous page rows (and PageUp and
 /// PageDown), so no match is ever unreachable.

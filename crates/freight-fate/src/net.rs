@@ -222,14 +222,6 @@ pub fn refused_requests() -> Vec<String> {
         .clone()
 }
 
-/// Forget the refusals so far.
-pub fn clear_refused_requests() {
-    REFUSED_REQUESTS
-        .lock()
-        .unwrap_or_else(|e| e.into_inner())
-        .clear();
-}
-
 /// Refuse, record and panic unless this process is the game.
 ///
 /// [`request`] calls this for every caller that goes through it. The one

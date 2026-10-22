@@ -52,11 +52,6 @@ pub fn endorsement_course_cost(key: &str) -> Option<f64> {
     credential(key).map(|c| c.course_cost)
 }
 
-/// The credential's spoken (and public-profile) label.
-pub fn endorsement_label_spoken(key: &str) -> Option<&'static str> {
-    credential(key).map(|c| c.label)
-}
-
 // Experience scales with what the freight demands, not just its miles:
 // specialty (endorsement) cargo and premium mid-level cargo teach more per
 // mile, a run of consecutive on-time deliveries compounds the lesson, and
@@ -178,11 +173,6 @@ pub fn xp_streak_bonus(streak: i64) -> f64 {
 /// unchanged to the float.
 pub fn streak_bonus_xp(streak: i64, base_xp: f64, mileage_xp: f64) -> f64 {
     (xp_streak_bonus(streak) * base_xp).min(mileage_xp)
-}
-
-/// The credential's grant sentence.
-pub fn endorsement_announcement(key: &str) -> Option<&'static str> {
-    credential(key).map(|c| c.announcement)
 }
 
 /// Spoken once when the tank and hazmat endorsements are both on the

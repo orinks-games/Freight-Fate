@@ -45,11 +45,6 @@ use builders::{
     py_float_or, validate_city_locations,
 };
 
-/// The `world_data/` tree under the data root (Python `WORLD_DATA_PATH`).
-pub fn world_data_path() -> PathBuf {
-    data_root().join("world_data")
-}
-
 /// Routing cost multiplier for a leg carrying a truck_advisory (see
 /// `shortest_route`). Calibrated, not tasted: carriers accept the ~1.7x
 /// distance detour through Cortez and Moab rather than run the warned
@@ -980,9 +975,4 @@ static WORLD: OnceCell<World> = OnceCell::new();
 /// Python import was.
 pub fn get_world() -> &'static World {
     WORLD.get_or_init(|| World::load().expect("the shipped world data loads"))
-}
-
-/// Whether the shared world has been loaded yet.
-pub fn world_is_loaded() -> bool {
-    WORLD.get().is_some()
 }

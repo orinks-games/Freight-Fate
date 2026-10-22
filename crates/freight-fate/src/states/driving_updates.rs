@@ -216,7 +216,6 @@ pub const JAKE_RATE_MAX: f64 = 1.4;
 // raises the retarder, whatever the overspeed (owner ruling 2026-08-11). It
 // survives as the line the service trim below draws for "well over the
 // advisory", which is what it always measured.
-pub const CURVE_ASSIST_JAKE_MIN_MPH: f64 = 10.0;
 // How hard the retarder works once a GRADE has called for it: past this much
 // over the advisory it gets everything, otherwise the working setting, stage
 // two. Reached only on a downgrade -- see `update_lane`.

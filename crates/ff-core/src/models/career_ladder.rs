@@ -542,21 +542,6 @@ pub fn display_rank_for_level(
     }
 }
 
-pub fn next_display_rank_for_level(
-    level: i64,
-    business_status: &str,
-    owner_operator_declined: bool,
-) -> Option<&'static CareerRank> {
-    if level >= MAX_CAREER_LEVEL {
-        return None;
-    }
-    Some(display_rank_for_level(
-        level + 1,
-        business_status,
-        owner_operator_declined,
-    ))
-}
-
 /// Rewrite level-up lines so a company-path driver hears company titles.
 pub fn relabel_level_up_announcements(
     messages: &mut [String],

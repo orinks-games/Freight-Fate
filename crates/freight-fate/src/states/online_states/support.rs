@@ -55,11 +55,6 @@ impl<T> Mailbox<T> {
     pub fn take(&self) -> Option<T> {
         self.0.lock().unwrap_or_else(|e| e.into_inner()).take()
     }
-
-    /// Whether something is waiting to be taken.
-    pub fn is_posted(&self) -> bool {
-        self.0.lock().unwrap_or_else(|e| e.into_inner()).is_some()
-    }
 }
 
 /// Run `job` on a named daemon thread, or inline when `threaded` is false

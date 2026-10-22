@@ -34,7 +34,6 @@ use ff_core::models::jobs::{cargo_type, Job};
 use ff_core::models::profile::Profile;
 use ff_core::models::trailer_yard::{delivery_plan, pickup_plan};
 use ff_core::models::trucks::truck_model;
-use ff_core::pyfmt::fmt_grouped;
 use ff_core::sim::trip_models::{
     NPCVehicle, TrafficPressure, TripEvent, TripEventData, TripEventKind, Zone,
 };
@@ -42,7 +41,7 @@ use ff_core::sim::weather::WeatherKind;
 
 use crate::app::testing::{FakeClock, TestApp};
 use crate::app::{GameContext, SharedState};
-use crate::speech::{SpeechChannel, SpokenEntry};
+use crate::speech::SpokenEntry;
 use crate::states::base::{InputEvent, Key, Menu, Mods, TimedMessageState};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{DRIVE_PHASE_DELIVERY, RAMP_MAX_MPH};
@@ -108,62 +107,6 @@ pub struct PlaytestResult {
 }
 
 impl PlaytestResult {
-    /// One plain-text block covering everything the truck came with.
-    pub fn equipment_summary(&self) -> String {
-        let tractor = if !self.assigned_truck_label.is_empty() {
-            self.assigned_truck_label.as_str()
-        } else if !self.assigned_truck.is_empty() {
-            self.assigned_truck.as_str()
-        } else {
-            "unknown"
-        };
-        let mut lines = vec![format!("Tractor: {tractor}")];
-        if !self.slip_seat_pool.is_empty() {
-            lines.push(format!("Yard spares: {}", self.slip_seat_pool.join(", ")));
-        }
-        if !self.pickup_mode.is_empty() {
-            lines.push(format!(
-                "Pickup: {}, {:.0} minutes",
-                self.pickup_mode, self.pickup_minutes
-            ));
-        }
-        if self.detention_minutes != 0.0 {
-            lines.push(format!(
-                "Detention: {:.0} minutes, {} dollars",
-                self.detention_minutes,
-                fmt_grouped(self.detention_pay, 0)
-            ));
-        }
-        if !self.trailer_number.is_empty() {
-            let state = if self.trailer_condition.is_empty() {
-                "unknown condition"
-            } else {
-                self.trailer_condition.as_str()
-            };
-            let defect = if self.trailer_defect.is_empty() {
-                String::new()
-            } else {
-                format!(", {}", self.trailer_defect)
-            };
-            let refused = if self.trailer_refused {
-                " (refused and swapped)"
-            } else {
-                ""
-            };
-            lines.push(format!(
-                "Trailer: {}, {state}{defect}{refused}",
-                self.trailer_number
-            ));
-        }
-        if !self.delivery_mode.is_empty() {
-            lines.push(format!(
-                "Delivery: {}, {:.0} minutes",
-                self.delivery_mode, self.delivery_minutes
-            ));
-        }
-        lines.join("\n")
-    }
-
     pub fn transcript_text(&self) -> String {
         self.transcript.join("\n")
     }
@@ -1163,51 +1106,6 @@ impl PlaytestHarness {
         self.result()
     }
 
-    /// Leave settlement and dispatch another load on the same career.
-    pub fn continue_to_next_delivery(&mut self, job_rank: usize, route_rank: usize) {
-        use crate::states::city::{CityMenuState, JobBoardState, RouteSelectState};
-        use crate::states::city_pickup::PickupFacilityState;
-        use crate::states::driving_menu_states::ArrivalState;
-
-        assert!(self.state_is::<ArrivalState>());
-        self.key(key_event(Key::Escape, None));
-        assert!(self.state_is::<CityMenuState>());
-        self.select_current_menu_text("Dispatch board");
-        assert!(self.state_is::<JobBoardState>());
-        let assigned = self.with_state::<JobBoardState, _>(|board, _| board.assigned_mode());
-        if assigned {
-            self.accept_assigned_job(job_rank, true);
-        } else {
-            self.choose_unlocked_job(job_rank);
-        }
-        if self.state_is::<DrivingState>() {
-            // The deadhead: jump it to the shipper's gate.
-            self.driving = self.app.state();
-            self.advance_frame_clock();
-            self.with_drive(|drive, ctx| {
-                drive.trip.position_mi = drive.trip.total_miles();
-                drive.trip.finished = true;
-                drive.truck_mut().velocity_mps = 0.0;
-                drive.truck_mut().set_parking_brake();
-                drive.update_frame(ctx, DT);
-            });
-            self.finish_timed_state();
-        }
-        // Otherwise the load was staged in the home yard (and no decline
-        // was left to reach another): the shipping office opened in place.
-        assert!(self.state_is::<PickupFacilityState>());
-        self.key(key_event(Key::Return, None));
-        self.key(key_event(Key::Return, None));
-        self.finish_timed_state();
-        self.key(key_event(Key::Return, None));
-        if self.state_is::<RouteSelectState>() {
-            self.choose_route(route_rank);
-        }
-        assert!(self.state_is::<DrivingState>());
-        self.driving = self.app.state();
-        self.neutralize_random_trip_friction();
-    }
-
     // -- staging the road ------------------------------------------------------------
 
     pub fn add_npc_traffic_ahead(
@@ -1670,9 +1568,6 @@ fn speed_control_mode(drive: &DrivingState) -> String {
     }
     .to_string()
 }
-
-/// The channel tag the transcript prefixes event lines with.
-pub const EVENT_CHANNEL: SpeechChannel = SpeechChannel::Event;
 
 /// Shared by the harness and the break battery: a `Rc<RefCell<T>>` handle
 /// the caller keeps while the app owns the object.

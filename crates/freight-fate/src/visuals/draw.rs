@@ -43,12 +43,6 @@ impl Rgba {
         }
     }
 
-    pub const TRANSPARENT: Rgba = Rgba {
-        r: 0.0,
-        g: 0.0,
-        b: 0.0,
-        a: 0.0,
-    };
     pub const WHITE: Rgba = Rgba::rgb(255, 255, 255);
     pub const BLACK: Rgba = Rgba::rgb(0, 0, 0);
 
@@ -163,10 +157,6 @@ impl Painter {
         self.layer = Layer::World as usize;
     }
 
-    pub fn set_white_uv(&mut self, uv: (f32, f32)) {
-        self.white = FPoint::new(uv.0, uv.1);
-    }
-
     pub fn set_layer(&mut self, layer: Layer) {
         self.layer = layer as usize;
     }
@@ -216,13 +206,6 @@ impl Painter {
     }
 
     // -- plain (unsmoothed) fills ------------------------------------------------
-
-    pub fn triangle(&mut self, p: [Pt; 3], c: [Rgba; 3]) {
-        let a = self.push(p[0], c[0].to_color());
-        let b = self.push(p[1], c[1].to_color());
-        let d = self.push(p[2], c[2].to_color());
-        self.index3(a, b, d);
-    }
 
     /// A convex quad in drawing order, one colour per corner.
     pub fn quad(&mut self, p: [Pt; 4], c: [Rgba; 4]) {

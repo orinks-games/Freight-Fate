@@ -73,11 +73,6 @@ pub fn refused_urls() -> Vec<String> {
     REFUSED.lock().unwrap_or_else(|e| e.into_inner()).clone()
 }
 
-/// Forget the refusals so far.
-pub fn clear_refused_urls() {
-    REFUSED.lock().unwrap_or_else(|e| e.into_inner()).clear();
-}
-
 /// Replace [`open_url`] for this thread (`monkeypatch.setattr(webbrowser,
 /// "open", ...)`); `None` restores the default.
 ///

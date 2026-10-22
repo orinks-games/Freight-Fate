@@ -603,10 +603,6 @@ impl TimedMessageState {
         self.sound_key = key.map(str::to_string);
         self
     }
-
-    pub fn is_complete(&self) -> bool {
-        self.complete
-    }
 }
 
 impl State for TimedMessageState {

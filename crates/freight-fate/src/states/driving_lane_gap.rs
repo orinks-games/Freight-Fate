@@ -91,17 +91,6 @@ pub use ff_core::sim::traffic_manager::{LANE_GAP_ACT_REAL_S, LANE_GAP_MARGIN_MI}
 pub const LANE_GAP_CUE_MIN_GAP_S: f64 = 4.0;
 
 impl DrivingState {
-    pub fn reset_lane_gap(&mut self) {
-        // The lane a completed change moved out of, and the vehicle that was
-        // holding it. Per-stint, not saved: a reloaded trip is not mid-pass.
-        self.lane_gap_watch = None;
-        self.lane_gap_prev_lane = Some(self.lane.lane);
-        self.lane_gap_blocker_key = None;
-        self.lane_gap_blocker_class = String::new();
-        self.lane_gap_said_keys.clear();
-        self.lane_gap_cue_s = 0.0;
-    }
-
     // -- clearance, read through the collision logic's own authority ----------
 
     /// The vehicle holding `lane_index` beside the truck, or None.

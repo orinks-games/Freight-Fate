@@ -15,8 +15,8 @@ use crate::models::jobs::{
     cargo_type, dispatch_deadline_hours, facility_cargo, market_tag_cargo_bonus,
     minimum_pay_for_level, plan_hos, CargoType, Job, CARGO_CATALOG, DEADLINE_DISPATCH_SLACK_RANGE,
     FACILITY_SELECTION_WEIGHTS, HELD_CREDENTIAL_CARGO_WEIGHT, HELD_CREDENTIAL_FACILITY_BONUS,
-    HOOKUP_FEE, LEVEL_DISTANCE_CAPS, LEVEL_DISTANCE_CAP_STEP_MI, LONG_HAUL_MILES,
-    MAX_DISPATCH_DISTANCE_MI, MIN_JOB_DISTANCE_MI, PREMIUM_LANE_LEVEL, PREMIUM_LANE_LONG_HAUL_BIAS,
+    HOOKUP_FEE, LEVEL_DISTANCE_CAPS, LEVEL_DISTANCE_CAP_STEP_MI, MAX_DISPATCH_DISTANCE_MI,
+    MIN_JOB_DISTANCE_MI, PREMIUM_LANE_LEVEL, PREMIUM_LANE_LONG_HAUL_BIAS,
     SPECIALIZED_FREIGHT_LEVEL, SPECIALIZED_FREIGHT_WEIGHT,
 };
 use crate::models::market::Market;
@@ -122,20 +122,6 @@ impl<'w> JobBoard<'w> {
     /// `JobBoard(world, seed=seed)`.
     pub fn seeded(world: &'w World, seed: i64) -> Self {
         Self::new(world, Some(seed), None)
-    }
-
-    /// How many distinct places a driver at `level` can be sent to from
-    /// `city`: the reachable cities within the level's range and past the
-    /// across-town minimum. The board's own measure of how much choice a
-    /// town's freight offers; a town with one or two is a thin market
-    /// however many rows the board fills (see `relay`).
-    pub fn destination_choices(&self, city: &str, level: i64) -> usize {
-        let city = self.world.resolve_city_key(city);
-        let cap = Self::distance_cap(level);
-        self.candidates(&city)
-            .iter()
-            .filter(|c| c.1 >= MIN_JOB_DISTANCE_MI && c.1 <= cap)
-            .count()
     }
 
     pub fn distance_cap(level: i64) -> f64 {
@@ -426,30 +412,6 @@ impl<'w> JobBoard<'w> {
             .or_default()
             .insert(city.to_string(), computed.clone());
         computed
-    }
-
-    /// `_choose_destination`: kept for parity; the board spreads destinations
-    /// up front instead.
-    pub fn choose_destination(&mut self, candidates: &[Candidate], level: i64) -> Candidate {
-        let mut pool: Vec<&Candidate> = candidates.iter().collect();
-        if level >= 4 {
-            // seasoned drivers see a dedicated cross-country slot now and then
-            let long_hauls: Vec<&Candidate> = candidates
-                .iter()
-                .filter(|c| c.1 >= LONG_HAUL_MILES)
-                .collect();
-            if !long_hauls.is_empty() && self.rng.random() < 0.35 {
-                pool = long_hauls;
-            }
-        }
-        // Nearer destinations are likelier, and rookies lean harder toward short
-        // hauls (squared distance falloff). Crucially the pool is never narrowed
-        // to a single-leg-only set -- that locked sparse start cities into one
-        // back-and-forth route. Leg count no longer gates which cities appear.
-        let exponent = if level <= 2 { 2.0 } else { 1.0 };
-        let weights: Vec<f64> = pool.iter().map(|c| 1.0 / c.1.powf(exponent)).collect();
-        let idx = self.rng.choices_indices_weighted(&weights, 1)[0];
-        pool[idx].clone()
     }
 
     fn choose_origin_location<'c>(

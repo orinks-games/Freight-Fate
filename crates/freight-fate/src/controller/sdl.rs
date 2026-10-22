@@ -112,38 +112,6 @@ pub fn button_from_sdl(button: Button) -> ControllerButton {
     }
 }
 
-pub fn button_to_sdl(button: ControllerButton) -> Button {
-    match button {
-        ControllerButton::A => Button::A,
-        ControllerButton::B => Button::B,
-        ControllerButton::X => Button::X,
-        ControllerButton::Y => Button::Y,
-        ControllerButton::Back => Button::Back,
-        ControllerButton::Guide => Button::Guide,
-        ControllerButton::Start => Button::Start,
-        ControllerButton::LeftStick => Button::LeftStick,
-        ControllerButton::RightStick => Button::RightStick,
-        ControllerButton::LeftShoulder => Button::LeftShoulder,
-        ControllerButton::RightShoulder => Button::RightShoulder,
-        ControllerButton::DPadUp => Button::DPadUp,
-        ControllerButton::DPadDown => Button::DPadDown,
-        ControllerButton::DPadLeft => Button::DPadLeft,
-        ControllerButton::DPadRight => Button::DPadRight,
-        ControllerButton::Misc1 => Button::Misc1,
-        ControllerButton::Paddle1 => Button::Paddle1,
-        ControllerButton::Paddle2 => Button::Paddle2,
-        ControllerButton::Paddle3 => Button::Paddle3,
-        ControllerButton::Paddle4 => Button::Paddle4,
-        ControllerButton::Touchpad => Button::Touchpad,
-        ControllerButton::RightStickUp
-        | ControllerButton::RightStickDown
-        | ControllerButton::RightStickLeft
-        | ControllerButton::RightStickRight => {
-            unreachable!("right-stick directions are synthesized from axis events")
-        }
-    }
-}
-
 pub fn axis_from_sdl(axis: Axis) -> ControllerAxis {
     match axis {
         Axis::LeftX => ControllerAxis::LeftX,
@@ -152,16 +120,5 @@ pub fn axis_from_sdl(axis: Axis) -> ControllerAxis {
         Axis::RightY => ControllerAxis::RightY,
         Axis::TriggerLeft => ControllerAxis::TriggerLeft,
         Axis::TriggerRight => ControllerAxis::TriggerRight,
-    }
-}
-
-pub fn axis_to_sdl(axis: ControllerAxis) -> Axis {
-    match axis {
-        ControllerAxis::LeftX => Axis::LeftX,
-        ControllerAxis::LeftY => Axis::LeftY,
-        ControllerAxis::RightX => Axis::RightX,
-        ControllerAxis::RightY => Axis::RightY,
-        ControllerAxis::TriggerLeft => Axis::TriggerLeft,
-        ControllerAxis::TriggerRight => Axis::TriggerRight,
     }
 }

@@ -12,7 +12,7 @@ use super::playlists::{load_personal_playlists, PERSONAL_PLAYLIST_SOURCE_TYPE};
 use super::{
     dial_category_name, dial_group, estimate_signal, identity_siblings, station_distance_miles,
     station_identity, RadioAction, RadioPlaybackBackend, RadioReception, RadioStation,
-    RADIO_SEARCH_LIMIT, SAFE_ROUTE_PLAYLIST, SIGNAL_FULL_VOLUME, STATIC_SIGNAL_THRESHOLD,
+    SAFE_ROUTE_PLAYLIST, SIGNAL_FULL_VOLUME, STATIC_SIGNAL_THRESHOLD,
 };
 use crate::pyfmt::{fmt_f, round_py_int};
 
@@ -479,11 +479,6 @@ impl RadioState {
                 .then_with(|| Self::hit_order(a, b))
         });
         ordered
-    }
-
-    /// [`RadioState::search`] with the Radio app's default list cap.
-    pub fn search_default(&self, query: &str) -> (Vec<StationHit>, usize) {
-        self.search(query, RADIO_SEARCH_LIMIT)
     }
 
     /// Saved stations, each with its reception here (None when out of

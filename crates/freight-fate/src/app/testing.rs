@@ -289,10 +289,6 @@ impl TestApp {
         self.capture.borrow()
     }
 
-    pub fn speech_mut(&self) -> std::cell::RefMut<'_, CaptureSpeech> {
-        self.capture.borrow_mut()
-    }
-
     /// Raise the loaded career past the new-driver warnings, so a test of
     /// what a citation costs sees one.
     pub fn seasoned_driver(&mut self) {

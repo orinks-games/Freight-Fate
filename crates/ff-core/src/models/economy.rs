@@ -48,8 +48,6 @@ pub const REPAIR_COST_PER_PCT: f64 = 85.0;
 // end on purpose -- a careful driver's occasional scrape prices as it always
 // did -- and only bites where the driver has been ignoring warnings.
 pub const REPAIR_SEVERITY_CURVE: f64 = 2.0;
-/// Flat cost of a rest stop visit (food, parking).
-pub const REST_COST: f64 = 35.0;
 /// A real bed near the lot: full-quality rest for money.
 pub const MOTEL_COST: f64 = 95.0;
 

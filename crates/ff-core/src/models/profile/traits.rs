@@ -7,8 +7,8 @@ use serde_json::{Map, Value};
 use super::Profile;
 use crate::achievements::AchievementProfile;
 use crate::models::business::{
-    self, authority_activation_eligibility, authority_readiness_eligibility,
-    owner_operator_eligibility, BusinessProfile,
+    authority_activation_eligibility, authority_readiness_eligibility, owner_operator_eligibility,
+    BusinessProfile,
 };
 use crate::models::career::{Career, CareerProfile};
 use crate::models::carrier_fleet::{assigned_truck_key, equipment_hold_clause};
@@ -341,9 +341,4 @@ impl MenuMusicProfile for Profile {
     }
 }
 
-impl Profile {
-    /// `business.carrier_name(profile)`, for callers holding a profile.
-    pub fn spoken_carrier_name(&self) -> String {
-        business::carrier_name(self)
-    }
-}
+impl Profile {}

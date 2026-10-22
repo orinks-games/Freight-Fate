@@ -184,7 +184,6 @@ pub const EXIT_COUNTDOWN_MILESTONES_MI: [f64; 3] = [2.0, 1.0, 0.5];
 // one-mile mark, so it is not a new number.
 pub const EXIT_APPROACH_QUIET_MI: f64 = EXIT_COUNTDOWN_MILESTONES_MI[1];
 // The pacenote cue tone leans hard toward the curve's side of the field.
-pub const PACENOTE_CUE_PAN: f64 = 0.85;
 pub const EXIT_COMMIT_WINDOW_MI: f64 = 0.4; // generous gore-window grace after the marker
 /// Where the exit lane opens: the length of its taper ahead of the gore, in
 /// miles. DERIVED: a parallel deceleration lane's taper runs 15:1 to 25:1
@@ -233,7 +232,6 @@ pub const RAMP_MAX_MPH: f64 = TRIP_RAMP_MAX_MPH;
 // gap between a flat 40 and a flat 45; now it is the gap itself, applied to
 // whatever number the ramp earns.
 pub const RAMP_CRUISE_HEADROOM_MPH: f64 = 5.0;
-pub const RAMP_CRUISE_TARGET_MPH: f64 = RAMP_MAX_MPH - RAMP_CRUISE_HEADROOM_MPH;
 // Ceiling on the light throttle exit speed assistance uses to HOLD that target
 // once it has slowed the truck to it. Deliberately small: the assist is keeping
 // a truck rolling to its own gore, not driving it.
@@ -327,7 +325,6 @@ pub const RAMP_ASSIST_DECEL_RELEASE_MPS2: f64 = 0.35;
 // stopped, and the brake it uses. Gentler than the ramp figure -- an approach
 // is a street chain with a gate at the end, and the point is that the stop is
 // comfortable rather than a grab.
-pub const APPROACH_ASSIST_DECEL_MPS2: f64 = 0.9;
 // Seconds of road the arrival shed starts EARLY, so the brake has time to
 // build before the stop profile binds. Not a change to where the truck
 // stops -- the profile still aims at the arrival point -- only to when it
@@ -336,7 +333,6 @@ pub const APPROACH_ASSIST_DECEL_MPS2: f64 = 0.9;
 // same budget, because a truck already down to street speed needs the
 // pressure built, not a driver reaction.
 pub const APPROACH_ASSIST_REACTION_S: f64 = 3.0;
-pub const APPROACH_ASSIST_BRAKE: f64 = 0.4;
 pub const RAMP_ASSIST_FULL_DECEL_MPS2: f64 = 3.0;
 pub const RAMP_ASSIST_HOLD_MI: f64 = 60.0 / 5280.0;
 // How far the demand has to fall below the pedal the assist is already holding
@@ -793,8 +789,6 @@ pub const OVERSPEED_URGENT_MPH: f64 = 20.0;
 // Travel this far still moving after the lights come on and it counts as
 // ignoring the stop -- a heavier fine and a bigger reputation hit.
 pub const PULL_OVER_IGNORE_MI: f64 = 2.0;
-pub const FAILURE_TO_STOP_WARNING_MI: f64 = 0.8;
-pub const FAILURE_TO_STOP_FINAL_WARNING_MI: f64 = 1.5;
 // The staged warnings run on real seconds, not trip miles: compression could
 // burn two miles before the first warning had a chance to speak.
 pub const PULL_OVER_FIRST_WARNING_S: f64 = 8.0;

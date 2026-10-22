@@ -11,11 +11,8 @@
 
 use std::sync::Arc;
 
-use ff_core::sim::real_traffic::RealTrafficProvider;
 use ff_core::sim::real_weather::RealWeatherProvider;
 use ff_core::sim::real_weather_alerts::{alerts_chain_law_level, ALERT_POLL_MI};
-use ff_core::sim::trip_traffic::TrafficProvider;
-use ff_core::sim::truck_parking::TruckParkingProvider;
 use ff_core::sim::weather::WeatherProvider;
 use ff_core::speech_pacing::SpeechCategory;
 
@@ -168,32 +165,5 @@ impl DrivingState {
         let effects = self.trip.weather.effects();
         ctx.audio.set_weather(effects.sound);
         ctx.audio.set_wind(effects.wind);
-    }
-
-    pub fn sync_traffic_source(&mut self, ctx: &mut GameContext) {
-        let real = ctx.settings.real_traffic;
-        if real == self.traffic_source_real {
-            return;
-        }
-        self.traffic_source_real = real;
-        self.trip.traffic_provider = if real {
-            Some(Arc::new(RealTrafficProvider::new(Arc::new(UreqTransport)))
-                as Arc<dyn TrafficProvider>)
-        } else {
-            None
-        };
-    }
-
-    pub fn sync_parking_source(&mut self, ctx: &mut GameContext) {
-        let real = ctx.settings.real_parking;
-        if real == self.parking_source_real {
-            return;
-        }
-        self.parking_source_real = real;
-        self.trip.parking_provider = if real {
-            Some(Arc::new(TruckParkingProvider::new(Arc::new(UreqTransport))))
-        } else {
-            None
-        };
     }
 }
