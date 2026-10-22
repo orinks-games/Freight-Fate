@@ -763,6 +763,11 @@ fn test_late_observation_for_previous_route_cell_cannot_replace_current_cell() {
                 .find(|(k, _)| *k == city)
                 .and_then(|(_, v)| *v)
         }
+        // A mild station reading, so the real-calendar season model (read
+        // off the wall clock) never turns this rain to ice on a cold night.
+        fn get_temperature(&mut self, _city: &str) -> Option<f64> {
+            Some(15.0)
+        }
     }
 
     let data = Arc::new(StdMutex::new(vec![
