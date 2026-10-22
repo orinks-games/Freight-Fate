@@ -20284,11 +20284,9 @@ msgstr ""
 
 #. placeholders: {rest}
 msgid ""
-"{rest} plans the recommended break or sleep stop when hours of service "
-"planning hints are on; otherwise it plans the next sleep-capable stop while "
-"rolling."
+"While rolling, {rest} plans the next stop for what you choose: fuel, a "
+"break, sleep, fuel and sleep, or food."
 msgstr ""
-"運転時間規制の計画のヒントがオンなら、{rest}でおすすめの休憩か睡眠の停車地を計画します。オフなら、走行中に次の寝られる停車地を計画します。"
 
 #. placeholders: {exit}
 msgid "{exit} signals for its exit."
@@ -20434,13 +20432,9 @@ msgstr "{horn} でホーン、{engine_brake} でエンジンブレーキです�
 msgid ""
 "{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads "
 "the posted speed limit here and how far over you are, {parking_brake} sets "
-"or releases the parking brake, {rest} plans a recommended break or sleep "
-"stop when hours of service planning hints are on, or the next sleep stop "
-"otherwise; stopped at a stop, it opens its actions."
+"or releases the parking brake, {rest} plans a stop for fuel, a break, sleep "
+"or food while rolling; stopped at a stop, it opens its actions."
 msgstr ""
-"{engine} でエンジンの始動と停止、{fuel} で燃料、{speed_limit} "
-"でここの標識の制限速度と超過分、{parking_brake} で駐車ブレーキのオンとオフ、{rest} "
-"で勤務時間の計画ヒントがオンなら推奨の休憩か睡眠の停車地を、オフなら次の睡眠の停車地を計画します。停車地で止まっていれば、その操作を開きます。"
 
 msgid ""
 "Away from route points while fully stopped, it opens emergency shoulder "
@@ -24067,6 +24061,130 @@ msgstr "ランプの終わりにロータリーがあります。"
 msgid "Yield sign at the end of the ramp."
 msgstr "ランプの終わりに譲れの標識があります。"
 
+#. placeholders: {distance}
+msgid "Fuel: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Break: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Sleep: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Fuel and sleep: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Food and coffee: {distance}"
+msgstr ""
+
+msgid "Fuel: none ahead"
+msgstr ""
+
+msgid "Break: none ahead"
+msgstr ""
+
+msgid "Sleep: none ahead"
+msgstr ""
+
+msgid "Fuel and sleep: none ahead"
+msgstr ""
+
+msgid "Food and coffee: none ahead"
+msgstr ""
+
+msgid "Plans the next stop that sells diesel."
+msgstr ""
+
+msgid ""
+"Plans a stop for your 30-minute break, the recommended one with planning "
+"hints on."
+msgstr ""
+
+msgid ""
+"Plans a stop with parking for a 10-hour sleep, the recommended one with "
+"planning hints on."
+msgstr ""
+
+msgid "Plans the next stop where you can fuel and sleep."
+msgstr ""
+
+msgid "Plans the next stop with food and coffee."
+msgstr ""
+
+msgid "No fuel stop ahead."
+msgstr ""
+
+msgid "No break stop ahead."
+msgstr ""
+
+msgid "No sleep stop ahead. Shoulder sleep available."
+msgstr "この先に睡眠の停車地はありません。路肩で眠ることができます。"
+
+msgid "No stop with fuel and sleep ahead."
+msgstr ""
+
+msgid "No food stop ahead."
+msgstr ""
+
+msgid "Fuel stop planned"
+msgstr ""
+
+msgid "Fuel and sleep stop planned"
+msgstr ""
+
+msgid "Food stop planned"
+msgstr ""
+
+msgid "Sleep stop planned, the last one before your sleep limit"
+msgstr "睡眠の停車地を計画しました。睡眠の上限までの最後の停車地です"
+
+msgid "Sleep stop planned"
+msgstr "睡眠の停車地を計画しました"
+
+msgid ""
+"Nearest sleep stop planned, but none is reachable before your hours limit. "
+"Stop somewhere safe sooner"
+msgstr "一番近い睡眠の停車地を計画しましたが、運転時間の上限までに着ける停車地はありません。もっと早く安全な場所に停まってください"
+
+msgid "Break stop planned, the last one before your break limit"
+msgstr "休憩の停車地を計画しました。休憩の上限までの最後の停車地です"
+
+msgid "Break stop planned"
+msgstr "休憩の停車地を計画しました"
+
+msgid ""
+"Sleep stop planned for your break, the last one before your break limit"
+msgstr "休憩のための睡眠の停車地を計画しました。休憩の上限までの最後の停車地です"
+
+msgid "Sleep stop planned for your break"
+msgstr "休憩のための睡眠の停車地を計画しました"
+
+#. placeholders: {name}
+msgid "Planned stop remains {name}."
+msgstr "計画した停車地は{name}のままです。"
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "Planned stop stays {name}."
+msgstr "計画した停車地は{name}のままです。"
+
+#. placeholders: {name}, {name2}
+msgid "Planned stop stays {name}. {name2} is also ahead."
+msgstr "計画した停車地は{name}のままです。{name2}もこの先にあります。"
+
+#. placeholders: {name2}
+#. one sentence of a longer line
+msgid "{name2} is also ahead."
+msgstr "{name2}もこの先にあります。"
+
+#. placeholders: {range_text}
+msgid "Fuel range only {range_text}."
+msgstr ""
+
 msgid "Rest-stop planning unavailable during a police stop."
 msgstr "警察の停車中は、休憩の停車地を計画できません。"
 
@@ -24130,6 +24248,21 @@ msgstr "計画した停車を取り消しました。{name}への出口のウイ
 msgid "{name} is behind you."
 msgstr "{name}は通り過ぎました。"
 
+msgid "Still planned for fuel"
+msgstr ""
+
+msgid "Still planned for food"
+msgstr ""
+
+msgid "Still planned for fuel and sleep"
+msgstr ""
+
+msgid "Still planned for a 30-minute break"
+msgstr "30分の休憩の停車地として計画したままです"
+
+msgid "Still planned"
+msgstr "計画したままです"
+
 #. placeholders: {name}
 msgid "Exit signal active for {name}."
 msgstr "{name}への出口のウインカーが出ています。"
@@ -24138,63 +24271,10 @@ msgstr "{name}への出口のウインカーが出ています。"
 msgid "The exit for {name} is already selected."
 msgstr "{name}への出口はもう選ばれています。"
 
-msgid "No sleep-capable route stop ahead on this route."
-msgstr "このルートの先に、寝られる停車地はありません。"
-
-msgid "No sleep stop ahead. Shoulder sleep available."
-msgstr "この先に睡眠の停車地はありません。路肩で眠ることができます。"
-
-#. placeholders: {name}
-msgid "Planned stop remains {name}."
-msgstr "計画した停車地は{name}のままです。"
-
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Planned stop stays {name}."
-msgstr "計画した停車地は{name}のままです。"
-
-#. placeholders: {name}, {name2}
-msgid "Planned stop stays {name}. {name2} is also ahead."
-msgstr "計画した停車地は{name}のままです。{name2}もこの先にあります。"
-
-#. placeholders: {name2}
-#. one sentence of a longer line
-msgid "{name2} is also ahead."
-msgstr "{name2}もこの先にあります。"
-
-msgid "Still planned for a 30-minute break"
-msgstr "30分の休憩の停車地として計画したままです"
-
-msgid "Still planned"
-msgstr "計画したままです"
-
-msgid "Break stop planned, the last one before your break limit"
-msgstr "休憩の停車地を計画しました。休憩の上限までの最後の停車地です"
-
-msgid "Break stop planned"
-msgstr "休憩の停車地を計画しました"
-
+#. placeholders: {prefix}, {name}, {distance}, {exit_text}, {note}, {next_step}, {assist}
 msgid ""
-"Sleep stop planned for your break, the last one before your break limit"
-msgstr "休憩のための睡眠の停車地を計画しました。休憩の上限までの最後の停車地です"
-
-msgid "Sleep stop planned, the last one before your sleep limit"
-msgstr "睡眠の停車地を計画しました。睡眠の上限までの最後の停車地です"
-
-msgid "Sleep stop planned for your break"
-msgstr "休憩のための睡眠の停車地を計画しました"
-
-msgid "Sleep stop planned"
-msgstr "睡眠の停車地を計画しました"
-
-msgid ""
-"Nearest sleep stop planned, but none is reachable before your hours limit. "
-"Stop somewhere safe sooner"
-msgstr "一番近い睡眠の停車地を計画しましたが、運転時間の上限までに着ける停車地はありません。もっと早く安全な場所に停まってください"
-
-#. placeholders: {prefix}, {name}, {distance}, {exit_text}, {next_step}, {assist}
-msgid "{prefix}, {name}, {distance} ahead{exit_text}.{next_step}{assist}"
-msgstr "{prefix}、{name}、{distance}先{exit_text}。{next_step}{assist}"
+"{prefix}, {name}, {distance} ahead{exit_text}.{note}{next_step}{assist}"
+msgstr ""
 
 msgid "Pulling into stop"
 msgstr "停車地に入ります"
@@ -25915,6 +25995,14 @@ msgstr "保存した局です。Enter で選局します。"
 msgid "Back to the status screens."
 msgstr "ステータス画面に戻ります。"
 
+msgid ""
+"Up and Down choose what the stop is for, Enter plans it, Escape goes back "
+"to driving."
+msgstr ""
+
+msgid "Plan a stop"
+msgstr ""
+
 msgid "Hairpin"
 msgstr "ヘアピンカーブ"
 
@@ -27215,6 +27303,9 @@ msgstr "項目を選んでください。睡眠は先に予測を読み上げ、
 msgid "Take a 30-minute break"
 msgstr "30分休憩をとる"
 
+msgid "Food and coffee break"
+msgstr "食事とコーヒーの休憩"
+
 #. one sentence of a longer line
 msgid "You are already rested."
 msgstr "もう十分休んでいます。"
@@ -27242,9 +27333,6 @@ msgid ""
 msgstr ""
 "表示されたディーゼル価格に35ドルのサービス料を足した値段で満タンにします。お金が足りなければ、買える分だけ入れます。エンジンを切っておく必要があります"
 "。"
-
-msgid "Food and coffee break"
-msgstr "食事とコーヒーの休憩"
 
 msgid ""
 "Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
@@ -33598,28 +33686,31 @@ msgstr "カーブアシストは、地図にあるカーブで減速して操舵
 msgid "Exits, ramps, and arrival"
 msgstr "出口、ランプ、到着"
 
-#. one sentence of a longer line
-msgid "Press again to cancel the plan."
-msgstr "もう一度押すと計画を取り消します。"
-
-#. one sentence of a longer line
-msgid ""
-"With hours-planning hints on, it plans the recommended break or sleep stop."
-msgstr "運転時間の計画ヒントがオンなら、勧められた休憩か睡眠の停車地を計画します。"
-
 #. placeholders: {control_rest}
 #. one sentence of a longer line
-msgid "{control_rest} plans a nearby sleep-capable stop while rolling."
-msgstr "{control_rest}で、走行中に近くの睡眠できる停車地を計画します。"
-
-#. placeholders: {control_rest}
-msgid ""
-"{control_rest} plans a nearby sleep-capable stop while rolling. With "
-"hours-planning hints on, it plans the recommended break or sleep stop. "
-"Press again to cancel the plan."
+msgid "Press {control_rest} again to cancel the plan."
 msgstr ""
-"{control_rest}で、走行中に近くの睡眠できる停車地を計画します。運転時間の計画ヒントがオンなら、勧められた休憩か睡眠の停車地を計画します。も"
-"う一度押すと計画を取り消します。"
+
+#. placeholders: {control_rest}
+#. one sentence of a longer line
+msgid ""
+"While rolling, {control_rest} asks what the stop is for: fuel, a break, "
+"sleep, fuel and sleep, or food."
+msgstr ""
+
+#. placeholders: {control_rest}
+msgid ""
+"While rolling, {control_rest} asks what the stop is for: fuel, a break, "
+"sleep, fuel and sleep, or food. With hours-planning hints on, a break or "
+"sleep plan takes the recommended stop. Press {control_rest} again to cancel "
+"the plan."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"With hours-planning hints on, a break or sleep plan takes the recommended "
+"stop."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Planning a stop does not signal for it."
@@ -37475,6 +37566,48 @@ msgstr "右かっこ"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "大文字の{ch}"
+
+#~ msgid ""
+#~ "{rest} plans the recommended break or sleep stop when hours of service "
+#~ "planning hints are on; otherwise it plans the next sleep-capable stop while "
+#~ "rolling."
+#~ msgstr ""
+#~ "運転時間規制の計画のヒントがオンなら、{rest}でおすすめの休憩か睡眠の停車地を計画します。オフなら、走行中に次の寝られる停車地を計画します。"
+
+#~ msgid ""
+#~ "{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads "
+#~ "the posted speed limit here and how far over you are, {parking_brake} sets "
+#~ "or releases the parking brake, {rest} plans a recommended break or sleep "
+#~ "stop when hours of service planning hints are on, or the next sleep stop "
+#~ "otherwise; stopped at a stop, it opens its actions."
+#~ msgstr ""
+#~ "{engine} でエンジンの始動と停止、{fuel} で燃料、{speed_limit} "
+#~ "でここの標識の制限速度と超過分、{parking_brake} で駐車ブレーキのオンとオフ、{rest} "
+#~ "で勤務時間の計画ヒントがオンなら推奨の休憩か睡眠の停車地を、オフなら次の睡眠の停車地を計画します。停車地で止まっていれば、その操作を開きます。"
+
+#~ msgid "No sleep-capable route stop ahead on this route."
+#~ msgstr "このルートの先に、寝られる停車地はありません。"
+
+#~ msgid "{prefix}, {name}, {distance} ahead{exit_text}.{next_step}{assist}"
+#~ msgstr "{prefix}、{name}、{distance}先{exit_text}。{next_step}{assist}"
+
+#~ msgid "Press again to cancel the plan."
+#~ msgstr "もう一度押すと計画を取り消します。"
+
+#~ msgid ""
+#~ "With hours-planning hints on, it plans the recommended break or sleep stop."
+#~ msgstr "運転時間の計画ヒントがオンなら、勧められた休憩か睡眠の停車地を計画します。"
+
+#~ msgid "{control_rest} plans a nearby sleep-capable stop while rolling."
+#~ msgstr "{control_rest}で、走行中に近くの睡眠できる停車地を計画します。"
+
+#~ msgid ""
+#~ "{control_rest} plans a nearby sleep-capable stop while rolling. With "
+#~ "hours-planning hints on, it plans the recommended break or sleep stop. "
+#~ "Press again to cancel the plan."
+#~ msgstr ""
+#~ "{control_rest}で、走行中に近くの睡眠できる停車地を計画します。運転時間の計画ヒントがオンなら、勧められた休憩か睡眠の停車地を計画します。も"
+#~ "う一度押すと計画を取り消します。"
 
 #~ msgid "Logbook has no recent duty entries yet."
 #~ msgstr "運転日誌に最近の勤務記録はまだありません。"

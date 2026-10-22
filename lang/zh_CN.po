@@ -20063,10 +20063,9 @@ msgstr "变道或刹车表示你的车道上有固定障碍物：驶入提示的
 
 #. placeholders: {rest}
 msgid ""
-"{rest} plans the recommended break or sleep stop when hours of service "
-"planning hints are on; otherwise it plans the next sleep-capable stop while "
-"rolling."
-msgstr "开启驾驶工时规划提示时，{rest}规划推荐的中途休息或睡觉停靠点；否则在行驶中规划下一个可以睡觉的停靠点。"
+"While rolling, {rest} plans the next stop for what you choose: fuel, a "
+"break, sleep, fuel and sleep, or food."
+msgstr ""
 
 #. placeholders: {exit}
 msgid "{exit} signals for its exit."
@@ -20209,13 +20208,9 @@ msgstr "{horn} 鸣喇叭，{engine_brake} 发动机制动。"
 msgid ""
 "{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads "
 "the posted speed limit here and how far over you are, {parking_brake} sets "
-"or releases the parking brake, {rest} plans a recommended break or sleep "
-"stop when hours of service planning hints are on, or the next sleep stop "
-"otherwise; stopped at a stop, it opens its actions."
+"or releases the parking brake, {rest} plans a stop for fuel, a break, sleep "
+"or food while rolling; stopped at a stop, it opens its actions."
 msgstr ""
-"{engine} 启动或关闭发动机，{fuel} 读出油量，{speed_limit} "
-"读出这里的标示限速以及你超出多少，{parking_brake} 拉上或松开驻车制动，{rest} "
-"在工时规划提示开启时规划推荐的休息或睡眠停靠，否则规划下一个睡眠停靠；停在站点时，打开该站的操作。"
 
 msgid ""
 "Away from route points while fully stopped, it opens emergency shoulder "
@@ -23811,6 +23806,130 @@ msgstr "匝道尽头是环岛。"
 msgid "Yield sign at the end of the ramp."
 msgstr "匝道尽头有让行标志。"
 
+#. placeholders: {distance}
+msgid "Fuel: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Break: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Sleep: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Fuel and sleep: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Food and coffee: {distance}"
+msgstr ""
+
+msgid "Fuel: none ahead"
+msgstr ""
+
+msgid "Break: none ahead"
+msgstr ""
+
+msgid "Sleep: none ahead"
+msgstr ""
+
+msgid "Fuel and sleep: none ahead"
+msgstr ""
+
+msgid "Food and coffee: none ahead"
+msgstr ""
+
+msgid "Plans the next stop that sells diesel."
+msgstr ""
+
+msgid ""
+"Plans a stop for your 30-minute break, the recommended one with planning "
+"hints on."
+msgstr ""
+
+msgid ""
+"Plans a stop with parking for a 10-hour sleep, the recommended one with "
+"planning hints on."
+msgstr ""
+
+msgid "Plans the next stop where you can fuel and sleep."
+msgstr ""
+
+msgid "Plans the next stop with food and coffee."
+msgstr ""
+
+msgid "No fuel stop ahead."
+msgstr ""
+
+msgid "No break stop ahead."
+msgstr ""
+
+msgid "No sleep stop ahead. Shoulder sleep available."
+msgstr "前面没有睡觉。可以肩睡。"
+
+msgid "No stop with fuel and sleep ahead."
+msgstr ""
+
+msgid "No food stop ahead."
+msgstr ""
+
+msgid "Fuel stop planned"
+msgstr ""
+
+msgid "Fuel and sleep stop planned"
+msgstr ""
+
+msgid "Food stop planned"
+msgstr ""
+
+msgid "Sleep stop planned, the last one before your sleep limit"
+msgstr "已规划睡眠停靠点；这是达到睡眠时限前的最后一个停靠点"
+
+msgid "Sleep stop planned"
+msgstr "计划停止睡眠"
+
+msgid ""
+"Nearest sleep stop planned, but none is reachable before your hours limit. "
+"Stop somewhere safe sooner"
+msgstr "已计划最近的睡眠站点，但在你的时间限制之前无法到达。尽快停在安全的地方"
+
+msgid "Break stop planned, the last one before your break limit"
+msgstr "计划突破止损，突破限制前的最后一个"
+
+msgid "Break stop planned"
+msgstr "已计划休息区"
+
+msgid ""
+"Sleep stop planned for your break, the last one before your break limit"
+msgstr "已规划睡眠停靠点，用于中途休息；这是达到中途休息时限前的最后一个停靠点"
+
+msgid "Sleep stop planned for your break"
+msgstr "计划在休息时停止睡眠"
+
+#. placeholders: {name}
+msgid "Planned stop remains {name}."
+msgstr "计划的停靠点仍是{name}。"
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "Planned stop stays {name}."
+msgstr "计划停靠点仍为 {name}。"
+
+#. placeholders: {name}, {name2}
+msgid "Planned stop stays {name}. {name2} is also ahead."
+msgstr "计划停靠点仍是{name}。前方还会经过{name2}。"
+
+#. placeholders: {name2}
+#. one sentence of a longer line
+msgid "{name2} is also ahead."
+msgstr "前方还有{name2}。"
+
+#. placeholders: {range_text}
+msgid "Fuel range only {range_text}."
+msgstr ""
+
 msgid "Rest-stop planning unavailable during a police stop."
 msgstr "警察拦停期间无法规划休息停靠点。"
 
@@ -23874,6 +23993,21 @@ msgstr "计划的停靠点已取消。{name}的出口转向灯仍然开着。"
 msgid "{name} is behind you."
 msgstr "{name}已经在你后面了。"
 
+msgid "Still planned for fuel"
+msgstr ""
+
+msgid "Still planned for food"
+msgstr ""
+
+msgid "Still planned for fuel and sleep"
+msgstr ""
+
+msgid "Still planned for a 30-minute break"
+msgstr "仍计划休息30分钟"
+
+msgid "Still planned"
+msgstr "仍在计划中"
+
 #. placeholders: {name}
 msgid "Exit signal active for {name}."
 msgstr "{name}的出口转向灯已打开。"
@@ -23882,63 +24016,10 @@ msgstr "{name}的出口转向灯已打开。"
 msgid "The exit for {name} is already selected."
 msgstr "已经选定了{name}的出口。"
 
-msgid "No sleep-capable route stop ahead on this route."
-msgstr "这条路线前方没有可以睡觉的路线停靠点。"
-
-msgid "No sleep stop ahead. Shoulder sleep available."
-msgstr "前面没有睡觉。可以肩睡。"
-
-#. placeholders: {name}
-msgid "Planned stop remains {name}."
-msgstr "计划的停靠点仍是{name}。"
-
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Planned stop stays {name}."
-msgstr "计划停靠点仍为 {name}。"
-
-#. placeholders: {name}, {name2}
-msgid "Planned stop stays {name}. {name2} is also ahead."
-msgstr "计划停靠点仍是{name}。前方还会经过{name2}。"
-
-#. placeholders: {name2}
-#. one sentence of a longer line
-msgid "{name2} is also ahead."
-msgstr "前方还有{name2}。"
-
-msgid "Still planned for a 30-minute break"
-msgstr "仍计划休息30分钟"
-
-msgid "Still planned"
-msgstr "仍在计划中"
-
-msgid "Break stop planned, the last one before your break limit"
-msgstr "计划突破止损，突破限制前的最后一个"
-
-msgid "Break stop planned"
-msgstr "已计划休息区"
-
+#. placeholders: {prefix}, {name}, {distance}, {exit_text}, {note}, {next_step}, {assist}
 msgid ""
-"Sleep stop planned for your break, the last one before your break limit"
-msgstr "已规划睡眠停靠点，用于中途休息；这是达到中途休息时限前的最后一个停靠点"
-
-msgid "Sleep stop planned, the last one before your sleep limit"
-msgstr "已规划睡眠停靠点；这是达到睡眠时限前的最后一个停靠点"
-
-msgid "Sleep stop planned for your break"
-msgstr "计划在休息时停止睡眠"
-
-msgid "Sleep stop planned"
-msgstr "计划停止睡眠"
-
-msgid ""
-"Nearest sleep stop planned, but none is reachable before your hours limit. "
-"Stop somewhere safe sooner"
-msgstr "已计划最近的睡眠站点，但在你的时间限制之前无法到达。尽快停在安全的地方"
-
-#. placeholders: {prefix}, {name}, {distance}, {exit_text}, {next_step}, {assist}
-msgid "{prefix}, {name}, {distance} ahead{exit_text}.{next_step}{assist}"
-msgstr "{prefix}、{name}、{distance} 前进{exit_text}.{next_step}{assist}"
+"{prefix}, {name}, {distance} ahead{exit_text}.{note}{next_step}{assist}"
+msgstr ""
 
 msgid "Pulling into stop"
 msgstr "正在驶入停靠点"
@@ -25650,6 +25731,14 @@ msgstr "你存下的电台。在一个电台上按Enter调到它。"
 msgid "Back to the status screens."
 msgstr "返回状态界面。"
 
+msgid ""
+"Up and Down choose what the stop is for, Enter plans it, Escape goes back "
+"to driving."
+msgstr ""
+
+msgid "Plan a stop"
+msgstr ""
+
 msgid "Hairpin"
 msgstr "急弯掉头"
 
@@ -26940,6 +27029,9 @@ msgstr "选择一个选择。睡眠时阅读预览；再次选择睡眠。休息
 msgid "Take a 30-minute break"
 msgstr "进行30分钟中途休息"
 
+msgid "Food and coffee break"
+msgstr "吃饭喝咖啡休息"
+
 #. one sentence of a longer line
 msgid "You are already rested."
 msgstr "你已经休息好了。"
@@ -26965,9 +27057,6 @@ msgid ""
 "Fills the tank at the posted diesel price plus a 35 dollar service fee. "
 "Buys what you can afford if cash is short. Engine must be off."
 msgstr "按照公布的柴油价格加 35 美元的服务费。如果现金短缺，就买你能买得起的东西。发动机必须关闭。"
-
-msgid "Food and coffee break"
-msgstr "吃饭喝咖啡休息"
 
 msgid ""
 "Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
@@ -33181,27 +33270,31 @@ msgstr "弯道辅助会在地图上标注的弯道里减速并转向。你一踩
 msgid "Exits, ramps, and arrival"
 msgstr "出口、匝道和到达"
 
-#. one sentence of a longer line
-msgid "Press again to cancel the plan."
-msgstr "再按一次即可取消计划。"
-
-#. one sentence of a longer line
-msgid ""
-"With hours-planning hints on, it plans the recommended break or sleep stop."
-msgstr "开启工时规划提示时，它会规划推荐的中途休息或睡觉停靠点。"
-
 #. placeholders: {control_rest}
 #. one sentence of a longer line
-msgid "{control_rest} plans a nearby sleep-capable stop while rolling."
-msgstr "{control_rest}在行驶中规划附近一个能过夜的停靠点。"
-
-#. placeholders: {control_rest}
-msgid ""
-"{control_rest} plans a nearby sleep-capable stop while rolling. With "
-"hours-planning hints on, it plans the recommended break or sleep stop. "
-"Press again to cancel the plan."
+msgid "Press {control_rest} again to cancel the plan."
 msgstr ""
-"{control_rest}在行驶中规划附近一个能过夜的停靠点。开启工时规划提示时，它会规划推荐的中途休息或睡觉停靠点。再按一次即可取消计划。"
+
+#. placeholders: {control_rest}
+#. one sentence of a longer line
+msgid ""
+"While rolling, {control_rest} asks what the stop is for: fuel, a break, "
+"sleep, fuel and sleep, or food."
+msgstr ""
+
+#. placeholders: {control_rest}
+msgid ""
+"While rolling, {control_rest} asks what the stop is for: fuel, a break, "
+"sleep, fuel and sleep, or food. With hours-planning hints on, a break or "
+"sleep plan takes the recommended stop. Press {control_rest} again to cancel "
+"the plan."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"With hours-planning hints on, a break or sleep plan takes the recommended "
+"stop."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Planning a stop does not signal for it."
@@ -36887,6 +36980,46 @@ msgstr "右括号"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "大写{ch}"
+
+#~ msgid ""
+#~ "{rest} plans the recommended break or sleep stop when hours of service "
+#~ "planning hints are on; otherwise it plans the next sleep-capable stop while "
+#~ "rolling."
+#~ msgstr "开启驾驶工时规划提示时，{rest}规划推荐的中途休息或睡觉停靠点；否则在行驶中规划下一个可以睡觉的停靠点。"
+
+#~ msgid ""
+#~ "{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads "
+#~ "the posted speed limit here and how far over you are, {parking_brake} sets "
+#~ "or releases the parking brake, {rest} plans a recommended break or sleep "
+#~ "stop when hours of service planning hints are on, or the next sleep stop "
+#~ "otherwise; stopped at a stop, it opens its actions."
+#~ msgstr ""
+#~ "{engine} 启动或关闭发动机，{fuel} 读出油量，{speed_limit} "
+#~ "读出这里的标示限速以及你超出多少，{parking_brake} 拉上或松开驻车制动，{rest} "
+#~ "在工时规划提示开启时规划推荐的休息或睡眠停靠，否则规划下一个睡眠停靠；停在站点时，打开该站的操作。"
+
+#~ msgid "No sleep-capable route stop ahead on this route."
+#~ msgstr "这条路线前方没有可以睡觉的路线停靠点。"
+
+#~ msgid "{prefix}, {name}, {distance} ahead{exit_text}.{next_step}{assist}"
+#~ msgstr "{prefix}、{name}、{distance} 前进{exit_text}.{next_step}{assist}"
+
+#~ msgid "Press again to cancel the plan."
+#~ msgstr "再按一次即可取消计划。"
+
+#~ msgid ""
+#~ "With hours-planning hints on, it plans the recommended break or sleep stop."
+#~ msgstr "开启工时规划提示时，它会规划推荐的中途休息或睡觉停靠点。"
+
+#~ msgid "{control_rest} plans a nearby sleep-capable stop while rolling."
+#~ msgstr "{control_rest}在行驶中规划附近一个能过夜的停靠点。"
+
+#~ msgid ""
+#~ "{control_rest} plans a nearby sleep-capable stop while rolling. With "
+#~ "hours-planning hints on, it plans the recommended break or sleep stop. "
+#~ "Press again to cancel the plan."
+#~ msgstr ""
+#~ "{control_rest}在行驶中规划附近一个能过夜的停靠点。开启工时规划提示时，它会规划推荐的中途休息或睡觉停靠点。再按一次即可取消计划。"
 
 #~ msgid "Logbook has no recent duty entries yet."
 #~ msgstr "日志里还没有最近的值班记录。"

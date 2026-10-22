@@ -495,6 +495,7 @@ impl DrivingState {
         self.trip.planned_stop_key = Some(stop.key());
         self.selected_stop_key = Some(stop.key());
         self.selected_stop_break = false;
+        self.selected_stop_purpose = None;
         self.selected_stop_assist_armed = false;
         self.selected_stop_assist_said = false;
         pilot.making_for = Some((stop.key(), purpose));

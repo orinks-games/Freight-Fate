@@ -168,6 +168,7 @@ mod states_driving_speed_keeper_sweep;
 mod states_driving_status_screens;
 mod states_driving_stop_fuel;
 mod states_driving_stop_menus;
+mod states_driving_stop_purpose;
 mod states_driving_street_controls;
 mod states_driving_team;
 mod states_driving_team_dock;

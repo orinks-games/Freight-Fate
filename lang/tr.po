@@ -22028,13 +22028,9 @@ msgstr ""
 
 #. placeholders: {rest}
 msgid ""
-"{rest} plans the recommended break or sleep stop when hours of service "
-"planning hints are on; otherwise it plans the next sleep-capable stop while "
-"rolling."
+"While rolling, {rest} plans the next stop for what you choose: fuel, a "
+"break, sleep, fuel and sleep, or food."
 msgstr ""
-"{rest}, çalışma ve dinlenme süresi planlama ipuçları açıkken önerilen mola "
-"ya da uyku yerini planlar; kapalıyken, yoldayken uyunabilecek bir sonraki "
-"mola yerini planlar."
 
 #. placeholders: {exit}
 msgid "{exit} signals for its exit."
@@ -22211,16 +22207,9 @@ msgstr "{horn} korna çalar, {engine_brake} motor frenini kullanır."
 msgid ""
 "{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads "
 "the posted speed limit here and how far over you are, {parking_brake} sets "
-"or releases the parking brake, {rest} plans a recommended break or sleep "
-"stop when hours of service planning hints are on, or the next sleep stop "
-"otherwise; stopped at a stop, it opens its actions."
+"or releases the parking brake, {rest} plans a stop for fuel, a break, sleep "
+"or food while rolling; stopped at a stop, it opens its actions."
 msgstr ""
-"{engine} motoru çalıştırır ya da durdurur, {fuel} yakıtı okur, "
-"{speed_limit} buradaki hız sınırını ve ne kadar aştığınızı okur, "
-"{parking_brake} park frenini çeker ya da indirir, {rest} çalışma ve "
-"dinlenme süresi planlama ipuçları açıkken önerilen mola ya da uyku yerini, "
-"kapalıyken bir sonraki uyku yerini planlar; bir mola yerinde dururken "
-"oranın seçeneklerini açar."
 
 msgid ""
 "Away from route points while fully stopped, it opens emergency shoulder "
@@ -26073,6 +26062,132 @@ msgstr "Rampanın sonunda göbekli kavşak."
 msgid "Yield sign at the end of the ramp."
 msgstr "Rampanın sonunda yol ver levhası."
 
+#. placeholders: {distance}
+msgid "Fuel: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Break: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Sleep: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Fuel and sleep: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Food and coffee: {distance}"
+msgstr ""
+
+msgid "Fuel: none ahead"
+msgstr ""
+
+msgid "Break: none ahead"
+msgstr ""
+
+msgid "Sleep: none ahead"
+msgstr ""
+
+msgid "Fuel and sleep: none ahead"
+msgstr ""
+
+msgid "Food and coffee: none ahead"
+msgstr ""
+
+msgid "Plans the next stop that sells diesel."
+msgstr ""
+
+msgid ""
+"Plans a stop for your 30-minute break, the recommended one with planning "
+"hints on."
+msgstr ""
+
+msgid ""
+"Plans a stop with parking for a 10-hour sleep, the recommended one with "
+"planning hints on."
+msgstr ""
+
+msgid "Plans the next stop where you can fuel and sleep."
+msgstr ""
+
+msgid "Plans the next stop with food and coffee."
+msgstr ""
+
+msgid "No fuel stop ahead."
+msgstr ""
+
+msgid "No break stop ahead."
+msgstr ""
+
+msgid "No sleep stop ahead. Shoulder sleep available."
+msgstr "İleride uyku molası yeri yok. Emniyet şeridinde uyuyabilirsiniz."
+
+msgid "No stop with fuel and sleep ahead."
+msgstr ""
+
+msgid "No food stop ahead."
+msgstr ""
+
+msgid "Fuel stop planned"
+msgstr ""
+
+msgid "Fuel and sleep stop planned"
+msgstr ""
+
+msgid "Food stop planned"
+msgstr ""
+
+msgid "Sleep stop planned, the last one before your sleep limit"
+msgstr "Uyku yeri planlandı, uyku sınırınızdan önceki son yer"
+
+msgid "Sleep stop planned"
+msgstr "Uyku yeri planlandı"
+
+msgid ""
+"Nearest sleep stop planned, but none is reachable before your hours limit. "
+"Stop somewhere safe sooner"
+msgstr ""
+"En yakın uyku yeri planlandı, ama süre sınırınızdan önce hiçbirine "
+"ulaşılamıyor. Daha önce güvenli bir yerde durun"
+
+msgid "Break stop planned, the last one before your break limit"
+msgstr "Mola yeri planlandı, mola sınırınızdan önceki son yer"
+
+msgid "Break stop planned"
+msgstr "Mola yeri planlandı"
+
+msgid ""
+"Sleep stop planned for your break, the last one before your break limit"
+msgstr "Molanız için uyku yeri planlandı, mola sınırınızdan önceki son yer"
+
+msgid "Sleep stop planned for your break"
+msgstr "Molanız için uyku yeri planlandı"
+
+#. placeholders: {name}
+msgid "Planned stop remains {name}."
+msgstr "Planlanan mola yeri yine: {name}."
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "Planned stop stays {name}."
+msgstr "Planlanan mola yeri değişmedi: {name}."
+
+#. placeholders: {name}, {name2}
+msgid "Planned stop stays {name}. {name2} is also ahead."
+msgstr "Planlanan mola yeri değişmedi: {name}. İleride ayrıca {name2} var."
+
+#. placeholders: {name2}
+#. one sentence of a longer line
+msgid "{name2} is also ahead."
+msgstr "İleride ayrıca {name2} var."
+
+#. placeholders: {range_text}
+msgid "Fuel range only {range_text}."
+msgstr ""
+
 msgid "Rest-stop planning unavailable during a police stop."
 msgstr "Polis durdurması sırasında mola planlanamaz."
 
@@ -26144,6 +26259,21 @@ msgstr "Planlanan mola iptal edildi. Çıkış sinyali hâlâ açık: {name}."
 msgid "{name} is behind you."
 msgstr "Geride kaldı: {name}."
 
+msgid "Still planned for fuel"
+msgstr ""
+
+msgid "Still planned for food"
+msgstr ""
+
+msgid "Still planned for fuel and sleep"
+msgstr ""
+
+msgid "Still planned for a 30-minute break"
+msgstr "30 dakikalık mola için hâlâ planlı"
+
+msgid "Still planned"
+msgstr "Hâlâ planlı"
+
 #. placeholders: {name}
 msgid "Exit signal active for {name}."
 msgstr "Çıkış sinyali açık: {name}."
@@ -26152,65 +26282,10 @@ msgstr "Çıkış sinyali açık: {name}."
 msgid "The exit for {name} is already selected."
 msgstr "Bu çıkış zaten seçili: {name}."
 
-msgid "No sleep-capable route stop ahead on this route."
-msgstr "Bu güzergâhta ileride uyunabilecek mola yeri yok."
-
-msgid "No sleep stop ahead. Shoulder sleep available."
-msgstr "İleride uyku molası yeri yok. Emniyet şeridinde uyuyabilirsiniz."
-
-#. placeholders: {name}
-msgid "Planned stop remains {name}."
-msgstr "Planlanan mola yeri yine: {name}."
-
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Planned stop stays {name}."
-msgstr "Planlanan mola yeri değişmedi: {name}."
-
-#. placeholders: {name}, {name2}
-msgid "Planned stop stays {name}. {name2} is also ahead."
-msgstr "Planlanan mola yeri değişmedi: {name}. İleride ayrıca {name2} var."
-
-#. placeholders: {name2}
-#. one sentence of a longer line
-msgid "{name2} is also ahead."
-msgstr "İleride ayrıca {name2} var."
-
-msgid "Still planned for a 30-minute break"
-msgstr "30 dakikalık mola için hâlâ planlı"
-
-msgid "Still planned"
-msgstr "Hâlâ planlı"
-
-msgid "Break stop planned, the last one before your break limit"
-msgstr "Mola yeri planlandı, mola sınırınızdan önceki son yer"
-
-msgid "Break stop planned"
-msgstr "Mola yeri planlandı"
-
+#. placeholders: {prefix}, {name}, {distance}, {exit_text}, {note}, {next_step}, {assist}
 msgid ""
-"Sleep stop planned for your break, the last one before your break limit"
-msgstr "Molanız için uyku yeri planlandı, mola sınırınızdan önceki son yer"
-
-msgid "Sleep stop planned, the last one before your sleep limit"
-msgstr "Uyku yeri planlandı, uyku sınırınızdan önceki son yer"
-
-msgid "Sleep stop planned for your break"
-msgstr "Molanız için uyku yeri planlandı"
-
-msgid "Sleep stop planned"
-msgstr "Uyku yeri planlandı"
-
-msgid ""
-"Nearest sleep stop planned, but none is reachable before your hours limit. "
-"Stop somewhere safe sooner"
+"{prefix}, {name}, {distance} ahead{exit_text}.{note}{next_step}{assist}"
 msgstr ""
-"En yakın uyku yeri planlandı, ama süre sınırınızdan önce hiçbirine "
-"ulaşılamıyor. Daha önce güvenli bir yerde durun"
-
-#. placeholders: {prefix}, {name}, {distance}, {exit_text}, {next_step}, {assist}
-msgid "{prefix}, {name}, {distance} ahead{exit_text}.{next_step}{assist}"
-msgstr "{prefix}, {name}, {distance} ileride{exit_text}.{next_step}{assist}"
 
 msgid "Pulling into stop"
 msgstr "Mola yerine giriliyor"
@@ -28022,6 +28097,14 @@ msgstr "Kayıtlı istasyonlarınız. Birinde Enter'a basınca o istasyona geçer
 msgid "Back to the status screens."
 msgstr "Durum ekranlarına geri dön."
 
+msgid ""
+"Up and Down choose what the stop is for, Enter plans it, Escape goes back "
+"to driving."
+msgstr ""
+
+msgid "Plan a stop"
+msgstr ""
+
 msgid "Hairpin"
 msgstr "Firkete"
 
@@ -29426,6 +29509,9 @@ msgstr ""
 msgid "Take a 30-minute break"
 msgstr "30 dakikalık mola ver"
 
+msgid "Food and coffee break"
+msgstr "Yemek ve kahve molası"
+
 #. one sentence of a longer line
 msgid "You are already rested."
 msgstr "Zaten dinlenmişsiniz."
@@ -29453,9 +29539,6 @@ msgid ""
 msgstr ""
 "Depoyu ilan edilen mazot fiyatına 35 dolar hizmet ücreti ekleyerek "
 "doldurur. Para azsa gücünüzün yettiği kadarını alır. Motor kapalı olmalı."
-
-msgid "Food and coffee break"
-msgstr "Yemek ve kahve molası"
 
 msgid ""
 "Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
@@ -36459,32 +36542,31 @@ msgstr ""
 msgid "Exits, ramps, and arrival"
 msgstr "Çıkışlar, rampalar ve varış"
 
+#. placeholders: {control_rest}
 #. one sentence of a longer line
-msgid "Press again to cancel the plan."
-msgstr "Planı iptal etmek için yeniden basın."
-
-#. one sentence of a longer line
-msgid ""
-"With hours-planning hints on, it plans the recommended break or sleep stop."
+msgid "Press {control_rest} again to cancel the plan."
 msgstr ""
-"Süre planlama ipuçları açıkken önerilen mola ya da uyku durağını planlar."
 
 #. placeholders: {control_rest}
 #. one sentence of a longer line
-msgid "{control_rest} plans a nearby sleep-capable stop while rolling."
+msgid ""
+"While rolling, {control_rest} asks what the stop is for: fuel, a break, "
+"sleep, fuel and sleep, or food."
 msgstr ""
-"{control_rest} hareket halindeyken yakında uyunabilecek bir mola yeri "
-"planlar."
 
 #. placeholders: {control_rest}
 msgid ""
-"{control_rest} plans a nearby sleep-capable stop while rolling. With "
-"hours-planning hints on, it plans the recommended break or sleep stop. "
-"Press again to cancel the plan."
+"While rolling, {control_rest} asks what the stop is for: fuel, a break, "
+"sleep, fuel and sleep, or food. With hours-planning hints on, a break or "
+"sleep plan takes the recommended stop. Press {control_rest} again to cancel "
+"the plan."
 msgstr ""
-"{control_rest} hareket halindeyken yakında uyunabilecek bir mola yeri "
-"planlar. Süre planlama ipuçları açıkken önerilen mola ya da uyku durağını "
-"planlar. Planı iptal etmek için yeniden basın."
+
+#. one sentence of a longer line
+msgid ""
+"With hours-planning hints on, a break or sleep plan takes the recommended "
+"stop."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Planning a stop does not signal for it."
@@ -40738,6 +40820,57 @@ msgstr "sağ parantez"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "büyük {ch}"
+
+#~ msgid ""
+#~ "{rest} plans the recommended break or sleep stop when hours of service "
+#~ "planning hints are on; otherwise it plans the next sleep-capable stop while "
+#~ "rolling."
+#~ msgstr ""
+#~ "{rest}, çalışma ve dinlenme süresi planlama ipuçları açıkken önerilen mola "
+#~ "ya da uyku yerini planlar; kapalıyken, yoldayken uyunabilecek bir sonraki "
+#~ "mola yerini planlar."
+
+#~ msgid ""
+#~ "{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads "
+#~ "the posted speed limit here and how far over you are, {parking_brake} sets "
+#~ "or releases the parking brake, {rest} plans a recommended break or sleep "
+#~ "stop when hours of service planning hints are on, or the next sleep stop "
+#~ "otherwise; stopped at a stop, it opens its actions."
+#~ msgstr ""
+#~ "{engine} motoru çalıştırır ya da durdurur, {fuel} yakıtı okur, "
+#~ "{speed_limit} buradaki hız sınırını ve ne kadar aştığınızı okur, "
+#~ "{parking_brake} park frenini çeker ya da indirir, {rest} çalışma ve "
+#~ "dinlenme süresi planlama ipuçları açıkken önerilen mola ya da uyku yerini, "
+#~ "kapalıyken bir sonraki uyku yerini planlar; bir mola yerinde dururken "
+#~ "oranın seçeneklerini açar."
+
+#~ msgid "No sleep-capable route stop ahead on this route."
+#~ msgstr "Bu güzergâhta ileride uyunabilecek mola yeri yok."
+
+#~ msgid "{prefix}, {name}, {distance} ahead{exit_text}.{next_step}{assist}"
+#~ msgstr "{prefix}, {name}, {distance} ileride{exit_text}.{next_step}{assist}"
+
+#~ msgid "Press again to cancel the plan."
+#~ msgstr "Planı iptal etmek için yeniden basın."
+
+#~ msgid ""
+#~ "With hours-planning hints on, it plans the recommended break or sleep stop."
+#~ msgstr ""
+#~ "Süre planlama ipuçları açıkken önerilen mola ya da uyku durağını planlar."
+
+#~ msgid "{control_rest} plans a nearby sleep-capable stop while rolling."
+#~ msgstr ""
+#~ "{control_rest} hareket halindeyken yakında uyunabilecek bir mola yeri "
+#~ "planlar."
+
+#~ msgid ""
+#~ "{control_rest} plans a nearby sleep-capable stop while rolling. With "
+#~ "hours-planning hints on, it plans the recommended break or sleep stop. "
+#~ "Press again to cancel the plan."
+#~ msgstr ""
+#~ "{control_rest} hareket halindeyken yakında uyunabilecek bir mola yeri "
+#~ "planlar. Süre planlama ipuçları açıkken önerilen mola ya da uyku durağını "
+#~ "planlar. Planı iptal etmek için yeniden basın."
 
 #~ msgid ""
 #~ "{name} has {duration_text} of driving left, short of your 10-hour rest."

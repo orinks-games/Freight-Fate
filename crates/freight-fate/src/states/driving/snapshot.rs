@@ -13,6 +13,7 @@ use ff_core::sim::hos::HosClock;
 
 use crate::app::GameContext;
 use crate::states::driving_core::*;
+use crate::states::driving_events::stop_plan::StopPlanPurpose;
 
 use super::DrivingState;
 
@@ -328,6 +329,10 @@ impl DrivingState {
             "selected_stop_break".to_string(),
             json!(self.selected_stop_break),
         );
+        out.insert(
+            "selected_stop_purpose".to_string(),
+            json!(self.selected_stop_purpose.map(StopPlanPurpose::save_key)),
+        );
         // Kept for a save opened by an older build, which knows only the name.
         out.insert(
             "planned_stop".to_string(),
@@ -564,6 +569,12 @@ impl DrivingState {
         };
         state.selected_stop_break =
             state.selected_stop_key.is_some() && b(data, "selected_stop_break", false);
+        state.selected_stop_purpose = state
+            .selected_stop_key
+            .as_ref()
+            .and(data.get("selected_stop_purpose"))
+            .and_then(Value::as_str)
+            .and_then(StopPlanPurpose::from_save_key);
         let tolls: Vec<Value> = data
             .get("toll_charges")
             .and_then(Value::as_array)

@@ -179,8 +179,9 @@ fn last(harness: &PlaytestHarness) -> String {
     spoken(harness).last().cloned().unwrap_or_default()
 }
 
+/// T while rolling plans a sleep stop, the purpose these drives are about.
 fn press_t(harness: &mut PlaytestHarness) {
-    harness.press_key(Key::T, Some('t'));
+    harness.plan_stop("Sleep");
 }
 
 /// `driving._update_hours_and_fatigue(dt)`.

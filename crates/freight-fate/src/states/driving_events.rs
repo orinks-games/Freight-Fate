@@ -50,6 +50,7 @@ pub mod exits;
 pub mod pending;
 pub mod ramp_crossing;
 pub mod ramp_terminal;
+pub mod stop_plan;
 pub mod stops;
 pub mod street_controls;
 pub mod trip_events;

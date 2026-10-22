@@ -30,6 +30,7 @@ mod commands;
 mod drive_ref;
 mod facility_arrival;
 mod status;
+mod stop_purpose;
 
 pub use apps::{DriverAppScreenState, DriverAppsState};
 pub use arrival::{settlement_hours, ArrivalState};
@@ -37,6 +38,7 @@ pub use commands::DrivingCommandsState;
 pub use drive_ref::{keep_rows, push_over_drive, replace_drive_with, DriveRef};
 pub use facility_arrival::FacilityArrivalState;
 pub use status::{DrivingStatusScreenState, DrivingStatusState};
+pub use stop_purpose::StopPurposeState;
 
 use crate::app::GameContext;
 use crate::states::driving::DrivingState;
