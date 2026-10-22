@@ -814,3 +814,90 @@ int32_t ff_touch_install(void *window) {
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, surface);
     return 1;
 }
+
+// The scene lifecycle. iOS 27 refuses to launch an app built against its SDK
+// without one (an Info.plist UIApplicationSceneManifest naming a scene
+// delegate), and SDL2 predates scenes: it makes its windows with
+// -initWithFrame:, which puts them on no scene, so they would never show.
+// FFSceneDelegate is the manifest's delegate, and every window made with
+// -initWithFrame: is moved onto the app's one window scene, whether it was
+// made before the scene connected (SDL's launch window) or after (the game
+// window). SDL still hears background and foreground through the
+// UIApplication notifications, which iOS posts under scenes too.
+
+static UIWindowScene *ff_scene;
+static NSPointerArray *ff_unplaced_windows;
+
+static void ff_place_window(UIWindow *window) {
+    if (window.windowScene) {
+        return;
+    }
+    if (ff_scene) {
+        window.windowScene = ff_scene;
+        return;
+    }
+    if (!ff_unplaced_windows) {
+        ff_unplaced_windows = [NSPointerArray weakObjectsPointerArray];
+    }
+    [ff_unplaced_windows addPointer:(__bridge void *)window];
+}
+
+@interface FFSceneDelegate : UIResponder <UIWindowSceneDelegate>
+@end
+
+@implementation FFSceneDelegate
+- (void)scene:(UIScene *)scene
+    willConnectToSession:(__unused UISceneSession *)session
+                 options:(__unused UISceneConnectionOptions *)options {
+    if (![scene isKindOfClass:[UIWindowScene class]]) {
+        return;
+    }
+    ff_scene = (UIWindowScene *)scene;
+    // The window shown last before the scene existed is the one to show now.
+    UIWindow *shown = nil;
+    for (UIWindow *window in ff_unplaced_windows.allObjects) {
+        window.windowScene = ff_scene;
+        if (!window.hidden) {
+            shown = window;
+        }
+    }
+    ff_unplaced_windows = nil;
+    [shown makeKeyAndVisible];
+}
+
+- (void)sceneDidDisconnect:(UIScene *)scene {
+    if (scene == ff_scene) {
+        ff_scene = nil;
+    }
+}
+@end
+
+@interface UIWindow (FFScene)
+@end
+
+@implementation UIWindow (FFScene)
++ (void)load {
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        SEL original = @selector(initWithFrame:);
+        SEL placed = @selector(initFFPlacedWithFrame:);
+        Method placed_method = class_getInstanceMethod(self, placed);
+        // UIWindow may inherit -initWithFrame: from UIView; give it its own
+        // copy first so the exchange never touches every UIView.
+        class_addMethod(self, original,
+                        method_getImplementation(class_getInstanceMethod(self, original)),
+                        method_getTypeEncoding(placed_method));
+        method_exchangeImplementations(class_getInstanceMethod(self, original), placed_method);
+    });
+}
+
+// An init-family name, so ARC gives it initializer ownership; after the
+// exchange this calls the original -initWithFrame:.
+- (instancetype)initFFPlacedWithFrame:(CGRect)frame {
+    UIWindow *window = [self initFFPlacedWithFrame:frame];
+    if (window) {
+        ff_place_window(window);
+    }
+    return window;
+}
+@end
