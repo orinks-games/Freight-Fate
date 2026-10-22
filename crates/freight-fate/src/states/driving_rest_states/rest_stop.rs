@@ -44,6 +44,10 @@ pub enum RestFocus {
     Default,
     Break,
     Sleep,
+    /// The fuel row, for a stop planned for fuel.
+    Fuel,
+    /// The food and coffee row, for a stop planned for food.
+    Food,
 }
 
 /// Which wear meter a road shop is selling a job on.
@@ -106,16 +110,19 @@ impl RestStopState {
 
     fn place_cursor(&mut self, ctx: &GameContext) {
         if self.preferred_rest != RestFocus::Default {
-            let preferred_row = if self.preferred_rest == RestFocus::Break {
-                "Take a 30-minute break"
-            } else {
-                "Sleep 10 hours"
+            let focus = self.preferred_rest;
+            let wanted = |text: &str| match focus {
+                RestFocus::Break => text == "Take a 30-minute break",
+                // The fuel row's label carries the gallons and the price.
+                RestFocus::Fuel => text.starts_with("Refuel ") || text.starts_with("Fuel: "),
+                RestFocus::Food => text == "Food and coffee break",
+                RestFocus::Sleep | RestFocus::Default => text == "Sleep 10 hours",
             };
             let index = self
                 .menu
                 .items
                 .iter()
-                .position(|item| item.text(self, ctx) == preferred_row)
+                .position(|item| wanted(&item.text(self, ctx)))
                 .unwrap_or(0);
             self.menu.index = index;
             // This is an arrival hint, not a permanent focus policy.

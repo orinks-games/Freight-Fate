@@ -66,7 +66,7 @@ fn test_driving_help_explains_selected_automatic_direction_style() {
     );
     assert!(
         said.contains(
-            "T plans the recommended break or sleep stop when hours of service planning hints are on"
+            "While rolling, T plans the next stop for what you choose: fuel, a break, sleep"
         ),
         "{said}"
     );
@@ -95,9 +95,7 @@ fn test_driving_help_explains_selected_automatic_direction_style() {
         "{said}"
     );
     assert!(
-        said.contains(
-            "plans a recommended break or sleep stop when hours of service planning hints are on"
-        ),
+        said.contains("plans a stop for fuel, a break, sleep or food while rolling"),
         "{said}"
     );
     assert!(

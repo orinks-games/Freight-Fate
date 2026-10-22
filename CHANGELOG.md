@@ -97,6 +97,7 @@
 
 ### Changed
 
+- **T now asks what the stop is for before planning one.** Choose fuel, a break, sleep, fuel and sleep, or food; each choice says how far its stop is.
 - **A copied delivery summary now ends with #FreightFateRuns.**
 - **The radio's right door speaker plays louder and sooner through the cab speakers.** The radio now sounds nearly centered, leaning only a little toward the driver.
 - **The one-mile call for your exit now gives the exit speed.** You still brake to it in the exit lane.

@@ -5,6 +5,7 @@ use freight_fate::app::testing::TestApp;
 use freight_fate::playtest::menu::menu_rows;
 use freight_fate::states::base::{InputEvent, Key, Mods};
 use freight_fate::states::driving::DrivingState;
+use freight_fate::states::driving_events::stop_plan::StopPlanPurpose;
 use freight_fate::states::driving_rest_states::RestStopState;
 
 use super::states_driving_menus_support::{a_drive_between, drive_and_ctx};
@@ -211,7 +212,7 @@ fn t_selects_the_comfortable_sleep_stop_instead_of_the_nearest_stop() {
         ];
         d.trip.truck.velocity_mps = 25.0;
         ctx.profile.as_mut().unwrap().hos.duty_min = 720.0;
-        d.handle_key_event(ctx, &InputEvent::key(Key::T));
+        d.plan_stop_for(ctx, StopPlanPurpose::Sleep);
         assert_eq!(d.trip.planned_stop().unwrap().name, "Comfortable");
         assert_eq!(d.selected_stop_key, d.trip.planned_stop_key);
         assert!(!d.selected_stop_break);
@@ -232,7 +233,7 @@ fn t_selects_the_comfortable_sleep_stop_instead_of_the_nearest_stop() {
 
     app.ctx.settings.hos_planning_hints = false;
     drive_and_ctx(&drive, &mut app, |d, ctx| {
-        d.handle_key_event(ctx, &InputEvent::key(Key::T));
+        d.plan_stop_for(ctx, StopPlanPurpose::Sleep);
         assert_eq!(d.trip.planned_stop().unwrap().name, "Nearest");
     });
 }
@@ -253,7 +254,7 @@ fn t_selects_a_break_only_stop_and_focuses_the_break_row_after_arrival() {
         hos.duty_min = 0.0;
         hos.driving_min = 360.0;
         hos.since_break_min = 360.0;
-        d.handle_key_event(ctx, &InputEvent::key(Key::T));
+        d.plan_stop_for(ctx, StopPlanPurpose::Break);
         assert_eq!(d.trip.planned_stop().unwrap().name, "Break first");
         assert!(d.selected_stop_break);
     });
@@ -271,7 +272,7 @@ fn t_selects_a_break_only_stop_and_focuses_the_break_row_after_arrival() {
         assert!(d.trip.planned_stop_key.is_none());
         assert!(d.selected_stop_key.is_none());
         assert!(!d.selected_stop_break);
-        d.handle_key_event(ctx, &InputEvent::key(Key::T));
+        d.plan_stop_for(ctx, StopPlanPurpose::Break);
         assert_eq!(d.trip.planned_stop().unwrap().name, "Break first");
         assert!(d.selected_stop_break);
         d.trip.position_mi = selected.at_mi;
@@ -302,7 +303,7 @@ fn t_hos_selection_rebinds_to_a_real_route_stop_after_resume() {
         let advice = d.hos_stop_advice(ctx).unwrap();
         assert_eq!(advice.action, "break");
         let recommended = advice.suggested.as_ref().unwrap().stop.key();
-        d.handle_key_event(ctx, &InputEvent::key(Key::T));
+        d.plan_stop_for(ctx, StopPlanPurpose::Break);
         assert_eq!(d.selected_stop_key, Some(recommended.clone()));
         recommended
     });
@@ -325,7 +326,7 @@ fn sleep_only_stop_for_break_speaks_the_long_rest_needed() {
         hos.duty_min = 0.0;
         hos.driving_min = 360.0;
         hos.since_break_min = 360.0;
-        d.handle_key_event(ctx, &InputEvent::key(Key::T));
+        d.plan_stop_for(ctx, StopPlanPurpose::Break);
         assert_eq!(d.trip.planned_stop().unwrap().name, "Sleeper");
         assert!(!d.selected_stop_break);
     });
@@ -344,7 +345,7 @@ fn t_selects_the_last_legal_fallback_when_no_stop_has_a_comfort_buffer() {
         let advice = d.hos_stop_advice(ctx).unwrap();
         assert_eq!(advice.stop.as_ref().unwrap().name, "Last");
         assert!(advice.suggested.is_none());
-        d.handle_key_event(ctx, &InputEvent::key(Key::T));
+        d.plan_stop_for(ctx, StopPlanPurpose::Sleep);
         assert_eq!(d.trip.planned_stop().unwrap().name, "Last");
     });
     let said = app.main_lines().join(" ");
@@ -365,7 +366,7 @@ fn t_keeps_nearest_usable_sleep_stop_when_no_hos_recommendation_applies() {
         d.trip.truck.velocity_mps = 25.0;
         ctx.profile.as_mut().unwrap().hos.duty_min = 0.0;
         assert!(d.hos_stop_advice(ctx).unwrap().destination_reachable);
-        d.handle_key_event(ctx, &InputEvent::key(Key::T));
+        d.plan_stop_for(ctx, StopPlanPurpose::Sleep);
         assert_eq!(d.trip.planned_stop().unwrap().name, "Usable");
     });
     let said = app.main_lines().join(" ");
@@ -376,7 +377,7 @@ fn t_keeps_nearest_usable_sleep_stop_when_no_hos_recommendation_applies() {
         d.handle_key_event(ctx, &InputEvent::key(Key::T));
         ctx.profile.as_mut().unwrap().hos.duty_min = 839.0;
         assert!(d.hos_stop_advice(ctx).unwrap().stop.is_none());
-        d.handle_key_event(ctx, &InputEvent::key(Key::T));
+        d.plan_stop_for(ctx, StopPlanPurpose::Sleep);
         assert_eq!(d.trip.planned_stop().unwrap().name, "Usable");
     });
     let said = app.main_lines().join(" ");
@@ -399,7 +400,7 @@ fn requested_t_selection_speaks_in_quiet_and_urgent_only() {
             hos.duty_min = 0.0;
             hos.driving_min = 360.0;
             hos.since_break_min = 360.0;
-            d.handle_key_event(ctx, &InputEvent::key(Key::T));
+            d.plan_stop_for(ctx, StopPlanPurpose::Break);
             assert_eq!(d.trip.planned_stop().unwrap().name, "Break here");
         });
         let said = app.main_lines().join(" ");

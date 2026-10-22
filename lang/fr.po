@@ -22905,13 +22905,9 @@ msgstr ""
 
 #. placeholders: {rest}
 msgid ""
-"{rest} plans the recommended break or sleep stop when hours of service "
-"planning hints are on; otherwise it plans the next sleep-capable stop while "
-"rolling."
+"While rolling, {rest} plans the next stop for what you choose: fuel, a "
+"break, sleep, fuel and sleep, or food."
 msgstr ""
-"{rest} planifie la pause ou l'arrêt sommeil recommandé quand les conseils "
-"de planification du temps de service sont activés ; sinon il planifie le "
-"prochain arrêt où dormir pendant que vous roulez."
 
 #. placeholders: {exit}
 msgid "{exit} signals for its exit."
@@ -23094,16 +23090,9 @@ msgstr "{horn} actionne le klaxon, {engine_brake} le frein moteur."
 msgid ""
 "{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads "
 "the posted speed limit here and how far over you are, {parking_brake} sets "
-"or releases the parking brake, {rest} plans a recommended break or sleep "
-"stop when hours of service planning hints are on, or the next sleep stop "
-"otherwise; stopped at a stop, it opens its actions."
+"or releases the parking brake, {rest} plans a stop for fuel, a break, sleep "
+"or food while rolling; stopped at a stop, it opens its actions."
 msgstr ""
-"{engine} démarre ou arrête le moteur, {fuel} lit le carburant, "
-"{speed_limit} lit la limite affichée ici et de combien vous la dépassez, "
-"{parking_brake} serre ou desserre le frein de stationnement, {rest} prévoit "
-"une pause ou un arrêt pour dormir recommandé quand les conseils de "
-"planification des heures de service sont activés, sinon le prochain arrêt "
-"pour dormir ; à l'arrêt à une étape, il ouvre ses actions."
 
 msgid ""
 "Away from route points while fully stopped, it opens emergency shoulder "
@@ -27032,6 +27021,134 @@ msgstr "Rond-point au bout de la bretelle."
 msgid "Yield sign at the end of the ramp."
 msgstr "Cédez le passage au bout de la bretelle."
 
+#. placeholders: {distance}
+msgid "Fuel: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Break: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Sleep: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Fuel and sleep: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+msgid "Food and coffee: {distance}"
+msgstr ""
+
+msgid "Fuel: none ahead"
+msgstr ""
+
+msgid "Break: none ahead"
+msgstr ""
+
+msgid "Sleep: none ahead"
+msgstr ""
+
+msgid "Fuel and sleep: none ahead"
+msgstr ""
+
+msgid "Food and coffee: none ahead"
+msgstr ""
+
+msgid "Plans the next stop that sells diesel."
+msgstr ""
+
+msgid ""
+"Plans a stop for your 30-minute break, the recommended one with planning "
+"hints on."
+msgstr ""
+
+msgid ""
+"Plans a stop with parking for a 10-hour sleep, the recommended one with "
+"planning hints on."
+msgstr ""
+
+msgid "Plans the next stop where you can fuel and sleep."
+msgstr ""
+
+msgid "Plans the next stop with food and coffee."
+msgstr ""
+
+msgid "No fuel stop ahead."
+msgstr ""
+
+msgid "No break stop ahead."
+msgstr ""
+
+msgid "No sleep stop ahead. Shoulder sleep available."
+msgstr "Aucun arrêt pour dormir devant. Sommeil sur l'accotement possible."
+
+msgid "No stop with fuel and sleep ahead."
+msgstr ""
+
+msgid "No food stop ahead."
+msgstr ""
+
+msgid "Fuel stop planned"
+msgstr ""
+
+msgid "Fuel and sleep stop planned"
+msgstr ""
+
+msgid "Food stop planned"
+msgstr ""
+
+msgid "Sleep stop planned, the last one before your sleep limit"
+msgstr "Arrêt pour dormir prévu, le dernier avant votre limite de sommeil"
+
+msgid "Sleep stop planned"
+msgstr "Arrêt pour dormir prévu"
+
+msgid ""
+"Nearest sleep stop planned, but none is reachable before your hours limit. "
+"Stop somewhere safe sooner"
+msgstr ""
+"Arrêt pour dormir le plus proche prévu, mais aucun n'est atteignable avant "
+"votre limite de temps de service. Arrêtez-vous plus tôt dans un endroit sûr"
+
+msgid "Break stop planned, the last one before your break limit"
+msgstr "Arrêt pour pause prévu, le dernier avant votre limite de pause"
+
+msgid "Break stop planned"
+msgstr "Arrêt pour pause prévu"
+
+msgid ""
+"Sleep stop planned for your break, the last one before your break limit"
+msgstr ""
+"Arrêt pour dormir prévu pour votre pause, le dernier avant votre limite de "
+"pause"
+
+msgid "Sleep stop planned for your break"
+msgstr "Arrêt pour dormir prévu pour votre pause"
+
+#. placeholders: {name}
+msgid "Planned stop remains {name}."
+msgstr "L'arrêt prévu reste {name}."
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "Planned stop stays {name}."
+msgstr "L'arrêt prévu reste {name}."
+
+#. placeholders: {name}, {name2}
+msgid "Planned stop stays {name}. {name2} is also ahead."
+msgstr "L'arrêt prévu reste {name}. {name2} est aussi devant."
+
+#. placeholders: {name2}
+#. one sentence of a longer line
+msgid "{name2} is also ahead."
+msgstr "{name2} est aussi devant."
+
+#. placeholders: {range_text}
+msgid "Fuel range only {range_text}."
+msgstr ""
+
 msgid "Rest-stop planning unavailable during a police stop."
 msgstr ""
 "Planification d'arrêt de repos indisponible pendant un contrôle de police."
@@ -27106,6 +27223,21 @@ msgstr ""
 msgid "{name} is behind you."
 msgstr "{name} est derrière vous."
 
+msgid "Still planned for fuel"
+msgstr ""
+
+msgid "Still planned for food"
+msgstr ""
+
+msgid "Still planned for fuel and sleep"
+msgstr ""
+
+msgid "Still planned for a 30-minute break"
+msgstr "Toujours prévu pour une pause de 30 minutes"
+
+msgid "Still planned"
+msgstr "Toujours prévu"
+
 #. placeholders: {name}
 msgid "Exit signal active for {name}."
 msgstr "Clignotant de sortie actif pour {name}."
@@ -27114,68 +27246,10 @@ msgstr "Clignotant de sortie actif pour {name}."
 msgid "The exit for {name} is already selected."
 msgstr "La sortie pour {name} est déjà choisie."
 
-msgid "No sleep-capable route stop ahead on this route."
-msgstr "Aucun arrêt où dormir devant sur cet itinéraire."
-
-msgid "No sleep stop ahead. Shoulder sleep available."
-msgstr "Aucun arrêt pour dormir devant. Sommeil sur l'accotement possible."
-
-#. placeholders: {name}
-msgid "Planned stop remains {name}."
-msgstr "L'arrêt prévu reste {name}."
-
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Planned stop stays {name}."
-msgstr "L'arrêt prévu reste {name}."
-
-#. placeholders: {name}, {name2}
-msgid "Planned stop stays {name}. {name2} is also ahead."
-msgstr "L'arrêt prévu reste {name}. {name2} est aussi devant."
-
-#. placeholders: {name2}
-#. one sentence of a longer line
-msgid "{name2} is also ahead."
-msgstr "{name2} est aussi devant."
-
-msgid "Still planned for a 30-minute break"
-msgstr "Toujours prévu pour une pause de 30 minutes"
-
-msgid "Still planned"
-msgstr "Toujours prévu"
-
-msgid "Break stop planned, the last one before your break limit"
-msgstr "Arrêt pour pause prévu, le dernier avant votre limite de pause"
-
-msgid "Break stop planned"
-msgstr "Arrêt pour pause prévu"
-
+#. placeholders: {prefix}, {name}, {distance}, {exit_text}, {note}, {next_step}, {assist}
 msgid ""
-"Sleep stop planned for your break, the last one before your break limit"
+"{prefix}, {name}, {distance} ahead{exit_text}.{note}{next_step}{assist}"
 msgstr ""
-"Arrêt pour dormir prévu pour votre pause, le dernier avant votre limite de "
-"pause"
-
-msgid "Sleep stop planned, the last one before your sleep limit"
-msgstr "Arrêt pour dormir prévu, le dernier avant votre limite de sommeil"
-
-msgid "Sleep stop planned for your break"
-msgstr "Arrêt pour dormir prévu pour votre pause"
-
-msgid "Sleep stop planned"
-msgstr "Arrêt pour dormir prévu"
-
-msgid ""
-"Nearest sleep stop planned, but none is reachable before your hours limit. "
-"Stop somewhere safe sooner"
-msgstr ""
-"Arrêt pour dormir le plus proche prévu, mais aucun n'est atteignable avant "
-"votre limite de temps de service. Arrêtez-vous plus tôt dans un endroit sûr"
-
-#. placeholders: {prefix}, {name}, {distance}, {exit_text}, {next_step}, {assist}
-msgid "{prefix}, {name}, {distance} ahead{exit_text}.{next_step}{assist}"
-msgstr ""
-"{prefix}, {name}, à {distance} devant{exit_text}.{next_step}{assist}"
 
 msgid "Pulling into stop"
 msgstr "Entrée dans l'arrêt"
@@ -29018,6 +29092,14 @@ msgstr "Vos stations enregistrées. Enter sur l'une d'elles la règle."
 msgid "Back to the status screens."
 msgstr "Retour aux écrans d'état."
 
+msgid ""
+"Up and Down choose what the stop is for, Enter plans it, Escape goes back "
+"to driving."
+msgstr ""
+
+msgid "Plan a stop"
+msgstr ""
+
 msgid "Hairpin"
 msgstr "Épingle"
 
@@ -30482,6 +30564,9 @@ msgstr ""
 msgid "Take a 30-minute break"
 msgstr "Faire une pause de 30 minutes"
 
+msgid "Food and coffee break"
+msgstr "Pause repas et café"
+
 #. one sentence of a longer line
 msgid "You are already rested."
 msgstr "Vous êtes déjà reposé."
@@ -30510,9 +30595,6 @@ msgstr ""
 "Remplit le réservoir au prix affiché du diesel plus 35 dollars de frais de "
 "service. Si l'argent manque, vous achetez ce que vous pouvez payer. Le "
 "moteur doit être coupé."
-
-msgid "Food and coffee break"
-msgstr "Pause repas et café"
 
 msgid ""
 "Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
@@ -37708,33 +37790,31 @@ msgstr ""
 msgid "Exits, ramps, and arrival"
 msgstr "Sorties, bretelles et arrivée"
 
+#. placeholders: {control_rest}
 #. one sentence of a longer line
-msgid "Press again to cancel the plan."
-msgstr "Appuyez de nouveau pour annuler le plan."
-
-#. one sentence of a longer line
-msgid ""
-"With hours-planning hints on, it plans the recommended break or sleep stop."
+msgid "Press {control_rest} again to cancel the plan."
 msgstr ""
-"Avec les conseils de planification des heures activés, elle planifie la "
-"pause ou l'arrêt de sommeil recommandé."
 
 #. placeholders: {control_rest}
 #. one sentence of a longer line
-msgid "{control_rest} plans a nearby sleep-capable stop while rolling."
+msgid ""
+"While rolling, {control_rest} asks what the stop is for: fuel, a break, "
+"sleep, fuel and sleep, or food."
 msgstr ""
-"{control_rest} planifie un arrêt proche où dormir pendant que vous roulez."
 
 #. placeholders: {control_rest}
 msgid ""
-"{control_rest} plans a nearby sleep-capable stop while rolling. With "
-"hours-planning hints on, it plans the recommended break or sleep stop. "
-"Press again to cancel the plan."
+"While rolling, {control_rest} asks what the stop is for: fuel, a break, "
+"sleep, fuel and sleep, or food. With hours-planning hints on, a break or "
+"sleep plan takes the recommended stop. Press {control_rest} again to cancel "
+"the plan."
 msgstr ""
-"{control_rest} planifie un arrêt proche où dormir pendant que vous roulez. "
-"Avec les conseils de planification des heures activés, elle planifie la "
-"pause ou l'arrêt de sommeil recommandé. Appuyez de nouveau pour annuler le "
-"plan."
+
+#. one sentence of a longer line
+msgid ""
+"With hours-planning hints on, a break or sleep plan takes the recommended "
+"stop."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Planning a stop does not signal for it."
@@ -42137,6 +42217,59 @@ msgstr "parenthèse droite"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "majuscule {ch}"
+
+#~ msgid ""
+#~ "{rest} plans the recommended break or sleep stop when hours of service "
+#~ "planning hints are on; otherwise it plans the next sleep-capable stop while "
+#~ "rolling."
+#~ msgstr ""
+#~ "{rest} planifie la pause ou l'arrêt sommeil recommandé quand les conseils "
+#~ "de planification du temps de service sont activés ; sinon il planifie le "
+#~ "prochain arrêt où dormir pendant que vous roulez."
+
+#~ msgid ""
+#~ "{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads "
+#~ "the posted speed limit here and how far over you are, {parking_brake} sets "
+#~ "or releases the parking brake, {rest} plans a recommended break or sleep "
+#~ "stop when hours of service planning hints are on, or the next sleep stop "
+#~ "otherwise; stopped at a stop, it opens its actions."
+#~ msgstr ""
+#~ "{engine} démarre ou arrête le moteur, {fuel} lit le carburant, "
+#~ "{speed_limit} lit la limite affichée ici et de combien vous la dépassez, "
+#~ "{parking_brake} serre ou desserre le frein de stationnement, {rest} prévoit "
+#~ "une pause ou un arrêt pour dormir recommandé quand les conseils de "
+#~ "planification des heures de service sont activés, sinon le prochain arrêt "
+#~ "pour dormir ; à l'arrêt à une étape, il ouvre ses actions."
+
+#~ msgid "No sleep-capable route stop ahead on this route."
+#~ msgstr "Aucun arrêt où dormir devant sur cet itinéraire."
+
+#~ msgid "{prefix}, {name}, {distance} ahead{exit_text}.{next_step}{assist}"
+#~ msgstr ""
+#~ "{prefix}, {name}, à {distance} devant{exit_text}.{next_step}{assist}"
+
+#~ msgid "Press again to cancel the plan."
+#~ msgstr "Appuyez de nouveau pour annuler le plan."
+
+#~ msgid ""
+#~ "With hours-planning hints on, it plans the recommended break or sleep stop."
+#~ msgstr ""
+#~ "Avec les conseils de planification des heures activés, elle planifie la "
+#~ "pause ou l'arrêt de sommeil recommandé."
+
+#~ msgid "{control_rest} plans a nearby sleep-capable stop while rolling."
+#~ msgstr ""
+#~ "{control_rest} planifie un arrêt proche où dormir pendant que vous roulez."
+
+#~ msgid ""
+#~ "{control_rest} plans a nearby sleep-capable stop while rolling. With "
+#~ "hours-planning hints on, it plans the recommended break or sleep stop. "
+#~ "Press again to cancel the plan."
+#~ msgstr ""
+#~ "{control_rest} planifie un arrêt proche où dormir pendant que vous roulez. "
+#~ "Avec les conseils de planification des heures activés, elle planifie la "
+#~ "pause ou l'arrêt de sommeil recommandé. Appuyez de nouveau pour annuler le "
+#~ "plan."
 
 #~ msgid "Logbook has no recent duty entries yet."
 #~ msgstr "Le carnet de route n'a pas encore d'entrées de service récentes."

@@ -1198,6 +1198,33 @@ impl PlaytestHarness {
         panic!("{label:?} never took focus; saw {labels:?}");
     }
 
+    /// Arrow down to the row whose label starts with `prefix` and activate
+    /// it, for rows that carry a value after the name ("Fuel: 12 miles").
+    pub fn select_menu_item_starting(&mut self, prefix: &str) {
+        let labels = self.menu_labels();
+        for _ in 0..=labels.len() {
+            if self
+                .focused_label()
+                .is_some_and(|label| label.starts_with(prefix))
+            {
+                self.key(key_event(Key::Return, None));
+                return;
+            }
+            self.key(key_event(Key::Down, None));
+        }
+        panic!("no row starts with {prefix:?}: {labels:?}");
+    }
+
+    /// T while rolling, then the purpose list's row for `purpose` ("Fuel",
+    /// "Sleep", "Break"). A T the drive answers without the list (a cancel,
+    /// a scale, a stopped truck) is just the key press.
+    pub fn plan_stop(&mut self, purpose: &str) {
+        self.press_key(Key::T, Some('t'));
+        if self.state_is::<crate::states::driving_menu_states::StopPurposeState>() {
+            self.select_menu_item_starting(&format!("{purpose}:"));
+        }
+    }
+
     /// `_select_current_menu_text`: arrow down to `text` and activate it,
     /// with a bounded, descriptive failure when it is not reachable.
     pub fn select_current_menu_text(&mut self, text: &str) {

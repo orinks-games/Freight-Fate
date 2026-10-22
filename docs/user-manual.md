@@ -157,7 +157,7 @@ Use the readout hotkeys to check the trip while driving. Space reads your speed 
 
 On a controller, D-pad up reads where you are, D-pad left the weather, and D-pad right the clock with all your hours limits. D-pad down signals for an exit, and the right bumper with D-pad down plans a rest stop. The road ahead and the other readouts with no button are in Driving commands: hold the right bumper, press Start, and choose Driving commands.
 
-Check those readouts before you need a stop. T helps you choose a rest stop while you're rolling; X signals for its exit. Keep an eye on your legal driving time as well as the delivery clock. Alt+A tells you how much time you've used at the wheel and on duty. Alt+S tells you when your break is due, and Alt+D tells you what will end the shift and which rest stops you can reach.
+Check those readouts before you need a stop. T plans a stop for fuel, a break, sleep or food while you're rolling; X signals for its exit. Keep an eye on your legal driving time as well as the delivery clock. Alt+A tells you how much time you've used at the wheel and on duty. Alt+S tells you when your break is due, and Alt+D tells you what will end the shift and which rest stops you can reach.
 
 When a break is due, pull into a stop and take it before driving farther. Don't wait for the eleven-hour driving limit: your break can come due earlier, and the duty window can end your shift before you've driven eleven hours. A short break won't reset the shift. Check the [hours and fatigue guide](#hours-of-service-and-fatigue) when you're deciding whether you need a break or sleep.
 
@@ -385,7 +385,7 @@ A control marked Driving commands has no controller button. Hold the right bumpe
 | Plus / Minus | Right bumper plus D-pad right or left | Raise or lower the open-road cruise target while automatic speed control is active, snapping outward to the next multiple of 5 mph: from 32 it lands on 35, then 40. The keypad Plus and Minus keys work too. |
 | Ctrl+Plus / Ctrl+Minus | Not on the controller | Raise or lower the open-road cruise target by exactly 1 mph, no snapping, for setting a precise number. |
 | X | D-pad down | Signal for or cancel the next announced route exit. The truck takes the ramp when speed, lane setup, and route intent are valid. |
-| T | Right bumper plus D-pad down | While rolling, plan the next nearby sleep-capable stop and hear its distance, exit, and stopping-assistance state. T never signals or takes the exit; press X for that. When fully stopped at a supported route stop, T opens its menu; away from route points, it opens the emergency shoulder-sleep confirmation. |
+| T | Right bumper plus D-pad down | While rolling, choose what the stop is for, such as fuel, a break or sleep, then hear the planned stop's distance, exit, and stopping-assistance state. T never signals or takes the exit; press X for that. When fully stopped at a supported route stop, T opens its menu; away from route points, it opens the emergency shoulder-sleep confirmation. |
 | J | Right stick click | Toggle the engine brake. It engages at the stage you last selected, like a real dash switch. In an automatic, J arms the truck's own retarder management unless you have turned that off. |
 | Alt+J | Driving commands | In an automatic, choose whether J arms the automatic retarder or leaves the stage entirely to you. |
 | Alt+T | Driving commands | Switch between automatic and manual transmission on the road. This changes your whole control scheme. |
@@ -591,7 +591,7 @@ The GPS announces state lines, towns, route changes, work zones, tolls, and usef
 
 Slow as the work-zone limit steps down, and leave a closing lane when instructed. Continuing past the urgent barrel warning causes damage, a 1,000 dollar citation, and a serious violation. That citation is charged once per zone and isn't doubled again for construction. If the road itself reduces the lane count and repositions you, there's no penalty for that move.
 
-While you're rolling, T plans the next stop where you can sleep. With planning hints enabled, it selects the recommended break or sleep stop instead. Press T again to cancel the plan.
+While you're rolling, T asks what the stop is for: fuel, a break, sleep, fuel and sleep, or food and coffee. Each choice gives the distance to its stop, and Enter plans the next stop for it. With planning hints enabled, a break or sleep plan takes the recommended stop. The list opens on fuel when the tank is low or won't reach the next pumps. Press T again to cancel the plan.
 
 Planning the stop doesn't signal for its exit. X sets or cancels that signal separately. On a controller, the right bumper with D-pad down plans the stop and D-pad down signals. The call names the exit and its ramp control, and the blinker starts near half a mile out.
 
@@ -887,7 +887,7 @@ Choose the driving pace first. Relaxed gives you more time to react, Standard co
 | --- | --- |
 | Driving mode | Choose Relaxed, Standard, or Real time. The explanations below help you choose your pace. |
 | Hours of service | Choose realistic or relaxed legal limits. Both use the same 11-hour driving limit, 14-hour duty window, and break after 8 hours. Relaxed reduces fines, inspections, and random hazards. |
-| Hours of service planning hints | Off by default. On, when the delivery is out of legal reach, the cab suggests a break or sleep stop once, with time to spare before the next hours warning, and names the last stop you can legally reach if it suggests an earlier one. While rolling, T plans that stop; press it again to cancel. Quiet and Urgent only driving speech skip the spoken suggestion. |
+| Hours of service planning hints | Off by default. On, when the delivery is out of legal reach, the cab suggests a break or sleep stop once, with time to spare before the next hours warning, and names the last stop you can legally reach if it suggests an earlier one. While rolling, choosing a break or sleep from T plans that stop; press T again to cancel. Quiet and Urgent only driving speech skip the spoken suggestion. |
 
 #### Choosing your driving pace
 

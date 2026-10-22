@@ -245,6 +245,7 @@ from the words, and synonyms cost them a re-read.
 | One drive, start to finish | run | trip, haul | `Trip` |
 | The pacing choice on the Driving mode row | relaxed, standard, real time | realistic (retired), 1x, normal speed, pacing level | `Settings.time_scale`, `TIME_SCALES`, `mode_name` |
 | A truck stop or service POI | stop | POI, waypoint | `Stop`, `RoadStop` |
+| What the driver wants the planned stop for, chosen from the list T opens while rolling | Plan a stop (the list's title); its rows are Fuel, Break, Sleep, Fuel and sleep, Food and coffee | stop type, rest type, stop reason | `StopPlanPurpose`, `StopPurposeState` |
 | The level band | rank | tier, grade | `CareerRank` |
 | A group of related achievements | category | group, section, tab | `AchievementCategory` |
 | Any rung of the license-and-training ladder, taken together | credential (menu name "Licenses and training") | qualification, license add-on | `CREDENTIALS` |

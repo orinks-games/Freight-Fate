@@ -1756,6 +1756,12 @@ its status or release decision.
 - [x] HOS advice selects a compatible reachable rest stop and warns before
       the last usable exit. Interrupted warnings retry after pause or resume;
       completed warnings stay suppressed until the relevant reset.
+- [x] T while rolling asks what the stop is for (fuel, a break, sleep, fuel
+      and sleep, or food) and plans the next stop that serves it, each row
+      with its distance; the list opens on fuel when the tank is low or will
+      not reach the next pumps, else on what the hours advice calls for, and
+      arrival focuses that row of the stop menu (owner, 2026-10-22: T had
+      planned a sleep stop for a driver who needed fuel).
 - [x] Skip speech voices that fail to initialize and retain spoken agent
       readouts when sound output is busy. Native SAPI and OneCore checks pass.
       A live session with normal Windows access used NVDA and SAPI, completed
