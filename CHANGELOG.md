@@ -4,6 +4,8 @@
 
 ### Added
 
+- **Vietnamese is available as an initial translation.** Choose Tiếng Việt under Settings, then Speech; untranslated lines remain in English.
+
 - **The game window's own labels now follow your language.** The dashboard lights, the road signs and the menu hints are translated into every language the game speaks.
 - **The game window now shows the road, your truck and the traffic around it.** Signs, bends, hills and weather show as you drive. Thanks to Pranav435 ([PR 441](https://github.com/orinks-games/Freight-Fate/pull/441)).
 - **The dashboard in the game window shows speed, the limit, gear, fuel, air, damage and traffic.** Your next turn and bend show above it.
