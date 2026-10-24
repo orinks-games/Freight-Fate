@@ -6139,6 +6139,10 @@ msgid "retail distribution hub"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
+msgid "mall"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
 msgid "steel and industrial plant"
 msgstr ""
 
@@ -6240,6 +6244,10 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
 msgid "retail distribution access road"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
+msgid "mall service road"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
@@ -6440,6 +6448,12 @@ msgstr ""
 msgid ""
 "Curated representative retail distribution facility in the metro freight "
 "market."
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
+msgid ""
+"Curated shopping mall that receives store and restaurant freight at its "
+"service dock."
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
@@ -44955,6 +44969,14 @@ msgstr ""
 
 #: lang/extra.pot
 msgid "retail distribution hub {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "mall {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "mall {place_name} near {town} in {city}"
 msgstr ""
 
 #: lang/extra.pot

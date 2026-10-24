@@ -419,6 +419,7 @@ pub const FREIGHT_LOCATION_TYPES: &[&str] = &[
     "port_terminal",
     "rail",
     "retail_distribution",
+    "shopping_mall",
     "steel_industrial",
     "terminal",
     "warehouse",
@@ -457,6 +458,7 @@ pub const LOCATION_TYPE_LABELS: &[(&str, &str)] = &[
     ("port_terminal", "port terminal"),
     ("rail", "rail yard"),
     ("retail_distribution", "retail distribution hub"),
+    ("shopping_mall", "mall"),
     ("steel_industrial", "steel and industrial plant"),
     ("terminal", "freight terminal"),
     ("warehouse", "warehouse"),
@@ -489,6 +491,7 @@ pub const FACILITY_APPROACH_MILES: &[(&str, f64)] = &[
     ("port_terminal", 8.0),
     ("rail", 5.5),
     ("retail_distribution", 4.0),
+    ("shopping_mall", 2.0),
     ("steel_industrial", 5.5),
     ("terminal", 3.0),
     ("warehouse", 3.5),
@@ -530,6 +533,7 @@ pub const FACILITY_APPROACH_ROADS: &[(&str, &str)] = &[
     ("port_terminal", "port terminal access road"),
     ("rail", "rail yard access road"),
     ("retail_distribution", "retail distribution access road"),
+    ("shopping_mall", "mall service road"),
     ("steel_industrial", "industrial plant access road"),
     ("terminal", "terminal access road"),
     ("warehouse", "warehouse access road"),
@@ -751,6 +755,13 @@ pub const FACILITY_CARGO_ROLES: &[(&str, &[&str], &[&str])] = &[
         &["general", "retail", "parcel"],
         &["general", "retail", "parcel"],
     ),
+    // A mall is a receiver only: its stores, restaurants and attractions take
+    // freight in through the service dock and ship none out.
+    (
+        "shopping_mall",
+        &[],
+        &["retail", "general", "electronics", "food", "refrigerated"],
+    ),
     (
         "steel_industrial",
         &["steel", "machinery", "bulk", "hazardous"],
@@ -805,6 +816,7 @@ pub const FACILITY_SOURCE_NOTES: &[(&str, &str)] = &[
     ("port_terminal", "Representative port terminal; guided by MARAD and BTS port performance datasets."),
     ("rail", "Curated representative rail facility in the metro freight market."),
     ("retail_distribution", "Curated representative retail distribution facility in the metro freight market."),
+    ("shopping_mall", "Curated shopping mall that receives store and restaurant freight at its service dock."),
     ("steel_industrial", "Representative steel or industrial facility; guided by FAF commodity framing."),
     ("terminal", "Curated representative freight terminal in the metro freight market."),
     ("warehouse", "Curated representative warehouse in the metro freight market."),

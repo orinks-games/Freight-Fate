@@ -1255,6 +1255,22 @@
             "container",
             "retail"
           ]
+        },
+        {
+          "name": "Mall of America",
+          "type": "shopping_mall",
+          "locality": "Bloomington",
+          "spoken_name": "Mall of America",
+          "lat": 44.85468,
+          "lon": -93.24215,
+          "receives": [
+            "retail",
+            "general",
+            "electronics",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Mall of America, 60 East Broadway, Bloomington, Minnesota, at Interstate 494 and Minnesota 77, about nine miles south of downtown Minneapolis. Position read from the OpenStreetMap footprint of the mall (relation 2240382, Geofabrik Minnesota extract of 2026-09-25): the centroid of its outer ring. Freight goes through the mall's service loading dock off Killebrew Drive, after an inspection at its security gate (Mall of America Promotional Events Handbook, 2023; Radisson Blu Mall of America loading dock instructions, 2026). The dock door itself is not mapped, so no endpoint is claimed."
         }
       ],
       "lat": 44.9778,
