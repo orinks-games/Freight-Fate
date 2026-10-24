@@ -355,6 +355,7 @@ fn tags_for_facility_type(facility_type: &str) -> &'static [&'static str] {
         "port" => &["port"],
         "rail" => &["intermodal"],
         "retail_distribution" => &["retail"],
+        "shopping_mall" => &["retail"],
         "terminal" => &["cross_dock"],
         "warehouse" => &["retail"],
         _ => &[],
@@ -370,6 +371,11 @@ fn role_cargo(
     let values = get_str_list(raw, key);
     if !values.is_empty() {
         return values;
+    }
+    // A type with no cargo for this role never takes it: a mall receives
+    // freight and ships none, whatever its cargo list says.
+    if defaults.is_empty() {
+        return Vec::new();
     }
     let plausible: Vec<String> = cargo
         .iter()

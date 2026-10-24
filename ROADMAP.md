@@ -726,6 +726,9 @@ Everything found before 2026-09-25 moved to
 - [ ] (Found along the way) Decide whether to rewrite history to drop the
       retired music files, which take about 440 MB of the repository.
       [October 22 audit](#october-22-repository-size-and-security-audit)
+- [ ] (Found along the way) Send trucks to the Mall of America by Interstate
+      494, 24th Avenue and Killebrew Drive, not the downtown Minneapolis exit.
+      [October 24 Mall of America](#october-24-mall-of-america-found-along-the-way)
 - [x] Driving speech audit (owner, 2026-10-03, from a player report): quiet
       and urgent only no longer call out traffic, a line either rung leaves
       out makes no sound, and quiet says cruise, keeper and work zone
@@ -3478,6 +3481,29 @@ the outside temperature.
       describes would let the engine open up too.
 - [ ] A passenger window (Shift Z is taken; it would need another key) if
       players ask.
+
+### October 24 Mall of America (Found along the way)
+
+The owner asked whether the Mall of America was on the map. It was not, so
+it is now a delivery stop in Minneapolis, near Bloomington, at the mall's
+own position read from its OpenStreetMap footprint. It is the first stop of
+a new type, the mall: it receives retail, general, electronics, food and
+refrigerated loads and ships nothing. Real freight goes through the mall's
+service loading dock off Killebrew Drive, after an inspection at its
+security gate (Mall of America events handbook, 2023; Radisson Blu loading
+dock instructions, 2026). OpenStreetMap does not map that dock, so the stop
+has no endpoint record and arrives by the short scripted access road, like
+most stops. Interstates 35 and 94 carry a billboard for it on the way into
+Minneapolis.
+
+- [x] Mall of America delivery stop and the mall stop type.
+- [x] Mall of America billboard on the Interstate 35 and 94 approaches.
+- [ ] The real way in. The game sends every Minneapolis delivery off at the
+      city's own exit near downtown, about nine miles north; a real truck
+      takes Interstate 494 to 24th Avenue, then Killebrew Drive to the
+      security gate. That needs a stop to choose its own exit, then a
+      street chain from the Interstate 494 ramp built the way the facility
+      chains were, once that tool is ported.
 
 ### October 22 repository size and security audit
 
