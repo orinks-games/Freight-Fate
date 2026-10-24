@@ -48,9 +48,14 @@ const DESCENT_SNUB_UNDER_MPH: f64 = 5.0;
 /// The co-driver starts braking once the truck is this far over what descent
 /// control holds and still gaining.
 const DESCENT_SNUB_OVER_MPH: f64 = 5.0;
-/// Short of a ramp's red light or sign, the co-driver creeps up to the
-/// line at this speed and lets the assist stop the truck there.
+/// Short of a ramp's red light or sign, the co-driver drives up to the line
+/// no slower than this and lets the assist stop the truck there.
 const LINE_CREEP_MPH: f64 = 8.0;
+/// Driving up to a red, the co-driver keeps under the speed the assist can
+/// stop from at this deceleration: its own release threshold, so the
+/// approach is one the assist leaves alone until the line is close. At a
+/// flat creep a quarter mile of ramp took minutes (owner, 2026-10-24).
+const LINE_APPROACH_DECEL_MPS2: f64 = RAMP_ASSIST_DECEL_RELEASE_MPS2;
 /// How far ahead of a lane closure the co-driver starts moving out of the
 /// lane: the taper is a mile long, and at ten times speed it passed in
 /// seconds, so they merge when the first sign comes up, as a driver does.
@@ -463,7 +468,10 @@ impl DrivingState {
         let target = if green {
             GREEN_ROLL_MPH - 5.0
         } else {
-            LINE_CREEP_MPH
+            let stoppable_mps = (2.0 * LINE_APPROACH_DECEL_MPS2 * gap_mi * 1609.344).sqrt();
+            (stoppable_mps * MPH_PER_MPS)
+                .min(self.ramp_cap_here_mph())
+                .max(LINE_CREEP_MPH)
         };
         self.trip.truck.speed_mph() < target
     }

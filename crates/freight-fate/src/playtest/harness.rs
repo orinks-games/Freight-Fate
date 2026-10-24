@@ -1564,7 +1564,7 @@ impl PlaytestHarness {
             } else if let Some(lane_left) = drive.deceleration_lane_left_mi() {
                 profile(lane_left, exit_mph).min(to_the_end)
             } else {
-                exit_mph.min(to_the_end)
+                drive.ramp_cap_here_mph().min(to_the_end)
             };
             let speed = drive.truck().speed_mph();
             (

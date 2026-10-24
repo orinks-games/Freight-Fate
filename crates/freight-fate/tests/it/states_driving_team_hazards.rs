@@ -158,7 +158,8 @@ fn from_the_left_lane_the_co_driver_leaves_a_left_closure() {
 /// the receiver's exit ramp left the truck a fifth of a mile short of the
 /// line, and the co-driver sat there through every green after it without
 /// handing back, because the assist brakes for a light but never drives up
-/// to one.
+/// to one. Then, recorded, the same ramp took minutes at the crawl its bend
+/// is signed for (owner, 2026-10-24).
 #[test]
 #[cfg_attr(ci_quick, ignore = "sweep: drives a 345-mile load")]
 fn the_co_driver_drives_up_to_a_ramp_light_the_assist_stopped_short_of() {
@@ -179,12 +180,16 @@ fn the_co_driver_drives_up_to_a_ramp_light_the_assist_stopped_short_of() {
         d.hand_wheel_to_co_driver(ctx, TeamMode::RideAlong);
     });
     let mut stopped_on_ramp = 0;
+    let mut past_the_bend_mph = 0.0f64;
     let arrived = run_until(&mut harness, 60 * 60 * 60, |h| {
         if !h.state_is::<DrivingState>() {
             return true;
         }
         let (on_ramp, mph, finished) =
             h.read_drive(|d| (d.ramp_mi.is_some(), d.truck().speed_mph(), d.trip.finished));
+        if on_ramp && h.read_drive(|d| d.ramp_layout.is_some() && !d.short_of_ramp_curve_end()) {
+            past_the_bend_mph = past_the_bend_mph.max(mph);
+        }
         if on_ramp && mph < 0.5 {
             stopped_on_ramp += 1;
         } else {
@@ -199,6 +204,12 @@ fn the_co_driver_drives_up_to_a_ramp_light_the_assist_stopped_short_of() {
         finished
     });
     assert!(arrived, "the load never reached the receiver");
+    // Exit 170A is signed 15 mph for its bend; the 1,500-foot run past it
+    // is driven at the ramp's design speed, not crawled at the sign's.
+    assert!(
+        past_the_bend_mph > 25.0,
+        "held to {past_the_bend_mph:.0} past the ramp's bend"
+    );
 }
 
 /// A heavy truck on a long downgrade at the hands of the co-driver, cruise
