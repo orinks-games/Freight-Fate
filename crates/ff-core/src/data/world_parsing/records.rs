@@ -977,7 +977,8 @@ fn parse_advisory_field(raw: &Map<String, Value>, key: &str) -> Option<f64> {
         Value::String(text) => parse_osm_advisory_speed(text),
         Value::Number(number) => number
             .as_f64()
-            .filter(|speed| speed.is_finite() && (5.0..=100.0).contains(speed)),
+            .filter(|speed| speed.is_finite() && (5.0..=100.0).contains(speed))
+            .map(super::advisory::screen_bare_kmh_advisory),
         _ => None,
     })
 }

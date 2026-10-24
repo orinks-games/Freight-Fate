@@ -759,6 +759,17 @@ Everything found before 2026-09-25 moved to
       what descent control holds and still gaining, which on a downgrade
       sets the hold rather than cancelling the cruise. Drums already faded
       still gain on the steepest grades: there is no runaway ramp to take.
+- [x] Ramp advisories screened for a bare number read as km/h (found
+      along the way, 2026-10-24). OSM reads an advisory with no unit as
+      km/h and the bake did too, so Cleveland's exit 170A, signed 15 mph,
+      held trucks to 9 mph for a quarter mile. 64 advisories in 15 states
+      are a whole 5 km/h step converted and not a whole mph; the load
+      screen reads them as the mph on the sign and leaves the record as
+      read. A re-bake that keeps the bare number would let the record say
+      so itself.
+- [ ] (Found along the way) A ramp's advisory caps the whole ramp, gore
+      to terminal, though the sign is for its tightest bend; at 15 mph the
+      1,500-foot 170A ramp takes a minute and a half (2026-10-24).
 - [ ] The co-driver hands back for the end of their hours, an overdue
       break or damage at highway speed. A real swap happens parked; the
       game has no shoulder pull-over to make it there yet (2026-10-19).

@@ -211,6 +211,7 @@
 
 ### Fixed
 
+- **Some exit ramps no longer hold the truck far under their posted speed.** A ramp signed 15 miles per hour was being driven at 9.
 - **The co-driver no longer drives into work zone barrels or waits forever at a red light on an exit ramp.** They also brake when descent control can't hold a grade.
 - **Updates now install into folders with a percent or dollar sign in the name.** Before, the update could be copied somewhere else.
 - **Sound comes back after a Bluetooth headset connects or disconnects.** It moves to the new sound device within a second instead of going silent until a restart.
