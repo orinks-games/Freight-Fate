@@ -25,6 +25,7 @@ use super::world_loader::{RawCity, RawLeg, WorldData};
 use super::world_models::{DataError, Location, Stop};
 use crate::pyfmt::{py_str_float, round_py_n};
 
+mod advisory;
 mod limits;
 mod pyval;
 mod records;

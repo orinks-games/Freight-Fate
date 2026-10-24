@@ -172,6 +172,7 @@ mod states_driving_stop_purpose;
 mod states_driving_street_controls;
 mod states_driving_team;
 mod states_driving_team_dock;
+mod states_driving_team_hazards;
 mod states_driving_team_last_lot;
 mod states_driving_team_notes;
 mod states_driving_team_rest;
