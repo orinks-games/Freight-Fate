@@ -591,6 +591,10 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         // Kolache stands at West, Texas on I-35 -- invented copy, no stolen bakery slogan.
         approaching("Waco ahead. West, Texas, is kolache country. The bakery has been stopping traffic since the interstate was new.", &["waco_tx_us"]),
         in_states("Flat Kansas: wheat, sky, and telephone poles. Wichita Lineman was about a man up one of these.", &["KS"]),
+        // Paying attraction -- Mall of America, Bloomington MN, at Interstate
+        // 494 and Minnesota 77, just south of Minneapolis. The world has no
+        // Bloomington node, so the sign rides the Minneapolis approach.
+        approaching("Minneapolis ahead. The Mall of America is just south of town in Bloomington, with a roller coaster under the roof. The parking ramps were not built for trailers.", &["minneapolis_mn_us"]),
     ]),
     // Song tributes -- the Central Valley grade and the Bakersfield Sound.
     ("I-5", &[
@@ -654,6 +658,10 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         approaching("Detroit builds engines, and it built Bob Seger. Night Moves and Turn the Page came off these roads.", &["detroit_mi_us"]),
         in_states("Wisconsin. Cheese, really good cheese, and a dairy billboard that has been up since your last inspection.", &["WI"]),
         approaching("Milwaukee ahead. The Harley-Davidson Museum is a real building. The bikes inside are not street-legal, and neither is your trailer in the lobby.", &["milwaukee_wi_us"]),
+        // Paying attraction -- Mall of America, Bloomington MN, at Interstate
+        // 494 and Minnesota 77, just south of Minneapolis. The world has no
+        // Bloomington node, so the sign rides the Minneapolis approach.
+        approaching("Minneapolis ahead. The Mall of America is just south of town in Bloomington, with a roller coaster under the roof. The parking ramps were not built for trailers.", &["minneapolis_mn_us"]),
     ]),
     // I-96 Ionia County / Billy Strings and I-71 Cincinnati / Arlo McKinley
     // were radio memory, not paid boards. Pulled; no replacement songs.
@@ -1158,6 +1166,7 @@ mod tests {
             "Iowa Eighty",
             "Louisville",
             "McAllen",
+            "Mall of America",
             "Milwaukee",
             "Minnesota",
             "Mitchell",

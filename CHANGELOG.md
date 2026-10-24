@@ -22,6 +22,7 @@
 - **Job details now say the hours and fuel a run needs.** Trip hours, your driving time left, and your fuel level and range, before you accept.
 - **Truck stops and parking lots say whether they sell fuel.** One without pumps says No fuel ahead and again when you pull in.
 - **The low fuel warning names the next fuel stop and how far it is.** With none before your destination, it says so.
+- **Interstates 35 and 94 into Minneapolis now pass a Mall of America billboard.** It says where the mall is: Bloomington, just south of the city.
 
 - **Leaving with a load now tells you your driving time left and fuel.** It adds a break, a sleep or a short tank only when the run needs one.
 
