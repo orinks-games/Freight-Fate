@@ -53,10 +53,12 @@ impl DrivingState {
             // "Stop sign at ramp end. Limit 70").
             return "none".to_string();
         }
-        if stop.stop_type == "delivery_destination" && !self.facility_streets_on {
-            // Facility streets off is the 1.8 arrival: the ramp runs into
-            // the facility, with no light or sign at its end (owner,
-            // 2026-10-11).
+        if !self.facility_streets_on {
+            // Facility streets off is the 1.8 road: no ramp ends at a light
+            // or a sign. The facility's ramp runs into the facility (owner,
+            // 2026-10-11), and every other exit runs into its stop or back
+            // onto the road (owner, 2026-10-24: "When off, players should
+            // not encounter lights or stop signs").
             return "none".to_string();
         }
         // A stop matched to its interchange at bake time reads that record
