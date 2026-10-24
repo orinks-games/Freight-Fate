@@ -5,6 +5,7 @@
 ### Added
 
 - **Vietnamese is available as an initial translation.** Choose Tiếng Việt under Settings, then Speech; untranslated lines remain in English. Thanks to Think24h ([PR 503](https://github.com/orinks-games/Freight-Fate/pull/503)).
+- **Optional menu accelerator keys activate unique initials immediately.** Enable them in Gameplay, Controls; shared initials still cycle without activating.
 
 - **The game window's own labels now follow your language.** The dashboard lights, the road signs and the menu hints are translated into every language the game speaks.
 - **The game window now shows the road, your truck and the traffic around it.** Signs, bends, hills and weather show as you drive. Thanks to Pranav435 ([PR 441](https://github.com/orinks-games/Freight-Fate/pull/441)).

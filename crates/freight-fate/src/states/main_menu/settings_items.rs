@@ -462,6 +462,7 @@ impl SettingsCategoryState {
                 adjust(|s, ctx, d| s.toggle_haptics(ctx, d)),
                 #[cfg(feature = "visuals")]
                 adjust(|s, ctx, d| s.toggle_visual_display(ctx, d)),
+                adjust(|s, ctx, d| s.toggle_menu_accelerator_keys(ctx, d)),
             ],
             "assistance" => {
                 let mut actions = vec![adjust(|s, ctx, d| s.cycle_assist_preset(ctx, d))];
@@ -714,6 +715,11 @@ impl SettingsCategoryState {
                      is spoken in the game window, for sighted and low-vision \
                      players. Off keeps the window dark and saves battery. \
                      Speech and sound are the same either way.",
+                ),
+                row(
+                    dyn_label(|s| format!("Menu accelerator keys: {}", on_off(s.menu_accelerator_keys))),
+                    adjust(|s, ctx, d| s.toggle_menu_accelerator_keys(ctx, d)),
+                    "When on, typing a unique first letter immediately activates that menu item. Shared initials only move between matches; press Enter to activate. Off only moves the selection.",
                 ),
                 // Enter opens each; Left and Right have nothing to step through,
                 // and the adjust table above stops before these rows.

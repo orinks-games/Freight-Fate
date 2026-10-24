@@ -658,6 +658,8 @@ settings_fields! {
     cloud_saves: bool = false => bool_strict,
     /// accept game-controller input alongside the keyboard
     controller_enabled: bool = true => bool_strict,
+    /// Immediately activate a menu entry when its initial is unique.
+    menu_accelerator_keys: bool = false => bool_strict,
     /// rumble/vibration feedback on the controller
     haptics_enabled: bool = true => bool_strict,
     /// Whether the one-time first-run offer to connect this computer to

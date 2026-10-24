@@ -237,3 +237,5 @@ mod visuals_frames;
 mod visuals_l10n;
 #[cfg(feature = "visuals")]
 mod visuals_play;
+
+mod menu_accelerators;
