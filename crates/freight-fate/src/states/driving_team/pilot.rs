@@ -41,6 +41,33 @@ const CRUISE_SET_MARGIN_MPH: f64 = 3.0;
 /// On the accelerator this long without reaching the limit (a grade, a
 /// slow truck ahead), they set the cruise where they are.
 const ACCEL_GIVE_UP_S: f64 = 45.0;
+/// Braking for a grade descent control cannot hold, the co-driver takes
+/// the truck this far under what it holds, then lets off: snub braking,
+/// which keeps the drums cooler than riding them.
+const DESCENT_SNUB_UNDER_MPH: f64 = 5.0;
+/// The co-driver starts braking once the truck is this far over what descent
+/// control holds and still gaining.
+const DESCENT_SNUB_OVER_MPH: f64 = 5.0;
+/// Short of a ramp's red light or sign, the co-driver creeps up to the
+/// line at this speed and lets the assist stop the truck there.
+const LINE_CREEP_MPH: f64 = 8.0;
+/// How far ahead of a lane closure the co-driver starts moving out of the
+/// lane: the taper is a mile long, and at ten times speed it passed in
+/// seconds, so they merge when the first sign comes up, as a driver does.
+const MERGE_LOOKAHEAD_MI: f64 = 1.0;
+/// Dropping back behind traffic to merge out of a closed lane, the brake
+/// comes off at this speed: slow enough for most gaps, and well above the
+/// lowest speed a lane change can be made at.
+const MERGE_BRAKE_FLOOR_MPH: f64 = 20.0;
+/// The same, while the closure is still ahead of the taper: the truck only
+/// needs to drop back, not crawl.
+const MERGE_EARLY_FLOOR_MPH: f64 = 40.0;
+/// A vehicle behind the cab and at least this much slower is left behind
+/// by the truck's own speed rather than braked for.
+const MERGE_PULL_CLEAR_MPH: f64 = 3.0;
+/// The rig's length, 72 feet: a vehicle less than this behind the cab is
+/// still beside the trailer.
+const RIG_LENGTH_MI: f64 = 72.0 / 5280.0;
 
 /// Why the co-driver is making for a stop.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -72,6 +99,9 @@ pub struct Pilot {
     /// Seconds a hand-back has waited for the truck to come home from the
     /// passing lane.
     pub handback_wait_s: f64,
+    /// Descent control said it cannot hold the grade: the speed the
+    /// co-driver brakes the truck down to before letting off again.
+    pub descent_snub_to: Option<f64>,
 }
 
 /// The longest a hand-back waits for the passing lane to clear. Traffic
@@ -295,21 +325,25 @@ impl DrivingState {
         }
 
         // A closed lane: one tap toward the open one, as the player would.
-        if let Some(closed) = self.closed_lane_here() {
-            if closed == self.lane.lane && self.lane_change_target.is_none() && pilot.beat_s == 0.0
-            {
-                if let Some(open) = self
-                    .open_lane_beside(closed)
-                    .filter(|&open| self.lane_gap_open(open))
-                {
-                    let toward = if open > closed {
-                        Action::SteerLeft
-                    } else {
-                        Action::SteerRight
-                    };
-                    self.pilot_press(ctx, pilot, toward);
-                }
-            }
+        // With traffic beside the truck in the open lane, they drop back
+        // behind it and take the gap, the way a driver merges in a taper.
+        // They used to wait for a gap that never came and rode the closed
+        // lane into the barrels: damage, a fine, and the wheel handed back.
+        // Descent control cannot hold the grade: on the brakes, as it asks,
+        // down under what it is holding, then off again for the drums to
+        // cool. On a downgrade the brake sets descent control's hold for the
+        // rest of the grade rather than cancelling the cruise.
+        if self.pilot_descent_snub(pilot) {
+            pilot.accel_s = 0.0;
+            pedals.brake = true;
+            return Ok(pedals);
+        }
+
+        if let Some(floor) = self.pilot_merge_out_of_closure(ctx, pilot) {
+            pilot.accel_s = 0.0;
+            pilot.stalled_s = 0.0;
+            pedals.brake = speed > floor;
+            return Ok(pedals);
         }
 
         // Speed control does the driving. The co-driver brings the truck up
@@ -344,6 +378,7 @@ impl DrivingState {
             // Waiting at the bar is not a stall.
             pilot.accel_s = 0.0;
             pilot.stalled_s = 0.0;
+            pedals.accelerate = self.pilot_closes_up_to_the_line(ctx);
         } else if !armed {
             pilot.accel_s += dt;
             if !near_limit {
@@ -374,6 +409,121 @@ impl DrivingState {
             return Err("stalled".to_string());
         }
         Ok(pedals)
+    }
+
+    /// Whether the co-driver is braking for a grade descent control said it
+    /// cannot hold. They used to drive on with the warning unanswered, and
+    /// the truck kept gaining.
+    fn pilot_descent_snub(&self, pilot: &mut Pilot) -> bool {
+        if !self.descent_control_active {
+            pilot.descent_snub_to = None;
+            return false;
+        }
+        // The warning waits until the truck is well over and still gaining;
+        // a driver who hears the engine running away brakes before that.
+        let over = self.trip.truck.speed_mph() - self.descent_hold_mph();
+        let getting_away = over > DESCENT_SNUB_OVER_MPH
+            && self.trip.truck.net_accel_mph_per_s() > GRADE_HOLDING_MPH_PER_S;
+        if pilot.descent_snub_to.is_none() && (self.descent_limit_state == "grade" || getting_away)
+        {
+            let to = (self.descent_hold_mph() - DESCENT_SNUB_UNDER_MPH).max(CRUISE_MIN_MPH);
+            log::info!(target: TRANSCRIPT_TARGET, "[co-driver] brakes for the grade, to {to:.0}");
+            pilot.descent_snub_to = Some(to);
+        }
+        let Some(to) = pilot.descent_snub_to else {
+            return false;
+        };
+        if self.trip.truck.speed_mph() > to {
+            return true;
+        }
+        pilot.descent_snub_to = None;
+        false
+    }
+
+    /// Short of a ramp's light or sign with the assist holding nothing, the
+    /// truck is driven up to it: the assist brakes for the line and rolls a
+    /// green, but it never presses the accelerator, and a truck its stop
+    /// left a fifth of a mile short of a red sat there through every green
+    /// after it, the co-driver waiting on the assist and the assist on them.
+    fn pilot_closes_up_to_the_line(&self, ctx: &GameContext) -> bool {
+        if !self.terminal_assist_owns(ctx)
+            || self.ramp_waiting_at_light
+            || self.ramp_waiting_at_sign
+            || self.ramp_assist_brake > 0.0
+        {
+            return false;
+        }
+        let Some(gap_mi) = self.terminal_gap_mi() else {
+            return false;
+        };
+        if gap_mi <= RAMP_ASSIST_HOLD_MI {
+            return false;
+        }
+        let green = self.ramp_control == "signal" && self.ramp_light_phase() == "green";
+        let target = if green {
+            GREEN_ROLL_MPH - 5.0
+        } else {
+            LINE_CREEP_MPH
+        };
+        self.trip.truck.speed_mph() < target
+    }
+
+    /// In a closed lane, or one that closes within [`MERGE_LOOKAHEAD_MI`],
+    /// move to the open one: a tap when the gap is there. Returns the speed
+    /// to brake down to when traffic in the open lane holds the gap shut
+    /// and the truck has to drop back behind it.
+    fn pilot_merge_out_of_closure(
+        &mut self,
+        ctx: &mut GameContext,
+        pilot: &mut Pilot,
+    ) -> Option<f64> {
+        let lane = self.lane.lane;
+        let count = self.lane.lane_count;
+        let closed_here = self.closed_lane_here() == Some(lane);
+        let ahead = self.trip.position_mi + MERGE_LOOKAHEAD_MI;
+        let closes_ahead = ahead < self.trip.total_miles()
+            && self.trip.closed_lane_at(Some(ahead), Some(count)) == Some(lane);
+        if !(closed_here || closes_ahead) || self.ramp_mi.is_some() {
+            return None;
+        }
+        // Still ahead of the taper, a hazard being gone around and an exit
+        // being lined up for come first: the move out of the lane waits.
+        if !closed_here
+            && (self.hazard_deadline.is_some() || self.passing.is_some() || self.exit_signal_on)
+        {
+            return None;
+        }
+        if self.lane_change_target.is_some_and(|target| target != lane) {
+            return None; // already moving over
+        }
+        let open = self.open_lane_beside(lane)?;
+        let speed = self.trip.truck.speed_mph();
+        match self.lane_gap_blocker(open) {
+            None => {
+                if self.lane_change_target.is_none() && pilot.beat_s == 0.0 {
+                    let toward = if open > lane {
+                        Action::SteerLeft
+                    } else {
+                        Action::SteerRight
+                    };
+                    self.pilot_press(ctx, pilot, toward);
+                }
+                None
+            }
+            // Behind the cab and slower: the truck is already pulling clear.
+            Some(blocker)
+                if blocker.position_mi < self.trip.position_mi - RIG_LENGTH_MI
+                    && blocker.speed_mph < speed - MERGE_PULL_CLEAR_MPH =>
+            {
+                None
+            }
+            // Beside, ahead, or keeping pace behind: let it go by.
+            Some(_) => Some(if closed_here {
+                MERGE_BRAKE_FLOOR_MPH
+            } else {
+                MERGE_EARLY_FLOOR_MPH
+            }),
+        }
     }
 
     /// Whether the truck is at the entrance of a stop the co-driver means

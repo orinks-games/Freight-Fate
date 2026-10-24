@@ -746,9 +746,19 @@ Everything found before 2026-09-25 moved to
 - [ ] A listening pass by the owner at quiet and urgent only, at the wheel.
 - [ ] A listening pass by the owner on a ride-along shift: the co-driver's
       notes, the hazard calls, and how often they speak.
-- [ ] The co-driver ignores descent control's "can't hold this grade.
-      Brake." and keeps gaining speed; their brake would cancel the
-      cruise that holds the grade, so it needs its own snub (2026-10-19).
+- [x] Co-driver hazard audit (owner, 2026-10-24), from about 2,000 miles
+      driven headless with the co-driver at the wheel, traffic, hazards and
+      weather on. Boxed in by traffic beside a closing lane, the co-driver
+      waited for a gap that never came and rode the closed lane into the
+      barrels; they now merge out from a mile before the taper and brake to
+      drop in behind the traffic. A ramp's red light that the assist
+      stopped the truck short of held it there through every green, since
+      the assist never presses the accelerator; the co-driver now drives up
+      to the line. Descent control's "can't hold this grade. Brake." went
+      unanswered; the co-driver now snub-brakes once the truck is five over
+      what descent control holds and still gaining, which on a downgrade
+      sets the hold rather than cancelling the cruise. Drums already faded
+      still gain on the steepest grades: there is no runaway ramp to take.
 - [ ] The co-driver hands back for the end of their hours, an overdue
       break or damage at highway speed. A real swap happens parked; the
       game has no shoulder pull-over to make it there yet (2026-10-19).
