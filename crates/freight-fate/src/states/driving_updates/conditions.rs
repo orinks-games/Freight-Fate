@@ -371,7 +371,7 @@ impl DrivingState {
         // On the facility's streets there is no ramp advisory to cap it;
         // the street's own posted number is the lane's.
         let lane_mph = if self.ramp_mi.is_some() {
-            posted_mph.min(self.armed_ramp_mph(None))
+            posted_mph.min(self.ramp_cap_here_mph())
         } else {
             posted_mph
         };

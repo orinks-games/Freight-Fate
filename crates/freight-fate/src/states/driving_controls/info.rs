@@ -337,7 +337,7 @@ impl DrivingState {
         // not: the gore takes road speed, and the exit speed is braked for
         // past it (realistic exit, 2026-09-24).
         if self.ramp_mi.is_some() {
-            safe = safe.min(self.armed_ramp_mph(None));
+            safe = safe.min(self.ramp_cap_here_mph());
             context = ", the exit speed";
         }
         let spoken = ctx.settings.speed_text(safe);

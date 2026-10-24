@@ -334,7 +334,7 @@ impl DrivingState {
         //
         // The release number has its own name rather than borrowing the cruise
         // target's; see `ramp_assist_release_mph` for the whole story.
-        let ramp_cap_mph = self.armed_ramp_mph(None);
+        let ramp_cap_mph = self.ramp_cap_here_mph();
         let ramp_hold_mph = if self.transition_assist_active {
             DrivingState::ramp_assist_release_mph(ramp_cap_mph)
         } else {

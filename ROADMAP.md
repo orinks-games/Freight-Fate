@@ -767,9 +767,16 @@ Everything found before 2026-09-25 moved to
       screen reads them as the mph on the sign and leaves the record as
       read. A re-bake that keeps the bare number would let the record say
       so itself.
-- [ ] (Found along the way) A ramp's advisory caps the whole ramp, gore
-      to terminal, though the sign is for its tightest bend; at 15 mph the
-      1,500-foot 170A ramp takes a minute and a half (2026-10-24).
+- [x] A ramp's advisory capped the whole ramp, gore to terminal, though
+      the sign is for its bend; at 15 mph the 1,500-foot 170A ramp took a
+      minute and a half (owner, 2026-10-24). The exit speed now holds
+      through the deceleration lane and the laid-out curve, and the run
+      past it is held to the ramp's design speed (DERIVED, the AASHTO share
+      of the corridor that `ramp_speed_mph` already gives), which the assist
+      lift, the safe-speed readout, the arrival's facility-lane pace, the
+      playtest driver and the co-driver's approach to a red all read. The
+      curve's place on the ramp is still the layout's assumption: nothing
+      baked says where along an exit its bend sits.
 - [ ] The co-driver hands back for the end of their hours, an overdue
       break or damage at highway speed. A real swap happens parked; the
       game has no shoulder pull-over to make it there yet (2026-10-19).
