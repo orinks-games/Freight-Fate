@@ -460,11 +460,11 @@ fn test_facility_streets_off_skips_both_chains() {
     assert!(streets.begin_departure_chain(&mut app.ctx, false));
 }
 
-/// With Facility streets off the facility's exit ramp ends at the facility,
-/// as in 1.8: no traffic light or stop sign at its end. Other exits keep
-/// theirs.
+/// With Facility streets off no exit ramp ends at a traffic light or stop
+/// sign, as in 1.8: the facility's own ramp runs into the facility, and a
+/// truck stop's runs into its lot.
 #[test]
-fn test_facility_streets_off_has_no_light_or_sign_at_the_facility_ramp() {
+fn test_facility_streets_off_has_no_light_or_sign_at_any_ramp() {
     let world = get_world();
     let Some((city, location)) = a_turn_level_facility(world) else {
         return;
@@ -487,14 +487,19 @@ fn test_facility_streets_off_has_no_light_or_sign_at_the_facility_ramp() {
         "{with_streets:?}"
     );
     let truck_stop = controls(&d, &app.ctx, "truck_stop");
+    assert!(
+        truck_stop.iter().any(|control| control != "none"),
+        "{truck_stop:?}"
+    );
 
     d.facility_streets_on = false;
-    let classic = controls(&d, &app.ctx, "delivery_destination");
-    assert!(
-        classic.iter().all(|control| control == "none"),
-        "{classic:?}"
-    );
-    assert_eq!(controls(&d, &app.ctx, "truck_stop"), truck_stop);
+    for kind in ["delivery_destination", "truck_stop", "public_rest_area"] {
+        let classic = controls(&d, &app.ctx, kind);
+        assert!(
+            classic.iter().all(|control| control == "none"),
+            "{kind}: {classic:?}"
+        );
+    }
 }
 
 /// A drive keeps the Facility streets value it started with, across a save

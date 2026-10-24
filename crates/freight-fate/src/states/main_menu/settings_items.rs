@@ -633,9 +633,9 @@ impl SettingsCategoryState {
                     adjust(|s, ctx, d| s.toggle_facility_streets(ctx, d)),
                     "On, you drive the real streets between the highway and a \
                      facility, turn by turn. Off, as in version 1.8, the exit ramp \
-                     ends at the facility gate with no light or stop sign, a \
-                     loaded run leaves straight onto the highway, and a pickup in \
-                     town is one stretch of road. \
+                     ends at the facility gate, no exit has a light or stop sign, \
+                     a loaded run leaves straight onto the highway, and a pickup \
+                     in town is one stretch of road. \
                      Applies from your next drive.",
                 ),
                 back_row(),
