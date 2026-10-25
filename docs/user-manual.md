@@ -912,7 +912,7 @@ Here you choose where the game's weather, traffic reports, and fuel prices come 
 | Fuel prices | This week's national average, the default, puts the federal weekly diesel price at every pump, with each region's usual difference on top. Simulated draws a price per region for the session. |
 | Parking source | Switches between simulated truck parking and live availability when available. |
 | Live weather controls calendar | When on, live weather uses today's real date and season. When off, live conditions continue while the career date advances at midnight and its seasons pass. |
-| Facility streets | On by default: you drive the real streets between the highway and a facility, turn by turn. Off, as in version 1.8, the exit ramp ends at the facility gate with no light or stop sign, a loaded run leaves straight onto the highway, and a pickup in town is one stretch of road. A change applies from your next drive. |
+| Facility streets | On by default: you drive the real streets between the highway and a facility, turn by turn. Off, as in version 1.8, the exit ramp ends at the facility gate, no exit has a light or stop sign, a loaded run leaves straight onto the highway, and a pickup in town is one stretch of road. A change applies from your next drive. |
 
 ### Controls
 

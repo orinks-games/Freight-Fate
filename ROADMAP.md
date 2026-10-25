@@ -238,7 +238,8 @@ bookmarks usable.
 - [x] Facility streets setting (owner, 2026-10-11, for players who want the
       1.8 arrival): Settings, Gameplay, World and traffic. Off skips the
       facility street chains both ways (the destination ramp ends at the
-      gate, with no light or stop sign at its end; a loaded run leaves
+      gate; no exit ramp ends at a light or stop sign, owner 2026-10-24;
+      a loaded run leaves
       straight onto the highway) and gives a pickup in town the single
       synthetic access-road leg. On by default; a drive and its save keep
       the value it started with.

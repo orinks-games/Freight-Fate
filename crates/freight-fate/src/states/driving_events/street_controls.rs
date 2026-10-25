@@ -182,6 +182,7 @@ impl DrivingState {
 
     fn street_controls_apply(&self) -> bool {
         self.street_controls_on
+            && self.facility_streets_on
             && self.ramp_mi.is_none()
             && !self.trip.outbound
             && !self.trip.finished

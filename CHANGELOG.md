@@ -71,7 +71,7 @@
 
 - **The Weather app now lists active live weather alerts.** A warning you missed can be heard again while driving.
 
-- **A Facility streets setting turns off the drive through city streets to and from facilities.** Off, the exit ramp ends at the gate with no light or stop sign, as in 1.8.
+- **A Facility streets setting turns off the drive through city streets to and from facilities.** Off, the exit ramp ends at the gate and no exit has a light or stop sign, as in 1.8.
 
 - **The right stick now tunes the radio and adjusts its volume.** Hold up or down to keep changing volume.
 
