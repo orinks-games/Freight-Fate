@@ -90,6 +90,14 @@ impl Value {
         }
     }
 
+    #[cfg_attr(not(feature = "world"), allow(dead_code))]
+    pub fn as_array_mut(&mut self) -> Option<&mut Vec<Value>> {
+        match self {
+            Value::Array(a) => Some(a),
+            _ => None,
+        }
+    }
+
     pub fn as_array(&self) -> Option<&Vec<Value>> {
         match self {
             Value::Array(a) => Some(a),
