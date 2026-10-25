@@ -15,256 +15,144 @@
 
 ### Added
 
+- **The game can speak eleven more languages.** French, Spanish, German, Brazilian Portuguese, Italian, Russian, Polish, Japanese, Turkish, Simplified Chinese and Vietnamese; the radio stays in English. Thanks to wangru2025 for Simplified Chinese ([PR 448](https://github.com/orinks-games/Freight-Fate/pull/448)) and Think24h for Vietnamese ([PR 503](https://github.com/orinks-games/Freight-Fate/pull/503)).
+- **A Language setting chooses the game's language.** It is the first row of Settings, Speech; Automatic follows your system, and a line a language lacks is spoken whole in English.
+- **Translators can add or correct a language.** A new language needs only its translation file, the translation kit is on each release page, and the Translation correction form is on GitHub.
 - **Updates can download through a GitHub mirror you choose.** Enter its web address under Settings, Updates when GitHub itself is blocked. Thanks to wangru2025 ([PR 511](https://github.com/orinks-games/Freight-Fate/pull/511)).
-- **Vietnamese is available as an initial translation.** Choose Tiếng Việt under Settings, then Speech; untranslated lines remain in English. Thanks to Think24h ([PR 503](https://github.com/orinks-games/Freight-Fate/pull/503)).
-- **The game window's own labels now follow your language.** The dashboard lights, the road signs and the menu hints are translated into every language the game speaks.
 - **The game window now shows the road, your truck and the traffic around it.** Signs, bends, hills and weather show as you drive. Thanks to Pranav435 ([PR 441](https://github.com/orinks-games/Freight-Fate/pull/441)).
 - **The dashboard in the game window shows speed, the limit, gear, fuel, air, damage and traffic.** Your next turn and bend show above it.
 - **Amber lights on the truck's mirrors show when traffic holds the lane beside you.** Change lanes once the light on that side goes out.
 - **Captions show what the game says for a few seconds.** Menus appear as a large-print panel with the choice highlighted.
+- **The game window's own labels follow your language.** The dashboard lights, the road signs and the menu hints are translated.
 - **A Visual display setting turns the window's drawing off to save battery.** It is under Settings, Gameplay, Controls; speech and sound stay the same.
 - **A co-driver can take the wheel on long loads.** Pause to ride along or sleep through their shift; their miles pay you less and earn half the experience.
 - **A co-driver can drive you out of the shipper.** On long loads the pickup menu offers it, with the pay terms in the row's help.
 - **Some long loads are now team loads.** They pay more and plan no 10-hour sleep; near the end of your hours, the co-driver takes the wheel.
 - **A co-driver hands back once your 10-hour rest is in.** Press C to hear your rest so far and when they hand back.
+- **Sleeping through a co-driver's shift takes moments.** You wake parked at a stop with the summary.
+- **A co-driver handles fuel, breaks, weigh stations, troopers and chain checkpoints without any menu.** Their plans, stops and fines are under Co-driver in your messages.
+- **The delivery summary lists the co-driver's share of the pay,** just before your net pay.
 - **Team driving is explained the first time a load can be shared.** Job details say when a co-driver is offered.
 - **Career stats lists the co-drivers you have teamed with.** Open Co-drivers there for each one's loads with you and their story.
-- **Miles a co-driver drives no longer earn driving badges.** Two co-drivers who turn up by surprise each carry a hidden badge.
+- **Miles a co-driver drives earn no driving badges.** Two co-drivers who turn up by surprise each carry a hidden badge.
 - **Truck stops in chain-law states sell snow chains.** With no usable set aboard, the stop menu offers a new set for 1,000 dollars.
 - **Dispatch sends road service with chains when you have none under a chain law.** Report truck trouble; the set arrives in an hour and a half.
+- **Facility stopping assistance puts your chains on and takes them off.** It stops at the chain-up pullout, removes them past the last chain area, and never buys chains.
+- **Stop planning warns before a chain-law road if you have no chains.** With Hours of service planning hints on, the dispatch board and the road both remind you.
+- **A worn chain warns you before it breaks.** At 85 percent wear the game says "A chain is slapping the fender. Stop soon and tighten it."
+- **A broken snow chain can be fixed on the shoulder.** Each set carries two repair links; the pause menu repair takes about 15 minutes, and the garage restocks links for 25 dollars.
 - **Job details now say the hours and fuel a run needs.** Trip hours, your driving time left, and your fuel level and range, before you accept.
+- **Leaving with a load tells you your driving time left and fuel.** It adds a break, a sleep or a short tank only when the run needs one.
 - **Truck stops and parking lots say whether they sell fuel.** One without pumps says No fuel ahead and again when you pull in.
 - **The low fuel warning names the next fuel stop and how far it is.** With none before your destination, it says so.
-- **Interstates 35 and 94 into Minneapolis now pass a Mall of America billboard.** It says where the mall is: Bloomington, just south of the city.
-- **The Mall of America in Bloomington is now a delivery stop in Minneapolis.** It takes store and restaurant freight and ships none.
-
-- **Leaving with a load now tells you your driving time left and fuel.** It adds a break, a sleep or a short tank only when the run needs one.
-
 - **Z lowers the driver window; Alt Z and Shift Z set the fan and heat or air conditioning.** With it down, wind rushes in.
-- **The radio now sounds like it plays through the cab's door speakers.** Lowering the driver window brightens it over the glass travel. Settings, Audio, Radio sound switches between Cab speakers and Clean; speech is never processed.
-- **Facility stopping assistance now handles snow chains in chain-law areas.** Before an area that chains your truck, it says so and stops at the chain-up pullout to put your chains on, about 30 minutes on duty or 48 at night. On bare road half a mile past the last area it takes them off in about 10 minutes, unless another area starts within 5 miles. It also pulls over to tighten a slapping chain once and to fix a broken one with a spare link. It never buys chains, and with too little left in your 14-hour window it tells you to find a place to stop instead. Your brake or throttle cancels a stop. The cruise cap of 30 miles per hour with chains on still applies.
-- **Stop planning reminds you before a chain-law road if you have no chains.** With Hours of service planning hints on, the dispatch board says so before you accept a load that crosses a road where chains must be carried this season (Colorado's chain corridors, Montana and Washington), or, with live weather on, where a weather alert or observed snow or ice puts a chain law on your truck now, while the terminal garage can still sell you a set; Enter again accepts. On the road it speaks about 15 miles before a chain-up area only when a posted chain law requires chains on your truck, and names the exit when the map has one. It never buys anything.
-- **Career stats and driver profiles now list the places you have delivered to.** Career stats also counts your states and cities; Places visited lists each state's cities.
-- **A broken snow chain can be fixed on the shoulder.** Each chain set comes with two spare repair links. Stopped with a broken chain, the pause menu offers "Repair the broken chain: about 15 minutes", which puts the set back on at 80 percent worn, under the slap warning. The garage restocks the links for 25 dollars.
-- **A worn chain warns you before it breaks.** At 85 percent wear the game says "A chain is slapping the fender. Stop soon and tighten it." Tightening takes about 5 minutes and buys back a little wear, once each time the chains go on.
-- **The game can speak French.** Choose Français under Settings, Speech, Language; the radio stays in English.
-- **The game can speak Spanish.** Choose Español under Settings, Speech, Language; the radio stays in English.
-- **The game can speak German.** Choose Deutsch under Settings, Speech, Language; the radio stays in English.
-- **The game can speak Brazilian Portuguese.** Choose Português do Brasil under Settings, Speech, Language; the radio stays in English.
-- **The game can speak Italian.** Choose Italiano under Settings, Speech, Language; the radio stays in English.
-- **The game can speak Russian.** Choose Русский under Settings, Speech, Language; the radio stays in English.
-- **The game can speak Polish.** Choose Polski under Settings, Speech, Language; the radio stays in English.
-- **The game can speak Japanese.** Choose 日本語 under Settings, Speech, Language; the radio stays in English.
-- **The game can speak Turkish.** Choose Türkçe under Settings, Speech, Language; the radio stays in English.
-- **The game can speak Simplified Chinese.** Choose 简体中文 under Settings, Speech, Language; the radio stays in English. Thanks to wangru2025 ([PR 448](https://github.com/orinks-games/Freight-Fate/pull/448)).
-
-- **Key and button practice says what each key or button does at the wheel.** Shift F1 or Back plus Start opens it anywhere.
-
-- **A Language setting lets the game speak other languages.** It is the first row of Settings, Speech; Automatic follows your system language, and the radio stays English.
-
-- **Translated speech now uses whole sentences, so lines are never half translated.** A sentence the language file lacks is spoken whole in English.
-
-- **Anyone can correct a translation with the Translation correction form on GitHub.** It asks what the game said and what it should say.
-
-- **A translator can add a new language with its translation file alone.** The game offers it in Settings by the name the file gives.
-
-- **The translation kit is a separate download on each release page.** It holds the template for a new language, each language file, and the translator's guide.
-
-- **The main menu now has background sound under the music, picked by your career.** A truck stop at night, your rig in the yard, or the dispatch office.
-
+- **The radio now sounds like it plays through the cab's door speakers, nearly centered.** Lowering the window brightens it; Settings, Audio, Radio sound switches between Cab speakers and Clean.
 - **The Radio app can browse by category.** List all stations or one category, in-range and local stations first, repeats removed.
-
 - **Radio search results now page 25 at a time.** Next and previous page rows, PageDown and PageUp reach every match.
-
-- **Control Shift C copies the last spoken text to the clipboard on any screen.** It says Copied, and the key can be moved in Controls.
-
-- **Score display is configurable.** Choose descriptions, percentages, or both for reputation and dispatch trust.
-
-- **How to play and the manual now have a Common questions page.** It covers assigned trucks, fleets, weigh stations, missed exits, the radio and more.
-
-- **The Weather app now lists active live weather alerts.** A warning you missed can be heard again while driving.
-
-- **A Facility streets setting turns off the drive through city streets to and from facilities.** Off, the exit ramp ends at the gate and no exit has a light or stop sign, as in 1.8.
-
-- **The right stick now tunes the radio and adjusts its volume.** Hold up or down to keep changing volume.
-
-- **Right bumper combinations now cover the radio.** Use the right stick for power, favorites and categories, stick click for status, Back for what plays.
-
 - **Favorite stations now play from anywhere.** A saved local station keeps playing after you leave its area, with no fade or static.
-
+- **The right stick tunes the radio and adjusts its volume.** Right bumper combinations cover power, favorites, categories, status and what plays.
+- **Career stats and driver profiles now list the places you have delivered to.** Career stats also counts your states and cities; Places visited lists each state's cities.
+- **Key and button practice says what each key or button does at the wheel.** Shift F1 or Back plus Start opens it anywhere.
+- **Control Shift C copies the last spoken text to the clipboard on any screen.** It says Copied, and the key can be moved in Controls.
+- **Score display is configurable.** Choose descriptions, percentages, or both for reputation and dispatch trust.
+- **How to play and the manual now have a Common questions page.** It covers assigned trucks, fleets, weigh stations, missed exits, the radio and more.
+- **The Weather app now lists active live weather alerts.** A warning you missed can be heard again while driving.
+- **A Facility streets setting turns off the drive through city streets to and from facilities.** Off, the exit ramp ends at the gate, as in 1.8.
+- **The main menu now has background sound under the music, picked by your career.** A truck stop at night, your rig in the yard, or the dispatch office.
 - **Manassas, Virginia is now a freight city.** I-66 connects its real FedEx Freight and US Foods facilities to Washington and Winchester.
+- **The Mall of America in Bloomington is now a delivery stop in Minneapolis.** Interstates 35 and 94 into the city pass its billboard.
 
 ### Changed
 
 - **T now asks what the stop is for before planning one.** Choose fuel, a break, sleep, fuel and sleep, or food; each choice says how far its stop is.
-- **A copied delivery summary now ends with #FreightFateRuns.**
-- **The radio's right door speaker plays louder and sooner through the cab speakers.** The radio now sounds nearly centered, leaning only a little toward the driver.
-- **The one-mile call for your exit now gives the exit speed.** You still brake to it in the exit lane.
-- **From Bossa to Blues now plays in the menus from level 9 on,** alongside Million Mile Morning. It still plays on the road too.
-- **The Steering guide setting now reads steer toward the engine, or steer away from the engine.**
-- **The game window draws only when it changes,** so it uses less power.
-- **Drivers below level 10 get warnings instead of most citations.** Serious speeding, the work-zone barrels, failing to pull over, running a scale and out-of-service orders still count.
-- **The carrier shop now repairs a company tractor at 40 percent damage before the next load.** It takes an hour on duty.
-- **Sleeping through a co-driver's shift no longer makes you wait.** The shift passes in moments, and you wake parked at a stop with the summary.
-- **A co-driver fuels and takes breaks without walking the stop's menu.** You hear the pump, and the stop is listed in your messages.
-- **A co-driver works weigh stations, troopers and full lots without any menu.** With a green transponder light they roll on past the scale.
-- **Riding along, you hear what the co-driver does and why.** Their plans, stops, fines and the hazards they meet are under Co-driver in your messages.
+- **Spoken lines across the game are shorter.** Assist explanations and facts you just heard are dropped, and key reminders stop after a few uses; menu help keeps the explanations.
+- **Hours of service, rest stop, settlement and dispatch lines are shorter.** Sleep previews end with "Select again to sleep."
+- **The hours of service countdown is one calm notice before each limit.** One hour out on Relaxed, two on Standard, and nothing when the trip ends first.
+- **Your exit's one-mile call gives the exit speed, and turning off for your destination is said in fewer words.** For example, "Exit 170A. Half a mile of ramp, stop at the end."
+- **Missed exit and gate lines are shorter.**
+- **Cruise no longer narrates how it drives.** It eases off and builds for hills in silence, and its traffic, weather and grade lines are a few words.
+- **Grade calls say uphill or downhill grade, and are shorter.** You hear "6.0 percent downhill grade ahead"; uphill calls no longer add "Expect to lose speed."
+- **Space now says only what is on the dash and needs you.** RPM comes with a manual transmission, and air or brakes only when they need attention.
+- **Spoken weather no longer says how old the live observation is.** The Weather app still lists it.
+- **Every street corner is called with its distance and the speed to take it at.** The turn's chime plays with that call, on the side you turn.
+- **The speed keeper says less on city streets.** It no longer repeats the street limit or says it is easing for each corner.
+- **Missing a street corner now sends the truck around the block instead of back up the street.** You come out on the street you missed, a few minutes later.
 - **Lane keeping on full now changes lanes around debris and cars on the shoulder instead of braking.** It moves back once the truck is past.
 - **Automatic braking slows firmly for an animal instead of stopping, and never swerves.** The call just names the animal; a slower truck strikes fewer.
 - **Automatic braking slows less for wind, hail, fog and things it cannot go around.** It brakes to a safe speed for the conditions, not 25 miles per hour.
-- **The Language setting names each language in English, then in that language.** For example, Spanish (Español).
+- **The automatic skips gears when the load is light enough.** A full load still takes every gear.
+- **A speed limit rise at the end of a short zone waits its turn.** Two limit numbers no longer land in one breath.
+- **A speed limit posting too short to announce is not announced.** It also never earns a ticket; the S key still reads the limit.
+- **Chain laws post only on real chain-control highways in Colorado, California, Washington, Oregon and Idaho.** The signs come about a mile before the chain-up area.
+- **Trucks must chain under chain laws; winter tires no longer count for a semi.** Your tandem-drive rig skips only Colorado and Oregon's lower level; Wyoming's lower level accepts snow tires.
+- **A chain set is seven chains, two of them spares,** so putting them on takes about 30 minutes.
+- **Cruise and the speed keeper hold 30 miles per hour while chains are on.** Your own set speed comes back when the chains come off.
+- **Going too fast with chains on says "Too fast for chains. Keep under 30 miles per hour."** In metric it gives kilometers per hour.
+- **A chain checkpoint holds a truck without chains until the law lifts.** The pause menu offers to put them on, wait, sleep there or turn back, and a return visit never fines twice.
+- **Chain-law fines follow the state.** Colorado is 579 dollars, Oregon 880 and Wyoming 250; other states keep 580.
+- **Colorado's chain-carry rule is enforced.** From September 1 to May 31, a truck with no chains aboard on a mountain corridor is warned once and can be cited 132 dollars.
+- **Montana reminds you to carry chains.** From October 1 to April 30, once a season; there's no fine.
+- **Drivers below level 10 get warnings instead of most citations.** Serious speeding, the work-zone barrels, failing to pull over, running a scale and out-of-service orders still count.
+- **The carrier shop now repairs a company tractor at 40 percent damage before the next load.** It takes an hour on duty.
+- **Dispatch trust now changes half a point earlier at each cutoff.** It follows the rounded reputation you hear.
+- **The nearest town readout now says only the name.** Alt+3 says "Nearest town: Nashville" without the distance.
+- **Career stats now says the carrier assigns your truck, and what the next fleet brings.** Business status and the garage say buying trucks starts with the owner-operator buy-in.
+- **Achievement descriptions are about half as long,** so the unlock line and the achievements menu finish quickly.
+- **Nine of the longest billboards are shorter, so they finish while you pass them.** The Bakersfield board no longer says the Crystal Palace has closed.
+- **CB calls now say "trooper" instead of the trucker slang "bear".**
+- **Player text uses US spelling.** License, canceled, signaled, traveled, recognize and windshield replace the British forms.
+- **The player manual has contents links and shorter, plainer explanations,** including clearer hotkey instructions.
+- **Playlist help now says the Playlists folder is inside your saves folder.**
+- **A controller now reaches every driving command, and its left stick changes lanes.** Settings names the controller; help and the manual cover every button.
+- **From Bossa to Blues now plays in the menus from level 9 on,** alongside Million Mile Morning. It still plays on the road too.
+- **The Steering guide setting now reads steer toward the engine, or steer away from the engine.**
+- **The toll sound is now a soft, low bong, and plays once per toll.** It sounds when the toll is charged, not on the toll-ahead warning too.
+- **88.3 Life FM now plays on the FM band around Bakersfield, California.** It used to be a web station heard everywhere.
+- **Radio stations now see Freight Fate as the player when you tune in.** Their listener statistics used to show only the sound library's name.
+- **A copied delivery summary now ends with #FreightFateRuns.**
 - **Windows and Mac updates download much less when the music and radio packs are unchanged.** After this one, most are about 35 megabytes instead of 531.
 - **The game uses several hundred megabytes less memory.** Music loads one track at a time instead of all at launch. Thanks to Pranav435 ([PR 441](https://github.com/orinks-games/Freight-Fate/pull/441)).
-- **The automatic skips gears when the load is light enough.** An empty or part-loaded truck shifts less often; a full load still takes every gear.
-- **The toll sound is now a soft, low bong, and plays once per toll.** It sounds when the toll is charged, not on the toll-ahead warning too.
-- **The hours of service countdown is one calm notice before each limit.** One hour out on Relaxed, two on Standard, no alarm tone, and nothing when the trip ends first.
-
-- **A speed limit rise at the end of a short zone waits its turn.** Two limit numbers no longer land in one breath.
-
-- **A speed limit posting too short to announce is not announced.** It also never earns a ticket; the S key still reads the limit.
-
-- **The Facility stopping assistance and Hours of service planning hints help now covers chains.** Facility stopping says it may spend on-duty minutes on chains and never buys them; planning hints say they remind you about chains and never buy anything.
-- **Oregon's lower chain level no longer chains your truck.** "Chains or traction tires required" chains only single-drive-axle trucks over 10,000 pounds, so your tandem-drive rig chains in Oregon at the "Chains required" level. The Oregon level 1 sign and the chain help say so.
-- **Cruise and the speed keeper hold 30 miles per hour while chains are on.** The game says so once, and your own set speed comes back when the chains come off, so resuming cruise no longer tears up a set. If you cancel cruise while chained, Shift K brings back your own speed once the chains are off.
-- **A chain set is now seven chains: four for the drive tires, one for a trailer tire, and two spares,** so putting them on takes about 30 minutes. When a chain breaks, the game now says "A tire chain broke and is flailing. Slow down and pull over to check it."
-- **Chain laws post only on real chain-control highways in Colorado, California, Washington, Oregon and Idaho,** not on any steep grade in those states. Chain-law signs now come about a mile before the chain-up area.
-- **Colorado's chain-carry rule is enforced.** From September 1 to May 31, a truck with no chains aboard on a Colorado mountain corridor is warned once and can be cited 132 dollars, whatever the weather.
-- **Montana reminds you to carry chains.** From October 1 to April 30, a truck with no chains aboard on a Montana mountain run hears it once a season, even across drives and a quit and resume. There's no fine.
-- **A chain checkpoint now holds you on the apron until your chains are on.** If you have no chains aboard, the officer tells you to buy a set at the next garage.
-- **Chain-law fines follow the state.** Colorado is 579 dollars, Oregon is 880 and Wyoming is 250. Other states keep 580 until their own figures are confirmed. California checks every truck at an active chain control.
-- **Trucks must chain under every chain law; winter tires no longer count for a semi.** California, Washington and Oregon chain trucks at every level. Colorado Level 1 chains only single-drive-axle trucks, so your tandem-drive rig chains there at Level 2. Wyoming Level 1 accepts snow tires or chains, and Wyoming Level 2 requires chains on two tires of one drive axle. The signs, the help and the checkpoint all follow this rule.
-- **Going too fast with chains on now says "Too fast for chains. Keep under 30 miles per hour."** In metric it gives kilometers per hour. The chain install, garage and help lines are clearer too. The install help gives chain speed in your units. In Wyoming at Level 1, a truck on all-season tires with no chains is warned and can be cited.
-- **Achievement descriptions are about half as long.** Each badge's description is now one or two short sentences, so the unlock line and the achievements menu finish quickly. A few facts are corrected too: air pressure builds to the governor's cut-out, the flatbed badge names the 50-mile chain re-check, and the brake smoke badge says the brakes started to fade.
-
-- **Nine of the longest billboards are shorter, so they finish while you pass them.** The Bakersfield board no longer says the Crystal Palace has closed.
-
-- **Hours of service, rest stop, settlement and dispatch lines are shorter.** The hours readout names the 30-minute break and the 14-hour window, stop planning gives each stop, its distance and minutes, delivery and dock paperwork read the money as plain figures, and sleep previews end with "Select again to sleep." The open weigh station notice says to pull in; the reminder nearer the scale says to signal.
-
-- **Player text uses US spelling.** License, canceled, signaled, traveled, recognize and windshield replace the British forms.
-
-- **Space now says only what is on the dash and needs you.** RPM comes with a manual transmission, and air or brakes only when they need attention.
-
-- **Missed exit and gate lines are shorter, and so are the warnings when cruise or the speed keeper loses speed on a grade.**
-
-- **Exit and rest stop calls name the exit and stop there.** What lane keeping, cruise and stopping assistance will do is left to the manual.
-
-- **Spoken weather no longer says how old the live observation is.** The Weather app still lists it.
-
-- **Spoken lines across the game are shorter.** Driving, the terminal, dispatch and pickup drop assist explanations and facts you just heard, and key reminders stop after a few uses; menu help keeps the explanations.
-
-- **Cruise no longer narrates how it drives.** It eases off and builds for hills in silence, and its traffic and weather lines are a few words.
-
-- **Downhill grade calls stop naming the engine brake key once you have used it a few times.** Uphill grade calls no longer add "Expect to lose speed."
-
-- **Radio stations now see Freight Fate as the player when you tune in.** Their listener statistics used to show only the sound library's name.
-
-- **Every street corner is now called with its distance and the speed to take it at.** The turn's chime plays with that call, on the side you turn.
-
-- **Taking the destination exit is said in fewer words.** You hear the exit number, the ramp's length and what ends it; with exit speed assist on, the speed is said only at the mile.
-
-- **A ramp that ends at the gate says it is slowing once.** It no longer says the assist released while the truck is still being driven in.
-
-- **The speed keeper says less on city streets.** It no longer repeats the street limit or says it is easing for each corner; the advise speed covers it.
-
-- **Missing a street corner now sends the truck around the block instead of back up the street.** You come out on the street you missed, a few minutes later.
-
-- **Dispatch trust now changes half a point earlier at each cutoff.** It follows the rounded reputation you hear.
-
-- **The nearest town readout now says only the name.** Alt+3 says "Nearest town: Nashville" without the distance.
-
-- **Career stats now says the carrier assigns your truck, and what the next fleet brings.** Business status and the garage say buying trucks starts with the owner-operator buy-in.
-
-- **Playlist help now says the Playlists folder is inside your saves folder.**
-
-- **Grades are now called uphill or downhill grades, not upgrades and downgrades.** You hear "6.0 percent downhill grade ahead"; the percent is unchanged.
-
-- **Sound explanations and a few manual lines read more plainly.** Dashes and run-on sentences are now shorter sentences.
-
-- **CB calls now say "trooper" instead of the trucker slang "bear".**
-
-- **88.3 Life FM now plays on the FM band around Bakersfield, California.** It used to be a web station heard everywhere.
-
-- **A controller now reaches every driving command, and its left stick changes lanes.** Settings names the controller; help and the manual cover every button.
-
-- **The player manual has contents links for jumping straight to a chapter.**
-
-- **The player manual uses shorter explanations and clearer hotkey instructions.**
-
+- **The game window draws only when it changes,** so it uses less power.
 - **On a Mac, game sound now stays on the output it started on when you switch outputs.** Speech still moves; restart the game to move the sound.
-
 - **On Linux, the game now needs the ALSA sound library, libasound2, to start.** Nearly every desktop already has it installed.
 
 ### Fixed
 
 - **The game starts about two seconds faster.** Since 1.9.4 it read the whole music file before the title screen.
-- **With cruise or the speed keeper on, the truck now drives up to a ramp's light.** It used to coast to a stop short of the light and wait there through every green.
-- **The menu music keeps playing when you quit to the main menu from a delivery.** It used to stop and stay silent.
-- **Cruise's status line now names the limit it is slowing for.** For example, it says holding 65 for the 60 limit ahead.
+- **With every assist on, the truck finishes the drive into the yard again.** The speed keeper slows for the last turn, then drives the street at its limit instead of 2 miles per hour.
+- **The speed keeper takes each corner at that corner's own speed.** It no longer slows early for a sharper corner further on, or brakes below a corner's speed and speeds back up.
+- **Street corners use realistic loaded-truck speeds.** A 90-degree right is 9 miles per hour and a left 13; the turn into a facility driveway is 6.
+- **"Into the yard" is said once, when you actually turn in.**
 - **A street turn is no longer called twice when its advised speed follows.**
-- **A second trooper stopped on the shoulder soon after the first is now called another trooper.**
-- **Route-transition assistance no longer says it released partway down a ramp that ends at a light or sign.** The assist is still driving there.
+- **Continuing straight onto a street such as Brighton Boulevard no longer counts as a right turn.**
+- **With cruise or the speed keeper on, the truck now drives up to a ramp's light.** It used to coast to a stop short of the light and wait there through every green.
+- **Exit ramps no longer hold the truck far under their speed sign.** The sign holds through the bend; past it, the assists build speed and then brake for the end.
+- **Route-transition assistance no longer says it released partway down a ramp that ends at a light, a sign or the gate.** On a ramp to the gate, the slowing line is said once.
 - **Stop callouts no longer tell you to press the exit key while your exit signal is on.** Pressing it again could cancel or move the signal.
 - **Switching between automatic and manual no longer brings back key reminders you had already learned,** such as Press X to signal for the exit.
-- **Pressing T just past an exit now asks what your next stop is for.** For a mile and a half it only said the stop you passed was behind you.
-- **Cruise resuming in snow or rain now names the weather speed once.** The slowdown for the weather was said again right after.
-- **An exit ramp's speed sign now holds only through its bend.** Past the bend, the assists let the truck pick up speed toward the end of the ramp.
-- **Some exit ramps no longer hold the truck far under their posted speed.** A ramp signed 15 miles per hour was being driven at 9.
-- **The co-driver no longer drives into work zone barrels or waits forever at a red light on an exit ramp.** They also brake when descent control can't hold a grade.
-- **Updates now install into folders with a percent or dollar sign in the name.** Before, the update could be copied somewhere else.
-- **Sound comes back after a Bluetooth headset connects or disconnects.** It moves to the new sound device within a second instead of going silent until a restart.
+- **Cruise's status line now names the limit it is slowing for.** For example, it says holding 65 for the 60 limit ahead.
+- **Cruise resuming in snow or rain now names the weather speed once.**
+- **Resume speed control now brings back the speed keeper's speed after you brake out of it.**
+- **The posted limit no longer dips briefly where the map mistook a ramp or side street for the highway.** 31 such dips are gone.
+- **A speed limit line that was cut off no longer comes back after a newer one.** "Reduced to 45" stays quiet once the limit is 55 again.
 - **With lane keeping on full, a lane change waits while that lane is taken.** You hear what is in it, such as Right lane blocked by a state trooper, instead of a sideswipe.
-- **The Record line in Career stats now counts running off the road asleep and crashes.** It said clean while the list below it named them.
-- **Playlists saved as UTF-16, as Windows Media Player does, now show up on the radio dial.** The Playlists folder no longer reads as empty.
+- **A second trooper stopped on the shoulder soon after the first is now called another trooper.**
 - **Resuming a saved trip no longer plays several police sirens at once.** Troopers you passed before saving stay quiet.
-- **A co-driver short of hours now parks and lets you finish your 10-hour rest.** They stop at the last lot in reach, or on the shoulder when none is.
-- **A co-driver's 30-minute break no longer wakes you.** With no stop in reach, they take it on the shoulder and drive on.
-- **The handover rows say when a co-driver cannot cover your whole rest.** The row's help gives their driving time left.
+- **Route planning counts the hours you have already driven this shift.** Mid-shift, it now names the sleep the run will need.
+- **Sleeping on the shoulder or at a rest stop now says "Driving and duty clocks reset"** instead of "Hours of service reset", because the 70-hour limit does not reset.
+- **Dispatch says a roadwork closure once when it covers several stretches.** It names how many places instead of repeating the same closure.
 - **Toms River to Newark now takes I-195 and the Turnpike instead of the truck-banned Garden State Parkway.** It pays 85 miles, up from 66.
-- **Continuing straight onto a street such as Brighton Boulevard no longer counts as a right turn.**
 - **Turnpike and I-95 service plazas now sit on the side they serve, with diesel and food.** The truck-banned Merritt Parkway plaza is gone.
 - **Turnpike doubles loads now list two 48-foot trailers, not twin 28-foot ones.** Twin-trailer parcel loads are lighter, up to 15 tons.
 - **Live weather no longer gives up as quickly.** It waits longer for the weather service and asks about fewer places at a time.
 - **During a weather service outage, live weather keeps the last real reading for up to six hours.** You hear it as last-known live weather, not simulated storms.
-- **A co-driver no longer pulls into a second stop after fuelling at the first.** They keep a stop you planned when it suits them.
-- **You no longer hear the co-driver's menu sounds.**
-- **A co-driver no longer hands you the wheel for damage from before their shift.**
-- **A co-driver no longer speeds up toward a hazard or past the weather's safe speed.**
-- **A co-driver puts the chains on at a chain checkpoint.** With no set aboard, they wake you.
-- **A co-driver plans their break earlier.** A full lot no longer leaves them out of time and handing you the wheel.
-- **The delivery summary lists the co-driver's share of the pay.** It is read just before your net pay.
-- **Dispatch says a roadwork closure once when it covers several stretches.** It names how many places instead of repeating the same closure.
-- **The posted limit no longer dips briefly where the map mistook a ramp or side street for the highway.** 31 such dips are gone.
-- **A speed limit line that was cut off no longer comes back after a newer one.** "Reduced to 45" stays quiet once the limit is 55 again.
-
-- **Route planning counts the hours you have already driven this shift.** Mid-shift, it now names the sleep the run will need.
-
-- **The driving keys help no longer freezes the game in Spanish.** It used to hang for up to a minute before speaking.
-- **A chain checkpoint holds a truck with no chains, and lets it wait or turn back.** A checkpoint used to fine a chainless truck and wave it on. Now every truck without chains is held, as the law requires: "You can't go on without chains. Wait here until the chain law lifts, or turn back." The pause menu offers "Wait for the chain law to lift", which waits on duty half an hour at a time, up to 8 hours or until your 14-hour window runs out, and "Turn back to" the last city on the route, a drive that goes on the odometer and burns fuel at highway rate, and is refused when it would run past your driving or duty hours or your 8 hours of driving before a 30-minute break. While held, "Sleep at the checkpoint (10 hours)" is always in the pause menu, even with a stop nearby, and the checkpoint brings no parking ticket. A sleep there rechecks live weather alerts on waking, so a chain law that lifted overnight releases the truck. A wait rechecks live weather alerts every half hour, so it ends when an alert's chain law lifts. Coming back to the same checkpoint holds you again but never fines you twice. Held with chains aboard, you still put them on from the pause menu.
-- **A chain checkpoint no longer says a break wait is half an hour.** When turning back would run past your 30-minute break, it says waiting there counts as your break. After a sleep at the checkpoint, it tells you when the chain law still stands.
-- **Sleeping on the shoulder or at a rest stop now says "Driving and duty clocks reset"** instead of "Hours of service reset", matching the motel and lot lines, because the 70-hour limit does not reset.
-- **With every assist on, the truck finishes the drive into the yard again.** Facility stopping assistance no longer takes the pedals while a street corner is still ahead, so the speed keeper slows for the last turn instead of the truck sailing past it, and after the last corner the assist drives the street at its posted speed instead of walking the truck in at 2 miles per hour. When a corner comes up with the truck still fast, the speed keeper now brakes as firmly as the remaining distance needs to make the turn as routed, rather than missing it and going around the block.
-- **Street corners use realistic loaded-truck speeds.** Right turns: 9 mph at 90 degrees, 13 at 60, 7 from 105 to 120, and 5 past that. Left turns: 13 at 90, 16 at 60, and 10 from 105 to 120. A bend of 45 degrees or less is not slowed for, beyond the street limit up to 28 mph. The turn into a facility driveway is 6 mph, and an empty trailer takes a corner up to 2 mph faster.
-- **The speed keeper no longer coasts under a corner that comes right after another one, or brakes below a corner's speed and then speeds back up.** A left 600 feet after a right is taken at the left's own speed. Late braking for a corner now eases off as it reaches the corner's speed.
-- **The speed keeper takes each corner at that corner's own speed.** A left turn is no longer slowed to the speed of a sharper right turn further on. The keeper slows early for a later corner only when it comes too soon to brake for after the one before. A gentle bend that stays on the same road keeps the posted limit, and the 28 mph cap now applies only to a slight turn onto another road.
-- **"Into the yard" is said once, when you actually turn in.** Overrunning the driveway no longer announces the yard before the missed turn and again after it.
-
-- **With score display set to percentage only, the dispatch trust line keeps its trust level.**
-
-- **Spanish dispatch trust levels now agree with confianza (completa, con reservas, baja, última oportunidad).**
-
-- **Translated speech now says facility types, the dispatch board's market and job rows, and region city counts in your language.** Facility and town names stay as they are, and Spanish lane counts say carril.
-
-- **Controller button names are translated, and the Driver screen's clock reads its time zone in your language.** The terminal greeting also loses a stray double space.
-
-- **Translated speech no longer mixes English into lines the language file covers.** Settings values, the drive start, the terminal, How to play, the F1 help, the Driver screen, the ELD app and the dispatch board's career objective now speak whole sentences in your language.
-
-- **The Hours and ELD status lines now have named placeholders in the translation files.** Translators can see that the slot holds the hours summary; English is unchanged.
-
-- **Resume speed control now brings back the speed keeper's speed after you brake out of it.**
-
-- **The jump to Freight Fate stations now lands on the Night Line, not Channel 3000.** Channel 3000 sits at the end of the category.
-
+- **The menu music keeps playing when you quit to the main menu from a delivery.** It used to stop and stay silent.
+- **The Record line in Career stats now counts running off the road asleep and crashes.** It said clean while the list below it named them.
+- **Updates now install into folders with a percent or dollar sign in the name.** Before, the update could be copied somewhere else.
+- **Sound comes back after a Bluetooth headset connects or disconnects.** It moves to the new sound device within a second instead of going silent until a restart.
+- **Playlists saved as UTF-16, as Windows Media Player does, now show up on the radio dial.** The Playlists folder no longer reads as empty.
 - **Radio stations whose address is a .pls or .m3u playlist link now play.**
+- **The jump to Freight Fate stations now lands on the Night Line, not Channel 3000.** Channel 3000 sits at the end of the category.
 
 ## 1.9.4.2 - 2026-10-19
 
