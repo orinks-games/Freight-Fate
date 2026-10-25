@@ -2,6 +2,17 @@
 
 ## 1.9.5 - 2026-10-25
 
+### Highlights
+
+- **Co-drivers can share long loads.** Ride along or sleep through their shift, and some long loads are now team loads.
+- **Snow chains work the way chain laws do.** Buy them at truck stops, put them on at chain-up areas, and repair a broken one.
+- **The game window shows the road, your truck, traffic and a dashboard.** Turn it off under Settings to save battery.
+- **The game speaks eleven more languages,** from French and Spanish to Japanese and Vietnamese.
+- **Spoken lines across the drive are shorter,** from exits and city streets to cruise and hours of service.
+- **The assists handle exit ramps, lights and city corners more reliably,** and drive the truck up to the gate.
+- **The radio sounds like it plays through the cab speakers,** and the Radio app can browse by category.
+- **The game starts faster, uses less memory, and downloads smaller updates.**
+
 ### Added
 
 - **Updates can download through a GitHub mirror you choose.** Enter its web address under Settings, Updates when GitHub itself is blocked. Thanks to wangru2025 ([PR 511](https://github.com/orinks-games/Freight-Fate/pull/511)).
