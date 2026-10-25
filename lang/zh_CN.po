@@ -31875,8 +31875,10 @@ msgstr "稳定版或开发者快照。"
 msgid "Use GitHub mirror for updates: {on_off}"
 msgstr "使用 GitHub 镜像更新：{on_off}"
 
-msgid "Routes update checks and downloads through a mirror you configure."
-msgstr "通过你配置的镜像检查并下载更新。"
+msgid ""
+"Checks for and downloads updates through a GitHub mirror. Turn it on, then "
+"enter the mirror's address in GitHub mirror prefix, just below."
+msgstr ""
 
 msgid "GitHub mirror prefix: not set"
 msgstr "GitHub 镜像前缀：未设置"
@@ -31886,9 +31888,9 @@ msgid "GitHub mirror prefix: {update_mirror_prefix}"
 msgstr "GitHub 镜像前缀：{update_mirror_prefix}"
 
 msgid ""
-"The player chooses and trusts the mirror used for update checks and "
-"downloads."
-msgstr "玩家自行选择并信任用于检查和下载更新的镜像。"
+"The mirror's address, put in front of every GitHub link. Use a mirror you "
+"trust: updates download through it."
+msgstr ""
 
 msgid "Check for updates"
 msgstr "检查更新"
@@ -37048,6 +37050,14 @@ msgstr "镜像地址必须以 https:// 开头。"
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr "镜像地址不能包含查询参数或片段。"
+
+#~ msgid "Routes update checks and downloads through a mirror you configure."
+#~ msgstr "通过你配置的镜像检查并下载更新。"
+
+#~ msgid ""
+#~ "The player chooses and trusts the mirror used for update checks and "
+#~ "downloads."
+#~ msgstr "玩家自行选择并信任用于检查和下载更新的镜像。"
 
 #~ msgid "auto"
 #~ msgstr "自动"

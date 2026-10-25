@@ -800,7 +800,7 @@ impl SettingsCategoryState {
                             )
                         }),
                         adjust(|s, ctx, d| s.toggle_update_mirror(ctx, d)),
-                        "Routes update checks and downloads through a mirror you configure.",
+                        "Checks for and downloads updates through a GitHub mirror. Turn it on, then enter the mirror's address in GitHub mirror prefix, just below.",
                     ),
                 ];
                 if ctx.settings.update_mirror_enabled {
@@ -821,7 +821,7 @@ impl SettingsCategoryState {
                             },
                         )
                         .help(
-                            "The player chooses and trusts the mirror used for update checks and downloads.",
+                            "The mirror's address, put in front of every GitHub link. Use a mirror you trust: updates download through it.",
                         ),
                     );
                 }

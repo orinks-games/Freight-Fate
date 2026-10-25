@@ -197,7 +197,7 @@ fn test_update_mirror_setting_reveals_labeled_prefix_field() {
     );
     assert_eq!(
         prefix.help_text(&state, &app.ctx),
-        "The player chooses and trusts the mirror used for update checks and downloads."
+        "The mirror's address, put in front of every GitHub link. Use a mirror you trust: updates download through it."
     );
     app.shutdown();
 }
