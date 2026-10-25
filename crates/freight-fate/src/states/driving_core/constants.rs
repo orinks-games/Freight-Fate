@@ -335,6 +335,16 @@ pub const RAMP_ASSIST_DECEL_RELEASE_MPS2: f64 = 0.35;
 pub const APPROACH_ASSIST_REACTION_S: f64 = 3.0;
 pub const RAMP_ASSIST_FULL_DECEL_MPS2: f64 = 3.0;
 pub const RAMP_ASSIST_HOLD_MI: f64 = 60.0 / 5280.0;
+/// Short of a ramp's red light or sign, the truck is driven up to the line
+/// no slower than this, and the assist stops it there.
+pub const LINE_CREEP_MPH: f64 = 8.0;
+/// Driving up to a red, the truck keeps under the speed the assist can stop
+/// from at this deceleration: its own release threshold, so the approach is
+/// one the assist leaves alone until the line is close. At a flat creep a
+/// quarter mile of ramp took minutes (owner, 2026-10-24).
+pub const LINE_APPROACH_DECEL_MPS2: f64 = RAMP_ASSIST_DECEL_RELEASE_MPS2;
+/// The accelerator the assist gives a truck it drives up to the line.
+pub const LINE_CLOSE_UP_THROTTLE: f64 = 0.35;
 // How far the demand has to fall below the pedal the assist is already holding
 // before it eases off. Easing costs nothing; coming back on is charged a whole
 // brake application by the air system, so a servo that chases every dip in the

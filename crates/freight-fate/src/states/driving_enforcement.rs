@@ -103,6 +103,11 @@ pub const TABLEAU_PASS_VOLUME: f64 = 0.7;
 // reason for the stop is a seeded pinch of colour, landing on some
 // occurrences and not others; terse mode keeps the bare fact either way.
 pub const TABLEAU_INTRO_LINE: &str = "A trooper has somebody stopped on the shoulder, not you.";
+/// The line for a stopped pair within [`TABLEAU_REPEAT_WINDOW_MI`] of one
+/// already passed.
+pub const TABLEAU_ANOTHER_LINE: &str = "Another trooper has somebody stopped, not you.";
+/// How far back a passed stopped pair makes the next one "another".
+pub const TABLEAU_REPEAT_WINDOW_MI: f64 = 20.0;
 pub const TABLEAU_INTRO_REASONS: [&str; 3] =
     ["for speeding", "for a log check", "over a light out"];
 

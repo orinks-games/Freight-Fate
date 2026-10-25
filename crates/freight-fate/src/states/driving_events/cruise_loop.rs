@@ -532,6 +532,17 @@ impl DrivingState {
         // held the 60 the posted limit allowed, missing the exit and costing
         // the driver a twenty-minute loop back.
         let limit_capped = cap_mph < target_mph;
+        // Which limit, and whether it is in force yet: "holding 65 for the
+        // lower limit, set 70" in a 70 read as cruise ignoring the road, when
+        // it was slowing for a 60 sign ahead (owner, 2026-10-25).
+        let limit_reason_text = match limit_reason.as_deref() {
+            Some("construction") if restricted => "through the construction zone".to_string(),
+            Some(reason) if restricted => format!("for the {reason}"),
+            _ if posted < self.trip.speed_limit_at(self.trip.position_mi).0 => {
+                format!("for the {} limit ahead", ctx.settings.speed_value(posted))
+            }
+            _ => format!("for the {} limit", ctx.settings.speed_value(posted)),
+        };
         if limit_capped {
             // Take the lower of the two caps. A posted limit above ramp speed
             // must not undo an armed exit's cap and send the truck past its
@@ -708,7 +719,7 @@ impl DrivingState {
         } else if curve_capped {
             "for the bend".to_string()
         } else if limit_capped {
-            "for the lower limit".to_string()
+            limit_reason_text
         } else if [self.cruise_descent_mph, self.descent_safe_mph]
             .into_iter()
             .flatten()

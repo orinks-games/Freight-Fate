@@ -719,6 +719,20 @@ into the release gate. Details stay in the linked dated sections, marked
 Everything found before 2026-09-25 moved to
 [2.0](#found-along-the-way-in-19-moved-to-20) that day.
 
+- [ ] (Found along the way) A Driving hints setting, on by default, that
+      drops every "Press X to ..." sentence from driving lines (owner,
+      2026-10-25; after 1.9.5). The key hints retire after three presses by
+      the player, so with All assists signaling for them they never retire.
+- [ ] (Found along the way) A continue-onto street cue is named twice in
+      a few seconds: "In a quarter mile, continue onto Columbus Road" and
+      then "Continue onto Columbus Road, then 1 mile on it" (Cleveland
+      agent drive, 2026-10-25).
+- [ ] (Found along the way) Quitting from the title menu on Windows takes
+      about 2.2 seconds after the last shutdown line, where an agent
+      server quit_game takes 0.14 (owner, 2026-10-25). Ending the process
+      with TerminateProcess right after App::shutdown left it hung, Not
+      Responding, so it was reverted. Needs a timestamp after each
+      library's teardown to find the step.
 - [ ] (Found along the way) Sign release archives so the updater can
       check them against a key built into the game, not only against the
       checksum GitHub lists next to the file.

@@ -17441,14 +17441,6 @@ msgstr ""
 msgid "Passing "
 msgstr ""
 
-#: crates/ff-core/src/spoken_advice.rs
-msgid "auto"
-msgstr ""
-
-#: crates/ff-core/src/spoken_advice.rs crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_updates/frame.rs
-msgid "manual"
-msgstr ""
-
 #: crates/ff-core/src/units.rs
 msgid "miles"
 msgstr ""
@@ -24441,6 +24433,10 @@ msgstr ""
 msgid "automatic"
 msgstr ""
 
+#: crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_updates/frame.rs crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid "manual"
+msgstr ""
+
 #: crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_pause_states.rs
 msgid "pickup drive"
 msgstr ""
@@ -25316,7 +25312,7 @@ msgstr ""
 msgid "for the corner"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_controls/info.rs crates/freight-fate/src/states/driving_events/cruise_loop.rs
+#: crates/freight-fate/src/states/driving_controls/info.rs
 msgid "for the lower limit"
 msgstr ""
 
@@ -27670,6 +27666,10 @@ msgid "A trooper has somebody stopped on the shoulder, not you."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_enforcement.rs
+msgid "Another trooper has somebody stopped, not you."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_enforcement.rs
 msgid "for a log check"
 msgstr ""
 
@@ -28714,8 +28714,14 @@ msgstr ""
 msgid " through the heavy traffic"
 msgstr ""
 
+#. placeholders: {speed_value}
 #: crates/freight-fate/src/states/driving_events/cruise.rs
-msgid " for the lower limit"
+msgid " for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+#: crates/freight-fate/src/states/driving_events/cruise.rs
+msgid " for the {speed_value} limit"
 msgstr ""
 
 #. placeholders: {value}
@@ -28908,6 +28914,25 @@ msgstr ""
 #. placeholders: {speed_value}
 #: crates/freight-fate/src/states/driving_events/cruise_loop.rs
 msgid "Speed keeper holding {speed_value}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/cruise_loop.rs
+msgid "through the construction zone"
+msgstr ""
+
+#. placeholders: {reason}
+#: crates/freight-fate/src/states/driving_events/cruise_loop.rs
+msgid "for the {reason}"
+msgstr ""
+
+#. placeholders: {speed_value}
+#: crates/freight-fate/src/states/driving_events/cruise_loop.rs
+msgid "for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+#: crates/freight-fate/src/states/driving_events/cruise_loop.rs
+msgid "for the {speed_value} limit"
 msgstr ""
 
 #. placeholders: {reason}, {eased}
@@ -30141,16 +30166,6 @@ msgstr ""
 
 #. placeholders: {name}
 #: crates/freight-fate/src/states/driving_events/update_exit.rs
-msgid "Destination exit for {name}."
-msgstr ""
-
-#. placeholders: {labeled}, {name}
-#: crates/freight-fate/src/states/driving_events/update_exit.rs
-msgid "{labeled}, destination exit for {name}."
-msgstr ""
-
-#. placeholders: {name}
-#: crates/freight-fate/src/states/driving_events/update_exit.rs
 msgid "Exit for {name}."
 msgstr ""
 
@@ -30186,7 +30201,7 @@ msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {terminal}
 #: crates/freight-fate/src/states/driving_events/update_exit.rs
-msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
+msgid "{exit_speed}{take} {ramp} of ramp.{terminal}"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/update_exit.rs
@@ -30215,12 +30230,12 @@ msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}
 #: crates/freight-fate/src/states/driving_events/update_exit.rs
-msgid "{exit_speed} {take} {ramp} of ramp."
+msgid "{exit_speed}{take} {ramp} of ramp."
 msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {ending}
 #: crates/freight-fate/src/states/driving_events/update_exit.rs
-msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
+msgid "{exit_speed}{take} {ramp} of ramp, {ending}."
 msgstr ""
 
 #. placeholders: {place}
@@ -35961,6 +35976,10 @@ msgid "{name} was pulled in for an inspection at {place}. {outcome}"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_turns.rs
+msgid "advice"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_turns.rs
 msgid "the next street"
 msgstr ""
 
@@ -35977,11 +35996,6 @@ msgstr ""
 #. placeholders: {target}
 #: crates/freight-fate/src/states/driving_turns.rs
 msgid "Advise {target}."
-msgstr ""
-
-#. placeholders: {advice}
-#: crates/freight-fate/src/states/driving_turns.rs
-msgid "{advice} Speed keeper easing."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_turns.rs
@@ -39432,7 +39446,9 @@ msgid "Use GitHub mirror for updates: {on_off}"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
-msgid "Routes update checks and downloads through a mirror you configure."
+msgid ""
+"Checks for and downloads updates through a GitHub mirror. Turn it on, then "
+"enter the mirror's address in GitHub mirror prefix, just below."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
@@ -39446,8 +39462,8 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid ""
-"The player chooses and trusts the mirror used for update checks and "
-"downloads."
+"The mirror's address, put in front of every GitHub link. Use a mirror you "
+"trust: updates download through it."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_items.rs crates/freight-fate/src/states/update.rs

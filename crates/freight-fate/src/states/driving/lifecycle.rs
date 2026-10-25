@@ -54,22 +54,20 @@ impl DrivingState {
     /// `_instruction_retired(action)` (research doc R7).
     pub fn instruction_retired(&self, ctx: &mut GameContext, action: &str) -> bool {
         let binding = ctx.control_hint(action);
-        let automatic = self.trip.truck.transmission.automatic;
         let Some(profile) = ctx.profile.as_mut() else {
             return false;
         };
-        instruction_retired(profile, action, &binding, automatic)
+        instruction_retired(profile, action, &binding)
     }
 
     /// `_note_instruction_demonstrated(action)`: record that the player
     /// performed `action`, toward retiring its spoken instruction.
     pub fn note_instruction_demonstrated(&self, ctx: &mut GameContext, action: &str) {
         let binding = ctx.control_hint(action);
-        let automatic = self.trip.truck.transmission.automatic;
         let Some(profile) = ctx.profile.as_mut() else {
             return;
         };
-        note_demonstrated(profile, action, &binding, automatic);
+        note_demonstrated(profile, action, &binding);
     }
 
     /// Set the take-exit hint the stop callout speaks: the named control
@@ -91,8 +89,7 @@ impl DrivingState {
         }
         // Once the player has started the engine a few times, the key prompt
         // is noise -- the state alone is enough, and the help key still names
-        // the control on demand (research doc R7). A remapped key or a switch
-        // of transmission re-arms it.
+        // the control on demand (research doc R7). A remapped key re-arms it.
         if self.instruction_retired(ctx, "engine") {
             return "Engine off.".to_string();
         }
@@ -336,7 +333,14 @@ impl DrivingState {
         // Off the music channel before anything new starts there; the
         // station fading out keeps the voicing it started with.
         ctx.audio.set_radio_voicing(None);
-        ctx.audio.stop_music_with(600);
+        // A drive popped from under the settlement screen ends with that
+        // screen's menu music on the channel, not the radio. Stopping it
+        // silenced the title menu, and clearing the rotation instead made the
+        // title menu start the song over (owner, 2026-10-25). Left playing,
+        // the title menu finds "menu" in rotation and lets it carry on.
+        if ctx.music_rotation_track().is_none() {
+            ctx.audio.stop_music_with(600);
+        }
         ctx.apply_volumes();
     }
 

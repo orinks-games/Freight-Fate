@@ -574,6 +574,12 @@ impl DrivingState {
         {
             return;
         }
+        if self.terminal_assist_closes_up(ctx) {
+            // The assist is driving the truck up to the line itself; telling
+            // the driver to close the gap would be an instruction for a job
+            // that is not theirs.
+            return;
+        }
         if ctx.settings.route_transition_assist && gap_mi <= RAMP_ASSIST_HOLD_MI {
             // Inside the hold window the assist owns the stop and says so
             // itself. This runs first in the frame, so it used to say

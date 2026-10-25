@@ -17,7 +17,7 @@ use ff_core::speech_text::{
 use crate::app::{GameContext, Say, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
-use crate::states::driving_turns::{is_judged_turn, TURN_COMMIT_TAIL_MI};
+use crate::states::driving_turns::{is_judged_turn, ADVICE_IN_CALL, TURN_COMMIT_TAIL_MI};
 use crate::states::driving_updates::live;
 
 use super::ambient::Ambient;
@@ -144,6 +144,22 @@ impl DrivingState {
                     // The two-mile advance for a place earns nothing at any tier:
                     // a town is not actionable the way an exit or toll is.
                     return;
+                }
+            }
+        }
+        if kind == TripEventKind::GpsCue && event.data.advance != Some(true) {
+            if let Some(cue) = event.data.cue.as_ref() {
+                if is_judged_turn(cue) && !self.turn_advised.contains(&cue.key) {
+                    // A corner's act-now call carries its advise speed. Said
+                    // as a line of its own in the same tick, the advise
+                    // flushed the voice and the call was said twice ("Turn
+                    // right onto Port of Cleveland", owner's drive into
+                    // Cleveland, 2026-10-25). The corner's own call then
+                    // keeps quiet (`ADVICE_IN_CALL`).
+                    message = message.plus(&self.turn_advice_text(ctx, cue));
+                    self.trip
+                        .announced_navigation
+                        .insert(format!("{}:{ADVICE_IN_CALL}", cue.key));
                 }
             }
         }
@@ -779,7 +795,17 @@ impl DrivingState {
                                 distance: &drive.trip.ahead_text(ahead),
                                 parking_normal: &stop.parking_text(),
                                 parking_certainty: &stop.parking,
-                                exit_hint: &exit_hint,
+                                // Already signaled: "Press X to signal for the
+                                // exit" with the signal on asks for a press
+                                // that would cancel it, or move it off the
+                                // scale it was set for (adversarial battery,
+                                // 2026-10-25).
+                                exit_hint: if drive.exit_signal_on || drive.exit_is_armed_for(&stop)
+                                {
+                                    ""
+                                } else {
+                                    &exit_hint
+                                },
                                 fuel: stop.fuel_callout(),
                             };
                             // The rung's rendering, as the line had when it

@@ -16,9 +16,10 @@ use crate::cli::{Args, Spec, UsageError};
 use crate::util::{self, py_splitlines, py_strip, Result};
 
 const CHANGELOG_PATH: &str = "CHANGELOG.md";
-const NIGHTLY_HEADER: &str =
-    "A preview of the next release, with the newest features and some rough \
-edges. Back up your saves before you install it.";
+/// A snapshot's notes open with this many changes, one line each, before
+/// the full entries (owner, 2026-10-25: a short summary, then the changelog,
+/// in place of the old "back up your saves" preview blurb).
+const SUMMARY_LIMIT: usize = 12;
 const GITHUB_RELEASE_NOTES_SAFE_CHARACTERS: usize = 120_000;
 const COMPLETE_LIST: &str = "## Complete change list\n\n\
 There are more changes than fit on this page. The full list is \
@@ -455,11 +456,15 @@ fn stable_notes(version: &str) -> Result<String> {
         .iter()
         .any(|s| SUMMARY_SECTIONS.contains(&s.title.as_str()))
     {
-        // A curated summary is short by construction; it points at the full
-        // list instead of being bounded like one.
+        // The curated summary leads, then the whole change list under it
+        // (owner, 2026-10-25), bounded like any list; the link to the full
+        // changelog closes the page either way.
         let footer = STABLE_FULL_CHANGELOG
             .replace("{version}", version.strip_prefix('v').unwrap_or(version));
-        return Ok(format_stable_notes(&sections, &footer));
+        let (kept, _) = bounded_sections(&sections, &footer, &|chosen, tail| {
+            format_stable_notes(chosen, tail)
+        });
+        return Ok(format_stable_notes(&kept, &footer));
     }
     let (sections, bounded) = bounded_sections(&sections, STABLE_COMPLETE_LIST, &|chosen, tail| {
         format_stable_notes(chosen, tail)
@@ -470,6 +475,77 @@ fn stable_notes(version: &str) -> Result<String> {
     ))
 }
 
+/// An entry's one-line summary: its bold lead sentence, or else its first
+/// sentence, as plain text.
+fn lead_of(entry: &str) -> String {
+    static BOLD: OnceLock<Regex> = OnceLock::new();
+    let bold = re(&BOLD, r"^[-*+]\s+\*\*(.+?)\*\*");
+    let lead = match bold.captures(py_strip(entry)) {
+        Some(c) => c[1].to_string(),
+        None => {
+            let plain = format_entry(entry);
+            let plain = plain.trim_start_matches(['-', '*', '+', ' ']);
+            match plain.find(". ") {
+                Some(end) => plain[..=end].to_string(),
+                None => plain.to_string(),
+            }
+        }
+    };
+    let mut lead = py_strip(lead.trim_end_matches(',')).to_string();
+    // A summary line, not the entry again: an entry with no lead sentence
+    // keeps its first 20 words.
+    let words: Vec<&str> = lead.split_whitespace().collect();
+    if words.len() > 20 {
+        lead = format!("{}...", words[..20].join(" "));
+    }
+    if lead.chars().count() > 200 {
+        lead = format!("{}...", lead.chars().take(200).collect::<String>());
+    }
+    if lead.ends_with(['.', '!', '?']) {
+        lead
+    } else {
+        format!("{lead}.")
+    }
+}
+
+/// "## Summary": each change's lead, in the order the notes list them, at
+/// most [`SUMMARY_LIMIT`] of them.
+fn summary_block(sections: &[Section], order: &[&str]) -> String {
+    let mut leads: Vec<String> = Vec::new();
+    let mut titles: Vec<&str> = order.to_vec();
+    for s in sections {
+        if !titles.contains(&s.title.as_str()) {
+            titles.push(&s.title);
+        }
+    }
+    for title in titles {
+        for s in sections.iter().filter(|s| s.title == title) {
+            for e in &s.entries {
+                let lead = lead_of(e);
+                if !leads.contains(&lead) {
+                    leads.push(lead);
+                }
+            }
+        }
+    }
+    if leads.is_empty() {
+        return String::new();
+    }
+    let more = leads.len().saturating_sub(SUMMARY_LIMIT);
+    let mut lines: Vec<String> = leads
+        .iter()
+        .take(SUMMARY_LIMIT)
+        .map(|l| format!("- {l}"))
+        .collect();
+    if more > 0 {
+        lines.push(format!(
+            "- And {more} more {}, listed below.",
+            if more == 1 { "change" } else { "changes" }
+        ));
+    }
+    format!("## Summary\n\n{}", lines.join("\n"))
+}
+
 fn format_nightly_notes(
     sections: &[Section],
     changes_heading: &str,
@@ -477,7 +553,12 @@ fn format_nightly_notes(
     section_heading_level: usize,
 ) -> String {
     let body = format_sections(sections, section_heading_level, SECTION_ORDER);
-    let notes = format!("{NIGHTLY_HEADER}\n\n## {changes_heading}\n\n{body}");
+    let summary = summary_block(sections, SECTION_ORDER);
+    let notes = if summary.is_empty() {
+        format!("## {changes_heading}\n\n{body}")
+    } else {
+        format!("{summary}\n\n## {changes_heading}\n\n{body}")
+    };
     if footer.is_empty() {
         notes
     } else {
@@ -945,6 +1026,50 @@ mod tests {
         assert_eq!(
             normalize_entry("- **Bold** `code` [link](http://x) \u{2014}  done"),
             "bold code link - done"
+        );
+    }
+
+    #[test]
+    fn a_snapshot_opens_with_a_summary_of_its_leads() {
+        let sections = vec![
+            Section {
+                title: "Fixed".into(),
+                entries: vec!["- **The horn works again.** It was silent.".into()],
+            },
+            Section {
+                title: "Added".into(),
+                entries: vec![
+                    "- **Night radio.** A new station after dark.".into(),
+                    "- Plain entry with no lead. Second sentence.".into(),
+                ],
+            },
+        ];
+        let notes = format_nightly_notes(&sections, "Changes in this snapshot", "", 3);
+        assert!(
+            notes.starts_with(
+                "## Summary\n\n- Night radio.\n- Plain entry with no lead.\n\
+                 - The horn works again.\n\n## Changes in this snapshot"
+            ),
+            "{notes}"
+        );
+        assert!(!notes.contains("Back up your saves"));
+    }
+
+    #[test]
+    fn a_long_summary_counts_what_it_left_out() {
+        let entries: Vec<String> = (0..15)
+            .map(|n| format!("- **Change {n}.** Detail."))
+            .collect();
+        let sections = vec![Section {
+            title: "Added".into(),
+            entries,
+        }];
+        let summary = summary_block(&sections, SECTION_ORDER);
+        assert!(summary.contains("- Change 11."), "{summary}");
+        assert!(!summary.contains("- Change 12."), "{summary}");
+        assert!(
+            summary.ends_with("- And 3 more changes, listed below."),
+            "{summary}"
         );
     }
 

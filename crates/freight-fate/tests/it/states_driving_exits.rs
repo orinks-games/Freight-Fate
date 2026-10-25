@@ -510,7 +510,7 @@ fn test_destination_exit_auto_arms_and_takes_ramp_with_valid_setup() {
     assert!(
         spoken(&harness)
             .iter()
-            .any(|line| line.contains("destination exit for")),
+            .any(|line| line.contains("Exit 342. A quarter mile of ramp")),
         "{:?}",
         spoken(&harness)
     );

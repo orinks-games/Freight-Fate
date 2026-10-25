@@ -15791,12 +15791,6 @@ msgstr "Entri in "
 msgid "Passing "
 msgstr "Passi da "
 
-msgid "auto"
-msgstr "automatico"
-
-msgid "manual"
-msgstr "manuale"
-
 msgid "miles"
 msgstr "miglia"
 
@@ -22131,6 +22125,9 @@ msgstr "aria {air_pressure_psi} psi"
 msgid "automatic"
 msgstr "automatico"
 
+msgid "manual"
+msgstr "manuale"
+
 msgid "pickup drive"
 msgstr "viaggio verso il ritiro"
 
@@ -25167,6 +25164,9 @@ msgstr ""
 msgid "A trooper has somebody stopped on the shoulder, not you."
 msgstr "Un agente ha fermato qualcuno sulla corsia d'emergenza, non te."
 
+msgid "Another trooper has somebody stopped, not you."
+msgstr ""
+
 msgid "for a log check"
 msgstr "per un controllo del registro"
 
@@ -26084,8 +26084,13 @@ msgstr " attraverso il cantiere"
 msgid " through the heavy traffic"
 msgstr " nel traffico intenso"
 
-msgid " for the lower limit"
-msgstr " per il limite più basso"
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
+msgstr ""
 
 #. placeholders: {value}
 msgid " in the {value}"
@@ -26242,6 +26247,21 @@ msgstr "Zona di {title_case}. Il mantenitore di velocità tiene {held}."
 #. placeholders: {speed_value}
 msgid "Speed keeper holding {speed_value}."
 msgstr "Il mantenitore di velocità tiene {speed_value}."
+
+msgid "through the construction zone"
+msgstr ""
+
+#. placeholders: {reason}
+msgid "for the {reason}"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit"
+msgstr ""
 
 #. placeholders: {reason}, {eased}
 msgid "{reason}, cruise easing to {eased}."
@@ -27265,14 +27285,6 @@ msgid "Too fast for the ramp, missed {missed}.{note}"
 msgstr "Troppo veloce per la rampa, hai mancato {missed}.{note}"
 
 #. placeholders: {name}
-msgid "Destination exit for {name}."
-msgstr "Uscita di destinazione per {name}."
-
-#. placeholders: {labeled}, {name}
-msgid "{labeled}, destination exit for {name}."
-msgstr "{labeled}, uscita di destinazione per {name}."
-
-#. placeholders: {name}
 msgid "Exit for {name}."
 msgstr "Uscita per {name}."
 
@@ -27300,8 +27312,8 @@ msgid " The scale is at the end."
 msgstr " La pesa è alla fine."
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {terminal}
-msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
-msgstr "{exit_speed} {take} {ramp} di rampa.{terminal}"
+msgid "{exit_speed}{take} {ramp} of ramp.{terminal}"
+msgstr ""
 
 msgid "light at the end"
 msgstr "semaforo alla fine"
@@ -27322,12 +27334,12 @@ msgid "the scale at the end, stop at the bar"
 msgstr "la pesa alla fine, fermati alla linea"
 
 #. placeholders: {exit_speed}, {take}, {ramp}
-msgid "{exit_speed} {take} {ramp} of ramp."
-msgstr "{exit_speed} {take} {ramp} di rampa."
+msgid "{exit_speed}{take} {ramp} of ramp."
+msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {ending}
-msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
-msgstr "{exit_speed} {take} {ramp} di rampa, {ending}."
+msgid "{exit_speed}{take} {ramp} of ramp, {ending}."
+msgstr ""
 
 #. placeholders: {place}
 #. one sentence of a longer line
@@ -32492,6 +32504,9 @@ msgstr ""
 msgid "{name} was pulled in for an inspection at {place}. {outcome}"
 msgstr ""
 
+msgid "advice"
+msgstr ""
+
 msgid "the next street"
 msgstr "la prossima strada"
 
@@ -32506,10 +32521,6 @@ msgstr "{capitalize}, svolta su {street}, {distance}."
 #. placeholders: {target}
 msgid "Advise {target}."
 msgstr "Consigliati {target}."
-
-#. placeholders: {advice}
-msgid "{advice} Speed keeper easing."
-msgstr "{advice} Il mantenitore di velocità rallenta."
 
 msgid "Missed the turn. Going around the block."
 msgstr "Svolta mancata. Fai il giro dell'isolato."
@@ -35772,7 +35783,9 @@ msgstr "Versioni stabili o versioni di sviluppo."
 msgid "Use GitHub mirror for updates: {on_off}"
 msgstr ""
 
-msgid "Routes update checks and downloads through a mirror you configure."
+msgid ""
+"Checks for and downloads updates through a GitHub mirror. Turn it on, then "
+"enter the mirror's address in GitHub mirror prefix, just below."
 msgstr ""
 
 msgid "GitHub mirror prefix: not set"
@@ -35783,8 +35796,8 @@ msgid "GitHub mirror prefix: {update_mirror_prefix}"
 msgstr ""
 
 msgid ""
-"The player chooses and trusts the mirror used for update checks and "
-"downloads."
+"The mirror's address, put in front of every GitHub link. Use a mirror you "
+"trust: updates download through it."
 msgstr ""
 
 msgid "Check for updates"
@@ -41935,6 +41948,30 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "auto"
+#~ msgstr "automatico"
+
+#~ msgid " for the lower limit"
+#~ msgstr " per il limite più basso"
+
+#~ msgid "Destination exit for {name}."
+#~ msgstr "Uscita di destinazione per {name}."
+
+#~ msgid "{labeled}, destination exit for {name}."
+#~ msgstr "{labeled}, uscita di destinazione per {name}."
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
+#~ msgstr "{exit_speed} {take} {ramp} di rampa.{terminal}"
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp."
+#~ msgstr "{exit_speed} {take} {ramp} di rampa."
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
+#~ msgstr "{exit_speed} {take} {ramp} di rampa, {ending}."
+
+#~ msgid "{advice} Speed keeper easing."
+#~ msgstr "{advice} Il mantenitore di velocità rallenta."
 
 #~ msgid ""
 #~ "On, you drive the real streets between the highway and a facility, turn by "

@@ -618,8 +618,9 @@ fn test_the_descent_advisory_stops_teaching_once_the_jake_is_known() {
     }
     assert_eq!(d.descend_advice(&mut app.ctx), "");
     d.trip.truck.transmission.automatic = false;
-    // A manual box is a different binding count: it is taught afresh.
-    assert!(d.descend_advice(&mut app.ctx).starts_with("Set the jake"));
+    // The jake is the same key on a manual box, so it stays learned (owner,
+    // 2026-10-25: a switch of transmission used to teach it three more times).
+    assert_eq!(d.descend_advice(&mut app.ctx), "");
 }
 
 // -- ignored: the roadside screens a settled stop pushes ------------------------------

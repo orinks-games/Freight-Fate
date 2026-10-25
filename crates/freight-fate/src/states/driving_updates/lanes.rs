@@ -365,7 +365,12 @@ impl DrivingState {
                 // there is one; see `say_ramp_lift`.
                 self.say_ramp_lift(ctx);
             }
-        } else if self.transition_assist_active && !self.ramp_terminal_owns_the_stop() {
+        } else if self.transition_assist_active
+            && !self.ramp_terminal_owns_the_stop()
+            && !self.terminal_assist_closes_up(ctx)
+            && !self.terminal_takes_over_from_the_cap()
+            && !self.destination_arrival_active
+        {
             // ROUTE, not the ambient default: names the automation handing the
             // pedals back (automation-handoff sweep, 2026-08-20, the deferred
             // 2026-08-15 audit).
@@ -374,7 +379,12 @@ impl DrivingState {
             // five under its number, but the terminal's servo is still braking
             // for the bar, so "released" at 15 mph with the stop sign ahead was
             // untrue (agent drive into Abilene, 2026-09-23). The terminal's own
-            // "Stopped at the sign" is the release there.
+            // "Stopped at the sign" is the release there. Nor while the
+            // terminal is driving the truck up to its line: "released" came
+            // partway down Cleveland's exit 170A with the assist still at the
+            // pedals (owner, 2026-10-25). Nor while the arrival assist has
+            // the pedals for a ramp that ends at the gate: it is still
+            // driving the truck in (owner, 2026-10-25, Facility streets off).
             ctx.say_event_with(
                 "Route-transition assistance released.",
                 SayEvent::queued()

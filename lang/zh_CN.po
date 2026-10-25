@@ -13891,12 +13891,6 @@ msgstr "进入 "
 msgid "Passing "
 msgstr "经过 "
 
-msgid "auto"
-msgstr "自动"
-
-msgid "manual"
-msgstr "手动"
-
 msgid "miles"
 msgstr "英里"
 
@@ -19584,6 +19578,9 @@ msgstr "气压{air_pressure_psi} psi"
 msgid "automatic"
 msgstr "自动"
 
+msgid "manual"
+msgstr "手动"
+
 msgid "pickup drive"
 msgstr "提货行驶"
 
@@ -22268,6 +22265,9 @@ msgstr "操作放慢，能安全避开的急刹和急弯都避开。"
 msgid "A trooper has somebody stopped on the shoulder, not you."
 msgstr "州警在路肩拦下了别人，不是你。"
 
+msgid "Another trooper has somebody stopped, not you."
+msgstr ""
+
 msgid "for a log check"
 msgstr "查工时记录"
 
@@ -23108,8 +23108,13 @@ msgstr " ，通过施工区"
 msgid " through the heavy traffic"
 msgstr " ，穿过拥堵车流"
 
-msgid " for the lower limit"
-msgstr " ，为较低的限速"
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
+msgstr ""
 
 #. placeholders: {value}
 msgid " in the {value}"
@@ -23261,6 +23266,21 @@ msgstr "{title_case}区域。限速保持维持在{held}。"
 #. placeholders: {speed_value}
 msgid "Speed keeper holding {speed_value}."
 msgstr "限速保持维持在{speed_value}。"
+
+msgid "through the construction zone"
+msgstr ""
+
+#. placeholders: {reason}
+msgid "for the {reason}"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit"
+msgstr ""
 
 #. placeholders: {reason}, {eased}
 msgid "{reason}, cruise easing to {eased}."
@@ -24236,14 +24256,6 @@ msgid "Too fast for the ramp, missed {missed}.{note}"
 msgstr "坡道速度太快，错过了 {missed}.{note}"
 
 #. placeholders: {name}
-msgid "Destination exit for {name}."
-msgstr "{name} 的目的地出口。"
-
-#. placeholders: {labeled}, {name}
-msgid "{labeled}, destination exit for {name}."
-msgstr "{labeled}，{name} 的目的地出口。"
-
-#. placeholders: {name}
 msgid "Exit for {name}."
 msgstr "退出 {name}。"
 
@@ -24271,8 +24283,8 @@ msgid " The scale is at the end."
 msgstr " 尽头是称重站。"
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {terminal}
-msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
-msgstr "{exit_speed}{take}{ramp}匝道。{terminal}"
+msgid "{exit_speed}{take} {ramp} of ramp.{terminal}"
+msgstr ""
 
 msgid "light at the end"
 msgstr "光在最后"
@@ -24293,12 +24305,12 @@ msgid "the scale at the end, stop at the bar"
 msgstr "尽头是称重站，在停止线停车"
 
 #. placeholders: {exit_speed}, {take}, {ramp}
-msgid "{exit_speed} {take} {ramp} of ramp."
-msgstr "{exit_speed}{take}{ramp}匝道。"
+msgid "{exit_speed}{take} {ramp} of ramp."
+msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {ending}
-msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
-msgstr "{exit_speed}{take}{ramp}匝道，{ending}。"
+msgid "{exit_speed}{take} {ramp} of ramp, {ending}."
+msgstr ""
 
 #. placeholders: {place}
 #. one sentence of a longer line
@@ -28988,6 +29000,9 @@ msgstr ""
 msgid "{name} was pulled in for an inspection at {place}. {outcome}"
 msgstr ""
 
+msgid "advice"
+msgstr ""
+
 msgid "the next street"
 msgstr "下一条街"
 
@@ -29002,10 +29017,6 @@ msgstr "{distance}后{capitalize}转驶入{street}。"
 #. placeholders: {target}
 msgid "Advise {target}."
 msgstr "建议{target}。"
-
-#. placeholders: {advice}
-msgid "{advice} Speed keeper easing."
-msgstr "{advice}限速保持正在减速。"
 
 msgid "Missed the turn. Going around the block."
 msgstr "错过了转弯。绕着街区转。"
@@ -31864,8 +31875,10 @@ msgstr "稳定版或开发者快照。"
 msgid "Use GitHub mirror for updates: {on_off}"
 msgstr "使用 GitHub 镜像更新：{on_off}"
 
-msgid "Routes update checks and downloads through a mirror you configure."
-msgstr "通过你配置的镜像检查并下载更新。"
+msgid ""
+"Checks for and downloads updates through a GitHub mirror. Turn it on, then "
+"enter the mirror's address in GitHub mirror prefix, just below."
+msgstr ""
 
 msgid "GitHub mirror prefix: not set"
 msgstr "GitHub 镜像前缀：未设置"
@@ -31875,9 +31888,9 @@ msgid "GitHub mirror prefix: {update_mirror_prefix}"
 msgstr "GitHub 镜像前缀：{update_mirror_prefix}"
 
 msgid ""
-"The player chooses and trusts the mirror used for update checks and "
-"downloads."
-msgstr "玩家自行选择并信任用于检查和下载更新的镜像。"
+"The mirror's address, put in front of every GitHub link. Use a mirror you "
+"trust: updates download through it."
+msgstr ""
 
 msgid "Check for updates"
 msgstr "检查更新"
@@ -37037,6 +37050,38 @@ msgstr "镜像地址必须以 https:// 开头。"
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr "镜像地址不能包含查询参数或片段。"
+
+#~ msgid "Routes update checks and downloads through a mirror you configure."
+#~ msgstr "通过你配置的镜像检查并下载更新。"
+
+#~ msgid ""
+#~ "The player chooses and trusts the mirror used for update checks and "
+#~ "downloads."
+#~ msgstr "玩家自行选择并信任用于检查和下载更新的镜像。"
+
+#~ msgid "auto"
+#~ msgstr "自动"
+
+#~ msgid " for the lower limit"
+#~ msgstr " ，为较低的限速"
+
+#~ msgid "Destination exit for {name}."
+#~ msgstr "{name} 的目的地出口。"
+
+#~ msgid "{labeled}, destination exit for {name}."
+#~ msgstr "{labeled}，{name} 的目的地出口。"
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
+#~ msgstr "{exit_speed}{take}{ramp}匝道。{terminal}"
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp."
+#~ msgstr "{exit_speed}{take}{ramp}匝道。"
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
+#~ msgstr "{exit_speed}{take}{ramp}匝道，{ending}。"
+
+#~ msgid "{advice} Speed keeper easing."
+#~ msgstr "{advice}限速保持正在减速。"
 
 #~ msgid ""
 #~ "On, you drive the real streets between the highway and a facility, turn by "

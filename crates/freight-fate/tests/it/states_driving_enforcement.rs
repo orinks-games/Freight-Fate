@@ -1817,3 +1817,23 @@ fn test_leaving_the_drive_mid_stop_releases_the_siren() {
 
     assert!(!drive.siren.active);
 }
+
+#[test]
+fn test_a_second_stopped_pair_close_behind_the_first_is_another_trooper() {
+    // Owner's drive across Ohio (2026-10-25): two troopers a minute apart
+    // said the same line word for word, which sounded like a repeat.
+    let mut app = TestApp::new();
+    let mut drive = a_drive(&mut app, "Presence");
+    drive.trip_seed = 1;
+    drive.trip.posts = vec![a_tableau_post(6.0), a_tableau_post(12.0)];
+    app.clear_speech();
+    for at in [6.0, 12.0] {
+        drive.enforcement_prev_mi = at - TABLEAU_SIREN_LEAD_MI - 0.1;
+        drive.trip.position_mi = at - TABLEAU_SIREN_LEAD_MI + 0.1;
+        drive.update_enforcement_watch(&mut app.ctx, 0.1);
+    }
+    let lines = app.event_lines();
+    assert_eq!(lines.len(), 2, "{lines:?}");
+    assert!(lines[0].starts_with("A trooper"), "{lines:?}");
+    assert_eq!(lines[1], "Another trooper has somebody stopped, not you.");
+}

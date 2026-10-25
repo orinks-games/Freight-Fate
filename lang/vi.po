@@ -13700,12 +13700,6 @@ msgstr ""
 msgid "Passing "
 msgstr ""
 
-msgid "auto"
-msgstr ""
-
-msgid "manual"
-msgstr ""
-
 msgid "miles"
 msgstr ""
 
@@ -19268,6 +19262,9 @@ msgstr ""
 msgid "automatic"
 msgstr ""
 
+msgid "manual"
+msgstr ""
+
 msgid "pickup drive"
 msgstr ""
 
@@ -21894,6 +21891,9 @@ msgstr ""
 msgid "A trooper has somebody stopped on the shoulder, not you."
 msgstr ""
 
+msgid "Another trooper has somebody stopped, not you."
+msgstr ""
+
 msgid "for a log check"
 msgstr ""
 
@@ -22731,7 +22731,12 @@ msgstr ""
 msgid " through the heavy traffic"
 msgstr ""
 
-msgid " for the lower limit"
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
 msgstr ""
 
 #. placeholders: {value}
@@ -22883,6 +22888,21 @@ msgstr ""
 
 #. placeholders: {speed_value}
 msgid "Speed keeper holding {speed_value}."
+msgstr ""
+
+msgid "through the construction zone"
+msgstr ""
+
+#. placeholders: {reason}
+msgid "for the {reason}"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit"
 msgstr ""
 
 #. placeholders: {reason}, {eased}
@@ -23856,14 +23876,6 @@ msgid "Too fast for the ramp, missed {missed}.{note}"
 msgstr ""
 
 #. placeholders: {name}
-msgid "Destination exit for {name}."
-msgstr ""
-
-#. placeholders: {labeled}, {name}
-msgid "{labeled}, destination exit for {name}."
-msgstr ""
-
-#. placeholders: {name}
 msgid "Exit for {name}."
 msgstr ""
 
@@ -23891,7 +23903,7 @@ msgid " The scale is at the end."
 msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {terminal}
-msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
+msgid "{exit_speed}{take} {ramp} of ramp.{terminal}"
 msgstr ""
 
 msgid "light at the end"
@@ -23913,11 +23925,11 @@ msgid "the scale at the end, stop at the bar"
 msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}
-msgid "{exit_speed} {take} {ramp} of ramp."
+msgid "{exit_speed}{take} {ramp} of ramp."
 msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {ending}
-msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
+msgid "{exit_speed}{take} {ramp} of ramp, {ending}."
 msgstr ""
 
 #. placeholders: {place}
@@ -28541,6 +28553,9 @@ msgstr ""
 msgid "{name} was pulled in for an inspection at {place}. {outcome}"
 msgstr ""
 
+msgid "advice"
+msgstr ""
+
 msgid "the next street"
 msgstr ""
 
@@ -28554,10 +28569,6 @@ msgstr ""
 
 #. placeholders: {target}
 msgid "Advise {target}."
-msgstr ""
-
-#. placeholders: {advice}
-msgid "{advice} Speed keeper easing."
 msgstr ""
 
 msgid "Missed the turn. Going around the block."
@@ -31342,7 +31353,9 @@ msgstr ""
 msgid "Use GitHub mirror for updates: {on_off}"
 msgstr ""
 
-msgid "Routes update checks and downloads through a mirror you configure."
+msgid ""
+"Checks for and downloads updates through a GitHub mirror. Turn it on, then "
+"enter the mirror's address in GitHub mirror prefix, just below."
 msgstr ""
 
 msgid "GitHub mirror prefix: not set"
@@ -31353,8 +31366,8 @@ msgid "GitHub mirror prefix: {update_mirror_prefix}"
 msgstr ""
 
 msgid ""
-"The player chooses and trusts the mirror used for update checks and "
-"downloads."
+"The mirror's address, put in front of every GitHub link. Use a mirror you "
+"trust: updates download through it."
 msgstr ""
 
 msgid "Check for updates"

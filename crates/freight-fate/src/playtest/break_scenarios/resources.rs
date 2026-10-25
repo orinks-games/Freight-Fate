@@ -444,9 +444,10 @@ pub fn motel_rest_deadline_crunch() -> Outcome {
              ({remaining_after:?} missing): {sleep_lines:?}"
         ));
     }
-    if !confirmation.contains("wake fresh") {
-        findings
-            .push("motel confirmation line dropped the usual rested-and-woke phrasing".to_string());
+    // The shorter rest lines (2026-10-17) say what the sleep reset rather
+    // than "you wake fresh".
+    if !confirmation.contains("clocks reset") {
+        findings.push("motel confirmation line dropped what the sleep reset".to_string());
     }
     outcome(
         "motel_rest_deadline_crunch",

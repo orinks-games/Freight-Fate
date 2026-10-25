@@ -101,6 +101,10 @@ pub const TURN_GUIDE_DEMAND: f64 = 0.9;
 /// so the engine leans with it instead of sitting dead centre.
 pub const RAMP_GUIDE_DEMAND: f64 = 0.45;
 
+/// The `announced_navigation` half that says a corner's advise speed went
+/// out inside the route's own act-now call for it.
+pub const ADVICE_IN_CALL: &str = "advice";
+
 /// `_is_judged_turn(cue)`: a baked street maneuver with a real side to it.
 ///
 /// `local:start` is where the chain begins, not a corner, and an "ahead"
@@ -519,16 +523,10 @@ impl DrivingState {
     /// tail, which left a terse driver no number to brake to at all.
     pub fn turn_advice_text(&self, ctx: &GameContext, cue: &NavigationCue) -> String {
         let target = ctx.settings.speed_text(self.turn_speed_mph(cue));
-        let mut advice = format!("Advise {target}.");
-        if self.terse_speech(ctx) {
-            return advice;
-        }
-        if self.keeper_mph.is_some() && self.trip.truck.speed_mph() > self.turn_speed_mph(cue) {
-            // The keeper sheds this corner's speed itself, so say so here
-            // rather than as a second utterance on top of the corner call --
-            // and so nobody reaches for the brake, which cancels the session.
-            advice = format!("{advice} Speed keeper easing.");
-        }
+        let advice = format!("Advise {target}.");
+        // "Speed keeper easing." used to follow on every corner the keeper
+        // slowed for. Owner, 2026-10-25: the move onto city streets said too
+        // much; what the keeper does is in the settings help.
         advice
     }
 
@@ -595,10 +593,17 @@ impl DrivingState {
                     .contains(&format!("{}:{half}", cue.key))
                     && (ctx.settings.speaks(Some(category)) || !ctx.ladder_applies())
             };
+            let near_heard = heard(self, "near", SpeechCategory::Navigation);
             let lead_heard = (ahead > TURN_NOW_MI
                 && heard(self, "advance", SpeechCategory::NavigationAdvisory))
-                || heard(self, "near", SpeechCategory::Navigation);
-            let message = if lead_heard {
+                || near_heard;
+            let advice_in_call = self
+                .trip
+                .announced_navigation
+                .contains(&format!("{}:{ADVICE_IN_CALL}", cue.key));
+            let message = if advice_in_call {
+                String::new()
+            } else if lead_heard {
                 self.turn_advice_text(ctx, &cue)
             } else {
                 full
@@ -632,7 +637,15 @@ impl DrivingState {
             if !lead_heard && 0.0f64.max(ahead) <= TURN_NOW_MI {
                 self.turn_called_now.insert(cue.key.clone());
             }
-            if 0.0f64.max(ahead) <= TURN_NOW_MI {
+            // The advise speed for a corner whose act-now call was just said
+            // belongs to that call, not to the chatter: as chatter it waited
+            // past its budget behind the call and flushed the voice, which
+            // handed the call back to be said again ("Turn right onto Port
+            // of Cleveland" twice, agent drive into Cleveland, 2026-10-25).
+            if message.is_empty() {
+                return;
+            }
+            if 0.0f64.max(ahead) <= TURN_NOW_MI || near_heard {
                 ctx.say_event_with(
                     message,
                     SayEvent::queued()
