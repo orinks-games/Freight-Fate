@@ -17702,6 +17702,10 @@ msgstr ""
 msgid "screen"
 msgstr ""
 
+#: crates/freight-fate/src/app/crash_log.rs crates/freight-fate/src/app/win_keys.rs crates/freight-fate/src/online_activation.rs
+msgid "system"
+msgstr ""
+
 #. placeholders: {spacing}
 #: crates/freight-fate/src/app/key_probe.rs
 msgid ", {spacing} ms after the last press"
@@ -17897,10 +17901,6 @@ msgstr ""
 
 #: crates/freight-fate/src/app/testing.rs
 msgid "recording"
-msgstr ""
-
-#: crates/freight-fate/src/app/win_keys.rs crates/freight-fate/src/online_activation.rs
-msgid "system"
 msgstr ""
 
 #: crates/freight-fate/src/audio.rs
