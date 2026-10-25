@@ -727,6 +727,12 @@ Everything found before 2026-09-25 moved to
       a few seconds: "In a quarter mile, continue onto Columbus Road" and
       then "Continue onto Columbus Road, then 1 mile on it" (Cleveland
       agent drive, 2026-10-25).
+- [ ] (Found along the way) Quitting from the title menu on Windows takes
+      about 2.2 seconds after the last shutdown line, where an agent
+      server quit_game takes 0.14 (owner, 2026-10-25). Ending the process
+      with TerminateProcess right after App::shutdown left it hung, Not
+      Responding, so it was reverted. Needs a timestamp after each
+      library's teardown to find the step.
 - [ ] (Found along the way) Sign release archives so the updater can
       check them against a key built into the game, not only against the
       checksum GitHub lists next to the file.

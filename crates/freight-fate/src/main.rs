@@ -54,41 +54,7 @@ fn main() {
     #[cfg(target_os = "ios")]
     ios::run_under_uikit();
     #[cfg(not(target_os = "ios"))]
-    {
-        let code = game_main();
-        exit_now(code);
-    }
-}
-
-/// End the process once the game has shut every service down itself.
-///
-/// On Windows, `ExitProcess` (what `std::process::exit` calls) runs every
-/// loaded library's detach handler, the screen-reader client DLLs and the
-/// audio stack among them, and the game sat for about two seconds after its
-/// last shutdown line before the window went (owner, 2026-10-25: quitting
-/// was as slow as startup had been). Each service is already stopped and
-/// logged by `App::shutdown`, and the log is flushed, so the process ends
-/// here without waiting on those handlers. Elsewhere it exits normally.
-#[cfg(not(target_os = "ios"))]
-fn exit_now(code: i32) -> ! {
-    use std::io::Write;
-    let _ = std::io::stdout().flush();
-    let _ = std::io::stderr().flush();
-    log::logger().flush();
-    #[cfg(windows)]
-    {
-        // SAFETY: GetCurrentProcess returns a pseudo-handle that needs no
-        // closing, and terminating our own process takes nothing else down.
-        // Every buffer this process owns that matters (settings, saves, the
-        // log, stdout) is written and flushed above or by App::shutdown.
-        unsafe {
-            windows_sys::Win32::System::Threading::TerminateProcess(
-                windows_sys::Win32::System::Threading::GetCurrentProcess(),
-                code as u32,
-            );
-        }
-    }
-    std::process::exit(code)
+    std::process::exit(game_main());
 }
 
 /// The game process proper. On iOS this runs inside UIKit's application

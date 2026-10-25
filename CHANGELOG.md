@@ -184,7 +184,6 @@
 
 ### Fixed
 
-- **Quitting on Windows no longer waits about two seconds after the game has shut down.**
 - **The game starts about two seconds faster.** Since 1.9.4 it read the whole music file before the title screen.
 - **With cruise or the speed keeper on, the truck now drives up to a ramp's light.** It used to coast to a stop short of the light and wait there through every green.
 - **The menu music keeps playing when you quit to the main menu from a delivery.** It used to stop and stay silent.
