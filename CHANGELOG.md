@@ -178,6 +178,7 @@
 
 ### Fixed
 
+- **The game starts about two seconds faster.** Since 1.9.4 it read the whole music file before the title screen.
 - **With cruise or the speed keeper on, the truck now drives up to a ramp's light.** It used to coast to a stop short of the light and wait there through every green.
 - **Stop callouts no longer tell you to press the exit key while your exit signal is on.** Pressing it again could cancel or move the signal.
 - **Pressing T just past an exit now asks what your next stop is for.** For a mile and a half it only said the stop you passed was behind you.
