@@ -38704,6 +38704,10 @@ msgid ""
 "until one of them is running."
 msgstr ""
 
+#: crates/freight-fate/src/states/main_menu/settings_actions.rs
+msgid "GitHub mirror prefix"
+msgstr ""
+
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid "Cab speakers"
 msgstr ""
@@ -39434,6 +39438,30 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid "Stable releases or developer snapshots."
+msgstr ""
+
+#. placeholders: {on_off}
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid "Use GitHub mirror for updates: {on_off}"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid "Routes update checks and downloads through a mirror you configure."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid "GitHub mirror prefix: not set"
+msgstr ""
+
+#. placeholders: {update_mirror_prefix}
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid "GitHub mirror prefix: {update_mirror_prefix}"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid ""
+"The player chooses and trusts the mirror used for update checks and "
+"downloads."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_items.rs crates/freight-fate/src/states/update.rs
@@ -45561,4 +45589,21 @@ msgstr ""
 #. placeholders: {ch}
 #: lang/extra.pot
 msgid "cap {ch}"
+msgstr ""
+
+#. GitHub update mirror validation returned from the updater to the text field.
+#: lang/extra.pot
+msgid "Type an HTTPS mirror address."
+msgstr ""
+
+#: lang/extra.pot
+msgid "Type a valid HTTPS mirror address."
+msgstr ""
+
+#: lang/extra.pot
+msgid "The mirror address must start with https://."
+msgstr ""
+
+#: lang/extra.pot
+msgid "The mirror address cannot contain a query or fragment."
 msgstr ""

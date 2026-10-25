@@ -51,6 +51,33 @@ const MAX_RELEASE_PAGES: usize = 10;
 
 pub const CHANNELS: [&str; 2] = ["stable", "dev"];
 
+/// Validate and normalize a player-supplied GitHub mirror prefix.
+///
+/// Mirrors receive the original GitHub URL immediately after this prefix, so
+/// exactly one trailing slash keeps concatenation predictable.
+pub fn normalize_mirror_prefix(prefix: &str) -> Result<String, &'static str> {
+    let prefix = prefix.trim();
+    if prefix.is_empty() {
+        return Err("Type an HTTPS mirror address.");
+    }
+    let parsed = url::Url::parse(prefix).map_err(|_| "Type a valid HTTPS mirror address.")?;
+    if parsed.scheme() != "https" || parsed.host_str().is_none() {
+        return Err("The mirror address must start with https://.");
+    }
+    if parsed.query().is_some() || parsed.fragment().is_some() {
+        return Err("The mirror address cannot contain a query or fragment.");
+    }
+    Ok(format!("{}/", prefix.trim_end_matches('/')))
+}
+
+/// Prepend `mirror_prefix` to a GitHub URL, or leave it direct when disabled.
+pub fn mirror_url(url: &str, mirror_prefix: Option<&str>) -> Result<String, &'static str> {
+    match mirror_prefix {
+        Some(prefix) => Ok(format!("{}{url}", normalize_mirror_prefix(prefix)?)),
+        None => Ok(url.to_string()),
+    }
+}
+
 // -- the process environment ---------------------------------------------------
 
 /// `sys.platform`, as the updater branches on it.
@@ -414,6 +441,10 @@ impl UpdateInfo {
 
 /// `_api_get`: one GitHub API request on the updater's tier.
 pub fn api_get(path: &str) -> Result<Value, NetError> {
+    api_get_with_mirror(path, None)
+}
+
+fn api_get_with_mirror(path: &str, mirror_prefix: Option<&str>) -> Result<Value, NetError> {
     let headers = vec![
         ("User-Agent".to_string(), USER_AGENT.to_string()),
         (
@@ -424,7 +455,12 @@ pub fn api_get(path: &str) -> Result<Value, NetError> {
     net::request_json(
         Tier::GitHub,
         Some("GET"),
-        &format!("{API_BASE}{path}"),
+        &mirror_url(&format!("{API_BASE}{path}"), mirror_prefix).map_err(|message| {
+            NetError::Other {
+                type_name: "InvalidMirror".to_string(),
+                message: message.to_string(),
+            }
+        })?,
         None,
         &headers,
     )
@@ -1151,10 +1187,17 @@ pub fn check_for_update(
     channel: &str,
     current_version: &str,
     build: Option<&BuildInfo>,
+    mirror_prefix: Option<&str>,
 ) -> Result<Option<UpdateInfo>, NetError> {
     let env = UpdaterEnv::current();
-    let mut found = check_for_update_with(channel, current_version, build, &env, &api_get)?;
+    let api = |path: &str| api_get_with_mirror(path, mirror_prefix);
+    let mut found = check_for_update_with(channel, current_version, build, &env, &api)?;
     if let Some(info) = found.as_mut() {
+        info.asset_url =
+            mirror_url(&info.asset_url, mirror_prefix).map_err(|message| NetError::Other {
+                type_name: "InvalidMirror".to_string(),
+                message: message.to_string(),
+            })?;
         slim::resolve(info, &env);
     }
     Ok(found)

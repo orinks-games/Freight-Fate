@@ -629,6 +629,11 @@ settings_fields! {
     speech_voice: String = "" => str_plain,
     /// "stable"/"dev"; "" follows this build's channel
     update_channel: String = "" => str_checked,
+    /// Route GitHub update discovery and archive downloads through the
+    /// player-supplied mirror prefix. Off by default; no mirror is built in.
+    update_mirror_enabled: bool = false => bool_strict,
+    /// HTTPS prefix prepended to GitHub API and release-asset URLs.
+    update_mirror_prefix: String = "" => str_plain,
     /// release tag the player chose to skip
     skipped_update: String = "" => str_plain,
     /// show broad activity in Discord (privacy-safe)
