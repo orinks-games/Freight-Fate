@@ -733,6 +733,20 @@ Everything found before 2026-09-25 moved to
       with TerminateProcess right after App::shutdown left it hung, Not
       Responding, so it was reverted. Needs a timestamp after each
       library's teardown to find the step.
+- [ ] (Found along the way) Refresh the map's OpenStreetMap layers on
+      current dev, one layer per session (owner, 2026-10-25; after 1.9.5).
+      The shipped layers come from the 2026-06-23 extract. Order: speed
+      limits first (they feed enforcement, cruise and the limit callouts),
+      then ramp lengths, then interchanges, curves and approaches only if
+      a tester hits a wrong one. Each layer ports its builder into
+      `ff-tools`, runs on fresh Geofabrik extracts taken that day, then
+      re-indexes, re-bakes `world.ffdata` and passes the `data_*` and
+      `sim_*` tests. The September attempt (commit c2b4797d, forked
+      2026-09-24, re-bake never finished; extracts dated 2026-09-23) is
+      kept on the owner's PC under `refs/backup/2026-10-25/` as a
+      reference for the Python builders only. Its data must not be applied:
+      dev has changed 49 of the same leg files since, Manassas and the
+      Mall of America among them.
 - [ ] (Found along the way) Sign release archives so the updater can
       check them against a key built into the game, not only against the
       checksum GitHub lists next to the file.
