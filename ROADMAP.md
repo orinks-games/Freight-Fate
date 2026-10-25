@@ -719,6 +719,14 @@ into the release gate. Details stay in the linked dated sections, marked
 Everything found before 2026-09-25 moved to
 [2.0](#found-along-the-way-in-19-moved-to-20) that day.
 
+- [ ] (Found along the way) A Driving hints setting, on by default, that
+      drops every "Press X to ..." sentence from driving lines (owner,
+      2026-10-25; after 1.9.5). The key hints retire after three presses by
+      the player, so with All assists signaling for them they never retire.
+- [ ] (Found along the way) A continue-onto street cue is named twice in
+      a few seconds: "In a quarter mile, continue onto Columbus Road" and
+      then "Continue onto Columbus Road, then 1 mile on it" (Cleveland
+      agent drive, 2026-10-25).
 - [ ] (Found along the way) Sign release archives so the updater can
       check them against a key built into the game, not only against the
       checksum GitHub lists next to the file.

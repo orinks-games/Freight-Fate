@@ -15290,12 +15290,6 @@ msgstr "Girilen yer: "
 msgid "Passing "
 msgstr "Geçilen yer: "
 
-msgid "auto"
-msgstr "otomatik"
-
-msgid "manual"
-msgstr "manuel"
-
 msgid "miles"
 msgstr "mil"
 
@@ -21464,6 +21458,9 @@ msgstr "hava {air_pressure_psi} psi"
 msgid "automatic"
 msgstr "otomatik"
 
+msgid "manual"
+msgstr "manuel"
+
 msgid "pickup drive"
 msgstr "yükleme yolculuğu"
 
@@ -26534,14 +26531,6 @@ msgid "Too fast for the ramp, missed {missed}.{note}"
 msgstr "Rampa için çok hızlıydınız, kaçan: {missed}.{note}"
 
 #. placeholders: {name}
-msgid "Destination exit for {name}."
-msgstr "{name} için varış çıkışı."
-
-#. placeholders: {labeled}, {name}
-msgid "{labeled}, destination exit for {name}."
-msgstr "{labeled}, {name} için varış çıkışı."
-
-#. placeholders: {name}
 msgid "Exit for {name}."
 msgstr "Çıkış: {name}."
 
@@ -26569,8 +26558,8 @@ msgid " The scale is at the end."
 msgstr " Kantar sonda."
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {terminal}
-msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
-msgstr "{exit_speed} {take} {ramp} rampa.{terminal}"
+msgid "{exit_speed}{take} {ramp} of ramp.{terminal}"
+msgstr ""
 
 msgid "light at the end"
 msgstr "sonunda ışık"
@@ -26591,12 +26580,12 @@ msgid "the scale at the end, stop at the bar"
 msgstr "kantar sonda, çizgide durun"
 
 #. placeholders: {exit_speed}, {take}, {ramp}
-msgid "{exit_speed} {take} {ramp} of ramp."
-msgstr "{exit_speed} {take} {ramp} rampa."
+msgid "{exit_speed}{take} {ramp} of ramp."
+msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {ending}
-msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
-msgstr "{exit_speed} {take} {ramp} rampa, {ending}."
+msgid "{exit_speed}{take} {ramp} of ramp, {ending}."
+msgstr ""
 
 #. placeholders: {place}
 #. one sentence of a longer line
@@ -40861,6 +40850,24 @@ msgstr "sağ parantez"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "büyük {ch}"
+
+#~ msgid "auto"
+#~ msgstr "otomatik"
+
+#~ msgid "Destination exit for {name}."
+#~ msgstr "{name} için varış çıkışı."
+
+#~ msgid "{labeled}, destination exit for {name}."
+#~ msgstr "{labeled}, {name} için varış çıkışı."
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
+#~ msgstr "{exit_speed} {take} {ramp} rampa.{terminal}"
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp."
+#~ msgstr "{exit_speed} {take} {ramp} rampa."
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
+#~ msgstr "{exit_speed} {take} {ramp} rampa, {ending}."
 
 #~ msgid "{advice} Speed keeper easing."
 #~ msgstr "{advice} Hız tutucu yavaşlatıyor."

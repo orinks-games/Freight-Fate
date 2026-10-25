@@ -15586,12 +15586,6 @@ msgstr "Въезжаем в"
 msgid "Passing "
 msgstr "Проезжаем"
 
-msgid "auto"
-msgstr "auto"
-
-msgid "manual"
-msgstr "manual"
-
 msgid "miles"
 msgstr "мили"
 
@@ -22028,6 +22022,9 @@ msgstr ""
 msgid "automatic"
 msgstr "автоматическая"
 
+msgid "manual"
+msgstr "manual"
+
 msgid "pickup drive"
 msgstr "поездка к погрузке"
 
@@ -27317,14 +27314,6 @@ msgid "Too fast for the ramp, missed {missed}.{note}"
 msgstr "Слишком быстро для съезда, пропущен {missed}.{note}"
 
 #. placeholders: {name}
-msgid "Destination exit for {name}."
-msgstr "Съезд к месту доставки, {name}."
-
-#. placeholders: {labeled}, {name}
-msgid "{labeled}, destination exit for {name}."
-msgstr "{labeled}, съезд к месту доставки, {name}."
-
-#. placeholders: {name}
 msgid "Exit for {name}."
 msgstr "Съезд к {name}."
 
@@ -27352,8 +27341,8 @@ msgid " The scale is at the end."
 msgstr " В конце весы."
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {terminal}
-msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
-msgstr "{exit_speed} {take} {ramp} съезда.{terminal}"
+msgid "{exit_speed}{take} {ramp} of ramp.{terminal}"
+msgstr ""
 
 msgid "light at the end"
 msgstr "в конце светофор"
@@ -27374,12 +27363,12 @@ msgid "the scale at the end, stop at the bar"
 msgstr "в конце весы, остановитесь у линии"
 
 #. placeholders: {exit_speed}, {take}, {ramp}
-msgid "{exit_speed} {take} {ramp} of ramp."
-msgstr "{exit_speed} {take} {ramp} съезда."
+msgid "{exit_speed}{take} {ramp} of ramp."
+msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {ending}
-msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
-msgstr "{exit_speed} {take} {ramp} съезда, {ending}."
+msgid "{exit_speed}{take} {ramp} of ramp, {ending}."
+msgstr ""
 
 #. placeholders: {place}
 #. one sentence of a longer line
@@ -41990,6 +41979,24 @@ msgstr "закрывающая скобка"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "заглавная {ch}"
+
+#~ msgid "auto"
+#~ msgstr "auto"
+
+#~ msgid "Destination exit for {name}."
+#~ msgstr "Съезд к месту доставки, {name}."
+
+#~ msgid "{labeled}, destination exit for {name}."
+#~ msgstr "{labeled}, съезд к месту доставки, {name}."
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
+#~ msgstr "{exit_speed} {take} {ramp} съезда.{terminal}"
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp."
+#~ msgstr "{exit_speed} {take} {ramp} съезда."
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
+#~ msgstr "{exit_speed} {take} {ramp} съезда, {ending}."
 
 #~ msgid "{advice} Speed keeper easing."
 #~ msgstr "{advice} Поддержание скорости снижает скорость."

@@ -15928,12 +15928,6 @@ msgstr "Vous entrez dans "
 msgid "Passing "
 msgstr "Vous passez "
 
-msgid "auto"
-msgstr "auto"
-
-msgid "manual"
-msgstr "manuelle"
-
 msgid "miles"
 msgstr "miles"
 
@@ -22324,6 +22318,9 @@ msgstr "air {air_pressure_psi} psi"
 msgid "automatic"
 msgstr "automatique"
 
+msgid "manual"
+msgstr "manuelle"
+
 msgid "pickup drive"
 msgstr "conduite vers l'enlèvement"
 
@@ -27499,14 +27496,6 @@ msgid "Too fast for the ramp, missed {missed}.{note}"
 msgstr "Trop vite pour la bretelle, {missed} manqué.{note}"
 
 #. placeholders: {name}
-msgid "Destination exit for {name}."
-msgstr "Sortie de destination pour {name}."
-
-#. placeholders: {labeled}, {name}
-msgid "{labeled}, destination exit for {name}."
-msgstr "{labeled}, sortie de destination pour {name}."
-
-#. placeholders: {name}
 msgid "Exit for {name}."
 msgstr "Sortie pour {name}."
 
@@ -27534,8 +27523,8 @@ msgid " The scale is at the end."
 msgstr " La bascule est au bout."
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {terminal}
-msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
-msgstr "{exit_speed} {take} {ramp} de bretelle.{terminal}"
+msgid "{exit_speed}{take} {ramp} of ramp.{terminal}"
+msgstr ""
 
 msgid "light at the end"
 msgstr "feu tricolore au bout"
@@ -27556,12 +27545,12 @@ msgid "the scale at the end, stop at the bar"
 msgstr "la bascule au bout, arrêtez-vous à la ligne"
 
 #. placeholders: {exit_speed}, {take}, {ramp}
-msgid "{exit_speed} {take} {ramp} of ramp."
-msgstr "{exit_speed} {take} {ramp} de bretelle."
+msgid "{exit_speed}{take} {ramp} of ramp."
+msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {ending}
-msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
-msgstr "{exit_speed} {take} {ramp} de bretelle, {ending}."
+msgid "{exit_speed}{take} {ramp} of ramp, {ending}."
+msgstr ""
 
 #. placeholders: {place}
 #. one sentence of a longer line
@@ -42257,6 +42246,24 @@ msgstr "parenthèse droite"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "majuscule {ch}"
+
+#~ msgid "auto"
+#~ msgstr "auto"
+
+#~ msgid "Destination exit for {name}."
+#~ msgstr "Sortie de destination pour {name}."
+
+#~ msgid "{labeled}, destination exit for {name}."
+#~ msgstr "{labeled}, sortie de destination pour {name}."
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
+#~ msgstr "{exit_speed} {take} {ramp} de bretelle.{terminal}"
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp."
+#~ msgstr "{exit_speed} {take} {ramp} de bretelle."
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
+#~ msgstr "{exit_speed} {take} {ramp} de bretelle, {ending}."
 
 #~ msgid "{advice} Speed keeper easing."
 #~ msgstr "{advice} Le limiteur ralentit."

@@ -17441,14 +17441,6 @@ msgstr ""
 msgid "Passing "
 msgstr ""
 
-#: crates/ff-core/src/spoken_advice.rs
-msgid "auto"
-msgstr ""
-
-#: crates/ff-core/src/spoken_advice.rs crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_updates/frame.rs
-msgid "manual"
-msgstr ""
-
 #: crates/ff-core/src/units.rs
 msgid "miles"
 msgstr ""
@@ -24441,6 +24433,10 @@ msgstr ""
 msgid "automatic"
 msgstr ""
 
+#: crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_updates/frame.rs crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid "manual"
+msgstr ""
+
 #: crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_pause_states.rs
 msgid "pickup drive"
 msgstr ""
@@ -30170,16 +30166,6 @@ msgstr ""
 
 #. placeholders: {name}
 #: crates/freight-fate/src/states/driving_events/update_exit.rs
-msgid "Destination exit for {name}."
-msgstr ""
-
-#. placeholders: {labeled}, {name}
-#: crates/freight-fate/src/states/driving_events/update_exit.rs
-msgid "{labeled}, destination exit for {name}."
-msgstr ""
-
-#. placeholders: {name}
-#: crates/freight-fate/src/states/driving_events/update_exit.rs
 msgid "Exit for {name}."
 msgstr ""
 
@@ -30215,7 +30201,7 @@ msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {terminal}
 #: crates/freight-fate/src/states/driving_events/update_exit.rs
-msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
+msgid "{exit_speed}{take} {ramp} of ramp.{terminal}"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/update_exit.rs
@@ -30244,12 +30230,12 @@ msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}
 #: crates/freight-fate/src/states/driving_events/update_exit.rs
-msgid "{exit_speed} {take} {ramp} of ramp."
+msgid "{exit_speed}{take} {ramp} of ramp."
 msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {ending}
 #: crates/freight-fate/src/states/driving_events/update_exit.rs
-msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
+msgid "{exit_speed}{take} {ramp} of ramp, {ending}."
 msgstr ""
 
 #. placeholders: {place}

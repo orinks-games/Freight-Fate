@@ -13700,12 +13700,6 @@ msgstr ""
 msgid "Passing "
 msgstr ""
 
-msgid "auto"
-msgstr ""
-
-msgid "manual"
-msgstr ""
-
 msgid "miles"
 msgstr ""
 
@@ -19268,6 +19262,9 @@ msgstr ""
 msgid "automatic"
 msgstr ""
 
+msgid "manual"
+msgstr ""
+
 msgid "pickup drive"
 msgstr ""
 
@@ -23879,14 +23876,6 @@ msgid "Too fast for the ramp, missed {missed}.{note}"
 msgstr ""
 
 #. placeholders: {name}
-msgid "Destination exit for {name}."
-msgstr ""
-
-#. placeholders: {labeled}, {name}
-msgid "{labeled}, destination exit for {name}."
-msgstr ""
-
-#. placeholders: {name}
 msgid "Exit for {name}."
 msgstr ""
 
@@ -23914,7 +23903,7 @@ msgid " The scale is at the end."
 msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {terminal}
-msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
+msgid "{exit_speed}{take} {ramp} of ramp.{terminal}"
 msgstr ""
 
 msgid "light at the end"
@@ -23936,11 +23925,11 @@ msgid "the scale at the end, stop at the bar"
 msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}
-msgid "{exit_speed} {take} {ramp} of ramp."
+msgid "{exit_speed}{take} {ramp} of ramp."
 msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {ending}
-msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
+msgid "{exit_speed}{take} {ramp} of ramp, {ending}."
 msgstr ""
 
 #. placeholders: {place}

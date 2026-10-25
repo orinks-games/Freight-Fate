@@ -148,6 +148,8 @@
 
 - **Every street corner is now called with its distance and the speed to take it at.** The turn's chime plays with that call, on the side you turn.
 
+- **Taking the destination exit is said in fewer words.** You hear the exit speed, the exit number, and the ramp's length and what ends it.
+
 - **The speed keeper says less on city streets.** It no longer repeats the street limit or says it is easing for each corner; the advise speed covers it.
 
 - **Missing a street corner now sends the truck around the block instead of back up the street.** You come out on the street you missed, a few minutes later.
@@ -182,12 +184,13 @@
 
 - **The game starts about two seconds faster.** Since 1.9.4 it read the whole music file before the title screen.
 - **With cruise or the speed keeper on, the truck now drives up to a ramp's light.** It used to coast to a stop short of the light and wait there through every green.
-- **The title menu music now plays after you quit to the main menu from a delivery.** It used to stay silent.
+- **The menu music keeps playing when you quit to the main menu from a delivery.** It used to stop and stay silent.
 - **Cruise's status line now names the limit it is slowing for.** For example, it says holding 65 for the 60 limit ahead.
 - **A street turn is no longer called twice when its advised speed follows.**
 - **A second trooper stopped on the shoulder soon after the first is now called another trooper.**
 - **Route-transition assistance no longer says it released partway down a ramp that ends at a light or sign.** The assist is still driving there.
 - **Stop callouts no longer tell you to press the exit key while your exit signal is on.** Pressing it again could cancel or move the signal.
+- **Switching between automatic and manual no longer brings back key reminders you had already learned,** such as Press X to signal for the exit.
 - **Pressing T just past an exit now asks what your next stop is for.** For a mile and a half it only said the stop you passed was behind you.
 - **Cruise resuming in snow or rain now names the weather speed once.** The slowdown for the weather was said again right after.
 - **An exit ramp's speed sign now holds only through its bend.** Past the bend, the assists let the truck pick up speed toward the end of the ramp.

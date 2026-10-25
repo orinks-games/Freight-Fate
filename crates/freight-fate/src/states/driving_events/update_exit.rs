@@ -534,16 +534,14 @@ impl DrivingState {
         self.pause_speed_control(ctx, transit);
         ctx.audio.play_with("ui/notify", 0.7, 0.0);
         let take = if stop.stop_type == "delivery_destination" {
-            let phrase = self.exit_phrase_of(ctx, stop);
-            let labeled = if phrase.is_empty() {
-                stop.exit_label.clone()
+            // Just the number. Where the exit leads and whose it is were
+            // said on every call from 5 miles out, and saying them again
+            // here buried the ramp's length and what ends it (owner,
+            // 2026-10-25: the move off the highway said too much).
+            if stop.exit_label.is_empty() {
+                String::new()
             } else {
-                phrase
-            };
-            if labeled.is_empty() {
-                format!("Destination exit for {}.", stop.name)
-            } else {
-                format!("{labeled}, destination exit for {}.", stop.name)
+                format!("{}.", stop.exit_label)
             }
         } else if stop.exit_label.is_empty() {
             format!("Exit for {}.", stop.spoken_name())
@@ -555,7 +553,9 @@ impl DrivingState {
         let take = {
             let mut chars = take.chars();
             match chars.next() {
-                Some(first) => first.to_uppercase().collect::<String>() + chars.as_str(),
+                Some(first) => {
+                    " ".to_string() + &first.to_uppercase().collect::<String>() + chars.as_str()
+                }
                 None => take,
             }
         };
@@ -594,7 +594,7 @@ impl DrivingState {
             if scale_ramp {
                 terminal = " The scale is at the end.";
             }
-            format!("{exit_speed} {take} {ramp} of ramp.{terminal}")
+            format!("{exit_speed}{take} {ramp} of ramp.{terminal}")
         } else {
             let mut ending = match self.ramp_control.as_str() {
                 "signal" => "light at the end",
@@ -611,9 +611,9 @@ impl DrivingState {
             }
             if ending == "stop at the end" && self.ramp_continues_to_destination_streets(ctx) {
                 // Streets follow this ramp: its end is not where to stop.
-                format!("{exit_speed} {take} {ramp} of ramp.")
+                format!("{exit_speed}{take} {ramp} of ramp.")
             } else {
-                format!("{exit_speed} {take} {ramp} of ramp, {ending}.")
+                format!("{exit_speed}{take} {ramp} of ramp, {ending}.")
             }
         };
         // On the ramp from this line on: a mainline line it cuts is not

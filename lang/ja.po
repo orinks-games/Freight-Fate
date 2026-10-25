@@ -14030,12 +14030,6 @@ msgstr "進入中： "
 msgid "Passing "
 msgstr "通過中： "
 
-msgid "auto"
-msgstr "自動"
-
-msgid "manual"
-msgstr "手動"
-
 msgid "miles"
 msgstr "マイル"
 
@@ -19788,6 +19782,9 @@ msgstr "エア{air_pressure_psi} psi"
 msgid "automatic"
 msgstr "自動"
 
+msgid "manual"
+msgstr "手動"
+
 msgid "pickup drive"
 msgstr "積み込みへの運転"
 
@@ -24514,14 +24511,6 @@ msgid "Too fast for the ramp, missed {missed}.{note}"
 msgstr "ランプに対してスピードが出すぎていて、{missed}を逃しました。{note}"
 
 #. placeholders: {name}
-msgid "Destination exit for {name}."
-msgstr "{name}方面の目的地の出口です。"
-
-#. placeholders: {labeled}, {name}
-msgid "{labeled}, destination exit for {name}."
-msgstr "{labeled}、{name}方面の目的地の出口です。"
-
-#. placeholders: {name}
 msgid "Exit for {name}."
 msgstr "{name}方面の出口です。"
 
@@ -24549,8 +24538,8 @@ msgid " The scale is at the end."
 msgstr " 終わりに計量所があります。"
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {terminal}
-msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
-msgstr "{exit_speed}{take}ランプは{ramp}です。{terminal}"
+msgid "{exit_speed}{take} {ramp} of ramp.{terminal}"
+msgstr ""
 
 msgid "light at the end"
 msgstr "終わりに信号があります"
@@ -24571,12 +24560,12 @@ msgid "the scale at the end, stop at the bar"
 msgstr "終わりに計量所があり、停止線で停まってください"
 
 #. placeholders: {exit_speed}, {take}, {ramp}
-msgid "{exit_speed} {take} {ramp} of ramp."
-msgstr "{exit_speed}{take}ランプは{ramp}です。"
+msgid "{exit_speed}{take} {ramp} of ramp."
+msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {ending}
-msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
-msgstr "{exit_speed}{take}ランプは{ramp}で、{ending}。"
+msgid "{exit_speed}{take} {ramp} of ramp, {ending}."
+msgstr ""
 
 #. placeholders: {place}
 #. one sentence of a longer line
@@ -37610,6 +37599,24 @@ msgstr "右かっこ"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "大文字の{ch}"
+
+#~ msgid "auto"
+#~ msgstr "自動"
+
+#~ msgid "Destination exit for {name}."
+#~ msgstr "{name}方面の目的地の出口です。"
+
+#~ msgid "{labeled}, destination exit for {name}."
+#~ msgstr "{labeled}、{name}方面の目的地の出口です。"
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
+#~ msgstr "{exit_speed}{take}ランプは{ramp}です。{terminal}"
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp."
+#~ msgstr "{exit_speed}{take}ランプは{ramp}です。"
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
+#~ msgstr "{exit_speed}{take}ランプは{ramp}で、{ending}。"
 
 #~ msgid "{advice} Speed keeper easing."
 #~ msgstr "{advice}速度キープが減速します。"

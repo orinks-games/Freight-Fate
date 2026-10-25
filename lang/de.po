@@ -15823,12 +15823,6 @@ msgstr "Du erreichst "
 msgid "Passing "
 msgstr "Du passierst "
 
-msgid "auto"
-msgstr "automatisch"
-
-msgid "manual"
-msgstr "manuell"
-
 msgid "miles"
 msgstr "Meilen"
 
@@ -22171,6 +22165,9 @@ msgstr "Luftdruck {air_pressure_psi} psi"
 msgid "automatic"
 msgstr "Automatik"
 
+msgid "manual"
+msgstr "manuell"
+
 msgid "pickup drive"
 msgstr "Abholfahrt"
 
@@ -27334,14 +27331,6 @@ msgid "Too fast for the ramp, missed {missed}.{note}"
 msgstr "Zu schnell für die Ausfahrt, {missed} verpasst.{note}"
 
 #. placeholders: {name}
-msgid "Destination exit for {name}."
-msgstr "Zielausfahrt für {name}."
-
-#. placeholders: {labeled}, {name}
-msgid "{labeled}, destination exit for {name}."
-msgstr "{labeled}, Zielausfahrt für {name}."
-
-#. placeholders: {name}
 msgid "Exit for {name}."
 msgstr "Ausfahrt für {name}."
 
@@ -27369,8 +27358,8 @@ msgid " The scale is at the end."
 msgstr " Am Ende ist die Waage."
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {terminal}
-msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
-msgstr "{exit_speed} {take} {ramp} Ausfahrt.{terminal}"
+msgid "{exit_speed}{take} {ramp} of ramp.{terminal}"
+msgstr ""
 
 msgid "light at the end"
 msgstr "Ampel am Ende"
@@ -27391,12 +27380,12 @@ msgid "the scale at the end, stop at the bar"
 msgstr "die Waage am Ende, halt an der Linie"
 
 #. placeholders: {exit_speed}, {take}, {ramp}
-msgid "{exit_speed} {take} {ramp} of ramp."
-msgstr "{exit_speed} {take} {ramp} Ausfahrt."
+msgid "{exit_speed}{take} {ramp} of ramp."
+msgstr ""
 
 #. placeholders: {exit_speed}, {take}, {ramp}, {ending}
-msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
-msgstr "{exit_speed} {take} {ramp} Ausfahrt, {ending}."
+msgid "{exit_speed}{take} {ramp} of ramp, {ending}."
+msgstr ""
 
 #. placeholders: {place}
 #. one sentence of a longer line
@@ -41999,6 +41988,24 @@ msgstr "Klammer zu"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "groß {ch}"
+
+#~ msgid "auto"
+#~ msgstr "automatisch"
+
+#~ msgid "Destination exit for {name}."
+#~ msgstr "Zielausfahrt für {name}."
+
+#~ msgid "{labeled}, destination exit for {name}."
+#~ msgstr "{labeled}, Zielausfahrt für {name}."
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp.{terminal}"
+#~ msgstr "{exit_speed} {take} {ramp} Ausfahrt.{terminal}"
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp."
+#~ msgstr "{exit_speed} {take} {ramp} Ausfahrt."
+
+#~ msgid "{exit_speed} {take} {ramp} of ramp, {ending}."
+#~ msgstr "{exit_speed} {take} {ramp} Ausfahrt, {ending}."
 
 #~ msgid "{advice} Speed keeper easing."
 #~ msgstr "{advice} Der Tempohalter bremst sanft."
