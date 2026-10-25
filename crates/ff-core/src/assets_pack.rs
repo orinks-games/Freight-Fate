@@ -42,6 +42,7 @@ use std::sync::{Arc, Mutex};
 use once_cell::sync::Lazy;
 use zip::write::SimpleFileOptions;
 
+mod archive;
 mod streamed;
 pub use streamed::{channel3000_pack_available, LazyPack, StreamedPack};
 use zip::{CompressionMethod, DateTime, ZipArchive, ZipWriter};
@@ -264,7 +265,7 @@ impl SoundPack {
         let mut payload = raw;
         payload.drain(..PACK_MAGIC.len());
         mask_in_place(&mut payload);
-        let archive = ZipArchive::new(Cursor::new(payload))?;
+        let archive = archive::open_pack_archive(Cursor::new(payload))?;
         let names = archive
             .file_names()
             .map(|name| name.map(|name| name.into_owned()))
