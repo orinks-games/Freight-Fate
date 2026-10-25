@@ -54,6 +54,7 @@ pub const LANGUAGES: &[(&str, &str, &str)] = &[
     ),
     ("zh_CN", "Simplified Chinese", "nplurals=1; plural=0;"),
     ("ja", "Japanese", "nplurals=1; plural=0;"),
+    ("vi", "Vietnamese", "nplurals=1; plural=0;"),
     ("tr", "Turkish", "nplurals=2; plural=(n != 1);"),
 ];
 
