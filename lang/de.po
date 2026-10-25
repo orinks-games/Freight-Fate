@@ -25221,6 +25221,9 @@ msgid "A trooper has somebody stopped on the shoulder, not you."
 msgstr ""
 "Ein Polizist hat jemanden auf dem Seitenstreifen angehalten, nicht dich."
 
+msgid "Another trooper has somebody stopped, not you."
+msgstr ""
+
 msgid "for a log check"
 msgstr "für eine Fahrtenbuchkontrolle"
 
@@ -26140,8 +26143,13 @@ msgstr " durch die Baustelle"
 msgid " through the heavy traffic"
 msgstr " durch den dichten Verkehr"
 
-msgid " for the lower limit"
-msgstr " für das niedrigere Limit"
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
+msgstr ""
 
 #. placeholders: {value}
 msgid " in the {value}"
@@ -26296,6 +26304,21 @@ msgstr "{title_case}-Zone. Tempohalter hält {held}."
 #. placeholders: {speed_value}
 msgid "Speed keeper holding {speed_value}."
 msgstr "Tempohalter hält {speed_value}."
+
+msgid "through the construction zone"
+msgstr ""
+
+#. placeholders: {reason}
+msgid "for the {reason}"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit"
+msgstr ""
 
 #. placeholders: {reason}, {eased}
 msgid "{reason}, cruise easing to {eased}."
@@ -41977,6 +42000,9 @@ msgstr "Klammer zu"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "groß {ch}"
+
+#~ msgid " for the lower limit"
+#~ msgstr " für das niedrigere Limit"
 
 #~ msgid ""
 #~ "On, you drive the real streets between the highway and a facility, turn by "

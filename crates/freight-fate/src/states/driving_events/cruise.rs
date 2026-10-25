@@ -167,7 +167,13 @@ impl DrivingState {
             exit_note = match limit_reason.as_deref() {
                 Some("construction") => " through the construction zone".to_string(),
                 Some("heavy traffic") => " through the heavy traffic".to_string(),
-                _ => " for the lower limit".to_string(),
+                // Which limit, and whether it is in force yet: "for the lower
+                // limit" in a 70 read as cruise ignoring the road (owner,
+                // 2026-10-25).
+                _ if posted < self.trip.speed_limit_at(self.trip.position_mi).0 => {
+                    format!(" for the {} limit ahead", ctx.settings.speed_value(posted))
+                }
+                _ => format!(" for the {} limit", ctx.settings.speed_value(posted)),
             };
         }
         let effects = self.trip.weather.effects();

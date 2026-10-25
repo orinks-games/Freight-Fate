@@ -91,6 +91,21 @@ impl DrivingState {
             && self.terminal_close_up_mph(ctx).is_some()
     }
 
+    /// Whether the light or sign at this ramp's end, not yet crossed, takes
+    /// the pedals on from the ramp cap for a driver who left speed control
+    /// on. The cap letting go there is a handover, not a release: the
+    /// terminal is named a few hundred feet later and drives the truck up to
+    /// its line, so "released" was untrue (owner, Cleveland, 2026-10-25).
+    pub(crate) fn terminal_takes_over_from_the_cap(&self) -> bool {
+        self.speed_control_armed
+            && self.ramp_mi.is_some()
+            && !self.ramp_terminal_done
+            && matches!(
+                self.ramp_control.as_str(),
+                "signal" | "stop" | "yield" | "roundabout"
+            )
+    }
+
     /// Give the truck the accelerator up to the line when the assist closes
     /// up: only with nothing on the brake, so a driver's foot, or another
     /// assist braking for a vehicle ahead, wins.

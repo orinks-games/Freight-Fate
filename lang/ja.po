@@ -22514,6 +22514,9 @@ msgstr "運転を穏やかにして、安全に避けられる急停止や急カ
 msgid "A trooper has somebody stopped on the shoulder, not you."
 msgstr "州警察官が路肩で誰かを停めています。こちらではありません。"
 
+msgid "Another trooper has somebody stopped, not you."
+msgstr ""
+
 msgid "for a log check"
 msgstr "運転記録の確認で"
 
@@ -23362,8 +23365,13 @@ msgstr " 工事区間に合わせて"
 msgid " through the heavy traffic"
 msgstr " 渋滞に合わせて"
 
-msgid " for the lower limit"
-msgstr " 低い制限速度に合わせて"
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
+msgstr ""
 
 #. placeholders: {value}
 msgid " in the {value}"
@@ -23515,6 +23523,21 @@ msgstr "{title_case}区間。速度キープが{held}を維持します。"
 #. placeholders: {speed_value}
 msgid "Speed keeper holding {speed_value}."
 msgstr "速度キープが{speed_value}を維持します。"
+
+msgid "through the construction zone"
+msgstr ""
+
+#. placeholders: {reason}
+msgid "for the {reason}"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit"
+msgstr ""
 
 #. placeholders: {reason}, {eased}
 msgid "{reason}, cruise easing to {eased}."
@@ -37588,6 +37611,9 @@ msgstr "右かっこ"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "大文字の{ch}"
+
+#~ msgid " for the lower limit"
+#~ msgstr " 低い制限速度に合わせて"
 
 #~ msgid ""
 #~ "On, you drive the real streets between the highway and a facility, turn by "

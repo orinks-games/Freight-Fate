@@ -595,9 +595,10 @@ impl DrivingState {
                     .contains(&format!("{}:{half}", cue.key))
                     && (ctx.settings.speaks(Some(category)) || !ctx.ladder_applies())
             };
+            let near_heard = heard(self, "near", SpeechCategory::Navigation);
             let lead_heard = (ahead > TURN_NOW_MI
                 && heard(self, "advance", SpeechCategory::NavigationAdvisory))
-                || heard(self, "near", SpeechCategory::Navigation);
+                || near_heard;
             let message = if lead_heard {
                 self.turn_advice_text(ctx, &cue)
             } else {
@@ -632,7 +633,12 @@ impl DrivingState {
             if !lead_heard && 0.0f64.max(ahead) <= TURN_NOW_MI {
                 self.turn_called_now.insert(cue.key.clone());
             }
-            if 0.0f64.max(ahead) <= TURN_NOW_MI {
+            // The advise speed for a corner whose act-now call was just said
+            // belongs to that call, not to the chatter: as chatter it waited
+            // past its budget behind the call and flushed the voice, which
+            // handed the call back to be said again ("Turn right onto Port
+            // of Cleveland" twice, agent drive into Cleveland, 2026-10-25).
+            if 0.0f64.max(ahead) <= TURN_NOW_MI || near_heard {
                 ctx.say_event_with(
                     message,
                     SayEvent::queued()

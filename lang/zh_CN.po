@@ -22268,6 +22268,9 @@ msgstr "操作放慢，能安全避开的急刹和急弯都避开。"
 msgid "A trooper has somebody stopped on the shoulder, not you."
 msgstr "州警在路肩拦下了别人，不是你。"
 
+msgid "Another trooper has somebody stopped, not you."
+msgstr ""
+
 msgid "for a log check"
 msgstr "查工时记录"
 
@@ -23108,8 +23111,13 @@ msgstr " ，通过施工区"
 msgid " through the heavy traffic"
 msgstr " ，穿过拥堵车流"
 
-msgid " for the lower limit"
-msgstr " ，为较低的限速"
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
+msgstr ""
 
 #. placeholders: {value}
 msgid " in the {value}"
@@ -23261,6 +23269,21 @@ msgstr "{title_case}区域。限速保持维持在{held}。"
 #. placeholders: {speed_value}
 msgid "Speed keeper holding {speed_value}."
 msgstr "限速保持维持在{speed_value}。"
+
+msgid "through the construction zone"
+msgstr ""
+
+#. placeholders: {reason}
+msgid "for the {reason}"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit"
+msgstr ""
 
 #. placeholders: {reason}, {eased}
 msgid "{reason}, cruise easing to {eased}."
@@ -37002,6 +37025,9 @@ msgstr "右括号"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "大写{ch}"
+
+#~ msgid " for the lower limit"
+#~ msgstr " ，为较低的限速"
 
 #~ msgid ""
 #~ "On, you drive the real streets between the highway and a facility, turn by "

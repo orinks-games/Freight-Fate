@@ -24435,6 +24435,9 @@ msgid "A trooper has somebody stopped on the shoulder, not you."
 msgstr ""
 "Bir trafik polisi emniyet şeridinde başka birini durdurmuş, sizi değil."
 
+msgid "Another trooper has somebody stopped, not you."
+msgstr ""
+
 msgid "for a log check"
 msgstr "seyir defteri kontrolü için"
 
@@ -25345,8 +25348,13 @@ msgstr " çalışma bölgesi boyunca"
 msgid " through the heavy traffic"
 msgstr " yoğun trafik boyunca"
 
-msgid " for the lower limit"
-msgstr " düşük sınır için"
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
+msgstr ""
 
 #. placeholders: {value}
 msgid " in the {value}"
@@ -25499,6 +25507,21 @@ msgstr "{title_case} bölgesi. Hız koruyucu {held} tutuyor."
 #. placeholders: {speed_value}
 msgid "Speed keeper holding {speed_value}."
 msgstr "Hız koruyucu {speed_value} tutuyor."
+
+msgid "through the construction zone"
+msgstr ""
+
+#. placeholders: {reason}
+msgid "for the {reason}"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit"
+msgstr ""
 
 #. placeholders: {reason}, {eased}
 msgid "{reason}, cruise easing to {eased}."
@@ -40839,6 +40862,9 @@ msgstr "sağ parantez"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "büyük {ch}"
+
+#~ msgid " for the lower limit"
+#~ msgstr " düşük sınır için"
 
 #~ msgid ""
 #~ "On, you drive the real streets between the highway and a facility, turn by "

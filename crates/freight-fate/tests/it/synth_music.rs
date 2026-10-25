@@ -756,3 +756,18 @@ fn the_synthesized_radio_screen_says_why_the_stations_are_gone() {
         assert!(!lines.iter().any(|l| l == OFF_THE_DIAL), "{lines:#?}");
     }
 }
+
+#[test]
+fn a_drive_ending_under_the_menu_music_leaves_the_title_menu_free_to_play_it() {
+    // Owner, 2026-10-25: the settlement screen played the menu music, quit to
+    // the main menu stopped it, and the title menu stayed silent.
+    use crate::states_driving_menus_support::{a_drive_between, drive_and_ctx};
+    let mut app = TestApp::new();
+    let drive = a_drive_between(&mut app, "Buffalo", "Albany", "Music Driver");
+    let menu = ff_core::music::select_menu_music_sequence(None);
+    let refs: Vec<&str> = menu.iter().map(String::as_str).collect();
+    app.ctx.play_music_sequence("menu", &refs);
+    assert!(app.ctx.music_rotation_track().is_some());
+    drive_and_ctx(&drive, &mut app, |d, ctx| d.exit_drive(ctx));
+    assert_eq!(app.ctx.music_rotation_track(), None);
+}

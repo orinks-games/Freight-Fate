@@ -25186,6 +25186,9 @@ msgstr ""
 msgid "A trooper has somebody stopped on the shoulder, not you."
 msgstr "Патрульный остановил кого-то на обочине, не вас."
 
+msgid "Another trooper has somebody stopped, not you."
+msgstr ""
+
 msgid "for a log check"
 msgstr "для проверки журнала"
 
@@ -26115,8 +26118,13 @@ msgstr " в зоне дорожных работ"
 msgid " through the heavy traffic"
 msgstr " в плотном движении"
 
-msgid " for the lower limit"
-msgstr " из-за более низкого ограничения"
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
+msgstr ""
 
 #. placeholders: {value}
 msgid " in the {value}"
@@ -26271,6 +26279,21 @@ msgstr "Зона: {title_case}. Поддержание скорости держ
 #. placeholders: {speed_value}
 msgid "Speed keeper holding {speed_value}."
 msgstr "Поддержание скорости держит {speed_value}."
+
+msgid "through the construction zone"
+msgstr ""
+
+#. placeholders: {reason}
+msgid "for the {reason}"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit"
+msgstr ""
 
 #. placeholders: {reason}, {eased}
 msgid "{reason}, cruise easing to {eased}."
@@ -41968,6 +41991,9 @@ msgstr "закрывающая скобка"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "заглавная {ch}"
+
+#~ msgid " for the lower limit"
+#~ msgstr " из-за более низкого ограничения"
 
 #~ msgid ""
 #~ "On, you drive the real streets between the highway and a facility, turn by "

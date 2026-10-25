@@ -337,6 +337,12 @@ impl DrivingState {
         // station fading out keeps the voicing it started with.
         ctx.audio.set_radio_voicing(None);
         ctx.audio.stop_music_with(600);
+        // Whatever was playing is stopped, so the menu rotation is too. Left
+        // set, a drive popped from under the settlement screen silenced the
+        // menu music that screen had started, and the title menu, finding
+        // "menu" already in rotation, never started it again (owner,
+        // 2026-10-25: quit to the main menu and the music stopped).
+        ctx.clear_music_rotation();
         ctx.apply_volumes();
     }
 

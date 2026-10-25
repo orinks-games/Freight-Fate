@@ -25316,7 +25316,7 @@ msgstr ""
 msgid "for the corner"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_controls/info.rs crates/freight-fate/src/states/driving_events/cruise_loop.rs
+#: crates/freight-fate/src/states/driving_controls/info.rs
 msgid "for the lower limit"
 msgstr ""
 
@@ -27670,6 +27670,10 @@ msgid "A trooper has somebody stopped on the shoulder, not you."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_enforcement.rs
+msgid "Another trooper has somebody stopped, not you."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_enforcement.rs
 msgid "for a log check"
 msgstr ""
 
@@ -28714,8 +28718,14 @@ msgstr ""
 msgid " through the heavy traffic"
 msgstr ""
 
+#. placeholders: {speed_value}
 #: crates/freight-fate/src/states/driving_events/cruise.rs
-msgid " for the lower limit"
+msgid " for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+#: crates/freight-fate/src/states/driving_events/cruise.rs
+msgid " for the {speed_value} limit"
 msgstr ""
 
 #. placeholders: {value}
@@ -28908,6 +28918,25 @@ msgstr ""
 #. placeholders: {speed_value}
 #: crates/freight-fate/src/states/driving_events/cruise_loop.rs
 msgid "Speed keeper holding {speed_value}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/cruise_loop.rs
+msgid "through the construction zone"
+msgstr ""
+
+#. placeholders: {reason}
+#: crates/freight-fate/src/states/driving_events/cruise_loop.rs
+msgid "for the {reason}"
+msgstr ""
+
+#. placeholders: {speed_value}
+#: crates/freight-fate/src/states/driving_events/cruise_loop.rs
+msgid "for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+#: crates/freight-fate/src/states/driving_events/cruise_loop.rs
+msgid "for the {speed_value} limit"
 msgstr ""
 
 #. placeholders: {reason}, {eased}

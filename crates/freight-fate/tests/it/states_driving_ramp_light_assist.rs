@@ -73,4 +73,12 @@ fn all_assists_take_the_truck_on_from_a_ramp_light_it_stopped_short_of() {
         finished || harness.read_drive(|d| d.ramp_mi.is_none()),
         "never left the ramp"
     );
+    // The assist drives the truck up to the light, so it never says it let go
+    // partway down the ramp (owner, 2026-10-25).
+    let released: Vec<String> = harness
+        .transcript()
+        .into_iter()
+        .filter(|line| line.contains("Route-transition assistance released"))
+        .collect();
+    assert!(released.is_empty(), "{released:?}");
 }

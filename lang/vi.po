@@ -21894,6 +21894,9 @@ msgstr ""
 msgid "A trooper has somebody stopped on the shoulder, not you."
 msgstr ""
 
+msgid "Another trooper has somebody stopped, not you."
+msgstr ""
+
 msgid "for a log check"
 msgstr ""
 
@@ -22731,7 +22734,12 @@ msgstr ""
 msgid " through the heavy traffic"
 msgstr ""
 
-msgid " for the lower limit"
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid " for the {speed_value} limit"
 msgstr ""
 
 #. placeholders: {value}
@@ -22883,6 +22891,21 @@ msgstr ""
 
 #. placeholders: {speed_value}
 msgid "Speed keeper holding {speed_value}."
+msgstr ""
+
+msgid "through the construction zone"
+msgstr ""
+
+#. placeholders: {reason}
+msgid "for the {reason}"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit ahead"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid "for the {speed_value} limit"
 msgstr ""
 
 #. placeholders: {reason}, {eased}
