@@ -369,6 +369,7 @@ impl DrivingState {
             && !self.ramp_terminal_owns_the_stop()
             && !self.terminal_assist_closes_up(ctx)
             && !self.terminal_takes_over_from_the_cap()
+            && !self.destination_arrival_active
         {
             // ROUTE, not the ambient default: names the automation handing the
             // pedals back (automation-handoff sweep, 2026-08-20, the deferred
@@ -381,7 +382,9 @@ impl DrivingState {
             // "Stopped at the sign" is the release there. Nor while the
             // terminal is driving the truck up to its line: "released" came
             // partway down Cleveland's exit 170A with the assist still at the
-            // pedals (owner, 2026-10-25).
+            // pedals (owner, 2026-10-25). Nor while the arrival assist has
+            // the pedals for a ramp that ends at the gate: it is still
+            // driving the truck in (owner, 2026-10-25, Facility streets off).
             ctx.say_event_with(
                 "Route-transition assistance released.",
                 SayEvent::queued()

@@ -281,8 +281,12 @@ impl DrivingState {
             //
             // Unless the terminal release already armed the pull-ahead: the
             // truck moving off the bar is that handoff, and saying it here
-            // too announced it twice.
-            if !self.approach_pull_ahead {
+            // too announced it twice. Nor at the top of a ramp that ends at
+            // the gate, where "Slowing for the ramp." went out in the same
+            // breath and the ramp line had just said what is at its end
+            // (owner, 2026-10-25, Facility streets off).
+            let ramp_said_it = self.ramp_mi.is_some() && self.decel_lane_assist_said;
+            if !self.approach_pull_ahead && !ramp_said_it {
                 ctx.say_event_with(
                     "Slowing for the entrance.",
                     SayEvent::queued()

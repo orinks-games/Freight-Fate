@@ -223,13 +223,13 @@ fn test_the_exit_speed_is_spoken_once_in_the_deceleration_lane_and_braked_for_th
             .app
             .event_calls()
             .iter()
-            .filter(|(line, _)| line.starts_with("Exit speed 49."))
+            .filter(|(line, _)| line.contains("Exit speed 49."))
             .count()
             .saturating_sub(harness.app.ctx.handed_back_count("Exit speed 49."))
     };
-    // Said as the truck enters the lane, on the driving channel, and FIRST
-    // in the gore line: a driver braking for themselves has a few seconds of
-    // lane and brakes on that number.
+    // Said once, on the driving channel: at the mile, and not again in the
+    // gore line while the exit speed assist does the braking (owner,
+    // 2026-10-25). The gore line leads with the exit.
     assert!(harness.read_drive(|d| d.in_deceleration_lane()));
     assert_eq!(said(&harness), 1, "{}", harness.transcript_text());
     assert!(
@@ -237,7 +237,7 @@ fn test_the_exit_speed_is_spoken_once_in_the_deceleration_lane_and_braked_for_th
             .app
             .event_lines()
             .iter()
-            .any(|line| line.starts_with("Exit speed 49. Exit 42")),
+            .any(|line| line.starts_with("Exit 42")),
         "{}",
         harness.transcript_text()
     );
@@ -489,13 +489,14 @@ fn test_the_mile_call_names_the_exit_speed_the_ramp_holds() {
         "half a mile: {}",
         calls[2]
     );
+    // The ramp line does not say it again while the assist brakes for it.
     let ramp_line = harness
         .app
         .event_lines()
         .into_iter()
-        .find(|line| line.starts_with("Exit speed "))
+        .find(|line| line.contains(" of ramp"))
         .expect("the ramp line");
-    assert!(ramp_line.starts_with("Exit speed 49."), "{ramp_line}");
+    assert!(!ramp_line.contains("Exit speed"), "{ramp_line}");
     let curve_mph = harness.read_drive(|d| d.ramp_layout.expect("laid out").curve_mph);
     assert_eq!(curve_mph, 49.0);
 }

@@ -358,7 +358,13 @@ impl DrivingState {
                 "signal" | "stop" | "yield" | "roundabout"
             );
         if !controlled {
-            self.say_route_confirmation(ctx, "Slowing for the ramp.");
+            // Once per ramp: the deceleration lane's assist or the arrival
+            // has already said it is slowing the truck for this ramp, and a
+            // second "Slowing for the ramp." came 11 seconds after the first
+            // (owner, 2026-10-25).
+            if !self.decel_lane_assist_said && !self.destination_arrival_active {
+                self.say_route_confirmation(ctx, "Slowing for the ramp.");
+            }
             return;
         }
         // Spend the line the terminal would have said for this same act: the

@@ -699,9 +699,11 @@ fn arrive_driven(
         ready,
         docked,
         gate_grade_pct,
-        assist_spoke: heard
-            .iter()
-            .any(|line| line.contains("Slowing for the entrance.")),
+        // On a ramp that ends at the gate, the deceleration lane's "Slowing
+        // for the ramp." is the one line for the slowdown to the gate.
+        assist_spoke: heard.iter().any(|line| {
+            line.contains("Slowing for the entrance.") || line.contains("Slowing for the ramp.")
+        }),
         speed_mph,
         short_by_ft,
         on_chain,
