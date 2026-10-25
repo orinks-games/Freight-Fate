@@ -1,6 +1,6 @@
 //! The speed-limit artifact fold against the real world.
 //!
-//! `tools/screen_limit_artifacts.py` names short drop-and-return postings that
+//! `cargo tools osm-speed-limits` names short drop-and-return postings that
 //! OpenStreetMap shows off the leg's own highway (a ramp, a side street), and
 //! the loader folds each one unless a village or town sits beside it. These
 //! tests round-trip that list against the loaded data, so a stale list or a
@@ -107,6 +107,12 @@ fn the_ramps_from_the_sample_are_gone_and_its_towns_stay() {
             "{key} mile {at}: the {mph} posting survived"
         );
     }
+    for (key, at, mph) in SAMPLE_RAMPS {
+        assert!(
+            !has_posting(legs[*key], *at, *mph),
+            "{key} mile {at}: the {mph} ramp posting is back"
+        );
+    }
     for (key, at, mph) in KNOWN_REAL {
         assert!(
             has_posting(legs[*key], *at, *mph),
@@ -115,19 +121,25 @@ fn the_ramps_from_the_sample_are_gone_and_its_towns_stay() {
     }
 }
 
-/// Artifacts from the hand-checked sample (2026-10-17) that the fold removes:
-/// the 15 mph loop US-95 picks up in Las Vegas, a 45 ramp on I-80 out of
-/// Reno, and a 35 side street on OR-99W out of Portland.
-const KNOWN_ARTIFACTS: &[(&str, f64, f64)] = &[
+/// A named posting the fold removes: a quarter mile of 25 on US-40 west of
+/// Denver, where the route runs on another road and both sides post 65.
+const KNOWN_ARTIFACTS: &[(&str, f64, f64)] = &[("denver_co_us:salt_lake_city_ut_us", 21.5, 25.0)];
+/// Artifacts from the hand-checked sample (2026-10-17) that must not come
+/// back: the 15 mph loop US-95 picks up in Las Vegas and a 45 ramp on I-80
+/// out of Reno. The October 2026 read no longer carries either. The sample's
+/// third, a 35 side street on OR-99W at mile 16.0 out of Portland, now sits
+/// inside a three-mile 35 and 25 run through Sherwood, longer than the
+/// screen reaches; it waits for a hand check (ROADMAP).
+const SAMPLE_RAMPS: &[(&str, f64, f64)] = &[
     ("reno_nv_us:las_vegas_nv_us", 434.7, 15.0),
     ("reno_nv_us:fernley_nv_us", 5.4, 45.0),
-    ("portland_or_us:newberg_or_us", 16.0, 35.0),
 ];
 /// Real town zones from the same sample that must stay: Goldfield and Beatty
-/// on US-95, and Plummer on US-95 in Idaho, which the screen names (the map
-/// tags the highway there with a different limit) and the town beside it keeps.
+/// on US-95, and Plummer on US-95 in Idaho (35 in the October read), which
+/// the screen names (the map tags the highway there with a different limit)
+/// and the town beside it keeps.
 const KNOWN_REAL: &[(&str, f64, f64)] = &[
     ("reno_nv_us:las_vegas_nv_us", 259.6, 25.0),
-    ("reno_nv_us:las_vegas_nv_us", 326.0, 25.0),
-    ("lewiston_id_us:coeur_d_alene_id_us", 82.2, 25.0),
+    ("reno_nv_us:las_vegas_nv_us", 325.9, 25.0),
+    ("lewiston_id_us:coeur_d_alene_id_us", 81.9, 35.0),
 ];

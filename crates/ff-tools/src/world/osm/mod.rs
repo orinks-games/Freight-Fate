@@ -10,8 +10,10 @@
 //!
 //! Inputs: Geofabrik extracts (`--pbf`, repeatable: one country file, or the
 //! state files the map touches) and the route geometry archive
-//! (`world_data/us/geometry/`), which is the road each leg drives. Outputs,
-//! with `--write`:
+//! (`world_data/us/geometry/`), which is the road each leg drives. Any
+//! `.osm.pbf` that covers the map works, such as the weekly planet file cut
+//! to the lower 48 with `osmium extract`; `--snapshot` names it in the source
+//! notes (default "Geofabrik extract"). Outputs, with `--write`:
 //!
 //! * `corridor.speed_limits` on each leg in `world_source/` (see [`bake`]),
 //!   then `index-world` so `world_data/` follows;
@@ -42,24 +44,28 @@ use crate::pyjson::{self, Object, Options, Value};
 use crate::util::{self, Result};
 
 const USAGE: &str = "usage: osm-speed-limits --pbf FILE [--pbf FILE ...] \
-                     [--only from:to;from:to] [--extract-date YYYY-MM-DD] [--write]";
+                     [--only from:to;from:to] [--extract-date YYYY-MM-DD] \
+                     [--snapshot NAME] [--write]";
+
+/// What `--snapshot` names when it is not given: the usual input.
+const DEFAULT_SNAPSHOT: &str = "Geofabrik extract";
 
 /// Every OpenStreetMap read this tool and the sweep before it wrote starts
 /// so; anything else on a leg was set by hand and is kept.
 const OSM_SOURCE_PREFIX: &str = "OpenStreetMap maxspeed tags";
 
-fn world_source_note(date: &str) -> String {
+fn world_source_note(snapshot: &str, date: &str) -> String {
     format!(
-        "{OSM_SOURCE_PREFIX} on the corridor highway ways, read from the Geofabrik \
-         extract of {date} and matched within 90 m of the archived route; normalized \
+        "{OSM_SOURCE_PREFIX} on the corridor highway ways, read from the {snapshot} \
+         of {date} and matched within 90 m of the archived route; normalized \
          to mph, maxspeed:hgv preferred where tagged."
     )
 }
 
-fn screen_source_note(date: &str) -> String {
+fn screen_source_note(snapshot: &str, date: &str) -> String {
     format!(
         "Derived: OpenStreetMap highway ways carrying maxspeed (maxspeed:hgv preferred), \
-         Geofabrik extract of {date}, matched to the checked-in route geometry archive; a \
+         {snapshot} of {date}, matched to the checked-in route geometry archive; a \
          posting is named when the nearest way along it is not the leg's highway posting \
          that limit. Thresholds calibrated on a hand-checked sample of 100 postings, \
          2026-10-17. Development-time screen, see `cargo tools osm-speed-limits`."
@@ -157,7 +163,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let args = Args::parse(
         argv,
         &Spec {
-            values: &["pbf", "only", "extract-date"],
+            values: &["pbf", "only", "extract-date", "snapshot"],
             flags: &["write"],
         },
     )
@@ -176,6 +182,10 @@ pub fn main(argv: &[String]) -> Result<i32> {
         None => pbf::extract_date(&pbfs[0])?
             .ok_or("the extract's header carries no date; pass --extract-date YYYY-MM-DD")?,
     };
+    let snapshot = args
+        .value("snapshot")
+        .unwrap_or(DEFAULT_SNAPSHOT)
+        .to_string();
     let only: Option<HashSet<String>> = args.value("only").map(|o| {
         o.split(';')
             .filter(|p| p.contains(':'))
@@ -210,7 +220,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
                 .into(),
         );
     }
-    let note = world_source_note(&date);
+    let note = world_source_note(&snapshot, &date);
     let mut tally = Tally::default();
     let mut full: BTreeMap<String, Vec<Value>> = shard_rows(&gameplay.join("speed_limits.jsonl"))?;
     let legs = world
@@ -338,7 +348,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
         "schema" => 1i64,
         "layer" => "speed_limits",
         "kind" => "read",
-        "source" => format!("OpenStreetMap via Geofabrik extract of {date} (ODbL, (c) OpenStreetMap contributors)"),
+        "source" => format!("OpenStreetMap via {snapshot} of {date} (ODbL, (c) OpenStreetMap contributors)"),
         "params" => crate::pyobj! {
             "match_corridor_m" => bake::MATCH_CORRIDOR_M,
             "sample_m" => bake::SAMPLE_M,
@@ -364,7 +374,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
             "schema" => 1i64,
             "layer" => "limit_artifacts",
             "kind" => "derived",
-            "source" => screen_source_note(&date),
+            "source" => screen_source_note(&snapshot, &date),
             "reasons" => reasons,
             "params" => crate::pyobj! {
                 "max_run_mi" => screen::MAX_RUN_MI,

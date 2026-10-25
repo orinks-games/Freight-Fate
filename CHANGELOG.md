@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Changed
+
+- **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.
+
 ### Fixed
 
 - **Facility stopping assistance no longer gets you fined at a chain control.** A truck pulling into the chain-up area to put chains on is not cited.
