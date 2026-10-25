@@ -67,10 +67,8 @@ pub fn scale_check_in_guidance() -> Outcome {
     if notice.contains("press T for inspection check-in") {
         findings.push("the announcement still teaches the rest key at speed".to_string());
     }
-    // Capital-S since the mainline-crawl rewording.
-    if !notice.contains("ignal for the scale exit") {
-        findings.push("the announcement never teaches the exit key".to_string());
-    }
+    // The notice stopped naming keys on 2026-10-17; the scale's own stop
+    // callout and the reminder teach the exit key.
 
     // Jerry's press: T immediately, mid-announcement in real audio.
     rig.press(Key::T);
@@ -101,6 +99,7 @@ pub fn scale_check_in_guidance() -> Outcome {
         Some(_) => {}
     }
 
+    let lines_after_x = rig.transcript().len();
     // Ride the capped cruise down to the gore. Compliance must end on the
     // scale's own ramp with no enforcement lights anywhere in the run.
     rig.step(
@@ -112,6 +111,12 @@ pub fn scale_check_in_guidance() -> Outcome {
                 || rig.drive.trip.position_mi > SCALE_MI + 0.3
         }),
     );
+    if rig.transcript()[lines_after_x..]
+        .iter()
+        .any(|line| line.contains("to signal for the exit"))
+    {
+        findings.push("with the exit signaled, a callout still asked for the signal".to_string());
+    }
     if rig.drive.pull_over.is_some() || rig.said("Scale bypass enforcement") > 0 {
         findings.push(
             "following both spoken instructions still ended in a bypass pull-over".to_string(),

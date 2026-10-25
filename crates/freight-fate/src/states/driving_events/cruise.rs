@@ -164,9 +164,6 @@ impl DrivingState {
         };
         if cap_mph < effective_mph {
             effective_mph = cap_mph;
-            // This line names the cap, so the cruise loop's easing line must
-            // not say it again a frame later.
-            self.acc_limit_cap_said = Some(cap_mph);
             exit_note = match limit_reason.as_deref() {
                 Some("construction") => " through the construction zone".to_string(),
                 Some("heavy traffic") => " through the heavy traffic".to_string(),

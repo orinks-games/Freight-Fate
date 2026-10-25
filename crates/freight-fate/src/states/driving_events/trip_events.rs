@@ -779,7 +779,17 @@ impl DrivingState {
                                 distance: &drive.trip.ahead_text(ahead),
                                 parking_normal: &stop.parking_text(),
                                 parking_certainty: &stop.parking,
-                                exit_hint: &exit_hint,
+                                // Already signaled: "Press X to signal for the
+                                // exit" with the signal on asks for a press
+                                // that would cancel it, or move it off the
+                                // scale it was set for (adversarial battery,
+                                // 2026-10-25).
+                                exit_hint: if drive.exit_signal_on || drive.exit_is_armed_for(&stop)
+                                {
+                                    ""
+                                } else {
+                                    &exit_hint
+                                },
                                 fuel: stop.fuel_callout(),
                             };
                             // The rung's rendering, as the line had when it
