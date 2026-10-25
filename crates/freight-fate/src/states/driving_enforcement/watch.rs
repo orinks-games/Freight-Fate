@@ -68,9 +68,11 @@ impl DrivingState {
         // A truck already cited in this chain law area carries the ticket:
         // a patrol further up the same control does not write it again
         // (the checkpoint's own rule, `update_chain_law`).
+        // A truck braking into the chain-up area to chain up is complying.
         let chain_level = match self.trip.chain_law_area_at(position) {
             Some(area)
-                if !self.trip.rig_compliant_at(position)
+                if !self.chain_up_pending()
+                    && !self.trip.rig_compliant_at(position)
                     && !self
                         .chain_law_cited
                         .contains(&(area as i64, self.trip.chain_law_level())) =>

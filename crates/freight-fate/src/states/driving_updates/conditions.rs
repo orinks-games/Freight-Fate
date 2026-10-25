@@ -662,7 +662,8 @@ impl DrivingState {
     /// per level; the roll is seeded, so a reload does not re-roll the dice.
     pub fn update_chain_law(&mut self, ctx: &mut GameContext) {
         let level = self.trip.chain_law_level();
-        if level == 0 || self.trip.truck.speed_mph() < 3.0 {
+        // The assist pulling in to chain up is not rolling in without chains.
+        if level == 0 || self.trip.truck.speed_mph() < 3.0 || self.chain_up_pending() {
             return;
         }
         let Some(area) = self.trip.chain_law_area_at(self.trip.position_mi) else {

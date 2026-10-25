@@ -836,3 +836,45 @@ fn test_the_hours_and_chain_prompts_each_play_once_and_the_third_enter_accepts()
         "the third Enter accepts: {lines:?}"
     );
 }
+
+#[test]
+fn test_the_chain_control_does_not_cite_a_truck_pulling_in_to_chain_up() {
+    // Issue #502: the assist announced the chain-up stop, and while it was
+    // still braking for the pullout the chain control at the start of the
+    // area saw no chains and wrote a 580 dollar ticket.
+    let mut app = TestApp::new();
+    let drive = stop_drive(
+        &mut app,
+        "Denver",
+        "Silverthorne",
+        2,
+        true,
+        19.0,
+        vec![(20.0, 26.0)],
+    );
+    assist(&mut app, &drive, false);
+    assert_eq!(pending(&drive), Some(ChainStopKind::Install));
+    // Still rolling past the control on the way into the pullout.
+    let sample = with_drive(&drive, |d| {
+        d.trip.position_mi = 20.05;
+        d.trip.truck.velocity_mps = 8.0;
+        let post = d.trip.chain_posts().remove(0);
+        d.road_sample(&post)
+    });
+    assert!(!sample.chains_required || sample.chains_on, "{sample:?}");
+    drive_and_ctx(&drive, &mut app, |d, ctx| d.update_chain_law(ctx));
+    assert!(
+        !lines(&app)
+            .iter()
+            .any(|s| s.starts_with("Rolling into an active chain law")),
+        "{:?}",
+        lines(&app)
+    );
+    // The same truck with no chain-up on the way is running the control.
+    let sample = with_drive(&drive, |d| {
+        d.chain_stop = None;
+        let post = d.trip.chain_posts().remove(0);
+        d.road_sample(&post)
+    });
+    assert!(sample.chains_required && !sample.chains_on, "{sample:?}");
+}
