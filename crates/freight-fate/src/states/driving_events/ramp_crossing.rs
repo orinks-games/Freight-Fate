@@ -49,6 +49,67 @@ impl DrivingState {
             && self.ramp_light_announced
     }
 
+    /// The speed to drive a truck short of its ramp's light or sign up at,
+    /// when nothing is braking it for the line: the green's roll speed, or
+    /// on a red or a sign what the assist can still stop from in the road
+    /// left. `None` when the line is the assist's to hold or already close.
+    pub(crate) fn terminal_close_up_mph(&self, ctx: &GameContext) -> Option<f64> {
+        if !self.terminal_assist_owns(ctx)
+            || self.ramp_waiting_at_light
+            || self.ramp_waiting_at_sign
+            || self.ramp_assist_brake > 0.0
+        {
+            return None;
+        }
+        let gap_mi = self.terminal_gap_mi()?;
+        if gap_mi <= RAMP_ASSIST_HOLD_MI {
+            return None;
+        }
+        let green = self.ramp_control == "signal" && self.ramp_light_phase() == "green";
+        Some(if green {
+            GREEN_ROLL_MPH - 5.0
+        } else {
+            let stoppable_mps = (2.0 * LINE_APPROACH_DECEL_MPS2 * gap_mi * 1609.344).sqrt();
+            (stoppable_mps * MPH_PER_MPS)
+                .min(self.ramp_cap_here_mph())
+                .max(LINE_CREEP_MPH)
+        })
+    }
+
+    /// Whether this assist drives the truck up to the line itself: the
+    /// driver left speed control on, which the terminal only paused, so the
+    /// pedals are the assists' from the bend to the bar. The co-driver does
+    /// their own driving up.
+    ///
+    /// The assist used to brake for the light and then let go, and a truck
+    /// on the All assists preset coasted to a stand 400 feet short of a red
+    /// at Cleveland's exit 170A and sat there through every green after it
+    /// (agent drive, 2026-10-25).
+    pub(crate) fn terminal_assist_closes_up(&self, ctx: &GameContext) -> bool {
+        self.speed_control_armed
+            && !self.team.as_ref().is_some_and(|team| team.wheel.is_some())
+            && self.terminal_close_up_mph(ctx).is_some()
+    }
+
+    /// Give the truck the accelerator up to the line when the assist closes
+    /// up: only with nothing on the brake, so a driver's foot, or another
+    /// assist braking for a vehicle ahead, wins.
+    fn close_up_to_the_line(&mut self, ctx: &GameContext) {
+        if !self.terminal_assist_closes_up(ctx) || self.trip.truck.brake > 0.05 {
+            return;
+        }
+        let Some(target) = self.terminal_close_up_mph(ctx) else {
+            return;
+        };
+        let short_by = target - self.trip.truck.speed_mph();
+        if short_by > 0.0 {
+            let truck = &mut self.trip.truck;
+            truck.throttle = truck
+                .throttle
+                .max(LINE_CLOSE_UP_THROTTLE.min(short_by / 3.0).max(0.1));
+        }
+    }
+
     /// A live accelerator press overrides this assist, including its red-light hold.
     pub fn update_ramp_terminal_assist_with_input(
         &mut self,
@@ -111,6 +172,7 @@ impl DrivingState {
                 // measured application, never the held service floor that
                 // spent reservoir air on the way down (Joshua, 2026-08-28).
                 self.roll_the_terminal(ctx, GREEN_ROLL_MPH - 5.0, gap_mi, "the green light");
+                self.close_up_to_the_line(ctx);
                 return;
             }
         }
@@ -212,6 +274,7 @@ impl DrivingState {
             // for the same reason: a creep to the bar must start from an open
             // pedal, not from whatever the approach was holding.
             self.ramp_assist_brake = 0.0;
+            self.close_up_to_the_line(ctx);
             return;
         }
         // Brake down the approach: needed deceleration to stop at the bar,
@@ -222,10 +285,12 @@ impl DrivingState {
         let needed = (v_mps * v_mps) / (2.0 * gap_m);
         if needed < RAMP_ASSIST_DECEL_RELEASE_MPS2 && gap_m > 30.0 {
             self.ramp_assist_brake = 0.0;
+            self.close_up_to_the_line(ctx);
             return;
         }
         let idle = self.ramp_assist_brake <= 0.0;
         if idle && needed < RAMP_ASSIST_DECEL_START_MPS2 && gap_m > 30.0 {
+            self.close_up_to_the_line(ctx);
             return;
         }
         self.ramp_assist_brake =

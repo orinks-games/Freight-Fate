@@ -192,13 +192,10 @@ impl DrivingState {
             return;
         }
 
-        if let Some(stop) = stop.as_ref() {
-            if stop.at_mi <= self.trip.position_mi {
-                self.say_plain(ctx, format!("{} is behind you.", stop.spoken_name()));
-                return;
-            }
-        }
-
+        // A stop the truck has just rolled past is no answer to T: it held
+        // the key for a mile and a half after every exit, saying only that
+        // the stop was behind (agent drive, 2026-10-25), when the driver was
+        // asking for the next one.
         if let Some(active) = self.exit_stop.clone() {
             if self.exit_signal_on {
                 self.set_status(format!("Exit signal active for {}.", active.spoken_name()));

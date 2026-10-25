@@ -48,14 +48,6 @@ const DESCENT_SNUB_UNDER_MPH: f64 = 5.0;
 /// The co-driver starts braking once the truck is this far over what descent
 /// control holds and still gaining.
 const DESCENT_SNUB_OVER_MPH: f64 = 5.0;
-/// Short of a ramp's red light or sign, the co-driver drives up to the line
-/// no slower than this and lets the assist stop the truck there.
-const LINE_CREEP_MPH: f64 = 8.0;
-/// Driving up to a red, the co-driver keeps under the speed the assist can
-/// stop from at this deceleration: its own release threshold, so the
-/// approach is one the assist leaves alone until the line is close. At a
-/// flat creep a quarter mile of ramp took minutes (owner, 2026-10-24).
-const LINE_APPROACH_DECEL_MPS2: f64 = RAMP_ASSIST_DECEL_RELEASE_MPS2;
 /// How far ahead of a lane closure the co-driver starts moving out of the
 /// lane: the taper is a mile long, and at ten times speed it passed in
 /// seconds, so they merge when the first sign comes up, as a driver does.
@@ -446,34 +438,12 @@ impl DrivingState {
     }
 
     /// Short of a ramp's light or sign with the assist holding nothing, the
-    /// truck is driven up to it: the assist brakes for the line and rolls a
-    /// green, but it never presses the accelerator, and a truck its stop
-    /// left a fifth of a mile short of a red sat there through every green
-    /// after it, the co-driver waiting on the assist and the assist on them.
+    /// truck is driven up to it: a truck the assist's stop left a fifth of a
+    /// mile short of a red sat there through every green after it, the
+    /// co-driver waiting on the assist and the assist on them.
     fn pilot_closes_up_to_the_line(&self, ctx: &GameContext) -> bool {
-        if !self.terminal_assist_owns(ctx)
-            || self.ramp_waiting_at_light
-            || self.ramp_waiting_at_sign
-            || self.ramp_assist_brake > 0.0
-        {
-            return false;
-        }
-        let Some(gap_mi) = self.terminal_gap_mi() else {
-            return false;
-        };
-        if gap_mi <= RAMP_ASSIST_HOLD_MI {
-            return false;
-        }
-        let green = self.ramp_control == "signal" && self.ramp_light_phase() == "green";
-        let target = if green {
-            GREEN_ROLL_MPH - 5.0
-        } else {
-            let stoppable_mps = (2.0 * LINE_APPROACH_DECEL_MPS2 * gap_mi * 1609.344).sqrt();
-            (stoppable_mps * MPH_PER_MPS)
-                .min(self.ramp_cap_here_mph())
-                .max(LINE_CREEP_MPH)
-        };
-        self.trip.truck.speed_mph() < target
+        self.terminal_close_up_mph(ctx)
+            .is_some_and(|target| self.trip.truck.speed_mph() < target)
     }
 
     /// In a closed lane, or one that closes within [`MERGE_LOOKAHEAD_MI`],

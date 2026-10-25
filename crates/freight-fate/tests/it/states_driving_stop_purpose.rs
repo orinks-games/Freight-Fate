@@ -234,3 +234,23 @@ fn a_fuel_plan_survives_a_save_and_resume() {
     let resumed = DrivingState::from_snapshot(&mut app.ctx, &snapshot).unwrap();
     assert_eq!(resumed.selected_stop_purpose, Some(StopPlanPurpose::Fuel));
 }
+
+#[test]
+fn t_just_past_a_stop_still_asks_what_the_next_stop_is_for() {
+    // Agent drive (2026-10-25): a mile past an exit's travel center, T only
+    // said the stop was behind you, and kept saying it for a mile and a half.
+    let (mut app, drive) = setup();
+    drive_and_ctx(&drive, &mut app, |d, _| {
+        d.trip
+            .stops
+            .insert(0, stop("Just Passed", 9.2, &["fuel", "sleep"]));
+    });
+    press_t(&mut app, &drive);
+    let (rows, _) = purpose_rows(&app);
+    assert!(!rows.is_empty());
+    assert!(
+        !app.main_lines().iter().any(|l| l.contains("is behind you")),
+        "{:?}",
+        app.main_lines()
+    );
+}

@@ -155,6 +155,7 @@ mod states_driving_menus_tablet;
 mod states_driving_multilane_speech;
 mod states_driving_pace;
 mod states_driving_passing;
+mod states_driving_ramp_light_assist;
 mod states_driving_ramps;
 mod states_driving_rest_choice_scenarios;
 mod states_driving_retarder;

@@ -805,4 +805,21 @@ fn test_the_resume_line_names_the_weather_cap() {
         .find(|s| s.starts_with("Cruise resuming"))
         .unwrap_or_else(|| panic!("no resume line\n{:#?}", spoken(&harness)));
     assert!(line.contains("resuming, 35 in the snow"), "{line}");
+    // The resume line named the cap, so the cruise loop must not repeat it:
+    // "Snow, cruise easing to 35." used to follow at once (agent drive,
+    // 2026-10-25).
+    for _ in 0..(5 * 60) {
+        harness.advance_clock(DT);
+        harness.with_drive(|d, ctx| {
+            d.truck_mut().grade = 0.0;
+            d.update_cruise(ctx, DT, false, false, false);
+            d.truck_mut().auto_shift();
+            d.truck_mut().update(DT);
+        });
+    }
+    let eased: Vec<String> = spoken(&harness)
+        .into_iter()
+        .filter(|s| s.contains("cruise easing to"))
+        .collect();
+    assert!(eased.is_empty(), "{eased:#?}");
 }
