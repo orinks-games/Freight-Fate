@@ -41,6 +41,8 @@ use crate::touch::Gesture;
 pub mod boot_timing;
 mod co_driver;
 pub mod context;
+#[cfg(windows)]
+mod crash_log;
 pub mod held_keys;
 pub mod key_probe;
 pub mod language;
