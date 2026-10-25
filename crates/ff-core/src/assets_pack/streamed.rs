@@ -104,7 +104,7 @@ impl StreamedPack {
             inner: BufReader::with_capacity(MaskedFile::READ_AHEAD, file),
             pos: 0,
         };
-        let archive = ZipArchive::new(masked)?;
+        let archive = super::archive::open_pack_archive(masked)?;
         let names = archive
             .file_names()
             .map(|name| name.map(|name| name.into_owned()))
