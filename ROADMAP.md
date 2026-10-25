@@ -46,8 +46,9 @@ bookmarks usable.
       `lang/` matched as templates, so the code stays English. Settings,
       Speech, Language picks the language (Automatic follows the system on
       a fresh install; an existing settings file keeps English). Turkish
-      joined the nine on 2026-10-22 (issue 397). Radio and
-      recordings stay English. `lang/README.md` is the translator's guide;
+      joined the nine on 2026-10-22 (issue 397). Vietnamese localization is
+      in progress as a draft PR (163 of 9,242 entries translated as of
+      2026-10-24). Radio and recordings stay English. `lang/README.md` is the translator's guide;
       corrections come as pull requests or the Translation correction issue
       form. Languages land one pull request each. A language added as a
       `.po` file alone, built in or dropped into `saves/lang/`, is offered

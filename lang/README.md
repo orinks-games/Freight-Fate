@@ -21,6 +21,7 @@ program.
 | `zh_CN.po` | Simplified Chinese |
 | `ja.po` | Japanese |
 | `tr.po` | Turkish |
+| `vi.po` | Vietnamese |
 
 To play in one of them, open Settings, then Speech; Language is the first
 row. Left and Right change it. Automatic follows your system language.

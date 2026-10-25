@@ -121,7 +121,7 @@ fn key_names(text: &str) -> Vec<&'static str> {
 
 fn plural_forms(code: &str) -> usize {
     match code {
-        "zh_CN" | "ja" => 1,
+        "zh_CN" | "ja" | "vi" => 1,
         "ru" | "pl" => 3,
         _ => 2,
     }
