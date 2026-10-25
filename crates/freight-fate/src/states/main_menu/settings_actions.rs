@@ -730,4 +730,30 @@ impl SettingsCategoryState {
         };
         self.announce(ctx);
     }
+
+    pub(super) fn toggle_update_mirror(&mut self, ctx: &mut GameContext, _d: i64) {
+        ctx.settings.update_mirror_enabled = !ctx.settings.update_mirror_enabled;
+        self.announce(ctx);
+    }
+
+    pub(super) fn update_mirror_entry(current: &str) -> TextEntryState {
+        let mut entry = TextEntryState::new(
+            "GitHub mirror prefix",
+            "GitHub mirror prefix",
+            |ctx, text| match updater::normalize_mirror_prefix(text) {
+                Ok(prefix) => {
+                    ctx.settings.update_mirror_prefix = prefix;
+                    save_settings(&ctx.settings);
+                    ctx.pop_state();
+                }
+                Err(message) => {
+                    ctx.audio.play("ui/error");
+                    ctx.say_with(message, Say::new().review(false));
+                }
+            },
+        );
+        entry.entry.max_len = 500;
+        entry.entry.set_text(current);
+        entry
+    }
 }

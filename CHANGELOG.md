@@ -4,6 +4,8 @@
 
 ### Added
 
+- **Updates can use a player-chosen GitHub mirror.** Configure its HTTPS prefix under Settings, Updates when direct GitHub access is unavailable.
+
 - **Vietnamese is available as an initial translation.** Choose Tiếng Việt under Settings, then Speech; untranslated lines remain in English. Thanks to Think24h ([PR 503](https://github.com/orinks-games/Freight-Fate/pull/503)).
 
 - **The game window's own labels now follow your language.** The dashboard lights, the road signs and the menu hints are translated into every language the game speaks.

@@ -30734,6 +30734,9 @@ msgid ""
 "until one of them is running."
 msgstr ""
 
+msgid "GitHub mirror prefix"
+msgstr ""
+
 msgid "Cab speakers"
 msgstr ""
 
@@ -31333,6 +31336,25 @@ msgid "stable releases"
 msgstr ""
 
 msgid "Stable releases or developer snapshots."
+msgstr ""
+
+#. placeholders: {on_off}
+msgid "Use GitHub mirror for updates: {on_off}"
+msgstr ""
+
+msgid "Routes update checks and downloads through a mirror you configure."
+msgstr ""
+
+msgid "GitHub mirror prefix: not set"
+msgstr ""
+
+#. placeholders: {update_mirror_prefix}
+msgid "GitHub mirror prefix: {update_mirror_prefix}"
+msgstr ""
+
+msgid ""
+"The player chooses and trusts the mirror used for update checks and "
+"downloads."
 msgstr ""
 
 msgid "Check for updates"
@@ -36302,4 +36324,17 @@ msgstr ""
 
 #. placeholders: {ch}
 msgid "cap {ch}"
+msgstr ""
+
+#. GitHub update mirror validation returned from the updater to the text field.
+msgid "Type an HTTPS mirror address."
+msgstr ""
+
+msgid "Type a valid HTTPS mirror address."
+msgstr ""
+
+msgid "The mirror address must start with https://."
+msgstr ""
+
+msgid "The mirror address cannot contain a query or fragment."
 msgstr ""

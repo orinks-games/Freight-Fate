@@ -10,12 +10,14 @@ use serde_json::{json, Value};
 use freight_fate::app::testing::TestApp;
 use freight_fate::net::NetError;
 use freight_fate::states::base::{Menu, State};
+use freight_fate::states::main_menu::SettingsCategoryState;
 use freight_fate::states::update::{UpdateDownloadState, UpdatePromptState};
 use freight_fate::updater::{
     self, build_info_from_dict, check_for_update_with, dev_update_from, flatten_markdown,
-    parse_version, pick_asset, quote_for_script, resolve_channel, snapshot_update_from,
-    stable_update_from, write_apply_script, Architecture, BuildInfo, Platform, UpdateInfo,
-    UpdaterEnv, APPIMAGE_SUFFIX, APPIMAGE_SUFFIX_AARCH64, TARBALL_SUFFIX, TARBALL_SUFFIX_AARCH64,
+    mirror_url, normalize_mirror_prefix, parse_version, pick_asset, quote_for_script,
+    resolve_channel, snapshot_update_from, stable_update_from, write_apply_script, Architecture,
+    BuildInfo, Platform, UpdateInfo, UpdaterEnv, APPIMAGE_SUFFIX, APPIMAGE_SUFFIX_AARCH64,
+    TARBALL_SUFFIX, TARBALL_SUFFIX_AARCH64,
 };
 
 fn release_with(
@@ -142,6 +144,62 @@ fn test_resolve_channel_follows_build_when_unset() {
     let nightly = BuildInfo::new("nightly-20260610", "dev", "2026-06-10");
     assert_eq!(resolve_channel("", Some(&nightly)), "dev");
     assert_eq!(resolve_channel("", None), "stable");
+}
+
+#[test]
+fn test_update_mirror_prefix_is_https_and_normalized() {
+    assert_eq!(
+        normalize_mirror_prefix(" https://gh-proxy.org/// "),
+        Ok("https://gh-proxy.org/".to_string())
+    );
+    assert!(normalize_mirror_prefix("http://gh-proxy.org/").is_err());
+    assert!(normalize_mirror_prefix("https://gh-proxy.org/?token=x").is_err());
+    assert!(normalize_mirror_prefix("").is_err());
+}
+
+#[test]
+fn test_update_mirror_prepends_original_github_url() {
+    let github = "https://github.com/orinks-games/Freight-Fate/releases/download/v1/file.zip";
+    assert_eq!(
+        mirror_url(github, Some("https://gh-proxy.org")),
+        Ok(format!("https://gh-proxy.org/{github}"))
+    );
+    assert_eq!(mirror_url(github, None), Ok(github.to_string()));
+}
+
+#[test]
+fn test_update_mirror_setting_reveals_labeled_prefix_field() {
+    let mut app = TestApp::new();
+    let mut state = SettingsCategoryState::new("updates");
+
+    let direct = state.build_items(&mut app.ctx);
+    let direct_labels: Vec<String> = direct
+        .iter()
+        .map(|item| item.text(&state, &app.ctx))
+        .collect();
+    assert!(!direct_labels
+        .iter()
+        .any(|label| label.starts_with("GitHub mirror prefix:")));
+
+    app.ctx.settings.update_mirror_enabled = true;
+    app.ctx.settings.update_mirror_prefix = "https://gh-proxy.org/".to_string();
+    let mirrored = state.build_items(&mut app.ctx);
+    let prefix = mirrored
+        .iter()
+        .find(|item| {
+            item.text(&state, &app.ctx)
+                .starts_with("GitHub mirror prefix:")
+        })
+        .expect("enabled mirror has a prefix field");
+    assert_eq!(
+        prefix.text(&state, &app.ctx),
+        "GitHub mirror prefix: https://gh-proxy.org/"
+    );
+    assert_eq!(
+        prefix.help_text(&state, &app.ctx),
+        "The player chooses and trusts the mirror used for update checks and downloads."
+    );
+    app.shutdown();
 }
 
 // -- stable channel -----------------------------------------------------------

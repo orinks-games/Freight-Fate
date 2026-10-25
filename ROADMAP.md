@@ -1009,6 +1009,11 @@ Everything found before 2026-09-25 moved to
       gets the player's packs copied in before the swap. Linux tarballs and
       AppImages still download in full. The first update to carry this is
       itself full size.
+- [x] Configurable GitHub update mirror (issue #449, owner go-ahead
+      2026-10-22): Settings, Updates can route both release discovery and
+      archive downloads through a player-supplied HTTPS prefix. It is off
+      by default, ships with no mirror, leaves every other network feature
+      direct, and keeps the release asset's SHA-256 check.
 - [x] Release page trimmed (owner, 2026-10-18): each snapshot run deletes
       tester snapshot releases beyond the newest seven
       (`tools/prune_snapshots.py`); their tags stay, and stable and
