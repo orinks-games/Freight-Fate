@@ -240,14 +240,15 @@ fn woken_early_the_player_hears_how_much_rest_they_had() {
     hos.drive(7.0 * 60.0);
     hos.take_break(30.0);
     hos.drive(4.0 * 60.0 - 5.0);
+    // Damage wakes the player: the end of the co-driver's hours no longer
+    // does while the rest is owed.
+    harness.with_drive(|d, _| d.truck_mut().damage_pct += 5.0);
     let back = run_until(&mut harness, 60 * 60 * 2, |h| !h.app.ctx.co_driver_away);
-    assert!(back, "the co-driver drove on past their hours");
+    assert!(back, "the co-driver drove on past the damage");
     let said = harness.transcript().join("\n");
-    assert!(said.contains("Their hours are up."), "{said}");
     assert!(
         said.contains(
-            "Dan needs you back at the wheel. Their hours are up. You had 2 hours of \
-                       your 10-hour rest."
+            "Dan needs you. The truck took damage. You had 2 hours of your 10-hour rest."
         ),
         "{said}"
     );
@@ -256,10 +257,67 @@ fn woken_early_the_player_hears_how_much_rest_they_had() {
 #[test]
 fn woken_from_a_slept_shift_the_player_hears_the_rest_still_to_go() {
     // "You slept" already gives the time, so the rest line says what is
-    // left of it rather than repeating the same number.
-    let mut harness = quiet_drive("Team Rest Woken");
+    // left of it rather than repeating the same number. Damage is what
+    // wakes the player here: the end of the co-driver's hours no longer
+    // does while the rest is owed.
+    let mut harness = slept_shift_with_no_lot("Team Rest Woken");
+    harness.with_drive(|d, _| d.truck_mut().damage_pct += 5.0);
+    let woken = run_until(&mut harness, 60 * 60, |h| {
+        h.read_drive(|d| d.team.as_ref().is_some_and(|team| team.wheel.is_none()))
+    });
+    assert!(woken, "{}", tail(&harness));
+    let said = harness.transcript().join("\n");
+    assert!(said.contains("You slept"), "{said}");
+    assert!(
+        said.contains("Dan needs you. The truck took damage."),
+        "{said}"
+    );
+    assert!(said.contains("of your 10-hour rest still to go."), "{said}");
+    assert!(!said.contains("You had"), "{said}");
+}
+
+#[test]
+fn with_no_lot_in_reach_the_rest_is_slept_out_on_the_shoulder() {
+    // An agent drive on I-5, 2026-10-22: no truck lot between Corning and
+    // Ripon, and Dan handed back on the road with 8.7 hours of the rest
+    // still owed.
+    let mut harness = slept_shift_with_no_lot("Team Rest Shoulder");
+    let woken = run_until(&mut harness, 60 * 60 * 5, |h| {
+        h.read_drive(|d| d.team.as_ref().is_some_and(|team| team.wheel.is_none()))
+    });
+    assert!(woken, "{}", tail(&harness));
+    let said = harness.transcript().join("\n");
+    assert!(
+        said.contains(
+            "Dan pulled onto the shoulder when their hours ran out, with no lot in reach, and \
+             you slept on there. Your 10-hour rest is in."
+        ),
+        "{}",
+        tail(&harness)
+    );
+    assert!(!said.contains("Their hours are up"), "{said}");
+    assert!(!said.contains("of your 10-hour rest"), "{said}");
+    let speed = harness.read_drive(|d| d.trip.truck.speed_mph());
+    assert!(speed < 1.0, "stopped on the shoulder: {speed}");
+    let hos = &harness.app.ctx.profile.as_ref().expect("a career").hos;
+    assert_eq!(hos.driving_min, 0.0, "the player's clock is reset");
+    assert!(
+        hos.duty_min < 1.0,
+        "the player's window is reset: {}",
+        hos.duty_min
+    );
+}
+
+/// The player drove 5 hours and handed Dan a sleeping shift with only an
+/// hour of his own driving left, on a road with no lot to end it at; the
+/// hour passes as time.
+fn slept_shift_with_no_lot(name: &str) -> PlaytestHarness {
+    let mut harness = quiet_drive(name);
     hand_over_after(&mut harness, 300.0, TeamMode::SleepThrough);
     harness.with_drive(|d, _| {
+        d.trip
+            .stops
+            .retain(|stop| stop.stop_type == "delivery_destination");
         d.truck_mut().start_engine();
         d.truck_mut().set_air_ready(false);
         d.truck_mut().parking_brake = false;
@@ -273,14 +331,7 @@ fn woken_from_a_slept_shift_the_player_hears_the_rest_still_to_go() {
     let jump = harness.with_drive(|d, ctx| d.sleep_ahead(ctx));
     harness.app.ctx.run_deferred();
     assert!(jump.is_some(), "the shift passes as time");
-    let woken = run_until(&mut harness, 60 * 60, |h| {
-        h.read_drive(|d| d.team.as_ref().is_some_and(|team| team.wheel.is_none()))
-    });
-    assert!(woken, "{}", tail(&harness));
-    let said = harness.transcript().join("\n");
-    assert!(said.contains("You slept"), "{said}");
-    assert!(said.contains("of your 10-hour rest still to go."), "{said}");
-    assert!(!said.contains("You had"), "{said}");
+    harness
 }
 
 #[test]
@@ -464,4 +515,71 @@ fn once_rested_the_co_driver_hands_back_at_a_lot_and_not_at_a_scale() {
             "marked {marked}"
         );
     }
+}
+
+#[test]
+fn a_break_due_with_no_stop_in_reach_is_taken_on_the_shoulder() {
+    // The same agent drive, 2026-10-22: Dan's break came due in the Shasta
+    // mountains with no stop in reach, and he woke the player with 2.2
+    // hours of the rest still owed.
+    let mut harness = quiet_drive("Team Rest Shoulder Break");
+    hand_over_after(&mut harness, 300.0, TeamMode::RideAlong);
+    harness.with_drive(|d, _| {
+        d.trip
+            .stops
+            .retain(|stop| stop.stop_type == "delivery_destination");
+        d.truck_mut().start_engine();
+        d.truck_mut().set_air_ready(false);
+        d.truck_mut().parking_brake = false;
+        d.truck_mut().velocity_mps = 60.0 / 2.236_936;
+        d.cruise_mph = Some(60.0);
+    });
+    let hos = &mut harness.app.ctx.profile.as_mut().expect("a career").hos;
+    hos.drive(7.0 * 60.0 + 50.0);
+    let took = run_until(&mut harness, 60 * 60 * 2, |h| {
+        h.transcript()
+            .iter()
+            .any(|line| line.contains("Dan took a 30-minute break on the shoulder."))
+    });
+    assert!(took, "{}", tail(&harness));
+    assert!(harness.app.ctx.co_driver_away, "Dan drives on");
+    let said = harness.transcript().join("\n");
+    assert!(!said.contains("Their break is due"), "{said}");
+    let since_break = harness
+        .app
+        .ctx
+        .profile
+        .as_ref()
+        .expect("a career")
+        .hos
+        .since_break_min;
+    assert!(since_break < 5.0, "the break counts: {since_break}");
+}
+
+#[test]
+fn with_the_rest_in_a_break_due_short_of_a_stop_hands_back() {
+    // The shoulder break is for a player still owed rest. Rested, the
+    // player takes the wheel instead of the truck stopping in its lane.
+    let mut harness = quiet_drive("Team Rested Break");
+    hand_over_after(&mut harness, 300.0, TeamMode::RideAlong);
+    player_sleeper(&mut harness, 600.0);
+    harness.with_drive(|d, _| {
+        d.trip
+            .stops
+            .retain(|stop| stop.stop_type == "delivery_destination");
+        d.truck_mut().start_engine();
+        d.truck_mut().set_air_ready(false);
+        d.truck_mut().parking_brake = false;
+        d.truck_mut().velocity_mps = 60.0 / 2.236_936;
+        d.cruise_mph = Some(60.0);
+    });
+    let hos = &mut harness.app.ctx.profile.as_mut().expect("a career").hos;
+    hos.drive(7.0 * 60.0 + 50.0);
+    let woken = run_until(&mut harness, 60 * 60 * 2, |h| {
+        h.read_drive(|d| d.team.as_ref().is_some_and(|team| team.wheel.is_none()))
+    });
+    assert!(woken, "{}", tail(&harness));
+    let said = harness.transcript().join("\n");
+    assert!(said.contains("Their break is due."), "{said}");
+    assert!(!said.contains("on the shoulder"), "{said}");
 }

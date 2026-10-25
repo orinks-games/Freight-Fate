@@ -101,13 +101,30 @@ bookmarks usable.
       miles with the shortest deadline the board gives it (53.8 hours): the
       co-driver taking every shift, traffic, hazards and inspections on,
       delivered in 45.0 hours.
-      A co-driver whose hours run out before the player's rest is in, with
-      the player out of hours too, ends the shift at the last lot those
-      hours reach and hands back parked, instead of at highway speed (player
-      report, 2026-10-20: Lou handed back on I-29 with the nearest lot 76
-      miles on, and a log check put the player out of service). The
-      handover rows' help gives the co-driver's driving time when it falls
-      short of the player's 10-hour rest.
+      A co-driver whose hours run out before the player's rest is in ends
+      the shift at the last lot those hours reach and hands back parked,
+      instead of at highway speed (player report, 2026-10-20: Lou handed
+      back on I-29 with the nearest lot 76 miles on, and a log check put the
+      player out of service). The truck then stays parked while the player
+      sleeps out the rest of their 10 hours, so the co-driver never wakes
+      the player short of their rest for want of hours (owner rule,
+      2026-10-21, after Melissa woke with hours of her own, drove three
+      more and was over the 14-hour window at the yard). The handover rows'
+      help gives the co-driver's driving time when it falls short of the
+      player's 10-hour rest and says they will park for it.
+      With no lot in reach at all, the co-driver stops on the shoulder and
+      the rest is slept out there on the terms of an emergency shoulder
+      sleep (2026-10-22, after an agent drive on I-5 found no
+      truck lot between Corning and Ripon and was woken with 8.7 hours of
+      the rest owed); the handover help says so first. A co-driver's
+      30-minute break that comes due with no stop in reach is taken on the
+      shoulder too, and they drive on (the same drive was woken for Dan's
+      break in the Shasta mountains with 2.2 hours of the rest owed).
+      The truck stops in its lane for both: there is still no pull-over
+      onto the shoulder itself (see the hand-back item below).
+      Still waking the player before the rest is in: what only the driver
+      can decide (damage, an empty tank, a trooper, a full lot at the end
+      of the shift, chains, the money for fuel) and the receiver's gate.
 - [x] Co-driver and assist realism (owner, 2026-10-19): lane keeping on
       full goes around anything sitting in the lane (debris, a car on the
       shoulder, a closure) when a lane is open, and holds
@@ -222,7 +239,8 @@ bookmarks usable.
 - [x] Facility streets setting (owner, 2026-10-11, for players who want the
       1.8 arrival): Settings, Gameplay, World and traffic. Off skips the
       facility street chains both ways (the destination ramp ends at the
-      gate, with no light or stop sign at its end; a loaded run leaves
+      gate; no exit ramp ends at a light or stop sign, owner 2026-10-24;
+      a loaded run leaves
       straight onto the highway) and gives a pickup in town the single
       synthetic access-road leg. On by default; a drive and its save keep
       the value it started with.
@@ -710,6 +728,9 @@ Everything found before 2026-09-25 moved to
 - [ ] (Found along the way) Decide whether to rewrite history to drop the
       retired music files, which take about 440 MB of the repository.
       [October 22 audit](#october-22-repository-size-and-security-audit)
+- [ ] (Found along the way) Send trucks to the Mall of America by Interstate
+      494, 24th Avenue and Killebrew Drive, not the downtown Minneapolis exit.
+      [October 24 Mall of America](#october-24-mall-of-america-found-along-the-way)
 - [x] Driving speech audit (owner, 2026-10-03, from a player report): quiet
       and urgent only no longer call out traffic, a line either rung leaves
       out makes no sound, and quiet says cruise, keeper and work zone
@@ -730,14 +751,47 @@ Everything found before 2026-09-25 moved to
 - [ ] A listening pass by the owner at quiet and urgent only, at the wheel.
 - [ ] A listening pass by the owner on a ride-along shift: the co-driver's
       notes, the hazard calls, and how often they speak.
-- [ ] The co-driver ignores descent control's "can't hold this grade.
-      Brake." and keeps gaining speed; their brake would cancel the
-      cruise that holds the grade, so it needs its own snub (2026-10-19).
+- [x] Co-driver hazard audit (owner, 2026-10-24), from about 2,000 miles
+      driven headless with the co-driver at the wheel, traffic, hazards and
+      weather on. Boxed in by traffic beside a closing lane, the co-driver
+      waited for a gap that never came and rode the closed lane into the
+      barrels; they now merge out from a mile before the taper and brake to
+      drop in behind the traffic. A ramp's red light that the assist
+      stopped the truck short of held it there through every green, since
+      the assist never presses the accelerator; the co-driver now drives up
+      to the line. Descent control's "can't hold this grade. Brake." went
+      unanswered; the co-driver now snub-brakes once the truck is five over
+      what descent control holds and still gaining, which on a downgrade
+      sets the hold rather than cancelling the cruise. Drums already faded
+      still gain on the steepest grades: there is no runaway ramp to take.
+- [x] Ramp advisories screened for a bare number read as km/h (found
+      along the way, 2026-10-24). OSM reads an advisory with no unit as
+      km/h and the bake did too, so Cleveland's exit 170A, signed 15 mph,
+      held trucks to 9 mph for a quarter mile. 64 advisories in 15 states
+      are a whole 5 km/h step converted and not a whole mph; the load
+      screen reads them as the mph on the sign and leaves the record as
+      read. A re-bake that keeps the bare number would let the record say
+      so itself.
+- [x] A ramp's advisory capped the whole ramp, gore to terminal, though
+      the sign is for its bend; at 15 mph the 1,500-foot 170A ramp took a
+      minute and a half (owner, 2026-10-24). The exit speed now holds
+      through the deceleration lane and the laid-out curve, and the run
+      past it is held to the ramp's design speed (DERIVED, the AASHTO share
+      of the corridor that `ramp_speed_mph` already gives), which the assist
+      lift, the safe-speed readout, the arrival's facility-lane pace, the
+      playtest driver and the co-driver's approach to a red all read. The
+      curve's place on the ramp is still the layout's assumption: nothing
+      baked says where along an exit its bend sits.
 - [ ] The co-driver hands back for the end of their hours, an overdue
       break or damage at highway speed. A real swap happens parked; the
       game has no shoulder pull-over to make it there yet (2026-10-19).
 - [ ] A slept-through stretch judges whether a scale ahead is open at the
       time the jump starts, not when the truck would reach it (2026-10-19).
+- [ ] One player's game stops responding every time they switch to
+      another window (player report, 2026-10-21); it does not happen on the
+      owner's machine. The game log now notes each focus change and names
+      the part of the frame that held the game for five seconds or more.
+      Waiting on that player's log.
 - [ ] How far past a lane closure the truck stays out is chosen by the
       closure's name; it belongs on the hazard row as a length, so a new
       long hazard (a spill, a work zone) gets it too (2026-10-19).
@@ -1231,6 +1285,10 @@ Everything found before 2026-09-25 moved to
       VoiceOver gestures as key presses, and F2 or a three-finger tap for a
       spoken list of driving commands. `tools/build_ios.py` packages it;
       `docs/ios.md` has the gestures (2026-09-29).
+- [x] iOS 27 launch: the app declares a scene lifecycle and puts SDL2's
+      windows on its window scene, since iOS 27 stops an app built with its
+      SDK at launch without one (2026-10-22). Moving to SDL3, which has
+      scene support of its own, would retire the shim.
 - [x] iOS driving gestures run commands directly and can be rebound in
       Settings, Gameplay, Controls, Touch gestures: a second finger while holding a
       pedal (cruise, shifts, parking brake, engine), plus tap for speed,
@@ -1731,6 +1789,12 @@ its status or release decision.
 - [x] HOS advice selects a compatible reachable rest stop and warns before
       the last usable exit. Interrupted warnings retry after pause or resume;
       completed warnings stay suppressed until the relevant reset.
+- [x] T while rolling asks what the stop is for (fuel, a break, sleep, fuel
+      and sleep, or food) and plans the next stop that serves it, each row
+      with its distance; the list opens on fuel when the tank is low or will
+      not reach the next pumps, else on what the hours advice calls for, and
+      arrival focuses that row of the stop menu (owner, 2026-10-22: T had
+      planned a sleep stop for a driver who needed fuel).
 - [x] Skip speech voices that fail to initialize and retain spoken agent
       readouts when sound output is busy. Native SAPI and OneCore checks pass.
       A live session with normal Windows access used NVDA and SAPI, completed
@@ -3419,6 +3483,29 @@ the outside temperature.
       describes would let the engine open up too.
 - [ ] A passenger window (Shift Z is taken; it would need another key) if
       players ask.
+
+### October 24 Mall of America (Found along the way)
+
+The owner asked whether the Mall of America was on the map. It was not, so
+it is now a delivery stop in Minneapolis, near Bloomington, at the mall's
+own position read from its OpenStreetMap footprint. It is the first stop of
+a new type, the mall: it receives retail, general, electronics, food and
+refrigerated loads and ships nothing. Real freight goes through the mall's
+service loading dock off Killebrew Drive, after an inspection at its
+security gate (Mall of America events handbook, 2023; Radisson Blu loading
+dock instructions, 2026). OpenStreetMap does not map that dock, so the stop
+has no endpoint record and arrives by the short scripted access road, like
+most stops. Interstates 35 and 94 carry a billboard for it on the way into
+Minneapolis.
+
+- [x] Mall of America delivery stop and the mall stop type.
+- [x] Mall of America billboard on the Interstate 35 and 94 approaches.
+- [ ] The real way in. The game sends every Minneapolis delivery off at the
+      city's own exit near downtown, about nine miles north; a real truck
+      takes Interstate 494 to 24th Avenue, then Killebrew Drive to the
+      security gate. That needs a stop to choose its own exit, then a
+      street chain from the Interstate 494 ramp built the way the facility
+      chains were, once that tool is ported.
 
 ### October 22 repository size and security audit
 

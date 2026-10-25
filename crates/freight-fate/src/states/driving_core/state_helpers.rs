@@ -177,7 +177,32 @@ pub fn perform_shoulder_sleep(
     }];
     // Held at a chain checkpoint, the officer keeps the truck there: no
     // parking ticket and no shoulder debris.
-    if !at_chain_checkpoint && hos::shoulder_fine_due(driving.trip_seed, anchor_mi) {
+    if !at_chain_checkpoint {
+        parts.extend(shoulder_risks(driving, ctx, anchor_mi));
+    } else if let Some(line) = driving.recheck_chain_checkpoint_hold_after_rest(ctx) {
+        parts.push(line.to_string());
+    }
+    let snapshot = driving.snapshot(ctx);
+    {
+        let p = profile_mut_of(ctx);
+        p.store_truck_condition(&driving.trip.truck);
+        p.active_trip = Some(snapshot);
+    }
+    ctx.save_profile();
+    parts.push(deadline_text(driving, ctx));
+    parts.join(" ")
+}
+
+/// The risks of a night parked on the shoulder at `anchor_mi`: a parking
+/// ticket and roadside damage, each seeded by the place, applied here, and
+/// the spoken line for each that came due.
+pub fn shoulder_risks(
+    driving: &mut DrivingState,
+    ctx: &mut GameContext,
+    anchor_mi: f64,
+) -> Vec<String> {
+    let mut parts = Vec::new();
+    if hos::shoulder_fine_due(driving.trip_seed, anchor_mi) {
         let zone = driving.trip.in_construction_zone();
         let fine = citation_fine(
             hos::SHOULDER_FINE,
@@ -198,7 +223,7 @@ pub fn perform_shoulder_sleep(
             fmt_grouped(money, 0)
         ));
     }
-    if !at_chain_checkpoint && hos::shoulder_damage_due(driving.trip_seed, anchor_mi) {
+    if hos::shoulder_damage_due(driving.trip_seed, anchor_mi) {
         driving
             .trip
             .truck
@@ -208,18 +233,5 @@ pub fn perform_shoulder_sleep(
             hos::SHOULDER_DAMAGE_PCT
         ));
     }
-    if at_chain_checkpoint {
-        if let Some(line) = driving.recheck_chain_checkpoint_hold_after_rest(ctx) {
-            parts.push(line.to_string());
-        }
-    }
-    let snapshot = driving.snapshot(ctx);
-    {
-        let p = profile_mut_of(ctx);
-        p.store_truck_condition(&driving.trip.truck);
-        p.active_trip = Some(snapshot);
-    }
-    ctx.save_profile();
-    parts.push(deadline_text(driving, ctx));
-    parts.join(" ")
+    parts
 }

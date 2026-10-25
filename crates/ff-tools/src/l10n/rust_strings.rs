@@ -63,7 +63,7 @@ const SKIP_PATH_PARTS: &[&str] = &[
     "profile_integrity_invariants", "profile_invariants", "cloud_save_integrity",
     "/cloud_saves/api", "/settings/migrate", "/settings/paths", "/net.rs", "/net/",
     "/updater", "/online_presence", "discord_presence", "single_instance", "/app/logging",
-    "/app/boot_timing",
+    "/app/boot_timing", "/app/loop_watch",
 ];
 
 /// The hole an English plural ending ("s", "es") fills; a translation may

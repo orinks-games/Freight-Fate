@@ -1,8 +1,10 @@
-//! A co-driver whose hours run out before the player's rest is in, with the
-//! player out of hours of their own, ends the shift at the last lot their
-//! hours reach instead of handing over on the highway (player report,
-//! 2026-10-20: Lou handed back at 55 miles per hour with the duty window
-//! closed, and a trooper's log check followed).
+//! A co-driver whose hours run out before the player's rest is in ends the
+//! shift at the last lot their hours reach instead of handing over on the
+//! highway (player report, 2026-10-20: Lou handed back at 55 miles per hour
+//! with the duty window closed, and a trooper's log check followed), and
+//! the truck stays parked there until the player's 10 hours are in (player
+//! report, 2026-10-21: woken short of the rest with hours of their own, the
+//! player's window was still running from before the sleep).
 
 use ff_core::sim::weather::WeatherKind;
 use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
@@ -106,49 +108,69 @@ fn out_of_hours_the_player_is_handed_the_wheel_parked_at_the_last_lot() {
         harness.advance_frame_clock();
         harness.app.frame(DT);
     }
+    assert_slept_on(&harness);
+}
+
+/// Handed back parked at the lot with the player's rest in: fresh hours,
+/// and no line about rest still owed.
+fn assert_slept_on(harness: &PlaytestHarness) {
     let said = harness.transcript().join("\n");
     assert!(
         said.contains(
-            "Dan has parked for the end of their shift. Their hours run out before the next \
-             place to park."
+            "Dan parked when their hours ran out, and you slept on. Your 10-hour rest is in."
         ),
         "{}",
-        tail(&harness)
+        tail(harness)
     );
-    assert!(said.contains("of your 10-hour rest still to go."), "{said}");
+    assert!(!said.contains("of your 10-hour rest"), "{said}");
     assert!(!said.contains("Their hours are up"), "{said}");
     let speed = harness.read_drive(|d| d.trip.truck.speed_mph());
     assert!(speed < 1.0, "handed back parked, not on the road: {speed}");
+    let hos = &harness.app.ctx.profile.as_ref().expect("a career").hos;
+    assert_eq!(hos.driving_min, 0.0, "the player's clock is reset");
+    // The stop's pull-in is all the new window holds.
+    assert!(
+        hos.duty_min <= 10.0,
+        "the player's window is reset: {}",
+        hos.duty_min
+    );
+}
+
+/// Drive frames until the co-driver hands back.
+fn until_handed_back(harness: &mut PlaytestHarness, frames: usize) -> bool {
+    for _ in 0..frames {
+        harness.advance_frame_clock();
+        harness.app.frame(DT);
+        harness.app.ctx.run_deferred();
+        if !harness.app.ctx.co_driver_away {
+            return true;
+        }
+    }
+    false
 }
 
 #[test]
 fn riding_along_out_of_hours_the_co_driver_pulls_in_at_the_last_lot() {
     let mut harness = short_shift_in("Team Last Lot Ride", 14.0 * 60.0, TeamMode::RideAlong);
-    let mut back = false;
-    for _ in 0..60 * 60 * 20 {
-        harness.advance_frame_clock();
-        harness.app.frame(DT);
-        harness.app.ctx.run_deferred();
-        if !harness.app.ctx.co_driver_away {
-            back = true;
-            break;
-        }
-    }
+    let back = until_handed_back(&mut harness, 60 * 60 * 20);
     assert!(back, "{}", tail(&harness));
-    let said = harness.transcript().join("\n");
-    assert!(
-        said.contains("Dan has parked for the end of their shift."),
-        "{}",
-        tail(&harness)
-    );
-    assert!(!said.contains("Their hours are up"), "{said}");
+    assert_slept_on(&harness);
 }
 
 #[test]
-fn with_hours_of_their_own_the_player_takes_over_on_the_road_as_before() {
-    let harness = short_shift("Team Last Lot Hours", 300.0);
-    let last = harness.read_drive(|d| d.co_driver_last_lot(&harness.app.ctx).is_some());
-    assert!(!last, "the player can drive on to a lot");
+fn with_hours_of_their_own_the_player_still_sleeps_out_the_rest_at_the_last_lot() {
+    let mut harness = short_shift_in("Team Last Lot Hours", 300.0, TeamMode::RideAlong);
+    let last = harness.read_drive(|d| {
+        d.co_driver_last_lot(&harness.app.ctx)
+            .map(|stop| stop.name.clone())
+    });
+    assert!(
+        last.as_deref().is_some_and(|name| name.ends_with(" near")),
+        "{last:?}"
+    );
+    let back = until_handed_back(&mut harness, 60 * 60 * 20);
+    assert!(back, "{}", tail(&harness));
+    assert_slept_on(&harness);
 }
 
 #[test]
@@ -175,7 +197,10 @@ fn the_handover_help_says_when_the_co_driver_is_short_of_the_players_rest() {
     );
     let help = help.expect("the handover row");
     assert!(
-        help.contains("Dan has 6.8 hours of driving left, short of your 10-hour rest."),
+        help.contains(
+            "Dan has 6.8 hours of driving left, short of your 10-hour rest, so they park and \
+             you finish it there."
+        ),
         "{help}"
     );
 }

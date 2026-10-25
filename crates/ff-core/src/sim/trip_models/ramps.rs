@@ -270,6 +270,11 @@ pub struct ExitRampLayout {
     /// The speed the curve is built for, which the deceleration lane is
     /// sized to reach.
     pub curve_mph: f64,
+    /// The speed the run past the curve is held to: the ramp's own design
+    /// speed. The advisory sign is for the curve (MUTCD W13-2 stands where
+    /// the curve's speed applies), so once the curve is behind the truck
+    /// the sign's number no longer binds it. Never under `curve_mph`.
+    pub tangent_mph: f64,
     /// ASSUMED 0 percent: the ramp past the deceleration lane has no baked
     /// grade, and a guessed climb or drop would read as a survey.
     pub grade: f64,
@@ -312,6 +317,7 @@ pub fn exit_ramp_layout(
         curve_mi,
         tangent_mi,
         curve_mph: ramp_mph,
+        tangent_mph: ramp_mph,
         grade: 0.0,
     }
 }

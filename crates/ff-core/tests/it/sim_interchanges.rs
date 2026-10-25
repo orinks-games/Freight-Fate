@@ -745,3 +745,27 @@ fn test_mainline_via_does_not_pollute_the_exit_label() {
     assert!(!cue.text.contains("Oklahoma City"), "{}", cue.text);
     assert!(!cue.near_text.contains("I-35 North"), "{}", cue.near_text);
 }
+
+#[test]
+fn a_ramp_past_its_signed_curve_is_held_to_its_design_speed() {
+    // Cleveland's exit 170A is signed 15 mph for its bend. Held to the sign
+    // gore to bar, the 1,500-foot ramp took a minute and a half (owner,
+    // 2026-10-24); the run past the bend is held to the ramp's design speed.
+    let route = first_route_option(world(), "Chicago", "Cleveland");
+    let trip = trip_on(route, true);
+    let total = trip.total_miles();
+    let at = (0..400)
+        .map(|i| total - 10.0 + f64::from(i) * 0.025)
+        .find(|&mi| {
+            trip.interchange_at(mi, 0.02)
+                .is_some_and(|ix| ix.exit_ref == "170A")
+        })
+        .expect("exit 170A on the route");
+    assert_eq!(trip.ramp_speed_at(at), 15.0);
+    let mut stop = ff_core::sim::trip_models::RoadStop::new("Cleveland", at, "destination");
+    stop.interchange_mi = Some(at);
+    let layout = trip.exit_ramp_layout(&stop);
+    assert_eq!(layout.curve_mph, 15.0);
+    assert_eq!(layout.tangent_mph, trip.ramp_design_mph_at(at));
+    assert!(layout.tangent_mph >= 30.0, "{layout:?}");
+}

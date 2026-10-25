@@ -4241,6 +4241,13 @@ msgstr ""
 
 #: crates/ff-core/src/data/billboards.rs
 msgid ""
+"Minneapolis ahead. The Mall of America is just south of town in "
+"Bloomington, with a roller coaster under the roof. The parking ramps were "
+"not built for trailers."
+msgstr ""
+
+#: crates/ff-core/src/data/billboards.rs
+msgid ""
 "Bakersfield Sound country. Buck Owens and Merle Haggard tuned it, Red "
 "Simpson trucked it, Dwight Yoakam kept it running. Turn it up."
 msgstr ""
@@ -6132,6 +6139,10 @@ msgid "retail distribution hub"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
+msgid "mall"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
 msgid "steel and industrial plant"
 msgstr ""
 
@@ -6233,6 +6244,10 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
 msgid "retail distribution access road"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
+msgid "mall service road"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
@@ -6433,6 +6448,12 @@ msgstr ""
 msgid ""
 "Curated representative retail distribution facility in the metro freight "
 "market."
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
+msgid ""
+"Curated shopping mall that receives store and restaurant freight at its "
+"service dock."
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
@@ -13585,7 +13606,7 @@ msgstr ""
 msgid "oncoming"
 msgstr ""
 
-#: crates/ff-core/src/sim/lane_guidance.rs crates/freight-fate/src/states/driving_updates/cues.rs
+#: crates/ff-core/src/sim/lane_guidance.rs crates/freight-fate/src/states/driving_team/pilot.rs crates/freight-fate/src/states/driving_updates/cues.rs
 msgid "shoulder"
 msgstr ""
 
@@ -25012,9 +25033,8 @@ msgstr ""
 #. placeholders: {rest}
 #: crates/freight-fate/src/states/driving_controls/help.rs
 msgid ""
-"{rest} plans the recommended break or sleep stop when hours of service "
-"planning hints are on; otherwise it plans the next sleep-capable stop while "
-"rolling."
+"While rolling, {rest} plans the next stop for what you choose: fuel, a "
+"break, sleep, fuel and sleep, or food."
 msgstr ""
 
 #. placeholders: {exit}
@@ -25185,9 +25205,8 @@ msgstr ""
 msgid ""
 "{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads "
 "the posted speed limit here and how far over you are, {parking_brake} sets "
-"or releases the parking brake, {rest} plans a recommended break or sleep "
-"stop when hours of service planning hints are on, or the next sleep stop "
-"otherwise; stopped at a stop, it opens its actions."
+"or releases the parking brake, {rest} plans a stop for fuel, a break, sleep "
+"or food while rolling; stopped at a stop, it opens its actions."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
@@ -29598,6 +29617,165 @@ msgstr ""
 msgid "Yield sign at the end of the ramp."
 msgstr ""
 
+#. placeholders: {distance}
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Fuel: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Break: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Sleep: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Fuel and sleep: {distance}"
+msgstr ""
+
+#. placeholders: {distance}
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Food and coffee: {distance}"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Fuel: none ahead"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Break: none ahead"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Sleep: none ahead"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Fuel and sleep: none ahead"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Food and coffee: none ahead"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Plans the next stop that sells diesel."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid ""
+"Plans a stop for your 30-minute break, the recommended one with planning "
+"hints on."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid ""
+"Plans a stop with parking for a 10-hour sleep, the recommended one with "
+"planning hints on."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Plans the next stop where you can fuel and sleep."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Plans the next stop with food and coffee."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "No fuel stop ahead."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "No break stop ahead."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "No sleep stop ahead. Shoulder sleep available."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "No stop with fuel and sleep ahead."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "No food stop ahead."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Fuel stop planned"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Fuel and sleep stop planned"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Food stop planned"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Sleep stop planned, the last one before your sleep limit"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Sleep stop planned"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid ""
+"Nearest sleep stop planned, but none is reachable before your hours limit. "
+"Stop somewhere safe sooner"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Break stop planned, the last one before your break limit"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Break stop planned"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid ""
+"Sleep stop planned for your break, the last one before your break limit"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Sleep stop planned for your break"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Planned stop remains {name}."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Planned stop stays {name}."
+msgstr ""
+
+#. placeholders: {name}, {name2}
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Planned stop stays {name}. {name2} is also ahead."
+msgstr ""
+
+#. placeholders: {name2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "{name2} is also ahead."
+msgstr ""
+
+#. placeholders: {range_text}
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid "Fuel range only {range_text}."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_events/stops.rs
 msgid "Rest-stop planning unavailable during a police stop."
 msgstr ""
@@ -29676,44 +29854,16 @@ msgstr ""
 msgid "{name} is behind you."
 msgstr ""
 
-#. placeholders: {name}
 #: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "Exit signal active for {name}."
-msgstr ""
-
-#. placeholders: {name}
-#: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "The exit for {name} is already selected."
+msgid "Still planned for fuel"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "No sleep-capable route stop ahead on this route."
+msgid "Still planned for food"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "No sleep stop ahead. Shoulder sleep available."
-msgstr ""
-
-#. placeholders: {name}
-#: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "Planned stop remains {name}."
-msgstr ""
-
-#. placeholders: {name}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "Planned stop stays {name}."
-msgstr ""
-
-#. placeholders: {name}, {name2}
-#: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "Planned stop stays {name}. {name2} is also ahead."
-msgstr ""
-
-#. placeholders: {name2}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "{name2} is also ahead."
+msgid "Still planned for fuel and sleep"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/stops.rs
@@ -29724,40 +29874,20 @@ msgstr ""
 msgid "Still planned"
 msgstr ""
 
+#. placeholders: {name}
 #: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "Break stop planned, the last one before your break limit"
+msgid "Exit signal active for {name}."
 msgstr ""
 
+#. placeholders: {name}
 #: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "Break stop planned"
+msgid "The exit for {name} is already selected."
 msgstr ""
 
+#. placeholders: {prefix}, {name}, {distance}, {exit_text}, {note}, {next_step}, {assist}
 #: crates/freight-fate/src/states/driving_events/stops.rs
 msgid ""
-"Sleep stop planned for your break, the last one before your break limit"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "Sleep stop planned, the last one before your sleep limit"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "Sleep stop planned for your break"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "Sleep stop planned"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_events/stops.rs
-msgid ""
-"Nearest sleep stop planned, but none is reachable before your hours limit. "
-"Stop somewhere safe sooner"
-msgstr ""
-
-#. placeholders: {prefix}, {name}, {distance}, {exit_text}, {next_step}, {assist}
-#: crates/freight-fate/src/states/driving_events/stops.rs
-msgid "{prefix}, {name}, {distance} ahead{exit_text}.{next_step}{assist}"
+"{prefix}, {name}, {distance} ahead{exit_text}.{note}{next_step}{assist}"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/stops.rs
@@ -31303,7 +31433,7 @@ msgstr ""
 msgid "Close the list without running a command."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_menu_states/commands.rs crates/freight-fate/src/states/driving_menu_states/status.rs
+#: crates/freight-fate/src/states/driving_menu_states/commands.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_menu_states/stop_purpose.rs
 msgid "Back to driving."
 msgstr ""
 
@@ -31873,6 +32003,16 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid "Back to the status screens."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/stop_purpose.rs
+msgid ""
+"Up and Down choose what the stop is for, Enter plans it, Escape goes back "
+"to driving."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/stop_purpose.rs
+msgid "Plan a stop"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_pacenotes.rs
@@ -33467,6 +33607,10 @@ msgstr ""
 msgid "Take a 30-minute break"
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "Food and coffee break"
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "You are already rested."
@@ -33498,10 +33642,6 @@ msgstr ""
 msgid ""
 "Fills the tank at the posted diesel price plus a 35 dollar service fee. "
 "Buys what you can afford if cash is short. Engine must be off."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Food and coffee break"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
@@ -35278,6 +35418,34 @@ msgstr ""
 msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
 msgstr ""
 
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_team.rs
+msgid "{name} parked when their hours ran out, and you slept on."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_team.rs
+msgid ""
+"{name} parked when their hours ran out, and you slept on. Your 10-hour rest "
+"is in."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_team.rs
+msgid ""
+"{name} pulled onto the shoulder when their hours ran out, with no lot in "
+"reach, and you slept on there."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_team.rs
+msgid ""
+"{name} pulled onto the shoulder when their hours ran out, with no lot in "
+"reach, and you slept on there. Your 10-hour rest is in."
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
 msgid "Their hours run out before the next place to park."
@@ -35465,10 +35633,32 @@ msgid ""
 "are logged in the sleeper berth."
 msgstr ""
 
-#. placeholders: {name}, {duration_text}
+#. placeholders: {name}, {left}
 #: crates/freight-fate/src/states/driving_team/handover.rs
 msgid ""
-"{name} has {duration_text} of driving left, short of your 10-hour rest."
+"{name} has {left} of driving left, short of your 10-hour rest, so they park "
+"and you finish it there."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_team/handover.rs
+msgid "Shoulder rest is poor and risks a ticket or minor damage."
+msgstr ""
+
+#. placeholders: {name}, {left}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_team/handover.rs
+msgid ""
+"{name} has {left} of driving left, short of your 10-hour rest, and no truck "
+"lot in reach, so they stop on the shoulder and you finish it there."
+msgstr ""
+
+#. placeholders: {name}, {left}
+#: crates/freight-fate/src/states/driving_team/handover.rs
+msgid ""
+"{name} has {left} of driving left, short of your 10-hour rest, and no truck "
+"lot in reach, so they stop on the shoulder and you finish it there. "
+"Shoulder rest is poor and risks a ticket or minor damage."
 msgstr ""
 
 #. placeholders: {name}
@@ -35704,6 +35894,15 @@ msgstr ""
 #. placeholders: {name}, {f}
 #: crates/freight-fate/src/states/driving_team/settle.rs
 msgid "Team load: {name} drove {f} of the miles"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_team/shoulder.rs
+msgid "{name} took a 30-minute break on the shoulder."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_team/stop_work.rs crates/freight-fate/src/states/driving_team.rs
+msgid "slept on"
 msgstr ""
 
 #. placeholders: {name}, {gallons}, {place}
@@ -39093,9 +39292,10 @@ msgstr ""
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid ""
 "On, you drive the real streets between the highway and a facility, turn by "
-"turn. Off, as in version 1.8, the exit ramp ends at the facility gate with "
-"no light or stop sign, a loaded run leaves straight onto the highway, and a "
-"pickup in town is one stretch of road. Applies from your next drive."
+"turn. Off, as in version 1.8, the exit ramp ends at the facility gate, no "
+"exit has a light or stop sign, a loaded run leaves straight onto the "
+"highway, and a pickup in town is one stretch of road. Applies from your "
+"next drive."
 msgstr ""
 
 #. placeholders: {else}
@@ -40880,29 +41080,34 @@ msgstr ""
 msgid "Exits, ramps, and arrival"
 msgstr ""
 
+#. placeholders: {control_rest}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
-msgid "Press again to cancel the plan."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/main_menu_help.rs
-msgid ""
-"With hours-planning hints on, it plans the recommended break or sleep stop."
+msgid "Press {control_rest} again to cancel the plan."
 msgstr ""
 
 #. placeholders: {control_rest}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
-msgid "{control_rest} plans a nearby sleep-capable stop while rolling."
+msgid ""
+"While rolling, {control_rest} asks what the stop is for: fuel, a break, "
+"sleep, fuel and sleep, or food."
 msgstr ""
 
 #. placeholders: {control_rest}
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
-"{control_rest} plans a nearby sleep-capable stop while rolling. With "
-"hours-planning hints on, it plans the recommended break or sleep stop. "
-"Press again to cancel the plan."
+"While rolling, {control_rest} asks what the stop is for: fuel, a break, "
+"sleep, fuel and sleep, or food. With hours-planning hints on, a break or "
+"sleep plan takes the recommended stop. Press {control_rest} again to cancel "
+"the plan."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu_help.rs
+msgid ""
+"With hours-planning hints on, a break or sleep plan takes the recommended "
+"stop."
 msgstr ""
 
 #. one sentence of a longer line
@@ -44765,6 +44970,14 @@ msgstr ""
 
 #: lang/extra.pot
 msgid "retail distribution hub {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "mall {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "mall {place_name} near {town} in {city}"
 msgstr ""
 
 #: lang/extra.pot

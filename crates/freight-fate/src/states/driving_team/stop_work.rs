@@ -2,9 +2,12 @@
 //! 2026-10-18 and 2026-10-19: "skip the menus entirely, it is an
 //! artificial driver"): a scale's check-in, fuel and their 30-minute break
 //! happen as a sound and a note, then they drive on. Only the end of their
-//! shift opens the menu, after they hand back, because it is the player's.
+//! shift opens the menu, after they hand back, because it is the player's;
+//! a shift that ends before the player's rest is in stays parked until it is.
 
+use ff_core::models::co_driver;
 use ff_core::models::loyalty::loyalty_earnings_text;
+use ff_core::sim::hos;
 use ff_core::sim::roadside_inspection::InspectionLevel;
 use ff_core::sim::trip_models::RoadStop;
 
@@ -95,6 +98,12 @@ impl DrivingState {
         let shift_over = wheel.pilot.shift_over && !wheel.pilot.rested;
         let rested = wheel.pilot.rested || self.player_rest_complete(ctx);
         let can_park = stop.parking != "none" && !self.lot_full_now(stop);
+        let rest_left = self.player_rest_left_min(ctx).filter(|left| *left > 0.0);
+        if let Some(left) = rest_left.filter(|_| shift_over && can_park) {
+            self.co_driver_parks_for_rest(ctx, stop, left);
+            self.co_driver_summon(ctx, "slept on");
+            return false;
+        }
         if shift_over || (rested && can_park) {
             // They hand back, then the stop's menu opens for the player.
             let reason = if shift_over {
@@ -143,6 +152,32 @@ impl DrivingState {
         self.co_driver_note(ctx, line, NoteWeight::Passing);
         self.co_driver_clear_plan_at(stop, making_for);
         true
+    }
+
+    /// The co-driver's hours ran out at `stop` with the player's rest not
+    /// yet in: the truck stays parked while the player sleeps out the
+    /// `left` minutes of their 10 hours, and the co-driver rests too.
+    /// Waking the player there handed them a shift whose window had been
+    /// running since before the sleep (player report, 2026-10-21; owner
+    /// rule: the co-driver never wakes the player short of their rest).
+    fn co_driver_parks_for_rest(&mut self, ctx: &mut GameContext, stop: &RoadStop, left: f64) {
+        shut_down_engine(self, ctx);
+        advance_rest_clock(self, ctx, left, Some("sleeper_berth"), "");
+        hos_mut_of(ctx).sleeper(left);
+        if let Some(team) = self.team.as_mut() {
+            // The sleeper minutes above complete the ten hours; this only
+            // guards the last fraction of a minute against rounding.
+            if !co_driver::fully_rested(&team.off_wheel_hos) {
+                team.off_wheel_hos.sleep();
+            }
+        }
+        let profile = profile_mut_of(ctx);
+        profile.fatigue = hos::rest_sleep(profile.fatigue);
+        log::info!(
+            target: TRANSCRIPT_TARGET,
+            "[co-driver] parks at {} and the driver sleeps {left:.0} more minutes",
+            stop.spoken_name()
+        );
     }
 
     /// The stop is done with: none of the plan is left to pull in again.

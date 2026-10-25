@@ -481,6 +481,7 @@ impl DrivingState {
             exit_stop: None,
             selected_stop_key: None,
             selected_stop_break: false,
+            selected_stop_purpose: None,
             selected_stop_assist_armed: false,
             selected_stop_assist_said: false,
             selected_stop_assist_brake: 0.0,

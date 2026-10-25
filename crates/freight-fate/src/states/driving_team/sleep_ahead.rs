@@ -153,10 +153,9 @@ impl DrivingState {
         let rest_in_min = self
             .player_rest_left_min(ctx)
             .filter(|_| !shift_due_at_start);
-        // The last lot the hours reach, once handing back on the road would
-        // leave the player no hours to drive on.
+        // The last lot the hours reach, when the player's rest would not be
+        // in before the co-driver's hours run out.
         let rest_left = self.player_rest_left_min(ctx);
-        let player_out = self.player_out_of_hours(ctx);
         let last_lot_due_at_start = self.co_driver_last_lot(ctx).is_some();
         let start = self.trip.position_mi;
         let mut mile = start;
@@ -183,13 +182,7 @@ impl DrivingState {
                 || rest_in_min.is_some_and(|rest| minutes >= rest)
                 || (!last_lot_due_at_start
                     && self
-                        .last_lot_ahead(
-                            ctx,
-                            &hos,
-                            rest_left.map(|rest| rest - minutes),
-                            player_out,
-                            mile,
-                        )
+                        .last_lot_ahead(ctx, &hos, rest_left.map(|rest| rest - minutes), mile)
                         .is_some());
             if stop_at_need && due {
                 break;

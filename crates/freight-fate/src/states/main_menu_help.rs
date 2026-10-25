@@ -117,7 +117,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
     (
         "Exits, ramps, and arrival",
         &[
-            "{{rest}} plans a nearby sleep-capable stop while rolling. With hours-planning hints on, it plans the recommended break or sleep stop. Press again to cancel the plan.",
+            "While rolling, {{rest}} asks what the stop is for: fuel, a break, sleep, fuel and sleep, or food. With hours-planning hints on, a break or sleep plan takes the recommended stop. Press {{rest}} again to cancel the plan.",
             "{{take_exit}} separately signals for the announced exit or cancels the signal. Planning a stop does not signal for it.",
             "Unless lane keeping is on full, move to the right lane, then steer right into the exit lane when it opens.",
             "Keep road speed until the exit lane. Brake to the announced exit speed before its curve. Full lane keeping makes the lane moves for you.",

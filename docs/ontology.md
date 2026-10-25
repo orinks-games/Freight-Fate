@@ -245,6 +245,7 @@ from the words, and synonyms cost them a re-read.
 | One drive, start to finish | run | trip, haul | `Trip` |
 | The pacing choice on the Driving mode row | relaxed, standard, real time | realistic (retired), 1x, normal speed, pacing level | `Settings.time_scale`, `TIME_SCALES`, `mode_name` |
 | A truck stop or service POI | stop | POI, waypoint | `Stop`, `RoadStop` |
+| What the driver wants the planned stop for, chosen from the list T opens while rolling | Plan a stop (the list's title); its rows are Fuel, Break, Sleep, Fuel and sleep, Food and coffee | stop type, rest type, stop reason | `StopPlanPurpose`, `StopPurposeState` |
 | The level band | rank | tier, grade | `CareerRank` |
 | A group of related achievements | category | group, section, tab | `AchievementCategory` |
 | Any rung of the license-and-training ladder, taken together | credential (menu name "Licenses and training") | qualification, license add-on | `CREDENTIALS` |
@@ -291,6 +292,7 @@ from the words, and synonyms cost them a re-read.
 | The speed this truck, at its weight, can hold a steep downgrade at without overheating its brakes ("Descent control holding 45 miles per hour." / D: "Safe speed 45 miles per hour for the grade.") | the number descent control holds; "safe speed ... for the grade" on D | weight-specific speed, grade speed, runaway speed, descent speed | `TruckState::safe_descent_mph`, `DrivingState::descent_safe_mph` |
 | A posted height restriction on the corridor | low bridge | low clearance, height limit, clearance restriction | `RouteRestriction.kind_label` |
 | A posted weight restriction on the corridor | weight limit | max weight, tonnage limit, weight restriction | `RouteRestriction.kind_label` |
+| A delivery stop that is a shopping mall: it takes freight in at its service dock and ships none | mall (dropped when the name already says it: "Mall of America near Bloomington in Minneapolis") | shopping center, retail center, retail distribution hub (that is a warehouse) | `shopping_mall` facility type, `LOCATION_TYPE_LABELS` |
 | The facility entrance where a drive ends | facility gate; "gate" in short cues | entrance (as the noun for the thing), dock gate | `_handle_arrival_gate` |
 | The highway exit for the delivery | destination exit | final exit, last exit, your exit | `_destination_exit_stop` |
 | The driver's commitment to an exit, made with X wherever it is pressed; the gate a manual exit checks ("Signal set for exit 42", said farther out than the blinker runs; "Signal on for exit 42" once it clicks) | the signal: set, then on | exit armed, intent, confirm (there is no confirm action) | `exit_signal_on`, `exit_blinker_on`, `EXIT_BLINKER_MI` |

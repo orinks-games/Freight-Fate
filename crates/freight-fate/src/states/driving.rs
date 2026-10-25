@@ -501,6 +501,9 @@ pub struct DrivingState {
     pub selected_stop_key: Option<String>,
     /// Whether T selected this stop for the next 30-minute HOS break.
     pub selected_stop_break: bool,
+    /// What the driver told T this stop is for; `None` for a stop the
+    /// co-driver chose.
+    pub selected_stop_purpose: Option<crate::states::driving_events::stop_plan::StopPlanPurpose>,
     pub selected_stop_assist_armed: bool,
     pub selected_stop_assist_said: bool,
     pub selected_stop_assist_brake: f64,

@@ -31,6 +31,7 @@ pub mod pilot;
 pub mod radio;
 pub mod readouts;
 pub mod settle;
+pub mod shoulder;
 pub mod sleep_ahead;
 pub mod stop_work;
 
@@ -396,6 +397,13 @@ fn summon_line(name: &str, reason: &str) -> String {
         "gate" => format!("{name} has the truck at the receiver's gate."),
         "shift" => format!("{name} needs you back at the wheel. Their hours are up."),
         "rested" => format!("{name} has parked and hands you the wheel. Your 10-hour rest is in."),
+        "slept on" => format!(
+            "{name} parked when their hours ran out, and you slept on. Your 10-hour rest is in."
+        ),
+        "shoulder" => format!(
+            "{name} pulled onto the shoulder when their hours ran out, with no lot in reach, and \
+             you slept on there. Your 10-hour rest is in."
+        ),
         "last lot" => format!(
             "{name} has parked for the end of their shift. Their hours run out before the next place to park."
         ),
@@ -482,6 +490,13 @@ impl DrivingState {
             .wheel
             .as_ref()
             .is_some_and(|wheel| wheel.player_rest_owed);
+        // The rest on the shoulder is slept while the co-driver still holds
+        // the wheel, so it goes on the player's logbook as the sleeper.
+        let shoulder = if reason == "shoulder" {
+            self.co_driver_sleeps_on_shoulder(ctx)
+        } else {
+            Vec::new()
+        };
         let Some(log) = self.take_wheel_back(ctx) else {
             return;
         };
@@ -491,6 +506,7 @@ impl DrivingState {
             lines.push(wake_summary(name, &log, ctx));
         }
         lines.push(summon_line(name, reason));
+        lines.extend(shoulder);
         let slept_min = (mode == Some(TeamMode::SleepThrough)).then_some(log.game_minutes);
         if let Some(short) = rest_short_line(owed_rest, self.player_hos_now(ctx), slept_min, ctx) {
             lines.push(short);

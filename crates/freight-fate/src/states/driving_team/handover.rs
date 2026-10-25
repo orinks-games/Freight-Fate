@@ -11,6 +11,7 @@ use crate::states::driving::DrivingState;
 use crate::states::driving_core::profile_of;
 use crate::states::driving_pause_states::PauseMenuState;
 
+use super::pilot::{StopPurpose, REACH_MPH};
 use super::TeamMode;
 
 impl DrivingState {
@@ -89,10 +90,28 @@ fn short_shift_text(ctx: &GameContext, d: &DrivingState, name: &str) -> Option<S
     // player drives; handed the wheel now, what counts is what they have.
     let hours_left = co_driver::shift_left_min(co, mode)? - co_driver::CO_DRIVER_SUMMON_LEAD_MIN;
     let rest_left = co_driver::rest_left_min(player);
-    (rest_left > hours_left).then(|| {
+    if rest_left <= hours_left {
+        return None;
+    }
+    let left = hos::duration_text(hours_left.max(0.0) / 60.0);
+    // Where their hours reach a lot, they park there; where they do not,
+    // the rest is slept on the shoulder (see `shoulder`).
+    let here = d.trip.position_mi;
+    let reach = hours_left.max(0.0) / 60.0 * REACH_MPH;
+    let lot_in_reach = d
+        .co_driver_stops(StopPurpose::ShiftEnd, here)
+        .iter()
+        .any(|stop| stop.at_mi <= here + reach);
+    Some(if lot_in_reach {
         format!(
-            "{name} has {} of driving left, short of your 10-hour rest.",
-            hos::duration_text(hours_left.max(0.0) / 60.0)
+            "{name} has {left} of driving left, short of your 10-hour rest, so they park and you \
+             finish it there."
+        )
+    } else {
+        format!(
+            "{name} has {left} of driving left, short of your 10-hour rest, and no truck lot in \
+             reach, so they stop on the shoulder and you finish it there. Shoulder rest is poor \
+             and risks a ticket or minor damage."
         )
     })
 }

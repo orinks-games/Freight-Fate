@@ -117,6 +117,25 @@ fn info_plist(version: &str, target: Target, build_number: Option<&str>) -> Plis
             Plist::Array(vec![Plist::Int(1), Plist::Int(2)]),
         ),
         ("UILaunchScreen", Plist::Dict(Vec::new())),
+        // iOS 27 will not launch an app built against its SDK without a
+        // scene lifecycle; `FFSceneDelegate` (in `ff_touch.m`) puts SDL2's
+        // windows on the scene.
+        (
+            "UIApplicationSceneManifest",
+            Plist::dict(vec![
+                ("UIApplicationSupportsMultipleScenes", Plist::Bool(false)),
+                (
+                    "UISceneConfigurations",
+                    Plist::dict(vec![(
+                        "UIWindowSceneSessionRoleApplication",
+                        Plist::Array(vec![Plist::dict(vec![
+                            ("UISceneConfigurationName", Plist::string("Default")),
+                            ("UISceneDelegateClassName", Plist::string("FFSceneDelegate")),
+                        ])]),
+                    )]),
+                ),
+            ]),
+        ),
         ("UIRequiresFullScreen", Plist::Bool(true)),
         ("UIStatusBarHidden", Plist::Bool(true)),
         (
@@ -453,5 +472,6 @@ mod tests {
         let xml = plist::to_xml(&info);
         assert!(xml.contains("<string>ExtendedGamepad</string>"));
         assert!(xml.contains("<string>iPhoneOS</string>"));
+        assert!(xml.contains("<string>FFSceneDelegate</string>"));
     }
 }

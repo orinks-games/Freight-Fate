@@ -39,6 +39,8 @@ use freight_fate::states::driving_enforcement::{
     DEFERRED_STOP_MAX_MI, PASS_TRIGGER_MI, POST_MARKER_LEAD_MI, SCALE_BED_CLOSED_MAX_VOLUME,
     SCALE_BED_OPEN_MAX_VOLUME, SCALE_BED_START_MI, SCALE_NOTICE_SAMPLE, WEIGH_STATION_REMINDER_MI,
 };
+use freight_fate::states::driving_events::stop_plan::StopPlanPurpose;
+use freight_fate::states::driving_menu_states::StopPurposeState;
 
 // -- rigging -------------------------------------------------------------------------
 
@@ -1202,6 +1204,13 @@ fn test_rest_key_plans_normally_when_the_scale_is_closed() {
 
     let spoken = app.main_lines().join(" ") + &app.event_lines().join(" ");
     assert!(!spoken.contains("Weigh station first"), "{spoken}");
+    // The scale let the key through to the purpose list; the sleep row
+    // plans the plaza.
+    assert!(app
+        .ctx
+        .state()
+        .is_some_and(|state| state.borrow().as_any().is::<StopPurposeState>()));
+    drive.plan_stop_for(&mut app.ctx, StopPlanPurpose::Sleep);
     assert_eq!(
         drive.selected_stop_key.as_deref(),
         Some(plaza.key().as_str())
@@ -1221,6 +1230,13 @@ fn test_rest_key_plans_normally_when_the_scale_is_behind() {
 
     let spoken = app.main_lines().join(" ") + &app.event_lines().join(" ");
     assert!(!spoken.contains("Weigh station first"), "{spoken}");
+    // The scale let the key through to the purpose list; the sleep row
+    // plans the plaza.
+    assert!(app
+        .ctx
+        .state()
+        .is_some_and(|state| state.borrow().as_any().is::<StopPurposeState>()));
+    drive.plan_stop_for(&mut app.ctx, StopPlanPurpose::Sleep);
     assert_eq!(
         drive.selected_stop_key.as_deref(),
         Some(plaza.key().as_str())
@@ -1258,6 +1274,13 @@ fn test_rest_key_ignores_the_scale_in_a_casual_hos_mode() {
 
     let spoken = app.main_lines().join(" ") + &app.event_lines().join(" ");
     assert!(!spoken.contains("Weigh station first"), "{spoken}");
+    // The scale let the key through to the purpose list; the sleep row
+    // plans the plaza.
+    assert!(app
+        .ctx
+        .state()
+        .is_some_and(|state| state.borrow().as_any().is::<StopPurposeState>()));
+    drive.plan_stop_for(&mut app.ctx, StopPlanPurpose::Sleep);
     assert_eq!(
         drive.selected_stop_key.as_deref(),
         Some(plaza.key().as_str())

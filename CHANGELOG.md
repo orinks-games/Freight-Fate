@@ -24,6 +24,8 @@
 - **Job details now say the hours and fuel a run needs.** Trip hours, your driving time left, and your fuel level and range, before you accept.
 - **Truck stops and parking lots say whether they sell fuel.** One without pumps says No fuel ahead and again when you pull in.
 - **The low fuel warning names the next fuel stop and how far it is.** With none before your destination, it says so.
+- **Interstates 35 and 94 into Minneapolis now pass a Mall of America billboard.** It says where the mall is: Bloomington, just south of the city.
+- **The Mall of America in Bloomington is now a delivery stop in Minneapolis.** It takes store and restaurant freight and ships none.
 
 - **Leaving with a load now tells you your driving time left and fuel.** It adds a break, a sleep or a short tank only when the run needs one.
 
@@ -71,7 +73,7 @@
 
 - **The Weather app now lists active live weather alerts.** A warning you missed can be heard again while driving.
 
-- **A Facility streets setting turns off the drive through city streets to and from facilities.** Off, the exit ramp ends at the gate with no light or stop sign, as in 1.8.
+- **A Facility streets setting turns off the drive through city streets to and from facilities.** Off, the exit ramp ends at the gate and no exit has a light or stop sign, as in 1.8.
 
 - **The right stick now tunes the radio and adjusts its volume.** Hold up or down to keep changing volume.
 
@@ -99,6 +101,7 @@
 
 ### Changed
 
+- **T now asks what the stop is for before planning one.** Choose fuel, a break, sleep, fuel and sleep, or food; each choice says how far its stop is.
 - **A copied delivery summary now ends with #FreightFateRuns.**
 - **The radio's right door speaker plays louder and sooner through the cab speakers.** The radio now sounds nearly centered, leaning only a little toward the driver.
 - **The one-mile call for your exit now gives the exit speed.** You still brake to it in the exit lane.
@@ -212,13 +215,17 @@
 
 ### Fixed
 
+- **An exit ramp's speed sign now holds only through its bend.** Past the bend, the assists let the truck pick up speed toward the end of the ramp.
+- **Some exit ramps no longer hold the truck far under their posted speed.** A ramp signed 15 miles per hour was being driven at 9.
+- **The co-driver no longer drives into work zone barrels or waits forever at a red light on an exit ramp.** They also brake when descent control can't hold a grade.
 - **Updates now install into folders with a percent or dollar sign in the name.** Before, the update could be copied somewhere else.
 - **Sound comes back after a Bluetooth headset connects or disconnects.** It moves to the new sound device within a second instead of going silent until a restart.
 - **With lane keeping on full, a lane change waits while that lane is taken.** You hear what is in it, such as Right lane blocked by a state trooper, instead of a sideswipe.
 - **The Record line in Career stats now counts running off the road asleep and crashes.** It said clean while the list below it named them.
 - **Playlists saved as UTF-16, as Windows Media Player does, now show up on the radio dial.** The Playlists folder no longer reads as empty.
 - **Resuming a saved trip no longer plays several police sirens at once.** Troopers you passed before saving stay quiet.
-- **A co-driver short of hours now parks before handing back when you have none left.** They stop at the last lot in reach, so you can finish your rest there.
+- **A co-driver short of hours now parks and lets you finish your 10-hour rest.** They stop at the last lot in reach, or on the shoulder when none is.
+- **A co-driver's 30-minute break no longer wakes you.** With no stop in reach, they take it on the shoulder and drive on.
 - **The handover rows say when a co-driver cannot cover your whole rest.** The row's help gives their driving time left.
 - **Toms River to Newark now takes I-195 and the Turnpike instead of the truck-banned Garden State Parkway.** It pays 85 miles, up from 66.
 - **Continuing straight onto a street such as Brighton Boulevard no longer counts as a right turn.**
