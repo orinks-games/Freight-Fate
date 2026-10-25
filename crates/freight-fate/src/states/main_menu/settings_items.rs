@@ -499,7 +499,16 @@ impl SettingsCategoryState {
                 adjust(|s, ctx, d| s.toggle_duck_for_speech(ctx, d)),
                 adjust(|s, ctx, d| s.volume(ctx, "ui_volume", 0.1 * d as f64)),
             ],
-            "updates" => vec![adjust(|s, ctx, d| s.toggle_update_channel(ctx, d))],
+            "updates" => {
+                let mut actions = vec![
+                    adjust(|s, ctx, d| s.toggle_update_channel(ctx, d)),
+                    adjust(|s, ctx, d| s.toggle_update_mirror(ctx, d)),
+                ];
+                if ctx.settings.update_mirror_enabled {
+                    actions.push(adjust(|_s, _ctx, _d| {}));
+                }
+                actions
+            }
             // Reading the log's location is an action, not a value to
             // step through, so left/right does nothing on that row.
             "reports" => vec![adjust(|_s, _ctx, _d| {})],
@@ -767,8 +776,9 @@ impl SettingsCategoryState {
                 ),
                 back_row(),
             ],
-            _ => vec![
-                row(
+            _ => {
+                let mut items = vec![
+                    row(
                     dyn_label(|s| {
                         format!(
                             "Update channel: {}",
@@ -781,14 +791,48 @@ impl SettingsCategoryState {
                     }),
                     adjust(|s, ctx, d| s.toggle_update_channel(ctx, d)),
                     "Stable releases or developer snapshots.",
-                ),
-                MenuItem::new(
+                    ),
+                    row(
+                        dyn_label(|s| {
+                            format!(
+                                "Use GitHub mirror for updates: {}",
+                                on_off(s.update_mirror_enabled)
+                            )
+                        }),
+                        adjust(|s, ctx, d| s.toggle_update_mirror(ctx, d)),
+                        "Routes update checks and downloads through a mirror you configure.",
+                    ),
+                ];
+                if ctx.settings.update_mirror_enabled {
+                    items.push(
+                        MenuItem::new(
+                            dyn_label(|s| {
+                                if s.update_mirror_prefix.is_empty() {
+                                    "GitHub mirror prefix: not set".to_string()
+                                } else {
+                                    format!("GitHub mirror prefix: {}", s.update_mirror_prefix)
+                                }
+                            }),
+                            |_s: &mut SettingsCategoryState, ctx| {
+                                let prefix = ctx.settings.update_mirror_prefix.clone();
+                                ctx.push_state(SettingsCategoryState::update_mirror_entry(
+                                    &prefix,
+                                ))
+                            },
+                        )
+                        .help(
+                            "The player chooses and trusts the mirror used for update checks and downloads.",
+                        ),
+                    );
+                }
+                items.push(MenuItem::new(
                     "Check for updates",
                     |_s: &mut SettingsCategoryState, ctx| ctx.push_state(UpdateCheckState::new()),
                 )
-                .help("Look for a new version now."),
-                back_row(),
-            ],
+                .help("Look for a new version now."));
+                items.push(back_row());
+                items
+            }
         }
     }
 

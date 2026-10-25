@@ -34,11 +34,14 @@ impl UpdateChecker {
         let checker = Self::idle();
         let build = updater::load_build_info(version());
         let channel = updater::resolve_channel(&settings.update_channel, build.as_ref());
+        let mirror_prefix = settings
+            .update_mirror_enabled
+            .then(|| settings.update_mirror_prefix.clone());
         let worker = checker.clone();
         let current = version().to_string();
         std::thread::Builder::new()
             .name("update-check".into())
-            .spawn(move || worker.run(&channel, &current, build.as_ref()))
+            .spawn(move || worker.run(&channel, &current, build.as_ref(), mirror_prefix.as_deref()))
             .ok();
         checker
     }
@@ -62,8 +65,14 @@ impl UpdateChecker {
         }
     }
 
-    fn run(&self, channel: &str, current: &str, build: Option<&updater::BuildInfo>) {
-        match updater::check_for_update(channel, current, build) {
+    fn run(
+        &self,
+        channel: &str,
+        current: &str,
+        build: Option<&updater::BuildInfo>,
+        mirror_prefix: Option<&str>,
+    ) {
+        match updater::check_for_update(channel, current, build, mirror_prefix) {
             Ok(result) => {
                 *self.result.lock().unwrap_or_else(|e| e.into_inner()) = result;
             }
