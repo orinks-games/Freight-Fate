@@ -111,6 +111,12 @@ pub fn configure_logging() {
             record.args()
         )
     });
+    // A native crash or an abort never reaches the panic hook below; this
+    // gets it into the same file.
+    #[cfg(windows)]
+    if let Some(file) = &file {
+        super::crash_log::install(file);
+    }
     match file {
         Some(file) => {
             builder.target(env_logger::Target::Pipe(Box::new(file)));

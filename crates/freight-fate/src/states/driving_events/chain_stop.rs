@@ -59,6 +59,17 @@ impl DrivingState {
         profile_of(ctx).chains_owned() && self.trip.truck.chain_wear_pct < 100.0
     }
 
+    /// Facility stopping assistance is braking into the chain-up area to
+    /// put chains on. The chain control stands at the start of that area,
+    /// so a truck pulling in to chain up is not one running the control:
+    /// without this the trooper wrote the ticket while the truck was still
+    /// braking for the pullout (issue #502).
+    pub fn chain_up_pending(&self) -> bool {
+        self.chain_stop
+            .as_ref()
+            .is_some_and(|stop| stop.kind == ChainStopKind::Install)
+    }
+
     /// A new set goes in the side box on the road: fresh, with its spare
     /// repair links. The truck's own meter is reset too, because it is what
     /// says whether a set aboard can go on.

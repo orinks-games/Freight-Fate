@@ -719,6 +719,14 @@ into the release gate. Details stay in the linked dated sections, marked
 Everything found before 2026-09-25 moved to
 [2.0](#found-along-the-way-in-19-moved-to-20) that day.
 
+- [ ] (Found along the way) 1.9.5 closes with no error on one Windows
+      player's machine, twice, both on facility streets heading for
+      Lynchburg, Virginia (issue #513, 2026-10-25). The log just stops, so
+      it was a native crash, not a Rust panic. The game now writes a native
+      crash's code and module into the log; the next log names the cause.
+- [x] (Found along the way) The chain control cited a truck that facility
+      stopping assistance was braking into the chain-up area to chain up
+      (issue #502, 2026-10-25). It now leaves that truck alone.
 - [ ] (Found along the way) A Driving hints setting, on by default, that
       drops every "Press X to ..." sentence from driving lines (owner,
       2026-10-25; after 1.9.5). The key hints retire after three presses by

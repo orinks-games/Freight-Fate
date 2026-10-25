@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- **Facility stopping assistance no longer gets you fined at a chain control.** A truck pulling into the chain-up area to put chains on is not cited.
+- **A crash on Windows now writes its cause into game.log,** so a bug report with the log shows what went wrong.
+
 ## 1.9.5 - 2026-10-25
 
 ### Highlights
