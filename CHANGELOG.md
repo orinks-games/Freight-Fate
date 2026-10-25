@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.9.5 - 2026-10-25
 
 ### Added
 
@@ -76,22 +76,6 @@
 - **The right stick now tunes the radio and adjusts its volume.** Hold up or down to keep changing volume.
 
 - **Right bumper combinations now cover the radio.** Use the right stick for power, favorites and categories, stick click for status, Back for what plays.
-
-- **Drivers at Great Lakes Training Transport can now move to another carrier.** At level 4 with full dispatch trust, Business status lists the other carriers.
-
-- **Interstates now have the sound of distant traffic, louder on busier stretches.**
-
-- **On busy freeways, traffic now comes up beside you and passes.**
-
-- **The radio status screen says where your own playlist files go until you have one on the dial.**
-
-- **A fuel range warning speaks when your fuel will not reach the next fuel stop.** It names your range and how far the stop is.
-
-- **The Radio app can suggest a station that is missing from the dial.** Accepted stations join every driver's dial, and AM and FM ones play near home.
-
-- **Text fields now paste with Control V, and name punctuation as you type it.** A colon or slash is spoken as a word instead of a silent click.
-
-- **Drivers can call dispatch while stopped for trip-specific help.** Report delays, hours, road conditions, truck trouble or load trouble.
 
 - **Favorite stations now play from anywhere.** A saved local station keeps playing after you leave its area, with no fade or static.
 
@@ -187,32 +171,15 @@
 
 - **The player manual uses shorter explanations and clearer hotkey instructions.**
 
-- **The player manual and How to play now explain menus, driving, rest, radio, and career choices more clearly.**
-
-- **How to play announces controller controls, including how to stop speech.**
-
-- **Update checks, the bug report page and the manual download link now go to the game's new GitHub home, orinks-games.**
-
-- **A slow vehicle ahead in your lane is now called at half a mile, when you start to hear it.**
-
-- **Tire noise on the road is louder at highway speed.**
-
-- **The fuel range now comes from your truck's own mileage on this drive, load and hills included.**
-
-- **The Engine voice and Engine brake voice settings are now called Engine sound and Engine brake sound.**
-
-- **The distant interstate traffic is now a steady roar.**
-
-- **A slow vehicle ahead in your lane can now be heard from half a mile away.**
-
-- **A slower vehicle ahead now plays the slowing-traffic sound, not a passing sound.**
-
 - **On a Mac, game sound now stays on the output it started on when you switch outputs.** Speech still moves; restart the game to move the sound.
 
 - **On Linux, the game now needs the ALSA sound library, libasound2, to start.** Nearly every desktop already has it installed.
 
 ### Fixed
 
+- **With cruise or the speed keeper on, the truck now drives up to a ramp's light.** It used to coast to a stop short of the light and wait there through every green.
+- **Pressing T just past an exit now asks what your next stop is for.** For a mile and a half it only said the stop you passed was behind you.
+- **Cruise resuming in snow or rain now names the weather speed once.** The slowdown for the weather was said again right after.
 - **An exit ramp's speed sign now holds only through its bend.** Past the bend, the assists let the truck pick up speed toward the end of the ramp.
 - **Some exit ramps no longer hold the truck far under their posted speed.** A ramp signed 15 miles per hour was being driven at 9.
 - **The co-driver no longer drives into work zone barrels or waits forever at a red light on an exit ramp.** They also brake when descent control can't hold a grade.
@@ -239,11 +206,6 @@
 - **A co-driver plans their break earlier.** A full lot no longer leaves them out of time and handing you the wheel.
 - **The delivery summary lists the co-driver's share of the pay.** It is read just before your net pay.
 - **Dispatch says a roadwork closure once when it covers several stretches.** It names how many places instead of repeating the same closure.
-- **The drive to a pickup no longer draws citations for the trailer still waiting in the shipper's yard.**
-- **Officers no longer cite a fault already written up on the same drive.** A trailer lamp, worn tires, body damage or a chain-law ticket counts once per drive.
-- **Snow chains now last through a posted chain law.** Before, they could wear out in about a dozen miles when a weather alert posted the law on a wet road.
-- **Damage a tractor already had no longer counts as preventable damage on the next load.** A grounding and its delivery now count as one incident, not two.
-- **Report truck trouble now covers trailer faults and missing chains.** Dispatch sends a mechanic for a trailer lamp or tire, and says what to do without chains.
 - **The posted limit no longer dips briefly where the map mistook a ramp or side street for the highway.** 31 such dips are gone.
 - **A speed limit line that was cut off no longer comes back after a newer one.** "Reduced to 45" stays quiet once the limit is 55 again.
 
@@ -252,32 +214,18 @@
 - **The driving keys help no longer freezes the game in Spanish.** It used to hang for up to a minute before speaking.
 - **A chain checkpoint holds a truck with no chains, and lets it wait or turn back.** A checkpoint used to fine a chainless truck and wave it on. Now every truck without chains is held, as the law requires: "You can't go on without chains. Wait here until the chain law lifts, or turn back." The pause menu offers "Wait for the chain law to lift", which waits on duty half an hour at a time, up to 8 hours or until your 14-hour window runs out, and "Turn back to" the last city on the route, a drive that goes on the odometer and burns fuel at highway rate, and is refused when it would run past your driving or duty hours or your 8 hours of driving before a 30-minute break. While held, "Sleep at the checkpoint (10 hours)" is always in the pause menu, even with a stop nearby, and the checkpoint brings no parking ticket. A sleep there rechecks live weather alerts on waking, so a chain law that lifted overnight releases the truck. A wait rechecks live weather alerts every half hour, so it ends when an alert's chain law lifts. Coming back to the same checkpoint holds you again but never fines you twice. Held with chains aboard, you still put them on from the pause menu.
 - **A chain checkpoint no longer says a break wait is half an hour.** When turning back would run past your 30-minute break, it says waiting there counts as your break. After a sleep at the checkpoint, it tells you when the chain law still stands.
-- **Traffic in the open lane now lets you merge at a lane closure.** When the L key calls that lane open, it stays open while you move over.
-- **Dispatch no longer relays a new driver hundreds of miles empty.** A relayed load's deadhead now grows with your level: up to 75 miles at level 1, 125 at level 2, 200 at level 3, 300 at level 4 and 400 from level 5. It's also never more than a quarter of the loaded miles. Dispatch looks at the nearest freight towns first instead of the biggest. A level-1 driver in North Carolina had been sent about 300 empty miles to Virginia.
-- **Snow chains that broke or wore down on a drive stay that way after you quit and resume.** A broken set no longer comes back whole, and the pause menu no longer offers it again.
 - **Sleeping on the shoulder or at a rest stop now says "Driving and duty clocks reset"** instead of "Hours of service reset", matching the motel and lot lines, because the 70-hour limit does not reset.
 - **With every assist on, the truck finishes the drive into the yard again.** Facility stopping assistance no longer takes the pedals while a street corner is still ahead, so the speed keeper slows for the last turn instead of the truck sailing past it, and after the last corner the assist drives the street at its posted speed instead of walking the truck in at 2 miles per hour. When a corner comes up with the truck still fast, the speed keeper now brakes as firmly as the remaining distance needs to make the turn as routed, rather than missing it and going around the block.
 - **Street corners use realistic loaded-truck speeds.** Right turns: 9 mph at 90 degrees, 13 at 60, 7 from 105 to 120, and 5 past that. Left turns: 13 at 90, 16 at 60, and 10 from 105 to 120. A bend of 45 degrees or less is not slowed for, beyond the street limit up to 28 mph. The turn into a facility driveway is 6 mph, and an empty trailer takes a corner up to 2 mph faster.
 - **The speed keeper no longer coasts under a corner that comes right after another one, or brakes below a corner's speed and then speeds back up.** A left 600 feet after a right is taken at the left's own speed. Late braking for a corner now eases off as it reaches the corner's speed.
 - **The speed keeper takes each corner at that corner's own speed.** A left turn is no longer slowed to the speed of a sharper right turn further on. The keeper slows early for a later corner only when it comes too soon to brake for after the one before. A gentle bend that stays on the same road keeps the posted limit, and the 28 mph cap now applies only to a slight turn onto another road.
 - **"Into the yard" is said once, when you actually turn in.** Overrunning the driveway no longer announces the yard before the missed turn and again after it.
-- **A full brake stop with the engine brake on no longer damages your load.**
-
-- **An engine brake stage you pick now stays picked.** Cruise and the bend assist no longer switch it off after they finish slowing you.
-
-- **Turning automatic engine brake off with Alt J now lasts between drives.** It used to switch back on at every dispatch.
 
 - **With score display set to percentage only, the dispatch trust line keeps its trust level.**
 
 - **Spanish dispatch trust levels now agree with confianza (completa, con reservas, baja, última oportunidad).**
 
-- **Lane keeping no longer pulls out to pass into the oncoming lane on two-lane roads.** Where a passing lane serves only the other direction, the truck stays in its own lane.
-
-- **Lane keeping now calls off a lane change if the lane fills or ends before the truck is across.** You hear "Staying in the left lane" instead of a sideswipe. If a vehicle then paces the truck in the right lane, lane keeping says it is easing off, lets it by and moves back in three seconds behind it, and the CB no longer tells you off for the wait. A narrowing lane is announced once, not again after automatic braking.
-
 - **Translated speech now says facility types, the dispatch board's market and job rows, and region city counts in your language.** Facility and town names stay as they are, and Spanish lane counts say carril.
-
-- **The favorites count on the Tab Radio screen now opens your favorite stations.** Press Enter on it, then Enter on a station to tune it.
 
 - **Controller button names are translated, and the Driver screen's clock reads its time zone in your language.** The terminal greeting also loses a stray double space.
 
@@ -287,10 +235,86 @@
 
 - **Resume speed control now brings back the speed keeper's speed after you brake out of it.**
 
+- **The jump to Freight Fate stations now lands on the Night Line, not Channel 3000.** Channel 3000 sits at the end of the category.
+
+- **Radio stations whose address is a .pls or .m3u playlist link now play.**
+
+## 1.9.4.2 - 2026-10-19
+
+### Removed
+
+- **Mastodon sharing is gone from the Online menu.** Deliveries are no longer posted to Mastodon, and the Link a Mastodon account row is removed.
+
+## 1.9.4.1 - 2026-10-18
+
+### Fixed
+
+- **Lane keeping no longer pulls out to pass into the oncoming lane on two-lane roads.** Where a passing lane serves only the other direction, the truck stays in its own lane.
+- **Lane keeping now calls off a lane change if the lane fills or ends before the truck is across.** You hear "Staying in the left lane" instead of a sideswipe.
+- **After a called-off lane change, lane keeping lets a pacing vehicle by and moves back in behind it.** The CB no longer tells you off for the wait.
+- **Traffic in the open lane now lets you merge at a lane closure.** When the L key calls that lane open, it stays open while you move over.
+- **A full brake stop with the engine brake on no longer damages your load.**
+- **An engine brake stage you pick now stays picked.** Cruise and the bend assist no longer switch it off after they finish slowing you.
+- **Turning automatic engine brake off with Alt J now lasts between drives.** It used to switch back on at every dispatch.
+- **The favorites count on the Tab Radio screen now opens your favorite stations.** Press Enter on it, then Enter on a station to tune it.
+- **The drive to a pickup no longer draws citations for the trailer still waiting in the shipper's yard.**
+- **Officers no longer cite a fault already written up on the same drive.** A trailer lamp, worn tires, body damage or a chain-law ticket counts once per drive.
+- **Snow chains now last through a posted chain law.** Before, they could wear out in about a dozen miles on a wet road.
+- **Damage a tractor already had no longer counts as preventable damage on the next load.** A grounding and its delivery now count as one incident, not two.
+- **Report truck trouble now covers trailer faults.** Dispatch sends a mechanic for a trailer lamp or tire.
+- **Dispatch no longer relays a new driver hundreds of miles empty.** The empty miles to a relayed load now grow with your level, from 75 at level 1.
 - **Snapped snow chains are no longer offered again on the same drive.** A broken set stays off until you buy a new one at a garage.
+- **Snow chains that broke or wore down on a drive stay that way after you quit and resume.**
+
+### Known issues
+
+- **The posted limit can dip briefly where the map mistook a ramp or side street for the highway.** Fixed for 1.9.5.
+
+## 1.9.4 - 2026-10-10
+
+### Added
+
+- **Drivers at Great Lakes Training Transport can now move to another carrier.** At level 4 with full dispatch trust, Business status lists the other carriers.
+
+- **Interstates now have the sound of distant traffic, louder on busier stretches.**
+
+- **On busy freeways, traffic now comes up beside you and passes.**
+
+- **The radio status screen says where your own playlist files go until you have one on the dial.**
+
+- **A fuel range warning speaks when your fuel will not reach the next fuel stop.** It names your range and how far the stop is.
+
+- **The Radio app can suggest a station that is missing from the dial.** Accepted stations join every driver's dial, and AM and FM ones play near home.
+
+- **Text fields now paste with Control V, and name punctuation as you type it.** A colon or slash is spoken as a word instead of a silent click.
+
+- **Drivers can call dispatch while stopped for trip-specific help.** Report delays, hours, road conditions, truck trouble or load trouble.
+
+### Changed
+
+- **The player manual and How to play now explain menus, driving, rest, radio, and career choices more clearly.**
+
+- **How to play announces controller controls, including how to stop speech.**
+
+- **Update checks, the bug report page and the manual download link now go to the game's new GitHub home, orinks-games.**
+
+- **A slow vehicle ahead in your lane is now called at half a mile, when you start to hear it.**
+
+- **Tire noise on the road is louder at highway speed.**
+
+- **The fuel range now comes from your truck's own mileage on this drive, load and hills included.**
+
+- **The Engine voice and Engine brake voice settings are now called Engine sound and Engine brake sound.**
+
+- **The distant interstate traffic is now a steady roar.**
+
+- **A slow vehicle ahead in your lane can now be heard from half a mile away.**
+
+- **A slower vehicle ahead now plays the slowing-traffic sound, not a passing sound.**
+
+### Fixed
 
 - **Switching screen readers is now silent, and ZDSR no longer repeats "Speech is now using ZDSR" on every key press.**
-- **The jump to Freight Fate stations now lands on the Night Line, not Channel 3000.** Channel 3000 sits at the end of the category.
 - **Channel 3000's shows are now as loud as the other stations, and their theme music no longer jumps out over the talk.**
 - **Been Everywhere, For Real now needs all sixteen regions on the map, not fourteen.**
 
@@ -327,8 +351,6 @@
 - **The update check no longer offers a preview snapshot that is the same as your copy.**
 
 - **What's new, when updating from an older preview snapshot, now lists every change since your copy.**
-
-- **Radio stations whose address is a .pls or .m3u playlist link now play.**
 
 ## 1.9.3 - 2026-10-06
 

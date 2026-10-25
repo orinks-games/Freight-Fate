@@ -7,7 +7,7 @@ members = [
 ]
 
 [workspace.package]
-version = "1.9.0"
+version = "1.9.5"
 edition = "2021"
 rust-version = "1.95"
 license = "PolyForm-Noncommercial-1.0.0"
@@ -18,7 +18,7 @@ authors = ["Joshua Tubbs (Orinks)"]
 # crate version cannot, so a snapshot never calls itself the stable release.
 # `cargo tools version` prints it; `--release-line` drops the suffix.
 [workspace.metadata.release]
-package-version = "1.9.0.dev0"
+package-version = "1.9.5.dev0"
 
 [workspace.dependencies]
 thiserror = "2"
@@ -61,7 +61,7 @@ sdl2 = "0.38"
 #   [patch."https://github.com/orinks-games/hearken"]
 #   hearken = { path = "../hearken/crates/hearken" }
 # to a cargo config (never commit it).
-hearken = { git = "https://github.com/orinks-games/hearken", rev = "1f03fa48c3cd0c76ed2bf077820bbbe8adc02021", default-features = false, features = ["kira", "radio"] }
+hearken = { git = "https://github.com/orinks-games/hearken", rev = "d82640344b2a290fc13de43e7ec9545bedadbdeb", default-features = false, features = ["kira", "radio"] }
 raw-window-handle = "0.6"
 # AppKit's typed `NSWindow`, for asking a Mac whether the game window is
 # covered. Already in the build through `webbrowser`; only the window class
