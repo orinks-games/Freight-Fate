@@ -266,7 +266,11 @@ impl DrivingState {
                 if self.cruise_mph.is_some() {
                     self.cancel_cruise(ctx, true);
                 }
-                self.engage_keeper(ctx, limit, &zone_reason, Some(limit), true);
+                // Quietly: the street's "Speed limit 25." follows at once,
+                // and "Speed keeper holding 25" before it said the same
+                // number twice (owner, 2026-10-25: the move onto city
+                // streets said too much).
+                self.engage_keeper(ctx, limit, &zone_reason, Some(limit), false);
             }
         }
         // The first corner, if the chain starts inside its own window: it is

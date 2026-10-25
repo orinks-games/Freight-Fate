@@ -35990,6 +35990,10 @@ msgid "{name} was pulled in for an inspection at {place}. {outcome}"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_turns.rs
+msgid "advice"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_turns.rs
 msgid "the next street"
 msgstr ""
 
@@ -36006,11 +36010,6 @@ msgstr ""
 #. placeholders: {target}
 #: crates/freight-fate/src/states/driving_turns.rs
 msgid "Advise {target}."
-msgstr ""
-
-#. placeholders: {advice}
-#: crates/freight-fate/src/states/driving_turns.rs
-msgid "{advice} Speed keeper easing."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_turns.rs

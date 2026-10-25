@@ -29316,6 +29316,9 @@ msgstr ""
 msgid "{name} was pulled in for an inspection at {place}. {outcome}"
 msgstr ""
 
+msgid "advice"
+msgstr ""
+
 msgid "the next street"
 msgstr "次の通り"
 
@@ -29330,10 +29333,6 @@ msgstr "{distance}先、{capitalize}に曲がって{street}に入ります。"
 #. placeholders: {target}
 msgid "Advise {target}."
 msgstr "推奨{target}。"
-
-#. placeholders: {advice}
-msgid "{advice} Speed keeper easing."
-msgstr "{advice}速度キープが減速します。"
 
 msgid "Missed the turn. Going around the block."
 msgstr "曲がり角を逃しました。ブロックを一周します。"
@@ -37611,6 +37610,9 @@ msgstr "右かっこ"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "大文字の{ch}"
+
+#~ msgid "{advice} Speed keeper easing."
+#~ msgstr "{advice}速度キープが減速します。"
 
 #~ msgid " for the lower limit"
 #~ msgstr " 低い制限速度に合わせて"

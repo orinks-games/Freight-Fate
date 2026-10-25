@@ -1461,8 +1461,10 @@ fn test_the_assist_drives_from_the_clear_sign_to_the_entrance_hold_hands_off() {
         release.report(destination)
     );
     assert!(release.on_chain, "{}", release.report(destination));
+    // The keeper takes the street limit in silence: "Speed limit 25" is
+    // the line the driver needs (owner, 2026-10-25).
     assert!(
-        release.said("Speed keeper holding"),
+        !release.said("Speed keeper holding"),
         "{}",
         release.report(destination)
     );

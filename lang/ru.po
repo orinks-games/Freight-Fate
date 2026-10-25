@@ -32612,6 +32612,9 @@ msgstr ""
 msgid "{name} was pulled in for an inspection at {place}. {outcome}"
 msgstr ""
 
+msgid "advice"
+msgstr ""
+
 msgid "the next street"
 msgstr "следующую улицу"
 
@@ -32626,10 +32629,6 @@ msgstr "{capitalize} поворот на {street}, {distance}."
 #. placeholders: {target}
 msgid "Advise {target}."
 msgstr "Рекомендуемая скорость {target}."
-
-#. placeholders: {advice}
-msgid "{advice} Speed keeper easing."
-msgstr "{advice} Поддержание скорости снижает скорость."
 
 msgid "Missed the turn. Going around the block."
 msgstr "Поворот пропущен. Объезжаем квартал."
@@ -41991,6 +41990,9 @@ msgstr "закрывающая скобка"
 #. placeholders: {ch}
 msgid "cap {ch}"
 msgstr "заглавная {ch}"
+
+#~ msgid "{advice} Speed keeper easing."
+#~ msgstr "{advice} Поддержание скорости снижает скорость."
 
 #~ msgid " for the lower limit"
 #~ msgstr " из-за более низкого ограничения"

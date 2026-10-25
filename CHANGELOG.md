@@ -148,6 +148,8 @@
 
 - **Every street corner is now called with its distance and the speed to take it at.** The turn's chime plays with that call, on the side you turn.
 
+- **The speed keeper says less on city streets.** It no longer repeats the street limit or says it is easing for each corner; the advise speed covers it.
+
 - **Missing a street corner now sends the truck around the block instead of back up the street.** You come out on the street you missed, a few minutes later.
 
 - **Dispatch trust now changes half a point earlier at each cutoff.** It follows the rounded reputation you hear.

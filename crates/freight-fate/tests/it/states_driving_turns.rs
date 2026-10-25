@@ -294,10 +294,10 @@ fn test_a_turn_the_truck_is_already_slow_for_is_still_called_with_its_speed() {
 }
 
 #[test]
-fn test_the_approach_call_says_the_speed_keeper_is_taking_the_corner() {
-    // The keeper sheds the corner's speed itself. That is said inside the
-    // corner's own call rather than as a second utterance on top of it, so
-    // nobody reaches for the brake -- braking cancels the whole session.
+fn test_the_approach_call_under_the_speed_keeper_is_just_the_corner_and_its_speed() {
+    // Owner, 2026-10-25: "Speed keeper easing." on every corner made the
+    // street transition too wordy. The advise speed already tells the
+    // driver the truck will slow, so the call ends there.
     let mut app = TestApp::new();
     let mut d = a_drive(&mut app);
     a_street_chain(&mut d);
@@ -308,8 +308,7 @@ fn test_the_approach_call_says_the_speed_keeper_is_taking_the_corner() {
     d.update_turn_commitment(&mut app.ctx, 0.016);
     assert_eq!(
         app.event_lines()[0],
-        "Left turn onto North Michigan Street, a quarter mile. Advise 14 miles per hour. \
-         Speed keeper easing."
+        "Left turn onto North Michigan Street, a quarter mile. Advise 14 miles per hour."
     );
 }
 
