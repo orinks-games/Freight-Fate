@@ -854,11 +854,14 @@ fn test_a_reckless_driver_meets_the_same_road_and_a_very_different_bill() {
 #[test]
 fn test_speeding_scales_from_free_to_expensive_with_no_flat_spot() {
     // Being seen is now the ONLY thing speeding costs, so the curve between
-    // legal and habitual has to be a curve.
+    // legal and habitual has to be a curve. Six seeds were too few: the
+    // October exits re-read moved the posts and the occasional rate on Los
+    // Angeles to Phoenix swung from 0.67 to 1.34, while 24 seeds hold it
+    // at 0.45 before and 0.56 after.
     for (a, b) in [("Chicago", "Denver"), ("Los Angeles", "Phoenix")] {
         let rate = |over: f64, damage: f64, duty: f64, recover_mi: f64| {
             let mut totals = Vec::new();
-            for seed in 0..6 {
+            for seed in 0..24 {
                 let mut trip = trip_seeded(a, b, seed);
                 let stops = walk(&mut trip, over, damage, 0, duty, recover_mi, seed);
                 totals.push(stops as f64 / trip.route.miles() * 500.0);
@@ -880,7 +883,10 @@ fn test_speeding_scales_from_free_to_expensive_with_no_flat_spot() {
             habitual >= 2.0,
             "{a}->{b}: a habitual speeder saw only {habitual:.2}"
         );
-        assert!(habitual > occasional * 3.0);
+        assert!(
+            habitual > occasional * 3.0,
+            "{a}->{b}: habitual {habitual:.2} against occasional {occasional:.2}"
+        );
     }
 }
 
