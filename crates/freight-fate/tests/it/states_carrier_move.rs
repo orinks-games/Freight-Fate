@@ -45,7 +45,7 @@ fn a_qualified_trainee_moves_on_the_second_press() {
     let rows = labels::<BusinessStatusState>(&app);
     for carrier in [
         "Northstar Freight Lines",
-        "Prairie Link Regional",
+        "Des Plaines River Cartage",
         "Summit Value Logistics",
     ] {
         assert!(
@@ -54,7 +54,14 @@ fn a_qualified_trainee_moves_on_the_second_press() {
             "{rows:?}"
         );
     }
-    assert!(!rows.iter().any(|t| t.contains("Great Lakes")), "{rows:?}");
+    // Only carriers that hire where the driver lives, and never the fleet
+    // they are leaving.
+    assert!(
+        !rows
+            .iter()
+            .any(|t| t.contains(LAST_CHANCE_CARRIER_NAME) || t.contains("Prairie Link")),
+        "{rows:?}"
+    );
 
     select::<BusinessStatusState>(&mut app, "Move to Summit Value Logistics");
     assert_eq!(profile(&app).carrier_key, LAST_CHANCE_CARRIER_KEY);

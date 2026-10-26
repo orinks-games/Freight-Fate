@@ -529,21 +529,21 @@ impl PickupFacilityState {
         }
         let Some(defect) = trailer.defect() else {
             ctx.audio.play("ui/notify");
-            let covered = if is_doubles_cargo(self.job.cargo.key) {
-                ", both trailers and the converter dolly,"
+            // One whole sentence per case: a line assembled from a verb
+            // fragment cannot be translated.
+            ctx.say(&if is_doubles_cargo(self.job.cargo.key) {
+                format!(
+                    "{}, both trailers and the converter dolly, check out.{}",
+                    crate::states::city::py_capitalize(&trailer.spoken_name()),
+                    self.tank_walk_around_clause()
+                )
             } else {
-                ""
-            };
-            ctx.say(&format!(
-                "{}{covered} {}.{}",
-                crate::states::city::py_capitalize(&trailer.spoken_name()),
-                if covered.is_empty() {
-                    "checks out"
-                } else {
-                    "check out"
-                },
-                self.tank_walk_around_clause()
-            ));
+                format!(
+                    "{} checks out.{}",
+                    crate::states::city::py_capitalize(&trailer.spoken_name()),
+                    self.tank_walk_around_clause()
+                )
+            });
             return;
         };
         ctx.audio.play("ui/warning");

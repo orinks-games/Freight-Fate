@@ -246,7 +246,7 @@ fn test_the_welcome_is_heard_in_full_and_then_the_offer() {
     // The 1.9 line greets with the first-day briefing rather than dev's
     // shorter welcome; what matters here is that it opens the sequence.
     assert!(lines[0].starts_with("First-day briefing: "), "{lines:?}");
-    assert!(lines[0].ends_with("Next: dispatch board."), "{lines:?}");
+    assert!(lines[0].ends_with("Next: the dispatch board."), "{lines:?}");
     // The parked-at location speaks the city's name, never the map key:
     // "in the chicago_il_us service area" reached a driver's ears before
     // the first agent-driven playtest caught it (2026-08-30).

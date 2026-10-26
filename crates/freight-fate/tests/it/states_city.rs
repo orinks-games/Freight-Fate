@@ -1369,9 +1369,9 @@ fn test_a_setback_only_ever_fires_at_the_terminal() {
 
 #[test]
 fn test_a_debt_firing_is_said_before_the_rebuilt_hub_not_after_the_old_one() {
-    // QA heard "Parked in the Milwaukee service area... You have -1,000,000
-    // dollars. Career objective: ..." and "Dispatch board. 1 of 16." before
-    // the notice: the hub for the seat that was about to go.
+    // QA heard the hub line for the Milwaukee service area, the money, and
+    // "Dispatch board. 1 of 16." before the notice: the hub for the seat that
+    // was about to go.
     let mut app = TestApp::new();
     career(&mut app, "Dale", "Buffalo");
     let old_carrier = profile(&app).carrier_name.clone();
@@ -1392,7 +1392,7 @@ fn test_a_debt_firing_is_said_before_the_rebuilt_hub_not_after_the_old_one() {
     assert!(
         !before
             .iter()
-            .any(|l| l.starts_with("Parked") || l.starts_with("Dispatch board")),
+            .any(|l| is_hub_line(l) || l.starts_with("Dispatch board")),
         "the old hub was spoken with the notice: {before:?}"
     );
 
@@ -1404,7 +1404,7 @@ fn test_a_debt_firing_is_said_before_the_rebuilt_hub_not_after_the_old_one() {
     let after = app.main_lines();
     let hub = after
         .iter()
-        .find(|l| l.starts_with("Parked"))
+        .find(|l| is_hub_line(l))
         .unwrap_or_else(|| panic!("no rebuilt hub after the notice: {after:?}"));
     assert_ne!(profile(&app).carrier_name, old_carrier);
     assert!(!hub.contains(&old_carrier), "{hub}");
@@ -1545,10 +1545,10 @@ fn test_waiting_out_the_suspension_gives_the_licence_back() {
     state.wait_out_suspension(&mut app.ctx);
     let hours = profile(&app).game_hours;
     assert!(!profile(&app).driving_record.suspended(hours));
-    assert!(app.main_lines().iter().any(|line| line.contains(
-        "of your suspension. Your CDL is clear and the dispatch \
-             board is open again"
-    )));
+    assert!(app
+        .main_lines()
+        .iter()
+        .any(|line| line.contains("Suspension served, CDL clear.")));
 }
 
 #[test]
@@ -1806,7 +1806,7 @@ fn test_the_terminal_does_not_double_the_dalles_article() {
     app.push_state(city);
 
     let entry = entry_announcement(&app);
-    assert!(entry.contains(" in The Dalles. "), "{entry}");
+    assert!(entry.starts_with("The Dalles. "), "{entry}");
     assert!(!entry.contains("the The"), "{entry}");
 }
 
@@ -2219,6 +2219,13 @@ fn test_assignment_prefers_a_lane_not_recently_run() {
 
 // -- the hub's "parked at" line ------------------------------------------------------
 
+/// The hub's entry line: where the truck is and what the driver has. It is
+/// the only line that names the money, which is what picks it out of the
+/// screen's speech.
+fn is_hub_line(line: &str) -> bool {
+    line.contains(" dollars.")
+}
+
 fn hub_entry(app: &mut TestApp) -> String {
     app.clear_speech();
     let city = CityMenuState::new(&app.ctx, false);
@@ -2226,9 +2233,9 @@ fn hub_entry(app: &mut TestApp) -> String {
     let lines = app.main_lines();
     lines
         .iter()
-        .find(|l| l.starts_with("Parked"))
+        .find(|l| is_hub_line(l))
         .cloned()
-        .unwrap_or_else(|| panic!("no parked line in {lines:?}"))
+        .unwrap_or_else(|| panic!("no entry line in {lines:?}"))
 }
 
 #[test]
@@ -2238,9 +2245,7 @@ fn test_hub_parks_at_the_carrier_terminal_in_the_home_terminal_city() {
     assert_eq!(profile(&app).home_terminal_city, "chicago_il_us");
     let line = hub_entry(&mut app);
     assert!(
-        line.starts_with(
-            "Parked at Northstar Freight Lines Chicago terminal in the Chicago service area"
-        ),
+        line.starts_with("Northstar Freight Lines Chicago terminal in Chicago."),
         "{line}"
     );
     assert_eq!(
@@ -2263,7 +2268,7 @@ fn test_hub_parks_at_the_delivered_facility_away_from_home() {
     profile_mut(&mut app).parked_facility = facility.clone();
     let line = hub_entry(&mut app);
     assert!(
-        line.starts_with(&format!("Parked at {facility} in the Milwaukee")),
+        line.starts_with(&format!("{facility} in Milwaukee.")),
         "{line}"
     );
     assert!(!line.contains("Chicago"), "{line}");
@@ -2274,7 +2279,7 @@ fn test_hub_parks_at_the_public_lot_when_there_is_no_delivered_facility() {
     let mut app = TestApp::new();
     career(&mut app, "Healy", "healy_ak_us");
     let line = hub_entry(&mut app);
-    assert!(line.starts_with("Parked at Fisher Fuel"), "{line}");
+    assert!(line.starts_with("Fisher Fuel"), "{line}");
     assert!(!line.contains("Nenana"), "{line}");
     assert!(!line.to_lowercase().contains("company yard"), "{line}");
 }
@@ -2290,35 +2295,32 @@ fn test_hub_names_only_the_city_when_nothing_else_is_honest() {
         .any(|l| matches!(l.facility_type.as_str(), "travel_center" | "truck_parking")));
     career(&mut app, "Curb", "Milwaukee");
     let line = hub_entry(&mut app);
-    assert!(
-        line.starts_with("Parked in the Milwaukee service area"),
-        "{line}"
-    );
+    assert!(line.starts_with("Milwaukee."), "{line}");
     assert!(!line.contains("Terminal"), "{line}");
     assert!(!line.contains("Company Yard"), "{line}");
     assert!(!line.contains("Chicago"), "{line}");
 }
 
 #[test]
-fn test_hub_says_the_dalles_service_area_without_a_doubled_article() {
+fn test_hub_says_the_dalles_without_a_doubled_article() {
     let mut app = TestApp::new();
     career(&mut app, "Gorge", "the_dalles_or_us");
     let line = hub_entry(&mut app);
-    assert!(
-        line.starts_with("Parked in The Dalles service area, Oregon."),
-        "{line}"
-    );
+    assert!(line.starts_with("The Dalles."), "{line}");
     assert!(!line.contains("the The"), "{line}");
     assert!(!line.contains("  "), "{line}");
 }
 
 #[test]
-fn test_hub_line_joins_the_objective_with_a_single_space() {
+fn test_hub_line_is_where_you_are_and_what_you_have() {
     let mut app = TestApp::new();
     career(&mut app, "Spacing", "Chicago");
     let line = hub_entry(&mut app);
-    assert!(line.contains(" objective: "), "{line}");
-    assert!(line.contains("dollars. "), "{line}");
+    assert!(line.ends_with(" dollars."), "{line}");
+    // Level, title and the objective are on the career screens, not read out
+    // every time the driver walks into the terminal.
+    assert!(!line.contains("objective"), "{line}");
+    assert!(!line.to_lowercase().contains("level "), "{line}");
     assert!(!line.contains("  "), "{line}");
 }
 
@@ -2345,15 +2347,16 @@ fn test_a_disqualified_new_hire_is_told_to_wait_it_out_not_to_take_a_load() {
         p.driving_record.record_major_offense(now);
     }
     let line = hub_entry(&mut app);
-    assert!(
-        line.contains(
-            "First-day objective: wait out the CDL disqualification, 365 days remaining. \
-             Choose Wait out the CDL disqualification on this menu to skip ahead."
-        ),
-        "{line}"
-    );
+    assert!(line.contains("CDL: disqualified"), "{line}");
     assert!(!line.contains("open the dispatch board"), "{line}");
     assert!(!line.contains("  "), "{line}");
+    let objective = ff_core::models::career_objectives::career_objective(profile(&app));
+    assert_eq!(
+        objective.terminal_text,
+        "Wait out the CDL disqualification, 365 days remaining. Choose Wait out the CDL \
+         disqualification on this menu to skip ahead."
+    );
+    assert_eq!(objective.title, "Wait out the CDL disqualification");
 }
 
 #[test]
@@ -2373,14 +2376,15 @@ fn test_a_suspended_driver_is_told_to_wait_out_the_suspension() {
         enforcement::days_text(p.driving_record.days_left(p.game_hours))
     };
     let line = hub_entry(&mut app);
-    assert!(
-        line.contains(&format!(
-            "First-day objective: wait out the CDL suspension, {days} remaining. Choose Wait \
-             out the CDL suspension on this menu to skip ahead."
-        )),
-        "{line}"
-    );
+    assert!(line.contains("CDL: suspended"), "{line}");
     assert!(!line.contains("open the dispatch board"), "{line}");
+    assert_eq!(
+        ff_core::models::career_objectives::career_objective(profile(&app)).terminal_text,
+        format!(
+            "Wait out the CDL suspension, {days} remaining. Choose Wait out the CDL \
+             suspension on this menu to skip ahead."
+        )
+    );
 }
 
 #[test]
@@ -2496,10 +2500,6 @@ fn test_no_carrier_names_no_carrier_anywhere_on_the_hub() {
         app.push_state(again);
         let spoken = app.main_lines().join(" ");
         assert_names_no_carrier(&spoken);
-        assert!(
-            spoken.contains("Career objective: Apply to a carrier to get back on freight."),
-            "{spoken}"
-        );
         for row in labels_and_help::<CityMenuState>(&app) {
             assert_names_no_carrier(&format!("{} {}", row.0, row.1));
         }
@@ -2540,8 +2540,8 @@ fn test_no_carrier_hub_has_no_truck_rows_and_says_the_truck_is_gone() {
     let spoken = app.main_lines().join(" ");
     assert!(
         spoken.contains(
-            "You are in Fairbanks, Alaska. Company driver with no carrier and no truck \
-             until a carrier assigns you one."
+            "You are in Fairbanks, Alaska. No carrier and no truck until a carrier \
+             assigns you one."
         ),
         "{spoken}"
     );
@@ -2584,11 +2584,11 @@ fn test_no_carrier_hears_no_standing_line_and_sufferance_is_not_deciding() {
     assert_eq!(profile(&app).carrier_key, "des_plaines_cartage");
     let spoken = app.main_lines().join(" ");
     assert!(!spoken.contains("deciding whether to keep you"), "{spoken}");
+    assert!(spoken.contains("Dispatch trust: last chance."), "{spoken}");
     assert!(
         spoken.contains(
-            "Dispatch trust: last chance. One assigned load at a time and no refusals. \
-             Des Plaines River Cartage will not end your seat over your record or what \
-             you owe."
+            "One assigned load at a time and no refusals. Des Plaines River Cartage will \
+             not end your seat over your record or what you owe."
         ),
         "{spoken}"
     );
@@ -2675,7 +2675,7 @@ fn test_a_firing_is_said_before_the_hub_and_the_hub_is_the_new_one() {
     app.push_state(terminal);
     let lines = app.main_lines();
     assert!(
-        lines[0].contains("Chatanika Freight Lines has ended your employment"),
+        lines[0].contains("Chatanika Freight Lines ended your employment"),
         "{lines:?}"
     );
     let rest = lines[1..].join(" ");
@@ -2754,11 +2754,10 @@ fn test_a_suspended_driver_after_day_one_has_a_career_objective() {
         p.driving_record.record_major_offense(now);
     }
     let line = hub_entry(&mut app);
-    assert!(
-        line.contains(
-            "Career objective: wait out the CDL disqualification, 365 days remaining. Choose \
-             Wait out the CDL disqualification on this menu to skip ahead."
-        ),
-        "{line}"
+    assert!(line.contains("CDL: disqualified"), "{line}");
+    assert_eq!(
+        ff_core::models::career_objectives::career_objective(profile(&app)).terminal_text,
+        "Wait out the CDL disqualification, 365 days remaining. Choose Wait out the CDL \
+         disqualification on this menu to skip ahead."
     );
 }

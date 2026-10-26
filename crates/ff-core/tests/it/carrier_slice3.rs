@@ -68,7 +68,7 @@ fn test_catalog_counts_by_tier() {
 fn test_every_lower_48_city_is_hired_into() {
     let world = world();
     let cities = lower_48_cities(world);
-    assert_eq!(cities.len(), 625, "the lower-48 map city count moved");
+    assert_eq!(cities.len(), 626, "the lower-48 map city count moved");
     let mut by_any = 0;
     let mut by_regional = 0;
     let mut missing_regional = Vec::new();
@@ -87,9 +87,9 @@ fn test_every_lower_48_city_is_hired_into() {
             missing_regional.push(city.clone());
         }
     }
-    assert_eq!(by_any, 625);
+    assert_eq!(by_any, 626);
     assert_eq!(
-        by_regional, 625,
+        by_regional, 626,
         "no regional hires in {missing_regional:?}"
     );
 }

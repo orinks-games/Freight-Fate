@@ -1364,17 +1364,24 @@ impl RestStopState {
             } else {
                 lines.join(" ")
             };
-            let covered = if doubles {
-                ", both trailers and the converter dolly"
+            // One whole sentence per case: a fragment spliced into a shell
+            // would go out in English whatever language the player reads.
+            if doubles {
+                format!(
+                    "Walk-around done, both trailers and the converter dolly, {} minutes. \
+                     {body} It is {}. {}",
+                    fmt_f(minutes, 0),
+                    clock_text(d.trip.local_hour()),
+                    deadline_text(d, ctx)
+                )
             } else {
-                ""
-            };
-            format!(
-                "Walk-around done{covered}, {} minutes. {body} It is {}. {}",
-                fmt_f(minutes, 0),
-                clock_text(d.trip.local_hour()),
-                deadline_text(d, ctx)
-            )
+                format!(
+                    "Walk-around done, {} minutes. {body} It is {}. {}",
+                    fmt_f(minutes, 0),
+                    clock_text(d.trip.local_hour()),
+                    deadline_text(d, ctx)
+                )
+            }
         }) else {
             return;
         };

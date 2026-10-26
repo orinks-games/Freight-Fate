@@ -235,8 +235,8 @@ fn hub_after_release(app: &mut TestApp) -> (String, String) {
     let line = app
         .main_lines()
         .into_iter()
-        .find(|l| l.starts_with("Parked"))
-        .expect("a parked line");
+        .find(|l| l.contains(" dollars."))
+        .expect("an entry line");
     (line, CityMenuState::title_for(&app.ctx))
 }
 
@@ -269,7 +269,7 @@ fn test_a_felony_stop_tows_to_an_impound_lot_in_the_stop_city() {
     // The hub says the same place, and names no pin either.
     let (line, title) = hub_after_release(&mut app);
     assert!(
-        line.starts_with("Parked at an impound lot in Buffalo, New York. "),
+        line.starts_with("An impound lot in Buffalo, New York. "),
         "{line}"
     );
     assert!(!line.contains("service area"), "{line}");
@@ -297,7 +297,7 @@ fn test_a_felony_stop_beside_a_travel_center_still_tows_to_the_impound_lot() {
     assert_names_no_pin(&app, "healy_ak_us", &summary);
     let (line, _) = hub_after_release(&mut app);
     assert!(
-        line.starts_with("Parked at an impound lot in Healy, Alaska. "),
+        line.starts_with("An impound lot in Healy, Alaska. "),
         "{line}"
     );
     assert_names_no_pin(&app, "healy_ak_us", &line);
@@ -317,7 +317,7 @@ fn test_a_felony_stop_in_the_home_terminal_city_still_says_impound_lot() {
     assert_eq!(profile_of_app(&app).current_city, "buffalo_ny_us");
     let (line, title) = hub_after_release(&mut app);
     assert!(
-        line.starts_with("Parked at an impound lot in Buffalo, New York. "),
+        line.starts_with("An impound lot in Buffalo, New York. "),
         "{line}"
     );
     assert_eq!(title, "Buffalo impound lot");
@@ -339,7 +339,7 @@ fn test_the_hub_names_an_impound_lot_by_city_not_service_area() {
     }
     let (line, title) = hub_after_release(&mut app);
     assert!(
-        line.starts_with("Parked at an impound lot in The Dalles, Oregon. "),
+        line.starts_with("An impound lot in The Dalles, Oregon. "),
         "{line}"
     );
     assert!(!line.contains("service area"), "{line}");
@@ -367,15 +367,15 @@ fn test_no_carrier_wins_over_an_impound_lot_on_the_hub() {
     let line = app
         .main_lines()
         .into_iter()
-        .find(|l| l.contains("no carrier and no truck"))
+        .find(|l| l.contains("o carrier and no truck"))
         .unwrap_or_else(|| panic!("no hub line: {:?}", app.main_lines()));
     let title = CityMenuState::title_for(&app.ctx);
     assert!(
-        line.contains("with no carrier and no truck until a carrier assigns you one."),
+        line.contains("No carrier and no truck until a carrier assigns you one."),
         "{line}"
     );
     assert!(!line.to_lowercase().contains("impound"), "{line}");
-    assert!(!line.starts_with("Parked"), "{line}");
+    assert!(!line.to_lowercase().contains("parked"), "{line}");
     assert!(!title.to_lowercase().contains("impound"), "{title}");
     assert_eq!(title, "Buffalo, New York");
 }

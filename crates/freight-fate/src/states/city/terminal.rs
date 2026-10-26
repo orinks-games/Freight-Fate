@@ -804,14 +804,13 @@ impl Menu for CityMenuState {
             } else {
                 format!(" {record}")
             };
-            let money = fmt_grouped(p.money(), 0);
             if after_briefing {
                 // An owner-operator's briefing names the cash too; a company
                 // driver's does not.
                 if ff_core::models::start_options::option_for_profile(p).is_owner_operator() {
                     String::new()
                 } else {
-                    format!("{money} dollars.")
+                    format!("{} dollars.", fmt_grouped(p.money(), 0))
                 }
             } else if p.is_unassigned_company_driver() {
                 // With no carrier there is no truck to be parked: say where the
@@ -820,22 +819,35 @@ impl Menu for CityMenuState {
                 // felony tow has no truck in the lot to be parked with.
                 format!(
                     "{} No carrier and no truck until a carrier assigns you one. \
-                     {money} dollars.{cdl}{record}",
+                     {} dollars.{cdl}{record}",
                     no_truck_location_line(&city_name, &city_state),
+                    fmt_grouped(p.money(), 0)
                 )
             } else {
-                // An impound lot is in the city, not a "service area" (which
-                // reads as a turnpike travel plaza).
-                let place = match parked.kind {
-                    ff_core::models::home_base::ParkedKind::Impound => {
-                        crate::states::city::py_capitalize(
+                // One sentence per shape rather than a place clause pasted
+                // into a shared one, so each reads whole to the translator.
+                match parked.kind {
+                    // An impound lot is in the city, not a "service area"
+                    // (which reads as a turnpike travel plaza).
+                    ff_core::models::home_base::ParkedKind::Impound => format!(
+                        "{}. {} dollars.{cdl}{record}",
+                        crate::states::city::upper_first(
                             &ff_core::models::home_base::impound_lot_text(world, &p.current_city),
-                        )
-                    }
-                    ff_core::models::home_base::ParkedKind::City => city_name.clone(),
-                    _ => format!("{} in {city_name}", parked.name),
-                };
-                format!("{place}. {money} dollars.{cdl}{record}")
+                        ),
+                        fmt_grouped(p.money(), 0)
+                    ),
+                    // Nothing honest names a place: the city is where the
+                    // truck is.
+                    ff_core::models::home_base::ParkedKind::City => format!(
+                        "{city_name}. {} dollars.{cdl}{record}",
+                        fmt_grouped(p.money(), 0)
+                    ),
+                    _ => format!(
+                        "{} in {city_name}. {} dollars.{cdl}{record}",
+                        parked.name,
+                        fmt_grouped(p.money(), 0)
+                    ),
+                }
             }
         };
         if !line.is_empty() {

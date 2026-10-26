@@ -368,6 +368,11 @@ pub struct EnforcementStopState {
     /// A routine roadside inspection at this level: the report, not the
     /// caller, decides what it costs, and a clean one costs nothing.
     pub inspection_level: Option<InspectionLevel>,
+    /// A statutory penalty the officer has no say over -- the customs civil
+    /// penalty for running a port of entry. It is charged as handed down: the
+    /// citation ladder does not raise it, and a new driver's warning does not
+    /// wave it off.
+    pub fine_is_final: bool,
     outcome_text: String,
     /// Whether the stop has been told once already. See `announce_entry`: the
     /// fine is charged here, in `resolve`, exactly once, and a later telling
@@ -412,6 +417,7 @@ impl EnforcementStopState {
             warned: params.warned,
             inspection_on_stop: params.inspection_on_stop,
             inspection_level: params.inspection_level,
+            fine_is_final: params.fine_is_final,
             outcome_text: String::new(),
             stop_announced: false,
             presence_detail,
@@ -441,6 +447,7 @@ impl EnforcementStopState {
             && !self.warned
             && !self.out_of_service
             && !self.inspection_on_stop
+            && !self.fine_is_final
         {
             self.fine = 0.0;
             self.outcome_text = "The officer lets you go with a warning.".to_string();

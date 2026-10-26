@@ -311,8 +311,7 @@ fn test_bc_limp_cap_owns_a_lower_limit_and_keeps_its_cruise_announcement() {
     }
     let said = logged_since(&app, from);
     assert!(
-        said.iter()
-            .any(|line| line.contains("Cruise cannot hold") && line.contains("limp mode")),
+        said.iter().any(|line| line.contains("Limp mode. Holding")),
         "{said:?}"
     );
     assert!(

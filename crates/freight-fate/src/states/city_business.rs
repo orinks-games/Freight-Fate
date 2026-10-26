@@ -106,7 +106,13 @@ impl BusinessStatusState {
             p.dispatch_board_cache = None;
         }
         save_business_change(ctx);
-        ctx.say("Staying a company driver.");
+        // With no carrier there is no seat to stay in: what stays is the
+        // path, not the job.
+        if ff_core::models::career::carrier_name_of(profile(ctx)).is_empty() {
+            ctx.say("Staying on the company-driver path.");
+        } else {
+            ctx.say("Staying a company driver.");
+        }
         self.refresh(ctx, true);
     }
 

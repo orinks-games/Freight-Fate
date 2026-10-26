@@ -616,8 +616,8 @@ fn hub_parked_line(app: &mut TestApp) -> String {
     app.push_state(hub);
     app.main_lines()
         .into_iter()
-        .find(|l| l.starts_with("Parked"))
-        .expect("a parked line")
+        .find(|l| l.contains(" dollars."))
+        .expect("an entry line")
 }
 
 /// Pause the drive, abandon it, confirm Yes; returns what was said.

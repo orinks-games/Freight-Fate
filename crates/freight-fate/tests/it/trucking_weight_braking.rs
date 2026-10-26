@@ -121,6 +121,9 @@ fn seasonal_dispatch_preview_names_the_gross_weight_cap() {
         highway: "Richardson Highway".to_string(),
         percent: 85,
     });
+    // The cap is spoken where it bites: a load the spring limit puts over
+    // the truck's gross weight.
+    job.weight_tons = 40.0;
     let mut proposed = h.app.ctx.profile.as_ref().expect("career profile").clone();
     proposed.take_slip_seat(&job);
     let mut truck = TruckState::new(proposed.truck_specs());
@@ -139,6 +142,7 @@ fn seasonal_dispatch_preview_names_the_gross_weight_cap() {
     );
 
     let text = describe_job(&h.app.ctx, 1, &job, None);
+    assert!(text.contains("over the gross-weight limit"), "{text}");
     assert!(text.contains(&expected), "{text}");
 }
 
