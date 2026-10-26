@@ -9597,11 +9597,20 @@ msgstr ""
 msgid "Settle the pay advance on your current load."
 msgstr ""
 
-#. one sentence of a longer line
+#. placeholders: {city}
 #: crates/ff-core/src/models/carrier_move.rs
 msgid ""
-"Your level, record, and home terminal come with you, and the next load runs "
-"on their pay and their tractor."
+" You start at their {city} terminal, where your assigned truck is waiting."
+msgstr ""
+
+#: crates/ff-core/src/models/carrier_move.rs
+msgid " The next load runs on their pay and their tractor."
+msgstr ""
+
+#. placeholders: {report}
+#. one sentence of a longer line
+#: crates/ff-core/src/models/carrier_move.rs
+msgid "Your level and record come with you.{report}"
 msgstr ""
 
 #. placeholders: {carrier_name}, {former}
@@ -9610,12 +9619,11 @@ msgstr ""
 msgid "{carrier_name} hires you away from {former}."
 msgstr ""
 
-#. placeholders: {carrier_name}, {former}
+#. placeholders: {carrier_name}, {former}, {report}
 #: crates/ff-core/src/models/carrier_move.rs
 msgid ""
-"{carrier_name} hires you away from {former}. Your level, record, and home "
-"terminal come with you, and the next load runs on their pay and their "
-"tractor."
+"{carrier_name} hires you away from {former}. Your level and record come "
+"with you.{report}"
 msgstr ""
 
 #: crates/ff-core/src/models/carriers.rs crates/ff-core/src/models/start_options.rs crates/ff-core/src/radio.rs crates/freight-fate/src/states/city/extras.rs
@@ -22382,15 +22390,10 @@ msgstr ""
 msgid "At the terminal"
 msgstr ""
 
-#. placeholders: {money}
-#: crates/freight-fate/src/states/city/terminal.rs
-msgid "{money} dollars."
-msgstr ""
-
-#. placeholders: {money}, {cdl}, {record}
+#. placeholders: {grouped}, {cdl}, {record}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city/terminal.rs
-msgid "{money} dollars.{cdl}{record}"
+msgid "{grouped} dollars.{cdl}{record}"
 msgstr ""
 
 #. placeholders: {no_truck_location_line}
@@ -22401,21 +22404,26 @@ msgid ""
 "you one."
 msgstr ""
 
-#. placeholders: {no_truck_location_line}, {money}, {cdl}, {record}
+#. placeholders: {no_truck_location_line}, {grouped}, {cdl}, {record}
 #: crates/freight-fate/src/states/city/terminal.rs
 msgid ""
 "{no_truck_location_line} No carrier and no truck until a carrier assigns "
-"you one. {money} dollars.{cdl}{record}"
+"you one. {grouped} dollars.{cdl}{record}"
 msgstr ""
 
-#. placeholders: {name}, {city_name}
+#. placeholders: {upper_first}, {grouped}, {cdl}, {record}
 #: crates/freight-fate/src/states/city/terminal.rs
-msgid "{name} in {city_name}"
+msgid "{upper_first}. {grouped} dollars.{cdl}{record}"
 msgstr ""
 
-#. placeholders: {place}, {money}, {cdl}, {record}
+#. placeholders: {city_name}, {grouped}, {cdl}, {record}
 #: crates/freight-fate/src/states/city/terminal.rs
-msgid "{place}. {money} dollars.{cdl}{record}"
+msgid "{city_name}. {grouped} dollars.{cdl}{record}"
+msgstr ""
+
+#. placeholders: {name}, {city_name}, {grouped}, {cdl}, {record}
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid "{name} in {city_name}. {grouped} dollars.{cdl}{record}"
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs
@@ -22756,6 +22764,10 @@ msgstr ""
 #. placeholders: {status_label}
 #: crates/freight-fate/src/states/city_business.rs
 msgid "Current status: {status_label}"
+msgstr ""
+
+#: crates/freight-fate/src/states/city_business.rs
+msgid "Staying on the company-driver path."
 msgstr ""
 
 #: crates/freight-fate/src/states/city_business.rs
@@ -24319,21 +24331,16 @@ msgstr ""
 msgid "{described} It checks out."
 msgstr ""
 
+#. placeholders: {py_capitalize}, {tank_walk_around_clause}
 #: crates/freight-fate/src/states/city_pickup.rs
-msgid ", both trailers and the converter dolly,"
+msgid ""
+"{py_capitalize}, both trailers and the converter dolly, check "
+"out.{tank_walk_around_clause}"
 msgstr ""
 
-#. one clause of a longer line
+#. placeholders: {py_capitalize}, {tank_walk_around_clause}
 #: crates/freight-fate/src/states/city_pickup.rs
-msgid "both trailers and the converter dolly,"
-msgstr ""
-
-#: crates/freight-fate/src/states/city_pickup.rs
-msgid "checks out"
-msgstr ""
-
-#: crates/freight-fate/src/states/city_pickup.rs
-msgid "check out"
+msgid "{py_capitalize} checks out.{tank_walk_around_clause}"
 msgstr ""
 
 #. placeholders: {f}, {tank_walk_around_clause}
@@ -36053,32 +36060,36 @@ msgid ""
 "Nothing to write up: tires, brakes, lights and the trailer would all pass."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ", both trailers and the converter dolly"
-msgstr ""
-
-#. one clause of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "both trailers and the converter dolly"
-msgstr ""
-
-#. placeholders: {covered}, {f}
+#. placeholders: {f}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Walk-around done{covered}, {f} minutes."
+msgid ""
+"Walk-around done, both trailers and the converter dolly, {f} minutes."
 msgstr ""
 
-#. placeholders: {covered}, {f}, {body}, {clock_text}, {deadline_text}
+#. placeholders: {f}, {body}, {clock_text}, {deadline_text}
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid ""
-"Walk-around done{covered}, {f} minutes. {body} It is {clock_text}. "
-"{deadline_text}"
+"Walk-around done, both trailers and the converter dolly, {f} minutes. "
+"{body} It is {clock_text}. {deadline_text}"
 msgstr ""
 
 #. placeholders: {body}, {clock_text}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "{body} It is {clock_text}."
+msgstr ""
+
+#. placeholders: {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "Walk-around done, {f} minutes."
+msgstr ""
+
+#. placeholders: {f}, {body}, {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid ""
+"Walk-around done, {f} minutes. {body} It is {clock_text}. {deadline_text}"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
@@ -46826,6 +46837,22 @@ msgstr ""
 
 #: lang/extra.pot
 msgid "freight terminal {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "travel center {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "travel center {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "truck parking {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "truck parking {place_name} near {town} in {city}"
 msgstr ""
 
 #: lang/extra.pot

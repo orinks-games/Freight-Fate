@@ -7659,25 +7659,29 @@ msgstr "期限内の無事故運行で、配車係の信頼をフルに戻して
 msgid "Settle the pay advance on your current load."
 msgstr "今の積荷の前払いを精算してください。"
 
-#. one sentence of a longer line
+#. placeholders: {city}
 msgid ""
-"Your level, record, and home terminal come with you, and the next load runs "
-"on their pay and their tractor."
-msgstr "レベル、記録、本拠地はそのまま引き継がれ、次の積荷からはその会社の給料とトラクターで走ります。"
+" You start at their {city} terminal, where your assigned truck is waiting."
+msgstr ""
+
+msgid " The next load runs on their pay and their tractor."
+msgstr ""
+
+#. placeholders: {report}
+#. one sentence of a longer line
+msgid "Your level and record come with you.{report}"
+msgstr ""
 
 #. placeholders: {carrier_name}, {former}
 #. one sentence of a longer line
 msgid "{carrier_name} hires you away from {former}."
 msgstr "{carrier_name}が{former}からあなたを引き抜きます。"
 
-#. placeholders: {carrier_name}, {former}
+#. placeholders: {carrier_name}, {former}, {report}
 msgid ""
-"{carrier_name} hires you away from {former}. Your level, record, and home "
-"terminal come with you, and the next load runs on their pay and their "
-"tractor."
+"{carrier_name} hires you away from {former}. Your level and record come "
+"with you.{report}"
 msgstr ""
-"{carrier_name}が{former}からあなたを引き抜きます。レベル、記録、本拠地はそのまま引き継がれ、次の積荷からはその会社の給料とトラクタ"
-"ーで走ります。"
 
 msgid "local"
 msgstr "ローカル"
@@ -18069,14 +18073,10 @@ msgstr "{city}サービスエリア"
 msgid "At the terminal"
 msgstr "ターミナルにて"
 
-#. placeholders: {money}
-msgid "{money} dollars."
-msgstr ""
-
-#. placeholders: {money}, {cdl}, {record}
+#. placeholders: {grouped}, {cdl}, {record}
 #. one sentence of a longer line
-msgid "{money} dollars.{cdl}{record}"
-msgstr ""
+msgid "{grouped} dollars.{cdl}{record}"
+msgstr "{grouped}ドル。{cdl}{record}"
 
 #. placeholders: {no_truck_location_line}
 #. one sentence of a longer line
@@ -18085,19 +18085,23 @@ msgid ""
 "you one."
 msgstr ""
 
-#. placeholders: {no_truck_location_line}, {money}, {cdl}, {record}
+#. placeholders: {no_truck_location_line}, {grouped}, {cdl}, {record}
 msgid ""
 "{no_truck_location_line} No carrier and no truck until a carrier assigns "
-"you one. {money} dollars.{cdl}{record}"
+"you one. {grouped} dollars.{cdl}{record}"
 msgstr ""
 
-#. placeholders: {name}, {city_name}
-msgid "{name} in {city_name}"
+#. placeholders: {upper_first}, {grouped}, {cdl}, {record}
+msgid "{upper_first}. {grouped} dollars.{cdl}{record}"
 msgstr ""
 
-#. placeholders: {place}, {money}, {cdl}, {record}
-msgid "{place}. {money} dollars.{cdl}{record}"
-msgstr ""
+#. placeholders: {city_name}, {grouped}, {cdl}, {record}
+msgid "{city_name}. {grouped} dollars.{cdl}{record}"
+msgstr "{city_name}. {grouped}ドル。{cdl}{record}"
+
+#. placeholders: {name}, {city_name}, {grouped}, {cdl}, {record}
+msgid "{name} in {city_name}. {grouped} dollars.{cdl}{record}"
+msgstr "{city_name}の{name}。{grouped}ドル。{cdl}{record}"
 
 msgid ""
 "Carriers that would take you on from your home. There is no dispatch board "
@@ -18371,6 +18375,9 @@ msgstr "Enter で行を繰り返し、条件を満たしていれば買い取り
 #. placeholders: {status_label}
 msgid "Current status: {status_label}"
 msgstr "現在の状況：{status_label}"
+
+msgid "Staying on the company-driver path."
+msgstr ""
 
 msgid "Staying a company driver."
 msgstr "社員ドライバーを続けます。"
@@ -19662,18 +19669,15 @@ msgstr "そのトレーラーはすでにヤードで交換してもらいまし
 msgid "{described} It checks out."
 msgstr "{described}問題ありません。"
 
-msgid ", both trailers and the converter dolly,"
+#. placeholders: {py_capitalize}, {tank_walk_around_clause}
+msgid ""
+"{py_capitalize}, both trailers and the converter dolly, check "
+"out.{tank_walk_around_clause}"
 msgstr ""
 
-#. one clause of a longer line
-msgid "both trailers and the converter dolly,"
-msgstr ""
-
-msgid "checks out"
-msgstr ""
-
-msgid "check out"
-msgstr ""
+#. placeholders: {py_capitalize}, {tank_walk_around_clause}
+msgid "{py_capitalize} checks out.{tank_walk_around_clause}"
+msgstr "{py_capitalize}は問題ありません。{tank_walk_around_clause}"
 
 #. placeholders: {f}, {tank_walk_around_clause}
 #. one sentence of a longer line
@@ -29284,28 +29288,32 @@ msgid ""
 "Nothing to write up: tires, brakes, lights and the trailer would all pass."
 msgstr "指摘することはありません。タイヤ、ブレーキ、ライト、トレーラー、どれも合格です。"
 
-msgid ", both trailers and the converter dolly"
-msgstr ""
-
-#. one clause of a longer line
-msgid "both trailers and the converter dolly"
-msgstr ""
-
-#. placeholders: {covered}, {f}
+#. placeholders: {f}
 #. one sentence of a longer line
-msgid "Walk-around done{covered}, {f} minutes."
+msgid ""
+"Walk-around done, both trailers and the converter dolly, {f} minutes."
 msgstr ""
 
-#. placeholders: {covered}, {f}, {body}, {clock_text}, {deadline_text}
+#. placeholders: {f}, {body}, {clock_text}, {deadline_text}
 msgid ""
-"Walk-around done{covered}, {f} minutes. {body} It is {clock_text}. "
-"{deadline_text}"
+"Walk-around done, both trailers and the converter dolly, {f} minutes. "
+"{body} It is {clock_text}. {deadline_text}"
 msgstr ""
 
 #. placeholders: {body}, {clock_text}
 #. one sentence of a longer line
 msgid "{body} It is {clock_text}."
 msgstr "{body}今は{clock_text}です。"
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Walk-around done, {f} minutes."
+msgstr "点検が終わりました。{f}分です。"
+
+#. placeholders: {f}, {body}, {clock_text}, {deadline_text}
+msgid ""
+"Walk-around done, {f} minutes. {body} It is {clock_text}. {deadline_text}"
+msgstr "点検が終わりました。{f}分です。{body}今は{clock_text}です。{deadline_text}"
 
 msgid "No real-time parking data nearby."
 msgstr "近くにリアルタイムの駐車場情報はありません。"
@@ -38588,6 +38596,18 @@ msgstr "{city}の貨物ターミナル、{place_name}"
 msgid "freight terminal {place_name} near {town} in {city}"
 msgstr "{city}、{town}付近の貨物ターミナル、{place_name}"
 
+msgid "travel center {place_name} in {city}"
+msgstr ""
+
+msgid "travel center {place_name} near {town} in {city}"
+msgstr ""
+
+msgid "truck parking {place_name} in {city}"
+msgstr ""
+
+msgid "truck parking {place_name} near {town} in {city}"
+msgstr ""
+
 msgid "warehouse {place_name} in {city}"
 msgstr "{city}の倉庫、{place_name}"
 
@@ -39016,6 +39036,22 @@ msgstr ""
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
 
+#~ msgid "{py_capitalize}. {grouped} dollars.{cdl}{record}"
+#~ msgstr "{py_capitalize}. {grouped}ドル。{cdl}{record}"
+
+#~ msgid ""
+#~ "Your level, record, and home terminal come with you, and the next load runs "
+#~ "on their pay and their tractor."
+#~ msgstr "レベル、記録、本拠地はそのまま引き継がれ、次の積荷からはその会社の給料とトラクターで走ります。"
+
+#~ msgid ""
+#~ "{carrier_name} hires you away from {former}. Your level, record, and home "
+#~ "terminal come with you, and the next load runs on their pay and their "
+#~ "tractor."
+#~ msgstr ""
+#~ "{carrier_name}が{former}からあなたを引き抜きます。レベル、記録、本拠地はそのまま引き継がれ、次の積荷からはその会社の給料とトラクタ"
+#~ "ーで走ります。"
+
 #~ msgid "{name} Company Yard"
 #~ msgstr "{name}の会社ヤード"
 
@@ -39103,12 +39139,6 @@ msgstr ""
 #~ "安全評価を理由に、{former}に雇用を打ち切られました。これからは{LAST_CHANCE_CARRIER_NAME}で運転します。報酬は低く、貨物"
 #~ "の距離は短めです。お金、レベル、持ち物はそのままです。"
 
-#~ msgid "{grouped} dollars.{cdl}{record}"
-#~ msgstr "{grouped}ドル。{cdl}{record}"
-
-#~ msgid "{name} in {city_name}. {grouped} dollars.{cdl}{record}"
-#~ msgstr "{city_name}の{name}。{grouped}ドル。{cdl}{record}"
-
 #~ msgid "Wait out the CDL suspension"
 #~ msgstr "CDL停止の期間を待つ"
 
@@ -39121,9 +39151,6 @@ msgstr ""
 #~ "Company drivers bill the carrier, owner-operators pay the regional diesel "
 #~ "price."
 #~ msgstr "社員ドライバーは運送会社に請求し、オーナードライバーは地域の軽油価格を支払います。"
-
-#~ msgid "{py_capitalize} checks out.{tank_walk_around_clause}"
-#~ msgstr "{py_capitalize}は問題ありません。{tank_walk_around_clause}"
 
 #~ msgid "Checked in."
 #~ msgstr "受付をしました。"
@@ -39311,13 +39338,6 @@ msgstr ""
 #~ "That is a serious violation on your record. One more inside three years and "
 #~ "your CDL is suspended for 60 days, and driving jobs stop until it clears."
 #~ msgstr "記録に重大違反が付きました。3年以内にもう1回あると、CDLが60日間停止され、解除されるまで運転の依頼はなくなります。"
-
-#~ msgid "Walk-around done, {f} minutes."
-#~ msgstr "点検が終わりました。{f}分です。"
-
-#~ msgid ""
-#~ "Walk-around done, {f} minutes. {body} It is {clock_text}. {deadline_text}"
-#~ msgstr "点検が終わりました。{f}分です。{body}今は{clock_text}です。{deadline_text}"
 
 #~ msgid "Return to terminal"
 #~ msgstr "ターミナルに戻る"

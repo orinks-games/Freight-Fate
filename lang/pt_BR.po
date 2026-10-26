@@ -8824,28 +8824,29 @@ msgstr ""
 msgid "Settle the pay advance on your current load."
 msgstr "Quite o adiantamento da carga atual."
 
-#. one sentence of a longer line
+#. placeholders: {city}
 msgid ""
-"Your level, record, and home terminal come with you, and the next load runs "
-"on their pay and their tractor."
+" You start at their {city} terminal, where your assigned truck is waiting."
 msgstr ""
-"Seu nível, seu histórico e sua base de origem vão com você, e a próxima "
-"carga roda com o pagamento e o cavalo mecânico deles."
+
+msgid " The next load runs on their pay and their tractor."
+msgstr ""
+
+#. placeholders: {report}
+#. one sentence of a longer line
+msgid "Your level and record come with you.{report}"
+msgstr ""
 
 #. placeholders: {carrier_name}, {former}
 #. one sentence of a longer line
 msgid "{carrier_name} hires you away from {former}."
 msgstr "A {carrier_name} contrata você, tirando você da {former}."
 
-#. placeholders: {carrier_name}, {former}
+#. placeholders: {carrier_name}, {former}, {report}
 msgid ""
-"{carrier_name} hires you away from {former}. Your level, record, and home "
-"terminal come with you, and the next load runs on their pay and their "
-"tractor."
+"{carrier_name} hires you away from {former}. Your level and record come "
+"with you.{report}"
 msgstr ""
-"A {carrier_name} contrata você, tirando você da {former}. Seu nível, seu "
-"histórico e sua base de origem vão com você, e a próxima carga roda com o "
-"pagamento e o cavalo mecânico deles."
 
 msgid "local"
 msgstr "local"
@@ -19964,14 +19965,10 @@ msgstr "área de serviço de {city}"
 msgid "At the terminal"
 msgstr "No terminal"
 
-#. placeholders: {money}
-msgid "{money} dollars."
-msgstr ""
-
-#. placeholders: {money}, {cdl}, {record}
+#. placeholders: {grouped}, {cdl}, {record}
 #. one sentence of a longer line
-msgid "{money} dollars.{cdl}{record}"
-msgstr ""
+msgid "{grouped} dollars.{cdl}{record}"
+msgstr "{grouped} dólares.{cdl}{record}"
 
 #. placeholders: {no_truck_location_line}
 #. one sentence of a longer line
@@ -19980,19 +19977,23 @@ msgid ""
 "you one."
 msgstr ""
 
-#. placeholders: {no_truck_location_line}, {money}, {cdl}, {record}
+#. placeholders: {no_truck_location_line}, {grouped}, {cdl}, {record}
 msgid ""
 "{no_truck_location_line} No carrier and no truck until a carrier assigns "
-"you one. {money} dollars.{cdl}{record}"
+"you one. {grouped} dollars.{cdl}{record}"
 msgstr ""
 
-#. placeholders: {name}, {city_name}
-msgid "{name} in {city_name}"
+#. placeholders: {upper_first}, {grouped}, {cdl}, {record}
+msgid "{upper_first}. {grouped} dollars.{cdl}{record}"
 msgstr ""
 
-#. placeholders: {place}, {money}, {cdl}, {record}
-msgid "{place}. {money} dollars.{cdl}{record}"
-msgstr ""
+#. placeholders: {city_name}, {grouped}, {cdl}, {record}
+msgid "{city_name}. {grouped} dollars.{cdl}{record}"
+msgstr "{city_name}. {grouped} dólares.{cdl}{record}"
+
+#. placeholders: {name}, {city_name}, {grouped}, {cdl}, {record}
+msgid "{name} in {city_name}. {grouped} dollars.{cdl}{record}"
+msgstr "{name} em {city_name}. {grouped} dólares.{cdl}{record}"
 
 msgid ""
 "Carriers that would take you on from your home. There is no dispatch board "
@@ -20302,6 +20303,9 @@ msgstr ""
 #. placeholders: {status_label}
 msgid "Current status: {status_label}"
 msgstr "Situação atual: {status_label}"
+
+msgid "Staying on the company-driver path."
+msgstr ""
 
 msgid "Staying a company driver."
 msgstr "Continuando como motorista da transportadora."
@@ -21748,18 +21752,15 @@ msgstr "O pátio já trocou esse para você. {described} Está tudo certo."
 msgid "{described} It checks out."
 msgstr "{described} Está tudo certo."
 
-msgid ", both trailers and the converter dolly,"
+#. placeholders: {py_capitalize}, {tank_walk_around_clause}
+msgid ""
+"{py_capitalize}, both trailers and the converter dolly, check "
+"out.{tank_walk_around_clause}"
 msgstr ""
 
-#. one clause of a longer line
-msgid "both trailers and the converter dolly,"
-msgstr ""
-
-msgid "checks out"
-msgstr ""
-
-msgid "check out"
-msgstr ""
+#. placeholders: {py_capitalize}, {tank_walk_around_clause}
+msgid "{py_capitalize} checks out.{tank_walk_around_clause}"
+msgstr "{py_capitalize}: tudo certo.{tank_walk_around_clause}"
 
 #. placeholders: {f}, {tank_walk_around_clause}
 #. one sentence of a longer line
@@ -32164,28 +32165,34 @@ msgid ""
 "Nothing to write up: tires, brakes, lights and the trailer would all pass."
 msgstr "Nada a anotar: pneus, freios, luzes e o reboque passariam todos."
 
-msgid ", both trailers and the converter dolly"
-msgstr ""
-
-#. one clause of a longer line
-msgid "both trailers and the converter dolly"
-msgstr ""
-
-#. placeholders: {covered}, {f}
+#. placeholders: {f}
 #. one sentence of a longer line
-msgid "Walk-around done{covered}, {f} minutes."
+msgid ""
+"Walk-around done, both trailers and the converter dolly, {f} minutes."
 msgstr ""
 
-#. placeholders: {covered}, {f}, {body}, {clock_text}, {deadline_text}
+#. placeholders: {f}, {body}, {clock_text}, {deadline_text}
 msgid ""
-"Walk-around done{covered}, {f} minutes. {body} It is {clock_text}. "
-"{deadline_text}"
+"Walk-around done, both trailers and the converter dolly, {f} minutes. "
+"{body} It is {clock_text}. {deadline_text}"
 msgstr ""
 
 #. placeholders: {body}, {clock_text}
 #. one sentence of a longer line
 msgid "{body} It is {clock_text}."
 msgstr "{body} São {clock_text}."
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Walk-around done, {f} minutes."
+msgstr "Inspeção em volta do caminhão feita, {f} minutos."
+
+#. placeholders: {f}, {body}, {clock_text}, {deadline_text}
+msgid ""
+"Walk-around done, {f} minutes. {body} It is {clock_text}. {deadline_text}"
+msgstr ""
+"Inspeção em volta do caminhão feita, {f} minutos. {body} São {clock_text}. "
+"{deadline_text}"
 
 msgid "No real-time parking data nearby."
 msgstr "Nenhum dado de estacionamento em tempo real por perto."
@@ -42562,6 +42569,18 @@ msgstr "terminal de cargas {place_name} em {city}"
 msgid "freight terminal {place_name} near {town} in {city}"
 msgstr "terminal de cargas {place_name} perto de {town} em {city}"
 
+msgid "travel center {place_name} in {city}"
+msgstr ""
+
+msgid "travel center {place_name} near {town} in {city}"
+msgstr ""
+
+msgid "truck parking {place_name} in {city}"
+msgstr ""
+
+msgid "truck parking {place_name} near {town} in {city}"
+msgstr ""
+
 msgid "warehouse {place_name} in {city}"
 msgstr "armazém {place_name} em {city}"
 
@@ -42995,6 +43014,25 @@ msgstr ""
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
 
+#~ msgid "{py_capitalize}. {grouped} dollars.{cdl}{record}"
+#~ msgstr "{py_capitalize}. {grouped} dólares.{cdl}{record}"
+
+#~ msgid ""
+#~ "Your level, record, and home terminal come with you, and the next load runs "
+#~ "on their pay and their tractor."
+#~ msgstr ""
+#~ "Seu nível, seu histórico e sua base de origem vão com você, e a próxima "
+#~ "carga roda com o pagamento e o cavalo mecânico deles."
+
+#~ msgid ""
+#~ "{carrier_name} hires you away from {former}. Your level, record, and home "
+#~ "terminal come with you, and the next load runs on their pay and their "
+#~ "tractor."
+#~ msgstr ""
+#~ "A {carrier_name} contrata você, tirando você da {former}. Seu nível, seu "
+#~ "histórico e sua base de origem vão com você, e a próxima carga roda com o "
+#~ "pagamento e o cavalo mecânico deles."
+
 #~ msgid "{name} Company Yard"
 #~ msgstr "Pátio da empresa {name}"
 
@@ -43095,12 +43133,6 @@ msgstr ""
 #~ "você dirige para a {LAST_CHANCE_CARRIER_NAME}: pagamento menor e cargas "
 #~ "mais curtas. Seu dinheiro, seus níveis e seus bens continuam com você."
 
-#~ msgid "{grouped} dollars.{cdl}{record}"
-#~ msgstr "{grouped} dólares.{cdl}{record}"
-
-#~ msgid "{name} in {city_name}. {grouped} dollars.{cdl}{record}"
-#~ msgstr "{name} em {city_name}. {grouped} dólares.{cdl}{record}"
-
 #~ msgid "Wait out the CDL suspension"
 #~ msgstr "Esperar a suspensão da CDL"
 
@@ -43117,9 +43149,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Motoristas da transportadora cobram da transportadora, motoristas autônomos "
 #~ "pagam o preço regional do diesel."
-
-#~ msgid "{py_capitalize} checks out.{tank_walk_around_clause}"
-#~ msgstr "{py_capitalize}: tudo certo.{tank_walk_around_clause}"
 
 #~ msgid "Checked in."
 #~ msgstr "Apresentação feita."
@@ -43336,15 +43365,6 @@ msgstr ""
 #~ "Essa é uma infração grave no seu histórico. Mais uma dentro de três anos e "
 #~ "sua CDL fica suspensa por 60 dias, e os fretes de direção param até ela "
 #~ "liberar."
-
-#~ msgid "Walk-around done, {f} minutes."
-#~ msgstr "Inspeção em volta do caminhão feita, {f} minutos."
-
-#~ msgid ""
-#~ "Walk-around done, {f} minutes. {body} It is {clock_text}. {deadline_text}"
-#~ msgstr ""
-#~ "Inspeção em volta do caminhão feita, {f} minutos. {body} São {clock_text}. "
-#~ "{deadline_text}"
 
 #~ msgid "Return to terminal"
 #~ msgstr "Voltar ao terminal"
