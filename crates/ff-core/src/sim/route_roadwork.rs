@@ -692,9 +692,10 @@ mod tests {
     #[test]
     fn test_a_lane_closure_costing_more_than_the_next_route_moves_dispatch_over() {
         // Chicago to Indianapolis: I-65 straight through, or I-90 then I-65
-        // through Gary and Lafayette, two miles and two minutes longer. A
-        // twenty-mile single-lane stretch costs more than that by more than
-        // the one-minute margin a coin toss keeps the shorter route on.
+        // through Gary and Lafayette, two miles and about five minutes longer.
+        // Twenty miles of alternating one-way traffic cost more than that by
+        // more than the one-minute margin a coin toss keeps the shorter route
+        // on.
         let world = get_world();
         let routes = world
             .supported_route_options("Chicago", "Indianapolis", 3)
@@ -708,7 +709,7 @@ mod tests {
             "illinois",
             vec![construction(
                 "long-lane",
-                "single lane",
+                "alternating",
                 40.62512,
                 -86.99675,
                 "Between milepost 152 and 172",
@@ -720,13 +721,15 @@ mod tests {
         assert_eq!(routing.pick(), 1, "{:?}", routing.order);
         let line = dispatch_route_line(&routes, &routing, world, &Settings::default());
         assert!(
-            line.starts_with("Dispatch is routing you around one lane closed on I-65 near "),
+            line.starts_with(
+                "Dispatch is routing you around alternating one-way traffic on I-65 near "
+            ),
             "{line}"
         );
         assert!(line.contains("saves "), "{line}");
         let note = route_planning_note(&routes, &routing, world);
         assert!(
-            note.starts_with("Route 1 avoids one lane closed on I-65 near "),
+            note.starts_with("Route 1 avoids alternating one-way traffic on I-65 near "),
             "{note}"
         );
         assert!(route_planning_note(

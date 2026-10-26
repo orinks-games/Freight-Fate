@@ -129,6 +129,12 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         "regenerate data/world_data/ from data/world_source/ (--check: verify in sync)",
         world::index::main,
     ),
+    #[cfg(feature = "world")]
+    (
+        "osm-speed-limits",
+        "re-read the map's posted speed limits from Geofabrik OpenStreetMap extracts",
+        world::osm::main,
+    ),
 ];
 
 fn usage() -> String {

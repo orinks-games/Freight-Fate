@@ -22,10 +22,14 @@ workspace = true
 # text files (the changelog check, release notes, test targets) build with
 # `--no-default-features` so they finish in seconds.
 default = ["world"]
-world = ["dep:ff-core"]
+world = ["dep:ff-core", "dep:osmpbf", "dep:rayon"]
 
 [dependencies]
 ff-core = { path = "../ff-core", optional = true }
+# Reading Geofabrik extracts for the map's OpenStreetMap layers
+# (`osm-speed-limits`); only the `world` commands need them.
+osmpbf = { version = "0.3", optional = true }
+rayon = { version = "1", optional = true }
 serde.workspace = true
 serde_json.workspace = true
 regex.workspace = true

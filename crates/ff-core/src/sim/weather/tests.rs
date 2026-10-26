@@ -1249,7 +1249,7 @@ fn test_speed_limit_varies_by_corridor_and_drops_in_cities() {
 
     let mut trip = make_trip(2, 1.0); // Chicago -> Indianapolis, an Interstate corridor
                                       // Near the origin city the limit drops to the urban value.
-    let (near_city, reason) = trip.speed_limit_at(1.0);
+    let (near_city, reason) = trip.speed_limit_at(2.0);
     assert!(reason.is_none());
     assert_eq!(near_city, URBAN_LIMIT_MPH);
     // Out on the open road it is the faster corridor limit.
