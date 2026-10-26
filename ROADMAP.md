@@ -754,7 +754,8 @@ Everything found before 2026-09-25 moved to
       kept on the owner's PC under `refs/backup/2026-10-25/` as a
       reference for the Python builders only. Its data must not be applied:
       dev has changed 49 of the same leg files since, Manassas and the
-      Mall of America among them.
+      Mall of America among them. Superseded on 2026-10-26 by the monthly
+      re-read under the [map audit](#map-audit-seven-layers-one-planet-cut-rust-tools).
 - [ ] (Found along the way) Sign release archives so the updater can
       check them against a key built into the game, not only against the
       checksum GitHub lists next to the file.
@@ -3608,6 +3609,16 @@ Rules set that day:
 - **PR #515 stays on dev** for 1.9.6: rebase after #514, an agent-server
   drive, merge. The same `osm-speed-limits` command runs again on 2.0
   with Canada in the bounding box.
+- **The map stays in the game and is re-read monthly** (owner,
+  2026-10-26, design note "Keeping the map current" in the project). No
+  streaming: it would end the deterministic drive the transcript tests
+  and the battery assert, and raw OpenStreetMap is not playable without
+  the derivation and screens. No separate map pack: the baked
+  `world.ffdata` is about 7 MB inside a 35 MB slim update, and its format
+  version ties it to the binary anyway. Instead one `cargo tools
+  osm-refresh` command runs every layer tool over a planet cut, and a
+  monthly routine runs it and opens a pull request against dev; detail
+  under the [map audit](#map-audit-seven-layers-one-planet-cut-rust-tools).
 
 1.9.6, ship when the tier-1 list is empty:
 
@@ -3743,6 +3754,34 @@ loudly when mostly assumed.
 - [ ] Street chains, endpoints, facility and stop approaches from the same
       OSM set, so chains, terminals and ramp ends agree. The streets work
       below needs this one.
+
+Keeping the layers current (owner, 2026-10-26): the map stays in the
+game, and the re-read goes on a clock. Only the layers mappers change
+month to month run monthly: speed limits, exits and ramps, lanes, truck
+restrictions (`maxheight`, `maxweight`, `hgv`). Amenities run quarterly,
+traffic counts yearly when the new table is published, and geometry,
+curves and grades only after a re-route. Every layer tool keeps a record
+whose `source` is not its own read, the hand-set rule `osm-speed-limits`
+already follows. The job runs on dev only; 2.0 widens the cut to Canada
+and Alaska after the merge.
+
+- [ ] Port the exits and ramps builder into `ff-tools`, both directions'
+      ramp ends, with the hand-set rule, and re-read the layer in the same
+      PR. Then lanes, then truck restrictions, on the same pattern.
+- [ ] `cargo tools osm-refresh`: the planet cut from osm-pds with the
+      planet date recorded as `--extract-date`, each layer tool dry-run
+      then `--write`, one commit per layer, `--layers` for a subset,
+      `index-world --check`, the `data_*` and `sim_*` tests, and a report
+      (records re-read and left alone with the reason, share of road
+      miles changed, the ten biggest changes by state, provenance ratio,
+      the leg to drive). No fixed change-share cutoff until a few months
+      of runs show a normal month.
+- [ ] Run it once by hand and review the report with the owner, then a
+      monthly routine in the project runs it, drives one changed leg on
+      the agent server with Facility streets off, and opens the PR against
+      dev. A GitHub Actions workflow is the later option; it needs the
+      runner's disk cleared or a streaming reader, and a token whose PRs
+      trigger CI.
 
 ### City streets: four slices
 
