@@ -41,6 +41,8 @@ bookmarks usable.
 
 ## 1.9 in flight (`feat/career-1.9`)
 
+- [x] Optional menu accelerator keys (owner, 2026-10-24): Gameplay, Controls offers immediate activation for unique initials; duplicate initials retain selection-only cycling. Off by default.
+
 - [x] Translations (owner, 2026-10-11): every spoken line is translated
       where it leaves for the speech channels, from gettext PO files in
       `lang/` matched as templates, so the code stays English. Settings,

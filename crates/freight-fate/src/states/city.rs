@@ -832,7 +832,7 @@ pub(crate) fn base_menu_handle_event<S: Menu>(
         _ => {
             if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
                 let lower: String = ch.to_lowercase().collect();
-                menu.first_letter_jump(ctx, &lower);
+                menu.first_letter_input(ctx, &lower, event.key_repeat());
             }
         }
     }
