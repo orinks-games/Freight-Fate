@@ -3,6 +3,7 @@
 //! ground it covered. Each is checked against the near miss, usually the
 //! same corridor driven the other way.
 
+use ff_core::data::regions::REGIONS;
 use ff_core::data::world::get_world;
 use ff_core::data::world_models::Route;
 use serde_json::json;
@@ -142,13 +143,20 @@ fn pnw_delivery_needs_the_run_to_end_in_the_pacific_northwest() {
 }
 
 #[test]
-fn norcal_giants_lands_in_chico_or_santa_rosa() {
-    arriving_earns("norcal_giants", "chico_ca_us", route_into("chico_ca_us"));
-    arriving_earns(
-        "norcal_giants",
+fn norcal_giants_lands_anywhere_in_redwood_country() {
+    // Willits and Fortuna only border other redwood towns, so every run
+    // comes up from the Bay, outside the big trees.
+    for city in [
         "santa_rosa_ca_us",
-        route_into("santa_rosa_ca_us"),
-    );
+        "chico_ca_us",
+        "ukiah_ca_us",
+        "willits_ca_us",
+        "fortuna_ca_us",
+        "eureka_ca_us",
+        "crescent_city_ca_us",
+    ] {
+        arriving_earns("norcal_giants", city, route("san_francisco_ca_us", city));
+    }
 }
 
 #[test]
@@ -296,27 +304,45 @@ fn three_regions_counts_regions_across_the_career() {
 }
 
 #[test]
-fn all_regions_lands_on_the_fourteenth_region() {
+fn all_regions_needs_every_region_on_the_map() {
     let mut app = career_in("chicago_il_us");
-    let mut regions: Vec<String> = get_world()
-        .cities
-        .values()
-        .map(|c| c.region.clone())
-        .filter(|r| !["great_lakes", "appalachia", "northeast", "florida"].contains(&r.as_str()))
-        .collect();
-    regions.sort();
-    regions.dedup();
-    assert_eq!(regions.len(), 12);
+    // A save from an older map can carry region names that no longer
+    // exist; they must not stand in for a real one.
+    let mut regions: Vec<String> = vec!["midwest".into(), "southeast".into()];
+    regions.extend(
+        REGIONS
+            .iter()
+            .filter(|r| !["great_lakes", "appalachia"].contains(r))
+            .map(|r| r.to_string()),
+    );
+    assert_eq!(regions.len(), REGIONS.len());
     profile(&mut app)
         .achievement_stats
         .insert("regions_visited".to_string(), json!(regions));
     deliver(&mut app, "chicago_il_us", "cleveland_oh_us");
     assert!(
         !earned(&app, "all_regions"),
-        "thirteen regions is not fourteen"
+        "one region short of the map is not all of it"
     );
     deliver(&mut app, "cleveland_oh_us", "pittsburgh_pa_us");
     assert!(earned(&app, "all_regions"));
+}
+
+#[test]
+fn every_region_on_the_map_is_a_canonical_region() {
+    let mut on_map: Vec<String> = get_world()
+        .cities
+        .values()
+        .map(|c| c.region.clone())
+        .collect();
+    on_map.sort();
+    on_map.dedup();
+    let mut canonical: Vec<String> = REGIONS.iter().map(|r| r.to_string()).collect();
+    canonical.sort();
+    assert_eq!(
+        on_map, canonical,
+        "all_regions counts REGIONS, so the map must match it"
+    );
 }
 
 #[test]
@@ -325,6 +351,20 @@ fn route66_run_needs_both_ends_on_the_mother_road() {
         "route66_run",
         route("chicago_il_us", "cleveland_oh_us"),
         route("chicago_il_us", "st_louis_mo_us"),
+    );
+}
+
+#[test]
+fn route66_run_counts_the_small_towns_too() {
+    corridor_earns(
+        "route66_run",
+        route("joplin_mo_us", "dallas_tx_us"),
+        route("joplin_mo_us", "tulsa_ok_us"),
+    );
+    corridor_earns(
+        "route66_run",
+        route("gallup_nm_us", "phoenix_az_us"),
+        route("gallup_nm_us", "kingman_az_us"),
     );
 }
 

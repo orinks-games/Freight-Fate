@@ -6,7 +6,7 @@
 //! ```
 //!
 //! `--check` re-bakes to a temp file and compares bytes with the container
-//! already at `--out`, which is how CI and `tools/build_release.py` prove a
+//! already at `--out`, which is how CI and `cargo tools build-release` prove a
 //! committed or staged container matches the tree it claims to come from.
 //!
 //! The baker lives in the library (`ff_core::data::baked::bake`) so the tests
@@ -87,6 +87,10 @@ fn run(args: &Args) -> Result<(), String> {
             report.legs,
             report.legs_with_corridor,
             args.out.display()
+        );
+        println!(
+            "{} short speed-limit postings folded as mapping artifacts",
+            report.speed_limits_folded
         );
     }
     Ok(())

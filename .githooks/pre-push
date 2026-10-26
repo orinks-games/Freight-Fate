@@ -1,0 +1,4 @@
+#!/bin/sh
+# Install once per clone: git config core.hooksPath .githooks
+# The changelog gate CI runs on every push and PR, run before the push.
+exec cargo tools release-notes check --base auto --head HEAD

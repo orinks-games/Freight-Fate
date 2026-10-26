@@ -315,10 +315,7 @@ fn test_the_weather_gap_line_is_short_at_quiet() {
         .acc_weather_gap_text()
         .expect("heavy rain lengthens the gap");
     assert_eq!(line.render(true), "Wet roads, longer gap.");
-    assert_eq!(
-        line.render(false),
-        "Wet roads, adaptive cruise increasing following gap."
-    );
+    assert_eq!(line.render(false), "Wet roads, longer gap.");
     app.shutdown();
 }
 

@@ -342,10 +342,10 @@ fn minutes_words(hours: f64) -> String {
 }
 
 /// One spot in dispatch's words: "one lane closed on I-70 near Topeka, 5
-/// miles at 45 miles per hour, about 3 minutes".
+/// miles, 45 miles per hour, about 3 minutes".
 pub fn spot_text(spot: &ConstructionSpot, settings: &Settings) -> String {
     format!(
-        "{} on {} near {}, {} at {}, {}",
+        "{} on {} near {}, {}, {}, {}",
         spot.closure_words(),
         spot.road,
         spot.near_city,
@@ -353,6 +353,39 @@ pub fn spot_text(spot: &ConstructionSpot, settings: &Settings) -> String {
         settings.speed_text(spot.limit_mph),
         minutes_words(spot.delay_h)
     )
+}
+
+/// The spots in dispatch's words, joined with semicolons. Spots that would
+/// read the same are said once with a count: one 511 feed listed seven
+/// separate stretches near Des Moines, and dispatch read the same closure
+/// seven times in one line (agent drive, 2026-10-17).
+pub fn spots_text(spots: &[ConstructionSpot], settings: &Settings) -> String {
+    let mut groups: Vec<(String, usize, &ConstructionSpot)> = Vec::new();
+    for spot in spots {
+        let text = spot_text(spot, settings);
+        match groups.iter_mut().find(|(t, _, _)| *t == text) {
+            Some(group) => group.1 += 1,
+            None => groups.push((text, 1, spot)),
+        }
+    }
+    groups
+        .into_iter()
+        .map(|(text, count, spot)| {
+            if count == 1 {
+                return text;
+            }
+            format!(
+                "{} on {} near {} in {count} places, {} each, {}, {} each",
+                spot.closure_words(),
+                spot.road,
+                spot.near_city,
+                settings.distance_text(spot.length_mi, false),
+                settings.speed_text(spot.limit_mph),
+                minutes_words(spot.delay_h)
+            )
+        })
+        .collect::<Vec<_>>()
+        .join("; ")
 }
 
 /// The city a detour route goes by way of, spoken, or empty.
@@ -473,14 +506,9 @@ pub fn dispatch_route_line(
             a.delay_h > 0.0 || a.effect == crate::sim::real_weather_alerts::AlertEffect::Avoid
         });
     if !report.spots.is_empty() {
-        let listed: Vec<String> = report
-            .spots
-            .iter()
-            .map(|spot| spot_text(spot, settings))
-            .collect();
         parts.push(format!(
             "Construction reported on the way: {}.",
-            listed.join("; ")
+            spots_text(&report.spots, settings)
         ));
     }
     let brief = weather_brief(weather);
@@ -523,12 +551,7 @@ pub fn route_option_note(report: &RouteConstruction, settings: &Settings) -> Str
     if report.spots.is_empty() {
         return String::new();
     }
-    let listed: Vec<String> = report
-        .spots
-        .iter()
-        .map(|spot| spot_text(spot, settings))
-        .collect();
-    format!("Construction: {}.", listed.join("; "))
+    format!("Construction: {}.", spots_text(&report.spots, settings))
 }
 
 #[cfg(test)]
@@ -654,7 +677,7 @@ mod tests {
             "{line}"
         );
         assert!(
-            line.contains("5 miles at 45 miles per hour, about "),
+            line.contains("5 miles, 45 miles per hour, about "),
             "{line}"
         );
         assert!(line.ends_with("No quicker way around."), "{line}");
@@ -886,5 +909,27 @@ mod tests {
         let south = route(&["bakersfield_ca_us", "los_angeles_ca_us"]);
         let report = scan_route_construction(&south, &district_7(), world);
         assert!(report.spots.is_empty(), "{:?}", report.spots);
+    }
+
+    #[test]
+    fn test_spots_that_read_the_same_are_said_once_with_a_count() {
+        let spot = |route_mile: f64| ConstructionSpot {
+            road: "I-80".to_string(),
+            near_city: "Des Moines".to_string(),
+            closure: "single lane".to_string(),
+            length_mi: 5.0,
+            limit_mph: 45.0,
+            route_mile,
+            delay_h: 0.05,
+        };
+        let mut other = spot(90.0);
+        other.near_city = "Iowa City".to_string();
+        let spots = vec![spot(10.0), spot(20.0), spot(30.0), other];
+        assert_eq!(
+            spots_text(&spots, &Settings::default()),
+            "one lane closed on I-80 near Des Moines in 3 places, 5 miles each, 45 miles per \
+             hour, about 3 minutes each; one lane closed on I-80 near Iowa City, 5 miles, 45 \
+             miles per hour, about 3 minutes"
+        );
     }
 }

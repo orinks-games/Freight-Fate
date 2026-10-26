@@ -5,7 +5,7 @@ use serde_json::{json, Map, Value};
 
 use crate::states::base::{Key, Mods};
 
-use super::{Command, CruiseTarget, KeySpec, Request};
+use super::{Command, CruiseTarget, KeySpec, Lifeline, Request};
 use crate::bindings::Action;
 
 const SERVER_NAME: &str = "freight-fate-agent";
@@ -13,9 +13,8 @@ const PROTOCOL_VERSION: &str = "2025-06-18";
 const REPLY_TIMEOUT_SECONDS: u64 = 330;
 // -- the MCP stdio thread -------------------------------------------------------------
 
-fn respond_raw(out: &mut dyn Write, value: &Value) {
-    let _ = writeln!(out, "{value}");
-    let _ = out.flush();
+fn respond_raw(out: &mut dyn Write, value: &Value) -> bool {
+    writeln!(out, "{value}").and_then(|_| out.flush()).is_ok()
 }
 
 /// The `lockstep` tool's reply.
@@ -324,29 +323,54 @@ fn tools_list() -> Value {
 
 /// Serve MCP on stdin/stdout, forwarding tool calls into the game loop.
 /// Runs on its own thread; returns when stdin closes or the game quits.
-pub fn serve(requests: mpsc::Sender<Request>) {
+pub fn serve(requests: mpsc::Sender<Request>, lifeline: Lifeline) {
     let stdin = std::io::stdin();
     let mut stdout = std::io::stdout().lock();
-    serve_lines(stdin.lock(), &mut stdout, &requests);
+    serve_lines_with_lifeline(stdin.lock(), &mut stdout, &requests, &lifeline);
 }
 
 /// The MCP loop over any reader and writer: the handshake (`initialize`,
 /// `tools/list`, `ping`) is answered right here; only a `tools/call` goes
 /// through `requests` to the game loop, and the first one is what boots it.
 pub fn serve_lines<R: BufRead, W: Write>(reader: R, out: &mut W, requests: &mpsc::Sender<Request>) {
+    serve_lines_inner(reader, out, requests, None);
+}
+
+/// The testable MCP loop with a lifeline that is cut when the transport ends.
+pub fn serve_lines_with_lifeline<R: BufRead, W: Write>(
+    reader: R,
+    out: &mut W,
+    requests: &mpsc::Sender<Request>,
+    lifeline: &Lifeline,
+) {
+    serve_lines_inner(reader, out, requests, Some(lifeline));
+}
+
+fn serve_lines_inner<R: BufRead, W: Write>(
+    reader: R,
+    out: &mut W,
+    requests: &mpsc::Sender<Request>,
+    lifeline: Option<&Lifeline>,
+) {
+    let mut quit = false;
     for line in reader.lines() {
         let Ok(line) = line else { break };
         if line.trim().is_empty() {
             continue;
         }
         let Ok(message) = serde_json::from_str::<Value>(&line) else {
-            respond_raw(
+            if !respond_raw(
                 out,
                 &json!({
                     "jsonrpc": "2.0", "id": null,
                     "error": {"code": -32700, "message": "parse error"}
                 }),
-            );
+            ) {
+                if let Some(lifeline) = lifeline {
+                    lifeline.cut("the MCP client stopped reading");
+                }
+                return;
+            }
             continue;
         };
         let method = message.get("method").and_then(Value::as_str).unwrap_or("");
@@ -408,22 +432,40 @@ pub fn serve_lines<R: BufRead, W: Write>(reader: R, out: &mut W, requests: &mpsc
                 }
             }
             _ => {
-                respond_raw(
+                if !respond_raw(
                     out,
                     &json!({
                         "jsonrpc": "2.0", "id": id,
                         "error": {"code": -32601, "message": format!("unknown method {method}")}
                     }),
-                );
+                ) {
+                    if let Some(lifeline) = lifeline {
+                        lifeline.cut("the MCP client stopped reading");
+                    }
+                    return;
+                }
                 continue;
             }
         };
-        respond_raw(out, &json!({"jsonrpc": "2.0", "id": id, "result": reply}));
+        if !respond_raw(out, &json!({"jsonrpc": "2.0", "id": id, "result": reply})) {
+            if let Some(lifeline) = lifeline {
+                lifeline.cut("the MCP client stopped reading");
+            }
+            return;
+        }
         if method == "tools/call" && params.get("name").and_then(Value::as_str) == Some("quit_game")
         {
             // A quit ends the process; nothing after it is read.
-            return;
+            quit = true;
+            break;
         }
+    }
+    if let Some(lifeline) = lifeline {
+        lifeline.cut(if quit {
+            "the MCP client ended the session"
+        } else {
+            "the MCP client closed stdin"
+        });
     }
 }
 

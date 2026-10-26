@@ -161,9 +161,7 @@ fn already_in_the_right_lane_hears_one_steer_at_the_taper_and_takes_the_exit() {
     steer(&mut harness, None);
     let position = harness.read_drive(|d| d.trip.position_mi);
     assert!(position <= stop.at_mi + EXIT_COMMIT_WINDOW_MI);
-    assert!(heard(&harness)
-        .iter()
-        .any(|l| l.contains("You take exit 42")));
+    assert!(heard(&harness).iter().any(|l| l.contains("Exit 42 for")));
     assert_eq!(count(&harness, "Exit lane opening"), 1);
     assert_eq!(count(&harness, "sideswiped"), 0, "{:?}", heard(&harness));
     assert_eq!(count(&harness, "Off the road"), 0, "{:?}", heard(&harness));
@@ -238,9 +236,7 @@ fn full_lane_keeping_moves_right_for_the_exit_itself() {
         "{:?}",
         heard(&harness)
     );
-    assert!(heard(&harness)
-        .iter()
-        .any(|l| l.contains("You take exit 42")));
+    assert!(heard(&harness).iter().any(|l| l.contains("Exit 42 for")));
     assert_eq!(count(&harness, "missed"), 0, "{:?}", heard(&harness));
     assert_eq!(count(&harness, "sideswiped"), 0, "{:?}", heard(&harness));
 }
@@ -340,7 +336,7 @@ fn never_steering_in_misses_the_exit_at_the_end_of_the_gore_window() {
     let position = harness.read_drive(|d| d.trip.position_mi);
     assert!(position >= stop.at_mi + EXIT_COMMIT_WINDOW_MI, "{position}");
     assert!(harness.read_drive(|d| d.ramp_mi.is_none()));
-    assert_eq!(count(&harness, "You were not in the exit lane"), 1);
+    assert_eq!(count(&harness, "not in the exit lane"), 1);
 }
 
 #[test]

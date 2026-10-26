@@ -42,20 +42,17 @@ use crate::app::GameContext;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{profile_mut_of, profile_of};
 use crate::states::driving_menu_states::{push_over_drive, DriveRef};
+use crate::states::driving_team::notes::NoteWeight;
 use crate::states::driving_updates::pending::EnforcementStopParams;
 
 /// Leaving a stop menu. The engine is whatever it already was: "starts the
 /// engine" over a running one sent the driver's press to shut it down.
-pub fn back_on_the_road_line(ctx: &GameContext, engine_on: bool) -> String {
-    let brake = ctx.control_hint("parking_brake");
+pub fn back_on_the_road_line(engine_on: bool) -> String {
     if engine_on {
-        return format!("Back on the road. Parking brake set. {brake} releases the brake.");
+        "Parking brake set.".to_string()
+    } else {
+        "Engine off, parking brake set.".to_string()
     }
-    let engine = ctx.control_hint("engine");
-    format!(
-        "Back on the road. Parking brake set. {engine} starts the engine, {brake} releases the \
-         brake."
-    )
 }
 
 /// Where the career clock stands right now, mid-trip included.
@@ -100,7 +97,7 @@ pub fn major_offense_text(ctx: &GameContext, kind: &str, hours: f64) -> String {
     if kind == enforcement::SUSPENSION_LIFETIME {
         return format!(
             "That is your second major offense. Under federal rules a second major offense \
-             disqualifies a commercial licence for life, so this driver will not drive \
+             disqualifies a commercial license for life, so this driver will not drive \
              commercially again. Nothing is taken away: {name} keeps every dollar, the truck, \
              and the whole record, and you can open this career any time to look back over it. \
              Rest, repairs, and the garage still work here, and the dispatch \
@@ -132,6 +129,15 @@ pub fn times_now_text(count: i64) -> String {
 // three screens it pushes and the two `driving_events/pending.rs` held.
 
 impl DrivingState {
+    /// A minor violation by a new driver gets a warning: no fine, no
+    /// reputation, nothing on the record. Serious violations and
+    /// out-of-service orders are decided by the caller and still count.
+    pub fn new_driver_warning(&self, ctx: &GameContext) -> bool {
+        ctx.profile
+            .as_ref()
+            .is_some_and(|profile| enforcement::new_driver_warned(profile.career.level()))
+    }
+
     /// Book a spoken roadside enforcement event onto the career record.
     ///
     /// Only enforcement the player actually heard reaches the record. The
@@ -214,7 +220,7 @@ impl DrivingState {
         } else {
             format!(
                 "That is {} that you have run off the road asleep. Driving impaired by fatigue \
-                 is a federal violation, so this one counts against your licence as well as {} \
+                 is a federal violation, so this one counts against your license as well as {} \
                  points off your reputation. {}",
                 times_now_text(count),
                 fmt_f(hit, 0),
@@ -284,7 +290,34 @@ impl DrivingState {
             warned,
             construction_zone,
         );
+        if self.co_driver_settles_roadside(ctx, state.outcome_text(), state.licence_pulled(ctx)) {
+            return;
+        }
         ctx.push_state(state);
+    }
+
+    /// A roadside stop with the co-driver at the wheel: it is settled when
+    /// the screen is built, so they take the outcome, note it and drive on,
+    /// with no screen at all. True when that is done. A stop that pulls the
+    /// license ends the run, so they hand back and the screen is the
+    /// player's.
+    fn co_driver_settles_roadside(
+        &mut self,
+        ctx: &mut GameContext,
+        outcome: &str,
+        licence_pulled: bool,
+    ) -> bool {
+        let Some(name) = self.co_driver_at_wheel_name() else {
+            return false;
+        };
+        if licence_pulled {
+            self.co_driver_summon(ctx, "roadside");
+            return false;
+        }
+        let outcome = co_driver_outcome(outcome, name);
+        let line = format!("A trooper pulled {name} over. {outcome}");
+        self.co_driver_note(ctx, line.trim_end().to_string(), NoteWeight::Wake);
+        true
     }
 
     /// `ctx.push_state(EnforcementStopState(...))`.
@@ -294,6 +327,10 @@ impl DrivingState {
         stop: EnforcementStopParams,
     ) {
         let state = EnforcementStopState::new(ctx, self, stop);
+        let outcome = format!("{} {}", state.summary, state.outcome_text());
+        if self.co_driver_settles_roadside(ctx, outcome.trim(), state.licence_pulled(ctx)) {
+            return;
+        }
         ctx.push_state(state);
     }
 
@@ -328,5 +365,39 @@ impl DrivingState {
     pub fn push_felony_stop_state(&mut self, ctx: &mut GameContext) {
         let state = FelonyStopState::new(ctx, self);
         ctx.push_state(state);
+    }
+}
+
+/// A stop screen's outcome, told of the co-driver who was at the wheel.
+/// The screen speaks to the player ("lets you off"); the co-driver's note
+/// must not say the trooper stopped them. "Your record" stays: the record
+/// is the player's career.
+fn co_driver_outcome(outcome: &str, name: &str) -> String {
+    outcome
+        .replace("lets you off", &format!("lets {name} off"))
+        .replace("lets you go", &format!("lets {name} go"))
+        .replace(
+            "You pulled over promptly",
+            &format!("{name} pulled over promptly"),
+        )
+        .replace("waves you through", "waves the truck through")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::co_driver_outcome;
+
+    #[test]
+    fn the_co_drivers_stop_is_told_of_them_not_the_player() {
+        let warning = co_driver_outcome(
+            "12 miles per hour over the 65 limit. You pulled over promptly, so the trooper lets it go with a warning.",
+            "Dan",
+        );
+        assert!(warning.contains("Dan pulled over promptly"), "{warning}");
+        let off = co_driver_outcome("The trooper lets you off with a warning.", "Dan");
+        assert_eq!(off, "The trooper lets Dan off with a warning.");
+        assert!(
+            !co_driver_outcome("The officer lets you go with a warning.", "Dan").contains("you")
+        );
     }
 }

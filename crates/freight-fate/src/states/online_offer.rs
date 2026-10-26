@@ -58,8 +58,8 @@ impl OnlineOfferState {
 
     fn enter_world(&mut self, ctx: &mut GameContext) {
         // The city menu queues its own announcement, so a line spoken on the
-        // way out of here -- "You can connect any time from Online" -- is heard
-        // in full instead of being cut off by "Parked at ...".
+        // way out of here -- "Online on the main menu connects any time" -- is
+        // heard in full instead of being cut off by the terminal's own line.
         let city = CityMenuState::new(ctx, true);
         ctx.replace_state(city);
     }
@@ -67,7 +67,7 @@ impl OnlineOfferState {
     /// `_decline`: Not now.
     pub fn decline(&mut self, ctx: &mut GameContext) {
         self.spend_the_offer(ctx);
-        ctx.say("No problem. You can connect any time from Online on the main menu.");
+        ctx.say("Online on the main menu connects any time.");
         self.enter_world(ctx);
     }
 

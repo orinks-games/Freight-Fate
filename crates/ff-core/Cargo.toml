@@ -16,7 +16,6 @@ path = "src/lib.rs"
 workspace = true
 
 [dependencies]
-anyhow.workspace = true
 thiserror.workspace = true
 log.workspace = true
 serde.workspace = true
@@ -28,12 +27,12 @@ hex.workspace = true
 base64.workspace = true
 flate2.workspace = true
 zip.workspace = true
-rustfft.workspace = true
 realfft.workspace = true
 indexmap.workspace = true
 once_cell.workspace = true
 parking_lot.workspace = true
 regex.workspace = true
+aho-corasick.workspace = true
 ed25519-dalek.workspace = true
 memmap2.workspace = true
 bincode.workspace = true

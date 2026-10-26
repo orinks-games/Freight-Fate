@@ -9864,6 +9864,14 @@ Deliver -> Earn and level up -> Repeat
       scale bypass stops, damage-triggered stops, and felony failure-to-stop
       load cancellation shipped; future repeat-offender dispatch hooks remain)
 - [ ] Special event jobs (oversize loads, urgent medical freight)
+- [ ] Fueling you can hear fill: a pump sound that rises with the level in
+      the tank, so topping up and filling an empty tank sound different
+      (issue 338).
+- [ ] Hearing the road surface through the tires: concrete, asphalt,
+      rumble strips and gravel shoulders each with their own sound (issue
+      338).
+- [ ] Eating at a restaurant along the route instead of the same rest-stop
+      meal (issue 395).
 - [ ] Trailer types with handling differences
 - [ ] **In-game driving school (owner-approved 2026-07-14; skeleton
       SHIPPED 2026-07-15).** Landed: the Driving school terminal item, the
@@ -9976,7 +9984,10 @@ Deliver -> Earn and level up -> Repeat
       fallbacks, legal routing, border-crossing behavior). **Map sequence
       locked:** (1) minimal Canada ALCAN through-freight corridor to put
       Alaska on the continuous truck graph, (2) map Alaska, (3) rest of
-      Canada, (4) Europe (#195). Scaffold plan (cut before world_data bulk):
+      Canada, (4) Europe (#195; Europe as one map with the United Kingdom inside it, a
+      633-city target and a first batch of about 160; a career belongs to one
+      map, chosen at creation; the locale questions a second map raises are
+      in issue 196). Scaffold plan (cut before world_data bulk):
       `docs/alcan-corridor-scaffold-plan.md`. Do not jump to full Canada or
       Europe before Alaska is mapped.
 
@@ -10160,8 +10171,6 @@ fit for an audio-first game.
 - [x] Copy the delivery summary to the clipboard from the delivery complete screen (verified by read-back before the game says "copied")
 - [x] Delete a career's cloud backups from the Cloud backup menu: a confirmed, safe-default-first delete removes every kept revision from the account (server DELETE route + existing `deleteSaveSlot` mutation); local saves untouched, sync state forgotten so a still-local career starts a fresh slot on its next save
 - [x] Choose the public career from the Cloud backup menu: one designated career fronts the public profile (`publicSaveName` on the driver row, spoken "your public career" in the backup list, confirmed switch per career), and every other career stays a private cloud backup -- ending mixed public stats when several careers back up. Accounts that never choose keep the old first-uploaded-owns rule; the empty-cloud sticky conflict that silently stopped backups after a server-side wipe or remote delete heals itself on the next save
-- [x] Opt-in Mastodon sharing of notable deliveries: the player links their own Mastodon account on orinks.net (any instance, dynamic app registration, `read:accounts write:statuses` scope), and the game offers deliveries that earned an achievement, level, or streak milestone; the server composes the public post from allowlisted facts and adds the #FreightFateRuns hashtag (deliberately not the bare #FreightFate, which players use for their own posts -- muting the bot must not mute the conversation). Off by default, separate consent from Profile sharing, durable outbox client-side
-- [ ] Mastodon sharing follow-ups: unlink from inside the game (today the orinks.net page is the only unlink), and consider per-post visibility choice (public vs unlisted) if players ask
 - [x] Activation-code setup replaces clipboard-paste credentials: connecting
       a computer to orinks.net now shows a short activation code (spoken,
       spellable phonetically, and copyable to the clipboard) instead of

@@ -7,17 +7,16 @@
 //! lets the release ring out.
 //!
 //! The Python module (`freight_fate/audio_loops.py`) carried both halves: the
-//! unit maths here, and a `SustainLoop` class that installs a BASS *mixtime*
-//! position sync seeking the stream back to the loop start each time playback
-//! reaches the loop end, and removes it on `release()` so playback flows past
-//! the loop end through to the end of the file. That BASS half needs a live
-//! stream handle and the `SYNCPROC` trampoline kept alive for the mixer
-//! thread, so it lives in the game crate: `freight_fate::audio` wires a
-//! [`SustainLoopSpec`] onto a stream (`start_sustain_loop`, the horn's only
-//! caller) and tears it down (`release_sustain_loop`). What stays here is
-//! everything that can be checked without a device: the unit conversion every
-//! caller must agree on, and the loop-point validation the BASS class did in
-//! its constructor.
+//! unit maths here, and a `SustainLoop` class that kept a stream seeking back
+//! to the loop start each time playback reached the loop end, until
+//! `release()` let it flow on through the release tail. The playing half
+//! needs a device, so it lives in the game crate: `freight_fate::audio` turns
+//! a [`SustainLoopSpec`] into a Hearken `LoopRegion` on the sound
+//! (`start_sustain_loop`, the horn's only caller) and releases the sound from
+//! it (`release_sustain_loop`), so the file plays out to its end. What
+//! stays here is everything that can be checked without a device: the unit
+//! conversion every caller must agree on, and the loop-point validation the
+//! Python class did in its constructor.
 //!
 //! Port of `freight_fate/audio_loops.py` (pure parts).
 

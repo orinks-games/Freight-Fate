@@ -8,15 +8,20 @@
 //! drag the whole music library with it. Each pack is a
 //! deflated zip XOR-masked with a fixed key, so renaming one does not turn it
 //! back into an openable archive; this deters casual editing, nothing more.
+//! `sounds.pak` is read into memory at startup, because a gameplay cue must
+//! never wait on the disk. `music.pak` is not: it is opened like
+//! `channel3000.pak` (see [`streamed`]) and each track is read from its own
+//! offset when it starts, so the several hundred megabytes of music stay on
+//! disk instead of in the game's memory for the whole session.
 //! In a source checkout `assets/sounds.pak` is an ordinary committed file and
-//! `assets/music.pak` is downloaded by `tools/build_release.py`. Tests can explicitly disable the default packs and exercise the loose-file
+//! `assets/music.pak` is downloaded by `cargo tools build-release`. Tests can explicitly disable the default packs and exercise the loose-file
 //! fallback.
 //!
 //! A third pack, `channel3000.pak`, carries Channel 3000's clips under
 //! `c3k/`. It is never read into memory or opened at startup: see
 //! [`streamed`], which opens it on the first `c3k/` lookup.
 //!
-//! `tools/pack_sounds.py` writes both packs; the audio engine reads them
+//! `cargo tools pack-sounds` writes both packs; the audio engine reads them
 //! through [`open_default`], which returns one object that routes a lookup to
 //! whichever pack carries that name -- callers do not need to know the packs
 //! are split. The pack payload is deterministic for identical inputs.
@@ -37,6 +42,7 @@ use std::sync::{Arc, Mutex};
 use once_cell::sync::Lazy;
 use zip::write::SimpleFileOptions;
 
+mod archive;
 mod streamed;
 pub use streamed::{channel3000_pack_available, LazyPack, StreamedPack};
 use zip::{CompressionMethod, DateTime, ZipArchive, ZipWriter};
@@ -187,7 +193,7 @@ fn stem(name: &str) -> &str {
 /// `include`, when given, keeps only pack-relative names it accepts --
 /// the base tree and overlay are still merged first (by full stem
 /// precedence, exactly as with no filter), so an overlay entry routes to
-/// whichever pack its own path belongs to. `tools/pack_sounds.py` calls
+/// whichever pack its own path belongs to. `cargo tools pack-sounds` calls
 /// this twice, once per prefix, to split `music/` into its own pack.
 pub fn write_pack(
     sounds_dir: &Path,
@@ -259,8 +265,11 @@ impl SoundPack {
         let mut payload = raw;
         payload.drain(..PACK_MAGIC.len());
         mask_in_place(&mut payload);
-        let archive = ZipArchive::new(Cursor::new(payload))?;
-        let names: Vec<String> = archive.file_names().map(str::to_string).collect();
+        let archive = archive::open_pack_archive(Cursor::new(payload))?;
+        let names = archive
+            .file_names()
+            .map(|name| name.map(|name| name.into_owned()))
+            .collect::<Result<Vec<String>, _>>()?;
         let name_set = names.iter().cloned().collect();
         Ok(Self {
             archive: Mutex::new(archive),
@@ -322,17 +331,67 @@ impl SoundPack {
 /// fallback takes it from there.
 pub struct CombinedPack {
     sounds: Option<Arc<SoundPack>>,
-    music: Option<Arc<SoundPack>>,
+    music: Option<MusicSide>,
     channel3000: Option<Arc<LazyPack>>,
+}
+
+/// Where the music side of a [`CombinedPack`] reads from. The shipped
+/// `music.pak` is [`MusicSide::Streamed`]: about 380 MB that used to sit in
+/// memory for the whole session (a quarter of an 8 GB Mac's free memory, for
+/// one track playing at a time) now stays on disk until a track starts.
+enum MusicSide {
+    Memory(Arc<SoundPack>),
+    Streamed(Arc<StreamedPack>),
+}
+
+impl MusicSide {
+    fn names(&self) -> Vec<String> {
+        match self {
+            Self::Memory(pack) => pack.names(),
+            Self::Streamed(pack) => pack.names(),
+        }
+    }
+
+    fn has(&self, name: &str) -> bool {
+        match self {
+            Self::Memory(pack) => pack.has(name),
+            Self::Streamed(pack) => pack.has(name),
+        }
+    }
+
+    fn read(&self, name: &str) -> Option<Vec<u8>> {
+        match self {
+            Self::Memory(pack) => pack.read(name),
+            Self::Streamed(pack) => pack.read(name),
+        }
+    }
 }
 
 impl CombinedPack {
     pub fn new(sounds: Option<Arc<SoundPack>>, music: Option<Arc<SoundPack>>) -> Self {
         Self {
             sounds,
-            music,
+            music: music.map(MusicSide::Memory),
             channel3000: None,
         }
+    }
+
+    /// The shipped arrangement: sounds in memory, music read from its file
+    /// one track at a time.
+    pub fn with_streamed_music(
+        sounds: Option<Arc<SoundPack>>,
+        music: Option<Arc<StreamedPack>>,
+    ) -> Self {
+        Self {
+            sounds,
+            music: music.map(MusicSide::Streamed),
+            channel3000: None,
+        }
+    }
+
+    /// Whether the music side reads from its file rather than memory.
+    pub fn music_is_streamed(&self) -> bool {
+        matches!(self.music, Some(MusicSide::Streamed(_)))
     }
 
     /// Route `c3k/` names to `pack`, unopened until one is asked for.
@@ -345,12 +404,8 @@ impl CombinedPack {
         name.starts_with(crate::channel3000::CLIP_KEY_PREFIX)
     }
 
-    fn pack_for(&self, name: &str) -> Option<&SoundPack> {
-        if name.starts_with("music/") {
-            self.music.as_deref()
-        } else {
-            self.sounds.as_deref()
-        }
+    fn is_music(name: &str) -> bool {
+        name.starts_with("music/")
     }
 
     pub fn names(&self) -> Vec<String> {
@@ -365,14 +420,20 @@ impl CombinedPack {
         if Self::is_channel3000(name) {
             return self.channel3000.as_ref().is_some_and(|pack| pack.has(name));
         }
-        self.pack_for(name).is_some_and(|pack| pack.has(name))
+        if Self::is_music(name) {
+            return self.music.as_ref().is_some_and(|pack| pack.has(name));
+        }
+        self.sounds.as_ref().is_some_and(|pack| pack.has(name))
     }
 
     pub fn read(&self, name: &str) -> Option<Vec<u8>> {
         if Self::is_channel3000(name) {
             return self.channel3000.as_ref().and_then(|pack| pack.read(name));
         }
-        self.pack_for(name).and_then(|pack| pack.read(name))
+        if Self::is_music(name) {
+            return self.music.as_ref().and_then(|pack| pack.read(name));
+        }
+        self.sounds.as_ref().and_then(|pack| pack.read(name))
     }
 }
 
@@ -394,6 +455,37 @@ fn load_one_pack(path: &Path, label: &str) -> Option<Arc<SoundPack>> {
                 capitalize(label),
                 path.display(),
                 pack.names.len()
+            );
+            Some(Arc::new(pack))
+        }
+        Err(err) => {
+            log::warn!(
+                "Unreadable {label} pack at {}; reading loose sound files instead ({err})",
+                path.display()
+            );
+            None
+        }
+    }
+}
+
+/// Open one pack file for reading entry by entry (only its zip directory is
+/// read now), or None when it is absent/unreadable. Logs exactly like
+/// [`load_one_pack`], so a missing or broken music pack reads the same.
+fn stream_one_pack(path: &Path, label: &str) -> Option<Arc<StreamedPack>> {
+    if !path.exists() {
+        log::info!(
+            "No {label} pack at {}; its sounds come from loose files, if any",
+            path.display()
+        );
+        return None;
+    }
+    match StreamedPack::open(path) {
+        Ok(pack) => {
+            log::info!(
+                "{} pack opened: {} ({} entries, read from disk as they play)",
+                capitalize(label),
+                path.display(),
+                pack.len()
             );
             Some(Arc::new(pack))
         }
@@ -466,20 +558,21 @@ impl PackLoader {
             .is_some()
     }
 
-    /// Do the actual read-and-unmask for both packs. Caller holds the lock.
+    /// Read and unmask the sounds pack and open the music pack. Caller holds
+    /// the lock.
     fn load_locked(&self, state: &mut Option<Option<Arc<CombinedPack>>>) {
         if state.is_some() {
             return; // someone else finished this while we waited for the lock
         }
         self.loads.fetch_add(1, Ordering::SeqCst);
         let sounds = load_one_pack(&self.sounds_path, "sound");
-        let music = load_one_pack(&self.music_path, "music");
+        let music = stream_one_pack(&self.music_path, "music");
         let channel3000 = self
             .channel3000
             .as_ref()
             .filter(|pack| pack.path().exists());
         let combined = if sounds.is_some() || music.is_some() || channel3000.is_some() {
-            let mut combined = CombinedPack::new(sounds, music);
+            let mut combined = CombinedPack::with_streamed_music(sounds, music);
             if let Some(pack) = channel3000 {
                 combined = combined.with_channel3000(Arc::clone(pack));
             }
@@ -492,12 +585,12 @@ impl PackLoader {
 
     /// Start loading the packs on a background thread.
     ///
-    /// Each pack gets read fully into memory and XOR unmasked; the music pack
-    /// is the far larger of the two (see the module docs). Read
-    /// synchronously, that lands on whichever sound plays first (typically a
-    /// main-menu sound), stalling it. Called as early as possible in app
-    /// construction, this overlaps both packs' reads with the rest of startup
-    /// (world load especially) instead of adding to it.
+    /// The sounds pack gets read fully into memory and XOR unmasked; the
+    /// music pack only has its zip directory read (see the module docs).
+    /// Read synchronously, that lands on whichever sound plays first
+    /// (typically a main-menu sound), stalling it. Called as early as
+    /// possible in app construction, this overlaps the reads with the rest
+    /// of startup (world load especially) instead of adding to it.
     ///
     /// Safe to call more than once (a no-op once a load has started or
     /// finished) and safe even when there is no pack to load. Never blocks: the
@@ -717,7 +810,7 @@ mod tests {
     //! of the Python file (pack-then-loose resolution, the engine-ring rule,
     //! the licensed overlay on lookup) drive the audio module, which is the
     //! game crate's; the pack format, split, loader and prefetch are pinned
-    //! here. The `tools/pack_sounds.py` split test stays Python.
+    //! here, and `cargo tools pack-sounds` tests its own split.
     use super::*;
 
     fn write_fixture_sounds(tmp: &Path) -> PathBuf {
@@ -897,7 +990,7 @@ mod tests {
 
     #[test]
     fn test_pack_include_filter_splits_by_prefix() {
-        // What tools/pack_sounds.py does twice to split music/ into its own pack.
+        // What cargo tools pack-sounds does twice to split music/ into its own pack.
         let tmp = tempfile::tempdir().unwrap();
         let sounds = write_fixture_sounds(tmp.path());
         let is_music = |name: &str| name.starts_with("music/");
@@ -946,13 +1039,13 @@ mod tests {
             eprintln!(
                 "SKIPPING {}: it is a leftover Git LFS pointer, not the pack. The \
                  packs are plain files now: `git checkout -- assets/{name}` restores \
-                 sounds.pak, and tools/build_release.py downloads music.pak.",
+                 sounds.pak, and cargo tools build-release downloads music.pak.",
                 path.display()
             );
         } else {
             eprintln!(
                 "SKIPPING {}: not present (sounds.pak is committed; music.pak is \
-                 builder-local and tools/build_release.py downloads it)",
+                 builder-local and cargo tools build-release downloads it)",
                 path.display()
             );
         }
@@ -1053,7 +1146,7 @@ mod tests {
         if !committed_pack(&path) {
             return;
         }
-        // Only the header: tools/build_release.py checks the download against
+        // Only the header: cargo tools build-release checks the download against
         // DEFAULT_MUSIC_SHA256 before every release build.
         let mut head = [0u8; 6];
         std::fs::File::open(&path)
@@ -1223,6 +1316,7 @@ mod tests {
         let (sounds_out, music_out) = write_split_fixture_packs(tmp.path());
         let loader = PackLoader::new(&sounds_out, &music_out);
         let combined = loader.open().unwrap();
+        assert!(combined.music_is_streamed(), "music.pak must stay on disk");
         assert_eq!(combined.read("music/x.ogg").unwrap(), b"music track bytes");
         assert_eq!(
             combined.read("engine/y.ogg").unwrap(),
@@ -1233,6 +1327,39 @@ mod tests {
         let mut names = combined.names();
         names.sort();
         assert_eq!(names, vec!["engine/y.ogg", "music/x.ogg"]);
+    }
+
+    #[test]
+    fn test_a_streamed_track_longer_than_the_read_ahead_is_byte_exact() {
+        // A track is unmasked as it comes off the disk, buffer by buffer, so
+        // every buffer has to pick the key up at the right byte. Stored, not
+        // deflated, would hide nothing either way: a pseudo-random payload
+        // does not compress, so the masked bytes are the track's own.
+        let tmp = tempfile::tempdir().unwrap();
+        let (sounds_out, _) = write_split_fixture_packs(tmp.path());
+        let music_src = tmp.path().join("long_music_src");
+        std::fs::create_dir_all(music_src.join("music")).unwrap();
+        let mut state = 0x2545_f491_4f6c_dd1du64;
+        let track: Vec<u8> = (0..1_300_007)
+            .map(|_| {
+                state ^= state << 13;
+                state ^= state >> 7;
+                state ^= state << 17;
+                (state >> 24) as u8
+            })
+            .collect();
+        std::fs::write(music_src.join("music").join("long.ogg"), &track).unwrap();
+        let music_out = write_pack(&music_src, &tmp.path().join("music.pak"), None, None).unwrap();
+        let combined = PackLoader::new(&sounds_out, &music_out).open().unwrap();
+        assert!(combined.music_is_streamed());
+        let read = combined.read("music/long.ogg").unwrap();
+        assert_eq!(read.len(), track.len());
+        assert!(
+            read == track,
+            "the streamed track differs from what was packed"
+        );
+        // And again, from wherever the first read left the file.
+        assert!(combined.read("music/long.ogg").unwrap() == track);
     }
 
     #[test]

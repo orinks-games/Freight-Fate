@@ -1,10 +1,9 @@
 #!/bin/bash
 # AppImage entry point. Bundled libraries live in usr/lib; the game keeps
 # its own layout under opt/freightfate with rpaths patched by linuxdeploy to
-# reach usr/lib. The game directory must also be on the search path: the
-# libraries staged beside the executable (libbass*.so, libprism.so) live
-# there, and one that loads another by name (a BASS add-on loading
-# libbass.so) has to find it.
+# reach usr/lib. The game directory stays on the search path too, for any
+# library a later build stages beside the executable; today SDL2, Prism and
+# the audio engine are all compiled into it.
 HERE="$(dirname "$(readlink -f "$0")")"
 export LD_LIBRARY_PATH="$HERE/usr/lib:$HERE/opt/freightfate${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 exec "$HERE/opt/freightfate/FreightFate" "$@"

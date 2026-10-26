@@ -2,12 +2,13 @@
 //! the cross-traffic bubble, the stop bar's countdown and its held tone, the
 //! route-transition assist, and the crossing itself.
 
+use crate::speech::EventPriority;
 use ff_core::data::world_models::Interchange;
 use ff_core::pyrandom::PyRandom;
-use ff_core::sim::cross_traffic::{cross_sound_lead_s, CrossTraffic, CrossVehicle};
+use ff_core::sim::cross_traffic::{CrossTraffic, CrossVehicle};
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::sim::trip_route_helpers::INTERCHANGE_IDENTITY_MI;
-use ff_core::speech_pacing::{EventPriority, SpeechCategory};
+use ff_core::speech_pacing::SpeechCategory;
 use ff_core::units::spoken_feet_or_meters;
 
 use crate::app::{GameContext, IntoSpoken, SayEvent};
@@ -50,6 +51,14 @@ impl DrivingState {
             // The dice used to put a stop sign here, spoken with the
             // MAINLINE's limit on its far side (owner playtest, 2026-08-20,
             // "Stop sign at ramp end. Limit 70").
+            return "none".to_string();
+        }
+        if !self.facility_streets_on {
+            // Facility streets off is the 1.8 road: no ramp ends at a light
+            // or a sign. The facility's ramp runs into the facility (owner,
+            // 2026-10-11), and every other exit runs into its stop or back
+            // onto the road (owner, 2026-10-24: "When off, players should
+            // not encounter lights or stop signs").
             return "none".to_string();
         }
         // A stop matched to its interchange at bake time reads that record
@@ -325,7 +334,7 @@ impl DrivingState {
                 dt
             };
         }
-        self.update_cross_bubble(ctx, dt);
+        self.update_cross_bubble(dt);
         if !self.terminal_live() || self.ramp_terminal_done {
             return;
         }
@@ -443,11 +452,11 @@ impl DrivingState {
     /// Run the crossroad's own traffic while the terminal is live.
     ///
     /// Real seconds, like the light: the terminal already stops the clock
-    /// compressing, and a gap that shrank at 4x would be unreadable. Each
-    /// vehicle fires its crossing cue half a cue-length before it reaches the
-    /// conflict point, panned to the ear it comes from, so the peak of the
-    /// doppler lands on the actual crossing -- the gap IS the audio.
-    pub fn update_cross_bubble(&mut self, ctx: &mut GameContext, dt: f64) {
+    /// compressing, and a gap that shrank at 4x would be unreadable. What the
+    /// driver hears of it is the traffic sounds
+    /// (`driving_traffic_sounds.rs`): each crossing vehicle is panned and
+    /// levelled from where it is every frame, so the gap IS the audio.
+    pub fn update_cross_bubble(&mut self, dt: f64) {
         if self.cross_bubble.is_none() {
             return;
         }
@@ -466,39 +475,8 @@ impl DrivingState {
                 bubble.player_has_green = green;
             }
         }
-        let ramp_mi = self.terminal_gap_mi().unwrap_or(0.0) + RAMP_ACCESS_MI;
-        // The crossroad fades in down the ramp: nothing until the terminal
-        // callout distance, full presence at the bar.
-        let closeness = 1.0 - 1.0f64.min(0.0f64.max(ramp_mi) / RAMP_CONTROL_ANNOUNCE_MI);
-        let mut cues: Vec<(&'static str, f64, f64)> = Vec::new();
         if let Some(bubble) = self.cross_bubble.as_mut() {
             bubble.update(dt);
-            if closeness <= 0.05 {
-                return;
-            }
-            for vehicle in bubble.vehicles.iter_mut() {
-                if vehicle.sound_started || vehicle.position_mi >= 0.0 || vehicle.speed_mph <= 1.0 {
-                    continue;
-                }
-                let eta = -vehicle.position_mi * 3600.0 / vehicle.speed_mph;
-                if eta > cross_sound_lead_s(vehicle.vehicle_class).unwrap_or(1.2) {
-                    continue;
-                }
-                vehicle.sound_started = true;
-                cues.push((
-                    vehicle.vehicle_class,
-                    0.25 + 0.6 * closeness,
-                    if vehicle.from_side == "left" {
-                        -0.7
-                    } else {
-                        0.7
-                    },
-                ));
-            }
-        }
-        for (vehicle_class, volume, pan) in cues {
-            let key = format!("traffic/{}_cross", vehicle_class.replace(' ', "_"));
-            ctx.audio.play_with(&key, volume, pan);
         }
     }
 
@@ -594,6 +572,12 @@ impl DrivingState {
         if self.ramp_creep_prompt_said
             && self.ramp_creep_prompt_gap_mi - gap_mi < RAMP_CREEP_REARM_MI
         {
+            return;
+        }
+        if self.terminal_assist_closes_up(ctx) {
+            // The assist is driving the truck up to the line itself; telling
+            // the driver to close the gap would be an instruction for a job
+            // that is not theirs.
             return;
         }
         if ctx.settings.route_transition_assist && gap_mi <= RAMP_ASSIST_HOLD_MI {
@@ -964,7 +948,7 @@ impl DrivingState {
     /// asks the hold line whether it is still true while delivering it.
     pub(crate) fn say_route_navigation(&self, ctx: &mut GameContext, message: &str) {
         self.refresh_live_facts();
-        let mut opts = SayEvent::queued().priority(EventPriority::Route);
+        let mut opts = SayEvent::queued().priority(EventPriority::Important);
         opts.category = Some(SpeechCategory::Navigation);
         ctx.say_event_with(message.to_string(), opts);
     }
@@ -983,7 +967,7 @@ impl DrivingState {
         category: SpeechCategory,
     ) {
         self.refresh_live_facts();
-        let mut opts = SayEvent::queued().priority(EventPriority::Route);
+        let mut opts = SayEvent::queued().priority(EventPriority::Important);
         opts.category = Some(category);
         ctx.say_event_with(message, opts);
     }
@@ -1001,7 +985,7 @@ impl DrivingState {
     ) {
         self.refresh_live_facts();
         let opts = SayEvent::queued()
-            .priority(EventPriority::Route)
+            .priority(EventPriority::Important)
             .category(category)
             .valid(live::ramp_holding);
         ctx.say_event_with(message.to_string(), opts);

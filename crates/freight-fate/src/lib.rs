@@ -9,6 +9,7 @@ pub mod audio;
 pub mod bindings;
 pub mod browser;
 pub mod cloud_saves;
+pub mod community_stations;
 pub mod controller;
 pub mod discord_presence;
 pub mod duty_watch;
@@ -24,3 +25,5 @@ pub mod speech;
 pub mod states;
 pub mod touch;
 pub mod updater;
+#[cfg(feature = "visuals")]
+pub mod visuals;

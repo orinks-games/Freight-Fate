@@ -64,10 +64,32 @@ fn test_engine_shutdown_is_blocked_at_highway_speed() {
 
     assert!(harness.read_drive(|d| d.truck().engine_on));
     let said = last_main(&harness);
-    assert!(said.contains("Unsafe to shut the engine off"), "{said}");
-    assert!(said.contains("70 miles per hour"), "{said}");
+    assert!(
+        said.contains("Brake below 5 miles per hour first."),
+        "{said}"
+    );
     let status = harness.read_drive(|d| d.status_text.clone());
     assert!(status.contains("shutdown blocked"), "{status}");
+}
+
+#[test]
+fn test_engine_shutdown_block_speaks_its_limit_in_metric() {
+    let mut harness = a_drive("Shutdown Blocked Metric");
+    harness.app.ctx.settings.imperial_units = false;
+    press(&mut harness, Key::E);
+    harness.app.ctx.audio.update(5.0);
+    harness.with_drive(|drive, _| drive.truck_mut().velocity_mps = 11.2);
+    harness.clear_speech();
+
+    press(&mut harness, Key::E);
+
+    let said = last_main(&harness);
+    assert!(said.contains("kilometers per hour"), "{said}");
+    assert!(
+        said.contains("Brake below 8 kilometers per hour first."),
+        "{said}"
+    );
+    assert!(!said.contains("miles"), "{said}");
 }
 
 #[test]

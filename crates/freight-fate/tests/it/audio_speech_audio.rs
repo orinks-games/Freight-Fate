@@ -11,8 +11,8 @@ use crate::audio_support::{rig, shipped_music};
 #[test]
 fn test_audio_engine_headless_noops() {
     let mut r = rig();
-    // With the dummy driver the backend may be BASS on the no-sound
-    // device or the null backend; either way every call must be safe.
+    // With the dummy driver the backend is Hearken on its silent backend;
+    // every call must be safe.
     let audio = &mut r.engine;
     audio.play("ui/menu_select");
     audio.play("nonexistent/sound");

@@ -434,6 +434,50 @@ fn a_hazard_after_the_reminder_excuses_the_crossing_unless_the_driver_crawled_fi
 }
 
 #[test]
+fn a_hazard_during_the_drivers_own_crawl_does_not_excuse_the_crossing() {
+    // The crawl keeps the reminder quiet, so a hazard that takes the cab
+    // before it speaks used to mark the scale held by the game, and the
+    // crossing at speed after it was excused: the crawl-then-speed dodge
+    // with a hazard in the middle.
+    let mut rig = ten_times_rig();
+    let (_closed, open) = closed_then_open(&mut rig.drive);
+    let key = rig.drive.weigh_station_key(&open);
+    rig.prepare(61.0, None);
+    rig.drive.trip.position_mi = open.at_mi - 3.0;
+    rig.drive.enforcement_prev_mi = open.at_mi - 3.0;
+    let reminder = "Signal for the scale exit.";
+
+    hold_for(&mut rig, 61.0, open.at_mi, |rig| {
+        rig.drive.trip.position_mi >= open.at_mi - 0.9
+    });
+    hold_for(&mut rig, 14.0, open.at_mi, |rig| {
+        rig.drive.trip.position_mi >= open.at_mi - 0.3
+    });
+    assert_eq!(rig.said(reminder), 0, "{:?}", rig.transcript());
+    assert!(rig.drive.scale_reminder_late_by_driver.contains(&key));
+
+    let mut crossed = false;
+    for _ in 0..20_000 {
+        let left = open.at_mi - rig.drive.trip.position_mi;
+        rig.drive.hazard_deadline = (left > 0.15).then_some(60.0);
+        rig.drive.trip.truck.velocity_mps = mph_to_mps(61.0);
+        let before = rig.drive.trip.position_mi;
+        rig.step(1, DT, None);
+        crossed |= before < open.at_mi && rig.drive.trip.position_mi >= open.at_mi;
+        if rig.drive.pull_over.is_some() || rig.drive.trip.position_mi > open.at_mi + 0.3 {
+            break;
+        }
+    }
+    assert!(crossed, "the truck crossed");
+    assert!(!rig.drive.scale_reminder_held_by_game.contains(&key));
+    assert!(
+        rig.drive.pull_over.is_some(),
+        "the crossing is judged: {:?}",
+        rig.transcript()
+    );
+}
+
+#[test]
 fn a_notice_first_heard_inside_the_reminder_window_still_excuses_a_quick_crossing() {
     // The game's late, not the driver's: the scale only came into range
     // inside the reminder window (a trip starting there, a notice held back
@@ -739,6 +783,9 @@ fn a_pause_with_no_open_scale_announced_adds_nothing() {
     let mut rig = ten_times_rig();
     let (_closed, open) = closed_then_open(&mut rig.drive);
     rig.drive.truck_mut().velocity_mps = mph_to_mps(61.0);
+    // Just inside the notice's lead, wherever the spoken notice sizes it.
+    let lead_mi = rig.drive.scale_notice_lookahead_mi(&rig.app.ctx);
+    rig.drive.trip.position_mi = open.at_mi - lead_mi + 0.05;
     pause_and_resume(&mut rig);
     // Not announced yet: the notice, not a re-announcement, is what speaks
     // it -- on this very frame, and only once.

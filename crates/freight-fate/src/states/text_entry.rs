@@ -19,13 +19,16 @@ use crate::states::base::{spoken_char, InputEvent, Key, State};
 /// The longest string a field takes.
 pub const MAX_LEN: usize = 24;
 
-/// Appended to every field's prompt: on iOS the on-screen keyboard rises
-/// with the field, and the player needs to know how to put it away.
-pub const KEYBOARD_HINT: &str = if cfg!(target_os = "ios") {
-    " Three-finger double tap hides or shows the keyboard."
-} else {
-    ""
-};
+/// A field's controls in gestures, for a touch player with no hardware
+/// keyboard to name keys on. The on-screen keyboard rises with the field.
+pub const TOUCH_FIELD_HELP: &str = "Type with the on-screen keyboard, then double tap. \
+    Flick left or right to review the letters, swipe up or down with three fingers to jump \
+    to the start or end, and swipe down with two fingers to cancel.";
+
+/// Whether a field prompt should name gestures rather than keys.
+pub fn touch_prompt(ctx: &GameContext) -> bool {
+    ctx.controller.device() == ff_core::input_hints::TOUCH
+}
 
 /// The field itself: what the Python class kept on `self`.
 pub struct TextEntryCore {
@@ -98,10 +101,14 @@ pub trait TextEntry: Sized + 'static {
 
     fn enter(&mut self, ctx: &mut GameContext) {
         let heading = self.entry().heading.clone();
+        if touch_prompt(ctx) {
+            ctx.say(&format!("{heading}. {TOUCH_FIELD_HELP}"));
+            return;
+        }
         ctx.say(&format!(
             "{heading}. Type, then press Enter. \
              Left and right arrows review the letters you have typed, \
-             Home and End jump to the start or end. Press Escape to cancel.{KEYBOARD_HINT}"
+             Home and End jump to the start or end. Press Escape to cancel."
         ));
     }
 
@@ -111,11 +118,21 @@ pub trait TextEntry: Sized + 'static {
         ctx.update_music_rotation(dt);
     }
 
+    /// True while the screen is busy with what Enter started (a request on
+    /// its way): keys do nothing until it answers.
+    fn input_paused(&self) -> bool {
+        false
+    }
+
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
-        let Some((key, _mods, text)) = event.key_down() else {
+        if self.input_paused() {
+            return;
+        }
+        let Some((key, mods, text)) = event.key_down() else {
             return;
         };
         match key {
+            Key::V if mods.ctrl => self.paste(ctx),
             Key::Escape => {
                 ctx.audio.play("ui/menu_back");
                 ctx.pop_state();
@@ -158,7 +175,8 @@ pub trait TextEntry: Sized + 'static {
             String::new(),
             format!("{}: {before}|{after}", field.field_label),
             "Left and right arrows review letters, Home and End jump to the \
-             ends. Enter to confirm, Escape to cancel, F2 to hear the whole text."
+             ends. Enter to confirm, Escape to cancel, F2 to hear the whole text, \
+             Control V to paste."
                 .to_string(),
         ]
     }
@@ -171,6 +189,34 @@ pub trait TextEntry: Sized + 'static {
         field.cursor += 1;
         ctx.audio.play("ui/tick");
         ctx.say_with(spoken_char(ch), Say::new().review(false));
+    }
+
+    /// Control V: the clipboard's first non-empty line, at the cursor, cut
+    /// to what the field has room for. The pasted text is read back, since
+    /// nobody can check a long address they did not type any other way.
+    fn paste(&mut self, ctx: &mut GameContext) {
+        let text = ctx.clipboard.get_text().unwrap_or_default();
+        let line: Vec<char> = text
+            .lines()
+            .map(str::trim)
+            .find(|l| !l.is_empty())
+            .unwrap_or("")
+            .chars()
+            .filter(|&c| is_printable(c))
+            .collect();
+        let field = self.entry_mut();
+        let room = field.max_len.saturating_sub(field.name.len());
+        if line.is_empty() || room == 0 {
+            ctx.audio.play("ui/error");
+            return;
+        }
+        let pasted: Vec<char> = line.into_iter().take(room).collect();
+        let at = field.cursor;
+        field.name.splice(at..at, pasted.iter().copied());
+        field.cursor += pasted.len();
+        ctx.audio.play("ui/tick");
+        let pasted: String = pasted.into_iter().collect();
+        ctx.say_with(format!("Pasted {pasted}"), Say::new().review(false));
     }
 
     fn backspace(&mut self, ctx: &mut GameContext) {

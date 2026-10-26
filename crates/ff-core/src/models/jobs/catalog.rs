@@ -251,11 +251,17 @@ pub static CARGO_CATALOG: Lazy<IndexMap<&'static str, CargoType>> = Lazy::new(||
         // (and reasonable access off it); the freeze only bites longer
         // combinations. The T endorsement opens the freight, and the
         // National Network route gate keeps it on legal lanes.
+        //
+        // Parcel fills a pup's space long before its weight: two pups of
+        // boxes run about 6 to 15 tonnes. The set is also some 4 tonnes
+        // heavier empty than the single van the board's weight clamp
+        // assumes (two pup boxes and a converter dolly), so a heavier set
+        // would be over 80,000 pounds on a real scale.
         CargoType::plain(
             "parcel_doubles",
             "twin-trailer parcel freight",
             3.15,
-            (10.0, 22.0),
+            (6.0, 15.0),
             &["doubles_triples"],
         )
         .min_level(8)
@@ -329,7 +335,10 @@ pub static CARGO_CATALOG: Lazy<IndexMap<&'static str, CargoType>> = Lazy::new(||
             &["doubles_triples", "lcv"],
         )
         .min_level(20)
-        .lcv_lanes(),
+        .lcv_lanes()
+        // A turnpike double is two full-length trailers, not the parcel
+        // pups the twin-trailer program is named for.
+        .equipment("two 48-foot trailers"),
     ];
     entries.into_iter().map(|c| (c.key, c)).collect()
 });

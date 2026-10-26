@@ -244,8 +244,9 @@ fn test_company_driver_garage_service_is_carrier_billed() {
 
     assert!(profile(&app).visible_owned_trucks().is_empty());
     let rows = labels::<GarageState>(&app);
-    assert!(rows[0].contains("assigned company tractor"));
-    assert!(rows[0].contains("carrier billed"));
+    // The carrier pays; the row says what, the help says who.
+    assert!(rows[0].starts_with("Refuel: "));
+    assert!(!rows[0].contains("dollars"));
     key(&mut app, Key::Return);
     approx(
         profile(&app).truck_fuel_gal(),

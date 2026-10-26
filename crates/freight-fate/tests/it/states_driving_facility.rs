@@ -233,7 +233,7 @@ fn test_fast_crossing_misses_the_gate_and_loops_back() {
     assert!(d.trip.position_mi < d.trip.total_miles());
     assert_eq!(d.gate_miss_count, 1);
     assert_eq!(d.trip.game_minutes, minutes + GATE_MISS_LOOP_MIN);
-    let text = last_with(&app, "safe turnaround");
+    let text = last_with(&app, "You turned around");
     assert!(app
         .event_calls()
         .iter()
@@ -330,12 +330,12 @@ fn test_the_rest_key_short_of_the_gate_names_the_gate() {
     let hint = d
         .gate_short_hint(&app.ctx)
         .expect("a gate is a truck length ahead");
-    assert!(hint.starts_with("The gate at "), "{hint}");
-    assert!(hint.contains(" ahead. Stop there"), "{hint}");
+    assert!(hint.starts_with("Gate at "), "{hint}");
+    assert!(hint.ends_with(" ahead."), "{hint}");
     let parked_before = d.trip.truck.parking_brake;
     d.try_rest_stop(&mut app.ctx);
     let said = app.main_lines().join(" ");
-    assert!(said.contains("The gate at"), "{said}");
+    assert!(said.contains("Gate at"), "{said}");
     assert!(!said.contains("shoulder sleep"), "{said}");
     assert_eq!(
         d.trip.truck.parking_brake, parked_before,
@@ -499,11 +499,11 @@ fn test_repeat_miss_appends_the_help_clause() {
     app.clear_speech();
     at_gate(&mut d, 70.0, true);
     d.handle_arrival_gate(&mut app.ctx);
-    let first = last_with(&app, "carried past the gate");
+    let first = last_with(&app, "Missed the gate at");
     assert!(!first.contains("Settings"));
     at_gate(&mut d, 70.0, true);
     d.handle_arrival_gate(&mut app.ctx);
-    let second = lines_with(&app, "carried past the gate")
+    let second = lines_with(&app, "Missed the gate at")
         .into_iter()
         .find(|line| line.contains("Brake with"))
         .expect("the repeat miss appends help");
@@ -540,7 +540,7 @@ fn test_reapproach_after_a_miss_arrives_normally() {
     d.trip.truck.parking_brake = false;
     d.trip.truck.velocity_mps = 2.0 / 2.23694;
     d.handle_arrival_gate(&mut app.ctx);
-    assert!(!lines_with(&app, "Stop, set the parking brake").is_empty());
+    assert!(!lines_with(&app, "Stop and set the parking brake.").is_empty());
     d.trip.truck.velocity_mps = 0.3 / 2.23694;
     d.trip.truck.set_parking_brake();
     d.handle_arrival_gate(&mut app.ctx);
@@ -615,7 +615,10 @@ fn test_terse_mode_hears_the_essential_cues() {
     at_gate(&mut d, 70.0, true);
     d.handle_arrival_gate(&mut app.ctx);
     let said = last_with(&app, "Missed the gate");
-    assert!(said.contains("Safe turnaround"));
+    assert_eq!(
+        said,
+        "Missed the gate, too fast. Slow to 15 miles per hour."
+    );
     assert!(said.to_lowercase().contains("slow to"));
 }
 
@@ -633,7 +636,7 @@ fn test_time_is_charged_each_loop() {
 
 #[test]
 fn test_missed_gate_loop_charges_hos_fatigue_and_fuel() {
-    // The spoken "The clock is still running" line must be true: a gate
+    // The time a miss costs must be real: a gate
     // miss's scripted loop-back costs real HOS, fatigue, and fuel, not just
     // the game clock -- otherwise the loop is a free-time exploit.
     let mut app = TestApp::new();
@@ -702,11 +705,11 @@ fn test_the_hold_prompt_does_not_come_back_once_the_menu_is_open() {
     let holds = |app: &TestApp| {
         app.event_lines()
             .into_iter()
-            .filter(|line| line.contains("holding at the entrance"))
+            .filter(|line| line.contains("Holding at the entrance"))
             .count()
     };
     assert_eq!(holds(&app), 1);
-    let prompt = last_with(&app, "holding at the entrance");
+    let prompt = last_with(&app, "Holding at the entrance");
     assert!(prompt.contains("Press Enter"), "{prompt}");
     assert!(!prompt.contains("controller A"), "{prompt}");
 
@@ -775,7 +778,7 @@ fn test_the_assist_stops_the_truck_at_a_pickup_gate() {
     // the same line and the same control as the dock.
     d.trip.truck.velocity_mps = 0.0;
     d.handle_pickup_gate(&mut app.ctx);
-    let prompt = last_with(&app, "holding at the entrance");
+    let prompt = last_with(&app, "Holding at the entrance");
     assert!(prompt.contains("Press Enter"), "{prompt}");
     assert!(d.trip.truck.parking_brake);
 }
@@ -792,9 +795,10 @@ fn test_manual_delivery_stop_names_parking_and_facility_controls() {
 
     d.handle_arrival_gate(&mut app.ctx);
 
-    let prompt = last_with(&app, "Stop, set the parking brake");
-    assert!(prompt.contains("parking brake with P"), "{prompt}");
-    assert!(prompt.contains("T opens the facility"), "{prompt}");
+    // Parked, the facility opens on its own: the prompt names the stop and
+    // nothing else.
+    let prompt = last_with(&app, "Stop and set the parking brake.");
+    assert!(!prompt.contains("opens the facility"), "{prompt}");
 }
 
 #[test]
@@ -1082,7 +1086,7 @@ fn test_off_the_ramp_carries_the_first_corner_and_hands_speed_control_back() {
     app.clear_speech();
     assert!(d.begin_surface_chain(&mut app.ctx, true));
 
-    let message = last_with(&app, "Off the ramp and onto city streets");
+    let message = last_with(&app, "to the facility gate.");
     let first_street = d.trip.route.legs[1].highway.clone();
     assert!(message.contains(&first_street), "{message}");
     assert!(message.to_lowercase().contains("turn"), "{message}");
@@ -1161,9 +1165,8 @@ fn test_the_pickup_gate_asks_for_a_complete_stop_then_a_check_in() {
     // Creeping in: the gate asks for the check-in rather than repeating.
     d.trip.truck.velocity_mps = 2.0 / 2.23694;
     d.handle_pickup_gate(&mut app.ctx);
-    let said = last_with(&app, "Stop, set the parking brake");
+    let said = last_with(&app, "Stop and set the parking brake.");
     assert!(said.starts_with("At "));
-    assert!(said.contains("parking brake with P"), "{said}");
     assert!(d.arrival_full_stop_said);
 }
 

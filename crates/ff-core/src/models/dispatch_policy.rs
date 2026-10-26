@@ -54,7 +54,7 @@ pub fn dispatch_policy<P: CareerProfile + ?Sized>(profile: &P) -> DispatchPolicy
     }
     let career = profile.career();
     let level = career.level();
-    // The band the dispatch trust line speaks: service, licence, record and
+    // The band the dispatch trust line speaks: service, license, record and
     // debt. On service alone, a record or debt that holds the line at
     // guarded promised fewer refusals that never came (owner, 2026-09-28).
     let band = standing_band(profile);

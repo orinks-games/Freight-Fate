@@ -92,7 +92,7 @@ fn test_terse_air_brake_startup_omits_control_instructions() {
         spoken
             .last()
             .expect("the start-up says something")
-            .ends_with("Air pressure 55 psi."),
+            .ends_with("Air 55 psi."),
         "{spoken:#?}"
     );
     let event_texts: Vec<String> = event_calls(&harness).into_iter().map(|(t, _)| t).collect();
@@ -131,7 +131,7 @@ fn test_terse_air_brake_startup_omits_control_instructions() {
         .last()
         .cloned()
         .expect("the air-ready cue speaks");
-    assert!(last_event.0.starts_with("Air ready:"), "{last_event:?}");
+    assert_eq!(last_event.0, "Air ready.", "{last_event:?}");
     assert!(!last_event.0.contains("Press P"), "{last_event:?}");
 }
 
@@ -153,7 +153,7 @@ fn test_air_brake_startup_blocks_movement_until_ready_and_released() {
     assert!(
         event_calls(&harness)
             .iter()
-            .any(|(t, _)| t.contains("At 100 psi")),
+            .any(|(t, _)| t.starts_with("Air pressure")),
         "{:#?}",
         event_calls(&harness)
     );
@@ -161,7 +161,7 @@ fn test_air_brake_startup_blocks_movement_until_ready_and_released() {
     press(&mut harness, Key::P);
     assert!(harness.read_drive(|d| d.truck().parking_brake));
     let last = main_lines(&harness).last().cloned().unwrap_or_default();
-    assert!(last.contains("Parking brake stays set"), "{last}");
+    assert!(last.starts_with("Parking brake set. Air "), "{last}");
 
     for _ in 0..(60 * 15) {
         frame(&mut harness);
@@ -172,9 +172,7 @@ fn test_air_brake_startup_blocks_movement_until_ready_and_released() {
 
     assert!(harness.read_drive(|d| d.truck().air_ready()));
     assert!(
-        event_calls(&harness)
-            .iter()
-            .any(|(t, _)| t.contains("Air pressure ready")),
+        event_calls(&harness).iter().any(|(t, _)| t == "Air ready."),
         "{:#?}",
         event_calls(&harness)
     );

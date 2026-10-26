@@ -5,8 +5,7 @@
 //! Everything that drove `App()` / `DrivingState` (the reception tick, the
 //! fringe renderer, playlist playback, the settings round trip) is the game
 //! crate's; `test_radio_streaming.py` is entirely the BASS backend and has
-//! no pure half. The imported-tier tests that read `tools/` or
-//! `data/radio_stream_health.json` stay Python.
+//! no pure half.
 
 use std::collections::HashSet;
 use std::path::{Path, PathBuf};
@@ -315,6 +314,25 @@ fn test_ff_music_stations_share_the_ff_dial_group() {
     assert_eq!(playlist_backed.len(), 19);
     assert!(playlist_backed.iter().all(|s| dial_group(s) == 1));
     assert!(playlist_backed.iter().all(|s| s.always_available));
+}
+
+#[test]
+fn test_channel_3000_does_not_head_the_ff_stations() {
+    // No call sign used to sort it ahead of FFN and FFR, so the category
+    // jump landed on Channel 3000 (owner, 2026-10-13). It follows the
+    // lettered stations now, and the Roadhouse family leads.
+    let radio = RadioState::new(catalog()).with_position(Some(DALLAS));
+    let ff: Vec<String> = radio
+        .receivable_stations()
+        .into_iter()
+        .filter(|r| dial_group(&r.station) == 1)
+        .map(|r| r.station.id)
+        .collect();
+    assert_eq!(
+        ff.last().map(String::as_str),
+        Some(crate::channel3000::CHANNEL_3000_ID)
+    );
+    assert_eq!(ff.first().map(String::as_str), Some("ff-night-line"));
 }
 
 #[test]
@@ -1073,20 +1091,130 @@ fn test_category_jump_lands_on_favorites() {
     assert!(action.unwrap().message.contains("Favorites"));
 }
 
+const SEATTLE: (f64, f64) = (47.6062, -122.3321);
+
+/// A Dallas station that comes in strong in Dallas, and is saved.
+fn dallas_favorite(radio: &mut RadioState) -> RadioStation {
+    let station = radio
+        .receivable_stations()
+        .into_iter()
+        .find(|r| r.station.source_type == "imported" && r.signal >= 0.8)
+        .unwrap()
+        .station;
+    radio.station_id = station.id.clone();
+    radio.toggle_favorite();
+    station
+}
+
 #[test]
-fn test_out_of_range_favorite_stays_off_the_dial() {
+fn test_an_out_of_range_station_that_is_not_saved_stays_off_the_dial() {
     let mut radio = dallas_radio();
     let dallas_local = radio
         .available_stations()
         .into_iter()
         .find(|s| s.source_type == "imported")
         .unwrap();
-    radio.favorite_ids.insert(dallas_local.id.clone());
-    radio.update_position(Some((47.6062, -122.3321)), None); // Seattle
+    radio.update_position(Some(SEATTLE), None);
     assert!(!radio
         .available_stations()
         .iter()
         .any(|s| s.id == dallas_local.id));
+}
+
+#[test]
+fn test_a_favorite_plays_clean_from_anywhere() {
+    let mut radio = dallas_radio();
+    let favorite = dallas_favorite(&mut radio);
+    radio.update_position(Some(SEATTLE), None);
+    let on_dial = radio
+        .receivable_stations()
+        .into_iter()
+        .find(|r| r.station.id == favorite.id)
+        .expect("a favorite stays on the dial outside its area");
+    assert!(on_dial.streamed);
+    assert_eq!(on_dial.signal_label(), "streaming");
+    assert_eq!(signal_volume_factor(&on_dial), 1.0);
+    assert_eq!(radio.group(&favorite), FAVORITES_GROUP);
+    // Still tuned: nothing faded out.
+    assert_eq!(radio.current_station().id, favorite.id);
+    let mut backend = RecordingBackend::default();
+    let action = radio.play(Some(&mut backend), "");
+    assert!(!action.fallback_used);
+    assert_eq!(backend.played.last().unwrap().0, favorite.id);
+    assert!(action.message.contains("streaming"), "{}", action.message);
+}
+
+#[test]
+fn test_a_favorite_keeps_its_real_signal_at_home() {
+    let mut radio = dallas_radio();
+    let favorite = dallas_favorite(&mut radio);
+    let reception = radio.current_reception();
+    assert_eq!(reception.station.id, favorite.id);
+    assert!(!reception.streamed);
+    assert_eq!(reception.signal_label(), "strong signal");
+}
+
+#[test]
+fn test_a_favorite_streams_once_its_signal_thins() {
+    // Where it would start to fade, it streams instead: a favorite has no
+    // fringe to crackle through.
+    let mut radio = dallas_radio();
+    let favorite = dallas_favorite(&mut radio);
+    let edge = effective_range_miles(&favorite, None);
+    let (lat, lon) = (favorite.lat.unwrap(), favorite.lon.unwrap());
+    radio.update_position(Some(north_of((lat, lon), edge * 0.97)), None);
+    let physical = estimate_signal(&favorite, radio.position, None);
+    assert!(physical.signal > 0.0 && physical.signal < SIGNAL_FULL_VOLUME);
+    let reception = radio.current_reception();
+    assert!(reception.streamed);
+    assert_eq!(signal_volume_factor(&reception), 1.0);
+}
+
+#[test]
+fn test_unsaving_a_far_favorite_lets_it_fade() {
+    let mut radio = dallas_radio();
+    let favorite = dallas_favorite(&mut radio);
+    radio.update_position(Some(SEATTLE), None);
+    radio.toggle_favorite();
+    assert_ne!(radio.current_station().id, favorite.id);
+}
+
+#[test]
+fn test_a_streamed_favorite_is_not_the_strongest_signal_here() {
+    let mut radio = dallas_radio();
+    let favorite = dallas_favorite(&mut radio);
+    radio.update_position(Some(SEATTLE), None);
+    let seattle_local = radio
+        .receivable_stations()
+        .into_iter()
+        .find(|r| r.station.source_type == "imported" && !r.streamed)
+        .unwrap()
+        .station;
+    let next = radio.strongest_terrestrial(&seattle_local).unwrap();
+    assert_ne!(next.station.id, favorite.id);
+    assert!(!next.streamed);
+}
+
+#[test]
+fn test_power_on_keeps_a_far_favorite() {
+    let mut radio = dallas_radio();
+    let favorite = dallas_favorite(&mut radio);
+    radio.update_position(Some(SEATTLE), None);
+    radio.enabled = false;
+    radio.toggle(None);
+    assert_eq!(radio.current_station().id, favorite.id);
+}
+
+#[test]
+fn test_streamer_safe_mode_still_hides_a_far_favorite() {
+    let mut radio = dallas_radio();
+    let favorite = dallas_favorite(&mut radio);
+    radio.update_position(Some(SEATTLE), None);
+    radio.streamer_safe = true;
+    assert!(!radio
+        .available_stations()
+        .iter()
+        .any(|s| s.id == favorite.id));
 }
 
 #[test]
@@ -2253,4 +2381,82 @@ fn test_search_finds_the_whole_dial_in_range_first() {
     assert_eq!(capped.len(), 5);
     assert!(total > 5);
     assert_eq!(radio.band_name(&hits[0].0), "Terrestrial");
+}
+
+#[test]
+fn search_page_bounds_cover_every_hit_once() {
+    for total in [0usize, 1, 25, 26, 40, 41, 50, 51, 52] {
+        let pages = search_page_count(total, 25);
+        let mut covered = 0;
+        for page in 0..pages {
+            let (start, end) = search_page_bounds(total, page, 25);
+            assert_eq!(start, covered, "total {total} page {page}");
+            covered = end;
+        }
+        assert_eq!(covered, total);
+    }
+    assert_eq!(search_page_bounds(52, 1, 25), (25, 50));
+    assert_eq!(search_page_bounds(52, 9, 25), (50, 52));
+}
+
+fn web_fixture(station_id: &str, name: &str, url: &str) -> RadioStation {
+    RadioStation {
+        source_type: "web".to_string(),
+        stream_url: url.to_string(),
+        real_stream: true,
+        ..RadioStation::new(station_id, name, "", "pop", "browse fixture")
+    }
+}
+
+#[test]
+fn browse_lists_in_range_first_terrestrial_before_web_and_dedupes() {
+    let mut all = vec![
+        terrestrial_at("br-far", "KFAR", 20.0),
+        terrestrial_at("br-near", "KNEA", 0.0),
+        web_fixture("br-web-a", "Zed Web", "https://example.test/live"),
+        web_fixture("br-web-b", "Zed Web copy", "https://example.test/live"),
+    ];
+    all.extend(catalog());
+    let radio = RadioState::new(all).with_position(Some(DALLAS));
+    let everything = radio.browse(None);
+    let pos = |id: &str| everything.iter().position(|(s, _)| s.id == id).unwrap();
+    // Local terrestrial ahead of web, and in-range ahead of out-of-range.
+    assert!(pos("br-near") < pos("br-web-a"));
+    assert!(pos("br-web-a") < pos("br-far"));
+    assert!(everything[pos("br-near")].1.is_some());
+    assert!(everything[pos("br-far")].1.is_none());
+    // The repeated stream is one row.
+    let copies = everything
+        .iter()
+        .filter(|(s, _)| s.id == "br-web-a" || s.id == "br-web-b")
+        .count();
+    assert_eq!(copies, 1);
+}
+
+#[test]
+fn browse_by_category_keeps_to_one_group_with_out_of_range_included() {
+    let mut all = vec![
+        terrestrial_at("br-far", "KFAR", 20.0),
+        terrestrial_at("br-near", "KNEA", 0.0),
+        web_fixture("br-web", "Zed Web", "https://example.test/live"),
+    ];
+    all.extend(catalog());
+    let radio = RadioState::new(all).with_position(Some(DALLAS));
+    let terrestrial = radio.browse(Some(TERRESTRIAL_GROUP));
+    assert!(terrestrial
+        .iter()
+        .all(|(s, _)| dial_group(s) == TERRESTRIAL_GROUP));
+    let first_out = terrestrial.iter().position(|(_, r)| r.is_none()).unwrap();
+    assert!(terrestrial[..first_out].iter().all(|(_, r)| r.is_some()));
+    assert!(terrestrial.iter().any(|(s, _)| s.id == "br-far"));
+    let categories = radio.browse_categories();
+    let (_, name, count) = categories
+        .iter()
+        .find(|(g, _, _)| *g == TERRESTRIAL_GROUP)
+        .copied()
+        .unwrap();
+    assert_eq!(name, "Terrestrial");
+    assert_eq!(count, terrestrial.len());
+    assert!(categories.iter().any(|(g, _, _)| *g == 9));
+    assert!(categories.windows(2).all(|w| w[0].0 < w[1].0));
 }

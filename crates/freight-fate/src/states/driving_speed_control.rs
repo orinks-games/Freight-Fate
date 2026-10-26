@@ -14,7 +14,6 @@
 use ff_core::sim::trip_route_helpers::zone_key;
 use ff_core::sim::vehicle::MIN_STOPPING_DECEL_MPS2;
 use ff_core::speech_pacing::SpeechCategory;
-use ff_core::speech_text::SpokenMessage;
 
 use crate::app::{GameContext, Say, SayEvent};
 use crate::states::driving::DrivingState;
@@ -120,6 +119,7 @@ impl DrivingState {
         self.keeper_held_mph = None;
         self.keeper_held_reason = String::new();
         self.keeper_snub = 0.0;
+        self.keeper_corner_braking = false;
         self.keeper_droop_s = 0.0;
         self.keeper_droop_said = false;
         self.keeper_overrun_s = 0.0;
@@ -132,7 +132,12 @@ impl DrivingState {
         // RESUME: braking drops the session, Shift+K brings the speed back.
         // A keeper-only cancel carries no target and must not clobber a
         // remembered one.
-        let remembered = self.speed_control_target_mph.or(self.cruise_mph);
+        // With nothing remembered yet, the keeper's speed is the last one
+        // set, so resume brings that back.
+        let remembered = self
+            .speed_control_target_mph
+            .or(self.cruise_mph)
+            .or(self.keeper_mph.filter(|_| self.resume_target_mph.is_none()));
         if let Some(remembered) = remembered {
             if remembered != 0.0 {
                 self.resume_target_mph = Some(remembered);
@@ -293,7 +298,7 @@ impl DrivingState {
             ctx.say_event_with(
                 "Automatic speed control canceled.",
                 SayEvent::queued()
-                    .priority(EventPriority::Route)
+                    .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),
             );
             return;
@@ -394,20 +399,14 @@ impl DrivingState {
             // 2026-08-15 audit).
             let held = ctx.settings.speed_text(self.keeper_mph.unwrap_or(0.0));
             let resuming = if zone_reason == "acceleration lane" {
-                format!(
-                    "Automatic speed control resuming. Speed keeper building to {held} for the \
-                     merge."
-                )
+                format!("Speed keeper building to {held} for the merge.")
             } else {
-                format!(
-                    "Automatic speed control resuming. {}",
-                    crate::states::driving_events::cruise::keeper_holding_line(&held, &zone_reason)
-                )
+                crate::states::driving_events::cruise::keeper_holding_line(&held, &zone_reason)
             };
             ctx.say_event_with(
                 resuming,
                 SayEvent::queued()
-                    .priority(EventPriority::Route)
+                    .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),
             );
             return;
@@ -429,29 +428,19 @@ impl DrivingState {
                     self.speed_control_floor_said = true;
                     let floor = ctx.settings.speed_text(CRUISE_MIN_MPH);
                     ctx.say_event_with(
-                        format!(
-                            "Automatic speed control resumes at {floor}. You have the pedals \
-                             until then."
-                        ),
+                        format!("Cruise resumes at {floor}. Pedals are yours."),
                         SayEvent::queued()
-                            .priority(EventPriority::Route)
+                            .priority(EventPriority::Important)
                             .category(SpeechCategory::Confirmation),
                     );
                 }
                 return;
             }
             self.engage_keeper(ctx, limit, KEEPER_OPEN_ROAD_BRIDGE, Some(limit), false);
-            let floor = ctx.settings.speed_text(CRUISE_MIN_MPH);
             ctx.say_event_with(
-                SpokenMessage::with_terse(
-                    format!(
-                        "Automatic speed control resuming. Speed keeper building speed; \
-                         adaptive cruise takes over at {floor}."
-                    ),
-                    "Speed control resuming.",
-                ),
+                "Speed control resuming.",
                 SayEvent::queued()
-                    .priority(EventPriority::Route)
+                    .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),
             );
             return;
@@ -708,21 +697,24 @@ impl DrivingState {
         };
         let turn_scale = self.keeper_turn_ease_scale();
         let (limit, under_reason) = self.trip.speed_limit_at(position);
-        for cue in self.turn_cues_in_play() {
+        // Only the next corner ahead is aimed at, at its own target: a
+        // later, slower corner already lowers that target when it is too
+        // close to brake for after this one (`corner_targets_ahead`), and
+        // otherwise waits its turn. Running a left 90 at the 9 of a right 90
+        // half a mile on was the slowest-wins rule over-reaching.
+        let next = self
+            .corner_targets_ahead()
+            .into_iter()
+            .find(|(cue, _)| cue.at_mi - position > 0.0);
+        if let Some((cue, advise)) = next {
             let ahead = cue.at_mi - position;
-            if ahead <= 0.0 {
-                continue;
-            }
-            let advise = self.turn_speed_mph(&cue);
             // A corner too close to build back up to the street's number and
             // shed it again is held at its own number from here: building to
             // the limit between two corners a quarter mile apart and braking
             // for the second at about 0.3 g in the last 0.07 mile is the
             // see-saw the September 23 drive into Abilene measured.
             let no_room = ahead <= self.keeper_build_and_shed_mi(limit, advise, turn_scale);
-            if ahead > self.keeper_ease_mi(advise, turn_scale) && !no_room {
-                continue;
-            }
+            let in_window = ahead <= self.keeper_ease_mi(advise, turn_scale) || no_room;
             // Every corner whose window is open, not just the nearest, and the
             // slowest of them wins. A corner holds its target through its own
             // tail, and a city block is shorter than that tail -- so aiming at
@@ -735,13 +727,28 @@ impl DrivingState {
             // milepost puts the throttle back on mid-turn, so a run of corners
             // at one number holds to the far side of the last of them.
             let until = cue.at_mi + TURN_COMMIT_TAIL_MI;
-            match demand.as_mut() {
-                None => demand = Some((until, advise, "turn".to_string())),
-                Some(current) => {
-                    if advise < current.1 {
-                        *current = (until, advise, "turn".to_string());
-                    } else if advise == current.1 {
-                        current.0 = current.0.max(until);
+            // A hold left over from a corner the truck is already past
+            // (its tail runs on so the throttle stays off mid-turn) gives way
+            // to the next corner's own number, higher or lower: a 792 ft tail
+            // holding a right's 9.6 through a left 633 ft on coasted the
+            // truck to 8.7 for a 13.4 corner.
+            let past_held_corner = demand.as_ref().is_some_and(|held| {
+                held.2 == "turn"
+                    && position >= held.0 - TURN_COMMIT_TAIL_MI
+                    && cue.at_mi < held.0
+                    && held.0 < until
+            });
+            if past_held_corner {
+                demand = Some((until, advise, "turn".to_string()));
+            } else if in_window {
+                match demand.as_mut() {
+                    None => demand = Some((until, advise, "turn".to_string())),
+                    Some(current) => {
+                        if advise < current.1 {
+                            *current = (until, advise, "turn".to_string());
+                        } else if advise == current.1 {
+                            current.0 = current.0.max(until);
+                        }
                     }
                 }
             }
@@ -806,5 +813,60 @@ impl DrivingState {
         }
         self.keeper_ease_target = demand.clone();
         demand.map(|(_, mph, reason)| (mph, reason))
+    }
+}
+
+impl DrivingState {
+    /// Hold cruise and the speed keeper at chain speed while chains are on.
+    ///
+    /// Cruise resumed at 55 with chains on shredded the set in a couple of
+    /// miles (6x wear over `CHAIN_SAFE_MPH`). The cap runs every frame, so
+    /// it also catches a resume, a re-engage after a zone, and a set-speed
+    /// bump; the driver's own number comes back when the chains come off.
+    /// 30 mph is the California ceiling ("25 or 30 miles an hour", Caltrans
+    /// winter driving tips).
+    pub fn apply_chain_speed_cap(&mut self, ctx: &mut GameContext) {
+        if !self.trip.truck.chains_on {
+            self.chain_cap_said = false;
+            if let Some(set) = self.chain_cap_cruise_mph.take() {
+                if self.cruise_mph.is_some() {
+                    self.cruise_mph = Some(set);
+                } else {
+                    // Cancelled while capped: Shift+K resumes the driver's own
+                    // number, not the chain speed it was held to.
+                    self.resume_target_mph = Some(set);
+                }
+            }
+            if let Some(set) = self.chain_cap_keeper_mph.take() {
+                if self.keeper_mph.is_some() {
+                    self.keeper_mph = Some(set);
+                }
+            }
+            return;
+        }
+        let mut capped = false;
+        if let Some(set) = self.cruise_mph.filter(|set| *set > CHAIN_SAFE_MPH) {
+            self.chain_cap_cruise_mph = Some(set);
+            self.cruise_mph = Some(CHAIN_SAFE_MPH);
+            if let Some(working) = self.cruise_working_mph {
+                self.cruise_working_mph = Some(working.min(CHAIN_SAFE_MPH));
+            }
+            capped = true;
+        }
+        if let Some(set) = self.keeper_mph.filter(|set| *set > CHAIN_SAFE_MPH) {
+            self.chain_cap_keeper_mph = Some(set);
+            self.keeper_mph = Some(CHAIN_SAFE_MPH);
+            capped = true;
+        }
+        if capped && !self.chain_cap_said {
+            self.chain_cap_said = true;
+            let held = ctx.settings.speed_text(CHAIN_SAFE_MPH);
+            let line = if self.cruise_mph.is_some() {
+                format!("Cruise held to {held} for chains.")
+            } else {
+                format!("Speed keeper held to {held} for chains.")
+            };
+            self.say_route_confirmation(ctx, line);
+        }
     }
 }

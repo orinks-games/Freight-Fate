@@ -1,6 +1,6 @@
 // The game is a windowed application, so the binary is linked into the
 // Windows GUI subsystem: no console window is ever created for it. The
-// Python build did the same (`tools/build_release.py` passes Nuitka
+// Python build did the same (`tools/build_release.py` passed Nuitka
 // `--windows-console-mode=disable`); the port had lost it, and a packaged
 // launch opened a black terminal beside the game. For a screen reader that
 // is a second window in the player's world, competing for focus, so this is
@@ -131,7 +131,7 @@ mod console {
     /// Start menu -- and that launch stays completely detached: not attached
     /// to any console, so it cannot be killed by a Ctrl-C meant for the shell
     /// or by that shell's window closing. Every path that PRINTS needs an
-    /// argument to reach it: `--help`, `-h`, `/?`, an unrecognised switch
+    /// argument to reach it: `--help`, `-h`, `/?`, an unrecognized switch
     /// (which prints the usage and exits 2), `--list-break-scenarios`,
     /// `--break-scenario`, `--break-battery`, `--playtest-sandbox`,
     /// `--playtest-road`, `--smoke`, `--headless`. Keying on "any argument at
@@ -190,7 +190,7 @@ fn run(args: &[String]) -> i32 {
         print!("{USAGE}");
         return 0;
     }
-    // An unrecognised switch used to fall through to `CliOptions::parse`, which
+    // An unrecognized switch used to fall through to `CliOptions::parse`, which
     // ignores what it does not know -- so `--help` LAUNCHED THE GAME. Someone
     // asking what the flags are gets a window and a main menu instead of an
     // answer, and on a machine already running a copy the single-instance
@@ -202,7 +202,7 @@ fn run(args: &[String]) -> i32 {
                 .iter()
                 .any(|k| *k == a.as_str() || a.starts_with(&format!("{k}=")))
     }) {
-        eprintln!("freightfate: unrecognised switch {unknown}\n");
+        eprintln!("freightfate: unrecognized switch {unknown}\n");
         eprint!("{USAGE}");
         return 2;
     }
@@ -521,7 +521,7 @@ fn list_speech_backends() -> i32 {
                 (usable(backend.as_ref()), note.to_string())
             }
             // The ordinary case for every reader this machine does not have.
-            Err(prismer::Error::BackendNotAvailable) => {
+            Err(freight_fate::speech::backend::SpeechError::BackendNotAvailable) => {
                 (false, "not installed or not running here".to_string())
             }
             Err(err) => (false, err.to_string()),
@@ -675,10 +675,12 @@ fn playtest_road(args: &[String]) -> i32 {
         // `road::plan` answers off the world data and returns before any app
         // is built. Refusing a search because a drive is open cost the tool
         // its one use during a playtest: finding where to go next.
-        let mut guard = freight_fate::single_instance::SingleInstanceGuard::new();
+        let mut guard = freight_fate::single_instance::SingleInstanceGuard::new(
+            freight_fate::single_instance::SINGLE_INSTANCE_MUTEX_NAME,
+        );
         if !guard.acquire() {
             eprintln!(
-                "Freight Fate is already running. Close it first -- a second window would \
+                "Freight Fate is already running. Close it first. A second window would \
                  start rolling behind the one you are looking at."
             );
             return 1;
@@ -797,7 +799,7 @@ fn road_session(opts: &road::RoadOptions, headless: f64, args: &[String]) -> i32
     // the main menu reaches the REAL menu, with its working Exit.
     app.set_initial_state(road_builder(hit, args));
     if let Some(dir) = &sandbox_dir {
-        // Announce the live session so tools/playtest_watch.py can follow this
+        // Announce the live session so cargo tools playtest-watch can follow this
         // drive the same way it follows a sandbox launch.
         sandbox::open_session(dir, &log_path);
     }

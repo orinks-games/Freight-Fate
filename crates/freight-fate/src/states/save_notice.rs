@@ -168,7 +168,7 @@ pub fn driving_record_notice(ctx: &GameContext) -> String {
     let (standing, trust) = match ctx.profile.as_ref() {
         Some(p) => (
             enforcement::standing_text(p),
-            enforcement::trust_text_for(p, p.standing()),
+            enforcement::trust_text_for_with_display(p, p.standing(), ctx.settings.score_display),
         ),
         None => (String::new(), String::new()),
     };

@@ -26,7 +26,7 @@
 //! ```
 //!
 //! Deselected must not mean unrun. A bad container reaches a tester through
-//! a release build, so that is where the gate belongs: `tools/build_release.py`
+//! a release build, so that is where the gate belongs: `cargo tools build-release`
 //! already runs `ff-bake --check` on every build, and CI should run both of
 //! these with `--ignored` whenever the data tree, the loaders or the baker
 //! change. Nothing else stands between a bad bake and a player.
@@ -392,6 +392,7 @@ fn the_container_holds_every_section_and_nothing_stray() {
         "text:buffs.json",
         "text:channel3000.json",
         "text:radio_catalog.json",
+        "text:radio_community.json",
         "text:radio_imported.json",
         "text:street_limits.json",
     ];

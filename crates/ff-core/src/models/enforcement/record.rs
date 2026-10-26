@@ -1,4 +1,4 @@
-//! The licence file: `DrivingRecord` and the legacy-save seeding, split out
+//! The license file: `DrivingRecord` and the legacy-save seeding, split out
 //! of `enforcement.py` by size only.
 
 use serde::{Deserialize, Serialize};
@@ -6,9 +6,8 @@ use serde_json::{Map, Value};
 
 use super::{
     FATIGUE_EVENTS_BEFORE_SERIOUS, HOURS_PER_DAY, MAJOR_FIRST_DISQUALIFICATION_DAYS,
-    REPUTATION_FULL_BOARD, REVIEW_WINDOW_DAYS, SERIOUS_SECOND_SUSPENSION_DAYS,
-    SERIOUS_THIRD_SUSPENSION_DAYS, SERIOUS_WINDOW_DAYS, SUSPENSION_LIFETIME, SUSPENSION_MAJOR,
-    SUSPENSION_SERIOUS,
+    REVIEW_WINDOW_DAYS, SERIOUS_SECOND_SUSPENSION_DAYS, SERIOUS_THIRD_SUSPENSION_DAYS,
+    SERIOUS_WINDOW_DAYS, SUSPENSION_LIFETIME, SUSPENSION_MAJOR, SUSPENSION_SERIOUS,
 };
 use crate::models::save_migration::{json_f64, json_i64};
 
@@ -39,7 +38,7 @@ pub const RECORD_CRASH: &str = "crash";
 /// How many explained entries the record keeps; the oldest fall off first.
 pub const RECORD_ENTRIES_KEPT: usize = 60;
 
-/// What the licence file remembers about this driver, for the whole career.
+/// What the license file remembers about this driver, for the whole career.
 ///
 /// Times are career game hours -- the same clock `Profile.game_hours` runs
 /// on -- so a suspension is served in game time and survives save and load.
@@ -65,7 +64,7 @@ pub struct DrivingRecord {
     /// them, so a serious violation it already carried -- served through the
     /// 383.51 ladder the driver was told about at the time -- cannot fire a
     /// hold or a termination the driver was never warned of on the first
-    /// boot of a new build. The licence ladder itself is not affected.
+    /// boot of a new build. The license ladder itself is not affected.
     pub review_started_h: f64,
     /// Lifetime enforcement money, all sources.
     pub fines_paid: f64,
@@ -177,6 +176,21 @@ impl DrivingRecord {
         self.count_within(&self.fatigue_times, game_hours, days)
     }
 
+    /// Fatigue events inside the last `days` that were booked as a safety
+    /// incident: the ones before running off the road asleep became a
+    /// serious violation, which the serious count already holds.
+    pub fn safety_incidents_within(&self, game_hours: f64, days: i64) -> i64 {
+        let cutoff = self.cutoff_days_back(game_hours, days);
+        let untimed = self.fatigue_events - self.fatigue_times.len() as i64;
+        self.fatigue_times
+            .iter()
+            .enumerate()
+            .filter(|&(i, &at)| {
+                at >= cutoff && untimed + (i as i64) < FATIGUE_EVENTS_BEFORE_SERIOUS - 1
+            })
+            .count() as i64
+    }
+
     /// Out-of-service orders inside the last `days`, since the review began.
     pub fn out_of_service_within(&self, game_hours: f64, days: i64) -> i64 {
         self.count_within(&self.out_of_service_times, game_hours, days)
@@ -189,7 +203,7 @@ impl DrivingRecord {
 
     /// Serious violations the carrier's review and the insurer count: inside
     /// the review window AND since the review began. Distinct from
-    /// [`Self::serious_in_window`], which is the 383.51 licence ladder, looks
+    /// [`Self::serious_in_window`], which is the 383.51 license ladder, looks
     /// back three years and counts every one.
     pub fn serious_in_review_window(&self, game_hours: f64) -> i64 {
         self.serious_within(game_hours, REVIEW_WINDOW_DAYS)
@@ -347,7 +361,7 @@ impl DrivingRecord {
     /// Log running off the road asleep. Returns (fatigue events, serious).
     ///
     /// The first one is a preventable safety incident: it costs standing but
-    /// not the licence. From the second on it is a 49 CFR 392.3 violation --
+    /// not the license. From the second on it is a 49 CFR 392.3 violation --
     /// operating a commercial vehicle impaired by fatigue -- and it joins the
     /// serious-violation ladder like any other.
     pub fn record_fatigue_event(&mut self, game_hours: f64) -> (i64, i64) {
@@ -423,7 +437,7 @@ pub fn seed_record_from_save(data: &Map<String, Value>) -> DrivingRecord {
         Some(rep) if rep != 0.0 => rep,
         _ => 50.0,
     };
-    if !record.clean(game_hours) || reputation < REPUTATION_FULL_BOARD {
+    if !record.clean(game_hours) || super::trust_band(reputation) != super::TRUST_FULL {
         record.notice_pending = true;
     }
     record

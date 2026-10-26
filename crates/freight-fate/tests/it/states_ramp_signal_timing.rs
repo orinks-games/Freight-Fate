@@ -248,6 +248,7 @@ fn red_clearance_empties_the_conflict_window_before_green() {
                 crossed: false,
                 committed: false,
                 sound_started: false,
+                id: 1,
             });
             drive.cross_bubble = Some(bubble);
             drive.ramp_light_timer = drive.ramp_light_red_s() - RAMP_LIGHT_RED_CLEARANCE_S;
@@ -406,7 +407,7 @@ fn route_transition_assistance_slows_a_green_arrival_to_rolling_speed() {
     assert_eq!(
         lines
             .iter()
-            .filter(|line| line.contains("slowing for the green light"))
+            .filter(|line| line.contains("Slowing for the green light"))
             .count(),
         1,
         "{lines:?}"
@@ -417,7 +418,7 @@ fn route_transition_assistance_slows_a_green_arrival_to_rolling_speed() {
 fn an_assisted_red_stop_is_never_called_short_of_the_light() {
     // Agent drive, 2026-09-22: stopped by the assist at the red, the cab said
     // "Stopped short of the light" on both sides of the assist's own
-    // "Stopped at the red light". Inside the hold window the assist owns it.
+    // "Stopped at the red light" (now "Red light."). Inside the hold window the assist owns it.
     let mut harness: PlaytestHarness = start_drive("Assisted red");
     harness.prepare_for_driving(0.0);
     harness.app.ctx.settings.route_transition_assist = true;
@@ -434,9 +435,7 @@ fn an_assisted_red_stop_is_never_called_short_of_the_light() {
 
     let lines = spoken(&harness);
     assert!(
-        lines
-            .iter()
-            .any(|line| line.contains("Stopped at the red light")),
+        lines.iter().any(|line| line.contains("Red light.")),
         "{lines:?}"
     );
     assert!(

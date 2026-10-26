@@ -98,7 +98,7 @@ fn test_a_line_the_rung_silences_leaves_the_mix_alone() {
         app.ctx.settings.driving_speech = rung.to_string();
 
         app.ctx.say_event_with(
-            "Traffic ahead, adaptive cruise reducing speed.",
+            "Traffic ahead, slowing.",
             SayEvent::queued().category(SpeechCategory::Traffic),
         );
 

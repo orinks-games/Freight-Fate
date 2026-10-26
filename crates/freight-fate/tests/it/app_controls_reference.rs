@@ -20,8 +20,8 @@ fn test_controls_help_page_points_at_the_driving_keys() {
     // The new keys are documented there.
     let joined = lines.join(" ");
     assert!(joined.contains("Space speaks your speed"));
-    assert!(joined.contains("active speed-control mode"));
-    assert!(joined.contains("open-road target"));
+    assert!(joined.contains("speed-control mode"));
+    assert!(joined.contains("RPM with a manual transmission"));
     assert!(joined.contains("S speaks the posted speed limit"));
     assert!(joined.contains("R speaks how far along you are"));
     assert!(joined.contains("A repeats the last driving announcement"));

@@ -10,10 +10,12 @@
 use std::{env, fs, path::PathBuf};
 
 fn main() {
+    pass_on_hearken_link_args();
     link_prism_system_libraries();
     build_ios_bridge();
     let manifest = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap());
     let root = manifest.ancestors().nth(2).unwrap().to_path_buf();
+    write_catalog_list(&root);
     let os = env::var("CARGO_CFG_TARGET_OS").unwrap_or_default();
     let arch = env::var("CARGO_CFG_TARGET_ARCH").unwrap_or_default();
     let dir = root
@@ -43,111 +45,62 @@ fn main() {
     }
 }
 
-/// Link what Prism's macOS and Linux backends import.
-///
-/// prism-sys names these for Windows only, and a static library leaves them
-/// to the final link. macOS: the frameworks its CMake links (AVSpeech,
-/// VoiceOver, power management). Linux: glibmm and giomm (Orca) when
-/// pkg-config finds them -- the same test Prism's CMake uses to decide
-/// whether to build that backend. Speech Dispatcher is not linked: Prism
-/// opens it at run time, so a machine without it still starts.
-fn link_prism_system_libraries() {
-    match env::var("CARGO_CFG_TARGET_OS").as_deref() {
-        Ok("macos") => {
-            for framework in [
-                "Foundation",
-                "AVFoundation",
-                "AppKit",
-                "IOKit",
-                "CoreFoundation",
-            ] {
-                println!("cargo:rustc-link-lib=framework={framework}");
-            }
-            println!("cargo:rustc-link-lib=objc");
-        }
-        Ok("ios") => {
-            // Prism (VoiceOver announcements, AVSpeech) and the SDL2 UIKit
-            // backend compiled in by sdl2-sys, whose static link names only
-            // the macOS frameworks.
-            for framework in [
-                "Foundation",
-                "UIKit",
-                "AVFoundation",
-                "AudioToolbox",
-                "CoreAudio",
-                "CoreBluetooth",
-                "CoreFoundation",
-                "CoreGraphics",
-                "CoreHaptics",
-                "CoreMotion",
-                "GameController",
-                "Metal",
-                "OpenGLES",
-                "QuartzCore",
-                "Security",
-            ] {
-                println!("cargo:rustc-link-lib=framework={framework}");
-            }
-            println!("cargo:rustc-link-lib=objc");
-            println!("cargo:rustc-link-lib=iconv");
-            println!("cargo:rustc-link-lib=c++");
-            // BASS and its add-ons ship as embedded frameworks in the app's
-            // own Frameworks folder.
-            println!("cargo:rustc-link-arg=-Wl,-rpath,@executable_path/Frameworks");
-            link_clang_runtime();
-        }
-        Ok("linux") => {
-            link_libstdcxx_statically();
-            for module in ["glibmm-2.68", "giomm-2.68"] {
-                let Ok(out) = std::process::Command::new("pkg-config")
-                    .args(["--libs", module])
-                    .output()
-                else {
-                    continue;
-                };
-                if !out.status.success() {
-                    continue;
-                }
-                for flag in String::from_utf8_lossy(&out.stdout).split_whitespace() {
-                    if let Some(dir) = flag.strip_prefix("-L") {
-                        println!("cargo:rustc-link-search=native={dir}");
-                    } else if let Some(lib) = flag.strip_prefix("-l") {
-                        println!("cargo:rustc-link-lib={lib}");
-                    }
-                }
+/// Apply the link arguments Prism needs, as Hearken publishes them, to the
+/// game's final link (copied from Echo Parlor's build.rs).
+/// hearken-speech works out the arguments (none since Prism 0.1.4) and the
+/// `hearken` facade passes them on; a link argument only reaches the final
+/// link, which is this crate's, so a future argument reaches it with no
+/// change here.
+fn pass_on_hearken_link_args() {
+    println!("cargo:rerun-if-env-changed=DEP_HEARKEN_LINK_ARGS");
+    match env::var("DEP_HEARKEN_LINK_ARGS") {
+        Ok(args) => {
+            for arg in args.split(';').filter(|arg| !arg.is_empty()) {
+                println!("cargo:rustc-link-arg={arg}");
             }
         }
-        _ => {}
+        // Cargo hands a build script this list only from a direct dependency.
+        Err(_) => println!(
+            "cargo:warning=Prism's link arguments are missing. Fix: add hearken to this \
+             package's [dependencies]."
+        ),
     }
 }
 
-/// Make prism-sys's `-lstdc++` resolve to the compiler's static archive.
+/// Link what Prism and SDL2 import on iOS.
 ///
-/// Prism needs a newer libstdc++ than the oldest distribution the Linux
-/// build supports ships, so it is linked in rather than required of the
-/// player's system. prism-sys asks for plain `stdc++`; the linker takes the
-/// first search directory holding any libstdc++, and this one holds only the
-/// archive.
-fn link_libstdcxx_statically() {
-    println!("cargo:rerun-if-env-changed=CXX");
-    let cxx = env::var("CXX").unwrap_or_else(|_| "c++".to_string());
-    let Ok(out) = std::process::Command::new(&cxx)
-        .arg("-print-file-name=libstdc++.a")
-        .output()
-    else {
-        return;
-    };
-    // gcc echoes the bare name back when it has no such file.
-    let archive = PathBuf::from(String::from_utf8_lossy(&out.stdout).trim());
-    if !archive.is_absolute() {
-        println!(
-            "cargo:warning=freight-fate: {cxx} has no libstdc++.a; linking libstdc++ dynamically"
-        );
-        return;
-    }
-    let dir = PathBuf::from(env::var("OUT_DIR").unwrap()).join("static-libstdcxx");
-    if fs::create_dir_all(&dir).is_ok() && fs::copy(&archive, dir.join("libstdc++.a")).is_ok() {
-        println!("cargo:rustc-link-search=native={}", dir.display());
+/// On macOS and Linux hearken-speech's build script links Prism's system
+/// libraries (the macOS frameworks; glibmm, giomm and a static libstdc++ on
+/// Linux), and those reach this crate's final link through Cargo. It has no
+/// iOS branch, so the iOS frameworks stay here.
+fn link_prism_system_libraries() {
+    if env::var("CARGO_CFG_TARGET_OS").as_deref() == Ok("ios") {
+        // Prism (VoiceOver announcements, AVSpeech) and the SDL2 UIKit
+        // backend compiled in by sdl2-sys, whose static link names only
+        // the macOS frameworks.
+        for framework in [
+            "Foundation",
+            "UIKit",
+            "AVFoundation",
+            "AudioToolbox",
+            "CoreAudio",
+            "CoreBluetooth",
+            "CoreFoundation",
+            "CoreGraphics",
+            "CoreHaptics",
+            "CoreMotion",
+            "GameController",
+            "Metal",
+            "OpenGLES",
+            "QuartzCore",
+            "Security",
+        ] {
+            println!("cargo:rustc-link-lib=framework={framework}");
+        }
+        println!("cargo:rustc-link-lib=objc");
+        println!("cargo:rustc-link-lib=iconv");
+        println!("cargo:rustc-link-lib=c++");
+        link_clang_runtime();
     }
 }
 
@@ -189,4 +142,65 @@ fn link_clang_runtime() {
         "cargo:rustc-link-arg={resource_dir}/lib/darwin/libclang_rt.{}.a",
         if simulator { "iossim" } else { "ios" }
     );
+}
+
+/// Compile every `lang/*.po` that translates something into the game, so a
+/// translator's new language needs its file and nothing else:
+/// `$OUT_DIR/catalogs.rs` is the `(code, text)` list `app::language`
+/// includes. A file with no translations yet is left out: Settings would not
+/// offer it, and each one is most of a megabyte of English in the executable.
+fn write_catalog_list(root: &std::path::Path) {
+    let lang = root.join("lang");
+    println!("cargo:rerun-if-changed={}", lang.display());
+    let mut codes: Vec<(String, PathBuf)> = fs::read_dir(&lang)
+        .into_iter()
+        .flatten()
+        .flatten()
+        .map(|entry| entry.path())
+        .filter(|path| path.extension().and_then(|e| e.to_str()) == Some("po"))
+        .filter_map(|path| {
+            let code = path.file_stem()?.to_str()?.to_string();
+            Some((code, path))
+        })
+        .filter(|(_, path)| fs::read_to_string(path).is_ok_and(|text| translates_something(&text)))
+        .collect();
+    codes.sort();
+    let mut out = String::from("&[\n");
+    for (code, path) in &codes {
+        println!("cargo:rerun-if-changed={}", path.display());
+        out.push_str(&format!(
+            "    ({code:?}, include_str!({:?})),\n",
+            path.display().to_string()
+        ));
+    }
+    out.push(']');
+    let dest = PathBuf::from(env::var("OUT_DIR").unwrap()).join("catalogs.rs");
+    fs::write(dest, out).expect("catalog list written");
+}
+
+/// Whether a PO file has any entry past the header with a non-empty
+/// translation, on one `msgstr` line or its continuation lines.
+fn translates_something(po: &str) -> bool {
+    let mut past_header = false;
+    let mut in_msgstr = false;
+    for line in po.lines().map(str::trim) {
+        if line.starts_with("msgid ") {
+            in_msgstr = false;
+        } else if let Some(rest) = line.strip_prefix("msgstr") {
+            // `msgstr "..."` or a plural form, `msgstr[0] "..."`.
+            let text = rest.trim_start_matches(|c: char| c != '"');
+            if past_header && text.len() > 2 {
+                return true;
+            }
+            in_msgstr = true;
+        } else if line.starts_with('"') {
+            if in_msgstr && past_header && line.len() > 2 {
+                return true;
+            }
+        } else if line.is_empty() && in_msgstr {
+            past_header = true;
+            in_msgstr = false;
+        }
+    }
+    false
 }

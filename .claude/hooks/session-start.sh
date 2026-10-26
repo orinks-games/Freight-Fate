@@ -1,11 +1,10 @@
 #!/bin/bash
 # SessionStart hook for Claude Code on the web.
 #
-# Brings a fresh cloud container up to the same state a contributor's
-# checkout is in after `uv sync --group dev`, so `uv run pytest` and
-# `uv run ruff check` work in the first turn of a session, and exports the
-# headless environment the game needs when there is no display, no sound
-# card, and no screen reader.
+# Brings a fresh cloud container up to a contributor's checkout: the pinned
+# Rust toolchain, both release lines for the changelog gate, the git hooks,
+# and the headless environment the game needs when there is no display, no
+# sound card, and no screen reader.
 set -euo pipefail
 
 # Local machines already have a working checkout; only the disposable cloud
@@ -24,19 +23,11 @@ if [ -n "${CLAUDE_ENV_FILE:-}" ]; then
 export SDL_VIDEODRIVER=dummy
 export SDL_AUDIODRIVER=dummy
 export FREIGHT_FATE_NO_SPEECH=1
-export COVERAGE_CORE=sysmon
 ENV
 fi
 
-# uv manages the interpreter as well as the packages, so the pinned Python
-# in .python-version is fetched here rather than assumed to be present.
-if ! command -v uv > /dev/null 2>&1; then
-  curl -LsSf https://astral.sh/uv/install.sh | sh
-  export PATH="$HOME/.local/bin:$PATH"
-fi
-
-uv python install
-uv sync --group dev
+# rust-toolchain.toml pins the compiler; this installs it when missing.
+rustup show > /dev/null || echo "warning: rustup could not install the pinned toolchain." >&2
 
 # The release-note gate resolves its base by measuring the branch point
 # against origin/dev and origin/main, and a cloud container clones a single
@@ -56,7 +47,6 @@ for release_line in dev main; do
     echo "warning: could not fetch ${release_line}; the release-note gate may pick the wrong base." >&2
 done
 
-# Both stages: ruff lint/format and the world_data sync check on commit,
-# the release-note gate on push. Every hook is language: system, so this
-# only writes .git/hooks -- there are no per-hook environments to build.
-uv run pre-commit install --hook-type pre-commit --hook-type pre-push
+# cargo fmt and the world_data sync check on commit, the release-note gate
+# on push.
+git config core.hooksPath .githooks

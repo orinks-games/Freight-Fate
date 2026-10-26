@@ -544,7 +544,7 @@ fn a_failed_fetch_enters_retry_cooldown() {
 // restriction advisories (data::world_parsing, data::world_models),
 // the capacity-aware overnight crunch (sim::hos), the road-stop
 // spoken text (sim::trip_models), and the Jason's Law survey matcher
-// in tools/curate_route_pois.py (a Python tool, which stays Python).
+// in tools/curate_route_pois.py (a Python tool, since retired).
 // They are kept here by name so the suite diff stays greppable.
 
 fn stop_raw(spaces: Option<i64>) -> serde_json::Value {

@@ -1,6 +1,5 @@
 //! Local geometry data (the data-layer half of `tests/test_local_geometry.py`;
-//! the `tools/build_local_geometry.py` case stays Python and the Trip case is
-//! ignored until `sim::trip` lands).
+//! the Trip case is ignored until `sim::trip` lands).
 
 use crate::data_support::{read_json, world};
 use ff_core::data::world_models::{Leg, Route};
@@ -191,7 +190,3 @@ fn test_local_geometry_trip_uses_local_turn_cues() {
             || cue.near_text.starts_with("Continue onto")
     }));
 }
-
-#[test]
-#[ignore = "tools/build_local_geometry.py stays Python"]
-fn test_build_tool_routes_tiny_osm_fixture() {}

@@ -1,11 +1,7 @@
 //! The learn-sounds catalog: every entry plays something real and says
 //! what it means.
 //!
-//! The Python file's asset-resolution sweeps (`_resolves`, the `ast`
-//! scan of every string literal in `src/`, the ontology/CHANGELOG/help
-//! text reads) walk the Python source tree and the loose sound tree;
-//! those stay Python until the game crate owns asset lookup. The data
-//! invariants are all pinned here.
+//! The data invariants are pinned here.
 use super::*;
 use std::collections::HashSet;
 
@@ -355,7 +351,7 @@ fn test_the_engine_lean_is_taught_as_a_cue_you_steer_toward() {
     // that difference can live, and getting it backwards would teach a blind
     // driver to steer off the road, so it is pinned here rather than trusted.
     let lean = entry("The engine lean");
-    assert!(lean.meaning.contains("Steer toward the lean"));
+    assert!(lean.meaning.contains("Steer toward the engine"));
     // And the bed, which the guide used to ride, must NOT read as something
     // to follow now that it only reports where the truck already is.
     let seat = entry("Where you sit in the lane");

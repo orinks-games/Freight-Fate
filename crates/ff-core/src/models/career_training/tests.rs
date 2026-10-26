@@ -47,7 +47,7 @@ fn test_company_training_stage_boundaries_do_not_depend_on_perfect_service() {
 }
 
 #[test]
-fn test_training_guidance_uses_carrier_flavor_without_probation_wording() {
+fn test_training_guidance_names_the_carrier_without_probation_wording() {
     let guidance = training_guidance(&profile(1, 75.0, "great_lakes_training"));
 
     let combined = [
@@ -102,15 +102,14 @@ fn test_trust_building_recommendation_allows_broader_but_still_values_time_margi
 }
 
 #[test]
-fn test_first_dispatch_guidance_is_spoken_with_the_carrier_flavor() {
+fn test_first_dispatch_guidance_is_spoken_with_the_carrier_name() {
     let guidance = training_guidance(&profile(0, 50.0, "prairie_link"));
     assert_eq!(guidance.stage, TrainingStage::FirstDispatch);
     assert_eq!(guidance.stage.value(), "first_dispatch");
     assert_eq!(
         guidance.spoken_summary(),
         "First dispatch. Prairie Link Regional has you on real freight with trainer support \
-         close by. Prairie Link Regional likes practical regional mileage. Dispatch starts you \
-         on a short standard load with room on the appointment."
+         close by. Dispatch starts you on a short standard load with room on the appointment."
     );
     assert_eq!(guidance.recommendation_label, "trainer-recommended");
     assert!(is_company_training_profile(&profile(

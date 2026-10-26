@@ -49,7 +49,7 @@ use crate::transcript_cruise_support::{
 };
 
 /// The line itself, verbatim, because a driver acts on it.
-const WARNING: &str = "Descent control cannot hold this grade. Apply service brakes.";
+const WARNING: &str = "Descent control can't hold this grade. Brake.";
 
 /// The owner drives compressed time and every assist on; so does this file.
 const TIME_SCALE: f64 = 10.0;

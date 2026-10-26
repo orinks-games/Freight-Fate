@@ -131,7 +131,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
         desc = Some(parts.join(", "));
     }
     let desc = if loading {
-        "still loading, try again in a moment".to_string()
+        "still loading".to_string()
     } else {
         match desc {
             Some(desc) => desc,

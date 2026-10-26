@@ -335,7 +335,7 @@ fn the_hold_prompt_is_not_handed_back_once_the_dock_menu_is_open() {
     app.clear_speech();
 
     d.handle_arrival_gate(&mut app.ctx);
-    assert_eq!(heard(&app, "holding at the entrance"), 1);
+    assert_eq!(heard(&app, "Holding at the entrance"), 1);
 
     // The driver pressed it. The frame loop stops here, which is why the
     // reading has to be stamped where the flag moves.
@@ -344,7 +344,7 @@ fn the_hold_prompt_is_not_handed_back_once_the_dock_menu_is_open() {
     app.ctx.say_event(CUTTER);
 
     assert_eq!(
-        heard(&app, "holding at the entrance"),
+        heard(&app, "Holding at the entrance"),
         1,
         "the hold prompt asked again for a press that had already happened: {:?}",
         app.event_lines()

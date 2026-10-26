@@ -151,13 +151,10 @@ impl DrivingState {
         if liquid.lateral.reach() >= SURGE_LATERAL_WARN {
             if self.liquid_lateral_cooldown_s <= 0.0 {
                 self.liquid_lateral_cooldown_s = SURGE_LATERAL_COOLDOWN_S;
-                let text = if terse {
-                    "Load running sideways. Ease off."
-                } else {
-                    "The load is running to the outside of the bend. Ease off now -- baffles do \
-                     nothing about this one."
-                };
-                ctx.say_event_with(text, SayEvent::new().category(SpeechCategory::Safety));
+                ctx.say_event_with(
+                    "Load running sideways. Ease off.",
+                    SayEvent::new().category(SpeechCategory::Safety),
+                );
             }
         } else {
             self.liquid_lateral_cooldown_s = 0.0f64.max(self.liquid_lateral_cooldown_s - dt);
@@ -166,12 +163,10 @@ impl DrivingState {
         if reach >= SURGE_SPEAK_REACH && !self.liquid_surge_said {
             self.liquid_surge_said = true;
             self.liquid_settled_said = false;
-            let text = if terse {
-                "Load running forward."
-            } else {
-                "The load is running forward in the tank. It will push you on when it gets there."
-            };
-            ctx.say_event_with(text, SayEvent::queued().category(SpeechCategory::Status));
+            ctx.say_event_with(
+                "Load running forward.",
+                SayEvent::queued().category(SpeechCategory::Status),
+            );
             return;
         }
 

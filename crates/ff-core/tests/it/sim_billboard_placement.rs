@@ -100,7 +100,7 @@ const PLACE_CLAIMS: &[(&str, &[&str])] = &[
     ("San Antonio, down the road", &["TX"]),
     ("Laredo ahead", &["TX"]),
     ("Tejano", &["TX"]),
-    ("Flattest stretch in Kansas", &["KS", "OK", "MO", "NE"]),
+    ("Flat Kansas", &["KS", "OK", "MO", "NE"]),
     // -- Interstate 5 ------------------------------------------------------
     ("Bakersfield Sound", &["CA"]),
     ("The Grapevine", &["CA"]),
@@ -205,7 +205,7 @@ const PLACE_CLAIMS: &[(&str, &[&str])] = &[
     ("Nuts. We sell them", &["AL", "GA", "LA", "MS", "TX"]),
     // -- the Appalachian hollows -------------------------------------------
     (
-        "called hollers",
+        "Hollers ahead",
         &["WV", "VA", "KY", "TN", "NC", "PA", "OH", "MD", "GA", "AL"],
     ),
 ];
@@ -402,6 +402,7 @@ fn test_a_named_city_is_always_still_ahead_when_its_sign_is_read() {
 }
 
 #[test]
+#[cfg_attr(ci_quick, ignore = "sweep: 288 seeded billboard runs")]
 fn test_no_billboard_names_a_place_the_truck_is_not_near() {
     let (shown, built) = sweep();
     assert!(built >= 200, "only {built} seeded runs built");
@@ -576,6 +577,36 @@ fn test_wall_drug_still_reads_in_south_dakota() {
             .count();
     }
     assert!(hits > 0, "Wall Drug never appeared on South Dakota I-90");
+}
+
+/// The hollers board must still be read in the sweep, and only in the
+/// Appalachian states the placement table gives it: a key that no longer
+/// matches the board's text would let its placement go unchecked.
+#[test]
+fn test_the_hollers_board_still_reads_in_appalachia() {
+    let honest = PLACE_CLAIMS
+        .iter()
+        .find(|(phrase, _)| *phrase == "Hollers ahead")
+        .map(|(_, states)| *states)
+        .expect("the hollers board has a placement row");
+    let (shown, _) = sweep();
+    let hollers: Vec<&Shown> = shown
+        .iter()
+        .filter(|s| s.spoken.contains("Hollers ahead"))
+        .collect();
+    assert!(
+        !hollers.is_empty(),
+        "the hollers board never appeared in the sweep"
+    );
+    for sign in hollers {
+        assert!(
+            sign.state.is_empty() || honest.contains(&sign.state.as_str()),
+            "hollers board read in {} at mile {:.1} on {}",
+            sign.state,
+            sign.at_mi,
+            sign.run
+        );
+    }
 }
 
 /// Meramec Caverns is Interstate 44 Missouri. Interstate 40 Arkansas must

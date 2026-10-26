@@ -30,6 +30,7 @@ use ff_core::radio::RadioState;
 
 use crate::app::GameContext;
 pub use crate::app::Say;
+use crate::bindings::Action;
 use crate::controller::{ControllerAxis, ControllerButton};
 use crate::discord_presence::PresenceState;
 use crate::touch::Gesture;
@@ -42,230 +43,16 @@ pub use menu::{
 
 // -- spoken helpers ---------------------------------------------------------------
 
-/// A spoken fragment ending in exactly one sentence mark, never two.
-///
-/// Menu/list labels are sometimes plain ("Sleep 10 hours") and sometimes
-/// whole sentences that already end in a period (settlement summary lines).
-/// Appending "." unconditionally produces ".." which a screen reader voices as
-/// "dot dot", so add the period only when one is not already there.
-pub fn end_sentence(text: &str) -> String {
-    let text = text.trim_end();
-    if text.ends_with(['.', '!', '?', ':']) {
-        text.to_string()
-    } else {
-        format!("{text}.")
-    }
-}
-
-/// A single typed character the way an accessible text field announces it.
-///
-/// Shared by every text-entry field in the game (currently just driver name
-/// entry) so a character reviewed one at a time always sounds the same way.
-/// A space reads as "space" rather than silence. A capital letter gets a
-/// leading "cap" -- speech synthesis pronounces "J" and "j" identically, so
-/// without the marker a player arrowing through a typed name has no way to
-/// hear that the first letter capitalized the way they meant it to.
-pub fn spoken_char(ch: char) -> String {
-    if ch == ' ' {
-        return "space".to_string();
-    }
-    if ch.is_alphabetic() && ch.is_uppercase() {
-        return format!("cap {}", ch.to_lowercase());
-    }
-    ch.to_string()
-}
+/// `end_sentence` keeps a spoken fragment to one sentence mark; `spoken_char`
+/// names a typed character the way an accessible text field does (space,
+/// capitals and punctuation). Both are Hearken's.
+pub use hearken::text::{end_sentence, spoken_char};
 
 // -- input events ------------------------------------------------------------------
 
-/// The pygame `K_*` constants the game reads, as one enum. `Other` carries
-/// any SDL keycode outside that set so text entry still sees its `text`.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub enum Key {
-    A,
-    B,
-    C,
-    D,
-    E,
-    F,
-    G,
-    H,
-    I,
-    J,
-    K,
-    L,
-    M,
-    N,
-    O,
-    P,
-    Q,
-    R,
-    S,
-    T,
-    U,
-    V,
-    W,
-    X,
-    Y,
-    Z,
-    Num0,
-    Num1,
-    Num2,
-    Num3,
-    Num4,
-    Num5,
-    Num6,
-    Num7,
-    Num8,
-    Num9,
-    Kp0,
-    Kp1,
-    Kp2,
-    Kp3,
-    Kp4,
-    Kp5,
-    Kp6,
-    Kp7,
-    Kp8,
-    Kp9,
-    KpEnter,
-    KpPlus,
-    KpMinus,
-    F1,
-    F2,
-    F3,
-    F4,
-    F5,
-    F6,
-    F7,
-    F8,
-    F9,
-    F10,
-    F11,
-    F12,
-    Return,
-    Escape,
-    Space,
-    Tab,
-    Backspace,
-    Up,
-    Down,
-    Left,
-    Right,
-    Home,
-    End,
-    PageUp,
-    PageDown,
-    Insert,
-    Delete,
-    Comma,
-    Period,
-    Slash,
-    Backslash,
-    Backquote,
-    Equals,
-    Plus,
-    Minus,
-    Semicolon,
-    Quote,
-    LeftBracket,
-    RightBracket,
-    LCtrl,
-    RCtrl,
-    LShift,
-    RShift,
-    LAlt,
-    RAlt,
-    /// An SDL keycode the game has no binding for.
-    Other(i32),
-}
-
-impl Key {
-    /// The key a typed character arrives on (`ord(ch.lower())` in the Python
-    /// tests): letters and digits map to their keys, anything else to the
-    /// few punctuation keys the game binds, else `Other(codepoint)`.
-    pub fn from_char(ch: char) -> Key {
-        match ch.to_ascii_lowercase() {
-            'a' => Key::A,
-            'b' => Key::B,
-            'c' => Key::C,
-            'd' => Key::D,
-            'e' => Key::E,
-            'f' => Key::F,
-            'g' => Key::G,
-            'h' => Key::H,
-            'i' => Key::I,
-            'j' => Key::J,
-            'k' => Key::K,
-            'l' => Key::L,
-            'm' => Key::M,
-            'n' => Key::N,
-            'o' => Key::O,
-            'p' => Key::P,
-            'q' => Key::Q,
-            'r' => Key::R,
-            's' => Key::S,
-            't' => Key::T,
-            'u' => Key::U,
-            'v' => Key::V,
-            'w' => Key::W,
-            'x' => Key::X,
-            'y' => Key::Y,
-            'z' => Key::Z,
-            '0' => Key::Num0,
-            '1' => Key::Num1,
-            '2' => Key::Num2,
-            '3' => Key::Num3,
-            '4' => Key::Num4,
-            '5' => Key::Num5,
-            '6' => Key::Num6,
-            '7' => Key::Num7,
-            '8' => Key::Num8,
-            '9' => Key::Num9,
-            ' ' => Key::Space,
-            ',' => Key::Comma,
-            '.' => Key::Period,
-            '=' => Key::Equals,
-            '+' => Key::Plus,
-            '-' => Key::Minus,
-            ';' => Key::Semicolon,
-            '\'' => Key::Quote,
-            '[' => Key::LeftBracket,
-            ']' => Key::RightBracket,
-            other => Key::Other(other as i32),
-        }
-    }
-}
-
-/// Modifier state on a key event (`event.mod` masked with `KMOD_*`).
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
-pub struct Mods {
-    pub shift: bool,
-    pub ctrl: bool,
-    pub alt: bool,
-}
-
-impl Mods {
-    pub const NONE: Mods = Mods {
-        shift: false,
-        ctrl: false,
-        alt: false,
-    };
-    pub const SHIFT: Mods = Mods {
-        shift: true,
-        ctrl: false,
-        alt: false,
-    };
-    pub const CTRL: Mods = Mods {
-        shift: false,
-        ctrl: true,
-        alt: false,
-    };
-    pub const ALT: Mods = Mods {
-        shift: false,
-        ctrl: false,
-        alt: true,
-    };
-}
+/// The keys the game reads and the modifier state on a key event, from
+/// Hearken. `Key::from_char` maps a typed character to its key.
+pub use hearken::input::{Key, Mods};
 
 /// One event the app loop hands to a state or the controller manager.
 #[derive(Clone, Debug, PartialEq)]
@@ -543,7 +330,15 @@ pub trait State: AsAny {
         if self.captures_text_input() {
             return false;
         }
-        handle_message_review(ctx, event)
+        let focus = self.copy_focus(ctx);
+        handle_message_review_with_focus(ctx, event, focus)
+    }
+
+    /// The focused row (no position cue) and its index, for the copy key:
+    /// until something new is logged after the screen opened or focus last
+    /// moved, the row is copied. None on screens without rows.
+    fn copy_focus(&self, _ctx: &GameContext) -> Option<CopyFocus> {
+        None
     }
 }
 
@@ -565,10 +360,30 @@ pub fn controller_key_map(button: ControllerButton) -> Option<Key> {
 /// through the log, `Ctrl+,`/`Ctrl+.` jump to the ends, `Ctrl+C` copies the
 /// message in review. True when the key was one of them.
 pub fn handle_message_review(ctx: &mut GameContext, event: &InputEvent) -> bool {
+    handle_message_review_with_focus(ctx, event, None)
+}
+
+/// The row that has focus, and where it sits.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct CopyFocus {
+    pub index: usize,
+    pub row: String,
+}
+
+/// `handle_message_review`, knowing the active screen's focused row.
+pub fn handle_message_review_with_focus(
+    ctx: &mut GameContext,
+    event: &InputEvent,
+    focus: Option<CopyFocus>,
+) -> bool {
     let Some((key, mods, _)) = event.key_down() else {
         return false;
     };
     let ctrl = mods.ctrl;
+    if ctx.bindings.action_for(key, mods) == Some(Action::CopyLastSpoken) {
+        copy_last_spoken_with_focus(ctx, focus);
+        return true;
+    }
     match key {
         Key::LeftBracket => {
             if let Some(category) = ctx.message_log.previous_category() {
@@ -633,6 +448,71 @@ pub fn handle_message_review(ctx: &mut GameContext, event: &InputEvent) -> bool 
         }
         _ => false,
     }
+}
+
+/// The text the copy key puts on the clipboard: the newest line in the
+/// message log, whatever the review filter shows. The log leaves out routine
+/// menu movement and the review and clipboard confirmations, so after a
+/// search this is the result line, and on a new screen it is the heading.
+pub fn newest_copyable_line(ctx: &GameContext) -> Option<String> {
+    ctx.message_log
+        .messages
+        .iter()
+        .rev()
+        .map(|message| strip_position_cue(&message.text))
+        .find(|text| !text.is_empty())
+}
+
+/// Drop a trailing menu position cue ("Achievements. 2 of 8." becomes
+/// "Achievements."). Only a cue standing as its own sentence is removed, so
+/// "Results 1 to 25 of 52." is kept whole.
+pub fn strip_position_cue(text: &str) -> String {
+    let trimmed = text.trim_end();
+    let body = trimmed.strip_suffix('.').unwrap_or(trimmed);
+    if let Some((head, cue)) = body.rsplit_once(". ") {
+        let mut parts = cue.split(" of ");
+        if let (Some(n), Some(m), None) = (parts.next(), parts.next(), parts.next()) {
+            let digits = |s: &str| !s.is_empty() && s.chars().all(|c| c.is_ascii_digit());
+            if digits(n) && digits(m) {
+                return format!("{head}.");
+            }
+        }
+    }
+    trimmed.to_string()
+}
+
+/// Put the newest message-log line on the clipboard and say how it went.
+pub fn copy_last_spoken(ctx: &mut GameContext) {
+    copy_last_spoken_with_focus(ctx, None);
+}
+
+/// As `copy_last_spoken`, but when nothing has been logged since the
+/// screen opened or focus last moved (`GameContext::note_copy_focus`), the
+/// focused row is copied instead, without its position cue.
+pub fn copy_last_spoken_with_focus(ctx: &mut GameContext, focus: Option<CopyFocus>) {
+    let newest = newest_copyable_line(ctx);
+    let quiet = ctx.message_log.total_added() == ctx.copy_mark;
+    let text = match focus {
+        Some(focus) if quiet || newest.is_none() => Some(focus.row),
+        _ => newest,
+    };
+    copy_text(ctx, text);
+}
+
+/// Put `text` on the clipboard and say how it went. The replies are not
+/// logged, so a second press copies the same line again rather than
+/// "Copied.".
+pub fn copy_text(ctx: &mut GameContext, text: Option<String>) {
+    let Some(text) = text else {
+        ctx.say_with("Nothing to copy yet.", Say::new().review(false));
+        return;
+    };
+    let reply = if ctx.write_clipboard_text(&text) {
+        "Copied."
+    } else {
+        "Could not copy to the clipboard."
+    };
+    ctx.say_with(reply, Say::new().review(false));
 }
 
 /// How many newer messages the chosen category is holding back.
@@ -723,10 +603,6 @@ impl TimedMessageState {
         self.sound_key = key.map(str::to_string);
         self
     }
-
-    pub fn is_complete(&self) -> bool {
-        self.complete
-    }
 }
 
 impl State for TimedMessageState {
@@ -795,7 +671,9 @@ mod tests {
         assert_eq!(spoken_char('J'), "cap j");
         assert_eq!(spoken_char('j'), "j");
         assert_eq!(spoken_char('7'), "7");
-        assert_eq!(spoken_char(','), ",");
+        assert_eq!(spoken_char(','), "comma");
+        assert_eq!(spoken_char(':'), "colon");
+        assert_eq!(spoken_char('/'), "slash");
     }
 
     #[test]

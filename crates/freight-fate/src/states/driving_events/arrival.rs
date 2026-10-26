@@ -1,12 +1,13 @@
 //! Arriving: the facility gate, the missed destination exit, the dock menu,
 //! and the state's own visible lines and presence.
 
+use crate::speech::EventPriority;
 use ff_core::models::business::player_pays_operating_costs;
 use ff_core::models::trucks::TRUCK_CATALOG;
 use ff_core::pyfmt::{fmt_grouped, round_py_int};
 use ff_core::sim::hos::{clock_text, time_of_day};
-use ff_core::sim::trip_models::Zone;
-use ff_core::speech_pacing::{EventPriority, SpeechCategory};
+use ff_core::sim::trip_models::{RoadStop, Zone};
+use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
 use crate::discord_presence::{driving_presence, PresenceState};
@@ -18,7 +19,8 @@ use crate::states::driving_menu_states::{replace_drive_with, DriveRef, FacilityA
 use crate::states::driving_updates::live;
 
 impl DrivingState {
-    /// Once-per-threshold low-fuel cue at about 15 percent remaining.
+    /// Once-per-threshold low-fuel cue at about 15 percent remaining, naming
+    /// the next fuel stop on the route (or that none is listed).
     ///
     /// Speaks on the Safety channel (heard at quiet and urgent_only), plays
     /// the same short UI warning other mid-drive safety cues use, and latches
@@ -39,13 +41,117 @@ impl DrivingState {
         }
         self.low_fuel_said = true;
         let pct = fraction * 100.0;
-        let message = if self.terse_speech(ctx) {
-            format!("Fuel low: {pct:.0} percent.")
+        let message = format!("Fuel low: {pct:.0} percent.");
+        let message = format!("{message} {}", self.next_fuel_text(ctx));
+        ctx.audio.play("ui/warning");
+        ctx.say_event_with(message, SayEvent::new().category(SpeechCategory::Safety));
+    }
+
+    /// Miles per gallon this run is really getting: its own average once it
+    /// has driven and burned enough to measure, else [`ASSUMED_RANGE_MPG`].
+    /// The run's average already carries the load, the climbs and the
+    /// idling, which a flat figure cannot.
+    pub fn range_mpg(&self) -> f64 {
+        let used = self.trip.fuel_used_gal;
+        let driven = self.trip.position_mi;
+        if used >= RANGE_MEASURE_MIN_GAL && driven >= RANGE_MEASURE_MIN_MI {
+            (driven / used).clamp(RANGE_MPG_FLOOR, RANGE_MPG_CEILING)
         } else {
-            format!("Low fuel warning, {pct:.0} percent. Find a fuel stop soon.")
+            ASSUMED_RANGE_MPG
+        }
+    }
+
+    /// Miles the fuel in the tank reaches at [`Self::range_mpg`].
+    pub fn fuel_range_mi(&self) -> f64 {
+        self.trip.truck.fuel_gal.max(0.0) * self.range_mpg()
+    }
+
+    /// The nearest fuel stop ahead this rig can use, and the miles to it.
+    pub fn next_fuel_stop(&self) -> Option<(&RoadStop, f64)> {
+        self.trip
+            .stops
+            .iter()
+            .filter(|stop| stop.sells_fuel() && stop.accessible_to(self.trip.bobtail))
+            .map(|stop| (stop, stop.at_mi - self.trip.position_mi))
+            .filter(|(_, ahead)| *ahead >= 0.0)
+            .min_by(|a, b| a.1.total_cmp(&b.1))
+    }
+
+    /// Miles to the nearest fuel stop ahead this rig can use, if any.
+    pub fn next_fuel_stop_mi(&self) -> Option<f64> {
+        self.next_fuel_stop().map(|(_, ahead)| ahead)
+    }
+
+    /// The fuel range, the miles it has to cover, and the next fuel stop
+    /// when that comes before the destination.
+    pub fn fuel_range_need(&self) -> (f64, f64, Option<f64>) {
+        let remaining = self.trip.remaining_miles();
+        let next_fuel = self.next_fuel_stop_mi().filter(|ahead| *ahead < remaining);
+        (
+            self.fuel_range_mi(),
+            next_fuel.unwrap_or(remaining),
+            next_fuel,
+        )
+    }
+
+    /// Warns once when the fuel range falls short of the next fuel stop, or
+    /// of the destination when no fuel stop comes first. Latched until the
+    /// range clears what it needs by a fifth, so a refill re-arms it and the
+    /// run's average wobbling across the line does not.
+    pub fn check_fuel_range_warning(&mut self, ctx: &mut GameContext) {
+        if self.trip.truck.fuel_gal <= 0.0 {
+            return;
+        }
+        let (range, needed, next_fuel) = self.fuel_range_need();
+        if range >= needed * 1.2 {
+            self.fuel_range_short_said = false;
+            return;
+        }
+        if range >= needed || self.fuel_range_short_said {
+            return;
+        }
+        self.fuel_range_short_said = true;
+        let range_text = ctx.settings.distance_text(range, false);
+        let terse = self.terse_speech(ctx);
+        let message = match next_fuel {
+            Some(ahead) => {
+                let ahead_text = ctx.settings.distance_text(ahead, false);
+                if terse {
+                    format!("Fuel range {range_text}, next fuel {ahead_text}.")
+                } else {
+                    format!(
+                        "Fuel range about {range_text}, short of the next fuel stop, \
+                         {ahead_text} ahead."
+                    )
+                }
+            }
+            None if terse => format!("Fuel range {range_text}, short of the destination."),
+            None => format!(
+                "Fuel range about {range_text}, short of the destination, with no fuel \
+                 stop ahead on this route."
+            ),
         };
         ctx.audio.play("ui/warning");
         ctx.say_event_with(message, SayEvent::new().category(SpeechCategory::Safety));
+    }
+
+    /// Where the next fuel is, for the low fuel warning: the nearest fuel
+    /// stop ahead this rig can use before the destination, by its spoken
+    /// name and distance, or that there is none. No range math here: the
+    /// fuel range warning owns that, and F speaks the range.
+    pub fn next_fuel_text(&self, ctx: &GameContext) -> String {
+        let remaining = self.trip.remaining_miles();
+        match self
+            .next_fuel_stop()
+            .filter(|(_, ahead)| *ahead < remaining)
+        {
+            Some((stop, ahead)) => format!(
+                "Next fuel: {}, {}.",
+                stop.spoken_name(),
+                ctx.settings.distance_text(ahead, false)
+            ),
+            None => "No fuel stop before the destination.".to_string(),
+        }
     }
 
     /// `_handle_out_of_fuel()`.
@@ -76,7 +182,7 @@ impl DrivingState {
         // to a stop: nothing act-now left, so it queues on ROUTE's
         // never-dropped contract instead of purging the channel.
         let engine = ctx.control_hint("engine");
-        let mut opts = SayEvent::queued().priority(EventPriority::Route);
+        let mut opts = SayEvent::queued().priority(EventPriority::Important);
         opts.category = Some(SpeechCategory::Safety);
         ctx.say_event_with(
             format!(
@@ -131,12 +237,6 @@ impl DrivingState {
         self.destination_exit_announced_key = String::new();
         self.destination_exit_response_s = 0.0;
         self.destination_exit_cache = None;
-        // The loop-back is a whole fresh approach, so the once-per-drive
-        // "lane keeping will take this exit" warning is owed again. Spending
-        // it on the first approach and then never repeating it is half of how
-        // a truck comes to leave the highway with nothing said (Sarah A,
-        // St. George to Cedar City, 2026-08-26).
-        self.lane_keeping_takes_exit_said = false;
         let automated = ctx.settings.lane_is_automated();
         let reroute_text = if self.terse_speech(ctx) {
             // Terse holds on to consequences, and who is driving the second
@@ -144,11 +244,10 @@ impl DrivingState {
             // lane work is theirs they still need to hear that arming it is
             // on them again -- and when it is not, that it is not.
             if automated {
-                "Safe turnaround. Destination exit ahead again; lane keeping will take it."
-                    .to_string()
+                "Destination exit ahead again.".to_string()
             } else {
                 format!(
-                    "Safe turnaround. Destination exit ahead again; press {} to signal.",
+                    "Destination exit ahead again. Press {} to signal.",
                     ctx.control_hint("take_exit")
                 )
             }
@@ -159,13 +258,11 @@ impl DrivingState {
             // instruction to take it themselves -- which is what "I was about
             // to hit X when the truck took the exit" is describing. Never
             // name a control the driver's own settings have taken off them.
-            "You loop back through the next safe turnaround. The destination exit is ahead \
-             again, and lane keeping will take it."
-                .to_string()
+            "You turned around, and the destination exit is ahead again.".to_string()
         } else {
             format!(
-                "You loop back through the next safe turnaround. The destination exit is ahead \
-                 again. Press {} to signal for it.",
+                "You turned around, and the destination exit is ahead again. Press {} to signal \
+                 for it.",
                 ctx.control_hint("take_exit")
             )
         };
@@ -178,7 +275,7 @@ impl DrivingState {
         let mut opts = SayEvent::new();
         opts.category = Some(SpeechCategory::Navigation);
         ctx.say_event_with(
-            format!("You missed the destination exit for {facility}. {reroute_text}"),
+            format!("Missed the destination exit for {facility}. {reroute_text}"),
             opts,
         );
     }
@@ -243,7 +340,7 @@ impl DrivingState {
             opts.category = Some(SpeechCategory::Navigation);
             ctx.say_event_with(
                 format!(
-                    "Facility stopping assistance is holding at the entrance. Press {} to continue into the facility.",
+                    "Holding at the entrance. Press {} to continue.",
                     ctx.control_hint("confirm")
                 ),
                 opts,
@@ -278,7 +375,7 @@ impl DrivingState {
             let message = if self.terse_speech(ctx) {
                 format!("At {facility}. Stop to dock.")
             } else {
-                format!("Still at {facility}. The delivery is here, not ahead. Stop to dock.")
+                format!("Still at {facility}. Stop to dock.")
             };
             self.remind_arrival_gate(ctx, "Destination gate: stop to dock.", &message, false);
             return;
@@ -301,11 +398,7 @@ impl DrivingState {
             format!("Destination ahead, {facility}. Stop at the gate.")
         };
         if keeper_held {
-            message.push_str(if self.terse_speech(ctx) {
-                " Speed keeper off."
-            } else {
-                " Speed keeper off. The pedals are yours."
-            });
+            message.push_str(" Speed keeper off.");
         }
         self.seed_gate_grace_at_gate(ctx, &message);
         if keeper_held {
@@ -423,11 +516,7 @@ impl DrivingState {
         let message = if ctx.settings.destination_approach_assist {
             format!("At {facility}. Stop to dock.")
         } else {
-            format!(
-                "At {facility}. Stop, set the parking brake with {}, then {} opens the facility.",
-                ctx.control_hint("parking_brake"),
-                ctx.control_hint("rest")
-            )
+            format!("At {facility}. Stop and set the parking brake.")
         };
         self.say_route_navigation(ctx, &message);
     }
@@ -438,6 +527,11 @@ impl DrivingState {
             return;
         }
         self.arrival_menu_open = true;
+        // A co-driver at the wheel wakes the player for the receiver: the
+        // dock is theirs, on their own logbook.
+        if self.co_driver_driving() {
+            self.co_driver_summon(ctx, "gate");
+        }
         // The frame loop stops here, so the gate on "press Enter to continue"
         // would keep reading the last tick's answer without this.
         live::set_arrival_menu_open(true);
@@ -467,7 +561,7 @@ impl DrivingState {
         ctx.replace_state(
             TimedMessageState::new(
                 "Pulling into destination",
-                &format!("Pulling into {facility}. Brakes set; dock menu opening in a moment."),
+                &format!("Pulling into {facility}."),
                 "Pulling into the destination facility.",
                 STOP_PULL_IN_WAIT_S,
                 move |ctx: &mut GameContext| {
@@ -725,7 +819,7 @@ impl DrivingState {
 
     /// `speed_limit_at(position)` for the window, without the congestion
     /// recompute `Trip::speed_limit_at` performs (`lines()` is `&self`).
-    fn display_speed_limit(&self) -> (f64, Option<String>) {
+    pub(crate) fn display_speed_limit(&self) -> (f64, Option<String>) {
         let mile = self.trip.position_mi;
         let mut best: Option<&Zone> = None;
         for zone in &self.trip.zones {

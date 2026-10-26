@@ -155,17 +155,16 @@ fn test_pre_marker_1_9_save_loads_and_is_stamped() {
 
 // `test_new_career_will_not_overwrite_a_same_named_legacy_save` is live in `crates/freight-fate/tests/states_main_menu.rs`.
 
-// -- tests/test_version.py ---------------------------------------------------------
-
 #[test]
-fn test_package_version_matches_pyproject() {
-    // The crate version is the package version: `pyproject.toml` carries the
-    // same number, which the release tooling keeps in step.
-    let pyproject = std::fs::read_to_string(game_root().join("pyproject.toml")).unwrap();
-    let line = pyproject
+fn test_package_version_matches_the_release_metadata() {
+    // The crate version is the package version: the workspace's release
+    // metadata (`package-version`, which the release tooling reads) carries
+    // the same number.
+    let manifest = std::fs::read_to_string(game_root().join("Cargo.toml")).unwrap();
+    let line = manifest
         .lines()
-        .find(|l| l.starts_with("version = "))
-        .expect("a project version");
+        .find(|l| l.starts_with("package-version = "))
+        .expect("a package version");
     assert!(
         line.contains(env!("CARGO_PKG_VERSION")),
         "{line} vs {}",

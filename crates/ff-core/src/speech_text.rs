@@ -372,6 +372,10 @@ pub struct StopCalloutParts<'a> {
     pub parking_certainty: &'a str,
     /// Names the control that signals for the exit; "X" by default.
     pub exit_hint: &'a str,
+    /// Whether the stop sells fuel: `Some(true)` says "Fuel.", `Some(false)`
+    /// says "No fuel." (terse keeps only the "No fuel." verdict), `None`
+    /// says nothing -- a weigh station is not a place anyone fuels.
+    pub fuel: Option<bool>,
 }
 
 impl Default for StopCalloutParts<'_> {
@@ -385,6 +389,7 @@ impl Default for StopCalloutParts<'_> {
             parking_normal: "",
             parking_certainty: "",
             exit_hint: "X",
+            fuel: None,
         }
     }
 }
@@ -409,6 +414,7 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
         parking_normal,
         parking_certainty,
         exit_hint,
+        fuel,
     } = *parts;
     let exit_part = if exit_label.is_empty() {
         String::new()
@@ -425,6 +431,13 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
         let first = chars.next().map(|c| c.to_uppercase().collect::<String>());
         normal_parts.push(format!("{}{}.", first.unwrap_or_default(), chars.as_str()));
     }
+    // Whether there are pumps is the fact a driver exits on: a truck-parking
+    // lot named "Truck Stop" sold nothing (issue #272, "The 115 Truck Stop").
+    match fuel {
+        Some(true) => normal_parts.push("Fuel.".to_string()),
+        Some(false) => normal_parts.push("No fuel.".to_string()),
+        None => {}
+    }
     if !exit_hint.is_empty() {
         normal_parts.push(format!("Press {exit_hint} to signal for the exit."));
     }
@@ -438,6 +451,9 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
         .unwrap_or_else(|| terse_parking_label("unknown").expect("unknown is in the table"));
     if !parking_terse.is_empty() {
         terse = format!("{terse} {parking_terse}");
+    }
+    if fuel == Some(false) {
+        terse = format!("{terse} No fuel.");
     }
     SpokenMessage::with_terse(normal_parts.join(" "), terse)
 }
@@ -1007,6 +1023,7 @@ mod tests {
                 parking_normal: "confirmed truck parking",
                 parking_certainty: "confirmed",
                 exit_hint,
+                fuel: None,
             })
         };
 
@@ -1017,6 +1034,68 @@ mod tests {
         // The route facts survive either way.
         assert!(retired.normal.contains("Flying J"));
         assert!(retired.normal.contains("Confirmed truck parking"));
+    }
+
+    #[test]
+    fn test_stop_callout_says_whether_the_stop_sells_fuel() {
+        let callout = |fuel: Option<bool>| {
+            stop_callout(&StopCalloutParts {
+                typed_name: "truck parking: The 115 Truck Stop",
+                plain_name: "The 115 Truck Stop",
+                exit_label: "exit 115",
+                distance: "5 miles",
+                parking_normal: "confirmed truck parking",
+                parking_certainty: "confirmed",
+                fuel,
+                ..Default::default()
+            })
+        };
+        let none = callout(Some(false));
+        assert_eq!(
+            none.normal,
+            "truck parking: The 115 Truck Stop at exit 115 in 5 miles. \
+             Confirmed truck parking. No fuel. Press X to signal for the exit."
+        );
+        assert_eq!(
+            none.terse.as_deref(),
+            Some("The 115 Truck Stop, exit 115, 5 miles. Parking confirmed. No fuel.")
+        );
+        let pumps = callout(Some(true));
+        assert_eq!(
+            pumps.normal,
+            "truck parking: The 115 Truck Stop at exit 115 in 5 miles. \
+             Confirmed truck parking. Fuel. Press X to signal for the exit."
+        );
+        // Terse keeps only the verdict that changes the plan.
+        assert_eq!(
+            pumps.terse.as_deref(),
+            Some("The 115 Truck Stop, exit 115, 5 miles. Parking confirmed.")
+        );
+        let unsaid = callout(None);
+        assert!(!unsaid.normal.contains("fuel."), "{}", unsaid.normal);
+        assert!(!unsaid.terse.as_deref().unwrap().contains("fuel"));
+    }
+
+    #[test]
+    fn test_a_repeat_mention_still_carries_no_fuel() {
+        // After the first mention the proper name stands alone; the fuel
+        // verdict must not leave with the stop type.
+        let pair = stop_callout(&StopCalloutParts {
+            typed_name: "The 115 Truck Stop",
+            plain_name: "The 115 Truck Stop",
+            distance: "2 miles",
+            parking_certainty: "likely",
+            fuel: Some(false),
+            ..Default::default()
+        });
+        assert_eq!(
+            pair.normal,
+            "The 115 Truck Stop in 2 miles. No fuel. Press X to signal for the exit."
+        );
+        assert_eq!(
+            pair.terse.as_deref(),
+            Some("The 115 Truck Stop, 2 miles. No fuel.")
+        );
     }
 
     #[test]

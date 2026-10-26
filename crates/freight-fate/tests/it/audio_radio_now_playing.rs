@@ -10,7 +10,7 @@ use freight_fate::audio::{
     NullBackend,
 };
 
-use crate::audio_support::{bass_rig, sine_wav, wait_for, IcyServer};
+use crate::audio_support::{hearken_rig, sine_wav, wait_for, IcyServer};
 
 #[test]
 fn test_icy_stream_title_parsing() {
@@ -141,17 +141,17 @@ fn test_the_audio_facade_answers_none_when_the_backend_cannot_know() {
 }
 
 #[test]
-fn test_the_bass_backend_reads_the_title_off_the_stream() {
-    // End to end against the real BASS ICY reader: a localhost station
-    // interleaves `StreamTitle='...'` blocks, and the facade reports it.
-    let Some(mut r) = bass_rig() else { return };
+fn test_the_hearken_backend_reads_the_title_off_the_stream() {
+    // End to end against Hearken's ICY reader and the game's own parser: a
+    // localhost station interleaves `StreamTitle='...'` blocks, and the
+    // facade reports it.
+    let mut r = hearken_rig();
     let server = IcyServer::start(sine_wav(8.0, 1), Some("Usher - U Remind Me"));
     assert_eq!(r.engine.radio_now_playing(), None); // nothing streaming yet
     r.engine.play_radio_stream_with(&server.url, 100).unwrap();
-    let bass = r.engine.bass_mut().unwrap();
-    bass.join_radio_workers(Duration::from_secs(10));
-    bass.collect_radio_stream();
-    assert!(bass.music_track().is_some(), "the station did not open");
+    let hearken = r.hearken_mut();
+    hearken.settle_radio(Duration::from_secs(10));
+    assert!(hearken.music_track().is_some(), "the station did not open");
     let engine = &r.engine;
     assert!(
         wait_for(Duration::from_secs(5), || engine
@@ -165,4 +165,29 @@ fn test_the_bass_backend_reads_the_title_off_the_stream() {
     );
     r.engine.stop_music_with(0);
     assert_eq!(r.engine.radio_now_playing(), None);
+}
+
+#[test]
+fn test_an_encoders_ad_fields_are_stripped_off_a_live_title() {
+    // The same parser over the block as the station sent it, not Hearken's
+    // own tidied reading of it: the song, never the fields around it.
+    let mut r = hearken_rig();
+    let server = IcyServer::start(
+        sine_wav(8.0, 1),
+        Some("Beatles - text=\"This Boy\" song_spot=\"M\" length=\"00:02:13\""),
+    );
+    r.engine.play_radio_stream_with(&server.url, 100).unwrap();
+    r.hearken_mut().settle_radio(Duration::from_secs(10));
+    let engine = &r.engine;
+    assert!(
+        wait_for(Duration::from_secs(5), || engine
+            .radio_now_playing()
+            .is_some()),
+        "no title arrived"
+    );
+    assert_eq!(
+        r.engine.radio_now_playing().as_deref(),
+        Some("Beatles - This Boy")
+    );
+    r.engine.stop_music_with(0);
 }

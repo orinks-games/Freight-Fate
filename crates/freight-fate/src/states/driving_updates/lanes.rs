@@ -2,12 +2,13 @@
 //! changes, crossings, a road that narrows under the truck, coned-off lanes,
 //! and keep-right pressure.
 
+use crate::speech::EventPriority;
 use ff_core::data::curves::{advisory_with_bank_mph, superelevation_at};
 use ff_core::models::doubles::rear_trailer_whip_text;
 use ff_core::pyfmt::fmt_grouped;
-use ff_core::sim::lane::RoadConditions;
+use ff_core::sim::lane::{in_lane_phrase, RoadConditions};
 use ff_core::sim::trip_models::Zone;
-use ff_core::speech_pacing::{EventPriority, SpeechCategory};
+use ff_core::speech_pacing::SpeechCategory;
 use ff_core::speech_text::SpokenMessage;
 
 use crate::app::{GameContext, SayEvent};
@@ -24,20 +25,23 @@ impl DrivingState {
     pub fn update_lane(&mut self, ctx: &mut GameContext, dt: f64) {
         let mode = ctx.settings.lane_keeping.clone();
         let mut key_dir = 0i8;
-        if ctx.bindings.pressed(&ctx.input, Action::SteerLeft) {
+        if self.held(ctx, Action::SteerLeft) {
             key_dir -= 1;
         }
-        if ctx.bindings.pressed(&ctx.input, Action::SteerRight) {
+        if self.held(ctx, Action::SteerRight) {
             key_dir += 1;
         }
         // The left stick provides analog steering when the keys are idle.
-        let stick = if ctx.controller.active() {
+        let stick = if self.pad_live(ctx) {
             ctx.controller.steering()
         } else {
             0.0
         };
         self.lane.steer_input(key_dir, stick);
-        self.lane.straighten = ctx.bindings.pressed(&ctx.input, Action::Straighten);
+        if ctx.settings.lane_is_automated() {
+            self.update_stick_lane_change(ctx, stick);
+        }
+        self.lane.straighten = self.held(ctx, Action::Straighten);
         // The exit ramp is a single lane; the mainline keeps its leg count.
         self.lane_before_narrow = Some(self.lane.lane);
         let count = if self.ramp_mi.is_some() {
@@ -297,9 +301,9 @@ impl DrivingState {
                 // the pedals (automation-handoff sweep, 2026-08-20, the
                 // deferred 2026-08-15 audit).
                 ctx.say_event_with(
-                    "Curve assistance slowing.",
+                    "Slowing for the bend.",
                     SayEvent::queued()
-                        .priority(EventPriority::Route)
+                        .priority(EventPriority::Important)
                         .category(SpeechCategory::Confirmation),
                 );
             }
@@ -315,7 +319,7 @@ impl DrivingState {
             ctx.say_event_with(
                 "Curve assistance released.",
                 SayEvent::queued()
-                    .priority(EventPriority::Route)
+                    .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),
             );
         } else if !curve_assisting {
@@ -331,7 +335,7 @@ impl DrivingState {
         //
         // The release number has its own name rather than borrowing the cruise
         // target's; see `ramp_assist_release_mph` for the whole story.
-        let ramp_cap_mph = self.armed_ramp_mph(None);
+        let ramp_cap_mph = self.ramp_cap_here_mph();
         let ramp_hold_mph = if self.transition_assist_active {
             DrivingState::ramp_assist_release_mph(ramp_cap_mph)
         } else {
@@ -362,7 +366,12 @@ impl DrivingState {
                 // there is one; see `say_ramp_lift`.
                 self.say_ramp_lift(ctx);
             }
-        } else if self.transition_assist_active && !self.ramp_terminal_owns_the_stop() {
+        } else if self.transition_assist_active
+            && !self.ramp_terminal_owns_the_stop()
+            && !self.terminal_assist_closes_up(ctx)
+            && !self.terminal_takes_over_from_the_cap()
+            && !self.destination_arrival_active
+        {
             // ROUTE, not the ambient default: names the automation handing the
             // pedals back (automation-handoff sweep, 2026-08-20, the deferred
             // 2026-08-15 audit).
@@ -371,11 +380,16 @@ impl DrivingState {
             // five under its number, but the terminal's servo is still braking
             // for the bar, so "released" at 15 mph with the stop sign ahead was
             // untrue (agent drive into Abilene, 2026-09-23). The terminal's own
-            // "Stopped at the sign" is the release there.
+            // "Stopped at the sign" is the release there. Nor while the
+            // terminal is driving the truck up to its line: "released" came
+            // partway down Cleveland's exit 170A with the assist still at the
+            // pedals (owner, 2026-10-25). Nor while the arrival assist has
+            // the pedals for a ramp that ends at the gate: it is still
+            // driving the truck in (owner, 2026-10-25, Facility streets off).
             ctx.say_event_with(
                 "Route-transition assistance released.",
                 SayEvent::queued()
-                    .priority(EventPriority::Route)
+                    .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),
             );
         }
@@ -459,6 +473,7 @@ impl DrivingState {
         if self.lane.crossed != 0 {
             self.on_lane_crossed(ctx);
         }
+        self.hold_keeping_lane_change(ctx);
         self.update_tap_lane_change(ctx, dt);
         self.update_pass_return(ctx);
         self.update_merge(ctx, dt);
@@ -491,6 +506,13 @@ impl DrivingState {
                 ctx.audio.release_cue("vehicle/turn_signal");
             }
             target = target.min(self.lane.lane_count - 1);
+            if target == self.lane.lane {
+                // The lane it was moving to ended on the way: the truck never
+                // left its own, so there is no new lane to check or name. Run
+                // on as an arrival, the check found the vehicle ahead in this
+                // lane and billed it as a sideswipe.
+                return;
+            }
             // Check the closure again on arrival, not just when the key was
             // pressed. A change takes seconds, and in those seconds the truck
             // can reach the cones or the road can narrow and renumber the
@@ -540,10 +562,13 @@ impl DrivingState {
         self.keep_right_nags = 0;
         let lane_index = self.lane.lane;
         let lane_count = self.lane.lane_count;
-        let other = self
-            .trip
-            .traffic_manager
-            .vehicle_in_lane(
+        // Lane keeping's move back keeps a real headway (`pass_return_blocker`)
+        // and re-checked it every frame of the move, so dropping in behind a
+        // vehicle that just went by is not contact.
+        let other = if pass_return {
+            self.pass_return_blocker(lane_index)
+        } else {
+            self.trip.traffic_manager.vehicle_in_lane(
                 self.trip.position_mi,
                 lane_index,
                 DODGE_CLEARANCE_AHEAD_MI,
@@ -551,7 +576,8 @@ impl DrivingState {
                 0.0,
                 0.0,
             )
-            .map(|vehicle| vehicle.vehicle_class.clone());
+        }
+        .map(|vehicle| vehicle.vehicle_class.clone());
         if let Some(vehicle_class) = other {
             if self.trip.truck.speed_mph() > LANE_MIN_MPH {
                 if self.sideswipe_cooldown_s > 0.0 {
@@ -595,7 +621,7 @@ impl DrivingState {
                     lane_phrase(lane_index, lane_count)
                 )
             } else {
-                format!("You swerve around {names}. Well done.")
+                format!("Clear of {names}.")
             };
             self.finish_hazard_clear(ctx, &text);
             return;
@@ -616,9 +642,9 @@ impl DrivingState {
             // precedent in driving_lane_gap.py (automation-handoff sweep,
             // 2026-08-20, the deferred 2026-08-15 audit).
             ctx.say_event_with(
-                format!("In {}.", lane_phrase(lane_index, lane_count)),
+                format!("{}.", in_lane_phrase(lane_index, lane_count)),
                 SayEvent::queued()
-                    .priority(EventPriority::Route)
+                    .priority(EventPriority::Important)
                     .category(category),
             );
         }
@@ -690,10 +716,9 @@ impl DrivingState {
                 self.merge_deadline = None;
                 let volume = 1.0f64.min(0.7 * self.cue_loudness(ctx));
                 ctx.audio.play_with("vehicle/lane_line_cross", volume, 0.0);
-                let text = format!(
-                    "The {} lane is closed where the road narrows. You are in the {open_name} lane.",
-                    lane_label(closed, count)
-                );
+                let mut closed_name = lane_label(closed, count).to_string();
+                closed_name[..1].make_ascii_uppercase();
+                let text = format!("{closed_name} lane closed. In the {open_name} lane.");
                 ctx.say_event_with(text, SayEvent::new().category(SpeechCategory::Safety));
                 return;
             }
@@ -708,14 +733,11 @@ impl DrivingState {
             // it could have been. Narrowing to one lane already said which
             // lane you are in by saying there is only one.
             let moved = if count <= 1 {
-                "You are moved over.".to_string()
+                String::new()
             } else {
-                format!(
-                    "You are moved to the {} lane.",
-                    lane_label(self.lane.lane, count)
-                )
+                format!(" Now in the {} lane.", lane_label(self.lane.lane, count))
             };
-            let text = format!("The road narrows to {}. {moved}", lane_count_words(count));
+            let text = format!("The road narrows to {}.{moved}", lane_count_words(count));
             ctx.say_event_with(text, SayEvent::new().category(SpeechCategory::Safety));
         }
     }
@@ -878,7 +900,7 @@ impl DrivingState {
             // Money rides ROUTE's never-dropped contract: a busy stretch must
             // not age a citation out of the queue.
             SayEvent::queued()
-                .priority(EventPriority::Route)
+                .priority(EventPriority::Important)
                 .category(SpeechCategory::Money),
         );
         // A second serious violation just suspended the CDL: the drive ends
@@ -887,9 +909,10 @@ impl DrivingState {
     }
 
     /// Left-lane time is legitimate while passing slower right-lane
-    /// traffic, or while construction has the right lane coned off.
+    /// traffic, while construction has the right lane coned off, or while
+    /// lane keeping's own move back is held or was just called off.
     pub fn keep_right_justified(&self) -> bool {
-        if self.closed_lane_here() == Some(0) {
+        if self.closed_lane_here() == Some(0) || self.keep_right_excused_s > 0.0 {
             return true;
         }
         let speed = self.trip.truck.speed_mph();
@@ -908,6 +931,7 @@ impl DrivingState {
 
     /// Camping the left lane draws CB grumbling: keep right except to pass.
     pub fn update_keep_right(&mut self, ctx: &mut GameContext, dt: f64) {
+        self.keep_right_excused_s = (self.keep_right_excused_s - dt).max(0.0);
         if self.lane.lane_count < 2
             || self.lane.lane != self.lane.lane_count - 1
             || self.trip.truck.speed_mph() < KEEP_RIGHT_MIN_MPH
@@ -981,7 +1005,7 @@ impl DrivingState {
         if new_episode {
             let text = rear_trailer_whip_text(self.trip.truck.cargo_kg > 0.0);
             self.set_status(text);
-            let mut opts = SayEvent::queued().priority(EventPriority::Route);
+            let mut opts = SayEvent::queued().priority(EventPriority::Important);
             opts.category = Some(SpeechCategory::Safety);
             ctx.say_event_with(text, opts);
         }

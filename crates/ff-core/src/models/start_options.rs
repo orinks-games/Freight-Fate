@@ -223,7 +223,8 @@ pub const START_OPTIONS: [CareerStartOption; 5] = [
         help_text: "A practical training-fleet start. Stop pay is better on short \
                     loads, and dispatch leans toward shorter training work with a \
                     little more deadline room. Equipment and routine costs stay \
-                    carrier-paid.",
+                    carrier-paid. At level 4 with full dispatch trust, Business \
+                    status lets you move to another carrier.",
         default_city: "Milwaukee",
         company_pay: Some(CompanyPayPlan {
             pay_share: 0.33,
@@ -297,9 +298,9 @@ pub const START_OPTIONS: [CareerStartOption; 5] = [
         menu_summary: "Leased-on owner-operator from day one: a brand-new truck of your \
                        own, and every operating cost is yours.",
         help_text: "The hardest way to begin. You start leased on with a brand-new \
-                    truck you have just bought -- full tank, no damage, nothing worn \
-                    -- and limited working capital, and the operating costs -- fuel, \
-                    repairs, reserves, and settlement fees -- come out of your own \
+                    truck you have just bought: full tank, no damage, nothing worn. \
+                    Working capital is limited, and the operating costs of fuel, \
+                    repairs, reserves, and settlement fees come out of your own \
                     cash instead of the carrier's. You still start at level one and \
                     climb the same career as everyone else: this changes who pays, \
                     not how far along you are.",

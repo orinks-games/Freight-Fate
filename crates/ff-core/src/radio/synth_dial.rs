@@ -182,7 +182,12 @@ mod tests {
     #[test]
     fn the_synthesized_category_key_skips_freight_fate_stations() {
         let mut radio = radio_with(true, false);
-        let categories = groups(&radio).len();
+        // Distinct groups, not stations: one entry per station made this
+        // loop thousands of category steps long, four minutes of CI alone.
+        let mut categories = groups(&radio);
+        categories.sort_unstable();
+        categories.dedup();
+        let categories = categories.len();
         for _ in 0..categories * 2 {
             let action = radio.tune_category(1, None);
             assert_ne!(dial_group(&action.station), 1, "{}", action.message);

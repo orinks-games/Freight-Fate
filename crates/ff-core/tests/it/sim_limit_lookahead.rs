@@ -265,7 +265,7 @@ fn test_lowered_limit_names_a_downgrade_ahead() {
     let cues = cues(&mut trip, 50.05, 30.0);
     assert_eq!(
         reduced(&cues),
-        vec!["Speed limit reduced to 30 for the downgrade."]
+        vec!["Speed limit reduced to 30 for the downhill grade."]
     );
 }
 
@@ -335,4 +335,37 @@ fn test_one_posting_warns_once_however_the_frames_land() {
         "one posting warned {} times: {warned:?}",
         warned.len()
     );
+}
+
+#[test]
+fn test_a_posting_gone_before_its_line_ends_is_not_spoken_or_charged() {
+    // At 20x a fifth of a mile goes by in about a second, and "reduced to
+    // 55" for it ended with the truck back at 65 (player report, 2026-10-17).
+    let mut trip = trip(vec![
+        sample(0.0, Some(65.0)),
+        sample(50.0, Some(57.0)),
+        sample(50.2, Some(65.0)),
+    ]);
+    cues(&mut trip, 40.0, 60.0);
+    let arrival = cues(&mut trip, 50.02, 60.0);
+    assert!(
+        !arrival.iter().any(|c| c.starts_with("Speed limit")),
+        "{arrival:?}"
+    );
+    assert!(trip.in_unannounced_posting());
+    let after = cues(&mut trip, 50.3, 60.0);
+    assert!(
+        !after.iter().any(|c| c.starts_with("Speed limit")),
+        "back at the limit the driver last heard: {after:?}"
+    );
+    assert!(!trip.in_unannounced_posting());
+}
+
+#[test]
+fn test_a_posting_that_holds_long_enough_is_still_spoken() {
+    let mut trip = trip(vec![sample(0.0, Some(65.0)), sample(50.0, Some(57.0))]);
+    cues(&mut trip, 40.0, 60.0);
+    let arrival = cues(&mut trip, 50.02, 60.0);
+    assert!(has(&arrival, "Speed limit reduced to 57."), "{arrival:?}");
+    assert!(!trip.in_unannounced_posting());
 }

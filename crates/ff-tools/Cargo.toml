@@ -1,0 +1,43 @@
+[package]
+name = "ff-tools"
+description = "Freight Fate's build, release, data and translation tooling: one command, `cargo tools`"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+publish = false
+
+[[bin]]
+name = "ff-tools"
+path = "src/main.rs"
+
+[lints]
+workspace = true
+
+[features]
+# `world` brings in ff-core for the commands that load the world, the sound
+# packs or the game's own data rules. The CI gates that only read git and
+# text files (the changelog check, release notes, test targets) build with
+# `--no-default-features` so they finish in seconds.
+default = ["world"]
+world = ["dep:ff-core"]
+
+[dependencies]
+ff-core = { path = "../ff-core", optional = true }
+serde.workspace = true
+serde_json.workspace = true
+regex.workspace = true
+sha2.workspace = true
+hex.workspace = true
+base64.workspace = true
+flate2.workspace = true
+crc32fast.workspace = true
+zip.workspace = true
+tar.workspace = true
+ureq.workspace = true
+chrono.workspace = true
+tempfile.workspace = true
+
+[dev-dependencies]

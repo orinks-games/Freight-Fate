@@ -12,7 +12,7 @@ use super::playlists::{load_personal_playlists, PERSONAL_PLAYLIST_SOURCE_TYPE};
 use super::{
     dial_category_name, dial_group, estimate_signal, identity_siblings, station_distance_miles,
     station_identity, RadioAction, RadioPlaybackBackend, RadioReception, RadioStation,
-    RADIO_SEARCH_LIMIT, SAFE_ROUTE_PLAYLIST, SIGNAL_FULL_VOLUME, STATIC_SIGNAL_THRESHOLD,
+    SAFE_ROUTE_PLAYLIST, SIGNAL_FULL_VOLUME, STATIC_SIGNAL_THRESHOLD,
 };
 use crate::pyfmt::{fmt_f, round_py_int};
 
@@ -221,7 +221,7 @@ impl RadioState {
             .catalog
             .iter()
             .filter(|s| self.station_allowed(s))
-            .map(|s| estimate_signal(s, self.position, self.elevation_ft));
+            .map(|s| self.reception(s));
         let receivable: Vec<RadioReception> = receptions
             .filter(|r| r.signal > 0.0 || r.station.always_available)
             .collect();
@@ -231,7 +231,7 @@ impl RadioState {
             let (gb, sb, cb) = self.reception_sort_key(b);
             ga.cmp(&gb)
                 .then(sa.partial_cmp(&sb).unwrap_or(std::cmp::Ordering::Equal))
-                .then_with(|| ca.cmp(cb))
+                .then_with(|| ca.cmp(&cb))
         });
         if receivable.is_empty() {
             vec![self.fallback_reception()]
@@ -272,13 +272,45 @@ impl RadioState {
         solo
     }
 
+    /// How `station` comes in here.
+    ///
+    /// A favorite plays from anywhere (Orinks, 2026-10-12): a driver who
+    /// saved a station away from home still wants it once its signal is
+    /// gone. A saved ranged station keeps its real signal while that signal
+    /// is clean, and past that point the radio plays the station's stream
+    /// at full strength, so a favorite never fades, crackles or drops out.
+    pub fn reception(&self, station: &RadioStation) -> RadioReception {
+        let physical = estimate_signal(station, self.position, self.elevation_ft);
+        if physical.signal >= SIGNAL_FULL_VOLUME || !self.plays_anywhere(station) {
+            return physical;
+        }
+        RadioReception {
+            station: station.clone(),
+            distance_miles: None,
+            signal: 1.0,
+            reason: "favorite".to_string(),
+            fallback: false,
+            streamed: true,
+        }
+    }
+
+    /// A saved station with a coverage area: one [`RadioState::reception`]
+    /// may stream.
+    fn plays_anywhere(&self, station: &RadioStation) -> bool {
+        station.range_miles > 0.0
+            && !station.always_available
+            && !self.favorite_ids.is_empty()
+            && self.is_favorite(station)
+    }
+
     /// Where the dial goes when `lost` drops out of range: the strongest
     /// terrestrial station the truck can hear from here, or `None` when there
     /// is nothing on the air (Brandon, 2026-09-17: a driver listening to
     /// local radio wants the next town's station, not to be sent back to the
     /// in-house ones).
     ///
-    /// Only a clean signal counts. Below [`STATIC_SIGNAL_THRESHOLD`] a station
+    /// Only a clean signal counts, and a streamed favorite is not a signal
+    /// here at all. Below [`STATIC_SIGNAL_THRESHOLD`] a station
     /// is the static smear at the edge of its own contour, and landing there
     /// would trade one fading station for another that fades a few miles on.
     /// A sibling site of the lost station is not a landing either: a stronger
@@ -287,7 +319,7 @@ impl RadioState {
         let lost_identity = station_identity(lost);
         self.receivable_stations()
             .into_iter()
-            .filter(|r| dial_group(&r.station) == TERRESTRIAL_GROUP)
+            .filter(|r| dial_group(&r.station) == TERRESTRIAL_GROUP && !r.streamed)
             .filter(|r| r.signal >= STATIC_SIGNAL_THRESHOLD)
             .filter(|r| r.station.id != lost.id && station_identity(&r.station) != lost_identity)
             .max_by(|a, b| {
@@ -380,9 +412,73 @@ impl RadioState {
         (ordered, total)
     }
 
-    /// [`RadioState::search`] with the Radio app's default list cap.
-    pub fn search_default(&self, query: &str) -> (Vec<StationHit>, usize) {
-        self.search(query, RADIO_SEARCH_LIMIT)
+    /// The dial categories the Radio app can browse, in dial order, each with
+    /// how many distinct stations it holds: `(group, name, count)`. Only
+    /// categories with at least one allowed station appear. Favorites and the
+    /// route playlist are not here; favorites has its own list.
+    pub fn browse_categories(&self) -> Vec<(i32, &'static str, usize)> {
+        let mut counts: std::collections::BTreeMap<i32, std::collections::HashSet<String>> =
+            std::collections::BTreeMap::new();
+        for station in &self.catalog {
+            if !self.station_allowed(station) {
+                continue;
+            }
+            let group = dial_group(station);
+            if group == 0 || group == FAVORITES_GROUP {
+                continue;
+            }
+            counts
+                .entry(group)
+                .or_default()
+                .insert(station_identity(station));
+        }
+        counts
+            .into_iter()
+            .map(|(group, ids)| (group, dial_category_name(group), ids.len()))
+            .collect()
+    }
+
+    /// Every allowed station, or only one dial category's (`Some(group)`),
+    /// each paired with its reception here (None when out of range). A
+    /// multi-site station is one row, its best site. In-range stations come
+    /// first, then out-of-range ones; inside each, dial category order puts
+    /// local terrestrial ahead of web radio, then strongest signal, then name.
+    pub fn browse(&self, group: Option<i32>) -> Vec<StationHit> {
+        let receivable: HashMap<String, RadioReception> = self
+            .receivable_stations()
+            .into_iter()
+            .map(|r| (r.station.id.clone(), r))
+            .collect();
+        let mut seen: IndexMap<String, StationHit> = IndexMap::new();
+        for station in &self.catalog {
+            if !self.station_allowed(station) {
+                continue;
+            }
+            let station_group = dial_group(station);
+            if station_group == 0 && group.is_none() {
+                continue;
+            }
+            if group.is_some_and(|g| g != station_group) {
+                continue;
+            }
+            let identity = station_identity(station);
+            let reception = receivable.get(&station.id).cloned();
+            let replace = match seen.get(&identity) {
+                None => true,
+                Some((_, kept)) => reception.is_some() && kept.is_none(),
+            };
+            if replace {
+                seen.insert(identity, (station.clone(), reception));
+            }
+        }
+        let mut ordered: Vec<StationHit> = seen.into_values().collect();
+        ordered.sort_by(|a, b| {
+            a.1.is_none()
+                .cmp(&b.1.is_none())
+                .then(dial_group(&a.0).cmp(&dial_group(&b.0)))
+                .then_with(|| Self::hit_order(a, b))
+        });
+        ordered
     }
 
     /// Saved stations, each with its reception here (None when out of
@@ -414,9 +510,15 @@ impl RadioState {
     }
 
     pub fn is_favorite(&self, station: &RadioStation) -> bool {
-        self.identity_ids(station)
-            .iter()
-            .any(|id| self.favorite_ids.contains(id))
+        if self.favorite_ids.contains(&station.id) {
+            return true;
+        }
+        if self.identity_siblings.is_empty() {
+            return false;
+        }
+        self.identity_siblings
+            .get(&station_identity(station))
+            .is_some_and(|sites| sites.iter().any(|s| self.favorite_ids.contains(&s.id)))
     }
 
     /// The dial category a station sits in, as the dial speaks it.
@@ -484,7 +586,10 @@ impl RadioState {
         if let Some(station) = self.station_by_id(&self.station_id).cloned() {
             if self.station_allowed(&station) {
                 let reception = estimate_signal(&station, self.position, self.elevation_ft);
-                if reception.signal > 0.0 || station.always_available {
+                if reception.signal > 0.0
+                    || station.always_available
+                    || self.plays_anywhere(&station)
+                {
                     if let Some(handover) = self.identity_handover(&station, reception.signal) {
                         return handover;
                     }
@@ -535,7 +640,7 @@ impl RadioState {
         if station.fallback {
             return self.fallback_reception();
         }
-        estimate_signal(&station, self.position, self.elevation_ft)
+        self.reception(&station)
     }
 
     pub fn fallback_station(&self) -> RadioStation {
@@ -580,6 +685,7 @@ impl RadioState {
             signal: 1.0,
             reason: "fallback".to_string(),
             fallback: true,
+            streamed: false,
         }
     }
 
@@ -636,7 +742,12 @@ impl RadioState {
         let ranged: Vec<RadioReception> = self
             .receivable_stations()
             .into_iter()
-            .filter(|r| !r.fallback && !r.station.always_available && r.station.range_miles > 0.0)
+            .filter(|r| {
+                !r.fallback
+                    && !r.streamed
+                    && !r.station.always_available
+                    && r.station.range_miles > 0.0
+            })
             .collect();
         let Some(best) = ranged
             .iter()
@@ -806,8 +917,7 @@ impl RadioState {
             // station the player may no longer have (streamer-safe, or a
             // signal lost mid-drive), so it still moves while switched
             // off. It only reports; it never promises playback.
-            let phrase =
-                Self::station_phrase(&estimate_signal(&station, self.position, self.elevation_ft));
+            let phrase = Self::station_phrase(&self.reception(&station));
             let reception = self.current_reception();
             return RadioAction {
                 message: format!("Radio off. Selected {phrase}."),
@@ -850,7 +960,7 @@ impl RadioState {
                 retried: false,
             };
         };
-        if backend.play_station(&station, self.volume).is_err() {
+        if backend.play_reception(&reception, self.volume).is_err() {
             // One refusal is not a dead station. The first time a stream
             // fails to come up this session it gets a fresh connect on the
             // spot and the radio says so; only a second failure writes it
@@ -860,7 +970,7 @@ impl RadioState {
             // not (owner, 2026-08-22, Darren Duff radio).
             let failures = self.connect_failures.get(&station.id).copied().unwrap_or(0) + 1;
             self.connect_failures.insert(station.id.clone(), failures);
-            if failures < 2 && Self::retry_connect(backend, &station, self.volume) {
+            if failures < 2 && Self::retry_connect(backend, &reception, self.volume) {
                 return RadioAction {
                     message: format!(
                         "{} is slow to answer. Trying again.",
@@ -883,10 +993,7 @@ impl RadioState {
                 .same_band_replacement(&original.station)
                 .unwrap_or_else(|| self.fallback_reception());
             self.station_id = replacement.station.id.clone();
-            if backend
-                .play_station(&replacement.station, self.volume)
-                .is_err()
-            {
+            if backend.play_reception(&replacement, self.volume).is_err() {
                 backend.stop_radio();
             }
             let prefix = if replacement.fallback {
@@ -922,10 +1029,10 @@ impl RadioState {
     /// so acceptance is all that can be known here).
     fn retry_connect(
         backend: &mut dyn RadioPlaybackBackend,
-        station: &RadioStation,
+        reception: &RadioReception,
         volume: f64,
     ) -> bool {
-        backend.play_station(station, volume).is_ok()
+        backend.play_reception(reception, volume).is_ok()
     }
 
     /// Why a station just left the dial, in the player's own terms.
@@ -1083,18 +1190,21 @@ impl RadioState {
         format!("Saved {} to favorites.", station.display_name())
     }
 
-    fn reception_sort_key<'a>(&self, reception: &'a RadioReception) -> (i32, f64, &'a str) {
+    fn reception_sort_key<'a>(&self, reception: &'a RadioReception) -> (i32, f64, (bool, &'a str)) {
         let station = &reception.station;
         let group = self.group(station);
         // Terrestrial runs strongest-first; every other group keeps call-sign
         // order (web radio relies on the sort staying stable -- its call
         // signs are empty and its catalog order is listener-vote order).
+        // A station with no call sign follows the lettered ones, so Channel
+        // 3000 does not head the Freight Fate stations (owner, 2026-10-13).
         let signal = if group == TERRESTRIAL_GROUP {
             -reception.signal
         } else {
             0.0
         };
-        (group, signal, station.call_sign.as_str())
+        let call_sign = station.call_sign.as_str();
+        (group, signal, (call_sign.is_empty(), call_sign))
     }
 
     fn stop(backend: Option<&mut dyn RadioPlaybackBackend>) {

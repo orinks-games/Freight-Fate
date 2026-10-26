@@ -8,12 +8,11 @@
 //! set that profile directly: the tests are about the rung, not the drive.
 
 use ff_core::models::profile::Profile;
-use ff_core::speech_pacing::{
-    Disposition, EventSpeechPacer, SpeechCategory, DRIVING_SPEECH_DISPOSITIONS,
-};
+use ff_core::speech_pacing::{Disposition, SpeechCategory, DRIVING_SPEECH_DISPOSITIONS};
 use ff_core::speech_text::SpokenMessage;
 use freight_fate::app::testing::{stepping_clock, TestApp};
 use freight_fate::app::{Say, SayEvent};
+use hearken::speech::EventSpeechPacer;
 
 fn app() -> TestApp {
     let mut app = TestApp::new();
@@ -454,7 +453,8 @@ fn test_standard_speaks_a_keyless_status_line_again_when_it_says_something_new()
     past_the_walkthrough(&mut app);
     set_rung(&mut app, "standard");
     app.clear_speech();
-    app.ctx.event_pacer = EventSpeechPacer::with_clock(stepping_clock(60.0));
+    app.ctx.event_pacer =
+        EventSpeechPacer::with_clock(freight_fate::app::FF_PACER, stepping_clock(60.0));
 
     // The truck slows and speeds up again over a long leg, so it reads 62
     // more than once -- minutes apart, a different moment each time.
@@ -477,7 +477,8 @@ fn test_standard_says_the_same_lane_gap_line_about_a_later_car() {
     past_the_walkthrough(&mut app);
     set_rung(&mut app, "standard");
     app.clear_speech();
-    app.ctx.event_pacer = EventSpeechPacer::with_clock(stepping_clock(60.0));
+    app.ctx.event_pacer =
+        EventSpeechPacer::with_clock(freight_fate::app::FF_PACER, stepping_clock(60.0));
 
     let line = "Clear of the car. Right lane open.";
     for _ in 0..3 {
@@ -496,7 +497,8 @@ fn test_first_occurrence_still_holds_a_verbatim_tip_but_not_a_changed_one() {
     past_the_walkthrough(&mut app);
     set_rung(&mut app, "standard");
     app.clear_speech();
-    app.ctx.event_pacer = EventSpeechPacer::with_clock(stepping_clock(60.0));
+    app.ctx.event_pacer =
+        EventSpeechPacer::with_clock(freight_fate::app::FF_PACER, stepping_clock(60.0));
 
     let tip = "The chains are hammering the pavement. Keep it under 30.";
     for _ in 0..3 {
@@ -553,7 +555,8 @@ fn review_excludes_silenced_events_and_keeps_spoken_tips_once() {
     );
     assert!(app.ctx.message_log.messages.is_empty());
     set_rung(&mut app, "standard");
-    app.ctx.event_pacer = EventSpeechPacer::with_clock(stepping_clock(60.0));
+    app.ctx.event_pacer =
+        EventSpeechPacer::with_clock(freight_fate::app::FF_PACER, stepping_clock(60.0));
     for _ in 0..2 {
         app.ctx.say_event_with(
             "Keep it under 30.",

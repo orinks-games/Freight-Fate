@@ -302,14 +302,8 @@ fn test_the_assists_stop_for_a_red_street_light_hold_it_and_drive_on_at_green() 
     assert!(stopped, "never held at the red\n{heard}");
     // Named in whatever phase it was in; pinned red from the next frame on.
     assert!(heard.contains("Traffic light ahead. Light"), "{heard}");
-    assert!(
-        heard.contains("Route-transition assistance braking for the light."),
-        "{heard}"
-    );
-    assert!(
-        heard.contains("Stopped at the red light. Assistance is holding the brakes for green."),
-        "{heard}"
-    );
+    assert!(heard.contains("Braking for the light."), "{heard}");
+    assert!(heard.contains("Red light."), "{heard}");
     let at = harness.read_drive(|d| d.trip.position_mi);
     assert!(
         at <= bar_mi + 0.005 && bar_mi - at < 0.03,
@@ -368,11 +362,7 @@ fn test_a_green_street_light_is_driven_at_the_streets_own_speed() {
         slowest > 25.0,
         "slowed to {slowest:.1} for a green\n{heard}"
     );
-    for bad in [
-        "Route-transition assistance slowing",
-        "Green light. Through",
-        "far too fast",
-    ] {
+    for bad in ["Slowing for", "Green light. Through", "far too fast"] {
         assert!(!heard.contains(bad), "heard {bad:?}\n{heard}");
     }
 }
@@ -438,7 +428,7 @@ fn test_the_assists_stop_at_a_street_stop_sign_and_drive_on_from_it() {
     assert!(stopped_at_sign, "never stopped at the sign\n{heard}");
     assert!(heard.contains("Stop sign ahead."), "{heard}");
     assert!(heard.contains("Stopped at the sign."), "{heard}");
-    assert!(heard.contains("Speed keeper pulling ahead."), "{heard}");
+    assert!(!heard.contains("Speed keeper pulling ahead."), "{heard}");
     assert!(
         harness.read_drive(|d| d.trip.position_mi) > node + 0.05,
         "never drove on\n{heard}"
@@ -796,8 +786,13 @@ fn test_the_keeper_holds_the_next_corners_number_between_close_corners() {
             break;
         }
     }
+    // Never built up past the slower of the corner it just took and the
+    // next one: a left taken at its own number may be faster than the right
+    // after it, and that speed is shed, not added.
+    let first_speed = harness.read_drive(|d| d.turn_speed_mph(&first));
+    let allowed = next.max(first_speed);
     assert!(
-        peak <= next + 0.5,
+        peak <= allowed + 0.5,
         "built to {peak:.1} between corners; the next one advises {next:.1}"
     );
     assert!(
@@ -911,10 +906,274 @@ fn test_the_streets_start_on_the_road_the_destination_ramp_meets() {
     let first = d.trip.route.legs[0].highway.clone();
     assert_eq!(first, exit_chain.legs[0].highway);
     let heard = app.event_lines().join("\n");
+    assert!(heard.contains(&format!("Start on {first}")), "{heard}");
+}
+
+// -- each corner at its own number ---------------------------------------------------
+
+/// A 30 mph street, a left 90 onto a 30 mph street `gap_mi` long, then a right
+/// of `second_deg` onto a third. Returns the two corners.
+fn left_then_right(
+    harness: &mut PlaytestHarness,
+    gap_mi: f64,
+    second_deg: f64,
+) -> (
+    ff_core::sim::trip_models::NavigationCue,
+    ff_core::sim::trip_models::NavigationCue,
+) {
+    two_corners(harness, "left", gap_mi, "right", second_deg)
+}
+
+/// [`left_then_right`] with the sides given.
+fn two_corners(
+    harness: &mut PlaytestHarness,
+    first_side: &str,
+    gap_mi: f64,
+    second_side: &str,
+    second_deg: f64,
+) -> (
+    ff_core::sim::trip_models::NavigationCue,
+    ff_core::sim::trip_models::NavigationCue,
+) {
+    harness.with_drive(|d, _| {
+        let city = d.trip.route.cities[0].clone();
+        let legs = vec![
+            Leg::local(
+                &city,
+                0.6,
+                "East Navarre Street",
+                "Start on East Navarre Street.",
+                30.0,
+            )
+            .with_street(limit(30.0, "statutory"), Vec::new()),
+            Leg::local(
+                &city,
+                gap_mi,
+                "North Michigan Street",
+                &format!("Turn {first_side} onto North Michigan Street."),
+                30.0,
+            )
+            .with_turn_deg(90.0)
+            .with_street(limit(30.0, "statutory"), Vec::new()),
+            Leg::local(
+                &city,
+                0.6,
+                "West Sample Street",
+                &format!("Turn {second_side} onto West Sample Street."),
+                30.0,
+            )
+            .with_turn_deg(second_deg)
+            .with_street(limit(30.0, "statutory"), Vec::new()),
+        ];
+        let route = Route::from_legs(vec![city; 4], legs);
+        let truck = d.trip.truck.clone();
+        let mut weather = WeatherSystem::new("heartland", Some(3), None, None, true);
+        weather.current = WeatherKind::Clear;
+        let mut trip = Trip::new(
+            route,
+            truck,
+            weather,
+            TripOptions {
+                seed: Some(3),
+                time_scale: 1.0,
+                ..Default::default()
+            },
+        );
+        quiet(&mut trip);
+        d.trip = trip;
+        d.reset_turn_state_for_trip();
+        d.destination_exit_taken = true;
+        d.truck_mut().start_engine();
+        d.truck_mut().transmission.automatic = true;
+        d.truck_mut().transmission.gear = 6;
+        d.truck_mut().set_air_ready(false);
+        d.truck_mut().velocity_mps = 30.0 * MPS_PER_MPH;
+        d.trip.position_mi = 0.3;
+        let cues = turn_cues(d);
+        (cues[0].clone(), cues[1].clone())
+    })
+}
+
+/// Drive on the keeper alone until past `last_mi`; the speed as the truck
+/// crossed each of `marks`.
+fn speeds_at(harness: &mut PlaytestHarness, marks: &[f64], last_mi: f64) -> Vec<f64> {
+    let mut out = vec![f64::NAN; marks.len()];
+    let mut prev = harness.read_drive(|d| d.trip.position_mi);
+    for _ in 0..(60 * 60 * 4) {
+        harness.with_drive(|d, _| {
+            let cut_out = d.truck().specs.air_governor_cut_out_psi;
+            d.truck_mut().set_air_pressure_psi(cut_out);
+        });
+        frame(harness, DT);
+        let (at, speed) = harness.read_drive(|d| (d.trip.position_mi, d.truck().speed_mph()));
+        for (i, mark) in marks.iter().enumerate() {
+            if prev < *mark && at >= *mark {
+                out[i] = speed;
+            }
+        }
+        prev = at;
+        if at > last_mi {
+            break;
+        }
+    }
+    out
+}
+
+fn keeper_drive(name: &str) -> PlaytestHarness {
+    let mut harness = start_drive(name);
+    release_keys(&mut harness);
+    harness.app.ctx.settings.time_scale = 1.0;
+    harness.app.ctx.settings.speed_keeper = true;
+    harness.app.ctx.settings.automatic_transmission = true;
+    harness
+}
+
+#[test]
+fn test_a_left_90_runs_its_own_number_with_a_far_right_90_after_it() {
+    let mut harness = keeper_drive("Own Number");
+    let (left, right) = left_then_right(&mut harness, 0.6, 90.0);
+    press(&mut harness, Key::K, None);
+    let (left_target, right_target) =
+        harness.read_drive(|d| (d.turn_speed_mph(&left), d.turn_speed_mph(&right)));
     assert!(
-        heard.contains(&format!(
-            "Off the ramp and onto city streets. Start on {first}"
-        )),
-        "{heard}"
+        left_target >= 13.0 && right_target <= 11.0,
+        "{left_target} {right_target}"
     );
+    let speeds = speeds_at(&mut harness, &[left.at_mi, right.at_mi], right.at_mi + 0.01);
+    println!(
+        "left target {left_target:.1} actual {:.1}; right target {right_target:.1} actual {:.1}",
+        speeds[0], speeds[1]
+    );
+    assert!(
+        speeds[0] > right_target + 1.5 && speeds[0] <= left_target + 1.0,
+        "took the left at {:.1}; its own number is {left_target:.1}, the far right's {right_target:.1}",
+        speeds[0]
+    );
+    assert!(
+        speeds[1] <= right_target + 1.0,
+        "took the right at {:.1}",
+        speeds[1]
+    );
+    assert_eq!(harness.read_drive(|d| d.turn_miss_count), 0);
+}
+
+#[test]
+fn test_a_slower_corner_too_close_to_brake_for_is_honored_at_the_first() {
+    let mut harness = keeper_drive("Close Slower");
+    let (left, right) = left_then_right(&mut harness, 0.01, 130.0);
+    press(&mut harness, Key::K, None);
+    let (left_own, left_eff, right_target) = harness.with_drive(|d, _| {
+        let targets = d.corner_targets_ahead();
+        (
+            d.turn_speed_mph(&left),
+            targets[0].1,
+            d.turn_speed_mph(&right),
+        )
+    });
+    assert!(left_eff < left_own - 1.0, "{left_eff} vs {left_own}");
+    let speeds = speeds_at(&mut harness, &[left.at_mi, right.at_mi], right.at_mi + 0.01);
+    println!("left own {left_own:.1} held {left_eff:.1} actual {:.1}; right target {right_target:.1} actual {:.1}", speeds[0], speeds[1]);
+    assert!(
+        speeds[0] <= left_eff + 1.0,
+        "took the left at {:.1}",
+        speeds[0]
+    );
+    assert!(
+        speeds[1] <= right_target + 1.0,
+        "took the right at {:.1}",
+        speeds[1]
+    );
+    assert_eq!(harness.read_drive(|d| d.turn_miss_count), 0);
+}
+
+#[test]
+fn test_a_same_road_bend_keeps_the_posted_limit_and_a_slight_turn_is_capped() {
+    for (name, expect_posted) in [("Old US-20", true), ("McKinley Highway", false)] {
+        let mut harness = keeper_drive("Bend");
+        let cue = harness.with_drive(|d, _| {
+            let city = d.trip.route.cities[0].clone();
+            let legs = vec![
+                Leg::local(&city, 0.6, "Old US-20", "Start on Old US-20.", 45.0)
+                    .with_street(limit(45.0, "read"), Vec::new()),
+                Leg::local(&city, 0.6, name, &format!("Turn left onto {name}."), 45.0)
+                    .with_turn_deg(45.0)
+                    .with_street(limit(45.0, "read"), Vec::new()),
+                Leg::local(
+                    &city,
+                    0.6,
+                    "West Sample Street",
+                    "Turn right onto West Sample Street.",
+                    30.0,
+                )
+                .with_turn_deg(90.0)
+                .with_street(limit(30.0, "statutory"), Vec::new()),
+            ];
+            let route = Route::from_legs(vec![city; 4], legs);
+            let truck = d.trip.truck.clone();
+            let weather = WeatherSystem::new("heartland", Some(3), None, None, true);
+            let mut trip = Trip::new(
+                route,
+                truck,
+                weather,
+                TripOptions {
+                    seed: Some(3),
+                    ..Default::default()
+                },
+            );
+            quiet(&mut trip);
+            d.trip = trip;
+            d.reset_turn_state_for_trip();
+            turn_cues(d).into_iter().find(|c| c.key == "local:turn:1")
+        });
+        if expect_posted {
+            // No corner at all: the same road carries on, so nothing slows
+            // the truck under the street's 45 for it.
+            assert!(
+                cue.is_none(),
+                "a bend in the same road is not a turn: {cue:?}"
+            );
+            let planned = harness.with_drive(|d, ctx| {
+                d.trip.position_mi = 0.55;
+                d.trip.truck.velocity_mps = 45.0 * MPS_PER_MPH;
+                d.keeper_speed_ahead(ctx)
+            });
+            assert!(
+                planned
+                    .as_ref()
+                    .is_none_or(|p| p.1 != "turn" || p.0 >= 45.0),
+                "slowed for the bend: {planned:?}"
+            );
+        } else {
+            let cue = cue.expect("a slight turn onto another road is a corner");
+            let speed = harness.read_drive(|d| d.turn_speed_mph(&cue));
+            assert_eq!(speed, ff_core::data::corners::BEND_CAP_MPH);
+        }
+    }
+}
+
+#[test]
+fn test_a_left_600_ft_after_a_right_runs_its_own_number() {
+    // The right's hold runs 792 ft past it; a left 600 ft on must still get
+    // its own, higher number rather than coast under the right's.
+    let mut harness = keeper_drive("Right Then Left");
+    let (right, left) = two_corners(&mut harness, "right", 600.0 / 5280.0, "left", 90.0);
+    press(&mut harness, Key::K, None);
+    let (right_target, left_target) =
+        harness.read_drive(|d| (d.turn_speed_mph(&right), d.turn_speed_mph(&left)));
+    let speeds = speeds_at(&mut harness, &[right.at_mi, left.at_mi], left.at_mi + 0.01);
+    println!(
+        "right target {right_target:.1} actual {:.1}; left target {left_target:.1} actual {:.1}",
+        speeds[0], speeds[1]
+    );
+    assert!(
+        speeds[0] <= right_target + 1.0,
+        "took the right at {:.1}",
+        speeds[0]
+    );
+    assert!(
+        (speeds[1] - left_target).abs() <= 1.0,
+        "took the left at {:.1} against its {left_target:.1}",
+        speeds[1]
+    );
+    assert_eq!(harness.read_drive(|d| d.turn_miss_count), 0);
 }

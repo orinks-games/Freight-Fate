@@ -227,9 +227,9 @@ fn test_the_exit_speed_is_spoken_once_in_the_deceleration_lane_and_braked_for_th
             .count()
             .saturating_sub(harness.app.ctx.handed_back_count("Exit speed 49."))
     };
-    // Said as the truck enters the lane, on the driving channel, and FIRST
-    // in the gore line: a driver braking for themselves has a few seconds of
-    // lane and brakes on that number.
+    // Said once, on the driving channel: at the mile, and not again in the
+    // gore line while the exit speed assist does the braking (owner,
+    // 2026-10-25). The gore line leads with the exit.
     assert!(harness.read_drive(|d| d.in_deceleration_lane()));
     assert_eq!(said(&harness), 1, "{}", harness.transcript_text());
     assert!(
@@ -237,7 +237,7 @@ fn test_the_exit_speed_is_spoken_once_in_the_deceleration_lane_and_braked_for_th
             .app
             .event_lines()
             .iter()
-            .any(|line| line.starts_with("Exit speed 49. You take exit 42")),
+            .any(|line| line.starts_with("Exit 42")),
         "{}",
         harness.transcript_text()
     );
@@ -263,9 +263,7 @@ fn test_the_exit_speed_is_spoken_once_in_the_deceleration_lane_and_braked_for_th
     assert!(entry <= 49.0 + 2.0, "reached the curve at {entry:.1}");
     assert_eq!(said(&harness), 1, "{}", harness.transcript_text());
     assert!(
-        harness
-            .transcript_text()
-            .contains("Exit speed assistance slowing for the ramp."),
+        harness.transcript_text().contains("Slowing for the ramp."),
         "{}",
         harness.transcript_text()
     );
@@ -335,9 +333,12 @@ fn test_a_free_flowing_ramp_runs_the_lane_and_curve_on_the_real_clock() {
 }
 
 #[test]
-fn test_nothing_on_the_approach_names_the_ramp_speed() {
+fn test_nothing_on_the_approach_asks_for_the_ramp_speed() {
     // Review of the realistic exit: the signal-on line still said "then 49
-    // or less for the ramp" a mile out. The number is said past the gore.
+    // or less for the ramp" a mile out, which had drivers braking to it on
+    // the mainline. The approach names the number once, at the mile, as a
+    // fact to plan by (`test_the_mile_call_names_the_exit_speed_the_ramp_holds`);
+    // nothing on it asks the truck to slow.
     let (mut harness, stop) = exit_rig(70.0, 0.0, 3.0, 70.0, true, true);
     let armed = harness
         .transcript()
@@ -351,7 +352,7 @@ fn test_nothing_on_the_approach_names_the_ramp_speed() {
     let approach: Vec<String> = harness
         .transcript()
         .into_iter()
-        .filter(|line| !line.contains("You take"))
+        .filter(|line| !line.contains("Exit speed"))
         .collect();
     let approach = approach.join("\n");
     assert!(!approach.contains("49"), "{approach}");
@@ -372,9 +373,7 @@ fn test_curve_assistance_alone_brakes_before_the_ramp_curve() {
     let entry = to_the_ramp_curve(&mut harness);
     assert!(entry <= 49.0 + 2.0, "met the curve at {entry:.1}");
     assert!(
-        harness
-            .transcript_text()
-            .contains("Curve assistance slowing for the ramp."),
+        harness.transcript_text().contains("Slowing for the ramp."),
         "{}",
         harness.transcript_text()
     );
@@ -456,4 +455,67 @@ fn test_the_steering_lean_asks_for_the_wheel_only_for_the_ramp_curve() {
         }
     }
     assert!(seen.1 && seen.2, "{seen:?}");
+}
+
+/// The countdown lines an armed exit spoke, as the game announced them.
+fn mile_calls(harness: &PlaytestHarness) -> Vec<String> {
+    harness
+        .app
+        .event_lines()
+        .into_iter()
+        .filter(|line| line.starts_with("Exit for "))
+        .collect()
+}
+
+#[test]
+fn test_the_mile_call_names_the_exit_speed_the_ramp_holds() {
+    // Player report (2026-10-20): the exit speed was named only on the ramp,
+    // too late to plan for, so a driver slowed to 20 for every exit and still
+    // rolled the truck on the one ramp posted 20. The mile call names it,
+    // and it is the number the ramp line speaks and the ramp curve is judged
+    // against -- never a second figure for the same ramp.
+    let (mut harness, stop) = exit_rig(70.0, 0.0, 2.4, 62.0, true, true);
+    drive_to_the_gore(&mut harness, &stop);
+    let calls = mile_calls(&harness);
+    assert_eq!(calls.len(), 3, "{calls:#?}");
+    assert!(!calls[0].contains("Exit speed"), "two miles: {}", calls[0]);
+    assert!(
+        calls[1].contains("in 1 mile. Exit speed 49."),
+        "one mile: {}",
+        calls[1]
+    );
+    assert!(
+        !calls[2].contains("Exit speed"),
+        "half a mile: {}",
+        calls[2]
+    );
+    // The ramp line does not say it again while the assist brakes for it.
+    let ramp_line = harness
+        .app
+        .event_lines()
+        .into_iter()
+        .find(|line| line.contains(" of ramp"))
+        .expect("the ramp line");
+    assert!(!ramp_line.contains("Exit speed"), "{ramp_line}");
+    let curve_mph = harness.read_drive(|d| d.ramp_layout.expect("laid out").curve_mph);
+    assert_eq!(curve_mph, 49.0);
+}
+
+#[test]
+fn test_a_frame_that_skips_the_mile_still_names_the_exit_speed() {
+    // Time compression can carry the truck from past two miles to inside
+    // half a mile in one frame; the countdown speaks only the nearest anchor,
+    // and that one carries the exit speed the skipped mile would have.
+    let (mut harness, stop) = exit_rig(70.0, 0.0, 2.4, 62.0, true, true);
+    harness.clear_speech();
+    let at_mi = stop.at_mi;
+    harness.with_drive(move |d, _| d.trip.position_mi = at_mi - 0.4);
+    frame(&mut harness);
+    let calls = mile_calls(&harness);
+    assert_eq!(calls.len(), 1, "{calls:#?}");
+    assert!(
+        calls[0].contains("in half a mile. Exit speed 49."),
+        "{}",
+        calls[0]
+    );
 }

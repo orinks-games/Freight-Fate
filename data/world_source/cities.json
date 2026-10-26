@@ -1255,6 +1255,22 @@
             "container",
             "retail"
           ]
+        },
+        {
+          "name": "Mall of America",
+          "type": "shopping_mall",
+          "locality": "Bloomington",
+          "spoken_name": "Mall of America",
+          "lat": 44.85468,
+          "lon": -93.24215,
+          "receives": [
+            "retail",
+            "general",
+            "electronics",
+            "food",
+            "refrigerated"
+          ],
+          "source_note": "Mall of America, 60 East Broadway, Bloomington, Minnesota, at Interstate 494 and Minnesota 77, about nine miles south of downtown Minneapolis. Position read from the OpenStreetMap footprint of the mall (relation 2240382, Geofabrik Minnesota extract of 2026-09-25): the centroid of its outer ring. Freight goes through the mall's service loading dock off Killebrew Drive, after an inspection at its security gate (Mall of America Promotional Events Handbook, 2023; Radisson Blu Mall of America loading dock instructions, 2026). The dock door itself is not mapped, so no endpoint is claimed."
         }
       ],
       "lat": 44.9778,
@@ -8550,6 +8566,32 @@
       "lon": -148.461816,
       "source_note": "Place name and centroid coordinates read from local Geofabrik Alaska OpenStreetMap place feature 150918086, accessed 2026-10-07; state/country are read as Alaska, US, and the region is assigned from the game's pacific_northwest map-region classification.",
       "locations": []
+    },
+    "manassas_va_us": {
+      "spoken_city": "Manassas",
+      "state": "VA",
+      "country": "US",
+      "region": "atlantic_southeast",
+      "lat": 38.750949,
+      "lon": -77.475267,
+      "locations": [
+        {
+          "id": "manassas-va-us:cross_dock:fedex-freight-manassas-service-center",
+          "name": "FedEx Freight Manassas Service Center",
+          "type": "cross_dock",
+          "lat": 38.741728,
+          "lon": -77.507633,
+          "source_note": "CONFIRMED: FedEx Freight lists its MAN service center at 9825 Godwin Court, Manassas, VA 20110. Source: https://www.fedexfreight.fedex.com/locations.do?nextAction=&shipperCity=&shipperCountryCode=US&shipperState=&shipperZipCode=22042&viewDetail=Location+details (accessed 2026-10-07). Coordinate read from the addressed OpenStreetMap way at development time."
+        },
+        {
+          "id": "manassas-va-us:grocery_retail_dc:us-foods-manassas-distribution-center",
+          "name": "US Foods Manassas Distribution Center",
+          "type": "grocery_retail_dc",
+          "lat": 38.786474,
+          "lon": -77.554286,
+          "source_note": "CONFIRMED: US Foods lists Manassas location 5O at 11994 Livingston Road, Manassas, VA 20109. Source: https://suppliers.usfood.com/usf_documents/U.S.%20FOODSERVICE%20%28USF%29%20LOCATION%20INFORMATION.pdf (accessed 2026-10-07). Coordinate read from the addressed OpenStreetMap building at development time."
+        }
+      ]
     }
   }
 }

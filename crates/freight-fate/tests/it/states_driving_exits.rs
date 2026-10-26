@@ -226,7 +226,7 @@ fn test_x_signals_for_upcoming_route_exit_without_taking_it() {
         assert_eq!(armed.stop_type, "delivery_destination");
         assert!(d.exit_signal_on);
     });
-    assert!(said_any(&harness, "Signal set"), "{:?}", spoken(&harness));
+    assert!(said_any(&harness, "Signal "), "{:?}", spoken(&harness));
 
     press_x(&mut harness);
 
@@ -415,7 +415,7 @@ fn test_canceled_destination_exit_signal_stays_on_highway() {
 
     assert!(harness.read_drive(|d| d.ramp_mi.is_none()));
     assert!(
-        !said_any(&harness, "stayed on the highway"),
+        !said_any(&harness, "Missed the exit"),
         "{:?}",
         spoken(&harness)
     );
@@ -510,16 +510,17 @@ fn test_destination_exit_auto_arms_and_takes_ramp_with_valid_setup() {
     assert!(
         spoken(&harness)
             .iter()
-            .any(|line| line.contains("You take") && line.contains("destination exit")),
+            .any(|line| line.contains("Exit 342. A quarter mile of ramp")),
         "{:?}",
         spoken(&harness)
     );
 }
 
 #[test]
-fn test_full_lane_keeping_says_it_is_taking_the_destination_exit() {
-    // The reported bug: exits took themselves with nothing said. Full lane
-    // keeping is allowed to take them; it is not allowed to be silent.
+fn test_full_lane_keeping_still_calls_the_destination_exit() {
+    // The reported bug: exits took themselves with nothing said. The callout
+    // names the exit; what lane keeping does with it is the manual's
+    // (owner, 2026-10-14).
     let mut harness = a_drive("Exits");
     harness.app.ctx.settings.lane_keeping = "full".to_string();
     let stop = destination_exit(&mut harness);
@@ -533,7 +534,7 @@ fn test_full_lane_keeping_says_it_is_taking_the_destination_exit() {
     frame(&mut harness, DT);
 
     assert!(
-        said_any(&harness, "Lane keeping will take this exit"),
+        said_any(&harness, "destination exit."),
         "{:?}",
         spoken(&harness)
     );
@@ -609,7 +610,7 @@ fn test_manual_lane_keeping_requires_signal_for_destination_exit() {
 
         assert!(harness.read_drive(|d| d.ramp_mi.is_none()), "{mode}");
         assert!(
-            said_any(&harness, "signal was not set"),
+            said_any(&harness, ", no signal."),
             "{mode}: {:?}",
             spoken(&harness)
         );
@@ -636,7 +637,7 @@ fn test_relaxed_lane_drift_infers_destination_exit_intent() {
     let ramp = harness.read_drive(|d| d.ramp_mi);
     let start = ramp_starts_at(&harness, &stop);
     assert!(ramp.is_some_and(|mi| (mi - start).abs() < 1e-6), "{ramp:?}");
-    assert!(said_any(&harness, "You take"), "{:?}", spoken(&harness));
+    assert!(said_any(&harness, " of ramp"), "{:?}", spoken(&harness));
 }
 
 #[test]
@@ -670,7 +671,7 @@ fn test_missed_destination_exit_reroutes_every_time() {
         });
     }
     assert_eq!(
-        said_count(&harness, "missed the destination exit"),
+        said_count(&harness, "Missed the destination exit"),
         2,
         "{:?}",
         spoken(&harness)
@@ -728,12 +729,12 @@ fn test_a_blown_destination_exit_names_the_loop_back_not_a_later_exit() {
             "{lane_keeping}"
         );
         assert!(
-            said_any(&harness, "the destination exit comes around again"),
+            said_any(&harness, "exit comes around again"),
             "{lane_keeping}: {:?}",
             spoken(&harness)
         );
         assert!(
-            !said_any(&harness, "recover at the next safe exit"),
+            !said_any(&harness, "Take a later exit"),
             "{lane_keeping}: {:?}",
             spoken(&harness)
         );
@@ -850,8 +851,9 @@ fn test_lane_drift_off_sets_exit_lane_when_signaling() {
     press_x(&mut harness);
 
     assert!(harness.read_drive(|d| d.exit_lane_ready()));
+    assert!(said_any(&harness, "Signal "), "{:?}", spoken(&harness));
     assert!(
-        said_any(&harness, "Lane keeping takes the exit lane"),
+        !said_any(&harness, "Lane keeping"),
         "{:?}",
         spoken(&harness)
     );
@@ -886,7 +888,7 @@ fn test_exit_missed_after_gore_window() {
         assert!(d.exit_stop.is_none());
     });
     assert!(
-        said_any(&harness, "missed the exit window"),
+        said_any(&harness, "Missed the exit."),
         "{:?}",
         spoken(&harness)
     );
@@ -919,12 +921,12 @@ fn test_exit_traffic_pressure_changes_missed_lane_recovery() {
 
     assert!(harness.read_drive(|d| d.ramp_mi.is_none()));
     assert!(
-        said_any(&harness, "Traffic boxed you out of the exit lane"),
+        said_any(&harness, "Boxed out of the exit lane"),
         "{:?}",
         spoken(&harness)
     );
     assert!(
-        said_any(&harness, "recover at the next safe exit"),
+        said_any(&harness, "Take a later exit."),
         "{:?}",
         spoken(&harness)
     );
@@ -978,15 +980,11 @@ fn test_exit_traffic_still_speaks_once_you_signal_for_that_exit() {
 
     let heard = pressure_speech(&harness);
     assert!(
-        heard
-            .iter()
-            .any(|line| line.contains("Exit traffic building")),
+        heard.iter().any(|line| line.contains("Exit traffic,")),
         "{heard:?}"
     );
     assert!(
-        heard
-            .iter()
-            .any(|line| line.contains("Hold the right lane")),
+        heard.iter().any(|line| line.contains("Hold right")),
         "{heard:?}"
     );
 }
@@ -998,13 +996,9 @@ fn test_merging_and_construction_pressures_still_speak_unsignalled() {
     let mut harness = a_drive("Exits");
     let at = harness.read_drive(|d| d.trip.position_mi) + 1.6;
     for (kind, direction, phrase) in [
-        ("route_merge", "right", "Merging traffic in"),
-        (
-            "construction_merge",
-            "left",
-            "Traffic squeezing at the construction taper",
-        ),
-        ("traffic_pack", "right", "Traffic pack in"),
+        ("route_merge", "right", "Merging traffic,"),
+        ("construction_merge", "left", "Taper squeezing,"),
+        ("traffic_pack", "right", "Traffic pack,"),
     ] {
         // Real time between the three cues: these are AMBIENT lines, and
         // AMBIENT is the one priority the pacer's stale rule throws away. Fire
@@ -1061,7 +1055,7 @@ fn test_exit_speed_assist_slows_with_full_lane_keeping() {
     assert!(harness.read_drive(|d| d.truck().brake >= 0.35));
     let slowing: Vec<String> = spoken(&harness)
         .into_iter()
-        .filter(|line| line.contains("Exit speed assistance slowing"))
+        .filter(|line| line.starts_with("Slowing."))
         .collect();
     assert!(!slowing.is_empty(), "{:?}", spoken(&harness));
     // No lane request at all: lane keeping on full moves right itself, and a
@@ -1110,11 +1104,7 @@ fn test_the_exit_speed_assist_runs_when_lane_keeping_takes_the_exit() {
         harness.read_drive(|d| d.truck().brake >= 0.35),
         "the assist never touched the brakes without a signal"
     );
-    assert!(
-        said_any(&harness, "Exit speed assistance slowing"),
-        "{:?}",
-        spoken(&harness)
-    );
+    assert!(said_any(&harness, "Slowing."), "{:?}", spoken(&harness));
 }
 
 #[test]
@@ -1159,31 +1149,17 @@ fn test_a_fresh_cruise_session_inherits_an_armed_exit_s_ramp_cap() {
 }
 
 #[test]
-fn test_the_ramp_cruise_line_says_when_the_ease_happens() {
+fn test_the_ramp_cap_holds_road_speed_until_the_exit() {
     // Owner playtest, 2026-08-21: heard "adaptive cruise will ease to 40 for
     // the ramp" five miles from the exit and reported the truck slowing early.
-    //
-    // It was not slowing. The cap holds road speed until about half a mile out
-    // and only then sheds. The sentence was what lied, by naming the end state
-    // with no sense of when. A behaviour that is right described by words that
-    // are wrong is the worse failure of the two: nobody goes looking for a bug
-    // in a truck that is behaving.
+    // It was not slowing: the cap holds road speed until about half a mile
+    // out and only then sheds. The line is gone (owner, 2026-10-14); the
+    // behaviour it described is pinned here.
     let mut harness = a_drive("Exits");
-    harness.with_drive(|d, ctx| {
+    harness.with_drive(|d, _| {
         d.truck_mut().velocity_mps = 65.0 * MPS_PER_MPH;
         d.cruise_mph = Some(65.0);
-        let stop = RoadStop::new("Test Plaza", d.trip.position_mi + 5.0, "travel_center");
-
-        let line = d.cap_cruise_for_ramp(ctx, Some(&stop));
-        // Rolling at road speed: the line must place the ease at the exit,
-        // not imply it starts now, and say where speed control lets go.
-        assert!(line.contains("holds road speed"), "{line}");
-        assert!(line.contains("for the exit"), "{line}");
-        assert!(line.contains("pauses on the ramp"), "{line}");
-        assert!(!line.contains("will ease to"), "{line}");
     });
-
-    // And the cap itself proves the claim: road speed stands miles out.
     harness.with_drive(|d, _| {
         let stop = RoadStop::new("Test Plaza", 100.0, "travel_center");
         let ramp = 65.0f64.min(d.exit_approach_floor_mph(Some(&stop)));

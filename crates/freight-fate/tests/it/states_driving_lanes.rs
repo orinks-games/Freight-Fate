@@ -292,19 +292,17 @@ fn test_closure_messages_name_the_closed_side() {
     let open_zone = Zone::new(5.0, 8.0, 45.0, "construction");
     assert!(trip
         .zone_warning_message(&closed_right, 2.0)
-        .contains("right lane is closed, merge left"));
+        .contains("Merge left."));
     assert!(trip
         .zone_warning_message(&closed_left, 2.0)
-        .contains("left lane is closed, merge right"));
-    assert!(trip
-        .zone_warning_message(&open_zone, 2.0)
-        .contains("All lanes open"));
+        .contains("Merge right."));
+    assert!(!trip.zone_warning_message(&open_zone, 2.0).contains("Merge"));
     assert!(trip
         .zone_entry_message(&closed_left)
-        .contains("left lane is closed, keep right"));
+        .contains("Keep right."));
     assert!(trip
         .zone_entry_message(&closed_right)
-        .contains("right lane is closed, keep left"));
+        .contains("Keep left."));
 }
 
 /// Shane's report: told the right lane was closed, then found the closure on
@@ -330,10 +328,10 @@ fn test_the_side_announced_is_the_side_that_is_shut() {
         assert_eq!(lane_label(index, 3), shut);
         assert!(trip
             .zone_warning_message(&zone, 2.0)
-            .contains(&format!("The {shut} lane is closed")));
+            .contains(&format!("Merge {keep}.")));
         assert!(trip
             .zone_entry_message(&zone)
-            .contains(&format!("keep {keep}")));
+            .contains(&format!("Keep {keep}.")));
     }
 }
 
@@ -747,8 +745,7 @@ fn test_a_narrowing_road_never_leaves_the_truck_in_the_closed_lane() {
     let said = &logged(&app)[log_from..];
     assert!(!said.is_empty());
     let last = said.last().unwrap();
-    assert!(last.contains("left lane is closed"));
-    assert!(last.contains("right lane"));
+    assert_eq!(last, "Left lane closed. In the right lane.");
 }
 
 /// Darren's report, 2026-08-14: a highway narrowing to one lane with no work
@@ -774,11 +771,10 @@ fn test_a_narrowing_road_with_no_closure_says_the_forced_move() {
     let calls = app.event_calls();
     assert_eq!(calls.len(), 1);
     let (text, interrupt) = &calls[0];
-    assert!(text.contains("road narrows to one lane"));
     // Narrowing to ONE lane already tells the driver which lane they are in,
-    // so the line no longer names a side that does not exist any more (Cary,
-    // 2026-08-15) -- it just says they were moved.
-    assert!(text.contains("You are moved over."));
+    // so the line names no side that does not exist any more (Cary,
+    // 2026-08-15).
+    assert_eq!(text, "The road narrows to one lane.");
     assert!(!text.contains("right lane"));
     assert!(*interrupt); // never-dropped, same family as the closure call
     assert!(logged(&app).contains(text));
@@ -1336,4 +1332,35 @@ fn test_snapshot_round_trips_the_lane_index() {
     d.lane.lane = 1;
     let snap = d.snapshot(&app.ctx);
     assert_eq!(snap["lane_index"], serde_json::json!(1));
+}
+
+/// Lane keeping on full holds the lane, so the left stick cannot steer; a
+/// push past halfway asks for one lane change, and only one until the stick
+/// comes back near the center. A controller driver had no way to change
+/// lanes on full at all.
+#[test]
+fn test_a_stick_push_on_full_lane_keeping_changes_one_lane() {
+    let mut app = TestApp::new();
+    app.ctx.settings.lane_keeping = "full".to_string();
+    let mut d = a_drive(&mut app);
+    rolling(&mut d, 55.0);
+    d.trip.position_mi = 6.0;
+    d.lane.lane = 0;
+
+    d.update_stick_lane_change(&mut app.ctx, -0.3); // not far enough yet
+    assert_eq!(d.lane_change_target, None);
+    d.update_stick_lane_change(&mut app.ctx, -0.8);
+    assert_eq!(d.lane_change_target, Some(1)); // left, as the Left arrow asks
+    for _ in 0..40 {
+        d.update_tap_lane_change(&mut app.ctx, 0.1);
+    }
+    assert_eq!(d.lane.lane, 1);
+
+    // Still held over: no second change.
+    d.update_stick_lane_change(&mut app.ctx, -0.9);
+    assert_eq!(d.lane_change_target, None);
+    // Back to the center, then right.
+    d.update_stick_lane_change(&mut app.ctx, 0.0);
+    d.update_stick_lane_change(&mut app.ctx, 0.7);
+    assert_eq!(d.lane_change_target, Some(0));
 }

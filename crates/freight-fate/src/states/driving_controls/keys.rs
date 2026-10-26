@@ -81,7 +81,16 @@ impl DrivingState {
             if repeat && matches!(action, Action::CruiseUp | Action::CruiseDown) {
                 return;
             }
+            // The co-driver's truck: a control is a no-op, a question
+            // still gets its answer.
+            if self.co_driver_driving() && !co_driver_leaves_to_player(action) {
+                return;
+            }
             self.run_key_action(ctx, action);
+            return;
+        }
+        if self.co_driver_driving() && (plus || minus || matches!(key, Key::Return | Key::KpEnter))
+        {
             return;
         }
         if plus {
@@ -188,6 +197,9 @@ impl DrivingState {
             Action::JakeStage3 => self.select_jake_stage(ctx, 3),
             Action::CycleJake => self.cycle_jake_stage(ctx),
             Action::ParkingBrake => self.toggle_parking_brake(ctx),
+            Action::DriverWindow => self.toggle_driver_window(ctx),
+            Action::Fan => self.step_cab_fan(ctx),
+            Action::Climate => self.toggle_cab_climate(ctx),
             Action::Horn => {
                 ctx.audio.horn_start();
                 self.trip.truck.horn_on = true;
@@ -252,11 +264,20 @@ impl DrivingState {
             Action::SafeSpeed => self.speak_safe_speed(ctx),
             Action::HosWheel => self.speak_hos_wheel_time(ctx),
             Action::LastAnnouncement => self.speak_last_announcement(ctx),
+            // The key itself is answered on every screen before a state
+            // sees it; this arm is the F2 list's row.
+            Action::CopyLastSpoken => crate::states::base::copy_last_spoken(ctx),
             Action::Grade => self.speak_grade(ctx),
             Action::LaneLocator => self.toggle_lane_locator(ctx),
             Action::Upcoming => self.speak_upcoming(ctx, 15.0),
             Action::Radio => self.toggle_radio(ctx),
             Action::RadioFavorite => self.toggle_radio_favorite(ctx),
+            Action::RadioTuneNext
+            | Action::RadioTunePrev
+            | Action::RadioVolumeUp
+            | Action::RadioVolumeDown
+            | Action::RadioCategoryNext
+            | Action::RadioCategoryPrev => {}
             Action::RadioNowPlaying => self.speak_radio_now_playing(ctx),
             Action::RadioStatus => self.speak_radio_status(ctx),
             Action::Accelerate | Action::Brake | Action::EmergencyBrake | Action::Straighten => {}
@@ -313,8 +334,18 @@ impl DrivingState {
             }
             return;
         }
+        // Lane keeping on full makes the move, so it checks the lane first,
+        // the same reading the L key gives. A tap back right while lane
+        // keeping was still passing a trooper put the truck into its side
+        // (issue #356); the move waits for the lane to open instead.
+        if let Some(blocked) = self.lane_blocked_text(target) {
+            ctx.audio.play("ui/error");
+            ctx.say(&blocked);
+            return;
+        }
         self.lane_change_target = Some(target);
         self.pass_returning = false; // the driver's own move now
+        self.keeping_lane_change = false;
         self.lane_change_timer = LANE_TAP_CHANGE_S;
         self.lane_signal_timer = 0.0;
         let pan = if direction > 0 { -0.6 } else { 0.6 };
@@ -326,4 +357,38 @@ impl DrivingState {
             lane_label(target, lane_count)
         ));
     }
+}
+
+/// The keys that still work while the co-driver drives: the readouts, the
+/// screens, and the radio. Everything that moves the truck is theirs.
+pub fn co_driver_leaves_to_player(action: Action) -> bool {
+    !matches!(
+        action,
+        Action::Accelerate
+            | Action::Brake
+            | Action::EmergencyBrake
+            | Action::SteerLeft
+            | Action::SteerRight
+            | Action::Straighten
+            | Action::Engine
+            | Action::ParkingBrake
+            | Action::Horn
+            | Action::Cruise
+            | Action::CruiseResume
+            | Action::CruiseUp
+            | Action::CruiseDown
+            | Action::TakeExit
+            | Action::Rest
+            | Action::EngineBrake
+            | Action::AutoJake
+            | Action::JakeStage1
+            | Action::JakeStage2
+            | Action::JakeStage3
+            | Action::CycleJake
+            | Action::ShiftUp
+            | Action::ShiftDown
+            | Action::Neutral
+            | Action::Reverse
+            | Action::TransmissionMode
+    )
 }

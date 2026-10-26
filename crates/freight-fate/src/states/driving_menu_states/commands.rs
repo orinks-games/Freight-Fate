@@ -77,11 +77,16 @@ pub fn offers(action: Action) -> bool {
 pub struct DrivingCommandsState {
     menu: MenuCore<Self>,
     driving: DriveRef,
+    /// The newest log line from before the list opened, so the copy row
+    /// copies what the player heard at the wheel and not the list heading.
+    copy_text: Option<String>,
 }
 
 impl DrivingCommandsState {
     pub fn new(ctx: &GameContext) -> Self {
-        Self::with_drive(DriveRef::active(ctx))
+        let mut state = Self::with_drive(DriveRef::active(ctx));
+        state.copy_text = crate::states::base::newest_copyable_line(ctx);
+        state
     }
 
     /// The same list built over a drive the caller already shares.
@@ -89,6 +94,7 @@ impl DrivingCommandsState {
         DrivingCommandsState {
             menu: MenuCore::new("Driving commands").with_intro_help(COMMANDS_INTRO_HELP),
             driving,
+            copy_text: None,
         }
     }
 
@@ -120,13 +126,27 @@ impl Menu for DrivingCommandsState {
         let mut items: Vec<MenuItem<Self>> = Action::all()
             .filter(|action| offers(*action))
             .map(|action| {
+                let mut help = format!("On the keyboard: {}.", ctx.bindings.spoken(action));
+                if action.on_pad() {
+                    help.push_str(&format!(
+                        " On the controller: {}.",
+                        ctx.bindings.pad_spoken(action)
+                    ));
+                }
                 MenuItem::new(
                     action.label(),
                     move |s: &mut Self, ctx: &mut GameContext| {
+                        if action == Action::CopyLastSpoken {
+                            if let Some(text) = s.copy_text.clone() {
+                                ctx.pop_state();
+                                crate::states::base::copy_text(ctx, Some(text));
+                                return;
+                            }
+                        }
                         s.run_on_drive(ctx, |drive, ctx| drive.run_key_action(ctx, action));
                     },
                 )
-                .help(format!("On the keyboard: {}.", ctx.bindings.spoken(action)))
+                .help(help)
             })
             .collect();
         items.extend(Fixed::ALL.into_iter().map(|fixed| {

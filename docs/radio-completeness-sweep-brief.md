@@ -47,7 +47,7 @@ EXCLUDE:
   generic Icecast `host:port/mount`, `.m3u8` HLS.
 - **HTTP 200 ≠ playable.** You may `curl -sI` (or GET a couple seconds) to
   sanity-check the URL resolves and returns audio, but do not trust HTTP
-  alone — I run the authoritative BASS playback gate on every URL you return.
+  alone — I run the authoritative stream check (`cargo tools check-radio-streams`) on every URL you return.
   So: **never invent a URL. If you can't find a real one, omit the station.**
   It is far better to return 3 solid stations than 8 with guessed mounts.
 - Record where you got the URL in the `evidence` field (the listen-live page
@@ -104,7 +104,7 @@ EXCLUDE:
   `wkno-hd2-memphis`). It becomes a player-save key forever — pick well.
   **Must not collide with any id in `existing.json`.**
 - Omit `market`/`region` — the merge step fills those from `city_slug`.
-- `supported` is decided by my BASS gate; you don't set it. Just flag
+- `supported` is decided by my stream check; you don't set it. Just flag
   `notes` with "geo-block risk" if the stream is a foreign CDN likely to
   403 US IPs (I'll verify).
 

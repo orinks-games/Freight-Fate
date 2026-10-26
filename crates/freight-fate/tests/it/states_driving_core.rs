@@ -12,6 +12,7 @@ use ff_core::data::world::get_world;
 use ff_core::models::economy::damage_severity_mult;
 use ff_core::models::jobs::{cargo_type, make_reposition_job, Job};
 use ff_core::models::profile::Profile;
+use ff_core::sim::enforcement_posts::EnforcementPost;
 use ff_core::sim::trip_models::RoadStop;
 
 use freight_fate::app::testing::TestApp;
@@ -268,7 +269,7 @@ fn entering_the_drive_speaks_the_objective() {
     assert!(!lines.is_empty(), "entering a drive says something");
     let spoken = lines.join(" ");
     assert!(spoken.contains("At the wheel"), "{spoken}");
-    assert!(spoken.contains("Transmission is"), "{spoken}");
+    assert!(spoken.contains("It is "), "{spoken}");
     // Entering again is silent: a menu popping back to the road must not
     // re-read the whole objective.
     app.clear_speech();
@@ -335,6 +336,74 @@ fn a_snapshot_round_trips_the_drive() {
     assert_eq!(resumed.gate_miss_count, 2);
     assert_eq!(resumed.record_events, vec!["Reputation up.".to_string()]);
     assert_eq!(resumed.phase, DRIVE_PHASE_DELIVERY);
+}
+
+/// Reported by a player: resuming a saved trip played police sirens four
+/// times over, at once. The enforcement watch measured its first frame from
+/// mile zero, so every trooper already behind the truck counted as just
+/// passed and each one played its siren, pass and marker together.
+#[test]
+fn a_resumed_trip_does_not_replay_the_troopers_it_already_passed() {
+    let mut app = TestApp::new();
+    let world = get_world();
+    let mut profile = Profile::named_in("Resume Troopers", "Denver");
+    profile.tutorial_done = true;
+    app.ctx.profile = Some(profile);
+    let job = make_reposition_job(world, "Denver", "Salt Lake City", false, None)
+        .expect("Denver to Salt Lake City is supported");
+    let route = world
+        .shortest_route("Denver", "Salt Lake City", None, false)
+        .expect("the world routes")
+        .expect("Denver to Salt Lake City has a route");
+    let mut drive = DrivingState::new(
+        &mut app.ctx,
+        job,
+        route,
+        Some(7),
+        DRIVE_PHASE_DELIVERY,
+        Some(7.0),
+    );
+    drive.trip.position_mi = 348.0;
+    let data = drive.snapshot(&app.ctx);
+
+    let mut resumed =
+        DrivingState::from_snapshot(&mut app.ctx, &data).expect("the snapshot resumes");
+    let behind = |post: &EnforcementPost| post.staffed && post.end_mi() < 348.0;
+    assert!(
+        resumed
+            .trip
+            .posts
+            .iter()
+            .filter(|post| behind(post))
+            .count()
+            >= 2
+            && resumed
+                .trip
+                .posts
+                .iter()
+                .any(|post| behind(post) && post.tableau),
+        "this road needs staffed troopers, one working a stop, behind the resume point"
+    );
+    let log = app.record_audio();
+    resumed.update_enforcement_watch(&mut app.ctx, 1.0 / 60.0);
+    resumed.service_pending_sounds(&mut app.ctx, 1.0);
+
+    let played: Vec<String> = log
+        .borrow()
+        .played
+        .iter()
+        .map(|(key, _, _)| key.clone())
+        .collect();
+    for key in [
+        "events/police_siren",
+        "traffic/trooper_pass",
+        "enforcement/signature",
+    ] {
+        assert!(
+            !played.iter().any(|played| played == key),
+            "{key} played for troopers behind the resume point: {played:?}"
+        );
+    }
 }
 
 #[test]

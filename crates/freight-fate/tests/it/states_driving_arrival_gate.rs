@@ -352,16 +352,16 @@ fn test_toll_route_delivery_settlement_records_expense() {
     );
     let text = arrival.summary_parts.join(" ");
     for phrase in [
-        "Carrier-paid or reimbursed charges 215 dollars",
+        "Charges 215: ",
         "tolls 30",
         "accessorials carrier-authorized unloading service 185 dollars",
         "not deducted from driver pay",
-        "Fines carried over 0 dollars",
+        "Fines 0.",
     ] {
         assert!(text.contains(phrase), "{text}");
     }
     assert!(text.contains("Carrier gross"), "{text}");
-    assert!(text.contains("Net driver pay"), "{text}");
+    assert!(text.contains("Net "), "{text}");
 
     assert_eq!(arrival.title(), "Delivery complete");
     let mut arrival = arrival;

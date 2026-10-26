@@ -7,10 +7,11 @@ use ff_core::pyfmt::fmt_grouped;
 use ff_core::pyrandom::PyRandom;
 use ff_core::sim::hos;
 use ff_core::sim::trip_models::BorderBooth;
-use ff_core::speech_pacing::{EventPriority, SpeechCategory};
+use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
 use crate::impl_state_for_menu;
+use crate::speech::EventPriority;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
@@ -51,7 +52,7 @@ impl DrivingState {
                 ctx.say_event_with(
                     text,
                     SayEvent::queued()
-                        .priority(EventPriority::Route)
+                        .priority(EventPriority::Important)
                         .category(SpeechCategory::Navigation)
                         .valid(move || live::position_mi() < at_mi),
                 );
@@ -65,7 +66,7 @@ impl DrivingState {
                 ctx.say_event_with(
                     "Customs booth in half a mile. Stop at the booth.",
                     SayEvent::queued()
-                        .priority(EventPriority::Route)
+                        .priority(EventPriority::Important)
                         .category(SpeechCategory::Navigation)
                         .valid(move || live::position_mi() < at_mi),
                 );

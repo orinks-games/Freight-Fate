@@ -337,20 +337,15 @@ impl DrivingState {
             format!("Drove past {exit_ref} without stopping.")
         };
         if planned {
-            line.push_str(" Plan cancelled.");
+            line.push_str(" Plan canceled.");
         }
-        line.push_str(&format!(
-            " Facility stopping assistance disarmed for that stop. Press {} to plan the next \
-             suitable rest stop.",
-            ctx.control_hint("rest")
-        ));
         self.say_confirmation_interrupt(ctx, &line);
     }
 
     /// What to do about the exit that just went by, in one clause.
     ///
-    /// An optional stop really can be picked up from a later exit, so "recover
-    /// at the next safe exit" is true for one. The DESTINATION exit has no
+    /// An optional stop really can be picked up from a later exit, so "take a
+    /// later exit" is true for one. The DESTINATION exit has no
     /// later exit to recover at: the route runs on to its end and the scripted
     /// loop-back through the safe turnaround brings this same exit back, which
     /// is what the manual has always described. Sending a driver looking for
@@ -359,10 +354,9 @@ impl DrivingState {
     /// Rodick, Hattiesburg, 2026-08-26: "it never rerouted me").
     fn missed_exit_recovery(stop: &RoadStop) -> &'static str {
         if stop.stop_type == "delivery_destination" {
-            "Stay on the highway. You loop back through the safe turnaround and the destination \
-             exit comes around again."
+            "Destination exit comes around again."
         } else {
-            "Stay on the highway and recover at the next safe exit."
+            "Take a later exit."
         }
     }
 
@@ -371,8 +365,7 @@ impl DrivingState {
     /// deliberately leave the driver to choose whether to come back at all.
     fn missed_destination_note(stop: &RoadStop) -> &'static str {
         if stop.stop_type == "delivery_destination" {
-            " You loop back through the safe turnaround, and the destination exit comes around \
-             again."
+            " The exit comes around again."
         } else {
             ""
         }
@@ -422,9 +415,9 @@ impl DrivingState {
             }
             let pressure = self.active_exit_pressure(&stop);
             let message = if pressure.is_some_and(|pressure| pressure.intensity >= 0.35) {
-                "You missed the exit window in heavy traffic and stayed on the highway."
+                "Missed the exit in heavy traffic."
             } else {
-                "You missed the exit window and stayed on the highway."
+                "Missed the exit."
             };
             let note = Self::missed_destination_note(&stop);
             self.say_confirmation_event(ctx, &format!("{message}{note}"));
@@ -438,10 +431,7 @@ impl DrivingState {
             }
             let place = self.missed_exit_phrase(ctx, &stop);
             let recovery = Self::missed_exit_recovery(&stop);
-            self.say_confirmation_event(
-                ctx,
-                &format!("You missed {place}. The turn signal was not set. {recovery}"),
-            );
+            self.say_confirmation_event(ctx, &format!("Missed {place}, no signal. {recovery}"));
             return;
         }
         if !self.exit_lane_ready() {
@@ -456,15 +446,12 @@ impl DrivingState {
             if pressure.is_some() {
                 self.say_confirmation_event(
                     ctx,
-                    &format!(
-                        "Traffic boxed you out of the exit lane at the gore, so you missed \
-                         {missed}. {recovery}"
-                    ),
+                    &format!("Boxed out of the exit lane, missed {missed}. {recovery}"),
                 );
             } else {
                 self.say_confirmation_event(
                     ctx,
-                    &format!("You missed {missed}. You were not in the exit lane. {recovery}"),
+                    &format!("Missed {missed}, not in the exit lane. {recovery}"),
                 );
             }
             return;
@@ -478,14 +465,13 @@ impl DrivingState {
         } else {
             let missed = self.missed_exit_phrase(ctx, &stop);
             let note = Self::missed_destination_note(&stop);
-            let mut line =
-                format!("You were going too fast for the ramp and missed {missed}.{note}");
+            let mut line = format!("Too fast for the ramp, missed {missed}.{note}");
             if self.trip.is_planned(&stop) {
                 // Fold the plan cancellation into this one line so the driver
                 // hears a single cue, and clear it here so _check_stops doesn't
                 // also emit a "drove past your planned stop" warning next tick.
                 self.trip.planned_stop_key = None;
-                line.push_str(" Plan cancelled.");
+                line.push_str(" Plan canceled.");
             }
             if self.is_selected_stop(Some(&stop)) {
                 self.clear_selected_stop_intent();
@@ -504,6 +490,9 @@ impl DrivingState {
         // the scale the truck just checked in at was crossed again on the way
         // out and charged as a bypass.
         self.trip.position_mi = self.trip.position_mi.max(stop.at_mi);
+        // Whether the one-mile call already gave the exit speed, read before
+        // the reset below clears the anchors.
+        let speed_given_at_the_mile = self.exit_countdown_said.contains(&1.0);
         self.reset_exit_lane_state();
         self.exit_signal_on = false;
         // Gore to stop bar, then the terminal-to-driveway stretch: the
@@ -548,21 +537,30 @@ impl DrivingState {
         self.pause_speed_control(ctx, transit);
         ctx.audio.play_with("ui/notify", 0.7, 0.0);
         let take = if stop.stop_type == "delivery_destination" {
-            let phrase = self.exit_phrase_of(ctx, stop);
-            let labeled = if phrase.is_empty() {
-                stop.exit_label.clone()
+            // Just the number. Where the exit leads and whose it is were
+            // said on every call from 5 miles out, and saying them again
+            // here buried the ramp's length and what ends it (owner,
+            // 2026-10-25: the move off the highway said too much).
+            if stop.exit_label.is_empty() {
+                String::new()
             } else {
-                phrase
-            };
-            if labeled.is_empty() {
-                format!("You take the destination exit for {}.", stop.name)
-            } else {
-                format!("You take {labeled}, destination exit for {}.", stop.name)
+                format!("{}.", stop.exit_label)
             }
         } else if stop.exit_label.is_empty() {
-            format!("You take the exit for {}.", stop.spoken_name())
+            format!("Exit for {}.", stop.spoken_name())
         } else {
-            format!("You take {} for {}.", stop.exit_label, stop.spoken_name())
+            format!("{} for {}.", stop.exit_label, stop.spoken_name())
+        };
+        // A sentence of its own after the exit speed: the label reads
+        // "exit 42" mid-sentence and leads this one.
+        let take = {
+            let mut chars = take.chars();
+            match chars.next() {
+                Some(first) => {
+                    " ".to_string() + &first.to_uppercase().collect::<String>() + chars.as_str()
+                }
+                None => take,
+            }
         };
         let scale_ramp = stop.stop_type == "weigh_station";
         // In the driver's units: a metric cab heard "half a mile" here in
@@ -583,11 +581,20 @@ impl DrivingState {
         // driver doing their own braking has a few seconds of lane, and the
         // number is what they brake on (review, 2026-09-24). Never a number
         // the load aboard cannot take the ramp curve at (`spoken_exit_mph`).
-        let exit_speed = format!(
-            "Exit speed {}.",
-            ctx.settings
-                .speed_value(self.spoken_exit_mph(self.armed_ramp_mph(Some(stop))))
-        );
+        //
+        // Not twice when the exit speed assist does the braking, though: the
+        // one-mile call gave the same number a minute earlier, and a driver
+        // who is not braking for it has no use for it again (owner,
+        // 2026-10-25). The ramp line leads with the exit then.
+        let exit_speed = if speed_given_at_the_mile && ctx.settings.exit_speed_assist {
+            String::new()
+        } else {
+            format!(
+                "Exit speed {}.",
+                ctx.settings
+                    .speed_value(self.spoken_exit_mph(self.armed_ramp_mph(Some(stop))))
+            )
+        };
         let message = if self.terse_speech(ctx) {
             let mut terminal = match self.ramp_control.as_str() {
                 "signal" => " Traffic light at the end.",
@@ -599,10 +606,12 @@ impl DrivingState {
             if scale_ramp {
                 terminal = " The scale is at the end.";
             }
-            format!("{exit_speed} {take} {ramp} of ramp.{terminal}")
+            format!("{exit_speed}{take} {ramp} of ramp.{terminal}")
+                .trim_start()
+                .to_string()
         } else {
             let mut ending = match self.ramp_control.as_str() {
-                "signal" => "traffic light at the end",
+                "signal" => "light at the end",
                 "stop" => "stop sign at the end",
                 // A yield named as "stop at the end" was an instruction the
                 // rule at the line does not give (every-assist audit,
@@ -616,9 +625,13 @@ impl DrivingState {
             }
             if ending == "stop at the end" && self.ramp_continues_to_destination_streets(ctx) {
                 // Streets follow this ramp: its end is not where to stop.
-                format!("{exit_speed} {take} {ramp} of ramp.")
+                format!("{exit_speed}{take} {ramp} of ramp.")
+                    .trim_start()
+                    .to_string()
             } else {
-                format!("{exit_speed} {take} {ramp} of ramp, {ending}.")
+                format!("{exit_speed}{take} {ramp} of ramp, {ending}.")
+                    .trim_start()
+                    .to_string()
             }
         };
         // On the ramp from this line on: a mainline line it cuts is not
@@ -704,17 +717,7 @@ impl DrivingState {
         self.cancel_cruise(ctx, false);
         self.cancel_keeper(ctx, false);
         let place = stop.name.clone();
-        let mut message = if self.terse_speech(ctx) {
-            format!(
-                "Drove past {place}; you never stopped. Safe turnaround. {place} ahead again; \
-                 stop this time."
-            )
-        } else {
-            format!(
-                "Drove past {place} without stopping. You loop back through the next safe \
-                 turnaround. {place} is ahead again, stop this time. The clock is still running."
-            )
-        };
+        let mut message = format!("Drove past {place}. It is ahead again.");
         if self.ramp_terminal_miss_count >= 2 {
             // The identical core line keeps the flow predictable by ear; a
             // repeat miss earns help, not scolding.
@@ -796,18 +799,9 @@ impl DrivingState {
         self.trip.truck.brake = self.trip.truck.brake.max(self.selected_stop_assist_brake);
         if !self.selected_stop_assist_said {
             self.selected_stop_assist_said = true;
+            // Silent: the driver selected this stop and the braking is
+            // felt; the entrance itself is what the ramp guidance names.
             self.pause_speed_control(ctx, false);
-            // ROUTE, not the ambient default: an automation naming that it just
-            // took the brakes, same class as the ramp assist's own braking-for
-            // line (automation-handoff sweep, 2026-08-20, the deferred
-            // 2026-08-15 audit).
-            self.say_route_confirmation(
-                ctx,
-                format!(
-                    "Facility stopping assistance handling the entrance to {}.",
-                    stop.spoken_name()
-                ),
-            );
         }
         false
     }

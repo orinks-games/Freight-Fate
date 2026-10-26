@@ -47,10 +47,12 @@ This file catalogues the game layer, and then the spoken vocabulary for both.
 | Truck condition | `TruckCondition` | `models/trucks.py` |
 | Duty log | `DutyLog` | `sim/hos.py` |
 | Loyalty account | `LoyaltyAccount` | `models/loyalty.py` |
-| Radio favorite (spoken "favorites", a saved station) | `RadioState.favorite_ids` | `radio.py` |
+| Radio favorite (spoken "favorites", a saved station; plays anywhere, its signal spoken "streaming" once it is out of clear range) | `RadioState.favorite_ids` | `radio.py` |
 | Radio app (the Driver apps tablet app that searches the dial, tunes by name, and keeps favorites; "Search stations", "Stations in range", "Favorites") | `RadioAppState`, `RadioState.search`, `RadioState.favorites` | `states/driving_radio_app.py`, `radio.py` |
 | Now playing (spoken "Now playing on <station>: <song>"; what a stream says it is playing -- "song information" when there is none) | `_radio_now_playing_text`, `AudioEngine.radio_now_playing`, `parse_icy_stream_title` | `states/driving_updates.py`, `audio.py` |
 | Personal playlist station (one of the player's own playlist files on the dial) | `PERSONAL_PLAYLIST_SOURCE_TYPE`, `load_personal_playlists` | `radio.py` |
+| Station suggestion (spoken "Suggest a station"; a station a player sends from the Radio app for review) | `SuggestKindState`, `StationSuggestionEntryState`, `StationSuggestion` | `states/driving_radio_suggest.rs`, `community_stations.rs` |
+| Community station (a suggested station the owner accepted; shipped in `radio_community.json` and downloaded at launch; an AM or FM one plays near its licensed transmitter, else on the web radio band) | `ff_core::radio::community`, `COMMUNITY_STATIONS_FILE`, `RADIO_COMMUNITY_RESOURCE` | `radio/community.rs`, `cargo tools fold-community-stations` |
 | Save migration | `migrate_save_data`, `SAVE_VERSION` | `models/save_migration.py` |
 | Career from an earlier version (the 1.9 cutover gate; never "legacy" in spoken text) | `created_line`, `LegacyCareerError` | `models/profile.py` |
 | Integrity signature | `SIGNATURE_FIELD`, `ProfileIntegrityError` | `models/profile.py` |
@@ -107,6 +109,7 @@ belongs to the truck you own in this game, not to the driver.
 | A tank load and its sloshing wave | `LiquidLoad`, `SloshAxis` | `sim/surge.py` |
 | Stop-cue geometry from stopping distance | -- | `states/driving_stops.py` |
 | Planned rest-stop stopping assistance | `selected_stop_assist` | `settings.py`, `states/driving_events.py` |
+| Facility streets (the setting): on drives the streets between the highway and a facility; off is the 1.8 arrival at the ramp's end | `facility_streets`, `DrivingState::facility_streets_on` | `settings.rs`, `states/driving_events/chains.rs` |
 | Destination approach assistance | `destination_approach_assist` | `settings.py`, `states/driving_updates.py` |
 | Traffic vehicle | `TrafficVehicle`, `TrafficSituation`, `TrafficManager` | `sim/traffic_manager.py` |
 | Live traffic | `TrafficEvent`, `TrafficData`, `RealTrafficProvider` | `sim/real_traffic.py` |
@@ -155,7 +158,7 @@ time is a view, via `Trip.local_hour`.
 | Achievement | `Achievement`, `AchievementAward` | `achievements.py` |
 | Achievement category | `AchievementCategory` | `achievements.py` |
 | Message | `Message`, `MessageCategory`, `MessageLog` | `message_log.py` |
-| Engine voice | `EngineVoice`, `EngineReading` | `engine_audio.py` |
+| Engine sound | `EngineVoice`, `EngineReading` | `engine_audio.py` |
 | Settings | -- | `settings.py` |
 | Speech | -- | `speech.py` |
 | States | `State` and subclasses | `states/` |
@@ -208,7 +211,7 @@ Not classes, but part of the ontology, because the shape is load-bearing:
   `tools/world_source.py`, where `load_world()` returns the whole world as one
   dict and `save_world(data)` writes it back as per-state shards.
 - The game loads the indexed `data/world_data/` tree.
-- `tools/index_world.py` regenerates the index; `--check` verifies the two are
+- `cargo tools index-world` regenerates the index; `--check` verifies the two are
   in sync, and CI and tests expect that.
 
 Both trees shard by the state a leg starts in (`legs/TX.json`), so a one-leg
@@ -227,18 +230,22 @@ from the words, and synonyms cost them a re-read.
 | The haul contract | job | gig, run, assignment | `Job` |
 | A driving control moved to another key | keyboard shortcut (the screen), the key it is on ("Engine on or off: E") | binding, mapping, keybind, hotkey | `bindings::Action`, `KeyBindings` |
 | The same on the pad | controller button; right bumper plus «button» for the second layer | modified button, layer two, chord | `bindings::PadChord` |
+| The screen where every key or button names its driving command and runs nothing | key and button practice; the menu row is "Practice keys and buttons"; a press answers "«key»: «command»." | keyboard tester, input test, learn mode, key describer | `InputPracticeState` |
+| An officer letting a driver below level 10 off a minor violation, with no fine and nothing on the record | warning ("gives you a warning", "lets you go with a warning") | rookie pass, grace, free ticket | `enforcement::new_driver_warned`, `DrivingState::new_driver_warning` |
 | One booked citation or violation with its reason | citation / serious violation / major offense / safety incident, then day, clock, reason, fine, place | ticket entry, infraction, offense record, strike | `enforcement::RecordEntry`, `DrivingRecord.entries` |
 | The freight itself | cargo, the load | payload, goods | `CargoType`, `Job.cargo` |
 | The board of offers | dispatch board | job list, load board | `JobBoard` |
+| Asking the carrier's dispatcher for help on a trip, from the pause menu while stopped | call dispatch; the answer starts "Dispatch:" | radio dispatch, phone home, check call, Qualcomm message | `DispatchCallState`, `DispatchCallRequest` |
 | The vehicle | truck | rig (except as noted) | `TruckModel` |
 | One city-to-city stretch | leg | segment, hop | `Leg` |
 | The real highway a leg follows | corridor | -- | -- |
 | How far the truck stays on the road it just turned or merged onto | then «distance» on it ("Turn right onto Palm Street, then half a mile on it") | a bare trailing distance ("; half a mile" right after a countdown to the turn reads as the turn moving away), for, stretch, segment length | `Trip::surface_distance_tail` |
-| A populated place beside the corridor, spoken when the driver asks where they are | town ("In Pine", "Nearest town, Cicero") | village (that is the bake's category name, not a spoken word), settlement, locality, place | `Landmark.category == "village"`, `DrivingLocationMixin._speak_current_town` |
+| A populated place beside the corridor, spoken when the driver asks where they are | town ("In Pine", "Nearest town: Cicero") | village (that is the bake's category name, not a spoken word), settlement, locality, place | `Landmark.category == "village"`, `DrivingLocationMixin._speak_current_town` |
 | Which way the truck is travelling, worded the way the shields sign it | direction, spoken as "Eastbound" | heading, bearing, compass direction (the signed direction is not the geometry) | `_leg_heading`, `DrivingLocationMixin._speak_current_direction` |
 | One drive, start to finish | run | trip, haul | `Trip` |
 | The pacing choice on the Driving mode row | relaxed, standard, real time | realistic (retired), 1x, normal speed, pacing level | `Settings.time_scale`, `TIME_SCALES`, `mode_name` |
 | A truck stop or service POI | stop | POI, waypoint | `Stop`, `RoadStop` |
+| What the driver wants the planned stop for, chosen from the list T opens while rolling | Plan a stop (the list's title); its rows are Fuel, Break, Sleep, Fuel and sleep, Food and coffee | stop type, rest type, stop reason | `StopPlanPurpose`, `StopPurposeState` |
 | The level band | rank | tier, grade | `CareerRank` |
 | A group of related achievements | category | group, section, tab | `AchievementCategory` |
 | Any rung of the license-and-training ladder, taken together | credential (menu name "Licenses and training") | qualification, license add-on | `CREDENTIALS` |
@@ -249,6 +256,7 @@ from the words, and synonyms cost them a re-read.
 | The federal vetting behind hazmat and the port card | background check | security threat assessment, STA, TSA check (the agency name is fine once, in help) | `PendingCredential` |
 | A purchasable consumable | its own name: "shower", "energy drink" | buff, item, power-up | `Buff` |
 | The tractor a carrier gave you | your assigned truck | your truck (when leased) | `FleetTier` |
+| The set of carrier trucks dispatch assigns from at a level band | fleet, by its label: "the regional fleet", "first pick of the yard"; "assigned by the carrier" when it could be heard as a purchase | tier, class, earns (it reads as a price) | `FleetTier.label` |
 | How much of the lane-holding work the truck does -- holding the truck between the lines against wander and wind. Steering THROUGH a mapped bend is curve assistance, a separate setting and a separate job | lane keeping, always with its value clause ("full, the truck holds the lane and takes your exits") | lane drift (retired 1.9), steering assist, lane keeping assist / lane centering assistance (retired 1.9 -- was a settings promise with no feature; never describe it as working), the bare value word alone -- "off" here is the hardest mode, the opposite of "off" on the rows around it | `settings.lane_keeping` |
 | Vehicles around you now | traffic | NPCs, cars | `TrafficManager` |
 | Room adaptive cruise leaves to the vehicle ahead | following gap, always with its seconds ("close, two and a half seconds") | following distance, headway, gap on its own (bare "gap" is the lane row below, and the two are different things) | `settings.acc_following_gap`, `ACC_GAP_CHOICES` |
@@ -265,10 +273,18 @@ from the words, and synonyms cost them a re-read.
 | Road the truck needs to stop from here | stopping distance | braking distance, stop room | `TruckState.stopping_distance_m` |
 | The short code a player reads and types into a browser to connect a computer | activation code | user code, device code, pairing code | `Activation.user_code` |
 | The legal driving clock as a whole | hours of service | HOS, the ELD rules, your logbook hours | `HosClock`, `settings.hos_mode` |
+| The driving a dispatch will take, deadhead included, estimated before you accept | trip hours ("Trip hours: about 6.5 driving hours, with a 10-hour sleep.") | run time, drive estimate, trip length | `board::briefing::hours_lines` |
 | The 11-hour clock that limits time at the wheel | driving time left | drive clock, hours left, hours remaining | `HosClock.drive_time_summary` |
 | Driving time already spent this shift | at the wheel | hours driven, drive time used, hours on the road (that is the run) | `HosClock.wheel_time_summary` |
 | The 14-hour clock that starts when you go on duty | duty window | 14-hour clock, on-duty clock, shift window | `HosClock.duty_min` |
 | The 30 minutes off the wheel the law requires | break | rest break, 30, half-hour rest | `HosClock.break_summary` |
+| The second driver on a team load, who drives while the player is in the sleeper | co-driver, or their name ("Dan needs you back at the wheel.") | partner, teammate, relief driver, autopilot, AI driver | `TeamDrive`, `models::co_driver` |
+| A delivery run with a co-driver, including a load dispatch books for two drivers ("Team load" in the job details) | team load | team run, relay, duo | `TeamDrive`, `Job.team`, the `team:loads:` counters |
+| Resting in the sleeper while the co-driver drives at the normal pace | ride along ("Hand the wheel to Dan and ride along"; at the shipper, "Depart with Dan driving, and ride along") | watch, spectate, passenger seat | `TeamMode::RideAlong` |
+| Sleeping while the co-driver's shift runs ahead | sleep ("Hand the wheel to Dan and sleep"; at the shipper, "Depart with Dan driving, and sleep"); "sleep through it" in the manual | fast-forward, skip, time skip | `TeamMode::SleepThrough` |
+| The player's ten hours off in the sleeper while the co-driver drives, which resets their hours and ends the co-driver's shift | rest ("Rest: 3.5 hours of 10 hours."; "Your 10-hour rest is in.") | recovery, reset, sleep credit | `co_driver::rest_complete`, `Wheel.player_rest_owed` |
+| The co-driver giving the wheel back | needs you back ("Dan needs you back at the wheel."); the pause menu row is "Take the wheel back" | summon, wake call, handoff | `co_driver_summon`, `take_wheel_back` |
+| The co-driver's own lines in the message review: their plans, stops, fines, inspections and the hazards they met (one of the categories `[` and `]` step through, present once they have said something) | Co-driver | team log, partner messages, AI log | `MessageCategory::CoDriver`, `co_driver_note` |
 | The in-game time of day (truck-local with a named zone in accelerated modes; computer-anchored and spoken as "local game time" in Real time) | clock | local time, game time | `Trip.local_hour`, `clock_text` |
 | When the load is due | deadline | due time, drop time (the appointment is the named hour) | `Job.deadline_game_h` |
 | The retarder | engine brake; "jake" in short control feedback ("Jake on, stage two") | retarder | `TruckState.engine_brake_stage` |
@@ -276,6 +292,7 @@ from the words, and synonyms cost them a re-read.
 | The speed this truck, at its weight, can hold a steep downgrade at without overheating its brakes ("Descent control holding 45 miles per hour." / D: "Safe speed 45 miles per hour for the grade.") | the number descent control holds; "safe speed ... for the grade" on D | weight-specific speed, grade speed, runaway speed, descent speed | `TruckState::safe_descent_mph`, `DrivingState::descent_safe_mph` |
 | A posted height restriction on the corridor | low bridge | low clearance, height limit, clearance restriction | `RouteRestriction.kind_label` |
 | A posted weight restriction on the corridor | weight limit | max weight, tonnage limit, weight restriction | `RouteRestriction.kind_label` |
+| A delivery stop that is a shopping mall: it takes freight in at its service dock and ships none | mall (dropped when the name already says it: "Mall of America near Bloomington in Minneapolis") | shopping center, retail center, retail distribution hub (that is a warehouse) | `shopping_mall` facility type, `LOCATION_TYPE_LABELS` |
 | The facility entrance where a drive ends | facility gate; "gate" in short cues | entrance (as the noun for the thing), dock gate | `_handle_arrival_gate` |
 | The highway exit for the delivery | destination exit | final exit, last exit, your exit | `_destination_exit_stop` |
 | The driver's commitment to an exit, made with X wherever it is pressed; the gate a manual exit checks ("Signal set for exit 42", said farther out than the blinker runs; "Signal on for exit 42" once it clicks) | the signal: set, then on | exit armed, intent, confirm (there is no confirm action) | `exit_signal_on`, `exit_blinker_on`, `EXIT_BLINKER_MI` |
@@ -284,14 +301,15 @@ from the words, and synonyms cost them a re-read.
 | The warning that a bend or ramp curve is being taken, or approached, faster than this load and this lane keeping take it at no cost, with the speed that does ("Sharp left, too fast. Slow to 37 miles per hour.") | too fast; slow to (the number) | drifting to the outside (the old line, retired 2026-09-24), rollover warning, safe speed, advisory (the number is not the sign's) | `driving_rollover::update_curve_warning`, `curve_safe_mph` |
 | A truck going over on its side in a bend because the bend pulled harder than the load's rollover threshold ("The truck rolled over in the bend.") | rolled over | tipped over, flipped, jackknifed (a different crash), overturned, wreck | `DrivingState::roll_over`, `TruckState::roll_share`, `vehicle/roll.rs` |
 | An accident on the driving record, such as a rollover: counted on the safety record and reputation like a serious violation, public as a count ("It goes on your driving record as a crash.") | crash | accident (the regulation's word, never spoken), wreck, incident, collision (that is the traffic hit) | `RECORD_CRASH`, `DrivingRecord::crashes`, `crash_times`, `crashes` on the public profile |
-| The ramp's advisory, the speed its curve is built for, said once as the truck enters the exit lane ("Exit speed 45.") | exit speed | ramp speed, ramp limit, safe ramp speed, advisory (as the spoken noun) | `armed_ramp_mph`, `take_the_ramp`, `ExitRampLayout::curve_mph` |
+| The ramp's advisory, the speed its curve is built for, said in the one-mile call for the exit and once as the truck enters the exit lane ("Exit speed 45.") | exit speed | ramp speed, ramp limit, safe ramp speed, advisory (as the spoken noun) | `armed_ramp_mph`, `take_the_ramp`, `ExitRampLayout::curve_mph` |
 | The assist that brakes and creeps the truck to the facility entrance, and, from a cleared ramp-end stop, drives it there hands off | Facility stopping assistance (the settings row's own name) | destination approach assistance (the setting's code name only), arrival assist, approach assist | `destination_approach_assist`, `update_destination_approach_assist`, `terminal_release_text` |
 | The assist that takes a mapped bend for the driver: brakes to its advisory on the approach, holds that speed through it, brakes inside a bend entered too fast, and steers the wheel the bend wants | Curve assistance (the settings row's own name); "slowing" when it takes the brakes, "released" when it lets go | curve speed assistance (its name before it steered), turn assist, corner assist, curve braking, bend assist, the servo (code only) | `curve_speed_assist`, `driving_updates/curve_servo.rs`, `sim::lane::tracking_steer_rad`, `update_lane` |
 | A driveway, delivery lane or parking aisle OSM holds no name for, and the approach to a facility the world generated rather than surveyed | a service road | unnamed public road, access road, service way, private road, local facility access road | `build_local_geometry.UNNAMED_SERVICE`, `build_local_approaches.fallback_road` |
 | A residential or minor street OSM holds no name for | a side street | unnamed public road, unnamed street, local road, back road | `build_local_geometry.UNNAMED_STREET` |
 | A street maneuver the route asks for | turn | corner, junction, intersection, manoeuvre | `_is_judged_turn`, `local_turn` cues |
 | The speed a turn has to be taken under, from the turn's own measured angle | advise ("Advise 9", the pacenote word) | turn limit, corner advisory, max speed | `data::corners`, `turn_speed_mph` |
-| The loop-back after missing the destination exit, the facility gate, the stop at the end of the destination ramp, or a turn | safe turnaround | U-turn, turnaround point, loop | `_handle_missed_destination_exit`, `_handle_missed_facility_gate`, `_loop_back_to_destination_terminal`, `_handle_missed_turn` |
+| The loop-back after missing the destination exit, the facility gate, or the stop at the end of the destination ramp | safe turnaround | U-turn, turnaround point, loop | `_handle_missed_destination_exit`, `_handle_missed_facility_gate`, `_loop_back_to_destination_terminal` |
+| What the truck does after a street turn taken too fast: drives on, circles one block, and comes out on the street it missed, with the time charged | around the block ("Going around the block.") | safe turnaround (that is the highway loop-back), loop, reroute | `handle_missed_turn`, `TURN_MISS_LOOP_MIN` |
 | The give-way control at a ramp terminal: slow for the gap, stop only if the road is not clear | yield ("Yield at ramp end", "Through the yield in a gap") | give way (the OSM tag, not a spoken word), yield sign as the noun in short cues | `_ramp_control == "yield"`, `YIELD_ROLL_MPH` |
 | The circular terminal a ramp can end at, played by yield rules against circulating traffic | roundabout | traffic circle, rotary, circle | `_ramp_control == "roundabout"` |
 | A signal OSM maps at an intersection on a facility's streets, played by the ramp terminal's rules (off in 1.9, `STREET_CONTROLS_IN_PLAY`) | traffic light ("Traffic light ahead. Light red.") | signal, stoplight, street light, ramp light | `driving_events/street_controls.rs`, `street_control_kind == "signal"` |
@@ -355,6 +373,7 @@ from the words, and synonyms cost them a re-read.
 | The level-18 step from company driver to leased-on owner-operator | the owner-operator buy-in; buy in | lease, lease-purchase, upgrade, promotion | `BusinessStatusState::become_owner_operator`, `OWNER_OPERATOR_BUY_IN` |
 | Choosing the company seat with the buy-in open | stay a company driver; company driver by choice | decline, opt out, refuse, skip the lease | `Profile.owner_operator_declined`, `BusinessStatusState::stay_company_driver` |
 | An owner-operator handing the equipment back for a company seat | go back to company driving | quit the lease, sell out, downgrade, revert | `solvency.apply_return_to_company_driving` |
+| A company driver at the training fleet taking a seat at another carrier | move to another carrier; hires you away | transfer, switch carriers, quit, change jobs, graduate | `carrier_move.apply_carrier_move`, `MOVE_UP_LEVEL` |
 | Equipment the level earns that dispatch trust is withholding | held back | locked, gated, downgraded, nerfed, demoted | `carrier_fleet.equipment_held_back` |
 | Career experience arriving slower in low dispatch trust | reduced rate | XP penalty, multiplier, malus, nerf | `career.standing_xp_rate` |
 | The first damage band: the engine holds power back | reduced power | derate, band two, power loss | `DAMAGE_BAND_REDUCED` |
@@ -365,7 +384,10 @@ from the words, and synonyms cost them a re-read.
 | The carrier taking a company tractor off the road | dispatch grounds it, grounded | benched, red-tagged, impounded | `_carrier_grounds_the_tractor` |
 | The tractor a grounded company driver is moved into | yard spare | loaner, replacement truck, backup rig | `_draw_yard_spare` |
 | The emergency call-out that gets an out-of-service truck moving | roadside repair | roadside rescue (that is the fuel one), tow | `_roadside_repair_out_of_pocket` |
+| Miles the fuel in the tank reaches at this drive's own miles per gallon | fuel range, range | mileage left, distance to empty, endurance | `DrivingState::fuel_range_mi` |
+| The once-per-shortfall cue when the fuel range will not reach the next fuel stop | fuel range warning | low fuel warning (that is the fifteen percent one), range alert | `DrivingState::check_fuel_range_warning` |
 | The emergency call-out for an empty tank | roadside rescue | roadside repair (that is the damage one) | `_handle_out_of_fuel` |
+| A sustained slope in the road, with its percent and direction ("6.0 percent downhill grade ahead") | grade; uphill grade, downhill grade | upgrade, downgrade (an upgrade is a truck purchase), incline, hill | `Trip::grade_at`, `DrivingState::update_grade_advisory` |
 | Losing the truck to speed, usually out of gear on a grade | runaway | overspeed (that is the posted-limit one) | `RUNAWAY_SPEED_MPH` |
 | Backing along a travelled lane, away from the destination | driving the wrong way; backing | reversing (that is the gear), wrong-way driver, going backwards | `WRONG_WAY_WARN_MI` |
 | The lane roadwork has coned off, named by the side of the road it is on | the right lane is closed; the left lane is closed | lane one, the outside/inside lane, the middle lane (a closure is always an edge lane), lane closure | `Zone.closed_side`, `Trip.closed_lane_at` |
@@ -399,6 +421,9 @@ from the words, and synonyms cost them a re-read.
 | Air pressure fallen too low to brake safely | Low air buzzer | low-pressure alarm, air warning | `vehicle/low_air_buzzer` |
 | The parking brake engaging: a hard mechanical clunk of air dumping | Parking brake set | brake set, park brake on | `vehicle/brake_set` |
 | The parking brake releasing, freeing the truck to roll | Parking brake released | brake release, park brake off | `vehicle/brake_release` |
+| The driver's side window, lowered or raised by its motor; with it down the wind rushes in and the outside sounds louder | driver window; "Driver window down." / "Driver window up." | window (alone: "window" is also the duty window), cab window, open/closed | `sim/cab.rs CabState`, `cab/window_motor`, `cab/wind` |
+| The cab blower, off, low, medium or high | fan; "Fan low." | blower, vent, climate fan | `sim/cab.rs FanSpeed`, `cab/fan` |
+| Warm or cold air from the fan | heat; air conditioning | A/C, AC, cooling, climate mode, HVAC | `sim/cab.rs ClimateMode`, `cab/ac_clutch` |
 | The hardest stop the truck has, for a hazard that cannot otherwise be missed | Emergency brake | e-brake (bare abbreviation), panic stop | `vehicle/ebrake` (fallback `vehicle/brake_air`) |
 | The hazard assist taking the truck and stopping it on the service brakes | Automatic braking | AEB, auto brake, emergency braking (that names only the escalation, and the routine stop never reaches it) | `states/driving_updates.py._update_hazard` |
 | Tires losing grip on the road | Tire screech | skid, traction loss | `vehicle/tire_screech` |
@@ -423,7 +448,7 @@ from the words, and synonyms cost them a re-read.
 | A toll gantry or plaza billing the truck | Toll charged | toll cue, gantry chime | `events/toll_charged` |
 | The driver's own yawn as fatigue builds | Yawn | fatigue sound, drowsy cue | `driver/yawn` |
 | The optional note that carries the lean instead of the engine, off by default; with it on the engine stays centered | Lane guide tone (the settings row is "Lane guide sound: engine" or "tone") | guide tone, steering tone, lean tone | `guide/lane_guide_tone`, `Settings.lane_guide_tone`, `DrivingState::lean_the_tone` |
-| The setting for which way to steer when the engine leans: toward the lean by default, or away from it | Steering guide (the settings row reads "steer toward the lean" or "steer away from the lean") | invert steering, reverse guide, flipped lean | `Settings.steering_guide_inverted`, `guide_sign` |
+| The setting for which way to steer when the engine leans: toward the lean by default, or away from it | Steering guide (the settings row reads "steer toward the engine" or "steer away from the engine", naming the engine so it is never read as the rumble strip or the road noise, which pan too; before 2026-10-14, "toward the lean" or "away from the lean") | invert steering, reverse guide, flipped lean | `Settings.steering_guide_inverted`, `guide_sign` |
 | The one-time screen before the main menu that asks how much the truck should do, answered once by every player | Driving assistance (the same choice as the preset row in Settings) | setup wizard, onboarding, first-run screen | `states::assist_picker`, `Settings.assist_preset_chosen` |
 | Being looked at for something other than speed: damage, missing chains, following too close | Inspection warning | inspection cue, roadside-check tone | `events/inspection_warning` |
 | The earcon that fires with the open-scale approach notice, ahead of the ambient bed | Scale warning | weigh-station warning cue, scale earcon | `events/weigh_station_warning` |
@@ -443,7 +468,9 @@ from the words, and synonyms cost them a re-read.
 | Another driver appearing on or leaving the drivers list, and the optional spoken notice of it | "<driver> is on duty" / "<driver> went off duty"; the Online menu row that turns the notice on is "Say when drivers go on or off duty" | joined, logged in, came online, signed off, left the board, notification (the row says "say when") | `duty_watch.duty_change_text`, `settings.duty_notifications` |
 | Every driver with a public profile, on duty or not, and when each was last on duty; the screen that lists them | driver directory; a row says "On duty" or "Last on duty three days ago", and "Not seen on duty yet" for a driver no session has ended for | roster, member list, all drivers, offline drivers, player list, last seen, last online (the stamp is when they went off DUTY, the board's own word) | `DriverDirectoryState`, `getDriverDirectory`, `GET /api/freight-fate/directory`, the Driver directory page on orinks.net |
 | One driver's public page read aloud in the game -- opened with Enter on the drivers list, or as the player's own from the Online menu | driver profile; the player's own is "Your profile"; a driver whose page is hidden "has no public profile" | profile card, driver page, stats screen, player card, private profile (the game never says why a profile is hidden) | `DriverProfileState`, `GET /api/freight-fate/drivers/<driverId>` |
+| The states and cities a career has delivered to (a pickup city does not count), on Career stats and the driver profile | places visited; "States visited" and "Cities visited" for the counts | cities delivered, destinations, map coverage, travel history | `career_stats::visited_places`, `cities_delivered` in `achievement_stats`, `visitedPlaces` on the public profile |
 | Game sound lowering itself while the road voice speaks | game sounds step back for speech (the Settings > Audio row) | ducking, audio duck, attenuation | `settings.duck_audio_for_speech`, `AudioEngine.set_speech_duck` |
+| The language the game speaks, and its spoken name | Language (the Settings > Speech row), with each language named in itself ("Español", "Deutsch") and "automatic" before the name when it follows the system | locale, translation, l10n (code words) | `settings.language`, `ff_core::l10n`, `app::language` |
 | Where the game's lines go: spoken, or to the screen reader's braille display with nothing spoken | Output (the Settings > Speech row), with speech and braille / braille only as its values; the display is "your braille display" | speech mode, silent mode, mute speech, braille backend, braille channel | `settings.braille_only`, `SpeechSink::set_braille_only`, `VoiceBackend::braille` |
 | How loud the lane and edge cues are next to everything else | lane and edge cue volume (the Settings > Audio row), with quieter / standard / louder as its values | prominence (what the row said until 1.9, and what the owner could not decode), lane cue loudness, cue intensity | `settings.lane_cue_loudness`, `sim/lane_guidance.CUE_LOUDNESS` |
 
@@ -566,20 +593,17 @@ reported incidents on the road ahead are different systems the player can act
 on differently. "Traffic is heavy" and "there is a wreck reported ahead" are
 not interchangeable.
 
-### "Bear" is CB voice only
+### "Bear" is never spoken
 
-"Bear" may appear in exactly one place: inside a clause the line attributes to
-the CB, spoken by a driver on the radio. It is trade slang, and it is flavour.
-In a warning, a menu item, a status readout, or anything the game says in its
-own voice, the word is "trooper".
+The officer is a "trooper" everywhere, the CB included. "Bear" is trucker
+slang most players never learned, so a CB call that said it taught a screen
+reader user a second noun for a thing that already had one (owner,
+2026-10-11; it was allowed as CB flavour until then).
 
 A sweep of every string literal in both crates' sources fails if the word
-appears outside a CB clause
-(`test_bear_is_cb_voice_only_in_every_player_facing_string` in
+appears (`test_bear_is_never_spoken_in_any_player_facing_string` in
 `crates/ff-core/tests/it/sim_enforcement_vocabulary.rs`); the song title
-"Black Bear Road" is its one exception. The check exists because slang leaks: the word is
-evocative, it reads well in a sentence, and one careless line teaches a screen
-reader user a second noun for a thing that already had one.
+"Black Bear Road" is its one exception.
 
 ### Driving speech rungs
 
@@ -627,7 +651,7 @@ frame never shuffles, so no terse line may reorder its slots:
 | --- | --- | --- |
 | Hazard-family cue (brake lights, slow traffic) | thing, distance, target speed | "Brake lights, 2.1 miles, 38." |
 | Merging traffic cue | thing, distance | "Merging box truck, 0.4 miles." |
-| Stop callout | name, exit, distance, qualifier | "Flying J Travel Center Corfu, exit 48A, 5 miles. Parking confirmed." |
+| Stop callout | name, exit, distance, qualifier, then "No fuel." where pumps could be expected | "Flying J Travel Center Corfu, exit 48A, 5 miles. Parking confirmed." |
 | Money consequence | what, amount, who pays | "Toll, 15 dollars, carrier." |
 | Speed limit | "Limit", the number | "Limit 65." |
 

@@ -12,13 +12,15 @@ use crate::data::world::{max_alternate_miles, World};
 use crate::data::world_models::{City, CrossingLoad, Location};
 use crate::models::business_constants::DIRECT_FREIGHT_PAY_MULT;
 use crate::models::carriers::carrier;
+use crate::models::co_driver::{load_seed, team_load_drawn, TEAM_LOAD_PAY_MULT};
+use crate::models::jobs::team_deadline_hours;
 use crate::models::jobs::{
     cargo_type, dispatch_deadline_hours, market_tag_cargo_bonus, minimum_pay_for_level, plan_hos,
     CargoType, Job, SeasonalWeightLimit, DEADLINE_DISPATCH_SLACK_RANGE, FACILITY_SELECTION_WEIGHTS,
     HELD_CREDENTIAL_CARGO_WEIGHT, HELD_CREDENTIAL_FACILITY_BONUS, HOOKUP_FEE, LEVEL_DISTANCE_CAPS,
-    LEVEL_DISTANCE_CAP_STEP_MI, LONG_HAUL_MILES, MAX_DISPATCH_DISTANCE_MI, MIN_JOB_DISTANCE_MI,
-    PREMIUM_LANE_LEVEL, PREMIUM_LANE_LONG_HAUL_BIAS, SPECIALIZED_FREIGHT_LEVEL,
-    SPECIALIZED_FREIGHT_WEIGHT, THIN_OUTBOUND_ORIGIN_WEIGHT,
+    LEVEL_DISTANCE_CAP_STEP_MI, MAX_DISPATCH_DISTANCE_MI, MIN_JOB_DISTANCE_MI, PREMIUM_LANE_LEVEL,
+    PREMIUM_LANE_LONG_HAUL_BIAS, SPECIALIZED_FREIGHT_LEVEL, SPECIALIZED_FREIGHT_WEIGHT,
+    THIN_OUTBOUND_ORIGIN_WEIGHT,
 };
 use crate::models::market::Market;
 use crate::models::start_options::{start_option, DEFAULT_START_KEY};
@@ -132,29 +134,6 @@ impl<'w> JobBoard<'w> {
     pub fn with_calendar_hours(mut self, hours: f64) -> Self {
         self.calendar_hours = Some(hours);
         self
-    }
-
-    /// How many distinct places a driver at `level` can be sent to from
-    /// `city`: the reachable cities within the level's range and past the
-    /// across-town minimum. The board's own measure of how much choice a
-    /// town's freight offers; a town with one or two is a thin market
-    /// however many rows the board fills (see `relay`).
-    pub fn destination_choices(&self, city: &str, level: i64) -> usize {
-        self.destination_choices_for_carrier(city, level, DEFAULT_START_KEY)
-    }
-
-    pub fn destination_choices_for_carrier(
-        &self,
-        city: &str,
-        level: i64,
-        carrier_key: &str,
-    ) -> usize {
-        let city = self.world.resolve_city_key(city);
-        let cap = Self::distance_cap_for_carrier(level, carrier_key);
-        self.candidates(&city)
-            .iter()
-            .filter(|c| c.1 >= MIN_JOB_DISTANCE_MI && c.1 <= cap)
-            .count()
     }
 
     pub fn distance_cap(level: i64) -> f64 {
@@ -547,30 +526,6 @@ impl<'w> JobBoard<'w> {
         computed
     }
 
-    /// `_choose_destination`: kept for parity; the board spreads destinations
-    /// up front instead.
-    pub fn choose_destination(&mut self, candidates: &[Candidate], level: i64) -> Candidate {
-        let mut pool: Vec<&Candidate> = candidates.iter().collect();
-        if level >= 4 {
-            // seasoned drivers see a dedicated cross-country slot now and then
-            let long_hauls: Vec<&Candidate> = candidates
-                .iter()
-                .filter(|c| c.1 >= LONG_HAUL_MILES)
-                .collect();
-            if !long_hauls.is_empty() && self.rng.random() < 0.35 {
-                pool = long_hauls;
-            }
-        }
-        // Nearer destinations are likelier, and rookies lean harder toward short
-        // hauls (squared distance falloff). Crucially the pool is never narrowed
-        // to a single-leg-only set -- that locked sparse start cities into one
-        // back-and-forth route. Leg count no longer gates which cities appear.
-        let exponent = if level <= 2 { 2.0 } else { 1.0 };
-        let weights: Vec<f64> = pool.iter().map(|c| 1.0 / c.1.powf(exponent)).collect();
-        let idx = self.rng.choices_indices_weighted(&weights, 1)[0];
-        pool[idx].clone()
-    }
-
     /// True when the city has at least one facility that receives freight.
     /// Travel centers and truck parking ship/receive nothing, so a corridor
     /// of fuel-only pins must not soak up the destination cycle.
@@ -897,10 +852,11 @@ impl<'w> JobBoard<'w> {
             .deadline_slack;
         // Speak the stretch when the driver's current clock forces a sleep a
         // fresh clock would not have needed -- the long number is the law.
+        // A fresh driver's sleeps, planned once for both questions below.
+        let fresh_sleeps = plan_hos(miles, route.as_ref(), Some(self.world), None).sleeps;
         let covers_rest = match &self.hos {
             Some(hos) => {
-                plan_hos(miles, route.as_ref(), Some(self.world), Some(hos)).sleeps
-                    > plan_hos(miles, route.as_ref(), Some(self.world), None).sleeps
+                plan_hos(miles, route.as_ref(), Some(self.world), Some(hos)).sleeps > fresh_sleeps
             }
             None => false,
         };
@@ -925,6 +881,23 @@ impl<'w> JobBoard<'w> {
         job.deadline_covers_rest = covers_rest;
         job.origin_spoken = self.world.spoken_city(origin, Some(true));
         job.destination_spoken = self.world.spoken_city(destination, Some(true));
+        // A load a solo driver must sleep on the way to deliver may be booked
+        // for a team: it pays more and allows no 10-hour break. Drawn from
+        // the load itself, not the board's dice, so every other offer stays
+        // what it was.
+        let seed = load_seed(origin, destination, cargo.key, job.weight_tons);
+        if fresh_sleeps > 0 && team_load_drawn(&seed) {
+            job.team = true;
+            job.deadline_covers_rest = false;
+            job.pay = round_py_n(job.pay * TEAM_LOAD_PAY_MULT, 2);
+            job.deadline_game_h = round_py_n(
+                team_deadline_hours(miles, slack, route.as_ref(), Some(self.world))
+                    * start_option(Some(carrier_key))
+                        .dispatch_profile()
+                        .deadline_slack,
+                1,
+            );
+        }
         job.seasonal_weight_limit = seasonal_weight_limit;
         Some(job)
     }

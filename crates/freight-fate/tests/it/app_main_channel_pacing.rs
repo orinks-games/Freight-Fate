@@ -10,11 +10,11 @@
 //! on navigation.
 
 use crate::states_driving_menus_support as drive_support;
-use ff_core::speech_pacing::EventPriority;
 use freight_fate::app::testing::TestApp;
 use freight_fate::app::{Say, SayEvent};
 use freight_fate::controller::ControllerButton;
 use freight_fate::states::base::{InputEvent, Key, State};
+use hearken::speech::EventPriority;
 
 struct Wheel;
 impl State for Wheel {
@@ -100,7 +100,7 @@ fn test_queued_reply_no_longer_purges_the_shared_event_channel() {
 
     let scale = "Open weigh station ahead in two miles. All trucks must pull in.";
     app.ctx
-        .say_event_with(scale, SayEvent::queued().priority(EventPriority::Route));
+        .say_event_with(scale, SayEvent::queued().priority(EventPriority::Important));
     app.ctx.say("Fifty five miles per hour."); // info reply, default interrupt
 
     // Reply queued behind the scale line; the scale line was never cut, so

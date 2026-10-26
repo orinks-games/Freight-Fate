@@ -2,6 +2,8 @@
 //!
 //! Port of `freight_fate/sim/driving_modes.py`.
 
+use crate::sim::hos::WARNING_THRESHOLDS_MIN;
+
 /// Pressure tuning for one driving-mode pacing.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct DrivingModeTuning {
@@ -12,6 +14,12 @@ pub struct DrivingModeTuning {
     pub fatigue_rate: f64,
     pub ambient_spacing_s: f64,
     pub routine_speech_interval_s: f64,
+    /// Game minutes before an hours-of-service limit at which the countdown
+    /// speaks. One mark about six real minutes out when the clock is
+    /// compressed: three marks at 10x went by in a quarter of an hour of
+    /// play, which a player found unrealistically fast (2026-10-17). Real
+    /// time keeps all three, at their real spacing.
+    pub hos_warning_marks_min: &'static [f64],
 }
 
 // The three pacing settings the row offers. "Realistic" (40x) was retired on
@@ -34,6 +42,7 @@ const STANDARD: DrivingModeTuning = DrivingModeTuning {
     fatigue_rate: 1.0,
     ambient_spacing_s: 2.5,
     routine_speech_interval_s: 12.0,
+    hos_warning_marks_min: &[120.0],
 };
 
 const RELAXED: DrivingModeTuning = DrivingModeTuning {
@@ -44,10 +53,12 @@ const RELAXED: DrivingModeTuning = DrivingModeTuning {
     fatigue_rate: 0.8,
     ambient_spacing_s: 5.0,
     routine_speech_interval_s: 18.0,
+    hos_warning_marks_min: &[60.0],
 };
 
 const REAL_TIME: DrivingModeTuning = DrivingModeTuning {
     name: "real time",
+    hos_warning_marks_min: &WARNING_THRESHOLDS_MIN,
     ..STANDARD
 };
 

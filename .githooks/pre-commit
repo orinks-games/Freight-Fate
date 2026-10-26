@@ -1,0 +1,8 @@
+#!/bin/sh
+# Install once per clone: git config core.hooksPath .githooks
+set -e
+cargo fmt --all --check
+# The game reads the indexed world_data tree, so it must match world_source.
+if git diff --cached --name-only | grep -q '^data/world_source/.*\.json$'; then
+    cargo tools index-world --check
+fi

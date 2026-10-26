@@ -6,7 +6,7 @@
 //! and late-night shows, overnight programming, and between them its own
 //! glue -- idents, continuity announcers, commercials and short sketches.
 //! The spec is `docs/superpowers/plans/2026-10-06-channel-3000.md`, and the
-//! station brief (`STATION.md` on the `channel3000-clips` branch) is where
+//! station brief (`docs/channel3000/STATION.md`) is where
 //! "What plays when" comes from.
 //!
 //! This file is the headless half: the manifest (`data/channel3000.json`,

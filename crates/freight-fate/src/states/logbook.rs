@@ -76,29 +76,6 @@ fn entry_line(segment: &ff_core::sim::hos::DutySegment) -> String {
     )
 }
 
-/// What a roadside officer reads off the logbook: today's totals and the
-/// newest entry.
-pub fn traffic_stop_logbook_summary(ctx: &GameContext, trip_game_minutes: Option<f64>) -> String {
-    let Some(p) = ctx.profile.as_ref() else {
-        return "Logbook has no recent duty entries yet.".to_string();
-    };
-    let Some(latest) = p.duty_log.recent(1).last() else {
-        return "Logbook has no recent duty entries yet.".to_string();
-    };
-    let now = current_hour(p.game_hours, trip_game_minutes);
-    let day_start = (now / 24.0).floor() * 24.0;
-    let totals = p.duty_log.totals_since(day_start, now);
-    format!(
-        "Logbook shows driving {}, on duty not driving {}, off duty {}, sleeper berth {}. \
-         Latest entry: {}",
-        duration_text(totals.driving),
-        duration_text(totals.on_duty_not_driving),
-        duration_text(totals.off_duty),
-        duration_text(totals.sleeper_berth),
-        entry_line(latest)
-    )
-}
-
 /// A reviewable spoken Record of Duty Status.
 pub struct LogbookState {
     menu: MenuCore<Self>,

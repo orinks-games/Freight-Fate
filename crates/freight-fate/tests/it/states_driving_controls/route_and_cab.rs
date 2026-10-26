@@ -742,7 +742,7 @@ fn test_the_cab_confirmations_still_speak_at_standard() {
     assert!(app
         .main_lines()
         .iter()
-        .any(|line| line.starts_with("Parking brake set. Air pressure")));
+        .any(|line| line.starts_with("Parking brake set. Air ")));
 
     app.clear_speech();
     d.toggle_engine(&mut app.ctx);
@@ -775,7 +775,7 @@ fn test_clock_key_counts_the_highway_run_while_still_on_the_departure_streets() 
 
     let report = last(&app);
     let eta: f64 = report
-        .split("arrival in ")
+        .split("Arrival ")
         .nth(1)
         .and_then(|rest| rest.split(' ').next())
         .and_then(|hours| hours.parse().ok())

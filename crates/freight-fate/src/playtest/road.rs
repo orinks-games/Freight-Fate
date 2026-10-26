@@ -839,7 +839,13 @@ fn zone_hits(trip: &mut Trip, origin: &str, destination: &str) -> Vec<Hit> {
                 magnitude: zone.limit_mph,
                 run_mi: (zone.end_mi - zone.start_mi).max(0.0),
                 limit_mph: limit,
-                label: format!("{} zone, {:.0} mph", zone.reason, zone.limit_mph),
+                label: match zone.closed_side.as_deref() {
+                    Some(side) => format!(
+                        "{} zone, {:.0} mph, {side} lane closed",
+                        zone.reason, zone.limit_mph
+                    ),
+                    None => format!("{} zone, {:.0} mph", zone.reason, zone.limit_mph),
+                },
                 trip_seed: None,
                 origin_location: None,
             }

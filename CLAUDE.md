@@ -6,10 +6,12 @@ blind and low-vision players. Full contributor policy lives in
 authoring time.
 
 **Career 1.9 is a native Rust game.** The Cargo workspace under `crates/`
-(`ff-core`, `freight-fate`, `bass-sys`) is the shipping
+(`ff-core`, `freight-fate`) is the shipping
 runtime, on both `dev` and `main`. The Python game is gone (its last release
-is the `v1.8.8.1` tag, and 1.8 gets no further releases); `tools/` stays
-Python for baking, packaging, and data generation. The world data tree is
+is the `v1.8.8.1` tag, and 1.8 gets no further releases), and so is the
+Python tooling: building, packaging, translations and data indexing are the
+`ff-tools` crate, run as `cargo tools <command>` (`cargo tools help` lists
+them). The world data tree is
 `data/`, the sounds and packs are under `assets/`. Write gameplay changes in
 Rust.
 
@@ -55,14 +57,15 @@ Read this before opening files; the rest is discoverable from `lib.rs` docs.
   which is what a session log with `FREIGHT_FATE_LOG_FILE` set reads as.
 - **Speech and audio are pluggable and optional.** `speech/` has the live
   Prism backend on its own worker thread, a capture sink the tests read
-  transcripts from, and fakes. `audio/` is BASS behind a backend trait with a
-  null fallback. The Prism screen-reader and TTS library comes from the
-  `prismer` crate, compiled from source (CMake and a C++23 compiler) and
+  transcripts from, and fakes. `audio/` is the Hearken engine (the
+  `hearken` git dependency: Kira playback, decoding and the radio) behind a
+  backend trait with a null fallback. The Prism screen-reader and TTS library
+  comes in through Hearken's speech crate (the `prismer` crate), compiled from source (CMake and a C++23 compiler) and
   linked into the executable; it opens the screen-reader client DLLs and
   Speech Dispatcher at run time, so a missing reader costs that reader, not
   the game.
-  `bass-sys` declares the BASS C ABI by hand and loads the DLL at run time,
-  so a machine without BASS still starts the game.
+  Hearken opens the sound device off the game thread, so a machine with no
+  device still starts the game, silent, and the menu says so.
 - **Environment variables are two different roots.** `FREIGHT_FATE_DATA_ROOT`
   is where world data comes from; `FREIGHT_FATE_DATA_DIR` is where settings,
   saves and the keyring-backed token go. The playtest harness redirects the
@@ -78,10 +81,41 @@ Read this before opening files; the rest is discoverable from `lib.rs` docs.
 - When creating a PR with `gh pr create`, build the body from the sections in
   `.github/PULL_REQUEST_TEMPLATE.md` (the template is not applied
   automatically outside the web UI): what changed and why, what players will
-  notice, tests run, accessibility impact, and the changelog checklist.
+  notice, the test plan, accessibility impact, and the changelog checklist.
 - When reviewing and merging a contributor's PR, always credit the PR author
   in the release notes for the first build that includes it. Use the
   contributor's name and GitHub handle, and link to the PR.
+
+### Test plan
+
+Every PR body carries a test plan a reviewer can check off, written from
+the diff and then carried out before the PR is marked ready.
+
+- **Write it from the change, not from a stock list.** Read the diff and
+  write one checkbox per behavior it changes: the setup, the action, and
+  what the player should hear (spoken line, earcon, sound bed) or what the
+  career should show. Add the edge cases the change reaches: quiet
+  verbosity, each place a menu can be opened from, a key pressed twice,
+  a drive interrupted by rest, fuel, a scale or an inspection. Under
+  "Automated checks" keep the commands that apply to the files touched.
+- **Then drive it through the agent server** (`--agent-server`, described
+  under Commands below). Build the release binary first, since `.mcp.json`
+  runs `target\release\freightfate.exe`. Stage each item with `scenario`
+  (career, city, clock, fuel, settings) or `start_at` (a road feature),
+  turn `lockstep` on where timing matters, act with `press`, `select`,
+  `pedal`, `cruise` and `hold`/`release`, and read the result with
+  `listen`, `wait_for` and `status`. End with `quit_game` once every item
+  is driven.
+- **Check a box only on what was heard**, and paste the line or cue under
+  it. A box that needed `observe` to confirm is an accessibility finding:
+  say what was missing from the spoken surface. A step that failed, or
+  that this session could not run (no Windows desktop, no build tools),
+  stays unchecked with one line saying why; never tick it on the strength
+  of a unit test.
+- **Timing, loudness and feel go under "Manual testing"**, unchecked, for
+  a person to try by ear.
+- After driving, update the PR body with the checked plan. A new push that
+  changes behavior means re-driving the items it touches.
 
 ## Changelog gate (CI-enforced)
 
@@ -122,8 +156,7 @@ code, in the same change:
 
 ## Commands
 
-The gameplay runtime is Rust; the tooling around it is Python. Which one you
-need depends on what you touched.
+Everything is Rust: the game, and the tooling around it in `ff-tools`.
 
 ### Rust -- gameplay, and what CI gates
 
@@ -157,10 +190,30 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
 [Clippy documentation](https://doc.rust-lang.org/stable/clippy/).
 
 - Setup: install `rustup` (the pinned toolchain and its `rustfmt`/Clippy
-  components come from `rust-toolchain.toml` via `rustup show`), then
-  `uv sync` and `uv run python tools/fetch_bass.py` for the licensed BASS
-  runtime. Without BASS the workspace still builds and the audio tests skip
-  themselves, which reads as a green run that proved nothing -- so fetch it.
+  components come from `rust-toolchain.toml` via `rustup show`). CMake 3.24+ is needed (Prism, SDL2 and libopus compile from
+  source); Linux also needs ALSA's headers (`libasound2-dev`) and GCC 13,
+  macOS the Xcode Command Line Tools. The engine is Hearken: one workspace
+  dependency, the `hearken` facade crate, fetched by Cargo from
+  `https://github.com/orinks-games/hearken` (branch `main`, the commit pinned
+  by `Cargo.lock`). Game code takes its services and leaf types through
+  `crate::speech`, `crate::audio` and the re-exports in `states::base`,
+  `controller`, `bindings` and `app::held_keys`, never Hearken's app shell
+  (`Ctx`, `App`, its screens; the `rust.yml` checks job greps for it). There
+  is no native audio library to install.
+- Building against a local Hearken checkout: add this override to
+  `~/.cargo/config.toml` (or a config file passed with `--config`). It is
+  **untracked: never commit it**, and remove it before re-locking, because
+  `Cargo.lock` must pin a Hearken commit that exists on GitHub. Once the
+  Hearken change is pushed, `cargo update -p hearken` pins it.
+  ```toml
+  [patch."https://github.com/orinks-games/hearken"]
+  hearken = { path = "/path/to/hearken/crates/hearken" }
+  hearken-app = { path = "/path/to/hearken/crates/hearken-app" }
+  hearken-speech = { path = "/path/to/hearken/crates/hearken-speech" }
+  hearken-audio = { path = "/path/to/hearken/crates/hearken-audio" }
+  hearken-radio = { path = "/path/to/hearken/crates/hearken-radio" }
+  hearken-synth = { path = "/path/to/hearken/crates/hearken-synth" }
+  ```
 - Run the game: `cargo run --release -p freight-fate`
 - Format: `cargo fmt --all --check`
 - Lint: `cargo clippy --all-targets --locked -- -D warnings`. Warnings are
@@ -181,6 +234,10 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   `test = false` in the crate's Cargo.toml keeps it out of a plain
   `cargo test`, so run it by name (`cargo test -p freight-fate --test
   agent_server`) after touching the agent server. CI runs it as its own step.
+  `crates/freight-fate/tests/real_window.rs` is the same kind of opt-in: it
+  opens the real game window and plays a drive by sight through the visual
+  display, so it needs a desktop and a scratch `FREIGHT_FATE_DATA_DIR`
+  (`FREIGHT_FATE_WINDOW_SHOTS` saves captures of the window); see the file.
 - One test: `cargo test -p freight-fate --test it <name_filter> -- --nocapture`
   (`--test it` skips the unit-test and doc-test binaries; the filter is a
   substring of the test path).
@@ -217,7 +274,7 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   --agent-server` when live gameplay verification is authorized. It provides
   MCP tools over standard input/output. It is the `agent-server` Cargo
   feature, on by default and left out of player builds
-  (`tools/build_release.py` builds with `--no-default-features`), so a
+  (`cargo tools build-release` builds with `--no-default-features`), so a
   packaged build in `target/release` has no agent server until the next
   plain `cargo build`. Use `listen`, `menu`, `press`,
   `select`, `pedal`, `hold`, `release`, and `wait_for` to play one sandboxed
@@ -254,47 +311,64 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   services. Codex's restricted shell can block initialization even when the
   same check passes with normal Windows access. Use the authorized elevated
   tool path for that verification; keep the game's save sandbox enabled.
-- Rust CI (`.github/workflows/rust.yml`) is **Windows only**, deliberately:
-  SDL2 is vendored for `windows-x86_64` alone. macOS and Linux build from
-  source (BASS is fetched for both, Prism is vendored, and SDL2 is compiled
+- Rust CI (`.github/workflows/rust.yml`) runs on GitHub's hosted runners
+  (free for this public repository; owner rule 2026-10-17: Blacksmith's paid
+  minutes are for the private repositories) in Hearken's and Echo Parlor's
+  shape: a no-build checks job (fmt, the
+  translation files, `cargo tools test-targets`, the Hearken leaf-type
+  grep) that finishes in well under a minute, clippy once on Linux, and the
+  game's tests on Windows and Linux in parallel (ff-core, which is headless,
+  on Linux only). A manual dispatch or a `v*` tag adds the tests on macOS.
+  Every compiling job goes through `.github/actions/rust-setup` (the
+  platform's build dependencies, the pinned toolchain, sccache and rust-cache). SDL2 is
+  vendored for `windows-x86_64` alone. macOS and Linux build from
+  source (Hearken comes through Cargo, Prism is compiled from source, and SDL2 is compiled
   in statically via the crate's `bundled` + `static-link` features -- NEVER
   Homebrew's sdl2, which is sdl2-compat and loads SDL3 at runtime, dying on
-  player Macs; on Linux a system libSDL2 differs per distro) and are built,
-  tested and packaged by the nightly Career 1.9 snapshot workflow instead,
-  which also boots the Linux tarball and AppImage on seven distributions
-  through `tools/linux_smoke.sh`. The Linux build runs on `ubuntu-22.04`
+  player Macs; on Linux a system libSDL2 differs per distro). The nightly
+  Career 1.9 snapshot workflow tests and packages all three side by side
+  (a `Test` leg per platform next to each `Build` job; the whole-map sweeps
+  on the Linux x86_64 leg), and
+  also boots the Linux tarball and AppImage on seven distributions
+  through `tools/linux_smoke.sh`. The Linux release build runs on `ubuntu-22.04`
   on purpose: the executable's glibc floor is its build host's. Locally,
-  build Linux under WSL (`sudo apt install` the SDL2 -dev set the workflow
-  lists, then the same commands); a run there with `~/.asoundrc` routing
+  build Linux under WSL (`sudo apt install` the SDL2 and ALSA -dev set the
+  workflow lists, then the same commands); a run there with `~/.asoundrc` routing
   ALSA's default device to PulseAudio has real sound and speech.
 
-### Python -- tools, data, packaging
+### Tools -- build, release, data, translations
 
-- Setup: `uv sync --group dev`
-- Tests: `uv run pytest` -- about six seconds now, so just run all of it.
-  `pyproject.toml` already sets `-n auto` and a 120 s per-test timeout, so
-  a bare `pytest` is a full-CPU xdist run; that is why only one may be in
-  flight. A single file is `uv run pytest tests/test_build_release_rust.py`.
-  **The suite covers the Python tooling and nothing else**: the build, bake,
-  indexing and release tooling under `tools/` (the world loader is the
-  `tools/ffworld/` package), plus the workflow and sound-pack guards. There
-  is no Python game left to test: `cargo test` proves the game, so do NOT
-  add a gameplay test here -- write it in Rust. A slow sweep test still needs
-  its own `@pytest.mark.timeout`; under xdist the thread timeout kills the
-  worker and reads as "node down".
-- Lint: `uv run ruff check tests tools`
-- Byte-compile check: `uv run python -m compileall tests tools`
+- `cargo tools help` lists every command. The ones CI runs on a light job
+  (release notes, the changelog gate, translations, the test-target check)
+  build without the game: `cargo run -p ff-tools --no-default-features --
+  <command>`.
+- Tests: `cargo test -p ff-tools`. CI runs them on Windows and Linux under
+  the required `test (windows-latest)` and `test (ubuntu-latest)` checks.
+- Git hooks: `git config core.hooksPath .githooks` once per clone (cargo fmt
+  and the world index check on commit, the changelog gate on push).
 
-### Both
+### Translations
+
+- Spoken text is translated at the speech boundary (`ff_core::l10n`, wired in
+  `GameContext::say`/`say_event` through `app/language.rs`), so code stays in
+  English. After changing any player-facing string, run
+  `cargo tools l10n-extract`; CI's `l10n-extract --check` fails while
+  `lang/` is stale. `cargo tools l10n-check --stats` checks the
+  language files. A line assembled from pieces the extractor cannot see goes
+  in `lang/extra.pot` as a template.
+- Headless runs stay English. `FREIGHT_FATE_LANG=es` forces a language for a
+  run (harness and agent server included), and `FREIGHT_FATE_L10N_MISSES=path`
+  writes every line no translation matched.
+
+### Running tests
 
 - Headless runs: set `FREIGHT_FATE_NO_SPEECH=1` (CI also uses
   `SDL_VIDEODRIVER=dummy` and `SDL_AUDIODRIVER=dummy`).
 - **Exactly one test run in flight anywhere, ever.** Parallel agents each
-  starting `pytest -n auto`, or each building the Cargo workspace at full
-  job count, is the recurring way this machine falls over. Cap concurrent
+  building the Cargo workspace at full job count is the recurring way this machine falls over. Cap concurrent
   agents' builds with `CARGO_BUILD_JOBS`.
 - Never pipe a test run to `tail`: the shell reports the pipeline's status,
-  so `pytest | tail` exits 0 while pytest is failing. Redirect to a file and
+  so `cargo test | tail` exits 0 while the tests fail. Redirect to a file and
   read the count.
 
 ## Accessibility expectations
@@ -328,27 +402,27 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   its own `saves-agent-staging` directory, no careers and no identity copied
   in, its own driver on the staging backend (through the orinks-net `dev`
   preview; the owner enters its spoken code there the first time), cloud
-  backup on, presence and Mastodon off. No agent session ever reaches
+  backup on, presence off. No agent session ever reaches
   production: `--online`, which carried the real driver identity, was removed
   on 2026-09-25.
 
 ## World and route data
 
-- The build tools edit `data/world_source/`; the game loads the indexed
+- `data/world_source/` is the edited tree; the game loads the indexed
   `data/world_data/` tree. After editing the source, regenerate with
-  `uv run python tools/index_world.py` and verify with `--check` -- CI and
+  `cargo tools index-world` and verify with `--check` -- CI and
   tests expect the two in sync.
-- Never read or write the source files directly. Go through
-  `tools/world_source.py`: `load_world()` returns the whole world as one dict,
-  `save_world(data)` writes it back as per-state shards. Both trees are
-  sharded by the state a leg starts in (`legs/TX.json`) so a one-leg edit is a
-  small reviewable diff instead of a 60 MB blob.
+- Both trees are sharded by the state a leg starts in (`legs/TX.json`) so a
+  one-leg edit is a small reviewable diff instead of a 60 MB blob. Keep a
+  leg in the shard of the state it starts in.
 - Data must be deterministic and load offline. Add source notes for
   real-world facilities, stops, and limits. No raw OpenStreetMap tags in
   player-facing names.
 - Enriching a leg (real checkpoints, truck-stop POIs, fine grades) or
   finishing a new corridor: follow `docs/map-enrichment-recipe.md` exactly --
-  it encodes the judgment rules and the spoken-text invariants.
+  it encodes the judgment rules and the spoken-text invariants. The Python
+  map tools it names were deleted (they are in git history); port the one a
+  job needs into `ff-tools` before using it.
 - The shipped game reads a single baked container, not the JSON tree. After
   a data change re-bake it with `cargo run -p ff-core --bin ff-bake --
   --data-dir data --out dist/freight_fate/data/world.ffdata`,
@@ -356,8 +430,7 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   `--check`, which re-bakes to a temp file and compares bytes.
 - After data changes run the world and route tests: the `data_*` and `sim_*`
   cases in `crates/ff-core/tests/it/` -- e.g. `cargo test -p ff-core
-  data_world`. On the Python side only the tooling that BUILDS the data is
-  tested (`tests/test_index_world.py`).
+  data_world`.
 
 ### Provenance: read, derived, or assumed -- never blurred
 
@@ -368,7 +441,7 @@ reads as a survey.
 
 - **Say which KIND of value it is.** `source` must state **read** (upstream
   asserts it), **derived** (name the input and the formula), or **assumed**
-  (a fallback, because upstream is silent). Model: `tools/toll_rates.py`.
+  (a fallback, because upstream is silent).
 - **A silent upstream is not a reading.** Filling a gap is fine; shipping the
   fill in the same shape as the real readings is what hides it. Prefer a
   published statutory or design value to a guess, and label it either way.
@@ -419,9 +492,9 @@ single call over ~30 seconds (full suites, the adversarial battery, OSM
 scans, release builds, world re-bakes). Then go do something that needs
 neither the CPU nor the result -- never sit in a foreground `until ... sleep`
 loop waiting for a background task, which throws away the whole point. At
-most four background agents; exactly ONE pytest run in flight anywhere, ever.
+most four background agents; exactly ONE test run in flight anywhere, ever.
 And never pipe a test run to `tail`: the shell reports the pipeline's status,
-so `pytest | tail` exits 0 while pytest is failing. Redirect to a file and
+so `cargo test | tail` exits 0 while the tests fail. Redirect to a file and
 read the count.
 
 **A manual playtest means the OWNER drives it.** Speech on, at the wheel,
@@ -436,7 +509,7 @@ command to paste is half the job. Start it -- `cargo run --release -p
 freight-fate --bin freightfate -- --playtest-road --find <feature>` for a
 road feature, `... -- --playtest-sandbox --launch` for anything needing
 dispatch, a dock or the menus -- in the background, and put
-`tools/playtest_watch.py` on that session's log under the Monitor tool so its
+`cargo tools playtest-watch` on that session's log under the Monitor tool so its
 stdout becomes live notifications. It reports errors and any network call
 immediately (a sandboxed session must never reach the site), checks in every
 few minutes on where the drive got to, and summarises when the game exits.

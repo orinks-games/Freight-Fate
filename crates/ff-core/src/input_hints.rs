@@ -20,13 +20,17 @@ pub const CONTROLLER: &str = "controller";
 pub const TOUCH: &str = "touch";
 
 /// action -> touch phrase, for the controls that are fixed gestures (the
-/// pedal holds, double tap, the two-finger swipes). Every other touch
+/// pedal holds, the deep swipe, the key turn, double tap, the two-finger
+/// swipes). A flick is one step; a swipe and hold is continuous. Every other touch
 /// phrase comes from the player's touch bindings or the driving command
 /// list, in `freight-fate`'s bindings.
 pub const TOUCH_HINTS: &[(&str, &str)] = &[
-    ("accelerate", "the top half of the screen"),
-    ("brake", "a hold on the bottom half of the screen"),
-    ("emergency_brake", "a hold on the bottom half of the screen"),
+    // Every gas line reads "hold {}", so the phrase leaves the hold out.
+    ("accelerate", "a swipe up"),
+    ("brake", "a swipe down and hold"),
+    ("emergency_brake", "a deep swipe down"),
+    ("horn", "a two-finger hold"),
+    ("engine", "a two-finger turn to the right"),
     ("confirm", "a double tap"),
     ("pause", "a two-finger swipe down"),
     ("help", "a two-finger swipe up"),
@@ -120,10 +124,7 @@ mod tests {
     #[test]
     fn test_unknown_action_is_audible_not_fatal() {
         assert_eq!(control_hint("teleport", KEYBOARD), "teleport");
-        assert_eq!(
-            control_hint("accelerate", TOUCH),
-            "the top half of the screen"
-        );
+        assert_eq!(control_hint("accelerate", TOUCH), "a swipe up");
         assert_eq!(control_hint("take_exit", TOUCH), "X");
         assert_eq!(control_hint("teleport", CONTROLLER), "teleport");
     }

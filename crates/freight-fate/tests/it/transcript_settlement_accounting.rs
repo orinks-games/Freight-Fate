@@ -154,9 +154,7 @@ fn test_carrier_paid_charges_do_not_increase_player_progression() {
     let expected = build_business_settlement_basic(COMPANY_DRIVER, &job, gross, true, 0.0);
 
     assert!(
-        summary.contains(&format!(
-            "Carrier-paid or reimbursed charges {carrier_charges:.0} dollars"
-        )),
+        summary.contains(&format!("Charges {carrier_charges:.0}: ")),
         "{summary}"
     );
     let profile = app.ctx.profile.as_ref().expect("a career");
@@ -231,10 +229,7 @@ fn test_a_carried_balance_is_collected_at_a_capped_share_not_all_at_once() {
     let profile = app.ctx.profile.as_ref().expect("a career");
     let collected = ((1000.0 + net - profile.money()) * 100.0).round() / 100.0;
 
-    assert!(
-        summary.contains("Carrier-paid or reimbursed charges 215 dollars"),
-        "{summary}"
-    );
+    assert!(summary.contains("Charges 215: "), "{summary}");
     assert!(summary.contains("Balance owed"), "{summary}");
     assert!(collected > 0.0); // it really is being paid down
     assert!(collected <= (net * COLLECTION_SHARE * 100.0).round() / 100.0 + 0.01);

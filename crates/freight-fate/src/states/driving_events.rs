@@ -15,6 +15,8 @@
 //! * [`exits`] -- the exit signal (`X`), the exit lane, the countdown, and
 //!   the exit speed assist; [`destination_exit`] is the delivery's own exit:
 //!   the interchange scan, its name, and its announcement.
+//! * [`chain_stop`] -- roadside snow-chain work, shared by the pause menu
+//!   and facility stopping assistance.
 //! * [`chains`] -- the facility street chains: surface (arrival) and
 //!   departure, plus the acceleration lane that ends the departure one.
 //! * [`ramp_terminal`] -- what meets you at the end of a ramp: the light,
@@ -37,6 +39,7 @@
 pub mod ambient;
 pub mod arrival;
 pub mod billboard_moment;
+pub mod chain_stop;
 pub mod chains;
 pub mod cruise;
 pub mod cruise_loop;
@@ -47,6 +50,7 @@ pub mod exits;
 pub mod pending;
 pub mod ramp_crossing;
 pub mod ramp_terminal;
+pub mod stop_plan;
 pub mod stops;
 pub mod street_controls;
 pub mod trip_events;

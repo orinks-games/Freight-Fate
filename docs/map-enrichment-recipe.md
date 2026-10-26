@@ -42,7 +42,7 @@ determinism contract). Read those first if you have not.
   came from and how it was positioned. The placement tool writes these
   automatically; keep the convention if you edit by hand.
 - **Data stays deterministic and offline.** All queries here are build-time.
-  After any world-source edit: regenerate (`uv run python tools/index_world.py`),
+  After any world-source edit: regenerate (`cargo tools index-world`),
   verify (`--check`), and run the world tests.
 - **A new jurisdiction owes a truck-limit check.** Before the first leg in a
   state, province, or country goes live, settle whether heavy vehicles are
@@ -244,7 +244,7 @@ showed 1.37% max on a 4,000 ft climb), so run this for every touched leg.
 ### 8. Verify and commit
 
 ```sh
-uv run python tools/index_world.py && uv run python tools/index_world.py --check
+cargo tools index-world && cargo tools index-world --check
 cargo test -p ff-core data_world
 uv run pytest tests/test_index_world.py tests/test_curate_route_pois.py
 uv run ruff check tests tools
@@ -401,7 +401,7 @@ re-curating by hand.
 `reroute_enrich` rebuilds everything else and refuses to call a leg finished
 if any layer came back empty or at less than half its old size. Between the
 two, the leg is INCOMPLETE, and `--check` on either tool lists any leg left
-that way. Run `tools/index_world.py` afterwards like any world edit, then the
+that way. Run `cargo tools index-world` afterwards like any world edit, then the
 curve chain (`curve_valhalla_facts.py --all`, `bake_curve_connectors.py
 --write`, `clamp_curve_advisories.py --write`, `screen_curve_artifacts.py`),
 because the bends moved with the road.

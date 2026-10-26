@@ -39,6 +39,8 @@ use freight_fate::states::driving_enforcement::{
     DEFERRED_STOP_MAX_MI, PASS_TRIGGER_MI, POST_MARKER_LEAD_MI, SCALE_BED_CLOSED_MAX_VOLUME,
     SCALE_BED_OPEN_MAX_VOLUME, SCALE_BED_START_MI, SCALE_NOTICE_SAMPLE, WEIGH_STATION_REMINDER_MI,
 };
+use freight_fate::states::driving_events::stop_plan::StopPlanPurpose;
+use freight_fate::states::driving_menu_states::StopPurposeState;
 
 // -- rigging -------------------------------------------------------------------------
 
@@ -411,7 +413,7 @@ fn test_tableau_audio_defers_while_the_players_own_stop_is_active() {
 #[test]
 fn test_a_post_that_already_caught_the_player_never_also_runs_its_tableau() {
     // Once this post has had its own look at the player, its tableau story --
-    // "a bear has somebody stopped" -- no longer makes sense.
+    // "a trooper has somebody stopped" -- no longer makes sense.
     let mut app = TestApp::new();
     let mut drive = a_drive(&mut app, "Presence");
     let log = app.record_audio();
@@ -828,12 +830,10 @@ fn test_the_same_road_twice_produces_the_same_outcome() {
 #[test]
 fn test_scale_notice_lookahead_sample_covers_the_real_sentence() {
     // The spoken lead is sized from a sample; it must not undershoot the real
-    // wording with a long stop name and the longest control phrases.
+    // wording with a long stop name.
     let real = concat!(
         "Open weigh station ahead in two miles, Northbound Platte River ",
-        "Port of Entry. All trucks must pull in. Signal for the scale ",
-        "exit with right bumper plus D-pad down. Stopped at the scale, ",
-        "press right bumper plus D-pad down to check in."
+        "Port of Entry. All trucks must pull in."
     );
     assert!(
         ramp_arrival_grace_seconds(SCALE_NOTICE_SAMPLE, 0.0)
@@ -1100,6 +1100,33 @@ fn test_a_green_transponder_verdict_retires_the_reminder() {
 }
 
 #[test]
+fn test_a_green_transponder_lets_the_co_driver_and_the_exit_key_pass_the_scale() {
+    // Owner, 2026-10-19: with a transponder showing green, the truck rolls
+    // on by the scale as the rules allow; only a scale that wants the truck
+    // in is one to signal for.
+    let mut app = TestApp::new();
+    let mut drive = a_drive(&mut app, "Jerry");
+    let (scale, _) = with_scale(&mut drive, 10.0, 11.0, true);
+    drive.trip.position_mi = 8.0;
+    assert!(
+        drive.check_in_scale_ahead(&app.ctx, 5.0).is_some(),
+        "with no transponder the open scale wants the truck"
+    );
+    app.ctx.profile.as_mut().expect("a career").career =
+        ff_core::models::career::Career::with_xp(1.0e7);
+    let key = drive.weigh_station_key(&scale);
+    drive
+        .weigh_station_transponder_verdict
+        .insert(key.clone(), "green".to_string());
+    assert!(!drive.scale_wants_truck(&app.ctx, &scale));
+    assert!(drive.check_in_scale_ahead(&app.ctx, 5.0).is_none());
+    drive
+        .weigh_station_transponder_verdict
+        .insert(key, "red".to_string());
+    assert!(drive.check_in_scale_ahead(&app.ctx, 5.0).is_some());
+}
+
+#[test]
 fn test_the_reminder_window_is_the_last_half_mile() {
     const { assert!(WEIGH_STATION_REMINDER_MI > 0.0 && WEIGH_STATION_REMINDER_MI < 1.0) };
 }
@@ -1123,10 +1150,6 @@ fn test_rest_key_at_speed_defers_to_the_open_scale() {
     let spoken = app.event_lines().join(" ");
     assert!(spoken.contains("Weigh station first"), "{spoken}");
     assert!(spoken.contains("All trucks must stop"), "{spoken}");
-    assert!(
-        spoken.contains("Rest planning waits until you are past the scale"),
-        "{spoken}"
-    );
     assert_eq!(
         drive.trip.planned_stop_key.as_deref(),
         Some(plaza.key().as_str())
@@ -1181,6 +1204,13 @@ fn test_rest_key_plans_normally_when_the_scale_is_closed() {
 
     let spoken = app.main_lines().join(" ") + &app.event_lines().join(" ");
     assert!(!spoken.contains("Weigh station first"), "{spoken}");
+    // The scale let the key through to the purpose list; the sleep row
+    // plans the plaza.
+    assert!(app
+        .ctx
+        .state()
+        .is_some_and(|state| state.borrow().as_any().is::<StopPurposeState>()));
+    drive.plan_stop_for(&mut app.ctx, StopPlanPurpose::Sleep);
     assert_eq!(
         drive.selected_stop_key.as_deref(),
         Some(plaza.key().as_str())
@@ -1200,6 +1230,13 @@ fn test_rest_key_plans_normally_when_the_scale_is_behind() {
 
     let spoken = app.main_lines().join(" ") + &app.event_lines().join(" ");
     assert!(!spoken.contains("Weigh station first"), "{spoken}");
+    // The scale let the key through to the purpose list; the sleep row
+    // plans the plaza.
+    assert!(app
+        .ctx
+        .state()
+        .is_some_and(|state| state.borrow().as_any().is::<StopPurposeState>()));
+    drive.plan_stop_for(&mut app.ctx, StopPlanPurpose::Sleep);
     assert_eq!(
         drive.selected_stop_key.as_deref(),
         Some(plaza.key().as_str())
@@ -1237,6 +1274,13 @@ fn test_rest_key_ignores_the_scale_in_a_casual_hos_mode() {
 
     let spoken = app.main_lines().join(" ") + &app.event_lines().join(" ");
     assert!(!spoken.contains("Weigh station first"), "{spoken}");
+    // The scale let the key through to the purpose list; the sleep row
+    // plans the plaza.
+    assert!(app
+        .ctx
+        .state()
+        .is_some_and(|state| state.borrow().as_any().is::<StopPurposeState>()));
+    drive.plan_stop_for(&mut app.ctx, StopPlanPurpose::Sleep);
     assert_eq!(
         drive.selected_stop_key.as_deref(),
         Some(plaza.key().as_str())
@@ -1377,7 +1421,7 @@ fn test_facility_stopping_assistance_brakes_for_a_scale_entrance() {
     assert!(app
         .event_lines()
         .iter()
-        .any(|line| line.contains("Facility stopping assistance taking the pedals")));
+        .any(|line| line.contains("Slowing for the entrance.")));
 }
 
 #[test]
@@ -1400,7 +1444,7 @@ fn test_facility_stopping_assistance_does_not_coast_to_a_stop_short_of_the_scale
     assert!(app
         .event_lines()
         .iter()
-        .any(|line| line.contains("Facility stopping assistance taking the pedals")));
+        .any(|line| line.contains("Slowing for the entrance.")));
     const { assert!(FACILITY_LANE_ROLL_MPH == 12.0) };
     const { assert!(ARRIVAL_FINAL_CREEP_MI == 200.0 / 5280.0) };
 }
@@ -1772,4 +1816,24 @@ fn test_leaving_the_drive_mid_stop_releases_the_siren() {
     State::exit(&mut drive, &mut app.ctx);
 
     assert!(!drive.siren.active);
+}
+
+#[test]
+fn test_a_second_stopped_pair_close_behind_the_first_is_another_trooper() {
+    // Owner's drive across Ohio (2026-10-25): two troopers a minute apart
+    // said the same line word for word, which sounded like a repeat.
+    let mut app = TestApp::new();
+    let mut drive = a_drive(&mut app, "Presence");
+    drive.trip_seed = 1;
+    drive.trip.posts = vec![a_tableau_post(6.0), a_tableau_post(12.0)];
+    app.clear_speech();
+    for at in [6.0, 12.0] {
+        drive.enforcement_prev_mi = at - TABLEAU_SIREN_LEAD_MI - 0.1;
+        drive.trip.position_mi = at - TABLEAU_SIREN_LEAD_MI + 0.1;
+        drive.update_enforcement_watch(&mut app.ctx, 0.1);
+    }
+    let lines = app.event_lines();
+    assert_eq!(lines.len(), 2, "{lines:?}");
+    assert!(lines[0].starts_with("A trooper"), "{lines:?}");
+    assert_eq!(lines[1], "Another trooper has somebody stopped, not you.");
 }

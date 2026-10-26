@@ -419,9 +419,10 @@ impl DrivingState {
     /// nearest one worth naming.
     ///
     /// The villages baked along each leg carry how far off the corridor they
-    /// sit, which is what separates "you are in Pine" from "Fairfield is six
-    /// miles off to your right" -- and the honest answer on an empty stretch
-    /// is that there is no town, said out loud rather than left as silence.
+    /// sit, which is what separates "In Pine." from "Nearest town: Fairfield."
+    /// Only the name is spoken; the distance was filler the driver didn't use.
+    /// On an empty stretch the answer is that there is no town, said out loud
+    /// rather than left as silence.
     pub fn speak_current_town(&mut self, ctx: &mut GameContext) {
         let Some(frame) = self.highway_frame() else {
             let city = self.local_route_city();
@@ -437,45 +438,15 @@ impl DrivingState {
             }
             return;
         };
-        let forward = frame.from_city == frame.leg.a;
         let Some(town) = self.nearest_town(ctx, &frame) else {
             ctx.say("No town near here.");
             return;
         };
-        let (along, off_road, landmark) = (town.along, town.off_mi, town);
-        if along.abs() <= IN_TOWN_ALONG_MI && off_road <= IN_TOWN_OFF_MI {
-            ctx.say(&format!("In {}.", landmark.name));
+        if town.along.abs() <= IN_TOWN_ALONG_MI && town.off_mi <= IN_TOWN_OFF_MI {
+            ctx.say(&format!("In {}.", town.name));
             return;
         }
-        let off = if off_road >= 0.1 {
-            format!("{} off the road", self.closing_text(off_road))
-        } else {
-            String::new()
-        };
-        let where_text = if along.abs() <= IN_TOWN_ALONG_MI {
-            // Level with it: "two miles ahead" would be a distance the driver
-            // covers in seconds and then still not be there.
-            if off.is_empty() {
-                "right beside the road".to_string()
-            } else {
-                off
-            }
-        } else {
-            // Ahead or behind is read in the direction of travel, not the
-            // leg's native frame: on a leg driven b-to-a those are opposites,
-            // and the word has to match the mirror.
-            let past = if forward { along < 0.0 } else { along > 0.0 };
-            let mut where_text = format!(
-                "{} {}",
-                self.closing_text(along.abs()),
-                if past { "back" } else { "ahead" }
-            );
-            if !off.is_empty() {
-                where_text = format!("{where_text}, {off}");
-            }
-            where_text
-        };
-        ctx.say(&format!("Nearest town, {}: {where_text}.", landmark.name));
+        ctx.say(&format!("Nearest town: {}.", town.name));
     }
 
     /// `_speak_current_direction()`: Alt+4, the direction of travel, worded the

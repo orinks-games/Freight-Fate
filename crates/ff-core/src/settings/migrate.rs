@@ -26,6 +26,7 @@ pub const SETTINGS_FILE_NAME: &str = "settings.json";
 /// field kind. Each takes the field (already holding its default), the raw
 /// value, and the key (for the level warning).
 pub(crate) mod coerce {
+    use crate::settings::ScoreDisplay;
     use serde_json::Value;
 
     /// A string the value checks never accept: what a non-string lands on
@@ -69,6 +70,15 @@ pub(crate) mod coerce {
         if let Value::String(s) = value {
             *target = s.clone();
         }
+    }
+
+    pub(crate) fn score_display(target: &mut ScoreDisplay, value: &Value, _key: &str) {
+        *target = match value.as_str() {
+            Some("Both") | Some("both") => ScoreDisplay::Both,
+            Some("Percent") | Some("percent") => ScoreDisplay::Percent,
+            Some("Description") | Some("description") => ScoreDisplay::Description,
+            _ => ScoreDisplay::Both,
+        };
     }
 
     /// `pedal_latch` shipped as a bool, then a three-way that also caught
@@ -303,7 +313,7 @@ impl Settings {
 
     /// The settings file's text, byte for byte what the Python build wrote.
     pub fn to_file_text(&self) -> String {
-        py_json_dump_flat(&self.file_pairs())
+        py_json_dump_flat(&self.player_owned().file_pairs())
     }
 
     /// Write the file atomically: `settings.json.tmp`, then rename over.
@@ -536,11 +546,8 @@ impl Settings {
         if !BACKUP_ANNOUNCEMENT_MODES.contains(&s.backup_announcements.as_str()) {
             s.backup_announcements = "every".to_string();
         }
-        // (cloud_saves, the mastodon fields, live_weather_controls_calendar
-        // and duck_audio_for_speech were type-checked in the raw copy.)
-        if s.mastodon_linked_handle == coerce::JUNK {
-            s.mastodon_linked_handle = String::new();
-        }
+        // (cloud_saves, live_weather_controls_calendar and
+        // duck_audio_for_speech were type-checked in the raw copy.)
         for level in [
             &mut s.master_volume,
             &mut s.sfx_volume,
@@ -554,6 +561,13 @@ impl Settings {
             &mut s.speech_volume,
         ] {
             *level = py_clamp_unit(*level);
+        }
+        // The language setting arrived with the translations. A player who
+        // already had a settings file has been hearing English, so that is
+        // what they keep until they choose otherwise; only a fresh install
+        // follows the operating system's language.
+        if data.is_some_and(|data| !data.contains_key("language")) {
+            s.language = crate::l10n::ENGLISH.to_string();
         }
         if s.radio_station_id.is_empty() || s.radio_station_id == coerce::JUNK {
             s.radio_station_id = "route_playlist".to_string();

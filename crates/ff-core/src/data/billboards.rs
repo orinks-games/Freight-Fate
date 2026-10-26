@@ -269,7 +269,7 @@ pub const ATTORNEY_BILLBOARDS: &[&str] = &[
     "One call, that's all. Big Jim Tolliver, attorney at law and bass fisherman.",
     "Hurt on the job? Big Jim gets you paid. Big Jim gets Big Jim paid more.",
     "Eighteen wheels of justice. Big Jim sues trucks. Awkward, we know.",
-    "Big Jim's big for a reason, he understands your medical problems cause he's got as many problems as he does pounds. Give him a call if life broke you and he'll sue ... whoever",
+    "Big Jim, attorney. He's got as many problems as pounds, so he gets yours. Life broke you? He'll sue whoever.",
     "Big Jim saw that lane change. He is not mad. He is drafting.",
     "Rollover? Call Big Jim. He answers on the first ring.",
     "Big Jim Tolliver: because your insurance company has a lawyer too.",
@@ -480,7 +480,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
     ("I-10", &[
         // Song tributes -- the southern transcontinental collects song towns:
         // Phoenix, Houston, Baton Rouge, Biloxi, El Paso, and the Big Thicket.
-        approaching("Phoenix ahead, eventually. The desert gives you time to think. Jimmy Webb got By the Time I Get to Phoenix out of it, and Glen Campbell sang it.", &["phoenix_az_us"]),
+        approaching("Phoenix ahead, eventually. The desert gave us By the Time I Get to Phoenix.", &["phoenix_az_us"]),
         approaching("Houston ahead. Larry Gatlin measured this trip in days and just called the song Houston.", &["houston_tx_us"]),
         // Gilley's, the Urban Cowboy honky-tonk, stood in Pasadena outside
         // Houston until it closed in nineteen eighty-nine and burned the year
@@ -560,7 +560,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         // Moved from Interstate 40 Arkansas: Meramec Caverns is Stanton,
         // Missouri, on Interstate 44, a real paid-board attraction.
         in_states("Meramec-style caverns ahead. Outlaws hid here. So can you, for the price of a ticket.", &["MO"]),
-        in_states("Franklin County, Missouri -- Union, Pacific, Saint Clair, and Sullivan. Same name as the Franklin County Trucking Company. If you're a trucker, they already wrote your song.", &["MO"]),
+        in_states("Franklin County, Missouri, same name as the Franklin County Trucking Company. If you drive, they already wrote your song.", &["MO"]),
         approaching("Tulsa ahead. Set your watch to Tulsa Time. Don Williams says it runs a little easier.", &["tulsa_ok_us"]),
         // Casino genre -- the Tulsa approach.
         approaching("Tulsa ahead. Casino lights off the right. Don't bet the load.", &["tulsa_ok_us"]),
@@ -587,10 +587,14 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         // The Longhorn Ballroom, Dallas: Bob Wills opened it in nineteen
         // fifty, the Sex Pistols played it in nineteen seventy-eight, and it
         // reopened restored in twenty twenty-three.
-        approaching("Dallas ahead. The Longhorn Ballroom is open again. It was built for Bob Wills, and the Sex Pistols played it once. Bring the freight to the dock, not the dance floor.", &["dallas_tx_us"]),
+        approaching("Dallas ahead. The Longhorn Ballroom, built for Bob Wills, is open again. Freight to the dock, not the dance floor.", &["dallas_tx_us"]),
         // Kolache stands at West, Texas on I-35 -- invented copy, no stolen bakery slogan.
         approaching("Waco ahead. West, Texas, is kolache country. The bakery has been stopping traffic since the interstate was new.", &["waco_tx_us"]),
-        in_states("Flattest stretch in Kansas: wheat, sky, and telephone poles. Jimmy Webb wrote Wichita Lineman about a man up a pole like these, and Glen Campbell sang it. Plenty left.", &["KS"]),
+        in_states("Flat Kansas: wheat, sky, and telephone poles. Wichita Lineman was about a man up one of these.", &["KS"]),
+        // Paying attraction -- Mall of America, Bloomington MN, at Interstate
+        // 494 and Minnesota 77, just south of Minneapolis. The world has no
+        // Bloomington node, so the sign rides the Minneapolis approach.
+        approaching("Minneapolis ahead. The Mall of America is just south of town in Bloomington, with a roller coaster under the roof. The parking ramps were not built for trailers.", &["minneapolis_mn_us"]),
     ]),
     // Song tributes -- the Central Valley grade and the Bakersfield Sound.
     ("I-5", &[
@@ -603,7 +607,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         // Landmark attraction -- Seattle's ticketed music museum.
         approaching("Seattle ahead. The museum of pop culture is the colorful blob by the Needle. Jimi Hendrix is inside; the rain is not.", &["seattle_wa_us"]),
         // Paying venue -- Buck Owens' Crystal Palace, Bakersfield.
-        in_states("Bakersfield. Buck Owens' Crystal Palace closed its doors in twenty twenty-five, but the Bakersfield Sound still plays. The freight just passes through.", &["CA"]),
+        in_states("Bakersfield. The Bakersfield Sound still plays. The freight just passes through.", &["CA"]),
     ]),
     // Song tributes -- the Delta highway: Dyess, Arkansas (Johnny Cash) and
     // the old rail line to New Orleans (Willie Nelson's version).
@@ -644,7 +648,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
     ]),
     // Song tribute -- Chattanooga (Glenn Miller).
     ("I-24", &[
-        approaching("Chattanooga ahead. The Choo Choo is real -- an actual train, parked at the old terminal station. Glenn Miller made it swing. No ticket required.", &["chattanooga_tn_us"]),
+        approaching("Chattanooga ahead. The Choo Choo is a real train, parked at the old terminal station. No ticket required.", &["chattanooga_tn_us"]),
     ]),
     // Song tributes -- Wisconsin gave trucking Dave Dudley; Detroit gave
     // everyone Motown and Bob Seger.
@@ -654,6 +658,10 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         approaching("Detroit builds engines, and it built Bob Seger. Night Moves and Turn the Page came off these roads.", &["detroit_mi_us"]),
         in_states("Wisconsin. Cheese, really good cheese, and a dairy billboard that has been up since your last inspection.", &["WI"]),
         approaching("Milwaukee ahead. The Harley-Davidson Museum is a real building. The bikes inside are not street-legal, and neither is your trailer in the lobby.", &["milwaukee_wi_us"]),
+        // Paying attraction -- Mall of America, Bloomington MN, at Interstate
+        // 494 and Minnesota 77, just south of Minneapolis. The world has no
+        // Bloomington node, so the sign rides the Minneapolis approach.
+        approaching("Minneapolis ahead. The Mall of America is just south of town in Bloomington, with a roller coaster under the roof. The parking ramps were not built for trailers.", &["minneapolis_mn_us"]),
     ]),
     // I-96 Ionia County / Billy Strings and I-71 Cincinnati / Arlo McKinley
     // were radio memory, not paid boards. Pulled; no replacement songs.
@@ -668,12 +676,12 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         // 2026-08-20 after a tester was honestly befuddled by the old
         // three-fragment form -- spoken text gets one pass at the ear, so it
         // has to carry its own context.
-        in_states("The little valleys off this road are called hollers: a porch, a banjo, somebody picking. Dirty Grass Soul wrote the song about going home to one -- Back to the Holler. Leave the trailer, though; a holler road has never turned a rig around.", &["WV", "VA", "KY", "NC"]),
+        in_states("Hollers ahead: a porch, a banjo, somebody picking. Dirty Grass Soul sang Back to the Holler. Leave the trailer; a holler road can't turn a rig.", &["WV", "VA", "KY", "NC"]),
     ]),
     // Song tribute -- Smoky Mountain fog (Flatt and Scruggs). Russell County
     // / Forty-Nine Winchester was radio memory, not a paid board.
     ("I-81", &[
-        in_states("Mountain fog ahead is a local specialty. Flatt and Scruggs turned it into the fastest banjo tune ever cut, Foggy Mountain Breakdown. Use low beams in fog.", &["VA", "TN", "WV"]),
+        in_states("Mountain fog ahead, the local specialty. Think Foggy Mountain Breakdown, and use low beams.", &["VA", "TN", "WV"]),
         // Paying museum -- Birthplace of Country Music, Bristol on the state line.
         in_states("Bristol, on the state line. The Birthplace of Country Music Museum is a real hall. Carter Family country starts here.", &["TN", "VA"]),
     ]),
@@ -689,7 +697,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         // The Longhorn Ballroom, Dallas: Bob Wills opened it in nineteen
         // fifty, the Sex Pistols played it in nineteen seventy-eight, and it
         // reopened restored in twenty twenty-three.
-        approaching("Dallas ahead. The Longhorn Ballroom is open again. It was built for Bob Wills, and the Sex Pistols played it once. Bring the freight to the dock, not the dance floor.", &["dallas_tx_us"]),
+        approaching("Dallas ahead. The Longhorn Ballroom, built for Bob Wills, is open again. Freight to the dock, not the dance floor.", &["dallas_tx_us"]),
     ]),
     // I-8 Mexican Radio / Wall of Voodoo was radio memory of Rio Grande
     // border-blasters, not a paid board on Interstate 8. Pulled.
@@ -728,7 +736,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         // The Longhorn Ballroom, Dallas: Bob Wills opened it in nineteen
         // fifty, the Sex Pistols played it in nineteen seventy-eight, and it
         // reopened restored in twenty twenty-three.
-        approaching("Dallas ahead. The Longhorn Ballroom is open again. It was built for Bob Wills, and the Sex Pistols played it once. Bring the freight to the dock, not the dance floor.", &["dallas_tx_us"]),
+        approaching("Dallas ahead. The Longhorn Ballroom, built for Bob Wills, is open again. Freight to the dock, not the dance floor.", &["dallas_tx_us"]),
     ]),
 ];
 
@@ -1158,6 +1166,7 @@ mod tests {
             "Iowa Eighty",
             "Louisville",
             "McAllen",
+            "Mall of America",
             "Milwaukee",
             "Minnesota",
             "Mitchell",
@@ -1431,7 +1440,7 @@ mod tests {
             ("I-90", "Corn Palace"),
             ("I-90", "Spam Museum"),
             ("I-80", "Iowa Eighty"),
-            ("I-5", "Crystal Palace"),
+            ("I-5", "Bakersfield Sound still plays"),
             ("I-81", "Birthplace of Country Music"),
             ("I-75", "Georgia peaches"),
             ("I-4", "theme parks are off this road"),

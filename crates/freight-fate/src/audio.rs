@@ -3,13 +3,13 @@
 //! Port of `freight_fate/audio.py`. Two interchangeable backends sit behind
 //! the [`AudioEngine`] facade:
 //!
-//! * **BASS** ([`BassBackend`]) -- the preferred backend. The truck engine is
-//!   a multisample ring: one real cab loop per rpm band, crossfaded
-//!   equal-power with per-band playback-rate tracking (BASS attribute
-//!   slides). When the licensed cuts are absent it falls back to the single
-//!   idle loop pitched up with RPM. With no audio device (headless CI) it
-//!   initializes BASS's "no sound" device, so the full code path still runs
-//!   silently.
+//! * **Hearken** ([`HearkenBackend`]) -- the real one: Hearken's pool of
+//!   sounds over Kira, with live radio through Hearken's streams. The truck
+//!   engine is a multisample ring: one real cab loop per rpm band,
+//!   crossfaded equal-power with per-band playback-rate tracking. When the
+//!   licensed cuts are absent it falls back to the single idle loop pitched
+//!   up with RPM. With no audio device (headless CI) it plays through
+//!   Hearken's silent backend, so the full code path still runs.
 //! * **null** ([`NullBackend`]) -- every primitive a no-op, so game logic
 //!   never needs to check for audio availability. The Python build had a
 //!   pygame.mixer fallback between the two; the Rust build does not ship
@@ -33,29 +33,32 @@ use ff_core::pyrandom::PyRandom;
 
 pub mod assets;
 mod backend;
-mod bass;
-mod bass_engine;
-mod bass_radio;
 pub mod classic_music;
 mod engine;
+mod hearken_backend;
+pub mod hearken_clips;
+mod hearken_engine;
+mod hearken_music;
+mod hearken_radio;
 mod null;
-mod sustain;
 
 pub use assets::{
     asset_bytes, asset_bytes_from, asset_length_s, asset_path, asset_path_in, asset_roots,
-    assets_dir, assets_licensed_dir, playback_bytes, plugin_lib_dir, verify_sound_assets,
-    AssetBytes, MUSIC_EXTENSIONS, SFX_EXTENSIONS, SOUND_ASSETS_MISSING,
+    assets_dir, assets_licensed_dir, playback_bytes, verify_sound_assets, AssetBytes,
+    MODULE_EXTENSIONS, MUSIC_EXTENSIONS, SFX_EXTENSIONS, SOUND_ASSETS_MISSING,
 };
 pub use backend::{loop_category, one_shot_category, AudioBackend, Buses, Category, VolumeUpdate};
-pub use bass::BassBackend;
 pub use engine::AudioEngine;
 pub use ff_core::assets_pack::{generated_sound_keys, register_generated_sound};
 pub use ff_core::audio_loops::{to_seconds, LoopUnits, SustainLoopSpec};
+pub use hearken_backend::{headless_requested, HearkenBackend, HearkenEngineBand};
+// The device-free decode check, used by the smoke run and the music picker.
+pub use hearken::audio::{probe_clip, ClipInfo};
+pub use hearken_radio::radio_stream_options;
 pub use null::NullBackend;
-pub use sustain::{SustainLoop, SustainLoopError};
 
 // Reserved loop slots. The Python pygame backend mapped them onto mixer
-// channels; the BASS backend uses them as keys for its stream table.
+// channels; the Hearken backend uses them as keys for its loop table.
 pub const CH_ENGINE: [u32; 5] = [0, 1, 2, 3, 4]; // the engine band crossfade ring (pygame only)
 pub const CH_ROAD: u32 = 5;
 pub const CH_WEATHER: u32 = 6;
@@ -73,6 +76,11 @@ pub const CH_SIREN: u32 = 17; // the held enforcement siren, panned and levelled
 pub const CH_SCALE: u32 = 18; // weigh-station approach bed, swelling on real seconds
 pub const CH_SURGE: u32 = 19; // liquid running in a tank trailer: gated, silent on other freight
 pub const CH_LANE_GUIDE: u32 = 20; // optional lane-guide tone, panned by the guide (off by default)
+/// One sound per nearby NPC vehicle, set every frame from where it is.
+pub const CH_TRAFFIC_SOUNDS: [u32; 3] = [21, 22, 23];
+pub const CH_TRAFFIC_BED: u32 = 24; // the freeway's distant traffic, by its real presence
+pub const CH_CAB_WIND: u32 = 25; // air rushing past the open driver window, by road speed
+pub const CH_CAB_FAN: u32 = 26; // the cab blower at the fan speed the driver chose
 
 // Everything above must be inside the reservation. set_reserved(n) protects
 // channels 0..n-1 from find_channel, and this sat at 14 while CH_RADIO_FX,
@@ -85,7 +93,7 @@ pub const NUM_CHANNELS: u32 = 32;
 // (CH_LANE_GUIDE landed at 20 after RESERVED was set to CH_SURGE + 1 = 20; the
 // reservation only ever mattered to the pygame mixer, so the value is kept as
 // the Python module had it.)
-const _: () = assert!(CH_LANE_GUIDE < NUM_CHANNELS);
+const _: () = assert!(CH_CAB_FAN < NUM_CHANNELS);
 
 /// A held alert tone is a dead man's switch. Its owner re-asserts it every
 /// frame through `hold_alert`, and it stops on its own the moment that stops
@@ -116,7 +124,7 @@ pub const HORN_LOOP: SustainLoopSpec =
     SustainLoopSpec::samples(HORN_LOOP_START as f64, HORN_LOOP_END as f64);
 
 /// The multisample engine voice: one steady cab loop per band, cut from the
-/// real 896 recording at these native rpms. The BASS backend crossfades the
+/// real 896 recording at these native rpms. The Hearken backend crossfades the
 /// ring with [`engine_band_weights`] and slides each band's playback rate to
 /// track rpm inside the band (see `ENGINE_BAND_RATE_*`).
 pub const ENGINE_BANDS: [(&str, f64); 5] = [
@@ -162,7 +170,7 @@ pub const ENGINE_XFADE_LOG_FRAC: f64 = 0.30;
 pub const ENGINE_BAND_RATE_MIN: f64 = 0.78;
 pub const ENGINE_BAND_RATE_MAX: f64 = 1.30;
 
-// Legacy BASS engine model: one idle loop, pitched up with RPM. Still the
+// Legacy engine model: one idle loop, pitched up with RPM. Still the
 // fallback when the licensed multisample cuts are absent (a clean clone has
 // only the synthesized engine/idle).
 pub const ENGINE_LOOP_KEY: &str = "engine/idle";
@@ -188,7 +196,7 @@ pub const ENGINE_LOOP_GAIN: f64 = 1.0;
 // rate and gain take a slow, bounded random walk, so the loop period is
 // never exactly the same twice and the recurrence stops landing where the
 // ear predicted. Rate stays within ~5 cents (well under the formant-smear
-// threshold); gain within ~0.5 dB. BASS ring only.
+// threshold); gain within ~0.5 dB. Multisample ring only.
 pub const ENGINE_WOBBLE_RATE_MAX: f64 = 0.003; // +/- fraction of playback rate (~5 cents)
 pub const ENGINE_WOBBLE_RATE_STEP: f64 = 0.004; // random-walk speed, fraction per second
 pub const ENGINE_WOBBLE_GAIN_MAX: f64 = 0.06; // +/- fraction of band gain (~0.5 dB)
@@ -220,37 +228,43 @@ pub const ENGINE_START_SETTLE_CURVE: &str = "ease_out"; // key into audio_fades.
 /// stays present, the words win (XAG 105; speech priority research, R13).
 pub const SPEECH_DUCK_LEVEL: f64 = 0.5;
 
-pub const BASS_NO_SOUND_DEVICE: i32 = 0;
-
-// Radio streaming (BASS only). Opening a URL blocks until the server answers;
-// on a station that has gone dark that is the operating system's own TCP
-// timeout, far longer than a player will wait and far too long to spend
-// inside a frame. The connect runs on a worker thread, bounded by these.
-// (Pattern from PR #150 by CatalystForChaos.) Thirty seconds, not the eight
-// this started at: small Icecast stations behind a home connection (Darren
-// Duff radio, 2026-08-22) can take longer than that to answer, and at eight
-// the radio wrote them off as dead and handed over while they were still
-// coming. The price is a longer silence on a station that really is gone.
+// Radio streaming. A station connects on its own thread (Hearken's stream
+// worker), never inside a frame; these bound how long it may take. (The
+// off-thread connect is the pattern from PR #150 by CatalystForChaos.)
+// Thirty seconds, not the eight this started at: small Icecast stations
+// behind a home connection (Darren Duff radio, 2026-08-22) can take longer
+// than that to answer, and at eight the radio wrote them off as dead and
+// handed over while they were still coming. The price is a longer silence on
+// a station that really is gone.
 pub const RADIO_CONNECT_TIMEOUT_MS: u32 = 30000; // give up on a station that will not answer
 pub const RADIO_READ_TIMEOUT_MS: u32 = 30000; // and on one that answers then stalls
-/// Download buffer retained by BASS for internet streams. BASS defaults to
-/// five seconds, which is useful for unreliable links but makes a tune feel
-/// much slower than a player that begins with a small buffer.
+/// Audio held for a station. Five seconds is useful for unreliable links but
+/// makes a tune feel much slower than a player that begins with a small
+/// buffer.
 pub const RADIO_NET_BUFFER_MS: u32 = 1500;
-/// Percentage of [`RADIO_NET_BUFFER_MS`] BASS downloads before playback.
-/// Twenty percent is a 300 ms tune-in cushion; the remaining buffer can fill
-/// while the stream plays.
+/// Percentage of [`RADIO_NET_BUFFER_MS`] buffered before playback. Twenty
+/// percent is a 300 ms tune-in cushion; the remaining buffer can fill while
+/// the stream plays.
 pub const RADIO_NET_PREBUF_PERCENT: u32 = 20;
 /// Player-facing live streams use a short ramp only to avoid a click. Network
 /// buffering, rather than a long cosmetic fade, decides when sound begins.
 pub const RADIO_TUNE_FADE_MS: u32 = 250;
-/// How long shutdown waits for a connect still in flight before freeing BASS.
-pub const RADIO_SHUTDOWN_JOIN_S: f64 = 2.0;
 
 /// A predicate over sound keys: the test seam that stands in for "does
 /// this key resolve" (`AudioEngine::set_asset_probe`,
-/// `BassBackend::set_key_filter`).
+/// `HearkenBackend::set_key_filter`).
 pub type KeyProbe = Box<dyn Fn(&str) -> bool>;
+
+/// How the radio sounds while driving: through the cab's door speakers or
+/// clean, and where the driver's glass is. The cab voicing moves with the
+/// glass, so it glides over the window's own travel.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct RadioVoicing {
+    /// The cab's speakers (the default) instead of the clean signal.
+    pub cab_speakers: bool,
+    /// The driver window, 0 up to 1 down.
+    pub window: f64,
+}
 
 /// What the Python facade raised as `RuntimeError`: the radio layer reads the
 /// message to skip a playlist entry or hand a dead station over.
@@ -293,8 +307,7 @@ pub fn parse_icy_stream_title(raw: Option<&[u8]>) -> Option<String> {
     parse_icy_stream_title_text(&text)
 }
 
-/// [`parse_icy_stream_title`] for a block already decoded to text (the BASS
-/// tag reader hands one back).
+/// [`parse_icy_stream_title`] for a block already decoded to text.
 pub fn parse_icy_stream_title_text(text: &str) -> Option<String> {
     // re.search(r"StreamTitle='(.*?)';", text, re.S): the first
     // "StreamTitle='" and the first "';" after it, newlines included.
@@ -329,7 +342,8 @@ pub fn parse_ogg_stream_title(comments: &[String]) -> Option<String> {
 
 /// The song an HLS station names on its current segment, or None.
 ///
-/// BASSHLS hands back the `#EXTINF` line after the colon: `duration,title`.
+/// The stream hands back the `#EXTINF` line after the colon:
+/// `duration,title`.
 /// Most stations leave the title empty; "no desc" is an encoder's placeholder
 /// for the same thing.
 pub fn parse_hls_stream_title(extinf: &str) -> Option<String> {
@@ -381,7 +395,7 @@ fn quoted_field<'a>(raw: &'a str, key: &str) -> Option<&'a str> {
     Some(value[..value.find('"')?].trim())
 }
 
-/// Playback-frequency multiplier for the BASS engine loop at `rpm`.
+/// Playback-frequency multiplier for the legacy engine loop at `rpm`.
 ///
 /// Linear from 1.0 at idle (600 RPM) to 1.75x at redline (2200 RPM), clamped
 /// at both ends.
@@ -462,7 +476,7 @@ pub fn engine_load_gain(throttle: f64) -> f64 {
 ///
 /// Each entry is `[rate walk, gain walk]`. Diffusion scales with `sqrt(dt)`
 /// so the walk speed is frame-rate independent; the clamp keeps each walk
-/// meandering inside its box. The BASS backend calls this from `update` and
+/// meandering inside its box. The Hearken backend calls this from `update` and
 /// applies the walks in `set_engine_rpm`; it is public so the walk can be
 /// pinned without a device.
 pub fn advance_engine_wobble(wobble: &mut [[f64; 2]], dt: f64, rng: &mut PyRandom) {
@@ -511,6 +525,12 @@ pub fn advance_engine_wobble(wobble: &mut [[f64; 2]], dt: f64, rng: &mut PyRando
 /// | `stop_music(fade_ms=1000)` | `stop_music()` / `stop_music_with(fade_ms)` |
 /// | `set_volumes(master=None, ..., siren=None)` | `set_volumes(&VolumeUpdate)` |
 /// | properties | `enabled()`, `backend_name()`, `*_volume()`, `engine_running()`, `engine_starting()` |
+/// Whether `key` is one of the game's own cues rather than the road's or the
+/// truck's: what [`Audio::set_cues_muted`] holds back.
+pub fn is_game_cue(key: &str) -> bool {
+    key.starts_with("ui/") || key.starts_with("events/")
+}
+
 pub trait Audio {
     // -- properties -----------------------------------------------------------
     fn enabled(&self) -> bool;
@@ -533,6 +553,14 @@ pub trait Audio {
     fn engine_running(&self) -> bool;
     /// True while a deliberate ignition is still crossfading into the loop.
     fn engine_starting(&self) -> bool;
+
+    /// Hold back the game's own cues -- the `ui/` and `events/` one-shots
+    /// that announce a menu, a choice or a spoken line -- while `muted`.
+    /// The road, the truck and the radio still sound. Set while the
+    /// co-driver drives and the player has not pressed anything
+    /// (`GameContext::sync_cue_mute`), so none of what the co-driver does
+    /// at a stop or on the road beeps at a player who heard no words.
+    fn set_cues_muted(&mut self, _muted: bool) {}
 
     // -- one-shots and loops --------------------------------------------------
     /// The key this one will really sound as, after the jake A/B.
@@ -633,6 +661,13 @@ pub trait Audio {
         self.set_weather_with(key, 1.0);
     }
     fn set_wind(&mut self, intensity: f64);
+    /// How much louder the outside sounds (the tires, rain, the weather
+    /// wind) are than with the cab sealed: 1.0 with the driver window up.
+    fn set_outside_lift(&mut self, _lift: f64) {}
+    /// The radio's voicing while driving; `None` once the drive is over, so
+    /// music started after it (menu music) plays clean. Only the radio is
+    /// voiced: the station, its music tracks, and its own hiss and static.
+    fn set_radio_voicing(&mut self, _voicing: Option<RadioVoicing>) {}
     fn set_ambient_with(&mut self, key: Option<&str>, volume: f64);
     fn set_ambient(&mut self, key: Option<&str>) {
         self.set_ambient_with(key, 1.0);

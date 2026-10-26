@@ -11,6 +11,11 @@ use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::city::profile;
 use crate::states::driving_damage::{maintenance_status_line, MaintenanceComponent};
 
+/// The Assignment row's help while the driver slip-seats.
+const SLIP_SEAT_HELP: &str = "Until level 9, dispatch matches a spare to each load, and each \
+     spare keeps its own fuel and wear. From level 9 you keep one truck for every load until \
+     dispatch moves you up to the next fleet.";
+
 /// Reviewable terminal status for the active tractor.
 pub struct TruckStatusState {
     menu: MenuCore<Self>,
@@ -72,17 +77,12 @@ impl TruckStatusState {
                 "Eligibility: owned tractor, carrier fleet rules do not apply.".to_string(),
             ]
         } else {
-            let mut assignment = format!(
+            // How slip-seating works is the row's F1 help, not the row.
+            let assignment = format!(
                 "Assignment: assigned {} tractor. {}",
                 carrier_name(p),
                 fleet_assignment_text(p)
             );
-            if slip_seats(p) {
-                assignment.push_str(
-                    " Slip-seating: dispatch matches a yard spare to each load, and each spare \
-                     keeps its own fuel and wear. A dedicated seat comes at level 9.",
-                );
-            }
             let mut lines = vec![assignment];
             lines.extend(
                 equipment_status_lines(p)
@@ -153,12 +153,20 @@ impl Menu for TruckStatusState {
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
+        let slip_seating = {
+            let p = profile(ctx);
+            !p.owns_equipment() && slip_seats(p)
+        };
         let mut items: Vec<MenuItem<Self>> = Self::status_lines(ctx)
             .into_iter()
             .map(|line| {
+                let help = if slip_seating && line.starts_with("Assignment: ") {
+                    SLIP_SEAT_HELP
+                } else {
+                    "Repeat this truck-status line."
+                };
                 let spoken = line.clone();
-                MenuItem::new(line, move |_s: &mut Self, ctx| ctx.say(&spoken))
-                    .help("Repeat this truck-status line.")
+                MenuItem::new(line, move |_s: &mut Self, ctx| ctx.say(&spoken)).help(help)
             })
             .collect();
         items.push(

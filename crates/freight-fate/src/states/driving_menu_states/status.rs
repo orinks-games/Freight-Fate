@@ -5,7 +5,7 @@ use ff_core::models::enforcement;
 use ff_core::models::profile;
 use ff_core::models::solvency::debt_line;
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
-use ff_core::radio::PLAYLISTS_DIR_NAME;
+use ff_core::radio::{PERSONAL_PLAYLIST_SOURCE_TYPE, PLAYLISTS_DIR_NAME};
 use ff_core::settings::Settings;
 use ff_core::sim::trip_models::RoadStop;
 
@@ -14,11 +14,13 @@ use crate::bindings::Action;
 use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving_core::{
-    clock_text, deadline_appointment, hos_of, join_phrase, poi_offers_text, profile_of,
-    unique_consecutive, KG_PER_TON,
+    clock_text, deadline_appointment, join_phrase, poi_offers_text, profile_of, unique_consecutive,
+    KG_PER_TON,
 };
 use crate::states::driving_menu_states::apps::DriverAppsState;
+use crate::states::driving_menu_states::commands::DrivingCommandsState;
 use crate::states::driving_menu_states::DriveRef;
+use crate::states::driving_radio_app::RadioStationListState;
 use crate::states::driving_stop_detail::StopDetailState;
 
 /// Live driving status, grouped into screens you open one at a time.
@@ -89,6 +91,17 @@ impl Menu for DrivingStatusState {
                 .help(format!("Open the {} status screen.", label.to_lowercase()))
             })
             .collect();
+        // The pad has no F2, and its buttons are all taken, so a controller
+        // driver reaches the controls with no button of their own here. The
+        // list takes this screen's place: a command it runs answers over the
+        // road, not over the status menu.
+        items.push(
+            MenuItem::new("Driving commands", |s: &mut Self, ctx: &mut GameContext| {
+                let state = DrivingCommandsState::with_drive(s.driving.clone());
+                ctx.replace_state(state);
+            })
+            .help("Every driving command by name. Choose one to run it and return to driving."),
+        );
         items.push(
             MenuItem::new("Back to driving", |s: &mut Self, ctx| s.go_back(ctx))
                 .help("Close status and resume driving."),
@@ -184,11 +197,14 @@ impl DrivingStatusScreenState {
                 // is answerable here, on demand, rather than only at pickup.
                 // Empty for other freight.
                 let tank_line = d.liquid_status_clause();
-                let time_line = format!(
-                    "Time: {} {}, {deadline_text}",
+                // The clock and its zone are one reading ("8:02 AM Central
+                // Time"), so a translation finds the zone as a whole.
+                let clock = format!(
+                    "{} {}",
                     clock_text(d.trip.local_hour()),
                     d.clock_zone_label(ctx)
                 );
+                let time_line = format!("Time: {clock}, {deadline_text}");
                 let band =
                     crate::states::driving_damage::damage_band_clause(&ctx.settings, &d.trip.truck);
                 let damage_band_suffix = if band.is_empty() {
@@ -198,7 +214,7 @@ impl DrivingStatusScreenState {
                 };
                 let objective = d.objective_text(ctx);
                 let gear = d.gear_text();
-                let hours = hos_of(ctx).summary(&ctx.settings.hos_mode);
+                let hours = d.player_hos_now(ctx).summary(&ctx.settings.hos_mode);
                 let profile = profile_of(ctx);
                 // What is owed sits next to what is held, so a driver can ask
                 // the same question mid-run that the terminal answers between
@@ -208,13 +224,25 @@ impl DrivingStatusScreenState {
                 // doing something. A driver in full trust already hears it on
                 // the career stats screen and does not need it twice.
                 let trust = if enforcement::standing_band(profile) != enforcement::TRUST_FULL {
-                    enforcement::dispatch_trust_line(profile)
+                    enforcement::dispatch_trust_line_with_display(
+                        profile,
+                        ctx.settings.score_display,
+                    )
                 } else {
                     String::new()
                 };
+                // Named as the driver's own: a player name is kept as it is.
+                let driver_name = &profile.name;
                 let mut lines = vec![
-                    format!("Driver: {}", profile.name),
+                    format!("Driver: {driver_name}"),
                     format!("Money: {} dollars", fmt_grouped(profile.money(), 0)),
+                    format!(
+                        "Reputation: {}",
+                        enforcement::reputation_text(
+                            profile.standing(),
+                            ctx.settings.score_display
+                        )
+                    ),
                 ];
                 if !owed.is_empty() {
                     lines.push(owed);
@@ -240,6 +268,11 @@ impl DrivingStatusScreenState {
                         "manual"
                     }
                 ));
+                // Only when the driver changed something: a sealed, quiet
+                // cab is the default and not news.
+                if let Some(cab) = d.cab.status_line() {
+                    lines.push(cab.to_string());
+                }
                 lines.push(format!("Fatigue: {} percent", fmt_f(profile.fatigue, 0)));
                 // Where the driver stands is spoken when it changes and
                 // whenever it is asked for, never on a timer.
@@ -247,7 +280,9 @@ impl DrivingStatusScreenState {
                 if !trust.is_empty() {
                     lines.push(trust);
                 }
-                lines.push(format!("Hours: {}", hours.trim_end_matches('.')));
+                let summary = hours.trim_end_matches('.');
+                lines.push(format!("Hours: {summary}"));
+                lines.extend(d.team_status_lines(ctx));
                 lines.push(time_line);
                 lines
             })
@@ -428,6 +463,21 @@ impl DrivingStatusScreenState {
                                 .to_string(),
                         );
                     }
+                    // Players who saw the shuffle setting asked how to get
+                    // their own music on at all (issue #289): with nothing
+                    // loaded, say where the files go.
+                    let has_playlists = d
+                        .radio
+                        .catalog
+                        .iter()
+                        .any(|s| s.source_type == PERSONAL_PLAYLIST_SOURCE_TYPE);
+                    if !ctx.settings.radio_streamer_safe && !has_playlists {
+                        lines.push(format!(
+                            "No playlists of your own yet. Put M3U, M3U8 or PLS playlist files \
+                             in {}.",
+                            personal_playlists_dir().display()
+                        ));
+                    }
                     lines.push(format!(
                         "Page Down and Page Up tune stations, or semicolon and apostrophe. With \
                          Control they jump categories. With Shift they change radio volume by \
@@ -460,6 +510,9 @@ impl DrivingStatusScreenState {
     }
 }
 
+/// How the Radio screen's favorites count begins; Enter on it opens the list.
+const FAVORITES_SAVED_PREFIX: &str = "Favorites saved:";
+
 enum MapRow {
     Say(String),
     Stop(String, RoadStop),
@@ -487,7 +540,23 @@ impl Menu for DrivingStatusScreenState {
         let mut items = if self.screen == "map" {
             self.map_items(ctx)
         } else {
-            self.lines(ctx).into_iter().map(say_item).collect()
+            let radio = self.screen == "radio";
+            self.lines(ctx)
+                .into_iter()
+                .map(|line| {
+                    if radio && line.starts_with(FAVORITES_SAVED_PREFIX) {
+                        // The count reads like a row you can open, and the
+                        // Radio app's count opens the list, so this one does.
+                        MenuItem::new(line, |s: &mut Self, ctx: &mut GameContext| {
+                            let state = RadioStationListState::new(s.driving.clone(), "favorites");
+                            ctx.push_state(state);
+                        })
+                        .help("Your saved stations. Enter on one tunes it.")
+                    } else {
+                        say_item(line)
+                    }
+                })
+                .collect()
         };
         items.push(
             MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx))

@@ -112,7 +112,7 @@ impl DrivingState {
             }
             self.jake_zone_grace_used.insert(city.clone());
             self.jake_violation_deadline_s = Some(JAKE_ZONE_GRACE_S);
-            self.speak_jake_zone_warning(ctx, &city);
+            self.speak_jake_zone_warning(ctx);
             return;
         }
         let remaining = self.jake_violation_deadline_s.unwrap_or(0.0) - dt;
@@ -376,17 +376,7 @@ impl DrivingState {
         }
         self.assist_zone_cue_key = Some(city.to_string());
         let spoken = ctx.world.spoken_city(city, Some(false));
-        let message = if cruise_owns {
-            format!(
-                "No engine brake zone in {spoken}. Cruise is holding the engine brake off and \
-                 using the brakes."
-            )
-        } else {
-            format!(
-                "No engine brake zone in {spoken}. The curve assist is using the brakes instead \
-                 of the engine brake."
-            )
-        };
+        let message = format!("No engine brake zone, {spoken}.");
         ctx.play_event_cue(Some(SpeechCategory::Confirmation), "ui/notify", 0.6, 0.0);
         // ROUTE, not the ambient default: an assist silently switching how it
         // is braking is a consequence, not colour, same class as the
@@ -395,7 +385,7 @@ impl DrivingState {
         ctx.say_event_with(
             message,
             SayEvent::queued()
-                .priority(EventPriority::Route)
+                .priority(EventPriority::Important)
                 .category(SpeechCategory::Confirmation),
         );
     }
@@ -437,32 +427,31 @@ impl DrivingState {
         ctx.say_event_with(
             format!("No engine brake zone in {distance}, coming into {spoken}."),
             SayEvent::queued()
-                .priority(EventPriority::Route)
+                .priority(EventPriority::Important)
                 .category(SpeechCategory::Navigation),
         );
     }
 
     /// The warning that always precedes the first fine -- the audio sign.
-    pub fn speak_jake_zone_warning(&mut self, ctx: &mut GameContext, city: &str) {
+    pub fn speak_jake_zone_warning(&mut self, ctx: &mut GameContext) {
         ctx.audio.play("ui/warning");
         ctx.controller.rumble.alert();
-        let message = if self.terse_speech(ctx) {
-            "No engine brake zone. Switch it off.".to_string()
-        } else {
-            let spoken = ctx.world.spoken_city(city, Some(false));
-            let hint = ctx.control_hint("engine_brake");
-            format!(
-                "No engine brake zone in {spoken}. Switch it off with {hint} or you will be fined."
-            )
-        };
         ctx.say_event_with(
-            message,
+            "No engine brake zone. Switch it off.",
             SayEvent::new().category(SpeechCategory::Navigation),
         );
     }
 
     /// The citation: paid on the spot, escalating like repeat offenses do.
     pub fn fine_engine_braking(&mut self, ctx: &mut GameContext, city: &str) {
+        if self.new_driver_warning(ctx) {
+            ctx.audio.play("ui/warning");
+            ctx.say_event_with(
+                "A local officer warns you about the engine brake.",
+                SayEvent::new().category(SpeechCategory::Navigation),
+            );
+            return;
+        }
         let index = (self.jake_zone_fines.max(0) as usize).min(JAKE_ZONE_FINES.len() - 1);
         let fine = JAKE_ZONE_FINES[index];
         self.jake_zone_fines += 1;
@@ -486,16 +475,7 @@ impl DrivingState {
         }
         ctx.audio.play("ui/error");
         ctx.controller.rumble.alert();
-        let message = if self.terse_speech(ctx) {
-            format!("Engine brake citation: {} dollars.", fmt_grouped(fine, 0))
-        } else {
-            let spoken = ctx.world.spoken_city(city, Some(false));
-            format!(
-                "A local officer cites you for engine braking in {spoken}, {} dollars under the \
-                 town noise rules, paid on the spot.",
-                fmt_grouped(fine, 0)
-            )
-        };
+        let message = format!("Engine brake citation: {} dollars.", fmt_grouped(fine, 0));
         ctx.say_event_with(message, SayEvent::new().category(SpeechCategory::Money));
     }
 }

@@ -21,21 +21,26 @@ each release.
 - If your PR targets the wrong branch, a maintainer may retarget it before
   review.
 
+## Building
+
+The prerequisites are in [Run from source](README.md#run-from-source): Rust
+through rustup and CMake on every platform, plus the Visual Studio Build
+Tools on Windows, the Xcode Command Line Tools on macOS, and GCC 13, ALSA's
+development files and the SDL2 development packages on Linux. The game's
+engine, Hearken, is a git dependency that Cargo fetches; there is no audio
+library to download. To build against a local Hearken checkout, see the
+untracked `[patch]` recipe in [CLAUDE.md](CLAUDE.md#rust-engineering-practices).
+
 ## Before opening a pull request
 
 - Keep practical code files at or below 1000 lines. Split large code or test
   files into cohesive modules instead of adding more to an oversized file.
-- Run `uv sync --group dev` before tests in a fresh checkout or worktree.
 - Gameplay is Rust on Career 1.9: run `cargo test -p ff-core` and
   `cargo test -p freight-fate` for anything the player can hear or do. That
   local run is the full suite; the per-push CI skips the whole-map sweeps
   (`#[cfg_attr(ci_quick, ignore = ...)]`) and the nightly snapshot runs them.
-- `uv run pytest` covers only the Python tooling -- the build, bake,
-  indexing and release tooling under `tools/`, plus the workflow and
-  sound-pack guards. It takes a few seconds, so just run all of it. There is
-  no Python game any more; a new gameplay test belongs in `cargo test`.
-- Run `uv run ruff check tests tools` and
-  `uv run python -m compileall tests tools`.
+- Changes to the build, release, translation or data tools: run
+  `cargo test -p ff-tools`.
 - For user-facing changes, include how you checked the spoken text, keyboard
   flow, or other accessibility impact.
 - Include a sandboxed agent-server session when live gameplay testing is
@@ -54,6 +59,15 @@ each release.
 - If you add or change menu items, driving prompts, warnings, settings, or
   status text, test the spoken result.
 
+## Translations
+
+Every spoken line is translated where it leaves for the speech channels, from
+the PO files in `lang/`; [lang/README.md](lang/README.md) is the translator's
+guide. After changing spoken text, run `cargo tools l10n-extract`
+so the template and every language file pick up the new line; CI fails
+while they are stale. A translation correction can arrive as a pull
+request against a `lang/*.po` file or as a Translation correction issue.
+
 ## World and route data
 
 World data changes are welcome. Please keep them deterministic and offline:
@@ -70,11 +84,7 @@ World data changes are welcome. Please keep them deterministic and offline:
   cargo test -p ff-core data_world
   ```
 
-  and the tooling that builds the data:
-
-  ```powershell
-  uv run pytest tests/test_index_world.py
-  ```
+  and check the index: `cargo tools index-world --check`.
 
 ## Changelog entries
 
@@ -84,7 +94,7 @@ without an entry ships silently. CI fails a pull request that changes
 user-facing paths without adding one: anything under `data/` (except
 `data/spider/`), `assets/`, `docs/` or `crates/` (except a crate's `tests/`
 and `benches/`), plus `CHANGELOG.md`, `README.md`, `pyproject.toml`,
-`tools/build_release.py` and `tools/release_notes.py`.
+`cargo tools build-release` and `cargo tools release-notes`.
 
 - Add a bullet under `## Unreleased` in the fitting section (`Added`,
   `Changed`, `Fixed`, and so on).
@@ -104,7 +114,8 @@ In your PR body, briefly say:
 
 - what changed and why;
 - what players or maintainers will notice;
-- what tests or manual checks you ran;
+- a test plan: one checkbox per behavior the change touches, checked off
+  once you have confirmed it, with what you heard;
 - any accessibility impact.
 
 Small PRs are easiest to review, but cohesive data restructures are fine when

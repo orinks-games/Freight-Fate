@@ -218,7 +218,7 @@ fn class_rank(class: &str) -> Option<u8> {
 /// `(is connector, why)` for one curve, from its map-matched reading alone --
 /// `tools/bake_curve_connectors.py::classify`.
 ///
-/// The bake itself stays Python (`tools/` is out of the port's scope), but the
+/// The bake was a Python tool, retired with the rest of `tools/`, but the
 /// RULE lives here, because it is what every `connector_source` in the shipped
 /// data means and the only way those rows can be re-judged without re-baking.
 ///
@@ -1314,7 +1314,7 @@ mod tests {
     fn test_absence_of_a_terrain_class_is_never_read_as_level() {
         // The safe direction, and the reason this reads a bake rather than a rule.
         //
-        // Screening treats level ground as licence to delete geometry, so a leg
+        // Screening treats level ground as license to delete geometry, so a leg
         // HPMS never classified must keep every curve it has. Absence of evidence
         // is not evidence of flatness -- getting this backwards would quietly
         // strip curves from exactly the legs we know least about.

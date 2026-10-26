@@ -14,9 +14,6 @@ use crate::pyrandom::PyRandom;
 
 pub const MPH_PER_MPS: f64 = 2.23694;
 
-/// Mirrors `settings.LANE_KEEPING_MODES`: how much lane-holding the truck
-/// does. "full" holds the lane outright, so no drift model runs at all.
-pub const ASSIST_LEVELS: [&str; 3] = ["full", "partial", "off"];
 pub const LANE_EDGE: f64 = 1.0;
 pub const LANE_WIDTH: f64 = 2.0; // offset units from one lane center to the next
 pub const CROSS_AT: f64 = 1.12; // straddling the line this far commits the lane change
@@ -233,6 +230,20 @@ pub fn lane_phrase(index: i64, count: i64) -> String {
         return "the lane".to_string();
     }
     format!("the {} lane", lane_label(index, count))
+}
+
+/// "In the right lane", written out whole for each lane so a translation
+/// matches the phrase itself rather than a short "In {...}" pattern that
+/// other lines share.
+pub fn in_lane_phrase(index: i64, count: i64) -> &'static str {
+    if count <= 1 {
+        return "In the lane";
+    }
+    match lane_label(index, count) {
+        "right" => "In the right lane",
+        "left" => "In the left lane",
+        _ => "In the middle lane",
+    }
 }
 
 /// Small deterministic lane simulation for audio-only steering cues.
@@ -637,7 +648,7 @@ impl LaneKeeping {
     }
 
     pub fn describe(&self) -> String {
-        let lane_part = format!("In {}", lane_phrase(self.lane, self.lane_count));
+        let lane_part = in_lane_phrase(self.lane, self.lane_count);
         let side = if self.offset < 0.0 { "left" } else { "right" };
         let away = self.offset.abs();
         if away < CENTERED_MAX {
@@ -1340,6 +1351,12 @@ mod tests {
         assert_eq!(lane_phrase(0, 1), "the lane");
         // Two lanes and up still name the side, which is the whole point there.
         assert_eq!(lane_phrase(0, 2), "the right lane");
+        for (index, count) in [(0, 1), (0, 2), (1, 2), (1, 3)] {
+            assert_eq!(
+                in_lane_phrase(index, count),
+                format!("In {}", lane_phrase(index, count))
+            );
+        }
     }
 
     #[test]

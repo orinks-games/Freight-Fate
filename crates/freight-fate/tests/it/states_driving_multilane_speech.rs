@@ -41,7 +41,7 @@ fn test_the_route_start_merge_instruction_is_never_dropped() {
         let priority = with_drive(&drive, |d| d.event_priority(&cue_event(kind, false)));
         assert_eq!(
             priority,
-            EventPriority::Route,
+            EventPriority::Important,
             "{kind} cues can still age out"
         );
         // The advance half keeps its exemption: still ambient, still droppable.

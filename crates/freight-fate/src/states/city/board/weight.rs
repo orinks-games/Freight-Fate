@@ -1,4 +1,5 @@
-//! Gross-weight advice spoken before dispatch acceptance.
+//! Gross-weight advice spoken before dispatch acceptance: an overweight
+//! load only.
 
 use ff_core::data::seasonal_weight::seasonal_gvw_cap_kg;
 use ff_core::data::world::World;
@@ -26,9 +27,12 @@ pub(super) fn load_weight_margin(world: &World, p: &Profile, job: &Job) -> Strin
         truck.trailer_set.legal_gvw_kg = seasonal_gvw_cap_kg(&truck, limit.percent);
     }
     let margin_kg = truck.gross_weight_margin_with_cargo_kg(job.weight_tons * KG_PER_TON);
-    let side = if margin_kg >= 0.0 { "under" } else { "over" };
+    // Under the limit is the normal case and says nothing.
+    if margin_kg >= 0.0 {
+        return String::new();
+    }
     let mut text = format!(
-        "Load weight: {} pounds {side} the gross-weight limit with current fuel.",
+        "Load weight: {} pounds over the gross-weight limit with current fuel.",
         fmt_grouped(margin_kg.abs() / KG_PER_LB, 0)
     );
     if truck.trailer_set.is_doubles() {

@@ -493,7 +493,7 @@ fn test_exit_announcements_speak_each_name_once() {
     harness.clear_speech();
     harness.with_drive(|drive, ctx| drive.update_exit(ctx, 0.0, DT));
     let said = last_said(&harness);
-    assert!(said.contains("missed"), "{said}");
+    assert!(said.contains("Missed"), "{said}");
     assert_eq!(said.matches(facility).count(), 1, "{said}");
 }
 
@@ -513,7 +513,7 @@ fn test_labeled_missed_exit_names_the_exit_once() {
     harness.with_drive(|drive, ctx| drive.update_exit(ctx, 0.0, DT));
 
     let said = last_said(&harness);
-    assert!(said.contains("missed exit 5B"), "{said}");
+    assert!(said.contains("Missed exit 5B"), "{said}");
     assert_eq!(said.matches("exit 5B").count(), 1, "{said}");
 }
 

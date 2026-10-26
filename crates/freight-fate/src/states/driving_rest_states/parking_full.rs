@@ -86,8 +86,8 @@ impl ParkingFullState {
             let label = self.fuel_label(ctx, d);
             items.push(
                 MenuItem::new(label, |s: &mut Self, ctx| s.refuel(ctx)).help(
-                    "Fills the tank at the regional diesel price plus a 35 dollar service fee. \
-                     The engine must be off.",
+                    "Fills the tank at the posted diesel price plus a 35 dollar service fee. Engine \
+                     must be off.",
                 ),
             );
         }
@@ -131,7 +131,7 @@ impl ParkingFullState {
             .unwrap_or(false);
         ctx.audio.play("ui/menu_back");
         ctx.pop_state();
-        ctx.say_with(back_on_the_road_line(ctx, engine_on), Say::new());
+        ctx.say_with(back_on_the_road_line(engine_on), Say::new());
     }
 
     fn motel(&mut self, ctx: &mut GameContext) {
@@ -162,9 +162,8 @@ impl ParkingFullState {
             }
             let money = profile_of(ctx).money();
             format!(
-                "{engine_off}You took a motel room for {} dollars and slept a full ten hours. It \
-                 is {}. Hours of service reset and you wake fresh. You have {} dollars. {} \
-                 starts the engine.",
+                "{engine_off}Motel, {} dollars, 10 hours. {}. Driving and duty clocks reset. \
+                 {} dollars. {} starts the engine.",
                 fmt_grouped(MOTEL_COST, 0),
                 clock_text(d.trip.local_hour()),
                 fmt_grouped(money, 0),

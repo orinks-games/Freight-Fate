@@ -234,11 +234,11 @@ fn test_air_brake_help_and_status_are_spoken() {
         harness.app.main_calls()
     );
 
-    // And the space-bar readout carries the air pressure.
+    // And the space-bar readout carries the air pressure while it is low.
     harness.clear_speech();
     press(&mut harness, Key::Space);
     let said = last_main(&harness);
-    assert!(said.contains("air 55 psi"), "{said}");
+    assert!(said.contains("Low air, 55 psi"), "{said}");
     // `driving.lines()`: the on-screen readout, not the Tab status list.
     let lines = harness.with_drive(|d, ctx| d.lines(ctx));
     assert!(
@@ -472,7 +472,7 @@ fn test_the_speed_readout_says_what_the_keeper_is_holding_not_just_what_is_set()
     let said = last_main(&harness);
     assert!(
         said.contains(
-            "speed keeper holding 15 miles per hour for the corner, set 25 miles per hour"
+            "Speed keeper holding 15 miles per hour for the corner, set 25 miles per hour"
         ),
         "{said}"
     );
@@ -491,7 +491,7 @@ fn test_the_speed_readout_says_what_the_keeper_is_holding_not_just_what_is_set()
     harness.with_drive(|drive, ctx| drive.speak_speed(ctx));
     let said = last_main(&harness);
     assert!(
-        said.contains("speed keeper holding 25 miles per hour"),
+        said.contains("Speed keeper holding 25 miles per hour"),
         "{said}"
     );
     assert!(!said.contains("set 25"), "{said}");
@@ -505,7 +505,7 @@ fn test_the_speed_readout_says_what_the_keeper_is_holding_not_just_what_is_set()
     harness.with_drive(|drive, ctx| drive.speak_speed(ctx));
     let said = last_main(&harness);
     assert!(
-        said.contains("speed keeper holding 25 miles per hour"),
+        said.contains("Speed keeper holding 25 miles per hour"),
         "{said}"
     );
     assert!(!said.contains("for the corner"), "{said}");
@@ -552,7 +552,7 @@ fn test_the_speed_readout_names_the_slow_car_setting_the_keepers_number() {
     harness.with_drive(|drive, ctx| drive.speak_speed(ctx));
     let said = last_main(&harness);
     assert!(
-        said.contains("speed keeper holding 51 miles per hour for the traffic ahead, set 58"),
+        said.contains("Speed keeper holding 51 miles per hour for the traffic ahead, set 58"),
         "{said}"
     );
     assert!(!said.contains("holding 58 miles per hour,"), "{said}");
@@ -566,7 +566,7 @@ fn test_the_speed_readout_names_the_slow_car_setting_the_keepers_number() {
     harness.with_drive(|drive, ctx| drive.speak_speed(ctx));
     let said = last_main(&harness);
     assert!(
-        said.contains("speed keeper holding 58 miles per hour"),
+        said.contains("Speed keeper holding 58 miles per hour"),
         "{said}"
     );
     assert!(!said.contains("for the traffic ahead"), "{said}");

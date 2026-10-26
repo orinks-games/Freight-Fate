@@ -198,6 +198,7 @@ impl DrivingState {
     /// A zero-length update is an immediate sync (menus, tests).
     pub fn update_audio(&mut self, ctx: &mut GameContext, dt: f64) {
         self.sync_radio_power(ctx);
+        self.update_cab_audio(ctx, dt);
         // The engine's pan is the STEERING GUIDE now, owned by
         // `update_lane_guidance_audio`, and is deliberately not touched here.
         // It used to carry the truck's lane position; that readout moved to

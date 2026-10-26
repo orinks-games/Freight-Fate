@@ -53,11 +53,8 @@ fn back_to_back_berth_sleeps_count_toward_the_reset() {
     h.select_menu_item("Sleep 4 hours more to finish a 10-hour reset");
     // The preview forecasts the 4 hours the sleep will spend, not a full 10.
     let preview = h.app.speech().lines().join(" ");
-    assert!(preview.contains("Preview: sleep 4 hours more"), "{preview}");
-    assert!(
-        preview.contains("The game clock advances 4 hours."),
-        "{preview}"
-    );
+    assert!(preview.contains("Sleep 4 hours more at"), "{preview}");
+    assert!(preview.contains("Clock +4 hours."), "{preview}");
     h.clear_speech();
     h.select_menu_item("Sleep 4 hours more to finish a 10-hour reset");
     let woke = h.app.speech().lines().join(" ");
@@ -68,7 +65,7 @@ fn back_to_back_berth_sleeps_count_toward_the_reset() {
         "{:?}",
         h.menu_labels()
     );
-    assert!(woke.contains("Hours of service reset"), "{woke}");
+    assert!(woke.contains("Driving and duty clocks reset"), "{woke}");
     let clock = hos(&h);
     assert_eq!(clock.driving_min, 0.0);
     assert_eq!(clock.duty_min, 0.0);

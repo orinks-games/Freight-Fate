@@ -5,8 +5,9 @@ Career 1.9 Windows archives carry the Visual C++ runtime beside
 or a separate runtime installer. The updater already copies root-level DLLs.
 This changes packaging only; the game and its gameplay tests remain Rust.
 
-`tools/windows_runtime.py` collects the complete x64 `Microsoft.VC*.CRT`
-directory from the installed Visual Studio C++ toolchain. It first uses
+The release tooling (`crates/ff-tools/src/windows_runtime.rs`) collects the
+complete x64 `Microsoft.VC*.CRT` directory from the installed Visual Studio
+C++ toolchain. It first uses
 `VCToolsRedistDir`, then `VCINSTALLDIR` / `VSINSTALLDIR`, then Visual Studio's
 `vswhere.exe` for shells without a developer environment. Version directories
 are ordered numerically. An explicitly configured but incomplete redist fails
@@ -28,15 +29,9 @@ exist beside the executable, comparing names without case sensitivity. This
 is a VC dependency check, not a general Windows loader simulation; Windows
 system DLLs and API sets are provided by the supported operating system.
 
-The focused packaging regressions run without Windows or a Cargo build:
-
-```powershell
-$env:PYTHONPATH = "tools"
-uv run python -m unittest discover -s tests -p test_windows_runtime.py -v
-```
-
-The Windows runtime CI workflow runs these and audits the runner's installed
-Visual Studio CRT. The existing packaged smoke
+`cargo test -p ff-tools windows_runtime` runs the packaging tests; on
+Windows it also stages and audits the installed Visual Studio CRT, which is
+how CI's required Windows test check covers it. The existing packaged smoke
 test still runs on the Windows builder. Release verification should also
 extract the resulting archive into a fresh supported Windows installation
 without the Visual C++ redistributable installed, start the game through its

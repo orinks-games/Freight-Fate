@@ -122,8 +122,8 @@ impl DrivingState {
     }
 
     /// Close the loop the pacenote opens: a soft tick on the bend's side
-    /// as the curve begins, and a spoken verdict once you are through --
-    /// held your line, caught the edge, or through it hot. The windshield
+    /// as the curve begins, and a verdict once you are through -- the
+    /// centred earcon for a clean bend, words for caught the edge or hot. The windshield
     /// gives a sighted driver this for free; the co-driver owes it to ours
     /// (owner ask 2026-07-27: "nothing tells you that you made it through
     /// well"). Chained bends hold their verdict for the last link.
@@ -179,18 +179,15 @@ impl DrivingState {
         if !run.demanding || !ctx.settings.curve_callouts {
             return;
         }
-        if self.terse_speech(ctx) {
+        // A clean bend is the earcon alone; words only for what went wrong.
+        if self.terse_speech(ctx) || !(run.touched || run.hot) {
             ctx.audio.play_with("vehicle/lane_centered", 0.5, 0.0);
             return;
         }
         let text = if run.touched {
-            "Through the bend. You caught the edge."
-        } else if run.hot {
-            "Through the bend, hot."
-        } else if ctx.settings.lane_is_manual() {
-            "Through the bend, held your line."
+            "Caught the edge."
         } else {
-            "Through the bend."
+            "Too hot."
         };
         ctx.say_event_with(
             text,

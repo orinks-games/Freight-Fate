@@ -62,6 +62,28 @@ fn test_control_stops_speech_in_the_help_reader() {
 }
 
 #[test]
+fn test_help_reader_announces_controller_controls_and_stops_speech() {
+    use ff_core::input_hints::CONTROLLER;
+    let mut app = TestApp::new();
+    app.ctx.controller.set_enabled(true);
+    app.ctx.controller.bind_device(
+        Box::new(freight_fate::controller::fakes::FakePad::new(0)),
+        "test pad",
+    );
+    app.ctx.controller.set_id_pending(false);
+    app.ctx.controller.active_device = CONTROLLER;
+    let mut state = HelpState::new();
+    state.enter(&mut app.ctx);
+    assert!(app.main_lines().join(" ").contains("Back stops speech"));
+    state.handle_event(
+        &mut app.ctx,
+        &freight_fate::states::base::InputEvent::key(Key::F1),
+    );
+    assert_eq!(app.speech().stop_main_calls(), 1);
+    assert_eq!(app.speech().stop_event_calls(), 1);
+}
+
+#[test]
 fn test_stop_speech_silences_both_channels() {
     // Python reached into a bare `GameContext` with a two-method speech
     // stub; the headless app already has one, and `stop_speech` also resets

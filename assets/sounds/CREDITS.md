@@ -36,7 +36,7 @@ current idle, start, and shutdown cues.
 
 | Sound | File | Description |
 | --- | --- | --- |
-| Truck idle, interior | `engine_classic/idle.ogg` | In-cab idle loop, shared by Darren Duff; ships in-repo as the classic engine voice (was `engine/idle.ogg` until the rebuilt engine landed 2026-07-27) |
+| Truck idle, interior | `engine_classic/idle.ogg` | In-cab idle loop, shared by Darren Duff; ships in-repo as the classic engine sound (was `engine/idle.ogg` until the rebuilt engine landed 2026-07-27) |
 | Truck start, interior | `engine/start.ogg` | In-cab engine-start cue, shared by Darren Duff |
 | Truck shutdown, interior | `engine/shutdown.ogg` | In-cab shutdown cue, shared by Darren Duff |
 | Truck horn, interior | `vehicle/horn.ogg` | In-cab horn cue (trimmed from Take 2), shared by Darren Duff |
@@ -46,7 +46,7 @@ current idle, start, and shutdown cues.
 | Driver yawn | `driver/yawn.ogg` | Drowsiness yawn cue, shared by Darren Duff |
 | Air dryer purge | `vehicle/air_dryer_purge.ogg` | ElevenLabs-generated compressor cut-out purge, played when air pressure is ready |
 | Low air buzzer | `vehicle/low_air_buzzer.ogg` | ElevenLabs-generated low-air-pressure / spring-brake warning buzzer |
-| Highway road bed | `vehicle/road.ogg` | ElevenLabs-generated in-cab road ambience |
+| Highway road bed | `vehicle/road.ogg` | ElevenLabs-generated in-cab road ambience; raised 6 dB on 2026-10-08, when it sat about 15 dB under the engine |
 | Road seam thump | `vehicle/road_joint.ogg` | Short low thump synthesized in-repo for routine road texture |
 | Car pass-by | `traffic/car_pass.ogg` | ElevenLabs-generated nearby passenger-car pass-by cue |
 | Box truck pass-by | `traffic/box_truck_pass.ogg` | ElevenLabs-generated nearby medium-truck pass-by cue |
@@ -54,6 +54,8 @@ current idle, start, and shutdown cues.
 | State trooper pass-by | `traffic/trooper_pass.ogg` | ElevenLabs-generated patrol-car pass-by cue without siren |
 | Pickup, motorcycle, bus and tractor pass-bys | `traffic/pickup_pass.ogg`, `traffic/motorcycle_pass.ogg`, `traffic/bus_pass.ogg`, `traffic/tractor_pass.ogg` | ElevenLabs Sound Effects API pass-by cues, 2026-09-11; replaced the deterministic numpy stand-ins (tools/generate_sounds.py, still the no-key fallback) that shipped under the same keys from 2026-08-20 |
 | Cross traffic at ramp ends (car, pickup, box truck, semi, motorcycle, bus, tractor) | `traffic/car_cross.ogg`, `traffic/pickup_cross.ogg`, `traffic/box_truck_cross.ogg`, `traffic/semi_cross.ogg`, `traffic/motorcycle_cross.ogg`, `traffic/bus_cross.ogg`, `traffic/tractor_cross.ogg` | ElevenLabs Sound Effects API crossing cues (a vehicle driving through in front of the stopped truck, panned by the game), 2026-09-11; replaced the numpy stand-ins that shipped from 2026-08-20 |
+| Traffic sounds (car, pickup, box truck, semi, motorcycle, bus, tractor, patrol car) | `traffic/car_loop.ogg`, `traffic/pickup_loop.ogg`, `traffic/box_truck_loop.ogg`, `traffic/semi_loop.ogg`, `traffic/motorcycle_loop.ogg`, `traffic/bus_loop.ogg`, `traffic/tractor_loop.ogg`, `traffic/trooper_loop.ogg` | Original synthesized steady loops of a vehicle holding its distance at road speed (tires, wind and a modelled engine), rendered with the genny CLI from `sound-test/traffic_sounds.json` (2026-10-08), then lifted 12 dB around 1.2 kHz and cut 3 dB around 300 Hz at the same loudness (2026-10-09) so the tires stand out from the cab's engine; the game sets each one's level, pan and pitch from a real NPC vehicle every frame |
+| Freeway traffic bed | `traffic/highway_bed.ogg` | Original synthesized distant-traffic roar, steady shaped-noise bands and soft far-off passes, from `sound-test/highway_bed.py` (2026-10-09); replaced a genny render that swelled like surf |
 | Lane drift | `vehicle/lane_drift.ogg` | ElevenLabs-generated directional lane drift beep |
 | Lane centered | `vehicle/lane_centered.ogg` | ElevenLabs-generated centered-lane confirmation chime |
 | Turn signal | `vehicle/turn_signal.ogg` | Original synthesized flasher cycle, a relay tick then a softer tock, rendered with the genny CLI from `sound-test/turn_signal.json` (2026-09-29); replaced an ElevenLabs-generated click recording |
@@ -95,7 +97,7 @@ not distributed in this repository.
 | Hazard warning | `events/hazard_warning.ogg` | Short in-drive hazard cue |
 | Construction zone | `events/construction_zone.ogg` | Short construction-zone cue |
 | Traffic slowing | `events/traffic_slowing.ogg` | Short traffic-slowing cue |
-| Toll charged | `events/toll_charged.ogg` | Short toll/transponder cue |
+| Toll charged | `events/toll_charged.ogg` | ElevenLabs-generated low, soft dashboard bong |
 | State crossing | `events/state_crossing.ogg` | Short route milestone cue |
 | Inspection warning | `events/inspection_warning.ogg` | Short inspection/weigh-station cue |
 | Scale warning | `events/weigh_station_warning.ogg` | Procedural (numpy) two-part low-thump-then-beep cue for the open-scale approach notice, generated with `tools/generate_sounds.py --weigh-station-warning`, no ElevenLabs credits |
@@ -112,6 +114,9 @@ not distributed in this repository.
 | Weigh station lane | `poi/weigh_station_lane.ogg` | Parked weigh-station lane ambience loop |
 | Facility gate | `poi/facility_gate.ogg` | ElevenLabs-generated loading-dock gate ambience loop |
 | Dock and deliver | `poi/dock_and_deliver.ogg` | Destination docking action cue |
+| Main menu, night | `ambient/menu_night_lot.ogg` | ElevenLabs-generated truck-stop-at-night ambience loop |
+| Main menu, owner-operator by day | `ambient/menu_yard.ogg` | ElevenLabs-generated loop of one rig idling in a truck yard |
+| Main menu, company driver by day | `ambient/menu_dispatch_office.ogg` | ElevenLabs-generated trucking dispatch office ambience loop |
 | Truck stop by day | `ambient/truck_stop.ogg` | ElevenLabs-generated daytime truck-stop lot ambience loop |
 | Warehouse interior | `ambient/warehouse.ogg` | ElevenLabs-generated warehouse dock interior ambience loop |
 | Night driving | `ambient/night.ogg` | In-cab night ambience loop, shared by Darren Duff |

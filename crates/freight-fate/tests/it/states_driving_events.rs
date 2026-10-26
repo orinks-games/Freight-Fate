@@ -22,8 +22,9 @@ use ff_core::sim::trip_models::{
 };
 use ff_core::sim::vehicle::KG_PER_TON;
 use ff_core::sim::weather::WeatherKind;
-use ff_core::speech_pacing::{EventPriority, SpeechCategory};
+use ff_core::speech_pacing::SpeechCategory;
 use ff_core::speech_text::SpokenMessage;
+use hearken::speech::EventPriority;
 
 use freight_fate::app::testing::TestApp;
 use freight_fate::states::driving::DrivingState;
@@ -678,40 +679,19 @@ fn test_arming_on_the_ramp_is_refused() {
 }
 
 #[test]
-fn test_capping_cruise_for_a_ramp_says_when_not_just_what() {
-    // Owner playtest, 2026-08-21: "will ease to 40" heard five miles out
-    // reads as "I am going to 40 now".
-    let mut app = TestApp::new();
-    let mut d = a_real_drive(&mut app);
-    let stop = a_stop(d.trip.position_mi + 5.0);
-    let (road, _) = d.trip.speed_limit_at(stop.at_mi);
-    d.cruise_mph = Some(road);
-    d.trip.truck.velocity_mps = mph_to_mps(road);
-
-    // And where it lets go: speed control pauses on the ramp, where the
-    // exit speed is braked for (realistic exit, 2026-09-24).
-    let text = d.cap_cruise_for_ramp(&app.ctx, Some(&stop));
-    assert!(
-        text.contains("holds road speed, eases to") && text.ends_with("and pauses on the ramp."),
-        "{text}"
-    );
-
-    // Already at the exit floor: the plain holding line.
-    d.cruise_exit_mph = None;
-    d.trip.truck.velocity_mps = mph_to_mps(20.0);
-    let text = d.cap_cruise_for_ramp(&app.ctx, Some(&stop));
-    assert!(text.contains("holding"), "{text}");
-}
-
-#[test]
-fn test_the_cap_says_nothing_twice_for_one_exit() {
+fn test_capping_cruise_for_a_ramp_caps_once_for_one_exit() {
+    // The cap is no longer narrated (owner, 2026-10-14); it still lands once
+    // and a second call for the same exit leaves it alone.
     let mut app = TestApp::new();
     let mut d = a_real_drive(&mut app);
     let stop = a_stop(d.trip.position_mi + 5.0);
     d.cruise_mph = Some(65.0);
 
-    assert!(!d.cap_cruise_for_ramp(&app.ctx, Some(&stop)).is_empty());
-    assert!(d.cap_cruise_for_ramp(&app.ctx, Some(&stop)).is_empty());
+    d.cap_cruise_for_ramp(Some(&stop));
+    let capped = d.cruise_exit_mph.expect("the ramp cap");
+    assert!(capped <= 65.0);
+    d.cap_cruise_for_ramp(Some(&stop));
+    assert_eq!(d.cruise_exit_mph, Some(capped));
 }
 
 #[test]
@@ -723,9 +703,8 @@ fn test_a_paused_session_remembers_the_ramp_cap_silently() {
     d.speed_control_armed = true;
     d.speed_control_target_mph = Some(65.0);
 
-    let text = d.cap_cruise_for_ramp(&app.ctx, Some(&stop));
+    d.cap_cruise_for_ramp(Some(&stop));
 
-    assert_eq!(text, "");
     assert!(d.cruise_exit_mph.is_some());
 }
 
@@ -775,9 +754,9 @@ fn test_no_destination_exit_while_the_departure_chain_runs() {
 }
 
 #[test]
-fn test_the_destination_announcement_names_the_automation_once() {
-    // Sarah A, 2026-08-15: lane keeping taking the exit must not read as the
-    // exit taking itself.
+fn test_the_destination_announcement_names_only_the_exit() {
+    // Owner, 2026-10-14: "Players know they have assists on or they don't."
+    // With lane keeping on full the callout is the exit and nothing more.
     let mut app = TestApp::new();
     let mut d = a_real_drive(&mut app);
     app.ctx.settings.lane_keeping = "full".to_string();
@@ -786,17 +765,12 @@ fn test_the_destination_announcement_names_the_automation_once() {
         .destination_exit_stop(&mut app.ctx)
         .expect("a delivery always has a destination exit");
 
-    let first = d.destination_exit_announcement(&mut app.ctx, &stop, 2.0);
-    assert!(
-        first.contains("Lane keeping will take this exit"),
-        "{first}"
-    );
-
-    let second = d.destination_exit_announcement(&mut app.ctx, &stop, 1.0);
-    assert!(
-        !second.contains("Lane keeping will take this exit"),
-        "said once per run: {second}"
-    );
+    for ahead in [2.0, 1.0] {
+        let line = d.destination_exit_announcement(&mut app.ctx, &stop, ahead);
+        assert!(line.starts_with("In "), "{line}");
+        assert!(!line.contains("Lane keeping"), "{line}");
+        assert_eq!(line.matches('.').count(), 1, "one sentence: {line}");
+    }
 }
 
 #[test]
@@ -1138,7 +1112,7 @@ fn test_a_limit_change_may_never_age_out() {
                 ..Default::default()
             },
         );
-        assert_eq!(d.event_priority(&event), EventPriority::Route, "{text}");
+        assert_eq!(d.event_priority(&event), EventPriority::Important, "{text}");
     }
 }
 
@@ -1182,7 +1156,11 @@ fn test_the_act_soon_kinds_ride_routes_never_dropped_queue() {
         TripEventKind::StopAhead,
     ] {
         let event = an_event(kind, "x", TripEventData::default());
-        assert_eq!(d.event_priority(&event), EventPriority::Route, "{kind:?}");
+        assert_eq!(
+            d.event_priority(&event),
+            EventPriority::Important,
+            "{kind:?}"
+        );
     }
 }
 
@@ -1201,7 +1179,11 @@ fn test_a_direction_cue_may_never_age_out() {
                 ..Default::default()
             },
         );
-        assert_eq!(d.event_priority(&event), EventPriority::Route, "{cue_kind}");
+        assert_eq!(
+            d.event_priority(&event),
+            EventPriority::Important,
+            "{cue_kind}"
+        );
     }
 }
 
@@ -1338,7 +1320,7 @@ fn test_the_accel_coast_buttons_walk_the_fives_grid() {
 }
 
 #[test]
-fn test_the_dial_with_cruise_off_says_where_the_switch_is() {
+fn test_the_dial_with_cruise_off_says_it_is_off() {
     let mut app = TestApp::new();
     let mut d = a_real_drive(&mut app);
     app.clear_speech();
@@ -1346,12 +1328,12 @@ fn test_the_dial_with_cruise_off_says_where_the_switch_is() {
     d.adjust_cruise(&mut app.ctx, 1, false);
 
     let spoken = app.main_lines().join(" ");
-    assert!(spoken.contains("Adaptive cruise off. Press K"), "{spoken}");
+    assert_eq!(spoken, "Adaptive cruise off.");
 }
 
 #[test]
 fn test_the_keeper_refuses_politely_when_it_is_switched_off() {
-    // Shane, 2026-08-15: naming the way out matters more than the refusal.
+    // Shane, 2026-08-15: the refusal names where the keeper will not hold.
     let mut app = TestApp::new();
     let mut d = a_real_drive(&mut app);
     app.ctx.settings.speed_keeper = false;
@@ -1361,7 +1343,7 @@ fn test_the_keeper_refuses_politely_when_it_is_switched_off() {
 
     let spoken = app.main_lines().join(" ");
     assert!(
-        spoken.contains("The speed keeper holds speed here; turn it on in Settings"),
+        spoken.contains("No cruise in a construction zone."),
         "{spoken}"
     );
     assert!(d.keeper_mph.is_none());
@@ -1448,7 +1430,7 @@ fn test_the_keeper_owns_up_when_it_cannot_hold_the_number() {
 
     assert!(d.keeper_overrun_said);
     let spoken = app.event_lines().join(" ");
-    assert!(spoken.contains("Speed keeper cannot hold"), "{spoken}");
+    assert!(spoken.contains("Speed keeper can't hold"), "{spoken}");
     assert!(spoken.contains("on this grade"), "{spoken}");
 }
 
@@ -1925,4 +1907,22 @@ fn test_the_upcoming_readout_moves_as_the_truck_closes() {
     assert_ne!(first, second, "the readout did not move: {first:?}");
     assert!(first.contains("2.4 miles"), "{first:?}");
     assert!(second.contains("1.9 miles"), "{second:?}");
+}
+
+#[test]
+fn test_a_limit_line_handed_back_must_name_the_limit_in_force() {
+    // "Speed limit reduced to 45" cut by "raised to 55" and handed back
+    // named a limit the truck had already left.
+    use freight_fate::states::driving_updates::live;
+    let mut app = TestApp::new();
+    let d = a_real_drive(&mut app);
+    d.refresh_live_facts();
+    let posted = d.trip.corridor_limit_at(d.trip.position_mi);
+    assert_eq!(live::posted_limit_mph(), posted);
+    assert!(live::limit_line_holds(Some(posted)));
+    assert!(!live::limit_line_holds(Some(posted - 10.0)));
+    assert!(
+        live::limit_line_holds(None),
+        "a drop warning names no limit in force"
+    );
 }

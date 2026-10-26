@@ -339,7 +339,7 @@ fn test_split_pending_summary_names_needed_pair() {
 
     assert_eq!(
         c.split_pending_summary(),
-        Some("Sleeper split pending: pair this with 2 more hours at sleep-capable parking.")
+        Some("Sleeper split open: 2 more hours off duty or in the sleeper to pair it.")
     );
 }
 
@@ -351,7 +351,7 @@ fn test_hos_summary_mentions_pending_sleeper_split() {
 
     let summary = c.summary("realistic");
 
-    assert!(summary.contains("Sleeper split pending"));
+    assert!(summary.contains("Sleeper split open"));
     assert!(summary.contains("2 more hours"));
 }
 
@@ -497,8 +497,8 @@ fn test_hos_summary_includes_time_units() {
     let summary = c.summary("realistic");
 
     assert!(summary.contains("9 hours of driving left"));
-    assert!(summary.contains("break due in 6 hours"));
-    assert!(summary.contains("duty window closes in 12 hours"));
+    assert!(summary.contains("30-minute break due in 6 hours"));
+    assert!(summary.contains("12 hours left in the 14-hour window"));
 }
 
 #[test]
@@ -511,8 +511,8 @@ fn test_hos_summary_omits_break_when_duty_window_closes_first() {
 
     let summary = c.summary("realistic");
 
-    assert!(summary.contains("1.8 hours of duty window left"));
-    assert!(!summary.contains("break due"));
+    assert!(summary.contains("1.8 hours left in the 14-hour window"));
+    assert!(!summary.contains("30-minute break due"));
 }
 
 // -- the one-answer readouts (Alt A, Alt S, Alt D) ---------------------------------
@@ -534,9 +534,9 @@ fn test_wheel_time_leads_with_its_own_noun_and_names_both_spent_clocks() {
 
     let said = c.wheel_time_summary("realistic", false);
 
-    assert!(said.starts_with("At the wheel so far:"));
-    assert!(said.contains("5.4 hours driving"));
-    assert!(said.contains("5.4 hours on duty this shift"));
+    assert!(said.starts_with("Driven "));
+    assert!(said.contains("Driven 5.4 hours"));
+    assert!(said.contains("On duty 5.4 hours"));
 }
 
 #[test]
@@ -556,14 +556,14 @@ fn test_wheel_time_speaks_short_stretches_as_minutes() {
 
     assert!(c
         .wheel_time_summary("realistic", false)
-        .contains("24 minutes driving"));
+        .contains("Driven 24 minutes"));
 }
 
 #[test]
 fn test_wheel_time_says_no_driving_yet_on_a_fresh_shift() {
     assert!(HosClock::new()
         .wheel_time_summary("realistic", false)
-        .contains("no driving yet"));
+        .contains("Driven nothing yet"));
 }
 
 #[test]
@@ -597,8 +597,8 @@ fn test_wheel_time_answers_instead_of_going_quiet_with_enforcement_off() {
 
     for mode in ["off", "debug_off"] {
         let said = c.wheel_time_summary(mode, false);
-        assert!(said.contains("5.4 hours driving"));
-        assert!(said.contains("enforcement is off"));
+        assert!(said.contains("Driven 5.4 hours"));
+        assert!(said.contains("Hours enforcement off."));
     }
 }
 
@@ -609,9 +609,12 @@ fn test_break_key_leads_with_the_break_and_counts_driving_time() {
 
     assert_eq!(
         c.break_summary("realistic", false),
-        "Break due in 6 hours of driving."
+        "30-minute break due in 6 hours of driving."
     );
-    assert_eq!(c.break_summary("realistic", true), "Break due in 6 hours.");
+    assert_eq!(
+        c.break_summary("realistic", true),
+        "30-minute break due in 6 hours."
+    );
 }
 
 #[test]
@@ -621,7 +624,7 @@ fn test_break_key_speaks_minutes_when_under_an_hour() {
 
     assert!(c
         .break_summary("realistic", false)
-        .contains("Break due in 24 minutes"));
+        .contains("30-minute break due in 24 minutes"));
 }
 
 #[test]
@@ -630,15 +633,15 @@ fn test_break_key_answers_the_break_first_then_the_window_that_closes_first() {
     // has to answer the break, then add the fact that overrides it.
     let said = duty_closes_first().break_summary("realistic", false);
 
-    assert!(said.starts_with("Break due in 3.5 hours"));
-    assert!(said.contains("duty window closes first, in 1.8 hours"));
+    assert!(said.starts_with("30-minute break due in 3.5 hours"));
+    assert!(said.contains(", 1.8 hours left in the 14-hour window"));
 }
 
 #[test]
 fn test_terse_break_key_still_names_the_window_that_closes_first() {
     let said = duty_closes_first().break_summary("realistic", true);
 
-    assert!(said.contains("Break due in 3.5 hours"));
+    assert!(said.contains("30-minute break due in 3.5 hours"));
     assert!(said.contains("duty window 1.8 hours"));
 }
 
@@ -686,7 +689,7 @@ fn test_break_key_says_none_required_with_enforcement_off() {
             .contains("Break: none required."));
         assert!(HosClock::new()
             .break_summary(mode, false)
-            .contains("enforcement is off"));
+            .contains("Hours enforcement off."));
     }
 }
 
@@ -753,7 +756,7 @@ fn test_drive_time_key_carries_the_pending_sleeper_split() {
     for terse in [false, true] {
         assert!(c
             .drive_time_summary("realistic", terse)
-            .contains("Sleeper split pending"));
+            .contains("Sleeper split open"));
     }
     // The split belongs to the shift-ending key, not the other two.
     assert!(!c
@@ -772,7 +775,7 @@ fn test_drive_time_key_says_no_limit_with_enforcement_off() {
     for mode in ["off", "debug_off"] {
         let said = c.drive_time_summary(mode, false);
         assert!(said.contains("no limit"));
-        assert!(said.contains("enforcement is off"));
+        assert!(said.contains("Hours enforcement off."));
     }
 }
 
@@ -853,7 +856,7 @@ fn test_off_mode_never_warns_or_violates() {
     assert!(!c.in_violation("off"));
     assert_eq!(c.remaining_min("off"), None);
     assert!(!c.summary("off").contains("developer mode"));
-    assert!(c.summary("off").contains("enforcement is off"));
+    assert!(c.summary("off").contains("Hours enforcement off."));
 }
 
 // -- serialization and compatibility ----------------------------------------------
@@ -2258,4 +2261,81 @@ fn hos_save_keeps_the_us_key_set_and_round_trips_canadian_fields() {
     assert_eq!(invalid.ca_driving_min, 0.0);
     assert_eq!(invalid.ca_on_duty_min, 0.0);
     assert_eq!(invalid.ca_elapsed_min, 0.0);
+}
+
+#[test]
+fn test_drive_and_duty_share_one_sleep_countdown() {
+    // Driving time and the duty window end ten minutes apart, in the same
+    // sleep: the run hears one countdown to it, not two interleaved.
+    let mut c = HosClock::new();
+    c.on_duty(170.0);
+    let msgs = drive_collecting_realistic(&mut c, 655.0);
+    let sleep_lines: Vec<&String> = msgs
+        .iter()
+        .filter(|m| m.contains("10 hours of sleep") && !m.contains("violation"))
+        .collect();
+    assert_eq!(sleep_lines.len(), 3, "{sleep_lines:?}");
+    assert!(sleep_lines.iter().all(|m| m.contains("driving time")));
+}
+
+#[test]
+fn test_duty_window_speaks_when_it_is_the_nearer_limit() {
+    let mut c = HosClock::new();
+    c.on_duty(600.0);
+    let msgs = drive_collecting_realistic(&mut c, 125.0);
+    assert!(
+        msgs.iter()
+            .any(|m| m.contains("2 hours") && m.contains("duty window")),
+        "{msgs:?}"
+    );
+    assert!(!msgs.iter().any(|m| m.contains("driving time")));
+}
+
+#[test]
+fn test_a_driving_mode_speaks_only_its_own_marks() {
+    let mut c = HosClock::new();
+    c.on_duty(170.0);
+    let mut msgs = Vec::new();
+    let mut elapsed = 0.0;
+    while elapsed < 655.0 {
+        c.drive(5.0);
+        elapsed += 5.0;
+        msgs.extend(c.check_warnings_with("realistic", &[60.0], |_| false));
+    }
+    let countdown: Vec<&String> = msgs
+        .iter()
+        .filter(|m| m.starts_with("Hours of service: "))
+        .collect();
+    assert!(
+        countdown.iter().all(|m| m.contains("1 hour")),
+        "{countdown:?}"
+    );
+    assert_eq!(
+        countdown
+            .iter()
+            .filter(|m| m.contains("10 hours of sleep"))
+            .count(),
+        1
+    );
+}
+
+#[test]
+fn test_no_countdown_for_a_limit_the_trip_ends_inside() {
+    let mut c = HosClock::new();
+    c.drive(530.0);
+    c.take_break(30.0);
+    // 130 minutes of driving left; the destination is 90 minutes out.
+    let mut spoken = Vec::new();
+    for _ in 0..3 {
+        c.drive(5.0);
+        spoken.extend(c.check_warnings_with("realistic", &[120.0], |limit| {
+            90.0 + 5.0 <= limit.remaining_min
+        }));
+    }
+    assert!(spoken.is_empty(), "{spoken:?}");
+    // The mark was spent in silence: it does not fire later either.
+    c.drive(5.0);
+    assert!(c
+        .check_warnings_with("realistic", &[120.0], |_| false)
+        .is_empty());
 }

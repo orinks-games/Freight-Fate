@@ -10,7 +10,8 @@
 # and its executable run, the AppImage run in place (extracted first,
 # because a container has no FUSE). Each boots for five frames with SDL's
 # dummy video and audio drivers, and the session log then has to say that
-# BASS loaded from beside the executable. Speech is NOT disabled here:
+# the game's own audio engine (Hearken, compiled in) is the one it runs.
+# Speech is NOT disabled here:
 # Prism is linked into the executable and opens the system's Speech
 # Dispatcher at run time, so a container without it has to boot silent
 # rather than fail.
@@ -27,8 +28,9 @@
 # is what differs between them.
 #
 # What each container is given is what every desktop install already has:
-# libdbus-1 (the executable links it for the Secret Service keyring) and
-# libstdc++. Debian, Ubuntu and openSUSE get no speech-dispatcher client
+# libdbus-1 (the executable links it for the Secret Service keyring),
+# libasound (ALSA; the audio engine links it to reach the sound server)
+# and libstdc++. Debian, Ubuntu and openSUSE get no speech-dispatcher client
 # library, which proves the game starts without it. Nothing else is
 # installed -- a distribution that needs more is a finding, not something
 # to paper over here.
@@ -54,19 +56,23 @@ echo "== $PRETTY_NAME ($(uname -m))"
 case "${ID:-}" in
   ubuntu|debian)
     apt-get update -qq >/dev/null
-    apt-get install -y -qq --no-install-recommends libdbus-1-3 libstdc++6 >/dev/null
+    # Ubuntu 24.04 and Debian 13 renamed ALSA's library for the 64-bit time
+    # transition (libasound2t64); the older releases keep libasound2.
+    alsa=libasound2t64
+    apt-cache show "$alsa" >/dev/null 2>&1 || alsa=libasound2
+    apt-get install -y -qq --no-install-recommends libdbus-1-3 "$alsa" libstdc++6 >/dev/null
     ;;
   fedora)
-    dnf install -y -q dbus-libs libstdc++ speech-dispatcher-libs xorg-x11-server-Xvfb \
+    dnf install -y -q dbus-libs alsa-lib libstdc++ speech-dispatcher-libs xorg-x11-server-Xvfb \
       libX11 libXext libXrandr libXcursor libXi libXfixes libXScrnSaver libxkbcommon \
       mesa-libGL mesa-libEGL speech-dispatcher >/dev/null
     speech-dispatcher -d
     ;;
   arch)
-    pacman -Sy --noconfirm --quiet dbus gcc-libs speech-dispatcher >/dev/null
+    pacman -Sy --noconfirm --quiet dbus alsa-lib gcc-libs speech-dispatcher >/dev/null
     ;;
   opensuse-tumbleweed|opensuse-leap)
-    zypper --quiet --non-interactive install libdbus-1-3 libstdc++6 >/dev/null
+    zypper --quiet --non-interactive install libdbus-1-3 libasound2 libstdc++6 >/dev/null
     ;;
   *)
     echo "No package step for ${ID:-unknown}; booting with what the image has."
@@ -83,7 +89,7 @@ check_log() {
     echo "$1: the game wrote no session log." >&2
     exit 1
   fi
-  required=("bass: loaded from" "Audio backend: bass")
+  required=("Audio backend: hearken")
   if [ "${ID:-}" = "fedora" ]; then
     required+=("Speech backend: Speech Dispatcher")
   fi
@@ -99,7 +105,7 @@ check_log() {
     grep " ERROR " "$2" >&2
     exit 1
   fi
-  echo "$1: booted with no errors; BASS loaded from beside the executable."
+  echo "$1: booted with no errors on the Hearken audio engine."
 }
 
 # Shell globs, not find: a bare openSUSE image has no findutils.

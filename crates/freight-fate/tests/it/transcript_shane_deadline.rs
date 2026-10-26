@@ -117,11 +117,8 @@ fn shane_payson_on_schedule_check_in_stays_on_time_after_live_unload() {
     drive.trip.game_minutes = 40.5 * 60.0;
     let clock = press_clock(&mut app, &mut drive);
     assert!(clock.starts_with("5:01 PM Mountain Time"), "{clock}");
-    assert!(
-        clock.contains("On schedule: arrival in 0.2 hours"),
-        "{clock}"
-    );
-    assert!(clock.contains("deadline in 0.5"), "{clock}");
+    assert!(clock.contains("On schedule. Arrival 0.2 hours"), "{clock}");
+    assert!(clock.contains("Deadline 0.5"), "{clock}");
 
     // Shane checked in at 5:19 PM, then the construction yard's receiver
     // spent 45 minutes unloading. The visible clock advances to 6:04 PM,

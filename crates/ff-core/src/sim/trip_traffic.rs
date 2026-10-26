@@ -132,9 +132,8 @@ impl Trip {
     }
 
     // -- CB chatter ----------------------------------------------------------
-    // "Bear" is CB voice. It may appear only inside a clause the line
-    // attributes to the CB, never in a warning, a menu, or a status readout,
-    // where the word is "trooper".
+    // The officer is a "trooper" here as everywhere else: CB slang ("bear")
+    // was dropped because most players never learned it (owner, 2026-10-11).
 
     /// How firmly the channel is standing behind this report: a blind
     /// player cannot falsify a CB call, so an unreliable channel carries its
@@ -173,7 +172,7 @@ impl Trip {
 
     /// Player-facing CB chatter for one enforcement post. The confidence
     /// framing is the same for every kind; what differs is what the post
-    /// actually is. Bear stays CB slang for a trooper on the open road,
+    /// actually is. A trooper sighting is for an officer on the open road,
     /// never for a fixed inspection facility or a chain checkpoint.
     ///
     /// No "CB chatter" opener: the CB's own sound marks the line as radio
@@ -224,25 +223,27 @@ impl Trip {
             };
         }
         match confidence {
-            "strong" => format!("{distance}: two drivers call a bear {side}."),
-            "ordinary" => format!("{distance}: a driver reports a bear {side}."),
-            _ => format!("Somebody called a bear {side} a while back."),
+            "strong" => format!("{distance}: two drivers call a trooper {side}."),
+            "ordinary" => format!("{distance}: a driver reports a trooper {side}."),
+            _ => format!("Somebody called a trooper {side} a while back."),
         }
     }
 
-    /// CB chatter for a bear who already has somebody else stopped.
+    /// CB chatter for a trooper who already has somebody else stopped.
     pub fn cb_tableau_message(&self, post: &EnforcementPost, ahead_mi: f64) -> String {
         let distance = cap_first(&self.ahead_text(ahead_mi.max(0.0)));
         let confidence = self.cb_confidence(post);
         let side = Self::cb_side(post);
         match confidence {
             "strong" => {
-                format!("{distance}: two drivers say a bear already has somebody stopped {side}.")
+                format!(
+                    "{distance}: two drivers say a trooper already has somebody stopped {side}."
+                )
             }
             "ordinary" => {
-                format!("{distance}: a driver says a bear already has somebody stopped {side}.")
+                format!("{distance}: a driver says a trooper already has somebody stopped {side}.")
             }
-            _ => format!("Somebody said a bear had somebody stopped {side} a while back."),
+            _ => format!("Somebody said a trooper had somebody stopped {side} a while back."),
         }
     }
 
@@ -362,22 +363,6 @@ impl Trip {
             );
             self.announced_real_traffic.insert(event_key);
         }
-    }
-
-    pub fn next_traffic_pressure_within(&self, within_mi: f64) -> Option<TrafficPressure> {
-        self.traffic_pressures
-            .iter()
-            .filter(|p| {
-                p.end_mi >= self.position_mi
-                    && 0.0 <= p.start_mi - self.position_mi
-                    && p.start_mi - self.position_mi <= within_mi
-            })
-            .min_by(|a, b| {
-                a.start_mi
-                    .partial_cmp(&b.start_mi)
-                    .expect("finite mileposts")
-            })
-            .cloned()
     }
 
     /// `{(highway, state): [(lat, lon), ...]}` from the route legs, each

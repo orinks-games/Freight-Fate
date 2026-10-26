@@ -356,11 +356,9 @@ impl FacilityArrivalState {
                 "Those charges do not reduce driver pay."
             };
             format!(
-                "Paperwork for {facility}: {} tons of {}. Rate sheet {} dollars, current gross \
-                 {} dollars. Carrier-paid or reimbursed charges so far {} dollars, tolls {}, \
-                 accessorials {}. {charge_fate} Fines carried over {} dollars. Estimated net \
-                 driver pay {} dollars.{advance_note} {timing}. {cargo_condition} {finish} to \
-                 settle.",
+                "Paperwork, {facility}: {} tons of {}. Rate {}, gross {}. Charges {}: tolls {}, \
+                 accessorials {}. {charge_fate} Fines {}. Net about {}.{advance_note} {timing}. \
+                 {cargo_condition} {finish} to settle.",
                 fmt_f(job.weight_tons, 0),
                 job.spoken_cargo_label(),
                 fmt_grouped(job.pay, 0),

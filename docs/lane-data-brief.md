@@ -11,7 +11,7 @@ limits were baked ahead of their physics.
 - Work in `C:\dev\ff-map` on a fresh branch off `feat/career-1.9`
   (suggest `map/lane-bake`). Never this brief's authoring checkout.
 - Edit world data ONLY through `tools/world_source.py` (`load_world()` /
-  `save_world(data)`), then `uv run python tools/index_world.py` and
+  `save_world(data)`), then `cargo tools index-world` and
   verify with `--check`. Never touch the shards or `world_data/` by hand.
 - Offline and deterministic: the self-hosted Overpass (`OVERPASS_URL`,
   ff-overpass :12347). If it is down, read

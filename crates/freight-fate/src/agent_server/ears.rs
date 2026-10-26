@@ -166,8 +166,14 @@ impl SpeechSink for TeeSpeech {
     fn say_adjustment_preview(&mut self, setting: &str, text: &str, interrupt: bool) -> bool {
         self.inner.say_adjustment_preview(setting, text, interrupt)
     }
-    fn refresh(&mut self, announce: bool) -> bool {
-        self.inner.refresh(announce)
+    fn refresh(&mut self) -> bool {
+        self.inner.refresh()
+    }
+    fn is_speaking(&self) -> bool {
+        self.inner.is_speaking()
+    }
+    fn startup_hold(&self) -> std::time::Duration {
+        self.inner.startup_hold()
     }
     fn shutdown(&mut self) {
         self.inner.shutdown();
@@ -191,15 +197,17 @@ struct TeeAudio {
     /// held steady says nothing and a pan on the move says so once per step.
     loop_pan_steps: HashMap<u32, i32>,
     engine_pan_step: i32,
+    /// See `Audio::set_cues_muted`: a cue held back is not heard either.
+    cues_muted: bool,
 }
 
 /// The key the road bed plays under. The game never starts that bed by key:
-/// it calls `set_road_noise(speed)`, and the BASS backend starts and stops the
+/// it calls `set_road_noise(speed)`, and the audio backend starts and stops the
 /// `vehicle/road` loop on [`CH_ROAD`] behind that call. The tee has to know
 /// the same thing, or the bed's pan reports as "channel 3" (review S1).
 const ROAD_BED_KEY: &str = "vehicle/road";
 /// Below this the backend stops the road bed rather than playing it at a
-/// whisper: `gain = speed / 30`, stopped under 0.02 (audio/bass.rs).
+/// whisper: `gain = speed / 30`, stopped under 0.02 (audio/hearken_backend.rs).
 const ROAD_BED_MIN_MPS: f64 = 0.02 * 30.0;
 
 impl TeeAudio {
@@ -265,12 +273,22 @@ impl Audio for TeeAudio {
     fn voice_key(&self, key: &str) -> String {
         self.inner.voice_key(key)
     }
+    fn set_cues_muted(&mut self, muted: bool) {
+        self.cues_muted = muted;
+        self.inner.set_cues_muted(muted);
+    }
     fn play_with(&mut self, key: &str, volume: f64, pan: f64) {
+        if self.cues_muted && crate::audio::is_game_cue(key) {
+            return;
+        }
         let soft = if volume < 0.4 { ", soft" } else { "" };
         self.hear(format!("[sound] {key}{}{soft}", pan_text(pan)));
         self.inner.play_with(key, volume, pan);
     }
     fn play_bank_with(&mut self, base: &str, fallback: &str, volume: f64, pan: f64) {
+        if self.cues_muted && crate::audio::is_game_cue(base) {
+            return;
+        }
         let soft = if volume < 0.4 { ", soft" } else { "" };
         self.hear(format!("[sound] {base}{}{soft}", pan_text(pan)));
         self.inner.play_bank_with(base, fallback, volume, pan);
@@ -441,6 +459,12 @@ impl Audio for TeeAudio {
     fn set_wind(&mut self, intensity: f64) {
         self.inner.set_wind(intensity);
     }
+    fn set_outside_lift(&mut self, lift: f64) {
+        self.inner.set_outside_lift(lift);
+    }
+    fn set_radio_voicing(&mut self, voicing: Option<crate::audio::RadioVoicing>) {
+        self.inner.set_radio_voicing(voicing);
+    }
     fn set_ambient_with(&mut self, key: Option<&str>, volume: f64) {
         let audible_key = key.filter(|_| volume > 0.0);
         if audible_key != self.ambient_key.as_deref() {
@@ -537,6 +561,7 @@ pub fn install_ears(app: &mut App) -> SharedEars {
         loop_keys: HashMap::new(),
         loop_pan_steps: HashMap::new(),
         engine_pan_step: 0,
+        cues_muted: false,
     });
     ears
 }
@@ -610,6 +635,7 @@ mod tests {
             loop_keys: HashMap::new(),
             loop_pan_steps: HashMap::new(),
             engine_pan_step: 0,
+            cues_muted: false,
         }
     }
 

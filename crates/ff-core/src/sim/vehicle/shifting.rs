@@ -6,6 +6,13 @@ use crate::sim::transmission::{
     AutoUpdateArgs, AUTO_DOWNSHIFT_RPM, DOWNSHIFT_TIME, PROGRESSIVE_UPSHIFT_RPM,
 };
 
+/// Where an empty truck's skip-shift may land. At a 900 floor the skip almost
+/// never cleared in the low range at moderate throttle (shift near 1400, land
+/// near 780), so an empty truck still rattled up through every single gear a
+/// second apart. Dropping it further for a bobtail just lands the skip in the
+/// weak end of the torque curve and bogs away the weight advantage.
+const SKIP_LANDING_EMPTY_RPM: f64 = 780.0;
+
 impl TruckState {
     /// Run automatic shifting from road-speed-coupled RPM (immune to the
     /// free-revving RPM spike during a shift's torque interruption).
@@ -66,18 +73,32 @@ impl TruckState {
         let upshift_rpm =
             (self.specs.max_rpm * 0.9).min(progressive + load_raise + grade_raise + throttle_raise);
         let mut upshift_steps = 1;
-        if 0 < tr.gear && tr.gear < tr.num_gears() && load_fraction <= 0.2 && self.grade <= 0.01 {
-            // Real drivers skip gears when light instead of machine-gunning
-            // every hole in the box. At a 900 floor the skip almost never
-            // cleared in the low range at moderate throttle (shift near 1400,
-            // land near 780), so an empty truck still rattled up through
-            // every single gear a second apart. The floor is about where the
-            // engine pulls, not what is behind the tractor: dropping it
-            // further for a bobtail just lands the skip in the weak end of
-            // the torque curve and bogs away the weight advantage.
+        if 0 < tr.gear && tr.gear < tr.num_gears() && self.grade <= 0.01 {
+            // Real drivers skip gears when the load allows instead of
+            // machine-gunning every hole in the box, and the lighter the load
+            // the more they skip. Gating the skip on "empty" alone left a
+            // quarter-loaded truck shifting through all ten gears (player
+            // report, 2026-10-13). The skip now has to land where the engine
+            // can pull what is behind it: just off idle when empty, rising
+            // with the load to the torque peak, which a full load never
+            // reaches from the gear below, so a grossed-out truck still takes
+            // every gear. The skip gear must also out-pull the road.
             let skip_gear = tr.num_gears().min(tr.gear + 2);
-            if skip_gear > tr.gear + 1 && self.coupled_rpm(Some(skip_gear)) >= 780.0 {
-                upshift_steps = 2;
+            let landing_rpm = self.coupled_rpm(Some(skip_gear));
+            let landing_floor = SKIP_LANDING_EMPTY_RPM
+                + (self.specs.peak_torque_rpm - SKIP_LANDING_EMPTY_RPM) * load_fraction;
+            if skip_gear > tr.gear + 1 && landing_rpm >= landing_floor {
+                let skip_force = (self.torque_at(landing_rpm)
+                    * self.throttle
+                    * self.health_factor()
+                    * self.engine_wear_factor()
+                    * tr.ratio_for(skip_gear).abs()
+                    * self.specs.driveline_efficiency
+                    / self.specs.wheel_radius_m)
+                    .min(self.drive_traction_limit());
+                if skip_force >= self.resistance_force() * 1.05 {
+                    upshift_steps = 2;
+                }
             }
         }
         let mut can_upshift = true;
@@ -122,6 +143,20 @@ impl TruckState {
         // bounced every skip-shift straight back down a gear, and the launch
         // churned through torque interruptions instead of accelerating.
         let mut downshift_rpm = AUTO_DOWNSHIFT_RPM - 300.0 * (1.0 - load_fraction);
+        // Pulling away in the starting gear, the engine runs under the lug
+        // guard until the truck gathers speed. That is the launch, not
+        // lugging: the gear was picked for this load and grade, and the
+        // engine is still out-pulling the road. Without this a light truck
+        // pulling away gently in third dropped to second at a walking pace,
+        // then had to shift back up past it. Once the road wins -- a part
+        // load on a rise at part throttle -- the revs are falling and the
+        // guard applies again.
+        let launching = tr.gear <= start_gear
+            && self.throttle > 0.05
+            && self.drive_force() > self.resistance_force();
+        if launching {
+            downshift_rpm = 0.0;
+        }
         // The pull downshift. A real automated box does not sit at full
         // throttle watching the hill win: pedal on the floor, road going up,
         // truck still losing ground, and it goes hunting for torque even

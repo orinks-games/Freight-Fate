@@ -3,15 +3,16 @@
 use std::collections::HashSet;
 
 use crate::sim_support::*;
-use ff_core::data::world_models::Route;
+use ff_core::data::world_models::{Leg, Route};
 use ff_core::pyrandom::PyRandom;
 use ff_core::sim::traffic_manager::{
     climb_speed_mph, governed_band, BrakingZone, TrafficManager, TrafficVehicle,
     CLIMB_MIN_GRADE_PCT, GOVERNED_BOX_TRUCK_BAND_MPH, GOVERNED_CLASSES, GOVERNED_TRUCK_BAND_MPH,
-    MERGE_FREE_START_MI, MERGE_WINDOW_MI, NO_SPAWN_AHEAD_MI, NO_SPAWN_BEHIND_MI, SPAWN_CELL_MI,
+    MAX_BUBBLE_VEHICLES, MERGE_FREE_START_MI, MERGE_WINDOW_MI, NO_SPAWN_AHEAD_MI,
+    NO_SPAWN_BEHIND_MI, SPAWN_CELL_MI,
 };
 use ff_core::sim::trip::{Trip, TripOptions};
-use ff_core::sim::trip_models::{hourly_volume_fraction, DIRECTIONAL_SPLIT};
+use ff_core::sim::trip_models::{hourly_volume_fraction, leg_lane_count, DIRECTIONAL_SPLIT};
 use ff_core::sim::vehicle::TruckState;
 use ff_core::sim::weather::{effects, WeatherKind};
 
@@ -295,6 +296,35 @@ fn test_yielding_ramp_traffic_does_not_block_a_lane_change_to_the_right() {
 }
 
 #[test]
+fn test_a_ramp_vehicle_up_to_road_speed_still_joins_the_lane() {
+    // Relabelled cruising once it reached road speed, a vehicle still on the
+    // ramp used to stay there for good, beside the right lane and never in
+    // it.
+    let mut manager = manager(1);
+    manager.sync_environment(55.0, weather("great_lakes", 1).effects());
+    manager.vehicles = vec![v("merge", 0.0, 55.0, 1, "cruising", "car").with_lane(-1)];
+
+    manager.update(0.0, 0.5, 20.0, None, None);
+
+    assert_eq!(manager.vehicles[0].lane, 0);
+}
+
+#[test]
+fn test_slow_lead_is_called_only_once_it_can_be_heard() {
+    let mut manager = manager(1);
+    manager.vehicles = vec![v("slow", 1.5, 41.0, 0, "following", "box truck")];
+    assert!(
+        manager.next_situation(0.0, 45.0).is_none(),
+        "a slow lead a mile and a half out is out of earshot, so it is not called yet"
+    );
+    let situation = manager
+        .next_situation(1.1, 45.0)
+        .expect("called once it is within half a mile");
+    assert_eq!(situation.kind, "following");
+    assert!(situation.message.normal.starts_with("Slow box truck"));
+}
+
+#[test]
 fn test_braking_vehicle_slows_and_creates_lead_situation() {
     let mut manager = manager(1);
     // The congestion it is braking for. The fixture used to name none, which
@@ -359,7 +389,7 @@ fn test_braking_vehicle_in_a_zone_paces_the_zone_speed() {
 #[test]
 fn test_next_situation_only_announces_vehicle_once() {
     let mut manager = manager(1);
-    manager.vehicles = vec![v("lead", 0.7, 42.0, 0, "following", "semi")];
+    manager.vehicles = vec![v("lead", 0.4, 42.0, 0, "following", "semi")];
     let first = manager.next_situation(0.0, 55.0);
     let second = manager.next_situation(0.0, 55.0);
     assert_eq!(first.expect("a situation").kind, "following");
@@ -369,7 +399,7 @@ fn test_next_situation_only_announces_vehicle_once() {
 #[test]
 fn test_next_situation_speaks_speed_units() {
     let mut manager = manager(1);
-    manager.vehicles = vec![v("lead", 0.7, 42.0, 0, "following", "semi")];
+    manager.vehicles = vec![v("lead", 0.4, 42.0, 0, "following", "semi")];
     let situation = manager.next_situation(0.0, 55.0).expect("a situation");
     assert!(situation.message.normal.contains("42 miles per hour"));
 }
@@ -1076,4 +1106,90 @@ fn test_npc_trucks_actually_slow_down_on_a_real_climb() {
         climb_speed_mph("semi", steepest) < GOVERNED_TRUCK_BAND_MPH.0,
         "a truck on the steepest part of this route must be held below its limiter"
     );
+}
+
+#[test]
+fn test_only_a_freeway_has_distant_traffic_to_hear() {
+    // The cab's traffic bed reads this: an interstate carries its real
+    // presence, an undivided two-lane road and a city street carry none.
+    let w = world();
+    let presence_on = |leg: &std::sync::Arc<Leg>| {
+        let route = Route::new(vec![leg.a.clone(), leg.b.clone()], vec![leg.clone()]);
+        let manager = TrafficManager::bare(&route, &[0.0]);
+        manager.freeway_presence_at(leg.miles / 2.0)
+    };
+    let interstate = w
+        .legs
+        .iter()
+        .find(|leg| leg.highway.starts_with("I-") && leg.miles > 50.0 && leg.local_cue.is_empty())
+        .expect("an interstate leg");
+    let busy = presence_on(interstate);
+    assert!(busy > 0.0 && busy <= 1.0, "{busy}");
+    let two_lane = w
+        .legs
+        .iter()
+        .find(|leg| {
+            !leg.highway.starts_with("I-") && leg.divided == Some(false) && leg.local_cue.is_empty()
+        })
+        .expect("an undivided highway leg");
+    assert_eq!(presence_on(two_lane), 0.0);
+    // The same interstate, but as the city street a facility chain bakes.
+    let mut street = (**interstate).clone();
+    street.local_cue = "Turn right onto Main Street".to_string();
+    assert_eq!(presence_on(&std::sync::Arc::new(street)), 0.0);
+}
+
+#[test]
+fn test_a_busy_freeway_carries_company_in_the_lanes_beside_the_truck() {
+    // Every cell is drawn three miles ahead, so a truck at road speed only
+    // ever met traffic slower than it, and the cab heard nobody (owner
+    // drive, 2026-10-09). New freeway cells now send passers up the lanes
+    // beside the truck from just out of earshot behind it; the truck's own
+    // right lane never gets one.
+    let w = world();
+    let bubble_on = |leg: &std::sync::Arc<Leg>| {
+        let route = Route::new(vec![leg.a.clone(), leg.b.clone()], vec![leg.clone()]);
+        let mut manager = TrafficManager::bare(&route, &[0.0]);
+        manager.rolling_bubble = true;
+        manager.replenish(leg.miles / 2.0);
+        manager.vehicles
+    };
+    let interstate = w
+        .legs
+        .iter()
+        .find(|leg| {
+            leg.highway.starts_with("I-")
+                && leg.miles > 50.0
+                && leg.local_cue.is_empty()
+                && leg_lane_count(Some(leg)) >= 2
+        })
+        .expect("a multi-lane interstate leg");
+    let middle = interstate.miles / 2.0;
+    let vehicles = bubble_on(interstate);
+    let beside: Vec<_> = vehicles
+        .iter()
+        .filter(|v| v.key.matches(':').count() == 2)
+        .collect();
+    assert!(!beside.is_empty(), "{vehicles:?}");
+    assert!(beside.iter().all(|v| v.lane >= 1), "{beside:?}");
+    assert!(
+        beside.iter().all(|v| v.intent == "passing"
+            && (NO_SPAWN_BEHIND_MI..=NO_SPAWN_BEHIND_MI + 0.3).contains(&(middle - v.position_mi))),
+        "{beside:?}"
+    );
+    assert!(vehicles.len() <= MAX_BUBBLE_VEHICLES);
+
+    let two_lane = w
+        .legs
+        .iter()
+        .find(|leg| {
+            !leg.highway.starts_with("I-")
+                && leg.divided == Some(false)
+                && leg.local_cue.is_empty()
+                && leg.miles > 20.0
+        })
+        .expect("an undivided highway leg");
+    assert!(bubble_on(two_lane)
+        .iter()
+        .all(|v| v.key.matches(':').count() == 1));
 }

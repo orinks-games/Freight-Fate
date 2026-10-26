@@ -106,6 +106,20 @@ fn hos_planning_hints_row_explains_and_persists_the_opt_in() {
 }
 
 #[test]
+fn facility_streets_row_toggles_and_persists() {
+    let mut app = TestApp::new();
+    assert!(app.ctx.settings.facility_streets);
+    open_settings_category(&mut app, "World and traffic");
+    move_to::<Cat>(&mut app, "Facility streets");
+    assert_eq!(current_label::<Cat>(&app), "Facility streets: on");
+    key(&mut app, Key::Return);
+    assert_eq!(current_label::<Cat>(&app), "Facility streets: off");
+    assert!(!Settings::load().facility_streets);
+    key(&mut app, Key::Left);
+    assert!(Settings::load().facility_streets);
+}
+
+#[test]
 fn test_settings_menu_cycles_lane_keeping() {
     let mut app = TestApp::new();
     assert_eq!(app.ctx.settings.lane_keeping, "full"); // the all-assists default
@@ -239,6 +253,7 @@ fn gameplay_subcategory_rows(category: &str) -> &'static [&'static str] {
             "Fuel prices",
             "Parking source",
             "Live weather controls calendar",
+            "Facility streets",
             "Back",
         ],
         "controls" => &[
@@ -247,6 +262,8 @@ fn gameplay_subcategory_rows(category: &str) -> &'static [&'static str] {
             "Automatic direction changes",
             "Controller",
             "Haptics",
+            #[cfg(feature = "visuals")]
+            "Visual display",
             "Keyboard shortcuts",
             "Controller buttons",
             "Back",
@@ -433,6 +450,11 @@ fn test_every_gameplay_setting_stays_reachable_after_the_split() {
     assert!(reachable("controls", "Automatic direction changes"));
     assert!(reachable("controls", "Controller"));
     assert!(reachable("controls", "Haptics"));
+    // Only a build with the visual display has a row to turn it off.
+    assert_eq!(
+        reachable("controls", "Visual display"),
+        cfg!(feature = "visuals")
+    );
     assert!(reachable("assistance", "Speed keeper"));
     assert!(!reachable("controls", "Speed keeper"));
     assert!(reachable("difficulty", "Driving mode"));
@@ -492,16 +514,16 @@ fn test_settings_menu_toggles_jake_voice_and_persists() {
     let mut app = TestApp::new();
     assert_eq!(app.ctx.settings.jake_voice, "real");
     open_settings_category(&mut app, "Audio");
-    move_to::<Cat>(&mut app, "Engine brake voice");
-    assert_eq!(current_label::<Cat>(&app), "Engine brake voice: recorded");
+    move_to::<Cat>(&mut app, "Engine brake sound");
+    assert_eq!(current_label::<Cat>(&app), "Engine brake sound: recorded");
     assert!(current_help::<Cat>(&app).starts_with("Recorded is the real engine brake growl"));
     key(&mut app, Key::Return);
     assert_eq!(app.ctx.settings.jake_voice, "classic");
     assert_eq!(Settings::load().jake_voice, "classic");
-    assert_eq!(current_label::<Cat>(&app), "Engine brake voice: classic");
+    assert_eq!(current_label::<Cat>(&app), "Engine brake sound: classic");
     key(&mut app, Key::Left);
     assert_eq!(app.ctx.settings.jake_voice, "real");
-    assert_eq!(current_label::<Cat>(&app), "Engine brake voice: recorded");
+    assert_eq!(current_label::<Cat>(&app), "Engine brake sound: recorded");
 }
 
 #[test]
@@ -1231,4 +1253,85 @@ fn test_a_row_notice_is_heard_when_that_row_is_the_one_you_land_on() {
         .main_lines()
         .iter()
         .any(|line| line.contains("used to offer Realistic")));
+}
+
+/// The Controller row says which controller the game is listening to, so a
+/// player can tell whether a new pad was found.
+#[test]
+fn the_controller_row_names_the_connected_controller() {
+    use freight_fate::controller::fakes::FakePad;
+    let controller_row = |app: &mut TestApp| {
+        cat_rows(app, "controls")
+            .into_iter()
+            .map(|(label, _)| label)
+            .find(|label| label.starts_with("Controller:"))
+            .expect("a Controller row")
+    };
+    let mut app = TestApp::new();
+    app.ctx.settings.controller_enabled = true;
+    app.ctx.controller.set_enabled(true);
+    assert_eq!(
+        controller_row(&mut app),
+        "Controller: enabled, none connected"
+    );
+    app.ctx
+        .controller
+        .bind_device(Box::new(FakePad::new(0)), "Xbox Series X Controller");
+    assert_eq!(
+        controller_row(&mut app),
+        "Controller: enabled, Xbox Series X Controller connected"
+    );
+    app.ctx.settings.controller_enabled = false;
+    assert_eq!(controller_row(&mut app), "Controller: disabled");
+}
+
+#[cfg(feature = "visuals")]
+#[test]
+fn visual_display_row_toggles_says_its_state_and_persists() {
+    let mut app = TestApp::new();
+    assert!(app.ctx.settings.visual_display, "on for a fresh install");
+    open_settings_category(&mut app, "Controls");
+    move_to::<Cat>(&mut app, "Visual display");
+    assert_eq!(current_label::<Cat>(&app), "Visual display: on");
+    app.clear_speech();
+    key(&mut app, Key::Right);
+    assert_eq!(current_label::<Cat>(&app), "Visual display: off");
+    assert!(
+        app.main_lines()
+            .iter()
+            .any(|l| l.contains("Visual display: off")),
+        "{:?}",
+        app.main_lines()
+    );
+    assert!(!Settings::load().visual_display);
+    key(&mut app, Key::Left);
+    assert!(Settings::load().visual_display);
+}
+
+#[test]
+fn test_the_assist_help_says_what_chain_work_costs_and_that_nothing_is_bought() {
+    let mut app = TestApp::new();
+    open_settings_category(&mut app, "Driving assistance");
+    let facility = cat_rows(&mut app, "assistance")
+        .into_iter()
+        .find(|(label, _)| label.starts_with("Facility stopping assistance"))
+        .map(|(_, help)| help)
+        .expect("a facility stopping row");
+    assert!(
+        facility.contains("may spend on-duty minutes on chains"),
+        "{facility}"
+    );
+    assert!(facility.contains("It never buys chains."), "{facility}");
+    assert!(!facility.contains("money"), "{facility}");
+    open_settings_category(&mut app, "Difficulty and hours of service");
+    let planning = cat_rows(&mut app, "difficulty")
+        .into_iter()
+        .find(|(label, _)| label.starts_with("Hours of service planning hints"))
+        .map(|(_, help)| help)
+        .expect("a stop planning row");
+    assert!(
+        planning.contains("reminds you before a chain-law road"),
+        "{planning}"
+    );
+    assert!(planning.contains("never buys anything"), "{planning}");
 }

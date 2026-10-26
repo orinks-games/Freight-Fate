@@ -54,6 +54,7 @@ impl DrivingState {
     /// silent when the current bed runs out. Day/night flavor stays as it
     /// was when the menu opened; it catches up when driving resumes.
     pub fn tick_drive_music(&mut self, ctx: &mut GameContext, dt: f64) {
+        self.apply_radio_voicing(ctx);
         self.advance_radio_airtime(dt);
         self.sync_radio_power(ctx); // a rest-menu shutdown kills the radio too
         if self.radio.enabled && self.trip.truck.engine_on {
@@ -983,6 +984,7 @@ impl DrivingState {
     }
 
     pub fn toggle_radio(&mut self, ctx: &mut GameContext) {
+        self.player_touched_radio(ctx);
         if self.radio_no_power(ctx) {
             return;
         }
@@ -1007,6 +1009,7 @@ impl DrivingState {
     }
 
     pub fn tune_radio(&mut self, ctx: &mut GameContext, direction: i64) {
+        self.player_touched_radio(ctx);
         if self.radio_no_power(ctx) {
             return;
         }
@@ -1020,6 +1023,7 @@ impl DrivingState {
     }
 
     pub fn jump_radio_category(&mut self, ctx: &mut GameContext, direction: i64) {
+        self.player_touched_radio(ctx);
         if self.radio_no_power(ctx) {
             return;
         }
@@ -1039,6 +1043,7 @@ impl DrivingState {
     /// picking a station from a list is asking to hear it. The engine
     /// still has to be running -- the app cannot give the radio power.
     pub fn tune_radio_to(&mut self, ctx: &mut GameContext, station_id: &str) -> String {
+        self.player_touched_radio(ctx);
         if !self.trip.truck.engine_on {
             ctx.audio.play("ui/error");
             return "The engine is off. The radio has no power.".to_string();

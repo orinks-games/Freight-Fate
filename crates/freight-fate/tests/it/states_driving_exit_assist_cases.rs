@@ -54,6 +54,7 @@ fn roll_the_yield_with_a_car(car_after_clear_s: f64) -> String {
             crossed: false,
             committed: false,
             sound_started: false,
+            id: 1,
         }];
         d.cross_bubble = Some(bubble);
         d.ramp_mi = Some(RAMP_ACCESS_MI - past_line_ft / 5280.0);

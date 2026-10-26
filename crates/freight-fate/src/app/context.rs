@@ -27,6 +27,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 
 use ff_core::achievements::{award, AchievementAward};
 use ff_core::data::world::World;
+use ff_core::l10n::Translator;
 use ff_core::message_log::{MessageCategory, MessageLog};
 use ff_core::models::economy::Economy;
 use ff_core::models::profile::Profile;
@@ -38,7 +39,6 @@ use ff_core::sim::real_traffic::RealTrafficProvider;
 use ff_core::sim::real_weather::RealWeatherProvider;
 use ff_core::sim::real_weather_alerts::WeatherAlertsProvider;
 use ff_core::sim::truck_parking::TruckParkingProvider;
-use ff_core::speech_pacing::EventSpeechPacer;
 use ff_core::speech_text::achievement_announced;
 
 use crate::account_achievements::AccountAchievements;
@@ -53,7 +53,7 @@ use crate::meaningful_play::MeaningfulPlayReason;
 use crate::net::UreqTransport;
 use crate::online_journal::{queue_achievement, JournalOutbox};
 use crate::online_presence::{OnlineIdentity, OnlinePresence};
-use crate::speech::{apply_speech_settings, SpeechSink};
+use crate::speech::{apply_speech_settings, EventSpeechPacer, SpeechSink};
 use crate::states::base::State;
 
 use super::held_keys::HeldKeys;
@@ -115,7 +115,6 @@ pub struct Services {
     pub jaws_script: JawsScript,
     pub cloud: CloudSaves,
     pub journal: JournalOutbox,
-    pub mastodon: JournalOutbox,
 }
 
 /// A career achievement and whether this installation can publish it publicly.
@@ -145,6 +144,9 @@ pub struct GameContext {
     /// active career's progress and reward state.
     pub account_achievements: AccountAchievements,
     pub message_log: MessageLog,
+    /// Turns each finished English line into the player's language
+    /// (`app::language`); English passes lines through untouched.
+    pub translator: Arc<Translator>,
     pub achievement_notice: String,
     pub achievement_notice_timer: f64,
     /// True while a playtest-lever scenario runs unsaved (see
@@ -180,6 +182,24 @@ pub struct GameContext {
     /// handled. See `player_asked`: a readout somebody asked for cuts the
     /// line in progress even at the wheel, where unasked-for lines queue.
     pub(crate) speech_requested: bool,
+    /// The co-driver has the wheel and the player is in the sleeper: the
+    /// road, the co-driver's own controls and the screens they work say
+    /// nothing aloud (the transcript still gets every line). Answers to
+    /// keys the player presses, and forced lines such as the co-driver's
+    /// summon, still speak.
+    pub co_driver_away: bool,
+    /// The co-driver's shift is being slept through: the app runs the
+    /// drive ahead several frames at a time, with the sound down.
+    pub co_driver_fast_forward: bool,
+    /// Which screen and row had focus when the copy mark was last set.
+    copy_focus_key: Option<(usize, usize)>,
+    /// `message_log.total_added()` when the screen opened or focus last
+    /// moved. While nothing newer is logged, the copy key copies the row.
+    pub(crate) copy_mark: u64,
+    /// `message_log.total_added()` at the end of the last input, so a
+    /// screen's opening lines (or a page line) logged by the input that
+    /// moved focus stay ahead of the mark and can be copied first.
+    copy_seen: u64,
     /// FIRST_OCCURRENCE and TRANSITIONS need memory of what has already
     /// been said; Settings cannot hold it, so it lives here beside the
     /// pacer. `ladder_said` is leg-scoped ("once per leg"), `ladder_last`
@@ -240,6 +260,7 @@ impl GameContext {
         // The guide tone must exist before a drive starts, not only after
         // the Learn game sounds screen has been opened. Idempotent and cheap.
         ff_core::lane_guide_tone::register_lane_guide_tone();
+        ff_core::cab_sounds::register_cab_sounds();
         Self {
             speech: parts.speech,
             audio: parts.audio,
@@ -251,19 +272,25 @@ impl GameContext {
             profile: None,
             account_achievements: parts.account_achievements,
             message_log: parts.message_log,
+            translator: Arc::new(Translator::english()),
             achievement_notice: String::new(),
             achievement_notice_timer: 0.0,
             playtest_sandbox: false,
             dispatch_board_seed: None,
             school_sandbox: false,
             school_real_profile: None,
-            event_pacer: EventSpeechPacer::new(),
+            event_pacer: EventSpeechPacer::new(super::FF_PACER),
             clipboard: parts.clipboard,
             services: parts.services,
             input: HeldKeys::default(),
             running: false,
             speech_ducked: false,
             speech_requested: false,
+            co_driver_away: false,
+            co_driver_fast_forward: false,
+            copy_focus_key: None,
+            copy_mark: 0,
+            copy_seen: 0,
             ladder_said: HashSet::new(),
             ladder_last: HashMap::new(),
             handed_back: VecDeque::new(),
@@ -289,7 +316,7 @@ impl GameContext {
     /// individual `setting` are enabled.
     ///
     /// The master governs the orinks.net and sharing services only (drivers
-    /// board, profile sharing, cloud backup, Mastodon, Discord presence).
+    /// board, profile sharing, cloud backup, Discord presence).
     /// Live-data simulation sources -- weather, traffic, parking -- follow
     /// their own Settings toggles and are deliberately NOT gated here (owner
     /// ruling, 2026-08-08: two testers lost real weather to the master
@@ -496,6 +523,31 @@ impl GameContext {
                 }
             }
         }
+        self.note_copy_focus();
+    }
+
+    /// Set the copy mark when the top screen or its focused row changed. The
+    /// mark is the log count from before the input that changed focus, so
+    /// what that input logged (a screen's opening lines, a search result, a
+    /// page line) is copied first; what came earlier (a re-read row) is
+    /// behind the mark, so the next focus move copies the focused row.
+    pub(crate) fn note_copy_focus(&mut self) {
+        let Some(state) = self.state() else {
+            self.copy_focus_key = None;
+            return;
+        };
+        let Ok(borrowed) = state.try_borrow() else {
+            return;
+        };
+        let key = borrowed
+            .copy_focus(self)
+            .map(|focus| (Rc::as_ptr(&state) as *const () as usize, focus.index));
+        drop(borrowed);
+        if key != self.copy_focus_key {
+            self.copy_focus_key = key;
+            self.copy_mark = self.copy_seen;
+        }
+        self.copy_seen = self.message_log.total_added();
     }
 
     /// Push `state` and enter it (`push_state(state, should_enter=True)`).
@@ -736,12 +788,6 @@ impl GameContext {
             ));
     }
 
-    /// Reflect the Mastodon sharing setting (e.g. after a settings change).
-    pub fn apply_mastodon_sharing(&mut self) {
-        let enabled = self.online_enabled(self.settings.mastodon_sharing);
-        self.services.mastodon.set_enabled(enabled);
-    }
-
     /// The backup service, for the Cloud backup menu.
     pub fn cloud_saves_service(&self) -> &CloudSaves {
         &self.services.cloud
@@ -753,8 +799,7 @@ impl GameContext {
         self.services.online.set_identity(identity.clone());
         self.services.duty.set_identity(identity.as_ref());
         self.services.cloud.set_identity(identity.clone());
-        self.services.journal.set_identity(identity.clone());
-        self.services.mastodon.set_identity(identity);
+        self.services.journal.set_identity(identity);
     }
 
     /// Reflect the controller setting (e.g. after a settings change).
@@ -951,6 +996,11 @@ impl GameContext {
     /// `award_achievement(id)` with the defaults (`interrupt=False`,
     /// `announce=True`).
     pub fn award_achievement(&mut self, achievement_id: &str) -> Option<AchievementAward> {
+        // What the co-driver does at the wheel or at a stop is not the
+        // player's to earn.
+        if self.co_driver_away {
+            return None;
+        }
         self.award_achievement_with(achievement_id, false, true)
             .map(|outcome| outcome.award)
     }

@@ -430,6 +430,33 @@ mod tests {
         assert_eq!(t.cargo_damage_pct, 0.0);
     }
 
+    /// The jake on through a full service stop is still an ordinary stop.
+    ///
+    /// In a low gear the retarder adds about a fifth of a g on top of the
+    /// drums, which used to put a street-corner stop over the securement line
+    /// (player report, 2026-10-14).
+    #[test]
+    fn test_a_full_service_stop_with_the_jake_on_does_not_hurt_the_load() {
+        let mut t = TruckState {
+            trailer_attached: true,
+            cargo_kg: 5_000.0,
+            engine_on: true,
+            ..TruckState::default()
+        };
+        t.transmission.automatic = true;
+        t.transmission.gear = 5;
+        t.velocity_mps = 15.0 * MPS_PER_MPH;
+        t.update(0.0);
+        t.engine_brake_stage = 3;
+        t.brake = 1.0;
+        assert!(t.jake_brake_force() > 0.0);
+        for _ in 0..600 {
+            t.update(1.0 / 60.0);
+        }
+        assert!(t.velocity_mps < 0.5);
+        assert_eq!(t.cargo_damage_pct, 0.0);
+    }
+
     /// Full service plus the spring brakes is past what securement holds.
     #[test]
     fn test_an_emergency_application_does_reach_the_freight() {

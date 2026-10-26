@@ -14,6 +14,7 @@ use super::{
 };
 use crate::data::world::World;
 use crate::data::world_corridor::build_leg_corridor;
+use crate::data::world_parsing::FlaggedLimit;
 use crate::pyfmt::fmt_f;
 
 #[derive(Debug, Clone, PartialEq)]
@@ -39,6 +40,9 @@ pub struct CorridorDetail {
     pub toll_events: Vec<TollEvent>,
     pub interchanges: Vec<Interchange>,
     pub speed_limits: Vec<SpeedLimitSample>,
+    /// How many short postings the load-time artifact fold removed from
+    /// `speed_limits` (see `fold_limit_artifacts`); reported by the baker.
+    pub speed_limits_folded: usize,
     pub traffic_volumes: Vec<TrafficVolumeSample>,
     pub hpms_terrain: Option<HpmsTerrain>,
     pub landmarks: Vec<Landmark>,
@@ -59,6 +63,8 @@ pub struct DetailSource {
     pub leg_to: String,
     pub from_state: String,
     pub highway: String,
+    /// This leg's rows of `limit_artifacts.jsonl`.
+    pub flagged_limits: Vec<FlaggedLimit>,
 }
 
 /// Builds one leg's corridor detail on first touch. The baked container hands
@@ -334,6 +340,7 @@ impl Leg {
                         &src.leg_to,
                         &src.from_state,
                         &src.highway,
+                        &src.flagged_limits,
                     ),
                     Some(Deferred::Builder(build)) => build(),
                 }
@@ -656,11 +663,10 @@ impl Route {
         let mut miles_by_lanes: Vec<(i64, f64)> = Vec::new();
         let mut divided_mi = 0.0;
         let mut total_mi = 0.0;
-        for (i, leg) in self.legs.iter().enumerate() {
-            let forward = self.cities.get(i).is_some_and(|c| *c == leg.a);
+        for leg in &self.legs {
             for seg in leg.lane_segments() {
                 let span = (seg.end_mi - seg.start_mi).max(0.0);
-                let n = seg.your_side(forward);
+                let n = seg.your_side();
                 match miles_by_lanes.iter_mut().find(|(k, _)| *k == n) {
                     Some(entry) => entry.1 += span,
                     None => miles_by_lanes.push((n, span)),
@@ -679,7 +685,8 @@ impl Route {
         ranked.sort_by(|a, b| (-a.1).partial_cmp(&(-b.1)).expect("finite miles"));
         let top = ranked[0].0;
         let divided = divided_mi >= 0.5 * total_mi;
-        let lead = if divided { "mostly divided, " } else { "" };
+        // Each wording is written out whole so a translation sees the
+        // complete phrase, never a "divided" prefix glued to a count.
         // A clear second value that holds real distance earns a range.
         if ranked.len() > 1 && ranked[1].1 >= 0.25 * total_mi {
             let (lo, hi) = if ranked[0].0 <= ranked[1].0 {
@@ -687,17 +694,29 @@ impl Route {
             } else {
                 (ranked[1].0, ranked[0].0)
             };
-            return format!(
-                "{lead}{} to {} lanes your side",
-                lane_word(lo),
-                lane_word(hi)
-            );
+            return if divided {
+                format!(
+                    "mostly divided, {} to {} lanes your side",
+                    lane_word(lo),
+                    lane_word(hi)
+                )
+            } else {
+                format!("{} to {} lanes your side", lane_word(lo), lane_word(hi))
+            };
         }
-        format!(
-            "{lead}{} lane{} your side",
-            lane_word(top),
-            if top != 1 { "s" } else { "" }
-        )
+        if divided {
+            format!(
+                "mostly divided, {} lane{} your side",
+                lane_word(top),
+                if top != 1 { "s" } else { "" }
+            )
+        } else {
+            format!(
+                "{} lane{} your side",
+                lane_word(top),
+                if top != 1 { "s" } else { "" }
+            )
+        }
     }
 
     pub fn describe(&self, distance_text: &str) -> String {

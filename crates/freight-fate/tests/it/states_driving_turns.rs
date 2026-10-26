@@ -181,7 +181,7 @@ fn test_approach_call_names_the_side_street_distance_and_speed() {
     assert_eq!(spoken.len(), 1);
     assert_eq!(
         spoken[0],
-        "Left turn onto North Michigan Street, a quarter mile. Advise 11 miles per hour."
+        "Left turn onto North Michigan Street, a quarter mile. Advise 14 miles per hour."
     );
     assert!(d.turn_grace_s > 0.0);
     d.update_turn_commitment(&mut app.ctx, 0.016);
@@ -241,14 +241,16 @@ fn test_a_turn_call_after_the_route_lead_adds_only_the_advisory() {
     d.update_turn_commitment(&mut app.ctx, 0.016);
     assert_eq!(
         app.event_lines().last().map(String::as_str),
-        Some("Advise 11 miles per hour."),
+        Some("Advise 14 miles per hour."),
         "{:?}",
         app.event_lines()
     );
 }
 
 #[test]
-fn test_terse_keeps_direction_street_and_distance_but_drops_the_advisory() {
+fn test_terse_keeps_the_advise_speed() {
+    // The advise speed is the one number a driver brakes to. Terse used to
+    // drop it with the rest of the tail and left nothing to aim for.
     let mut app = TestApp::new();
     app.ctx.settings.driving_speech = "quiet".to_string();
     let mut d = a_drive(&mut app);
@@ -256,21 +258,46 @@ fn test_terse_keeps_direction_street_and_distance_but_drops_the_advisory() {
     app.clear_speech();
     d.trip.position_mi = 0.4;
     mph(&mut d, 30.0);
+    d.keeper_mph = Some(25.0);
     d.update_turn_commitment(&mut app.ctx, 0.016);
     let spoken = app.event_lines();
     assert_eq!(
         spoken[0],
-        "Left turn onto North Michigan Street, a quarter mile."
+        "Left turn onto North Michigan Street, a quarter mile. Advise 14 miles per hour."
     );
     // Never a bare "Right now": the verb always leads.
     assert!(!spoken[0].contains("Right now"));
 }
 
 #[test]
-fn test_the_approach_call_says_the_speed_keeper_is_taking_the_corner() {
-    // The keeper sheds the corner's speed itself. That is said inside the
-    // corner's own call rather than as a second utterance on top of it, so
-    // nobody reaches for the brake -- braking cancels the whole session.
+fn test_a_turn_the_truck_is_already_slow_for_is_still_called_with_its_speed() {
+    // Player report, 2026-10-13: the advise speed came on some turns and not
+    // others, because only a truck over it was told. A driver who had
+    // slowed right down heard no number and so never learned how fast the
+    // next corner could be taken.
+    let mut app = TestApp::new();
+    let mut d = a_drive(&mut app);
+    a_street_chain(&mut d);
+    app.clear_speech();
+    d.trip.position_mi = 0.4;
+    mph(&mut d, 8.0);
+    let cue = d.turn_cue_in_play().expect("a corner is in play");
+    assert!(d.trip.truck.speed_mph() < d.turn_speed_mph(&cue));
+    d.update_turn_commitment(&mut app.ctx, 0.016);
+    assert_eq!(
+        app.event_lines(),
+        vec![
+            "Left turn onto North Michigan Street, a quarter mile. Advise 14 miles per hour."
+                .to_string()
+        ]
+    );
+}
+
+#[test]
+fn test_the_approach_call_under_the_speed_keeper_is_just_the_corner_and_its_speed() {
+    // Owner, 2026-10-25: "Speed keeper easing." on every corner made the
+    // street transition too wordy. The advise speed already tells the
+    // driver the truck will slow, so the call ends there.
     let mut app = TestApp::new();
     let mut d = a_drive(&mut app);
     a_street_chain(&mut d);
@@ -281,8 +308,7 @@ fn test_the_approach_call_says_the_speed_keeper_is_taking_the_corner() {
     d.update_turn_commitment(&mut app.ctx, 0.016);
     assert_eq!(
         app.event_lines()[0],
-        "Left turn onto North Michigan Street, a quarter mile. Advise 11 miles per hour. \
-         Speed keeper easing."
+        "Left turn onto North Michigan Street, a quarter mile. Advise 14 miles per hour."
     );
 }
 
@@ -296,7 +322,7 @@ fn test_the_approach_call_stays_quiet_about_a_keeper_with_nothing_to_shed() {
     // Manual speed control leaves the call exactly as it was.
     mph(&mut d, 30.0);
     d.update_turn_commitment(&mut app.ctx, 0.016);
-    assert!(app.event_lines()[0].ends_with("Advise 11 miles per hour."));
+    assert!(app.event_lines()[0].ends_with("Advise 14 miles per hour."));
     // So does a keeper already under the corner speed: there is nothing
     // for it to shed, so there is nothing to say about it.
     mph(&mut d, 8.0);
@@ -304,7 +330,7 @@ fn test_the_approach_call_stays_quiet_about_a_keeper_with_nothing_to_shed() {
     let cue = d.turn_cue_in_play().expect("a corner is in play");
     assert!(d
         .turn_approach_text(&app.ctx, &cue, 0.2)
-        .ends_with("Advise 11 miles per hour."));
+        .ends_with("Advise 14 miles per hour."));
 }
 
 #[test]
@@ -321,19 +347,20 @@ fn test_the_planner_sees_past_the_corner_it_is_already_easing_for() {
     street_chain(&mut d, 1.0, 0.08);
     let cues = d.turn_cues_in_play();
     let (first, second) = (cues[0].clone(), cues[1].clone());
-    assert_eq!(d.turn_speed_mph(&first), corner_speed_mph(Some(90.0), load));
-    assert_eq!(
-        d.turn_speed_mph(&second),
-        corner_speed_mph(Some(105.0), load)
-    );
+    assert_eq!(d.turn_speed_mph(&first), side_speed(&first, 90.0, load));
+    assert_eq!(d.turn_speed_mph(&second), side_speed(&second, 105.0, load));
     assert!(second.at_mi - first.at_mi < 0.15); // inside the first corner's tail
 
-    // Easing for the first corner, well before the second one is close.
+    // Easing for the first corner, well before the second one is close. The
+    // first corner's number is lowered only if the second is too close to
+    // brake for after it.
     d.trip.position_mi = first.at_mi - 0.05;
     mph(&mut d, 25.0);
+    let first_target = d.corner_targets_ahead()[0].1;
+    assert!(first_target <= side_speed(&first, 90.0, load));
     assert_eq!(
         d.keeper_speed_ahead(&mut app.ctx),
-        Some((corner_speed_mph(Some(90.0), load), "turn".to_string()))
+        Some((first_target, "turn".to_string()))
     );
 
     // One block on, with the second corner's own window open, the planner
@@ -342,61 +369,60 @@ fn test_the_planner_sees_past_the_corner_it_is_already_easing_for() {
     mph(&mut d, 19.0);
     assert_eq!(
         d.keeper_speed_ahead(&mut app.ctx),
-        Some((corner_speed_mph(Some(105.0), load), "turn".to_string()))
+        Some((side_speed(&second, 105.0, load), "turn".to_string()))
     );
 }
 
+fn turn_chimes(audio: &freight_fate::app::testing::AudioLog) -> Vec<(String, f64)> {
+    audio
+        .borrow()
+        .played
+        .iter()
+        .filter(|(key, _, _)| key.starts_with("events/turn_"))
+        .map(|(key, _, pan)| (key.clone(), *pan))
+        .collect()
+}
+
 #[test]
-fn test_the_turn_earcon_waits_for_the_corner_itself() {
-    // The chime used to sound the moment the approach call was armed, whether
-    // or not the words that go with it ever reached the voice: at urgent only
-    // the owner heard corners announced by sound alone (2026-09-20). It is
-    // owed to a corner the driver was told about, and spent when the truck
-    // actually turns.
+fn test_the_turn_chime_goes_out_with_the_call_that_names_it() {
+    // The chime used to sound as the truck took the corner, and the call for
+    // the next corner followed it: a right chime landed beside "Left turn"
+    // (player report, 2026-10-13). It goes out once, with the words for its
+    // own turn, panned to that turn's side.
     let mut app = TestApp::new();
+    let audio = app.record_audio();
     let mut d = a_drive(&mut app);
     a_street_chain(&mut d);
     let cue = d.turn_cue_in_play().expect("a corner is in play");
-    assert!(!d.turn_announced.contains(&cue.key));
     d.trip.position_mi = 0.4;
     mph(&mut d, 30.0);
     d.update_turn_commitment(&mut app.ctx, 0.016);
-    assert!(
-        d.turn_announced.contains(&cue.key),
-        "the corner was called, so its earcon is owed at the corner"
+    assert_eq!(
+        turn_chimes(&audio),
+        vec![("events/turn_left".to_string(), -TURN_CUE_PAN)]
     );
 
-    // And the corner is a JUDGED one, which is what stops its route cues
-    // sounding the same chime at the quarter-mile lead and again at the
-    // corner: `handle_trip_event` suppresses the earcon for exactly these,
-    // so the turn flow owns it outright. Three chimes on one turn out of
-    // Houston is what that cost before (owner drive, 2026-09-20).
+    // The route's own cues for the same corner add no second chime, and
+    // neither does taking it. Three chimes on one turn out of Houston is
+    // what that cost before (owner drive, 2026-09-20).
     assert!(is_judged_turn(&cue));
-    let straight_on = d
-        .trip
-        .navigation_cues
-        .iter()
-        .find(|other| other.kind == "local_turn" && !is_judged_turn(other));
-    if let Some(straight_on) = straight_on {
-        // A cue with no side to it never reaches the turn flow, so it keeps
-        // its own sound.
-        assert!(!d.turn_announced.contains(&straight_on.key));
-    }
-
-    // Taking it spends the earcon, once and once only.
-    d.resolve_turn(&mut app.ctx, &cue);
-    assert!(!d.turn_announced.contains(&cue.key));
-    d.resolve_turn(&mut app.ctx, &cue);
-    assert!(!d.turn_announced.contains(&cue.key));
+    let near = ff_core::sim::trip_models::TripEvent {
+        kind: TripEventKind::GpsCue,
+        message: ff_core::speech_text::SpokenMessage::new(cue.near_text.clone()),
+        data: ff_core::sim::trip_models::TripEventData {
+            cue: Some(cue.clone()),
+            ..Default::default()
+        },
+    };
+    d.handle_trip_event(&mut app.ctx, &near);
+    d.resolve_turn(&cue);
+    assert_eq!(turn_chimes(&audio).len(), 1);
 }
 
 #[test]
-fn test_a_turn_taken_at_a_crawl_still_chimes_when_the_route_called_it() {
-    // A truck already under a turn's speed gets no approach call, only the
-    // route's own "Turn left onto 3rd Avenue Southeast" -- and that never
-    // counted as telling the driver, so the turn went by without its chime
-    // (agent drive, Aberdeen yard, 2026-09-23).
+fn test_a_turn_first_named_by_the_route_chimes_with_that_line() {
     let mut app = TestApp::new();
+    let audio = app.record_audio();
     let mut d = a_drive(&mut app);
     a_street_chain(&mut d);
     let cue = d.turn_cue_in_play().expect("a corner is in play");
@@ -410,6 +436,10 @@ fn test_a_turn_taken_at_a_crawl_still_chimes_when_the_route_called_it() {
     };
     d.handle_trip_event(&mut app.ctx, &near);
     assert!(d.turn_announced.contains(&cue.key));
+    assert_eq!(
+        turn_chimes(&audio),
+        vec![("events/turn_left".to_string(), -TURN_CUE_PAN)]
+    );
 }
 
 #[test]
@@ -472,10 +502,10 @@ fn route_calls(d: &mut DrivingState, app: &mut TestApp) {
 
 #[test]
 fn test_the_next_turn_waits_until_the_truck_is_round_the_last() {
-    // The chime for the corner being taken and the call for the next corner
-    // went out on the same tick, so "Turn right onto North Freeway Road" was
-    // heard over the left-turn chime, four turns out of four (agent drive,
-    // Tucson streets, 2026-09-24).
+    // The call for the next corner went out while the truck was still round
+    // the last one, so "Turn right onto North Freeway Road" was heard over
+    // the left turn, four turns out of four (agent drive, Tucson streets,
+    // 2026-09-24).
     let mut app = TestApp::new();
     let audio = app.record_audio();
     let mut d = a_drive(&mut app);
@@ -496,27 +526,18 @@ fn test_the_next_turn_waits_until_the_truck_is_round_the_last() {
     d.update_turn_commitment(&mut app.ctx, 0.016);
     app.clear_speech();
 
-    // At the corner: its own chime, and not a word about the next one, from
-    // the route or from the corner's approach call.
+    // At the corner: no chime (it went out with the call), and not a word
+    // about the next one, from the route or from the corner's approach call.
+    let before = turn_chimes(&audio).len();
     d.trip.position_mi = first.at_mi + 0.001;
     route_calls(&mut d, &mut app);
     d.update_turn_commitment(&mut app.ctx, 0.016);
-    let chimes = |audio: &freight_fate::app::testing::AudioLog| {
-        audio
-            .borrow()
-            .played
-            .iter()
-            .filter(|(key, _, _)| key.starts_with("events/turn_"))
-            .map(|(key, _, _)| key.clone())
-            .collect::<Vec<_>>()
-    };
-    assert_eq!(chimes(&audio), vec!["events/turn_left".to_string()]);
-    mph(&mut d, 20.0); // over the next corner's speed, so it has a call owed
+    assert_eq!(turn_chimes(&audio).len(), before);
     route_calls(&mut d, &mut app);
     d.update_turn_commitment(&mut app.ctx, 0.016);
     assert!(
         lines_with(&app, "West Sample Street").is_empty(),
-        "the next turn was called over this one's chime: {:?}",
+        "the next turn was called over this one: {:?}",
         app.event_lines()
     );
 
@@ -528,6 +549,11 @@ fn test_the_next_turn_waits_until_the_truck_is_round_the_last() {
         !lines_with(&app, "West Sample Street").is_empty(),
         "{:?}",
         app.event_lines()
+    );
+    assert_eq!(
+        turn_chimes(&audio).last(),
+        Some(&("events/turn_right".to_string(), TURN_CUE_PAN)),
+        "the right turn's chime goes with the right turn's call"
     );
     assert!(second.at_mi > d.trip.position_mi);
 }
@@ -630,8 +656,8 @@ fn test_turn_speed_comes_from_the_corners_own_angle() {
     // point of the change. Both come from the angle, not the 25 mph street.
     let square = d.turn_speed_mph(&cues[0]);
     let sharp = d.turn_speed_mph(&cues[1]);
-    assert_eq!(square, corner_speed_mph(Some(90.0), load));
-    assert_eq!(sharp, corner_speed_mph(Some(105.0), load));
+    assert_eq!(square, side_speed(&cues[0], 90.0, load));
+    assert_eq!(sharp, side_speed(&cues[1], 105.0, load));
     assert!(sharp < square, "{sharp} should be under {square}");
     // And neither is the old flat clamp any more.
     assert!(square < TURN_CORNER_MAX_MPH);
@@ -692,7 +718,7 @@ fn test_no_miss_while_the_turns_own_cue_is_still_speaking() {
 
 #[test]
 fn test_a_missed_turn_keeps_the_speed_control_session_armed() {
-    // The loop-back drops the keeper for the corner but keeps the session,
+    // A miss drops the keeper for the corner but keeps the session,
     // so it resumes on its own afterwards. Disarming it left the truck
     // idling off the corner with nothing said (agent drives, 2026-09-01;
     // owner ruling: the keeper manages facility-approach corners).
@@ -706,7 +732,7 @@ fn test_a_missed_turn_keeps_the_speed_control_session_armed() {
     assert_eq!(d.turn_miss_count, 1);
     assert!(d.keeper_mph.is_none());
     assert!(d.speed_control_armed, "the session survives the miss");
-    assert!(!lines_with(&app, "missed the turn").is_empty());
+    assert!(!lines_with(&app, "Missed the turn").is_empty());
 }
 
 #[test]
@@ -729,10 +755,13 @@ fn test_a_microsleep_never_reads_as_a_missed_turn() {
     assert_eq!(d.turn_miss_count, 0);
 }
 
-// -- the miss and its escalation --------------------------------------------
+// -- the miss ----------------------------------------------------------------
 
 #[test]
-fn test_over_the_turn_speed_loops_back_and_charges_time() {
+fn test_over_the_turn_speed_goes_around_the_block_and_charges_time() {
+    // Player report, 2026-10-13: a miss dropped the truck back onto the
+    // approach, "as if you had a teleport". It drives on, circles the block,
+    // and comes out on the street it missed.
     let mut app = TestApp::new();
     let mut d = a_drive(&mut app);
     a_street_chain(&mut d);
@@ -741,48 +770,22 @@ fn test_over_the_turn_speed_loops_back_and_charges_time() {
     at_turn(&mut d, &mut app, 0.6, 45.0);
     assert_eq!(d.turn_miss_count, 1);
     assert_eq!(d.trip.game_minutes, minutes + TURN_MISS_LOOP_MIN);
-    assert!(d.trip.position_mi < 0.6); // dropped back onto the approach
-    let text = last_with(&app, "You missed the turn");
+    assert!(d.trip.position_mi >= 0.6 + TURN_COMMIT_TAIL_MI);
+    assert!(!d.trip.controlled_turn);
+    let text = last_with(&app, "Missed the turn");
     assert!(app
         .event_calls()
         .iter()
         .any(|(line, interrupt)| *line == text && *interrupt));
     assert_eq!(
         text,
-        "You missed the turn onto North Michigan Street. Next safe turnaround, back onto the \
-         approach. The turn is ahead again."
+        "Missed the turn onto North Michigan Street. Going around the block."
     );
-}
-
-#[test]
-fn test_the_loop_back_drops_a_full_spoken_window() {
-    let mut app = TestApp::new();
-    let mut d = a_drive(&mut app);
-    a_street_chain(&mut d);
-    at_turn(&mut d, &mut app, 0.6, 45.0);
-    // A full window back, never a fixed distance, so the retry is winnable.
-    assert_eq!(d.trip.position_mi, 0.6 - d.turn_window_mi());
-}
-
-#[test]
-fn test_the_loop_back_resets_every_say_once_latch() {
-    let mut app = TestApp::new();
-    let mut d = a_drive(&mut app);
-    a_street_chain(&mut d);
-    d.trip
-        .announced_navigation
-        .insert("local:turn:1:advance".to_string());
-    d.trip
-        .announced_navigation
-        .insert("local:turn:1:near".to_string());
-    at_turn(&mut d, &mut app, 0.6, 45.0);
-    assert!(!d.turn_advised.contains("local:turn:1"));
-    assert!(!d.trip.announced_navigation.contains("local:turn:1:advance"));
-    assert!(!d.trip.announced_navigation.contains("local:turn:1:near"));
-    assert!(!d.trip.controlled_turn);
-    // And the re-approach really does speak and pass.
-    at_turn(&mut d, &mut app, 0.6, 8.0);
-    assert_eq!(d.turn_miss_count, 1);
+    // The corner is settled; the next one is in play.
+    assert_eq!(
+        d.turn_cue_in_play().expect("the next corner").key,
+        "local:turn:2"
+    );
 }
 
 #[test]
@@ -795,68 +798,26 @@ fn test_terse_miss_keeps_the_essentials() {
     at_turn(&mut d, &mut app, 0.6, 45.0);
     assert_eq!(
         last_with(&app, "Missed the turn."),
-        "Missed the turn. Safe turnaround. Turn ahead again."
+        "Missed the turn. Going around the block."
     );
 }
 
 #[test]
-fn test_a_repeat_miss_appends_help_to_an_identical_core_sentence() {
+fn test_every_miss_says_the_same_short_line() {
     let mut app = TestApp::new();
+    let clock = app.fake_pacer_clock();
     let mut d = a_drive(&mut app);
-    a_street_chain(&mut d);
+    street_chain(&mut d, 1.0, 0.5);
     app.clear_speech();
     at_turn(&mut d, &mut app, 0.6, 45.0);
-    let first = last_with(&app, "You missed the turn");
-    assert!(!first.contains("Brake to"));
+    clock.advance(30.0); // the first miss has been heard
     at_turn(&mut d, &mut app, 1.1, 45.0);
-    let expected_brake = {
-        let cue = d.turn_cue_in_play().expect("a corner is in play");
-        d.turn_speed_mph(&cue).round() as i64
-    };
-    let second = lines_with(&app, "You missed the turn")
-        .into_iter()
-        .find(|line| line.contains("Brake to"))
-        .expect("the repeat miss appends help");
-    assert!(second.starts_with("You missed the turn onto West Sample Street."));
-    assert_eq!(expected_brake, 10, "the corner this fixture misses");
-    assert!(second.contains("Brake to 10 miles per hour"));
-    assert!(second.contains("Down arrow")); // the brake key this driver actually has
-}
-
-#[test]
-fn test_a_second_miss_on_the_same_turn_is_made_for_the_player() {
-    let mut app = TestApp::new();
-    let mut d = a_drive(&mut app);
-    a_street_chain(&mut d);
-    app.clear_speech();
-    let minutes = d.trip.game_minutes;
-    at_turn(&mut d, &mut app, 0.6, 45.0); // loops back
-    at_turn(&mut d, &mut app, 0.6, 45.0); // same turn again: no second loop
     assert_eq!(d.turn_miss_count, 2);
-    assert_eq!(d.trip.game_minutes, minutes + 2.0 * TURN_MISS_LOOP_MIN);
-    assert!(d.trip.position_mi > 0.6); // routed around, past the turn
-    let last = last_with(&app, "The turn is made for you");
-    assert!(last.starts_with("You missed the turn onto North Michigan Street."));
-    // The turn is settled: it never comes back to be missed a third time.
     assert_eq!(
-        d.turn_cue_in_play().expect("the next corner").key,
-        "local:turn:2"
+        last_with(&app, "Missed the turn"),
+        "Missed the turn onto West Sample Street. Going around the block."
     );
-}
-
-#[test]
-fn test_the_third_miss_anywhere_completes_the_turn() {
-    let mut app = TestApp::new();
-    let mut d = a_drive(&mut app);
-    a_street_chain(&mut d);
-    app.clear_speech();
-    d.turn_miss_count = 2; // two turns already blown on this run
-    let minutes = d.trip.game_minutes;
-    at_turn(&mut d, &mut app, 0.6, 45.0);
-    assert_eq!(d.turn_miss_count, 3);
-    assert_eq!(d.trip.game_minutes, minutes + TURN_MISS_LOOP_MIN); // time still charged
-    assert!(d.trip.position_mi > 0.6);
-    assert!(!lines_with(&app, "The turn is made for you").is_empty());
+    assert!(d.trip.position_mi > 1.1);
 }
 
 #[test]
@@ -1010,8 +971,7 @@ fn test_a_corner_you_are_already_slow_enough_for_still_buys_real_seconds() {
 
 #[test]
 fn test_a_now_corner_call_is_never_a_droppable_lead() {
-    // A cold arrival at a corner -- or a loop-back onto one closer to the
-    // chain start than a spoken window -- gets the "now" form, and that is the
+    // A cold arrival at a corner gets the "now" form, and that is the
     // only instruction the driver will get for it. Dropped as stale behind the
     // handoff line it left the owner with nothing, twice on one arrival
     // (Spokane, 2026-08-22). A lead may go stale; a "now" call may not.
@@ -1678,7 +1638,7 @@ fn test_the_curve_pause_resumes_at_the_remembered_target_past_the_bend() {
     assert!(
         lines
             .iter()
-            .any(|line| line.contains("Adaptive cruise resuming at 60 miles per hour")),
+            .any(|line| line.contains("Cruise resuming, 60")),
         "{lines:#?}"
     );
 }
@@ -1870,10 +1830,11 @@ fn test_town_key_places_a_town_off_the_road() {
     let ahead = if forward { native + 4.0 } else { native - 4.0 };
     set_leg_landmarks(&mut d, vec![a_village("Fairfield", ahead, 6.3)]);
     d.speak_current_town(&mut app.ctx);
-    let said = app.main_lines().last().expect("a town line").clone();
-    assert!(said.contains("Fairfield"));
-    assert!(said.contains("ahead"));
-    assert!(said.contains("off the road"));
+    // Only the name: the distance off the road was filler (owner, 2026-10-12).
+    assert_eq!(
+        app.main_lines().last().expect("a town line"),
+        "Nearest town: Fairfield."
+    );
 }
 
 #[test]
@@ -1914,13 +1875,15 @@ fn test_town_key_names_the_route_town_just_passed() {
     d.speak_current_town(&mut app.ctx);
     assert_eq!(app.main_lines().last().expect("a town line"), "In Batavia.");
 
-    // Once it is a few miles back it is named as behind, not forgotten.
+    // Once it is a few miles back it is still the nearest town, not forgotten.
     app.clear_speech();
     let back = if forward { native - 4.0 } else { native + 4.0 };
     set_leg_checkpoints(&mut d, vec![a_route_town("Batavia", back)]);
     d.speak_current_town(&mut app.ctx);
-    let said = app.main_lines().last().expect("a town line").clone();
-    assert!(said.contains("Batavia") && said.contains("back"), "{said}");
+    assert_eq!(
+        app.main_lines().last().expect("a town line"),
+        "Nearest town: Batavia."
+    );
 }
 
 #[test]
@@ -2236,9 +2199,7 @@ fn test_a_manual_driver_off_the_pedals_is_braked_to_the_advisory() {
     // The reactive line inside the bend is the bare sentence; the servo owns
     // this bend, so it never fires on top of the approach clause.
     assert!(
-        !run.lines
-            .iter()
-            .any(|line| line == "Curve assistance slowing."),
+        !run.lines.iter().any(|line| line == "Slowing for the bend."),
         "the reactive line must not double the approach line: {:#?}",
         run.lines
     );
@@ -2305,7 +2266,7 @@ fn test_a_bend_under_cruises_floor_is_braked_down_and_cruise_comes_back() {
     assert!(
         lines
             .iter()
-            .any(|line| line.contains("Adaptive cruise resuming at 60 miles per hour")),
+            .any(|line| line.contains("Cruise resuming, 60")),
         "{lines:#?}"
     );
 }
@@ -2633,4 +2594,13 @@ fn test_the_approach_servo_says_nothing_with_curve_callouts_off() {
         "callouts off means no words: {:#?}",
         run.lines
     );
+}
+
+/// The corner model's speed for `cue`'s own side at `deg`.
+fn side_speed(cue: &ff_core::sim::trip_models::NavigationCue, deg: f64, load: f64) -> f64 {
+    ff_core::data::corners::corner_speed_side_mph(
+        Some(deg),
+        ff_core::data::corners::CornerSide::from_direction(&cue.direction),
+        load,
+    )
 }

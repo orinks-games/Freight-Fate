@@ -16,7 +16,7 @@ use freight_fate::app::GameContext;
 use freight_fate::app::{share, SharedState};
 use freight_fate::controller::fakes::{fake_factory, FakePad, FakeSdlLog};
 use freight_fate::controller::{
-    ControllerAction, ControllerAxis, ControllerButton, ControllerManager,
+    ControllerAction, ControllerAxis, ControllerButton, ControllerManager, STICK_CLICK_GUARD_S,
 };
 use freight_fate::states::base::{InputEvent, Key, State};
 use freight_fate::states::driving::DrivingState;
@@ -180,6 +180,85 @@ fn test_dpad_hold_auto_repeats() {
 }
 
 #[test]
+fn test_right_stick_axes_generate_hysteretic_buttons_without_diagonals_or_click_bounce() {
+    let mut m = manager_with_pad(0);
+    m.process_event(&axis(ControllerAxis::RightX, (32767.0 * 0.59) as i16, 0));
+    assert!(m.take_generated_events().is_empty());
+    m.process_event(&axis(ControllerAxis::RightX, (32767.0 * 0.61) as i16, 0));
+    assert_eq!(
+        m.take_generated_events(),
+        vec![button(ControllerButton::RightStickRight, 0)]
+    );
+    m.process_event(&axis(ControllerAxis::RightX, (32767.0 * 0.31) as i16, 0));
+    assert!(m.take_generated_events().is_empty());
+    m.process_event(&axis(ControllerAxis::RightX, (32767.0 * 0.29) as i16, 0));
+    assert_eq!(
+        m.take_generated_events(),
+        vec![button_up(ControllerButton::RightStickRight, 0)]
+    );
+
+    m.process_event(&axis(ControllerAxis::RightY, (32767.0 * 0.7) as i16, 0));
+    assert_eq!(
+        m.take_generated_events(),
+        vec![button(ControllerButton::RightStickDown, 0)]
+    );
+    m.process_event(&axis(ControllerAxis::RightX, (32767.0 * 0.7) as i16, 0));
+    assert_eq!(
+        m.take_generated_events(),
+        vec![button_up(ControllerButton::RightStickDown, 0)]
+    );
+    m.process_event(&button(ControllerButton::RightStick, 0));
+    m.process_event(&axis(ControllerAxis::RightX, 0, 0));
+    m.process_event(&axis(ControllerAxis::RightY, 0, 0));
+    m.process_event(&axis(ControllerAxis::RightY, (32767.0 * 0.7) as i16, 0));
+    assert!(m.take_generated_events().is_empty());
+    m.tick(STICK_CLICK_GUARD_S);
+    m.process_event(&axis(ControllerAxis::RightY, 0, 0));
+    m.process_event(&axis(ControllerAxis::RightY, (32767.0 * 0.7) as i16, 0));
+    assert_eq!(
+        m.take_generated_events(),
+        vec![button(ControllerButton::RightStickDown, 0)]
+    );
+    m.shutdown();
+}
+
+#[test]
+fn test_right_stick_repeats_only_on_the_plain_layer() {
+    let up = (32767.0 * 0.8) as i16;
+    // RB held first: the stick press fires once and never repeats.
+    let mut m = manager_with_pad(0);
+    m.process_event(&button(ControllerButton::RightShoulder, 0));
+    m.process_event(&axis(ControllerAxis::RightY, -up, 0));
+    assert_eq!(
+        m.take_generated_events(),
+        vec![button(ControllerButton::RightStickUp, 0)]
+    );
+    let mut repeats = 0;
+    for _ in 0..120 {
+        repeats += m.tick(1.0 / 60.0).len();
+    }
+    assert_eq!(repeats, 0);
+    // Releasing RB while the stick is still up does not start a repeat.
+    m.process_event(&button_up(ControllerButton::RightShoulder, 0));
+    for _ in 0..120 {
+        repeats += m.tick(1.0 / 60.0).len();
+    }
+    assert_eq!(repeats, 0);
+    m.shutdown();
+
+    // Stick first (volume repeat running), then RB: the repeat stops.
+    let mut m = manager_with_pad(0);
+    m.process_event(&axis(ControllerAxis::RightY, -up, 0));
+    m.take_generated_events();
+    assert_eq!(m.tick(0.4).len(), 1);
+    m.process_event(&button(ControllerButton::RightShoulder, 0));
+    for _ in 0..120 {
+        assert!(m.tick(1.0 / 60.0).is_empty());
+    }
+    m.shutdown();
+}
+
+#[test]
 fn test_disconnect_latches_once() {
     let mut m = manager_with_pad(7);
     m.process_event(&InputEvent::ControllerRemoved { instance_id: 7 });
@@ -208,6 +287,53 @@ fn test_reconnect_reopens_after_removed() {
     assert_eq!(log.borrow().opens.len(), opens_before + 1); // bound the reconnected pad
     assert!(m.connected());
     m.shutdown();
+}
+
+#[test]
+fn a_plugged_in_pad_is_named_once_but_the_startup_pad_is_not() {
+    let log = Rc::new(RefCell::new(FakeSdlLog::default()));
+    let mut m = ControllerManager::new(
+        true,
+        true,
+        Some(fake_factory(
+            vec![("Xbox Series X Controller".to_string(), 7)],
+            Rc::clone(&log),
+        )),
+    );
+    // SDL repeats an added event for the pad bound at startup.
+    m.process_event(&InputEvent::ControllerAdded { device_index: 0 });
+    assert_eq!(m.take_connect(), None);
+    m.process_event(&InputEvent::ControllerRemoved { instance_id: 7 });
+    m.process_event(&InputEvent::ControllerAdded { device_index: 0 });
+    assert_eq!(
+        m.take_connect().as_deref(),
+        Some("Xbox Series X Controller")
+    );
+    assert_eq!(m.take_connect(), None); // consumed
+    m.shutdown();
+}
+
+/// A reconnect says which controller the game is now listening to.
+#[test]
+fn reconnect_speaks_the_controller_name() {
+    let mut app = TestApp::new();
+    let log = Rc::new(RefCell::new(FakeSdlLog::default()));
+    app.ctx.controller = ControllerManager::new(
+        true,
+        true,
+        Some(fake_factory(
+            vec![("Xbox Wireless Controller".to_string(), 4)],
+            log,
+        )),
+    );
+    app.dispatch_controller(&InputEvent::ControllerRemoved { instance_id: 4 });
+    app.dispatch_controller(&InputEvent::ControllerAdded { device_index: 0 });
+    app.tick(1.0 / 60.0);
+    assert!(app
+        .main_lines()
+        .iter()
+        .any(|line| line == "Controller connected: Xbox Wireless Controller."));
+    app.shutdown();
 }
 
 #[test]
@@ -614,11 +740,11 @@ fn test_controller_speed_control_handoff_status_adjustment_and_brake() {
     app.dispatch_controller(&button(ControllerButton::B, 0));
     let said = app.main_lines().last().cloned().unwrap_or_default();
     assert!(
-        said.contains("speed keeper holding 25 miles per hour"),
+        said.contains("Speed keeper holding 25 miles per hour"),
         "{said}"
     );
     assert!(
-        said.contains("open-road target 60 miles per hour"),
+        said.contains("Open-road target 60 miles per hour."),
         "{said}"
     );
 

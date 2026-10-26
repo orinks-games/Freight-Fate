@@ -1,10 +1,10 @@
 {
  "counts": {
   "dropped_by_hand": 11,
-  "dropped_collisions": 2412,
+  "dropped_collisions": 2413,
   "dropped_unreachable": 1021,
   "fcc_placed": 648,
-  "stations": 4991
+  "stations": 4990
  },
  "notes": "Automated tier under the curated radio_catalog.json. Built by tools/import_radio_catalog.py from the PR #150 catalog (CatalystForChaos): Radio Browser stream URLs joined to Wikidata transmitter coordinates (CC0) on FCC call sign. Coverage radii are that catalog's per-band defaults, not FCC contours. Curated call signs win: collisions are dropped at build and load time. Streams tools/check_radio_streams.py could not reach are left out; see radio_stream_health.json. Names and formats a rule cannot derive, and stations the directory lists twice, come from radio_imported_overrides.json. Rows with id rb-fcc-* are Radio Browser stations placed at their FCC-licensed transmitter site, with coverage from licensed power rather than a per-band default.",
  "schema": 1,
@@ -71724,21 +71724,6 @@
    "station_type": "web",
    "stream_format": "mp3",
    "stream_url": "https://radio.insitze.com/jamradio",
-   "supported": true
-  },
-  {
-   "always_available": true,
-   "call_sign": "",
-   "format": "christian",
-   "id": "rb-web-d8580d3b-f3c0-4547-9df6-41f88ab5db02",
-   "name": "88.3 Life FM",
-   "real_stream": true,
-   "safe_for_streaming": false,
-   "source": "community radio directory",
-   "source_type": "web",
-   "station_type": "web",
-   "stream_format": "mp3",
-   "stream_url": "https://streaming.live365.com/a30859",
    "supported": true
   },
   {

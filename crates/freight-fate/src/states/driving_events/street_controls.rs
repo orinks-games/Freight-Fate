@@ -182,6 +182,7 @@ impl DrivingState {
 
     fn street_controls_apply(&self) -> bool {
         self.street_controls_on
+            && self.facility_streets_on
             && self.ramp_mi.is_none()
             && !self.trip.outbound
             && !self.trip.finished
@@ -398,7 +399,7 @@ impl DrivingState {
         if self.approach_pull_ahead_available(ctx) {
             self.approach_pull_ahead = true;
             let clear = if clear { " Clear." } else { "" };
-            return format!("{lead}{clear} Speed keeper pulling ahead.");
+            return format!("{lead}{clear}");
         }
         if clear {
             format!("{lead} Clear; pull ahead.")

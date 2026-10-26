@@ -69,6 +69,7 @@ fn test_status_menu_lists_every_screen_and_a_way_back() {
             "Map",
             "Radio",
             "Driver apps",
+            "Driving commands",
             "Back to driving",
         ]
     );
@@ -541,6 +542,7 @@ fn test_copying_the_summary_reaches_the_clipboard() {
         copied.starts_with("Freight Fate: Delivery complete."),
         "{copied}"
     );
+    assert!(copied.ends_with("\n\n#FreightFateRuns"), "{copied}");
 }
 
 #[test]

@@ -11,7 +11,7 @@
 //! way; a blind player had nothing at all, which makes this an accessibility
 //! gap before it is a realism one.
 //!
-//! Backing on a travelled lane is prohibited outright on a controlled-access
+//! Backing on a traveled lane is prohibited outright on a controlled-access
 //! highway and is how real drivers get hit, so the ladder here is short and it
 //! escalates on distance rather than time:
 //!
@@ -115,7 +115,7 @@ impl DrivingState {
             let distance = ctx.settings.distance_text(backed, true);
             ctx.say_event_with(
                 format!(
-                    "You are driving the wrong way. Backing on a travelled lane is illegal, and \
+                    "You are driving the wrong way. Backing on a traveled lane is illegal, and \
                      you have given up {distance} of the route. Stop and select a forward gear."
                 ),
                 SayEvent::new().category(SpeechCategory::Safety),
@@ -130,7 +130,7 @@ impl DrivingState {
                 // a reminder that you are still going backwards down a live
                 // lane is not chatter, however busy the road has got.
                 SayEvent::queued()
-                    .priority(EventPriority::Route)
+                    .priority(EventPriority::Important)
                     .category(SpeechCategory::Safety),
             );
         }

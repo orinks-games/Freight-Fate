@@ -1,8 +1,7 @@
 //! Last resort: every primitive is a no-op (`_NullBackend`).
 //!
-//! The facade falls here when BASS cannot load or initialise, and when
-//! `FREIGHT_FATE_AUDIO_BACKEND` asks for a backend the Rust build does not
-//! carry. Game logic never has to check: the volume settings still take,
+//! The facade falls here when `FREIGHT_FATE_AUDIO_BACKEND` asks for a
+//! backend the Rust build does not carry. Game logic never has to check: the volume settings still take,
 //! radio and playlist files report the same refusals the Python null backend
 //! raised, and everything else is silent.
 

@@ -31,7 +31,7 @@ pub enum DownloadError {
 impl std::fmt::Display for DownloadError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            DownloadError::Cancelled => f.write_str("update cancelled"),
+            DownloadError::Cancelled => f.write_str("update canceled"),
             DownloadError::Stalled(idle) => {
                 write!(f, "no data arrived for {} seconds", idle.as_secs())
             }
@@ -236,7 +236,7 @@ pub fn run_bounded(
         let stop = if cancelled.is_some_and(|flag| flag.load(Ordering::SeqCst)) {
             Some(io::Error::new(
                 io::ErrorKind::Interrupted,
-                "update cancelled",
+                "update canceled",
             ))
         } else if Instant::now() >= deadline {
             Some(io::Error::new(
@@ -299,7 +299,7 @@ pub fn extract_with(
     if cancelled.is_some_and(|flag| flag.load(Ordering::SeqCst)) {
         return Err(io::Error::new(
             io::ErrorKind::Interrupted,
-            "update cancelled",
+            "update canceled",
         ));
     }
     extracted_root(staging, &name, env)
@@ -309,7 +309,7 @@ pub fn extract_with(
 ///
 /// Windows and Linux archives hold a plain `FreightFate` folder; the
 /// macOS archive holds the `FreightFate.app` bundle (`ditto
-/// --keepParent` in `tools/build_release.py`).
+/// --keepParent` in `cargo tools build-release`).
 pub fn extracted_root(staging: &Path, archive_name: &str, env: &UpdaterEnv) -> io::Result<PathBuf> {
     if env.platform == Platform::MacOs {
         let bundle = staging.join(format!("{APP_NAME}.app"));
@@ -541,6 +541,26 @@ open "{dst}"
 rm -f "$0"
 "#;
 
+/// A path made safe to sit between the double quotes of an apply script.
+///
+/// cmd expands `%NAME%` even inside quotes, so a folder such as
+/// `C:\Games\100% Trucks` would copy the update somewhere else; a batch file
+/// reads `%%` as one literal percent sign. A POSIX shell still expands `$`,
+/// backticks and backslashes inside double quotes, so those are escaped.
+pub fn quote_for_script(path: &str, windows: bool) -> String {
+    if windows {
+        return path.replace('%', "%%");
+    }
+    let mut out = String::with_capacity(path.len());
+    for ch in path.chars() {
+        if matches!(ch, '\\' | '"' | '$' | '`') {
+            out.push('\\');
+        }
+        out.push(ch);
+    }
+    out
+}
+
 /// The helper script that swaps in the update once the game exits.
 pub fn write_apply_script(
     new_root: &Path,
@@ -561,11 +581,12 @@ pub fn write_apply_script(
     } else {
         POSIX_SCRIPT
     };
+    let quote = |path: &Path| quote_for_script(&path.display().to_string(), windows);
     let text = template
         .replace("{pid}", &pid.to_string())
-        .replace("{src}", &new_root.display().to_string())
-        .replace("{dst}", &install.display().to_string())
-        .replace("{staging}", &staging.display().to_string())
+        .replace("{src}", &quote(new_root))
+        .replace("{dst}", &quote(install))
+        .replace("{staging}", &quote(staging))
         .replace("{exe}", &exe);
     let suffix = if windows { ".bat" } else { ".sh" };
     let parent = staging.parent().unwrap_or(staging);

@@ -2,8 +2,8 @@
 # Build a standalone Freight Fate copy on macOS or Linux.
 #
 # The Unix counterpart of build-release.ps1: check the prerequisites, install
-# the pinned Rust toolchain and the Python tooling, then hand over to
-# tools/build_release.py, which fetches BASS and the music pack, builds the
+# the pinned Rust toolchain, then hand over to `cargo tools build-release`,
+# which fetches the music pack, builds the
 # game, bakes the world, smokes the packaged build and writes the archive to
 # dist/. Extra arguments (for example --tag or --cargo-target-dir) pass
 # through to the builder.
@@ -22,7 +22,6 @@ need git
 need rustup
 need rustc
 need cargo
-need uv
 # Prism is compiled from C++ source through CMake on every platform, and on
 # macOS and Linux SDL2 is compiled in from source the same way.
 need cmake
@@ -66,6 +65,4 @@ esac
 # Clippy) when it is not there yet, instead of failing inside cargo.
 rustup show >/dev/null
 
-uv sync --group dev
-
-exec uv run python tools/build_release.py --rust --smoke "$@"
+exec cargo tools build-release --smoke "$@"

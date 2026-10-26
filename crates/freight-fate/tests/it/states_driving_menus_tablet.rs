@@ -12,9 +12,9 @@ use freight_fate::app::testing::TestApp;
 use freight_fate::app::SharedState;
 use freight_fate::states::base::{Key, Menu};
 use freight_fate::states::driving_core::Instructor;
-use freight_fate::states::driving_menu_states::DriveRef;
+use freight_fate::states::driving_menu_states::{DriveRef, DrivingStatusScreenState};
 use freight_fate::states::driving_radio_app::{
-    RadioAppState, RadioSearchEntryState, RadioStationListState,
+    RadioAppState, RadioCategoryState, RadioSearchEntryState, RadioStationListState,
 };
 use freight_fate::states::driving_school::{
     DrivingSchoolState, LessonKind, RollingBasicsLesson, SchoolDrivingState,
@@ -218,6 +218,29 @@ fn test_favorites_are_saved_listed_and_tuned_from_the_app() {
     let rows = with_top_ctx::<RadioStationListState, _>(&mut app, build_labels);
     assert!(rows[0].starts_with(&tuned), "{rows:?}");
     assert!(rows[0].ends_with("favorite"), "{rows:?}");
+}
+
+#[test]
+fn test_the_tab_radio_screen_favorites_count_opens_the_list() {
+    let mut app = TestApp::new();
+    let drive = a_radio_drive(&mut app);
+    drive_and_ctx(&drive, &mut app, |d, ctx| {
+        d.trip.truck.start_engine();
+        d.toggle_radio_favorite(ctx);
+    });
+    let tuned = with_drive(&drive, |d| d.radio.current_station().display_name());
+    let mut state = DrivingStatusScreenState::new(DriveRef::of(&drive), "radio");
+    Menu::enter(&mut state, &mut app.ctx);
+    let rows = labels(&state, &app.ctx);
+    assert!(
+        rows.contains(&"Favorites saved: 1.".to_string()),
+        "{rows:?}"
+    );
+
+    activate(&mut state, &mut app.ctx, "Favorites saved:");
+    assert!(top_is::<RadioStationListState>(&app));
+    let rows = with_top_ctx::<RadioStationListState, _>(&mut app, build_labels);
+    assert!(rows[0].starts_with(&tuned), "{rows:?}");
 }
 
 #[test]
@@ -437,4 +460,198 @@ fn test_only_one_lesson_is_on_the_roster_so_far() {
             .collect::<Vec<_>>(),
         vec![("Lesson 1: Rolling basics", LessonKind::RollingBasics)]
     );
+}
+
+// -- paged search results ----------------------------------------------------------------------
+
+/// A search list holding `count` distinct stations, opened and ready.
+fn paged_search(app: &mut TestApp, drive: &SharedState, count: usize) -> RadioStationListState {
+    let station = with_drive(drive, |d| {
+        d.radio
+            .receivable_stations()
+            .first()
+            .map(|r| r.station.clone())
+            .expect("a station")
+    });
+    let hits: Vec<_> = (0..count)
+        .map(|i| {
+            let mut s = station.clone();
+            s.id = format!("test-station-{i:03}");
+            s.name = format!("Network {i:03}");
+            (s, None)
+        })
+        .collect();
+    let mut list = RadioStationListState::search(DriveRef::of(drive), "network", hits, count);
+    Menu::enter(&mut list, &mut app.ctx);
+    list
+}
+
+fn station_rows(list: &RadioStationListState, app: &TestApp) -> usize {
+    labels(list, &app.ctx)
+        .iter()
+        .filter(|l| l.contains(", Network "))
+        .count()
+}
+
+fn press(list: &mut RadioStationListState, app: &mut TestApp, k: Key) {
+    Menu::handle_event(list, &mut app.ctx, &key(k));
+}
+
+#[test]
+fn test_search_with_exactly_one_page_has_no_paging_rows() {
+    for count in [25, 1] {
+        let mut app = TestApp::new();
+        let drive = a_radio_drive(&mut app);
+        let list = paged_search(&mut app, &drive, count);
+        let rows = labels(&list, &app.ctx);
+        assert_eq!(station_rows(&list, &app), count, "{rows:?}");
+        assert!(!rows.iter().any(|r| r.contains("page")), "{rows:?}");
+    }
+}
+
+#[test]
+fn test_search_with_26_matches_pages_at_the_boundary() {
+    let mut app = TestApp::new();
+    let drive = a_radio_drive(&mut app);
+    let mut list = paged_search(&mut app, &drive, 26);
+    assert_eq!(station_rows(&list, &app), 25);
+    app.clear_speech();
+    press(&mut list, &mut app, Key::PageDown);
+    assert!(
+        last(&app).starts_with("Results 26 to 26 of 26."),
+        "{}",
+        last(&app)
+    );
+    assert_eq!(station_rows(&list, &app), 1);
+    let rows = labels(&list, &app.ctx);
+    assert!(rows.iter().any(|r| r == "Previous page"), "{rows:?}");
+    assert!(!rows.iter().any(|r| r.starts_with("Next page")), "{rows:?}");
+}
+
+#[test]
+fn test_search_with_52_matches_reaches_every_page() {
+    let mut app = TestApp::new();
+    let drive = a_radio_drive(&mut app);
+    let mut list = paged_search(&mut app, &drive, 52);
+    assert!(
+        app.main_lines()
+            .iter()
+            .any(|l| l.contains("52 matches") && l.contains("Results 1 to 25 of 52.")),
+        "{:?}",
+        app.main_lines()
+    );
+    let rows = labels(&list, &app.ctx);
+    assert_eq!(station_rows(&list, &app), 25);
+    assert!(
+        rows.iter()
+            .any(|r| r.starts_with("Next page. Results 26 to 50 of 52")),
+        "{rows:?}"
+    );
+    press(&mut list, &mut app, Key::PageDown);
+    assert!(
+        last(&app).starts_with("Results 26 to 50 of 52."),
+        "{}",
+        last(&app)
+    );
+    assert_eq!(station_rows(&list, &app), 25);
+    press(&mut list, &mut app, Key::PageDown);
+    assert!(
+        last(&app).starts_with("Results 51 to 52 of 52."),
+        "{}",
+        last(&app)
+    );
+    assert_eq!(station_rows(&list, &app), 2);
+    assert!(labels(&list, &app.ctx)[0].contains("Network 050"));
+    // Past the end says so and stays put.
+    press(&mut list, &mut app, Key::PageDown);
+    assert!(
+        last(&app).starts_with("Last page of results."),
+        "{}",
+        last(&app)
+    );
+    press(&mut list, &mut app, Key::PageUp);
+    assert!(
+        last(&app).starts_with("Results 26 to 50 of 52."),
+        "{}",
+        last(&app)
+    );
+    // The range is logged on its own, so it can be reviewed and copied.
+    assert_eq!(
+        app.ctx.message_log.messages.last().map(|m| m.text.as_str()),
+        Some("Results 26 to 50 of 52.")
+    );
+    press(&mut list, &mut app, Key::PageUp);
+    press(&mut list, &mut app, Key::PageUp);
+    assert!(
+        last(&app).starts_with("First page of results."),
+        "{}",
+        last(&app)
+    );
+}
+
+#[test]
+fn test_search_paging_rows_work_from_the_menu_alone() {
+    let mut app = TestApp::new();
+    let drive = a_radio_drive(&mut app);
+    let mut list = paged_search(&mut app, &drive, 41);
+    activate(&mut list, &mut app.ctx, "Next page");
+    assert!(
+        last(&app).starts_with("Results 26 to 41 of 41."),
+        "{}",
+        last(&app)
+    );
+    activate(&mut list, &mut app.ctx, "Previous page");
+    assert!(
+        last(&app).starts_with("Results 1 to 25 of 41."),
+        "{}",
+        last(&app)
+    );
+}
+
+#[test]
+fn test_search_with_40_and_50_and_51_matches_count_pages_right() {
+    for (count, pages) in [(40usize, 2usize), (50, 2), (51, 3)] {
+        let mut app = TestApp::new();
+        let drive = a_radio_drive(&mut app);
+        let mut list = paged_search(&mut app, &drive, count);
+        let mut seen = station_rows(&list, &app);
+        let mut visited = 1;
+        while labels(&list, &app.ctx)
+            .iter()
+            .any(|r| r.starts_with("Next page"))
+        {
+            press(&mut list, &mut app, Key::PageDown);
+            seen += station_rows(&list, &app);
+            visited += 1;
+        }
+        assert_eq!(seen, count);
+        assert_eq!(visited, pages, "{count} matches");
+    }
+}
+
+// -- category browser --------------------------------------------------------------------------
+
+#[test]
+fn test_browse_by_category_lists_all_stations_and_each_category_paged() {
+    let mut app = TestApp::new();
+    let drive = a_radio_drive(&mut app);
+    let mut menu = RadioCategoryState::new(DriveRef::of(&drive));
+    Menu::enter(&mut menu, &mut app.ctx);
+    let rows = labels(&menu, &app.ctx);
+    assert!(rows[0].starts_with("All stations: "), "{rows:?}");
+    assert!(
+        rows.iter().any(|r| r.starts_with("Terrestrial: ")),
+        "{rows:?}"
+    );
+    assert_eq!(rows.last().map(String::as_str), Some("Back"));
+
+    let hits = with_drive(&drive, |d| d.radio.browse(None));
+    assert!(hits.len() > 25);
+    let mut list = RadioStationListState::browse(DriveRef::of(&drive), "All stations", hits);
+    Menu::enter(&mut list, &mut app.ctx);
+    let rows = labels(&list, &app.ctx);
+    assert!(rows.iter().any(|r| r.starts_with("Next page.")), "{rows:?}");
+    app.clear_speech();
+    press(&mut list, &mut app, Key::PageDown);
+    assert!(last(&app).starts_with("Results 26 to "), "{}", last(&app));
 }

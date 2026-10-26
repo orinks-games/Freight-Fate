@@ -106,6 +106,7 @@ fn a_vehicle_hazard_clears_at_the_lead_speed_whether_or_not_a_lane_is_open() {
                 dodgeable,
                 in_lane: true,
                 lead_mph: Some(55.0),
+                brake_to_mph: None,
             };
             assert_eq!(
                 d.hazard_target_mph(Some(shape)),
@@ -119,6 +120,7 @@ fn a_vehicle_hazard_clears_at_the_lead_speed_whether_or_not_a_lane_is_open() {
             dodgeable: false,
             in_lane: true,
             lead_mph: Some(0.0),
+            brake_to_mph: None,
         };
         assert_eq!(d.hazard_target_mph(Some(stopped)), HAZARD_CREEP_MPH);
     });
@@ -138,6 +140,7 @@ fn a_fixed_obstacle_takes_the_near_stop_whether_or_not_a_lane_is_open() {
                 dodgeable,
                 in_lane: true,
                 lead_mph: None,
+                brake_to_mph: None,
             };
             assert_eq!(
                 d.hazard_target_mph(Some(shape)),
@@ -158,6 +161,7 @@ fn a_hazard_that_spans_the_road_takes_the_moving_hazard_safe_speed() {
             dodgeable: false,
             in_lane: false,
             lead_mph: None,
+            brake_to_mph: None,
         };
         assert_eq!(d.hazard_target_mph(Some(shape)), HAZARD_SAFE_MPH);
     });
@@ -175,6 +179,7 @@ fn only_an_open_lane_buys_the_lane_change_allowance() {
             dodgeable: false,
             in_lane: true,
             lead_mph: Some(45.0),
+            brake_to_mph: None,
         };
         let somewhere = HazardShape {
             dodgeable: true,
@@ -281,7 +286,7 @@ fn a_lead_vehicle_with_a_lane_open_keeps_both_its_offer_and_its_allowance() {
 
 /// Drive a road of `lanes_your_side` lanes until the hazard draw lands on the
 /// named catalog hazard, and return the event it raised.
-fn drawn_hazard(lanes_your_side: i64, wanted: &str) -> TripEvent {
+pub(crate) fn drawn_hazard(lanes_your_side: i64, wanted: &str) -> TripEvent {
     use ff_core::data::world::get_world;
     use ff_core::data::world_models::{CorridorDetail, LaneSegment, Leg, Route};
     use ff_core::sim::trip::{Trip, TripOptions};
@@ -409,9 +414,7 @@ fn the_resolution_line_never_claims_a_lane_change_the_road_had_no_room_for() {
     harness.with_drive(|d, ctx| d.update_hazard(ctx, 1.0 / 60.0));
     let heard = harness.app.event_lines();
     assert!(
-        heard
-            .iter()
-            .any(|line| line == "You slow nearly to a stop for the debris. Well done."),
+        heard.iter().any(|line| line == "Clear of the debris."),
         "{heard:#?}"
     );
     assert!(!heard.iter().any(|line| line.contains("ease around")));
@@ -427,9 +430,7 @@ fn the_resolution_line_still_offers_easing_around_where_there_was_a_lane() {
     harness.with_drive(|d, ctx| d.update_hazard(ctx, 1.0 / 60.0));
     let heard = harness.app.event_lines();
     assert!(
-        heard
-            .iter()
-            .any(|line| line == "You slow nearly to a stop and ease around the debris. Well done."),
+        heard.iter().any(|line| line == "Clear of the debris."),
         "{heard:#?}"
     );
 }
@@ -518,8 +519,7 @@ fn with_nowhere_to_go_the_assist_acts_sooner_and_holds_the_truck_nearer() {
             run.bottom_mph
         );
         assert!(
-            run.resolution
-                .contains("You slow to match the slow car. Well done."),
+            run.resolution.contains("Clear of the slow car."),
             "{:?}",
             run.resolution
         );
@@ -557,6 +557,7 @@ fn losing_the_allowance_never_takes_the_drivers_own_reaction_time() {
             dodgeable: false,
             in_lane: true,
             lead_mph: Some(45.0),
+            brake_to_mph: None,
         };
         let window = d.hazard_deadline_for(4.0, Some(nowhere));
         let engage = d.aeb_engage_s(d.hazard_target_mph(Some(nowhere)));
@@ -584,6 +585,7 @@ fn a_fresh_hazards_budget_is_built_from_its_own_lead_not_the_last_ones() {
             dodgeable: false,
             in_lane: true,
             lead_mph: Some(45.0),
+            brake_to_mph: None,
         };
         (
             d.hazard_deadline.expect("a hazard deadline"),
@@ -602,6 +604,7 @@ fn a_fresh_hazards_budget_is_built_from_its_own_lead_not_the_last_ones() {
             dodgeable: false,
             in_lane: true,
             lead_mph: None,
+            brake_to_mph: None,
         })))
     });
     assert!(
@@ -684,6 +687,7 @@ fn the_warning_window_is_the_only_thing_an_open_lane_changes() {
                     dodgeable: false,
                     in_lane,
                     lead_mph,
+                    brake_to_mph: None,
                 };
                 let open = HazardShape {
                     dodgeable: true,

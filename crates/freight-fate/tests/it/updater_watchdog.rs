@@ -26,6 +26,7 @@ fn snapshot_info() -> UpdateInfo {
         asset_url: "https://example.test/a".to_string(),
         asset_size: 419_438_969,
         asset_sha256: String::new(),
+        slim: None,
     }
 }
 
@@ -109,7 +110,7 @@ fn escape_leaves_at_once_even_while_the_worker_is_stuck() {
     assert!(state.is_finished());
     assert_eq!(app.ctx.stack_len(), depth - 1, "no waiting on the worker");
     let said = app.main_lines().join(" ");
-    assert!(said.contains("Update cancelled."), "{said}");
+    assert!(said.contains("Update canceled."), "{said}");
     app.shutdown();
 }
 
@@ -206,6 +207,42 @@ fn an_apply_script_that_cannot_start_never_quits_the_game() {
     assert!(said.contains("could not install itself"), "{said}");
     assert!(said.contains(&new_root.display().to_string()), "{said}");
     assert!(!said.contains("restarts by itself"), "{said}");
+    app.shutdown();
+}
+
+#[test]
+fn a_smaller_update_saved_for_a_manual_install_says_to_copy_it_over() {
+    // The smaller archive has no music or radio packs: set up as a fresh
+    // install it would have none.
+    let mut app = TestApp::new();
+    app.push_state(base_screen());
+    app.push_state(base_screen());
+    let tmp = tempfile::tempdir().unwrap();
+    let new_root = tmp.path().join("FreightFate");
+    fs::create_dir(&new_root).unwrap();
+    let mut state = UpdateDownloadState::finished_with(
+        snapshot_info(),
+        tmp.path().to_path_buf(),
+        new_root.clone(),
+        Box::new(|_| true),
+        Box::new(|root| root.to_path_buf()),
+    )
+    .leaving_out_packs()
+    .with_apply(Box::new(|_, _| {
+        Err(std::io::Error::new(
+            std::io::ErrorKind::PermissionDenied,
+            "no shell",
+        ))
+    }));
+    app.ctx.running = true;
+    app.clear_speech();
+
+    state.update(&mut app.ctx, 0.0);
+    app.ctx.run_deferred();
+
+    let said = app.main_lines().join(" ");
+    assert!(said.contains("Copy it over your game folder"), "{said}");
+    assert!(!said.contains("Install it yourself"), "{said}");
     app.shutdown();
 }
 

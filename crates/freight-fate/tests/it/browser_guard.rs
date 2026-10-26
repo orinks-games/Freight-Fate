@@ -173,3 +173,25 @@ fn test_a_seam_may_answer_that_the_browser_failed() {
     assert_eq!(calls.lock().unwrap().clone(), vec![url.clone()]);
     assert!(!was_refused(&url));
 }
+
+/// The activation address comes from the site; anything but a web page is
+/// dropped before it reaches the system or the test seam.
+#[test]
+fn test_only_web_addresses_reach_the_browser() {
+    let recorded = install_browser(true);
+    for url in [
+        "file:///C:/Windows/System32/calc.exe",
+        "ms-settings:privacy",
+        "javascript:alert(1)",
+        "https://",
+        "not a url",
+    ] {
+        assert!(!browser::is_web_address(url), "{url}");
+        assert!(!browser::open_url(url), "{url}");
+    }
+    assert!(browser::is_web_address(
+        "https://www.orinks.net/activate?code=AB"
+    ));
+    assert!(browser::is_web_address("http://localhost:3000/activate"));
+    assert!(recorded.opened().is_empty(), "{:?}", recorded.opened());
+}

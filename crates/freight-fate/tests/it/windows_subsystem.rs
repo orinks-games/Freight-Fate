@@ -62,7 +62,7 @@ fn game_binary_is_linked_into_the_windows_gui_subsystem() {
 
 /// ...and the drive tools still print, which is what the console attach in
 /// `main` buys back. A capturing parent (this test, `subprocess.run` in
-/// `tools/build_release.py`) reads the child's pipe, so this covers the
+/// `cargo tools build-release`) reads the child's pipe, so this covers the
 /// piped/redirected half; the terminal half is the attach itself.
 #[test]
 fn help_still_prints_from_the_gui_subsystem_binary() {

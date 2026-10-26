@@ -15,8 +15,9 @@ use crate::states::driving_core::*;
 
 use super::{
     PASS_BASE_VOLUME, PASS_PAN, PASS_TRIGGER_MI, SCALE_BED_CLOSED_MAX_VOLUME, SCALE_BED_FADE_MS,
-    SCALE_BED_MIN_VOLUME, SCALE_BED_OPEN_MAX_VOLUME, SCALE_BED_START_MI, TABLEAU_INTRO_LINE,
-    TABLEAU_INTRO_REASONS, TABLEAU_PASS_VOLUME, TABLEAU_SHOULDER_PAN, TABLEAU_SIREN_VOLUME,
+    SCALE_BED_MIN_VOLUME, SCALE_BED_OPEN_MAX_VOLUME, SCALE_BED_START_MI, TABLEAU_ANOTHER_LINE,
+    TABLEAU_INTRO_LINE, TABLEAU_INTRO_REASONS, TABLEAU_PASS_VOLUME, TABLEAU_REPEAT_WINDOW_MI,
+    TABLEAU_SHOULDER_PAN, TABLEAU_SIREN_VOLUME,
 };
 
 impl DrivingState {
@@ -167,11 +168,23 @@ impl DrivingState {
         // pull-over (the tester misread that created it). A busy channel
         // dropping the explainer recreates exactly that confusion, so it
         // waits its turn instead of dying stale.
-        let message = self.tableau_intro_message(post);
+        let mut message = self.tableau_intro_message(post);
+        // A second stopped pair a few miles after the first: the same line
+        // word for word sounded like the first one repeating (owner's drive
+        // across Ohio, 2026-10-25, two troopers a minute apart).
+        let id = post.id();
+        let another_close_behind = self.trip.posts.iter().any(|other| {
+            other.id() != id
+                && self.tableau_siren_ids.contains(&other.id())
+                && (post.at_mi - TABLEAU_REPEAT_WINDOW_MI..post.at_mi).contains(&other.at_mi)
+        });
+        if another_close_behind {
+            message = SpokenMessage::new(TABLEAU_ANOTHER_LINE);
+        }
         ctx.say_event_with(
             message,
             SayEvent::queued()
-                .priority(EventPriority::Route)
+                .priority(EventPriority::Important)
                 .category(SpeechCategory::Status),
         );
     }

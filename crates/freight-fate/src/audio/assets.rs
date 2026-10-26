@@ -28,13 +28,15 @@ pub const SFX_EXTENSIONS: &[&str] = &["ogg", "wav"];
 /// Extension preference for music. Music ships as Opus
 /// (`tools/encode_music_opus.py`): far smaller for background beds at the
 /// same perceived quality. Ogg stays in the list so a partial migration and
-/// the effects tree, which are still Vorbis, keep resolving. MP3 is core
-/// BASS, FLAC its bundled plugin, and the tracker modules load through
-/// `BASS_MusicLoad` (see [`MODULE_EXTENSIONS`]) -- the hand-made pieces.
+/// the effects tree, which are still Vorbis, keep resolving. WAV, MP3 and
+/// FLAC decode too. Tracker modules still resolve, so a key that names one
+/// is found and refused (see [`MODULE_EXTENSIONS`]) rather than missing.
 pub const MUSIC_EXTENSIONS: &[&str] = &[
     "opus", "ogg", "wav", "mp3", "flac", "it", "xm", "s3m", "mod", "mo3",
 ];
-/// Tracker modules (as made in OpenMPT): played as BASS music, not streams.
+/// Tracker modules (as made in OpenMPT). BASS played them; Hearken has no
+/// tracker player, so the music channel refuses them and a playlist skips
+/// the entry.
 pub const MODULE_EXTENSIONS: &[&str] = &["it", "xm", "s3m", "mod", "mo3"];
 
 /// The parent of the data tree: the repo root in a checkout (`data/`,
@@ -63,24 +65,6 @@ pub fn assets_dir() -> PathBuf {
 /// overlay into sounds.pak.
 pub fn assets_licensed_dir() -> PathBuf {
     package_root().join("assets").join("sounds-licensed")
-}
-
-/// BASS addon plugins shipped with the game (`PLUGIN_LIB`). BASSHLS teaches
-/// BASS to open HTTP Live Streaming radio URLs (the AFN 360 Global
-/// channels); core BASS already handles plain Shoutcast/Icecast streams on
-/// its own.
-pub fn plugin_lib_dir() -> PathBuf {
-    plugin_lib_dir_in(&package_root())
-}
-
-/// `assets/lib` in a checkout, `lib` in a packaged build.
-fn plugin_lib_dir_in(package_root: &Path) -> PathBuf {
-    let checkout = package_root.join("assets").join("lib");
-    if checkout.is_dir() {
-        checkout
-    } else {
-        package_root.join("lib")
-    }
 }
 
 /// The loose-file roots in lookup order: the licensed overlay, then the
@@ -489,11 +473,10 @@ mod tests {
         let [licensed, committed] = asset_roots();
         assert!(committed.ends_with(Path::new("assets").join("sounds")));
         assert!(licensed.ends_with(Path::new("assets").join("sounds-licensed")));
-        assert!(plugin_lib_dir().ends_with("lib"));
     }
 
     #[test]
-    fn a_checkout_finds_its_sounds_and_addons_under_assets() {
+    fn a_checkout_finds_its_sounds_under_assets() {
         let repo = Path::new(env!("CARGO_MANIFEST_DIR"))
             .parent()
             .and_then(Path::parent)
@@ -501,8 +484,6 @@ mod tests {
         assert_eq!(package_root(), repo);
         assert_eq!(assets_dir(), repo.join("assets").join("sounds"));
         assert!(assets_dir().join("CREDITS.md").is_file());
-        assert_eq!(plugin_lib_dir(), repo.join("assets").join("lib"));
-        assert!(plugin_lib_dir().join("basshls.txt").is_file());
     }
 
     #[test]
@@ -510,9 +491,7 @@ mod tests {
         let tmp = tempfile::tempdir().unwrap();
         let package = tmp.path().join("freight_fate");
         std::fs::create_dir_all(package.join("data")).unwrap();
-        std::fs::create_dir_all(package.join("lib")).unwrap();
         let root = package_root_for(&package.join("data"));
         assert_eq!(root, package);
-        assert_eq!(plugin_lib_dir_in(&root), package.join("lib"));
     }
 }

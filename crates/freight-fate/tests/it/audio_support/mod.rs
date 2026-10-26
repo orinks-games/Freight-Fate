@@ -1,11 +1,11 @@
 //! Shared rigging for the audio integration tests.
 //!
-//! BASS has one device per process and `cargo test` runs tests on parallel
-//! threads, so every test that builds an `AudioEngine` takes `AUDIO_LOCK`
-//! and sets `SDL_AUDIODRIVER=dummy` (the Python conftest did the latter for
-//! the whole suite) so BASS opens its no-sound device. Tests that need the
-//! BASS backend skip themselves -- an early return with a note -- when the
-//! library is not loadable on this machine.
+//! Every test that builds an `AudioEngine` from the environment takes
+//! `AUDIO_LOCK` and sets `SDL_AUDIODRIVER=dummy` (the Python conftest did the
+//! latter for the whole suite), so Hearken plays through its silent backend
+//! and no test opens the machine's sound device. Tests that assert what the
+//! backend did use [`hearken_rig`], Hearken over its recording backend,
+//! which needs no device and runs everywhere.
 
 #![allow(dead_code)]
 
@@ -17,12 +17,13 @@ use std::thread::JoinHandle;
 use std::time::{Duration, Instant};
 
 use ff_core::assets_pack;
-use freight_fate::audio::{assets_dir, Audio, AudioEngine};
+use freight_fate::audio::{assets_dir, Audio, AudioEngine, HearkenBackend};
+use hearken::audio::{Recorder, RecordingBackend};
 
 static AUDIO_LOCK: Mutex<()> = Mutex::new(());
 static HEADLESS: Once = Once::new();
 
-/// Serialise engine construction and route BASS to the no-sound device.
+/// Serialise engine construction and route Hearken to its silent backend.
 pub fn audio_lock() -> MutexGuard<'static, ()> {
     HEADLESS.call_once(|| std::env::set_var("SDL_AUDIODRIVER", "dummy"));
     AUDIO_LOCK.lock().unwrap_or_else(|e| e.into_inner())
@@ -42,8 +43,8 @@ impl Drop for Rig {
     }
 }
 
-/// The facade on whatever backend the environment gives (BASS when loadable,
-/// the null backend otherwise).
+/// The facade on whatever backend the environment gives: Hearken, silent
+/// under the dummy driver.
 pub fn rig() -> Rig {
     let guard = audio_lock();
     let engine = AudioEngine::new();
@@ -53,30 +54,44 @@ pub fn rig() -> Rig {
     }
 }
 
-/// The facade on the BASS backend, or `None` (with a note) when BASS cannot
-/// load here -- the Python `pytest.skip("BASS backend unavailable")`.
-pub fn bass_rig() -> Option<Rig> {
-    let rig = rig();
-    if rig.engine.backend_name() != "bass" {
-        eprintln!("BASS backend unavailable on this machine; skipping");
-        return None;
-    }
-    Some(rig)
+/// The facade on the Hearken backend over Hearken's recording backend, and
+/// the recorder that saw every call. No device, so no lock and no skip:
+/// these run on every machine.
+pub struct HearkenRig {
+    pub engine: AudioEngine,
+    pub rec: Recorder,
 }
 
-/// The facade on the BASS backend AND the shipped recordings, or `None`
-/// (with a note) when either is missing.
-///
-/// A test that opens a real stream needs both: BASS to open it, and recorded
-/// bytes for it to open. On a checkout without LFS the pack is a pointer, so
-/// every lookup comes back empty and the stream the test then measures was
-/// never created -- it would fail on a missing horn, which says nothing about
-/// the mixer, the fades or the jake routing it meant to pin.
-pub fn bass_rig_with_recordings() -> Option<Rig> {
-    if !shipped_sounds() {
-        return None;
+impl HearkenRig {
+    pub fn hearken(&self) -> &HearkenBackend {
+        self.engine.hearken().expect("the Hearken backend")
     }
-    bass_rig()
+
+    pub fn hearken_mut(&mut self) -> &mut HearkenBackend {
+        self.engine.hearken_mut().expect("the Hearken backend")
+    }
+
+    /// The backend channel the latest play of `key` went to.
+    pub fn channel(&self, key: &str) -> u64 {
+        self.rec
+            .channel_of(key)
+            .unwrap_or_else(|| panic!("{key} was never played"))
+    }
+}
+
+/// [`hearken_rig`] when the shipped recordings are here, or `None` (with a
+/// note) when they are not: a test that measures a real recording needs the
+/// recording, or it would fail on a missing horn, which says nothing about
+/// the mixer, the fades or the jake routing it meant to pin.
+pub fn recordings_rig() -> Option<HearkenRig> {
+    shipped_sounds().then(hearken_rig)
+}
+
+pub fn hearken_rig() -> HearkenRig {
+    let (backend, rec) = RecordingBackend::new();
+    let engine =
+        AudioEngine::with_backend(Box::new(HearkenBackend::with_backend(Box::new(backend))));
+    HearkenRig { engine, rec }
 }
 
 // ---------------------------------------------------------------------------
@@ -127,7 +142,7 @@ fn shipped_pack(name: &str, what: &str) -> bool {
         eprintln!(
             "SKIPPING: no shipped {what}. {} is a leftover Git LFS pointer, not the \
              pack. The packs are plain files now: `git checkout -- assets/{name}` \
-             restores sounds.pak, and tools/build_release.py downloads music.pak.",
+             restores sounds.pak, and cargo tools build-release downloads music.pak.",
             path.display()
         );
     } else {
@@ -188,6 +203,8 @@ pub fn sine_wav(seconds: f64, channels: u16) -> Vec<u8> {
 pub struct IcyServer {
     pub url: String,
     pub connections: Arc<AtomicUsize>,
+    /// The head of every request, in arrival order.
+    pub requests: Arc<Mutex<Vec<String>>>,
     stop: Arc<AtomicBool>,
     thread: Option<JoinHandle<()>>,
 }
@@ -213,8 +230,11 @@ fn icy_body(audio: &[u8], title: Option<&str>) -> Vec<u8> {
     out
 }
 
-fn serve_one(mut socket: TcpStream, headers: &str, body: &[u8]) {
+fn serve_one(mut socket: TcpStream, headers: &str, body: &[u8], requests: &Mutex<Vec<String>>) {
     let _ = socket.set_read_timeout(Some(Duration::from_secs(2)));
+    // A listener that stops reading (a full buffer nobody plays) must not
+    // hold the server's shutdown forever.
+    let _ = socket.set_write_timeout(Some(Duration::from_secs(2)));
     let mut request = Vec::new();
     let mut buf = [0u8; 1024];
     while !request.windows(4).any(|w| w == b"\r\n\r\n") {
@@ -223,6 +243,10 @@ fn serve_one(mut socket: TcpStream, headers: &str, body: &[u8]) {
             Ok(n) => request.extend_from_slice(&buf[..n]),
         }
     }
+    requests
+        .lock()
+        .unwrap_or_else(|e| e.into_inner())
+        .push(String::from_utf8_lossy(&request).into_owned());
     let _ = socket.write_all(headers.as_bytes());
     let _ = socket.write_all(body);
     let _ = socket.flush();
@@ -248,9 +272,11 @@ impl IcyServer {
         }
         headers.push_str("\r\n");
         let connections = Arc::new(AtomicUsize::new(0));
+        let requests = Arc::new(Mutex::new(Vec::new()));
         let stop = Arc::new(AtomicBool::new(false));
         let thread = {
             let connections = Arc::clone(&connections);
+            let requests = Arc::clone(&requests);
             let stop = Arc::clone(&stop);
             std::thread::spawn(move || {
                 let mut workers: Vec<JoinHandle<()>> = Vec::new();
@@ -261,8 +287,9 @@ impl IcyServer {
                             let _ = socket.set_nonblocking(false);
                             let headers = headers.clone();
                             let body = body.clone();
+                            let requests = Arc::clone(&requests);
                             workers.push(std::thread::spawn(move || {
-                                serve_one(socket, &headers, &body)
+                                serve_one(socket, &headers, &body, &requests)
                             }));
                         }
                         Err(_) => std::thread::sleep(Duration::from_millis(10)),
@@ -276,6 +303,7 @@ impl IcyServer {
         IcyServer {
             url: format!("http://127.0.0.1:{port}/live"),
             connections,
+            requests,
             stop,
             thread: Some(thread),
         }
@@ -283,6 +311,12 @@ impl IcyServer {
 
     pub fn connections(&self) -> usize {
         self.connections.load(Ordering::SeqCst)
+    }
+
+    /// The head of the latest request, or "" before any.
+    pub fn last_request(&self) -> String {
+        let requests = self.requests.lock().unwrap_or_else(|e| e.into_inner());
+        requests.last().cloned().unwrap_or_default()
     }
 }
 

@@ -310,17 +310,10 @@ fn test_cruise_refuses_to_engage_in_a_facility_zone() {
     assert!(
         spoken(&harness)
             .iter()
-            .any(|s| s.starts_with("No adaptive cruise on city streets.")),
+            .any(|s| s == "No cruise on city streets."),
         "{:?}",
         spoken(&harness)
     );
-    // The refusal has to name the way out. A driver who has never turned the
-    // keeper on otherwise hears only that cruise is unavailable and reasonably
-    // concludes that every ramp kills speed control for good (Shane,
-    // 2026-08-15) -- the keeper is exactly what holds speed here.
-    assert!(spoken(&harness)
-        .iter()
-        .any(|s| s.to_lowercase().contains("speed keeper") && s.contains("Settings")));
 }
 
 #[test]
@@ -370,7 +363,7 @@ fn test_speed_keeper_cancels_on_braking() {
     frame(&mut harness, DT);
     assert!(harness.read_drive(|d| d.keeper_mph).is_none());
     assert!(!harness.read_drive(|d| d.speed_control_armed));
-    assert!(said_any(&harness, "Speed keeper canceled"));
+    assert!(said_any(&harness, "Speed keeper off."));
 
     // The access stretch ends.
     harness.with_drive(|d, _| d.trip.zones.clear());
@@ -404,7 +397,7 @@ fn test_speed_keeper_switches_to_cruise_on_the_open_road() {
         55.0
     ));
     assert!(harness.read_drive(|d| d.speed_control_armed));
-    assert!(said_any(&harness, "Open road. Adaptive cruise resuming"));
+    assert!(said_any(&harness, "Cruise resuming, 55"));
 }
 
 /// `_keeper_on_a_street_chain(app, start_before_mi=...)`: a keeper session
@@ -931,7 +924,7 @@ fn test_air_ready_cue_does_not_repeat_on_compressor_cycling() {
     assert_eq!(
         spoken(&harness)
             .iter()
-            .filter(|e| e.contains("Air pressure ready"))
+            .filter(|e| e.contains("Air ready."))
             .count(),
         0
     );
@@ -949,7 +942,7 @@ fn test_air_ready_cue_does_not_repeat_on_compressor_cycling() {
     assert_eq!(
         spoken(&harness)
             .iter()
-            .filter(|e| e.contains("Air pressure ready"))
+            .filter(|e| e.contains("Air ready."))
             .count(),
         1
     );

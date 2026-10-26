@@ -129,7 +129,7 @@ impl DrivingState {
 
     /// Has the hill actually beaten descent control, or is it holding it?
     ///
-    /// "Descent control cannot hold this grade. Apply service brakes." is the
+    /// "Descent control can't hold this grade. Brake." is the
     /// loudest thing the assist says, and it used to be a single frame's
     /// arithmetic: speed over the ceiling by ten. On the interactive level
     /// that ceiling is [`DESCENT_SAFE_MAX_MPH`], imposed the moment a
@@ -322,8 +322,7 @@ impl DrivingState {
                 }
                 if self.descent_is_beaten(dt) {
                     limit_state = "grade".to_string();
-                    limit_message =
-                        "Descent control cannot hold this grade. Apply service brakes.".to_string();
+                    limit_message = "Descent control can't hold this grade. Brake.".to_string();
                 }
             }
             if limit_state != self.descent_limit_state {

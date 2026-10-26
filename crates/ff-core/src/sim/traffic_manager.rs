@@ -26,10 +26,14 @@ use crate::sim::vehicle::{AIR_DENSITY, G as GRAVITY_MPS2, MPS_TO_MPH};
 use crate::sim::weather::{effects, WeatherEffects, WeatherKind};
 use crate::speech_text::{brake_lights_cue, merging_traffic_cue, slow_lead_cue};
 
+mod beside;
 mod vehicle;
+mod work_zone;
+
 pub use vehicle::{
     braking_cause_line, BrakingZone, TrafficSituation, TrafficVehicle, BRAKING_CAUSE_LINES,
 };
+pub use work_zone::MERGE_ROOM_MI;
 
 // -- the rolling bubble ---------------------------------------------------------
 pub const SPAWN_CELL_MI: f64 = 0.4;
@@ -38,8 +42,9 @@ pub const BUBBLE_BEHIND_MI: f64 = 2.4;
 /// A little past TRAFFIC_LOOKAHEAD_MI so a lead is in place before it is
 /// announced.
 pub const BUBBLE_AHEAD_MI: f64 = 3.2;
-/// Ceiling on the live population.
-pub const MAX_BUBBLE_VEHICLES: usize = 28;
+/// Ceiling on the live population: room for a busy freeway's other lanes
+/// (see `beside.rs`) on top of one vehicle a cell.
+pub const MAX_BUBBLE_VEHICLES: usize = 44;
 /// Clear air around the truck where nothing is created: a vehicle drawn
 /// into being a few hundred feet ahead appeared out of nowhere.
 pub const NO_SPAWN_AHEAD_MI: f64 = 1.1;
@@ -53,6 +58,12 @@ pub const REAL_TIME_ARRIVAL_MIN_S: f64 = 8.0;
 pub const REAL_TIME_ARRIVAL_MAX_S: f64 = 90.0;
 /// The same seam `next_situation` uses for a spoken traffic warning.
 pub const TRAFFIC_SITUATION_AHEAD_MI: f64 = 2.2;
+/// A slow vehicle ahead in the truck's lane is called only this close: the
+/// distance its sound carries (half a mile, `driving_traffic_sounds`), so the
+/// call and the sound start together. Called at two miles, a lead the truck
+/// gains on at a few miles per hour was announced twenty minutes before it
+/// could be heard (owner, 2026-10-09).
+pub const SLOW_LEAD_CALLOUT_MI: f64 = 0.5;
 // The mirror check before a lane change: the target lane must be clear this
 // far ahead of the truck and this far behind its drive tires, or the arrival
 // is a sideswipe. Read by the dodge's own arrival check, by the lane-gap cue,
@@ -250,6 +261,9 @@ pub struct TrafficManager {
     pub player_lane: i64,
     /// The lane a tap-change is moving INTO, or None the rest of the time.
     pub player_lane_target: Option<i64>,
+    /// The lane roadwork has coned off where the truck is, in the truck's
+    /// lane numbering, mirrored by the trip each frame (`work_zone.rs`).
+    pub closed_lane: Option<i64>,
     /// Real seconds for which a 1x rolling bubble has contained no vehicles.
     empty_real_time_s: f64,
     /// Keeps successive boundary arrivals deterministic but distinct.
@@ -286,6 +300,7 @@ impl TrafficManager {
             braking_zones: Vec::new(),
             player_lane: 0,
             player_lane_target: None,
+            closed_lane: None,
             empty_real_time_s: 0.0,
             real_time_arrival_seq: 0,
         }
@@ -795,16 +810,37 @@ impl TrafficManager {
     /// and where its pass-by whoosh panned to a side of a road with no side.
     pub fn lane_count_at(&self, mile: f64) -> i64 {
         match self.leg_offset_forward_at(mile) {
-            Some((leg, offset, forward)) => Self::lane_count_on(leg, offset, forward),
+            Some((leg, offset, _)) => Self::lane_count_on(leg, offset),
             None => DEFAULT_LEG_LANES,
         }
     }
 
+    /// How busy the freeway under `mile` is, 0 to 1, for the distant
+    /// traffic the cab hears; 0 off a freeway. A freeway here is an
+    /// interstate, or a divided highway with two or more lanes each way;
+    /// city streets and yards are never one. The number is
+    /// [`TrafficManager::leg_density`], the same presence the bubble spawns
+    /// from, so the road sounds as busy as it is.
+    pub fn freeway_presence_at(&self, mile: f64) -> f64 {
+        let Some(leg) = self.leg_at(mile) else {
+            return 0.0;
+        };
+        if !leg.local_cue.is_empty() || leg.local_yard {
+            return 0.0;
+        }
+        let interstate = leg.highway.trim().to_uppercase().starts_with("I-");
+        let divided = leg.divided == Some(true) && self.lane_count_at(mile) >= 2;
+        if !(interstate || divided) {
+            return 0.0;
+        }
+        self.leg_density(leg, is_night(self.hour), Some(mile))
+    }
+
     /// [`TrafficManager::lane_count_at`] for an already resolved leg.
-    fn lane_count_on(leg: &Leg, offset: f64, forward: bool) -> i64 {
+    fn lane_count_on(leg: &Leg, offset: f64) -> i64 {
         for seg in leg.lane_segments() {
             if seg.start_mi <= offset && offset <= seg.end_mi {
-                return 1.max(MAX_DRIVABLE_LANES.min(seg.your_side(forward)));
+                return 1.max(MAX_DRIVABLE_LANES.min(seg.your_side()));
             }
         }
         if leg.divided == Some(false) {
@@ -1014,7 +1050,8 @@ impl TrafficManager {
             };
             // Density is a share of road, so it reads directly as the chance
             // this cell of it is carrying somebody.
-            if rng.random() > self.leg_density(leg, night, Some(mile)) {
+            let density = self.leg_density(leg, night, Some(mile));
+            if rng.random() > density {
                 continue;
             }
             let behind = mile < position_mi;
@@ -1077,6 +1114,12 @@ impl TrafficManager {
                 .with_exit_at(Some(exit_at))
                 .with_speed_draw(limit_offset, governor, rush_slowdown),
             );
+            for vehicle in self.lanes_beside(cell, density, lane, position_mi, &mut rng) {
+                if self.vehicles.len() >= MAX_BUBBLE_VEHICLES {
+                    break;
+                }
+                self.vehicles.push(vehicle);
+            }
         }
     }
 
@@ -1191,6 +1234,10 @@ impl TrafficManager {
         }
         let game_hours = dt * time_scale / 3600.0;
         let truck_lanes = self.lane_count_at(position_mi);
+        // A lane closure leaves one lane fewer to pass in, and while the
+        // truck sits in the coned-off lane the lane beside it makes room.
+        let open_lanes = truck_lanes - i64::from(self.closed_lane.is_some());
+        let merge_lane = self.merge_room_lane(truck_lanes);
         let mut kept = Vec::new();
         let vehicles = std::mem::take(&mut self.vehicles);
         for mut vehicle in vehicles {
@@ -1199,7 +1246,7 @@ impl TrafficManager {
             // vehicle where this frame found it, so resolve that leg once.
             let road = self.leg_offset_forward_at(vehicle.position_mi);
             let lanes_here = match road {
-                Some((leg, offset, forward)) => Self::lane_count_on(leg, offset, forward),
+                Some((leg, offset, _)) => Self::lane_count_on(leg, offset),
                 None => DEFAULT_LEG_LANES,
             };
             let posted_here = match road {
@@ -1210,7 +1257,11 @@ impl TrafficManager {
                 Some((leg, offset, forward)) => Self::grade_pct_on(leg, offset, forward),
                 None => 0.0,
             };
-            if vehicle.intent == "merging" && vehicle.lane < 0 {
+            // Any vehicle still on the ramp, not only one labelled merging: a
+            // merger that reached road speed while yielding is relabelled
+            // cruising below, and under the old test it then rode the ramp
+            // for good, beside the right lane and never in it.
+            if vehicle.lane < 0 {
                 let safe_gap_mi = vehicle.length_mi
                     + self.truck_speed_mph.abs().max(vehicle.speed_mph.abs())
                         * MERGE_SAFE_HEADWAY_S
@@ -1238,6 +1289,8 @@ impl TrafficManager {
                 vehicle.lane = vehicle.lane.min(lanes_here - 1).max(0);
             }
             vehicle.relative_lane = self.player_lane - vehicle.lane;
+            let makes_room =
+                merge_lane == Some(vehicle.lane) && self.makes_merge_room(&vehicle, position_mi);
             // What this driver would be doing on the road UNDER THEM, which
             // is not what they were doing where they were drawn: a US route
             // drops to thirty through every town it passes and climbs back to
@@ -1350,6 +1403,9 @@ impl TrafficManager {
             let delta = target - vehicle.speed_mph;
             vehicle.speed_mph += (-6.0 * dt).max((4.0 * dt).min(delta));
             vehicle.position_mi += vehicle.speed_mph.max(0.0) * game_hours;
+            if makes_room {
+                self.hold_for_merge(&mut vehicle, position_mi, time_scale);
+            }
             // One lane your side: nothing behind the truck can get past it.
             // The bubble draws "passing" traffic behind the truck, and where
             // the road has no passing lane `intent_lane_at` folds it into the
@@ -1357,8 +1413,9 @@ impl TrafficManager {
             // truck, whoosh and all (Shane, 2026-08-13: a cop passing him on
             // a one-lane road). Held to a following gap at the truck's pace
             // instead, the way a queue forms behind a slow truck on a
-            // two-lane highway.
-            if gap < 0.0 && vehicle.lane == self.player_lane && truck_lanes <= 1 {
+            // two-lane highway. A lane closure that leaves the truck one open
+            // lane is the same road for as long as it lasts.
+            if gap < 0.0 && vehicle.lane == self.player_lane && open_lanes <= 1 {
                 let truck_mph = self.truck_speed_mph.abs();
                 let hold_at =
                     position_mi - vehicle.length_mi - truck_mph * HOLD_BEHIND_HEADWAY_S / 3600.0;
@@ -1407,6 +1464,9 @@ impl TrafficManager {
             return None;
         }
         let vehicle = context.lead.clone();
+        if vehicle.intent == "following" && context.gap_mi > SLOW_LEAD_CALLOUT_MI {
+            return None; // not yet: the call waits until the lead can be heard
+        }
         if self.announced_vehicle_keys.contains(&vehicle.key) {
             return None;
         }
@@ -1705,8 +1765,10 @@ mod tests {
             gap >= NO_SPAWN_AHEAD_MI || gap <= -NO_SPAWN_BEHIND_MI,
             "real-time traffic appeared too close to the player: {gap:.2} miles"
         );
+        // A slow lead is called once it is within earshot, so close on it.
+        let closer = arrival.position_mi - 0.3;
         assert!(
-            manager.next_situation(position_mi, 65.0).is_some(),
+            manager.next_situation(closer, 65.0).is_some(),
             "the admitted vehicle exists internally but is not perceivable"
         );
     }

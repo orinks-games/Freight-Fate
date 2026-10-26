@@ -19,7 +19,7 @@ fn test_ssl_context_verifies_and_has_certifi_authorities() {
     }
     assert_eq!(Tier::Orinks.timeout_s(), 10.0);
     assert_eq!(Tier::GitHub.timeout_s(), 15.0);
-    assert_eq!(Tier::Feeds.timeout_s(), 8.0);
+    assert_eq!(Tier::Feeds.timeout_s(), 20.0);
 }
 
 #[test]

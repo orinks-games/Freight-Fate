@@ -1,46 +1,61 @@
-# Rust port CI.
+# Rust CI: the game and ff-core, on every push and PR that can affect them.
 #
-# Builds and tests the Cargo workspace (`crates/*`). The Python suite has its
-# own workflow (`ci.yml`) and is untouched by this one; both run side by side
-# for as long as the port keeps the Python package as its reference
-# implementation.
+# The Python suite has its own workflow (ci.yml), and the changelog gate its
+# own (changelog.yml), because both must report on every change, and this one
+# is path filtered. Keep it apart for the same reason: a required check that
+# a path filter skips stays "expected -- waiting for status" forever, so
+# nothing here may be made required while the filter stays.
 #
-# Why this is its own workflow rather than another job in ci.yml: ci.yml's
-# jobs share a Python/uv setup and a coverage upload that mean nothing here,
-# and its `build` job gates on `test`, which would make a Rust failure block
-# the Python wheel. Keeping them apart also keeps the Rust matrix free to be
-# Windows-only (see below) without teaching ci.yml's matrix about exceptions.
+# The game is built on the Hearken engine (crates from the public
+# orinks-games/hearken repository, a git dependency pinned by Cargo.lock),
+# which Cargo fetches anonymously.
 #
-# Trigger note: the packaging workflow (`build-career-1.9.yml`, and
-# `build.yml` before the 1.9 cutover deleted it) fires only on `schedule`
-# and `workflow_dispatch` -- it never sees an ordinary push -- so nothing
-# there will ever run these checks. Anything that must run on a push needs
-# its own push trigger, which is what this file has for main, dev, and the
-# direct-push Rust release lines.
+# Runners (2026-10-17): GitHub's hosted runners. Freight Fate is public, so
+# they cost nothing; the paid Blacksmith minutes are kept for the private
+# repositories. Every job starts at once, and the slowest, the Windows
+# tests, sets the wall time.
 #
-# What a push runs, and what it leaves to the nightly (2026-09-02). A push
-# used to take twelve minutes: six of them compiling the workspace crates on
-# the hosted Windows runner, four running the tests, and the rest clippy and
-# setup, all in one job. Now:
+#   checks   fmt, the translation files, the test-target layout. No build
+#            and a sparse checkout: well under a minute.
+#   clippy   once, on Linux, with warnings denied. The Windows-only code is
+#            linted by the nightly's Windows test leg, every night.
+#   test     the game on Windows and Linux in parallel; ff-core on Linux
+#            only. ff-core is headless, so the Linux runner proves it as
+#            well as Windows does, and its test binaries stay off the slow
+#            Windows compile.
+#   test-macos  the game and ff-core on macOS, for a manual run and a `v*`
+#            tag only, not per push or PR (Hearken's CI does the same). It
+#            proves the Mac link (Prism's frameworks, the clang runtime) and
+#            the Kira/CoreAudio build before a release; the nightly's Mac
+#            job tests it every night as well.
 #
-#   * Clippy is its own job, in parallel with the tests, with its own cache.
-#   * The test job passes `--cfg ci_quick`, which turns every
-#     `#[cfg_attr(ci_quick, ignore = "sweep: ...")]` test into an ignored one.
-#     Those are the whole-map sweeps -- a 500-mile delivery per state line,
-#     every facility exit, every kind of destination, ~96 job origins --
-#     and the sixteen of them in the game crate cost as much as the other
-#     2,400 tests together. They still run in full on the nightly Career 1.9
-#     snapshot (`build-career-1.9.yml`, which sets no cfg), on a manual
-#     `workflow_dispatch` of this workflow, and in any local `cargo test`.
-#   * sccache caches the workspace crates' own compilation by content, so a
-#     commit that leaves ff-core alone (most of them) does not rebuild it.
-#   * Windows Defender is told not to scan the build tree; real-time scanning
-#     of a few thousand object files is a known multiple on a Windows runner.
-#   * BASS is restored from the Actions cache instead of un4seen's site.
+# Caches: rust-cache entries are shared by kind of build (`clippy`, `test`),
+# and the nightly's test legs use the same `test` entries. rust-cache folds
+# the OS (the rustc host), Cargo.lock and RUSTFLAGS into the key, so Windows
+# and Linux never collide, and a manual full run never overwrites the quick
+# set's entry. Clippy does not share the tests' entry on purpose: it builds
+# check-only metadata and no test binaries, so one shared key would hold
+# whichever job saved first and leave the other cold. sccache, keyed by
+# content, is shared by all of them. Everything lives in the repository's
+# 10 GB of GitHub cache, and only pushes save (see rust-setup).
 #
-# The build's own timing report is uploaded as an artifact on every run, so
-# the next person who asks "where do the minutes go" can open
-# cargo-timing.html instead of guessing.
+# The runner is plain `cargo test`, not nextest. nextest runs every test in
+# a process of its own, and each game test process loads the world data
+# once (ff_core::data::world's OnceCell), so ~3,300 game-crate tests would
+# each pay that load; `frame_time` also needs the machine to itself.
+#
+# Pushes and PRs pass `--cfg ci_quick`, which turns every
+# `#[cfg_attr(ci_quick, ignore = "sweep: ...")]` test into an ignored one.
+# Those are the whole-map sweeps -- a 500-mile delivery per state line, every
+# facility exit, every kind of destination, ~96 job origins -- and they cost
+# as much as the other 2,400 game-crate tests together. They run in full on
+# the nightly (build-career-1.9.yml's Linux x86_64 test leg), on a manual
+# `workflow_dispatch` of this workflow, and in any local `cargo test`.
+#
+# Each crate builds its integration tests as one binary, `it`, plus a few
+# that need a process of their own (`cargo tools test-targets` lists them
+# and the checks job enforces it), because every test binary is another link
+# of the whole dependency graph.
 
 name: Rust
 
@@ -52,8 +67,11 @@ on:
     # Alongside main and dev, the Rust release lines take direct pushes instead
     # of PRs, so each needs its own entry for this CI to run.
     branches: [main, dev, feat/career-1.9, feat/career-2.0, feat/rust-port]
-  pull_request:
-    branches: [main, dev, feat/career-1.9, feat/career-2.0]
+    # A release tag runs everything below plus the macOS tests. GitHub does
+    # not apply the path filter to a tag push, so a tag always runs.
+    tags: ["v*"]
+    # What the build or the tests read. Docs, the README, the roadmap and
+    # the Python tooling skip this workflow entirely.
     paths:
       - "crates/**"
       - "data/**"
@@ -64,241 +82,177 @@ on:
       - "rust-toolchain.toml"
       - ".cargo/**"
       - ".github/workflows/rust.yml"
+      - ".github/actions/**"
+      # Read by the build or the tests from outside crates/: test fixtures
+      # and the JAWS script.
+      - "tests/fixtures/**"
+      - "tools/jaws/**"
+      # The translations: compiled in with include_str!, and kept in step
+      # with the spoken text in crates/ by `cargo tools l10n-extract`.
+      - "lang/**"
+  pull_request:
+    branches: [main, dev, feat/career-1.9, feat/career-2.0]
+    # Keep in step with the push list.
+    paths:
+      - "crates/**"
+      - "data/**"
+      - "assets/**"
+      - "vendor/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "rust-toolchain.toml"
+      - ".cargo/**"
+      - ".github/workflows/rust.yml"
+      - ".github/actions/**"
+      - "tests/fixtures/**"
+      - "tools/jaws/**"
+      - "lang/**"
   # A manual run is the FULL suite: no `--cfg ci_quick`, sweeps included.
   workflow_dispatch:
 
-# The pull-request path filter keeps the Windows build off PRs that only
-# touch Python or docs. A *required* check that is path filtered
-# stays "expected -- waiting for status" forever on a skipped PR, so do not
-# make it required unless the filter is dropped.
-
+# A newer push to the same branch or PR supersedes the run in flight.
 concurrency:
   group: rust-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: "1"
+  # The bundled SDL2 source declares a cmake_minimum_required older than
+  # CMake 4 accepts; this is CMake's own escape hatch for exactly that.
+  CMAKE_POLICY_VERSION_MINIMUM: "3.5"
+
 jobs:
-  format:
-    # Formatting needs no native library and no build, so it runs on the cheap
-    # Linux runner and fails in under a minute instead of thirty.
-    name: Format
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+  checks:
+    # Quick checks that need no game build: `cargo fmt` reads the workspace
+    # manifests only, and the translation and test-target checks build
+    # ff-tools without its `world` feature, so ff-core, SDL2 and Hearken
+    # stay out of it. The checkout is sparse and blobless: the 330 MB of
+    # world data under data/ is not needed here, only the one file the
+    # translation extractor reads.
+    name: fmt, translations and test targets
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v6
+        with:
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/*/
+            /.cargo/
+            /crates/
+            /lang/
+            /data/buffs.json
 
       - name: Install the pinned toolchain
-        # rust-toolchain.toml names the channel and the rustfmt/clippy
-        # components; `rustup show` is what materialises it before the first
-        # cargo call, so a missing component fails here with a clear message
-        # rather than mid-lint.
         run: rustup show
 
       - name: cargo fmt --check
         run: cargo fmt --all --check
 
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
+        with:
+          shared-key: tools-light
+          save-if: ${{ github.event_name != 'pull_request' }}
+
+      - name: Build the tooling (no world feature)
+        run: cargo build -p ff-tools --no-default-features --locked
+
+      # Spoken text changed in crates/ must reach lang/ in the same change,
+      # or translators work from a stale list.
+      - name: Translation files up to date
+        run: |
+          target/debug/ff-tools l10n-extract --check
+          target/debug/ff-tools l10n-check
+
+      - name: Test targets
+        run: target/debug/ff-tools test-targets
+
+      # The game keeps its own state stack, menus and speech delivery and
+      # takes only Hearken's services and leaf types. Hearken's `Ctx`
+      # carries an inherent `say` that would silently shadow the game's
+      # `Say` trait, so no game code may reach its app shell.
+      - name: Hearken leaf types only
+        run: |
+          if grep -rnE "hearken::(Ctx|App|ctx|app|screens|run|menu|state|speech_delivery)\b" crates/; then
+            echo "::error::Freight Fate uses Hearken's app shell; take the leaf type instead"
+            exit 1
+          fi
+
   clippy:
-    # Windows, like the tests, so the `#[cfg(windows)]` half of the game
-    # (single-instance guard, console, keyring) is linted too. Its own job
-    # rather than a step ahead of the tests: clippy's check artefacts share
-    # nothing with a test build, so the minute it took was pure critical
-    # path. It needs no BASS -- bass-sys builds without the DLL and only
-    # warns -- and keeps its own cache line, because a rust-cache entry holds
-    # one job's artefacts and two jobs saving under one key would take turns
-    # evicting each other.
-    name: Clippy (Windows)
-    runs-on: windows-latest
+    # Workspace-wide and every target, so test and bench code is linted
+    # too; warnings are errors. `--locked`: Cargo.lock is committed (it also
+    # pins the Hearken commit), so a dependency change that was not locked
+    # in fails here loudly instead of resolving to something no developer
+    # has run.
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
-    env:
-      CARGO_TERM_COLOR: always
     steps:
       - uses: actions/checkout@v6
+
+      - uses: ./.github/actions/rust-setup
         with:
-          lfs: false
-
-      - name: Install the pinned toolchain
-        run: rustup show
-
-      - name: Keep Defender off the build tree
-        # Real-time scanning on the hosted Windows image inspects every
-        # object file rustc writes and every one the linker reads back. The
-        # image runs as an administrator, so an exclusion is one cmdlet; if
-        # the image ever ships without Defender the try/catch keeps this a
-        # note in the log rather than a failed job.
-        shell: pwsh
-        run: |
-          try {
-            Add-MpPreference -ExclusionPath "${{ github.workspace }}", "$env:USERPROFILE\.cargo", "$env:USERPROFILE\.rustup" -ErrorAction Stop
-            Write-Host "Defender exclusions added for the workspace, cargo and rustup."
-          } catch {
-            Write-Host "Could not add Defender exclusions ($_); building without them."
-          }
-
-      - name: Cache cargo registry and target directory
-        uses: Swatinem/rust-cache@v2
-        with:
-          shared-key: rust-windows-clippy
-          cache-on-failure: true
+          cache-key: clippy
 
       - name: cargo clippy
-        # Workspace-wide and every target, so test and bench code is linted
-        # too; warnings are errors, as the port plan requires.
-        #
-        # `--locked`: Cargo.lock is committed, so a dependency bump that was
-        # not locked in should fail here loudly rather than silently resolve
-        # to something no developer has run.
-        run: cargo clippy --all-targets --locked -- -D warnings
+        run: cargo clippy --workspace --all-targets --locked -- -D warnings
+
+      - name: cargo clippy (without the visual display)
+        # Every build names the visual display, so nothing else compiles the
+        # game without it; this keeps that build working for a target that
+        # leaves the display out.
+        run: cargo clippy -p freight-fate --all-targets --no-default-features --features agent-server --locked -- -D warnings
 
   test:
-    # Windows only, deliberately.
-    #
-    # The workspace links SDL2 dynamically against the prebuilt libsdl-org
-    # release under `vendor/sdl2/<os>-<arch>/`, loads BASS at run time out of
-    # `crates/bass-sys/vendor/<os>-<arch>/`, and compiles Prism from source
-    # (the `prismer` crate) into the executable. Today the tree carries:
-    #
-    #   vendor/sdl2/            windows-x86_64 only
-    #   crates/bass-sys/vendor/ windows-x86_64, macos-*, linux-* (all fetched)
-    #
-    # macOS and Linux both build from source -- BASS fetched, Prism and
-    # SDL2 compiled in statically -- and the nightly snapshot workflow
-    # (build-career-1.9.yml) builds, tests and packages both, then boots the
-    # Linux tarball and AppImage on seven distributions. This per-push
-    # workflow does not repeat that: the Mac runner is the slow one, and the
-    # Linux job's value is in the packaged boot on other distributions,
-    # which is a nightly's worth of work rather than a push's.
-    #
-    # Windows is the primary target and the only vendored one, so this
-    # matrix is honest about the gap instead of papering over it: Linux and
-    # macOS are NOT covered by this workflow, only by the nightly.
-    name: Test (Windows)
-    runs-on: windows-latest
+    name: test (${{ matrix.name }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows
+            os: windows-2025
+            packages: -p freight-fate
+          - name: Linux
+            os: ubuntu-24.04
+            packages: -p ff-core -p freight-fate
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 45
     env:
-      # The same headless trio the Python jobs use: no speech synthesiser, no
-      # window, no audio device on a hosted runner.
+      # No speech synthesiser, window or audio device on a runner.
       FREIGHT_FATE_NO_SPEECH: "1"
+      HEARKEN_TEST_NO_SPEECH: "1"
       SDL_VIDEODRIVER: dummy
       SDL_AUDIODRIVER: dummy
-      # Keep cargo's own diagnostics legible in the Actions log viewer.
-      CARGO_TERM_COLOR: always
-      # Backtraces cost nothing here and turn a bare "assertion failed" into
-      # something diagnosable without a re-run.
-      RUST_BACKTRACE: "1"
       # Pushes and PRs run the quick set (see the header); a manual dispatch
-      # runs everything. The expression reads: when this is a push or a PR,
-      # the flag; otherwise the empty string. (`cond && a || b` is the
-      # Actions idiom for a conditional -- it works here because the flag is
-      # never empty, so `&&` cannot fall through to `||` by accident.)
+      # runs everything. (`cond && a || b` is the Actions conditional; it is
+      # safe here because the flag is never empty.)
       RUSTFLAGS: ${{ (github.event_name == 'push' || github.event_name == 'pull_request') && '--cfg ci_quick' || '' }}
-      # sccache in front of rustc, backed by the Actions cache. rust-cache
-      # below restores the DEPENDENCIES' artefacts and deliberately drops the
-      # workspace crates' own, which cargo would rebuild anyway (a fresh
-      # checkout stamps every source newer than the cache). sccache keys on
-      # content instead, so an ff-core that did not change is a hit even
-      # though its files are new. Incremental compilation is already off on
-      # CI (rust-cache sets CARGO_INCREMENTAL=0), which is what sccache
-      # needs to cache a crate at all.
-      RUSTC_WRAPPER: sccache
-      SCCACHE_GHA_ENABLED: "true"
     steps:
-      # Keep LFS disabled: the large music pack is not needed for Rust CI.
-      # sounds.pak is a regular tracked file, so checkout already provides it
-      # without a separate LFS fetch.
+      # A plain checkout: sounds.pak is an ordinary blob, not an LFS object,
+      # so the audio tests have the real pack.
       - uses: actions/checkout@v6
+
+      - uses: ./.github/actions/rust-setup
         with:
-          lfs: false
-
-      - name: Install the pinned toolchain
-        run: rustup show
-
-      - name: Keep Defender off the build tree
-        # See the clippy job for why.
-        shell: pwsh
-        run: |
-          try {
-            Add-MpPreference -ExclusionPath "${{ github.workspace }}", "$env:USERPROFILE\.cargo", "$env:USERPROFILE\.rustup" -ErrorAction Stop
-            Write-Host "Defender exclusions added for the workspace, cargo and rustup."
-          } catch {
-            Write-Host "Could not add Defender exclusions ($_); building without them."
-          }
-
-      - name: Restore BASS from the cache
-        # BASS is un4seen's and proprietary, so it is not committed to this
-        # public repository (see crates/bass-sys/vendor/licenses/README.md).
-        # The fetch tool pins every file by sha256, so the tool's own hash is
-        # the right cache key: bump a pin and the cache misses.
-        id: bass
-        uses: actions/cache@v4
-        with:
-          path: crates/bass-sys/vendor/windows-x86_64/*.dll
-          key: bass-windows-${{ hashFiles('tools/fetch_bass.py') }}
-
-      - name: Fetch BASS
-        # Only on a cache miss. The AAC add-on has no public download: the
-        # fetch tool lifts it out of the sound_lib package in the project
-        # venv, which is why this needs uv and a dependency sync (about
-        # twenty seconds) rather than the runner's bare interpreter.
-        if: steps.bass.outputs.cache-hit != 'true'
-        shell: bash
-        run: |
-          python -m pip install --quiet uv
-          uv run python tools/fetch_bass.py
-
-      - name: Check BASS
-        # Every run, hit or miss. Without BASS bass-sys still builds and
-        # every audio test skips itself, which reads as a green run that
-        # proved nothing about the audio backend -- so --check fails the job
-        # rather than letting that pass. The check is standard-library
-        # Python, so the runner's own interpreter is enough.
-        run: python tools/fetch_bass.py --check
-
-      - name: Install sccache
-        uses: mozilla-actions/sccache-action@v0.0.9
-
-      - name: Cache cargo registry and target directory
-        # Swatinem/rust-cache rather than a raw actions/cache on target/: it
-        # keys on the lockfile plus the rustc version (and RUSTFLAGS), and
-        # prunes the target directory to the dependency artefacts before
-        # saving. An unpruned target/ for this workspace is several GB --
-        # well past the 10 GB repository cache budget after a couple of
-        # branches.
-        uses: Swatinem/rust-cache@v2
-        with:
-          shared-key: rust-windows
-          cache-on-failure: true
+          cache-key: test
 
       - name: Build the test binaries
-        # The build on its own so the timing report below covers exactly the
-        # compile, and so a compile failure reads as one. `--locked`: see the
-        # clippy job. ONE invocation for both crates, not one per crate:
-        # split, cargo compiled ff-core twice (once as its own test target,
-        # once as freight-fate's dependency) in two sequential builds with
-        # separate link phases (2026-08-29).
-        run: cargo test -p ff-core -p freight-fate --no-run --locked --timings
+        # The build on its own, so a compile failure reads as one and the
+        # timing report covers exactly the compile.
+        run: cargo test ${{ matrix.packages }} --no-run --locked --timings
 
-      - name: Show the staged native libraries
-        # The build scripts (crates/bass-sys/build.rs,
-        # crates/freight-fate/build.rs) copy the vendored DLLs out of the
-        # committed vendor directories into target/<profile>/. Verified on a
-        # clean target directory in this repo: one cargo invocation with
-        # nothing else done by hand leaves SDL2.dll, bass.dll, bass_aac.dll,
-        # bassflac.dll, basshls.dll and bassopus.dll beside the binary (Prism
-        # is linked in). The test executables themselves live in
-        # target/<profile>/deps/, and `cargo test` prepends both that
-        # directory and target/<profile> to PATH before running one, which is
-        # how they resolve SDL2.dll; run such a binary by hand without that
-        # PATH and it dies with "SDL2.dll: cannot open shared object file".
-        # This listing exists so that if a vendor directory ever goes missing,
-        # the log names the library that did not get staged instead of leaving
-        # a link or load error two steps later to be decoded.
-        shell: bash
-        run: ls -l target/debug/*.dll
+      - name: The game starts on a clean Windows
+        # The snapshot's payload DLL check, on the executable the step above
+        # already built: an import neither Windows nor the payload provides
+        # (mfplat.dll, from a decoder linked at load time) fails this PR
+        # instead of the next snapshot. A few seconds; no release build.
+        if: matrix.name == 'Windows'
+        run: cargo run -q -p ff-tools --no-default-features --locked -- windows-imports target/debug
 
       - name: cargo test
-        # Everything is fresh from the step above, so this is the run alone.
-        # Each test binary still reports separately, so a failure names which
-        # crate it came from.
-        run: cargo test -p ff-core -p freight-fate --locked
+        run: cargo test ${{ matrix.packages }} --locked
 
       - name: cargo test (agent server)
         # Agent tooling, not the game: `test = false` keeps it out of the run
@@ -313,43 +267,53 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: cargo-timing
+          name: cargo-timing-${{ matrix.name }}
           path: target/cargo-timings/cargo-timing.html
           if-no-files-found: ignore
 
-  changelog:
-    # The changelog gate runs locally as a pre-push hook, which not every
-    # clone has installed. ci.yml used to enforce it on this branch; that
-    # workflow no longer runs on feat/career-1.9 (Python pytest stays on
-    # main/dev), so this job is the CI gate for the 1.9 release line. Same
-    # tool and skip markers as the pre-push hook (`tools.release_notes`
-    # check; `[skip changelog]` / `changelog: none`).
-    name: Changelog
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+  test-macos:
+    # A manual run or a release tag only: Mac runners are the slowest and
+    # the fewest at once, and nothing per push touches Mac-only code that
+    # the nightly's Mac job would not catch by morning. GitHub's hosted
+    # macos-26, as the nightly and the iOS jobs use.
+    name: test (macOS)
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v')
+    runs-on: macos-26
+    timeout-minutes: 60
+    env:
+      FREIGHT_FATE_NO_SPEECH: "1"
+      HEARKEN_TEST_NO_SPEECH: "1"
+      SDL_VIDEODRIVER: dummy
+      SDL_AUDIODRIVER: dummy
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      # A tag runs the quick set, as a push does; a manual run, everything.
+      RUSTFLAGS: ${{ github.event_name == 'push' && '--cfg ci_quick' || '' }}
     steps:
       - uses: actions/checkout@v6
-        with:
-          # Full history, because the check walks base..HEAD for commit
-          # messages -- but without the blobs. The pack is 840 MB of world
-          # data churn, and this job needs commits, trees and one changelog
-          # blob per ref (`git show <ref>:CHANGELOG.md`), which a blobless
-          # clone fetches on demand. Three minutes of checkout became thirty
-          # seconds (2026-09-02).
-          fetch-depth: 0
-          filter: blob:none
-          lfs: false
 
-      - name: Require a changelog entry for user-facing changes
-        env:
-          # PRs diff against their target branch; pushes diff against the
-          # ref the branch pointed at before this push.
-          BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || github.event.before }}
-        run: |
-          if [ "${{ github.event_name }}" = "push" ] && ! git cat-file -e "$BASE" 2>/dev/null; then
-            # A brand-new branch pushes an all-zeros "before", and a force
-            # push can point at history this clone no longer has.
-            echo "Base commit $BASE unavailable (new branch or force push); skipping."
-            exit 0
-          fi
-          python3 tools/release_notes.py check --base "$BASE" --head HEAD
+      # No brewed SDL: Homebrew's sdl2 is sdl2-compat, which loads SDL3 at
+      # run time. SDL2 is compiled in from source with the runner's cmake.
+      - uses: ./.github/actions/rust-setup
+        with:
+          cache-key: test
+
+      - name: Build the test binaries
+        run: cargo test -p ff-core -p freight-fate --no-run --locked --timings
+
+      - name: cargo test
+        run: cargo test -p ff-core -p freight-fate --locked
+
+      - name: cargo test (agent server)
+        run: cargo test -p freight-fate --test agent_server --locked
+
+      - name: Compiler cache statistics
+        if: always()
+        run: sccache --show-stats
+
+      - name: Upload the build timing report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: cargo-timing-macOS
+          path: target/cargo-timings/cargo-timing.html
+          if-no-files-found: ignore

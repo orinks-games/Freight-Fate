@@ -32,7 +32,7 @@ mod directory;
 mod profile;
 mod support;
 
-pub use board::{updated_text, DriversOnlineState, MastodonLinkState, MastodonOutcome};
+pub use board::{updated_text, DriversOnlineState};
 pub use directory::{
     directory_row_text, last_on_duty_text, last_on_duty_text_at, DriverDirectoryState,
 };
@@ -84,8 +84,8 @@ feed. Each post also tells orinks.net which game version you are running, used o
 for moderation and troubleshooting and never shown publicly. Freight Fate does not \
 publish your real name, full save, coordinates, active cargo details, or precise \
 real-world location. Detailed career statistics come only from your public career's \
-latest accepted private backup -- you choose your public career on the Cloud backup \
-menu -- and include lifetime career earnings, the running total your career \
+latest accepted private backup, which you choose on the Cloud backup menu. They \
+include lifetime career earnings, the running total your career \
 has ever earned; the money you currently have is never published. The backups \
 themselves stay private to your account and never appear as public downloads. \
 Turning Profile sharing off hides public details but does not turn cloud backup off.";

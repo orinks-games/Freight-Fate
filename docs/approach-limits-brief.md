@@ -17,7 +17,7 @@ stays.
   `local_speed_mph` / `local_cue`. Find where the SOURCE data stores
   them and edit ONLY through `tools/world_source.py`
   (`load_world()` / `save_world()`), then regenerate with
-  `uv run python tools/index_world.py` and verify `--check`.
+  `cargo tools index-world` and verify `--check`.
 - Offline and deterministic: self-hosted Overpass only (`OVERPASS_URL`,
   default http://localhost:12347/api/interpreter — it is up now). No
   public-API bulk sweeps.

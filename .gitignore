@@ -1,23 +1,11 @@
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
+# Build output
 build/
 dist/
 
-# Virtual environments
+# Left in older checkouts by the deleted Python tooling
+__pycache__/
 .venv/
-venv/
-
-# Tooling caches
-.pytest_cache/
-.pytest_tmp*/
-.ruff_cache/
-.hypothesis/
 .route-cache/
-.coverage
-coverage.xml
-htmlcov/
 
 # Editors
 .vscode/
@@ -61,7 +49,7 @@ sound-source/
 # causing. 124 KB of generated tone, and the code that reads them is the only
 # thing that ever will.
 !crates/ff-core/src/cab_filter/fixtures/*.wav
-# The shipped audio is assets/sounds.pak (tools/pack_sounds.py).
+# The shipped audio is assets/sounds.pak (cargo tools pack-sounds).
 # music.pak is a private builder-local release asset downloaded when needed.
 assets/music.pak
 # Channel 3000's clips (tools/build_channel3000.py); downloaded like music.pak.
@@ -79,10 +67,9 @@ assets/sounds/**
 assets/sounds/engine_classic/**
 !assets/sounds/engine_classic/idle.ogg
 
-# Prototype/audition renders (regenerate from sound-test/*.py, all deterministic)
+# Prototype/audition renders
 sound-test/*.wav
 sound-test/render-cab/
-sound-test/__pycache__/
 
 # Portable save data (lives in the game directory)
 saves/
@@ -138,13 +125,6 @@ saves-agent-staging/
 # Rust
 target/
 
-# BASS is un4seen's, and proprietary. The game may ship it (non-commercial
-# use is free) but this public repo must not host it: fetch it with
-# `uv run python tools/fetch_bass.py` before building. SDL2 (zlib) and
-# Prism (MPL-2.0) stay vendored -- their licences are unambiguous.
-crates/bass-sys/vendor/*/bass*.dll
-crates/bass-sys/vendor/*/libbass*.so
-crates/bass-sys/vendor/*/libbass*.dylib
 # OSM readings behind the curve connector bake (tools/curve_osm_facts.py).
 # 26 MB of derived cache: one deterministic offline pass over the local
 # Geofabrik extracts, regenerated with `--all` whenever the rule is re-judged.
@@ -156,3 +136,10 @@ data/world_data/us/gameplay/curve_osm.jsonl
 
 # Local code-review reports (paad); findings land in commits and ROADMAP instead.
 paad/
+
+# Apple signing material made on a developer's machine. Keep it out of
+# commits even when someone runs `git add -A` at the repository root.
+*.certSigningRequest
+*.p12
+*.mobileprovision
+*.cer

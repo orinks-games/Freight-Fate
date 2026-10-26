@@ -114,7 +114,10 @@ pub const MAGIC: &[u8; 8] = b"FFDATA\0\0";
 ///
 /// 9: a leg carries the truck rules at its real tunnels and bridges
 /// (`crossings`).
-pub const FORMAT_VERSION: u32 = 9;
+///
+/// 10: a corridor carries how many speed-limit postings the load-time
+/// artifact fold removed (`speed_limits_folded`).
+pub const FORMAT_VERSION: u32 = 10;
 
 const HEADER_LEN: usize = 32;
 
@@ -145,6 +148,7 @@ pub const TEXT_FILES: &[&str] = &[
     "channel3000.json",
     "radio_catalog.json",
     "radio_imported.json",
+    "radio_community.json",
 ];
 
 /// The `text:` section name for a relative data path.
@@ -306,11 +310,6 @@ impl BakedData {
         names
     }
 
-    /// The stored (on-disk) byte length of a section.
-    pub fn section_stored_len(&self, name: &str) -> Option<u64> {
-        self.sections.get(name).map(|s| s.stored)
-    }
-
     fn raw_slice(&self, offset: u64, len: u64) -> &[u8] {
         let start = offset as usize;
         &self.mmap[start..start + len as usize]
@@ -364,11 +363,6 @@ impl BakedData {
     pub fn take_legs(&self) -> Result<Vec<BakedLeg>, DataError> {
         self.section_value(SECTION_LEGS)?
             .ok_or_else(|| DataError::io("baked data has no leg table"))
-    }
-
-    /// One leg's corridor detail, decompressed and decoded on its own.
-    pub fn leg_corridor(&self, leg: &BakedLeg) -> Result<CorridorDetail, DataError> {
-        self.corridor_at(CorridorRef::from(leg))
     }
 
     /// The corridor at one offset in the frame region.

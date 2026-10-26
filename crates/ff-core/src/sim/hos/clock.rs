@@ -12,9 +12,8 @@ use super::{
     CANADA_SOUTH_ON_DUTY_LIMIT_MIN, CANADA_SOUTH_SHIFT_LIMIT_MIN, CYCLE_SPEAK_MIN,
     CYCLE_WINDOW_MIN, HOS_HISTORY_MAX, HOS_SPLIT_REST_HISTORY_MAX, RESTART_MIN, SLEEP_MIN,
     SPLIT_LONG_ALT_MIN, SPLIT_LONG_MIN, SPLIT_SHORT_ALT_MIN, SPLIT_SHORT_MIN,
-    WARNING_THRESHOLDS_MIN,
 };
-use crate::pyfmt::{fmt_f, py_str_float};
+use crate::pyfmt::py_str_float;
 
 /// One duty-status entry in the shift ledger.
 #[derive(Clone, Debug, PartialEq)]
@@ -218,8 +217,7 @@ fn keep_last<T>(items: &mut Vec<T>, max: usize) {
     }
 }
 
-const ENFORCEMENT_OFF: &str =
-    "Hours of service enforcement is off; the ELD clock still records time.";
+const ENFORCEMENT_OFF: &str = "Hours enforcement off.";
 fn reset_advice(kind: &str, rules: HosRules) -> &'static str {
     match (rules, kind) {
         (HosRules::CanadaSouth60 | HosRules::CanadaNorth60, "cycle") => {
@@ -277,18 +275,6 @@ fn shift_over(kind: &str, rules: HosRules) -> (&'static str, &'static str) {
             "past your hours limit",
             "Your hours limit has been reached.",
         ),
-    }
-}
-
-fn threshold_phrase(threshold: f64) -> &'static str {
-    if threshold == 120.0 {
-        "2 hours"
-    } else if threshold == 60.0 {
-        "1 hour"
-    } else if threshold == 30.0 {
-        "30 minutes"
-    } else {
-        panic!("no phrase for HOS warning threshold {threshold}")
     }
 }
 
@@ -1045,96 +1031,6 @@ impl HosClock {
             .collect()
     }
 
-    /// Speak the countdown again after a rest that did NOT reset the shift.
-    ///
-    /// Warnings fire once per threshold per shift -- correct while driving,
-    /// but a long non-qualifying sleep (a pending sleeper split) left the
-    /// marks in place, so the driver woke to silence and drove straight
-    /// into a window violation with no countdown (owner, 2026-07-24).
-    pub fn re_arm_warnings(&mut self) {
-        self.warned.retain(|w| {
-            !(w.starts_with("drive:")
-                || w.starts_with("duty:")
-                || w.starts_with("shift:")
-                || w.starts_with("break:"))
-        });
-    }
-
-    /// Newly crossed warning messages; each threshold fires once.
-    ///
-    /// Call this every frame while driving. Crossing several thresholds at
-    /// once (a long menu action, say) speaks only the most urgent one, but
-    /// marks them all so nothing fires late.
-    pub fn check_warnings(&mut self, mode: &str) -> Vec<String> {
-        let mut candidates: Vec<(i32, f64, String)> = Vec::new();
-        for HosLimit {
-            kind,
-            remaining_min: rem,
-            due,
-        } in self.statuses(mode)
-        {
-            if self.limit_is_blown(rem) {
-                let key = format!("{kind}:violation");
-                if !self.warned.contains(&key) {
-                    self.warned.push(key);
-                    for t in WARNING_THRESHOLDS_MIN {
-                        // swallow the lead-up ones
-                        let k = format!("{kind}:{}", fmt_f(t, 0));
-                        if !self.warned.contains(&k) {
-                            self.warned.push(k);
-                        }
-                    }
-                    let priority = match kind {
-                        "drive" => 0,
-                        "duty" => 1,
-                        "shift" => 1,
-                        "break" => 2,
-                        "cycle" => 3,
-                        _ => 9,
-                    };
-                    candidates.push((
-                        priority,
-                        rem,
-                        format!(
-                            "Hours of service violation: {due}. \
-                             Driving on risks fines at inspections."
-                        ),
-                    ));
-                }
-                continue;
-            }
-            if rem == 0.0 {
-                continue;
-            }
-            let crossed: Vec<f64> = WARNING_THRESHOLDS_MIN
-                .iter()
-                .copied()
-                .filter(|t| rem <= *t && !self.warned.contains(&format!("{kind}:{}", fmt_f(*t, 0))))
-                .collect();
-            if !crossed.is_empty() {
-                for t in &crossed {
-                    self.warned.push(format!("{kind}:{}", fmt_f(*t, 0)));
-                }
-                let smallest = crossed.iter().copied().fold(f64::INFINITY, f64::min);
-                let phrase = threshold_phrase(smallest);
-                candidates.push((10, rem, format!("Hours of service: {phrase} until {due}.")));
-            }
-        }
-        if candidates.is_empty() {
-            return Vec::new();
-        }
-        // Python's min over (priority, remaining) tuples: the first on a tie.
-        let mut best = 0;
-        for i in 1..candidates.len() {
-            let (p, r, _) = &candidates[i];
-            let (bp, br, _) = &candidates[best];
-            if p < bp || (p == bp && r < br) {
-                best = i;
-            }
-        }
-        vec![candidates.swap_remove(best).2]
-    }
-
     /// Spoken status for the C key and Tab report.
     pub fn summary(&self, mode: &str) -> String {
         if is_non_enforced(mode) {
@@ -1156,9 +1052,7 @@ impl HosClock {
                 .map(|s| s.kind)
                 .collect();
             if blown == ["break"] {
-                return "Hours of service: past your break limit. \
-                        Take a 30-minute break at a rest stop."
-                    .to_string();
+                return "Hours of service: 30-minute break overdue.".to_string();
             }
             if blown == ["cycle"] {
                 return "Hours of service: your 70-hour cycle is used up. \
@@ -1169,37 +1063,46 @@ impl HosClock {
             return "Hours of service: past your limit. Sleep 10 hours at a rest stop to reset."
                 .to_string();
         }
-        let status = self.status.replace('_', " ");
-        let suffix = match self.split_pending_summary() {
-            Some(pending) => format!(" {pending}"),
-            None => String::new(),
+        // The status is its own whole sentence per status, so a catalog
+        // translates "on duty not driving" with the sentence around it rather
+        // than as a loose fragment.
+        let status = match self.status.as_str() {
+            "driving" => "ELD status driving.".to_string(),
+            "on_duty_not_driving" => "ELD status on duty not driving.".to_string(),
+            "off_duty" => "ELD status off duty.".to_string(),
+            "sleeper_berth" => "ELD status sleeper berth.".to_string(),
+            other => format!("ELD status {}.", other.replace('_', " ")),
         };
-        let cycle_clause = match self.cycle_remaining_min(mode) {
-            Some(remaining) if remaining <= CYCLE_SPEAK_MIN => format!(
-                " Cycle: {} of 70 hours used, {} left.",
-                duration_text(self.cycle_used_min() / 60.0),
-                duration_text(remaining / 60.0),
-            ),
-            _ => String::new(),
-        };
-        if duty_left <= break_left {
-            return format!(
-                "ELD status {status}. Hours of service: \
-                 {} of driving left, \
-                 {} of duty window left.{cycle_clause}{suffix}",
+        let hours = if duty_left <= break_left {
+            format!(
+                "Hours of service: {} of driving left, {} left in the 14-hour window.",
                 duration_text(drive_left),
                 duration_text(duty_left),
-            );
+            )
+        } else {
+            format!(
+                "Hours of service: {} of driving left, 30-minute break due in {}, \
+                 {} left in the 14-hour window.",
+                duration_text(drive_left),
+                duration_text(break_left),
+                duration_text(duty_left),
+            )
+        };
+        let mut sentences = vec![status, hours];
+        if let Some(remaining) = self
+            .cycle_remaining_min(mode)
+            .filter(|r| *r <= CYCLE_SPEAK_MIN)
+        {
+            sentences.push(format!(
+                "Cycle: {} of 70 hours used, {} left.",
+                duration_text(self.cycle_used_min() / 60.0),
+                duration_text(remaining / 60.0),
+            ));
         }
-        format!(
-            "ELD status {status}. Hours of service: \
-             {} of driving left, \
-             break due in {}, \
-             duty window closes in {}.{cycle_clause}{suffix}",
-            duration_text(drive_left),
-            duration_text(break_left),
-            duration_text(duty_left),
-        )
+        if let Some(pending) = self.split_pending_summary() {
+            sentences.push(pending.to_string());
+        }
+        sentences.join(" ")
     }
 
     fn summary_non_us(&self, mode: &str) -> String {
@@ -1293,7 +1196,10 @@ impl HosClock {
         if duty_left <= break_left {
             lines.push(format!("Duty window left: {}.", duration_text(duty_left)));
         } else {
-            lines.push(format!("Break due in {}.", duration_text(break_left)));
+            lines.push(format!(
+                "30-minute break due in {}.",
+                duration_text(break_left)
+            ));
             lines.push(format!(
                 "Duty window closes in {}.",
                 duration_text(duty_left)
@@ -1386,12 +1292,12 @@ impl HosClock {
             }
         } else {
             let spent = if fresh {
-                "no driving yet".to_string()
+                "nothing yet".to_string()
             } else {
-                format!("{driven} driving")
+                driven.clone()
             };
             format!(
-                "At the wheel so far: {spent}, {} on duty this shift",
+                "Driven {spent}. On duty {}",
                 duration_text(self.duty_min / 60.0)
             )
         };
@@ -1446,7 +1352,7 @@ impl HosClock {
             };
         } else {
             answer = format!(
-                "Break due in {}{}",
+                "30-minute break due in {}{}",
                 duration_text(break_left),
                 if terse { "" } else { " of driving" }
             );
@@ -1457,10 +1363,7 @@ impl HosClock {
                 answer.push_str(&if terse {
                     format!(", duty window {}", duration_text(duty_left))
                 } else {
-                    format!(
-                        ", but your duty window closes first, in {}",
-                        duration_text(duty_left)
-                    )
+                    format!(", {} left in the 14-hour window", duration_text(duty_left))
                 });
             }
         }
@@ -1529,7 +1432,7 @@ impl HosClock {
                 format!("{drive_text}, duty window {}", duration_text(duty_left))
             }
         } else if duty_binds {
-            format!("{duty_text}, before your driving time runs out. {drive_text}")
+            format!("{duty_text}. {drive_text}")
         } else {
             format!("{drive_text}. {duty_text}")
         };
@@ -1681,24 +1584,16 @@ impl HosClock {
         }
         let last = rest_events.last()?;
         if last.status == "sleeper_berth" && last.minutes >= SPLIT_LONG_ALT_MIN {
-            return Some(
-                "Sleeper split pending: pair this with 2 more hours at sleep-capable parking.",
-            );
+            return Some("Sleeper split open: 2 more hours off duty or in the sleeper to pair it.");
         }
         if last.status == "sleeper_berth" && last.minutes >= SPLIT_LONG_MIN {
-            return Some(
-                "Sleeper split pending: pair this with 3 more hours at sleep-capable parking.",
-            );
+            return Some("Sleeper split open: 3 more hours off duty or in the sleeper to pair it.");
         }
         if last.minutes >= SPLIT_SHORT_ALT_MIN {
-            return Some(
-                "Sleeper split pending: pair this with 7 more hours in the sleeper berth.",
-            );
+            return Some("Sleeper split open: 7 more hours in the sleeper to pair it.");
         }
         if last.minutes >= SPLIT_SHORT_MIN {
-            return Some(
-                "Sleeper split pending: pair this with 8 more hours in the sleeper berth.",
-            );
+            return Some("Sleeper split open: 8 more hours in the sleeper to pair it.");
         }
         None
     }

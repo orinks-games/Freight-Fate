@@ -298,6 +298,15 @@ pub const LIMIT_PLACE_DWELL_REAL_S: f64 = 3.0;
 pub const LIMIT_PLACE_NEAR_MI: f64 = 1.0;
 pub const LIMIT_PLACE_TOWN_MPH: f64 = 45.0;
 pub const LIMIT_EXPLAINING_CATEGORIES: &[&str] = &["village"];
+// The drop-and-return postings `tools/screen_limit_artifacts.py` found off the
+// leg's own highway (a ramp or a city street the route geometry ran over) are
+// folded back into their neighbours at load. Both numbers come from a sample of
+// 100 postings checked by hand against OpenStreetMap (2026-10-17): the longest
+// artifact ran 2.5 miles, and keeping any posting with a village or town within
+// a quarter mile folded none of the 49 real zones.
+pub const LIMIT_ARTIFACT_MAX_RUN_MI: f64 = 2.5;
+pub const LIMIT_ARTIFACT_PLACE_GUARD_MI: f64 = 0.25;
+pub const LIMIT_ARTIFACT_PLACE_CHECKPOINTS: &[&str] = &["place", "village", "town", "hamlet"];
 // Real seconds become miles at the pacing the game actually runs, which the
 // data layer cannot ask the sim for (it never imports it) and must not ask the
 // player's settings for (the world is parsed once, and world data has to be the
@@ -410,6 +419,7 @@ pub const FREIGHT_LOCATION_TYPES: &[&str] = &[
     "port_terminal",
     "rail",
     "retail_distribution",
+    "shopping_mall",
     "steel_industrial",
     "terminal",
     "travel_center",
@@ -450,6 +460,7 @@ pub const LOCATION_TYPE_LABELS: &[(&str, &str)] = &[
     ("port_terminal", "port terminal"),
     ("rail", "rail yard"),
     ("retail_distribution", "retail distribution hub"),
+    ("shopping_mall", "mall"),
     ("steel_industrial", "steel and industrial plant"),
     ("terminal", "freight terminal"),
     ("travel_center", "travel center"),
@@ -484,6 +495,7 @@ pub const FACILITY_APPROACH_MILES: &[(&str, f64)] = &[
     ("port_terminal", 8.0),
     ("rail", 5.5),
     ("retail_distribution", 4.0),
+    ("shopping_mall", 2.0),
     ("steel_industrial", 5.5),
     ("terminal", 3.0),
     ("travel_center", 1.5),
@@ -527,6 +539,7 @@ pub const FACILITY_APPROACH_ROADS: &[(&str, &str)] = &[
     ("port_terminal", "port terminal access road"),
     ("rail", "rail yard access road"),
     ("retail_distribution", "retail distribution access road"),
+    ("shopping_mall", "mall service road"),
     ("steel_industrial", "industrial plant access road"),
     ("terminal", "terminal access road"),
     ("travel_center", "travel center access road"),
@@ -750,6 +763,13 @@ pub const FACILITY_CARGO_ROLES: &[(&str, &[&str], &[&str])] = &[
         &["general", "retail", "parcel"],
         &["general", "retail", "parcel"],
     ),
+    // A mall is a receiver only: its stores, restaurants and attractions take
+    // freight in through the service dock and ship none out.
+    (
+        "shopping_mall",
+        &[],
+        &["retail", "general", "electronics", "food", "refrigerated"],
+    ),
     (
         "steel_industrial",
         &["steel", "machinery", "bulk", "hazardous"],
@@ -818,6 +838,7 @@ pub const FACILITY_SOURCE_NOTES: &[(&str, &str)] = &[
     ("port_terminal", "Representative port terminal; guided by MARAD and BTS port performance datasets."),
     ("rail", "Curated representative rail facility in the metro freight market."),
     ("retail_distribution", "Curated representative retail distribution facility in the metro freight market."),
+    ("shopping_mall", "Curated shopping mall that receives store and restaurant freight at its service dock."),
     ("steel_industrial", "Representative steel or industrial facility; guided by FAF commodity framing."),
     ("terminal", "Curated representative freight terminal in the metro freight market."),
     ("travel_center", "Public travel center or commercial diesel stop with tractor parking."),

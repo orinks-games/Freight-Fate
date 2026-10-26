@@ -31,7 +31,7 @@ fn test_the_classic_jake_voice_covers_every_rpm_band() {
 
 #[test]
 fn test_the_jake_voice_switch_applies_on_every_band_not_just_1600() {
-    let Some(mut r) = bass_rig_with_recordings() else {
+    let Some(mut r) = recordings_rig() else {
         return;
     };
     r.engine.set_jake_voice(false);

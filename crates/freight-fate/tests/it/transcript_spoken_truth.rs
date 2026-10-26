@@ -21,7 +21,10 @@ use ff_core::sim::weather::{WeatherKind, WeatherSystem};
 use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
 use freight_fate::states::base::{InputEvent, Key, Mods};
 use freight_fate::states::driving::DrivingState;
-use freight_fate::states::driving_core::hos_of;
+use freight_fate::states::driving_core::{
+    hos_of, ASSUMED_RANGE_MPG, RANGE_MEASURE_MIN_GAL, RANGE_MEASURE_MIN_MI, RANGE_MPG_CEILING,
+    RANGE_MPG_FLOOR,
+};
 use regex::Regex;
 
 const MPS_PER_MPH: f64 = 1.0 / 2.23694;
@@ -292,7 +295,7 @@ fn audit(harness: &mut PlaytestHarness) -> Vec<String> {
     // same question asked of adaptive cruise.
     {
         let binding = binding_cruise_cap(&t);
-        if let Some(said) = number_after(&space, r"adaptive cruise set at (\d+)") {
+        if let Some(said) = number_after(&space, r"(?i)adaptive cruise set at (\d+)") {
             if let Some((cap, why)) = binding {
                 if cap < said - 1.0 {
                     out.push(format!(
@@ -303,7 +306,7 @@ fn audit(harness: &mut PlaytestHarness) -> Vec<String> {
                 }
             }
         }
-        if let Some(said) = number_after(&space, r"adaptive cruise holding (\d+)") {
+        if let Some(said) = number_after(&space, r"(?i)adaptive cruise holding (\d+)") {
             // The published number may be lower than any ceiling this audit
             // knows about -- the posted-limit cap, the weather and the lead
             // vehicle all move it too. What it must never be is HIGHER than a
@@ -396,7 +399,7 @@ fn audit(harness: &mut PlaytestHarness) -> Vec<String> {
     // The keeper's readout already answers with two numbers when it is easing
     // ("holding 15 for the corner, set 25"). Audited here so the pattern the
     // cruise check above measures against is itself pinned.
-    if let Some(said) = number_after(&space, r"speed keeper holding (\d+)") {
+    if let Some(said) = number_after(&space, r"(?i)speed keeper holding (\d+)") {
         let held = t.keeper_mph.unwrap_or(0.0);
         let eased = t
             .keeper_ease
@@ -622,10 +625,10 @@ fn test_the_status_readout_names_the_speed_cruise_is_actually_holding_on_a_ramp(
         resumed.contains("for the exit"),
         "the resume never named the exit -- {resumed}"
     );
-    let ramp_number = number_after(&resumed, r"Adaptive cruise resuming at (\d+)")
-        .expect("the resume names a number");
+    let ramp_number =
+        number_after(&resumed, r"Cruise resuming, (\d+)").expect("the resume names a number");
     let space = ask(&mut harness, Key::Space);
-    let holding = number_after(&space, r"adaptive cruise holding (\d+)")
+    let holding = number_after(&space, r"(?i)adaptive cruise holding (\d+)")
         .expect("the status readout names what cruise is holding");
     // The resume names the ramp's own number -- where the glide is going --
     // and Space names where the glide is now. Both are about the ramp, and
@@ -719,7 +722,7 @@ fn test_the_readouts_stay_true_while_the_speed_keeper_has_the_truck() {
         for _ in 0..15 {
             frame(&mut harness, 1.0 / 30.0);
         }
-        if ask(&mut harness, Key::Space).contains("speed keeper holding") {
+        if ask(&mut harness, Key::Space).contains("Speed keeper holding") {
             saw_keeper_row += 1;
         }
         let mut found = audit(&mut harness);
@@ -737,9 +740,10 @@ fn test_the_readouts_stay_true_while_the_speed_keeper_has_the_truck() {
 
 #[test]
 fn test_the_fuel_key_promises_a_range_the_truck_can_actually_drive() {
-    // F answers "Range about N miles" from a flat 6 miles per gallon. That is
-    // a claim about THIS truck under THIS load, so it is worth measuring: a
-    // range a loaded rig cannot reach is a fuel stop a driver skips.
+    // F answers "Range about N miles" from 6 miles per gallon until the run
+    // has burned enough to measure its own. That is a claim about THIS truck
+    // under THIS load, so it is worth measuring: a range a loaded rig cannot
+    // reach is a fuel stop a driver skips.
     let mut harness = a_drive(65.0, 0.0, 1.0);
     harness.press_key(Key::E, None);
     harness.with_drive(|d, _| {
@@ -766,6 +770,20 @@ fn test_the_fuel_key_promises_a_range_the_truck_can_actually_drive() {
         measured_mpg >= 6.0 * 0.85,
         "F promises 6.0 miles per gallon; this truck returned {measured_mpg:.2} \
          over {miles:.1} level miles at cruise ({burned:.2} gallons)"
+    );
+    // Once measured, the promise is the run's own average; before that, the
+    // assumed figure. How far this run gets depends on the frame pacing, so
+    // check whichever rule applies to the distance it actually covered.
+    let (promised, driven, used) =
+        harness.read_drive(|d| (d.range_mpg(), d.trip.position_mi, d.trip.fuel_used_gal));
+    let expected = if used >= RANGE_MEASURE_MIN_GAL && driven >= RANGE_MEASURE_MIN_MI {
+        (driven / used).clamp(RANGE_MPG_FLOOR, RANGE_MPG_CEILING)
+    } else {
+        ASSUMED_RANGE_MPG
+    };
+    assert!(
+        (promised - expected).abs() < 1e-9,
+        "F promises {promised:.2}, expected {expected:.2} after {driven:.1} miles on {used:.2} gallons"
     );
 }
 
@@ -968,7 +986,7 @@ fn test_the_cruise_row_names_the_speed_a_lower_posted_limit_left_it() {
         "cruise handed the truck off; this case is about the controller that stays"
     );
     let space = ask(&mut harness, Key::Space);
-    let claimed = number_after(&space, r"adaptive cruise (?:holding|set at) (\d+)")
+    let claimed = number_after(&space, r"(?i)adaptive cruise (?:holding|set at) (\d+)")
         .expect("the cruise row names a number");
     assert!(
         (claimed - still).abs() <= 6.0,
