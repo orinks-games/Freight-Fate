@@ -3634,7 +3634,12 @@ Rules set that day:
       SAPI voice or Windows build. The crash line now also gives the
       thread and the call stack (PR to dev, 2026-10-26); asked the tester
       for their Windows version and SAPI voice, and to try the OneCore
-      event voice. Fix once the stack names the caller.
+      event voice. Fix once the stack names the caller. If the stack
+      lands in SAPI's own audio output rather than a voice's engine,
+      Prism's SAPI rewrite (master e7097c7, 2026-10-26, unreleased:
+      synthesis on its own thread, played through XAudio2) avoids that
+      path; it needs a prismer release or a patched fork, then a Hearken
+      bump.
 - [ ] Co-driver crawls at 20 after planning a handover stop, then hands
       over out of hours (issue #518). Ask for the log once.
 - [ ] Co-driver damages the truck (issue #492).
