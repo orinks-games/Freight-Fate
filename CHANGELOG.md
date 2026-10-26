@@ -56,6 +56,8 @@
 
 - **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.
 
+- **Alaska, Yukon and British Columbia roads now use October's posted speed limits too.** Towns along the Alaska Highway slow you down, and the Glenn Highway runs at 65.
+
 - **A CDL pulled at speed now ends the run.** A second run off the road asleep, or driving through work-zone barrels, on top of a serious violation already on the record, used to suspend the CDL while the drive carried on. Now the truck stops on the shoulder and the run closes out the way a roadside stop does. A loaded departure and a saved trip on a pulled CDL are refused as well; the saved trip closes out instead of resuming. When a roadside stop pulls the CDL, it no longer says you are released to your home terminal. It says a relief driver takes the truck back to the city the run left from, where you wait out the suspension, and when it ends. The row is now "Hand the truck to the relief driver".
 - **Dispatch trust no longer says the carrier is deciding whether to keep a driver whose CDL is pulled.** A lifetime disqualification now hears "Dispatch trust: none. With a lifetime CDL disqualification there is no dispatch." A timed disqualification hears that there are no loads at all while the CDL is disqualified, and that the yard holds the seat until the disqualification ends. The carrier only weighs the seat when the record or the service really puts it at risk, and then the line still says so.
 - With no carrier, choosing Stay a company driver on the Business status screen now says "Staying on the company-driver path." instead of "Staying a company driver.", since there is no seat to stay in.
