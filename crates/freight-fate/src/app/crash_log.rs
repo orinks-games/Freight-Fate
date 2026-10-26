@@ -30,7 +30,7 @@ use windows_sys::Win32::Foundation::{
 use windows_sys::Win32::Storage::FileSystem::WriteFile;
 use windows_sys::Win32::System::Console::{SetStdHandle, STD_ERROR_HANDLE};
 use windows_sys::Win32::System::Diagnostics::Debug::{
-    SetUnhandledExceptionFilter, EXCEPTION_POINTERS,
+    RtlCaptureStackBackTrace, SetUnhandledExceptionFilter, EXCEPTION_POINTERS,
 };
 use windows_sys::Win32::System::LibraryLoader::{
     GetModuleFileNameW, GetModuleHandleExW, GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
@@ -47,7 +47,7 @@ static CRASH_HANDLE: AtomicPtr<core::ffi::c_void> = AtomicPtr::new(std::ptr::nul
 static GAME_THREAD: AtomicU32 = AtomicU32::new(0);
 
 /// Stack frames written, at most.
-const MAX_FRAMES: usize = 24;
+const MAX_FRAMES: usize = 32;
 
 /// `EXCEPTION_CONTINUE_SEARCH`: let Windows go on and end the process.
 const CONTINUE_SEARCH: i32 = 0;
@@ -249,71 +249,31 @@ fn push_thread(line: &mut Line) {
     }
 }
 
-/// The faulting stack, unwound from the exception's own register context
-/// with the unwind tables every x64 module carries: return addresses only,
-/// no symbols, so it works in a release build with nothing installed.
-#[cfg(target_arch = "x86_64")]
-fn write_stack(
-    handle: HANDLE,
-    context: *const windows_sys::Win32::System::Diagnostics::Debug::CONTEXT,
-) {
-    use windows_sys::Win32::System::Diagnostics::Debug::{
-        RtlLookupFunctionEntry, RtlVirtualUnwind, UNW_FLAG_NHANDLER,
+/// The call stack, as return addresses Windows' own walker finds from here:
+/// the filter's frames, the exception dispatcher, then the frames that led
+/// to the fault. No symbols, so it works in a release build with nothing
+/// installed.
+fn write_stack(handle: HANDLE) {
+    let mut frames = [std::ptr::null_mut(); MAX_FRAMES];
+    // SAFETY: the buffer holds MAX_FRAMES pointers; no hash is asked for.
+    let n = unsafe {
+        RtlCaptureStackBackTrace(
+            0,
+            MAX_FRAMES as u32,
+            frames.as_mut_ptr(),
+            std::ptr::null_mut(),
+        )
     };
-    if context.is_null() {
-        return;
-    }
-    // SAFETY: Windows passes a valid context; the copy is ours to unwind.
-    let mut ctx = unsafe { *context };
-    for frame in 0..MAX_FRAMES {
-        let pc = ctx.Rip;
-        if pc == 0 {
-            break;
-        }
+    for (index, &pc) in frames[..usize::from(n).min(MAX_FRAMES)].iter().enumerate() {
         let mut line = Line::new();
         line.push(b"  ");
-        line.decimal(frame as u64);
+        line.decimal(index as u64);
         line.push(b": ");
-        line.hex(pc, 16);
+        line.hex(pc as usize as u64, 16);
         push_location(&mut line, pc as usize, false);
         line.push(b"\n");
         line.write_to(handle);
-        let mut base = 0u64;
-        // SAFETY: a lookup in the loaded modules' tables; no history table.
-        let entry = unsafe { RtlLookupFunctionEntry(pc, &mut base, std::ptr::null_mut()) };
-        if entry.is_null() {
-            // A leaf function: the return address is on top of the stack.
-            if ctx.Rsp == 0 || ctx.Rsp % 8 != 0 {
-                break;
-            }
-            // SAFETY: Rsp is the faulting thread's own aligned stack pointer.
-            ctx.Rip = unsafe { *(ctx.Rsp as *const u64) };
-            ctx.Rsp += 8;
-        } else {
-            let mut handler_data = std::ptr::null_mut();
-            let mut establisher = 0u64;
-            // SAFETY: `entry` belongs to the module at `base`; `ctx` is ours.
-            unsafe {
-                RtlVirtualUnwind(
-                    UNW_FLAG_NHANDLER,
-                    base,
-                    pc,
-                    entry,
-                    &mut ctx,
-                    &mut handler_data,
-                    &mut establisher,
-                    std::ptr::null_mut(),
-                );
-            }
-        }
     }
-}
-
-#[cfg(not(target_arch = "x86_64"))]
-fn write_stack(
-    _handle: HANDLE,
-    _context: *const windows_sys::Win32::System::Diagnostics::Debug::CONTEXT,
-) {
 }
 
 unsafe extern "system" fn on_crash(info: *const EXCEPTION_POINTERS) -> i32 {
@@ -322,7 +282,7 @@ unsafe extern "system" fn on_crash(info: *const EXCEPTION_POINTERS) -> i32 {
         return CONTINUE_SEARCH;
     }
     // SAFETY: Windows passes valid exception pointers to the filter.
-    let (record, context) = unsafe { ((*info).ExceptionRecord, (*info).ContextRecord) };
+    let record = unsafe { (*info).ExceptionRecord };
     if record.is_null() {
         return CONTINUE_SEARCH;
     }
@@ -350,7 +310,7 @@ unsafe extern "system" fn on_crash(info: *const EXCEPTION_POINTERS) -> i32 {
     push_thread(&mut line);
     line.push(b"\n");
     line.write_to(handle);
-    write_stack(handle, context);
+    write_stack(handle);
     CONTINUE_SEARCH
 }
 
@@ -402,20 +362,14 @@ mod tests {
         assert!(text.contains(" on thread "), "{text}");
     }
 
-    #[cfg(target_arch = "x86_64")]
     #[test]
-    fn the_stack_is_written_one_frame_a_line_from_the_crash_context() {
-        use windows_sys::Win32::System::Diagnostics::Debug::RtlCaptureContext;
+    fn the_stack_is_written_one_frame_a_line() {
         let dir = std::env::temp_dir().join(format!("ff-crash-stack-{}", std::process::id()));
         std::fs::create_dir_all(&dir).expect("temp dir");
         let path = dir.join("game.log");
         let file = File::create(&path).expect("log file");
         let handle = duplicate(&file).expect("duplicate");
-        // SAFETY: a plain C struct, filled in by RtlCaptureContext.
-        let mut context: CONTEXT = unsafe { std::mem::zeroed() };
-        // SAFETY: the context is ours to fill.
-        unsafe { RtlCaptureContext(&mut context) };
-        write_stack(handle, &context);
+        write_stack(handle);
         drop(file);
 
         let text = std::fs::read_to_string(&path).expect("read log");
