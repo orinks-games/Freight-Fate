@@ -3613,9 +3613,17 @@ Rules set that day:
 
 - [ ] Crashes on facility streets with assists on (issues #513, #516,
       #517; one tester, 1.9.5, Lynchburg and Staunton, Virginia). The
-      2026-10-25 snapshot writes the native crash into the log; the first
-      log with that line names the fault. Reproduce on the agent server
-      with Facility streets on from the same yards.
+      2026-10-25 snapshot writes the native crash into the log, and #517's
+      names it: an access violation inside Windows' own speech library
+      (`sapi.dll` +0x15A44) while the separate SAPI event voice was
+      speaking, about three seconds after a turn instruction, with no new
+      speech call from the game in between. #516 died at the same moment
+      on an older build with no crash handler. Every other SAPI player
+      drives these streets without it, so it points at this tester's
+      SAPI voice or Windows build. The crash line now also gives the
+      thread and the call stack (PR to dev, 2026-10-26); asked the tester
+      for their Windows version and SAPI voice, and to try the OneCore
+      event voice. Fix once the stack names the caller.
 - [ ] Co-driver crawls at 20 after planning a handover stop, then hands
       over out of hours (issue #518). Ask for the log once.
 - [ ] Co-driver damages the truck (issue #492).
