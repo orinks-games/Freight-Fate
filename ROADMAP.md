@@ -166,6 +166,14 @@ bookmarks usable.
       `lang/extra.pot`. `FREIGHT_FATE_L10N_MISSES` lists them from a drive.
 - [ ] (Found along the way) A fluent player's review of each machine-made
       translation, starting with whichever language players ask for first.
+- [ ] (Found along the way) Most 2.0 lines have no translations yet: the
+      border crossings, the no-carrier screens, the seasonal weight limits
+      and the rest of the reefer and auxiliary-power lines read in English
+      in every language (Spanish is at 92 percent). The career start, the
+      first-day briefing, the dispatch board row, the first drive and the
+      keyboard help's reefer and power-unit lines were translated into
+      Spanish with the 2.0 sync; the rest wait for the next translation
+      pass, and the other ten languages wait for all of it.
 - [ ] (Found along the way) The separate event voice keeps the system's
       default voice; a player hearing a translation through it may need to
       pick a voice in that language under Settings, Speech.

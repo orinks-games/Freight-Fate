@@ -69,7 +69,7 @@
 - **The terminal says where your truck really is.** In your home terminal city it is parked at the carrier terminal. Anywhere else it is at the facility where you last delivered or dropped, or at the city's travel center or truck parking, or the terminal just names the city. It never names a yard in another city or a bare "Terminal".
 - **A new career starts at your carrier's terminal.** Pick a region, then a home city, then one of the carriers hiring there; each carrier row says where your truck starts. The truck starts at that carrier's nearest terminal, and the first-day briefing says orientation and truck assignment are there, for example at Northstar Freight Lines Chicago terminal for a Milwaukee home. When that terminal is in another city, a company hire hears that the carrier covered the travel from the home city and a hotel for orientation. Your picked home city is saved as your home; the terminal city does not replace it.
 - Resetting a career starts over from your home city, or from your old terminal city on careers from before the home city was saved; on those, the terminal city is not recorded as your home. Prairie Link appears only within 250 air miles of its Kansas City, Omaha, and Wichita terminals.
-- **After a felony roadside stop the truck is towed, not left at your home terminal.** You post bond and are released after booking, which takes 12 hours of game time logged off duty, so it counts as a 10-hour reset, and the truck is towed to an impound lot in the city where you were stopped, for example "The truck was towed to an impound lot in Buffalo, New York." The terminal then reads it parked at an impound lot in that city, even in your home terminal city, until the truck next drives out. Company drivers and leased owner-operators hear that their carrier recovered the load; own-authority drivers hear that the load is theirs to sort out with the shipper.
+- **After a felony roadside stop the truck is towed, not left at your home terminal.** You post bond and are released after booking, which takes 12 hours of game time logged off duty, so it counts as a 10-hour reset, and the truck is towed to an impound lot in the city where you were stopped, for example "The truck was towed to an impound lot in Buffalo, New York." The terminal then says the truck is at an impound lot in that city, even in your home terminal city, until it next drives out. Company drivers and leased owner-operators hear that their carrier recovered the load; own-authority drivers hear that the load is theirs to sort out with the shipper.
 - Careers saved before this update get the home terminal of their carrier's nearest terminal city (within the hiring radius for a regional). The truck stays where it was parked.
 - A company-yard load in your home terminal city now deadheads from the carrier terminal instead of starting staged there, since the carrier terminal is its own yard.
 
@@ -81,6 +81,10 @@
 - Phase A ALCAN FIX: I-5 Bellingham↔Blaine uses public Valhalla truck costing and Washington RCW 46.61.410 60 mph HGV speed context; Hwy 15 Blaine↔Surrey keeps paid miles with Valhalla auto densify (FOSSGIS truck costing rejected as dishonest at this POE).
 
 ### Fixed
+
+- **Moving up from the training fleet now only offers carriers that hire where you live.** The move puts you at the new carrier's terminal, with your truck waiting there.
+
+- **A translated game no longer leaves half a line in English.** The dispatch board read the gross, the deadline and your pay in English, and so did any line naming a carrier's own terminal.
 
 - **Dispatch calls read cargo damage, hours and distance cleanly.** The load call says the damage once, as "with 12 percent cargo damage", and no longer calls a sound load damaged. Whole hours drop the ".0", and the distance left follows your metric setting.
 
