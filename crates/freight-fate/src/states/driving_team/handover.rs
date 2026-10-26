@@ -11,7 +11,7 @@ use crate::states::driving::DrivingState;
 use crate::states::driving_core::profile_of;
 use crate::states::driving_pause_states::PauseMenuState;
 
-use super::pilot::{StopPurpose, REACH_MPH};
+use super::pilot::StopPurpose;
 use super::TeamMode;
 
 impl DrivingState {
@@ -97,7 +97,7 @@ fn short_shift_text(ctx: &GameContext, d: &DrivingState, name: &str) -> Option<S
     // Where their hours reach a lot, they park there; where they do not,
     // the rest is slept on the shoulder (see `shoulder`).
     let here = d.trip.position_mi;
-    let reach = hours_left.max(0.0) / 60.0 * REACH_MPH;
+    let reach = hours_left.max(0.0) / 60.0 * d.co_driver_pace_mph();
     let lot_in_reach = d
         .co_driver_stops(StopPurpose::ShiftEnd, here)
         .iter()

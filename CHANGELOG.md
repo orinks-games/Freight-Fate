@@ -6,6 +6,7 @@
 
 - **Facility stopping assistance no longer gets you fined at a chain control.** A truck pulling into the chain-up area to put chains on is not cited.
 - **A crash on Windows now writes its cause into game.log,** so a bug report with the log shows what went wrong.
+- **On ice, a co-driver now plans a stop they can reach.** One too far off left them crawling at 20 until their hours ran out.
 
 ## 1.9.5 - 2026-10-25
 

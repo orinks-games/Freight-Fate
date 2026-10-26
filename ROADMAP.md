@@ -3616,8 +3616,13 @@ Rules set that day:
       2026-10-25 snapshot writes the native crash into the log; the first
       log with that line names the fault. Reproduce on the agent server
       with Facility streets on from the same yards.
-- [ ] Co-driver crawls at 20 after planning a handover stop, then hands
-      over out of hours (issue #518). Ask for the log once.
+- [x] Co-driver crawls at 20 after planning a handover stop, then hands
+      over out of hours (issue #518). Ice holds the truck at 20 while the
+      stop's reach was judged at 50; reach now follows the weather's pace,
+      and a plan the weather puts out of reach is dropped for a nearer lot.
+- [ ] (Found along the way) A slept shift is passed at the posted pace
+      whatever the weather, so on ice the truck covers miles in the jump
+      that it could not drive live.
 - [ ] Co-driver damages the truck (issue #492).
 - [ ] Game stops responding when the player switches windows (report
       2026-10-21, answers asked for).
