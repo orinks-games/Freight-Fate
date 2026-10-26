@@ -156,3 +156,24 @@ fn a_lot_the_ice_puts_out_of_reach_is_dropped_from_the_plan() {
         tail(&harness)
     );
 }
+
+#[test]
+fn a_set_speed_over_the_limit_is_brought_down_to_it() {
+    // Crossing into Indiana's 65 for trucks, Dan held the 70 he had set in
+    // Illinois (agent drive, 2026-10-26).
+    let mut harness = short_shift("Team Pace Limit", WeatherKind::Clear, &[150.0]);
+    harness.with_drive(|d, _| {
+        d.speed_control_armed = true;
+        d.cruise_mph = Some(80.0);
+    });
+    frames(&mut harness, 600);
+    let (set, limit) = harness.with_drive(|d, _| {
+        let (limit, _) = d.trip.speed_limit_at(d.trip.position_mi);
+        (d.cruise_mph, limit)
+    });
+    assert!(
+        set.is_some_and(|set| set <= limit),
+        "set {set:?} over the limit {limit}: {}",
+        tail(&harness)
+    );
+}

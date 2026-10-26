@@ -400,9 +400,18 @@ impl DrivingState {
             let low_set = self
                 .cruise_mph
                 .is_some_and(|set| set < limit - CRUISE_SET_MARGIN_MPH);
+            // A lower limit ahead of a set speed taken under a higher one: the
+            // set speed comes down to it. Crossing into Indiana's 65 for
+            // trucks, the co-driver held the 70 set in Illinois (agent
+            // drive, 2026-10-26).
+            let high_set = self.cruise_mph.is_some_and(|set| set > limit + 0.5);
             let open_road = zone.is_none() && self.ramp_mi.is_none() && !self.exit_signal_on;
-            if low_set && open_road && pilot.beat_s == 0.0 {
-                self.pilot_press(ctx, pilot, Action::CruiseUp);
+            if open_road && pilot.beat_s == 0.0 {
+                if low_set {
+                    self.pilot_press(ctx, pilot, Action::CruiseUp);
+                } else if high_set {
+                    self.pilot_press(ctx, pilot, Action::CruiseDown);
+                }
             }
         }
 

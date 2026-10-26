@@ -3623,6 +3623,8 @@ Rules set that day:
 - [ ] (Found along the way) A slept shift is passed at the posted pace
       whatever the weather, so on ice the truck covers miles in the jump
       that it could not drive live.
+- [x] (Found along the way) The co-driver kept a cruise speed set under a
+      higher limit: 70 into Indiana's 65 for trucks. They now tap it down.
 - [ ] Co-driver damages the truck (issue #492).
 - [ ] Game stops responding when the player switches windows (report
       2026-10-21, answers asked for).
