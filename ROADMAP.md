@@ -4371,11 +4371,11 @@ Honesty debts for this v1 slice (do not paper over):
 Plumbing before the merge, none of it gameplay (agreed 2026-10-26; the
 one-channel rule is in [October 26](#october-26-the-road-to-the-20-nightlies-found-along-the-way)).
 
-- [ ] Port cross-border legs into the Rust `index-world` (it refuses
-      `surrey_bc_ca` to `blaine_wa_us` and `whitehorse_yt_ca` to
-      `tok_ak_us` today), then sync dev into `feat/career-2.0` as a PR
-      against dev so CI runs. The sync deletes the 143 Python tools; every
-      bake after it is an `ff-tools` command.
+- [x] Cross-border legs in the Rust `index-world` (filed under the
+      country they start in), and dev synced into `feat/career-2.0` through
+      a PR against the branch; Rust and changelog CI now run on it. The
+      sync deleted the Python tools; every bake after it is an `ff-tools`
+      command.
 - [ ] Workspace version 2.0.0 in the merge commit; the nightly keeps its
       `1.9-tester-*` name and the release notes carry a 2.0 preview
       heading. The downloads page groups by the prerelease flag and needs
@@ -4387,8 +4387,8 @@ one-channel rule is in [October 26](#october-26-the-road-to-the-20-nightlies-fou
 - [ ] The orinks.net profile export accepts the new fields and labels, on
       the dev preview with the agent staging driver first.
 - [ ] Curate the branch's ~110 unreleased changelog lines; the manual's
-      hours-of-service and home-terminal pages; `l10n-extract` after the
-      sync.
+      hours-of-service and home-terminal pages. (`l10n-extract` ran with
+      the sync.)
 - [ ] Gates before the first tag: the full test pair and the battery green
       on the merged dev, the whole-map sweep once, agent-server drives of a
       carrier-terminal career start, one Alcan leg and one street arrival
@@ -4410,9 +4410,32 @@ loudly when mostly assumed.
 - [ ] Route geometry: re-route every leg without a geometry archive over
       the planet cut with truck costing, points every quarter mile; re-sweep
       the US legs baked against straight chords.
+- [x] The Python Alcan speed bake, ported into `osm-speed-limits`: a leg
+      with no geometry archive is read along the Valhalla truck route
+      through its route points (`--valhalla`, cached outside the repo), a
+      bare number is km/h in Canada, an Alaska stretch with no posted way
+      takes the 55 mph default labelled assumed, and a limit that changes
+      at a country border starts there, measured on the road.
 - [ ] Speed limits, second pass over the new geometry, Canada included;
       California's statutory 55 for trucks where OSM has no `maxspeed:hgv`;
       the seven states read from an old way cache.
+- [ ] (Found along the way) Two Python tools 2.0 had and dev never did
+      went with the sync, unported: the map-pack builder
+      (`build_map_pack.py`, the producer half of in-game map updates) and
+      the parallel-alternate gap report (`analyze_route_gaps.py`). Both are
+      in git at `61e4585b`; port one when its work comes up. The facility
+      endpoint re-sweep's fallback rows for unmatched targets went too.
+- [ ] (Found along the way) What the October Alcan speed re-read showed
+      (2026-10-26): no route through Surrey to Blaine's route points agrees
+      with the 16-mile leg in either direction, so both keep their coarse
+      placeholder; Hart Highway north of Prince George has no posted way
+      for about half its length (explicit gaps, the game's heuristic
+      there; a provincial unposted default, researched and labelled
+      assumed, would fill them); and the road disagrees with the leg's
+      miles by over 3 percent on Fairbanks to Nenana (56 against 53),
+      Glennallen to Palmer (140 against 145), Prince George to Surrey (492
+      against 465) and the short Anchorage, Wasilla, Palmer and Kenai legs.
+      The route re-sweep above should re-measure those miles.
 - [ ] Exits, ramp lengths, terminals and controls, per carriageway, both
       directions' ramp ends (3,456 of 18,165 today), which is what lets
       road stops' streets come back.

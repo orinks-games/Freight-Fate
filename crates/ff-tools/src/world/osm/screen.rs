@@ -331,6 +331,8 @@ mod tests {
             route_ref: way_ref.into(),
             mph: Some(way_mph),
             hgv: false,
+            ca_mph: Some(way_mph),
+            ca_hgv: false,
             coords: vec![(40.0001, -100.1), (40.0001, -99.7)],
         };
         let index = WayIndex::build(vec![way], &corridor_cells(std::iter::once(&line)));
