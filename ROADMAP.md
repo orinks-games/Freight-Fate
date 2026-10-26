@@ -3644,7 +3644,7 @@ Rules set that day:
 - [ ] Co-driver damages the truck (issue #492).
 - [ ] Game stops responding when the player switches windows (report
       2026-10-21, answers asked for).
-- [ ] Speed limits re-read from October OpenStreetMap (PR #515).
+- [x] Speed limits re-read from October OpenStreetMap (PR #515).
 - [ ] Tier 2: the Driving hints setting; lane keeping moving to the open
       lane at a closure (issue #496); the doubled continue-onto cue; the
       Mall of America exit; the Arch Linux PipeWire build (issue #501).
