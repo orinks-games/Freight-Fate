@@ -1366,6 +1366,22 @@ Everything found before 2026-09-25 moved to
 - [ ] (Found along the way) A clutchless manual option, the way real
       drivers shift on the road: the clutch only to pull away, the lever
       between gears when the revs match. Proposed to the owner 2026-10-14.
+- [ ] (Found along the way) From 1.9.5 to the 2.0 nightlies: the 1.9.6
+      list, the switch rule and the one-channel rule, agreed by the owner
+      2026-10-26 ([October 26](#october-26-the-road-to-the-20-nightlies-found-along-the-way)).
+- [ ] (Found along the way) The speed keeper trails a posted drop on a
+      street: 38 in a 30 on North Arnold Boulevard before "easing to 30"
+      (Abilene departure drive, 2026-10-26).
+- [ ] (Found along the way) Damage climbs with nothing said until the 50
+      and 75 percent lines: a no-assists drive reached 76 percent with no
+      impact sound and no line between (Abilene departure drive,
+      2026-10-26).
+- [ ] (Found along the way) A 70 mile-an-hour posting is announced as
+      coming up on a city boulevard beside the Abilene yard; the arterial's
+      rural limit reaches into town (Abilene departure drive, 2026-10-26).
+- [ ] (Found along the way) "Going around the block" is the whole price of
+      a missed street turn: about four game minutes, no horn, no curb, no
+      traffic. Carried into the 2.0 streets plan as the turn judge.
 
 ### Release gate record
 
@@ -3569,6 +3585,68 @@ Minneapolis.
       measured 346 MB. It needs a force push and fresh clones, so it waits
       for the owner.
 
+### October 26 the road to the 2.0 nightlies (Found along the way)
+
+The plan from 1.9.5 to the first 2.0 nightly, agreed by the owner on
+2026-10-26 (planning doc in the project; three agent-server street drives
+behind the streets part). The 2.0 side is under
+[2.0 planned](#20-planned----the-working-week-and-home).
+
+Rules set that day:
+
+- **Stable on main, one nightly channel on dev.** Never a second tester
+  channel: the dev snapshot is the alpha/beta channel for whatever dev
+  is. When `feat/career-2.0` merges into dev, the same nightly starts
+  building 2.0; the `1.9-tester-*` tag name stays (renaming it strands
+  every tester already on one; see the workflow's note) and the workspace
+  version goes to 2.0.0 in the merge commit so a snapshot reports itself
+  truthfully.
+- **The switch.** Dev is switched when 1.9.6 is tagged, no tier-1 report
+  is older than a week, and the 2.0 branch has taken a dev sync that
+  passes CI as a PR against dev. Then the branch merges into dev. A 1.9
+  fix after that lands on main and ships as 1.9.7 from a tag on main.
+- **PR #515 stays on dev** for 1.9.6: rebase after #514, an agent-server
+  drive, merge. The same `osm-speed-limits` command runs again on 2.0
+  with Canada in the bounding box.
+
+1.9.6, ship when the tier-1 list is empty:
+
+- [ ] Crashes on facility streets with assists on (issues #513, #516,
+      #517; one tester, 1.9.5, Lynchburg and Staunton, Virginia). The
+      2026-10-25 snapshot writes the native crash into the log; the first
+      log with that line names the fault. Reproduce on the agent server
+      with Facility streets on from the same yards.
+- [ ] Co-driver crawls at 20 after planning a handover stop, then hands
+      over out of hours (issue #518). Ask for the log once.
+- [ ] Co-driver damages the truck (issue #492).
+- [ ] Game stops responding when the player switches windows (report
+      2026-10-21, answers asked for).
+- [ ] Speed limits re-read from October OpenStreetMap (PR #515).
+- [ ] Tier 2: the Driving hints setting; lane keeping moving to the open
+      lane at a closure (issue #496); the doubled continue-onto cue; the
+      Mall of America exit; the Arch Linux PipeWire build (issue #501).
+- [ ] Hygiene: Hearken pinned to main; contributor PRs #512 and #334
+      merged or closed with a reason; the owner's listening pass; release
+      signing before the tester pool widens.
+
+Not in 1.9.x: map changes beyond the speed-limit re-read, street lights
+and signs, road stops' streets, Canada, every 2.0 feature. Translations
+keep landing on dev one language per PR.
+
+What the street drives found (Dallas into the Abilene yard with all
+assists; the Abilene yard to the I-20 ramp with the realistic preset and
+with everything off):
+
+- With assists, five to ten street miles hold no traffic, no light, no
+  sign, no pedestrian and no cross street with anyone on it; the on-ramp
+  is the first place anything else exists.
+- Turn commitment is speed only: a driver who never steers makes every
+  corner if slow enough, and a missed one costs a silent lap of the block.
+- The departure stage forces the speed keeper on, so a true no-assists
+  departure cannot be staged through `start_at` today.
+- Three "Found along the way" items above: the keeper trailing a posted
+  drop, silent damage, the rural 70 posted on a boulevard.
+
 ## 2.0 planned -- the working week and home
 
 Design doc: `docs/eld-home-terminal-design.md`. The ELD grows from a daily
@@ -3599,6 +3677,126 @@ terminal becomes the anchor of that week instead of a spawn point.
       porting genny's voiced instruments, drums and styles into that renderer
       would give the synth mode a real band. genny is Python, so it is a port,
       not an embed.
+
+### The first 2.0 nightly
+
+Plumbing before the merge, none of it gameplay (agreed 2026-10-26; the
+one-channel rule is in [October 26](#october-26-the-road-to-the-20-nightlies-found-along-the-way)).
+
+- [ ] Port cross-border legs into the Rust `index-world` (it refuses
+      `surrey_bc_ca` to `blaine_wa_us` and `whitehorse_yt_ca` to
+      `tok_ak_us` today), then sync dev into `feat/career-2.0` as a PR
+      against dev so CI runs. The sync deletes the 143 Python tools; every
+      bake after it is an `ff-tools` command.
+- [ ] Workspace version 2.0.0 in the merge commit; the nightly keeps its
+      `1.9-tester-*` name and the release notes carry a 2.0 preview
+      heading. The downloads page groups by the prerelease flag and needs
+      no new row, only the alpha label.
+- [ ] Saves: a 1.9 career copies forward on the first 2.0 start, and
+      stable 1.9 refuses a 2.0 cloud save cleanly (new fields:
+      parked facility, home terminal, home city, turnpike notice; 20
+      carrier labels). Testers move from 1.9.6 to 2.0 on the channel.
+- [ ] The orinks.net profile export accepts the new fields and labels, on
+      the dev preview with the agent staging driver first.
+- [ ] Curate the branch's ~110 unreleased changelog lines; the manual's
+      hours-of-service and home-terminal pages; `l10n-extract` after the
+      sync.
+- [ ] Gates before the first tag: the full test pair and the battery green
+      on the merged dev, the whole-map sweep once, agent-server drives of a
+      carrier-terminal career start, one Alcan leg and one street arrival
+      with Facility streets on, and the owner's listening pass on the new
+      spoken surfaces.
+
+### Map audit: seven layers, one planet cut, Rust tools
+
+The US layers date from June 2026 OpenStreetMap extracts; the Alcan,
+Alaska, BC and Yukon legs on the branch are scaffolds (route points every
+30 miles, one grade segment per leg, a few speed postings, no exits,
+curves, lanes, counts or landmarks). The Python bakes that made the US
+layers are gone from dev, so each layer is a port into `ff-tools` first,
+the way PR #515's `osm-speed-limits` was, run over one planet cut
+(osm-pds on AWS; Geofabrik resets cloud connections). Provenance rules
+in `CLAUDE.md` apply to every layer: read, derived or assumed, said
+loudly when mostly assumed.
+
+- [ ] Route geometry: re-route every leg without a geometry archive over
+      the planet cut with truck costing, points every quarter mile; re-sweep
+      the US legs baked against straight chords.
+- [ ] Speed limits, second pass over the new geometry, Canada included;
+      California's statutory 55 for trucks where OSM has no `maxspeed:hgv`;
+      the seven states read from an old way cache.
+- [ ] Exits, ramp lengths, terminals and controls, per carriageway, both
+      directions' ramp ends (3,456 of 18,165 today), which is what lets
+      road stops' streets come back.
+- [ ] Curves: the archive builder, so detour and Alcan legs get real bends.
+- [ ] Grades: 3DEP for the US; the Canadian Digital Elevation Model
+      elsewhere, labelled.
+- [ ] Lanes, traffic counts (provincial tables for Canada) and landmarks.
+- [ ] Street chains, endpoints, facility and stop approaches from the same
+      OSM set, so chains, terminals and ramp ends agree. The streets work
+      below needs this one.
+
+### City streets: four slices
+
+What three agent-server drives showed on 2026-10-26: with assists a street
+is a speed-managed corridor with no one on it; without them the only skill
+tested is slowing for a corner, and the only penalty a silent lap of the
+block (`STREET_CONTROLS_IN_PLAY` and `STOP_STREETS_IN_PLAY` are both false;
+`freeway_presence_at` returns 0 on street legs; turn commitment is speed
+only; no chain carries a gate or dock hint). Each slice is driven at all
+three assist levels before it is called ready.
+
+- [ ] **Slice 1, turn the baked world on.** Lights and signs under the
+      Facility streets setting in the first 2.0 nightly, timing debts open
+      (owner, 2026-10-26); right on red by state and a permissive left
+      against the cross-traffic stream; road stops' streets once the
+      both-directions ramp bake lands; controls facing outbound; chains
+      that prefer truck routes and arterials and never double back through
+      a one-way pair.
+- [ ] **Slice 2, other road users.** A street traffic stream (platoons
+      from the light upstream, a lead vehicle, a queue at a red the
+      stop-and-go assist creeps behind); oncoming traffic on undivided
+      streets; pedestrian and railroad crossings, school zones by the
+      clock, a city sound bed by street class and hour; low bridges and
+      truck bans on the chains from `maxheight` and `hgv`.
+- [ ] **Slice 3, the turn and the yard.** Steering judged at corners when
+      lane keeping is off or partial (an unsteered corner runs on, a late
+      one clips the curb; no reaction window); turn lanes from `lanes` and
+      `turn:lanes`; gate, yard and dock as three points with an audio-first
+      backing sequence (owner, 2026-10-26: build it); departure to match.
+- [ ] **Slice 4, consequences.** Red-light, stop-sign and truck-route
+      violations through the existing citation paths; curb and off-tracking
+      damage; the stale "holding 55" readout and the doubled easing lines;
+      a street truth test and the three-level agent-server street matrix
+      kept as a regression drive.
+
+### Canada: all routes in and baked
+
+Scope: the National Highway System core and the trucking corridors that
+feed it, both directions, as the US was built; about 120 to 140 freight
+cities and 260 to 320 legs. Each corridor is one data PR (cities, legs,
+then the seven layers over the same planet cut), built with the Rust
+tools from the start. Canadian carriers and home bases follow the roads as
+a carrier slice (owner, 2026-10-26).
+
+- [ ] Trans-Canada and Yellowhead, Vancouver to Winnipeg (1, 5, 16, 2),
+      joining the Alcan at Prince George and Dawson Creek and the US at
+      Blaine, Sumas, Osoyoos, Kingsgate, Coutts, North Portal, Emerson.
+- [ ] The Ontario and Quebec trunk (401, 400, 11, 17, 20, 40), Windsor to
+      Quebec City and Thunder Bay, with the Detroit, Sarnia, Niagara,
+      Lansdowne, Cornwall, Lacolle and Stanstead crossings.
+- [ ] Winnipeg to Thunder Bay over 17 and 1, Kenora and Dryden as fuel.
+- [ ] Atlantic Canada to Halifax, Charlottetown and Sydney; Houlton,
+      Calais and St. Stephen crossings.
+- [ ] The north: 63 to Fort McMurray, 16 to Prince Rupert, 37 to the
+      Yukon, 3 to Yellowknife, freight nodes only.
+- [ ] The rules before the first corridor merges: postings spoken in km/h
+      in Canada whatever the unit setting; cycle 1 and 2 hours of service
+      with the Canadian rest menus; provincial weights, the 25 m length,
+      B-trains, spring bans; the 105 km/h limiters; CAD at the pump;
+      customs with hours, FAST and cabotage at every listed port;
+      Newfoundland's half hour and Saskatchewan's standard time; Quebec
+      signs read as written; the Coquihalla, Rogers Pass and 17 closures.
 
 ### Personal conveyance and duty-purpose correction
 
@@ -3695,7 +3893,9 @@ parked on `feat/street-lights-2-0`. Detail in
 [September 24](#september-24-realistic-interstate-exit).
 
 - [ ] **Turn street traffic controls back on.** Lights and signs on the
-      approach chains play again once the items below hold up on a drive.
+      approach chains play again in the first 2.0 nightly, under the
+      Facility streets setting, with the timing items below still open
+      (owner, 2026-10-26; streets slice 1).
 - [ ] **Turn road stops' streets back on.** Most exits have a ramp end
       baked for one direction only (3,456 of 18,165 have both), because the
       other direction's ramp leaves at its own junction node. The search
