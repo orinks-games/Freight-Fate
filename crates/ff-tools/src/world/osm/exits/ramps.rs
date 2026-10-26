@@ -216,8 +216,11 @@ pub fn ramp_facts(
         counts.gores_measured += 1;
         let end = topo.ramp_end(gore);
         let mut dir = Direction::default();
-        if let Some(end) = &end {
-            dir.advisory_mph = end
+        // The lowest advisory on any branch of this side's ramp: a ramp that
+        // forks (170A and 170B) posts its bend on one branch only.
+        {
+            dir.advisory_mph = topo
+                .walk_far_ends(gore)
                 .ways
                 .iter()
                 .filter_map(|(w, along)| {

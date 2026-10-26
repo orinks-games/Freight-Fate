@@ -313,12 +313,14 @@ fn report(t: &Tally, found: &DiscoverCounts, r: &RampCounts) {
     );
     println!(
         "Junctions: {} within {} m of a leg's road; dropped: {} on no motorway or trunk way, \
-         {} on a crossing road, {} within a mile of a leg end.",
+         {} on a crossing road, {} within a mile of a leg end; {} exit numbers seen twice on one leg and kept as two \
+         exits.",
         found.near_line,
         discover::CORRIDOR_M,
         found.off_mainline,
         found.crossing_road,
-        found.at_leg_end
+        found.at_leg_end,
+        found.split_numbers
     );
     if !t.cleared.is_empty() {
         println!(

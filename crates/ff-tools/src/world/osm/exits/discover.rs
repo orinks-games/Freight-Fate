@@ -22,9 +22,14 @@ use crate::world::osm::geo::{haversine_m, LegLine, M_PER_MI};
 
 /// A junction this close to the archived line is on the leg's road.
 pub const CORRIDOR_M: f64 = 200.0;
-/// Nodes of one exit number farther apart than this are two exits (a leg
-/// across a state line can pass two exits with one number).
+/// Exits closer than this crowd each other's spoken cues; the richer stays.
 pub const MIN_EXIT_SPACING_MI: f64 = 2.0;
+/// Nodes of one exit number farther apart than this are two exits (a leg
+/// across a state line can pass two exits with one number). Wider than the
+/// spacing above because a split interchange's carriageways diverge apart:
+/// I-65 exit 127 at Louisville's are 2.0 miles apart. Assumed, from that
+/// measurement; the report counts the splits.
+pub const SAME_EXIT_MAX_GAP_MI: f64 = 3.0;
 /// Control cities per exit, for speech brevity.
 pub const MAX_DESTINATIONS: usize = 3;
 /// A gore this close to an exit junction belongs to it, for its signs.
@@ -219,6 +224,8 @@ pub struct DiscoverCounts {
     pub off_mainline: usize,
     pub crossing_road: usize,
     pub at_leg_end: usize,
+    /// One exit number seen twice on a leg, farther apart than one exit.
+    pub split_numbers: usize,
 }
 
 /// The exits on one leg, ordered by mile, before spacing.
@@ -285,7 +292,8 @@ pub fn exit_nodes(
         let mut groups: Vec<Vec<(f64, &Junction)>> = vec![vec![same[0]]];
         for item in same.into_iter().skip(1) {
             let last = groups.last().and_then(|g| g.last()).map_or(item.0, |l| l.0);
-            if item.0 - last > MIN_EXIT_SPACING_MI {
+            if item.0 - last > SAME_EXIT_MAX_GAP_MI {
+                counts.split_numbers += 1;
                 groups.push(Vec::new());
             }
             if let Some(g) = groups.last_mut() {

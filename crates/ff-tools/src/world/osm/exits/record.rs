@@ -67,7 +67,7 @@ impl Sources {
             advisory: format!(
                 "OpenStreetMap maxspeed:advisory on the motorway_link ways of this exit's ramp, \
                  per direction of travel (read; a directional suffix resolved from the way's \
-                 drawn direction), the lowest along the ramp, {from}: {OSM}"
+                 drawn direction), the lowest on any branch of the ramp, {from}: {OSM}"
             ),
             length: format!(
                 "derived from OpenStreetMap geometry: summed node-to-node distance along this \
