@@ -28,6 +28,8 @@
 //!   somewhere else: the chain is keyed by the node, so moving it would cut
 //!   the chain off. Its source says so, and the report counts them, until
 //!   the street chains are re-baked from the same extract;
+//! * an old exit the read does not find again, when a road stop or a street
+//!   chain is keyed to it, whole (a fresh exit crowding it gives way);
 //! * road stops stay linked to their exit (`interchange_mi`): a stop whose
 //!   exit is re-read follows it to its new mile, and one whose exit is gone
 //!   loses the link and keeps its signed number.
@@ -229,8 +231,31 @@ pub fn main(argv: &[String]) -> Result<i32> {
             miles,
             &mut found,
         );
-        let fresh = record::read_leg(&topo, &snapper, exits, &highway, &sources, &mut ramp_counts);
-        let merged = record::merge(&old, fresh, &terminals_in_use, &sources, &mut tally.carry);
+        let stop_miles: Vec<f64> = leg
+            .get("stops")
+            .and_then(Value::as_array)
+            .into_iter()
+            .flatten()
+            .filter_map(|s| s.get("interchange_mi").and_then(Value::as_f64))
+            .collect();
+        let known = record::known_exits(&old, &stop_miles, &terminals_in_use);
+        let fresh = record::read_leg(
+            &topo,
+            &snapper,
+            exits,
+            &highway,
+            &known,
+            &sources,
+            &mut ramp_counts,
+        );
+        let merged = record::merge(
+            &old,
+            fresh,
+            &stop_miles,
+            &terminals_in_use,
+            &sources,
+            &mut tally.carry,
+        );
         tally.old_exits += old.len();
         tally.new_exits += merged.records.len();
         tally.matched += merged.matched;
@@ -346,8 +371,9 @@ fn report(t: &Tally, found: &DiscoverCounts, r: &RampCounts) {
     );
     println!(
         "Kept: {} ramp facts set by hand; {} ramp ends a street chain starts from, where the \
-         new read ends elsewhere ({} of them on exits the read no longer has).",
-        t.carry.hand_set_facts, t.carry.chain_terminals_kept, t.carry.chain_terminals_lost
+         new read ends elsewhere; {} exits the read did not find again, whole, because a road \
+         stop or a street chain is keyed to them.",
+        t.carry.hand_set_facts, t.carry.chain_terminals_kept, t.carry.exits_kept_for_links
     );
     println!(
         "Road stops: {} followed their exit to a new mile, {} unchanged, {} lost the link \

@@ -248,12 +248,17 @@ fn to_record(
     o
 }
 
-/// Read one leg's exits and ramps, spaced for speech.
+/// Read one leg's exits and ramps, spaced for speech. Where two exits
+/// crowd each other, the one the leg already had wins (`known`: its old
+/// numbered exits, by number, mile and weight: 2 when a road stop or a
+/// street chain is keyed to it), so the spacing does not trade that exit
+/// for its neighbour; then the richer one, as before.
 pub fn read_leg(
     topo: &Topo,
     snapper: &Snapper,
     exits: Vec<ExitNodes>,
     highway: &str,
+    known: &[(String, f64, usize)],
     sources: &Sources,
     counts: &mut RampCounts,
 ) -> Vec<Fresh> {
@@ -268,7 +273,17 @@ pub fn read_leg(
     let kept = space_out(
         signed,
         |e| e.0.at_mi,
-        |e| usize::from(!e.0.exit_ref.is_empty()) + e.1.len(),
+        |e| {
+            let weight = known
+                .iter()
+                .filter(|(r, mi, _)| {
+                    !r.is_empty() && *r == e.0.exit_ref && (mi - e.0.at_mi).abs() <= 5.0
+                })
+                .map(|k| k.2)
+                .max()
+                .unwrap_or(0);
+            weight * 100 + usize::from(!e.0.exit_ref.is_empty()) + e.1.len()
+        },
     );
     kept.into_iter()
         .map(|(exit, dests, via)| {
@@ -291,7 +306,8 @@ pub fn read_leg(
 pub struct Carry {
     pub hand_set_facts: usize,
     pub chain_terminals_kept: usize,
-    pub chain_terminals_lost: usize,
+    /// Old exits not read again but kept whole for a stop or chain.
+    pub exits_kept_for_links: usize,
 }
 
 pub struct Merged {
@@ -301,6 +317,30 @@ pub struct Merged {
     /// Each old record's mile, and the mile of the record that replaces it
     /// (None when it is gone).
     pub moved: Vec<(f64, Option<f64>)>,
+}
+
+/// A leg's old numbered exits read by this tool or the Python, as
+/// (number, mile, weight), for [`read_leg`]. Weight 2 when a road stop
+/// links to the exit (`stop_miles`) or a street chain starts at one of its
+/// ramp ends.
+pub fn known_exits(
+    old: &[Value],
+    stop_miles: &[f64],
+    chain_terminals: &HashSet<i64>,
+) -> Vec<(String, f64, usize)> {
+    old.iter()
+        .filter_map(Value::as_object)
+        .filter(|o| ours(&str_of(o, "source"), EXIT_SOURCES))
+        .filter_map(|o| {
+            let mi = o.get("at_mi")?.as_f64()?;
+            let keyed = stop_miles.iter().any(|s| (s - mi).abs() <= 1e-6)
+                || ["backward", "forward"]
+                    .iter()
+                    .any(|d| terminal_node(o, d).is_some_and(|n| chain_terminals.contains(&n)));
+            Some((bare_ref(o), mi, 1 + usize::from(keyed)))
+        })
+        .filter(|(r, _, _)| !r.is_empty())
+        .collect()
 }
 
 fn bare_ref(o: &Object) -> String {
@@ -367,6 +407,7 @@ fn ordered(o: Object) -> Object {
 pub fn merge(
     old: &[Value],
     fresh: Vec<Fresh>,
+    stop_miles: &[f64],
     chain_terminals: &HashSet<i64>,
     sources: &Sources,
     carry: &mut Carry,
@@ -397,21 +438,43 @@ pub fn merge(
         })
         .collect();
     let pairs = match_records(&read, &fresh);
+    // An old exit the read did not find again, but that a road stop or a
+    // street chain is keyed to, stays whole until those are re-baked from
+    // the same extract; a fresh exit crowding it gives way.
+    let keyed = |o: &Object, mi: f64| {
+        stop_miles.iter().any(|s| (s - mi).abs() <= 1e-6)
+            || ["backward", "forward"]
+                .iter()
+                .any(|d| terminal_node(o, d).is_some_and(|n| chain_terminals.contains(&n)))
+    };
+    let kept_old: Vec<(usize, f64)> = read
+        .iter()
+        .filter(|(oi, o, mi)| !pairs.iter().any(|(p, _)| p == oi) && keyed(o, *mi))
+        .map(|(oi, _, mi)| (*oi, *mi))
+        .collect();
+    let keep_fresh: Vec<bool> = fresh
+        .iter()
+        .enumerate()
+        .map(|(fi, f)| {
+            pairs.iter().any(|(_, p)| *p == fi)
+                || kept_old
+                    .iter()
+                    .all(|(_, m)| (m - f.at_mi).abs() >= MIN_EXIT_SPACING_MI)
+        })
+        .collect();
     let mut moved: Vec<(f64, Option<f64>)> = Vec::new();
-    for (oi, o, mi) in &read {
-        let to = pairs
-            .iter()
-            .find(|(p, _)| p == oi)
-            .map(|(_, fi)| fresh[*fi].at_mi);
-        if to.is_none() {
-            for dir in ["backward", "forward"] {
-                if terminal_node(o, dir).is_some_and(|n| chain_terminals.contains(&n)) {
-                    carry.chain_terminals_lost += 1;
-                }
-            }
-        }
+    for (oi, _, mi) in &read {
+        let to = if kept_old.iter().any(|(k, _)| k == oi) {
+            Some(*mi)
+        } else {
+            pairs
+                .iter()
+                .find(|(p, _)| p == oi)
+                .map(|(_, fi)| fresh[*fi].at_mi)
+        };
         moved.push((*mi, to));
     }
+    carry.exits_kept_for_links += kept_old.len();
     let mut records: Vec<(f64, Object)> = hand
         .iter()
         .map(|o| {
@@ -421,7 +484,15 @@ pub fn merge(
             )
         })
         .collect();
+    for (oi, mi) in &kept_old {
+        if let Some(o) = old[*oi].as_object() {
+            records.push((*mi, o.clone()));
+        }
+    }
     for (fi, f) in fresh.iter().enumerate() {
+        if !keep_fresh[fi] {
+            continue;
+        }
         let mut rec = f.record.clone();
         if let Some(&(oi, _)) = pairs.iter().find(|(_, p)| *p == fi) {
             let Some(o) = old[oi].as_object() else {
@@ -605,7 +676,7 @@ pub fn layer_meta(
         "kept" => crate::pyobj! {
             "hand_set_facts" => carry.hand_set_facts,
             "chain_terminals_kept" => carry.chain_terminals_kept,
-            "chain_terminals_lost" => carry.chain_terminals_lost,
+            "exits_kept_for_links" => carry.exits_kept_for_links,
         },
         "search_m" => crate::pyobj! {
             "junction_corridor" => discover::CORRIDOR_M,
@@ -672,6 +743,7 @@ mod tests {
         let merged = merge(
             &old,
             vec![fresh(6.0, "1", None), fresh(20.6, "307", Some(78))],
+            &[],
             &chains,
             &s,
             &mut carry,
