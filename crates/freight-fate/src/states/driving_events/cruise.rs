@@ -2,6 +2,7 @@
 //! keeper, and the keeper's own snubs.
 
 use ff_core::pyfmt::round_py;
+use ff_core::sim::trip::is_highway_zone_reason;
 use ff_core::speech_pacing::SpeechCategory;
 use ff_core::speech_text::SpokenMessage;
 
@@ -54,10 +55,12 @@ impl DrivingState {
         }
         let position = self.trip.position_mi;
         let (limit, zone_reason) = self.trip.speed_limit_at(position);
+        // Adaptive cruise never runs on streets, yards or facility approaches.
+        // The speed keeper covers those low-speed stretches instead, so nobody
+        // has to hold the accelerator down. A work zone or heavy traffic on
+        // the highway is cruise's, held at its limit.
+        let zone_reason = zone_reason.filter(|reason| !is_highway_zone_reason(reason));
         if let Some(zone_reason) = zone_reason {
-            // Adaptive cruise never runs on facility access roads, gates, work
-            // zones, or heavy traffic. The speed keeper covers those low-speed
-            // stretches instead, so nobody has to hold the accelerator down.
             self.engage_keeper(ctx, limit, &zone_reason, None, true);
             return;
         }
@@ -154,9 +157,7 @@ impl DrivingState {
         // (Brandon, 2026-08-20). The queue ahead is real even when the bubble
         // happens to be showing empty road; the words just have to match.
         let (posted, limit_reason) = self.acc_posted_limit_ahead(ctx);
-        let restricted = limit_reason
-            .as_deref()
-            .is_some_and(|reason| RESTRICTED_ZONE_REASONS.contains(&reason));
+        let restricted = limit_reason.as_deref().is_some_and(is_highway_zone_reason);
         let cap_mph = if restricted {
             posted
         } else {
@@ -165,7 +166,9 @@ impl DrivingState {
         if cap_mph < effective_mph {
             effective_mph = cap_mph;
             exit_note = match limit_reason.as_deref() {
-                Some("construction") => " through the construction zone".to_string(),
+                Some("construction" | "construction merge") => {
+                    " through the construction zone".to_string()
+                }
                 Some("heavy traffic") => " through the heavy traffic".to_string(),
                 // Which limit, and whether it is in force yet: "for the lower
                 // limit" in a 70 read as cruise ignoring the road (owner,
