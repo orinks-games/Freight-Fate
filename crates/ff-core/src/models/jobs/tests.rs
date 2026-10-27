@@ -573,6 +573,163 @@ fn test_destination_weighting_prefers_near_cities() {
     assert!(near > far);
 }
 
+/// Milwaukee to Kenosha and back is the bounce the owner described
+/// (2026-10-26): deliver south, and the next board's shortest load is the
+/// city you just left. Blind, Milwaukee is on nearly every level-1 Kenosha
+/// board (40 miles, and the low levels weight by closeness squared). With
+/// the arrival city known it is on about a third of them: still there, as
+/// a real backhaul is, but no longer a given.
+#[test]
+fn the_city_the_truck_came_from_is_on_about_a_third_of_the_boards() {
+    let boards_with = |came_from: Option<&str>| {
+        let mut back = 0;
+        for seed in 0..100 {
+            let jobs = board(seed).offers(
+                "Kenosha",
+                NONE,
+                OfferOptions {
+                    level: 1,
+                    came_from,
+                    ..OfferOptions::default()
+                },
+            );
+            back += usize::from(jobs.iter().any(|j| j.destination == "milwaukee_wi_us"));
+        }
+        back
+    };
+    let blind = boards_with(None);
+    let aware = boards_with(Some("Milwaukee"));
+    assert!(blind >= 80, "blind: Milwaukee on {blind} of 100 boards");
+    assert!(
+        (20..=50).contains(&aware),
+        "came from Milwaukee: on {aware} of 100 boards (blind {blind})"
+    );
+}
+
+/// A town with too few cities in reach keeps the straight return: the
+/// gate needs `RETURN_LANE_MIN_POOL` cities to choose from.
+#[test]
+fn a_town_with_few_neighbours_keeps_its_return_load() {
+    let b = board(3);
+    let here = b.world.resolve_city_key("Kenosha");
+    let pool: Vec<Candidate> = b
+        .candidates(&here)
+        .into_iter()
+        .filter(|c| c.0 == "milwaukee_wi_us" || c.0 == "chicago_il_us")
+        .collect();
+    assert_eq!(pool.len(), 2);
+    let mut b = b;
+    for _ in 0..20 {
+        let spread = b.spread_destinations(&here, &pool, 1, 5, "", Some("milwaukee_wi_us"));
+        assert!(
+            spread.iter().any(|c| c.0 == "milwaukee_wi_us"),
+            "{spread:?}"
+        );
+    }
+}
+
+/// The arrival factor leaves the spread alone without an arrival city, and
+/// a city the map does not know changes nothing either.
+#[test]
+fn an_unknown_arrival_city_leaves_the_spread_unchanged() {
+    let blind = offers(7, "Milwaukee", NONE, 3);
+    let aware = board(7).offers(
+        "Milwaukee",
+        NONE,
+        OfferOptions {
+            level: 3,
+            came_from: Some("Nowhere Special"),
+            ..OfferOptions::default()
+        },
+    );
+    let dests = |jobs: &[Job]| {
+        jobs.iter()
+            .map(|j| j.destination.clone())
+            .collect::<Vec<_>>()
+    };
+    assert_eq!(dests(&blind), dests(&aware));
+    let b = board(1);
+    assert_eq!(
+        b.arrival_factor("milwaukee_wi_us", "chicago_il_us", None),
+        1.0
+    );
+    assert_eq!(
+        b.arrival_factor("milwaukee_wi_us", "chicago_il_us", Some("nowhere")),
+        1.0
+    );
+}
+
+/// Came up from Chicago to Milwaukee: Green Bay (ahead) and Madison
+/// (across) draw as before, Chicago itself is a full reversal, and a city
+/// behind the truck but off to the side sits in between.
+#[test]
+fn cities_ahead_and_across_draw_full_and_cities_behind_lean_down() {
+    let b = board(1);
+    let here = "milwaukee_wi_us";
+    let from = Some("chicago_il_us");
+    assert!(
+        (b.arrival_factor(here, "chicago_il_us", from) - (1.0 - BEHIND_HEADING_PENALTY)).abs()
+            < 0.05
+    );
+    assert_eq!(b.arrival_factor(here, "green_bay_wi_us", from), 1.0);
+    assert_eq!(b.arrival_factor(here, "madison_wi_us", from), 1.0);
+    let behind = b.arrival_factor(here, "indianapolis_in_us", from);
+    assert!(
+        behind < 1.0 && behind > 1.0 - BEHIND_HEADING_PENALTY,
+        "{behind}"
+    );
+}
+
+#[test]
+fn turn_angles_read_straight_on_right_angle_and_straight_back() {
+    let south = (40.0, -90.0);
+    let here = (41.0, -90.0);
+    let north = (42.0, -90.0);
+    let east = (41.0, -89.0);
+    assert!(turn_angle_deg(south, here, north).abs() < 0.01);
+    assert!((turn_angle_deg(south, here, east) - 90.0).abs() < 1.0);
+    assert!((turn_angle_deg(south, here, south) - 180.0).abs() < 0.01);
+    assert!((turn_angle_deg(north, here, east) - 90.0).abs() < 1.0);
+}
+
+#[test]
+fn came_from_city_reads_the_lane_that_ended_here() {
+    let w = world();
+    let lanes = vec!["chicago_il_us:milwaukee_wi_us".to_string()];
+    assert_eq!(
+        came_from_city(w, &lanes, "Milwaukee").as_deref(),
+        Some("chicago_il_us")
+    );
+    // The last lane ended somewhere else: a lever moved the truck, or an
+    // old save. Nothing to lean on.
+    assert_eq!(came_from_city(w, &lanes, "Chicago"), None);
+    assert_eq!(came_from_city(w, &[], "Milwaukee"), None);
+    assert_eq!(
+        came_from_city(w, &["not a lane".to_string()], "Milwaukee"),
+        None
+    );
+}
+
+#[test]
+fn a_lane_is_recent_in_both_directions() {
+    let recent = vec!["chicago_il_us:milwaukee_wi_us".to_string()];
+    assert!(lane_recent_either_way(
+        &recent,
+        "chicago_il_us:milwaukee_wi_us"
+    ));
+    assert!(lane_recent_either_way(
+        &recent,
+        "milwaukee_wi_us:chicago_il_us"
+    ));
+    assert!(!lane_recent_either_way(
+        &recent,
+        "milwaukee_wi_us:green_bay_wi_us"
+    ));
+    assert_eq!(reverse_lane_key("a:b").as_deref(), Some("b:a"));
+    assert_eq!(reverse_lane_key("ab"), None);
+    assert_eq!(reverse_lane_key(":b"), None);
+}
+
 #[test]
 fn test_board_never_offers_a_haul_below_the_minimum() {
     // Cities stand for whole freight areas, so trivial across-town hops are not
