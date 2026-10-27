@@ -64,6 +64,10 @@ pub struct Scenario {
     pub clear_load: bool,
     pub market_seed: Option<i64>,
     pub board_seed: Option<i64>,
+    /// The city the truck delivered from to get here: the lane memory reads
+    /// as one delivery from there to the parked city, which is what shapes
+    /// the next board (the straight return damped, lanes recent both ways).
+    pub came_from: Option<String>,
     /// Settings by field name, applied to this session.
     pub settings: Map<String, Value>,
 }
@@ -208,6 +212,7 @@ impl Scenario {
                 .unwrap_or(false),
             market_seed: integer(args, "market_seed")?,
             board_seed: integer(args, "board_seed")?,
+            came_from: text(args, "came_from")?,
             settings,
         })
     }
@@ -372,6 +377,18 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
         if let Some(minutes) = scenario.hos_since_break_min {
             p.hos.since_break_min = minutes;
             notes.push(format!("HOS since-break counter: {minutes:.0} minutes."));
+        }
+        if let Some(city) = &scenario.came_from {
+            let from = resolve_city_forgiving(world, city);
+            if !world.cities.contains_key(&from) {
+                return Err(format!("no city called {city}"));
+            }
+            let here = world.resolve_city_key(&p.current_city);
+            p.recent_lanes = vec![format!("{from}:{here}")];
+            notes.push(format!(
+                "Came in from {}.",
+                world.spoken_city(&from, Some(true))
+            ));
         }
         // Whatever the board showed before, it shows the new situation now.
         p.dispatch_board_cache = None;

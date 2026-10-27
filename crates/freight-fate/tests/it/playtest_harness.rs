@@ -589,14 +589,9 @@ fn test_realistic_speed_control_transitions_do_not_issue_speeding_fines() {
         harness.result()
     };
 
-    assert_eq!(
-        result.speed_control_transitions,
-        vec![
-            "cruise".to_string(),
-            "keeper".to_string(),
-            "cruise".to_string()
-        ]
-    );
+    // Cruise holds the work zone at its limit; the keeper is for streets
+    // and facility approaches (owner rule, 2026-10-27, issue #518).
+    assert_eq!(result.speed_control_transitions, vec!["cruise".to_string()]);
     assert_eq!(result.speeding_tickets, 0, "{}", result.transcript_text());
     assert_eq!(result.inspection_fines, 0, "{}", result.transcript_text());
     // Cruise never held the truck over the limit far enough for a post to
@@ -607,16 +602,17 @@ fn test_realistic_speed_control_transitions_do_not_issue_speeding_fines() {
     assert!(!text.contains("Speeding strike"), "{text}");
     assert!(!text.to_lowercase().contains("speeding fines"), "{text}");
     assert_eq!(result.deliveries, 1);
-    assert!(text.contains("Speed keeper holding"), "{text}");
-    assert!(text.contains("Cruise resuming"), "{text}");
-    // At the posted limit, not highway speed. The tolerance covers the cruise
-    // loop's two-mph brake deadband, which lands the handover a fraction over
-    // 45 -- far inside the speeding leeway, and the no-fine assertions above
-    // are what actually pin the behaviour.
+    // Cruise held the zone itself: no handoff to the keeper and back.
+    assert!(!text.contains("Speed keeper holding"), "{text}");
+    // At the posted limit, not highway speed. The tolerance is cruise's own
+    // brake margin (`CRUISE_BRAKE_OVER_MPH`, 2.5): the retarder holds the
+    // truck that close over before the service brakes snub. It is far inside
+    // the speeding leeway, and the no-fine assertions above are what pin the
+    // behaviour.
     let entry = result
         .construction_entry_speed_mph
         .expect("the work zone was entered");
-    assert!(entry <= 46.0, "{entry}");
+    assert!(entry <= 47.5, "{entry}");
     assert_eq!(
         text.matches("Construction zone ahead, cruise easing to 45.")
             .count(),

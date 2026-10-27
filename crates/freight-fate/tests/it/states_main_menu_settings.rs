@@ -264,6 +264,7 @@ fn gameplay_subcategory_rows(category: &str) -> &'static [&'static str] {
             "Haptics",
             #[cfg(feature = "visuals")]
             "Visual display",
+            "Menu accelerator keys",
             "Keyboard shortcuts",
             "Controller buttons",
             "Back",

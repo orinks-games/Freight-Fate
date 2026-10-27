@@ -5,7 +5,7 @@
 //! running the UIKit window and game controllers and a small Objective-C
 //! touch layer (`crates/freight-fate/ios/ff_touch.m`) turning gestures into
 //! key presses. This turns a `cargo build` for an iOS target into an
-//! installable `FreightFate.app`:
+//! installable `FreightFate.app` and, optionally, a device `FreightFate.ipa`:
 //!
 //! * the executable, with the baked world data, the committed loose sounds
 //!   and the sound and music packs beside it (an iOS bundle is flat, so the
@@ -14,12 +14,14 @@
 //!   linked into the executable;
 //! * an `Info.plist` declaring controller support, and the app icon compiled
 //!   from `crates/freight-fate/ios/Assets.xcassets`;
-//! * a code signature: ad-hoc for the Simulator, or a real identity plus
-//!   provisioning profile for a device.
+//! * a code signature: ad-hoc for the Simulator or for an IPA a sideloading
+//!   tool re-signs, or a real identity plus provisioning profile for direct
+//!   device installation.
 //!
 //! ```text
 //! cargo tools build-ios                          # Simulator build
 //! cargo tools build-ios --install --launch
+//! cargo tools build-ios --sideload               # IPA for a sideloading tool
 //! cargo tools build-ios --device --sign-identity "Apple Development: ..." \
 //!     --provisioning-profile path/to/profile.mobileprovision
 //! cargo tools build-ios --device --ipa --build-number 7 \
@@ -339,7 +341,7 @@ fn stage_app(
     Ok(app)
 }
 
-/// Zip the signed app as `Payload/FreightFate.app` for App Store Connect.
+/// Zip the app as `Payload/FreightFate.app` for sideloading or distribution.
 fn package_ipa(app: &Path) -> Result<PathBuf> {
     let ipa = ios_build().join(format!("{APP_NAME}.ipa"));
     let _ = std::fs::remove_file(&ipa);
@@ -360,47 +362,29 @@ fn package_ipa(app: &Path) -> Result<PathBuf> {
     Ok(ipa)
 }
 
-fn simctl(args: &[&str]) -> Result<()> {
-    util::run(Command::new("xcrun").arg("simctl").args(args))
+/// How the app is signed, which also picks the target.
+#[derive(Debug, PartialEq)]
+enum Signing {
+    /// Ad-hoc, for the Simulator.
+    Simulator,
+    /// Ad-hoc device build packaged as an IPA; the sideloading tool
+    /// supplies the real signature when it installs it.
+    Sideload,
+    /// A real identity and provisioning profile, for direct installation or
+    /// App Store Connect.
+    Identity { identity: String, profile: PathBuf },
 }
 
-const USAGE: &str = "usage: build-ios [--device] [--debug] [--tag LABEL] [--no-music] \
-[--build-number N] [--ipa] [--sign-identity ID] [--provisioning-profile PATH] \
-[--simulator UDID] [--install] [--launch] [--bundle-id]";
-
-pub fn main(argv: &[String]) -> Result<i32> {
-    let args = Args::parse(
-        argv,
-        &Spec {
-            values: &[
-                "tag",
-                "build-number",
-                "sign-identity",
-                "provisioning-profile",
-                "simulator",
-            ],
-            flags: &[
-                "device",
-                "debug",
-                "no-music",
-                "ipa",
-                "install",
-                "launch",
-                "bundle-id",
-            ],
-        },
-    )
-    .map_err(|e| format!("{e}\n{USAGE}"))?;
-    if args.flag("bundle-id") {
-        println!("{BUNDLE_ID}");
-        return Ok(0);
-    }
-    let device = args.flag("device");
-    let target = if device { DEVICE } else { SIMULATOR };
+/// Check the flag combination before anything is built.
+fn signing_mode(args: &Args) -> Result<Signing> {
+    let sideload = args.flag("sideload");
+    let device = args.flag("device") || sideload;
     let identity = args.value("sign-identity");
     let profile = args.path("provisioning-profile");
-    if device && (identity.is_none() || profile.is_none()) {
-        return Err("--device needs --sign-identity and --provisioning-profile".into());
+    if sideload && (identity.is_some() || profile.is_some()) {
+        return Err(
+            "--sideload cannot be combined with signing credentials; use --device --ipa".into(),
+        );
     }
     if device && (args.flag("install") || args.flag("launch")) {
         return Err("--install and --launch are for the Simulator".into());
@@ -408,6 +392,62 @@ pub fn main(argv: &[String]) -> Result<i32> {
     if args.flag("ipa") && !device {
         return Err("--ipa is for a device build".into());
     }
+    if sideload {
+        return Ok(Signing::Sideload);
+    }
+    if !device {
+        return Ok(Signing::Simulator);
+    }
+    match (identity, profile) {
+        (Some(identity), Some(profile)) => Ok(Signing::Identity {
+            identity: identity.to_string(),
+            profile,
+        }),
+        _ => Err("--device needs --sign-identity and --provisioning-profile".into()),
+    }
+}
+
+fn simctl(args: &[&str]) -> Result<()> {
+    util::run(Command::new("xcrun").arg("simctl").args(args))
+}
+
+const USAGE: &str =
+    "usage: build-ios [--sideload] [--device] [--debug] [--tag LABEL] [--no-music] \
+[--build-number N] [--ipa] [--sign-identity ID] [--provisioning-profile PATH] \
+[--simulator UDID] [--install] [--launch] [--bundle-id]";
+
+const SPEC: Spec = Spec {
+    values: &[
+        "tag",
+        "build-number",
+        "sign-identity",
+        "provisioning-profile",
+        "simulator",
+    ],
+    flags: &[
+        "sideload",
+        "device",
+        "debug",
+        "no-music",
+        "ipa",
+        "install",
+        "launch",
+        "bundle-id",
+    ],
+};
+
+pub fn main(argv: &[String]) -> Result<i32> {
+    let args = Args::parse(argv, &SPEC).map_err(|e| format!("{e}\n{USAGE}"))?;
+    if args.flag("bundle-id") {
+        println!("{BUNDLE_ID}");
+        return Ok(0);
+    }
+    let mode = signing_mode(&args)?;
+    let target = if matches!(mode, Signing::Simulator) {
+        SIMULATOR
+    } else {
+        DEVICE
+    };
 
     let label = match args.value("tag") {
         Some(tag) => tag.to_string(),
@@ -422,21 +462,26 @@ pub fn main(argv: &[String]) -> Result<i32> {
         args.value("build-number"),
     )?;
 
-    match (identity, profile) {
-        (Some(identity), Some(profile)) if device => {
-            util::copy_file(&profile, &app.join("embedded.mobileprovision"))?;
+    match &mode {
+        Signing::Identity { identity, profile } => {
+            util::copy_file(profile, &app.join("embedded.mobileprovision"))?;
             let entitlements = ios_build().join("entitlements.plist");
             util::write_text(
                 &entitlements,
-                &plist::to_xml(&provisioning_entitlements(&profile)?),
+                &plist::to_xml(&provisioning_entitlements(profile)?),
             )?;
             codesign(&app, identity, Some(&entitlements))?;
         }
-        _ => codesign(&app, "-", None)?,
+        Signing::Simulator | Signing::Sideload => codesign(&app, "-", None)?,
     }
     println!("Built {}", app.display());
-    if args.flag("ipa") {
+    if args.flag("ipa") || matches!(mode, Signing::Sideload) {
         println!("Packaged {}", package_ipa(&app)?.display());
+    }
+    if matches!(mode, Signing::Sideload) {
+        println!(
+            "Re-sign and install the IPA with your sideloading tool before running it on a device."
+        );
     }
     let simulator = args.string("simulator", "booted");
     let app_path = app.to_string_lossy();
@@ -473,5 +518,52 @@ mod tests {
         assert!(xml.contains("<string>ExtendedGamepad</string>"));
         assert!(xml.contains("<string>iPhoneOS</string>"));
         assert!(xml.contains("<string>FFSceneDelegate</string>"));
+    }
+
+    fn mode(argv: &[&str]) -> Result<Signing> {
+        let argv: Vec<String> = argv.iter().map(|a| a.to_string()).collect();
+        signing_mode(&Args::parse(&argv, &SPEC).map_err(|e| e.to_string())?)
+    }
+
+    #[test]
+    fn sideload_needs_no_credentials() {
+        assert_eq!(mode(&["--sideload"]), Ok(Signing::Sideload));
+        assert_eq!(
+            mode(&["--sideload", "--device", "--ipa"]),
+            Ok(Signing::Sideload)
+        );
+        assert_eq!(mode(&[]), Ok(Signing::Simulator));
+        assert_eq!(
+            mode(&[
+                "--device",
+                "--ipa",
+                "--sign-identity",
+                "Apple Development: Test",
+                "--provisioning-profile",
+                "test.mobileprovision",
+            ]),
+            Ok(Signing::Identity {
+                identity: "Apple Development: Test".into(),
+                profile: PathBuf::from("test.mobileprovision"),
+            })
+        );
+    }
+
+    #[test]
+    fn conflicting_signing_flags_fail_before_building() {
+        for argv in [
+            &["--ipa"][..],
+            &["--device"],
+            &["--sideload", "--install"],
+            &["--sideload", "--launch"],
+            &["--sideload", "--sign-identity", "Test"],
+            &[
+                "--sideload",
+                "--provisioning-profile",
+                "test.mobileprovision",
+            ],
+        ] {
+            assert!(mode(argv).is_err(), "{argv:?} should be refused");
+        }
     }
 }

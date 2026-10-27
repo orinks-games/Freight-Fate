@@ -710,7 +710,8 @@ fn test_controller_speed_control_handoff_status_adjustment_and_brake() {
     // Python replaced `trip.speed_limit_at` with a mutable 65, then dropped it
     // to a 25 construction zone. A zone IS what that method reads, so the
     // handoff is arranged rather than patched: park the truck out on the
-    // corridor under its own 65, then lay a work zone over it.
+    // corridor under its own 65, then lay a street over it (a highway work
+    // zone stays on cruise, issue #518).
     with_drive(&shared, |d| {
         d.trip.position_mi = d.trip.total_miles() / 2.0;
         let at = d.trip.position_mi;
@@ -730,7 +731,7 @@ fn test_controller_speed_control_handoff_status_adjustment_and_brake() {
         let at = d.trip.position_mi;
         d.trip
             .zones
-            .push(Zone::new(at - 0.1, at + 5.0, 25.0, "construction"));
+            .push(Zone::new(at - 0.1, at + 5.0, 25.0, "facility access road"));
     });
     drive_frame(&mut app, &shared, DT);
     let keeper = with_drive(&shared, |d| d.keeper_mph).expect("the zone hands over to the keeper");
