@@ -6526,7 +6526,29 @@
           "size_text": "",
           "source_url": "https://www.paturnpike.com/commercial/permits-restrictions/hazardous-materials-(placarded-loads)",
           "access_date": "2026-10-11",
-          "basis": "Read: the Turnpike prohibits all Table 1 materials and all explosives in its tunnels, and prohibits flammable liquid and other classes in bulk packaging. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. The tunnels are Allegheny, Tuscarora, Kittatinny, Blue Mountain and Lehigh. Assumed: the game's placarded hazardous load does not name its classes, so it is treated as carrying a banned class."
+          "basis": "Read: the Turnpike prohibits all Table 1 materials and all explosives in its tunnels, and prohibits flammable liquid and other classes in bulk packaging. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. The tunnels are Allegheny, Tuscarora, Kittatinny, Blue Mountain and Lehigh. Classes: Table 1 and explosives are refused in any packaging (all Class 1, 2.3, 4.3, 5.2, 6.1 and 7; the game's 6.1 and 5.2 loads are banned whole because inhalation-hazard and temperature-control status is not modelled), and 2.1, 3, 4.1, 4.2, 5.1, 6.1 and 8 in bulk; 2.2 and packaged loads of the others pass. A load with no class (an old save) matches no class rule.",
+          "banned_classes": [
+            "1.1",
+            "1.2",
+            "1.3",
+            "1.4",
+            "1.5",
+            "1.6",
+            "2.3",
+            "4.3",
+            "5.2",
+            "6.1",
+            "7"
+          ],
+          "bulk_banned_classes": [
+            "2.1",
+            "3",
+            "4.1",
+            "4.2",
+            "5.1",
+            "6.1",
+            "8"
+          ]
         }
       ]
     },

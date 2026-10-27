@@ -167,6 +167,9 @@ impl JobDetailState {
         if !weight.is_empty() {
             lines.insert(4, weight);
         }
+        if let Some(material) = job.hazmat {
+            lines.insert(1, format!("Material: {}.", material.card_text()));
+        }
         let trailer = trailer_note(p, job);
         if !trailer.is_empty() {
             lines.push(format!("Trailer: {trailer}"));

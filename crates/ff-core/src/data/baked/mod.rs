@@ -121,7 +121,14 @@ pub const MAGIC: &[u8; 8] = b"FFDATA\0\0";
 /// 11: a crossing carries its published wind levels (`wind`).
 ///
 /// 12: a crossing carries the loads it escorts in any weather (`escort`).
-pub const FORMAT_VERSION: u32 = 12;
+///
+/// 13: a crossing names the hazard classes it bans (`banned_classes`,
+/// `bulk_banned_classes`), escorts by class, and keeps class hours
+/// (`hazmat_hours`).
+///
+/// 14: a crossing names the classes it allows only in small amounts
+/// (`limited_classes`, `limited_text`).
+pub const FORMAT_VERSION: u32 = 14;
 
 const HEADER_LEN: usize = 32;
 

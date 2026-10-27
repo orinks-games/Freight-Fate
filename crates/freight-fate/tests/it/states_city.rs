@@ -598,6 +598,32 @@ fn senior_job_board(app: &mut TestApp) {
 }
 
 #[test]
+fn a_hazardous_load_card_names_its_material_un_number_and_class() {
+    let mut app = TestApp::new();
+    career(&mut app, "Dispatch Detail", "Buffalo");
+    profile_mut(&mut app).career.xp = *LEVEL_XP.last().unwrap();
+    let mut jobs = JobBoard::seeded(app.ctx.world, 7).offers(
+        "Buffalo",
+        &["refrigerated", "heavy_haul", "high_value"],
+        OfferOptions::level(5),
+    );
+    for job in &mut jobs {
+        job.cargo = ff_core::models::jobs::cargo_type("fuel_bulk").unwrap();
+        job.hazmat = ff_core::models::jobs::hazmat::hazmat_commodity("gasoline");
+    }
+    push_board(&mut app, jobs);
+
+    key(&mut app, Key::F1);
+
+    let rows = labels::<JobDetailState>(&app);
+    assert!(
+        rows.iter()
+            .any(|r| r == "Material: Gasoline, UN1203, Class 3."),
+        "{rows:?}"
+    );
+}
+
+#[test]
 fn test_f1_on_dispatch_job_opens_structured_detail_view() {
     let mut app = TestApp::new();
     senior_job_board(&mut app);

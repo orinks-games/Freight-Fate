@@ -20,6 +20,7 @@ use crate::speech_text::{the_city, typed_name};
 
 mod board;
 mod deadline;
+pub mod hazmat;
 pub mod hos_stops;
 pub mod relay;
 #[cfg(test)]
@@ -159,6 +160,9 @@ pub struct Job {
     /// deadline allows no 10-hour break and it pays more.
     pub team: bool,
     pub seasonal_weight_limit: Option<SeasonalWeightLimit>,
+    /// The placarded material, for placarded cargo; None for an old save
+    /// whose packaged load never named one.
+    pub hazmat: Option<&'static hazmat::HazmatCommodity>,
 }
 
 /// Seasonal weight restriction recorded when a job is dispatched.
@@ -188,7 +192,9 @@ impl Job {
             return CrossingLoad::standard_rig(false);
         }
         let cargo_lb = (self.weight_tons * 2000.0).round().max(0.0) as u32;
-        CrossingLoad::standard_rig(true).with_cargo(self.cargo.key, self.cargo.tank, cargo_lb)
+        CrossingLoad::standard_rig(true)
+            .with_cargo(self.cargo.key, self.cargo.tank, cargo_lb)
+            .with_hazard_class(self.hazmat.map(|h| h.class))
     }
 
     /// `Job(cargo, weight_tons, origin, origin_location, destination,
@@ -229,6 +235,7 @@ impl Job {
             deadline_covers_rest: false,
             seasonal_weight_limit: None,
             team: false,
+            hazmat: hazmat::default_commodity(cargo.key),
         }
     }
 
@@ -551,7 +558,12 @@ pub fn job_payload(job: &Job) -> Map<String, Value> {
         "team": job.team,
     });
     match value {
-        Value::Object(map) => map,
+        Value::Object(mut map) => {
+            if let Some(material) = job.hazmat {
+                map.insert("hazmat".into(), json!(material.key));
+            }
+            map
+        }
         _ => unreachable!("json! object"),
     }
 }
@@ -634,6 +646,14 @@ pub fn job_from_payload(data: &Map<String, Value>) -> Option<Job> {
             })
         });
     job.team = data.get("team").is_some_and(py_truthy);
+    if let Some(material) = ["hazmat", "un_number"]
+        .iter()
+        .filter_map(|field| data.get(*field).and_then(Value::as_str))
+        .find_map(hazmat::hazmat_commodity_named)
+        .filter(|m| m.cargo == cargo.key)
+    {
+        job.hazmat = Some(material);
+    }
     Some(job)
 }
 

@@ -1050,11 +1050,9 @@ impl World {
             start_mi += leg.miles;
         }
         let ahead = ahead?;
-        let reason = route.legs[ahead..].iter().find_map(|leg| {
-            leg.crossings
-                .iter()
-                .find_map(|c| c.refusal(load).map(str::to_string))
-        })?;
+        let reason = route.legs[ahead..]
+            .iter()
+            .find_map(|leg| leg.crossings.iter().find_map(|c| c.refusal_spoken(load)))?;
         let here = route.cities.get(ahead)?;
         let destination = route.cities.last()?;
         let mut cities = route.cities[..ahead].to_vec();

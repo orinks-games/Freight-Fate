@@ -406,10 +406,197 @@ fn mackinac_high_wind_is_an_escort_wait_on_duty() {
 }
 
 #[test]
+fn class_rules_pass_allowed_classes_and_route_banned_ones_around() {
+    use ff_core::data::world_models::HazardClass;
+    let world = world();
+    let packaged = |class| {
+        CrossingLoad::standard_rig(true)
+            .with_cargo("hazardous", false, 30_000)
+            .with_hazard_class(Some(class))
+    };
+    let open = world
+        .supported_route("norfolk_va_us", "richmond_va_us", None)
+        .unwrap()
+        .expect("open road");
+    let refused = |load: &CrossingLoad| {
+        open.legs
+            .iter()
+            .flat_map(|leg| leg.crossings.iter())
+            .find_map(|c| c.refusal_spoken(load))
+    };
+    assert!(open.legs.iter().any(|leg| leg
+        .crossings
+        .iter()
+        .any(|c| c.name == "Hampton Roads Bridge-Tunnel")));
+    assert_eq!(refused(&packaged(HazardClass::NonflammableGas)), None);
+    assert_eq!(
+        refused(&packaged(HazardClass::FlammableLiquid)),
+        None,
+        "non-bulk paint"
+    );
+    let gas = refused(&packaged(HazardClass::PoisonGas)).expect("poison gas refused");
+    assert!(gas.starts_with("This load is poison gas. "), "{gas}");
+    let legal = world
+        .legal_route(
+            "norfolk_va_us",
+            "richmond_va_us",
+            &packaged(HazardClass::PoisonGas),
+        )
+        .unwrap()
+        .expect("poison gas reaches Richmond another way");
+    assert!(legal.legs.iter().all(|leg| leg
+        .crossings
+        .iter()
+        .all(|c| c.refusal(&packaged(HazardClass::PoisonGas)).is_none())));
+    let cbbt = world
+        .legs
+        .iter()
+        .flat_map(|leg| leg.crossings.iter())
+        .find(|c| c.name == "Chesapeake Bay Bridge-Tunnel")
+        .expect("CBBT");
+    assert_eq!(
+        cbbt.refusal_spoken(&packaged(HazardClass::FlammableLiquid))
+            .as_deref(),
+        Some(
+            "This load is flammable liquid. A placarded truckload of it is over the \
+             Chesapeake Bay Bridge-Tunnel's quantity limits."
+        ),
+        "quantity-limited classes are refused as over the limits, not as banned"
+    );
+    let banned = cbbt
+        .refusal_spoken(&packaged(HazardClass::DangerousWhenWet))
+        .expect("4.3 is banned outright");
+    assert!(
+        banned.starts_with("This load is dangerous when wet. Explosives, poison gas"),
+        "{banned}"
+    );
+    for class in [
+        HazardClass::Explosive14,
+        HazardClass::Explosive15,
+        HazardClass::Explosive16,
+        HazardClass::NonflammableGas,
+    ] {
+        assert!(cbbt.refusal(&packaged(class)).is_none(), "{class:?}");
+    }
+    // The Golden Gate never refuses outright: explosives wait for the hour.
+    let blast = packaged(HazardClass::Explosive11);
+    let gg = world
+        .supported_route("san_francisco_ca_us", "santa_rosa_ca_us", None)
+        .unwrap()
+        .expect("open road");
+    assert!(gg.legs.iter().any(|leg| leg
+        .crossings
+        .iter()
+        .any(|c| c.name == "Golden Gate Bridge" && c.refusal(&blast).is_none())));
+}
+
+fn golden_gate_trip(
+    class: Option<ff_core::data::world_models::HazardClass>,
+    career_hours: Option<f64>,
+    start_hour: f64,
+) -> Trip {
+    let world = world();
+    let leg = world
+        .legs
+        .iter()
+        .find(|leg| leg.a == "san_francisco_ca_us" && leg.b == "santa_rosa_ca_us")
+        .expect("Golden Gate leg")
+        .as_ref()
+        .clone();
+    let route = Route::from_legs(
+        vec!["san_francisco_ca_us".into(), "santa_rosa_ca_us".into()],
+        vec![leg],
+    );
+    let mut truck = TruckState::default();
+    truck.start_engine();
+    truck.trailer_attached = true;
+    truck.cargo_key = "hazardous".into();
+    truck.cargo_kg = 9_000.0;
+    truck.placarded_hazmat = true;
+    truck.hazard_class = class;
+    truck.velocity_mps = 10.0;
+    Trip::new(
+        route,
+        truck,
+        default_weather(),
+        TripOptions {
+            world: Some(world),
+            start_hour,
+            career_hours,
+            ..TripOptions::seeded(93)
+        },
+    )
+}
+
+#[test]
+fn golden_gate_holds_explosives_through_weekday_rush_hour_then_escorts_them() {
+    use ff_core::data::world_models::HazardClass;
+    let waits = |class, days: Option<f64>, hour| {
+        let mut trip = golden_gate_trip(class, days, hour);
+        let start = trip.game_minutes;
+        let waits = trip
+            .update(1.0)
+            .into_iter()
+            .filter(|e| e.data.context.as_deref() == Some("tunnel_wait"))
+            .map(|e| (e.data.amount, e.text().to_string()))
+            .collect::<Vec<_>>();
+        (waits, trip.game_minutes - start)
+    };
+    // The career calendar starts on a Wednesday, so five days on is Monday
+    // and four is Sunday. The trip clock is Eastern; San Francisco is three
+    // hours behind it, so Eastern 10 AM is 7 AM at the bridge.
+    let monday = Some(24.0 * 5.0);
+    let sunday = Some(24.0 * 4.0);
+    let (rush, minutes) = waits(Some(HazardClass::Explosive11), monday, 10.0);
+    assert_eq!(
+        rush.len(),
+        1,
+        "one line for the ban and the escort: {rush:?}"
+    );
+    assert_eq!(rush[0].0, Some(170.0));
+    assert!(rush[0].1.contains("weekday rush hours"));
+    assert!(rush[0].1.contains("inspection and a bridge escort"));
+    assert!(
+        rush[0].1.contains(
+            "You wait on duty until 9:30 AM, then 20 minutes for the escort, and may cross at 9:50 AM."
+        ),
+        "{}",
+        rush[0].1
+    );
+    assert!(
+        minutes >= 170.0,
+        "both waits move the trip clock: {minutes}"
+    );
+    let (before_dawn, minutes) = waits(Some(HazardClass::Explosive11), monday, 7.0);
+    assert_eq!(before_dawn.len(), 1, "4 AM at the bridge is before the ban");
+    assert_eq!(before_dawn[0].0, Some(20.0));
+    assert!(minutes >= 20.0, "the escort moves the trip clock");
+    let (midday, _) = waits(Some(HazardClass::Explosive13), monday, 15.0);
+    assert_eq!(midday.len(), 1, "escort only");
+    assert_eq!(midday[0].0, Some(20.0));
+    let (fireworks, minutes) = waits(Some(HazardClass::Explosive14), monday, 10.0);
+    assert!(
+        fireworks.is_empty(),
+        "1.4 is not an explosive under Vehicle Code 31600(c): {fireworks:?}"
+    );
+    assert!(minutes < 20.0, "fireworks are not held: {minutes}");
+    let (weekend, _) = waits(Some(HazardClass::Explosive11), sunday, 10.0);
+    assert_eq!(weekend.len(), 1, "no rush-hour ban at the weekend");
+    assert_eq!(weekend[0].0, Some(20.0));
+    assert!(waits(Some(HazardClass::FlammableLiquid), monday, 10.0)
+        .0
+        .is_empty());
+}
+
+#[test]
 fn mackinac_escorts_placarded_and_heavy_loads_once_in_any_weather() {
     let waits = |key: &str, cargo_kg: f64, sky: WeatherKind| {
         let mut trip = wind_trip("sault_ste_marie_mi_us", "traverse_city_mi_us", cargo_kg);
         trip.truck.cargo_key = key.into();
+        if key == "hazardous" {
+            trip.truck.hazard_class =
+                Some(ff_core::data::world_models::HazardClass::FlammableLiquid);
+        }
         trip.weather.forced = Some(sky);
         trip.weather.current = sky;
         if sky == WeatherKind::Wind {
@@ -428,6 +615,7 @@ fn mackinac_escorts_placarded_and_heavy_loads_once_in_any_weather() {
     assert!(placarded[0].1.contains("20 minutes on duty"));
     let mut clocked = wind_trip("sault_ste_marie_mi_us", "traverse_city_mi_us", 9_000.0);
     clocked.truck.cargo_key = "hazardous".into();
+    clocked.truck.hazard_class = Some(ff_core::data::world_models::HazardClass::FlammableLiquid);
     clocked.weather.forced = Some(WeatherKind::Clear);
     clocked.weather.current = WeatherKind::Clear;
     let start_minutes = clocked.game_minutes;
@@ -574,6 +762,7 @@ impl ff_core::sim::weather::WeatherProvider for DroppingWind {
 fn a_placarded_load_is_escorted_once_when_the_wind_drops_during_the_escort() {
     let mut trip = wind_trip("sault_ste_marie_mi_us", "traverse_city_mi_us", 9_000.0);
     trip.truck.cargo_key = "hazardous".into();
+    trip.truck.hazard_class = Some(ff_core::data::world_models::HazardClass::FlammableLiquid);
     let reads = std::rc::Rc::new(std::cell::Cell::new(0));
     trip.weather.provider = Some(Box::new(DroppingWind(reads.clone())));
     trip.weather.city = Some("sault_ste_marie_mi_us".into());
@@ -650,6 +839,7 @@ fn a_refused_truck_is_rerouted_at_the_crossing_not_held() {
     let mut truck = TruckState::default();
     truck.start_engine();
     truck.cargo_key = "hazardous".into();
+    truck.hazard_class = Some(ff_core::data::world_models::HazardClass::FlammableLiquid);
     truck.cargo_kg = 13_600.0;
     truck.placarded_hazmat = true;
     truck.velocity_mps = 10.0;

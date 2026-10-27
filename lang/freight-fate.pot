@@ -6430,7 +6430,7 @@ msgstr ""
 msgid "machinery"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/trailers.rs
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/jobs/hazmat.rs crates/ff-core/src/models/trailers.rs
 msgid "hazardous"
 msgstr ""
 
@@ -7172,6 +7172,77 @@ msgstr ""
 msgid "{py_capitalize}, signed {value_text}."
 msgstr ""
 
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "explosives"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "flammable gas"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "nonflammable gas"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "poison gas"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "flammable liquid"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "flammable solid"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "spontaneously combustible"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "dangerous when wet"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "an oxidizer"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "an organic peroxide"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "poison"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "infectious"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "radioactive"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "corrosive"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "a miscellaneous hazardous material"
+msgstr ""
+
+#. placeholders: {spoken}
+#. one sentence of a longer line
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "This load is {spoken}."
+msgstr ""
+
+#. placeholders: {spoken}, {reason}
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "This load is {spoken}. {reason}"
+msgstr ""
+
 #. placeholders: {context}, {what}
 #: crates/ff-core/src/data/world_models/crossing.rs
 msgid "{context} crossing {what}"
@@ -7203,6 +7274,18 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_models/crossing.rs
 msgid "has a cargo rule with no spoken rule"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "bans classes without naming any"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "limits classes with no spoken rule"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "has class hours with no classes, times or spoken rule"
 msgstr ""
 
 #: crates/ff-core/src/data/world_models/crossing.rs
@@ -9988,7 +10071,7 @@ msgid ""
 "it, and liquid food at level 21."
 msgstr ""
 
-#: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/jobs/catalog.rs
+#: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/jobs.rs
 msgid "hazmat"
 msgstr ""
 
@@ -11398,6 +11481,91 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/ff-core/src/models/jobs/deadline.rs
 msgid "Sleep stops: {sleep_stop_count}."
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "paint"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "Paint"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "propane cylinders"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "Petroleum gases, liquefied"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "compressed nitrogen"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "Nitrogen, compressed"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "chlorine cylinders"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "Chlorine"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "calcium carbide"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "Calcium carbide"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "pool chlorine"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "Calcium hypochlorite, dry"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "sulfuric acid"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "Sulfuric acid with more than 51 percent acid"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "consumer fireworks"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "Fireworks"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "blasting explosives"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "Explosive, blasting, type E"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "gasoline"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "Gasoline"
+msgstr ""
+
+#. placeholders: {shipping_name}, {un_number}, {number}
+#: crates/ff-core/src/models/jobs/hazmat.rs
+msgid "{shipping_name}, {un_number}, Class {number}"
 msgstr ""
 
 #. placeholders: {last_name}, {fallback_distance}
@@ -17192,9 +17360,21 @@ msgstr ""
 msgid "You wait about {wait_text}."
 msgstr ""
 
+#. placeholders: {text}, {wait_text}, {clock_text}
+#: crates/ff-core/src/sim/tunnel.rs
+msgid "{text} You wait {wait_text} on duty, until {clock_text}."
+msgstr ""
+
 #. placeholders: {text}, {wait_text}
 #: crates/ff-core/src/sim/tunnel.rs
 msgid "{text} You wait {wait_text} on duty."
+msgstr ""
+
+#. placeholders: {text}, {text2}, {clock_text}, {wait_text}, {clock_text2}
+#: crates/ff-core/src/sim/tunnel.rs
+msgid ""
+"{text} {text2} You wait on duty until {clock_text}, then {wait_text} for "
+"the escort, and may cross at {clock_text2}."
 msgstr ""
 
 #: crates/ff-core/src/sim/tunnel.rs
@@ -21796,6 +21976,11 @@ msgstr ""
 #. placeholders: {equipment_text}
 #: crates/freight-fate/src/states/city/board/details.rs
 msgid "Equipment: {equipment_text}."
+msgstr ""
+
+#. placeholders: {card_text}
+#: crates/freight-fate/src/states/city/board/details.rs
+msgid "Material: {card_text}."
 msgstr ""
 
 #. placeholders: {trailer}

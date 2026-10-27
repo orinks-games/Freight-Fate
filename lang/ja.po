@@ -5734,6 +5734,60 @@ msgstr "{kind_label}、表示は{value_text}です。このルートなら通れ
 msgid "{py_capitalize}, signed {value_text}."
 msgstr "{py_capitalize}、表示は{value_text}です。"
 
+msgid "explosives"
+msgstr ""
+
+msgid "flammable gas"
+msgstr ""
+
+msgid "nonflammable gas"
+msgstr ""
+
+msgid "poison gas"
+msgstr ""
+
+msgid "flammable liquid"
+msgstr ""
+
+msgid "flammable solid"
+msgstr ""
+
+msgid "spontaneously combustible"
+msgstr ""
+
+msgid "dangerous when wet"
+msgstr ""
+
+msgid "an oxidizer"
+msgstr ""
+
+msgid "an organic peroxide"
+msgstr ""
+
+msgid "poison"
+msgstr ""
+
+msgid "infectious"
+msgstr ""
+
+msgid "radioactive"
+msgstr ""
+
+msgid "corrosive"
+msgstr ""
+
+msgid "a miscellaneous hazardous material"
+msgstr ""
+
+#. placeholders: {spoken}
+#. one sentence of a longer line
+msgid "This load is {spoken}."
+msgstr ""
+
+#. placeholders: {spoken}, {reason}
+msgid "This load is {spoken}. {reason}"
+msgstr ""
+
 #. placeholders: {context}, {what}
 msgid "{context} crossing {what}"
 msgstr ""
@@ -5757,6 +5811,15 @@ msgid "has a size limit with no spoken rule"
 msgstr ""
 
 msgid "has a cargo rule with no spoken rule"
+msgstr ""
+
+msgid "bans classes without naming any"
+msgstr ""
+
+msgid "limits classes with no spoken rule"
+msgstr ""
+
+msgid "has class hours with no classes, times or spoken rule"
 msgstr ""
 
 msgid "has invalid wind speeds"
@@ -9109,6 +9172,70 @@ msgstr "休憩の停車：{break_stop_count}回。"
 #. one sentence of a longer line
 msgid "Sleep stops: {sleep_stop_count}."
 msgstr "睡眠の停車：{sleep_stop_count}回。"
+
+msgid "paint"
+msgstr ""
+
+msgid "Paint"
+msgstr ""
+
+msgid "propane cylinders"
+msgstr ""
+
+msgid "Petroleum gases, liquefied"
+msgstr ""
+
+msgid "compressed nitrogen"
+msgstr ""
+
+msgid "Nitrogen, compressed"
+msgstr ""
+
+msgid "chlorine cylinders"
+msgstr ""
+
+msgid "Chlorine"
+msgstr ""
+
+msgid "calcium carbide"
+msgstr ""
+
+msgid "Calcium carbide"
+msgstr ""
+
+msgid "pool chlorine"
+msgstr ""
+
+msgid "Calcium hypochlorite, dry"
+msgstr ""
+
+msgid "sulfuric acid"
+msgstr ""
+
+msgid "Sulfuric acid with more than 51 percent acid"
+msgstr ""
+
+msgid "consumer fireworks"
+msgstr ""
+
+msgid "Fireworks"
+msgstr ""
+
+msgid "blasting explosives"
+msgstr ""
+
+msgid "Explosive, blasting, type E"
+msgstr ""
+
+msgid "gasoline"
+msgstr ""
+
+msgid "Gasoline"
+msgstr ""
+
+#. placeholders: {shipping_name}, {un_number}, {number}
+msgid "{shipping_name}, {un_number}, Class {number}"
+msgstr ""
 
 #. placeholders: {last_name}, {fallback_distance}
 #. one sentence of a longer line
@@ -13732,8 +13859,18 @@ msgstr ""
 msgid "You wait about {wait_text}."
 msgstr ""
 
+#. placeholders: {text}, {wait_text}, {clock_text}
+msgid "{text} You wait {wait_text} on duty, until {clock_text}."
+msgstr ""
+
 #. placeholders: {text}, {wait_text}
 msgid "{text} You wait {wait_text} on duty."
+msgstr ""
+
+#. placeholders: {text}, {text2}, {clock_text}, {wait_text}, {clock_text2}
+msgid ""
+"{text} {text2} You wait on duty until {clock_text}, then {wait_text} for "
+"the escort, and may cross at {clock_text2}."
 msgstr ""
 
 msgid "The wind has dropped. You may cross."
@@ -17592,6 +17729,10 @@ msgstr "期限：積み込みから{f}時間、だいたい{appointment_text}。
 #. placeholders: {equipment_text}
 msgid "Equipment: {equipment_text}."
 msgstr "装備：{equipment_text}。"
+
+#. placeholders: {card_text}
+msgid "Material: {card_text}."
+msgstr ""
 
 #. placeholders: {trailer}
 msgid "Trailer: {trailer}"
