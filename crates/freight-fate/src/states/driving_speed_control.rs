@@ -94,6 +94,14 @@ impl DrivingState {
         self.descent_safe_key = None;
         self.descent_posted_cap_mph = None;
         self.trip.truck.descent_gear_hold = false;
+        // Descent control runs only under cruise, so it ends with it. Left
+        // marked as holding when a work zone's keeper took over on a grade,
+        // it had nothing to release it, and the co-driver braked to a hold
+        // of 20 for the rest of the shift (issue #518).
+        self.descent_control_active = false;
+        self.descent_limit_state = String::new();
+        self.descent_beaten_s = 0.0;
+        self.descent_capture_active = false;
         self.cruise_jake_last_step = 0;
         self.cruise_snubbing = false;
         self.pcc_phase = String::new();
