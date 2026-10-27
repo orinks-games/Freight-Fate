@@ -48,6 +48,54 @@ pub struct RoadCrossing {
     pub access_date: String,
     /// Which values were read from the source, derived, or assumed.
     pub basis: String,
+    /// What sustained wind does to trucks here; None where none is published.
+    #[serde(default)]
+    pub wind: Option<WindRule>,
+}
+
+/// A crossing's published wind levels, in sustained miles per hour.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct WindRule {
+    /// High-profile vehicles wait for an escort from this speed.
+    pub escort_mph: Option<f64>,
+    /// A tractor-trailer carrying less than `light_trailer_min_payload_lb`
+    /// is turned away from this speed.
+    pub light_trailer_mph: Option<f64>,
+    #[serde(default)]
+    pub light_trailer_min_payload_lb: u32,
+    /// Every truck, with or without a trailer, is turned away from here.
+    pub trucks_closed_mph: f64,
+    /// The crossing closes to all traffic from here.
+    pub closed_mph: f64,
+    /// Spoken when an escort is required.
+    #[serde(default)]
+    pub escort_text: String,
+    /// Spoken when the truck is turned away for wind.
+    pub refused_text: String,
+}
+
+/// What the wind at a crossing means for this truck right now.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum WindDecision<'a> {
+    Cross,
+    Escort(&'a str),
+    Refused(&'a str),
+}
+
+impl WindRule {
+    pub fn decide(&self, load: &CrossingLoad, wind_mph: f64) -> WindDecision<'_> {
+        let light = load.trailer && load.payload_lb < self.light_trailer_min_payload_lb;
+        if wind_mph >= self.closed_mph
+            || wind_mph >= self.trucks_closed_mph
+            || (light && self.light_trailer_mph.is_some_and(|mph| wind_mph >= mph))
+        {
+            return WindDecision::Refused(&self.refused_text);
+        }
+        if self.escort_mph.is_some_and(|mph| wind_mph >= mph) {
+            return WindDecision::Escort(&self.escort_text);
+        }
+        WindDecision::Cross
+    }
 }
 
 /// The truck and load a crossing judges.
@@ -60,6 +108,10 @@ pub struct CrossingLoad {
     pub bulk_flammable: bool,
     pub tank: bool,
     pub regulated_lb: u32,
+    /// A trailer is hooked up.
+    pub trailer: bool,
+    /// Cargo on board, in pounds.
+    pub payload_lb: u32,
 }
 
 impl CrossingLoad {
@@ -73,7 +125,14 @@ impl CrossingLoad {
             bulk_flammable: false,
             tank: false,
             regulated_lb: 0,
+            trailer: false,
+            payload_lb: 0,
         }
+    }
+
+    pub fn with_trailer(mut self, trailer: bool) -> Self {
+        self.trailer = trailer;
+        self
     }
 
     /// A stock rig: the full combination with a trailer, the tractor alone
@@ -85,7 +144,7 @@ impl CrossingLoad {
         } else {
             TRACTOR_LENGTH_FT
         };
-        CrossingLoad::plain(length_ft, 8.5, 13.5)
+        CrossingLoad::plain(length_ft, 8.5, 13.5).with_trailer(trailer)
     }
 
     /// The catalog's regulated freight: `hazardous` is placarded packaged
@@ -95,6 +154,7 @@ impl CrossingLoad {
         self.placarded = matches!(cargo_key, "hazardous" | "fuel_bulk");
         self.bulk_flammable = cargo_key == "fuel_bulk";
         self.tank = tank;
+        self.payload_lb = cargo_lb;
         self.regulated_lb = if matches!(cargo_key, "hazardous" | "fuel_bulk" | "chemicals") {
             cargo_lb
         } else {
@@ -162,10 +222,35 @@ impl RoadCrossing {
         if cargo_rule && self.hazmat_text.trim().is_empty() {
             return Err(bad("has a cargo rule with no spoken rule"));
         }
-        if !cargo_rule && sized.iter().all(Option::is_none) {
+        if let Some(wind) = &self.wind {
+            let speeds = [
+                wind.escort_mph,
+                wind.light_trailer_mph,
+                Some(wind.trucks_closed_mph),
+                Some(wind.closed_mph),
+            ];
+            if speeds.iter().flatten().any(|v| !v.is_finite() || *v <= 0.0)
+                || wind.trucks_closed_mph > wind.closed_mph
+            {
+                return Err(bad("has invalid wind speeds"));
+            }
+            if wind.refused_text.trim().is_empty()
+                || (wind.escort_mph.is_some() && wind.escort_text.trim().is_empty())
+            {
+                return Err(bad("has a wind rule with no spoken rule"));
+            }
+        }
+        if !cargo_rule && sized.iter().all(Option::is_none) && self.wind.is_none() {
             return Err(bad("models no rule"));
         }
-        for text in [&self.hazmat_text, &self.size_text] {
+        let wind_texts = self
+            .wind
+            .iter()
+            .flat_map(|w| [&w.escort_text, &w.refused_text]);
+        for text in [&self.hazmat_text, &self.size_text]
+            .into_iter()
+            .chain(wind_texts)
+        {
             if text.contains('$') {
                 return Err(bad("speaks money as a symbol"));
             }
@@ -194,6 +279,7 @@ mod tests {
             source_url: "https://example.gov/rule".into(),
             access_date: "2026-10-11".into(),
             basis: "read".into(),
+            wind: None,
         }
     }
 
@@ -272,5 +358,31 @@ mod tests {
         assert!(c.validate("t").is_err());
         c.size_text = "Over 13 feet 6 inches needs a permit.".into();
         assert!(c.validate("t").is_ok());
+    }
+
+    #[test]
+    fn wind_levels_escort_then_refuse_light_then_every_truck() {
+        let rule = WindRule {
+            escort_mph: Some(35.0),
+            light_trailer_mph: Some(40.0),
+            light_trailer_min_payload_lb: 15_000,
+            trucks_closed_mph: 50.0,
+            closed_mph: 60.0,
+            escort_text: "escort".into(),
+            refused_text: "refused".into(),
+        };
+        let empty = CrossingLoad::standard_rig(true);
+        let loaded = CrossingLoad::standard_rig(true).with_cargo("general", false, 30_000);
+        let bobtail = CrossingLoad::standard_rig(false);
+        assert_eq!(rule.decide(&empty, 30.0), WindDecision::Cross);
+        assert_eq!(rule.decide(&empty, 36.0), WindDecision::Escort("escort"));
+        assert_eq!(rule.decide(&empty, 42.0), WindDecision::Refused("refused"));
+        assert_eq!(rule.decide(&loaded, 42.0), WindDecision::Escort("escort"));
+        assert_eq!(rule.decide(&bobtail, 42.0), WindDecision::Escort("escort"));
+        assert_eq!(rule.decide(&loaded, 50.0), WindDecision::Refused("refused"));
+        assert_eq!(
+            rule.decide(&bobtail, 61.0),
+            WindDecision::Refused("refused")
+        );
     }
 }

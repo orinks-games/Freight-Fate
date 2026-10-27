@@ -67569,7 +67569,34 @@
       ],
       "divided": false,
       "lanes": 2,
-      "rerouted": true
+      "rerouted": true,
+      "crossings": [
+        {
+          "kind": "bridge",
+          "name": "Mackinac Bridge",
+          "hazmat": "none",
+          "bulk_flammable_banned": false,
+          "tank_banned": false,
+          "regulated_lb_limit": null,
+          "max_length_ft": null,
+          "max_width_ft": null,
+          "max_height_ft": null,
+          "hazmat_text": "",
+          "size_text": "",
+          "source_url": "https://www.mackinacbridge.org/about-the-bridge/frequently-asked-questions/",
+          "access_date": "2026-10-11",
+          "basis": "Wind levels read from the Mackinac Bridge Authority FAQ, sustained wind: 35 to 50 mph high-profile vehicles wait for an escort, 50 to 65 mph closed to high-profile vehicles, 65 mph and above closed to all traffic.",
+          "wind": {
+            "escort_mph": 35.0,
+            "light_trailer_mph": null,
+            "light_trailer_min_payload_lb": 0,
+            "trucks_closed_mph": 50.0,
+            "closed_mph": 65.0,
+            "escort_text": "High winds on the Mackinac Bridge. Trucks wait for an escort across.",
+            "refused_text": "The Mackinac Bridge is closed to trucks in high winds."
+          }
+        }
+      ]
     },
     {
       "from": "traverse_city_mi_us",

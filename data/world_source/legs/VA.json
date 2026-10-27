@@ -12851,7 +12851,16 @@
           "size_text": "",
           "source_url": "https://www.cbbt.com/regulations/",
           "access_date": "2026-10-11",
-          "basis": "Read: the CBBT regulations prohibit Division 1.1 to 1.3 explosives, poison gas, dangerous-when-wet and inhalation-hazard materials, cap flammable liquid at 120 gallons in small containers, and ban Class 3 tank vehicles even when empty. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. Assumed: the game's placarded hazardous load does not name its classes, so it is treated as carrying a banned class."
+          "basis": "Read: the CBBT regulations prohibit Division 1.1 to 1.3 explosives, poison gas, dangerous-when-wet and inhalation-hazard materials, cap flammable liquid at 120 gallons in small containers, and ban Class 3 tank vehicles even when empty. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. Assumed: the game's placarded hazardous load does not name its classes, so it is treated as carrying a banned class. Wind levels read from the weather restrictions chart at https://cbbt.com/weather/ on 2026-10-11: from 40 mph a tractor-trailer needs 15,000 pounds of payload, from 50 mph no truck crosses, from 60 mph the facility closes.",
+          "wind": {
+            "escort_mph": null,
+            "light_trailer_mph": 40.0,
+            "light_trailer_min_payload_lb": 15000,
+            "trucks_closed_mph": 50.0,
+            "closed_mph": 60.0,
+            "escort_text": "",
+            "refused_text": "Wind restrictions are up on the Chesapeake Bay Bridge-Tunnel, and your rig may not cross."
+          }
         }
       ]
     },
