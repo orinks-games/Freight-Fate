@@ -746,8 +746,9 @@ Everything found before 2026-09-25 moved to
 - [ ] (Found along the way) Refresh the map's OpenStreetMap layers on
       current dev, one layer per session (owner, 2026-10-25; after 1.9.5).
       The shipped layers come from the 2026-06-23 extract. Order: speed
-      limits first (they feed enforcement, cruise and the limit callouts),
-      then ramp lengths, then interchanges, curves and approaches only if
+      limits first (they feed enforcement, cruise and the limit callouts;
+      done 2026-10-25 from the 2026-10-19 planet file, see below), then
+      ramp lengths, then interchanges, curves and approaches only if
       a tester hits a wrong one. Each layer ports its builder into
       `ff-tools`, runs on fresh Geofabrik extracts taken that day, then
       re-indexes, re-bakes `world.ffdata` and passes the `data_*` and
@@ -758,6 +759,28 @@ Everything found before 2026-09-25 moved to
       dev has changed 49 of the same leg files since, Manassas and the
       Mall of America among them. Superseded on 2026-10-26 by the monthly
       re-read under the [map audit](#map-audit-seven-layers-one-planet-cut-rust-tools).
+- [x] (Found along the way) Speed limits re-read from OpenStreetMap
+      (2026-10-25) with `cargo tools osm-speed-limits`, run in a cloud
+      session. Geofabrik reset every connection from the cloud, so the
+      input was the 2026-10-19 planet file from the AWS Open Data mirror
+      (`osm-pds`), cut to the lower 48 with `osmium extract -s simple`
+      while it streamed (`--snapshot` names it in the source notes). 1,278
+      legs re-read, 2 with no posted way and the 5 hand-set legs kept; 90%
+      of road miles post the same limit. The largest change is Idaho's
+      repeal of its 70 mph truck limit (in force 2026-07-01): about 2,200
+      truck miles of I-84, I-86 and I-15 go from 70 to 80. The ramp-dip
+      screen checked 227 postings (310 before) and folds 57 (31 before).
+- [ ] (Found along the way) California's statewide 55 mph truck limit
+      (Vehicle Code 22406) is applied only where OpenStreetMap tags
+      `maxspeed:hgv`, so about 3,000 miles of legs starting in California
+      give trucks the car limit, before and after the October refresh. Needs
+      a statutory truck-limit layer per state, labelled as statutory, not a
+      per-way read.
+- [ ] (Found along the way) Hand-check OR-99W through Sherwood on
+      Portland to Newberg (miles 15 to 18). The October 2026 read posts 35
+      with a 25 inside it, where the 2026-10-17 sample called the 35 at
+      mile 16.0 a side street; the run is longer than the ramp-dip screen
+      reaches, so nothing folds it.
 - [ ] (Found along the way) Sign release archives so the updater can
       check them against a key built into the game, not only against the
       checksum GitHub lists next to the file.
@@ -3690,7 +3713,7 @@ Rules set that day:
 - [ ] Co-driver damages the truck (issue #492).
 - [ ] Game stops responding when the player switches windows (report
       2026-10-21, answers asked for).
-- [ ] Speed limits re-read from October OpenStreetMap (PR #515).
+- [x] Speed limits re-read from October OpenStreetMap (PR #515).
 - [ ] Tier 2: the Driving hints setting; lane keeping moving to the open
       lane at a closure (issue #496); the doubled continue-onto cue; the
       Mall of America exit; the Arch Linux PipeWire build (issue #501).
