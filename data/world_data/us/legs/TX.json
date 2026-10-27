@@ -216980,9 +216980,10 @@
             "road": "H.E. Bailey Turnpike (I-44)",
             "authority": "Oklahoma Turnpike Authority",
             "method": "ezpass",
-            "amount": 13.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Oklahoma Turnpike Authority published rates; https://www.pikepass.com/"
+            "amount": 16.34,
+            "estimated": false,
+            "source": "OTA toll calculator, H.E. Bailey, Texas line to Oklahoma City; researched 2026-07-19 (tools/toll_rates.py ok_he_bailey_tx_okc): https://www.pikepass.com/",
+            "amount_plate": 37.73
           }
         ],
         "restrictions": [

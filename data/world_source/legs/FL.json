@@ -29860,9 +29860,10 @@
             "road": "I-75 Alligator Alley",
             "authority": "Florida Turnpike Enterprise",
             "method": "toll_by_plate",
-            "amount": 12.0,
-            "estimated": true,
-            "source": "Florida Turnpike / Alligator Alley (I-75) commercial toll, estimated; https://www.floridasturnpike.com/"
+            "amount": 25.44,
+            "estimated": false,
+            "source": "Florida Turnpike Alligator Alley, TWO plazas at 12.72 SunPass and 15.00 cash each; no toll-by-plate option, unpaid is a violation; researched 2026-07-19 (tools/toll_rates.py fl_alligator_alley): https://www.floridasturnpike.com/",
+            "amount_plate": 30.0
           }
         ],
         "speed_limits": [

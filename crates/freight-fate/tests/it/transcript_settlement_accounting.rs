@@ -150,7 +150,7 @@ fn test_carrier_paid_charges_do_not_increase_player_progression() {
         &["New York", "Philadelphia"],
         Settle::default(),
     );
-    let carrier_charges = 30.0 + 185.0;
+    let carrier_charges = 62.51 + 12.0 + 185.0;
     let expected = build_business_settlement_basic(COMPANY_DRIVER, &job, gross, true, 0.0);
 
     assert!(
@@ -232,7 +232,7 @@ fn test_a_carried_balance_is_collected_at_a_capped_share_not_all_at_once() {
     let collected = ((1000.0 + net - profile.money()) * 100.0).round() / 100.0;
 
     assert!(
-        summary.contains("Carrier-paid or reimbursed charges 215 dollars"),
+        summary.contains("Carrier-paid or reimbursed charges 260 dollars"),
         "{summary}"
     );
     assert!(summary.contains("Balance owed"), "{summary}");
@@ -270,9 +270,9 @@ fn test_owner_operator_settlement_deducts_business_costs() {
     );
     assert!(expected.business_charge_total() > 0.0);
     let profile = app.ctx.profile.as_ref().expect("a career");
-    // NY-Philly electronics to a grocery DC: $30 tolls + $185 lumper, no washout.
+    // NY-Philly electronics to a grocery DC: $74.51 tolls + $185 lumper, no washout.
     // Those dollars used to be spoken and never hit the wallet.
-    let ledger = 30.0 + 185.0;
+    let ledger = 62.51 + 12.0 + 185.0;
     assert!(
         summary.contains("These came off this settlement"),
         "{summary}"
@@ -450,7 +450,7 @@ fn test_restored_toll_charges_do_not_duplicate_or_pay_out() {
         "position_mi": 79.0,
         "game_minutes": 45.0,
         "toll_charges": [
-            {"name": "New Jersey Turnpike ticket entry", "amount": 18.0},
+            {"name": "New Jersey Turnpike settlement", "amount": 62.51},
             {"name": "Delaware River Turnpike Toll Bridge settlement point", "amount": 12.0},
         ],
         "start_damage": 0.0,
@@ -458,9 +458,9 @@ fn test_restored_toll_charges_do_not_duplicate_or_pay_out() {
 
     let mut resumed =
         DrivingState::from_snapshot(&mut app.ctx, &snapshot).expect("the snapshot resumes");
-    assert!(approx(resumed.trip.toll_expense(), 30.0));
+    assert!(approx(resumed.trip.toll_expense(), 74.51));
     let events = resumed.trip.update(0.0);
-    assert!(approx(resumed.trip.toll_expense(), 30.0));
+    assert!(approx(resumed.trip.toll_expense(), 74.51));
     assert!(!events
         .iter()
         .any(|event| event.kind == TripEventKind::TollCharged));
@@ -521,7 +521,7 @@ fn test_toll_route_does_not_pay_more_than_equal_non_toll_route() {
 
     assert!(approx(toll_gross, non_toll_gross));
     assert!(
-        toll_summary.contains("Carrier-paid or reimbursed charges 30 dollars"),
+        toll_summary.contains("Carrier-paid or reimbursed charges 75 dollars"),
         "{toll_summary}"
     );
     assert!(

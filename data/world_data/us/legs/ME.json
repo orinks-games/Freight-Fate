@@ -6336,14 +6336,15 @@
         ],
         "toll_events": [
           {
-            "name": "Maine Turnpike settlement",
+            "name": "Maine Turnpike Gardiner toll",
             "at_mi": 77.4,
             "road": "Maine Turnpike (I-95)",
             "authority": "Maine Turnpike Authority",
             "method": "ezpass",
-            "amount": 18.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Maine Turnpike Authority published rates; https://www.maineturnpike.com/"
+            "amount": 2.0,
+            "estimated": false,
+            "source": "Maine Turnpike Authority class 5 E-ZPass and cash rate charts, Gardiner (103) toll to Interstate 295, accessed 2026-10-11: https://www.maineturnpike.com/traveler-services/tolls",
+            "amount_plate": 4.0
           }
         ],
         "restrictions": [
@@ -9190,9 +9191,10 @@
             "road": "Maine Turnpike (I-95)",
             "authority": "Maine Turnpike Authority",
             "method": "ezpass",
-            "amount": 6.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Maine Turnpike Authority published rates; https://www.maineturnpike.com/"
+            "amount": 8.4,
+            "estimated": false,
+            "source": "Maine Turnpike Authority class 5 E-ZPass and cash rate charts, Lewiston (80) to Westbrook (48), paid at New Gloucester, accessed 2026-10-11: https://www.maineturnpike.com/traveler-services/tolls",
+            "amount_plate": 9.0
           }
         ],
         "speed_limits": [

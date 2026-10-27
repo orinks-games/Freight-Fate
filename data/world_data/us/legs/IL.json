@@ -41976,9 +41976,10 @@
             "road": "Jane Addams Memorial Tollway (I-90)",
             "authority": "Illinois State Toll Highway Authority",
             "method": "ezpass",
-            "amount": 14.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Illinois State Toll Highway Authority published rates; https://www.illinoistollway.com/"
+            "amount": 42.3,
+            "estimated": false,
+            "source": "Illinois Tollway 2026, four I-90 mainline barriers summed; cashless; researched 2026-07-19 (tools/toll_rates.py il_i90_rockford_chicago): https://www.illinoistollway.com/",
+            "amount_plate": 42.3
           }
         ],
         "restrictions": [],
@@ -43710,9 +43711,10 @@
             "road": "Jane Addams Memorial Tollway (I-90)",
             "authority": "Illinois State Toll Highway Authority",
             "method": "ezpass",
-            "amount": 8.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Illinois State Toll Highway Authority published rates; https://www.illinoistollway.com/"
+            "amount": 27.55,
+            "estimated": false,
+            "source": "Illinois Tollway 2026, Belvidere plus South Beloit barriers; researched 2026-07-19 (tools/toll_rates.py il_i90_rockford_wi_line): https://www.illinoistollway.com/",
+            "amount_plate": 27.55
           }
         ],
         "restrictions": [],
