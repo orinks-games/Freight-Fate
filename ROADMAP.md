@@ -3219,6 +3219,53 @@ turnpike gross caps are only recorded is superseded by this implementation.
       steering key is a switch that steps the tractor to its lateral cap in
       one frame; the slew is not calibrated either.
 
+### Mexico freight v1: Laredo border transfer yards
+
+A US long-haul driver does not drive into Mexico; Mexico freight is a
+border-yard business. v1 models that in Laredo only, and nothing south of
+the bridge. The yards and every spoken line live in `data/border_yards.json`
+(baked as a text section), so the slice is easy to cut.
+
+- [x] **Two real US-side transfer yards join Laredo's freight**: On Time
+      International (14602 Atlanta Dr) and SCI Cross Dock (11903 Auburn Rd),
+      each with its published source and an OpenStreetMap house-level
+      geocode. They add to Laredo's market facilities; nothing is replaced.
+- [x] **Southbound loads to a yard name their Mexican consignee** on the
+      load card ("for consignee Saltillo, Coahuila, delivered to SCI Cross
+      Dock in Laredo ...") and say at delivery that a transfer carrier takes
+      the trailer across. Monterrey and Saltillo are text only; no Mexican
+      city is a map city, route or destination. The consignee is keyed on
+      the load, so no save field was added.
+- [x] **Northbound pickups at a yard wait 30 to 90 minutes on paperwork**,
+      logged on duty, not driving, at check-in, and counted toward
+      detention like any other facility hold. The range is an assumed
+      gameplay value, not border data. When the World Trade Bridge is
+      closed to trucks (CBP hours: weekdays 7 AM to midnight, Saturday and
+      Sunday 8 AM to 4 PM), the line says so as story.
+- [x] **No border toll is charged**; the transfer carrier crosses.
+- [ ] *(Found along the way)* Wire the "no northbound trailer ready" line
+      in the data to a real no-load-ready board state; the game has no
+      load-not-ready mechanism yet, so the line is unused.
+- [ ] *(Found along the way)* Facility endpoint and approach records for
+      the two yard ids, so the final approach uses the yards' own pins
+      instead of the synthetic fallback approach.
+- [ ] *(Deferred)* El Paso, Pharr and Otay Mesa transfer yards, after real
+      yards with published addresses are sourced.
+- [ ] *(Deferred)* Speak the accented consignee names ("Nuevo Leon" with
+      its accent) once a live screen-reader test passes; the accented form
+      is already kept in the data.
+- [ ] *(Deferred)* Averitt Laredo Service Center (11921 Conly Rd), pending
+      a verified coordinate; the address did not geocode in OpenStreetMap.
+- [ ] *(Deferred)* Texas DPS inspection stations near the Laredo bridges
+      for northbound flavor; exact sites unverified.
+- [ ] *(Deferred)* Colombia Solidarity Bridge commercial hours; unverified.
+- [ ] *(Deferred)* FAST lanes and C-TPAT eligibility; rules unverified.
+- [ ] *(Deferred)* In-bond northbound loads to an inland port.
+- [ ] *(Deferred)* Bridge toll display, only from a re-verified City of
+      Laredo rate; the player is never charged it.
+- [ ] *(Deferred)* World Trade Bridge Saturday pilot hours (to 7 PM from
+      September 5, 2026); left out of the story text on purpose.
+
 ### Travel-center bulk fuel (non-blocking)
 
 - [ ] **Restore `fuel_bulk` deliveries to `travel_center` as receive-only,**

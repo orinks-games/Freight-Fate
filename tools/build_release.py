@@ -625,6 +625,7 @@ RUST_BAKE_BIN = "ff-bake"
 # list is what ``verify_rust_payload`` checks did NOT leak into the payload,
 # so a half-migrated build that ships both is caught rather than shipped.
 RUST_BAKED_SOURCE_FILES = (
+    "border_yards.json",
     "buffs.json",
     "channel3000.json",
     "city_services.json",

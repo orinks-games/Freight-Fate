@@ -4,6 +4,7 @@ pub mod baked;
 pub mod big_bucks;
 pub mod billboards;
 pub mod billboards_dynamic;
+pub mod border_yards;
 pub mod branded_plazas;
 pub mod buffs;
 pub mod corners;
