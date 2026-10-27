@@ -31,7 +31,7 @@ use ff_core::models::enforcement;
 use ff_core::models::home_base::{city_service_area, ParkedAt, ParkedKind};
 use ff_core::models::jobs::relay::{relay_load, RelayRequest};
 use ff_core::models::jobs::{
-    board_offer_count, departure_deadline_hours, job_from_payload, job_payload,
+    board_offer_count, came_from_city, departure_deadline_hours, job_from_payload, job_payload,
     normalize_job_cities, plan_hos, Job, JobBoard, OfferOptions, ACTIVE_TRIP_FAIRNESS_SLACK,
 };
 use ff_core::models::profile::Profile;
@@ -453,6 +453,10 @@ pub fn open_freight_market(ctx: &mut GameContext) -> Vec<Job> {
             let mut fresh = {
                 let p = profile(ctx);
                 let endorsements: Vec<&str> = p.career.endorsements().into_iter().collect();
+                // Where the truck came from shapes where dispatch sends it
+                // next: the straight return is damped, cities behind the
+                // truck lean down, so a career traces loops, not bounces.
+                let came_from = came_from_city(world, &p.recent_lanes, &p.current_city);
                 board.offers(
                     &p.current_city,
                     &endorsements,
@@ -470,6 +474,7 @@ pub fn open_freight_market(ctx: &mut GameContext) -> Vec<Job> {
                         market: Some(&p.market),
                         carrier_key: Some(&p.carrier_key),
                         direct_freight: p.business_status == INDEPENDENT_AUTHORITY,
+                        came_from: came_from.as_deref(),
                     },
                 )
             };
@@ -626,6 +631,7 @@ fn add_forced_board_job(
             market: Some(&p.market),
             carrier_key: Some(&p.carrier_key),
             direct_freight: p.business_status == INDEPENDENT_AUTHORITY,
+            came_from: None,
         },
     );
     let Some(job) = job else {
@@ -927,7 +933,7 @@ pub(crate) fn base_menu_handle_event<S: Menu>(
         _ => {
             if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
                 let lower: String = ch.to_lowercase().collect();
-                menu.first_letter_jump(ctx, &lower);
+                menu.first_letter_input(ctx, &lower, event.key_repeat());
             }
         }
     }

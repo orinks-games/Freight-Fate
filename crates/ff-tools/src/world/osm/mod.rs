@@ -37,6 +37,7 @@
 //! Re-bake `world.ffdata` afterwards.
 
 pub mod bake;
+pub mod exits;
 pub mod geo;
 pub mod pbf;
 pub mod region;

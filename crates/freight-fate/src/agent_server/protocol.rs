@@ -239,7 +239,9 @@ fn tools_list() -> Value {
              rested (true takes a full sleep), hos_driving_min, hos_duty_min and \
              hos_since_break_min (sandbox HOS counters in game minutes), clear_load (true drops a load in \
              progress first), market_seed and board_seed (the dispatch board rolls \
-             from them), settings (an object of setting name to value, for this \
+             from them), came_from (the city the truck delivered from to get here, \
+             so the next board is shaped by where it came from), settings (an \
+             object of setting name to value, for this \
              session), and name (the career created when none is loaded; default \
              Playtest). Nothing is refused for being unreasonable: this is the \
              audited sandbox. Listen afterwards for the terminal.",
@@ -266,6 +268,7 @@ fn tools_list() -> Value {
                 "clear_load": {"type": "boolean"},
                 "market_seed": {"type": "integer"},
                 "board_seed": {"type": "integer"},
+                "came_from": {"type": "string"},
                 "settings": {"type": "object"},
             }),
             &[],

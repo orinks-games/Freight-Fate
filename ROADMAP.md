@@ -42,6 +42,8 @@ bookmarks usable.
 
 ## 1.9 in flight (ships from `dev` and `main`)
 
+- [x] Optional menu accelerator keys (owner, 2026-10-24): Gameplay, Controls offers immediate activation for unique initials; duplicate initials retain selection-only cycling. Off by default.
+
 - [x] Translations (owner, 2026-10-11): every spoken line is translated
       where it leaves for the speech channels, from gettext PO files in
       `lang/` matched as templates, so the code stays English. Settings,
@@ -764,7 +766,8 @@ Everything found before 2026-09-25 moved to
       kept on the owner's PC under `refs/backup/2026-10-25/` as a
       reference for the Python builders only. Its data must not be applied:
       dev has changed 49 of the same leg files since, Manassas and the
-      Mall of America among them.
+      Mall of America among them. Superseded on 2026-10-26 by the monthly
+      re-read under the [map audit](#map-audit-seven-layers-one-planet-cut-rust-tools).
 - [x] (Found along the way) Speed limits re-read from OpenStreetMap
       (2026-10-25) with `cargo tools osm-speed-limits`, run in a cloud
       session. Geofabrik reset every connection from the cloud, so the
@@ -796,6 +799,10 @@ Everything found before 2026-09-25 moved to
 - [ ] (Found along the way) Decide whether to rewrite history to drop the
       retired music files, which take about 440 MB of the repository.
       [October 22 audit](#october-22-repository-size-and-security-audit)
+- [x] (Found along the way) Dispatch stops sending the truck straight back
+      where it came from; the city it came from and the cities behind it
+      draw less, and lane memory counts both directions
+      ([October 27](#october-27-dispatch-stops-bouncing-found-along-the-way)).
 - [ ] (Found along the way) Send trucks to the Mall of America by Interstate
       494, 24th Avenue and Killebrew Drive, not the downtown Minneapolis exit.
       [October 24 Mall of America](#october-24-mall-of-america-found-along-the-way)
@@ -1368,6 +1375,10 @@ Everything found before 2026-09-25 moved to
       windows on its window scene, since iOS 27 stops an app built with its
       SDK at launch without one (2026-10-22). Moving to SDL3, which has
       scene support of its own, would retire the shim.
+- [x] iOS sideload packaging: `cargo tools build-ios --sideload` builds a device
+      IPA without an Apple certificate or provisioning profile, ready for
+      re-signing in a sideloading tool; the signed `--device --ipa` path is
+      documented too (2026-10-08).
 - [x] iOS driving gestures run commands directly and can be rebound in
       Settings, Gameplay, Controls, Touch gestures: a second finger while holding a
       pedal (cruise, shifts, parking brake, engine), plus tap for speed,
@@ -3579,6 +3590,32 @@ the outside temperature.
 - [ ] A passenger window (Shift Z is taken; it would need another key) if
       players ask.
 
+### October 27 dispatch stops bouncing (Found along the way)
+
+The owner asked whether it was realistic that a load north is followed by
+a load straight back south, nearly every time. Half: real freight runs in
+lanes, but a planner rarely sends a truck straight back where it came
+from; a tour is a loop. The game bounced because every board weighted
+destinations by closeness alone with no memory of where the truck came
+from, and the lane memory it had was one-directional (Dallas to Oklahoma
+City never slowed Oklahoma City to Dallas) and only reordered assigned
+dispatch, not the board a senior driver picks from. The design and the
+comparison with real dispatch are in `docs/dispatch-realism-design.md`;
+the owner chose the small fix for 1.9 and the regional freight model for
+2.0.
+
+- [x] The city the truck came from is on about one board in three after
+      a delivery (a weight could not do it: at the low levels the nearest
+      city takes nearly every draw however it is scaled, so the return is
+      gated off the other boards by the board's own seed), and cities
+      behind the truck draw down toward half, so careers trace loops. Lane
+      memory counts both directions, and the straight return is never the
+      assigned load or the cursor's load while another unlocked load is on
+      the board. When it is on the board it is a choice, and a town with
+      fewer than four cities in reach keeps it every time.
+- [ ] Freight with a geography and a dispatcher who plans ahead: the 2.0
+      bullets under [the working week and home](#20-planned----the-working-week-and-home).
+
 ### October 24 Mall of America (Found along the way)
 
 The owner asked whether the Mall of America was on the map. It was not, so
@@ -3646,16 +3683,48 @@ Rules set that day:
 - **PR #515 stays on dev** for 1.9.6: rebase after #514, an agent-server
   drive, merge. The same `osm-speed-limits` command runs again on 2.0
   with Canada in the bounding box.
+- **The map stays in the game and is re-read monthly** (owner,
+  2026-10-26, design note "Keeping the map current" in the project). No
+  streaming: it would end the deterministic drive the transcript tests
+  and the battery assert, and raw OpenStreetMap is not playable without
+  the derivation and screens. No separate map pack: the baked
+  `world.ffdata` is about 7 MB inside a 35 MB slim update, and its format
+  version ties it to the binary anyway. Instead one `cargo tools
+  osm-refresh` command runs every layer tool over a planet cut, and a
+  monthly routine runs it and opens a pull request against dev; detail
+  under the [map audit](#map-audit-seven-layers-one-planet-cut-rust-tools).
 
 1.9.6, ship when the tier-1 list is empty:
 
 - [ ] Crashes on facility streets with assists on (issues #513, #516,
       #517; one tester, 1.9.5, Lynchburg and Staunton, Virginia). The
-      2026-10-25 snapshot writes the native crash into the log; the first
-      log with that line names the fault. Reproduce on the agent server
-      with Facility streets on from the same yards.
-- [ ] Co-driver crawls at 20 after planning a handover stop, then hands
-      over out of hours (issue #518). Ask for the log once.
+      2026-10-25 snapshot writes the native crash into the log, and #517's
+      names it: an access violation inside Windows' own speech library
+      (`sapi.dll` +0x15A44) while the separate SAPI event voice was
+      speaking, about three seconds after a turn instruction, with no new
+      speech call from the game in between. #516 died at the same moment
+      on an older build with no crash handler. Every other SAPI player
+      drives these streets without it, so it points at this tester's
+      SAPI voice or Windows build. The crash line now also gives the
+      thread and the call stack (PR to dev, 2026-10-26); asked the tester
+      for their Windows version and SAPI voice, and to try the OneCore
+      event voice. Fix once the stack names the caller. If the stack
+      lands in SAPI's own audio output rather than a voice's engine,
+      Prism's SAPI rewrite (master e7097c7, 2026-10-26, unreleased:
+      synthesis on its own thread, played through XAudio2) avoids that
+      path; it needs a prismer release or a patched fork, then a Hearken
+      bump.
+- [x] Co-driver crawls at 20 after planning a handover stop, then hands
+      over out of hours (issue #518). The tester's log (not icy) showed
+      the stop plan was sound: a work zone on a 5.8 percent downgrade
+      handed cruise to the speed keeper while descent control held the
+      grade, descent control stayed marked as holding with no cruise, and
+      the co-driver braked to its floor of 20 every three seconds for the
+      rest of the shift. Ending cruise now ends descent control, and the
+      co-driver brakes for a grade only under cruise. The owner also ruled
+      (2026-10-27) that the speed keeper is for streets and facility
+      approaches only: cruise now holds highway work zones and heavy
+      traffic at their limit, so that handoff no longer happens at all.
 - [ ] Co-driver damages the truck (issue #492).
 - [ ] Game stops responding when the player switches windows (report
       2026-10-21, answers asked for).
@@ -3768,6 +3837,26 @@ remain planned or explicitly deferred.
       surface at home, short home-region runs, home-every-night behavior,
       and its own pay/HOS rules are still design work. Local carriers and
       their shorter distance caps below are not this second board.
+- [ ] **Freight with a geography** (owner, 2026-10-26). Each of the 16
+      regions gets an outbound and inbound freight balance by season, the
+      base derived from the FHWA Freight Analysis Framework and the
+      produce, harvest and holiday-retail layers labelled assumed. A
+      destination draws by what it has going out, the board at a city
+      grows or shrinks with its own outbound balance (into Florida: thin
+      and cheap, a relay to Georgia likelier; into Dallas: full), lane pay
+      moves with direction (about 0.85 to 1.2 on top of the cargo market),
+      and the market watch gains one geographic line inside the summary
+      it already speaks. The same city rolls a different board by season
+      and by the region's seeded drift.
+- [ ] **A dispatcher who plans ahead** (owner, 2026-10-26; needs the home
+      terminal and the freight geography). Dispatch scores a load by its
+      pay and by where it leaves the truck, and near home time by how
+      close it ends to the home terminal, spoken as a lane note ("This one
+      works you toward home"). Now and then a planned two-load tour to
+      accept whole or take the first leg of; some loads ready tomorrow
+      morning, so a night here or a short empty run now; and for
+      owner-operators a load-board view with each market's balance in
+      words and lane rates that follow it.
 - [ ] **BLOCKER (2.0 tester release): orinks.net profile integrity export.**
       The validator's exact save-field list must be updated from
       `crates/ff-core/tests/profile_integrity_invariants.json` for the new
@@ -4466,9 +4555,15 @@ loudly when mostly assumed.
       Glennallen to Palmer (140 against 145), Prince George to Surrey (492
       against 465) and the short Anchorage, Wasilla, Palmer and Kenai legs.
       The route re-sweep above should re-measure those miles.
-- [ ] Exits, ramp lengths, terminals and controls, per carriageway, both
-      directions' ramp ends (3,456 of 18,165 today), which is what lets
-      road stops' streets come back.
+- [x] Exits, ramp lengths, terminals and controls, both directions' ramp
+      ends: `cargo tools osm-exits`, run over the 2026-10-19 planet cut.
+      Exits with a ramp end both ways went from 4,310 of 18,520 to 14,548
+      of 19,109; signs come from the exit's own ramps. 225 old exits the
+      read did not find again stay whole, and 195 ramp ends keep their old
+      node, because a road stop or a street chain is keyed to them;
+      re-baking the street chains (below) clears both.
+      The Alcan, Alaska, BC and Yukon legs on this branch have no exits
+      yet; they come with the route geometry above.
 - [ ] Curves: the archive builder, so detour and Alcan legs get real bends.
 - [ ] Grades: 3DEP for the US; the Canadian Digital Elevation Model
       elsewhere, labelled.
@@ -4476,6 +4571,34 @@ loudly when mostly assumed.
 - [ ] Street chains, endpoints, facility and stop approaches from the same
       OSM set, so chains, terminals and ramp ends agree. The streets work
       below needs this one.
+
+Keeping the layers current (owner, 2026-10-26): the map stays in the
+game, and the re-read goes on a clock. Only the layers mappers change
+month to month run monthly: speed limits, exits and ramps, lanes, truck
+restrictions (`maxheight`, `maxweight`, `hgv`). Amenities run quarterly,
+traffic counts yearly when the new table is published, and geometry,
+curves and grades only after a re-route. Every layer tool keeps a record
+whose `source` is not its own read, the hand-set rule `osm-speed-limits`
+already follows. The job runs on dev only; 2.0 widens the cut to Canada
+and Alaska after the merge.
+
+- [ ] Port the exits and ramps builder into `ff-tools`, both directions'
+      ramp ends, with the hand-set rule, and re-read the layer in the same
+      PR. Then lanes, then truck restrictions, on the same pattern.
+- [ ] `cargo tools osm-refresh`: the planet cut from osm-pds with the
+      planet date recorded as `--extract-date`, each layer tool dry-run
+      then `--write`, one commit per layer, `--layers` for a subset,
+      `index-world --check`, the `data_*` and `sim_*` tests, and a report
+      (records re-read and left alone with the reason, share of road
+      miles changed, the ten biggest changes by state, provenance ratio,
+      the leg to drive). No fixed change-share cutoff until a few months
+      of runs show a normal month.
+- [ ] Run it once by hand and review the report with the owner, then a
+      monthly routine in the project runs it, drives one changed leg on
+      the agent server with Facility streets off, and opens the PR against
+      dev. A GitHub Actions workflow is the later option; it needs the
+      runner's disk cleared or a streaming reader, and a token whose PRs
+      trigger CI.
 
 ### City streets: four slices
 
@@ -4637,14 +4760,13 @@ parked on `feat/street-lights-2-0`. Detail in
       approach chains play again in the first 2.0 nightly, under the
       Facility streets setting, with the timing items below still open
       (owner, 2026-10-26; streets slice 1).
-- [ ] **Turn road stops' streets back on.** Most exits have a ramp end
-      baked for one direction only (3,456 of 18,165 have both), because the
-      other direction's ramp leaves at its own junction node. The search
-      around same-numbered junctions (`RAMP_SIBLING_JUNCTION_M`, with its
-      pytest, on `feat/street-lights-2-0`) adds 34 of 47 on the Abilene to
-      Fort Worth leg. Re-bake the ramp terminals, then the stop approaches
-      and facility exit chains, from one OSM set; I-20 exit 307 westbound
-      (the Love's at Baird) is the check.
+- [ ] **Turn road stops' streets back on.** The ramp terminals are
+      re-baked both ways (`osm-exits`, 14,548 of 19,109 exits; I-20 exit
+      307 at Baird now ends both ways). Still to do: the stop approaches
+      and facility exit chains from the same OSM set, so the Love's at
+      Baird gets its westbound street chain. Until then about 30 arrivals
+      whose nearest exit is new to the map (Abilene from the east now takes
+      exit 290, Loop 322) end at the gate instead of on their streets.
 - [ ] **Arterial progression.** Signals along one street share a cycle
       and are offset for its posted limit, so a truck at the limit meets
       greens.
@@ -4663,12 +4785,11 @@ parked on `feat/street-lights-2-0`. Detail in
 Moved out of the 1.9 release gate on 2026-09-25: none of these makes the
 truck do the wrong thing on a drive.
 
-- [ ] **The interchange bake is direction-blind.** `tools/build_interchanges.py`
-      merges every ramp near a junction into one record, so an exit's real
-      via (US-70 West at Ardmore 31B) is lost when a mainline entrance
-      ramp's via is taken first. Re-derive per carriageway, keeping only
-      exit ramps leaving in the direction of travel; the run-time filter
-      landed for 1.9 can then go.
+- [ ] **The interchange bake is direction-blind.** `osm-exits` now reads
+      signs only from the exit's own ramps, so mainline entrance ramps no
+      longer lend their via (Ardmore 31B reads US 70 West). Both
+      directions' signs still share one record; splitting them per
+      direction of travel would let the run-time filter landed for 1.9 go.
 - [ ] **995 sourced facility endpoints are unnamed.** Plan: take OSM
       buildings over 500 m2 and name them from Overture Places keyed by
       GERS id ([record](#release-gate-record)).

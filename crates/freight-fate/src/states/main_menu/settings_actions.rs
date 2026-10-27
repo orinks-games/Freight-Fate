@@ -534,6 +534,11 @@ impl SettingsCategoryState {
         self.announce(ctx);
     }
 
+    pub(super) fn toggle_menu_accelerator_keys(&mut self, ctx: &mut GameContext, _d: i64) {
+        ctx.settings.menu_accelerator_keys = !ctx.settings.menu_accelerator_keys;
+        self.announce(ctx);
+    }
+
     pub(super) fn toggle_controller(&mut self, ctx: &mut GameContext, _d: i64) {
         ctx.settings.controller_enabled = !ctx.settings.controller_enabled;
         ctx.apply_controller();

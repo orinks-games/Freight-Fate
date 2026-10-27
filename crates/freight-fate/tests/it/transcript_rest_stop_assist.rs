@@ -439,8 +439,11 @@ fn test_selected_stop_assist_reaches_full_stop_and_sleep_menu() {
         d.ramp_terminal_done = true;
     });
 
+    // The real exit at this mile has a ramp a mile long since the October
+    // 2026 exits re-read: two minutes at the ramp's 31, so give it three
+    // and a bit.
     let mut opened = false;
-    for _ in 0..4_000 {
+    for _ in 0..12_000 {
         top_frame(&mut harness);
         if harness.state_is::<RestStopState>() {
             opened = true;

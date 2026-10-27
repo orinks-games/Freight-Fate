@@ -40,8 +40,8 @@ mod zones;
 
 pub use lookups::LaneRun;
 pub use streets::{
-    is_gate_zone_reason, is_street_zone_reason, spoken_zone, LOT_ZONE, STOP_STREET_ZONE,
-    STREET_ZONE, YARD_ZONE,
+    is_gate_zone_reason, is_highway_zone_reason, is_street_zone_reason, spoken_zone, LOT_ZONE,
+    STOP_STREET_ZONE, STREET_ZONE, YARD_ZONE,
 };
 
 /// A stop is announced ("stop ahead") when it first comes within this many
