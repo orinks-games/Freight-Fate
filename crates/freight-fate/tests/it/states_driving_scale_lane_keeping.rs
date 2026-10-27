@@ -123,3 +123,36 @@ fn partial_lane_keeping_leaves_the_scale_signal_to_the_driver() {
     }
     assert!(!rig.drive.exit_signal_on, "{:?}", rig.transcript());
 }
+
+#[test]
+fn a_transponder_green_light_keeps_full_lane_keeping_on_the_highway() {
+    use ff_core::models::business::WEIGH_STATION_TRANSPONDER_LEVEL;
+    use ff_core::models::career::LEVEL_XP;
+    let mut rig = rig_on("full");
+    if let Some(profile) = rig.app.ctx.profile.as_mut() {
+        profile.career.xp = LEVEL_XP[WEIGH_STATION_TRANSPONDER_LEVEL as usize - 1];
+    }
+    let stop = open_scale(&mut rig);
+    // The weigh-in-motion verdict is seeded; pin it green for this case.
+    let key = rig.drive.weigh_station_key(&stop);
+    rig.drive
+        .weigh_station_transponder_verdict
+        .insert(key, "green".to_string());
+    rig.prepare(55.0, None);
+    let mut signalled = false;
+    for _ in 0..60 * 60 * 10 {
+        rig.drive.trip.truck.velocity_mps = 55.0 * MPS_PER_MPH;
+        rig.step(1, DT, None);
+        signalled |= rig.drive.exit_signal_on;
+        if rig.drive.trip.position_mi > SCALE_MI + 1.0 {
+            break;
+        }
+    }
+    let transcript = rig.transcript().join("\n");
+    assert!(
+        !signalled,
+        "signalled for a scale the transponder cleared:\n{transcript}"
+    );
+    assert!(rig.drive.trip.position_mi > SCALE_MI + 1.0, "{transcript}");
+    assert_eq!(rig.said("Scale bypass enforcement"), 0, "{transcript}");
+}
