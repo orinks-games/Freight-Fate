@@ -171,6 +171,8 @@ pub struct TripOptions {
     pub imperial: bool,
     pub hazard_scale: f64,
     pub career_hours: Option<f64>,
+    /// The career calendar follows the real date, so weekdays are real.
+    pub live_calendar: bool,
     pub traffic_provider: Option<Arc<dyn TrafficProvider>>,
     pub parking_provider: Option<Arc<TruckParkingProvider>>,
     pub bobtail: bool,
@@ -193,6 +195,7 @@ impl Default for TripOptions {
             imperial: true,
             hazard_scale: 1.0,
             career_hours: None,
+            live_calendar: false,
             traffic_provider: None,
             parking_provider: None,
             bobtail: false,
@@ -231,6 +234,8 @@ pub struct Trip {
     /// Absolute career clock at departure: carries the day of the week so
     /// commuter rush hour only forms on weekdays. None reads as a weekday.
     pub career_hours: Option<f64>,
+    /// The career calendar follows the real date, so weekdays are real.
+    pub live_calendar: bool,
     imperial: bool,
     pub traffic_provider: Option<Arc<dyn TrafficProvider>>,
     pub parking_provider: Option<Arc<TruckParkingProvider>>,
@@ -453,6 +458,7 @@ impl Trip {
             hazard_scale,
             start_hour,
             career_hours: opts.career_hours,
+            live_calendar: opts.live_calendar,
             imperial: opts.imperial,
             traffic_provider: opts.traffic_provider,
             parking_provider: opts.parking_provider,

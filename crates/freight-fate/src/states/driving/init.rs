@@ -93,6 +93,10 @@ impl DrivingState {
         };
         truck.placarded_hazmat =
             phase == DRIVE_PHASE_DELIVERY && matches!(job.cargo.key, "hazardous" | "fuel_bulk");
+        truck.hazard_class = job
+            .hazmat
+            .filter(|_| phase == DRIVE_PHASE_DELIVERY)
+            .map(|m| m.class);
         // A reposition run is the tractor alone -- nothing on the fifth
         // wheel. Pickup deadheads haul their empty box.
         truck.trailer_attached = !job.bobtail;
@@ -210,6 +214,7 @@ impl DrivingState {
                 imperial: ctx.settings.imperial_units,
                 hazard_scale,
                 career_hours: Some(profile_of(ctx).game_hours),
+                live_calendar: profile_of(ctx).live_calendar,
                 traffic_provider: live_traffic_provider(ctx),
                 parking_provider: live_parking_provider(ctx),
                 bobtail: job.bobtail,

@@ -22,7 +22,10 @@ mod crossing;
 mod interchange;
 mod leg;
 mod street;
-pub use crossing::{CrossingLoad, EscortRule, HazmatRule, RoadCrossing, WindDecision, WindRule};
+pub use crossing::{
+    CrossingLoad, EscortRule, HazardClass, HazmatHours, HazmatRule, RoadCrossing, WindDecision,
+    WindRule,
+};
 pub use interchange::{
     destinations_without_via, format_route_ref, join_destinations, route_token, Interchange,
 };

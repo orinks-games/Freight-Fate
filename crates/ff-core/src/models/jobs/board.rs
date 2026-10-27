@@ -806,11 +806,20 @@ impl<'w> JobBoard<'w> {
         // A tunnel or bridge that turns this load away is planned around. No
         // legal road, or one far longer than the open road, is no job: a
         // dispatcher would not book a load that cannot make the trip.
-        let load = CrossingLoad::standard_rig(true).with_cargo(
+        let material = super::hazmat::commodity_for(
             cargo.key,
-            cargo.tank,
-            (cargo.weight_tons.1 * 2000.0).round() as u32,
+            &format!(
+                "{origin}|{destination}|{}|{}",
+                origin_facility.id, destination_facility.id
+            ),
         );
+        let load = CrossingLoad::standard_rig(true)
+            .with_cargo(
+                cargo.key,
+                cargo.tank,
+                (cargo.weight_tons.1 * 2000.0).round() as u32,
+            )
+            .with_hazard_class(material.map(|m| m.class));
         let mut miles = miles;
         let route = if load.regulated() {
             let legal = self
@@ -926,6 +935,7 @@ impl<'w> JobBoard<'w> {
         job.origin_spoken = self.world.spoken_city(origin, Some(true));
         job.destination_spoken = self.world.spoken_city(destination, Some(true));
         job.seasonal_weight_limit = seasonal_weight_limit;
+        job.hazmat = material;
         Some(job)
     }
 }

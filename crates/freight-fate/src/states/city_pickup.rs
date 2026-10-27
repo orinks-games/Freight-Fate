@@ -823,8 +823,8 @@ impl PickupFacilityState {
                 .iter()
                 .flat_map(|leg| leg.crossings.iter())
                 .find_map(|c| {
-                    c.refusal(&load)
-                        .map(|reason| (c.name.clone(), reason.to_string()))
+                    c.refusal_spoken(&load)
+                        .map(|reason| (c.name.clone(), reason))
                 })
         });
         let routes = if load.regulated() {
