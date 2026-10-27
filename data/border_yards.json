@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "notes": "Mexico freight v1, Laredo only. US-side border transfer yards: southbound trailers are dropped here for a transfer carrier to take across, northbound trailers are picked up here after a transfer carrier has brought them across. No Mexican city is ever a map city, route or destination; consignee cities appear only as text on the load. Yard paperwork waits are a gameplay range, not border data.",
+  "city": "laredo_tx_us",
+  "area": {
+    "note": "Laredo area box used by the data checks: the city pin, the Mines Road and Interstate 35 north industrial area, and the World Trade Bridge approach.",
+    "min_lat": 27.40,
+    "max_lat": 27.75,
+    "min_lon": -99.65,
+    "max_lon": -99.35
+  },
+  "yards": [
+    {
+      "id": "laredo-tx-us:cross_dock:on-time-international",
+      "name": "On Time International",
+      "spoken": "On Time International",
+      "type": "cross_dock",
+      "address": "14602 Atlanta Dr, Laredo, TX 78045",
+      "lat": 27.59682,
+      "lon": -99.52154,
+      "ships": ["automotive", "machinery", "electronics", "general"],
+      "receives": ["automotive", "machinery", "electronics", "general"],
+      "source": "https://ontimeinternational.com/cross-dock-laredo-tx",
+      "source_note": "Read: On Time International Laredo cross-dock, minutes from the Laredo-Nuevo Laredo crossing, trailer-to-trailer transfer (https://ontimeinternational.com/cross-dock-laredo-tx). Pin derived: OpenStreetMap Nominatim house-level geocode of 14602 Atlanta Dr, Laredo, TX 78045 (way 852711310), accessed 2026-10-14."
+    },
+    {
+      "id": "laredo-tx-us:cross_dock:sci-cross-dock",
+      "name": "SCI Cross Dock",
+      "spoken": "SCI Cross Dock",
+      "type": "cross_dock",
+      "address": "11903 Auburn Rd, Ste. A, Laredo, TX 78045",
+      "lat": 27.6085,
+      "lon": -99.51282,
+      "ships": ["automotive", "machinery", "electronics", "general"],
+      "receives": ["automotive", "machinery", "electronics", "general"],
+      "source": "https://sci-cross-dock.com/",
+      "source_note": "Read: SCI Cross Dock, El Portal Industrial Park, cross-border trailer transfers and trailer yard ten minutes from the World Trade Bridge (https://sci-cross-dock.com/). Pin derived: OpenStreetMap Nominatim house-level geocode of 11903 Auburn Rd, Laredo, TX 78045 (way 21302460), accessed 2026-10-14."
+    }
+  ],
+  "consignees": [
+    {
+      "name": "Monterrey, Nuevo León",
+      "spoken": "Monterrey, Nuevo Leon",
+      "state": "Nuevo Leon",
+      "source": "Federal Highway 85D runs from Nuevo Laredo to Monterrey. Automotive Logistics (https://www.automotivelogistics.media/supply-chain/down-mexico-wayand-back-again/179375) describes the Monterrey and Saltillo to Chicago and Detroit truck lane through Laredo."
+    },
+    {
+      "name": "Saltillo, Coahuila",
+      "spoken": "Saltillo, Coahuila",
+      "state": "Coahuila",
+      "source": "Saltillo traffic from Nuevo Laredo uses Federal Highways 40 and 57, not 85D. Automotive Logistics (https://www.automotivelogistics.media/supply-chain/down-mexico-wayand-back-again/179375) reports GM Ramos Arizpe, by Saltillo, ships about 95 percent of its output via Laredo on the Monterrey and Saltillo to Chicago and Detroit lane. Stellantis Saltillo Truck Assembly: https://media.stellantisnorthamerica.com/newsrelease.do?id=319."
+    }
+  ],
+  "bridge": {
+    "name": "World Trade Bridge",
+    "note": "Story text only. The game never times, charges or crosses the bridge. The Saturday evening pilot hours are left out on purpose.",
+    "source": "https://www.cbp.gov/newsroom/local-media-release/laredo-port-entry-announces-extended-saturday-operational-hours-world",
+    "commercial_hours": {
+      "weekday": {"open_hour": 7, "close_hour": 24, "spoken": "it normally takes commercial traffic 7 AM to midnight on weekdays"},
+      "saturday": {"open_hour": 8, "close_hour": 16, "spoken": "it opens to commercial traffic at 8 AM and normally closes at 4 PM on Saturdays"},
+      "sunday": {"open_hour": 8, "close_hour": 16, "spoken": "it normally takes commercial traffic 8 AM to 4 PM on Sundays"}
+    }
+  },
+  "paperwork_wait_minutes": {
+    "min": 30,
+    "max": 90,
+    "note": "Assumed: a plausible gameplay range for a northbound trailer's paperwork at the yard, drawn from the job's own seed. Not a measured border or yard wait."
+  },
+  "text": {
+    "load_card": "for consignee {consignee}, delivered to {yard} in {city} for a transfer carrier to take across",
+    "yard_drop": "Trailer dropped at {yard}. A transfer carrier takes it across from here to {consignee}.",
+    "northbound_wait": "The northbound trailer at {yard} is still on paperwork. About {minutes} minutes before it is released, logged on duty, not driving.",
+    "northbound_wait_after_hours": "The World Trade Bridge is closed to trucks right now; {hours}. This trailer came across before it closed. About {minutes} minutes of paperwork before it is released, logged on duty, not driving.",
+    "no_load_ready": "No northbound trailer is ready at the Laredo yards right now. The trailer missed the last crossing and will be ready in the morning."
+  }
+}

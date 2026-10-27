@@ -273,6 +273,7 @@ fn test_detention_charge_speaks_the_hours_and_pays_the_driver() {
         trailer: None,
         detention_minutes: 105.0,
         reason: "the shipper is loading you at the dock, and they are running behind",
+        paperwork_minutes: 0.0,
     };
     assert_eq!(plan.detention_pay(), 78.75);
     let charge = detention_charge(&plan).unwrap();

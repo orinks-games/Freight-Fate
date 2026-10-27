@@ -9,6 +9,7 @@ use serde_json::{json, Map, Value};
 use crate::data::world::World;
 use crate::data::world_constants::{lookup, LOCATION_TYPE_LABELS};
 use crate::data::world_models::CrossingLoad;
+use crate::models::border_freight::load_card_line;
 use crate::models::career::JobView;
 use crate::models::market::market_condition;
 use crate::models::save_migration::json_f64;
@@ -282,7 +283,10 @@ impl Job {
             format!(" Requires {}.", credentials_clause(self.cargo.credentials))
         };
         let origin = format!("from {}", self.origin_offer_text());
-        let dest = format!("to {}", self.destination_offer_text());
+        // A load for a border transfer yard names its Mexican consignee;
+        // the yard in the US city is still where the trailer is delivered.
+        let dest = load_card_line(self, self.spoken_destination())
+            .unwrap_or_else(|| format!("to {}", self.destination_offer_text()));
         let trailer = if opts.trailer_note.is_empty() {
             String::new()
         } else {

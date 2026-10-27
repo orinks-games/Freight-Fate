@@ -388,6 +388,7 @@ fn the_container_holds_every_section_and_nothing_stray() {
         "legs",
         "local_approaches",
         "local_geometry",
+        "text:border_yards.json",
         "text:buffs.json",
         "text:channel3000.json",
         "text:radio_catalog.json",

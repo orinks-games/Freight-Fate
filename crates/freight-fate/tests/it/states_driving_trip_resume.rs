@@ -174,6 +174,11 @@ impl WeatherProvider for FreshOldProvider {
     fn observation_age_s(&mut self, _city: &str) -> Option<f64> {
         Some(12.0 * 60.0)
     }
+    // A mild station reading, so the real-calendar season model (read off
+    // the wall clock) never turns this rain to ice on a cold night.
+    fn get_temperature(&mut self, _city: &str) -> Option<f64> {
+        Some(15.0)
+    }
 }
 
 /// A provider that answers nothing, so a swapped-in live source never reaches

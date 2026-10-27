@@ -353,6 +353,12 @@ impl WeatherProvider for LocationProvider {
     fn unavailable(&mut self, _city: &str) -> bool {
         false
     }
+
+    // A mild station reading, so the real-calendar season model (read off
+    // the wall clock) never turns this rain to ice on a cold night.
+    fn get_temperature(&mut self, _city: &str) -> Option<f64> {
+        Some(15.0)
+    }
 }
 
 #[test]
@@ -856,11 +862,14 @@ fn test_live_change_omits_modeled_temperature_and_does_not_hide_later_stale_stat
 
     let shared = Arc::new(Mutex::new(Shared::default()));
     let route = first_route("chicago_il_us", "indianapolis_in_us");
-    let weather = with_provider(
+    let mut weather = with_provider(
         "great_lakes",
         1,
         Box::new(MovingProvider(Arc::clone(&shared))),
     );
+    // The career clock, not the wall clock, sets the season here, so a cold
+    // real night cannot turn this heavy rain to snow.
+    weather.live_weather_controls_calendar = false;
     let mut trip = trip_on(route, weather, seeded(2));
 
     trip.position_mi = 0.0;
@@ -913,6 +922,11 @@ fn test_freshly_fetched_old_observation_change_stays_live_and_announces_age() {
         }
         fn observation_age_s(&mut self, _: &str) -> Option<f64> {
             Some(12.0 * 60.0)
+        }
+        // A mild station reading, so the real-calendar season model (read
+        // off the wall clock) never turns this rain to ice on a cold night.
+        fn get_temperature(&mut self, _: &str) -> Option<f64> {
+            Some(15.0)
         }
     }
 
