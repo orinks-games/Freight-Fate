@@ -46393,7 +46393,23 @@
           "name": "rolling",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "toll_events": [
+          {
+            "name": "San Francisco-Oakland Bay Bridge toll",
+            "at_mi": 375.9,
+            "road": "I-80 San Francisco-Oakland Bay Bridge",
+            "authority": "Bay Area Toll Authority",
+            "method": "open_road",
+            "amount": 30.5,
+            "estimated": false,
+            "source": "BATA toll schedule (Resolution 0184), 5 axles, 2026 rate 30.50 for FasTrak and plate (plate surcharges start 2027-01-01; 40.50 is the 2030 step); multi-axle tolls are one schedule across the seven state-owned bridges, the same 30.50 as the Carquinez Bridge; checked against the bayareafastrak.org S.F.-Oakland Bay Bridge page 2026-10-14; collected westbound into San Francisco only; researched 2026-07-19 (tools/toll_rates.py ca_carquinez_bridge): https://www.bayareafastrak.org/en/tolls/index.shtml",
+            "amount_plate": 30.5,
+            "directions": [
+              "forward"
+            ]
+          }
+        ]
       },
       "stops": [
         {
@@ -93956,7 +93972,37 @@
           "name": "rolling",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "toll_events": [
+          {
+            "name": "Carquinez Bridge toll",
+            "at_mi": 59.2,
+            "road": "I-80 Carquinez Bridge",
+            "authority": "Bay Area Toll Authority",
+            "method": "open_road",
+            "amount": 30.5,
+            "estimated": false,
+            "source": "BATA Resolution 0184 toll schedule, 5 axles, 2026 rate 30.50 for FasTrak and plate (plate surcharges start 2027-01-01; 40.50 is the 2030 step), collected eastbound only; researched 2026-07-19 (tools/toll_rates.py ca_carquinez_bridge): https://www.bayareafastrak.org/en/tolls/index.shtml",
+            "amount_plate": 30.5,
+            "directions": [
+              "reverse"
+            ]
+          },
+          {
+            "name": "San Francisco-Oakland Bay Bridge toll",
+            "at_mi": 79.4,
+            "road": "I-80 San Francisco-Oakland Bay Bridge",
+            "authority": "Bay Area Toll Authority",
+            "method": "open_road",
+            "amount": 30.5,
+            "estimated": false,
+            "source": "BATA toll schedule (Resolution 0184), 5 axles, 2026 rate 30.50 for FasTrak and plate (plate surcharges start 2027-01-01; 40.50 is the 2030 step); multi-axle tolls are one schedule across the seven state-owned bridges, the same 30.50 as the Carquinez Bridge; checked against the bayareafastrak.org S.F.-Oakland Bay Bridge page 2026-10-14; collected westbound into San Francisco only; researched 2026-07-19 (tools/toll_rates.py ca_carquinez_bridge): https://www.bayareafastrak.org/en/tolls/index.shtml",
+            "amount_plate": 30.5,
+            "directions": [
+              "forward"
+            ]
+          }
+        ]
       },
       "stops": [
         {
@@ -132385,7 +132431,23 @@
           "name": "rolling",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "toll_events": [
+          {
+            "name": "Golden Gate Bridge toll",
+            "at_mi": 4.9,
+            "road": "US-101 Golden Gate Bridge",
+            "authority": "Golden Gate Bridge, Highway and Transportation District",
+            "method": "open_road",
+            "amount": 51.25,
+            "estimated": false,
+            "source": "Golden Gate Bridge tolls effective 2026-07-01, 5 axles, FasTrak 51.25, License Plate Account or One-Time Payment 52.50 (invoice 56.25); collected southbound into San Francisco only; read 2026-10-14: https://www.goldengate.org/bridge/tolls-payment/",
+            "amount_plate": 52.5,
+            "directions": [
+              "reverse"
+            ]
+          }
+        ]
       },
       "stops": [
         {
@@ -164611,7 +164673,23 @@
           "name": "level",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "toll_events": [
+          {
+            "name": "San Francisco-Oakland Bay Bridge toll",
+            "at_mi": 74.7,
+            "road": "I-80 San Francisco-Oakland Bay Bridge",
+            "authority": "Bay Area Toll Authority",
+            "method": "open_road",
+            "amount": 30.5,
+            "estimated": false,
+            "source": "BATA toll schedule (Resolution 0184), 5 axles, 2026 rate 30.50 for FasTrak and plate (plate surcharges start 2027-01-01; 40.50 is the 2030 step); multi-axle tolls are one schedule across the seven state-owned bridges, the same 30.50 as the Carquinez Bridge; checked against the bayareafastrak.org S.F.-Oakland Bay Bridge page 2026-10-14; collected westbound into San Francisco only; researched 2026-07-19 (tools/toll_rates.py ca_carquinez_bridge): https://www.bayareafastrak.org/en/tolls/index.shtml",
+            "amount_plate": 30.5,
+            "directions": [
+              "forward"
+            ]
+          }
+        ]
       },
       "stops": [
         {

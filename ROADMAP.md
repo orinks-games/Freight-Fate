@@ -4014,8 +4014,30 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       Mackinac Bridge wind restrictions need a wind speed in the weather.
 - [ ] **Bridge escorts.** Mackinac placarded, heavy and oversize escorts and
       Golden Gate explosive-load hours are not modelled.
-- [ ] **Chesapeake Bay Bridge (US 50) toll.** Eastbound toll needs the
-      official truck rate.
+- [x] **Chesapeake Bay Bridge (US 50) toll.** Charged eastbound at the
+      published 24 dollars E-ZPass, 36 video toll.
+- [x] **Published toll rates.** 74 of 79 toll events read from
+      the authorities' five-axle schedules, with plate rates and one-way
+      collection (see docs/road-crossings.md).
+- [ ] **Last estimated tolls.** 5 events still estimated: Aurora to
+      Rockford, Syracuse to Utica, the Mass Pike stretches into Boston (New
+      York to Boston, and the Worcester to Boston detour), and the
+      Delaware River bridge on New York to Philadelphia.
+- [x] **George Washington, Bay and Golden Gate bridge tolls.** Charged one
+      way, into New York or San Francisco, on every leg that crosses them;
+      the New Jersey Turnpike on New York to Philadelphia is priced.
+- [x] **Missing toll facilities, first pass.** 14 tolls added on legs that
+      drove a priced toll road for free (see docs/road-crossings.md).
+- [ ] **Missing toll facilities, still unpriced.** The Tri-State and Edens
+      Spur on Milwaukee to Chicago, the
+      Chicago to Indianapolis toll stretch, the Muskogee Turnpike, and the
+      partial Cimarron runs on Stillwater and Enid to Tulsa. Then sweep every
+      leg with tools/toll_evidence.py.
+- [ ] **Split the Mario Cuomo Bridge out of the Thruway fares.** It is
+      collected southbound only; the New York City fares charge it both ways.
+- [ ] **tools/toll_price.py --write is lossy.** It writes `plate_amount`, not
+      `amount_plate`, and drops directions and second tolls on a leg; fix it
+      before using it.
 - [ ] **Hazard classes on freight.** The catalog does not name hazard
       classes, so a placarded packaged load is refused wherever any class is
       banned. Naming classes would let some loads through.

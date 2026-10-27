@@ -10277,14 +10277,26 @@
         ],
         "toll_events": [
           {
-            "name": "Mass Pike + Thruway settlement",
+            "name": "Berkshire Connector toll",
+            "at_mi": 33.8,
+            "road": "New York State Thruway Berkshire Connector (I-90)",
+            "authority": "New York State Thruway Authority",
+            "method": "ezpass",
+            "amount": 10.48,
+            "estimated": false,
+            "source": "NY Thruway calculator 5H, exit 23 to Canaan gantry at the MA line, eff. 2026-01-01; non-NY E-ZPass pays the Tolls-by-Mail rate; researched 2026-07-19 (tools/toll_rates.py ny_berkshire_connector): https://www.thruway.ny.gov/",
+            "amount_plate": 18.34
+          },
+          {
+            "name": "Massachusetts Turnpike settlement",
             "at_mi": 52.4,
             "road": "Massachusetts Turnpike (I-90)",
             "authority": "Massachusetts Department of Transportation",
             "method": "ezpass",
-            "amount": 21.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Massachusetts Department of Transportation published rates; https://www.mass.gov/info-details/massachusetts-toll-rates"
+            "amount": 11.7,
+            "estimated": false,
+            "source": "MassDOT calculator, West Stockbridge NY line to Auburn; researched 2026-07-19 (tools/toll_rates.py ma_ny_line_worcester): https://www.ezdrivema.com/",
+            "amount_plate": 13.5
           }
         ],
         "restrictions": [],
@@ -26554,7 +26566,20 @@
             "source": "Derived from FHWA Highway Performance Monitoring System (HPMS) AADT and through-lane counts: median of HPMS sections snapping within 250 m of a 5-mile window of the leg, rounded to the nearest 500, lone dips between agreeing neighbours carried across. Sections queried from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view) and snapped to checked-in route geometry, accessed 2026-07-05: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
           }
         ],
-        "state_crossings": []
+        "state_crossings": [],
+        "toll_events": [
+          {
+            "name": "New York State Thruway settlement",
+            "at_mi": 234,
+            "road": "New York State Thruway (I-90, I-87)",
+            "authority": "New York State Thruway Authority",
+            "method": "ezpass",
+            "amount": 167.53,
+            "estimated": false,
+            "source": "NY Thruway toll calculator 5H, exit 53 to the New York City line including the Mario Cuomo Bridge, effective 2026-01-01; researched 2026-07-19 (tools/toll_rates.py ny_buffalo_nyc): https://www.thruway.ny.gov/",
+            "amount_plate": 293.21
+          }
+        ]
       },
       "stops": [
         {
@@ -28500,9 +28525,10 @@
             "road": "New York State Thruway (I-90)",
             "authority": "New York State Thruway Authority",
             "method": "ezpass",
-            "amount": 15.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per New York State Thruway Authority published rates; https://www.thruway.ny.gov/tolls/"
+            "amount": 16.53,
+            "estimated": false,
+            "source": "NY Thruway toll calculator 5H, exit 53 to exit 45, eff. 2026-01-01; researched 2026-07-19 (tools/toll_rates.py ny_buffalo_rochester): https://www.thruway.ny.gov/",
+            "amount_plate": 28.95
           }
         ],
         "restrictions": [],
@@ -34503,7 +34529,20 @@
           "name": "level",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "toll_events": [
+          {
+            "name": "New York State Thruway settlement",
+            "at_mi": 72,
+            "road": "New York State Thruway (I-87)",
+            "authority": "New York State Thruway Authority",
+            "method": "ezpass",
+            "amount": 46.43,
+            "estimated": false,
+            "source": "NY Thruway toll calculator 5H, New York City line to exit 24 including Spring Valley, effective 2026-01-01; researched 2026-07-19 (tools/toll_rates.py ny_nyc_albany): https://www.thruway.ny.gov/",
+            "amount_plate": 81.25
+          }
+        ]
       },
       "stops": [
         {
@@ -36989,9 +37028,13 @@
             "road": "I-95 New England Thruway",
             "authority": "New York State Thruway Authority",
             "method": "open_road",
-            "amount": 34.0,
-            "estimated": true,
-            "source": "New York State Thruway Authority toll information and toll calculator, accessed 2026-06-16; estimated commercial tractor-trailer toll for New Rochelle/New England Thruway movement: https://www.thruway.ny.gov/travelers/tolls/"
+            "amount": 7.98,
+            "estimated": false,
+            "source": "NY Thruway calculator 5H, New Rochelle gantry, NORTHBOUND ONLY; researched 2026-07-19 (tools/toll_rates.py ny_new_england_thruway): https://www.thruway.ny.gov/",
+            "amount_plate": 13.97,
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Massachusetts Turnpike settlement segment",
@@ -42684,14 +42727,46 @@
         "source": "Development-time OpenRouteService driving-hgv (truck) route geometry and elevation over OpenStreetMap, with Census/OpenStreetMap state context and curated corridor POIs checked in for offline runtime use.",
         "toll_events": [
           {
-            "name": "New Jersey Turnpike ticket entry",
-            "at_mi": 8.9,
-            "road": "New Jersey Turnpike",
+            "name": "George Washington Bridge toll",
+            "at_mi": 8.0,
+            "road": "I-95 George Washington Bridge upper level",
+            "authority": "Port Authority of New York and New Jersey",
+            "method": "open_road",
+            "amount": 113.35,
+            "estimated": false,
+            "source": "Port Authority of New York and New Jersey commercial toll rates effective July 2026, 5 axles, E-ZPass peak 113.35 (off-peak 108.35, overnight 100.85; 120.85 is the Mid-Tier rate), Tolls by Mail 128.35, matching the April 2026 Truckers' Guide; collected entering New York only; read 2026-10-14: https://www.panynj.gov/bridges-tunnels/en/tolls.html",
+            "amount_plate": 128.35,
+            "directions": [
+              "reverse"
+            ]
+          },
+          {
+            "name": "New Jersey Turnpike settlement",
+            "at_mi": 11.1,
+            "road": "New Jersey Turnpike (I-95)",
             "authority": "New Jersey Turnpike Authority",
-            "method": "ticket_system",
-            "amount": 18.0,
-            "estimated": true,
-            "source": "NJTA toll information and commercial vehicle toll schedule, accessed 2026-06-16; checked-in estimate for a Class 8 tractor-trailer corridor movement: https://www.njta.com/toll-calculator"
+            "method": "ezpass",
+            "amount": 62.51,
+            "estimated": false,
+            "source": "NJTA 2026 Toll Rate Schedule, Class 5 trucks, interchange 18E/18W (George Washington Bridge approach) to or from interchange 6 (Pennsylvania Turnpike connection), E-ZPass peak 62.51 (NJ off-peak 59.38), cash 68.60, same both ways; read 2026-10-14: https://www.njta.gov/document/2026-turnpike-class-5-5-axle-trucks/",
+            "amount_plate": 68.6,
+            "directions": [
+              "reverse"
+            ]
+          },
+          {
+            "name": "New Jersey Turnpike settlement",
+            "at_mi": 76.4,
+            "road": "New Jersey Turnpike (I-95)",
+            "authority": "New Jersey Turnpike Authority",
+            "method": "ezpass",
+            "amount": 62.51,
+            "estimated": false,
+            "source": "NJTA 2026 Toll Rate Schedule, Class 5 trucks, interchange 18E/18W (George Washington Bridge approach) to or from interchange 6 (Pennsylvania Turnpike connection), E-ZPass peak 62.51 (NJ off-peak 59.38), cash 68.60, same both ways; read 2026-10-14: https://www.njta.gov/document/2026-turnpike-class-5-5-axle-trucks/",
+            "amount_plate": 68.6,
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Delaware River Turnpike Toll Bridge settlement point",
@@ -50282,7 +50357,20 @@
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           }
         ],
-        "state_crossings": []
+        "state_crossings": [],
+        "toll_events": [
+          {
+            "name": "New York State Thruway settlement",
+            "at_mi": 200,
+            "road": "New York State Thruway (I-90, I-87)",
+            "authority": "New York State Thruway Authority",
+            "method": "ezpass",
+            "amount": 151.0,
+            "estimated": false,
+            "source": "NY Thruway toll calculator 5H, exit 45 to the New York City line, effective 2026-01-01; researched 2026-07-19 (tools/toll_rates.py ny_rochester_nyc): https://www.thruway.ny.gov/",
+            "amount_plate": 264.26
+          }
+        ]
       },
       "stops": [
         {
@@ -52862,9 +52950,10 @@
             "road": "New York State Thruway (I-90)",
             "authority": "New York State Thruway Authority",
             "method": "ezpass",
-            "amount": 29.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per New York State Thruway Authority published rates; https://www.thruway.ny.gov/tolls/"
+            "amount": 33.77,
+            "estimated": false,
+            "source": "NY Thruway calculator 5H, exit 39 to exit 24; researched 2026-07-19 (tools/toll_rates.py ny_syracuse_albany): https://www.thruway.ny.gov/",
+            "amount_plate": 59.12
           }
         ],
         "restrictions": [],
@@ -55595,9 +55684,10 @@
             "road": "New York State Thruway (I-90)",
             "authority": "New York State Thruway Authority",
             "method": "ezpass",
-            "amount": 30.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per New York State Thruway Authority published rates; https://www.thruway.ny.gov/tolls/"
+            "amount": 31.19,
+            "estimated": false,
+            "source": "NY Thruway calculator 5H, exit 39 to exit 53; researched 2026-07-19 (tools/toll_rates.py ny_syracuse_buffalo): https://www.thruway.ny.gov/",
+            "amount_plate": 54.6
           }
         ],
         "restrictions": [],
@@ -57589,9 +57679,10 @@
             "road": "New York State Thruway (I-90)",
             "authority": "New York State Thruway Authority",
             "method": "ezpass",
-            "amount": 17.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per New York State Thruway Authority published rates; https://www.thruway.ny.gov/tolls/"
+            "amount": 14.66,
+            "estimated": false,
+            "source": "NY Thruway calculator 5H, exit 39 to exit 45; researched 2026-07-19 (tools/toll_rates.py ny_syracuse_rochester): https://www.thruway.ny.gov/",
+            "amount_plate": 25.65
           }
         ],
         "restrictions": [],
@@ -60580,9 +60671,10 @@
             "road": "New York State Thruway (I-90)",
             "authority": "New York State Thruway Authority",
             "method": "ezpass",
-            "amount": 19.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per New York State Thruway Authority published rates; https://www.thruway.ny.gov/tolls/"
+            "amount": 20.27,
+            "estimated": false,
+            "source": "NY Thruway calculator 5H, exit 31 to exit 24; researched 2026-07-19 (tools/toll_rates.py ny_utica_albany): https://www.thruway.ny.gov/",
+            "amount_plate": 35.47
           }
         ],
         "restrictions": [],

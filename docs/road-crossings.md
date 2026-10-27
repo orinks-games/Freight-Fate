@@ -153,9 +153,91 @@ duplicated here.
   tractor-trailers (under 15,000 lb of cargo) from 40 mph winds, and the
   Mackinac Bridge closes in high wind. The game's weather has no wind
   speed yet, so these are not modelled.
-- **Chesapeake Bay Bridge (US 50, Maryland) toll.** Collected eastbound
-  only; the official truck rate table could not be read, so no toll was
-  added.
+
+## Tolls
+
+Every toll on the map was an estimate until this audit. 66 of the
+72 toll events now carry a five-axle rate read from the authority's own
+schedule or calculator, with the source and access date on the event.
+
+- **Amount** is what a five-axle rig pays with a transponder: Class 5H in
+  Pennsylvania and New York, class 6 (high five-axle) on the Ohio Turnpike,
+  the five-axle class elsewhere.
+- **Plate rate** is what it pays without one: toll-by-plate in Pennsylvania
+  and New York, the video toll in Maryland, the non-E-ZPass fare in Ohio,
+  cash in West Virginia and Maine, Tolls by Mail at the Port Authority, the
+  license plate account at the Golden Gate Bridge, cash on the New Jersey
+  Turnpike. Where the authority charges one price, the two are equal. Where
+  a toll has peak and off-peak rates (the New Jersey Turnpike, the George
+  Washington Bridge), the game charges the peak rate.
+- **One-way collection** is modelled where the authority collects in one
+  direction only: the Chesapeake Bay Bridge (eastbound), the JFK Memorial
+  Highway (northbound), the Pennsylvania Turnpike Gateway barrier
+  (eastbound; no toll westbound into Ohio), the Ohio Turnpike Eastgate
+  barrier (westbound), the New England Thruway (northbound), the Carquinez
+  Bridge (eastbound), the I-78 Toll Bridge (westbound, into Pennsylvania),
+  the George Washington Bridge (eastbound, into New York), the San
+  Francisco-Oakland Bay Bridge (westbound, into San Francisco) and the Golden
+  Gate Bridge (southbound, into San Francisco).
+- **Where the leg actually drives decides the fare.** Harrisburg to
+  Pittsburgh enters at Carlisle; Cleveland to Toledo runs North Ridgeville to
+  Perrysburg; Youngstown to Pittsburgh pays the Toll 376 Beaver Valley
+  mainline plaza, not the Gateway barrier; Bangor to Portland leaves I-95 at
+  Gardiner for I-295 and pays only the Gardiner toll; West Virginia charges a
+  rig the out-of-state E-ZPass rate per mainline plaza.
+
+Sources: Pennsylvania Turnpike 2026 E-ZPass and toll-by-plate schedules
+(https://www.paturnpike.com/toll-calculator/toll-schedules), Ohio Turnpike
+fare calculator (https://www.ohioturnpike.org/e-zpass/toll-rates), DelDOT
+I-95 rates (https://deldot.gov/public.ejs?command=PublicTollRateI95), MDTA
+rate tables (https://mdta.maryland.gov/TollRatesTables), West Virginia
+Parkways Authority (https://turnpike.wv.gov/toll-rates) and Maine Turnpike
+Authority (https://www.maineturnpike.com/traveler-services/tolls), all read
+2026-10-11. The New York, Massachusetts, Indiana, Illinois, Kansas, Oklahoma
+and Florida rates come from the research recorded in `tools/toll_rates.py`
+(2026-07-19); each event names the schedule it came from. The George
+Washington Bridge uses the Port Authority's July 2026 commercial rates
+(https://www.panynj.gov/bridges-tunnels/en/tolls.html), the Golden Gate
+Bridge the District's July 2026 rates
+(https://www.goldengate.org/bridge/tolls-payment/), and New York to
+Philadelphia the NJTA 2026 Class 5 schedule
+(https://www.njta.gov/document/2026-turnpike-class-5-5-axle-trucks/), all
+read 2026-10-14. The Bay Bridge uses the BATA five-axle schedule already
+used for the Carquinez Bridge: multi-axle tolls are one schedule across the
+seven state-owned bridges. The FasTrak site refused automated reads on
+2026-10-14, so that figure was not re-read that day.
+
+Tolls added where a leg drove a toll road for free: the New York Thruway
+on Buffalo, Rochester and Albany to New York and on Erie to Buffalo; the
+Northeast Extension on Scranton to Allentown; the New Jersey Turnpike
+western spur on Newark to New York; the I-78 Toll Bridge on Newark to
+Allentown and Allentown to New York; the Hampton plaza on Portsmouth to
+Boston; the Carquinez Bridge on Sacramento to San Francisco; the Chelyan
+and Pax barriers on Charleston to Richmond; the Cimarron Turnpike on
+Wichita to Tulsa; and the Ohio Turnpike Eastgate barrier on Pittsburgh to
+Cleveland; the George Washington Bridge into New York on Newark, Allentown
+and Philadelphia to New York; the San Francisco-Oakland Bay Bridge on Los
+Angeles, Sacramento and Stockton to San Francisco; and the Golden Gate
+Bridge on Santa Rosa to San Francisco. Each leg's road line was checked to
+pass the plaza or to run the priced stretch. The Thruway fares to New York City include the Mario Cuomo
+Bridge, which is collected southbound only, so the northbound fare is a few
+dollars high until the bridge is split out.
+
+The legal detour legs from the tunnel work pay the tolls on their own
+roads: Baltimore to Wilmington pays the Delaware Newark plaza and, northbound
+only, the JFK Memorial Highway, the same rates as Philadelphia to Baltimore,
+and Worcester to Boston pays the Mass Pike from Auburn to Route 128. Wilmington
+to Baltimore, which drives both plazas, was missing both and now pays them.
+Boston to Portsmouth runs US 1 past the Hampton plaza and pays nothing.
+
+New York to Philadelphia drives the New Jersey Turnpike from the George
+Washington Bridge approach (interchange 18E/18W) to interchange 6 for the
+Pennsylvania Turnpike. Its old 18 dollar ticket estimate is replaced by the
+published 62.51 E-ZPass and 68.60 cash fare, charged at the exit plaza in
+each direction.
+
+Still estimated, because no official figure was matched to the leg's road:
+aurora_il_us:rockford_il_us Reagan Tollway settlement; new_york_ny_us:boston_ma_us Massachusetts Turnpike settlement segment; new_york_ny_us:philadelphia_pa_us Delaware River Turnpike Toll Bridge settlement point; syracuse_ny_us:utica_ny_us New York State Thruway settlement; worcester_ma_us:boston_ma_us Massachusetts Turnpike settlement (scaled per mile from the published West Stockbridge to Auburn rate).
 
 ## Whittier
 
