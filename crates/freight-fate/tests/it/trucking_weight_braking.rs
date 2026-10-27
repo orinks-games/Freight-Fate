@@ -26,6 +26,7 @@ fn realism_hazard_budgets_keep_service_assist_and_emergency_response_distinct() 
             dodgeable: false,
             in_lane: false,
             lead_mph: None,
+            brake_to_mph: None,
         };
         for scale in [1.0, 10.0, 20.0] {
             d.trip.time_scale = scale;
@@ -89,8 +90,8 @@ fn realism_dispatch_preview_reports_fuel_inclusive_weight_margin() {
     profile.set_truck_fuel_gal(10.0);
     let mut truck = ff_core::sim::vehicle::TruckState::new(profile.truck_specs());
     truck.fuel_gal = 10.0;
-    job.weight_tons = (LEGAL_GVW_KG - truck.tare_kg() - 100.0) / 1000.0;
-    let expected = "Load weight: 220 pounds under the gross-weight limit with current fuel.";
+    job.weight_tons = (LEGAL_GVW_KG - truck.tare_kg() + 100.0) / 1000.0;
+    let expected = "Load weight: 220 pounds over the gross-weight limit with current fuel.";
 
     let text = describe_job(&h.app.ctx, 1, &job, None);
     assert!(text.contains(expected), "{text}");
@@ -120,6 +121,9 @@ fn seasonal_dispatch_preview_names_the_gross_weight_cap() {
         highway: "Richardson Highway".to_string(),
         percent: 85,
     });
+    // The cap is spoken where it bites: a load the spring limit puts over
+    // the truck's gross weight.
+    job.weight_tons = 40.0;
     let mut proposed = h.app.ctx.profile.as_ref().expect("career profile").clone();
     proposed.take_slip_seat(&job);
     let mut truck = TruckState::new(proposed.truck_specs());
@@ -138,6 +142,7 @@ fn seasonal_dispatch_preview_names_the_gross_weight_cap() {
     );
 
     let text = describe_job(&h.app.ctx, 1, &job, None);
+    assert!(text.contains("over the gross-weight limit"), "{text}");
     assert!(text.contains(&expected), "{text}");
 }
 
@@ -185,8 +190,8 @@ fn realism_dispatch_preview_uses_the_slip_seat_tractor_and_its_fuel() {
             &ff_core::models::trucks::NO_UPGRADES,
         ));
     assigned_truck.fuel_gal = 10.0;
-    job.weight_tons = (LEGAL_GVW_KG - assigned_truck.tare_kg() - 100.0) / 1000.0;
-    let expected = "Load weight: 220 pounds under the gross-weight limit with current fuel.";
+    job.weight_tons = (LEGAL_GVW_KG - assigned_truck.tare_kg() + 100.0) / 1000.0;
+    let expected = "Load weight: 220 pounds over the gross-weight limit with current fuel.";
 
     let board = JobBoardState::new(&h.app.ctx, vec![job]);
     h.app.push_state(board);

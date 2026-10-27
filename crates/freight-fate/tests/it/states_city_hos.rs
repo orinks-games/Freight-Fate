@@ -16,7 +16,6 @@ use ff_core::models::profile::Profile;
 use ff_core::pyfmt::fmt_f;
 use ff_core::sim::hos::limits;
 use freight_fate::app::testing::TestApp;
-use freight_fate::bindings::Action;
 use freight_fate::states::base::{Key, Menu};
 use freight_fate::states::city::{open_freight_market, CityMenuState, JobBoardState};
 use freight_fate::states::city_pickup::{
@@ -137,18 +136,12 @@ fn loaded_departure_with_mandatory_sleep_has_an_achievable_deadline() {
         legal.total_h()
     );
     assert!(saved["job"]["deadline_covers_rest"].as_bool().unwrap());
-    assert!(app
-        .main_lines()
-        .join(" ")
-        .contains("adjusted the delivery deadline"));
-    assert!(app
-        .main_lines()
-        .join(" ")
-        .contains("current hours require a 10-hour sleep en route"));
-    // The key that plans the stop, not the hours readout.
-    let rest_line = format!("{} selects a rest stop", app.ctx.control_name(Action::Rest));
     assert!(
-        app.main_lines().join(" ").contains(&rest_line),
+        app.main_lines().join(" ").contains("Deadline extended to ")
+            && app
+                .main_lines()
+                .join(" ")
+                .contains("This run needs a 10-hour sleep."),
         "{:?}",
         app.main_lines()
     );
@@ -296,7 +289,7 @@ fn test_dispatch_warns_before_accepting_job_that_exceeds_current_hos() {
     assert!(
         app.main_lines()
             .last()
-            .is_some_and(|line| line.contains("Hours warning")),
+            .is_some_and(|line| line.contains("Needs an extra rest on this shift's hours")),
         "{:?}",
         app.main_lines()
     );
@@ -345,7 +338,7 @@ fn test_dispatch_warns_when_the_load_fits_the_window_only_on_paper() {
     assert!(
         app.main_lines()
             .last()
-            .is_some_and(|line| line.contains("Hours warning")),
+            .is_some_and(|line| line.contains("Needs an extra rest on this shift's hours")),
         "{:?}",
         app.main_lines()
     );
@@ -363,7 +356,7 @@ fn test_dispatch_warns_when_the_load_fits_the_window_only_on_paper() {
     assert!(
         !app.main_lines()
             .iter()
-            .any(|line| line.contains("Hours warning")),
+            .any(|line| line.contains("Needs an extra rest on this shift's hours")),
         "{:?}",
         app.main_lines()
     );
@@ -391,7 +384,7 @@ fn test_dispatch_board_warns_when_all_generated_jobs_exceed_current_hos() {
     assert!(
         app.main_lines()
             .iter()
-            .any(|line| line.contains("every listed dispatch needs an extra legal rest")),
+            .any(|line| line.contains("Every load needs an extra rest on your current hours")),
         "{:?}",
         app.main_lines()
     );
@@ -402,7 +395,7 @@ fn test_dispatch_board_warns_when_all_generated_jobs_exceed_current_hos() {
         assert!(
             app.main_lines()
                 .last()
-                .is_some_and(|line| line.contains("Hours warning")),
+                .is_some_and(|line| line.contains("Needs an extra rest on this shift's hours")),
             "job {index}: {:?}",
             app.main_lines()
         );
@@ -439,7 +432,7 @@ fn test_dispatch_does_not_warn_after_hours_reset() {
     assert!(
         !app.main_lines()
             .last()
-            .is_some_and(|line| line.contains("extra legal rest")),
+            .is_some_and(|line| line.contains("extra rest")),
         "{:?}",
         app.main_lines()
     );
@@ -456,7 +449,7 @@ fn test_dispatch_does_not_warn_after_hours_reset() {
     assert!(
         !app.main_lines()
             .last()
-            .is_some_and(|line| line.contains("Hours warning")),
+            .is_some_and(|line| line.contains("Needs an extra rest on this shift's hours")),
         "{:?}",
         app.main_lines()
     );
@@ -485,7 +478,11 @@ fn warn_sleep_and_reopen(app: &mut TestApp, xp: f64) -> (Job, i64, i64) {
         app.clear_speech();
         with_state_mut::<JobBoardState, _>(app, |b, ctx| b.accept(ctx, index));
         app.ctx.run_deferred();
-        if app.main_lines().iter().any(|l| l.contains("Hours warning")) {
+        if app
+            .main_lines()
+            .iter()
+            .any(|l| l.contains("Needs an extra rest on this shift's hours"))
+        {
             warned = Some(with_state::<JobBoardState, _>(app, |b, _| {
                 b.jobs[index].clone()
             }));
@@ -538,7 +535,9 @@ fn test_the_load_you_sleep_for_is_still_on_the_board_after_the_rest() {
     with_state_mut::<JobBoardState, _>(&mut app, |b, ctx| b.accept(ctx, index));
     app.ctx.run_deferred();
     assert!(
-        !app.main_lines().iter().any(|l| l.contains("Hours warning")),
+        !app.main_lines()
+            .iter()
+            .any(|l| l.contains("Needs an extra rest on this shift's hours")),
         "{:?}",
         app.main_lines()
     );
@@ -603,6 +602,6 @@ fn test_a_load_staged_at_the_home_yard_opens_the_pickup_without_a_deadhead() {
         "a save resumes at the pickup"
     );
     let said = app.main_lines().join(" ");
-    assert!(said.contains("staged here in the yard"), "{said}");
+    assert!(said.contains("The load is here in the yard."), "{said}");
     assert!(!said.contains("Deadhead"), "{said}");
 }

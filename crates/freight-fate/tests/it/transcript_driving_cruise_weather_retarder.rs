@@ -476,10 +476,7 @@ fn test_speed_keeper_says_when_it_cannot_hold_the_speed() {
     }
     let said = spoken(&harness)
         .iter()
-        .filter(|e| {
-            *e == "Speed keeper cannot hold 15 miles per hour on this grade. \
-                   Apply service brakes."
-        })
+        .filter(|e| *e == "Speed keeper can't hold 15 miles per hour on this grade. Brake.")
         .count();
     assert_eq!(said, 1, "{:#?}", spoken(&harness));
 }
@@ -666,10 +663,10 @@ fn test_the_resume_line_names_the_zone_cap_it_will_actually_hold() {
     harness.with_drive(|d, ctx| d.engage_cruise(ctx, 70.0, true));
     let line = spoken(&harness)
         .into_iter()
-        .find(|s| s.contains("Open road"))
+        .find(|s| s.starts_with("Cruise resuming"))
         .unwrap_or_else(|| panic!("no resume line\n{:#?}", spoken(&harness)));
     assert!(
-        line.contains("resuming at 20 miles per hour through the heavy traffic"),
+        line.contains("resuming, 20 through the heavy traffic"),
         "{line}"
     );
     assert!(!line.contains("70"), "{line}");
@@ -725,11 +722,11 @@ fn test_cruise_eases_to_the_weather_safe_speed_and_says_so_once() {
     assert!(speed <= 40.0 + 2.0, "held {speed:.1} in a thunderstorm");
     let eased: Vec<String> = spoken(&harness)
         .into_iter()
-        .filter(|e| e.contains("adaptive cruise easing to 40"))
+        .filter(|e| e.contains("cruise easing to 40"))
         .collect();
     assert_eq!(
         eased,
-        vec!["Thunderstorm; adaptive cruise easing to 40 miles per hour.".to_string()],
+        vec!["Thunderstorm, cruise easing to 40.".to_string()],
         "{:#?}",
         spoken(&harness)
     );
@@ -784,7 +781,7 @@ fn test_the_weather_cap_lifts_with_the_weather() {
         });
     }
     assert!(
-        said_any(&harness, "Heavy rain; adaptive cruise easing to 45"),
+        said_any(&harness, "Heavy rain, cruise easing to 45."),
         "{:#?}",
         spoken(&harness)
     );
@@ -805,10 +802,24 @@ fn test_the_resume_line_names_the_weather_cap() {
     harness.with_drive(|d, ctx| d.engage_cruise(ctx, 70.0, true));
     let line = spoken(&harness)
         .into_iter()
-        .find(|s| s.contains("Open road"))
+        .find(|s| s.starts_with("Cruise resuming"))
         .unwrap_or_else(|| panic!("no resume line\n{:#?}", spoken(&harness)));
-    assert!(
-        line.contains("resuming at 35 miles per hour in the snow"),
-        "{line}"
-    );
+    assert!(line.contains("resuming, 35 in the snow"), "{line}");
+    // The resume line named the cap, so the cruise loop must not repeat it:
+    // "Snow, cruise easing to 35." used to follow at once (agent drive,
+    // 2026-10-25).
+    for _ in 0..(5 * 60) {
+        harness.advance_clock(DT);
+        harness.with_drive(|d, ctx| {
+            d.truck_mut().grade = 0.0;
+            d.update_cruise(ctx, DT, false, false, false);
+            d.truck_mut().auto_shift();
+            d.truck_mut().update(DT);
+        });
+    }
+    let eased: Vec<String> = spoken(&harness)
+        .into_iter()
+        .filter(|s| s.contains("cruise easing to"))
+        .collect();
+    assert!(eased.is_empty(), "{eased:#?}");
 }

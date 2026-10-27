@@ -37,8 +37,8 @@ use ff_core::pyrandom::PyRandom;
 use ff_core::sim::cross_traffic::{CrossTraffic, CrossVehicle};
 use ff_core::sim::trip_models::{RoadStop, TripEvent, TripEventData, TripEventKind, Zone};
 use ff_core::sim::weather::WeatherKind;
-use ff_core::speech_pacing::EventPriority;
 use ff_core::speech_text::SpokenMessage;
+use hearken::speech::EventPriority;
 
 use freight_fate::app::testing::{FakeClock, TestApp};
 use freight_fate::audio::{
@@ -404,6 +404,8 @@ fn test_stop_sign_full_stop_clears() {
 /// before the run.
 fn blow_the_terminal(app: &mut TestApp, control: &str, seed: i64, mph: f64) -> (bool, f64, f64) {
     let mut d = a_drive(app);
+    // What a citation costs, not the new-driver warning.
+    app.seasoned_driver();
     let money_before = app.ctx.profile.as_ref().expect("a career").money();
     d.trip_seed = seed;
     d.cross_bubble = None; // the restored-save case: no bubble built yet
@@ -1030,16 +1032,16 @@ fn test_the_take_line_is_heard_once_with_the_terminal_behind_it() {
     let lines = spoken(&app);
     let take = lines
         .iter()
-        .position(|line| line.contains("You take"))
+        .position(|line| line.contains(" of ramp"))
         .expect("the take line");
     let light = lines
         .iter()
         .position(|line| line.starts_with("Light "))
         .expect("the terminal callout");
-    assert_eq!(said_count(&app, "You take"), 1, "{lines:?}");
+    assert_eq!(said_count(&app, " of ramp"), 1, "{lines:?}");
     assert!(take < light, "{lines:?}");
     assert!(
-        app.ctx.handed_back_count("You take") == 0,
+        app.ctx.handed_back_count(" of ramp") == 0,
         "the take line was cut and replayed: {lines:?}"
     );
 }
@@ -1087,7 +1089,7 @@ fn test_the_mainline_limit_stays_off_the_take_line() {
     clock.advance(0.3);
     take_the_exit(&mut d, &mut app, "signal", Some(stop));
     assert_eq!(said_count(&app, raised), 1, "{:?}", spoken(&app));
-    assert!(said_any(&app, "You take"), "{:?}", spoken(&app));
+    assert!(said_any(&app, " of ramp"), "{:?}", spoken(&app));
 }
 
 /// Agent drive B (2026-09-24): a billboard read 0.3 miles before the gore,
@@ -1128,13 +1130,14 @@ fn a_car_in_the_crossroad() -> CrossTraffic {
         crossed: false,
         committed: false,
         sound_started: false,
+        id: 1,
     }];
     bubble
 }
 
-/// Agent drive, yield at exit 255 (2026-09-24): "assistance is holding for
-/// your gap" was replayed 0.35 s before "Gap in traffic. Clear; pull ahead"
-/// -- the gap had come, and the hold line said the opposite.
+/// Agent drive, yield at exit 255 (2026-09-24): the hold line was replayed
+/// 0.35 s before "Gap in traffic. Clear; pull ahead" -- the gap had come,
+/// and the hold line said the opposite.
 #[test]
 fn test_the_hold_line_is_not_replayed_once_the_gap_comes() {
     let mut app = TestApp::new();
@@ -1145,14 +1148,14 @@ fn test_the_hold_line_is_not_replayed_once_the_gap_comes() {
     d.cross_bubble = Some(a_car_in_the_crossroad());
     app.clear_speech();
     d.update_ramp_terminal_assist(&mut app.ctx);
-    assert!(said_any(&app, "holding for your gap"), "{:?}", spoken(&app));
+    assert!(said_any(&app, "At the yield. A car"), "{:?}", spoken(&app));
     clock.advance(0.3);
     if let Some(bubble) = d.cross_bubble.as_mut() {
         bubble.vehicles.clear(); // the car is through
     }
     d.update_ramp_terminal_assist(&mut app.ctx);
     let lines = spoken(&app);
-    assert_eq!(said_count(&app, "holding for your gap"), 1, "{lines:?}");
+    assert_eq!(said_count(&app, "At the yield. A car"), 1, "{lines:?}");
     assert!(
         lines
             .last()
@@ -1188,15 +1191,16 @@ fn test_the_yield_wait_names_the_car_it_is_waiting_on() {
     d.update_ramp_terminal_assist(&mut app.ctx);
     let lines = spoken(&app);
     assert!(
-        lines.iter().any(|line| line
-            == "At the yield. A car crossing from the right; assistance is holding for your gap."),
+        lines
+            .iter()
+            .any(|line| line == "At the yield. A car crossing from the right."),
         "{lines:?}"
     );
 }
 
-/// Same drive: "Route-transition assistance slowing." then "Route-transition
-/// assistance braking for the yield." a second later -- one assist, one act,
-/// two lines. The lift names the yield and the terminal's braking is silent.
+/// Same drive: a slowing line then a braking-for-the-yield line a second
+/// later -- one assist, one act, two lines. The lift names the yield and the
+/// terminal's braking is silent.
 #[test]
 fn test_one_assist_line_for_the_yield_approach() {
     let mut app = TestApp::new();
@@ -1215,12 +1219,9 @@ fn test_one_assist_line_for_the_yield_approach() {
     assert!(d.ramp_assist_brake > 0.0, "the terminal is braking");
     let assist: Vec<String> = spoken(&app)
         .into_iter()
-        .filter(|line| line.contains("Route-transition assistance"))
+        .filter(|line| line.starts_with("Slowing") || line.starts_with("Braking"))
         .collect();
-    assert_eq!(
-        assist,
-        vec!["Route-transition assistance slowing for the yield.".to_string()]
-    );
+    assert_eq!(assist, vec!["Slowing for the yield.".to_string()]);
 }
 
 #[test]
@@ -1448,7 +1449,7 @@ fn test_the_ramp_coaching_outranks_chatter() {
         app.ctx.event_pacer.note_queued(
             "Brake lights right ahead.",
             EventPriority::Critical,
-            None,
+            hearken::speech::Protect::Yes,
             None,
         );
     }
@@ -1465,7 +1466,11 @@ fn test_the_ramp_coaching_outranks_chatter() {
         "{:?}",
         spoken(&app)
     );
-    assert!(said_any(&app, "assistance braking"), "{:?}", spoken(&app));
+    assert!(
+        said_any(&app, "Braking for the light."),
+        "{:?}",
+        spoken(&app)
+    );
 }
 
 #[test]
@@ -1487,7 +1492,7 @@ fn test_being_stranded_short_of_the_bar_is_never_dropped_as_chatter() {
         app.ctx.event_pacer.note_queued(
             "Brake lights right ahead.",
             EventPriority::Critical,
-            None,
+            hearken::speech::Protect::Yes,
             None,
         );
     }
@@ -1495,7 +1500,7 @@ fn test_being_stranded_short_of_the_bar_is_never_dropped_as_chatter() {
 
     app.ctx.say_event_with(
         LINE,
-        freight_fate::app::SayEvent::queued().priority(EventPriority::Route),
+        freight_fate::app::SayEvent::queued().priority(EventPriority::Important),
     );
 
     assert!(
@@ -1519,7 +1524,7 @@ fn test_the_stranded_prompts_ask_for_route_priority() {
         app.ctx.event_pacer.note_queued(
             "Brake lights right ahead.",
             EventPriority::Critical,
-            None,
+            hearken::speech::Protect::Yes,
             None,
         );
     }
@@ -1668,7 +1673,7 @@ fn test_ramp_terminal_hands_adaptive_cruise_back_after_the_stop_bar() {
     assert_eq!(d.cruise_mph, Some(40.0));
     assert!(!d.speed_control_paused_at_stop);
     // The existing resume line, once, and no new line about the pause.
-    assert_eq!(said_count(&app, "Adaptive cruise resuming"), 1);
+    assert_eq!(said_count(&app, "Cruise resuming"), 1);
     assert!(
         !spoken(&app)
             .iter()
@@ -1709,7 +1714,7 @@ fn test_ramp_terminal_hands_the_speed_keeper_back_after_the_stop_bar() {
 
     assert_eq!(d.keeper_mph, Some(ACCESS_ZONE_MPH));
     assert!(!d.speed_control_paused_at_stop);
-    assert_eq!(said_count(&app, "Automatic speed control resuming"), 1);
+    assert_eq!(said_count(&app, "Speed keeper holding"), 1);
 }
 
 #[test]
@@ -2239,9 +2244,7 @@ fn test_route_transition_assistance_brakes_for_a_yellow_it_cannot_beat() {
 
     let lines = spoken(&harness.app);
     assert!(
-        lines
-            .iter()
-            .any(|line| line == "Route-transition assistance braking for the light."),
+        lines.iter().any(|line| line == "Braking for the light."),
         "{lines:?}"
     );
     assert!(
@@ -2327,9 +2330,7 @@ fn test_route_transition_assistance_brakes_for_a_yellow_on_the_all_assists_prese
 
     let lines = spoken(&harness.app);
     assert!(
-        lines
-            .iter()
-            .any(|line| line == "Route-transition assistance braking for the light."),
+        lines.iter().any(|line| line == "Braking for the light."),
         "{lines:?}\n{}",
         trace.join("\n")
     );
@@ -2453,7 +2454,7 @@ fn test_route_transition_assistance_brakes_for_a_late_yellow_on_the_tyler_ramp()
     // yellow after the green stood the assist down. The second take used to
     // be silent. A line a flush cut before its first word is handed straight
     // back to the voice, so the pair it leaves is one occurrence.
-    let braking = "Route-transition assistance braking for the light.";
+    let braking = "Braking for the light.";
     let announced = lines
         .iter()
         .enumerate()

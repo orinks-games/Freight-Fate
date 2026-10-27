@@ -1,17 +1,6 @@
-use super::*;
-
-#[test]
-fn test_busy_follows_the_projection() {
-    let (mut pacer, clock) = make_pacer();
-    assert!(!pacer.busy());
-    flush(&mut pacer, CHATTER);
-    assert!(pacer.busy());
-    clock.advance(10.0);
-    assert!(!pacer.busy());
-    flush(&mut pacer, CHATTER);
-    pacer.reset();
-    assert!(!pacer.busy());
-}
+//! The ladder's tests. The pacer's (`busy()` with the projection, and the
+//! priority order) moved to Hearken with the pacer.
+use crate::speech_pacing::*;
 
 // -- the S4 driving verbosity ladder (tests/test_driving_speech_ladder.py)
 
@@ -211,6 +200,4 @@ fn test_enum_values_round_trip() {
     }
     assert_eq!(SpeechCategory::from_value("flavor"), None);
     assert_eq!(Disposition::FirstOccurrence.value(), "first");
-    assert!(EventPriority::Critical > EventPriority::Route);
-    assert!(EventPriority::Route > EventPriority::Ambient);
 }

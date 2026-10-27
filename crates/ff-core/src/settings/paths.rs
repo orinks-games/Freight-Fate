@@ -132,14 +132,6 @@ pub fn refused_save_dirs() -> Vec<String> {
         .clone()
 }
 
-/// Forget the refusals so far.
-pub fn clear_refused_save_dirs() {
-    REFUSED_SAVE_DIRS
-        .lock()
-        .unwrap_or_else(|e| e.into_inner())
-        .clear();
-}
-
 /// Record `path` and panic: something that is not the game asked for the
 /// player's own save folder.
 ///

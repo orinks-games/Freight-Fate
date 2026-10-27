@@ -162,28 +162,6 @@ fn rural_only_bonus(name: &str) -> f64 {
     }
 }
 
-/// Seconds before a vehicle reaches the conflict point to start its crossing
-/// cue, per class: half the cue's duration, so the sound's closest-approach
-/// peak lands on the actual crossing. Derived from the durations in
-/// tools/generate_sounds.py `_TRAFFIC_SYNTH_SPECS` (peak at 0.5 * duration).
-pub const CROSS_SOUND_LEAD_S: [(&str, f64); 7] = [
-    ("car", 1.1),
-    ("pickup", 1.1),
-    ("box truck", 1.25),
-    ("semi", 1.6),
-    ("motorcycle", 0.8),
-    ("bus", 1.5),
-    ("tractor", 1.75),
-];
-
-/// `CROSS_SOUND_LEAD_S[class]`, if the class has a cue lead.
-pub fn cross_sound_lead_s(vehicle_class: &str) -> Option<f64> {
-    CROSS_SOUND_LEAD_S
-        .iter()
-        .find(|(name, _)| *name == vehicle_class)
-        .map(|(_, lead)| *lead)
-}
-
 /// One NPC on the crossroad, driving toward positive positions.
 #[derive(Clone, Debug, PartialEq)]
 pub struct CrossVehicle {
@@ -200,6 +178,9 @@ pub struct CrossVehicle {
     pub committed: bool,
     /// Its crossing cue has been triggered.
     pub sound_started: bool,
+    /// Stable for the vehicle's whole crossing, so the game can keep one
+    /// sound on one vehicle while the list around it grows and shrinks.
+    pub id: u64,
 }
 
 impl CrossVehicle {
@@ -229,6 +210,7 @@ pub struct CrossTraffic {
     rng: PyRandom,
     /// Seconds to the next arrival, per side (left, right).
     next_spawn_s: [f64; 2],
+    next_id: u64,
 }
 
 impl CrossTraffic {
@@ -243,6 +225,7 @@ impl CrossTraffic {
             cross_street_was_stopped: false,
             rng: PyRandom::new_from_i64(seed),
             next_spawn_s: [0.0, 0.0],
+            next_id: 1,
         };
         // Pre-roll the road so the bubble is mid-life when the player first
         // hears it: an intersection does not begin existing when you arrive.
@@ -330,7 +313,9 @@ impl CrossTraffic {
             crossed: false,
             committed: false,
             sound_started: false,
+            id: self.next_id,
         });
+        self.next_id += 1;
     }
 
     // -- the frame --------------------------------------------------------
@@ -590,17 +575,6 @@ mod tests {
     }
 
     #[test]
-    fn test_every_class_has_a_crossing_cue_lead() {
-        // The class list and the audio lead table must not drift apart: a class
-        // without a lead falls back to a default and its cue lands off-peak.
-        let mut classes: Vec<&str> = CROSS_CLASSES.iter().map(|(n, _, _)| *n).collect();
-        let mut leads: Vec<&str> = CROSS_SOUND_LEAD_S.iter().map(|(n, _)| *n).collect();
-        classes.sort_unstable();
-        leads.sort_unstable();
-        assert_eq!(classes, leads);
-    }
-
-    #[test]
     fn test_every_context_has_an_arrival_rate() {
         for near_city in [true, false] {
             for control in ["signal", "stop", "yield"] {
@@ -729,7 +703,7 @@ mod tests {
         let mut bubble = CrossTraffic::new(2, "signal", true);
         run(&mut bubble, 30.0);
         for (class, side, pan, closeness) in bubble.audible() {
-            assert!(cross_sound_lead_s(class).is_some());
+            assert!(!class.is_empty());
             assert!(side == "left" || side == "right");
             assert_eq!(pan, if side == "left" { -0.8 } else { 0.8 });
             assert!(closeness > 0.05 && closeness <= 1.0);
@@ -787,6 +761,7 @@ mod tests {
             crossed: false,
             committed: false,
             sound_started: false,
+            id: 1,
         }];
         bubble
     }

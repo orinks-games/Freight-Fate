@@ -2,7 +2,7 @@
 //! screens under Settings, Gameplay, Controls, the table the drive reads,
 //! and the spoken hints and F1 help that must name the moved key.
 
-use crate::states_driving_menus_support::{a_drive, key as key_event, last, with_drive};
+use crate::states_driving_menus_support::{a_drive, drive_ref, key as key_event, last, with_drive};
 use crate::states_main_menu_support::*;
 use ff_core::input_hints::CONTROLLER;
 #[cfg(feature = "agent-server")]
@@ -10,8 +10,9 @@ use freight_fate::agent_server::{build_command, Command, KeySpec};
 use freight_fate::app::testing::TestApp;
 use freight_fate::bindings::Action;
 use freight_fate::controller::fakes::FakePad;
-use freight_fate::controller::ControllerButton;
+use freight_fate::controller::{ControllerAxis, ControllerButton};
 use freight_fate::states::base::{InputEvent, Key, Mods};
+use freight_fate::states::driving_menu_states::DrivingCommandsState;
 use freight_fate::states::main_menu::{
     help_page, help_pages, render_help_line, SettingsCategoryState, ShortcutDevice, ShortcutsState,
     HELP_PAGES,
@@ -92,19 +93,22 @@ fn test_enter_then_a_key_moves_the_control_and_saves_it() {
         Some(Action::Engine)
     );
 
-    key(&mut app, Key::Z);
-    assert_eq!(last(&app), "Engine on or off is now Z.");
+    key(&mut app, Key::Backslash);
+    assert_eq!(last(&app), "Engine on or off is now backslash.");
     assert_eq!(with_state::<Shortcuts, _>(&app, |s, _| s.capturing()), None);
-    assert_eq!(current_label::<Shortcuts>(&app), "Engine on or off: Z");
-    assert_eq!(app.ctx.settings.key_bindings, "engine=z");
     assert_eq!(
-        app.ctx.bindings.action_for(Key::Z, Mods::NONE),
+        current_label::<Shortcuts>(&app),
+        "Engine on or off: backslash"
+    );
+    assert_eq!(app.ctx.settings.key_bindings, "engine=backslash");
+    assert_eq!(
+        app.ctx.bindings.action_for(Key::Backslash, Mods::NONE),
         Some(Action::Engine)
     );
     assert_eq!(app.ctx.bindings.action_for(Key::E, Mods::NONE), None);
     // It reached the settings file, not only the running game.
     let on_disk = ff_core::settings::Settings::load();
-    assert_eq!(on_disk.key_bindings, "engine=z");
+    assert_eq!(on_disk.key_bindings, "engine=backslash");
 }
 
 #[test]
@@ -119,9 +123,9 @@ fn test_a_chord_is_captured_whole() {
         with_state::<Shortcuts, _>(&app, |s, _| s.capturing()),
         Some(Action::Horn)
     );
-    app.dispatch_to_state(&InputEvent::key_mods(Key::Z, Mods::ALT));
-    assert_eq!(last(&app), "Horn is now Alt Z.");
-    assert_eq!(app.ctx.settings.key_bindings, "horn=alt+z");
+    app.dispatch_to_state(&InputEvent::key_mods(Key::Backslash, Mods::ALT));
+    assert_eq!(last(&app), "Horn is now Alt backslash.");
+    assert_eq!(app.ctx.settings.key_bindings, "horn=alt+backslash");
 }
 
 #[test]
@@ -230,6 +234,20 @@ fn test_controller_screen_captures_a_button_on_either_layer() {
     );
 }
 
+#[test]
+fn test_controller_screen_lists_radio_rows_and_captures_a_stick_flick() {
+    let mut app = TestApp::new();
+    force_controller(&mut app);
+    app.push_state(ShortcutsState::new(ShortcutDevice::Controller));
+    let rows = labels::<Shortcuts>(&app);
+    assert!(rows.contains(&"Tune to the next radio station: right stick right".to_string()));
+    assert!(rows.contains(&"Radio on or off: right bumper plus right stick up".to_string()));
+    move_to::<Shortcuts>(&mut app, "Tune to the next radio station");
+    key(&mut app, Key::Return);
+    app.dispatch_controller(&InputEvent::axis(ControllerAxis::RightX, 32767));
+    assert_eq!(last(&app), "Kept right stick right.");
+}
+
 // -- the drive reads the table ----------------------------------------------------------
 
 #[test]
@@ -306,6 +324,19 @@ fn test_a_moved_pad_button_works_at_the_wheel() {
     assert!(last(&app).starts_with("Fuel"), "{}", last(&app));
 }
 
+#[test]
+fn test_rebound_radio_button_works_at_the_wheel() {
+    let mut app = TestApp::new();
+    force_controller(&mut app);
+    app.ctx.settings.pad_bindings = "radio=paddle_1".to_string();
+    app.ctx.apply_bindings();
+    let d = a_drive(&mut app);
+    with_drive(&d, |d| {
+        d.handle_controller_event(&mut app.ctx, &button(ControllerButton::Paddle1))
+    });
+    assert!(with_drive(&d, |d| d.radio.enabled));
+}
+
 // -- what the game says about the moved key ---------------------------------------------
 
 #[test]
@@ -352,6 +383,41 @@ fn test_controller_help_and_hints_name_the_moved_button() {
         "{help}"
     );
     assert!(help.contains("Controller buttons."), "{help}");
+    assert!(
+        help.contains(
+            "Right stick left tunes to the previous station and right stick right to the next."
+        ),
+        "{help}"
+    );
+    assert!(
+        help.contains("Right stick down and right stick up lower and raise the radio volume."),
+        "{help}"
+    );
+    assert!(
+        help.contains("Right bumper plus right stick up turns the radio on or off"),
+        "{help}"
+    );
+    assert!(!help.contains("Hold the right bumper with"), "{help}");
+    let status = help.find("opens the status menu").expect("status sentence");
+    let radio = help.find("tunes to the previous station").expect("radio");
+    let rest = help
+        .find("emergency shoulder sleep")
+        .expect("rest sentence");
+    assert!(rest < status && status < radio, "{help}");
+}
+
+#[test]
+fn test_command_list_names_a_controller_radio_binding() {
+    let mut app = TestApp::new();
+    force_controller(&mut app);
+    let drive = a_drive(&mut app);
+    app.push_state(DrivingCommandsState::with_drive(drive_ref(&drive)));
+    move_to::<DrivingCommandsState>(&mut app, "Radio on or off");
+    let help = current_help::<DrivingCommandsState>(&app);
+    assert!(
+        help.contains("On the controller: right bumper plus right stick up."),
+        "{help}"
+    );
 }
 
 #[test]

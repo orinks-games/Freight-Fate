@@ -122,9 +122,7 @@ impl DrivingState {
             let remaining = ctx
                 .settings
                 .distance_text(self.trip.remaining_miles(), false);
-            ctx.say(&format!(
-                "{now} Pickup at {facility}, {remaining} to go, {hours_used:.1} hours used.{tail}"
-            ));
+            ctx.say(&format!("{now} Pickup {facility}, {remaining}.{tail}"));
             return;
         }
         let remaining = self.job.deadline_game_h - hours_used;
@@ -156,7 +154,7 @@ impl DrivingState {
         } + highway_hours;
         if remaining <= 0.0 {
             ctx.say(&format!(
-                "{now} {:.1} hours past the deadline. The pay is shrinking.{tail}",
+                "{now} {:.1} hours late. Pay is dropping.{tail}",
                 -remaining
             ));
             return;
@@ -183,8 +181,8 @@ impl DrivingState {
         };
         let appointment = deadline_appointment(self, ctx);
         ctx.say(&format!(
-            "{now} {verdict}: arrival in {eta:.1} hours {basis}, deadline in {remaining:.1}, due \
-             {appointment}. {hours_used:.1} hours on the road.{tail}"
+            "{now} {verdict}. Arrival {eta:.1} hours {basis}. Deadline {remaining:.1}, due \
+             {appointment}.{tail}"
         ));
     }
 
@@ -199,6 +197,9 @@ impl DrivingState {
     /// `_hos_nearest_clause()`: one sentence for the HOS limit that comes
     /// first, or "" when off.
     pub fn hos_nearest_clause(&self, ctx: &GameContext) -> String {
+        if let Some(clause) = self.co_driver_clock_clause(ctx) {
+            return clause;
+        }
         let Some(limit) = hos_of(ctx).next_limit(&ctx.settings.hos_mode) else {
             return String::new();
         };
@@ -213,7 +214,7 @@ impl DrivingState {
         }
         let left = hos::duration_text(limit.remaining_min / 60.0);
         match limit.kind {
-            "break" => format!("Break due in {left}."),
+            "break" => format!("30-minute break due in {left}."),
             "drive" => format!("Driving time left: {left}."),
             "shift" => format!("Shift time left: {left}."),
             _ => format!("Duty window closes in {left}."),
@@ -225,9 +226,12 @@ impl DrivingState {
     ///
     /// Muscle memory says C, so the pointer has to ride C itself. Three
     /// presses is enough to learn it and few enough not to become noise.
+    ///
+    /// The three keys are keyboard only, and a pad's clock button already
+    /// reads all three limits, so the pointer waits for the keyboard.
     pub fn hos_key_notice(&self, ctx: &mut GameContext) -> String {
         let left = profile_of(ctx).hos_key_notice_left;
-        if left <= 0 {
+        if left <= 0 || ctx.controller.device() != ff_core::input_hints::KEYBOARD {
             return String::new();
         }
         profile_mut_of(ctx).hos_key_notice_left = left - 1;

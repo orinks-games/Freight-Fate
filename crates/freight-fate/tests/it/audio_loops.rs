@@ -1,91 +1,121 @@
-//! Port of the BASS-stream half of `tests/test_audio_loops.py`: the sustain
-//! loop on a real, non-looping horn stream. (The `to_seconds` tests live
-//! with the pure half in `ff_core::audio_loops`.)
-//!
-use std::time::Duration;
+//! Port of the stream half of `tests/test_audio_loops.py`: the sustain loop
+//! on the real horn recording. (The `to_seconds` tests live with the pure
+//! half in `ff_core::audio_loops`.) BASS ran the loop with a seek-back sync
+//! on the stream; Hearken plays the interior region on repeat, so these pin
+//! the region the backend is given and the release that lets it go, over
+//! Hearken's recording backend.
 
-use bass_sys::safe;
+use freight_fate::audio::hearken_clips::clip_sample_rate;
 use freight_fate::audio::{
-    asset_bytes, SustainLoop, SustainLoopError, SustainLoopSpec, HORN_LOOP, HORN_LOOP_END,
-    HORN_LOOP_START, SFX_EXTENSIONS,
+    asset_bytes, Audio, SustainLoopSpec, CH_HORN, HORN_LOOP, HORN_LOOP_END, HORN_LOOP_START,
+    SFX_EXTENSIONS,
 };
+use hearken::audio::{Call, LoopRegion};
 
-use crate::audio_support::{bass_rig, shipped_sounds, wait_for};
+use crate::audio_support::{recordings_rig, HearkenRig};
 
-/// A real, non-looping BASS stream for the horn (the engine keeps the
-/// device up), or None when BASS is absent -- or when the horn recording
-/// itself is not here to stream, which is a checkout without LFS.
-fn horn_stream() -> Option<(crate::audio_support::Rig, safe::Stream)> {
-    if !shipped_sounds() {
-        return None;
-    }
-    let rig = bass_rig()?;
-    let (data, _ext) = asset_bytes("vehicle/horn", SFX_EXTENSIONS).expect("vehicle/horn");
-    let stream = safe::stream_create_mem(&data, 0).expect("horn stream");
-    Some((rig, stream))
+/// The region the backend was told to repeat on `channel`.
+fn region(r: &HearkenRig, channel: u64) -> Option<LoopRegion> {
+    r.rec.calls().into_iter().find_map(|call| match call {
+        Call::SetLoopRegion { channel: c, region } if c == channel => Some(region),
+        _ => None,
+    })
+}
+
+fn releases(r: &HearkenRig, channel: u64) -> usize {
+    r.rec
+        .calls()
+        .iter()
+        .filter(|call| matches!(call, Call::Release { channel: c, .. } if *c == channel))
+        .count()
 }
 
 #[test]
-fn test_sustain_loop_computes_byte_positions_from_samples() {
-    let Some((_rig, stream)) = horn_stream() else {
+fn test_sustain_loop_computes_its_region_from_samples() {
+    let Some(mut r) = recordings_rig() else {
         return;
     };
-    let mut sustain = SustainLoop::new(stream.handle(), HORN_LOOP).unwrap();
+    let (data, _ext) = asset_bytes("vehicle/horn", SFX_EXTENSIONS).expect("vehicle/horn");
     // Verified against the shipped 44100 Hz horn asset.
-    assert_eq!(sustain.start_byte(), 47264);
-    assert!(sustain.end_byte() > sustain.start_byte());
-    assert!(!sustain.released());
-    sustain.stop();
+    assert_eq!(clip_sample_rate(&data), Some(44_100.0));
+    r.engine
+        .start_sustain_loop_with(CH_HORN, "vehicle/horn", HORN_LOOP, 1.0);
+    let channel = r.channel("vehicle/horn");
+    let region = region(&r, channel).expect("the held region");
+    assert_eq!(region.start, f64::from(HORN_LOOP_START) / 44_100.0);
+    let end = region.end.expect("a closed region");
+    assert_eq!(end, f64::from(HORN_LOOP_END) / 44_100.0);
+    assert!(end > region.start);
+    assert_eq!(r.hearken().sustain_channels(), vec![CH_HORN]);
+    r.engine.stop_loop_with(CH_HORN, 0);
 }
 
 #[test]
 fn test_sustain_loop_release_is_idempotent() {
-    let Some((_rig, stream)) = horn_stream() else {
+    let Some(mut r) = recordings_rig() else {
         return;
     };
-    let mut sustain = SustainLoop::new(stream.handle(), HORN_LOOP).unwrap();
-    sustain.release();
-    assert!(sustain.released());
-    sustain.release(); // must not fail a second time
-    sustain.stop(); // nor when torn down after release
-    assert!(sustain.released());
+    r.engine
+        .start_sustain_loop_with(CH_HORN, "vehicle/horn", HORN_LOOP, 1.0);
+    let channel = r.channel("vehicle/horn");
+    r.engine.release_sustain_loop(CH_HORN);
+    assert!(r.hearken().sustain_channels().is_empty());
+    assert_eq!(releases(&r, channel), 1);
+    assert!(r.hearken().releasing_entry(CH_HORN).is_some());
+    r.engine.release_sustain_loop(CH_HORN); // must not fail a second time
+    assert_eq!(releases(&r, channel), 1, "released twice");
+    assert!(r.hearken().sustain_channels().is_empty());
+    r.engine.stop_loop_with(CH_HORN, 0); // nor when torn down after release
+    assert!(r.hearken().releasing_entry(CH_HORN).is_none());
+    assert_eq!(releases(&r, channel), 1);
 }
 
 #[test]
 fn test_sustain_loop_rejects_inverted_points() {
-    let Some((_rig, stream)) = horn_stream() else {
+    let Some(mut r) = recordings_rig() else {
         return;
     };
     let inverted = SustainLoopSpec::samples(HORN_LOOP_END as f64, HORN_LOOP_START as f64);
-    match SustainLoop::new(stream.handle(), inverted) {
-        Err(SustainLoopError::LoopPoints(_)) => {}
-        other => panic!("expected a loop-point refusal, got {other:?}"),
-    }
+    r.engine
+        .start_sustain_loop_with(CH_HORN, "vehicle/horn", inverted, 1.0);
+    assert!(r.rec.channel_of("vehicle/horn").is_none(), "played anyway");
+    assert!(r.engine.backend().loop_entry(CH_HORN).is_none());
+    assert!(r.hearken().sustain_channels().is_empty());
 }
 
 #[test]
-fn test_sustain_loop_seeks_back_at_the_loop_end_until_released() {
-    // The mechanism itself, live on the no-sound device: held, the horn
-    // outlives its own clip (the sync keeps seeking it back); released,
-    // it runs on through the tail and ends.
-    let Some((_rig, stream)) = horn_stream() else {
+fn test_sustain_loop_repeats_its_region_until_released() {
+    // Held, the horn loops its interior (a looping play over the region);
+    // released, it plays on through the tail and ends on its own, never cut.
+    let Some(mut r) = recordings_rig() else {
         return;
     };
-    let handle = stream.handle();
-    let clip_s = safe::channel_length_seconds(handle).unwrap();
-    assert!(clip_s <= 1.0, "the horn clip grew: {clip_s} s");
-    let mut sustain = SustainLoop::new(handle, HORN_LOOP).unwrap();
-    safe::channel_play(handle, false).unwrap();
-    std::thread::sleep(Duration::from_secs_f64(clip_s + 0.5));
-    assert_eq!(
-        safe::channel_is_active(handle),
-        bass_sys::BASS_ACTIVE_PLAYING,
-        "the held horn ended: the loop did not seek back"
-    );
-    sustain.release();
-    assert!(
-        wait_for(Duration::from_secs(3), || safe::channel_is_active(handle)
-            == bass_sys::BASS_ACTIVE_STOPPED),
-        "the released horn never rang out"
-    );
+    r.engine.horn_start();
+    let channel = r.channel("vehicle/horn");
+    let looping = r.rec.calls().into_iter().find_map(|call| match call {
+        Call::Play {
+            channel: c,
+            looping,
+            ..
+        } if c == channel => Some(looping),
+        _ => None,
+    });
+    assert_eq!(looping, Some(true));
+    assert!(region(&r, channel).is_some());
+    for _ in 0..30 {
+        r.engine.update(0.05);
+    }
+    assert!(r.rec.is_playing(channel), "the held horn ended");
+    r.engine.horn_stop();
+    assert_eq!(releases(&r, channel), 1);
+    assert!(!r
+        .rec
+        .calls()
+        .iter()
+        .any(|call| matches!(call, Call::Stop { channel: c, .. } if *c == channel)));
+    // The tail rings out, and the slot is free once it has.
+    r.rec.finish(channel);
+    r.engine.update(0.05);
+    r.engine.horn_start();
+    assert_eq!(r.hearken().sustain_channels(), vec![CH_HORN]);
 }

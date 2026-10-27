@@ -31,8 +31,9 @@
 //! without a pad or a window (the Python tests set `_controller = object()`).
 
 use std::cell::RefCell;
-use std::collections::HashSet;
+use std::collections::{HashSet, VecDeque};
 use std::rc::Rc;
+use std::time::{Duration, Instant};
 
 use ff_core::input_hints::{control_hint, CONTROLLER, KEYBOARD, TOUCH};
 
@@ -60,6 +61,10 @@ pub const AXIS_MAX: f64 = 32767.0;
 pub const REPEAT_DELAY_S: f64 = 0.30; // wait before the first repeat
 pub const REPEAT_FAST_S: f64 = 0.03; // fastest repeat once fully accelerated
 pub const REPEAT_RAMP_S: f64 = 1.50; // time held over which it accelerates
+pub const STICK_BUTTON_PRESS: f64 = 0.60;
+pub const STICK_BUTTON_RELEASE: f64 = 0.30;
+pub const STICK_BUTTON_DIAGONAL: f64 = 0.50;
+pub const STICK_CLICK_GUARD_S: f64 = 0.25;
 
 // Minimal analog smoothing: triggers and clutch reach their target quickly
 // but not instantly, matching how the keyboard ramps feel today.
@@ -74,42 +79,10 @@ pub const ESSENTIAL_MAPPINGS: [&str; 4] = [
     "rightshoulder",
 ];
 
-/// `SDL_GameControllerButton`, the buttons any recognized pad is mapped onto.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub enum ControllerButton {
-    A,
-    B,
-    X,
-    Y,
-    Back,
-    Guide,
-    Start,
-    LeftStick,
-    RightStick,
-    LeftShoulder,
-    RightShoulder,
-    DPadUp,
-    DPadDown,
-    DPadLeft,
-    DPadRight,
-    Misc1,
-    Paddle1,
-    Paddle2,
-    Paddle3,
-    Paddle4,
-    Touchpad,
-}
-
-/// `SDL_GameControllerAxis`.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub enum ControllerAxis {
-    LeftX,
-    LeftY,
-    RightX,
-    RightY,
-    TriggerLeft,
-    TriggerRight,
-}
+/// `SDL_GameControllerButton` and `SDL_GameControllerAxis`, plus the four
+/// right-stick directions [`ControllerManager`] turns into buttons. Hearken's
+/// types, so bindings and names are shared.
+pub use hearken::input::{ControllerAxis, ControllerButton};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum ControllerAction {
@@ -139,6 +112,10 @@ pub fn button_label(button: ControllerButton) -> &'static str {
         ControllerButton::DPadRight => "D-pad right",
         ControllerButton::Back => "Back button",
         ControllerButton::Start => "Start button",
+        ControllerButton::RightStickUp => "right stick up",
+        ControllerButton::RightStickDown => "right stick down",
+        ControllerButton::RightStickLeft => "right stick left",
+        ControllerButton::RightStickRight => "right stick right",
         _ => "a button",
     }
 }
@@ -191,11 +168,14 @@ impl RepeatTimer {
         self.button
     }
 
-    /// A D-pad left/right press starts the clock; other buttons are ignored.
+    /// A repeatable button press starts the clock; other buttons are ignored.
     pub fn press(&mut self, button: ControllerButton) {
         if matches!(
             button,
-            ControllerButton::DPadLeft | ControllerButton::DPadRight
+            ControllerButton::DPadLeft
+                | ControllerButton::DPadRight
+                | ControllerButton::RightStickUp
+                | ControllerButton::RightStickDown
         ) {
             self.button = Some(button);
             self.countdown = REPEAT_DELAY_S;
@@ -326,12 +306,19 @@ pub struct ControllerManager {
     slot: Rc<RefCell<PadSlot>>,
     /// Which device the player last used (`active_device`).
     pub active_device: &'static str,
+    /// Whether a hardware keyboard is there to name keys on. Always off
+    /// iOS; on iOS it follows GameController's connect and disconnect
+    /// notifications, and without one no hint names a key.
+    pub hardware_keyboard: bool,
     /// Set while a gesture is played as key presses, so those presses do
     /// not count as the keyboard being used.
     pub touch_keys: bool,
     instance_id: Option<u32>,
     name: String,
     disconnected: bool, // latched until the app consumes it
+    // Set when a hot-plug binds a pad, so the app can say which one the
+    // game is now listening to; latched until the app consumes it.
+    connected_notice: bool,
     // A freshly opened pad reports a device id that a hot-plug can leave
     // stale (the events then arrive under a different id). We treat the
     // opened id as provisional and adopt the id of the first real event we
@@ -359,6 +346,14 @@ pub struct ControllerManager {
     /// Right bumper held -> secondary bindings.
     pub modifier: bool,
     repeat: RepeatTimer,
+    right_x: f64,
+    right_y: f64,
+    stick_buttons_down: HashSet<ControllerButton>,
+    generated_events: VecDeque<InputEvent>,
+    stick_click_guard: f64,
+    // A press to drop if it lands before the deadline: a pad that bounces
+    // the press which closed a screen must not reach the screen beneath.
+    swallowed: Option<(ControllerButton, Instant)>,
     // Defer touching the SDL controller subsystem until support is on, so a
     // player with controllers disabled never enumerates or binds a pad. It
     // comes up lazily on the first enable (see set_enabled/init_subsystem).
@@ -378,10 +373,12 @@ impl ControllerManager {
         let mut manager = Self {
             slot: Rc::clone(&slot),
             active_device: DEFAULT_DEVICE,
+            hardware_keyboard: !cfg!(target_os = "ios"),
             touch_keys: false,
             instance_id: None,
             name: String::new(),
             disconnected: false,
+            connected_notice: false,
             id_pending: false,
             buttons_down: HashSet::new(),
             logged_mismatch_id: None,
@@ -394,6 +391,12 @@ impl ControllerManager {
             brake: 0.0,
             modifier: false,
             repeat: RepeatTimer::default(),
+            right_x: 0.0,
+            right_y: 0.0,
+            stick_buttons_down: HashSet::new(),
+            generated_events: VecDeque::new(),
+            stick_click_guard: 0.0,
+            swallowed: None,
             subsystem: None,
             factory,
         };
@@ -447,6 +450,18 @@ impl ControllerManager {
     /// Whether the subsystem is up (`_sdl is not None`).
     pub fn subsystem_up(&self) -> bool {
         self.subsystem.is_some()
+    }
+
+    /// Drop further presses of `button` for `window`. A screen that closes
+    /// on a press calls this, because some pads report one press twice a
+    /// frame apart and the second would land on the screen underneath.
+    pub fn swallow_press(&mut self, button: ControllerButton, window: Duration) {
+        self.swallowed = Some((button, Instant::now() + window));
+    }
+
+    /// Whether the bound pad is holding `button` down right now.
+    pub fn is_down(&self, button: ControllerButton) -> bool {
+        self.buttons_down.contains(&button)
     }
 
     pub fn connected(&self) -> bool {
@@ -616,6 +631,16 @@ impl ControllerManager {
         false
     }
 
+    /// Return and clear the hot-plug connect notice: the name of the pad a
+    /// plug-in or reconnect just bound, `None` when nothing new was bound.
+    pub fn take_connect(&mut self) -> Option<String> {
+        if self.connected_notice {
+            self.connected_notice = false;
+            return Some(self.name.clone());
+        }
+        None
+    }
+
     fn reset_analog(&mut self) {
         self.steer_target = 0.0;
         self.throttle_target = 0.0;
@@ -625,6 +650,11 @@ impl ControllerManager {
         self.brake = 0.0;
         self.modifier = false;
         self.repeat.clear();
+        self.right_x = 0.0;
+        self.right_y = 0.0;
+        self.stick_buttons_down.clear();
+        self.generated_events.clear();
+        self.stick_click_guard = 0.0;
         self.buttons_down.clear();
         self.rumble.reset();
     }
@@ -648,7 +678,7 @@ impl ControllerManager {
     pub fn device(&self) -> &'static str {
         if self.active() && self.active_device == CONTROLLER {
             CONTROLLER
-        } else if self.active_device == TOUCH {
+        } else if self.active_device == TOUCH || !self.hardware_keyboard {
             TOUCH
         } else {
             KEYBOARD
@@ -688,6 +718,9 @@ impl ControllerManager {
                 // deliberately do not cycle the SDL subsystem, which would
                 // double every controller event.
                 self.reopen();
+                if self.connected() {
+                    self.connected_notice = true;
+                }
                 return false;
             }
             InputEvent::ControllerRemoved { instance_id } => {
@@ -757,6 +790,14 @@ impl ControllerManager {
                 }
                 self.buttons_down.insert(*button);
                 self.active_device = CONTROLLER;
+                if let Some((held, until)) = self.swallowed {
+                    if Instant::now() >= until {
+                        self.swallowed = None;
+                    } else if held == *button {
+                        log::debug!("Swallowing bounced {button:?} (instance {instance_id})");
+                        return false;
+                    }
+                }
                 log::debug!("Button down {button:?} (instance {instance_id})");
                 self.on_button_down(*button);
                 true
@@ -794,17 +835,100 @@ impl ControllerManager {
                     self.active_device = CONTROLLER;
                 }
             }
+            ControllerAxis::RightX => {
+                self.right_x = value;
+                self.update_right_stick_buttons();
+            }
+            ControllerAxis::RightY => {
+                self.right_y = value;
+                self.update_right_stick_buttons();
+            }
             _ => {}
+        }
+    }
+
+    fn update_right_stick_buttons(&mut self) {
+        if self.stick_click_guard > 0.0 {
+            return;
+        }
+        self.update_stick_button(
+            ControllerButton::RightStickRight,
+            self.right_x,
+            self.right_y,
+        );
+        self.update_stick_button(
+            ControllerButton::RightStickLeft,
+            -self.right_x,
+            self.right_y,
+        );
+        self.update_stick_button(ControllerButton::RightStickDown, self.right_y, self.right_x);
+        self.update_stick_button(ControllerButton::RightStickUp, -self.right_y, self.right_x);
+    }
+
+    fn update_stick_button(&mut self, button: ControllerButton, value: f64, other: f64) {
+        let down = self.stick_buttons_down.contains(&button);
+        let should_down = value >= STICK_BUTTON_PRESS && other.abs() <= STICK_BUTTON_DIAGONAL;
+        let should_up = value <= STICK_BUTTON_RELEASE || other.abs() > STICK_BUTTON_DIAGONAL;
+        if !down && should_down {
+            self.stick_buttons_down.insert(button);
+            self.on_button_down(button);
+            self.generated_events
+                .push_back(InputEvent::ControllerButtonDown {
+                    button,
+                    instance_id: self.instance_id.unwrap_or(0),
+                });
+        } else if down && should_up {
+            self.stick_buttons_down.remove(&button);
+            self.on_button_up(button);
+            self.generated_events
+                .push_back(InputEvent::ControllerButtonUp {
+                    button,
+                    instance_id: self.instance_id.unwrap_or(0),
+                });
+        }
+    }
+
+    fn guard_stick_buttons(&mut self) {
+        self.stick_click_guard = STICK_CLICK_GUARD_S;
+        let buttons: Vec<_> = self.stick_buttons_down.drain().collect();
+        for button in buttons {
+            self.on_button_up(button);
+            self.generated_events
+                .push_back(InputEvent::ControllerButtonUp {
+                    button,
+                    instance_id: self.instance_id.unwrap_or(0),
+                });
         }
     }
 
     fn on_button_down(&mut self, button: ControllerButton) {
         match button {
-            ControllerButton::RightShoulder => self.modifier = true,
+            ControllerButton::RightShoulder => {
+                self.modifier = true;
+                // A stick repeat that started on the plain layer is volume;
+                // it must not turn into a bumper action once RB goes down.
+                if matches!(
+                    self.repeat.button(),
+                    Some(ControllerButton::RightStickUp | ControllerButton::RightStickDown)
+                ) {
+                    self.repeat.clear();
+                }
+            }
             ControllerButton::LeftShoulder => self.clutch = 1.0, // instant, like holding Shift
+            ControllerButton::LeftStick | ControllerButton::RightStick => {
+                self.guard_stick_buttons()
+            }
             _ => {}
         }
-        self.repeat.press(button);
+        // The stick repeat is the plain-layer volume; with RB held the same
+        // directions are one-shot toggles and must not repeat.
+        let stick_vertical = matches!(
+            button,
+            ControllerButton::RightStickUp | ControllerButton::RightStickDown
+        );
+        if !(stick_vertical && self.modifier) {
+            self.repeat.press(button);
+        }
     }
 
     fn on_button_up(&mut self, button: ControllerButton) {
@@ -828,6 +952,11 @@ impl ControllerManager {
         button_label(button)
     }
 
+    /// Synthetic right-stick button edges generated while handling axes.
+    pub fn take_generated_events(&mut self) -> Vec<InputEvent> {
+        self.generated_events.drain(..).collect()
+    }
+
     // -- per-frame update -----------------------------------------------------
 
     /// Smooth analog axes and return synthetic D-pad repeat events.
@@ -836,6 +965,7 @@ impl ControllerManager {
         // even when no controller is bound; the device send is guarded
         // either way.
         self.rumble.tick(dt);
+        self.stick_click_guard = (self.stick_click_guard - dt).max(0.0);
         if !self.active() {
             return Vec::new();
         }

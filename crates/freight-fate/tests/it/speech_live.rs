@@ -99,7 +99,7 @@ fn live_speech_backend_env_selects_sapi() {
     // The same through the environment and `Speech::new()`, the way the
     // game reads it. Serialised by the mutex; removed again before leaving.
     std::env::set_var("FREIGHT_FATE_SPEECH_BACKEND", "SAPI");
-    let mut speech = Speech::new();
+    let mut speech = Speech::new(&freight_fate::speech::env());
     let name = speech.backend_name();
     let event = speech.event_backend_name();
     speech.shutdown();
@@ -157,10 +157,10 @@ fn live_configure_clamps_nothing_and_sapi_lists_voices() {
     if !live_prism_allowed() {
         return;
     }
-    let Ok(context) = prismer::Prism::new() else {
+    let Ok(context) = hearken::speech::prismer::Prism::new() else {
         return;
     };
-    let Ok(sapi) = context.create(prismer::BackendId::SAPI) else {
+    let Ok(sapi) = context.create(hearken::speech::prismer::BackendId::SAPI) else {
         eprintln!("skipping: no SAPI backend registered");
         return;
     };
@@ -170,7 +170,7 @@ fn live_configure_clamps_nothing_and_sapi_lists_voices() {
     }
     if !sapi
         .features()
-        .contains(prismer::Features::IS_SUPPORTED_AT_RUNTIME)
+        .contains(hearken::speech::prismer::Features::IS_SUPPORTED_AT_RUNTIME)
     {
         eprintln!("skipping: SAPI not usable at runtime");
         return;

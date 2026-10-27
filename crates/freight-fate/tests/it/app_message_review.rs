@@ -53,7 +53,7 @@ fn test_hazard_warning_and_outcome_replay_on_a_comma_and_period() {
     let mut app = TestApp::new();
     let drive = drive_support::a_drive(&mut app);
     let warning = "Brake now! A slow vehicle ahead.";
-    let outcome = "Hazard avoided. Well done.";
+    let outcome = "Clear.";
     let mut event = TripEvent {
         kind: TripEventKind::Hazard,
         message: SpokenMessage::new(warning),
@@ -105,7 +105,7 @@ fn test_collision_outcome_replays_on_a_and_message_review() {
         d.hazard_deadline = Some(0.0);
         d.update_hazard(&mut app.ctx, 1.0 / 60.0);
         format!(
-            "Collision! The truck took damage. Total damage {} percent.",
+            "Collision! Damage {} percent.",
             ff_core::pyfmt::fmt_f(d.trip.truck.damage_pct, 0)
         )
     });
@@ -348,6 +348,286 @@ fn ctrl_c_copies_the_message_in_review() {
         Some("Weigh station ahead.")
     );
     assert_eq!(app.main_lines(), vec!["Message copied to clipboard."]);
+    app.shutdown();
+}
+
+fn copy_event() -> InputEvent {
+    InputEvent::key_mods(
+        Key::C,
+        Mods {
+            shift: true,
+            ctrl: true,
+            alt: false,
+        },
+    )
+}
+
+struct RefusingClipboard;
+
+impl freight_fate::app::context::Clipboard for RefusingClipboard {
+    fn get_text(&self) -> Option<String> {
+        None
+    }
+    fn set_text(&mut self, _text: &str) -> bool {
+        false
+    }
+}
+
+/// Ctrl+Shift+C copies the newest message-log line and says so. Moving
+/// through a menu is not logged, so it does not replace that line.
+#[test]
+fn ctrl_shift_c_copies_the_last_spoken_line() {
+    let mut app = TestApp::new();
+    app.push_state(menu());
+    app.ctx.say("Weigh station ahead.");
+    app.clear_speech();
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(
+        app.ctx.clipboard.get_text().as_deref(),
+        Some("Weigh station ahead.")
+    );
+    assert_eq!(app.main_lines(), vec!["Copied."]);
+    // The confirmation is not what the next press copies.
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(
+        app.ctx.clipboard.get_text().as_deref(),
+        Some("Weigh station ahead.")
+    );
+    // Moving focus copies the newly focused row, without its position cue.
+    app.dispatch_to_state(&key_event(Key::Down));
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(
+        app.ctx.clipboard.get_text().as_deref(),
+        Some("Continue career.")
+    );
+    app.shutdown();
+}
+
+/// A result line spoken in a menu (a search result, a status reply) is what
+/// is copied, not the option that has focus.
+#[test]
+fn copy_last_spoken_copies_a_menu_result_line_not_the_focused_option() {
+    let mut app = TestApp::new();
+    app.push_state(menu());
+    app.ctx
+        .say("Stations matching network. 52 matches. Results 1 to 25 of 52.");
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(
+        app.ctx.clipboard.get_text().as_deref(),
+        Some("Stations matching network. 52 matches. Results 1 to 25 of 52.")
+    );
+    // Moving on copies the focused row.
+    app.dispatch_to_state(&key_event(Key::Down));
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(
+        app.ctx.clipboard.get_text().as_deref(),
+        Some("Continue career.")
+    );
+    app.shutdown();
+}
+
+/// Until something new is logged on a screen, the copy key copies the
+/// focused row (without its position cue) rather than the screen heading.
+#[test]
+fn copy_last_spoken_copies_the_focused_row_on_a_fresh_screen() {
+    let mut app = TestApp::new();
+    app.push_state(menu());
+    // The first copy gives the line the screen opened with.
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(app.ctx.clipboard.get_text().as_deref(), Some("Main menu."));
+    app.dispatch_to_state(&key_event(Key::Down));
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(
+        app.ctx.clipboard.get_text().as_deref(),
+        Some("Continue career.")
+    );
+    // Once a new line is logged on the screen, that line wins.
+    app.ctx.say("Saved.");
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(app.ctx.clipboard.get_text().as_deref(), Some("Saved."));
+    app.shutdown();
+}
+
+/// A screen that says more than its title on opening (the main menu's
+/// welcome line) still lets the focused row be copied.
+#[test]
+fn copy_last_spoken_copies_the_focused_row_after_a_welcome_line() {
+    use freight_fate::states::main_menu::MainMenuState;
+    let mut app = TestApp::new();
+    app.push_state(MainMenuState::new());
+    // The first copy gives the opening line; a focus move gives the row.
+    app.dispatch_to_state(&copy_event());
+    let opening = app.ctx.clipboard.get_text().unwrap_or_default();
+    assert!(!opening.is_empty());
+    app.dispatch_to_state(&key_event(Key::Down));
+    app.dispatch_to_state(&copy_event());
+    let first = app.ctx.clipboard.get_text().unwrap_or_default();
+    assert!(!first.is_empty());
+    assert!(!first.contains("Welcome"), "{first:?}");
+    assert!(!first.contains(" of "), "{first:?}");
+    assert_ne!(first, opening);
+    app.dispatch_to_state(&key_event(Key::Down));
+    app.dispatch_to_state(&copy_event());
+    let second = app.ctx.clipboard.get_text().unwrap_or_default();
+    assert!(!second.contains("Welcome"), "{second:?}");
+    assert_ne!(first, second);
+    app.shutdown();
+}
+
+/// A prompt screen that opens on a question copies the focused answer.
+#[test]
+fn copy_last_spoken_copies_the_focused_row_on_a_prompt_screen() {
+    use freight_fate::states::assist_picker::AssistPickerState;
+    let mut app = TestApp::new();
+    app.push_state(AssistPickerState::new());
+    app.dispatch_to_state(&copy_event());
+    let opening = app.ctx.clipboard.get_text().unwrap_or_default();
+    assert!(opening.contains("How much should the truck"), "{opening:?}");
+    app.dispatch_to_state(&key_event(Key::Down));
+    app.dispatch_to_state(&copy_event());
+    let copied = app.ctx.clipboard.get_text().unwrap_or_default();
+    assert!(!copied.is_empty());
+    assert!(!copied.contains("How much should the truck"), "{copied:?}");
+    assert!(!copied.contains(" of "), "{copied:?}");
+    app.shutdown();
+}
+
+/// Enter re-reading a row logs it; moving on copies the new row, not the
+/// re-read one.
+#[test]
+fn copy_last_spoken_after_enter_then_down_copies_the_new_row() {
+    let mut app = TestApp::new();
+    app.push_state(SimpleMenuState::new(
+        "Career stats",
+        vec![
+            MenuItem::new("Dispatch trust: full", |_, ctx: &mut GameContext| {
+                ctx.say("Dispatch trust: full. You get the whole board.")
+            }),
+            MenuItem::new("CDL: clear", |_, _| {}),
+            MenuItem::new("Record: clean", |_, _| {}),
+        ],
+    ));
+    app.dispatch_to_state(&key_event(Key::Return));
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(
+        app.ctx.clipboard.get_text().as_deref(),
+        Some("Dispatch trust: full. You get the whole board.")
+    );
+    app.dispatch_to_state(&key_event(Key::Down));
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(app.ctx.clipboard.get_text().as_deref(), Some("CDL: clear."));
+    app.dispatch_to_state(&key_event(Key::Down));
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(
+        app.ctx.clipboard.get_text().as_deref(),
+        Some("Record: clean.")
+    );
+    app.shutdown();
+}
+
+/// A menu position cue is never part of what is copied.
+#[test]
+fn copy_last_spoken_leaves_out_the_position_cue() {
+    use freight_fate::states::base::strip_position_cue;
+    assert_eq!(strip_position_cue("Achievements. 2 of 8."), "Achievements.");
+    assert_eq!(
+        strip_position_cue("750 Network Radio, Web radio, always available. 1 of 27."),
+        "750 Network Radio, Web radio, always available."
+    );
+    assert_eq!(
+        strip_position_cue("52 matches. Results 1 to 25 of 52."),
+        "52 matches. Results 1 to 25 of 52."
+    );
+    assert_eq!(strip_position_cue("Fuel is low."), "Fuel is low.");
+    let mut app = TestApp::new();
+    app.push_state(BareState);
+    app.ctx.say("Achievements. 2 of 8.");
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(
+        app.ctx.clipboard.get_text().as_deref(),
+        Some("Achievements.")
+    );
+    app.shutdown();
+}
+
+/// Ctrl+Shift+C right after Ctrl+C copies the line, not the
+/// "Message copied to clipboard." confirmation.
+#[test]
+fn copy_last_spoken_skips_the_ctrl_c_confirmation() {
+    let mut app = TestApp::new();
+    app.push_state(BareState);
+    app.ctx.say("Rest area in 5 miles.");
+    app.dispatch_to_state(&key_event(Key::Comma));
+    app.dispatch_to_state(&ctrl_key_event(Key::C));
+    app.ctx.clipboard.set_text("something else");
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(
+        app.ctx.clipboard.get_text().as_deref(),
+        Some("Rest area in 5 miles.")
+    );
+    app.shutdown();
+}
+
+/// Ctrl+C keeps copying the message in review, not the last spoken line.
+#[test]
+fn ctrl_c_still_copies_the_reviewed_message() {
+    let mut app = TestApp::new();
+    app.push_state(BareState);
+    app.ctx.say("First line.");
+    app.ctx.say("Second line.");
+    app.dispatch_to_state(&key_event(Key::Comma));
+    app.dispatch_to_state(&key_event(Key::Comma));
+    app.dispatch_to_state(&ctrl_key_event(Key::C));
+    assert_eq!(app.ctx.clipboard.get_text().as_deref(), Some("First line."));
+    app.shutdown();
+}
+
+/// A clipboard that refuses the text is spoken, not silent.
+#[test]
+fn copy_last_spoken_says_when_the_clipboard_fails() {
+    let mut app = TestApp::new();
+    app.push_state(BareState);
+    app.ctx.clipboard = Box::new(RefusingClipboard);
+    app.ctx.say("Fuel is low.");
+    app.clear_speech();
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(app.main_lines(), vec!["Could not copy to the clipboard."]);
+    app.shutdown();
+}
+
+/// With nothing spoken yet the key says so.
+#[test]
+fn copy_last_spoken_with_nothing_spoken() {
+    let mut app = TestApp::new();
+    app.push_state(BareState);
+    app.clear_speech();
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(app.main_lines(), vec!["Nothing to copy yet."]);
+    app.shutdown();
+}
+
+/// The key is a rebindable action with a keyboard default only.
+#[test]
+fn copy_last_spoken_is_rebindable_and_keyboard_only() {
+    use freight_fate::bindings::{Action, Chord};
+    let mut app = TestApp::new();
+    assert!(app
+        .ctx
+        .bindings
+        .pad_chords(Action::CopyLastSpoken)
+        .is_empty());
+    app.push_state(BareState);
+    app.ctx
+        .bindings
+        .set_chord(Action::CopyLastSpoken, Chord::alt(Key::K));
+    app.ctx.say("Rest area ahead.");
+    app.clear_speech();
+    app.dispatch_to_state(&InputEvent::key_mods(Key::K, Mods::ALT));
+    assert_eq!(app.main_lines(), vec!["Copied."]);
+    assert_eq!(
+        app.ctx.clipboard.get_text().as_deref(),
+        Some("Rest area ahead.")
+    );
     app.shutdown();
 }
 

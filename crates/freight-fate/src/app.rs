@@ -21,7 +21,7 @@ use ff_core::models::profile::{self as profile_module, data_dir};
 use ff_core::settings::Settings;
 
 use crate::account_achievements::AccountAchievements;
-use crate::audio::{Audio, AudioEngine, BassBackend, NullBackend};
+use crate::audio::{Audio, AudioEngine, NullBackend};
 use crate::cloud_saves::{BackupAnnouncements, CloudSaves, CloudSavesOptions};
 use crate::controller::ControllerManager;
 use crate::discord_presence::{DiscordPresence, DiscordPresenceOptions};
@@ -32,18 +32,28 @@ use crate::online_presence::{IdentityStore, OnlinePresence, OnlinePresenceOption
 use crate::speech::{NullSpeech, SpeechSink};
 use crate::states::base::{InputEvent, Key, Mods, State};
 use crate::states::driving::DrivingState;
-use crate::states::main_menu::ConfirmQuitState;
+use crate::states::main_menu::{
+    opens_input_practice, opens_input_practice_pad, ConfirmQuitState, InputPracticeState,
+    TouchPracticeState,
+};
 use crate::touch::Gesture;
 
 pub mod boot_timing;
+mod co_driver;
 pub mod context;
+#[cfg(windows)]
+mod crash_log;
 pub mod held_keys;
 pub mod key_probe;
+pub mod language;
 pub mod logging;
+pub mod loop_watch;
 pub mod sdl_shell;
 pub mod speech_delivery;
 pub mod synth_music;
 pub mod testing;
+#[cfg(any(windows, test))]
+mod win_keys;
 
 pub use context::{
     share, Clipboard, ContextParts, GameContext, MemoryClipboard, Services, SharedState,
@@ -51,18 +61,16 @@ pub use context::{
 pub use held_keys::HeldKeys;
 use key_probe::KeyProbe;
 pub use logging::{active_log_path, configure_logging};
-pub use speech_delivery::{IntoSpoken, Say, SayEvent, Spoken, TRANSCRIPT_TARGET};
+pub use speech_delivery::{IntoSpoken, Say, SayEvent, Spoken, FF_PACER, TRANSCRIPT_TARGET};
 
 use sdl_shell::SdlShell;
 
 pub const WINDOW_SIZE: (u32, u32) = (900, 640);
 pub const FPS: u32 = 60;
 pub const BG_COLOR: (u8, u8, u8) = (12, 12, 16);
-pub const TEXT_COLOR: (u8, u8, u8) = (235, 235, 225);
-pub const HILIGHT_COLOR: (u8, u8, u8) = (255, 210, 90);
 
 /// The game's version (`freight_fate.__version__`): the version
-/// `tools/build_release.py` stamped into `build_info.json` beside the
+/// `cargo tools build-release` stamped into `build_info.json` beside the
 /// executable when there is one, else this crate's.
 pub fn version() -> &'static str {
     static VERSION: OnceLock<String> = OnceLock::new();
@@ -149,6 +157,14 @@ pub struct App {
     world_held: bool,
     /// The key probe, while one is running (see `app::key_probe`).
     key_probe: Option<KeyProbe>,
+    /// A two- or three-finger touch hold resolved through the live keyboard
+    /// bindings. Pedal holds live in `TouchInput`; these actions can be rebound.
+    touch_bound_hold: Option<crate::bindings::Chord>,
+    /// The co-driver's place on the screens over the drive.
+    co_driver: co_driver::CoDriverHands,
+    /// The watch that logs a frame part holding the loop (see
+    /// `app::loop_watch`); only the windowed loop starts one.
+    loop_watch: Option<loop_watch::LoopWatch>,
 }
 
 /// Read-only driving facts available to a normal-input policy.
@@ -380,7 +396,7 @@ impl PlayerInputFrame<'_> {
 
 impl App {
     /// The windowed game: SDL, the vendored sound pack prefetch, speech via
-    /// Prism, BASS audio, every online service, the controller subsystem.
+    /// Prism, Hearken audio, every online service, the controller subsystem.
     pub fn new() -> Result<App, String> {
         // Opt PS4/PS5 pads into HIDAPI rumble so their motors work like Xbox
         // pads. Must be set before SDL init; Xbox/XInput needs no flag.
@@ -406,7 +422,8 @@ impl App {
         // Prism on its own worker thread: a wedged screen-reader or SAPI
         // call costs sentences, never the drive (a synchronous call here
         // froze the whole game at an I-77 merge -- Shane, 2026-08-30).
-        let speech: Box<dyn SpeechSink> = Box::new(crate::speech::ThreadedSpeech::spawn());
+        let speech: Box<dyn SpeechSink> =
+            Box::new(crate::speech::ThreadedSpeech::spawn(crate::speech::env()));
         boot_timing::mark("speech");
         // Deferred: the output-device open runs on a worker thread, so a
         // machine where the probe hangs boots reading input instead of deaf.
@@ -424,8 +441,8 @@ impl App {
         Self::new_headless_with(speech, audio)
     }
 
-    /// A headless app on a caller-built audio engine (BASS on the no-sound
-    /// device, a recorder, ...).
+    /// A headless app on a caller-built audio engine (Hearken on its silent
+    /// backend, a recorder, ...).
     pub fn new_headless_with(speech: Box<dyn SpeechSink>, audio: Box<dyn Audio>) -> App {
         Self::build(None, speech, audio)
     }
@@ -436,7 +453,15 @@ impl App {
         // Every GameContext is built here, so this one call covers drives too.
         crate::audio::classic_music::register();
         let settings = Settings::load();
+        sdl_shell::set_touch_haptics(settings.touch_haptics);
+        sdl_shell::set_touch_tuning(&settings);
         boot_timing::mark("settings");
+        // Stations players suggested and the owner accepted; the first drive
+        // reads whatever copy is saved, so this never holds up launch. A
+        // windowless run (the smoke check, the tools) has no dial to fill.
+        if shell.is_some() {
+            crate::community_stations::refresh_in_background(&settings);
+        }
         let message_log = MessageLog::new();
         let world = get_world();
         boot_timing::mark("world");
@@ -487,18 +512,9 @@ impl App {
             ..Default::default()
         });
         let journal = JournalOutbox::new(
-            identity.clone(),
+            identity,
             settings.online_presence,
             &store.path().with_file_name("online-outbox.json"),
-        );
-        // Mastodon shares ride the same durable-outbox machinery but keep
-        // their own file and enabled flag: posting to the player's own
-        // Mastodon account is a separate consent from public Profile
-        // sharing.
-        let mastodon = JournalOutbox::new(
-            identity,
-            settings.mastodon_sharing,
-            &store.path().with_file_name("online-mastodon-outbox.json"),
         );
         // Every profile save, wherever it happens, queues a cloud backup.
         let backup = cloud.clone();
@@ -542,9 +558,15 @@ impl App {
                 jaws_script: JawsScript::new(),
                 cloud,
                 journal,
-                mastodon,
             },
         });
+        // The windowed game speaks the player's language. Headless runs (the
+        // tests, the harness, the tools) stay English unless a language is
+        // forced for the run, so a developer's own locale never changes a
+        // transcript a test reads.
+        if shell.is_some() || std::env::var_os(language::LANG_ENV).is_some() {
+            ctx.apply_language();
+        }
         ctx.apply_volumes();
         ctx.apply_speech();
         boot_timing::mark("volumes and voice");
@@ -557,6 +579,16 @@ impl App {
             operator_keys_ignored: false,
             world_held: false,
             key_probe: None,
+            touch_bound_hold: None,
+            co_driver: co_driver::CoDriverHands::default(),
+            loop_watch: None,
+        }
+    }
+
+    /// Tell the loop watch which part of the frame is starting.
+    fn mark(&self, phase: loop_watch::Phase) {
+        if let Some(watch) = &self.loop_watch {
+            watch.mark(phase);
         }
     }
 
@@ -744,7 +776,27 @@ impl App {
     pub fn dispatch_controller(&mut self, event: &InputEvent) {
         let forward = self.ctx.controller.process_event(event);
         if forward && self.ctx.controller.active() {
+            // Back plus Start opens key and button practice over any screen;
+            // inside practice it is one more chord to name.
+            if let InputEvent::ControllerButtonDown { button, .. } = event {
+                let practising = self
+                    .ctx
+                    .state()
+                    .is_some_and(|state| state.borrow().as_any().is::<InputPracticeState>());
+                if !practising && opens_input_practice_pad(&self.ctx, *button) {
+                    self.ctx.push_state(InputPracticeState::new());
+                    self.ctx.run_deferred();
+                    return;
+                }
+            }
             if let Some(state) = self.ctx.state() {
+                state.borrow_mut().handle_controller(&mut self.ctx, event);
+                self.ctx.run_deferred();
+            }
+        }
+        let generated = self.ctx.controller.take_generated_events();
+        if let Some(state) = self.ctx.state() {
+            for event in &generated {
                 state.borrow_mut().handle_controller(&mut self.ctx, event);
                 self.ctx.run_deferred();
             }
@@ -761,8 +813,18 @@ impl App {
         let Some(state) = self.ctx.state() else {
             return;
         };
-        if event.key_down().is_some() {
+        if let Some((key, mods, _)) = event.key_down() {
             self.ctx.controller.note_keyboard();
+            // Shift F1 opens key and button practice over any screen; inside
+            // practice it is one more key to name.
+            if opens_input_practice(key, mods)
+                && !event.key_repeat()
+                && !state.borrow().as_any().is::<InputPracticeState>()
+            {
+                self.ctx.push_state(InputPracticeState::new());
+                self.ctx.run_deferred();
+                return;
+            }
             let consumed = state
                 .borrow_mut()
                 .handle_message_review(&mut self.ctx, event);
@@ -781,7 +843,87 @@ impl App {
     /// Spoken hints follow: from here on they name gestures, until a key or
     /// a controller button is pressed.
     pub fn dispatch_gesture(&mut self, gesture: Gesture) {
+        if matches!(
+            gesture,
+            Gesture::KeyboardConnected | Gesture::KeyboardDisconnected
+        ) {
+            self.ctx.controller.hardware_keyboard = gesture == Gesture::KeyboardConnected;
+            return;
+        }
         self.ctx.controller.note_touch();
+        if self
+            .ctx
+            .state()
+            .is_some_and(|state| state.borrow().as_any().is::<TouchPracticeState>())
+        {
+            let state = self
+                .ctx
+                .state()
+                .expect("the touch practice state is still on top");
+            let taken = state.borrow_mut().handle_gesture(&mut self.ctx, gesture);
+            self.ctx.run_deferred();
+            if taken {
+                return;
+            }
+        }
+        let driving = self
+            .ctx
+            .state()
+            .is_some_and(|state| state.borrow().as_any().is::<DrivingState>());
+        // Gas may release the parking brake first, and a deep swipe at a stop
+        // is the parking brake: the drive answers those before any key.
+        if driving
+            && matches!(
+                gesture,
+                Gesture::HoldUpperBegan | Gesture::DeepSwipeDownBegan
+            )
+        {
+            let state = self.ctx.state().expect("the drive is still on top");
+            let taken = state.borrow_mut().handle_gesture(&mut self.ctx, gesture);
+            self.ctx.run_deferred();
+            if taken {
+                return;
+            }
+        }
+        // Full lane keeping leaves the lanes to the flicks alone.
+        if driving && gesture.steers() && self.ctx.settings.lane_is_automated() {
+            self.ctx
+                .say("Lane keeping is on full. Flick left or right to change lanes.");
+            return;
+        }
+        if let Some(action) = match gesture {
+            Gesture::EmergencyBrakeHoldBegan => Some(crate::bindings::Action::EmergencyBrake),
+            Gesture::DeepSwipeDownBegan if driving => Some(crate::bindings::Action::EmergencyBrake),
+            Gesture::HornHoldBegan => Some(crate::bindings::Action::Horn),
+            Gesture::StillHoldBegan if driving => Some(crate::bindings::Action::Straighten),
+            _ => None,
+        } {
+            if let Some(previous) = self.touch_bound_hold.take() {
+                self.handle_event(&InputEvent::KeyUp {
+                    key: previous.key,
+                    mods: previous.mods,
+                });
+            }
+            if let Some(chord) = self.ctx.bindings.chords(action).into_iter().next() {
+                self.touch_bound_hold = Some(chord);
+                self.handle_event(&InputEvent::KeyDown {
+                    key: chord.key,
+                    mods: chord.mods,
+                    text: None,
+                    repeat: false,
+                });
+            }
+            return;
+        }
+        if gesture == Gesture::HoldEnded {
+            if let Some(chord) = self.touch_bound_hold.take() {
+                self.handle_event(&InputEvent::KeyUp {
+                    key: chord.key,
+                    mods: chord.mods,
+                });
+                return;
+            }
+        }
         let events = if gesture.held_key().is_some() {
             gesture.hold_events()
         } else {
@@ -836,8 +978,18 @@ impl App {
 
     /// One event through the loop's switch: focus, quit, controller, state.
     pub fn handle_event(&mut self, event: &InputEvent) {
+        if self.ctx.co_driver_away {
+            self.handle_player_event_while_away(event);
+        } else {
+            self.route_event(event);
+        }
+    }
+
+    /// [`App::handle_event`]'s switch itself.
+    fn route_event(&mut self, event: &InputEvent) {
         match event {
             InputEvent::WindowFocusGained => {
+                log::info!("window focus returned");
                 // Switching screen readers happens outside the game;
                 // re-check speech the moment the player comes back. The
                 // keyboard's repeat timing is re-read for the same reason:
@@ -850,11 +1002,12 @@ impl App {
                 // with its own `if`, not the `elif` chain, so the event
                 // carries on to the state; a `match` arm here quietly ate
                 // it, and with it the two screens that wait for the player
-                // to come back from a browser (online setup, the Mastodon
-                // link) -- both sat silent on return.
+                // to come back from a browser (online setup) -- it sat silent
+                // on return.
                 self.dispatch_to_state(event);
             }
             InputEvent::WindowFocusLost => {
+                log::info!("window focus lost");
                 self.ctx.input.clear();
                 self.dispatch_to_state(event);
             }
@@ -888,10 +1041,34 @@ impl App {
                     state.borrow_mut().handle_controller(&mut self.ctx, event);
                     self.ctx.run_deferred();
                 }
+            } else {
+                for event in repeats.iter().filter(|event| {
+                    matches!(
+                        event,
+                        InputEvent::ControllerButtonDown {
+                            button: crate::controller::ControllerButton::RightStickUp
+                                | crate::controller::ControllerButton::RightStickDown,
+                            ..
+                        }
+                    )
+                }) {
+                    state.borrow_mut().handle_controller(&mut self.ctx, event);
+                    self.ctx.run_deferred();
+                }
             }
         }
         // Reconnect speech if the player's screen reader changed.
         self.ctx.speech.poll(dt);
+        if let Some(name) = self.ctx.controller.take_connect() {
+            // SDL can leave a pad unnamed; the manager then calls it
+            // "controller", which would only repeat the opening word.
+            let line = if name == "controller" {
+                "Controller connected.".to_string()
+            } else {
+                format!("Controller connected: {name}.")
+            };
+            self.ctx.say(&line);
+        }
         if self.ctx.controller.take_disconnect() {
             self.ctx.say(
                 "Controller disconnected. You can keep playing with the \
@@ -942,6 +1119,7 @@ impl App {
         if let Some(profile) = self.ctx.profile.as_mut() {
             profile.live_calendar = live_calendar;
         }
+        self.co_driver_step(dt);
         if let Some(state) = self.ctx.state() {
             state.borrow_mut().update(&mut self.ctx, dt);
             self.ctx.run_deferred();
@@ -988,15 +1166,37 @@ impl App {
         lines
     }
 
+    /// Draw the window: the visual display, or the plain fill when the
+    /// player turned it off. Nothing is read from the game while the window
+    /// cannot be seen.
+    #[cfg(feature = "visuals")]
     pub fn render(&mut self) {
-        let lines = self.visible_lines();
+        let Some(shell) = self.shell.as_mut() else {
+            return;
+        };
+        if !self.ctx.settings.visual_display {
+            shell.render_plain();
+            return;
+        }
+        if !shell.can_be_seen() {
+            return;
+        }
+        let scene = crate::visuals::Scene::capture(&self.ctx);
+        shell.render_scene(scene, &self.ctx.message_log, &self.ctx.translator);
+    }
+
+    /// Draw the window: a build without the visual display has only the
+    /// plain fill.
+    #[cfg(not(feature = "visuals"))]
+    pub fn render(&mut self) {
         if let Some(shell) = self.shell.as_mut() {
-            shell.render(&lines);
+            shell.render_plain();
         }
     }
 
     /// One whole frame: pump events, tick, render. `dt` is the frame time.
     pub fn frame(&mut self, dt: f64) {
+        self.mark(loop_watch::Phase::Events);
         let mut events = match self.shell.as_mut() {
             Some(shell) => match shell.poll() {
                 Some(events) => events,
@@ -1029,6 +1229,11 @@ impl App {
             probe.begin_frame(&self.ctx.input);
         }
         for event in &events {
+            self.mark(match event {
+                InputEvent::WindowFocusLost => loop_watch::Phase::FocusLost,
+                InputEvent::WindowFocusGained => loop_watch::Phase::FocusGained,
+                _ => loop_watch::Phase::Input,
+            });
             self.handle_event(event);
             if let Some(probe) = self.key_probe.as_mut() {
                 probe.note(&self.ctx.input, event);
@@ -1037,9 +1242,13 @@ impl App {
         if let Some(probe) = self.key_probe.as_mut() {
             probe.end_frame(&self.ctx.input);
         }
+        self.mark(loop_watch::Phase::Update);
         self.tick(dt);
+        self.co_driver_fast_forward();
         self.sync_text_field();
+        self.mark(loop_watch::Phase::Render);
         self.render();
+        self.mark(loop_watch::Phase::BetweenFrames);
     }
 
     /// Tell the shell whether the active screen takes typed text.
@@ -1082,6 +1291,7 @@ impl App {
         self.ctx.services.duty.start(); // opt-in on/off duty notices; dormant unless on
         self.ctx.services.cloud.start(); // opt-in save backup; dormant unless confirmed
         boot_timing::mark("background services started");
+        self.loop_watch = loop_watch::LoopWatch::start();
         let mut frames = 0u32;
         while self.ctx.running {
             let dt = self.clock.tick(FPS);
@@ -1106,6 +1316,9 @@ impl App {
             if max_frames.is_some_and(|max| frames >= max) {
                 self.ctx.running = false;
             }
+        }
+        if let Some(mut watch) = self.loop_watch.take() {
+            watch.shutdown();
         }
         self.shutdown();
     }
@@ -1264,17 +1477,19 @@ pub fn smoke_checks() -> Result<(), String> {
     Ok(())
 }
 
-/// Prove a packaged headless build can dynamically load and initialise BASS.
+/// Prove a packaged headless build can decode its sounds through Hearken.
 ///
-/// BASS is opened through `libloading`, not Mach-O's static dependency table,
-/// so merely starting the executable does not validate the library beside it.
-/// The no-sound device exercises the real loader and required exports without
-/// needing an interactive audio session on a hosted runner.
+/// The menu's own select sound is read out of the packed sounds and decoded
+/// with the codecs the game plays through, without opening a sound device,
+/// so a hosted runner with no audio session still proves the pack and the
+/// decoders made it into the build.
 pub fn smoke_audio_checks() -> Result<(), String> {
-    let backend = BassBackend::new_headless()
-        .map_err(|e| format!("smoke: packaged BASS runtime could not initialize: {e}"))?;
-    let mut audio = AudioEngine::with_backend(Box::new(backend));
-    audio.shutdown();
+    const KEY: &str = "ui/menu_select";
+    let (bytes, ext) = crate::audio::hearken_clips::FfClips::sfx(KEY)
+        .ok_or_else(|| format!("smoke: {KEY} is not in the packed sounds"))?;
+    let info = crate::audio::probe_clip(bytes)
+        .map_err(|e| format!("smoke: {KEY}.{ext} does not decode through Hearken: {e}"))?;
+    log::info!("Smoke: {KEY}.{ext} decodes at {} Hz", info.sample_rate);
     Ok(())
 }
 
@@ -1311,7 +1526,9 @@ pub fn main_with(options: CliOptions) -> i32 {
     if options.controller_diagnostics {
         return crate::controller::diagnostics::run_controller_diagnostics();
     }
-    let mut guard = crate::single_instance::SingleInstanceGuard::new();
+    let mut guard = crate::single_instance::SingleInstanceGuard::new(
+        crate::single_instance::SINGLE_INSTANCE_MUTEX_NAME,
+    );
     if !guard.acquire() {
         log::warn!("Freight Fate is already running.");
         return 0;
@@ -1365,26 +1582,36 @@ fn run_game(options: &CliOptions) -> i32 {
 #[cfg(test)]
 mod tests {
     use super::{run_while_pumping, staged_road_handoff};
-    use std::sync::atomic::{AtomicBool, Ordering};
+    use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
     use std::sync::Arc;
-    use std::time::Duration;
+    use std::time::{Duration, Instant};
 
     #[test]
     fn run_while_pumping_pumps_until_the_work_finishes() {
-        let done = Arc::new(AtomicBool::new(false));
-        let flag = Arc::clone(&done);
-        let mut pumps = 0u32;
+        // The work finishes only after it has seen three pumps, so the test
+        // pins "keeps pumping while the work runs" without betting on how
+        // many 10 ms sleeps a busy CI runner fits into a fixed window. The
+        // deadline only stops a broken pump loop from hanging the run.
+        let pumps = Arc::new(AtomicU32::new(0));
+        let seen = Arc::clone(&pumps);
+        let saw_pumps = Arc::new(AtomicBool::new(false));
+        let flag = Arc::clone(&saw_pumps);
         run_while_pumping(
             move || {
-                std::thread::sleep(Duration::from_millis(100));
-                flag.store(true, Ordering::SeqCst);
+                let deadline = Instant::now() + Duration::from_secs(10);
+                while seen.load(Ordering::SeqCst) < 3 && Instant::now() < deadline {
+                    std::thread::sleep(Duration::from_millis(1));
+                }
+                flag.store(seen.load(Ordering::SeqCst) >= 3, Ordering::SeqCst);
             },
-            &mut || pumps += 1,
+            &mut || {
+                pumps.fetch_add(1, Ordering::SeqCst);
+            },
         );
-        assert!(done.load(Ordering::SeqCst), "the work never ran");
         assert!(
-            pumps >= 3,
-            "expected several pumps during 100 ms, got {pumps}"
+            saw_pumps.load(Ordering::SeqCst),
+            "the work finished without the loop pumping, got {} pumps",
+            pumps.load(Ordering::SeqCst)
         );
     }
 

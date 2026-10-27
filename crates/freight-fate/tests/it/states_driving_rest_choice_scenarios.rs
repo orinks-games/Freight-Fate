@@ -82,7 +82,7 @@ fn both_orders_of_seven_three_credit_only_after_the_pair() {
         app.clear_speech();
         activate(&mut state, &mut app.ctx, &first_row);
         let preview = app.main_lines().join(" ");
-        assert!(preview.contains("Preview: sleep"), "{preview}");
+        assert!(preview.contains("Select again to sleep"), "{preview}");
         assert_eq!(with_drive(&drive, |d| d.trip.game_minutes), before);
         activate(&mut state, &mut app.ctx, &first_row);
         let p = app.ctx.profile.as_ref().unwrap();
@@ -167,7 +167,7 @@ fn consecutive_three_and_seven_hours_are_a_full_reset_in_either_order() {
         activate(&mut state, &mut app.ctx, &second_row);
         let preview = app.main_lines().join(" ");
         assert!(preview.contains("A full 10-hour sleep resets"), "{preview}");
-        assert!(preview.contains("Fatigue goes from"), "{preview}");
+        assert!(preview.contains("Fatigue "), "{preview}");
         assert!(preview.contains("to 0"), "{preview}");
         assert!(
             preview.contains("driving allowance is 11.0 hours"),
@@ -189,7 +189,7 @@ fn consecutive_three_and_seven_hours_are_a_full_reset_in_either_order() {
         assert_eq!(p.fatigue, 0.0);
         assert_eq!(with_drive(&drive, |d| d.trip.game_minutes), 600.0);
         let woke = app.main_lines().join(" ");
-        assert!(woke.contains("Hours of service reset"), "{woke}");
+        assert!(woke.contains("Driving and duty clocks reset"), "{woke}");
     }
 }
 
@@ -208,7 +208,7 @@ fn short_rest_never_raises_low_fatigue_or_hides_a_closed_window() {
         preview.contains("legal driving window is closed"),
         "{preview}"
     );
-    assert!(preview.contains("Fatigue goes from 5 to 5"), "{preview}");
+    assert!(preview.contains("Fatigue 5 to 5"), "{preview}");
     assert_eq!(with_drive(&drive, |d| d.trip.game_minutes), 0.0);
     app.clear_speech();
     activate(&mut state, &mut app.ctx, "Sleep 3 hours in sleeper berth");
@@ -237,7 +237,7 @@ fn keyboard_preview_then_escape_spends_nothing() {
     let before_cash = app.ctx.profile.as_ref().unwrap().money();
     let before_time = with_drive(&drive, |d| d.trip.game_minutes);
     Menu::handle_event(&mut state, &mut app.ctx, &key(Key::Return));
-    assert!(app.main_lines().join(" ").contains("Preview: sleep"));
+    assert!(app.main_lines().join(" ").contains("Select again to sleep"));
     Menu::handle_event(&mut state, &mut app.ctx, &key(Key::Escape));
     let p = app.ctx.profile.as_ref().unwrap();
     assert_eq!(p.hos.driving_min, before_hos.driving_min);

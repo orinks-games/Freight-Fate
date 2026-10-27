@@ -203,15 +203,110 @@ pub fn corner_radius_ft(turn_deg: f64) -> f64 {
     last.1
 }
 
-/// The speed a combination carrying `load_fraction` takes a corner of
-/// `turn_deg` at, in mph.
+/// Which way a street corner turns. A right turns the short way round the
+/// curb; a left crosses the intersection on a wider path and is taken faster.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum CornerSide {
+    Left,
+    Right,
+}
+
+impl CornerSide {
+    /// From a navigation cue's `direction`: "left" is a left, anything else
+    /// (including a cue that carries none) is a right, the slower and safer
+    /// reading.
+    pub fn from_direction(direction: &str) -> Self {
+        if direction.trim().eq_ignore_ascii_case("left") {
+            CornerSide::Left
+        } else {
+            CornerSide::Right
+        }
+    }
+}
+
+/// A heading change this small or smaller is a bend, not a corner: no
+/// corner slowdown, only the street's limit, capped at [`BEND_CAP_MPH`].
+pub const BEND_MAX_DEG: f64 = 45.0;
+/// The most a bend at a junction is taken at, street limit permitting.
+pub const BEND_CAP_MPH: f64 = 28.0;
+/// The turn off the street into a facility gate or driveway.
+pub const DRIVEWAY_TURN_MPH: f64 = 6.0;
+/// How much faster an empty trailer takes the same corner than a full one.
+pub const EMPTY_CORNER_BONUS_MPH: f64 = 2.0;
+
+/// Loaded WB-67 corner speeds, mph, by turn angle in degrees: right turns.
+/// Realism review, 2026-10-14: a square right 9, 105-120 degrees 7, past
+/// 120 degrees 5, a 60-degree right 13. Linear between the points; the ends
+/// hold outside them.
+pub const RIGHT_TURN_MPH: [(f64, f64); 6] = [
+    (BEND_MAX_DEG, BEND_CAP_MPH),
+    (60.0, 13.0),
+    (90.0, 9.0),
+    (105.0, 7.0),
+    (120.0, 7.0),
+    (130.0, 5.0),
+];
+
+/// Loaded WB-67 corner speeds, mph, by turn angle: left turns. A square
+/// left 13, a 60-degree left 16, 105-120 degrees 10, and a hairpin past
+/// 120 degrees 8.
+pub const LEFT_TURN_MPH: [(f64, f64); 6] = [
+    (BEND_MAX_DEG, BEND_CAP_MPH),
+    (60.0, 16.0),
+    (90.0, 13.0),
+    (105.0, 10.0),
+    (120.0, 10.0),
+    (130.0, 8.0),
+];
+
+fn interpolate(table: &[(f64, f64)], x: f64) -> f64 {
+    let first = table[0];
+    let last = table[table.len() - 1];
+    if x <= first.0 {
+        return first.1;
+    }
+    if x >= last.0 {
+        return last.1;
+    }
+    for pair in table.windows(2) {
+        let (lo_x, lo_y) = pair[0];
+        let (hi_x, hi_y) = pair[1];
+        if x <= hi_x {
+            return lo_y + (x - lo_x) / (hi_x - lo_x) * (hi_y - lo_y);
+        }
+    }
+    last.1
+}
+
+/// The speed a WB-67 carrying `load_fraction` (0 empty, 1 full) takes a
+/// street corner of `turn_deg` turning to `side`, in mph, before the street's
+/// own limit caps it.
 ///
-/// `None` is a corner whose angle the map could not measure, priced at
-/// [`ASSUMED_TURN_DEG`].
+/// `None` is a corner whose angle the map could not measure: priced as a
+/// square right turn, [`ASSUMED_TURN_DEG`], whatever side it turns.
+pub fn corner_speed_side_mph(turn_deg: Option<f64>, side: CornerSide, load_fraction: f64) -> f64 {
+    let (deg, side) = match turn_deg {
+        Some(deg) => (deg, side),
+        None => (ASSUMED_TURN_DEG, CornerSide::Right),
+    };
+    if deg <= BEND_MAX_DEG {
+        return BEND_CAP_MPH;
+    }
+    let table: &[(f64, f64)] = match side {
+        CornerSide::Left => &LEFT_TURN_MPH,
+        CornerSide::Right => &RIGHT_TURN_MPH,
+    };
+    let loaded = interpolate(table, deg);
+    if loaded >= BEND_CAP_MPH {
+        return loaded;
+    }
+    loaded + EMPTY_CORNER_BONUS_MPH * (1.0 - load_fraction.clamp(0.0, 1.0))
+}
+
+/// [`corner_speed_side_mph`] for a right turn, the side an unmeasured or
+/// unsided corner is priced as.
 pub fn corner_speed_mph(turn_deg: Option<f64>, load_fraction: f64) -> f64 {
-    let radius = corner_radius_ft(turn_deg.unwrap_or(ASSUMED_TURN_DEG));
-    let lateral = INTERSECTION_SUPERELEVATION + corner_lateral_g(load_fraction);
-    (15.0 * radius * lateral).sqrt()
+    corner_speed_side_mph(turn_deg, CornerSide::Right, load_fraction)
 }
 
 /// The measured 85th-percentile CAR speed through the same corner, in mph.
@@ -233,111 +328,6 @@ mod tests {
     }
 
     #[test]
-    fn the_model_meets_its_calibration_gate() {
-        // docs/turn-geometry-brief.md, written before the model existed:
-        // a typical 90-degree city corner lands in 5-12 mph, and never above
-        // the measured 85th-percentile car speed for the same radius.
-        let square = corner_speed_mph(Some(90.0), 1.0);
-        assert!(
-            (5.0..=12.0).contains(&square),
-            "a 90-degree corner came out at {square} mph, outside the 5-12 band \
-             CDL practice and the TTI distribution point at"
-        );
-        // The car ceiling holds at every load, not just the loaded one: an
-        // empty trailer is more stable than a full one, never more stable
-        // than the cars that were clocked through the same corner.
-        for deg in [60.0, 75.0, 90.0, 105.0, 120.0, 150.0, 180.0] {
-            let car = car_speed_mph(Some(deg));
-            for load in [0.0, 0.25, 0.5, 0.75, 1.0] {
-                let truck = corner_speed_mph(Some(deg), load);
-                assert!(
-                    truck < car,
-                    "a {deg}-degree corner at {load} load priced the truck at {truck} mph, \
-                     at or above the {car} mph cars were measured taking it"
-                );
-            }
-        }
-    }
-
-    #[test]
-    fn an_empty_trailer_corners_faster_than_a_loaded_one() {
-        // The owner's report, 2026-09-20: deadheading to a pickup and held to
-        // 9 mph at a square corner, which is the speed a FULL trailer's centre
-        // of gravity asks for.
-        let empty = corner_speed_mph(Some(90.0), 0.0);
-        let full = corner_speed_mph(Some(90.0), 1.0);
-        assert!(
-            empty > full + 3.0,
-            "empty came out at {empty} mph against {full} loaded -- the load is \
-             not reaching the corner model"
-        );
-        assert!(close(EMPTY_ROLLOVER_G, 0.70, 1e-9));
-        assert!(
-            close(empty, 13.2, 0.05),
-            "empty square corner is {empty} mph"
-        );
-
-        // And it is a ladder, not a switch: every step of loading is slower
-        // than the one before it.
-        let mut previous = f64::INFINITY;
-        for step in 0..=10 {
-            let speed = corner_speed_mph(Some(90.0), f64::from(step) / 10.0);
-            assert!(
-                speed <= previous + 1e-9,
-                "load {step} of 10 came out faster"
-            );
-            previous = speed;
-        }
-    }
-
-    #[test]
-    fn the_load_span_tracks_the_composite_centre() {
-        // The straight line between empty and loaded stands in for the
-        // mass-weighted composite centre of gravity UMTRI-83-10 Figure 33
-        // plots. Its case: a 9000 lb van body at 60 inches, 50000 lb of
-        // payload, a 52-55 inch load floor, and homogeneous freight stacked
-        // to the load fraction inside a 110-inch box, sitting at the 70/30
-        // bottom/top split (so 0.40 of the stack height above the floor).
-        const BODY_LB: f64 = 9_000.0;
-        const PAYLOAD_LB: f64 = 50_000.0;
-        const FLOOR_IN: f64 = 53.5;
-        const BOX_IN: f64 = 110.0;
-        const STACK_SHARE: f64 = 0.40;
-
-        let composite_cg = |load: f64| {
-            let payload = PAYLOAD_LB * load;
-            let payload_cg = FLOOR_IN + STACK_SHARE * BOX_IN * load;
-            (BODY_LB * EMPTY_BODY_CG_IN + payload * payload_cg) / (BODY_LB + payload)
-        };
-        // Figure 38's slope is per inch of PAYLOAD c.g.; Figure 33's line
-        // converts it to per inch of composite c.g.
-        let per_composite_in = ROLLOVER_G_PER_PAYLOAD_IN / (PAYLOAD_LB / (BODY_LB + PAYLOAD_LB));
-        let loaded_cg = composite_cg(1.0);
-        let composite_speed = |load: f64| {
-            let threshold = TRUCK_ROLLOVER_G + per_composite_in * (loaded_cg - composite_cg(load));
-            let lateral = (car_lateral_g() / CAR_ROLLOVER_G) * threshold;
-            (15.0 * CALIBRATION_RADIUS_FT * lateral).sqrt()
-        };
-
-        for step in 0..=10 {
-            let load = f64::from(step) / 10.0;
-            let shipped = corner_speed_mph(Some(90.0), load);
-            let modelled = composite_speed(load);
-            assert!(
-                shipped <= modelled + 1e-9,
-                "at {load} load the shipped {shipped:.2} mph is FASTER than the \
-                 {modelled:.2} mph the composite centre allows"
-            );
-            assert!(
-                modelled - shipped < 1.0,
-                "at {load} load the shipped {shipped:.2} mph is {:.2} mph under the \
-                 composite model's {modelled:.2}",
-                modelled - shipped
-            );
-        }
-    }
-
-    #[test]
     fn the_lateral_limit_is_the_truck_share_of_the_car_margin() {
         // The derivation, asserted rather than described: cars corner at about
         // a quarter of what would roll them, and the truck gets that same
@@ -345,49 +335,6 @@ mod tests {
         assert!(close(car_lateral_g(), 0.361, 0.001));
         assert!(close(car_lateral_g() / CAR_ROLLOVER_G, 0.256, 0.001));
         assert!(close(corner_lateral_g(1.0), 0.0897, 0.0001));
-    }
-
-    #[test]
-    fn the_truck_holds_the_car_margin_at_the_calibration_corner() {
-        // Where the lateral was calibrated, the truck takes the corner at
-        // exactly sqrt(0.35/1.41) of the car's measured speed -- the equal
-        // rollover margin, asserted rather than described.
-        let ratio = (TRUCK_ROLLOVER_G / CAR_ROLLOVER_G).sqrt();
-        assert_eq!(corner_radius_ft(90.0), CALIBRATION_RADIUS_FT);
-        let got = corner_speed_mph(Some(90.0), 1.0) / car_speed_mph(Some(90.0));
-        assert!(close(got, ratio, 1e-9), "got {got:.6}, want {ratio:.6}");
-
-        // Away from it the two diverge, because the truck side is a constant
-        // lateral through sqrt(R) while the car side is TTI's LINEAR
-        // regression in R. That is the deliberate choice: ONE derived lateral,
-        // not a curve fitted to a regression outside the 27 to 86 ft of road it
-        // was measured on. Over the range real corners occupy the divergence
-        // stays small, and the gate test above is what holds its direction.
-        // Pinned at the table's ends rather than bounded by a band, so the
-        // size of the divergence is a recorded number and not a threshold
-        // somebody widened until it passed.
-        for (deg, share) in [(60.0, 0.556), (120.0, 0.443)] {
-            let got = corner_speed_mph(Some(deg), 1.0) / car_speed_mph(Some(deg));
-            assert!(
-                close(got, share, 0.001),
-                "a {deg}-degree corner is {got:.3} of the car speed, was {share:.3}"
-            );
-        }
-    }
-
-    #[test]
-    fn a_sharper_corner_is_never_faster() {
-        let mut previous = f64::INFINITY;
-        let mut deg = 30.0;
-        while deg <= 180.0 {
-            let speed = corner_speed_mph(Some(deg), 1.0);
-            assert!(
-                speed <= previous + 1e-9,
-                "a {deg}-degree corner came out faster than the corner before it"
-            );
-            previous = speed;
-            deg += 5.0;
-        }
     }
 
     #[test]
@@ -413,22 +360,84 @@ mod tests {
     }
 
     #[test]
-    fn an_unmeasured_corner_is_priced_as_a_square_one() {
+    fn the_realism_points_read_back_loaded() {
+        let r = |deg| corner_speed_side_mph(Some(deg), CornerSide::Right, 1.0);
+        let l = |deg| corner_speed_side_mph(Some(deg), CornerSide::Left, 1.0);
+        assert_eq!(r(90.0), 9.0);
+        assert_eq!(r(105.0), 7.0);
+        assert_eq!(r(120.0), 7.0);
+        assert_eq!(r(150.0), 5.0);
+        assert_eq!(r(60.0), 13.0);
+        assert_eq!(l(90.0), 13.0);
+        assert_eq!(l(60.0), 16.0);
+        assert_eq!(l(105.0), 10.0);
+        assert_eq!(l(120.0), 10.0);
+    }
+
+    #[test]
+    fn a_bend_is_not_a_corner() {
+        for side in [CornerSide::Left, CornerSide::Right] {
+            for deg in [10.0, 30.0, 45.0] {
+                assert_eq!(corner_speed_side_mph(Some(deg), side, 1.0), BEND_CAP_MPH);
+                assert_eq!(corner_speed_side_mph(Some(deg), side, 0.0), BEND_CAP_MPH);
+            }
+        }
+    }
+
+    #[test]
+    fn a_left_is_never_slower_than_the_same_right() {
+        let mut deg = 46.0;
+        while deg <= 180.0 {
+            for load in [0.0, 0.5, 1.0] {
+                let left = corner_speed_side_mph(Some(deg), CornerSide::Left, load);
+                let right = corner_speed_side_mph(Some(deg), CornerSide::Right, load);
+                assert!(
+                    left >= right,
+                    "{deg} deg at {load}: left {left} vs right {right}"
+                );
+            }
+            deg += 1.0;
+        }
+    }
+
+    #[test]
+    fn a_sharper_corner_is_never_faster_on_either_side() {
+        for side in [CornerSide::Left, CornerSide::Right] {
+            let mut last = f64::INFINITY;
+            let mut deg = 0.0;
+            while deg <= 180.0 {
+                let speed = corner_speed_side_mph(Some(deg), side, 1.0);
+                assert!(
+                    speed <= last + 1e-9,
+                    "{side:?} {deg} deg: {speed} after {last}"
+                );
+                last = speed;
+                deg += 0.5;
+            }
+        }
+    }
+
+    #[test]
+    fn an_empty_trailer_gains_at_most_two_mph() {
+        for side in [CornerSide::Left, CornerSide::Right] {
+            for deg in [60.0, 90.0, 110.0, 150.0] {
+                let full = corner_speed_side_mph(Some(deg), side, 1.0);
+                let empty = corner_speed_side_mph(Some(deg), side, 0.0);
+                assert!(empty > full && empty - full <= EMPTY_CORNER_BONUS_MPH + 1e-9);
+            }
+        }
+    }
+
+    #[test]
+    fn an_unmeasured_corner_is_a_square_right() {
+        for side in [CornerSide::Left, CornerSide::Right] {
+            assert_eq!(corner_speed_side_mph(None, side, 1.0), 9.0);
+        }
         assert_eq!(
             corner_speed_mph(None, 1.0),
             corner_speed_mph(Some(90.0), 1.0)
         );
-    }
-
-    #[test]
-    fn the_shipped_ladder_stays_ordered() {
-        // What a player learns by ear: a sweeping junction is faster than a
-        // square corner, which is faster than a switchback into a yard. The
-        // numbers are recorded here so a change to them is deliberate.
-        let speeds: Vec<f64> = [60.0, 75.0, 90.0, 105.0, 120.0]
-            .iter()
-            .map(|d| (corner_speed_mph(Some(*d), 1.0) * 10.0).round() / 10.0)
-            .collect();
-        assert_eq!(speeds, vec![11.6, 10.0, 9.4, 8.2, 7.8]);
+        assert_eq!(CornerSide::from_direction(""), CornerSide::Right);
+        assert_eq!(CornerSide::from_direction(" Left "), CornerSide::Left);
     }
 }

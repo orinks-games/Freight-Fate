@@ -33,9 +33,10 @@ use crate::states::driving_rest_states::loyalty::LoyaltyRewardsState;
 use crate::states::driving_rest_states::rest_preview::{sleep_preview, SleepChoice};
 
 mod cat_scale;
+mod chains;
 
 const REST_STOP_INTRO_HELP: &str =
-    "Select opens a choice; Back returns to the road. Sleep choices first read a preview; select the same choice again to sleep. Breaks and sleep advance the clock and the deadline.";
+    "Select a choice. Sleep reads a preview; select again to sleep. Breaks and sleep move the clock and the deadline.";
 
 /// One-time menu focus when the driver arrives at a selected rest stop.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -43,6 +44,10 @@ pub enum RestFocus {
     Default,
     Break,
     Sleep,
+    /// The fuel row, for a stop planned for fuel.
+    Fuel,
+    /// The food and coffee row, for a stop planned for food.
+    Food,
 }
 
 /// Which wear meter a road shop is selling a job on.
@@ -105,16 +110,19 @@ impl RestStopState {
 
     fn place_cursor(&mut self, ctx: &GameContext) {
         if self.preferred_rest != RestFocus::Default {
-            let preferred_row = if self.preferred_rest == RestFocus::Break {
-                "Take a 30-minute break"
-            } else {
-                "Sleep 10 hours"
+            let focus = self.preferred_rest;
+            let wanted = |text: &str| match focus {
+                RestFocus::Break => text == "Take a 30-minute break",
+                // The fuel row's label carries the gallons and the price.
+                RestFocus::Fuel => text.starts_with("Refuel ") || text.starts_with("Fuel: "),
+                RestFocus::Food => text == "Food and coffee break",
+                RestFocus::Sleep | RestFocus::Default => text == "Sleep 10 hours",
             };
             let index = self
                 .menu
                 .items
                 .iter()
-                .position(|item| item.text(self, ctx) == preferred_row)
+                .position(|item| wanted(&item.text(self, ctx)))
                 .unwrap_or(0);
             self.menu.index = index;
             // This is an arrival hint, not a permanent focus policy.
@@ -184,6 +192,12 @@ impl RestStopState {
         if !parking_text.is_empty() {
             parts.push(format!("{parking_text}."));
         }
+        if self.stop.fuel_callout() == Some(false) {
+            // Said on arrival too: a driver who pulled in low needs to know
+            // before the menu, not by finding no Refuel row (issue #272).
+            // Only where pumps could be expected, as in the stop callout.
+            parts.push("No fuel here.".to_string());
+        }
         // Check real-time parking availability if enabled
         if ctx.settings.real_parking && d.trip.parking_provider.is_some() {
             if let Some(availability) = check_parking_availability(d) {
@@ -226,13 +240,16 @@ impl RestStopState {
             let label = self.fuel_label(ctx, d);
             items.push(
                 MenuItem::new(label, |s: &mut Self, ctx| s.refuel(ctx)).help(
-                    "Fills the tank at the regional diesel price plus a 35 dollar service fee. \
-                     Short on cash, it buys what you can afford. The engine must be off.",
+                    "Fills the tank at the posted diesel price plus a 35 dollar service fee. Buys \
+                     what you can afford if cash is short. Engine must be off.",
                 ),
             );
         }
         if self.has_cat_scale() {
             items.push(self.cat_scale_item(ctx, d));
+        }
+        if self.sells_chains(ctx, d) {
+            items.push(self.chains_item(ctx));
         }
         if has("food") {
             items.push(
@@ -516,8 +533,8 @@ impl RestStopState {
             .read(|d| d.job.destination.clone())
             .unwrap_or_default();
         ctx.say(&format!(
-            "Pay advance approved: {} dollars against your {destination} load, repaid at \
-             delivery. You have {} dollars, {} dollars of advance to repay.",
+            "Advance {} dollars on the {destination} load, due at delivery. You have {}, owe \
+             {}.",
             fmt_grouped(grant, 0),
             fmt_grouped(money, 0),
             fmt_grouped(advance, 0)
@@ -572,8 +589,7 @@ impl RestStopState {
                 p.fatigue = hos::rest_coffee_break(p.fatigue);
             }
             format!(
-                "You took a food and coffee break. It is {}. Coffee eases fatigue a little, but \
-                 does not reset your 30-minute break requirement. {}",
+                "Coffee break. {}. Eases fatigue; does not count as your 30-minute break. {}",
                 clock_text(d.trip.local_hour()),
                 deadline_text(d, ctx)
             )
@@ -609,7 +625,7 @@ impl RestStopState {
             }
             let mode = ctx.settings.hos_mode.clone();
             let status = if full_reset {
-                "Hours of service reset. ".to_string()
+                "Driving and duty clocks reset. ".to_string()
             } else if completed {
                 format!("Sleeper split credited. {} ", hos_of(ctx).summary(&mode))
             } else {
@@ -668,7 +684,7 @@ impl RestStopState {
                 "{engine_off}You slept {hours} hours in the sleeper berth. It is {}. {status}{}{}",
                 clock_text(d.trip.local_hour()),
                 deadline_text(d, ctx),
-                wake_air_instruction(d, ctx, true)
+                wake_air_instruction(d)
             )
         }) else {
             return;
@@ -702,10 +718,10 @@ impl RestStopState {
                 None => "You slept 10 hours and woke rested.".to_string(),
             };
             format!(
-                "{engine_off}{slept} It is {}. Hours of service reset. {}{}",
+                "{engine_off}{slept} It is {}. Driving and duty clocks reset. {}{}",
                 clock_text(d.trip.local_hour()),
                 deadline_text(d, ctx),
-                wake_air_instruction(d, ctx, true)
+                wake_air_instruction(d)
             )
         }) else {
             return;
@@ -750,13 +766,13 @@ impl RestStopState {
             profile_mut_of(ctx).fatigue = 0.0;
             let money = profile_of(ctx).money();
             format!(
-                "{engine_off}You took a motel room for {} dollars and slept a full ten hours. It \
-                 is {}. Hours of service reset and you wake fresh. You have {} dollars. {}{}",
+                "{engine_off}Motel, {} dollars, 10 hours. {}. Driving and duty clocks reset. \
+                 {} dollars. {}{}",
                 fmt_grouped(MOTEL_COST, 0),
                 clock_text(d.trip.local_hour()),
                 fmt_grouped(money, 0),
                 deadline_text(d, ctx),
-                wake_air_instruction(d, ctx, true)
+                wake_air_instruction(d)
             )
         }) else {
             return;
@@ -786,11 +802,11 @@ impl RestStopState {
                 p.fatigue = hos::rest_shoulder(p.fatigue);
             }
             format!(
-                "{engine_off}You slept 10 hours in the lot. It is {}. Hours of service reset, \
-                 but the rest was poor and you wake still tired. {}{}",
+                "{engine_off}Slept 10 hours in the lot. {}. Driving and duty clocks reset; rest was poor. \
+                 {}{}",
                 clock_text(d.trip.local_hour()),
                 deadline_text(d, ctx),
-                wake_air_instruction(d, ctx, true)
+                wake_air_instruction(d)
             )
         }) else {
             return;
@@ -1348,17 +1364,24 @@ impl RestStopState {
             } else {
                 lines.join(" ")
             };
-            let covered = if doubles {
-                ", both trailers and the converter dolly"
+            // One whole sentence per case: a fragment spliced into a shell
+            // would go out in English whatever language the player reads.
+            if doubles {
+                format!(
+                    "Walk-around done, both trailers and the converter dolly, {} minutes. \
+                     {body} It is {}. {}",
+                    fmt_f(minutes, 0),
+                    clock_text(d.trip.local_hour()),
+                    deadline_text(d, ctx)
+                )
             } else {
-                ""
-            };
-            format!(
-                "Walk-around done{covered}, {} minutes. {body} It is {}. {}",
-                fmt_f(minutes, 0),
-                clock_text(d.trip.local_hour()),
-                deadline_text(d, ctx)
-            )
+                format!(
+                    "Walk-around done, {} minutes. {body} It is {}. {}",
+                    fmt_f(minutes, 0),
+                    clock_text(d.trip.local_hour()),
+                    deadline_text(d, ctx)
+                )
+            }
         }) else {
             return;
         };
@@ -1585,7 +1608,7 @@ impl Menu for RestStopState {
             .unwrap_or(false);
         ctx.audio.play("ui/menu_back");
         ctx.pop_state();
-        let back = back_on_the_road_line(ctx, engine_on);
+        let back = back_on_the_road_line(engine_on);
         match checked {
             Some((text, waved)) => {
                 ctx.say(&text);

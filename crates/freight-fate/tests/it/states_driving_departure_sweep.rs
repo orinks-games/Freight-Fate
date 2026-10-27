@@ -351,7 +351,7 @@ impl CornerWatch {
             };
             if heard
                 .iter()
-                .any(|line| line.contains(&format!("You missed the turn onto {}", corner.street)))
+                .any(|line| line.contains(&format!("Missed the turn onto {}", corner.street)))
             {
                 corner.outcome = Outcome::Missed;
             }

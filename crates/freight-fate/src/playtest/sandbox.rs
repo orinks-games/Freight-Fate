@@ -50,8 +50,8 @@ pub fn staging_sandbox() -> PathBuf {
 pub const STAGING_URL: &str = "https://orinks-net-git-dev-orinks-projects.vercel.app";
 
 /// The settings a staging session turns on: the master switch and cloud
-/// backup, the one path it exists to exercise. Presence and Mastodon stay
-/// off -- an agent session is not the owner on duty, and a post is public.
+/// backup, the one path it exists to exercise. Presence stays off -- an
+/// agent session is not the owner on duty.
 pub const ONLINE_SETTINGS: [&str; 2] = ["online_services", "cloud_saves"];
 
 /// The real save directory a sandbox is seeded from.
@@ -59,7 +59,7 @@ pub fn real_saves() -> PathBuf {
     game_root().join("saves")
 }
 
-/// Where a live playtest announces itself for `tools/playtest_watch.py`.
+/// Where a live playtest announces itself for `cargo tools playtest-watch`.
 pub fn session_file() -> PathBuf {
     game_root().join("logs").join("playtest-session.json")
 }
@@ -68,25 +68,19 @@ pub fn session_file() -> PathBuf {
 /// hangs off it. Copying one of these into a sandbox is exactly how a
 /// throwaway career would reach the real account, so the seeding step names
 /// them rather than hoping a glob never matches.
-pub const IDENTITY_NAMES: [&str; 6] = [
+pub const IDENTITY_NAMES: [&str; 5] = [
     "online.json",
     "online.token",
     "cloud_saves.json",
     "meaningful_play.json",
     "online-outbox.json",
-    "online-mastodon-outbox.json",
 ];
 
 /// The settings that publish. A sandbox with no identity cannot reach the
 /// site at all, so this is a second lock on the same door -- cheap, and it
 /// is the one that still holds if a session deliberately signs the sandbox
 /// in.
-pub const OFFLINE_SETTINGS: [&str; 4] = [
-    "cloud_saves",
-    "online_presence",
-    "online_services",
-    "mastodon_sharing",
-];
+pub const OFFLINE_SETTINGS: [&str; 3] = ["cloud_saves", "online_presence", "online_services"];
 
 /// `.ffsave` is the signed current format. The `.json.bak` and
 /// `.json.invalid` leftovers beside them are not careers the game will load,
@@ -395,7 +389,7 @@ pub fn describe(sandbox: &Path) -> String {
     lines.join("\n")
 }
 
-/// Announce a live playtest so `tools/playtest_watch.py` can follow it.
+/// Announce a live playtest so `cargo tools playtest-watch` can follow it.
 ///
 /// Both launchers write this -- the sandbox one and playtest_road's -- because
 /// the watcher's job is the same either way, and the one thing it cannot work

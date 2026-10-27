@@ -27,6 +27,7 @@ use ff_core::models::trailer_yard::{
 use ff_core::music::{select_menu_music_sequence, MenuMusicProfile};
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_n};
 use ff_core::settings::Settings;
+use ff_core::sim::hos::{limits, HosClock};
 use ff_core::sim::real_weather_alerts::{route_option_weather_note, warm_route_alerts};
 use ff_core::sim::route_roadwork::{
     choose_dispatch_route, dispatch_route_line, route_option_note, route_planning_note,
@@ -49,6 +50,7 @@ use crate::states::city::{
     profile_mut, CityMenuState, DrivingLaunch, LaunchAnnouncement, LoadedDepartureResume,
     DRIVE_PHASE_DELIVERY,
 };
+use crate::states::driving_team::TeamMode;
 use crate::states::main_menu::MainMenuState;
 
 pub const PICKUP_CHECK_IN_MIN: f64 = 15.0;
@@ -114,8 +116,16 @@ pub fn pickup_snapshot(job: &Job, opts: &PickupSnapshotOptions) -> Map<String, V
     data
 }
 
-pub fn route_planning_summary(route: &Route) -> String {
-    let hos_summary = plan_hos(route.miles(), Some(route), None, None).summary();
+/// `clock` is the driver's hours now, when hours of service are enforced:
+/// mid-shift, a fresh clock left out the sleep the law would force. A team
+/// load (`team`) changes drivers where a solo driver sleeps, so its plan
+/// names no sleep.
+pub fn route_planning_summary(route: &Route, clock: Option<&HosClock>, team: bool) -> String {
+    let mut plan = plan_hos(route.miles(), Some(route), None, clock);
+    if team {
+        plan.sleeps = 0;
+    }
+    let hos_summary = plan.summary();
     let usable = route.accessible_stop_details(false);
     let fuel_stops = usable
         .iter()
@@ -125,18 +135,23 @@ pub fn route_planning_summary(route: &Route) -> String {
         .iter()
         .filter(|stop| stop.actions.iter().any(|a| a == "sleep"))
         .count();
+    // The HOS line already names the sleep stops when it names any.
+    let sleep_text = if plan.has_stop_coverage() || sleep_stops == 0 {
+        String::new()
+    } else {
+        format!(" Sleep stops: {sleep_stops}.")
+    };
     let tolls = route.estimated_tolls();
     let toll_text = if tolls > 0.0 {
         format!(
-            "Estimated tolls, carrier-paid, {} dollars.",
+            " Estimated tolls, carrier-paid, {} dollars.",
             fmt_grouped(tolls, 0)
         )
     } else {
-        "No known tolls on this route.".to_string()
+        String::new()
     };
     format!(
-        "{hos_summary} Fuel-capable stops: {fuel_stops}. Sleep-capable stops: {sleep_stops}. \
-         {toll_text} Terrain: {}. Parking notes are not a guaranteed open space.",
+        "{hos_summary} Fuel stops: {fuel_stops}.{sleep_text}{toll_text} Terrain: {}.",
         route.terrain_summary()
     )
 }
@@ -205,6 +220,8 @@ pub struct LoadedDriveOptions {
     pub speed_control_target_mph: Option<f64>,
     pub lead: String,
     pub trailer_refused: bool,
+    /// The co-driver takes the wheel from the dock.
+    pub team: Option<TeamMode>,
 }
 
 /// Build the loaded delivery trip and depart, narrating `lead` first.
@@ -235,6 +252,7 @@ pub fn start_loaded_drive(ctx: &mut GameContext, job: Job, route: Route, opts: L
         speed_control_armed: opts.speed_control_armed,
         speed_control_target_mph: opts.speed_control_target_mph,
         trailer_refused: opts.trailer_refused,
+        team: opts.team,
     });
     ctx.mark_meaningful_play(MeaningfulPlayReason::DriveStarted);
     launch_driving(ctx, launch);
@@ -381,6 +399,8 @@ pub struct PickupFacilityState {
     pub truck: TruckState,
     pub speed_control_armed: bool,
     pub speed_control_target_mph: Option<f64>,
+    /// Set by a team row just before departing; the plain row clears it.
+    pub(crate) team_departure: Option<TeamMode>,
 }
 
 impl PickupFacilityState {
@@ -419,6 +439,7 @@ impl PickupFacilityState {
             truck,
             speed_control_armed: opts.speed_control_armed,
             speed_control_target_mph: opts.speed_control_target_mph,
+            team_departure: None,
         }
     }
 
@@ -473,10 +494,7 @@ impl PickupFacilityState {
             Some(mph) => ctx.settings.speed_text(mph),
             None => "the posted limit when the open road begins".to_string(),
         };
-        format!(
-            " Automatic speed control is paused; open-road target \
-             {target}. It will resume after departure once the truck is rolling."
-        )
+        format!(" Speed control paused, target {target}.")
     }
 
     /// The pre-trip on the trailer, done on purpose rather than to you.
@@ -511,25 +529,28 @@ impl PickupFacilityState {
         }
         let Some(defect) = trailer.defect() else {
             ctx.audio.play("ui/notify");
-            let covered = if is_doubles_cargo(self.job.cargo.key) {
-                ", both trailers and the converter dolly"
+            // One whole sentence per case: a line assembled from a verb
+            // fragment cannot be translated.
+            ctx.say(&if is_doubles_cargo(self.job.cargo.key) {
+                format!(
+                    "{}, both trailers and the converter dolly, check out.{}",
+                    crate::states::city::py_capitalize(&trailer.spoken_name()),
+                    self.tank_walk_around_clause()
+                )
             } else {
-                ""
-            };
-            ctx.say(&format!(
-                "Walking {}{covered}: lamps lit, brakes in adjustment, tires with tread. It \
-                 checks out.{}",
-                trailer.spoken_name(),
-                self.tank_walk_around_clause()
-            ));
+                format!(
+                    "{} checks out.{}",
+                    crate::states::city::py_capitalize(&trailer.spoken_name()),
+                    self.tank_walk_around_clause()
+                )
+            });
             return;
         };
         ctx.audio.play("ui/warning");
+        let name = crate::states::city::py_capitalize(&trailer.spoken_name());
         ctx.say(&format!(
-            "Walking {}, you find a {defect}. The trailer is {}. Pull out with it and the \
-             write-up is yours at the first scale. Refuse this trailer has the yard swap it, \
-             about {} minutes.{}",
-            trailer.spoken_name(),
+            "{name}: {defect}, {}. Take it and the write-up is yours at the first scale. \
+             Refuse for a swap, about {} minutes.{}",
             trailer.condition_text(),
             fmt_f(TRAILER_SWAP_MIN, 0),
             self.tank_walk_around_clause()
@@ -672,18 +693,14 @@ impl PickupFacilityState {
         let doubles = self.doubles_clause();
         if plan.is_drop_hook() {
             ctx.say(&format!(
-                "Checked in at {facility}.{paperwork} Your load is on {} in the drop yard. \
-                 Stop, then drop and hook.{doubles}",
+                "Checked in.{paperwork} Load on {} in the drop yard.{doubles}",
                 plan.trailer
                     .as_ref()
                     .map(|t| t.spoken_name())
                     .unwrap_or_default()
             ));
         } else {
-            ctx.say(&format!(
-                "Checked in at {facility}.{paperwork} Dock assigned. Stop, then load \
-                 cargo.{doubles}"
-            ));
+            ctx.say(&format!("Checked in.{paperwork} Dock assigned.{doubles}"));
         }
     }
 
@@ -988,24 +1005,18 @@ impl PickupFacilityState {
                     speed_control_target_mph: self.speed_control_target_mph,
                     trailer_refused: self.trailer_refused,
                     lead,
+                    team: self.team_departure,
                 },
             );
             return;
         }
-        let mut planning = String::new();
-        if let Some(note) = reroute_note.as_deref() {
-            planning.push_str(note);
-            planning.push(' ');
-        }
-        planning.push_str(&format!(
-            "Route planning to {}. {} route option{}.",
-            self.job.destination_facility_text(),
-            routes.len(),
-            if routes.len() != 1 { "s" } else { "" }
-        ));
-        ctx.say(&planning);
         // Dispatch's pick reads as route 1; each option says what 511 has on it.
-        let dispatch_note = route_planning_note(&routes, &routing, ctx.world);
+        let mut dispatch_note = route_planning_note(&routes, &routing, ctx.world);
+        // A load a tunnel or bridge turns away was planned around it: the
+        // note leads the route choice.
+        if let Some(note) = reroute_note.as_deref() {
+            dispatch_note = format!("{note} {dispatch_note}").trim_end().to_string();
+        }
         let notes: Vec<String> = routing
             .order
             .iter()
@@ -1041,6 +1052,7 @@ impl PickupFacilityState {
                 trailer_refused: self.trailer_refused,
                 notes,
                 dispatch_note,
+                team: self.team_departure,
             },
         );
         ctx.push_state(select);
@@ -1066,8 +1078,8 @@ impl PickupFacilityState {
             "Engine off"
         };
         let text = format!(
-            "Pickup at {}: {state}. {} tons of {}. Destination {}. Speed {}. {engine}. Air \
-             pressure {} psi, {brake}.{}",
+            "Pickup {}: {state}. {} tons of {} for {}. {}. {engine}. Air {} psi, \
+             {brake}.{}",
             self.facility(),
             fmt_f(self.job.weight_tons, 0),
             self.job.spoken_cargo_label(),
@@ -1171,11 +1183,7 @@ impl Menu for PickupFacilityState {
         let plan = self.pickup_plan(ctx);
         let facility = self.facility();
         let lead = if self.loaded {
-            let mut lead = format!(
-                "Loaded at {facility}. The trailer is sealed for \
-                 {}.",
-                self.job.spoken_destination()
-            );
+            let mut lead = format!("Loaded and sealed for {}.", self.job.spoken_destination());
             if self.just_loaded {
                 let verb = if plan.is_drop_hook() {
                     "Dropping and hooking"
@@ -1224,7 +1232,7 @@ impl Menu for PickupFacilityState {
         } else if self.checked_in {
             if plan.is_drop_hook() {
                 format!(
-                    "Checked in at {facility}. Your load is on {} in the drop yard.",
+                    "Checked in at {facility}. Load on {} in the drop yard.",
                     plan.trailer
                         .as_ref()
                         .map(|t| t.spoken_name())
@@ -1234,7 +1242,7 @@ impl Menu for PickupFacilityState {
                 format!("Checked in at {facility}. Dock assigned.")
             }
         } else {
-            format!("Arrived at pickup: {facility}. Check in with the shipping office.")
+            format!("Arrived at {facility}.")
         };
         let speed_control = if self.announce_speed_control_status {
             self.speed_control_pause_text(ctx)
@@ -1242,8 +1250,12 @@ impl Menu for PickupFacilityState {
             String::new()
         };
         self.announce_speed_control_status = false;
+        let intro = self
+            .team_intro(ctx)
+            .map(|intro| format!(" {intro}"))
+            .unwrap_or_default();
         let current = self.current_text(ctx);
-        ctx.say(&format!("{lead}{speed_control} {current}"));
+        ctx.say(&format!("{lead}{speed_control}{intro} {current}"));
     }
 
     fn exit(&mut self, ctx: &mut GameContext) {
@@ -1257,6 +1269,7 @@ impl Menu for PickupFacilityState {
         let plan = self.pickup_plan(ctx);
         let primary = if self.loaded {
             MenuItem::new("Depart for destination", |s: &mut Self, ctx| {
+                s.team_departure = None;
                 s.depart_for_destination(ctx)
             })
             .help("Starts the loaded run.")
@@ -1280,6 +1293,7 @@ impl Menu for PickupFacilityState {
             .help("Gets the dock assignment.")
         };
         let mut items = vec![primary];
+        items.extend(self.team_departure_rows(ctx));
         if self.loaded && plan.trailer.is_some() {
             items.push(
                 MenuItem::new("Walk around the trailer", |s: &mut Self, ctx| {
@@ -1414,6 +1428,8 @@ pub struct RouteSelectOptions {
     pub notes: Vec<String>,
     /// Why dispatch put the first route first, when construction decided it.
     pub dispatch_note: String,
+    /// The co-driver takes the wheel from the dock.
+    pub team: Option<TeamMode>,
 }
 
 impl Default for RouteSelectOptions {
@@ -1427,6 +1443,7 @@ impl Default for RouteSelectOptions {
             trailer_refused: false,
             notes: Vec::new(),
             dispatch_note: String::new(),
+            team: None,
         }
     }
 }
@@ -1514,7 +1531,7 @@ impl RouteSelectState {
                 let spoken_city = world.spoken_city(name, Some(true));
                 let Some(kind) = kind else {
                     let status = if provider.unavailable(&city.key) {
-                        "live weather unavailable; simulated fallback may apply"
+                        "no live weather"
                     } else {
                         "live weather still loading"
                     };
@@ -1576,10 +1593,9 @@ impl RouteSelectState {
                 speed_control_armed: self.opts.speed_control_armed,
                 speed_control_target_mph: self.opts.speed_control_target_mph,
                 trailer_refused: self.opts.trailer_refused,
-                lead: format!(
-                    "Navigation set for {}. ",
-                    self.job.destination_facility_text()
-                ),
+                // The route screen just named the destination.
+                lead: String::new(),
+                team: self.opts.team,
             },
         );
     }
@@ -1612,6 +1628,11 @@ impl Menu for RouteSelectState {
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         let mut items: Vec<MenuItem<Self>> = Vec::new();
+        let clock = ctx
+            .profile
+            .as_ref()
+            .filter(|_| limits(&ctx.settings.hos_mode).is_some())
+            .map(|p| p.hos.clone());
         for (i, route) in self.routes.iter().enumerate() {
             let note = self
                 .opts
@@ -1628,7 +1649,7 @@ impl Menu for RouteSelectState {
                 i + 1,
                 route.describe(&ctx.settings.distance_text(route.miles(), false)),
                 Self::via_text(ctx, route),
-                route_planning_summary(route)
+                route_planning_summary(route, clock.as_ref(), self.job.team)
             );
             let mut vias = Self::vias(ctx, route);
             if vias.is_empty() {

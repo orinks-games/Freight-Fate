@@ -78,10 +78,10 @@ fn a_headless_smoke_run_boots_five_frames_and_exits_cleanly() {
     // The real main menu greets the player on entry, as it does in Python.
     let first = &app.main_lines()[0];
     assert!(
-        first.starts_with("Welcome to Freight Fate, version "),
+        first.starts_with("Freight Fate "),
         "unexpected first line: {first}"
     );
-    assert!(first.contains("An audio trucking adventure across America."));
+    assert!(!first.contains("An audio trucking adventure across America."));
 }
 
 #[test]
@@ -120,15 +120,15 @@ fn smoke_checks_find_every_baked_runtime_file() {
 }
 
 #[test]
-fn smoke_audio_check_requires_the_real_bass_runtime() {
+fn smoke_audio_check_decodes_the_menu_sound_through_hearken() {
     let _guard = crate::audio_support::audio_lock();
     let result = smoke_audio_checks();
-    if bass_sys::native_available() {
-        result.expect("the fetched BASS runtime should initialize on its no-sound device");
+    if crate::audio_support::shipped_sounds() {
+        result.expect("the packed menu sound should decode through Hearken");
     } else {
         assert!(result
-            .expect_err("a missing BASS runtime must fail the release smoke check")
-            .contains("BASS"));
+            .expect_err("a build without its sounds must fail the release smoke check")
+            .contains("ui/menu_select"));
     }
 }
 
@@ -171,10 +171,7 @@ fn test_full_game_flow_headless() {
     app.push_state(MainMenuState::new());
     assert!(is::<MainMenuState>(&app));
     assert_eq!(app.visible_lines()[0], "Freight Fate");
-    let welcome = format!(
-        "Welcome to Freight Fate, version {}.",
-        updater::spoken_version(version())
-    );
+    let welcome = format!("Freight Fate {}.", updater::spoken_version(version()));
     assert!(app.main_lines().iter().any(|line| line.contains(&welcome)));
 
     // navigate to "New career" and select it
@@ -253,9 +250,8 @@ fn test_full_game_flow_headless() {
     // very key the drive below presses next.
     assert!(!departure.contains("Departing now"), "{departure}");
     assert!(departure.contains("Engine off."), "{departure}");
-    assert!(!departure.contains("Legal HOS plan"), "{departure}");
-    assert!(!departure.contains("Fuel-capable stops"), "{departure}");
-    assert!(!departure.contains("Parking notes"), "{departure}");
+    assert!(!departure.contains("Break stops:"), "{departure}");
+    assert!(!departure.contains("Fuel stops:"), "{departure}");
 
     // start the engine and drive the whole trip with simulated input
     key(&mut app, Key::E);
@@ -620,8 +616,8 @@ fn hub_parked_line(app: &mut TestApp) -> String {
     app.push_state(hub);
     app.main_lines()
         .into_iter()
-        .find(|l| l.starts_with("Parked"))
-        .expect("a parked line")
+        .find(|l| l.contains(" dollars."))
+        .expect("an entry line")
 }
 
 /// Pause the drive, abandon it, confirm Yes; returns what was said.

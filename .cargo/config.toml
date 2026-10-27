@@ -24,3 +24,8 @@ jobs = 12
 # with the toolchain, so there is nothing to install.
 [target.x86_64-pc-windows-msvc]
 linker = "rust-lld.exe"
+
+# `cargo tools <command>`: the build, release, data and translation tooling
+# (crates/ff-tools). `cargo tools help` lists the commands.
+[alias]
+tools = ["run", "--quiet", "-p", "ff-tools", "--"]

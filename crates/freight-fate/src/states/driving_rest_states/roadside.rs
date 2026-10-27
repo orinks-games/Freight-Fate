@@ -33,7 +33,7 @@ use crate::states::driving_updates::pending::EnforcementStopParams;
 /// may still legally drive.
 ///
 /// An ordinary ticket ends with merging back up to speed. A stop that just
-/// pulled the licence cannot: the driver is not allowed to move the truck, so
+/// pulled the license cannot: the driver is not allowed to move the truck, so
 /// offering the highway would be the game inviting them to break the rule it
 /// just enforced, and there would be no way off the shoulder at all. In that
 /// case the run ends here the way the felony stop already ends -- the load
@@ -108,7 +108,7 @@ pub trait RoadsideExit: Menu {
         )
     }
 
-    /// Escape never drives off on a pulled licence: it closes out the run
+    /// Escape never drives off on a pulled license: it closes out the run
     /// the way the exit row does. Escape used to pop back onto the highway
     /// and the drive carried on with the CDL suspended. Returns whether it
     /// closed the run out.
@@ -208,8 +208,11 @@ impl TrafficStopState {
         // A warning for a first, marginal stop, or for a well-regarded driver
         // who pulled over promptly and wasn't egregiously over; otherwise a
         // ticket.
-        let warning =
-            (first && self.over < 15.0) || (rep >= 70.0 && self.signaled && self.over < 20.0);
+        let new_driver =
+            d.new_driver_warning(ctx) && !self.warned && !enforcement::is_serious_speed(self.over);
+        let warning = new_driver
+            || (first && self.over < 15.0)
+            || (rep >= 70.0 && self.signaled && self.over < 20.0);
         let over_text = ctx.settings.speed_text(self.over);
         let limit_text = ctx.settings.speed_text(self.limit);
         if warning {
@@ -365,6 +368,11 @@ pub struct EnforcementStopState {
     /// A routine roadside inspection at this level: the report, not the
     /// caller, decides what it costs, and a clean one costs nothing.
     pub inspection_level: Option<InspectionLevel>,
+    /// A statutory penalty the officer has no say over -- the customs civil
+    /// penalty for running a port of entry. It is charged as handed down: the
+    /// citation ladder does not raise it, and a new driver's warning does not
+    /// wave it off.
+    pub fine_is_final: bool,
     outcome_text: String,
     /// Whether the stop has been told once already. See `announce_entry`: the
     /// fine is charged here, in `resolve`, exactly once, and a later telling
@@ -409,6 +417,7 @@ impl EnforcementStopState {
             warned: params.warned,
             inspection_on_stop: params.inspection_on_stop,
             inspection_level: params.inspection_level,
+            fine_is_final: params.fine_is_final,
             outcome_text: String::new(),
             stop_announced: false,
             presence_detail,
@@ -432,6 +441,16 @@ impl EnforcementStopState {
                 let tail = self.suspended_exit_text(ctx, d);
                 self.outcome_text.push_str(&tail);
             }
+            return;
+        }
+        if d.new_driver_warning(ctx)
+            && !self.warned
+            && !self.out_of_service
+            && !self.inspection_on_stop
+            && !self.fine_is_final
+        {
+            self.fine = 0.0;
+            self.outcome_text = "The officer lets you go with a warning.".to_string();
             return;
         }
         d.ticket_fines_paid += self.fine;
@@ -489,7 +508,7 @@ impl EnforcementStopState {
                      {}, the 30-minute break is satisfied, and the delivery deadline kept \
                      counting.{}",
                     clock_text(d.trip.local_hour()),
-                    wake_air_instruction(d, ctx, false)
+                    wake_air_instruction(d)
                 )
             } else if minutes >= hos::RESTART_MIN {
                 format!(
@@ -497,15 +516,15 @@ impl EnforcementStopState {
                      is {}, your 70-hour cycle is fresh, you wake rested, and the delivery \
                      deadline kept counting.{}",
                     clock_text(d.trip.local_hour()),
-                    wake_air_instruction(d, ctx, false)
+                    wake_air_instruction(d)
                 )
             } else {
                 format!(
                     "{lead}{why} Out of service: ten hours parked on the shoulder. It is {}, \
-                     hours of service reset, you wake rested, and the delivery deadline kept \
+                     driving and duty clocks reset, you wake rested, and the delivery deadline kept \
                      counting.{}",
                     clock_text(d.trip.local_hour()),
-                    wake_air_instruction(d, ctx, false)
+                    wake_air_instruction(d)
                 )
             };
             self.outcome_text.push_str(&oos_line);
@@ -627,7 +646,7 @@ const LICENCE_PULLED_INTRO_HELP: &str =
 /// the record.
 ///
 /// The roadside screens already end the run when the stop pulls the
-/// licence. These two happen at speed, and the drive used to carry straight
+/// license. These two happen at speed, and the drive used to carry straight
 /// on with a suspended CDL. This screen is the roadside ending without the
 /// stop: the truck stops on the shoulder and the same exit closes out the
 /// run.
@@ -685,7 +704,7 @@ impl Menu for LicencePulledState {
         let title = self.menu.title.clone();
         let outcome = self.outcome_text.clone();
         let current = self.current_text(ctx);
-        // Queued: the event line that pulled the licence is still being said.
+        // Queued: the event line that pulled the license is still being said.
         ctx.say_with(format!("{title}. {outcome} {current}"), Say::queued());
     }
 
@@ -746,7 +765,7 @@ impl FelonyStopState {
             p.career.reputation = (p.career.reputation - hos::HOS_REPUTATION_HIT * 3.0).max(0.0);
         }
         // The part that used to go nowhere: fleeing a stop in a commercial
-        // vehicle is a major offense, and the licence answers for it.
+        // vehicle is a major offense, and the license answers for it.
         self.standing_text = d.log_enforcement(ctx, fine, false, true, "Ran from a traffic stop");
         // add_damage, not a raw assignment: spike damage has to cross the
         // bands so a spiked truck can go out of service like any other wreck.

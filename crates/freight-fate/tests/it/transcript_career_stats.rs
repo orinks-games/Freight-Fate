@@ -4,7 +4,7 @@
 use crate::states_main_menu_support::*;
 use ff_core::models::profile::Profile;
 use freight_fate::app::testing::TestApp;
-use freight_fate::states::base::{Key, Menu};
+use freight_fate::states::base::{Key, Menu, SimpleMenuState};
 use freight_fate::states::career_stats::CareerStatsState;
 use freight_fate::states::city::CityMenuState;
 
@@ -34,8 +34,8 @@ fn test_career_stats_is_a_reviewable_menu_with_rest_status() {
     // ASK. A driver in good standing hears what earns the next fleet instead
     // of a hold that is not there (`equipment_status_lines`).
     assert!(
-        rows.iter()
-            .any(|l| l.starts_with("Truck: ") && l.contains("Level 4 earns the regional fleet.")),
+        rows.iter().any(|l| l.starts_with("Truck: ")
+            && l.contains("At level 4, dispatch moves you up to the regional fleet.")),
         "{rows:?}"
     );
     assert!(rows
@@ -98,4 +98,91 @@ fn test_career_stats_is_a_reviewable_menu_with_rest_status() {
 
     key(&mut app, Key::Escape);
     assert!(is::<CityMenuState>(&app));
+}
+
+#[test]
+fn test_career_stats_count_and_list_the_places_delivered_to() {
+    let mut app = TestApp::new();
+    app.ctx.profile = Some(Profile::named_in("Places", "Austin"));
+    let city = CityMenuState::new(&app.ctx, false);
+    app.push_state(city);
+
+    // A new career has been nowhere yet, and the list says so.
+    select::<CityMenuState>(&mut app, "Career stats");
+    let rows = labels::<CareerStatsState>(&app);
+    assert!(rows.iter().any(|l| l == "States visited: 0"), "{rows:?}");
+    assert!(rows.iter().any(|l| l == "Cities visited: 0"), "{rows:?}");
+    select::<CareerStatsState>(&mut app, "Places visited");
+    assert_eq!(
+        labels::<SimpleMenuState>(&app),
+        ["No deliveries yet.", "Back"]
+    );
+    key(&mut app, Key::Escape);
+
+    // The save keeps city keys; a key the world no longer has is left out
+    // rather than counted or read aloud.
+    {
+        let p = app.ctx.profile.as_mut().unwrap();
+        p.achievement_stats.insert(
+            "cities_delivered".to_string(),
+            serde_json::json!([
+                "chicago_il_us",
+                "denver_co_us",
+                "rockford_il_us",
+                "gone_xx_us"
+            ]),
+        );
+    }
+    with_state_mut::<CareerStatsState, _>(&mut app, |s, ctx| s.refresh(ctx, true));
+    let rows = labels::<CareerStatsState>(&app);
+    assert!(rows.iter().any(|l| l == "States visited: 2"), "{rows:?}");
+    assert!(rows.iter().any(|l| l == "Cities visited: 3"), "{rows:?}");
+    select::<CareerStatsState>(&mut app, "Places visited");
+    assert_eq!(
+        labels::<SimpleMenuState>(&app),
+        ["Colorado: Denver", "Illinois: Chicago, Rockford", "Back"]
+    );
+}
+
+#[test]
+fn test_career_stats_lists_the_co_drivers_only_once_you_have_teamed() {
+    use ff_core::models::business_constants::{COMPANY_DRIVER, LEASED_OWNER_OPERATOR};
+    use ff_core::models::co_driver::record_team_load;
+    let mut app = TestApp::new();
+    app.ctx.profile = Some(Profile::named_in("Team", "Austin"));
+    let city = CityMenuState::new(&app.ctx, false);
+    app.push_state(city);
+
+    // A career that has never teamed has no story to offer.
+    select::<CityMenuState>(&mut app, "Career stats");
+    let rows = labels::<CareerStatsState>(&app);
+    assert!(!rows.iter().any(|l| l == "Co-drivers"), "{rows:?}");
+
+    {
+        let stats = &mut app.ctx.profile.as_mut().unwrap().achievement_stats;
+        record_team_load(stats, "dan", COMPANY_DRIVER);
+        record_team_load(stats, "june", LEASED_OWNER_OPERATOR);
+        record_team_load(stats, "june", LEASED_OWNER_OPERATOR);
+    }
+    app.ctx.profile.as_mut().unwrap().business_status = LEASED_OWNER_OPERATOR.to_string();
+    with_state_mut::<CareerStatsState, _>(&mut app, |s, ctx| s.refresh(ctx, true));
+    select::<CareerStatsState>(&mut app, "Co-drivers");
+    let lines = labels::<SimpleMenuState>(&app);
+    assert_eq!(lines.len(), 3, "{lines:?}");
+    assert!(
+        lines[0].starts_with("Dan, 1 team load. The most careful driver in your training class."),
+        "{lines:?}"
+    );
+    assert!(
+        lines[1].starts_with("June, your hire, 2 team loads. Grew up waiting tables"),
+        "{lines:?}"
+    );
+    assert_eq!(lines[2], "Back");
+
+    // Back on a carrier's payroll, June is no longer their hire.
+    key(&mut app, Key::Escape);
+    app.ctx.profile.as_mut().unwrap().business_status = COMPANY_DRIVER.to_string();
+    select::<CareerStatsState>(&mut app, "Co-drivers");
+    let lines = labels::<SimpleMenuState>(&app);
+    assert!(lines[1].starts_with("June, 2 team loads."), "{lines:?}");
 }

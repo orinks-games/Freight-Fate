@@ -23,6 +23,11 @@ use std::collections::HashMap;
 use crate::speech_pacing::{monotonic_seconds, Clock};
 
 pub const LIMIT_GAP_REAL_S: f64 = 12.0; // posted-limit arrival lines
+/// How fast the driving voice gets through a line, in characters per real
+/// second: the event pacer's own estimate (Hearken's default pacer
+/// configuration, which the game's pacer inherits), so a line judged too
+/// long for its road is judged by the same rate that queues it.
+pub const SPOKEN_CHARS_PER_REAL_S: f64 = 13.0;
 pub const TRAFFIC_GAP_REAL_S: f64 = 10.0; // NPC traffic situation calls
 pub const ZONE_GAP_REAL_S: f64 = 15.0; // zone-entry colour
 /// Billboards and flavor landmarks: a sitting-time budget, not a sim-hour

@@ -1,0 +1,137 @@
+# iOS compile check.
+#
+# Builds the game for iPhone against Apple's real iOS SDK, so the Objective-C
+# touch and VoiceOver bridge (`crates/freight-fate/ios/ff_touch.m`, compiled by
+# `crates/freight-fate/build.rs`) and the `cfg(target_os = "ios")` Rust paths
+# are compiled on every change to them. Nothing else in CI targets iOS: the
+# Rust workflow builds for Windows and the nightly for desktops only.
+#
+# This is a compile check, not a release. It runs the same `cargo build` that
+# `cargo tools build-ios` does, and stops there: no app bundle, no signing, no
+# artifacts, and no secrets.
+#
+# GitHub's hosted macos-26: this repository is public, so those minutes are
+# free, and the iOS SDK is the image's own Xcode.
+#
+# Not a required check. It is path filtered, and a required check that is
+# path filtered waits forever on a PR that skips it (see rust.yml).
+#
+# Not on pull requests (owner, 2026-10-09: PR checks are quick checks, not
+# builds). It runs on the push that lands an iOS change on dev, and on a
+# manual dispatch for a branch that wants the check before merging.
+
+name: iOS build
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [dev]
+    paths:
+      - "crates/freight-fate/ios/**"
+      - "crates/freight-fate/build.rs"
+      - "crates/freight-fate/src/touch.rs"
+      - "crates/freight-fate/src/app/sdl_shell.rs"
+      - "crates/freight-fate/Cargo.toml"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "rust-toolchain.toml"
+      - ".github/workflows/ios-build.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: ios-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build (${{ matrix.target }})
+    runs-on: macos-26
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # A device build (the TestFlight path) and the Apple Silicon
+          # Simulator build, the two targets `cargo tools build-ios` knows. They
+          # run side by side, so the second costs no wall time.
+          - target: aarch64-apple-ios
+            platform: IOS
+          - target: aarch64-apple-ios-sim
+            platform: IOSSIMULATOR
+    env:
+      CARGO_TERM_COLOR: always
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      # `cargo tools build-ios`'s MINIMUM_IOS.
+      IPHONEOS_DEPLOYMENT_TARGET: "14.0"
+      # Same escape hatch as the Mac nightly: the bundled SDL2 source
+      # declares a cmake_minimum_required older than CMake 4 accepts.
+      CMAKE_POLICY_VERSION_MINIMUM: "3.5"
+      # cc prints each compiler command into the build script's output only
+      # when asked; the check below reads ff_touch.m's from there.
+      CC_ENABLE_DEBUG_OUTPUT: "1"
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install the pinned Rust toolchain and the iOS target
+        run: |
+          rustup show
+          rustup target add ${{ matrix.target }}
+
+      - name: Show the iOS SDK
+        run: |
+          xcodebuild -version
+          xcrun --sdk ${{ matrix.platform == 'IOS' && 'iphoneos' || 'iphonesimulator' }} --show-sdk-path
+
+      - name: Cache cargo registry and target directory
+        uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
+        with:
+          shared-key: ios-${{ matrix.target }}
+          cache-on-failure: true
+
+      - name: Build freight-fate for ${{ matrix.target }}
+        # The same command `cargo tools build-ios` runs. Touching ff_touch.m makes
+        # build.rs compile it again even when the cache is warm, and the stamp
+        # lets the next step tell this run's object from a cached one.
+        run: |
+          touch "$RUNNER_TEMP/ios-build-stamp"
+          touch crates/freight-fate/ios/ff_touch.m
+          cargo build -p freight-fate --no-default-features --features visuals --locked --target ${{ matrix.target }}
+
+      - name: Check ff_touch.m was compiled for ${{ matrix.target }}
+        # Fails the job unless this run compiled ff_touch.m into an object
+        # for the right platform and linked it into the game.
+        shell: bash
+        run: |
+          set -euo pipefail
+          build_dir="target/${{ matrix.target }}/debug/build"
+          object="$(find "$build_dir" -path '*/freight-fate-*/out/*' -name '*ff_touch.o' -newer "$RUNNER_TEMP/ios-build-stamp" -print | head -n 1)"
+          if [ -z "$object" ]; then
+            echo "::error::No ff_touch.o was compiled in this run under $build_dir."
+            exit 1
+          fi
+          echo "Compiled object: $object"
+          compile_line="$(grep -h 'ff_touch\.m' "$build_dir"/freight-fate-*/output | grep -m 1 'running:' || true)"
+          if [ -z "$compile_line" ]; then
+            echo "::error::The build script output has no compiler command for ff_touch.m."
+            exit 1
+          fi
+          echo "Compiler command: $compile_line"
+          lipo -info "$object"
+          platform="$(otool -l "$object" | awk '/LC_BUILD_VERSION/ {found=1} found && /platform/ {print $2; exit}')"
+          echo "Object platform: $platform"
+          if [ "$platform" != "${{ matrix.platform }}" ] && [ "$platform" != "${{ matrix.platform == 'IOS' && '2' || '7' }}" ]; then
+            echo "::error::ff_touch.o was built for platform '$platform', expected ${{ matrix.platform }}."
+            exit 1
+          fi
+          binary="target/${{ matrix.target }}/debug/freightfate"
+          test -x "$binary"
+          # Read nm's whole output before matching: `grep -q` quits at the first
+          # hit, nm dies of SIGPIPE, and pipefail fails the step on a good binary.
+          symbols="$(nm -gU "$binary")"
+          if ! grep -q 'ff_touch' <<<"$symbols"; then
+            echo "::error::$binary carries no ff_touch symbols."
+            exit 1
+          fi
+          echo "ff_touch.m compiled for ${{ matrix.target }} and linked into $binary"

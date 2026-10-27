@@ -26,29 +26,40 @@ path = "tests/agent_server.rs"
 test = false
 required-features = ["agent-server"]
 
+# The visual display in a real window, driven by sight in real time. It
+# needs a desktop and two minutes, so it is run by name, never by a plain
+# `cargo test`: see the file for how.
+[[test]]
+name = "real_window"
+path = "tests/real_window.rs"
+harness = false
+test = false
+required-features = ["visuals"]
+
 [features]
-default = ["agent-server"]
+default = ["agent-server", "visuals"]
 # `--agent-server`: the MCP server that lets an agent play, including a
 # `--staging` mode that backs up to the staging site. Dev builds have it;
-# player builds leave it out, because tools/build_release.py builds with
+# player builds leave it out, because cargo tools build-release builds with
 # --no-default-features.
 agent-server = []
+# The visual display (`src/visuals/`): the road, dashboard, menus and
+# captions drawn in the game window, its fonts, and the Visual display row in
+# Settings. Player builds name it (`--features visuals` in
+# cargo tools build-release and cargo tools build-ios), since they leave the
+# default features out. Without it the window stays a plain dark fill.
+#
+# `sdl2/unsafe_textures`: the display keeps one glyph-atlas texture for the
+# life of the renderer, which the borrow-checked `Texture<'creator>` cannot
+# live beside in the same struct. The renderer frees it when it goes.
+visuals = ["dep:ab_glyph", "dep:memmap2", "dep:objc2-app-kit", "sdl2/unsafe_textures"]
 
 [lints]
 workspace = true
 
 [dependencies]
 ff-core = { path = "../ff-core" }
-# Prism is compiled from source and linked in.
-# 0.1.4 at least: it loads the optional screen reader DLLs (Windows) and
-# Speech Dispatcher (Linux) at run time, and anchors its backends for GCC
-# and Clang, so build.rs needs no delay-load or whole-archive flags.
-# Earlier releases also drop every backend from a static link (0.1.1) or
-# overrun the caller's stack in Prism::new (0.1.2; trypsynth/prismer#2).
-prismer = { version = "0.1.4", features = ["static"] }
-bass-sys = { path = "../bass-sys" }
-anyhow.workspace = true
-thiserror.workspace = true
+hearken.workspace = true
 log.workspace = true
 env_logger.workspace = true
 serde.workspace = true
@@ -58,18 +69,20 @@ sha2.workspace = true
 hex.workspace = true
 base64.workspace = true
 flate2.workspace = true
+crc32fast.workspace = true
 zip.workspace = true
 tar.workspace = true
 ureq.workspace = true
 keyring.workspace = true
 discord-rich-presence.workspace = true
 once_cell.workspace = true
-parking_lot.workspace = true
 regex.workspace = true
 sdl2 = { workspace = true, features = ["raw-window-handle"] }
+ab_glyph = { workspace = true, optional = true }
+memmap2 = { workspace = true, optional = true }
 url.workspace = true
-form_urlencoded.workspace = true
 webbrowser.workspace = true
+sys-locale.workspace = true
 
 [target.'cfg(windows)'.dependencies]
 windows-sys.workspace = true
@@ -85,13 +98,17 @@ raw-window-handle.workspace = true
 # without Homebrew's SDL3 ("failed to load sdl3", 2026-08-30).
 [target.'cfg(target_os = "macos")'.dependencies]
 sdl2 = { workspace = true, features = ["bundled", "static-link"] }
+# The visual display asks AppKit whether the window is covered.
+objc2-app-kit = { workspace = true, optional = true }
 
 # Linux compiles SDL2 in the same way, for a different reason: every distro
 # ships a libSDL2-2.0.so.0, but not the same one, and a tarball that has to
 # run on Fedora, Arch and Debian alike cannot pick which. The static build
 # still opens X11, Wayland, PulseAudio, PipeWire and ALSA through dlopen at
-# run time, so what the player's machine lacks is skipped rather than fatal,
-# and the executable itself depends on nothing but libc.
+# run time, so what the player's machine lacks is skipped rather than fatal.
+# The executable does link libc, D-Bus, and ALSA's libasound.so.2, which
+# Hearken's audio engine (cpal) links to reach the sound server: a machine
+# without libasound2 cannot start the game.
 [target.'cfg(target_os = "linux")'.dependencies]
 sdl2 = { workspace = true, features = ["bundled", "static-link"] }
 

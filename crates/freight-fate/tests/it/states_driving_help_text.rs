@@ -66,7 +66,7 @@ fn test_driving_help_explains_selected_automatic_direction_style() {
     );
     assert!(
         said.contains(
-            "T plans the recommended break or sleep stop when hours of service planning hints are on"
+            "While rolling, T plans the next stop for what you choose: fuel, a break, sleep"
         ),
         "{said}"
     );
@@ -95,9 +95,7 @@ fn test_driving_help_explains_selected_automatic_direction_style() {
         "{said}"
     );
     assert!(
-        said.contains(
-            "plans a recommended break or sleep stop when hours of service planning hints are on"
-        ),
+        said.contains("plans a stop for fuel, a break, sleep or food while rolling"),
         "{said}"
     );
     assert!(
@@ -152,93 +150,37 @@ fn test_how_to_play_documents_new_gameplay_systems() {
         .to_lowercase();
 
     for phrase in [
-        "air brakes need pressure",
         "wait for air pressure to reach 100 psi",
-        "press p to release or set the parking brake",
-        "low air",
-        "tab opens a driving status menu",
-        "driver apps",
-        "slow below 5 miles per hour",
-        "destination facility",
-        "local deadhead moves to the origin facility",
-        "company terminal or yard",
-        "pickup gate",
-        "loading requires the truck to be stopped",
-        "loaded and sealed",
-        "company drivers depart on dispatch's assigned route",
-        "pick from the route options",
-        "real highway corridors",
-        "gps announces state lines",
-        "grades and terrain come from the route",
-        "weather, traffic, and construction still vary",
-        "rush hours can make metro corridors busier",
-        "slow lead vehicles",
-        "settings are grouped into categories",
-        "open a category to see its settings",
-        "driving mode changes trip pacing and pressure",
-        "relaxed gives more time to respond, wider hazard windows",
-        "standard keeps balanced timing and consequences",
-        "real time keeps standard's pressure and runs the driving clock",
-        "changed mid-drive from the pause menu",
-        "the new pacing starts when the truck next stops",
-        "real violations keep their normal consequences",
-        "adaptive cruise",
-        "three second clear-weather gap",
-        "increase the following gap",
-        "keypad keys",
+        "press and hold it again to reverse",
+        "brake held through the stop keeps the truck stopped",
+        "both direction-change styles",
         "active speed-control mode",
         "open-road target",
-        "sharp posted-limit drops",
-        "highway stops use clear place names",
-        "list the actions available there",
-        "call for help",
-        "tolls and approved company charges",
-        "fines an earlier load could not cover",
-        // The removed silent charge must not creep back into the help either.
-        "speeding nobody saw costs nothing at all",
-        "already paid on",
-        "gross pay, carrier-paid or reimbursed charges",
-        "net driver pay",
-        "touch the brakes to cancel",
-        "save",
-        "dock and deliver",
-        "wider freight area with many possible shippers",
-        "rail and intermodal ramps",
-        "parcel hubs",
-        "farms and grain elevators",
+        "company drivers follow dispatch",
+        "owner-operators choose a route after loading",
+        "nearby route points always take priority",
+        "thirty consecutive non-driving minutes",
+        "both hours modes use these limits",
+        "eleven driving hours",
+        "fourteen-hour duty window",
+        "three quarters as take-home",
+        "career stats",
+        "component wear",
+        "engine tune",
         "chemical terminals",
-        "not every market supports every cargo equally",
-        "major freight areas instead of every town",
-        "routes with enough stops",
-        // The tank endorsement is level 16 and buyable, so it is listed too.
-        "refrigerated, heavy-haul, high-value, and liquid bulk freight",
-        "full tank or full repair",
-        "engine tune gives more pulling power",
-        "aerodynamic kit burns less fuel",
-        "same tank, fewer gallons per mile",
-        "long-range tank carries fifty more gallons",
-        "more fuel onboard, not better efficiency",
-        "emergency stops",
-        "emergency shoulder sleep",
-        "parking ticket or minor damage",
-        // Always-available sleep, and the 1.8.0 systems, are documented in-game.
-        "sleep 10 hours in the lot",
+        "roadside mechanic",
+        "streamer-safe",
+        "m3u8",
+        "controller buttons",
+        "private backups",
+        "the deadline keeps running",
+        "full lane keeping",
+        "next safe turnaround",
+        "posted-limit drops",
+        "cb chatter",
+        "next multiple of five",
+        "computer clock",
         "fully-rested ten-hour sleep",
-        "risks losing traction",
-        "low visibility shortens",
-        "career runs on a calendar that starts in spring",
-        "enforcement posts sit along the road",
-        // The graded observation, and the tactic it gives back.
-        "five over is seen and",
-        "running in a pack",
-        "cb chatter passes on what other drivers have seen",
-        "never claims the road is clear",
-        "review that chatter",
-        // The speed keeper takes low-speed local roads and hands back to cruise.
-        "speed keeper handles low-speed local roads",
-        "in-cab radio",
-        "streamer-safe status",
-        "receivable stations",
     ] {
         assert!(
             help_text.contains(phrase),
@@ -273,7 +215,7 @@ fn test_dispatch_board_keeps_route_planning_out_of_load_offer() {
         "{rows:#?}"
     );
     assert!(
-        rows.iter().all(|row| !row.contains("Legal HOS plan")),
+        rows.iter().all(|row| !row.contains("Break stops:")),
         "{rows:#?}"
     );
     assert!(
@@ -281,7 +223,7 @@ fn test_dispatch_board_keeps_route_planning_out_of_load_offer() {
         "{rows:#?}"
     );
     assert!(
-        rows.iter().all(|row| !row.contains("Fuel-capable stops")),
+        rows.iter().all(|row| !row.contains("Fuel stops:")),
         "{rows:#?}"
     );
     let first_help = items[0].help_text(&state, &app.ctx);
@@ -293,12 +235,27 @@ fn test_dispatch_board_keeps_route_planning_out_of_load_offer() {
     let toll_route = world
         .route_from_cities(&["New York", "Philadelphia"])
         .expect("New York to Philadelphia is a route");
-    let summary = route_planning_summary(&toll_route);
-    assert!(summary.contains("Legal HOS plan"), "{summary}");
-    assert!(summary.contains("Fuel-capable stops:"), "{summary}");
+    // A team load's deadline has the drivers changing over where a solo
+    // driver sleeps, so its plan names no sleep.
+    let long_route = world
+        .supported_route("Chicago", "Denver", None)
+        .ok()
+        .flatten()
+        .expect("Chicago to Denver is a route");
+    let solo = route_planning_summary(&long_route, None, false);
+    assert!(solo.contains("10-hour sleep"), "{solo}");
+    let team = route_planning_summary(&long_route, None, true);
+    assert!(!team.contains("10-hour sleep"), "{team}");
+    assert!(team.contains(" driving hours"), "{team}");
+    let summary = route_planning_summary(&toll_route, None, false);
+    assert!(summary.contains(" driving hours"), "{summary}");
+    assert!(summary.contains("Fuel stops:"), "{summary}");
     assert!(
         summary.contains("Estimated tolls, carrier-paid"),
         "{summary}"
     );
-    assert!(summary.contains("not a guaranteed open space"), "{summary}");
+    assert!(
+        !summary.contains("not a guaranteed open space"),
+        "{summary}"
+    );
 }

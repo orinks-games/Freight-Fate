@@ -45,6 +45,7 @@
 //! business statuses part company, and they part sharply -- see
 //! [`DrivingState::recover_out_of_service`].
 
+use crate::speech::EventPriority;
 use ff_core::achievements::increment_stat;
 use ff_core::models::business::player_pays_operating_costs;
 use ff_core::models::cargo_condition::{
@@ -55,8 +56,8 @@ use ff_core::models::trucks::truck_model;
 use ff_core::pyfmt::fmt_grouped;
 use ff_core::settings::Settings;
 use ff_core::sim::trip_models::FACILITY_GATE_ZONE_MI;
-use ff_core::sim::vehicle::{TruckState, COMPONENT_SERVICE_LIMIT_PCT};
-use ff_core::speech_pacing::{EventPriority, SpeechCategory};
+use ff_core::sim::vehicle::{damage_band_for, TruckState, COMPONENT_SERVICE_LIMIT_PCT};
+use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
@@ -125,10 +126,16 @@ pub fn damage_summary_line(
 /// Both numbers scale with the deepest band the run reached rather than the
 /// damage number at the gate, so patching the truck on the shoulder does not
 /// launder the run.
+///
+/// The run has to take the truck into a band it did not leave in. Damage the
+/// tractor carried out of the yard was ruled on the run that did it; grading
+/// it again let one bad trip bill every load after it, until the driver
+/// found the carrier's free repair, for a single shoulder scrape each time.
 pub fn preventable_damage_charge(driving: &DrivingState) -> (f64, f64, String) {
     let preventable = driving.trip.truck.preventable_damage_pct;
     let bands = driving.worst_damage_band;
-    if bands <= DAMAGE_BAND_NONE || preventable < 1.0 {
+    let start_band = damage_band_for(driving.start_damage);
+    if bands <= DAMAGE_BAND_NONE || bands <= start_band || preventable < 1.0 {
         return (0.0, 0.0, String::new());
     }
     // The share of the run's damage the committee would call preventable,
@@ -578,7 +585,7 @@ impl DrivingState {
 
     /// Say once per engagement that limp mode, not the grade, owns the target.
     ///
-    /// Mirrors the "cruise is flat out and still losing the grade" cue: the
+    /// Mirrors the "Cruise down to 38 on this grade" cue: the
     /// set speed is unreachable for a reason the driver cannot see, so name it
     /// and name what cruise is holding instead.
     pub fn announce_limp_cruise_cap(&mut self, ctx: &mut GameContext) {
@@ -598,15 +605,7 @@ impl DrivingState {
             return;
         }
         self.limp_cruise_said = true;
-        let message = if self.terse_speech(ctx) {
-            format!("Limp mode. Holding {}.", ctx.settings.speed_text(cap))
-        } else {
-            format!(
-                "Cruise cannot hold {}; the truck is in limp mode. Holding {}.",
-                ctx.settings.speed_text(target),
-                ctx.settings.speed_text(cap)
-            )
-        };
+        let message = format!("Limp mode. Holding {}.", ctx.settings.speed_text(cap));
         // ROUTE, not the ambient default: cruise is silently holding a lower
         // speed than the driver set, the same class as the adaptive-cruise
         // easing line -- an assist changing what the truck does is a
@@ -615,7 +614,7 @@ impl DrivingState {
         ctx.say_event_with(
             message,
             SayEvent::queued()
-                .priority(EventPriority::Route)
+                .priority(EventPriority::Important)
                 .category(SpeechCategory::Status),
         );
     }
@@ -637,7 +636,7 @@ impl DrivingState {
         ctx.say_event_with(
             message,
             SayEvent::queued()
-                .priority(EventPriority::Route)
+                .priority(EventPriority::Important)
                 .category(SpeechCategory::Status),
         );
     }
@@ -887,7 +886,15 @@ impl DrivingState {
     /// Deliberately just a counter and a reputation hit: dispatch-trust
     /// regression and losing the seat are owned elsewhere, and there must not
     /// be two paths to either.
+    ///
+    /// One run is one event. A tractor grounded on the road and then ruled
+    /// preventable at the dock is the same incident, and counting it twice
+    /// doubled the record a new driver's carrier reads.
     pub fn record_equipment_event(&mut self, ctx: &mut GameContext) {
+        if self.equipment_event_logged {
+            return;
+        }
+        self.equipment_event_logged = true;
         increment_stat(profile_mut_of(ctx), "preventable_equipment_damage");
     }
 

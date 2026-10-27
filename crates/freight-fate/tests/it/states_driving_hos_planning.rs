@@ -84,7 +84,10 @@ fn hos_planning_rejects_passed_unusable_and_unreachable_stops() {
             stop("Too far", 150.0, "sleep"),
         ];
         let advice = d.hos_route_context(ctx);
-        assert!(advice.contains("No reachable"), "{advice}");
+        assert!(
+            advice.contains("stop left before your hours limit"),
+            "{advice}"
+        );
     });
 }
 
@@ -101,14 +104,14 @@ fn requested_readouts_share_the_last_reachable_stop_advice() {
         h.key(InputEvent::key_mods(Key::D, Mods::ALT));
         let heard = h.transcript_text();
         assert!(heard.contains("Last"), "{heard}");
-        assert!(heard.contains("Traffic and parking can change"), "{heard}");
+        assert!(heard.contains("Stop here."), "{heard}");
     }
 
     h.key(InputEvent::key(Key::Tab));
     h.select_menu_item("Route");
     let route_lines = h.menu_labels().join(" ");
     assert!(
-        route_lines.contains("HOS route: Last reachable sleep stop"),
+        route_lines.contains("HOS route: Last legal sleep stop"),
         "{route_lines}"
     );
     assert!(
@@ -121,7 +124,7 @@ fn requested_readouts_share_the_last_reachable_stop_advice() {
     h.select_menu_item("ELD");
     let eld_lines = h.menu_labels().join(" ");
     assert!(
-        eld_lines.contains("ELD route note: Last reachable sleep stop"),
+        eld_lines.contains("ELD route note: Last legal sleep stop"),
         "{eld_lines}"
     );
 }

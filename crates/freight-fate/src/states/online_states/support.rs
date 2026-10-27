@@ -55,11 +55,6 @@ impl<T> Mailbox<T> {
     pub fn take(&self) -> Option<T> {
         self.0.lock().unwrap_or_else(|e| e.into_inner()).take()
     }
-
-    /// Whether something is waiting to be taken.
-    pub fn is_posted(&self) -> bool {
-        self.0.lock().unwrap_or_else(|e| e.into_inner()).is_some()
-    }
 }
 
 /// Run `job` on a named daemon thread, or inline when `threaded` is false
@@ -104,8 +99,8 @@ thread_local! {
 }
 
 /// The transport behind the one-shot orinks.net calls these menus make
-/// (`set_profile_sharing`, `fetch_board`, `fetch_mastodon_status`,
-/// `start_activation`, `poll_activation`): the real network unless a test
+/// (`set_profile_sharing`, `fetch_board`, `start_activation`,
+/// `poll_activation`): the real network unless a test
 /// installed a fake.
 pub fn online_transport() -> SharedTransport {
     TRANSPORT_OVERRIDE
@@ -251,7 +246,7 @@ pub fn menu_default_handle_event<M: Menu>(menu: &mut M, ctx: &mut GameContext, e
         _ => {
             if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
                 let lower: String = ch.to_lowercase().collect();
-                menu.first_letter_jump(ctx, &lower);
+                menu.first_letter_input(ctx, &lower, event.key_repeat());
             }
         }
     }

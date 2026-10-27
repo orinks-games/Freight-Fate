@@ -1,4 +1,4 @@
-//! Backing down a travelled lane: the ladder, and where it must stay quiet
+//! Backing down a traveled lane: the ladder, and where it must stay quiet
 //! (port of `tests/test_wrong_way.py`).
 //!
 //! The adversarial harness backed a tractor-trailer a full mile down an

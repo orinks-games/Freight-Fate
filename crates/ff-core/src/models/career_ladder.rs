@@ -60,8 +60,8 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         "Regional Company Driver",
         "Company driver",
         "High-value freight certificate, and dispatch moves you up to the \
-         regional fleet: you slip-seat between a few newer spare tractors, \
-         matched to each load.",
+         regional fleet: a few newer spare tractors, with the one that suits \
+         each load assigned to you.",
         "Working broader lanes while the carrier still owns the business risk.",
     ),
     rank(
@@ -98,8 +98,8 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         9,
         "High-Value Company Driver",
         "Company driver",
-        "A dedicated long-haul sleeper tractor of your own, so slip-seating \
-         ends, with priority access to fragile and high-value lanes.",
+        "Dispatch assigns you one long-haul sleeper tractor that you drive on \
+         every load, with priority access to fragile and high-value lanes.",
         "Dispatch trusts the driver with higher-consequence freight.",
     ),
     rank(
@@ -144,13 +144,13 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         "Owner-Operator Candidate",
         "Business preparation",
         "Working-capital target becomes visible.",
-        "Preparing for a leased-on path without a lease-purchase trap.",
+        "Saving for the owner-operator buy-in instead of a lease-purchase deal.",
     ),
     rank(
         16,
         "Leased-On Applicant",
         "Owner-operator preparation",
-        "Leased-on requirements appear in full.",
+        "Every owner-operator buy-in requirement appears in full.",
         "Finalizing delivery, reputation, and cash readiness.",
     ),
     rank(
@@ -159,15 +159,17 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         "Owner-operator preparation",
         "First pick of the yard: dispatch assigns the carrier's best \
          tractor, and the buy-in target is active.",
-        "Close to a leased-on tractor position, but still on company settlement.",
+        "Close to the owner-operator buy-in, but still on company wages.",
     ),
     rank(
         18,
         "Leased-On Owner-Operator",
         "Owner-operator",
-        "Leased-on owner-operator buy-in unlocks when other gates are met, \
-         and TWIC port card enrollment opens under Licenses and training.",
-        "Eligible to buy into a tractor position and pay operating costs.",
+        "The owner-operator buy-in opens once its other requirements are met: \
+         you buy the truck you drive and haul for the carrier as a leased-on \
+         owner-operator. TWIC port card enrollment opens under Licenses and \
+         training.",
+        "Eligible to buy your own truck and pay its operating costs.",
     ),
     rank(
         19,
@@ -286,8 +288,8 @@ pub const COMPANY_CAREER_RANKS: [CareerRank; 30] = [
         "Regional Company Driver",
         "Company driver",
         "High-value freight certificate, and dispatch moves you up to the \
-         regional fleet: you slip-seat between a few newer spare tractors, \
-         matched to each load.",
+         regional fleet: a few newer spare tractors, with the one that suits \
+         each load assigned to you.",
         "Working broader lanes while the carrier still owns the business risk.",
     ),
     rank(
@@ -324,8 +326,8 @@ pub const COMPANY_CAREER_RANKS: [CareerRank; 30] = [
         9,
         "High-Value Company Driver",
         "Company driver",
-        "A dedicated long-haul sleeper tractor of your own, so slip-seating \
-         ends, with priority access to fragile and high-value lanes.",
+        "Dispatch assigns you one long-haul sleeper tractor that you drive on \
+         every load, with priority access to fragile and high-value lanes.",
         "Dispatch trusts the driver with higher-consequence freight.",
     ),
     rank(
@@ -540,21 +542,6 @@ pub fn display_rank_for_level(
     }
 }
 
-pub fn next_display_rank_for_level(
-    level: i64,
-    business_status: &str,
-    owner_operator_declined: bool,
-) -> Option<&'static CareerRank> {
-    if level >= MAX_CAREER_LEVEL {
-        return None;
-    }
-    Some(display_rank_for_level(
-        level + 1,
-        business_status,
-        owner_operator_declined,
-    ))
-}
-
 /// Rewrite level-up lines so a company-path driver hears company titles.
 pub fn relabel_level_up_announcements(
     messages: &mut [String],
@@ -654,16 +641,19 @@ mod tests {
     fn the_long_unlock_lines_kept_their_spaces_across_the_joins() {
         assert!(CAREER_RANKS[3]
             .unlock
-            .contains("up to the regional fleet: you slip-seat"));
+            .contains("up to the regional fleet: a few newer spare tractors, with"));
         assert!(CAREER_RANKS[7]
             .unlock
             .contains("from the board, with more machinery"));
         assert!(CAREER_RANKS[8]
             .unlock
-            .contains("of your own, so slip-seating ends, with"));
+            .contains("you drive on every load, with priority"));
         assert!(CAREER_RANKS[16]
             .unlock
             .contains("carrier's best tractor, and the"));
+        assert!(CAREER_RANKS[17]
+            .unlock
+            .contains("leased-on owner-operator. TWIC port card"));
     }
 
     #[test]
@@ -726,10 +716,10 @@ mod tests {
 
     #[test]
     fn relabel_rewrites_only_company_path_level_ups() {
-        let mut messages = vec![
-            "Level up! You are now level 18: Leased-On Owner-Operator. Unlock: Leased-on owner-operator buy-in unlocks when other gates are met, and TWIC port card enrollment opens under Licenses and training."
-            .to_string()
-        ];
+        let mut messages = vec![format!(
+            "Level up! You are now level 18: Leased-On Owner-Operator. Unlock: {}",
+            CAREER_RANKS[17].unlock
+        )];
         relabel_level_up_announcements(&mut messages, 17, 18, true);
         assert!(
             messages[0].contains("Company Fleet Captain"),

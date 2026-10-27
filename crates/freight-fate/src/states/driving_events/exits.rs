@@ -1,10 +1,11 @@
 //! Highway exits: arming the signal, the exit lane, the countdown, the exit
 //! speed assist, and the destination exit's own scan and announcement.
 
+use crate::speech::EventPriority;
 use ff_core::sim::trip_models::{
     RoadStop, TrafficPressure, TripEvent, TripEventKind, APPROACH_DECEL_MPS2, APPROACH_REACTION_S,
 };
-use ff_core::speech_pacing::{EventPriority, SpeechCategory};
+use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
 use crate::bindings::Action;
@@ -83,22 +84,11 @@ impl DrivingState {
         // not optional, and arming the farther ramp is exactly what carried
         // a tester past the scale unarmed. The plan itself survives.
         let scale_claimed = self.scale_claiming_exit(ctx, stop.as_ref());
-        let outranked = if scale_claimed.is_some() {
-            stop.clone()
-        } else {
-            None
-        };
         if let Some(scale) = scale_claimed.clone() {
             stop = Some(scale);
         }
         let Some(stop) = stop else {
-            self.say_plain(
-                ctx,
-                format!(
-                    "No route exit to signal for yet. Press {} to plan a suitable rest stop.",
-                    ctx.control_hint("rest")
-                ),
-            );
+            self.say_plain(ctx, "No route exit to signal for yet.");
             return;
         };
         let responding_to_destination_callout = stop.stop_type == "delivery_destination"
@@ -223,23 +213,14 @@ impl DrivingState {
         // No ramp number here: it is braked for past the gore, where taking
         // the exit names it as the exit speed. Said a mile out it asked the
         // driver to shed on the mainline (realistic exit, 2026-09-24).
-        let cap = self.cap_cruise_for_ramp(ctx, Some(&stop));
+        self.cap_cruise_for_ramp(Some(&stop));
         let mut message = if ctx.settings.lane_is_automated() {
             self.exit_lane_entered = true;
             ctx.audio.play_with("ui/notify", 0.6, 0.0);
             // No lane hint: lane keeping moves to the right lane itself
-            // (`keep_right_for_exit`).
-            // The first granted lane of the run says who granted it. A driver
-            // who never asked for this needs one chance to notice the truck
-            // is doing it, and where to change that.
-            // It takes the exit lane where it opens, at the gore.
-            let granted = if self.lane_keeping_grant_said {
-                "Lane keeping takes the exit lane."
-            } else {
-                self.lane_keeping_grant_said = true;
-                "Lane keeping takes the exit lane for you."
-            };
-            format!("{head} {ahead_text} ahead. {granted}{ending}{cap}")
+            // (`keep_right_for_exit`), and what it does is the manual's to
+            // explain, not the callout's (owner, 2026-10-14).
+            format!("{head} {ahead_text} ahead.{ending}")
         } else {
             // The right lane now; the exit lane itself where it opens, which
             // the cab calls at the taper. Nothing at all when the truck is
@@ -250,24 +231,12 @@ impl DrivingState {
             } else {
                 " Move to the right lane."
             };
-            format!("{head} {ahead_text} ahead.{lane_hint}{ending}{cap}")
+            format!("{head} {ahead_text} ahead.{lane_hint}{ending}")
         };
         if self.is_selected_stop(Some(&stop)) {
             self.selected_stop_assist_armed = ctx.settings.destination_approach_assist;
-            if self.selected_stop_assist_armed {
-                message.push_str(
-                    " Facility stopping assistance armed. It stops at the entrance once the \
-                     ramp control is clear.",
-                );
-            } else {
+            if !self.selected_stop_assist_armed {
                 message.push_str(" Stop at the entrance.");
-            }
-        }
-        if scale_claimed.is_some() {
-            if let Some(outranked) = outranked.as_ref() {
-                if self.is_selected_stop(Some(outranked)) || self.trip.is_planned(outranked) {
-                    message.push_str(" Your planned rest stop waits until you are past the scale.");
-                }
             }
         }
         self.set_status(message.clone());
@@ -292,7 +261,7 @@ impl DrivingState {
             let exit_mi = stop.at_mi;
             self.refresh_live_facts();
             let mut opts = SayEvent::queued()
-                .priority(EventPriority::Route)
+                .priority(EventPriority::Important)
                 .valid(move || live::position_mi() < exit_mi);
             opts.category = Some(SpeechCategory::Navigation);
             ctx.say_event_with(message, opts);
@@ -421,9 +390,8 @@ impl DrivingState {
     /// comes down to [`Self::exit_approach_floor_mph`] -- at most ten under
     /// road speed, never the ramp's number. The ramp's number is reached past
     /// the gore, in the deceleration lane, where taking the ramp pauses speed
-    /// control. Returns the spoken addition, or an empty string when there is
-    /// nothing to say.
-    pub fn cap_cruise_for_ramp(&mut self, ctx: &GameContext, stop: Option<&RoadStop>) -> String {
+    /// control.
+    pub fn cap_cruise_for_ramp(&mut self, stop: Option<&RoadStop>) {
         let floor = self.exit_approach_floor_mph(stop);
         let Some(cruise_mph) = self.cruise_mph else {
             // Paused mid-session -- a zone keeper, or a planned-stop pause.
@@ -434,36 +402,22 @@ impl DrivingState {
                     self.cruise_exit_mph = Some(target.min(floor));
                 }
             }
-            return String::new();
+            return;
         };
         let capped = cruise_mph.min(floor);
         if self
             .cruise_exit_mph
             .is_some_and(|existing| existing <= capped)
         {
-            // The destination-exit announcement already capped cruise and said
-            // so; pressing X right after must not repeat the whole sentence.
-            return String::new();
+            // The destination-exit announcement already capped cruise.
+            return;
         }
         self.cruise_exit_mph = Some(capped);
-        // The number is where the truck will BE at the gore, not where it goes
-        // now: _ramp_approach_cap_mph holds road speed until the exit is close
-        // enough to ease for. Arming five miles out and dropping straight to
-        // the cap is the "keeper goes to 40 miles away from the exit" report
-        // (Shane, 2026-08-15).
-        let target = ctx.settings.speed_text(capped);
-        if self.trip.truck.speed_mph() > capped + 1.0 {
-            // Say WHEN, not just what. "Adaptive cruise will ease to 40 for
-            // the ramp", heard five miles out, reads as "I am going to 40 now"
-            // (owner playtest, 2026-08-21). And say where it lets go: past the
-            // gore the deceleration lane is the driver's, or the exit speed
-            // assist's, to brake in.
-            return format!(
-                " Adaptive cruise holds road speed, eases to {target} for the exit, and pauses \
-                 on the ramp."
-            );
-        }
-        format!(" Adaptive cruise holding {target} to the exit, then pausing on the ramp.")
+        // Silent. The exit call used to explain how cruise would take the
+        // ramp (hold road speed, ease, pause on the ramp); players do not
+        // need the controller's plan read to them (owner, 2026-10-14: "Players
+        // don't need to know how the speed control works"). The cap glides on
+        // its own, see `ramp_approach_cap_mph`.
     }
 
     /// The armed exit's cap right now, measured off the road still left.
@@ -614,6 +568,17 @@ impl DrivingState {
         // last word before the loop-back (agent drive into Payson,
         // 2026-09-19). See `exit_signal_instruction`.
         let mut owed = String::new();
+        // The ramp's speed, once, at the mile: the ramp line names it only
+        // after the gore, too late to plan the slowdown, and a driver who
+        // guessed 20 for every ramp or rolled on the one posted 20 had no
+        // other way to know (player report, 2026-10-20). The same number the
+        // ramp line speaks, so the two never disagree. Checked against every
+        // anchor crossed this frame: a compressed frame that jumps from two
+        // miles to half a mile still says it.
+        if crossed.contains(&1.0) {
+            let mph = self.spoken_exit_mph(self.armed_ramp_mph(Some(stop)));
+            owed.push_str(&format!(" Exit speed {}.", ctx.settings.speed_value(mph)));
+        }
         if ctx.settings.lane_is_manual() && !self.exit_signal_on {
             owed.push(' ');
             owed.push_str(&self.exit_signal_instruction());
@@ -630,7 +595,7 @@ impl DrivingState {
             }
         }
         ctx.audio.play_with("ui/notify", 0.6, 0.0);
-        let mut opts = SayEvent::queued().priority(EventPriority::Route);
+        let mut opts = SayEvent::queued().priority(EventPriority::Important);
         opts.category = Some(SpeechCategory::Navigation);
         ctx.say_event_with(format!("{name} in {distance}.{owed}"), opts);
     }
@@ -703,7 +668,7 @@ impl DrivingState {
         }
         self.lane.exit_lane_open = due && self.exit_taper_said;
 
-        let right = ctx.bindings.pressed(&ctx.input, Action::SteerRight);
+        let right = self.held(ctx, Action::SteerRight);
         // A quick tap is how full-lane-keeping players change lanes; when the
         // lane work is yours it only nudges the wheel and never reaches the
         // exit lane. Two taps at an open exit lane earn the how-to, once, so
@@ -718,14 +683,11 @@ impl DrivingState {
         }
         if self.exit_right_taps >= 2 && self.lane.exit_lane_open && !self.exit_tap_hint_said {
             self.exit_tap_hint_said = true;
-            let text = format!(
-                "Taps only nudge the wheel. Hold {} to steer into the exit lane.",
-                ctx.control_name(Action::SteerRight)
-            );
+            let text = format!("Hold {} to steer in.", ctx.control_name(Action::SteerRight));
             self.say_plain(ctx, text);
         }
         // No "Exit lane set" or "lost": crossing into the lane is the truck
-        // taking the exit, and "You take" says so. No line at the gore. It used to say "Stay under" the ramp's number,
+        // taking the exit, and the ramp line says so. No line at the gore. It used to say "Stay under" the ramp's number,
         // which the gate itself never asked for (it accepts road speed), and
         // the ramp's speed belongs past the gore anyway, where taking the
         // ramp names it. Without the number all it restated was the half-mile
@@ -814,9 +776,9 @@ impl DrivingState {
         };
         // Never "confirm": there is no confirm action, and an X pressed to
         // obey it cancels the signal instead.
-        let mut opts = SayEvent::queued().priority(EventPriority::Route);
+        let mut opts = SayEvent::queued().priority(EventPriority::Important);
         opts.category = Some(SpeechCategory::Confirmation);
-        ctx.say_event_with(format!("Exit speed assistance slowing.{lane_text}"), opts);
+        ctx.say_event_with(format!("Slowing.{lane_text}"), opts);
     }
 
     /// Keep the truck at its exit floor on an approach the assist is running.

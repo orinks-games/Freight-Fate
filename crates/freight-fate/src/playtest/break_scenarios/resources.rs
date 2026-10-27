@@ -15,7 +15,6 @@ use ff_core::models::business::LEASED_OWNER_OPERATOR;
 use ff_core::models::economy::MOTEL_COST;
 use ff_core::sim::hos::HosClock;
 use ff_core::sim::trip_models::RoadStop;
-use ff_core::speech_pacing::EventSpeechPacer;
 
 use super::text::leading_percent;
 
@@ -49,7 +48,7 @@ pub fn fuel_rescue_farming() -> Outcome {
                     !rig.drive.truck().engine_on && rig.drive.truck().fuel_gal >= 25.0
                 }),
             );
-            rig.advance_clock(EventSpeechPacer::REPEAT_WINDOW_S + 1.0);
+            rig.advance_clock(crate::app::FF_PACER.repeat_window_s + 1.0);
         }
         let rescues = rig.said("Roadside rescue");
         if rescues != 3 {
@@ -104,7 +103,7 @@ pub fn fuel_rescue_farming() -> Outcome {
             DT,
             Some(&|rig: &Rig| !rig.drive.truck().engine_on && rig.drive.truck().fuel_gal >= 25.0),
         );
-        rig2.advance_clock(EventSpeechPacer::REPEAT_WINDOW_S + 1.0);
+        rig2.advance_clock(crate::app::FF_PACER.repeat_window_s + 1.0);
     }
     let money = rig2.app.ctx.profile.as_ref().map_or(0.0, |p| p.money());
     if (money - (100.0 - 1500.0)).abs() > 0.01 {
@@ -398,7 +397,7 @@ pub fn motel_rest_deadline_crunch() -> Outcome {
             if rig.app.ctx.profile.as_ref().map_or(0.0, |p| p.money()) != 500.0
                 || !rig.transcript()[lines_before_sleep..]
                     .iter()
-                    .any(|line| line.contains("Preview: sleep"))
+                    .any(|line| line.contains("Select again to sleep"))
             {
                 findings.push("motel preview changed state or did not speak".to_string());
             }
@@ -436,7 +435,7 @@ pub fn motel_rest_deadline_crunch() -> Outcome {
     let sleep_lines = &transcript[lines_before_sleep.min(transcript.len())..];
     let confirmation = sleep_lines
         .iter()
-        .find(|line| line.contains("You took a motel room"))
+        .find(|line| line.contains("Motel, "))
         .cloned()
         .unwrap_or_default();
     if !confirmation.contains(&remaining_after) {
@@ -445,9 +444,10 @@ pub fn motel_rest_deadline_crunch() -> Outcome {
              ({remaining_after:?} missing): {sleep_lines:?}"
         ));
     }
-    if !confirmation.contains("wake fresh") {
-        findings
-            .push("motel confirmation line dropped the usual rested-and-woke phrasing".to_string());
+    // The shorter rest lines (2026-10-17) say what the sleep reset rather
+    // than "you wake fresh".
+    if !confirmation.contains("clocks reset") {
+        findings.push("motel confirmation line dropped what the sleep reset".to_string());
     }
     outcome(
         "motel_rest_deadline_crunch",

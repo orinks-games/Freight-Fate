@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "notes": "Channel 3000's clips for channel3000.pak: Ogg Opus, 48 kbps stereo, 48 kHz, one static gain each to -18 LUFS with a -1 dBTP ceiling. Made by stage_clips.py from the Dark Nursery Rhymes masters. Dayparts by the truck's local hour: day 5-19, prime 19-22, late 22-2, overnight 2-5.",
+  "notes": "Channel 3000's clips for channel3000.pak: Ogg Opus, 48 kbps stereo, 48 kHz, each at -18 LUFS with a -1 dBTP ceiling. The Grimatonics songs have one static gain, like music.pak; every other clip is levelled by tools/level_channel3000.py so its talk sits at the level of the other stations. Made by stage_clips.py from the Dark Nursery Rhymes masters. Dayparts by the truck's local hour: day 5-19, prime 19-22, late 22-2, overnight 2-5.",
   "frequency_mhz": 87.7,
   "dayparts": {
     "day": [
@@ -36,8 +36,9 @@
       "source_lufs": -19.68,
       "gain_db": 1.68,
       "peak_limited": false,
-      "lufs": -17.99,
-      "true_peak": -3.41
+      "lufs": -17.98,
+      "true_peak": -2.14,
+      "levelled": true
     },
     {
       "key": "ad_c3k_grounds_for_appeal",
@@ -54,8 +55,9 @@
       "source_lufs": -20.41,
       "gain_db": 2.41,
       "peak_limited": false,
-      "lufs": -18.0,
-      "true_peak": -3.21
+      "lufs": -18.02,
+      "true_peak": -2.47,
+      "levelled": true
     },
     {
       "key": "ad_c3k_listen_too",
@@ -72,8 +74,9 @@
       "source_lufs": -21.11,
       "gain_db": 3.11,
       "peak_limited": false,
-      "lufs": -17.96,
-      "true_peak": -4.63
+      "lufs": -17.94,
+      "true_peak": -2.73,
+      "levelled": true
     },
     {
       "key": "ad_c3k_minty_pillow",
@@ -88,8 +91,9 @@
       "source_lufs": -16.08,
       "gain_db": -1.92,
       "peak_limited": false,
-      "lufs": -18.02,
-      "true_peak": -5.53
+      "lufs": -17.98,
+      "true_peak": -4.71,
+      "levelled": true
     },
     {
       "key": "ad_c3k_overpass_pals",
@@ -106,8 +110,9 @@
       "source_lufs": -19.45,
       "gain_db": 1.45,
       "peak_limited": false,
-      "lufs": -17.98,
-      "true_peak": -3.27
+      "lufs": -18.01,
+      "true_peak": -2.36,
+      "levelled": true
     },
     {
       "key": "ad_c3k_passenger_pete",
@@ -124,8 +129,9 @@
       "source_lufs": -19.54,
       "gain_db": 1.54,
       "peak_limited": false,
-      "lufs": -17.98,
-      "true_peak": -3.5
+      "lufs": -17.97,
+      "true_peak": -2.82,
+      "levelled": true
     },
     {
       "key": "ad_c3k_seat_sergeant",
@@ -142,8 +148,9 @@
       "source_lufs": -19.81,
       "gain_db": 1.81,
       "peak_limited": false,
-      "lufs": -18.0,
-      "true_peak": -3.08
+      "lufs": -17.97,
+      "true_peak": -2.25,
+      "levelled": true
     },
     {
       "key": "ad_c3k_shower_line",
@@ -161,7 +168,8 @@
       "gain_db": 0.67,
       "peak_limited": false,
       "lufs": -17.99,
-      "true_peak": -4.7
+      "true_peak": -4.15,
+      "levelled": true
     },
     {
       "key": "afterhours_00_sign_on",
@@ -175,8 +183,9 @@
       "source_lufs": -18.85,
       "gain_db": 0.15,
       "peak_limited": true,
-      "lufs": -18.69,
-      "true_peak": -0.98
+      "lufs": -17.97,
+      "true_peak": -1.97,
+      "levelled": true
     },
     {
       "key": "afterhours_01_gig_street",
@@ -190,8 +199,9 @@
       "source_lufs": -19.31,
       "gain_db": -0.74,
       "peak_limited": true,
-      "lufs": -20.05,
-      "true_peak": -1.16
+      "lufs": -17.97,
+      "true_peak": -2.26,
+      "levelled": true
     },
     {
       "key": "afterhours_02_puttin_on_the_filters",
@@ -205,8 +215,9 @@
       "source_lufs": -18.6,
       "gain_db": 0.34,
       "peak_limited": true,
-      "lufs": -18.25,
-      "true_peak": -1.12
+      "lufs": -18.03,
+      "true_peak": -1.55,
+      "levelled": true
     },
     {
       "key": "afterhours_04_splat_patrol",
@@ -221,7 +232,8 @@
       "gain_db": 0.2,
       "peak_limited": false,
       "lufs": -17.99,
-      "true_peak": -0.92
+      "true_peak": -1.35,
+      "levelled": true
     },
     {
       "key": "afterhours_05_defenders_of_the_cloud",
@@ -235,8 +247,9 @@
       "source_lufs": -20.65,
       "gain_db": 1.28,
       "peak_limited": true,
-      "lufs": -19.36,
-      "true_peak": -0.91
+      "lufs": -17.98,
+      "true_peak": -1.31,
+      "levelled": true
     },
     {
       "key": "afterhours_06_mister_sams_corner",
@@ -250,8 +263,9 @@
       "source_lufs": -16.71,
       "gain_db": -1.29,
       "peak_limited": false,
-      "lufs": -17.98,
-      "true_peak": -2.93
+      "lufs": -17.96,
+      "true_peak": -1.56,
+      "levelled": true
     },
     {
       "key": "afterhours_07_the_last_payphone",
@@ -266,7 +280,8 @@
       "gain_db": 2.06,
       "peak_limited": false,
       "lufs": -17.98,
-      "true_peak": -2.62
+      "true_peak": -1.47,
+      "levelled": true
     },
     {
       "key": "afterhours_08_incompatible",
@@ -280,8 +295,9 @@
       "source_lufs": -18.78,
       "gain_db": 0.78,
       "peak_limited": false,
-      "lufs": -17.99,
-      "true_peak": -2.0
+      "lufs": -17.98,
+      "true_peak": -1.75,
+      "levelled": true
     },
     {
       "key": "afterhours_09_news_at_ten",
@@ -295,8 +311,9 @@
       "source_lufs": -19.29,
       "gain_db": -0.05,
       "peak_limited": true,
-      "lufs": -19.33,
-      "true_peak": -1.34
+      "lufs": -17.97,
+      "true_peak": -1.48,
+      "levelled": true
     },
     {
       "key": "afterhours_10_are_you_afraid_of_the_data",
@@ -310,8 +327,9 @@
       "source_lufs": -21.05,
       "gain_db": 0.25,
       "peak_limited": true,
-      "lufs": -20.81,
-      "true_peak": -0.21
+      "lufs": -18.0,
+      "true_peak": -1.52,
+      "levelled": true
     },
     {
       "key": "afterhours_11_infomercial",
@@ -325,8 +343,9 @@
       "source_lufs": -17.06,
       "gain_db": -0.94,
       "peak_limited": false,
-      "lufs": -18.0,
-      "true_peak": -2.05
+      "lufs": -17.99,
+      "true_peak": -1.67,
+      "levelled": true
     },
     {
       "key": "afterhours_12_starship_obsolete",
@@ -340,8 +359,9 @@
       "source_lufs": -17.76,
       "gain_db": -0.24,
       "peak_limited": false,
-      "lufs": -18.0,
-      "true_peak": -1.17
+      "lufs": -17.97,
+      "true_peak": -1.4,
+      "levelled": true
     },
     {
       "key": "afterhours_13_insomnia_and_sign_off",
@@ -355,8 +375,9 @@
       "source_lufs": -15.99,
       "gain_db": -2.01,
       "peak_limited": false,
-      "lufs": -18.0,
-      "true_peak": -2.51
+      "lufs": -18.03,
+      "true_peak": -1.8,
+      "levelled": true
     },
     {
       "key": "day_as_the_wheels_turn_01",
@@ -370,8 +391,9 @@
       "source_lufs": -21.06,
       "gain_db": 3.06,
       "peak_limited": false,
-      "lufs": -18.0,
-      "true_peak": -0.44
+      "lufs": -17.98,
+      "true_peak": -1.15,
+      "levelled": true
     },
     {
       "key": "day_as_the_wheels_turn_02",
@@ -385,8 +407,9 @@
       "source_lufs": -21.58,
       "gain_db": 3.58,
       "peak_limited": false,
-      "lufs": -18.01,
-      "true_peak": -1.0
+      "lufs": -18.0,
+      "true_peak": -1.13,
+      "levelled": true
     },
     {
       "key": "day_as_the_wheels_turn_03",
@@ -400,8 +423,9 @@
       "source_lufs": -21.17,
       "gain_db": 3.17,
       "peak_limited": false,
-      "lufs": -18.0,
-      "true_peak": -1.75
+      "lufs": -17.97,
+      "true_peak": -1.32,
+      "levelled": true
     },
     {
       "key": "day_highway_helpline_01",
@@ -415,8 +439,9 @@
       "source_lufs": -20.83,
       "gain_db": 2.01,
       "peak_limited": true,
-      "lufs": -18.81,
-      "true_peak": -1.03
+      "lufs": -18.0,
+      "true_peak": -1.43,
+      "levelled": true
     },
     {
       "key": "day_highway_helpline_02",
@@ -430,8 +455,9 @@
       "source_lufs": -20.5,
       "gain_db": 2.01,
       "peak_limited": true,
-      "lufs": -18.48,
-      "true_peak": -0.89
+      "lufs": -17.98,
+      "true_peak": -1.46,
+      "levelled": true
     },
     {
       "key": "day_highway_helpline_03",
@@ -445,8 +471,9 @@
       "source_lufs": -20.35,
       "gain_db": 2.01,
       "peak_limited": true,
-      "lufs": -18.34,
-      "true_peak": -1.13
+      "lufs": -17.98,
+      "true_peak": -2.01,
+      "levelled": true
     },
     {
       "key": "day_rise_and_grind_01",
@@ -460,8 +487,9 @@
       "source_lufs": -20.72,
       "gain_db": 1.36,
       "peak_limited": true,
-      "lufs": -19.35,
-      "true_peak": -1.06
+      "lufs": -18.0,
+      "true_peak": -1.9,
+      "levelled": true
     },
     {
       "key": "day_rise_and_grind_02",
@@ -475,8 +503,9 @@
       "source_lufs": -21.24,
       "gain_db": 1.36,
       "peak_limited": true,
-      "lufs": -19.88,
-      "true_peak": -1.06
+      "lufs": -18.03,
+      "true_peak": -2.84,
+      "levelled": true
     },
     {
       "key": "day_rise_and_grind_03",
@@ -490,8 +519,9 @@
       "source_lufs": -20.61,
       "gain_db": 1.36,
       "peak_limited": true,
-      "lufs": -19.24,
-      "true_peak": -0.57
+      "lufs": -18.16,
+      "true_peak": -2.2,
+      "levelled": true
     },
     {
       "key": "day_this_old_truck_01",
@@ -506,7 +536,8 @@
       "gain_db": 2.62,
       "peak_limited": false,
       "lufs": -17.98,
-      "true_peak": -2.23
+      "true_peak": -1.93,
+      "levelled": true
     },
     {
       "key": "day_this_old_truck_02",
@@ -520,8 +551,9 @@
       "source_lufs": -20.7,
       "gain_db": 2.7,
       "peak_limited": false,
-      "lufs": -17.99,
-      "true_peak": -2.21
+      "lufs": -18.0,
+      "true_peak": -2.1,
+      "levelled": true
     },
     {
       "key": "day_this_old_truck_03",
@@ -535,8 +567,9 @@
       "source_lufs": -20.67,
       "gain_db": 2.67,
       "peak_limited": false,
-      "lufs": -18.0,
-      "true_peak": -2.21
+      "lufs": -18.02,
+      "true_peak": -1.17,
+      "levelled": true
     },
     {
       "key": "day_traffic_court_01",
@@ -550,8 +583,9 @@
       "source_lufs": -20.28,
       "gain_db": 2.28,
       "peak_limited": false,
-      "lufs": -17.98,
-      "true_peak": -1.6
+      "lufs": -17.94,
+      "true_peak": -2.77,
+      "levelled": true
     },
     {
       "key": "day_traffic_court_02",
@@ -565,8 +599,9 @@
       "source_lufs": -20.23,
       "gain_db": 1.99,
       "peak_limited": true,
-      "lufs": -18.22,
-      "true_peak": -1.26
+      "lufs": -17.96,
+      "true_peak": -1.59,
+      "levelled": true
     },
     {
       "key": "day_traffic_court_03",
@@ -580,8 +615,9 @@
       "source_lufs": -20.38,
       "gain_db": 2.38,
       "peak_limited": false,
-      "lufs": -17.99,
-      "true_peak": -1.64
+      "lufs": -17.95,
+      "true_peak": -1.69,
+      "levelled": true
     },
     {
       "key": "day_weigh_in_01",
@@ -595,8 +631,9 @@
       "source_lufs": -19.99,
       "gain_db": -0.18,
       "peak_limited": true,
-      "lufs": -20.17,
-      "true_peak": -1.22
+      "lufs": -18.0,
+      "true_peak": -1.46,
+      "levelled": true
     },
     {
       "key": "day_weigh_in_02",
@@ -610,8 +647,9 @@
       "source_lufs": -19.64,
       "gain_db": -0.31,
       "peak_limited": true,
-      "lufs": -19.95,
-      "true_peak": -0.88
+      "lufs": -18.0,
+      "true_peak": -1.89,
+      "levelled": true
     },
     {
       "key": "day_weigh_in_03",
@@ -625,8 +663,9 @@
       "source_lufs": -20.13,
       "gain_db": -0.31,
       "peak_limited": true,
-      "lufs": -20.43,
-      "true_peak": -0.56
+      "lufs": -18.01,
+      "true_peak": -1.75,
+      "levelled": true
     },
     {
       "key": "day_wild_highways_01",
@@ -640,8 +679,9 @@
       "source_lufs": -19.82,
       "gain_db": 1.82,
       "peak_limited": false,
-      "lufs": -17.98,
-      "true_peak": -1.41
+      "lufs": -17.97,
+      "true_peak": -1.74,
+      "levelled": true
     },
     {
       "key": "day_wild_highways_02",
@@ -655,8 +695,9 @@
       "source_lufs": -19.29,
       "gain_db": 1.29,
       "peak_limited": false,
-      "lufs": -17.99,
-      "true_peak": -2.42
+      "lufs": -17.98,
+      "true_peak": -1.28,
+      "levelled": true
     },
     {
       "key": "day_wild_highways_03",
@@ -670,8 +711,9 @@
       "source_lufs": -19.7,
       "gain_db": 1.7,
       "peak_limited": false,
-      "lufs": -18.01,
-      "true_peak": -1.4
+      "lufs": -18.35,
+      "true_peak": -1.15,
+      "levelled": true
     },
     {
       "key": "flying_circus_04_the_lone_courier",
@@ -688,8 +730,9 @@
       "source_lufs": -17.8,
       "gain_db": -0.2,
       "peak_limited": false,
-      "lufs": -17.98,
-      "true_peak": -1.53
+      "lufs": -18.01,
+      "true_peak": -3.79,
+      "levelled": true
     },
     {
       "key": "flying_circus_06_planet_office",
@@ -706,8 +749,9 @@
       "source_lufs": -20.14,
       "gain_db": 0.24,
       "peak_limited": true,
-      "lufs": -19.91,
-      "true_peak": -0.09
+      "lufs": -18.8,
+      "true_peak": -1.39,
+      "levelled": true
     },
     {
       "key": "flying_circus_07_the_bold_and_the_rebooted",
@@ -724,8 +768,9 @@
       "source_lufs": -17.41,
       "gain_db": -0.59,
       "peak_limited": false,
-      "lufs": -17.99,
-      "true_peak": -3.9
+      "lufs": -17.98,
+      "true_peak": -3.22,
+      "levelled": true
     },
     {
       "key": "flying_circus_full_show",
@@ -739,8 +784,9 @@
       "source_lufs": -17.36,
       "gain_db": -0.64,
       "peak_limited": false,
-      "lufs": -17.99,
-      "true_peak": -1.56
+      "lufs": -19.57,
+      "true_peak": -1.33,
+      "levelled": true
     },
     {
       "key": "grimatonics_baa_baa_black_sheep",
@@ -952,8 +998,9 @@
       "source_lufs": -21.0,
       "gain_db": 3.0,
       "peak_limited": false,
-      "lufs": -18.35,
-      "true_peak": -4.55
+      "lufs": -18.15,
+      "true_peak": -4.66,
+      "levelled": true
     },
     {
       "key": "host_channel3000_02",
@@ -970,8 +1017,9 @@
       "source_lufs": -21.01,
       "gain_db": 3.01,
       "peak_limited": false,
-      "lufs": -18.1,
-      "true_peak": -5.45
+      "lufs": -18.01,
+      "true_peak": -5.64,
+      "levelled": true
     },
     {
       "key": "host_channel3000_03",
@@ -988,8 +1036,9 @@
       "source_lufs": -21.98,
       "gain_db": 3.98,
       "peak_limited": false,
-      "lufs": -17.97,
-      "true_peak": -2.49
+      "lufs": -17.94,
+      "true_peak": -2.22,
+      "levelled": true
     },
     {
       "key": "host_channel3000_04",
@@ -1006,8 +1055,9 @@
       "source_lufs": -22.09,
       "gain_db": 4.09,
       "peak_limited": false,
-      "lufs": -17.94,
-      "true_peak": -2.68
+      "lufs": -18.12,
+      "true_peak": -2.42,
+      "levelled": true
     },
     {
       "key": "host_channel3000_05",
@@ -1024,8 +1074,9 @@
       "source_lufs": -21.41,
       "gain_db": 3.41,
       "peak_limited": false,
-      "lufs": -17.95,
-      "true_peak": -2.24
+      "lufs": -18.01,
+      "true_peak": -3.01,
+      "levelled": true
     },
     {
       "key": "host_channel3000_06",
@@ -1042,8 +1093,9 @@
       "source_lufs": -22.89,
       "gain_db": 4.89,
       "peak_limited": false,
-      "lufs": -18.09,
-      "true_peak": -3.76
+      "lufs": -18.1,
+      "true_peak": -3.56,
+      "levelled": true
     },
     {
       "key": "host_channel3000_07",
@@ -1061,7 +1113,8 @@
       "gain_db": 4.28,
       "peak_limited": false,
       "lufs": -17.95,
-      "true_peak": -3.06
+      "true_peak": -3.14,
+      "levelled": true
     },
     {
       "key": "host_channel3000_08",
@@ -1078,8 +1131,9 @@
       "source_lufs": -21.22,
       "gain_db": 3.22,
       "peak_limited": false,
-      "lufs": -17.96,
-      "true_peak": -4.28
+      "lufs": -17.99,
+      "true_peak": -3.75,
+      "levelled": true
     },
     {
       "key": "host_channel3000_09",
@@ -1096,8 +1150,9 @@
       "source_lufs": -21.42,
       "gain_db": 3.42,
       "peak_limited": false,
-      "lufs": -17.95,
-      "true_peak": -5.69
+      "lufs": -17.97,
+      "true_peak": -5.41,
+      "levelled": true
     },
     {
       "key": "host_channel3000_10",
@@ -1111,8 +1166,9 @@
       "source_lufs": -22.11,
       "gain_db": 4.11,
       "peak_limited": false,
-      "lufs": -17.97,
-      "true_peak": -2.4
+      "lufs": -18.0,
+      "true_peak": -1.97,
+      "levelled": true
     },
     {
       "key": "host_channel3000_11",
@@ -1126,8 +1182,9 @@
       "source_lufs": -20.83,
       "gain_db": 2.83,
       "peak_limited": false,
-      "lufs": -17.98,
-      "true_peak": -5.37
+      "lufs": -17.97,
+      "true_peak": -5.84,
+      "levelled": true
     },
     {
       "key": "host_channel3000_12",
@@ -1141,8 +1198,9 @@
       "source_lufs": -22.12,
       "gain_db": 4.12,
       "peak_limited": false,
-      "lufs": -17.98,
-      "true_peak": -4.16
+      "lufs": -18.0,
+      "true_peak": -3.95,
+      "levelled": true
     },
     {
       "key": "host_channel3000_13",
@@ -1156,8 +1214,9 @@
       "source_lufs": -20.59,
       "gain_db": 2.59,
       "peak_limited": false,
-      "lufs": -17.98,
-      "true_peak": -2.22
+      "lufs": -17.99,
+      "true_peak": -2.71,
+      "levelled": true
     },
     {
       "key": "host_channel3000_14",
@@ -1171,8 +1230,9 @@
       "source_lufs": -21.36,
       "gain_db": 3.36,
       "peak_limited": false,
-      "lufs": -17.95,
-      "true_peak": -4.5
+      "lufs": -18.0,
+      "true_peak": -4.18,
+      "levelled": true
     },
     {
       "key": "host_channel3000_15",
@@ -1186,8 +1246,9 @@
       "source_lufs": -21.82,
       "gain_db": 3.82,
       "peak_limited": false,
-      "lufs": -18.08,
-      "true_peak": -3.16
+      "lufs": -18.05,
+      "true_peak": -3.54,
+      "levelled": true
     },
     {
       "key": "host_channel3000_16",
@@ -1201,8 +1262,9 @@
       "source_lufs": -22.89,
       "gain_db": 4.89,
       "peak_limited": false,
-      "lufs": -17.97,
-      "true_peak": -2.03
+      "lufs": -17.94,
+      "true_peak": -2.17,
+      "levelled": true
     },
     {
       "key": "host_channel3000_17",
@@ -1216,8 +1278,9 @@
       "source_lufs": -20.84,
       "gain_db": 2.84,
       "peak_limited": false,
-      "lufs": -17.96,
-      "true_peak": -3.59
+      "lufs": -17.91,
+      "true_peak": -3.52,
+      "levelled": true
     },
     {
       "key": "host_channel3000_18",
@@ -1231,8 +1294,9 @@
       "source_lufs": -21.3,
       "gain_db": 3.3,
       "peak_limited": false,
-      "lufs": -17.97,
-      "true_peak": -4.77
+      "lufs": -17.87,
+      "true_peak": -4.46,
+      "levelled": true
     },
     {
       "key": "host_channel3000_19",
@@ -1246,8 +1310,9 @@
       "source_lufs": -21.66,
       "gain_db": 3.66,
       "peak_limited": false,
-      "lufs": -17.98,
-      "true_peak": -3.24
+      "lufs": -17.92,
+      "true_peak": -2.23,
+      "levelled": true
     },
     {
       "key": "host_channel3000_20",
@@ -1262,8 +1327,9 @@
       "source_lufs": -21.72,
       "gain_db": 3.72,
       "peak_limited": false,
-      "lufs": -18.0,
-      "true_peak": -4.16
+      "lufs": -17.94,
+      "true_peak": -4.13,
+      "levelled": true
     },
     {
       "key": "id_channel3000_01",
@@ -1277,8 +1343,9 @@
       "source_lufs": -19.95,
       "gain_db": 1.95,
       "peak_limited": false,
-      "lufs": -18.01,
-      "true_peak": -3.24
+      "lufs": -17.94,
+      "true_peak": -3.72,
+      "levelled": true
     },
     {
       "key": "id_channel3000_02",
@@ -1292,8 +1359,9 @@
       "source_lufs": -19.45,
       "gain_db": 1.45,
       "peak_limited": false,
-      "lufs": -17.97,
-      "true_peak": -4.06
+      "lufs": -17.91,
+      "true_peak": -2.74,
+      "levelled": true
     },
     {
       "key": "id_channel3000_03",
@@ -1307,8 +1375,9 @@
       "source_lufs": -20.2,
       "gain_db": 0.46,
       "peak_limited": true,
-      "lufs": -19.71,
-      "true_peak": -1.65
+      "lufs": -18.21,
+      "true_peak": -1.49,
+      "levelled": true
     },
     {
       "key": "id_channel3000_04",
@@ -1322,8 +1391,9 @@
       "source_lufs": -20.69,
       "gain_db": 2.69,
       "peak_limited": false,
-      "lufs": -17.98,
-      "true_peak": -3.67
+      "lufs": -17.94,
+      "true_peak": -4.27,
+      "levelled": true
     },
     {
       "key": "id_channel3000_05",
@@ -1337,8 +1407,9 @@
       "source_lufs": -17.93,
       "gain_db": -0.07,
       "peak_limited": false,
-      "lufs": -18.01,
-      "true_peak": -4.54
+      "lufs": -18.05,
+      "true_peak": -4.98,
+      "levelled": true
     },
     {
       "key": "id_channel3000_06",
@@ -1353,7 +1424,8 @@
       "gain_db": 3.04,
       "peak_limited": false,
       "lufs": -17.96,
-      "true_peak": -4.36
+      "true_peak": -4.64,
+      "levelled": true
     },
     {
       "key": "id_channel3000_07",
@@ -1367,8 +1439,9 @@
       "source_lufs": -22.84,
       "gain_db": 4.84,
       "peak_limited": false,
-      "lufs": -17.96,
-      "true_peak": -2.52
+      "lufs": -17.94,
+      "true_peak": -2.17,
+      "levelled": true
     },
     {
       "key": "id_channel3000_08",
@@ -1382,8 +1455,9 @@
       "source_lufs": -21.29,
       "gain_db": 3.29,
       "peak_limited": false,
-      "lufs": -17.98,
-      "true_peak": -3.24
+      "lufs": -17.88,
+      "true_peak": -2.85,
+      "levelled": true
     },
     {
       "key": "id_channel3000_09",
@@ -1397,8 +1471,9 @@
       "source_lufs": -21.08,
       "gain_db": 3.08,
       "peak_limited": false,
-      "lufs": -18.02,
-      "true_peak": -2.3
+      "lufs": -17.96,
+      "true_peak": -2.37,
+      "levelled": true
     },
     {
       "key": "id_channel3000_10",
@@ -1412,8 +1487,9 @@
       "source_lufs": -21.89,
       "gain_db": 3.89,
       "peak_limited": false,
-      "lufs": -18.02,
-      "true_peak": -4.35
+      "lufs": -18.05,
+      "true_peak": -4.51,
+      "levelled": true
     },
     {
       "key": "night_late_picture_show_01",
@@ -1427,8 +1503,9 @@
       "source_lufs": -20.04,
       "gain_db": 2.04,
       "peak_limited": false,
-      "lufs": -17.98,
-      "true_peak": -2.32
+      "lufs": -17.95,
+      "true_peak": -1.06,
+      "levelled": true
     },
     {
       "key": "night_late_picture_show_02",
@@ -1442,8 +1519,9 @@
       "source_lufs": -20.57,
       "gain_db": 2.57,
       "peak_limited": false,
-      "lufs": -17.99,
-      "true_peak": -0.64
+      "lufs": -18.01,
+      "true_peak": -1.17,
+      "levelled": true
     },
     {
       "key": "night_mile_marker_general_01",
@@ -1458,7 +1536,8 @@
       "gain_db": 3.89,
       "peak_limited": false,
       "lufs": -17.99,
-      "true_peak": -1.57
+      "true_peak": -1.17,
+      "levelled": true
     },
     {
       "key": "night_starhauler_01",
@@ -1473,7 +1552,8 @@
       "gain_db": 3.07,
       "peak_limited": false,
       "lufs": -17.99,
-      "true_peak": -1.78
+      "true_peak": -1.45,
+      "levelled": true
     },
     {
       "key": "night_starhauler_02",
@@ -1487,8 +1567,9 @@
       "source_lufs": -21.26,
       "gain_db": 3.26,
       "peak_limited": false,
-      "lufs": -17.99,
-      "true_peak": -1.8
+      "lufs": -17.95,
+      "true_peak": -1.09,
+      "levelled": true
     },
     {
       "key": "night_stories_01",
@@ -1502,8 +1583,9 @@
       "source_lufs": -20.94,
       "gain_db": 2.94,
       "peak_limited": false,
-      "lufs": -17.98,
-      "true_peak": -0.9
+      "lufs": -18.04,
+      "true_peak": -2.39,
+      "levelled": true
     },
     {
       "key": "night_stories_02",
@@ -1517,8 +1599,9 @@
       "source_lufs": -20.17,
       "gain_db": 2.17,
       "peak_limited": false,
-      "lufs": -17.99,
-      "true_peak": -2.2
+      "lufs": -18.04,
+      "true_peak": -2.53,
+      "levelled": true
     },
     {
       "key": "night_the_big_time_01",
@@ -1533,7 +1616,8 @@
       "gain_db": 0.08,
       "peak_limited": false,
       "lufs": -18.0,
-      "true_peak": -1.46
+      "true_peak": -1.19,
+      "levelled": true
     },
     {
       "key": "night_up_all_night_01",
@@ -1547,8 +1631,9 @@
       "source_lufs": -20.66,
       "gain_db": 2.66,
       "peak_limited": false,
-      "lufs": -18.0,
-      "true_peak": -2.02
+      "lufs": -18.39,
+      "true_peak": -1.91,
+      "levelled": true
     }
   ]
 }

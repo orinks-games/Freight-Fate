@@ -394,11 +394,6 @@ impl EnforcementPost {
         self.watch_start_mi() <= mile && mile <= self.end_mi()
     }
 
-    /// Miles from `mile` up to the post; negative once it is behind you.
-    pub fn distance_from(&self, mile: f64) -> f64 {
-        self.at_mi - mile
-    }
-
     /// Whether this post's trooper is occupied with somebody else here: from
     /// the siren lead to a couple of miles past the stop. Only this post's
     /// own catches are affected.

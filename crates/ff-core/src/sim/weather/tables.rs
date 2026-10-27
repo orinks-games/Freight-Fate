@@ -87,6 +87,13 @@ pub struct WeatherEffects {
 }
 
 impl WeatherEffects {
+    /// Weather that takes grip or sight: the one test the cruise cap, the
+    /// hazard brake and the co-driver's target speed all read, so they never
+    /// disagree about whether to slow for it.
+    pub fn is_adverse(&self) -> bool {
+        self.grip < 1.0 || self.visibility_mi < 8.0
+    }
+
     // One row of the Python dataclass table, positional like the original.
     #[allow(clippy::too_many_arguments)]
     const fn new(

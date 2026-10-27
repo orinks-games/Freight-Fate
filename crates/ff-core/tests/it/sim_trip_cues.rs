@@ -1278,10 +1278,7 @@ fn test_toll_cues_and_charges_deduplicate() {
 
     assert_eq!(
         gps_messages(&advance),
-        vec![
-            "E-ZPass toll point ahead, New Jersey Turnpike settlement. \
-             Toll 63 dollars, billed to carrier settlement."
-        ]
+        vec!["E-ZPass toll point ahead, New Jersey Turnpike settlement. Toll 63 dollars."]
     );
     assert!(gps_events(&repeat).is_empty());
 
@@ -1316,20 +1313,16 @@ fn test_zero_amount_toll_entry_marker_does_not_record_expense() {
     let advance = trip.update(0.0);
     assert_eq!(
         gps_messages(&advance),
-        vec![
-            "ticket system toll point ahead, Pennsylvania Turnpike eastern ticket entry. \
-             Entry recorded for carrier settlement."
-        ]
+        vec!["ticket system toll point ahead, Pennsylvania Turnpike eastern ticket entry."]
     );
 
     trip.position_mi = 18.0;
     let entry = trip.update(0.0);
-    assert_eq!(
-        gps_messages(&entry),
-        vec![
-            "ticket system entry recorded at Pennsylvania Turnpike eastern ticket entry. \
-             Toll billed at carrier settlement."
-        ]
+    // Nothing is charged at a ticket entry, and the cue ahead named it.
+    assert!(
+        gps_messages(&entry).is_empty(),
+        "{:?}",
+        gps_messages(&entry)
     );
     assert_eq!(trip.toll_expense(), 0.0);
     assert!(messages_of(&entry, TripEventKind::TollCharged).is_empty());
@@ -1416,7 +1409,7 @@ fn test_city_events_announce_a_state_line_the_map_does_not_carry() {
 
     assert_eq!(
         messages_of(&events, TripEventKind::CityReached),
-        vec!["Crossing into Ohio. Passing Cleveland, Ohio. Continuing on I-76 toward Pittsburgh."]
+        vec!["Crossing into Ohio. Passing Cleveland, Ohio."]
     );
 }
 
@@ -1433,7 +1426,7 @@ fn test_city_events_include_state_without_repeating_crossing() {
 
     assert_eq!(
         messages_of(&events, TripEventKind::CityReached),
-        vec!["Passing Buffalo, New York. Continuing on I-90 toward Cleveland."]
+        vec!["Passing Buffalo, New York."]
     );
 }
 
@@ -1869,4 +1862,48 @@ fn a_saved_trip_resumes_on_the_detour_its_load_was_planned_on() {
             "{from} to {to} plain freight stays on the main road"
         );
     }
+}
+
+#[test]
+fn test_a_zone_exit_rise_waits_for_the_limit_window() {
+    // A short slow zone ended right behind the arrival line, and two limit
+    // numbers in one breath outran the voice (player report, 2026-10-17).
+    // The exit's rise is held, then named once the window opens.
+    use std::cell::Cell;
+    use std::rc::Rc;
+    let now = Rc::new(Cell::new(0.0));
+    let mut trip = make_trip(world(), "Chicago", "Indianapolis", 2);
+    let clock_now = Rc::clone(&now);
+    trip.event_breather
+        .set_clock(Box::new(move || clock_now.get()));
+    trip.position_mi = 30.0;
+    let corridor = trip.corridor_limit_at(31.0);
+    assert!(corridor > 25.0, "the test needs a rise out of the zone");
+    trip.zones = vec![Zone::new(29.9, 30.5, 25.0, "test")];
+    trip.announced_zone_warnings.clear();
+    trip.pending_zone_warning = None;
+    trip.announced_speed_limit = Some(corridor);
+    trip.check_zones();
+    assert!(trip.entered_zone.is_some());
+    trip.event_breather.spoke("limit");
+
+    trip.events.clear();
+    trip.position_mi = 31.0;
+    trip.check_zones();
+    trip.check_speed_limit();
+    assert!(
+        !trip.events.iter().any(|e| e.text().contains("Speed limit")),
+        "{:?}",
+        trip.events.iter().map(|e| e.text()).collect::<Vec<_>>()
+    );
+
+    now.set(60.0);
+    trip.check_speed_limit();
+    assert!(
+        trip.events
+            .iter()
+            .any(|e| e.text().starts_with("Speed limit raised to")),
+        "{:?}",
+        trip.events.iter().map(|e| e.text()).collect::<Vec<_>>()
+    );
 }

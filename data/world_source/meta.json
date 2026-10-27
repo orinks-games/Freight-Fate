@@ -75,34 +75,59 @@
   },
   "ramp_length_bake": {
     "kind": "derived",
-    "measure": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
+    "measure": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-10-19: https://www.openstreetmap.org/",
     "starts_at": "the OSM node where the motorway_link way leaves the motorway way: at or near the gore (painted-gore start to physical nose, by mapper). The deceleration lane or taper lies before it and is not included.",
     "ends_at": "the nearest surface-road node or dead end along the link ways, else the merge onto another motorway",
-    "exits": 18576,
-    "exits_with_length": 17697,
-    "coverage_ratio": 0.9527,
-    "directional_terminals": 21006,
-    "directional_lengths": 23019,
+    "tool": "cargo tools osm-exits",
+    "inputs": {
+      "extracts": [
+        "us-highways.osm.pbf"
+      ],
+      "snapshot": "OpenStreetMap planet file",
+      "extract_date": "2026-10-19"
+    },
+    "exits": 19109,
+    "exits_with_length": 18895,
+    "coverage_ratio": 0.9888,
+    "exits_with_both_terminals": 14621,
+    "both_terminals_ratio": 0.7651,
+    "directional_terminals": 32431,
+    "directional_lengths": 34506,
     "percentiles_ft": {
-      "p5": 744.6,
-      "p25": 1154.5,
-      "p50": 1485.7,
-      "p75": 1924.5,
-      "p95": 3777.7
+      "p5": 806.4,
+      "p25": 1186.9,
+      "p50": 1503.9,
+      "p75": 1920.3,
+      "p95": 3571.1
     },
     "screen": {
       "min_ft": 300.0,
       "max_ft": 7920.0,
-      "gores_measured": 33,
-      "dropped_too_short": 0,
-      "dropped_too_long": 1,
-      "no_terminal_reached": 0,
-      "legs_this_run": 1
+      "gores_measured": 34599,
+      "dropped_too_short": 165,
+      "dropped_too_long": 83,
+      "no_terminal_reached": 0
     },
-    "position_screen": {
-      "rule": "derived: per leg, the median gap between each labelled exit's at_mi and the nearest same-ref OSM junction node on the leg's own polyline. Wider than the 1200 m far-end search radius, an exit not pinned to its own junction is not judged: it keeps its saved control and far end and gets no length or terminal. The fix is re-deriving the leg's interchange mileage, not this bake.",
-      "legs_this_run": [],
-      "exits_withheld": 0
+    "far_end": {
+      "exits_read": 19040,
+      "motorway": 819,
+      "surface": 18097,
+      "no_gore": 105,
+      "control_none_derived": 819,
+      "controls_read_at_terminal": 10374,
+      "controls_read_exit_wide": 392
+    },
+    "kept": {
+      "hand_set_facts": 0,
+      "chain_terminals_kept": 195,
+      "exits_kept_for_links": 225
+    },
+    "search_m": {
+      "junction_corridor": 200.0,
+      "gore": 500.0,
+      "sign_gore": 350.0,
+      "terminal_control": 120.0,
+      "wide_control": 1400.0
     }
   },
   "stop_approach_bake": {

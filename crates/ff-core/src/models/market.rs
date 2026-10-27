@@ -13,6 +13,9 @@ use serde::{Deserialize, Serialize};
 use crate::pyfmt::round_py_n;
 use crate::pyrandom::PyRandom;
 
+/// What the market watch says when no cargo class stands out.
+pub const STEADY_SUMMARY: &str = "Freight market is steady across the board.";
+
 pub const MARKET_MIN: f64 = 0.8;
 pub const MARKET_MAX: f64 = 1.3;
 pub const DAILY_DRIFT: f64 = 0.06;
@@ -167,6 +170,17 @@ impl Market {
         changed
     }
 
+    /// The board's entry line: the standout cargo classes, or nothing when
+    /// the market is steady (Tab still answers with [`Self::summary`]).
+    pub fn headline(&self) -> String {
+        let summary = self.summary();
+        if summary == STEADY_SUMMARY {
+            String::new()
+        } else {
+            summary
+        }
+    }
+
     /// Spoken job-board headline naming the standout cargo classes.
     pub fn summary(&self) -> String {
         let mut items: Vec<(&String, f64)> =
@@ -181,7 +195,7 @@ impl Market {
             items.iter().copied().filter(|kv| kv.1 <= 0.97).collect();
         loose.sort_by(|a, b| a.1.partial_cmp(&b.1).expect("finite multipliers"));
         if tight.is_empty() && loose.is_empty() {
-            return "Freight market is steady across the board.".to_string();
+            return STEADY_SUMMARY.to_string();
         }
         let parts: Vec<String> = tight
             .iter()
@@ -358,8 +372,8 @@ mod tests {
         for (jh, jc) in jobs_tight.iter().zip(&jobs_loose) {
             assert_eq!(jh.cargo.key, jc.cargo.key);
             assert!((jh.pay / jc.pay - 1.3 / 0.8).abs() < 0.01);
-            assert!(jh.describe_plain().contains("Market is tight."));
-            assert!(jc.describe_plain().contains("Market is loose."));
+            assert!(jh.describe_plain().contains("Market tight."));
+            assert!(jc.describe_plain().contains("Market loose."));
         }
     }
 

@@ -1,0 +1,53 @@
+name: Linux build dependencies
+description: SDL2 desktop backends, ALSA headers for Hearken's sound, Speech Dispatcher headers and gcc 13 for Prism, on Ubuntu 22.04 or 24.04.
+inputs:
+  extra-packages:
+    description: More apt packages to install in the same transaction (the packaging jobs add file and desktop-file-utils).
+    required: false
+    default: ""
+runs:
+  using: composite
+  steps:
+    # SDL2 is compiled from source into the executable (`bundled` +
+    # `static-link`), and what it can open at run time is decided by the
+    # headers present now: a video or audio backend whose development
+    # package is missing here is compiled out for every player. So the whole
+    # desktop set goes in -- X11, Wayland with libdecor, PulseAudio,
+    # PipeWire, ALSA, D-Bus for IBus -- although the runner uses none of it.
+    # libdbus-1-dev is also what `keyring` links for the Secret Service, and
+    # libasound2-dev is also what Hearken's sound output (Kira over cpal)
+    # links, so the executable needs libasound.so.2 at run time.
+    #
+    # Prism is compiled from source too. It needs gcc 13's standard library
+    # (std::atomic_unsigned_lock_free), which the build links statically, so
+    # the player's system libstdc++ can be as old as 22.04's. 24.04 ships
+    # gcc 13; 22.04 stops at 12, so there it comes from Ubuntu's toolchain
+    # PPA. Prism builds its Speech Dispatcher backend (headers only; it opens
+    # the library at run time) only when libspeechd-dev is present. Its Orca
+    # backend needs glibmm 2.68, which 22.04 lacks; Orca users hear the game
+    # through Speech Dispatcher instead.
+    - shell: bash
+      env:
+        EXTRA: ${{ inputs.extra-packages }}
+      run: |
+        . /etc/os-release
+        if [ "$VERSION_ID" = "22.04" ]; then
+          sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+        fi
+        sudo apt-get update
+        # shellcheck disable=SC2086
+        sudo apt-get install -y --no-install-recommends \
+          cmake pkg-config gcc-13 g++-13 libspeechd-dev \
+          libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxi-dev \
+          libxinerama-dev libxss-dev libxfixes-dev libxkbcommon-dev \
+          libwayland-dev wayland-protocols libdecor-0-dev \
+          libegl1-mesa-dev libgl1-mesa-dev libgles2-mesa-dev libdrm-dev libgbm-dev \
+          libasound2-dev libpulse-dev libpipewire-0.3-dev \
+          libdbus-1-dev libudev-dev libibus-1.0-dev \
+          $EXTRA
+        echo "CC=gcc-13" >> "$GITHUB_ENV"
+        echo "CXX=g++-13" >> "$GITHUB_ENV"
+        # Prism's objects carry gcc 13 link-time bytecode the system cc
+        # cannot read, so gcc 13 does the final link as well.
+        echo "CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER=gcc-13" >> "$GITHUB_ENV"
+        echo "CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=gcc-13" >> "$GITHUB_ENV"

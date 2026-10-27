@@ -210,6 +210,29 @@ impl DrivingState {
         }
     }
 
+    /// The air for the Space readout: the pressure, and only what is not
+    /// normal. Ready air, a released parking brake and an idle compressor are
+    /// the state of every moving truck, so saying them on each press buried
+    /// the speed under them. The full set stays on Tab and the pause menu.
+    /// Empty while the air is ready and the brakes are released: a driver
+    /// looks at the gauge when the buzzer goes, not every glance at the dash
+    /// (owner, 2026-10-14). The Tab screen keeps the full reading.
+    pub fn air_brief_text(&self) -> String {
+        let t = &self.trip.truck;
+        let mut parts = Vec::new();
+        if t.air_low_warning() {
+            parts.push(format!("low air, {:.0} psi", t.air_pressure_psi()));
+        } else if !t.air_ready() {
+            parts.push(format!("air building, {:.0} psi", t.air_pressure_psi()));
+        }
+        if t.spring_brakes_active() {
+            parts.push("spring brakes active".to_string());
+        } else if t.parking_brake {
+            parts.push("parking brake set".to_string());
+        }
+        parts.join(", ")
+    }
+
     /// `_air_status_text(detailed=False)`.
     pub fn air_status_text(&self, detailed: bool) -> String {
         let t = &self.trip.truck;

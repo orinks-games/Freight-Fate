@@ -1,6 +1,5 @@
 //! Port of `tests/test_updater.py`: update discovery, channel resolution,
-//! notes flattening, apply scripts. The `tools/build_release.py` tests in
-//! that file stay Python (the build tooling is not ported).
+//! notes flattening, apply scripts.
 
 use std::cell::RefCell;
 use std::fs;
@@ -11,12 +10,14 @@ use serde_json::{json, Value};
 use freight_fate::app::testing::TestApp;
 use freight_fate::net::NetError;
 use freight_fate::states::base::{Menu, State};
+use freight_fate::states::main_menu::SettingsCategoryState;
 use freight_fate::states::update::{UpdateDownloadState, UpdatePromptState};
 use freight_fate::updater::{
     self, build_info_from_dict, check_for_update_with, dev_update_from, flatten_markdown,
-    parse_version, pick_asset, resolve_channel, snapshot_update_from, stable_update_from,
-    write_apply_script, Architecture, BuildInfo, Platform, UpdateInfo, UpdaterEnv, APPIMAGE_SUFFIX,
-    APPIMAGE_SUFFIX_AARCH64, TARBALL_SUFFIX, TARBALL_SUFFIX_AARCH64,
+    mirror_url, normalize_mirror_prefix, parse_version, pick_asset, quote_for_script,
+    resolve_channel, snapshot_update_from, stable_update_from, write_apply_script, Architecture,
+    BuildInfo, Platform, UpdateInfo, UpdaterEnv, APPIMAGE_SUFFIX, APPIMAGE_SUFFIX_AARCH64,
+    TARBALL_SUFFIX, TARBALL_SUFFIX_AARCH64,
 };
 
 fn release_with(
@@ -143,6 +144,62 @@ fn test_resolve_channel_follows_build_when_unset() {
     let nightly = BuildInfo::new("nightly-20260610", "dev", "2026-06-10");
     assert_eq!(resolve_channel("", Some(&nightly)), "dev");
     assert_eq!(resolve_channel("", None), "stable");
+}
+
+#[test]
+fn test_update_mirror_prefix_is_https_and_normalized() {
+    assert_eq!(
+        normalize_mirror_prefix(" https://gh-proxy.org/// "),
+        Ok("https://gh-proxy.org/".to_string())
+    );
+    assert!(normalize_mirror_prefix("http://gh-proxy.org/").is_err());
+    assert!(normalize_mirror_prefix("https://gh-proxy.org/?token=x").is_err());
+    assert!(normalize_mirror_prefix("").is_err());
+}
+
+#[test]
+fn test_update_mirror_prepends_original_github_url() {
+    let github = "https://github.com/orinks-games/Freight-Fate/releases/download/v1/file.zip";
+    assert_eq!(
+        mirror_url(github, Some("https://gh-proxy.org")),
+        Ok(format!("https://gh-proxy.org/{github}"))
+    );
+    assert_eq!(mirror_url(github, None), Ok(github.to_string()));
+}
+
+#[test]
+fn test_update_mirror_setting_reveals_labeled_prefix_field() {
+    let mut app = TestApp::new();
+    let mut state = SettingsCategoryState::new("updates");
+
+    let direct = state.build_items(&mut app.ctx);
+    let direct_labels: Vec<String> = direct
+        .iter()
+        .map(|item| item.text(&state, &app.ctx))
+        .collect();
+    assert!(!direct_labels
+        .iter()
+        .any(|label| label.starts_with("GitHub mirror prefix:")));
+
+    app.ctx.settings.update_mirror_enabled = true;
+    app.ctx.settings.update_mirror_prefix = "https://gh-proxy.org/".to_string();
+    let mirrored = state.build_items(&mut app.ctx);
+    let prefix = mirrored
+        .iter()
+        .find(|item| {
+            item.text(&state, &app.ctx)
+                .starts_with("GitHub mirror prefix:")
+        })
+        .expect("enabled mirror has a prefix field");
+    assert_eq!(
+        prefix.text(&state, &app.ctx),
+        "GitHub mirror prefix: https://gh-proxy.org/"
+    );
+    assert_eq!(
+        prefix.help_text(&state, &app.ctx),
+        "The mirror's address, put in front of every GitHub link. Use a mirror you trust: updates download through it."
+    );
+    app.shutdown();
 }
 
 // -- stable channel -----------------------------------------------------------
@@ -327,7 +384,7 @@ fn test_build_info_malformed_falls_back_to_stable_version() {
 
 #[test]
 fn test_build_info_stamp_marks_stable_and_nightly_channels() {
-    // `stamp_build_info` (tools/build_release.py) writes tag, channel and
+    // `stamp_build_info` (cargo tools build-release) writes tag, channel and
     // built_at; the reader derives the channel from the tag when the stamp
     // leaves it out or garbles it.
     let stable = build_info_from_dict(
@@ -353,10 +410,6 @@ fn test_build_info_stamp_marks_stable_and_nightly_channels() {
     assert_eq!(tester.tag, "1.9-tester-20260828");
     assert_eq!(tester.channel, "dev");
 }
-
-#[test]
-#[ignore = "tools/build_release.py stays Python"]
-fn test_build_info_stamp_bakes_the_real_package_version() {}
 
 #[test]
 fn test_nuitka_standalone_folder_counts_as_packaged_build() {
@@ -577,6 +630,91 @@ fn test_19_snapshot_rebuilt_under_the_same_tag_is_offered_by_commit() {
         "1.9.0",
     );
     assert_eq!(stamped.commit, AFTERNOON);
+}
+
+#[test]
+fn test_19_snapshot_with_no_user_facing_changes_is_not_offered_over_its_stable() {
+    // 2026-10-07: the nightly cut 1.9-tester-20261007 four hours after v1.9.3
+    // with only a build-timeout change on top, and a 1.9.3 copy on the
+    // snapshot channel was offered it as an update to the same game.
+    const QUIET: &str = "Preview snapshot for players.\n\n\
+        ## Changes since the previous snapshot\n\n- No user-facing changes\n";
+    let quiet = release_with(
+        "1.9-tester-20261007",
+        true,
+        QUIET,
+        "2026-10-07T04:15:32Z",
+        &ALL_ASSETS,
+    );
+    let stable = release_with(
+        "v1.9.3",
+        false,
+        "## Fixes\n- **Snow chains stay on.**",
+        "2026-10-07T00:04:35Z",
+        &ALL_ASSETS,
+    );
+    let older = release_with(
+        "1.9-tester-20261006",
+        true,
+        "## Added\n- **LWorks Radio.**",
+        "2026-10-06T04:16:00Z",
+        &ALL_ASSETS,
+    );
+    let oldest = release_with(
+        "1.9-tester-20261005",
+        true,
+        "## Fixed\n- **Scales.**",
+        "2026-10-05T04:16:00Z",
+        &ALL_ASSETS,
+    );
+    let releases = vec![quiet.clone(), stable.clone(), older, oldest];
+
+    let on_stable = BuildInfo::new("v1.9.3", "dev", "2026-10-07");
+    assert!(snapshot_update_from(&releases, Some(&on_stable), "1.9.3", None, &env()).is_none());
+
+    // A copy from before the stable release still lacks its fixes, which the
+    // quiet snapshot's notes leave out because 1.9.3 listed them.
+    let before = BuildInfo::new("1.9-tester-20261006", "dev", "2026-10-06");
+    let info = snapshot_update_from(&releases, Some(&before), "1.9.0", None, &env())
+        .expect("the stable's fixes arrive through the snapshot");
+    assert_eq!(info.tag, "1.9-tester-20261007");
+    // What's new reads what this copy is getting, not "No user-facing changes".
+    assert_eq!(
+        info.notes,
+        [
+            "Freight Fate version 1.9.3",
+            "Fixes",
+            "Snow chains stay on."
+        ]
+    );
+
+    let further_back = BuildInfo::new("1.9-tester-20261005", "dev", "2026-10-05");
+    let info = snapshot_update_from(&releases, Some(&further_back), "1.9.0", None, &env())
+        .expect("the snapshot still carries the stable");
+    assert_eq!(
+        info.notes,
+        [
+            "Freight Fate version 1.9.3",
+            "Fixes",
+            "Snow chains stay on.",
+            "Freight Fate 1.9 tester snapshot 2026-10-06",
+            "Added",
+            "LWorks Radio.",
+        ]
+    );
+
+    // A later snapshot with real changes is offered over the stable as before.
+    let real = release_with(
+        "1.9-tester-20261008",
+        true,
+        "## Fixed\n- **A real fix.**",
+        "2026-10-08T04:15:00Z",
+        &ALL_ASSETS,
+    );
+    let releases = vec![real, quiet, stable];
+    let info = snapshot_update_from(&releases, Some(&on_stable), "1.9.3", None, &env())
+        .expect("a snapshot with changes");
+    assert_eq!(info.tag, "1.9-tester-20261008");
 }
 
 #[test]
@@ -825,6 +963,12 @@ fn test_flatten_markdown_handles_empty_body() {
 
 // -- apply script -------------------------------------------------------------
 
+/// A path as the POSIX apply scripts write it, escaped for sh. On Windows a
+/// temp path's backslashes come out doubled.
+fn sh(path: &std::path::Path) -> String {
+    quote_for_script(&path.display().to_string(), false)
+}
+
 #[test]
 fn test_write_apply_script_waits_for_pid_and_relaunches() {
     let tmp = tempfile::tempdir().unwrap();
@@ -879,6 +1023,39 @@ fn test_write_apply_script_windows_template_is_the_bat() {
         install.display()
     )));
     assert!(text.ends_with("del \"%~f0\"\n"));
+}
+
+/// An install folder with a percent sign or a dollar sign must reach the
+/// apply script as that folder, not as whatever cmd or sh expands it to.
+#[test]
+fn test_apply_script_paths_survive_shell_expansion() {
+    assert_eq!(
+        quote_for_script(r"C:\Games\100% Trucks\FreightFate", true),
+        r"C:\Games\100%% Trucks\FreightFate"
+    );
+    assert_eq!(
+        quote_for_script("/home/sam/$HOME `id` \\x \"q\"", false),
+        "/home/sam/\\$HOME \\`id\\` \\\\x \\\"q\\\""
+    );
+    assert_eq!(
+        quote_for_script("/home/sam/Games/FreightFate", false),
+        "/home/sam/Games/FreightFate"
+    );
+
+    let tmp = tempfile::tempdir().unwrap();
+    let staging = tmp.path().join("staging");
+    fs::create_dir(&staging).unwrap();
+    let new_root = staging.join("FreightFate");
+    let install = tmp.path().join("100% $HOME");
+    let bat =
+        write_apply_script(&new_root, &install, &staging, 7, &env_on(Platform::Windows)).unwrap();
+    let text = fs::read_to_string(&bat).unwrap();
+    assert!(text.contains("100%% $HOME"));
+    assert!(!text.contains("100% $HOME"));
+    let sh =
+        write_apply_script(&new_root, &install, &staging, 7, &env_on(Platform::Linux)).unwrap();
+    let text = fs::read_to_string(&sh).unwrap();
+    assert!(text.contains("100% \\$HOME"));
 }
 
 #[test]
@@ -944,11 +1121,11 @@ fn test_write_apply_script_macos_swaps_whole_bundle() {
     .unwrap();
     let text = fs::read_to_string(&script).unwrap();
     assert!(text.contains("4242"));
-    assert!(text.contains(&new_root.display().to_string()));
+    assert!(text.contains(&sh(&new_root)));
     // the old bundle is parked, not deleted, until the new one is in place
-    assert!(text.contains(&format!("mv \"{0}\" \"{0}.old\"", install.display())));
-    assert!(text.contains(&format!("mv \"{0}.old\" \"{0}\"", install.display())));
-    assert!(text.contains(&format!("open \"{}\"", install.display())));
+    assert!(text.contains(&format!("mv \"{0}\" \"{0}.old\"", sh(&install))));
+    assert!(text.contains(&format!("mv \"{0}.old\" \"{0}\"", sh(&install))));
+    assert!(text.contains(&format!("open \"{}\"", sh(&install))));
     assert_eq!(script.parent().unwrap(), tmp.path()); // outside the staging dir it deletes
 }
 
@@ -1014,10 +1191,7 @@ fn test_manual_update_check_explains_source_builds() {
         check.message.clone()
     };
     assert!(message.contains("This copy runs from source; update it with git."));
-    assert_eq!(
-        app.main_lines(),
-        vec![format!("{message} Escape goes back.")]
-    );
+    assert_eq!(app.main_lines(), vec![message]);
     app.shutdown();
 }
 
@@ -1064,6 +1238,7 @@ fn test_startup_update_prompt_respects_skipped_version() {
         asset_url: "https://example.test/FreightFate.zip".to_string(),
         asset_size: 1,
         asset_sha256: String::new(),
+        slim: None,
     };
     let mut app = TestApp::new();
     app.ctx.settings.skipped_update = "v1.6.1".to_string();
@@ -1117,6 +1292,7 @@ fn test_remind_later_help_describes_terminal_exit_check() {
         asset_url: "https://example.test/FreightFate.zip".to_string(),
         asset_size: 1,
         asset_sha256: String::new(),
+        slim: None,
     };
     let mut state = UpdatePromptState::new(info);
     let items = state.build_items(&mut app.ctx);
@@ -1336,6 +1512,32 @@ fn test_stage_update_unpacks_a_zip_and_drops_the_archive() {
     assert!(!archive.exists());
 }
 
+/// An archive entry that climbs out of the staging folder must never land
+/// outside it, whatever else the unpack does with it.
+#[test]
+fn test_stage_update_keeps_a_climbing_zip_entry_inside_staging() {
+    let tmp = tempfile::tempdir().unwrap();
+    let staging = tmp.path().join("staging");
+    fs::create_dir(&staging).unwrap();
+    let archive = staging.join("FreightFate-9.9.9-windows-portable.zip");
+    {
+        use std::io::Write;
+        let file = fs::File::create(&archive).unwrap();
+        let mut zip = zip::ZipWriter::new(file);
+        let options = zip::write::SimpleFileOptions::default();
+        zip.add_directory("FreightFate/", options).unwrap();
+        zip.start_file("FreightFate/build_info.json", options)
+            .unwrap();
+        zip.write_all(b"{}").unwrap();
+        zip.start_file("../../escaped.txt", options).unwrap();
+        zip.write_all(b"outside").unwrap();
+        zip.finish().unwrap();
+    }
+    let _ = updater::stage_update(&archive, &staging, &env_on(Platform::Windows));
+    assert!(!tmp.path().join("escaped.txt").exists());
+    assert!(!staging.join("escaped.txt").exists());
+}
+
 #[test]
 fn test_stage_update_unpacks_a_tarball() {
     let tmp = tempfile::tempdir().unwrap();
@@ -1406,20 +1608,17 @@ fn test_write_apply_script_appimage_swaps_the_file() {
     // staged next to the target so the final rename is atomic
     assert!(text.contains(&format!(
         "cp \"{}\" \"{}.update-new\"",
-        new_root.display(),
-        install.display()
+        sh(&new_root),
+        sh(&install)
     )));
-    assert!(text.contains(&format!("chmod +x \"{}.update-new\"", install.display())));
-    assert!(text.contains(&format!(
-        "mv -f \"{0}.update-new\" \"{0}\"",
-        install.display()
-    )));
+    assert!(text.contains(&format!("chmod +x \"{}.update-new\"", sh(&install))));
+    assert!(text.contains(&format!("mv -f \"{0}.update-new\" \"{0}\"", sh(&install))));
     // relaunches the new AppImage file, never the dead mount path
-    assert!(text.contains(&format!("\"{}\" &", install.display())));
+    assert!(text.contains(&format!("\"{}\" &", sh(&install))));
     assert_eq!(script.parent().unwrap(), tmp.path()); // outside the staging dir it deletes
                                                       // the mounted payload is never touched: no folder copy, no purge
     assert!(!text.contains("cp -a"));
-    assert!(!text.contains(&format!("rm -rf \"{}\"", install.display())));
+    assert!(!text.contains(&format!("rm -rf \"{}\"", sh(&install))));
 }
 
 #[test]
@@ -1443,7 +1642,7 @@ fn test_apply_and_restart_appimage_targets_running_appimage() {
     assert_eq!(spawned[0][0], "/bin/sh");
     assert_eq!(spawned[0][1], script.display().to_string());
     let text = fs::read_to_string(&script).unwrap();
-    assert!(text.contains(&appimage.display().to_string()));
+    assert!(text.contains(&sh(&appimage)));
 }
 
 #[test]
@@ -1510,6 +1709,7 @@ fn test_download_state_parks_update_when_not_auto_appliable() {
         asset_url: "https://example.test/a".to_string(),
         asset_size: 1,
         asset_sha256: String::new(),
+        slim: None,
     };
     let new_root = tmp.path().join(&info.asset_name);
     fs::write(&new_root, b"new").unwrap();
@@ -1555,6 +1755,7 @@ fn test_update_info_is_plain_data() {
         asset_url: "https://example.test/a".to_string(),
         asset_size: 1,
         asset_sha256: String::new(),
+        slim: None,
     };
     assert_eq!(info.clone(), info);
 }

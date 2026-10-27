@@ -123,13 +123,13 @@ fn resolve_entry(line: &str, path: &Path) -> String {
     }
 }
 
-/// `path.read_text(encoding="utf-8-sig", errors="replace")`.
+/// A playlist's text: UTF-8 with or without a byte order mark, or UTF-16
+/// when the file starts with one. Windows Media Player and some Winamp
+/// exports save UTF-16, which read as UTF-8 had no `File1=` line anyone
+/// could find, so the folder looked empty (issue #355).
 fn read_playlist_text(path: &Path) -> Option<String> {
     match std::fs::read(path) {
-        Ok(bytes) => {
-            let body = bytes.strip_prefix(b"\xEF\xBB\xBF").unwrap_or(&bytes);
-            Some(String::from_utf8_lossy(body).into_owned())
-        }
+        Ok(bytes) => Some(decode_playlist_bytes(&bytes)),
         Err(err) => {
             log::warn!(
                 "Could not read playlist {} ({err})",
@@ -140,6 +140,21 @@ fn read_playlist_text(path: &Path) -> Option<String> {
             None
         }
     }
+}
+
+fn decode_playlist_bytes(bytes: &[u8]) -> String {
+    let utf16 = |body: &[u8], unit: fn([u8; 2]) -> u16| {
+        let units: Vec<u16> = body.as_chunks::<2>().0.iter().copied().map(unit).collect();
+        String::from_utf16_lossy(&units)
+    };
+    if let Some(body) = bytes.strip_prefix(b"\xFF\xFE") {
+        return utf16(body, u16::from_le_bytes);
+    }
+    if let Some(body) = bytes.strip_prefix(b"\xFE\xFF") {
+        return utf16(body, u16::from_be_bytes);
+    }
+    let body = bytes.strip_prefix(b"\xEF\xBB\xBF").unwrap_or(bytes);
+    String::from_utf8_lossy(body).into_owned()
 }
 
 /// Python `str.splitlines()`: every line boundary it recognises.
@@ -386,4 +401,52 @@ pub fn load_personal_playlists(directory: &Path) -> Vec<RadioStation> {
 #[cfg(test)]
 pub(crate) fn py_path_string(s: &str) -> String {
     py_path_str(s)
+}
+
+#[cfg(test)]
+mod encoding_tests {
+    use super::*;
+
+    fn utf16(text: &str, little_endian: bool) -> Vec<u8> {
+        let mut bytes = if little_endian {
+            vec![0xFF, 0xFE]
+        } else {
+            vec![0xFE, 0xFF]
+        };
+        for unit in text.encode_utf16() {
+            bytes.extend(if little_endian {
+                unit.to_le_bytes()
+            } else {
+                unit.to_be_bytes()
+            });
+        }
+        bytes
+    }
+
+    /// A UTF-16 playlist, the way Windows Media Player saves one, loads
+    /// as a station like any other (issue #355).
+    #[test]
+    fn a_utf16_playlist_gets_its_station() {
+        let tmp = tempfile::tempdir().unwrap();
+        let text = "[playlist]\r\nFile1=https://example.com/radio\r\nTitle1=Radio Café\r\nNumberOfEntries=1\r\n";
+        std::fs::write(tmp.path().join("little.pls"), utf16(text, true)).unwrap();
+        std::fs::write(
+            tmp.path().join("big.m3u"),
+            utf16("#EXTM3U\nhttps://example.com/other\n", false),
+        )
+        .unwrap();
+        let stations = load_personal_playlists(tmp.path());
+        let names: Vec<&str> = stations.iter().map(|s| s.name.as_str()).collect();
+        assert_eq!(names, ["big", "Radio Café"]);
+        assert_eq!(
+            stations[1].playlist_entries,
+            ["https://example.com/radio".to_string()]
+        );
+    }
+
+    #[test]
+    fn utf8_with_and_without_a_mark_reads_the_same() {
+        assert_eq!(decode_playlist_bytes(b"\xEF\xBB\xBFFile1=a"), "File1=a");
+        assert_eq!(decode_playlist_bytes(b"File1=a"), "File1=a");
+    }
 }

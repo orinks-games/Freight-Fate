@@ -1,7 +1,6 @@
 //! Baked OSM maxspeed: the leg step-function and the runtime preference of
 //! a real posted limit over the highway/region heuristic (the pure parts of
-//! `tests/test_maxspeed.py`; the `parse_osm_maxspeed` and dwell-filter
-//! cases exercise `tools/enrich_routes.py`, which stays Python).
+//! `tests/test_maxspeed.py`).
 
 use crate::sim_support::*;
 use ff_core::data::world_models::{CorridorDetail, Leg, Route, SpeedLimitSample, StateMileage};
@@ -33,18 +32,6 @@ fn leg(speed_limits: Vec<SpeedLimitSample>) -> Leg {
         ..Default::default()
     })
 }
-
-#[test]
-#[ignore = "tools/enrich_routes.py stays Python (parse_osm_maxspeed)"]
-fn test_parse_osm_maxspeed() {}
-
-#[test]
-#[ignore = "tools/enrich_routes.py stays Python (parse_osm_maxspeed)"]
-fn test_parse_osm_maxspeed_default_kmh_for_non_us_data() {}
-
-#[test]
-#[ignore = "tools/enrich_routes.py stays Python (parse_osm_maxspeed)"]
-fn test_parse_osm_maxspeed_clamps_to_truck_range() {}
 
 // --- leg step function ------------------------------------------------------
 

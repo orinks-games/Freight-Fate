@@ -3,7 +3,7 @@
 //!
 //! This is deliberately NOT built on the headless playtest harness. The
 //! harness runs the game's own states, but not the game's own runtime: it
-//! fakes the pacer clock, records audio instead of running BASS, captures
+//! fakes the pacer clock, records audio instead of running the sound device, captures
 //! speech instead of speaking, and never executes the real startup path --
 //! which is exactly where bugs like the deaf-for-sixteen-seconds menu live.
 //! Here the agent connects to the game itself: the real window loop, real
@@ -41,6 +41,14 @@
 //! `ping` are answered from the serve thread alone; the sandbox, the lock,
 //! the window, audio and speech all wait for the first play request, and a
 //! client that hangs up takes the game down with it.
+//!
+//! "Hangs up" is wider than stdin closing. On Windows the client's pipe can
+//! stay open after the client is gone, and orphaned servers with a game up
+//! held the lock against the next session until they were ended by hand
+//! (owner, 2026-10-08). So the server also ends when stdout stops taking
+//! replies and when the process that started it exits (`lifeline`), even in
+//! the middle of a `wait`; and a new server refused the lock reads who holds
+//! it (`holder`) and names that process rather than a bare "already running".
 
 use std::sync::mpsc;
 
@@ -68,10 +76,16 @@ const CRUISE_REPLY_FRAMES: u32 = 30;
 const MAX_CRUISE_TAPS: i64 = 60;
 
 mod ears;
+mod holder;
+mod lifeline;
 mod protocol;
 
 pub use ears::{install_ears, Ears, SharedEars};
-pub use protocol::{build_command, serve_lines};
+pub use holder::{judge, HolderRecord, HolderVerdict};
+pub use lifeline::{
+    parent_alive_check, pid_alive, spawn_watch, spawn_watch_with, Lifeline, ParentWatch,
+};
+pub use protocol::{build_command, serve_lines, serve_lines_with_lifeline};
 
 use ears::{drain_ears, CAB_CUT_IN};
 use protocol::{discover, serve};
@@ -245,6 +259,11 @@ impl Request {
     pub fn answer(self, result: Result<String, String>) {
         let _ = self.reply.send(result);
     }
+
+    #[doc(hidden)]
+    pub fn for_test(command: Command, reply: Reply) -> Self {
+        Self { command, reply }
+    }
 }
 
 /// Block until the client asks for something only a running game can do.
@@ -253,7 +272,24 @@ impl Request {
 /// release executable open, so a quit ends the process either way and the
 /// next build is not refused "access denied" (owner, 2026-09-22).
 pub fn await_play_request(requests: &mpsc::Receiver<Request>) -> Option<Request> {
-    let request = requests.recv().ok()?;
+    await_play_request_for(requests, IDLE_SERVER_EXIT)
+}
+
+/// How long a server with no game waits for its first play request before
+/// it ends. Every open agent session spawns its servers at startup and keeps
+/// stdin open for as long as the session lives, so without a bound an idle
+/// session anywhere on the machine holds the release executable and the
+/// next build fails "access denied" (owner, 2026-10-08: "we always have this
+/// issue"). The client spawns a fresh server at the next tool call.
+pub const IDLE_SERVER_EXIT: std::time::Duration = std::time::Duration::from_secs(10 * 60);
+
+/// [`await_play_request`] with the idle bound given: `None` as well when
+/// `idle` passes with no request at all.
+pub fn await_play_request_for(
+    requests: &mpsc::Receiver<Request>,
+    idle: std::time::Duration,
+) -> Option<Request> {
+    let request = requests.recv_timeout(idle).ok()?;
     if matches!(request.command, Command::Quit) {
         request.answer(Ok(
             "No game was running; the server has ended. The next tool call starts a fresh one."
@@ -300,6 +336,7 @@ pub struct AgentPolicy {
     /// alongside with operator keys keeps a live road.
     lockstep: bool,
     quit: bool,
+    lifeline: Lifeline,
 }
 
 impl AgentPolicy {
@@ -445,6 +482,35 @@ impl AgentPolicy {
     /// One frame. Returns false to end the game loop.
     pub fn step(&mut self, input: &mut PlayerInputFrame<'_>, dt: f64) -> bool {
         if self.quit {
+            return false;
+        }
+        if self.lifeline.is_cut() {
+            eprintln!(
+                "The MCP client is gone; {}.",
+                self.lifeline
+                    .reason()
+                    .unwrap_or_else(|| "the game is quitting".to_string())
+            );
+            let error = Err("The MCP client is gone; the game is quitting.".to_string());
+            if let Some(waiting) = self.waiting.take() {
+                let _ = waiting.reply.send(error.clone());
+            }
+            if let Some(plan) = self.cruise_plan.take() {
+                let _ = plan.reply.send(error);
+            }
+            for key in self.held.drain(..) {
+                input.queue_player_input(InputEvent::KeyUp {
+                    key,
+                    mods: Mods::NONE,
+                });
+            }
+            if let Some((key, _)) = self.timed_hold.take() {
+                input.queue_player_input(InputEvent::KeyUp {
+                    key,
+                    mods: Mods::NONE,
+                });
+            }
+            self.quit = true;
             return false;
         }
         for key in &self.held {
@@ -809,6 +875,16 @@ pub fn policy(
     requests: mpsc::Receiver<Request>,
     first: Option<Request>,
 ) -> AgentPolicy {
+    policy_with_lifeline(ears, requests, first, Lifeline::new())
+}
+
+/// Build a policy that stops immediately when this MCP client's lifeline is cut.
+pub fn policy_with_lifeline(
+    ears: SharedEars,
+    requests: mpsc::Receiver<Request>,
+    first: Option<Request>,
+    lifeline: Lifeline,
+) -> AgentPolicy {
     AgentPolicy {
         requests,
         pending: first,
@@ -820,6 +896,7 @@ pub fn policy(
         scripted: std::collections::VecDeque::new(),
         lockstep: false,
         quit: false,
+        lifeline,
     }
 }
 
@@ -859,13 +936,24 @@ fn run_with_staged(
 ) -> i32 {
     use crate::playtest::sandbox;
     let (requests, rx) = mpsc::channel();
-    let server = std::thread::spawn(move || serve(requests));
+    let lifeline = Lifeline::new();
+    let serve_lifeline = lifeline.clone();
+    let serve_requests = requests.clone();
+    let server = std::thread::spawn(move || serve(serve_requests, serve_lifeline));
+    let _watch = spawn_watch(
+        lifeline.clone(),
+        requests.clone(),
+        parent_alive_check(),
+        std::time::Duration::from_secs(1),
+    );
+    drop(requests);
     eprintln!("MCP serving on stdio; the game boots at the first play request.");
     let mut staged = staged;
     loop {
         // Only a play request boots anything. A client that asked for the
         // tool list and hung up gets its answers and never a game window.
         let Some(first) = await_play_request(&rx) else {
+            lifeline.cut("the server is ending without a game");
             finish_serving(&server);
             return 0;
         };
@@ -876,6 +964,10 @@ fn run_with_staged(
                 // human quits, and the next call tries again.
                 eprintln!("{text}");
                 first.answer(Err(text));
+                if lifeline.is_cut() {
+                    finish_serving(&server);
+                    return 0;
+                }
                 continue;
             }
         };
@@ -905,11 +997,13 @@ fn run_with_staged(
             }));
         }
         let ears = install_ears(&mut app);
-        let mut policy = policy(ears, rx, Some(first));
+        let mut policy = policy_with_lifeline(ears, rx, Some(first), lifeline.clone());
         eprintln!("Game up; it speaks aloud while the agent plays.");
         app.run_with_player_input(None, |input, dt| policy.step(input, dt));
+        lifeline.cut("the game has ended");
         guard.release();
         sandbox::close_session();
+        holder::remove_if_ours(&holder::path(), std::process::id());
         finish_serving(&server);
         return 0;
     }
@@ -967,13 +1061,51 @@ fn boot(
         ));
     }
     eprintln!("Agent sandbox: {}", dir.display());
-    let mut guard = crate::single_instance::SingleInstanceGuard::new();
+    let mut guard = crate::single_instance::SingleInstanceGuard::new(
+        crate::single_instance::SINGLE_INSTANCE_MUTEX_NAME,
+    );
     if !guard.acquire() {
-        return Err(
-            "Freight Fate is already running; one game at a time, agent or human. \
-             Call again once it has quit."
-                .to_string(),
-        );
+        match holder::judge(holder::read(&holder::path()), pid_alive, std::process::id()) {
+            HolderVerdict::DeadRecord { .. } => {
+                holder::remove(&holder::path());
+                if !guard.acquire() {
+                    return Err(
+                        "Freight Fate is already running; one game at a time, agent or human. \
+                         Call again once it has quit."
+                            .to_string(),
+                    );
+                }
+            }
+            HolderVerdict::Stale { pid, .. } => {
+                let deadline = std::time::Instant::now() + std::time::Duration::from_secs(5);
+                while std::time::Instant::now() < deadline {
+                    std::thread::sleep(std::time::Duration::from_millis(250));
+                    if guard.acquire() {
+                        break;
+                    }
+                }
+                if !guard.acquired() {
+                    return Err(format!(
+                        "A leftover agent server (process {pid}) still holds the game, but the \
+                         program that started it has exited. It should quit by itself within a few \
+                         seconds; if it does not, end process {pid} and call again."
+                    ));
+                }
+            }
+            HolderVerdict::Live { pid } => {
+                return Err(format!(
+                "Another agent server (process {pid}) is running a game for a live MCP client; \
+                 one game at a time. Call again once it has quit."
+            ))
+            }
+            HolderVerdict::NoRecord => {
+                return Err(
+                    "Freight Fate is already running; one game at a time, agent or human. \
+                     Call again once it has quit."
+                        .to_string(),
+                );
+            }
+        }
     }
     let log_path = ff_core::settings::game_root()
         .join("logs")
@@ -989,12 +1121,16 @@ fn boot(
         std::env::set_var("FREIGHT_FATE_LOG", "INFO");
     }
     crate::app::configure_logging();
+    if let Err(error) = holder::write(&holder::path(), &holder::current()) {
+        eprintln!("Could not record the agent server holder: {error}");
+    }
     sandbox::open_session(&dir, &log_path);
     match App::new() {
         Ok(app) => Ok((app, guard)),
         Err(e) => {
             guard.release();
             sandbox::close_session();
+            holder::remove_if_ours(&holder::path(), std::process::id());
             Err(format!("The game could not start: {e}"))
         }
     }

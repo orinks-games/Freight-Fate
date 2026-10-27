@@ -68,7 +68,7 @@ const LANE: SoundCategory = SoundCategory {
                     .hold_s(2.0),
             ],
             "Not a sound of its own: it is the engine you are always hearing, \
-             leaning to one side. Steer toward the lean, unless you have set \
+             leaning to one side. Steer toward the engine, unless you have set \
              the Steering guide row to steer away from it. It leans the way \
              the wheel should go, so it points into a bend before you reach \
              it and away from the edge you are drifting toward. This is the \
@@ -378,8 +378,8 @@ const AIR: SoundCategory = SoundCategory {
         SoundEntry::new(
             "Tire screech",
             &[Cue::new("vehicle/tire_screech").volume(0.9)],
-            "The tires have lost their grip on the road. Ease off whatever \
-             you were doing -- brake, throttle or steering -- rather than \
+            "The tires have lost their grip on the road. Ease off the brake, \
+             throttle or steering, whichever you were using, rather than \
              adding more of it. On a wet or icy road this arrives at speeds \
              that would be fine on dry pavement.",
         ),
@@ -422,7 +422,7 @@ const ENGINE_BRAKE: SoundCategory = SoundCategory {
              are.",
         )
         .when(
-            "More than 7 miles per hour over the posted limit -- past \
+            "More than 7 miles per hour over the posted limit: past \
              anything adaptive cruise will do on its own, and short of where \
              a trooper can act on your speed.",
         ),
@@ -496,7 +496,7 @@ const HAZARDS: SoundCategory = SoundCategory {
             "You got past the hazard. This is the success half of the \
              dodge outcome pair: at Urgent only it is the whole confirmation \
              that you cleared it, and you can go back to normal speed. Its \
-             opposite is the collision below -- the two sound nothing alike, \
+             opposite is the collision below. The two sound nothing alike, \
              so 'did I make it?' is never in doubt.",
         ),
         SoundEntry::new(
@@ -585,7 +585,7 @@ const ENFORCEMENT: SoundCategory = SoundCategory {
              officer sitting there has to go on.",
         )
         .when(
-            "Always -- nothing turns it off. Every post that is allowed \
+            "Always. Nothing turns it off. Every post that is allowed \
              to cost you anything sounds this first, at every enforcement \
              presence setting, and the radio is pulled down out of the way \
              so you can hear it.",
@@ -647,8 +647,8 @@ const ENFORCEMENT: SoundCategory = SoundCategory {
         SoundEntry::new(
             "Scale warning",
             &[Cue::new("events/weigh_station_warning").volume(0.7)],
-            "An open weigh station is ahead, and the full spoken notice -- \
-             distance, name, the exit key -- follows right behind it. Its \
+            "An open weigh station is ahead. The full spoken notice, with \
+             the distance, name and exit key, follows right behind it. Its \
              own low thump-then-beep, not the inspection cue, so the scale \
              is unmistakable before a word is spoken.",
         ),
@@ -660,7 +660,7 @@ const ENFORCEMENT: SoundCategory = SoundCategory {
              right behind the open-scale notice, never instead of it.",
         )
         .when(
-            "A weigh station transponder only -- the fleet issues one \
+            "A weigh station transponder only. The fleet issues one \
              free at career level 4, or an owner-operator can subscribe from \
              Business status. Without one, every open scale still demands \
              every truck pull in.",
@@ -674,7 +674,7 @@ const ENFORCEMENT: SoundCategory = SoundCategory {
              sometimes, and an overweight load always is.",
         )
         .when(
-            "A weigh station transponder only -- the fleet issues one \
+            "A weigh station transponder only. The fleet issues one \
              free at career level 4, or an owner-operator can subscribe from \
              Business status.",
         ),
@@ -789,7 +789,7 @@ pub const SELF_EXPLANATORY: &[(&str, &str)] = &[
     ("engine/idle", "It is an engine and it sounds like one."),
     (
         "engine_classic/idle",
-        "The same engine, in its earlier voice.",
+        "The same engine, in its earlier sound.",
     ),
     (
         "engine/low",
@@ -807,8 +807,8 @@ pub const SELF_EXPLANATORY: &[(&str, &str)] = &[
     ),
     (
         "engine/jake_1600_synth",
-        "The classic jake voice: the same three staged entries play it when \
-         Settings, Audio has Engine brake voice set to classic, through the \
+        "The classic jake sound: the same three staged entries play it when \
+         Settings, Audio has Engine brake sound set to classic, through the \
          same key-resolution routing the drive uses. Not a second cue.",
     ),
     ("weather/*", "Rain, wind, snow and thunder name themselves."),
@@ -836,6 +836,11 @@ pub const SELF_EXPLANATORY: &[(&str, &str)] = &[
         "Pavement seams: texture, not a decision.",
     ),
     ("vehicle/truck_door", "A door."),
+    (
+        "cab/*",
+        "The driver window, the wind through it and the fan, right after \
+         the key that set them, which says what changed.",
+    ),
     ("vehicle/fuel_pump", "A fuel pump, at a fuel pump."),
     ("vehicle/reverse", "A backup beeper while backing up."),
     ("vehicle/horn", "The player is holding the horn key."),
@@ -877,6 +882,24 @@ pub const SELF_EXPLANATORY: &[(&str, &str)] = &[
     ("traffic/motorcycle_cross", "As the car cross."),
     ("traffic/bus_cross", "As the car cross."),
     ("traffic/tractor_cross", "As the car cross."),
+    // Traffic sounds follow real NPC vehicles every frame (2026-10-08): a
+    // vehicle sounds like a vehicle where it is, and the bed under them is
+    // the road being as busy as it is.
+    (
+        "traffic/car_loop",
+        "A vehicle near the cab sounds like one, where it is.",
+    ),
+    ("traffic/pickup_loop", "As the car loop."),
+    ("traffic/box_truck_loop", "As the car loop."),
+    ("traffic/semi_loop", "As the car loop."),
+    ("traffic/motorcycle_loop", "As the car loop."),
+    ("traffic/bus_loop", "As the car loop."),
+    ("traffic/tractor_loop", "As the car loop."),
+    ("traffic/trooper_loop", "As the car loop."),
+    (
+        "traffic/highway_bed",
+        "Distant freeway traffic: texture, not a decision.",
+    ),
     (
         "poi/facility_gate",
         "Ambient bed for a place the game has already named.",

@@ -162,7 +162,7 @@ fn test_the_traffic_stop_offers_one_way_back_onto_the_highway() {
 
 #[test]
 fn test_a_pulled_licence_ends_the_run_from_the_shoulder() {
-    // A stop that just pulled the licence cannot offer the highway: the
+    // A stop that just pulled the license cannot offer the highway: the
     // driver is not allowed to move the truck.
     let mut app = TestApp::new();
     let drive = a_drive(&mut app);
@@ -289,6 +289,7 @@ fn test_a_bobtail_pulled_licence_says_there_is_no_trailer() {
 fn test_an_enforcement_stop_charges_once_and_reads_back_as_history() {
     let mut app = TestApp::new();
     let drive = a_drive(&mut app);
+    app.seasoned_driver();
     let money_before = app.ctx.profile.as_ref().expect("a career").money();
     let expected = enforcement::citation_fine(enforcement::LANE_MISUSE_FINE, 0, false, None);
     let mut state = drive_and_ctx(&drive, &mut app, |d, ctx| {
@@ -317,6 +318,32 @@ fn test_an_enforcement_stop_charges_once_and_reads_back_as_history() {
         money_before - expected,
         "the money moved exactly once"
     );
+}
+
+#[test]
+fn test_a_new_driver_is_let_off_a_minor_stop_with_a_warning() {
+    let mut app = TestApp::new();
+    let drive = a_drive(&mut app);
+    let money_before = app.ctx.profile.as_ref().expect("a career").money();
+    let reputation = app
+        .ctx
+        .profile
+        .as_ref()
+        .expect("a career")
+        .career
+        .reputation;
+    let mut state = drive_and_ctx(&drive, &mut app, |d, ctx| {
+        EnforcementStopState::new(ctx, d, params("Lane misuse", false, false))
+    });
+
+    let p = app.ctx.profile.as_ref().expect("a career");
+    assert_eq!(p.money(), money_before);
+    assert_eq!(p.career.reputation, reputation);
+    assert_eq!(p.driving_record.citations, 0);
+    app.clear_speech();
+    state.announce_entry(&mut app.ctx);
+    let line = last(&app);
+    assert!(line.contains("lets you go with a warning"), "{line}");
 }
 
 #[test]

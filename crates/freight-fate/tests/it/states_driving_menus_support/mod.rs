@@ -253,3 +253,22 @@ pub fn travel_center(name: &str, at_mi: f64) -> RoadStop {
 pub fn last(app: &TestApp) -> String {
     app.main_lines().last().cloned().unwrap_or_default()
 }
+
+/// A delivery drive hauling a drop-yard trailer with a lamp out: the yard is
+/// deterministic, so this walks facility ids until one hands over that box.
+/// Returns the drive and the defect as an officer reads it.
+pub fn a_drive_with_a_lamp_out(app: &mut TestApp) -> (SharedState, String) {
+    let drive = a_drive(app);
+    for i in 0..400 {
+        let found = drive_and_ctx(&drive, app, |d, ctx| {
+            d.job.origin_type = "cross_dock".to_string();
+            d.job.origin_facility_id = format!("buffalo-cross-dock-{i}");
+            d.hooked_trailer_defect(ctx)
+                .filter(|defect| defect.contains("lamp"))
+        });
+        if let Some(defect) = found {
+            return (drive, defect);
+        }
+    }
+    panic!("no seeded drop yard produced a trailer with a lamp out");
+}

@@ -451,7 +451,7 @@ pub static TRUCK_CATALOG: Lazy<IndexMap<&'static str, TruckModel>> = Lazy::new(|
             "cabover revival",
             118_000.0,
             "A modern cabover: short, light, and startlingly quick, with the \
-             whole road laid out under the windscreen. Every pound it saves \
+             whole road laid out under the windshield. Every pound it saves \
              goes to the load, and it turns where nothing else will.",
             specs(2_600.0, 200.0, 0.59, 0.91, 34_700.0),
             CAB_SLEEPER,

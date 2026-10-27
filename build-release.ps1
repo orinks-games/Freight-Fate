@@ -1,9 +1,9 @@
 # Build a standalone Freight Fate copy on Windows.
 #
-# Checks the prerequisites, installs the pinned Rust toolchain and the Python
-# tooling, then hands over to tools/build_release.py, which fetches BASS and
-# the music pack, builds the game, bakes the world, smokes the packaged build
-# and writes the portable zip to dist/. Extra arguments (for example --tag or
+# Checks the prerequisites, installs the pinned Rust toolchain, then hands
+# over to `cargo tools build-release`, which fetches the music pack, builds
+# the game, bakes the world, smokes the packaged build and writes the
+# portable zip to dist/. Extra arguments (for example --tag or
 # --cargo-target-dir) pass through to the builder.
 #
 # Prism (the screen-reader and speech library) is compiled from C++ source by
@@ -22,7 +22,7 @@ $readme = "See README.md under Build a standalone copy."
 
 Set-Location $PSScriptRoot
 
-foreach ($tool in @("git", "rustup", "rustc", "cargo", "uv", "cmake")) {
+foreach ($tool in @("git", "rustup", "rustc", "cargo", "cmake")) {
     if (-not (Get-Command $tool -ErrorAction SilentlyContinue)) {
         throw "Freight Fate needs $tool before it can build. $readme"
     }
@@ -66,8 +66,5 @@ then open a new terminal and run this script again. $readme
 rustup show | Out-Null
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-uv sync --group dev
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-uv run python tools/build_release.py --rust --smoke @args
+cargo tools build-release --smoke @args
 exit $LASTEXITCODE

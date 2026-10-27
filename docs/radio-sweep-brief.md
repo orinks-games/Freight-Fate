@@ -30,8 +30,8 @@ stream. The gaps are just unswept ground:
 - Add the freeform and community institutions with reliable public
   streams: WFMU (Jersey City), KABF (Little Rock), and college or
   community stations that fill thin markets. Quality bar over
-  quantity: a station joins only with a stream that survives the BASS
-  smoke check.
+  quantity: a station joins only with a stream that passes
+  `cargo tools check-radio-streams`.
 - NPR coverage audit: for each catalog market, is at least one NPR
   member station receivable? Fill the holes so local news works most
   places a route goes.
@@ -45,8 +45,8 @@ stream URL from its website (never TuneIn -- partner-gated -- and
 Radio Browser only as a finding aid, never a runtime dependency);
 real transmitter lat/lon and an honest `range_miles`; `real_stream:
 true, safe_for_streaming: false`; a source note per station. Verify
-every added or repointed stream with the BASS live check
-(`tools/refresh_map_data.py --radio`) and report movers.
+every added or repointed stream with `cargo tools check-radio-streams`
+and report movers.
 
 ## Gates and handshake
 

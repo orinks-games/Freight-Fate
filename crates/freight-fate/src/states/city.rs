@@ -25,16 +25,13 @@ use serde_json::{Map, Value};
 
 use ff_core::data::world::World;
 use ff_core::data::world_models::Route;
+use ff_core::input_hints::TOUCH;
 use ff_core::models::business::{is_owner_operator, COMPANY_DRIVER, INDEPENDENT_AUTHORITY};
-use ff_core::models::career_objectives::career_objective;
-use ff_core::models::career_training::{
-    is_company_training_profile, training_guidance, TrainingStage,
-};
 use ff_core::models::enforcement;
 use ff_core::models::home_base::{city_service_area, ParkedAt, ParkedKind};
 use ff_core::models::jobs::relay::{relay_load, RelayRequest};
 use ff_core::models::jobs::{
-    board_offer_count, dispatch_deadline_hours, job_from_payload, job_payload,
+    board_offer_count, came_from_city, departure_deadline_hours, job_from_payload, job_payload,
     normalize_job_cities, plan_hos, Job, JobBoard, OfferOptions, ACTIVE_TRIP_FAIRNESS_SLACK,
 };
 use ff_core::models::profile::Profile;
@@ -46,9 +43,9 @@ use ff_core::sim::hos::limits;
 use ff_core::sim::season::player_calendar_hours;
 
 use crate::app::{GameContext, Say};
-use crate::bindings::Action;
 use crate::states::base::{InputEvent, Key, Menu, MenuItem, SimpleMenuState};
 use crate::states::driving::DrivingState;
+use crate::states::main_menu::TouchPracticeOfferState;
 
 mod board;
 mod close_out;
@@ -233,9 +230,7 @@ pub fn first_day_orientation_lines(ctx: &GameContext, prefix: &str) -> Vec<Strin
             "Fuel, repairs, truck wear, trailer programs, and business reserves come out \
              of your cash."
                 .to_string(),
-            "First objective: open the dispatch board and choose an unlocked load with a \
-             deadline you can protect."
-                .to_string(),
+            "Next: the dispatch board.".to_string(),
         ];
     }
     let mut lines = vec![
@@ -266,9 +261,7 @@ pub fn first_day_orientation_lines(ctx: &GameContext, prefix: &str) -> Vec<Strin
         "As a new hire, dispatch assigns your load and route, and refusing an assignment \
          goes on your service record."
             .to_string(),
-        "First objective: open the dispatch board, accept the assigned load, and deliver \
-         it cleanly."
-            .to_string(),
+        "Next: the dispatch board.".to_string(),
     ]);
     lines
 }
@@ -302,62 +295,6 @@ pub(crate) fn cdl_drive_refusal(ctx: &GameContext) -> Option<String> {
     let record = &p.driving_record;
     (record.lifetime_disqualified || record.suspended(p.game_hours))
         .then(|| ff_core::models::enforcement::suspension_drive_refusal_line(p))
-}
-
-/// What the terminal says about the first-day / career objective on entry
-/// (the `first_day` clause of `CityMenuState.announce_entry`).
-pub(crate) fn terminal_objective_clause(p: &Profile) -> String {
-    // A pulled CDL decides the objective: the board refuses work until it
-    // clears, so pointing at the dispatch board would be a dead end.
-    if let Some(wait) = ff_core::models::enforcement::suspended_objective_text(p) {
-        if wait.is_empty() {
-            return String::new();
-        }
-        let label = if first_day_guidance_active(p) {
-            "First-day objective"
-        } else {
-            "Career objective"
-        };
-        return format!(" {label}: {wait}");
-    }
-    if p.is_unassigned_company_driver() {
-        return format!(
-            " Career objective: {}",
-            ff_core::models::career_objectives::NO_CARRIER_OBJECTIVE
-        );
-    }
-    if first_day_guidance_active(p) {
-        let guidance = if is_company_training_profile(p) {
-            Some(training_guidance(p))
-        } else {
-            None
-        };
-        if let Some(guidance) = guidance.filter(|g| g.stage == TrainingStage::FirstDispatch) {
-            return format!(
-                " First-day objective: open the dispatch board and accept your assigned {} \
-                 load.",
-                guidance.recommendation_label
-            );
-        }
-        if !is_company_training_profile(p) {
-            return " First-day objective: open the dispatch board and choose an unlocked load \
-                    that keeps your cash cushion."
-                .to_string();
-        }
-        let objective = career_objective(p);
-        return format!(
-            " Career objective: {} Recommended dispatch: {}.",
-            objective.terminal_text, objective.recommendation
-        );
-    }
-    if !first_dispatch_done(p) && is_company_training_profile(p) {
-        let objective = career_objective(p);
-        return format!(
-            " Career objective: {} Recommended dispatch: {}.",
-            objective.terminal_text, objective.recommendation
-        );
-    }
-    format!(" Career objective: {}", career_objective(p).terminal_text)
 }
 
 // -- the dispatch board cache -------------------------------------------------------
@@ -516,6 +453,10 @@ pub fn open_freight_market(ctx: &mut GameContext) -> Vec<Job> {
             let mut fresh = {
                 let p = profile(ctx);
                 let endorsements: Vec<&str> = p.career.endorsements().into_iter().collect();
+                // Where the truck came from shapes where dispatch sends it
+                // next: the straight return is damped, cities behind the
+                // truck lean down, so a career traces loops, not bounces.
+                let came_from = came_from_city(world, &p.recent_lanes, &p.current_city);
                 board.offers(
                     &p.current_city,
                     &endorsements,
@@ -533,6 +474,7 @@ pub fn open_freight_market(ctx: &mut GameContext) -> Vec<Job> {
                         market: Some(&p.market),
                         carrier_key: Some(&p.carrier_key),
                         direct_freight: p.business_status == INDEPENDENT_AUTHORITY,
+                        came_from: came_from.as_deref(),
                     },
                 )
             };
@@ -689,6 +631,7 @@ fn add_forced_board_job(
             market: Some(&p.market),
             carrier_key: Some(&p.carrier_key),
             direct_freight: p.business_status == INDEPENDENT_AUTHORITY,
+            came_from: None,
         },
     );
     let Some(job) = job else {
@@ -730,6 +673,8 @@ pub struct LoadedDepartureResume {
     pub speed_control_armed: bool,
     pub speed_control_target_mph: Option<f64>,
     pub trailer_refused: bool,
+    /// A team departure chosen at the shipper.
+    pub team: Option<crate::states::driving_team::TeamMode>,
 }
 
 /// The line spoken (interrupting) once the trip snapshot is saved, just
@@ -800,9 +745,12 @@ pub fn loaded_departure_line(
             ctx.control_hint("parking_brake")
         )
     };
+    // The hours and tank before the road, so the driver can plan the stops
+    // instead of meeting them as a countdown (player report, 2026-10-17).
     format!(
-        "{lead}{} {next_context} {tail}",
-        crate::states::city_pickup::route_departure_summary(route, &ctx.settings)
+        "{lead}{} {} {next_context} {tail}",
+        crate::states::city_pickup::route_departure_summary(route, &ctx.settings),
+        board::briefing::departure_briefing(ctx, route, false)
     )
 }
 
@@ -832,7 +780,8 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
         let clock = limits(&ctx.settings.hos_mode)
             .is_some()
             .then(|| &profile(ctx).hos);
-        let fair = dispatch_deadline_hours(
+        let fair = departure_deadline_hours(
+            &job,
             route.miles(),
             ACTIVE_TRIP_FAIRNESS_SLACK,
             Some(&route),
@@ -841,24 +790,18 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
         );
         let fair = round_py_n(fair, 1);
         if fair > job.deadline_game_h {
-            let extra_rest = clock.is_some_and(|clock| {
-                plan_hos(route.miles(), Some(&route), Some(ctx.world), Some(clock)).sleeps
-                    > plan_hos(route.miles(), Some(&route), Some(ctx.world), None).sleeps
-            });
+            let extra_rest = !job.team
+                && clock.is_some_and(|clock| {
+                    plan_hos(route.miles(), Some(&route), Some(ctx.world), Some(clock)).sleeps
+                        > plan_hos(route.miles(), Some(&route), Some(ctx.world), None).sleeps
+                });
             job.deadline_game_h = fair;
             job.deadline_covers_rest |= extra_rest;
-            if extra_rest {
-                format!(
-                    " Dispatch adjusted the delivery deadline to {} hours. Your current hours require a 10-hour sleep en route. {} selects a rest stop.",
-                    fmt_f(job.deadline_game_h, 1),
-                    ctx.control_name(Action::Rest)
-                )
-            } else {
-                format!(
-                    " Dispatch adjusted the delivery deadline to {} hours for this route and your current legal hours.",
-                    fmt_f(job.deadline_game_h, 1)
-                )
-            }
+            // The departure briefing already names the sleep.
+            format!(
+                " Deadline extended to {} hours.",
+                fmt_f(job.deadline_game_h, 1)
+            )
         } else {
             String::new()
         }
@@ -886,6 +829,7 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
             resume.speed_control_armed,
             resume.speed_control_target_mph,
         );
+        driving.pending_team = resume.team;
     }
     // The truck is driving out, so it has left any impound lot a police tow
     // put it in: a deadhead, reposition, bobtail or loaded leg that is
@@ -903,22 +847,56 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
             let next_context = driving
                 .trip
                 .next_navigation_context(ctx.settings.imperial_units);
-            let mut line =
-                loaded_departure_line(ctx, &lead, &route_for_line, engine_on, &next_context);
-            if driving.trip.truck.reefer_on && driving.trip.truck.cargo_needs_reefer() {
-                line.push(' ');
-                line.push_str(
-                    &driving
-                        .trip
-                        .truck
-                        .reefer_running_announcement(ctx.settings.imperial_units),
-                );
+            match resume.as_ref().and_then(|r| r.team) {
+                // The co-driver starts the truck; the player hears who it is.
+                Some(_) => {
+                    let pairing =
+                        crate::states::driving_team::handover::job_pairing(ctx, &driving.job);
+                    let carrier = ff_core::models::career::carrier_name_of(profile(ctx));
+                    // Your own hours and the tank, as on a solo departure,
+                    // without the solo driver's sleep plan.
+                    format!(
+                        "{} {lead}{} {} {next_context} {} takes the wheel.",
+                        ff_core::models::co_driver::pairing_line(&pairing, &carrier),
+                        crate::states::city_pickup::route_departure_summary(
+                            &route_for_line,
+                            &ctx.settings
+                        ),
+                        board::briefing::departure_briefing(ctx, &route_for_line, true),
+                        pairing.co_driver.name
+                    )
+                }
+                None => {
+                    let mut line = loaded_departure_line(
+                        ctx,
+                        &lead,
+                        &route_for_line,
+                        engine_on,
+                        &next_context,
+                    );
+                    if driving.trip.truck.reefer_on && driving.trip.truck.cargo_needs_reefer() {
+                        line.push(' ');
+                        line.push_str(
+                            &driving
+                                .trip
+                                .truck
+                                .reefer_running_announcement(ctx.settings.imperial_units),
+                        );
+                    }
+                    line
+                }
             }
-            line
         }
     };
     ctx.say(&format!("{line}{deadline_note}"));
     ctx.push_state(driving);
+    if ctx.controller.device() == TOUCH && !ctx.settings.touch_practice_offered {
+        ctx.settings.touch_practice_offered = true;
+        if let Err(e) = ctx.settings.save() {
+            log::warn!("could not save touch practice offer setting: {e}");
+        }
+        ctx.push_state(TouchPracticeOfferState::new());
+    }
 }
 
 // -- menu plumbing --------------------------------------------------------------------
@@ -955,7 +933,7 @@ pub(crate) fn base_menu_handle_event<S: Menu>(
         _ => {
             if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
                 let lower: String = ch.to_lowercase().collect();
-                menu.first_letter_jump(ctx, &lower);
+                menu.first_letter_input(ctx, &lower, event.key_repeat());
             }
         }
     }

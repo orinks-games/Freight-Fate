@@ -40,8 +40,8 @@ mod zones;
 
 pub use lookups::LaneRun;
 pub use streets::{
-    is_gate_zone_reason, is_street_zone_reason, spoken_zone, LOT_ZONE, STOP_STREET_ZONE,
-    STREET_ZONE, YARD_ZONE,
+    is_gate_zone_reason, is_highway_zone_reason, is_street_zone_reason, spoken_zone, LOT_ZONE,
+    STOP_STREET_ZONE, STREET_ZONE, YARD_ZONE,
 };
 
 /// A stop is announced ("stop ahead") when it first comes within this many
@@ -69,7 +69,7 @@ pub const PACENOTE_LEAD_FLOOR_S: f64 = 30.0;
 /// call's "then left/right" tail INSTEAD of getting its own call.
 pub const PACENOTE_LINK_GAP_MI: f64 = 0.3;
 
-/// A signalled exit gets the same real-time treatment as a hard bend, over
+/// A signaled exit gets the same real-time treatment as a hard bend, over
 /// the road the truck genuinely needs to reach ramp speed, widened so the
 /// clock is already real by the time anything has to start shedding.
 pub const EXIT_APPROACH_DECOMPRESS_SLACK: f64 = 1.5;
@@ -135,21 +135,9 @@ pub fn spoken_short_miles(miles: f64, imperial: bool) -> String {
     format!("{meters} meters")
 }
 
-/// Turn direction for the earcon, read out of a baked maneuver cue;
-/// directionless legacy cues ("Turn onto") return "" and stay speech-only.
-pub fn cue_direction(text: &str) -> &'static str {
-    let lowered = text.to_lowercase();
-    if lowered.contains("left") {
-        return "left";
-    }
-    if lowered.contains("right") {
-        return "right";
-    }
-    if lowered.starts_with("continue") || lowered.starts_with("start") {
-        return "ahead";
-    }
-    ""
-}
+/// Turn direction for the earcon, read out of a baked maneuver cue; see
+/// [`crate::data::world_services::cue_direction`].
+pub use crate::data::world_services::cue_direction;
 
 impl HasLocation for City {
     fn lat(&self) -> f64 {
@@ -379,7 +367,15 @@ pub struct Trip {
     /// Whether the current entered zone's ZONE_ENTER colour line has been
     /// spoken.
     pub zone_entry_spoken: bool,
+    /// Set by the drive while the turn into the yard or lot is still ahead
+    /// or unsettled: the yard's entry line waits for the truck to have
+    /// actually turned in, so a truck that overruns the driveway is not told
+    /// it is in the yard before it is told it missed the turn.
+    pub yard_entry_held: bool,
     pub announced_speed_limit: Option<f64>,
+    /// Where a lower posting the truck passed too fast to be told about
+    /// ends. Until then no speed is charged against it.
+    pub unannounced_limit_end_mi: Option<f64>,
     pub warned_limit_drops: Vec<f64>,
     /// Posted-limit values already spoken for the CURRENT posting.
     pub limit_drop_preannounced: Vec<f64>,
@@ -536,7 +532,9 @@ impl Trip {
             refused_tunnel_gates: HashSet::new(),
             entered_zone: None,
             zone_entry_spoken: true,
+            yard_entry_held: false,
             announced_speed_limit: None,
+            unannounced_limit_end_mi: None,
             warned_limit_drops: Vec::new(),
             limit_drop_preannounced: Vec::new(),
             event_breather: RoadEventBreather::new(),
@@ -690,8 +688,8 @@ impl Trip {
             return Some("curve assist shedding speed");
         }
         if self.armed_exit_decompression() {
-            // And for a signalled exit (Shane, 2026-08-15).
-            return Some("signalled exit");
+            // And for a signaled exit (Shane, 2026-08-15).
+            return Some("signaled exit");
         }
         if self.scale_reminder_hold() && self.truck.speed_mph() > SCALE_BYPASS_MPH {
             // And from an open scale's last reminder to its gore: at full
@@ -934,5 +932,13 @@ mod tests {
         assert_eq!(cue_direction("Turn right onto Palm Street"), "right");
         assert_eq!(cue_direction("Continue onto Main Street"), "ahead");
         assert_eq!(cue_direction("Turn onto Elm"), "");
+        assert_eq!(cue_direction("Turn left onto Wright Street"), "left");
+        assert_eq!(cue_direction("Turn right onto Leftwich Road"), "right");
+        assert_eq!(
+            cue_direction("Continue onto North Brighton Boulevard"),
+            "ahead"
+        );
+        assert_eq!(cue_direction("Start on Wright Brothers Boulevard"), "ahead");
+        assert_eq!(cue_direction("Keep left onto Elm Street"), "left");
     }
 }

@@ -77,6 +77,13 @@ fn old_stopping_toggles_migrate_to_the_one_facility_assist() {
     }
 }
 
+#[test]
+fn a_fresh_install_follows_the_system_language_and_an_update_keeps_english() {
+    assert_eq!(Settings::from_dict(None).language, crate::l10n::AUTO);
+    assert_eq!(from_json(json!({})).language, crate::l10n::ENGLISH);
+    assert_eq!(from_json(json!({"language": "fr"})).language, "fr");
+}
+
 // -- the field table -----------------------------------------------------------
 
 #[test]
@@ -85,14 +92,19 @@ fn the_struct_carries_the_persisted_fields_in_python_order() {
     // duty_notifications and braille_only (2026-09-02) and real_fuel_prices
     // (2026-09-12), the two shortcut tables (2026-09-14),
     // radio_shuffle_playlists and steering_guide_inverted (2026-09-18), and
-    // synth_music and music_seed (2026-09-21), touch_bindings (2026-09-29)
-    // and assist_preset_chosen (2026-09-30) were added on the Rust side;
-    // lane_centering_assist was retired for 1.9.
-    assert_eq!(Settings::FIELD_NAMES.len(), 85);
+    // synth_music and music_seed (2026-09-21), touch_bindings (2026-09-29),
+    // score_display, assist_preset_chosen (2026-09-30), and touch_haptics and
+    // touch_practice_offered (2026-10-07), the six touch gesture
+    // thresholds (2026-10-08), facility_streets (2026-10-11) and language
+    // (2026-10-12) and automatic_jake (2026-10-14) were added on the Rust side;
+    // lane_centering_assist was retired for 1.9, and the three Mastodon
+    // sharing fields on 2026-10-15; visual_display (2026-10-15) and
+    // radio_cab_speakers (2026-10-18).
+    assert_eq!(Settings::FIELD_NAMES.len(), 99);
     assert_eq!(Settings::FIELD_NAMES[0], "online_services");
-    assert_eq!(Settings::FIELD_NAMES[79], "settings_layout_notice_from");
+    assert_eq!(Settings::FIELD_NAMES[82], "settings_layout_notice_from");
     let pairs = Settings::default().ordered_values();
-    assert_eq!(pairs.len(), 85);
+    assert_eq!(pairs.len(), 99);
     for ((name, _), field) in pairs.iter().zip(Settings::FIELD_NAMES) {
         assert_eq!(name, field);
     }
@@ -110,11 +122,12 @@ fn the_defaults_match_the_python_dataclass() {
         r#"{
         "online_services": true, "imperial_units": true, "engine_voice": "real",
         "jake_voice": "real", "acc_following_gap": "normal", "automatic_transmission": true,
+        "automatic_jake": true,
         "automatic_direction_changes": "simple", "time_scale": 10.0,
         "pace_retired_notice_left": 0, "real_weather": false, "real_traffic": false,
         "real_parking": false, "real_fuel_prices": true,
         "live_weather_controls_calendar": true,
-        "hos_mode": "realistic", "hos_planning_hints": false,
+        "hos_mode": "realistic", "score_display": "Both", "hos_planning_hints": false,
         "lane_keeping": "full", "lane_keeping_rename_notice_left": 0,
         "lane_cue_loudness": "standard", "lane_guide_tone": false,
         "driving_assistance_preset": "all", "automatic_emergency_braking": true,
@@ -127,7 +140,7 @@ fn the_defaults_match_the_python_dataclass() {
         "sfx_volume": 0.8, "music_volume": 0.5, "synth_music": false, "music_seed": 48213,
         "radio_volume": 0.25, "radio_enabled": true,
         "radio_station_id": "route_playlist", "radio_streamer_safe": false,
-        "radio_shuffle_playlists": false,
+        "radio_shuffle_playlists": false, "radio_cab_speakers": true,
         "weather_volume": 0.65, "engine_volume": 0.55, "ui_volume": 0.9,
         "duck_audio_for_speech": false, "driving_speech": "standard", "chatter_parks": true,
         "chatter_rivers": true, "chatter_passes": true, "chatter_museums": true,
@@ -135,22 +148,27 @@ fn the_defaults_match_the_python_dataclass() {
         "announce_menu_position": true, "backup_announcements": "every",
         "sapi_events": true, "event_backend": "SAPI", "braille_only": false,
         "speech_rate": 0.5, "speech_pitch": 0.5, "speech_volume": 1.0, "speech_voice": "",
-        "update_channel": "", "skipped_update": "", "discord_presence": true,
+        "update_channel": "", "update_mirror_enabled": false,
+        "update_mirror_prefix": "", "skipped_update": "", "discord_presence": true,
         "online_presence": false, "duty_notifications": false,
         "profile_sharing_consent_version": 0,
         "profile_sharing_pending_off": false, "cloud_saves": false,
-        "mastodon_sharing": false, "mastodon_linked": false, "mastodon_linked_handle": "",
-        "controller_enabled": true, "haptics_enabled": true, "online_offer_seen": false,
+        "controller_enabled": true, "menu_accelerator_keys": false, "haptics_enabled": true, "online_offer_seen": false,
         "settings_version": 3, "settings_layout_notice_from": -1,
         "key_bindings": "", "pad_bindings": "", "touch_bindings": "",
-        "steering_guide_inverted": false, "assist_preset_chosen": false
+        "touch_haptics": true, "touch_practice_offered": false,
+        "touch_flick_points": 30.0, "touch_flick_ms": 150.0, "touch_deep_swipe_factor": 3.0,
+        "touch_still_hold_ms": 500.0, "touch_rotate_degrees": 30.0, "touch_parking_brake_mph": 1.0,
+        "steering_guide_inverted": false, "assist_preset_chosen": false,
+        "facility_streets": true,
+        "language": "auto", "visual_display": true
     }"#,
     )
     .unwrap();
     let Value::Object(expected) = expected else {
         unreachable!()
     };
-    assert_eq!(expected.len(), 85);
+    assert_eq!(expected.len(), 99);
     for (name, value) in s.ordered_values() {
         assert_eq!(Some(&value), expected.get(name), "{name}");
     }
@@ -169,13 +187,44 @@ fn hos_planning_hints_default_off_and_round_trip_as_a_boolean() {
 }
 
 #[test]
+fn score_display_defaults_loads_old_files_and_round_trips() {
+    assert_eq!(Settings::default().score_display, ScoreDisplay::Both);
+    assert_eq!(from_json(json!({})).score_display, ScoreDisplay::Both);
+    for mode in [
+        ScoreDisplay::Both,
+        ScoreDisplay::Percent,
+        ScoreDisplay::Description,
+    ] {
+        let mut settings = Settings::default();
+        settings.score_display = mode;
+        let stored: Value = serde_json::from_str(&settings.to_file_text()).unwrap();
+        assert_eq!(from_json(stored).score_display, mode);
+    }
+}
+
+#[test]
+fn facility_streets_default_on_and_round_trip_as_a_boolean() {
+    assert!(Settings::default().facility_streets);
+    let mut classic = Settings::default();
+    classic.facility_streets = false;
+    let stored: Value = serde_json::from_str(&classic.to_file_text()).unwrap();
+    assert_eq!(stored["facility_streets"], false);
+    assert!(!from_json(stored).facility_streets);
+    assert!(from_json(json!({})).facility_streets);
+}
+
+#[test]
 fn the_file_text_is_what_json_dump_wrote() {
     let s = Settings::default();
     let text = s.to_file_text();
     assert!(text.starts_with("{\n  \"online_services\": true,\n  \"imperial_units\": true,\n"));
     assert!(text.ends_with(
-        "  \"pad_bindings\": \"\",\n  \"touch_bindings\": \"\",\n  \"steering_guide_inverted\": false,\n  \
-         \"assist_preset_chosen\": false,\n  \"steering_assist\": \"off\"\n}"
+        "  \"pad_bindings\": \"\",\n  \"touch_bindings\": \"\",\n  \"touch_haptics\": true,\n  \"touch_practice_offered\": false,\n  \
+         \"touch_flick_points\": 30.0,\n  \"touch_flick_ms\": 150.0,\n  \
+         \"touch_deep_swipe_factor\": 3.0,\n  \"touch_still_hold_ms\": 500.0,\n  \
+         \"touch_rotate_degrees\": 30.0,\n  \"touch_parking_brake_mph\": 1.0,\n  \
+         \"steering_guide_inverted\": false,\n  \"assist_preset_chosen\": false,\n  \"facility_streets\": true,\n  \"language\": \"auto\",\n  \
+         \"visual_display\": true,\n  \"steering_assist\": \"off\"\n}"
     ));
     assert!(text.contains("\n  \"time_scale\": 10.0,\n"));
     assert!(text.contains("\n  \"radio_volume\": 0.25,\n"));
@@ -223,7 +272,6 @@ fn unknown_keys_are_ignored_and_wrong_shapes_take_the_python_fallbacks() {
         "pedal_latch": 3,
         "event_backend": "",
         "radio_station_id": 12,
-        "mastodon_linked_handle": 4,
         "profile_sharing_consent_version": 3.0,
         "online_presence": true,
         "time_scale": "40",
@@ -246,7 +294,6 @@ fn unknown_keys_are_ignored_and_wrong_shapes_take_the_python_fallbacks() {
     assert_eq!(s.pedal_latch, "on");
     assert_eq!(s.event_backend, "SAPI");
     assert_eq!(s.radio_station_id, "route_playlist");
-    assert_eq!(s.mastodon_linked_handle, "");
     // 3.0 == 3 in Python, so the consent stands and online_presence survives.
     assert_eq!(s.profile_sharing_consent_version, 3);
     assert!(s.online_presence);
@@ -947,6 +994,8 @@ fn test_radio_defaults_are_full_dial_and_quiet() {
     assert!(!s.radio_streamer_safe);
     // A playlist file plays in its own order unless the player asks otherwise.
     assert!(!s.radio_shuffle_playlists);
+    // The radio plays through the cab's speakers unless the player picks clean.
+    assert!(s.radio_cab_speakers);
 }
 
 #[test]
@@ -1265,11 +1314,17 @@ fn test_settings_default_and_validation() {
     with_data_dir(|_| {
         let mut s = Settings::default();
         assert_eq!(s.update_channel, "");
+        assert!(!s.update_mirror_enabled);
+        assert_eq!(s.update_mirror_prefix, "");
         assert_eq!(s.skipped_update, "");
         s.update_channel = "weird".to_string();
+        s.update_mirror_enabled = true;
+        s.update_mirror_prefix = "https://mirror.example/".to_string();
         s.save().unwrap();
         let loaded = Settings::load();
         assert_eq!(loaded.update_channel, ""); // invalid value reset
+        assert!(loaded.update_mirror_enabled);
+        assert_eq!(loaded.update_mirror_prefix, "https://mirror.example/");
     });
 }
 
@@ -1296,6 +1351,14 @@ fn test_radio_persists_enabled_station_and_volume() {
 
 // -- App()-bound --------------------------------------------------------------------
 
+#[test]
+fn missing_touch_gesture_fields_use_additive_defaults() {
+    let settings: Settings = serde_json::from_str("{}")
+        .expect("a settings file written before touch gestures remains readable");
+    assert!(settings.touch_haptics);
+    assert!(!settings.touch_practice_offered);
+}
+
 // `test_settings_menu_saves_each_change` is live in `crates/freight-fate/tests/states_main_menu_settings.rs`.
 
 // `test_gameplay_reorg_notice_fires_once_for_a_pre_reorg_settings_file` is live in `crates/freight-fate/tests/states_main_menu_settings.rs`.
@@ -1303,3 +1366,62 @@ fn test_radio_persists_enabled_station_and_volume() {
 // `test_the_driving_mode_row_explains_the_retired_pacing` is live in `crates/freight-fate/tests/states_main_menu_settings.rs`.
 
 // `test_lane_keeping_row_explains_its_rename_to_returning_players` is live in `crates/freight-fate/tests/states_main_menu_settings.rs`.
+
+#[test]
+fn test_chains_fold_into_the_existing_assists_with_no_new_setting() {
+    // Facility stopping assistance does the chain work: off, on, on.
+    let field = DRIVING_ASSIST_FIELDS
+        .iter()
+        .position(|f| *f == "destination_approach_assist")
+        .expect("a preset field");
+    for (preset, want) in [("realistic", false), ("balanced", true), ("all", true)] {
+        let values = driving_assist_preset(preset).expect("a preset");
+        assert_eq!(values.len(), 9);
+        assert_eq!(values[field], Flag(want), "{preset}");
+    }
+    // Stop planning owns the no-chains reminder, outside the presets.
+    let mut settings = Settings::default();
+    for preset in ["realistic", "balanced", "all"] {
+        assert!(settings.apply_driving_assistance_preset(preset));
+        settings.hos_planning_hints = !settings.hos_planning_hints;
+        assert_eq!(settings.refresh_driving_assistance_preset(), preset);
+    }
+    assert_eq!(SETTINGS_VERSION, 3);
+    assert_eq!(DRIVING_ASSIST_FIELDS.len(), 9);
+}
+
+#[test]
+fn a_co_driver_drives_on_every_assist_and_the_file_keeps_the_players() {
+    let mut s = Settings::default();
+    s.apply_driving_assistance_preset("realistic");
+    let before = s.to_file_text();
+    s.hand_assists_to_co_driver();
+    assert!(s.lane_is_automated());
+    assert!(s.curve_speed_assist && s.destination_approach_assist);
+    // Saving while the co-driver drives writes the player's own choice.
+    assert_eq!(s.to_file_text(), before);
+    // A second handover does not stash the co-driver's values over the
+    // player's.
+    s.hand_assists_to_co_driver();
+    s.take_assists_back();
+    assert_eq!(s.lane_keeping, "off");
+    assert_eq!(s.driving_assistance_preset, "realistic");
+    assert_eq!(s.to_file_text(), before);
+    s.take_assists_back();
+    assert_eq!(s.to_file_text(), before);
+}
+
+#[test]
+fn an_assist_changed_during_the_co_drivers_shift_keeps_the_change() {
+    let mut s = Settings::default();
+    s.apply_driving_assistance_preset("realistic");
+    let own_aeb = s.automatic_emergency_braking;
+    s.hand_assists_to_co_driver();
+    assert_eq!(s.lane_keeping, "full");
+    // The player sets partial lane keeping from the pause settings.
+    s.lane_keeping = "partial".to_string();
+    s.take_assists_back();
+    assert_eq!(s.lane_keeping, "partial", "the player's change stands");
+    assert_eq!(s.automatic_emergency_braking, own_aeb);
+    assert!(!s.destination_approach_assist, "untouched fields come back");
+}

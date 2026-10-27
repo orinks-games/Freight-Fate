@@ -334,48 +334,6 @@ pub fn set_profile_sharing(
     }
 }
 
-/// The server's word on whether a Mastodon account is linked.
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct MastodonStatus {
-    pub linked: bool,
-    pub handle: String,
-}
-
-/// The server's word on whether a Mastodon account is linked.
-///
-/// Returns `Some` on a good answer, or `None` when nothing was learned
-/// (network trouble or refused credentials).
-pub fn fetch_mastodon_status(
-    identity: &OnlineIdentity,
-    transport: &dyn Transport,
-) -> Option<MastodonStatus> {
-    let reply = transport
-        .call(
-            &format!(
-                "{}/api/freight-fate/mastodon/status?driverId={}",
-                base_url(),
-                identity.driver_id
-            ),
-            None,
-            &identity.auth_headers(),
-            None,
-        )
-        .map_err(|e| log::warn!("Mastodon status check failed: {e}"))
-        .ok()?;
-    if !truthy(reply.get("ok")) {
-        return None;
-    }
-    let handle = match reply.get("handle") {
-        Some(Value::String(s)) => s.clone(),
-        Some(Value::Null) | None => String::new(),
-        Some(other) => py_str(other),
-    };
-    Some(MastodonStatus {
-        linked: truthy(reply.get("linked")),
-        handle,
-    })
-}
-
 /// The current public drivers board, or `None` when unreachable.
 ///
 /// Each entry has `displayName`, `activity`, `detail` and `updatedAt`

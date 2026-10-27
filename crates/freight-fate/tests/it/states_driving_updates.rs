@@ -479,8 +479,10 @@ fn test_off_pavement_speaks_on_entry_worsening_and_recovery() {
     // the second, identical "Off the road" line as a repeat inside its own
     // window. Step the clock between lines so what is asserted is the
     // TRANSITION rule rather than the pacer's repeat guard.
-    app.ctx.event_pacer =
-        ff_core::speech_pacing::EventSpeechPacer::with_clock(stepping_clock(30.0));
+    app.ctx.event_pacer = hearken::speech::EventSpeechPacer::with_clock(
+        freight_fate::app::FF_PACER,
+        stepping_clock(30.0),
+    );
     d.lane.lane = 0;
     d.trip.truck.velocity_mps = 13.0; // ~29 mph, below the "fast" band
     app.clear_speech();
@@ -608,9 +610,8 @@ fn test_staying_on_the_throttle_through_the_drop_collapses_the_grace() {
     // And the exemption is exactly the ROUTE wait budget -- the longest the
     // demoted zone-entry line can lag its boundary before flushing.
     assert_eq!(
-        ff_core::speech_pacing::EventSpeechPacer::wait_budget_s(
-            ff_core::speech_pacing::EventPriority::Route
-        ),
+        hearken::speech::EventSpeechPacer::new(freight_fate::app::FF_PACER)
+            .wait_budget_s(hearken::speech::EventPriority::Important),
         limit_drop_speech_latency_s()
     );
 }

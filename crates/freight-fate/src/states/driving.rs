@@ -290,8 +290,43 @@ pub struct DrivingState {
     // -- the setting every driver leaves it on until ice says otherwise.
     pub jake_selected_stage: i32,
     pub chains_fast_active: bool, // spoken chains-over-speed warning edge tracking
+    /// The cruise and keeper set speeds held down to chain speed while the
+    /// chains are on, given back when they come off (`apply_chain_speed_cap`).
+    pub chain_cap_cruise_mph: Option<f64>,
+    pub chain_cap_keeper_mph: Option<f64>,
+    /// "Cruise held to 30 miles per hour for chains." is said once per set.
+    pub chain_cap_said: bool,
     pub chain_law_warned: HashSet<(i64, i64)>, // (area, level) spoken warnings
-    pub chain_law_cited: HashSet<(i64, i64)>, // checkpoint rolls already taken
+    pub chain_law_cited: HashSet<(i64, i64)>,  // (area, level) already fined
+    /// (area, level) -> whether its checkpoint is staffed, rolled once.
+    pub chain_checkpoint_staffed: HashMap<(i64, i64), bool>,
+    /// Cited with chains aboard: held on the apron until they are on.
+    pub chain_checkpoint_hold: bool,
+    /// Colorado chain-carry rule: warned once, and rolled once, per drive.
+    pub chain_carry_warned: bool,
+    pub chain_carry_rolled: bool,
+    /// "A chain is slapping the fender" is said once per install.
+    pub chain_slap_said: bool,
+    /// The chains were tightened once since they went on.
+    pub chain_tightened: bool,
+    /// Stop planning's no-chains reminder, said once per corridor approach
+    /// (`ChainCorridorAhead::key`). Not saved: a resume may repeat it once.
+    pub chain_reminder_said: HashSet<String>,
+    /// Facility stopping assistance's pending roadside chain stop.
+    pub chain_stop: Option<crate::states::driving_events::chain_stop::ChainStop>,
+    /// Its held brake application, one of the assists' pedal floors.
+    pub chain_stop_brake: f64,
+    /// Chain-law areas the chain-up stop has handled, declined or had
+    /// cancelled: never retried.
+    pub chain_stop_areas_done: HashSet<usize>,
+    /// The last chain-law area each chain-off decision was made after.
+    pub chain_off_done: HashSet<usize>,
+    /// Route mile the bare road began, past the last chain-law area.
+    pub chain_off_bare_from: Option<f64>,
+    /// The slap tighten was offered once since the chains went on.
+    pub chain_assist_tighten_tried: bool,
+    /// A chain broke this drive and the assist hasn't answered it yet.
+    pub chain_assist_snapped: bool,
     // Curve management: the curve the too-fast warning has been spoken for
     // (its start milepost; the ramp curve has its own id), `driving_rollover`.
     pub curve_warned_mi: Option<f64>,
@@ -438,6 +473,8 @@ pub struct DrivingState {
     pub damage_band: i32,
     // The deepest band this run reached, for settlement to grade against.
     pub worst_damage_band: i32,
+    // This run already put one preventable-equipment event on the record.
+    pub equipment_event_logged: bool,
     pub limp_cap_mph: Option<f64>,
     pub limp_cruise_said: bool,
     pub bc_limiter_said: bool,
@@ -467,6 +504,9 @@ pub struct DrivingState {
     pub selected_stop_key: Option<String>,
     /// Whether T selected this stop for the next 30-minute HOS break.
     pub selected_stop_break: bool,
+    /// What the driver told T this stop is for; `None` for a stop the
+    /// co-driver chose.
+    pub selected_stop_purpose: Option<crate::states::driving_events::stop_plan::StopPlanPurpose>,
     pub selected_stop_assist_armed: bool,
     pub selected_stop_assist_said: bool,
     pub selected_stop_assist_brake: f64,
@@ -582,6 +622,11 @@ pub struct DrivingState {
     // Whether a road stop's streets are driven at all
     // (`chains::STOP_STREETS_IN_PLAY`, off for 1.9).
     pub stop_streets_on: bool,
+    // Whether this drive takes the facility streets at all: the Facility
+    // streets setting as the drive started (a save carries its own), so a
+    // change in Settings applies from the next drive and a resumed chain
+    // rebuilds as it was driven.
+    pub facility_streets_on: bool,
     pub highway_trip: Option<Trip>,
     // Departure chain: the mirror. A loaded run out of a chain-capable
     // origin facility starts on its streets and merges onto the highway.
@@ -622,7 +667,6 @@ pub struct DrivingState {
     pub cruise_jake_last_step: i32, // +1 raised, -1 lowered, 0 released
     pub cruise_snubbing: bool,  // a service-brake snub is in progress
     pub pcc_phase: String,      // what the grade preview is doing, for the cue
-    pub pcc_cue_s: f64,         // quiet time between preview cues
     pub climb_cue_said: bool,   // cruise has already owned up to this pull
     pub climb_cue_s: f64,       // quiet time between hand-back cues
     pub climb_beaten_s: f64,    // how long the grade has genuinely been winning
@@ -642,6 +686,10 @@ pub struct DrivingState {
     // from the pickup plan once per half mile rather than every frame:
     // (defect or empty, mile it was read at).
     pub visible_trailer_defect: (String, f64),
+    // Equipment faults already on an inspection report or citation this
+    // drive (the finding as the officer read it). The driver carries that
+    // paper to the next shop, so no later post writes the same fault again.
+    pub written_up: HashSet<String>,
     pub nice_speed_mi: f64,    // distance held at a very particular speed
     pub double_nickel_mi: f64, // and at the limit Congress retired in 1995
     pub jake_descent_mi: f64,  // downgrade held on the engine alone
@@ -709,13 +757,6 @@ pub struct DrivingState {
     pub descent_beaten_s: f64,
     pub descent_capture_active: bool,
     pub assist_exit_slowing_said: bool,
-    // Lane keeping on full grants the exit lane and takes the destination
-    // exit without the driver touching anything. That is coherent, but
-    // unattributed it reads as the exit taking itself -- which is exactly
-    // what got reported. Name the automation at the point of confusion,
-    // once each per run, then go back to the plain wording.
-    pub lane_keeping_grant_said: bool,
-    pub lane_keeping_takes_exit_said: bool,
     pub curve_assist_active: bool,
     pub curve_assist_cue_s: f64,
     // Whether the SLOWING cue was actually spoken for the run in progress.
@@ -756,6 +797,9 @@ pub struct DrivingState {
     // and how long it has been out of authority with the truck still over
     // the number -- past which it owns up rather than riding it out.
     pub keeper_snub: f64,
+    /// The keeper is braking a late corner down to its number
+    /// (`keeper_corner_brakes`); the held snub stays on until it is there.
+    pub keeper_corner_braking: bool,
     /// The number the held snub is bringing the truck down to -- the
     /// keeper's WORKING target, which on an approach is the corner or zone
     /// ahead and not the set speed. The release rule reads this.
@@ -793,13 +837,13 @@ pub struct DrivingState {
     pub wrong_way_mi: f64,
     pub wrong_way_said_at: f64,
 
-    // ---- driving_traffic_pass.py: `_reset_traffic_passes` ------------------------------
-    // Which end of the truck each bubble vehicle was on last frame (the
-    // relative mile), and which have already been given their whoosh.
-    // Per-stint, not saved.
-    pub traffic_pass_side: HashMap<String, f64>,
-    pub traffic_passed_keys: HashSet<String>,
-    pub traffic_pass_cooldown_s: f64,
+    // ---- driving_traffic_sounds.rs ------------------------------------------------------
+    // Which vehicle each traffic sound is following (`main:<key>` or
+    // `cross:<id>`), the freeway bed's smoothed level, and how far the truck
+    // has rolled down the current exit ramp. Per-stint, not saved.
+    pub traffic_sounds: [Option<String>; 3],
+    pub traffic_bed_volume: f64,
+    pub traffic_ramp_rolled_ft: f64,
 
     // ---- driving_lane_gap.py: `_reset_lane_gap` ----------------------------------------
     // The lane a completed change moved out of, and the vehicle that was
@@ -812,18 +856,16 @@ pub struct DrivingState {
     pub lane_gap_cue_s: f64,
 
     // ---- driving_turns.py: `_reset_turn_state_for_trip` -------------------------------
-    // Street corners: how many corners this run has cost, which escalates
-    // the spoken help. The per-corner latches are rebuilt whenever the
+    // Street corners: how many corners this run has missed. The per-corner
+    // latches are rebuilt whenever the
     // trip's route changes (`turn_trip_id` vs `trip_generation`).
     pub turn_miss_count: i64,
     pub turn_trip_id: u64,
     pub turn_advised: HashSet<String>,
-    pub turn_missed: HashSet<String>,
     pub turn_resolved: HashSet<String>,
-    /// Corners whose call actually reached the voice. The turn earcon is
-    /// played off this at the moment the corner is taken, so a driver who
-    /// was told nothing about a corner is not chimed at for it either
-    /// (owner, 2026-09-20).
+    /// Corners whose chime has sounded. It goes out once, with the first
+    /// words that name the corner, so a driver who was told nothing about a
+    /// corner is not chimed at for it either (owner, 2026-09-20).
     pub turn_announced: HashSet<String>,
     /// Corners whose own call already said "now": the route's call at the
     /// corner would only say the turn again.
@@ -833,9 +875,10 @@ pub struct DrivingState {
     // ---- driving.py: air, brakes, engine (driving_updates / driving_controls) ----------
     pub air_ready_said: bool,
     pub low_air_said: bool,
-    /// Once-per-threshold low-fuel cue (see `LOW_FUEL_WARN_FRACTION`). Latched
-    /// until the tank climbs back above the line after a refill.
+    /// Once-per-threshold low-fuel cue, latched until a refill (`LOW_FUEL_WARN_FRACTION`).
     pub low_fuel_said: bool,
+    /// The fuel range fell short of the next fuel stop; latched until it clears.
+    pub fuel_range_short_said: bool,
     pub spring_brake_said: bool,
     pub brake_lockout_cue_timer: f64,
     pub brake_air_hissed: bool, // rising-edge guard for the brake-apply hiss
@@ -848,14 +891,32 @@ pub struct DrivingState {
     // Discrete lanes: tap-change progress (assist off), closed-lane
     // policing, hazard-dodge context, and keep-right pressure.
     pub lane_change_target: Option<i64>,
+    /// Full lane keeping: the side the left stick last asked to change
+    /// lanes toward, until it comes back near the center.
+    pub stick_lane_request: i8,
     pub lane_change_timer: f64,
     pub lane_signal_timer: f64,
     /// Lane keeping on full is passing a slow vehicle: (the lane to come
     /// back to, the lane it passed into). See `pass_for_hazard`.
     pub passing: Option<(i64, i64)>,
+    // A pass around something sitting in the lane (debris, a car on the
+    // shoulder, a closure) holds the move back until the truck is past this
+    // point, so it does not drop straight back onto what it went around.
+    pub pass_clear_mi: Option<f64>,
     /// Lane keeping is moving back after a pass: the landing line is the
     /// tail of going around traffic, not a lane change the driver made.
     pub pass_returning: bool,
+    /// Lane keeping chose the change underway, so it keeps watching the lane
+    /// it is moving into and calls the move off if that lane fills or ends.
+    pub keeping_lane_change: bool,
+    /// A cruise ceiling while the move back from a pass is held by a vehicle
+    /// pacing the truck in the right lane: lane keeping eases off so it can
+    /// drop in behind it. None whenever nothing is holding the move back.
+    pub pass_return_ease_mph: Option<f64>,
+    /// Seconds the left lane stays excused after lane keeping's move back
+    /// was called off or held by traffic, so the CB does not blame the
+    /// driver for a hold the assist made.
+    pub keep_right_excused_s: f64,
     pub merge_deadline: Option<f64>,
     // Miles of acceleration lane still ahead after pulling out of a
     // facility. None once the lane is behind the truck (or when the run
@@ -894,6 +955,16 @@ pub struct DrivingState {
     // is anywhere to go. What braking ALONE must reach turns on this, not on
     // hazard_dodgeable: see hazard_target_mph.
     pub hazard_in_lane: bool,
+    // Every hazard in the live group is an animal on the road: the
+    // automatic braking leaves it alone, and the deadline settles whether
+    // the truck hits it. See `animal_outcome`.
+    pub hazard_animal: bool,
+    // Where the truck was when the live hazard group was first called: the
+    // animal outcome is seeded on it, so a reload hears the same outcome
+    // however the driver answered.
+    pub hazard_arm_mi: f64,
+    // See HazardShape::brake_to_mph.
+    pub hazard_brake_to_mph: Option<f64>,
     // The speed of the VEHICLE this hazard is about, when it is a vehicle.
     // None for debris, animals and anything else that is not going
     // anywhere. See hazard_target_mph.
@@ -937,6 +1008,8 @@ pub struct DrivingState {
     pub transverse_fired: Vec<f64>,
     pub lane_locator_on: bool, // I toggles the panned position tock
     pub lane_locator_timer: f64,
+    /// The driver window and the climate controls: pure ambience, not saved.
+    pub cab: ff_core::sim::cab::CabState,
     // The same tock, summoned by the steering itself rather than by I:
     // while a lane move is underway it runs on its own and ends with the
     // signal cancelling. See _update_steering_lane_cue.
@@ -997,6 +1070,11 @@ pub struct DrivingState {
 
     // ---- driving.py: lifecycle -----------------------------------------------------------
     pub entered_once: bool,
+    /// The co-driver for this load, once one has been paired.
+    pub team: Option<crate::states::driving_team::TeamDrive>,
+    /// A team departure chosen at the shipper: the co-driver takes the
+    /// wheel on the drive's first frame.
+    pub pending_team: Option<crate::states::driving_team::TeamMode>,
 }
 
 // The accessors onto the trip, the trip swap and the `State` facade live in

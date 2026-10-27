@@ -24,18 +24,20 @@ pub mod hazmat;
 pub mod hos_stops;
 pub mod relay;
 #[cfg(test)]
+mod team_tests;
+#[cfg(test)]
 mod tests;
 
-pub use board::{reachable_cities, JobBoard, OfferOptions};
+pub use board::{reachable_cities, turn_angle_deg, Candidate, JobBoard, OfferOptions};
 pub use deadline::{
-    curve_ceilings, dispatch_deadline_hours, fair_active_deadline, minimum_pay_for_level, plan_hos,
-    remaining_route_hos_plan, required_hours, route_drive_hours, route_drive_hours_over,
-    route_planning_limit, route_required_hours, segment_hours, CurveBand, HosPlan,
-    ACTIVE_TRIP_FAIRNESS_SLACK, DEADLINE_AVG_MPH, DEADLINE_DISPATCH_MIN_SLACK_H,
-    DEADLINE_DISPATCH_SLACK_RANGE, DEADLINE_MIN_SEGMENT_MPH, DEADLINE_PLANNING_SPEED_FACTOR,
-    DEADLINE_SAMPLE_MI, DISPATCH_FLAT_MINIMUM_BY_LEVEL, HOOKUP_FEE,
-    LONG_HAUL_MINIMUM_RATE_BY_LEVEL, SHORT_HAUL_FULL_PREMIUM_MI, SHORT_HAUL_RATE_BY_LEVEL,
-    SHORT_HAUL_TAPER_END_RATE_BY_LEVEL,
+    curve_ceilings, departure_deadline_hours, dispatch_deadline_hours, fair_active_deadline,
+    minimum_pay_for_level, plan_hos, remaining_route_hos_plan, required_hours, route_drive_hours,
+    route_drive_hours_over, route_planning_limit, route_required_hours, segment_hours,
+    team_deadline_hours, team_required_hours, CurveBand, HosPlan, ACTIVE_TRIP_FAIRNESS_SLACK,
+    DEADLINE_AVG_MPH, DEADLINE_DISPATCH_MIN_SLACK_H, DEADLINE_DISPATCH_SLACK_RANGE,
+    DEADLINE_MIN_SEGMENT_MPH, DEADLINE_PLANNING_SPEED_FACTOR, DEADLINE_SAMPLE_MI,
+    DISPATCH_FLAT_MINIMUM_BY_LEVEL, HOOKUP_FEE, LONG_HAUL_MINIMUM_RATE_BY_LEVEL,
+    SHORT_HAUL_FULL_PREMIUM_MI, SHORT_HAUL_RATE_BY_LEVEL, SHORT_HAUL_TAPER_END_RATE_BY_LEVEL,
 };
 
 mod catalog;
@@ -154,6 +156,9 @@ pub struct Job {
     // have needed one). Spoken so the long number reads as the law, not
     // dispatcher generosity.
     pub deadline_covers_rest: bool,
+    /// A team load: booked for a driver and a co-driver taking turns, so its
+    /// deadline allows no 10-hour break and it pays more.
+    pub team: bool,
     pub seasonal_weight_limit: Option<SeasonalWeightLimit>,
     /// The placarded material, for placarded cargo; None for an old save
     /// whose packaged load never named one.
@@ -229,6 +234,7 @@ impl Job {
             destination_spoken: String::new(),
             deadline_covers_rest: false,
             seasonal_weight_limit: None,
+            team: false,
             hazmat: hazmat::default_commodity(cargo.key),
         }
     }
@@ -275,7 +281,7 @@ impl Job {
         };
         let condition = market_condition(self.market_mult);
         let market = if condition != "steady" {
-            format!(" Lane note: Market is {condition}.")
+            format!(" Market {condition}.")
         } else {
             String::new()
         };
@@ -289,11 +295,20 @@ impl Job {
         } else {
             format!(" Requires {}.", credentials_clause(self.cargo.credentials))
         };
-        let origin = format!("from {}", self.origin_offer_text());
+        // Whole sentences, so a catalog has each one with its words: the
+        // load, the pay and the deadline are each a line of their own.
+        let tons = fmt_f(self.weight_tons, 0);
+        let cargo = self.spoken_cargo_label();
+        let pickup = self.origin_offer_text();
         // A load for a border transfer yard names its Mexican consignee;
         // the yard in the US city is still where the trailer is delivered.
-        let dest = load_card_line(self, self.spoken_destination())
-            .unwrap_or_else(|| format!("to {}", self.destination_offer_text()));
+        let load = match load_card_line(self, self.spoken_destination()) {
+            Some(card) => format!("{tons} tons of {cargo} from {pickup} {card}."),
+            None => {
+                let dropoff = self.destination_offer_text();
+                format!("{tons} tons of {cargo} from {pickup} to {dropoff}.")
+            }
+        };
         let trailer = if opts.trailer_note.is_empty() {
             String::new()
         } else {
@@ -306,29 +321,32 @@ impl Job {
             ),
             None => String::new(),
         };
-        let pay = opts.display_pay.unwrap_or(self.pay);
-        let pay_label = if opts.pay_label.is_empty() {
-            "Pays"
-        } else {
-            opts.pay_label
+        let pay = fmt_grouped(opts.display_pay.unwrap_or(self.pay), 0);
+        let pay_text = match opts.pay_label {
+            "" | "Pays" => format!("Pays {pay} dollars."),
+            "Carrier gross" => format!("Carrier gross {pay} dollars."),
+            "Direct gross" => format!("Direct gross {pay} dollars."),
+            "Gross revenue" => format!("Gross revenue {pay} dollars."),
+            other => format!("{other} {pay} dollars."),
         };
         let distance = if opts.distance_text.is_empty() {
             format!("{} miles", fmt_f(self.distance_mi, 0))
         } else {
             opts.distance_text.to_string()
         };
-        let rest = if self.deadline_covers_rest {
-            ", planned around the 10-hour rest your hours will force. "
+        let hours = fmt_f(self.deadline_game_h, 0);
+        let deadline = if self.team {
+            format!(
+                "Deadline {hours} hours. Team load: you and a co-driver take turns at the wheel."
+            )
+        } else if self.deadline_covers_rest {
+            format!("Deadline {hours} hours, includes a 10-hour rest.")
         } else {
-            ". "
+            format!("Deadline {hours} hours.")
         };
+        let equipment = self.cargo.equipment_text();
         format!(
-            "{prefix}{} tons of {} {origin} {dest}. {distance}. {pay_label} {} dollars. Deadline {} hours{rest}Equipment: {}.{trailer}{seasonal_weight}{preview}{market}{endorsement}",
-            fmt_f(self.weight_tons, 0),
-            self.spoken_cargo_label(),
-            fmt_grouped(pay, 0),
-            fmt_f(self.deadline_game_h, 0),
-            self.cargo.equipment_text(),
+            "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: {equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
         )
     }
 
@@ -537,6 +555,7 @@ pub fn job_payload(job: &Job) -> Map<String, Value> {
                 "percent": limit.percent,
             })
         }),
+        "team": job.team,
     });
     match value {
         Value::Object(mut map) => {
@@ -626,6 +645,7 @@ pub fn job_from_payload(data: &Map<String, Value>) -> Option<Job> {
                 percent,
             })
         });
+    job.team = data.get("team").is_some_and(py_truthy);
     if let Some(material) = ["hazmat", "un_number"]
         .iter()
         .filter_map(|field| data.get(*field).and_then(Value::as_str))
@@ -769,6 +789,56 @@ pub fn lane_key(world: &World, job: &Job) -> String {
         world.resolve_city_key(&job.destination)
     )
 }
+
+/// The same lane run the other way (`b:a` for `a:b`). A lane is recent in
+/// both directions: a truck that just came up from Dallas has run the
+/// Oklahoma City lane whichever way the next load points. None when the
+/// key is not a from:to pair.
+pub fn reverse_lane_key(lane: &str) -> Option<String> {
+    let (from, to) = lane.split_once(':')?;
+    if from.is_empty() || to.is_empty() {
+        return None;
+    }
+    Some(format!("{to}:{from}"))
+}
+
+/// Whether `lane` or the same lane the other way is in `recent`.
+pub fn lane_recent_either_way(recent: &[String], lane: &str) -> bool {
+    recent.iter().any(|r| r == lane)
+        || reverse_lane_key(lane).is_some_and(|back| recent.contains(&back))
+}
+
+/// The city the truck delivered from to get to `current_city`: the origin
+/// of the most recent lane, when that lane ended here. None after a fresh
+/// start, after a reposition that was not the last lane, or when the lane
+/// memory and the parked city disagree (an old save, a playtest lever).
+pub fn came_from_city(
+    world: &World,
+    recent_lanes: &[String],
+    current_city: &str,
+) -> Option<String> {
+    let (from, to) = recent_lanes.first()?.split_once(':')?;
+    if from.is_empty() || to != world.resolve_city_key(current_city) {
+        return None;
+    }
+    Some(from.to_string())
+}
+
+// Dispatch does not plan a truck straight back where it came from. The city
+// the truck just delivered from is on about this share of its next boards:
+// it still turns up, as a real backhaul does, but it stops being the
+// default. A weight would not do it: at the low levels the nearest city
+// takes nearly every draw however it is scaled, so the return is gated off
+// the board outright on the other boards, by the board's own seed. A board
+// with few cities to choose from keeps it, so a town with one or two
+// neighbours keeps its loads.
+pub const RETURN_LANE_SHARE: f64 = 0.35;
+/// Fewer cities in reach than this, and the straight return stays on.
+pub const RETURN_LANE_MIN_POOL: usize = 4;
+// Cities behind the truck (more than a right-angle turn back from the way it
+// arrived) draw down to this much less than cities ahead or across, so a
+// career's loads trace loops across the map instead of out-and-backs.
+pub const BEHIND_HEADING_PENALTY: f64 = 0.5;
 
 /// How many offers the dispatch board shows at this career level.
 pub fn board_offer_count(level: i64) -> usize {

@@ -2,11 +2,12 @@
 //! `SettingsCategoryState` in `main_menu.py`, plus the spoken value labels
 //! the rows read.
 
+use ff_core::l10n;
 use ff_core::pyfmt::{py_str_float, round_py_n};
 use ff_core::settings::{
-    acc_gap_seconds, Settings, ACC_GAP_CHOICES, ACC_GAP_DEFAULT, BACKUP_ANNOUNCEMENT_MODES,
-    DRIVING_ASSIST_FIELDS, DRIVING_ASSIST_PRESETS, LANE_KEEPING_MODES, PLACE_CALLOUT_MODES,
-    TIME_SCALES,
+    acc_gap_seconds, ScoreDisplay, Settings, ACC_GAP_CHOICES, ACC_GAP_DEFAULT,
+    BACKUP_ANNOUNCEMENT_MODES, DRIVING_ASSIST_FIELDS, DRIVING_ASSIST_PRESETS, LANE_KEEPING_MODES,
+    PLACE_CALLOUT_MODES, TIME_SCALES,
 };
 use ff_core::sim::hos::clock_text;
 use ff_core::sim::season::{date_text, real_clock_game_hours};
@@ -14,7 +15,7 @@ use ff_core::speech_pacing::DRIVING_SPEECH_MODES;
 
 use super::settings::{save_settings, SettingsCategoryState};
 use super::settings_items::assist_flag;
-use crate::app::{version, GameContext, Say};
+use crate::app::{language, version, GameContext, Say};
 use crate::audio::VolumeUpdate;
 use crate::bindings::Action;
 use crate::states::text_entry::TextEntryState;
@@ -49,6 +50,18 @@ fn cycle_index(options: &[&str], current: &str, d: i64, fallback_index: usize) -
     (i + d).rem_euclid(options.len() as i64) as usize
 }
 
+/// The Language row's value: the language's English name with its own
+/// name after it, after "automatic" when the row follows the system.
+pub(super) fn language_label(s: &Settings) -> String {
+    let resolved = l10n::resolve(&s.language, language::system_locale().as_deref());
+    let name = l10n::language(resolved).map_or_else(|| "English".to_string(), |lang| lang.label());
+    if s.language == l10n::AUTO || s.language.is_empty() {
+        format!("automatic, {name}")
+    } else {
+        name
+    }
+}
+
 pub(super) fn assist_preset_label(s: &Settings) -> &'static str {
     match s.driving_assistance_preset.as_str() {
         "realistic" => "Realistic",
@@ -80,6 +93,14 @@ pub(super) fn hos_label(s: &Settings) -> &'static str {
         "relaxed" => "relaxed",
         "debug_off" => "off (developer)",
         _ => "realistic",
+    }
+}
+
+pub(super) fn score_display_label(s: &Settings) -> &'static str {
+    match s.score_display {
+        ScoreDisplay::Both => "both",
+        ScoreDisplay::Percent => "percentage only",
+        ScoreDisplay::Description => "description only",
     }
 }
 
@@ -355,8 +376,27 @@ impl SettingsCategoryState {
         self.announce(ctx);
     }
 
+    pub(super) fn cycle_score_display(&mut self, ctx: &mut GameContext, d: i64) {
+        let modes = [
+            ScoreDisplay::Both,
+            ScoreDisplay::Percent,
+            ScoreDisplay::Description,
+        ];
+        let current = modes
+            .iter()
+            .position(|mode| *mode == ctx.settings.score_display)
+            .unwrap_or(0) as i64;
+        ctx.settings.score_display = modes[(current + d).rem_euclid(modes.len() as i64) as usize];
+        self.announce(ctx);
+    }
+
     pub(super) fn toggle_hos_planning_hints(&mut self, ctx: &mut GameContext, _d: i64) {
         ctx.settings.hos_planning_hints = !ctx.settings.hos_planning_hints;
+        self.announce(ctx);
+    }
+
+    pub(super) fn toggle_facility_streets(&mut self, ctx: &mut GameContext, _d: i64) {
+        ctx.settings.facility_streets = !ctx.settings.facility_streets;
         self.announce(ctx);
     }
 
@@ -478,6 +518,12 @@ impl SettingsCategoryState {
         self.announce(ctx);
     }
 
+    pub(super) fn toggle_radio_cab_speakers(&mut self, ctx: &mut GameContext, _d: i64) {
+        ctx.settings.radio_cab_speakers = !ctx.settings.radio_cab_speakers;
+        save_settings(&ctx.settings);
+        self.announce(ctx);
+    }
+
     pub(super) fn toggle_duck_for_speech(&mut self, ctx: &mut GameContext, _d: i64) {
         ctx.settings.duck_audio_for_speech = !ctx.settings.duck_audio_for_speech;
         save_settings(&ctx.settings);
@@ -485,6 +531,11 @@ impl SettingsCategoryState {
             // A duck held at the moment of the flip must not stick.
             ctx.audio.set_speech_duck(1.0);
         }
+        self.announce(ctx);
+    }
+
+    pub(super) fn toggle_menu_accelerator_keys(&mut self, ctx: &mut GameContext, _d: i64) {
+        ctx.settings.menu_accelerator_keys = !ctx.settings.menu_accelerator_keys;
         self.announce(ctx);
     }
 
@@ -497,6 +548,13 @@ impl SettingsCategoryState {
     pub(super) fn toggle_haptics(&mut self, ctx: &mut GameContext, _d: i64) {
         ctx.settings.haptics_enabled = !ctx.settings.haptics_enabled;
         ctx.apply_haptics();
+        self.announce(ctx);
+    }
+
+    /// The window picks the change up on its next frame.
+    #[cfg(feature = "visuals")]
+    pub(super) fn toggle_visual_display(&mut self, ctx: &mut GameContext, _d: i64) {
+        ctx.settings.visual_display = !ctx.settings.visual_display;
         self.announce(ctx);
     }
 
@@ -598,6 +656,17 @@ impl SettingsCategoryState {
         self.announce_speech_preview(ctx, attr);
     }
 
+    pub(super) fn cycle_language(&mut self, ctx: &mut GameContext, d: i64) {
+        let mut options = vec![l10n::AUTO];
+        options.extend(language::offered_languages().iter().map(|lang| lang.code));
+        let i = cycle_index(&options, &ctx.settings.language, d, 0);
+        ctx.settings.language = options[i].to_string();
+        save_settings(&ctx.settings);
+        let setting = ctx.settings.language.clone();
+        ctx.set_language(&setting);
+        self.announce(ctx);
+    }
+
     pub(super) fn cycle_voice(&mut self, ctx: &mut GameContext, d: i64) {
         let voices = ctx.speech.voice_names();
         if voices.is_empty() {
@@ -665,5 +734,31 @@ impl SettingsCategoryState {
             "dev".to_string()
         };
         self.announce(ctx);
+    }
+
+    pub(super) fn toggle_update_mirror(&mut self, ctx: &mut GameContext, _d: i64) {
+        ctx.settings.update_mirror_enabled = !ctx.settings.update_mirror_enabled;
+        self.announce(ctx);
+    }
+
+    pub(super) fn update_mirror_entry(current: &str) -> TextEntryState {
+        let mut entry = TextEntryState::new(
+            "GitHub mirror prefix",
+            "GitHub mirror prefix",
+            |ctx, text| match updater::normalize_mirror_prefix(text) {
+                Ok(prefix) => {
+                    ctx.settings.update_mirror_prefix = prefix;
+                    save_settings(&ctx.settings);
+                    ctx.pop_state();
+                }
+                Err(message) => {
+                    ctx.audio.play("ui/error");
+                    ctx.say_with(message, Say::new().review(false));
+                }
+            },
+        );
+        entry.entry.max_len = 500;
+        entry.entry.set_text(current);
+        entry
     }
 }

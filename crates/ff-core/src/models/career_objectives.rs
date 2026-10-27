@@ -21,7 +21,6 @@ pub use crate::models::business::{
 pub struct CareerObjective {
     pub title: String,
     pub terminal_text: String,
-    pub dispatch_text: String,
     pub recommendation: String,
     pub milestone_text: String,
 }
@@ -30,13 +29,11 @@ impl CareerObjective {
     fn new(
         title: impl Into<String>,
         terminal_text: impl Into<String>,
-        dispatch_text: impl Into<String>,
         recommendation: impl Into<String>,
     ) -> Self {
         CareerObjective {
             title: title.into(),
             terminal_text: terminal_text.into(),
-            dispatch_text: dispatch_text.into(),
             recommendation: recommendation.into(),
             milestone_text: String::new(),
         }
@@ -48,21 +45,14 @@ impl CareerObjective {
         } else {
             format!(" {}", self.milestone_text)
         };
-        format!(
-            "{}. {} {}{milestone}",
-            self.title, self.terminal_text, self.dispatch_text
-        )
+        format!("{}. {}{milestone}", self.title, self.terminal_text)
     }
 
-    /// The same plan one part per line: the step, what the terminal says
-    /// about it, what dispatch says, and the milestone when there is one.
+    /// The same plan one part per line: the step, what it takes, and the
+    /// milestone when there is one.
     pub fn spoken_lines(&self) -> Vec<String> {
         let mut lines = vec![format!("{}.", self.title)];
-        for part in [
-            &self.terminal_text,
-            &self.dispatch_text,
-            &self.milestone_text,
-        ] {
+        for part in [&self.terminal_text, &self.milestone_text] {
             if !part.trim().is_empty() {
                 lines.push(part.clone());
             }
@@ -78,13 +68,31 @@ pub const NO_CARRIER_OBJECTIVE: &str = "Apply to a carrier to get back on freigh
 /// Return the current practical career objective without changing saves.
 pub fn career_objective<P: CareerProfile + ?Sized>(profile: &P) -> CareerObjective {
     if crate::models::business::has_no_carrier(profile) {
-        return CareerObjective::new(
-            "Get back on freight",
-            NO_CARRIER_OBJECTIVE,
-            "There is no dispatch board until a carrier takes you on.",
-            "carrier seat",
-        );
+        return CareerObjective::new("Get back on freight", NO_CARRIER_OBJECTIVE, "carrier seat");
     }
+    // A pulled CDL decides the plan: no load can be taken until it clears,
+    // so the objective is to wait it out, with the time left and the row
+    // that skips ahead. A lifetime disqualification has nothing to wait for
+    // and keeps the plan the career had.
+    if let Some(text) = crate::models::enforcement::suspended_objective_text(profile) {
+        if !text.is_empty() {
+            let mut objective = business_objective(profile);
+            let mut chars = text.chars();
+            objective.terminal_text = match chars.next() {
+                Some(first) => first.to_uppercase().collect::<String>() + chars.as_str(),
+                None => text,
+            };
+            if let Some(record) = profile.driving_record() {
+                objective.title = crate::models::enforcement::wait_out_label(record);
+            }
+            return objective;
+        }
+    }
+    business_objective(profile)
+}
+
+/// The plan the career's business path sets, with no CDL hold in the way.
+fn business_objective<P: CareerProfile + ?Sized>(profile: &P) -> CareerObjective {
     let status = profile.business_status();
     if status == INDEPENDENT_AUTHORITY {
         return independent_authority_objective(profile);
@@ -98,12 +106,12 @@ pub fn career_objective<P: CareerProfile + ?Sized>(profile: &P) -> CareerObjecti
 fn company_driver_objective<P: CareerProfile + ?Sized>(profile: &P) -> CareerObjective {
     let guidance = training_guidance(profile);
     if guidance.stage != TrainingStage::NormalGuidance {
-        return CareerObjective::new(
-            guidance.title,
-            guidance.terminal_text,
-            guidance.dispatch_text,
-            guidance.recommendation_label,
-        );
+        let terminal_text = if guidance.dispatch_text.is_empty() {
+            guidance.terminal_text
+        } else {
+            format!("{} {}", guidance.terminal_text, guidance.dispatch_text)
+        };
+        return CareerObjective::new(guidance.title, terminal_text, guidance.recommendation_label);
     }
     if profile.career_reputation() < 70.0 {
         return CareerObjective::new(
@@ -112,7 +120,6 @@ fn company_driver_objective<P: CareerProfile + ?Sized>(profile: &P) -> CareerObj
                 "{} is watching on-time service, damage, and steady miles.",
                 carrier_name_of(profile)
             ),
-            "Run reliable lanes before chasing specialty freight.",
             "reliable unlocked lane",
         );
     }
@@ -124,8 +131,7 @@ fn company_driver_objective<P: CareerProfile + ?Sized>(profile: &P) -> CareerObj
     if profile.owner_operator_eligible() {
         return CareerObjective::new(
             "Owner-operator buy-in ready",
-            "Business status has the truck buy-in available if you want more responsibility.",
-            "Company loads still pay safely while you decide whether to buy in.",
+            "The truck buy-in is open under Business status.",
             "clean company load",
         );
     }
@@ -138,7 +144,6 @@ fn company_driver_objective<P: CareerProfile + ?Sized>(profile: &P) -> CareerObj
                  {} reputation, and a cash cushion.",
                 fmt_f(OWNER_OPERATOR_REPUTATION, 0)
             ),
-            "Choose freight that protects reputation and builds savings.",
             "steady earning lane",
         );
     }
@@ -150,7 +155,6 @@ fn owner_operator_objective<P: CareerProfile + ?Sized>(profile: &P) -> CareerObj
         return CareerObjective::new(
             "Protect working capital",
             "Fuel, maintenance, insurance, trailer programs, and truck wear come out of your cash.",
-            "Favor unlocked loads with clear take-home and avoid stretching the reserve.",
             "cash-positive load",
         );
     }
@@ -158,7 +162,6 @@ fn owner_operator_objective<P: CareerProfile + ?Sized>(profile: &P) -> CareerObj
         return CareerObjective::new(
             "Authority prep ready",
             "Business status can set aside the reserve for your own-authority plan.",
-            "Keep taking freight that protects the reserve until you make that move.",
             "reserve-safe load",
         );
     }
@@ -170,7 +173,6 @@ fn owner_operator_objective<P: CareerProfile + ?Sized>(profile: &P) -> CareerObj
                  {} dollars in working capital.",
                 fmt_grouped(AUTHORITY_READY_WORKING_CAPITAL, 0)
             ),
-            "The strongest loads are the ones that leave room for fuel, repairs, and trailer costs.",
             "owner-operator margin load",
         );
     }
@@ -181,16 +183,14 @@ fn independent_authority_objective<P: CareerProfile + ?Sized>(profile: &P) -> Ca
     if profile.authority_activation_eligible() {
         return CareerObjective::new(
             "Authority activation ready",
-            "Business status can activate your own authority when you are ready.",
-            "Direct freight is available, but keep enough cash for compliance and trailer costs.",
+            "Business status can activate your own authority.",
             "direct freight with margin",
         );
     }
     if profile.career().level() < AUTHORITY_ACTIVATION_LEVEL {
         return CareerObjective::new(
             "Grow direct freight reputation",
-            "Protect service quality while you build toward stronger direct contracts.",
-            "Compare gross pay against authority costs before taking a lane.",
+            format!("Activating your own authority needs level {AUTHORITY_ACTIVATION_LEVEL}."),
             "direct freight with margin",
         );
     }
@@ -202,7 +202,6 @@ fn level_guidance_objective<P: CareerProfile + ?Sized>(profile: &P) -> CareerObj
     CareerObjective {
         title: guidance.title,
         terminal_text: guidance.terminal_text,
-        dispatch_text: guidance.dispatch_text,
         recommendation: guidance.recommendation,
         milestone_text: guidance.milestone_text,
     }

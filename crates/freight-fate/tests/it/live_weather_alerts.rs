@@ -15,9 +15,10 @@ use ff_core::models::jobs::{cargo_type, Job};
 use ff_core::sim::real_weather_alerts::{WeatherAlert, WeatherAlertsProvider};
 
 use freight_fate::app::testing::TestApp;
-use freight_fate::states::base::Key;
+use freight_fate::states::base::{Key, Menu};
 use freight_fate::states::city_pickup::{PickupFacilityState, PickupOptions};
 use freight_fate::states::driving::DrivingState;
+use freight_fate::states::driving_menu_states::{DriveRef, DriverAppScreenState};
 
 use crate::states_city_support::*;
 use crate::transcript_cruise_support::{bench_drive, frame, frames, said_any};
@@ -162,6 +163,20 @@ fn test_the_cab_reads_a_warning_once_as_the_truck_drives_into_it() {
     // snow is on the road under the wheels.
     assert_eq!(harness.read_drive(|d| d.trip.live_alerts.len()), 2);
     assert_eq!(harness.read_drive(|d| d.trip.chain_law_level()), 1);
+
+    // And the Weather app keeps them askable after the one spoken line.
+    let handle = DriveRef::of(&harness.shared_driving().expect("a drive on the stack"));
+    let mut app_screen = DriverAppScreenState::new(&mut harness.app.ctx, handle, "weather");
+    let weather_lines: Vec<String> = app_screen
+        .build_items(&mut harness.app.ctx)
+        .iter()
+        .map(|item| item.text(&app_screen, &harness.app.ctx))
+        .collect();
+    assert!(
+        weather_lines.iter().any(|l| l
+            == "Weather alerts: High Wind Warning, gusts to 60 miles per hour; Winter Storm Warning."),
+        "{weather_lines:#?}"
+    );
 
     // Said once: the same warnings, many frames on, are not repeated.
     frames(&mut harness, 40, 0.1);

@@ -3,7 +3,6 @@
 
 use crate::models::business_constants::COMPANY_DRIVER;
 use crate::models::career::{carrier_name_of, CareerProfile, JobView};
-use crate::models::start_options::start_option;
 
 #[cfg(test)]
 mod tests;
@@ -57,6 +56,9 @@ impl TrainingGuidance {
     }
 
     pub fn spoken_summary(&self) -> String {
+        if self.dispatch_text.is_empty() {
+            return format!("{}. {}", self.title, self.terminal_text);
+        }
         format!(
             "{}. {} {}",
             self.title, self.terminal_text, self.dispatch_text
@@ -98,16 +100,12 @@ pub fn training_guidance<P: CareerProfile + ?Sized>(profile: &P) -> TrainingGuid
             "carrier seat",
         );
     }
-    let option = start_option(Some(profile.carrier_key()));
-    let flavor = carrier_flavor(option.key, &carrier);
     match stage {
         TrainingStage::FirstDispatch => TrainingGuidance::new(
             stage,
             "First dispatch",
             format!("{carrier} has you on real freight with trainer support close by."),
-            format!(
-                "{flavor} Dispatch starts you on a short standard load with room on the appointment."
-            ),
+            "Dispatch starts you on a short standard load with room on the appointment.",
             "trainer-recommended",
         ),
         TrainingStage::TrainerReminders => TrainingGuidance::new(
@@ -116,28 +114,28 @@ pub fn training_guidance<P: CareerProfile + ?Sized>(profile: &P) -> TrainingGuid
             format!(
                 "{carrier} is looking for steady service, not perfection, with trainer notes still close by."
             ),
-            format!("{flavor} Expect short regional freight, and deliver it with clean timing."),
+            "Expect short regional freight.",
             "good first-week run",
         ),
         TrainingStage::TrustOpening => TrainingGuidance::new(
             stage,
             "Dispatch trust opening",
             format!("{carrier} has enough first-week history to widen the board."),
-            "A reliable lane still helps your record more than chasing a difficult load.",
+            "",
             "good lane to build your record",
         ),
         TrainingStage::TrustBuilding => TrainingGuidance::new(
             stage,
             "Build dispatcher trust",
             format!("{carrier} is watching on-time service, damage, and steady miles."),
-            "Run reliable lanes before chasing specialty freight.",
+            "",
             "good service-record load",
         ),
         TrainingStage::NormalGuidance => TrainingGuidance::new(
             stage,
             "Trusted company guidance",
             "Keep building seniority, clean service, endorsements, and better carrier lanes.",
-            "Unlocked freight with good time margins is the strongest career move.",
+            "",
             "trusted carrier lane",
         ),
     }
@@ -167,17 +165,4 @@ where
         }
         TrainingStage::NormalGuidance => miles,
     }
-}
-
-fn carrier_flavor(key: &str, carrier: &str) -> String {
-    if key == "great_lakes_training" {
-        return format!("{carrier} usually gives new hires extra appointment room.");
-    }
-    if key == "prairie_link" {
-        return format!("{carrier} likes practical regional mileage.");
-    }
-    if key == "summit_value" {
-        return format!("{carrier} rewards appointment discipline.");
-    }
-    format!("{carrier} keeps the first week balanced.")
 }

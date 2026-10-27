@@ -29,7 +29,12 @@ use crate::states::base::State;
 /// screen is not a menu (the driving state's status readout, a timed
 /// message).
 pub fn menu_rows(state: &dyn State, ctx: &GameContext) -> Option<(Vec<String>, usize)> {
-    let lines = state.lines(ctx);
+    parse_rows(&state.lines(ctx))
+}
+
+/// [`menu_rows`] on lines already rendered; the visual display reads every
+/// screen's menu this way too.
+pub fn parse_rows(lines: &[String]) -> Option<(Vec<String>, usize)> {
     // The rows are everything after the last blank separator.
     let start = lines.iter().rposition(|line| line.is_empty())? + 1;
     let rows = &lines[start..];

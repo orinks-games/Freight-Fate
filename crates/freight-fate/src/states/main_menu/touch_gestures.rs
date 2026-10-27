@@ -12,9 +12,10 @@ use crate::states::base::{Label, Menu, MenuCore, MenuItem};
 use crate::touch::Gesture;
 
 use super::settings::save_settings;
+use super::TouchPracticeState;
 
-const GESTURES_HELP: &str = "Up and down pick a gesture, Enter chooses the command it runs \
-                             while driving, Escape goes back.";
+const GESTURES_HELP: &str = "Move up and down to pick a gesture, then confirm it to choose the \
+                             command it runs while driving. Go back to leave.";
 
 fn command_name(ctx: &GameContext, gesture: Gesture) -> &'static str {
     ctx.bindings
@@ -43,6 +44,17 @@ impl TouchGesturesState {
         ctx.bindings.store(&mut ctx.settings);
         save_settings(&ctx.settings);
         ctx.say("Every touch gesture is back to its default.");
+    }
+
+    fn toggle_haptics(&mut self, ctx: &mut GameContext) {
+        ctx.settings.touch_haptics = !ctx.settings.touch_haptics;
+        crate::app::sdl_shell::set_touch_haptics(ctx.settings.touch_haptics);
+        save_settings(&ctx.settings);
+        ctx.say(if ctx.settings.touch_haptics {
+            "Touch haptics enabled."
+        } else {
+            "Touch haptics disabled."
+        });
     }
 }
 
@@ -73,9 +85,31 @@ impl Menu for TouchGesturesState {
                         ctx.push_state(picker);
                     },
                 )
-                .help("Enter, then choose the command this gesture runs while driving.")
+                .help("Confirm, then choose the command this gesture runs while driving.")
             })
             .collect();
+        items.push(
+            MenuItem::new("Practice gestures", |_s: &mut Self, ctx| {
+                ctx.push_state(TouchPracticeState::new());
+            })
+            .help("Names each gesture and its current command without controlling the truck."),
+        );
+        items.push(
+            MenuItem::new(
+                Label::dynamic(|_s: &Self, ctx| {
+                    format!(
+                        "Touch haptics: {}",
+                        if ctx.settings.touch_haptics {
+                            "enabled"
+                        } else {
+                            "disabled"
+                        }
+                    )
+                }),
+                |s: &mut Self, ctx| s.toggle_haptics(ctx),
+            )
+            .help("Light feedback confirms pedals and commands. Emergency braking warns."),
+        );
         items.push(
             MenuItem::new(
                 "Reset every touch gesture to its default",
@@ -105,7 +139,7 @@ pub struct TouchCommandPickerState {
 impl TouchCommandPickerState {
     pub fn new(ctx: &GameContext, gesture: Gesture) -> Self {
         let mut menu = MenuCore::new(gesture_name(gesture)).with_intro_help(
-            "Up and down pick a command, Enter puts it on the gesture, Escape keeps the one it has.",
+            "Move up and down to pick a command and confirm to put it on the gesture. Going back keeps the one it has.",
         );
         let current = ctx.bindings.touch_command(gesture);
         menu.index = TouchCommand::all()

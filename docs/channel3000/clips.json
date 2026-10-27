@@ -1,0 +1,1554 @@
+{
+  "schema": 1,
+  "notes": "Channel 3000's clips for channel3000.pak: Ogg Opus, 48 kbps stereo, 48 kHz, one static gain each to -18 LUFS with a -1 dBTP ceiling. Made by stage_clips.py from the Dark Nursery Rhymes masters. Dayparts by the truck's local hour: day 5-19, prime 19-22, late 22-2, overnight 2-5.",
+  "frequency_mhz": 87.7,
+  "dayparts": {
+    "day": [
+      5,
+      19
+    ],
+    "prime": [
+      19,
+      22
+    ],
+    "late": [
+      22,
+      2
+    ],
+    "overnight": [
+      2,
+      5
+    ]
+  },
+  "clips": [
+    {
+      "key": "ad_c3k_bystander_care",
+      "kind": "ad",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "a commercial break",
+      "duration_s": 37.919,
+      "source_lufs": -19.68,
+      "gain_db": 1.68,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -3.41
+    },
+    {
+      "key": "ad_c3k_grounds_for_appeal",
+      "kind": "ad",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "a commercial break",
+      "duration_s": 33.214,
+      "source_lufs": -20.41,
+      "gain_db": 2.41,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -3.21
+    },
+    {
+      "key": "ad_c3k_listen_too",
+      "kind": "ad",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "a commercial break",
+      "duration_s": 43.057,
+      "source_lufs": -21.11,
+      "gain_db": 3.11,
+      "peak_limited": false,
+      "lufs": -17.96,
+      "true_peak": -4.63
+    },
+    {
+      "key": "ad_c3k_minty_pillow",
+      "kind": "ad",
+      "dayparts": [
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "a commercial break",
+      "duration_s": 42.114,
+      "source_lufs": -16.08,
+      "gain_db": -1.92,
+      "peak_limited": false,
+      "lufs": -18.02,
+      "true_peak": -5.53
+    },
+    {
+      "key": "ad_c3k_overpass_pals",
+      "kind": "ad",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "a commercial break",
+      "duration_s": 43.396,
+      "source_lufs": -19.45,
+      "gain_db": 1.45,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -3.27
+    },
+    {
+      "key": "ad_c3k_passenger_pete",
+      "kind": "ad",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "a commercial break",
+      "duration_s": 39.13,
+      "source_lufs": -19.54,
+      "gain_db": 1.54,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -3.5
+    },
+    {
+      "key": "ad_c3k_seat_sergeant",
+      "kind": "ad",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "a commercial break",
+      "duration_s": 36.303,
+      "source_lufs": -19.81,
+      "gain_db": 1.81,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -3.08
+    },
+    {
+      "key": "ad_c3k_shower_line",
+      "kind": "ad",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "a commercial break",
+      "duration_s": 42.109,
+      "source_lufs": -18.67,
+      "gain_db": 0.67,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -4.7
+    },
+    {
+      "key": "afterhours_00_sign_on",
+      "kind": "programme",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": false,
+      "title": "Sign-on",
+      "duration_s": 128.897,
+      "source_lufs": -18.85,
+      "gain_db": 0.15,
+      "peak_limited": true,
+      "lufs": -18.69,
+      "true_peak": -0.98
+    },
+    {
+      "key": "afterhours_01_gig_street",
+      "kind": "programme",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": false,
+      "title": "Gig Street",
+      "duration_s": 203.398,
+      "source_lufs": -19.31,
+      "gain_db": -0.74,
+      "peak_limited": true,
+      "lufs": -20.05,
+      "true_peak": -1.16
+    },
+    {
+      "key": "afterhours_02_puttin_on_the_filters",
+      "kind": "programme",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": false,
+      "title": "Puttin' on the Filters",
+      "duration_s": 327.645,
+      "source_lufs": -18.6,
+      "gain_db": 0.34,
+      "peak_limited": true,
+      "lufs": -18.25,
+      "true_peak": -1.12
+    },
+    {
+      "key": "afterhours_04_splat_patrol",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Splat Patrol!",
+      "duration_s": 284.126,
+      "source_lufs": -18.2,
+      "gain_db": 0.2,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -0.92
+    },
+    {
+      "key": "afterhours_05_defenders_of_the_cloud",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Defenders of the Cloud",
+      "duration_s": 289.397,
+      "source_lufs": -20.65,
+      "gain_db": 1.28,
+      "peak_limited": true,
+      "lufs": -19.36,
+      "true_peak": -0.91
+    },
+    {
+      "key": "afterhours_06_mister_sams_corner",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Mister Sam's Corner",
+      "duration_s": 301.4,
+      "source_lufs": -16.71,
+      "gain_db": -1.29,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -2.93
+    },
+    {
+      "key": "afterhours_07_the_last_payphone",
+      "kind": "programme",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "The Last Payphone",
+      "duration_s": 325.217,
+      "source_lufs": -20.06,
+      "gain_db": 2.06,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -2.62
+    },
+    {
+      "key": "afterhours_08_incompatible",
+      "kind": "programme",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": false,
+      "title": "Incompatible",
+      "duration_s": 278.148,
+      "source_lufs": -18.78,
+      "gain_db": 0.78,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -2.0
+    },
+    {
+      "key": "afterhours_09_news_at_ten",
+      "kind": "programme",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": false,
+      "title": "Channel 3000 News at Ten",
+      "duration_s": 433.899,
+      "source_lufs": -19.29,
+      "gain_db": -0.05,
+      "peak_limited": true,
+      "lufs": -19.33,
+      "true_peak": -1.34
+    },
+    {
+      "key": "afterhours_10_are_you_afraid_of_the_data",
+      "kind": "programme",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Are You Afraid of the Data?",
+      "duration_s": 404.067,
+      "source_lufs": -21.05,
+      "gain_db": 0.25,
+      "peak_limited": true,
+      "lufs": -20.81,
+      "true_peak": -0.21
+    },
+    {
+      "key": "afterhours_11_infomercial",
+      "kind": "programme",
+      "dayparts": [
+        "overnight"
+      ],
+      "opener": false,
+      "title": "The Forever Plan",
+      "duration_s": 162.643,
+      "source_lufs": -17.06,
+      "gain_db": -0.94,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -2.05
+    },
+    {
+      "key": "afterhours_12_starship_obsolete",
+      "kind": "programme",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Starship Obsolete",
+      "duration_s": 377.995,
+      "source_lufs": -17.76,
+      "gain_db": -0.24,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -1.17
+    },
+    {
+      "key": "afterhours_13_insomnia_and_sign_off",
+      "kind": "programme",
+      "dayparts": [
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Insomnia / Sign-off",
+      "duration_s": 256.488,
+      "source_lufs": -15.99,
+      "gain_db": -2.01,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -2.51
+    },
+    {
+      "key": "day_as_the_wheels_turn_01",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "As the Wheels Turn",
+      "duration_s": 395.686,
+      "source_lufs": -21.06,
+      "gain_db": 3.06,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -0.44
+    },
+    {
+      "key": "day_as_the_wheels_turn_02",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "As the Wheels Turn",
+      "duration_s": 399.971,
+      "source_lufs": -21.58,
+      "gain_db": 3.58,
+      "peak_limited": false,
+      "lufs": -18.01,
+      "true_peak": -1.0
+    },
+    {
+      "key": "day_as_the_wheels_turn_03",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "As the Wheels Turn",
+      "duration_s": 369.969,
+      "source_lufs": -21.17,
+      "gain_db": 3.17,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -1.75
+    },
+    {
+      "key": "day_highway_helpline_01",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Highway Helpline",
+      "duration_s": 387.484,
+      "source_lufs": -20.83,
+      "gain_db": 2.01,
+      "peak_limited": true,
+      "lufs": -18.81,
+      "true_peak": -1.03
+    },
+    {
+      "key": "day_highway_helpline_02",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Highway Helpline",
+      "duration_s": 416.179,
+      "source_lufs": -20.5,
+      "gain_db": 2.01,
+      "peak_limited": true,
+      "lufs": -18.48,
+      "true_peak": -0.89
+    },
+    {
+      "key": "day_highway_helpline_03",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Highway Helpline",
+      "duration_s": 405.748,
+      "source_lufs": -20.35,
+      "gain_db": 2.01,
+      "peak_limited": true,
+      "lufs": -18.34,
+      "true_peak": -1.13
+    },
+    {
+      "key": "day_rise_and_grind_01",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Rise and Grind",
+      "duration_s": 370.299,
+      "source_lufs": -20.72,
+      "gain_db": 1.36,
+      "peak_limited": true,
+      "lufs": -19.35,
+      "true_peak": -1.06
+    },
+    {
+      "key": "day_rise_and_grind_02",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Rise and Grind",
+      "duration_s": 412.204,
+      "source_lufs": -21.24,
+      "gain_db": 1.36,
+      "peak_limited": true,
+      "lufs": -19.88,
+      "true_peak": -1.06
+    },
+    {
+      "key": "day_rise_and_grind_03",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Rise and Grind",
+      "duration_s": 408.394,
+      "source_lufs": -20.61,
+      "gain_db": 1.36,
+      "peak_limited": true,
+      "lufs": -19.24,
+      "true_peak": -0.57
+    },
+    {
+      "key": "day_this_old_truck_01",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "This Old Truck",
+      "duration_s": 283.848,
+      "source_lufs": -20.62,
+      "gain_db": 2.62,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -2.23
+    },
+    {
+      "key": "day_this_old_truck_02",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "This Old Truck",
+      "duration_s": 295.386,
+      "source_lufs": -20.7,
+      "gain_db": 2.7,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -2.21
+    },
+    {
+      "key": "day_this_old_truck_03",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "This Old Truck",
+      "duration_s": 264.232,
+      "source_lufs": -20.67,
+      "gain_db": 2.67,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -2.21
+    },
+    {
+      "key": "day_traffic_court_01",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Traffic Court",
+      "duration_s": 387.509,
+      "source_lufs": -20.28,
+      "gain_db": 2.28,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -1.6
+    },
+    {
+      "key": "day_traffic_court_02",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Traffic Court",
+      "duration_s": 410.841,
+      "source_lufs": -20.23,
+      "gain_db": 1.99,
+      "peak_limited": true,
+      "lufs": -18.22,
+      "true_peak": -1.26
+    },
+    {
+      "key": "day_traffic_court_03",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Traffic Court",
+      "duration_s": 372.508,
+      "source_lufs": -20.38,
+      "gain_db": 2.38,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -1.64
+    },
+    {
+      "key": "day_weigh_in_01",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Weigh In!",
+      "duration_s": 393.541,
+      "source_lufs": -19.99,
+      "gain_db": -0.18,
+      "peak_limited": true,
+      "lufs": -20.17,
+      "true_peak": -1.22
+    },
+    {
+      "key": "day_weigh_in_02",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Weigh In!",
+      "duration_s": 397.826,
+      "source_lufs": -19.64,
+      "gain_db": -0.31,
+      "peak_limited": true,
+      "lufs": -19.95,
+      "true_peak": -0.88
+    },
+    {
+      "key": "day_weigh_in_03",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Weigh In!",
+      "duration_s": 398.898,
+      "source_lufs": -20.13,
+      "gain_db": -0.31,
+      "peak_limited": true,
+      "lufs": -20.43,
+      "true_peak": -0.56
+    },
+    {
+      "key": "day_wild_highways_01",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Wild Highways",
+      "duration_s": 346.657,
+      "source_lufs": -19.82,
+      "gain_db": 1.82,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -1.41
+    },
+    {
+      "key": "day_wild_highways_02",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Wild Highways",
+      "duration_s": 375.955,
+      "source_lufs": -19.29,
+      "gain_db": 1.29,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -2.42
+    },
+    {
+      "key": "day_wild_highways_03",
+      "kind": "programme",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Wild Highways",
+      "duration_s": 353.99,
+      "source_lufs": -19.7,
+      "gain_db": 1.7,
+      "peak_limited": false,
+      "lufs": -18.01,
+      "true_peak": -1.4
+    },
+    {
+      "key": "flying_circus_04_the_lone_courier",
+      "kind": "short",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "The Lone Courier",
+      "duration_s": 79.225,
+      "source_lufs": -17.8,
+      "gain_db": -0.2,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -1.53
+    },
+    {
+      "key": "flying_circus_06_planet_office",
+      "kind": "short",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Planet Office",
+      "duration_s": 93.667,
+      "source_lufs": -20.14,
+      "gain_db": 0.24,
+      "peak_limited": true,
+      "lufs": -19.91,
+      "true_peak": -0.09
+    },
+    {
+      "key": "flying_circus_07_the_bold_and_the_rebooted",
+      "kind": "short",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "The Bold and the Rebooted",
+      "duration_s": 127.011,
+      "source_lufs": -17.41,
+      "gain_db": -0.59,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -3.9
+    },
+    {
+      "key": "flying_circus_full_show",
+      "kind": "programme",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": false,
+      "title": "Phoneme's Flying Circus",
+      "duration_s": 875.246,
+      "source_lufs": -17.36,
+      "gain_db": -0.64,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -1.56
+    },
+    {
+      "key": "grimatonics_baa_baa_black_sheep",
+      "kind": "programme",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Baa Baa Black Sheep (Five Stars)",
+      "duration_s": 174.199,
+      "source_lufs": -17.84,
+      "gain_db": -0.16,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -1.41
+    },
+    {
+      "key": "grimatonics_brahms_lullaby",
+      "kind": "programme",
+      "dayparts": [
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Brahms' Lullaby (Shelter)",
+      "duration_s": 169.659,
+      "source_lufs": -14.23,
+      "gain_db": -3.77,
+      "peak_limited": false,
+      "lufs": -18.02,
+      "true_peak": -3.91
+    },
+    {
+      "key": "grimatonics_ladybird_ladybird",
+      "kind": "programme",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Ladybird, Ladybird (Fire Season)",
+      "duration_s": 108.399,
+      "source_lufs": -14.17,
+      "gain_db": -3.83,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -4.7
+    },
+    {
+      "key": "grimatonics_london_bridge",
+      "kind": "programme",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "London Bridge (The Toll)",
+      "duration_s": 187.918,
+      "source_lufs": -17.69,
+      "gain_db": -0.31,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -1.22
+    },
+    {
+      "key": "grimatonics_malbrough",
+      "kind": "programme",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Malbrough (Next of Kin)",
+      "duration_s": 104.328,
+      "source_lufs": -16.19,
+      "gain_db": -1.81,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -3.62
+    },
+    {
+      "key": "grimatonics_oranges_and_lemons",
+      "kind": "programme",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Oranges and Lemons (Final Notice)",
+      "duration_s": 114.579,
+      "source_lufs": -15.34,
+      "gain_db": -2.66,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -3.16
+    },
+    {
+      "key": "grimatonics_pop_goes_the_weasel",
+      "kind": "programme",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Pop Goes the Weasel (Payday)",
+      "duration_s": 145.4,
+      "source_lufs": -16.83,
+      "gain_db": -1.17,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -2.09
+    },
+    {
+      "key": "grimatonics_ring_a_ring_o_roses",
+      "kind": "programme",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Ring a Ring o' Roses (Next Wave)",
+      "duration_s": 106.398,
+      "source_lufs": -14.93,
+      "gain_db": -3.07,
+      "peak_limited": false,
+      "lufs": -18.02,
+      "true_peak": -4.07
+    },
+    {
+      "key": "grimatonics_row_row_row_your_boat",
+      "kind": "programme",
+      "dayparts": [
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Row, Row, Row Your Boat (The Crossing)",
+      "duration_s": 118.8,
+      "source_lufs": -16.76,
+      "gain_db": -1.24,
+      "peak_limited": false,
+      "lufs": -18.02,
+      "true_peak": -3.91
+    },
+    {
+      "key": "grimatonics_sing_a_song_of_sixpence",
+      "kind": "programme",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Sing a Song of Sixpence (Cost of Doing Business)",
+      "duration_s": 132.938,
+      "source_lufs": -15.52,
+      "gain_db": -2.48,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -3.48
+    },
+    {
+      "key": "grimatonics_the_old_woman_who_lived_in_a_shoe",
+      "kind": "programme",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "The Old Woman Who Lived in a Shoe (Temporary)",
+      "duration_s": 137.188,
+      "source_lufs": -15.18,
+      "gain_db": -2.82,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -7.11
+    },
+    {
+      "key": "grimatonics_wee_willie_winkie",
+      "kind": "programme",
+      "dayparts": [
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Wee Willie Winkie (Night Vision)",
+      "duration_s": 146.796,
+      "source_lufs": -15.62,
+      "gain_db": -2.38,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -3.6
+    },
+    {
+      "key": "grimatonics_who_killed_cock_robin",
+      "kind": "programme",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Who Killed Cock Robin (Many Hands)",
+      "duration_s": 132.649,
+      "source_lufs": -17.5,
+      "gain_db": -0.5,
+      "peak_limited": false,
+      "lufs": -18.01,
+      "true_peak": -2.04
+    },
+    {
+      "key": "host_channel3000_01",
+      "kind": "continuity",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 13.125,
+      "source_lufs": -21.0,
+      "gain_db": 3.0,
+      "peak_limited": false,
+      "lufs": -18.35,
+      "true_peak": -4.55
+    },
+    {
+      "key": "host_channel3000_02",
+      "kind": "continuity",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 9.379,
+      "source_lufs": -21.01,
+      "gain_db": 3.01,
+      "peak_limited": false,
+      "lufs": -18.1,
+      "true_peak": -5.45
+    },
+    {
+      "key": "host_channel3000_03",
+      "kind": "continuity",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 13.829,
+      "source_lufs": -21.98,
+      "gain_db": 3.98,
+      "peak_limited": false,
+      "lufs": -17.97,
+      "true_peak": -2.49
+    },
+    {
+      "key": "host_channel3000_04",
+      "kind": "continuity",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 12.781,
+      "source_lufs": -22.09,
+      "gain_db": 4.09,
+      "peak_limited": false,
+      "lufs": -17.94,
+      "true_peak": -2.68
+    },
+    {
+      "key": "host_channel3000_05",
+      "kind": "continuity",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 11.703,
+      "source_lufs": -21.41,
+      "gain_db": 3.41,
+      "peak_limited": false,
+      "lufs": -17.95,
+      "true_peak": -2.24
+    },
+    {
+      "key": "host_channel3000_06",
+      "kind": "continuity",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 11.409,
+      "source_lufs": -22.89,
+      "gain_db": 4.89,
+      "peak_limited": false,
+      "lufs": -18.09,
+      "true_peak": -3.76
+    },
+    {
+      "key": "host_channel3000_07",
+      "kind": "continuity",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 14.102,
+      "source_lufs": -22.28,
+      "gain_db": 4.28,
+      "peak_limited": false,
+      "lufs": -17.95,
+      "true_peak": -3.06
+    },
+    {
+      "key": "host_channel3000_08",
+      "kind": "continuity",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 12.403,
+      "source_lufs": -21.22,
+      "gain_db": 3.22,
+      "peak_limited": false,
+      "lufs": -17.96,
+      "true_peak": -4.28
+    },
+    {
+      "key": "host_channel3000_09",
+      "kind": "continuity",
+      "dayparts": [
+        "day",
+        "prime",
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 18.104,
+      "source_lufs": -21.42,
+      "gain_db": 3.42,
+      "peak_limited": false,
+      "lufs": -17.95,
+      "true_peak": -5.69
+    },
+    {
+      "key": "host_channel3000_10",
+      "kind": "continuity",
+      "dayparts": [
+        "day"
+      ],
+      "opener": true,
+      "title": "Channel 3000",
+      "duration_s": 13.295,
+      "source_lufs": -22.11,
+      "gain_db": 4.11,
+      "peak_limited": false,
+      "lufs": -17.97,
+      "true_peak": -2.4
+    },
+    {
+      "key": "host_channel3000_11",
+      "kind": "continuity",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 16.896,
+      "source_lufs": -20.83,
+      "gain_db": 2.83,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -5.37
+    },
+    {
+      "key": "host_channel3000_12",
+      "kind": "continuity",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 13.719,
+      "source_lufs": -22.12,
+      "gain_db": 4.12,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -4.16
+    },
+    {
+      "key": "host_channel3000_13",
+      "kind": "continuity",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": true,
+      "title": "Channel 3000",
+      "duration_s": 15.49,
+      "source_lufs": -20.59,
+      "gain_db": 2.59,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -2.22
+    },
+    {
+      "key": "host_channel3000_14",
+      "kind": "continuity",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 14.253,
+      "source_lufs": -21.36,
+      "gain_db": 3.36,
+      "peak_limited": false,
+      "lufs": -17.95,
+      "true_peak": -4.5
+    },
+    {
+      "key": "host_channel3000_15",
+      "kind": "continuity",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 10.032,
+      "source_lufs": -21.82,
+      "gain_db": 3.82,
+      "peak_limited": false,
+      "lufs": -18.08,
+      "true_peak": -3.16
+    },
+    {
+      "key": "host_channel3000_16",
+      "kind": "continuity",
+      "dayparts": [
+        "late"
+      ],
+      "opener": true,
+      "title": "Channel 3000",
+      "duration_s": 14.781,
+      "source_lufs": -22.89,
+      "gain_db": 4.89,
+      "peak_limited": false,
+      "lufs": -17.97,
+      "true_peak": -2.03
+    },
+    {
+      "key": "host_channel3000_17",
+      "kind": "continuity",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 18.787,
+      "source_lufs": -20.84,
+      "gain_db": 2.84,
+      "peak_limited": false,
+      "lufs": -17.96,
+      "true_peak": -3.59
+    },
+    {
+      "key": "host_channel3000_18",
+      "kind": "continuity",
+      "dayparts": [
+        "overnight"
+      ],
+      "opener": true,
+      "title": "Channel 3000",
+      "duration_s": 18.583,
+      "source_lufs": -21.3,
+      "gain_db": 3.3,
+      "peak_limited": false,
+      "lufs": -17.97,
+      "true_peak": -4.77
+    },
+    {
+      "key": "host_channel3000_19",
+      "kind": "continuity",
+      "dayparts": [
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 17.889,
+      "source_lufs": -21.66,
+      "gain_db": 3.66,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -3.24
+    },
+    {
+      "key": "host_channel3000_20",
+      "kind": "continuity",
+      "dayparts": [
+        "late",
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 17.121,
+      "source_lufs": -21.72,
+      "gain_db": 3.72,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -4.16
+    },
+    {
+      "key": "id_channel3000_01",
+      "kind": "ident",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 9.254,
+      "source_lufs": -19.95,
+      "gain_db": 1.95,
+      "peak_limited": false,
+      "lufs": -18.01,
+      "true_peak": -3.24
+    },
+    {
+      "key": "id_channel3000_02",
+      "kind": "ident",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 6.755,
+      "source_lufs": -19.45,
+      "gain_db": 1.45,
+      "peak_limited": false,
+      "lufs": -17.97,
+      "true_peak": -4.06
+    },
+    {
+      "key": "id_channel3000_03",
+      "kind": "ident",
+      "dayparts": [
+        "day"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 8.146,
+      "source_lufs": -20.2,
+      "gain_db": 0.46,
+      "peak_limited": true,
+      "lufs": -19.71,
+      "true_peak": -1.65
+    },
+    {
+      "key": "id_channel3000_04",
+      "kind": "ident",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 9.199,
+      "source_lufs": -20.69,
+      "gain_db": 2.69,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -3.67
+    },
+    {
+      "key": "id_channel3000_05",
+      "kind": "ident",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 9.239,
+      "source_lufs": -17.93,
+      "gain_db": -0.07,
+      "peak_limited": false,
+      "lufs": -18.01,
+      "true_peak": -4.54
+    },
+    {
+      "key": "id_channel3000_06",
+      "kind": "ident",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 9.688,
+      "source_lufs": -21.04,
+      "gain_db": 3.04,
+      "peak_limited": false,
+      "lufs": -17.96,
+      "true_peak": -4.36
+    },
+    {
+      "key": "id_channel3000_07",
+      "kind": "ident",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 10.945,
+      "source_lufs": -22.84,
+      "gain_db": 4.84,
+      "peak_limited": false,
+      "lufs": -17.96,
+      "true_peak": -2.52
+    },
+    {
+      "key": "id_channel3000_08",
+      "kind": "ident",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 9.578,
+      "source_lufs": -21.29,
+      "gain_db": 3.29,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -3.24
+    },
+    {
+      "key": "id_channel3000_09",
+      "kind": "ident",
+      "dayparts": [
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 10.4,
+      "source_lufs": -21.08,
+      "gain_db": 3.08,
+      "peak_limited": false,
+      "lufs": -18.02,
+      "true_peak": -2.3
+    },
+    {
+      "key": "id_channel3000_10",
+      "kind": "ident",
+      "dayparts": [
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Channel 3000",
+      "duration_s": 10.885,
+      "source_lufs": -21.89,
+      "gain_db": 3.89,
+      "peak_limited": false,
+      "lufs": -18.02,
+      "true_peak": -4.35
+    },
+    {
+      "key": "night_late_picture_show_01",
+      "kind": "programme",
+      "dayparts": [
+        "overnight"
+      ],
+      "opener": false,
+      "title": "The Late, Late Picture Show",
+      "duration_s": 350.488,
+      "source_lufs": -20.04,
+      "gain_db": 2.04,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -2.32
+    },
+    {
+      "key": "night_late_picture_show_02",
+      "kind": "programme",
+      "dayparts": [
+        "overnight"
+      ],
+      "opener": false,
+      "title": "The Late, Late Picture Show",
+      "duration_s": 368.672,
+      "source_lufs": -20.57,
+      "gain_db": 2.57,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -0.64
+    },
+    {
+      "key": "night_mile_marker_general_01",
+      "kind": "programme",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": false,
+      "title": "Mile Marker General",
+      "duration_s": 361.399,
+      "source_lufs": -21.89,
+      "gain_db": 3.89,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -1.57
+    },
+    {
+      "key": "night_starhauler_01",
+      "kind": "programme",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": false,
+      "title": "Starhauler (The Cola Run)",
+      "duration_s": 384.476,
+      "source_lufs": -21.07,
+      "gain_db": 3.07,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -1.78
+    },
+    {
+      "key": "night_starhauler_02",
+      "kind": "programme",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": false,
+      "title": "Starhauler (Forty Minutes)",
+      "duration_s": 398.32,
+      "source_lufs": -21.26,
+      "gain_db": 3.26,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -1.8
+    },
+    {
+      "key": "night_stories_01",
+      "kind": "programme",
+      "dayparts": [
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Stories for the Ones at Home",
+      "duration_s": 393.69,
+      "source_lufs": -20.94,
+      "gain_db": 2.94,
+      "peak_limited": false,
+      "lufs": -17.98,
+      "true_peak": -0.9
+    },
+    {
+      "key": "night_stories_02",
+      "kind": "programme",
+      "dayparts": [
+        "overnight"
+      ],
+      "opener": false,
+      "title": "Stories for the Ones at Home",
+      "duration_s": 384.361,
+      "source_lufs": -20.17,
+      "gain_db": 2.17,
+      "peak_limited": false,
+      "lufs": -17.99,
+      "true_peak": -2.2
+    },
+    {
+      "key": "night_the_big_time_01",
+      "kind": "programme",
+      "dayparts": [
+        "prime"
+      ],
+      "opener": false,
+      "title": "The Big Time",
+      "duration_s": 410.033,
+      "source_lufs": -18.08,
+      "gain_db": 0.08,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -1.46
+    },
+    {
+      "key": "night_up_all_night_01",
+      "kind": "programme",
+      "dayparts": [
+        "late"
+      ],
+      "opener": false,
+      "title": "Up All Night",
+      "duration_s": 387.714,
+      "source_lufs": -20.66,
+      "gain_db": 2.66,
+      "peak_limited": false,
+      "lufs": -18.0,
+      "true_peak": -2.02
+    }
+  ]
+}

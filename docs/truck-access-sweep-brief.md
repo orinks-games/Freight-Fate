@@ -69,7 +69,7 @@ waives per visit; the pass never overrides vehicle_access.
 
 ## Gates
 
-Sharded-format world edits only; `uv run python tools/index_world.py
+Sharded-format world edits only; `cargo tools index-world
 --check`; world/route/overlay test suites; refresh_map_data.py lint
 zero; spoken-text invariants (no raw OSM text) hold.
 

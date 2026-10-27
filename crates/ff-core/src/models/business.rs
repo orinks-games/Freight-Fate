@@ -8,8 +8,7 @@
 
 use crate::models::career::CareerProfile;
 use crate::models::career_ladder::{
-    display_rank_for_level, next_company_rank_for_level, next_display_rank_for_level,
-    next_rank_for_level, rank_for_level,
+    display_rank_for_level, next_company_rank_for_level, next_rank_for_level, rank_for_level,
 };
 use crate::models::enforcement::StandingProfile;
 use crate::models::jobs::Job;
@@ -31,8 +30,6 @@ pub use crate::models::business_constants::{
 #[cfg(test)]
 mod tests;
 
-pub const OWNER_OPERATOR_PREP_LEVEL: i64 = 5;
-pub const OWNER_OPERATOR_CANDIDATE_LEVEL: i64 = 11;
 pub const OWNER_OPERATOR_PREP_CHECKLIST_LEVEL: i64 = 14;
 pub const OWNER_OPERATOR_LEVEL: i64 = 18;
 pub const OWNER_OPERATOR_REPUTATION: f64 = 80.0;
@@ -53,7 +50,6 @@ pub const AUTHORITY_ACTIVATION_WORKING_CAPITAL: f64 = 35_000.0;
 
 pub const OWNER_MAINTENANCE_PER_MILE: f64 = 0.18;
 pub const OWNER_INSURANCE_PER_MILE: f64 = 0.09;
-pub const OWNER_TRAILER_PROGRAM_PER_MILE: f64 = 0.12;
 pub const OWNER_TRUCK_PAYMENT_PER_MILE: f64 = 0.22;
 pub const OWNER_SETTLEMENT_FEE_SHARE: f64 = 0.02;
 pub const AUTHORITY_INSURANCE_PER_MILE: f64 = 0.14;
@@ -459,7 +455,7 @@ pub fn next_business_unlock<P: BusinessProfile + ?Sized>(profile: &P) -> String 
         return format!("Company driver by choice. {}", company_ladder_next(level));
     }
     if ok {
-        return "Next: buy into a leased-on owner-operator tractor position from Business status."
+        return "Next: the owner-operator buy-in under Business status, where you buy the truck you drive."
             .to_string();
     }
     // The Business Prep Driver rank (14) starts reading the real checklist,
@@ -481,7 +477,7 @@ pub fn next_business_unlock<P: BusinessProfile + ?Sized>(profile: &P) -> String 
 fn company_ladder_next(level: i64) -> String {
     match next_company_rank_for_level(level) {
         None => "You are at the top career rank. The owner-operator buy-in stays open under \
-         Business status if you ever want it."
+                 Business status if you ever want it."
             .to_string(),
         Some(next_rank) => format!(
             "Next: level {}, {}. {}",
@@ -495,16 +491,6 @@ pub fn display_rank_for<P: CareerProfile + ?Sized>(
     profile: &P,
 ) -> &'static crate::models::career_ladder::CareerRank {
     display_rank_for_level(
-        profile.career().level(),
-        profile.business_status(),
-        profile.owner_operator_declined(),
-    )
-}
-
-pub fn next_display_rank_for<P: CareerProfile + ?Sized>(
-    profile: &P,
-) -> Option<&'static crate::models::career_ladder::CareerRank> {
-    next_display_rank_for_level(
         profile.career().level(),
         profile.business_status(),
         profile.owner_operator_declined(),
@@ -585,7 +571,7 @@ fn business_status_summary_inner<P: BusinessProfile + ?Sized>(profile: &P) -> St
     }
     if ok {
         return format!(
-            "You are a company driver for {}, level {} {}. You qualify to buy your first leased-on tractor position. Owner-operator buy-in costs {} dollars and keeps {} dollars of working capital in the bank.",
+            "You are a company driver for {}, level {} {}. You qualify for the owner-operator buy-in: you buy the truck you drive and keep hauling for the carrier as a leased-on owner-operator. The buy-in costs {} dollars and keeps {} dollars of working capital in the bank.",
             carrier_name(profile),
             rank.level,
             rank.title,

@@ -1,9 +1,7 @@
 //! The hub screen while parked at a company terminal or yard
 //! (`CityMenuState`).
 
-use ff_core::models::business::{
-    display_rank_for, is_owner_operator, status_label, COMPANY_DRIVER,
-};
+use ff_core::models::business::{is_owner_operator, COMPANY_DRIVER};
 use ff_core::models::career_objectives::career_objective;
 use ff_core::models::career_training::{
     is_company_training_profile, training_guidance, TrainingStage,
@@ -33,10 +31,10 @@ use crate::states::career_stats::{fully_rested, CareerStatsState};
 use crate::states::city::weather::time_and_weather_lines;
 use crate::states::city::{
     base_menu_enter, board_candidates, first_day_guidance_active, first_day_orientation_lines,
-    open_freight_market, parked_at, profile, profile_mut, record_city_duty,
-    terminal_objective_clause, warm_dispatch_board, ApplyToCarrierState, BobtailDestState,
-    BusinessStatusState, EndorsementCourseState, GarageState, PayDebtState, TruckShopState,
-    BACKUP_RESULT_WAIT_S, BOBTAIL_RANGE_MI, DRIVING_SCHOOL_ENABLED,
+    open_freight_market, parked_at, profile, profile_mut, record_city_duty, warm_dispatch_board,
+    ApplyToCarrierState, BobtailDestState, BusinessStatusState, EndorsementCourseState,
+    GarageState, PayDebtState, TruckShopState, BACKUP_RESULT_WAIT_S, BOBTAIL_RANGE_MI,
+    DRIVING_SCHOOL_ENABLED,
 };
 use crate::states::driving_school::DrivingSchoolState;
 use crate::states::logbook::LogbookState;
@@ -60,6 +58,10 @@ pub struct CityMenuState {
     /// A manual save watching for its cloud backup result:
     /// (slot name, attempt token, seconds left to wait), or None.
     backup_watch: Option<(String, i64, f64)>,
+    /// One-shot, set when the first-day briefing was spoken just before this
+    /// state: the briefing already said where the truck is parked (and, for
+    /// an owner-operator, the cash), so the first entry line does not repeat it.
+    after_briefing: bool,
 }
 
 /// Where a driver with no carrier is: the city, with no truck parked
@@ -88,6 +90,15 @@ impl CityMenuState {
             confirm_sleep_rested: false,
             queue_entry_announcement,
             backup_watch: None,
+            after_briefing: false,
+        }
+    }
+
+    /// The terminal pushed straight after the new-career briefing.
+    pub fn after_briefing(ctx: &GameContext) -> Self {
+        CityMenuState {
+            after_briefing: true,
+            ..Self::new(ctx, true)
         }
     }
 
@@ -146,7 +157,7 @@ impl CityMenuState {
 
     fn bobtail(&mut self, ctx: &mut GameContext) {
         // Driving empty is still driving: the same pulled CDL that stops the
-        // board stops a bobtail.
+        // board stops a bobtail (ported from 2.0, PR #259).
         if let Some(line) = crate::states::city::cdl_drive_refusal(ctx) {
             ctx.audio.play("ui/error");
             ctx.say(&line);
@@ -278,8 +289,7 @@ impl CityMenuState {
         ctx.save_profile();
         ctx.audio.play("ui/notify");
         ctx.say(&format!(
-            "Pay advance approved: {} dollars against your next load, repaid at delivery. You \
-             have {} dollars, {} dollars of advance to repay.",
+            "Advance {} dollars on the next load, due at delivery. You have {}, owe {}.",
             fmt_grouped(grant, 0),
             fmt_grouped(money, 0),
             fmt_grouped(advance, 0)
@@ -330,16 +340,13 @@ impl CityMenuState {
             "pre-trip walk-around",
         );
         ctx.save_profile();
-        let body = if lines.is_empty() {
-            "Nothing to write up: tires, brakes and the body would all pass.".to_string()
+        let line = if lines.is_empty() {
+            "Walk-around clean.".to_string()
         } else {
-            lines.join(" ")
+            format!("Walk-around done, 15 minutes. {}", lines.join(" "))
         };
         ctx.audio.play("ui/notify");
-        ctx.say(&format!(
-            "Walk-around done, 15 minutes. {body} No trailer is hooked yet; walk around it again \
-             at the first stop after pickup."
-        ));
+        ctx.say(&line);
     }
 
     /// `_sleep`: a full night in the terminal bunk room.
@@ -347,10 +354,7 @@ impl CityMenuState {
         if fully_rested(profile(ctx)) && !self.confirm_sleep_rested {
             self.confirm_sleep_rested = true;
             ctx.audio.play("ui/warning");
-            ctx.say(
-                "You are already rested: fresh hours of service and no fatigue. Sleeping only \
-                 moves the clock forward 10 hours. Enter again to sleep anyway.",
-            );
+            ctx.say("Already rested. Enter again to sleep anyway.");
             return;
         }
         self.confirm_sleep_rested = false;
@@ -374,9 +378,7 @@ impl CityMenuState {
         let zone = local_zone(ctx);
         let hour = to_local(profile(ctx).game_hours, zone).rem_euclid(24.0);
         ctx.say(&format!(
-            "You slept 10 hours and woke rested. It is \
-             {}, {}. \
-             Hours of service reset.",
+            "Slept 10 hours. It is {}, {}.",
             clock_text(hour),
             time_of_day(hour)
         ));
@@ -391,12 +393,11 @@ impl CityMenuState {
     /// accessibility problem dressed up as realism, so the terminal lets the
     /// driver wait it out and says exactly what that costs in game time.
     pub fn wait_out_suspension(&mut self, ctx: &mut GameContext) {
-        let (hours, days, noun) = {
+        let (hours, noun) = {
             let p = profile(ctx);
             let record = &p.driving_record;
             (
                 record.hours_left(p.game_hours),
-                enforcement::days_text(record.days_left(p.game_hours)),
                 enforcement::status_noun(record),
             )
         };
@@ -425,8 +426,8 @@ impl CityMenuState {
         let zone = local_zone(ctx);
         let hour = to_local(profile(ctx).game_hours, zone).rem_euclid(24.0);
         ctx.say(&format!(
-            "You sat out the {days} of your {noun}. Your CDL is clear and the dispatch \
-             board is open again. It is {}, {}, and you are rested.",
+            "{} served, CDL clear. It is {}, {}.",
+            crate::states::city::py_capitalize(noun),
             clock_text(hour),
             time_of_day(hour)
         ));
@@ -463,7 +464,7 @@ impl CityMenuState {
 
     /// Speak a trust-band change, once, when it changes -- never on a timer.
     ///
-    /// The band now answers to the licence and to what the driver owes as
+    /// The band now answers to the license and to what the driver owes as
     /// well as to their service, so the line names whichever of the three is
     /// actually holding it, what the yard is doing about the equipment, and
     /// whether the career has slowed. All of it is available on demand from
@@ -472,6 +473,7 @@ impl CityMenuState {
         if profile(ctx).is_unassigned_company_driver() {
             return; // no carrier, so no dispatcher and no trust band to speak
         }
+        let score_display = ctx.settings.score_display;
         let line = {
             let p = profile_mut(ctx);
             let band = enforcement::standing_band(p);
@@ -485,7 +487,7 @@ impl CityMenuState {
             if first_time && band == enforcement::TRUST_FULL {
                 return; // a clean driver is never told they are fine
             }
-            let mut line = enforcement::dispatch_trust_line(p);
+            let mut line = enforcement::dispatch_trust_line_with_display(p, score_display);
             if improved && band == enforcement::TRUST_FULL && !p.owns_equipment() {
                 line = format!("{line} {}", fleet_assignment_text(p));
             }
@@ -561,24 +563,19 @@ impl CityMenuState {
         // "Apply to a carrier", so the rows are rebuilt.
         self.menu.title = Self::title_for(ctx);
         self.refresh(ctx, true);
-        let opening = format!(
-            "{former} has ended your employment. Your safety record is past what their \
-             insurance will carry, so your seat and your assigned truck go back to the yard."
-        );
-        let kept = "Your money, your levels, and everything you own stay as they are.";
+        let opening = format!("{former} ended your employment over your safety record.");
+        let kept = "Your money, levels and belongings stay.";
         let line = match taken_on {
-            Some(name) if name == enforcement::LAST_CHANCE_CARRIER_NAME => format!(
-                "{opening} {name} will take you on: lower pay, shorter freight, and a fresh \
-                 start. {kept}"
-            ),
+            Some(name) if name == enforcement::LAST_CHANCE_CARRIER_NAME => {
+                format!("{opening} You now drive for {name}: lower pay, shorter freight. {kept}")
+            }
             Some(name) => format!(
-                "{opening} {name}, which hires near {near}, will take you on knowing your \
-                 record. {kept}"
+                "{opening} {name}, which hires near {near}, took you on knowing your record. \
+                 {kept}"
             ),
             None => format!(
-                "{opening} No carrier that hires near {near} can take you on right now, so \
-                 you have no carrier. {kept} Choose Apply to a carrier from the terminal \
-                 menu when you are ready."
+                "{opening} No carrier that hires near {near} can take you on right now. \
+                 {kept} Choose Apply to a carrier when you are ready."
             ),
         };
         Some(line)
@@ -748,6 +745,7 @@ impl Menu for CityMenuState {
     fn announce_entry(&mut self, ctx: &mut GameContext) {
         let interrupt = !self.queue_entry_announcement;
         self.queue_entry_announcement = false;
+        let after_briefing = std::mem::take(&mut self.after_briefing);
         // A career-changing setback goes first and takes the screen: nothing
         // else the terminal has to say survives being read over the top of
         // it, and the hub line and the current row would describe the seat
@@ -782,10 +780,10 @@ impl Menu for CityMenuState {
                 .map(|c| (c.name.clone(), c.state.clone()))
                 .unwrap_or_else(|_| (p.current_city.clone(), String::new()));
             let parked = parked_at(ctx);
-            let business = status_label(&p.business_status);
-            let rank = display_rank_for(p);
-            let first_day = terminal_objective_clause(p);
-            // A licence that is not clear is said here, every time, because it
+            // Level, title and business status live in Career stats, and the
+            // objective in Career plan (or the first-day briefing): the entry
+            // line is where you are and what you have.
+            // A license that is not clear is said here, every time, because it
             // decides what the rest of this screen can do. A career that is
             // over says so in full: what stopped, what stays, and the one
             // way to remove it.
@@ -806,49 +804,55 @@ impl Menu for CityMenuState {
             } else {
                 format!(" {record}")
             };
-            // With no carrier there is no truck to be parked: say where the
-            // driver is and that the seat and truck are gone. That wins over
-            // an impound lot too -- a company driver fired after a felony tow
-            // has no truck in the lot to be parked with.
-            let location = if p.is_unassigned_company_driver() {
-                format!(
-                    "{} {} with no carrier and no truck until a carrier assigns you one.",
-                    no_truck_location_line(&city_name, &city_state),
-                    crate::states::city::py_capitalize(business),
-                )
-            } else {
-                // An impound lot is in the city, not a "service area" (which
-                // reads as a turnpike travel plaza): "Parked at an impound lot
-                // in Buffalo, New York."
-                let where_parked = if parked.kind == ff_core::models::home_base::ParkedKind::Impound
-                {
-                    format!(
-                        " at {}",
-                        ff_core::models::home_base::impound_lot_text(world, &p.current_city)
-                    )
+            if after_briefing {
+                // An owner-operator's briefing names the cash too; a company
+                // driver's does not.
+                if ff_core::models::start_options::option_for_profile(p).is_owner_operator() {
+                    String::new()
                 } else {
-                    format!(
-                        "{} in {}, {city_state}",
-                        parked.at_clause(),
-                        ff_core::models::home_base::city_service_area(&city_name)
-                    )
-                };
+                    format!("{} dollars.", fmt_grouped(p.money(), 0))
+                }
+            } else if p.is_unassigned_company_driver() {
+                // With no carrier there is no truck to be parked: say where the
+                // driver is and that the seat and truck are gone. That wins
+                // over an impound lot too -- a company driver fired after a
+                // felony tow has no truck in the lot to be parked with.
                 format!(
-                    "Parked{where_parked}. {} with",
-                    crate::states::city::py_capitalize(business),
+                    "{} No carrier and no truck until a carrier assigns you one. \
+                     {} dollars.{cdl}{record}",
+                    no_truck_location_line(&city_name, &city_state),
+                    fmt_grouped(p.money(), 0)
                 )
-            };
-            let rank_clause = if p.is_unassigned_company_driver() {
-                format!(" Level {}, {}.", rank.level, rank.title)
             } else {
-                format!(" level {}, {}.", rank.level, rank.title)
-            };
-            format!(
-                "{location}{rank_clause}{cdl}{record} You have {} dollars.{first_day}",
-                fmt_grouped(p.money(), 0)
-            )
+                // One sentence per shape rather than a place clause pasted
+                // into a shared one, so each reads whole to the translator.
+                match parked.kind {
+                    // An impound lot is in the city, not a "service area"
+                    // (which reads as a turnpike travel plaza).
+                    ff_core::models::home_base::ParkedKind::Impound => format!(
+                        "{}. {} dollars.{cdl}{record}",
+                        crate::states::city::upper_first(
+                            &ff_core::models::home_base::impound_lot_text(world, &p.current_city),
+                        ),
+                        fmt_grouped(p.money(), 0)
+                    ),
+                    // Nothing honest names a place: the city is where the
+                    // truck is.
+                    ff_core::models::home_base::ParkedKind::City => format!(
+                        "{city_name}. {} dollars.{cdl}{record}",
+                        fmt_grouped(p.money(), 0)
+                    ),
+                    _ => format!(
+                        "{} in {city_name}. {} dollars.{cdl}{record}",
+                        parked.name,
+                        fmt_grouped(p.money(), 0)
+                    ),
+                }
+            }
         };
-        ctx.say_with(line, Say::new().interrupt(interrupt));
+        if !line.is_empty() {
+            ctx.say_with(line, Say::new().interrupt(interrupt));
+        }
         let current = self.current_text(ctx);
         ctx.say_with(current, Say::queued().review(false));
         self.check_standing(ctx);
@@ -924,7 +928,10 @@ impl Menu for CityMenuState {
             MenuItem::new("Business status", |s: &mut Self, ctx| {
                 s.business_status(ctx)
             })
-            .help("Carrier, rank, next business unlock, and owner-operator buy-in."),
+            .help(
+                "Carrier, rank, next business unlock, owner-operator buy-in, and moving to \
+                 another carrier.",
+            ),
         );
         items.push(
             MenuItem::new("Career stats", |s: &mut Self, ctx| s.stats(ctx)).help(

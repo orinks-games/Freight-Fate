@@ -460,6 +460,8 @@ fn fmt_dollars(value: f64) -> String {
 pub fn money_exact_zero_and_below() -> Outcome {
     let mut rig = Rig::new(RigOptions::default());
     let mut findings: Vec<String> = Vec::new();
+    // Fines, not the new-driver warning.
+    rig.app.seasoned_driver();
     let start = JAKE_ZONE_FINES[0] + JAKE_ZONE_FINES[1]; // 450: two fines to zero
     if let Some(profile) = rig.app.ctx.profile.as_mut() {
         profile.set_money(start);

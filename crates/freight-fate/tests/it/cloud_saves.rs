@@ -1502,7 +1502,7 @@ fn test_upload_rejected_for_an_unknown_city_names_the_server_as_behind() {
     // for a day (2026-08-14) with nothing to tell them why.
     let status = status_after_rejection("Road Star", "invalid_city");
     assert!(status.starts_with("Road Star: backup not accepted."));
-    assert!(status.contains("does not recognise the town"));
+    assert!(status.contains("does not recognize the town"));
     assert!(!status.contains("flagged"));
 }
 

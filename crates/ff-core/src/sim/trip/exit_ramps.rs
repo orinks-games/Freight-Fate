@@ -3,7 +3,9 @@
 //! realistic exit redesign, 2026-09-24; the pieces are in
 //! `trip_models::ramps`).
 
-use crate::sim::trip_models::{deceleration_lane_mi, exit_ramp_layout, ExitRampLayout, RoadStop};
+use crate::sim::trip_models::{
+    deceleration_lane_mi, exit_ramp_layout, ramp_speed_mph, ExitRampLayout, RoadStop,
+};
 
 use super::Trip;
 
@@ -39,11 +41,24 @@ impl Trip {
     /// [`Self::ramp_length_mi`].
     pub fn exit_ramp_layout(&self, stop: &RoadStop) -> ExitRampLayout {
         let (highway_mph, ramp_mph, grade_pct) = self.exit_ramp_inputs(stop);
-        exit_ramp_layout(
+        let mut layout = exit_ramp_layout(
             highway_mph,
             ramp_mph,
             grade_pct,
             Some(self.ramp_length_mi(stop)),
-        )
+        );
+        let design_mph = self.ramp_design_mph_at(stop.interchange_mi.unwrap_or(stop.at_mi));
+        layout.tangent_mph = design_mph.max(layout.curve_mph);
+        layout
+    }
+
+    /// DERIVED: the speed the ramp nearest `route_mile` is built for, the
+    /// AASHTO share of the corridor's limit (`ramp_speed_mph`), whatever its
+    /// advisory sign says.
+    pub fn ramp_design_mph_at(&self, route_mile: f64) -> f64 {
+        let directional = self
+            .interchange_at(route_mile, 2.0)
+            .is_some_and(|ix| ix.ramp_far_end == "motorway");
+        ramp_speed_mph(self.corridor_limit_at(route_mile), directional)
     }
 }

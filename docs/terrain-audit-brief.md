@@ -86,7 +86,7 @@ without listing it in the report).
 
 ## Gates
 
-`uv run python tools/index_world.py --check`; world/route/overlay suites;
+`cargo tools index-world --check`; world/route/overlay suites;
 `uv run pytest tests/test_world.py tests/test_world_overlay.py` plus the
 full suite before push. Data commits `[skip changelog]`.
 

@@ -77,8 +77,9 @@ fn last(harness: &PlaytestHarness) -> String {
     spoken(harness).last().cloned().unwrap_or_default()
 }
 
+/// T while rolling plans a sleep stop, the purpose these drives are about.
 fn press_t(harness: &mut PlaytestHarness) {
-    harness.press_key(Key::T, Some('t'));
+    harness.plan_stop("Sleep");
 }
 
 fn press_x(harness: &mut PlaytestHarness) {
@@ -126,14 +127,14 @@ fn test_rolling_t_plans_exact_sleep_stop_without_silently_selecting_exit() {
     assert!(!harness.read_drive(|d| d.exit_signal_on));
     let said = last(&harness);
     assert!(
-        said.contains("Planned sleep stop selected, public rest area: Prairie View Rest Area"),
+        said.contains("Sleep stop planned, public rest area: Prairie View Rest Area"),
         "{said}"
     );
-    assert!(said.contains("Press X to signal for this exit"), "{said}");
+    assert!(said.contains("Press X to signal."), "{said}");
     assert!(!said.contains("Come to a complete stop first"), "{said}");
     assert!(harness
         .read_drive(|d| d.status_text.clone())
-        .contains("Press X to signal for this exit"));
+        .contains("Press X to signal."));
 }
 
 #[test]
@@ -348,7 +349,7 @@ fn test_selected_stop_assist_does_nothing_without_t_and_x() {
     assert!(approx(harness.read_drive(|d| d.truck().brake), 0.0));
     assert!(!spoken(&harness)
         .iter()
-        .any(|line| line.contains("stopping assistance braking")));
+        .any(|line| line.contains("Slowing for the entrance")));
     assert!(stop.at_mi > harness.read_drive(|d| d.trip.position_mi));
 }
 
@@ -418,12 +419,12 @@ fn test_selected_stop_assist_reaches_full_stop_and_sleep_menu() {
     press_x(&mut harness);
     assert!(harness.read_drive(|d| d.selected_stop_assist_armed));
     assert!(harness.read_drive(|d| d.exit_signal_on));
-    assert!(spoken(&harness)
+    // The assist is armed in silence: the driver chose it (owner,
+    // 2026-10-14).
+    assert!(spoken(&harness).iter().any(|line| line.contains("Signal ")));
+    assert!(!spoken(&harness)
         .iter()
         .any(|line| line.contains("stopping assistance armed")));
-    assert!(harness
-        .read_drive(|d| d.status_text.clone())
-        .contains("stopping assistance armed"));
 
     let at_mi = stop.at_mi;
     harness.with_drive(move |d, _| d.trip.position_mi = at_mi);
@@ -438,8 +439,11 @@ fn test_selected_stop_assist_reaches_full_stop_and_sleep_menu() {
         d.ramp_terminal_done = true;
     });
 
+    // The real exit at this mile has a ramp a mile long since the October
+    // 2026 exits re-read: two minutes at the ramp's 31, so give it three
+    // and a bit.
     let mut opened = false;
-    for _ in 0..4_000 {
+    for _ in 0..12_000 {
         top_frame(&mut harness);
         if harness.state_is::<RestStopState>() {
             opened = true;
@@ -456,9 +460,11 @@ fn test_selected_stop_assist_reaches_full_stop_and_sleep_menu() {
     assert!(harness.read_drive(|d| d.truck().parking_brake));
     assert!(harness.read_drive(|d| d.selected_stop_key.is_none()));
     assert!(harness.read_drive(|d| d.trip.planned_stop_key.is_none()));
-    assert!(spoken(&harness)
-        .iter()
-        .any(|line| line.contains("Facility stopping assistance taking the pedals")));
+    // One line for the slowdown: the deceleration lane's on a ramp that
+    // runs straight to the lot, or the arrival's.
+    assert!(spoken(&harness).iter().any(|line| {
+        line.contains("Slowing for the entrance.") || line.contains("Slowing for the ramp.")
+    }));
     assert!(spoken(&harness)
         .iter()
         .any(|line| line.contains("Stopped at public rest area: Prairie View Rest Area")));
@@ -491,9 +497,9 @@ fn test_selected_stop_assist_reaches_full_stop_and_sleep_menu() {
             .position(|line| line.contains(needle))
             .unwrap_or_else(|| panic!("no line contains {needle:?}\n{lines:#?}"))
     };
-    let selected_i = index_of("Planned sleep stop selected");
-    let armed_i = index_of("stopping assistance armed");
-    let braking_i = index_of("Facility stopping assistance taking the pedals");
+    let selected_i = index_of("Sleep stop planned");
+    let armed_i = index_of("Signal ");
+    let braking_i = index_of("Slowing for the");
     let stopped_i = index_of("Stopped at public rest area");
     let menu_i = index_of("Sleep 10 hours");
     assert!(
@@ -578,9 +584,6 @@ fn test_overshoot_clears_assist_then_stopped_t_recovers() {
         lower.contains("drove past")
             && (lower.contains("without stopping") || lower.contains("never stopped"))
     }));
-    assert!(spoken(&harness)
-        .iter()
-        .any(|line| line.contains("disarmed for that stop")));
 
     let at_mi = stop.at_mi;
     harness.with_drive(move |d, _| {
@@ -602,14 +605,7 @@ fn test_rolling_t_without_sleep_stop_gives_recovery_guidance() {
     assert!(harness.state_is::<DrivingState>());
     assert!(harness.read_drive(|d| d.selected_stop_key.is_none()));
     let said = last(&harness);
-    assert!(
-        said.contains("No sleep-capable route stop is ahead on this route"),
-        "{said}"
-    );
-    assert!(
-        said.contains("Press Tab for the upcoming route points"),
-        "{said}"
-    );
+    assert_eq!(said, "No sleep stop ahead. Shoulder sleep available.");
 }
 
 #[test]
@@ -628,7 +624,7 @@ fn test_unselected_stop_passes_without_braking_or_menu() {
     assert!(harness.read_drive(|d| d.ramp_stop.is_none()));
     assert!(!spoken(&harness)
         .iter()
-        .any(|line| line.contains("stopping assistance braking")));
+        .any(|line| line.contains("Slowing for the entrance")));
 }
 
 #[test]
@@ -711,7 +707,9 @@ fn test_t_on_selected_ramp_reports_live_assist_state() {
 
     let said = last(&harness);
     assert!(said.contains("On the selected ramp"), "{said}");
-    assert!(said.contains("assistance armed"), "{said}");
+    // The assist is on, so the driver has nothing to do: nothing to say.
+    assert!(!said.contains("assistance"), "{said}");
+    assert!(!said.contains("Stop at the entrance"), "{said}");
     assert!(!said.contains("behind you"), "{said}");
     assert_eq!(
         harness.read_drive(|d| d.trip.planned_stop_key.clone()),
@@ -721,8 +719,7 @@ fn test_t_on_selected_ramp_reports_live_assist_state() {
     harness.app.ctx.settings.destination_approach_assist = false;
     press_t(&mut harness);
     let said = last(&harness);
-    assert!(said.contains("assistance off"), "{said}");
-    assert!(!said.contains("It stops"), "{said}");
+    assert!(said.contains("Stop at the entrance."), "{said}");
 }
 
 #[test]
@@ -757,8 +754,7 @@ fn test_t_on_a_different_active_ramp_keeps_the_future_sleep_plan_selected() {
         "{said}"
     );
     assert!(!said.contains("selected ramp"), "{said}");
-    assert!(said.contains("assistance armed"), "{said}");
-    assert!(said.contains("It stops at the entrance"), "{said}");
+    assert!(!said.contains("assistance"), "{said}");
     assert!(!said.contains("Planned stop canceled"), "{said}");
     assert_eq!(
         harness.read_drive(|d| d.trip.planned_stop_key.clone()),
@@ -823,18 +819,16 @@ fn test_t_plans_a_sleep_stop_well_beyond_the_exit_window() {
     );
     let said = last(&harness);
     assert!(
-        said.contains("Planned sleep stop selected, public rest area: Prairie View Rest Area"),
+        said.contains("Sleep stop planned, public rest area: Prairie View Rest Area"),
         "{said}"
     );
     assert!(
         said.contains("20 miles ahead") || said.contains("20.0 miles ahead"),
         "{said}"
     );
-    assert!(
-        said.contains("Its exit will be announced. Press X to signal then."),
-        "{said}"
-    );
-    assert!(!said.contains("Press X to signal for this exit."), "{said}");
+    // Twenty miles out the exit cannot be signalled yet; it is called when
+    // it comes.
+    assert!(!said.contains("Press X"), "{said}");
     // Nothing is armed or signalled by the plan itself.
     assert!(harness.read_drive(|d| d.exit_stop.is_none()));
     assert!(!harness.read_drive(|d| d.exit_signal_on));

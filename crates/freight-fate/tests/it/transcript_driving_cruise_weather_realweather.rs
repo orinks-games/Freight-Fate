@@ -640,7 +640,7 @@ fn test_v_distinguishes_loading_last_known_and_fallback() {
         said.starts_with("Last-known live weather: heavy rain"),
         "{said}"
     );
-    assert!(said.contains("The observation is 12 minutes old"), "{said}");
+    assert!(!said.contains("minutes old"), "{said}");
     assert!(!said.to_lowercase().contains("updating"), "{said}");
     assert!(!said.contains("Ahead:"), "{said}");
     let status_weather = harness
@@ -741,7 +741,7 @@ fn test_old_but_freshly_fetched_weather_is_live_across_v_status_and_tablet() {
     press(&mut harness, Key::V, Some('v'));
     let said = last(&harness);
     assert!(said.starts_with("Live weather: rain"), "{said}");
-    assert!(said.contains("The observation is 12 minutes old"), "{said}");
+    assert!(!said.contains("minutes old"), "{said}");
     assert!(!said.to_lowercase().contains("updating"), "{said}");
 
     let weather_status = harness
@@ -753,10 +753,7 @@ fn test_old_but_freshly_fetched_weather_is_live_across_v_status_and_tablet() {
         weather_status.contains("Live weather: rain"),
         "{weather_status}"
     );
-    assert!(
-        weather_status.contains("The observation is 12 minutes old"),
-        "{weather_status}"
-    );
+    assert!(!weather_status.contains("minutes old"), "{weather_status}");
     assert!(
         !weather_status.to_lowercase().contains("updating"),
         "{weather_status}"

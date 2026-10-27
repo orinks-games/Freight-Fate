@@ -17,6 +17,7 @@
 //! * [`vehicle`] -- the controls that move metal: the engine, the parking
 //!   brake, the jake stalk and its stages, and the manual gearbox.
 //! * [`info`] -- the road and speed keys (Space, S, D, A, G, U, F, V, I).
+//! * [`cab`] -- the driver window, the fan and heat or air conditioning.
 //! * [`clock`] -- C and the three Alt hours keys, plus the shoulder-sleep
 //!   question the rest key and the pause menu both ask.
 //! * [`status`] -- the Tab status screen's lines, the gear name and the
@@ -30,6 +31,7 @@
 //!   that has not been ported yet, exactly as `driving_events::pending` works.
 //!   `driving_speed_control` shares them.
 
+pub mod cab;
 pub mod clock;
 pub mod help;
 pub mod hos_stops;

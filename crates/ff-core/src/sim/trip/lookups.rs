@@ -76,7 +76,7 @@ impl Trip {
         let sample_offset = if forward { offset } else { leg.miles - offset };
         for seg in leg.lane_segments() {
             if seg.start_mi <= sample_offset && sample_offset <= seg.end_mi {
-                return Some((seg.your_side(forward), seg.divided()));
+                return Some((seg.your_side(), seg.divided()));
             }
         }
         None
@@ -161,14 +161,21 @@ impl Trip {
     /// in the lane. One reading for the lane-gap cue, the L key, and the
     /// hazard call's named side.
     pub fn lane_blocker_at(&self, mile: Option<f64>, lane_index: i64) -> Option<&TrafficVehicle> {
-        self.traffic_manager.vehicle_in_lane(
-            mile.unwrap_or(self.position_mi),
-            lane_index,
-            DODGE_CLEARANCE_AHEAD_MI + LANE_GAP_MARGIN_MI,
-            DODGE_CLEARANCE_BEHIND_MI + LANE_GAP_MARGIN_MI,
-            LANE_GAP_ACT_REAL_S * self.effective_time_scale() / 3600.0,
-            self.truck.speed_mph(),
-        )
+        let in_lane = |lane| {
+            self.traffic_manager.vehicle_in_lane(
+                mile.unwrap_or(self.position_mi),
+                lane,
+                DODGE_CLEARANCE_AHEAD_MI + LANE_GAP_MARGIN_MI,
+                DODGE_CLEARANCE_BEHIND_MI + LANE_GAP_MARGIN_MI,
+                LANE_GAP_ACT_REAL_S * self.effective_time_scale() / 3600.0,
+                self.truck.speed_mph(),
+            )
+        };
+        // A vehicle on the ramp beside the right lane is about to be in it,
+        // and joins the moment the truck is a safe gap away, which a truck
+        // over in the left lane always is. Left out, the right lane read open
+        // with a box truck alongside on the ramp (player report, 2026-10-13).
+        in_lane(lane_index).or_else(|| (lane_index == 0).then(|| in_lane(-1)).flatten())
     }
 
     /// Which of the truck's neighbouring lanes a dodge can go into right
@@ -733,10 +740,11 @@ impl Trip {
                 .unwrap_or("");
             format!("{toward_name}, {state}")
         };
-        format!(
-            "{dist}. On {} toward {toward_text}.{lane_part} {terrain_text}. {next_context}",
-            leg.highway
-        )
+        // Its own sentence, so a catalog has it whole when the lane and
+        // grade around it change.
+        let highway = &leg.highway;
+        let on_road = format!("On {highway} toward {toward_text}.");
+        format!("{dist}. {on_road}{lane_part} {terrain_text}. {next_context}")
     }
 
     /// Lane count in plain words for the road-status readout, or empty where
@@ -745,15 +753,18 @@ impl Trip {
         let Some((n, divided)) = self.lanes_at(None) else {
             return String::new();
         };
-        let lanes = format!(
-            "{} lane{} your side",
-            lane_word(n),
-            if n != 1 { "s" } else { "" }
-        );
         if divided {
-            format!("divided, {lanes}")
+            format!(
+                "divided, {} lane{} your side",
+                lane_word(n),
+                if n != 1 { "s" } else { "" }
+            )
         } else {
-            lanes
+            format!(
+                "{} lane{} your side",
+                lane_word(n),
+                if n != 1 { "s" } else { "" }
+            )
         }
     }
 
@@ -897,7 +908,8 @@ impl Trip {
         Zone::new(gate_start, total, FACILITY_GATE_LIMIT_MPH, "facility gate")
     }
 
-    /// 0 = no law, 1 = winter-rated tires or chains, 2 = chains required.
+    /// 0 = no law, 1 = Level 1 (cars may use winter tires; trucks chain,
+    /// except tandem-drive trucks in Colorado), 2 = chains on every truck.
     ///
     /// The sky the truck is under sets the floor; an active Weather Service
     /// warning for this stretch (a winter storm, a blizzard, an ice storm)
@@ -912,6 +924,160 @@ impl Trip {
         from_sky.max(crate::sim::real_weather_alerts::alerts_chain_law_level(
             &self.live_alerts,
         ))
+    }
+
+    /// The truck is on a Colorado chain-carry corridor's mountain run in
+    /// carry season (`CO_CHAIN_CARRY_CORRIDORS`), with the career calendar
+    /// known. Weather doesn't matter: the rule is to carry, not to chain.
+    pub fn on_co_chain_carry_corridor(&self, mile: f64) -> bool {
+        use crate::sim::trip_models::{in_co_chain_carry_season, CO_CHAIN_CARRY_CORRIDORS};
+        use chrono::Datelike;
+        let Some(hours) = self.current_career_hours() else {
+            return false;
+        };
+        let month = crate::sim::season::calendar_date(hours).month();
+        let highway = &self.route.legs[self.leg_at_mile(mile).0].highway;
+        self.chain_law_area_at(mile).is_some()
+            && self.state_code_at(mile).as_deref() == Some("CO")
+            && CO_CHAIN_CARRY_CORRIDORS.contains(&highway.as_str())
+            && in_co_chain_carry_season(month)
+    }
+
+    /// The chain-law areas on chain corridors (`on_chain_corridor`) of
+    /// chain-control states starting between route miles `from_mi` and
+    /// `to_mi`, in route order, that `keep(state, highway)` accepts.
+    pub fn chain_corridor_areas(
+        &self,
+        from_mi: f64,
+        to_mi: f64,
+        keep: impl Fn(&str, &str) -> bool,
+    ) -> Vec<ChainCorridorAhead> {
+        if self.route.legs.is_empty() {
+            return Vec::new();
+        }
+        let mut out = Vec::new();
+        for &(start, end) in &self.chain_law_areas {
+            if start < from_mi || start > to_mi {
+                continue;
+            }
+            // The grade itself, past the chain-up pullout, names the road.
+            let probe = (start + CHAIN_LAW_LEAD_MI).min(end);
+            let Some(state) = self.state_code_at(probe) else {
+                continue;
+            };
+            if !CHAIN_CONTROL_STATES.contains(&state.as_str()) {
+                continue;
+            }
+            let highway = self.route.legs[self.leg_at_mile(probe).0].highway.clone();
+            if !on_chain_corridor(&state, &highway) || !keep(&state, &highway) {
+                continue;
+            }
+            out.push(ChainCorridorAhead {
+                key: format!("{state}:{highway}:{}", fmt_f(start, 1)),
+                highway,
+                state,
+                start_mi: start,
+                exit_label: self.chain_area_exit_label(start),
+            });
+        }
+        out
+    }
+
+    /// Carry-rule corridors in season anywhere on the route
+    /// (`in_chain_carry_season`): where chains must be aboard whatever the
+    /// weather. Empty without a career calendar.
+    pub fn chain_carry_corridors(&self) -> Vec<ChainCorridorAhead> {
+        use chrono::Datelike;
+        let Some(hours) = self.current_career_hours() else {
+            return Vec::new();
+        };
+        let month = crate::sim::season::calendar_date(hours).month();
+        self.chain_corridor_areas(0.0, self.route.miles(), |state, highway| {
+            in_chain_carry_season(state, highway, month)
+        })
+    }
+
+    /// The first chain-law area within `within_mi` ahead of the truck where
+    /// the posted law chains this rig (`rig_must_chain`): no reminder for
+    /// Colorado or Wyoming Level 1 on a tandem drive, or with no law posted.
+    pub fn upcoming_chain_corridor(&self, within_mi: f64) -> Option<ChainCorridorAhead> {
+        let level = self.chain_law_level();
+        if level <= 0 {
+            return None;
+        }
+        let here = self.position_mi;
+        self.chain_corridor_areas(here, here + within_mi, |state, _| {
+            crate::sim::trip_models::rig_must_chain(Some(state), level)
+        })
+        .into_iter()
+        .next()
+    }
+
+    /// The real exit label of the nearest numbered interchange at or before
+    /// route mile `at` (in travel order) on the same leg, within
+    /// `CHAIN_CORRIDOR_EXIT_LOOKBACK_MI`. Empty when there is none: never
+    /// made up.
+    pub fn chain_area_exit_label(&self, at: f64) -> String {
+        if self.route.legs.is_empty() {
+            return String::new();
+        }
+        let (i, leg_start) = self.leg_at_mile(at);
+        let offset = at - leg_start;
+        let leg = &self.route.legs[i];
+        let forward = self.route.cities.get(i).is_none_or(|city| *city == leg.a);
+        let native = if forward { offset } else { leg.miles - offset };
+        let mut best = (CHAIN_CORRIDOR_EXIT_LOOKBACK_MI, String::new());
+        for ix in leg.interchanges() {
+            let before = if forward {
+                native - ix.at_mi
+            } else {
+                ix.at_mi - native
+            };
+            let label = ix.exit_label();
+            if (0.0..=best.0).contains(&before) && !label.is_empty() {
+                best = (before, label);
+            }
+        }
+        best.1
+    }
+
+    /// The truck is on a Montana chain-law area (the mountain run) between
+    /// October 1 and April 30 (`in_mt_chain_carry_season`).
+    pub fn on_mt_chain_carry_run(&self, mile: f64) -> bool {
+        use chrono::Datelike;
+        let Some(hours) = self.current_career_hours() else {
+            return false;
+        };
+        let month = crate::sim::season::calendar_date(hours).month();
+        self.chain_law_area_at(mile).is_some()
+            && self.state_code_at(mile).as_deref() == Some("MT")
+            && crate::sim::trip_models::in_mt_chain_carry_season(month)
+    }
+
+    /// Whether the truck meets the active chain law at this milepost: chains
+    /// on, or a law that doesn't chain the rig here (`rig_must_chain`).
+    /// Wyoming Level 1 asks for snow tires or chains (W.S. 31-5-956(e)), so
+    /// there winter tires count and all-season tires without chains don't.
+    pub fn rig_compliant_at(&self, mile: f64) -> bool {
+        let level = self.chain_law_level();
+        if self.truck.chains_on || level <= 0 {
+            return true;
+        }
+        let state = self.state_code_at(mile);
+        if state.as_deref() == Some("WY") && level == 1 {
+            return self.truck.tire_type == crate::sim::vehicle::TIRE_WINTER;
+        }
+        !crate::sim::trip_models::rig_must_chain(state.as_deref(), level)
+    }
+
+    /// The chain-law warning's missing equipment: "snow tires or chains" at
+    /// Wyoming Level 1, "chains" everywhere else.
+    pub fn chain_law_need_at(&self, mile: f64) -> &'static str {
+        if self.state_code_at(mile).as_deref() == Some("WY") && self.chain_law_level() == 1 {
+            "snow tires or chains"
+        } else {
+            "chains"
+        }
     }
 
     /// Index of the chain-law area containing this milepost, or None.
@@ -967,7 +1133,7 @@ impl Trip {
                 runs.push(LaneRun {
                     start_mi: s,
                     end_mi: e,
-                    lanes: MAX_DRIVABLE_LANES.min(seg.your_side(forward)),
+                    lanes: MAX_DRIVABLE_LANES.min(seg.your_side()),
                     divided: seg.divided(),
                 });
             }

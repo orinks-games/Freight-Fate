@@ -97,30 +97,47 @@ impl DrivingState {
     }
 
     /// `_speak_speed()`: Space.
+    ///
+    /// Three short sentences rather than one run-on: the gauges, then the
+    /// controller, then the air. The run-on named "automatic speed control"
+    /// ahead of the controller that already names itself, spoke the default
+    /// open-road target nobody set, and listed four normal air states every
+    /// time (bscross32, 2026-10: "why did I need all of that in one
+    /// message?"). What is normal goes unsaid; Tab still lists all of it.
     pub fn speak_speed(&mut self, ctx: &mut GameContext) {
         let gear = self.gear_text();
+        // The open-road target only when one was set, and not when it is the
+        // number the keeper was just said to be set at.
         let keeper_target = match self.speed_control_target_mph {
-            Some(mph) => format!(", open-road target {}", ctx.settings.speed_text(mph)),
-            None => ", open-road target will use the posted limit".to_string(),
+            Some(mph) if self.keeper_mph.is_none_or(|set| (set - mph).abs() >= 0.5) => {
+                format!(" Open-road target {}.", ctx.settings.speed_text(mph))
+            }
+            _ => String::new(),
         };
-        let cruise = if self.cruise_mph.is_some() {
-            format!(
-                ", automatic speed control, {}",
-                self.cruise_holding_text(ctx)
-            )
+        let control = if self.cruise_mph.is_some() {
+            format!(" {}.", capitalize_first(&self.cruise_holding_text(ctx)))
         } else if self.keeper_mph.is_some() {
             format!(
-                ", automatic speed control, {}{keeper_target}",
-                self.keeper_holding_text(ctx)
+                " {}.{keeper_target}",
+                capitalize_first(&self.keeper_holding_text(ctx))
             )
         } else if self.speed_control_armed {
-            format!(", automatic speed control paused{keeper_target}")
+            format!(" Automatic speed control paused.{keeper_target}")
         } else {
             String::new()
         };
         let speed = ctx.settings.speed_text(self.trip.truck.speed_mph());
-        let rpm = self.trip.truck.rpm;
-        let air = self.air_status_text(false);
+        // The tachometer matters to a driver who shifts; an automatic
+        // shifts for them.
+        let rpm = if self.trip.truck.transmission.automatic {
+            String::new()
+        } else {
+            format!(", {:.0} RPM", self.trip.truck.rpm)
+        };
+        let air = match self.air_brief_text() {
+            air if air.is_empty() => air,
+            air => format!(" {}.", capitalize_first(&air)),
+        };
         // With the signal on, how far to the exit is the number the driver is
         // waiting on, and until now only the countdown anchors said it (owner,
         // driving, 2026-09-24: "I should be able to see how far away from the
@@ -136,9 +153,7 @@ impl DrivingState {
             ),
             None => String::new(),
         };
-        ctx.say(&format!(
-            "{speed}, {gear}, {rpm:.0} RPM{cruise}, {air}.{armed}"
-        ));
+        ctx.say(&format!("{speed}, {gear}{rpm}.{control}{air}{armed}"));
     }
 
     /// The exit the signal is on for, while the truck is still short of its
@@ -322,7 +337,7 @@ impl DrivingState {
         // not: the gore takes road speed, and the exit speed is braked for
         // past it (realistic exit, 2026-09-24).
         if self.ramp_mi.is_some() {
-            safe = safe.min(self.armed_ramp_mph(None));
+            safe = safe.min(self.ramp_cap_here_mph());
             context = ", the exit speed";
         }
         let spoken = ctx.settings.speed_text(safe);
@@ -402,7 +417,7 @@ impl DrivingState {
     /// driver asked, and I again turns it off.
     pub fn toggle_lane_locator(&mut self, ctx: &mut GameContext) {
         if ctx.settings.lane_is_automated() {
-            ctx.say("Lane keeping assistance is on full; the truck holds the lane for you.");
+            ctx.say("Lane keeping on full.");
             return;
         }
         self.lane_locator_on = !self.lane_locator_on;
@@ -454,9 +469,9 @@ impl DrivingState {
             let stage = truck.engine_brake_stage;
             if grade > 0.005 {
                 if accel_mph_s < -GRADE_HOLDING_MPH_PER_S {
-                    parts.push("The hill has the load; expect to lose speed.".to_string());
+                    parts.push("Losing speed.".to_string());
                 } else if accel_mph_s > GRADE_HOLDING_MPH_PER_S {
-                    parts.push("Pulling it with speed to spare.".to_string());
+                    parts.push("Gaining speed.".to_string());
                 } else {
                     parts.push("Holding speed.".to_string());
                 }
@@ -474,12 +489,12 @@ impl DrivingState {
                         };
                         parts.push(format!("Jake stage {stage} is not holding it; {losing}."));
                     } else if truck.throttle <= 0.05 {
-                        parts.push("Speed is building; set the jake before it runs.".to_string());
+                        parts.push("Speed building. Set the jake.".to_string());
                     }
                 } else if stage > 0 && truck.jake_brake_force() > 0.0 {
                     parts.push(format!("Jake stage {stage} has it."));
                 } else {
-                    parts.push("Speed in hand.".to_string());
+                    parts.push("Holding speed.".to_string());
                 }
             }
         }
@@ -517,7 +532,11 @@ impl DrivingState {
                 // Same filter the advisory uses: a third-of-a-mile dip is not
                 // the next grade, it is a bump in this one.
                 if run_mi >= GRADE_WARN_MIN_RUN_MI {
-                    let direction = if sign > 0 { "upgrade" } else { "downgrade" };
+                    let direction = if sign > 0 {
+                        "uphill grade"
+                    } else {
+                        "downhill grade"
+                    };
                     let ahead = probe - position;
                     let distance = if ahead >= GRADE_WARN_MIN_RUN_MI {
                         format!("in {}", self.trip.distance_text(ahead))
@@ -584,7 +603,11 @@ impl DrivingState {
             return String::new();
         }
         let pct = grade.abs() * 100.0;
-        let direction = if grade > 0.0 { "upgrade" } else { "downgrade" };
+        let direction = if grade > 0.0 {
+            "uphill grade"
+        } else {
+            "downhill grade"
+        };
         let where_text = ctx.settings.short_distance_text(ahead_mi);
         format!("Next, a {pct:.1} percent {direction} starts in {where_text}.")
     }
@@ -801,8 +824,7 @@ impl DrivingState {
 
     /// `_speak_fuel()`: F.
     pub fn speak_fuel(&mut self, ctx: &mut GameContext) {
-        let mpg = 6.0;
-        let range_mi = self.trip.truck.fuel_gal * mpg;
+        let range_mi = self.fuel_range_mi();
         let fraction = self.trip.truck.fuel_fraction() * 100.0;
         let gallons = self.trip.truck.fuel_gal;
         let mut line = format!(
@@ -850,5 +872,14 @@ impl DrivingState {
         }
         parts.push(format!("It is {tod}."));
         ctx.say(&parts.join(" "));
+    }
+}
+
+/// "speed keeper holding ..." as the start of its own sentence.
+fn capitalize_first(text: &str) -> String {
+    let mut chars = text.chars();
+    match chars.next() {
+        Some(first) => first.to_uppercase().collect::<String>() + chars.as_str(),
+        None => String::new(),
     }
 }

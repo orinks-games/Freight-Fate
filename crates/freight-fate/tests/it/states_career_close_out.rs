@@ -33,7 +33,7 @@ fn test_the_terminal_says_the_career_is_over_and_offers_the_close_out_last() {
 
     let greeting = app.main_lines().join(" ");
     assert!(
-        greeting.contains("Your driving career is over"),
+        greeting.contains("this career cannot drive again"),
         "{greeting}"
     );
     assert!(greeting.contains("Close out this career"), "{greeting}");

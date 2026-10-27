@@ -2,12 +2,13 @@
 //! horn's one real power, the routine speed announcement, and the grade
 //! advisory.
 
+use crate::speech::EventPriority;
 use ff_core::pyrandom::PyRandom;
 use ff_core::sim::driving_modes::tuning_for_time_scale;
 use ff_core::sim::trip_models::HAZARDS;
 use ff_core::sim::vehicle::BrakeApplication;
-use ff_core::speech_pacing::{EventPriority, SpeechCategory};
-use ff_core::speech_text::{terse_silent, SpokenMessage};
+use ff_core::speech_pacing::SpeechCategory;
+use ff_core::speech_text::terse_silent;
 
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
@@ -108,6 +109,7 @@ impl DrivingState {
             dodgeable: self.hazard_dodgeable,
             in_lane: self.hazard_in_lane,
             lead_mph: self.hazard_lead_mph,
+            brake_to_mph: self.hazard_brake_to_mph,
         }
     }
 
@@ -256,16 +258,32 @@ impl DrivingState {
     /// -- a carcass on a one-lane road became a 25 mph problem the moment
     /// "dodgeable" started meaning "there is somewhere to go".
     ///
-    /// ANYTHING THAT SPANS THE ROAD -- fog, ice, a crosswind, a deer that may
-    /// bolt either way -- takes the moving-hazard safe speed, because there
-    /// is no object in the lane to creep past.
+    /// ANYTHING THAT SPANS THE ROAD -- fog, ice, a crosswind -- takes the
+    /// moving-hazard safe speed, because there is no object in the lane to
+    /// creep past. An animal spans it too, but brakes to its own catalog
+    /// speed (`ANIMAL_BRAKE_TO_MPH`).
     pub fn hazard_target_mph(&self, shape: Option<HazardShape>) -> f64 {
         let shape = shape.unwrap_or_else(|| self.hazard_shape());
         if let Some(lead_mph) = shape.lead_mph {
             return HAZARD_CREEP_MPH.max(lead_mph);
         }
+        // Something a truck passes slowly: a tarp it straddles, water it
+        // eases through, a car on the shoulder it gives room to.
+        if let Some(mph) = shape.brake_to_mph {
+            return mph;
+        }
         if shape.in_lane {
             return HAZARD_CREEP_MPH;
+        }
+        // In weather that takes grip or sight, something across the road
+        // asks for the speed the weather is safe at, a little under: braking
+        // a truck to 25 for a gust or a hail band it was already driving
+        // slow for was the "too much braking" (owner, 2026-10-19). The same
+        // test of bad weather the cruise caps on.
+        let effects = self.trip.weather.effects();
+        if effects.is_adverse() {
+            let weather_mph = effects.safe_speed_mph - HAZARD_WEATHER_MARGIN_MPH;
+            return HAZARD_SAFE_MPH.max(weather_mph.min(HAZARD_SPANNING_MAX_MPH));
         }
         HAZARD_SAFE_MPH
     }
@@ -286,7 +304,16 @@ impl DrivingState {
     /// with J" told the driver to switch off the thing the hill needs (agent
     /// drive, Silverthorne to Edwards, 2026-09-24). Then the jake clause
     /// goes, and on an automatic nothing is left to advise.
-    pub fn descend_advice(&self, ctx: &GameContext) -> String {
+    ///
+    /// And only while it is still teaching. A driver who has switched the
+    /// engine brake on a few times knows the hill wants it, and hearing how on
+    /// every downgrade got old (bscross32, 2026-10: "I'll decide how to handle
+    /// it"). Once the J key is retired the call is just the grade and its
+    /// length. A remapped key or a new transmission teaches it again.
+    pub fn descend_advice(&self, ctx: &mut GameContext) -> String {
+        if self.instruction_retired(ctx, "engine_brake") {
+            return String::new();
+        }
         let jake_set = self.trip.truck.engine_brake() || self.auto_jake;
         let automatic = self.trip.truck.transmission.automatic;
         if jake_set {
@@ -296,11 +323,7 @@ impl DrivingState {
                 "Pick your gear before it starts.".to_string()
             };
         }
-        let jake = ctx.control_hint("engine_brake");
-        if automatic {
-            return format!("Set the engine brake with {jake} before it starts.");
-        }
-        format!("Pick your gear and set the engine brake with {jake} before it starts.")
+        format!("Set the jake with {}.", ctx.control_hint("engine_brake"))
     }
 
     /// How far a grade of this sign keeps its character from `start_mi`.
@@ -415,12 +438,18 @@ impl DrivingState {
             ""
         };
         let length = format!(" for {about}{}", self.trip.distance_text(run_mi));
-        let direction = if sign > 0 { "upgrade" } else { "downgrade" };
+        let direction = if sign > 0 {
+            "uphill grade"
+        } else {
+            "downhill grade"
+        };
         ctx.audio.play_with("ui/notify", 0.55, 0.0);
+        // An uphill grade needs no advice: the truck slowing on it is the
+        // expected thing, and saying so was one more sentence to sit through.
         let advice = if sign < 0 {
             self.descend_advice(ctx)
         } else {
-            "Expect to lose speed.".to_string()
+            String::new()
         };
         ctx.say_event_with(
             format!(
@@ -430,7 +459,7 @@ impl DrivingState {
             .trim_end()
             .to_string(),
             SayEvent::queued()
-                .priority(EventPriority::Route)
+                .priority(EventPriority::Important)
                 .category(SpeechCategory::Navigation),
         );
     }
@@ -440,8 +469,8 @@ impl DrivingState {
     /// Shane's ask (2026-08-20), and it is what the air horn is FOR on a
     /// real highway -- but it works the way animals work, not the way a
     /// button works. Livestock, dogs, and coyotes mostly move; deer and
-    /// elk freeze as often as they bolt, which is why braking stays the
-    /// instruction and the horn is a bonus, never the plan. One attempt
+    /// elk freeze as often as they bolt, so the horn is a bonus, never the
+    /// plan. One attempt
     /// per hazard: an animal that ignored the first blast has decided.
     /// Seeded on the hazard so a save-scummed retry hears the same deer
     /// make the same choice.
@@ -481,10 +510,67 @@ impl DrivingState {
             return;
         }
         let text = format!(
-            "The horn does it, {} clears the road. Well done.",
+            "The horn does it, {} clears the road.",
             self.hazard_names_text()
         );
         self.finish_hazard_clear(ctx, &text);
+    }
+
+    /// An animal the truck reached before slowing to its brake-to speed:
+    /// most get across, and the rest are struck. A strike is a dent and a
+    /// grille, not the wreck a fixed object at speed is: the truck keeps
+    /// going and the freight is untouched (owner, 2026-10-19).
+    ///
+    /// The odds are assumed, not measured: at 65 mph the horn's own split,
+    /// where deer and elk freeze more often than they bolt, and better the
+    /// slower the truck is going, so braking for it counts even when it
+    /// falls short. The damage scales with the animal's size and the
+    /// truck's speed. Seeded on the hazard, so a reload hears the same
+    /// outcome.
+    pub fn animal_outcome(&mut self, ctx: &mut GameContext) {
+        let names = self.hazard_names.clone();
+        let mut rng = PyRandom::new_from_i64(
+            (self.trip_seed << 9) ^ (self.hazard_arm_mi * 50.0) as i64 ^ 0x5eed,
+        );
+        let slowed = (1.0 - self.trip.truck.speed_mph() / 65.0).clamp(0.0, 1.0);
+        let struck = names.iter().find(|name| {
+            let freeze_prone = name.as_str() == "the deer" || name.as_str() == "the elk";
+            let at_speed = if freeze_prone { 0.6 } else { 0.75 };
+            let gets_across = at_speed + (1.0 - at_speed) * slowed;
+            rng.random() >= gets_across
+        });
+        let Some(struck) = struck.cloned() else {
+            self.clear_hazard(ctx);
+            return;
+        };
+        let size_pct = match struck.as_str() {
+            "the elk" | "the livestock" => ANIMAL_STRIKE_LARGE_PCT,
+            "the deer" => ANIMAL_STRIKE_DEER_PCT,
+            _ => ANIMAL_STRIKE_SMALL_PCT,
+        };
+        let pct = size_pct * (self.trip.truck.speed_mph() / 65.0).clamp(0.2, 1.2);
+        self.hazard_deadline = None;
+        self.hazard_lead_mph = None;
+        self.hazard_in_lane = false;
+        self.hazard_animal = false;
+        self.hazard_brake_to_mph = None;
+        self.hazard_names.clear();
+        self.refresh_live_facts(); // same reason as `finish_hazard_clear`
+        self.release_hazard_brake();
+        ctx.audio.play_with("vehicle/collision", 0.6, 0.0);
+        ctx.controller.rumble.impact(0.3);
+        self.trip.truck.add_damage(pct, false);
+        let damage = self.trip.truck.damage_pct;
+        let message = format!("Collision with {struck}. Damage {damage:.0} percent.");
+        self.last_event_message = message.clone();
+        self.co_driver_animal_strike(ctx, &struck);
+        let spoken_pct = damage;
+        ctx.say_event_with(
+            message,
+            SayEvent::new()
+                .category(SpeechCategory::Safety)
+                .valid(move || (live::damage_pct() - spoken_pct).abs() < 0.5),
+        );
     }
 
     /// The pending hazard(s), joined for a resolution line.
@@ -507,43 +593,26 @@ impl DrivingState {
         }
     }
 
-    /// What actually happened, said in the driver's terms.
-    ///
-    /// A hazard with a LEAD SPEED is a vehicle, and since `hazard_target_mph`
-    /// started clearing those by matching the vehicle rather than by nearly
-    /// stopping (Brandon, 2026-08-23) this line had gone untrue: the truck
-    /// eased from sixty-five to fifty-five and was told it had nearly stopped
-    /// and eased around. On a one-lane road it was untrue twice over -- there
-    /// was nothing to ease around into, which is the same road the call
-    /// itself already gets right with a bare "Brake!". Easing around belongs
-    /// to a fixed object in the lane, which is the case that still has no
-    /// lead speed at all.
-    ///
-    /// And easing around needs a lane to ease into. A carcass on a one-lane
-    /// road is answered by nearly stopping and crawling past it, so that is
-    /// what the line says now -- the same untruth the vehicle case had, in
-    /// the case the vehicle fix did not reach.
+    /// The hazard is behind the truck. Only the outcome: the driver did the
+    /// braking or the easing around and does not need it narrated back --
+    /// and narrating it is how this line went untrue before (a truck that
+    /// matched a vehicle's speed was told it had nearly stopped and eased
+    /// around; Brandon, 2026-08-23).
     pub fn hazard_resolution_text(&self) -> String {
         let names = self.hazard_names_text();
-        if self.hazard_lead_mph.is_some() {
-            return format!("You slow to match {names}. Well done.");
-        }
-        if self.hazard_in_lane {
-            return if self.hazard_dodgeable {
-                format!("You slow nearly to a stop and ease around {names}. Well done.")
-            } else {
-                format!("You slow nearly to a stop for {names}. Well done.")
-            };
-        }
         if names == "it" {
-            return "Hazard avoided. Well done.".to_string();
+            return "Clear.".to_string();
         }
-        format!("Past {names}. Well done.")
+        format!("Clear of {names}.")
     }
 
     /// Common tail of every way a pending hazard can resolve: brake,
     /// swerve, or an earlier hazard outrun before a new one armed.
     pub fn finish_hazard_clear(&mut self, ctx: &mut GameContext, message_text: &str) {
+        // What the co-driver did about it, read before the resets below.
+        let co_driver_news = self
+            .co_driver_driving()
+            .then(|| (self.hazard_names_text(), self.hazard_animal));
         self.hazard_deadline = None;
         // The lead belonged to the hazard that just ended; a fresh one must
         // not inherit it, or a tyre carcass would clear at the speed of a
@@ -551,6 +620,8 @@ impl DrivingState {
         // the road must not inherit the near stop the last object asked for.
         self.hazard_lead_mph = None;
         self.hazard_in_lane = false;
+        self.hazard_animal = false;
+        self.hazard_brake_to_mph = None;
         // Everything below here can offer the hazard call its rescue -- the
         // clear line's own flush, or any urgent line that lands before the
         // next tick. That gate asks whether a hazard is still armed, so the
@@ -576,11 +647,14 @@ impl DrivingState {
         ctx.say_event_with(
             message,
             SayEvent::queued()
-                .priority(EventPriority::Route)
+                .priority(EventPriority::Important)
                 .category(SpeechCategory::Confirmation),
         );
         ctx.award_driving_achievement("hazard_avoided");
         self.hazard_names.clear();
+        if let Some((names, animal)) = co_driver_news {
+            self.co_driver_note_hazard(ctx, &names, animal, message_text);
+        }
     }
 
     /// Speak and reset the pending hazard(s) as cleared by braking.
@@ -618,6 +692,7 @@ impl DrivingState {
         // following.
         if self.hazard_in_lane
             && self.hazard_lead_mph.is_none()
+            && self.hazard_brake_to_mph.is_none()
             && !self.hazard_slow_hint_said
             && self.trip.truck.speed_mph() <= HAZARD_SAFE_MPH
         {
@@ -645,13 +720,17 @@ impl DrivingState {
             ctx.say_event_with(
                 hint,
                 SayEvent::queued()
-                    .priority(EventPriority::Route)
+                    .priority(EventPriority::Important)
                     .category(SpeechCategory::Safety),
             );
         }
         let deadline = self.hazard_deadline.unwrap_or(0.0) - dt;
         self.hazard_deadline = Some(deadline);
         self.track_assisted_deceleration(dt);
+        // An animal is braked for firmly in the lane, to the speed its
+        // catalog row asks for, and never with the emergency application:
+        // a loaded truck stood on its brakes for a deer is how a following
+        // car ends up in the trailer (owner, 2026-10-19).
         let assist_may_act =
             ctx.settings.automatic_emergency_braking && !self.dodge_still_beats_the_hazard();
         if !assist_may_act {
@@ -679,7 +758,7 @@ impl DrivingState {
             // And the emergency application stays a genuine last resort, judged
             // on the deceleration the truck is actually making rather than on
             // the one a full application ought to deliver.
-            if self.service_braking_is_losing(dt) {
+            if self.service_braking_is_losing(dt) && !self.hazard_animal {
                 self.aeb_emergency = true;
             }
             self.apply_hazard_brake();
@@ -720,6 +799,10 @@ impl DrivingState {
                 self.cancel_cruise(ctx, true);
             }
         }
+        if self.hazard_deadline.unwrap_or(0.0) <= 0.0 && self.hazard_animal {
+            self.animal_outcome(ctx);
+            return;
+        }
         if self.hazard_deadline.unwrap_or(0.0) <= 0.0 {
             self.hazard_deadline = None;
             self.refresh_live_facts(); // same reason as `finish_hazard_clear`
@@ -730,10 +813,7 @@ impl DrivingState {
             ctx.controller.rumble.impact(severity);
             self.trip.truck.apply_collision(severity, true);
             let damage = self.trip.truck.damage_pct;
-            let mut message = SpokenMessage::with_terse(
-                format!("Collision! The truck took damage. Total damage {damage:.0} percent."),
-                format!("Collision! Damage {damage:.0} percent."),
-            );
+            let mut message = format!("Collision! Damage {damage:.0} percent.");
             // A dodgeable hazard's announcement leaves the session armed --
             // see `handle_trip_event` -- on the promise that only braking
             // ends it: the driver's own, or AEB's (which already cancels the
@@ -746,12 +826,9 @@ impl DrivingState {
             // stopped being answerable the moment it hit the truck.
             if self.speed_control_armed || self.cruise_mph.is_some() || self.keeper_mph.is_some() {
                 self.disarm_speed_control(ctx);
-                message = SpokenMessage::with_terse(
-                    format!("{} Automatic speed control canceled.", message.normal),
-                    format!("{} Cruise off.", message.render(true)),
-                );
+                message.push_str(" Cruise off.");
             }
-            self.last_event_message = message.normal.clone();
+            self.last_event_message = message.clone();
             // valid: a damage total is only true at the moment it was
             // computed. A rescue replaying it after ANOTHER collision stated
             // a percentage the truck had already left behind (adversarial

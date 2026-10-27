@@ -20,7 +20,10 @@ use crate::speech_text::{typed_name, SpokenMessage};
 
 mod hazards;
 mod ramps;
-pub use hazards::{eligible_hazards, hazard_is_in_lane, hazard_name, HazardDef, OpenSide, HAZARDS};
+pub use hazards::{
+    eligible_hazards, hazard_brake_to_mph, hazard_is_animal, hazard_is_in_lane, hazard_name,
+    HazardDef, OpenSide, ANIMAL_BRAKE_TO_MPH, HAZARDS,
+};
 pub use ramps::{
     acceleration_lane_capability_mph, acceleration_lane_mi, deceleration_lane_mi, exit_ramp_layout,
     merge_traffic_target_mph, ramp_curve_mi, ramp_speed_mph, truck_merge_speed_mph, ExitRampLayout,
@@ -317,7 +320,6 @@ pub fn approach_shed_mi(from_mph: f64, to_mph: f64) -> f64 {
 pub const NIGHT_HAZARD_BONUS: f64 = 0.10; // extra hazard risk after dark
 /// A zone flip that flips back within this distance is boundary noise.
 pub const TIMEZONE_DWELL_MI: f64 = 10.0;
-pub const NIGHT_TRAFFIC_KEEP: f64 = 0.4;
 /// Open road guaranteed between generated slow zones.
 pub const ZONE_MIN_GAP_MI: f64 = 8.0;
 pub const RUSH_HOUR_WINDOWS: [(f64, f64); 2] = [(6.5, 9.0), (16.0, 18.5)];
@@ -492,9 +494,151 @@ pub const CHAIN_LAW_MIN_GRADE: f64 = 0.05;
 /// program, so a steep mile in Texas or Wisconsin is only a steep mile
 /// (seasonal audit, 2026-10-01: 218 legs in 35 states had chain areas).
 pub const CHAIN_CONTROL_STATES: [&str; 9] = ["CA", "CO", "ID", "MT", "NV", "OR", "UT", "WA", "WY"];
+/// Whether the player's rig (a five-axle tractor-trailer on a tandem drive)
+/// must chain under a chain law at `level` in `state`. Heavy trucks get no
+/// winter-tire exemption: Caltrans R-1 to R-3 ("no exemption for heavy-duty
+/// commercial vehicles ... equipped with snow tires", dot.ca.gov chain
+/// requirements) and WSDOT over 10,000 lb (WAC 204-24-050) chain trucks.
+/// Oregon's lower level ("Chains or traction tires required") chains only
+/// single-drive-axle trucks over 10,000 lb, and "Chains required" chains
+/// every truck (ODOT, oregon.gov/odot/mct/pages/chains-and-traction-tires.aspx).
+/// Colorado is the one split: Level 1 chains single-drive-axle combinations
+/// only, and Level 2 chains every truck (CDOT Commercial Vehicle Chain Law,
+/// csp.colorado.gov/chain-law-information). Wyoming Level 1 accepts snow
+/// tires or chains, and Level 2 requires chains on two tires of one drive
+/// axle (WYDOT chain law; W.S. 31-5-956(e)). ID, MT, NV and UT are
+/// UNVERIFIED and follow the general rule: trucks chain.
+pub fn rig_must_chain(state: Option<&str>, level: i64) -> bool {
+    match level {
+        ..=0 => false,
+        1 => !matches!(state, Some("CO") | Some("WY") | Some("OR")),
+        _ => true,
+    }
+}
+
+/// The rule a chain-law sign speaks for `state` (two-letter code) at
+/// `level` (`rig_must_chain`).
+pub fn chain_law_sign_rule(state: Option<&str>, level: i64) -> &'static str {
+    match (state, level >= 2) {
+        (Some("WY"), true) => "level 2: chains required on two tires of one drive axle",
+        (_, true) => "level 2: chains required on all trucks",
+        (Some("CO") | Some("OR"), false) => "level 1: chains required on single-drive-axle trucks",
+        (Some("WY"), false) => "level 1: snow tires or chains required",
+        (_, false) => "level 1: chains required on trucks",
+    }
+}
+
 pub const CHAIN_LAW_MIN_RUN_MI: f64 = 1.0;
 pub const CHAIN_LAW_JOIN_GAP_MI: f64 = 2.0;
-pub const CHAIN_LAW_LEAD_MI: f64 = 0.5;
+/// Caltrans: "about a mile between 'Chains Required' signs and the
+/// checkpoint" (winter driving tips).
+pub const CHAIN_LAW_LEAD_MI: f64 = 1.0;
+
+/// The highways each sourced state runs commercial chain controls on. A
+/// steep run in one of these states makes a chain-law area only on one of
+/// its listed highways; a state not listed (MT, NV, UT, WY) keeps the
+/// grade-only rule, UNVERIFIED until their own route lists are read. Leg
+/// highways carry no mileposts, so the listed mileposts below are matched by
+/// highway plus the steep-grade rule, not by milepost.
+/// - CO: the chain-carry corridors (csp.colorado.gov/chain-law-information):
+///   I-70 west of MP 259, CO-9 MP 63-97, US-40 west of MP 256, US-50 west of
+///   MP 225, US-160 west of MP 304, US-285 west of MP 250, US-550 MP 0-130.
+/// - CA: I-80 Donner and I-5 Grapevine and Siskiyou (Caltrans chain
+///   requirements); US-50 Echo, CA-58 Tehachapi and I-15 Cajon are
+///   UNVERIFIED rows, kept because Caltrans posts controls there.
+/// - WA: WAC 204-24-050(2)(i): I-90 MP 32-101, I-82 MP 3-26, US-2 MP 36-108,
+///   US-12 MP 135-187, US-97 (two stretches), SR-410, SR-20, SR-155, SR-970,
+///   SR-14 and SR-542.
+/// - ID: I-90 (Fourth of July and Lookout passes) and US-12 (Lolo Pass).
+/// - OR: ODOT snow zones on I-84 Cabbage Hill, I-5 Siskiyou, US-26 and
+///   OR-58 (Willamette Pass).
+pub const CHAIN_CORRIDORS: [(&str, &[&str]); 5] = [
+    (
+        "CO",
+        &[
+            "I-70", "CO-9", "US-40", "US-50", "US-160", "US-285", "US-550",
+        ],
+    ),
+    ("CA", &["I-80", "I-5", "US-50", "CA-58", "I-15"]),
+    (
+        "WA",
+        &[
+            "I-90", "I-82", "US-2", "US-12", "US-97", "WA-410", "WA-20", "WA-155", "WA-970",
+            "WA-14", "WA-542",
+        ],
+    ),
+    ("OR", &["I-84", "I-5", "US-26", "OR-58"]),
+    ("ID", &["I-90", "US-12"]),
+];
+
+/// Whether `highway` in `state` can carry a chain law (`CHAIN_CORRIDORS`).
+pub fn on_chain_corridor(state: &str, highway: &str) -> bool {
+    match CHAIN_CORRIDORS.iter().find(|(code, _)| *code == state) {
+        Some((_, highways)) => highways.contains(&highway),
+        None => true,
+    }
+}
+
+/// Colorado's carry rule: a commercial vehicle over 16,000 lb on these
+/// corridors must carry chains from September 1 to May 31 (CSP chain-law
+/// page). Matched by highway, inside a chain-law area (the mountain run).
+pub const CO_CHAIN_CARRY_CORRIDORS: [&str; 7] = [
+    "I-70", "CO-9", "US-40", "US-50", "US-160", "US-285", "US-550",
+];
+
+/// Montana: trucks of 26,001 lb or more must carry chains from October 1 to
+/// April 30 (MCA 61-9-436). No fine is verified, so the game only warns.
+pub fn in_mt_chain_carry_season(month: u32) -> bool {
+    !(5..=9).contains(&month)
+}
+
+/// Which Montana chain season (October 1 to April 30) a point on the career
+/// clock falls in, counted from the career's first October; January to
+/// April belong to the season that began the October before.
+pub fn mt_chain_season_id(game_hours: f64) -> i64 {
+    // Day of year 274 is October 1 on the career's fixed 365-day year.
+    let days = crate::sim::season::CAREER_START_DAY_OF_YEAR + game_hours / 24.0 - 274.0;
+    (days / 365.0).floor() as i64
+}
+
+/// A chain-law area ahead on a chain corridor in season (`upcoming_chain_corridor`).
+#[derive(Debug, Clone, PartialEq)]
+pub struct ChainCorridorAhead {
+    /// `"{state}:{highway}:{start_mi to 0.1}"`, one per corridor approach.
+    pub key: String,
+    pub highway: String,
+    pub state: String,
+    /// Route mile the chain-law area (its chain-up pullout) starts at.
+    pub start_mi: f64,
+    /// The nearest numbered interchange at or before the area, or empty.
+    pub exit_label: String,
+}
+
+/// How far before a chain-law area its approach exit is looked for.
+pub const CHAIN_CORRIDOR_EXIT_LOOKBACK_MI: f64 = 5.0;
+
+/// Whether a carry law requires chains aboard on `highway` in `state` in
+/// `month`, whatever the weather: Colorado's carry corridors September 1
+/// to May 31 (CSP chain-law page), Montana October 1 to April 30 (MCA
+/// 61-9-436) and Washington's listed routes November 1 to April 1 (WAC
+/// 204-24-050; April 1 is read at month precision, so April is out).
+/// Everywhere else chains are required only while a chain law is posted
+/// and the rig must chain under it (Caltrans chain controls, NRS 484D.520,
+/// ORS 815.140, Idaho Code 49-948(5), UDOT R920-6, W.S. 31-5-956(e)), so
+/// there is no dry-day season to remind about.
+pub fn in_chain_carry_season(state: &str, highway: &str, month: u32) -> bool {
+    match state {
+        "CO" => CO_CHAIN_CARRY_CORRIDORS.contains(&highway) && in_co_chain_carry_season(month),
+        "MT" => in_mt_chain_carry_season(month),
+        "WA" => !(4..=10).contains(&month),
+        _ => false,
+    }
+}
+
+/// September 1 to May 31: Colorado's chain-carry season.
+pub fn in_co_chain_carry_season(month: u32) -> bool {
+    !(6..=8).contains(&month)
+}
 pub const CHAIN_LAW_SAMPLE_MI: f64 = 0.25;
 pub const CONDITIONS_SPEED_MARGIN_MPH: f64 = 8.0;
 pub const CONDITIONS_GRIP_CEILING: f64 = 0.85;
@@ -552,7 +696,6 @@ impl RoadsideCallout {
 }
 
 pub const LANDMARK_MIN_SPACING_MI: f64 = 2.0;
-pub const VILLAGE_ENTER_OFF_MI: f64 = 0.5;
 pub const VILLAGE_PASS_OFF_MI: f64 = 1.5;
 pub const VILLAGE_MIN_SPACING_MI: f64 = LANDMARK_MIN_SPACING_MI;
 pub const VILLAGE_PAIR_WINDOW_MI: f64 = 1.5;
@@ -632,11 +775,18 @@ pub struct TripEventData {
     /// that spans the road.
     pub in_lane: Option<bool>,
     /// Which neighbouring lane the call found open, the reading
-    /// `dodgeable` folds in. Set on a vehicle-ahead hazard.
+    /// `dodgeable` folds in. Set on every hazard confined to one lane.
     pub open_side: Option<OpenSide>,
-    /// The vehicle-ahead call as lane keeping on full answers it, by
-    /// passing into `open_side` (see `passing_hazard_call`).
+    /// The call as lane keeping on full answers it, by changing lanes into
+    /// `open_side` (see `passing_hazard_call`): a vehicle ahead, or a thing
+    /// sitting in the lane (owner, 2026-10-19: go around, do not brake).
     pub pass_message: Option<SpokenMessage>,
+    /// An animal on the road. Braking at highway speed does not save it,
+    /// so the automatic braking leaves it alone (owner, 2026-10-19).
+    pub animal: Option<bool>,
+    /// What braking alone has to reach for this hazard, when less than a
+    /// near stop: see `HazardDef::brake_to_mph`.
+    pub brake_to_mph: Option<f64>,
     pub name: Option<String>,
     pub weather: Option<WeatherKind>,
     pub curve: Option<RouteCurve>,
@@ -651,6 +801,9 @@ pub struct TripEventData {
     pub stop: Option<RoadStop>,
     pub suppress_sound: Option<bool>,
     pub limit_change: Option<bool>,
+    /// The posted limit an arrival line names, in mph. Its queued copy is
+    /// worth speaking only while that number still governs the truck.
+    pub limit_mph: Option<f64>,
     pub advance: Option<bool>,
     pub from_zone: Option<TimeZone>,
     pub to_zone: Option<TimeZone>,
@@ -834,6 +987,29 @@ impl RoadStop {
     /// ("cross-dock: Chicago Cross-Dock" -> "Chicago Cross-Dock").
     pub fn spoken_name(&self) -> String {
         typed_name(self.label(), &self.name, ": ")
+    }
+
+    /// Whether a driver can buy fuel here.
+    pub fn sells_fuel(&self) -> bool {
+        self.actions.iter().any(|action| action == "fuel")
+    }
+
+    /// Whether a driver could expect pumps here, so the stop's fuel verdict
+    /// is worth speaking: the fuel types, and truck parking, whose lots are
+    /// often named "Truck Stop" (issue #272, "The 115 Truck Stop"). Nobody
+    /// pulls into a public rest area, a repair shop or a weigh station for
+    /// diesel, so saying "No fuel." at every one would be noise.
+    pub fn fuel_expected(&self) -> bool {
+        matches!(
+            self.stop_type.as_str(),
+            "truck_stop" | "travel_center" | "fuel_station" | "service_plaza" | "truck_parking"
+        )
+    }
+
+    /// The fuel verdict the stop callout speaks: whether the stop sells fuel
+    /// where a driver could expect it to, and nothing elsewhere.
+    pub fn fuel_callout(&self) -> Option<bool> {
+        self.fuel_expected().then(|| self.sells_fuel())
     }
 
     pub fn parking_text(&self) -> String {

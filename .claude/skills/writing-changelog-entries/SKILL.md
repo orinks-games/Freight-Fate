@@ -30,6 +30,28 @@ Example, and this is the entire entry:
 - **Speed-limit drop warnings no longer double up.** The advance warning
   before a big posted-limit drop speaks once now.
 
+## Specific, not vague; short, not mechanical
+
+Name the exact thing the player knows (the feature, the place, the key)
+and the exact behaviour they will notice. Leave out how the game decides
+it. A second sentence is for a consequence the player will meet in play,
+never an edge case or a rule only the code knows.
+
+- Too vague: **Fixed training course fatigue.** It does not say what the
+  player will notice now.
+- Too mechanical: **Sitting through a training course now tires you, about
+  half as fast as driving.** A multi-day course counts only its last
+  daytime class day.
+- Right: **Training classes now leave you tired, at about half the rate of
+  driving.** If a class leaves you drowsy, you are told to sleep before you
+  drive.
+
+A fix to something that already shipped must read as a fix. Name the
+feature the player already has, so the bullet reads as a change to it
+and not as a new feature arriving. When one cycle brings several fixes to
+the same feature, merge them into one bullet unless a player would look
+each one up on its own.
+
 ## Where the rest goes
 
 | Material | Goes to |
@@ -45,6 +67,8 @@ Example, and this is the entire entry:
 ## Checklist before saving
 
 - The lead alone tells the player what changed.
+- It names the specific feature or place and what the player notices, and
+  says nothing about how the game decides it.
 - One sentence after the lead, or none.
 - Under 25 words, 40 at most.
 - The canonical noun from docs/ontology.md. Keys, settings and menu rows are
@@ -63,4 +87,7 @@ Example, and this is the entire entry:
   would look up, not by implementation part, and send the rest to the manual.
 - Editing an old bullet to satisfy the CI gate. The gate needs a new bullet.
 - A second sentence that restates the lead in longer words.
+- A second sentence that explains an internal rule or edge case
+  ("counts only the last class day", "judged by the local clock").
+- A Fixed bullet worded so it sounds like a new feature.
 - Naming a key or setting the player does not have on their controls.

@@ -2,8 +2,6 @@
 //! fallback that survives where no source geometry exists (the data half of
 //! `tests/test_facility_approaches.py`).
 //!
-//! `test_build_tool_routes_tiny_facility_fixture` covers
-//! `tools/build_facility_approaches.py`, which stays Python by design, and
 //! `test_facility_route_prefers_turn_level_source_approach` needs the driving
 //! layer's earcon map -- it lives in
 //! `crates/freight-fate/tests/states_driving_facility_approaches.rs`.

@@ -417,7 +417,7 @@ pub fn screen_lane_contradictions(
 /// The baked HPMS terrain class, or None where the bake has nothing.
 ///
 /// Absence stays absence: a leg HPMS never classified must not be read as
-/// level, because the curve screen treats level ground as licence to remove
+/// level, because the curve screen treats level ground as license to remove
 /// geometry.
 pub fn parse_hpms_terrain(
     raw: Option<&Value>,
@@ -977,7 +977,8 @@ fn parse_advisory_field(raw: &Map<String, Value>, key: &str) -> Option<f64> {
         Value::String(text) => parse_osm_advisory_speed(text),
         Value::Number(number) => number
             .as_f64()
-            .filter(|speed| speed.is_finite() && (5.0..=100.0).contains(speed)),
+            .filter(|speed| speed.is_finite() && (5.0..=100.0).contains(speed))
+            .map(super::advisory::screen_bare_kmh_advisory),
         _ => None,
     })
 }

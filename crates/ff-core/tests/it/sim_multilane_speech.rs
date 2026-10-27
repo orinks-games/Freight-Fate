@@ -34,8 +34,7 @@ fn test_your_side_oneway_is_the_tagged_count() {
         oneway: true,
         ..Default::default()
     };
-    assert_eq!(seg.your_side(true), 3);
-    assert_eq!(seg.your_side(false), 3); // symmetric carriageway assumption
+    assert_eq!(seg.your_side(), 3); // symmetric carriageway assumption
     assert!(seg.divided());
 }
 
@@ -48,7 +47,7 @@ fn test_your_side_undivided_splits_the_total() {
         oneway: false,
         ..Default::default()
     };
-    assert_eq!(seg.your_side(true), 2);
+    assert_eq!(seg.your_side(), 2);
     assert!(!seg.divided());
     // a two-lane road is one lane your side, never zero
     let two = LaneSegment {
@@ -57,21 +56,51 @@ fn test_your_side_undivided_splits_the_total() {
         lanes: 2,
         ..Default::default()
     };
-    assert_eq!(two.your_side(true), 1);
+    assert_eq!(two.your_side(), 1);
 }
 
+/// OSM's `lanes:forward` follows the way's drawing direction, which the
+/// bake never compared with the leg's, so an uneven split cannot say which
+/// side is ours. A two-lane road with a passing lane one way handed the truck
+/// the oncoming passing lane on about half of those stretches, and full lane
+/// keeping pulled out into it to pass (player report, 2026-10-13). The truck
+/// gets the smaller side, whichever way it drives.
 #[test]
-fn test_your_side_prefers_directional_tags() {
-    let seg = LaneSegment {
+fn test_your_side_never_takes_the_wider_side_of_an_uneven_split() {
+    let passing_lane = LaneSegment {
         start_mi: 0.0,
         end_mi: 5.0,
-        lanes: 5,
-        lanes_forward: 3,
-        lanes_backward: 2,
+        lanes: 3,
+        lanes_forward: 2,
+        lanes_backward: 1,
         ..Default::default()
     };
-    assert_eq!(seg.your_side(true), 3);
-    assert_eq!(seg.your_side(false), 2);
+    assert_eq!(passing_lane.your_side(), 1);
+    // The same road tagged from the other end, and with one side tagged.
+    for (forward, backward) in [(1, 2), (2, 0), (0, 2)] {
+        let seg = LaneSegment {
+            lanes_forward: forward,
+            lanes_backward: backward,
+            ..passing_lane.clone()
+        };
+        assert_eq!(seg.your_side(), 1, "forward {forward} backward {backward}");
+    }
+    // An even split with a centre turn lane in the total is still two a side.
+    let five = LaneSegment {
+        lanes: 5,
+        lanes_forward: 2,
+        lanes_backward: 2,
+        ..passing_lane.clone()
+    };
+    assert_eq!(five.your_side(), 2);
+    // A tag that claims the whole road for one side still leaves one lane.
+    let mistagged = LaneSegment {
+        lanes: 2,
+        lanes_forward: 2,
+        lanes_backward: 0,
+        ..passing_lane
+    };
+    assert_eq!(mistagged.your_side(), 1);
 }
 
 // -- Route.lane_summary (briefing) -------------------------------------------
@@ -108,8 +137,10 @@ fn test_route_lane_summary_empty_without_data() {
 }
 
 #[test]
-fn test_route_lane_summary_respects_travel_direction() {
-    // Reversed leg (route enters at b): forward=False, directional split flips.
+fn test_route_lane_summary_gives_an_uneven_split_its_smaller_side_both_ways() {
+    // The bake's forward is the OSM way's, not the leg's, so the briefing
+    // cannot promise three lanes either way; see
+    // `test_your_side_never_takes_the_wider_side_of_an_uneven_split`.
     let seg = LaneSegment {
         start_mi: 0.0,
         end_mi: 10.0,
@@ -126,7 +157,7 @@ fn test_route_lane_summary_respects_travel_direction() {
         vec!["b".to_string(), "a".to_string()],
         vec![leg("a", "b", 10.0, vec![seg])],
     );
-    assert!(fwd.lane_summary().contains("three lanes your side"));
+    assert!(fwd.lane_summary().contains("two lanes your side"));
     assert!(rev.lane_summary().contains("two lanes your side"));
 }
 

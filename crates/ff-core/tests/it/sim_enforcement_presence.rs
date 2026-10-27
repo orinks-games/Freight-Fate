@@ -522,7 +522,7 @@ fn test_the_cb_never_says_the_road_is_clear() {
         let lowered = trip.cb_patrol_message(post, 3.0).to_lowercase();
         assert!(!lowered.contains("clear"));
         assert!(!lowered.contains("nothing"));
-        assert!(!lowered.contains("no bear"));
+        assert!(!lowered.contains("no trooper"));
     }
 }
 
@@ -559,8 +559,8 @@ fn test_cb_chatter_varies_by_what_the_post_actually_is() {
         assert!(line.contains(Trip::cb_side(post)));
     }
 
-    // Only the patrol/speed line is a bear report.
-    assert!(patrol_line.to_lowercase().contains("bear"));
+    // Only the patrol/speed line is a trooper sighting.
+    assert!(patrol_line.to_lowercase().contains("a trooper"));
     for line in [
         &work_zone_line,
         &apron_line,
@@ -568,7 +568,7 @@ fn test_cb_chatter_varies_by_what_the_post_actually_is() {
         &cmv_line,
         &chain_line,
     ] {
-        assert!(!line.to_lowercase().contains("bear"), "{line}");
+        assert!(!line.to_lowercase().contains("a trooper"), "{line}");
     }
     // The work zone talks about enforcement, not a trooper sighting.
     assert!(work_zone_line.to_lowercase().contains("troopers"));
@@ -599,11 +599,11 @@ fn test_cb_chatter_varies_by_what_the_post_actually_is() {
 }
 
 #[test]
-fn test_cb_tableau_line_reports_a_bear_with_a_customer() {
+fn test_cb_tableau_line_reports_a_trooper_with_a_customer() {
     let trip = trip();
     let post = post_kind(20.0, KIND_MEDIAN);
     let line = trip.cb_tableau_message(&post, 3.0);
-    assert!(line.to_lowercase().contains("bear"));
+    assert!(line.to_lowercase().contains("trooper"));
     assert!(!line.contains("CB chatter"), "{line}");
     assert!(line.to_lowercase().contains("somebody stopped"));
     assert!(line.contains(Trip::cb_side(&post)));
@@ -629,7 +629,7 @@ fn test_the_cb_lead_is_sized_in_real_seconds_not_a_flat_distance() {
 
 // --- vocabulary -------------------------------------------------------------
 
-// `test_bear_is_cb_voice_only_in_every_player_facing_string` is live in `crates/ff-core/tests/it/sim_enforcement_vocabulary.rs`.
+// `test_bear_is_never_spoken_in_any_player_facing_string` is live in `crates/ff-core/tests/it/sim_enforcement_vocabulary.rs`.
 
 #[test]
 #[ignore = "models::safety_record owns safety_record_text; covered by its own tests"]
@@ -854,11 +854,14 @@ fn test_a_reckless_driver_meets_the_same_road_and_a_very_different_bill() {
 #[test]
 fn test_speeding_scales_from_free_to_expensive_with_no_flat_spot() {
     // Being seen is now the ONLY thing speeding costs, so the curve between
-    // legal and habitual has to be a curve.
+    // legal and habitual has to be a curve. Six seeds were too few: the
+    // October exits re-read moved the posts and the occasional rate on Los
+    // Angeles to Phoenix swung from 0.67 to 1.34, while 24 seeds hold it
+    // at 0.45 before and 0.56 after.
     for (a, b) in [("Chicago", "Denver"), ("Los Angeles", "Phoenix")] {
         let rate = |over: f64, damage: f64, duty: f64, recover_mi: f64| {
             let mut totals = Vec::new();
-            for seed in 0..6 {
+            for seed in 0..24 {
                 let mut trip = trip_seeded(a, b, seed);
                 let stops = walk(&mut trip, over, damage, 0, duty, recover_mi, seed);
                 totals.push(stops as f64 / trip.route.miles() * 500.0);
@@ -880,7 +883,10 @@ fn test_speeding_scales_from_free_to_expensive_with_no_flat_spot() {
             habitual >= 2.0,
             "{a}->{b}: a habitual speeder saw only {habitual:.2}"
         );
-        assert!(habitual > occasional * 3.0);
+        assert!(
+            habitual > occasional * 3.0,
+            "{a}->{b}: habitual {habitual:.2} against occasional {occasional:.2}"
+        );
     }
 }
 

@@ -7,11 +7,11 @@ use super::{
     TruckState, AMBIENT_C, BRAKE_COOL_BASE_PER_S, BRAKE_COOL_SPEED_PER_S, BRAKE_WEAR_HOT_MULT,
     BRAKE_WEAR_PCT_PER_MJ, CARGO_BRAKE_PCT_PER_G_S, CARGO_CORNER_PCT_PER_G_S, CARGO_HARD_BRAKE_G,
     CHAIN_SAFE_MPH, CHAIN_SNAP_DAMAGE_PCT, CHAIN_WEAR_BARE_MULT, CHAIN_WEAR_OVERSPEED_MULT,
-    CHAIN_WEAR_PCT_PER_MILE, ENGINE_MOTORING_DRAG_FRACTION, ENGINE_ROTATING_INERTIA_KG_M2,
-    ENGINE_WEAR_FUEL_PENALTY, ENGINE_WEAR_LUG_PCT_PER_S, ENGINE_WEAR_OVER_REV_PCT_PER_S,
-    ENGINE_WEAR_PCT_PER_H_FULL_LOAD, ENGINE_WEAR_PCT_PER_H_IDLE, G, LUG_RPM_FRACTION, LUG_THROTTLE,
-    MAX_REVERSE_MPS, OVER_REV_RPM_MULT, ROAD_OVERSPEED_RPM_MULT, ROLL_WARN_SHARE,
-    RUNAWAY_DAMAGE_PCT_PER_S, RUNAWAY_SPEED_MPH, SHIFT_SYNC_BRAKE_FRACTION,
+    CHAIN_WEAR_PCT_PER_MILE, CRUISE_MPG, ENGINE_MOTORING_DRAG_FRACTION,
+    ENGINE_ROTATING_INERTIA_KG_M2, ENGINE_WEAR_FUEL_PENALTY, ENGINE_WEAR_LUG_PCT_PER_S,
+    ENGINE_WEAR_OVER_REV_PCT_PER_S, ENGINE_WEAR_PCT_PER_H_FULL_LOAD, ENGINE_WEAR_PCT_PER_H_IDLE, G,
+    LUG_RPM_FRACTION, LUG_THROTTLE, MAX_REVERSE_MPS, OVER_REV_RPM_MULT, ROAD_OVERSPEED_RPM_MULT,
+    ROLL_WARN_SHARE, RUNAWAY_DAMAGE_PCT_PER_S, RUNAWAY_SPEED_MPH, SHIFT_SYNC_BRAKE_FRACTION,
     SHIFT_SYNC_FUEL_FRACTION, TIRE_WEAR_BRAKING_PCT, TIRE_WEAR_PCT_PER_MILE, TIRE_WINTER,
     WINTER_TREAD_WEAR_MULT,
 };
@@ -30,6 +30,7 @@ impl TruckState {
         let surge = self.surge_force_n();
         let net = self.drive_force() - self.resistance_force() - self.brake_force() + surge;
         let accel = net / self.gross_mass_kg();
+        let jake_decel = self.jake_brake_force() / self.gross_mass_kg();
         let old_v = self.velocity_mps;
         let mut new_v = self.velocity_mps + accel * dt;
         let drive_force = self.drive_force();
@@ -52,8 +53,15 @@ impl TruckState {
         // The freight rides on the same acceleration the tractor just felt --
         // and a liquid load rides it by running to one end of the tank.
         self.update_liquid(dt, accel);
+        // Less the jake's share. A full service stop with the jake on is the
+        // ordinary way a driver stops, and in a low gear the retarder adds a
+        // fifth of a g on top of the drums: counted, it put a stop at a
+        // street corner over the securement line ("the service brakes used
+        // to damage your load for no reason", player report, 2026-10-14).
+        // What the load still feels is the emergency application, a grade
+        // adding its own g, and hitting something.
         let decel_g = if old_v > 0.0 {
-            (-accel / G).max(0.0)
+            ((-accel - jake_decel) / G).max(0.0)
         } else {
             0.0
         };
@@ -251,6 +259,27 @@ impl TruckState {
         burned
     }
 
+    /// Burn fuel for `miles` of scripted highway driving at the cruise
+    /// rate `update_fuel` is calibrated to (about `CRUISE_MPG` at 60 mph),
+    /// with the same burn factor, wear and damage penalties. Returns gallons
+    /// burned; a no-op with the engine off.
+    /// Gallons a mile of highway cruise burns, wear and damage included.
+    pub fn cruise_gal_per_mile(&self) -> f64 {
+        self.specs.fuel_burn_factor * self.fuel_wear_penalty_mult() / CRUISE_MPG
+    }
+
+    pub fn burn_cruise_fuel_over_miles(&mut self, miles: f64) -> f64 {
+        if !self.engine_on || miles <= 0.0 {
+            return 0.0;
+        }
+        let burned = self.fuel_gal.min(miles * self.cruise_gal_per_mile());
+        self.fuel_gal -= burned;
+        if self.fuel_gal <= 0.0 {
+            self.stop_engine();
+        }
+        burned
+    }
+
     pub(crate) fn update_temps(&mut self, dt: f64) {
         let s = &self.specs;
         let load = if self.engine_on {
@@ -305,7 +334,7 @@ impl TruckState {
         // links flail into the fender and the whole set is scrap.
         if self.chains_on && speed > 0.01 {
             let mut rate = CHAIN_WEAR_PCT_PER_MILE;
-            if self.surface != "snow" && self.surface != "ice" {
+            if self.surface != "snow" && self.surface != "ice" && !self.chain_control_road {
                 rate *= CHAIN_WEAR_BARE_MULT;
             }
             if self.speed_mph() > CHAIN_SAFE_MPH {

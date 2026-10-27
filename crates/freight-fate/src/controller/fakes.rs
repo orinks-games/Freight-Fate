@@ -33,11 +33,6 @@ impl FakePad {
         }
     }
 
-    pub fn with_mapping(mut self, mapping: &str) -> Self {
-        self.mapping = Some(mapping.to_string());
-        self
-    }
-
     /// A handle the test keeps to flip `attached` or read the rumble log.
     pub fn handle(&self) -> FakePadHandle {
         FakePadHandle {

@@ -11,8 +11,8 @@ use ff_core::sim::real_traffic::{wall_clock, Clock};
 use freight_fate::net::testing::ClosureTransport;
 use freight_fate::net::{Event, NetError, SharedTransport};
 use freight_fate::online_journal::{
-    py_json_dumps, queue_achievement, queue_career_milestones, queue_delivery,
-    queue_mastodon_share, stable_event_id, CareerFacts, DeliveryFacts, JournalOutbox, OutboxItem,
+    py_json_dumps, queue_achievement, queue_career_milestones, queue_delivery, stable_event_id,
+    CareerFacts, DeliveryFacts, JournalOutbox, OutboxItem,
 };
 use freight_fate::online_presence::OnlineIdentity;
 
@@ -32,6 +32,7 @@ fn facts(deliveries: i64) -> DeliveryFacts {
         job_destination: "denver_co_us".to_string(),
         distance_mi: 1000.0,
         weight_tons: 20.0,
+        team_note: None,
     }
 }
 
@@ -373,58 +374,4 @@ fn test_one_sender_at_a_time_even_when_several_events_ask_at_once() {
         vec!["evt-0", "evt-1", "evt-2", "evt-3"],
         "events were posted more than once"
     );
-}
-
-// -- test_delivery_summary_sharing.py: queueing rules ----------------------------
-
-#[test]
-fn test_routine_deliveries_are_never_queued_for_mastodon() {
-    let dir = tempfile::tempdir().unwrap();
-    let outbox = outbox_in(&dir, ok_transport());
-    assert!(!queue_mastodon_share(
-        &outbox,
-        &facts(7),
-        "Chicago, Illinois",
-        "Denver, Colorado",
-        true,
-        123,
-        &[],
-    ));
-    assert!(outbox.items().is_empty());
-}
-
-#[test]
-fn test_notable_share_carries_allowlisted_facts_and_posts_once() {
-    let dir = tempfile::tempdir().unwrap();
-    let outbox = outbox_in(&dir, ok_transport());
-    let reasons = vec![
-        json!({"type": "level", "level": 2}),
-        json!({"type": "achievements", "names": ["Signed On"]}),
-    ];
-    assert!(queue_mastodon_share(
-        &outbox,
-        &facts(1),
-        "Chicago, Illinois",
-        "Denver, Colorado",
-        true,
-        123,
-        &reasons,
-    ));
-    let item = outbox.items()[0].clone();
-    assert_eq!(item.endpoint, "/api/freight-fate/mastodon/share");
-    let inner = &item.payload["payload"];
-    assert_eq!(inner["reasons"], Value::Array(reasons.clone()));
-    assert_eq!(inner["cargo"], "General freight");
-    assert_eq!(inner["origin"], "Chicago, Illinois");
-    assert_eq!(inner["onTime"], true);
-    // The same completed delivery never posts twice, even if re-queued.
-    assert!(!queue_mastodon_share(
-        &outbox,
-        &facts(1),
-        "Chicago, Illinois",
-        "Denver, Colorado",
-        true,
-        456,
-        &reasons,
-    ));
 }

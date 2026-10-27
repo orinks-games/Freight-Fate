@@ -1,9 +1,10 @@
 //! The adaptive-cruise loop itself: the gap, the posted-limit lookahead, the
 //! grade preview, and holding the target from above.
 
+use crate::speech::EventPriority;
 use ff_core::sim::transmission::JAKE_MAX_RPM;
-use ff_core::sim::trip::LIMIT_WARNING_MAX_LEAD_MI;
-use ff_core::speech_pacing::{EventPriority, SpeechCategory};
+use ff_core::sim::trip::{is_highway_zone_reason, LIMIT_WARNING_MAX_LEAD_MI};
+use ff_core::speech_pacing::SpeechCategory;
 use ff_core::speech_text::SpokenMessage;
 
 use crate::app::{GameContext, SayEvent};
@@ -48,16 +49,10 @@ impl DrivingState {
     pub fn acc_weather_gap_text(&self) -> Option<SpokenMessage> {
         let effects = self.trip.weather.effects();
         if effects.grip < 0.9 {
-            return Some(SpokenMessage::with_terse(
-                "Wet roads, adaptive cruise increasing following gap.",
-                "Wet roads, longer gap.",
-            ));
+            return Some(SpokenMessage::new("Wet roads, longer gap."));
         }
         if effects.visibility_mi < 3.0 {
-            return Some(SpokenMessage::with_terse(
-                "Low visibility, adaptive cruise increasing following gap.",
-                "Low visibility, longer gap.",
-            ));
+            return Some(SpokenMessage::new("Low visibility, longer gap."));
         }
         None
     }
@@ -321,65 +316,27 @@ impl DrivingState {
         (0.0, PccReason::None)
     }
 
-    /// Name what the preview is doing, once per hill and never terse.
+    /// Track what the preview is doing, in silence.
     ///
-    /// A truck that quietly runs three over and then sags four under reads as
-    /// broken to a driver who cannot see the road ahead. Naming it once turns
-    /// the same behavior into the system working. It is information, not
-    /// safety, so terse speech keeps it.
+    /// It used to name each hill ("Easing off for a 1.7 percent downhill
+    /// grade."); players heard that as chatter about how cruise works, which
+    /// the manual covers (player report and owner, 2026-10-14). The phase is
+    /// still tracked for the radio and the badge.
     /// `delta` is the change the target actually took after the caps
-    /// clamped it: a shave that the posted cap neutralised is not "easing"
-    /// and says nothing. `reason` names which preview case produced it.
-    pub fn say_predictive_cruise(
-        &mut self,
-        ctx: &mut GameContext,
-        dt: f64,
-        delta: f64,
-        reason: PccReason,
-    ) {
-        self.pcc_cue_s = 0.0f64.max(self.pcc_cue_s - dt);
-        // Silent phases still track, so the next audible change speaks; a
-        // bias the caps neutralised is its own phase so the cue fires once
-        // the cap lifts. The crest hold eases nothing -- it just stops
-        // chasing -- so it stays silent (silence over redundant speech).
-        let (phase, speaks) = match reason {
-            PccReason::Building if delta > 0.5 => ("building", true),
-            PccReason::EasingForDescent(_) if delta <= -0.5 => ("easing", true),
-            PccReason::HoldingOverCrest => ("holding", false),
-            PccReason::EasingForDescent(_) => ("easing-capped", false),
-            PccReason::Building => ("building-capped", false),
-            PccReason::None => ("", false),
+    /// clamped it: a shave that the posted cap neutralised is its own phase.
+    /// `reason` names which preview case produced it.
+    pub fn track_predictive_cruise(&mut self, delta: f64, reason: PccReason) {
+        let phase = match reason {
+            PccReason::Building if delta > 0.5 => "building",
+            PccReason::EasingForDescent(_) if delta <= -0.5 => "easing",
+            PccReason::HoldingOverCrest => "holding",
+            PccReason::EasingForDescent(_) => "easing-capped",
+            PccReason::Building => "building-capped",
+            PccReason::None => "",
         };
-        if phase == self.pcc_phase {
-            return;
+        if phase != self.pcc_phase {
+            self.pcc_phase = phase.to_string();
         }
-        self.pcc_phase = phase.to_string();
-        if !speaks || self.terse_speech(ctx) || self.pcc_cue_s > 0.0 {
-            return;
-        }
-        self.pcc_cue_s = PCC_CUE_COOLDOWN_S;
-        let message = match reason {
-            PccReason::Building => {
-                // Name the number. "The grade ahead" reads as a steep one, and
-                // the G key -- which only calls a grade steep at three percent
-                // -- then answered that nothing steep was coming for fifteen
-                // miles, which is how a two percent pull looked like a bug
-                // (tester, 2026-08-15).
-                let (climb_ahead, _) = self.grade_extremes_ahead();
-                format!(
-                    "Building speed for a {:.1} percent upgrade ahead.",
-                    climb_ahead * 100.0
-                )
-            }
-            PccReason::EasingForDescent(descent_pct) => format!(
-                "Easing off for a {:.1} percent downgrade ahead.",
-                descent_pct * 100.0
-            ),
-            _ => return,
-        };
-        let mut opts = SayEvent::queued();
-        opts.category = Some(SpeechCategory::Confirmation);
-        ctx.say_event_with(message, opts);
     }
 
     /// Hold speed when clear, and follow slower modeled traffic when present.
@@ -406,14 +363,15 @@ impl DrivingState {
             // ROUTE, not the ambient default: the automation just released the
             // throttle (automation-handoff sweep, 2026-08-20, the deferred
             // 2026-08-15 audit).
-            self.say_route_confirmation(
-                ctx,
-                "Adaptive cruise canceled; automatic speed control off.",
-            );
+            self.say_route_confirmation(ctx, "Cruise off.");
             return;
         }
         let position = self.trip.position_mi;
         let (limit, zone_reason) = self.trip.speed_limit_at(position);
+        // A highway work zone or heavy traffic stays on cruise, capped at its
+        // limit below. Handed to the keeper partway down a grade, it left
+        // descent control behind and the co-driver crawling (issue #518).
+        let zone_reason = zone_reason.filter(|reason| !is_highway_zone_reason(reason));
         if let Some(zone_reason) = zone_reason {
             if self.speed_control_armed && ctx.settings.speed_keeper {
                 self.cancel_cruise(ctx, true);
@@ -506,6 +464,12 @@ impl DrivingState {
             working
         });
         let mut target_mph = self.cruise_working_mph.expect("set above");
+        // Lane keeping easing off under a vehicle pacing the truck in the
+        // right lane, so it can drop in behind it. Silent: the move back
+        // that follows is the report.
+        if let Some(ease) = self.pass_return_ease_mph {
+            target_mph = target_mph.min(ease);
+        }
         let exit_cap = self.ramp_approach_cap_mph();
         let exit_capped = exit_cap.is_some_and(|cap| cap < target_mph);
         if exit_capped {
@@ -557,9 +521,7 @@ impl DrivingState {
         // tickets, and trooper stops -- all of which now exist. The "Speed limit X"
         // cue still names the number; this cue says cruise is handling it.
         let (posted, limit_reason) = self.acc_posted_limit_ahead(ctx);
-        let restricted = limit_reason
-            .as_deref()
-            .is_some_and(|reason| RESTRICTED_ZONE_REASONS.contains(&reason));
+        let restricted = limit_reason.as_deref().is_some_and(is_highway_zone_reason);
         let cap_mph = if restricted {
             posted
         } else {
@@ -571,6 +533,19 @@ impl DrivingState {
         // held the 60 the posted limit allowed, missing the exit and costing
         // the driver a twenty-minute loop back.
         let limit_capped = cap_mph < target_mph;
+        // Which limit, and whether it is in force yet: "holding 65 for the
+        // lower limit, set 70" in a 70 read as cruise ignoring the road, when
+        // it was slowing for a 60 sign ahead (owner, 2026-10-25).
+        let limit_reason_text = match limit_reason.as_deref() {
+            Some("construction" | "construction merge") if restricted => {
+                "through the construction zone".to_string()
+            }
+            Some(reason) if restricted => format!("for the {reason}"),
+            _ if posted < self.trip.speed_limit_at(self.trip.position_mi).0 => {
+                format!("for the {} limit ahead", ctx.settings.speed_value(posted))
+            }
+            _ => format!("for the {} limit", ctx.settings.speed_value(posted)),
+        };
         if limit_capped {
             // Take the lower of the two caps. A posted limit above ramp speed
             // must not undo an armed exit's cap and send the truck past its
@@ -586,10 +561,12 @@ impl DrivingState {
                 .is_none_or(|said| cap_mph < said - 0.5)
             {
                 self.acc_limit_cap_said = Some(cap_mph);
+                // The cause only where the speed limit cue does not already
+                // carry it: a plain posted drop is its own announcement.
                 let reason = match limit_reason.as_deref() {
-                    Some("construction") => "Construction zone ahead",
-                    Some("heavy traffic") => "Heavy traffic ahead",
-                    _ => "Posted limit lower",
+                    Some("construction") => Some("Construction zone ahead"),
+                    Some("heavy traffic") => Some("Heavy traffic ahead"),
+                    _ => None,
                 };
                 // ROUTE, not the ambient default. An assist saying it is
                 // about to change how fast the truck is going is a
@@ -601,14 +578,12 @@ impl DrivingState {
                 // easing to 45 miles per hour" -- seventeen seconds before
                 // a trooper stopped him over the gap the easing was
                 // closing. The truck slowed itself and never said why.
-                let eased = ctx.settings.speed_text(cap_mph);
-                self.say_route_confirmation(
-                    ctx,
-                    SpokenMessage::with_terse(
-                        format!("{reason}; adaptive cruise easing to {eased}."),
-                        format!("Cruise easing to {}.", ctx.settings.speed_value(cap_mph)),
-                    ),
-                );
+                let eased = ctx.settings.speed_value(cap_mph);
+                let message = match reason {
+                    Some(reason) => format!("{reason}, cruise easing to {eased}."),
+                    None => format!("Cruise easing to {eased}."),
+                };
+                self.say_route_confirmation(ctx, message);
                 // This line already named the number for a plain posted-limit
                 // drop; the arrival "Speed limit reduced to X" would otherwise
                 // repeat it a moment (or, under compression, an instant)
@@ -637,7 +612,7 @@ impl DrivingState {
         // perfect weather (caught by the full sweep: a resume test stalled
         // at exactly 70.0).
         let effects = self.trip.weather.effects();
-        let adverse = effects.grip < 1.0 || effects.visibility_mi < 8.0;
+        let adverse = effects.is_adverse();
         let safe_mph = effects.safe_speed_mph;
         if adverse && safe_mph < target_mph {
             target_mph = safe_mph;
@@ -647,19 +622,12 @@ impl DrivingState {
             {
                 self.acc_weather_cap_said = Some(safe_mph);
                 let kind = self.trip.weather.current.value();
-                let eased = ctx.settings.speed_text(safe_mph);
                 self.say_route_confirmation(
                     ctx,
-                    SpokenMessage::with_terse(
-                        format!(
-                            "{}; adaptive cruise easing to {eased}.",
-                            capitalize_first(kind)
-                        ),
-                        format!(
-                            "{}, cruise easing to {}.",
-                            capitalize_first(kind),
-                            ctx.settings.speed_value(safe_mph)
-                        ),
+                    format!(
+                        "{}, cruise easing to {}.",
+                        capitalize_first(kind),
+                        ctx.settings.speed_value(safe_mph)
                     ),
                 );
             }
@@ -680,7 +648,7 @@ impl DrivingState {
             delta = applied - target_mph;
             target_mph = applied;
         }
-        self.say_predictive_cruise(ctx, dt, delta, reason);
+        self.track_predictive_cruise(delta, reason);
         let context = self.trip.traffic_context();
         let mut following = false;
         if let Some(context) = context.as_ref() {
@@ -702,7 +670,7 @@ impl DrivingState {
                 // Handing the truck back is the least droppable line the
                 // assist has: a driver who does not hear it believes the
                 // cruise is still holding the gap.
-                let mut opts = SayEvent::queued().priority(EventPriority::Route);
+                let mut opts = SayEvent::queued().priority(EventPriority::Important);
                 opts.category = Some(SpeechCategory::Safety);
                 ctx.say_event_with("Stopped traffic ahead; adaptive cruise canceled.", opts);
                 return;
@@ -730,11 +698,7 @@ impl DrivingState {
             ctx.play_event_cue(Some(SpeechCategory::Traffic), "ui/notify", 0.55, 0.0);
             // Settling in behind a slower vehicle is the assist doing its
             // job, and the notify tone marks it: words at standard only.
-            self.say_route_line(
-                ctx,
-                "Traffic ahead, adaptive cruise reducing speed.",
-                SpeechCategory::Traffic,
-            );
+            self.say_route_line(ctx, "Traffic ahead, slowing.", SpeechCategory::Traffic);
         }
         self.acc_following = following;
         // Publish what cruise is really holding, for the status keys. The
@@ -758,7 +722,7 @@ impl DrivingState {
         } else if curve_capped {
             "for the bend".to_string()
         } else if limit_capped {
-            "for the lower limit".to_string()
+            limit_reason_text
         } else if [self.cruise_descent_mph, self.descent_safe_mph]
             .into_iter()
             .flatten()
@@ -940,10 +904,7 @@ impl DrivingState {
         let held = ctx.settings.speed_text(self.trip.truck.speed_mph());
         let mut opts = SayEvent::queued();
         opts.category = Some(SpeechCategory::Status);
-        ctx.say_event_with(
-            format!("Cruise is flat out and still losing the grade. Holding {held}."),
-            opts,
-        );
+        ctx.say_event_with(format!("Cruise down to {held} on this grade."), opts);
     }
 
     /// Bring the truck back down to the target: retarder first, drums last.

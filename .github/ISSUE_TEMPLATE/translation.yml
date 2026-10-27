@@ -1,0 +1,65 @@
+name: Translation correction
+description: A line the game says wrongly, awkwardly, or still in English in your language.
+title: "[Translation]: "
+labels: ["translation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping the game speak your language. One line per issue
+        is easiest, but a list is fine too. You can write in your own
+        language.
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      options:
+        - Spanish
+        - French
+        - German
+        - Brazilian Portuguese
+        - Italian
+        - Russian
+        - Polish
+        - Simplified Chinese
+        - Japanese
+        - Another language
+    validations:
+      required: true
+  - type: textarea
+    id: heard
+    attributes:
+      label: What the game said
+      description: >
+        The exact words, if you can: message review (the comma key while
+        driving) replays them, and your screen reader's speech history has
+        them too.
+    validations:
+      required: true
+  - type: textarea
+    id: should-say
+    attributes:
+      label: What it should say
+      description: >
+        Your corrected line. Keep numbers and place names as the game said
+        them.
+    validations:
+      required: true
+  - type: textarea
+    id: where
+    attributes:
+      label: Where you heard it
+      description: >
+        The menu, screen, or what was happening on the road. Optional, but
+        it helps when one English line has two meanings.
+    validations:
+      required: false
+  - type: textarea
+    id: file
+    attributes:
+      label: An edited language file
+      description: >
+        If you corrected many lines in your language's file from the lang
+        folder, attach it here instead.
+    validations:
+      required: false

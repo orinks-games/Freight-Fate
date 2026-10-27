@@ -25,10 +25,9 @@ use std::sync::{Mutex, MutexGuard, TryLockError};
 use std::time::{Duration, Instant};
 
 use ff_core::settings::Settings;
-use ff_core::speech_pacing::EventSpeechPacer;
 
 use crate::audio::{Audio, AudioError, SustainLoopSpec, VolumeUpdate};
-use crate::speech::{CaptureSpeech, SpeechSink};
+use crate::speech::{CaptureSpeech, EventSpeechPacer};
 
 use super::App;
 
@@ -290,8 +289,16 @@ impl TestApp {
         self.capture.borrow()
     }
 
-    pub fn speech_mut(&self) -> std::cell::RefMut<'_, CaptureSpeech> {
-        self.capture.borrow_mut()
+    /// Raise the loaded career past the new-driver warnings, so a test of
+    /// what a citation costs sees one.
+    pub fn seasoned_driver(&mut self) {
+        if let Some(profile) = self.ctx.profile.as_mut() {
+            let level = ff_core::models::enforcement::NEW_DRIVER_WARNING_LEVEL as usize;
+            profile.career.xp = profile
+                .career
+                .xp
+                .max(ff_core::models::career::LEVEL_XP[level - 1]);
+        }
     }
 
     /// Drop everything said so far.
@@ -331,7 +338,8 @@ impl TestApp {
     /// = EventSpeechPacer(clock=clock)`).
     pub fn fake_pacer_clock(&mut self) -> FakeClock {
         let clock = FakeClock::new(100.0);
-        self.app.ctx.event_pacer = EventSpeechPacer::with_clock(clock.boxed());
+        self.app.ctx.event_pacer =
+            EventSpeechPacer::with_clock(crate::app::FF_PACER, clock.boxed());
         clock
     }
 
@@ -355,91 +363,9 @@ impl Drop for TestApp {
 }
 
 /// A `SpeechSink` over a shared `CaptureSpeech`, so the test keeps a handle
-/// to read what the app said while the app owns the sink.
-pub struct SharedCapture(pub Rc<RefCell<CaptureSpeech>>);
-
-impl SpeechSink for SharedCapture {
-    fn say(&mut self, text: &str, interrupt: bool) {
-        self.0.borrow_mut().say(text, interrupt)
-    }
-    fn say_event(&mut self, text: &str, interrupt: bool) {
-        self.0.borrow_mut().say_event(text, interrupt)
-    }
-    fn stop_main(&mut self) {
-        self.0.borrow_mut().stop_main()
-    }
-    fn stop_event(&mut self) {
-        self.0.borrow_mut().stop_event()
-    }
-    fn stop(&mut self) {
-        self.0.borrow_mut().stop()
-    }
-    fn poll(&mut self, dt: f64) {
-        self.0.borrow_mut().poll(dt)
-    }
-    fn request_refresh(&mut self) {
-        self.0.borrow_mut().request_refresh()
-    }
-    fn available(&self) -> bool {
-        self.0.borrow().available()
-    }
-    fn backend_name(&self) -> String {
-        self.0.borrow().backend_name()
-    }
-    fn has_separate_event_voice(&self) -> bool {
-        self.0.borrow().has_separate_event_voice()
-    }
-    fn event_backend_name(&self) -> String {
-        self.0.borrow().event_backend_name()
-    }
-    fn supports_rate(&self) -> bool {
-        self.0.borrow().supports_rate()
-    }
-    fn supports_pitch(&self) -> bool {
-        self.0.borrow().supports_pitch()
-    }
-    fn supports_volume(&self) -> bool {
-        self.0.borrow().supports_volume()
-    }
-    fn event_supports_rate(&self) -> bool {
-        self.0.borrow().event_supports_rate()
-    }
-    fn event_backend_options(&self) -> Vec<String> {
-        self.0.borrow().event_backend_options()
-    }
-    fn select_event_backend(&mut self, name: Option<&str>) {
-        self.0.borrow_mut().select_event_backend(name)
-    }
-    fn set_braille_only(&mut self, on: bool) {
-        self.0.borrow_mut().set_braille_only(on)
-    }
-    fn supports_braille(&self) -> bool {
-        self.0.borrow().supports_braille()
-    }
-    fn voice_names(&self) -> Vec<String> {
-        self.0.borrow().voice_names()
-    }
-    fn configure(
-        &mut self,
-        rate: Option<f64>,
-        pitch: Option<f64>,
-        volume: Option<f64>,
-        voice: Option<&str>,
-    ) {
-        self.0.borrow_mut().configure(rate, pitch, volume, voice)
-    }
-    fn say_adjustment_preview(&mut self, setting: &str, text: &str, interrupt: bool) -> bool {
-        self.0
-            .borrow_mut()
-            .say_adjustment_preview(setting, text, interrupt)
-    }
-    fn refresh(&mut self, announce: bool) -> bool {
-        self.0.borrow_mut().refresh(announce)
-    }
-    fn shutdown(&mut self) {
-        self.0.borrow_mut().shutdown()
-    }
-}
+/// to read what the app said while the app owns the sink. Hearken's, kept at
+/// this path for the tests that name it here.
+pub use crate::speech::SharedCapture;
 
 /// A controllable clock for the pacer (`FakeClock` in the Python tests).
 #[derive(Clone)]
@@ -502,6 +428,21 @@ pub struct AudioCalls {
     /// holds: a stop that settles the truck to idle without telling the audio
     /// leaves the loop roaring at highway revs.
     pub engine_rpm: Vec<(f64, f64)>,
+    /// The loops sounding now, by channel: what a listener would hear.
+    pub loops: std::collections::HashMap<u32, RecordedLoop>,
+    /// The last `set_outside_lift`: what the open driver window adds.
+    pub outside_lift: Option<f64>,
+    /// Every `set_radio_voicing`, in order.
+    pub radio_voicing: Vec<Option<crate::audio::RadioVoicing>>,
+}
+
+/// One running loop as [`RecordingAudio`] last left it.
+#[derive(Debug, Clone, PartialEq)]
+pub struct RecordedLoop {
+    pub key: String,
+    pub volume: f64,
+    pub pan: f64,
+    pub rate: f64,
 }
 
 pub type AudioLog = Rc<RefCell<AudioCalls>>;
@@ -511,6 +452,7 @@ pub type AudioLog = Rc<RefCell<AudioCalls>>;
 #[derive(Default)]
 pub struct RecordingAudio {
     log: AudioLog,
+    cues_muted: bool,
 }
 
 impl RecordingAudio {
@@ -557,7 +499,13 @@ impl Audio for RecordingAudio {
     fn voice_key(&self, key: &str) -> String {
         key.to_string()
     }
+    fn set_cues_muted(&mut self, muted: bool) {
+        self.cues_muted = muted;
+    }
     fn play_with(&mut self, key: &str, volume: f64, pan: f64) {
+        if self.cues_muted && crate::audio::is_game_cue(key) {
+            return;
+        }
         self.log
             .borrow_mut()
             .played
@@ -575,10 +523,48 @@ impl Audio for RecordingAudio {
     fn has_asset(&mut self, _key: &str) -> bool {
         true
     }
-    fn start_loop_with(&mut self, _channel: u32, _key: &str, _volume: f64, _fade_ms: u32) {}
-    fn set_loop_volume(&mut self, _channel: u32, _volume: f64) {}
-    fn set_loop_pan(&mut self, _channel: u32, _pan: f64) {}
-    fn stop_loop_with(&mut self, _channel: u32, _fade_ms: u32) {}
+    fn start_loop_with(&mut self, channel: u32, key: &str, volume: f64, _fade_ms: u32) {
+        let mut log = self.log.borrow_mut();
+        let entry = log.loops.entry(channel).or_insert_with(|| RecordedLoop {
+            key: key.to_string(),
+            volume,
+            pan: 0.0,
+            rate: 1.0,
+        });
+        if entry.key != key {
+            *entry = RecordedLoop {
+                key: key.to_string(),
+                volume,
+                pan: 0.0,
+                rate: 1.0,
+            };
+        }
+        entry.volume = volume;
+    }
+    fn set_loop_volume(&mut self, channel: u32, volume: f64) {
+        if let Some(entry) = self.log.borrow_mut().loops.get_mut(&channel) {
+            entry.volume = volume;
+        }
+    }
+    fn set_loop_pan(&mut self, channel: u32, pan: f64) {
+        if let Some(entry) = self.log.borrow_mut().loops.get_mut(&channel) {
+            entry.pan = pan;
+        }
+    }
+    fn set_loop_rate(&mut self, channel: u32, rate: f64) {
+        if let Some(entry) = self.log.borrow_mut().loops.get_mut(&channel) {
+            entry.rate = rate;
+        }
+    }
+    fn stop_loop_with(&mut self, channel: u32, _fade_ms: u32) {
+        self.log.borrow_mut().loops.remove(&channel);
+    }
+    fn set_outside_lift(&mut self, lift: f64) {
+        self.log.borrow_mut().outside_lift = Some(lift);
+    }
+    fn set_radio_voicing(&mut self, voicing: Option<crate::audio::RadioVoicing>) {
+        self.log.borrow_mut().radio_voicing.push(voicing);
+    }
     fn start_sustain_loop_with(
         &mut self,
         _channel: u32,

@@ -151,18 +151,8 @@ impl Trip {
                 }
                 self.charged_tolls.insert(key);
                 if toll.amount <= 0.0 {
-                    self.emit(
-                        TripEventKind::GpsCue,
-                        SpokenMessage::new(format!(
-                            "{} entry recorded at {}. Toll billed at carrier settlement.",
-                            toll.method_label(),
-                            toll.name
-                        )),
-                        TripEventData {
-                            toll: Some(toll.clone()),
-                            ..Default::default()
-                        },
-                    );
+                    // A ticket entry: nothing is charged here, and the toll
+                    // point cue ahead of it already named it.
                     continue;
                 }
                 self.toll_charges.push(TollCharge {
@@ -220,7 +210,6 @@ impl Trip {
                 let prev = self.route.cities[i - 1].clone();
                 let city = self.route.cities[i].clone();
                 let nxt = self.route.cities[i + 1].clone();
-                let highway = self.route.legs[i].highway.clone();
                 let world = self.world;
                 let city_state = world
                     .cities
@@ -246,10 +235,22 @@ impl Trip {
                 } else {
                     String::new()
                 };
+                // Off a corridor onto a relayed pickup's street chain the
+                // truck has arrived, not passed through: the turn cue names
+                // the street, and "toward" this same city said nothing.
+                if city == nxt {
+                    if !crossing.is_empty() {
+                        self.emit(
+                            TripEventKind::CityReached,
+                            SpokenMessage::new(crossing.trim_end().to_string()),
+                            TripEventData::default(),
+                        );
+                    }
+                    continue;
+                }
                 let message = format!(
-                    "{crossing}Passing {}, {city_state}. Continuing on {highway} toward {}.",
+                    "{crossing}Passing {}, {city_state}.",
                     world.spoken_city(&city, Some(false)),
-                    world.spoken_city(&nxt, None)
                 );
                 self.emit(
                     TripEventKind::CityReached,
@@ -409,8 +410,14 @@ impl Trip {
                 .map(|c| c.to_uppercase().collect())
                 .unwrap_or_default();
             let body = format!("{first}{}.", chars.as_str());
+            let animal = hazard_is_animal(hazard);
             let message = if in_lane {
                 in_lane_hazard_call_named(&body, side, &self.open_side_spoken(side))
+            } else if animal {
+                // Only what is on the road: braking hard for a deer at
+                // highway speed does not change what happens (owner,
+                // 2026-10-19), so the call asks for nothing.
+                SpokenMessage::new(body.clone())
             } else {
                 hazard_call("Brake now!", &body)
             };
@@ -422,6 +429,14 @@ impl Trip {
                     deadline_s: Some(deadline_s),
                     dodgeable: Some(dodgeable),
                     in_lane: Some(in_lane),
+                    open_side: in_lane.then_some(side),
+                    pass_message: if dodgeable {
+                        passing_hazard_call(&body, side)
+                    } else {
+                        None
+                    },
+                    animal: Some(animal),
+                    brake_to_mph: hazard_brake_to_mph(hazard),
                     name: Some(hazard_name(hazard).to_string()),
                     ..Default::default()
                 },

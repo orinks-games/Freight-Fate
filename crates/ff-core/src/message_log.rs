@@ -27,6 +27,10 @@ pub const REVIEW_WINDOW_S: f64 = 10.0;
 pub enum MessageCategory {
     General,
     Event,
+    /// What the co-driver did and decided while they held the wheel: their
+    /// own review, so the player coming back from the sleeper can hear the
+    /// shift without the road's lines in between (owner, 2026-10-19).
+    CoDriver,
 }
 
 impl MessageCategory {
@@ -35,6 +39,7 @@ impl MessageCategory {
         match self {
             MessageCategory::General => "general",
             MessageCategory::Event => "event",
+            MessageCategory::CoDriver => "co_driver",
         }
     }
 }
@@ -50,10 +55,15 @@ pub struct Message {
 pub type Clock = Box<dyn FnMut() -> f64>;
 
 // The review filters, in the order the category keys cycle through them.
-const FILTERS: [Option<MessageCategory>; 3] = [
+//
+// The co-driver's filter is last, and only on offer once a co-driver has
+// logged something: a career that never drove as a team never steps onto
+// an empty list.
+const FILTERS: [Option<MessageCategory>; 4] = [
     None,
     Some(MessageCategory::General),
     Some(MessageCategory::Event),
+    Some(MessageCategory::CoDriver),
 ];
 
 pub struct MessageLog {
@@ -77,6 +87,10 @@ pub struct MessageLog {
     /// stepping past it, so the key reads as "repeat what was just said"
     /// before it reads as "go back one".
     fresh: bool,
+
+    /// How many lines have ever been added (not reduced by trimming), so a
+    /// caller can tell whether anything new was logged since a mark.
+    added: u64,
 }
 
 impl Default for MessageLog {
@@ -104,6 +118,7 @@ impl MessageLog {
             filter: None,
             index: -1,
             fresh: false,
+            added: 0,
         }
     }
 
@@ -133,6 +148,7 @@ impl MessageLog {
             text: text.to_string(),
             category,
         });
+        self.added += 1;
         let dropped = self.trim();
 
         let new_filtered = self.filtered_positions();
@@ -161,6 +177,11 @@ impl MessageLog {
                 .map(|(position, _)| position)
                 .collect(),
         }
+    }
+
+    /// Lines ever added, trimming aside. Only grows.
+    pub fn total_added(&self) -> u64 {
+        self.added
     }
 
     pub fn filtered_messages(&self) -> Vec<&Message> {
@@ -320,7 +341,11 @@ impl MessageLog {
         if position >= FILTERS.len() - 1 {
             return None;
         }
-        self.filter = FILTERS[position + 1];
+        let next = FILTERS[position + 1];
+        if next == Some(MessageCategory::CoDriver) && !self.has(MessageCategory::CoDriver) {
+            return None;
+        }
+        self.filter = next;
         self.move_to_latest();
         Some(self.category_name())
     }
@@ -365,7 +390,15 @@ impl MessageLog {
             None => "All".to_string(),
             Some(MessageCategory::General) => "General".to_string(),
             Some(MessageCategory::Event) => "Event".to_string(),
+            Some(MessageCategory::CoDriver) => "Co-driver".to_string(),
         }
+    }
+
+    /// Whether any message in the log is of this category.
+    pub fn has(&self, category: MessageCategory) -> bool {
+        self.messages
+            .iter()
+            .any(|message| message.category == category)
     }
 
     /// Drop the oldest messages past the limit; returns how many went.

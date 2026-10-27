@@ -141,7 +141,7 @@ fn advisories(app: &TestApp) -> Vec<String> {
 fn downgrades(app: &TestApp) -> Vec<String> {
     app.event_lines()
         .into_iter()
-        .filter(|line| line.contains("downgrade"))
+        .filter(|line| line.contains("downhill grade"))
         .collect()
 }
 
@@ -160,12 +160,12 @@ fn test_a_steep_downgrade_is_called_out_before_the_truck_is_on_it() {
     assert!(
         spoken
             .iter()
-            .any(|l| l.contains("6.0 percent downgrade ahead")),
+            .any(|l| l.contains("6.0 percent downhill grade ahead")),
         "{spoken:#?}"
     );
     assert!(spoken.iter().any(|l| l.contains("at least")), "{spoken:#?}");
     assert!(
-        spoken.iter().any(|l| l.contains("engine brake")),
+        spoken.iter().any(|l| l.contains("Set the jake")),
         "{spoken:#?}"
     );
 
@@ -214,7 +214,7 @@ fn test_a_short_dip_is_not_announced_as_a_grade() {
     assert!(
         spoken
             .iter()
-            .any(|l| l.contains("4.0 percent downgrade ahead")),
+            .any(|l| l.contains("4.0 percent downhill grade ahead")),
         "{spoken:#?}"
     );
 }
@@ -272,11 +272,12 @@ fn test_an_upgrade_is_called_out_too() {
     assert!(
         spoken
             .iter()
-            .any(|l| l.contains("4.5 percent upgrade ahead")),
+            .any(|l| l.contains("4.5 percent uphill grade ahead")),
         "{spoken:#?}"
     );
+    // Losing speed on a climb is expected; the line no longer says so.
     assert!(
-        spoken.iter().any(|l| l.contains("lose speed")),
+        spoken.iter().all(|l| !l.contains("lose speed")),
         "{spoken:#?}"
     );
 }

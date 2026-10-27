@@ -1,9 +1,8 @@
 //! F1: the driving layout, spoken for whichever device is in use.
 //!
-//! The two help texts are long, and they are player-facing word for word, so
-//! each `push_str` below is one Python string literal from
-//! `driving_controls.py`. Keeping the seams where Python put them is what
-//! makes a wording change diffable against the reference implementation.
+//! The help texts are long and player-facing word for word. Each spoken
+//! sentence is one whole literal, joined with spaces, so the translation
+//! catalog can carry every sentence as a unit instead of loose fragments.
 
 use crate::app::GameContext;
 use crate::bindings::Action;
@@ -43,381 +42,480 @@ impl DrivingState {
         let n = |action: Action| ctx.bindings.spoken(action);
         let up = n(Action::Accelerate);
         let down = n(Action::Brake);
-        let objective_help = self.objective_help(ctx);
-        let automatic_help = if ctx.settings.automatic_direction_changes == "deliberate" {
-            format!(
-                "In automatic with deliberate direction changes, stop, release \
-                 {down}, then press and hold it again to reverse. While \
-                 reversing, stop with {up}, release, then press and hold \
-                 again for forward. A quick tap just brakes. "
-            )
-        } else {
-            format!(
-                "In automatic with simple direction changes, stop, release {down}, \
-                 then press and hold it again to reverse. While reversing, \
-                 stop with {up}, release, then hold it again for forward. A \
-                 brake held through a stop just holds the truck. "
-            )
-        };
-        let latch_help = if ctx.settings.pedal_latch != "off" {
-            format!(
-                "Tap the brake, then press again and hold half a second to latch it \
-                 hands-free; a click and a spoken confirmation mark the catch. \
-                 {down} once releases it; the accelerator releases it instantly. The \
-                 throttle key never latches. "
-            )
-        } else {
-            String::new()
-        };
-
-        let mut text = String::new();
-        text.push_str(&format!("Hold {up} to accelerate, {down} to brake. "));
-        text.push_str(&latch_help);
-        text.push_str(&automatic_help);
-        text.push_str(&format!(
-            "Hold {} for the emergency brake, the hardest possible stop. ",
-            n(Action::EmergencyBrake)
-        ));
-        text.push_str(&format!(
-            "{} starts automatic speed control: adaptive cruise on open roads, ",
-            n(Action::Cruise)
-        ));
-        text.push_str("the speed keeper in low-speed zones. Weather widens the gap. ");
-        text.push_str("Cruise eases early for a sharp posted-limit drop, the keeper for ");
-        text.push_str("the next turn or the next lower limit. ");
-        text.push_str("Braking cancels the session. At the planned pickup it pauses and ");
-        text.push_str("resumes once you depart. ");
-        text.push_str("Plus and minus, including the keypad keys, change the open-road ");
-        text.push_str(
-            "target by five; it never holds more than five over the posted limit. Control ",
-        );
-        text.push_str("with plus or minus, by one. ");
-        text.push_str(&format!(
-            "{} resumes the last cruise speed. ",
-            n(Action::CruiseResume)
-        ));
-        text.push_str(&format!(
-            "Parked with the brake set, {} latches a high idle; plus and minus ",
-            n(Action::Cruise)
-        ));
-        text.push_str("adjust it, and releasing the parking brake drops it. ");
+        let emergency_brake = n(Action::EmergencyBrake);
+        let cruise = n(Action::Cruise);
+        let cruise_resume = n(Action::CruiseResume);
         let exit = n(Action::TakeExit);
-        text.push_str(&format!(
-            "{exit} signals for the next announced route exit, by number when "
-        ));
-        text.push_str("known, or cancels that signal. Unless lane keeping is on full, move ");
-        text.push_str("to the right lane, then steer right into the exit lane where it ");
-        text.push_str("opens, just before the gore. Keep road speed to there, then brake to ");
-        text.push_str("the exit speed before the ramp curve. Ramps usually end ");
-        text.push_str(&format!(
-            "at a traffic light or stop sign, called out on the way down. {exit} "
-        ));
-        text.push_str("also signals a pull-over when a trooper lights you up for speeding, ");
-        text.push_str("a scale bypass, or unsafe equipment: signal, then brake to a stop. ");
-        text.push_str("Ignoring the lights brings failure-to-stop ");
-        text.push_str("warnings, then a stop that cancels the load: a major offense. ");
-        text.push_str(&format!(
-            "{} also speaks the date and season. ",
-            n(Action::Clock)
-        ));
-        text.push_str(&format!(
-            "{} toggles the in-cab radio. Page Down tunes to the next station, ",
-            n(Action::Radio)
-        ));
-        text.push_str("Page Up to the previous; semicolon and apostrophe do the same. ");
-        text.push_str("Control with the tuning keys jumps a category; Shift changes the ");
-        text.push_str("radio volume in 10 percent steps, on or off. ");
-        text.push_str(&format!(
-            "{} saves or unsaves the station as a favorite. ",
-            n(Action::RadioFavorite)
-        ));
-        text.push_str(&format!(
-            "{} speaks station, volume, and streamer-safe status; {} speaks ",
-            n(Action::RadioStatus),
-            n(Action::RadioNowPlaying)
-        ));
-        text.push_str("the song when the station says. The Driver apps tablet has a ");
-        text.push_str("Radio app to search the dial, tune by name, and keep favorites; ");
-        text.push_str(&format!(
-            "the {} status menu has a radio screen of receivable stations. ",
-            n(Action::Status)
-        ));
-        text.push_str(&format!(
-            "{} starts the engine, and stops it only below 5 miles per hour. ",
-            n(Action::Engine)
-        ));
-        text.push_str("Air pressure must build before the truck can move. ");
-        text.push_str(&format!(
-            "{} sets or releases the parking brake. It needs 100 psi of air. ",
-            n(Action::ParkingBrake)
-        ));
-        text.push_str(&objective_help);
-        text.push_str(&format!(
-            "{} speed, active speed-control mode, and target, and with the signal set, \
-             how far to the exit. ",
-            n(Action::Speed)
-        ));
-        text.push_str(&format!(
-            "{} posted speed limit. {} the grade under the wheels, whether the ",
-            n(Action::SpeedLimit),
-            n(Action::Grade)
-        ));
-        text.push_str(&format!(
-            "truck is holding it, and the next grade ahead. {} status menu. {} fuel. ",
-            n(Action::Status),
-            n(Action::Fuel)
-        ));
-        text.push_str(&format!(
-            "{} reefer on or off. {} APU on or off. ",
-            n(Action::Reefer),
-            n(Action::Apu)
-        ));
-        text.push_str(&format!(
-            "{} clock, deadline, and the hours limit that comes first. ",
-            n(Action::Clock)
-        ));
-        text.push_str(&format!(
-            "{} time at the wheel so far, {} when your 30 minute break ",
-            n(Action::HosWheel),
-            n(Action::HosBreak)
-        ));
-        text.push_str(&format!(
-            "is due, {} what ends this shift and where you can legally stop ",
-            n(Action::HosDrive)
-        ));
-        text.push_str("before it. ");
-        text.push_str(&format!(
-            "{} progress, distance left, and where you are. ",
-            n(Action::Route)
-        ));
-        text.push_str(&format!(
-            "{} the state, {} the road, {} the town or the nearest ",
-            n(Action::PlaceState),
-            n(Action::PlaceRoad),
-            n(Action::PlaceTown)
-        ));
-        text.push_str(&format!(
-            "one, {} the direction. The keypad numbers work the same way. ",
-            n(Action::PlaceDirection)
-        ));
-        text.push_str(&format!(
-            "{} weather. {} lane position and whether the lane beside you is ",
-            n(Action::Weather),
-            n(Action::Lane)
-        ));
-        text.push_str(&format!(
-            "open. {} turns the lane locator on and off: a soft tock once a ",
-            n(Action::LaneLocator)
-        ));
-        text.push_str("beat, panned to where you sit in your lane, on lane keeping ");
-        text.push_str("partial or off. ");
-        text.push_str(&format!(
-            "{} repeats the last driving announcement. ",
-            n(Action::LastAnnouncement)
-        ));
-        text.push_str(&format!(
-            "{} repeats the last CB chatter, with the distance as it is now. ",
-            n(Action::Cb)
-        ));
-        text.push_str(
-            "Comma repeats what was just said and keeps stepping back; Period moves \
-             forward again. ",
-        );
-        text.push_str("Control with Comma or Period jumps to the oldest or newest message. ");
-        text.push_str(
-            "The bracket keys switch between all messages, general messages, and driving \
-             events. ",
-        );
-        text.push_str("Control C copies the message you are on. ");
-        text.push_str(&format!(
-            "{} reads the road ahead that no other key answers: the exit your \
-             signal is on for, the ramp ",
-            n(Action::Upcoming)
-        ));
-        text.push_str("control coming up, the next imposed limit, the next stop, and ");
-        text.push_str("the next bend that demands slowing. ");
-        text.push_str("Bends that demand slowing are called before they arrive, like ");
-        text.push_str(&format!(
-            "Sharp left, half a mile, advise 35; {} gives one safe-speed number ",
-            n(Action::SafeSpeed)
-        ));
-        text.push_str("with the bend in it. ");
-        text.push_str(&format!(
-            "The {} status menu includes a Driver apps tablet for navigation, ",
-            n(Action::Status)
-        ));
-        text.push_str("weather, traffic, truck stops, road chatter, and ELD. ");
-        text.push_str("Left or Right Control stops the driving event voice. ");
+        let clock = n(Action::Clock);
+        let radio = n(Action::Radio);
+        let favorite = n(Action::RadioFavorite);
+        let radio_status = n(Action::RadioStatus);
+        let now_playing = n(Action::RadioNowPlaying);
+        let status = n(Action::Status);
+        let engine = n(Action::Engine);
+        let parking_brake = n(Action::ParkingBrake);
+        let speed = n(Action::Speed);
+        let speed_limit = n(Action::SpeedLimit);
+        let grade = n(Action::Grade);
+        let fuel = n(Action::Fuel);
+        let reefer = n(Action::Reefer);
+        let apu = n(Action::Apu);
+        let hos_wheel = n(Action::HosWheel);
+        let hos_break = n(Action::HosBreak);
+        let hos_drive = n(Action::HosDrive);
+        let route = n(Action::Route);
+        let place_state = n(Action::PlaceState);
+        let place_road = n(Action::PlaceRoad);
+        let place_town = n(Action::PlaceTown);
+        let place_direction = n(Action::PlaceDirection);
+        let weather = n(Action::Weather);
+        let lane = n(Action::Lane);
+        let lane_locator = n(Action::LaneLocator);
+        let last_announcement = n(Action::LastAnnouncement);
+        let cb = n(Action::Cb);
+        let copy_last = n(Action::CopyLastSpoken);
+        let upcoming = n(Action::Upcoming);
+        let safe_speed = n(Action::SafeSpeed);
         let left = n(Action::SteerLeft);
         let right = n(Action::SteerRight);
-        text.push_str(&format!(
-            "{left} and {right} steer unless lane keeping is on full; steer "
-        ));
-        text.push_str(&format!(
-            "across the lane line to change lanes. On full, tap {left} or {right}. "
-        ));
-        text.push_str(&format!(
-            "Hold {} to point the truck straight down the road; where it sits in the lane stays yours to fix. ",
-            n(Action::Straighten)
-        ));
-        text.push_str("Exits leave from the right lane. Change lanes or brake means a ");
-        text.push_str("fixed object in your lane: take the open lane it names, or brake ");
-        text.push_str("nearly to a stop and ease around. ");
+        let straighten = n(Action::Straighten);
         let rest = n(Action::Rest);
-        text.push_str(&format!(
-            "{rest} plans the recommended break or sleep stop when hours of service planning hints are on; otherwise it plans the next sleep-capable stop while rolling. {exit} "
+        let horn = n(Action::Horn);
+        let engine_brake = n(Action::EngineBrake);
+        let jake1 = n(Action::JakeStage1);
+        let jake2 = n(Action::JakeStage2);
+        let jake3 = n(Action::JakeStage3);
+        let auto_jake = n(Action::AutoJake);
+        let transmission_mode = n(Action::TransmissionMode);
+        let window = n(Action::DriverWindow);
+        let fan = n(Action::Fan);
+        let climate = n(Action::Climate);
+
+        // Each spoken sentence is one whole literal, so a catalog can
+        // translate it as a unit. Sentences are joined with a space.
+        let mut lines: Vec<String> = Vec::new();
+        lines.push(format!("Hold {up} to accelerate, {down} to brake."));
+        if ctx.settings.pedal_latch != "off" {
+            lines.push(
+                "Tap the brake, then press again and hold half a second to latch it \
+                 hands-free; a click and a spoken confirmation mark the catch."
+                    .to_string(),
+            );
+            lines.push(format!(
+                "{down} once releases it; the accelerator releases it instantly."
+            ));
+            lines.push("The throttle key never latches.".to_string());
+        }
+        if ctx.settings.automatic_direction_changes == "deliberate" {
+            lines.push(format!(
+                "In automatic with deliberate direction changes, stop, release \
+                 {down}, then press and hold it again to reverse."
+            ));
+            lines.push(format!(
+                "While reversing, stop with {up}, release, then press and hold \
+                 again for forward."
+            ));
+            lines.push("A quick tap just brakes.".to_string());
+        } else {
+            lines.push(format!(
+                "In automatic with simple direction changes, stop, release {down}, \
+                 then press and hold it again to reverse."
+            ));
+            lines.push(format!(
+                "While reversing, stop with {up}, release, then hold it again for forward."
+            ));
+            lines.push("A brake held through a stop just holds the truck.".to_string());
+        }
+        lines.push(format!(
+            "Hold {emergency_brake} for the emergency brake, the hardest possible stop."
         ));
-        text.push_str(&format!(
-            "signals for its exit. Stopped at a route stop, {rest} opens its menu: "
+        lines.push(format!(
+            "{cruise} starts automatic speed control: adaptive cruise on open roads, \
+             the speed keeper in low-speed zones."
         ));
-        text.push_str("fuel, break, sleep, inspect, roadside assistance, or save where ");
-        text.push_str(&format!(
-            "available. Fully stopped away from route points, {rest} opens the "
+        lines.push("Weather widens the gap.".to_string());
+        lines.push(
+            "Cruise eases early for a sharp posted-limit drop, the keeper for the next \
+             turn or the next lower limit."
+                .to_string(),
+        );
+        lines.push("Braking cancels the session.".to_string());
+        lines.push("At the planned pickup it pauses and resumes once you depart.".to_string());
+        lines.push(
+            "Plus and minus, including the keypad keys, change the open-road target by \
+             five; it never holds more than five over the posted limit."
+                .to_string(),
+        );
+        lines.push("Control with plus or minus, by one.".to_string());
+        lines.push(format!("{cruise_resume} resumes the last cruise speed."));
+        lines.push(format!(
+            "Parked with the brake set, {cruise} latches a high idle; plus and minus \
+             adjust it, and releasing the parking brake drops it."
         ));
-        text.push_str(&format!(
-            "emergency shoulder-sleep warning instead. {} horn. ",
-            n(Action::Horn)
+        lines.push(format!(
+            "{exit} signals for the next announced route exit, by number when known, \
+             or cancels that signal."
         ));
-        text.push_str(&format!(
-            "{} engine brake; on an automatic it manages its own stage, and {}, ",
-            n(Action::EngineBrake),
-            n(Action::JakeStage1)
+        lines.push(
+            "Unless lane keeping is on full, move to the right lane, then steer right \
+             into the exit lane where it opens, just before the gore."
+                .to_string(),
+        );
+        lines.push(
+            "Keep road speed to there, then brake to the exit speed before the ramp curve."
+                .to_string(),
+        );
+        lines.push(
+            "Ramps usually end at a traffic light or stop sign, called out on the way down."
+                .to_string(),
+        );
+        lines.push(format!(
+            "{exit} also signals a pull-over when a trooper lights you up for speeding, \
+             a scale bypass, or unsafe equipment: signal, then brake to a stop."
         ));
-        text.push_str(&format!(
-            "{}, {} take manual control. {} chooses whether {} runs the ",
-            n(Action::JakeStage2),
-            n(Action::JakeStage3),
-            n(Action::AutoJake),
-            n(Action::EngineBrake)
+        lines.push(
+            "Ignoring the lights brings failure-to-stop warnings, then a stop that \
+             cancels the load: a major offense."
+                .to_string(),
+        );
+        lines.push(format!("{clock} also speaks the date and season."));
+        lines.push(format!("{radio} toggles the in-cab radio."));
+        lines.push(
+            "Page Down tunes to the next station, Page Up to the previous; semicolon \
+             and apostrophe do the same."
+                .to_string(),
+        );
+        lines.push(
+            "Control with the tuning keys jumps a category; Shift changes the radio \
+             volume in 10 percent steps, on or off."
+                .to_string(),
+        );
+        lines.push(format!(
+            "{favorite} saves or unsaves the station as a favorite."
         ));
-        text.push_str(&format!(
-            "automatic mode. {} switches between automatic and manual ",
-            n(Action::TransmissionMode)
+        lines.push(format!(
+            "{radio_status} speaks station, volume, and streamer-safe status; \
+             {now_playing} speaks the song when the station says."
         ));
-        text.push_str("shifting. Escape pause menu. F2 lists every driving command by name. ");
+        lines.push(format!(
+            "The Driver apps tablet has a Radio app to search the dial, tune by name, \
+             and keep favorites; the {status} status menu has a radio screen of \
+             receivable stations."
+        ));
+        lines.push(format!(
+            "{engine} starts the engine, and stops it only below 5 miles per hour."
+        ));
+        lines.push("Air pressure must build before the truck can move.".to_string());
+        lines.push(format!(
+            "{parking_brake} sets or releases the parking brake."
+        ));
+        lines.push("It needs 100 psi of air.".to_string());
+        lines.push(self.objective_help(ctx).trim_end().to_string());
+        lines.push(format!(
+            "{speed} speed, active speed-control mode, and target, and with the signal \
+             set, how far to the exit."
+        ));
+        lines.push(format!("{speed_limit} posted speed limit."));
+        lines.push(format!(
+            "{grade} the grade under the wheels, whether the truck is holding it, and \
+             the next grade ahead."
+        ));
+        lines.push(format!("{status} status menu."));
+        lines.push(format!("{fuel} fuel."));
+        lines.push(format!("{reefer} reefer on or off. {apu} APU on or off."));
+        lines.push(format!(
+            "{clock} clock, deadline, and the hours limit that comes first."
+        ));
+        lines.push(format!(
+            "{hos_wheel} time at the wheel so far, {hos_break} when your 30 minute \
+             break is due, {hos_drive} what ends this shift and where you can legally \
+             stop before it."
+        ));
+        lines.push(format!(
+            "{route} progress, distance left, and where you are."
+        ));
+        lines.push(format!(
+            "{place_state} the state, {place_road} the road, {place_town} the town or \
+             the nearest one, {place_direction} the direction."
+        ));
+        lines.push("The keypad numbers work the same way.".to_string());
+        lines.push(format!("{weather} weather."));
+        lines.push(format!(
+            "{lane} lane position and whether the lane beside you is open."
+        ));
+        lines.push(format!(
+            "{lane_locator} turns the lane locator on and off: a soft tock once a beat, \
+             panned to where you sit in your lane, on lane keeping partial or off."
+        ));
+        lines.push(format!(
+            "{last_announcement} repeats the last driving announcement."
+        ));
+        lines.push(format!(
+            "{cb} repeats the last CB chatter, with the distance as it is now."
+        ));
+        lines.push(
+            "Comma repeats what was just said and keeps stepping back; Period moves \
+             forward again."
+                .to_string(),
+        );
+        lines.push(
+            "Control with Comma or Period jumps to the oldest or newest message.".to_string(),
+        );
+        lines.push(
+            "The bracket keys switch between all messages, general messages, and driving \
+             events."
+                .to_string(),
+        );
+        lines.push("Control C copies the message you are on.".to_string());
+        lines.push(format!("{copy_last} copies the last thing the game said."));
+        lines.push(format!(
+            "{upcoming} reads the road ahead that no other key answers: the exit your \
+             signal is on for, the ramp control coming up, the next imposed limit, the \
+             next stop, and the next bend that demands slowing."
+        ));
+        lines.push(format!(
+            "Bends that demand slowing are called before they arrive, like Sharp left, \
+             half a mile, advise 35; {safe_speed} gives one safe-speed number with the \
+             bend in it."
+        ));
+        lines.push(format!(
+            "The {status} status menu includes a Driver apps tablet for navigation, \
+             weather, traffic, truck stops, road chatter, and ELD."
+        ));
+        lines.push("Left or Right Control stops the driving event voice.".to_string());
+        lines.push(format!(
+            "{left} and {right} steer unless lane keeping is on full; steer across the \
+             lane line to change lanes."
+        ));
+        lines.push(format!("On full, tap {left} or {right}."));
+        lines.push(format!(
+            "Hold {straighten} to point the truck straight down the road; where it sits \
+             in the lane stays yours to fix."
+        ));
+        lines.push("Exits leave from the right lane.".to_string());
+        lines.push(
+            "Change lanes or brake means a fixed object in your lane: take the open lane \
+             it names, or brake nearly to a stop and ease around."
+                .to_string(),
+        );
+        lines.push(format!(
+            "While rolling, {rest} plans the next stop for what you choose: fuel, a break, \
+             sleep, fuel and sleep, or food."
+        ));
+        lines.push(format!("{exit} signals for its exit."));
+        lines.push(format!(
+            "Stopped at a route stop, {rest} opens its menu: fuel, break, sleep, \
+             inspect, roadside assistance, or save where available."
+        ));
+        lines.push(format!(
+            "Fully stopped away from route points, {rest} opens the emergency \
+             shoulder-sleep warning instead."
+        ));
+        lines.push(format!("{horn} horn."));
+        lines.push(format!(
+            "{window} lowers or raises the driver window, {fan} steps the fan, \
+             {climate} switches heat and air conditioning."
+        ));
+        lines.push(format!(
+            "{engine_brake} engine brake; on an automatic it manages its own stage, and \
+             {jake1}, {jake2}, {jake3} take manual control."
+        ));
+        lines.push(format!(
+            "{auto_jake} chooses whether {engine_brake} runs the automatic mode."
+        ));
+        lines.push(format!(
+            "{transmission_mode} switches between automatic and manual shifting."
+        ));
+        lines.push("Escape pause menu.".to_string());
+        lines.push("F2 lists every driving command by name.".to_string());
+        lines.push("Shift F1 names what each key does.".to_string());
         if !self.trip.truck.transmission.automatic {
-            text.push_str(&format!(
-                "Hold Left Shift for clutch, then {} to shift up or {} to shift down, \
-                 {} for reverse, {} for neutral. ",
-                n(Action::ShiftUp),
-                n(Action::ShiftDown),
-                n(Action::Reverse),
-                n(Action::Neutral)
+            let shift_up = n(Action::ShiftUp);
+            let shift_down = n(Action::ShiftDown);
+            let reverse = n(Action::Reverse);
+            let neutral = n(Action::Neutral);
+            lines.push(format!(
+                "Hold Left Shift for clutch, then {shift_up} to shift up or {shift_down} \
+                 to shift down, {reverse} for reverse, {neutral} for neutral."
             ));
         }
-        text.push_str(
+        lines.push(
             "Any of these keys can be moved under Settings, Gameplay, Controls, \
-             Keyboard shortcuts.",
+             Keyboard shortcuts."
+                .to_string(),
         );
-        ctx.say(&text);
+        ctx.say(&sentences(&lines));
     }
 
     /// `_speak_controller_help()`: controller layout help, spoken from the
     /// Back button or F1 on a pad. Buttons come from the player's own table.
     pub fn speak_controller_help(&mut self, ctx: &mut GameContext) {
         let n = |action: Action| ctx.bindings.pad_spoken(action);
+        let c = |action: Action| capitalized(&ctx.bindings.pad_spoken(action));
         let manual = !self.trip.truck.transmission.automatic;
-        let gears = if manual {
-            format!(
-                "Hold the left bumper for the clutch; {} shifts up a gear, \
-                 {} shifts down. ",
-                n(Action::ShiftUp),
-                n(Action::ShiftDown)
-            )
+        // Each spoken sentence is one whole literal, so a catalog can
+        // translate it as a unit. Sentences are joined with a space.
+        let mut lines: Vec<String> = vec![
+            "Right trigger is the gas, left trigger the brake; the left trigger fully in \
+             is the hardest stop."
+                .to_string(),
+            "The left stick steers; with lane keeping on full, pushing it left or right changes one lane.".to_string(),
+        ];
+        if manual {
+            let shift_up = n(Action::ShiftUp);
+            let shift_down = n(Action::ShiftDown);
+            lines.push(format!(
+                "Hold the left bumper for the clutch; {shift_up} shifts up a gear, \
+                 {shift_down} shifts down."
+            ));
         } else if ctx.settings.automatic_direction_changes == "deliberate" {
-            "In automatic with deliberate direction changes, stop, let the left \
-             trigger return to neutral, then press and hold it again to reverse. \
-             While reversing, stop with the right trigger, let it return to \
-             neutral, then press and hold again for forward. A quick tap just \
-             brakes. "
-                .to_string()
+            lines.push(
+                "In automatic with deliberate direction changes, stop, let the left \
+                 trigger return to neutral, then press and hold it again to reverse."
+                    .to_string(),
+            );
+            lines.push(
+                "While reversing, stop with the right trigger, let it return to \
+                 neutral, then press and hold again for forward."
+                    .to_string(),
+            );
+            lines.push("A quick tap just brakes.".to_string());
         } else {
-            "In automatic with simple direction changes, stop, let the left \
-             trigger return to neutral, then press and hold it again to reverse. \
-             While reversing, stop with the right trigger, release, then press it \
-             again for forward. A brake held through a stop just holds the truck. "
-                .to_string()
-        };
-        let objective_help = self.objective_help(ctx);
-
-        let mut text = String::new();
-        text.push_str("Right trigger is the gas, left trigger the brake; the left trigger ");
-        text.push_str("fully in is the hardest stop. The left stick steers unless lane ");
-        text.push_str("keeping is on full. ");
-        text.push_str(&gears);
-        text.push_str(&format!(
-            "{} starts automatic speed control: adaptive cruise on ",
-            capitalized(&n(Action::Cruise))
+            lines.push(
+                "In automatic with simple direction changes, stop, let the left \
+                 trigger return to neutral, then press and hold it again to reverse."
+                    .to_string(),
+            );
+            lines.push(
+                "While reversing, stop with the right trigger, release, then press it \
+                 again for forward."
+                    .to_string(),
+            );
+            lines.push("A brake held through a stop just holds the truck.".to_string());
+        }
+        let cruise = n(Action::Cruise);
+        let cruise_cap = c(Action::Cruise);
+        let cruise_down = c(Action::CruiseDown);
+        let cruise_up = n(Action::CruiseUp);
+        let take_exit = c(Action::TakeExit);
+        let route = c(Action::Route);
+        let weather = n(Action::Weather);
+        let clock = n(Action::Clock);
+        let speed = c(Action::Speed);
+        let horn = c(Action::Horn);
+        let engine_brake = n(Action::EngineBrake);
+        let engine = c(Action::Engine);
+        let fuel = n(Action::Fuel);
+        let reefer = n(Action::Reefer);
+        let apu = n(Action::Apu);
+        let speed_limit = n(Action::SpeedLimit);
+        let parking_brake = n(Action::ParkingBrake);
+        let rest = n(Action::Rest);
+        let status = c(Action::Status);
+        let tune_prev = c(Action::RadioTunePrev);
+        let tune_next = n(Action::RadioTuneNext);
+        let volume_down = c(Action::RadioVolumeDown);
+        let volume_up = n(Action::RadioVolumeUp);
+        let category_prev = c(Action::RadioCategoryPrev);
+        let category_next = n(Action::RadioCategoryNext);
+        let radio = c(Action::Radio);
+        let favorite = n(Action::RadioFavorite);
+        let radio_status = n(Action::RadioStatus);
+        let now_playing = n(Action::RadioNowPlaying);
+        lines.push(format!(
+            "{cruise_cap} starts automatic speed control: adaptive cruise on open roads, \
+             the speed keeper in low-speed zones."
         ));
-        text.push_str(&format!(
-            "open roads, the speed keeper in low-speed zones. {} or {} change the open-road ",
-            capitalized(&n(Action::CruiseDown)),
-            n(Action::CruiseUp)
+        lines.push(format!(
+            "{cruise_down} or {cruise_up} change the open-road target by five."
         ));
-        text.push_str("target by five. It pauses through the planned pickup and resumes ");
-        text.push_str("once the loaded truck is rolling. Parked with the brake set, ");
-        text.push_str(&format!("{} latches a high idle. ", n(Action::Cruise)));
-        text.push_str(&format!(
-            "{} signals for the next announced exit, or a pull-over ",
-            capitalized(&n(Action::TakeExit))
-        ));
-        text.push_str("when a trooper lights you up. ");
-        text.push_str(&format!(
-            "{} reads your route and current location, {} the ",
-            capitalized(&n(Action::Route)),
-            n(Action::Weather)
-        ));
-        text.push_str(&format!(
-            "weather, {} the clock with your full hours of service. ",
-            n(Action::Clock)
-        ));
-        text.push_str(&format!(
-            "{} speaks your speed. ",
-            capitalized(&n(Action::Speed))
-        ));
-        text.push_str(&format!(
-            "{} sounds the horn, {} the engine brake. ",
-            capitalized(&n(Action::Horn)),
-            n(Action::EngineBrake)
-        ));
-        text.push_str(&format!(
-            "{} starts or stops the engine, {} the reefer, {} the APU, {} reads fuel, {} reads the posted ",
-            capitalized(&n(Action::Engine)),
-            n(Action::Reefer),
-            n(Action::Apu),
-            n(Action::Fuel),
-            n(Action::SpeedLimit)
-        ));
-        text.push_str(&format!(
-            "speed limit here and how far over you are, {} sets or releases the parking ",
-            n(Action::ParkingBrake)
-        ));
-        text.push_str(&format!(
-            "brake, {} plans a recommended break or sleep stop when hours of service planning hints are on, or the next sleep stop otherwise; stopped at a stop, it opens its actions. ",
-            n(Action::Rest)
-        ));
-        text.push_str("Away from route points while fully stopped, it opens ");
-        text.push_str(&format!(
-            "emergency shoulder sleep. {} opens the status menu. ",
-            capitalized(&n(Action::Status))
-        ));
-        text.push_str("Start pauses and unpauses. The Back button stops the driving voice ");
-        text.push_str("while it is speaking; when nothing is being said, it repeats this help. ");
-        text.push_str(&objective_help);
-        text.push_str(
-            "Any of these buttons can be moved under Settings, Gameplay, Controls, \
-             Controller buttons.",
+        lines.push(
+            "It pauses through the planned pickup and resumes once the loaded truck is \
+             rolling."
+                .to_string(),
         );
-        ctx.say(&text);
+        lines.push(format!(
+            "Parked with the brake set, {cruise} latches a high idle."
+        ));
+        lines.push(format!(
+            "{take_exit} signals for the next announced exit, or a pull-over when a \
+             trooper lights you up."
+        ));
+        lines.push(format!(
+            "{route} reads your route and current location, {weather} the weather, \
+             {clock} the clock with your full hours of service."
+        ));
+        lines.push(format!("{speed} speaks your speed."));
+        lines.push(format!(
+            "{horn} sounds the horn, {engine_brake} the engine brake."
+        ));
+        lines.push(format!(
+            "{engine} starts or stops the engine, {reefer} the reefer, {apu} the APU, \
+             {fuel} reads fuel, {speed_limit} reads \
+             the posted speed limit here and how far over you are, {parking_brake} sets \
+             or releases the parking brake, {rest} plans a stop for fuel, a break, sleep or \
+             food while rolling; stopped at a stop, it opens its actions."
+        ));
+        lines.push(
+            "Away from route points while fully stopped, it opens emergency shoulder sleep."
+                .to_string(),
+        );
+        lines.push(format!(
+            "{status} opens the status menu, which also lists every driving command."
+        ));
+        lines.push("Hold Back and press Start to hear what each button does.".to_string());
+        lines.push(format!(
+            "{tune_prev} tunes to the previous station and {tune_next} to the next."
+        ));
+        lines.push(format!(
+            "{volume_down} and {volume_up} lower and raise the radio volume."
+        ));
+        lines.push(format!(
+            "{category_prev} or {category_next} changes the radio category."
+        ));
+        lines.push(format!(
+            "{radio} turns the radio on or off, {favorite} saves a favorite, \
+             {radio_status} reads radio status, and {now_playing} says what is playing."
+        ));
+        lines.push("Start pauses and unpauses.".to_string());
+        lines.push(
+            "The Back button stops the driving voice while it is speaking; when nothing \
+             is being said, it repeats this help."
+                .to_string(),
+        );
+        lines.push(self.objective_help(ctx).trim_end().to_string());
+        lines.push(
+            "Any of these buttons can be moved under Settings, Gameplay, Controls, \
+             Controller buttons."
+                .to_string(),
+        );
+        ctx.say(&sentences(&lines));
     }
 }
 
 impl DrivingState {
     /// The touch-screen layout, from the player's own touch bindings.
     pub fn speak_touch_help(&mut self, ctx: &mut GameContext) {
+        // The core rule comes first; everything after it is an example.
         let mut text = String::from(
-            "Touch and hold the top half of the screen for the gas, the bottom half for \
-             the brake. Swipe left or right to steer, unless lane keeping is on full. ",
+            "A flick is one step. A swipe and hold is continuous. Everything works anywhere \
+             on the screen. Swipe up and hold for gas; lift to coast. Swipe down and hold to \
+             brake. Swipe down three times as deep for the emergency brake; stopped, that \
+             sets the parking brake, and gas releases it. ",
+        );
+        text.push_str(if ctx.settings.lane_is_automated() {
+            "Flick left or right to change lanes; with lane keeping on full, flicks are the \
+             only lane control. "
+        } else {
+            "Flick left or right to change lanes, or swipe left or right and hold to steer. "
+        });
+        text.push_str(
+            "Hold one finger still for half a second to straighten the wheel. With cruise \
+             off, flick up to resume the last speed and flick down to set the current speed. \
+             Turn two fingers right like a key to start the engine, left to stop it. Hold two \
+             fingers for the horn; turning them cancels it. While holding a pedal, a second \
+             finger's flicks and holds work the same way, and in automatic its shift flicks \
+             say the gear. ",
         );
         for gesture in crate::bindings::touch_slots() {
             let (Some(name), Some(command)) = (
@@ -449,4 +547,22 @@ fn capitalized(phrase: &str) -> String {
         Some(first) => first.to_uppercase().collect::<String>() + chars.as_str(),
         None => String::new(),
     }
+}
+
+/// The help's sentences joined with spaces, each opening with a capital: a
+/// key name leads some ("the Left arrow and the Right arrow steer"), and a
+/// sentence that starts lowercase is neither good English nor found as its
+/// own sentence by a translation.
+fn sentences(lines: &[String]) -> String {
+    lines
+        .iter()
+        .map(|line| {
+            let mut chars = line.chars();
+            match chars.next() {
+                Some(first) => first.to_uppercase().chain(chars).collect(),
+                None => String::new(),
+            }
+        })
+        .collect::<Vec<String>>()
+        .join(" ")
 }

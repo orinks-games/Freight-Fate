@@ -6,7 +6,6 @@ use crate::models::trailer_yard::{detention_charge, pickup_plan, DetentionCharge
 use crate::pyfmt::fmt_grouped;
 
 pub const CARRIER_PAID: &str = "carrier_paid";
-pub const DRIVER_RESPONSIBILITY: &str = "driver_responsibility";
 
 pub const LUMPER_DESTINATION_TYPES: &[&str] = &[
     "cold_storage",

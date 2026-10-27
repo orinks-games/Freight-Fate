@@ -326,18 +326,22 @@ fn ramp_length_reads_the_travel_direction_and_is_none_when_absent() {
 
 #[test]
 fn baked_ramp_length_is_read_for_a_known_exit() {
-    // I-65 Chicago to Indianapolis, its exits re-derived on its polyline
-    // 2026-09-25 (OSM of 2026-06-22): exit 240 has a southbound ramp only;
-    // exit 74A-B matched no gore either way.
+    // I-65 Chicago to Indianapolis, its exits re-read on its polyline from
+    // the OSM planet file of 2026-10-19: exit 240 has a ramp each way, 1,712
+    // feet southbound and 1,801 northbound; exit 74A-B matched no gore
+    // either way.
     let w = world();
     let route = first_route_option(w, "Chicago", "Indianapolis");
     let trip = trip_on(route.clone(), true);
     let exit_240 = trip.ramp_length_mi_at(57.4).expect("exit 240 has a length");
-    assert!((exit_240 - 1727.3 / 5280.0).abs() < 1e-9, "{exit_240}");
+    assert!((exit_240 - 1712.2 / 5280.0).abs() < 1e-9, "{exit_240}");
     assert_eq!(trip.ramp_length_mi_at(23.1), None);
     let reverse = first_route_option(w, "Indianapolis", "Chicago");
     let miles = reverse.legs[0].miles;
-    assert_eq!(trip_on(reverse, true).ramp_length_mi_at(miles - 57.4), None);
+    let back = trip_on(reverse, true)
+        .ramp_length_mi_at(miles - 57.4)
+        .expect("exit 240 has a northbound length");
+    assert!((back - 1801.1 / 5280.0).abs() < 1e-9, "{back}");
 }
 
 #[test]
@@ -716,14 +720,8 @@ fn test_metric_zone_warning_uses_metric_speed_limit() {
         .collect();
     let blob = msgs.join(" ");
     // 55/45 mph rendered as km/h
-    assert!(
-        blob.contains("Speed limit 89 from 2 kilometers out, then 72"),
-        "{blob}"
-    );
-    assert!(
-        !blob.contains("Speed limit 55 at the taper, then 45"),
-        "{blob}"
-    );
+    assert!(blob.contains("Limit 89, then 72."), "{blob}");
+    assert!(!blob.contains("Limit 55"), "{blob}");
 }
 
 #[test]
@@ -750,4 +748,30 @@ fn test_mainline_via_does_not_pollute_the_exit_label() {
     assert!(!cue.text.contains("I-35 North"), "{}", cue.text);
     assert!(!cue.text.contains("Oklahoma City"), "{}", cue.text);
     assert!(!cue.near_text.contains("I-35 North"), "{}", cue.near_text);
+}
+
+#[test]
+fn a_ramp_past_its_signed_curve_is_held_to_its_design_speed() {
+    // Pittsburgh's exit 74 on the way in from Harrisburg posts 15 mph for
+    // its bend on an 1,800-foot ramp. Held to the sign gore to bar, a ramp
+    // that long took a minute and a half (owner, 2026-10-24, on Cleveland's
+    // 170A, whose 15 belonged to the West 14th Street ramp next to it); the
+    // run past the bend is held to the ramp's design speed.
+    let route = first_route_option(world(), "Harrisburg", "Pittsburgh");
+    let trip = trip_on(route, true);
+    let total = trip.total_miles();
+    let at = (0..400)
+        .map(|i| total - 10.0 + f64::from(i) * 0.025)
+        .find(|&mi| {
+            trip.interchange_at(mi, 0.02)
+                .is_some_and(|ix| ix.exit_ref == "74")
+        })
+        .expect("exit 74 on the route");
+    assert_eq!(trip.ramp_speed_at(at), 15.0);
+    let mut stop = ff_core::sim::trip_models::RoadStop::new("Pittsburgh", at, "destination");
+    stop.interchange_mi = Some(at);
+    let layout = trip.exit_ramp_layout(&stop);
+    assert_eq!(layout.curve_mph, 15.0);
+    assert_eq!(layout.tangent_mph, trip.ramp_design_mph_at(at));
+    assert!(layout.tangent_mph >= 30.0, "{layout:?}");
 }

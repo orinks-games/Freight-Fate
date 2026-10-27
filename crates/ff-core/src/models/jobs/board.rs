@@ -12,14 +12,17 @@ use crate::data::world::{max_alternate_miles, World};
 use crate::data::world_models::{City, CrossingLoad, Location};
 use crate::models::business_constants::DIRECT_FREIGHT_PAY_MULT;
 use crate::models::carriers::carrier;
+use crate::models::co_driver::{load_seed, team_load_drawn, TEAM_LOAD_PAY_MULT};
+use crate::models::jobs::team_deadline_hours;
 use crate::models::jobs::{
     cargo_type, dispatch_deadline_hours, market_tag_cargo_bonus, minimum_pay_for_level, plan_hos,
     CargoType, Job, SeasonalWeightLimit, DEADLINE_DISPATCH_SLACK_RANGE, FACILITY_SELECTION_WEIGHTS,
     HELD_CREDENTIAL_CARGO_WEIGHT, HELD_CREDENTIAL_FACILITY_BONUS, HOOKUP_FEE, LEVEL_DISTANCE_CAPS,
-    LEVEL_DISTANCE_CAP_STEP_MI, LONG_HAUL_MILES, MAX_DISPATCH_DISTANCE_MI, MIN_JOB_DISTANCE_MI,
-    PREMIUM_LANE_LEVEL, PREMIUM_LANE_LONG_HAUL_BIAS, SPECIALIZED_FREIGHT_LEVEL,
-    SPECIALIZED_FREIGHT_WEIGHT, THIN_OUTBOUND_ORIGIN_WEIGHT,
+    LEVEL_DISTANCE_CAP_STEP_MI, MAX_DISPATCH_DISTANCE_MI, MIN_JOB_DISTANCE_MI, PREMIUM_LANE_LEVEL,
+    PREMIUM_LANE_LONG_HAUL_BIAS, SPECIALIZED_FREIGHT_LEVEL, SPECIALIZED_FREIGHT_WEIGHT,
+    THIN_OUTBOUND_ORIGIN_WEIGHT,
 };
+use crate::models::jobs::{BEHIND_HEADING_PENALTY, RETURN_LANE_MIN_POOL, RETURN_LANE_SHARE};
 use crate::models::market::Market;
 use crate::models::start_options::{start_option, DEFAULT_START_KEY};
 use crate::pyfmt::round_py_n;
@@ -58,6 +61,11 @@ pub struct OfferOptions<'a> {
     pub market: Option<&'a Market>,
     pub carrier_key: Option<&'a str>,
     pub direct_freight: bool,
+    /// The city the truck delivered from to get here (`came_from_city`).
+    /// With it, the board draws that city at `RETURN_LANE_WEIGHT` and leans
+    /// away from cities behind the truck; without it (the default, and
+    /// every board built for a relay) the spread is what it always was.
+    pub came_from: Option<&'a str>,
 }
 
 impl<'a> OfferOptions<'a> {
@@ -134,29 +142,6 @@ impl<'w> JobBoard<'w> {
         self
     }
 
-    /// How many distinct places a driver at `level` can be sent to from
-    /// `city`: the reachable cities within the level's range and past the
-    /// across-town minimum. The board's own measure of how much choice a
-    /// town's freight offers; a town with one or two is a thin market
-    /// however many rows the board fills (see `relay`).
-    pub fn destination_choices(&self, city: &str, level: i64) -> usize {
-        self.destination_choices_for_carrier(city, level, DEFAULT_START_KEY)
-    }
-
-    pub fn destination_choices_for_carrier(
-        &self,
-        city: &str,
-        level: i64,
-        carrier_key: &str,
-    ) -> usize {
-        let city = self.world.resolve_city_key(city);
-        let cap = Self::distance_cap_for_carrier(level, carrier_key);
-        self.candidates(&city)
-            .iter()
-            .filter(|c| c.1 >= MIN_JOB_DISTANCE_MI && c.1 <= cap)
-            .count()
-    }
-
     pub fn distance_cap(level: i64) -> f64 {
         Self::level_distance_cap_only(level)
     }
@@ -224,7 +209,21 @@ impl<'w> JobBoard<'w> {
         // Pick a spread of DISTINCT destinations up front so the board never
         // collapses to one back-and-forth city (a start with a single nearby
         // neighbour used to be locked into one route). Nearer cities stay likelier.
-        let dest_cycle = self.spread_destinations(&city, &reachable, level, count, carrier_key);
+        // A city the map does not know leaves the spread exactly as it was:
+        // no gate draw, no lean.
+        let came_from = opts
+            .came_from
+            .filter(|c| !c.is_empty())
+            .map(|c| self.world.resolve_city_key(c))
+            .filter(|key| self.world.cities.contains_key(key));
+        let dest_cycle = self.spread_destinations(
+            &city,
+            &reachable,
+            level,
+            count,
+            carrier_key,
+            came_from.as_deref(),
+        );
         let held: Vec<&str> = endorsements.iter().map(AsRef::as_ref).collect();
         let mut attempts = 0;
         while jobs.len() < count && attempts < count * 30 {
@@ -363,13 +362,14 @@ impl<'w> JobBoard<'w> {
     /// Aims for at least three distinct cities (or as many as the network
     /// allows) so the dispatch board offers real choices instead of repeating
     /// one destination. Rookies still lean toward short hauls.
-    fn spread_destinations(
+    pub(crate) fn spread_destinations(
         &mut self,
         origin: &str,
         reachable: &[Candidate],
         level: i64,
         count: usize,
         carrier_key: &str,
+        came_from: Option<&str>,
     ) -> Vec<Candidate> {
         let mut best: IndexMap<String, Candidate> = IndexMap::new();
         for cand in reachable {
@@ -380,7 +380,16 @@ impl<'w> JobBoard<'w> {
                 }
             }
         }
-        let pool: Vec<Candidate> = best.into_values().collect();
+        let mut pool: Vec<Candidate> = best.into_values().collect();
+        // The straight return is on about RETURN_LANE_SHARE of the boards
+        // after a delivery, by this board's own draw, so the same board
+        // reopened shows the same thing. Only when there is enough else to
+        // offer.
+        if let Some(from) = came_from {
+            if pool.len() >= RETURN_LANE_MIN_POOL && self.rng.random() >= RETURN_LANE_SHARE {
+                pool.retain(|cand| cand.0 != from);
+            }
+        }
         let target = pool.len().min(count.max(3));
         let exponent = if level <= 2 { 2.0 } else { 1.0 };
         let mut chosen: Vec<Candidate> = Vec::new();
@@ -390,6 +399,7 @@ impl<'w> JobBoard<'w> {
                 .iter()
                 .map(|cand| {
                     self.destination_weight(origin, cand, level, carrier_key, Some(exponent))
+                        * self.arrival_factor(origin, &cand.0, came_from)
                 })
                 .collect();
             let idx = self.rng.choices_indices_weighted(&weights, 1)[0];
@@ -443,6 +453,28 @@ impl<'w> JobBoard<'w> {
             }
         }
         weight.max(1e-12)
+    }
+
+    /// How the way the truck arrived changes a destination's draw: a city
+    /// behind the truck (more than a right-angle turn back from the arrival
+    /// heading) draws down toward `1 - BEHIND_HEADING_PENALTY` at a full
+    /// reversal, which the city it came from is. Cities ahead or across are
+    /// untouched, and so is everything when `came_from` is None or unknown
+    /// to the map. Whether the return city is on the board at all is
+    /// `RETURN_LANE_SHARE`'s draw in `spread_destinations`.
+    pub fn arrival_factor(&self, here: &str, destination: &str, came_from: Option<&str>) -> f64 {
+        let Some(from) = came_from else {
+            return 1.0;
+        };
+        let coords = |key: &str| self.world.cities.get(key).map(|c| (c.lat, c.lon));
+        let (Some(from), Some(here), Some(dest)) =
+            (coords(from), coords(here), coords(destination))
+        else {
+            return 1.0;
+        };
+        let turn = turn_angle_deg(from, here, dest);
+        let behind = ((turn - 90.0) / 90.0).clamp(0.0, 1.0);
+        1.0 - BEHIND_HEADING_PENALTY * behind
     }
 
     /// Whether turnpike doubles may run between these cities: both ends sit
@@ -545,30 +577,6 @@ impl<'w> JobBoard<'w> {
             .or_default()
             .insert(city.to_string(), computed.clone());
         computed
-    }
-
-    /// `_choose_destination`: kept for parity; the board spreads destinations
-    /// up front instead.
-    pub fn choose_destination(&mut self, candidates: &[Candidate], level: i64) -> Candidate {
-        let mut pool: Vec<&Candidate> = candidates.iter().collect();
-        if level >= 4 {
-            // seasoned drivers see a dedicated cross-country slot now and then
-            let long_hauls: Vec<&Candidate> = candidates
-                .iter()
-                .filter(|c| c.1 >= LONG_HAUL_MILES)
-                .collect();
-            if !long_hauls.is_empty() && self.rng.random() < 0.35 {
-                pool = long_hauls;
-            }
-        }
-        // Nearer destinations are likelier, and rookies lean harder toward short
-        // hauls (squared distance falloff). Crucially the pool is never narrowed
-        // to a single-leg-only set -- that locked sparse start cities into one
-        // back-and-forth route. Leg count no longer gates which cities appear.
-        let exponent = if level <= 2 { 2.0 } else { 1.0 };
-        let weights: Vec<f64> = pool.iter().map(|c| 1.0 / c.1.powf(exponent)).collect();
-        let idx = self.rng.choices_indices_weighted(&weights, 1)[0];
-        pool[idx].clone()
     }
 
     /// True when the city has at least one facility that receives freight.
@@ -906,10 +914,11 @@ impl<'w> JobBoard<'w> {
             .deadline_slack;
         // Speak the stretch when the driver's current clock forces a sleep a
         // fresh clock would not have needed -- the long number is the law.
+        // A fresh driver's sleeps, planned once for both questions below.
+        let fresh_sleeps = plan_hos(miles, route.as_ref(), Some(self.world), None).sleeps;
         let covers_rest = match &self.hos {
             Some(hos) => {
-                plan_hos(miles, route.as_ref(), Some(self.world), Some(hos)).sleeps
-                    > plan_hos(miles, route.as_ref(), Some(self.world), None).sleeps
+                plan_hos(miles, route.as_ref(), Some(self.world), Some(hos)).sleeps > fresh_sleeps
             }
             None => false,
         };
@@ -934,8 +943,49 @@ impl<'w> JobBoard<'w> {
         job.deadline_covers_rest = covers_rest;
         job.origin_spoken = self.world.spoken_city(origin, Some(true));
         job.destination_spoken = self.world.spoken_city(destination, Some(true));
+        // A load a solo driver must sleep on the way to deliver may be booked
+        // for a team: it pays more and allows no 10-hour break. Drawn from
+        // the load itself, not the board's dice, so every other offer stays
+        // what it was.
+        let seed = load_seed(origin, destination, cargo.key, job.weight_tons);
+        if fresh_sleeps > 0 && team_load_drawn(&seed) {
+            job.team = true;
+            job.deadline_covers_rest = false;
+            job.pay = round_py_n(job.pay * TEAM_LOAD_PAY_MULT, 2);
+            job.deadline_game_h = round_py_n(
+                team_deadline_hours(miles, slack, route.as_ref(), Some(self.world))
+                    * start_option(Some(carrier_key))
+                        .dispatch_profile()
+                        .deadline_slack,
+                1,
+            );
+        }
         job.seasonal_weight_limit = seasonal_weight_limit;
         job.hazmat = material;
         Some(job)
+    }
+}
+
+/// Initial compass bearing from `a` to `b`, in degrees from north, for
+/// `(lat, lon)` pairs in degrees.
+fn bearing_deg(a: (f64, f64), b: (f64, f64)) -> f64 {
+    let (lat1, lon1) = (a.0.to_radians(), a.1.to_radians());
+    let (lat2, lon2) = (b.0.to_radians(), b.1.to_radians());
+    let dlon = lon2 - lon1;
+    let y = dlon.sin() * lat2.cos();
+    let x = lat1.cos() * lat2.sin() - lat1.sin() * lat2.cos() * dlon.cos();
+    y.atan2(x).to_degrees().rem_euclid(360.0)
+}
+
+/// How far a truck that drove `from` to `here` turns to head for `to`: 0
+/// straight on, 90 a right angle either way, 180 straight back.
+pub fn turn_angle_deg(from: (f64, f64), here: (f64, f64), to: (f64, f64)) -> f64 {
+    let arrived = bearing_deg(from, here);
+    let leaving = bearing_deg(here, to);
+    let diff = (leaving - arrived).rem_euclid(360.0);
+    if diff > 180.0 {
+        360.0 - diff
+    } else {
+        diff
     }
 }

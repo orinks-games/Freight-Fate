@@ -1,6 +1,7 @@
 //! Working the pedals for a ramp terminal, and crossing it: honour the light
 //! or the sign, or pay for it.
 
+use crate::speech::EventPriority;
 use ff_core::models::enforcement::{
     career_citations, citation_fine, construction_zone_fine_clause, RED_LIGHT_FINE, STOP_SIGN_FINE,
 };
@@ -10,7 +11,7 @@ use ff_core::sim::cross_traffic::{
     yield_crossing_times_s, CrossVehicle, COMBINATION_LENGTH_FT, TRACTOR_LENGTH_FT,
     YIELD_LINE_TO_CROSSROAD_FT,
 };
-use ff_core::speech_pacing::{EventPriority, SpeechCategory};
+use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
@@ -35,6 +36,95 @@ impl DrivingState {
         self.update_ramp_terminal_assist_with_input(ctx, false);
     }
 
+    /// Whether route-transition assistance has the pedals for the light,
+    /// sign or yield ahead: announced, and not yet crossed.
+    pub(crate) fn terminal_assist_owns(&self, ctx: &GameContext) -> bool {
+        ctx.settings.route_transition_assist
+            && self.terminal_live()
+            && !self.ramp_terminal_done
+            && matches!(
+                self.ramp_control.as_str(),
+                "signal" | "stop" | "yield" | "roundabout"
+            )
+            && self.ramp_light_announced
+    }
+
+    /// The speed to drive a truck short of its ramp's light or sign up at,
+    /// when nothing is braking it for the line: the green's roll speed, or
+    /// on a red or a sign what the assist can still stop from in the road
+    /// left. `None` when the line is the assist's to hold or already close.
+    pub(crate) fn terminal_close_up_mph(&self, ctx: &GameContext) -> Option<f64> {
+        if !self.terminal_assist_owns(ctx)
+            || self.ramp_waiting_at_light
+            || self.ramp_waiting_at_sign
+            || self.ramp_assist_brake > 0.0
+        {
+            return None;
+        }
+        let gap_mi = self.terminal_gap_mi()?;
+        if gap_mi <= RAMP_ASSIST_HOLD_MI {
+            return None;
+        }
+        let green = self.ramp_control == "signal" && self.ramp_light_phase() == "green";
+        Some(if green {
+            GREEN_ROLL_MPH - 5.0
+        } else {
+            let stoppable_mps = (2.0 * LINE_APPROACH_DECEL_MPS2 * gap_mi * 1609.344).sqrt();
+            (stoppable_mps * MPH_PER_MPS)
+                .min(self.ramp_cap_here_mph())
+                .max(LINE_CREEP_MPH)
+        })
+    }
+
+    /// Whether this assist drives the truck up to the line itself: the
+    /// driver left speed control on, which the terminal only paused, so the
+    /// pedals are the assists' from the bend to the bar. The co-driver does
+    /// their own driving up.
+    ///
+    /// The assist used to brake for the light and then let go, and a truck
+    /// on the All assists preset coasted to a stand 400 feet short of a red
+    /// at Cleveland's exit 170A and sat there through every green after it
+    /// (agent drive, 2026-10-25).
+    pub(crate) fn terminal_assist_closes_up(&self, ctx: &GameContext) -> bool {
+        self.speed_control_armed
+            && !self.team.as_ref().is_some_and(|team| team.wheel.is_some())
+            && self.terminal_close_up_mph(ctx).is_some()
+    }
+
+    /// Whether the light or sign at this ramp's end, not yet crossed, takes
+    /// the pedals on from the ramp cap for a driver who left speed control
+    /// on. The cap letting go there is a handover, not a release: the
+    /// terminal is named a few hundred feet later and drives the truck up to
+    /// its line, so "released" was untrue (owner, Cleveland, 2026-10-25).
+    pub(crate) fn terminal_takes_over_from_the_cap(&self) -> bool {
+        self.speed_control_armed
+            && self.ramp_mi.is_some()
+            && !self.ramp_terminal_done
+            && matches!(
+                self.ramp_control.as_str(),
+                "signal" | "stop" | "yield" | "roundabout"
+            )
+    }
+
+    /// Give the truck the accelerator up to the line when the assist closes
+    /// up: only with nothing on the brake, so a driver's foot, or another
+    /// assist braking for a vehicle ahead, wins.
+    fn close_up_to_the_line(&mut self, ctx: &GameContext) {
+        if !self.terminal_assist_closes_up(ctx) || self.trip.truck.brake > 0.05 {
+            return;
+        }
+        let Some(target) = self.terminal_close_up_mph(ctx) else {
+            return;
+        };
+        let short_by = target - self.trip.truck.speed_mph();
+        if short_by > 0.0 {
+            let truck = &mut self.trip.truck;
+            truck.throttle = truck
+                .throttle
+                .max(LINE_CLOSE_UP_THROTTLE.min(short_by / 3.0).max(0.1));
+        }
+    }
+
     /// A live accelerator press overrides this assist, including its red-light hold.
     pub fn update_ramp_terminal_assist_with_input(
         &mut self,
@@ -45,15 +135,7 @@ impl DrivingState {
         // pedal at this servo's last press (`assist_floor`), so a press left
         // behind when the terminal ended -- crossed, run, or the ramp left --
         // held the truck on its brakes for good (merge bench, 2026-09-23).
-        let owns_terminal = ctx.settings.route_transition_assist
-            && self.terminal_live()
-            && !self.ramp_terminal_done
-            && matches!(
-                self.ramp_control.as_str(),
-                "signal" | "stop" | "yield" | "roundabout"
-            )
-            && self.ramp_light_announced;
-        if !owns_terminal {
+        if !self.terminal_assist_owns(ctx) {
             self.ramp_assist_brake = 0.0;
             return;
         }
@@ -105,6 +187,7 @@ impl DrivingState {
                 // measured application, never the held service floor that
                 // spent reservoir air on the way down (Joshua, 2026-08-28).
                 self.roll_the_terminal(ctx, GREEN_ROLL_MPH - 5.0, gap_mi, "the green light");
+                self.close_up_to_the_line(ctx);
                 return;
             }
         }
@@ -169,9 +252,7 @@ impl DrivingState {
                         let what = self.crossing_description();
                         self.say_terminal_hold(
                             ctx,
-                            &format!(
-                                "{at} the {noun}. {what}; assistance is holding for your gap."
-                            ),
+                            &format!("{at} the {noun}. {what}."),
                             SpeechCategory::Navigation,
                         );
                     }
@@ -192,11 +273,7 @@ impl DrivingState {
                 // assist) that just took the brakes, same as the stop-sign
                 // sibling above (automation-handoff sweep, 2026-08-20, the
                 // deferred 2026-08-15 audit).
-                self.say_terminal_hold(
-                    ctx,
-                    "Stopped at the red light. Assistance is holding the brakes for green.",
-                    SpeechCategory::Confirmation,
-                );
+                self.say_terminal_hold(ctx, "Red light.", SpeechCategory::Confirmation);
             }
             return;
         }
@@ -212,6 +289,7 @@ impl DrivingState {
             // for the same reason: a creep to the bar must start from an open
             // pedal, not from whatever the approach was holding.
             self.ramp_assist_brake = 0.0;
+            self.close_up_to_the_line(ctx);
             return;
         }
         // Brake down the approach: needed deceleration to stop at the bar,
@@ -222,10 +300,12 @@ impl DrivingState {
         let needed = (v_mps * v_mps) / (2.0 * gap_m);
         if needed < RAMP_ASSIST_DECEL_RELEASE_MPS2 && gap_m > 30.0 {
             self.ramp_assist_brake = 0.0;
+            self.close_up_to_the_line(ctx);
             return;
         }
         let idle = self.ramp_assist_brake <= 0.0;
         if idle && needed < RAMP_ASSIST_DECEL_START_MPS2 && gap_m > 30.0 {
+            self.close_up_to_the_line(ctx);
             return;
         }
         self.ramp_assist_brake =
@@ -246,10 +326,7 @@ impl DrivingState {
             let rolled_here = self.ramp_green_roll_said
                 && matches!(self.ramp_control.as_str(), "yield" | "roundabout");
             if !rolled_here {
-                self.say_route_confirmation(
-                    ctx,
-                    format!("Route-transition assistance braking for the {what}."),
-                );
+                self.say_route_confirmation(ctx, format!("Braking for the {what}."));
             }
         }
     }
@@ -281,7 +358,13 @@ impl DrivingState {
                 "signal" | "stop" | "yield" | "roundabout"
             );
         if !controlled {
-            self.say_route_confirmation(ctx, "Route-transition assistance slowing.");
+            // Once per ramp: the deceleration lane's assist or the arrival
+            // has already said it is slowing the truck for this ramp, and a
+            // second "Slowing for the ramp." came 11 seconds after the first
+            // (owner, 2026-10-25).
+            if !self.decel_lane_assist_said && !self.destination_arrival_active {
+                self.say_route_confirmation(ctx, "Slowing for the ramp.");
+            }
             return;
         }
         // Spend the line the terminal would have said for this same act: the
@@ -302,10 +385,7 @@ impl DrivingState {
                 self.terminal_noun()
             }
         };
-        self.say_route_confirmation(
-            ctx,
-            format!("Route-transition assistance slowing for the {what}."),
-        );
+        self.say_route_confirmation(ctx, format!("Slowing for the {what}."));
     }
 
     /// Take the truck through a terminal it may roll -- a green, or a yield
@@ -342,10 +422,7 @@ impl DrivingState {
         if !self.ramp_green_roll_said {
             self.ramp_green_roll_said = true;
             self.pause_speed_control(ctx, true);
-            self.say_route_confirmation(
-                ctx,
-                format!("Route-transition assistance slowing for {what}."),
-            );
+            self.say_route_confirmation(ctx, format!("Slowing for {what}."));
         }
     }
 
@@ -538,15 +615,12 @@ impl DrivingState {
                     }
                 }
             } else if met == CrossMeeting::Empty {
-                self.say_confirmation_interrupt(
-                    ctx,
-                    "You crept through the red light. Nothing was crossing this time.",
-                );
+                self.say_confirmation_interrupt(ctx, "Rolled the red light.");
             } else {
                 ctx.audio.play_with(&cue, 1.0, pan);
                 self.say_confirmation_interrupt(
                     ctx,
-                    "You crept through the red light. Cross traffic leans on the horn.",
+                    "Rolled the red light. Cross traffic leans on the horn.",
                 );
             }
             self.cite_signal_run(ctx, "the red light", RED_LIGHT_FINE);
@@ -671,15 +745,12 @@ impl DrivingState {
                 }
             }
         } else if met == CrossMeeting::Empty {
-            self.say_confirmation_interrupt(
-                ctx,
-                &format!("You rolled the stop sign{place}. Nothing was crossing this time."),
-            );
+            self.say_confirmation_interrupt(ctx, &format!("Rolled the stop sign{place}."));
         } else {
             ctx.audio.play_with(&cue, 1.0, pan);
             self.say_confirmation_interrupt(
                 ctx,
-                &format!("You rolled the stop sign{place}. Cross traffic leans on the horn."),
+                &format!("Rolled the stop sign{place}. Cross traffic leans on the horn."),
             );
         }
         self.cite_signal_run(ctx, "the stop sign", STOP_SIGN_FINE);
@@ -703,6 +774,18 @@ impl DrivingState {
         let at_mi = self.terminal_seed_mi();
         let mut rng = PyRandom::new_from_str(&format!("{}:signal-run:{at_mi:.1}", self.trip_seed));
         if rng.random() >= SIGNAL_RUN_CATCH_CHANCE {
+            return;
+        }
+        if self.new_driver_warning(ctx) {
+            ctx.audio.play("ui/warning");
+            ctx.say_event_with(
+                format!(
+                    "A patrol car at the crossroad saw you run {offense} and gives you a warning."
+                ),
+                SayEvent::queued()
+                    .priority(EventPriority::Important)
+                    .category(SpeechCategory::Navigation),
+            );
             return;
         }
         let zone = self.trip.in_construction_zone();
@@ -729,7 +812,7 @@ impl DrivingState {
                 fmt_grouped(money, 0)
             ),
             SayEvent::queued()
-                .priority(EventPriority::Route)
+                .priority(EventPriority::Important)
                 .category(SpeechCategory::Money),
         );
     }
@@ -844,7 +927,7 @@ impl DrivingState {
     /// sign until the driver drove it up to the entrance, where the assist
     /// took the pedals again (agent drive, Chicago to Gary, 2026-09-01). The
     /// owner's ruling: the assist goes from the signal to the entrance, hands
-    /// off. With it on, the release names the assist and arms the pull-ahead;
+    /// off. With it on, the release arms the pull-ahead and says no more;
     /// with it off, the release is the driver's, exactly as before.
     ///
     /// `clear` is the stopped release ("Clear; pull ahead"); a green or a gap
@@ -869,7 +952,7 @@ impl DrivingState {
         if self.approach_pull_ahead_available(ctx) {
             self.approach_pull_ahead = true;
             let clear = if clear { " Clear." } else { "" };
-            return format!("{lead}{clear} Facility stopping assistance is taking you {whither}.");
+            return format!("{lead}{clear}");
         }
         if clear {
             format!("{lead} Clear; pull ahead {whither}.")

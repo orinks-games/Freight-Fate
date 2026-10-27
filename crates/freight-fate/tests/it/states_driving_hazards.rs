@@ -162,6 +162,14 @@ fn test_trip_event_sounds_use_contextual_cues() {
             ..Default::default()
         },
     };
+    let toll_ahead = NavigationCue::new(
+        "toll:0:12.0:Ohio Turnpike",
+        "toll",
+        1.0,
+        "toll road ahead: Ohio Turnpike",
+        "E-ZPass toll point ahead, Ohio Turnpike westbound settlement.",
+    );
+    assert_eq!(route_event_sound(&cue_event(toll_ahead)), None);
     let left_turn = NavigationCue::new(
         "local:left",
         "local_turn",
@@ -218,9 +226,9 @@ fn test_trip_event_sounds_use_contextual_cues() {
 
     let traffic_cue = NavigationCue::new("traffic:test", "traffic", 1.0, "traffic ahead", "");
     for (vehicle_class, sound) in [
-        ("car", "traffic/car_pass"),
-        ("box truck", "traffic/box_truck_pass"),
-        ("semi", "traffic/semi_pass"),
+        ("car", "events/traffic_slowing"),
+        ("box truck", "events/traffic_slowing"),
+        ("semi", "events/traffic_slowing"),
         ("state trooper", "traffic/trooper_pass"),
     ] {
         let event = TripEvent {
@@ -305,10 +313,7 @@ fn test_passing_hazard_plays_clear_sound() {
         "{:#?}",
         log.borrow().played
     );
-    assert_eq!(
-        event_calls(&harness),
-        vec![("Hazard avoided. Well done.".to_string(), false)]
-    );
+    assert_eq!(event_calls(&harness), vec![("Clear.".to_string(), false)]);
 }
 
 #[test]
@@ -343,7 +348,7 @@ fn test_single_hazard_is_named_in_its_resolution_line() {
     assert!(harness.read_drive(|d| d.hazard_deadline).is_none());
     assert_eq!(
         event_calls(&harness),
-        vec![("Past the deer. Well done.".to_string(), false)]
+        vec![("Clear of the deer.".to_string(), false)]
     );
 }
 
@@ -401,7 +406,7 @@ fn test_two_stacked_hazards_are_each_named_once() {
     assert_eq!(
         event_calls(&harness),
         vec![(
-            "Past the deer and the slowed traffic. Well done.".to_string(),
+            "Clear of the deer and the slowed traffic.".to_string(),
             false
         )]
     );
@@ -453,8 +458,7 @@ fn test_stacked_hazard_wording_follows_the_strictest_dodgeability() {
     assert_eq!(
         event_calls(&harness),
         vec![(
-            "You slow nearly to a stop and ease around the debris and the tire debris. Well done."
-                .to_string(),
+            "Clear of the debris and the tire debris.".to_string(),
             false
         )]
     );
@@ -490,7 +494,7 @@ fn test_a_hazard_already_outrun_gets_its_own_line_before_the_next_arms() {
     );
 
     assert!(
-        event_lines(&harness).contains(&"Past the deer. Well done.".to_string()),
+        event_lines(&harness).contains(&"Clear of the deer.".to_string()),
         "{:#?}",
         event_lines(&harness)
     );
@@ -521,7 +525,7 @@ fn test_terse_hazard_resolution_stays_silent_words() {
     };
     assert_eq!(
         normal,
-        vec!["Past the deer and the slowed traffic. Well done.".to_string()]
+        vec!["Clear of the deer and the slowed traffic.".to_string()]
     );
 
     let mut harness = a_drive("Terse Pair Quiet");

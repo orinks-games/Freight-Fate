@@ -436,4 +436,15 @@ mod tests {
         assert_eq!(lcv.combination_length_ft, 117.0);
         assert!(lcv.combination_length_ft > pups.combination_length_ft);
     }
+
+    #[test]
+    fn each_doubles_load_names_its_own_trailers() {
+        use crate::models::jobs::cargo_type;
+        let parcel = cargo_type("parcel_doubles").unwrap();
+        assert_eq!(parcel.equipment_text(), "twin 28-foot trailers");
+        // Pups of parcel run out of room long before an 80,000-pound gross.
+        assert!(parcel.weight_tons.1 <= 15.0);
+        let turnpike = cargo_type("turnpike_doubles").unwrap();
+        assert_eq!(turnpike.equipment_text(), "two 48-foot trailers");
+    }
 }

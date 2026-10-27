@@ -97,6 +97,28 @@ fn profile_is_night(profile: Option<&dyn MenuMusicProfile>) -> bool {
     }
 }
 
+/// The ambience under the main menu, picked by the career it would load the
+/// way the music is: a truck stop lot after dark; by day, the yard where an
+/// owner-operator's own truck waits, or the dispatch office a company driver
+/// (or a new driver signing on) reports to.
+pub fn select_menu_ambience(profile: Option<&dyn MenuMusicProfile>) -> &'static str {
+    let [night_lot, yard, dispatch_office] = MENU_AMBIENCE;
+    match profile {
+        Some(_) if profile_is_night(profile) => night_lot,
+        Some(p) if crate::models::business_constants::is_owner_operator(&p.business_status()) => {
+            yard
+        }
+        _ => dispatch_office,
+    }
+}
+
+/// Every bed [`select_menu_ambience`] can pick.
+pub const MENU_AMBIENCE: [&str; 3] = [
+    "ambient/menu_night_lot",
+    "ambient/menu_yard",
+    "ambient/menu_dispatch_office",
+];
+
 /// Choose a menu bed: the night theme after dark, else the milestone bed.
 pub fn select_menu_music(profile: Option<&dyn MenuMusicProfile>) -> String {
     if profile_is_night(profile) {
@@ -147,6 +169,11 @@ pub fn select_menu_music_sequence(profile: Option<&dyn MenuMusicProfile>) -> Vec
     let options: Vec<MusicTrack> = MENU_TRACKS[..unlocked_count]
         .iter()
         .chain(MENU_ROTATION_TRACKS.iter())
+        .chain(
+            MENU_LATE_CAREER_ROTATION_TRACKS
+                .iter()
+                .filter(|_| primary_index >= MENU_LATE_CAREER_MILESTONE),
+        )
         .cloned()
         .collect();
     let milestone_primary = MENU_TRACKS[primary_index].key.clone();
@@ -400,6 +427,30 @@ mod tests {
     }
 
     #[test]
+    fn test_bossa_to_blues_joins_the_menu_with_million_mile_morning() {
+        let bossa = "drive_bossa_to_blues".to_string();
+        let mut regional = FakeProfile::named("Regional");
+        regional.level = 8;
+        regional.game_hours = 12.0;
+        assert!(!select_menu_music_sequence(Some(&regional)).contains(&bossa));
+
+        for hours in [12.0, 23.0] {
+            let mut late = FakeProfile::named("Late");
+            late.level = 9;
+            late.game_hours = hours;
+            assert_eq!(
+                menu_milestone_index(Some(&late)),
+                MENU_LATE_CAREER_MILESTONE
+            );
+            assert!(select_menu_music_sequence(Some(&late)).contains(&bossa));
+        }
+        assert_eq!(
+            MENU_TRACKS[MENU_LATE_CAREER_MILESTONE].key,
+            "menu_legendary_haul"
+        );
+    }
+
+    #[test]
     fn test_menu_day_rotation_borrows_radio_instrumentals() {
         let mut day = FakeProfile::named("Rookie");
         day.game_hours = 12.0;
@@ -441,6 +492,29 @@ mod tests {
 
         // No loaded career (title screen, no saves) falls back to the day bed.
         assert_eq!(select_menu_music(None), "menu_theme");
+    }
+
+    #[test]
+    fn test_menu_ambience_follows_the_clock_and_the_business() {
+        let mut company = FakeProfile::named("Rookie");
+        company.game_hours = 12.0;
+        assert_eq!(
+            select_menu_ambience(Some(&company)),
+            "ambient/menu_dispatch_office"
+        );
+
+        let mut owner = FakeProfile::named("Owner");
+        owner.game_hours = 12.0;
+        owner.business_status =
+            crate::models::business_constants::INDEPENDENT_AUTHORITY.to_string();
+        assert_eq!(select_menu_ambience(Some(&owner)), "ambient/menu_yard");
+
+        // After dark everyone is at the truck stop, whatever they drive for.
+        owner.game_hours = 23.0;
+        assert_eq!(select_menu_ambience(Some(&owner)), "ambient/menu_night_lot");
+
+        // No career yet: a new driver signing on at dispatch.
+        assert_eq!(select_menu_ambience(None), "ambient/menu_dispatch_office");
     }
 
     #[test]

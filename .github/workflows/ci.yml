@@ -3,8 +3,16 @@ name: CI
 permissions:
   contents: read
   actions: write
+  # dorny/paths-filter lists a PR's changed files through the API.
+  pull-requests: read
 
 on:
+  # Unfiltered on purpose: the two `test` matrix checks are REQUIRED, and a
+  # required check that a path filter skips stays "expected -- waiting for
+  # status" forever. Instead the `changes` job below decides whether the
+  # tooling's inputs changed, and on a push or PR that leaves them alone the
+  # test jobs still run and report success, but skip every step after the
+  # gate (seconds, not the full matrix).
   push:
     # The 1.9 release line has its own Rust CI in rust.yml.
     branches: [main, dev]
@@ -12,77 +20,96 @@ on:
     branches: [main, dev]
   workflow_dispatch:
 
+# A newer push to the same branch or PR supersedes the run in flight, as in
+# rust.yml.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  # The Python that still SHIPS: the build, bake, indexing and release tooling
-  # under tools/, plus the workflow and sound-pack guards. The game is Rust and
-  # rust.yml proves it; the Python game itself was deleted in the 2026-09-21
-  # sunset.
+  changes:
+    # Which inputs changed. `tools` is what the ff-tools tests read: the
+    # helper itself, the workspace manifests, the game's source (the
+    # translation extractor scans it), the translations, the data files the
+    # tools write or check, and the workflows that call them. The game's own
+    # tests are rust.yml's; the changelog gate is changelog.yml's and runs on
+    # every change.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      # A manual run, or a filter that could not decide (a force push whose
+      # old head this clone no longer has), runs everything.
+      tools: ${{ github.event_name == 'workflow_dispatch' || steps.filter.outcome != 'success' || steps.filter.outputs.tools == 'true' }}
+    steps:
+      - uses: actions/checkout@v6
+        # A PR's changed files come from the API; a push diffs against the
+        # commit the branch pointed at before it, which needs the history
+        # (commits and trees only, as in changelog.yml).
+        if: github.event_name == 'push'
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          lfs: false
+
+      - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4
+        id: filter
+        if: github.event_name != 'workflow_dispatch'
+        continue-on-error: true
+        with:
+          base: ${{ github.event_name == 'push' && github.event.before || '' }}
+          filters: |
+            tools:
+              - "crates/**"
+              - "lang/**"
+              - "data/**"
+              - "tools/**"
+              - "Cargo.toml"
+              - "Cargo.lock"
+              - "rust-toolchain.toml"
+              - ".cargo/**"
+              - ".github/**"
+              - "CHANGELOG.md"
+
+  # The build, release, data and translation tooling (crates/ff-tools), on
+  # both platforms a release is built on most. The game is rust.yml's.
   test:
+    needs: changes
+    # Runs even if `changes` failed: its output is then empty, which the
+    # step gates below read as "changed", so a broken filter costs a full
+    # run rather than a silent pass of the required checks.
+    if: ${{ !cancelled() }}
+    # The check names are what branch protection requires on dev and main
+    # ("test (ubuntu-latest)", "test (windows-latest)"), so they keep the
+    # GitHub-hosted labels they were born with although the jobs run on
+    # pinned images. Rename one only together with the protection rule.
+    name: test (${{ matrix.check }})
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        include:
+          - check: windows-latest
+            os: windows-2025
+          - check: ubuntu-latest
+            os: ubuntu-24.04
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 20
-    env:
-      SDL_VIDEODRIVER: dummy
-      SDL_AUDIODRIVER: dummy
-      FREIGHT_FATE_NO_SPEECH: "1"
-      # sys.monitoring coverage core (Python 3.12+): cheaper than the default
-      # tracer on the CPU-bound bake and sweep tools this job still runs.
-      COVERAGE_CORE: sysmon
+    timeout-minutes: 30
     steps:
-      # sounds.pak is an ordinary 7.8 MB blob in git now, not a Git LFS object
-      # (see .gitattributes), so a plain checkout carries the real pack and
-      # the audio tests run here on every push. They used to depend on an LFS
-      # fetch: once the repository's LFS budget ran out that fetch returned a
-      # 132 byte pointer, and the tests either failed against it or skipped
-      # themselves -- a green run that had not checked a single sound. Only
-      # the 250 MB music.pak stays outside the repository, and the tests that
-      # read it skip here by design.
+      - name: Tooling inputs unchanged; skipping
+        if: needs.changes.outputs.tools == 'false'
+        run: echo "Nothing the tooling tests read changed; rust.yml covers the rest."
+
+      # The history, for the release-notes and changelog-gate tests that
+      # read tags and earlier commits.
       - uses: actions/checkout@v6
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v8.2.0
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: uv sync --dev
-
-      - name: Lint
-        run: uv run ruff check tests tools sound-test
-
-      - name: Run tests
-        run: uv run pytest tests/ -n auto --durations=15 --cov=tools --cov-report=xml
-
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v7
-        with:
-          name: coverage-${{ matrix.os }}
-          path: coverage.xml
-
-  changelog:
-    # The changelog gate runs locally as a pre-push hook, which not every
-    # clone has installed; this enforces it on every PR and also on direct
-    # pushes to dev and main, which would otherwise slip past ungated.
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v6
+        if: needs.changes.outputs.tools != 'false'
         with:
           fetch-depth: 0
 
-      - name: Require a changelog entry for user-facing changes
-        env:
-          # PRs diff against their target branch; pushes diff against the
-          # ref the branch pointed at before this push.
-          BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || github.event.before }}
-        run: |
-          if [ "${{ github.event_name }}" = "push" ] && ! git cat-file -e "$BASE" 2>/dev/null; then
-            # A brand-new branch pushes an all-zeros "before", and a force
-            # push can point at history this clone no longer has.
-            echo "Base commit $BASE unavailable (new branch or force push); skipping."
-            exit 0
-          fi
-          python3 tools/release_notes.py check --base "$BASE" --head HEAD
+      - uses: ./.github/actions/rust-setup
+        if: needs.changes.outputs.tools != 'false'
+        with:
+          cache-key: tools
+
+      - name: cargo test -p ff-tools
+        if: needs.changes.outputs.tools != 'false'
+        run: cargo test -p ff-tools --locked

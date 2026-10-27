@@ -2,7 +2,7 @@
 //! per-frame draw that turns an observation into a pull-over.
 
 use ff_core::models::enforcement::{
-    CHAIN_LAW_FINE, FOLLOWING_TOO_CLOSE_FINE, LANE_MISUSE_FINE, LIGHTS_FINE, UNSAFE_DAMAGE_FINE,
+    chain_law_fine, FOLLOWING_TOO_CLOSE_FINE, LANE_MISUSE_FINE, LIGHTS_FINE, UNSAFE_DAMAGE_FINE,
 };
 use ff_core::pyfmt::{py_str_float, round_py_n};
 use ff_core::pyrandom::PyRandom;
@@ -12,6 +12,9 @@ use ff_core::sim::enforcement_observe::{
 };
 use ff_core::sim::enforcement_posts::{
     post_seed, EnforcementPost, METHOD_PACING, PACING_WINDOW_MI,
+};
+use ff_core::sim::roadside_inspection::{
+    DAMAGE_FINDING, TIRES_WORN_FINDING, TIRE_OUT_OF_SERVICE_PCT,
 };
 
 use crate::app::GameContext;
@@ -60,10 +63,23 @@ impl DrivingState {
         // the entry citation makes (`update_chain_law`). Snow anywhere used
         // to let a scale or a patrol in Chicago write "running the chain
         // control without chains" (seasonal audit, 2026-10-01).
-        let chain_level = if self.trip.chain_law_area_at(position).is_some() {
-            self.trip.chain_law_level()
-        } else {
-            0
+        // Colorado Level 1 leaves a tandem-drive truck unchained, and
+        // Wyoming Level 1 takes snow tires (`rig_compliant_at`).
+        // A truck already cited in this chain law area carries the ticket:
+        // a patrol further up the same control does not write it again
+        // (the checkpoint's own rule, `update_chain_law`).
+        // A truck braking into the chain-up area to chain up is complying.
+        let chain_level = match self.trip.chain_law_area_at(position) {
+            Some(area)
+                if !self.chain_up_pending()
+                    && !self.trip.rig_compliant_at(position)
+                    && !self
+                        .chain_law_cited
+                        .contains(&(area as i64, self.trip.chain_law_level())) =>
+            {
+                self.trip.chain_law_level()
+            }
+            _ => 0,
         };
         let night = is_night(self.trip.local_hour());
         let pack_neighbours = self.trip.traffic_manager.pack_neighbours(
@@ -79,7 +95,12 @@ impl DrivingState {
             limit_mph: limit,
             // A parallel change is reworking damage into bands; read it
             // defensively so neither side can break the other.
-            damage_pct: self.trip.truck.damage_pct,
+            // Damage already written up this drive is on the paperwork.
+            damage_pct: if self.written_up.contains(WHAT_DAMAGE) {
+                0.0
+            } else {
+                self.trip.truck.damage_pct
+            },
             visibility_mi: visibility,
             night,
             // The truck carries no running-lights switch, so the Python
@@ -97,7 +118,15 @@ impl DrivingState {
             crest_between,
             paced_mi: self.paced_mi(post),
             over_limit_mi: self.over_limit_mi,
-            tire_wear_pct: self.trip.truck.tire_wear_pct,
+            // Worn tires already written up stay unremarked until they reach
+            // the line that parks the truck.
+            tire_wear_pct: if self.written_up.contains(TIRES_WORN_FINDING)
+                && self.trip.truck.tire_wear_pct < TIRE_OUT_OF_SERVICE_PCT
+            {
+                0.0
+            } else {
+                self.trip.truck.tire_wear_pct
+            },
             trailer_defect: self.visible_trailer_defect.0.clone(),
         }
     }
@@ -108,11 +137,13 @@ impl DrivingState {
     /// trailer, where the scale finds it and a unit driving past does not.
     pub fn refresh_visible_trailer_defect(&mut self, ctx: &GameContext) {
         let position = self.trip.position_mi;
-        if (position - self.visible_trailer_defect.1).abs() < 0.5 {
+        if (position - self.visible_trailer_defect.1).abs() < 0.5
+            && !self.written_up.contains(&self.visible_trailer_defect.0)
+        {
             return;
         }
         let defect = self
-            .hooked_trailer_defect(ctx)
+            .citable_trailer_defect(ctx)
             .filter(|defect| !defect.contains("brake"))
             .unwrap_or_default();
         self.visible_trailer_defect = (defect, position);
@@ -149,6 +180,27 @@ impl DrivingState {
 
     // -- the watch -----------------------------------------------------------
 
+    /// Start the watch at `mile` with everything behind it already heard.
+    ///
+    /// For a truck placed on the road rather than driven there: a resumed
+    /// save, or the co-driver's miles while the player sleeps. The watch
+    /// measures each frame from the last one, so left at an earlier mile it
+    /// counts every post in between as just crossed, and a player resuming
+    /// at a truck stop heard a stack of sirens, passes and markers at once.
+    /// Posts whose stretch ended before `mile` are marked as already heard;
+    /// one still covering or ahead of the truck chimes as usual.
+    pub fn settle_enforcement_at(&mut self, mile: f64) {
+        self.enforcement_prev_mi = mile;
+        let mut id = std::mem::take(&mut self.post_id_scratch);
+        for post in &self.trip.posts {
+            if post.end_mi() < mile {
+                post.write_id(&mut id);
+                self.marked_post_ids.insert(id.clone());
+            }
+        }
+        self.post_id_scratch = id;
+    }
+
     /// One frame of the enforcement layer: cues, sampling, and the draw.
     ///
     /// **The pacing mismatch, and how it is solved.** Speeding used to be
@@ -176,6 +228,10 @@ impl DrivingState {
         let moved = (position - previous_mi).max(0.0);
         let (limit, _) = self.trip.speed_limit_at(position);
         if self.trip.truck.speed_mph() <= limit + OBSERVE_LEEWAY_MPH {
+            self.over_limit_mi = 0.0;
+        } else if self.trip.in_unannounced_posting() {
+            // A posting too short to be spoken at this pace: nobody told the
+            // driver, so nothing accrues against it.
             self.over_limit_mi = 0.0;
         } else if self.limit_drop_grace_s > 0.0 {
             // A limit that just dropped under a loaded truck: the driver is
@@ -478,6 +534,16 @@ impl DrivingState {
             self.begin_pull_over(ctx, limit);
             return;
         }
+        if observation.what == WHAT_CHAINS {
+            if let Some(area) = self.trip.chain_law_area_at(self.trip.position_mi) {
+                self.chain_law_cited
+                    .insert((area as i64, self.trip.chain_law_level()));
+            }
+        }
+        if observation.what == WHAT_DAMAGE {
+            self.written_up.insert(WHAT_DAMAGE.to_string());
+            self.written_up.insert(DAMAGE_FINDING.to_string());
+        }
         if observation.what == WHAT_EQUIPMENT {
             // The rolling look found something: the stop is a Level 2
             // walk-around, and the report prices it, not this stop.
@@ -543,7 +609,7 @@ impl DrivingState {
                     "A trooper on this {reason} saw you running the chain control without chains \
                      on the drives."
                 ),
-                CHAIN_LAW_FINE,
+                chain_law_fine(self.trip.state_code_at(self.trip.position_mi).as_deref()),
                 "Back on the highway. Chain up before the next control.".to_string(),
             );
         }

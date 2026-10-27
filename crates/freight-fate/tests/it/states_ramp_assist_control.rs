@@ -166,3 +166,36 @@ fn ramp_assist_full_lane_destination_already_works_without_a_signal() {
     d.update_exit_preparation(&mut app.ctx, 1.0 / 60.0);
     assert!(d.trip.truck.brake >= 0.35);
 }
+
+/// Stopped 400 feet short of a red light: who drives the truck up to it.
+fn stopped_short_of_a_red(app: &mut TestApp, armed: bool, brake: f64) -> f64 {
+    let mut d = a_real_drive(app);
+    app.ctx.settings.route_transition_assist = true;
+    on_ramp(&mut d, "signal", true, 0.0);
+    d.ramp_mi = Some(RAMP_ACCESS_MI + 400.0 / 5280.0);
+    d.speed_control_armed = armed;
+    d.trip.truck.brake = brake;
+    d.trip.truck.throttle = 0.0;
+    d.update_ramp_terminal_assist(&mut app.ctx);
+    d.trip.truck.throttle
+}
+
+#[test]
+fn with_speed_control_on_the_assist_drives_up_to_a_light_it_stopped_short_of() {
+    // Agent drive (2026-10-25): every assist on, the truck coasted to a stand
+    // 400 feet short of a red and sat there through every green after it.
+    let mut app = TestApp::new();
+    assert!(stopped_short_of_a_red(&mut app, true, 0.0) > 0.0);
+}
+
+#[test]
+fn without_speed_control_closing_up_to_the_light_is_the_drivers() {
+    let mut app = TestApp::new();
+    assert_eq!(stopped_short_of_a_red(&mut app, false, 0.0), 0.0);
+}
+
+#[test]
+fn a_foot_on_the_brake_short_of_the_light_is_not_driven_through() {
+    let mut app = TestApp::new();
+    assert_eq!(stopped_short_of_a_red(&mut app, true, 0.5), 0.0);
+}

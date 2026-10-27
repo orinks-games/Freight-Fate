@@ -3,10 +3,11 @@
 //! run out of the origin's gate, and the acceleration lane that ends it; and
 //! a road stop's streets from its exit ramp to its lot.
 
+use crate::speech::EventPriority;
 use ff_core::data::world_models::Route;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::sim::weather::WeatherSystem;
-use ff_core::speech_pacing::{EventPriority, SpeechCategory};
+use ff_core::speech_pacing::SpeechCategory;
 use ff_core::units::spoken_feet_or_meters;
 
 use crate::app::{GameContext, SayEvent};
@@ -45,6 +46,9 @@ impl DrivingState {
     /// a single synthetic leg would just be the old teleport with extra
     /// steps, so those facilities keep the scripted arrival.
     pub fn surface_chain_route(&self, ctx: &GameContext) -> Option<Route> {
+        if !self.facility_streets_on {
+            return None;
+        }
         if let Some(node) = self.destination_terminal_node(ctx) {
             let exit_chain = ctx
                 .world
@@ -138,8 +142,7 @@ impl DrivingState {
             let street = Self::start_street_text(&route);
             ctx.audio.play_with("ui/notify", 0.7, 0.0);
             let message = format!(
-                "Off the ramp and onto city streets. {street}.{first_corner} {} to the facility \
-                 gate.",
+                "{street}.{first_corner} {} to the facility gate.",
                 self.trip.distance_text(route.miles())
             );
             self.announce_streets(ctx, message, !first_corner.is_empty());
@@ -163,7 +166,7 @@ impl DrivingState {
         if with_corner {
             self.turn_grace_s = self.turn_grace_seconds(ctx, &message);
         }
-        let mut opts = SayEvent::queued().priority(EventPriority::Route);
+        let mut opts = SayEvent::queued().priority(EventPriority::Important);
         opts.category = Some(SpeechCategory::Navigation);
         ctx.say_event_with(message, opts);
         self.mark_start_cue_said();
@@ -263,7 +266,11 @@ impl DrivingState {
                 if self.cruise_mph.is_some() {
                     self.cancel_cruise(ctx, true);
                 }
-                self.engage_keeper(ctx, limit, &zone_reason, Some(limit), true);
+                // Quietly: the street's "Speed limit 25." follows at once,
+                // and "Speed keeper holding 25" before it said the same
+                // number twice (owner, 2026-10-25: the move onto city
+                // streets said too much).
+                self.engage_keeper(ctx, limit, &zone_reason, Some(limit), false);
             }
         }
         // The first corner, if the chain starts inside its own window: it is
@@ -281,10 +288,8 @@ impl DrivingState {
                 first_corner = format!(" Then {}", lower_first(&call));
                 self.turn_advised.insert(corner.key.clone());
                 self.pace_clock_for_turn(&corner, ahead);
-                // Spoken inside this line, so the corner counts as told;
-                // its earcon sounds when the truck actually turns, not here
-                // (see `resolve_turn`).
-                self.turn_announced.insert(corner.key.clone());
+                // Spoken inside this line, so its chime goes with it.
+                self.chime_corner(ctx, &corner);
                 if ahead <= crate::states::driving_turns::TURN_NOW_MI {
                     self.turn_called_now.insert(corner.key.clone());
                 }
@@ -400,7 +405,7 @@ impl DrivingState {
     /// chain qualifies; other facilities keep the scripted departure straight
     /// onto the highway.
     pub fn departure_chain_route(&self, ctx: &GameContext) -> Option<Route> {
-        if self.phase != DRIVE_PHASE_DELIVERY {
+        if self.phase != DRIVE_PHASE_DELIVERY || !self.facility_streets_on {
             return None;
         }
         ctx.world
@@ -470,13 +475,10 @@ impl DrivingState {
                 first.local_cue.trim_end_matches('.').to_string()
             };
             let distance = self.trip.distance_text(route.miles());
-            let mut opts = SayEvent::queued().priority(EventPriority::Route);
+            let mut opts = SayEvent::queued().priority(EventPriority::Important);
             opts.category = Some(SpeechCategory::Navigation);
             ctx.say_event_with(
-                format!(
-                    "Out of the gate and onto city streets. {street}. {distance} to the \
-                     {merge_highway} on-ramp."
-                ),
+                format!("{street}. {distance} to the {merge_highway} on-ramp."),
                 opts,
             );
             self.mark_start_cue_said();
@@ -570,7 +572,7 @@ impl DrivingState {
             );
         }
         ctx.audio.play_with("vehicle/signal_tone", 0.6, -0.6);
-        let mut opts = SayEvent::queued().priority(EventPriority::Route);
+        let mut opts = SayEvent::queued().priority(EventPriority::Important);
         opts.category = Some(SpeechCategory::Navigation);
         ctx.say_event_with(
             format!("Up the ramp onto {merge_highway}. {lane_text} of acceleration lane."),
@@ -637,7 +639,7 @@ impl DrivingState {
             // sudden highway-speed transition.
             self.start_departure_merge_recovery(speed, limit);
             format!(
-                "Lane ending at {}, under the {} traffic is running. Take a big gap.",
+                "Lane ending at {}, traffic at {}. Take a big gap.",
                 ctx.settings.speed_text(speed),
                 ctx.settings.speed_text(limit)
             )
@@ -652,7 +654,7 @@ impl DrivingState {
             "Lane ended.".to_string()
         };
         ctx.audio.play_with("vehicle/signal_tone", 0.6, -0.6);
-        let mut opts = SayEvent::queued().priority(EventPriority::Route);
+        let mut opts = SayEvent::queued().priority(EventPriority::Important);
         opts.category = Some(SpeechCategory::Navigation);
         ctx.say_event_with(message, opts);
     }

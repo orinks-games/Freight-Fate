@@ -180,10 +180,30 @@ impl Trip {
             let forward = self.route.cities[i] == leg.a;
             let toward_key = &self.route.cities[i + 1];
             let toward = self.world.spoken_city(toward_key, None);
-            if facility_route {
+            // A relayed pickup is a corridor joined to the shipper's street
+            // chain, so the chain's streets are city-to-same-city legs inside
+            // a highway route. Read as highway changes they were each called
+            // "Keep right for ... toward Indianapolis", left turns included
+            // (owner drive to Indianapolis Dry Warehouse, 2026-10-10).
+            let street_leg = i > 0 && leg.a == leg.b && self.route.cities[i] == *toward_key;
+            if facility_route || street_leg {
                 // Tier-1 surface segments carry their baked maneuver; speak
                 // it verbatim with the segment distance.
-                if i == 0 {
+                if street_leg && self.route.legs[i - 1].a != self.route.legs[i - 1].b {
+                    // Off the corridor onto the chain: its "Start on" is
+                    // where a chain driven on its own begins, not a corner.
+                    let text = format!("Continue onto {}", leg.highway);
+                    cues.push(
+                        NavigationCue::new(
+                            &format!("local:join:{i}"),
+                            "local_turn",
+                            start,
+                            &lower_first(&text),
+                            &format!("{text}{}.", self.surface_distance_tail(leg.miles)),
+                        )
+                        .with_direction("ahead"),
+                    );
+                } else if i == 0 {
                     let raw = if leg.local_cue.is_empty() {
                         format!("Start on {}.", leg.highway)
                     } else {
@@ -301,7 +321,7 @@ impl Trip {
                     "checkpoint",
                     start + offset,
                     &format!("{place}{state} on {highway}"),
-                    &format!("Passing {place}{state} on {highway}."),
+                    &format!("Passing {place}{state}."),
                 ));
             }
             for toll in leg.toll_events() {
@@ -311,17 +331,19 @@ impl Trip {
                 }
                 let offset = stop_offset_for_direction(toll.at_mi, leg.miles, forward);
                 // A sentence of its own after the point's name, so it starts
-                // like one: "...ticket entry. Estimated toll 18 dollars..."
-                // (agent playtest, 2026-09-02).
+                // like one: "...ticket entry. Toll about 18 dollars."
+                // (agent playtest, 2026-09-02). Who pays is the career's
+                // standing arrangement, not news at every booth, and an
+                // entry with no amount yet says nothing past its name.
                 let toll_text = if toll.amount > 0.0 {
-                    let estimate = if toll.estimated { "Estimated " } else { "" };
-                    format!(
-                        "{estimate}{}oll {} dollars, billed to carrier settlement.",
-                        if toll.estimated { "t" } else { "T" },
-                        fmt_f(toll.amount, 0)
-                    )
+                    let amount = fmt_f(toll.amount, 0);
+                    if toll.estimated {
+                        format!(" Toll about {amount} dollars.")
+                    } else {
+                        format!(" Toll {amount} dollars.")
+                    }
                 } else {
-                    "Entry recorded for carrier settlement.".to_string()
+                    String::new()
                 };
                 cues.push(NavigationCue::new(
                     &format!("toll:{i}:{}:{}", py_str_float(toll.at_mi), toll.name),
@@ -329,7 +351,7 @@ impl Trip {
                     start + offset,
                     &format!("toll road ahead: {}", toll.road),
                     &format!(
-                        "{} toll point ahead, {}. {toll_text}",
+                        "{} toll point ahead, {}.{toll_text}",
                         toll.method_label(),
                         toll.name
                     ),
@@ -374,17 +396,21 @@ impl Trip {
                     continue;
                 }
                 let offset = stop_offset_for_direction(stop.at_mi, leg.miles, forward);
-                let exit_label = stop_exit_label(leg, stop, 2.0);
-                let at_part = if exit_label.is_empty() {
-                    String::new()
+                // Whole phrases, so a catalog has the exit with its words
+                // ("travel center ahead at exit 50B"); the exit is words to
+                // translate ("exit 50B"), not a name.
+                let interchange = stop_exit_label(leg, stop, 2.0);
+                let label = stop.label();
+                let text = if interchange.is_empty() {
+                    format!("{label} ahead")
                 } else {
-                    format!(" at {exit_label}")
+                    format!("{label} ahead at {interchange}")
                 };
                 cues.push(NavigationCue::new(
                     &format!("rest_stop:{i}:{}:{}", py_str_float(stop.at_mi), stop.name),
                     "rest_stop",
                     start + offset,
-                    &format!("{} ahead{at_part}", stop.label()),
+                    &text,
                     "",
                 ));
             }
@@ -648,7 +674,7 @@ impl Trip {
         match anchor {
             SignAnchor::Corridor => true,
             SignAnchor::States(states) => match self.state_code_at(at) {
-                // An unbaked state is not a licence to claim a place. The
+                // An unbaked state is not a license to claim a place. The
                 // roadside falls back to signs that are true anywhere.
                 None => false,
                 Some(code) => states.contains(&code.as_str()),
@@ -697,7 +723,7 @@ impl Trip {
 
     /// The two-letter state code at a trip milepost, or None where the bake is
     /// silent and the route names no city we can fall back on.
-    pub(crate) fn state_code_at(&self, at: f64) -> Option<String> {
+    pub fn state_code_at(&self, at: f64) -> Option<String> {
         let name = self.state_at(Some(at));
         if !name.is_empty() {
             if let Some(code) = self.state_codes.get(&name) {
@@ -887,7 +913,7 @@ impl Trip {
         false
     }
 
-    /// True while a signalled exit is inside the road the truck must shed,
+    /// True while a signaled exit is inside the road the truck must shed,
     /// sized from the exit's own ramp speed (Shane, 2026-08-15).
     pub fn armed_exit_decompression(&self) -> bool {
         let Some(ahead) = self.exit_approach_mi else {

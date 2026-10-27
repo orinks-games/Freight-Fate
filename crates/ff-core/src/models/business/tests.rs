@@ -427,8 +427,8 @@ fn test_a_company_driver_who_chose_to_stay_is_not_nudged_toward_the_buy_in() {
     p.career.reputation = OWNER_OPERATOR_REPUTATION;
     p.set_money(OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL);
     assert!(owner_operator_eligibility(&p).0);
-    assert!(next_business_unlock(&p).contains("buy into"));
-    assert!(business_status_summary(&p).contains("You qualify to buy"));
+    assert!(next_business_unlock(&p).contains("the owner-operator buy-in"));
+    assert!(business_status_summary(&p).contains("You qualify for the owner-operator buy-in"));
 
     p.owner_operator_declined = true;
 
@@ -436,7 +436,10 @@ fn test_a_company_driver_who_chose_to_stay_is_not_nudged_toward_the_buy_in() {
     assert!(owner_operator_eligibility(&p).0);
     let unlock = next_business_unlock(&p);
     assert!(unlock.starts_with("Company driver by choice."), "{unlock}");
-    assert!(!unlock.contains("buy into"), "{unlock}");
+    assert!(
+        !unlock.contains("where you buy the truck you drive"),
+        "{unlock}"
+    );
     let summary = business_status_summary(&p);
     assert!(summary.contains("by choice"), "{summary}");
     assert!(summary.contains("stays open here"), "{summary}");

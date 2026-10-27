@@ -10,8 +10,9 @@
 //! and the exit speed (the ramp's advisory, MUTCD W13-2, which stands along
 //! this lane) governs the curve that follows it, not the gore.
 
+use crate::speech::EventPriority;
 use ff_core::data::curves::min_radius_ft;
-use ff_core::speech_pacing::{EventPriority, SpeechCategory};
+use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
 use crate::bindings::Action;
@@ -37,6 +38,25 @@ impl DrivingState {
         let travelled = self.ramp_travelled_mi()?;
         let left = layout.decel_mi - travelled;
         (left > 0.0).then_some(left)
+    }
+
+    /// The ramp speed that holds where the truck is now: the exit speed
+    /// through the deceleration lane and the curve, then the ramp's design
+    /// speed on the run past the curve.
+    ///
+    /// The exit speed is the advisory sign's, and the sign is for the
+    /// curve. Held gore to bar it kept a truck at 15 down all 1,500 feet of
+    /// Cleveland's exit 170A, a minute and a half on a ramp whose bend is a
+    /// few truck lengths (owner, 2026-10-24). Off a laid-out ramp there are
+    /// no pieces to tell apart, so the exit speed holds throughout.
+    pub fn ramp_cap_here_mph(&self) -> f64 {
+        let exit = self.armed_ramp_mph(None);
+        match self.ramp_layout {
+            Some(layout) if self.on_laid_out_ramp() && !self.short_of_ramp_curve_end() => {
+                exit.max(layout.tangent_mph)
+            }
+            _ => exit,
+        }
     }
 
     pub fn in_deceleration_lane(&self) -> bool {
@@ -102,8 +122,9 @@ impl DrivingState {
 
     /// The driver's own foot on the throttle, key or pad.
     pub fn driver_accelerating(ctx: &GameContext) -> bool {
-        ctx.bindings.pressed(&ctx.input, Action::Accelerate)
-            || (ctx.controller.active() && ctx.controller.throttle() > 0.05)
+        !ctx.co_driver_away
+            && (ctx.bindings.pressed(&ctx.input, Action::Accelerate)
+                || (ctx.controller.active() && ctx.controller.throttle() > 0.05))
     }
 
     /// Work the deceleration lane: publish the ramp's grade, and let the
@@ -167,19 +188,10 @@ impl DrivingState {
         self.decel_lane_assist_said = true;
         // ROUTE: an automation naming that it just took the brakes, the same
         // class as every other assist's slowing line.
-        let who = if ctx.settings.exit_speed_assist {
-            "Exit speed assistance"
-        } else if ctx.settings.route_transition_assist {
-            "Route-transition assistance"
-        } else if ctx.settings.curve_speed_assist {
-            "Curve assistance"
-        } else {
-            "Facility stopping assistance"
-        };
         ctx.say_event_with(
-            format!("{who} slowing for the ramp."),
+            "Slowing for the ramp.",
             SayEvent::queued()
-                .priority(EventPriority::Route)
+                .priority(EventPriority::Important)
                 .category(SpeechCategory::Confirmation),
         );
     }

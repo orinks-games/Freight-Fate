@@ -69,9 +69,8 @@ impl RestStopState {
             format!("{verb} on the CAT Scale, carrier billed")
         };
         MenuItem::new(label, |s: &mut Self, ctx| s.weigh(ctx)).help(format!(
-            "A certified weight ticket: steer axle, drive axles, trailer axles and gross, \
-             before a state scale weighs you. A reweigh here within 24 hours is {}. {} \
-             minutes on duty.",
+            "CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. \
+             Reweigh within 24 hours is {}. {} minutes on duty.",
             dollars_and_cents(REWEIGH_DOLLARS),
             fmt_f(WEIGH_MIN, 0)
         ))

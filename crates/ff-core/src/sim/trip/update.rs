@@ -199,10 +199,11 @@ impl Trip {
         let imperial = self.imperial();
         if let Some(changed) = changed {
             let mut source_details = self.weather.source_conditions(imperial);
-            if source_status == "live" {
-                source_details += &format!(". {}", self.weather.live_observation_notice());
-            } else if source_status == "last_known" {
-                source_details += &format!(". {}", self.weather.last_known_notice());
+            if source_status == "last_known" {
+                let notice = self.weather.last_known_notice();
+                if !notice.is_empty() {
+                    source_details += &format!(". {notice}");
+                }
             }
             let label = self.weather.event_source_label();
             self.emit(
@@ -236,15 +237,16 @@ impl Trip {
                     && !suppress_routine_refresh
                 {
                     let message = match source_status {
-                        "live" => format!(
-                            "Live weather ready. {}.",
-                            self.weather.live_observation_notice()
-                        ),
-                        "last_known" => format!(
-                            "{}. Last-known conditions in use.",
-                            self.weather.last_known_notice()
-                        ),
-                        _ => "Live weather unavailable. Simulated weather in use.".to_string(),
+                        "live" => "Live weather ready.".to_string(),
+                        "last_known" => {
+                            let notice = self.weather.last_known_notice();
+                            if notice.is_empty() {
+                                "Last-known conditions in use.".to_string()
+                            } else {
+                                format!("{notice}. Last-known conditions in use.")
+                            }
+                        }
+                        _ => "Live weather unavailable.".to_string(),
                     };
                     let current = self.weather.current;
                     self.emit(
@@ -274,6 +276,8 @@ impl Trip {
         self.truck.grip = effects.grip;
         self.truck.water_mm = effects.water_mm;
         self.truck.surface = effects.surface.to_string();
+        self.truck.chain_control_road =
+            self.chain_law_area_at(self.position_mi).is_some() && self.chain_law_level() > 0;
         self.truck.drag_mult = effects.drag_mult;
         self.truck.grade = match self.ramp_grade {
             Some(grade) if self.on_ramp => grade,
@@ -338,6 +342,7 @@ impl Trip {
         // injected into a jam and updated before the jam was handed over lost
         // its brake lights on the spot.
         self.sync_braking_zones();
+        self.traffic_manager.closed_lane = self.closed_lane_at(None, None);
         self.traffic_manager
             .update(dt, self.position_mi, time_scale, Some(hour), Some(weekend));
         self.check_zones();
@@ -464,7 +469,7 @@ impl Trip {
                 self.planned_stop_key = None;
                 self.emit(
                     TripEventKind::GpsCue,
-                    SpokenMessage::new(format!("Past your planned stop, {name}. Plan cancelled.")),
+                    SpokenMessage::new(format!("Past your planned stop, {name}. Plan canceled.")),
                     TripEventData {
                         planned: Some(true),
                         ..Default::default()
@@ -494,6 +499,7 @@ impl Trip {
                     parking_normal: &parking_normal,
                     parking_certainty: &stop.parking,
                     exit_hint: &self.exit_hint,
+                    fuel: stop.fuel_callout(),
                 });
                 // The plan flag rides the event so the driving layer can rank
                 // the stop the player chose above ambient roadside chatter.
@@ -732,7 +738,7 @@ impl Trip {
         }
     }
 
-    /// A traffic advisory, with the terse half these were shipped without.
+    /// A traffic advisory: one short form for every verbosity.
     pub fn traffic_pressure_message(
         &self,
         pressure: &TrafficPressure,
@@ -741,27 +747,14 @@ impl Trip {
         let distance = self.ahead_text(ahead);
         let speed = self.speed_value(pressure.target_speed_mph);
         let side = &pressure.direction;
-        match pressure.kind.as_str() {
-            "exit" => SpokenMessage::with_terse(
-                format!("Exit traffic building in {distance}. Hold the {side} lane, near {speed}."),
-                format!("Exit traffic, {distance}. Hold {side}, {speed}."),
-            ),
+        let text = match pressure.kind.as_str() {
+            "exit" => format!("Exit traffic, {distance}. Hold {side}, {speed}."),
             // No target speed: the taper's posted limit is spoken separately.
-            "construction_merge" => SpokenMessage::with_terse(
-                format!(
-                    "Traffic squeezing at the construction taper in {distance}. Merge {side} early."
-                ),
-                format!("Taper squeezing, {distance}. Merge {side}."),
-            ),
-            "route_merge" => SpokenMessage::with_terse(
-                format!("Merging traffic in {distance}. Keep {side}."),
-                format!("Merging traffic, {distance}. Keep {side}."),
-            ),
-            _ => SpokenMessage::with_terse(
-                format!("Traffic pack in {distance}, near {speed}."),
-                format!("Traffic pack, {distance}. {speed}."),
-            ),
-        }
+            "construction_merge" => format!("Taper squeezing, {distance}. Merge {side}."),
+            "route_merge" => format!("Merging traffic, {distance}. Keep {side}."),
+            _ => format!("Traffic pack, {distance}. {speed}."),
+        };
+        SpokenMessage::new(text)
     }
 
     pub fn check_traffic_pressures(&mut self) {

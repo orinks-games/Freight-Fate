@@ -32,9 +32,10 @@
 //! throttle is never touched. Their own brake key cancels the servo for the
 //! bend, as it cancels every other assist.
 
+use crate::speech::EventPriority;
 use ff_core::data::curves::RouteCurve;
 use ff_core::sim::trip::{Trip, PACENOTE_MAX_LEAD_MI};
-use ff_core::speech_pacing::{EventPriority, SpeechCategory};
+use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
@@ -302,7 +303,7 @@ impl DrivingState {
         ctx.say_event_with(
             "Curve assistance released.",
             SayEvent::queued()
-                .priority(EventPriority::Route)
+                .priority(EventPriority::Important)
                 .category(SpeechCategory::Confirmation),
         );
     }

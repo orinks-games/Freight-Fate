@@ -12,8 +12,9 @@ use std::io::Cursor;
 use std::sync::mpsc;
 
 use freight_fate::agent_server::{
-    await_play_request, build_command, install_ears, policy, serve_lines, Command, CruiseTarget,
-    Ears,
+    await_play_request, await_play_request_for, build_command, install_ears, policy,
+    policy_with_lifeline, serve_lines, serve_lines_with_lifeline, spawn_watch_with, Command,
+    CruiseTarget, Ears, Lifeline,
 };
 use freight_fate::app::testing::TestApp;
 use freight_fate::states::base::Key;
@@ -136,6 +137,100 @@ fn a_client_that_hangs_up_before_playing_ends_the_wait() {
     assert!(
         await_play_request(&rx).is_none(),
         "stdin closing with no play request means no game, ever"
+    );
+}
+
+#[test]
+fn eof_cuts_the_lifeline() {
+    let (tx, _rx) = mpsc::channel();
+    let lifeline = Lifeline::new();
+    serve_lines_with_lifeline(Cursor::new(""), &mut Vec::new(), &tx, &lifeline);
+    assert!(lifeline.is_cut());
+}
+
+struct BrokenPipe;
+impl std::io::Write for BrokenPipe {
+    fn write(&mut self, _bytes: &[u8]) -> std::io::Result<usize> {
+        Err(std::io::Error::from(std::io::ErrorKind::BrokenPipe))
+    }
+    fn flush(&mut self) -> std::io::Result<()> {
+        Ok(())
+    }
+}
+
+#[test]
+fn broken_output_cuts_the_lifeline_without_reading_later_calls() {
+    let (tx, rx) = mpsc::channel();
+    let lifeline = Lifeline::new();
+    serve_lines_with_lifeline(
+        Cursor::new(format!(
+            "{}\n{}",
+            rpc(1, "ping", "{}"),
+            call(2, "listen", "{}")
+        )),
+        &mut BrokenPipe,
+        &tx,
+        &lifeline,
+    );
+    assert!(lifeline.is_cut());
+    assert!(matches!(rx.try_recv(), Err(mpsc::TryRecvError::Empty)));
+}
+
+#[test]
+fn watch_wakes_a_waiting_server_when_the_lifeline_is_cut() {
+    let (tx, rx) = mpsc::channel();
+    let lifeline = Lifeline::new();
+    lifeline.cut("test client left");
+    let watch = spawn_watch_with(lifeline, tx, || true, std::time::Duration::from_millis(10));
+    assert!(await_play_request_for(&rx, std::time::Duration::from_millis(100)).is_none());
+    watch.join().unwrap();
+}
+
+#[test]
+fn dead_parent_cuts_the_lifeline() {
+    let (tx, _rx) = mpsc::channel();
+    let lifeline = Lifeline::new();
+    let watch = spawn_watch_with(
+        lifeline.clone(),
+        tx,
+        || false,
+        std::time::Duration::from_millis(10),
+    );
+    watch.join().unwrap();
+    assert_eq!(
+        lifeline.reason().as_deref(),
+        Some("the process that started the server has exited")
+    );
+}
+
+#[test]
+fn a_cut_lifeline_ends_a_pending_wait() {
+    let mut app = TestApp::new();
+    let (tx, rx) = mpsc::channel();
+    let lifeline = Lifeline::new();
+    let (reply, answer) = mpsc::channel();
+    tx.send(freight_fate::agent_server::Request::for_test(
+        Command::Wait { seconds: 30.0 },
+        reply,
+    ))
+    .unwrap();
+    let mut agent = policy_with_lifeline(Ears::shared(), rx, None, lifeline.clone());
+    app.run_with_player_input(Some(1), |input, dt| agent.step(input, dt));
+    lifeline.cut("test client left");
+    app.run_with_player_input(Some(1), |input, dt| agent.step(input, dt));
+    assert!(answer
+        .try_recv()
+        .expect("the pending wait is answered at once")
+        .unwrap_err()
+        .contains("MCP client is gone"));
+}
+
+#[test]
+fn an_idle_server_ends_instead_of_holding_the_executable() {
+    let (_tx, rx) = mpsc::channel::<freight_fate::agent_server::Request>();
+    assert!(
+        await_play_request_for(&rx, std::time::Duration::from_millis(20)).is_none(),
+        "a session that never plays lets its server go, though stdin stays open"
     );
 }
 

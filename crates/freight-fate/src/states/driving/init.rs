@@ -1,6 +1,6 @@
 //! `DrivingState.__init__` (port of `freight_fate/states/driving.py`), plus
 //! the `__init__`-time work the mixins delegated: `_enforcement_init`,
-//! `_reset_traffic_passes`, `_reset_lane_gap`, `_reset_turn_state_for_trip`.
+//! `_reset_lane_gap`, `_reset_turn_state_for_trip`.
 //!
 //! Field order follows the Python constructor, and every field the struct
 //! declares is assigned here -- no `..Default::default()`, so a field added
@@ -15,6 +15,7 @@ use ff_core::data::world_models::Route;
 use ff_core::models::cargo_condition::cargo_fragility;
 use ff_core::models::jobs::Job;
 use ff_core::pyrandom::PyRandom;
+use ff_core::radio::community::{load_community_stations, new_community_stations};
 use ff_core::radio::{
     default_radio_catalog, load_personal_playlists, RadioState, RadioStation, PLAYLISTS_DIR_NAME,
 };
@@ -273,6 +274,8 @@ impl DrivingState {
         if !channel3000_playable(channel3000.as_ref()) {
             catalog.retain(|station| !DrivingState::is_channel3000(station));
         }
+        let community = load_community_stations(&crate::community_stations::cache_path());
+        catalog.extend(new_community_stations(&catalog, community));
         catalog.extend(load_personal_playlists(&personal_playlists_dir()));
         let radio = RadioState::from_settings(
             catalog,
@@ -303,6 +306,8 @@ impl DrivingState {
         let air_low_warning = trip.truck.air_low_warning();
         let spring_brakes_active = trip.truck.spring_brakes_active();
         let status_text = format!("Press {} to start the engine.", ctx.control_hint("engine"));
+
+        let cab = ff_core::sim::cab::CabState::for_outside(trip.weather.temperature_c());
 
         DrivingState {
             job,
@@ -411,8 +416,25 @@ impl DrivingState {
             jake_slip_active: false,
             jake_selected_stage: JAKE_STAGES,
             chains_fast_active: false,
+            chain_cap_cruise_mph: None,
+            chain_cap_keeper_mph: None,
+            chain_cap_said: false,
             chain_law_warned: HashSet::new(),
             chain_law_cited: HashSet::new(),
+            chain_checkpoint_staffed: HashMap::new(),
+            chain_checkpoint_hold: false,
+            chain_carry_warned: false,
+            chain_carry_rolled: false,
+            chain_slap_said: false,
+            chain_tightened: false,
+            chain_reminder_said: HashSet::new(),
+            chain_stop: None,
+            chain_stop_brake: 0.0,
+            chain_stop_areas_done: HashSet::new(),
+            chain_off_done: HashSet::new(),
+            chain_off_bare_from: None,
+            chain_assist_tighten_tried: false,
+            chain_assist_snapped: false,
             curve_warned_mi: None,
             speeding_tickets: 0,
             ticket_fines_paid: 0.0,
@@ -480,6 +502,7 @@ impl DrivingState {
             rescue_offered: false,
             damage_band,
             worst_damage_band: damage_band,
+            equipment_event_logged: false,
             limp_cap_mph: None,
             limp_cruise_said: false,
             bc_limiter_said: false,
@@ -493,6 +516,7 @@ impl DrivingState {
             exit_stop: None,
             selected_stop_key: None,
             selected_stop_break: false,
+            selected_stop_purpose: None,
             selected_stop_assist_armed: false,
             selected_stop_assist_said: false,
             selected_stop_assist_brake: 0.0,
@@ -556,6 +580,7 @@ impl DrivingState {
             stop_chain: None,
             stop_chain_end_said: false,
             stop_streets_on: crate::states::driving_events::chains::STOP_STREETS_IN_PLAY,
+            facility_streets_on: ctx.settings.facility_streets,
             highway_trip: None,
             departure_chain: false,
             departure_checked: false,
@@ -575,7 +600,6 @@ impl DrivingState {
             cruise_jake_last_step: 0,
             cruise_snubbing: false,
             pcc_phase: String::new(),
-            pcc_cue_s: 0.0,
             climb_cue_said: false,
             climb_cue_s: 0.0,
             climb_beaten_s: 0.0,
@@ -586,6 +610,7 @@ impl DrivingState {
             trailer_refused: false,
             trailer_repaired: false,
             visible_trailer_defect: (String::new(), f64::NEG_INFINITY),
+            written_up: HashSet::new(),
             nice_speed_mi: 0.0,
             double_nickel_mi: 0.0,
             jake_descent_mi: 0.0,
@@ -617,8 +642,6 @@ impl DrivingState {
             descent_beaten_s: 0.0,
             descent_capture_active: false,
             assist_exit_slowing_said: false,
-            lane_keeping_grant_said: false,
-            lane_keeping_takes_exit_said: false,
             curve_assist_active: false,
             curve_assist_cue_s: 0.0,
             curve_assist_spoke: false,
@@ -635,6 +658,7 @@ impl DrivingState {
             keeper_held_mph: None,
             keeper_held_reason: String::new(),
             keeper_snub: 0.0,
+            keeper_corner_braking: false,
             keeper_snub_target_mph: 0.0,
             keeper_droop_s: 0.0,
             keeper_droop_said: false,
@@ -651,9 +675,9 @@ impl DrivingState {
             gate_miss_count: 0,
             wrong_way_mi: 0.0,
             wrong_way_said_at: 0.0,
-            traffic_pass_side: HashMap::new(),
-            traffic_passed_keys: HashSet::new(),
-            traffic_pass_cooldown_s: 0.0,
+            traffic_sounds: [None, None, None],
+            traffic_bed_volume: 0.0,
+            traffic_ramp_rolled_ft: 0.0,
             lane_gap_watch: None,
             lane_gap_prev_lane: Some(0),
             lane_gap_blocker_key: None,
@@ -663,7 +687,6 @@ impl DrivingState {
             turn_miss_count: 0,
             turn_trip_id: 0,
             turn_advised: HashSet::new(),
-            turn_missed: HashSet::new(),
             turn_resolved: HashSet::new(),
             turn_announced: HashSet::new(),
             turn_called_now: HashSet::new(),
@@ -673,6 +696,7 @@ impl DrivingState {
             // New drives start clear so a tank already under the line still
             // earns one cue; resumed drives re-derive the latch below.
             low_fuel_said: false,
+            fuel_range_short_said: false,
             spring_brake_said: spring_brakes_active,
             brake_lockout_cue_timer: 0.0,
             brake_air_hissed: false,
@@ -681,10 +705,15 @@ impl DrivingState {
             overrev_s: 0.0,
             overrev_warn_due: OVERREV_GRACE_S,
             lane_change_target: None,
+            stick_lane_request: 0,
             lane_change_timer: 0.0,
             lane_signal_timer: 0.0,
             passing: None,
+            pass_clear_mi: None,
             pass_returning: false,
+            keeping_lane_change: false,
+            pass_return_ease_mph: None,
+            keep_right_excused_s: 0.0,
             merge_deadline: None,
             departure_ramp_mi: None,
             departure_merge_road_mph: 0.0,
@@ -696,6 +725,9 @@ impl DrivingState {
             merge_taper_warned: None,
             hazard_dodgeable: false,
             hazard_in_lane: false,
+            hazard_animal: false,
+            hazard_arm_mi: 0.0,
+            hazard_brake_to_mph: None,
             hazard_lead_mph: None,
             hazard_lane: 0,
             left_lane_s: 0.0,
@@ -715,6 +747,7 @@ impl DrivingState {
             transverse_fired: Vec::new(),
             lane_locator_on: false,
             lane_locator_timer: 0.0,
+            cab,
             steer_cue_active: false,
             exit_blinker_active: false,
             steer_cue_timer: 0.0,
@@ -729,7 +762,7 @@ impl DrivingState {
             jake_cue_idle_s: 0.0,
             curve_assist_jake: false,
             auto_jake: false,
-            auto_jake_enabled: true,
+            auto_jake_enabled: ctx.settings.automatic_jake,
             resume_target_mph: None,
             auto_jake_hold_mph: None,
             auto_jake_cooldown_s: 0.0,
@@ -753,6 +786,8 @@ impl DrivingState {
             liquid_settled_said: false,
             liquid_settle_timer_s: 0.0,
             entered_once: false,
+            team: None,
+            pending_team: None,
         }
     }
 }

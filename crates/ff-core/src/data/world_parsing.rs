@@ -25,6 +25,7 @@ use super::world_loader::{RawCity, RawLeg, WorldData};
 use super::world_models::{DataError, Location, Stop};
 use crate::pyfmt::{py_str_float, round_py_n};
 
+mod advisory;
 mod limits;
 mod pyval;
 mod records;
@@ -379,6 +380,7 @@ fn tags_for_facility_type(facility_type: &str) -> &'static [&'static str] {
         "port" => &["port"],
         "rail" => &["intermodal"],
         "retail_distribution" => &["retail"],
+        "shopping_mall" => &["retail"],
         "terminal" => &["cross_dock"],
         "warehouse" => &["retail"],
         _ => &[],
@@ -395,6 +397,11 @@ fn role_cargo(
     // ship-only pins must be able to clear the type's default roles.
     if raw.contains_key(key) {
         return get_str_list(raw, key);
+    }
+    // A type with no cargo for this role never takes it: a mall receives
+    // freight and ships none, whatever its cargo list says.
+    if defaults.is_empty() {
+        return Vec::new();
     }
     let plausible: Vec<String> = cargo
         .iter()

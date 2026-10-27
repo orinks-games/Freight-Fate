@@ -315,9 +315,7 @@ pub fn advance_refused_reason<P: StandingProfile + ?Sized>(profile: &P) -> Strin
         return String::new();
     }
     format!(
-        "Dispatch will not front you cash while settlements are paying down what \
-         you owe. You have {} outstanding, and three quarters of each settlement \
-         still reaches you.",
+        "No advance while you owe {}.",
         money_text(debt_owed(profile))
     )
 }
@@ -490,8 +488,6 @@ pub fn ceiling_consequence_text<P: StandingProfile + ?Sized>(profile: &P) -> &'s
 pub const KEPT_LINE: &str = "You keep your career level, your experience, your endorsements, your \
                              driving record, and everything else you own. Nothing about your career \
                              was reset and no save was lost.";
-pub const BACK_TO_WORK_LINE: &str =
-    "There is freight waiting. Open the dispatch board whenever you are ready.";
 
 /// Spoken when no carrier near `near` (see
 /// `SolvencyProfile::let_go_near_phrase`) can take a driver on.
@@ -506,23 +502,18 @@ pub fn no_seat_line(near: &str) -> String {
 /// Where a driver let go by `former` goes next, and the closing line.
 fn new_seat_lines(former: &str, taken_on: Option<&str>, near: &str) -> Vec<String> {
     match taken_on {
-        Some(name) if name == LAST_CHANCE_CARRIER_NAME => vec![
-            format!(
-                "What changes is the seat. Your assigned tractor goes back to the \
+        Some(name) if name == LAST_CHANCE_CARRIER_NAME => vec![format!(
+            "What changes is the seat. Your assigned tractor goes back to the \
                  {former} yard, and you go on the payroll at \
                  {LAST_CHANCE_CARRIER_NAME}: shorter freight, lower pay, and \
-                 equipment to match, until you build back up with them."
-            ),
-            BACK_TO_WORK_LINE.to_string(),
-        ],
-        Some(name) => vec![
-            format!(
-                "What changes is the seat. Your assigned tractor goes back to the \
+                 equipment to match. Once your dispatch trust is full again, \
+                 Business status lets you move to another carrier."
+        )],
+        Some(name) => vec![format!(
+            "What changes is the seat. Your assigned tractor goes back to the \
                  {former} yard, and {name}, which hires near {near}, has \
                  taken you on."
-            ),
-            BACK_TO_WORK_LINE.to_string(),
-        ],
+        )],
         None => vec![
             format!("Your assigned tractor goes back to the {former} yard."),
             no_seat_line(near),
@@ -620,7 +611,6 @@ pub fn apply_repossession<P: SolvencyProfile + ?Sized>(profile: &mut P) -> Vec<S
              carrier tractor. The owner-operator path is still open to you, and \
              the buy-in gates are the same ones you cleared to get here."
         ));
-        lines.push(BACK_TO_WORK_LINE.to_string());
     }
     let record = profile.driving_record_mut();
     record.setback_notice_kind = "repossession".to_string();
@@ -737,8 +727,7 @@ pub fn debt_warning_line<P: StandingProfile + ?Sized>(profile: &P, terse: bool) 
         }
         return format!(
             "You owe {owed}. Your carrier holds it there and writes off anything \
-             past it. A quarter of each settlement goes to it. \
-             You can also pay it down from cash at any terminal or truck stop."
+             past it. A quarter of each settlement goes to it."
         );
     }
     let ceiling = money_text(debt_ceiling(profile));
@@ -749,8 +738,7 @@ pub fn debt_warning_line<P: StandingProfile + ?Sized>(profile: &P, terse: bool) 
         }
         return format!(
             "You owe {owed}. A quarter of every settlement goes to it. \
-             The ceiling is {ceiling}. \
-             You can also pay it down from cash at any terminal or truck stop."
+             The ceiling is {ceiling}."
         );
     }
     if rung == 2 {
@@ -759,8 +747,7 @@ pub fn debt_warning_line<P: StandingProfile + ?Sized>(profile: &P, terse: bool) 
         }
         return format!(
             "You owe {owed}, over halfway to a ceiling of {ceiling}. \
-             A quarter of every settlement is paying it down. \
-             You can also pay it down from cash at any terminal or truck stop."
+             A quarter of every settlement is paying it down."
         );
     }
     if terse {

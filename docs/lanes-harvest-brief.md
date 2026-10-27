@@ -117,7 +117,7 @@ guessed count without an `estimated` flag.
 - A lanes linter (same spirit as the anchor linter, added as a test on
   the fresh bake): no count outside 1..6, no zero-length zones, no
   drop record without a real transition behind it, monotone at_mi.
-- `tools/index_world.py --check`; `uv run pytest tests/test_world.py
+- `cargo tools index-world --check`; `uv run pytest tests/test_world.py
   tests/test_world_overlay.py`; then full gates.
 - `[skip changelog]` is correct for this job — data with no consumer is
   not player-facing yet; the wiring jobs carry the changelog entries.

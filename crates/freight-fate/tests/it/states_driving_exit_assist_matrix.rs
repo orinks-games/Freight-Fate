@@ -854,7 +854,7 @@ fn faults(preset: Preset, kind: Kind, run: &Run) -> Vec<String> {
         "rolled the stop sign",
         "forced the gap",
         "into cross traffic",
-        "You missed",
+        "Missed the destination exit",
         "Drove past",
         "missed the exit",
         // Lane keeping, full or partial, holds the ramp curve.

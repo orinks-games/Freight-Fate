@@ -58,6 +58,7 @@ would expect:
 - `lumber_paper`
 - `cross_dock`
 - `company_yard`
+- `shopping_mall` (receives only; spoken "mall")
 
 Legacy data types such as `port`, `warehouse`, `distribution`, `rail`,
 `intermodal`, `food_terminal`, `manufacturing`, and `terminal` remain valid so

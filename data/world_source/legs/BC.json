@@ -105,9 +105,69 @@
         "landmarks": [],
         "speed_limits": [
           {
-            "at_mi": 1.0,
-            "mph": 56,
-            "source": "Coarse placeholder ~90 km/h rural BC truck context for Phase A inland filament; CA statutory truck caps still a named honesty debt (not a harvested maxspeed:hgv tag).",
+            "at_mi": 1.3,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 1.6,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 2.8,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 22.7,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 23.0,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 30.8,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 33.6,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 36.6,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 39.5,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 40.8,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 43.3,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
@@ -263,9 +323,141 @@
         "landmarks": [],
         "speed_limits": [
           {
-            "at_mi": 1.0,
-            "mph": 56,
-            "source": "Coarse placeholder ~90 km/h rural BC truck context for Phase A inland filament; CA statutory truck caps still a named honesty debt (not a harvested maxspeed:hgv tag).",
+            "at_mi": 1.4,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 1.9,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 3.1,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 13.3,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 13.6,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 40.3,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 42.1,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 42.7,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 45.4,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 61.4,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 61.8,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 64.0,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 64.3,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 66.5,
+            "mph": null
+          },
+          {
+            "at_mi": 94.5,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 127.3,
+            "mph": null
+          },
+          {
+            "at_mi": 137.8,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 141.5,
+            "mph": null
+          },
+          {
+            "at_mi": 243.2,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 246.0,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 246.6,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 247.7,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 252.1,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 254.0,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
@@ -400,9 +592,87 @@
         "landmarks": [],
         "speed_limits": [
           {
-            "at_mi": 1.0,
-            "mph": 56,
-            "source": "Coarse placeholder ~90 km/h rural BC/YT Alaska Highway truck context for Phase A north filament; CA statutory truck caps still a named honesty debt (not a harvested maxspeed:hgv tag).",
+            "at_mi": 0.0,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 1.2,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 124.1,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 127.2,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 181.9,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 183.8,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 229.2,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 229.9,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 232.2,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 232.5,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 233.8,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 234.8,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 235.1,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 236.2,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
@@ -572,44 +842,164 @@
         "speed_limits": [
           {
             "at_mi": 0.0,
-            "mph": 60.0,
-            "source": "Read from OpenStreetMap maxspeed/maxspeed:hgv tags on on-corridor highway ways in a local Geofabrik extract; route matching uses public Valhalla truck route geometry through the stored route_points; accessed 2026-10-07; maxspeed:hgv is preferred where tagged. https://www.openstreetmap.org/",
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
-            "at_mi": 80.0,
-            "mph": 50.0,
-            "source": "Read from OpenStreetMap maxspeed/maxspeed:hgv tags on on-corridor highway ways in a local Geofabrik extract; route matching uses public Valhalla truck route geometry through the stored route_points; accessed 2026-10-07; maxspeed:hgv is preferred where tagged. https://www.openstreetmap.org/",
+            "at_mi": 1.1,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
-            "at_mi": 170.0,
-            "mph": 60.0,
-            "source": "Read from OpenStreetMap maxspeed/maxspeed:hgv tags on on-corridor highway ways in a local Geofabrik extract; route matching uses public Valhalla truck route geometry through the stored route_points; accessed 2026-10-07; maxspeed:hgv is preferred where tagged. https://www.openstreetmap.org/",
+            "at_mi": 2.1,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
-            "at_mi": 195.0,
-            "mph": 30.0,
-            "source": "Read from OpenStreetMap maxspeed/maxspeed:hgv tags on on-corridor highway ways in a local Geofabrik extract; route matching uses public Valhalla truck route geometry through the stored route_points; accessed 2026-10-07; maxspeed:hgv is preferred where tagged. https://www.openstreetmap.org/",
+            "at_mi": 71.5,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
-            "at_mi": 205.0,
-            "mph": 60.0,
-            "source": "Read from OpenStreetMap maxspeed/maxspeed:hgv tags on on-corridor highway ways in a local Geofabrik extract; route matching uses public Valhalla truck route geometry through the stored route_points; accessed 2026-10-07; maxspeed:hgv is preferred where tagged. https://www.openstreetmap.org/",
+            "at_mi": 78.0,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
-            "at_mi": 300.0,
-            "mph": 45.0,
-            "source": "Read from OpenStreetMap maxspeed/maxspeed:hgv tags on on-corridor highway ways in a local Geofabrik extract; route matching uses public Valhalla truck route geometry through the stored route_points; accessed 2026-10-07; maxspeed:hgv is preferred where tagged. https://www.openstreetmap.org/",
+            "at_mi": 78.6,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
-            "at_mi": 307.0,
-            "mph": 60.0,
-            "source": "Read from OpenStreetMap maxspeed/maxspeed:hgv tags on on-corridor highway ways in a local Geofabrik extract; route matching uses public Valhalla truck route geometry through the stored route_points; accessed 2026-10-07; maxspeed:hgv is preferred where tagged. https://www.openstreetmap.org/",
+            "at_mi": 86.2,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 86.4,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 105.0,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 105.6,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 117.1,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 117.6,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 118.3,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 173.4,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 188.5,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 189.7,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 208.9,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 225.7,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 226.2,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 277.9,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 278.4,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 283.5,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 284.0,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 293.1,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 311.8,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 317.0,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 318.7,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
@@ -733,9 +1123,69 @@
         "landmarks": [],
         "speed_limits": [
           {
-            "at_mi": 1.0,
-            "mph": 56,
-            "source": "Coarse placeholder ~90 km/h rural BC truck context for Phase A inland filament; CA statutory truck caps still a named honesty debt (not a harvested maxspeed:hgv tag).",
+            "at_mi": 0.3,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 2.1,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 5.1,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 6.4,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 8.9,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 11.8,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 14.3,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 22.3,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 22.6,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 42.4,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 43.6,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
@@ -870,9 +1320,75 @@
         "landmarks": [],
         "speed_limits": [
           {
-            "at_mi": 1.0,
-            "mph": 56,
-            "source": "Coarse placeholder ~90 km/h rural BC/YT Alaska Highway truck context for Phase A north filament; CA statutory truck caps still a named honesty debt (not a harvested maxspeed:hgv tag).",
+            "at_mi": 0.3,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 3.0,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 4.3,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 6.3,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 6.8,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 9.3,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 10.2,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 55.8,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 57.8,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 113.6,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 115.5,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 238.3,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
@@ -1028,9 +1544,129 @@
         "landmarks": [],
         "speed_limits": [
           {
-            "at_mi": 1.0,
-            "mph": 56,
-            "source": "Coarse placeholder ~90 km/h rural BC truck context for Phase A inland filament; CA statutory truck caps still a named honesty debt (not a harvested maxspeed:hgv tag).",
+            "at_mi": 0.0,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 0.3,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 2.4,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 6.6,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 11.0,
+            "mph": null
+          },
+          {
+            "at_mi": 112.7,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 116.6,
+            "mph": null
+          },
+          {
+            "at_mi": 126.9,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 159.7,
+            "mph": null
+          },
+          {
+            "at_mi": 188.0,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 190.0,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 190.2,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 192.7,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 193.0,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 208.9,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 211.5,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 212.2,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 213.9,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 240.9,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 241.3,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 251.3,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 252.8,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
@@ -1286,9 +1922,435 @@
         "landmarks": [],
         "speed_limits": [
           {
-            "at_mi": 1.0,
-            "mph": 56,
-            "source": "Coarse placeholder ~90 km/h rural BC truck context for Phase A inland filament; CA statutory truck caps still a named honesty debt (not a harvested maxspeed:hgv tag).",
+            "at_mi": 0.0,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 2.3,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 31.8,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 33.5,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 64.8,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 66.7,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 68.9,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 69.2,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 73.0,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 111.5,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 111.7,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 112.7,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 112.9,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 129.8,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 136.8,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 139.3,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 140.5,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 141.8,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 145.9,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 147.4,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 175.0,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 175.3,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 176.2,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 176.5,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 187.7,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 189.9,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 190.2,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 191.8,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 192.1,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 195.3,
+            "mph": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 196.0,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 196.6,
+            "mph": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 213.8,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 215.1,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 215.9,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 232.7,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 233.7,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 234.2,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 253.3,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 254.5,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 256.1,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 256.3,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 257.4,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 257.9,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 284.2,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 285.4,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 286.2,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 306.1,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 307.1,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 315.3,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 317.1,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 331.2,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 331.7,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 332.5,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 338.3,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 338.5,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 355.2,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 355.5,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 356.3,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 357.7,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 368.6,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 368.9,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 370.4,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 373.5,
+            "mph": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 373.8,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 427.8,
+            "mph": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 428.4,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 433.7,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 433.9,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 438.7,
+            "mph": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 439.8,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 464.1,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
@@ -1695,9 +2757,369 @@
         "landmarks": [],
         "speed_limits": [
           {
-            "at_mi": 1.0,
-            "mph": 56,
-            "source": "Coarse placeholder ~90 km/h rural BC truck context for Phase A inland filament; CA statutory truck caps still a named honesty debt (not a harvested maxspeed:hgv tag).",
+            "at_mi": 0.3,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 0.6,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 62.3,
+            "mph": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 62.7,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 73.1,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 75.0,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 86.7,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 88.1,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 88.9,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 89.3,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 113.3,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 114.2,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 114.7,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 129.6,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 131.6,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 140.4,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 141.4,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 162.4,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 163.7,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 164.5,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 192.4,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 193.1,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 194.1,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 194.5,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 195.9,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 197.0,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 217.3,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 217.9,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 218.8,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 236.9,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 237.7,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 240.2,
+            "mph": 70,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 258.5,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 261.8,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 262.3,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 264.1,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 266.7,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 278.4,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 279.0,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 280.0,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 309.4,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 310.8,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 315.5,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 316.5,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 317.9,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 320.7,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 328.2,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 346.0,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 346.2,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 347.1,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 347.5,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 388.1,
+            "mph": 50,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 391.9,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 392.4,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 394.6,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 396.7,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 430.1,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 431.6,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 462.6,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 464.9,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 465.0,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-10-19 and matched within 90 m of a public Valhalla route through the leg's route points; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],

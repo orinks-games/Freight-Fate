@@ -97,7 +97,7 @@ fn test_failed_create_mutex_fails_open() {
 fn test_the_real_guard_acquires_and_releases() {
     // The real kernel32 (a no-op off Windows): one acquire per process
     // succeeds, and releasing hands the name back.
-    let mut guard = SingleInstanceGuard::new();
+    let mut guard = SingleInstanceGuard::new(SINGLE_INSTANCE_MUTEX_NAME);
     let first = guard.acquire();
     guard.release();
     assert!(!guard.acquired());

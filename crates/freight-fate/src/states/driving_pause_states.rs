@@ -9,22 +9,25 @@ use crate::controller::{ControllerAction, ControllerButton};
 use crate::discord_presence::PresenceState;
 use crate::impl_state_for_menu;
 use crate::online_presence::PAUSED_ACTIVITY;
-use crate::states::base::{end_sentence, InputEvent, Menu, MenuCore, MenuItem, SimpleMenuState};
+use crate::states::base::{
+    end_sentence, InputEvent, Label, Menu, MenuCore, MenuItem, SimpleMenuState,
+};
 use crate::states::city::CityMenuState;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
     advance_rest_clock, clock_text, deadline_text, hos_mut_of, is_night,
     player_pays_operating_costs, profile_mut_of, profile_of, road_repair_cost,
-    secure_truck_for_stopped_menu, CHAIN_INSTALL_FATIGUE, CHAIN_INSTALL_MIN,
-    CHAIN_INSTALL_NIGHT_FATIGUE, CHAIN_INSTALL_NIGHT_MULT, CHAIN_REMOVE_FATIGUE, CHAIN_REMOVE_MIN,
-    CHAIN_SAFE_MPH, DRIVE_PHASE_PICKUP, FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE,
-    MECHANIC_WAIT_MIN,
+    secure_truck_for_stopped_menu, CHAIN_INSTALL_MIN, CHAIN_INSTALL_NIGHT_MULT, CHAIN_REMOVE_MIN,
+    CHAIN_REPAIR_MIN, CHAIN_SAFE_MPH, CHAIN_SLAP_WARN_PCT, CHAIN_TIGHTEN_MIN, DRIVE_PHASE_PICKUP,
+    FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN,
 };
 use crate::states::driving_dispatch_call::DispatchCallState;
 use crate::states::driving_menu_states::{keep_rows, push_over_drive, DriveRef};
 use crate::states::driving_rest_states::ShoulderSleepConfirmationState;
 use crate::states::learn_sounds::LearnSoundsState;
-use crate::states::main_menu::{controls_help_page, HelpState, MainMenuState, SettingsState};
+use crate::states::main_menu::{
+    controls_help_page, HelpState, InputPracticeState, MainMenuState, SettingsState,
+};
 use crate::states::online_states::DriversOnlineState;
 
 /// Discard unsaved driver state before returning to the title.
@@ -57,13 +60,22 @@ pub fn restore_checkpoint_driver_state(ctx: &mut GameContext, _driving: &mut Dri
 pub struct PauseMenuState {
     menu: MenuCore<Self>,
     driving: DriveRef,
+    /// The introduction to team driving, when this menu is the first to
+    /// offer a co-driver.
+    pub(crate) team_intro: Option<String>,
 }
 
 impl PauseMenuState {
+    /// The drive this menu is over.
+    pub(crate) fn drive(&self) -> &DriveRef {
+        &self.driving
+    }
+
     pub fn new(ctx: &GameContext) -> Self {
         PauseMenuState {
             menu: MenuCore::new("Paused"),
             driving: DriveRef::active(ctx),
+            team_intro: None,
         }
     }
 
@@ -72,6 +84,7 @@ impl PauseMenuState {
         PauseMenuState {
             menu: MenuCore::new("Paused"),
             driving,
+            team_intro: None,
         }
     }
 
@@ -122,6 +135,10 @@ impl PauseMenuState {
                 ctx.push_state(state);
             })
             .help("Plays any sound the road uses and says what it means."),
+            MenuItem::new("Practice keys and buttons", |_s: &mut Self, ctx: &mut GameContext| {
+                ctx.push_state(InputPracticeState::new());
+            })
+            .help("Names what each key or controller button does while driving."),
             MenuItem::new(mechanic_label(d), |s: &mut Self, ctx| s.mechanic(ctx)).help(
                 "A mobile mechanic patches the truck up enough to drive on. Far dearer than a \
                  garage, an hour and a half, and billed even into debt.",
@@ -132,16 +149,61 @@ impl PauseMenuState {
             })
             .help("Units, transmission, volumes, weather, voices, update channel, and pacing."),
         ];
-        if d.trip.truck.speed_mph() <= 3.0 {
+        let team_rows = self.team_rows(ctx, d);
+        let team_count = team_rows.len();
+        for (offset, row) in team_rows.into_iter().enumerate() {
+            items.insert(1 + offset, row);
+        }
+        // While the co-driver drives, the truck and the logbook are theirs:
+        // the rows that work on either wait until the player takes the
+        // wheel back.
+        let own_wheel = !d.co_driver_driving();
+        if own_wheel && d.trip.truck.speed_mph() <= 3.0 {
             items.insert(
-                2,
+                2 + team_count,
                 MenuItem::new("Call dispatch", |s: &mut Self, ctx| {
                     ctx.push_state(DispatchCallState::new(s.driving.clone()));
                 })
                 .help("Report a delay, hours, road conditions, truck trouble, or load trouble."),
             );
         }
-        if d.trip.truck.chains_on {
+        let stopped = own_wheel && d.trip.truck.speed_mph() <= 3.0;
+        if stopped
+            && d.trip.truck.chains_on
+            && d.trip.truck.chain_wear_pct >= CHAIN_SLAP_WARN_PCT
+            && !d.chain_tightened
+        {
+            items.push(
+                MenuItem::new(
+                    format!(
+                        "Tighten chains: about {} minutes",
+                        fmt_f(CHAIN_TIGHTEN_MIN, 0)
+                    ),
+                    |s: &mut Self, ctx| s.tighten_chains(ctx),
+                )
+                .help("A loose chain slaps the fender and wears out fast. Tightening helps once."),
+            );
+        }
+        if stopped
+            && !d.trip.truck.chains_on
+            && profile_of(ctx).chains_owned()
+            && d.trip.truck.chain_wear_pct >= 100.0
+        {
+            items.push(
+                MenuItem::new(
+                    format!(
+                        "Repair the broken chain: about {} minutes",
+                        fmt_f(CHAIN_REPAIR_MIN, 0)
+                    ),
+                    |s: &mut Self, ctx| s.repair_chain(ctx),
+                )
+                .help(format!(
+                    "Uses a spare repair link. {} left.",
+                    profile_of(ctx).chain_repair_links()
+                )),
+            );
+        }
+        if own_wheel && d.trip.truck.chains_on {
             items.push(
                 MenuItem::new(
                     format!(
@@ -152,8 +214,13 @@ impl PauseMenuState {
                 )
                 .help("Chains grind apart fast on bare pavement."),
             );
-        } else if profile_of(ctx).chains_owned()
-            && profile_of(ctx).chain_wear_pct() < 100.0
+        } else if own_wheel
+            && profile_of(ctx).chains_owned()
+            // The truck's own meter, not the profile's: the profile only
+            // catches up at a stop, so a set that snapped this drive still
+            // read as whole there and was offered again, to snap the moment
+            // the wheels turned (player report, Colorado, 2026-10-14).
+            && d.trip.truck.chain_wear_pct < 100.0
             // Offered only where chains would matter: snow or ice under the
             // truck, or a chain law posted on the run. Every pause in an
             // October in Chicago used to offer them (owner, 2026-10-01); the
@@ -165,10 +232,38 @@ impl PauseMenuState {
                 MenuItem::new(install_chains_label(d), |s: &mut Self, ctx| {
                     s.install_chains(ctx)
                 })
+                .help(Label::dynamic(|_s: &Self, ctx| {
+                    format!(
+                        "Chains bite snow and ice. Keep under {} with chains on. Take them off \
+                         once the road is bare. In the dark, installing takes longer and more \
+                         out of you.",
+                        ctx.settings.speed_text(CHAIN_SAFE_MPH)
+                    )
+                })),
+            );
+        }
+        if own_wheel && d.chain_checkpoint_hold && !d.usable_chains_aboard(ctx) {
+            let (index, _) = d.last_route_city_behind();
+            let key = d.trip.route.cities.get(index).cloned().unwrap_or_default();
+            let city = ctx.world.city(&key).map(|c| c.name.clone()).unwrap_or(key);
+            items.insert(
+                1,
+                MenuItem::new("Wait for the chain law to lift", |s: &mut Self, ctx| {
+                    s.wait_for_chain_law(ctx)
+                })
                 .help(
-                    "Chains bite snow and ice. Chain speed is about thirty miles per hour. Pull \
-                     them once the road is bare. In the dark, installing takes longer and more \
-                     out of you.",
+                    "Waits on duty, not driving, half an hour at a time, up to 8 hours or until \
+                     your 14-hour window runs out.",
+                ),
+            );
+            items.insert(
+                2,
+                MenuItem::new(format!("Turn back to {city}"), |s: &mut Self, ctx| {
+                    s.turn_back_from_chain_checkpoint(ctx)
+                })
+                .help(
+                    "No chains to put on. Drive back to the last city on the route and wait \
+                     there. Waiting here instead lets you go once the chain law lifts.",
                 ),
             );
         }
@@ -193,7 +288,27 @@ impl PauseMenuState {
                  drops the load.",
             ),
         );
-        if d.emergency_shoulder_sleep_reason(ctx).is_some() {
+        if !own_wheel {
+            // Nothing to sleep through: the player is already off the wheel.
+        } else if d.chain_checkpoint_hold {
+            // Held, the truck can always sleep where it stands: waiting and
+            // turning back can both be out of hours, and a stop within the
+            // usual 1.5 miles does not matter to an officer holding it here.
+            let settings_index = items
+                .iter()
+                .position(|item| item.text(self, ctx) == "Settings")
+                .unwrap_or(items.len());
+            items.insert(
+                settings_index,
+                MenuItem::new("Sleep at the checkpoint (10 hours)", |s: &mut Self, ctx| {
+                    s.sleep_at_chain_checkpoint(ctx)
+                })
+                .help(
+                    "Poor sleep on the checkpoint apron. Resets hours of service. Fatigue \
+                     remains, and the deadline keeps running.",
+                ),
+            );
+        } else if d.emergency_shoulder_sleep_reason(ctx).is_some() {
             let settings_index = items
                 .iter()
                 .position(|item| item.text(self, ctx) == "Settings")
@@ -230,48 +345,62 @@ impl PauseMenuState {
         ctx.say(&text);
     }
 
+    fn wait_for_chain_law(&mut self, ctx: &mut GameContext) {
+        let done = self
+            .driving
+            .clone()
+            .call(self, ctx, |_s, ctx, d| d.wait_for_chain_law_to_lift(ctx));
+        let Some(Some(text)) = done else {
+            return;
+        };
+        self.refresh(ctx, true);
+        ctx.say(&text);
+    }
+
+    fn turn_back_from_chain_checkpoint(&mut self, ctx: &mut GameContext) {
+        let done = self.driving.clone().call(self, ctx, |_s, ctx, d| {
+            d.turn_back_from_chain_checkpoint(ctx)
+        });
+        // Same rule as `mechanic`: rebuild the rows once the drive is free.
+        let Some(Some(text)) = done else {
+            return;
+        };
+        self.refresh(ctx, true);
+        ctx.say(&text);
+    }
+
     fn install_chains(&mut self, ctx: &mut GameContext) {
         // Same rule as `mechanic`: rebuild the rows once the drive is free.
-        let done = self.driving.clone().call(self, ctx, |_s, ctx, d| {
-            if d.trip.truck.speed_mph() > 3.0 {
-                ctx.say("Come to a complete stop first.");
-                return None;
-            }
-            let night = is_night(d.trip.local_hour());
-            let minutes = CHAIN_INSTALL_MIN * if night { CHAIN_INSTALL_NIGHT_MULT } else { 1.0 };
-            let fatigue = if night {
-                CHAIN_INSTALL_NIGHT_FATIGUE
-            } else {
-                CHAIN_INSTALL_FATIGUE
-            };
-            advance_rest_clock(d, ctx, minutes, Some("on_duty_not_driving"), "chain up");
-            hos_mut_of(ctx).on_duty(minutes);
-            {
-                let p = profile_mut_of(ctx);
-                p.fatigue = (p.fatigue + fatigue).min(100.0);
-            }
-            d.trip.truck.chains_on = true;
-            d.chains_fast_active = false;
-            ctx.audio.play("ui/notify");
-            let effort = if night {
-                "In the dark, it took more out of you. "
-            } else {
-                ""
-            };
-            let bare = if d.trip.truck.surface != "snow" && d.trip.truck.surface != "ice" {
-                " The road here is bare, they grind fast until the snow."
-            } else {
-                ""
-            };
-            let text = format!(
-                "Chains on in {} minutes. {effort}Chain speed {}.{bare} It is {}. {}",
-                fmt_f(minutes, 0),
-                ctx.settings.speed_text(CHAIN_SAFE_MPH),
-                clock_text(d.trip.local_hour()),
-                deadline_text(d, ctx)
-            );
-            Some(text)
-        });
+        let done = self
+            .driving
+            .clone()
+            .call(self, ctx, |_s, ctx, d| d.do_install_chains(ctx));
+        let Some(Some(text)) = done else {
+            return;
+        };
+        self.refresh(ctx, true);
+        ctx.say(&text);
+    }
+
+    /// Fix a broken chain with a spare link on the shoulder (on duty).
+    fn repair_chain(&mut self, ctx: &mut GameContext) {
+        let done = self
+            .driving
+            .clone()
+            .call(self, ctx, |_s, ctx, d| d.do_repair_chain(ctx));
+        let Some(Some(text)) = done else {
+            return;
+        };
+        self.refresh(ctx, true);
+        ctx.say(&text);
+    }
+
+    /// Take up the slack in a slapping chain, once per install (on duty).
+    fn tighten_chains(&mut self, ctx: &mut GameContext) {
+        let done = self
+            .driving
+            .clone()
+            .call(self, ctx, |_s, ctx, d| d.do_tighten_chains(ctx));
         let Some(Some(text)) = done else {
             return;
         };
@@ -281,46 +410,39 @@ impl PauseMenuState {
 
     fn remove_chains(&mut self, ctx: &mut GameContext) {
         // Same rule as `mechanic`: rebuild the rows once the drive is free.
-        let done = self.driving.clone().call(self, ctx, |_s, ctx, d| {
-            if d.trip.truck.speed_mph() > 3.0 {
-                ctx.say("Come to a complete stop first.");
-                return None;
-            }
-            advance_rest_clock(
-                d,
-                ctx,
-                CHAIN_REMOVE_MIN,
-                Some("on_duty_not_driving"),
-                "remove chains",
-            );
-            hos_mut_of(ctx).on_duty(CHAIN_REMOVE_MIN);
-            {
-                let p = profile_mut_of(ctx);
-                p.fatigue = (p.fatigue + CHAIN_REMOVE_FATIGUE).min(100.0);
-            }
-            d.trip.truck.chains_on = false;
-            ctx.audio.play("ui/notify");
-            let wear = d.trip.truck.chain_wear_pct;
-            let state_word = if wear >= 75.0 {
-                "The set is about done.".to_string()
-            } else if wear >= 1.0 {
-                format!("The set is {} percent worn.", fmt_f(wear, 0))
-            } else {
-                "The set is still fresh.".to_string()
-            };
-            let text = format!(
-                "Chains off in {} minutes. {state_word} It is {}. {}",
-                fmt_f(CHAIN_REMOVE_MIN, 0),
-                clock_text(d.trip.local_hour()),
-                deadline_text(d, ctx)
-            );
-            Some(text)
-        });
+        let done = self
+            .driving
+            .clone()
+            .call(self, ctx, |_s, ctx, d| d.do_remove_chains(ctx));
         let Some(Some(text)) = done else {
             return;
         };
         self.refresh(ctx, true);
         ctx.say(&text);
+    }
+
+    fn sleep_at_chain_checkpoint(&mut self, ctx: &mut GameContext) {
+        let held = self
+            .driving
+            .read(|d| d.chain_checkpoint_hold)
+            .unwrap_or(false);
+        if !held {
+            self.refresh(ctx, true);
+            return;
+        }
+        let secured = self
+            .driving
+            .with(ctx, secure_truck_for_stopped_menu)
+            .unwrap_or(false);
+        if !secured {
+            ctx.say("Come to a complete stop first.");
+            self.refresh(ctx, true);
+            return;
+        }
+        let anchor = self.driving.read(|d| d.trip.position_mi).unwrap_or(0.0);
+        let state =
+            ShoulderSleepConfirmationState::at_chain_checkpoint(self.driving.clone(), anchor);
+        ctx.push_state(state);
     }
 
     fn emergency_shoulder_sleep(&mut self, ctx: &mut GameContext) {
@@ -637,6 +759,10 @@ impl Menu for PauseMenuState {
         // every pair of announcements for anyone who checks the menu mid-run.
         let title = end_sentence(&self.menu.title);
         ctx.say_with(title, Say::new().review(false));
+        if let Some(intro) = self.team_intro.take() {
+            ctx.say_with(intro, Say::queued());
+            crate::states::driving_team::handover::mark_intro_heard(ctx);
+        }
         let current = self.current_text(ctx);
         ctx.say_with(current, Say::queued().review(false));
     }

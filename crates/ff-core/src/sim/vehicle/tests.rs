@@ -8,7 +8,7 @@ use serde_json::json;
 
 use super::*;
 use crate::sim::surge::LiquidLoad;
-use crate::sim::transmission::REVERSE;
+use crate::sim::transmission::{AUTO_DOWNSHIFT_RPM, REVERSE};
 
 const DT: f64 = 1.0 / 60.0;
 
@@ -1051,6 +1051,28 @@ fn test_chains_grind_apart_on_bare_pavement_and_snap() {
 }
 
 #[test]
+fn test_chains_inside_a_posted_control_wear_as_on_snow() {
+    // A live winter-storm alert can post the chain law while the simulated
+    // road still reads wet. A lawful set at chain speed must last the
+    // control, not snap a dozen miles in (player report, 2026-10-17).
+    let mut posted = make_auto_truck();
+    posted.chains_on = true;
+    posted.surface = "wet".to_string();
+    posted.chain_control_road = true;
+    posted.velocity_mps = 25.0 / 2.23694;
+    posted.update_wear(1440.0); // ten miles at 25 mph
+    assert!(posted.chains_on);
+    assert!(posted.chain_wear_pct < 3.0, "{}", posted.chain_wear_pct);
+    // Out of the control the same wet road grinds them as before.
+    let mut left_on = make_auto_truck();
+    left_on.chains_on = true;
+    left_on.surface = "wet".to_string();
+    left_on.velocity_mps = 25.0 / 2.23694;
+    left_on.update_wear(1440.0);
+    assert!(left_on.chain_wear_pct > 50.0, "{}", left_on.chain_wear_pct);
+}
+
+#[test]
 fn test_governed_speed_is_not_abuse() {
     // Sitting AT the governor is normal diesel running; overspeed wear only
     // starts past it, when a downgrade drives the engine through the wheels.
@@ -1472,6 +1494,84 @@ fn test_loaded_truck_never_skip_shifts() {
     truck.throttle = 0.45;
     let steps = gear_steps(&mut truck, 60.0);
     assert!(!steps.is_empty() && steps.iter().all(|step| *step == 1));
+}
+
+#[test]
+fn test_part_loaded_truck_skip_shifts() {
+    // Player report, 2026-10-13: a quarter load went through all ten gears,
+    // because the skip was gated on an empty trailer alone.
+    let mut truck = make_auto_truck();
+    truck.set_air_ready(false);
+    truck.cargo_kg = 0.25 * REFERENCE_CARGO_KG;
+    truck.throttle = 0.45;
+    let steps = gear_steps(&mut truck, 60.0);
+    assert!(steps.contains(&2));
+}
+
+#[test]
+fn test_lighter_loads_take_fewer_shifts() {
+    let shifts = |fraction: f64| {
+        let mut truck = make_auto_truck();
+        truck.set_air_ready(false);
+        truck.cargo_kg = fraction * REFERENCE_CARGO_KG;
+        truck.throttle = 0.7;
+        gear_steps(&mut truck, 90.0).len()
+    };
+    let (empty, half, full) = (shifts(0.0), shifts(0.5), shifts(1.0));
+    assert!(empty < half && half < full, "{empty} {half} {full}");
+}
+
+#[test]
+fn test_start_gear_still_downshifts_once_the_road_wins() {
+    // The launch hold is for a truck still gathering speed. In its starting
+    // gear on a rise at a light throttle, with the road out-pulling the
+    // engine, the revs are falling and the box must still gear down.
+    let mut truck = make_auto_truck();
+    truck.set_air_ready(false);
+    truck.cargo_kg = 0.7 * REFERENCE_CARGO_KG;
+    truck.grade = 0.019;
+    truck.transmission.gear = 2;
+    truck.velocity_mps = 1.0;
+    truck.throttle = 0.06;
+    assert!(truck.coupled_rpm(None) < AUTO_DOWNSHIFT_RPM);
+    assert!(truck.drive_force() < truck.resistance_force());
+    assert_eq!(truck.auto_shift(), Some(1));
+}
+
+#[test]
+fn test_worn_engine_does_not_skip_into_a_gear_it_cannot_pull() {
+    // The skip judges the gear two up with the power the engine still has.
+    let skip = |wear_pct: f64| {
+        let mut truck = make_auto_truck();
+        truck.set_air_ready(false);
+        truck.cargo_kg = 0.0;
+        truck.transmission.gear = 7;
+        truck.velocity_mps = 20.0;
+        truck.throttle = 0.2;
+        truck.engine_wear_pct = wear_pct;
+        truck.auto_shift()
+    };
+    assert_eq!(skip(0.0), Some(9));
+    assert_ne!(skip(100.0), Some(9));
+}
+
+#[test]
+fn test_gentle_light_launch_holds_its_starting_gear() {
+    // Pulling away gently in third, the box used to drop to second at a
+    // walking pace before shifting back up past it.
+    let mut truck = make_auto_truck();
+    truck.set_air_ready(false);
+    truck.cargo_kg = 0.0;
+    truck.throttle = 0.3;
+    let mut lowest = i32::MAX;
+    for _ in 0..(20 * 60) {
+        truck.auto_shift();
+        truck.update(DT);
+        if truck.transmission.gear > 0 {
+            lowest = lowest.min(truck.transmission.gear);
+        }
+    }
+    assert_eq!(lowest, 3);
 }
 
 // -- tests/test_tanker_surge.py: the load behind the truck -------------------------

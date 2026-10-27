@@ -269,6 +269,32 @@ fn test_every_city_has_locations_with_known_cargo() {
 }
 
 #[test]
+fn test_mall_of_america_is_a_receive_only_stop_in_bloomington() {
+    // The owner asked for it by name (2026-10-24): a real mall at its real
+    // position, which takes freight in at its dock and never ships a load.
+    let world = world();
+    let mall = world
+        .facility_location("minneapolis_mn_us", "Mall of America")
+        .unwrap();
+    assert_eq!(mall.facility_type, "shopping_mall");
+    assert_eq!(mall.locality, "Bloomington");
+    assert!(mall.ships.is_empty(), "{:?}", mall.ships);
+    assert!(mall.receives.iter().any(|k| k == "retail"));
+    assert_eq!(mall.roles, vec!["receiver".to_string()]);
+    // Bloomington, about nine miles south of the Minneapolis city point.
+    assert!((mall.lat - 44.8547).abs() < 0.01 && (mall.lon + 93.2422).abs() < 0.01);
+    assert_eq!(
+        ff_core::models::jobs::facility_text(
+            &mall.facility_type,
+            &mall.name,
+            "Minneapolis",
+            &mall.locality
+        ),
+        "Mall of America near Bloomington in Minneapolis"
+    );
+}
+
+#[test]
 fn test_world_yard_pins_are_freight_endpoints_not_homes() {
     // World terminal/company_yard pins only name freight endpoints (and the
     // fallback garage); homes are the hiring carrier's own terminals.

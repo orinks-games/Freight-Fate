@@ -1,5 +1,4 @@
-//! Local approach data (the data-layer half of `tests/test_local_approaches.py`;
-//! the `tools/build_local_approaches.py` cases stay Python).
+//! Local approach data (the data-layer half of `tests/test_local_approaches.py`).
 
 use crate::data_support::{read_json, world};
 
@@ -158,15 +157,3 @@ fn test_facility_routes_use_local_approach_layer() {
         );
     }
 }
-
-#[test]
-#[ignore = "tools/build_local_approaches.py stays Python"]
-fn test_build_tool_snaps_tiny_osm_fixture_to_named_road() {}
-
-#[test]
-#[ignore = "tools/build_local_approaches.py stays Python"]
-fn test_build_tool_prefers_named_road_over_closer_unnamed() {}
-
-#[test]
-#[ignore = "tools/build_local_approaches.py stays Python"]
-fn test_build_tool_marks_missing_road_context_as_fallback() {}

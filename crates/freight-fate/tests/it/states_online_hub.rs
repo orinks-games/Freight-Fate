@@ -366,7 +366,6 @@ fn test_hub_left_right_adjust_rows_align_with_items() {
         "Your profile",
         "Open my driver setup page",
         "Restore a cloud backup",
-        "Link a Mastodon account",
     ] {
         move_to::<OnlineHubState>(&mut app, &hub, label);
         let before = app.ctx.stack_len();

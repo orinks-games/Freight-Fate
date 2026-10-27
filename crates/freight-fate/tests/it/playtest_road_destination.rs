@@ -278,7 +278,7 @@ fn blowing_past_the_exit_loops_back() {
         harness.transcript_text()
     );
     assert!(
-        said(&harness, "safe turnaround"),
+        said(&harness, "turned around"),
         "the miss did not name the loop-back\n{}",
         harness.transcript_text()
     );

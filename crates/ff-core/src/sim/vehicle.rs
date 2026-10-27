@@ -202,6 +202,23 @@ pub const DAMAGE_BAND_LIMP: i32 = 2;
 pub const DAMAGE_BAND_LAST_CALL: i32 = 3;
 pub const DAMAGE_BAND_OUT_OF_SERVICE: i32 = 4;
 
+/// The named damage band a damage figure falls in.
+pub fn damage_band_for(damage: f64) -> i32 {
+    if damage >= DAMAGE_OUT_OF_SERVICE_PCT {
+        return DAMAGE_BAND_OUT_OF_SERVICE;
+    }
+    if damage >= DAMAGE_LAST_CALL_PCT {
+        return DAMAGE_BAND_LAST_CALL;
+    }
+    if damage >= DAMAGE_LIMP_PCT {
+        return DAMAGE_BAND_LIMP;
+    }
+    if damage >= DAMAGE_DERATE_PCT {
+        return DAMAGE_BAND_REDUCED;
+    }
+    DAMAGE_BAND_NONE
+}
+
 // -- cargo condition ------------------------------------------------------------------
 // What moves freight is what the truck does abruptly, so the rates live with
 // the physics that produce them; what the receiver DOES about the resulting
@@ -498,6 +515,10 @@ impl Default for TruckSpecs {
     }
 }
 
+/// Miles per gallon at a 60 mph cruise, the figure `update_fuel` is
+/// calibrated to (6.5 to 7).
+pub const CRUISE_MPG: f64 = 6.5;
+
 #[derive(Debug, Clone, PartialEq)]
 pub struct TruckState {
     pub specs: TruckSpecs,
@@ -538,6 +559,13 @@ pub struct TruckState {
     pub chain_wear_pct: f64,
     /// One-shot event flag, consumed by the cue layer.
     pub chains_just_snapped: bool,
+    /// Inside a chain control the state has posted. A posted control means
+    /// the road calls for chains, so they wear as on snow whatever the sky
+    /// model reads underfoot: a live winter-storm alert can post the control
+    /// while the simulated surface is still wet, and the bare-pavement rate
+    /// then ground a lawful set to scrap in about a dozen miles at chain
+    /// speed (player report, 2026-10-17).
+    pub chain_control_road: bool,
     pub odometer_mi: f64,
     /// Payload aboard; default = full reference load.
     pub cargo_kg: f64,
@@ -694,6 +722,7 @@ impl TruckState {
             chains_on: false,
             chain_wear_pct: 0.0,
             chains_just_snapped: false,
+            chain_control_road: false,
             odometer_mi: 0.0,
             cargo_kg: REFERENCE_CARGO_KG,
             cargo_key: String::new(),
@@ -794,20 +823,7 @@ impl TruckState {
     /// Derived, never stored: ``damage_pct`` is already the persisted truth,
     /// so a save can never disagree with itself about the band.
     pub fn damage_band(&self) -> i32 {
-        let damage = self.damage_pct;
-        if damage >= DAMAGE_OUT_OF_SERVICE_PCT {
-            return DAMAGE_BAND_OUT_OF_SERVICE;
-        }
-        if damage >= DAMAGE_LAST_CALL_PCT {
-            return DAMAGE_BAND_LAST_CALL;
-        }
-        if damage >= DAMAGE_LIMP_PCT {
-            return DAMAGE_BAND_LIMP;
-        }
-        if damage >= DAMAGE_DERATE_PCT {
-            return DAMAGE_BAND_REDUCED;
-        }
-        DAMAGE_BAND_NONE
+        damage_band_for(self.damage_pct)
     }
 
     /// Torque left after the damage derate; 1.0 below reduced power.
@@ -993,10 +1009,6 @@ impl TruckState {
 
     pub fn speed_mph(&self) -> f64 {
         self.velocity_mps.abs() * 2.23694
-    }
-
-    pub fn speed_kmh(&self) -> f64 {
-        self.velocity_mps.abs() * 3.6
     }
 
     pub fn fuel_fraction(&self) -> f64 {

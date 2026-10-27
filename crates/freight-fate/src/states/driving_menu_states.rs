@@ -30,6 +30,7 @@ mod commands;
 mod drive_ref;
 mod facility_arrival;
 mod status;
+mod stop_purpose;
 
 pub use apps::{DriverAppScreenState, DriverAppsState};
 pub use arrival::{settlement_hours, ArrivalState};
@@ -37,6 +38,7 @@ pub use commands::DrivingCommandsState;
 pub use drive_ref::{keep_rows, push_over_drive, replace_drive_with, DriveRef};
 pub use facility_arrival::FacilityArrivalState;
 pub use status::{DrivingStatusScreenState, DrivingStatusState};
+pub use stop_purpose::StopPurposeState;
 
 use crate::app::GameContext;
 use crate::states::driving::DrivingState;
@@ -125,12 +127,5 @@ impl DrivingState {
     pub fn replace_with_arrival_state_at(&mut self, ctx: &mut GameContext, arrival_hours: f64) {
         let state = ArrivalState::new_at(ctx, self, arrival_hours);
         ctx.replace_state(state);
-    }
-
-    /// `ctx.replace_state(FacilityArrivalState(ctx, self))`.
-    pub fn replace_with_facility_arrival_state(&mut self, ctx: &mut GameContext) {
-        let mut state = FacilityArrivalState::new(ctx);
-        state.enter_over_drive(ctx, self);
-        replace_drive_with(ctx, state);
     }
 }

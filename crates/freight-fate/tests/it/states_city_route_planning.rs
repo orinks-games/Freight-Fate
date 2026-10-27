@@ -149,7 +149,7 @@ fn test_live_route_weather_accounts_for_loading_and_unavailable_cities() {
     );
     assert!(
         said.contains(&format!(
-            "{}: live weather unavailable; simulated fallback may apply",
+            "{}: no live weather",
             world.spoken_city(&second, Some(true))
         )),
         "{said}"

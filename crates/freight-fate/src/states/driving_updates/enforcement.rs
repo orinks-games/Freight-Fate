@@ -2,18 +2,20 @@
 //! bypassed scale, unsafe equipment), and the weigh-station machinery.
 //! The stop's own lifecycle, once the lights are on, is in `stops.rs`.
 
+use crate::speech::EventPriority;
 use ff_core::models::business::has_weigh_station_transponder;
 use ff_core::models::enforcement::{UNSAFE_DAMAGE_FINE, WEIGH_STATION_BYPASS_FINE};
 use ff_core::pyrandom::PyRandom;
 use ff_core::settings::short_distance_text_for;
 use ff_core::sim::trip_models::RoadStop;
-use ff_core::speech_pacing::{EventPriority, SpeechCategory};
+use ff_core::speech_pacing::SpeechCategory;
 use ff_core::speech_text::overspeed_nag;
 
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 use crate::states::driving_enforcement::SCALE_REMINDER_REAL_LEAD_S;
+use crate::states::driving_team::notes::NoteWeight;
 use crate::states::driving_updates::{limit_drop_speech_latency_s, live};
 
 impl DrivingState {
@@ -51,6 +53,10 @@ impl DrivingState {
             return; // already stopped; the dash has nothing to add
         }
         let (limit, _) = self.trip.speed_limit_at(self.trip.position_mi);
+        if self.trip.in_unannounced_posting() {
+            // The dash would name a limit the road never got to say.
+            return;
+        }
         self.update_overspeed_warning(ctx, dt, limit);
         // About 2 mph per second of comfortable braking sets the window,
         // capped so the grace cannot be used to coast through a whole
@@ -137,7 +143,7 @@ impl DrivingState {
             ctx.say_event_with(
                 message,
                 SayEvent::queued()
-                    .priority(EventPriority::Route)
+                    .priority(EventPriority::Important)
                     .category(SpeechCategory::Navigation)
                     // Only while the truck is still over. Terse renders this
                     // as "Limit 35." and a cut line is handed back to finish,
@@ -196,17 +202,19 @@ impl DrivingState {
         self.reset_pull_over_tracker();
         self.pull_over_compliance = PULL_OVER_START_COMPLIANCE;
         self.pull_over_prev_mph = self.trip.truck.speed_mph();
-        let where_ = match self.trip.active_post_at(self.trip.position_mi) {
-            Some(post) => post.reason().to_string(),
-            None => "highway enforcement".to_string(),
+        // The signal key is named until the exit signal has been used a few
+        // times (the same counter the stop callouts retire on).
+        let speed = ctx.settings.speed_text(self.trip.truck.speed_mph());
+        let zone = ctx.settings.speed_text(limit);
+        let message = if self.instruction_retired(ctx, "take_exit") {
+            format!("Lights and siren behind you. {speed} in a {zone} zone. Signal and stop on the shoulder.")
+        } else {
+            format!(
+                "Lights and siren behind you. {speed} in a {zone} zone. Signal with {} and stop on \
+                 the shoulder.",
+                ctx.control_hint("take_exit")
+            )
         };
-        let signal_hint = ctx.control_hint("take_exit");
-        let message = format!(
-            "Lights and siren behind you. A trooper on this {where_} clocked you at {} in a {} \
-             zone. Signal with {signal_hint} and stop on the shoulder.",
-            ctx.settings.speed_text(self.trip.truck.speed_mph()),
-            ctx.settings.speed_text(limit)
-        );
         self.arm_pull_over(ctx, &message);
         ctx.controller.rumble.alert();
     }
@@ -268,7 +276,7 @@ impl DrivingState {
             ctx.say_event_with(
                 "Exit approach canceled; plan it again after the stop.",
                 SayEvent::queued()
-                    .priority(EventPriority::Route)
+                    .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),
             );
         }
@@ -346,17 +354,16 @@ impl DrivingState {
                 // its own, before a word is spoken.
                 ctx.audio
                     .play_with("events/weigh_station_warning", 0.7, 0.0);
-                // Action first, and both keys through control_hint. The old
-                // line hard-coded "press T", and T at speed planned a sleep
-                // stop past the scale -- the instruction itself marched a
-                // tester into the bypass charge (report, 2026-08-12).
+                // No keys: the old line hard-coded "press T", and T at speed
+                // planned a sleep stop past the scale -- the instruction
+                // itself marched a tester into the bypass charge (report,
+                // 2026-08-12). The reminder nearer the scale names the exit.
                 // A transponder truck's verdict is rolled BEFORE the notice
                 // is worded (silent, deterministic, so this is the same
-                // verdict either way): a green truck used to be told "Signal
-                // for the scale exit" and then, one sentence later, that it
-                // needed no exit -- the notice contradicting itself a breath
+                // verdict either way): a green truck used to be told to pull
+                // in and then, one sentence later, that it needed no exit -- the notice contradicting itself a breath
                 // too late (adversarial battery). A red truck, and every
-                // truck without a transponder, still gets the full pull-in
+                // truck without a transponder, still gets the pull-in
                 // instruction, which stays true for them.
                 let mut verdict = String::new();
                 if ctx
@@ -367,14 +374,9 @@ impl DrivingState {
                     verdict = self.roll_transponder_verdict(&stop, &key);
                 }
                 let instruction = if verdict == "green" {
-                    "Your transponder answers it at road speed.".to_string()
+                    "Transponder bypass."
                 } else {
-                    format!(
-                        "All trucks must pull in. Signal for the scale exit with {}. Stopped at \
-                         the scale, press {} to check in.",
-                        ctx.control_hint("take_exit"),
-                        ctx.control_hint("rest")
-                    )
+                    "All trucks must pull in."
                 };
                 // Bound here and moved into the gate below, not read from the
                 // sweep when the gate runs: the validity test has to compare
@@ -408,7 +410,7 @@ impl DrivingState {
                         stop.name
                     ),
                     SayEvent::queued()
-                        .priority(EventPriority::Route)
+                        .priority(EventPriority::Important)
                         .category(SpeechCategory::Navigation)
                         // valid: this sentence names a distance, and a
                         // distance is a claim about now. The reminder in
@@ -567,6 +569,12 @@ impl DrivingState {
     ) {
         let scale_mi = stop.at_mi;
         if verdict == "green" {
+            if let Some(name) = self.co_driver_at_wheel_name() {
+                let line = format!("The transponder cleared {name} past {}.", stop.name);
+                self.co_driver_note(ctx, line, NoteWeight::Passing);
+            }
+        }
+        if verdict == "green" {
             ctx.audio.play_with("events/scale_green", 0.8, 0.0);
             // valid: never rescued. One verdict, one line (the adversarial
             // watcher's rule) -- a hazard cutting it used to make the
@@ -575,7 +583,7 @@ impl DrivingState {
             ctx.say_event_with(
                 "Green light. Cleared past the scale.",
                 SayEvent::queued()
-                    .priority(EventPriority::Route)
+                    .priority(EventPriority::Important)
                     .category(SpeechCategory::Navigation)
                     .valid(|| false),
             );
@@ -590,7 +598,7 @@ impl DrivingState {
             ctx.say_event_with(
                 format!("Red light. Pull in to {}.", stop.name),
                 SayEvent::queued()
-                    .priority(EventPriority::Route)
+                    .priority(EventPriority::Important)
                     .category(SpeechCategory::Navigation)
                     .valid(move || live::position_mi() < scale_mi),
             );

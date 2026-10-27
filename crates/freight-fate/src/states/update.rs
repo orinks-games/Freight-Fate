@@ -34,11 +34,14 @@ impl UpdateChecker {
         let checker = Self::idle();
         let build = updater::load_build_info(version());
         let channel = updater::resolve_channel(&settings.update_channel, build.as_ref());
+        let mirror_prefix = settings
+            .update_mirror_enabled
+            .then(|| settings.update_mirror_prefix.clone());
         let worker = checker.clone();
         let current = version().to_string();
         std::thread::Builder::new()
             .name("update-check".into())
-            .spawn(move || worker.run(&channel, &current, build.as_ref()))
+            .spawn(move || worker.run(&channel, &current, build.as_ref(), mirror_prefix.as_deref()))
             .ok();
         checker
     }
@@ -62,8 +65,14 @@ impl UpdateChecker {
         }
     }
 
-    fn run(&self, channel: &str, current: &str, build: Option<&updater::BuildInfo>) {
-        match updater::check_for_update(channel, current, build) {
+    fn run(
+        &self,
+        channel: &str,
+        current: &str,
+        build: Option<&updater::BuildInfo>,
+        mirror_prefix: Option<&str>,
+    ) {
+        match updater::check_for_update(channel, current, build, mirror_prefix) {
             Ok(result) => {
                 *self.result.lock().unwrap_or_else(|e| e.into_inner()) = result;
             }
@@ -125,14 +134,19 @@ impl State for UpdateCheckState {
             self.message = "On iPhone and iPad, updates come through the App Store \
                             or TestFlight."
                 .to_string();
-            ctx.say(&format!("{} Escape goes back.", self.message));
+            ctx.say(&self.message);
+            return;
+        }
+        if updater::managed_by_agnow() {
+            self.message = "AG Now keeps this copy up to date.".to_string();
+            ctx.say(&self.message);
             return;
         }
         if !updater::is_frozen() {
             self.message = "Updates are only available in the packaged game. \
                             This copy runs from source; update it with git."
                 .to_string();
-            ctx.say(&format!("{} Escape goes back.", self.message));
+            ctx.say(&self.message);
             return;
         }
         if self.checker.is_none() {
@@ -160,7 +174,7 @@ impl State for UpdateCheckState {
                 updater::spoken_version(version())
             );
         }
-        ctx.say(&format!("{} Escape goes back.", self.message));
+        ctx.say(&self.message);
     }
 
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
@@ -227,9 +241,10 @@ impl UpdatePromptState {
     }
 }
 
-/// `asset_size / 1e6` spoken as whole megabytes, or `None` when unknown.
+/// The download's size (`UpdateInfo::download_size`) spoken as whole
+/// megabytes, or `None` when unknown.
 fn megabytes(info: &UpdateInfo) -> Option<String> {
-    let mb = info.asset_size as f64 / 1e6;
+    let mb = info.download_size() as f64 / 1e6;
     (mb != 0.0).then(|| fmt_f(mb, 0))
 }
 
@@ -345,6 +360,10 @@ struct DownloadOutcome {
     new_root: Option<PathBuf>,
     staging: Option<PathBuf>,
     error: Option<String>,
+    /// The staged update is the smaller archive, without the sound packs
+    /// the install already has: installed by hand, it must be copied over
+    /// the game folder, not set up fresh.
+    leaves_out_packs: bool,
 }
 
 /// `updater.can_auto_apply` / `stash_for_manual_install`, injectable so a
@@ -394,7 +413,7 @@ fn sentence(text: &str) -> String {
 
 /// Where a player can always get the update by hand.
 pub const MANUAL_DOWNLOAD: &str =
-    "To update by hand, download it from github.com/Orinks/Freight-fate/releases.";
+    "To update by hand, download it from github.com/orinks-games/Freight-Fate/releases.";
 
 const PHASE_DOWNLOADING: u8 = 0;
 const PHASE_UNPACKING: u8 = 1;
@@ -510,6 +529,16 @@ impl UpdateDownloadState {
             .clone()
     }
 
+    /// Mark the staged update as the smaller archive, without the sound
+    /// packs (test seam).
+    pub fn leaving_out_packs(self) -> Self {
+        self.outcome
+            .lock()
+            .unwrap_or_else(|e| e.into_inner())
+            .leaves_out_packs = true;
+        self
+    }
+
     /// Replace the apply step (test seam; see [`ApplyHook`]).
     pub fn with_apply(mut self, apply: ApplyHook) -> Self {
         self.apply = apply;
@@ -584,7 +613,35 @@ impl UpdateDownloadState {
             outcome.lock().unwrap_or_else(|e| e.into_inner()).staging = Some(staging.clone());
             let mut on_progress =
                 |done: u64, total: u64| Self::record_progress(&bytes, &progress, done, total);
-            let archive = fetch(&info, &staging, &mut on_progress, &cancelled)?;
+            let env = UpdaterEnv::current();
+            // Only the non-pack parts of the archive when this install's sound
+            // packs still match; any failure there falls back to the full one.
+            let mut keep_packs = None;
+            let mut archive = None;
+            if let Some(slim) = updater::slim::still_matches(&info, &env) {
+                match updater::slim::download(
+                    &info,
+                    slim,
+                    &staging,
+                    Some(&mut on_progress),
+                    Some(&cancelled),
+                ) {
+                    Ok(path) => {
+                        keep_packs = Some(slim.packs.clone());
+                        archive = Some(path);
+                    }
+                    Err(e @ (DownloadError::Cancelled | DownloadError::Stalled(_))) => {
+                        return Err(e)
+                    }
+                    Err(e) => {
+                        log::warn!("Smaller update download failed ({e:?}); fetching it whole")
+                    }
+                }
+            }
+            let archive = match archive {
+                Some(path) => path,
+                None => fetch(&info, &staging, &mut on_progress, &cancelled)?,
+            };
             if is_cancelled() {
                 return Err(DownloadError::Cancelled);
             }
@@ -593,10 +650,17 @@ impl UpdateDownloadState {
             let new_root = updater::stage_update_with(
                 &archive,
                 &staging,
-                &UpdaterEnv::current(),
+                &env,
                 Some(&cancelled),
                 updater::UNPACK_TIMEOUT,
             )?;
+            if let Some(packs) = &keep_packs {
+                let whole = updater::slim::complete_staged(&new_root, packs, &env)?;
+                outcome
+                    .lock()
+                    .unwrap_or_else(|e| e.into_inner())
+                    .leaves_out_packs = !whole;
+            }
             if is_cancelled() {
                 return Err(DownloadError::Cancelled);
             }
@@ -693,6 +757,24 @@ impl UpdateDownloadState {
     }
 }
 
+/// Where a download the game could not apply was saved, and how to
+/// install it. The smaller archive has no sound packs, so it only works
+/// copied over the game folder, which keeps the player's own.
+fn manual_install(dest: &Path, leaves_out_packs: bool) -> String {
+    let dest = dest.display();
+    if leaves_out_packs {
+        format!(
+            "The new version is saved at {dest}. Copy it over your game folder, \
+             which keeps your music and radio packs, then restart the game."
+        )
+    } else {
+        format!(
+            "The new version is saved at {dest}. Install it yourself, then \
+             restart the game."
+        )
+    }
+}
+
 impl State for UpdateDownloadState {
     fn enter(&mut self, ctx: &mut GameContext) {
         if self.started {
@@ -745,12 +827,13 @@ impl State for UpdateDownloadState {
             return;
         }
         self.finished = true;
-        let (new_root, staging, error) = {
+        let (new_root, staging, error, leaves_out_packs) = {
             let outcome = self.outcome.lock().unwrap_or_else(|e| e.into_inner());
             (
                 outcome.new_root.clone(),
                 outcome.staging.clone(),
                 outcome.error.clone(),
+                outcome.leaves_out_packs,
             )
         };
         if self.is_cancelled() {
@@ -770,10 +853,8 @@ impl State for UpdateDownloadState {
             // where instead of dead-ending on restart.
             let dest = (self.stash_for_manual_install)(&new_root);
             ctx.say(&format!(
-                "Download complete, but this install cannot update itself. \
-                 The new version is saved at {}. Install it yourself, then \
-                 restart the game.",
-                dest.display()
+                "Download complete, but this install cannot update itself. {}",
+                manual_install(&dest, leaves_out_packs)
             ));
             ctx.pop_state();
             return;
@@ -785,10 +866,8 @@ impl State for UpdateDownloadState {
             log::warn!("Could not spawn the update apply script: {e}");
             let dest = (self.stash_for_manual_install)(&new_root);
             ctx.say(&format!(
-                "Download complete, but the update could not install itself. \
-                 The new version is saved at {}. Install it yourself, then \
-                 restart the game.",
-                dest.display()
+                "Download complete, but the update could not install itself. {}",
+                manual_install(&dest, leaves_out_packs)
             ));
             ctx.audio.play("ui/error");
             ctx.pop_state();
@@ -814,7 +893,7 @@ impl State for UpdateDownloadState {
                 // worker stops and tidies up when it next wakes.
                 self.cancelled.store(true, Ordering::SeqCst);
                 self.finished = true;
-                ctx.say("Update cancelled.");
+                ctx.say("Update canceled.");
                 ctx.audio.play("ui/menu_back");
                 ctx.pop_state();
             }

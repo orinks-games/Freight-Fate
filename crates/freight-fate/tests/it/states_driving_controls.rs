@@ -130,3 +130,4 @@ fn cruise_at(drive: &mut DrivingState, app: &mut TestApp, mph: f64) {
 include!("states_driving_controls/info.rs");
 include!("states_driving_controls/speed_control.rs");
 include!("states_driving_controls/route_and_cab.rs");
+include!("states_driving_controls/window_and_climate.rs");

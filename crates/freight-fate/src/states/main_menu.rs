@@ -15,7 +15,7 @@ use chrono::{DateTime, Datelike, Local, Timelike};
 use ff_core::models::business::status_label;
 use ff_core::models::jobs::facility_text;
 use ff_core::models::profile::{data_dir, LegacyCareerError, LoadError, Profile};
-use ff_core::music::{select_menu_music_sequence, MenuMusicProfile};
+use ff_core::music::{select_menu_ambience, select_menu_music_sequence, MenuMusicProfile};
 use ff_core::playtest_levers::apply_continue_levers;
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
 
@@ -40,21 +40,28 @@ use crate::{impl_state_for_menu, impl_state_for_text_entry};
 
 mod achievements;
 mod careers;
+mod input_practice;
 mod settings;
 mod settings_actions;
 mod settings_items;
 mod shortcuts;
 mod touch_gestures;
+mod touch_practice;
 
 pub use achievements::{AchievementCareerState, AchievementCategoryState, AchievementsState};
 pub use careers::{
     CareerAction, CareerActionsState, ConfirmCareerActionState, LoadDriverState, ManageCareersState,
+};
+pub use input_practice::{
+    describe_button, describe_key, opens_input_practice, opens_input_practice_pad,
+    InputPracticeState,
 };
 pub use settings::{
     GameplaySettingsState, SettingsCategoryState, SettingsState, SETTINGS_LAYOUT_NOTICES,
 };
 pub use shortcuts::{ShortcutDevice, ShortcutsState};
 pub use touch_gestures::{TouchCommandPickerState, TouchGesturesState};
+pub use touch_practice::{TouchPracticeOfferState, TouchPracticeState};
 
 pub use crate::states::main_menu_career::{
     region_menu_name, CareerStartState, HomeCityState, HomeTerminalState,
@@ -224,8 +231,9 @@ pub fn first_state_after_career_creation(ctx: &GameContext) -> SharedState {
         return share(OnlineOfferState::default());
     }
     // The welcome is spoken just before this state is pushed, so its entry
-    // announcement queues behind it rather than cutting it off.
-    share(CityMenuState::new(ctx, true))
+    // announcement queues behind it rather than cutting it off, and leaves
+    // out the location the welcome just gave.
+    share(CityMenuState::after_briefing(ctx))
 }
 
 /// Resume a saved mid-trip delivery if there is one, else the terminal hub.
@@ -560,7 +568,7 @@ impl MainMenuState {
 
     /// Start a fresh silent check for the next main-menu update cycle.
     pub fn arm_update_check(settings: &ff_core::settings::Settings) {
-        if !updater::is_frozen() || !updater::SELF_UPDATES {
+        if !updater::is_frozen() || !updater::self_updates() {
             return;
         }
         let mut guard = UPDATE_CHECK.lock().unwrap_or_else(|e| e.into_inner());
@@ -590,16 +598,9 @@ impl MainMenuState {
         ctx.profile = Some(latest);
         let lever_notes = apply_continue_levers(ctx);
         let p = ctx.profile.as_ref().expect("just loaded");
-        let welcome = if p.active_trip.is_some() {
-            format!("Welcome back, {}.", p.name)
-        } else {
-            format!(
-                "Welcome back, {}. You are parked {} with {} dollars.",
-                p.name,
-                p.parked_at(ctx.world).phrase(ctx.world),
-                fmt_grouped(p.money(), 0)
-            )
-        };
+        // The terminal (or the resumed drive) says where and with what
+        // right behind this line.
+        let welcome = format!("Welcome back, {}.", p.name);
         ctx.say(&welcome);
         // This welcome is spoken first; a resumed drive already queues its own
         // lines, and only the plain city-menu hand-off needs telling not to
@@ -652,7 +653,7 @@ impl Menu for MainMenuState {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
-        let sequence = reuse_loadable_saves_scan(|| {
+        let (sequence, ambience) = reuse_loadable_saves_scan(|| {
             // The base `Menu::enter`: rebuild the rows, play the open sound,
             // announce.
             self.refresh(ctx, true);
@@ -668,10 +669,15 @@ impl Menu for MainMenuState {
                     newest.as_ref()
                 }
             };
-            select_menu_music_sequence(profile.map(|p| p as &dyn MenuMusicProfile))
+            let profile = profile.map(|p| p as &dyn MenuMusicProfile);
+            (
+                select_menu_music_sequence(profile),
+                select_menu_ambience(profile),
+            )
         });
         let refs: Vec<&str> = sequence.iter().map(String::as_str).collect();
         ctx.play_music_sequence("menu", &refs);
+        ctx.audio.set_ambient(Some(ambience));
         let armed = UPDATE_CHECK
             .lock()
             .unwrap_or_else(|e| e.into_inner())
@@ -680,6 +686,10 @@ impl Menu for MainMenuState {
         if !armed {
             Self::arm_update_check(&ctx.settings);
         }
+    }
+
+    fn exit(&mut self, ctx: &mut GameContext) {
+        ctx.audio.set_ambient(None);
     }
 
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {
@@ -779,7 +789,7 @@ impl Menu for MainMenuState {
             );
         }
         let text = format!(
-            "Welcome to Freight Fate, version {}. An audio trucking adventure across America. {warning}",
+            "Freight Fate {}. {warning}",
             updater::spoken_version(version())
         );
         ctx.say(text.trim_end());
@@ -840,7 +850,7 @@ impl Menu for MainMenuState {
             })
             .help(
                 "Drivers on duty, your orinks.net account, cloud backup \
-                 and restore, and sharing choices like Mastodon and Discord.",
+                 and restore, and Discord presence.",
             ),
         );
         items.push(
@@ -856,10 +866,16 @@ impl Menu for MainMenuState {
             .help("Any sound the road uses, and what it means."),
         );
         items.push(
+            MenuItem::new("Practice keys and buttons", |_s: &mut Self, ctx| {
+                ctx.push_state(InputPracticeState::new())
+            })
+            .help("Names what each key or controller button does while driving."),
+        );
+        items.push(
             MenuItem::new("Settings", |_s: &mut Self, ctx| {
                 ctx.push_state(SettingsState::new())
             })
-            .help(if cfg!(target_os = "ios") {
+            .help(if !updater::self_updates() {
                 "Units, transmission mode, volumes, weather, voices, and trip pacing."
             } else {
                 "Units, transmission mode, volumes, weather, voices, \
@@ -1019,12 +1035,14 @@ impl TextEntry for NameEntryState {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
-        ctx.say(&format!(
-            "New career. Type your driver name, then Enter. Left and Right \
-             arrows review the letters, Home and End jump to the start or \
-             end. Escape cancels.{}",
-            crate::states::text_entry::KEYBOARD_HINT
-        ));
+        if crate::states::text_entry::touch_prompt(ctx) {
+            ctx.say(&format!(
+                "New career. Type your driver name. {}",
+                crate::states::text_entry::TOUCH_FIELD_HELP
+            ));
+            return;
+        }
+        ctx.say("New career. Type your driver name, then Enter.");
     }
 
     fn confirm(&mut self, ctx: &mut GameContext) {

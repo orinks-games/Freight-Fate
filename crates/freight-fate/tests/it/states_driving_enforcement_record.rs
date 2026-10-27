@@ -1,4 +1,4 @@
-//! What the roadside writes on the licence: the serious-violation ladder, the
+//! What the roadside writes on the license: the serious-violation ladder, the
 //! major offense, the fatigue events, and the exploits the adversarial
 //! harness found.
 //!
@@ -235,8 +235,8 @@ fn hub_after_release(app: &mut TestApp) -> (String, String) {
     let line = app
         .main_lines()
         .into_iter()
-        .find(|l| l.starts_with("Parked"))
-        .expect("a parked line");
+        .find(|l| l.contains(" dollars."))
+        .expect("an entry line");
     (line, CityMenuState::title_for(&app.ctx))
 }
 
@@ -269,7 +269,7 @@ fn test_a_felony_stop_tows_to_an_impound_lot_in_the_stop_city() {
     // The hub says the same place, and names no pin either.
     let (line, title) = hub_after_release(&mut app);
     assert!(
-        line.starts_with("Parked at an impound lot in Buffalo, New York. "),
+        line.starts_with("An impound lot in Buffalo, New York. "),
         "{line}"
     );
     assert!(!line.contains("service area"), "{line}");
@@ -297,7 +297,7 @@ fn test_a_felony_stop_beside_a_travel_center_still_tows_to_the_impound_lot() {
     assert_names_no_pin(&app, "healy_ak_us", &summary);
     let (line, _) = hub_after_release(&mut app);
     assert!(
-        line.starts_with("Parked at an impound lot in Healy, Alaska. "),
+        line.starts_with("An impound lot in Healy, Alaska. "),
         "{line}"
     );
     assert_names_no_pin(&app, "healy_ak_us", &line);
@@ -317,7 +317,7 @@ fn test_a_felony_stop_in_the_home_terminal_city_still_says_impound_lot() {
     assert_eq!(profile_of_app(&app).current_city, "buffalo_ny_us");
     let (line, title) = hub_after_release(&mut app);
     assert!(
-        line.starts_with("Parked at an impound lot in Buffalo, New York. "),
+        line.starts_with("An impound lot in Buffalo, New York. "),
         "{line}"
     );
     assert_eq!(title, "Buffalo impound lot");
@@ -339,7 +339,7 @@ fn test_the_hub_names_an_impound_lot_by_city_not_service_area() {
     }
     let (line, title) = hub_after_release(&mut app);
     assert!(
-        line.starts_with("Parked at an impound lot in The Dalles, Oregon. "),
+        line.starts_with("An impound lot in The Dalles, Oregon. "),
         "{line}"
     );
     assert!(!line.contains("service area"), "{line}");
@@ -367,15 +367,15 @@ fn test_no_carrier_wins_over_an_impound_lot_on_the_hub() {
     let line = app
         .main_lines()
         .into_iter()
-        .find(|l| l.contains("no carrier and no truck"))
+        .find(|l| l.contains("o carrier and no truck"))
         .unwrap_or_else(|| panic!("no hub line: {:?}", app.main_lines()));
     let title = CityMenuState::title_for(&app.ctx);
     assert!(
-        line.contains("with no carrier and no truck until a carrier assigns you one."),
+        line.contains("No carrier and no truck until a carrier assigns you one."),
         "{line}"
     );
     assert!(!line.to_lowercase().contains("impound"), "{line}");
-    assert!(!line.starts_with("Parked"), "{line}");
+    assert!(!line.to_lowercase().contains("parked"), "{line}");
     assert!(!title.to_lowercase().contains("impound"), "{title}");
     assert_eq!(title, "Buffalo, New York");
 }
@@ -566,7 +566,7 @@ fn test_a_second_pursuit_ends_this_career_driving_for_good() {
 #[test]
 fn test_a_stop_that_suspends_the_cdl_does_not_send_you_back_out_driving() {
     // The stop menu used to offer "Pull back onto the highway" no matter what
-    // had just happened -- so a driver whose licence had been pulled seconds
+    // had just happened -- so a driver whose license had been pulled seconds
     // earlier was invited to drive on, with no way to end the run from the
     // shoulder. A suspended driver is done for now; the run ends here.
     let mut app = TestApp::new();
@@ -698,6 +698,7 @@ fn test_a_serious_speeding_ticket_moves_the_ladder_and_says_so() {
 fn test_a_mild_speeding_ticket_is_money_only() {
     let mut app = TestApp::new();
     let mut drive = a_drive(&mut app, "Jerry");
+    app.seasoned_driver();
     drive.speeding_tickets = 1;
 
     a_traffic_stop(&mut app, &mut drive, true, 11.0, 65.0);
@@ -709,12 +710,44 @@ fn test_a_mild_speeding_ticket_is_money_only() {
 }
 
 #[test]
+fn test_a_new_driver_gets_a_warning_for_mild_speeding() {
+    let mut app = TestApp::new();
+    let mut drive = a_drive(&mut app, "Jerry");
+    drive.speeding_tickets = 1;
+    let money = app.ctx.profile.as_ref().expect("a career").money();
+
+    let stop = a_traffic_stop(&mut app, &mut drive, true, 11.0, 65.0);
+
+    let p = app.ctx.profile.as_ref().expect("a career");
+    assert_eq!(p.driving_record.citations, 0);
+    assert_eq!(p.money(), money);
+    assert!(
+        stop.outcome_text().contains("warning"),
+        "{}",
+        stop.outcome_text()
+    );
+}
+
+#[test]
+fn test_a_new_driver_is_still_cited_for_serious_speeding() {
+    let mut app = TestApp::new();
+    let mut drive = a_drive(&mut app, "Jerry");
+    drive.speeding_tickets = 1;
+
+    a_traffic_stop(&mut app, &mut drive, true, 16.0, 65.0);
+
+    let p = app.ctx.profile.as_ref().expect("a career");
+    assert_eq!(p.driving_record.citations, 1);
+    assert_eq!(p.driving_record.serious_in_window(p.game_hours), 1);
+}
+
+#[test]
 fn test_speeding_nobody_saw_never_touches_the_licence() {
     // The old silent settlement strike deliberately never moved the ladder.
     // The strike is gone, and the guarantee it needed is now structural
     // rather than deliberate: with nobody watching, speeding produces no
     // citation to put on the record in the first place. Nothing may reach the
-    // licence file without a trooper having been there.
+    // license file without a trooper having been there.
     let mut app = TestApp::new();
     let mut drive = a_drive(&mut app, "Jerry");
     drive.trip.posts = Vec::new(); // empty road
@@ -1150,6 +1183,7 @@ fn test_toggling_the_jake_cannot_farm_warnings_forever() {
     // One grace window per town, not a renewable exemption.
     let mut app = TestApp::new();
     let mut drive = a_drive(&mut app, "Jerry");
+    app.seasoned_driver();
     // First engagement: warned, then complies before the timer runs out.
     drive
         .jake_zone_grace_used
@@ -1187,6 +1221,15 @@ fn test_the_fatigue_out_of_service_actually_holds_the_truck() {
         "{:#?}",
         spoken(&app)
     );
+    // The 70-hour limit does not reset on ten hours off: only the driving
+    // and duty clocks do, and the line says so.
+    assert!(
+        spoken(&app)
+            .iter()
+            .any(|line| line.contains("Driving and duty clocks reset, and the delivery deadline")),
+        "{:#?}",
+        spoken(&app)
+    );
 }
 
 #[test]
@@ -1200,6 +1243,7 @@ fn test_a_settled_stop_is_read_back_as_history_not_as_a_fresh_charge() {
     // silenced: re-reading the stop is the only way back to the detail.
     let mut app = TestApp::new();
     let mut drive = a_drive(&mut app, "Jerry");
+    app.seasoned_driver();
     let money_before = app.ctx.profile.as_ref().expect("a career").money();
     app.clear_speech();
 

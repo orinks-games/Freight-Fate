@@ -1,6 +1,5 @@
 //! Facility endpoint data (the data-layer half of
-//! `tests/test_facility_endpoints.py`; the `tools/build_facility_endpoints.py`
-//! cases stay Python).
+//! `tests/test_facility_endpoints.py`).
 
 use std::collections::HashSet;
 
@@ -195,11 +194,3 @@ fn test_facility_route_falls_back_to_local_approach_for_representative_endpoint(
     assert!((route.miles() - approach.approach_miles).abs() < 1e-9);
     assert_eq!(route.highways(), vec![approach.road.clone()]);
 }
-
-#[test]
-#[ignore = "tools/build_facility_endpoints.py stays Python (needs osmium)"]
-fn test_build_tool_classifies_tiny_osm_fixture() {}
-
-#[test]
-#[ignore = "tools/build_facility_endpoints.py stays Python (needs osmium)"]
-fn test_build_tool_marks_missing_extracts_as_fallback() {}

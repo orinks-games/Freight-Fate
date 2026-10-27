@@ -421,6 +421,7 @@ mod tests {
             leg["to"].as_str().unwrap(),
             "CA",
             leg["highway"].as_str().unwrap(),
+            &[],
         )
         .unwrap();
         let worst = built
@@ -565,6 +566,7 @@ mod tests {
             "springfield_ma_us",
             "NH",
             leg["highway"].as_str().unwrap(),
+            &[],
         )
         .unwrap();
         let rejected = built

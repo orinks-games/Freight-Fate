@@ -110,8 +110,9 @@ fn rust_sources(dir: &Path, files: &mut Vec<PathBuf>) {
 }
 
 #[test]
-fn test_bear_is_cb_voice_only_in_every_player_facing_string() {
-    // The one use allowed outside the CB is a song title.
+fn test_bear_is_never_spoken_in_any_player_facing_string() {
+    // CB slang most players never learned; the officer is a trooper, on the
+    // CB too (owner, 2026-10-11). The one use allowed is a song title.
     const TITLES: [&str; 1] = ["Black Bear Road"];
 
     let crates = Path::new(env!("CARGO_MANIFEST_DIR"))
@@ -123,32 +124,25 @@ fn test_bear_is_cb_voice_only_in_every_player_facing_string() {
     }
     assert!(files.len() > 100, "the sweep found {} files", files.len());
 
-    let mut cb_lines = 0;
+    let mut titles_seen = 0;
     let mut offenders = Vec::new();
     for path in &files {
         let source = std::fs::read_to_string(path).expect("readable source");
         for literal in string_literals(&source) {
+            if TITLES.iter().any(|title| literal.contains(title)) {
+                titles_seen += 1;
+            }
             let text = TITLES
                 .iter()
                 .fold(literal.clone(), |text, title| text.replace(title, ""));
-            if !says_bear(&text) {
-                continue;
-            }
-            // CB voice is a line that says it is the CB, or that puts the
-            // word in another driver's mouth: the CB reports dropped their
-            // "CB chatter" opener for the squelch (owner, 2026-10-01).
-            let attributed =
-                text.contains("CB") || text.contains(" driver") || text.starts_with("Somebody");
-            if attributed {
-                cb_lines += 1;
-            } else {
+            if says_bear(&text) {
                 offenders.push(format!("{}: {literal}", path.display()));
             }
         }
     }
     assert!(offenders.is_empty(), "{offenders:#?}");
-    // The CB lines themselves are still found, so the sweep is looking.
-    assert!(cb_lines >= 3, "the sweep found {cb_lines} CB lines");
+    // The song title is still found, so the sweep is looking.
+    assert!(titles_seen >= 1, "the sweep found no song title");
 }
 
 #[test]

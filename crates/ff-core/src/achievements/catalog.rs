@@ -17,13 +17,13 @@ use super::{Achievement, AchievementCategory};
 /// sha256 over every category and achievement field, as the generator
 /// computed it from the Python catalog (see `catalog_digest` in the
 /// tests for the exact framing).
-pub const CATALOG_DIGEST: &str = "b6a0cbe4b1c75c16033f180f8b66f075dc45e51223ac54442fb8aa97e09b8958";
+pub const CATALOG_DIGEST: &str = "dbb4c7c4fa714cd9f049fda5ec04886cf63ba9ac54f307780a0067357361bd00";
 
 /// What a locked, hidden achievement speaks in place of its real name and
 /// description. Keeps a hidden badge's surprise -- the joke, the calendar
 /// quirk -- intact until the driver actually earns it.
 pub const HIDDEN_NAME: &str = "A Secret the Manifest Is Keeping";
-pub const HIDDEN_HELP: &str = "Some badges don't announce themselves until you've earned them. Keep driving -- the road will tell you when you've found one.";
+pub const HIDDEN_HELP: &str = "Some badges stay secret until you earn them. Keep driving.";
 
 /// The category browse menu, modeled on the two-level achievements screen
 /// from the owner's other game: pick a category, then arrow through its
@@ -70,11 +70,11 @@ pub const CATEGORIES: [AchievementCategory; 7] = [
 
 /// Every badge, in the Python catalog's order (the achievements menu and
 /// the cloud validator's allow-list both walk it in this order).
-pub const ACHIEVEMENTS: [Achievement; 182] = [
+pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "first_dispatch",
         name: "Breaker, Breaker",
-        description: "You grabbed your first load off the board. No long line of trucks stacked up behind you yet, good buddy -- just a handle, a load number, and somewhere to be.",
+        description: "Your first load off the board. Just a handle, a load number, and somewhere to be, good buddy.",
         category: "career",
         inspiration: "C.W. McCall - Convoy",
         hidden: false,
@@ -82,7 +82,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "first_pickup",
         name: "Loaded and Rolling",
-        description: "Cargo's aboard and the seal is set. Eighteen wheels don't roll on by themselves -- somebody had to back it into the dock and sign for it first.",
+        description: "Cargo's aboard and sealed. Eighteen wheels don't roll themselves to the dock.",
         category: "career",
         inspiration: "Alabama - Roll On (Eighteen Wheeler)",
         hidden: false,
@@ -90,7 +90,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "first_day",
         name: "First Day",
-        description: "Dispatch handed you your first load number, the shipper watched you back a trailer into the dock, and the air finally built past governor release. Your first day is in the books.",
+        description: "First load, first dock, and the air built to cut-out. Day one is in the books.",
         category: "career",
         inspiration: "The Franklin County Trucking Company - I'm a Trucker",
         hidden: false,
@@ -98,7 +98,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "first_delivery",
         name: "Signed, Sealed, Hauled",
-        description: "Your very first load is signed for and gone. No fanfare needed -- the receiver got the freight and the paperwork held up clean.",
+        description: "Your first load, signed for and gone. Clean paperwork, no fanfare.",
         category: "road",
         inspiration: "Dave Dudley - Truck Drivin' Son-of-a-Gun",
         hidden: false,
@@ -106,7 +106,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "first_on_time",
         name: "Beat the Clock, Fewer Days",
-        description: "You hit the dock before the deadline. Didn't take most of a week behind the wheel to manage it, and dispatch only ever reads the timestamp anyway.",
+        description: "You beat the deadline to the dock. Dispatch only reads the timestamp anyway.",
         category: "road",
         inspiration: "Dave Dudley - Six Days on the Road",
         hidden: false,
@@ -114,7 +114,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "clean_delivery",
         name: "Pretty as a Billboard",
-        description: "You delivered with barely a scratch on the rig. The truck's still pretty enough to smile down from a billboard -- not one new dent stealing the look.",
+        description: "Delivered without a new dent. The rig's still pretty enough for a billboard.",
         category: "road",
         inspiration: "Del Reeves - Girl on the Billboard",
         hidden: false,
@@ -122,7 +122,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "speed_limit_saint",
         name: "Slow Rod Lincoln",
-        description: "A whole run and not one speeding strike. The souped-up itch tapped the throttle once, then you sat it down to think hard about the insurance.",
+        description: "A whole run without one speeding strike. You thought hard about the insurance.",
         category: "road",
         inspiration: "Commander Cody and His Lost Planet Airmen - Hot Rod Lincoln",
         hidden: false,
@@ -130,7 +130,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "five_deliveries",
         name: "Just Can't Wait to Roll",
-        description: "Five career deliveries logged. That itch to get rolling down the highway again finally has a stat line that agrees with you.",
+        description: "Five deliveries. That itch to roll finally has a stat line.",
         category: "career",
         inspiration: "Willie Nelson - On the Road Again",
         hidden: false,
@@ -138,7 +138,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "ten_deliveries",
         name: "What a Long, Strange Haul",
-        description: "Ten career deliveries in the books. It has been a long, strange stretch of road to get here, and the receipts are piling up faster than the war stories.",
+        description: "Ten deliveries. A long, strange road, and the receipts pile up faster than the stories.",
         category: "career",
         inspiration: "Grateful Dead - Truckin'",
         hidden: false,
@@ -146,7 +146,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "level_three",
         name: "Another Page, Another Town",
-        description: "You reached career level 3. Here you are again, on stage in some new town -- except this chapter happens to pay better rates.",
+        description: "Career level 3. Another new town, but this chapter pays better.",
         category: "career",
         inspiration: "Bob Seger - Turn the Page",
         hidden: false,
@@ -154,7 +154,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "twenty_five_grand",
         name: "Built It a Piece at a Time",
-        description: "You've banked 25,000 dollars, stacked up load by load. Slower than sneaking a Cadillac out of the plant in your lunchbox, but a whole lot more legal.",
+        description: "25,000 dollars banked, a load at a time. Slower than a Cadillac in a lunchbox, but legal.",
         category: "career",
         inspiration: "Johnny Cash - One Piece at a Time",
         hidden: false,
@@ -162,7 +162,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "thousand_miles",
         name: "Caught the White-Line Bug",
-        description: "A thousand lifetime miles behind you. That white line gets in the blood like a fever, and the windshield's got the bug count to prove you've caught it.",
+        description: "A thousand miles. The white-line fever's in your blood, and the bugs are on the glass.",
         category: "career",
         inspiration: "Merle Haggard - White Line Fever",
         hidden: false,
@@ -170,7 +170,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "long_haul",
         name: "Where the Ribbon Don't End",
-        description: "One loaded haul over 900 miles. The blacktop unspooled ahead like a ribbon with no end in sight, long enough for the seat cushion to earn seniority.",
+        description: "One loaded haul over 900 miles. Long enough for the seat cushion to earn seniority.",
         category: "road",
         inspiration: "Tiny Harris - Endless Black Ribbon",
         hidden: false,
@@ -178,7 +178,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "state_crossing",
         name: "Kept It Between the Lines",
-        description: "You crossed your first state line with freight aboard. One side to the other, you kept the rig between the lines and the load rode clean across the border.",
+        description: "Your first state line with freight aboard, kept between the lines.",
         category: "road",
         inspiration: "Johnny Cash - I Walk the Line",
         hidden: false,
@@ -186,7 +186,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "multi_state",
         name: "Been Most Everywhere, Man",
-        description: "One route, three states. Still working up to a list of towns long enough to rattle off in one breath, but the map had to stop and clear its throat.",
+        description: "Three states on one route. The map had to clear its throat.",
         category: "road",
         inspiration: "Hank Snow - I've Been Everywhere",
         hidden: false,
@@ -194,7 +194,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "three_regions",
         name: "Three Regions and Ramblin'",
-        description: "You've worked three freight regions now. Can't wait to get rolling out to the next one -- though dispatch still mispronounces wherever it turns out to be.",
+        description: "You've worked three freight regions. Dispatch still mispronounces the next one.",
         category: "road",
         inspiration: "Willie Nelson - On the Road Again",
         hidden: false,
@@ -202,7 +202,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "toll_paid",
         name: "Bandit Pays the Toll",
-        description: "You hit a toll and let the carrier eat it. Eastbound, westbound, loaded down -- one little beep at the booth, then accounting took the wheel.",
+        description: "One beep at the toll, and the carrier ate it. Accounting took the wheel.",
         category: "road",
         inspiration: "Jerry Reed - East Bound and Down",
         hidden: false,
@@ -210,7 +210,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "no_toll_long",
         name: "Turns Out, an Easy Run",
-        description: "Three hundred-plus loaded miles and not a single toll. They always swear no run comes easy -- this one clearly never got that memo.",
+        description: "Over 300 loaded miles without a toll. This run never got the memo.",
         category: "road",
         inspiration: "Dave Dudley - There Ain't No Easy Run",
         hidden: false,
@@ -218,7 +218,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "rain_driver",
         name: "World Through a Wet Windshield",
-        description: "You drove through the rain and kept it civil. The whole world goes by through that glass, with the wipers keeping time and your following distance keeping order.",
+        description: "Through the rain, wipers keeping time and your following distance keeping order.",
         category: "weather_seasons",
         inspiration: "Del Reeves - Looking at the World Through a Windshield",
         hidden: false,
@@ -226,7 +226,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "winter_or_wind",
         name: "A Mile Past the Last Marker",
-        description: "Snow or crosswind, you kept the trailer in line and the wheels turning. The kind of grim stretch that earns roadside markers stayed in your mirror, not the headlines.",
+        description: "Snow or crosswind, the trailer stayed in line and out of the headlines.",
         category: "weather_seasons",
         inspiration: "Dick Curless - A Tombstone Every Mile",
         hidden: false,
@@ -234,7 +234,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "low_visibility",
         name: "Foggy Mountain Haul",
-        description: "You ran through fog thick enough to bend a banjo string and never lost the road. Headlights, GPS, and brake distance picked up the tune.",
+        description: "Fog thick enough to bend a banjo string, and you never lost the road.",
         category: "weather_seasons",
         inspiration: "Flatt & Scruggs - Foggy Mountain Breakdown",
         hidden: false,
@@ -242,7 +242,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "hazard_avoided",
         name: "Highway to Maybe Not",
-        description: "You slowed in time to dodge a road hazard. Could've been a one-way ramp to somewhere awful -- your brake pedal had other plans.",
+        description: "You slowed in time for a road hazard. Your brake pedal had other plans.",
         category: "working_day",
         inspiration: "AC/DC - Highway to Hell",
         hidden: false,
@@ -250,7 +250,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "construction_zone",
         name: "Honky-Tonk of Cones",
-        description: "You crept through a construction zone like every cone had a lawyer on retainer. The swagger shrank down to posted speed, orange vests, and patient merging.",
+        description: "You crept through the cones like each one had a lawyer.",
         category: "working_day",
         inspiration: "John Anderson - Honky Tonk Crowd",
         hidden: false,
@@ -258,7 +258,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "traffic_slowing",
         name: "Bumper-to-Bumper Blues",
-        description: "Heavy traffic, and you kept the following distance sane. The road runs long and life moves fast on it, so you let the jam breathe instead of tailgating into a mess.",
+        description: "Heavy traffic, and you kept a sane following distance. You let the jam breathe.",
         category: "working_day",
         inspiration: "Tom Cochrane - Life Is a Highway",
         hidden: false,
@@ -266,7 +266,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "inspection",
         name: "Smokey at the Scale",
-        description: "You rolled through an inspection with the paperwork in order. All that radio mischief stayed outside while your axle weights behaved themselves indoors.",
+        description: "An inspection with your paperwork in order and your axle weights behaving.",
         category: "working_day",
         inspiration: "Rod Hart - C.B. Savage",
         hidden: false,
@@ -274,7 +274,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "first_rest_stop",
         name: "Sweetheart of the Truck Stop",
-        description: "You pulled into a rest stop for the very first time. The romance lasted exactly as long as the vending machine took to size you up and judge.",
+        description: "Your first rest stop. The romance lasted as long as the vending machine's stare.",
         category: "working_day",
         inspiration: "The Willis Brothers - Truck Stop Cutie",
         hidden: false,
@@ -282,7 +282,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "route_refuel",
         name: "Filler-Up and Keep Truckin'",
-        description: "You topped off the tank before it got dramatic. Filled 'er up at the old roadside cafe and kept right on truckin' down the line.",
+        description: "You topped off before it got dramatic, then kept on truckin'.",
         category: "working_day",
         inspiration: "C.W. McCall - Old Home Filler-Up an' Keep On-a-Truckin' Cafe",
         hidden: false,
@@ -290,7 +290,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "break_taken",
         name: "Coffee Break, Driver",
-        description: "You took your 30-minute break and let the clock breathe. One more cup of truck-stop coffee, and your knees filed a note of gratitude.",
+        description: "Your 30-minute break, taken. One more cup, and your knees said thanks.",
         category: "working_day",
         inspiration: "Buck Owens - Truck Drivin' Man",
         hidden: false,
@@ -298,7 +298,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "slept_on_route",
         name: "Five-by-Two and Out",
-        description: "Ten hours in the bunk and you woke up legal. Unglamorous sleeper math -- and somehow the most heroic move on the whole board.",
+        description: "Ten hours in the bunk, and you woke up legal. Unglamorous, and heroic.",
         category: "working_day",
         inspiration: "Red Simpson - Sleeper, Five-By-Two",
         hidden: false,
@@ -306,7 +306,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "sleep_before_exhaustion",
         name: "Mama Warned You About This",
-        description: "You bunked down before the fatigue started steering. Somebody once warned you about staring down that centerline too long -- this time you listened.",
+        description: "You bunked down before fatigue took the wheel. This time you listened.",
         category: "working_day",
         inspiration: "Merle Haggard - Mama Tried",
         hidden: false,
@@ -314,7 +314,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "garage_repair",
         name: "A Working Man's Receipt",
-        description: "You fixed the rig in a proper garage instead of cobbling it together from borrowed parts. Honest work and an honest bill, and the truck rolled out earning its keep again.",
+        description: "Fixed right at a real garage. An honest bill, and the truck earns its keep again.",
         category: "career",
         inspiration: "Merle Haggard - Workin' Man Blues",
         hidden: false,
@@ -322,7 +322,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "first_upgrade",
         name: "Soup It Up a Little",
-        description: "Your first upgrade -- a small taste of souped-up confidence. The ghost in that old hopped-up Lincoln approved, then asked why the invoice was so reasonable.",
+        description: "Your first upgrade, a small taste of souped-up confidence.",
         category: "career",
         inspiration: "Commander Cody and His Lost Planet Airmen - Hot Rod Lincoln",
         hidden: false,
@@ -330,7 +330,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "heavy_hauler",
         name: "Eighteen Wheels and Then Some",
-        description: "You bought the heavy hauler. The hills got a politely worded threat, and the fuel bill immediately demanded a speaking part of its own.",
+        description: "You bought the heavy hauler. The hills got nervous, and so did the fuel bill.",
         category: "career",
         inspiration: "Alabama - Roll On (Eighteen Wheeler)",
         hidden: false,
@@ -338,7 +338,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "air_ready",
         name: "Star of the Interstate",
-        description: "You built up enough air to kick the brakes loose like a pro. The glory goes to the compressor today -- even the fastest thing on the interstate needs its PSI.",
+        description: "You built air like a pro. Even the fastest rig on the interstate needs its PSI.",
         category: "road",
         inspiration: "Deep Purple - Highway Star",
         hidden: false,
@@ -346,7 +346,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "manual_driver",
         name: "Stick-Shift Solo",
-        description: "You ran in manual and made the gearbox part of the band. Every clean shift sounds cool, right up until the grade changes key on you.",
+        description: "You ran in manual. Every clean shift sounds cool until the grade changes key.",
         category: "road",
         inspiration: "Pete Drake - Gear Shiftin'",
         hidden: false,
@@ -354,7 +354,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "eastbound_delivery",
         name: "Eastbound and Gone",
-        description: "You ran a load net eastbound and put it on the dock. East is east, the hammer was down, and the receiver never had to wait on you.",
+        description: "A load hauled east and on the dock. Eastbound, hammer down, and nobody waited.",
         category: "places",
         inspiration: "Jerry Reed - East Bound and Down",
         hidden: false,
@@ -362,7 +362,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "westbound_delivery",
         name: "Westbound, Foot Down",
-        description: "A load delivered headed the other way. Westbound and willing, you drank the weak coffee, pushed the sun down ahead of you, and put it on the dock.",
+        description: "A load hauled west, chasing the sun down to the dock.",
         category: "places",
         inspiration: "Little Feat - Willin'",
         hidden: false,
@@ -370,7 +370,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "route66_run",
         name: "The Mother Road",
-        description: "You hauled between two towns strung along the old Mother Road. The neon's faded, but the asphalt still gets its kicks under your tires.",
+        description: "A haul between two old Mother Road towns. The neon's faded, but you still got your kicks.",
         category: "places",
         inspiration: "Bobby Troup - (Get Your Kicks on) Route 66",
         hidden: false,
@@ -378,7 +378,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "amarillo_arrival",
         name: "Amarillo by Daybreak",
-        description: "Rolled into Amarillo in the early light, the load on the dock by daybreak. You weren't quite riding in on a pony, but the Panhandle dawn made up the difference.",
+        description: "Into Amarillo, load on the dock by daybreak. No pony, but a fine Panhandle dawn.",
         category: "places",
         inspiration: "George Strait - Amarillo by Morning",
         hidden: false,
@@ -386,7 +386,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "phoenix_arrival",
         name: "Clear to Phoenix",
-        description: "Freight delivered in Phoenix. By the time you rolled in, the desert had stopped pretending it was ever going to cool off.",
+        description: "Freight delivered in Phoenix. The desert never did cool off.",
         category: "places",
         inspiration: "Glen Campbell - By the Time I Get to Phoenix",
         hidden: false,
@@ -394,7 +394,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "wichita_arrival",
         name: "Wichita on the Line",
-        description: "A load signed for in Wichita. Somewhere out on the plains a lineman waved; you were too busy watching the wind push the trailer.",
+        description: "A load signed for in Wichita. A lineman waved; you were watching the wind.",
         category: "places",
         inspiration: "Glen Campbell - Wichita Lineman",
         hidden: false,
@@ -402,7 +402,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "lubbock_arrival",
         name: "Lubbock in the Rearview",
-        description: "Rolled out of Lubbock with a load, the high plains opening up ahead. They say happiness is a hometown shrinking in the rearview mirror, and tonight the freight led the way.",
+        description: "Out of Lubbock with a load, the hometown shrinking in the mirror.",
         category: "places",
         inspiration: "Mac Davis - Texas in My Rear View Mirror",
         hidden: false,
@@ -410,7 +410,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "bakersfield_arrival",
         name: "The Bakersfield Sound",
-        description: "Freight on the dock in Bakersfield. The streets out here have a twang all their own, and your air brakes kept the beat.",
+        description: "Freight on the dock in Bakersfield. Your air brakes kept the twang's beat.",
         category: "places",
         inspiration: "Dwight Yoakam & Buck Owens - Streets of Bakersfield",
         hidden: false,
@@ -418,7 +418,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "tulsa_arrival",
         name: "Tulsa, Right on Schedule",
-        description: "Pulled into Tulsa with the clock on your side and the load in on time. You ran it tight, and the dock was glad to see you right when they expected you.",
+        description: "Into Tulsa right on time. The dock was glad to see you.",
         category: "places",
         inspiration: "Don Williams - Tulsa Time",
         hidden: false,
@@ -426,7 +426,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "vegas_arrival",
         name: "Long Live Las Vegas",
-        description: "Hauled a load into Las Vegas without leaving a nickel in a machine. The only thing you gambled was the merge, and the house lost.",
+        description: "A load into Las Vegas. You only gambled on the merge, and the house lost.",
         category: "places",
         inspiration: "Elvis Presley - Viva Las Vegas",
         hidden: false,
@@ -434,7 +434,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "georgia_arrival",
         name: "Midnight Freight to Georgia",
-        description: "Delivered somewhere in Georgia with the freight rolling in well after dark. No first-class ticket -- just a sleeper, a thermos, and a place you'd rather be.",
+        description: "Midnight freight into Georgia. No first-class ticket, just a sleeper and a thermos.",
         category: "places",
         inspiration: "Gladys Knight & the Pips - Midnight Train to Georgia",
         hidden: false,
@@ -442,7 +442,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "detroit_run",
         name: "Last Load Out of Detroit",
-        description: "You hauled a load out of Detroit and pointed it down the road. The home you left keeps calling, but the freight pays better than the homesickness does.",
+        description: "A load out of Detroit. Home keeps calling, but freight pays better.",
         category: "places",
         inspiration: "Bobby Bare - Detroit City",
         hidden: false,
@@ -450,7 +450,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "all_regions",
         name: "Been Everywhere, For Real",
-        description: "You've now hauled freight in all fourteen regions on the map. The list of towns is finally long enough to leave somebody breathless.",
+        description: "You've hauled in every region on the map. That list of towns is finally long enough.",
         category: "places",
         inspiration: "Hank Snow - I've Been Everywhere",
         hidden: false,
@@ -458,7 +458,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "coast_to_coast",
         name: "Coast-to-Coast Hauler",
-        description: "One run that crossed most of a continent, salt air to salt air. Your seat cushion has seen more states this trip than most folks see in a year.",
+        description: "One run across most of a continent, salt air to salt air.",
         category: "road",
         inspiration: "Woody Guthrie - This Land Is Your Land",
         hidden: false,
@@ -466,7 +466,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "fifty_deliveries",
         name: "Fifty Loads Down the Road",
-        description: "Fifty career deliveries logged. The board knows your handle now, and the windshield's collected a small nation of bugs.",
+        description: "Fifty deliveries. The board knows your handle, and the windshield knows every bug.",
         category: "career",
         inspiration: "Dave Dudley - Six Days on the Road",
         hidden: false,
@@ -474,7 +474,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "hundred_deliveries",
         name: "Just Keep Rollin' On",
-        description: "One hundred deliveries in the book. You never made a fuss about it, just kept the wheels rolling down the road, load after load, until the number turned serious.",
+        description: "A hundred deliveries, load after load, until the number got serious.",
         category: "career",
         inspiration: "Lynyrd Skynyrd - Call Me the Breeze",
         hidden: false,
@@ -482,7 +482,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "ten_thousand_miles",
         name: "Ten Thousand Down the Line",
-        description: "Ten thousand lifetime miles behind you. The white-line fever stopped being a symptom a long way back -- now it's just the job.",
+        description: "Ten thousand miles. The white-line fever is just the job now.",
         category: "career",
         inspiration: "Merle Haggard - White Line Fever",
         hidden: false,
@@ -490,7 +490,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "fifty_thousand_miles",
         name: "Highway Lifer",
-        description: "Fifty thousand miles of trailers and two-lane towns behind you. You answer to a long ribbon of road now, and it is not the sort of job a person walks away from.",
+        description: "Fifty thousand miles. The long ribbon of road won't let you walk away.",
         category: "career",
         inspiration: "Roger Miller - King of the Road",
         hidden: false,
@@ -498,7 +498,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "hundred_grand",
         name: "Hundred-Grand Hood Ornament",
-        description: "You've banked a hundred thousand dollars, one load at a time. Slow as smuggling a Cadillac out a piece at a time -- and a whole lot more legal.",
+        description: "A hundred thousand dollars banked. Slow as a Cadillac a piece at a time, but legal.",
         category: "career",
         inspiration: "Johnny Cash - One Piece at a Time",
         hidden: false,
@@ -506,7 +506,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "max_level",
         name: "Veteran of the Long Haul",
-        description: "Career level twenty. Same towns, same docks, same diner pie -- but the page turns a little easier when you've read the whole book.",
+        description: "Career level 20. Same docks, same diner pie, but the pages turn easier now.",
         category: "career",
         inspiration: "Bob Seger - Turn the Page",
         hidden: false,
@@ -514,7 +514,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "top_reputation",
         name: "CB Royalty",
-        description: "Your reputation pinned the meter. Trailer for a throne, the whole channel knows the handle, and dispatch finally takes your word for it.",
+        description: "Your reputation pinned the meter. The channel knows your handle, and dispatch takes your word.",
         category: "career",
         inspiration: "Roger Miller - King of the Road",
         hidden: false,
@@ -522,7 +522,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "perfect_streak",
         name: "Five Clean, In a Row",
-        description: "Five straight deliveries on time, undamaged, and ticket-free. A streak that quiet doesn't make for a good CB story, but it pays.",
+        description: "Five straight on time, undamaged, and ticket-free. Quiet on the CB, good on the paycheck.",
         category: "road",
         inspiration: "Red Simpson - I'm a Truck",
         hidden: false,
@@ -530,7 +530,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "grueling_clean",
         name: "Long, Hard, and Spotless",
-        description: "Twelve hundred-plus miles, on time, and not a fresh scratch on the rig. They swear no run comes easy; you delivered the exception.",
+        description: "Over 1,200 miles, on time and spotless. No run comes easy, except yours.",
         category: "road",
         inspiration: "Dave Dudley - There Ain't No Easy Run",
         hidden: false,
@@ -538,7 +538,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "big_payday",
         name: "Paid Like a Boss Hog",
-        description: "One load cleared four grand gross all by itself. Just this once the big money landed squarely on the right side of the law, and the settlement sheet grinned back.",
+        description: "One load over 4,000 dollars gross. Big money, on the right side of the law.",
         category: "career",
         inspiration: "Waylon Jennings - Good Ol' Boys",
         hidden: false,
@@ -546,7 +546,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "mountain_clean",
         name: "Over the Rockies, Spotless",
-        description: "You took a mountain grade and brought the freight down clean. The rocky high country tested the brakes; the brakes politely declined to fail.",
+        description: "A mountain grade, and the freight came down clean. The brakes politely declined to fail.",
         category: "road",
         inspiration: "Joe Walsh - Rocky Mountain Way",
         hidden: false,
@@ -554,7 +554,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "multi_leg_haul",
         name: "Four Legs and Rolling",
-        description: "A single dispatch that strung four corridors together. Front to back it was a long line of road, and you ran the whole thing nose to tail.",
+        description: "One dispatch, four corridors, run nose to tail.",
         category: "career",
         inspiration: "C.W. McCall - Convoy",
         hidden: false,
@@ -562,7 +562,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "virginia_line",
         name: "Runnin' the County Line",
-        description: "You put freight on a dock in Virginia, out where the ridgelines run the show. Some county lines out here are worth singing about; you crossed yours with the trailer full.",
+        description: "Freight on a Virginia dock, across a county line worth singing about.",
         category: "places",
         inspiration: "49 Winchester - Russell County Line",
         hidden: false,
@@ -570,7 +570,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "birmingham_morning",
         name: "Birmingham Before the Coffee Kicks In",
-        description: "Freight delivered in Birmingham while the morning was still finding its feet. Eight-thirty in Alabama hits different when you have been rolling since before the birds.",
+        description: "Birmingham before the coffee kicked in. You'd been rolling since before the birds.",
         category: "places",
         inspiration: "Andrea and Mud - Birmingham, AL 8:30AM",
         hidden: false,
@@ -578,7 +578,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "kentucky_delivery",
         name: "Bluegrass on the Bill of Lading",
-        description: "A load signed for in Kentucky, where the pastures look painted and the fences run forever. The grass gets called blue; the money you made on it was plain green.",
+        description: "A load signed for in Kentucky. The grass is blue; the money was green.",
         category: "places",
         inspiration: "Brit Taylor - Kentucky Blue",
         hidden: false,
@@ -586,7 +586,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "jersey_delivery",
         name: "Giant of the Turnpike",
-        description: "You delivered in New Jersey and lived to merge again. Between the toll plazas and the jughandles, walking tall through Jersey takes a certain kind of nerve.",
+        description: "You delivered in New Jersey and lived to merge again. Jughandles and all.",
         category: "places",
         inspiration: "Elle King - Jersey Giant",
         hidden: false,
@@ -594,7 +594,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "waco_survivor",
         name: "Made It to Waco Just Fine",
-        description: "Freight delivered in Waco without a scratch worth mentioning. Whatever the songs say about this town, you rolled in, got the signature, and kept your health intact.",
+        description: "Freight into Waco without a scratch. Whatever the songs say, you kept your health.",
         category: "places",
         inspiration: "Croy and the Boys - Don't Let Me Die in Waco",
         hidden: false,
@@ -602,7 +602,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "gulf_coast_by_two",
         name: "Coast Freight by Two O'Clock",
-        description: "Delivered on the Mississippi Gulf coast with the clock still shy of two. Shrimp boats, salt air, and a bill of lading signed before the afternoon heat got serious.",
+        description: "On the Mississippi Gulf Coast by two o'clock. Shrimp boats, salt air, signed bills.",
         category: "places",
         inspiration: "Ellis Bullard - Biloxi By Two",
         hidden: false,
@@ -610,7 +610,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "nashville_delivery",
         name: "An Overnight Success, Eventually",
-        description: "You put a load on a dock in Nashville, where every songwriter is ten years into being discovered any day now. Your freight got its big break on the first try.",
+        description: "A load in Nashville, where songwriters wait years. Your freight broke through on the first try.",
         category: "places",
         inspiration: "Curtis Grimes - Ten Year Town",
         hidden: false,
@@ -618,7 +618,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "appalachia_delivery",
         name: "Freight Up the Holler",
-        description: "You delivered into Appalachian coal-and-ridge country, where the roads bend like fiddle tunes. The hills watched you come in, and the dock was glad you did.",
+        description: "Into Appalachian coal and ridge country, on roads that bend like fiddle tunes.",
         category: "places",
         inspiration: "Dirty Grass Soul - Back to the Holler",
         hidden: false,
@@ -626,7 +626,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "wyoming_delivery",
         name: "Where the Herds Still Graze",
-        description: "A delivery completed in Wyoming, high plains rolling out in every direction. Not much traffic to fight out here -- mostly wind, antelope, and the occasional legend.",
+        description: "A delivery in Wyoming. No traffic, just wind, antelope, and the odd legend.",
         category: "places",
         inspiration: "Chancey Williams - Land of the Buffalo",
         hidden: false,
@@ -634,7 +634,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "norcal_giants",
         name: "Shadow of the Giants",
-        description: "You delivered up in far Northern California, where the biggest living things on Earth watch the trucks go by. The trailer felt small the whole way in.",
+        description: "Up in far Northern California, where the redwoods make a trailer feel small.",
         category: "places",
         inspiration: "Andrew Gabbard - Redwood",
         hidden: false,
@@ -642,7 +642,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "pnw_delivery",
         name: "Pines to the Pacific",
-        description: "Freight delivered in the Pacific Northwest, where the evergreens crowd the shoulders and the rain keeps its own schedule. The air alone was worth the trip.",
+        description: "Freight in the Pacific Northwest, where the evergreens crowd the shoulder and the rain sets its own schedule.",
         category: "places",
         inspiration: "Colby Acuff - Western White Pines",
         hidden: false,
@@ -650,7 +650,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "el_paso_arrival",
         name: "A Ballad Out West",
-        description: "You brought freight into El Paso, the far west end of Texas. The old ballads about this town end in heartbreak; yours ended with a signed delivery receipt.",
+        description: "Freight into El Paso. The old ballads end in heartbreak; yours ended with a signature.",
         category: "places",
         inspiration: "Marty Robbins - El Paso City",
         hidden: false,
@@ -658,7 +658,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "laredo_arrival",
         name: "Down the Old Cowboy Road",
-        description: "Freight delivered in Laredo, right up against the border. The old song about this town is a slow goodbye; your visit was strictly business, and everybody stayed cheerful.",
+        description: "Freight in Laredo, right on the border. Strictly business, and everybody stayed cheerful.",
         category: "places",
         inspiration: "Marty Robbins - Streets of Laredo",
         hidden: false,
@@ -666,7 +666,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "baton_rouge_arrival",
         name: "Better Off Than Busted Flat",
-        description: "You rolled into Baton Rouge with a load and a paycheck coming, which beats thumbing it with a harmonica. Freedom is nice; a settlement sheet is nicer.",
+        description: "Into Baton Rouge with a paycheck coming. Beats busted flat with a harmonica.",
         category: "places",
         inspiration: "Kris Kristofferson - Me and Bobby McGee",
         hidden: false,
@@ -674,7 +674,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "sacramento_arrival",
         name: "A Whistle Outside Folsom",
-        description: "Freight delivered in Sacramento, just down the road from a famously well-sung prison. You heard a train whistle on the way in and kept rolling, free as you please.",
+        description: "Freight into Sacramento. You heard a train whistle near Folsom and kept rolling, free.",
         category: "places",
         inspiration: "Johnny Cash - Folsom Prison Blues",
         hidden: false,
@@ -682,7 +682,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "texas_triangle",
         name: "All Your Loads Live in Texas",
-        description: "Origin and destination both inside the Texas triangle, one more load bouncing between the big towns. Some drivers spread out; this week the whole map was one state.",
+        description: "Both ends of the load inside the Texas Triangle. This week the whole map was one state.",
         category: "places",
         inspiration: "George Strait - All My Ex's Live in Texas",
         hidden: false,
@@ -690,7 +690,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "true_north_run",
         name: "The Compass Said Keep Going",
-        description: "A delivery that ran hard north, latitude stacking up the whole way. When the wandering gets aimless, some folks find a bearing and follow it; yours had a dock at the end.",
+        description: "A delivery that ran hard north. You found a bearing, and it had a dock at the end.",
         category: "road",
         inspiration: "Caroline Spence - True North",
         hidden: false,
@@ -698,7 +698,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "southbound_run",
         name: "Down the Map with a Load",
-        description: "A delivery that ran hard south, shedding latitude with every fuel stop. Warmer air, looser shoulders, and somebody at the bottom of the map waiting on freight.",
+        description: "A delivery that ran hard south, toward warmer air and somebody waiting on freight.",
         category: "road",
         inspiration: "The Allman Brothers Band - Southbound",
         hidden: false,
@@ -706,7 +706,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "return_trip",
         name: "Right Back Where You Started",
-        description: "You delivered a load, then hauled the very next one straight back where you came from. Some drivers chase new horizons; this week the horizon ran a shuttle.",
+        description: "You hauled the next load right back where you started. This week the horizon ran a shuttle.",
         category: "road",
         inspiration: "Aaron McDonnell - You Drive Back",
         hidden: false,
@@ -714,7 +714,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "all_terrain_route",
         name: "Flats, Foothills, and the Big Climb",
-        description: "One route that served flat land, rolling hills, and a real mountain grade before the dock. Your stomach rode the whole ride; the freight never noticed a thing.",
+        description: "Flats, hills, and a real mountain grade on one route. The freight never noticed.",
         category: "road",
         inspiration: "Ellis Bullard - Roller Coaster",
         hidden: false,
@@ -722,7 +722,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "long_day_run",
         name: "The Long Way to the Dock",
-        description: "One dispatch that stretched past a full day on the trip clock, sleep and all. The kind of run where the last hundred miles feel personally aimed at you.",
+        description: "One dispatch longer than a day on the trip clock. The last hundred miles felt personal.",
         category: "road",
         inspiration: "Billy Strings - Long Journey Home",
         hidden: false,
@@ -730,7 +730,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "reefer_load",
         name: "Cold Freight, Warm Heart",
-        description: "Your first refrigerated load delivered with the temperature holding steady. The trailer ran cold the whole way there; no reason your mood had to.",
+        description: "Your first reefer load, temperature steady. The trailer ran cold; your mood didn't.",
         category: "road",
         inspiration: "Hank Williams - Cold, Cold Heart",
         hidden: false,
@@ -738,7 +738,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "heavy_haul_load",
         name: "Big John on the Drive Axles",
-        description: "Your first heavy-haul load, the kind of tonnage that makes a trailer groan and a grade think twice. Every gear change felt like moving a legend.",
+        description: "Your first heavy-haul load. Every gear change felt like moving a legend.",
         category: "road",
         inspiration: "Jimmy Dean - Big Bad John",
         hidden: false,
@@ -746,7 +746,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "high_value_load",
         name: "Sparkle in the Dry Van",
-        description: "Your first high-value load delivered with the seals intact. Cargo worth more than the truck rides quiet, stays locked up tight, and never stops for souvenirs.",
+        description: "Your first high-value load, seals intact. It rode quiet and never stopped for souvenirs.",
         category: "road",
         inspiration: "Amanda Fields - Diamonds",
         hidden: false,
@@ -754,7 +754,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "securement_load",
         name: "Chained and Checked",
-        description: "Your first open-deck load delivered with every chain still tight. Fifty miles out you stopped and checked the tie-downs, the way the book says. Nothing shifted, nothing slid.",
+        description: "Your first flatbed load, every chain still tight. You checked within the first 50 miles, by the book.",
         category: "road",
         inspiration: "Red Simpson - Roll, Truck, Roll",
         hidden: false,
@@ -762,7 +762,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "tank_load",
         name: "The Load That Pushes Back",
-        description: "Your first liquid bulk load delivered with the shell intact and the surge spent. Twenty-some tons of cargo spent the whole trip trying to drive. You did not let it.",
+        description: "Your first tanker load, delivered. The surge tried to drive the whole way. You didn't let it.",
         category: "road",
         inspiration: "Dave Dudley - Six Days on the Road",
         hidden: false,
@@ -770,7 +770,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "doubles_load",
         name: "Two Boxes, One Driver",
-        description: "Your first twin-trailer set delivered whole. The rear pup wandered every mile and the mirrors never lied. Two hookups, two walk-arounds, one clean arrival.",
+        description: "Your first set of doubles, delivered whole. The rear trailer wandered; the mirrors told the truth.",
         category: "road",
         inspiration: "Red Sovine - Giddy-Up Go",
         hidden: false,
@@ -778,7 +778,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "hazmat_load",
         name: "Placards Up",
-        description: "Your first placarded load delivered without incident. Every scale watched you through, every restriction sign applied to you, and the paperwork rode shotgun. Careful pays.",
+        description: "Your first placarded load, no incidents. The paperwork rode shotgun. Careful pays.",
         category: "road",
         inspiration: "Merle Haggard - Movin' On",
         hidden: false,
@@ -786,7 +786,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "port_load",
         name: "Through the Gate",
-        description: "Your first container hauled off the secure side of the waterfront. The card got you through the gate; the chassis and the crane line did the rest. Salt air, steel boxes.",
+        description: "Your first container off the port. Your card got you through the gate.",
         category: "road",
         inspiration: "Johnny Cash - I've Been Everywhere",
         hidden: false,
@@ -794,7 +794,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "lcv_load",
         name: "The Long Combination",
-        description: "Your first turnpike doubles run delivered. Two long trailers on the only corridors that allow them, and every lane change planned half a mile out. The certificate earned its keep.",
+        description: "Your first turnpike doubles run. Two long trailers, and every lane change planned half a mile out.",
         category: "road",
         inspiration: "Dick Curless - A Tombstone Every Mile",
         hidden: false,
@@ -802,7 +802,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "farm_load",
         name: "Feed, Seed, and Freight",
-        description: "You hauled farm freight where it was needed -- feed, seed, or the season's grain. Somewhere down a gravel drive, a rancher checked the sky and said much obliged.",
+        description: "Farm freight where it was needed. Somewhere a rancher checked the sky and said much obliged.",
         category: "road",
         inspiration: "Emily Nenni - On The Ranch",
         hidden: false,
@@ -810,7 +810,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "max_gross_load",
         name: "Grossed Out at the Scale House",
-        description: "You delivered a load pushing the legal weight limit, every axle earning its keep. The big mama of manifests, and the scale house waved it through anyway.",
+        description: "A load near the legal weight limit, and the scale house waved it through.",
         category: "road",
         inspiration: "Joe Stampley - Roll On Big Mama",
         hidden: false,
@@ -818,7 +818,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "twenty_five_deliveries",
         name: "Twenty-Five and Rolling Steady",
-        description: "Twenty-five career deliveries logged. Not a rookie number anymore, not a veteran number yet -- just a little more road behind you than most folks ever get.",
+        description: "Twenty-five deliveries, somewhere between rookie and veteran, with more road than most.",
         category: "career",
         inspiration: "Ellie Turner - A Little Farther Down The Line",
         hidden: false,
@@ -826,7 +826,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "two_hundred_deliveries",
         name: "Two Hundred and Playing for Keeps",
-        description: "Two hundred career deliveries in the book. This stopped being a phase somewhere around load fifty; now it is a body of work with its own gravity.",
+        description: "Two hundred deliveries. That's a body of work.",
         category: "career",
         inspiration: "Emily Nenni - Long Game",
         hidden: false,
@@ -834,7 +834,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "quarter_million_bank",
         name: "A Vault with Mud Flaps",
-        description: "You banked 250,000 dollars, hauled in one settlement at a time. The teller stopped counting out loud somewhere around the third deposit. The bank is fine, by the way.",
+        description: "250,000 dollars banked. The teller quit counting out loud.",
         category: "career",
         inspiration: "Alex Miller - Breaking the Bank",
         hidden: false,
@@ -842,7 +842,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "half_million_earned",
         name: "Half a Million in Lifetime Freight",
-        description: "Five hundred thousand dollars in career earnings, gross of everything the road took back along the way. Nobody would call it easy money, but it spends just the same.",
+        description: "Half a million dollars earned over your career. Not easy money, but it spends.",
         category: "career",
         inspiration: "Brit Taylor - Rich Little Girls",
         hidden: false,
@@ -850,7 +850,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "hundred_k_miles",
         name: "Leave Me on the Interstate",
-        description: "One hundred thousand lifetime miles. At this point the road owns a controlling share of you, and someday it can have the rest -- but not today, driver.",
+        description: "A hundred thousand miles. The road owns most of you now, but not all of you today.",
         category: "career",
         inspiration: "Bob Wayne - Spread My Ashes on the Highway",
         hidden: false,
@@ -858,7 +858,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "rep_ninety",
         name: "Strut Past the Fuel Island",
-        description: "Reputation at ninety or better. Walk through any truck stop like you own the coffee machine, because at this point dispatch practically curtsies.",
+        description: "Reputation 90 or better. Stroll the truck stop like you own the coffee machine.",
         category: "career",
         inspiration: "Elvin Bishop - Struttin' My Stuff",
         hidden: false,
@@ -866,7 +866,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "month_on_road",
         name: "Thirty Days of Diesel",
-        description: "A full month on the career clock. Thirty days of docks, diners, and dawn departures -- and tomorrow you will get up and ask the road for another one.",
+        description: "A full month on the career clock. Docks, diners, and dawn starts, and you want more.",
         category: "career",
         inspiration: "Ellie Turner - One More Day",
         hidden: false,
@@ -874,7 +874,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "home_return",
         name: "The Porch Light Was Still On",
-        description: "Ten deliveries or more into your career, you brought a load into your old home terminal city. The streets got smaller while you were gone; the welcome did not.",
+        description: "With 10 deliveries behind you, you brought a load home. The streets shrank; the welcome didn't.",
         category: "career",
         inspiration: "Arlo McKinley - Back Home",
         hidden: false,
@@ -882,7 +882,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "bobtail_done",
         name: "Room Enough to Turn Around",
-        description: "You ran a bobtail reposition -- no trailer, no load, just a tractor finding its next job. Turning a rig around takes a lot less acreage without the box.",
+        description: "A bobtail move, no trailer. Turning around takes a lot less room without the box.",
         category: "career",
         inspiration: "The Willis Brothers - Give Me 40 Acres",
         hidden: false,
@@ -890,7 +890,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "april_first",
         name: "Nobody's Fool on the First",
-        description: "A delivery settled on the first day of April. Dispatch swore the load was real, and for once the joke was on nobody -- paperwork clean, payment posted.",
+        description: "A delivery on April 1. The load was real, and the joke was on nobody.",
         category: "hidden",
         inspiration: "Bo Hazard - April's Fool",
         hidden: true,
@@ -898,7 +898,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "winter_delivery",
         name: "December Never Stood a Chance",
-        description: "A load delivered in the dead of winter, heater roaring and shoulders tight. The cold months lean hard on a trucking family; you leaned back and kept rolling.",
+        description: "A load delivered in the dead of winter, heater roaring. You kept rolling.",
         category: "weather_seasons",
         inspiration: "Merle Haggard - If We Make It Through December",
         hidden: false,
@@ -906,7 +906,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "four_seasons",
         name: "All Four Pages of the Calendar",
-        description: "You have settled deliveries in spring, summer, fall, and winter. The road changes clothes four times a year, and you have now seen the whole wardrobe.",
+        description: "Deliveries in all four seasons. You've seen the road's whole wardrobe.",
         category: "weather_seasons",
         inspiration: "George Jones - Seasons of My Heart",
         hidden: false,
@@ -914,7 +914,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "desert_summer",
         name: "Through the Furnace Door",
-        description: "A summer delivery into the desert Southwest, where the asphalt shimmers and the door handle can bite. Whatever is on the other side of hot, you drove through it.",
+        description: "A summer delivery into the desert Southwest, where the door handle bites.",
         category: "weather_seasons",
         inspiration: "Emily Nenni - Gates Of Hell",
         hidden: false,
@@ -922,7 +922,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "weather_collector",
         name: "Every Sky in the Logbook",
-        description: "You have driven under every kind of sky the forecast can throw: sun, cloud, rain, downpour, thunder, snow, freezing rain, fog, and wind. None of it lasted; you did.",
+        description: "You've driven under every sky in the forecast. None of it lasted; you did.",
         category: "weather_seasons",
         inspiration: "Waylon Jennings & Jessi Colter - Storms Never Last",
         hidden: false,
@@ -930,7 +930,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "storm_driving",
         name: "Dark Line on the Radar",
-        description: "You drove through a genuine thunderstorm and kept the trailer behind you where it belongs. You could feel the weather coming on long before the first drop hit.",
+        description: "Through a real thunderstorm, and the trailer stayed behind you where it belongs.",
         category: "weather_seasons",
         inspiration: "Channing Wilson - Blues Comin' On",
         hidden: false,
@@ -938,7 +938,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "deadline_squeaker",
         name: "Hot Brakes, Warm Handshake",
-        description: "On time with almost nothing to spare -- the kind of arrival where the dock crew was already drafting the late note. They tore it up, and you never saw it.",
+        description: "On time with almost nothing to spare. The dock tore up the late note.",
         category: "road",
         inspiration: "Brennen Leigh & Asleep At The Wheel - Comin' In Hot",
         hidden: false,
@@ -946,7 +946,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "first_late",
         name: "Keep the Bonus, Boss",
-        description: "Your first late delivery is on the books. The bonus walked, the receiver sighed, and you learned exactly how much of a deadline is actually cushion.",
+        description: "Your first late delivery. The bonus walked, and you learned how much cushion a deadline has.",
         category: "road",
         inspiration: "Johnny Paycheck - Take This Job and Shove It",
         hidden: false,
@@ -954,7 +954,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "midnight_delivery",
         name: "The Small Hours Ride Along",
-        description: "Freight delivered in the smallest hours, between midnight and the first hint of gray. Whatever kept you company out there signed nothing and vanished at the dock.",
+        description: "Freight delivered between midnight and first light. Whatever rode along signed nothing.",
         category: "road",
         inspiration: "Dolly Parton & Ben Haggard - Demons",
         hidden: false,
@@ -962,7 +962,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "dawn_run",
         name: "Rolling Before the Roosters",
-        description: "You pulled out before the world got loud, first light still rehearsing on the horizon. The early start echoes all day -- mostly in yawns, occasionally in bonuses.",
+        description: "You pulled out before first light. Early starts pay off in yawns and bonuses.",
         category: "road",
         inspiration: "American Aquarium - Waking Up the Echoes",
         hidden: false,
@@ -970,7 +970,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "fuel_fumes",
         name: "Hope Is Not a Fuel Plan",
-        description: "You made the dock with the fuel gauge past pleading and into prayer. Somewhere back down the road you passed the last cheap diesel and said, probably fine.",
+        description: "You made the dock on fumes and prayer. Hope is not a fuel plan.",
         category: "road",
         inspiration: "Brennen Leigh - Running Out Of Hope, Arkansas",
         hidden: false,
@@ -978,7 +978,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "spotless_long",
         name: "Vanished Like a Professional",
-        description: "Three hundred-plus miles delivered on time with no damage, no strikes, and no tickets. In and out so smooth the paperwork is the only proof you were there.",
+        description: "Over 300 miles, on time, with no damage, strikes, or tickets. The paperwork is your only trace.",
         category: "road",
         inspiration: "Caroline Spence - Clean Getaway",
         hidden: false,
@@ -986,7 +986,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "first_ticket",
         name: "Yeah, Officer, That Was Me",
-        description: "Your first on-the-spot speeding ticket, signed and paid at the roadside. When dispatch heard, they did not even sound surprised -- which stings worse than the fine.",
+        description: "Your first speeding ticket, paid at the roadside. Dispatch wasn't even surprised.",
         category: "working_day",
         inspiration: "Drake Milligan - Sounds Like Something I'd Do",
         hidden: false,
@@ -994,7 +994,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "second_ticket",
         name: "Twice in One Trip, Really",
-        description: "Two speeding tickets inside a single run. The first one was a lesson; the second one was a decision. The trooper recognized the truck, which is never a good sign.",
+        description: "Two speeding tickets in one run. The first was a lesson; the second was a choice.",
         category: "working_day",
         inspiration: "Erin Viancourt - Should've Known Better",
         hidden: false,
@@ -1002,7 +1002,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "jam_and_cones",
         name: "Stuck in Every Flavor of Slow",
-        description: "Construction cones and a genuine traffic jam, both inside one trip. For a while there the truck was less a vehicle and more a waiting room with mud flaps.",
+        description: "Cones and a traffic jam on one trip. The truck became a waiting room with mud flaps.",
         category: "working_day",
         inspiration: "Christian Parker - You Ain't Going Nowhere",
         hidden: false,
@@ -1010,7 +1010,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "scale_regular",
         name: "On a First-Name Basis at the Scale",
-        description: "Five inspections weathered across your career. The scale house is a wall every driver has to get over sooner or later; by now you could climb it in your sleep.",
+        description: "Five inspections over your career. You could clear the scale house in your sleep.",
         category: "working_day",
         inspiration: "Caroline Spence - Scale These Walls",
         hidden: false,
@@ -1018,7 +1018,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "all_upgrades",
         name: "Every Box on the Order Sheet",
-        description: "Every upgrade in the catalog installed on your rig. They quit building cars like they used to, but a fully optioned tractor still turns heads at the fuel island.",
+        description: "Every upgrade in the catalog, installed. A fully loaded tractor still turns heads.",
         category: "career",
         inspiration: "Dale Watson - Whatever Happened To The Cadillac",
         hidden: false,
@@ -1026,7 +1026,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "deep_repair",
         name: "Back from the Bottom of the Ledger",
-        description: "You brought the truck in at seventy-five percent damage or worse and paid to make it whole. There is only one direction to go from down there, and you took it.",
+        description: "You brought the truck back from 75 percent damage or worse. Only one way to go from there.",
         category: "career",
         inspiration: "Alex Williams - Rock Bottom",
         hidden: false,
@@ -1034,7 +1034,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "roadside_fix",
         name: "The Show Rolls On",
-        description: "Broke down bad enough to call for roadside help, waited out the mechanic, and finished the run anyway. Every touring act has a night like this; yours had freight.",
+        description: "Broke down, waited out roadside help, and finished the run. The show rolls on.",
         category: "career",
         inspiration: "Dale Watson & Ray Benson - Bus' Breakdown",
         hidden: false,
@@ -1042,7 +1042,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "level_five",
         name: "Regular on the Regional Board",
-        description: "Career level five. Dispatch stopped double-checking your paperwork, the lanes run a little wider, and you can even turn a load down without getting a lecture.",
+        description: "Career level 5. Dispatch quit double-checking, and you can turn down a load without a lecture.",
         category: "career",
         inspiration: "Merle Haggard - Workin' Man Blues",
         hidden: false,
@@ -1050,7 +1050,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "level_ten",
         name: "Lead Driver, Says So on the Vest",
-        description: "Career level ten and senior status at the carrier. Premium freight, a deeper board, and new hires who assume you know where every dock in the country hides.",
+        description: "Career level 10, senior driver. Better freight, and new hires think you know every dock.",
         category: "career",
         inspiration: "Alabama - Forty Hour Week (For a Livin')",
         hidden: false,
@@ -1058,7 +1058,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "level_fifteen",
         name: "Halfway Up the Ladder",
-        description: "Career level fifteen. The working-capital target is taped to the sun visor now, and the owner-operator checklist reads less like a dream and more like a plan.",
+        description: "Career level 15. The owner-operator plan is taped to the sun visor now.",
         category: "career",
         inspiration: "Dolly Parton - 9 to 5",
         hidden: false,
@@ -1066,7 +1066,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "level_twenty_five",
         name: "Qualified for Your Own Numbers",
-        description: "Career level twenty-five. Whether or not you ever file the paperwork, this career now qualifies for its own operating authority. In freight, that counts as arriving.",
+        description: "Career level 25. You qualify for your own operating authority. In freight, that's arriving.",
         category: "career",
         inspiration: "Waylon Jennings - Are You Sure Hank Done It This Way",
         hidden: false,
@@ -1074,7 +1074,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "level_thirty",
         name: "All the Way to the Top Rung",
-        description: "Career level thirty, the top of the ladder. Every rank, every gate, every unlock -- the whole climb is behind you, and the road ahead is simply yours to choose.",
+        description: "Career level 30, the top rung. The road ahead is yours to choose.",
         category: "career",
         inspiration: "Roger Miller - King of the Road",
         hidden: false,
@@ -1082,7 +1082,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "fleet_upgrade",
         name: "Newer Iron from the Yard",
-        description: "Dispatch swapped your assigned tractor for a newer fleet unit, handed over fueled, serviced, and washed. Seniority has a smell, and it is fresh upholstery.",
+        description: "Dispatch gave you a newer tractor, fueled and washed. Seniority smells like fresh upholstery.",
         category: "career",
         inspiration: "Dale Watson - Truckin' Man",
         hidden: false,
@@ -1090,7 +1090,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "fleet_flagship",
         name: "First Pick of the Yard",
-        description: "You reached the top of the company fleet: the flagship tractor with the big bunk and the long legs. The yard hands you the keys before anyone else gets asked.",
+        description: "The fleet flagship, with the big bunk. The yard hands you the keys first.",
         category: "career",
         inspiration: "Red Sovine - Phantom 309",
         hidden: false,
@@ -1098,7 +1098,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "three_trucks",
         name: "A Yard of Your Own",
-        description: "Three tractors with your name on the titles. Call it a fleet if you like; the insurance folder certainly does. Somebody still has to drive them all, though.",
+        description: "Three tractors with your name on the titles. The insurance folder calls it a fleet.",
         category: "career",
         inspiration: "Kathy Mattea - Eighteen Wheels and a Dozen Roses",
         hidden: false,
@@ -1106,7 +1106,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "owner_operator_buyin",
         name: "Your Name on the Title",
-        description: "You bought into your first tractor position as a leased-on owner-operator. The revenue is bigger, the bills are yours, and so is every decision from here on.",
+        description: "You leased on as an owner-operator. Bigger revenue, your bills, your calls.",
         category: "career",
         inspiration: "Red Simpson - I'm a Truck",
         hidden: false,
@@ -1114,7 +1114,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "authority_active",
         name: "Running Under Your Own Numbers",
-        description: "Own authority is active: your freight, your rates, your compliance folder. Nobody left to lease the risk to, and nobody to hand the upside to either.",
+        description: "Your own authority is active. Your freight, your rates, your risk, and all the upside.",
         category: "career",
         inspiration: "Hank Williams Jr. - A Country Boy Can Survive",
         hidden: false,
@@ -1122,7 +1122,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "self_paid_course",
         name: "Paid for the Classroom Yourself",
-        description: "You bought an endorsement course with your own money instead of waiting on carrier sponsorship. Ambition has tuition, and you covered it in cash at the counter.",
+        description: "You paid for an endorsement course yourself. Ambition has tuition, and you paid cash.",
         category: "career",
         inspiration: "Aaron Tippin - Working Man's Ph.D.",
         hidden: false,
@@ -1130,7 +1130,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "twenty_five_cities",
         name: "Twenty-Five Pins in the Map",
-        description: "Deliveries settled in twenty-five different cities. The atlas in the door pocket is starting to fall open to the right page all on its own.",
+        description: "Deliveries in 25 cities. The atlas falls open to the right page now.",
         category: "places",
         inspiration: "Hank Snow - I've Been Everywhere",
         hidden: false,
@@ -1138,7 +1138,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "seventy_five_cities",
         name: "Seventy-Five Docks Deep",
-        description: "Seventy-five different cities have signed for your freight. Receivers you have never met already know the truck, and somehow the coffee is bad in every one.",
+        description: "Seventy-five cities have signed for your freight, and the coffee's bad in every one.",
         category: "places",
         inspiration: "Willie Nelson - Still Is Still Moving to Me",
         hidden: false,
@@ -1146,7 +1146,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "hundred_fifty_cities",
         name: "Half the Map, Signed For",
-        description: "One hundred fifty cities delivered. On a map of six hundred some towns that is a serious dent, and the far side of the country is starting to feel left out.",
+        description: "A hundred fifty cities delivered. The far side of the map is feeling left out.",
         category: "places",
         inspiration: "Alan Jackson - Drive (For Daddy Gene)",
         hidden: false,
@@ -1154,7 +1154,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "fifteen_states",
         name: "Fifteen State Lines Behind You",
-        description: "You have delivered freight in fifteen different states. The trailer plate is a conversation starter now, and the glovebox is mostly toll receipts.",
+        description: "Freight delivered in 15 states. The glovebox is mostly toll receipts.",
         category: "places",
         inspiration: "Bobby Bare - 500 Miles Away from Home",
         hidden: false,
@@ -1162,7 +1162,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "thirty_states",
         name: "Thirty States and Counting",
-        description: "Thirty states have taken freight off your trailer. Most folks need a lifetime and a camper to see that much country; you did it hauling other people's furniture.",
+        description: "Thirty states delivered. Most folks need a camper and a lifetime to see that much.",
         category: "places",
         inspiration: "Johnny Cash - Ride This Train",
         hidden: false,
@@ -1170,7 +1170,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "dakota_delivery",
         name: "Freight for the High Plains",
-        description: "A load delivered into the Dakotas, where the horizon does most of the talking and the wind files a counterclaim. Somebody has to keep the prairie stocked.",
+        description: "A load into the Dakotas, where the horizon talks and the wind argues back.",
         category: "places",
         inspiration: "Corb Lund - Long Gone to Saskatchewan",
         hidden: false,
@@ -1178,7 +1178,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "montana_delivery",
         name: "Under the Biggest Sky",
-        description: "Freight settled in Montana, where the interstate runs long, the radio runs out, and the sky goes on far past the windshield. Worth the mileage every single time.",
+        description: "Freight in Montana, where the radio runs out and the sky doesn't.",
         category: "places",
         inspiration: "Merle Haggard - Big City",
         hidden: false,
@@ -1186,7 +1186,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "new_england_delivery",
         name: "Down East with a Dry Van",
-        description: "A delivery into northern New England: narrow bridges, frost heaves, and town names that pick fights with the GPS. The chowder alone justifies the deadhead home.",
+        description: "Into northern New England: narrow bridges, frost heaves, and town names that fight the GPS.",
         category: "places",
         inspiration: "Dick Curless - A Tombstone Every Mile",
         hidden: false,
@@ -1194,7 +1194,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "muskogee_arrival",
         name: "Still Proud in Muskogee",
-        description: "A load delivered into Muskogee, Oklahoma, where folks still take pride in living right and shaking your hand. Clean paperwork counts as manners out here.",
+        description: "A load into Muskogee, Oklahoma. Clean paperwork counts as manners here.",
         category: "radio_songs",
         inspiration: "Merle Haggard - Okie From Muskogee",
         hidden: false,
@@ -1202,7 +1202,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "kansas_city_arrival",
         name: "Brighter Than the Local TV Star",
-        description: "Freight delivered into Kansas City, home of burnt ends, wide boulevards, and local celebrities who will not help you back into a dock. You managed anyway.",
+        description: "Freight into Kansas City. Burnt ends, wide boulevards, and no help backing into the dock.",
         category: "radio_songs",
         inspiration: "Roger Miller - Kansas City Star",
         hidden: false,
@@ -1210,7 +1210,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "memphis_arrival",
         name: "However You Got to Memphis",
-        description: "Freight put down in Memphis, at the top of the Delta where the river hauls nearly as much as the highway. Whatever brought you here, the dock only asked for the bills.",
+        description: "Freight in Memphis, where the river hauls nearly as much as the highway.",
         category: "radio_songs",
         inspiration: "Tom T. Hall - That's How I Got to Memphis",
         hidden: false,
@@ -1218,7 +1218,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "saginaw_arrival",
         name: "Cold Bay, Warm Welcome",
-        description: "A delivery into Saginaw, up where the bay wind finds every gap in the cab insulation. Half the town works the water; the freight still comes in by road.",
+        description: "A delivery into Saginaw, where the bay wind finds every gap in the cab.",
         category: "radio_songs",
         inspiration: "Lefty Frizzell - Saginaw, Michigan",
         hidden: false,
@@ -1226,7 +1226,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "fort_worth_arrival",
         name: "Cowtown Crossed Your Mind",
-        description: "A load delivered into Fort Worth, where the stockyards went showbiz but the freight stayed honest. Dallas sits close enough to wave at and far enough to ignore.",
+        description: "A load into Fort Worth. The stockyards went showbiz; the freight stayed honest.",
         category: "radio_songs",
         inspiration: "George Strait - Does Fort Worth Ever Cross Your Mind",
         hidden: false,
@@ -1234,7 +1234,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "san_antonio_arrival",
         name: "Backing Down to San Antone",
-        description: "Freight settled in San Antonio, down where the missions keep their bells and the breakfast tacos outrank the barbecue. The river walks; your trailer rolled.",
+        description: "Freight in San Antonio. The river walks; your trailer rolled.",
         category: "radio_songs",
         inspiration: "Bob Wills & His Texas Playboys - New San Antonio Rose",
         hidden: false,
@@ -1242,7 +1242,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "new_orleans_arrival",
         name: "Good Morning, Crescent City",
-        description: "A load brought into New Orleans, past the wards and the water, where even the freight moves a little behind the beat. Nobody minded, and the coffee fixed it.",
+        description: "A load into New Orleans, a little behind the beat. The coffee fixed it.",
         category: "radio_songs",
         inspiration: "Willie Nelson - City of New Orleans",
         hidden: false,
@@ -1250,7 +1250,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "houston_arrival",
         name: "One Day Closer, Says the Odometer",
-        description: "Freight delivered into Houston, a city sprawling far enough to have its own weather and at least four rush hours. Every mile of it counted toward somewhere that matters.",
+        description: "Freight into Houston, sprawling enough for four rush hours. Every mile counted.",
         category: "radio_songs",
         inspiration: "Larry Gatlin & The Gatlin Brothers - Houston (Means I'm One Day Closer to You)",
         hidden: false,
@@ -1258,7 +1258,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "winslow_arrival",
         name: "A Corner Worth Standing On",
-        description: "A load delivered into Winslow, a small Arizona town with one world-famous corner. Park the rig, stretch your legs, and enjoy being the second-most photographed thing downtown.",
+        description: "A load into Winslow, Arizona. You're the second most photographed thing on the corner.",
         category: "radio_songs",
         inspiration: "Eagles - Take It Easy",
         hidden: false,
@@ -1266,7 +1266,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "chattanooga_arrival",
         name: "Quicker Than the Old Express",
-        description: "Freight rolled into Chattanooga ahead of anything on rails, through the ridge cuts where the river bends twice to look around. The old trains would have needed a schedule.",
+        description: "Freight into Chattanooga, quicker than any old train on a schedule.",
         category: "radio_songs",
         inspiration: "Glenn Miller - Chattanooga Choo Choo",
         hidden: false,
@@ -1274,7 +1274,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "jackson_arrival",
         name: "The Jackson Everybody Sings About",
-        description: "A load delivered into Jackson. Folks have argued for sixty years over which Jackson the song means, Tennessee or Mississippi, so this badge takes either. Your bill of lading, at least, is specific.",
+        description: "A load into Jackson. Tennessee or Mississippi, this badge takes either.",
         category: "radio_songs",
         inspiration: "Johnny Cash & June Carter - Jackson",
         hidden: false,
@@ -1282,7 +1282,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "abilene_arrival",
         name: "Prettiest Town on the Manifest",
-        description: "Freight delivered into Abilene, out where the West begins in earnest and nobody honks at a slow dock turn. The song got there first, but the load still needed a truck.",
+        description: "Freight into Abilene. The song got there first, but the load needed a truck.",
         category: "radio_songs",
         inspiration: "George Hamilton IV - Abilene",
         hidden: false,
@@ -1290,7 +1290,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "radio_faded_out",
         name: "Somewhere in the Static",
-        description: "You rode a station all the way to the end of its reach, hiss creeping in under the music until the last of it went. Nobody hung up on you. The hill just got in the way.",
+        description: "You rode a station to the edge of its reach, until the hill got in the way.",
         category: "radio_songs",
         inspiration: "Harry Chapin - W.O.L.D.",
         hidden: false,
@@ -1298,7 +1298,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "radio_fringe_catch",
         name: "Skip on the Far End",
-        description: "You pulled in a station from far outside anything it has business reaching, flickering in and out at highway speed. Height is range, and you were up where the air is thin.",
+        description: "You caught a station far outside its range, up where the air is thin.",
         category: "radio_songs",
         inspiration: "Wall of Voodoo - Mexican Radio",
         hidden: false,
@@ -1306,7 +1306,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "radio_three_states",
         name: "Same Song, Three State Lines",
-        description: "One station carried you across three states before you finally lost it. Somewhere back there a transmitter is still trying.",
+        description: "One station carried you across three states. The transmitter's still trying.",
         category: "radio_songs",
         inspiration: "Golden Earring - Radar Love",
         hidden: false,
@@ -1314,7 +1314,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "radio_dial_wanderer",
         name: "Worked the Whole Dial",
-        description: "Twenty-five different stations found and left behind. You are not listening to the radio so much as reading the country off it.",
+        description: "Twenty-five stations found and left behind. You're reading the country off the dial.",
         category: "radio_songs",
         inspiration: "The Carpenters - Yesterday Once More",
         hidden: false,
@@ -1322,7 +1322,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "jake_only_descent",
         name: "Down the Mountain on the Jake",
-        description: "Two miles of real downgrade and you never once put a foot on the service brake. The engine held the whole thing, and the drums came off that hill as cool as they went on.",
+        description: "Two miles of real downgrade without touching the service brake. The engine brake held it all.",
         category: "road",
         inspiration: "C.W. McCall - Black Bear Road",
         hidden: false,
@@ -1330,7 +1330,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "brake_smoke",
         name: "Smoke, Smoke, Smoke Those Drums",
-        description: "You cooked the brakes hot enough to start losing them. They came back. Next hill, try the gear you should have been in.",
+        description: "You cooked the brakes until they started to fade. Next hill, pick a lower gear.",
         category: "road",
         inspiration: "Tex Williams - Smoke! Smoke! Smoke! (That Cigarette)",
         hidden: false,
@@ -1338,7 +1338,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "predictive_crest",
         name: "No Mountain High Enough",
-        description: "You let cruise read the hill before you got to it: it banked a little speed on the flat and carried it up a grade that would have taken it off you. Nothing you had to do about it.",
+        description: "Cruise read the hill ahead, banked a little speed, and carried it over the top.",
         category: "road",
         inspiration: "Marvin Gaye & Tammi Terrell - Ain't No Mountain High Enough",
         hidden: false,
@@ -1346,7 +1346,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "thrifty_run",
         name: "Sipping It All the Way",
-        description: "A whole delivery run at better than eight miles to the gallon. Light foot, early lift, and a truck that was in the right gear for once.",
+        description: "A whole run at better than 8 miles per gallon. Light foot, right gear.",
         category: "road",
         inspiration: "Eddie Rabbitt - Drivin' My Life Away",
         hidden: false,
@@ -1354,7 +1354,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "five_tractors",
         name: "Whatever the Yard Has Free",
-        description: "Five different tractors under you. Slip-seating means no truck is yours, and you have started noticing which of the spares pulls and which one just makes noise.",
+        description: "Five different tractors under you. You know which spares pull and which just make noise.",
         category: "career",
         inspiration: "Red Simpson - Roll, Truck, Roll",
         hidden: false,
@@ -1362,7 +1362,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "every_fleet_tier",
         name: "Every Rung of the Yard",
-        description: "From the trainer rig to first pick of the lot, you have driven something out of every band the carrier keeps. The good iron was worth waiting for.",
+        description: "You've driven every tier of the fleet, trainer rig to first pick. The good iron was worth the wait.",
         category: "career",
         inspiration: "Waylon Jennings - Are You Sure Hank Done It This Way",
         hidden: false,
@@ -1370,7 +1370,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "christmas_delivery",
         name: "Hard Candy Christmas Run",
-        description: "You signed for a load on Christmas Day. The dock was quiet, the receiver was nice about it, and somewhere a table went ahead without you.",
+        description: "A load signed for on Christmas Day. Somewhere, dinner went on without you.",
         category: "weather_seasons",
         inspiration: "Dolly Parton - Hard Candy Christmas",
         hidden: false,
@@ -1378,7 +1378,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "friday_thirteenth",
         name: "Superstition, Signed For",
-        description: "Delivered on a Friday the thirteenth without a scratch on you. Whatever was supposed to happen took the day off.",
+        description: "Delivered on Friday the 13th without a scratch. Bad luck took the day off.",
         category: "hidden",
         inspiration: "Stevie Wonder - Superstition",
         hidden: true,
@@ -1386,7 +1386,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "new_year_run",
         name: "Working Through the Countdown",
-        description: "Midnight on New Year's found you between two towns with the heater on. Somebody somewhere was counting backwards. You were counting mile markers.",
+        description: "Midnight on New Year's, between two towns. They counted down; you counted mile markers.",
         category: "hidden",
         inspiration: "U2 - New Year's Day",
         hidden: true,
@@ -1394,7 +1394,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "five_hundred_mile_run",
         name: "And Five Hundred More",
-        description: "One dispatch, over a thousand miles, start to finish. Long enough that the weather changed its mind twice and you stopped noticing the radio.",
+        description: "One dispatch over a thousand miles. The weather changed its mind twice.",
         category: "road",
         inspiration: "The Proclaimers - I'm Gonna Be (500 Miles)",
         hidden: false,
@@ -1402,7 +1402,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "never_fought_the_law",
         name: "Never Fought the Law",
-        description: "Fifty deliveries and not one ticket. No arguing at the window, no citation in the door pocket, no story to tell about it either.",
+        description: "Fifty deliveries without a ticket. No story to tell, and that's the point.",
         category: "road",
         inspiration: "The Bobby Fuller Four - I Fought the Law",
         hidden: false,
@@ -1410,7 +1410,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "night_shift_regular",
         name: "Night Moves on the Interstate",
-        description: "Ten loads signed for in the small hours. You have gone properly nocturnal: empty lanes, cheap fuel, and receivers who are surprised to see anybody.",
+        description: "Ten loads delivered in the small hours. Empty lanes and surprised receivers.",
         category: "road",
         inspiration: "Bob Seger - Night Moves",
         hidden: false,
@@ -1418,7 +1418,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "coffee_regular",
         name: "One More Cup for the Road",
-        description: "Twenty-five breaks taken properly, and every one of them started at a coffee pot of dubious reputation. It is not the coffee. It is the sitting down.",
+        description: "Twenty-five breaks taken right. The sitting down did more than the coffee.",
         category: "working_day",
         inspiration: "Bob Dylan - One More Cup of Coffee",
         hidden: false,
@@ -1426,7 +1426,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "first_drop_hook",
         name: "Drop It and Hook It",
-        description: "Your first drop and hook. You backed under a trailer somebody else loaded hours ago, cranked the gear up, and were rolling before a dock would have found you a door.",
+        description: "Your first drop and hook. You were rolling before a dock could find you a door.",
         category: "road",
         inspiration: "Red Sovine - Giddyup Go",
         hidden: false,
@@ -1434,7 +1434,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "hooked_a_bad_one",
         name: "You Get What You Get",
-        description: "You hooked a trailer out of a drop yard and found a write-up on the walk-around. Somebody parked it, signed for it, and went home. Now it is yours.",
+        description: "You hooked a yard trailer and found a defect on the walk-around. Now it's yours.",
         category: "road",
         inspiration: "Little Feat - Willin'",
         hidden: false,
@@ -1442,7 +1442,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "refused_the_trailer",
         name: "Send It Back",
-        description: "You walked a trailer, found what was wrong with it, and refused it. Thirty minutes for the swap, and the write-up stayed with the people whose problem it was.",
+        description: "You found what was wrong with a trailer and refused it. Thirty minutes for the swap.",
         category: "road",
         inspiration: "Johnny Paycheck - Take This Job and Shove It",
         hidden: false,
@@ -1450,7 +1450,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "first_delivery_drop",
         name: "Leave It Where It Lies",
-        description: "Your first drop at the receiving end. They keep the whole trailer, freight and all, you hook a clean empty, and you are back on the road before a dock would have called your number.",
+        description: "Your first drop at the receiver. Leave the loaded trailer, hook an empty, and roll.",
         category: "road",
         inspiration: "The Band - The Weight",
         hidden: false,
@@ -1458,7 +1458,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "dropped_the_bad_one",
         name: "Somebody Else's Turn",
-        description: "You dragged a trailer with a write-up on it all the way across the country and left it in the receiver's yard. It is their problem now. You did check the lights at every stop.",
+        description: "You hauled a written-up trailer across the country and left it in the receiver's yard. You checked the lights at every stop.",
         category: "road",
         inspiration: "Hank Williams - Move It On Over",
         hidden: false,
@@ -1466,7 +1466,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "detention_paid",
         name: "Paid to Sit Still",
-        description: "A shipper held you past the free time and the carrier billed them for it. The clock was the only thing working, and for once it was working for you.",
+        description: "A shipper held you past free time, and the carrier billed them. The clock worked for you.",
         category: "road",
         inspiration: "Otis Redding - (Sittin' On) The Dock of the Bay",
         hidden: false,
@@ -1474,7 +1474,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "sixty_nine_mph",
         name: "Summer of Sixty-Nine",
-        description: "You held it at exactly sixty-nine miles an hour for a solid mile. The number has no significance whatsoever. You know precisely what you did.",
+        description: "Exactly 69 miles per hour for a full mile. No significance. You know what you did.",
         category: "hidden",
         inspiration: "Bryan Adams - Summer of '69",
         hidden: true,
@@ -1482,7 +1482,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "eighty_eight_mph",
         name: "Where We're Going, We Need Roads",
-        description: "Eighty-eight miles an hour in a loaded truck. Nothing happened, nowhere else and no other year. Just a very fast truck and a very brief lapse of judgment.",
+        description: "88 miles per hour in a loaded truck. No time travel, just a brief lapse in judgment.",
         category: "hidden",
         inspiration: "Huey Lewis and the News - The Power of Love",
         hidden: true,
@@ -1490,7 +1490,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "sixteen_tons",
         name: "Another Day Older",
-        description: "You have moved sixteen tons in a single load, and what did you get. A settlement line, a sore back, and a dispatcher already asking about the next one.",
+        description: "Sixteen tons in one load. And what did you get? A sore back and a dispatcher asking for more.",
         category: "road",
         inspiration: "Tennessee Ernie Ford - Sixteen Tons",
         hidden: false,
@@ -1498,7 +1498,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "one_for_the_road",
         name: "One More for the Ditch",
-        description: "A load delivered after midnight, on fumes, in the rain, still on time. Everything went wrong slowly enough that none of it managed to matter.",
+        description: "After midnight, on fumes, in the rain, and still on time. Nothing went wrong fast enough to matter.",
         category: "road",
         inspiration: "Tom Waits - One for My Baby (and One More for the Road)",
         hidden: false,
@@ -1506,7 +1506,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "fifty_five_mph",
         name: "Wrong Game, No Limit",
-        description: "It isn't the mid-90s anymore like Jim Kitchen had you believe in Trucker. It's okay, floor it and hit 88.",
+        description: "Not the mid-90s anymore, whatever Jim Kitchen told you in Trucker. Wrong game. Floor it and hit 88.",
         category: "hidden",
         inspiration: "Sammy Hagar - I Can't Drive 55",
         hidden: true,
@@ -1514,7 +1514,7 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "ten_four_day",
         name: "Copy That, October",
-        description: "A load settled on the fourth of October, which every driver reads as ten-four. Some white knight on the channel started it, and by noon the whole band was saying the date back.",
+        description: "A load settled on the fourth of October, ten-four day. A white knight started it, and the whole channel said it back.",
         category: "hidden",
         inspiration: "Cledus Maggard and the Citizen's Band - The White Knight",
         hidden: true,
@@ -1522,9 +1522,25 @@ pub const ACHIEVEMENTS: [Achievement; 182] = [
     Achievement {
         id: "appreciation_week",
         name: "Somebody Said Thank You",
-        description: "A load delivered during Truck Driver Appreciation Week. There were doughnuts at the receiving window, and a dispatcher said thanks without being asked. Next week it goes back to being the job.",
+        description: "A load during Truck Driver Appreciation Week. Doughnuts at the window and a thank-you from dispatch.",
         category: "hidden",
         inspiration: "Andrew Gold - Thank You for Being a Friend",
+        hidden: true,
+    },
+    Achievement {
+        id: "meridian_classmate",
+        name: "The Classmate Came Back",
+        description: "Lou turned up as your co-driver, back from Meridian Freight Lines with a story nobody quite believes.",
+        category: "hidden",
+        inspiration: "Thin Lizzy - The Boys Are Back in Town",
+        hidden: true,
+    },
+    Achievement {
+        id: "trainer_ride_along",
+        name: "Teacher in the Sleeper",
+        description: "Ray, who ran your training class, rode one load with you to see how you turned out.",
+        category: "hidden",
+        inspiration: "Jethro Tull - Teacher",
         hidden: true,
     },
 ];

@@ -20,7 +20,7 @@ fn test_company_driver_objective_tapers_from_first_week_to_trust() {
     let first_load = career_objective(&profile);
     assert_eq!(first_load.title, "First dispatch");
     assert!(first_load.terminal_text.contains("real freight"));
-    assert!(first_load.dispatch_text.contains("short standard load"));
+    assert!(first_load.terminal_text.contains("short standard load"));
     assert!(!first_load
         .spoken_summary()
         .to_lowercase()
@@ -38,7 +38,6 @@ fn test_company_driver_objective_tapers_from_first_week_to_trust() {
     let trust = career_objective(&profile);
     assert_eq!(trust.title, "Build dispatcher trust");
     assert!(trust.terminal_text.contains("on-time service"));
-    assert!(trust.dispatch_text.contains("reliable lanes"));
 }
 
 #[test]
@@ -52,7 +51,6 @@ fn test_low_reputation_company_driver_keeps_trust_objective_after_training() {
 
     assert_eq!(objective.title, "Build dispatcher trust");
     assert!(objective.terminal_text.contains("on-time service"));
-    assert!(objective.dispatch_text.contains("reliable lanes"));
 }
 
 #[test]
@@ -66,7 +64,7 @@ fn test_company_driver_objective_uses_level_band_guidance_after_training() {
     let objective = career_objective(&profile);
 
     assert_eq!(objective.title, "Build a regional service record");
-    assert!(objective.terminal_text.contains("broader company lanes"));
+    assert!(objective.terminal_text.contains("Broader company lanes"));
     assert_eq!(objective.recommendation, "reputation-building lane");
 }
 
@@ -99,7 +97,6 @@ fn test_owner_operator_objective_emphasizes_working_capital() {
     assert!(objective
         .terminal_text
         .contains("Fuel, maintenance, insurance"));
-    assert!(objective.dispatch_text.contains("take-home"));
 }
 
 // `test_terminal_career_plan_is_keyboard_reachable_and_spoken` is live in `crates/freight-fate/tests/states_city.rs`.
@@ -122,7 +119,6 @@ fn test_late_company_driver_plan_points_to_owner_operator_prep() {
 
     assert_eq!(objective.title, "Owner-operator preparation");
     assert!(objective.terminal_text.contains("cash cushion"));
-    assert!(objective.dispatch_text.contains("protects reputation"));
     assert_eq!(
         objective.terminal_text,
         "Work toward level 18, 35 deliveries, 80 reputation, and a cash cushion."
@@ -180,13 +176,12 @@ fn test_owner_operator_objective_moves_from_capital_to_authority_prep() {
     profile.career.xp = LEVEL_XP[17];
     let level_band = career_objective(&profile);
     assert_eq!(level_band.title, "Protect owner-operator margin");
+    assert_eq!(level_band.milestone_text, "");
     assert_eq!(
-        level_band.milestone_text,
-        "Owner-operator progress depends on margin discipline."
+        level_band.spoken_summary(),
+        "Protect owner-operator margin. Fuel, maintenance, and trailer costs come out of every \
+         load."
     );
-    assert!(level_band
-        .spoken_summary()
-        .ends_with(" Owner-operator progress depends on margin discipline."));
 }
 
 #[test]

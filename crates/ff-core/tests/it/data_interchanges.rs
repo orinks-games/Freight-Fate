@@ -45,6 +45,26 @@ fn interchange_preserves_directional_observations_and_requires_provenance() {
     assert!(parse_interchange(&value, 100.0, "A", "B", "I-1").is_err());
 }
 
+/// Cleveland's exit 170A is signed 15 mph. The bake read the bare "15" as
+/// km/h and stored 9.321, and the truck was held to 9 mph down the whole
+/// ramp.
+#[test]
+fn a_baked_bare_number_read_as_kmh_loads_as_the_mph_on_the_sign() {
+    let mut value = raw();
+    {
+        let obj = value.as_object_mut().unwrap();
+        obj.insert("ramp_advisory_forward".into(), json!(30.0));
+        obj.insert("ramp_advisory_backward".into(), json!(9.321));
+        obj.insert(
+            "ramp_advisory_source".into(),
+            json!("OpenStreetMap maxspeed:advisory tags (read)"),
+        );
+    }
+    let parsed = parse_interchange(&value, 100.0, "A", "B", "I-1").unwrap();
+    assert_eq!(parsed.ramp_advisory_mph_forward, Some(30.0));
+    assert_eq!(parsed.ramp_advisory_mph_backward, Some(15.0));
+}
+
 #[test]
 fn osm_directional_advisory_has_priority_and_is_ramp_only() {
     let tags = json!({

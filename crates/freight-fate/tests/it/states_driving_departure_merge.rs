@@ -309,11 +309,7 @@ fn loaded_low_power_tractor_uses_the_full_acceleration_lane_safely() {
             assert!(run.cruise_handoff_on_lane, "{run:#?}");
             assert!(handoff + 0.6 >= target, "{run:#?}");
             assert!((target - merge_traffic_target_mph(run.highway_mph)).abs() <= 0.01);
-            assert!(
-                run.said("Acceleration lane. Adaptive cruise resuming at 70 miles per hour"),
-                "{:#?}",
-                run.heard
-            );
+            assert!(run.said("Cruise resuming, 70"), "{:#?}", run.heard);
         }
         None => {
             assert!(!run.cruise_handoff_on_lane, "{run:#?}");

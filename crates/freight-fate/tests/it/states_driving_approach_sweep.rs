@@ -171,6 +171,20 @@ pub struct Arrival {
     /// it turns.
     pub brake_applications: usize,
     /// Every line the driver heard.
+    /// Feet driven at three miles an hour or less after the assist took
+    /// the pedals, with more than 250 feet still to the gate.
+    pub crawl_short_ft: f64,
+    /// [`arrive_hands_off`] set its street speed.
+    /// Hands-off runs: each street corner's own number and the speed the
+    /// truck took it at, in order.
+    pub corner_passes: Vec<(f64, f64)>,
+    /// (target, slowest mph in the last 0.1 mi before the corner, mph as
+    /// that 0.1 mi began).
+    pub corner_mins: Vec<(f64, f64, f64)>,
+    pub street_kicked: bool,
+    /// Facility stopping assistance had the pedals with a street corner
+    /// still ahead of the truck.
+    pub latched_with_corner_ahead: bool,
     pub heard: Vec<String>,
 }
 
@@ -238,10 +252,15 @@ pub fn driver_target_mph(d: &mut DrivingState) -> f64 {
         return d.armed_ramp_mph(None);
     }
     let posted = d.trip.speed_limit_at(d.trip.position_mi).0;
-    match d.turn_cue_in_play() {
-        Some(cue) => posted.min(d.turn_speed_mph(&cue)),
-        None => posted,
-    }
+    // The slowest corner in play, not just the nearest: a driver who has
+    // heard the next two calls does not build up for a 14 mph left with an
+    // 8 mph right a block after it, and doing so here fought the keeper's
+    // snub for the slower one with the accelerator, a fresh application
+    // every time (Abingdon Company Yard, on the realistic corner speeds).
+    let cues = d.turn_cues_in_play();
+    cues.iter()
+        .map(|cue| d.turn_speed_mph(cue))
+        .fold(posted, f64::min)
 }
 
 /// Drive the last mile to `destination`: down the destination ramp, through
@@ -249,6 +268,37 @@ pub fn driver_target_mph(d: &mut DrivingState) -> f64 {
 pub fn arrive(destination: &Destination) -> Arrival {
     arrive_with(destination, None, None, 18.0)
 }
+
+/// [`arrive`], but nobody drives the streets: the driver takes the ramp and
+/// lets go at the first street, and from there the speed keeper and facility
+/// stopping assistance have every pedal, the way a player on All assists
+/// drives into a yard.
+///
+/// `street_speed_mph`, when given, puts the truck at that speed once, the
+/// first frame the gate is within `STREET_KICK_MI` with a corner still
+/// ahead: the keeper holding a street limit into the last corner, which is
+/// where the arrival used to take the pedals.
+pub fn arrive_hands_off(destination: &Destination, street_speed_mph: Option<f64>) -> Arrival {
+    COAST_PAST.with(|c| c.set(false));
+    arrive_driven(destination, None, None, 18.0, Some(street_speed_mph))
+}
+
+/// [`arrive_hands_off`] where, at the street speed's moment, every pedal
+/// assist is switched off and the truck coasts on past the last corner: a
+/// driver who overran the driveway.
+pub fn arrive_coasting_past(destination: &Destination, street_speed_mph: f64) -> Arrival {
+    COAST_PAST.with(|c| c.set(true));
+    let arrival = arrive_driven(destination, None, None, 18.0, Some(Some(street_speed_mph)));
+    COAST_PAST.with(|c| c.set(false));
+    arrival
+}
+
+thread_local! {
+    static COAST_PAST: std::cell::Cell<bool> = const { std::cell::Cell::new(false) };
+}
+
+/// How far short of the gate [`arrive_hands_off`] sets its street speed.
+pub const STREET_KICK_MI: f64 = 0.38;
 
 /// Re-lay a facility's street chain on a constant grade.
 ///
@@ -311,6 +361,25 @@ fn arrive_with(
     company_profile: Option<Profile>,
     tons: f64,
 ) -> Arrival {
+    arrive_driven(destination, chain_grade_pct, company_profile, tons, None)
+}
+
+fn arrive_driven(
+    destination: &Destination,
+    chain_grade_pct: Option<f64>,
+    company_profile: Option<Profile>,
+    tons: f64,
+    hands_off_on_streets: Option<Option<f64>>,
+) -> Arrival {
+    let street_kick = hands_off_on_streets.flatten();
+    let hands_off_on_streets = hands_off_on_streets.is_some();
+    let mut kicked = false;
+    let mut latched_with_corner_ahead = false;
+    let mut corner_passes: Vec<(f64, f64)> = Vec::new();
+    let mut corner_mins: Vec<(f64, f64, f64)> = Vec::new();
+    let mut corner_min = f64::INFINITY;
+    let mut corner_entry = f64::NAN;
+    let mut corner_in_play: Option<(f64, f64)> = None;
     let world = get_world();
     let origin = if destination.city == "shelby_mt_us" && company_profile.is_some() {
         "helena_mt_us".to_string()
@@ -420,6 +489,7 @@ fn arrive_with(
     let mut min_creep_speed_mph: Option<f64> = None;
     let mut min_creep_gear: Option<i32> = None;
     let mut min_air_psi = f64::INFINITY;
+    let mut crawl_short_ft = 0.0f64;
     let mut air_low_warning_psi = 0.0f64;
     let mut brake_applications = 0usize;
     let mut last_brake = 0.0f64;
@@ -486,6 +556,11 @@ fn arrive_with(
                 d.truck().transmission.gear,
             )
         });
+        // Feet covered at a walk while the gate is still more than the final
+        // creep stretch off: road the truck should have driven, not crawled.
+        if handed_off && remaining * 5280.0 > 250.0 && speed <= 3.0 {
+            crawl_short_ft += speed * MPS_PER_MPH * DT * 3.28084;
+        }
         if handed_off && remaining > 0.0 && speed <= 2.1 {
             max_creep_hold_throttle = max_creep_hold_throttle.max(hold_throttle);
             min_creep_speed_mph = Some(min_creep_speed_mph.map_or(speed, |seen| seen.min(speed)));
@@ -530,7 +605,61 @@ fn arrive_with(
                 });
             }
         }
-        if !handed_off {
+        if hands_off_on_streets && on_chain {
+            // Off the ramp: the keeper has the streets, nobody else.
+            release_keys(&mut harness);
+            let (corner_ahead, next_corner) = harness.with_drive(|d, _| {
+                let position = d.trip.position_mi;
+                let cue = d.turn_cue_in_play().filter(|cue| cue.at_mi > position);
+                let next = cue.as_ref().map(|cue| (cue.at_mi, d.turn_speed_mph(cue)));
+                (cue.is_some(), next)
+            });
+            // The speed each corner was actually taken at, against its own
+            // number: read on the first frame past it.
+            if let Some((at_mi, target)) = corner_in_play {
+                let (position, speed) =
+                    harness.read_drive(|d| (d.trip.position_mi, d.truck().speed_mph()));
+                if position >= at_mi || next_corner.is_none_or(|(next, _)| next != at_mi) {
+                    corner_passes.push((target, speed));
+                    corner_mins.push((target, corner_min.min(speed), corner_entry));
+                    corner_min = f64::INFINITY;
+                    corner_entry = f64::NAN;
+                    corner_in_play = None;
+                } else if position >= at_mi - 0.1 {
+                    if corner_entry.is_nan() {
+                        corner_entry = speed;
+                    }
+                    corner_min = corner_min.min(speed);
+                }
+            }
+            if corner_in_play.is_none() {
+                corner_in_play = next_corner;
+            }
+            latched_with_corner_ahead |=
+                corner_ahead && harness.read_drive(|d| d.destination_arrival_active);
+            if let Some(mph) = street_kick.filter(|_| !kicked && corner_ahead) {
+                let near = harness.read_drive(|d| d.trip.remaining_miles() <= STREET_KICK_MI);
+                if near {
+                    kicked = true;
+                    let coast = COAST_PAST.with(|c| c.get());
+                    harness.with_drive(move |d, ctx| {
+                        d.truck_mut().velocity_mps = mph * MPS_PER_MPH;
+                        if coast {
+                            d.keeper_mph = None;
+                            d.speed_control_armed = false;
+                            d.keeper_snub = 0.0;
+                            d.truck_mut().brake = 0.0;
+                            ctx.settings.destination_approach_assist = false;
+                            ctx.settings.route_transition_assist = false;
+                            ctx.settings.curve_speed_assist = false;
+                            ctx.settings.speed_keeper = false;
+                        } else {
+                            d.keeper_mph = Some(mph);
+                        }
+                    });
+                }
+            }
+        } else if !handed_off {
             let rolling =
                 harness.with_drive(|d, _| driver_target_mph(d) > d.truck().speed_mph() + 2.0);
             if rolling {
@@ -570,9 +699,11 @@ fn arrive_with(
         ready,
         docked,
         gate_grade_pct,
-        assist_spoke: heard
-            .iter()
-            .any(|line| line.contains("Facility stopping assistance taking the pedals")),
+        // On a ramp that ends at the gate, the deceleration lane's "Slowing
+        // for the ramp." is the one line for the slowdown to the gate.
+        assist_spoke: heard.iter().any(|line| {
+            line.contains("Slowing for the entrance.") || line.contains("Slowing for the ramp.")
+        }),
         speed_mph,
         short_by_ft,
         on_chain,
@@ -589,6 +720,11 @@ fn arrive_with(
         min_air_psi,
         air_low_warning_psi,
         brake_applications,
+        crawl_short_ft,
+        street_kicked: kicked,
+        corner_passes,
+        corner_mins,
+        latched_with_corner_ahead,
         heard,
     }
 }
@@ -629,7 +765,7 @@ pub fn what_went_wrong(destination: &Destination, arrival: &Arrival) -> Option<S
     for lie in [
         "Drove past",
         "You never stopped",
-        "missed the destination exit",
+        "Missed the destination exit",
     ] {
         if arrival.said(lie) {
             return fault("was told it had blown the arrival it made");
@@ -645,11 +781,7 @@ pub fn what_went_wrong(destination: &Destination, arrival: &Arrival) -> Option<S
     // 5. And it ended on an instruction the driver can act on: either the dock
     //    menu opened by itself, or the assist is holding and said which key
     //    opens it.
-    if !arrival.docked
-        && !arrival.said(
-            "Facility stopping assistance is holding at the entrance. Press Enter to continue into the facility.",
-        )
-    {
+    if !arrival.docked && !arrival.said("Holding at the entrance. Press Enter to continue.") {
         return fault("stopped without telling the driver how to pull in");
     }
     if destination.chain {
@@ -659,7 +791,7 @@ pub fn what_went_wrong(destination: &Destination, arrival: &Arrival) -> Option<S
         if !arrival.on_chain {
             return fault("never drove the facility's own streets");
         }
-        if !arrival.said("Off the ramp and onto city streets") {
+        if !arrival.said("to the facility gate.") {
             return fault("was handed city streets without being told");
         }
         if arrival.said("Come to a stop.") && !arrival.docked {
@@ -708,6 +840,204 @@ fn test_the_approach_assist_stops_the_truck_at_every_kind_of_destination() {
     assert!(
         climbed > 0,
         "no destination in the sweep climbs to its gate any more"
+    );
+}
+
+#[test]
+fn test_hands_off_street_approach_takes_every_corner_and_reaches_the_gate() {
+    // A tester on All assists, Elkhart Manufacturing Plant, 2026-10-14:
+    // "the truck refused, point blank, to finish the route into the yard".
+    // Facility stopping assistance took the pedals at 48 mph with an 11 mph
+    // left turn still ahead, so the truck sailed past the corner; once it was
+    // back on the approach the latched arrival held a two-mile-an-hour walk
+    // for the last quarter mile until the assist was switched off. Nobody
+    // touches a pedal on the streets here: the keeper takes the corners, the
+    // assist takes the final shed, and the truck has to get to the gate.
+    let destination = Destination {
+        city: "elkhart_in_us".to_string(),
+        location: "Elkhart Manufacturing Plant".to_string(),
+        state: "IN".to_string(),
+        chain: true,
+    };
+    let arrival = arrive_hands_off(&destination, None);
+    if std::env::var("FF_PROBE").is_ok() {
+        for line in &arrival.heard {
+            eprintln!("{line}");
+        }
+        eprintln!("{arrival:?}");
+    }
+    assert!(
+        arrival.on_chain,
+        "Elkhart's plant is reached through its streets"
+    );
+    let missed: Vec<&String> = arrival
+        .heard
+        .iter()
+        .filter(|line| line.contains("Missed the turn"))
+        .collect();
+    assert!(
+        missed.is_empty(),
+        "the assists missed a corner on the way in: {missed:?}"
+    );
+    assert!(
+        arrival.ready,
+        "never reached the gate hands off; stopped {:.0} ft short at {:.1} mph",
+        arrival.short_by_ft, arrival.speed_mph
+    );
+    assert!(
+        arrival.crawl_short_ft < 50.0,
+        "crawled {:.0} ft at a walk with the gate still more than 250 ft off",
+        arrival.crawl_short_ft
+    );
+    // Braked onto each corner's number, not under it and back up again.
+    // A corner the truck was already under as its last 0.1 mi began (built
+    // back up from the corner before) is measured from where it was.
+    for (target, slowest, entry) in &arrival.corner_mins {
+        let floor = if entry.is_nan() {
+            *target
+        } else {
+            target.min(*entry)
+        };
+        assert!(
+            *slowest >= floor - 2.0,
+            "dipped to {slowest:.1} before a {target:.1} corner: {:?}",
+            arrival.corner_mins
+        );
+    }
+    // And each corner at its own number, not a held one from the last.
+    for (target, taken) in &arrival.corner_passes {
+        assert!(
+            (taken - target).abs() <= 1.0 || *taken <= *target && *target <= 6.5,
+            "took a {target:.1} corner at {taken:.1}: {:?}",
+            arrival.corner_passes
+        );
+    }
+}
+
+#[test]
+fn test_the_arrival_leaves_the_last_corner_to_the_keeper() {
+    // The other half of the Elkhart report: the keeper holding the street's
+    // 45 into the last corner. The arrival's curve to the gate was already
+    // under that speed, so it latched there -- with the corner still ahead --
+    // and its gentle shed to the gate could never make the corner's speed.
+    let destination = Destination {
+        city: "elkhart_in_us".to_string(),
+        location: "Elkhart Manufacturing Plant".to_string(),
+        state: "IN".to_string(),
+        chain: true,
+    };
+    let arrival = arrive_hands_off(&destination, Some(48.0));
+    if std::env::var("FF_PROBE").is_ok() {
+        for line in &arrival.heard {
+            eprintln!("{line}");
+        }
+        eprintln!(
+            "corners (target, taken) mph: {:?}\nslowest in the last 0.1 mi: {:?}\nready={} latched_with_corner_ahead={} crawl_short_ft={:.0} speed_at_point={:?}",
+            arrival.corner_passes,
+            arrival.corner_mins,
+            arrival.ready,
+            arrival.latched_with_corner_ahead,
+            arrival.crawl_short_ft,
+            arrival.speed_at_point_mph
+        );
+    }
+    assert!(
+        arrival.street_kicked,
+        "never reached the last corner with the gate {STREET_KICK_MI} mi off"
+    );
+    assert!(
+        !arrival.latched_with_corner_ahead,
+        "facility stopping assistance took the pedals with a corner still ahead"
+    );
+    // And the turn is made as routed, the first time: no miss, no loop
+    // around the block (owner, 2026-10-14).
+    let detour: Vec<&String> = arrival
+        .heard
+        .iter()
+        .filter(|line| line.contains("Missed the turn") || line.contains("around the block"))
+        .collect();
+    assert!(
+        detour.is_empty(),
+        "the assists did not make the last turn: {detour:?}"
+    );
+    let yard_lines = arrival
+        .heard
+        .iter()
+        .filter(|line| line.contains("Into the yard"))
+        .count();
+    assert_eq!(
+        yard_lines, 1,
+        "the yard is announced once, at the real entry"
+    );
+    let alarms: Vec<&String> = arrival
+        .heard
+        .iter()
+        .filter(|line| line.contains("can't hold"))
+        .collect();
+    assert!(
+        alarms.is_empty(),
+        "a corner the keeper made raised an alarm: {alarms:?}"
+    );
+    let (target, taken) = *arrival.corner_passes.last().expect("a corner was taken");
+    assert!(
+        taken <= target + 1.0,
+        "took the last corner at {taken:.1} mph against its {target:.1}"
+    );
+    assert!(
+        arrival.ready,
+        "never reached the gate hands off; stopped {:.0} ft short at {:.1} mph",
+        arrival.short_by_ft, arrival.speed_mph
+    );
+    assert!(
+        arrival.crawl_short_ft < 50.0,
+        "crawled {:.0} ft at a walk with the gate still more than 250 ft off",
+        arrival.crawl_short_ft
+    );
+}
+
+#[test]
+fn test_an_overrun_driveway_announces_the_yard_once() {
+    // QA on the Elkhart fix: overrunning the driveway turn said "Into the
+    // yard. Yard limit 15." as the truck rolled over the driveway's milepost,
+    // then "Missed the turn", then the yard line again after the loop. The
+    // yard is announced once, when the truck has really turned in.
+    let destination = Destination {
+        city: "elkhart_in_us".to_string(),
+        location: "Elkhart Manufacturing Plant".to_string(),
+        state: "IN".to_string(),
+        chain: true,
+    };
+    let arrival = arrive_coasting_past(&destination, 30.0);
+    if std::env::var("FF_PROBE").is_ok() {
+        eprintln!("corners {:?}", arrival.corner_passes);
+        for line in &arrival.heard {
+            eprintln!("{line}");
+        }
+    }
+    assert!(arrival.street_kicked);
+    let missed = arrival
+        .heard
+        .iter()
+        .position(|l| l.contains("Missed the turn"));
+    assert!(
+        missed.is_some(),
+        "coasting at 30 past a 6 mph driveway must miss it"
+    );
+    let yard: Vec<usize> = arrival
+        .heard
+        .iter()
+        .enumerate()
+        .filter(|(_, l)| l.contains("Into the yard"))
+        .map(|(i, _)| i)
+        .collect();
+    assert!(
+        yard.len() <= 1,
+        "the yard was announced {} times",
+        yard.len()
+    );
+    assert!(
+        yard.iter().all(|i| Some(*i) > missed),
+        "the yard was announced before the missed turn"
     );
 }
 
@@ -878,8 +1208,8 @@ fn test_great_falls_signal_stop_does_not_become_a_two_mph_destination_crawl() {
         "the final two-mph creep lasted {two_mph_crawl_ft:.0} feet"
     );
     harness.result().assert_ordered(&[
-        "Route-transition assistance braking for the light.",
-        "Stopped at the red light. Assistance is holding the brakes for green.",
+        "Braking for the light.",
+        "Red light.",
         "Light green.",
         "Pulling into construction materials yard Great Falls Materials Yard",
         "At construction materials yard Great Falls Materials Yard in Great Falls.",
@@ -1114,7 +1444,7 @@ fn test_the_assist_drives_from_the_clear_sign_to_the_entrance_hold_hands_off() {
     println!("{}", release.report(destination));
     assert!(release.stopped_at_sign, "{}", release.report(destination));
     assert!(
-        release.said("Stopped at the sign. Clear. Facility stopping assistance is taking you onto the streets."),
+        release.said("Stopped at the sign. Clear."),
         "{}",
         release.report(destination)
     );
@@ -1133,16 +1463,16 @@ fn test_the_assist_drives_from_the_clear_sign_to_the_entrance_hold_hands_off() {
         release.report(destination)
     );
     assert!(release.on_chain, "{}", release.report(destination));
+    // The keeper takes the street limit in silence: "Speed limit 25" is
+    // the line the driver needs (owner, 2026-10-25).
     assert!(
-        release.said("Speed keeper holding"),
+        !release.said("Speed keeper holding"),
         "{}",
         release.report(destination)
     );
     assert!(release.held_at_entrance, "{}", release.report(destination));
     assert!(
-        release.said(
-            "Facility stopping assistance is holding at the entrance. Press Enter to continue into the facility."
-        ),
+        release.said("Holding at the entrance. Press Enter to continue."),
         "{}",
         release.report(destination)
     );
@@ -1222,9 +1552,9 @@ fn test_the_drivers_brake_cancels_the_automatic_pull_ahead() {
         assert!(release.moved_off_alone, "{}", release.report(destination));
         assert!(
             release.said(if destination.chain {
-                "Facility stopping assistance released; pull ahead onto the streets."
+                "Pull ahead onto the streets."
             } else {
-                "Facility stopping assistance released; pull ahead to the entrance."
+                "Pull ahead to the entrance."
             }),
             "{}",
             release.report(destination)
@@ -1296,18 +1626,17 @@ fn test_shelby_cross_dock_approach_assist_reaches_the_arrival_gate() {
             arrival.report(&destination)
         );
         assert!(
-            arrival.said("Facility stopping assistance taking the pedals"),
+            arrival.said("Slowing for the entrance."),
             "level {level}: {}",
             arrival.report(&destination)
         );
         assert!(
-            arrival.said("Pulling into freight terminal Shelby Cross-Dock")
-                && arrival.said("dock menu opening in a moment."),
+            arrival.said("Pulling into freight terminal Shelby Cross-Dock"),
             "level {level}: {}",
             arrival.report(&destination)
         );
         assert!(
-            !arrival.said("Facility stopping assistance is holding at the entrance."),
+            !arrival.said("Holding at the entrance."),
             "level {level}: {}",
             arrival.report(&destination)
         );

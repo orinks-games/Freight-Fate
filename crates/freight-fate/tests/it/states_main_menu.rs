@@ -81,10 +81,7 @@ fn the_main_menu_welcomes_and_walks_a_new_career_to_the_home_city() {
     assert!(is::<MainMenuState>(&app));
     let lines = app.visible_lines();
     assert_eq!(lines[0], "Freight Fate");
-    let welcome = format!(
-        "Welcome to Freight Fate, version {}.",
-        updater::spoken_version(version())
-    );
+    let welcome = format!("Freight Fate {}.", updater::spoken_version(version()));
     assert!(app.main_lines().iter().any(|line| line.contains(&welcome)));
 
     select::<MainMenuState>(&mut app, "New career");
@@ -113,6 +110,17 @@ fn the_main_menu_welcomes_and_walks_a_new_career_to_the_home_city() {
         .main_lines()
         .iter()
         .any(|line| line.starts_with("First-day briefing")));
+    // The briefing just said where the truck is parked: the terminal behind
+    // it gives the cash a company briefing leaves out, not the location again.
+    let lines = app.main_lines();
+    assert!(
+        lines.iter().any(|line| line.ends_with(" dollars.")),
+        "{lines:?}"
+    );
+    assert!(
+        !lines.iter().any(|line| line.contains(", Chicago. ")),
+        "{lines:?}"
+    );
     assert_eq!(app.ctx.stack_len(), 2);
     assert!(is::<CityMenuState>(&app));
 }
@@ -594,12 +602,10 @@ fn continue_latest_career_welcomes_the_driver_back() {
     key(&mut app, Key::Return);
     assert_eq!(app.ctx.profile.as_ref().unwrap().name, "Road Star");
     // A Northstar driver in Denver is away from the Chicago home terminal
-    // and Denver has no public lot: the welcome names the city, never a yard.
+    // and Denver has no public lot: nothing names a yard.
     let lines = app.main_lines();
     assert!(
-        lines
-            .iter()
-            .any(|line| line.starts_with("Welcome back, Road Star. You are parked in Denver")),
+        lines.iter().any(|line| line == "Welcome back, Road Star."),
         "{lines:?}"
     );
     assert!(
@@ -663,8 +669,8 @@ fn silence_that_was_asked_for_is_announced_to_nobody() {
 #[test]
 fn a_headless_run_on_the_no_sound_device_arms_no_notice() {
     // The real backend pick, under the environment CI and the harness use:
-    // BASS lands on its no-sound device because this run asked it to, which
-    // must not read as a device that failed to open.
+    // Hearken plays through its silent backend because this run asked it
+    // to, which must not read as a device that failed to open.
     set_headless_env();
     let mut engine = AudioEngine::from_preference("");
     assert!(!engine.take_silence_notice());

@@ -1,12 +1,12 @@
 //! Route advice and advance warnings for the next required rest.
 
 use crate::app::{GameContext, SayEvent};
-use crate::bindings::Action;
+use crate::speech::{DeliveryStatus, EventPriority};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{hos_mut_of, hos_of};
 use ff_core::models::jobs::hos_stops::{plan_hos_stop, HosStopAdvice, StopPlanningRoute};
 use ff_core::models::jobs::route_drive_hours;
-use ff_core::speech_pacing::{DeliveryStatus, EventPriority, SpeechCategory};
+use ff_core::speech_pacing::SpeechCategory;
 
 impl DrivingState {
     /// One opt-in suggestion before the normal 60-minute HOS warning. The
@@ -65,25 +65,22 @@ impl DrivingState {
             .as_ref()
             .map(|option| ctx.settings.distance_text(option.ahead_mi, false))
             .unwrap_or_else(|| fallback_distance.clone());
-        if let Some(message) = advice.planning_hint(&suggested_distance, &fallback_distance) {
+        let hint = match self.co_driver_takes_the_sleep(ctx, &advice) {
+            Some(name) if !advice.destination_reachable => {
+                Some(format!("{name} can take the wheel from the pause menu."))
+            }
+            Some(_) => None,
+            None => advice.planning_hint(&suggested_distance, &fallback_distance),
+        };
+        if let Some(message) = hint {
             let key = format!("{prefix}{:.0}", self.absolute_game_hour(ctx, None) * 60.0);
             ctx.reset_event_condition(&key);
             self.hos_plan_hint_pending = Some(key.clone());
-            // A pad has no hours keys; its clock button carries the full
-            // report.
-            let hours_key = if ctx.controller.device() == ff_core::input_hints::CONTROLLER {
-                Action::Clock
-            } else {
-                Action::HosDrive
-            };
             ctx.say_event_with(
-                format!(
-                    "{message} Press {} for full hours and route details.",
-                    ctx.control_name(hours_key)
-                ),
+                message,
                 SayEvent::queued()
                     .key(&key)
-                    .priority(EventPriority::Route)
+                    .priority(EventPriority::Important)
                     .category(SpeechCategory::Coaching)
                     .receipt(),
             );
@@ -157,6 +154,18 @@ impl DrivingState {
             }
         }
         self.acknowledge_maintenance_warnings();
+    }
+
+    /// On a team load, the rested co-driver's name when the rest ahead is
+    /// a 10-hour sleep: the deadline has them take the wheel there, so a
+    /// stop to sleep at is the wrong advice (player report, 2026-10-20).
+    fn co_driver_takes_the_sleep(
+        &self,
+        ctx: &GameContext,
+        advice: &HosStopAdvice,
+    ) -> Option<&'static str> {
+        (self.job.team && advice.action == "sleep" && self.handover_offered(ctx))
+            .then(|| self.team_pairing(ctx).co_driver.name)
     }
 
     pub fn hos_stop_advice(&self, ctx: &GameContext) -> Option<HosStopAdvice> {
@@ -237,7 +246,7 @@ impl DrivingState {
         let Some(advice) = self.hos_stop_advice(ctx) else {
             return;
         };
-        if advice.destination_reachable {
+        if advice.destination_reachable || self.co_driver_takes_the_sleep(ctx, &advice).is_some() {
             return;
         }
         let Some(stop) = &advice.stop else {
@@ -259,7 +268,7 @@ impl DrivingState {
         ctx.say_event_with(
             message,
             SayEvent::queued()
-                .priority(EventPriority::Route)
+                .priority(EventPriority::Important)
                 .key(&key)
                 .category(SpeechCategory::Safety)
                 .receipt(),

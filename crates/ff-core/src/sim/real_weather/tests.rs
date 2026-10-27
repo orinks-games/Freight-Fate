@@ -378,7 +378,7 @@ fn test_hourly_metar_cadence_is_still_live() {
 #[test]
 fn test_old_nws_observation_timestamp_is_never_treated_as_live() {
     let now = 2_000_000.0;
-    let old = now - OBSERVATION_MAX_AGE_S - 1.0;
+    let old = now - OUTAGE_HOLD_MAX_AGE_S - 1.0;
     let p = sync_provider(Arc::new(move |_, _| {
         Ok(obs("Heavy Rain", 5.0, Some(12.0), Some(1.0)).observed_at(old))
     }))
@@ -455,7 +455,7 @@ fn test_expired_observation_retries_then_recovers_to_live_weather() {
         *c += 1;
         let mut observed_at = *wall_for_fetch.lock().unwrap();
         if *c == 1 {
-            observed_at -= OBSERVATION_MAX_AGE_S + 1.0;
+            observed_at -= OUTAGE_HOLD_MAX_AGE_S + 1.0;
         }
         Ok(obs("Clear", 0.0, Some(10.0), Some(10.0)).observed_at(observed_at))
     }))
@@ -514,7 +514,7 @@ fn test_stale_observation_does_not_raise_out_of_worker() {
     let p =
         RealWeatherProvider::new(Arc::new(move |_, _| {
             Ok(obs("Clear", 0.0, Some(10.0), Some(10.0))
-                .observed_at(now - OBSERVATION_MAX_AGE_S - 1.0))
+                .observed_at(now - OUTAGE_HOLD_MAX_AGE_S - 1.0))
         }))
         .with_clock(fixed(0.0))
         .with_wall_clock(fixed(now));
@@ -571,7 +571,7 @@ fn test_repeated_stale_fetches_do_not_multiply_warnings() {
     let p =
         RealWeatherProvider::new(Arc::new(move |_, _| {
             Ok(obs("Clear", 0.0, Some(10.0), Some(10.0))
-                .observed_at(now - OBSERVATION_MAX_AGE_S - 1.0))
+                .observed_at(now - OUTAGE_HOLD_MAX_AGE_S - 1.0))
         }))
         .with_clock(fixed(0.0))
         .with_wall_clock(fixed(now));
@@ -1046,7 +1046,7 @@ fn the_discovery_chain_is_cached_per_coarse_location() {
     // points + stations once, then one observation per fetch.
     assert_eq!(calls.iter().filter(|u| u.contains("/points/")).count(), 1);
     assert_eq!(calls.len(), 4);
-    assert!(calls[0].ends_with("/points/41.8800,-87.6300"));
+    assert!(calls[0].ends_with("/points/41.88,-87.63"));
 }
 
 #[test]

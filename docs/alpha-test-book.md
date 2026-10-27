@@ -27,7 +27,7 @@ book assumes you have.
 ### 0.1 The alpha talks to a test server, not the real orinks.net
 
 Every online feature in this alpha — the drivers board, profile sharing,
-cloud backup, Mastodon posting — talks to a staging copy of the website
+cloud backup — talks to a staging copy of the website
 instead of the real one. It is a separate site, with separate accounts
 and separate data.
 
@@ -77,9 +77,8 @@ an account now turns profile sharing and cloud backup on, because the
 career statistics on your public profile are read out of the backup, and
 an account that publishes nothing left new drivers looking at an empty
 profile. Both are single items on the Online menu if you want either
-off. Mastodon posting is still a separate yes and still needs its own
-linked account. A confirmation that claims otherwise, in either
-direction, is a bug.
+off. A confirmation that claims otherwise, in either direction, is a
+bug.
 
 Also expected: right after you create your very first career, the game
 offers this setup once, unprompted, with "Not now" already selected. It
@@ -94,8 +93,7 @@ unless Discord is running. The master switch is only a master switch:
 everything underneath it is off or needs an account, so nothing is
 published because of it.
 
-Off until you turn each one on: Mastodon posting, and live weather,
-traffic and parking. Profile sharing and cloud backup are off too until
+Off until you turn each one on: live weather, traffic and parking. Profile sharing and cloud backup are off too until
 you connect an account, which is what turns them on — see 0.2.
 
 The radio plays its full dial out of the box, real public streams
@@ -203,7 +201,7 @@ real local dealer where sourced data exists. Chapter 6.
 **The law is watching more than your speed.** Weigh-station blow-pasts
 and severe visible damage draw stops; running from lights escalates to a
 felony stop with spike strips; construction zones stage a merge and
-flagger before the barrels; CB chatter hints at bears ahead. Traffic
+flagger before the barrels; CB chatter hints at troopers ahead. Traffic
 stops read a real logbook — the in-cab Record of Duty Status — and dock
 work takes spoken on-duty time. Chapter 7.
 
@@ -252,7 +250,7 @@ with per-kind switches in Settings. The career clock crosses real US time
 zones, spoken, with deadlines in destination local time. Chapter 11.
 
 **Online services point at a test server.** The drivers board, profile
-sharing, cloud backup and Mastodon posting all talk to a staging copy of
+sharing and cloud backup all talk to a staging copy of
 orinks.net, with its own accounts and its own throwaway data. You need a
 fresh account there and your real one will not work. Chapter 0.
 

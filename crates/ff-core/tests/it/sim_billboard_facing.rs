@@ -165,6 +165,10 @@ fn test_moved_pool_lines_are_heard_at_their_place_both_ways() {
 /// ever hears. Every one must survive a drive down its own leg in the
 /// direction it faces unless its leg-mile falls inside a statutory scenic ban.
 #[test]
+#[cfg_attr(
+    ci_quick,
+    ignore = "sweep: every placed billboard on every leg, both ways"
+)]
 fn test_every_placed_billboard_is_heard_on_its_own_leg() {
     let codes: std::collections::HashMap<_, _> = world()
         .cities

@@ -215,7 +215,7 @@ fn test_blown_destination_terminal_loops_back() {
     );
     let (line, interrupt) = submissions(&app).last().cloned().expect("a line");
     assert!(interrupt);
-    assert!(line.contains("safe turnaround"), "{line}");
+    assert!(line.contains("It is ahead again."), "{line}");
     assert!(line.contains(&stop.name), "{line}");
     assert!(approx(
         read_drive(&shared, |d| d.trip.game_minutes),
@@ -252,7 +252,7 @@ fn test_second_blown_terminal_loops_again_and_names_the_brake() {
         d.update_exit(ctx, RAMP_OVERSHOOT_MI, grace + 1.0)
     });
     let first = submissions(&app).last().expect("a line").0.clone();
-    assert!(first.contains("safe turnaround"), "{first}");
+    assert!(first.contains("It is ahead again."), "{first}");
     assert!(!first.contains("Brake with"), "{first}");
 
     let ramp_mi = read_drive(&shared, |d| d.ramp_mi).expect("the ramp is ahead again");
@@ -265,7 +265,7 @@ fn test_second_blown_terminal_loops_again_and_names_the_brake() {
     });
 
     let second = submissions(&app).last().expect("a line").0.clone();
-    assert!(second.contains("safe turnaround"), "{second}");
+    assert!(second.contains("It is ahead again."), "{second}");
     assert!(
         second.contains("Brake with"),
         "a repeat miss earns help, not silence: {second}"

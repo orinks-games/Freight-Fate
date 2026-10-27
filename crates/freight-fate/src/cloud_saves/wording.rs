@@ -156,7 +156,7 @@ not something you did. Your local career is safe."
     }
     if CATALOG_REJECTION_REASONS.contains(&reason) {
         return format!(
-            "{name}: backup not accepted. The server does not recognise the \
+            "{name}: backup not accepted. The server does not recognize the \
 town this career is parked in, which usually means it has not \
 caught up with this build yet. Your local career is safe, and \
 backups start working again on their own once it has."

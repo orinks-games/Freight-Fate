@@ -26,8 +26,6 @@ pub const DAYS_PER_YEAR: f64 = 365.0;
 /// mild weather before the first winter arrives.
 pub const CAREER_START_DAY_OF_YEAR: f64 = 80.0;
 
-pub const SEASONS: [&str; 4] = ["winter", "spring", "summer", "autumn"];
-
 // Temperatures at which precipitation type and ice risk flip, in Celsius.
 /// At or below this, rain falls as snow and ice forms.
 pub const FREEZING_C: f64 = 1.0;

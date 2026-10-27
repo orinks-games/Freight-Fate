@@ -1,0 +1,132 @@
+{"meta": {"counts": {"candidates": 227, "fold_ratio": 0.251, "folds": 57, "mixed": 2, "named": 131, "on_highway": 94, "place_guarded": 74, "skipped_candidates": 0}, "data_version": "sha256:21432bfb689d", "inputs": {"extract_date": "2026-10-19", "extracts": ["us-conus.osm.pbf"]}, "kind": "derived", "layer": "limit_artifacts", "params": {"max_run_mi": 2.5, "near_m": 40.0, "on_highway_min": 0.3, "place_guard_mi": 0.25, "step_mi": 0.02, "verdict_min": 0.5}, "reasons": {"no_road": "no mainline way within 40 m of the route there (an interchange ramp)", "off_route": "the route there runs on a different road than the leg's highway", "other_limit": "the leg's highway posts a different limit there"}, "schema": 1, "source": "Derived: OpenStreetMap highway ways carrying maxspeed (maxspeed:hgv preferred), OpenStreetMap planet file cut to the lower 48 of 2026-10-19, matched to the checked-in route geometry archive; a posting is named when the nearest way along it is not the leg's highway posting that limit. Thresholds calibrated on a hand-checked sample of 100 postings, 2026-10-17. Development-time screen, see `cargo tools osm-speed-limits`."}}
+{"at_mi": 28.4, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-19", "leg": "albany_ga_us:tallahassee_fl_us", "mph": 35.0, "run_mi": 1.6, "why": "off_route"}
+{"at_mi": 53.8, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-82", "leg": "albany_ga_us:valdosta_ga_us", "mph": 45.0, "run_mi": 1.2, "why": "off_route"}
+{"at_mi": 62.5, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-82", "leg": "albany_ga_us:valdosta_ga_us", "mph": 45.0, "run_mi": 0.9, "why": "off_route"}
+{"at_mi": 109.7, "fractions": {"off_route": 1.0}, "from_mph": 50.0, "highway": "US-7", "leg": "albany_ny_us:montpelier_vt_us", "mph": 40.0, "run_mi": 0.8, "why": "off_route"}
+{"at_mi": 88.8, "fractions": {"no_road": 0.083, "off_route": 0.917}, "from_mph": 55.0, "highway": "US-222", "leg": "allentown_pa_us:baltimore_md_us", "mph": 35.0, "run_mi": 0.8, "why": "off_route"}
+{"at_mi": 84.3, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "I-78", "leg": "allentown_pa_us:new_york_ny_us", "mph": 50.0, "run_mi": 2.1, "why": "off_route"}
+{"at_mi": 48.5, "fractions": {"no_road": 0.415, "off_route": 0.585}, "from_mph": 55.0, "highway": "US-22", "leg": "allentown_pa_us:trenton_nj_us", "mph": 45.0, "run_mi": 2.2, "why": "off_route"}
+{"at_mi": 65.8, "fractions": {"no_road": 0.27, "on_b": 0.09, "other_limit": 0.64}, "from_mph": 75.0, "highway": "US-287", "leg": "amarillo_tx_us:dallas_tx_us", "mph": 55.0, "run_mi": 2.3, "why": "other_limit"}
+{"at_mi": 34.7, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-101", "leg": "astoria_or_us:olympia_wa_us", "mph": 30.0, "run_mi": 1.5, "why": "off_route"}
+{"at_mi": 107.7, "fractions": {"no_road": 0.052, "other_limit": 0.948}, "from_mph": 70.0, "highway": "I-20", "leg": "atlanta_ga_us:dallas_tx_us", "mph": 55.0, "run_mi": 2.0, "why": "other_limit"}
+{"at_mi": 232.9, "fractions": {"no_road": 0.009, "other_limit": 0.991}, "from_mph": 70.0, "highway": "I-20", "leg": "atlanta_ga_us:dallas_tx_us", "mph": 55.0, "run_mi": 2.4, "why": "other_limit"}
+{"at_mi": 7.6, "fractions": {"on_b": 0.066, "other_limit": 0.934}, "from_mph": 70.0, "highway": "US-69", "leg": "atoka_ok_us:mcalester_ok_us", "mph": 65.0, "run_mi": 2.2, "why": "other_limit"}
+{"at_mi": 4.5, "fractions": {"off_route": 1.0}, "from_mph": 45.0, "highway": "GA-21", "leg": "augusta_ga_us:savannah_ga_us", "mph": 25.0, "run_mi": 0.3, "why": "off_route"}
+{"at_mi": 13.3, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "I-80", "leg": "aurora_il_us:peoria_il_us", "mph": 45.0, "run_mi": 1.5, "why": "off_route"}
+{"at_mi": 137.0, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "I-70", "leg": "baltimore_md_us:pittsburgh_pa_us", "mph": 45.0, "run_mi": 2.1, "why": "off_route"}
+{"at_mi": 53.3, "fractions": {"no_road": 0.172, "off_route": 0.828}, "from_mph": 65.0, "highway": "I-95", "leg": "baltimore_md_us:richmond_va_us", "mph": 55.0, "run_mi": 2.4, "why": "off_route"}
+{"at_mi": 0.3, "fractions": {"off_route": 1.0}, "from_mph": 30.0, "highway": "US-75", "leg": "bartlesville_ok_us:coffeyville_ks_us", "mph": 25.0, "run_mi": 0.6, "why": "off_route"}
+{"at_mi": 30.9, "fractions": {"no_road": 0.188, "off_route": 0.812}, "from_mph": 65.0, "highway": "TX-99", "leg": "beaumont_tx_us:college_station_tx_us", "mph": 50.0, "run_mi": 2.1, "why": "off_route"}
+{"at_mi": 21.6, "fractions": {"no_road": 0.779, "off_route": 0.012, "on_b": 0.105, "other_limit": 0.105}, "from_mph": 55.0, "highway": "US-62", "leg": "bentonville_ar_us:harrison_ar_us", "mph": 35.0, "run_mi": 1.8, "why": "no_road"}
+{"at_mi": 249.8, "fractions": {"off_route": 1.0}, "from_mph": 65.0, "highway": "I-15", "leg": "billings_mt_us:salt_lake_city_ut_us", "mph": 45.0, "run_mi": 1.5, "why": "off_route"}
+{"at_mi": 2.8, "fractions": {"no_road": 0.054, "off_route": 0.946}, "from_mph": 50.0, "highway": "I-22", "leg": "birmingham_al_us:tupelo_ms_us", "mph": 45.0, "run_mi": 1.2, "why": "off_route"}
+{"at_mi": 77.1, "fractions": {"no_road": 0.29, "other_limit": 0.71}, "from_mph": 75.0, "highway": "US-67", "leg": "brownwood_tx_us:san_angelo_tx_us", "mph": 25.0, "run_mi": 0.7, "why": "other_limit"}
+{"at_mi": 274.6, "fractions": {"no_road": 0.129, "off_route": 0.853, "other_limit": 0.017}, "from_mph": 65.0, "highway": "I-90", "leg": "buffalo_ny_us:new_york_ny_us", "mph": 55.0, "run_mi": 2.4, "why": "off_route"}
+{"at_mi": 27.1, "fractions": {"no_road": 0.276, "off_route": 0.026, "other_limit": 0.697}, "from_mph": 65.0, "highway": "US-218", "leg": "burlington_ia_us:iowa_city_ia_us", "mph": 45.0, "run_mi": 1.6, "why": "other_limit"}
+{"at_mi": 10.6, "fractions": {"off_route": 1.0}, "from_mph": 50.0, "highway": "US-17", "leg": "cape_coral_fl_us:lakeland_fl_us", "mph": 45.0, "run_mi": 1.7, "why": "off_route"}
+{"at_mi": 10.6, "fractions": {"off_route": 1.0}, "from_mph": 50.0, "highway": "I-75", "leg": "cape_coral_fl_us:tampa_fl_us", "mph": 45.0, "run_mi": 1.8, "why": "off_route"}
+{"at_mi": 81.3, "fractions": {"on_b": 0.258, "other_limit": 0.742}, "from_mph": 55.0, "highway": "US-395", "leg": "carson_city_nv_us:mammoth_lakes_ca_us", "mph": 30.0, "run_mi": 0.7, "why": "other_limit"}
+{"at_mi": 106.3, "fractions": {"on_b": 0.148, "other_limit": 0.852}, "from_mph": 55.0, "highway": "US-395", "leg": "carson_city_nv_us:mammoth_lakes_ca_us", "mph": 30.0, "run_mi": 1.3, "why": "other_limit"}
+{"at_mi": 89.0, "fractions": {"on_b": 0.258, "other_limit": 0.742}, "from_mph": 45.0, "highway": "US-52", "leg": "charleston_sc_us:florence_sc_us", "mph": 35.0, "run_mi": 0.7, "why": "other_limit"}
+{"at_mi": 32.6, "fractions": {"on_b": 0.284, "other_limit": 0.716}, "from_mph": 60.0, "highway": "US-17", "leg": "charleston_sc_us:savannah_ga_us", "mph": 40.0, "run_mi": 1.7, "why": "other_limit"}
+{"at_mi": 37.1, "fractions": {"off_route": 1.0}, "from_mph": 70.0, "highway": "I-64", "leg": "charlottesville_va_us:harrisonburg_va_us", "mph": 65.0, "run_mi": 2.3, "why": "off_route"}
+{"at_mi": 73.4, "fractions": {"no_road": 0.198, "off_route": 0.802}, "from_mph": 65.0, "highway": "TX-6", "leg": "college_station_tx_us:houston_tx_us", "mph": 50.0, "run_mi": 2.0, "why": "off_route"}
+{"at_mi": 6.8, "fractions": {"off_route": 0.488, "other_limit": 0.512}, "from_mph": 70.0, "highway": "US-190", "leg": "college_station_tx_us:temple_tx_us", "mph": 45.0, "run_mi": 0.9, "why": "other_limit"}
+{"at_mi": 67.8, "fractions": {"on_b": 0.239, "other_limit": 0.761}, "from_mph": 60.0, "highway": "US-63", "leg": "columbia_mo_us:rolla_mo_us", "mph": 35.0, "run_mi": 1.5, "why": "other_limit"}
+{"at_mi": 43.3, "fractions": {"off_route": 1.0}, "from_mph": 65.0, "highway": "US-82", "leg": "columbus_ga_us:albany_ga_us", "mph": 55.0, "run_mi": 2.3, "why": "off_route"}
+{"at_mi": 62.6, "fractions": {"no_road": 0.712, "on_b": 0.182, "other_limit": 0.106}, "from_mph": 55.0, "highway": "US-199", "leg": "crescent_city_ca_us:grants_pass_or_us", "mph": 45.0, "run_mi": 1.4, "why": "no_road"}
+{"at_mi": 91.2, "fractions": {"off_route": 1.0}, "from_mph": 65.0, "highway": "FL-85", "leg": "crestview_fl_us:dothan_al_us", "mph": 45.0, "run_mi": 1.4, "why": "off_route"}
+{"at_mi": 337.1, "fractions": {"on_b": 0.02, "other_limit": 0.98}, "from_mph": 75.0, "highway": "US-287", "leg": "dallas_tx_us:albuquerque_nm_us", "mph": 45.0, "run_mi": 2.1, "why": "other_limit"}
+{"at_mi": 450.4, "fractions": {"off_route": 1.0}, "from_mph": 75.0, "highway": "US-287", "leg": "dallas_tx_us:albuquerque_nm_us", "mph": 35.0, "run_mi": 1.2, "why": "off_route"}
+{"at_mi": 607.3, "fractions": {"no_road": 0.065, "off_route": 0.935}, "from_mph": 75.0, "highway": "US-287", "leg": "dallas_tx_us:albuquerque_nm_us", "mph": 40.0, "run_mi": 0.7, "why": "off_route"}
+{"at_mi": 15.6, "fractions": {"off_route": 1.0}, "from_mph": 70.0, "highway": "I-44", "leg": "dallas_tx_us:st_louis_mo_us", "mph": 65.0, "run_mi": 2.4, "why": "off_route"}
+{"at_mi": 14.0, "fractions": {"off_route": 1.0}, "from_mph": 65.0, "highway": "US-40", "leg": "denver_co_us:salt_lake_city_ut_us", "mph": 50.0, "run_mi": 2.4, "why": "off_route"}
+{"at_mi": 21.5, "fractions": {"off_route": 1.0}, "from_mph": 65.0, "highway": "US-40", "leg": "denver_co_us:salt_lake_city_ut_us", "mph": 25.0, "run_mi": 0.3, "why": "off_route"}
+{"at_mi": 74.3, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-40", "leg": "denver_co_us:salt_lake_city_ut_us", "mph": 45.0, "run_mi": 1.6, "why": "off_route"}
+{"at_mi": 11.5, "fractions": {"no_road": 0.179, "off_route": 0.028, "other_limit": 0.792}, "from_mph": 65.0, "highway": "I-70", "leg": "denver_co_us:silverthorne_co_us", "mph": 55.0, "run_mi": 2.2, "why": "other_limit"}
+{"at_mi": 18.1, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-84", "leg": "dothan_al_us:albany_ga_us", "mph": 35.0, "run_mi": 0.9, "why": "off_route"}
+{"at_mi": 47.9, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "AZ-80", "leg": "douglas_az_us:tucson_az_us", "mph": 45.0, "run_mi": 1.2, "why": "off_route"}
+{"at_mi": 7.4, "fractions": {"on_b": 0.141, "other_limit": 0.859}, "from_mph": 55.0, "highway": "US-20", "leg": "dubuque_ia_us:rockford_il_us", "mph": 30.0, "run_mi": 1.5, "why": "other_limit"}
+{"at_mi": 84.6, "fractions": {"off_route": 1.0}, "from_mph": 60.0, "highway": "US-10", "leg": "duluth_mn_us:fargo_nd_us", "mph": 30.0, "run_mi": 1.1, "why": "off_route"}
+{"at_mi": 105.8, "fractions": {"no_road": 0.224, "off_route": 0.592, "on_b": 0.184}, "from_mph": 65.0, "highway": "US-491", "leg": "durango_co_us:moab_ut_us", "mph": 40.0, "run_mi": 1.6, "why": "off_route"}
+{"at_mi": 50.8, "fractions": {"on_b": 0.227, "other_limit": 0.773}, "from_mph": 55.0, "highway": "US-51", "leg": "dyersburg_tn_us:memphis_tn_us", "mph": 45.0, "run_mi": 1.4, "why": "other_limit"}
+{"at_mi": 17.9, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-53", "leg": "eau_claire_wi_us:la_crosse_wi_us", "mph": 30.0, "run_mi": 0.5, "why": "off_route"}
+{"at_mi": 29.9, "fractions": {"no_road": 0.093, "off_route": 0.907}, "from_mph": 55.0, "highway": "US-53", "leg": "eau_claire_wi_us:la_crosse_wi_us", "mph": 45.0, "run_mi": 1.8, "why": "off_route"}
+{"at_mi": 51.6, "fractions": {"no_road": 0.098, "off_route": 0.902}, "from_mph": 45.0, "highway": "US-165", "leg": "el_dorado_ar_us:monroe_la_us", "mph": 35.0, "run_mi": 0.9, "why": "off_route"}
+{"at_mi": 78.5, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "Western Kentucky Parkway", "leg": "elizabethtown_ky_us:evansville_in_us", "mph": 45.0, "run_mi": 2.1, "why": "off_route"}
+{"at_mi": 10.0, "fractions": {"off_route": 1.0}, "from_mph": 60.0, "highway": "US-491", "leg": "farmington_nm_us:gallup_nm_us", "mph": 45.0, "run_mi": 0.8, "why": "off_route"}
+{"at_mi": 22.6, "fractions": {"on_b": 0.242, "other_limit": 0.758}, "from_mph": 60.0, "highway": "US-30", "leg": "fort_wayne_in_us:gary_in_us", "mph": 45.0, "run_mi": 1.9, "why": "other_limit"}
+{"at_mi": 183.8, "fractions": {"no_road": 0.906, "off_route": 0.094}, "from_mph": 75.0, "highway": "US-83", "leg": "garden_city_ks_us:amarillo_tx_us", "mph": 30.0, "run_mi": 2.0, "why": "no_road"}
+{"at_mi": 48.8, "fractions": {"on_b": 0.078, "other_limit": 0.922}, "from_mph": 55.0, "highway": "US-61", "leg": "greenville_ms_us:vicksburg_ms_us", "mph": 45.0, "run_mi": 1.1, "why": "other_limit"}
+{"at_mi": 97.2, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "I-76", "leg": "harrisburg_pa_us:pittsburgh_pa_us", "mph": 45.0, "run_mi": 2.0, "why": "off_route"}
+{"at_mi": 5.6, "fractions": {"off_route": 0.963, "on_b": 0.037}, "from_mph": 55.0, "highway": "US-84", "leg": "hinesville_ga_us:savannah_ga_us", "mph": 45.0, "run_mi": 1.7, "why": "off_route"}
+{"at_mi": 3.2, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-41", "leg": "iron_mountain_mi_us:marquette_mi_us", "mph": 45.0, "run_mi": 1.5, "why": "off_route"}
+{"at_mi": 59.3, "fractions": {"on_b": 0.083, "other_limit": 0.917}, "from_mph": 65.0, "highway": "US-301", "leg": "jacksonville_fl_us:ocala_fl_us", "mph": 45.0, "run_mi": 2.0, "why": "other_limit"}
+{"at_mi": 9.0, "fractions": {"on_b": 0.117, "other_limit": 0.883}, "from_mph": 65.0, "highway": "I-86", "leg": "jamestown_ny_us:erie_pa_us", "mph": 55.0, "run_mi": 2.3, "why": "other_limit"}
+{"at_mi": 34.3, "fractions": {"on_b": 0.189, "other_limit": 0.811}, "from_mph": 65.0, "highway": "US-183", "leg": "kearney_ne_us:hays_ks_us", "mph": 45.0, "run_mi": 2.2, "why": "other_limit"}
+{"at_mi": 5.3, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "NH-101", "leg": "keene_nh_us:manchester_nh_us", "mph": 45.0, "run_mi": 2.1, "why": "off_route"}
+{"at_mi": 11.5, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "NH-101", "leg": "keene_nh_us:manchester_nh_us", "mph": 35.0, "run_mi": 0.5, "why": "off_route"}
+{"at_mi": 48.9, "fractions": {"no_road": 0.171, "off_route": 0.829}, "from_mph": 65.0, "highway": "NH-101", "leg": "keene_nh_us:manchester_nh_us", "mph": 40.0, "run_mi": 0.9, "why": "off_route"}
+{"at_mi": 26.7, "fractions": {"no_road": 0.009, "off_route": 0.991}, "from_mph": 55.0, "highway": "I-94", "leg": "kenosha_wi_us:chicago_il_us", "mph": 45.0, "run_mi": 2.2, "why": "off_route"}
+{"at_mi": 90.1, "fractions": {"on_b": 0.188, "other_limit": 0.812}, "from_mph": 60.0, "highway": "US-97", "leg": "klamath_falls_or_us:bend_or_us", "mph": 35.0, "run_mi": 2.1, "why": "other_limit"}
+{"at_mi": 69.0, "fractions": {"on_b": 0.258, "other_limit": 0.742}, "from_mph": 60.0, "highway": "US-95", "leg": "lewiston_id_us:coeur_d_alene_id_us", "mph": 45.0, "run_mi": 0.7, "why": "other_limit"}
+{"at_mi": 81.9, "fractions": {"on_b": 0.061, "other_limit": 0.939}, "from_mph": 60.0, "highway": "US-95", "leg": "lewiston_id_us:coeur_d_alene_id_us", "mph": 35.0, "run_mi": 1.4, "why": "other_limit"}
+{"at_mi": 18.0, "fractions": {"on_b": 0.288, "other_limit": 0.712}, "from_mph": 65.0, "highway": "US-2", "leg": "libby_mt_us:sandpoint_id_us", "mph": 25.0, "run_mi": 1.4, "why": "other_limit"}
+{"at_mi": 38.9, "fractions": {"on_b": 0.099, "other_limit": 0.901}, "from_mph": 75.0, "highway": "US-82", "leg": "lubbock_tx_us:dallas_tx_us", "mph": 50.0, "run_mi": 1.7, "why": "other_limit"}
+{"at_mi": 76.4, "fractions": {"off_route": 1.0}, "from_mph": 60.0, "highway": "US-460", "leg": "lynchburg_va_us:richmond_va_us", "mph": 55.0, "run_mi": 2.4, "why": "off_route"}
+{"at_mi": 12.7, "fractions": {"off_route": 0.009, "on_b": 0.207, "other_limit": 0.784}, "from_mph": 70.0, "highway": "US-281", "leg": "marble_falls_tx_us:lampasas_tx_us", "mph": 35.0, "run_mi": 2.4, "why": "other_limit"}
+{"at_mi": 12.6, "fractions": {"on_b": 0.237, "other_limit": 0.763}, "from_mph": 65.0, "highway": "ID-55", "leg": "mccall_id_us:boise_id_us", "mph": 25.0, "run_mi": 1.6, "why": "other_limit"}
+{"at_mi": 54.3, "fractions": {"no_road": 0.009, "off_route": 0.991}, "from_mph": 55.0, "highway": "I-94", "leg": "milwaukee_wi_us:chicago_il_us", "mph": 45.0, "run_mi": 2.2, "why": "off_route"}
+{"at_mi": 70.7, "fractions": {"on_b": 0.125, "other_limit": 0.875}, "from_mph": 35.0, "highway": "US-93", "leg": "missoula_mt_us:kalispell_mt_us", "mph": 25.0, "run_mi": 0.4, "why": "other_limit"}
+{"at_mi": 134.5, "fractions": {"other_limit": 1.0}, "from_mph": 55.0, "highway": "US-31", "leg": "muskegon_mi_us:traverse_city_mi_us", "mph": 20.0, "run_mi": 1.3, "why": "other_limit"}
+{"at_mi": 86.8, "fractions": {"off_route": 1.0}, "from_mph": 65.0, "highway": "I-95", "leg": "new_york_ny_us:boston_ma_us", "mph": 55.0, "run_mi": 2.2, "why": "off_route"}
+{"at_mi": 82.9, "fractions": {"on_b": 0.069, "other_limit": 0.931}, "from_mph": 55.0, "highway": "US-101", "leg": "newport_or_us:astoria_or_us", "mph": 20.0, "run_mi": 2.1, "why": "other_limit"}
+{"at_mi": 27.4, "fractions": {"on_b": 0.129, "other_limit": 0.871}, "from_mph": 60.0, "highway": "US-275", "leg": "norfolk_ne_us:omaha_ne_us", "mph": 40.0, "run_mi": 2.4, "why": "other_limit"}
+{"at_mi": 41.4, "fractions": {"on_b": 0.198, "other_limit": 0.802}, "from_mph": 55.0, "highway": "US-460", "leg": "norfolk_va_us:petersburg_va_us", "mph": 45.0, "run_mi": 2.3, "why": "other_limit"}
+{"at_mi": 41.7, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-64", "leg": "norfolk_va_us:raleigh_nc_us", "mph": 35.0, "run_mi": 1.3, "why": "off_route"}
+{"at_mi": 85.9, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-64", "leg": "norfolk_va_us:raleigh_nc_us", "mph": 45.0, "run_mi": 1.9, "why": "off_route"}
+{"at_mi": 100.4, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-64", "leg": "norfolk_va_us:raleigh_nc_us", "mph": 35.0, "run_mi": 0.9, "why": "off_route"}
+{"at_mi": 1.4, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "I-215", "leg": "oceanside_ca_us:victorville_ca_us", "mph": 45.0, "run_mi": 1.7, "why": "off_route"}
+{"at_mi": 45.0, "fractions": {"on_b": 0.255, "other_limit": 0.745}, "from_mph": 55.0, "highway": "MS-6", "leg": "oxford_ms_us:clarksdale_ms_us", "mph": 45.0, "run_mi": 2.2, "why": "other_limit"}
+{"at_mi": 21.3, "fractions": {"off_route": 1.0}, "from_mph": 65.0, "highway": "US-98", "leg": "panama_city_fl_us:tallahassee_fl_us", "mph": 45.0, "run_mi": 1.4, "why": "off_route"}
+{"at_mi": 196.1, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "I-76", "leg": "philadelphia_pa_us:pittsburgh_pa_us", "mph": 45.0, "run_mi": 2.0, "why": "off_route"}
+{"at_mi": 114.3, "fractions": {"off_route": 1.0}, "from_mph": 70.0, "highway": "US-302", "leg": "portland_me_us:montpelier_vt_us", "mph": 35.0, "run_mi": 0.9, "why": "off_route"}
+{"at_mi": 153.2, "fractions": {"no_road": 0.26, "off_route": 0.031, "other_limit": 0.708}, "from_mph": 80.0, "highway": "I-84", "leg": "provo_ut_us:boise_id_us", "mph": 55.0, "run_mi": 2.0, "why": "other_limit"}
+{"at_mi": 197.8, "fractions": {"other_limit": 1.0}, "from_mph": 65.0, "highway": "US-212", "leg": "rapid_city_sd_us:billings_mt_us", "mph": 35.0, "run_mi": 1.1, "why": "other_limit"}
+{"at_mi": 79.6, "fractions": {"on_b": 0.127, "other_limit": 0.873}, "from_mph": 55.0, "highway": "US-395", "leg": "ridgecrest_ca_us:bishop_ca_us", "mph": 25.0, "run_mi": 1.5, "why": "other_limit"}
+{"at_mi": 85.3, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-220", "leg": "roanoke_va_us:winston_salem_nc_us", "mph": 35.0, "run_mi": 2.3, "why": "off_route"}
+{"at_mi": 207.8, "fractions": {"no_road": 0.135, "off_route": 0.865}, "from_mph": 65.0, "highway": "I-90", "leg": "rochester_ny_us:new_york_ny_us", "mph": 55.0, "run_mi": 2.3, "why": "off_route"}
+{"at_mi": 53.3, "fractions": {"no_road": 0.545, "off_route": 0.273, "other_limit": 0.182}, "from_mph": 55.0, "highway": "US-27", "leg": "rome_ga_us:chattanooga_tn_us", "mph": 25.0, "run_mi": 0.3, "why": "no_road"}
+{"at_mi": 91.3, "fractions": {"off_route": 1.0}, "from_mph": 35.0, "highway": "US-380", "leg": "roswell_nm_us:lubbock_tx_us", "mph": 25.0, "run_mi": 0.5, "why": "off_route"}
+{"at_mi": 156.4, "fractions": {"no_road": 0.037, "off_route": 0.963}, "from_mph": 75.0, "highway": "US-380", "leg": "roswell_nm_us:lubbock_tx_us", "mph": 40.0, "run_mi": 1.7, "why": "off_route"}
+{"at_mi": 18.9, "fractions": {"off_route": 1.0}, "from_mph": 50.0, "highway": "US-4", "leg": "rutland_vt_us:albany_ny_us", "mph": 45.0, "run_mi": 1.3, "why": "off_route"}
+{"at_mi": 59.1, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-4", "leg": "rutland_vt_us:albany_ny_us", "mph": 40.0, "run_mi": 1.8, "why": "off_route"}
+{"at_mi": 124.8, "fractions": {"no_road": 0.079, "off_route": 0.855, "other_limit": 0.066}, "from_mph": 55.0, "highway": "I-5", "leg": "sacramento_ca_us:portland_or_us", "mph": 45.0, "run_mi": 1.6, "why": "off_route"}
+{"at_mi": 34.0, "fractions": {"off_route": 1.0}, "from_mph": 75.0, "highway": "US-83", "leg": "san_angelo_tx_us:abilene_tx_us", "mph": 55.0, "run_mi": 1.9, "why": "off_route"}
+{"at_mi": 43.8, "fractions": {"on_b": 0.015, "other_limit": 0.985}, "from_mph": 75.0, "highway": "US-87", "leg": "san_angelo_tx_us:midland_tx_us", "mph": 40.0, "run_mi": 1.4, "why": "other_limit"}
+{"at_mi": 30.6, "fractions": {"no_road": 0.083, "off_route": 0.917}, "from_mph": 55.0, "highway": "I-580", "leg": "san_jose_ca_us:stockton_ca_us", "mph": 45.0, "run_mi": 0.8, "why": "off_route"}
+{"at_mi": 18.3, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "I-80", "leg": "santa_rosa_ca_us:sacramento_ca_us", "mph": 45.0, "run_mi": 1.5, "why": "off_route"}
+{"at_mi": 82.0, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "I-75", "leg": "sault_ste_marie_mi_us:traverse_city_mi_us", "mph": 45.0, "run_mi": 0.9, "why": "off_route"}
+{"at_mi": 142.1, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "I-75", "leg": "sault_ste_marie_mi_us:traverse_city_mi_us", "mph": 45.0, "run_mi": 1.5, "why": "off_route"}
+{"at_mi": 46.5, "fractions": {"on_b": 0.063, "other_limit": 0.937}, "from_mph": 55.0, "highway": "US-33", "leg": "south_bend_in_us:fort_wayne_in_us", "mph": 40.0, "run_mi": 2.3, "why": "other_limit"}
+{"at_mi": 86.7, "fractions": {"no_road": 0.418, "off_route": 0.582}, "from_mph": 60.0, "highway": "I-84", "leg": "spokane_wa_us:boise_id_us", "mph": 50.0, "run_mi": 1.9, "why": "off_route"}
+{"at_mi": 75.0, "fractions": {"other_limit": 1.0}, "from_mph": 60.0, "highway": "US-195", "leg": "spokane_wa_us:lewiston_id_us", "mph": 45.0, "run_mi": 0.9, "why": "other_limit"}
+{"at_mi": 69.8, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "I-580", "leg": "stockton_ca_us:san_francisco_ca_us", "mph": 45.0, "run_mi": 1.7, "why": "off_route"}
+{"at_mi": 67.1, "fractions": {"off_route": 1.0}, "from_mph": 60.0, "highway": "I-75", "leg": "tampa_fl_us:miami_fl_us", "mph": 50.0, "run_mi": 2.2, "why": "off_route"}
+{"at_mi": 32.5, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-40", "leg": "topeka_ks_us:lawrence_ks_us", "mph": 45.0, "run_mi": 0.7, "why": "off_route"}
+{"at_mi": 19.7, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-131", "leg": "traverse_city_mi_us:grand_rapids_mi_us", "mph": 45.0, "run_mi": 0.9, "why": "off_route"}
+{"at_mi": 104.9, "fractions": {"no_road": 0.066, "off_route": 0.857, "on_b": 0.077}, "from_mph": 65.0, "highway": "US-412", "leg": "tulsa_ok_us:fayetteville_ar_us", "mph": 40.0, "run_mi": 1.9, "why": "off_route"}
+{"at_mi": 104.8, "fractions": {"on_b": 0.077, "other_limit": 0.923}, "from_mph": 45.0, "highway": "US-84", "leg": "valdosta_ga_us:dothan_al_us", "mph": 35.0, "run_mi": 0.6, "why": "other_limit"}
+{"at_mi": 86.5, "fractions": {"no_road": 0.012, "off_route": 0.267, "on_b": 0.035, "other_limit": 0.686}, "from_mph": 55.0, "highway": "I-15", "leg": "valencia_ca_us:victorville_ca_us", "mph": 50.0, "run_mi": 1.8, "why": "other_limit"}
+{"at_mi": 56.3, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-64", "leg": "virginia_beach_va_us:raleigh_nc_us", "mph": 35.0, "run_mi": 1.3, "why": "off_route"}
+{"at_mi": 100.6, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-64", "leg": "virginia_beach_va_us:raleigh_nc_us", "mph": 45.0, "run_mi": 1.9, "why": "off_route"}
+{"at_mi": 115.1, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-64", "leg": "virginia_beach_va_us:raleigh_nc_us", "mph": 35.0, "run_mi": 1.0, "why": "off_route"}
+{"at_mi": 17.3, "fractions": {"off_route": 1.0}, "from_mph": 65.0, "highway": "CA-99", "leg": "visalia_ca_us:lancaster_ca_us", "mph": 55.0, "run_mi": 1.9, "why": "off_route"}
+{"at_mi": 57.5, "fractions": {"other_limit": 1.0}, "from_mph": 75.0, "highway": "TX-6", "leg": "waco_tx_us:college_station_tx_us", "mph": 45.0, "run_mi": 1.9, "why": "other_limit"}
+{"at_mi": 36.0, "fractions": {"on_b": 0.063, "other_limit": 0.937}, "from_mph": 70.0, "highway": "TX-31", "leg": "waco_tx_us:tyler_tx_us", "mph": 65.0, "run_mi": 2.3, "why": "other_limit"}
+{"at_mi": 11.7, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-730", "leg": "walla_walla_wa_us:pendleton_or_us", "mph": 25.0, "run_mi": 1.4, "why": "off_route"}
+{"at_mi": 70.4, "fractions": {"off_route": 0.01, "on_b": 0.198, "other_limit": 0.792}, "from_mph": 55.0, "highway": "US-50", "leg": "washington_dc_us:salisbury_md_us", "mph": 45.0, "run_mi": 2.0, "why": "other_limit"}
+{"at_mi": 78.7, "fractions": {"off_route": 1.0}, "from_mph": 55.0, "highway": "US-15", "leg": "williamsport_pa_us:harrisburg_pa_us", "mph": 45.0, "run_mi": 1.6, "why": "off_route"}
+{"at_mi": 50.9, "fractions": {"on_b": 0.094, "other_limit": 0.906}, "from_mph": 55.0, "highway": "US-12", "leg": "willmar_mn_us:minneapolis_mn_us", "mph": 30.0, "run_mi": 2.0, "why": "other_limit"}
+{"at_mi": 65.8, "fractions": {"on_b": 0.038, "other_limit": 0.962}, "from_mph": 55.0, "highway": "US-12", "leg": "willmar_mn_us:minneapolis_mn_us", "mph": 40.0, "run_mi": 0.6, "why": "other_limit"}
+{"at_mi": 23.6, "fractions": {"off_route": 1.0}, "from_mph": 60.0, "highway": "US-212", "leg": "willmar_mn_us:watertown_sd_us", "mph": 30.0, "run_mi": 1.4, "why": "off_route"}

@@ -156,13 +156,13 @@ fn test_fixed_object_hazard_needs_nearly_a_stop_or_a_swerve() {
         1
     );
 
-    // Nearly stopping resolves it, with the ease-around fiction spoken.
+    // Nearly stopping resolves it, and the outcome is all that is said.
     harness.with_drive(|d, ctx| {
         d.truck_mut().velocity_mps = (HAZARD_CREEP_MPH - 1.0) / MPH_PER_MPS;
         d.update_hazard(ctx, DT);
     });
     assert!(harness.read_drive(|d| d.hazard_deadline).is_none());
-    assert!(said_any(&harness, "ease around it"));
+    assert!(said_any(&harness, "Clear"));
 }
 
 #[test]
@@ -1002,7 +1002,7 @@ fn test_lane_keeping_on_full_passes_on_the_named_side_with_cruise_still_armed() 
         &harness,
         "In the left lane, passing the slow car."
     ));
-    assert!(!said_any(&harness, "Well done"));
+    assert!(!said_any(&harness, "Clear of the"));
     // Cruise rode through the dodge: still armed, still set.
     assert!(harness.read_drive(|d| d.speed_control_armed));
     assert_eq!(harness.read_drive(|d| d.cruise_mph), Some(65.0));

@@ -321,7 +321,7 @@ const MOVED_MI: f64 = 1.0;
 ///   only the remainder of `1/FPS`. So the whole frame budget is
 ///   [`BUDGET_US`] = 16 667 us, and anything over it is a dropped frame.
 /// * This test measures the headless frame. A player's frame also carries
-///   the SDL event pump and the window render, BASS mixing its channels,
+///   the SDL event pump and the window render, the mixer playing its channels,
 ///   and Prism handing text to a screen reader -- none of which exist here.
 ///   The measured part therefore cannot be allowed the whole budget.
 /// * What it may have is set by the slowest hardware the game has to hold

@@ -788,7 +788,10 @@ fn test_a_tire_chain_release_speaks_at_urgent_only_as_safety() {
     let last = lines
         .last()
         .unwrap_or_else(|| panic!("the chain let go in silence"));
-    assert!(last.to_lowercase().contains("scrap"), "{last}");
+    assert_eq!(
+        last,
+        "A tire chain broke and is flailing. Slow down and pull over to check it."
+    );
     app.shutdown();
 }
 
@@ -986,11 +989,11 @@ fn test_a_queued_stop_notice_speaks_the_distance_it_delivers_at() {
 // -- the terse halves the rung renders -----------------------------------------------
 
 #[test]
-fn test_traffic_advisories_have_a_terse_half() {
-    // They shipped as plain strings, which the ladder treats as their own
-    // terse rendering -- so "Exit traffic building in 2 miles. Signal early,
-    // hold the right exit lane, and be ready to slow near 45" was spoken whole
-    // at quiet, the longest line on the drive.
+fn test_traffic_advisories_are_short_at_every_rung() {
+    // They shipped as long sentences: "Exit traffic building in 2 miles.
+    // Signal early, hold the right exit lane, and be ready to slow near 45"
+    // was the longest line on the drive. Now one short form serves every
+    // rung, so there is no separate terse half to fall out of step.
     let mut app = an_app();
     let drive = a_drive(&mut app);
     for kind in ["exit", "construction_merge", "route_merge", "pack"] {
@@ -1004,12 +1007,13 @@ fn test_traffic_advisories_have_a_terse_half() {
             reason: "on-ramp".to_string(),
         };
         let message = drive.trip.traffic_pressure_message(&pressure, 2.0);
-        let terse = message
-            .terse
-            .as_deref()
-            .unwrap_or_else(|| panic!("{kind} has no terse half"));
-        assert!(!terse.is_empty(), "{kind}");
-        assert!(terse.len() < message.normal.len(), "{kind}");
+        assert!(message.terse.is_none(), "{kind}");
+        assert!(
+            message.normal.split(". ").count() <= 2,
+            "{kind}: {}",
+            message.normal
+        );
+        assert!(message.normal.len() < 50, "{kind}: {}", message.normal);
     }
     app.shutdown();
 }

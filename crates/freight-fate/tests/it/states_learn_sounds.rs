@@ -5,11 +5,14 @@
 use std::cell::RefCell;
 use std::rc::Rc;
 
+use crate::audio_support::{recordings_rig, HearkenRig};
 use crate::states_driving_menus_support as drive_support;
 use crate::states_main_menu_support::*;
 use ff_core::sound_catalog::{Cue, SoundCategory, SoundEntry, CATALOG};
 use freight_fate::app::testing::TestApp;
-use freight_fate::audio::{Audio, AudioError, SustainLoopSpec, VolumeUpdate};
+use freight_fate::audio::{
+    Audio, AudioError, SustainLoopSpec, VolumeUpdate, JAKE_CLASSIC_KEY, JAKE_RECORDED_KEY,
+};
 use freight_fate::states::base::{Key, Menu, State};
 use freight_fate::states::driving_core::siren::SIGNATURE_KEY;
 use freight_fate::states::driving_menu_states::DriveRef;
@@ -447,8 +450,48 @@ fn test_the_pause_menu_offers_learn_game_sounds() {
 }
 
 #[test]
-#[ignore = "needs a BASS-backed engine to inspect the alert loop's key"]
-fn test_jake_stage_demo_resolves_through_the_jake_voice_setting() {}
+fn test_jake_stage_demo_resolves_through_the_jake_voice_setting() {
+    // The engine-brake demos name the 1600 rpm cut; what plays is the voice
+    // the player chose in settings, the way the jake sounds on the road.
+    let category = CATALOG
+        .iter()
+        .find(|c| {
+            c.entries
+                .iter()
+                .any(|e| e.name == "Engine brake, stage one")
+        })
+        .copied()
+        .expect("the engine brake category");
+    for (setting, heard, not_heard) in [
+        ("classic", JAKE_CLASSIC_KEY, JAKE_RECORDED_KEY),
+        ("real", JAKE_RECORDED_KEY, JAKE_CLASSIC_KEY),
+    ] {
+        let Some(HearkenRig { engine, rec }) = recordings_rig() else {
+            return;
+        };
+        let mut app = TestApp::new();
+        app.ctx.audio = Box::new(engine);
+        app.ctx.settings.jake_voice = setting.to_string();
+        app.ctx.apply_volumes();
+        app.push_state(LearnSoundsState::new());
+        app.push_state(LearnSoundCategoryState::new(category));
+        with_state_mut::<Cat, _>(&mut app, |s, ctx| {
+            s.menu_mut().index = 0;
+            s.activate(ctx);
+        });
+        assert!(demo_running(&app), "{setting}");
+        assert!(
+            rec.channel_of(heard).is_some(),
+            "{setting}: {:?}",
+            rec.played()
+        );
+        assert!(
+            rec.channel_of(not_heard).is_none(),
+            "{setting}: {:?}",
+            rec.played()
+        );
+    }
+}
 
 #[test]
 fn test_both_entry_points_push_the_same_screen() {

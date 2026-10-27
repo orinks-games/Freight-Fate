@@ -9,10 +9,10 @@
 //! a queued line that would start speaking more than STALE_WAIT_S after the
 //! moment it described flushes the backlog and speaks fresh.
 
-use ff_core::speech_pacing::EventPriority;
 use freight_fate::app::testing::TestApp;
 use freight_fate::app::SayEvent;
 use freight_fate::speech::CaptureSpeech;
+use hearken::speech::EventPriority;
 
 const LONG_LINE_LEN: usize = 130; // ~10 seconds at the default 13 chars per second
 const SIDESWIPE: &str = "You sideswiped a box truck in the right lane! The truck took damage, \
@@ -65,7 +65,7 @@ fn test_say_event_queues_a_burst_of_route_lines_whole_end_to_end() {
     let mut app = sapi_app();
     for line in APPROACH {
         app.ctx
-            .say_event_with(line, SayEvent::queued().priority(EventPriority::Route));
+            .say_event_with(line, SayEvent::queued().priority(EventPriority::Important));
     }
     assert_eq!(
         app.event_calls(),
@@ -88,12 +88,12 @@ fn test_say_event_flushes_a_stale_route_backlog_end_to_end() {
     let clock = app.fake_pacer_clock();
     for line in &APPROACH[..3] {
         app.ctx
-            .say_event_with(*line, SayEvent::queued().priority(EventPriority::Route));
+            .say_event_with(*line, SayEvent::queued().priority(EventPriority::Important));
     }
     clock.advance(1.0);
     app.ctx.say_event_with(
         APPROACH[3],
-        SayEvent::queued().priority(EventPriority::Route),
+        SayEvent::queued().priority(EventPriority::Important),
     );
     let calls = app.event_calls();
     assert!(calls.iter().take(3).all(|(_, interrupt)| !interrupt));
@@ -225,8 +225,10 @@ fn test_say_event_requeues_the_route_line_a_hazard_cut() {
     let mut app = sapi_app();
     let _clock = app.fake_pacer_clock();
 
-    app.ctx
-        .say_event_with(STOP_LINE, SayEvent::queued().priority(EventPriority::Route));
+    app.ctx.say_event_with(
+        STOP_LINE,
+        SayEvent::queued().priority(EventPriority::Important),
+    );
     app.ctx.say_event(HAZARD);
 
     assert_eq!(
@@ -246,8 +248,10 @@ fn test_say_event_drops_the_route_line_a_hazard_cut_in_its_last_words() {
     let mut app = sapi_app();
     let clock = app.fake_pacer_clock();
 
-    app.ctx
-        .say_event_with(STOP_LINE, SayEvent::queued().priority(EventPriority::Route));
+    app.ctx.say_event_with(
+        STOP_LINE,
+        SayEvent::queued().priority(EventPriority::Important),
+    );
     clock.advance(4.0); // ~4.9 s estimated: cut in its last words
     app.ctx.say_event(HAZARD);
 
@@ -265,8 +269,10 @@ fn test_say_event_leaves_a_finished_route_line_alone() {
     let mut app = sapi_app();
     let clock = app.fake_pacer_clock();
 
-    app.ctx
-        .say_event_with(STOP_LINE, SayEvent::queued().priority(EventPriority::Route));
+    app.ctx.say_event_with(
+        STOP_LINE,
+        SayEvent::queued().priority(EventPriority::Important),
+    );
     clock.advance(30.0); // heard in full long before the hazard
     app.ctx.say_event(HAZARD);
 
@@ -284,8 +290,10 @@ fn test_a_repeated_hazard_cannot_ping_pong_the_requeue() {
     let mut app = sapi_app();
     let _clock = app.fake_pacer_clock();
 
-    app.ctx
-        .say_event_with(STOP_LINE, SayEvent::queued().priority(EventPriority::Route));
+    app.ctx.say_event_with(
+        STOP_LINE,
+        SayEvent::queued().priority(EventPriority::Important),
+    );
     for _ in 0..3 {
         app.ctx.say_event(HAZARD);
     }
@@ -318,8 +326,10 @@ fn test_a_requeued_line_cut_again_is_dropped_not_replayed() {
     let mut app = sapi_app();
     let _clock = app.fake_pacer_clock();
 
-    app.ctx
-        .say_event_with(STOP_LINE, SayEvent::queued().priority(EventPriority::Route));
+    app.ctx.say_event_with(
+        STOP_LINE,
+        SayEvent::queued().priority(EventPriority::Important),
+    );
     app.ctx.say_event(HAZARD);
     app.ctx
         .say_event("Emergency vehicle approaching from behind.");
@@ -349,7 +359,7 @@ fn test_info_reply_on_the_main_voice_requeues_the_cut_event_line() {
 
     app.ctx.say_event_with(
         SCALE_LINE,
-        SayEvent::queued().priority(EventPriority::Route),
+        SayEvent::queued().priority(EventPriority::Important),
     );
     app.ctx.say(INFO_REPLY); // an info key answering, interrupt=True default
 
@@ -370,7 +380,7 @@ fn test_info_reply_requeues_when_no_separate_event_voice_bound() {
 
     app.ctx.say_event_with(
         SCALE_LINE,
-        SayEvent::queued().priority(EventPriority::Route),
+        SayEvent::queued().priority(EventPriority::Important),
     );
     app.ctx.say(INFO_REPLY);
 
@@ -390,7 +400,7 @@ fn test_info_reply_with_a_dedicated_event_voice_leaves_the_road_alone() {
 
     app.ctx.say_event_with(
         SCALE_LINE,
-        SayEvent::queued().priority(EventPriority::Route),
+        SayEvent::queued().priority(EventPriority::Important),
     );
     app.ctx.say(INFO_REPLY);
 

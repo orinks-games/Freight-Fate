@@ -108,7 +108,93 @@ fn escape_closes_the_list_without_a_command() {
 }
 
 #[test]
+fn the_copy_row_copies_what_was_said_before_the_list_opened() {
+    let mut harness = a_drive("Command Copy");
+    harness.app.ctx.say("Weigh station in 2 miles.");
+    press(&mut harness, Key::F2);
+    harness.clear_speech();
+    harness.select_menu_item(Action::CopyLastSpoken.label());
+    assert!(harness.state_is::<DrivingState>());
+    assert_eq!(
+        harness.app.ctx.clipboard.get_text().as_deref(),
+        Some("Weigh station in 2 miles.")
+    );
+    assert_eq!(last_main(&harness), "Copied.");
+}
+
+#[test]
+fn the_copy_key_in_the_open_list_copies_the_heading_then_the_focused_row() {
+    use freight_fate::states::base::{InputEvent, Mods};
+    let copy = InputEvent::key_mods(
+        Key::C,
+        Mods {
+            shift: true,
+            ctrl: true,
+            alt: false,
+        },
+    );
+    let mut harness = a_drive("Command Copy Key");
+    press(&mut harness, Key::F2);
+    let second = harness.menu_labels().get(1).cloned().unwrap();
+    // The first copy gives the line the list opened with.
+    harness.key(copy.clone());
+    assert!(harness.state_is::<DrivingCommandsState>());
+    assert_eq!(
+        harness.app.ctx.clipboard.get_text().as_deref(),
+        Some("Driving commands.")
+    );
+    // A focus move copies the focused row.
+    press(&mut harness, Key::Down);
+    harness.key(copy);
+    assert!(harness.state_is::<DrivingCommandsState>());
+    assert_eq!(
+        harness.app.ctx.clipboard.get_text().unwrap_or_default(),
+        format!("{second}.")
+    );
+}
+
+#[test]
 fn f2_cannot_be_given_to_another_control() {
     assert!(reserved_key_reason(&Chord::plain(Key::F2)).is_some());
     assert!(reserved_key_reason(&Chord::alt(Key::F2)).is_some());
+}
+
+/// The pad has no F2, so the status menu carries the list; a command run
+/// from it answers over the road, not over the status menu.
+#[test]
+fn the_status_menu_opens_the_list_in_its_own_place() {
+    let mut harness = a_drive("Command Status");
+    press(&mut harness, Key::Tab);
+    assert!(harness.state_is::<DrivingStatusState>());
+    harness.select_menu_item("Driving commands");
+    assert!(harness.state_is::<DrivingCommandsState>());
+    harness.select_menu_item(Action::Speed.label());
+    assert!(harness.state_is::<DrivingState>());
+}
+
+/// Clock run from the list on a pad: the pointer to the keyboard hours keys
+/// is kept for the keyboard, where those keys exist.
+#[test]
+fn clock_on_a_controller_does_not_point_at_the_keyboard_hours_keys() {
+    use ff_core::input_hints::CONTROLLER;
+    use freight_fate::controller::fakes::FakePad;
+    let mut harness = a_drive("Command Clock Pad");
+    let c = &mut harness.app.ctx.controller;
+    c.set_enabled(true);
+    c.bind_device(Box::new(FakePad::new(0)), "test pad");
+    c.set_id_pending(false);
+    c.active_device = CONTROLLER;
+    harness.press_key(Key::C, None);
+    assert!(
+        !last_main(&harness).contains("Hours of service moved"),
+        "{}",
+        last_main(&harness)
+    );
+    harness.app.ctx.controller.active_device = ff_core::input_hints::KEYBOARD;
+    harness.press_key(Key::C, None);
+    assert!(
+        last_main(&harness).contains("Hours of service moved"),
+        "{}",
+        last_main(&harness)
+    );
 }

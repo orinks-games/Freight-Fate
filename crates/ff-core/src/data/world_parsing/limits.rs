@@ -2,13 +2,16 @@
 //! filter that drops way-boundary slivers (the speed-limit half of
 //! `world_parsing.py`).
 
+use std::collections::HashMap;
+
 use serde_json::Value;
 
 use super::records::object;
 use super::{get_bool, get_str, parse_at_mi, py_float};
 use crate::data::world_constants::{
-    LIMIT_DWELL_FALLBACK_MPH, LIMIT_DWELL_FULL_COMPRESSION_MPH, LIMIT_DWELL_LOW_SPEED_SCALE,
-    LIMIT_DWELL_REAL_S, LIMIT_DWELL_REFERENCE_SCALE, LIMIT_PLACE_DWELL_REAL_S, LIMIT_PLACE_NEAR_MI,
+    LIMIT_ARTIFACT_MAX_RUN_MI, LIMIT_ARTIFACT_PLACE_GUARD_MI, LIMIT_DWELL_FALLBACK_MPH,
+    LIMIT_DWELL_FULL_COMPRESSION_MPH, LIMIT_DWELL_LOW_SPEED_SCALE, LIMIT_DWELL_REAL_S,
+    LIMIT_DWELL_REFERENCE_SCALE, LIMIT_PLACE_DWELL_REAL_S, LIMIT_PLACE_NEAR_MI,
     LIMIT_PLACE_TOWN_MPH,
 };
 use crate::data::world_models::{DataError, SpeedLimitSample};
@@ -151,6 +154,91 @@ pub fn dwell_filter_speed_limits(
     kept
 }
 
+/// One posting `tools/screen_limit_artifacts.py` named: the route geometry
+/// there is not on the leg's own highway, so the limit it carries is a ramp's
+/// or a side street's.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct FlaggedLimit {
+    pub at_mi: f64,
+    pub mph: f64,
+}
+
+/// The named postings in `limit_artifacts.jsonl`, by leg id (`from:to`).
+///
+/// A missing or empty file names nothing, the same fail-open the curve
+/// artifact list takes. A row that does not parse is skipped: the list is
+/// tooling output, and a bad row must not stop the world loading.
+pub fn flagged_limits_from(text: &str) -> HashMap<String, Vec<FlaggedLimit>> {
+    let mut out: HashMap<String, Vec<FlaggedLimit>> = HashMap::new();
+    for line in text.lines() {
+        let Ok(row) = serde_json::from_str::<Value>(line) else {
+            continue;
+        };
+        let (Some(leg), Some(at_mi), Some(mph)) = (
+            row.get("leg").and_then(Value::as_str),
+            row.get("at_mi").and_then(Value::as_f64),
+            row.get("mph").and_then(Value::as_f64),
+        ) else {
+            continue; // the meta line, or a malformed row
+        };
+        out.entry(leg.to_string())
+            .or_default()
+            .push(FlaggedLimit { at_mi, mph });
+    }
+    out
+}
+
+/// Fold named drop-and-return postings back into their neighbours.
+///
+/// Runs on the profile the dwell filter kept. A posting goes when the limit
+/// drops from A to B and returns to A within `LIMIT_ARTIFACT_MAX_RUN_MI`, the
+/// offline screen named B (OpenStreetMap shows the route there on a ramp or a
+/// different road, not on the leg's highway), and nothing on the map explains
+/// it: no village or town within `LIMIT_ARTIFACT_PLACE_GUARD_MI` of either
+/// end. The return to A goes with it, so A simply carries on.
+///
+/// The bake is never edited: the screen names postings and this decides, so
+/// the guard can be re-judged without re-reading OpenStreetMap. Returns the
+/// profile and how many postings it folded.
+pub fn fold_limit_artifacts(
+    kept: Vec<SpeedLimitSample>,
+    flagged: &[FlaggedLimit],
+    places: &[f64],
+) -> (Vec<SpeedLimitSample>, usize) {
+    if flagged.is_empty() || kept.len() < 3 {
+        return (kept, 0);
+    }
+    let mut out: Vec<SpeedLimitSample> = Vec::with_capacity(kept.len());
+    let mut folded = 0;
+    let mut i = 0;
+    while i < kept.len() {
+        let sample = &kept[i];
+        if let (Some(before), Some(after)) = (out.last(), kept.get(i + 1)) {
+            let named = sample.mph.is_some_and(|mph| {
+                flagged
+                    .iter()
+                    .any(|f| f.mph == mph && (f.at_mi - sample.at_mi).abs() < 0.005)
+            });
+            let returns = before.mph.is_some()
+                && before.mph == after.mph
+                && matches!((sample.mph, before.mph), (Some(b), Some(a)) if b < a);
+            let short = after.at_mi - sample.at_mi < LIMIT_ARTIFACT_MAX_RUN_MI;
+            let explained = places.iter().any(|at| {
+                *at >= sample.at_mi - LIMIT_ARTIFACT_PLACE_GUARD_MI
+                    && *at <= after.at_mi + LIMIT_ARTIFACT_PLACE_GUARD_MI
+            });
+            if named && returns && short && !explained {
+                folded += 1;
+                i += 2; // the posting and the return to the limit before it
+                continue;
+            }
+        }
+        out.push(sample.clone());
+        i += 1;
+    }
+    (out, folded)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -193,6 +281,94 @@ mod tests {
         assert_eq!(
             kept.iter().map(|s| s.mph).collect::<Vec<_>>(),
             vec![Some(80.0), Some(35.0), Some(80.0)]
+        );
+    }
+
+    fn flag(at_mi: f64, mph: f64) -> FlaggedLimit {
+        FlaggedLimit { at_mi, mph }
+    }
+
+    fn mphs(samples: &[SpeedLimitSample]) -> Vec<Option<f64>> {
+        samples.iter().map(|s| s.mph).collect()
+    }
+
+    fn reno_ramp() -> Vec<SpeedLimitSample> {
+        vec![
+            sample(0.0, Some(65.0)),
+            sample(12.0, Some(45.0)),
+            sample(12.9, Some(65.0)),
+            sample(30.0, Some(55.0)),
+        ]
+    }
+
+    #[test]
+    fn a_named_ramp_posting_folds_into_the_highway_limit() {
+        let (kept, folded) = fold_limit_artifacts(reno_ramp(), &[flag(12.0, 45.0)], &[]);
+        assert_eq!(folded, 1);
+        assert_eq!(mphs(&kept), vec![Some(65.0), Some(55.0)]);
+        assert_eq!(kept[1].at_mi, 30.0);
+    }
+
+    #[test]
+    fn a_town_beside_the_posting_keeps_it() {
+        // The guard is the map's own reason, judged at load: a town within a
+        // quarter mile of either end keeps the posting even when it is named.
+        for place in [11.8, 12.4, 13.1] {
+            let (kept, folded) = fold_limit_artifacts(reno_ramp(), &[flag(12.0, 45.0)], &[place]);
+            assert_eq!(folded, 0, "place at {place}");
+            assert_eq!(kept.len(), 4);
+        }
+        let (_, folded) = fold_limit_artifacts(reno_ramp(), &[flag(12.0, 45.0)], &[13.2]);
+        assert_eq!(folded, 1, "a town past the guard does not explain it");
+    }
+
+    #[test]
+    fn only_a_named_short_drop_and_return_folds() {
+        // Not named: kept.
+        let (_, folded) = fold_limit_artifacts(reno_ramp(), &[flag(12.0, 35.0)], &[]);
+        assert_eq!(folded, 0);
+        // Named, but the limit does not come back to where it was.
+        let steps = vec![
+            sample(0.0, Some(65.0)),
+            sample(12.0, Some(45.0)),
+            sample(12.9, Some(55.0)),
+        ];
+        assert_eq!(fold_limit_artifacts(steps, &[flag(12.0, 45.0)], &[]).1, 0);
+        // Named, but a rise rather than a drop.
+        let rise = vec![
+            sample(0.0, Some(45.0)),
+            sample(12.0, Some(65.0)),
+            sample(12.9, Some(45.0)),
+        ];
+        assert_eq!(fold_limit_artifacts(rise, &[flag(12.0, 65.0)], &[]).1, 0);
+        // Named, but it holds for the screen's longest span or more.
+        let long = vec![
+            sample(0.0, Some(65.0)),
+            sample(12.0, Some(45.0)),
+            sample(14.5, Some(65.0)),
+        ];
+        assert_eq!(fold_limit_artifacts(long, &[flag(12.0, 45.0)], &[]).1, 0);
+        // The first posting has nothing before it to return to.
+        let first = vec![sample(0.0, Some(45.0)), sample(0.9, Some(65.0))];
+        assert_eq!(fold_limit_artifacts(first, &[flag(0.0, 45.0)], &[]).1, 0);
+    }
+
+    #[test]
+    fn the_list_reader_skips_the_meta_line_and_bad_rows() {
+        let text = concat!(
+            r#"{"meta": {"layer": "limit_artifacts"}}"#,
+            "\n",
+            r#"{"leg": "reno_nv_us:sacramento_ca_us", "at_mi": 12.0, "mph": 45.0}"#,
+            "\n",
+            "not json\n",
+            r#"{"leg": "reno_nv_us:sacramento_ca_us", "at_mi": 20.5, "mph": 25}"#,
+            "\n",
+        );
+        let flagged = flagged_limits_from(text);
+        assert_eq!(flagged.len(), 1);
+        assert_eq!(
+            flagged["reno_nv_us:sacramento_ca_us"],
+            vec![flag(12.0, 45.0), flag(20.5, 25.0)]
         );
     }
 }

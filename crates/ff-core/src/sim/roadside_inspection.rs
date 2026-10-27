@@ -118,6 +118,12 @@ pub const TIRE_CITATION_PCT: f64 = 75.0;
 pub const TIRE_OUT_OF_SERVICE_PCT: f64 = 90.0;
 pub const BRAKE_CITATION_PCT: f64 = 75.0;
 pub const BRAKE_OUT_OF_SERVICE_PCT: f64 = 90.0;
+/// The tire line on a report short of the out-of-service line, as the
+/// officer reads it. The enforcement watch matches it to know the tires are
+/// already written up.
+pub const TIRES_WORN_FINDING: &str = "tires worn close to the tread limit";
+/// The body-damage line short of the out-of-service line, likewise.
+pub const DAMAGE_FINDING: &str = "visible body damage written up as unsafe equipment";
 /// Visible body damage the officer writes up as unsafe equipment, and the
 /// point past which the truck is parked, the same line the roadside
 /// damage stop already uses.
@@ -182,7 +188,7 @@ pub fn inspect(input: &InspectionInput<'_>) -> InspectionReport {
             ));
         } else if input.tire_wear_pct >= TIRE_CITATION_PCT {
             findings.push(finding(
-                "tires worn close to the tread limit",
+                TIRES_WORN_FINDING,
                 EQUIPMENT_FINE,
                 false,
                 Repair::None,
@@ -196,12 +202,7 @@ pub fn inspect(input: &InspectionInput<'_>) -> InspectionReport {
                 Repair::Damage,
             ));
         } else if input.damage_pct >= DAMAGE_CITATION_PCT {
-            findings.push(finding(
-                "visible body damage written up as unsafe equipment",
-                EQUIPMENT_FINE,
-                false,
-                Repair::None,
-            ));
+            findings.push(finding(DAMAGE_FINDING, EQUIPMENT_FINE, false, Repair::None));
         }
         if let Some(defect) = input.trailer_defect {
             // A brake adjustment is measured under the trailer; a lamp and a

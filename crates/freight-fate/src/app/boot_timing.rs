@@ -60,8 +60,3 @@ pub fn mark(phase: &str) {
     // prompt after "world" left game.log with no further marks (issue 266).
     log::logger().flush();
 }
-
-/// Whether the phase clock is running (the marks are live).
-pub fn is_running() -> bool {
-    CLOCK.lock().unwrap_or_else(|e| e.into_inner()).is_some()
-}
