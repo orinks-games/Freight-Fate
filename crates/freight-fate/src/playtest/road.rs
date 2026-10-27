@@ -166,6 +166,9 @@ pub struct RoadOptions {
     pub speed: f64,
     pub cargo: f64,
     pub cargo_type: String,
+    /// The catalog cargo a staged departure carries instead of the first
+    /// one its facility ships, so a live check can stage a particular load.
+    pub departure_cargo: Option<String>,
     pub level: Option<i64>,
     pub descent: Option<String>,
     pub assists: Option<String>,
@@ -210,6 +213,7 @@ impl Default for RoadOptions {
             speed: 62.0,
             cargo: 20.0,
             cargo_type: "general".to_string(),
+            departure_cargo: None,
             level: None,
             descent: None,
             assists: None,
@@ -1311,9 +1315,10 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
     } else {
         None
     };
-    let cargo_key = departure_setup
-        .as_ref()
-        .map(|(cargo, _)| *cargo)
+    let cargo_key = opts
+        .departure_cargo
+        .as_deref()
+        .or(departure_setup.as_ref().map(|(cargo, _)| *cargo))
         .unwrap_or(&opts.cargo_type);
     let cargo = cargo_type(cargo_key)
         .unwrap_or_else(|| panic!("{cargo_key:?} is not in the cargo catalog"));
