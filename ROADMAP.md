@@ -767,6 +767,10 @@ Everything found before 2026-09-25 moved to
 - [ ] (Found along the way) Decide whether to rewrite history to drop the
       retired music files, which take about 440 MB of the repository.
       [October 22 audit](#october-22-repository-size-and-security-audit)
+- [x] (Found along the way) Dispatch stops sending the truck straight back
+      where it came from; the city it came from and the cities behind it
+      draw less, and lane memory counts both directions
+      ([October 27](#october-27-dispatch-stops-bouncing-found-along-the-way)).
 - [ ] (Found along the way) Send trucks to the Mall of America by Interstate
       494, 24th Avenue and Killebrew Drive, not the downtown Minneapolis exit.
       [October 24 Mall of America](#october-24-mall-of-america-found-along-the-way)
@@ -3548,6 +3552,32 @@ the outside temperature.
 - [ ] A passenger window (Shift Z is taken; it would need another key) if
       players ask.
 
+### October 27 dispatch stops bouncing (Found along the way)
+
+The owner asked whether it was realistic that a load north is followed by
+a load straight back south, nearly every time. Half: real freight runs in
+lanes, but a planner rarely sends a truck straight back where it came
+from; a tour is a loop. The game bounced because every board weighted
+destinations by closeness alone with no memory of where the truck came
+from, and the lane memory it had was one-directional (Dallas to Oklahoma
+City never slowed Oklahoma City to Dallas) and only reordered assigned
+dispatch, not the board a senior driver picks from. The design and the
+comparison with real dispatch are in `docs/dispatch-realism-design.md`;
+the owner chose the small fix for 1.9 and the regional freight model for
+2.0.
+
+- [x] The city the truck came from is on about one board in three after
+      a delivery (a weight could not do it: at the low levels the nearest
+      city takes nearly every draw however it is scaled, so the return is
+      gated off the other boards by the board's own seed), and cities
+      behind the truck draw down toward half, so careers trace loops. Lane
+      memory counts both directions, and the straight return is never the
+      assigned load or the cursor's load while another unlocked load is on
+      the board. When it is on the board it is a choice, and a town with
+      fewer than four cities in reach keeps it every time.
+- [ ] Freight with a geography and a dispatcher who plans ahead: the 2.0
+      bullets under [the working week and home](#20-planned----the-working-week-and-home).
+
 ### October 24 Mall of America (Found along the way)
 
 The owner asked whether the Mall of America was on the map. It was not, so
@@ -3696,6 +3726,26 @@ terminal becomes the anchor of that week instead of a spawn point.
       the home terminal: short home-region runs, home every night, no
       cycle pressure, lower pay -- weighted toward new hires in the
       assigned-dispatch levels.
+- [ ] **Freight with a geography** (owner, 2026-10-26). Each of the 16
+      regions gets an outbound and inbound freight balance by season, the
+      base derived from the FHWA Freight Analysis Framework and the
+      produce, harvest and holiday-retail layers labelled assumed. A
+      destination draws by what it has going out, the board at a city
+      grows or shrinks with its own outbound balance (into Florida: thin
+      and cheap, a relay to Georgia likelier; into Dallas: full), lane pay
+      moves with direction (about 0.85 to 1.2 on top of the cargo market),
+      and the market watch gains one geographic line inside the summary
+      it already speaks. The same city rolls a different board by season
+      and by the region's seeded drift.
+- [ ] **A dispatcher who plans ahead** (owner, 2026-10-26; needs the home
+      terminal and the freight geography). Dispatch scores a load by its
+      pay and by where it leaves the truck, and near home time by how
+      close it ends to the home terminal, spoken as a lane note ("This one
+      works you toward home"). Now and then a planned two-load tour to
+      accept whole or take the first leg of; some loads ready tomorrow
+      morning, so a night here or a short empty run now; and for
+      owner-operators a load-board view with each market's balance in
+      words and lane rates that follow it.
 
 - [ ] Trucks that drive differently (player report, 2026-10-14): models
       already differ in torque, weight, drag, tank and thirst, but every one
