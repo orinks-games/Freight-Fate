@@ -725,7 +725,7 @@ Everything found before 2026-09-25 moved to
       closes and takes open weigh stations (owner, 2026-10-27).
 - [ ] (Found along the way) The closure merge cannot drop back behind
       traffic with the cruise off.
-- [ ] (Found along the way) Adaptive cruise reached two limit drops into
+- [x] (Found along the way) Adaptive cruise reached two limit drops into
       Wausau still over them (agent drive, 2026-10-27).
 - [ ] (Found along the way) 1.9.5 closes with no error on one Windows
       player's machine, twice, both on facility streets heading for
@@ -3677,11 +3677,17 @@ and the ramp lights were already the truck's.
       (`lane_keeping_signal_for_scale`), as it takes the destination exit,
       and with facility stopping assistance on the truck brakes to the bar
       and the scale opens. A signal the player cancels stays cancelled.
-- [ ] (Found along the way) The same agent drive heard "Over the limit of
+- [x] (Found along the way) The same agent drive heard "Over the limit of
       35 miles per hour" and then "of 25" on adaptive cruise, coming off
       65 into Wausau on WI-29: the cruise eased for the drops but reached
       each one still over it. A limit-drop overspeed on All assists is a
       speeding observation the driver did nothing to earn.
+      Fixed: the truck's physics runs on the real clock and only the road
+      it covers is compressed, but the lookahead sized the braking
+      distance and its quarter-mile margin at real time. Both now scale
+      with the pace, as the setpoint walk already did; at ten and twenty
+      times cruise reaches 35 and 25 at or under the cap
+      (`transcript_driving_cruise_limit_drop_compressed`).
 - [ ] (Found along the way) On full lane keeping with the cruise off, the
       closure merge cannot drop back behind traffic: the ease only works
       through the cruise. Rare on All assists, where the speed keeper arms

@@ -16,6 +16,7 @@
 
 ### Fixed
 
+- **Adaptive cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
 - **Full lane keeping now leaves a lane that a work zone closes.** It moves over when the signs come up, so All assists no longer drives into the barrels.
 - **Facility stopping assistance no longer gets you fined at a chain control.** A truck pulling into the chain-up area to put chains on is not cited.
 - **A crash on Windows now writes its cause into game.log,** so a bug report with the log shows what went wrong.
