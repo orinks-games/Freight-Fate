@@ -3050,7 +3050,7 @@ fn test_toll_cues_and_charges_deduplicate() {
     let repeat = trip.update(0.0);
     assert_eq!(
         gps_messages(&advance),
-        vec!["E-ZPass toll point ahead, New Jersey Turnpike settlement. Toll 63 dollars, billed to carrier settlement."]
+        vec!["E-ZPass toll point ahead, New Jersey Turnpike settlement. Toll 63 dollars."]
     );
     assert!(gps_events(&repeat).is_empty());
 
