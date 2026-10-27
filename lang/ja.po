@@ -5759,6 +5759,15 @@ msgstr ""
 msgid "has a cargo rule with no spoken rule"
 msgstr ""
 
+msgid "has invalid wind speeds"
+msgstr ""
+
+msgid "has a wind rule with no spoken rule"
+msgstr ""
+
+msgid "has an escort rule with nothing to escort or no spoken rule"
+msgstr ""
+
 msgid "models no rule"
 msgstr ""
 
@@ -13721,6 +13730,33 @@ msgstr ""
 #. placeholders: {wait_text}
 #. one sentence of a longer line
 msgid "You wait about {wait_text}."
+msgstr ""
+
+#. placeholders: {text}, {wait_text}
+msgid "{text} You wait {wait_text} on duty."
+msgstr ""
+
+msgid "The wind has dropped. You may cross."
+msgstr ""
+
+#. placeholders: {text}, {wait_text}
+msgid "{text} You wait {wait_text} on duty for the wind to drop."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid "Dispatch reroutes you from {city}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The wind is still too strong."
+msgstr ""
+
+#. placeholders: {city}
+msgid "The wind is still too strong. Dispatch reroutes you from {city}."
+msgstr ""
+
+msgid "There is no other road. You hold here until the wind drops."
 msgstr ""
 
 #. placeholders: {reason}, {city}

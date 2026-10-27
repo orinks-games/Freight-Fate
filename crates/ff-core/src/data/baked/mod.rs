@@ -117,7 +117,11 @@ pub const MAGIC: &[u8; 8] = b"FFDATA\0\0";
 ///
 /// 10: a corridor carries how many speed-limit postings the load-time
 /// artifact fold removed (`speed_limits_folded`).
-pub const FORMAT_VERSION: u32 = 10;
+///
+/// 11: a crossing carries its published wind levels (`wind`).
+///
+/// 12: a crossing carries the loads it escorts in any weather (`escort`).
+pub const FORMAT_VERSION: u32 = 12;
 
 const HEADER_LEN: usize = 32;
 

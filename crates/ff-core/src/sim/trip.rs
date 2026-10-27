@@ -352,6 +352,8 @@ pub struct Trip {
     /// Tunnel gates already reached in this run.  A refused gate remains
     /// closed rather than replaying its refusal every frame.
     pub processed_tunnel_gates: HashSet<usize>,
+    /// Crossings the truck is held at until the wind drops.
+    pub wind_held_gates: HashSet<usize>,
     pub refused_tunnel_gates: HashSet<usize>,
     /// The zone the truck was last known to be inside (Python
     /// `_active_zone`); compared by `zone_key`, the Rust stand-in for
@@ -520,6 +522,7 @@ impl Trip {
             announced_navigation: HashSet::new(),
             charged_tolls: HashSet::new(),
             processed_tunnel_gates: HashSet::new(),
+            wind_held_gates: HashSet::new(),
             refused_tunnel_gates: HashSet::new(),
             entered_zone: None,
             zone_entry_spoken: true,
@@ -581,6 +584,15 @@ impl Trip {
             trip.weather.set_city(&weather_key, lat, lon);
             if let Some(provider) = trip.weather.provider_mut() {
                 provider.request(&weather_key, lat, lon);
+            }
+        }
+        // Each wind-rule bridge is read at its own station, so fetch those
+        // now too, well before the truck reaches the gate.
+        for leg_index in 0..trip.route.legs.len() {
+            if let Some((key, lat, lon)) = trip.crossing_station(leg_index) {
+                if let Some(provider) = trip.weather.provider_mut() {
+                    provider.request(&key, lat, lon);
+                }
             }
         }
         trip

@@ -20,8 +20,9 @@ schedule, toll and gate are documented in [whittier-tunnel.md](whittier-tunnel.m
   truck that reaches one it may not use (a save from before these rules,
   for example) is re-planned from that city, and if no legal road continues
   from there it runs back toward the origin and takes the origin's legal
-  road. Only the Whittier tunnel's schedule ever holds a truck, and only
-  until its next published opening.
+  road. Only the Whittier tunnel's schedule and a wind closure with no
+  other road ever hold a truck, and only until the gate opens or the wind
+  drops (see Wind below).
 
 ## Game loads and how rules read them
 
@@ -111,7 +112,9 @@ Baltimore leg does.
 | --- | --- | --- | --- |
 | San Francisco-Oakland Bay Bridge | Sacramento, Stockton and Los Angeles to San Francisco; San Francisco to Portland and Salt Lake City | Explosives and flammable-placarded tank loads banned; placarded packaged freight refused (classes unnamed) | https://www.chp.ca.gov/siteassets/files/ib_hmroutes.pdf (21 CCR 1402.1) |
 | Mackinac Bridge | Sault Ste. Marie to Traverse City | Toll: 5 dollars per axle, 25 dollars for a five-axle rig, both directions | https://www.mackinacbridge.org/fares-traffic/fare-schedule/ |
+| Mackinac Bridge | Sault Ste. Marie to Traverse City | Wind: escort from 35 mph, closed to trucks from 50, closed to all from 65. Escort in any weather for placarded loads and rigs over 40 tons (80,000 lb) gross | https://www.mackinacbridge.org/about-the-bridge/frequently-asked-questions/ (wind), https://www.mackinacbridge.org/fares-traffic/rules-regulations/ (escorts) |
 | Chesapeake Bay Bridge-Tunnel | Norfolk to Cape Charles | Toll corrected from an estimated 45 to the published 48 dollars (Class 12, initial crossing) | https://www.cbbt.com/tolls/ |
+| Chesapeake Bay Bridge-Tunnel | Norfolk to Cape Charles | Wind: tractor-trailers under 15,000 lb of cargo refused from 40 mph, every truck from 50, closed from 60 | https://cbbt.com/weather/ |
 
 Bay Bridge legs were matched where archived geometry runs within 60 metres
 of the Yerba Buena Island tunnel. The Mackinac toll sits at the St. Ignace
@@ -121,6 +124,52 @@ plaza, 52.1 miles along its leg, from the same geometry.
 as corridor restrictions taken from OpenStreetMap; truck routing already
 keeps a legal rig under them, so they stay as spoken signage and are not
 duplicated here.
+
+## Wind
+
+Both authorities publish wind levels as sustained speed, not gusts. A
+crossing's `wind` record holds the levels; the trip judges them at the leg
+start against the sky's sustained wind.
+
+| Level | Chesapeake Bay Bridge-Tunnel (Level 1 to 3) | Mackinac Bridge |
+| --- | --- | --- |
+| Escort, a 20-minute wait on duty | none | 35 to 50 mph |
+| Light tractor-trailer refused | 40 mph, under 15,000 lb of cargo; a tractor alone may cross | none |
+| Every truck refused | 50 mph | 50 mph (partial closure, high-profile vehicles) |
+| Closed to all traffic | 60 mph | 65 mph |
+
+- **Where the wind comes from.** With live weather on, it is the
+  sustained wind at the NWS station nearest the crossing, located at the
+  leg's toll point for it (St. Ignace for the Mackinac Bridge, the
+  bridge-tunnel's plaza for the CBBT); until that station answers, the
+  truck's own station stands in. A station far from the crossing is read
+  as it is (see ROADMAP.md). With simulated weather, each high wind peaks
+  at a sustained 25 to 55 mph and each thunderstorm at gusts of 30 to 45
+  mph, then eases linearly toward 15 mph over 4 hours, never below 25 for
+  high winds or 30 for a storm while the condition lasts. A storm's gusts
+  stand in for sustained wind, so a storm is judged on the high side.
+  Heavy rain and snow carry 25 mph, anything else 10. These are game
+  figures, not readings; an empty trailer held at the CBBT by a simulated
+  high wind crosses within the 4-hour wait, usually within 2 hours.
+- **A refused truck waits it out, on duty.** It re-checks every 30 minutes
+  for up to 4 hours as the weather moves on. Still closed, dispatch
+  re-plans from the crossing's city around it if a legal road exists within
+  the usual alternate-route allowance; otherwise the truck holds at the
+  approach until the wind drops and is told so. Neither crossing has such a
+  road today: the ways around the bay and Lake Michigan are hundreds of
+  miles longer, so both hold, as real trucks do.
+- **Game figures.** The 20-minute escort queue and the 30-minute re-check
+  are not published; the authorities give the levels only. The CBBT
+  advisory (35 mph, 45 mph limit) and the Mackinac advisory (20 to 35 mph)
+  are speed advice, not modelled.
+- **Mackinac escorts in any weather.** Placarded loads and rigs over 40
+  tons gross wait the same 20 minutes on duty for a bridge escort; in
+  escort-level wind the wind escort takes them across, so the wait is not
+  doubled. The bridge's truck permit, which lets trained drivers of some
+  class 2 and 3 placards and heavy rigs cross unescorted
+  (https://www.mackinacbridge.org/oversize-vehicle-escorts/), is not
+  modelled: game drivers hold none. The escort fee for heavy and oversize
+  loads is not published with an amount, so none is charged.
 
 ## Researched and left out
 
@@ -146,13 +195,8 @@ duplicated here.
 - **Golden Gate Bridge (San Francisco to Santa Rosa).** It bans explosive
   loads only at rush hours and escorts them otherwise; the game has no
   explosives cargo or escort, so nothing is refused.
-- **Mackinac Bridge escorts.** Placarded loads, rigs over 40 tons gross and
-  oversize loads cross under bridge escort, not a ban; escorts are not
-  modelled. Its 72-ton maximum is above any legal game rig.
-- **Wind closures.** The Chesapeake Bay Bridge-Tunnel restricts empty
-  tractor-trailers (under 15,000 lb of cargo) from 40 mph winds, and the
-  Mackinac Bridge closes in high wind. The game's weather has no wind
-  speed yet, so these are not modelled.
+- **Mackinac Bridge oversize escorts and 72-ton maximum.** Game rigs are
+  never oversize, and the 72-ton maximum is above any legal game rig.
 
 ## Tolls
 

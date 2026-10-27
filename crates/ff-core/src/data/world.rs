@@ -1073,6 +1073,36 @@ impl World {
         Some((Route::new(cities, legs), reason))
     }
 
+    /// The road onward from the city at `ahead` (an index into the route's
+    /// cities) that this load may legally drive without leg `avoid_leg`,
+    /// spliced after the road already driven; None when there is none
+    /// within the usual alternate-route allowance of the road it replaces.
+    pub fn detour_ahead(
+        &self,
+        route: &Route,
+        ahead: usize,
+        load: &CrossingLoad,
+        avoid_leg: usize,
+    ) -> Option<Route> {
+        let here = route.cities.get(ahead)?;
+        let destination = route.cities.last()?;
+        let mut blocks = self.crossing_blocks(load);
+        blocks.insert(avoid_leg, f64::INFINITY);
+        let tail = self
+            .shortest_route(here, destination, Some(&blocks), true)
+            .ok()
+            .flatten()?;
+        let remaining: f64 = route.legs.get(ahead..)?.iter().map(|leg| leg.miles).sum();
+        if tail.miles() > max_alternate_miles(remaining) {
+            return None;
+        }
+        let mut cities = route.cities[..ahead].to_vec();
+        let mut legs = route.legs[..ahead].to_vec();
+        cities.extend(tail.cities);
+        legs.extend(tail.legs);
+        Some(Route::new(cities, legs))
+    }
+
     /// Up to `count` distinct routes, fastest first.
     pub fn route_options(
         &self,

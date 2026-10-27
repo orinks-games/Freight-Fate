@@ -7206,6 +7206,18 @@ msgid "has a cargo rule with no spoken rule"
 msgstr ""
 
 #: crates/ff-core/src/data/world_models/crossing.rs
+msgid "has invalid wind speeds"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "has a wind rule with no spoken rule"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
+msgid "has an escort rule with nothing to escort or no spoken rule"
+msgstr ""
+
+#: crates/ff-core/src/data/world_models/crossing.rs
 msgid "models no rule"
 msgstr ""
 
@@ -17178,6 +17190,40 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/ff-core/src/sim/tunnel.rs
 msgid "You wait about {wait_text}."
+msgstr ""
+
+#. placeholders: {text}, {wait_text}
+#: crates/ff-core/src/sim/tunnel.rs
+msgid "{text} You wait {wait_text} on duty."
+msgstr ""
+
+#: crates/ff-core/src/sim/tunnel.rs
+msgid "The wind has dropped. You may cross."
+msgstr ""
+
+#. placeholders: {text}, {wait_text}
+#: crates/ff-core/src/sim/tunnel.rs
+msgid "{text} You wait {wait_text} on duty for the wind to drop."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+#: crates/ff-core/src/sim/tunnel.rs
+msgid "Dispatch reroutes you from {city}."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/ff-core/src/sim/tunnel.rs
+msgid "The wind is still too strong."
+msgstr ""
+
+#. placeholders: {city}
+#: crates/ff-core/src/sim/tunnel.rs
+msgid "The wind is still too strong. Dispatch reroutes you from {city}."
+msgstr ""
+
+#: crates/ff-core/src/sim/tunnel.rs
+msgid "There is no other road. You hold here until the wind drops."
 msgstr ""
 
 #. placeholders: {reason}, {city}
