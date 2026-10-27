@@ -142,6 +142,9 @@ pub fn scale_bypass_to_the_end() -> Outcome {
     let mut rig = Rig::new(RigOptions::default());
     let mut findings: Vec<String> = Vec::new();
     inject_scale(&mut rig.drive.trip);
+    // Lane keeping on full signals for an open scale itself; this driver
+    // steers, and ignores the scale.
+    rig.app.ctx.settings.lane_keeping = "partial".to_string();
     rig.prepare(62.0, None);
 
     // Never signal, never slow: the whole point is the driver who ignores

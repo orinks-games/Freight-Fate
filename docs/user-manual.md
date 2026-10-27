@@ -589,7 +589,7 @@ The GPS announces state lines, towns, route changes, work zones, tolls, and usef
 
 ### Construction and exits
 
-Slow as the work-zone limit steps down, and leave a closing lane when instructed. Continuing past the urgent barrel warning causes damage, a 1,000 dollar citation, and a serious violation. That citation is charged once per zone and isn't doubled again for construction. If the road itself reduces the lane count and repositions you, there's no penalty for that move.
+Slow as the work-zone limit steps down, and leave a closing lane when instructed. With full lane keeping, the truck leaves it for you when the signs come up, and waits behind traffic for a gap if it has to. Continuing past the urgent barrel warning causes damage, a 1,000 dollar citation, and a serious violation. That citation is charged once per zone and isn't doubled again for construction. If the road itself reduces the lane count and repositions you, there's no penalty for that move.
 
 While you're rolling, T asks what the stop is for: fuel, a break, sleep, fuel and sleep, or food and coffee. Each choice gives the distance to its stop, and Enter plans the next stop for it. With planning hints enabled, a break or sleep plan takes the recommended stop. The list opens on fuel when the tank is low or won't reach the next pumps. Press T again to cancel the plan.
 
@@ -1118,7 +1118,7 @@ It may need a certificate, endorsement, or trailer you do not have. Press F1 on 
 
 ### Why did I get a citation at a weigh station?
 
-When you hear "Open weigh station ahead", every truck must pull in. Press X to signal for the scale exit, stop at the scale, then press T to check in. A closed scale is not announced, and you can drive past it.
+When you hear "Open weigh station ahead", every truck must pull in. Press X to signal for the scale exit, stop at the scale, then press T to check in. With full lane keeping, the truck signals for the scale itself, and with facility stopping assistance on it also stops there for you. A closed scale is not announced, and you can drive past it.
 
 ### Why is the speed limit 55 on a fast highway?
 

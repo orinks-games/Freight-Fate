@@ -19451,21 +19451,22 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/assist_picker.rs
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations."
 msgstr ""
 
 #. placeholders: {control_steer_left}, {control_steer_right}
 #: crates/freight-fate/src/states/assist_picker.rs
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits. A tap of {control_steer_left} or {control_steer_right} changes "
-"lanes. Speed, stops and the docks are yours."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations. A tap of "
+"{control_steer_left} or {control_steer_right} changes lanes. Speed, rest "
+"and fuel stops, and the docks are yours."
 msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/assist_picker.rs
-msgid "Speed, stops and the docks are yours."
+msgid "Speed, rest and fuel stops, and the docks are yours."
 msgstr ""
 
 #: crates/freight-fate/src/states/assist_picker.rs
@@ -30087,6 +30088,11 @@ msgstr ""
 msgid "ramp terminal"
 msgstr ""
 
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_events/update_exit.rs
+msgid "At {name}."
+msgstr ""
+
 #. placeholders: {place}
 #: crates/freight-fate/src/states/driving_events/update_exit.rs
 msgid "At {place}."
@@ -30354,6 +30360,11 @@ msgstr ""
 #. placeholders: {name}
 #: crates/freight-fate/src/states/driving_lane_gap.rs
 msgid "Changing to the {name} lane for the exit."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "Changing to the {name} lane for the lane closure."
 msgstr ""
 
 #. placeholders: {lane_count_words}
@@ -36989,23 +37000,55 @@ msgstr ""
 msgid "The road narrows to {lane_count_words}.{moved}"
 msgstr ""
 
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "The {closed_name} lane closes at the work zone ahead."
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid ""
+"The {closed_name} lane closes at the work zone ahead. Waiting for a gap in "
+"the {open_name} lane."
+msgstr ""
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "Waiting for a gap in the {open_name} lane."
+msgstr ""
+
 #. placeholders: {open_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_updates/lanes.rs
 msgid "Move to the {open_name} lane."
 msgstr ""
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_updates/lanes.rs
-msgid "The {lane_label} lane closes at the work zone ahead."
-msgstr ""
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 #: crates/freight-fate/src/states/driving_updates/lanes.rs
 msgid ""
-"The {lane_label} lane closes at the work zone ahead. Move to the "
+"The {closed_name} lane closes at the work zone ahead. Move to the "
 "{open_name} lane."
+msgstr ""
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "Waiting for a gap in the {open_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "You are in the closed {closed_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid ""
+"You are in the closed {closed_name} lane! Waiting for a gap in the "
+"{open_name} lane!"
 msgstr ""
 
 #. placeholders: {open_name}
@@ -37014,16 +37057,10 @@ msgstr ""
 msgid "Move to the {open_name} lane!"
 msgstr ""
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_updates/lanes.rs
-msgid "You are in the closed {lane_label} lane!"
-msgstr ""
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 #: crates/freight-fate/src/states/driving_updates/lanes.rs
 msgid ""
-"You are in the closed {lane_label} lane! Move to the {open_name} lane!"
+"You are in the closed {closed_name} lane! Move to the {open_name} lane!"
 msgstr ""
 
 #. placeholders: {damage_pct}
@@ -39512,8 +39549,9 @@ msgstr ""
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid ""
 "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
-"into tap lane changes, and takes your exits, including the destination "
-"exit, without a signal."
+"into tap lane changes, moves out of a lane a work zone closes, and takes "
+"your exits and open weigh stations, including the destination exit, without "
+"a signal."
 msgstr ""
 
 #. one sentence of a longer line
@@ -39526,16 +39564,16 @@ msgstr ""
 msgid ""
 "How much of the lane-holding work the truck does. Full holds the lane, "
 "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
-"and takes your exits, including the destination exit, without a signal. "
-"Partial steers the truck through the road's bends and drifts gently, with "
-"generous steering help; lane changes and speed are yours. Off drifts like a "
-"real wheel; bends are yours unless curve assistance is on, and every exit "
-"needs its signal and its exit lane. On partial or off {lean}. The road "
-"sound only says where you sit in your lane, and the road edge answers: a "
-"stutter clipping the rumble strip, a buzz fully on it, gravel off the "
-"pavement. Steering guide and Lane guide sound, under Audio, change which "
-"way to steer and what leans. Realistic sets this off, Balanced partial, All "
-"assists full."
+"moves out of a lane a work zone closes, and takes your exits and open weigh "
+"stations, including the destination exit, without a signal. Partial steers "
+"the truck through the road's bends and drifts gently, with generous "
+"steering help; lane changes and speed are yours. Off drifts like a real "
+"wheel; bends are yours unless curve assistance is on, and every exit needs "
+"its signal and its exit lane. On partial or off {lean}. The road sound only "
+"says where you sit in your lane, and the road edge answers: a stutter "
+"clipping the rumble strip, a buzz fully on it, gravel off the pavement. "
+"Steering guide and Lane guide sound, under Audio, change which way to steer "
+"and what leans. Realistic sets this off, Balanced partial, All assists full."
 msgstr ""
 
 #. one sentence of a longer line
