@@ -876,6 +876,7 @@ fn road_options(args: &[String]) -> road::RoadOptions {
         cargo: flag_f64(args, "--cargo").unwrap_or(20.0),
         cargo_type: flag_value(args, "--cargo-type").unwrap_or_else(|| "general".to_string()),
         departure_cargo: None,
+        departure_hazmat: None,
         level: flag_i64(args, "--level"),
         descent: flag_value(args, "--descent"),
         assists: flag_value(args, "--assists"),
