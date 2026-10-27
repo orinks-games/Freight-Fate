@@ -30088,6 +30088,11 @@ msgstr ""
 msgid "ramp terminal"
 msgstr ""
 
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_events/update_exit.rs
+msgid "At {name}."
+msgstr ""
+
 #. placeholders: {place}
 #: crates/freight-fate/src/states/driving_events/update_exit.rs
 msgid "At {place}."

@@ -920,10 +920,11 @@ impl DrivingState {
     }
 
     /// Left-lane time is legitimate while passing slower right-lane
-    /// traffic, while construction has the right lane coned off, or while
+    /// traffic, while construction has the right lane coned off here or
+    /// just ahead, or while
     /// lane keeping's own move back is held or was just called off.
     pub fn keep_right_justified(&self) -> bool {
-        if self.closed_lane_here() == Some(0) || self.keep_right_excused_s > 0.0 {
+        if self.lane_closes_ahead(0) || self.keep_right_excused_s > 0.0 {
             return true;
         }
         let speed = self.trip.truck.speed_mph();

@@ -268,14 +268,19 @@ impl DrivingState {
                 return;
             }
             self.ramp_end_said = true;
+            if self.scale_stop_is_assisted(ctx, &stop) {
+                // The assist is braking the truck onto the scale, and the
+                // stop announces itself once it is down: an arrival line
+                // here was said again over "Stopped at" (agent drive,
+                // 2026-10-27).
+                let unsaid = format!("At {}.", stop.spoken_name());
+                self.ramp_arrival_grace_s = self.ramp_arrival_grace_for(ctx, &unsaid);
+                return;
+            }
             let terse = self.terse_speech(ctx);
             let message = if stop.stop_type != "delivery_destination" {
                 let place = stop.spoken_name();
-                // The assist is already braking the truck onto the scale:
-                // "come to a stop" would ask for what it is doing.
-                if self.scale_stop_is_assisted(ctx, &stop) {
-                    format!("At {place}.")
-                } else if terse {
+                if terse {
                     format!("At {place}. Stop now.")
                 } else {
                     format!("At {place}. Come to a stop.")

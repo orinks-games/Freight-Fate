@@ -77,6 +77,10 @@ fn full_lane_keeping_signals_for_an_open_scale_and_stops_at_it() {
     );
     assert_eq!(rig.said("Scale bypass enforcement"), 0, "{transcript}");
     assert_eq!(rig.said("Signal for the scale exit."), 0, "{transcript}");
+    // No key to press and no stop to make: lane keeping and the assist do
+    // both, and the scale's own screen announces the arrival.
+    assert_eq!(rig.said("to signal for the exit"), 0, "{transcript}");
+    assert_eq!(rig.said(&format!("At {NAME}.")), 0, "{transcript}");
 }
 
 #[test]

@@ -384,8 +384,12 @@ impl DrivingState {
             return;
         }
         // The pass, if one was under way, ends here: the lane it went into
-        // is closing.
-        self.passing = None;
+        // is closing. A move left out of a right-lane closure is a pass of
+        // the closure itself: the move back waits until the right lane is
+        // open past the zone, then keeps right as after any pass. It used to
+        // ride the left lane to the CB's keep-right grumbling (agent drive,
+        // WI-29, 2026-10-27).
+        self.passing = (open > lane).then_some((lane, open));
         self.pass_clear_mi = None;
         self.begin_lane_change(open);
         let name = lane_label(open, self.lane.lane_count);

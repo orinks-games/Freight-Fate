@@ -725,6 +725,8 @@ Everything found before 2026-09-25 moved to
       closes and takes open weigh stations (owner, 2026-10-27).
 - [ ] (Found along the way) The closure merge cannot drop back behind
       traffic with the cruise off.
+- [ ] (Found along the way) Adaptive cruise reached two limit drops into
+      Wausau still over them (agent drive, 2026-10-27).
 - [ ] (Found along the way) 1.9.5 closes with no error on one Windows
       player's machine, twice, both on facility streets heading for
       Lynchburg, Virginia (issue #513, 2026-10-25). The log just stops, so
@@ -3612,13 +3614,21 @@ and the ramp lights were already the truck's.
       eases the cruise under a vehicle holding the gap so it can drop in
       behind it, the way the co-driver already did. A pass, a move right
       for an exit, and the move back from a pass no longer go into a lane
-      the zone ahead closes. The taper and barrel warnings on full say
+      the zone ahead closes. A move left out of a right-lane closure counts
+      as a pass, so the truck keeps right again once the right lane is open
+      past the zone (the first agent drive rode the left lane on to the CB's
+      keep-right grumbling). The taper and barrel warnings on full say
       "Waiting for a gap" instead of "Move to".
 - [x] (Found along the way) **Full lane keeping takes open weigh
       stations.** It signals for an open scale that wants the truck
       (`lane_keeping_signal_for_scale`), as it takes the destination exit,
       and with facility stopping assistance on the truck brakes to the bar
       and the scale opens. A signal the player cancels stays cancelled.
+- [ ] (Found along the way) The same agent drive heard "Over the limit of
+      35 miles per hour" and then "of 25" on adaptive cruise, coming off
+      65 into Wausau on WI-29: the cruise eased for the drops but reached
+      each one still over it. A limit-drop overspeed on All assists is a
+      speeding observation the driver did nothing to earn.
 - [ ] (Found along the way) On full lane keeping with the cruise off, the
       closure merge cannot drop back behind traffic: the ease only works
       through the cruise. Rare on All assists, where the speed keeper arms

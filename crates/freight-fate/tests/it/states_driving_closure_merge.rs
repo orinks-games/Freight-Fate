@@ -192,3 +192,30 @@ fn balanced_still_leaves_the_merge_to_the_driver() {
         harness.transcript_text()
     );
 }
+
+#[test]
+fn after_a_right_lane_closure_full_lane_keeping_keeps_right_again() {
+    let mut harness = cruising("Keeping Back Right", "full");
+    let (_, end) = harness.with_drive(|d, _| {
+        d.lane.lane = 0;
+        closure_on_the_trucks_lane(d, 1.0)
+    });
+    assert!(run_until(&mut harness, 60 * 60 * 15, |h| {
+        h.read_drive(|d| d.trip.position_mi > end + 2.0)
+    }));
+    assert_clean_through(&harness);
+    assert_eq!(
+        harness.read_drive(|d| d.lane.lane),
+        0,
+        "still out of the right lane past the zone:\n{}",
+        harness.transcript_text()
+    );
+    assert!(
+        !harness
+            .transcript()
+            .iter()
+            .any(|line| line.contains("Keep right except to pass")),
+        "{}",
+        harness.transcript_text()
+    );
+}

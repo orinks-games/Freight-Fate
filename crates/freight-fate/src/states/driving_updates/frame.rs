@@ -114,6 +114,8 @@ impl DrivingState {
         self.trace_engine_brake();
         // The curve call prices a bend by who holds the lane in it.
         self.trip.lane_steers = Self::lane_steers(ctx);
+        // And a scale's callout names no key when lane keeping signals for it.
+        self.trip.scales_signal_themselves = ctx.settings.lane_is_automated();
         // A fresh loaded run out of a chain-capable origin starts on the
         // facility's streets. Decided on the first tick, never on a resume:
         // from_snapshot marks the check done and re-enters a chain itself.
