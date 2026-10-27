@@ -11,6 +11,7 @@
 //! and where the cruise loop imports them; they are re-exported here so this
 //! module's own surface reads like the Python file's.
 
+use ff_core::sim::trip::is_highway_zone_reason;
 use ff_core::sim::trip_route_helpers::zone_key;
 use ff_core::sim::vehicle::MIN_STOPPING_DECEL_MPS2;
 use ff_core::speech_pacing::SpeechCategory;
@@ -385,7 +386,10 @@ impl DrivingState {
             }
         }
         let position = self.trip.position_mi;
-        let (limit, mut zone_reason) = self.trip.speed_limit_at(position);
+        let (limit, zone_reason) = self.trip.speed_limit_at(position);
+        // A highway work zone or heavy traffic resumes on cruise, which holds
+        // its limit; the keeper is for streets, yards and approaches.
+        let mut zone_reason = zone_reason.filter(|reason| !is_highway_zone_reason(reason));
         if zone_reason.is_none() && self.departure_ramp_mi.is_some() {
             // An acceleration lane is open road by the map and a low-speed
             // regime by the truck, and that gap left it with NO automation at

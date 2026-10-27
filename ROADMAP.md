@@ -3653,7 +3653,10 @@ Rules set that day:
       grade, descent control stayed marked as holding with no cruise, and
       the co-driver braked to its floor of 20 every three seconds for the
       rest of the shift. Ending cruise now ends descent control, and the
-      co-driver brakes for a grade only under cruise.
+      co-driver brakes for a grade only under cruise. The owner also ruled
+      (2026-10-27) that the speed keeper is for streets and facility
+      approaches only: cruise now holds highway work zones and heavy
+      traffic at their limit, so that handoff no longer happens at all.
 - [ ] Co-driver damages the truck (issue #492).
 - [ ] Game stops responding when the player switches windows (report
       2026-10-21, answers asked for).

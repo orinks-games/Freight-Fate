@@ -6,6 +6,10 @@
 
 - **A menu letter can now choose its item at once.** Turn on Menu accelerator keys in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).
 
+### Changed
+
+- **Adaptive cruise now holds highway work zones and heavy traffic at their limit.** The speed keeper takes over only on streets and facility approaches.
+
 ### Fixed
 
 - **Facility stopping assistance no longer gets you fined at a chain control.** A truck pulling into the chain-up area to put chains on is not cited.
