@@ -841,15 +841,18 @@ fn test_adaptive_cruise_stays_armed_before_restricted_zone() {
 }
 
 #[test]
-fn test_adaptive_cruise_switches_to_keeper_for_heavy_traffic() {
-    let mut harness = bench_drive("ACC To Keeper", 200.0, 0.0);
+fn test_adaptive_cruise_holds_heavy_traffic_itself() {
+    // Heavy traffic on the highway is cruise's, held at the zone's limit;
+    // the speed keeper is for streets and facility approaches (owner rule,
+    // 2026-10-27, issue #518).
+    let mut harness = bench_drive("ACC Holds Traffic", 200.0, 0.0);
     press(&mut harness, Key::E, None);
     harness.with_drive(|d, _| {
         d.truck_mut().transmission.gear = 10;
         d.truck_mut().velocity_mps = 26.8;
     });
     press(&mut harness, Key::K, None);
-    assert!(harness.read_drive(|d| d.cruise_mph).is_some());
+    let set = harness.read_drive(|d| d.cruise_mph).expect("cruise");
     harness.clear_speech();
 
     harness.with_drive(|d, ctx| {
@@ -866,31 +869,19 @@ fn test_adaptive_cruise_switches_to_keeper_for_heavy_traffic() {
         )
     });
 
-    assert!(harness.read_drive(|d| d.cruise_mph).is_none());
-    assert!(approx(
-        harness.read_drive(|d| d.keeper_mph).expect("keeper"),
-        50.0
-    ));
-    assert!(approx_abs(
-        harness
-            .read_drive(|d| d.speed_control_target_mph)
-            .expect("a target"),
-        60.0,
-        1.0
-    ));
+    assert_eq!(harness.read_drive(|d| d.cruise_mph), Some(set));
+    assert!(harness.read_drive(|d| d.keeper_mph).is_none());
     assert!(harness.read_drive(|d| d.speed_control_armed));
     let lines = spoken(&harness);
-    assert_eq!(
-        lines[lines.len() - 2],
-        "Entering heavy traffic zone. Speed limit 50 now. \
-         Speed keeper holding 50 miles per hour."
+    assert!(
+        lines
+            .iter()
+            .any(|line| line.starts_with("Entering heavy traffic zone. Speed limit 50 now.")),
+        "{lines:#?}"
     );
-    // Live achievement announces are name-only now (R9: the flavor moved to
-    // the log). The announce reads exactly "New achievement! <name>." with no
-    // trailing flavor, unlike the full-record log line.
-    assert_eq!(
-        lines[lines.len() - 1],
-        "New achievement! Bumper-to-Bumper Blues."
+    assert!(
+        !lines.iter().any(|line| line.contains("Speed keeper")),
+        "{lines:#?}"
     );
 }
 
@@ -1024,7 +1015,8 @@ fn test_speed_control_restores_cruise_target_after_zone() {
     press(&mut harness, Key::K, None);
     let original_target = harness.read_drive(|d| d.cruise_mph).expect("cruise");
 
-    post_zone(&mut harness, 25.0, "construction");
+    // A street: a highway work zone stays on cruise (issue #518).
+    post_zone(&mut harness, 25.0, "facility access road");
     frame(&mut harness, DT);
     assert!(harness.read_drive(|d| d.cruise_mph).is_none());
     assert!(approx(

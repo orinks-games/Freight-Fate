@@ -697,7 +697,8 @@ fn test_the_readouts_stay_true_while_the_speed_keeper_has_the_truck() {
     let mut harness = a_drive(65.0, 0.0, 1.0);
     harness.press_key(Key::E, None);
     harness.with_drive(|d, _| {
-        d.trip.zones = vec![Zone::new(0.0, 20.0, 35.0, "heavy traffic")];
+        // A street: highway heavy traffic stays on cruise (issue #518).
+        d.trip.zones = vec![Zone::new(0.0, 20.0, 35.0, "facility access road")];
         d.truck_mut().transmission.automatic = true;
         d.truck_mut().transmission.gear = 8;
         d.truck_mut().velocity_mps = 34.0 * MPS_PER_MPH;
