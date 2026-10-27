@@ -16,6 +16,7 @@ use ff_core::data::national_network::{
 use ff_core::data::seasonal_weight::{seasonal_gvw_cap_kg, strictest_on_route};
 use ff_core::data::world::World;
 use ff_core::data::world_models::Route;
+use ff_core::models::border_freight::paperwork_wait_line;
 use ff_core::models::business_constants::is_owner_operator;
 use ff_core::models::dispatch_policy::dispatch_policy;
 use ff_core::models::doubles::{doubles_hook_extra_min, doubles_hook_text, is_doubles_cargo};
@@ -642,16 +643,37 @@ impl PickupFacilityState {
             p.hos.on_duty(PICKUP_CHECK_IN_MIN);
         }
         self.charge_facility_idle(PICKUP_CHECK_IN_MIN);
+        // A northbound trailer at a border transfer yard waits on its
+        // paperwork before it is released: on duty, not driving.
+        let plan = self.pickup_plan(ctx);
+        let paperwork = if plan.paperwork_minutes > 0.0 {
+            let line = paperwork_wait_line(&self.job, profile(ctx).game_hours);
+            let p = profile_mut(ctx);
+            let start = p.game_hours;
+            p.game_hours += plan.paperwork_minutes / 60.0;
+            let end = p.game_hours;
+            p.duty_log.record(
+                "on_duty_not_driving",
+                start,
+                end,
+                &facility,
+                "waiting on trailer paperwork",
+            );
+            p.hos.on_duty(plan.paperwork_minutes);
+            self.charge_facility_idle(plan.paperwork_minutes);
+            line.map(|l| format!(" {l}")).unwrap_or_default()
+        } else {
+            String::new()
+        };
         self.checked_in = true;
         self.save_state(ctx);
         self.refresh(ctx, false);
         ctx.audio.play("ui/notify");
-        let plan = self.pickup_plan(ctx);
         let doubles = self.doubles_clause();
         if plan.is_drop_hook() {
             ctx.say(&format!(
-                "Checked in at {facility}. Your load is on {} in the drop yard. Stop, then \
-                 drop and hook.{doubles}",
+                "Checked in at {facility}.{paperwork} Your load is on {} in the drop yard. \
+                 Stop, then drop and hook.{doubles}",
                 plan.trailer
                     .as_ref()
                     .map(|t| t.spoken_name())
@@ -659,7 +681,8 @@ impl PickupFacilityState {
             ));
         } else {
             ctx.say(&format!(
-                "Checked in at {facility}. Dock assigned. Stop, then load cargo.{doubles}"
+                "Checked in at {facility}.{paperwork} Dock assigned. Stop, then load \
+                 cargo.{doubles}"
             ));
         }
     }

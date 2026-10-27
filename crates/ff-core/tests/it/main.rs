@@ -17,6 +17,7 @@ mod data_support;
 mod sim_support;
 
 mod carrier_slice3;
+mod data_border_yards;
 mod data_city_keys;
 mod data_curve_management;
 mod data_facility_approaches;

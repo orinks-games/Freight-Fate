@@ -35,6 +35,7 @@
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 
+use crate::models::border_freight::paperwork_minutes;
 use crate::models::career::JobView;
 use crate::models::doubles::{doubles_break_extra_min, doubles_hook_extra_min};
 use crate::models::trailers::{owned_trailer_for_cargo, trailer_keys_for_cargo, trailer_type};
@@ -272,6 +273,10 @@ pub struct PickupPlan {
     pub trailer: Option<TrailerUnit>,
     pub detention_minutes: f64,
     pub reason: &'static str,
+    /// A northbound trailer's paperwork at a border transfer yard, logged
+    /// at check-in, before `minutes`. It is the facility's hold, so it
+    /// counts toward detention; 0 everywhere else.
+    pub paperwork_minutes: f64,
 }
 
 impl PickupPlan {
@@ -295,13 +300,16 @@ where
     P: TrailerOwner + ?Sized,
 {
     let doubles_min = doubles_hook_extra_min(job.cargo_key());
+    let paperwork = paperwork_minutes(job);
+    let held = |minutes: f64| (minutes + paperwork - DETENTION_FREE_MIN).max(0.0);
     if owns_the_trailer(profile, job) {
         return PickupPlan {
             mode: MODE_LIVE,
             minutes: LIVE_LOAD_MIN + doubles_min,
             trailer: None,
-            detention_minutes: 0.0,
+            detention_minutes: held(LIVE_LOAD_MIN),
             reason: "it is your own trailer, so this one loads at the dock",
+            paperwork_minutes: paperwork,
         };
     }
     if let Some(trailer) = preloaded_trailer(job) {
@@ -309,8 +317,9 @@ where
             mode: MODE_DROP_HOOK,
             minutes: DROP_HOOK_MIN + doubles_min,
             trailer: Some(trailer),
-            detention_minutes: 0.0,
+            detention_minutes: held(DROP_HOOK_MIN),
             reason: "the yard has your load already on a trailer",
+            paperwork_minutes: paperwork,
         };
     }
     // Live load: the shipper's own hour, and sometimes a good deal more.
@@ -329,7 +338,7 @@ where
         0.0
     };
     let minutes = LIVE_LOAD_MIN + extra;
-    let detention = (minutes - DETENTION_FREE_MIN).max(0.0);
+    let detention = held(minutes);
     let reason = if detention > 0.0 {
         "the shipper is loading you at the dock, and they are running behind"
     } else {
@@ -341,6 +350,7 @@ where
         trailer: None,
         detention_minutes: detention,
         reason,
+        paperwork_minutes: paperwork,
     }
 }
 
