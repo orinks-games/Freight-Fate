@@ -17,6 +17,7 @@ use parking_lot::Mutex;
 use serde_json::Value;
 
 use super::baked::{BakedData, CorridorRef};
+use super::border_yards::border_yards_at;
 use super::branded_plazas::screen_branded_plazas;
 use super::data_resources::{baked_at, data_root, read_text_at};
 use super::legacy_aliases::LEGACY_CITY_SLUGS;
@@ -139,6 +140,7 @@ impl World {
         let countries = data.geo.unwrap_or_default().countries;
         let mut cities: IndexMap<String, City> = IndexMap::new();
         let mut facilities_by_id: HashMap<String, Location> = HashMap::new();
+        let border = border_yards_at(&data_dir)?;
         for (key, c) in &data.cities {
             let lat = py_float_or(&c.lat, 0.0)?;
             let lon = py_float_or(&c.lon, 0.0)?;
@@ -149,11 +151,19 @@ impl World {
                 .map(|loc| parse_location(loc, key, &identity.spoken_city, lat, lon))
                 .collect::<Result<Vec<_>, _>>()?;
             let tags = market_tags_for_city(key, &identity.state_code, c, &explicit_locs);
-            let locs = if c.no_freight {
+            let mut locs = if c.no_freight {
                 explicit_locs
             } else {
                 expand_market_locations(key, &identity.spoken_city, lat, lon, &explicit_locs, &tags)
             };
+            // Border transfer yards join their city after the market
+            // expansion, so they add to its freight rather than replacing
+            // the facility types the endpoint sweep already pinned.
+            if let Some(border) = border.as_ref().filter(|b| &b.city == key) {
+                for raw in border.location_values() {
+                    locs.push(parse_location(&raw, key, &identity.spoken_city, lat, lon)?);
+                }
+            }
             validate_city_locations(
                 &identity.spoken_city,
                 &locs,

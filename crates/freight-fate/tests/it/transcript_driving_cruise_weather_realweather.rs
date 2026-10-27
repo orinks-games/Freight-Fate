@@ -30,6 +30,11 @@ impl WeatherProvider for FakeWeatherProvider {
     fn get(&mut self, _city: &str) -> Option<WeatherKind> {
         self.kind
     }
+    // A mild station reading, so the real-calendar season model (read off
+    // the wall clock) never turns this rain to ice on a cold night.
+    fn get_temperature(&mut self, _city: &str) -> Option<f64> {
+        Some(15.0)
+    }
 }
 
 /// Install a fake provider on the live drive.
@@ -185,6 +190,11 @@ impl WeatherProvider for SpatialProvider {
     }
     fn unavailable(&mut self, _city: &str) -> bool {
         false
+    }
+    // A mild station reading, so the real-calendar season model (read off
+    // the wall clock) never turns this rain to ice on a cold night.
+    fn get_temperature(&mut self, _city: &str) -> Option<f64> {
+        Some(15.0)
     }
 }
 
@@ -538,6 +548,11 @@ impl WeatherProvider for StatefulProvider {
     fn observation_age_s(&mut self, _city: &str) -> Option<f64> {
         self.0.borrow().kind.map(|_| 12.0 * 60.0)
     }
+    // A mild station reading, so the real-calendar season model (read off
+    // the wall clock) never turns this rain to ice on a cold night.
+    fn get_temperature(&mut self, _city: &str) -> Option<f64> {
+        Some(15.0)
+    }
 }
 
 /// `FreshOldProvider`: rain, twelve minutes old, and nothing else going on.
@@ -550,6 +565,11 @@ impl WeatherProvider for FreshOldProvider {
     }
     fn observation_age_s(&mut self, _city: &str) -> Option<f64> {
         Some(12.0 * 60.0)
+    }
+    // A mild station reading, so the real-calendar season model (read off
+    // the wall clock) never turns this rain to ice on a cold night.
+    fn get_temperature(&mut self, _city: &str) -> Option<f64> {
+        Some(15.0)
     }
 }
 

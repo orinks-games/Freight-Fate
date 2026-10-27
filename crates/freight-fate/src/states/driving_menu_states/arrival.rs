@@ -8,6 +8,7 @@
 
 use std::time::{SystemTime, UNIX_EPOCH};
 
+use ff_core::models::border_freight::yard_drop_line;
 use ff_core::models::business::{display_rank_for, uses_company_career_ranks_for, SettlementTerms};
 use ff_core::models::career::{standing_xp_rate, xp_rate_settlement_clause};
 use ff_core::models::career_ladder::relabel_level_up_announcements;
@@ -727,6 +728,11 @@ impl ArrivalState {
         } else {
             String::new()
         };
+        // A southbound load dropped at a border transfer yard says who
+        // takes it from here.
+        let yard_drop = yard_drop_line(&job)
+            .map(|line| format!(" {line}"))
+            .unwrap_or_default();
         let accessorial_clause = if is_owner_operator(&business_status) {
             "These came off this settlement."
         } else {
@@ -735,7 +741,7 @@ impl ArrivalState {
         self.summary_parts.insert(
             0,
             format!(
-                "Delivered {} tons of {} to {} in {} hours, {}.{receiver_service_clause} It is {}. {} {} dollars. \
+                "Delivered {} tons of {} to {} in {} hours, {}.{yard_drop}{receiver_service_clause} It is {}. {} {} dollars. \
                  Carrier-paid or reimbursed charges {} dollars: tolls {}, accessorials {}. \
                  {accessorial_clause} \
                  Business status: {}. Business costs {} dollars. Fines carried over {} dollars. \
@@ -969,6 +975,9 @@ impl ArrivalState {
                     fmt_f(receiver_service_hours, 1)
                 ),
             );
+        }
+        if let Some(line) = yard_drop_line(&job) {
+            lines.insert(1, line);
         }
         lines.extend(business_cost_lines);
         lines.extend(charge_lines);
