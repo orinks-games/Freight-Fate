@@ -271,7 +271,11 @@ impl DrivingState {
             let terse = self.terse_speech(ctx);
             let message = if stop.stop_type != "delivery_destination" {
                 let place = stop.spoken_name();
-                if terse {
+                // The assist is already braking the truck onto the scale:
+                // "come to a stop" would ask for what it is doing.
+                if self.scale_stop_is_assisted(ctx, &stop) {
+                    format!("At {place}.")
+                } else if terse {
                     format!("At {place}. Stop now.")
                 } else {
                     format!("At {place}. Come to a stop.")
@@ -736,7 +740,8 @@ impl DrivingState {
         ctx.say_event_with(message, opts);
     }
 
-    /// Brake an explicitly selected optional stop at its entrance.
+    /// Brake an explicitly selected optional stop at its entrance, and an
+    /// open scale lane keeping on full signalled for at its bar.
     ///
     /// Where the stop has its own streets past the ramp, its entrance is
     /// their end, the lot, and the assist brakes for that instead.
@@ -745,9 +750,10 @@ impl DrivingState {
         let Some(stop) = self.ramp_stop.clone().or_else(|| self.stop_chain.clone()) else {
             return false;
         };
-        if !self.selected_stop_assist_armed
-            || !self.is_selected_stop(Some(&stop))
-            || !ctx.settings.selected_stop_assist
+        let selected = self.selected_stop_assist_armed
+            && self.is_selected_stop(Some(&stop))
+            && ctx.settings.selected_stop_assist;
+        if !(selected || self.scale_stop_is_assisted(ctx, &stop))
             || (!on_streets && !self.ramp_terminal_done)
         {
             return false;

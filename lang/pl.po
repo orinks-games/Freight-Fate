@@ -17379,23 +17379,21 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits."
-msgstr "Trzyma pas, pokonuje zakręty i rogi ulic i bierze twoje zjazdy."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations."
+msgstr ""
 
 #. placeholders: {control_steer_left}, {control_steer_right}
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits. A tap of {control_steer_left} or {control_steer_right} changes "
-"lanes. Speed, stops and the docks are yours."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations. A tap of "
+"{control_steer_left} or {control_steer_right} changes lanes. Speed, rest "
+"and fuel stops, and the docks are yours."
 msgstr ""
-"Trzyma pas, pokonuje zakręty i rogi ulic i bierze twoje zjazdy. Stuknięcie "
-"{control_steer_left} lub {control_steer_right} zmienia pas. Prędkość, "
-"postoje i rampy są twoje."
 
 #. one sentence of a longer line
-msgid "Speed, stops and the docks are yours."
-msgstr "Prędkość, postoje i rampy są twoje."
+msgid "Speed, rest and fuel stops, and the docks are yours."
+msgstr ""
 
 msgid "Balanced: you steer, with help."
 msgstr "Zrównoważony: kierujesz ty, z pomocą."
@@ -27325,6 +27323,10 @@ msgstr "{capitalized} pas otwarty."
 msgid "Changing to the {name} lane for the exit."
 msgstr "Zmiana na {name} pas przed zjazdem."
 
+#. placeholders: {name}
+msgid "Changing to the {name} lane for the lane closure."
+msgstr ""
+
 #. placeholders: {lane_count_words}
 msgid "The road narrows to {lane_count_words}."
 msgstr "Droga się zwęża: {lane_count_words}."
@@ -33350,38 +33352,58 @@ msgstr " Teraz na pasie: {lane_label}."
 msgid "The road narrows to {lane_count_words}.{moved}"
 msgstr "Droga się zwęża: {lane_count_words}.{moved}"
 
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "The {closed_name} lane closes at the work zone ahead."
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"The {closed_name} lane closes at the work zone ahead. Waiting for a gap in "
+"the {open_name} lane."
+msgstr ""
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane."
+msgstr ""
+
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane."
 msgstr "Zjedź na {open_name} pas."
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "The {lane_label} lane closes at the work zone ahead."
-msgstr "Przy strefie robót przed tobą zamyka się {lane_label} pas."
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"The {lane_label} lane closes at the work zone ahead. Move to the "
+"The {closed_name} lane closes at the work zone ahead. Move to the "
 "{open_name} lane."
 msgstr ""
-"Przy strefie robót przed tobą zamyka się {lane_label} pas. Zjedź na "
-"{open_name} pas."
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "You are in the closed {closed_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"You are in the closed {closed_name} lane! Waiting for a gap in the "
+"{open_name} lane!"
+msgstr ""
 
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane!"
 msgstr "Zjedź na {open_name} pas!"
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "You are in the closed {lane_label} lane!"
-msgstr "Zajmujesz zamknięty {lane_label} pas!"
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"You are in the closed {lane_label} lane! Move to the {open_name} lane!"
-msgstr "Zajmujesz zamknięty {lane_label} pas! Zjedź na {open_name} pas!"
+"You are in the closed {closed_name} lane! Move to the {open_name} lane!"
+msgstr ""
 
 #. placeholders: {damage_pct}
 #. one sentence of a longer line
@@ -35747,12 +35769,10 @@ msgstr "Utrzymanie pasa: {lane_keeping_label}"
 #. one sentence of a longer line
 msgid ""
 "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
-"into tap lane changes, and takes your exits, including the destination "
-"exit, without a signal."
+"into tap lane changes, moves out of a lane a work zone closes, and takes "
+"your exits and open weigh stations, including the destination exit, without "
+"a signal."
 msgstr ""
-"Pełne trzyma pas, zmienia {control_steer_left} i {control_steer_right} w "
-"zmianę pasa stuknięciem i bierze twoje zjazdy, łącznie ze zjazdem "
-"docelowym, bez kierunkowskazu."
 
 #. one sentence of a longer line
 msgid "How much of the lane-holding work the truck does."
@@ -35762,31 +35782,17 @@ msgstr "Jak dużą część pracy przy trzymaniu pasa wykonuje ciężarówka."
 msgid ""
 "How much of the lane-holding work the truck does. Full holds the lane, "
 "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
-"and takes your exits, including the destination exit, without a signal. "
-"Partial steers the truck through the road's bends and drifts gently, with "
-"generous steering help; lane changes and speed are yours. Off drifts like a "
-"real wheel; bends are yours unless curve assistance is on, and every exit "
-"needs its signal and its exit lane. On partial or off {lean}. The road "
-"sound only says where you sit in your lane, and the road edge answers: a "
-"stutter clipping the rumble strip, a buzz fully on it, gravel off the "
-"pavement. Steering guide and Lane guide sound, under Audio, change which "
-"way to steer and what leans. Realistic sets this off, Balanced partial, All "
-"assists full."
+"moves out of a lane a work zone closes, and takes your exits and open weigh "
+"stations, including the destination exit, without a signal. Partial steers "
+"the truck through the road's bends and drifts gently, with generous "
+"steering help; lane changes and speed are yours. Off drifts like a real "
+"wheel; bends are yours unless curve assistance is on, and every exit needs "
+"its signal and its exit lane. On partial or off {lean}. The road sound only "
+"says where you sit in your lane, and the road edge answers: a stutter "
+"clipping the rumble strip, a buzz fully on it, gravel off the pavement. "
+"Steering guide and Lane guide sound, under Audio, change which way to steer "
+"and what leans. Realistic sets this off, Balanced partial, All assists full."
 msgstr ""
-"Jak dużą część pracy przy trzymaniu pasa wykonuje ciężarówka. Pełne trzyma "
-"pas, zmienia {control_steer_left} i {control_steer_right} w zmianę pasa "
-"stuknięciem i bierze twoje zjazdy, łącznie ze zjazdem docelowym, bez "
-"kierunkowskazu. Częściowe prowadzi ciężarówkę przez zakręty drogi i "
-"łagodnie znosi, z hojną pomocą w kierowaniu; zmiany pasa i prędkość należą "
-"do ciebie. Wyłączone znosi jak prawdziwa kierownica; zakręty należą do "
-"ciebie, chyba że włączony jest asystent zakrętów, a każdy zjazd wymaga "
-"kierunkowskazu i pasa zjazdu. Przy częściowym lub wyłączonym utrzymaniu "
-"pasa {lean}. Dźwięk drogi mówi tylko, gdzie jesteś na swoim pasie, a "
-"krawędź drogi odpowiada: terkotanie przy muśnięciu pasa akustycznego, "
-"buczenie, gdy jesteś na nim całkiem, żwir poza asfaltem. Wskazówka "
-"kierowania i Dźwięk prowadzenia po pasie w sekcji Dźwięk zmieniają, w którą "
-"stronę kierować i co się przechyla. Realistyczny ustawia to na wyłączone, "
-"Zrównoważony na częściowe, Wszyscy asystenci na pełne."
 
 #. one sentence of a longer line
 msgid ""
@@ -41810,6 +41816,78 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits."
+#~ msgstr "Trzyma pas, pokonuje zakręty i rogi ulic i bierze twoje zjazdy."
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits. A tap of {control_steer_left} or {control_steer_right} changes "
+#~ "lanes. Speed, stops and the docks are yours."
+#~ msgstr ""
+#~ "Trzyma pas, pokonuje zakręty i rogi ulic i bierze twoje zjazdy. Stuknięcie "
+#~ "{control_steer_left} lub {control_steer_right} zmienia pas. Prędkość, "
+#~ "postoje i rampy są twoje."
+
+#~ msgid "Speed, stops and the docks are yours."
+#~ msgstr "Prędkość, postoje i rampy są twoje."
+
+#~ msgid "The {lane_label} lane closes at the work zone ahead."
+#~ msgstr "Przy strefie robót przed tobą zamyka się {lane_label} pas."
+
+#~ msgid ""
+#~ "The {lane_label} lane closes at the work zone ahead. Move to the "
+#~ "{open_name} lane."
+#~ msgstr ""
+#~ "Przy strefie robót przed tobą zamyka się {lane_label} pas. Zjedź na "
+#~ "{open_name} pas."
+
+#~ msgid "You are in the closed {lane_label} lane!"
+#~ msgstr "Zajmujesz zamknięty {lane_label} pas!"
+
+#~ msgid ""
+#~ "You are in the closed {lane_label} lane! Move to the {open_name} lane!"
+#~ msgstr "Zajmujesz zamknięty {lane_label} pas! Zjedź na {open_name} pas!"
+
+#~ msgid ""
+#~ "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
+#~ "into tap lane changes, and takes your exits, including the destination "
+#~ "exit, without a signal."
+#~ msgstr ""
+#~ "Pełne trzyma pas, zmienia {control_steer_left} i {control_steer_right} w "
+#~ "zmianę pasa stuknięciem i bierze twoje zjazdy, łącznie ze zjazdem "
+#~ "docelowym, bez kierunkowskazu."
+
+#~ msgid ""
+#~ "How much of the lane-holding work the truck does. Full holds the lane, "
+#~ "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
+#~ "and takes your exits, including the destination exit, without a signal. "
+#~ "Partial steers the truck through the road's bends and drifts gently, with "
+#~ "generous steering help; lane changes and speed are yours. Off drifts like a "
+#~ "real wheel; bends are yours unless curve assistance is on, and every exit "
+#~ "needs its signal and its exit lane. On partial or off {lean}. The road "
+#~ "sound only says where you sit in your lane, and the road edge answers: a "
+#~ "stutter clipping the rumble strip, a buzz fully on it, gravel off the "
+#~ "pavement. Steering guide and Lane guide sound, under Audio, change which "
+#~ "way to steer and what leans. Realistic sets this off, Balanced partial, All "
+#~ "assists full."
+#~ msgstr ""
+#~ "Jak dużą część pracy przy trzymaniu pasa wykonuje ciężarówka. Pełne trzyma "
+#~ "pas, zmienia {control_steer_left} i {control_steer_right} w zmianę pasa "
+#~ "stuknięciem i bierze twoje zjazdy, łącznie ze zjazdem docelowym, bez "
+#~ "kierunkowskazu. Częściowe prowadzi ciężarówkę przez zakręty drogi i "
+#~ "łagodnie znosi, z hojną pomocą w kierowaniu; zmiany pasa i prędkość należą "
+#~ "do ciebie. Wyłączone znosi jak prawdziwa kierownica; zakręty należą do "
+#~ "ciebie, chyba że włączony jest asystent zakrętów, a każdy zjazd wymaga "
+#~ "kierunkowskazu i pasa zjazdu. Przy częściowym lub wyłączonym utrzymaniu "
+#~ "pasa {lean}. Dźwięk drogi mówi tylko, gdzie jesteś na swoim pasie, a "
+#~ "krawędź drogi odpowiada: terkotanie przy muśnięciu pasa akustycznego, "
+#~ "buczenie, gdy jesteś na nim całkiem, żwir poza asfaltem. Wskazówka "
+#~ "kierowania i Dźwięk prowadzenia po pasie w sekcji Dźwięk zmieniają, w którą "
+#~ "stronę kierować i co się przechyla. Realistyczny ustawia to na wyłączone, "
+#~ "Zrównoważony na częściowe, Wszyscy asystenci na pełne."
 
 #~ msgid "auto"
 #~ msgstr "auto"

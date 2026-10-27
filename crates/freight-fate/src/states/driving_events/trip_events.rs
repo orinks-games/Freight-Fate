@@ -799,8 +799,12 @@ impl DrivingState {
                                 // exit" with the signal on asks for a press
                                 // that would cancel it, or move it off the
                                 // scale it was set for (adversarial battery,
-                                // 2026-10-25).
-                                exit_hint: if drive.exit_signal_on || drive.exit_is_armed_for(&stop)
+                                // 2026-10-25). Nor for a scale lane keeping
+                                // on full signals for itself.
+                                exit_hint: if drive.exit_signal_on
+                                    || drive.exit_is_armed_for(&stop)
+                                    || (stop.stop_type == "weigh_station"
+                                        && ctx.settings.lane_is_automated())
                                 {
                                     ""
                                 } else {

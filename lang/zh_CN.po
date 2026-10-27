@@ -15566,22 +15566,21 @@ msgstr "轻按一下{control_steer_left}或{control_steer_right}就会换道。"
 
 #. one sentence of a longer line
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits."
-msgstr "它会保持车道，转过弯道和街角，还会替你驶出出口。"
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations."
+msgstr ""
 
 #. placeholders: {control_steer_left}, {control_steer_right}
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits. A tap of {control_steer_left} or {control_steer_right} changes "
-"lanes. Speed, stops and the docks are yours."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations. A tap of "
+"{control_steer_left} or {control_steer_right} changes lanes. Speed, rest "
+"and fuel stops, and the docks are yours."
 msgstr ""
-"它会保持车道，转过弯道和街角，还会替你驶出出口。轻按一下{control_steer_left}或{control_steer_right}就会换道。车"
-"速、停车和装卸口归你管。"
 
 #. one sentence of a longer line
-msgid "Speed, stops and the docks are yours."
-msgstr "车速、停车和装卸口归你管。"
+msgid "Speed, rest and fuel stops, and the docks are yours."
+msgstr ""
 
 msgid "Balanced: you steer, with help."
 msgstr "平衡：你来转向，有辅助帮忙。"
@@ -24408,6 +24407,10 @@ msgstr "{capitalized}车道畅通。"
 msgid "Changing to the {name} lane for the exit."
 msgstr "正换到{name}车道准备驶出。"
 
+#. placeholders: {name}
+msgid "Changing to the {name} lane for the lane closure."
+msgstr ""
+
 #. placeholders: {lane_count_words}
 msgid "The road narrows to {lane_count_words}."
 msgstr "道路变窄为{lane_count_words}。"
@@ -29837,36 +29840,58 @@ msgstr "现在位于 {lane_label} 车道。"
 msgid "The road narrows to {lane_count_words}.{moved}"
 msgstr "道路变窄至{lane_count_words}.{moved}"
 
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "The {closed_name} lane closes at the work zone ahead."
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"The {closed_name} lane closes at the work zone ahead. Waiting for a gap in "
+"the {open_name} lane."
+msgstr ""
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane."
+msgstr ""
+
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane."
 msgstr "换到{open_name}车道。"
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "The {lane_label} lane closes at the work zone ahead."
-msgstr "{lane_label}车道在前方施工区封闭。"
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"The {lane_label} lane closes at the work zone ahead. Move to the "
+"The {closed_name} lane closes at the work zone ahead. Move to the "
 "{open_name} lane."
-msgstr "{lane_label}车道在前方施工区封闭。换到{open_name}车道。"
+msgstr ""
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "You are in the closed {closed_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"You are in the closed {closed_name} lane! Waiting for a gap in the "
+"{open_name} lane!"
+msgstr ""
 
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane!"
 msgstr "换到{open_name}车道！"
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "You are in the closed {lane_label} lane!"
-msgstr "你在已封闭的{lane_label}车道上！"
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"You are in the closed {lane_label} lane! Move to the {open_name} lane!"
-msgstr "你在已封闭的{lane_label}车道上！换到{open_name}车道！"
+"You are in the closed {closed_name} lane! Move to the {open_name} lane!"
+msgstr ""
 
 #. placeholders: {damage_pct}
 #. one sentence of a longer line
@@ -31933,11 +31958,10 @@ msgstr "车道保持：{lane_keeping_label}"
 #. one sentence of a longer line
 msgid ""
 "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
-"into tap lane changes, and takes your exits, including the destination "
-"exit, without a signal."
+"into tap lane changes, moves out of a lane a work zone closes, and takes "
+"your exits and open weigh stations, including the destination exit, without "
+"a signal."
 msgstr ""
-"完全会保持车道，把{control_steer_left}和{control_steer_right}变成轻按变道，并且不用打转向灯就替你驶出出口，包括"
-"目的地出口。"
 
 #. one sentence of a longer line
 msgid "How much of the lane-holding work the truck does."
@@ -31947,22 +31971,17 @@ msgstr "卡车替你做多少保持车道的工作。"
 msgid ""
 "How much of the lane-holding work the truck does. Full holds the lane, "
 "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
-"and takes your exits, including the destination exit, without a signal. "
-"Partial steers the truck through the road's bends and drifts gently, with "
-"generous steering help; lane changes and speed are yours. Off drifts like a "
-"real wheel; bends are yours unless curve assistance is on, and every exit "
-"needs its signal and its exit lane. On partial or off {lean}. The road "
-"sound only says where you sit in your lane, and the road edge answers: a "
-"stutter clipping the rumble strip, a buzz fully on it, gravel off the "
-"pavement. Steering guide and Lane guide sound, under Audio, change which "
-"way to steer and what leans. Realistic sets this off, Balanced partial, All "
-"assists full."
+"moves out of a lane a work zone closes, and takes your exits and open weigh "
+"stations, including the destination exit, without a signal. Partial steers "
+"the truck through the road's bends and drifts gently, with generous "
+"steering help; lane changes and speed are yours. Off drifts like a real "
+"wheel; bends are yours unless curve assistance is on, and every exit needs "
+"its signal and its exit lane. On partial or off {lean}. The road sound only "
+"says where you sit in your lane, and the road edge answers: a stutter "
+"clipping the rumble strip, a buzz fully on it, gravel off the pavement. "
+"Steering guide and Lane guide sound, under Audio, change which way to steer "
+"and what leans. Realistic sets this off, Balanced partial, All assists full."
 msgstr ""
-"卡车替你做多少保持车道的工作。完全会保持车道，把{control_steer_left}和{control_steer_right}变成轻按变道，并且不"
-"用打转向灯就替你驶出出口，包括目的地出口。部分会带卡车通过道路的弯道，偏移很轻，转向帮助很充足；变道和车速由你负责。关闭时偏移就像真实的方向盘；弯道由你"
-"负责，除非开启了弯道辅助，而且每个出口都需要打转向灯并进入出口车道。在部分或关闭时，{lean}。道路声音只告诉你在车道中的位置，路边会有回应：擦到振动"
-"带时是断续的抖动声，完全压上时是嗡嗡声，冲出路面时是碎石声。“音频”下的“转向引导”和“车道引导声音”可以改变转向方向和偏向的声音。写实把它设为关闭，均"
-"衡设为部分，全部辅助设为完全。"
 
 #. one sentence of a longer line
 msgid ""
@@ -37060,6 +37079,65 @@ msgstr "镜像地址必须以 https:// 开头。"
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr "镜像地址不能包含查询参数或片段。"
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits."
+#~ msgstr "它会保持车道，转过弯道和街角，还会替你驶出出口。"
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits. A tap of {control_steer_left} or {control_steer_right} changes "
+#~ "lanes. Speed, stops and the docks are yours."
+#~ msgstr ""
+#~ "它会保持车道，转过弯道和街角，还会替你驶出出口。轻按一下{control_steer_left}或{control_steer_right}就会换道。车"
+#~ "速、停车和装卸口归你管。"
+
+#~ msgid "Speed, stops and the docks are yours."
+#~ msgstr "车速、停车和装卸口归你管。"
+
+#~ msgid "The {lane_label} lane closes at the work zone ahead."
+#~ msgstr "{lane_label}车道在前方施工区封闭。"
+
+#~ msgid ""
+#~ "The {lane_label} lane closes at the work zone ahead. Move to the "
+#~ "{open_name} lane."
+#~ msgstr "{lane_label}车道在前方施工区封闭。换到{open_name}车道。"
+
+#~ msgid "You are in the closed {lane_label} lane!"
+#~ msgstr "你在已封闭的{lane_label}车道上！"
+
+#~ msgid ""
+#~ "You are in the closed {lane_label} lane! Move to the {open_name} lane!"
+#~ msgstr "你在已封闭的{lane_label}车道上！换到{open_name}车道！"
+
+#~ msgid ""
+#~ "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
+#~ "into tap lane changes, and takes your exits, including the destination "
+#~ "exit, without a signal."
+#~ msgstr ""
+#~ "完全会保持车道，把{control_steer_left}和{control_steer_right}变成轻按变道，并且不用打转向灯就替你驶出出口，包括"
+#~ "目的地出口。"
+
+#~ msgid ""
+#~ "How much of the lane-holding work the truck does. Full holds the lane, "
+#~ "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
+#~ "and takes your exits, including the destination exit, without a signal. "
+#~ "Partial steers the truck through the road's bends and drifts gently, with "
+#~ "generous steering help; lane changes and speed are yours. Off drifts like a "
+#~ "real wheel; bends are yours unless curve assistance is on, and every exit "
+#~ "needs its signal and its exit lane. On partial or off {lean}. The road "
+#~ "sound only says where you sit in your lane, and the road edge answers: a "
+#~ "stutter clipping the rumble strip, a buzz fully on it, gravel off the "
+#~ "pavement. Steering guide and Lane guide sound, under Audio, change which "
+#~ "way to steer and what leans. Realistic sets this off, Balanced partial, All "
+#~ "assists full."
+#~ msgstr ""
+#~ "卡车替你做多少保持车道的工作。完全会保持车道，把{control_steer_left}和{control_steer_right}变成轻按变道，并且不"
+#~ "用打转向灯就替你驶出出口，包括目的地出口。部分会带卡车通过道路的弯道，偏移很轻，转向帮助很充足；变道和车速由你负责。关闭时偏移就像真实的方向盘；弯道由你"
+#~ "负责，除非开启了弯道辅助，而且每个出口都需要打转向灯并进入出口车道。在部分或关闭时，{lean}。道路声音只告诉你在车道中的位置，路边会有回应：擦到振动"
+#~ "带时是断续的抖动声，完全压上时是嗡嗡声，冲出路面时是碎石声。“音频”下的“转向引导”和“车道引导声音”可以改变转向方向和偏向的声音。写实把它设为关闭，均"
+#~ "衡设为部分，全部辅助设为完全。"
 
 #~ msgid "Routes update checks and downloads through a mirror you configure."
 #~ msgstr "通过你配置的镜像检查并下载更新。"

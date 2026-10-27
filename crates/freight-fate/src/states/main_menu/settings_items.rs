@@ -861,7 +861,8 @@ impl SettingsCategoryState {
             |s| {
                 "How much of the lane-holding work the truck does. Full \
                  holds the lane, turns {{steer_left}} and {{steer_right}} into tap lane \
-                 changes, and takes your exits, including the destination \
+                 changes, moves out of a lane a work zone closes, and takes \
+                 your exits and open weigh stations, including the destination \
                  exit, without a signal. Partial steers the truck through \
                  the road's bends and drifts gently, with generous steering \
                  help; lane changes and speed are yours. Off drifts like a \

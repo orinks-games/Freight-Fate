@@ -17623,26 +17623,21 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations."
 msgstr ""
-"Er hält die Spur, lenkt durch Kurven und Straßenecken und nimmt deine "
-"Ausfahrten."
 
 #. placeholders: {control_steer_left}, {control_steer_right}
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits. A tap of {control_steer_left} or {control_steer_right} changes "
-"lanes. Speed, stops and the docks are yours."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations. A tap of "
+"{control_steer_left} or {control_steer_right} changes lanes. Speed, rest "
+"and fuel stops, and the docks are yours."
 msgstr ""
-"Er hält die Spur, lenkt durch Kurven und Straßenecken und nimmt deine "
-"Ausfahrten. Ein kurzes Tippen auf {control_steer_left} oder "
-"{control_steer_right} wechselt die Spur. Tempo, Halts und die Rampen sind "
-"deine Sache."
 
 #. one sentence of a longer line
-msgid "Speed, stops and the docks are yours."
-msgstr "Tempo, Halts und die Rampen sind deine Sache."
+msgid "Speed, rest and fuel stops, and the docks are yours."
+msgstr ""
 
 msgid "Balanced: you steer, with help."
 msgstr "Ausgewogen: Du lenkst, mit Hilfe."
@@ -27488,6 +27483,10 @@ msgstr "Spur {capitalized} frei."
 msgid "Changing to the {name} lane for the exit."
 msgstr "Wechsel auf die Spur {name} für die Ausfahrt."
 
+#. placeholders: {name}
+msgid "Changing to the {name} lane for the lane closure."
+msgstr ""
+
 #. placeholders: {lane_count_words}
 msgid "The road narrows to {lane_count_words}."
 msgstr "Die Straße verengt sich auf {lane_count_words}."
@@ -33488,40 +33487,58 @@ msgstr " Jetzt auf der Spur {lane_label}."
 msgid "The road narrows to {lane_count_words}.{moved}"
 msgstr "Die Straße verengt sich auf {lane_count_words}.{moved}"
 
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "The {closed_name} lane closes at the work zone ahead."
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"The {closed_name} lane closes at the work zone ahead. Waiting for a gap in "
+"the {open_name} lane."
+msgstr ""
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane."
+msgstr ""
+
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane."
 msgstr "Wechsel auf die Spur {open_name}."
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "The {lane_label} lane closes at the work zone ahead."
-msgstr "Die Spur {lane_label} endet an der Baustelle voraus."
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"The {lane_label} lane closes at the work zone ahead. Move to the "
+"The {closed_name} lane closes at the work zone ahead. Move to the "
 "{open_name} lane."
 msgstr ""
-"Die Spur {lane_label} endet an der Baustelle voraus. Wechsel auf die Spur "
-"{open_name}."
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "You are in the closed {closed_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"You are in the closed {closed_name} lane! Waiting for a gap in the "
+"{open_name} lane!"
+msgstr ""
 
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane!"
 msgstr "Wechsel auf die Spur {open_name}!"
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "You are in the closed {lane_label} lane!"
-msgstr "Du bist auf der gesperrten Spur {lane_label}!"
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"You are in the closed {lane_label} lane! Move to the {open_name} lane!"
+"You are in the closed {closed_name} lane! Move to the {open_name} lane!"
 msgstr ""
-"Du bist auf der gesperrten Spur {lane_label}! Wechsel auf die Spur "
-"{open_name}!"
 
 #. placeholders: {damage_pct}
 #. one sentence of a longer line
@@ -35913,12 +35930,10 @@ msgstr "Spurhaltung: {lane_keeping_label}"
 #. one sentence of a longer line
 msgid ""
 "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
-"into tap lane changes, and takes your exits, including the destination "
-"exit, without a signal."
+"into tap lane changes, moves out of a lane a work zone closes, and takes "
+"your exits and open weigh stations, including the destination exit, without "
+"a signal."
 msgstr ""
-"Voll hält die Spur, macht aus {control_steer_left} und "
-"{control_steer_right} Spurwechsel per Tippen und nimmt deine Ausfahrten, "
-"auch die Zielausfahrt, ohne Blinker."
 
 #. one sentence of a longer line
 msgid "How much of the lane-holding work the truck does."
@@ -35928,31 +35943,17 @@ msgstr "Wie viel von der Arbeit, die Spur zu halten, der Lkw übernimmt."
 msgid ""
 "How much of the lane-holding work the truck does. Full holds the lane, "
 "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
-"and takes your exits, including the destination exit, without a signal. "
-"Partial steers the truck through the road's bends and drifts gently, with "
-"generous steering help; lane changes and speed are yours. Off drifts like a "
-"real wheel; bends are yours unless curve assistance is on, and every exit "
-"needs its signal and its exit lane. On partial or off {lean}. The road "
-"sound only says where you sit in your lane, and the road edge answers: a "
-"stutter clipping the rumble strip, a buzz fully on it, gravel off the "
-"pavement. Steering guide and Lane guide sound, under Audio, change which "
-"way to steer and what leans. Realistic sets this off, Balanced partial, All "
-"assists full."
+"moves out of a lane a work zone closes, and takes your exits and open weigh "
+"stations, including the destination exit, without a signal. Partial steers "
+"the truck through the road's bends and drifts gently, with generous "
+"steering help; lane changes and speed are yours. Off drifts like a real "
+"wheel; bends are yours unless curve assistance is on, and every exit needs "
+"its signal and its exit lane. On partial or off {lean}. The road sound only "
+"says where you sit in your lane, and the road edge answers: a stutter "
+"clipping the rumble strip, a buzz fully on it, gravel off the pavement. "
+"Steering guide and Lane guide sound, under Audio, change which way to steer "
+"and what leans. Realistic sets this off, Balanced partial, All assists full."
 msgstr ""
-"Wie viel von der Arbeit, die Spur zu halten, der Lkw übernimmt. Voll hält "
-"die Spur, macht aus {control_steer_left} und {control_steer_right} "
-"Spurwechsel per Tippen und nimmt deine Ausfahrten, auch die Zielausfahrt, "
-"ohne Blinker. Teilweise lenkt den Lkw durch die Kurven der Straße und "
-"driftet sanft, mit großzügiger Lenkhilfe; Spurwechsel und Tempo sind deine "
-"Sache. Aus driftet wie ein echtes Lenkrad; Kurven sind deine Sache, außer "
-"der Kurvenassistent ist an, und jede Ausfahrt braucht ihren Blinker und "
-"ihre Ausfahrtspur. Bei teilweise oder aus {lean}. Das Straßengeräusch sagt "
-"nur, wo du in deiner Spur bist, und der Fahrbahnrand antwortet: ein "
-"Stottern, wenn du den Rüttelstreifen streifst, ein Brummen, wenn du ganz "
-"darauf bist, Schotter neben der Fahrbahn. Lenkhilfe und Spurführungsklang "
-"unter Audio ändern, in welche Richtung du lenkst und was sich neigt. "
-"Realistisch stellt das auf aus, Ausgewogen auf teilweise, Alle Fahrhilfen "
-"auf voll."
 
 #. one sentence of a longer line
 msgid ""
@@ -42035,6 +42036,83 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits."
+#~ msgstr ""
+#~ "Er hält die Spur, lenkt durch Kurven und Straßenecken und nimmt deine "
+#~ "Ausfahrten."
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits. A tap of {control_steer_left} or {control_steer_right} changes "
+#~ "lanes. Speed, stops and the docks are yours."
+#~ msgstr ""
+#~ "Er hält die Spur, lenkt durch Kurven und Straßenecken und nimmt deine "
+#~ "Ausfahrten. Ein kurzes Tippen auf {control_steer_left} oder "
+#~ "{control_steer_right} wechselt die Spur. Tempo, Halts und die Rampen sind "
+#~ "deine Sache."
+
+#~ msgid "Speed, stops and the docks are yours."
+#~ msgstr "Tempo, Halts und die Rampen sind deine Sache."
+
+#~ msgid "The {lane_label} lane closes at the work zone ahead."
+#~ msgstr "Die Spur {lane_label} endet an der Baustelle voraus."
+
+#~ msgid ""
+#~ "The {lane_label} lane closes at the work zone ahead. Move to the "
+#~ "{open_name} lane."
+#~ msgstr ""
+#~ "Die Spur {lane_label} endet an der Baustelle voraus. Wechsel auf die Spur "
+#~ "{open_name}."
+
+#~ msgid "You are in the closed {lane_label} lane!"
+#~ msgstr "Du bist auf der gesperrten Spur {lane_label}!"
+
+#~ msgid ""
+#~ "You are in the closed {lane_label} lane! Move to the {open_name} lane!"
+#~ msgstr ""
+#~ "Du bist auf der gesperrten Spur {lane_label}! Wechsel auf die Spur "
+#~ "{open_name}!"
+
+#~ msgid ""
+#~ "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
+#~ "into tap lane changes, and takes your exits, including the destination "
+#~ "exit, without a signal."
+#~ msgstr ""
+#~ "Voll hält die Spur, macht aus {control_steer_left} und "
+#~ "{control_steer_right} Spurwechsel per Tippen und nimmt deine Ausfahrten, "
+#~ "auch die Zielausfahrt, ohne Blinker."
+
+#~ msgid ""
+#~ "How much of the lane-holding work the truck does. Full holds the lane, "
+#~ "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
+#~ "and takes your exits, including the destination exit, without a signal. "
+#~ "Partial steers the truck through the road's bends and drifts gently, with "
+#~ "generous steering help; lane changes and speed are yours. Off drifts like a "
+#~ "real wheel; bends are yours unless curve assistance is on, and every exit "
+#~ "needs its signal and its exit lane. On partial or off {lean}. The road "
+#~ "sound only says where you sit in your lane, and the road edge answers: a "
+#~ "stutter clipping the rumble strip, a buzz fully on it, gravel off the "
+#~ "pavement. Steering guide and Lane guide sound, under Audio, change which "
+#~ "way to steer and what leans. Realistic sets this off, Balanced partial, All "
+#~ "assists full."
+#~ msgstr ""
+#~ "Wie viel von der Arbeit, die Spur zu halten, der Lkw übernimmt. Voll hält "
+#~ "die Spur, macht aus {control_steer_left} und {control_steer_right} "
+#~ "Spurwechsel per Tippen und nimmt deine Ausfahrten, auch die Zielausfahrt, "
+#~ "ohne Blinker. Teilweise lenkt den Lkw durch die Kurven der Straße und "
+#~ "driftet sanft, mit großzügiger Lenkhilfe; Spurwechsel und Tempo sind deine "
+#~ "Sache. Aus driftet wie ein echtes Lenkrad; Kurven sind deine Sache, außer "
+#~ "der Kurvenassistent ist an, und jede Ausfahrt braucht ihren Blinker und "
+#~ "ihre Ausfahrtspur. Bei teilweise oder aus {lean}. Das Straßengeräusch sagt "
+#~ "nur, wo du in deiner Spur bist, und der Fahrbahnrand antwortet: ein "
+#~ "Stottern, wenn du den Rüttelstreifen streifst, ein Brummen, wenn du ganz "
+#~ "darauf bist, Schotter neben der Fahrbahn. Lenkhilfe und Spurführungsklang "
+#~ "unter Audio ändern, in welche Richtung du lenkst und was sich neigt. "
+#~ "Realistisch stellt das auf aus, Ausgewogen auf teilweise, Alle Fahrhilfen "
+#~ "auf voll."
 
 #~ msgid "auto"
 #~ msgstr "automatisch"

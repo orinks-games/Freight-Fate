@@ -617,6 +617,7 @@ impl DrivingState {
             self.trip.scale_reminder_hold_mi = None;
         }
         self.check_weigh_station_enforcement(ctx, pos_before);
+        self.lane_keeping_signal_for_scale(ctx);
         self.update_scale_reannounce(ctx);
         self.check_unsafe_damage_enforcement(ctx);
         self.check_destination_exit(ctx);

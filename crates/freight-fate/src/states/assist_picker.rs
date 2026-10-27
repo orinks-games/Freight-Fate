@@ -20,9 +20,10 @@ const PRESETS: [(&str, &str, &str); 3] = [
     (
         "all",
         "All assists: the truck steers. Recommended for your first drives.",
-        "It holds the lane, steers the bends and street corners, and takes \
-         your exits. A tap of {{steer_left}} or {{steer_right}} changes lanes. \
-         Speed, stops and the docks are yours.",
+        "It holds the lane, steers the bends and street corners, moves out \
+         of closed lanes, and takes your exits and open weigh stations. A tap \
+         of {{steer_left}} or {{steer_right}} changes lanes. Speed, rest and \
+         fuel stops, and the docks are yours.",
     ),
     (
         "balanced",
