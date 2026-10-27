@@ -425,7 +425,9 @@ impl DrivingState {
     /// cannot hold. They used to drive on with the warning unanswered, and
     /// the truck kept gaining.
     fn pilot_descent_snub(&self, pilot: &mut Pilot) -> bool {
-        if !self.descent_control_active {
+        // Without cruise there is no hold to brake under: the target would
+        // read as cruise's floor of 20.
+        if !self.descent_control_active || self.cruise_mph.is_none() {
             pilot.descent_snub_to = None;
             return false;
         }

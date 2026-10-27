@@ -808,7 +808,8 @@ fn test_speed_keeper_ignores_a_slower_vehicle_miles_up_the_road() {
     // it is re-placed each frame so its gap behaves the way the patch's did.
     let mut harness = bench_drive("Far Lead", 200.0, 0.0);
     release_keys(&mut harness);
-    post_zone(&mut harness, 45.0, "construction");
+    // A street: a highway work zone is cruise's now (issue #518).
+    post_zone(&mut harness, 45.0, "facility access road");
     let gap_mi = 2.2;
     let lead_mph = 35.0;
     press(&mut harness, Key::E, None);

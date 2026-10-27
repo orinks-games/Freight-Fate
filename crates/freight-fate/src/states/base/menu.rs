@@ -298,7 +298,7 @@ pub trait Menu: Sized + 'static {
             _ => {
                 if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
                     let lower: String = ch.to_lowercase().collect();
-                    self.first_letter_jump(ctx, &lower);
+                    self.first_letter_input(ctx, &lower, event.key_repeat());
                 }
             }
         }
@@ -458,6 +458,25 @@ pub trait Menu: Sized + 'static {
     /// Change the current option (D-pad left/right). No-op unless the menu
     /// has adjustable options; the settings screens override this.
     fn adjust(&mut self, _ctx: &mut GameContext, _direction: i64) {}
+
+    /// A unique initial may activate; ambiguous initials retain cyclic navigation.
+    fn first_letter_input(&mut self, ctx: &mut GameContext, ch: &str, repeat: bool) {
+        if repeat && ctx.settings.menu_accelerator_keys {
+            return;
+        }
+        let unique = ctx.settings.menu_accelerator_keys
+            && self
+                .menu()
+                .items
+                .iter()
+                .filter(|item| item.text(self, ctx).to_lowercase().starts_with(ch))
+                .count()
+                == 1;
+        self.first_letter_jump(ctx, ch);
+        if unique {
+            self.activate(ctx);
+        }
+    }
 
     fn first_letter_jump(&mut self, ctx: &mut GameContext, ch: &str) {
         let n = self.menu().items.len();

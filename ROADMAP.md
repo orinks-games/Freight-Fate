@@ -41,6 +41,8 @@ bookmarks usable.
 
 ## 1.9 in flight (`feat/career-1.9`)
 
+- [x] Optional menu accelerator keys (owner, 2026-10-24): Gameplay, Controls offers immediate activation for unique initials; duplicate initials retain selection-only cycling. Off by default.
+
 - [x] Translations (owner, 2026-10-11): every spoken line is translated
       where it leaves for the speech channels, from gettext PO files in
       `lang/` matched as templates, so the code stays English. Settings,
@@ -754,7 +756,8 @@ Everything found before 2026-09-25 moved to
       kept on the owner's PC under `refs/backup/2026-10-25/` as a
       reference for the Python builders only. Its data must not be applied:
       dev has changed 49 of the same leg files since, Manassas and the
-      Mall of America among them.
+      Mall of America among them. Superseded on 2026-10-26 by the monthly
+      re-read under the [map audit](#map-audit-seven-layers-one-planet-cut-rust-tools).
 - [ ] (Found along the way) Sign release archives so the updater can
       check them against a key built into the game, not only against the
       checksum GitHub lists next to the file.
@@ -1330,6 +1333,10 @@ Everything found before 2026-09-25 moved to
       windows on its window scene, since iOS 27 stops an app built with its
       SDK at launch without one (2026-10-22). Moving to SDL3, which has
       scene support of its own, would retire the shim.
+- [x] iOS sideload packaging: `cargo tools build-ios --sideload` builds a device
+      IPA without an Apple certificate or provisioning profile, ready for
+      re-signing in a sideloading tool; the signed `--device --ipa` path is
+      documented too (2026-10-08).
 - [x] iOS driving gestures run commands directly and can be rebound in
       Settings, Gameplay, Controls, Touch gestures: a second finger while holding a
       pedal (cruise, shifts, parking brake, engine), plus tap for speed,
@@ -3608,17 +3615,51 @@ Rules set that day:
 - **PR #515 stays on dev** for 1.9.6: rebase after #514, an agent-server
   drive, merge. The same `osm-speed-limits` command runs again on 2.0
   with Canada in the bounding box.
+- **The map stays in the game and is re-read monthly** (owner,
+  2026-10-26, design note "Keeping the map current" in the project). No
+  streaming: it would end the deterministic drive the transcript tests
+  and the battery assert, and raw OpenStreetMap is not playable without
+  the derivation and screens. No separate map pack: the baked
+  `world.ffdata` is about 7 MB inside a 35 MB slim update, and its format
+  version ties it to the binary anyway. Instead one `cargo tools
+  osm-refresh` command runs every layer tool over a planet cut, and a
+  monthly routine runs it and opens a pull request against dev; detail
+  under the [map audit](#map-audit-seven-layers-one-planet-cut-rust-tools).
 
 1.9.6, ship when the tier-1 list is empty:
 
 - [ ] Crashes on facility streets with assists on (issues #513, #516,
       #517; one tester, 1.9.5, Lynchburg and Staunton, Virginia). The
-      2026-10-25 snapshot writes the native crash into the log; the first
-      log with that line names the fault. Reproduce on the agent server
-      with Facility streets on from the same yards.
+      2026-10-25 snapshot writes the native crash into the log, and #517's
+      names it: an access violation inside Windows' own speech library
+      (`sapi.dll` +0x15A44) while the separate SAPI event voice was
+      speaking, about three seconds after a turn instruction, with no new
+      speech call from the game in between. #516 died at the same moment
+      on an older build with no crash handler. Every other SAPI player
+      drives these streets without it, so it points at this tester's
+      SAPI voice or Windows build. The crash line now also gives the
+      thread and the call stack (PR to dev, 2026-10-26); asked the tester
+      for their Windows version and SAPI voice, and to try the OneCore
+      event voice. Fix once the stack names the caller. If the stack
+      lands in SAPI's own audio output rather than a voice's engine,
+      Prism's SAPI rewrite (master e7097c7, 2026-10-26, unreleased:
+      synthesis on its own thread, played through XAudio2) avoids that
+      path; it needs a prismer release or a patched fork, then a Hearken
+      bump.
 - [x] Co-driver crawls at 20 after planning a handover stop, then hands
-      over out of hours (issue #518). Ice holds the truck at 20 while the
-      stop's reach was judged at 50; reach now follows the weather's pace,
+      over out of hours (issue #518). The tester's log (not icy) showed
+      the stop plan was sound: a work zone on a 5.8 percent downgrade
+      handed cruise to the speed keeper while descent control held the
+      grade, descent control stayed marked as holding with no cruise, and
+      the co-driver braked to its floor of 20 every three seconds for the
+      rest of the shift. Ending cruise now ends descent control, and the
+      co-driver brakes for a grade only under cruise. The owner also ruled
+      (2026-10-27) that the speed keeper is for streets and facility
+      approaches only: cruise now holds highway work zones and heavy
+      traffic at their limit, so that handoff no longer happens at all.
+- [x] (Found along the way, #518) On ice the co-driver judged a stop's
+      reach at 50 while the weather held the truck at 20, so a far lot could
+      be planned and never reached. Reach now follows the weather's pace,
       and a plan the weather puts out of reach is dropped for a nearer lot.
 - [ ] (Found along the way) A slept shift is passed at the posted pace
       whatever the weather, so on ice the truck covers miles in the jump
@@ -3742,6 +3783,34 @@ loudly when mostly assumed.
 - [ ] Street chains, endpoints, facility and stop approaches from the same
       OSM set, so chains, terminals and ramp ends agree. The streets work
       below needs this one.
+
+Keeping the layers current (owner, 2026-10-26): the map stays in the
+game, and the re-read goes on a clock. Only the layers mappers change
+month to month run monthly: speed limits, exits and ramps, lanes, truck
+restrictions (`maxheight`, `maxweight`, `hgv`). Amenities run quarterly,
+traffic counts yearly when the new table is published, and geometry,
+curves and grades only after a re-route. Every layer tool keeps a record
+whose `source` is not its own read, the hand-set rule `osm-speed-limits`
+already follows. The job runs on dev only; 2.0 widens the cut to Canada
+and Alaska after the merge.
+
+- [ ] Port the exits and ramps builder into `ff-tools`, both directions'
+      ramp ends, with the hand-set rule, and re-read the layer in the same
+      PR. Then lanes, then truck restrictions, on the same pattern.
+- [ ] `cargo tools osm-refresh`: the planet cut from osm-pds with the
+      planet date recorded as `--extract-date`, each layer tool dry-run
+      then `--write`, one commit per layer, `--layers` for a subset,
+      `index-world --check`, the `data_*` and `sim_*` tests, and a report
+      (records re-read and left alone with the reason, share of road
+      miles changed, the ten biggest changes by state, provenance ratio,
+      the leg to drive). No fixed change-share cutoff until a few months
+      of runs show a normal month.
+- [ ] Run it once by hand and review the report with the owner, then a
+      monthly routine in the project runs it, drives one changed leg on
+      the agent server with Facility streets off, and opens the PR against
+      dev. A GitHub Actions workflow is the later option; it needs the
+      runner's disk cleared or a streaming reader, and a token whose PRs
+      trigger CI.
 
 ### City streets: four slices
 

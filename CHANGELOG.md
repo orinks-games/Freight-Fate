@@ -2,11 +2,20 @@
 
 ## Unreleased
 
+### Added
+
+- **A menu letter can now choose its item at once.** Turn on Menu accelerator keys in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).
+
+### Changed
+
+- **Adaptive cruise now holds highway work zones and heavy traffic at their limit.** The speed keeper takes over only on streets and facility approaches.
+
 ### Fixed
 
 - **Facility stopping assistance no longer gets you fined at a chain control.** A truck pulling into the chain-up area to put chains on is not cited.
 - **A crash on Windows now writes its cause into game.log,** so a bug report with the log shows what went wrong.
-- **On ice, a co-driver now plans a stop they can reach.** One too far off left them crawling at 20 until their hours ran out.
+- **A co-driver no longer crawls at 20 miles per hour after a downhill work zone.** They kept braking for the hill and ran out of hours.
+- **On ice, a co-driver now plans a stop they can reach at icy speeds.** They used to plan one their hours could not reach.
 - **A co-driver now lowers the cruise speed when the limit drops.** Entering a state with a lower truck limit, they kept the old speed.
 
 ## 1.9.5 - 2026-10-25
