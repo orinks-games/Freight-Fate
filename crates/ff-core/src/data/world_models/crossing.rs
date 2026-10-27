@@ -51,6 +51,29 @@ pub struct RoadCrossing {
     /// What sustained wind does to trucks here; None where none is published.
     #[serde(default)]
     pub wind: Option<WindRule>,
+    /// Loads the crossing's own staff escort across in any weather; None
+    /// where no escort rule is published.
+    #[serde(default)]
+    pub escort: Option<EscortRule>,
+}
+
+/// A crossing that escorts some loads across, from its published rules.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct EscortRule {
+    /// Every placarded load is escorted.
+    pub placarded: bool,
+    /// Rigs grossing more than this many pounds are escorted.
+    pub gross_over_lb: Option<u32>,
+    /// The rule as spoken when it applies.
+    pub text: String,
+    pub source_url: String,
+}
+
+impl EscortRule {
+    pub fn applies(&self, load: &CrossingLoad) -> bool {
+        (self.placarded && load.placarded)
+            || self.gross_over_lb.is_some_and(|lb| load.gross_lb > lb)
+    }
 }
 
 /// A crossing's published wind levels, in sustained miles per hour.
@@ -112,6 +135,8 @@ pub struct CrossingLoad {
     pub trailer: bool,
     /// Cargo on board, in pounds.
     pub payload_lb: u32,
+    /// The whole rig as it would cross a scale, in pounds; 0 when unknown.
+    pub gross_lb: u32,
 }
 
 impl CrossingLoad {
@@ -127,7 +152,13 @@ impl CrossingLoad {
             regulated_lb: 0,
             trailer: false,
             payload_lb: 0,
+            gross_lb: 0,
         }
+    }
+
+    pub fn with_gross(mut self, gross_lb: u32) -> Self {
+        self.gross_lb = gross_lb;
+        self
     }
 
     pub fn with_trailer(mut self, trailer: bool) -> Self {
@@ -240,7 +271,21 @@ impl RoadCrossing {
                 return Err(bad("has a wind rule with no spoken rule"));
             }
         }
-        if !cargo_rule && sized.iter().all(Option::is_none) && self.wind.is_none() {
+        if let Some(escort) = &self.escort {
+            if escort.text.trim().is_empty()
+                || escort.source_url.trim().is_empty()
+                || (!escort.placarded && escort.gross_over_lb.is_none())
+            {
+                return Err(bad(
+                    "has an escort rule with nothing to escort or no spoken rule",
+                ));
+            }
+        }
+        if !cargo_rule
+            && sized.iter().all(Option::is_none)
+            && self.wind.is_none()
+            && self.escort.is_none()
+        {
             return Err(bad("models no rule"));
         }
         let wind_texts = self
@@ -280,6 +325,7 @@ mod tests {
             access_date: "2026-10-11".into(),
             basis: "read".into(),
             wind: None,
+            escort: None,
         }
     }
 

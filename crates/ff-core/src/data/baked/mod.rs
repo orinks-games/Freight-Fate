@@ -116,7 +116,9 @@ pub const MAGIC: &[u8; 8] = b"FFDATA\0\0";
 /// (`crossings`).
 ///
 /// 10: a crossing carries its published wind levels (`wind`).
-pub const FORMAT_VERSION: u32 = 10;
+///
+/// 11: a crossing carries the loads it escorts in any weather (`escort`).
+pub const FORMAT_VERSION: u32 = 11;
 
 const HEADER_LEN: usize = 32;
 

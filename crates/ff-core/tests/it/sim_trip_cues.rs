@@ -406,6 +406,48 @@ fn mackinac_high_wind_is_an_escort_wait_on_duty() {
 }
 
 #[test]
+fn mackinac_escorts_placarded_and_heavy_loads_once_in_any_weather() {
+    let waits = |key: &str, cargo_kg: f64, sky: WeatherKind| {
+        let mut trip = wind_trip("sault_ste_marie_mi_us", "traverse_city_mi_us", cargo_kg);
+        trip.truck.cargo_key = key.into();
+        trip.weather.forced = Some(sky);
+        trip.weather.current = sky;
+        if sky == WeatherKind::Wind {
+            trip.weather.blow = blow(45.0);
+        }
+        trip.update(1.0)
+            .into_iter()
+            .filter(|e| e.data.context.as_deref() == Some("tunnel_wait"))
+            .map(|e| (e.data.amount, e.text().to_string()))
+            .collect::<Vec<_>>()
+    };
+    let placarded = waits("hazardous", 9_000.0, WeatherKind::Clear);
+    assert_eq!(placarded.len(), 1);
+    assert_eq!(placarded[0].0, Some(20.0));
+    assert!(placarded[0].1.contains("escorts placarded and heavy loads"));
+    assert!(placarded[0].1.contains("20 minutes on duty"));
+    let mut clocked = wind_trip("sault_ste_marie_mi_us", "traverse_city_mi_us", 9_000.0);
+    clocked.truck.cargo_key = "hazardous".into();
+    clocked.weather.forced = Some(WeatherKind::Clear);
+    clocked.weather.current = WeatherKind::Clear;
+    let start_minutes = clocked.game_minutes;
+    clocked.update(1.0);
+    assert!(
+        clocked.game_minutes - start_minutes >= 20.0,
+        "the escort wait moves the trip clock"
+    );
+    assert!(waits("general", 13_600.0, WeatherKind::Clear).is_empty());
+    assert_eq!(
+        waits("general", 25_000.0, WeatherKind::Clear).len(),
+        1,
+        "over 40 tons gross"
+    );
+    let windy = waits("hazardous", 9_000.0, WeatherKind::Wind);
+    assert_eq!(windy.len(), 1, "one escort covers wind and placards");
+    assert!(windy[0].1.contains("wait for an escort"));
+}
+
+#[test]
 fn a_simulated_high_wind_eases_so_an_empty_trailer_crosses_the_cbbt_within_the_cap() {
     let mut trip = wind_trip("norfolk_va_us", "cape_charles_va_us", 0.0);
     trip.weather.forced = Some(WeatherKind::Wind);
@@ -511,6 +553,46 @@ fn mackinac_closed_to_trucks_holds_until_the_wind_drops() {
         trip.update(1.0);
     }
     assert!(trip.position_mi > 0.0);
+}
+
+/// Escort-level wind on the first reading, calm after it.
+struct DroppingWind(std::rc::Rc<std::cell::Cell<u32>>);
+
+impl ff_core::sim::weather::WeatherProvider for DroppingWind {
+    fn request(&mut self, _city: &str, _lat: f64, _lon: f64) {}
+    fn get(&mut self, _city: &str) -> Option<WeatherKind> {
+        Some(WeatherKind::Wind)
+    }
+    fn get_wind_kmh(&mut self, _city: &str) -> Option<f64> {
+        let reads = self.0.get();
+        self.0.set(reads + 1);
+        Some(if reads == 0 { 64.0 } else { 0.0 })
+    }
+}
+
+#[test]
+fn a_placarded_load_is_escorted_once_when_the_wind_drops_during_the_escort() {
+    let mut trip = wind_trip("sault_ste_marie_mi_us", "traverse_city_mi_us", 9_000.0);
+    trip.truck.cargo_key = "hazardous".into();
+    let reads = std::rc::Rc::new(std::cell::Cell::new(0));
+    trip.weather.provider = Some(Box::new(DroppingWind(reads.clone())));
+    trip.weather.city = Some("sault_ste_marie_mi_us".into());
+    let start_minutes = trip.game_minutes;
+    let waits = trip
+        .update(1.0)
+        .into_iter()
+        .filter(|e| e.data.context.as_deref() == Some("tunnel_wait"))
+        .map(|e| (e.data.amount, e.text().to_string()))
+        .collect::<Vec<_>>();
+    assert!(reads.get() >= 1, "the wind was read at the bridge");
+    assert_eq!(waits.len(), 1, "one escort: {waits:?}");
+    assert_eq!(waits[0].0, Some(20.0));
+    assert!(waits[0].1.contains("wait for an escort"), "{}", waits[0].1);
+    let minutes = trip.game_minutes - start_minutes;
+    assert!(
+        (20.0..40.0).contains(&minutes),
+        "escorted once on the clock: {minutes}"
+    );
 }
 
 #[test]
