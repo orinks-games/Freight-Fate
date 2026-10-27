@@ -7,6 +7,7 @@ use ff_core::data::world_parsing::crc32;
 use ff_core::models::trailer_yard::pickup_plan;
 use ff_core::pyrandom::PyRandom;
 use ff_core::sim::driving_modes::tuning_for_time_scale;
+use ff_core::sim::trip::is_highway_zone_reason;
 use ff_core::sim::trip_models::{TripEvent, TripEventKind};
 use ff_core::speech_pacing::SpeechCategory;
 use ff_core::speech_text::{
@@ -1228,6 +1229,16 @@ impl DrivingState {
     /// `_event_disables_cruise(event)`.
     pub fn event_disables_cruise(&self, ctx: &GameContext, event: &TripEvent) -> bool {
         if self.cruise_mph.is_none() {
+            return false;
+        }
+        // Cruise holds a highway work zone or heavy traffic at its limit,
+        // keeper or no keeper (owner rule, 2026-10-27, issue #518).
+        if event
+            .data
+            .zone
+            .as_ref()
+            .is_some_and(|zone| is_highway_zone_reason(&zone.reason))
+        {
             return false;
         }
         if event.kind == TripEventKind::ZoneEnter {

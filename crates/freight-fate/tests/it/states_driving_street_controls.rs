@@ -865,16 +865,19 @@ fn test_the_keepers_build_rate_is_the_one_its_planner_assumes() {
 fn test_the_streets_start_on_the_road_the_destination_ramp_meets() {
     use ff_core::models::jobs::make_reposition_job;
     use ff_core::models::profile::Profile;
+    // Into Abilene from the west, exit 281. From the east the nearest exit
+    // is now 290 (Loop 322), which the October 2026 re-read added and which
+    // has no street chain until the chains are re-baked.
     let world = get_world();
     let mut app = TestApp::new();
-    let mut profile = Profile::named_in("Terminal", "Dallas");
+    let mut profile = Profile::named_in("Terminal", "Big Spring");
     profile.tutorial_done = true;
     app.ctx.profile = Some(profile);
     let route = world
-        .shortest_route("dallas_tx_us", "abilene_tx_us", None, false)
+        .shortest_route("big_spring_tx_us", "abilene_tx_us", None, false)
         .expect("the world routes")
-        .expect("Dallas has a route to Abilene");
-    let mut job = make_reposition_job(world, "dallas_tx_us", "abilene_tx_us", false, None)
+        .expect("Big Spring has a route to Abilene");
+    let mut job = make_reposition_job(world, "big_spring_tx_us", "abilene_tx_us", false, None)
         .expect("a reposition job exists");
     job.destination_location = "Abilene Company Yard".to_string();
     let mut d = DrivingState::new(

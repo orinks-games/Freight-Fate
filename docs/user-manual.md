@@ -380,7 +380,7 @@ A control marked Driving commands has no controller button. Hold the right bumpe
 | B, hold | Left trigger, all the way down | Emergency brake. |
 | E | Right bumper plus A | Start the engine. Stop the engine only below 5 miles per hour. |
 | P | Right bumper plus Y | Release or set the parking brake. Set it above a crawl and the spring brakes slam on: a screech, a hard stop, and permanent flat spots ground into the tires, worse the faster you were going. It is not a brake pedal. |
-| K | Y | Start or cancel automatic speed control. It uses adaptive cruise on open roads and speed keeper in low-speed zones. It pauses through the planned pickup and resumes once the loaded truck is rolling. Braking elsewhere also cancels it. Parked with the parking brake set, K latches a high idle instead. |
+| K | Y | Start or cancel automatic speed control. It uses adaptive cruise on the highway, work zones and heavy traffic included, and speed keeper on streets and facility approaches. It pauses through the planned pickup and resumes once the loaded truck is rolling. Braking elsewhere also cancels it. Parked with the parking brake set, K latches a high idle instead. |
 | Shift+K | Driving commands | Resume automatic speed control at the last speed you had set, after braking cancelled it. |
 | Plus / Minus | Right bumper plus D-pad right or left | Raise or lower the open-road cruise target while automatic speed control is active, snapping outward to the next multiple of 5 mph: from 32 it lands on 35, then 40. The keypad Plus and Minus keys work too. |
 | Ctrl+Plus / Ctrl+Minus | Not on the controller | Raise or lower the open-road cruise target by exactly 1 mph, no snapping, for setting a precise number. |
@@ -500,7 +500,7 @@ If the load is close to the weight limit, check before filling the tank. Fuel ad
 
 Set the parking brake once you're stopped. Pulling it at speed brings a hard stop and can flat-spot the tires. With it set, K, or Y on a controller, holds high idle until you release the brake.
 
-On open road at twenty miles per hour or above, K starts adaptive cruise. In supported low-speed zones, it starts speed keeper instead. The control follows traffic and leaves a wider gap in bad weather.
+On open road at twenty miles per hour or above, K starts adaptive cruise. On streets and facility approaches, it starts speed keeper instead. Cruise holds a work zone or heavy traffic at its limit. The control follows traffic and leaves a wider gap in bad weather.
 
 Plus and Minus move the cruise target outward to the next multiple of five: from 32, Plus selects 35, then 40. On a controller, hold the right bumper and press D-pad right or left. Hold Control to adjust one mile per hour at a time. Space tells you which mode is active, its target, and whether conditions are holding you below it. Braking cancels the control; Shift+K resumes. A pickup pauses the session through loading and saving, then resumes it after departure.
 

@@ -285,3 +285,138 @@ fn on_a_grade_descent_control_holds_the_co_driver_leaves_the_brakes_alone() {
         "the truck gained on a held grade: {fastest:.0}"
     );
 }
+
+/// Issue #518: a work zone on a downgrade handed cruise to the speed keeper
+/// while descent control held the grade. Descent control was left marked as
+/// holding with no cruise to hold, so the co-driver read its target as 20
+/// and braked to it every few seconds, for the rest of the shift: the truck
+/// crawled at 20 on a 70 road until the hours ran out short of the lot.
+#[test]
+fn a_work_zone_taking_cruise_on_a_downgrade_leaves_no_brake_for_the_grade() {
+    use crate::transcript_cruise_support::{
+        bench_road_segments, release_keys, start_drive_scaled, MPS_PER_MPH, START_MI,
+    };
+    let mut harness = start_drive_scaled("Team Zone Descent", Some(10.0));
+    release_keys(&mut harness);
+    harness.with_drive(|d, ctx| {
+        let grades = [
+            (0.0, START_MI + 0.2, 0.0),
+            (START_MI + 0.2, START_MI + 2.2, -5.8),
+            (START_MI + 2.2, 400.0, 0.0),
+        ];
+        bench_road_segments(d, &[(0.0, 65.0)], &grades, 10.0);
+        d.trip.position_mi = START_MI;
+        d.tutorial = None;
+        d.trip.hazard_check_mi = 1e9;
+        d.trip.inspection_check_mi = 1e9;
+        d.trip.traffic_manager.rolling_bubble = false;
+        d.trip.set_npc_vehicles(Vec::new());
+        d.trip.set_patrols(Vec::new());
+        d.weather_mut().forced = Some(WeatherKind::Clear);
+        d.weather_mut().current = WeatherKind::Clear;
+        d.truck_mut().cargo_kg = 18_000.0;
+        d.truck_mut().start_engine();
+        d.truck_mut().set_air_ready(false);
+        d.truck_mut().velocity_mps = 55.0 * MPS_PER_MPH;
+        d.hand_wheel_to_co_driver(ctx, TeamMode::RideAlong);
+        d.engage_cruise(ctx, 55.0, false);
+    });
+    let holding = run_until(&mut harness, 60 * 30, |h| {
+        h.read_drive(|d| d.descent_control_active)
+    });
+    assert!(holding, "descent control never took the grade");
+    // The work zone's speed keeper takes over from cruise, as entering a
+    // zone does with the keeper on.
+    harness.with_drive(|d, ctx| {
+        d.cancel_cruise(ctx, true);
+        d.engage_keeper(ctx, 45.0, "construction", Some(45.0), false);
+    });
+    let (mut snubs, mut was_snubbing) = (0, false);
+    let past_the_grade = run_until(&mut harness, 60 * 90, |h| {
+        h.read_drive(|d| {
+            let snubbing = d
+                .team
+                .as_ref()
+                .and_then(|team| team.wheel.as_ref())
+                .is_some_and(|wheel| wheel.pilot.descent_snub_to.is_some());
+            if snubbing && !was_snubbing {
+                snubs += 1;
+            }
+            was_snubbing = snubbing;
+            d.trip.position_mi > START_MI + 6.0 && d.truck().speed_mph() > 50.0
+        })
+    });
+    let (speed, at) =
+        harness.read_drive(|d| (d.truck().speed_mph(), d.trip.position_mi - START_MI));
+    assert!(
+        past_the_grade,
+        "held to {speed:.0} at {at:.1} miles, braked for the grade {snubs} times"
+    );
+    assert_eq!(
+        snubs, 0,
+        "braked for a grade descent control was not holding"
+    );
+}
+
+/// The road of issue #518 as it is now: a work zone posted partway down a
+/// 5.8 percent grade. Cruise holds the zone at its limit, so descent control
+/// keeps the grade, the keeper never takes over, and the co-driver is back
+/// near the limit past the zone.
+#[test]
+fn a_work_zone_on_a_downgrade_stays_on_cruise_with_the_co_driver() {
+    use crate::transcript_cruise_support::{
+        bench_road_segments, release_keys, start_drive_scaled, MPS_PER_MPH, START_MI,
+    };
+    use ff_core::sim::trip_models::Zone;
+    let mut harness = start_drive_scaled("Team Zone On Grade", Some(10.0));
+    release_keys(&mut harness);
+    harness.with_drive(|d, ctx| {
+        let grades = [
+            (0.0, START_MI + 0.2, 0.0),
+            (START_MI + 0.2, START_MI + 2.2, -5.8),
+            (START_MI + 2.2, 400.0, 0.0),
+        ];
+        bench_road_segments(d, &[(0.0, 65.0)], &grades, 10.0);
+        d.trip.position_mi = START_MI;
+        d.tutorial = None;
+        d.trip.hazard_check_mi = 1e9;
+        d.trip.inspection_check_mi = 1e9;
+        d.trip.traffic_manager.rolling_bubble = false;
+        d.trip.set_npc_vehicles(Vec::new());
+        d.trip.set_patrols(Vec::new());
+        d.trip.zones = vec![Zone::new(
+            START_MI + 0.8,
+            START_MI + 3.0,
+            45.0,
+            "construction",
+        )];
+        d.weather_mut().forced = Some(WeatherKind::Clear);
+        d.weather_mut().current = WeatherKind::Clear;
+        d.truck_mut().cargo_kg = 18_000.0;
+        d.truck_mut().start_engine();
+        d.truck_mut().set_air_ready(false);
+        d.truck_mut().velocity_mps = 55.0 * MPS_PER_MPH;
+        d.hand_wheel_to_co_driver(ctx, TeamMode::RideAlong);
+        d.engage_cruise(ctx, 55.0, false);
+    });
+    let (mut keeper, mut crawled, mut in_zone_max) = (false, false, 0.0f64);
+    let past = run_until(&mut harness, 60 * 120, |h| {
+        h.read_drive(|d| {
+            let at = d.trip.position_mi - START_MI;
+            keeper |= d.keeper_mph.is_some();
+            if at > 0.9 && at < 3.0 {
+                in_zone_max = in_zone_max.max(d.truck().speed_mph());
+            }
+            if at > 3.5 {
+                crawled |= d.truck().speed_mph() < 30.0;
+            }
+            at > 6.0
+        })
+    });
+    assert!(past, "never got past the zone");
+    assert!(!keeper, "the speed keeper took a highway work zone");
+    assert!(in_zone_max <= 47.5, "{in_zone_max:.0} in the 45 work zone");
+    assert!(!crawled, "crawled past the zone");
+    let speed = harness.read_drive(|d| d.truck().speed_mph());
+    assert!(speed > 50.0, "held to {speed:.0} past the zone");
+}

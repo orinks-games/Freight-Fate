@@ -199,6 +199,7 @@ pub fn best_relay(
                 market: request.market,
                 carrier_key: request.carrier_key,
                 direct_freight: request.direct_freight,
+                came_from: None,
             },
         );
         for job in offers {

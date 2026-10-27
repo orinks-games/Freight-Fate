@@ -3,7 +3,7 @@
 
 use crate::speech::EventPriority;
 use ff_core::sim::transmission::JAKE_MAX_RPM;
-use ff_core::sim::trip::LIMIT_WARNING_MAX_LEAD_MI;
+use ff_core::sim::trip::{is_highway_zone_reason, LIMIT_WARNING_MAX_LEAD_MI};
 use ff_core::speech_pacing::SpeechCategory;
 use ff_core::speech_text::SpokenMessage;
 
@@ -369,6 +369,10 @@ impl DrivingState {
         }
         let position = self.trip.position_mi;
         let (limit, zone_reason) = self.trip.speed_limit_at(position);
+        // A highway work zone or heavy traffic stays on cruise, capped at its
+        // limit below. Handed to the keeper partway down a grade, it left
+        // descent control behind and the co-driver crawling (issue #518).
+        let zone_reason = zone_reason.filter(|reason| !is_highway_zone_reason(reason));
         if let Some(zone_reason) = zone_reason {
             if self.speed_control_armed && ctx.settings.speed_keeper {
                 self.cancel_cruise(ctx, true);
@@ -518,9 +522,7 @@ impl DrivingState {
         // tickets, and trooper stops -- all of which now exist. The "Speed limit X"
         // cue still names the number; this cue says cruise is handling it.
         let (posted, limit_reason) = self.acc_posted_limit_ahead(ctx);
-        let restricted = limit_reason
-            .as_deref()
-            .is_some_and(|reason| RESTRICTED_ZONE_REASONS.contains(&reason));
+        let restricted = limit_reason.as_deref().is_some_and(is_highway_zone_reason);
         let cap_mph = if restricted {
             posted
         } else {
@@ -536,7 +538,9 @@ impl DrivingState {
         // lower limit, set 70" in a 70 read as cruise ignoring the road, when
         // it was slowing for a 60 sign ahead (owner, 2026-10-25).
         let limit_reason_text = match limit_reason.as_deref() {
-            Some("construction") if restricted => "through the construction zone".to_string(),
+            Some("construction" | "construction merge") if restricted => {
+                "through the construction zone".to_string()
+            }
             Some(reason) if restricted => format!("for the {reason}"),
             _ if posted < self.trip.speed_limit_at(self.trip.position_mi).0 => {
                 format!("for the {} limit ahead", ctx.settings.speed_value(posted))

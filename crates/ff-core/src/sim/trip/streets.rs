@@ -31,6 +31,17 @@ pub fn is_street_zone_reason(reason: &str) -> bool {
     reason == STREET_ZONE || reason == STOP_STREET_ZONE
 }
 
+/// Whether a zone reason is a slower stretch of the highway itself: a work
+/// zone, its merge taper, or heavy traffic. Adaptive cruise holds these at
+/// their limit; the speed keeper is for streets, yards and facility
+/// approaches (owner rule, 2026-10-27, issue #518).
+pub fn is_highway_zone_reason(reason: &str) -> bool {
+    matches!(
+        reason,
+        "construction" | "construction merge" | "heavy traffic"
+    )
+}
+
 /// What a spoken line calls the stretch a zone reason stands for: nothing
 /// for a public street of a chain, which is just a street with its own
 /// limit (the turn-by-turn says its name), "the yard" or "the lot", and
