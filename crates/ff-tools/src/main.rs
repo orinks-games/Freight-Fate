@@ -135,6 +135,12 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         "re-read the map's posted speed limits from Geofabrik OpenStreetMap extracts",
         world::osm::main,
     ),
+    #[cfg(feature = "world")]
+    (
+        "osm-exits",
+        "re-read the map's exits and their ramps from an OpenStreetMap extract",
+        world::osm::exits::main,
+    ),
 ];
 
 fn usage() -> String {

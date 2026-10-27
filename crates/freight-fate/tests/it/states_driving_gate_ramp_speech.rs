@@ -67,7 +67,7 @@ fn a_gate_ramp_on_every_assist_is_said_once() {
         .position(|l| l.contains("of ramp, stop at the end."))
         .unwrap_or_else(|| panic!("no ramp line: {heard:#?}"));
     assert!(
-        heard[..gore].iter().any(|l| l.contains("Exit speed 15")),
+        heard[..gore].iter().any(|l| l.contains("Exit speed ")),
         "{heard:#?}"
     );
     assert!(!heard[gore].contains("Exit speed"), "{heard:#?}");

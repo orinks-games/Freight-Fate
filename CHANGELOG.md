@@ -8,6 +8,7 @@
 
 ### Changed
 
+- **Exit ramps are updated to October's road data.** Most exits know their ramp's length and the light or sign at its end, both ways.
 - **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.
 - **Adaptive cruise now holds highway work zones and heavy traffic at their limit.** The speed keeper takes over only on streets and facility approaches.
 - **Dispatch stops sending you straight back where you came from.** The city you just delivered from is on about one board in three, and it is no longer the load dispatch assigns or the one the cursor opens on while another load is there.

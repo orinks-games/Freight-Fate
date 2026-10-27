@@ -406,17 +406,19 @@ Run a tiny Overpass POI reachability smoke for one corridor:
 uv run python tools/enrich_routes.py --from-city Chicago --to-city Indianapolis --overpass-poi-smoke
 ```
 
-Discover highway interchange candidates for the checked-in Interstate corridors
-from a downloaded Geofabrik/OpenStreetMap extract instead of hundreds of
-Overpass requests:
+Re-read every leg's exits and their ramps (exit numbers, signs, the ramp's
+far end and terminal control, advisory speed, length and the node each
+ramp ends at, both directions) from one OpenStreetMap extract:
 
 ```powershell
-uv run --group tooling python tools/build_interchanges.py --pbf path/to/us-latest.osm.pbf --write
+cargo tools osm-exits --pbf path/to/us-highways.osm.pbf --extract-date 2026-10-19 --snapshot "OpenStreetMap planet file" --write
 ```
 
-Omit `--write` for a dry run, and use `--only "New York->Philadelphia"` or
-`--max-legs N` while reviewing a smaller batch. The PBF mode still uses the
-existing cached OSRM geometry step for route snapping.
+Omit `--write` for a dry run, and use `--only "from_slug:to_slug"` (semicolons
+between several) for a smaller batch. Exits are placed on the leg's archived
+route geometry, so no router is needed. Records and ramp facts set by hand,
+and ramp ends a street chain starts from, are kept; the module docs in
+`crates/ff-tools/src/world/osm/exits/mod.rs` say how.
 
 Discover truck-relevant POI candidates near checked-in route geometry with the
 manual Overpass helper:

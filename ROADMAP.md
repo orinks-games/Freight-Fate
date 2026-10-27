@@ -3837,9 +3837,13 @@ loudly when mostly assumed.
 - [ ] Speed limits, second pass over the new geometry, Canada included;
       California's statutory 55 for trucks where OSM has no `maxspeed:hgv`;
       the seven states read from an old way cache.
-- [ ] Exits, ramp lengths, terminals and controls, per carriageway, both
-      directions' ramp ends (3,456 of 18,165 today), which is what lets
-      road stops' streets come back.
+- [x] Exits, ramp lengths, terminals and controls, both directions' ramp
+      ends: `cargo tools osm-exits`, run over the 2026-10-19 planet cut.
+      Exits with a ramp end both ways went from 4,310 of 18,520 to 14,548
+      of 19,109; signs come from the exit's own ramps. 225 old exits the
+      read did not find again stay whole, and 195 ramp ends keep their old
+      node, because a road stop or a street chain is keyed to them;
+      re-baking the street chains (below) clears both.
 - [ ] Curves: the archive builder, so detour and Alcan legs get real bends.
 - [ ] Grades: 3DEP for the US; the Canadian Digital Elevation Model
       elsewhere, labelled.
@@ -4036,14 +4040,13 @@ parked on `feat/street-lights-2-0`. Detail in
       approach chains play again in the first 2.0 nightly, under the
       Facility streets setting, with the timing items below still open
       (owner, 2026-10-26; streets slice 1).
-- [ ] **Turn road stops' streets back on.** Most exits have a ramp end
-      baked for one direction only (3,456 of 18,165 have both), because the
-      other direction's ramp leaves at its own junction node. The search
-      around same-numbered junctions (`RAMP_SIBLING_JUNCTION_M`, with its
-      pytest, on `feat/street-lights-2-0`) adds 34 of 47 on the Abilene to
-      Fort Worth leg. Re-bake the ramp terminals, then the stop approaches
-      and facility exit chains, from one OSM set; I-20 exit 307 westbound
-      (the Love's at Baird) is the check.
+- [ ] **Turn road stops' streets back on.** The ramp terminals are
+      re-baked both ways (`osm-exits`, 14,548 of 19,109 exits; I-20 exit
+      307 at Baird now ends both ways). Still to do: the stop approaches
+      and facility exit chains from the same OSM set, so the Love's at
+      Baird gets its westbound street chain. Until then about 30 arrivals
+      whose nearest exit is new to the map (Abilene from the east now takes
+      exit 290, Loop 322) end at the gate instead of on their streets.
 - [ ] **Arterial progression.** Signals along one street share a cycle
       and are offset for its posted limit, so a truck at the limit meets
       greens.
@@ -4062,12 +4065,11 @@ parked on `feat/street-lights-2-0`. Detail in
 Moved out of the 1.9 release gate on 2026-09-25: none of these makes the
 truck do the wrong thing on a drive.
 
-- [ ] **The interchange bake is direction-blind.** `tools/build_interchanges.py`
-      merges every ramp near a junction into one record, so an exit's real
-      via (US-70 West at Ardmore 31B) is lost when a mainline entrance
-      ramp's via is taken first. Re-derive per carriageway, keeping only
-      exit ramps leaving in the direction of travel; the run-time filter
-      landed for 1.9 can then go.
+- [ ] **The interchange bake is direction-blind.** `osm-exits` now reads
+      signs only from the exit's own ramps, so mainline entrance ramps no
+      longer lend their via (Ardmore 31B reads US 70 West). Both
+      directions' signs still share one record; splitting them per
+      direction of travel would let the run-time filter landed for 1.9 go.
 - [ ] **995 sourced facility endpoints are unnamed.** Plan: take OSM
       buildings over 500 m2 and name them from Overture Places keyed by
       GERS id ([record](#release-gate-record)).
