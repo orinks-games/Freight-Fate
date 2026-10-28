@@ -14,10 +14,11 @@ on:
   # test jobs still run and report success, but skip every step after the
   # gate (seconds, not the full matrix).
   push:
-    # The 1.9 release line has its own Rust CI in rust.yml.
-    branches: [main, dev]
+    # The 1.9 release line has its own Rust CI in rust.yml. 2.0 carries the
+    # same ff-tools as dev, so its tooling is tested here too.
+    branches: [main, dev, feat/career-2.0]
   pull_request:
-    branches: [main, dev]
+    branches: [main, dev, feat/career-2.0]
   workflow_dispatch:
 
 # A newer push to the same branch or PR supersedes the run in flight, as in
