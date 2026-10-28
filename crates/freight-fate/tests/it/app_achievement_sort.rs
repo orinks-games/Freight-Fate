@@ -55,6 +55,8 @@ fn left_and_right_step_the_order_say_it_and_save_it() {
 
     app.clear_speech();
     key(&mut app, Key::Right);
+    assert_eq!(app.main_lines().last().unwrap(), "Newest.");
+    key(&mut app, Key::Right);
     assert_eq!(app.main_lines().last().unwrap(), "Locked first.");
     assert_eq!(
         current_label::<AchievementsState>(&app),
@@ -121,6 +123,7 @@ fn a_category_follows_the_screen_until_it_picks_its_own_order() {
 
     // Locked first, for this category only.
     move_to::<AchievementCategoryState>(&mut app, "Sort:");
+    key(&mut app, Key::Right);
     app.clear_speech();
     key(&mut app, Key::Right);
     assert_eq!(app.main_lines().last().unwrap(), "Locked first.");
@@ -154,6 +157,7 @@ fn a_category_follows_the_screen_until_it_picks_its_own_order() {
     select::<AchievementsState>(&mut app, road_title());
     move_to::<AchievementCategoryState>(&mut app, "Sort:");
     key(&mut app, Key::Left);
+    key(&mut app, Key::Left);
     assert_eq!(
         current_label::<AchievementCategoryState>(&app),
         "Sort: Earned first"
@@ -164,7 +168,55 @@ fn a_category_follows_the_screen_until_it_picks_its_own_order() {
     select::<AchievementsState>(&mut app, road_title());
     assert_eq!(
         labels::<AchievementCategoryState>(&app)[0],
-        "Sort: Locked first",
+        "Sort: Newest",
         "with no pick of its own, the category follows the new screen order"
     );
+}
+
+#[test]
+fn newest_puts_the_latest_award_first() {
+    let mut app = TestApp::new();
+    let mut profile = Profile::named("Newest Driver");
+    // first_delivery (Out on the Road) first, first_dispatch (Career and
+    // Rank) last, so Career and Rank holds the newest badge.
+    profile.achievements.push("first_delivery".to_string());
+    profile.achievements.push("first_dispatch".to_string());
+    app.push_state(AchievementsState::new(profile));
+    key(&mut app, Key::Right);
+    assert_eq!(current_label::<AchievementsState>(&app), "Sort: Newest");
+    assert_eq!(app.ctx.settings.achievement_sort, "newest");
+    let rows = labels::<AchievementsState>(&app);
+    let career = categories().iter().find(|c| c.id == "career").unwrap();
+    assert!(rows[1].starts_with(career.title), "{rows:?}");
+    assert!(rows[2].starts_with(road_title()), "{rows:?}");
+}
+
+#[test]
+fn the_terminal_opens_the_loaded_careers_achievements() {
+    use freight_fate::states::city::CityMenuState;
+
+    let mut app = TestApp::new();
+    let mut profile = Profile::named_in("Terminal Driver", "Austin");
+    profile.achievements.push("first_delivery".to_string());
+    app.ctx.profile = Some(profile);
+    let city = CityMenuState::new(&app.ctx, false);
+    app.push_state(city);
+
+    move_to::<CityMenuState>(&mut app, "Achievements");
+    assert_eq!(
+        current_help::<CityMenuState>(&app),
+        "This career's earned and locked achievements."
+    );
+    app.clear_speech();
+    key(&mut app, Key::Return);
+    assert!(is::<AchievementsState>(&app));
+    assert!(
+        app.main_lines()
+            .last()
+            .is_some_and(|l| l.starts_with("Achievements for Terminal Driver. 1 of")),
+        "{:?}",
+        app.main_lines()
+    );
+    key(&mut app, Key::Escape);
+    assert!(is::<CityMenuState>(&app));
 }

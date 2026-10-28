@@ -7,11 +7,12 @@
 //! picks last while the categories screen stays open.
 
 use std::cell::RefCell;
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 use std::rc::Rc;
 
 use ff_core::achievements::{
     achievements_in_category, categories, Achievement, AchievementCategory, AchievementSort,
+    EarnedOrder,
 };
 
 use crate::app::GameContext;
@@ -77,27 +78,33 @@ fn announce(ctx: &mut GameContext, sort: AchievementSort) {
 }
 
 /// One categories-screen row: the category, its badges in catalog order,
-/// and how many of them are earned.
+/// how many of them are earned, and the rank of the newest one.
 pub struct CategoryRow {
     pub category: &'static AchievementCategory,
     pub achievements: Vec<&'static Achievement>,
     pub earned: usize,
+    pub newest: Option<i64>,
 }
 
 /// Every category with its counts, in `sort`'s order.
-pub fn sorted_categories(sort: AchievementSort, earned: &HashSet<String>) -> Vec<CategoryRow> {
+pub fn sorted_categories(sort: AchievementSort, earned: &EarnedOrder) -> Vec<CategoryRow> {
     let mut rows: Vec<CategoryRow> = categories()
         .iter()
         .map(|category| {
             let achievements = achievements_in_category(category.id);
             let done = achievements
                 .iter()
-                .filter(|a| earned.contains(a.id))
+                .filter(|a| earned.contains_key(a.id))
                 .count();
+            let newest = achievements
+                .iter()
+                .filter_map(|a| earned.get(a.id).copied())
+                .max();
             CategoryRow {
                 category,
                 achievements,
                 earned: done,
+                newest,
             }
         })
         .collect();
@@ -105,6 +112,7 @@ pub fn sorted_categories(sort: AchievementSort, earned: &HashSet<String>) -> Vec
         &mut rows,
         |row| row.category,
         |row| (row.earned, row.achievements.len()),
+        |row| row.newest,
     );
     rows
 }
@@ -113,7 +121,7 @@ pub fn sorted_categories(sort: AchievementSort, earned: &HashSet<String>) -> Vec
 pub fn sorted_achievements(
     sort: AchievementSort,
     achievements: &[&'static Achievement],
-    earned: &HashSet<String>,
+    earned: &EarnedOrder,
 ) -> Vec<&'static Achievement> {
     let mut list = achievements.to_vec();
     sort.sort_achievements(&mut list, earned);

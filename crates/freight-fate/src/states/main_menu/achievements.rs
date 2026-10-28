@@ -2,7 +2,8 @@
 //! badges (the `Achievement*State` classes of `main_menu.py`).
 
 use ff_core::achievements::{
-    earned_ids, entry_text, Achievement, AchievementCategory, AchievementProfile, ACHIEVEMENTS,
+    career_order, earned_ids, entry_text, Achievement, AchievementCategory, AchievementProfile,
+    ACHIEVEMENTS,
 };
 use ff_core::models::profile::Profile;
 
@@ -14,6 +15,17 @@ use crate::states::achievement_sort::{
 };
 use crate::states::base::{Key, Label, Menu, MenuCore, MenuItem};
 use crate::states::main_menu::loadable_saves;
+
+/// Help for the Achievements row on the terminal and pause menus.
+pub const CAREER_ACHIEVEMENTS_HELP: &str = "This career's earned and locked achievements.";
+
+/// Open the loaded career's achievements, from the terminal or the pause
+/// menu, without the main menu's career picker.
+pub fn open_career_achievements(ctx: &mut GameContext) {
+    if let Some(profile) = ctx.profile.clone() {
+        ctx.push_state(AchievementsState::new(profile));
+    }
+}
 
 fn earned_count(profile: &Profile) -> usize {
     earned_ids(profile as &dyn AchievementProfile).len()
@@ -169,7 +181,7 @@ impl Menu for AchievementsState {
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
-        let earned = earned_ids(&self.profile as &dyn AchievementProfile);
+        let earned = career_order(&self.profile.achievements);
         let mut items = vec![MenuItem::new(
             Label::dynamic(|_s: &Self, ctx| chosen_sort(ctx).label().to_string()),
             |s: &mut Self, ctx| s.step_sort(ctx, 1),
@@ -297,7 +309,7 @@ impl Menu for AchievementCategoryState {
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
-        let earned = earned_ids(&self.profile as &dyn AchievementProfile);
+        let earned = career_order(&self.profile.achievements);
         let sort = category_sort(ctx, &self.overrides, self.category);
         let mut items = vec![MenuItem::new(
             Label::dynamic(|s: &Self, ctx| {
@@ -310,7 +322,7 @@ impl Menu for AchievementCategoryState {
         .help(CATEGORY_SORT_HELP)
         .select_sound(None)];
         for achievement in sorted_achievements(sort, &self.achs, &earned) {
-            let unlocked = earned.contains(achievement.id);
+            let unlocked = earned.contains_key(achievement.id);
             let (name, description) = entry_text(achievement, unlocked);
             let (label, help_text) = if unlocked {
                 (format!("Earned: {name} - {description}"), description)

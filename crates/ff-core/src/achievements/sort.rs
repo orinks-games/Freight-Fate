@@ -4,17 +4,38 @@
 //! the badges inside each category. Earned first is the default, so a player
 //! opening the screen hears what they have before what is left. Ties keep the
 //! catalog's own order, which is also the "Original order" choice.
+//!
+//! The earned badges come in as an [`EarnedOrder`]: each earned id with a
+//! number that grows with how recently it was earned, which is all "Newest"
+//! needs. A career passes its award order; the account ledger passes its
+//! earned times.
 
 use std::cmp::Reverse;
-use std::collections::HashSet;
+use std::collections::HashMap;
 
 use super::{entry_text, Achievement, AchievementCategory, HIDDEN_NAME};
+
+/// Each earned achievement id, with a number that is larger the more
+/// recently it was earned. Ids missing from the map are locked.
+pub type EarnedOrder = HashMap<String, i64>;
+
+/// A career's earned order: its award list, oldest first.
+pub fn career_order(awarded: &[String]) -> EarnedOrder {
+    awarded
+        .iter()
+        .enumerate()
+        .map(|(i, id)| (id.clone(), i as i64))
+        .collect()
+}
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
 pub enum AchievementSort {
     /// Earned badges first; categories with the most earned first.
     #[default]
     EarnedFirst,
+    /// The most recently earned badges first, then the locked ones;
+    /// categories by their most recent badge.
+    Newest,
     /// Locked badges first; categories with the most left to earn first.
     LockedFirst,
     /// By name. Hidden badges still locked go last, since their spoken
@@ -26,8 +47,9 @@ pub enum AchievementSort {
 
 impl AchievementSort {
     /// Every choice, in the order Left and Right step through them.
-    pub const ALL: [AchievementSort; 4] = [
+    pub const ALL: [AchievementSort; 5] = [
         AchievementSort::EarnedFirst,
+        AchievementSort::Newest,
         AchievementSort::LockedFirst,
         AchievementSort::AToZ,
         AchievementSort::Original,
@@ -37,6 +59,7 @@ impl AchievementSort {
     pub fn key(self) -> &'static str {
         match self {
             AchievementSort::EarnedFirst => "earned",
+            AchievementSort::Newest => "newest",
             AchievementSort::LockedFirst => "locked",
             AchievementSort::AToZ => "name",
             AchievementSort::Original => "original",
@@ -55,6 +78,7 @@ impl AchievementSort {
     pub fn name(self) -> &'static str {
         match self {
             AchievementSort::EarnedFirst => "Earned first",
+            AchievementSort::Newest => "Newest",
             AchievementSort::LockedFirst => "Locked first",
             AchievementSort::AToZ => "A to Z",
             AchievementSort::Original => "Original order",
@@ -65,6 +89,7 @@ impl AchievementSort {
     pub fn label(self) -> &'static str {
         match self {
             AchievementSort::EarnedFirst => "Sort: Earned first",
+            AchievementSort::Newest => "Sort: Newest",
             AchievementSort::LockedFirst => "Sort: Locked first",
             AchievementSort::AToZ => "Sort: A to Z",
             AchievementSort::Original => "Sort: Original order",
@@ -81,10 +106,13 @@ impl AchievementSort {
 
     /// Sort one category's badges in place. Stable, so ties keep the
     /// catalog order the list came in.
-    pub fn sort_achievements(self, achs: &mut [&'static Achievement], earned: &HashSet<String>) {
-        let is_earned = |a: &Achievement| earned.contains(a.id);
+    pub fn sort_achievements(self, achs: &mut [&'static Achievement], earned: &EarnedOrder) {
+        let is_earned = |a: &Achievement| earned.contains_key(a.id);
         match self {
             AchievementSort::EarnedFirst => achs.sort_by_key(|a| !is_earned(a)),
+            AchievementSort::Newest => {
+                achs.sort_by_key(|a| Reverse(earned.get(a.id).map(|&rank| Some(rank))))
+            }
             AchievementSort::LockedFirst => achs.sort_by_key(|a| is_earned(a)),
             AchievementSort::AToZ => achs.sort_by_cached_key(|a| {
                 let (name, _) = entry_text(a, is_earned(a));
@@ -95,15 +123,18 @@ impl AchievementSort {
     }
 
     /// Sort the categories in place, given each one's (earned, total)
-    /// count. Stable, so ties keep the catalog order.
+    /// count and the rank of its most recently earned badge. Stable, so
+    /// ties keep the catalog order.
     pub fn sort_categories<T>(
         self,
         rows: &mut [T],
         category: impl Fn(&T) -> &'static AchievementCategory,
         counts: impl Fn(&T) -> (usize, usize),
+        newest: impl Fn(&T) -> Option<i64>,
     ) {
         match self {
             AchievementSort::EarnedFirst => rows.sort_by_key(|r| Reverse(counts(r).0)),
+            AchievementSort::Newest => rows.sort_by_key(|r| Reverse(newest(r))),
             AchievementSort::LockedFirst => rows.sort_by_key(|r| {
                 let (done, total) = counts(r);
                 Reverse(total.saturating_sub(done))
@@ -119,8 +150,9 @@ mod tests {
     use super::*;
     use crate::achievements::{achievements_in_category, categories};
 
-    fn earned(ids: &[&str]) -> HashSet<String> {
-        ids.iter().map(|s| s.to_string()).collect()
+    fn earned(ids: &[&str]) -> EarnedOrder {
+        let ids: Vec<String> = ids.iter().map(|s| s.to_string()).collect();
+        career_order(&ids)
     }
 
     #[test]
@@ -147,7 +179,7 @@ mod tests {
         );
         assert_eq!(
             AchievementSort::EarnedFirst.step(1),
-            AchievementSort::LockedFirst
+            AchievementSort::Newest
         );
     }
 
@@ -207,18 +239,43 @@ mod tests {
             _ => (0, 4),
         };
         let mut rows = cats.clone();
-        AchievementSort::EarnedFirst.sort_categories(&mut rows, |c| c, counts);
+        AchievementSort::EarnedFirst.sort_categories(&mut rows, |c| c, counts, |_| None);
         assert_eq!(rows, vec![cats[1], cats[0], cats[2]]);
 
         let mut rows = cats.clone();
-        AchievementSort::LockedFirst.sort_categories(&mut rows, |c| c, counts);
+        AchievementSort::LockedFirst.sort_categories(&mut rows, |c| c, counts, |_| None);
         assert_eq!(rows, vec![cats[0], cats[2], cats[1]]);
 
         let mut rows = cats.clone();
-        AchievementSort::AToZ.sort_categories(&mut rows, |c| c, counts);
+        AchievementSort::AToZ.sort_categories(&mut rows, |c| c, counts, |_| None);
         let titles: Vec<&str> = rows.iter().map(|c| c.title).collect();
         let mut sorted = titles.clone();
         sorted.sort_by_key(|t| t.to_lowercase());
         assert_eq!(titles, sorted);
+    }
+
+    #[test]
+    fn newest_lists_the_latest_award_first_then_the_locked_badges() {
+        let catalog = achievements_in_category("road");
+        let (a, b, c) = (catalog[0].id, catalog[3].id, catalog[1].id);
+        // Awarded in the order a, b, c: c is the newest.
+        let mut list = catalog.clone();
+        AchievementSort::Newest.sort_achievements(&mut list, &earned(&[a, b, c]));
+        let first: Vec<&str> = list.iter().take(3).map(|x| x.id).collect();
+        assert_eq!(first, vec![c, b, a]);
+        assert_eq!(
+            list[3].id, catalog[2].id,
+            "locked badges keep catalog order"
+        );
+
+        let cats: Vec<&'static AchievementCategory> = categories().iter().take(3).collect();
+        let newest = |c: &&'static AchievementCategory| match c.id {
+            id if id == cats[0].id => Some(1),
+            id if id == cats[2].id => Some(7),
+            _ => None,
+        };
+        let mut rows = cats.clone();
+        AchievementSort::Newest.sort_categories(&mut rows, |c| c, |_| (0, 1), newest);
+        assert_eq!(rows, vec![cats[2], cats[0], cats[1]]);
     }
 }
