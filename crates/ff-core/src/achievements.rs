@@ -19,8 +19,10 @@ use crate::pyfmt::py_str_float;
 use crate::speech_text::{achievement_unlocked, SpokenMessage};
 
 pub mod catalog;
+pub mod sort;
 
 pub use catalog::{ACHIEVEMENTS, CATALOG_DIGEST, CATEGORIES, HIDDEN_HELP, HIDDEN_NAME};
+pub use sort::AchievementSort;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct Achievement {

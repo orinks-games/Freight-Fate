@@ -2474,6 +2474,54 @@ msgstr ""
 msgid "Jethro Tull - Teacher"
 msgstr ""
 
+#: crates/ff-core/src/achievements/sort.rs
+msgid "earned"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "locked"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs crates/ff-core/src/models/exchange.rs crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_compat.rs
+msgid "name"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "original"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Earned first"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Locked first"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "A to Z"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Original order"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Sort: Earned first"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Sort: Locked first"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Sort: A to Z"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Sort: Original order"
+msgstr ""
+
 #. placeholders: {path}
 #: crates/ff-core/src/assets_pack.rs
 msgid "Not a Freight Fate sound pack: {path}"
@@ -10377,10 +10425,6 @@ msgstr ""
 
 #: crates/ff-core/src/models/exchange.rs
 msgid "missing or invalid exchange_version"
-msgstr ""
-
-#: crates/ff-core/src/models/exchange.rs crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/profile.rs
-msgid "name"
 msgstr ""
 
 #. placeholders: {business_status}
@@ -19435,6 +19479,16 @@ msgstr ""
 
 #: crates/freight-fate/src/states/account_achievements.rs
 msgid "Back to account categories"
+msgstr ""
+
+#: crates/freight-fate/src/states/achievement_sort.rs
+msgid ""
+"Left and Right change the order of the categories and the achievements in "
+"each one."
+msgstr ""
+
+#: crates/freight-fate/src/states/achievement_sort.rs
+msgid "Left and Right change the order of this category only."
 msgstr ""
 
 #: crates/freight-fate/src/states/assist_picker.rs

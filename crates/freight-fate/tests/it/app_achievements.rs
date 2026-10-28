@@ -896,7 +896,8 @@ fn test_category_with_nothing_earned_still_reads_naturally() {
         app.main_lines()
     );
     let rows = labels::<AchievementCategoryState>(&app);
-    for row in &rows[..rows.len() - 1] {
+    // Every row but the last two, Sort and Back.
+    for row in &rows[..rows.len() - 2] {
         assert!(
             row.starts_with("Locked: A Secret the Manifest Is Keeping"),
             "{rows:?}"

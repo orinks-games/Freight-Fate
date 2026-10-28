@@ -27,6 +27,7 @@ mod transcript_cruise_support;
 mod trucking_weight_braking;
 
 mod adversarial;
+mod app_achievement_sort;
 mod app_achievements;
 mod app_controller;
 mod app_controls_reference;

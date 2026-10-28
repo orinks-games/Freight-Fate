@@ -116,9 +116,14 @@ fn test_account_achievement_browser_speaks_scope_controls_and_badge_states_witho
     let rows = labels::<AccountAchievementsState>(&account, &app.ctx);
     assert_eq!(rows[0], "Controls and account scope");
     assert!(rows[1].starts_with("Summary:"));
+    assert_eq!(rows[2], "Sort: Earned first");
+    // Earned first: the one category holding the earned badge leads, the
+    // rest keep the catalog order.
+    let mut ordered: Vec<_> = categories().iter().collect();
+    ordered.sort_by_key(|category| category.id != earned.category);
     assert_eq!(
-        &rows[2..2 + categories().len()],
-        categories()
+        &rows[3..3 + categories().len()],
+        ordered
             .iter()
             .map(|category| {
                 let count = achievements_in_category(category.id).len();
@@ -159,8 +164,12 @@ fn test_account_achievement_browser_speaks_scope_controls_and_badge_states_witho
     let category_state = app.state().unwrap();
     let category_rows = labels::<AccountAchievementCategoryState>(&category_state, &app.ctx);
     let catalog = achievements_in_category(earned.category);
-    assert_eq!(category_rows.len(), catalog.len() + 1);
-    for (row, achievement) in category_rows.iter().zip(catalog.iter()) {
+    // Badges, then the Sort row, then Back; earned first by default.
+    assert_eq!(category_rows.len(), catalog.len() + 2);
+    assert_eq!(category_rows[catalog.len()], "Sort: Earned first");
+    let mut ordered = catalog.clone();
+    ordered.sort_by_key(|achievement| achievement.id != earned.id);
+    for (row, achievement) in category_rows.iter().zip(ordered.iter()) {
         if achievement.id == earned.id {
             assert!(
                 row.starts_with(&format!("Earned: {}", earned.name)),
@@ -274,7 +283,9 @@ fn test_account_categories_and_late_badges_are_controller_reachable() {
     press(&mut app, Key::Return);
 
     let account = app.state().unwrap();
+    // Past the controls, the summary and the Sort row to the first category.
     for button in [
+        ControllerButton::DPadDown,
         ControllerButton::DPadDown,
         ControllerButton::DPadDown,
         ControllerButton::A,
@@ -294,8 +305,9 @@ fn test_account_categories_and_late_badges_are_controller_reachable() {
 
     let category = app.state().unwrap();
     let rows = labels::<AccountAchievementCategoryState>(&category, &app.ctx);
-    let final_achievement = rows[rows.len() - 2].clone();
-    for _ in 0..rows.len() - 2 {
+    // The last two rows are Sort and Back.
+    let final_achievement = rows[rows.len() - 3].clone();
+    for _ in 0..rows.len() - 3 {
         with_state::<AccountAchievementCategoryState, _>(&category, |state| {
             freight_fate::states::base::State::handle_controller(
                 state,
