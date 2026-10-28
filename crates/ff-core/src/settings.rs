@@ -741,6 +741,9 @@ settings_fields! {
     /// plain dark fill that is never redrawn, which saves the battery for a
     /// player who only listens. Speech and sound are the same either way.
     visual_display: bool = true => bool_strict,
+    /// The order the achievements screens list categories and badges in
+    /// (`AchievementSort::key`); anything unknown reads as earned first.
+    achievement_sort: String = "earned" => str_plain,
 }
 
 impl Settings {

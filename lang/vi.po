@@ -1927,6 +1927,42 @@ msgstr ""
 msgid "Jethro Tull - Teacher"
 msgstr ""
 
+msgid "earned"
+msgstr ""
+
+msgid "locked"
+msgstr ""
+
+msgid "name"
+msgstr ""
+
+msgid "original"
+msgstr ""
+
+msgid "Earned first"
+msgstr ""
+
+msgid "Locked first"
+msgstr ""
+
+msgid "A to Z"
+msgstr ""
+
+msgid "Original order"
+msgstr ""
+
+msgid "Sort: Earned first"
+msgstr ""
+
+msgid "Sort: Locked first"
+msgstr ""
+
+msgid "Sort: A to Z"
+msgstr ""
+
+msgid "Sort: Original order"
+msgstr ""
+
 #. placeholders: {path}
 msgid "Not a Freight Fate sound pack: {path}"
 msgstr ""
@@ -8152,9 +8188,6 @@ msgid "crash"
 msgstr ""
 
 msgid "missing or invalid exchange_version"
-msgstr ""
-
-msgid "name"
 msgstr ""
 
 #. placeholders: {business_status}
@@ -15219,14 +15252,14 @@ msgid ""
 "{earned} of {ACHIEVEMENTS} earned across every career on this installation."
 msgstr ""
 
-msgid "Controls and account scope"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
 msgstr ""
 
 msgid "The account-wide earned count."
 msgstr ""
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
+msgid "Controls and account scope"
 msgstr ""
 
 msgid "Back to Online"
@@ -15269,6 +15302,14 @@ msgid "Keep playing to unlock it."
 msgstr ""
 
 msgid "Back to account categories"
+msgstr ""
+
+msgid ""
+"Left and Right change the order of the categories and the achievements in "
+"each one."
+msgstr ""
+
+msgid "Left and Right change the order of this category only."
 msgstr ""
 
 msgid "All assists: the truck steers. Recommended for your first drives."
@@ -30131,11 +30172,11 @@ msgstr ""
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr ""
 
-msgid "The total earned."
-msgstr ""
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
+msgstr ""
+
+msgid "The total earned."
 msgstr ""
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."

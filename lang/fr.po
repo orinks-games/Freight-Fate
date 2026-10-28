@@ -2280,6 +2280,42 @@ msgstr ""
 msgid "Jethro Tull - Teacher"
 msgstr "Jethro Tull - Teacher"
 
+msgid "earned"
+msgstr ""
+
+msgid "locked"
+msgstr ""
+
+msgid "name"
+msgstr "nom"
+
+msgid "original"
+msgstr ""
+
+msgid "Earned first"
+msgstr ""
+
+msgid "Locked first"
+msgstr ""
+
+msgid "A to Z"
+msgstr ""
+
+msgid "Original order"
+msgstr ""
+
+msgid "Sort: Earned first"
+msgstr ""
+
+msgid "Sort: Locked first"
+msgstr ""
+
+msgid "Sort: A to Z"
+msgstr ""
+
+msgid "Sort: Original order"
+msgstr ""
+
 #. placeholders: {path}
 msgid "Not a Freight Fate sound pack: {path}"
 msgstr "Ce n'est pas un pack de sons Freight Fate : {path}"
@@ -9769,9 +9805,6 @@ msgstr "accident"
 
 msgid "missing or invalid exchange_version"
 msgstr "exchange_version manquant ou invalide"
-
-msgid "name"
-msgstr "nom"
 
 #. placeholders: {business_status}
 msgid "unknown business_status {business_status}"
@@ -17679,15 +17712,15 @@ msgstr ""
 "{earned} sur {ACHIEVEMENTS} obtenus sur l'ensemble des carrières de cette "
 "installation."
 
-msgid "Controls and account scope"
-msgstr "Commandes et portée du compte"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}. {done} sur {achievements}"
 
 msgid "The account-wide earned count."
 msgstr "Le nombre de succès obtenus sur tout le compte."
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}. {done} sur {achievements}"
+msgid "Controls and account scope"
+msgstr "Commandes et portée du compte"
 
 msgid "Back to Online"
 msgstr "Retour à En ligne"
@@ -17731,6 +17764,14 @@ msgstr "Continuez à jouer pour le débloquer."
 
 msgid "Back to account categories"
 msgstr "Retour aux catégories du compte"
+
+msgid ""
+"Left and Right change the order of the categories and the achievements in "
+"each one."
+msgstr ""
+
+msgid "Left and Right change the order of this category only."
+msgstr ""
 
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr ""
@@ -34555,12 +34596,12 @@ msgstr ""
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "{earned_count} sur {ACHIEVEMENTS} obtenus."
 
-msgid "The total earned."
-msgstr "Le total obtenu."
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}. {done} sur {achs}"
+
+msgid "The total earned."
+msgstr "Le total obtenu."
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr ""

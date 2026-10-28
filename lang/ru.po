@@ -2191,6 +2191,42 @@ msgstr ""
 msgid "Jethro Tull - Teacher"
 msgstr "Jethro Tull - Teacher"
 
+msgid "earned"
+msgstr ""
+
+msgid "locked"
+msgstr ""
+
+msgid "name"
+msgstr "name"
+
+msgid "original"
+msgstr ""
+
+msgid "Earned first"
+msgstr ""
+
+msgid "Locked first"
+msgstr ""
+
+msgid "A to Z"
+msgstr ""
+
+msgid "Original order"
+msgstr ""
+
+msgid "Sort: Earned first"
+msgstr ""
+
+msgid "Sort: Locked first"
+msgstr ""
+
+msgid "Sort: A to Z"
+msgstr ""
+
+msgid "Sort: Original order"
+msgstr ""
+
 #. placeholders: {path}
 msgid "Not a Freight Fate sound pack: {path}"
 msgstr "Это не звуковой пакет Freight Fate: {path}"
@@ -9473,9 +9509,6 @@ msgstr "авария"
 
 msgid "missing or invalid exchange_version"
 msgstr "отсутствует или неверно поле exchange_version"
-
-msgid "name"
-msgstr "name"
 
 #. placeholders: {business_status}
 msgid "unknown business_status {business_status}"
@@ -17313,15 +17346,15 @@ msgid ""
 msgstr ""
 "Получено {earned} из {ACHIEVEMENTS} во всех карьерах на этой установке."
 
-msgid "Controls and account scope"
-msgstr "Управление и охват аккаунта"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}. {done} из {achievements}"
 
 msgid "The account-wide earned count."
 msgstr "Число полученных достижений по всему аккаунту."
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}. {done} из {achievements}"
+msgid "Controls and account scope"
+msgstr "Управление и охват аккаунта"
 
 msgid "Back to Online"
 msgstr "Назад в «Онлайн»"
@@ -17367,6 +17400,14 @@ msgstr "Продолжайте играть, чтобы открыть его."
 
 msgid "Back to account categories"
 msgstr "Назад к категориям аккаунта"
+
+msgid ""
+"Left and Right change the order of the categories and the achievements in "
+"each one."
+msgstr ""
+
+msgid "Left and Right change the order of this category only."
+msgstr ""
 
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr ""
@@ -34400,12 +34441,12 @@ msgstr ""
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "Получено {earned_count} из {ACHIEVEMENTS}."
 
-msgid "The total earned."
-msgstr "Всего получено."
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}. {done} из {achs}"
+
+msgid "The total earned."
+msgstr "Всего получено."
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr ""

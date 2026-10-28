@@ -1931,6 +1931,42 @@ msgstr "研修クラスを担当したRayが、成長ぶりを見るために1�
 msgid "Jethro Tull - Teacher"
 msgstr "Jethro Tull - Teacher"
 
+msgid "earned"
+msgstr ""
+
+msgid "locked"
+msgstr ""
+
+msgid "name"
+msgstr "name"
+
+msgid "original"
+msgstr ""
+
+msgid "Earned first"
+msgstr ""
+
+msgid "Locked first"
+msgstr ""
+
+msgid "A to Z"
+msgstr ""
+
+msgid "Original order"
+msgstr ""
+
+msgid "Sort: Earned first"
+msgstr ""
+
+msgid "Sort: Locked first"
+msgstr ""
+
+msgid "Sort: A to Z"
+msgstr ""
+
+msgid "Sort: Original order"
+msgstr ""
+
 #. placeholders: {path}
 msgid "Not a Freight Fate sound pack: {path}"
 msgstr "Freight Fateのサウンドパックではありません：{path}"
@@ -8308,9 +8344,6 @@ msgstr "事故"
 
 msgid "missing or invalid exchange_version"
 msgstr "exchange_version がないか無効です"
-
-msgid "name"
-msgstr "name"
 
 #. placeholders: {business_status}
 msgid "unknown business_status {business_status}"
@@ -15645,15 +15678,15 @@ msgid ""
 "{earned} of {ACHIEVEMENTS} earned across every career on this installation."
 msgstr "このインストールのすべてのキャリアで{ACHIEVEMENTS}件中{earned}件を獲得しています。"
 
-msgid "Controls and account scope"
-msgstr "操作とアカウントの範囲"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}。{achievements}件中{done}件"
 
 msgid "The account-wide earned count."
 msgstr "アカウント全体の獲得数。"
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}。{achievements}件中{done}件"
+msgid "Controls and account scope"
+msgstr "操作とアカウントの範囲"
 
 msgid "Back to Online"
 msgstr "オンラインに戻る"
@@ -15696,6 +15729,14 @@ msgstr "プレイを続けると解除されます。"
 
 msgid "Back to account categories"
 msgstr "アカウントのカテゴリーに戻る"
+
+msgid ""
+"Left and Right change the order of the categories and the achievements in "
+"each one."
+msgstr ""
+
+msgid "Left and Right change the order of this category only."
+msgstr ""
 
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr "すべてのアシスト：トラックが操舵します。最初の数回の運転におすすめです。"
@@ -30932,12 +30973,12 @@ msgstr "{name}の実績。{ACHIEVEMENTS}件中{earned_count}件獲得。{current
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "{ACHIEVEMENTS}件中{earned_count}件獲得。"
 
-msgid "The total earned."
-msgstr "獲得した合計です。"
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}。{achs}件中{done}件"
+
+msgid "The total earned."
+msgstr "獲得した合計です。"
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr "上下で移動し、Enter で項目を繰り返し、Escape で戻ります。"

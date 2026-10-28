@@ -1929,6 +1929,42 @@ msgstr ""
 msgid "Jethro Tull - Teacher"
 msgstr ""
 
+msgid "earned"
+msgstr ""
+
+msgid "locked"
+msgstr ""
+
+msgid "name"
+msgstr "name"
+
+msgid "original"
+msgstr ""
+
+msgid "Earned first"
+msgstr ""
+
+msgid "Locked first"
+msgstr ""
+
+msgid "A to Z"
+msgstr ""
+
+msgid "Original order"
+msgstr ""
+
+msgid "Sort: Earned first"
+msgstr ""
+
+msgid "Sort: Locked first"
+msgstr ""
+
+msgid "Sort: A to Z"
+msgstr ""
+
+msgid "Sort: Original order"
+msgstr ""
+
 #. placeholders: {path}
 msgid "Not a Freight Fate sound pack: {path}"
 msgstr "这不是Freight Fate声音包：{path}"
@@ -8274,9 +8310,6 @@ msgstr "事故"
 
 msgid "missing or invalid exchange_version"
 msgstr "exchange_version缺失或无效"
-
-msgid "name"
-msgstr "name"
 
 #. placeholders: {business_status}
 msgid "unknown business_status {business_status}"
@@ -15503,15 +15536,15 @@ msgid ""
 "{earned} of {ACHIEVEMENTS} earned across every career on this installation."
 msgstr "这次安装中的所有职业生涯共获得{earned}个成就，共{ACHIEVEMENTS}个。"
 
-msgid "Controls and account scope"
-msgstr "操作和账户范围"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}。{done}个，共{achievements}个"
 
 msgid "The account-wide earned count."
 msgstr "整个账户已获得的数量。"
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}。{done}个，共{achievements}个"
+msgid "Controls and account scope"
+msgstr "操作和账户范围"
 
 msgid "Back to Online"
 msgstr "返回“在线”"
@@ -15554,6 +15587,14 @@ msgstr "继续玩就能解锁。"
 
 msgid "Back to account categories"
 msgstr "返回账户类别"
+
+msgid ""
+"Left and Right change the order of the categories and the achievements in "
+"each one."
+msgstr ""
+
+msgid "Left and Right change the order of this category only."
+msgstr ""
 
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr "全部辅助：卡车替你转向。推荐在最初几次驾驶时使用。"
@@ -30606,12 +30647,12 @@ msgstr "{name}的成就。已获得{earned_count}个，共{ACHIEVEMENTS}个。{c
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "已获得{earned_count}个，共{ACHIEVEMENTS}个。"
 
-msgid "The total earned."
-msgstr "已获得的总数。"
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}。已获得{done}个，共{achs}个"
+
+msgid "The total earned."
+msgstr "已获得的总数。"
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr "Up和Down移动，Enter重复这一条，Escape返回。"

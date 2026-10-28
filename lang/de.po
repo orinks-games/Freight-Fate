@@ -2274,6 +2274,42 @@ msgstr ""
 msgid "Jethro Tull - Teacher"
 msgstr "Jethro Tull - Teacher"
 
+msgid "earned"
+msgstr ""
+
+msgid "locked"
+msgstr ""
+
+msgid "name"
+msgstr "name"
+
+msgid "original"
+msgstr ""
+
+msgid "Earned first"
+msgstr ""
+
+msgid "Locked first"
+msgstr ""
+
+msgid "A to Z"
+msgstr ""
+
+msgid "Original order"
+msgstr ""
+
+msgid "Sort: Earned first"
+msgstr ""
+
+msgid "Sort: Locked first"
+msgstr ""
+
+msgid "Sort: A to Z"
+msgstr ""
+
+msgid "Sort: Original order"
+msgstr ""
+
 #. placeholders: {path}
 msgid "Not a Freight Fate sound pack: {path}"
 msgstr "Kein Freight Fate Soundpaket: {path}"
@@ -9696,9 +9732,6 @@ msgstr "Unfall"
 
 msgid "missing or invalid exchange_version"
 msgstr "exchange_version fehlt oder ist ungültig"
-
-msgid "name"
-msgstr "name"
 
 #. placeholders: {business_status}
 msgid "unknown business_status {business_status}"
@@ -17556,15 +17589,15 @@ msgstr ""
 "{earned} von {ACHIEVEMENTS} erreicht, über alle Karrieren auf dieser "
 "Installation."
 
-msgid "Controls and account scope"
-msgstr "Steuerung und Geltungsbereich des Kontos"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}. {done} von {achievements}"
 
 msgid "The account-wide earned count."
 msgstr "Die Zahl der erreichten Erfolge für das ganze Konto."
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}. {done} von {achievements}"
+msgid "Controls and account scope"
+msgstr "Steuerung und Geltungsbereich des Kontos"
 
 msgid "Back to Online"
 msgstr "Zurück zu Online"
@@ -17609,6 +17642,14 @@ msgstr "Spiel weiter, um ihn freizuschalten."
 
 msgid "Back to account categories"
 msgstr "Zurück zu den Kontokategorien"
+
+msgid ""
+"Left and Right change the order of the categories and the achievements in "
+"each one."
+msgstr ""
+
+msgid "Left and Right change the order of this category only."
+msgstr ""
 
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr "Alle Fahrhilfen: Der Lkw lenkt. Empfohlen für deine ersten Fahrten."
@@ -34356,12 +34397,12 @@ msgstr ""
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "{earned_count} von {ACHIEVEMENTS} erreicht."
 
-msgid "The total earned."
-msgstr "Die Gesamtzahl der erreichten Erfolge."
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}. {done} von {achs}"
+
+msgid "The total earned."
+msgstr "Die Gesamtzahl der erreichten Erfolge."
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr ""

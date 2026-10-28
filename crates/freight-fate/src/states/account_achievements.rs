@@ -2,14 +2,15 @@
 
 use std::collections::HashSet;
 
-use ff_core::achievements::{
-    achievements_in_category, categories, entry_text, Achievement, AchievementCategory,
-    ACHIEVEMENTS,
-};
+use ff_core::achievements::{entry_text, Achievement, AchievementCategory, ACHIEVEMENTS};
 
 use crate::app::GameContext;
 use crate::impl_state_for_menu;
-use crate::states::base::{Label, Menu, MenuCore, MenuItem};
+use crate::states::achievement_sort::{
+    category_sort, chosen_sort, sorted_achievements, sorted_categories, step_category_sort,
+    step_chosen_sort, SortOverrides, CATEGORIES_SORT_HELP, CATEGORY_SORT_HELP,
+};
+use crate::states::base::{Key, Label, Menu, MenuCore, MenuItem};
 
 const CONTROLS: &str = "Enter opens a category. Inside one, Enter repeats the achievement \
 and Escape returns to the categories. From the categories, Escape returns to Online. This \
@@ -17,13 +18,27 @@ read-only collection combines every career on this installation.";
 
 pub struct AccountAchievementsState {
     menu: MenuCore<Self>,
+    overrides: SortOverrides,
 }
+
+/// The sort row is the first row of both screens, above the list it sorts.
+const SORT_ROW: usize = 0;
 
 impl AccountAchievementsState {
     pub fn new() -> Self {
         Self {
             menu: MenuCore::new("Account achievements").with_intro_help(CONTROLS),
+            overrides: SortOverrides::default(),
         }
+    }
+
+    fn step_sort(&mut self, ctx: &mut GameContext, direction: i64) {
+        step_chosen_sort(ctx, direction);
+        self.refresh(ctx, true);
+    }
+
+    fn on_sort_row(&self) -> bool {
+        self.menu.index == SORT_ROW
     }
 
     fn earned(ctx: &GameContext) -> HashSet<String> {
@@ -63,39 +78,63 @@ impl Menu for AccountAchievementsState {
         ));
     }
 
+    fn handle_extra_key(&mut self, ctx: &mut GameContext, key: Key) -> bool {
+        let direction = match key {
+            Key::Right => 1,
+            Key::Left => -1,
+            _ => return false,
+        };
+        if !self.on_sort_row() {
+            return false;
+        }
+        self.step_sort(ctx, direction);
+        true
+    }
+
+    fn adjust(&mut self, ctx: &mut GameContext, direction: i64) {
+        if self.on_sort_row() {
+            self.step_sort(ctx, direction);
+        }
+    }
+
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         let earned = Self::earned(ctx);
-        let mut items = vec![
-            MenuItem::new("Controls and account scope", |_s: &mut Self, ctx| {
-                ctx.say(CONTROLS)
-            })
-            .help(CONTROLS),
-            MenuItem::new(
-                Label::dynamic(|_s: &Self, ctx| Self::summary_label(ctx)),
-                |_s: &mut Self, ctx| ctx.say(&Self::summary_label(ctx)),
-            )
-            .help("The account-wide earned count."),
-        ];
-        for category in categories() {
-            let achievements = achievements_in_category(category.id);
-            let done = achievements
-                .iter()
-                .filter(|achievement| earned.contains(achievement.id))
-                .count();
-            let category: &'static AchievementCategory = category;
+        let mut items = vec![MenuItem::new(
+            Label::dynamic(|_s: &Self, ctx| chosen_sort(ctx).label().to_string()),
+            |s: &mut Self, ctx| s.step_sort(ctx, 1),
+        )
+        .help(CATEGORIES_SORT_HELP)
+        .select_sound(None)];
+        for row in sorted_categories(chosen_sort(ctx), &earned) {
+            let category: &'static AchievementCategory = row.category;
+            let done = row.earned;
+            let achievements = row.achievements;
             items.push(
                 MenuItem::new(
                     format!("{}. {done} of {}", category.title, achievements.len()),
-                    move |_s: &mut Self, ctx| {
-                        ctx.push_state(AccountAchievementCategoryState::new(
-                            category,
-                            achievements.clone(),
-                        ))
+                    move |s: &mut Self, ctx| {
+                        ctx.push_state(
+                            AccountAchievementCategoryState::new(category, achievements.clone())
+                                .with_overrides(s.overrides.clone()),
+                        )
                     },
                 )
                 .help(category.description),
             );
         }
+        items.push(
+            MenuItem::new(
+                Label::dynamic(|_s: &Self, ctx| Self::summary_label(ctx)),
+                |_s: &mut Self, ctx| ctx.say(&Self::summary_label(ctx)),
+            )
+            .help("The account-wide earned count."),
+        );
+        items.push(
+            MenuItem::new("Controls and account scope", |_s: &mut Self, ctx| {
+                ctx.say(CONTROLS)
+            })
+            .help(CONTROLS),
+        );
         items.push(MenuItem::new("Back to Online", |s: &mut Self, ctx| {
             s.go_back(ctx)
         }));
@@ -105,11 +144,14 @@ impl Menu for AccountAchievementsState {
 
 impl_state_for_menu!(AccountAchievementsState);
 
-/// One category's account-wide achievements in canonical catalog order.
+/// One category's account-wide achievements, under a sort row that follows
+/// the categories screen's order unless it picked another for this category.
 pub struct AccountAchievementCategoryState {
     menu: MenuCore<Self>,
     pub category: &'static AchievementCategory,
+    /// The category's badges in catalog order; each build sorts a copy.
     pub achievements: Vec<&'static Achievement>,
+    overrides: SortOverrides,
 }
 
 impl AccountAchievementCategoryState {
@@ -123,11 +165,27 @@ impl AccountAchievementCategoryState {
             ),
             category,
             achievements,
+            overrides: SortOverrides::default(),
         }
+    }
+
+    /// Share the categories screen's per-category picks.
+    pub fn with_overrides(mut self, overrides: SortOverrides) -> Self {
+        self.overrides = overrides;
+        self
     }
 
     fn earned(ctx: &GameContext) -> HashSet<String> {
         ctx.account_achievements.ids().into_iter().collect()
+    }
+
+    fn step_sort(&mut self, ctx: &mut GameContext, direction: i64) {
+        step_category_sort(ctx, &self.overrides, self.category, direction);
+        self.refresh(ctx, true);
+    }
+
+    fn on_sort_row(&self) -> bool {
+        self.menu.index == SORT_ROW
     }
 }
 
@@ -155,10 +213,42 @@ impl Menu for AccountAchievementCategoryState {
         ));
     }
 
+    fn handle_extra_key(&mut self, ctx: &mut GameContext, key: Key) -> bool {
+        let direction = match key {
+            Key::Right => 1,
+            Key::Left => -1,
+            _ => return false,
+        };
+        if !self.on_sort_row() {
+            return false;
+        }
+        self.step_sort(ctx, direction);
+        true
+    }
+
+    fn adjust(&mut self, ctx: &mut GameContext, direction: i64) {
+        if self.on_sort_row() {
+            self.step_sort(ctx, direction);
+        }
+    }
+
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         let earned = Self::earned(ctx);
-        let mut items = Vec::with_capacity(self.achievements.len() + 1);
-        for achievement in &self.achievements {
+        let sort = category_sort(ctx, &self.overrides, self.category);
+        let mut items = Vec::with_capacity(self.achievements.len() + 2);
+        items.push(
+            MenuItem::new(
+                Label::dynamic(|s: &Self, ctx| {
+                    category_sort(ctx, &s.overrides, s.category)
+                        .label()
+                        .to_string()
+                }),
+                |s: &mut Self, ctx| s.step_sort(ctx, 1),
+            )
+            .help(CATEGORY_SORT_HELP)
+            .select_sound(None),
+        );
+        for achievement in sorted_achievements(sort, &self.achievements, &earned) {
             let unlocked = earned.contains(achievement.id);
             let (name, description) = entry_text(achievement, unlocked);
             let (label, help) = if unlocked {
