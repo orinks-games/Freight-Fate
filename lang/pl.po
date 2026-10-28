@@ -17347,15 +17347,15 @@ msgid ""
 msgstr ""
 "Zdobyte {earned} z {ACHIEVEMENTS} we wszystkich karierach w tej instalacji."
 
-msgid "Controls and account scope"
-msgstr "Sterowanie i zakres konta"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}. {done} z {achievements}"
 
 msgid "The account-wide earned count."
 msgstr "Liczba zdobytych w całym koncie."
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}. {done} z {achievements}"
+msgid "Controls and account scope"
+msgstr "Sterowanie i zakres konta"
 
 msgid "Back to Online"
 msgstr "Wróć do menu Online"
@@ -34245,12 +34245,12 @@ msgstr ""
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "Zdobyte {earned_count} z {ACHIEVEMENTS}."
 
-msgid "The total earned."
-msgstr "Łączna liczba zdobytych."
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}. {done} z {achs}"
+
+msgid "The total earned."
+msgstr "Łączna liczba zdobytych."
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr ""

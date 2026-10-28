@@ -32,12 +32,19 @@ fn road_title() -> &'static str {
 fn earned_first_is_the_default_and_leads_with_the_earned_category() {
     let app = categories_screen();
     let rows = labels::<AchievementsState>(&app);
-    assert!(rows[0].starts_with("Summary:"), "{rows:?}");
-    assert_eq!(rows[1], "Sort: Earned first");
+    // Sort is the first row, the sorted categories follow, and Summary
+    // sits after them above Back.
+    assert_eq!(rows[0], "Sort: Earned first");
+    assert_eq!(
+        current_label::<AchievementsState>(&app),
+        "Sort: Earned first"
+    );
     assert!(
-        rows[2].starts_with(&format!("{}. 1 of", road_title())),
+        rows[1].starts_with(&format!("{}. 1 of", road_title())),
         "{rows:?}"
     );
+    assert!(rows[rows.len() - 2].starts_with("Summary:"), "{rows:?}");
+    assert_eq!(rows[rows.len() - 1], "Back");
     assert_eq!(app.ctx.settings.achievement_sort, "earned");
 }
 
@@ -56,7 +63,7 @@ fn left_and_right_step_the_order_say_it_and_save_it() {
     assert_eq!(app.ctx.settings.achievement_sort, "locked");
     // The most left to earn leads.
     let rows = labels::<AchievementsState>(&app);
-    let left: Vec<usize> = rows[2..2 + categories().len()]
+    let left: Vec<usize> = rows[1..1 + categories().len()]
         .iter()
         .map(|row| {
             let (_, counts) = row.rsplit_once(". ").unwrap();
@@ -68,7 +75,7 @@ fn left_and_right_step_the_order_say_it_and_save_it() {
 
     key(&mut app, Key::Right);
     assert_eq!(current_label::<AchievementsState>(&app), "Sort: A to Z");
-    let titles: Vec<String> = labels::<AchievementsState>(&app)[2..2 + categories().len()]
+    let titles: Vec<String> = labels::<AchievementsState>(&app)[1..1 + categories().len()]
         .iter()
         .map(|r| r.to_lowercase())
         .collect();
@@ -83,7 +90,7 @@ fn left_and_right_step_the_order_say_it_and_save_it() {
         "Sort: Original order"
     );
     let rows = labels::<AchievementsState>(&app);
-    assert!(rows[2].starts_with(categories()[0].title), "{rows:?}");
+    assert!(rows[1].starts_with(categories()[0].title), "{rows:?}");
     key(&mut app, Key::Right);
     key(&mut app, Key::Left);
     assert_eq!(
@@ -104,8 +111,12 @@ fn a_category_follows_the_screen_until_it_picks_its_own_order() {
 
     select::<AchievementsState>(&mut app, road_title());
     let rows = labels::<AchievementCategoryState>(&app);
-    assert!(rows[0].starts_with("Earned: Signed"), "{rows:?}");
-    assert_eq!(rows[road.len()], "Sort: Earned first");
+    assert_eq!(rows[0], "Sort: Earned first");
+    assert_eq!(
+        current_label::<AchievementCategoryState>(&app),
+        "Sort: Earned first"
+    );
+    assert!(rows[1].starts_with("Earned: Signed"), "{rows:?}");
     assert_eq!(rows[road.len() + 1], "Back to the categories");
 
     // Locked first, for this category only.
@@ -114,10 +125,7 @@ fn a_category_follows_the_screen_until_it_picks_its_own_order() {
     key(&mut app, Key::Right);
     assert_eq!(app.main_lines().last().unwrap(), "Locked first.");
     let rows = labels::<AchievementCategoryState>(&app);
-    assert!(
-        rows[road.len() - 1].starts_with("Earned: Signed"),
-        "{rows:?}"
-    );
+    assert!(rows[road.len()].starts_with("Earned: Signed"), "{rows:?}");
     assert_eq!(app.ctx.settings.achievement_sort, "earned");
 
     // Leaving and coming back keeps the category's pick.
@@ -125,7 +133,7 @@ fn a_category_follows_the_screen_until_it_picks_its_own_order() {
     assert!(is::<AchievementsState>(&app));
     select::<AchievementsState>(&mut app, road_title());
     assert_eq!(
-        labels::<AchievementCategoryState>(&app)[road.len()],
+        labels::<AchievementCategoryState>(&app)[0],
         "Sort: Locked first"
     );
 
@@ -136,9 +144,8 @@ fn a_category_follows_the_screen_until_it_picks_its_own_order() {
         .find(|c| c.title != road_title())
         .unwrap();
     select::<AchievementsState>(&mut app, other.title);
-    let other_len = achievements_in_category(other.id).len();
     assert_eq!(
-        labels::<AchievementCategoryState>(&app)[other_len],
+        labels::<AchievementCategoryState>(&app)[0],
         "Sort: Earned first"
     );
 
@@ -156,7 +163,7 @@ fn a_category_follows_the_screen_until_it_picks_its_own_order() {
     key(&mut app, Key::Right);
     select::<AchievementsState>(&mut app, road_title());
     assert_eq!(
-        labels::<AchievementCategoryState>(&app)[road.len()],
+        labels::<AchievementCategoryState>(&app)[0],
         "Sort: Locked first",
         "with no pick of its own, the category follows the new screen order"
     );

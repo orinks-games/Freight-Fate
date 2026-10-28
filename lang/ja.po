@@ -15678,15 +15678,15 @@ msgid ""
 "{earned} of {ACHIEVEMENTS} earned across every career on this installation."
 msgstr "このインストールのすべてのキャリアで{ACHIEVEMENTS}件中{earned}件を獲得しています。"
 
-msgid "Controls and account scope"
-msgstr "操作とアカウントの範囲"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}。{achievements}件中{done}件"
 
 msgid "The account-wide earned count."
 msgstr "アカウント全体の獲得数。"
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}。{achievements}件中{done}件"
+msgid "Controls and account scope"
+msgstr "操作とアカウントの範囲"
 
 msgid "Back to Online"
 msgstr "オンラインに戻る"
@@ -30973,12 +30973,12 @@ msgstr "{name}の実績。{ACHIEVEMENTS}件中{earned_count}件獲得。{current
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "{ACHIEVEMENTS}件中{earned_count}件獲得。"
 
-msgid "The total earned."
-msgstr "獲得した合計です。"
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}。{achs}件中{done}件"
+
+msgid "The total earned."
+msgstr "獲得した合計です。"
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr "上下で移動し、Enter で項目を繰り返し、Escape で戻ります。"

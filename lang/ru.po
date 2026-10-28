@@ -17346,15 +17346,15 @@ msgid ""
 msgstr ""
 "Получено {earned} из {ACHIEVEMENTS} во всех карьерах на этой установке."
 
-msgid "Controls and account scope"
-msgstr "Управление и охват аккаунта"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}. {done} из {achievements}"
 
 msgid "The account-wide earned count."
 msgstr "Число полученных достижений по всему аккаунту."
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}. {done} из {achievements}"
+msgid "Controls and account scope"
+msgstr "Управление и охват аккаунта"
 
 msgid "Back to Online"
 msgstr "Назад в «Онлайн»"
@@ -34441,12 +34441,12 @@ msgstr ""
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "Получено {earned_count} из {ACHIEVEMENTS}."
 
-msgid "The total earned."
-msgstr "Всего получено."
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}. {done} из {achs}"
+
+msgid "The total earned."
+msgstr "Всего получено."
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr ""

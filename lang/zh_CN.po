@@ -15536,15 +15536,15 @@ msgid ""
 "{earned} of {ACHIEVEMENTS} earned across every career on this installation."
 msgstr "这次安装中的所有职业生涯共获得{earned}个成就，共{ACHIEVEMENTS}个。"
 
-msgid "Controls and account scope"
-msgstr "操作和账户范围"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}。{done}个，共{achievements}个"
 
 msgid "The account-wide earned count."
 msgstr "整个账户已获得的数量。"
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}。{done}个，共{achievements}个"
+msgid "Controls and account scope"
+msgstr "操作和账户范围"
 
 msgid "Back to Online"
 msgstr "返回“在线”"
@@ -30647,12 +30647,12 @@ msgstr "{name}的成就。已获得{earned_count}个，共{ACHIEVEMENTS}个。{c
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "已获得{earned_count}个，共{ACHIEVEMENTS}个。"
 
-msgid "The total earned."
-msgstr "已获得的总数。"
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}。已获得{done}个，共{achs}个"
+
+msgid "The total earned."
+msgstr "已获得的总数。"
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr "Up和Down移动，Enter重复这一条，Escape返回。"

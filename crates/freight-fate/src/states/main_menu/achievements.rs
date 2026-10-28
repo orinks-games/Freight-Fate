@@ -89,8 +89,8 @@ pub struct AchievementsState {
     overrides: SortOverrides,
 }
 
-/// Where the sort row sits on the categories screen: right after Summary.
-const CATEGORIES_SORT_ROW: usize = 1;
+/// The sort row is the first row of both screens, above the list it sorts.
+const SORT_ROW: usize = 0;
 
 impl AchievementsState {
     pub fn new(profile: Profile) -> Self {
@@ -125,7 +125,7 @@ impl AchievementsState {
     }
 
     fn on_sort_row(&self) -> bool {
-        self.menu.index == CATEGORIES_SORT_ROW
+        self.menu.index == SORT_ROW
     }
 }
 
@@ -170,20 +170,12 @@ impl Menu for AchievementsState {
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         let earned = earned_ids(&self.profile as &dyn AchievementProfile);
-        let mut items = vec![
-            MenuItem::new(
-                Label::dynamic(|s: &Self, _ctx| s.summary_label()),
-                |s: &mut Self, ctx| s.summary(ctx),
-            )
-            .help("The total earned."),
-            MenuItem::new(
-                Label::dynamic(|_s: &Self, ctx| chosen_sort(ctx).label().to_string()),
-                |s: &mut Self, ctx| s.step_sort(ctx, 1),
-            )
-            .help(CATEGORIES_SORT_HELP)
-            .select_sound(None),
-        ];
-        debug_assert_eq!(items.len(), CATEGORIES_SORT_ROW + 1);
+        let mut items = vec![MenuItem::new(
+            Label::dynamic(|_s: &Self, ctx| chosen_sort(ctx).label().to_string()),
+            |s: &mut Self, ctx| s.step_sort(ctx, 1),
+        )
+        .help(CATEGORIES_SORT_HELP)
+        .select_sound(None)];
         for row in sorted_categories(chosen_sort(ctx), &earned) {
             let c: &'static AchievementCategory = row.category;
             let done = row.earned;
@@ -202,6 +194,13 @@ impl Menu for AchievementsState {
                 .help(c.description),
             );
         }
+        items.push(
+            MenuItem::new(
+                Label::dynamic(|s: &Self, _ctx| s.summary_label()),
+                |s: &mut Self, ctx| s.summary(ctx),
+            )
+            .help("The total earned."),
+        );
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
         items
     }
@@ -211,7 +210,7 @@ impl_state_for_menu!(AchievementsState);
 
 /// One category's achievements: earned ones tell their story, locked ones
 /// show their goal, and hidden ones keep the secret until earned. The sort
-/// row after the badges changes this category's order alone.
+/// row above the badges changes this category's order alone.
 pub struct AchievementCategoryState {
     menu: MenuCore<Self>,
     pub profile: Profile,
@@ -254,7 +253,7 @@ impl AchievementCategoryState {
     }
 
     fn on_sort_row(&self) -> bool {
-        self.menu.index == self.achs.len()
+        self.menu.index == SORT_ROW
     }
 }
 
@@ -300,7 +299,16 @@ impl Menu for AchievementCategoryState {
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         let earned = earned_ids(&self.profile as &dyn AchievementProfile);
         let sort = category_sort(ctx, &self.overrides, self.category);
-        let mut items = Vec::new();
+        let mut items = vec![MenuItem::new(
+            Label::dynamic(|s: &Self, ctx| {
+                category_sort(ctx, &s.overrides, s.category)
+                    .label()
+                    .to_string()
+            }),
+            |s: &mut Self, ctx| s.step_sort(ctx, 1),
+        )
+        .help(CATEGORY_SORT_HELP)
+        .select_sound(None)];
         for achievement in sorted_achievements(sort, &self.achs, &earned) {
             let unlocked = earned.contains(achievement.id);
             let (name, description) = entry_text(achievement, unlocked);
@@ -318,18 +326,6 @@ impl Menu for AchievementCategoryState {
                 MenuItem::new(label, move |_s: &mut Self, ctx| ctx.say(&spoken)).help(help_text),
             );
         }
-        items.push(
-            MenuItem::new(
-                Label::dynamic(|s: &Self, ctx| {
-                    category_sort(ctx, &s.overrides, s.category)
-                        .label()
-                        .to_string()
-                }),
-                |s: &mut Self, ctx| s.step_sort(ctx, 1),
-            )
-            .help(CATEGORY_SORT_HELP)
-            .select_sound(None),
-        );
         items.push(MenuItem::new(
             "Back to the categories",
             |s: &mut Self, ctx| s.go_back(ctx),

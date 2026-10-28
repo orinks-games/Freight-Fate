@@ -19416,17 +19416,17 @@ msgid ""
 "{earned} of {ACHIEVEMENTS} earned across every career on this installation."
 msgstr ""
 
+#. placeholders: {title}, {done}, {achievements}
 #: crates/freight-fate/src/states/account_achievements.rs
-msgid "Controls and account scope"
+msgid "{title}. {done} of {achievements}"
 msgstr ""
 
 #: crates/freight-fate/src/states/account_achievements.rs
 msgid "The account-wide earned count."
 msgstr ""
 
-#. placeholders: {title}, {done}, {achievements}
 #: crates/freight-fate/src/states/account_achievements.rs
-msgid "{title}. {done} of {achievements}"
+msgid "Controls and account scope"
 msgstr ""
 
 #: crates/freight-fate/src/states/account_achievements.rs
@@ -37978,13 +37978,13 @@ msgstr ""
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu/achievements.rs
-msgid "The total earned."
-msgstr ""
-
 #. placeholders: {title}, {done}, {achs}
 #: crates/freight-fate/src/states/main_menu/achievements.rs
 msgid "{title}. {done} of {achs}"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/achievements.rs
+msgid "The total earned."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/achievements.rs

@@ -17454,15 +17454,15 @@ msgstr ""
 "{earned} de {ACHIEVEMENTS} conquistadas em todas as carreiras desta "
 "instalação."
 
-msgid "Controls and account scope"
-msgstr "Controles e alcance da conta"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}. {done} de {achievements}"
 
 msgid "The account-wide earned count."
 msgstr "O total de conquistas da conta inteira."
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}. {done} de {achievements}"
+msgid "Controls and account scope"
+msgstr "Controles e alcance da conta"
 
 msgid "Back to Online"
 msgstr "Voltar ao Online"
@@ -34138,12 +34138,12 @@ msgstr ""
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "{earned_count} de {ACHIEVEMENTS} conquistadas."
 
-msgid "The total earned."
-msgstr "O total conquistado."
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}. {done} de {achs}"
+
+msgid "The total earned."
+msgstr "O total conquistado."
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr ""
