@@ -153,9 +153,9 @@ fn test_the_app_presence_service_cannot_post_to_the_live_site() {
         app.ctx.services.online.pump();
     }));
 
-    assert!(outcome.is_err() || was_refused("/api/freight-fate/presence"));
+    assert!(outcome.is_err() || was_refused("/freight-fate/presence"));
     assert!(
-        was_refused("/api/freight-fate/presence"),
+        was_refused("/freight-fate/presence"),
         "{:?}",
         net::refused_requests()
     );
