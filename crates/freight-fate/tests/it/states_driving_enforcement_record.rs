@@ -21,10 +21,7 @@
 //! | `monkeypatch.setattr(pygame.key, "get_pressed", {K_x: True})` | `ctx.input.press(Key::X, Mods::SHIFT)`, the real held key |
 //! | `monkeypatch.setattr(ctx, "save_profile", noop)` | left alone: the test app saves into its own temp data directory |
 
-use ff_core::models::business::{COMPANY_DRIVER, INDEPENDENT_AUTHORITY, LEASED_OWNER_OPERATOR};
-use ff_core::models::carriers::hiring_carrier;
 use ff_core::models::enforcement::{FATIGUE_EVENT_REPUTATION_HIT, SUSPENSION_LIFETIME};
-use ff_core::models::home_base::IMPOUND_LOT_FACILITY;
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
 use ff_core::sim::weather::WeatherKind;
@@ -32,11 +29,9 @@ use ff_core::sim::weather::WeatherKind;
 use freight_fate::app::testing::TestApp;
 use freight_fate::app::GameContext;
 use freight_fate::states::base::{Menu, MenuItem};
-use freight_fate::states::city::CityMenuState;
 use freight_fate::states::driving::DrivingState;
 use freight_fate::states::driving_core::{
-    DRIVE_PHASE_DELIVERY, DRIVE_PHASE_PICKUP, MICROSLEEP_FORCE_STOP_MISSES, PURSUIT_RUN_S,
-    SPEEDING_LEEWAY_MPH,
+    DRIVE_PHASE_DELIVERY, MICROSLEEP_FORCE_STOP_MISSES, PURSUIT_RUN_S, SPEEDING_LEEWAY_MPH,
 };
 use freight_fate::states::driving_engine_brake::JAKE_ZONE_FINES;
 use freight_fate::states::driving_rest_states::{
@@ -54,32 +49,27 @@ fn approx(a: f64, b: f64) -> bool {
 
 /// `_driving(app, name="Jerry")`: Buffalo to Rochester, empty road.
 fn a_drive(app: &mut TestApp, name: &str) -> DrivingState {
-    a_drive_between(app, name, "Buffalo", "Rochester")
-}
-
-/// The same rigging on another lane.
-fn a_drive_between(app: &mut TestApp, name: &str, from: &str, to: &str) -> DrivingState {
     let world = app.ctx.world;
-    let mut profile = Profile::named_in(name, from);
+    let mut profile = Profile::named_in(name, "Buffalo");
     profile.tutorial_done = true;
     app.ctx.profile = Some(profile);
     let route = world
-        .supported_route(from, to, None)
+        .supported_route("Buffalo", "Rochester", None)
         .expect("the world routes")
-        .expect("the lane is supported");
+        .expect("Buffalo to Rochester is supported");
     let mut job = Job::new(
         CARGO_CATALOG
             .get("general")
             .expect("the general cargo type"),
         12.0,
-        from,
+        "Buffalo",
         "company yard",
-        to,
+        "Rochester",
         route.miles(),
         1000.0,
         12.0,
     );
-    job.destination_location = format!("{to} freight market");
+    job.destination_location = "Rochester freight market".to_string();
     let mut drive = DrivingState::new(
         &mut app.ctx,
         job,
@@ -184,358 +174,6 @@ fn test_running_from_the_stop_writes_a_major_offense_on_the_career() {
 }
 
 #[test]
-fn test_a_felony_stop_away_from_home_never_names_the_home_terminal() {
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Away");
-    let home = {
-        let world = app.ctx.world;
-        let p = app.ctx.profile.as_mut().expect("a career");
-        p.home_terminal_city = "chicago_il_us".to_string();
-        p.carrier_home_terminal(world)
-            .expect("a Chicago home terminal")
-            .spoken_name()
-    };
-    assert_ne!(
-        app.ctx
-            .world
-            .resolve_city_key(&app.ctx.profile.as_ref().expect("a career").current_city),
-        "chicago_il_us"
-    );
-    app.clear_speech();
-
-    let mut state = FelonyStopState::new(&mut app.ctx, &mut drive);
-    state.announce_entry(&mut app.ctx);
-
-    let summary = state.summary().to_string();
-    assert!(
-        summary.contains("You are released after booking."),
-        "{summary}"
-    );
-    let said = said(&app);
-    for text in [&summary, &said] {
-        assert!(!text.contains(&home), "{text}");
-        assert!(!text.contains("Chicago"), "{text}");
-        assert!(!text.contains("released back"), "{text}");
-        assert!(!text.contains("from the terminal"), "{text}");
-    }
-}
-
-/// Run from the stop on this rigged drive and return the summary.
-fn felony_summary(app: &mut TestApp, drive: &mut DrivingState) -> String {
-    FelonyStopState::new(&mut app.ctx, drive)
-        .summary()
-        .to_string()
-}
-
-/// The hub's entry line and title after the felony stop's go_back.
-fn hub_after_release(app: &mut TestApp) -> (String, String) {
-    app.clear_speech();
-    let hub = CityMenuState::new(&app.ctx, false);
-    app.push_state(hub);
-    let line = app
-        .main_lines()
-        .into_iter()
-        .find(|l| l.contains(" dollars."))
-        .expect("an entry line");
-    (line, CityMenuState::title_for(&app.ctx))
-}
-
-/// No facility pin of any type in `city_key` is named in `text`.
-fn assert_names_no_pin(app: &TestApp, city_key: &str, text: &str) {
-    for loc in &app.ctx.world.cities[city_key].locations {
-        assert!(!text.contains(&loc.name), "{} named in {text}", loc.name);
-    }
-}
-
-#[test]
-fn test_a_felony_stop_tows_to_an_impound_lot_in_the_stop_city() {
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Niagara");
-    let summary = felony_summary(&mut app, &mut drive);
-
-    let p = profile_of_app(&app);
-    assert_eq!(p.current_city, "buffalo_ny_us");
-    assert_eq!(p.parked_facility, IMPOUND_LOT_FACILITY);
-    assert!(
-        summary.contains(
-            "You are released after booking. The truck was towed to an impound lot in \
-             Buffalo, New York."
-        ),
-        "{summary}"
-    );
-    assert!(!summary.contains("secured lot"), "{summary}");
-    assert_names_no_pin(&app, "buffalo_ny_us", &summary);
-
-    // The hub says the same place, and names no pin either.
-    let (line, title) = hub_after_release(&mut app);
-    assert!(
-        line.starts_with("An impound lot in Buffalo, New York. "),
-        "{line}"
-    );
-    assert!(!line.contains("service area"), "{line}");
-    assert_eq!(title, "Buffalo impound lot");
-    assert_names_no_pin(&app, "buffalo_ny_us", &line);
-}
-
-#[test]
-fn test_a_felony_stop_beside_a_travel_center_still_tows_to_the_impound_lot() {
-    let mut app = TestApp::new();
-    let mut drive = a_drive_between(&mut app, "Parks", "healy_ak_us", "fairbanks_ak_us");
-    assert!(app.ctx.world.cities["healy_ak_us"]
-        .locations
-        .iter()
-        .any(|l| l.facility_type == "travel_center"));
-    let summary = felony_summary(&mut app, &mut drive);
-
-    let p = profile_of_app(&app);
-    assert_eq!(p.current_city, "healy_ak_us");
-    assert_eq!(p.parked_facility, IMPOUND_LOT_FACILITY);
-    assert!(
-        summary.contains("The truck was towed to an impound lot in Healy, Alaska."),
-        "{summary}"
-    );
-    assert_names_no_pin(&app, "healy_ak_us", &summary);
-    let (line, _) = hub_after_release(&mut app);
-    assert!(
-        line.starts_with("An impound lot in Healy, Alaska. "),
-        "{line}"
-    );
-    assert_names_no_pin(&app, "healy_ak_us", &line);
-}
-
-#[test]
-fn test_a_felony_stop_in_the_home_terminal_city_still_says_impound_lot() {
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Hometown");
-    let terminal = {
-        let world = app.ctx.world;
-        let p = app.ctx.profile.as_mut().expect("a career");
-        p.home_terminal_city = "buffalo_ny_us".to_string();
-        p.carrier_home_terminal(world).map(|t| t.spoken_name())
-    };
-    let summary = felony_summary(&mut app, &mut drive);
-    assert_eq!(profile_of_app(&app).current_city, "buffalo_ny_us");
-    let (line, title) = hub_after_release(&mut app);
-    assert!(
-        line.starts_with("An impound lot in Buffalo, New York. "),
-        "{line}"
-    );
-    assert_eq!(title, "Buffalo impound lot");
-    if let Some(terminal) = terminal {
-        assert!(!summary.contains(&terminal), "{summary}");
-        assert!(!line.contains(&terminal), "{line}");
-    }
-    assert!(!line.to_lowercase().contains("terminal"), "{line}");
-}
-
-#[test]
-fn test_the_hub_names_an_impound_lot_by_city_not_service_area() {
-    let mut app = TestApp::new();
-    let _drive = a_drive(&mut app, "Gorge");
-    {
-        let p = app.ctx.profile.as_mut().expect("a career");
-        p.current_city = "the_dalles_or_us".to_string();
-        p.parked_facility = IMPOUND_LOT_FACILITY.to_string();
-    }
-    let (line, title) = hub_after_release(&mut app);
-    assert!(
-        line.starts_with("An impound lot in The Dalles, Oregon. "),
-        "{line}"
-    );
-    assert!(!line.contains("service area"), "{line}");
-    assert!(!line.contains("the The"), "{line}");
-    assert_eq!(title, "The Dalles impound lot");
-}
-
-#[test]
-fn test_no_carrier_wins_over_an_impound_lot_on_the_hub() {
-    // A company driver let go after the felony tow has no truck in the lot:
-    // the hub and the title say no carrier and no truck, not impound lot.
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Let Go");
-    felony_summary(&mut app, &mut drive);
-    {
-        let p = app.ctx.profile.as_mut().expect("a career");
-        assert_eq!(p.parked_facility, IMPOUND_LOT_FACILITY);
-        p.carrier_key.clear();
-        p.carrier_name.clear();
-        assert!(p.is_unassigned_company_driver());
-    }
-    app.clear_speech();
-    let hub = CityMenuState::new(&app.ctx, false);
-    app.push_state(hub);
-    let line = app
-        .main_lines()
-        .into_iter()
-        .find(|l| l.contains("o carrier and no truck"))
-        .unwrap_or_else(|| panic!("no hub line: {:?}", app.main_lines()));
-    let title = CityMenuState::title_for(&app.ctx);
-    assert!(
-        line.contains("No carrier and no truck until a carrier assigns you one."),
-        "{line}"
-    );
-    assert!(!line.to_lowercase().contains("impound"), "{line}");
-    assert!(!line.to_lowercase().contains("parked"), "{line}");
-    assert!(!title.to_lowercase().contains("impound"), "{title}");
-    assert_eq!(title, "Buffalo, New York");
-}
-
-#[test]
-fn test_the_impound_lot_round_trips_through_the_save() {
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Saved");
-    felony_summary(&mut app, &mut drive);
-    let before = profile_of_app(&app).clone();
-    let loaded = Profile::from_dict(&before.to_dict());
-    assert_eq!(loaded.current_city, before.current_city);
-    assert_eq!(loaded.parked_facility, IMPOUND_LOT_FACILITY);
-    assert_eq!(
-        loaded.parked_at(app.ctx.world),
-        before.parked_at(app.ctx.world)
-    );
-}
-
-#[test]
-fn test_a_felony_stop_near_blaine_stays_on_the_road_side_of_the_border() {
-    let mut app = TestApp::new();
-    let mut drive = a_drive_between(&mut app, "Border", "blaine_wa_us", "surrey_bc_ca");
-    // Short of the crossing, on the Washington side.
-    drive.trip.position_mi = 0.2;
-    felony_summary(&mut app, &mut drive);
-    assert_eq!(profile_of_app(&app).current_city, "blaine_wa_us");
-    drop(drive);
-    drop(app);
-
-    let mut app = TestApp::new();
-    let mut drive = a_drive_between(&mut app, "Border", "blaine_wa_us", "surrey_bc_ca");
-    // Past the crossing, in British Columbia.
-    drive.trip.position_mi = drive.trip.total_miles() - 0.2;
-    let summary = felony_summary(&mut app, &mut drive);
-    assert_eq!(
-        profile_of_app(&app).current_city,
-        "surrey_bc_ca",
-        "{summary}"
-    );
-}
-
-#[test]
-fn test_a_felony_stop_never_leaves_the_truck_on_a_shoulder() {
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Shoulder");
-    let summary = felony_summary(&mut app, &mut drive);
-    assert!(!summary.to_lowercase().contains("shoulder"), "{summary}");
-    assert!(!profile_of_app(&app).parked_facility.is_empty());
-}
-
-fn profile_of_app(app: &TestApp) -> &Profile {
-    app.ctx.profile.as_ref().expect("a career")
-}
-
-#[test]
-fn test_a_felony_stop_says_the_carrier_recovered_a_company_load() {
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Company");
-    app.ctx.profile.as_mut().expect("a career").business_status = COMPANY_DRIVER.to_string();
-    let carrier = carrier_name(&app);
-    let summary = felony_summary(&mut app, &mut drive);
-    assert!(
-        summary.contains(&format!("{carrier} recovered the load.")),
-        "{summary}"
-    );
-    assert!(!summary.contains("yours to sort out"), "{summary}");
-}
-
-#[test]
-fn test_a_felony_stop_says_the_carrier_recovered_a_leased_load() {
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Leased");
-    app.ctx.profile.as_mut().expect("a career").business_status = LEASED_OWNER_OPERATOR.to_string();
-    let carrier = carrier_name(&app);
-    let summary = felony_summary(&mut app, &mut drive);
-    assert!(
-        summary.contains(&format!("{carrier} recovered the load.")),
-        "{summary}"
-    );
-    assert!(!summary.contains("yours to sort out"), "{summary}");
-}
-
-#[test]
-fn test_a_felony_stop_leaves_an_own_authority_load_to_the_shipper() {
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Authority");
-    app.ctx.profile.as_mut().expect("a career").business_status = INDEPENDENT_AUTHORITY.to_string();
-    let summary = felony_summary(&mut app, &mut drive);
-    assert!(
-        summary.contains("The load is yours to sort out with the shipper."),
-        "{summary}"
-    );
-    assert!(!summary.contains("recovered the load"), "{summary}");
-    assert!(!summary.contains("Dispatch"), "{summary}");
-}
-
-/// Booking and bond hold the driver 12 hours, logged off duty: more than
-/// the 10 consecutive hours off that reset the 11- and 14-hour limits.
-#[test]
-fn test_a_felony_stop_books_twelve_hours_off_duty_and_posts_bond() {
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Company");
-    {
-        let hos = &mut app.ctx.profile.as_mut().expect("a career").hos;
-        hos.driving_min = 300.0;
-        hos.duty_min = 420.0;
-        hos.shift_on_duty_min = 420.0;
-    }
-    let summary = felony_summary(&mut app, &mut drive);
-    assert!(summary.contains("Bond: "), "{summary}");
-    assert!(summary.contains(" dollars, posted to get out"), "{summary}");
-    assert!(!summary.contains("fine"), "{summary}");
-    assert!(
-        summary.contains("and booking and bond took 12 hours."),
-        "{summary}"
-    );
-    let p = app.ctx.profile.as_ref().expect("a career");
-    assert!(
-        p.duty_log
-            .segments
-            .iter()
-            .any(|seg| seg.status == "off_duty"
-                && seg.note == "felony failure-to-stop booking and bond"),
-        "{:?}",
-        p.duty_log.segments
-    );
-    assert!(!p
-        .duty_log
-        .segments
-        .iter()
-        .any(|seg| seg.note.contains("felony") && seg.status != "off_duty"));
-    assert_eq!(p.hos.driving_min, 0.0, "the 11-hour limit did not reset");
-    assert_eq!(p.hos.duty_min, 0.0, "the 14-hour window did not reset");
-    assert_eq!(p.hos.shift_on_duty_min, 0.0);
-}
-
-#[test]
-fn test_a_felony_stop_with_nothing_loaded_leaves_nothing_to_the_shipper() {
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Authority");
-    app.ctx.profile.as_mut().expect("a career").business_status = INDEPENDENT_AUTHORITY.to_string();
-    drive.phase = DRIVE_PHASE_PICKUP;
-    let summary = felony_summary(&mut app, &mut drive);
-    assert!(
-        summary.contains("No loaded trailer to lose, but the load is canceled."),
-        "{summary}"
-    );
-    assert!(!summary.contains("yours to sort out"), "{summary}");
-}
-
-fn carrier_name(app: &TestApp) -> String {
-    let p = profile_of_app(app);
-    hiring_carrier(&p.carrier_key, &p.carrier_name, &p.business_status)
-        .expect("a hiring carrier")
-        .name
-        .clone()
-}
-
-#[test]
 fn test_a_second_pursuit_ends_this_career_driving_for_good() {
     let mut app = TestApp::new();
     let mut drive = a_drive(&mut app, "Jerry");
@@ -592,7 +230,7 @@ fn test_a_stop_that_suspends_the_cdl_does_not_send_you_back_out_driving() {
     assert!(
         labels
             .iter()
-            .any(|label| label == "Hand the truck to the relief driver"),
+            .any(|label| label.to_lowercase().contains("terminal")),
         "{labels:?}"
     );
 }
@@ -662,7 +300,6 @@ fn test_an_enforcement_stop_that_suspends_also_ends_the_run() {
             out_of_service: false,
             warned: true, // a serious violation: this is the second
             construction_zone: false,
-            fine_is_final: false,
             inspection_on_stop: false,
             inspection_level: None,
         },
@@ -1260,7 +897,6 @@ fn test_a_settled_stop_is_read_back_as_history_not_as_a_fresh_charge() {
             out_of_service: false,
             warned: false,
             construction_zone: false,
-            fine_is_final: false,
             inspection_on_stop: false,
             inspection_level: None,
         },

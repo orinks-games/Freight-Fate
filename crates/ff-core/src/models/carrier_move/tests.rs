@@ -1,5 +1,4 @@
 use super::*;
-use crate::data::world::get_world;
 use crate::models::business_constants::LEASED_OWNER_OPERATOR;
 use crate::models::career::LEVEL_XP;
 use crate::models::enforcement::LAST_CHANCE_CARRIER_NAME;
@@ -68,55 +67,28 @@ fn only_a_company_driver_at_the_training_fleet_is_offered_the_move() {
 }
 
 #[test]
-fn the_move_up_list_is_the_other_carriers_that_hire_at_home() {
-    let world = get_world();
-    let keys: Vec<&str> = move_up_carriers(world, "milwaukee_wi_us")
-        .iter()
-        .map(|o| o.key)
-        .collect();
-    // The two nationals and the regionals whose radius reaches Milwaukee;
-    // never the training fleet, Prairie Link (out of range) or a local or
-    // Alaska carrier.
-    assert_eq!(
-        keys,
-        vec![
-            "northstar",
-            "summit_value",
-            "olentangy_valley",
-            "loonwater_regional"
-        ]
-    );
+fn the_move_up_list_is_the_other_company_carriers() {
+    let keys: Vec<&str> = move_up_carriers().iter().map(|o| o.key).collect();
+    assert_eq!(keys, vec!["northstar", "prairie_link", "summit_value"]);
 }
 
 #[test]
 fn moving_changes_the_carrier_and_keeps_the_career() {
-    let world = get_world();
     let mut p = trainee(6);
     p.set_money(3_210.0);
     let xp = p.career.xp;
-    let terminal = crate::models::carriers::home_terminal_city_or_fallback(
-        crate::models::carriers::carrier("loonwater_regional"),
-        world,
-        move_up_home(&p),
-    );
-    let option = start_option(Some("loonwater_regional"));
-    let line = apply_carrier_move(&mut p, world, option);
-    assert_eq!(p.carrier_key, "loonwater_regional");
-    assert_eq!(p.carrier_name, option.carrier_name);
+    let line = apply_carrier_move(&mut p, start_option(Some("prairie_link")));
+    assert_eq!(p.carrier_key, "prairie_link");
+    assert_eq!(p.carrier_name, "Prairie Link Regional");
     assert!(p.dispatch_board_cache.is_none());
     assert_eq!(p.career.xp, xp);
     assert_eq!(p.money(), 3_210.0);
-    assert_eq!(p.home_terminal_city, terminal);
-    assert_eq!(p.current_city, terminal);
+    assert_eq!(p.current_city, "Milwaukee");
     assert!(!at_training_fleet(&p));
     assert_eq!(
         line,
-        format!(
-            "{} hires you away from Great Lakes Training Transport. Your level and record \
-             come with you. You start at their {} terminal, where your assigned truck is \
-             waiting.",
-            option.carrier_name,
-            world.spoken_city(&terminal, None)
-        )
+        "Prairie Link Regional hires you away from Great Lakes Training Transport. Your \
+         level, record, and home terminal come with you, and the next load runs on their \
+         pay and their tractor."
     );
 }

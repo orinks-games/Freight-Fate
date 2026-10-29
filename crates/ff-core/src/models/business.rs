@@ -9,6 +9,7 @@
 use crate::models::career::CareerProfile;
 use crate::models::career_ladder::{
     display_rank_for_level, next_company_rank_for_level, next_rank_for_level, rank_for_level,
+    STARTER_CARRIER_NAME,
 };
 use crate::models::enforcement::StandingProfile;
 use crate::models::jobs::Job;
@@ -159,33 +160,16 @@ pub fn player_pays_operating_costs(status: &str) -> bool {
     is_owner_operator(status)
 }
 
-/// `business.carrier_name(profile)`: the carrier on the profile (by key
-/// from the catalog when only the key was saved), or an empty string when
-/// there is no carrier. There is no fallback carrier: a driver with no
-/// carrier is its own state, and callers say so instead of naming anyone.
+/// `business.carrier_name(profile)`: the carrier on the profile, or the
+/// starter carrier when the profile carries none.
 pub fn carrier_name<P: StandingProfile + ?Sized>(profile: &P) -> String {
-    let name = profile.carrier_name().trim();
-    if !name.is_empty() {
-        return name.to_string();
+    let name = profile.carrier_name();
+    if name.is_empty() {
+        STARTER_CARRIER_NAME.to_string()
+    } else {
+        name.to_string()
     }
-    crate::models::carriers::carrier(profile.carrier_key().trim())
-        .map(|c| c.name.clone())
-        .unwrap_or_default()
 }
-
-/// A company driver with no carrier (let go where no carrier near home
-/// would take them).
-pub fn has_no_carrier<P: StandingProfile + ?Sized>(profile: &P) -> bool {
-    crate::models::carriers::is_unassigned_company_driver(
-        profile.carrier_key(),
-        profile.carrier_name(),
-        profile.business_status(),
-    )
-}
-
-/// Spoken for a driver with no carrier wherever a carrier would be named.
-pub const NO_CARRIER_STATUS: &str =
-    "No carrier. Apply to a carrier at the terminal to get back on freight.";
 
 pub fn carrier_key<P: StandingProfile + ?Sized>(profile: &P) -> String {
     profile.carrier_key().to_string()
@@ -355,11 +339,6 @@ pub fn owner_operator_eligibility<P: BusinessProfile + ?Sized>(profile: &P) -> (
     }
     let career = profile.career();
     let mut reasons: Vec<String> = Vec::new();
-    if has_no_carrier(profile) {
-        reasons.push(
-            "Apply to a carrier first: a leased-on tractor is leased to a carrier.".to_string(),
-        );
-    }
     if !profile.cdl_clear() {
         reasons.push(
             "Hold a clear CDL: no lessor puts a suspended or disqualified driver in a truck."
@@ -399,12 +378,6 @@ pub fn owner_operator_eligibility<P: BusinessProfile + ?Sized>(profile: &P) -> (
 
 pub fn business_path_label<P: BusinessProfile + ?Sized>(profile: &P) -> String {
     let rank = display_rank_for(profile);
-    if has_no_carrier(profile) {
-        return format!(
-            "{NO_CARRIER_STATUS} Level {}: {}. {}.",
-            rank.level, rank.title, rank.stage
-        );
-    }
     let option = option_for_profile(profile);
     format!(
         "{}. Level {}: {}. {}. {}",
@@ -551,12 +524,6 @@ fn business_status_summary_inner<P: BusinessProfile + ?Sized>(profile: &P) -> St
             rank.level,
             rank.title,
             next_business_unlock(profile)
-        );
-    }
-    if has_no_carrier(profile) {
-        return format!(
-            "Company driver with no carrier. Level {}: {}. {NO_CARRIER_STATUS}",
-            rank.level, rank.title
         );
     }
     let (ok, _reasons) = owner_operator_eligibility(profile);

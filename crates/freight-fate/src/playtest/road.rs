@@ -166,12 +166,6 @@ pub struct RoadOptions {
     pub speed: f64,
     pub cargo: f64,
     pub cargo_type: String,
-    /// The catalog cargo a staged departure carries instead of the first
-    /// one its facility ships, so a live check can stage a particular load.
-    pub departure_cargo: Option<String>,
-    /// The hazardous material that load is, by `HAZMAT_COMMODITIES` key,
-    /// instead of the default (gasoline for bulk fuel, none otherwise).
-    pub departure_hazmat: Option<String>,
     pub level: Option<i64>,
     pub descent: Option<String>,
     pub assists: Option<String>,
@@ -216,8 +210,6 @@ impl Default for RoadOptions {
             speed: 62.0,
             cargo: 20.0,
             cargo_type: "general".to_string(),
-            departure_cargo: None,
-            departure_hazmat: None,
             level: None,
             descent: None,
             assists: None,
@@ -1325,10 +1317,9 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
     } else {
         None
     };
-    let cargo_key = opts
-        .departure_cargo
-        .as_deref()
-        .or(departure_setup.as_ref().map(|(cargo, _)| *cargo))
+    let cargo_key = departure_setup
+        .as_ref()
+        .map(|(cargo, _)| *cargo)
         .unwrap_or(&opts.cargo_type);
     let cargo = cargo_type(cargo_key)
         .unwrap_or_else(|| panic!("{cargo_key:?} is not in the cargo catalog"));
@@ -1356,9 +1347,6 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
     // line -- so a slug here put "the destination exit for freight terminal
     // hattiesburg_ms_us freight market" into three of the lines a playtest
     // is usually listening for.
-    if let Some(key) = opts.departure_hazmat.as_deref() {
-        job.hazmat = ff_core::models::jobs::hazmat::hazmat_commodity(key);
-    }
     job.origin_spoken = ctx.world.spoken_city(&origin_key, None);
     job.destination_spoken = ctx.world.spoken_city(&destination_key, None);
     if !departure {

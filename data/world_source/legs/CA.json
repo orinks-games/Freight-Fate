@@ -47410,23 +47410,7 @@
           "name": "rolling",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        },
-        "toll_events": [
-          {
-            "name": "San Francisco-Oakland Bay Bridge toll",
-            "at_mi": 375.9,
-            "road": "I-80 San Francisco-Oakland Bay Bridge",
-            "authority": "Bay Area Toll Authority",
-            "method": "open_road",
-            "amount": 30.5,
-            "estimated": false,
-            "source": "BATA toll schedule (Resolution 0184), 5 axles, 2026 rate 30.50 for FasTrak and plate (plate surcharges start 2027-01-01; 40.50 is the 2030 step); multi-axle tolls are one schedule across the seven state-owned bridges, the same 30.50 as the Carquinez Bridge; checked against the bayareafastrak.org S.F.-Oakland Bay Bridge page 2026-10-14; collected westbound into San Francisco only; researched 2026-07-19 (tools/toll_rates.py ca_carquinez_bridge): https://www.bayareafastrak.org/en/tolls/index.shtml",
-            "amount_plate": 30.5,
-            "directions": [
-              "forward"
-            ]
-          }
-        ]
+        }
       },
       "stops": [
         {
@@ -47796,30 +47780,7 @@
         }
       ],
       "divided": true,
-      "lanes": 4,
-      "crossings": [
-        {
-          "kind": "bridge",
-          "name": "San Francisco-Oakland Bay Bridge",
-          "hazmat": "classes",
-          "bulk_flammable_banned": true,
-          "tank_banned": false,
-          "hazmat_text": "Explosives and flammable tank loads may not use the San Francisco-Oakland Bay Bridge.",
-          "size_text": "",
-          "source_url": "https://www.chp.ca.gov/siteassets/files/ib_hmroutes.pdf",
-          "access_date": "2026-10-11",
-          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Classes: each load names its 49 CFR 172.101 class, so only Division 1.1 to 1.3 explosives, and flammable gas or liquid in a tank, are refused; a load with no class (an old save) matches no class rule.",
-          "banned_classes": [
-            "1.1",
-            "1.2",
-            "1.3"
-          ],
-          "bulk_banned_classes": [
-            "2.1",
-            "3"
-          ]
-        }
-      ]
+      "lanes": 4
     },
     {
       "from": "mammoth_lakes_ca_us",
@@ -95947,37 +95908,7 @@
           "name": "rolling",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        },
-        "toll_events": [
-          {
-            "name": "Carquinez Bridge toll",
-            "at_mi": 59.2,
-            "road": "I-80 Carquinez Bridge",
-            "authority": "Bay Area Toll Authority",
-            "method": "open_road",
-            "amount": 30.5,
-            "estimated": false,
-            "source": "BATA Resolution 0184 toll schedule, 5 axles, 2026 rate 30.50 for FasTrak and plate (plate surcharges start 2027-01-01; 40.50 is the 2030 step), collected eastbound only; researched 2026-07-19 (tools/toll_rates.py ca_carquinez_bridge): https://www.bayareafastrak.org/en/tolls/index.shtml",
-            "amount_plate": 30.5,
-            "directions": [
-              "reverse"
-            ]
-          },
-          {
-            "name": "San Francisco-Oakland Bay Bridge toll",
-            "at_mi": 79.4,
-            "road": "I-80 San Francisco-Oakland Bay Bridge",
-            "authority": "Bay Area Toll Authority",
-            "method": "open_road",
-            "amount": 30.5,
-            "estimated": false,
-            "source": "BATA toll schedule (Resolution 0184), 5 axles, 2026 rate 30.50 for FasTrak and plate (plate surcharges start 2027-01-01; 40.50 is the 2030 step); multi-axle tolls are one schedule across the seven state-owned bridges, the same 30.50 as the Carquinez Bridge; checked against the bayareafastrak.org S.F.-Oakland Bay Bridge page 2026-10-14; collected westbound into San Francisco only; researched 2026-07-19 (tools/toll_rates.py ca_carquinez_bridge): https://www.bayareafastrak.org/en/tolls/index.shtml",
-            "amount_plate": 30.5,
-            "directions": [
-              "forward"
-            ]
-          }
-        ]
+        }
       },
       "stops": [
         {
@@ -96059,30 +95990,7 @@
         }
       ],
       "divided": true,
-      "lanes": 4,
-      "crossings": [
-        {
-          "kind": "bridge",
-          "name": "San Francisco-Oakland Bay Bridge",
-          "hazmat": "classes",
-          "bulk_flammable_banned": true,
-          "tank_banned": false,
-          "hazmat_text": "Explosives and flammable tank loads may not use the San Francisco-Oakland Bay Bridge.",
-          "size_text": "",
-          "source_url": "https://www.chp.ca.gov/siteassets/files/ib_hmroutes.pdf",
-          "access_date": "2026-10-11",
-          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Classes: each load names its 49 CFR 172.101 class, so only Division 1.1 to 1.3 explosives, and flammable gas or liquid in a tank, are refused; a load with no class (an old save) matches no class rule.",
-          "banned_classes": [
-            "1.1",
-            "1.2",
-            "1.3"
-          ],
-          "bulk_banned_classes": [
-            "2.1",
-            "3"
-          ]
-        }
-      ]
+      "lanes": 4
     },
     {
       "from": "sacramento_ca_us",
@@ -124318,30 +124226,7 @@
       ],
       "divided": true,
       "lanes": 2,
-      "rerouted": true,
-      "crossings": [
-        {
-          "kind": "bridge",
-          "name": "San Francisco-Oakland Bay Bridge",
-          "hazmat": "classes",
-          "bulk_flammable_banned": true,
-          "tank_banned": false,
-          "hazmat_text": "Explosives and flammable tank loads may not use the San Francisco-Oakland Bay Bridge.",
-          "size_text": "",
-          "source_url": "https://www.chp.ca.gov/siteassets/files/ib_hmroutes.pdf",
-          "access_date": "2026-10-11",
-          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Classes: each load names its 49 CFR 172.101 class, so only Division 1.1 to 1.3 explosives, and flammable gas or liquid in a tank, are refused; a load with no class (an old save) matches no class rule.",
-          "banned_classes": [
-            "1.1",
-            "1.2",
-            "1.3"
-          ],
-          "bulk_banned_classes": [
-            "2.1",
-            "3"
-          ]
-        }
-      ]
+      "rerouted": true
     },
     {
       "from": "san_francisco_ca_us",
@@ -134961,30 +134846,7 @@
         }
       ],
       "divided": true,
-      "lanes": 2,
-      "crossings": [
-        {
-          "kind": "bridge",
-          "name": "San Francisco-Oakland Bay Bridge",
-          "hazmat": "classes",
-          "bulk_flammable_banned": true,
-          "tank_banned": false,
-          "hazmat_text": "Explosives and flammable tank loads may not use the San Francisco-Oakland Bay Bridge.",
-          "size_text": "",
-          "source_url": "https://www.chp.ca.gov/siteassets/files/ib_hmroutes.pdf",
-          "access_date": "2026-10-11",
-          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Classes: each load names its 49 CFR 172.101 class, so only Division 1.1 to 1.3 explosives, and flammable gas or liquid in a tank, are refused; a load with no class (an old save) matches no class rule.",
-          "banned_classes": [
-            "1.1",
-            "1.2",
-            "1.3"
-          ],
-          "bulk_banned_classes": [
-            "2.1",
-            "3"
-          ]
-        }
-      ]
+      "lanes": 2
     },
     {
       "from": "san_francisco_ca_us",
@@ -136262,23 +136124,7 @@
           "name": "rolling",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        },
-        "toll_events": [
-          {
-            "name": "Golden Gate Bridge toll",
-            "at_mi": 4.9,
-            "road": "US-101 Golden Gate Bridge",
-            "authority": "Golden Gate Bridge, Highway and Transportation District",
-            "method": "open_road",
-            "amount": 51.25,
-            "estimated": false,
-            "source": "Golden Gate Bridge tolls effective 2026-07-01, 5 axles, FasTrak 51.25, License Plate Account or One-Time Payment 52.50 (invoice 56.25); collected southbound into San Francisco only; read 2026-10-14: https://www.goldengate.org/bridge/tolls-payment/",
-            "amount_plate": 52.5,
-            "directions": [
-              "reverse"
-            ]
-          }
-        ]
+        }
       },
       "stops": [
         {
@@ -136327,61 +136173,7 @@
         }
       ],
       "divided": true,
-      "lanes": 2,
-      "crossings": [
-        {
-          "kind": "bridge",
-          "name": "Golden Gate Bridge",
-          "hazmat": "none",
-          "bulk_flammable_banned": false,
-          "tank_banned": false,
-          "regulated_lb_limit": null,
-          "max_length_ft": null,
-          "max_width_ft": null,
-          "max_height_ft": null,
-          "hazmat_text": "",
-          "size_text": "",
-          "source_url": "https://www.law.cornell.edu/regulations/california/13-CCR-1151.5",
-          "access_date": "2026-10-11",
-          "basis": "Read: California rule 13 CCR 1151.5(b)(3) bars vehicles transporting explosives from the Golden Gate Bridge between 06:30 and 09:30 and between 16:00 and 19:00 on weekdays, and has every explosives vehicle stop for inspection and a bridge escort, northbound at the toll plaza and southbound at the north abutment (also listed in the California Highway Patrol route list, https://www.chp.ca.gov/siteassets/files/ib_hmroutes.pdf). Read: Vehicle Code 31600 defines explosives as Divisions 1.1, 1.2, 1.3 and 1.6, and 31600(c) says Division 1.4 is not an explosive under it (https://california.public.law/codes/vehicle_code_section_31600). Derived: 1.5 blasting agents are kept with the explosives, and 1.4 (consumer fireworks) crosses with no wait or escort; a load with no class (an old save) is not treated as explosives. The leg's archived road geometry crosses the span between its south tower and north end. Assumed: the inspection and escort take the game's 20-minute escort wait; state holidays are not modelled.",
-          "banned_classes": [],
-          "bulk_banned_classes": [],
-          "escort": {
-            "placarded": false,
-            "gross_over_lb": null,
-            "classes": [
-              "1.1",
-              "1.2",
-              "1.3",
-              "1.5",
-              "1.6"
-            ],
-            "text": "Explosives stop for inspection and a bridge escort at the Golden Gate Bridge.",
-            "source_url": "https://www.law.cornell.edu/regulations/california/13-CCR-1151.5"
-          },
-          "hazmat_hours": {
-            "classes": [
-              "1.1",
-              "1.2",
-              "1.3",
-              "1.5",
-              "1.6"
-            ],
-            "weekday_closed": [
-              [
-                "06:30",
-                "09:30"
-              ],
-              [
-                "16:00",
-                "19:00"
-              ]
-            ],
-            "text": "Explosives may not use the Golden Gate Bridge at weekday rush hours.",
-            "source_url": "https://www.law.cornell.edu/regulations/california/13-CCR-1151.5"
-          }
-        }
-      ]
+      "lanes": 2
     },
     {
       "from": "san_jose_ca_us",
@@ -169302,23 +169094,7 @@
           "name": "level",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        },
-        "toll_events": [
-          {
-            "name": "San Francisco-Oakland Bay Bridge toll",
-            "at_mi": 74.7,
-            "road": "I-80 San Francisco-Oakland Bay Bridge",
-            "authority": "Bay Area Toll Authority",
-            "method": "open_road",
-            "amount": 30.5,
-            "estimated": false,
-            "source": "BATA toll schedule (Resolution 0184), 5 axles, 2026 rate 30.50 for FasTrak and plate (plate surcharges start 2027-01-01; 40.50 is the 2030 step); multi-axle tolls are one schedule across the seven state-owned bridges, the same 30.50 as the Carquinez Bridge; checked against the bayareafastrak.org S.F.-Oakland Bay Bridge page 2026-10-14; collected westbound into San Francisco only; researched 2026-07-19 (tools/toll_rates.py ca_carquinez_bridge): https://www.bayareafastrak.org/en/tolls/index.shtml",
-            "amount_plate": 30.5,
-            "directions": [
-              "forward"
-            ]
-          }
-        ]
+        }
       },
       "stops": [
         {
@@ -169345,30 +169121,7 @@
         }
       ],
       "divided": true,
-      "lanes": 4,
-      "crossings": [
-        {
-          "kind": "bridge",
-          "name": "San Francisco-Oakland Bay Bridge",
-          "hazmat": "classes",
-          "bulk_flammable_banned": true,
-          "tank_banned": false,
-          "hazmat_text": "Explosives and flammable tank loads may not use the San Francisco-Oakland Bay Bridge.",
-          "size_text": "",
-          "source_url": "https://www.chp.ca.gov/siteassets/files/ib_hmroutes.pdf",
-          "access_date": "2026-10-11",
-          "basis": "Read: Interstate 80 on the San Francisco-Oakland Bay Bridge prohibits Division 1.1 to 1.3 explosives and hazardous materials in tank vehicles requiring flammable placards (California Highway Patrol route list; 21 CCR 1402.1). Derived: the legs are the ones whose archived road geometry runs through the Yerba Buena Island tunnel within 60 metres. Classes: each load names its 49 CFR 172.101 class, so only Division 1.1 to 1.3 explosives, and flammable gas or liquid in a tank, are refused; a load with no class (an old save) matches no class rule.",
-          "banned_classes": [
-            "1.1",
-            "1.2",
-            "1.3"
-          ],
-          "bulk_banned_classes": [
-            "2.1",
-            "3"
-          ]
-        }
-      ]
+      "lanes": 4
     },
     {
       "from": "susanville_ca_us",

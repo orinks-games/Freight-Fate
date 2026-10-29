@@ -20,48 +20,6 @@ use crate::pyfmt::fmt_f;
 use crate::pyrandom::PyRandom;
 
 mod tables;
-/// The least wind the simulated sky carries with each condition. A high
-/// wind or a thunderstorm also starts a [`WindBlow`] that peaks above this
-/// and eases back down to it.
-pub fn simulated_wind_mph(kind: WeatherKind) -> f64 {
-    match kind {
-        WeatherKind::Wind => HIGH_WIND_MPH.0,
-        WeatherKind::Thunderstorm => STORM_GUST_MPH.0,
-        WeatherKind::HeavyRain | WeatherKind::Snow => 25.0,
-        _ => 10.0,
-    }
-}
-
-/// Sustained wind at the height of a simulated high wind, in mph.
-pub const HIGH_WIND_MPH: (f64, f64) = (25.0, 55.0);
-/// Gusts at the height of a simulated thunderstorm, in mph.
-pub const STORM_GUST_MPH: (f64, f64) = (30.0, 45.0);
-/// A simulated blow eases from its peak to [`BLOW_CALM_MPH`] over this many
-/// game minutes, so a truck held for wind usually crosses within hours.
-pub const BLOW_EASE_MINUTES: f64 = 240.0;
-pub const BLOW_CALM_MPH: f64 = 15.0;
-
-/// One simulated high wind or thunderstorm: its peak, and how long ago it
-/// started on the game clock.
-#[derive(Clone, Copy, Debug, PartialEq)]
-pub struct WindBlow {
-    pub kind: WeatherKind,
-    pub peak_mph: f64,
-    pub minutes: f64,
-}
-
-impl WindBlow {
-    /// The wind now: the peak, easing linearly to calm.
-    pub fn mph(&self) -> f64 {
-        let eased = (self.minutes / BLOW_EASE_MINUTES).clamp(0.0, 1.0);
-        self.peak_mph - (self.peak_mph - BLOW_CALM_MPH).max(0.0) * eased
-    }
-}
-
-fn blows(kind: WeatherKind) -> bool {
-    matches!(kind, WeatherKind::Wind | WeatherKind::Thunderstorm)
-}
-
 #[cfg(test)]
 mod tests;
 
@@ -161,11 +119,6 @@ pub trait WeatherProvider {
         None
     }
 
-    /// The station's sustained wind in km/h, when the provider has one.
-    fn get_wind_kmh(&mut self, _city: &str) -> Option<f64> {
-        None
-    }
-
     /// Whether the provider has no usable data and a fetch has failed.
     fn unavailable(&mut self, _city: &str) -> bool {
         false
@@ -232,11 +185,6 @@ pub struct WeatherSystem {
     pub current: WeatherKind,
     pub minutes_until_change: f64,
     pub thunder_cooldown: f64,
-    /// Draws wind peaks apart from `rng`, so a blow never moves the seeded
-    /// sky that spoken-text tests pin.
-    wind_rng: PyRandom,
-    /// The simulated high wind or storm now blowing, if any.
-    pub blow: Option<WindBlow>,
 }
 
 impl WeatherSystem {
@@ -252,10 +200,6 @@ impl WeatherSystem {
     ) -> Self {
         let rng = match seed {
             Some(seed) => PyRandom::new_from_i64(seed),
-            None => PyRandom::new_unseeded(),
-        };
-        let wind_rng = match seed {
-            Some(seed) => PyRandom::new_from_str(&format!("wind:{seed}")),
             None => PyRandom::new_unseeded(),
         };
         let has_provider = provider.is_some();
@@ -280,8 +224,6 @@ impl WeatherSystem {
             current: WeatherKind::Clear,
             minutes_until_change: 0.0,
             thunder_cooldown: 0.0,
-            wind_rng,
-            blow: None,
         };
         // With real weather enabled, start neutral and wait for live data rather
         // than showing a simulated warm-up condition that the real data would
@@ -437,32 +379,6 @@ impl WeatherSystem {
     /// Advance the career clock by `game_minutes` and the spoken-color
     /// timer by `sitting_minutes`.
     pub fn update_paced(&mut self, game_minutes: f64, sitting_minutes: f64) -> Option<WeatherKind> {
-        let before = self.current;
-        let changed = self.update_sky(game_minutes, sitting_minutes);
-        if let Some(blow) = self.blow.as_mut() {
-            blow.minutes += game_minutes.max(0.0);
-        }
-        if self.current != before && blows(self.current) {
-            self.start_blow();
-        }
-        changed
-    }
-
-    /// A new simulated high wind or storm, peaking somewhere in its range.
-    fn start_blow(&mut self) {
-        let (low, high) = if self.current == WeatherKind::Thunderstorm {
-            STORM_GUST_MPH
-        } else {
-            HIGH_WIND_MPH
-        };
-        self.blow = Some(WindBlow {
-            kind: self.current,
-            peak_mph: self.wind_rng.uniform(low, high),
-            minutes: 0.0,
-        });
-    }
-
-    fn update_sky(&mut self, game_minutes: f64, sitting_minutes: f64) -> Option<WeatherKind> {
         self.thunder_cooldown = (self.thunder_cooldown - sitting_minutes).max(0.0);
         if let Some(hours) = self.game_hours.as_mut() {
             *hours += game_minutes / 60.0; // advance the career clock
@@ -809,48 +725,6 @@ impl WeatherSystem {
 
     pub fn effects(&self) -> WeatherEffects {
         effects(self.current)
-    }
-
-    /// Sustained wind in miles per hour: the station's reading while live
-    /// weather drives the sky, otherwise the simulated blow, never below the
-    /// condition's least wind.
-    pub fn wind_mph(&mut self) -> f64 {
-        self.wind_mph_near(None)
-    }
-
-    /// [`Self::wind_mph`], read while live at the station nearest `near`
-    /// (station key, lat, lon), such as a bridge. Until that station has
-    /// answered, the truck's own station stands in.
-    pub fn wind_mph_near(&mut self, near: Option<(&str, f64, f64)>) -> f64 {
-        if self.live {
-            if let (Some((key, lat, lon)), Some(provider)) = (near, self.provider.as_deref_mut()) {
-                provider.request(key, lat, lon);
-                if let Some(kmh) = provider.get_wind_kmh(key) {
-                    return kmh / 1.609_344;
-                }
-            }
-            if let Some(city) = self.city.clone() {
-                if let Some(kmh) = self
-                    .provider
-                    .as_deref_mut()
-                    .and_then(|p| p.get_wind_kmh(&city))
-                {
-                    return kmh / 1.609_344;
-                }
-            }
-        }
-        self.simulated_wind()
-    }
-
-    fn simulated_wind(&mut self) -> f64 {
-        let least = simulated_wind_mph(self.current);
-        if !blows(self.current) {
-            return self.blow.map_or(least, |b| b.mph().max(least));
-        }
-        if self.blow.is_none_or(|b| b.kind != self.current) {
-            self.start_blow();
-        }
-        self.blow.map_or(least, |b| b.mph().max(least))
     }
 
     /// Modeled outdoor temperature in Celsius, or None when seasons are off.

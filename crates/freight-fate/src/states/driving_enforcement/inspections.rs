@@ -188,8 +188,6 @@ impl DrivingState {
             self.place_out_of_service_minutes(ctx, oos_minutes);
             let served = if oos_minutes < hos::SLEEP_MIN {
                 "thirty minutes"
-            } else if oos_minutes >= hos::RESTART_MIN {
-                "thirty-four hours"
             } else {
                 "ten hours"
             };

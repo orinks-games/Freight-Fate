@@ -9979,17 +9979,14 @@ Deliver -> Earn and level up -> Repeat
       out of scope until the axis model runs out of road; if it ever does,
       the OSM graph the bakes already walk is the substrate a real network
       sim would read.
-- [ ] International expansion (profile research still required: driving side,
-      units, currency, local trucking terms, hours-of-service, weather
-      fallbacks, legal routing, border-crossing behavior). **Map sequence
-      locked:** (1) minimal Canada ALCAN through-freight corridor to put
-      Alaska on the continuous truck graph, (2) map Alaska, (3) rest of
-      Canada, (4) Europe (#195; Europe as one map with the United Kingdom inside it, a
-      633-city target and a first batch of about 160; a career belongs to one
-      map, chosen at creation; the locale questions a second map raises are
-      in issue 196). Scaffold plan (cut before world_data bulk):
-      `docs/alcan-corridor-scaffold-plan.md`. Do not jump to full Canada or
-      Europe before Alaska is mapped.
+- [ ] International expansion, beginning with research into Canada and the
+      United Kingdom: country profiles need driving side, units, currency,
+      local trucking terms, hours-of-service rules, weather fallbacks, legal
+      routing, and border-crossing behavior before routes can ship. Europe
+      as one map, with the United Kingdom inside it, is written up in issue
+      195 (a 633-city target and a first batch of about 160); a career
+      belongs to one map, chosen at creation. The locale questions a second
+      map raises are in issue 196.
 
 ### In-cab radio (1.8 / 1.9 candidate)
 

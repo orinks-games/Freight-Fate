@@ -133,7 +133,6 @@ scenarios!(
     gate_overshoot_with_assists,
     ramp_speed_control_handback,
     // enforcement
-    run_the_border,
     scale_check_in_guidance,
     bald_tires_get_a_walk_around,
     scale_pull_over_stands_down_exit,

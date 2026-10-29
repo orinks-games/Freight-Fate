@@ -728,8 +728,7 @@ impl PlaytestHarness {
             // where the drive below would have taken it.
             assert!(
                 !setup.arm_speed_control_on_deadhead,
-                "this career's assigned load is staged at the yard; there is no deadhead \
-                 to arm speed control on"
+                "this career's assigned load is staged at the yard; there is no                  deadhead to arm speed control on"
             );
         } else {
             assert!(self.state_is::<DrivingState>(), "the board did not drive");

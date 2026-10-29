@@ -159,8 +159,6 @@ pub struct TripOptions {
     pub imperial: bool,
     pub hazard_scale: f64,
     pub career_hours: Option<f64>,
-    /// The career calendar follows the real date, so weekdays are real.
-    pub live_calendar: bool,
     pub traffic_provider: Option<Arc<dyn TrafficProvider>>,
     pub parking_provider: Option<Arc<TruckParkingProvider>>,
     pub bobtail: bool,
@@ -183,7 +181,6 @@ impl Default for TripOptions {
             imperial: true,
             hazard_scale: 1.0,
             career_hours: None,
-            live_calendar: false,
             traffic_provider: None,
             parking_provider: None,
             bobtail: false,
@@ -222,8 +219,6 @@ pub struct Trip {
     /// Absolute career clock at departure: carries the day of the week so
     /// commuter rush hour only forms on weekdays. None reads as a weekday.
     pub career_hours: Option<f64>,
-    /// The career calendar follows the real date, so weekdays are real.
-    pub live_calendar: bool,
     imperial: bool,
     pub traffic_provider: Option<Arc<dyn TrafficProvider>>,
     pub parking_provider: Option<Arc<TruckParkingProvider>>,
@@ -299,7 +294,6 @@ pub struct Trip {
     pub live_alerts: Vec<crate::sim::real_weather_alerts::WeatherAlert>,
     pub traffic_pressures: Vec<TrafficPressure>,
     pub navigation_cues: Vec<NavigationCue>,
-    pub border_booths: Vec<BorderBooth>,
     pub landmarks: Vec<RoadsideCallout>,
     pub billboards: Vec<RoadsideCallout>,
     pub chain_law_areas: Vec<(f64, f64)>,
@@ -357,12 +351,6 @@ pub struct Trip {
     pub announced_cities: HashSet<usize>,
     pub announced_navigation: HashSet<String>,
     pub charged_tolls: HashSet<String>,
-    /// Tunnel gates already reached in this run.  A refused gate remains
-    /// closed rather than replaying its refusal every frame.
-    pub processed_tunnel_gates: HashSet<usize>,
-    /// Crossings the truck is held at until the wind drops.
-    pub wind_held_gates: HashSet<usize>,
-    pub refused_tunnel_gates: HashSet<usize>,
     /// The zone the truck was last known to be inside (Python
     /// `_active_zone`); compared by `zone_key`, the Rust stand-in for
     /// Python's object identity.
@@ -457,7 +445,6 @@ impl Trip {
             hazard_scale,
             start_hour,
             career_hours: opts.career_hours,
-            live_calendar: opts.live_calendar,
             imperial: opts.imperial,
             traffic_provider: opts.traffic_provider,
             parking_provider: opts.parking_provider,
@@ -500,7 +487,6 @@ impl Trip {
             live_alerts: Vec::new(),
             traffic_pressures: Vec::new(),
             navigation_cues: Vec::new(),
-            border_booths: Vec::new(),
             landmarks: Vec::new(),
             billboards: Vec::new(),
             chain_law_areas: Vec::new(),
@@ -531,9 +517,6 @@ impl Trip {
             announced_cities: HashSet::new(),
             announced_navigation: HashSet::new(),
             charged_tolls: HashSet::new(),
-            processed_tunnel_gates: HashSet::new(),
-            wind_held_gates: HashSet::new(),
-            refused_tunnel_gates: HashSet::new(),
             entered_zone: None,
             zone_entry_spoken: true,
             yard_entry_held: false,
@@ -569,9 +552,7 @@ impl Trip {
         trip.traffic_manager.spawn_initial_traffic();
         trip.zones = trip.place_zones();
         trip.traffic_pressures = trip.place_traffic_pressures();
-        let (navigation_cues, border_booths) = trip.build_navigation_cues_and_border_booths();
-        trip.navigation_cues = navigation_cues;
-        trip.border_booths = border_booths;
+        trip.navigation_cues = trip.build_navigation_cues();
         trip.landmarks = trip.place_landmarks();
         trip.billboards = trip.place_billboards();
         trip.chain_law_areas = trip.place_chain_law_areas();
@@ -594,15 +575,6 @@ impl Trip {
             trip.weather.set_city(&weather_key, lat, lon);
             if let Some(provider) = trip.weather.provider_mut() {
                 provider.request(&weather_key, lat, lon);
-            }
-        }
-        // Each wind-rule bridge is read at its own station, so fetch those
-        // now too, well before the truck reaches the gate.
-        for leg_index in 0..trip.route.legs.len() {
-            if let Some((key, lat, lon)) = trip.crossing_station(leg_index) {
-                if let Some(provider) = trip.weather.provider_mut() {
-                    provider.request(&key, lat, lon);
-                }
             }
         }
         trip
@@ -908,7 +880,7 @@ impl Trip {
     }
 }
 
-pub(crate) fn compute_leg_starts(route: &Route) -> Vec<f64> {
+fn compute_leg_starts(route: &Route) -> Vec<f64> {
     let mut starts = Vec::new();
     let mut acc = 0.0;
     for leg in &route.legs {

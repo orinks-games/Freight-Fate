@@ -58,8 +58,6 @@ impl DrivingState {
         let speed_limit = n(Action::SpeedLimit);
         let grade = n(Action::Grade);
         let fuel = n(Action::Fuel);
-        let reefer = n(Action::Reefer);
-        let apu = n(Action::Apu);
         let hos_wheel = n(Action::HosWheel);
         let hos_break = n(Action::HosBreak);
         let hos_drive = n(Action::HosDrive);
@@ -222,7 +220,6 @@ impl DrivingState {
         ));
         lines.push(format!("{status} status menu."));
         lines.push(format!("{fuel} fuel."));
-        lines.push(format!("{reefer} reefer on or off. {apu} APU on or off."));
         lines.push(format!(
             "{clock} clock, deadline, and the hours limit that comes first."
         ));
@@ -406,8 +403,6 @@ impl DrivingState {
         let engine_brake = n(Action::EngineBrake);
         let engine = c(Action::Engine);
         let fuel = n(Action::Fuel);
-        let reefer = n(Action::Reefer);
-        let apu = n(Action::Apu);
         let speed_limit = n(Action::SpeedLimit);
         let parking_brake = n(Action::ParkingBrake);
         let rest = n(Action::Rest);
@@ -450,8 +445,7 @@ impl DrivingState {
             "{horn} sounds the horn, {engine_brake} the engine brake."
         ));
         lines.push(format!(
-            "{engine} starts or stops the engine, {reefer} the reefer, {apu} the APU, \
-             {fuel} reads fuel, {speed_limit} reads \
+            "{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads \
              the posted speed limit here and how far over you are, {parking_brake} sets \
              or releases the parking brake, {rest} plans a stop for fuel, a break, sleep or \
              food while rolling; stopped at a stop, it opens its actions."

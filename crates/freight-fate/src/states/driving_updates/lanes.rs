@@ -4,7 +4,6 @@
 
 use crate::speech::EventPriority;
 use ff_core::data::curves::{advisory_with_bank_mph, superelevation_at};
-use ff_core::models::doubles::rear_trailer_whip_text;
 use ff_core::pyfmt::fmt_grouped;
 use ff_core::sim::lane::{in_lane_phrase, RoadConditions};
 use ff_core::sim::trip_models::Zone;
@@ -431,9 +430,6 @@ impl DrivingState {
         // (`street_corner_curvature`).
         let road = RoadConditions {
             curvature: curve + self.street_corner_curvature(),
-            // The tractor drifts in a crosswind the same with doubles as
-            // with a single; the rear trailer's amplified sway is its own
-            // (`rear_trailer_whip`).
             wind,
             grip,
             bank,
@@ -442,7 +438,6 @@ impl DrivingState {
         // (`hold_turn_side`, `LaneKeeping::turn_in_play`).
         self.lane.turn_in_play = self.hold_turn_side();
         let off_road_event = self.lane.update(dt, speed_mps, road, &mode, takes_the_bend);
-        self.rear_trailer_whip(ctx, dt);
         if off_road_event {
             // The shoulder costs the truck whether or not anything warns about
             // it: the warning setting governs the sound and the line, never
@@ -997,38 +992,3 @@ impl DrivingState {
         }
     }
 }
-
-impl DrivingState {
-    /// A set of doubles: a quick steer or a gust swings the rear trailer
-    /// harder than the tractor. Past the whip threshold the freight shifts
-    /// and the driver hears why, once per swerve.
-    ///
-    /// Full lane keeping runs no drift model, so both readings are zero
-    /// there: its lane changes are timed, signalled and gentle, and the
-    /// steering keys under it only ask for one (`tap_lane_change`). There
-    /// is no abrupt steer to report while it drives.
-    fn rear_trailer_whip(&mut self, ctx: &mut GameContext, dt: f64) {
-        self.rear_whip_cooldown_s = (self.rear_whip_cooldown_s - dt).max(0.0);
-        let steer_g = self.lane.transient_lateral_g();
-        let wind_g = self.lane.wind_lateral_g;
-        let whipped = self.trip.truck.update_rear_trailer(dt, steer_g, wind_g);
-        if !whipped {
-            return;
-        }
-        // Every whip frame belongs to an episode, and every episode is
-        // spoken and shown when it starts, so freight never shifts silently.
-        let new_episode = self.rear_whip_cooldown_s <= 0.0;
-        self.rear_whip_cooldown_s = REAR_WHIP_EPISODE_GAP_S;
-        if new_episode {
-            let text = rear_trailer_whip_text(self.trip.truck.cargo_kg > 0.0);
-            self.set_status(text);
-            let mut opts = SayEvent::queued().priority(EventPriority::Important);
-            opts.category = Some(SpeechCategory::Safety);
-            ctx.say_event_with(text, opts);
-        }
-    }
-}
-
-/// Seconds without a whip before the next whip is a new episode with its
-/// own line. One swerve's back-and-forth stays one line.
-const REAR_WHIP_EPISODE_GAP_S: f64 = 3.0;

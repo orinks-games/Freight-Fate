@@ -353,11 +353,6 @@ pub struct Rig {
 
 impl Rig {
     pub fn new(opts: RigOptions) -> Rig {
-        Self::new_for_route(opts, "Buffalo", "Rochester")
-    }
-
-    /// Build the breaker rig on a chosen supported route.
-    pub fn new_for_route(opts: RigOptions, origin: &str, destination: &str) -> Rig {
         let mut app = TestApp::new();
         // See the `clock` field: simulated time, not the wall clock this rig
         // outruns by three orders of magnitude.
@@ -365,8 +360,12 @@ impl Rig {
         app.ctx.settings.automatic_transmission = opts.automatic;
         // No station machinery, no network.
         app.ctx.settings.radio_enabled = false;
-        let origin_key = app.ctx.world.resolve_city_key(origin);
-        let mut profile = Profile::named_in("Breaker", &origin_key);
+        // A career's current_city is a slug ("buffalo_ny_us"). The world
+        // resolves the old display name for routing, so a label here drives
+        // fine and only shows up later, when a save made from this harness is
+        // refused by cloud backup as an unknown city.
+        let origin = app.ctx.world.resolve_city_key("Buffalo");
+        let mut profile = Profile::named_in("Breaker", &origin);
         if let Some(business) = &opts.business {
             profile.business_status = business.clone();
         }
@@ -374,21 +373,21 @@ impl Rig {
         let route = app
             .ctx
             .world
-            .supported_route(origin, destination, None)
+            .supported_route("Buffalo", "Rochester", None)
             .ok()
             .flatten()
-            .unwrap_or_else(|| panic!("{origin} to {destination} is not a supported route"));
+            .expect("Buffalo to Rochester is a supported route");
         let mut job = Job::new(
             cargo_type("general").expect("general freight is in the catalog"),
             opts.tons,
-            origin,
+            "Buffalo",
             "company yard",
-            destination,
+            "Rochester",
             route.miles(),
             1000.0,
             12.0,
         );
-        job.destination_location = format!("{destination} freight market");
+        job.destination_location = "Rochester freight market".to_string();
         let mut drive = DrivingState::new(
             &mut app.ctx,
             job,

@@ -1186,124 +1186,13 @@
     "Freight Fate Independent"
   ],
   "carrierLabels": {
-    "alapaha_regional": "Alapaha Regional",
-    "androscoggin_freight": "Androscoggin Freight",
-    "barataria_carriers": "Barataria Carriers",
-    "basin_harbor_drayage": "Basin Harbor Drayage",
-    "chatanika_freight": "Chatanika Freight Lines",
-    "chehalis_freight": "Chehalis Freight Lines",
-    "des_plaines_cartage": "Des Plaines River Cartage",
     "great_lakes_training": "Great Lakes Training Transport",
-    "kittatinny_crossroads": "Kittatinny Crossroads Freight",
-    "knik_arm_cartage": "Knik Arm Cartage",
-    "lone_mesa_freight": "Lone Mesa Freight",
-    "loonwater_regional": "Loonwater Regional",
-    "meherrin_transport": "Meherrin Transport",
-    "musselshell_freight": "Musselshell Freight Lines",
     "northstar": "Northstar Freight Lines",
-    "olentangy_valley": "Olentangy Valley Freight",
-    "pinyon_basin": "Pinyon Basin Transport",
     "prairie_link": "Prairie Link Regional",
     "roadstead_owner_operator": "Northstar Freight Lines",
-    "saint_francis_river": "Saint Francis River Lines",
-    "san_simon_freight": "San Simon Freight",
-    "summit_value": "Summit Value Logistics",
-    "sunpine_freight": "Sunpine Freight Lines",
-    "tehachapi_motor_lines": "Tehachapi Motor Lines",
-    "verdigris_transport": "Verdigris Transport"
+    "summit_value": "Summit Value Logistics"
   },
   "carriers": {
-    "alapaha_regional": {
-      "description": "A regional company-driver start in Georgia and Alabama, between the Port of Savannah, Atlanta, and Birmingham. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Alapaha Regional",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Atlanta"
-    },
-    "androscoggin_freight": {
-      "description": "A regional company-driver start in New England and the upper Hudson. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Androscoggin Freight",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Boston"
-    },
-    "barataria_carriers": {
-      "description": "A regional company-driver start in the central Gulf Coast. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Barataria Carriers",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "New Orleans"
-    },
-    "basin_harbor_drayage": {
-      "description": "A local company-driver start in the Los Angeles basin and the Inland Empire. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more appointment slack",
-      "favoredFreight": [],
-      "name": "Basin Harbor Drayage",
-      "pay": {
-        "minPerMile": 1.05,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.3,
-        "stopPay": 210
-      },
-      "suggestedHomeTerminal": "Los Angeles"
-    },
-    "chatanika_freight": {
-      "description": "A regional company-driver start in Alaska, between Anchorage, the Mat-Su valley, the Kenai Peninsula, Valdez, Fairbanks, Tok, and Deadhorse on the Dalton Highway. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Chatanika Freight Lines",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Anchorage"
-    },
-    "chehalis_freight": {
-      "description": "A regional company-driver start in the Pacific Northwest. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Chehalis Freight Lines",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Seattle"
-    },
-    "des_plaines_cartage": {
-      "description": "A local company-driver start in Chicagoland. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more appointment slack",
-      "favoredFreight": [],
-      "name": "Des Plaines River Cartage",
-      "pay": {
-        "minPerMile": 1.05,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.3,
-        "stopPay": 210
-      },
-      "suggestedHomeTerminal": "Chicago"
-    },
     "great_lakes_training": {
       "description": "A practical training-fleet start. Stop pay is better on short loads, and dispatch leans toward shorter training work with a little more deadline room. Equipment and routine costs stay carrier-paid. At level 4 with full dispatch trust, Business status lets you move to another carrier.",
       "dispatch": "more short training loads, more appointment slack",
@@ -1317,84 +1206,6 @@
       },
       "suggestedHomeTerminal": "Milwaukee"
     },
-    "kittatinny_crossroads": {
-      "description": "A regional company-driver start in the Mid-Atlantic, from the New Jersey ports across Pennsylvania to the Chesapeake. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Kittatinny Crossroads Freight",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Harrisburg"
-    },
-    "knik_arm_cartage": {
-      "description": "A local company-driver start in Anchorage, the Mat-Su valley, and Seward. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more appointment slack",
-      "favoredFreight": [],
-      "name": "Knik Arm Cartage",
-      "pay": {
-        "minPerMile": 1.05,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.3,
-        "stopPay": 210
-      },
-      "suggestedHomeTerminal": "Anchorage"
-    },
-    "lone_mesa_freight": {
-      "description": "A regional company-driver start in the Texas Triangle and the Rio Grande Valley. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Lone Mesa Freight",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Dallas"
-    },
-    "loonwater_regional": {
-      "description": "A regional company-driver start in the Upper Midwest, from the Dakotas across Minnesota and Wisconsin to the Upper Peninsula. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Loonwater Regional",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Minneapolis"
-    },
-    "meherrin_transport": {
-      "description": "A regional company-driver start in the Carolinas and Virginia. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Meherrin Transport",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Charlotte"
-    },
-    "musselshell_freight": {
-      "description": "A regional company-driver start in the Front Range and the high plains, from Colorado to Montana. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Musselshell Freight Lines",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Denver"
-    },
     "northstar": {
       "description": "A balanced company-driver path. The carrier assigns and maintains the tractor, pays fuel and routine repairs, and offers steady wage math without a sharp specialty.",
       "dispatch": "balanced dispatch",
@@ -1407,32 +1218,6 @@
         "stopPay": 175
       },
       "suggestedHomeTerminal": "Chicago"
-    },
-    "olentangy_valley": {
-      "description": "A regional company-driver start in the Ohio Valley and the lower Great Lakes. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Olentangy Valley Freight",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Columbus"
-    },
-    "pinyon_basin": {
-      "description": "A regional company-driver start in the Great Basin, between Salt Lake City, Boise, and Las Vegas. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Pinyon Basin Transport",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Salt Lake City"
     },
     "prairie_link": {
       "description": "A mile-focused company start. The per-mile wage floor is higher, but stop pay is lower, so it favors steady regional mileage over very short hops. Dispatch leans toward same-region grain and bulk work. The carrier still assigns and maintains the tractor.",
@@ -1451,32 +1236,6 @@
       },
       "suggestedHomeTerminal": "Kansas City"
     },
-    "saint_francis_river": {
-      "description": "A regional company-driver start in the Mid-South around Memphis, Little Rock, and Nashville. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Saint Francis River Lines",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Memphis"
-    },
-    "san_simon_freight": {
-      "description": "A regional company-driver start in the desert Southwest. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "San Simon Freight",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Phoenix"
-    },
     "summit_value": {
       "description": "A performance-sensitive company start. Good on-time runs pay better, but the guaranteed floor is smaller. Dispatch leans toward longer and higher-value lanes. The carrier still supplies equipment, authority, insurance, fuel, and repairs.",
       "dispatch": "more longer lanes",
@@ -1493,45 +1252,6 @@
         "stopPay": 150
       },
       "suggestedHomeTerminal": "Denver"
-    },
-    "sunpine_freight": {
-      "description": "A regional company-driver start in the Florida peninsula and south Georgia. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Sunpine Freight Lines",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Jacksonville"
-    },
-    "tehachapi_motor_lines": {
-      "description": "A regional company-driver start in California, from the Los Angeles basin through the Central Valley to Reno. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Tehachapi Motor Lines",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Los Angeles"
-    },
-    "verdigris_transport": {
-      "description": "A regional company-driver start in the southern plains of Oklahoma and the Texas Panhandle. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
-      "dispatch": "more same-region lanes",
-      "favoredFreight": [],
-      "name": "Verdigris Transport",
-      "pay": {
-        "minPerMile": 0.93,
-        "onTimeBonusShare": 0.03,
-        "payShare": 0.34,
-        "stopPay": 135
-      },
-      "suggestedHomeTerminal": "Oklahoma City"
     }
   },
   "cityLabels": {
@@ -1555,7 +1275,6 @@
     "amarillo_tx_us": "Amarillo, Texas",
     "americus_ga_us": "Americus, Georgia",
     "ames_ia_us": "Ames, Iowa",
-    "anchorage_ak_us": "Anchorage, Alaska",
     "anderson_in_us": "Anderson, Indiana",
     "ann_arbor_mi_us": "Ann Arbor, Michigan",
     "ardmore_ok_us": "Ardmore, Oklahoma",
@@ -1579,7 +1298,6 @@
     "bartlesville_ok_us": "Bartlesville, Oklahoma",
     "baton_rouge_la_us": "Baton Rouge, Louisiana",
     "battle_mountain_nv_us": "Battle Mountain, Nevada",
-    "bear_valley_ak_us": "Bear Valley, Alaska",
     "beaumont_tx_us": "Beaumont, Texas",
     "beckley_wv_us": "Beckley, West Virginia",
     "bellingham_wa_us": "Bellingham, Washington",
@@ -1592,7 +1310,6 @@
     "birmingham_al_us": "Birmingham, Alabama",
     "bishop_ca_us": "Bishop, California",
     "bismarck_nd_us": "Bismarck, North Dakota",
-    "blaine_wa_us": "Blaine, Washington",
     "bloomington_il_us": "Bloomington, Illinois",
     "bloomington_in_us": "Bloomington, Indiana",
     "blythe_ca_us": "Blythe, California",
@@ -1648,7 +1365,6 @@
     "coeur_d_alene_id_us": "Coeur d'Alene, Idaho",
     "coffeyville_ks_us": "Coffeyville, Kansas",
     "colby_ks_us": "Colby, Kansas",
-    "coldfoot_ak_us": "Coldfoot, Alaska",
     "college_station_tx_us": "College Station, Texas",
     "colorado_springs_co_us": "Colorado Springs, Colorado",
     "columbia_mo_us": "Columbia, Missouri",
@@ -1674,14 +1390,11 @@
     "dalton_ga_us": "Dalton, Georgia",
     "danville_va_us": "Danville, Virginia",
     "davenport_ia_us": "Davenport, Iowa",
-    "dawson_creek_bc_ca": "Dawson Creek, British Columbia",
     "dayton_oh_us": "Dayton, Ohio",
     "daytona_beach_fl_us": "Daytona Beach, Florida",
-    "deadhorse_ak_us": "Deadhorse, Alaska",
     "decatur_il_us": "Decatur, Illinois",
     "del_rio_tx_us": "Del Rio, Texas",
     "delta_co_us": "Delta, Colorado",
-    "delta_junction_ak_us": "Delta Junction, Alaska",
     "denver_co_us": "Denver, Colorado",
     "des_moines_ia_us": "Des Moines, Iowa",
     "detroit_mi_us": "Detroit, Michigan",
@@ -1720,7 +1433,6 @@
     "eureka_nv_us": "Eureka, Nevada",
     "evansville_in_us": "Evansville, Indiana",
     "everett_wa_us": "Everett, Washington",
-    "fairbanks_ak_us": "Fairbanks, Alaska",
     "fairfield_ca_us": "Fairfield, California",
     "fallon_nv_us": "Fallon, Nevada",
     "fargo_nd_us": "Fargo, North Dakota",
@@ -1737,9 +1449,7 @@
     "fort_collins_co_us": "Fort Collins, Colorado",
     "fort_dodge_ia_us": "Fort Dodge, Iowa",
     "fort_myers_fl_us": "Fort Myers, Florida",
-    "fort_nelson_bc_ca": "Fort Nelson, British Columbia",
     "fort_smith_ar_us": "Fort Smith, Arkansas",
-    "fort_st_john_bc_ca": "Fort St. John, British Columbia",
     "fort_stockton_tx_us": "Fort Stockton, Texas",
     "fort_wayne_in_us": "Fort Wayne, Indiana",
     "fort_worth_tx_us": "Fort Worth, Texas",
@@ -1754,7 +1464,6 @@
     "gillette_wy_us": "Gillette, Wyoming",
     "glasgow_mt_us": "Glasgow, Montana",
     "glendive_mt_us": "Glendive, Montana",
-    "glennallen_ak_us": "Glennallen, Alaska",
     "glenwood_springs_co_us": "Glenwood Springs, Colorado",
     "globe_az_us": "Globe, Arizona",
     "grand_forks_nd_us": "Grand Forks, North Dakota",
@@ -1783,7 +1492,6 @@
     "havre_mt_us": "Havre, Montana",
     "hays_ks_us": "Hays, Kansas",
     "hazard_ky_us": "Hazard, Kentucky",
-    "healy_ak_us": "Healy, Alaska",
     "helena_mt_us": "Helena, Montana",
     "henryetta_ok_us": "Henryetta, Oklahoma",
     "hereford_tx_us": "Hereford, Texas",
@@ -1792,7 +1500,6 @@
     "hinesville_ga_us": "Hinesville, Georgia",
     "hobbs_nm_us": "Hobbs, New Mexico",
     "holbrook_az_us": "Holbrook, Arizona",
-    "homer_ak_us": "Homer, Alaska",
     "hot_springs_ar_us": "Hot Springs, Arkansas",
     "hot_springs_sd_us": "Hot Springs, South Dakota",
     "houghton_mi_us": "Houghton, Michigan",
@@ -1825,7 +1532,6 @@
     "kearney_ne_us": "Kearney, Nebraska",
     "keene_nh_us": "Keene, New Hampshire",
     "kellogg_id_us": "Kellogg, Idaho",
-    "kenai_ak_us": "Kenai, Alaska",
     "kenosha_wi_us": "Kenosha, Wisconsin",
     "kerrville_tx_us": "Kerrville, Texas",
     "key_west_fl_us": "Key West, Florida",
@@ -1936,7 +1642,6 @@
     "nashville_tn_us": "Nashville, Tennessee",
     "natchez_ms_us": "Natchez, Mississippi",
     "natchitoches_la_us": "Natchitoches, Louisiana",
-    "nenana_ak_us": "Nenana, Alaska",
     "nephi_ut_us": "Nephi, Utah",
     "new_bern_nc_us": "New Bern, North Carolina",
     "new_haven_ct_us": "New Haven, Connecticut",
@@ -1979,7 +1684,6 @@
     "palestine_tx_us": "Palestine, Texas",
     "palm_bay_fl_us": "Palm Bay, Florida",
     "palm_coast_fl_us": "Palm Coast, Florida",
-    "palmer_ak_us": "Palmer, Alaska",
     "pampa_tx_us": "Pampa, Texas",
     "panama_city_fl_us": "Panama City, Florida",
     "paris_tx_us": "Paris, Texas",
@@ -2006,7 +1710,6 @@
     "portland_or_us": "Portland, Oregon",
     "portsmouth_nh_us": "Portsmouth, New Hampshire",
     "prescott_az_us": "Prescott, Arizona",
-    "prince_george_bc_ca": "Prince George, British Columbia",
     "providence_ri_us": "Providence, Rhode Island",
     "provo_ut_us": "Provo, Utah",
     "pueblo_co_us": "Pueblo, Colorado",
@@ -2067,7 +1770,6 @@
     "sedalia_mo_us": "Sedalia, Missouri",
     "sedona_az_us": "Sedona, Arizona",
     "selma_al_us": "Selma, Alabama",
-    "seward_ak_us": "Seward, Alaska",
     "sheboygan_wi_us": "Sheboygan, Wisconsin",
     "shelby_mt_us": "Shelby, Montana",
     "sheridan_wy_us": "Sheridan, Wyoming",
@@ -2080,7 +1782,6 @@
     "sioux_city_ia_us": "Sioux City, Iowa",
     "sioux_falls_sd_us": "Sioux Falls, South Dakota",
     "socorro_nm_us": "Socorro, New Mexico",
-    "soldotna_ak_us": "Soldotna, Alaska",
     "south_bend_in_us": "South Bend, Indiana",
     "spartanburg_sc_us": "Spartanburg, South Carolina",
     "spearfish_sd_us": "Spearfish, South Dakota",
@@ -2102,7 +1803,6 @@
     "sulphur_la_us": "Sulphur, Louisiana",
     "sumter_sc_us": "Sumter, South Carolina",
     "superior_mt_us": "Superior, Montana",
-    "surrey_bc_ca": "Surrey, British Columbia",
     "susanville_ca_us": "Susanville, California",
     "syracuse_ny_us": "Syracuse, New York",
     "tacoma_wa_us": "Tacoma, Washington",
@@ -2113,7 +1813,6 @@
     "texarkana_ar_us": "Texarkana, Arkansas",
     "the_dalles_or_us": "The Dalles, Oregon",
     "tifton_ga_us": "Tifton, Georgia",
-    "tok_ak_us": "Tok, Alaska",
     "toledo_oh_us": "Toledo, Ohio",
     "toms_river_nj_us": "Toms River, New Jersey",
     "tonopah_nv_us": "Tonopah, Nevada",
@@ -2133,7 +1832,6 @@
     "ukiah_ca_us": "Ukiah, California",
     "utica_ny_us": "Utica, New York",
     "uvalde_tx_us": "Uvalde, Texas",
-    "valdez_ak_us": "Valdez, Alaska",
     "valdosta_ga_us": "Valdosta, Georgia",
     "valencia_ca_us": "Valencia, California",
     "van_horn_tx_us": "Van Horn, Texas",
@@ -2149,11 +1847,9 @@
     "walla_walla_wa_us": "Walla Walla, Washington",
     "walsenburg_co_us": "Walsenburg, Colorado",
     "washington_dc_us": "Washington, District of Columbia",
-    "wasilla_ak_us": "Wasilla, Alaska",
     "waterloo_ia_us": "Waterloo, Iowa",
     "watertown_ny_us": "Watertown, New York",
     "watertown_sd_us": "Watertown, South Dakota",
-    "watson_lake_yt_ca": "Watson Lake, Yukon",
     "wausau_wi_us": "Wausau, Wisconsin",
     "wells_nv_us": "Wells, Nevada",
     "wenatchee_wa_us": "Wenatchee, Washington",
@@ -2161,8 +1857,6 @@
     "west_wendover_nv_us": "West Wendover, Nevada",
     "wheatland_wy_us": "Wheatland, Wyoming",
     "wheeling_wv_us": "Wheeling, West Virginia",
-    "whitehorse_yt_ca": "Whitehorse, Yukon",
-    "whittier_ak_us": "Whittier, Alaska",
     "wichita_falls_tx_us": "Wichita Falls, Texas",
     "wichita_ks_us": "Wichita, Kansas",
     "williamsport_pa_us": "Williamsport, Pennsylvania",
@@ -2363,8 +2057,6 @@
     "fatigue",
     "fines_owed",
     "game_hours",
-    "home_city",
-    "home_terminal_city",
     "hos",
     "hos_key_notice_left",
     "integrity_modified",
@@ -2378,7 +2070,6 @@
     "owned_trailers",
     "owned_trucks",
     "owner_operator_declined",
-    "parked_facility",
     "pay_advance",
     "pay_advance_used_for_load",
     "radio_favorites",
@@ -2388,7 +2079,6 @@
     "trailer_programs",
     "truck",
     "truck_conditions",
-    "turnpike_program_notice_seen",
     "tutorial_done",
     "upgrades",
     "version",
@@ -2421,10 +2111,6 @@
     "tank": {
       "label": "Tank",
       "purchasePrice": 96000
-    },
-    "turnpike_double": {
-      "label": "48-foot turnpike doubles",
-      "purchasePrice": 110000
     }
   },
   "truckConditionFields": [

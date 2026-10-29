@@ -10,7 +10,7 @@ use parking_lot::Mutex;
 use super::{
     lane_word, DataError, ElevationSample, GradeSegment, HpmsTerrain, Interchange, Landmark,
     LaneSegment, RouteCheckpoint, RoutePoint, RouteRestriction, SpeedLimitSample, StateCrossing,
-    StateMileage, Stop, StreetControl, StreetLimit, TollEvent, TrafficVolumeSample, TunnelData,
+    StateMileage, Stop, StreetControl, StreetLimit, TollEvent, TrafficVolumeSample,
 };
 use crate::data::world::World;
 use crate::data::world_corridor::build_leg_corridor;
@@ -48,7 +48,6 @@ pub struct CorridorDetail {
     pub landmarks: Vec<Landmark>,
     pub restrictions: Vec<RouteRestriction>,
     pub lane_segments: Vec<LaneSegment>,
-    pub tunnel: Option<TunnelData>,
     pub billboard_bans: Vec<BillboardBan>,
 }
 
@@ -162,13 +161,6 @@ pub struct Leg {
     /// oneway-pair geometry (Track D2). None where the bake was mixed or
     /// thin -- honest absence; the runtime infers from road class instead.
     pub divided: Option<bool>,
-    /// Truck rules at real tunnels and bridges on this leg. Eager, so the
-    /// route graph plans around them without parsing the corridor.
-    pub crossings: Vec<super::RoadCrossing>,
-    /// The bypassed crossing's name when this leg is the real legal road
-    /// around it: a second road between the same two cities, not the other
-    /// direction of the leg it bypasses. Empty on every ordinary leg.
-    pub detour_for: String,
     /// Dispatch-completeness precomputed at world load from raw corridor
     /// counts (see `world_corridor::raw_metadata_complete`). None means "not
     /// precomputed" -- direct-constructed legs (tests, overlays) fall back to
@@ -208,8 +200,6 @@ impl Leg {
             local_controls: Vec::new(),
             local_yard: false,
             divided: None,
-            crossings: Vec::new(),
-            detour_for: String::new(),
             meta_complete: None,
             corridor: OnceCell::new(),
             detail_source: Mutex::new(None),
@@ -480,8 +470,6 @@ impl Clone for Leg {
             local_controls: self.local_controls.clone(),
             local_yard: self.local_yard,
             divided: self.divided,
-            crossings: self.crossings.clone(),
-            detour_for: self.detour_for.clone(),
             meta_complete: self.meta_complete,
             corridor,
             detail_source: Mutex::new(self.detail_source.lock().clone()),

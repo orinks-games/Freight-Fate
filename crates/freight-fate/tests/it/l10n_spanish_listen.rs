@@ -75,10 +75,7 @@ fn the_chicago_start_and_kenosha_drive_are_whole_spanish() {
         harness.start_delivery(setup);
         let lines = harness.app.main_lines();
         let said = lines.join(" ");
-        assert!(
-            said.contains("Northstar Freight Lines Chicago terminal"),
-            "{said}"
-        );
+        assert!(said.contains("Chicago Company Yard"), "{said}");
         assert!(said.contains("toward Kenosha"), "{said}");
         assert!(said.contains("to pickup at"), "{said}");
         let mut leaks = Vec::new();

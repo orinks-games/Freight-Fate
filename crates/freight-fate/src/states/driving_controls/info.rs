@@ -827,27 +827,10 @@ impl DrivingState {
         let range_mi = self.fuel_range_mi();
         let fraction = self.trip.truck.fuel_fraction() * 100.0;
         let gallons = self.trip.truck.fuel_gal;
-        let mut line = format!(
+        ctx.say(&format!(
             "Fuel {fraction:.0} percent, {gallons:.0} gallons. Range about {}.",
             ctx.settings.distance_text(range_mi, false)
-        );
-        if self.trip.truck.reefer_on {
-            line.push_str(" Reefer on.");
-        }
-        if self.trip.truck.apu_on {
-            line.push_str(" APU on.");
-        }
-        if self.trip.truck.cargo_needs_reefer() {
-            line.push(' ');
-            line.push_str(
-                &self
-                    .trip
-                    .truck
-                    .reefer_temp_status_text(ctx.settings.imperial_units),
-            );
-            line.push('.');
-        }
-        ctx.say(&line);
+        ));
     }
 
     /// `_speak_weather()`: V -- conditions first, because the answer must lead

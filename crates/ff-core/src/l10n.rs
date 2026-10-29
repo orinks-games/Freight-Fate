@@ -1079,18 +1079,6 @@ fn split_position_cue(line: &str) -> Option<(&str, &str, &str)> {
         .then_some((row, position, count))
 }
 
-/// Words a place's spoken name carries in lower case: what kind of place it
-/// is belongs to the name ("Northstar Freight Lines Chicago terminal", "an
-/// impound lot in Buffalo"). Without them a carrier's own terminal read as
-/// a sentence, and every line naming it stayed English in every language.
-const PLACE_KIND_WORDS: &[&str] = &[
-    "a", "an", "terminal", "yard", "lot", "impound", "dock", "garage",
-];
-
-fn opens_a_place_word(word: &str) -> bool {
-    PLACE_KIND_WORDS.contains(&word.trim_end_matches([',', '.', ';', ':']))
-}
-
 /// A piece that reads as a name or a number, not words to translate:
 /// ".977 Smooth Jazz", "Bemidji Company Yard", "US-12". Every word opens
 /// with a capital letter, a digit or a mark, and there is more than one
@@ -1102,11 +1090,10 @@ fn is_name_like(text: &str) -> bool {
         return false;
     }
     let capitalized = text.split_whitespace().all(|word| {
-        opens_a_place_word(word)
-            || !word
-                .chars()
-                .find(|c| c.is_alphanumeric())
-                .is_some_and(char::is_lowercase)
+        !word
+            .chars()
+            .find(|c| c.is_alphanumeric())
+            .is_some_and(char::is_lowercase)
     });
     capitalized && (text.split_whitespace().count() > 1 || text.chars().any(|c| c.is_ascii_digit()))
 }
@@ -1115,11 +1102,10 @@ fn is_name_like(text: &str) -> bool {
 /// capital, a digit or a mark ("Groton", ", South Dakota", "US-12").
 fn reads_as_name(text: &str) -> bool {
     text.split_whitespace().all(|word| {
-        opens_a_place_word(word)
-            || !word
-                .chars()
-                .find(|c| c.is_alphanumeric())
-                .is_some_and(char::is_lowercase)
+        !word
+            .chars()
+            .find(|c| c.is_alphanumeric())
+            .is_some_and(char::is_lowercase)
     })
 }
 
@@ -1131,7 +1117,6 @@ fn reads_as_place(text: &str) -> bool {
     ];
     text.split_whitespace().all(|word| {
         SMALL.contains(&word)
-            || opens_a_place_word(word)
             || !word
                 .chars()
                 .find(|c| c.is_alphanumeric())

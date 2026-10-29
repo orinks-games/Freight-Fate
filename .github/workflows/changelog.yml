@@ -18,9 +18,9 @@ permissions:
 
 on:
   push:
-    branches: [main, dev, feat/career-1.9, feat/career-2.0, feat/rust-port]
+    branches: [main, dev, feat/career-1.9, feat/rust-port]
   pull_request:
-    branches: [main, dev, feat/career-1.9, feat/career-2.0]
+    branches: [main, dev, feat/career-1.9]
 
 concurrency:
   group: changelog-${{ github.ref }}

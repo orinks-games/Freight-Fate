@@ -11427,25 +11427,7 @@
           "note": "OSM way 89907169 ref I 95; signed route pin for I-95."
         }
       ],
-      "rerouted": true,
-      "crossings": [
-        {
-          "kind": "tunnel",
-          "name": "Fort McHenry Tunnel",
-          "hazmat": "all",
-          "bulk_flammable_banned": true,
-          "tank_banned": false,
-          "regulated_lb_limit": null,
-          "max_length_ft": null,
-          "max_width_ft": null,
-          "max_height_ft": null,
-          "hazmat_text": "Bulk gasoline, flammable liquids, explosives, radioactive and other hazardous materials may not use the Fort McHenry Tunnel.",
-          "size_text": "",
-          "source_url": "https://www.mdta.maryland.gov/TunnelRestrictionsAndVehiclePermits",
-          "access_date": "2026-10-11",
-          "basis": "Read: the MDTA tunnel restriction page bans placarded and other hazardous materials from the Fort McHenry and Baltimore Harbor tunnels. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. Assumed: unplacarded packaged chemicals are not refused, because the game does not model the propane container limits."
-        }
-      ]
+      "rerouted": true
     },
     {
       "from": "washington_dc_us",
@@ -15895,23 +15877,7 @@
           "name": "level",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        },
-        "toll_events": [
-          {
-            "name": "Chesapeake Bay Bridge toll",
-            "at_mi": 38.6,
-            "road": "US-50 William Preston Lane Jr. Memorial Bay Bridge",
-            "authority": "Maryland Transportation Authority",
-            "method": "ezpass",
-            "amount": 24.0,
-            "estimated": false,
-            "source": "Maryland Transportation Authority toll rate tables, Bay Bridge, 5 axle E-ZPass and video toll, collected eastbound only, accessed 2026-10-11: https://mdta.maryland.gov/TollRatesTables",
-            "amount_plate": 36.0,
-            "directions": [
-              "forward"
-            ]
-          }
-        ]
+        }
       },
       "stops": [
         {

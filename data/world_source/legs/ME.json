@@ -6619,15 +6619,14 @@
         ],
         "toll_events": [
           {
-            "name": "Maine Turnpike Gardiner toll",
+            "name": "Maine Turnpike settlement",
             "at_mi": 77.4,
             "road": "Maine Turnpike (I-95)",
             "authority": "Maine Turnpike Authority",
             "method": "ezpass",
-            "amount": 2.0,
-            "estimated": false,
-            "source": "Maine Turnpike Authority class 5 E-ZPass and cash rate charts, Gardiner (103) toll to Interstate 295, accessed 2026-10-11: https://www.maineturnpike.com/traveler-services/tolls",
-            "amount_plate": 4.0
+            "amount": 18.0,
+            "estimated": true,
+            "source": "estimated 5-axle commercial tractor-trailer toll per Maine Turnpike Authority published rates; https://www.maineturnpike.com/"
           }
         ],
         "restrictions": [
@@ -9448,10 +9447,9 @@
             "road": "Maine Turnpike (I-95)",
             "authority": "Maine Turnpike Authority",
             "method": "ezpass",
-            "amount": 8.4,
-            "estimated": false,
-            "source": "Maine Turnpike Authority class 5 E-ZPass and cash rate charts, Lewiston (80) to Westbrook (48), paid at New Gloucester, accessed 2026-10-11: https://www.maineturnpike.com/traveler-services/tolls",
-            "amount_plate": 9.0
+            "amount": 6.0,
+            "estimated": true,
+            "source": "estimated 5-axle commercial tractor-trailer toll per Maine Turnpike Authority published rates; https://www.maineturnpike.com/"
           }
         ],
         "speed_limits": [
@@ -12091,25 +12089,7 @@
         }
       ],
       "divided": true,
-      "lanes": 4,
-      "crossings": [
-        {
-          "kind": "tunnel",
-          "name": "Boston tunnels",
-          "hazmat": "all",
-          "bulk_flammable_banned": true,
-          "tank_banned": true,
-          "regulated_lb_limit": 0,
-          "max_length_ft": null,
-          "max_width_ft": null,
-          "max_height_ft": null,
-          "hazmat_text": "Hazardous cargo and cargo tankers may not use the Boston tunnels.",
-          "size_text": "",
-          "source_url": "https://www.mass.gov/info-details/hazardous-material-route-designation",
-          "access_date": "2026-10-11",
-          "basis": "Read: MassDOT says all hazardous cargo and cargo tankers are prohibited from the Boston tunnels, the underground highway system. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. Read as any amount: regulated cargo of any weight is refused."
-        }
-      ]
+      "lanes": 4
     },
     {
       "from": "portland_me_us",

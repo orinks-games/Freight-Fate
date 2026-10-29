@@ -39,7 +39,7 @@ use crate::impl_state_for_menu;
 use crate::meaningful_play::MeaningfulPlayReason;
 use crate::states::base::{InputEvent, Key, Menu, MenuCore, MenuItem};
 use crate::states::city::{
-    base_menu_handle_event, first_dispatch_done, held_load, launch_driving, parked_at, profile,
+    base_menu_handle_event, first_dispatch_done, held_load, home_terminal, launch_driving, profile,
     profile_mut, sleeps_needed, DrivingLaunch, LaunchAnnouncement, DRIVE_PHASE_DELIVERY,
     DRIVE_PHASE_PICKUP, PICKUP_CHECK_IN_MIN, PICKUP_LOADING_MIN,
 };
@@ -126,7 +126,7 @@ pub fn job_origin_is_this_yard(ctx: &GameContext, job: &Job, terminal_name: &str
 /// from this yard, else the facility approach, after the corridor to the
 /// origin city when dispatch relayed the load from a nearby one.
 fn pickup_drive_hours(ctx: &GameContext, job: &Job) -> f64 {
-    if job_origin_is_this_yard(ctx, job, &parked_at(ctx).name) {
+    if job_origin_is_this_yard(ctx, job, &home_terminal(ctx).name) {
         return 0.0;
     }
     let here = ctx.world.resolve_city_key(&profile(ctx).current_city);
@@ -382,7 +382,7 @@ impl JobBoardState {
     /// the case `accept` answers with the shipping office in place of a
     /// deadhead. For the test rigs whose subject is the deadhead itself.
     pub fn assigned_load_is_staged_here(&self, ctx: &GameContext) -> bool {
-        job_origin_is_this_yard(ctx, self.assigned_job(), &parked_at(ctx).name)
+        job_origin_is_this_yard(ctx, self.assigned_job(), &home_terminal(ctx).name)
     }
 
     /// `_assigned_queue`: the order dispatch will offer the board in.
@@ -435,8 +435,8 @@ impl JobBoardState {
              Route inspection after accepting covers rest, fuel, toll, weather, and \
              restrictions."
         } else {
-            "Dispatch assigned this load. Accepting starts the deadhead to its \
-             origin facility. Route inspection after pickup covers rest, fuel, toll, \
+            "Dispatch assigned this load. Accepting starts the deadhead from your terminal to \
+             its origin facility. Route inspection after pickup covers rest, fuel, toll, \
              weather, and restrictions."
         };
         let mut items = vec![MenuItem::new(
@@ -501,7 +501,7 @@ impl JobBoardState {
                         "{} tons of {} to \
                          {}, {}",
                         fmt_f(job.weight_tons, 0),
-                        job.spoken_cargo_label(),
+                        job.cargo.label,
                         job.spoken_destination(),
                         ctx.settings.distance_text(job.distance_mi, false)
                     )
@@ -924,7 +924,7 @@ impl JobBoardState {
             ctx.say("That load's facility is no longer on the network. Dispatch pulled the offer.");
             return;
         };
-        let terminal = parked_at(ctx);
+        let terminal = home_terminal(ctx);
         // The load is staged in the very yard the truck is parked in --
         // which is where a new hire's assigned loads are. Driving a
         // two-mile "deadhead from the terminal to the terminal" was the

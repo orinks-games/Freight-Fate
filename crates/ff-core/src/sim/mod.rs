@@ -28,7 +28,6 @@ pub mod trip_road_events;
 pub mod trip_route_helpers;
 pub mod trip_traffic;
 pub mod truck_parking;
-pub mod tunnel;
 pub mod turn_guide;
 pub mod vehicle;
 pub mod weather;

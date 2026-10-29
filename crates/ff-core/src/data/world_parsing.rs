@@ -215,32 +215,7 @@ pub fn expand_market_locations(
     // A city that curates its own freight is never a stand-in, whatever the
     // endpoint sweep found: those locations were authored by hand, and the
     // market types that go with them are owed too.
-    //
-    // Exception (ALCAN Phase A FIX 3 / Phase B retype): a stand-in market may
-    // curate real truck lots (company_yard, travel_center, truck_parking, or
-    // terminal) without unlocking the four-template skyline.
-    // Stand-ins that already curate ordinary freight (Winona, Port Huron, …)
-    // still expand like any other curated city. Empty stand-ins still get the
-    // single company_yard stamp.
-    let listed_stand_in = is_stand_in_market(city_key);
-    if listed_stand_in && !explicit_locations.is_empty() {
-        let parking_only = explicit_locations.iter().all(|loc| {
-            matches!(
-                loc.facility_type.as_str(),
-                "company_yard" | "terminal" | "travel_center" | "truck_parking"
-            )
-        });
-        if parking_only {
-            return explicit_locations.to_vec();
-        }
-        // Curated-complete Interior stand-ins (Fairbanks job-board pins): keep
-        // only authored freight. Stamping BASE templates would invent a
-        // warehouse skyline the map cannot back.
-        if matches!(city_key, "fairbanks_ak_us") {
-            return explicit_locations.to_vec();
-        }
-    }
-    let stand_in = listed_stand_in && explicit_locations.is_empty();
+    let stand_in = is_stand_in_market(city_key) && explicit_locations.is_empty();
     let mut desired_types: Vec<String> = if stand_in {
         vec![STAND_IN_MARKET_FACILITY_TYPE.to_string()]
     } else {
@@ -393,10 +368,9 @@ fn role_cargo(
     cargo: &[String],
     defaults: &[&str],
 ) -> Vec<String> {
-    // Explicit override (including an empty list) wins: receive-only and
-    // ship-only pins must be able to clear the type's default roles.
-    if raw.contains_key(key) {
-        return get_str_list(raw, key);
+    let values = get_str_list(raw, key);
+    if !values.is_empty() {
+        return values;
     }
     // A type with no cargo for this role never takes it: a mall receives
     // freight and ships none, whatever its cargo list says.
@@ -875,61 +849,5 @@ mod tests {
         assert_eq!(minimum_curated_pois(400.0), 3);
         assert_eq!(minimum_fuel_capable_pois(100.0), 0);
         assert_eq!(minimum_fuel_capable_pois(160.0), 1);
-    }
-
-    #[test]
-    fn explicit_empty_ships_is_receive_only() {
-        let raw = serde_json::json!({
-            "name": "Test Big Box",
-            "type": "retail_distribution",
-            "ships": [],
-            "receives": ["food", "retail", "refrigerated", "general"],
-            "cargo": ["food", "retail", "refrigerated", "general"],
-            "lat": 1.0,
-            "lon": 2.0,
-            "source_note": "unit test receive-only override",
-        });
-        let loc = parse_location(&raw, "test_city_us", "Test City", 1.0, 2.0)
-            .expect("parse receive-only");
-        assert!(
-            loc.ships.is_empty(),
-            "explicit empty ships must clear defaults"
-        );
-        assert_eq!(
-            loc.receives,
-            vec![
-                "food".to_string(),
-                "retail".to_string(),
-                "refrigerated".to_string(),
-                "general".to_string(),
-            ]
-        );
-        assert_eq!(loc.roles, vec!["receiver".to_string()]);
-    }
-
-    #[test]
-    fn missing_ships_key_keeps_type_default_roles() {
-        let raw = serde_json::json!({
-            "name": "Test Cross-Dock",
-            "type": "cross_dock",
-            "lat": 1.0,
-            "lon": 2.0,
-            "source_note": "unit test default roles",
-        });
-        let loc =
-            parse_location(&raw, "test_city_us", "Test City", 1.0, 2.0).expect("parse defaults");
-        let (ships, receives) = facility_cargo_roles("cross_dock").expect("roles");
-        assert!(!ships.is_empty());
-        assert!(!receives.is_empty());
-        assert_eq!(
-            loc.ships,
-            ships.iter().map(|s| s.to_string()).collect::<Vec<_>>()
-        );
-        assert_eq!(
-            loc.receives,
-            receives.iter().map(|s| s.to_string()).collect::<Vec<_>>()
-        );
-        assert!(loc.roles.iter().any(|r| r == "shipper"));
-        assert!(loc.roles.iter().any(|r| r == "receiver"));
     }
 }

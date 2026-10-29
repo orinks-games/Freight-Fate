@@ -65,15 +65,6 @@ pub const PREVENTABLE_REPUTATION_PER_BAND: f64 = 1.5; // standing lost per band 
                                                       // second of comfortable braking" the dropped-speed-limit grace is built on, so
                                                       // the cap never snaps a speed out from under the driver.
 pub const LIMP_CAP_RAMP_MPH_PER_S: f64 = 2.0;
-/// British Columbia requires heavy commercial vehicles built after 1994,
-/// over 11,793 kg GVWR, to be limited to this speed from 2024-04-05.
-/// Sources: https://archive.news.gov.bc.ca/releases/news_releases_2020-2024/2024MOTI0044-000468.htm
-/// and https://www2.gov.bc.ca/assets/gov/driving-and-transportation/cvse/bulletins-notices-circulars/ctpm/bulletins/cvse-bulletin-05-2024-speed-limiters.pdf
-pub const BC_LIMITER_KMH: f64 = 105.0;
-/// The British Columbia limiter in miles per hour.
-pub const BC_LIMITER_MPH: f64 = BC_LIMITER_KMH / 1.609344;
-/// Full jurisdiction name returned by `Trip::state_at` for British Columbia.
-pub const BC_STATE_NAME: &str = "British Columbia";
 // Chaining up is done kneeling on the shoulder in the weather that made it
 // necessary. Real crews quote twenty to thirty minutes for a drive-axle set;
 // doing it in the dark by headlamp costs more time and much more out of the
@@ -823,17 +814,11 @@ pub const PULL_OVER_FORCED_STOP_S: f64 = 10.0;
 pub const PURSUIT_RUN_S: f64 = 12.0;
 pub const PURSUIT_RUN_MIN_MPH: f64 = 30.0;
 pub const FAILURE_TO_STOP_DAMAGE_PCT: f64 = 12.0;
-pub const FAILURE_TO_STOP_PROCESSING_MIN: f64 = 720.0;
+pub const FAILURE_TO_STOP_PROCESSING_MIN: f64 = 180.0;
 pub const WEIGH_STATION_NOTICE_MI: f64 = 2.0;
 // The sim layer owns the number: the scale reminder's real-time hold lets go
 // at the same speed a crossing stops counting as a bypass.
 pub const WEIGH_STATION_BYPASS_MPH: f64 = SCALE_BYPASS_MPH;
-// ASSUMPTION: CBP's wait-times feed has no Alcan entry; no per-port commercial processing time is published.
-pub const BORDER_PRIMARY_MIN: f64 = 10.0;
-// ASSUMPTION: no published per-port secondary-inspection processing time exists.
-pub const BORDER_SECONDARY_EXTRA_MIN: f64 = 45.0;
-// ASSUMPTION: CBP's wait-times feed has no Alcan entry or published referral rate.
-pub const BORDER_SECONDARY_REFERRAL_CHANCE: f64 = 0.1;
 // A bypass is caught, not certain. The scale house has plate readers and
 // weigh-in-motion sensors watching the bypass lane, and dispatches a unit up
 // the corridor after a truck that ran it -- but a unit still has to catch up,
