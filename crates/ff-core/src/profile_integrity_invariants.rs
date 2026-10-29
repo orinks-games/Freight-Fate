@@ -392,8 +392,9 @@ pub fn truck_condition_fields(inputs: &CatalogInputs) -> Vec<String> {
     fields
 }
 
-/// `"<spoken city>, <state name>"` per city slug, read from `us/cities.json`
-/// and `geo.json` under `data_root` (the `world_data` tree).
+/// `"<spoken city>, <state name>"` per city slug, read from every country
+/// pack named in `index.json` plus `geo.json` under `data_root` (the
+/// `world_data` tree). Phase A ALCAN adds a CA pack; labels must cover it.
 pub fn city_labels(data_root: &Path) -> Result<BTreeMap<String, String>, String> {
     let read = |relative: &str| -> Result<Value, String> {
         let path = data_root.join(relative);
@@ -401,30 +402,53 @@ pub fn city_labels(data_root: &Path) -> Result<BTreeMap<String, String>, String>
             .map_err(|err| format!("cannot read {}: {err}", path.display()))?;
         serde_json::from_str(&text).map_err(|err| format!("cannot parse {relative}: {err}"))
     };
-    let cities_doc = read("us/cities.json")?; // runtime-data-ok
+    let index_doc = read("index.json")?; // runtime-data-ok
     let geo_doc = read("geo.json")?; // runtime-data-ok
-    let cities = cities_doc
-        .get("cities")
+    let countries = index_doc
+        .get("countries")
+        .and_then(Value::as_array)
+        .ok_or("index.json has no countries list")?;
+    let geo_countries = geo_doc
+        .get("countries")
         .and_then(Value::as_object)
-        .ok_or("us/cities.json has no cities table")?;
-    let states = geo_doc
-        .pointer("/countries/US/states")
-        .and_then(Value::as_object)
-        .ok_or("geo.json has no US states table")?;
+        .ok_or("geo.json has no countries table")?;
     let mut labels = BTreeMap::new();
-    for (slug, city) in cities {
-        let spoken = city
-            .get("spoken_city")
+    for country in countries {
+        let code = country
+            .get("code")
             .and_then(Value::as_str)
-            .ok_or_else(|| format!("city {slug} has no spoken_city"))?;
-        let state_code = city.get("state").and_then(Value::as_str).unwrap_or("");
-        let state_name = states
-            .get(state_code)
+            .ok_or("index country missing code")?;
+        let path = country
+            .get("path")
             .and_then(Value::as_str)
-            .unwrap_or(state_code);
-        let label = format!("{spoken}, {state_name}");
-        let label = label.trim_end_matches([',', ' ']).to_string();
-        labels.insert(slug.clone(), label);
+            .ok_or_else(|| format!("index country {code} missing path"))?;
+        let cities_name = country
+            .get("cities")
+            .and_then(Value::as_str)
+            .unwrap_or("cities.json");
+        let cities_doc = read(&format!("{path}/{cities_name}"))?; // runtime-data-ok
+        let cities = cities_doc
+            .get("cities")
+            .and_then(Value::as_object)
+            .ok_or_else(|| format!("{path}/{cities_name} has no cities table"))?;
+        let states = geo_countries
+            .get(code)
+            .and_then(|c| c.get("states"))
+            .and_then(Value::as_object);
+        for (slug, city) in cities {
+            let spoken = city
+                .get("spoken_city")
+                .and_then(Value::as_str)
+                .ok_or_else(|| format!("city {slug} has no spoken_city"))?;
+            let state_code = city.get("state").and_then(Value::as_str).unwrap_or("");
+            let state_name = states
+                .and_then(|s| s.get(state_code))
+                .and_then(Value::as_str)
+                .unwrap_or(state_code);
+            let label = format!("{spoken}, {state_name}");
+            let label = label.trim_end_matches([',', ' ']).to_string();
+            labels.insert(slug.clone(), label);
+        }
     }
     Ok(labels)
 }

@@ -4,6 +4,61 @@
 
 ### Added
 
+- **Laredo now has two real border transfer yards for Mexico freight.** Southbound loads name their Mexican consignee and drop at the yard; northbound trailers wait on paperwork first.
+
+- **Explosive and flammable tank loads now avoid the San Francisco-Oakland Bay Bridge.** The Mackinac Bridge toll is charged, and the Chesapeake Bay Bridge-Tunnel toll matches its published rate.
+- **Tolls now match each toll road's published truck rate.** The Maryland Bay Bridge now charges eastbound, and one-way tolls charge only one way.
+- **High winds now close the Chesapeake Bay Bridge-Tunnel and Mackinac Bridge to trucks.** Your truck waits on duty at the bridge until the wind drops.
+- **Hazardous and heavy loads now wait for an escort across the Mackinac Bridge.** The 20-minute wait counts as on duty.
+- **Tunnels and bridges now refuse only the hazardous loads they actually ban.** Explosives wait out weekday rush hours at the Golden Gate Bridge.
+- **Job details now name a hazardous load's material.** For example: Gasoline, UN1203, Class 3.
+- **Simulated high winds now vary and ease off over a few hours.** Live weather reads the wind at the bridge itself.
+- **Toll roads you could drive for free now charge.** These include the New York Thruway and the George Washington, Bay and Golden Gate bridges.
+
+- **Dispatch now routes hazardous and tank loads around real tunnels that ban them.** They take the legal road instead, such as Loveland Pass or the Baltimore Beltway.
+
+- **Whittier is now reached through the Anton Anderson Memorial Tunnel.** Its one-lane gate and Bear Valley toll make the crossing a planned part of the drive.
+
+- **Drivers can call dispatch while stopped for trip-specific help.** Report delays, hours, road conditions, truck trouble or load trouble.
+
+- **Trucks now stop for customs at the border on the Alaska Highway and southbound at Blaine.** Driving past the booth brings a penalty.
+
+- **Alaska's spring weight limits now apply.** From April to mid-June, loads on thawing Alaska highways are lighter, and offers name the road setting the limit.
+
+- **Diesel in British Columbia and the Yukon now costs what it does there.** Canadian pumps also tell you the price in Canadian dollars a litre.
+
+- **Heavy trucks in British Columbia are now speed-limited to 105 kilometres an hour, as the law requires.**
+
+- **Alaska roads now reach the Kenai Peninsula, Valdez, and Deadhorse.**
+
+- **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
+
+- **Twenty new carriers hire across the map, including Alaska.** Sixteen regional carriers join Prairie Link, so every lower-48 city has a regional that hires there, and each dispatches loads of up to 600 miles. Three local carriers, Des Plaines River Cartage around Chicago, Basin Harbor Drayage in the Los Angeles basin, and Knik Arm Cartage around Anchorage, hire within 50 miles and dispatch loads of up to 150 miles. Chatanika Freight Lines hires across Alaska out of Anchorage and Fairbanks, so an Alaska home city can now start a career; British Columbia and Yukon stay closed. If a carrier ends your employment, a carrier that hires near your home takes you on knowing your record, never the one that let you go and never one outside Alaska for an Alaska home. If none can, you have no carrier: the terminal names no carrier, your objective is to apply to one, Garage, Truck status, and Walk around the truck are gone because the company tractor went back to the yard, career stats say you have no truck, the truck dealer says the owner-operator buy-in needs a carrier to lease to, and Apply to a carrier takes the place of the dispatch board until you pick one. Resetting a career with no carrier starts it with the nearest carrier that hires in your home city, so an Alaska career stays in Alaska. An older save with no home city on file keeps it blank, and the message says near your terminal instead of near your home.
+
+- **Fairbanks has real freight pins for Alaska job boards.** Costco and Fred Meyer receive grocery and retail (including refrigerated), Spenard Builders Supply receives construction materials, and Carlile's Aurora Drive terminal cross-docks general freight with thin outbound so inbound stays heavier. Sourdough Fuel remains the travel center.
+
+- **Twin-trailer parcel loads stay on the National Network.** Dispatch only offers and routes `parcel_doubles` on Interstate corridors plus short terminal approaches (up to one mile). A lane that leaves the network is dropped, and if none remain you hear that dispatch can't clear twin trailers on that run. Twins are not run on ALCAN, Canada, or Alaska lanes.
+
+- **Reefer and APU hotel power.** Turn the trailer reefer and the APU on or off; a cold pickup starts the reefer at 2 degrees, cargo warms slowly when it is off, and the tractor must be shut down before fueling at a stop or the terminal garage.
+
+- **Turnpike doubles pull 48-foot vans on listed turnpike corridors.** `turnpike_doubles` uses 48-foot turnpike doubles (about 102 feet of cargo length, 117 feet overall) on an explicit allowlist of Thruway, Mass Pike, Ohio Turnpike, Indiana Toll Road, and Kansas Turnpike legs, separate from the 28-foot parcel pups. Dispatch only clears them on the turnpike, and those jobs need the doubles endorsement as well as the LCV certificate.
+
+- **Double van lessees hear once that turnpike doubles need their own program.** Your double van program still covers parcel doubles; trips under way finish as before.
+
+- **A set of doubles weighs both trailers and the converter dolly.** Twin 28-foot parcel pups and 48-foot turnpike doubles now count both trailers and the dolly in gross weight. Parcel pups stay under 80,000 pounds; turnpike doubles use the turnpike limit for the route: 127,400 pounds in Ohio, Indiana and Massachusetts, 143,000 in New York and 120,000 in Kansas. Dispatch sizes the load to fit, the load weight line on the job board names the limit on the lanes offered, and the CAT Scale ticket reads the gross against it. Turnpike doubles are never offered or routed on a lane through a state without a recorded turnpike limit. A turnpike doubles trip already under way on such a lane from an older save finishes clean, held to the lowest recorded limit along its route, or 80,000 pounds if none, with no overweight red light or fine.
+
+- **Hooking a set of doubles takes longer.** A second hook-up and a walk-around of both trailers and the converter dolly add 25 minutes on duty at the shipper. You hear it at check-in and loading, and the pickup screen shows it. With doubles hooked, the walk-around at a stop covers both trailers and the dolly and takes 25 minutes instead of 15. Breaking the set at the receiver (dropping the rear trailer, parking the converter dolly, then dropping the lead) adds 15 minutes on duty; you hear it on arrival and when the work starts, and the receiver's screen shows it.
+
+- **The rear trailer of a set of doubles swings harder than the tractor.** At 40 miles per hour and up, a hard swerve (full lock held, or one way and then the other) or a sharp snap back from partial lane keeping can whip the rear trailer and shift its freight. Every whip is spoken and shown the moment it starts, so freight never shifts without a warning. A tap of the steering keys or an ordinary keyboard lane change does not whip loaded pups, and turnpike doubles swing less still. Only your own steering whips the set: a curve taken at its advisory speed never does, and taking one too fast is the rollover and curve warnings' job. Gusts sway the rear trailer too, and a light or empty set sways harder (up to twice as hard when empty) and whips at least as easily as a loaded one. The same set with the same load sways the same on every turnpike, whatever its weight limit. The tractor itself drifts in the wind just as it does with a single trailer. Full lane keeping changes lanes gently and never whips the set. Reverse is refused with doubles hooked, and you hear why.
+
+- Phase A ALCAN north: `fort_nelson_bc_ca`, `watson_lake_yt_ca`, and `whitehorse_yt_ca` pass-throughs with bidirectional Alaska Highway legs (239 / 319 / 273 mi) from public Valhalla truck costing on `feat/career-2.0`.
+- Phase A ALCAN AK terminus: `tok_ak_us` + `fairbanks_ak_us` with bidirectional Alaska Highway legs (387 / 202 mi) from public Valhalla truck costing; `border_crossing` id `alcan_beaver_creek` (through_freight, cabotage forbidden) both ways on Whitehorse↔Tok; no Anchorage.
+- Phase A ALCAN inland: `prince_george_bc_ca`, `dawson_creek_bc_ca` (Mile 0), and `fort_st_john_bc_ca` pass-throughs with bidirectional Hwy 1/97 / John Hart / Alaska Highway legs (465 / 254 / 45 mi) from public Valhalla truck costing on `feat/career-2.0`.
+- Phase A ALCAN tip: Blaine Pacific Highway entry nodes and legs (`bellingham_wa_us` → `blaine_wa_us` → `surrey_bc_ca`) with honest public-OSRM mileages on `feat/career-2.0`.
+- Phase A ALCAN FIX 1–3: southbound reverse edges (`surrey_bc_ca`→`blaine_wa_us`→`bellingham_wa_us`) with matching border metadata; Surrey City truck parking and TA Express Blaine as curated stand-in yards; Hwy 15 / Pacific Highway labeling preferred for this POE.
+
+- **The ELD now tracks your 70-hour, 8-day work cycle.** When a day of cycle hours is left the status line says so, and a 34-hour rest starts a fresh week.
+
 - **A menu letter can now choose its item at once.** Turn on Menu accelerator keys in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).
 - **Achievements can be sorted.** A new Sort row puts earned ones first by default, or newest, locked first, A to Z, or the original order.
 - **Achievements open from the terminal and the pause menu,** showing the career you are playing.
@@ -16,7 +71,48 @@
 - **Adaptive cruise now holds highway work zones and heavy traffic at their limit.** The speed keeper takes over only on streets and facility approaches.
 - **Dispatch stops sending you straight back where you came from.** The city you just delivered from is on about one board in three, and it is no longer the load dispatch assigns or the one the cursor opens on while another load is there.
 
+- **Alaska, Yukon and British Columbia roads now use October's posted speed limits too.** Towns along the Alaska Highway slow you down, and the Glenn Highway runs at 65.
+
+- **A CDL pulled at speed now ends the run.** A second run off the road asleep, or driving through work-zone barrels, on top of a serious violation already on the record, used to suspend the CDL while the drive carried on. Now the truck stops on the shoulder and the run closes out the way a roadside stop does. A loaded departure and a saved trip on a pulled CDL are refused as well; the saved trip closes out instead of resuming. When a roadside stop pulls the CDL, it no longer says you are released to your home terminal. It says a relief driver takes the truck back to the city the run left from, where you wait out the suspension, and when it ends. The row is now "Hand the truck to the relief driver".
+- **Dispatch trust no longer says the carrier is deciding whether to keep a driver whose CDL is pulled.** A lifetime disqualification now hears "Dispatch trust: none. With a lifetime CDL disqualification there is no dispatch." A timed disqualification hears that there are no loads at all while the CDL is disqualified, and that the yard holds the seat until the disqualification ends. The carrier only weighs the seat when the record or the service really puts it at risk, and then the line still says so.
+- With no carrier, choosing Stay a company driver on the Business status screen now says "Staying on the company-driver path." instead of "Staying a company driver.", since there is no seat to stay in.
+- **A debt firing or repossession is said before the terminal, not after.** Walking into the terminal with the balance past the ceiling used to read the old hub line and the Dispatch board row first, for the seat or truck that was about to go. The notice now speaks first, and leaving it reads the rebuilt hub.
+- **A suspended or disqualified CDL is no longer sent to the dispatch board.** The terminal's objective now says to wait out the suspension or disqualification, with the days remaining, and to choose the terminal row that skips ahead, instead of telling you to accept a load the board refuses; a lifetime disqualification gets no driving objective. That row is named for your status: Wait out the CDL disqualification, or Wait out the CDL suspension. An owner-operator's Bobtail to a nearby city is refused, not even bobtail, with the day the disqualification or suspension ends and where to wait it out.
+- Career carriers load from `data/carriers.json` with tiers: Northstar, Great Lakes Training, and Summit Value are national; Prairie Link is the Plains regional (Kansas City, Omaha, Wichita terminals).
+- **Your home terminal is your carrier's own yard.** It is named for the carrier and the city, like Northstar Freight Lines Chicago terminal, and it is the carrier terminal nearest your home base. A city's freight yards are pickup and delivery points only, never a home.
+- The home-base rule is defined: national carriers hire anywhere in the lower 48, and a regional carrier hires only within its hiring radius, so it never homes a driver at a terminal out of range. A home base is offerable only where some carrier hires, which leaves out British Columbia and Yukon for now. The new-career picker enforces this rule: it lists only home cities where some carrier hires, then only the carriers that hire in the city you pick.
+- **The terminal says where your truck really is.** In your home terminal city it is parked at the carrier terminal. Anywhere else it is at the facility where you last delivered or dropped, or at the city's travel center or truck parking, or the terminal just names the city. It never names a yard in another city or a bare "Terminal".
+- **A new career starts at your carrier's terminal.** Pick a region, then a home city, then one of the carriers hiring there; each carrier row says where your truck starts. The truck starts at that carrier's nearest terminal, and the first-day briefing says orientation and truck assignment are there, for example at Northstar Freight Lines Chicago terminal for a Milwaukee home. When that terminal is in another city, a company hire hears that the carrier covered the travel from the home city and a hotel for orientation. Your picked home city is saved as your home; the terminal city does not replace it.
+- Resetting a career starts over from your home city, or from your old terminal city on careers from before the home city was saved; on those, the terminal city is not recorded as your home. Prairie Link appears only within 250 air miles of its Kansas City, Omaha, and Wichita terminals.
+- **After a felony roadside stop the truck is towed, not left at your home terminal.** You post bond and are released after booking, which takes 12 hours of game time logged off duty, so it counts as a 10-hour reset, and the truck is towed to an impound lot in the city where you were stopped, for example "The truck was towed to an impound lot in Buffalo, New York." The terminal then says the truck is at an impound lot in that city, even in your home terminal city, until it next drives out. Company drivers and leased owner-operators hear that their carrier recovered the load; own-authority drivers hear that the load is theirs to sort out with the shipper.
+- Careers saved before this update get the home terminal of their carrier's nearest terminal city (within the hiring radius for a regional). The truck stays where it was parked.
+- A company-yard load in your home terminal city now deadheads from the carrier terminal instead of starting staged there, since the carrier terminal is its own yard.
+
+- `travel_center` and `truck_parking` city lots are fuel, parking, and rest only (no freight cargo roles); the default freight facility picks only `company_yard` or `terminal`.
+
+- City facilities may be typed `travel_center` or `truck_parking` for public tractor lots; ALCAN corridor public stops retyped off `company_yard`.
+- Phase A ALCAN: Tok and Fairbanks resolve to Alaska Time on the shipped-city timezone gate (CONUS-only check widened for the AK terminus).
+- Phase A ALCAN: US job boards stay same-country (no Canadian destinations on the through-freight corridor tip).
+- Phase A ALCAN FIX: I-5 Bellingham↔Blaine uses public Valhalla truck costing and Washington RCW 46.61.410 60 mph HGV speed context; Hwy 15 Blaine↔Surrey keeps paid miles with Valhalla auto densify (FOSSGIS truck costing rejected as dishonest at this POE).
+
 ### Fixed
+
+- **Moving up from the training fleet now only offers carriers that hire where you live.** The move puts you at the new carrier's terminal, with your truck waiting there.
+
+- **A translated game no longer leaves half a line in English.** The dispatch board read the gross, the deadline and your pay in English, and so did any line naming a carrier's own terminal.
+
+- **Dispatch calls read cargo damage, hours and distance cleanly.** The load call says the damage once, as "with 12 percent cargo damage", and no longer calls a sound load damaged. Whole hours drop the ".0", and the distance left follows your metric setting.
+
+- **The Alaska Highway border crossing now has its real name, the Alcan port.** Heading into Canada, you pass the Beaver Creek border post instead.
+- **Yukon and northern British Columbia roads now follow their posted speed limits.**
+
+- **Save notices show their text on screen.** The driving record, save conversion, and turnpike program notices were spoken but showed only their title and OK.
+
+- Job board distance uses the tighter of the level cap and the carrier run-band max; the run-band minimum is not applied on the board yet (saved for later lane-area work).
+
+- Phase A ALCAN: BC↔YT `state_crossings` on Fort Nelson–Watson Lake Alaska Highway legs (corridor metadata completeness).
+
+- **Sitting through a training course now tires you, about half as fast as driving.** A multi-day course counts only its last daytime class day.
 
 - **Halloween week has more billboards, and they no longer repeat the same two lines.** They come up less often, and some are about the state you are in.
 - **Adaptive cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.

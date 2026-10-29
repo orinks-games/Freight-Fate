@@ -16,9 +16,11 @@ use ff_core::models::business::{
 };
 use ff_core::models::career::LEVEL_XP;
 use ff_core::models::carrier_fleet::assigned_truck_key;
+use ff_core::models::economy::{cad_per_litre, canada_diesel_usd_per_gal};
 use ff_core::models::profile::Profile;
 use ff_core::models::trailers::{trailer_type, DEFAULT_TRAILER_PROGRAMS};
 use ff_core::models::trucks::truck_model_or_panic;
+use ff_core::pyfmt::{fmt_f, fmt_grouped};
 use ff_core::sim::hos;
 use freight_fate::app::testing::TestApp;
 use freight_fate::states::base::Key;
@@ -349,6 +351,122 @@ fn test_garage_offers_partial_fuel_and_repairs_when_cash_is_short() {
     let damage = profile(&app).truck_damage_pct();
     assert!((8.0..8.5).contains(&damage), "{damage}");
     approx(profile(&app).money(), 0.0);
+}
+
+#[test]
+fn test_whitehorse_garage_quotes_and_charges_the_yukon_diesel_price() {
+    let mut app = TestApp::new();
+    career(&mut app, "Whitehorse Fuel", "Whitehorse");
+    {
+        let p = profile_mut(&mut app);
+        p.business_status = LEASED_OWNER_OPERATOR.to_string();
+        p.owned_trucks = vec!["rig".to_string()];
+        p.set_money(50_000.0);
+        p.set_truck_fuel_gal(0.0);
+    }
+    let price = app.ctx.economy.fuel_price_at("pacific_northwest", "YT");
+    let cost = app.ctx.economy.fuel_cost_at(
+        "pacific_northwest",
+        "YT",
+        profile(&app).truck_specs().fuel_tank_gal,
+    );
+    let expected_label = format!(
+        "Refuel {} gallons for {} dollars. Diesel here is {} Canadian dollars a litre.",
+        fmt_f(profile(&app).truck_specs().fuel_tank_gal, 0),
+        fmt_grouped(cost, 0),
+        fmt_f(cad_per_litre(price), 2)
+    );
+    app.push_state(GarageState::new());
+    assert!(labels::<GarageState>(&app)
+        .iter()
+        .any(|label| label == &expected_label));
+
+    let before = profile(&app).money();
+    select::<GarageState>(&mut app, "Refuel");
+    approx(profile(&app).money(), before - cost);
+    assert!(canada_diesel_usd_per_gal("YT").is_some());
+}
+
+#[test]
+fn test_garage_refuel_requires_engine_off() {
+    let mut app = TestApp::new();
+    career(&mut app, "Garage Engine Gate", "Chicago");
+    {
+        let p = profile_mut(&mut app);
+        p.business_status = LEASED_OWNER_OPERATOR.to_string();
+        p.set_money(5_000.0);
+        p.set_truck_fuel_gal(20.0);
+        p.set_truck_engine_on(true);
+    }
+    app.push_state(GarageState::new());
+
+    app.clear_speech();
+    select::<GarageState>(&mut app, "Refuel");
+    let said = app.main_lines().last().cloned().unwrap_or_default();
+    assert!(
+        said.contains("Shut the engine off before you fuel."),
+        "{said}"
+    );
+    assert!((profile(&app).truck_fuel_gal() - 20.0).abs() < 1e-9);
+
+    app.clear_speech();
+    select::<GarageState>(&mut app, "Shut down the engine");
+    let said = app.main_lines().last().cloned().unwrap_or_default();
+    assert!(said.contains("Engine off."), "{said}");
+    assert!(!profile(&app).truck_engine_on());
+
+    with_state_mut::<GarageState, _>(&mut app, |g, ctx| {
+        freight_fate::states::base::Menu::refresh(g, ctx, true)
+    });
+
+    app.clear_speech();
+    select::<GarageState>(&mut app, "Refuel");
+    let said = app.main_lines().join(" ");
+    assert!(
+        !said.contains("Shut the engine off before you fuel."),
+        "{said}"
+    );
+    assert!(profile(&app).truck_fuel_gal() > 20.0);
+}
+
+#[test]
+fn test_garage_full_tank_with_engine_on_speaks_the_engine_refusal() {
+    // Engine first, then the tank, as at the fuel island.
+    let mut app = TestApp::new();
+    career(&mut app, "Garage Engine Order", "Chicago");
+    {
+        let p = profile_mut(&mut app);
+        p.business_status = LEASED_OWNER_OPERATOR.to_string();
+        p.set_money(5_000.0);
+        p.set_truck_fuel_gal(10_000.0);
+        p.set_truck_engine_on(true);
+    }
+    app.push_state(GarageState::new());
+
+    app.clear_speech();
+    select::<GarageState>(&mut app, "Fuel: tank is full");
+    let said = app.main_lines().last().cloned().unwrap_or_default();
+    assert!(
+        said.contains("Shut the engine off before you fuel."),
+        "{said}"
+    );
+    assert!(profile(&app).truck_engine_on());
+}
+
+#[test]
+fn test_garage_help_strings_have_no_double_spaces() {
+    let mut app = TestApp::new();
+    career(&mut app, "Garage Help", "Chicago");
+    profile_mut(&mut app).set_truck_engine_on(true);
+    app.push_state(GarageState::new());
+    let helps = labels_and_help::<GarageState>(&app);
+    assert!(!helps.is_empty());
+    for (label, help) in helps {
+        assert!(
+            !help.contains("  "),
+            "garage help for {label:?} has a double space: {help:?}"
+        );
+    }
 }
 
 #[test]
@@ -1017,6 +1135,37 @@ fn course_completion_warns_when_it_leaves_you_drowsy() {
     let (under, line) = take_flatbed_course("Chicago", 22.0, 19.0, |_| {});
     assert!(under < hos::FATIGUE_DROWSY);
     assert!(!line.contains("drowsy"), "{line}");
+}
+
+#[test]
+fn test_staying_with_no_carrier_stays_on_the_path_not_in_a_seat() {
+    // With no carrier there is no company-driver seat to stay in.
+    let mut app = TestApp::new();
+    career(&mut app, "Stay Path", "Chicago");
+    {
+        let p = profile_mut(&mut app);
+        p.career.xp = LEVEL_XP[(OWNER_OPERATOR_LEVEL - 1) as usize];
+        p.career.deliveries = OWNER_OPERATOR_DELIVERIES;
+        p.career.reputation = OWNER_OPERATOR_REPUTATION;
+        p.set_money(OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL + 500.0);
+    }
+    // The row is offered only with a carrier; the carrier goes while the
+    // screen is open, so the choice is made with none.
+    app.push_state(BusinessStatusState::new());
+    {
+        let p = profile_mut(&mut app);
+        p.carrier_key.clear();
+        p.carrier_name.clear();
+        assert!(p.is_unassigned_company_driver());
+    }
+    app.clear_speech();
+    select::<BusinessStatusState>(&mut app, "Stay a company driver");
+    let said = app.main_lines().join(" ");
+    assert!(
+        said.contains("Staying on the company-driver path."),
+        "{said}"
+    );
+    assert!(!said.contains("Staying a company driver"), "{said}");
 }
 
 #[test]

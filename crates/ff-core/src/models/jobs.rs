@@ -8,6 +8,8 @@ use serde_json::{json, Map, Value};
 
 use crate::data::world::World;
 use crate::data::world_constants::{lookup, LOCATION_TYPE_LABELS};
+use crate::data::world_models::CrossingLoad;
+use crate::models::border_freight::load_card_line;
 use crate::models::career::JobView;
 use crate::models::market::market_condition;
 use crate::models::save_migration::json_f64;
@@ -18,6 +20,7 @@ use crate::speech_text::{the_city, typed_name};
 
 mod board;
 mod deadline;
+pub mod hazmat;
 pub mod hos_stops;
 pub mod relay;
 #[cfg(test)]
@@ -90,6 +93,18 @@ pub fn facility_offer_text(
     format!("{location_name}{place} in {city}")
 }
 
+/// Ice cream and frozen-food docks still use the single chilled setpoint, so the
+/// spoken cargo label says chilled rather than frozen. The facility name itself
+/// is never rewritten.
+pub fn facility_ships_frozen_as_chilled(name: &str) -> bool {
+    let n = name.to_ascii_lowercase();
+    n.contains("ice cream")
+        || n.contains("frozen food")
+        || n.contains("frozen foods")
+        || n.contains("fresh frozen")
+        || (n.contains("frozen") && (n.contains("warehouse") || n.contains("distribution")))
+}
+
 fn is_legacy_facility_name(city: &str, location_name: &str) -> bool {
     let normalized = location_name.trim().to_lowercase();
     let city_lower = city.to_lowercase();
@@ -144,6 +159,17 @@ pub struct Job {
     /// A team load: booked for a driver and a co-driver taking turns, so its
     /// deadline allows no 10-hour break and it pays more.
     pub team: bool,
+    pub seasonal_weight_limit: Option<SeasonalWeightLimit>,
+    /// The placarded material, for placarded cargo; None for an old save
+    /// whose packaged load never named one.
+    pub hazmat: Option<&'static hazmat::HazmatCommodity>,
+}
+
+/// Seasonal weight restriction recorded when a job is dispatched.
+#[derive(Debug, Clone, PartialEq)]
+pub struct SeasonalWeightLimit {
+    pub highway: String,
+    pub percent: u8,
 }
 
 /// The keyword arguments of `Job.describe`, each with its Python default.
@@ -160,6 +186,17 @@ pub struct DescribeOptions<'a> {
 }
 
 impl Job {
+    /// The load as a tunnel or bridge judges it, on a stock rig.
+    pub fn crossing_load(&self) -> CrossingLoad {
+        if self.bobtail {
+            return CrossingLoad::standard_rig(false);
+        }
+        let cargo_lb = (self.weight_tons * 2000.0).round().max(0.0) as u32;
+        CrossingLoad::standard_rig(true)
+            .with_cargo(self.cargo.key, self.cargo.tank, cargo_lb)
+            .with_hazard_class(self.hazmat.map(|h| h.class))
+    }
+
     /// `Job(cargo, weight_tons, origin, origin_location, destination,
     /// distance_mi, pay, deadline_game_h)` with every other field at its
     /// default.
@@ -196,7 +233,9 @@ impl Job {
             origin_spoken: String::new(),
             destination_spoken: String::new(),
             deadline_covers_rest: false,
+            seasonal_weight_limit: None,
             team: false,
+            hazmat: hazmat::default_commodity(cargo.key),
         }
     }
 
@@ -259,14 +298,28 @@ impl Job {
         // Whole sentences, so a catalog has each one with its words: the
         // load, the pay and the deadline are each a line of their own.
         let tons = fmt_f(self.weight_tons, 0);
-        let cargo = self.cargo.label;
+        let cargo = self.spoken_cargo_label();
         let pickup = self.origin_offer_text();
-        let dropoff = self.destination_offer_text();
-        let load = format!("{tons} tons of {cargo} from {pickup} to {dropoff}.");
+        // A load for a border transfer yard names its Mexican consignee;
+        // the yard in the US city is still where the trailer is delivered.
+        let load = match load_card_line(self, self.spoken_destination()) {
+            Some(card) => format!("{tons} tons of {cargo} from {pickup} {card}."),
+            None => {
+                let dropoff = self.destination_offer_text();
+                format!("{tons} tons of {cargo} from {pickup} to {dropoff}.")
+            }
+        };
         let trailer = if opts.trailer_note.is_empty() {
             String::new()
         } else {
             format!(" {}", opts.trailer_note)
+        };
+        let seasonal_weight = match self.seasonal_weight_limit.as_ref() {
+            Some(limit) => format!(
+                " Spring weight limits on the {}: axle loads held to {} percent of the legal limit.",
+                limit.highway, limit.percent
+            ),
+            None => String::new(),
         };
         let pay = fmt_grouped(opts.display_pay.unwrap_or(self.pay), 0);
         let pay_text = match opts.pay_label {
@@ -293,7 +346,7 @@ impl Job {
         };
         let equipment = self.cargo.equipment_text();
         format!(
-            "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: {equipment}.{trailer}{preview}{market}{endorsement}"
+            "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: {equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
         )
     }
 
@@ -331,6 +384,20 @@ impl Job {
             self.spoken_destination(),
             &self.destination_locality,
         )
+    }
+
+    /// Player-facing cargo name. Frozen-food docks keep their real facility
+    /// names; the load is still labeled chilled at the v1 setpoint.
+    pub fn spoken_cargo_label(&self) -> &'static str {
+        let frozen_dock = facility_ships_frozen_as_chilled(&self.origin_location)
+            || facility_ships_frozen_as_chilled(&self.destination_location);
+        if frozen_dock && self.cargo.key == "food" {
+            return "chilled food";
+        }
+        if frozen_dock && self.cargo.needs_reefer() {
+            return "chilled goods";
+        }
+        self.cargo.label
     }
 
     pub fn equipment_text(&self) -> String {
@@ -482,10 +549,21 @@ pub fn job_payload(job: &Job) -> Map<String, Value> {
         "bobtail": job.bobtail,
         "assigned": job.assigned,
         "deadline_covers_rest": job.deadline_covers_rest,
+        "seasonal_weight_limit": job.seasonal_weight_limit.as_ref().map(|limit| {
+            json!({
+                "highway": limit.highway.as_str(),
+                "percent": limit.percent,
+            })
+        }),
         "team": job.team,
     });
     match value {
-        Value::Object(map) => map,
+        Value::Object(mut map) => {
+            if let Some(material) = job.hazmat {
+                map.insert("hazmat".into(), json!(material.key));
+            }
+            map
+        }
         _ => unreachable!("json! object"),
     }
 }
@@ -556,7 +634,26 @@ pub fn job_from_payload(data: &Map<String, Value>) -> Option<Job> {
     job.origin_spoken = str_or(data, "origin_spoken", "");
     job.destination_spoken = str_or(data, "destination_spoken", "");
     job.deadline_covers_rest = data.get("deadline_covers_rest").is_some_and(py_truthy);
+    job.seasonal_weight_limit = data
+        .get("seasonal_weight_limit")
+        .and_then(Value::as_object)
+        .and_then(|limit| {
+            let highway = limit.get("highway")?.as_str()?;
+            let percent = u8::try_from(limit.get("percent")?.as_u64()?).ok()?;
+            (1..=100).contains(&percent).then(|| SeasonalWeightLimit {
+                highway: highway.to_string(),
+                percent,
+            })
+        });
     job.team = data.get("team").is_some_and(py_truthy);
+    if let Some(material) = ["hazmat", "un_number"]
+        .iter()
+        .filter_map(|field| data.get(*field).and_then(Value::as_str))
+        .find_map(hazmat::hazmat_commodity_named)
+        .filter(|m| m.cargo == cargo.key)
+    {
+        job.hazmat = Some(material);
+    }
     Some(job)
 }
 
@@ -676,6 +773,11 @@ pub const SPECIALIZED_FREIGHT_WEIGHT: f64 = 1.25;
 // favoured when it ships something the driver is credentialed for.
 pub const HELD_CREDENTIAL_CARGO_WEIGHT: f64 = 4.0;
 pub const HELD_CREDENTIAL_FACILITY_BONUS: f64 = 1.5;
+
+/// Origin-selection multiplier for facilities tagged `thin_outbound`.
+/// Keeps inbound (destination) weight unchanged while cutting how often the
+/// pin is chosen as a shipper so inbound clearly outweighs outbound.
+pub const THIN_OUTBOUND_ORIGIN_WEIGHT: f64 = 0.25;
 pub const PREMIUM_LANE_LEVEL: i64 = 12;
 pub const PREMIUM_LANE_LONG_HAUL_BIAS: f64 = 0.5;
 

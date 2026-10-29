@@ -10732,7 +10732,37 @@
           "name": "rolling",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "toll_events": [
+          {
+            "name": "I-78 Toll Bridge",
+            "at_mi": 24.6,
+            "road": "I-78 Delaware River Toll Bridge",
+            "authority": "Delaware River Joint Toll Bridge Commission",
+            "method": "ezpass",
+            "amount": 32.5,
+            "estimated": false,
+            "source": "DRJTBC tolls, class 5 at 6.50 per axle E-ZPass and 8.00 per axle by plate, westbound (Pennsylvania-bound) only, effective 2026-01-01; researched 2026-07-19 (tools/toll_rates.py drjtbc_i78_bridge): https://www.drjtbc.org/tolls/",
+            "amount_plate": 40.0,
+            "directions": [
+              "reverse"
+            ]
+          },
+          {
+            "name": "George Washington Bridge toll",
+            "at_mi": 95.6,
+            "road": "I-95 George Washington Bridge upper level",
+            "authority": "Port Authority of New York and New Jersey",
+            "method": "open_road",
+            "amount": 113.35,
+            "estimated": false,
+            "source": "Port Authority of New York and New Jersey commercial toll rates effective July 2026, 5 axles, E-ZPass peak 113.35 (off-peak 108.35, overnight 100.85; 120.85 is the Mid-Tier rate), Tolls by Mail 128.35, matching the April 2026 Truckers' Guide; collected entering New York only; read 2026-10-14: https://www.panynj.gov/bridges-tunnels/en/tolls.html",
+            "amount_plate": 128.35,
+            "directions": [
+              "forward"
+            ]
+          }
+        ]
       },
       "terrain": "hills",
       "divided": true,
@@ -16764,7 +16794,20 @@
           "name": "rolling",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "toll_events": [
+          {
+            "name": "New York State Thruway settlement",
+            "at_mi": 47,
+            "road": "New York State Thruway (I-90)",
+            "authority": "New York State Thruway Authority",
+            "method": "ezpass",
+            "amount": 15.87,
+            "estimated": false,
+            "source": "NY Thruway toll calculator 5H, Pennsylvania line to exit 53, effective 2026-01-01; researched 2026-07-19 (tools/toll_rates.py ny_erie_buffalo): https://www.thruway.ny.gov/",
+            "amount_plate": 27.77
+          }
+        ]
       },
       "stops": [
         {
@@ -27314,9 +27357,10 @@
             "road": "Pennsylvania Turnpike (I-76)",
             "authority": "Pennsylvania Turnpike Commission",
             "method": "ezpass",
-            "amount": 34.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Pennsylvania Turnpike Commission published rates; https://www.paturnpike.com/toll-calculator"
+            "amount": 50.28,
+            "estimated": false,
+            "source": "Pennsylvania Turnpike Commission 2026 E-ZPass and toll-by-plate schedules, 5 axle high, Harrisburg East (247) to Valley Forge (326), accessed 2026-10-11: https://files.paturnpike.com/production/docs/default-source/resources/tolls/toll-schedule-2026/2026-e-zpass.pdf ; https://files.paturnpike.com/production/docs/default-source/resources/tolls/toll-schedule-2026/2026-toll-by-plate-(tbp).pdf",
+            "amount_plate": 100.56
           }
         ],
         "restrictions": [],
@@ -30943,9 +30987,10 @@
             "road": "Pennsylvania Turnpike (I-76)",
             "authority": "Pennsylvania Turnpike Commission",
             "method": "ezpass",
-            "amount": 70.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Pennsylvania Turnpike Commission published rates; https://www.paturnpike.com/toll-calculator"
+            "amount": 94.68,
+            "estimated": false,
+            "source": "Pennsylvania Turnpike Commission 2026 E-ZPass and toll-by-plate schedules, 5 axle high, Carlisle (226) to Pittsburgh (57), accessed 2026-10-11: https://files.paturnpike.com/production/docs/default-source/resources/tolls/toll-schedule-2026/2026-e-zpass.pdf ; https://files.paturnpike.com/production/docs/default-source/resources/tolls/toll-schedule-2026/2026-toll-by-plate-(tbp).pdf",
+            "amount_plate": 189.36
           }
         ],
         "restrictions": [],
@@ -31515,7 +31560,47 @@
         }
       ],
       "divided": true,
-      "lanes": 2
+      "lanes": 2,
+      "crossings": [
+        {
+          "kind": "tunnel",
+          "name": "Pennsylvania Turnpike tunnels",
+          "hazmat": "classes",
+          "bulk_flammable_banned": true,
+          "tank_banned": false,
+          "regulated_lb_limit": null,
+          "max_length_ft": null,
+          "max_width_ft": null,
+          "max_height_ft": null,
+          "hazmat_text": "Explosives and the most dangerous hazardous materials may not use the Pennsylvania Turnpike tunnels, and flammable liquids may not go through in bulk.",
+          "size_text": "",
+          "source_url": "https://www.paturnpike.com/commercial/permits-restrictions/hazardous-materials-(placarded-loads)",
+          "access_date": "2026-10-11",
+          "basis": "Read: the Turnpike prohibits all Table 1 materials and all explosives in its tunnels, and prohibits flammable liquid and other classes in bulk packaging. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. The tunnels are Allegheny, Tuscarora, Kittatinny, Blue Mountain and Lehigh. Classes: Table 1 and explosives are refused in any packaging (all Class 1, 2.3, 4.3, 5.2, 6.1 and 7; the game's 6.1 and 5.2 loads are banned whole because inhalation-hazard and temperature-control status is not modelled), and 2.1, 3, 4.1, 4.2, 5.1, 6.1 and 8 in bulk; 2.2 and packaged loads of the others pass. A load with no class (an old save) matches no class rule.",
+          "banned_classes": [
+            "1.1",
+            "1.2",
+            "1.3",
+            "1.4",
+            "1.5",
+            "1.6",
+            "2.3",
+            "4.3",
+            "5.2",
+            "6.1",
+            "7"
+          ],
+          "bulk_banned_classes": [
+            "2.1",
+            "3",
+            "4.1",
+            "4.2",
+            "5.1",
+            "6.1",
+            "8"
+          ]
+        }
+      ]
     },
     {
       "from": "harrisburg_pa_us",
@@ -41437,9 +41522,10 @@
             "road": "I-95 Delaware Turnpike",
             "authority": "Delaware Department of Transportation",
             "method": "ezpass",
-            "amount": 24.0,
-            "estimated": true,
-            "source": "DelDOT toll rate information, accessed 2026-06-16; estimated commercial I-95 toll segment: https://deldot.gov/Programs/toll_rate_chart/"
+            "amount": 10.0,
+            "estimated": false,
+            "source": "Delaware Department of Transportation I-95 Newark toll plaza rates, 5 axle, cash and E-ZPass, accessed 2026-10-11: https://deldot.gov/public.ejs?command=PublicTollRateI95",
+            "amount_plate": 10.0
           },
           {
             "name": "JFK Memorial Highway toll settlement",
@@ -41447,9 +41533,13 @@
             "road": "I-95 JFK Memorial Highway",
             "authority": "Maryland Transportation Authority",
             "method": "ezpass",
-            "amount": 36.0,
-            "estimated": true,
-            "source": "Maryland Transportation Authority toll rate calculator, accessed 2026-06-16; estimated commercial vehicle toll segment: https://mdta.maryland.gov/TollRatesTables"
+            "amount": 48.0,
+            "estimated": false,
+            "source": "Maryland Transportation Authority toll rate tables, I-95 John F. Kennedy Memorial Highway, 5 axle E-ZPass and video toll, collected northbound only, accessed 2026-10-11: https://mdta.maryland.gov/TollRatesTables",
+            "amount_plate": 63.0,
+            "directions": [
+              "reverse"
+            ]
           }
         ],
         "interchanges": [
@@ -43166,7 +43256,25 @@
         }
       ],
       "divided": true,
-      "lanes": 2
+      "lanes": 2,
+      "crossings": [
+        {
+          "kind": "tunnel",
+          "name": "Fort McHenry Tunnel",
+          "hazmat": "all",
+          "bulk_flammable_banned": true,
+          "tank_banned": false,
+          "regulated_lb_limit": null,
+          "max_length_ft": null,
+          "max_width_ft": null,
+          "max_height_ft": null,
+          "hazmat_text": "Bulk gasoline, flammable liquids, explosives, radioactive and other hazardous materials may not use the Fort McHenry Tunnel.",
+          "size_text": "",
+          "source_url": "https://www.mdta.maryland.gov/TunnelRestrictionsAndVehiclePermits",
+          "access_date": "2026-10-11",
+          "basis": "Read: the MDTA tunnel restriction page bans placarded and other hazardous materials from the Fort McHenry and Baltimore Harbor tunnels. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. Assumed: unplacarded packaged chemicals are not refused, because the game does not model the propane container limits."
+        }
+      ]
     },
     {
       "from": "philadelphia_pa_us",
@@ -46398,8 +46506,8 @@
             "authority": "Pennsylvania Turnpike Commission",
             "method": "ticket_system",
             "amount": 0.0,
-            "estimated": true,
-            "source": "Pennsylvania Turnpike Commission toll calculator, accessed 2026-06-16; ticket/open-road entry marker for settlement estimate: https://www.paturnpike.com/toll-calculator"
+            "estimated": false,
+            "source": "Pennsylvania Turnpike ticket entry at Valley Forge (326); the toll is charged at exit, per the 2026 schedules: https://www.paturnpike.com/toll-calculator/toll-schedules"
           },
           {
             "name": "Pennsylvania Turnpike Allegheny settlement",
@@ -46407,9 +46515,10 @@
             "road": "Pennsylvania Turnpike I-76",
             "authority": "Pennsylvania Turnpike Commission",
             "method": "ezpass",
-            "amount": 185.0,
-            "estimated": true,
-            "source": "Pennsylvania Turnpike Commission toll calculator, accessed 2026-06-16; estimated 5-axle commercial vehicle cross-state toll: https://www.paturnpike.com/toll-calculator"
+            "amount": 164.68,
+            "estimated": false,
+            "source": "Pennsylvania Turnpike Commission 2026 E-ZPass and toll-by-plate schedules, 5 axle high, Valley Forge (326) to Pittsburgh (57), accessed 2026-10-11: https://files.paturnpike.com/production/docs/default-source/resources/tolls/toll-schedule-2026/2026-e-zpass.pdf ; https://files.paturnpike.com/production/docs/default-source/resources/tolls/toll-schedule-2026/2026-toll-by-plate-(tbp).pdf",
+            "amount_plate": 329.36
           }
         ],
         "tollway_detected": true,
@@ -48656,7 +48765,47 @@
         }
       ],
       "divided": true,
-      "lanes": 2
+      "lanes": 2,
+      "crossings": [
+        {
+          "kind": "tunnel",
+          "name": "Pennsylvania Turnpike tunnels",
+          "hazmat": "classes",
+          "bulk_flammable_banned": true,
+          "tank_banned": false,
+          "regulated_lb_limit": null,
+          "max_length_ft": null,
+          "max_width_ft": null,
+          "max_height_ft": null,
+          "hazmat_text": "Explosives and the most dangerous hazardous materials may not use the Pennsylvania Turnpike tunnels, and flammable liquids may not go through in bulk.",
+          "size_text": "",
+          "source_url": "https://www.paturnpike.com/commercial/permits-restrictions/hazardous-materials-(placarded-loads)",
+          "access_date": "2026-10-11",
+          "basis": "Read: the Turnpike prohibits all Table 1 materials and all explosives in its tunnels, and prohibits flammable liquid and other classes in bulk packaging. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. The tunnels are Allegheny, Tuscarora, Kittatinny, Blue Mountain and Lehigh. Classes: Table 1 and explosives are refused in any packaging (all Class 1, 2.3, 4.3, 5.2, 6.1 and 7; the game's 6.1 and 5.2 loads are banned whole because inhalation-hazard and temperature-control status is not modelled), and 2.1, 3, 4.1, 4.2, 5.1, 6.1 and 8 in bulk; 2.2 and packaged loads of the others pass. A load with no class (an old save) matches no class rule.",
+          "banned_classes": [
+            "1.1",
+            "1.2",
+            "1.3",
+            "1.4",
+            "1.5",
+            "1.6",
+            "2.3",
+            "4.3",
+            "5.2",
+            "6.1",
+            "7"
+          ],
+          "bulk_banned_classes": [
+            "2.1",
+            "3",
+            "4.1",
+            "4.2",
+            "5.1",
+            "6.1",
+            "8"
+          ]
+        }
+      ]
     },
     {
       "from": "pittsburgh_pa_us",
@@ -53637,9 +53786,10 @@
             "road": "Pennsylvania Turnpike (I-76)",
             "authority": "Pennsylvania Turnpike Commission",
             "method": "ezpass",
-            "amount": 65.0,
-            "estimated": true,
-            "source": "estimated 5-axle commercial tractor-trailer toll per Pennsylvania Turnpike Commission published rates; https://www.paturnpike.com/toll-calculator"
+            "amount": 94.68,
+            "estimated": false,
+            "source": "Pennsylvania Turnpike Commission 2026 E-ZPass and toll-by-plate schedules, 5 axle high, Pittsburgh (57) to Carlisle (226), accessed 2026-10-11: https://files.paturnpike.com/production/docs/default-source/resources/tolls/toll-schedule-2026/2026-e-zpass.pdf ; https://files.paturnpike.com/production/docs/default-source/resources/tolls/toll-schedule-2026/2026-toll-by-plate-(tbp).pdf",
+            "amount_plate": 189.36
           }
         ],
         "restrictions": [],
@@ -54125,7 +54275,47 @@
         }
       ],
       "divided": true,
-      "lanes": 2
+      "lanes": 2,
+      "crossings": [
+        {
+          "kind": "tunnel",
+          "name": "Pennsylvania Turnpike tunnels",
+          "hazmat": "classes",
+          "bulk_flammable_banned": true,
+          "tank_banned": false,
+          "regulated_lb_limit": null,
+          "max_length_ft": null,
+          "max_width_ft": null,
+          "max_height_ft": null,
+          "hazmat_text": "Explosives and the most dangerous hazardous materials may not use the Pennsylvania Turnpike tunnels, and flammable liquids may not go through in bulk.",
+          "size_text": "",
+          "source_url": "https://www.paturnpike.com/commercial/permits-restrictions/hazardous-materials-(placarded-loads)",
+          "access_date": "2026-10-11",
+          "basis": "Read: the Turnpike prohibits all Table 1 materials and all explosives in its tunnels, and prohibits flammable liquid and other classes in bulk packaging. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. The tunnels are Allegheny, Tuscarora, Kittatinny, Blue Mountain and Lehigh. Classes: Table 1 and explosives are refused in any packaging (all Class 1, 2.3, 4.3, 5.2, 6.1 and 7; the game's 6.1 and 5.2 loads are banned whole because inhalation-hazard and temperature-control status is not modelled), and 2.1, 3, 4.1, 4.2, 5.1, 6.1 and 8 in bulk; 2.2 and packaged loads of the others pass. A load with no class (an old save) matches no class rule.",
+          "banned_classes": [
+            "1.1",
+            "1.2",
+            "1.3",
+            "1.4",
+            "1.5",
+            "1.6",
+            "2.3",
+            "4.3",
+            "5.2",
+            "6.1",
+            "7"
+          ],
+          "bulk_banned_classes": [
+            "2.1",
+            "3",
+            "4.1",
+            "4.2",
+            "5.1",
+            "6.1",
+            "8"
+          ]
+        }
+      ]
     },
     {
       "from": "pittsburgh_pa_us",
@@ -55611,9 +55801,27 @@
             "road": "Pennsylvania Turnpike and Ohio Turnpike connector",
             "authority": "Pennsylvania Turnpike Commission",
             "method": "ezpass",
-            "amount": 28.0,
-            "estimated": true,
-            "source": "Pennsylvania Turnpike Commission toll calculator, accessed 2026-06-16; estimated commercial connector toll: https://www.paturnpike.com/toll-calculator"
+            "amount": 31.57,
+            "estimated": false,
+            "source": "Pennsylvania Turnpike Commission 2026 schedules, Gateway barrier T2, Class 4 (5 axle), eastbound only; no toll westbound into Ohio, accessed 2026-10-11: https://files.paturnpike.com/production/docs/default-source/resources/tolls/toll-schedule-2026/2026-e-zpass.pdf ; https://files.paturnpike.com/production/docs/default-source/resources/tolls/toll-schedule-2026/2026-toll-by-plate-(tbp).pdf",
+            "amount_plate": 63.78,
+            "directions": [
+              "reverse"
+            ]
+          },
+          {
+            "name": "Ohio Turnpike Eastgate toll barrier",
+            "at_mi": 50.2,
+            "road": "Ohio Turnpike (I-76)",
+            "authority": "Ohio Turnpike and Infrastructure Commission",
+            "method": "ezpass",
+            "amount": 13.25,
+            "estimated": false,
+            "source": "Ohio Turnpike 2026 rate table, Eastgate barrier milepost 239, class 6 (high five-axle), westbound only, accessed 2026-10-11: https://www.ohioturnpike.org/e-zpass/toll-rates",
+            "amount_plate": 16.0,
+            "directions": [
+              "forward"
+            ]
           },
           {
             "name": "Ohio Turnpike east gate settlement",
@@ -55621,9 +55829,10 @@
             "road": "Ohio Turnpike",
             "authority": "Ohio Turnpike and Infrastructure Commission",
             "method": "ezpass",
-            "amount": 34.0,
-            "estimated": true,
-            "source": "Ohio Turnpike toll calculator, accessed 2026-06-16; estimated 5-axle commercial toll segment: https://www.ohioturnpike.org/e-zpass/toll-rates"
+            "amount": 10.75,
+            "estimated": false,
+            "source": "Ohio Turnpike and Infrastructure Commission fare calculator, class 6 (high 5 axle), Niles-Youngstown (218) to Streetsboro (187), E-ZPass and non-E-ZPass fares, accessed 2026-10-11: https://www.ohioturnpike.org/e-zpass/toll-rates",
+            "amount_plate": 13.25
           }
         ],
         "interchanges": [
@@ -60703,7 +60912,47 @@
         }
       ],
       "divided": true,
-      "lanes": 2
+      "lanes": 2,
+      "crossings": [
+        {
+          "kind": "tunnel",
+          "name": "Pennsylvania Turnpike tunnels",
+          "hazmat": "classes",
+          "bulk_flammable_banned": true,
+          "tank_banned": false,
+          "regulated_lb_limit": null,
+          "max_length_ft": null,
+          "max_width_ft": null,
+          "max_height_ft": null,
+          "hazmat_text": "Explosives and the most dangerous hazardous materials may not use the Pennsylvania Turnpike tunnels, and flammable liquids may not go through in bulk.",
+          "size_text": "",
+          "source_url": "https://www.paturnpike.com/commercial/permits-restrictions/hazardous-materials-(placarded-loads)",
+          "access_date": "2026-10-11",
+          "basis": "Read: the Turnpike prohibits all Table 1 materials and all explosives in its tunnels, and prohibits flammable liquid and other classes in bulk packaging. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. The tunnels are Allegheny, Tuscarora, Kittatinny, Blue Mountain and Lehigh. Classes: Table 1 and explosives are refused in any packaging (all Class 1, 2.3, 4.3, 5.2, 6.1 and 7; the game's 6.1 and 5.2 loads are banned whole because inhalation-hazard and temperature-control status is not modelled), and 2.1, 3, 4.1, 4.2, 5.1, 6.1 and 8 in bulk; 2.2 and packaged loads of the others pass. A load with no class (an old save) matches no class rule.",
+          "banned_classes": [
+            "1.1",
+            "1.2",
+            "1.3",
+            "1.4",
+            "1.5",
+            "1.6",
+            "2.3",
+            "4.3",
+            "5.2",
+            "6.1",
+            "7"
+          ],
+          "bulk_banned_classes": [
+            "2.1",
+            "3",
+            "4.1",
+            "4.2",
+            "5.1",
+            "6.1",
+            "8"
+          ]
+        }
+      ]
     },
     {
       "from": "scranton_pa_us",
@@ -62431,7 +62680,20 @@
           "name": "level",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "toll_events": [
+          {
+            "name": "Pennsylvania Turnpike Northeast Extension settlement",
+            "at_mi": 38,
+            "road": "Pennsylvania Turnpike Northeast Extension (I-476)",
+            "authority": "Pennsylvania Turnpike Commission",
+            "method": "ezpass",
+            "amount": 53.64,
+            "estimated": false,
+            "source": "Pennsylvania Turnpike 2026 schedules, Clarks Summit 131 to Lehigh Valley 56, class 5H, effective 2026-01-04; researched 2026-07-19 (tools/toll_rates.py pa_ne_extension_scranton_allentown): https://www.paturnpike.com/toll-calculator/toll-schedules",
+            "amount_plate": 107.28
+          }
+        ]
       },
       "stops": [
         {
@@ -62480,7 +62742,47 @@
         }
       ],
       "divided": true,
-      "lanes": 2
+      "lanes": 2,
+      "crossings": [
+        {
+          "kind": "tunnel",
+          "name": "Pennsylvania Turnpike tunnels",
+          "hazmat": "classes",
+          "bulk_flammable_banned": true,
+          "tank_banned": false,
+          "regulated_lb_limit": null,
+          "max_length_ft": null,
+          "max_width_ft": null,
+          "max_height_ft": null,
+          "hazmat_text": "Explosives and the most dangerous hazardous materials may not use the Pennsylvania Turnpike tunnels, and flammable liquids may not go through in bulk.",
+          "size_text": "",
+          "source_url": "https://www.paturnpike.com/commercial/permits-restrictions/hazardous-materials-(placarded-loads)",
+          "access_date": "2026-10-11",
+          "basis": "Read: the Turnpike prohibits all Table 1 materials and all explosives in its tunnels, and prohibits flammable liquid and other classes in bulk packaging. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. The tunnels are Allegheny, Tuscarora, Kittatinny, Blue Mountain and Lehigh. Classes: Table 1 and explosives are refused in any packaging (all Class 1, 2.3, 4.3, 5.2, 6.1 and 7; the game's 6.1 and 5.2 loads are banned whole because inhalation-hazard and temperature-control status is not modelled), and 2.1, 3, 4.1, 4.2, 5.1, 6.1 and 8 in bulk; 2.2 and packaged loads of the others pass. A load with no class (an old save) matches no class rule.",
+          "banned_classes": [
+            "1.1",
+            "1.2",
+            "1.3",
+            "1.4",
+            "1.5",
+            "1.6",
+            "2.3",
+            "4.3",
+            "5.2",
+            "6.1",
+            "7"
+          ],
+          "bulk_banned_classes": [
+            "2.1",
+            "3",
+            "4.1",
+            "4.2",
+            "5.1",
+            "6.1",
+            "8"
+          ]
+        }
+      ]
     },
     {
       "from": "scranton_pa_us",

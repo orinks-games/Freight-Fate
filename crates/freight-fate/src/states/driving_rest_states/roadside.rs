@@ -4,7 +4,11 @@
 //! [`RoadsideExit`] is Python's `_RoadsideExitMixin`: a trait with provided
 //! methods, no state of its own, shared by the first three screens.
 
+use ff_core::models::business::INDEPENDENT_AUTHORITY;
+use ff_core::models::carriers::hiring_carrier;
 use ff_core::models::enforcement;
+use ff_core::models::home_base::{impound_lot_text, stop_city, IMPOUND_LOT_FACILITY};
+use ff_core::models::profile::Profile;
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
 use ff_core::pyrandom::PyRandom;
 use ff_core::sim::hos;
@@ -33,8 +37,9 @@ use crate::states::driving_updates::pending::EnforcementStopParams;
 /// offering the highway would be the game inviting them to break the rule it
 /// just enforced, and there would be no way off the shoulder at all. In that
 /// case the run ends here the way the felony stop already ends -- the load
-/// goes back to dispatch and the driver is released to the terminal, where
-/// "Wait out the CDL suspension" is waiting for them.
+/// goes back to dispatch and a relief driver takes the truck back to the
+/// city the run left from, where the terminal menu's wait-out row is
+/// waiting for them.
 pub trait RoadsideExit: Menu {
     fn drive(&self) -> &DriveRef;
 
@@ -48,10 +53,14 @@ pub trait RoadsideExit: Menu {
 
     fn roadside_exit_item(&self, ctx: &GameContext, highway_help: &str) -> MenuItem<Self> {
         if self.licence_pulled(ctx) {
-            return MenuItem::new("Return to terminal", |s: &mut Self, ctx| {
-                s.end_run_suspended(ctx)
-            })
-            .help("License pulled, so the truck stays put. Dispatch takes the load back.");
+            return MenuItem::new(
+                "Hand the truck to the relief driver",
+                |s: &mut Self, ctx| s.end_run_suspended(ctx),
+            )
+            .help(
+                "License pulled, so you cannot drive on. A relief driver takes the truck back \
+                 to the city this run left from, and dispatch takes the load back.",
+            );
         }
         MenuItem::new("Pull back onto the highway", |s: &mut Self, ctx| {
             s.go_back(ctx)
@@ -72,26 +81,30 @@ pub trait RoadsideExit: Menu {
         let load = if d.phase == DRIVE_PHASE_DELIVERY && !d.job.bobtail {
             format!(
                 "Dispatch takes the {} load back and reassigns it",
-                d.job.cargo.label
+                d.job.spoken_cargo_label()
             )
         } else {
             "There is no loaded trailer to hand back, and the assignment is canceled".to_string()
         };
-        let terminal = ctx
-            .world
-            .home_terminal(&profile.current_city)
-            .map(|t| t.spoken_name())
-            .unwrap_or_else(|_| "the terminal".to_string());
-        if profile.driving_record.lifetime_disqualified {
+        // The run closes out in the city the drive left from: that is where
+        // the relief driver takes the truck and where the hub opens, with
+        // current_city unchanged. Not the home terminal, which the truck
+        // never reaches.
+        let city = ctx.world.spoken_city(&profile.current_city, None);
+        let record = &profile.driving_record;
+        if record.lifetime_disqualified {
             return format!(
-                " The license is gone for good, so the truck stays here. {load}, and a relief \
-                 driver takes the truck in. You are released to {terminal}."
+                " The license is gone for good, so you cannot drive the truck another mile. \
+                 {load}, and a relief driver takes the truck back to {city}, where you are \
+                 released."
             );
         }
         format!(
-            " The license is pulled as of now, so the truck stays here. {load}, and a relief \
-             driver takes the truck in. You are released to {terminal} to wait the suspension \
-             out."
+            " The license is pulled as of now, so you cannot drive the truck another mile. \
+             {load}, and a relief driver takes the truck back to {city}. You wait out the {} \
+             there; it ends {}.",
+            enforcement::status_noun(record),
+            enforcement::clears_text(profile)
         )
     }
 
@@ -107,7 +120,8 @@ pub trait RoadsideExit: Menu {
         true
     }
 
-    /// Close out the run from the shoulder and release to the terminal.
+    /// Close out the run from the shoulder; the hub opens in the city the
+    /// run left from.
     fn end_run_suspended(&mut self, ctx: &mut GameContext) {
         self.drive().clone().with(ctx, |d, ctx| {
             profile_mut_of(ctx).store_truck_condition(&d.trip.truck);
@@ -312,8 +326,19 @@ impl Menu for TrafficStopState {
         if self.end_run_if_licence_pulled(ctx) {
             return;
         }
+        let driving = self.driving.clone();
+        let border_clearance_pending = driving
+            .read(|d| d.pending_border_clearance.is_some())
+            .unwrap_or(false);
         ctx.pop_state();
         ctx.say_with("Back on the highway. Watch your speed.", Say::new());
+        if border_clearance_pending {
+            driving.with(ctx, |d, ctx| {
+                if let Some(booth) = d.pending_border_clearance.take() {
+                    d.open_border_clearance(ctx, booth);
+                }
+            });
+        }
     }
 }
 
@@ -343,6 +368,11 @@ pub struct EnforcementStopState {
     /// A routine roadside inspection at this level: the report, not the
     /// caller, decides what it costs, and a clean one costs nothing.
     pub inspection_level: Option<InspectionLevel>,
+    /// A statutory penalty the officer has no say over -- the customs civil
+    /// penalty for running a port of entry. It is charged as handed down: the
+    /// citation ladder does not raise it, and a new driver's warning does not
+    /// wave it off.
+    pub fine_is_final: bool,
     outcome_text: String,
     /// Whether the stop has been told once already. See `announce_entry`: the
     /// fine is charged here, in `resolve`, exactly once, and a later telling
@@ -364,12 +394,16 @@ impl EnforcementStopState {
         // Repeat offenders pay more for the same stop and nothing caps it, and
         // a construction zone doubles whatever that came to -- one schedule
         // for every citation in the game, priced in models/enforcement.
-        let fine = citation_fine(
-            params.fine,
-            career_citations(profile_of(ctx)),
-            params.construction_zone,
-            None,
-        );
+        let fine = if params.fine_is_final {
+            params.fine
+        } else {
+            citation_fine(
+                params.fine,
+                career_citations(profile_of(ctx)),
+                params.construction_zone,
+                None,
+            )
+        };
         let mut state = EnforcementStopState {
             menu: MenuCore::new(&params.title).with_intro_help(ENFORCEMENT_STOP_INTRO_HELP),
             driving: DriveRef::active(ctx),
@@ -383,6 +417,7 @@ impl EnforcementStopState {
             warned: params.warned,
             inspection_on_stop: params.inspection_on_stop,
             inspection_level: params.inspection_level,
+            fine_is_final: params.fine_is_final,
             outcome_text: String::new(),
             stop_announced: false,
             presence_detail,
@@ -412,6 +447,7 @@ impl EnforcementStopState {
             && !self.warned
             && !self.out_of_service
             && !self.inspection_on_stop
+            && !self.fine_is_final
         {
             self.fine = 0.0;
             self.outcome_text = "The officer lets you go with a warning.".to_string();
@@ -471,6 +507,14 @@ impl EnforcementStopState {
                     "{lead}{why} Out of service: thirty minutes parked on the shoulder. It is \
                      {}, the 30-minute break is satisfied, and the delivery deadline kept \
                      counting.{}",
+                    clock_text(d.trip.local_hour()),
+                    wake_air_instruction(d)
+                )
+            } else if minutes >= hos::RESTART_MIN {
+                format!(
+                    "{lead}{why} Out of service: thirty-four hours parked on the shoulder. It \
+                     is {}, your 70-hour cycle is fresh, you wake rested, and the delivery \
+                     deadline kept counting.{}",
                     clock_text(d.trip.local_hour()),
                     wake_air_instruction(d)
                 )
@@ -573,9 +617,20 @@ impl Menu for EnforcementStopState {
         if self.end_run_if_licence_pulled(ctx) {
             return;
         }
+        let driving = self.driving.clone();
+        let border_clearance_pending = driving
+            .read(|d| d.pending_border_clearance.is_some())
+            .unwrap_or(false);
         ctx.pop_state();
         let message = self.return_message.clone();
         ctx.say_with(message, Say::new());
+        if border_clearance_pending {
+            driving.with(ctx, |d, ctx| {
+                if let Some(booth) = d.pending_border_clearance.take() {
+                    d.open_border_clearance(ctx, booth);
+                }
+            });
+        }
     }
 }
 
@@ -583,7 +638,8 @@ impl_state_for_menu!(EnforcementStopState);
 
 // -- LicencePulledState -------------------------------------------------------------------
 
-const LICENCE_PULLED_INTRO_HELP: &str = "Enter or Escape returns to the terminal.";
+const LICENCE_PULLED_INTRO_HELP: &str =
+    "Enter or Escape hands the truck to the relief driver and ends the run.";
 
 /// A CDL pulled mid-drive with no officer on the shoulder: a second run off
 /// the road asleep, or the barrels, on top of a serious violation already on
@@ -663,7 +719,7 @@ impl_state_for_menu!(LicencePulledState);
 
 // -- FelonyStopState ----------------------------------------------------------------------
 
-const FELONY_INTRO_HELP: &str = "Enter or Escape continues from the terminal.";
+const FELONY_INTRO_HELP: &str = "Enter or Escape continues.";
 
 /// Failure-to-stop outcome after the player ignores an active siren.
 pub struct FelonyStopState {
@@ -722,10 +778,13 @@ impl FelonyStopState {
             d,
             ctx,
             FAILURE_TO_STOP_PROCESSING_MIN,
-            Some("on_duty_not_driving"),
-            "felony failure-to-stop enforcement",
+            Some("off_duty"),
+            "felony failure-to-stop booking and bond",
         );
-        hos_mut_of(ctx).on_duty(FAILURE_TO_STOP_PROCESSING_MIN);
+        // Booking and bond are custody, not work: off duty. Twelve
+        // consecutive hours off is more than the 10 hours that reset the
+        // 11- and 14-hour limits, so the clock resets as the rules would.
+        hos_mut_of(ctx).off_duty(FAILURE_TO_STOP_PROCESSING_MIN);
         profile_mut_of(ctx).store_truck_condition(&d.trip.truck);
         let hours = d.trip.game_minutes / 60.0;
         let market_day = {
@@ -733,6 +792,10 @@ impl FelonyStopState {
             p.game_hours += hours;
             p.market_day()
         };
+        // The truck does not stay on the shoulder: a police rotation wrecker
+        // tows it to an impound lot in the stop city, and the hub reads it
+        // parked there.
+        let towed_to = tow_truck_from_stop(ctx, d);
         {
             let p = profile_mut_of(ctx);
             p.market.advance_to(market_day);
@@ -741,33 +804,93 @@ impl FelonyStopState {
         }
         ctx.save_profile();
 
-        let load_text = if self.load_lost {
+        let load_text = felony_load_text(profile_of(ctx), self.load_lost, d);
+        let booking_min = FAILURE_TO_STOP_PROCESSING_MIN;
+        let booking = if booking_min > 0.0 {
             format!(
-                "Dispatch cancels the {} load. No pay for this run.",
-                d.job.cargo.label
+                ", and booking and bond took {} hours",
+                fmt_f(booking_min / 60.0, 0)
             )
         } else {
-            "No loaded trailer to lose, but the assignment is canceled.".to_string()
+            String::new()
         };
-        let terminal = ctx
-            .world
-            .home_terminal(&profile_of(ctx).current_city)
-            .map(|t| t.spoken_name())
-            .unwrap_or_else(|_| "the terminal".to_string());
         self.summary = format!(
             "Troopers laid spike strips across the lane after you kept driving with lights and \
-             siren behind you. Felony failure-to-stop fine: {} dollars, paid on the spot, with a \
-             major reputation hit.{} Spike strips added {} percent truck damage, processing \
-             took {} hours. {load_text} You are released back to {terminal}.",
+             siren behind you. Bond: {} dollars, posted to get out, with a major \
+             reputation hit.{} Spike strips added {} percent truck damage{booking}. \
+             {load_text} You are released after booking. The truck was towed to {towed_to}.",
             fmt_grouped(fine, 0),
             construction_zone_fine_clause(zone),
             fmt_f(FAILURE_TO_STOP_DAMAGE_PCT, 0),
-            fmt_f(FAILURE_TO_STOP_PROCESSING_MIN / 60.0, 0)
         );
         if !self.standing_text.is_empty() {
             self.summary.push_str(&format!(" {}", self.standing_text));
         }
     }
+}
+
+/// What happens to the freight after a felony stop, by who owns the run.
+fn felony_load_text(p: &Profile, load_lost: bool, d: &DrivingState) -> String {
+    let own_authority = p.business_status == INDEPENDENT_AUTHORITY;
+    if d.job.bobtail {
+        return "No loaded trailer to lose, but the assignment is canceled.".to_string();
+    }
+    if own_authority {
+        // Only a load on the trailer leaves anything to sort out with the
+        // shipper.
+        if !load_lost {
+            return "No loaded trailer to lose, but the load is canceled.".to_string();
+        }
+        return format!(
+            "The {} load does not deliver, so no pay for this run. The load is yours to sort \
+             out with the shipper.",
+            d.job.spoken_cargo_label()
+        );
+    }
+    if !load_lost {
+        return "No loaded trailer to lose, but the assignment is canceled.".to_string();
+    }
+    let carrier = hiring_carrier(&p.carrier_key, &p.carrier_name, &p.business_status)
+        .map(|c| c.name.clone())
+        .unwrap_or_else(|| "Your carrier".to_string());
+    format!(
+        "Dispatch cancels the {} load. No pay for this run. {carrier} recovered the load.",
+        d.job.spoken_cargo_label()
+    )
+}
+
+/// Tow the truck from the stop to a generic impound lot in the stop city:
+/// the world city nearest the stop, on the road's side of any state line or
+/// border, or the leg city when the road has no coordinate. `current_city`
+/// and `parked_facility` move together, so the hub, the board and the next
+/// dispatch all start from the lot. Returns how the summary names it. The
+/// map has no real tow yards, so no facility pin is ever used.
+fn tow_truck_from_stop(ctx: &mut GameContext, d: &DrivingState) -> String {
+    let world = ctx.world;
+    let (lat, lon) = d.trip.latlon_at(None);
+    let from_road = if lat == 0.0 && lon == 0.0 {
+        None
+    } else {
+        stop_city(world, lat, lon, &d.trip.state_at(None))
+    };
+    let city = from_road
+        .or_else(|| leg_city(ctx, d))
+        .unwrap_or_else(|| world.resolve_city_key(&profile_of(ctx).current_city));
+    let p = profile_mut_of(ctx);
+    p.current_city = city.clone();
+    p.parked_facility = IMPOUND_LOT_FACILITY.to_string();
+    impound_lot_text(world, &city)
+}
+
+/// The nearer end of the leg the truck is on, when it is a world city.
+fn leg_city(ctx: &GameContext, d: &DrivingState) -> Option<String> {
+    let trip = &d.trip;
+    let (leg_i, leg_start) = trip.leg_at_mile(trip.position_mi);
+    let leg_miles = trip.route.legs.get(leg_i)?.miles;
+    let past_half = trip.position_mi - leg_start > leg_miles / 2.0;
+    let index = if past_half { leg_i + 1 } else { leg_i };
+    let key = ctx.world.resolve_city_key(trip.route.cities.get(index)?);
+    ctx.world.cities.contains_key(&key).then_some(key)
 }
 
 impl Menu for FelonyStopState {
@@ -781,8 +904,8 @@ impl Menu for FelonyStopState {
 
     fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         vec![
-            MenuItem::new("Return to terminal", |s: &mut Self, ctx| s.go_back(ctx))
-                .help("Continue from the city terminal."),
+            MenuItem::new("Continue", |s: &mut Self, ctx| s.go_back(ctx))
+                .help("Continue from where the truck is parked."),
         ]
     }
 

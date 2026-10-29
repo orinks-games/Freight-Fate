@@ -101,6 +101,13 @@ impl TruckState {
     /// crash of gears, not a shift. It is refused, and the attempt costs the
     /// driveline -- a real box would be short some teeth afterwards.
     pub fn request_gear(&mut self, target: i32) -> ShiftResult {
+        // A set of doubles is not backed: the dolly folds under the rear
+        // trailer. Refused before the speed guard, so it never grinds.
+        if target == REVERSE {
+            if let Some(refused) = self.doubles_reverse_shift_result() {
+                return refused;
+            }
+        }
         if target == REVERSE
             && !self.transmission.automatic
             && self.speed_mph() > REVERSE_ENGAGE_MAX_MPH

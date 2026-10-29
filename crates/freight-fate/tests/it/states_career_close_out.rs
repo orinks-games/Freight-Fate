@@ -43,7 +43,7 @@ fn test_the_terminal_says_the_career_is_over_and_offers_the_close_out_last() {
         rows.last().map(String::as_str),
         Some("Close out this career")
     );
-    assert!(!rows.iter().any(|r| r == "Wait out the CDL suspension"));
+    assert!(!rows.iter().any(|r| r.starts_with("Wait out the CDL")));
 }
 
 #[test]

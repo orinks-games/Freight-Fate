@@ -5,7 +5,7 @@
 
 use super::*;
 use crate::models::career::LEVEL_XP;
-use crate::models::career_ladder::CAREER_RANKS;
+use crate::models::career_ladder::{CAREER_RANKS, STARTER_CARRIER_NAME};
 use crate::models::jobs::{cargo_type, Job};
 use crate::models::profile::Profile;
 use crate::models::start_options::{apply_start_option, start_option, OWNER_OPERATOR_START_KEY};

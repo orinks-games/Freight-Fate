@@ -354,7 +354,7 @@ Your record affects those opportunities. A citation costs four reputation points
 
 ## Pickup, loading, and route planning
 
-Before you can deliver the load, you have to collect it. That first drive is local deadhead: you're traveling to the pickup without cargo. Stop at the gate and check in before loading or collecting the trailer. Check-in uses 15 on-duty minutes. Live loading takes about 60 minutes, represented by a short spoken wait.
+Before you can deliver the load, you have to collect it. That first drive is local deadhead: you're traveling from wherever your truck is parked to the pickup, without cargo. Stop at the gate and check in before loading or collecting the trailer. Check-in uses 15 on-duty minutes. Live loading takes about 60 minutes, represented by a short spoken wait.
 
 ### Drop and hook, and the walk-around
 
@@ -394,6 +394,8 @@ A control marked Driving commands has no controller button. Hold the right bumpe
 | Z | Not on the controller | Lower or raise the driver window. With it down you hear the wind rush in and the road louder; it closes again at the start of every drive. |
 | Alt+Z | Not on the controller | Step the fan: off, low, medium, high. The fan runs while the engine does. |
 | Shift+Z | Not on the controller | Switch the fan between heat and air conditioning. A drive starts on whichever the weather calls for. |
+| Alt+R | Not on the controller | Turn the trailer reefer unit on or off. Only cold freight uses it. |
+| Alt+U | Not on the controller | Turn the APU on or off for low hotel power while parked. |
 | Space | B | Report speed, gear, and the active speed-control mode and open-road target when speed control is on. RPM is added with a manual transmission, and air pressure or the parking brake only when they need attention. With the signal set for an exit, it ends with that exit and how far away it is. Tab has the full air and brake readings. |
 | S | Right bumper plus X | Report the posted speed limit here, the zone if any, and how far over you are. In bend country it adds the bend's advisory speed, since the posted limit and the yellow diamond are different numbers on a real road. On a delivery ramp that ends at a traffic light, S answers with the light and the distance to the stop bar instead, since the light is the law there. |
 | D | Driving commands | Report one safe-speed number for right now. Weather grip, a steep downgrade, and the next bend are already baked into the number. On an exit ramp it is the exit speed. |
@@ -635,7 +637,7 @@ Police and inspectors can charge violations they observe. The dash alert when yo
 
 If a trooper signals you, press X, or D-pad down on a controller, and brake to a stop for the license and logbook check. Ignoring the lights leads to escalating warnings. Slowing may end in a forced stop and a failure-to-stop citation.
 
-After the final warning, twelve seconds of highway-speed driving or acceleration without braking triggers pursuit. Fleeing can damage the truck, cancel the load, take time for processing, and add a major offense to your record.
+After the final warning, twelve seconds of highway-speed driving or acceleration without braking triggers pursuit. Fleeing can damage the truck, cancel the load, and add a major offense to your record. You post a bond and spend twelve hours in booking, logged off duty, which counts as a 10-hour reset. The truck is towed to an impound lot in the city where you were stopped, and the terminal reads it parked there until it next drives out.
 
 CB reports tell you what another driver saw and how certain they were. Treat them as information that may be out of date. Alt+C repeats a report with the distance updated; U gives the road-feature readout.
 

@@ -5,7 +5,7 @@
 
 use std::sync::Arc;
 
-use ff_core::models::economy::Economy;
+use ff_core::models::economy::{canada_diesel_usd_per_gal, Economy};
 use ff_core::pyfmt::round_py_n;
 use ff_core::sim::real_fuel_price::{FuelPriceProvider, LiveDieselPrice};
 
@@ -41,6 +41,13 @@ fn test_real_fuel_prices_put_the_weeks_survey_figure_at_every_pump() {
     assert_eq!(
         app.ctx.economy.fuel_price("california"),
         round_py_n(5.967 + (5.10 - mean), 2)
+    );
+    let base_bc = canada_diesel_usd_per_gal("BC").expect("the BC diesel price");
+    assert_eq!(
+        app.ctx
+            .economy
+            .fuel_price_at("pacific_northwest", "British Columbia"),
+        round_py_n(5.967 + (base_bc - mean), 2)
     );
 
     // Off again: the session's own market comes back.

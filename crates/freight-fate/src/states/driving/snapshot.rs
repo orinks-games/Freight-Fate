@@ -254,6 +254,16 @@ impl DrivingState {
             json!(self.trip.truck.air_brake_snapshot()),
         );
         out.insert("engine_on".to_string(), json!(self.trip.truck.engine_on));
+        out.insert("reefer_on".to_string(), json!(self.trip.truck.reefer_on));
+        out.insert("apu_on".to_string(), json!(self.trip.truck.apu_on));
+        out.insert(
+            "cargo_temp_c".to_string(),
+            json!(self.trip.truck.cargo_temp_c),
+        );
+        out.insert(
+            "reefer_out_of_range_min".to_string(),
+            json!(self.trip.truck.reefer_out_of_range_min),
+        );
         out.insert("chains_on".to_string(), json!(self.trip.truck.chains_on));
         out.insert(
             "chain_checkpoint_hold".to_string(),
@@ -358,6 +368,12 @@ impl DrivingState {
         } else {
             DRIVE_PHASE_DELIVERY
         };
+        // A load a tunnel refuses resumes on the legal detour it was planned on.
+        let load = job_from_payload(job_payload_data).map(|job| job.crossing_load());
+        let rebuild = |cities: &[String]| match &load {
+            Some(load) => ctx.world.route_from_cities_for(cities, load),
+            None => ctx.world.route_from_cities(cities),
+        };
         // The Facility streets setting the drive started under; a save from
         // before the setting was driven on the streets.
         let facility_streets = b(data, "facility_streets", true);
@@ -379,7 +395,7 @@ impl DrivingState {
                 while cities.len() > 2 && cities.last() == cities.get(cities.len() - 2) {
                     cities.pop();
                 }
-                let corridor = ctx.world.route_from_cities(&cities)?;
+                let corridor = rebuild(&cities)?;
                 match approach {
                     Some(approach) => corridor.then(&approach),
                     None => corridor,
@@ -389,7 +405,7 @@ impl DrivingState {
             }
         } else {
             let cities = strings(data, "route_cities");
-            ctx.world.route_from_cities(&cities)?
+            rebuild(&cities)?
         };
         // Pre-slug saves store display names; canonicalize before any
         // world lookup so an old trip resumes instead of being dropped.
@@ -615,6 +631,15 @@ impl DrivingState {
         if b(data, "engine_on", false) {
             state.trip.truck.start_engine();
         }
+        state.trip.truck.reefer_on = b(data, "reefer_on", false);
+        state.trip.truck.apu_on = b(data, "apu_on", false);
+        state.trip.truck.cargo_temp_c = f(data, "cargo_temp_c", state.trip.truck.cargo_temp_c);
+        state.trip.truck.reefer_out_of_range_min = f(data, "reefer_out_of_range_min", 0.0);
+        // cargo_needs_reefer is rebuilt from the job on restore via init/fragility paths;
+        // also re-derive here so mid-trip resumes keep the TRU meaningful.
+        state.trip.truck.cargo_needs_reefer = state.job.cargo.needs_reefer()
+            && state.trip.truck.trailer_attached
+            && state.trip.truck.cargo_kg > 0.0;
         state.air_ready_said = state.trip.truck.air_ready();
         state.low_air_said = state.trip.truck.air_low_warning();
         // Already under the line on resume: do not re-announce a cue the

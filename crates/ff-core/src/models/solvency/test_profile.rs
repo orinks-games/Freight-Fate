@@ -41,6 +41,9 @@ pub(crate) struct FakeProfile {
     pub dispatch_board_cached: bool,
     /// What `carrier_fleet.equipment_hold_clause` would say.
     pub hold_clause: String,
+    /// What the fallback rule hands a driver who is let go: `(key, name)`,
+    /// `None` for no carrier. The national last-chance carrier by default.
+    pub fallback: Option<(String, String)>,
 }
 
 impl Default for FakeProfile {
@@ -66,6 +69,10 @@ impl Default for FakeProfile {
             weigh_station_transponder: false,
             dispatch_board_cached: true,
             hold_clause: String::new(),
+            fallback: Some((
+                crate::models::enforcement::LAST_CHANCE_CARRIER_KEY.to_string(),
+                crate::models::enforcement::LAST_CHANCE_CARRIER_NAME.to_string(),
+            )),
         }
     }
 }
@@ -147,6 +154,29 @@ impl SolvencyProfile for FakeProfile {
     fn set_carrier(&mut self, key: &str, name: &str) {
         self.carrier_key = key.to_string();
         self.carrier_name = name.to_string();
+    }
+    fn let_go_near_phrase(&self) -> String {
+        "your home in Buffalo".to_string()
+    }
+    fn take_fallback_carrier(&mut self, firing_key: &str) -> Option<String> {
+        if let Some(record) = self.driving_record.as_mut() {
+            record.let_go_by = firing_key.to_string();
+        }
+        match self.fallback.clone() {
+            Some((key, name)) => {
+                if let Some(record) = self.driving_record.as_mut() {
+                    record.sufferance_carrier_key = key.clone();
+                }
+                self.carrier_key = key;
+                self.carrier_name = name.clone();
+                Some(name)
+            }
+            None => {
+                self.carrier_key.clear();
+                self.carrier_name.clear();
+                None
+            }
+        }
     }
     fn set_pay_advance(&mut self, amount: f64) {
         self.pay_advance = amount;

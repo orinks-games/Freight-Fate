@@ -1158,6 +1158,15 @@ impl TollCharge {
 }
 
 #[derive(Debug, Clone, PartialEq)]
+pub struct BorderBooth {
+    pub key: String,
+    pub name: String,
+    pub at_mi: f64,
+    pub entering_country: String,
+    pub agency: String,
+}
+
+#[derive(Debug, Clone, PartialEq)]
 pub struct NavigationCue {
     pub key: String,
     pub kind: String,

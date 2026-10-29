@@ -162,3 +162,142 @@ fn resetting_a_career_from_a_renamed_file_leaves_one_career() {
     select::<MainMenuState>(&mut app, "Manage careers");
     assert_eq!(labels::<ManageCareersState>(&app).len(), 2); // Tiger, Back
 }
+
+#[test]
+fn resetting_an_older_career_keeps_its_home_city_blank() {
+    // A career from before the home city was recorded: a Northstar driver
+    // whose home terminal is Chicago. The reset starts over there, and
+    // Chicago must not quietly become the driver's home.
+    let mut app = TestApp::new();
+    let mut old = Profile::named_in("Legacy Home", "milwaukee_wi_us");
+    assert_eq!(old.home_terminal_city, "chicago_il_us");
+    old.home_city.clear();
+    old.save().unwrap();
+    app.push_state(MainMenuState::new());
+    select::<MainMenuState>(&mut app, "Manage careers");
+    key(&mut app, Key::Return);
+    select::<CareerActionsState>(&mut app, "Reset this career");
+    select::<ConfirmCareerActionState>(&mut app, "Yes, reset Legacy Home");
+    let reset = Profile::load(&save_path_for("Legacy Home")).unwrap();
+    assert_eq!(reset.home_city, "", "no home city was ever picked");
+    assert_eq!(reset.home_terminal_city, "chicago_il_us");
+    assert_eq!(reset.current_city, "chicago_il_us");
+}
+
+#[test]
+fn resetting_a_career_starts_over_from_its_home_city() {
+    let mut app = TestApp::new();
+    let mut old = Profile::named_in("Picked Home", "chicago_il_us");
+    old.home_city = "milwaukee_wi_us".to_string();
+    old.save().unwrap();
+    app.push_state(MainMenuState::new());
+    select::<MainMenuState>(&mut app, "Manage careers");
+    key(&mut app, Key::Return);
+    select::<CareerActionsState>(&mut app, "Reset this career");
+    select::<ConfirmCareerActionState>(&mut app, "Yes, reset Picked Home");
+    let reset = Profile::load(&save_path_for("Picked Home")).unwrap();
+    assert_eq!(reset.home_city, "milwaukee_wi_us");
+    assert_eq!(reset.home_terminal_city, "chicago_il_us");
+}
+
+/// A company driver with no carrier, saved: the Fairbanks firing's result.
+fn save_no_carrier_career(name: &str, home: &str, current: &str, terminal: &str) {
+    let mut old = Profile::named_in(name, "chicago_il_us");
+    old.carrier_key.clear();
+    old.carrier_name.clear();
+    old.business_status = "company_driver".to_string();
+    old.home_city = home.to_string();
+    old.current_city = current.to_string();
+    old.home_terminal_city = terminal.to_string();
+    old.parked_facility.clear();
+    old.save().unwrap();
+}
+
+fn reset_career(app: &mut TestApp, name: &str) -> Profile {
+    app.push_state(MainMenuState::new());
+    select::<MainMenuState>(app, "Manage careers");
+    key(app, Key::Return);
+    select::<CareerActionsState>(app, "Reset this career");
+    select::<ConfirmCareerActionState>(app, &format!("Yes, reset {name}"));
+    Profile::load(&save_path_for(name)).unwrap()
+}
+
+fn assert_alaska_start(reset: &Profile) {
+    let world = ff_core::data::world::get_world();
+    let carrier = ff_core::models::carriers::carrier(&reset.carrier_key)
+        .unwrap_or_else(|| panic!("no carrier {}", reset.carrier_key));
+    assert!(
+        ["fairbanks_ak_us", "anchorage_ak_us"].contains(&reset.home_terminal_city.as_str()),
+        "{}",
+        reset.home_terminal_city
+    );
+    assert_eq!(reset.current_city, reset.home_terminal_city);
+    assert!(carrier
+        .terminal_city_keys
+        .iter()
+        .all(|t| world.cities[t].state_code == "AK"));
+    assert_ne!(reset.carrier_key, "northstar");
+}
+
+#[test]
+fn resetting_a_fairbanks_career_with_no_carrier_stays_in_alaska() {
+    let mut app = TestApp::new();
+    save_no_carrier_career(
+        "Ak Reset",
+        "fairbanks_ak_us",
+        "fairbanks_ak_us",
+        "fairbanks_ak_us",
+    );
+    // The career list names no carrier and no truck stop for it.
+    app.push_state(MainMenuState::new());
+    select::<MainMenuState>(&mut app, "Manage careers");
+    let row = labels::<ManageCareersState>(&app)[0].clone();
+    assert!(
+        row.contains("with no carrier") && row.contains("in Fairbanks"),
+        "{row}"
+    );
+    assert!(
+        !row.contains("Sourdough") && !row.contains("Northstar"),
+        "{row}"
+    );
+    key(&mut app, Key::Return);
+    select::<CareerActionsState>(&mut app, "Reset this career");
+    select::<ConfirmCareerActionState>(&mut app, "Yes, reset Ak Reset");
+    let reset = Profile::load(&save_path_for("Ak Reset")).unwrap();
+    assert_alaska_start(&reset);
+    assert_eq!(reset.home_city, "fairbanks_ak_us");
+    let world = ff_core::data::world::get_world();
+    assert!(ff_core::models::carriers::carrier(&reset.carrier_key)
+        .unwrap()
+        .hires_in(world, "fairbanks_ak_us"));
+}
+
+#[test]
+fn resetting_a_no_carrier_career_with_no_home_city_uses_the_current_city() {
+    let mut app = TestApp::new();
+    save_no_carrier_career("Ak Blank", "", "anchorage_ak_us", "fairbanks_ak_us");
+    let reset = reset_career(&mut app, "Ak Blank");
+    assert_alaska_start(&reset);
+    assert_eq!(reset.home_city, "", "no home city was ever picked");
+    let world = ff_core::data::world::get_world();
+    assert!(ff_core::models::carriers::carrier(&reset.carrier_key)
+        .unwrap()
+        .hires_in(world, "anchorage_ak_us"));
+}
+
+#[test]
+fn resetting_a_chicago_career_with_no_carrier_takes_a_chicago_hiring_carrier() {
+    let mut app = TestApp::new();
+    save_no_carrier_career(
+        "Il Reset",
+        "chicago_il_us",
+        "chicago_il_us",
+        "chicago_il_us",
+    );
+    let reset = reset_career(&mut app, "Il Reset");
+    let world = ff_core::data::world::get_world();
+    let carrier = ff_core::models::carriers::carrier(&reset.carrier_key).expect("a carrier");
+    assert!(carrier.hires_in(world, "chicago_il_us"), "{}", carrier.name);
+    assert_eq!(reset.home_city, "chicago_il_us");
+    assert!(!reset.is_unassigned_company_driver());
+}

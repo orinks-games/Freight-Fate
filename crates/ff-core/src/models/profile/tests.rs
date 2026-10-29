@@ -154,6 +154,26 @@ fn test_old_save_without_business_status_loads_as_company_driver() {
 }
 
 #[test]
+fn test_an_impound_lot_round_trips_through_a_save_file() {
+    with_data_dir(|_| {
+        let mut p = Profile::named_in("Towed", "Buffalo");
+        p.current_city = "buffalo_ny_us".to_string();
+        p.parked_facility = crate::models::home_base::IMPOUND_LOT_FACILITY.to_string();
+        let path = p.save().unwrap();
+        let loaded = load(&path);
+        assert_eq!(
+            loaded.parked_facility,
+            crate::models::home_base::IMPOUND_LOT_FACILITY
+        );
+        let world = crate::data::world::get_world();
+        assert_eq!(
+            loaded.parked_at(world).kind,
+            crate::models::home_base::ParkedKind::Impound
+        );
+    });
+}
+
+#[test]
 fn test_independent_authority_status_round_trips() {
     with_data_dir(|_| {
         let mut p = Profile::named("Authority Save");
@@ -202,6 +222,157 @@ fn test_old_owner_operator_save_without_trailer_programs_gets_basic_program() {
 
         assert_eq!(loaded.business_status, LEASED_OWNER_OPERATOR);
         assert_eq!(loaded.active_trailer_programs(), vec!["dry_van"]);
+    });
+}
+
+#[test]
+fn test_turnpike_program_notice_flag_defaults_false_on_old_saves_only() {
+    with_data_dir(|_| {
+        // A new career never ran turnpike doubles on the pups: nothing owed.
+        let fresh = Profile::named("Fresh Career");
+        assert!(fresh.turnpike_program_notice_seen);
+
+        let mut p = Profile::named("Old Pup Lessee");
+        p.business_status = LEASED_OWNER_OPERATOR.to_string();
+        p.owned_trucks = vec!["rig".to_string()];
+        p.trailer_programs = vec!["dry_van".to_string(), "double_van".to_string()];
+        let mut data = p.to_dict();
+        // Written before the flag existed.
+        data.remove("turnpike_program_notice_seen");
+        data.remove(SIGNATURE_FIELD);
+        let path = p.path();
+        write_text(&path, &data);
+
+        let mut loaded = load(&path);
+        assert!(!loaded.turnpike_program_notice_seen);
+        assert!(loaded.turnpike_program_notice_due());
+
+        loaded.turnpike_program_notice_seen = true;
+        let path = loaded.save().unwrap();
+        let again = load(&path);
+        assert!(again.turnpike_program_notice_seen);
+        assert!(!again.turnpike_program_notice_due());
+    });
+}
+
+#[test]
+fn test_turnpike_program_notice_is_owed_only_to_double_van_without_turnpike_double() {
+    let owed = |programs: &[&str]| {
+        let mut p = Profile::named("Programs");
+        p.business_status = LEASED_OWNER_OPERATOR.to_string();
+        p.owned_trucks = vec!["rig".to_string()];
+        p.trailer_programs = programs.iter().map(|k| k.to_string()).collect();
+        p.turnpike_program_notice_seen = false;
+        p.turnpike_program_notice_due()
+    };
+    assert!(owed(&["dry_van", "double_van"]));
+    assert!(!owed(&["dry_van", "reefer"]));
+    assert!(!owed(&["double_van", "turnpike_double"]));
+}
+
+#[test]
+fn test_turnpike_program_notice_latches_on_old_saves_that_do_not_owe_it() {
+    with_data_dir(|_| {
+        // An old save, written before the flag, from a driver leasing the
+        // given programs.
+        let write_old_save = |name: &str, programs: &[&str]| {
+            let mut p = Profile::named(name);
+            p.business_status = LEASED_OWNER_OPERATOR.to_string();
+            p.owned_trucks = vec!["rig".to_string()];
+            p.trailer_programs = programs.iter().map(|k| k.to_string()).collect();
+            let mut data = p.to_dict();
+            data.remove("turnpike_program_notice_seen");
+            data.remove(SIGNATURE_FIELD);
+            let path = p.path();
+            write_text(&path, &data);
+            path
+        };
+
+        // Not owed on load (no double_van yet): leasing double_van later,
+        // then saving and reloading, must not start owing the notice.
+        let path = write_old_save("Dry Van Lessee", &["dry_van"]);
+        let mut loaded = load(&path);
+        assert!(loaded.turnpike_program_notice_seen);
+        assert!(!loaded.turnpike_program_notice_due());
+        loaded.trailer_programs.push("double_van".to_string());
+        let path = loaded.save().unwrap();
+        let again = load(&path);
+        assert!(!again.turnpike_program_notice_due());
+
+        // Already leasing both on load: dropping turnpike_double later must
+        // not start owing it either.
+        let path = write_old_save("Both Lessee", &["double_van", "turnpike_double"]);
+        let mut loaded = load(&path);
+        assert!(!loaded.turnpike_program_notice_due());
+        loaded.trailer_programs.retain(|k| k != "turnpike_double");
+        assert!(!loaded.turnpike_program_notice_due());
+        let path = loaded.save().unwrap();
+        let again = load(&path);
+        assert!(!again.turnpike_program_notice_due());
+    });
+}
+
+#[test]
+fn test_old_turnpike_doubles_save_with_double_van_loads_as_turnpike_double() {
+    // Before turnpike_doubles got its own program, the load ran on the STAA
+    // `double_van` pups. The job payload never stored a trailer key (the box
+    // is derived from the cargo each time), so an old active trip that still
+    // carries a stale "double_van" field, from a driver leasing the
+    // double_van program, resolves to `turnpike_double` on load.
+    //
+    // No released or branch version ever wrote a "trailer" key into a job
+    // payload; the stale field is planted here only to prove the load path
+    // ignores it. What this test guards is that the trailer keeps being
+    // worked out from the cargo, so a turnpike_doubles job can never come
+    // back on the STAA pups.
+    use crate::models::jobs::job_from_payload;
+    use crate::models::trailer_yard::{preloaded_trailer, DROP_YARD_FACILITY_TYPES};
+    use crate::models::trailers::trailer_keys_for_cargo;
+
+    with_data_dir(|_| {
+        let mut p = Profile::named("Old Turnpike Doubles");
+        p.business_status = LEASED_OWNER_OPERATOR.to_string();
+        p.owned_trucks = vec!["rig".to_string()];
+        p.trailer_programs = vec!["dry_van".to_string(), "double_van".to_string()];
+        p.active_trip = Some(json!({
+            "kind": "pickup",
+            "job": {
+                "cargo": "turnpike_doubles",
+                "trailer": "double_van",
+                "weight_tons": 18.0,
+                "origin": "toledo_oh_us",
+                "origin_location": "Toledo Cross-Dock",
+                "origin_type": DROP_YARD_FACILITY_TYPES[0],
+                "origin_facility_id": "toledo_cross_dock",
+                "destination": "elkhart_in_us",
+                "destination_location": "Elkhart Cross-Dock",
+                "destination_type": "cross_dock",
+                "distance_mi": 139.0,
+                "pay": 1200.0,
+                "deadline_game_h": 8.0
+            },
+            "checked_in": false,
+            "loaded": false,
+            "trailer_refused": false
+        }));
+        let mut data = p.to_dict();
+        data.remove(SIGNATURE_FIELD);
+        let path = p.path();
+        write_text(&path, &data);
+
+        let loaded = load(&path);
+
+        let trip = loaded.active_trip.as_ref().expect("active trip kept");
+        let job = job_from_payload(trip["job"].as_object().unwrap()).expect("job loads");
+        assert_eq!(job.cargo.key, "turnpike_doubles");
+        assert_eq!(trailer_keys_for_cargo(job.cargo.key), ["turnpike_double"]);
+        let unit = preloaded_trailer(&job).expect("a drop yard stages the box");
+        assert_eq!(unit.trailer_key, "turnpike_double");
+        // The leased double_van program is still the STAA pup program for
+        // parcel_doubles; it is kept, not rewritten.
+        assert!(loaded
+            .active_trailer_programs()
+            .contains(&"double_van".to_string()));
     });
 }
 
@@ -1029,5 +1200,98 @@ fn test_active_buffs_round_trip_through_a_saved_profile() {
         let path = p.save().expect("the profile saves");
         let loaded = Profile::load(&path).expect("the profile reloads");
         assert_eq!(loaded.active_buffs, p.active_buffs);
+    });
+}
+
+fn old_save(current_city: &str, carrier_key: &str) -> serde_json::Map<String, serde_json::Value> {
+    serde_json::json!({
+        "name": "Pat",
+        "current_city": current_city,
+        "carrier_key": carrier_key,
+        "version": 5
+    })
+    .as_object()
+    .unwrap()
+    .clone()
+}
+
+#[test]
+fn test_chicago_save_migrates_home_to_carrier_terminal_city() {
+    let data = old_save("Chicago", "northstar");
+    assert!(!data.contains_key("home_terminal_city"), "old save");
+    let loaded = Profile::from_dict(&data);
+    assert_eq!(loaded.home_terminal_city, "chicago_il_us");
+    assert_eq!(loaded.current_city, "Chicago", "the truck does not move");
+    assert!(loaded.needs_migration_resave);
+    let terminal = loaded
+        .carrier_home_terminal(crate::data::world::get_world())
+        .expect("northstar terminal");
+    assert_eq!(terminal.name, "Northstar Freight Lines Chicago terminal");
+}
+
+#[test]
+fn test_healy_save_migrates_home_to_carrier_nearest_terminal() {
+    use serde_json::Value;
+    // Northstar is national with one terminal: Chicago. No 250 mi pin
+    // search, no Nenana stand-in, no Healy fuel stop.
+    let mut data = old_save("healy_ak_us", "northstar");
+    let loaded = Profile::from_dict(&data);
+    assert_eq!(loaded.home_terminal_city, "chicago_il_us");
+    assert_eq!(
+        loaded.current_city, "healy_ak_us",
+        "the truck stays in Healy"
+    );
+    // A save carrying the old stand-in home is corrected the same way.
+    data.insert("home_terminal_city".into(), Value::from("nenana_ak_us"));
+    assert_eq!(
+        Profile::from_dict(&data).home_terminal_city,
+        "chicago_il_us"
+    );
+    // A regional never homes a driver outside its hiring radius: Healy is
+    // far out of Prairie Link's range, so the national fallback carrier's
+    // terminal city stands in, never KC, Omaha, or Wichita.
+    let data = old_save("healy_ak_us", "prairie_link");
+    let loaded = Profile::from_dict(&data);
+    assert_eq!(loaded.home_terminal_city, "milwaukee_wi_us");
+    // Parked in Healy away from home: the Healy travel center, not a yard.
+    let parked = loaded.parked_at(crate::data::world::get_world());
+    assert_eq!(parked.kind, crate::models::home_base::ParkedKind::PublicLot);
+    assert_eq!(parked.city_key, "healy_ak_us");
+}
+
+#[test]
+fn test_a_corrected_stale_home_is_written_back() {
+    use serde_json::Value;
+    with_data_dir(|_| {
+        let p = Profile::named_in("Stale", "Chicago");
+        let clean = Profile::from_dict(&p.to_dict());
+        assert_eq!(clean.home_terminal_city, "chicago_il_us");
+        assert!(
+            !clean.needs_migration_resave,
+            "a current home is left alone"
+        );
+        let mut d = p.to_dict();
+        d.insert("home_terminal_city".into(), Value::from("nenana_ak_us"));
+        let fixed = Profile::from_dict(&d);
+        assert_eq!(fixed.home_terminal_city, "chicago_il_us");
+        assert!(fixed.needs_migration_resave, "the correction is resaved");
+    });
+}
+
+#[test]
+fn test_home_terminal_city_round_trips_unchanged() {
+    let p = Profile::named_in("Round", "Milwaukee");
+    // Northstar (the default start) hires into its Chicago terminal.
+    assert_eq!(p.home_terminal_city, "chicago_il_us");
+    assert_eq!(p.current_city, "Milwaukee");
+    with_data_dir(|_| {
+        let mut p = p.clone();
+        p.parked_facility = "Milwaukee Dry Warehouse".to_string();
+        p.home_city = "milwaukee_wi_us".to_string();
+        let back = load(&p.save().unwrap());
+        assert_eq!(back.home_terminal_city, p.home_terminal_city);
+        assert_eq!(back.parked_facility, p.parked_facility);
+        assert_eq!(back.home_city, p.home_city);
+        assert_eq!(back.current_city, "Milwaukee");
     });
 }

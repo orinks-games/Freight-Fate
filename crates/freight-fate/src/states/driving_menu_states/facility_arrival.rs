@@ -7,6 +7,7 @@
 //! shared with the pickup side.
 
 use ff_core::models::business::{build_business_settlement, SettlementTerms};
+use ff_core::models::doubles::{doubles_break_line, doubles_break_text};
 use ff_core::models::trailer_yard::{delivery_plan, DeliveryPlan};
 use ff_core::music::{select_menu_music_sequence, MenuMusicProfile};
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_n};
@@ -75,13 +76,34 @@ impl FacilityArrivalState {
             .set_ambient(Some(facility_ambient_key(&driving.job.destination_type)));
         let facility = driving.destination_facility_text(ctx);
         let current = self.current_text(ctx);
-        ctx.say(&format!("At {facility}. {current}"));
+        // The drive is already in hand here, so read the cargo off it
+        // rather than through the handle.
+        let doubles = match doubles_break_text(driving.job.cargo.key) {
+            text if text.is_empty() => text,
+            text => format!(" {text}"),
+        };
+        ctx.say(&format!("At {facility}. {current}{doubles}"));
     }
 
     pub fn facility(&self, ctx: &mut GameContext) -> String {
         self.driving
             .with(ctx, |d, ctx| d.destination_facility_text(ctx))
             .unwrap_or_default()
+    }
+
+    /// Breaking a set of doubles, with a leading space, or empty for a
+    /// single trailer. Spoken on arrival and when the work starts, and shown
+    /// on this screen.
+    fn doubles_clause(&self) -> String {
+        let text = self
+            .driving
+            .read(|d| doubles_break_text(d.job.cargo.key))
+            .unwrap_or_default();
+        if text.is_empty() {
+            text
+        } else {
+            format!(" {text}")
+        }
     }
 
     /// How the freight comes off here: dropped in the yard, or a live dock.
@@ -170,7 +192,7 @@ impl FacilityArrivalState {
         }
         let (weight_tons, cargo_label) = self
             .driving
-            .read(|d| (d.job.weight_tons, d.job.cargo.label.to_string()))
+            .read(|d| (d.job.weight_tons, d.job.spoken_cargo_label().to_string()))
             .unwrap_or_default();
         self.driving.read(|d| {
             d.trip.truck.throttle = 0.0;
@@ -213,12 +235,13 @@ impl FacilityArrivalState {
             });
         };
 
+        let doubles = self.doubles_clause();
         let (title, message, status) = if drop_hook {
             (
                 "Dropping the trailer",
                 format!(
                     "Dropping the loaded trailer at {facility}, {} tons of {cargo_label}. \
-                     Hooking an empty.",
+                     Hooking an empty.{doubles}",
                     fmt_f(weight_tons, 0)
                 ),
                 "Dropping the trailer.",
@@ -227,7 +250,7 @@ impl FacilityArrivalState {
             (
                 "Unloading cargo",
                 format!(
-                    "Docked at {facility}. Unloading {} tons of {cargo_label}.",
+                    "Docked at {facility}. Unloading {} tons of {cargo_label}.{doubles}",
                     fmt_f(weight_tons, 0)
                 ),
                 "Unloading cargo.",
@@ -337,7 +360,7 @@ impl FacilityArrivalState {
                  accessorials {}. {charge_fate} Fines {}. Net about {}.{advance_note} {timing}. \
                  {cargo_condition} {finish} to settle.",
                 fmt_f(job.weight_tons, 0),
-                job.cargo.label,
+                job.spoken_cargo_label(),
                 fmt_grouped(job.pay, 0),
                 fmt_grouped(estimated_pay, 0),
                 fmt_grouped(carrier_charges, 0),
@@ -359,7 +382,7 @@ impl FacilityArrivalState {
             format!(
                 "At {facility}. {} tons of {}. Speed {}. {}. Stop, then {finish}.",
                 fmt_f(d.job.weight_tons, 0),
-                d.job.cargo.label,
+                d.job.spoken_cargo_label(),
                 ctx.settings.speed_text(d.trip.truck.speed_mph()),
                 if d.trip.truck.engine_on {
                     "Engine running"
@@ -438,7 +461,8 @@ impl Menu for FacilityArrivalState {
             .set_ambient(Some(facility_ambient_key(&destination_type)));
         let facility = self.facility(ctx);
         let current = self.current_text(ctx);
-        ctx.say(&format!("At {facility}. {current}"));
+        let doubles = self.doubles_clause();
+        ctx.say(&format!("At {facility}. {current}{doubles}"));
     }
 
     fn presence(&self, _ctx: &GameContext) -> Option<PresenceState> {
@@ -446,7 +470,7 @@ impl Menu for FacilityArrivalState {
             .driving
             .read(|d| {
                 (
-                    d.job.cargo.label.to_string(),
+                    d.job.spoken_cargo_label().to_string(),
                     d.job.spoken_destination().to_string(),
                 )
             })
@@ -482,8 +506,15 @@ impl Menu for FacilityArrivalState {
             format!("Speed: {}", ctx.settings.hud_speed_text(speed)),
             format!("Engine: {}", if engine_on { "running" } else { "off" }),
             "Stopping required before delivery settlement.".to_string(),
-            String::new(),
         ];
+        if let Some(line) = self
+            .driving
+            .read(|d| doubles_break_line(d.job.cargo.key))
+            .flatten()
+        {
+            out.push(line);
+        }
+        out.push(String::new());
         for (i, item) in self.menu.items.iter().enumerate() {
             let marker = if i == self.menu.index { "> " } else { "  " };
             out.push(format!("{marker}{}", item.text(self, ctx)));

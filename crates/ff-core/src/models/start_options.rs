@@ -5,6 +5,7 @@ use serde::Serialize;
 
 use crate::models::career::Career;
 use crate::models::career_ladder::STARTER_CARRIER_NAME;
+use crate::models::carriers::{self, carrier};
 use crate::models::trailers::DEFAULT_TRAILER_PROGRAMS;
 use crate::pyfmt::fmt_f;
 
@@ -133,12 +134,33 @@ impl CareerStartOption {
     }
 
     /// `option.cargo_weight_bonus.get(cargo_key, 0.0)`.
+    /// Company carriers read bonuses from `data/carriers.json`.
     pub fn cargo_weight_bonus_for(&self, cargo_key: &str) -> f64 {
+        if let Some(c) = carrier(self.key) {
+            return c.cargo_weight_bonus_for(cargo_key);
+        }
         self.cargo_weight_bonus
             .iter()
             .find(|(k, _)| *k == cargo_key)
             .map(|(_, bonus)| *bonus)
             .unwrap_or(0.0)
+    }
+
+    /// Dispatch biases: company carriers from `data/carriers.json`.
+    pub fn dispatch_profile(&self) -> DispatchProfile {
+        carrier(self.key)
+            .map(|c| c.dispatch)
+            .unwrap_or(self.dispatch)
+    }
+
+    /// Company pay plan from `data/carriers.json` when present.
+    pub fn pay_plan(&self) -> Option<CompanyPayPlan> {
+        if self.is_owner_operator() {
+            return None;
+        }
+        carrier(self.key)
+            .map(|c| c.company_pay)
+            .or(self.company_pay)
     }
 }
 
@@ -306,14 +328,71 @@ pub const START_OPTIONS: [CareerStartOption; 5] = [
     },
 ];
 
-/// `START_OPTIONS.get(key or DEFAULT_START_KEY, START_OPTIONS[DEFAULT_START_KEY])`.
+/// Start options for the catalog carriers without a hand-written entry in
+/// [`START_OPTIONS`] (the slice 3 regionals and locals), built once from
+/// `data/carriers.json`, in catalog order. Their pay, dispatch and cargo
+/// knobs come from the carrier record like every company start's; the words
+/// say only what the game does today: the run-band maximum and the lane
+/// area. The band minimum is not enforced yet and home time is inert, so
+/// neither is promised.
+fn generated_start_options() -> &'static [CareerStartOption] {
+    static GENERATED: std::sync::OnceLock<Vec<CareerStartOption>> = std::sync::OnceLock::new();
+    GENERATED.get_or_init(|| {
+        let world = crate::data::world::get_world();
+        carriers::carrier_catalog()
+            .values()
+            .filter(|c| !START_OPTIONS.iter().any(|o| o.key == c.key))
+            .map(|c| {
+                let leak = |text: String| -> &'static str { Box::leak(text.into_boxed_str()) };
+                let tier = if c.is_local() { "local" } else { "regional" };
+                let area = if c.lane_area.is_empty() {
+                    "its home region".to_string()
+                } else {
+                    c.lane_area.clone()
+                };
+                let max = fmt_miles(c.run_band.max_mi);
+                let default_city = c
+                    .terminal_city_keys
+                    .first()
+                    .and_then(|k| world.cities.get(k))
+                    .map(|city| city.name.clone())
+                    .unwrap_or_else(|| "Chicago".to_string());
+                CareerStartOption {
+                    key: leak(c.key.clone()),
+                    label: leak(format!("{}: {tier} company driver, {area}", c.name)),
+                    carrier_name: leak(c.name.clone()),
+                    mode: START_MODE_COMPANY,
+                    menu_summary: leak(format!(
+                        "A {tier} carrier in {area}, with loads of up to {max} miles."
+                    )),
+                    help_text: leak(format!(
+                        "A {tier} company-driver start in {area}. Dispatch offers loads of \
+                         up to {max} miles. The carrier assigns and maintains the tractor \
+                         and pays fuel and routine repairs."
+                    )),
+                    default_city: leak(default_city),
+                    company_pay: Some(c.company_pay),
+                    dispatch: c.dispatch,
+                    ..DEFAULTS
+                }
+            })
+            .collect()
+    })
+}
+
+fn fmt_miles(miles: f64) -> String {
+    format!("{}", miles.round() as i64)
+}
+
+/// `START_OPTIONS.get(key or DEFAULT_START_KEY, START_OPTIONS[DEFAULT_START_KEY])`,
+/// over every start option (see [`all_start_options`]).
 pub fn start_option(key: Option<&str>) -> &'static CareerStartOption {
     let key = match key {
         Some("") | None => DEFAULT_START_KEY,
         Some(k) => k,
     };
-    START_OPTIONS
-        .iter()
+    all_start_options()
+        .into_iter()
         .find(|option| option.key == key)
         .unwrap_or_else(|| default_start_option())
 }
@@ -326,18 +405,31 @@ fn default_start_option() -> &'static CareerStartOption {
 }
 
 pub fn company_start_options() -> Vec<&'static CareerStartOption> {
-    START_OPTIONS
-        .iter()
+    all_start_options()
+        .into_iter()
         .filter(|option| option.is_company_driver())
         .collect()
 }
 
+/// Every start option in menu order: the hand-written company starts, then
+/// one per remaining catalog carrier, then the owner-operator start last.
 pub fn all_start_options() -> Vec<&'static CareerStartOption> {
-    START_OPTIONS.iter().collect()
+    let (company, owner): (Vec<_>, Vec<_>) = START_OPTIONS
+        .iter()
+        .partition(|option| option.is_company_driver());
+    company
+        .into_iter()
+        .chain(generated_start_options().iter())
+        .chain(owner)
+        .collect()
 }
 
 pub fn pay_plan_for_key(key: Option<&str>) -> CompanyPayPlan {
-    start_option(key).company_pay.unwrap_or(NORTHSTAR_PAY)
+    let key = match key {
+        Some("") | None => DEFAULT_START_KEY,
+        Some(k) => k,
+    };
+    carriers::pay_plan_for_carrier(key)
 }
 
 /// What `apply_start_option` writes on a freshly created or reset `Profile`.
@@ -346,6 +438,15 @@ pub fn pay_plan_for_key(key: Option<&str>) -> CompanyPayPlan {
 // TODO(lead): implement for models::profile::Profile (wave 2).
 pub trait StartProfile {
     fn set_carrier_key(&mut self, key: &str);
+    fn set_home_terminal_city(&mut self, city: &str);
+    /// The home base city the driver picked (a new career's current city).
+    fn home_base_city(&self) -> String;
+    /// Where the truck starts: the hiring carrier's terminal city.
+    fn set_current_city(&mut self, city: &str);
+    /// The facility the truck starts parked at (the carrier terminal).
+    fn set_parked_facility(&mut self, facility: &str);
+    /// The picked home city (the driver's home, not the terminal city).
+    fn set_home_city(&mut self, city: &str);
     fn set_start_mode(&mut self, mode: &str);
     fn set_carrier_name(&mut self, name: &str);
     fn set_money(&mut self, money: f64);
@@ -412,11 +513,81 @@ fn provision_start_trucks<P: StartProfile + ?Sized>(profile: &mut P, option: &Ca
     }
 }
 
+/// The carrier a start option hires with (a leased owner-operator start maps
+/// to the carrier it leases to).
+pub fn hiring_carrier_for_option(option: &CareerStartOption) -> Option<&'static carriers::Carrier> {
+    carriers::hiring_carrier(
+        option.key,
+        option.carrier_name,
+        if option.is_owner_operator() {
+            "leased_owner_operator"
+        } else {
+            "company_driver"
+        },
+    )
+}
+
+/// Start options whose carrier hires in `city_key`, in menu order: nationals
+/// across the lower 48, regionals only within their hiring radius.
+pub fn start_options_for_home_city(
+    world: &crate::data::world::World,
+    city_key: &str,
+) -> Vec<&'static CareerStartOption> {
+    all_start_options()
+        .into_iter()
+        .filter(|option| {
+            hiring_carrier_for_option(option).is_some_and(|c| c.hires_in(world, city_key))
+        })
+        .collect()
+}
+
+/// How many distinct carriers hire in `city_key`. The owner-operator start
+/// leases to a carrier already listed, so it is not another carrier.
+pub fn hiring_carrier_count_for_home_city(
+    world: &crate::data::world::World,
+    city_key: &str,
+) -> usize {
+    let mut keys: Vec<&str> = start_options_for_home_city(world, city_key)
+        .into_iter()
+        .filter_map(|option| hiring_carrier_for_option(option).map(|c| c.key.as_str()))
+        .collect();
+    keys.sort_unstable();
+    keys.dedup();
+    keys.len()
+}
+
 /// Apply a start option to a freshly created or reset profile.
 pub fn apply_start_option<P: StartProfile + ?Sized>(profile: &mut P, option: &CareerStartOption) {
     profile.set_carrier_key(option.key);
     profile.set_start_mode(option.mode);
     profile.set_carrier_name(option.carrier_name);
+    // Home terminal: the hiring carrier's terminal city nearest the picked
+    // home base (a carrier-owned yard, never a world freight pin).
+    let world = crate::data::world::get_world();
+    let base = profile.home_base_city();
+    let base = if base.trim().is_empty() {
+        option.default_city.to_string()
+    } else {
+        base
+    };
+    let hiring = hiring_carrier_for_option(option);
+    // The start picker offers only carriers that hire in the picked city, so
+    // this is the carrier's own terminal in range. A start never falls back
+    // to another carrier's far-away terminal: with no home from this carrier
+    // (independent, or a regional out of range) the picked city stays and the
+    // truck is not moved.
+    let carrier_home = carriers::home_terminal_city_for(hiring, world, &base);
+    let home = carrier_home
+        .clone()
+        .unwrap_or_else(|| world.resolve_city_key(&base));
+    profile.set_home_terminal_city(&home);
+    profile.set_home_city(&world.resolve_city_key(&base));
+    // New hires do orientation and truck assignment at the carrier terminal,
+    // so the truck starts there, not in the picked home city.
+    if let (Some(carrier), Some(home)) = (hiring, carrier_home.as_deref()) {
+        profile.set_current_city(home);
+        profile.set_parked_facility(&carrier.terminal_name(world, home).unwrap_or_default());
+    }
     profile.set_money(option.starting_money);
     profile.set_business_status(if option.is_owner_operator() {
         "leased_owner_operator"
@@ -456,12 +627,41 @@ pub fn option_for_carrier(carrier_key: &str, carrier_name: &str) -> &'static Car
     if option.key != DEFAULT_START_KEY || carrier_name.is_empty() {
         return option;
     }
-    for candidate in &START_OPTIONS {
+    for candidate in all_start_options() {
         if candidate.carrier_name == carrier_name {
             return candidate;
         }
     }
     option
+}
+
+/// The start a reset gives a driver with no carrier, and the city it is
+/// based on. There is no carrier to carry over, so this is the start picker's
+/// rule: company starts whose carrier hires in the city, nearest hiring
+/// terminal first. `cities` are tried in order (the saved home city, else the
+/// current city, then the old terminal city); a city no carrier hires in is
+/// skipped, so a start never goes to a carrier that cannot hire there and an
+/// Alaska driver never lands at a lower-48 terminal. `None` when no listed
+/// city has a hiring carrier.
+pub fn reset_start_for_no_carrier(
+    world: &crate::data::world::World,
+    cities: &[&str],
+) -> Option<(&'static CareerStartOption, String)> {
+    cities
+        .iter()
+        .filter(|city| !city.trim().is_empty())
+        .find_map(|city| {
+            let key = world.resolve_city_key(city);
+            start_options_for_home_city(world, &key)
+                .into_iter()
+                .filter(|option| option.is_company_driver())
+                .filter_map(|option| {
+                    let mi = hiring_carrier_for_option(option)?.hiring_distance_mi(world, &key)?;
+                    Some((mi, option))
+                })
+                .min_by(|a, b| a.0.total_cmp(&b.0))
+                .map(|(_, option)| (option, key))
+        })
 }
 
 /// The start option behind a profile: its `carrier_key`, or -- for a save

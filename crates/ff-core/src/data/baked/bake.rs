@@ -251,6 +251,8 @@ pub fn bake_bytes(data_dir: &Path) -> Result<(Vec<u8>, BakeReport), DataError> {
             terrain: leg.terrain.clone(),
             stops: leg.stops.iter().map(BakedStop::from).collect(),
             truck_advisory: leg.truck_advisory.clone(),
+            crossings: leg.crossings.clone(),
+            detour_for: leg.detour_for.clone(),
             lanes: leg.lanes,
             local_cue: leg.local_cue.clone(),
             local_speed_mph: leg.local_speed_mph,

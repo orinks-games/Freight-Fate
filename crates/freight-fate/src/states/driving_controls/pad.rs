@@ -135,6 +135,8 @@ impl DrivingState {
             Action::CruiseDown => self.adjust_cruise(ctx, -1, false),
             Action::CruiseUp => self.adjust_cruise(ctx, 1, false),
             Action::Engine => self.toggle_engine(ctx),
+            Action::Reefer => self.toggle_reefer(ctx),
+            Action::Apu => self.toggle_apu(ctx),
             Action::Fuel => self.speak_fuel(ctx),
             // The pad had no answer to "what is the limit here" at all, so a
             // controller-only driver had to reach for the keyboard's S to ask

@@ -8,7 +8,7 @@
 
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use ff_core::data::world_models::HomeTerminal;
+use ff_core::models::border_freight::yard_drop_line;
 use ff_core::models::business::{display_rank_for, uses_company_career_ranks_for, SettlementTerms};
 use ff_core::models::career::{standing_xp_rate, xp_rate_settlement_clause};
 use ff_core::models::career_ladder::relabel_level_up_announcements;
@@ -19,6 +19,7 @@ use ff_core::models::carrier_fleet::{
 };
 use ff_core::models::credentials::MANUAL_SPEC_DIFFERENTIAL;
 use ff_core::models::enforcement;
+use ff_core::models::home_base::{self, ParkedAt, ParkedInputs};
 use ff_core::models::jobs::{lane_key, Job};
 use ff_core::models::solvency::{self, deductions_from_settlement};
 use ff_core::models::trucks::truck_model;
@@ -61,13 +62,23 @@ pub struct ArrivalState {
     new_achievement_names: Vec<String>,
     announcements: Vec<String>,
     pub summary_lines: Vec<String>,
-    pub terminal: HomeTerminal,
+    pub terminal: ParkedAt,
     /// Miles the co-driver drove on this load; 0 when the player drove it.
     pub(crate) team_miles: f64,
     /// The road journal's line for a team load.
     pub team_note: Option<String>,
     /// The settlement row for the co-driver's share of the pay.
     pub(crate) team_line: Option<String>,
+}
+
+/// The facility a finished drive leaves the truck at: the receiver for a
+/// delivery, none for an empty reposition.
+fn arrival_parked_facility(job: &Job) -> String {
+    if job.bobtail {
+        String::new()
+    } else {
+        job.destination_location.clone()
+    }
 }
 
 impl ArrivalState {
@@ -79,12 +90,24 @@ impl ArrivalState {
     /// Build settlement with an appointment time captured at receiver
     /// check-in. `driving` may already include later unloading time.
     pub fn new_at(ctx: &mut GameContext, driving: &mut DrivingState, arrival_hours: f64) -> Self {
-        let terminal = ctx
-            .world
-            .home_terminal(&driving.job.destination)
-            .unwrap_or_else(|_| {
-                HomeTerminal::new("Terminal", &driving.job.destination, "", "yard")
-            });
+        // Where the truck ends up: the carrier terminal in the home terminal
+        // city, else the receiver it just delivered to (a reposition has no
+        // facility), else the city's public lot -- never a yard elsewhere.
+        let terminal = {
+            let p = profile_of(ctx);
+            let facility = arrival_parked_facility(&driving.job);
+            home_base::parked_at(
+                ctx.world,
+                ParkedInputs {
+                    carrier_key: &p.carrier_key,
+                    carrier_name: &p.carrier_name,
+                    business_status: &p.business_status,
+                    home_terminal_city: &p.home_terminal_city,
+                    current_city: &driving.job.destination,
+                    parked_facility: &facility,
+                },
+            )
+        };
         let mut state = ArrivalState {
             menu: MenuCore::new("Delivery complete").with_intro_help(ARRIVAL_INTRO_HELP),
             summary_parts: Vec::new(),
@@ -138,6 +161,7 @@ impl ArrivalState {
         {
             let p = profile_mut_of(ctx);
             p.current_city = job.destination.clone();
+            p.parked_facility = arrival_parked_facility(&job);
             let driver_charges = p.fines_owed;
             if driver_charges != 0.0 {
                 p.spend(driver_charges);
@@ -212,12 +236,12 @@ impl ArrivalState {
         self.summary_parts.insert(
             0,
             format!(
-                "Bobtailed empty to {} in {} hours. It is {}. {pay_clause}Parked at {}. \
+                "Bobtailed empty to {} in {} hours. It is {}. {pay_clause}Parked {}. \
                  {} dispatch board available. Fuel {} percent.",
                 job.spoken_destination(),
                 fmt_f(hours, 1),
                 clock_text(to_local(game_hours, destination_timezone)),
-                self.terminal.name,
+                self.terminal.service_area_phrase(ctx.world),
                 job.spoken_destination(),
                 fmt_f(fuel_fraction * 100.0, 0)
             ),
@@ -546,6 +570,7 @@ impl ArrivalState {
             p.fines_owed = round_py_n(p.fines_owed + (carried_balance - collected).max(0.0), 2);
             p.earn(net_pay);
             p.current_city = job.destination.clone();
+            p.parked_facility = arrival_parked_facility(&job);
         }
         let lane = lane_key(ctx.world, &job);
         profile_mut_of(ctx).remember_lane(&lane);
@@ -660,7 +685,7 @@ impl ArrivalState {
             profile_name: profile_of(ctx).name.clone(),
             deliveries: profile_of(ctx).career.deliveries,
             cargo_key: job.cargo.key.to_string(),
-            cargo_label: job.cargo.label.to_string(),
+            cargo_label: job.spoken_cargo_label().to_string(),
             job_origin: job.origin.clone(),
             job_destination: job.destination.clone(),
             distance_mi: job.distance_mi,
@@ -706,6 +731,11 @@ impl ArrivalState {
         } else {
             String::new()
         };
+        // A southbound load dropped at a border transfer yard says who
+        // takes it from here.
+        let yard_drop = yard_drop_line(&job)
+            .map(|line| format!(" {line}"))
+            .unwrap_or_default();
         let accessorial_clause = if is_owner_operator(&business_status) {
             "These came off this settlement."
         } else {
@@ -714,11 +744,11 @@ impl ArrivalState {
         self.summary_parts.insert(
             0,
             format!(
-                "Delivered {} tons of {} to {} in {} hours, {}.{receiver_service_clause} {}. {} {} dollars. \
+                "Delivered {} tons of {} to {} in {} hours, {}.{yard_drop}{receiver_service_clause} {}. {} {} dollars. \
                  Charges {}: tolls {}, accessorials {}. {accessorial_clause} Business status: {}. Costs {}. \
-                 Fines {}. Net {}, you have {}. Parked at {}.",
+                 Fines {}. Net {}, you have {}. Parked {}.",
                 fmt_f(job.weight_tons, 0),
-                job.cargo.label,
+                job.spoken_cargo_label(),
                 job.spoken_destination(),
                 fmt_f(hours, 1),
                 if on_time { "on time" } else { "late" },
@@ -733,7 +763,7 @@ impl ArrivalState {
                 fmt_grouped(driver_charges, 0),
                 fmt_grouped(net_pay, 0),
                 fmt_grouped(money, 0),
-                self.terminal.name,
+                self.terminal.service_area_phrase(ctx.world),
             ),
         );
         if on_time_bonus_paid >= 1.0 {
@@ -910,7 +940,7 @@ impl ArrivalState {
             format!(
                 "Delivered {} tons of {} to {}.",
                 fmt_f(job.weight_tons, 0),
-                job.cargo.label,
+                job.spoken_cargo_label(),
                 job.spoken_destination()
             ),
             format!(
@@ -922,11 +952,7 @@ impl ArrivalState {
                 "It is {}.",
                 clock_text(to_local(game_hours, destination_timezone))
             ),
-            format!(
-                "Parked at {} for {} service area.",
-                self.terminal.name,
-                ff_core::speech_text::the_city(job.spoken_destination())
-            ),
+            format!("Parked {}.", self.terminal.service_area_phrase(ctx.world)),
             format!(
                 "{}: {} dollars.",
                 pay_label(&business_status),
@@ -949,6 +975,9 @@ impl ArrivalState {
                     fmt_f(receiver_service_hours, 1)
                 ),
             );
+        }
+        if let Some(line) = yard_drop_line(&job) {
+            lines.insert(1, line);
         }
         lines.extend(business_cost_lines);
         lines.extend(charge_lines);

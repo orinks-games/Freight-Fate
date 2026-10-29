@@ -30,6 +30,7 @@ pub fn meaningful_profile_hash(profile_dict: &Value) -> String {
             "integrity_modified",
             "integrity_notice_pending",
             "hos_key_notice_left",
+            "turnpike_program_notice_seen",
         ] {
             map.remove(field);
         }

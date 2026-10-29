@@ -148,6 +148,8 @@ impl DrivingState {
             // next dispatch all read the city off the profile.
             if p.current_city != self.job.origin {
                 p.current_city = self.job.origin.clone();
+                // The last delivered/dropped facility is back in the old city.
+                p.parked_facility.clear();
             }
             // Store the whole record, not just fuel and damage: this line also
             // accrues brake and engine wear, which the flat names do not carry.

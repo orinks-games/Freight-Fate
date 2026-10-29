@@ -36,6 +36,9 @@ pub fn advance_rest_clock(
         .truck
         .burn_idle_fuel_over_game_time(minutes * 60.0);
     driving.trip.truck.advance_parked_time(minutes);
+    // Reefer/APU keep burning (and cargo temp keeps drifting) through a rest.
+    let rest_s = minutes * 60.0;
+    driving.trip.truck.advance_hotel_power(rest_s, rest_s);
     driving.trip.game_minutes += minutes;
     driving.trip.weather.update(minutes);
     // Whoever is off the wheel rests through the stop too.

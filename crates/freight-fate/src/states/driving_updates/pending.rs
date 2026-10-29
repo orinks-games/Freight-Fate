@@ -21,6 +21,7 @@ pub struct EnforcementStopParams {
     pub out_of_service: bool,
     pub warned: bool,
     pub construction_zone: bool,
+    pub fine_is_final: bool,
     pub inspection_on_stop: bool,
     /// A routine roadside inspection: the stop IS the inspection, at this
     /// level, and the report decides the fine, not the caller.

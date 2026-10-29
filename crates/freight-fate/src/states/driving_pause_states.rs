@@ -700,7 +700,7 @@ pub fn trip_status_lines(d: &DrivingState, ctx: &GameContext) -> Vec<String> {
             format!(
                 "{} tons of {} are assigned for {}.",
                 fmt_f(d.job.weight_tons, 0),
-                d.job.cargo.label,
+                d.job.spoken_cargo_label(),
                 d.job.spoken_destination()
             ),
             d.pickup_progress_summary(ctx),
@@ -712,7 +712,7 @@ pub fn trip_status_lines(d: &DrivingState, ctx: &GameContext) -> Vec<String> {
         format!(
             "Hauling {} tons of {} to {}.",
             fmt_f(d.job.weight_tons, 0),
-            d.job.cargo.label,
+            d.job.spoken_cargo_label(),
             d.job.spoken_destination()
         ),
         d.trip.progress_summary(ctx.settings.imperial_units),

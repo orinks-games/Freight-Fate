@@ -63,6 +63,12 @@ pub struct HighwayFrame {
     pub native_offset: f64,
 }
 
+pub struct HighwayFrameRef<'a> {
+    pub leg: &'a Arc<Leg>,
+    pub toward_city: &'a str,
+    pub native_offset: f64,
+}
+
 /// A town near the truck: straight-line miles to it, its position along the
 /// leg relative to the truck (native frame), how far off the road it sits,
 /// and its spoken name.
@@ -243,6 +249,28 @@ impl DrivingState {
         })
     }
 
+    pub fn highway_frame_ref(&self) -> Option<HighwayFrameRef<'_>> {
+        if self.on_local_streets() || self.trip.route.legs.is_empty() {
+            return None;
+        }
+        let (leg_index, leg_start) = self.trip.leg_at_mile(self.trip.position_mi);
+        let leg = &self.trip.route.legs[leg_index];
+        let from_city = self.trip.route.cities[leg_index].as_str();
+        let toward_city = self.trip.route.cities[leg_index + 1].as_str();
+        let forward = from_city == leg.a;
+        let leg_offset = 0.0f64.max(leg.miles.min(self.trip.position_mi - leg_start));
+        let native_offset = if forward {
+            leg_offset
+        } else {
+            leg.miles - leg_offset
+        };
+        Some(HighwayFrameRef {
+            leg,
+            toward_city,
+            native_offset,
+        })
+    }
+
     /// The town nearest the truck on this leg, within `NEAREST_TOWN_MI`.
     ///
     /// Three kinds of town are on a leg, and the driver has heard all three
@@ -334,24 +362,24 @@ impl DrivingState {
     }
 
     pub fn speak_current_state(&mut self, ctx: &mut GameContext) {
-        let state = match self.highway_frame() {
-            None => {
-                let city = self.local_route_city();
-                city_state(ctx, &city)
-            }
-            Some(frame) => {
-                let read = leg_state_at(&frame.leg, frame.native_offset);
-                if read.is_empty() {
-                    city_state(ctx, &frame.toward_city)
-                } else {
-                    read
-                }
-            }
-        };
+        let state = self.current_jurisdiction(ctx);
         if state.is_empty() {
             ctx.say("No state known here.");
         } else {
             ctx.say(&format!("In {state}."));
+        }
+    }
+
+    /// Current jurisdiction, using the highway leg or local route city.
+    pub fn current_jurisdiction(&self, ctx: &GameContext) -> String {
+        let Some(frame) = self.highway_frame_ref() else {
+            return city_state(ctx, &self.local_route_city());
+        };
+        let state = leg_state_at(frame.leg, frame.native_offset);
+        if state.is_empty() {
+            city_state(ctx, frame.toward_city)
+        } else {
+            state
         }
     }
 

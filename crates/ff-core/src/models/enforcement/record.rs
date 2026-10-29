@@ -103,6 +103,14 @@ pub struct DrivingRecord {
     pub suspension_reason: String,
     pub lifetime_disqualified: bool,
     pub carrier_terminations: i64,
+    /// The carrier that took this driver on after a termination, knowing the
+    /// record. It keeps them on sufferance, the way the last-chance fleet
+    /// does, instead of letting them go again at the next terminal over the
+    /// same record. Empty when no such carrier applies.
+    pub sufferance_carrier_key: String,
+    /// The carrier that last let this driver go. A driver left without a
+    /// carrier cannot apply back to it (see `carriers::openings_for_unassigned`).
+    pub let_go_by: String,
     /// A career that predates the record loaded with offenses already on it and
     /// has not yet heard the one-time explanation of where it now stands.
     pub notice_pending: bool,

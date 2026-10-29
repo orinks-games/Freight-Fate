@@ -538,6 +538,10 @@ pub fn next_fleet_tier<P: CareerProfile + ?Sized>(profile: &P) -> Option<&'stati
 /// splits standing across several: what you are driving, and -- only when
 /// something is actually holding it back -- why, and what gives it back.
 pub fn equipment_status_lines<P: CareerProfile + ?Sized>(profile: &P) -> Vec<String> {
+    if crate::models::business::has_no_carrier(profile) {
+        // The company tractor went back with the seat; nothing to earn yet.
+        return vec![NO_CARRIER_TRUCK_LINE.to_string()];
+    }
     let key = profile.active_truck_key();
     let truck = match truck_model(&key) {
         Some(model) => model.label,
@@ -578,6 +582,10 @@ pub fn equipment_status_lines<P: CareerProfile + ?Sized>(profile: &P) -> Vec<Str
         )],
     }
 }
+
+/// Career stats' truck line for a driver with no carrier.
+pub const NO_CARRIER_TRUCK_LINE: &str =
+    "Truck: none. You have no carrier, so no tractor is assigned to you.";
 
 /// The `job=None` case of [`assigned_truck_key`] / [`assignment_reason_text`]
 /// spelled as a type: `assigned_truck_key::<_, NoJob>(profile, None)`.

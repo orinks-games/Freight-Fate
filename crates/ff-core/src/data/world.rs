@@ -17,6 +17,7 @@ use parking_lot::Mutex;
 use serde_json::Value;
 
 use super::baked::{BakedData, CorridorRef};
+use super::border_yards::border_yards_at;
 use super::branded_plazas::screen_branded_plazas;
 use super::data_resources::{baked_at, data_root, read_text_at};
 use super::legacy_aliases::LEGACY_CITY_SLUGS;
@@ -24,15 +25,15 @@ use super::stop_twins::screen_twin_stops;
 use super::world_constants::{
     ALTERNATE_ROUTE_EXTRA_RATIO, ALTERNATE_ROUTE_MAX_EXTRA_MILES, ALTERNATE_ROUTE_MIN_EXTRA_MILES,
 };
-use super::world_corridor::raw_metadata_complete;
+use super::world_corridor::{raw_metadata_complete, validate_tunnel_raw};
 use super::world_loader::{load_world_data, WorldData};
 use super::world_local_data::{
     load_city_service_data, load_facility_approaches, load_facility_endpoints,
     load_local_approaches, load_local_geometries, CityServiceData,
 };
 use super::world_models::{
-    City, CorridorDetail, DataError, DetailSource, FacilityApproach, FacilityEndpoint,
-    HomeTerminal, Leg, LocalApproach, LocalGeometry, Location, Route,
+    City, CorridorDetail, CrossingLoad, DataError, DetailSource, FacilityApproach,
+    FacilityEndpoint, Leg, LocalApproach, LocalGeometry, Location, RoadCrossing, Route,
 };
 use super::world_parsing::{
     expand_market_locations, flagged_limits_from, is_legacy_market_name, market_tags_for_city,
@@ -44,6 +45,31 @@ use builders::{
     build_city_aliases, build_legacy_facility_ids, build_service_city_keys, city_identity,
     py_float_or, validate_city_locations,
 };
+
+/// The leg a hop from `a` to `b` drives, among those `allowed`: the main
+/// road's record for this direction, else its other-direction record, else
+/// a detour leg. Both directions may carry separate corridor records.
+fn pick_hop<'l>(
+    legs: &'l [Arc<Leg>],
+    a: &str,
+    b: &str,
+    allowed: impl Fn(&Arc<Leg>) -> bool,
+) -> Option<&'l Arc<Leg>> {
+    let main = |leg: &&Arc<Leg>| leg.detour_for.is_empty() && allowed(leg);
+    legs.iter()
+        .filter(main)
+        .find(|leg| leg.a.as_str() == a && leg.b.as_str() == b)
+        .or_else(|| legs.iter().filter(main).find(|leg| leg.other(a) == b))
+        .or_else(|| {
+            legs.iter()
+                .filter(|leg| allowed(leg))
+                .find(|leg| leg.other(a) == b)
+        })
+}
+
+/// Search cost added to a legal detour leg, in miles. It runs between the
+/// same two cities as the road it bypasses; on a tie the main road wins.
+const DETOUR_TIE_BREAK_MILES: f64 = 0.01;
 
 /// Routing cost multiplier for a leg carrying a truck_advisory (see
 /// `shortest_route`). Calibrated, not tasted: carriers accept the ~1.7x
@@ -109,6 +135,7 @@ impl World {
         let countries = data.geo.unwrap_or_default().countries;
         let mut cities: IndexMap<String, City> = IndexMap::new();
         let mut facilities_by_id: HashMap<String, Location> = HashMap::new();
+        let border = border_yards_at(&data_dir)?;
         for (key, c) in &data.cities {
             let lat = py_float_or(&c.lat, 0.0)?;
             let lon = py_float_or(&c.lon, 0.0)?;
@@ -119,15 +146,25 @@ impl World {
                 .map(|loc| parse_location(loc, key, &identity.spoken_city, lat, lon))
                 .collect::<Result<Vec<_>, _>>()?;
             let tags = market_tags_for_city(key, &identity.state_code, c, &explicit_locs);
-            let locs = expand_market_locations(
-                key,
+            let mut locs = if c.no_freight {
+                explicit_locs
+            } else {
+                expand_market_locations(key, &identity.spoken_city, lat, lon, &explicit_locs, &tags)
+            };
+            // Border transfer yards join their city after the market
+            // expansion, so they add to its freight rather than replacing
+            // the facility types the endpoint sweep already pinned.
+            if let Some(border) = border.as_ref().filter(|b| &b.city == key) {
+                for raw in border.location_values() {
+                    locs.push(parse_location(&raw, key, &identity.spoken_city, lat, lon)?);
+                }
+            }
+            validate_city_locations(
                 &identity.spoken_city,
-                lat,
-                lon,
-                &explicit_locs,
-                &tags,
-            );
-            validate_city_locations(&identity.spoken_city, &locs, &mut facilities_by_id)?;
+                &locs,
+                c.no_freight,
+                &mut facilities_by_id,
+            )?;
             cities.insert(
                 key.clone(),
                 City {
@@ -135,6 +172,7 @@ impl World {
                     state: identity.state_name,
                     region: c.region.clone(),
                     locations: locs,
+                    no_freight: c.no_freight,
                     lat,
                     lon,
                     market_tags: tags,
@@ -197,6 +235,7 @@ impl World {
             // which twin it keeps is decided on the recorded types.
             let stops = screen_branded_plazas(stops);
             let corridor = leg.corridor;
+            validate_tunnel_raw(&corridor, &leg_from, &leg_to)?;
             let from_state = cities
                 .get(&leg_from)
                 .ok_or_else(|| DataError::key(format!("Unknown city: {leg_from}")))?
@@ -226,6 +265,19 @@ impl World {
                 Value::Null => String::new(),
                 v => py_str(v).trim().to_string(),
             };
+            let detour_for = match &leg.detour_for {
+                Value::Null => String::new(),
+                v => py_str(v).trim().to_string(),
+            };
+            let crossings: Vec<RoadCrossing> = match &leg.crossings {
+                Value::Null => Vec::new(),
+                v => serde_json::from_value(v.clone()).map_err(|e| {
+                    DataError::value(format!("{leg_from} to {leg_to} has invalid crossings: {e}"))
+                })?,
+            };
+            for crossing in &crossings {
+                crossing.validate(&format!("{leg_from} to {leg_to}"))?;
+            }
             let mut built = Leg::lazy(
                 &leg_from,
                 &leg_to,
@@ -249,6 +301,8 @@ impl World {
             built.lanes = lanes;
             built.divided = divided;
             built.truck_advisory = truck_advisory;
+            built.crossings = crossings;
+            built.detour_for = detour_for;
             built.meta_complete = Some(meta_complete);
             legs.push(Arc::new(built));
         }
@@ -332,7 +386,12 @@ impl World {
         let mut facilities_by_id: HashMap<String, Location> = HashMap::new();
         for baked in baked_cities {
             let city = City::from(baked);
-            validate_city_locations(&city.name, &city.locations, &mut facilities_by_id)?;
+            validate_city_locations(
+                &city.name,
+                &city.locations,
+                city.no_freight,
+                &mut facilities_by_id,
+            )?;
             cities.insert(city.key.clone(), city);
         }
         let (city_aliases, ambiguous_spoken) = build_city_aliases(&cities);
@@ -376,6 +435,8 @@ impl World {
             built.local_turn_deg = baked.local_turn_deg;
             built.divided = baked.divided;
             built.truck_advisory = baked.truck_advisory;
+            built.crossings = baked.crossings;
+            built.detour_for = baked.detour_for;
             built.meta_complete = baked.meta_complete;
             legs.push(Arc::new(built));
         }
@@ -680,71 +741,43 @@ impl World {
     }
 
     /// Stable fallback for legacy jobs that only named a city.
+    ///
+    /// Only `company_yard` or `terminal` may be returned. Travel centers and
+    /// truck parking are fuel/rest pins, never dispatch yards. When the city
+    /// has neither, this errors (`{city} has no freight facilities`) rather
+    /// than inventing a warehouse or picking a fuel stop — callers should
+    /// treat that city as not offering a default freight endpoint.
     pub fn default_facility(&self, city: &str) -> Result<&Location, DataError> {
         let key = self.resolve_city_key(city);
         let Some(city_obj) = self.cities.get(&key) else {
             return Err(DataError::key(format!("Unknown city: {city}")));
         };
         let locations = &city_obj.locations;
-        const PREFERRED: &[&str] = &[
-            "company_yard",
-            "terminal",
-            "dry_warehouse",
-            "warehouse",
-            "distribution",
-            "cross_dock",
-        ];
+        const PREFERRED: &[&str] = &["company_yard", "terminal"];
         for facility_type in PREFERRED {
             if let Some(location) = locations.iter().find(|l| l.facility_type == *facility_type) {
                 return Ok(location);
             }
         }
-        locations
-            .first()
-            .ok_or_else(|| DataError::key(format!("{city} has no freight facilities")))
+        Err(DataError::key(format!("{city} has no freight facilities")))
     }
 
-    /// Return the player's dispatch yard for a service area.
-    ///
-    /// The world data mostly lists shippers and receivers rather than company
-    /// yards, so explicit terminal facilities are preferred and every other
-    /// city gets a stable fallback yard name. `HomeTerminal.city` carries the
-    /// spoken city name -- the terminal object exists to be announced.
-    pub fn home_terminal(&self, city: &str) -> Result<HomeTerminal, DataError> {
+    /// Name of this city's own `terminal` (preferred) or `company_yard`
+    /// freight pin, for cosmetic naming only (the fallback garage). World
+    /// pins are freight endpoints and are never a player's home terminal:
+    /// that is the hiring carrier's own yard (see `models::carriers`).
+    pub fn yard_pin_name(&self, city: &str) -> Option<&str> {
         let key = self.resolve_city_key(city);
-        let Some(city_obj) = self.cities.get(&key) else {
-            return Err(DataError::key(format!("Unknown city: {city}")));
-        };
-        if let Some(location) = city_obj
-            .locations
+        let city = self.cities.get(&key)?;
+        city.locations
             .iter()
             .find(|l| l.facility_type == "terminal")
-        {
-            return Ok(HomeTerminal::new(
-                &location.name,
-                &city_obj.name,
-                &city_obj.state,
-                "terminal",
-            ));
-        }
-        if let Some(location) = city_obj
-            .locations
-            .iter()
-            .find(|l| l.facility_type == "company_yard")
-        {
-            return Ok(HomeTerminal::new(
-                &location.name,
-                &city_obj.name,
-                &city_obj.state,
-                "company_yard",
-            ));
-        }
-        Ok(HomeTerminal::new(
-            &format!("{} Company Yard", city_obj.name),
-            &city_obj.name,
-            &city_obj.state,
-            "company_yard",
-        ))
+            .or_else(|| {
+                city.locations
+                    .iter()
+                    .find(|l| l.facility_type == "company_yard")
+            })
+            .map(|l| l.name.as_str())
     }
 
     // ------------------------------------------------------------ routing
@@ -792,6 +825,19 @@ impl World {
                     continue;
                 }
                 let nxt = leg.other(&city);
+                // A leg's reverse record is the same road the other way; a
+                // detour leg is a different road, so it neither hides nor is
+                // hidden by the leg it bypasses.
+                let has_forward_leg = leg.detour_for.is_empty()
+                    && legs.iter().any(|candidate| {
+                        candidate.detour_for.is_empty()
+                            && candidate.a.as_str() == city
+                            && candidate.b.as_str() == nxt
+                            && (!require_metadata || self.leg_metadata_complete(candidate))
+                    });
+                if leg.a.as_str() != city && has_forward_leg {
+                    continue;
+                }
                 let mut cost = if has_penalties {
                     leg.miles
                         * penalties
@@ -801,6 +847,9 @@ impl World {
                 } else {
                     leg.miles
                 };
+                if !leg.detour_for.is_empty() {
+                    cost += DETOUR_TIE_BREAK_MILES;
+                }
                 if !leg.truck_advisory.is_empty() {
                     // Strong avoidance, never refusal. Calibrated against the
                     // decision real carriers make at Red Mountain Pass: they
@@ -860,7 +909,34 @@ impl World {
             let leg = self
                 .adjacency
                 .get(a)
-                .and_then(|legs| legs.iter().find(|x| x.other(a) == b))?;
+                .and_then(|legs| pick_hop(legs, a, b, |_| true))?;
+            legs.push(Arc::clone(leg));
+        }
+        Some(Route::new(cities, legs))
+    }
+
+    /// `route_from_cities` for a trip carrying `load`: where a hop has a
+    /// legal detour beside a road whose crossing refuses the load, the hop
+    /// is the detour, the road a saved trip with that load was planned on.
+    pub fn route_from_cities_for<S: AsRef<str>>(
+        &self,
+        cities: &[S],
+        load: &CrossingLoad,
+    ) -> Option<Route> {
+        if cities.len() < 2 {
+            return None;
+        }
+        let cities: Vec<String> = cities
+            .iter()
+            .map(|c| self.resolve_city_key(c.as_ref()))
+            .collect();
+        let mut legs: Vec<Arc<Leg>> = Vec::new();
+        for pair in cities.windows(2) {
+            let (a, b) = (&pair[0], &pair[1]);
+            let legal = |leg: &Arc<Leg>| leg.crossings.iter().all(|c| c.refusal(load).is_none());
+            let leg = self.adjacency.get(a).and_then(|legs| {
+                pick_hop(legs, a, b, legal).or_else(|| pick_hop(legs, a, b, |_| true))
+            })?;
             legs.push(Arc::clone(leg));
         }
         Some(Route::new(cities, legs))
@@ -904,6 +980,127 @@ impl World {
         self.route_options(start, end, count, true)
     }
 
+    /// Every leg a crossing on it refuses this load, walled off for the
+    /// route search. Empty for a load no crossing on the map turns away.
+    pub fn crossing_blocks(&self, load: &CrossingLoad) -> Penalties {
+        self.legs
+            .iter()
+            .filter(|leg| leg.crossings.iter().any(|c| c.refusal(load).is_some()))
+            .map(|leg| (leg.id, f64::INFINITY))
+            .collect()
+    }
+
+    /// The shortest supported route this load may legally drive: around
+    /// every tunnel or bridge whose rules turn it away. None when no such
+    /// road exists, which is a load dispatch must not offer.
+    pub fn legal_route(
+        &self,
+        start: &str,
+        end: &str,
+        load: &CrossingLoad,
+    ) -> Result<Option<Route>, DataError> {
+        let blocks = self.crossing_blocks(load);
+        let best = self.supported_route(start, end, None)?;
+        if blocks.is_empty() {
+            return Ok(best);
+        }
+        // Removing legs never shortens a search, so a best road that already
+        // misses every refusing crossing is the legal best too.
+        if let Some(route) = best {
+            if route.legs.iter().all(|leg| !blocks.contains_key(&leg.id)) {
+                return Ok(Some(route));
+            }
+        }
+        self.shortest_route(start, end, Some(&blocks), true)
+    }
+
+    /// Up to `count` supported routes this load may legally drive, shortest
+    /// first; see `legal_route`.
+    pub fn legal_route_options(
+        &self,
+        start: &str,
+        end: &str,
+        count: usize,
+        load: &CrossingLoad,
+    ) -> Result<Vec<Route>, DataError> {
+        let blocks = self.crossing_blocks(load);
+        self.route_options_with(start, end, count, true, &blocks)
+    }
+
+    /// The road ahead re-planned around a crossing that refuses this load,
+    /// with the crossing's spoken rule; None when the road ahead is legal.
+    ///
+    /// The new road starts at the next city the truck has not yet left, so
+    /// everything behind the truck is unchanged. With no legal road onward
+    /// from there it runs back the way it came to the origin and takes the
+    /// origin's legal road, so a refused truck always has a way to go.
+    pub fn legalize_route_ahead(
+        &self,
+        route: &Route,
+        position_mi: f64,
+        load: &CrossingLoad,
+    ) -> Option<(Route, String)> {
+        let mut start_mi = 0.0;
+        let mut ahead = None;
+        for (i, leg) in route.legs.iter().enumerate() {
+            if start_mi >= position_mi - 1e-6 {
+                ahead = Some(i);
+                break;
+            }
+            start_mi += leg.miles;
+        }
+        let ahead = ahead?;
+        let reason = route.legs[ahead..]
+            .iter()
+            .find_map(|leg| leg.crossings.iter().find_map(|c| c.refusal_spoken(load)))?;
+        let here = route.cities.get(ahead)?;
+        let destination = route.cities.last()?;
+        let mut cities = route.cities[..ahead].to_vec();
+        let mut legs = route.legs[..ahead].to_vec();
+        if let Some(tail) = self.legal_route(here, destination, load).ok().flatten() {
+            cities.extend(tail.cities);
+            legs.extend(tail.legs);
+        } else {
+            let origin = route.cities.first()?;
+            let onward = self.legal_route(origin, destination, load).ok().flatten()?;
+            cities.extend(route.cities[..=ahead].iter().rev().cloned());
+            legs.extend(route.legs[..ahead].iter().rev().cloned());
+            cities.extend(onward.cities.into_iter().skip(1));
+            legs.extend(onward.legs);
+        }
+        Some((Route::new(cities, legs), reason))
+    }
+
+    /// The road onward from the city at `ahead` (an index into the route's
+    /// cities) that this load may legally drive without leg `avoid_leg`,
+    /// spliced after the road already driven; None when there is none
+    /// within the usual alternate-route allowance of the road it replaces.
+    pub fn detour_ahead(
+        &self,
+        route: &Route,
+        ahead: usize,
+        load: &CrossingLoad,
+        avoid_leg: usize,
+    ) -> Option<Route> {
+        let here = route.cities.get(ahead)?;
+        let destination = route.cities.last()?;
+        let mut blocks = self.crossing_blocks(load);
+        blocks.insert(avoid_leg, f64::INFINITY);
+        let tail = self
+            .shortest_route(here, destination, Some(&blocks), true)
+            .ok()
+            .flatten()?;
+        let remaining: f64 = route.legs.get(ahead..)?.iter().map(|leg| leg.miles).sum();
+        if tail.miles() > max_alternate_miles(remaining) {
+            return None;
+        }
+        let mut cities = route.cities[..ahead].to_vec();
+        let mut legs = route.legs[..ahead].to_vec();
+        cities.extend(tail.cities);
+        legs.extend(tail.legs);
+        Some(Route::new(cities, legs))
+    }
+
     /// Up to `count` distinct routes, fastest first.
     pub fn route_options(
         &self,
@@ -912,10 +1109,24 @@ impl World {
         count: usize,
         require_metadata: bool,
     ) -> Result<Vec<Route>, DataError> {
+        self.route_options_with(start, end, count, require_metadata, &HashMap::new())
+    }
+
+    /// `route_options` over a graph with `walls` already penalised -- an
+    /// infinite penalty takes a leg out of every search.
+    fn route_options_with(
+        &self,
+        start: &str,
+        end: &str,
+        count: usize,
+        require_metadata: bool,
+        walls: &Penalties,
+    ) -> Result<Vec<Route>, DataError> {
         let mut routes: Vec<Route> = Vec::new();
-        let mut penalties: Penalties = HashMap::new();
+        let mut penalties: Penalties = walls.clone();
         let mut seen: HashSet<Vec<String>> = HashSet::new();
-        let Some(best) = self.shortest_route(start, end, None, require_metadata)? else {
+        let first = (!walls.is_empty()).then_some(walls);
+        let Some(best) = self.shortest_route(start, end, first, require_metadata)? else {
             return Ok(routes);
         };
         let max_miles = max_alternate_miles(best.miles());
@@ -975,4 +1186,19 @@ static WORLD: OnceCell<World> = OnceCell::new();
 /// Python import was.
 pub fn get_world() -> &'static World {
     WORLD.get_or_init(|| World::load().expect("the shipped world data loads"))
+}
+
+/// Great-circle distance in statute miles (carrier terminal and hiring radius).
+pub fn air_miles(lat1: f64, lon1: f64, lat2: f64, lon2: f64) -> f64 {
+    const EARTH_MI: f64 = 3958.7613;
+    let (lat1, lon1, lat2, lon2) = (
+        lat1.to_radians(),
+        lon1.to_radians(),
+        lat2.to_radians(),
+        lon2.to_radians(),
+    );
+    let dlat = lat2 - lat1;
+    let dlon = lon2 - lon1;
+    let a = (dlat / 2.0).sin().powi(2) + lat1.cos() * lat2.cos() * (dlon / 2.0).sin().powi(2);
+    EARTH_MI * 2.0 * a.sqrt().asin()
 }

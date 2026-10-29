@@ -244,10 +244,15 @@ impl World {
 
     fn fallback_city_service(&self, city_key: &str, key: &str) -> Result<CityService, DataError> {
         let city_obj = &self.cities[city_key];
-        let terminal = self.home_terminal(city_key)?;
         let name = match key {
             "freight_market" => format!("{} Freight Market Office", city_obj.name),
-            "garage" => format!("{} Garage", terminal.name),
+            // Named for the city's own yard pin when it has one; a town with
+            // no yard pin (Dawson Creek) names the garage for the town. Never
+            // borrows a yard from another city.
+            "garage" => match self.yard_pin_name(city_key) {
+                Some(yard) => format!("{yard} Garage"),
+                None => format!("{} Garage", city_obj.name),
+            },
             "truck_dealer" => format!("{} Truck Dealer", city_obj.name),
             other => return Err(DataError::key(py_key(other))),
         };

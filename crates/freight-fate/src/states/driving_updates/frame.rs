@@ -577,6 +577,7 @@ impl DrivingState {
         // Keep the trip's spoken-distance units in step with a live settings
         // change; the setter only re-renders cues when the choice actually flips.
         self.trip.set_imperial(ctx.settings.imperial_units);
+        self.check_border_approach(ctx);
         let pos_before = self.trip.position_mi;
         // Tell the trip model which stop's exit is signaled or on the ramp so its
         // plan-cancelled warning can tell a driver who is taking the exit from one
@@ -617,6 +618,9 @@ impl DrivingState {
             // Past the gore even if a busy cab kept the scale check from
             // running this frame: the real-time hold ends at the scale.
             self.trip.scale_reminder_hold_mi = None;
+        }
+        if self.check_border_booth_crossing(ctx, pos_before) {
+            return;
         }
         self.check_weigh_station_enforcement(ctx, pos_before);
         self.lane_keeping_signal_for_scale(ctx);

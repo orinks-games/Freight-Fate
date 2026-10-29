@@ -106,7 +106,13 @@ impl BusinessStatusState {
             p.dispatch_board_cache = None;
         }
         save_business_change(ctx);
-        ctx.say("Staying a company driver.");
+        // With no carrier there is no seat to stay in: what stays is the
+        // path, not the job.
+        if ff_core::models::career::carrier_name_of(profile(ctx)).is_empty() {
+            ctx.say("Staying on the company-driver path.");
+        } else {
+            ctx.say("Staying a company driver.");
+        }
         self.refresh(ctx, true);
     }
 
@@ -667,6 +673,11 @@ impl_state_for_menu!(UpgradeShopState);
 
 // -- Trucks ----------------------------------------------------------------------------------
 
+/// The truck dealer with no carrier: the buy-in leases the tractor to a
+/// carrier, so it waits for one.
+pub const TRUCK_SHOP_NO_CARRIER: &str = "Truck ownership starts with the leased-on \
+     owner-operator buy-in, and that needs a carrier to lease to. Apply to a carrier first.";
+
 pub struct TruckShopState {
     menu: MenuCore<Self>,
     /// The dealer-name prefix is only true when the player actually
@@ -690,6 +701,10 @@ impl TruckShopState {
 
     fn locked(&mut self, ctx: &mut GameContext) {
         ctx.audio.play("ui/error");
+        if profile(ctx).is_unassigned_company_driver() {
+            ctx.say(TRUCK_SHOP_NO_CARRIER);
+            return;
+        }
         ctx.say("Company drivers use the carrier's trucks. Buying trucks unlocks with the owner-operator buy-in, from level 18 under Business status.");
     }
 
@@ -809,6 +824,17 @@ impl Menu for TruckShopState {
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
+        if profile(ctx).is_unassigned_company_driver() {
+            // No carrier, so no assigned tractor, and the buy-in has no
+            // carrier to lease to (`owner_operator_eligibility`).
+            return vec![
+                MenuItem::new("Truck ownership locked: no carrier", |s: &mut Self, ctx| {
+                    s.locked(ctx)
+                })
+                .help(TRUCK_SHOP_NO_CARRIER),
+                MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)),
+            ];
+        }
         if !is_owner_operator(&profile(ctx).business_status) {
             return vec![
                 MenuItem::new(

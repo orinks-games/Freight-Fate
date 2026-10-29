@@ -1,0 +1,123 @@
+{
+  "cities": {
+    "surrey_bc_ca": {
+      "spoken_city": "Surrey",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "City of Surrey Truck Parking (17768 96 Avenue)",
+          "type": "truck_parking",
+          "lat": 49.176804,
+          "lon": -122.7300234,
+          "source_note": "City of Surrey commercial truck parking site at 17768 96 Avenue (Anniedale-Tynehead), Hwy 15 / Pacific Highway corridor. City news and corporate reports advance this City-owned lot (~41 truck spaces) under Temporary Use Permit / licence with Prudential Transportation. Pin matches the Phase A Surrey stand-in coordinates. Retyped from company_yard to truck_parking (ALCAN public lot class)."
+        }
+      ],
+      "lat": 49.176804,
+      "lon": -122.7300234
+    },
+    "prince_george_bc_ca": {
+      "spoken_city": "Prince George",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 53.8722547,
+      "lon": -122.7361198,
+      "locations": [
+        {
+          "name": "Husky / Esso Travel Centre (1148 Pacific Street)",
+          "type": "travel_center",
+          "lat": 53.8722547,
+          "lon": -122.7361198,
+          "source_note": "Husky/Esso travel centre at 1148 Pacific Street, Prince George BC (Hwy 97 corridor). Truck-stop directories list ~20\u201325 truck parking spaces, diesel, and 24/7 amenities. Stand-in fuel/parking pin for ALCAN Phase A through-freight (no CA domestic career board). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        }
+      ]
+    },
+    "dawson_creek_bc_ca": {
+      "spoken_city": "Dawson Creek",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 55.7584791,
+      "lon": -120.2286885,
+      "locations": [
+        {
+          "name": "Husky (1700 Alaska Highway)",
+          "type": "travel_center",
+          "lat": 55.766161,
+          "lon": -120.2510583,
+          "source_note": "Husky fuel at 1700 Alaska Highway, Dawson Creek BC, near Mile 0 of the Alaska Highway. City pin is the Alaska Highway Mile 0 milepost on 102 Avenue. Stand-in fuel/parking for ALCAN Phase A Mile 0 (through-freight only; no CA domestic career board). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        }
+      ]
+    },
+    "fort_st_john_bc_ca": {
+      "spoken_city": "Fort St. John",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 56.2418833,
+      "lon": -120.8066055,
+      "locations": [
+        {
+          "name": "Smith Fuel Services (9516 78 Street)",
+          "type": "travel_center",
+          "lat": 56.2418833,
+          "lon": -120.8066055,
+          "source_note": "Smith Fuel Services commercial fuel at 9516 78 Street / Northern Lights Drive, Fort St. John BC, on the Alaska Highway approach. Stand-in fuel/parking pass-through north of Dawson Creek Mile 0 for ALCAN Phase A through-freight (no CA domestic career board). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        }
+      ]
+    },
+    "fort_nelson_bc_ca": {
+      "spoken_city": "Fort Nelson",
+      "state": "BC",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 58.8048351,
+      "lon": -122.7014595,
+      "locations": [
+        {
+          "name": "Esso / Ft Nelson Bulk Sales (5303 48th Avenue)",
+          "type": "travel_center",
+          "lat": 58.802163,
+          "lon": -122.7036488,
+          "source_note": "Esso / Ft Nelson Bulk Sales cardlock and diesel at 5303 48th Avenue, Fort Nelson BC (Alaska Highway corridor; operator also lists Mile 293 Gasoline Alley). Stand-in fuel/parking for ALCAN Phase A through-freight (no CA domestic career board). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        }
+      ]
+    },
+    "watson_lake_yt_ca": {
+      "spoken_city": "Watson Lake",
+      "state": "YT",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 60.0624306,
+      "lon": -128.7068037,
+      "locations": [
+        {
+          "name": "Petro-Canada (137 Frank Trail)",
+          "type": "travel_center",
+          "lat": 60.0524072,
+          "lon": -128.6662836,
+          "source_note": "Petro-Canada / Petro-Pass fuel on Hwy 1 at 137 Frank Trail, Watson Lake YT (Alaska Highway). Truck-stop directories list ~5 truck parking spaces and diesel. Stand-in fuel/parking for ALCAN Phase A through-freight (no CA domestic career board). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        }
+      ]
+    },
+    "whitehorse_yt_ca": {
+      "spoken_city": "Whitehorse",
+      "state": "YT",
+      "country": "CA",
+      "region": "pacific_northwest",
+      "lat": 60.721571,
+      "lon": -135.054932,
+      "locations": [
+        {
+          "name": "McCrae Petro-Canada (91007 Alaska Highway)",
+          "type": "travel_center",
+          "lat": 60.6387178,
+          "lon": -135.0021221,
+          "source_note": "McCrae Petro-Canada at 91007 Alaska Highway, Whitehorse YT (south approach / McRae). Truck-stop directories list ~10 truck parking spaces, diesel, and driver amenities. City pin stays downtown Whitehorse; lot pin is the ALCAN stand-in fuel/parking for Phase A through-freight (no CA domestic career board). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        }
+      ]
+    }
+  }
+}

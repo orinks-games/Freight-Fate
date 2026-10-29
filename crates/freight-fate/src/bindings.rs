@@ -55,6 +55,8 @@ pub enum Action {
     SteerRight,
     Straighten,
     Engine,
+    Reefer,
+    Apu,
     ParkingBrake,
     Horn,
     /// Keyboard only by default, like the lane locator: the cab controls
@@ -180,6 +182,20 @@ const TABLE: &[Row] = &[
         "Engine on or off",
         &[Chord::plain(Key::E)],
         &[PadChord::modified(Pad::A)],
+    ),
+    (
+        Action::Reefer,
+        "reefer",
+        "Reefer on or off",
+        &[Chord::alt(Key::R)],
+        &[],
+    ),
+    (
+        Action::Apu,
+        "apu",
+        "APU on or off",
+        &[Chord::alt(Key::U)],
+        &[],
     ),
     (
         Action::ParkingBrake,
@@ -899,6 +915,8 @@ fn hint_action(hint: &str) -> Option<Action> {
         "reverse" => Action::Reverse,
         "neutral" => Action::Neutral,
         "engine" => Action::Engine,
+        "reefer" => Action::Reefer,
+        "apu" => Action::Apu,
         "parking_brake" => Action::ParkingBrake,
         "take_exit" => Action::TakeExit,
         "rest" => Action::Rest,

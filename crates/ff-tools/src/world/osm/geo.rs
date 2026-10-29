@@ -167,7 +167,24 @@ pub struct OsmWay {
     pub mph: Option<f64>,
     /// Whether `mph` came from the truck tag.
     pub hgv: bool,
+    /// The same reading where a bare number is km/h: the limit to use when
+    /// the way lies in Canada (see [`super::region`]). Equal to `mph` and
+    /// `hgv` when the tags name the unit or the way's jurisdiction.
+    pub ca_mph: Option<f64>,
+    pub ca_hgv: bool,
     pub coords: Vec<(f64, f64)>,
+}
+
+impl OsmWay {
+    /// The limit and whether it is the truck tag's, read in Canada's unit
+    /// or the United States'.
+    pub fn limit(&self, in_canada: bool) -> Option<(f64, bool)> {
+        if in_canada {
+            self.ca_mph.map(|m| (m, self.ca_hgv))
+        } else {
+            self.mph.map(|m| (m, self.hgv))
+        }
+    }
 }
 
 /// Way segments bucketed by grid cell, kept only where a leg runs.
@@ -269,6 +286,8 @@ mod tests {
             route_ref: String::new(),
             mph: Some(55.0),
             hgv: false,
+            ca_mph: Some(55.0),
+            ca_hgv: false,
             coords: vec![(lat, -97.01), (lat, -96.99)],
         };
         let line = LegLine::new(vec![(30.0, -97.0), (30.01, -97.0)]);

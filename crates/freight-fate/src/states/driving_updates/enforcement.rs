@@ -605,7 +605,8 @@ impl DrivingState {
         }
     }
 
-    /// Whether this load is over the federal 80,000 lb GVW cap.
+    /// Whether this load is over its legal gross: 80,000 lb for a single or
+    /// parcel pups, the route's turnpike cap for turnpike doubles.
     ///
     /// Tractor, trailer, cargo, and remaining diesel all count. An overweight
     /// truck is always red-lighted at a transponder scale.

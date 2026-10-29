@@ -19,7 +19,9 @@ mod air;
 mod axles;
 mod condition;
 mod descent;
+mod doubles;
 mod forces;
+mod hotel;
 mod mass;
 mod roll;
 mod shifting;
@@ -27,6 +29,12 @@ mod updates;
 
 pub use axles::{AxleLoads, TANDEM_LIMIT_LB};
 pub use descent::{DESCENT_SPEED_STEP_MPH, GSRS_BRAKE_LIMIT_C};
+pub use doubles::{combination_tare_for_trailer_kg, TrailerSet, REAR_WHIP_MIN_MPH};
+pub use hotel::{
+    cargo_needs_reefer_key, reefer_running_announcement, spoken_cargo_temp_degrees, HotelEvents,
+    APU_BURN_GAL_PER_S, REEFER_BAND_C, REEFER_BURN_GAL_PER_S, REEFER_DRIFT_RATE, REEFER_HOLD_RATE,
+    REEFER_SETPOINT_C, REEFER_SPOIL_GRACE_MIN,
+};
 pub use mass::DIESEL_KG_PER_GAL;
 pub use roll::ROLL_WARN_SHARE;
 
@@ -561,10 +569,27 @@ pub struct TruckState {
     pub odometer_mi: f64,
     /// Payload aboard; default = full reference load.
     pub cargo_kg: f64,
+    /// The dispatched cargo identity, retained by the driving model for road
+    /// access rules that distinguish hazardous freight.
+    pub cargo_key: String,
+    /// A placard is a property of the dispatched load, not of the endorsement.
+    pub placarded_hazmat: bool,
+    /// The placarded load's hazard class, where the job names one.
+    pub hazard_class: Option<crate::data::world_models::HazardClass>,
+    /// Overall dimensions of the actual combination.  The stock values are
+    /// the game's WB-67 combination; tests and future oversize permits may
+    /// supply a different measured rig.
+    pub rig_length_ft: f64,
+    pub rig_width_ft: f64,
+    pub rig_height_ft: f64,
     /// False = true bobtail: the tractor alone, nothing on the fifth wheel.
     /// Deadheading with an empty box keeps this True; the difference is the
     /// trailer's tare, its air line, and how a light box gets shifted.
     pub trailer_attached: bool,
+    /// What is on the fifth wheel when `trailer_attached`: one box, or a set
+    /// of doubles with its own tare, legal gross and handling. Not persisted;
+    /// the driving layer sets it from the job, as it does `liquid`.
+    pub trailer_set: TrailerSet,
 
     // environment, set each frame by the trip/weather layer
     /// +uphill, e.g. 0.06 = 6%
@@ -622,6 +647,22 @@ pub struct TruckState {
     /// freight, and every surge term short-circuits on that -- a driver hauling
     /// boxes must not be able to tell this code exists.
     pub liquid: Option<LiquidLoad>,
+
+    /// Reefer TRU running. Burns diesel from the tractor tank (v1 simplification).
+    pub reefer_on: bool,
+    /// Auxiliary power unit running. Low hotel burn from the tractor tank.
+    pub apu_on: bool,
+    /// Coarse cargo temperature (°C). Meaningful when `cargo_needs_reefer`.
+    pub cargo_temp_c: f64,
+    /// Outdoor air the cargo drifts toward when the TRU is off. Set by the
+    /// driving layer from weather when available.
+    pub ambient_temp_c: f64,
+    /// Current job needs the reefer TRU. Set by the driving layer from cargo.
+    pub cargo_needs_reefer: bool,
+    /// Game minutes the cargo has sat outside the coarse reefer band.
+    pub reefer_out_of_range_min: f64,
+    /// One-shot: TRU quit because the tractor tank ran dry.
+    pub reefer_just_starved: bool,
 
     /// ECM road-speed governor: above this the engine simply stops fuelling,
     /// exactly like the rpm governor below. None = ungoverned. Not persisted --
@@ -684,7 +725,14 @@ impl TruckState {
             chain_control_road: false,
             odometer_mi: 0.0,
             cargo_kg: REFERENCE_CARGO_KG,
+            cargo_key: String::new(),
+            placarded_hazmat: false,
+            hazard_class: None,
+            rig_length_ft: crate::sim::cross_traffic::COMBINATION_LENGTH_FT,
+            rig_width_ft: 8.5,
+            rig_height_ft: 13.5,
             trailer_attached: true,
+            trailer_set: TrailerSet::default(),
             grade: 0.0,
             grip: 1.0,
             water_mm: 0.0,
@@ -701,6 +749,13 @@ impl TruckState {
             corner_radius_ft: 0.0,
             corner_bank: 0.0,
             liquid: None,
+            reefer_on: false,
+            apu_on: false,
+            cargo_temp_c: AMBIENT_C,
+            ambient_temp_c: AMBIENT_C,
+            cargo_needs_reefer: false,
+            reefer_out_of_range_min: 0.0,
+            reefer_just_starved: false,
             speed_cap_mph: None,
             stalled: false,
             high_idle_rpm: None,
@@ -922,10 +977,17 @@ impl TruckState {
         self.tare_kg() + self.cargo_kg.max(0.0)
     }
 
-    /// Whether this combination is over the federal 80,000 lb GVW cap.
-    /// Includes the tractor, attached trailer, cargo, and remaining diesel.
+    /// Whether this combination is over its legal gross: the federal
+    /// 80,000 lb cap, or a turnpike-doubles set's route cap
+    /// (`trailer_set.legal_gvw_kg`). Includes the tractor, attached
+    /// trailers and dolly, cargo, and remaining diesel.
     pub fn is_over_legal_gvw(&self) -> bool {
-        self.gross_mass_kg() > LEGAL_GVW_KG
+        self.gross_mass_kg() > self.legal_gvw_kg()
+    }
+
+    /// The legal gross for what is hooked, kilograms.
+    pub fn legal_gvw_kg(&self) -> f64 {
+        self.trailer_set.legal_gvw_kg
     }
 
     /// Engine RPM implied by road speed in the given gear (the current gear

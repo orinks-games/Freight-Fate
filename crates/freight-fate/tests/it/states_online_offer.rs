@@ -18,7 +18,7 @@ use freight_fate::net::NetError;
 use freight_fate::states::base::Key;
 use freight_fate::states::city::CityMenuState;
 use freight_fate::states::main_menu::{
-    first_state_after_career_creation, HomeCityState, MainMenuState,
+    first_state_after_career_creation, CareerStartState, MainMenuState,
 };
 use freight_fate::states::online_offer::{should_offer_online, OnlineOfferState};
 use freight_fate::states::online_states::OnlineSetupState;
@@ -211,7 +211,7 @@ fn first_run_app() -> TestApp {
     app
 }
 
-/// Drive New career as far as the home city picker, ready to confirm.
+/// Drive New career as far as the carrier picker, ready to confirm.
 fn open_city_picker(app: &mut TestApp, name: &str) {
     app.push_state(MainMenuState::new());
     menus::select::<MainMenuState>(app, "New career");
@@ -219,9 +219,9 @@ fn open_city_picker(app: &mut TestApp, name: &str) {
         menus::typed(app, ch);
     }
     menus::key(app, Key::Return);
-    menus::key(app, Key::Return); // default company start
     menus::key(app, Key::Return); // default region
-    assert!(menus::is::<HomeCityState>(app));
+    menus::key(app, Key::Return); // default home city
+    assert!(menus::is::<CareerStartState>(app));
 }
 
 #[test]
@@ -246,7 +246,7 @@ fn test_the_welcome_is_heard_in_full_and_then_the_offer() {
     // The 1.9 line greets with the first-day briefing rather than dev's
     // shorter welcome; what matters here is that it opens the sequence.
     assert!(lines[0].starts_with("First-day briefing: "), "{lines:?}");
-    assert!(lines[0].ends_with("Next: dispatch board."), "{lines:?}");
+    assert!(lines[0].ends_with("Next: the dispatch board."), "{lines:?}");
     // The parked-at location speaks the city's name, never the map key:
     // "in the chicago_il_us service area" reached a driver's ears before
     // the first agent-driven playtest caught it (2026-08-30).

@@ -606,6 +606,13 @@ impl DrivingState {
                 SayEvent::new().category(SpeechCategory::Safety),
             );
         }
+        if self.trip.truck.reefer_just_starved {
+            self.trip.truck.reefer_just_starved = false;
+            ctx.say_event_with(
+                "Reefer fuel is gone.",
+                SayEvent::new().category(SpeechCategory::Safety),
+            );
+        }
         let chains_fast =
             self.trip.truck.chains_on && self.trip.truck.speed_mph() > CHAIN_SAFE_MPH + 2.0;
         if chains_fast && !self.chains_fast_active {

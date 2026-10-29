@@ -5,7 +5,9 @@
 use std::path::PathBuf;
 
 use ff_core::models::profile::{find_save_path, LegacyCareerError, Profile};
-use ff_core::models::start_options::{apply_start_option, option_for_profile};
+use ff_core::models::start_options::{
+    apply_start_option, option_for_profile, reset_start_for_no_carrier,
+};
 use ff_core::playtest_levers::apply_continue_levers;
 use ff_core::pyfmt::fmt_grouped;
 
@@ -303,8 +305,35 @@ impl ConfirmCareerActionState {
             return;
         };
         let name = self.name.clone();
-        let mut fresh = Profile::named_in(&name, &old.current_city);
-        apply_start_option(&mut fresh, option_for_profile(old));
+        // A reset starts over from the driver's home city (or, on a career
+        // from before it was recorded, the old home terminal city).
+        let home = if old.home_city.is_empty() {
+            &old.home_terminal_city
+        } else {
+            &old.home_city
+        };
+        // With no carrier there is nothing to carry over: the start is
+        // picked the way the start picker would, from carriers that hire at
+        // the home city (the current city on a save with no home recorded).
+        let no_carrier_start = if old.is_unassigned_company_driver() {
+            reset_start_for_no_carrier(
+                ctx.world,
+                &[&old.home_city, &old.current_city, &old.home_terminal_city],
+            )
+        } else {
+            None
+        };
+        let (option, home) = match &no_carrier_start {
+            Some((option, city)) => (*option, city.as_str()),
+            None => (option_for_profile(old), home.as_str()),
+        };
+        let mut fresh = Profile::named_in(&name, home);
+        apply_start_option(&mut fresh, option);
+        // An older career never recorded its home city; the terminal city it
+        // was seeded from must not become the driver's home.
+        if old.home_city.is_empty() {
+            fresh.home_city.clear();
+        }
         match fresh.save() {
             // A career loaded from a file named apart from it: the reset went
             // to the file its name points at, so the old career goes.

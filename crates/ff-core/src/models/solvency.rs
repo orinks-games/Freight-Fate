@@ -129,6 +129,14 @@ pub trait SolvencyProfile: StandingProfile {
     fn driving_record_mut(&mut self) -> &mut DrivingRecord;
     /// `profile.carrier_key = key; profile.carrier_name = name`.
     fn set_carrier(&mut self, key: &str, name: &str);
+    /// `firing_key` has let the driver go: apply the fallback rule from the
+    /// home city (`Profile::take_fallback_after_let_go`). Returns the new
+    /// carrier's name, `None` when no carrier hires there and the driver is
+    /// home with no carrier.
+    fn take_fallback_carrier(&mut self, firing_key: &str) -> Option<String>;
+    /// `Profile::let_go_near_phrase`: what "near ..." names in a let-go
+    /// line. Read before `take_fallback_carrier`.
+    fn let_go_near_phrase(&self) -> String;
     fn set_pay_advance(&mut self, amount: f64);
     fn set_pay_advance_used_for_load(&mut self, used: bool);
     /// `profile.dispatch_board_cache = None`.
@@ -372,7 +380,8 @@ pub fn pay_out_of_pocket<P: SolvencyProfile + ?Sized>(profile: &mut P, amount: f
 
 // -- the fleet of last resort cannot let debt run away ----------------------
 
-/// A company driver already at the fleet that hires anyone.
+/// A company driver already at the fleet that hires anyone, or kept on
+/// sufferance by the carrier that took them on after a let-go.
 ///
 /// There is nowhere further down, so ending their employment is not a move
 /// the game can make. Their debt therefore stops at the ceiling instead of
@@ -382,6 +391,7 @@ pub fn hard_capped<P: StandingProfile + ?Sized>(profile: &P) -> bool {
         return false;
     }
     profile.carrier_key() == LAST_CHANCE_CARRIER_KEY
+        || crate::models::enforcement::kept_on_sufferance(profile)
 }
 
 /// Write off anything past the ceiling for a driver with nowhere to fall.
@@ -479,6 +489,38 @@ pub const KEPT_LINE: &str = "You keep your career level, your experience, your e
                              driving record, and everything else you own. Nothing about your career \
                              was reset and no save was lost.";
 
+/// Spoken when no carrier near `near` (see
+/// `SolvencyProfile::let_go_near_phrase`) can take a driver on.
+pub fn no_seat_line(near: &str) -> String {
+    format!(
+        "No carrier that hires near {near} can take you on right now, so you have \
+         no carrier. At the terminal, choose Apply to a carrier to take a seat when \
+         you are ready."
+    )
+}
+
+/// Where a driver let go by `former` goes next, and the closing line.
+fn new_seat_lines(former: &str, taken_on: Option<&str>, near: &str) -> Vec<String> {
+    match taken_on {
+        Some(name) if name == LAST_CHANCE_CARRIER_NAME => vec![format!(
+            "What changes is the seat. Your assigned tractor goes back to the \
+                 {former} yard, and you go on the payroll at \
+                 {LAST_CHANCE_CARRIER_NAME}: shorter freight, lower pay, and \
+                 equipment to match. Once your dispatch trust is full again, \
+                 Business status lets you move to another carrier."
+        )],
+        Some(name) => vec![format!(
+            "What changes is the seat. Your assigned tractor goes back to the \
+                 {former} yard, and {name}, which hires near {near}, has \
+                 taken you on."
+        )],
+        None => vec![
+            format!("Your assigned tractor goes back to the {former} yard."),
+            no_seat_line(near),
+        ],
+    }
+}
+
 /// End a company driver's employment over an unpayable balance.
 ///
 /// The carrier writes off what it could not collect -- which is what really
@@ -492,11 +534,13 @@ pub fn apply_company_termination<P: SolvencyProfile + ?Sized>(profile: &mut P) -
     };
     let settled = settle_account(profile);
     profile.driving_record_mut().carrier_terminations += 1;
-    profile.set_carrier(LAST_CHANCE_CARRIER_KEY, LAST_CHANCE_CARRIER_NAME);
+    let firing_key = profile.carrier_key().to_string();
+    let near = profile.let_go_near_phrase();
+    let taken_on = profile.take_fallback_carrier(&firing_key);
     profile.set_pay_advance(0.0);
     profile.set_pay_advance_used_for_load(false);
     profile.clear_dispatch_board_cache();
-    let lines = vec![
+    let mut lines = vec![
         format!(
             "You owed {}, which is more than {former} carries on a driver, and they have ended your employment.",
             money_text(settled)
@@ -505,14 +549,8 @@ pub fn apply_company_termination<P: SolvencyProfile + ?Sized>(profile: &mut P) -
          your cash is back to zero."
             .to_string(),
         KEPT_LINE.to_string(),
-        format!(
-            "What changes is the seat. Your assigned tractor goes back to the \
-             {former} yard, and you go on the payroll at \
-             {LAST_CHANCE_CARRIER_NAME}: shorter freight, lower pay, and \
-             equipment to match. Once your dispatch trust is full again, \
-             Business status lets you move to another carrier."
-        ),
     ];
+    lines.extend(new_seat_lines(&former, taken_on.as_deref(), &near));
     let record = profile.driving_record_mut();
     record.setback_notice_kind = "termination".to_string();
     record.setback_notice_lines = lines.clone();
@@ -539,17 +577,18 @@ pub fn apply_repossession<P: SolvencyProfile + ?Sized>(profile: &mut P) -> Vec<S
     // carrier that would not have them: they would lose the truck and the seat
     // in the same breath, with nowhere to drive. The fleet that hires anyone
     // catches that case.
+    // The fallback rule picks one from the driver's home city (plan section
+    // 5). Nobody fired this driver, so no carrier is ruled out.
+    let mut near = String::new();
     if profile.career_reputation() < REPUTATION_TERMINATION {
-        profile.set_carrier(LAST_CHANCE_CARRIER_KEY, LAST_CHANCE_CARRIER_NAME);
+        near = profile.let_go_near_phrase();
+        profile.take_fallback_carrier("");
     }
-    let hiring = match profile.carrier_name() {
-        "" => LAST_CHANCE_CARRIER_NAME.to_string(),
-        name => name.to_string(),
-    };
+    let hiring = profile.carrier_name().to_string();
     let assigned = profile.assigned_truck_key();
     profile.set_truck(&assigned);
     profile.clear_dispatch_board_cache();
-    let lines = vec![
+    let mut lines = vec![
         format!(
             "You owed {} against a {label} that would bring about {} at sale, so the loan is no longer \
              covered by the truck behind it, and the lender has taken it back.",
@@ -558,12 +597,21 @@ pub fn apply_repossession<P: SolvencyProfile + ?Sized>(profile: &mut P) -> Vec<S
         ),
         "The sale closes the loan. What you owed is settled and your cash is back to zero.".to_string(),
         KEPT_LINE.to_string(),
-        format!(
+    ];
+    if hiring.is_empty() {
+        lines.push(
+            "You are a company driver again. The owner-operator path is still open \
+             to you, and the buy-in gates are the same ones you cleared to get here."
+                .to_string(),
+        );
+        lines.push(no_seat_line(&near));
+    } else {
+        lines.push(format!(
             "You are a company driver again, on the payroll at {hiring} and in a \
              carrier tractor. The owner-operator path is still open to you, and \
              the buy-in gates are the same ones you cleared to get here."
-        ),
-    ];
+        ));
+    }
     let record = profile.driving_record_mut();
     record.setback_notice_kind = "repossession".to_string();
     record.setback_notice_lines = lines.clone();
@@ -639,6 +687,13 @@ pub fn apply_return_to_company_driving<P: SolvencyProfile + ?Sized>(
          stays open under Business status, and the gates are the ones you already cleared."
             .to_string(),
     ]
+}
+
+/// Whether the terminal owes a money setback this visit: one already
+/// pending, or a company termination or repossession now due. The terminal
+/// shows that notice before anything else it has to say.
+pub fn career_setback_owed<P: StandingProfile + ?Sized>(profile: &P) -> bool {
+    setback_pending(profile) || company_termination_due(profile) || repossession_due(profile)
 }
 
 pub fn setback_pending<P: StandingProfile + ?Sized>(profile: &P) -> bool {

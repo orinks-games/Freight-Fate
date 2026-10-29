@@ -68,6 +68,9 @@ impl TruckState {
         self.update_cargo(dt, decel_g);
         self.update_rpm(dt);
         self.update_fuel(dt);
+        // Hotel burns use the same game-second scale as update_fuel.
+        // Fuel burn follows mpg compression; cargo temp/spoil do not.
+        self.advance_hotel_power(dt * self.fuel_burn_mult, dt);
         self.update_temps(dt);
         self.update_wear(dt);
     }
@@ -228,6 +231,8 @@ impl TruckState {
         self.fuel_gal = (self.fuel_gal - burn * dt * self.fuel_burn_mult).max(0.0);
         if self.fuel_gal <= 0.0 {
             self.stop_engine();
+            self.reefer_on = false;
+            self.apu_on = false;
         }
     }
 
@@ -248,6 +253,8 @@ impl TruckState {
         self.fuel_gal -= burned;
         if self.fuel_gal <= 0.0 {
             self.stop_engine();
+            self.reefer_on = false;
+            self.apu_on = false;
         }
         burned
     }

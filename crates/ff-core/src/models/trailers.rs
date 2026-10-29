@@ -21,6 +21,13 @@ pub struct TrailerType {
     pub per_mile_reserve: f64,
     pub purchase_price: f64,
     pub owned_per_mile_reserve: f64,
+    /// Length of one box in feet. `0.0` means not modeled for this program.
+    pub length_ft: f64,
+    /// How many trailers this program hooks (1 = single, 2 = doubles).
+    pub unit_count: u8,
+    /// Approximate overall combination length in feet (tractor + boxes +
+    /// dolly). `0.0` for single-trailer programs.
+    pub combination_length_ft: f64,
 }
 
 /// `TRAILER_CATALOG`, in the Python dict's order. Look entries up with
@@ -34,6 +41,9 @@ pub const TRAILER_CATALOG: &[TrailerType] = &[
         lease_deposit: 0.0,
         per_mile_reserve: 0.12,
         purchase_price: 42_000.0,
+        length_ft: 0.0,
+        unit_count: 1,
+        combination_length_ft: 0.0,
         owned_per_mile_reserve: 0.05,
     },
     TrailerType {
@@ -44,6 +54,9 @@ pub const TRAILER_CATALOG: &[TrailerType] = &[
         lease_deposit: 8_000.0,
         per_mile_reserve: 0.18,
         purchase_price: 82_000.0,
+        length_ft: 0.0,
+        unit_count: 1,
+        combination_length_ft: 0.0,
         owned_per_mile_reserve: 0.10,
     },
     TrailerType {
@@ -55,6 +68,9 @@ pub const TRAILER_CATALOG: &[TrailerType] = &[
         lease_deposit: 7_000.0,
         per_mile_reserve: 0.16,
         purchase_price: 48_000.0,
+        length_ft: 0.0,
+        unit_count: 1,
+        combination_length_ft: 0.0,
         owned_per_mile_reserve: 0.07,
     },
     TrailerType {
@@ -65,6 +81,9 @@ pub const TRAILER_CATALOG: &[TrailerType] = &[
         lease_deposit: 9_000.0,
         per_mile_reserve: 0.20,
         purchase_price: 58_000.0,
+        length_ft: 0.0,
+        unit_count: 1,
+        combination_length_ft: 0.0,
         owned_per_mile_reserve: 0.09,
     },
     // A tank is the most expensive box a driver can pull and the one the
@@ -80,6 +99,9 @@ pub const TRAILER_CATALOG: &[TrailerType] = &[
         lease_deposit: 14_000.0,
         per_mile_reserve: 0.26,
         purchase_price: 96_000.0,
+        length_ft: 0.0,
+        unit_count: 1,
+        combination_length_ft: 0.0,
         owned_per_mile_reserve: 0.13,
     },
     // Two 28-foot pups and a converter dolly: the parcel networks' linehaul
@@ -94,7 +116,32 @@ pub const TRAILER_CATALOG: &[TrailerType] = &[
         lease_deposit: 11_000.0,
         per_mile_reserve: 0.21,
         purchase_price: 74_000.0,
+        length_ft: 28.0,
+        unit_count: 2,
+        combination_length_ft: 80.0,
         owned_per_mile_reserve: 0.10,
+    },
+    // Two 48-foot vans and a converter dolly: turnpike / LCV doubles. Distinct
+    // from STAA 28-foot pups -- longer boxes, longer combination, and only
+    // legal on the permitted turnpike systems. Cargo-carrying length is about
+    // 102 ft (two 48-ft boxes plus converter); overall combination is 117 ft
+    // (day-cab tractor + boxes + dolly), inside the MA 120 ft unit cap and
+    // the frozen Appendix C cargo-length ceilings (NY 102 / MA 104 / OH 102 /
+    // IN 106 / KS 109; MA also caps trailers at 48 ft). Tare and legal gross
+    // come from `models::doubles`: both boxes and the dolly, under the
+    // route's turnpike cap.
+    TrailerType {
+        key: "turnpike_double",
+        label: "48-foot turnpike doubles",
+        equipment_text: "48-foot turnpike doubles",
+        description: "LCV turnpike-doubles program: two 48-foot vans and a converter dolly, about 102 feet of cargo length and 117 feet overall, staged on and off at turnpike exits.",
+        lease_deposit: 16_000.0,
+        per_mile_reserve: 0.28,
+        purchase_price: 110_000.0,
+        length_ft: 48.0,
+        unit_count: 2,
+        combination_length_ft: 117.0,
+        owned_per_mile_reserve: 0.14,
     },
 ];
 
@@ -135,7 +182,7 @@ pub const CARGO_TRAILER_COMPATIBILITY: &[(&str, &[&str])] = &[
     ("fuel_bulk", &["tank"]),
     ("liquid_food", &["tank"]),
     ("port_container", &["flatbed"]),
-    ("turnpike_doubles", &["double_van"]),
+    ("turnpike_doubles", &["turnpike_double"]),
 ];
 
 pub fn trailer_keys_for_cargo(cargo_key: &str) -> &'static [&'static str] {
@@ -346,20 +393,48 @@ mod tests {
         let keys: Vec<&str> = TRAILER_CATALOG.iter().map(|t| t.key).collect();
         assert_eq!(
             keys,
-            ["dry_van", "reefer", "flatbed", "bulk", "tank", "double_van"]
+            [
+                "dry_van",
+                "reefer",
+                "flatbed",
+                "bulk",
+                "tank",
+                "double_van",
+                "turnpike_double"
+            ]
         );
         assert_eq!(TANK_CAPACITY_TONS, 26.0);
     }
 
     #[test]
     fn doubles_freight_needs_the_twin_trailer_program() {
-        for key in ["parcel_doubles", "turnpike_doubles"] {
-            assert_eq!(trailer_keys_for_cargo(key), ["double_van"]);
-        }
+        assert_eq!(trailer_keys_for_cargo("parcel_doubles"), ["double_van"]);
         assert_eq!(
             equipment_text_for_cargo("parcel_doubles"),
             "twin 28-foot trailers"
         );
+    }
+
+    #[test]
+    fn turnpike_doubles_use_the_long_combination_trailer_program() {
+        assert_eq!(
+            trailer_keys_for_cargo("turnpike_doubles"),
+            ["turnpike_double"]
+        );
+        assert_eq!(
+            equipment_text_for_cargo("turnpike_doubles"),
+            "48-foot turnpike doubles"
+        );
+        let pups = trailer_type("double_van").expect("pups");
+        let lcv = trailer_type("turnpike_double").expect("turnpike");
+        assert_ne!(pups.key, lcv.key);
+        assert_eq!(pups.length_ft, 28.0);
+        assert_eq!(pups.unit_count, 2);
+        assert_eq!(lcv.label, "48-foot turnpike doubles");
+        assert_eq!(lcv.length_ft, 48.0);
+        assert_eq!(lcv.unit_count, 2);
+        assert_eq!(lcv.combination_length_ft, 117.0);
+        assert!(lcv.combination_length_ft > pups.combination_length_ft);
     }
 
     #[test]

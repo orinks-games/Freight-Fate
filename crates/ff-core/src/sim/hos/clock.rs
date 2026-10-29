@@ -4,9 +4,14 @@ use serde_json::{json, Value};
 
 use super::pyjson::{py_float_or, py_iter, py_max, py_repr_str, py_str, py_str_or};
 use super::{
-    duration_text, is_duty_status, is_non_enforced, limits, positive_minutes, BREAK_MIN,
-    HOS_HISTORY_MAX, HOS_SPLIT_REST_HISTORY_MAX, SLEEP_MIN, SPLIT_LONG_ALT_MIN, SPLIT_LONG_MIN,
-    SPLIT_SHORT_ALT_MIN, SPLIT_SHORT_MIN,
+    cycle_limit, duration_text, is_duty_status, is_non_enforced, limits, positive_minutes,
+    HosRules, ALASKA_CYCLE_LIMIT_MIN, ALASKA_DRIVE_LIMIT_MIN, ALASKA_ON_DUTY_LIMIT_MIN,
+    ALASKA_RESTART_MIN, BREAK_MIN, CANADA_CYCLE_WINDOW_MIN, CANADA_NORTH_CYCLE_LIMIT_MIN,
+    CANADA_NORTH_DRIVE_LIMIT_MIN, CANADA_NORTH_ON_DUTY_LIMIT_MIN, CANADA_NORTH_SHIFT_LIMIT_MIN,
+    CANADA_RESTART_MIN, CANADA_SOUTH_CYCLE_LIMIT_MIN, CANADA_SOUTH_DRIVE_LIMIT_MIN,
+    CANADA_SOUTH_ON_DUTY_LIMIT_MIN, CANADA_SOUTH_SHIFT_LIMIT_MIN, CYCLE_SPEAK_MIN,
+    CYCLE_WINDOW_MIN, HOS_HISTORY_MAX, HOS_SPLIT_REST_HISTORY_MAX, RESTART_MIN, SLEEP_MIN,
+    SPLIT_LONG_ALT_MIN, SPLIT_LONG_MIN, SPLIT_SHORT_ALT_MIN, SPLIT_SHORT_MIN,
 };
 use crate::pyfmt::py_str_float;
 
@@ -17,6 +22,7 @@ pub struct HosEvent {
     pub minutes: f64,
     pub drive_before: f64,
     pub duty_before: f64,
+    pub shift_on_duty_before: f64,
     pub since_break_before: f64,
     pub source: String,
 }
@@ -28,6 +34,7 @@ impl Default for HosEvent {
             minutes: 0.0,
             drive_before: 0.0,
             duty_before: 0.0,
+            shift_on_duty_before: 0.0,
             since_break_before: 0.0,
             source: "normal".to_string(),
         }
@@ -48,9 +55,31 @@ impl HosEvent {
             minutes,
             drive_before,
             duty_before,
+            shift_on_duty_before: 0.0,
             since_break_before,
             source: source.to_string(),
         }
+    }
+
+    fn new_with_shift_on_duty(
+        status: &str,
+        minutes: f64,
+        drive_before: f64,
+        duty_before: f64,
+        shift_on_duty_before: f64,
+        since_break_before: f64,
+        source: &str,
+    ) -> Self {
+        let mut event = Self::new(
+            status,
+            minutes,
+            drive_before,
+            duty_before,
+            since_break_before,
+            source,
+        );
+        event.shift_on_duty_before = shift_on_duty_before;
+        event
     }
 
     pub fn to_dict(&self) -> Value {
@@ -62,6 +91,17 @@ impl HosEvent {
             "since_break_before": self.since_break_before,
             "source": self.source,
         })
+    }
+
+    fn to_dict_with_shift_on_duty(&self) -> Value {
+        let mut data = self.to_dict();
+        if self.shift_on_duty_before != 0.0 {
+            data.as_object_mut().unwrap().insert(
+                "shift_on_duty_before".to_string(),
+                json!(self.shift_on_duty_before),
+            );
+        }
+        data
     }
 
     /// `None` for anything that is not a readable event.
@@ -76,6 +116,7 @@ impl HosEvent {
             minutes: py_float_or(obj.get("minutes"), 0.0)?,
             drive_before: py_float_or(obj.get("drive_before"), 0.0)?,
             duty_before: py_float_or(obj.get("duty_before"), 0.0)?,
+            shift_on_duty_before: py_float_or(obj.get("shift_on_duty_before"), 0.0).unwrap_or(0.0),
             since_break_before: py_float_or(obj.get("since_break_before"), 0.0)?,
             source: py_str_or(obj.get("source"), "normal"),
         })
@@ -89,6 +130,25 @@ pub struct HosLimit {
     pub kind: &'static str,
     pub remaining_min: f64,
     pub due: &'static str,
+}
+
+#[derive(Clone, Copy)]
+struct RuleLimits {
+    drive_limit: f64,
+    duty_limit: f64,
+    shift_limit: Option<f64>,
+    cycle_limit: f64,
+    drive_used: f64,
+    duty_used: f64,
+    shift_used: f64,
+}
+
+/// One on-duty span on the 8-day cycle ledger. `end_min` is where the
+/// ledger clock stood when it ended.
+#[derive(Clone, Debug, PartialEq)]
+pub struct CycleEntry {
+    pub end_min: f64,
+    pub on_duty_min: f64,
 }
 
 /// The Python `repr` of the two events' field tuples, which is what the
@@ -158,31 +218,87 @@ fn keep_last<T>(items: &mut Vec<T>, max: usize) {
 }
 
 const ENFORCEMENT_OFF: &str = "Hours enforcement off.";
-const RESET_ADVICE: &str = "Sleep 10 hours at a rest stop to reset.";
-
-/// kind -> (clause after "you are", sentence that can lead a readout)
-fn shift_over(kind: &str) -> (&'static str, &'static str) {
-    match kind {
-        "drive" => (
-            "out of driving time for this shift",
-            "Out of driving time for this shift.",
-        ),
-        "duty" => ("past your duty window", "Your duty window has closed."),
-        other => panic!("no shift-over wording for HOS kind {other:?}"),
+fn reset_advice(kind: &str, rules: HosRules) -> &'static str {
+    match (rules, kind) {
+        (HosRules::CanadaSouth60 | HosRules::CanadaNorth60, "cycle") => {
+            "Take 36 hours off to restart your cycle, or wait for hours to age off your 7-day ledger."
+        }
+        (HosRules::CanadaSouth60 | HosRules::CanadaNorth60, _) => {
+            "Take 8 hours off at a rest stop to reset."
+        }
+        (HosRules::Alaska, "cycle") => {
+            "Take a 34-hour restart, or wait for hours to age off your 8-day ledger."
+        }
+        (HosRules::Us, "cycle") => {
+            "Take a 34-hour restart, or wait for hours to age off your 8-day ledger."
+        }
+        _ => "Sleep 10 hours at a rest stop to reset.",
     }
 }
 
-/// One ELD-style shift ledger, in game minutes.
+/// kind -> (clause after "you are", sentence that can lead a readout)
+fn shift_over(kind: &str, rules: HosRules) -> (&'static str, &'static str) {
+    match (rules, kind) {
+        (HosRules::Us, "drive") | (HosRules::Alaska, "drive") => (
+            "out of driving time for this shift",
+            "Out of driving time for this shift.",
+        ),
+        (HosRules::Us, "duty") => ("past your duty window", "Your duty window has closed."),
+        (HosRules::Alaska, "duty") => (
+            "past your on-duty limit",
+            "Your on-duty limit has been reached.",
+        ),
+        (HosRules::CanadaSouth60 | HosRules::CanadaNorth60, "drive") => (
+            "past your driving limit",
+            "Your driving limit has been reached.",
+        ),
+        (HosRules::CanadaSouth60 | HosRules::CanadaNorth60, "duty") => (
+            "past your on-duty limit",
+            "Your on-duty limit has been reached.",
+        ),
+        (HosRules::CanadaSouth60 | HosRules::CanadaNorth60, "shift") => (
+            "past your shift limit",
+            "Your shift limit has been reached.",
+        ),
+        (HosRules::Us, "cycle") => ("out of cycle hours", "Your 70-hour cycle is used up."),
+        (HosRules::Alaska, "cycle") => ("out of cycle hours", "Your 80-hour cycle is used up."),
+        (HosRules::CanadaSouth60, "cycle") => (
+            "out of cycle hours",
+            "Your 70-hour Canadian cycle is used up.",
+        ),
+        (HosRules::CanadaNorth60, "cycle") => (
+            "out of cycle hours",
+            "Your 80-hour Canadian cycle is used up.",
+        ),
+        (_, "break") => ("past your break limit", "Your break is overdue."),
+        _ => (
+            "past your hours limit",
+            "Your hours limit has been reached.",
+        ),
+    }
+}
+
+/// One jurisdiction-selected ELD shift ledger, in game minutes.
 ///
-/// `duty_min` is the elapsed 14-hour window since the last qualifying
-/// 10-hour reset, not just on-duty labor. FMCSA's 14-hour window is not
-/// extended by short off-duty breaks, so short breaks keep advancing it.
+/// Under US rules, `duty_min` is the elapsed 14-hour window since the last
+/// qualifying 10-hour reset, not just on-duty labor. FMCSA's 14-hour window
+/// is not extended by short off-duty breaks, so short breaks keep advancing it.
 #[derive(Clone, Debug, PartialEq)]
 pub struct HosClock {
     /// time at the wheel this shift
     pub driving_min: f64,
     /// elapsed 14-hour duty window
     pub duty_min: f64,
+    /// Rule set selected for the truck's current jurisdiction.
+    pub rules: HosRules,
+    /// Driving and on-duty minutes since the last full off-duty reset.
+    pub shift_on_duty_min: f64,
+    /// Canadian driving since the last qualifying 8-hour off-duty period.
+    pub ca_driving_min: f64,
+    /// Canadian on-duty time since the last qualifying 8-hour off-duty period.
+    pub ca_on_duty_min: f64,
+    /// Canadian elapsed time since the last qualifying 8-hour off-duty period.
+    pub ca_elapsed_min: f64,
     /// driving since the last 30-minute break
     pub since_break_min: f64,
     pub status: String,
@@ -195,6 +311,13 @@ pub struct HosClock {
     pub history: Vec<HosEvent>,
     pub split_rest_history: Vec<HosEvent>,
     pub split_credit_key: Option<String>,
+    /// total game minutes the clock has been told about since the ledger began
+    pub cycle_clock_min: f64,
+    /// on-duty spans within the trailing 8-day cycle window
+    pub cycle_entries: Vec<CycleEntry>,
+    /// consecutive off-duty/sleeper minutes toward the selected cycle restart;
+    /// unlike `off_duty_min` this is never capped at `SLEEP_MIN`
+    pub restart_off_min: f64,
 }
 
 impl Default for HosClock {
@@ -202,6 +325,11 @@ impl Default for HosClock {
         Self {
             driving_min: 0.0,
             duty_min: 0.0,
+            rules: HosRules::Us,
+            shift_on_duty_min: 0.0,
+            ca_driving_min: 0.0,
+            ca_on_duty_min: 0.0,
+            ca_elapsed_min: 0.0,
             since_break_min: 0.0,
             status: "off_duty".to_string(),
             non_driving_min: 0.0,
@@ -210,6 +338,9 @@ impl Default for HosClock {
             history: Vec::new(),
             split_rest_history: Vec::new(),
             split_credit_key: None,
+            cycle_clock_min: 0.0,
+            cycle_entries: Vec::new(),
+            restart_off_min: 0.0,
         }
     }
 }
@@ -227,9 +358,14 @@ impl HosClock {
         self.driving_min += minutes;
         self.duty_min += minutes;
         self.since_break_min += minutes;
+        self.shift_on_duty_min += minutes;
+        self.ca_driving_min += minutes;
+        self.ca_on_duty_min += minutes;
+        self.ca_elapsed_min += minutes;
         self.status = "driving".to_string();
         self.non_driving_min = 0.0;
         self.off_duty_min = 0.0;
+        self.advance_cycle(minutes, true);
     }
 
     /// Work time away from the wheel: fueling, loading, inspections, service.
@@ -237,14 +373,21 @@ impl HosClock {
         let minutes = positive_minutes(minutes);
         self.record_event("on_duty_not_driving", minutes, "normal");
         self.duty_min += minutes;
+        self.shift_on_duty_min += minutes;
+        self.ca_on_duty_min += minutes;
+        self.ca_elapsed_min += minutes;
         self.status = "on_duty_not_driving".to_string();
         self.off_duty_min = 0.0;
         self.record_non_driving(minutes);
+        self.advance_cycle(minutes, true);
     }
 
     /// Off-duty time. Short breaks do not extend the 14-hour window.
     pub fn off_duty(&mut self, minutes: f64) {
         let minutes = positive_minutes(minutes);
+        let consecutive_off_before = self.restart_off_min;
+        self.advance_cycle(minutes, false);
+        self.advance_canada_rest(minutes, consecutive_off_before);
         self.record_event("off_duty", minutes, "normal");
         self.duty_min += minutes;
         self.status = "off_duty".to_string();
@@ -260,6 +403,9 @@ impl HosClock {
     /// Sleeper-berth time. A full 10 hours resets; shorter rests may split.
     pub fn sleeper(&mut self, minutes: f64) {
         let minutes = positive_minutes(minutes);
+        let consecutive_off_before = self.restart_off_min;
+        self.advance_cycle(minutes, false);
+        self.advance_canada_rest(minutes, consecutive_off_before);
         self.record_event("sleeper_berth", minutes, "normal");
         self.advance_window_for_berth(minutes);
         self.status = "sleeper_berth".to_string();
@@ -280,6 +426,14 @@ impl HosClock {
     /// A full 10-hour off-duty reset: a fresh shift (`sleep()` in Python,
     /// which defaults the status to the sleeper berth).
     pub fn sleep(&mut self) {
+        self.advance_cycle(SLEEP_MIN, false);
+        self.sleep_as("sleeper_berth");
+    }
+
+    /// A full cycle restart under the selected rules, recorded as a
+    /// sleeper-berth reset.
+    pub fn restart(&mut self) {
+        self.advance_cycle(self.restart_threshold_min(), false);
         self.sleep_as("sleeper_berth");
     }
 
@@ -288,6 +442,10 @@ impl HosClock {
         self.record_event(status, SLEEP_MIN, "full_reset");
         self.driving_min = 0.0;
         self.duty_min = 0.0;
+        self.shift_on_duty_min = 0.0;
+        self.ca_driving_min = 0.0;
+        self.ca_on_duty_min = 0.0;
+        self.ca_elapsed_min = 0.0;
         self.since_break_min = 0.0;
         self.status = if is_duty_status(status) {
             status.to_string()
@@ -298,6 +456,142 @@ impl HosClock {
         self.off_duty_min = SLEEP_MIN;
         self.split_credit_key = None;
         self.warned.clear();
+    }
+
+    /// Advance the cycle ledger. `on_duty` minutes accrue; anything else
+    /// builds toward the selected restart. An entry counts whole until its
+    /// end falls out of the trailing 8-day window.
+    fn advance_cycle(&mut self, minutes: f64, on_duty: bool) {
+        self.cycle_clock_min += minutes;
+        if on_duty {
+            self.restart_off_min = 0.0;
+            match self.cycle_entries.last_mut() {
+                Some(last)
+                    if (last.end_min / 60.0).floor() == (self.cycle_clock_min / 60.0).floor() =>
+                {
+                    last.on_duty_min += minutes;
+                    last.end_min = self.cycle_clock_min;
+                }
+                _ => self.cycle_entries.push(CycleEntry {
+                    end_min: self.cycle_clock_min,
+                    on_duty_min: minutes,
+                }),
+            }
+        } else {
+            self.restart_off_min += minutes;
+            if self.restart_off_min >= self.restart_threshold_min() {
+                self.cycle_entries.clear();
+                self.warned.retain(|w| !w.starts_with("cycle:"));
+            }
+        }
+        self.cycle_entries
+            .retain(|e| e.end_min > self.cycle_clock_min - CYCLE_WINDOW_MIN);
+    }
+
+    /// On-duty minutes currently in the cycle ledger.
+    pub fn cycle_used_min(&self) -> f64 {
+        self.cycle_entries.iter().map(|e| e.on_duty_min).sum()
+    }
+
+    /// On-duty minutes in ledger entries ending within a trailing window.
+    pub fn cycle_used_min_within(&self, window_min: f64) -> f64 {
+        self.cycle_entries
+            .iter()
+            .filter(|entry| entry.end_min > self.cycle_clock_min - window_min)
+            .map(|entry| entry.on_duty_min)
+            .sum()
+    }
+
+    /// Minutes left on the selected cycle for a mode, None when unenforced.
+    pub fn cycle_remaining_min(&self, mode: &str) -> Option<f64> {
+        self.cycle_limit_min(mode)
+            .map(|limit| limit - self.cycle_used_min_within(self.cycle_window_min()))
+    }
+
+    /// Minutes of off-duty time still needed for the selected restart.
+    pub fn restart_remaining_min(&self) -> f64 {
+        (self.restart_threshold_min() - self.restart_off_min).max(0.0)
+    }
+
+    /// Select new rules and clear limit warnings so the next thresholds fire.
+    pub fn set_rules(&mut self, rules: HosRules) -> bool {
+        if self.rules == rules {
+            return false;
+        }
+        self.rules = rules;
+        self.warned.retain(|key| {
+            !["drive:", "duty:", "shift:", "break:", "cycle:"]
+                .iter()
+                .any(|prefix| key.starts_with(prefix))
+        });
+        true
+    }
+
+    fn restart_threshold_min(&self) -> f64 {
+        match self.rules {
+            HosRules::CanadaSouth60 | HosRules::CanadaNorth60 => CANADA_RESTART_MIN,
+            HosRules::Alaska => ALASKA_RESTART_MIN,
+            HosRules::Us => RESTART_MIN,
+        }
+    }
+
+    fn cycle_limit_min(&self, mode: &str) -> Option<f64> {
+        cycle_limit(mode)?;
+        Some(match self.rules {
+            HosRules::Us => super::CYCLE_LIMIT_MIN,
+            HosRules::Alaska => ALASKA_CYCLE_LIMIT_MIN,
+            HosRules::CanadaSouth60 => CANADA_SOUTH_CYCLE_LIMIT_MIN,
+            HosRules::CanadaNorth60 => CANADA_NORTH_CYCLE_LIMIT_MIN,
+        })
+    }
+
+    fn cycle_window_min(&self) -> f64 {
+        match self.rules {
+            HosRules::CanadaSouth60 | HosRules::CanadaNorth60 => CANADA_CYCLE_WINDOW_MIN,
+            HosRules::Us | HosRules::Alaska => CYCLE_WINDOW_MIN,
+        }
+    }
+
+    fn non_us_limits(&self) -> Option<RuleLimits> {
+        Some(match self.rules {
+            HosRules::Us => return None,
+            HosRules::Alaska => RuleLimits {
+                drive_limit: ALASKA_DRIVE_LIMIT_MIN,
+                duty_limit: ALASKA_ON_DUTY_LIMIT_MIN,
+                shift_limit: None,
+                cycle_limit: ALASKA_CYCLE_LIMIT_MIN,
+                drive_used: self.driving_min,
+                duty_used: self.shift_on_duty_min,
+                shift_used: 0.0,
+            },
+            HosRules::CanadaSouth60 => RuleLimits {
+                drive_limit: CANADA_SOUTH_DRIVE_LIMIT_MIN,
+                duty_limit: CANADA_SOUTH_ON_DUTY_LIMIT_MIN,
+                shift_limit: Some(CANADA_SOUTH_SHIFT_LIMIT_MIN),
+                cycle_limit: CANADA_SOUTH_CYCLE_LIMIT_MIN,
+                drive_used: self.ca_driving_min,
+                duty_used: self.ca_on_duty_min,
+                shift_used: self.ca_elapsed_min,
+            },
+            HosRules::CanadaNorth60 => RuleLimits {
+                drive_limit: CANADA_NORTH_DRIVE_LIMIT_MIN,
+                duty_limit: CANADA_NORTH_ON_DUTY_LIMIT_MIN,
+                shift_limit: Some(CANADA_NORTH_SHIFT_LIMIT_MIN),
+                cycle_limit: CANADA_NORTH_CYCLE_LIMIT_MIN,
+                drive_used: self.ca_driving_min,
+                duty_used: self.ca_on_duty_min,
+                shift_used: self.ca_elapsed_min,
+            },
+        })
+    }
+
+    fn advance_canada_rest(&mut self, minutes: f64, consecutive_off_before: f64) {
+        self.ca_elapsed_min += minutes;
+        if consecutive_off_before < 8.0 * 60.0 && self.restart_off_min >= 8.0 * 60.0 {
+            self.ca_driving_min = 0.0;
+            self.ca_on_duty_min = 0.0;
+            self.ca_elapsed_min = (self.restart_off_min - 8.0 * 60.0).max(0.0);
+        }
     }
 
     fn record_non_driving(&mut self, minutes: f64) {
@@ -335,11 +629,16 @@ impl HosClock {
             }
             return;
         }
-        let event = HosEvent::new(
+        let event = HosEvent::new_with_shift_on_duty(
             status,
             minutes,
             self.driving_min,
             self.duty_min,
+            if self.rules == HosRules::Us {
+                0.0
+            } else {
+                self.shift_on_duty_min
+            },
             self.since_break_min,
             source,
         );
@@ -427,10 +726,15 @@ impl HosClock {
         let second_event = &self.split_rest_history[second];
         self.driving_min = second_event.drive_before - self.split_drive_after_rest(first);
         self.duty_min = second_event.duty_before - self.split_duty_after_rest(first);
+        self.shift_on_duty_min =
+            second_event.shift_on_duty_before - self.split_shift_after_rest(first);
         self.since_break_min = 0.0;
         self.split_credit_key = Some(key);
         self.warned.retain(|w| {
-            !(w.starts_with("drive:") || w.starts_with("duty:") || w.starts_with("break:"))
+            !(w.starts_with("drive:")
+                || w.starts_with("duty:")
+                || w.starts_with("shift:")
+                || w.starts_with("break:"))
         });
     }
 
@@ -453,6 +757,14 @@ impl HosClock {
             return event.duty_before;
         }
         event.duty_before + event.minutes
+    }
+
+    fn split_shift_after_rest(&self, event: usize) -> f64 {
+        if let Some((first, second)) = self.previous_qualifying_split_pair(event) {
+            return self.split_rest_history[second].shift_on_duty_before
+                - self.split_shift_after_rest(first);
+        }
+        self.split_rest_history[event].shift_on_duty_before
     }
 
     /// The pair whose second event IS this one: the one ending at `event`.
@@ -485,6 +797,9 @@ impl HosClock {
     /// [`Self::sleeper_split_rest`] recorded under an explicit event source.
     pub fn sleeper_split_rest_from(&mut self, minutes: f64, source: &str) -> bool {
         let minutes = positive_minutes(minutes);
+        let consecutive_off_before = self.restart_off_min;
+        self.advance_cycle(minutes, false);
+        self.advance_canada_rest(minutes, consecutive_off_before);
         self.record_event("sleeper_berth", minutes, source);
         self.advance_window_for_berth(minutes);
         self.status = "sleeper_berth".to_string();
@@ -502,27 +817,86 @@ impl HosClock {
     // -- rule queries ----------------------------------------------------------
 
     /// (kind, minutes remaining, what is due) per enforced limit.
-    pub(super) fn statuses(&self, mode: &str) -> Vec<HosLimit> {
-        let Some((drive_limit, duty_limit, break_after)) = limits(mode) else {
+    pub(crate) fn statuses(&self, mode: &str) -> Vec<HosLimit> {
+        let Some((us_drive_limit, us_duty_limit, break_after)) = limits(mode) else {
             return Vec::new();
         };
-        vec![
-            HosLimit {
-                kind: "break",
-                remaining_min: break_after - self.since_break_min,
-                due: "you must take a 30 minute break at a rest stop",
-            },
+        if self.rules == HosRules::Us {
+            return vec![
+                HosLimit {
+                    kind: "break",
+                    remaining_min: break_after - self.since_break_min,
+                    due: "you must take a 30 minute break at a rest stop",
+                },
+                HosLimit {
+                    kind: "drive",
+                    remaining_min: us_drive_limit - self.driving_min,
+                    due: "your driving time for this shift ends. You need 10 hours of sleep",
+                },
+                HosLimit {
+                    kind: "duty",
+                    remaining_min: us_duty_limit - self.duty_min,
+                    due: "your duty window closes. You need 10 hours of sleep",
+                },
+                HosLimit {
+                    kind: "cycle",
+                    remaining_min: cycle_limit(mode).unwrap_or(0.0) - self.cycle_used_min(),
+                    due: "your 70-hour cycle is used up. You need a 34-hour restart",
+                },
+            ];
+        }
+
+        let rule_limits = self.non_us_limits().expect("non-US rules selected");
+        let drive_due = match self.rules {
+            HosRules::Alaska => "your Alaska driving limit is reached. You need 10 hours off",
+            HosRules::CanadaSouth60 | HosRules::CanadaNorth60 => {
+                "your Canadian driving limit is reached. You need 8 hours off"
+            }
+            HosRules::Us => unreachable!(),
+        };
+        let duty_due = match self.rules {
+            HosRules::Alaska => "your 20 hours on duty are used. You need 10 hours off",
+            HosRules::CanadaSouth60 | HosRules::CanadaNorth60 => {
+                "your Canadian on-duty limit is reached. You need 8 hours off"
+            }
+            HosRules::Us => unreachable!(),
+        };
+        let cycle_due = match self.rules {
+            HosRules::Alaska => "your 80-hour cycle is used up. You need a 34-hour restart",
+            HosRules::CanadaSouth60 => {
+                "your 70-hour Canadian cycle is used up. You need 36 hours off"
+            }
+            HosRules::CanadaNorth60 => {
+                "your 80-hour Canadian cycle is used up. You need 36 hours off"
+            }
+            HosRules::Us => unreachable!(),
+        };
+        let mut statuses = vec![
             HosLimit {
                 kind: "drive",
-                remaining_min: drive_limit - self.driving_min,
-                due: "your driving time for this shift ends. You need 10 hours of sleep",
+                remaining_min: rule_limits.drive_limit - rule_limits.drive_used,
+                due: drive_due,
             },
             HosLimit {
                 kind: "duty",
-                remaining_min: duty_limit - self.duty_min,
-                due: "your duty window closes. You need 10 hours of sleep",
+                remaining_min: rule_limits.duty_limit - rule_limits.duty_used,
+                due: duty_due,
             },
-        ]
+        ];
+        if let Some(shift_limit) = rule_limits.shift_limit {
+            statuses.push(HosLimit {
+                kind: "shift",
+                remaining_min: shift_limit - rule_limits.shift_used,
+                due:
+                    "your shift has run too long since your last 8 hours off. You need 8 hours off",
+            });
+        }
+        statuses.push(HosLimit {
+            kind: "cycle",
+            remaining_min: self.cycle_remaining_min(mode).unwrap_or(0.0),
+            due: cycle_due,
+        });
+        statuses
     }
 
     /// Game minutes until the nearest limit, or None when not enforced.
@@ -547,16 +921,22 @@ impl HosClock {
     }
 
     pub fn in_violation(&self, mode: &str) -> bool {
-        self.statuses(mode).iter().any(|s| s.remaining_min <= 0.0)
+        self.statuses(mode)
+            .iter()
+            .any(|s| self.limit_is_blown(s.remaining_min))
     }
 
-    /// Limit kinds currently blown, in status order (drive, duty, break).
+    /// Limit kinds currently blown, in status order.
     pub fn blown_kinds(&self, mode: &str) -> Vec<&'static str> {
         self.statuses(mode)
             .iter()
-            .filter(|s| s.remaining_min <= 0.0)
+            .filter(|s| self.limit_is_blown(s.remaining_min))
             .map(|s| s.kind)
             .collect()
+    }
+
+    fn limit_is_blown(&self, remaining_min: f64) -> bool {
+        remaining_min <= 0.0
     }
 
     /// A missed 30-minute break, with drive and duty still legal.
@@ -565,14 +945,34 @@ impl HosClock {
         blown.len() == 1 && blown[0] == "break"
     }
 
-    /// Out-of-service time for the current violation: 30 minutes for a missed
-    /// break, a full 10-hour reset for drive or duty.
+    /// Out-of-service time for the current violation under the selected rules.
     pub fn out_of_service_minutes(&self, mode: &str) -> f64 {
         if self.is_break_only_violation(mode) {
-            BREAK_MIN
-        } else {
-            SLEEP_MIN
+            return BREAK_MIN;
         }
+        let blown = self.blown_kinds(mode);
+        if blown.contains(&"cycle")
+            && !blown.contains(&"drive")
+            && !blown.contains(&"duty")
+            && !blown.contains(&"shift")
+        {
+            return match self.rules {
+                HosRules::CanadaSouth60 | HosRules::CanadaNorth60 => CANADA_RESTART_MIN,
+                HosRules::Alaska => ALASKA_RESTART_MIN,
+                HosRules::Us => RESTART_MIN,
+            };
+        }
+        if matches!(
+            self.rules,
+            HosRules::CanadaSouth60 | HosRules::CanadaNorth60
+        ) {
+            return if blown.contains(&"cycle") {
+                CANADA_RESTART_MIN
+            } else {
+                8.0 * 60.0
+            };
+        }
+        SLEEP_MIN
     }
 
     /// Plain spoken phrases for every limit currently blown.
@@ -582,14 +982,52 @@ impl HosClock {
     pub fn violation_causes(&self, mode: &str) -> Vec<String> {
         self.statuses(mode)
             .iter()
-            .filter(|s| s.remaining_min <= 0.0)
-            .filter_map(|s| match s.kind {
-                "drive" => Some("you had driven past the 11-hour driving limit"),
-                "duty" => Some("your 14-hour duty window had expired"),
-                "break" => Some("you were past the 30-minute break requirement"),
-                _ => None,
+            .filter(|s| self.limit_is_blown(s.remaining_min))
+            .filter_map(|s| {
+                let cause = match (self.rules, s.kind) {
+                    (HosRules::Us, "drive") => {
+                        "you had driven past the 11-hour driving limit".to_string()
+                    }
+                    (HosRules::Us, "duty") => "your 14-hour duty window had expired".to_string(),
+                    (HosRules::Us, "break") => {
+                        "you were past the 30-minute break requirement".to_string()
+                    }
+                    (HosRules::Us, "cycle") => "you had used up your 70-hour cycle".to_string(),
+                    (HosRules::Alaska, "drive") => {
+                        "you had passed the 15-hour driving limit".to_string()
+                    }
+                    (HosRules::Alaska, "duty") => {
+                        "you had passed the 20-hour on-duty limit".to_string()
+                    }
+                    (HosRules::Alaska, "cycle") => "you had used up your 80-hour cycle".to_string(),
+                    (HosRules::CanadaSouth60, "drive") => {
+                        "you had passed the 13-hour driving limit".to_string()
+                    }
+                    (HosRules::CanadaNorth60, "drive") => {
+                        "you had passed the 15-hour driving limit".to_string()
+                    }
+                    (HosRules::CanadaSouth60, "duty") => {
+                        "you had passed the 14-hour on-duty limit".to_string()
+                    }
+                    (HosRules::CanadaNorth60, "duty") => {
+                        "you had passed the 18-hour on-duty limit".to_string()
+                    }
+                    (HosRules::CanadaSouth60, "shift") => {
+                        "you had driven 16 hours after your last 8 hours off".to_string()
+                    }
+                    (HosRules::CanadaNorth60, "shift") => {
+                        "you had driven 20 hours after your last 8 hours off".to_string()
+                    }
+                    (HosRules::CanadaSouth60, "cycle") => {
+                        "you had used up your 70-hour cycle".to_string()
+                    }
+                    (HosRules::CanadaNorth60, "cycle") => {
+                        "you had used up your 80-hour cycle".to_string()
+                    }
+                    (_, _) => return None,
+                };
+                Some(cause)
             })
-            .map(str::to_string)
             .collect()
     }
 
@@ -597,6 +1035,9 @@ impl HosClock {
     pub fn summary(&self, mode: &str) -> String {
         if is_non_enforced(mode) {
             return ENFORCEMENT_OFF.to_string();
+        }
+        if self.rules != HosRules::Us {
+            return self.summary_non_us(mode);
         }
         let (drive_limit, duty_limit, break_after) =
             limits(mode).expect("HOS mode is realistic or relaxed");
@@ -607,11 +1048,17 @@ impl HosClock {
             let blown: Vec<&str> = self
                 .statuses(mode)
                 .iter()
-                .filter(|s| s.remaining_min <= 0.0)
+                .filter(|s| self.limit_is_blown(s.remaining_min))
                 .map(|s| s.kind)
                 .collect();
             if blown == ["break"] {
                 return "Hours of service: 30-minute break overdue.".to_string();
+            }
+            if blown == ["cycle"] {
+                return "Hours of service: your 70-hour cycle is used up. \
+                        Take a 34-hour restart, or wait for hours to age off your \
+                        8-day ledger."
+                    .to_string();
             }
             return "Hours of service: past your limit. Sleep 10 hours at a rest stop to reset."
                 .to_string();
@@ -642,10 +1089,87 @@ impl HosClock {
             )
         };
         let mut sentences = vec![status, hours];
+        if let Some(remaining) = self
+            .cycle_remaining_min(mode)
+            .filter(|r| *r <= CYCLE_SPEAK_MIN)
+        {
+            sentences.push(format!(
+                "Cycle: {} of 70 hours used, {} left.",
+                duration_text(self.cycle_used_min() / 60.0),
+                duration_text(remaining / 60.0),
+            ));
+        }
         if let Some(pending) = self.split_pending_summary() {
             sentences.push(pending.to_string());
         }
         sentences.join(" ")
+    }
+
+    fn summary_non_us(&self, mode: &str) -> String {
+        let rule_limits = self.non_us_limits().expect("non-US rules selected");
+        if self.in_violation(mode) {
+            let blown: Vec<&str> = self
+                .statuses(mode)
+                .iter()
+                .filter(|status| self.limit_is_blown(status.remaining_min))
+                .map(|status| status.kind)
+                .collect();
+            let advice = reset_advice(blown.first().copied().unwrap_or("drive"), self.rules);
+            if blown == ["cycle"] {
+                let cycle_text = match self.rules {
+                    HosRules::Alaska => "your 80-hour cycle is used up",
+                    HosRules::CanadaSouth60 => "your 70-hour Canadian cycle is used up",
+                    HosRules::CanadaNorth60 => "your 80-hour Canadian cycle is used up",
+                    HosRules::Us => unreachable!(),
+                };
+                return format!("Hours of service: {cycle_text}. {advice}");
+            }
+            return format!("Hours of service: past your limit. {advice}");
+        }
+
+        let drive_left = py_max(0.0, rule_limits.drive_limit - rule_limits.drive_used) / 60.0;
+        let duty_left = py_max(0.0, rule_limits.duty_limit - rule_limits.duty_used) / 60.0;
+        let shift_left = rule_limits
+            .shift_limit
+            .map(|limit| py_max(0.0, limit - rule_limits.shift_used) / 60.0);
+        let lead = match (self.rules, shift_left) {
+            (HosRules::Alaska, _) => format!(
+                "Alaska hours rules. {} of driving and {} on duty left.",
+                duration_text(drive_left),
+                duration_text(duty_left),
+            ),
+            (HosRules::CanadaSouth60, Some(shift_left)) => format!(
+                "Canadian hours rules. {} of driving, {} on duty, and {} of shift left.",
+                duration_text(drive_left),
+                duration_text(duty_left),
+                duration_text(shift_left),
+            ),
+            (HosRules::CanadaNorth60, Some(shift_left)) => format!(
+                "North of 60 hours rules. {} of driving, {} on duty, and {} of shift left.",
+                duration_text(drive_left),
+                duration_text(duty_left),
+                duration_text(shift_left),
+            ),
+            (HosRules::Us, _) | (_, None) => unreachable!(),
+        };
+        let status = self.status.replace('_', " ");
+        let cycle_clause = match self.cycle_remaining_min(mode) {
+            Some(remaining) if remaining <= CYCLE_SPEAK_MIN => format!(
+                " Cycle: {} used of {}, {} left.",
+                duration_text(self.cycle_used_min_within(self.cycle_window_min()) / 60.0),
+                duration_text(rule_limits.cycle_limit / 60.0),
+                duration_text(remaining / 60.0),
+            ),
+            _ => String::new(),
+        };
+        let suffix = if self.rules == HosRules::Alaska {
+            self.split_pending_summary()
+                .map(|pending| format!(" {pending}"))
+                .unwrap_or_default()
+        } else {
+            String::new()
+        };
+        format!("{lead} ELD status {status}.{cycle_clause}{suffix}")
     }
 
     // -- the one-answer readouts ------------------------------------------------
@@ -661,6 +1185,9 @@ impl HosClock {
     /// break, the duty window, and a pending split. Enforcement off and a
     /// violation each stay one line, because each is one fact.
     pub fn summary_lines(&self, mode: &str) -> Vec<String> {
+        if self.rules != HosRules::Us {
+            return vec![self.summary(mode)];
+        }
         if is_non_enforced(mode) || self.in_violation(mode) {
             return vec![self.summary(mode)];
         }
@@ -677,6 +1204,15 @@ impl HosClock {
                 "Duty window closes in {}.",
                 duration_text(duty_left)
             ));
+        }
+        if let Some(remaining) = self.cycle_remaining_min(mode) {
+            if remaining <= CYCLE_SPEAK_MIN {
+                lines.push(format!(
+                    "Cycle: {} of 70 hours used, {} left.",
+                    duration_text(self.cycle_used_min() / 60.0),
+                    duration_text(remaining / 60.0),
+                ));
+            }
         }
         if let Some(pending) = self.split_pending_summary() {
             lines.push(pending.to_string());
@@ -700,12 +1236,16 @@ impl HosClock {
         let blown = |kind: &str| {
             statuses
                 .iter()
-                .any(|s| s.kind == kind && s.remaining_min <= 0.0)
+                .any(|s| s.kind == kind && self.limit_is_blown(s.remaining_min))
         };
         if blown("drive") {
             Some("drive")
         } else if blown("duty") {
             Some("duty")
+        } else if blown("shift") {
+            Some("shift")
+        } else if blown("cycle") {
+            Some("cycle")
         } else {
             None
         }
@@ -713,6 +1253,35 @@ impl HosClock {
 
     /// Alt A: how much of this shift is spent -- not the hours on this run.
     pub fn wheel_time_summary(&self, mode: &str, terse: bool) -> String {
+        if let Some(rule_limits) = self.non_us_limits() {
+            let fresh = rule_limits.drive_used <= 0.0;
+            let driven = duration_text(rule_limits.drive_used / 60.0);
+            let lead = if terse {
+                if fresh {
+                    "At the wheel: no driving yet".to_string()
+                } else {
+                    format!("At the wheel {driven}")
+                }
+            } else {
+                let spent = if fresh {
+                    "no driving yet".to_string()
+                } else {
+                    format!("{driven} driving")
+                };
+                format!(
+                    "At the wheel so far: {spent}, {} on duty this shift",
+                    duration_text(rule_limits.duty_used / 60.0)
+                )
+            };
+            let note = if limits(mode).is_none() {
+                ENFORCEMENT_OFF
+            } else if self.shift_over_kind(mode).is_some() {
+                "Out of hours."
+            } else {
+                ""
+            };
+            return format!("{lead}. {note}").trim_end().to_string();
+        }
         let fresh = self.driving_min <= 0.0;
         let driven = duration_text(self.driving_min / 60.0);
         let lead = if terse {
@@ -746,6 +1315,27 @@ impl HosClock {
 
     /// Alt S: when the 30-minute break comes due.
     pub fn break_summary(&self, mode: &str, terse: bool) -> String {
+        if self.rules != HosRules::Us {
+            if limits(mode).is_none() {
+                return format!("Break: none required. {ENFORCEMENT_OFF}");
+            }
+            if let Some(kind) = self.shift_over_kind(mode) {
+                return format!(
+                    "No 30-minute break is required. {} {}",
+                    shift_over(kind, self.rules).1,
+                    reset_advice(kind, self.rules),
+                );
+            }
+            return match self.rules {
+                HosRules::Alaska => {
+                    "No 30-minute break is required under Alaska hours rules.".to_string()
+                }
+                HosRules::CanadaSouth60 | HosRules::CanadaNorth60 => {
+                    "No 30-minute break is required under Canadian hours rules.".to_string()
+                }
+                HosRules::Us => unreachable!(),
+            };
+        }
         if limits(mode).is_none() {
             return format!("Break: none required. {ENFORCEMENT_OFF}");
         }
@@ -779,8 +1369,9 @@ impl HosClock {
         }
         if let Some(kind) = over {
             return format!(
-                "{answer}, but you are {}. {RESET_ADVICE}",
-                shift_over(kind).0
+                "{answer}, but you are {}. {}",
+                shift_over(kind, self.rules).0,
+                reset_advice(kind, self.rules)
             );
         }
         format!("{answer}.{detail}")
@@ -795,9 +1386,37 @@ impl HosClock {
             );
             return format!("{no_limit}. {ENFORCEMENT_OFF}");
         }
+        if let Some(rule_limits) = self.non_us_limits() {
+            if let Some(kind) = self.shift_over_kind(mode) {
+                return format!(
+                    "{} {}",
+                    shift_over(kind, self.rules).1,
+                    reset_advice(kind, self.rules)
+                );
+            }
+            let drive_left = py_max(0.0, rule_limits.drive_limit - rule_limits.drive_used) / 60.0;
+            let duty_left = py_max(0.0, rule_limits.duty_limit - rule_limits.duty_used) / 60.0;
+            let mut clauses = vec![
+                format!("Driving time left: {}", duration_text(drive_left)),
+                format!("On-duty time left: {}", duration_text(duty_left)),
+            ];
+            if let Some(shift_limit) = rule_limits.shift_limit {
+                let shift_left = py_max(0.0, shift_limit - rule_limits.shift_used) / 60.0;
+                clauses.push(format!("Shift time left: {}", duration_text(shift_left)));
+            }
+            return if terse {
+                format!("{}.", clauses.join(", "))
+            } else {
+                format!("{}.", clauses.join(". "))
+            };
+        }
         let (drive_left, duty_left, break_left) = self.hours_left(mode);
         if let Some(kind) = self.shift_over_kind(mode) {
-            return format!("{} {RESET_ADVICE}", shift_over(kind).1);
+            return format!(
+                "{} {}",
+                shift_over(kind, self.rules).1,
+                reset_advice(kind, self.rules)
+            );
         }
         let drive_text = format!("Driving time left: {}", duration_text(drive_left));
         let duty_text = format!("Duty window closes in {}", duration_text(duty_left));
@@ -840,11 +1459,82 @@ impl HosClock {
         if is_non_enforced(mode) || self.in_violation(mode) {
             return String::new();
         }
+        if let Some(rule_limits) = self.non_us_limits() {
+            let cycle_left = self.cycle_remaining_min(mode).unwrap_or(f64::INFINITY);
+            let (drive_phrase, duty_phrase, cycle_phrase, cycle_name) = match self.rules {
+                HosRules::Alaska => (
+                    "your Alaska driving limit runs out",
+                    "your 20-hour on-duty limit runs out",
+                    "your 80-hour cycle runs out",
+                    "80-hour cycle",
+                ),
+                HosRules::CanadaSouth60 => (
+                    "your Canadian driving limit runs out",
+                    "your Canadian on-duty limit runs out",
+                    "your 70-hour Canadian cycle runs out",
+                    "70-hour Canadian cycle",
+                ),
+                HosRules::CanadaNorth60 => (
+                    "your Canadian driving limit runs out",
+                    "your Canadian on-duty limit runs out",
+                    "your 80-hour Canadian cycle runs out",
+                    "80-hour Canadian cycle",
+                ),
+                HosRules::Us => unreachable!(),
+            };
+            let mut candidates = vec![
+                (
+                    "drive",
+                    rule_limits.drive_limit - rule_limits.drive_used,
+                    drive_phrase,
+                    "driving limit",
+                ),
+                (
+                    "duty",
+                    rule_limits.duty_limit - rule_limits.duty_used,
+                    duty_phrase,
+                    "on-duty limit",
+                ),
+            ];
+            if let Some(shift_limit) = rule_limits.shift_limit {
+                let shift_phrase = match self.rules {
+                    HosRules::CanadaSouth60 => {
+                        "your shift reaches 16 hours after your last 8 hours off"
+                    }
+                    HosRules::CanadaNorth60 => {
+                        "your shift reaches 20 hours after your last 8 hours off"
+                    }
+                    _ => unreachable!(),
+                };
+                candidates.push((
+                    "shift",
+                    shift_limit - rule_limits.shift_used,
+                    shift_phrase,
+                    "shift limit",
+                ));
+            }
+            candidates.push(("cycle", cycle_left, cycle_phrase, cycle_name));
+            let mut nearest = candidates[0];
+            for candidate in &candidates[1..] {
+                if candidate.1 < nearest.1 {
+                    nearest = *candidate;
+                }
+            }
+            if eta_min < nearest.1 {
+                return format!(" You would arrive before {}.", nearest.2);
+            }
+            return format!(
+                " Your {} comes about {} before you would reach it.",
+                nearest.3,
+                duration_text((eta_min - nearest.1) / 60.0),
+            );
+        }
         let (drive_limit, duty_limit, break_after) =
             limits(mode).expect("HOS mode is realistic or relaxed");
         let drive_left = drive_limit - self.driving_min;
         let duty_left = duty_limit - self.duty_min;
         let break_left = break_after - self.since_break_min;
+        let cycle_left = self.cycle_remaining_min(mode).unwrap_or(f64::INFINITY);
         let mut candidates = vec![
             (
                 "drive",
@@ -852,6 +1542,7 @@ impl HosClock {
                 "your driving time for this shift runs out",
             ),
             ("duty", duty_left, "your duty window closes"),
+            ("cycle", cycle_left, "your 70-hour cycle runs out"),
         ];
         if duty_left > break_left {
             candidates.push(("break", break_left, "your 30-minute break is due"));
@@ -870,6 +1561,7 @@ impl HosClock {
         let limit_name = match kind {
             "drive" => "driving-time limit",
             "duty" => "duty window",
+            "cycle" => "70-hour cycle",
             _ => "break",
         };
         format!(
@@ -909,7 +1601,7 @@ impl HosClock {
     // -- serialization -----------------------------------------------------------
 
     pub fn to_dict(&self) -> Value {
-        json!({
+        let mut data = json!({
             "driving_min": self.driving_min,
             "duty_min": self.duty_min,
             "since_break_min": self.since_break_min,
@@ -917,10 +1609,50 @@ impl HosClock {
             "non_driving_min": self.non_driving_min,
             "off_duty_min": self.off_duty_min,
             "warned": self.warned,
-            "history": self.history.iter().map(HosEvent::to_dict).collect::<Vec<_>>(),
-            "split_rest_history": self.split_rest_history.iter().map(HosEvent::to_dict).collect::<Vec<_>>(),
+            "history": self.history.iter().map(|event| event.to_dict()).collect::<Vec<_>>(),
+            "split_rest_history": self.split_rest_history.iter().map(|event| event.to_dict()).collect::<Vec<_>>(),
             "split_credit_key": self.split_credit_key,
-        })
+            "cycle_clock_min": self.cycle_clock_min,
+            "restart_off_min": self.restart_off_min,
+            "cycle_entries": self
+                .cycle_entries
+                .iter()
+                .map(|e| json!({"end_min": e.end_min, "on_duty_min": e.on_duty_min}))
+                .collect::<Vec<_>>(),
+        });
+        if self.rules != HosRules::Us {
+            let obj = data.as_object_mut().expect("clock serializes as an object");
+            obj.insert("hos_rules".to_string(), json!(self.rules.key()));
+            obj.insert(
+                "history".to_string(),
+                json!(self
+                    .history
+                    .iter()
+                    .map(HosEvent::to_dict_with_shift_on_duty)
+                    .collect::<Vec<_>>()),
+            );
+            obj.insert(
+                "split_rest_history".to_string(),
+                json!(self
+                    .split_rest_history
+                    .iter()
+                    .map(HosEvent::to_dict_with_shift_on_duty)
+                    .collect::<Vec<_>>()),
+            );
+        }
+        if let Some(obj) = data.as_object_mut() {
+            for (key, value) in [
+                ("shift_on_duty_min", self.shift_on_duty_min),
+                ("ca_driving_min", self.ca_driving_min),
+                ("ca_on_duty_min", self.ca_on_duty_min),
+                ("ca_elapsed_min", self.ca_elapsed_min),
+            ] {
+                if value != 0.0 {
+                    obj.insert(key.to_string(), json!(value));
+                }
+            }
+        }
+        data
     }
 
     /// Tolerant load: anything unreadable becomes a fresh clock.
@@ -963,15 +1695,43 @@ impl HosClock {
             }
         }
         let warned: Vec<String> = py_iter(obj.get("warned"))?.iter().map(py_str).collect();
+        let mut cycle_entries = Vec::new();
+        if let Some(Value::Array(raw_entries)) = obj.get("cycle_entries") {
+            for raw in raw_entries {
+                let Some(entry) = raw.as_object() else {
+                    continue;
+                };
+                let (Some(end_min), Some(on_duty_min)) = (
+                    py_float_or(entry.get("end_min"), 0.0),
+                    py_float_or(entry.get("on_duty_min"), 0.0),
+                ) else {
+                    continue;
+                };
+                cycle_entries.push(CycleEntry {
+                    end_min,
+                    on_duty_min,
+                });
+            }
+        }
         let split_credit_key = match obj.get("split_credit_key") {
             None | Some(Value::Null) => None,
             Some(value) => Some(py_str(value)),
         };
+        let rules = obj
+            .get("hos_rules")
+            .and_then(Value::as_str)
+            .map(HosRules::from_key)
+            .unwrap_or_default();
         keep_last(&mut history, HOS_HISTORY_MAX);
         keep_last(&mut split_rest_history, HOS_SPLIT_REST_HISTORY_MAX);
         Some(Self {
             driving_min: py_float_or(obj.get("driving_min"), 0.0)?,
             duty_min: py_float_or(obj.get("duty_min"), 0.0)?,
+            rules,
+            shift_on_duty_min: py_float_or(obj.get("shift_on_duty_min"), 0.0).unwrap_or(0.0),
+            ca_driving_min: py_float_or(obj.get("ca_driving_min"), 0.0).unwrap_or(0.0),
+            ca_on_duty_min: py_float_or(obj.get("ca_on_duty_min"), 0.0).unwrap_or(0.0),
+            ca_elapsed_min: py_float_or(obj.get("ca_elapsed_min"), 0.0).unwrap_or(0.0),
             since_break_min: py_float_or(obj.get("since_break_min"), 0.0)?,
             status,
             non_driving_min: py_float_or(obj.get("non_driving_min"), 0.0)?,
@@ -980,6 +1740,9 @@ impl HosClock {
             history,
             split_rest_history,
             split_credit_key,
+            cycle_clock_min: py_float_or(obj.get("cycle_clock_min"), 0.0).unwrap_or(0.0),
+            cycle_entries,
+            restart_off_min: py_float_or(obj.get("restart_off_min"), 0.0).unwrap_or(0.0),
         })
     }
 }

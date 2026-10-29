@@ -3,6 +3,7 @@
 use crate::speech::EventPriority;
 use ff_core::models::enforcement;
 use ff_core::models::jobs::hos_stops::STOP_MARGIN_MIN as HOS_STOP_MARGIN_MIN;
+use ff_core::sim::hos::HosRules;
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
@@ -16,6 +17,43 @@ impl DrivingState {
         let gm = dt * self.trip.effective_time_scale() / 60.0; // game minutes this frame
         let moving = self.trip.truck.speed_mph() > 5.0;
         let mode = ctx.settings.hos_mode.clone();
+        let first_jurisdiction_frame = !self.hos_jurisdiction_initialized;
+        let jurisdiction = self.current_jurisdiction(ctx);
+        let rules = HosRules::for_jurisdiction(&jurisdiction);
+        let rules_changed = hos_mut_of(ctx).set_rules(rules);
+        self.hos_jurisdiction_initialized = true;
+        if rules_changed
+            && !first_jurisdiction_frame
+            && !hos::HOS_NON_ENFORCED_MODES.contains(&mode.as_str())
+        {
+            let announcement = match rules {
+                HosRules::Us => {
+                    "US hours rules again: 11 hours of driving in a 14-hour window, and a \
+                     30-minute break after 8 hours of driving."
+                }
+                HosRules::Alaska => {
+                    "Alaska hours rules now apply: up to 15 hours of driving and 20 on duty \
+                     after 10 hours off, with no 30-minute break."
+                }
+                HosRules::CanadaSouth60 => {
+                    "Canadian hours rules now apply: up to 13 hours of driving and 14 on duty \
+                     after 8 hours off, and no driving once 16 hours have passed since that \
+                     break."
+                }
+                HosRules::CanadaNorth60 => {
+                    "Canadian north-of-60 hours rules now apply: up to 15 hours of driving and \
+                     18 on duty after 8 hours off, and no driving once 20 hours have passed \
+                     since that break."
+                }
+            };
+            ctx.say_event_with(
+                announcement,
+                SayEvent::queued()
+                    .interrupt(false)
+                    .priority(EventPriority::Important)
+                    .category(SpeechCategory::Status),
+            );
+        }
 
         // Traveling to find work is commercial repositioning, including
         // self-serve bobtail runs. Stopped time remains on duty.

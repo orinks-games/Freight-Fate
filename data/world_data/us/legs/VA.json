@@ -14080,9 +14080,10 @@
             "road": "US-13 Chesapeake Bay Bridge-Tunnel",
             "authority": "Chesapeake Bay Bridge and Tunnel District",
             "method": "cash_card",
-            "amount": 45.0,
-            "estimated": true,
-            "source": "Chesapeake Bay Bridge-Tunnel District commercial toll schedule (five+ axle tractor-trailer), estimated; https://www.cbbt.com/tolls/"
+            "amount": 48.0,
+            "estimated": false,
+            "source": "https://www.cbbt.com/tolls/ (Class 12, five-axle under 84,000 lb, initial crossing, all payment types), accessed 2026-10-11.",
+            "amount_plate": 48.0
           }
         ],
         "restrictions": [
@@ -14270,7 +14271,54 @@
         }
       ],
       "divided": true,
-      "lanes": 2
+      "lanes": 2,
+      "crossings": [
+        {
+          "kind": "tunnel",
+          "name": "Chesapeake Bay Bridge-Tunnel",
+          "hazmat": "classes",
+          "bulk_flammable_banned": true,
+          "tank_banned": false,
+          "regulated_lb_limit": null,
+          "max_length_ft": null,
+          "max_width_ft": null,
+          "max_height_ft": null,
+          "hazmat_text": "Explosives, poison gas, dangerous-when-wet and inhalation-hazard loads may not use the Chesapeake Bay Bridge-Tunnel, radioactive loads need its permission, and flammable liquid tank vehicles are banned even when empty.",
+          "size_text": "",
+          "source_url": "https://www.cbbt.com/regulations/",
+          "access_date": "2026-10-11",
+          "basis": "Read: the CBBT regulations ban Divisions 1.1, 1.2 and 1.3, 2.3, 4.3 and 6.1 inhalation-hazard materials outright, and Class 3 tank vehicles even when empty; they allow 2.1, 3, 4.1, 4.2, 5.1, 5.2, 8 and 9 only up to a per-vehicle quantity (such as 120 gallons, 900 pounds, or 2,000 pounds of Class 9); Class 7 needs the facility's permission; 1.4, 1.5, 1.6 and 2.2 are allowed, except oxygen in a tank. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. Classes: the outright bans are banned_classes, and Class 7 with them because game drivers hold no CBBT permission; the quantity-limited classes are limited_classes, since a placarded game truckload is far over every one of those quantities, and their refusal is spoken as over the quantity limits. No game load is oxygen in a tank or 6.1, so neither is modelled separately. A load with no class (an old save) matches no class rule. Wind levels read from the weather restrictions chart at https://cbbt.com/weather/ on 2026-10-11: from 40 mph a tractor-trailer needs 15,000 pounds of payload, from 50 mph no truck crosses, from 60 mph the facility closes.",
+          "wind": {
+            "escort_mph": null,
+            "light_trailer_mph": 40.0,
+            "light_trailer_min_payload_lb": 15000,
+            "trucks_closed_mph": 50.0,
+            "closed_mph": 60.0,
+            "escort_text": "",
+            "refused_text": "Wind restrictions are up on the Chesapeake Bay Bridge-Tunnel, and your rig may not cross."
+          },
+          "banned_classes": [
+            "1.1",
+            "1.2",
+            "1.3",
+            "2.3",
+            "4.3",
+            "7"
+          ],
+          "bulk_banned_classes": [],
+          "limited_classes": [
+            "2.1",
+            "3",
+            "4.1",
+            "4.2",
+            "5.1",
+            "5.2",
+            "8",
+            "9"
+          ],
+          "limited_text": "A placarded truckload of it is over the Chesapeake Bay Bridge-Tunnel's quantity limits."
+        }
+      ]
     },
     {
       "from": "norfolk_va_us",
@@ -19114,7 +19162,39 @@
         }
       ],
       "lanes": 2,
-      "rerouted": true
+      "rerouted": true,
+      "crossings": [
+        {
+          "kind": "tunnel",
+          "name": "Hampton Roads Bridge-Tunnel",
+          "hazmat": "classes",
+          "bulk_flammable_banned": true,
+          "tank_banned": false,
+          "regulated_lb_limit": null,
+          "max_length_ft": null,
+          "max_width_ft": null,
+          "max_height_ft": null,
+          "hazmat_text": "Explosives, poison gas and dangerous-when-wet loads may not use the Hampton Roads Bridge-Tunnel, and flammables and corrosives may only use it in small packages.",
+          "size_text": "",
+          "source_url": "https://law.lis.virginia.gov/admincode/title24/agency30/chapter61/section40/",
+          "access_date": "2026-10-11",
+          "basis": "Read: Virginia rule 24VAC30-61-40 bans Division 1.1 to 1.3 explosives, poison gas, dangerous-when-wet and inhalation-hazard poison, and allows flammable gas, flammable liquid, oxidizer, organic peroxide and corrosive only in non-bulk packages. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. Classes: 1.1 to 1.3, 2.3 and 4.3 are refused in any packaging, and 2.1, 3, 5.1, 5.2 and 8 in bulk; the game's packaged drums and cylinders are non-bulk, so those pass. A load with no class (an old save) matches no class rule.",
+          "banned_classes": [
+            "1.1",
+            "1.2",
+            "1.3",
+            "2.3",
+            "4.3"
+          ],
+          "bulk_banned_classes": [
+            "2.1",
+            "3",
+            "5.1",
+            "5.2",
+            "8"
+          ]
+        }
+      ]
     },
     {
       "from": "norfolk_va_us",
@@ -31343,7 +31423,39 @@
         }
       ],
       "divided": true,
-      "lanes": 3
+      "lanes": 3,
+      "crossings": [
+        {
+          "kind": "tunnel",
+          "name": "Hampton Roads Bridge-Tunnel",
+          "hazmat": "classes",
+          "bulk_flammable_banned": true,
+          "tank_banned": false,
+          "regulated_lb_limit": null,
+          "max_length_ft": null,
+          "max_width_ft": null,
+          "max_height_ft": null,
+          "hazmat_text": "Explosives, poison gas and dangerous-when-wet loads may not use the Hampton Roads Bridge-Tunnel, and flammables and corrosives may only use it in small packages.",
+          "size_text": "",
+          "source_url": "https://law.lis.virginia.gov/admincode/title24/agency30/chapter61/section40/",
+          "access_date": "2026-10-11",
+          "basis": "Read: Virginia rule 24VAC30-61-40 bans Division 1.1 to 1.3 explosives, poison gas, dangerous-when-wet and inhalation-hazard poison, and allows flammable gas, flammable liquid, oxidizer, organic peroxide and corrosive only in non-bulk packages. Derived: the legs are the ones whose archived road geometry passes through the tunnel's FHWA National Tunnel Inventory location. Classes: 1.1 to 1.3, 2.3 and 4.3 are refused in any packaging, and 2.1, 3, 5.1, 5.2 and 8 in bulk; the game's packaged drums and cylinders are non-bulk, so those pass. A load with no class (an old save) matches no class rule.",
+          "banned_classes": [
+            "1.1",
+            "1.2",
+            "1.3",
+            "2.3",
+            "4.3"
+          ],
+          "bulk_banned_classes": [
+            "2.1",
+            "3",
+            "5.1",
+            "5.2",
+            "8"
+          ]
+        }
+      ]
     },
     {
       "from": "roanoke_va_us",

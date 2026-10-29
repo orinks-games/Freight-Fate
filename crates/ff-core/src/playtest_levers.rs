@@ -171,6 +171,8 @@ pub fn apply_city<C: LeverContext + ?Sized>(ctx: &mut C, city: &str) -> Vec<Stri
     let spoken = ctx.world().spoken_city(&key, Some(true));
     let p = ctx.profile_mut();
     p.current_city = key;
+    // Relocated with no delivery: no facility to be parked at.
+    p.parked_facility.clear();
     p.dispatch_board_cache = None;
     vec![format!(
         "Playtest lever: relocated to {spoken}. No miles driven, no money changed."
@@ -194,10 +196,28 @@ pub fn apply_clock<C: LeverContext + ?Sized>(ctx: &mut C, hour: f64) -> Vec<Stri
     if delta < 0.05 {
         return Vec::new();
     }
-    let place = match ctx.world().home_terminal(&current_city) {
-        Ok(terminal) => terminal.name,
-        Err(_) => ctx.world().spoken_city(&current_city, None),
+    let (carrier_key, carrier_name, business_status, home_city, facility) = {
+        let p = ctx.profile_mut();
+        (
+            p.carrier_key.clone(),
+            p.carrier_name.clone(),
+            p.business_status.clone(),
+            p.home_terminal_city.clone(),
+            p.parked_facility.clone(),
+        )
     };
+    let place = crate::models::home_base::parked_at(
+        ctx.world(),
+        crate::models::home_base::ParkedInputs {
+            carrier_key: &carrier_key,
+            carrier_name: &carrier_name,
+            business_status: &business_status,
+            home_terminal_city: &home_city,
+            current_city: &current_city,
+            parked_facility: &facility,
+        },
+    )
+    .name;
     let p = ctx.profile_mut();
     let start = p.game_hours;
     p.game_hours += delta;

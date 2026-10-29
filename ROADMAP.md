@@ -6,8 +6,9 @@
 > (2) curve navigation with steering, (3) rumble strips (one system
 > with curve nav), (4) the engine-ring spectra rebuild, and (5) the
 > NPR translator radio batch. Nothing else: every other unchecked
-> FEATURE bullet below targets the `feat/career-2.0` line, except the
-> explicitly scoped 2.0 work below (2.0 worktree
+> FEATURE bullet below targets the `feat/career-2.0` line, including the
+> working-week-and-home work that was briefly planned as a separate 1.10
+> release and was folded into 2.0 on 2026-09-21 (2.0 worktree
 > `.claude/worktrees/career-2.0`, created 2026-08-18; the `C:/dev/ff-2.0`
 > path this note used to name never existed). The driving school stays
 > gated off 1.9 (`DRIVING_SCHOOL_ENABLED`) and reopens on 2.0 to be
@@ -20,7 +21,7 @@
 > conveyance controls remain in the 2.0 plan.
 
 > Current stable: **1.8.8.1** (hotfix shipped 2026-08-08). Next release: **1.9.0**, in
-> flight on the `feat/career-1.9` branch -- driving realism between the exits
+> flight on `dev`, released from `main` -- driving realism between the exits
 > (discrete lanes, ramp terminals, congestion, real surface streets) plus the
 > highway-spider world expansion, roadside narration, and real time zones.
 > The package version is set to 1.9.0 so developer snapshots report it; the stable tag
@@ -34,12 +35,12 @@ what stands between here and 1.9.0, and
 [Found along the way](#found-along-the-way-not-blocking-190), open work
 that does not block it. The [release gate record](#release-gate-record)
 keeps the cutover checklist, the closed blockers and the owner decisions.
-The [2.0 plan](#20-planned----the-working-week-and-home) follows it.
+The [2.0 progress and plan](#20-in-progress-featcareer-20----the-working-week-and-home) follows it.
 The [detailed roadmap](docs/roadmap-details.md) preserves the implementation
 record and full pending backlog. Section links below keep existing roadmap
 bookmarks usable.
 
-## 1.9 in flight (`feat/career-1.9`)
+## 1.9 in flight (ships from `dev` and `main`)
 
 - [x] Optional menu accelerator keys (owner, 2026-10-24): Gameplay, Controls offers immediate activation for unique initials; duplicate initials retain selection-only cycling. Off by default.
 
@@ -167,6 +168,14 @@ bookmarks usable.
       `lang/extra.pot`. `FREIGHT_FATE_L10N_MISSES` lists them from a drive.
 - [ ] (Found along the way) A fluent player's review of each machine-made
       translation, starting with whichever language players ask for first.
+- [ ] (Found along the way) Most 2.0 lines have no translations yet: the
+      border crossings, the no-carrier screens, the seasonal weight limits
+      and the rest of the reefer and auxiliary-power lines read in English
+      in every language (Spanish is at 92 percent). The career start, the
+      first-day briefing, the dispatch board row, the first drive and the
+      keyboard help's reefer and power-unit lines were translated into
+      Spanish with the 2.0 sync; the rest wait for the next translation
+      pass, and the other ten languages wait for all of it.
 - [ ] (Found along the way) The separate event voice keeps the system's
       default voice; a player hearing a translation through it may need to
       pick a voice in that language under Settings, Speech.
@@ -688,7 +697,7 @@ The owner's:
 
 - [x] Listening pass on the new synth voices per style: closed by owner
       ruling 2026-10-03, replaced by the agent-server check below
-      ([above](#19-in-flight-featcareer-19)).
+      ([above](#19-in-flight-ships-from-dev-and-main)).
 - [x] Listening pass and a longer drive over wear thresholds and
       interrupted warnings: closed by owner ruling 2026-10-03, replaced by
       the agent-server check below
@@ -1233,7 +1242,7 @@ Everything found before 2026-09-25 moved to
 - [ ] Placed attraction billboards speak in one direction only since
       2026-09-30; the other side hears the random pool. Signs standing at
       their attraction could be marked `both`, and the rest need copy
-      written from the other side ([1.9 in flight](#19-in-flight-featcareer-19)).
+      written from the other side ([1.9 in flight](#19-in-flight-ships-from-dev-and-main)).
 - [x] Some legs disagreed with their own geometry (billboard audit,
       2026-09-30, and the 2026-10-01 billboard passes, REVIEW-east-south and
       REVIEW-midwest). Fixed 2026-10-01: the Buffalo and Rochester to New
@@ -1276,7 +1285,7 @@ Everything found before 2026-09-25 moved to
       the bobtail-only gate, and the owner's call on the parody (2026-09-30).
 - [ ] Interchange connector arcs have no curvature in the lane model; with
       lane keeping and curve assistance both off their lean asks for
-      steering the lane cannot answer ([1.9 in flight](#19-in-flight-featcareer-19)).
+      steering the lane cannot answer ([1.9 in flight](#19-in-flight-ships-from-dev-and-main)).
 - [x] Player builds carried the agent server: `freightfate --agent-server
       --online` copied the driver's identity into a session with cloud
       backups on, where `scenario` sets any level, money or credentials. It
@@ -1295,6 +1304,12 @@ Everything found before 2026-09-25 moved to
       against deliveries; credentials against their level gates and the
       clock. Calibrate against real backups, then mark rather than refuse
       (owner, 2026-09-25).
+- [x] Trucks stop for customs at the Alcan / Beaver Creek ports of entry and
+      southbound at Blaine; driving past the booth brings a penalty.
+- [ ] Posted speed profiles on the BC Alaska Highway south of Fort Nelson
+      still use placeholders.
+- [ ] CBSA commercial hours at Beaver Creek remain unverified and are not
+      modeled.
 - [x] Adaptive cruise lost its set speed at every pickup since the stopping
       assist started holding at pickup gates (2026-09-20): the hold, and the
       parking brake the gate asks for, ended the session instead of pausing
@@ -3800,25 +3815,89 @@ with everything off):
 - Three "Found along the way" items above: the keeper trailing a posted
   drop, silent damage, the rural 70 posted on a boulevard.
 
-## 2.0 planned -- the working week and home
+<a id="20-planned-featcareer-20----the-working-week-and-home"></a>
 
-Design doc: `docs/eld-home-terminal-design.md`. The ELD grows from a daily
-countdown into the system that shapes a driver's week, and the home
-terminal becomes the anchor of that week instead of a spawn point.
+## 2.0 in progress (`feat/career-2.0`) -- the working week and home
 
-- [ ] **70-hour/8-day cycle with the 34-hour restart.** A rolling on-duty
-      ledger on `HosClock`, spoken through the existing ELD status line;
-      restarts at the home terminal are free and full, road restarts cost
-      motel money and comfort. The 2.0 centerpiece.
-- [ ] **Home terminal persisted and consequential.** `home_terminal_city`
-      on the profile (old saves default to the current city with a
-      one-time spoken note), ELD readouts in home-terminal time,
-      discounted garage work at your terminal, dispatch "gets you home"
-      lane notes, and paid domicile relocation for owner-operators.
-- [ ] **Local board (short-haul identity).** A second dispatch surface at
-      the home terminal: short home-region runs, home every night, no
-      cycle pressure, lower pay -- weighted toward new hires in the
-      assigned-dispatch levels.
+There is no separate 1.10 release: the working-week-and-home slate that
+was planned under that number is the opening slice of 2.0, on the
+`feat/career-2.0` branch. The ELD and home-terminal foundations are built;
+the restart choice, home-time behavior, and local working week are not
+complete. `docs/eld-home-terminal-design.md` remains a design reference,
+but its Python paths, missing-home-field description, and old migration
+proposal predate the current Rust implementation. Use the status below
+for what is actually on this branch.
+
+### September 30 implementation and verification audit
+
+Audited against [`2e8478a1`](https://github.com/Orinks/Freight-Fate/commit/2e8478a11556d510a2e62686806bb70ef135128d),
+the September 27 branch head. Checked items mean implemented on this
+branch, not released in a public 2.0 build. An unchecked item marked
+**partial** has a landed foundation but still lacks the named behavior;
+**in progress** identifies an open change, and other unchecked items
+remain planned or explicitly deferred.
+
+- **Verified automated baseline:** [Rust run 36290733270](https://github.com/Orinks/Freight-Fate/actions/runs/36290733270)
+  passed Format, Clippy (Windows), Test (Windows), and Changelog for this
+  exact commit. The test job passed both Rust crates and the separate agent
+  server tests: 5,757 passed, zero failed, 240 ignored across its test
+  binaries and doc tests. Representative feature tests cited below were checked as passing
+  in that job, rather than merely existing in the source.
+- **Verification limits:** this is the Windows `ci_quick` run; ignored
+  tests and whole-map sweeps are not a full-suite pass. No fresh local
+  Rust run, adversarial battery, agent-server drive, owner listening pass,
+  or 2.0 macOS/Linux packaged check was performed for this audit. The audit
+  environment has no Rust toolchain. Prior historical playtest claims stay
+  in their dated records; they do not certify the current branch.
+- **Release boundary:** the 1.9 gate and its owner decisions above are
+  unchanged. Open PRs below do not count as landed, even when their own CI
+  is green. The external site validator remains unverified.
+
+### Working week and home terminal
+
+- [x] **70-hour/8-day cycle and automatic 34-hour restart.** The rolling
+      on-duty ledger, expiry of old hours, warning thresholds, ELD/logbook
+      cycle summary, cycle-only 34-hour out-of-service order, and save
+      compatibility are implemented. Consecutive off-duty/sleeper time
+      clears the ledger; ordinary 10-hour sleep alone does not clear a
+      working week's hours. Core coverage includes `cycle_accrues_only_on_duty`,
+      `cycle_ages_out_after_eight_days`, `restart_clears_ledger`, and
+      `cycle_round_trips_through_save` in
+      [`sim/hos/tests.rs`](crates/ff-core/src/sim/hos/tests.rs).
+- [ ] **Partial: choose a 34-hour restart.** The clock has a restart
+      helper, but terminal and road-rest menus still offer 10-hour sleep
+      or shorter rest choices, not an explicit 34-hour action. Wire the
+      preview, elapsed game time, duty log, fatigue, cost, deadline, and
+      save/resume together; do not expose the helper alone, because its
+      reset history currently records the ordinary 10-hour reset event.
+- [x] **Home terminal, driver home, and parked location persist.**
+      `home_terminal_city`, separate `home_city`, and `parked_facility`
+      round-trip. New careers keep the picked home city while starting at
+      the hiring carrier's own terminal. Older saves derive the carrier
+      terminal (or the legacy fallback terminal) without moving the truck
+      or inventing a home city;
+      a missing old `home_city` stays blank. The hub names the actual
+      carrier terminal, delivered facility, public lot, or city.
+      Coverage: [`profile/tests.rs`](crates/ff-core/src/models/profile/tests.rs),
+      [`home_base.rs`](crates/ff-core/src/models/home_base.rs), and
+      [`states_city.rs`](crates/freight-fate/tests/it/states_city.rs).
+- [ ] **Planned: home restarts are free, road restarts cost.** Home
+      persistence is available now; eligibility, accommodation pricing,
+      and the rest/fatigue rules still need the restart interaction.
+- [ ] **Partial: cycle-aware dispatch and daily recap.** The ELD and
+      logbook already read the cycle, but dispatch lane notes do not budget
+      it and the logbook still shows today's totals plus recent duty
+      entries, not the planned per-day cycle recap. The deadline planner
+      explicitly excludes the weekly cycle (`models/jobs/deadline.rs`).
+- [ ] **Planned: home-terminal ELD time and terminal benefits.** Read ELD
+      and duty-log times in the home terminal's zone, add home-garage
+      discounts and "gets you home" lane notes, and implement paid
+      owner-operator domicile relocation/company transfer rules. Persisted
+      home fields alone do not implement these benefits.
+- [ ] **Planned: local board (short-haul identity).** A separate dispatch
+      surface at home, short home-region runs, home-every-night behavior,
+      and its own pay/HOS rules are still design work. Local carriers and
+      their shorter distance caps below are not this second board.
 - [ ] **Freight with a geography** (owner, 2026-10-26). Each of the 16
       regions gets an outbound and inbound freight balance by season, the
       base derived from the FHWA Freight Analysis Framework and the
@@ -3839,6 +3918,644 @@ terminal becomes the anchor of that week instead of a spawn point.
       morning, so a night here or a short empty run now; and for
       owner-operators a load-board view with each market's balance in
       words and lane rates that follow it.
+- [ ] **BLOCKER (2.0 tester release): orinks.net profile integrity export.**
+      The validator's exact save-field list must be updated from
+      `crates/ff-core/tests/profile_integrity_invariants.json` for the new
+      save fields `parked_facility`, `home_terminal_city`, `home_city`, and
+      `turnpike_program_notice_seen`, or cloud backups from 2.0 builds may
+      be rejected as a schema mismatch. Carrier slice 3 also grows
+      `carrierLabels` by 20 carriers (the regionals, Chatanika Freight Lines,
+      and the three locals), and a company driver no carrier near home would
+      take saves an empty `carrier_key` and `carrier_name`; the site must
+      accept both. The game-side export already includes these fields and
+      labels; deployment and acceptance by the site have not been verified
+      by this repository audit. Keep this gate open until that check passes.
+
+- [ ] **A felony in a commercial vehicle carries its full 49 CFR 383.51
+      weight.** Modelled today: running from a stop is a major offense
+      (383.51 Table 1), a one-year CDL disqualification, and a second
+      major offense is lifetime. Not modelled: the lifetime
+      disqualification for a felony involving a controlled substance (the
+      game has no such offense yet), and termination -- a company driver
+      keeps the job after a felony stop, where a carrier would let the
+      driver go. It should land as a carrier termination notice at the
+      terminal, like the record-review termination.
+
+- [ ] **Pin real tow and impound yards per city.** A police tow after a
+      felony stop goes to a generic impound lot in the stop city, because
+      the map has no tow or storage yards. Real rotation-wrecker impound
+      yards, sourced per city, would let the tow name the actual yard.
+- [ ] **Tow and storage fees after a police tow.** Nothing charges for the
+      tow or the impound storage today. Model both: the carrier pays for
+      company drivers and leased owner-operators, and the driver pays under
+      own authority.
+
+<a id="career-carriers-slices-24"></a>
+
+### Career carriers (slices 1–3 built; slice 4 planned)
+
+Slice 1 landed tiers, `data/carriers.json`, carrier-owned home terminals
+("{Carrier} {City} terminal"), the hub's "parked at" rule, and the
+offerability and hiring-radius rule (`is_offerable_home_city`; regionals
+home drivers only within their radius). Slice 2 made the new-career picker
+enforce it: region, then offerable home city, then the carriers hiring
+there, with the truck starting at that carrier's terminal. Slice 3 is also
+landed: the catalog now has **24 carriers: 3 national, 18 regional, and
+3 local**. `home_time_policy` remains `inert` for all 24.
+
+Automated evidence: [`carrier_slice3.rs`](crates/ff-core/tests/it/carrier_slice3.rs)
+checks the catalog, hiring areas, coverage, terminal cities, and fallback
+rules; [`states_main_menu.rs`](crates/freight-fate/tests/it/states_main_menu.rs),
+[`states_city.rs`](crates/freight-fate/tests/it/states_city.rs), and
+[`states_manage_careers.rs`](crates/freight-fate/tests/it/states_manage_careers.rs)
+cover the spoken start flow, no-carrier state, and resets. These tests pass
+in the audited Windows run.
+
+- [x] **Slice 2: start flow places the truck at the hiring carrier's
+      terminal.** Orientation and truck assignment happen at the carrier
+      terminal in `home_terminal_city`, so a new hire's first "parked at" is
+      that terminal rather than the picked city.
+- [x] **Slice 2: the home-base picker lists only offerable cities.** Only
+      cities where `is_offerable_home_city` is true (some carrier hires
+      there) appear in the start picker.
+- [ ] **Partial: carrier home-time behavior.** The picked `home_city`
+      already persists separately from the terminal. The remaining plan is
+      to park the truck at the terminal (or at home if the carrier allows it)
+      while the driver goes to the home city. The terminal
+      city must never silently become the driver's home. Parking permission,
+      going home, and returning to work are not yet implemented.
+
+- [ ] **Run-band minimum is deferred to carrier slice 4.** `run_band_mi.min`
+      is stored per carrier but not applied on the board; only the max folds
+      into the distance cap today. Slice 4 (board lane area) enforces it.
+- [ ] **Slice 4: hourly or per-move pay for local carriers.** Local pickup
+      and delivery and port drayage are not paid by the mile; Des Plaines
+      River Cartage, Basin Harbor Drayage, and Knik Arm Cartage use the
+      per-mile company pay plan today.
+- [ ] **Slice 4: a short-haul board bias for locals under its own
+      setting.** Locals carry no `short_haul_bias` today because that
+      setting's spoken summary says "training loads"; give locals their own
+      short-haul setting and summary instead of reusing it.
+- [x] **The 16 regionals plus an Alaska regional.** Slice 3: sixteen new
+      regionals join Prairie Link, Chatanika Freight Lines hires across
+      Alaska out of Anchorage and Fairbanks, and three locals (Des Plaines
+      River Cartage, Basin Harbor Drayage, Knik Arm Cartage) hire within 50
+      mi. Alaska home bases open; BC and YT stay blocked. A driver let go
+      goes to a carrier that hires at home, never the one that let them go,
+      or is home with no carrier and applies from the terminal.
+- [x] **Home-base coverage test.** `tests/it/carrier_slice3.rs` pins all
+      625 lower-48 map cities as hired into by a regional, every Alaska city
+      except Deadhorse as offerable only to Alaska carriers, and BC and YT as
+      closed. Deadhorse remains a Chatanika freight destination but lies
+      outside the Alaska carriers' hiring radii.
+- [x] **Firing, reapplication, and reset respect home and hiring area.**
+      Fallback never picks the firing carrier or sends an Alaska driver to
+      a lower-48 carrier. If no carrier can take the driver, the profile
+      remains unassigned with no company truck, the hub offers Apply to a
+      carrier, and truck-only actions disappear. Reset uses an eligible
+      nearby carrier and preserves the old-save blank-home rule.
+- [x] **Loonwater terminal-span decision recorded: keep Bismarck.** Its
+      terminals span 636 air mi to Green Bay; terminal span is not run
+      length. The regional 600 mi maximum is enforced. The stored 150 mi
+      minimum is still deferred to slice 4, as above (slice 3 plan, §11).
+- [x] **Fairbanks terminal: no world pin needed; carrier-owned terminal.**
+      Home terminals are carrier-owned yards synthesized from
+      `terminal_city_keys` ("Chatanika Freight Lines Fairbanks terminal"),
+      never a world pin, so Fairbanks having no world `company_yard` or
+      `terminal` pin is not a gap. The slice 3 test checks that terminal
+      cities are real map cities with carrier-owned terminals.
+- [ ] **Great Lakes Training `short_haul_bias` 0.8 conflicts with its 400 mi
+      national run band.** The dispatch bias asks for short rookie loads the
+      band minimum would forbid once enforced. Revisit in slice 4.
+- [ ] **Knik Arm Cartage runs thin: two cities in its 25-150 mi band.**
+      The next AK map adds for an Anchorage local are the Kenai Peninsula
+      (Soldotna/Kenai, about 147 road mi) and Seward (about 125 road mi),
+      measured by road, not air. Skip Whittier until the Anton Anderson
+      Memorial Tunnel schedule and its hazmat limits are modeled. KEEP
+      thin for now. Slice 3 plan, §4.
+- [ ] **Port drayage into the LA/Long Beach terminals needs a TWIC card.**
+      When drayage loads are real, a load into the marine terminals
+      requires the driver to hold TWIC (Basin Harbor Drayage's port work
+      waits on it). Slice 3 plan, §9.
+- [ ] **`retail_store` facility type.** Costco and Fred Meyer are pinned as
+      distribution centers today; a retail store type lets them receive as
+      stores instead.
+- [ ] **Low priority: retire or retype the ~628 synthesized "{City} Company
+      Yard" freight pins.** A yard is not a shipper or receiver; these
+      template pins still act as freight endpoints on the board.
+- [ ] **Low priority: name the fallback garage as a truck repair shop.** The
+      fallback garage borrows `yard_pin_name` for its label; it should be
+      named as a truck repair shop in that city instead.
+
+
+### ALCAN and Alaska (B3 road graph; international systems partial)
+
+The main roadmap now records the data slices already present on this
+branch. The older Phase A/B plan checklists are not a live completion list.
+
+- [x] **Phase A: bidirectional ALCAN corridor to Fairbanks.** Bellingham
+      through Blaine/Pacific Highway, Surrey, Prince George, Dawson Creek,
+      Fort St. John, Fort Nelson, Watson Lake, Whitehorse, and Tok to
+      Fairbanks. Both crossings carry through-freight metadata in both
+      directions. The Alaska Highway line is identified as Alcan, with the
+      Beaver Creek post represented on the Tok-to-Whitehorse approach.
+      Canadian towns are pass-through fuel/rest stops; US dispatch still
+      offers US destinations, allowing US-to-US routes through Canada.
+- [x] **Posted speed profiles on the Yukon and northern BC legs.** Canadian
+      bare OSM speed values are interpreted as km/h; Alaska's 55 mph fallback
+      applies only to the Alaska stretch of a cross-border leg.
+- [x] **British Columbia's heavy-truck speed limiter.** Covered trucks are
+      capped at 105 km/h independently of posted road limits. No Yukon
+      limiter requirement was found, so Yukon has none.
+- [x] **Canadian diesel prices for BC and Yukon.** Prices use Statistics
+      Canada's 2025 annual averages for Vancouver and Whitehorse.
+- [x] **Phase B1: Tok Cutoff and Glenn Highway to Anchorage.** Tok to
+      Glennallen, Palmer, and Anchorage is connected in both directions,
+      without a ferry or a detour through Fairbanks.
+- [x] **Phase B2: Parks Highway to Anchorage.** Fairbanks to Nenana,
+      Healy, Wasilla, and Anchorage, plus the Palmer–Wasilla connector,
+      is connected in both directions. This is the defined B1/B2 road
+      scope, not complete Alaska map enrichment.
+- [x] **Phase B3: Alaska roads reach the peninsula, Valdez, and Deadhorse.**
+      Tok–Fairbanks now passes through Delta Junction; Valdez connects via
+      Glennallen; Anchorage reaches Seward and Soldotna, with Kenai and Homer
+      beyond Soldotna; and the Dalton Highway runs from Fairbanks through
+      Coldfoot to Deadhorse. Paid miles remain separate from loaded-semi
+      router distances. Verified freight endpoints serve Valdez, Kenai,
+      Seward, and Homer.
+- [x] **Alaska's 2026 spring-breakup weight limits.** DOT&PF notices apply
+      85% limits to listed corridors by leg; dispatch derives each truck's
+      axle cap, filters overweight restricted routes from the route menu, and
+      does not retrofit jobs dispatched before a window.
+- [x] **Jurisdiction-aware Alaska and Canadian driver HOS.** The clock follows
+      the current jurisdiction: Alaska limits, Canadian south-of-60 and
+      north-of-60 limits, their cycle rules, and one spoken notice at each
+      rule change; lower-48 behavior remains unchanged.
+- [x] **Public lots are fuel/rest stops, not freight yards.** Curated
+      `travel_center` and `truck_parking` pins have no freight cargo roles;
+      Delta Junction, Coldfoot, and Soldotna are pass-through markets with no
+      freight offers until a freight endpoint is verified.
+      Anchorage has a separate Port/Ship Creek freight terminal; Fairbanks
+      has curated grocery/retail, building-material, and cross-dock pins.
+- [ ] **Partial: cross-border rules and clearance.** A playable customs
+      clearance/inspection flow now covers the Alaska Highway and southbound
+      Blaine ports, and BC's 105 km/h heavy-truck limiter and 2025 BC/Yukon
+      diesel prices are modeled. The Alaska and Canadian driver HOS clock is
+      jurisdiction-aware; remaining Canadian HOS provisions, other Canadian
+      statutory truck-speed caps, and broader CAD/foreign exchange remain
+      open. Listed Alaska spring-breakup limits are modeled, but the corridor
+      does not establish full Canadian regulatory compliance. Full Canada and
+      Europe remain planned.
+- [ ] **Canadian daily and cycle-2 rules.** Daily limits and daily off-duty
+      requirements, cycle 2, Canadian split sleeper, adverse-driving
+      extensions, and deferral are not modeled.
+- [ ] **Route-wide HOS planning.** The job planner and planning hints use one
+      rule set for the entire route rather than switching at jurisdiction
+      boundaries.
+- [ ] **Canadian rest menus.** Rest menus still offer 10 hours in Canada
+      rather than the modeled 8-hour reset.
+- [ ] **Alaska cycle restart.** The 34-hour restart is an assumption; verify
+      its applicability under Alaska's rules.
+- [x] **Whittier tunnel.** Whittier is connected through the Anton Anderson
+      Memorial Tunnel, including its published alternating vehicle gates and
+      Bear Valley round-trip toll.
+- [ ] **Ferries of any kind.** A verified freight need is required before a
+      ferry becomes a driveable route.
+- [ ] **Whittier–Valdez ferry.** No service or verified freight slice is modeled.
+- [ ] **Whittier tunnel special movements.** Permits for 10–11 foot loads and
+      special Class E openings remain open.
+- [ ] **Whittier overnight parking.** Needs a real, verified facility. Until
+      then a truck that arrives after the tunnel closes is logged as
+      sleeper-berth time (a wait of ten hours or more as a full reset), even
+      though overnight staging parking is unverified.
+- [ ] **Tunnel gate cues.** No cue is
+      spoken when the gate opens after a wait. The HOS logging for waits has
+      unit tests in the tunnel module but no driving-state test yet.
+- [ ] **Event-voice reissues read as repeats.** (Found along the way,
+      2026-10-11.) When a route line flushes the event voice while an
+      earlier route line is still waiting unheard, the pacer reissues that
+      line, interrupting; the voice hears it once, but the event log shows
+      it twice (the Whittier gate line before "Speed limit reduced to 25").
+      Hampton's merge cue replaying after a Clock readout is the sibling
+      rescue: an info key cut the cue mid-sentence on a shared voice, so it
+      is handed back by design. Both are pacer policy, not tunnel code.
+- [ ] **Tunnel combination length.** The 73.5 ft combination convention should
+      be revisited if tractor lengths vary: a long-sleeper tractor with a
+      53 ft trailer can exceed the 75 ft tunnel limit.
+- [ ] **Alaska Railroad alternative for placarded hazardous materials.**
+      Placarded loads are refused at the tunnel; train carriage is not modeled.
+- [ ] **Whittier freight facilities.** Await a verified freight address and coordinates.
+- [ ] **Whittier is not yet reachable in a career.** With no freight it gets
+      no jobs, and Bear Valley and Whittier are not offered as home cities,
+      so only tests drive the tunnel until a verified facility lands.
+- [x] **Tunnel refusal hold.** Fixed: dispatch plans regulated loads
+      around tunnels that refuse them, departure offers only legal roads, and
+      a truck that still reaches one is re-planned from that city.
+- [x] **Tunnels with truck rules across the map.** Eisenhower-Johnson, Fort
+      McHenry, the Boston tunnels, Hampton Roads and Chesapeake Bay
+      bridge-tunnels and the Pennsylvania Turnpike tunnels carry their
+      published cargo rules, and refused loads take real legal detour legs
+      into Boston, around Baltimore on I-695 and over Loveland Pass (see
+      docs/road-crossings.md).
+- [x] **Bridges with truck rules.** The San Francisco-Oakland Bay Bridge
+      hazmat rule, the Mackinac Bridge toll and the published Chesapeake Bay
+      Bridge-Tunnel toll are modelled (see docs/road-crossings.md).
+- [x] **Bridge wind closures.** The Chesapeake Bay Bridge-Tunnel and
+      Mackinac Bridge judge sustained wind at the leg start (live: the NWS
+      station nearest the crossing; simulated: high winds peak at 25 to
+      55 mph, storm gusts at 30 to 45, easing over 4 hours): escorts and
+      closures are waited out on duty, then detoured, or held until the
+      wind drops.
+- [ ] (Found along the way) **Distant wind station.** Live bridge wind is
+      read at the NWS station nearest the crossing however far away it is;
+      a station well off the water may read calmer than the span. Weigh
+      the distance, or fall back to the simulated blow past some range.
+- [ ] **Wind for the Mackinac escort advisory and CBBT advisory.** The
+      20 to 35 mph advice levels (slow to 20 or 45 mph) are speed advice the
+      drive does not yet enforce.
+- [x] **Mackinac Bridge escorts.** Placarded loads and rigs over 40 tons
+      gross wait 20 minutes on duty for a bridge escort in any weather.
+- [x] **Hazard classes on placarded loads.** Each placarded load is a real
+      49 CFR 172.101 material with its class; class-rule crossings (Hampton
+      Roads, CBBT, Pennsylvania Turnpike, Bay Bridge) refuse
+      only the classes they ban, on the board, at departure and on the road.
+- [x] **Golden Gate explosive-load hours.** Explosives (not 1.4 consumer
+      fireworks, per Vehicle Code 31600(c)) wait out weekday rush hours on
+      duty, then wait 20 minutes for the inspection and escort.
+- [ ] **Mackinac oversize escorts.** Wait for oversize loads.
+- [ ] **Hazard class follow-ups.** Poison inhalation hazard is not told apart
+      from other Class 6.1 (no game load is 6.1), and Golden Gate hours ignore
+      state holidays.
+- [x] **Chesapeake Bay Bridge (US 50) toll.** Charged eastbound at the
+      published 24 dollars E-ZPass, 36 video toll.
+- [x] **Published toll rates.** 74 of 79 toll events read from
+      the authorities' five-axle schedules, with plate rates and one-way
+      collection (see docs/road-crossings.md).
+- [ ] **Last estimated tolls.** 5 events still estimated: Aurora to
+      Rockford, Syracuse to Utica, the Mass Pike stretches into Boston (New
+      York to Boston, and the Worcester to Boston detour), and the
+      Delaware River bridge on New York to Philadelphia.
+- [x] **George Washington, Bay and Golden Gate bridge tolls.** Charged one
+      way, into New York or San Francisco, on every leg that crosses them;
+      the New Jersey Turnpike on New York to Philadelphia is priced.
+- [x] **Missing toll facilities, first pass.** 14 tolls added on legs that
+      drove a priced toll road for free (see docs/road-crossings.md).
+- [ ] **Missing toll facilities, still unpriced.** The Tri-State and Edens
+      Spur on Milwaukee to Chicago, the
+      Chicago to Indianapolis toll stretch, the Muskogee Turnpike, and the
+      partial Cimarron runs on Stillwater and Enid to Tulsa. Then sweep every
+      leg with tools/toll_evidence.py.
+- [ ] **Split the Mario Cuomo Bridge out of the Thruway fares.** It is
+      collected southbound only; the New York City fares charge it both ways.
+- [ ] **tools/toll_price.py --write is lossy.** It writes `plate_amount`, not
+      `amount_plate`, and drops directions and second tolls on a leg; fix it
+      before using it.
+- [ ] **Hazard classes on freight.** The catalog does not name hazard
+      classes, so a placarded packaged load is refused wherever any class is
+      banned. Naming classes would let some loads through.
+- [x] **Loveland Pass for placarded loads.** A Silverthorne to Denver leg
+      over US 6 carries the Eisenhower tunnel's required detour.
+- [ ] **Loveland Pass closures.** The pass is treated as always open to
+      placarded loads; CDOT closes it in storms.
+- [ ] **I-90 Lake Washington flammable-cargo rule.** Left out: the only
+      source is a WSDOT closure notice. Model it if WSDOT publishes a
+      standing rule.
+- [ ] **Curve classes on the detour legs.** Their curves mark interchange
+      ramps only near each end, by position. The OSM curve-class reading the
+      rest of the map has needs `curve_osm.jsonl`, whose builder is not in
+      the repo.
+- [ ] **Board estimates on detoured loads.** The board's hours and route
+      readouts still use the open road; departure uses the legal one.
+- [ ] **Whittier tunnel cold-weather and train disruption rules.** The
+      sub-freezing five-minute opening rule and unscheduled-train delays are
+      not modeled.
+- [ ] **Remaining corridor data work.** Refine the auto-profile
+      Blaine–Surrey geometry for trucks; verify remaining Parks and Mat-Su
+      fuel lots and any truck-parking capacity. Exact Deadhorse
+      Carlile, Valdez/Deadhorse diesel, and Soldotna receive-only retail pins
+      remain unsupported; Fort St. John–Fort Nelson still has placeholder
+      speed profiles; Yukon River Camp truck-parking capacity is unverified,
+      and the Dalton gravel surface is not modeled.
+- [ ] (Found along the way) Older maxspeed bakes predate 0.25-mi way
+      densification and can carry a neighboring limit across long,
+      sparsely-noded ways; a re-sweep is needed. Legs without a geometry
+      archive currently bake speeds against straight chords between stored
+      route points; the Alcan legs now use bake-time Valhalla truck geometry
+      through those points, and other archive-less legs need the same re-sweep.
+- [ ] (Found along the way) Blaine northbound CBSA Pacific Highway booth data
+      is missing.
+- [ ] (Found along the way) The 33 Phase B3 freight and fuel endpoints
+      (Valdez, Kenai, Seward, Homer, Soldotna, Delta Junction, Coldfoot,
+      Deadhorse) have no `facility_approaches.json` chains yet; the last
+      approach bake predates them. Re-route them from the Alaska extract.
+- [ ] (Found along the way) Border processing times and the secondary-referral
+      chance are gameplay assumptions.
+- [ ] (Found along the way) Passport and FAST documents are not modeled.
+- [ ] (Found along the way) Border-penalty escalation uses lifetime counts,
+      not AMPS's 12-month retention period.
+- [ ] (Found along the way) Alaska on-road diesel has no official source:
+      DCCED's survey covers gasoline and heating fuel only and excludes
+      Anchorage/Mat-Su, so Alaska keeps the Pacific Northwest price.
+- [ ] (Found along the way) The Vancouver diesel figure applies across BC and
+      probably includes Metro Vancouver's regional fuel taxes; northern BC
+      may therefore be priced high. This is unverified.
+- [ ] (Found along the way) Canadian diesel uses fixed 2025 Statistics Canada
+      averages. Offline prices do not follow the monthly series; live mode
+      moves them only with the US national price.
+- [ ] (Found along the way) Every career year replays the 2026 spring-breakup
+      dates rather than shifting the notices to new annual dates.
+- [ ] (Found along the way) Anchorage/Mat-Su/Kenai area-wide 75%/50% limits
+      on unlisted local roads are not modeled; there are no local streets in
+      the game.
+- [ ] (Found along the way) The LCV 90-foot drive-axle provision is not
+      modeled.
+- [ ] (Found along the way) Doubles use a conservative percentage of legal
+      gross weight because the axle model does not split their axle groups.
+- [ ] (Found along the way) Seasonal limits apply to the strictest restriction
+      on each mapped leg, not to milepost segments within a leg.
+- [ ] (Found along the way) The Kenai Spur MP 0–5 end date is ambiguous in the
+      June 8 notice; the game keeps the restriction through June 15.
+- [ ] (Found along the way) The Palmer–Wasilla route retraces the Palmer–Wasilla
+      Highway, which would put it under the unmodeled Mat-Su area-wide limit.
+
+Automated evidence: the four `test_alcan_phase_a_*` cases (including the
+Tok–Delta Junction–Fairbanks split), `test_alcan_phase_b1_tok_cutoff_glenn_to_anchorage`,
+`test_alcan_phase_b2_parks_to_anchorage`, the B3 tests
+`test_alcan_border_identity_and_posted_speed_profiles`,
+`test_alaska_b3_city_labels_and_metadata`,
+`test_alaska_kenai_peninsula_routes_use_paid_miles_both_ways`,
+`test_alaska_valdez_routes_use_paid_miles_both_ways`,
+`test_alaska_dalton_routes_reach_deadhorse_both_ways`,
+`test_alaska_freight_endpoints_have_source_backed_roles`,
+`test_alaska_carrier_lanes_reach_new_freight_markets`,
+`test_alaska_pass_through_fuel_towns_have_no_board_offers`,
+`test_alaska_stand_in_markets_preserve_authored_facilities`,
+`test_alcan_public_lots_use_travel_center_or_truck_parking`, and
+`test_fairbanks_has_curated_freight_job_endpoints` in
+[`data_world.rs`](crates/ff-core/tests/it/data_world.rs), plus the generated-job
+endpoint test in [`models/jobs/tests.rs`](crates/ff-core/src/models/jobs/tests.rs).
+HOS evidence: `jurisdiction_rules_map_and_round_trip_keys`,
+`alaska_has_fifteen_driving_hours_and_no_break_limit`,
+`canada_south_limits_and_eight_hour_rest_reset`,
+`canada_shift_limit_warns_with_jurisdiction_wording`,
+`canada_north_driving_duty_and_elapsed_limits`,
+`jurisdiction_summaries_name_the_active_rules_and_limits`,
+`cycle_window_varies_without_changing_the_eight_day_ledger`,
+`canadian_cycle_requires_thirty_six_hours_while_us_uses_thirty_four`,
+`set_rules_rearms_all_jurisdiction_warnings`,
+`alaska_split_credit_recalculates_on_duty_since_first_rest`, and
+`hos_save_keeps_the_us_key_set_and_round_trips_canadian_fields` in
+[`sim/hos/tests.rs`](crates/ff-core/src/sim/hos/tests.rs), plus
+`hos_jurisdiction_switches_at_alcan_checkpoint_and_announces_once` and
+`hos_jurisdiction_switches_silently_when_not_enforced` in
+[`states_driving_hos.rs`](crates/freight-fate/tests/it/states_driving_hos.rs).
+The corridor data cases pass in the audited Windows run. HOS coverage records
+the rule boundaries, persistence, split credit and in-drive transitions.
+Remaining data limitations are recorded in the [Phase A plan](docs/alcan-corridor-scaffold-plan.md)
+and the [Phase B plan](docs/alcan-phase-b-anchorage-plan.md).
+
+### Twin parcel / STAA doubles (Track A)
+
+STAA twin 28-foot pups (`parcel_doubles`) on the National Network, and
+LCV turnpike doubles on permitted toll roads. The route gates, timing,
+handling, and gross-weight enforcement below are implemented; the listed
+geographic approximations and realism debts remain open. Tests pass in
+[`models/doubles.rs`](crates/ff-core/src/models/doubles.rs),
+[`sim/vehicle/doubles.rs`](crates/ff-core/src/sim/vehicle/doubles.rs), and
+[`twin_parcel_doubles.rs`](crates/freight-fate/tests/it/twin_parcel_doubles.rs),
+including the uncapped-route legacy-save case, reverse refusal, pickup and
+delivery time, sway, and spoken whip warnings. Older PR prose saying the
+turnpike gross caps are only recorded is superseded by this implementation.
+
+- [x] **FIX 1: National Network route gate (landed).** `parcel_doubles` is
+      offered and routed only on legs the game treats as National Network or
+      reasonable access. Approximation: Interstate designation
+      (`data::grades::road_class`) plus same-city locals and first/last
+      facility approaches or terminal stubs ≤ 1.0 mi (23 CFR 658.19 floor).
+      Mid-route connectors never count. Spoken refusal when no twin-legal
+      lane remains; a dropped off-network option is announced as a reroute.
+- [x] **Lower-48 corridor policy (landed).** Twin loads are refused on
+      ALCAN, Canada, and Alaska lanes (origin, destination, or any leg
+      outside the lower-48 US), with a distinct spoken line.
+- [ ] **Honesty debt: designated federal-aid primary routes.** Stay
+      Interstate-only for now. Designated US and state NN segments come
+      later as explicit per-segment flags checked against the FHWA National
+      Network map, not by road class.
+- [ ] **Honesty debt: reasonable-access distance.** Cap is the federal
+      1.0 mi floor (23 CFR 658.19); access distance varies by state and
+      those extensions are not modeled. Mid-route connectors never count
+      unless later flagged under the FHWA map work. Cue'd first/last legs
+      share that 1.0 mi cap; same-city facility approaches (`a == b` from
+      `Leg::local`) stay uncapped as the approach itself.
+- [ ] **Honesty debt: Twin parcel loads are not offered on ALCAN, Canada,
+      or Alaska lanes until provincial and Alaska doubles rules are
+      modeled.**
+- [x] **FIX 2: LCV turnpike trailer (landed).** `turnpike_doubles` uses its
+      own `turnpike_double` program: two **48-foot** vans (spoken
+      "48-foot turnpike doubles"), about **102 ft** cargo-carrying length
+      and **117 ft** overall, separate from STAA `double_van` pups.
+      Requires the doubles endorsement and the LCV certificate. Never
+      offered as hazmat. Offered and routed only on an explicit allowlist
+      of classic turnpike city-pair legs (NY Thruway I-90 Buffalo–Albany
+      and Berkshire/MA links, Mass Pike I-90, Ohio Turnpike west of the
+      Elyria split, Indiana Toll Road, Kansas Turnpike
+      Wichita–Emporia–Topeka) plus short staging stubs. Buffalo–Erie and
+      NYC endpoints are refused. Spoken refusal: "Dispatch only clears
+      long doubles on the turnpike."
+- [ ] **Honesty debt: Florida's Turnpike and Western LCV corridors.** FL
+      Turnpike is not Interstate-numbered in world data, so FL turnpike
+      doubles are not offered. Rocky Mountain / other Western LCV routes
+      outside the classic turnpike list are not modeled.
+- [ ] **Honesty debt: staging lots.** Break-bulk yards at turnpike exits
+      are approximated as same-city locals or first/last end legs of
+      ≤ 1.0 mi (cue'd approaches share the stub cap, as on the STAA
+      National Network gate), not curated LCV staging facilities.
+- [ ] **Honesty debt: no LCV driver certification or carrier permit gate
+      (49 CFR 380).** Holding the in-game LCV certificate opens the
+      freight; federal driver entry-level LCV training and carrier
+      permits are not modeled.
+- [ ] **Honesty debt: hazmat in doubles not modeled.** Placarded freight
+      never uses `turnpike_double`; twin hazmat rules are not simulated.
+- [ ] **Honesty debt / world-data gap: Ohio Turnpike east of Toledo to
+      the PA line.** No I-80 city-pair that avoids Cleveland, and no
+      Elyria node in world data. Pending map work; not faked.
+- [ ] **Honesty debt / world-data gap: Kansas Turnpike I-70 Topeka to
+      Kansas City.** No shipped leg (KC is in Missouri). Pending map
+      work; not faked.
+- [ ] **Honesty debt: NY I-87 Albany–Yonkers Thruway not modeled as a
+      city-pair.** Thruway tandems cannot leave onto public NY roads
+      (TAP-602); southern staging is Exit 6A Yonkers. `new_york_ny_us`
+      is refused as origin/destination, and the coarse world
+      `new_york`–`albany` I-87 leg is omitted rather than treated as a
+      legal turnpike-doubles lane. A Yonkers (or Exit 6A) node would be
+      needed before that corridor can be offered honestly.
+- [ ] **Map debt (medium priority): Ohio Turnpike I-80 leg, Toledo through
+      the Elyria split to Youngstown or the PA line, avoiding Cleveland.** A
+      long-doubles lane. Needs an Elyria node and I-80 city-pair legs.
+      Needs a realism review before it lands.
+- [ ] **Map debt (low priority): Newburgh, NY on I-87 between NYC and
+      Albany (not on the map today).** Thruway Exit 17 is a tandem lot in a
+      distribution-center cluster and would become the downstate end for
+      turnpike doubles. Needs a realism review before it lands.
+- [ ] **Map debt (low priority): Kansas City, KS map city as the Kansas
+      Turnpike's east end,** so an I-70 Topeka–Kansas City, KS leg can exist.
+      Missouri stays outside the LCV gate. Needs a realism review before it
+      lands.
+- [x] **FIX 3: Dual hook time (landed).** A set of doubles adds a second
+      hook-up (15 min) and a walk-around of both trailers and the converter
+      dolly (10 min) at the shipper: 25 extra on-duty minutes, spoken at
+      check-in and loading and shown on the pickup screen. The walk-around at
+      a stop takes 25 minutes with doubles hooked. Both minute figures are
+      ASSUMED (`models::doubles`); no public time study was found.
+      Breaking the set at delivery adds 15 minutes on duty, spoken and
+      shown at the receiver.
+- [x] **FIX 4: Pup handling (landed).** The rear trailer's lateral
+      acceleration is the tractor's quick-steer acceleration times the
+      rearward amplification (STAA pups 1.7, READ from FHWA 2000 CTSW Vol III
+      Ch VIII; turnpike doubles about 1.36, DERIVED from Figure VIII-11).
+      Above 40 mph a whip past the roll-warning share of the loaded
+      threshold shifts the rear trailer's freight and speaks a warning. Gusts
+      sway the rear trailer (amplified, harder on a light set); the tractor's
+      own drift is unchanged. Reverse is refused with doubles hooked.
+- [x] **FIX 5: Twin tare and GVW (landed).** Gross weight counts both
+      trailers and the converter dolly: pups 2 × 6,185 lb + a 2,740 lb dolly
+      (DERIVED from FHWA 2014 CTSW Table 4 and the Silver Eagle VAST-20 spec
+      sheet); turnpike doubles the stock trailer plus 16,200 lb (DERIVED from
+      FHWA 2000 CTSW Table V-3). Legal gross is 80,000 lb for pups and the
+      lowest recorded turnpike cap along the route for turnpike doubles
+      (`data::lcv_turnpikes::LCV_TURNPIKE_GVW_CAP_LB`); a turnpike-doubles
+      route through a state with no cap is refused, never held to 80,000 lb.
+      A trip already under way on one from an older save is grandfathered:
+      the lowest recorded cap among its capped states, or 80,000 lb.
+      The job board clamp, live overweight check, board weight line and CAT
+      Scale ticket use it.
+- [x] **Realism review of FIX 3–5 (landed).** Kept: 15 / 10 minute pickup
+      times, the 6,185 lb pup tare (light against real 28s at about 6,500
+      to 7,500 lb, but inside tolerance), the unsplit 16,200 lb turnpike
+      set, the 1.36 amplification reading and the minimum-cap rule. Fixed:
+      breaking the set at delivery takes 15 minutes on duty; amplification
+      applies to the rear trailer's sway and whip only, never the tractor's
+      drift; the whip threshold is floored at the loaded pup's and a light
+      set sways harder in a gust; the doubles scale ticket drops its axle
+      sentence; turnpike doubles on a route through a state with no
+      recorded cap are refused, never held to 80,000 lb.
+- [x] **Second realism rulings on FIX 3–5 (landed).** A legacy
+      turnpike-doubles trip on an uncapped lane finishes clean at the
+      lowest recorded cap among its capped states, or 80,000 lb; new jobs
+      stay refused. Gust sway uses a fixed reference mass per program
+      (80,000 lb pups, 127,400 lb turnpike doubles), never the route cap,
+      with the reference-over-actual ratio clamped to 1.0–2.0.
+- [ ] **Honesty debt: deadhead to a doubles pickup.** The run to a
+      doubles shipper pulls one empty trailer. It should be bobtail or an
+      empty set of doubles.
+- [ ] **Honesty debt: gross only on a doubles scale ticket.** Real tickets
+      print each platform; the three-group axle model does not cover a
+      set's extra axles, so the game reads gross and the legal limit only.
+- [ ] **Honesty debt: assumed doubles handling figures.** The 40 mph whip
+      floor and the 3 s steady-state filter are assumed. The gust shove is
+      the lane model's gust read as an acceleration, taken as the push on a
+      combination at the program's fixed reference mass (80,000 lb pups,
+      127,400 lb turnpike doubles) and scaled up for a lighter set, at
+      most 2x (`models::doubles::LIGHT_SET_SWAY_MAX`). Neither the push
+      nor the clamp is calibrated against a measurement.
+      The rear trailer feels the driver's share of the tractor's steer
+      (keys, stick and the lane-keeping helper, never a bend's tracking
+      steer) rate-limited to 0.3 g/s
+      (`sim::lane::REAR_WHIP_STEER_SLEW_G_PER_S`, ASSUMED), because a
+      steering key is a switch that steps the tractor to its lateral cap in
+      one frame; the slew is not calibrated either.
+
+### Mexico freight v1: Laredo border transfer yards
+
+A US long-haul driver does not drive into Mexico; Mexico freight is a
+border-yard business. v1 models that in Laredo only, and nothing south of
+the bridge. The yards and every spoken line live in `data/border_yards.json`
+(baked as a text section), so the slice is easy to cut.
+
+- [x] **Two real US-side transfer yards join Laredo's freight**: On Time
+      International (14602 Atlanta Dr) and SCI Cross Dock (11903 Auburn Rd),
+      each with its published source and an OpenStreetMap house-level
+      geocode. They add to Laredo's market facilities; nothing is replaced.
+- [x] **Southbound loads to a yard name their Mexican consignee** on the
+      load card ("for consignee Saltillo, Coahuila, delivered to SCI Cross
+      Dock in Laredo ...") and say at delivery that a transfer carrier takes
+      the trailer across. Monterrey and Saltillo are text only; no Mexican
+      city is a map city, route or destination. The consignee is keyed on
+      the load, so no save field was added.
+- [x] **Northbound pickups at a yard wait 30 to 90 minutes on paperwork**,
+      logged on duty, not driving, at check-in, and counted toward
+      detention like any other facility hold. The range is an assumed
+      gameplay value, not border data. When the World Trade Bridge is
+      closed to trucks (CBP hours: weekdays 7 AM to midnight, Saturday and
+      Sunday 8 AM to 4 PM), the line says so as story.
+- [x] **No border toll is charged**; the transfer carrier crosses.
+- [ ] *(Found along the way)* Wire the "no northbound trailer ready" line
+      in the data to a real no-load-ready board state; the game has no
+      load-not-ready mechanism yet, so the line is unused.
+- [ ] *(Found along the way)* Facility endpoint and approach records for
+      the two yard ids, so the final approach uses the yards' own pins
+      instead of the synthetic fallback approach.
+- [ ] *(Deferred)* El Paso, Pharr and Otay Mesa transfer yards, after real
+      yards with published addresses are sourced.
+- [ ] *(Deferred)* Speak the accented consignee names ("Nuevo Leon" with
+      its accent) once a live screen-reader test passes; the accented form
+      is already kept in the data.
+- [ ] *(Deferred)* Averitt Laredo Service Center (11921 Conly Rd), pending
+      a verified coordinate; the address did not geocode in OpenStreetMap.
+- [ ] *(Deferred)* Texas DPS inspection stations near the Laredo bridges
+      for northbound flavor; exact sites unverified.
+- [ ] *(Deferred)* Colombia Solidarity Bridge commercial hours; unverified.
+- [ ] *(Deferred)* FAST lanes and C-TPAT eligibility; rules unverified.
+- [ ] *(Deferred)* In-bond northbound loads to an inland port.
+- [ ] *(Deferred)* Bridge toll display, only from a re-verified City of
+      Laredo rate; the player is never charged it.
+- [ ] *(Deferred)* World Trade Bridge Saturday pilot hours (to 7 PM from
+      September 5, 2026); left out of the story text on purpose.
+
+### Travel-center bulk fuel (non-blocking)
+
+- [ ] **Restore `fuel_bulk` deliveries to `travel_center` as receive-only,**
+      gated behind the tanker and hazmat endorsements. Public travel centers
+      take bulk fuel drops but never originate freight. Non-blocking for the
+      carrier and home-terminal slices.
+
+<a id="reefer-apu-and-fuel-island-hotel-power-20-candidates"></a>
+
+### Reefer, APU, and fuel-island hotel power (v1 built)
+
+The coarse cargo-temperature and hotel-power slice is implemented, with
+passing model tests in [`hotel.rs`](crates/ff-core/src/sim/vehicle/hotel.rs)
+and fueling/menu tests in
+[`states_driving_menus_rest.rs`](crates/freight-fate/tests/it/states_driving_menus_rest.rs)
+and [`states_city_shops.rs`](crates/freight-fate/tests/it/states_city_shops.rs).
+Coverage includes cold-load startup, fuel starvation, temperature drift,
+spoilage, old-save defaults, and fueling with the tractor off while reefer
+and APU stay on. Optional deferrals stay unchecked and are not blockers for
+the ALCAN corridor.
+
+- [x] **Reefer TRU on/off diesel burn** with a coarse cargo-temperature /
+      spoil model (not multi-temp zones). Alt+R. Burns from the tractor tank.
+- [x] **APU on/off** as low hotel burn versus idling the tractor. Alt+U.
+- [x] **Fuel island: tractor-off required** while reefer TRU / APU may stay on
+      ("Shut the engine off before you fuel.").
+- [ ] **Frozen setpoint (-18 C)** for loads to or from frozen-food docks,
+      keyed off `facility_ships_frozen_as_chilled` (the same facility check
+      that drives the chilled spoken cargo label). Drop the chilled relabel
+      once this lands.
+- [ ] *(defer)* Multi-temp compartments, shore power, deep TRU fault trees,
+      battery APU, scored idle noise, and HOS accounting driven from reefer
+      duty — park until the coarse slice earns its keep.
+
+Honesty debts for this v1 slice (do not paper over):
+1. Cargo temperature is coarse (setpoint band + drift), not a thermal model.
+2. The TRU draws diesel from the tractor tank — a v1 simplification; many
+   real TRUs have their own tank.
+3. APU-at-pump is soft: reefer and APU are allowed while fueling, and no
+   separate rule model enforces or scores that choice beyond the tractor-off
+   fuel gate.
+4. One chilled setpoint (2 C) for all reefer freight in v1. Real frozen-food
+   facilities keep their names; their loads are spoken as chilled cargo until
+   a frozen setpoint exists. Multi-temp stays deferred.
 
 - [ ] Trucks that drive differently (player report, 2026-10-14): models
       already differ in torque, weight, drag, tank and thirst, but every one
@@ -3856,11 +4573,11 @@ terminal becomes the anchor of that week instead of a spawn point.
 Plumbing before the merge, none of it gameplay (agreed 2026-10-26; the
 one-channel rule is in [October 26](#october-26-the-road-to-the-20-nightlies-found-along-the-way)).
 
-- [ ] Port cross-border legs into the Rust `index-world` (it refuses
-      `surrey_bc_ca` to `blaine_wa_us` and `whitehorse_yt_ca` to
-      `tok_ak_us` today), then sync dev into `feat/career-2.0` as a PR
-      against dev so CI runs. The sync deletes the 143 Python tools; every
-      bake after it is an `ff-tools` command.
+- [x] Cross-border legs in the Rust `index-world` (filed under the
+      country they start in), and dev synced into `feat/career-2.0` through
+      a PR against the branch; Rust and changelog CI now run on it. The
+      sync deleted the Python tools; every bake after it is an `ff-tools`
+      command.
 - [ ] Workspace version 2.0.0 in the merge commit; the nightly keeps its
       `1.9-tester-*` name and the release notes carry a 2.0 preview
       heading. The downloads page groups by the prerelease flag and needs
@@ -3872,8 +4589,8 @@ one-channel rule is in [October 26](#october-26-the-road-to-the-20-nightlies-fou
 - [ ] The orinks.net profile export accepts the new fields and labels, on
       the dev preview with the agent staging driver first.
 - [ ] Curate the branch's ~110 unreleased changelog lines; the manual's
-      hours-of-service and home-terminal pages; `l10n-extract` after the
-      sync.
+      hours-of-service and home-terminal pages. (`l10n-extract` ran with
+      the sync.)
 - [ ] Gates before the first tag: the full test pair and the battery green
       on the merged dev, the whole-map sweep once, agent-server drives of a
       carrier-terminal career start, one Alcan leg and one street arrival
@@ -3895,9 +4612,32 @@ loudly when mostly assumed.
 - [ ] Route geometry: re-route every leg without a geometry archive over
       the planet cut with truck costing, points every quarter mile; re-sweep
       the US legs baked against straight chords.
+- [x] The Python Alcan speed bake, ported into `osm-speed-limits`: a leg
+      with no geometry archive is read along the Valhalla truck route
+      through its route points (`--valhalla`, cached outside the repo), a
+      bare number is km/h in Canada, an Alaska stretch with no posted way
+      takes the 55 mph default labelled assumed, and a limit that changes
+      at a country border starts there, measured on the road.
 - [ ] Speed limits, second pass over the new geometry, Canada included;
       California's statutory 55 for trucks where OSM has no `maxspeed:hgv`;
       the seven states read from an old way cache.
+- [ ] (Found along the way) Two Python tools 2.0 had and dev never did
+      went with the sync, unported: the map-pack builder
+      (`build_map_pack.py`, the producer half of in-game map updates) and
+      the parallel-alternate gap report (`analyze_route_gaps.py`). Both are
+      in git at `61e4585b`; port one when its work comes up. The facility
+      endpoint re-sweep's fallback rows for unmatched targets went too.
+- [ ] (Found along the way) What the October Alcan speed re-read showed
+      (2026-10-26): no route through Surrey to Blaine's route points agrees
+      with the 16-mile leg in either direction, so both keep their coarse
+      placeholder; Hart Highway north of Prince George has no posted way
+      for about half its length (explicit gaps, the game's heuristic
+      there; a provincial unposted default, researched and labelled
+      assumed, would fill them); and the road disagrees with the leg's
+      miles by over 3 percent on Fairbanks to Nenana (56 against 53),
+      Glennallen to Palmer (140 against 145), Prince George to Surrey (492
+      against 465) and the short Anchorage, Wasilla, Palmer and Kenai legs.
+      The route re-sweep above should re-measure those miles.
 - [x] Exits, ramp lengths, terminals and controls, both directions' ramp
       ends: `cargo tools osm-exits`, run over the 2026-10-19 planet cut.
       Exits with a ramp end both ways went from 4,310 of 18,520 to 14,548
@@ -3905,6 +4645,8 @@ loudly when mostly assumed.
       read did not find again stay whole, and 195 ramp ends keep their old
       node, because a road stop or a street chain is keyed to them;
       re-baking the street chains (below) clears both.
+      The Alcan, Alaska, BC and Yukon legs on this branch have no exits
+      yet; they come with the route geometry above.
 - [ ] Curves: the archive builder, so detour and Alcan legs get real bends.
 - [ ] Grades: 3DEP for the US; the Canadian Digital Elevation Model
       elsewhere, labelled.
@@ -4088,12 +4830,12 @@ onto exit signalling.
       dead because the edge ladder took its job. (`vehicle/turn_signal`, the
       other asset this bullet once named, has been wired since 2026-09-10.)
 
-
 ### Street traffic controls
 
 The street signals and signs baked for 1.9, and road stops' streets, are
 switched off for the 1.9 release (`fix/street-lights-live`,
-`STREET_CONTROLS_IN_PLAY` and `STOP_STREETS_IN_PLAY`); the timing work is
+`STREET_CONTROLS_IN_PLAY` and `STOP_STREETS_IN_PLAY`). Both flags are still
+false on the audited 2.0 head; the timing work is
 parked on `feat/street-lights-2-0`. Detail in
 [September 24](#september-24-realistic-interstate-exit).
 
@@ -4203,15 +4945,79 @@ here 2026-09-25. Details stay in the linked dated sections.
 
 [Read this section in the detailed roadmap](docs/roadmap-details.md#maneuvers-enforcement-and-the-working-day).
 
+- [x] **Suspended and disqualified CDL guidance.** Landed in
+      [PR #259](https://github.com/Orinks/Freight-Fate/pull/259): the terminal
+      points to the status-specific wait-out action and days remaining;
+      lifetime disqualification has no driving objective. Owner-operator
+      bobtail starts are refused, including from an already-open destination
+      menu. Targeted `states_city.rs` tests pass in the audited head's CI.
+- [ ] **In progress: a CDL pulled mid-drive must end the run.**
+      [PR #261](https://github.com/Orinks/Freight-Fate/pull/261) is open,
+      not merged into this branch as of 2026-09-30. It adds the missing
+      fatigue-runoff/work-zone-strike stop path, loaded-departure and
+      saved-trip backstops, and truthful dispatch-trust/relief-driver text.
+      Its own passing CI is not evidence that the audited branch has the fix.
+- [ ] **In progress: remaining location and pickup wording.**
+      [PR #256](https://github.com/Orinks/Freight-Fate/pull/256) is open,
+      not merged as of 2026-09-30. Its follow-ups cover felony-stop location,
+      the article in The Dalles freight-market text, and pickup-manual
+      wording. Do not count the complete PR as landed from its green CI.
+
+- [ ] CDL reinstatement is not automatic. When a suspension or
+      disqualification ends, the state DMV wants a reinstatement fee and
+      paperwork before the CDL is valid again; the game hands the licence
+      back the moment the time is served. Not modeled.
+- [ ] Most lifetime disqualifications can be reinstated once, after 10
+      years, with a state-approved rehabilitation program (49 CFR
+      383.51(a)(6)); a lifetime disqualification for using a CMV in a
+      controlled-substance felony is permanent. The game treats every
+      lifetime disqualification as permanent and models neither the
+      10-year reinstatement nor the felony distinction.
+
 ### Career, dispatch, and business
 
 [Read this section in the detailed roadmap](docs/roadmap-details.md#career-dispatch-and-business).
+
+- [x] **Offline call dispatch groundwork.** A stopped driver can send a
+      structured delay, hours, road, truck or load request and receive an
+      immediate trip-specific local answer.
+- [ ] (Found along the way) **Call Dispatch timing is lower-48 timing
+      everywhere.** The delay answer assumes 50 mph to the destination, and
+      an authorized roadside repair always takes the 1.5-hour mobile-mechanic
+      wait. Neither holds on the Dalton Highway or other remote Alaska and
+      Canadian roads, where a callout takes far longer; scale both by road
+      and remoteness.
+- [ ] **Route calls to a remote dispatcher when one is available.** Deliver
+      the same structured request asynchronously, with a short wait and the
+      local dispatcher as the automatic fallback.
+- [ ] **Partial: reopen and finish driving school.** The sandboxed
+      practice-road foundation and one Rolling Basics lesson exist, with
+      profile restoration, stage progression, and manual-start tests in
+      [`states_driving_menus_tablet.rs`](crates/freight-fate/tests/it/states_driving_menus_tablet.rs).
+      Those tests pass, but `DRIVING_SCHOOL_ENABLED` is still `false` on
+      this 2.0 head. The terminal entry, remaining curriculum, and broader
+      availability/refresher integration are not complete.
 
 ### Radio
 
 [Read this section in the detailed roadmap](docs/roadmap-details.md#radio).
 
 ### World and narration
+
+- [x] **Two map tools from nromey, report-only (landed 2026-08-18).**
+      `tools/analyze_route_gaps.py` asks the local ORS for real alternatives
+      per city pair we already serve, samples each every 2 miles, and scores
+      how far it strays from the corridor we ship -- a ramp wiggle scores
+      near zero, a genuinely different road scores high. The 2026-07-30
+      completeness audit measured ZERO same-pair parallel alternates in the
+      network, so route selection at dispatch has nothing to choose between;
+      this is the measurement that would tell us what to build first. It
+      needs a self-hosted ORS at `ORS_BASE_URL` and writes nothing to world
+      data. `tools/build_map_pack.py` builds full and diff map packs with a
+      manifest and a verify pass. Cherry-picked from `nromey/map/gap-analyzer`
+      onto this line (briefly on 1.9 on 2026-08-18, reverted the same day in
+      `3fd292a2`) because route selection at dispatch is 2.0 work and the
+      tools are report-only.
 
 [Read this section in the detailed roadmap](docs/roadmap-details.md#world-and-narration).
 

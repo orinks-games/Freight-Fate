@@ -22,11 +22,11 @@
 //! | `park_away_from_stops(driving, ...)` | the road is left with the one stop BEHIND the truck, which is the condition that helper hunts for |
 
 use ff_core::models::enforcement;
-use ff_core::sim::hos;
+use ff_core::sim::hos::{self, HosRules};
 use ff_core::sim::trip_models::{RoadStop, TripEvent, TripEventData, TripEventKind};
 use ff_core::sim::weather::WeatherKind;
 use freight_fate::controller::ControllerButton;
-use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
+use freight_fate::playtest::harness::{PlaytestHarness, RouteSetup, StartDelivery};
 use freight_fate::states::base::{InputEvent, Key, Menu};
 use freight_fate::states::driving::DrivingState;
 use freight_fate::states::driving_core::HAZARD_MIN_REACTION_S;
@@ -188,6 +188,150 @@ fn press_t(harness: &mut PlaytestHarness) {
 fn hours_frame(harness: &mut PlaytestHarness, dt: f64) {
     harness.advance_clock(dt);
     harness.with_drive(move |d, ctx| d.update_hours_and_fatigue(ctx, dt));
+}
+
+fn whitehorse_tok_drive() -> PlaytestHarness {
+    let mut harness = PlaytestHarness::new();
+    harness.start_route(
+        "whitehorse_yt_ca",
+        "tok_ak_us",
+        RouteSetup::seeded(2202).cities(&["whitehorse_yt_ca", "tok_ak_us"]),
+    );
+    harness.with_drive(|drive, _| {
+        drive.departure_checked = true;
+        drive.trip.position_mi = 297.4;
+    });
+    harness.clear_speech();
+    harness
+}
+
+#[test]
+fn hos_jurisdiction_switches_at_alcan_checkpoint_and_announces_once() {
+    let mut harness = whitehorse_tok_drive();
+    harness.with_drive(|drive, ctx| drive.update_hours_and_fatigue(ctx, 0.0));
+    assert_eq!(
+        harness.app.ctx.profile.as_ref().unwrap().hos.rules,
+        HosRules::CanadaNorth60
+    );
+    assert!(harness
+        .app
+        .event_calls()
+        .iter()
+        .all(|(text, _)| !text.contains("hours rules")));
+
+    harness.with_drive(|drive, ctx| {
+        drive.trip.position_mi = 297.6;
+        drive.update_hours_and_fatigue(ctx, 0.0);
+        drive.update_hours_and_fatigue(ctx, 0.0);
+    });
+    assert_eq!(
+        harness.app.ctx.profile.as_ref().unwrap().hos.rules,
+        HosRules::Alaska
+    );
+    let announcements: Vec<_> = harness
+        .app
+        .event_calls()
+        .into_iter()
+        .filter(|(text, _)| {
+            text == "Alaska hours rules now apply: up to 15 hours of driving and 20 on duty \
+                     after 10 hours off, with no 30-minute break."
+        })
+        .collect();
+    assert_eq!(
+        announcements,
+        vec![(
+            "Alaska hours rules now apply: up to 15 hours of driving and 20 on duty \
+         after 10 hours off, with no 30-minute break."
+                .to_string(),
+            false,
+        )]
+    );
+}
+
+/// Enter a jurisdiction from a different rule set and return the one
+/// announcement the switch speaks.
+fn switch_announcement(mut harness: PlaytestHarness, from: HosRules, to: HosRules) -> String {
+    harness.with_drive(|drive, ctx| drive.update_hours_and_fatigue(ctx, 0.0));
+    assert_eq!(harness.app.ctx.profile.as_ref().unwrap().hos.rules, to);
+    harness
+        .app
+        .ctx
+        .profile
+        .as_mut()
+        .unwrap()
+        .hos
+        .set_rules(from);
+    harness.clear_speech();
+    harness.with_drive(|drive, ctx| drive.update_hours_and_fatigue(ctx, 0.0));
+    assert_eq!(harness.app.ctx.profile.as_ref().unwrap().hos.rules, to);
+    let spoken: Vec<_> = harness
+        .app
+        .event_calls()
+        .into_iter()
+        .map(|(text, _)| text)
+        .filter(|text| text.contains("hours rules"))
+        .collect();
+    assert_eq!(spoken.len(), 1, "{spoken:?}");
+    spoken[0].clone()
+}
+
+#[test]
+fn hos_north_of_60_notice_names_the_federal_canadian_rules() {
+    let spoken = switch_announcement(
+        whitehorse_tok_drive(),
+        HosRules::Alaska,
+        HosRules::CanadaNorth60,
+    );
+    assert_eq!(
+        spoken,
+        "Canadian north-of-60 hours rules now apply: up to 15 hours of driving and 18 on duty \
+         after 8 hours off, and no driving once 20 hours have passed since that break."
+    );
+    assert!(!spoken.contains("Yukon"), "{spoken}");
+}
+
+#[test]
+fn hos_south_of_60_notice_counts_sixteen_hours_from_the_break() {
+    let mut harness = PlaytestHarness::new();
+    harness.start_route(
+        "dawson_creek_bc_ca",
+        "fort_st_john_bc_ca",
+        RouteSetup::seeded(2203).cities(&["dawson_creek_bc_ca", "fort_st_john_bc_ca"]),
+    );
+    harness.with_drive(|drive, _| {
+        drive.departure_checked = true;
+        drive.trip.position_mi = 10.0;
+    });
+    let spoken = switch_announcement(harness, HosRules::Us, HosRules::CanadaSouth60);
+    assert_eq!(
+        spoken,
+        "Canadian hours rules now apply: up to 13 hours of driving and 14 on duty after 8 hours \
+         off, and no driving once 16 hours have passed since that break."
+    );
+}
+
+#[test]
+fn hos_jurisdiction_switches_silently_when_not_enforced() {
+    let mut harness = whitehorse_tok_drive();
+    harness.app.ctx.settings.hos_mode = "off".to_string();
+    harness.with_drive(|drive, ctx| drive.update_hours_and_fatigue(ctx, 0.0));
+    assert_eq!(
+        harness.app.ctx.profile.as_ref().unwrap().hos.rules,
+        HosRules::CanadaNorth60
+    );
+    harness.with_drive(|drive, ctx| {
+        drive.trip.position_mi = 297.6;
+        drive.update_hours_and_fatigue(ctx, 0.0);
+    });
+    assert_eq!(
+        harness.app.ctx.profile.as_ref().unwrap().hos.rules,
+        HosRules::Alaska
+    );
+    assert!(harness
+        .app
+        .event_calls()
+        .iter()
+        .all(|(text, _)| !text.contains("hours rules now apply")));
 }
 
 // -- the warnings the drive speaks ---------------------------------------------------
@@ -1480,3 +1624,130 @@ fn test_players_own_parking_brake_press_arms_waiting() {
 // `test_pre_1_5_snapshot_resumes_with_fresh_clock` runs in
 // `crates/freight-fate/tests/states_driving_trip_resume.rs`, beside the other
 // old-snapshot resume cases it shares its fixture with.
+
+/// A drive from Anchorage into the Whittier tunnel's gate at 6:20 AM
+/// Alaska time on May 1: open for the season, with a wait for the next
+/// opening toward Whittier. The truck starts `short_mi` before the gate.
+fn a_whittier_approach(short_mi: f64) -> PlaytestHarness {
+    use chrono::NaiveDate;
+    use ff_core::data::world::get_world;
+    use ff_core::data::world_models::Route;
+    use ff_core::sim::trip::{Trip, TripOptions};
+    use ff_core::sim::weather::WeatherSystem;
+
+    let mut harness = a_drive("Whittier Gate");
+    harness.app.ctx.settings.sapi_events = true;
+    let world = get_world();
+    let leg = |a: &str, b: &str| {
+        world
+            .legs
+            .iter()
+            .find(|leg| leg.a == a && leg.b == b)
+            .unwrap_or_else(|| panic!("{a} to {b} leg"))
+            .as_ref()
+            .clone()
+    };
+    let route = Route::from_legs(
+        vec![
+            "anchorage_ak_us".into(),
+            "bear_valley_ak_us".into(),
+            "whittier_ak_us".into(),
+        ],
+        vec![
+            leg("anchorage_ak_us", "bear_valley_ak_us"),
+            leg("bear_valley_ak_us", "whittier_ak_us"),
+        ],
+    );
+    let mut truck = harness.read_drive(|d| d.trip.truck.clone());
+    truck.trailer_attached = false;
+    truck.cargo_key = String::new();
+    truck.cargo_kg = 0.0;
+    truck.placarded_hazmat = false;
+    truck.velocity_mps = 25.0 * MPS_PER_MPH;
+    // 10:20 AM Eastern is 6:20 AM at the tunnel.
+    let may = ff_core::sim::season::real_clock_game_hours(Some(
+        NaiveDate::from_ymd_opt(2026, 5, 1)
+            .unwrap()
+            .and_hms_opt(10, 20, 0)
+            .unwrap(),
+    ));
+    let mut weather = WeatherSystem::new("alaska", Some(3), None, None, true);
+    weather.current = WeatherKind::Clear;
+    let mut trip = Trip::new(
+        route,
+        truck,
+        weather,
+        TripOptions {
+            world: Some(world),
+            career_hours: Some(may),
+            start_hour: 10.0 + 20.0 / 60.0,
+            ..TripOptions::seeded(91)
+        },
+    );
+    trip.set_npc_vehicles(Vec::new());
+    trip.position_mi = trip.leg_starts[1] - short_mi;
+    harness.with_drive(move |d, _| {
+        d.trip = trip;
+        d.reset_turn_state_for_trip();
+    });
+    harness.clear_speech();
+    harness
+}
+
+fn event_lines(harness: &PlaytestHarness) -> Vec<String> {
+    harness
+        .app
+        .event_calls()
+        .into_iter()
+        .map(|(text, _)| text)
+        .collect()
+}
+
+#[test]
+fn test_whittier_gate_speaks_the_tunnel_and_its_wait_once() {
+    // In-game tests, 2026-10-11. First the gate's "Next opening ... You wait
+    // about ..." line never reached the voice: chatter queued behind the
+    // tunnel's name, dropped as stale while the truck sat out the wait. Then,
+    // as two route lines in one tick, the name was flushed and handed back
+    // in front of the wait. Now one line: the name, then the verdict.
+    //
+    // The road's next route line ("Speed limit reduced to 25") can still
+    // flush the voice while the gate line waits its turn, unheard; the
+    // pacer then reissues it, interrupting, which purges the waiting copy.
+    // That is one hearing, so a reissue is counted out (`handed_back_count`).
+    let mut harness = a_whittier_approach(0.3);
+    harness.drive_frames(60 * 40);
+    let calls = harness.app.event_calls();
+    let spoken = event_lines(&harness);
+    let heard = |phrase: &str| {
+        let delivered = spoken.iter().filter(|line| line.contains(phrase)).count();
+        delivered - harness.app.ctx.handed_back_count(phrase)
+    };
+    let gate = "Anton Anderson Memorial Tunnel. One lane shared with the railroad. Gates run on a published schedule. Next opening toward Whittier at 6:30 AM. You wait about";
+    assert_eq!(heard(gate), 1, "the gate line, heard once: {calls:?}");
+    assert!(
+        !spoken
+            .iter()
+            .any(|line| line == "Anton Anderson Memorial Tunnel. One lane shared with the railroad. Gates run on a published schedule."),
+        "the name is not a line of its own: {calls:?}"
+    );
+    assert!(
+        calls
+            .iter()
+            .filter(|(line, _)| line.contains(gate))
+            .skip(1)
+            .all(|(_, interrupt)| *interrupt),
+        "a reissue purges the waiting copy: {calls:?}"
+    );
+    assert_eq!(
+        heard("Tunnel toll, 137 dollars"),
+        1,
+        "the toll, once: {calls:?}"
+    );
+    harness.read_drive(|d| {
+        assert!(
+            d.trip.position_mi > d.trip.leg_starts[1],
+            "the truck drove through the gate"
+        );
+    });
+}

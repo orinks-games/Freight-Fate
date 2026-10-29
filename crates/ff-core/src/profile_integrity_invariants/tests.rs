@@ -353,6 +353,11 @@ fn city_labels_drop_a_missing_state() {
     let dir = tempfile::tempdir().unwrap();
     fs::create_dir_all(dir.path().join("us")).unwrap();
     fs::write(
+        dir.path().join("index.json"),
+        r#"{"countries": [{"code": "US", "path": "us", "cities": "cities.json"}]}"#,
+    )
+    .unwrap();
+    fs::write(
         dir.path().join("us/cities.json"),
         r#"{"cities": {"nowhere_us": {"spoken_city": "Nowhere"}, "austin_tx_us": {"spoken_city": "Austin", "state": "TX"}}}"#,
     )

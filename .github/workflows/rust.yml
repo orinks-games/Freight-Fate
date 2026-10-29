@@ -66,7 +66,7 @@ on:
   push:
     # Alongside main and dev, the Rust release lines take direct pushes instead
     # of PRs, so each needs its own entry for this CI to run.
-    branches: [main, dev, feat/career-1.9, feat/rust-port]
+    branches: [main, dev, feat/career-1.9, feat/career-2.0, feat/rust-port]
     # A release tag runs everything below plus the macOS tests. GitHub does
     # not apply the path filter to a tag push, so a tag always runs.
     tags: ["v*"]
@@ -91,7 +91,7 @@ on:
       # with the spoken text in crates/ by `cargo tools l10n-extract`.
       - "lang/**"
   pull_request:
-    branches: [main, dev, feat/career-1.9]
+    branches: [main, dev, feat/career-1.9, feat/career-2.0]
     # Keep in step with the push list.
     paths:
       - "crates/**"

@@ -885,6 +885,18 @@ fn shipped_spanish_keeps_a_template_hole_to_one_sentence() {
 }
 
 #[test]
+fn shipped_spanish_translates_a_carrier_terminal_line() {
+    // What kind of place it is belongs to the name and reads in lower case
+    // ("... Chicago terminal"), which the name guards took for a sentence:
+    // the whole line stayed English in every language.
+    let tr = shipped_spanish();
+    assert_eq!(
+        tr.translate("Northstar Freight Lines Chicago terminal in Chicago. 5,000 dollars."),
+        "Northstar Freight Lines Chicago terminal en Chicago. 5.000 dólares."
+    );
+}
+
+#[test]
 fn shipped_spanish_says_a_yard_once_and_joins_de_el() {
     let tr = shipped_spanish();
     assert_eq!(
@@ -1099,4 +1111,28 @@ fn a_long_line_of_commas_is_matched_without_retrying_every_cut() {
     assert_eq!(caps["d"], "Left");
     assert_eq!(caps["e"], "");
     assert_eq!(caps["f"], "Right");
+}
+
+#[test]
+fn shipped_spanish_says_a_whole_dispatch_board_row() {
+    // The board's announcement is a frame of holes side by side, and a cut
+    // at a comma inside "Kenosha, Wisconsin" left the rest of the row in
+    // English: the gross, the deadline and the pay.
+    let tr = shipped_spanish();
+    let line = "Dispatch board. 3 declines left before your next promotion. Market watch: \
+                lumber paper tight, general tight. Accept assigned dispatch: 16 tons of \
+                general freight from Chicago Parcel Hub in Chicago, Illinois to Amazon \
+                Fulfillment Center KRB1 in Kenosha, Wisconsin. 62 miles. Carrier gross 328 \
+                dollars. Deadline 2 hours. Equipment: dry van trailer. Your pay about 239 \
+                dollars. Market tight. 1 of 4.";
+    let spanish = tr.translate(line);
+    for english in [
+        "Carrier gross",
+        "Deadline",
+        "Your pay about",
+        "Equipment:",
+        " in ",
+    ] {
+        assert!(!spanish.contains(english), "{english}: {spanish}");
+    }
 }

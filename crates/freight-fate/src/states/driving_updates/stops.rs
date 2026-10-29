@@ -175,7 +175,8 @@ impl DrivingState {
         let fine = self.pull_over_fine;
         let reputation_hit = self.pull_over_reputation_hit;
         let return_message = self.pull_over_return.clone();
-        let construction_zone = self.pull_over_construction_zone;
+        let fine_is_final = kind == "border_port_running";
+        let construction_zone = self.pull_over_construction_zone && !fine_is_final;
         // Read the tracker before the reset zeroes it.
         let clean_stop = self.pull_over_compliance >= PULL_OVER_FULL_COMPLIANCE;
         self.trip.pull_over_active = false;
@@ -201,6 +202,7 @@ impl DrivingState {
                     out_of_service: kind == "hos_out_of_service",
                     warned,
                     construction_zone,
+                    fine_is_final,
                     inspection_on_stop: kind == "weigh_station_bypass",
                     inspection_level: match kind.as_str() {
                         "roadside_inspection" => {
@@ -338,6 +340,7 @@ impl DrivingState {
                 out_of_service: false,
                 warned: true,
                 construction_zone,
+                fine_is_final: false,
                 inspection_on_stop: false,
                 inspection_level: None,
             },

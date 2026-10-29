@@ -307,10 +307,21 @@ impl DrivingState {
     /// reverse selection while rolling forward) need road speed, which the
     /// transmission has no way to know.
     pub fn manual_shift(&mut self, ctx: &mut GameContext, gear: i32) {
-        let rolling_reverse =
-            gear == REVERSE && self.trip.truck.speed_mph() > REVERSE_ENGAGE_MAX_MPH;
+        let doubles_refusal = if gear == REVERSE {
+            self.trip.truck.doubles_reverse_refusal()
+        } else {
+            None
+        };
+        let rolling_reverse = doubles_refusal.is_none()
+            && gear == REVERSE
+            && self.trip.truck.speed_mph() > REVERSE_ENGAGE_MAX_MPH;
         let result = self.trip.truck.request_gear(gear);
-        if result.ok {
+        if let Some(refusal) = doubles_refusal {
+            // A set of doubles cannot be backed; nothing ground or broke.
+            ctx.audio.play("ui/error");
+            self.set_status(refusal);
+            ctx.say(refusal);
+        } else if result.ok {
             // The lever: kachunk. The second half -- the gear taking as the
             // clutch comes back in -- is played by update_audio when it
             // actually happens, the way an automatic's engagement is.
@@ -336,6 +347,65 @@ impl DrivingState {
             ));
         } else {
             ctx.say(&result.message);
+        }
+    }
+
+    /// Alt+R: trailer refrigeration unit on or off.
+    pub fn toggle_reefer(&mut self, ctx: &mut GameContext) {
+        if !self.trip.truck.cargo_needs_reefer()
+            || !self.trip.truck.trailer_attached
+            || self.trip.truck.cargo_kg <= 0.0
+        {
+            ctx.audio.play("ui/error");
+            ctx.say("No reefer load aboard.");
+            return;
+        }
+        if self.trip.truck.reefer_on {
+            self.trip.truck.stop_reefer();
+            self.set_status("Reefer off.");
+            ctx.say_with(
+                "Reefer off.",
+                Say::new().category(SpeechCategory::Confirmation),
+            );
+            return;
+        }
+        if self.trip.truck.start_reefer() {
+            self.set_status("Reefer on.");
+            ctx.say_with(
+                "Reefer on.",
+                Say::new().category(SpeechCategory::Confirmation),
+            );
+            return;
+        }
+        ctx.audio.play("ui/error");
+        if self.trip.truck.fuel_gal <= 0.0 {
+            ctx.say("No fuel for the reefer.");
+        } else {
+            ctx.say("The reefer will not start.");
+        }
+    }
+
+    /// Alt+U: auxiliary power unit on or off.
+    pub fn toggle_apu(&mut self, ctx: &mut GameContext) {
+        if self.trip.truck.apu_on {
+            self.trip.truck.stop_apu();
+            self.set_status("APU off.");
+            ctx.say_with(
+                "APU off.",
+                Say::new().category(SpeechCategory::Confirmation),
+            );
+            return;
+        }
+        if self.trip.truck.start_apu() {
+            self.set_status("APU on.");
+            ctx.say_with("APU on.", Say::new().category(SpeechCategory::Confirmation));
+            return;
+        }
+        ctx.audio.play("ui/error");
+        if self.trip.truck.fuel_gal <= 0.0 {
+            ctx.say("No fuel for the APU.");
+        } else {
+            ctx.say("The APU will not start.");
         }
     }
 }

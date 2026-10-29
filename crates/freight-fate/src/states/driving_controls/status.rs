@@ -84,6 +84,22 @@ impl DrivingState {
                 "Fuel: {:.0} percent",
                 self.trip.truck.fuel_fraction() * 100.0
             ),
+            {
+                let reefer = if self.trip.truck.reefer_on {
+                    "on"
+                } else {
+                    "off"
+                };
+                let apu = if self.trip.truck.apu_on { "on" } else { "off" };
+                if self.trip.truck.cargo_needs_reefer() {
+                    format!(
+                        "Reefer: {reefer}. {}. APU: {apu}",
+                        self.trip.truck.reefer_temp_status_text(imperial)
+                    )
+                } else {
+                    format!("APU: {apu}")
+                }
+            },
             format!("Air brakes: {}", self.air_status_text(true)),
             format!("Weather: {}", self.trip.weather.report_lead(imperial)),
             format!("Radio: {}", self.radio.status_text()),

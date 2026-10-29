@@ -136,6 +136,9 @@ pub const PROFILE_FIELDS: &[&str] = &[
     "name",
     "money",
     "current_city",
+    "home_terminal_city",
+    "parked_facility",
+    "home_city",
     "created_line",
     "migration_notice_pending",
     "integrity_modified",
@@ -163,6 +166,7 @@ pub const PROFILE_FIELDS: &[&str] = &[
     "weigh_station_transponder",
     "trailer_programs",
     "owned_trailers",
+    "turnpike_program_notice_seen",
     "owner_operator_declined",
     "career",
     "driving_record",
@@ -359,6 +363,18 @@ pub struct Profile {
     /// honest career as modified. Read it with [`Profile::money`].
     money: f64,
     pub current_city: String,
+    /// Career 2.0 home terminal city key: the hiring carrier's terminal city
+    /// nearest the driver's home base (`data/carriers.json`). Home logic reads
+    /// this, never `current_city`. Old saves migrate to the hiring carrier's
+    /// nearest terminal city; the truck itself stays in `current_city`.
+    pub home_terminal_city: String,
+    /// Facility (name) in `current_city` the truck last delivered or dropped
+    /// at; "" when none. Feeds the hub's "parked at" line off the home city.
+    pub parked_facility: String,
+    /// The home city the driver picked at career start (resolved key), or ""
+    /// on careers from before it was recorded. The driver's home, which the
+    /// carrier terminal city never silently replaces.
+    pub home_city: String,
     // The release line this career was created on. New careers stamp the
     // current line; a save without the field is judged by its save version
     // instead (see is_pre_1_9_save), and pre-1.9 saves never get this far --
@@ -431,6 +447,11 @@ pub struct Profile {
     pub weigh_station_transponder: bool,
     pub trailer_programs: Vec<String>,
     pub owned_trailers: Vec<String>,
+    /// The one-time notice that turnpike doubles loads moved off the
+    /// `double_van` program onto `turnpike_double` has been heard (or was
+    /// never owed). Old saves load it as false; new careers start true, since
+    /// they never ran turnpike doubles on the pups.
+    pub turnpike_program_notice_seen: bool,
     /// The driver chose to stay a company driver with the buy-in open
     /// (Business status, "Stay a company driver"): the buy-in row stays,
     /// the nudges toward it stop. Cleared by buying in or by reopening the
@@ -488,6 +509,9 @@ impl Default for Profile {
             name: "Driver".to_string(),
             money: STARTING_MONEY,
             current_city: DEFAULT_CITY.to_string(),
+            home_terminal_city: DEFAULT_CITY.to_string(),
+            parked_facility: String::new(),
+            home_city: String::new(),
             created_line: CREATED_LINE.to_string(),
             migration_notice_pending: false,
             integrity_modified: false,
@@ -517,6 +541,7 @@ impl Default for Profile {
             weigh_station_transponder: false,
             trailer_programs: Vec::new(),
             owned_trailers: Vec::new(),
+            turnpike_program_notice_seen: true,
             owner_operator_declined: false,
             career: Career::new(),
             driving_record: DrivingRecord::new(),
@@ -568,11 +593,190 @@ impl Profile {
 
     /// `Profile(name=name, current_city=city)`.
     pub fn named_in(name: &str, current_city: &str) -> Self {
-        Profile {
+        let mut profile = Profile {
             name: name.to_string(),
             current_city: current_city.to_string(),
             ..Self::default()
+        };
+        // The same key a reload resolves to, so saving never reads as a
+        // change the player made.
+        profile.rehome_to_carrier();
+        profile
+    }
+
+    /// The carrier this career works for (`None` under its own authority).
+    pub fn hiring_carrier(&self) -> Option<&'static crate::models::carriers::Carrier> {
+        crate::models::carriers::hiring_carrier(
+            &self.carrier_key,
+            &self.carrier_name,
+            &self.business_status,
+        )
+    }
+
+    /// Re-derive `home_terminal_city` for the current hiring carrier: kept
+    /// when it is already one of that carrier's terminal cities, otherwise
+    /// the carrier's nearest terminal city to it (or to `current_city` when
+    /// empty). Never moves the truck. A carrier change also clears
+    /// `parked_facility` (see [`Profile::change_carrier`]).
+    pub fn rehome_to_carrier(&mut self) {
+        self.home_terminal_city = serialize::migrate_home_terminal_city(
+            self.hiring_carrier(),
+            &self.home_terminal_city,
+            &self.current_city,
+        );
+    }
+
+    /// Switch to another carrier: its terminal becomes home (the truck stays
+    /// put) and the last delivered/dropped facility no longer applies.
+    pub fn change_carrier(&mut self, key: &str, name: &str) {
+        self.carrier_key = key.to_string();
+        self.carrier_name = name.to_string();
+        self.parked_facility.clear();
+        self.rehome_to_carrier();
+    }
+
+    /// Where this driver lives: `home_city`, else the home terminal city,
+    /// else wherever the truck is.
+    pub fn driver_home_city(&self) -> String {
+        [
+            &self.home_city,
+            &self.home_terminal_city,
+            &self.current_city,
+        ]
+        .into_iter()
+        .find(|c| !c.trim().is_empty())
+        .cloned()
+        .unwrap_or_default()
+    }
+
+    /// A company driver with no carrier (see
+    /// [`crate::models::carriers::is_unassigned_company_driver`]).
+    pub fn is_unassigned_company_driver(&self) -> bool {
+        crate::models::carriers::is_unassigned_company_driver(
+            &self.carrier_key,
+            &self.carrier_name,
+            &self.business_status,
+        )
+    }
+
+    /// What "near ..." names in a let-go line, read before the let-go moves
+    /// anything: "your home in Fairbanks" only when a home city is saved;
+    /// on saves without one (#255 keeps it blank), the city the fallback
+    /// picks from is derived, so it is "your terminal in Chicago" or just
+    /// the city, never "your home".
+    pub fn let_go_near_phrase(&self) -> String {
+        let world = crate::data::world::get_world();
+        if !self.home_city.trim().is_empty() {
+            return format!("your home in {}", world.spoken_city(&self.home_city, None));
         }
+        if !self.home_terminal_city.trim().is_empty() {
+            return format!(
+                "your terminal in {}",
+                world.spoken_city(&self.home_terminal_city, None)
+            );
+        }
+        world.spoken_city(&self.current_city, None)
+    }
+
+    /// `firing_key` has let this driver go: hand them to the carrier the
+    /// fallback rule picks from [`Profile::driver_home_city`] (plan section
+    /// 5), homed at that carrier's terminal that hires there and kept on
+    /// sufferance, or, when nobody hires there, leave them with no carrier.
+    /// Returns the new carrier, `None` when unassigned.
+    ///
+    /// The derived city only picks the carrier: `home_city` is never
+    /// written here, so a save without one keeps it blank. With no carrier,
+    /// a driver with a saved home goes home; one without stays where they
+    /// are, and the old terminal city is not written anywhere.
+    pub fn take_fallback_after_let_go(
+        &mut self,
+        firing_key: &str,
+    ) -> Option<&'static crate::models::carriers::Carrier> {
+        let world = crate::data::world::get_world();
+        let pick_from = world.resolve_city_key(&self.driver_home_city());
+        self.driving_record.let_go_by = firing_key.to_string();
+        self.parked_facility.clear();
+        self.dispatch_board_cache = None;
+        match crate::models::carriers::fallback_carrier_for(world, &pick_from, firing_key) {
+            Some(carrier) => {
+                self.carrier_key = carrier.key.clone();
+                self.carrier_name = carrier.name.clone();
+                self.home_terminal_city = carrier
+                    .hiring_terminal_city(world, &pick_from)
+                    .unwrap_or_else(|| pick_from.clone());
+                self.driving_record.sufferance_carrier_key = carrier.key.clone();
+                Some(carrier)
+            }
+            None => {
+                self.carrier_key.clear();
+                self.carrier_name.clear();
+                self.driving_record.sufferance_carrier_key.clear();
+                let saved_home = self.home_city.trim().to_string();
+                if !saved_home.is_empty() {
+                    let home = world.resolve_city_key(&saved_home);
+                    self.home_terminal_city = home.clone();
+                    if self.active_trip.is_none() {
+                        self.current_city = home;
+                    }
+                }
+                None
+            }
+        }
+    }
+
+    /// An unassigned driver takes a seat from
+    /// [`crate::models::carriers::openings_for_unassigned`]: the carrier,
+    /// its terminal as home terminal and where the truck is, the home city
+    /// (moved when the opening says so). A carrier that takes on a driver
+    /// whose record would otherwise end the seat keeps them on sufferance.
+    pub fn join_carrier_opening(&mut self, opening: &crate::models::carriers::CarrierOpening) {
+        self.carrier_key = opening.carrier.key.clone();
+        self.carrier_name = opening.carrier.name.clone();
+        // Moving is the driver's own choice, so it sets the home; otherwise
+        // a blank home city stays blank.
+        if opening.moves_home || !self.home_city.trim().is_empty() {
+            self.home_city = opening.home_city.clone();
+        }
+        self.home_terminal_city = opening.terminal_city.clone();
+        self.current_city = opening.terminal_city.clone();
+        self.parked_facility.clear();
+        self.dispatch_board_cache = None;
+        self.driving_record.sufferance_carrier_key.clear();
+        if crate::models::enforcement::carrier_termination_due(self) {
+            self.driving_record.sufferance_carrier_key = opening.carrier.key.clone();
+        }
+    }
+
+    /// The carrier's home terminal ("{Carrier} {City} terminal"), if any.
+    pub fn carrier_home_terminal(
+        &self,
+        world: &crate::data::world::World,
+    ) -> Option<crate::data::world_models::HomeTerminal> {
+        crate::models::home_base::carrier_home_terminal(
+            world,
+            &self.carrier_key,
+            &self.carrier_name,
+            &self.business_status,
+            &self.home_terminal_city,
+        )
+    }
+
+    /// Where the truck is parked right now (see `models::home_base`).
+    pub fn parked_at(
+        &self,
+        world: &crate::data::world::World,
+    ) -> crate::models::home_base::ParkedAt {
+        crate::models::home_base::parked_at(
+            world,
+            crate::models::home_base::ParkedInputs {
+                carrier_key: &self.carrier_key,
+                carrier_name: &self.carrier_name,
+                business_status: &self.business_status,
+                home_terminal_city: &self.home_terminal_city,
+                current_city: &self.current_city,
+                parked_facility: &self.parked_facility,
+            },
+        )
     }
 
     // -- money -----------------------------------------------------------------
@@ -712,6 +916,18 @@ impl Profile {
             .collect()
     }
 
+    /// An old save that leases the `double_van` program but not
+    /// `turnpike_double` has not yet heard that turnpike doubles loads now need
+    /// their own program. Owed once per save.
+    pub fn turnpike_program_notice_due(&self) -> bool {
+        if self.turnpike_program_notice_seen {
+            return false;
+        }
+        let programs = self.active_trailer_programs();
+        programs.iter().any(|k| k == "double_van")
+            && !programs.iter().any(|k| k == "turnpike_double")
+    }
+
     /// Player-owned trailers to show in menus.
     pub fn visible_owned_trailers(&self) -> Vec<String> {
         if self.business_status != INDEPENDENT_AUTHORITY {
@@ -831,6 +1047,17 @@ impl Profile {
         self.set_condition("chains_owned", Value::from(value));
     }
 
+    /// Whether the active tractor's engine was left running. Defaults false
+    /// on older saves so the terminal garage fuel gate stays open.
+    pub fn truck_engine_on(&self) -> bool {
+        self.condition()
+            .and_then(|rec| rec.get("engine_on"))
+            .is_some_and(py_truthy)
+    }
+    pub fn set_truck_engine_on(&mut self, value: bool) {
+        self.set_condition("engine_on", Value::from(value));
+    }
+
     pub fn chain_wear_pct(&self) -> f64 {
         self.condition_f64("chain_wear_pct", 0.0)
     }
@@ -870,6 +1097,9 @@ impl Profile {
         truck.engine_wear_pct = self.engine_wear_pct();
         truck.tire_type = self.tire_type();
         truck.chain_wear_pct = self.chain_wear_pct();
+        if self.truck_engine_on() {
+            let _ = truck.start_engine();
+        }
     }
 
     /// Record a delivered from:to lane for dispatch-variety preference.
@@ -893,6 +1123,7 @@ impl Profile {
         // Tire type is chosen at the garage, never behind the wheel, so it only
         // flows profile-to-truck. Chain wear accrues while driving chained.
         self.set_chain_wear_pct(truck.chain_wear_pct);
+        self.set_truck_engine_on(truck.engine_on);
     }
 
     /// Fatigue accrual multiplier from the active food or drink buff.

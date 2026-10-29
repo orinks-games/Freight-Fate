@@ -10,7 +10,7 @@
 
 use ff_core::data::world::get_world;
 use ff_core::models::economy::damage_severity_mult;
-use ff_core::models::jobs::make_reposition_job;
+use ff_core::models::jobs::{cargo_type, make_reposition_job, Job};
 use ff_core::models::profile::Profile;
 use ff_core::sim::enforcement_posts::EnforcementPost;
 use ff_core::sim::trip_models::RoadStop;
@@ -184,6 +184,48 @@ fn a_real_drive(app: &mut TestApp) -> DrivingState {
         DRIVE_PHASE_DELIVERY,
         Some(12.0),
     )
+}
+
+#[test]
+fn empty_tank_does_not_auto_start_reefer_on_delivery_init() {
+    let world = get_world();
+    let mut app = TestApp::new();
+    let mut profile = Profile::named_in("Empty Reefer", "Buffalo");
+    profile.tutorial_done = true;
+    profile.set_truck_fuel_gal(0.0);
+    app.ctx.profile = Some(profile);
+    let route = world
+        .supported_route("Buffalo", "Rochester", None)
+        .expect("the world routes")
+        .expect("the corridor is supported");
+    let mut job = Job::new(
+        cargo_type("refrigerated").unwrap(),
+        12.0,
+        "Buffalo",
+        "company yard",
+        "Rochester",
+        route.miles(),
+        1000.0,
+        12.0,
+    );
+    job.destination_location = "Rochester freight market".into();
+    let drive = DrivingState::new(
+        &mut app.ctx,
+        job,
+        route,
+        Some(0),
+        DRIVE_PHASE_DELIVERY,
+        Some(12.0),
+    );
+    assert!(
+        drive.truck().cargo_needs_reefer(),
+        "delivery of refrigerated freight needs the TRU"
+    );
+    assert_eq!(drive.truck().fuel_gal, 0.0);
+    assert!(
+        !drive.truck().reefer_on,
+        "saved empty tank must not leave the reefer running after init"
+    );
 }
 
 #[test]

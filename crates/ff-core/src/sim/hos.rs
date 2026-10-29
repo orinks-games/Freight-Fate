@@ -1,15 +1,12 @@
 //! Hours of service, ELD duty status, fatigue, and the day/night clock.
 //!
-//! Simplified FMCSA-style rules running entirely on the in-game clock (the
-//! trip's `game_minutes`, never wall time): 11 hours of driving after a
-//! 10-hour reset, a 14-hour duty window after coming on duty, and a
-//! 30-minute break after 8 cumulative hours of driving. The break may be any
-//! 30 consecutive non-driving minutes, including on-duty-not-driving work.
+//! Hours-of-service rules running entirely on the in-game clock (the trip's
+//! `game_minutes`, never wall time), selected by the jurisdiction under the
+//! truck.
 //!
-//! The model includes 7/3 and 8/2 sleeper split credits but intentionally skips
-//! 60/70-hour cycle limits for now; the save schema records explicit duty
-//! statuses so those rules can be added without changing how drive, facility,
-//! and POI time is classified.
+//! The lower-48 rules retain their 7/3 and 8/2 sleeper split credits and
+//! 70-hour/8-day on-duty cycle. Alaska and Canadian rule sets use the same
+//! duty-status history with their jurisdiction-specific limits.
 //!
 //! Everything here is deterministic and platform-free so the headless tests
 //! can exercise the rules directly.
@@ -25,7 +22,7 @@ mod pyjson;
 mod tests;
 mod warnings;
 
-pub use clock::{HosClock, HosEvent, HosLimit};
+pub use clock::{CycleEntry, HosClock, HosEvent, HosLimit};
 pub use duty_log::{DutyLog, DutySegment, DutyTotals};
 
 use crate::pyfmt::{fmt_f, pct02, py_int, round_py_int};
@@ -47,10 +44,143 @@ pub const SPLIT_LONG_ALT_MIN: f64 = 480.0;
 pub const HOS_HISTORY_MAX: usize = 96;
 pub const HOS_SPLIT_REST_HISTORY_MAX: usize = 16;
 
+/// Jurisdiction-specific hours-of-service rule set for a driver's current
+/// location.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
+pub enum HosRules {
+    #[default]
+    Us,
+    Alaska,
+    CanadaSouth60,
+    CanadaNorth60,
+}
+
+impl HosRules {
+    /// Select the rule set for a state, province, or territory name.
+    pub fn for_jurisdiction(state: &str) -> Self {
+        match state.trim().to_ascii_lowercase().as_str() {
+            "alaska" | "ak" => Self::Alaska,
+            "yukon" | "yt" | "northwest territories" | "nt" | "nwt" | "nunavut" | "nu" => {
+                Self::CanadaNorth60
+            }
+            "british columbia"
+            | "bc"
+            | "alberta"
+            | "ab"
+            | "saskatchewan"
+            | "sk"
+            | "manitoba"
+            | "mb"
+            | "ontario"
+            | "on"
+            | "quebec"
+            | "qc"
+            | "new brunswick"
+            | "nb"
+            | "nova scotia"
+            | "ns"
+            | "prince edward island"
+            | "pe"
+            | "pei"
+            | "newfoundland and labrador"
+            | "nl" => Self::CanadaSouth60,
+            _ => Self::Us,
+        }
+    }
+
+    /// Stable save-file key for this rule set.
+    pub fn key(self) -> &'static str {
+        match self {
+            Self::Us => "us",
+            Self::Alaska => "alaska",
+            Self::CanadaSouth60 => "canada_south_60",
+            Self::CanadaNorth60 => "canada_north_60",
+        }
+    }
+
+    /// Parse a saved rule key, defaulting unknown values to US rules.
+    pub fn from_key(key: &str) -> Self {
+        match key.trim().to_ascii_lowercase().as_str() {
+            "alaska" => Self::Alaska,
+            "canada_south_60" => Self::CanadaSouth60,
+            "canada_north_60" => Self::CanadaNorth60,
+            _ => Self::Us,
+        }
+    }
+}
+
 /// minimum break that resets the 8-hour rule
 pub const BREAK_MIN: f64 = 30.0;
 /// a full 10-hour off-duty reset
 pub const SLEEP_MIN: f64 = 600.0;
+
+/// 49 CFR 395.3(b)(2): 70 on-duty hours in any 8 consecutive days.
+pub const CYCLE_LIMIT_MIN: f64 = 70.0 * 60.0;
+pub const CYCLE_WINDOW_MIN: f64 = 8.0 * 24.0 * 60.0;
+/// 49 CFR 395.3(c): 34 consecutive off-duty hours restart the cycle.
+pub const RESTART_MIN: f64 = 34.0 * 60.0;
+/// READ: Alaska permits 15 hours of driving after 10 consecutive hours off
+/// under 49 CFR 395.1(h)(1)(i).
+/// <https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-395/subpart-A/section-395.1>
+pub const ALASKA_DRIVE_LIMIT_MIN: f64 = 15.0 * 60.0;
+/// READ: Alaska permits 20 hours on duty after 10 consecutive hours off
+/// under 49 CFR 395.1(h)(1)(i).
+/// <https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-395/subpart-A/section-395.1>
+pub const ALASKA_ON_DUTY_LIMIT_MIN: f64 = 20.0 * 60.0;
+/// DERIVED: 80 hours over the existing 8-day ledger for a carrier operating
+/// every day under 49 CFR 395.1(h)(1)(i).
+/// <https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-395/subpart-A/section-395.1>
+pub const ALASKA_CYCLE_LIMIT_MIN: f64 = 80.0 * 60.0;
+/// ASSUMED: Alaska keeps the existing 34-hour restart; 49 CFR 395.1(h)(1)
+/// does not specify a cycle restart.
+/// <https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-395/subpart-A/section-395.1>
+pub const ALASKA_RESTART_MIN: f64 = RESTART_MIN;
+/// READ: Canada south of 60 permits 13 hours driving and 14 hours on duty
+/// under SOR/2005-313 s.13.
+/// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
+pub const CANADA_SOUTH_DRIVE_LIMIT_MIN: f64 = 13.0 * 60.0;
+/// READ: Canada south of 60 permits 14 hours on duty under SOR/2005-313 s.13.
+/// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
+pub const CANADA_SOUTH_ON_DUTY_LIMIT_MIN: f64 = 14.0 * 60.0;
+/// READ: Canada south of 60 permits 16 elapsed hours after the last 8-hour
+/// off-duty period under SOR/2005-313 s.13.
+/// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
+pub const CANADA_SOUTH_SHIFT_LIMIT_MIN: f64 = 16.0 * 60.0;
+/// READ: Canada south of 60 permits 70 hours in 7 days under
+/// SOR/2005-313 s.26.
+/// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
+pub const CANADA_SOUTH_CYCLE_LIMIT_MIN: f64 = 70.0 * 60.0;
+/// READ: Canada north of 60 permits 15 hours driving and 18 hours on duty
+/// under SOR/2005-313 s.39.
+/// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
+pub const CANADA_NORTH_DRIVE_LIMIT_MIN: f64 = 15.0 * 60.0;
+/// READ: Canada north of 60 permits 18 hours on duty under SOR/2005-313 s.39.
+/// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
+pub const CANADA_NORTH_ON_DUTY_LIMIT_MIN: f64 = 18.0 * 60.0;
+/// READ: Canada north of 60 permits 20 elapsed hours after the last 8-hour
+/// off-duty period under SOR/2005-313 s.39.
+/// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
+pub const CANADA_NORTH_SHIFT_LIMIT_MIN: f64 = 20.0 * 60.0;
+/// READ: Canada north of 60 permits 80 hours in 7 days under
+/// SOR/2005-313 s.39.
+/// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
+pub const CANADA_NORTH_CYCLE_LIMIT_MIN: f64 = 80.0 * 60.0;
+/// READ: both Canadian cycle variants restart after 36 consecutive hours off
+/// under SOR/2005-313 ss.28 and 53.
+/// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
+pub const CANADA_RESTART_MIN: f64 = 36.0 * 60.0;
+/// READ: Canadian cycle 1 uses a rolling 7-day window under
+/// SOR/2005-313 ss.26 and 39.
+/// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
+pub const CANADA_CYCLE_WINDOW_MIN: f64 = 7.0 * 24.0 * 60.0;
+/// The ELD status line mentions the cycle once this little is left on it.
+pub const CYCLE_SPEAK_MIN: f64 = 24.0 * 60.0;
+
+/// The cycle limit of a mode; None for modes that enforce nothing. Relaxed
+/// keeps the real 70, same as its daily limits.
+pub fn cycle_limit(mode: &str) -> Option<f64> {
+    limits(mode).map(|_| CYCLE_LIMIT_MIN)
+}
 
 /// (drive limit, duty window, driving allowed before a 30-minute break),
 /// all in game minutes.

@@ -185,7 +185,7 @@ impl DrivingStatusScreenState {
                 let load_line = format!(
                     "Load: {} tons of {}, gross {} tons, freight {}",
                     fmt_f(d.job.weight_tons, 0),
-                    d.job.cargo.label,
+                    d.job.spoken_cargo_label(),
                     fmt_f(d.trip.truck.gross_mass_kg() / KG_PER_TON, 0),
                     // The player cannot see the trailer; the dock's verdict
                     // must not be the first they hear of what the freight is

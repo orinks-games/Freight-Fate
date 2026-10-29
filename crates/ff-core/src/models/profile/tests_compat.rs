@@ -134,6 +134,7 @@ fn from_dict_coerces_malformed_scalars_and_keeps_unknown_records() {
     let value = json!({
         "version": SAVE_VERSION,
         "created_line": "1.9",
+        "home_terminal_city": "Chicago",
         "name": "Odd Types",
         "money": "1200.5",
         "calendar_offset_days": 3.0,

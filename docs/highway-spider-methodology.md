@@ -46,7 +46,7 @@ Phases, in order:
 - **Phase 3 — deferred.** Three-digit interstates (beltways add no dispatch
   cities; skip except a curated exception list of real intercity spurs like
   I-27's planned extensions), state-route corridors on demand, and Canadian
-  corridors (separate future effort per the Alcan plan).
+  corridors (separate future effort; scaffold plan: `docs/alcan-corridor-scaffold-plan.md`).
 
 Rough end-state estimate, for sizing expectations: Phase 1 adds on the order
 of 120–170 cities (Grand Junction, Grand Forks, Bowling Green, Paducah,

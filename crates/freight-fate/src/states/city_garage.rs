@@ -2,7 +2,9 @@
 //! `freight_fate/states/city_garage.py`).
 
 use ff_core::models::business::{is_owner_operator, player_pays_operating_costs};
-use ff_core::models::economy::{damage_severity_mult, Economy, REPAIR_COST_PER_PCT};
+use ff_core::models::economy::{
+    cad_per_litre, canada_diesel_usd_per_gal, damage_severity_mult, Economy, REPAIR_COST_PER_PCT,
+};
 use ff_core::models::profile::{Profile, CHAIN_REPAIR_LINKS_PER_SET};
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_n};
 use ff_core::sim::roadside_inspection::DAMAGE_CITATION_PCT;
@@ -14,6 +16,7 @@ use crate::meaningful_play::MeaningfulPlayReason;
 use crate::states::base::{Label, Menu, MenuCore, MenuItem};
 use crate::states::city::{profile, profile_mut};
 use crate::states::city_business::{TrailerProgramState, TruckShopState, UpgradeShopState};
+use crate::states::driving_rest_states::refuel_engine_gate_message;
 
 pub const TERMINAL_FUEL_MIN: f64 = 20.0;
 pub const TERMINAL_REPAIR_MIN: f64 = 60.0;
@@ -36,7 +39,7 @@ pub const TERMINAL_CHAINS_MIN: f64 = 10.0;
 pub const CHAIN_REPAIR_LINKS_COST: f64 = 25.0;
 
 fn record_terminal_duty(ctx: &mut GameContext, start_hour: f64, end_hour: f64, note: &str) {
-    let terminal = crate::states::city::home_terminal(ctx);
+    let terminal = crate::states::city::parked_at(ctx);
     profile_mut(ctx).duty_log.record(
         "on_duty_not_driving",
         start_hour,
@@ -155,6 +158,13 @@ impl GarageState {
             .unwrap_or_default()
     }
 
+    fn state_code(ctx: &GameContext) -> String {
+        ctx.world
+            .city(&profile(ctx).current_city)
+            .map(|c| c.state_code.clone())
+            .unwrap_or_default()
+    }
+
     fn tank_gal(ctx: &GameContext) -> f64 {
         profile(ctx).truck_specs().fuel_tank_gal
     }
@@ -168,7 +178,18 @@ impl GarageState {
         if !player_pays_operating_costs(&p.business_status) {
             return format!("Refuel: {} gallons", fmt_f(need, 0));
         }
-        let cost = ctx.economy.fuel_cost(&Self::region(ctx), need);
+        let region = Self::region(ctx);
+        let state_code = Self::state_code(ctx);
+        let price = ctx.economy.fuel_price_at(&region, &state_code);
+        let cost = ctx.economy.fuel_cost_at(&region, &state_code, need);
+        if canada_diesel_usd_per_gal(&state_code).is_some() {
+            return format!(
+                "Refuel {} gallons for {} dollars. Diesel here is {} Canadian dollars a litre.",
+                fmt_f(need, 0),
+                fmt_grouped(cost, 0),
+                fmt_f(cad_per_litre(price), 2)
+            );
+        }
         format!(
             "Refuel {} gallons for {} dollars",
             fmt_f(need, 0),
@@ -192,7 +213,27 @@ impl GarageState {
         )
     }
 
+    /// Shut the tractor off so the island (and this bay) will fuel.
+    pub fn shut_down_engine(&mut self, ctx: &mut GameContext) {
+        if !profile(ctx).truck_engine_on() {
+            ctx.say("The engine is already off.");
+            return;
+        }
+        profile_mut(ctx).set_truck_engine_on(false);
+        ctx.save_profile();
+        ctx.audio.play("ui/notify");
+        ctx.say("Engine off.");
+        self.refresh(ctx, true);
+    }
+
     pub fn refuel(&mut self, ctx: &mut GameContext) {
+        // Engine first, then the tank: the same order as the fuel island.
+        // Reefer and APU may stay on; only the tractor must be off.
+        if let Some(msg) = refuel_engine_gate_message(profile(ctx).truck_engine_on()) {
+            ctx.audio.play("ui/error");
+            ctx.say(msg);
+            return;
+        }
         let tank = Self::tank_gal(ctx);
         let need = tank - profile(ctx).truck_fuel_gal();
         if need < 1.0 {
@@ -216,7 +257,9 @@ impl GarageState {
             self.refresh(ctx, true);
             return;
         }
-        let cost = ctx.economy.fuel_cost(&Self::region(ctx), need);
+        let region = Self::region(ctx);
+        let state_code = Self::state_code(ctx);
+        let cost = ctx.economy.fuel_cost_at(&region, &state_code, need);
         if profile(ctx).money() < cost {
             self.partial_refuel(ctx, tank);
             return;
@@ -244,7 +287,8 @@ impl GarageState {
 
     fn partial_refuel(&mut self, ctx: &mut GameContext, tank: f64) {
         let region = Self::region(ctx);
-        let price = ctx.economy.fuel_price(&region);
+        let state_code = Self::state_code(ctx);
+        let price = ctx.economy.fuel_price_at(&region, &state_code);
         let gallons = if price > 0.0 {
             profile(ctx).money() / price
         } else {
@@ -255,7 +299,7 @@ impl GarageState {
             ctx.say("Not enough money for one gallon of fuel.");
             return;
         }
-        let cost = ctx.economy.fuel_cost(&region, gallons);
+        let cost = ctx.economy.fuel_cost_at(&region, &state_code, gallons);
         let (start, end, money) = {
             let p = profile_mut(ctx);
             p.spend(cost);
@@ -920,15 +964,26 @@ impl Menu for GarageState {
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
-        let mut items = vec![
+        let mut items = Vec::new();
+        if profile(ctx).truck_engine_on() {
+            items.push(
+                MenuItem::new("Shut down the engine", |s: &mut Self, ctx| {
+                    s.shut_down_engine(ctx)
+                })
+                .help("The tractor must be off before this bay will fuel."),
+            );
+        }
+        items.push(
             MenuItem::new(
                 Label::dynamic(|_s: &Self, ctx| Self::fuel_label(ctx)),
                 |s: &mut Self, ctx| s.refuel(ctx),
             )
             .help(
-                "Company drivers bill the carrier, owner-operators pay the regional diesel \
-                 price.",
+                "Company drivers bill the carrier, owner-operators pay the regional \
+                 diesel price. Shut the engine off first.",
             ),
+        );
+        items.extend([
             MenuItem::new(
                 Label::dynamic(|_s: &Self, ctx| Self::repair_label(ctx)),
                 |s: &mut Self, ctx| s.repair(ctx),
@@ -939,10 +994,10 @@ impl Menu for GarageState {
                 |s: &mut Self, ctx| s.service_tires(ctx),
             )
             .help(
-                "Worn tires grip less. Company drivers bill the carrier, owner-operators pay \
-                 the shop.",
+                "Worn tires grip less. Company drivers bill the carrier, owner-operators \
+                 pay the shop.",
             ),
-        ];
+        ]);
         // Tires, upgrades, trucks and trailers are the owner's to choose; a
         // company driver's are the carrier's, so those rows stay off the menu
         // until the buy-in (owner, 2026-09-28).

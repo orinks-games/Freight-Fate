@@ -40,6 +40,20 @@ fn hazard_lead_speed(event: &TripEvent) -> Option<f64> {
 impl DrivingState {
     /// `_handle_trip_event(event)`: everything the road just said, delivered.
     pub fn handle_trip_event(&mut self, ctx: &mut GameContext, event: &TripEvent) {
+        // A scheduled tunnel hold is work time, not rest.  The trip model
+        // advances the shared game clock at the physical gate; this is where
+        // the career-owned hours-of-service ledger receives the same minutes.
+        // A closure for the night is logged as sleeper time instead.
+        let tunnel_closed = event.data.context.as_deref() == Some("tunnel_closed");
+        if tunnel_closed || event.data.context.as_deref() == Some("tunnel_wait") {
+            if let Some(minutes) = event.data.amount {
+                ff_core::sim::tunnel::log_wait_to_hos(
+                    hos_mut_of(ctx),
+                    minutes.round() as i64,
+                    tunnel_closed,
+                );
+            }
+        }
         if self.should_ignore_destination_exit_gps_cue(ctx, event) {
             return;
         }
@@ -1171,6 +1185,13 @@ impl DrivingState {
             if event.data.zone.is_some() {
                 return EventPriority::Important;
             }
+            // A tunnel gate speaks its name and then its verdict in one
+            // moment. As chatter the verdict waited behind the name past the
+            // stale budget and was dropped: the truck sat out the wait with
+            // nothing said about why or for how long.
+            if Self::is_tunnel_gate_event(event) {
+                return EventPriority::Important;
+            }
             // A limit change is what enforcement reads, and each one is said
             // once: the advance "drops to 55" marks 55 as announced, so when
             // the pacer dropped it as stale chatter the boundary stayed silent
@@ -1210,6 +1231,15 @@ impl DrivingState {
             return EventPriority::Important;
         }
         EventPriority::Ambient
+    }
+
+    /// A line from a tunnel's or bridge's gate: its name, a refusal, a
+    /// reroute, or the wait.
+    pub fn is_tunnel_gate_event(event: &TripEvent) -> bool {
+        event.kind == TripEventKind::GpsCue
+            && event.data.context.as_deref().is_some_and(|context| {
+                context.starts_with("tunnel_") || context.starts_with("crossing_")
+            })
     }
 
     /// `_should_ignore_untaken_destination_facility_event(event)`.
@@ -1391,13 +1421,18 @@ impl DrivingState {
             // or duty still takes the ten hours. Fine and reputation are
             // applied by the stop itself, not here.
             let break_only = hos_of(ctx).is_break_only_violation(&mode);
+            let oos_minutes = hos_of(ctx).out_of_service_minutes(&mode);
             let oos_phrase = if break_only {
                 "thirty minutes"
+            } else if oos_minutes >= hos::RESTART_MIN {
+                "thirty-four hours"
             } else {
                 "ten hours"
             };
             let return_message = if break_only {
                 "Back on the highway after the 30-minute break. Keep the logbook clean."
+            } else if oos_minutes >= hos::RESTART_MIN {
+                "Back on the highway with a fresh cycle. Keep the logbook clean."
             } else {
                 "Back on the highway with a reset clock. Keep the logbook clean."
             };
@@ -1457,7 +1492,11 @@ impl DrivingState {
         // 383.51 Table 4) has no path in the game.
         let written_h = crate::states::driving_rest_states::record_hours(ctx, self);
         advance_rest_clock(self, ctx, minutes, None, "");
-        if minutes >= hos::SLEEP_MIN {
+        if minutes >= hos::RESTART_MIN {
+            hos_mut_of(ctx).restart();
+            let profile = profile_mut_of(ctx);
+            profile.fatigue = hos::rest_sleep(profile.fatigue);
+        } else if minutes >= hos::SLEEP_MIN {
             hos_mut_of(ctx).sleep();
             let profile = profile_mut_of(ctx);
             profile.fatigue = hos::rest_sleep(profile.fatigue);

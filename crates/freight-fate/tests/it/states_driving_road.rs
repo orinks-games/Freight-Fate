@@ -1167,6 +1167,7 @@ fn test_cruise_owns_up_to_a_limp_cap_once_per_engagement() {
     drive.trip.truck.damage_pct = DAMAGE_LIMP_PCT + 1.0;
     drive.trip.truck.speed_cap_mph = Some(DAMAGE_LIMP_CAP_MPH);
     drive.trip.truck.velocity_mps = mph_to_mps(DAMAGE_LIMP_CAP_MPH);
+    drive.update_damage_cap(1.0 / 60.0);
     drive.cruise_mph = Some(DAMAGE_LIMP_CAP_MPH + 15.0);
     app.clear_speech();
 

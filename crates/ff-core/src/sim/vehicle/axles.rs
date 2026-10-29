@@ -90,10 +90,47 @@ impl AxleLoads {
 }
 
 impl TruckState {
+    /// Largest gross weight whose steer axle is within `steer_limit_kg` and
+    /// both tandem groups are within `tandem_limit_kg`, using this truck's
+    /// current fuel and trailer set.
+    pub fn gross_cap_for_axle_limits_kg(&self, steer_limit_kg: f64, tandem_limit_kg: f64) -> f64 {
+        let legal = self.trailer_set.legal_gvw_kg;
+        let mut probe = self.clone();
+        let max_cargo = (legal - probe.tare_kg()).max(0.0);
+        let within_limits = |truck: &TruckState| {
+            let axles = truck.axle_loads();
+            axles.steer_kg <= steer_limit_kg
+                && axles.drive_kg <= tandem_limit_kg
+                && axles.trailer_kg <= tandem_limit_kg
+        };
+
+        probe.cargo_kg = 0.0;
+        if !within_limits(&probe) {
+            return 0.0;
+        }
+        probe.cargo_kg = max_cargo;
+        if within_limits(&probe) {
+            return legal.min(probe.gross_mass_kg());
+        }
+
+        let mut low = 0.0;
+        let mut high = max_cargo;
+        for _ in 0..60 {
+            let mid = (low + high) / 2.0;
+            probe.cargo_kg = mid;
+            if within_limits(&probe) {
+                low = mid;
+            } else {
+                high = mid;
+            }
+        }
+        legal.min(self.tare_kg() + low)
+    }
+
     /// The tractor alone, with whatever diesel is aboard.
     fn tractor_kg(&self) -> f64 {
         let trailer = if self.trailer_attached {
-            TRAILER_TARE_KG
+            self.trailer_set.tare_kg
         } else {
             0.0
         };
@@ -137,6 +174,7 @@ impl TruckState {
 mod tests {
     use super::super::{TruckSpecs, LEGAL_GVW_KG};
     use super::*;
+    use crate::data::seasonal_weight::seasonal_gvw_cap_kg;
 
     fn lb(kg: f64) -> f64 {
         (kg / KG_PER_LB).round()
@@ -204,5 +242,28 @@ mod tests {
         let text = axles.ticket_text();
         assert!(!text.contains("Trailer"));
         assert!(text.starts_with("Steer axle "));
+    }
+
+    #[test]
+    fn seasonal_axle_cap_holds_tandems_to_eighty_five_percent() {
+        let mut truck = truck(TruckSpecs::default());
+        let stock = TruckState::new(TruckSpecs::default());
+        let cap = seasonal_gvw_cap_kg(&truck, 85);
+        truck.trailer_set.legal_gvw_kg = cap;
+        truck.cargo_kg = cap - truck.tare_kg();
+        let axles = truck.axle_loads();
+        let max_tandem_lb = axles.drive_kg.max(axles.trailer_kg) / KG_PER_LB;
+        println!("85% seasonal gross cap: {:.2} lb", cap / KG_PER_LB);
+
+        assert!(
+            (max_tandem_lb - 32_300.0).abs() <= 1.0,
+            "drive {}, trailer {}, cap {} lb",
+            lb(axles.drive_kg),
+            lb(axles.trailer_kg),
+            cap / KG_PER_LB
+        );
+        assert!(lb(axles.steer_kg) <= 17_000.0);
+        assert!(cap / KG_PER_LB < 80_000.0);
+        assert!((seasonal_gvw_cap_kg(&stock, 100) - LEGAL_GVW_KG).abs() < 1e-6);
     }
 }

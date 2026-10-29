@@ -365,6 +365,11 @@ fn street_limits_buffs_and_the_radio_catalogs_match_in_full() {
         assert_eq!(got.get(id), Some(buff), "buff {id}");
     }
 
+    assert!(
+        !ff_core::models::carriers::carrier_catalog().is_empty(),
+        "carriers.json reads back from the container"
+    );
+
     let want = ff_core::radio::load_full_catalog(json_dir).expect("radio catalog");
     let got = ff_core::radio::default_radio_catalog();
     assert_eq!(got.len(), want.len(), "radio station count");
@@ -388,7 +393,9 @@ fn the_container_holds_every_section_and_nothing_stray() {
         "legs",
         "local_approaches",
         "local_geometry",
+        "text:border_yards.json",
         "text:buffs.json",
+        "text:carriers.json",
         "text:channel3000.json",
         "text:radio_catalog.json",
         "text:radio_community.json",

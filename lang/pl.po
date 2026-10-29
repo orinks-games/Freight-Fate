@@ -4657,6 +4657,69 @@ msgstr ""
 "Tydzień świąteczny. Ładunki to teraz prezenty, a każda rampa chce je na "
 "wczoraj."
 
+msgid "id"
+msgstr "id"
+
+msgid "spoken"
+msgstr ""
+
+msgid "type"
+msgstr "type"
+
+msgid "lat"
+msgstr "lat"
+
+msgid "lon"
+msgstr "lon"
+
+msgid "ships"
+msgstr "wysyła"
+
+msgid "receives"
+msgstr "odbiera"
+
+msgid "cargo"
+msgstr "ładunek"
+
+msgid "traits"
+msgstr ""
+
+msgid "no yards"
+msgstr ""
+
+#. placeholders: {id}
+msgid "yard {id} has no source URL"
+msgstr ""
+
+#. placeholders: {id}
+msgid "yard {id} needs an address and a source note"
+msgstr ""
+
+#. placeholders: {id}
+msgid "yard {id} sits outside the border city area"
+msgstr ""
+
+msgid "no consignees"
+msgstr ""
+
+#. placeholders: {spoken}
+msgid "consignee {spoken} has no source"
+msgstr ""
+
+#. placeholders: {spoken}
+msgid "consignee {spoken} is not spoken in plain text"
+msgstr ""
+
+msgid "bridge hours have no source URL"
+msgstr ""
+
+msgid "paperwork wait range is empty"
+msgstr ""
+
+#. placeholders: {line}
+msgid "spoken line is empty or not plain text: {line}"
+msgstr ""
+
 msgid "service area"
 msgstr "miejsce obsługi podróżnych"
 
@@ -4823,6 +4886,23 @@ msgstr ""
 "własna etykieta profilu klasyfikują jako płaski, powyżej pułapu {f} procent "
 "dla {road_class} w tym miejscu."
 
+msgid "Dispatch only clears long doubles on the turnpike."
+msgstr ""
+
+msgid "Dispatch dropped a lane that leaves the turnpike."
+msgstr ""
+
+msgid ""
+"Dispatch can't clear twin trailers on that run. It leaves the National "
+"Network."
+msgstr ""
+
+msgid "Dispatch dropped a lane that leaves the National Network."
+msgstr ""
+
+msgid "Dispatch doesn't run twins on that lane."
+msgstr ""
+
 msgid "northeast"
 msgstr "northeast"
 
@@ -4888,6 +4968,27 @@ msgstr "California"
 
 msgid "the Pacific Northwest"
 msgstr "Północny Zachód nad Pacyfikiem"
+
+msgid "Richardson Highway"
+msgstr ""
+
+msgid "Alaska Highway"
+msgstr ""
+
+msgid "Tok Cutoff"
+msgstr ""
+
+msgid "Glenn Highway"
+msgstr ""
+
+msgid "Seward Highway"
+msgstr ""
+
+msgid "Sterling Highway"
+msgstr ""
+
+msgid "Kenai Spur Highway"
+msgstr ""
 
 msgid ""
 "Original welcome-sign copy pairing each state's well-known nickname with a "
@@ -5497,6 +5598,14 @@ msgstr "Nieznane miasto: {leg_from}"
 msgid "Unknown city: {leg_to}"
 msgstr "Nieznane miasto: {leg_to}"
 
+#. placeholders: {leg_from}, {leg_to}, {e}
+msgid "{leg_from} to {leg_to} has invalid crossings: {e}"
+msgstr ""
+
+#. placeholders: {leg_from}, {leg_to}
+msgid "{leg_from} to {leg_to}"
+msgstr ""
+
 #. placeholders: {a}
 msgid "Unknown city: {a}"
 msgstr "Nieznane miasto: {a}"
@@ -5519,16 +5628,6 @@ msgstr "Nieznany identyfikator zakładu: {facility_id}"
 
 msgid "terminal"
 msgstr "terminal"
-
-msgid "warehouse"
-msgstr "warehouse"
-
-msgid "distribution"
-msgstr "distribution"
-
-#. placeholders: {name}
-msgid "{name} Company Yard"
-msgstr "Plac firmowy {name}"
 
 #. placeholders: {start}
 msgid "Unknown city: {start}"
@@ -5565,6 +5664,12 @@ msgstr "{city}, zakład {rname} nie ma notatki o źródle"
 #. placeholders: {city}, {rname}
 msgid "{city} facility {rname} has no cargo roles"
 msgstr "{city}, zakład {rname} nie ma ról ładunkowych"
+
+#. placeholders: {city}, {rname}
+msgid ""
+"{city} facility {rname} is a fuel/rest pin and must not carry freight cargo "
+"roles"
+msgstr ""
 
 msgid "truck stop"
 msgstr "zajazd dla ciężarówek"
@@ -5766,6 +5871,9 @@ msgstr "ors"
 msgid "osm"
 msgstr "osm"
 
+msgid "distribution"
+msgstr "distribution"
+
 msgid "intermodal"
 msgstr "intermodal"
 
@@ -5777,6 +5885,9 @@ msgstr "port"
 
 msgid "rail"
 msgstr "rail"
+
+msgid "warehouse"
+msgstr "warehouse"
 
 msgid "air cargo area"
 msgstr "strefa cargo lotniska"
@@ -5936,6 +6047,12 @@ msgstr ""
 
 msgid "industrial plant access road"
 msgstr "drogę dojazdową do zakładu przemysłowego"
+
+msgid "travel center access road"
+msgstr ""
+
+msgid "truck parking lot access"
+msgstr ""
 
 msgid "electronics"
 msgstr "elektronika"
@@ -6154,6 +6271,12 @@ msgstr ""
 "Wybrany reprezentatywny terminal przeładunkowy na regionalnym rynku "
 "przewozowym."
 
+msgid "Public travel center or commercial diesel stop with tractor parking."
+msgstr ""
+
+msgid "Public truck parking lot (may lack full travel-center amenities)."
+msgstr ""
+
 msgid "Curated representative warehouse in the metro freight market."
 msgstr "Wybrany reprezentatywny magazyn na regionalnym rynku przewozowym."
 
@@ -6196,6 +6319,12 @@ msgstr "Chłodnia {city}"
 msgid "{city} Company Yard"
 msgstr "Plac firmowy {city}"
 
+msgid "{city} Travel Center"
+msgstr ""
+
+msgid "{city} Truck Parking"
+msgstr ""
+
 msgid "{city} Materials Yard"
 msgstr "Skład materiałów {city}"
 
@@ -6234,6 +6363,14 @@ msgstr "Terminal portowy {city}"
 
 msgid "{city} Steel and Industrial Works"
 msgstr "Huta i zakłady przemysłowe {city}"
+
+#. placeholders: {leg_from}, {leg_to}
+msgid "{leg_from} to {leg_to} has invalid tunnel data"
+msgstr ""
+
+#. placeholders: {leg_from}, {leg_to}
+msgid "{leg_from} to {leg_to} tunnel"
+msgstr ""
 
 msgid "checkpoints"
 msgstr "checkpoints"
@@ -6447,6 +6584,38 @@ msgstr "{p}: dojazd do zakładu {rid}"
 msgid "{p} facility approach {rid} has no turn segments"
 msgstr "{p}: dojazd do zakładu {rid} nie ma odcinków ze skrętami"
 
+#. placeholders: {context}
+msgid "{context} has no source URL or access date"
+msgstr ""
+
+#. placeholders: {context}
+msgid "{context} has invalid access date"
+msgstr ""
+
+#. placeholders: {context}
+msgid "{context} has no hours"
+msgstr ""
+
+#. placeholders: {context}
+msgid "{context} calendar"
+msgstr ""
+
+#. placeholders: {context}, {key}
+msgid "{context} has no published hours for {key}"
+msgstr ""
+
+#. placeholders: {context}
+msgid "{context} has invalid hours dates"
+msgstr ""
+
+#. placeholders: {context}
+msgid "{context} has invalid hours"
+msgstr ""
+
+#. placeholders: {context}
+msgid "{context} has invalid tunnel operating data"
+msgstr ""
+
 msgid "receiver"
 msgstr "odbiorca"
 
@@ -6489,6 +6658,9 @@ msgstr "zmiana drogi"
 
 msgid "state line"
 msgstr "granica stanu"
+
+msgid "port of entry"
+msgstr ""
 
 msgid "corridor place"
 msgstr "miejscowość na trasie"
@@ -6537,6 +6709,109 @@ msgstr ""
 #. placeholders: {py_capitalize}, {value_text}
 msgid "{py_capitalize}, signed {value_text}."
 msgstr "{py_capitalize} z oznakowaniem {value_text}."
+
+msgid "explosives"
+msgstr ""
+
+msgid "flammable gas"
+msgstr ""
+
+msgid "nonflammable gas"
+msgstr ""
+
+msgid "poison gas"
+msgstr ""
+
+msgid "flammable liquid"
+msgstr ""
+
+msgid "flammable solid"
+msgstr ""
+
+msgid "spontaneously combustible"
+msgstr ""
+
+msgid "dangerous when wet"
+msgstr ""
+
+msgid "an oxidizer"
+msgstr ""
+
+msgid "an organic peroxide"
+msgstr ""
+
+msgid "poison"
+msgstr ""
+
+msgid "infectious"
+msgstr ""
+
+msgid "radioactive"
+msgstr ""
+
+msgid "corrosive"
+msgstr ""
+
+msgid "a miscellaneous hazardous material"
+msgstr ""
+
+#. placeholders: {spoken}
+#. one sentence of a longer line
+msgid "This load is {spoken}."
+msgstr ""
+
+#. placeholders: {spoken}, {reason}
+msgid "This load is {spoken}. {reason}"
+msgstr ""
+
+#. placeholders: {context}, {what}
+msgid "{context} crossing {what}"
+msgstr ""
+
+msgid "has an unknown kind"
+msgstr ""
+
+msgid "has no name or basis"
+msgstr ""
+
+msgid "has no source URL"
+msgstr ""
+
+msgid "has an invalid access date"
+msgstr ""
+
+msgid "has an invalid size limit"
+msgstr ""
+
+msgid "has a size limit with no spoken rule"
+msgstr ""
+
+msgid "has a cargo rule with no spoken rule"
+msgstr ""
+
+msgid "bans classes without naming any"
+msgstr ""
+
+msgid "limits classes with no spoken rule"
+msgstr ""
+
+msgid "has class hours with no classes, times or spoken rule"
+msgstr ""
+
+msgid "has invalid wind speeds"
+msgstr ""
+
+msgid "has a wind rule with no spoken rule"
+msgstr ""
+
+msgid "has an escort rule with nothing to escort or no spoken rule"
+msgstr ""
+
+msgid "models no rule"
+msgstr ""
+
+msgid "speaks money as a symbol"
+msgstr ""
 
 msgid "exit"
 msgstr "zjazd"
@@ -6642,6 +6917,10 @@ msgstr "Skręć w {highway}."
 #. placeholders: {name}
 msgid "{name} Freight Market Office"
 msgstr "Biuro giełdy frachtowej {name}"
+
+#. placeholders: {yard}
+msgid "{yard} Garage"
+msgstr ""
 
 #. placeholders: {name}
 msgid "{name} Garage"
@@ -6894,6 +7173,10 @@ msgstr "Przychód brutto"
 msgid "Carrier gross"
 msgstr "Przychód brutto przewoźnika"
 
+msgid ""
+"No carrier. Apply to a carrier at the terminal to get back on freight."
+msgstr ""
+
 #. placeholders: {WEIGH_STATION_TRANSPONDER_LEVEL}
 msgid ""
 "Company drivers get a fleet transponder free once dispatch trusts them with "
@@ -6974,6 +7257,10 @@ msgid "You are already running as an owner-operator."
 msgstr "Już jeździsz jako kierowca-właściciel."
 
 msgid ""
+"Apply to a carrier first: a leased-on tractor is leased to a carrier."
+msgstr ""
+
+msgid ""
 "Hold a clear CDL: no lessor puts a suspended or disqualified driver in a "
 "truck."
 msgstr ""
@@ -6997,6 +7284,15 @@ msgid ""
 msgstr ""
 "Odłóż {grouped} {grouped:dolara|dolary|dolarów}: {grouped2} na wykup "
 "ciężarówki i {grouped3} na kapitał obrotowy."
+
+#. placeholders: {NO_CARRIER_STATUS}, {level}, {title}
+#. one sentence of a longer line
+msgid "{NO_CARRIER_STATUS} Level {level}: {title}."
+msgstr ""
+
+#. placeholders: {NO_CARRIER_STATUS}, {level}, {title}, {stage}
+msgid "{NO_CARRIER_STATUS} Level {level}: {title}. {stage}."
+msgstr ""
 
 #. placeholders: {level}, {title}
 #. one sentence of a longer line
@@ -7132,6 +7428,15 @@ msgstr ""
 "jest wyższy. Płacisz za paliwo, naprawy, rezerwę na serwis, ubezpieczenie, "
 "program naczep, rezerwę na ciężarówkę i opłaty za rozliczenia. "
 "{readiness}{transponder}{next_business_unlock}"
+
+#. one sentence of a longer line
+msgid "Company driver with no carrier."
+msgstr ""
+
+#. placeholders: {level}, {title}, {NO_CARRIER_STATUS}
+msgid ""
+"Company driver with no carrier. Level {level}: {title}. {NO_CARRIER_STATUS}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Settlements are driver wages and bonuses."
@@ -7380,6 +7685,9 @@ msgid "{grouped} lifetime miles, {grouped2} dollars earned."
 msgstr ""
 "Przebieg łącznie: {grouped} {grouped:mila|mile|mil}, zarobek łącznie: "
 "{grouped2} {grouped2:dolar|dolary|dolarów}."
+
+msgid "Chicago"
+msgstr "Chicago"
 
 msgid "rig"
 msgstr "rig"
@@ -8182,6 +8490,15 @@ msgstr ""
 msgid "good first-week run"
 msgstr "dobry kurs na pierwszy tydzień"
 
+msgid "Apply to a carrier to get back on freight."
+msgstr ""
+
+msgid "Get back on freight"
+msgstr ""
+
+msgid "carrier seat"
+msgstr ""
+
 msgid "Build dispatcher trust"
 msgstr "Zbuduj zaufanie dyspozytora"
 
@@ -8266,6 +8583,9 @@ msgid ""
 msgstr ""
 "Aktywacja własnej licencji przewozowej wymaga poziomu "
 "{AUTHORITY_ACTIVATION_LEVEL}."
+
+msgid "There is no dispatch board until a carrier takes you on."
+msgstr ""
 
 msgid "First dispatch"
 msgstr "Pierwsze zlecenie"
@@ -8575,6 +8895,9 @@ msgstr ""
 "Ciężarówka: {truck}, {label}, przydzielona przez przewoźnika. Na poziomie "
 "{min_level} dyspozytor przenosi cię do puli: {label2}."
 
+msgid "Truck: none. You have no carrier, so no tractor is assigned to you."
+msgstr ""
+
 #. placeholders: {MOVE_UP_LEVEL}, {title}
 msgid "Reach level {MOVE_UP_LEVEL}: {title}."
 msgstr "Osiągnij poziom {MOVE_UP_LEVEL}: {title}."
@@ -8595,28 +8918,42 @@ msgstr "Przywróć pełne zaufanie dyspozytora czystymi kursami na czas."
 msgid "Settle the pay advance on your current load."
 msgstr "Rozlicz zaliczkę na obecny ładunek."
 
-#. one sentence of a longer line
+#. placeholders: {city}
 msgid ""
-"Your level, record, and home terminal come with you, and the next load runs "
-"on their pay and their tractor."
+" You start at their {city} terminal, where your assigned truck is waiting."
 msgstr ""
-"Twój poziom, kartoteka i baza macierzysta idą z tobą, a następny ładunek "
-"jedzie za ich stawkę i ich ciągnikiem."
+
+msgid " The next load runs on their pay and their tractor."
+msgstr ""
+
+#. placeholders: {report}
+#. one sentence of a longer line
+msgid "Your level and record come with you.{report}"
+msgstr ""
 
 #. placeholders: {carrier_name}, {former}
 #. one sentence of a longer line
 msgid "{carrier_name} hires you away from {former}."
 msgstr "{carrier_name} podkupuje cię od {former}."
 
-#. placeholders: {carrier_name}, {former}
+#. placeholders: {carrier_name}, {former}, {report}
 msgid ""
-"{carrier_name} hires you away from {former}. Your level, record, and home "
-"terminal come with you, and the next load runs on their pay and their "
-"tractor."
+"{carrier_name} hires you away from {former}. Your level and record come "
+"with you.{report}"
 msgstr ""
-"{carrier_name} podkupuje cię od {former}. Twój poziom, kartoteka i baza "
-"macierzysta idą z tobą, a następny ładunek jedzie za ich stawkę i ich "
-"ciągnikiem."
+
+msgid "local"
+msgstr "local"
+
+msgid "national"
+msgstr ""
+
+#. placeholders: {name}, {name2}
+msgid "{name} {name2} terminal"
+msgstr ""
+
+msgid "inert"
+msgstr ""
 
 msgid "dan"
 msgstr "dan"
@@ -9074,6 +9411,49 @@ msgstr ", za darmo od przewoźnika na poziomie {level}"
 msgid "carrier-sponsored free at level {level}"
 msgstr "za darmo, sponsorowane przez przewoźnika, na poziomie {level}"
 
+msgid ""
+"Reverse refused. You don't back a set of doubles: the converter dolly is a "
+"second pivot and the rear trailer jackknifes within a few feet. Pull "
+"forward and go around instead."
+msgstr ""
+
+msgid ""
+"The rear trailer whipped on that steer and shifted its freight. On doubles "
+"the back trailer swings harder than the tractor, so ease into lane changes."
+msgstr ""
+
+msgid ""
+"The rear trailer whipped on that steer. On doubles the back trailer swings "
+"harder than the tractor, so ease into lane changes."
+msgstr ""
+
+#. placeholders: {DOUBLES_SECOND_HOOK_MIN}, {DOUBLES_WALK_AROUND_EXTRA_MIN}, {doubles_hook_extra_min}
+msgid ""
+"A set of doubles is two hook-ups, about {DOUBLES_SECOND_HOOK_MIN} minutes "
+"more, and a walk-around of both trailers and the converter dolly, about "
+"{DOUBLES_WALK_AROUND_EXTRA_MIN} minutes more: {doubles_hook_extra_min} "
+"extra minutes on duty."
+msgstr ""
+
+#. placeholders: {doubles_break_extra_min}
+msgid ""
+"Breaking a set of doubles is dropping the rear trailer, unhooking and "
+"parking the converter dolly, then dropping the lead trailer: about "
+"{doubles_break_extra_min} extra minutes on duty."
+msgstr ""
+
+#. placeholders: {doubles_break_extra_min}
+msgid ""
+"Doubles: drop the rear trailer, park the converter dolly, drop the lead, "
+"{doubles_break_extra_min} extra minutes on duty"
+msgstr ""
+
+msgid "British Columbia"
+msgstr ""
+
+msgid "Yukon"
+msgstr ""
+
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "Zaliczka na ten ładunek już pobrana. Najpierw go dostarcz."
 
@@ -9157,6 +9537,53 @@ msgid ""
 msgstr ""
 "Zaufanie dyspozytora: ostatnia szansa. Jeden przydzielony ładunek naraz, "
 "bez odmów, a przewoźnik decyduje, czy cię zatrzymać."
+
+msgid ""
+"Dispatch trust: none. You have no carrier, so there is no dispatch until "
+"one takes you on."
+msgstr ""
+
+msgid "Your carrier"
+msgstr ""
+
+#. placeholders: {carrier}
+msgid ""
+"Dispatch trust: last chance. One assigned load at a time and no refusals. "
+"{carrier} will not end your seat over your record or what you owe."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "One assigned load at a time and no refusals."
+msgstr ""
+
+#. placeholders: {carrier}
+#. one sentence of a longer line
+msgid "{carrier} will not end your seat over your record or what you owe."
+msgstr ""
+
+msgid ""
+"Dispatch trust: none. With a lifetime CDL disqualification there is no "
+"dispatch."
+msgstr ""
+
+#. placeholders: {status_verb}
+msgid ""
+"Dispatch trust: last chance. No loads at all while your CDL is "
+"{status_verb}."
+msgstr ""
+
+#. placeholders: {status_verb}
+#. one sentence of a longer line
+msgid "No loads at all while your CDL is {status_verb}."
+msgstr ""
+
+#. placeholders: {text}
+msgid "{text} Clean on-time runs rebuild it."
+msgstr ""
+
+#. placeholders: {band}
+msgid "Dispatch trust: {band}."
+msgstr "Zaufanie dyspozytora: {band}."
 
 msgid "You get the whole board."
 msgstr "Masz całą tablicę."
@@ -9263,14 +9690,17 @@ msgstr "Dopłata do ubezpieczenia: {percent} procent."
 msgid "Insurance surcharge: {percent} percent until {until}."
 msgstr "Dopłata do ubezpieczenia: {percent} procent do {until}."
 
-#. placeholders: {LAST_CHANCE_CARRIER_NAME}, {record_clears_text}
+#. placeholders: {keeper}, {record_clears_text}
 msgid ""
-"The carrier's insurer will not carry a record like that; "
-"{LAST_CHANCE_CARRIER_NAME} keeps you on sufferance until "
-"{record_clears_text}."
+"The carrier's insurer will not carry a record like that; {keeper} keeps you "
+"on sufferance until {record_clears_text}."
 msgstr ""
-"Ubezpieczyciel przewoźnika nie przyjmie takiej kartoteki; "
-"{LAST_CHANCE_CARRIER_NAME} trzyma cię z łaski do {record_clears_text}."
+
+#. placeholders: {keeper}, {ages_out}
+msgid ""
+"{keeper} keeps you on sufferance whatever the record says; the oldest entry "
+"ages out {ages_out}."
+msgstr ""
 
 msgid ""
 "The carrier's insurer will not carry that record. The carrier ends your "
@@ -9355,12 +9785,11 @@ msgid "Your CDL is disqualified for life, so the seat is not coming back."
 msgstr ""
 "Twoje CDL zostało odebrane dożywotnio, więc fotel kierowcy już nie wróci."
 
-#. placeholders: {clears}
+#. placeholders: {status_verb}, {status_noun}, {clears}
 msgid ""
-"Your CDL is suspended, so the yard holds your seat until it clears {clears}."
+"Your CDL is {status_verb}, so the yard holds your seat until the "
+"{status_noun} ends {clears}."
 msgstr ""
-"Twoje CDL jest zawieszone, więc plac trzyma twój fotel, dopóki zawieszenie "
-"nie minie {clears}."
 
 #. placeholders: {record_review_clears_text}
 #. one sentence of a longer line
@@ -9402,10 +9831,6 @@ msgstr "{line} Spłata długu to przywróci."
 
 msgid "Clean on-time runs rebuild it."
 msgstr "Czyste kursy na czas je odbudowują."
-
-#. placeholders: {band}
-msgid "Dispatch trust: {band}."
-msgstr "Zaufanie dyspozytora: {band}."
 
 msgid "nine"
 msgstr "dziewięć"
@@ -9552,31 +9977,53 @@ msgstr ""
 "Nie możesz wziąć tego zlecenia, dopóki twoje CDL jest {status_verb}. "
 "Blokada minie {clears_text}."
 
+msgid "suspension"
+msgstr "zawieszenie"
+
+#. placeholders: {status_noun}
+msgid "Wait out the CDL {status_noun}"
+msgstr ""
+
 msgid ""
 "You cannot drive with a lifetime CDL disqualification, not even bobtail."
 msgstr "Z dożywotnio odebranym CDL nie możesz jeździć, nawet bez naczepy."
-
-msgid "suspension"
-msgstr "zawieszenie"
 
 #. placeholders: {noun}, {clears_text}
 #. one sentence of a longer line
 msgid "The {noun} ends {clears_text}."
 msgstr "{noun} kończy się {clears_text}."
 
-#. placeholders: {verb}
+#. placeholders: {status_verb}
 #. one sentence of a longer line
-msgid "You cannot drive, not even bobtail, while your CDL is {verb}."
+msgid "You cannot drive, not even bobtail, while your CDL is {status_verb}."
 msgstr ""
-"Nie możesz jeździć, nawet bez naczepy, dopóki twoje CDL jest {verb}."
 
-#. placeholders: {verb}, {noun}, {clears_text}
+#. placeholders: {status_verb}, {noun}, {clears_text}, {wait_out_label}
 msgid ""
-"You cannot drive, not even bobtail, while your CDL is {verb}. The {noun} "
-"ends {clears_text}."
+"You cannot drive, not even bobtail, while your CDL is {status_verb}. The "
+"{noun} ends {clears_text}. {wait_out_label} is on the terminal menu."
 msgstr ""
-"Nie możesz jeździć, nawet bez naczepy, dopóki twoje CDL jest {verb}. {noun} "
-"kończy się {clears_text}."
+
+#. placeholders: {wait_out_label}
+#. one sentence of a longer line
+msgid "{wait_out_label} is on the terminal menu."
+msgstr ""
+
+#. placeholders: {wait_out_label}
+#. one sentence of a longer line
+msgid "Choose {wait_out_label} on this menu to skip ahead."
+msgstr ""
+
+#. placeholders: {status_noun}, {days_text}
+#. one sentence of a longer line
+msgid "wait out the CDL {status_noun}, {days_text} remaining."
+msgstr ""
+
+#. placeholders: {status_noun}, {days_text}, {wait_out_label}
+msgid ""
+"wait out the CDL {status_noun}, {days_text} remaining. Choose "
+"{wait_out_label} on this menu to skip ahead."
+msgstr ""
 
 msgid "CDL: disqualified for life"
 msgstr "CDL: odebrane dożywotnio"
@@ -9708,6 +10155,57 @@ msgstr "brak lub nieprawidłowe pole {label}"
 msgid "{label} must be an ISO-8601 timestamp with timezone"
 msgstr "{label} musi być znacznikiem czasu ISO-8601 ze strefą czasową"
 
+msgid " at an impound lot"
+msgstr ""
+
+#. placeholders: {name}
+msgid " at {name}"
+msgstr ""
+
+#. placeholders: {city}
+msgid "in {city}"
+msgstr ""
+
+#. placeholders: {city}
+msgid "at an impound lot in {city}"
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid "at {name} in {city}"
+msgstr "przy {name}, {city}"
+
+#. placeholders: {area}
+msgid "in {area}"
+msgstr ""
+
+#. placeholders: {city_text}
+msgid "at an impound lot in {city_text}"
+msgstr ""
+
+#. placeholders: {name}, {area}
+msgid "at {name} in {area}"
+msgstr ""
+
+#. placeholders: {the_city}
+msgid "{the_city} service area"
+msgstr ""
+
+#. placeholders: {name}, {state}
+msgid "an impound lot in {name}, {state}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "an impound lot in {name}"
+msgstr ""
+
+#. placeholders: {city}
+msgid "an impound lot in {city}"
+msgstr ""
+
+#. placeholders: {unwrap_or_else}
+msgid "{unwrap_or_else} impound lot"
+msgstr ""
+
 #. placeholders: {the_city}
 msgid "{the_city} metro freight market"
 msgstr "rynek frachtu aglomeracji {the_city}"
@@ -9744,9 +10242,19 @@ msgstr " Rynek: {condition}."
 msgid " Requires {credentials_clause}."
 msgstr " Wymaga: {credentials_clause}."
 
+#. placeholders: {tons}, {cargo}, {pickup}, {card}
+msgid "{tons} tons of {cargo} from {pickup} {card}."
+msgstr ""
+
 #. placeholders: {tons}, {cargo}, {pickup}, {dropoff}
 msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
 msgstr "{cargo}, {tons} {tons:tona|tony|ton}, z {pickup} do {dropoff}."
+
+#. placeholders: {highway}, {percent}
+msgid ""
+" Spring weight limits on the {highway}: axle loads held to {percent} "
+"percent of the legal limit."
+msgstr ""
 
 msgid "Pays"
 msgstr "Płaci"
@@ -9788,22 +10296,24 @@ msgstr ""
 msgid "Deadline {hours} hours."
 msgstr "Termin {hours} {hours:godzina|godziny|godzin}."
 
-#. placeholders: {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
+#. placeholders: {pay_text}, {deadline}, {equipment}, {trailer}, {seasonal_weight}, {preview}, {market}, {endorsement}
 #. one sentence of a longer line
 msgid ""
 "{pay_text} {deadline} Equipment: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
+"{equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
 msgstr ""
-"{pay_text} {deadline} Sprzęt: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
 
-#. placeholders: {prefix}, {load}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
+#. placeholders: {prefix}, {load}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {seasonal_weight}, {preview}, {market}, {endorsement}
 msgid ""
 "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
+"{equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
 msgstr ""
-"{prefix}{load} {distance}. {pay_text} {deadline} Sprzęt: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
+
+msgid "chilled food"
+msgstr ""
+
+msgid "chilled goods"
+msgstr ""
 
 #. placeholders: {min_level}
 msgid "Level {min_level} drivers unlock this cargo."
@@ -9816,9 +10326,6 @@ msgstr "Wymaga: {credentials_clause}."
 #. placeholders: {required_program_text}
 msgid "Requires {required_program_text} trailer program."
 msgstr "Wymaga programu naczep: {required_program_text}."
-
-msgid "cargo"
-msgstr "ładunek"
 
 msgid "origin"
 msgstr "początek"
@@ -9835,6 +10342,12 @@ msgstr "bez naczepy"
 msgid "assigned"
 msgstr "przydzielone"
 
+msgid "highway"
+msgstr ""
+
+msgid "percent"
+msgstr "procent"
+
 msgid "team"
 msgstr "zespołowy"
 
@@ -9845,12 +10358,6 @@ msgstr "rynek frachtu {unwrap_or_else}"
 #. placeholders: {name}
 msgid "{name} yard"
 msgstr "plac {name}"
-
-msgid "ships"
-msgstr "wysyła"
-
-msgid "receives"
-msgstr "odbiera"
 
 msgid "general freight"
 msgstr "drobnica"
@@ -9903,8 +10410,8 @@ msgstr "płynne produkty spożywcze"
 msgid "intermodal container chassis"
 msgstr "podwozia do kontenerów intermodalnych"
 
-msgid "turnpike doubles freight"
-msgstr "podwójne naczepy na autostradach płatnych"
+msgid "48-foot turnpike doubles freight"
+msgstr ""
 
 msgid "two 48-foot trailers"
 msgstr "dwie naczepy 48-stopowe"
@@ -9952,6 +10459,70 @@ msgstr "Postoje na przerwę: {break_stop_count}."
 #. one sentence of a longer line
 msgid "Sleep stops: {sleep_stop_count}."
 msgstr "Postoje na sen: {sleep_stop_count}."
+
+msgid "paint"
+msgstr ""
+
+msgid "Paint"
+msgstr ""
+
+msgid "propane cylinders"
+msgstr ""
+
+msgid "Petroleum gases, liquefied"
+msgstr ""
+
+msgid "compressed nitrogen"
+msgstr ""
+
+msgid "Nitrogen, compressed"
+msgstr ""
+
+msgid "chlorine cylinders"
+msgstr ""
+
+msgid "Chlorine"
+msgstr ""
+
+msgid "calcium carbide"
+msgstr ""
+
+msgid "Calcium carbide"
+msgstr ""
+
+msgid "pool chlorine"
+msgstr ""
+
+msgid "Calcium hypochlorite, dry"
+msgstr ""
+
+msgid "sulfuric acid"
+msgstr ""
+
+msgid "Sulfuric acid with more than 51 percent acid"
+msgstr ""
+
+msgid "consumer fireworks"
+msgstr ""
+
+msgid "Fireworks"
+msgstr ""
+
+msgid "blasting explosives"
+msgstr ""
+
+msgid "Explosive, blasting, type E"
+msgstr ""
+
+msgid "gasoline"
+msgstr ""
+
+msgid "Gasoline"
+msgstr ""
+
+#. placeholders: {shipping_name}, {un_number}, {number}
+msgid "{shipping_name}, {un_number}, Class {number}"
+msgstr ""
 
 #. placeholders: {last_name}, {fallback_distance}
 #. one sentence of a longer line
@@ -10220,6 +10791,14 @@ msgstr "balance"
 msgid "diverged"
 msgstr "diverged"
 
+#. placeholders: {city}
+msgid "your home in {city}"
+msgstr ""
+
+#. placeholders: {city}
+msgid "your terminal in {city}"
+msgstr ""
+
 #. placeholders: {target}
 msgid ""
 "Freight Fate moved the saves that were in this folder to:\n"
@@ -10275,9 +10854,6 @@ msgstr "Plik zapisu nie jest obiektem profilu."
 msgid "Legacy Driver"
 msgstr "Legacy Driver"
 
-msgid "Chicago"
-msgstr "Chicago"
-
 msgid "deliveries"
 msgstr "deliveries"
 
@@ -10310,9 +10886,6 @@ msgstr "whole"
 
 msgid "grade"
 msgstr "grade"
-
-msgid "id"
-msgstr "id"
 
 msgid "watched"
 msgstr "obserwowany"
@@ -10379,23 +10952,25 @@ msgstr ""
 "wszystko inne, co posiadasz. Nic w twojej karierze nie zostało wyzerowane i "
 "żaden zapis nie przepadł."
 
-msgid "your carrier"
-msgstr "twój przewoźnik"
-
-#. placeholders: {money_text}, {former}
+#. one sentence of a longer line
 msgid ""
-"You owed {money_text}, which is more than {former} carries on a driver, and "
-"they have ended your employment."
+"At the terminal, choose Apply to a carrier to take a seat when you are "
+"ready."
 msgstr ""
-"Twój dług wynosił {money_text}, czyli więcej, niż {former} toleruje u "
-"kierowcy, więc kończy z tobą współpracę."
 
+#. placeholders: {near}
+#. one sentence of a longer line
 msgid ""
-"That balance is closed. You do not owe it to anyone any more, and your cash "
-"is back to zero."
+"No carrier that hires near {near} can take you on right now, so you have no "
+"carrier."
 msgstr ""
-"Ten dług jest zamknięty. Nie masz już tego długu u nikogo, a twoja gotówka "
-"wraca do zera."
+
+#. placeholders: {near}
+msgid ""
+"No carrier that hires near {near} can take you on right now, so you have no "
+"carrier. At the terminal, choose Apply to a carrier to take a seat when you "
+"are ready."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -10432,6 +11007,41 @@ msgstr ""
 "płac {LAST_CHANCE_CARRIER_NAME}: krótszy fracht, niższa stawka i sprzęt do "
 "kompletu."
 
+#. placeholders: {former}, {name}, {near}
+msgid ""
+"What changes is the seat. Your assigned tractor goes back to the {former} "
+"yard, and {name}, which hires near {near}, has taken you on."
+msgstr ""
+
+#. placeholders: {former}, {name}, {near}
+#. one sentence of a longer line
+msgid ""
+"Your assigned tractor goes back to the {former} yard, and {name}, which "
+"hires near {near}, has taken you on."
+msgstr ""
+
+#. placeholders: {former}
+msgid "Your assigned tractor goes back to the {former} yard."
+msgstr ""
+
+msgid "your carrier"
+msgstr "twój przewoźnik"
+
+#. placeholders: {money_text}, {former}
+msgid ""
+"You owed {money_text}, which is more than {former} carries on a driver, and "
+"they have ended your employment."
+msgstr ""
+"Twój dług wynosił {money_text}, czyli więcej, niż {former} toleruje u "
+"kierowcy, więc kończy z tobą współpracę."
+
+msgid ""
+"That balance is closed. You do not owe it to anyone any more, and your cash "
+"is back to zero."
+msgstr ""
+"Ten dług jest zamknięty. Nie masz już tego długu u nikogo, a twoja gotówka "
+"wraca do zera."
+
 msgid "termination"
 msgstr "wypowiedzenie"
 
@@ -10451,6 +11061,11 @@ msgid ""
 msgstr ""
 "Sprzedaż zamyka pożyczkę. Dług jest rozliczony, a twoja gotówka wraca do "
 "zera."
+
+msgid ""
+"You are a company driver again. The owner-operator path is still open to "
+"you, and the buy-in gates are the same ones you cleared to get here."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -10692,6 +11307,9 @@ msgstr "prezydencka sypialka"
 msgid "northstar"
 msgstr "northstar"
 
+msgid "your home in Buffalo"
+msgstr ""
+
 #. placeholders: {f}, {f2}, {f3}, {f4}
 msgid ""
 "{f} percent pay share, {f2} dollars per mile floor, {f3} dollar stop pay, "
@@ -10843,6 +11461,40 @@ msgstr ""
 "tej samej drabinie kariery co wszyscy: zmienia się to, kto płaci, a nie to, "
 "jak daleko jesteś."
 
+msgid "its home region"
+msgstr ""
+
+#. placeholders: {name}, {tier}, {area}
+msgid "{name}: {tier} company driver, {area}"
+msgstr ""
+
+#. placeholders: {tier}, {area}, {max}
+msgid "A {tier} carrier in {area}, with loads of up to {max} miles."
+msgstr ""
+
+#. placeholders: {tier}, {area}
+#. one sentence of a longer line
+msgid "A {tier} company-driver start in {area}."
+msgstr ""
+
+#. placeholders: {tier}, {area}, {max}
+msgid ""
+"A {tier} company-driver start in {area}. Dispatch offers loads of up to "
+"{max} miles. The carrier assigns and maintains the tractor and pays fuel "
+"and routine repairs."
+msgstr ""
+
+#. placeholders: {max}
+#. one sentence of a longer line
+msgid "Dispatch offers loads of up to {max} miles."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The carrier assigns and maintains the tractor and pays fuel and routine "
+"repairs."
+msgstr ""
+
 msgid "in good shape"
 msgstr "w dobrym stanie"
 
@@ -10988,6 +11640,15 @@ msgid ""
 "Twin-trailer program for doubles freight: two short vans and a converter "
 "dolly."
 msgstr "Program podwójnych naczep: dwa krótkie furgony i wózek łączący."
+
+msgid "48-foot turnpike doubles"
+msgstr ""
+
+msgid ""
+"LCV turnpike-doubles program: two 48-foot vans and a converter dolly, about "
+"102 feet of cargo length and 117 feet overall, staged on and off at "
+"turnpike exits."
+msgstr ""
 
 #. placeholders: {join}, {last}
 msgid "{join}, or {last}"
@@ -11538,17 +12199,8 @@ msgstr "katalog radia zawiera zduplikowane identyfikatory stacji"
 msgid "imported stations collide with curated station ids"
 msgstr "importowane stacje kolidują z identyfikatorami stacji z katalogu"
 
-msgid "local"
-msgstr "local"
-
 msgid "codec"
 msgstr "codec"
-
-msgid "lat"
-msgstr "lat"
-
-msgid "lon"
-msgstr "lon"
 
 msgid "region"
 msgstr "region"
@@ -12038,6 +12690,27 @@ msgstr "staffed"
 msgid "tableau"
 msgstr "tableau"
 
+msgid "northwest territories"
+msgstr ""
+
+msgid "british columbia"
+msgstr ""
+
+msgid "new brunswick"
+msgstr ""
+
+msgid "nova scotia"
+msgstr ""
+
+msgid "prince edward island"
+msgstr ""
+
+msgid "newfoundland and labrador"
+msgstr ""
+
+msgid "alaska"
+msgstr "alaska"
+
 msgid "on duty, not driving"
 msgstr "w pracy, bez jazdy"
 
@@ -12083,8 +12756,26 @@ msgstr "source"
 msgid "Hours enforcement off."
 msgstr "Pilnowanie czasu pracy wyłączone."
 
+msgid "cycle"
+msgstr ""
+
+msgid ""
+"Take 36 hours off to restart your cycle, or wait for hours to age off your "
+"7-day ledger."
+msgstr ""
+
+msgid "Take 8 hours off at a rest stop to reset."
+msgstr ""
+
+msgid ""
+"Take a 34-hour restart, or wait for hours to age off your 8-day ledger."
+msgstr ""
+
 msgid "Sleep 10 hours at a rest stop to reset."
 msgstr "Prześpij 10 godzin na miejscu odpoczynku, żeby wyzerować licznik."
+
+msgid "drive"
+msgstr "drive"
 
 msgid "out of driving time for this shift"
 msgstr "skończył ci się czas jazdy na tę zmianę"
@@ -12095,8 +12786,59 @@ msgstr "Koniec czasu jazdy na tę zmianę."
 msgid "Your duty window has closed."
 msgstr "Twoje okno służby się zamknęło."
 
+msgid "duty"
+msgstr "duty"
+
 msgid "past your duty window"
 msgstr "okno służby jest już zamknięte"
+
+msgid "past your on-duty limit"
+msgstr ""
+
+msgid "Your on-duty limit has been reached."
+msgstr ""
+
+msgid "past your driving limit"
+msgstr ""
+
+msgid "Your driving limit has been reached."
+msgstr ""
+
+msgid "shift"
+msgstr "zmiana"
+
+msgid "past your shift limit"
+msgstr ""
+
+msgid "Your shift limit has been reached."
+msgstr ""
+
+msgid "Your 70-hour cycle is used up."
+msgstr ""
+
+msgid "out of cycle hours"
+msgstr ""
+
+msgid "Your 80-hour cycle is used up."
+msgstr ""
+
+msgid "Your 70-hour Canadian cycle is used up."
+msgstr ""
+
+msgid "Your 80-hour Canadian cycle is used up."
+msgstr ""
+
+msgid "Your break is overdue."
+msgstr ""
+
+msgid "past your break limit"
+msgstr ""
+
+msgid "past your hours limit"
+msgstr ""
+
+msgid "Your hours limit has been reached."
+msgstr ""
 
 msgid "driving"
 msgstr "jazda"
@@ -12110,6 +12852,35 @@ msgstr "kończy się twój czas jazdy na tę zmianę. Potrzebujesz 10 godzin snu
 msgid "your duty window closes. You need 10 hours of sleep"
 msgstr "zamyka się twoje okno służby. Potrzebujesz 10 godzin snu"
 
+msgid "your 70-hour cycle is used up. You need a 34-hour restart"
+msgstr ""
+
+msgid "your Alaska driving limit is reached. You need 10 hours off"
+msgstr ""
+
+msgid "your Canadian driving limit is reached. You need 8 hours off"
+msgstr ""
+
+msgid "your 20 hours on duty are used. You need 10 hours off"
+msgstr ""
+
+msgid "your Canadian on-duty limit is reached. You need 8 hours off"
+msgstr ""
+
+msgid "your 80-hour cycle is used up. You need a 34-hour restart"
+msgstr ""
+
+msgid "your 70-hour Canadian cycle is used up. You need 36 hours off"
+msgstr ""
+
+msgid "your 80-hour Canadian cycle is used up. You need 36 hours off"
+msgstr ""
+
+msgid ""
+"your shift has run too long since your last 8 hours off. You need 8 hours "
+"off"
+msgstr ""
+
 msgid "you had driven past the 11-hour driving limit"
 msgstr "przekroczono 11-godzinny limit jazdy"
 
@@ -12119,8 +12890,40 @@ msgstr "minęło 14-godzinne okno służby"
 msgid "you were past the 30-minute break requirement"
 msgstr "przekroczono wymóg 30-minutowej przerwy"
 
+msgid "you had used up your 70-hour cycle"
+msgstr ""
+
+msgid "you had passed the 15-hour driving limit"
+msgstr ""
+
+msgid "you had passed the 20-hour on-duty limit"
+msgstr ""
+
+msgid "you had used up your 80-hour cycle"
+msgstr ""
+
+msgid "you had passed the 13-hour driving limit"
+msgstr ""
+
+msgid "you had passed the 14-hour on-duty limit"
+msgstr ""
+
+msgid "you had passed the 18-hour on-duty limit"
+msgstr ""
+
+msgid "you had driven 16 hours after your last 8 hours off"
+msgstr ""
+
+msgid "you had driven 20 hours after your last 8 hours off"
+msgstr ""
+
 msgid "Hours of service: 30-minute break overdue."
 msgstr "Czas pracy kierowcy: 30-minutowa przerwa jest już zaległa."
+
+msgid ""
+"Hours of service: your 70-hour cycle is used up. Take a 34-hour restart, or "
+"wait for hours to age off your 8-day ledger."
+msgstr ""
 
 msgid ""
 "Hours of service: past your limit. Sleep 10 hours at a rest stop to reset."
@@ -12160,6 +12963,87 @@ msgstr ""
 "Czas pracy kierowcy: zostało {duration_text} jazdy, 30-minutowa przerwa za "
 "{duration_text2}, zostało {duration_text3} 14-godzinnego okna służby."
 
+#. placeholders: {duration_text}, {duration_text2}
+msgid "Cycle: {duration_text} of 70 hours used, {duration_text2} left."
+msgstr ""
+
+msgid "your 80-hour cycle is used up"
+msgstr ""
+
+msgid "your 70-hour Canadian cycle is used up"
+msgstr ""
+
+msgid "your 80-hour Canadian cycle is used up"
+msgstr ""
+
+#. placeholders: {cycle_text}
+#. one sentence of a longer line
+msgid "Hours of service: {cycle_text}."
+msgstr ""
+
+#. placeholders: {cycle_text}, {advice}
+msgid "Hours of service: {cycle_text}. {advice}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Hours of service: past your limit."
+msgstr ""
+
+#. placeholders: {advice}
+msgid "Hours of service: past your limit. {advice}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Alaska hours rules."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+msgid ""
+"Alaska hours rules. {duration_text} of driving and {duration_text2} on duty "
+"left."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+#. one sentence of a longer line
+msgid "{duration_text} of driving and {duration_text2} on duty left."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Canadian hours rules."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}, {duration_text3}
+msgid ""
+"Canadian hours rules. {duration_text} of driving, {duration_text2} on duty, "
+"and {duration_text3} of shift left."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}, {duration_text3}
+#. one sentence of a longer line
+msgid ""
+"{duration_text} of driving, {duration_text2} on duty, and {duration_text3} "
+"of shift left."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "North of 60 hours rules."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}, {duration_text3}
+msgid ""
+"North of 60 hours rules. {duration_text} of driving, {duration_text2} on "
+"duty, and {duration_text3} of shift left."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}, {duration_text3}
+msgid ""
+" Cycle: {duration_text} used of {duration_text2}, {duration_text3} left."
+msgstr ""
+
+#. placeholders: {lead}, {status}, {cycle_clause}, {suffix}
+msgid "{lead} ELD status {status}.{cycle_clause}{suffix}"
+msgstr ""
+
 #. placeholders: {duration_text}
 msgid "Driving left: {duration_text}."
 msgstr "Pozostały czas jazdy: {duration_text}."
@@ -12176,18 +13060,27 @@ msgstr "30-minutowa przerwa za {duration_text}."
 msgid "Duty window closes in {duration_text}."
 msgstr "Do zamknięcia okna służby: {duration_text}."
 
-msgid "drive"
-msgstr "drive"
-
-msgid "duty"
-msgstr "duty"
-
 msgid "At the wheel: no driving yet"
 msgstr "Za kierownicą: jeszcze bez jazdy"
 
 #. placeholders: {driven}
 msgid "At the wheel {driven}"
 msgstr "Za kierownicą: {driven}"
+
+msgid "no driving yet"
+msgstr "jeszcze bez jazdy"
+
+#. placeholders: {driven}
+msgid "{driven} driving"
+msgstr "{driven} jazdy"
+
+#. placeholders: {spent}, {duration_text}
+msgid "At the wheel so far: {spent}, {duration_text} on duty this shift"
+msgstr ""
+"Dotąd za kierownicą: {spent}, w pracy na tej zmianie: {duration_text}"
+
+msgid "Out of hours."
+msgstr "Koniec czasu pracy."
 
 msgid "nothing yet"
 msgstr "jeszcze nic"
@@ -12206,9 +13099,6 @@ msgstr "Za kierownicą: {spent}. W służbie: {duration_text}"
 msgid "On duty {duration_text}"
 msgstr "W służbie: {duration_text}"
 
-msgid "Out of hours."
-msgstr "Koniec czasu pracy."
-
 msgid "Your 30-minute break is overdue."
 msgstr "Twoja 30-minutowa przerwa jest zaległa."
 
@@ -12219,6 +13109,20 @@ msgstr "Przerwa: niewymagana."
 #. placeholders: {ENFORCEMENT_OFF}
 msgid "Break: none required. {ENFORCEMENT_OFF}"
 msgstr "Przerwa: niewymagana. {ENFORCEMENT_OFF}"
+
+#. one sentence of a longer line
+msgid "No 30-minute break is required."
+msgstr ""
+
+#. placeholders: {shift_over}, {reset_advice}
+msgid "No 30-minute break is required. {shift_over} {reset_advice}"
+msgstr ""
+
+msgid "No 30-minute break is required under Alaska hours rules."
+msgstr ""
+
+msgid "No 30-minute break is required under Canadian hours rules."
+msgstr ""
 
 msgid "Break overdue"
 msgstr "Przerwa zaległa"
@@ -12256,9 +13160,9 @@ msgstr "zostało {duration_text} 14-godzinnego okna służby"
 msgid "{answer}, but you are {shift_over}."
 msgstr "{answer}, ale {shift_over}."
 
-#. placeholders: {answer}, {shift_over}, {RESET_ADVICE}
-msgid "{answer}, but you are {shift_over}. {RESET_ADVICE}"
-msgstr "{answer}, ale {shift_over}. {RESET_ADVICE}"
+#. placeholders: {answer}, {shift_over}, {reset_advice}
+msgid "{answer}, but you are {shift_over}. {reset_advice}"
+msgstr ""
 
 #. placeholders: {else}
 msgid "Driving time left: no limit{else}"
@@ -12274,6 +13178,14 @@ msgstr "i brak okna służby"
 #. placeholders: {duration_text}
 msgid "Driving time left: {duration_text}"
 msgstr "Pozostały czas jazdy: {duration_text}"
+
+#. placeholders: {duration_text}
+msgid "On-duty time left: {duration_text}"
+msgstr ""
+
+#. placeholders: {duration_text}
+msgid "Shift time left: {duration_text}"
+msgstr ""
 
 #. placeholders: {duration_text}
 msgid "Duty window closes in {duration_text}"
@@ -12297,11 +13209,68 @@ msgstr "przerwa zaległa"
 msgid ". Your 30-minute break is overdue and comes first"
 msgstr ". Twoja 30-minutowa przerwa jest zaległa i ma pierwszeństwo"
 
+msgid "your Alaska driving limit runs out"
+msgstr ""
+
+msgid "your 20-hour on-duty limit runs out"
+msgstr ""
+
+msgid "your 80-hour cycle runs out"
+msgstr ""
+
+msgid "80-hour cycle"
+msgstr ""
+
+msgid "your Canadian driving limit runs out"
+msgstr ""
+
+msgid "your Canadian on-duty limit runs out"
+msgstr ""
+
+msgid "your 70-hour Canadian cycle runs out"
+msgstr ""
+
+msgid "70-hour Canadian cycle"
+msgstr ""
+
+msgid "your 80-hour Canadian cycle runs out"
+msgstr ""
+
+msgid "80-hour Canadian cycle"
+msgstr ""
+
+msgid "driving limit"
+msgstr ""
+
+msgid "on-duty limit"
+msgstr ""
+
+msgid "your shift reaches 16 hours after your last 8 hours off"
+msgstr ""
+
+msgid "your shift reaches 20 hours after your last 8 hours off"
+msgstr ""
+
+msgid "shift limit"
+msgstr ""
+
+#. placeholders: {nearest}
+msgid " You would arrive before {nearest}."
+msgstr ""
+
+#. placeholders: {nearest}, {duration_text}
+msgid ""
+" Your {nearest} comes about {duration_text} before you would reach it."
+msgstr ""
+
 msgid "your driving time for this shift runs out"
 msgstr "skończy się twój czas jazdy na tę zmianę"
 
 msgid "your duty window closes"
 msgstr "zamknie się twoje okno służby"
+
+msgid "your 70-hour cycle runs out"
+msgstr ""
 
 msgid "your 30-minute break is due"
 msgstr "wypadnie twoja 30-minutowa przerwa"
@@ -12315,6 +13284,9 @@ msgstr "limit czasu jazdy"
 
 msgid "duty window"
 msgstr "okno służby"
+
+msgid "70-hour cycle"
+msgstr ""
 
 #. placeholders: {limit_name}, {duration_text}
 msgid ""
@@ -13058,9 +14030,6 @@ msgstr "pacific"
 msgid "Pacific Time"
 msgstr "czas pacyficzny"
 
-msgid "alaska"
-msgstr "alaska"
-
 msgid "Alaska Time"
 msgstr "czas alaskański"
 
@@ -13643,6 +14612,12 @@ msgstr "{label} przed tobą"
 #. placeholders: {label}, {interchange}
 msgid "{label} ahead at {interchange}"
 msgstr "{label} przed tobą, {interchange}"
+
+msgid "U.S. Customs and Border Protection"
+msgstr ""
+
+msgid "Canada Border Services Agency"
+msgstr ""
 
 #. placeholders: {text}
 msgid "Billboard: {text}"
@@ -14356,6 +15331,88 @@ msgstr "unsupported"
 msgid "empty"
 msgstr "empty"
 
+msgid "minute"
+msgstr "minuta"
+
+msgid "hour"
+msgstr ""
+
+#. placeholders: {clock_text}
+#. one sentence of a longer line
+msgid "The next opening is at {clock_text}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The tunnel is closed for the night."
+msgstr ""
+
+#. placeholders: {clock_text}
+msgid ""
+"The tunnel is closed for the night. The next opening is at {clock_text}."
+msgstr ""
+
+msgid "Whittier"
+msgstr ""
+
+msgid "the staging area"
+msgstr ""
+
+#. placeholders: {target}, {clock_text}
+#. one sentence of a longer line
+msgid "Next opening toward {target} at {clock_text}."
+msgstr ""
+
+#. placeholders: {target}, {clock_text}, {wait_text}
+msgid ""
+"Next opening toward {target} at {clock_text}. You wait about {wait_text}."
+msgstr ""
+
+#. placeholders: {wait_text}
+#. one sentence of a longer line
+msgid "You wait about {wait_text}."
+msgstr ""
+
+#. placeholders: {text}, {wait_text}, {clock_text}
+msgid "{text} You wait {wait_text} on duty, until {clock_text}."
+msgstr ""
+
+#. placeholders: {text}, {wait_text}
+msgid "{text} You wait {wait_text} on duty."
+msgstr ""
+
+#. placeholders: {text}, {text2}, {clock_text}, {wait_text}, {clock_text2}
+msgid ""
+"{text} {text2} You wait on duty until {clock_text}, then {wait_text} for "
+"the escort, and may cross at {clock_text2}."
+msgstr ""
+
+msgid "The wind has dropped. You may cross."
+msgstr ""
+
+#. placeholders: {text}, {wait_text}
+msgid "{text} You wait {wait_text} on duty for the wind to drop."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid "Dispatch reroutes you from {city}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The wind is still too strong."
+msgstr ""
+
+#. placeholders: {city}
+msgid "The wind is still too strong. Dispatch reroutes you from {city}."
+msgstr ""
+
+msgid "There is no other road. You hold here until the wind drops."
+msgstr ""
+
+#. placeholders: {reason}, {city}
+msgid "{reason} Dispatch reroutes you from {city}."
+msgstr ""
+
 msgid "schema"
 msgstr "schema"
 
@@ -14401,6 +15458,45 @@ msgid "Reverse will not go in at this speed. Stop the truck first."
 msgstr ""
 "Wsteczny nie wejdzie przy tej prędkości. Najpierw zatrzymaj ciężarówkę."
 
+#. placeholders: {grouped}, {grouped2}
+msgid ""
+"{grouped} pounds over the {grouped2} pound gross limit for this set on this "
+"route."
+msgstr ""
+
+#. placeholders: {grouped}
+msgid ""
+"Legal under the {grouped} pound gross limit for this set on this route."
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid ""
+"Gross {grouped} pounds, both trailers and the converter dolly included."
+msgstr ""
+
+#. placeholders: {grouped}, {verdict}
+msgid ""
+"Gross {grouped} pounds, both trailers and the converter dolly included. "
+"{verdict}"
+msgstr ""
+
+#. placeholders: {cargo_temp_degrees}
+msgid "Cargo temperature {cargo_temp_degrees}"
+msgstr ""
+
+#. placeholders: {f}
+msgid "{f} degrees"
+msgstr "{f} {f:stopień|stopnie|stopni}"
+
+#. placeholders: {temp_c}
+msgid "{temp_c} degrees Celsius"
+msgstr ""
+
+#. placeholders: {cargo_temp_degrees}
+msgid "Reefer running at {cargo_temp_degrees}."
+msgstr ""
+
 msgid "simulated"
 msgstr "symulowany"
 
@@ -14427,9 +15523,6 @@ msgstr "Pogoda symulowana"
 
 msgid "The observation is less than a minute old"
 msgstr "Obserwacja ma mniej niż minutę"
-
-msgid "minute"
-msgstr "minuta"
 
 #. placeholders: {minutes}, {unit}
 msgid "The observation is {minutes} {unit} old"
@@ -14520,10 +15613,6 @@ msgstr "Symulowane warunki"
 
 msgid "neutral conditions"
 msgstr "neutralne warunki"
-
-#. placeholders: {f}
-msgid "{f} degrees"
-msgstr "{f} {f:stopień|stopnie|stopni}"
 
 #. placeholders: {observation}, {value}
 msgid "observation {observation}; treated as {value} for driving"
@@ -16196,6 +17285,15 @@ msgstr "Wyprostuj"
 msgid "Engine on or off"
 msgstr "Włącz lub wyłącz silnik"
 
+msgid "Reefer on or off"
+msgstr ""
+
+msgid "apu"
+msgstr ""
+
+msgid "APU on or off"
+msgstr ""
+
 msgid "Parking brake"
 msgstr "Hamulec postojowy"
 
@@ -17823,16 +18921,36 @@ msgstr ""
 msgid "No citations or violations on your record."
 msgstr "Brak mandatów i wykroczeń w twojej kartotece."
 
-#. placeholders: {name}, {the_city}
-msgid "{name} in {the_city} service area"
-msgstr "{name}, rejon {the_city}"
+#. placeholders: {prefix}
+#. one sentence of a longer line
+msgid "{prefix}You have no carrier right now."
+msgstr ""
+
+#. placeholders: {prefix}, {NO_CARRIER_OBJECTIVE}
+msgid "{prefix}You have no carrier right now. {NO_CARRIER_OBJECTIVE}"
+msgstr ""
+
+#. placeholders: {name}, {area}
+#. one sentence of a longer line
+msgid ""
+"Lease orientation is at {name} in {area}, where your truck is parked."
+msgstr ""
+
+#. placeholders: {prefix}, {carrier_name}
+#. one sentence of a longer line
+msgid "{prefix}First-day briefing: leased to {carrier_name}."
+msgstr ""
+
+#. placeholders: {prefix}, {carrier_name}, {name}, {area}
+msgid ""
+"{prefix}First-day briefing: leased to {carrier_name}. Lease orientation is "
+"at {name} in {area}, where your truck is parked."
+msgstr ""
 
 #. placeholders: {prefix}, {carrier_name}, {location}
 msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}, parked at {location}."
+"{prefix}First-day briefing: leased to {carrier_name}, parked {location}."
 msgstr ""
-"{prefix}Odprawa pierwszego dnia: pod licencją przewoźnika {carrier_name}, "
-"postój: {location}."
 
 #. placeholders: {grouped}
 msgid ""
@@ -17856,9 +18974,20 @@ msgstr "Dalej: tablica zleceń."
 msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
 msgstr "{prefix}Odprawa pierwszego dnia: witaj w {carrier_name}."
 
+#. placeholders: {name}, {area}
+msgid ""
+"Orientation and truck assignment are at {name} in {area}, where your "
+"assigned truck is parked."
+msgstr ""
+
 #. placeholders: {location}
-msgid "Your assigned truck is parked at {location}."
-msgstr "Twoja przydzielona ciężarówka stoi tu: {location}."
+msgid "Your assigned truck is parked {location}."
+msgstr ""
+
+#. placeholders: {home}
+msgid ""
+"The carrier covered your travel from {home} and a hotel for orientation."
+msgstr ""
 
 msgid "The carrier covers fuel, repairs, insurance, and trailer support."
 msgstr "Przewoźnik pokrywa paliwo, naprawy, ubezpieczenie i obsługę naczep."
@@ -17882,6 +19011,11 @@ msgstr "count"
 
 msgid "trust"
 msgstr "trust"
+
+msgid ""
+"You have no carrier, so there is no dispatch board. Choose Apply to a "
+"carrier at the terminal to take a seat."
+msgstr ""
 
 msgid "key"
 msgstr "key"
@@ -18080,13 +19214,10 @@ msgstr ""
 "ograniczenia."
 
 msgid ""
-"Dispatch assigned this load. Accepting starts the deadhead from your "
-"terminal to its origin facility. Route inspection after pickup covers rest, "
-"fuel, toll, weather, and restrictions."
+"Dispatch assigned this load. Accepting starts the deadhead to its origin "
+"facility. Route inspection after pickup covers rest, fuel, toll, weather, "
+"and restrictions."
 msgstr ""
-"Dyspozytor przydzielił ten ładunek. Przyjęcie rozpoczyna dojazd na pusto z "
-"terminala do zakładu nadania. Przegląd trasy po odbiorze obejmuje "
-"odpoczynek, paliwo, opłaty drogowe, pogodę i ograniczenia."
 
 #. placeholders: {describe}
 msgid "Accept assigned dispatch: {describe}"
@@ -18132,9 +19263,9 @@ msgstr "Wróć do terminala"
 msgid "a reposition to {destination}, {distance_text}, no cargo"
 msgstr "przejazd na pusto do {destination}, {distance_text}, bez ładunku"
 
-#. placeholders: {f}, {label}, {destination}, {distance_text}
-msgid "{f} tons of {label} to {destination}, {distance_text}"
-msgstr "{label}, {f} {f:tona|tony|ton}, do {destination}, {distance_text}"
+#. placeholders: {f}, {cargo_label}, {destination}, {distance_text}
+msgid "{f} tons of {cargo_label} to {destination}, {distance_text}"
+msgstr ""
 
 #. placeholders: {join}
 msgid "Also posted today: {join}."
@@ -18434,9 +19565,9 @@ msgstr ""
 msgid "Job details"
 msgstr "Szczegóły zlecenia"
 
-#. placeholders: {label}
-msgid "Cargo: {label}."
-msgstr "Ładunek: {label}."
+#. placeholders: {cargo_label}
+msgid "Cargo: {cargo_label}."
+msgstr ""
 
 #. placeholders: {origin_facility_text}
 msgid "Origin: {origin_facility_text}."
@@ -18467,6 +19598,10 @@ msgstr ""
 #. placeholders: {equipment_text}
 msgid "Equipment: {equipment_text}."
 msgstr "Sprzęt: {equipment_text}."
+
+#. placeholders: {card_text}
+msgid "Material: {card_text}."
+msgstr ""
 
 #. placeholders: {trailer}
 msgid "Trailer: {trailer}"
@@ -18530,12 +19665,29 @@ msgstr "Wróć do tablicy zleceń"
 msgid "Back without accepting."
 msgstr "Wróć bez przyjmowania."
 
+msgid ""
+"Load weight: this set of doubles is not legal on any lane dispatch can "
+"offer between these cities."
+msgstr ""
+
 #. placeholders: {grouped}
 msgid ""
 "Load weight: {grouped} pounds over the gross-weight limit with current fuel."
 msgstr ""
 "Masa ładunku: {grouped} {grouped:funt|funty|funtów} ponad limit masy "
 "całkowitej przy obecnym paliwie."
+
+#. placeholders: {grouped}
+msgid ""
+" The limit for this set of doubles on the lanes offered is {grouped} "
+"pounds, counting both trailers and the converter dolly."
+msgstr ""
+
+#. placeholders: {highway}, {grouped}
+msgid ""
+" Spring weight limits on the {highway} hold this truck to {grouped} pounds "
+"gross."
+msgstr ""
 
 msgid "Close out this career"
 msgstr "Zamknij tę karierę"
@@ -18743,8 +19895,72 @@ msgstr "Jesteś winien {money_text}, a masz {money_text2}. {current}"
 msgid "A quarter of every settlement also keeps paying it down."
 msgstr "Ćwierć każdego rozliczenia też idzie na spłatę."
 
+msgid "Apply to a carrier"
+msgstr ""
+
+msgid ""
+"Carriers that would take you on from your home. Choosing one puts you on "
+"their payroll at the terminal named. Escape returns to the terminal."
+msgstr ""
+
+#. placeholders: {name}, {tier}, {city}
+msgid "{name}: {tier} carrier, hires into its {city} terminal"
+msgstr ""
+
+#. placeholders: {city}
+msgid ", moves your home to {city}"
+msgstr ""
+
+#. placeholders: {city}
+#. one clause of a longer line
+msgid "moves your home to {city}"
+msgstr ""
+
+#. placeholders: {city}
+msgid " Your home is now {city}."
+msgstr ""
+
+#. placeholders: {city}, {moved}
+#. one sentence of a longer line
+msgid ""
+"You start at their {city} terminal, where your assigned truck is "
+"waiting.{moved} The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} has taken you on."
+msgstr ""
+
+#. placeholders: {name}, {city}, {moved}
+msgid ""
+"{name} has taken you on. You start at their {city} terminal, where your "
+"assigned truck is waiting.{moved} The dispatch board is open again."
+msgstr ""
+
+msgid "Hires across the lower 48."
+msgstr ""
+
+#. placeholders: {lane_area}
+msgid "Based in {lane_area}."
+msgstr ""
+
+msgid "No carrier hires near your home or in your state right now"
+msgstr ""
+
+msgid "Returns to the terminal."
+msgstr ""
+
 msgid "job"
 msgstr "zlecenie"
+
+#. placeholders: {city_name}
+msgid "You are in {city_name}."
+msgstr ""
+
+#. placeholders: {city_name}, {city_state}
+msgid "You are in {city_name}, {city_state}."
+msgstr ""
 
 msgid "Terminal"
 msgstr "Terminal"
@@ -18764,6 +19980,10 @@ msgstr ", cena z tego tygodnia"
 #. one clause of a longer line
 msgid "this week's price"
 msgstr "cena w tym tygodniu"
+
+#. placeholders: {f}, {f2}, {live}
+msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a litre{live}"
+msgstr ""
 
 #. placeholders: {f}, {live}
 msgid "Garage: fuel {f} per gallon{live}"
@@ -18839,44 +20059,62 @@ msgstr "Przespane 10 godzin. Jest {clock_text}, {time_of_day}."
 msgid "Your CDL is clear. Nothing to wait out."
 msgstr "Twoje CDL jest czyste. Nie ma czego przeczekiwać."
 
-msgid "CDL suspension"
-msgstr "Zawieszenie CDL"
-
+#. placeholders: {py_capitalize}
 #. one sentence of a longer line
-msgid "Suspension served, CDL clear."
-msgstr "Zawieszenie odbyte, CDL znów ważne."
-
-#. placeholders: {clock_text}, {time_of_day}
-msgid "Suspension served, CDL clear. It is {clock_text}, {time_of_day}."
+msgid "{py_capitalize} served, CDL clear."
 msgstr ""
-"Zawieszenie odbyte, CDL znów ważne. Jest {clock_text}, {time_of_day}."
 
-#. placeholders: {LAST_CHANCE_CARRIER_NAME}
-#. one sentence of a longer line
+#. placeholders: {py_capitalize}, {clock_text}, {time_of_day}
 msgid ""
-"You now drive for {LAST_CHANCE_CARRIER_NAME}: lower pay, shorter freight."
+"{py_capitalize} served, CDL clear. It is {clock_text}, {time_of_day}."
 msgstr ""
-"Teraz jeździsz dla {LAST_CHANCE_CARRIER_NAME}: niższa płaca, krótsze kursy."
-
-#. one sentence of a longer line
-msgid "Your money, levels and belongings stay."
-msgstr "Twoje pieniądze, poziomy i wszystko, co posiadasz, zostają."
 
 #. placeholders: {former}
-#. one sentence of a longer line
 msgid "{former} ended your employment over your safety record."
 msgstr ""
 "{former} zakończył twoje zatrudnienie z powodu profilu bezpieczeństwa."
 
-#. placeholders: {former}, {LAST_CHANCE_CARRIER_NAME}
-msgid ""
-"{former} ended your employment over your safety record. You now drive for "
-"{LAST_CHANCE_CARRIER_NAME}: lower pay, shorter freight. Your money, levels "
-"and belongings stay."
+msgid "Your money, levels and belongings stay."
+msgstr "Twoje pieniądze, poziomy i wszystko, co posiadasz, zostają."
+
+#. placeholders: {opening}, {name}
+#. one sentence of a longer line
+msgid "{opening} You now drive for {name}: lower pay, shorter freight."
 msgstr ""
-"{former} zakończył twoje zatrudnienie z powodu profilu bezpieczeństwa. "
-"Teraz jeździsz dla {LAST_CHANCE_CARRIER_NAME}: niższa płaca, krótsze kursy. "
-"Twoje pieniądze, poziomy i wszystko, co posiadasz, zostają."
+
+#. placeholders: {opening}, {name}, {kept}
+msgid ""
+"{opening} You now drive for {name}: lower pay, shorter freight. {kept}"
+msgstr ""
+
+#. placeholders: {opening}, {name}, {near}
+#. one sentence of a longer line
+msgid ""
+"{opening} {name}, which hires near {near}, took you on knowing your record."
+msgstr ""
+
+#. placeholders: {opening}, {name}, {near}, {kept}
+msgid ""
+"{opening} {name}, which hires near {near}, took you on knowing your record. "
+"{kept}"
+msgstr ""
+
+#. placeholders: {kept}
+#. one sentence of a longer line
+msgid "{kept} Choose Apply to a carrier when you are ready."
+msgstr ""
+
+#. placeholders: {opening}, {near}
+#. one sentence of a longer line
+msgid ""
+"{opening} No carrier that hires near {near} can take you on right now."
+msgstr ""
+
+#. placeholders: {opening}, {near}, {kept}
+msgid ""
+"{opening} No carrier that hires near {near} can take you on right now. "
+"{kept} Choose Apply to a carrier when you are ready."
+msgstr ""
 
 msgid "Game saved. Backing up."
 msgstr "Gra zapisana. Tworzenie kopii zapasowej."
@@ -18913,10 +20151,36 @@ msgstr "W terminalu"
 msgid "{grouped} dollars.{cdl}{record}"
 msgstr "{grouped} {grouped:dolar|dolary|dolarów}.{cdl}{record}"
 
+#. placeholders: {no_truck_location_line}
+#. one sentence of a longer line
+msgid ""
+"{no_truck_location_line} No carrier and no truck until a carrier assigns "
+"you one."
+msgstr ""
+
+#. placeholders: {no_truck_location_line}, {grouped}, {cdl}, {record}
+msgid ""
+"{no_truck_location_line} No carrier and no truck until a carrier assigns "
+"you one. {grouped} dollars.{cdl}{record}"
+msgstr ""
+
+#. placeholders: {upper_first}, {grouped}, {cdl}, {record}
+msgid "{upper_first}. {grouped} dollars.{cdl}{record}"
+msgstr ""
+
+#. placeholders: {city_name}, {grouped}, {cdl}, {record}
+msgid "{city_name}. {grouped} dollars.{cdl}{record}"
+msgstr "{city_name}. {grouped} {grouped:dolar|dolary|dolarów}.{cdl}{record}"
+
 #. placeholders: {name}, {city_name}, {grouped}, {cdl}, {record}
 msgid "{name} in {city_name}. {grouped} dollars.{cdl}{record}"
 msgstr ""
 "{name} w {city_name}. {grouped} {grouped:dolar|dolary|dolarów}.{cdl}{record}"
+
+msgid ""
+"Carriers that would take you on from your home. There is no dispatch board "
+"until one does."
+msgstr ""
 
 msgid ""
 "Loads from local freight facilities. New company hires get an assigned "
@@ -19049,15 +20313,21 @@ msgstr "Powtarza przewoźnika, terminal, koszty firmy i pierwszy cel."
 msgid "The next career objective and the dispatch it suggests."
 msgstr "Następny cel kariery i zlecenie, które sugeruje."
 
-msgid "Wait out the CDL suspension"
-msgstr "Przeczekaj zawieszenie CDL"
+#. placeholders: {status_noun}
+#. one sentence of a longer line
+msgid "Sits out the {status_noun} in one go."
+msgstr ""
 
+#. placeholders: {status_noun}
 msgid ""
-"Sits out the suspension in one go. The clock jumps to the day it clears, "
+"Sits out the {status_noun} in one go. The clock jumps to the day it ends, "
 "money, truck, and record untouched."
 msgstr ""
-"Przeczekuje całe zawieszenie za jednym razem. Zegar przeskakuje do dnia "
-"jego końca, pieniądze, ciężarówka i kartoteka pozostają nietknięte."
+
+#. one sentence of a longer line
+msgid ""
+"The clock jumps to the day it ends, money, truck, and record untouched."
+msgstr ""
 
 msgid ""
 "Removes this career's save from this computer and its cloud backups from "
@@ -19111,6 +20381,10 @@ msgstr "Łańcuchy śniegowe: na pokładzie, zużyte w {f} procentach."
 
 msgid "Snow chains: aboard and fresh."
 msgstr "Łańcuchy śniegowe: na pokładzie, nowe."
+
+msgid ""
+"Assignment: none. You have no carrier, so no tractor is assigned to you."
+msgstr ""
 
 #. placeholders: {label}
 msgid "Assignment: owned tractor, {label}."
@@ -19210,6 +20484,9 @@ msgstr ""
 #. placeholders: {status_label}
 msgid "Current status: {status_label}"
 msgstr "Obecny status: {status_label}"
+
+msgid "Staying on the company-driver path."
+msgstr ""
 
 msgid "Staying a company driver."
 msgstr "Zostajesz kierowcą etatowym."
@@ -19650,6 +20927,11 @@ msgstr ""
 msgid "Upgrades locked: carrier-assigned tractor"
 msgstr "Ulepszenia zablokowane: ciągnik przydzielony przez przewoźnika"
 
+msgid ""
+"Truck ownership starts with the leased-on owner-operator buy-in, and that "
+"needs a carrier to lease to. Apply to a carrier first."
+msgstr ""
+
 msgid "Trucks"
 msgstr "Ciężarówki"
 
@@ -19736,6 +21018,9 @@ msgstr "{dealer}Ciężarówki."
 msgid "{dealer}Trucks. You have {grouped} dollars. {current}"
 msgstr ""
 "{dealer}Ciężarówki. Masz {grouped} {grouped:dolar|dolary|dolarów}. {current}"
+
+msgid "Truck ownership locked: no carrier"
+msgstr ""
 
 msgid "Truck ownership locked: carrier-assigned tractor"
 msgstr ""
@@ -20086,6 +21371,24 @@ msgstr "Paliwo: bak pełny"
 msgid "Refuel: {f} gallons"
 msgstr "Tankowanie: {f} {f:galon|galony|galonów}"
 
+#. placeholders: {f2}
+#. one sentence of a longer line
+msgid "Diesel here is {f2} Canadian dollars a litre."
+msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Refuel {f} gallons for {grouped} dollars."
+msgstr ""
+"Zatankuj {f} {f:galon|galony|galonów} za {grouped} "
+"{grouped:dolara|dolary|dolarów}."
+
+#. placeholders: {f}, {grouped}, {f2}
+msgid ""
+"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"dollars a litre."
+msgstr ""
+
 #. placeholders: {f}, {grouped}
 msgid "Refuel {f} gallons for {grouped} dollars"
 msgstr ""
@@ -20103,6 +21406,12 @@ msgstr "Naprawa: uszkodzenia {f} procent"
 msgid "Repair {f} percent damage for {grouped} dollars"
 msgstr ""
 "Napraw uszkodzenia {f} procent za {grouped} {grouped:dolar|dolary|dolarów}"
+
+msgid "The engine is already off."
+msgstr ""
+
+msgid "Engine off."
+msgstr "Silnik wyłączony."
 
 msgid "The tank is already full."
 msgstr "Bak jest już pełny."
@@ -20501,12 +21810,16 @@ msgstr ""
 "Ciężarówka umyta za {grouped} {grouped:dolar|dolary|dolarów}. Zostaje ci "
 "{grouped2} {grouped2:dolar|dolary|dolarów}."
 
+msgid "Shut down the engine"
+msgstr "Wyłącz silnik"
+
+msgid "The tractor must be off before this bay will fuel."
+msgstr ""
+
 msgid ""
 "Company drivers bill the carrier, owner-operators pay the regional diesel "
-"price."
+"price. Shut the engine off first."
 msgstr ""
-"Kierowcy etatowi obciążają przewoźnika, kierowcy-właściciele płacą "
-"regionalną cenę oleju napędowego."
 
 msgid "Company drivers bill the carrier, owner-operators pay the shop."
 msgstr ""
@@ -20590,6 +21903,11 @@ msgstr ""
 "Dodaj programy naczep specjalistycznych. Z własną licencją przewozową "
 "kupujesz naczepy."
 
+msgid ""
+"Routes where spring weight limits would make this load overweight are not "
+"offered."
+msgstr ""
+
 msgid "loaded"
 msgstr "z ładunkiem"
 
@@ -20621,9 +21939,6 @@ msgstr ""
 msgid "Loaded trip is {distance_text} via {join}.{toll_text}"
 msgstr "Kurs z ładunkiem: {distance_text} przez {join}.{toll_text}"
 
-msgid "Shut down the engine"
-msgstr "Wyłącz silnik"
-
 msgid "Start the engine"
 msgstr "Uruchom silnik"
 
@@ -20635,9 +21950,6 @@ msgstr "Uruchamia silnik. Hamulec postojowy potrzebuje 100 psi powietrza."
 
 msgid "Stop before touching the engine."
 msgstr "Zatrzymaj się, zanim zajmiesz się silnikiem."
-
-msgid "Engine off."
-msgstr "Silnik wyłączony."
 
 msgid "The engine will not start."
 msgstr "Silnik nie chce zapalić."
@@ -20686,6 +21998,12 @@ msgstr "Tę naczepę plac już raz wymienił. {described} Wszystko w porządku."
 #. one sentence of a longer line
 msgid "{described} It checks out."
 msgstr "{described} Wszystko w porządku."
+
+#. placeholders: {py_capitalize}, {tank_walk_around_clause}
+msgid ""
+"{py_capitalize}, both trailers and the converter dolly, check "
+"out.{tank_walk_around_clause}"
+msgstr ""
 
 #. placeholders: {py_capitalize}, {tank_walk_around_clause}
 msgid "{py_capitalize} checks out.{tank_walk_around_clause}"
@@ -20752,22 +22070,16 @@ msgstr "{described} Wymiana zajęła {f} {f:minutę|minuty|minut}."
 msgid "shipper check-in"
 msgstr "zgłoszenie u nadawcy"
 
-#. one sentence of a longer line
-msgid "Checked in."
-msgstr "Zgłoszenie przyjęte."
-
-#. placeholders: {map}
-msgid "Checked in. Load on {map} in the drop yard."
+msgid "waiting on trailer paperwork"
 msgstr ""
-"Zgłoszenie przyjęte. Ładunek na naczepie {map} na placu przeładunkowym."
 
-#. placeholders: {map}
-#. one sentence of a longer line
-msgid "Load on {map} in the drop yard."
-msgstr "Ładunek na naczepie {map} na placu przeładunkowym."
+#. placeholders: {paperwork}, {map}, {doubles}
+msgid "Checked in.{paperwork} Load on {map} in the drop yard.{doubles}"
+msgstr ""
 
-msgid "Checked in. Dock assigned."
-msgstr "Zgłoszenie przyjęte. Rampa przydzielona."
+#. placeholders: {paperwork}, {doubles}
+msgid "Checked in.{paperwork} Dock assigned.{doubles}"
+msgstr ""
 
 msgid "Check in at the shipping office before loading."
 msgstr "Przed załadunkiem zgłoś się w biurze wysyłki."
@@ -20778,13 +22090,11 @@ msgstr "Zatrzymaj się przed załadunkiem."
 msgid "Hooking the loaded trailer"
 msgstr "Podczepianie załadowanej naczepy"
 
-#. placeholders: {facility}, {map}, {f}, {label}
+#. placeholders: {facility}, {map}, {f}, {cargo_label}, {doubles_clause}
 msgid ""
 "Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
-"of {label}."
+"of {cargo_label}.{doubles_clause}"
 msgstr ""
-"Zostawiasz pustą naczepę w {facility} i podczepiasz {map} z ładunkiem: "
-"{label}, {f} {f:tona|tony|ton}."
 
 msgid "Dropping and hooking."
 msgstr "Odczepianie i podczepianie."
@@ -20792,21 +22102,39 @@ msgstr "Odczepianie i podczepianie."
 msgid "Loading cargo"
 msgstr "Załadunek"
 
-#. placeholders: {f}, {label}, {facility}
-msgid "Loading {f} tons of {label} at {facility}."
-msgstr "Załadunek w {facility}: {label}, {f} {f:tona|tony|ton}."
+#. placeholders: {f}, {cargo_label}, {facility}, {doubles_clause}
+msgid "Loading {f} tons of {cargo_label} at {facility}.{doubles_clause}"
+msgstr ""
 
 msgid "Loading cargo."
 msgstr "Załadunek."
 
+msgid "dropping and hooking a set of doubles"
+msgstr ""
+
 msgid "dropping and hooking"
 msgstr "odczepianie i podczepianie"
+
+msgid "loading and hooking a set of doubles"
+msgstr ""
 
 msgid "Load the cargo before departing."
 msgstr "Załaduj ładunek przed wyjazdem."
 
+#. one sentence of a longer line
+msgid "Dispatch cannot find a legal route for this load."
+msgstr ""
+
+#. placeholders: {reason}
+msgid "Dispatch cannot find a legal route for this load. {reason}"
+msgstr ""
+
 msgid "Dispatch cannot find a route for this load."
 msgstr "Dyspozytor nie może znaleźć trasy dla tego ładunku."
+
+#. placeholders: {name}
+msgid "Routed around the {name}."
+msgstr ""
 
 #. placeholders: {destination_facility_text}
 msgid "Dispatch routed you to {destination_facility_text}. "
@@ -20846,36 +22174,33 @@ msgstr "Ciśnienie powietrza {f2} psi, {brake}.{speed_control_pause_text}"
 msgid "Pickup {facility}: {state}."
 msgstr "Odbiór w {facility}: {state}."
 
-#. placeholders: {facility}, {state}, {f}, {label}, {destination_facility_text}, {speed_text}, {engine}, {f2}, {brake}, {speed_control_pause_text}
+#. placeholders: {facility}, {state}, {f}, {cargo_label}, {destination_facility_text}, {speed_text}, {engine}, {f2}, {brake}, {speed_control_pause_text}
 msgid ""
-"Pickup {facility}: {state}. {f} tons of {label} for "
+"Pickup {facility}: {state}. {f} tons of {cargo_label} for "
 "{destination_facility_text}. {speed_text}. {engine}. Air {f2} psi, "
 "{brake}.{speed_control_pause_text}"
 msgstr ""
-"Odbiór w {facility}: {state}. {label}, {f} {f:tona|tony|ton}, dla "
-"{destination_facility_text}. {speed_text}. {engine}. Ciśnienie powietrza "
-"{f2} psi, {brake}.{speed_control_pause_text}"
 
-#. placeholders: {f}, {label}, {destination_facility_text}
+#. placeholders: {f}, {cargo_label}, {destination_facility_text}
 #. one sentence of a longer line
-msgid "{f} tons of {label} for {destination_facility_text}."
-msgstr "{label}, {f} {f:tona|tony|ton}, dla {destination_facility_text}."
+msgid "{f} tons of {cargo_label} for {destination_facility_text}."
+msgstr ""
 
 msgid "Saved. The pickup resumes here."
 msgstr "Zapisano. Odbiór wznowi się tutaj."
+
+#. placeholders: {phrase}
+#. one sentence of a longer line
+msgid "Parked {phrase}."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Pickup canceled."
 msgstr "Odbiór anulowany."
 
-#. placeholders: {name}
-msgid "Pickup canceled. Returned to {name}."
-msgstr "Odbiór anulowany. Powrót do {name}."
-
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Returned to {name}."
-msgstr "Powrót do {name}."
+#. placeholders: {phrase}
+msgid "Pickup canceled. Parked {phrase}."
+msgstr ""
 
 msgid "Loaded and ready to roll"
 msgstr "Załadowany i gotowy do drogi"
@@ -20886,9 +22211,9 @@ msgstr "Załadunek przy rampie"
 msgid "At a pickup facility"
 msgstr "W zakładzie odbioru"
 
-#. placeholders: {label}, {destination}
-msgid "{label} for {destination}"
-msgstr "{label} do {destination}"
+#. placeholders: {cargo_label}, {destination}
+msgid "{cargo_label} for {destination}"
+msgstr ""
 
 #. placeholders: {destination}
 msgid "Loaded and sealed for {destination}."
@@ -20936,6 +22261,11 @@ msgstr "Zgłoszenie w {facility}."
 msgid "Checked in at {facility}. Load on {map} in the drop yard."
 msgstr ""
 "Zgłoszenie w {facility}. Ładunek na naczepie {map} na placu przeładunkowym."
+
+#. placeholders: {map}
+#. one sentence of a longer line
+msgid "Load on {map} in the drop yard."
+msgstr "Ładunek na naczepie {map} na placu przeładunkowym."
 
 #. placeholders: {facility}
 msgid "Checked in at {facility}. Dock assigned."
@@ -21046,9 +22376,9 @@ msgstr "Wymagane zgłoszenie"
 msgid "Facility: {facility}"
 msgstr "Zakład: {facility}"
 
-#. placeholders: {f}, {label}
-msgid "Cargo: {f} tons of {label}"
-msgstr "Ładunek: {label}, {f} {f:tona|tony|ton}"
+#. placeholders: {f}, {cargo_label}
+msgid "Cargo: {f} tons of {cargo_label}"
+msgstr ""
 
 #. placeholders: {destination}
 msgid "Destination: {destination}"
@@ -21057,6 +22387,12 @@ msgstr "Cel: {destination}"
 #. placeholders: {state}
 msgid "Status: {state}"
 msgstr "Stan: {state}"
+
+#. placeholders: {f}
+msgid ""
+"Doubles: two hook-ups and a walk-around of both trailers and the dolly, {f} "
+"extra minutes on duty"
+msgstr ""
 
 #. placeholders: {hud_speed_text}
 msgid "Speed: {hud_speed_text}"
@@ -22108,24 +23444,18 @@ msgstr ""
 "{progress} Wykorzystano {hours_used} z {deadline_game_h} "
 "{deadline_game_h:godziny|godzin|godzin}."
 
-#. placeholders: {drive_name}, {weight_tons}, {label}, {destination}
+#. placeholders: {drive_name}, {weight_tons}, {cargo_label}, {destination}
 #. one sentence of a longer line
 msgid ""
-"Resuming {drive_name}: {weight_tons} tons of {label} to {destination}."
+"Resuming {drive_name}: {weight_tons} tons of {cargo_label} to {destination}."
 msgstr ""
-"Wznawianie: {drive_name}, {label}, {weight_tons} "
-"{weight_tons:tona|tony|ton}, do {destination}."
 
-#. placeholders: {drive_name}, {weight_tons}, {label}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {transmission}, {report_lead}, {speed_control}, {engine}, {brake}
+#. placeholders: {drive_name}, {weight_tons}, {cargo_label}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {transmission}, {report_lead}, {speed_control}, {engine}, {brake}
 msgid ""
-"Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
-"{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
-"{report_lead}. {speed_control}{engine} {brake}"
+"Resuming {drive_name}: {weight_tons} tons of {cargo_label} to "
+"{destination}. {progress} {hours_used} of {deadline_game_h} hours. {now}. "
+"{transmission} {report_lead}. {speed_control}{engine} {brake}"
 msgstr ""
-"Wznawianie: {drive_name}, {label}, {weight_tons} "
-"{weight_tons:tona|tony|ton}, do {destination}. {progress} Wykorzystano "
-"{hours_used} z {deadline_game_h} {deadline_game_h:godziny|godzin|godzin}. "
-"{now}. {transmission} {report_lead}. {speed_control}{engine} {brake}"
 
 #. placeholders: {progress}, {hours_used}, {deadline_game_h}
 #. one sentence of a longer line
@@ -22135,10 +23465,8 @@ msgstr ""
 "{deadline_game_h:godziny|godzin|godzin}."
 
 #. placeholders: {pickup_facility_text}
-msgid ""
-"Pickup dispatch: deadhead from the terminal to {pickup_facility_text}. "
+msgid "Pickup dispatch: deadhead to {pickup_facility_text}. "
 msgstr ""
-"Zlecenie odbioru: dojazd na pusto z terminala do {pickup_facility_text}. "
 
 #. placeholders: {destination_facility_text}
 #. one sentence of a longer line
@@ -22168,6 +23496,119 @@ msgstr "{objective}Jest {now}."
 
 msgid "amount"
 msgstr "amount"
+
+#. one sentence of a longer line
+msgid "Come to a full stop before it."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Every truck stops at the customs booth."
+msgstr ""
+
+#. placeholders: {name}, {short_distance_text}, {agency}
+#. one sentence of a longer line
+msgid "{name} ahead in {short_distance_text}, {agency}."
+msgstr ""
+
+#. placeholders: {name}, {short_distance_text}, {agency}
+msgid ""
+"{name} ahead in {short_distance_text}, {agency}. Every truck stops at the "
+"customs booth. Come to a full stop before it."
+msgstr ""
+
+msgid "Customs booth in half a mile. Stop at the booth."
+msgstr ""
+
+#. placeholders: {name}, {agency}, {penalty}
+msgid ""
+"At {name}, {agency} stopped the truck for running the customs booth: "
+"{penalty}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Customs officers are following."
+msgstr ""
+
+#. placeholders: {control_hint}
+msgid ""
+"Customs officers are following. Signal with {control_hint} and stop on the "
+"shoulder."
+msgstr ""
+
+#. placeholders: {control_hint}
+#. one sentence of a longer line
+msgid "Signal with {control_hint} and stop on the shoulder."
+msgstr ""
+"Włącz kierunkowskaz klawiszem {control_hint} i zatrzymaj się na poboczu."
+
+msgid "Ran the port of entry"
+msgstr ""
+
+msgid "Officers walk you back to the customs booth."
+msgstr ""
+
+#. placeholders: {grouped}
+msgid "a {grouped} US dollar civil penalty"
+msgstr ""
+
+#. placeholders: {grouped}, {grouped2}
+msgid ""
+"a {grouped} Canadian dollar penalty, charged as {grouped2} US dollars"
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the eManifest your carrier "
+"filed before arrival."
+msgstr ""
+
+#. placeholders: {name}, {agency}
+msgid ""
+"{name}, {agency}. The officer asks for your passport and checks the "
+"eManifest your carrier filed before arrival."
+msgstr ""
+
+msgid "customs clearance"
+msgstr ""
+
+msgid "Canada"
+msgstr ""
+
+msgid "the United States"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Officers examine the trailer for 45 minutes, then clear you."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Referred to secondary inspection."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you. Welcome to {country}."
+msgstr ""
+
+#. placeholders: {country}
+#. one sentence of a longer line
+msgid "Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Cleared."
+msgstr ""
+
+#. placeholders: {country}
+msgid "Cleared. Welcome to {country}."
+msgstr ""
+
+msgid "Answer the officer's questions and hand over your documents"
+msgstr ""
+
+msgid "Customs has to clear you before you drive on."
+msgstr ""
 
 msgid "local game time"
 msgstr "lokalny czas gry"
@@ -22242,6 +23683,10 @@ msgstr "30-minutowa przerwa za {left}."
 #. placeholders: {left}
 msgid "Driving time left: {left}."
 msgstr "Pozostały czas jazdy: {left}."
+
+#. placeholders: {left}
+msgid "Shift time left: {left}."
+msgstr ""
 
 #. placeholders: {left}
 msgid "Duty window closes in {left}."
@@ -22535,6 +23980,20 @@ msgstr "{status} menu statusu."
 #. placeholders: {fuel}
 msgid "{fuel} fuel."
 msgstr "{fuel}: paliwo."
+
+#. placeholders: {apu}
+#. one sentence of a longer line
+msgid "{apu} APU on or off."
+msgstr ""
+
+#. placeholders: {reefer}
+#. one sentence of a longer line
+msgid "{reefer} reefer on or off."
+msgstr ""
+
+#. placeholders: {reefer}, {apu}
+msgid "{reefer} reefer on or off. {apu} APU on or off."
+msgstr ""
 
 #. placeholders: {clock}
 msgid "{clock} clock, deadline, and the hours limit that comes first."
@@ -22861,12 +24320,13 @@ msgstr "{speed} podaje twoją prędkość."
 msgid "{horn} sounds the horn, {engine_brake} the engine brake."
 msgstr "{horn} używa klaksonu, {engine_brake} hamulca silnikowego."
 
-#. placeholders: {engine}, {fuel}, {speed_limit}, {parking_brake}, {rest}
+#. placeholders: {engine}, {reefer}, {apu}, {fuel}, {speed_limit}, {parking_brake}, {rest}
 msgid ""
-"{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads "
-"the posted speed limit here and how far over you are, {parking_brake} sets "
-"or releases the parking brake, {rest} plans a stop for fuel, a break, sleep "
-"or food while rolling; stopped at a stop, it opens its actions."
+"{engine} starts or stops the engine, {reefer} the reefer, {apu} the APU, "
+"{fuel} reads fuel, {speed_limit} reads the posted speed limit here and how "
+"far over you are, {parking_brake} sets or releases the parking brake, "
+"{rest} plans a stop for fuel, a break, sleep or food while rolling; stopped "
+"at a stop, it opens its actions."
 msgstr ""
 
 msgid ""
@@ -23312,6 +24772,12 @@ msgstr ""
 msgid "Range about {distance_text}."
 msgstr "Zasięg około {distance_text}."
 
+msgid " Reefer on."
+msgstr ""
+
+msgid " APU on."
+msgstr ""
+
 #. placeholders: {safe_speed}
 msgid "Safe speed about {safe_speed}."
 msgstr "Bezpieczna prędkość około {safe_speed}."
@@ -23401,6 +24867,19 @@ msgstr "Trasa: {progress}"
 #. placeholders: {fuel_fraction}
 msgid "Fuel: {fuel_fraction} percent"
 msgstr "Paliwo: {fuel_fraction} procent"
+
+#. placeholders: {reefer}
+#. one sentence of a longer line
+msgid "Reefer: {reefer}."
+msgstr ""
+
+#. placeholders: {reefer}, {reefer_temp_status_text}, {apu}
+msgid "Reefer: {reefer}. {reefer_temp_status_text}. APU: {apu}"
+msgstr ""
+
+#. placeholders: {apu}
+msgid "APU: {apu}"
+msgstr ""
 
 #. placeholders: {air_status_text}
 msgid "Air brakes: {air_status_text}"
@@ -23704,6 +25183,33 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Hold {control_hint} to press the clutch first."
 msgstr "Najpierw przytrzymaj {control_hint}, żeby wcisnąć sprzęgło."
+
+msgid "No reefer load aboard."
+msgstr ""
+
+msgid "Reefer off."
+msgstr ""
+
+msgid "Reefer on."
+msgstr ""
+
+msgid "No fuel for the reefer."
+msgstr ""
+
+msgid "The reefer will not start."
+msgstr ""
+
+msgid "APU off."
+msgstr ""
+
+msgid "APU on."
+msgstr ""
+
+msgid "No fuel for the APU."
+msgstr ""
+
+msgid "The APU will not start."
+msgstr ""
 
 #. placeholders: {join_phrase}
 msgid "offers {join_phrase}"
@@ -24379,6 +25885,13 @@ msgstr "Trzyma {speed_text}."
 msgid "Limp mode. Holding {speed_text}."
 msgstr "Tryb awaryjny. Trzyma {speed_text}."
 
+msgid "Limiter, 105 kilometres an hour."
+msgstr ""
+
+msgid ""
+"Speed limiter: British Columbia caps heavy trucks at 105 kilometres an hour."
+msgstr ""
+
 #. placeholders: {damage_pct}
 msgid " Damage is down to {damage_pct} percent."
 msgstr " Uszkodzenia spadły do {damage_pct} procent."
@@ -24818,16 +26331,15 @@ msgid ""
 "I have the update. Continue safely and call again if the situation changes."
 msgstr "Przyjąłem. Jedź bezpiecznie i zadzwoń znowu, jeśli coś się zmieni."
 
-#. placeholders: {game_minutes}, {deadline_game_h}
-msgid ""
-"{game_minutes} hours used of a {deadline_game_h} hour delivery window."
+#. placeholders: {used}, {unit}, {hours_value}
+msgid "{used} {unit} used of a {hours_value} hour delivery window."
 msgstr ""
-"Wykorzystano {game_minutes} {game_minutes:godzinę|godziny|godzin} z "
-"{deadline_game_h} {deadline_game_h:godziny|godzin|godzin} na dostawę."
 
-#. placeholders: {remaining_miles}
-msgid "{remaining_miles} miles remain."
-msgstr "Zostało {remaining_miles} {remaining_miles:mila|mile|mil}."
+msgid "remains"
+msgstr ""
+
+msgid "remain"
+msgstr ""
 
 #. placeholders: {damage_pct}
 msgid "Truck damage is {damage_pct} percent."
@@ -24841,8 +26353,8 @@ msgid " No usable chains under an active chain law."
 msgstr " Brak sprawnych łańcuchów, a obowiązek łańcuchów jest w mocy."
 
 #. placeholders: {cargo_damage_pct}
-msgid "Cargo condition is {cargo_damage_pct} percent."
-msgstr "Stan ładunku wynosi {cargo_damage_pct} procent."
+msgid "Cargo damage is {cargo_damage_pct} percent."
+msgstr ""
 
 msgid "Driver requested dispatch assistance."
 msgstr "Kierowca poprosił dyspozytora o pomoc."
@@ -25117,27 +26629,22 @@ msgid ""
 "The freight is {words}. Continue and protect it through the next stop."
 msgstr "Ładunek jest {words}. Jedź dalej i chroń go do następnego postoju."
 
-#. placeholders: {words}, {condition}
-#. one sentence of a longer line
-msgid "I have the freight report as {words}, {condition} percent."
-msgstr "Mam zgłoszenie ładunku: {words}, {condition} procent."
-
-#. placeholders: {words}, {condition}
+#. placeholders: {words}, {damage}
 msgid ""
-"I have the freight report as {words}, {condition} percent. Slow the "
-"handling down and avoid any hard stop or sharp bend you can safely avoid."
+"I have the freight report as {words}, with only {damage} percent cargo "
+"damage."
 msgstr ""
-"Mam zgłoszenie ładunku: {words}, {condition} procent. Prowadź spokojniej i "
-"unikaj gwałtownego hamowania i ostrych zakrętów, kiedy tylko możesz to "
-"bezpiecznie zrobić."
 
-#. one sentence of a longer line
+#. placeholders: {words}, {damage}
 msgid ""
-"Slow the handling down and avoid any hard stop or sharp bend you can safely "
-"avoid."
+"I have the freight report as {words}, with {damage} percent cargo damage."
 msgstr ""
-"Prowadź spokojniej i unikaj gwałtownego hamowania i ostrych zakrętów, kiedy "
-"tylko możesz to bezpiecznie zrobić."
+
+#. placeholders: {report}
+msgid ""
+"{report} Slow the handling down and avoid any hard stop or sharp bend you "
+"can safely avoid."
+msgstr ""
 
 msgid "A trooper has somebody stopped on the shoulder, not you."
 msgstr "Policjant zatrzymał kogoś na poboczu, nie ciebie."
@@ -25211,6 +26718,9 @@ msgstr ""
 msgid "thirty minutes"
 msgstr "trzydzieści minut"
 
+msgid "thirty-four hours"
+msgstr ""
+
 msgid "ten hours"
 msgstr "dziesięć godzin"
 
@@ -25264,12 +26774,6 @@ msgid ""
 msgstr ""
 "Światła za tobą, rutynowa kontrola. Włącz kierunkowskaz klawiszem "
 "{control_hint} i zatrzymaj się na poboczu."
-
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Signal with {control_hint} and stop on the shoulder."
-msgstr ""
-"Włącz kierunkowskaz klawiszem {control_hint} i zatrzymaj się na poboczu."
 
 msgid "Roadside inspection"
 msgstr "Kontrola drogowa"
@@ -27142,6 +28646,9 @@ msgstr ""
 "Z powrotem na autostradzie po 30-minutowej przerwie. Dbaj o czysty dziennik "
 "pracy."
 
+msgid "Back on the highway with a fresh cycle. Keep the logbook clean."
+msgstr ""
+
 msgid "Back on the highway with a reset clock. Keep the logbook clean."
 msgstr ""
 "Z powrotem na autostradzie z wyzerowanym zegarem. Dbaj o czysty dziennik "
@@ -27822,15 +29329,12 @@ msgid "Bobtailed empty to {destination} in {f} hours."
 msgstr ""
 "Przejazd samym ciągnikiem do {destination} w {f} {f:godzinę|godziny|godzin}."
 
-#. placeholders: {destination}, {f}, {clock_text}, {pay_clause}, {name}, {destination2}, {f2}
+#. placeholders: {destination}, {f}, {clock_text}, {pay_clause}, {service_area_phrase}, {destination2}, {f2}
 msgid ""
 "Bobtailed empty to {destination} in {f} hours. It is {clock_text}. "
-"{pay_clause}Parked at {name}. {destination2} dispatch board available. Fuel "
-"{f2} percent."
+"{pay_clause}Parked {service_area_phrase}. {destination2} dispatch board "
+"available. Fuel {f2} percent."
 msgstr ""
-"Przejazd samym ciągnikiem do {destination} w {f} "
-"{f:godzinę|godziny|godzin}. Jest {clock_text}. {pay_clause}Zaparkowano: "
-"{name}. Tablica zleceń w {destination2} dostępna. Paliwo {f2} procent."
 
 #. placeholders: {f2}
 #. one sentence of a longer line
@@ -27842,10 +29346,10 @@ msgstr "Paliwo {f2} procent."
 msgid "{destination2} dispatch board available."
 msgstr "Tablica zleceń w {destination2} dostępna."
 
-#. placeholders: {pay_clause}, {name}
+#. placeholders: {pay_clause}, {service_area_phrase}
 #. one sentence of a longer line
-msgid "{pay_clause}Parked at {name}."
-msgstr "{pay_clause}Zaparkowano: {name}."
+msgid "{pay_clause}Parked {service_area_phrase}."
+msgstr ""
 
 #. placeholders: {f}
 msgid "The empty run added {f} percent truck damage."
@@ -28098,30 +29602,22 @@ msgstr "Opłaty {grouped2}: drogowe {grouped3}, dodatkowe {charge_summary}."
 msgid "Costs {grouped4}."
 msgstr "Koszty {grouped4}."
 
-#. placeholders: {f}, {label}, {destination}, {f2}, {else}, {receiver_service_clause}, {clock_text}
+#. placeholders: {f}, {cargo_label}, {destination}, {f2}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}
 #. one sentence of a longer line
 msgid ""
-"Delivered {f} tons of {label} to {destination} in {f2} hours, "
-"{else}.{receiver_service_clause} {clock_text}."
+"Delivered {f} tons of {cargo_label} to {destination} in {f2} hours, "
+"{else}.{yard_drop}{receiver_service_clause} {clock_text}."
 msgstr ""
-"Dostarczono {label}, {f} {f:tona|tony|ton}, do {destination} w {f2} "
-"{f2:godzinę|godziny|godzin}, {else}.{receiver_service_clause} {clock_text}."
 
-#. placeholders: {f}, {label}, {destination}, {f2}, {else}, {receiver_service_clause}, {clock_text}, {pay_label}, {grouped}, {grouped2}, {grouped3}, {charge_summary}, {accessorial_clause}, {status_label}, {grouped4}, {grouped5}, {grouped6}, {grouped7}, {name}
+#. placeholders: {f}, {cargo_label}, {destination}, {f2}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}, {pay_label}, {grouped}, {grouped2}, {grouped3}, {charge_summary}, {accessorial_clause}, {status_label}, {grouped4}, {grouped5}, {grouped6}, {grouped7}, {service_area_phrase}
 msgid ""
-"Delivered {f} tons of {label} to {destination} in {f2} hours, "
-"{else}.{receiver_service_clause} {clock_text}. {pay_label} {grouped} "
-"dollars. Charges {grouped2}: tolls {grouped3}, accessorials "
+"Delivered {f} tons of {cargo_label} to {destination} in {f2} hours, "
+"{else}.{yard_drop}{receiver_service_clause} {clock_text}. {pay_label} "
+"{grouped} dollars. Charges {grouped2}: tolls {grouped3}, accessorials "
 "{charge_summary}. {accessorial_clause} Business status: {status_label}. "
 "Costs {grouped4}. Fines {grouped5}. Net {grouped6}, you have {grouped7}. "
-"Parked at {name}."
+"Parked {service_area_phrase}."
 msgstr ""
-"Dostarczono {label}, {f} {f:tona|tony|ton}, do {destination} w {f2} "
-"{f2:godzinę|godziny|godzin}, {else}.{receiver_service_clause} {clock_text}. "
-"{pay_label} {grouped} {grouped:dolar|dolary|dolarów}. Opłaty {grouped2}: "
-"drogowe {grouped3}, dodatkowe {charge_summary}. {accessorial_clause} Status "
-"firmy: {status_label}. Koszty {grouped4}. Grzywny {grouped5}. Netto "
-"{grouped6}, masz {grouped7}. Zaparkowano przy {name}."
 
 #. placeholders: {grouped5}
 #. one sentence of a longer line
@@ -28132,11 +29628,6 @@ msgstr "Grzywny {grouped5}."
 #. one sentence of a longer line
 msgid "Net {grouped6}, you have {grouped7}."
 msgstr "Netto {grouped6}, masz {grouped7}."
-
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Parked at {name}."
-msgstr "Zaparkowano przy {name}."
 
 #. placeholders: {accessorial_clause}, {status_label}
 #. one sentence of a longer line
@@ -28240,9 +29731,9 @@ msgstr "Koszty działalności: {grouped} {grouped:dolar|dolary|dolarów}."
 msgid "Business cost detail: {business_charge_summary}."
 msgstr "Szczegóły kosztów działalności: {business_charge_summary}."
 
-#. placeholders: {f}, {label}, {destination}
-msgid "Delivered {f} tons of {label} to {destination}."
-msgstr "Dostarczono {f} {f:tonę|tony|ton} ładunku {label} do {destination}."
+#. placeholders: {f}, {cargo_label}, {destination}
+msgid "Delivered {f} tons of {cargo_label} to {destination}."
+msgstr ""
 
 #. placeholders: {f}, {timing}
 msgid "Trip time: {f} hours, {timing}."
@@ -28252,9 +29743,9 @@ msgstr "Czas kursu: {f} {f:godzina|godziny|godzin}, {timing}."
 msgid "It is {clock_text}."
 msgstr "Jest {clock_text}."
 
-#. placeholders: {name}, {the_city}
-msgid "Parked at {name} for {the_city} service area."
-msgstr "Zaparkowano przy {name}, obszar obsługi {the_city}."
+#. placeholders: {service_area_phrase}
+msgid "Parked {service_area_phrase}."
+msgstr ""
 
 #. placeholders: {grouped}, {grouped2}, {charge_summary}
 msgid ""
@@ -28433,9 +29924,9 @@ msgstr ""
 msgid "Destination facility"
 msgstr "Zakład docelowy"
 
-#. placeholders: {facility}, {current}
-msgid "At {facility}. {current}"
-msgstr "Jesteś przy {facility}. {current}"
+#. placeholders: {facility}, {current}, {doubles}
+msgid "At {facility}. {current}{doubles}"
+msgstr ""
 
 msgid "Drop the loaded trailer"
 msgstr "Odstaw załadowaną naczepę"
@@ -28494,17 +29985,16 @@ msgstr ""
 "Odstawianie załadowanej naczepy w {facility}, {f} {f:tona|tony|ton} ładunku "
 "{cargo_label}."
 
-#. placeholders: {facility}, {f}, {cargo_label}
+#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
 msgid ""
 "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
-"Hooking an empty."
+"Hooking an empty.{doubles}"
 msgstr ""
-"Odstawianie załadowanej naczepy w {facility}, {f} {f:tona|tony|ton} ładunku "
-"{cargo_label}. Podpinanie pustej."
 
+#. placeholders: {doubles}
 #. one sentence of a longer line
-msgid "Hooking an empty."
-msgstr "Podpinanie pustej."
+msgid "Hooking an empty.{doubles}"
+msgstr ""
 
 msgid "Dropping the trailer."
 msgstr "Odstawianie naczepy."
@@ -28517,16 +30007,14 @@ msgstr "Rozładunek"
 msgid "Docked at {facility}."
 msgstr "Pod rampą w {facility}."
 
-#. placeholders: {facility}, {f}, {cargo_label}
-msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
+#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
+msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}.{doubles}"
 msgstr ""
-"Pod rampą w {facility}. Rozładunek: {f} {f:tona|tony|ton} ładunku "
-"{cargo_label}."
 
-#. placeholders: {f}, {cargo_label}
+#. placeholders: {f}, {cargo_label}, {doubles}
 #. one sentence of a longer line
-msgid "Unloading {f} tons of {cargo_label}."
-msgstr "Rozładunek: {f} {f:tona|tony|ton} ładunku {cargo_label}."
+msgid "Unloading {f} tons of {cargo_label}.{doubles}"
+msgstr ""
 
 msgid "Unloading cargo."
 msgstr "Rozładunek."
@@ -28569,23 +30057,18 @@ msgstr "Opłaty {grouped3}: drogowe {grouped4}, dodatkowe {charge_summary}."
 msgid "Net about {grouped6}.{advance_note} {timing}."
 msgstr "Netto około {grouped6}.{advance_note} {timing}."
 
-#. placeholders: {facility}, {f}, {label}
+#. placeholders: {facility}, {f}, {cargo_label}
 #. one sentence of a longer line
-msgid "Paperwork, {facility}: {f} tons of {label}."
-msgstr "Dokumenty, {facility}: {label}, {f} {f:tona|tony|ton}."
+msgid "Paperwork, {facility}: {f} tons of {cargo_label}."
+msgstr ""
 
-#. placeholders: {facility}, {f}, {label}, {grouped}, {grouped2}, {grouped3}, {grouped4}, {charge_summary}, {charge_fate}, {grouped5}, {grouped6}, {advance_note}, {timing}, {cargo_condition}, {finish}
+#. placeholders: {facility}, {f}, {cargo_label}, {grouped}, {grouped2}, {grouped3}, {grouped4}, {charge_summary}, {charge_fate}, {grouped5}, {grouped6}, {advance_note}, {timing}, {cargo_condition}, {finish}
 msgid ""
-"Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, gross "
+"Paperwork, {facility}: {f} tons of {cargo_label}. Rate {grouped}, gross "
 "{grouped2}. Charges {grouped3}: tolls {grouped4}, accessorials "
 "{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
 "{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
 msgstr ""
-"Dokumenty, {facility}: {label}, {f} {f:tona|tony|ton}. Stawka {grouped}, "
-"brutto {grouped2}. Opłaty {grouped3}: drogowe {grouped4}, dodatkowe "
-"{charge_summary}. {charge_fate} Grzywny {grouped5}. Netto około "
-"{grouped6}.{advance_note} {timing}. {cargo_condition} {finish}, żeby się "
-"rozliczyć."
 
 #. placeholders: {grouped}, {grouped2}
 #. one sentence of a longer line
@@ -28602,13 +30085,11 @@ msgstr "{cargo_condition} {finish}, żeby się rozliczyć."
 msgid "{charge_fate} Fines {grouped5}."
 msgstr "{charge_fate} Grzywny {grouped5}."
 
-#. placeholders: {facility}, {f}, {label}, {speed_text}, {else}, {finish}
+#. placeholders: {facility}, {f}, {cargo_label}, {speed_text}, {else}, {finish}
 msgid ""
-"At {facility}. {f} tons of {label}. Speed {speed_text}. {else}. Stop, then "
-"{finish}."
+"At {facility}. {f} tons of {cargo_label}. Speed {speed_text}. {else}. Stop, "
+"then {finish}."
 msgstr ""
-"Jesteś przy {facility}. {f} {f:tona|tony|ton} ładunku {label}. Prędkość "
-"{speed_text}. {else}. Zatrzymaj się, potem {finish}."
 
 #. placeholders: {speed_text}
 #. one sentence of a longer line
@@ -28620,10 +30101,10 @@ msgstr "Prędkość {speed_text}."
 msgid "Stop, then {finish}."
 msgstr "Zatrzymaj się, potem {finish}."
 
-#. placeholders: {f}, {label}
+#. placeholders: {f}, {cargo_label}
 #. one sentence of a longer line
-msgid "{f} tons of {label}."
-msgstr "{label}, {f} {f:tona|tony|ton}."
+msgid "{f} tons of {cargo_label}."
+msgstr ""
 
 msgid "Delivering"
 msgstr "Dostawa"
@@ -28706,12 +30187,11 @@ msgid "{f} hours before the deadline, due {deadline_appointment}"
 msgstr ""
 "{f} {f:godzina|godziny|godzin} przed terminem, termin {deadline_appointment}"
 
-#. placeholders: {f}, {label}, {f2}, {cargo_status_clause}
+#. placeholders: {f}, {cargo_label}, {f2}, {cargo_status_clause}
 msgid ""
-"Load: {f} tons of {label}, gross {f2} tons, freight {cargo_status_clause}"
+"Load: {f} tons of {cargo_label}, gross {f2} tons, freight "
+"{cargo_status_clause}"
 msgstr ""
-"Ładunek: {f} {f:tona|tony|ton} ładunku {label}, brutto {f2} "
-"{f2:tona|tony|ton}, ładunek {cargo_status_clause}"
 
 #. placeholders: {clock}, {deadline_text}
 msgid "Time: {clock}, {deadline_text}"
@@ -29262,14 +30742,13 @@ msgstr "Załóż łańcuchy śniegowe{when}: około {f} {f:minuty|minut|minut}"
 msgid "Driving to pickup at {pickup_facility_text}."
 msgstr "Jazda do odbioru w {pickup_facility_text}."
 
-#. placeholders: {f}, {label}, {destination}
-msgid "{f} tons of {label} are assigned for {destination}."
+#. placeholders: {f}, {cargo_label}, {destination}
+msgid "{f} tons of {cargo_label} are assigned for {destination}."
 msgstr ""
-"{f} {f:tona|tony|ton} ładunku {label} przydzielone do {destination}."
 
-#. placeholders: {f}, {label}, {destination}
-msgid "Hauling {f} tons of {label} to {destination}."
-msgstr "Wieziesz {f} {f:tonę|tony|ton} ładunku {label} do {destination}."
+#. placeholders: {f}, {cargo_label}, {destination}
+msgid "Hauling {f} tons of {cargo_label} to {destination}."
+msgstr ""
 
 #. placeholders: {duration_text}, {duration_text2}
 msgid "{duration_text} used of {duration_text2}."
@@ -29787,10 +31266,8 @@ msgstr "Silnik wyłączony, hamulec postojowy zaciągnięty."
 #. placeholders: {clears_text}
 #. one sentence of a longer line
 msgid ""
-"Driving jobs are off the dispatch board until it clears, {clears_text}."
+"Driving jobs are off the dispatch board until it ends, {clears_text}."
 msgstr ""
-"Zlecenia na jazdę znikają z tablicy zleceń, dopóki to nie minie, "
-"{clears_text}."
 
 #. placeholders: {verb}, {left}
 #. one sentence of a longer line
@@ -29800,12 +31277,9 @@ msgstr "Twoje prawo jazdy CDL: {verb} na {left}."
 #. placeholders: {verb}, {left}, {clears_text}
 msgid ""
 "Your CDL is {verb} for {left}. Driving jobs are off the dispatch board "
-"until it clears, {clears_text}. Your money and your truck are safe; rest, "
+"until it ends, {clears_text}. Your money and your truck are safe; rest, "
 "repairs, and the garage are still open."
 msgstr ""
-"Twoje prawo jazdy CDL: {verb} na {left}. Zlecenia na jazdę znikają z "
-"tablicy zleceń, dopóki to nie minie, {clears_text}. Twoje pieniądze i "
-"ciężarówka są bezpieczne; odpoczynek, naprawy i warsztat są nadal dostępne."
 
 #. one sentence of a longer line
 msgid ""
@@ -29817,11 +31291,8 @@ msgstr ""
 
 msgid ""
 "That is a serious violation on your record. One more inside three years and "
-"your CDL is suspended for 60 days, and driving jobs stop until it clears."
+"your CDL is suspended for 60 days, and driving jobs stop until it ends."
 msgstr ""
-"To poważne wykroczenie w twojej kartotece. Jeszcze jedno w ciągu trzech "
-"lat, a twoje prawo jazdy CDL zostanie zawieszone na 60 dni i zlecenia na "
-"jazdę się skończą, dopóki to nie minie."
 
 #. placeholders: {which}
 #. one sentence of a longer line
@@ -30050,21 +31521,17 @@ msgstr ""
 "Zatankuj {f} {f:galon|galony|galonów} na kartę paliwową przewoźnika. "
 "{margin}"
 
-#. placeholders: {f}, {grouped}
-#. one sentence of a longer line
-msgid "Refuel {f} gallons for {grouped} dollars."
+#. placeholders: {f}, {grouped}, {f2}, {margin}
+msgid ""
+"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"dollars a litre. {margin}"
 msgstr ""
-"Zatankuj {f} {f:galon|galony|galonów} za {grouped} "
-"{grouped:dolara|dolary|dolarów}."
 
 #. placeholders: {f}, {grouped}, {margin}
 msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
 msgstr ""
 "Zatankuj {f} {f:galon|galony|galonów} za {grouped} "
 "{grouped:dolara|dolary|dolarów}. {margin}"
-
-msgid "Shut the engine off before you fuel."
-msgstr "Przed tankowaniem wyłącz silnik."
 
 msgid "You cannot afford fuel here."
 msgstr "Nie stać cię tu na paliwo."
@@ -30111,6 +31578,9 @@ msgstr ""
 #. placeholders: {name}
 msgid "Saved at {name}."
 msgstr "Zapisano w {name}."
+
+msgid "Shut the engine off before you fuel."
+msgstr "Przed tankowaniem wyłącz silnik."
 
 msgid "Enter selects, Escape goes back."
 msgstr "Enter wybiera, Escape wraca."
@@ -30553,6 +32023,15 @@ msgstr "{name}: zamknięte"
 
 msgid "Nobody is at the scale house. There is nothing to check in at."
 msgstr "W budynku wagi nikogo nie ma. Nie ma gdzie się zgłosić."
+
+#. placeholders: {f}
+msgid "Walk around the truck, both trailers and the dolly, {f} minutes"
+msgstr ""
+
+msgid ""
+"A pre-trip walk-around: what an inspector would find on the tractor, both "
+"trailers and the converter dolly. Longer than a single trailer's."
+msgstr ""
 
 msgid ""
 "A pre-trip walk-around: what an inspector would find on the tractor and the "
@@ -31055,9 +32534,31 @@ msgid "{outcome} {safety_record_line} It is {clock_text}."
 msgstr "{outcome} {safety_record_line} Jest {clock_text}."
 
 msgid ""
+"Nothing to write up: tires, brakes, lights, both trailers and the converter "
+"dolly would all pass."
+msgstr ""
+
+msgid ""
 "Nothing to write up: tires, brakes, lights and the trailer would all pass."
 msgstr ""
 "Nie ma czego zapisać: opony, hamulce, światła i naczepa przeszłyby kontrolę."
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid ""
+"Walk-around done, both trailers and the converter dolly, {f} minutes."
+msgstr ""
+
+#. placeholders: {f}, {body}, {clock_text}, {deadline_text}
+msgid ""
+"Walk-around done, both trailers and the converter dolly, {f} minutes. "
+"{body} It is {clock_text}. {deadline_text}"
+msgstr ""
+
+#. placeholders: {body}, {clock_text}
+#. one sentence of a longer line
+msgid "{body} It is {clock_text}."
+msgstr "{body} Jest {clock_text}."
 
 #. placeholders: {f}
 #. one sentence of a longer line
@@ -31070,11 +32571,6 @@ msgid ""
 msgstr ""
 "Obchód zakończony, {f} {f:minuta|minuty|minut}. {body} Jest {clock_text}. "
 "{deadline_text}"
-
-#. placeholders: {body}, {clock_text}
-#. one sentence of a longer line
-msgid "{body} It is {clock_text}."
-msgstr "{body} Jest {clock_text}."
 
 msgid "No real-time parking data nearby."
 msgstr "Brak danych o parkingach na żywo w pobliżu."
@@ -31236,71 +32732,66 @@ msgstr ""
 msgid "{billing} It is {clock_text}."
 msgstr "{billing} Jest {clock_text}."
 
-msgid "Return to terminal"
-msgstr "Wróć do terminala"
+msgid "Hand the truck to the relief driver"
+msgstr ""
 
 msgid ""
-"License pulled, so the truck stays put. Dispatch takes the load back."
+"License pulled, so you cannot drive on. A relief driver takes the truck "
+"back to the city this run left from, and dispatch takes the load back."
 msgstr ""
-"Prawo jazdy zatrzymane, więc ciężarówka zostaje na miejscu. Dyspozytor "
-"odbiera ładunek."
 
 msgid "Pull back onto the highway"
 msgstr "Wróć na autostradę"
 
-#. placeholders: {label}
-msgid "Dispatch takes the {label} load back and reassigns it"
-msgstr "Dyspozytor odbiera ładunek {label} i przydziela go komuś innemu"
+#. placeholders: {cargo_label}
+msgid "Dispatch takes the {cargo_label} load back and reassigns it"
+msgstr ""
 
 msgid ""
 "There is no loaded trailer to hand back, and the assignment is canceled"
 msgstr ""
 "Nie ma załadowanej naczepy do oddania, a przydział zostaje anulowany"
 
-msgid "the terminal"
-msgstr "terminal"
-
-#. placeholders: {load}, {terminal}
+#. placeholders: {load}, {city}
 msgid ""
-" The license is gone for good, so the truck stays here. {load}, and a "
-"relief driver takes the truck in. You are released to {terminal}."
+" The license is gone for good, so you cannot drive the truck another mile. "
+"{load}, and a relief driver takes the truck back to {city}, where you are "
+"released."
 msgstr ""
-" Prawo jazdy przepadło na dobre, więc ciężarówka zostaje tutaj. {load}, a "
-"kierowca zastępczy odprowadza ciężarówkę. Wracasz do: {terminal}."
 
 #. one sentence of a longer line
-msgid "The license is gone for good, so the truck stays here."
-msgstr "Prawo jazdy przepadło na dobre, więc ciężarówka zostaje tutaj."
-
-#. placeholders: {terminal}
-#. one sentence of a longer line
-msgid "You are released to {terminal}."
-msgstr "Wracasz do: {terminal}."
-
-#. placeholders: {load}
-#. one sentence of a longer line
-msgid "{load}, and a relief driver takes the truck in."
-msgstr "{load}, a kierowca zastępczy odprowadza ciężarówkę."
-
-#. placeholders: {load}, {terminal}
 msgid ""
-" The license is pulled as of now, so the truck stays here. {load}, and a "
-"relief driver takes the truck in. You are released to {terminal} to wait "
-"the suspension out."
+"The license is gone for good, so you cannot drive the truck another mile."
 msgstr ""
-" Prawo jazdy zostaje zatrzymane od teraz, więc ciężarówka zostaje tutaj. "
-"{load}, a kierowca zastępczy odprowadza ciężarówkę. Wracasz do: {terminal}, "
-"żeby przeczekać zawieszenie."
+
+#. placeholders: {load}, {city}
+#. one sentence of a longer line
+msgid ""
+"{load}, and a relief driver takes the truck back to {city}, where you are "
+"released."
+msgstr ""
+
+#. placeholders: {load}, {city}, {status_noun}, {clears_text}
+msgid ""
+" The license is pulled as of now, so you cannot drive the truck another "
+"mile. {load}, and a relief driver takes the truck back to {city}. You wait "
+"out the {status_noun} there; it ends {clears_text}."
+msgstr ""
 
 #. one sentence of a longer line
-msgid "The license is pulled as of now, so the truck stays here."
+msgid ""
+"The license is pulled as of now, so you cannot drive the truck another mile."
 msgstr ""
-"Prawo jazdy zostaje zatrzymane od teraz, więc ciężarówka zostaje tutaj."
 
-#. placeholders: {terminal}
+#. placeholders: {status_noun}, {clears_text}
 #. one sentence of a longer line
-msgid "You are released to {terminal} to wait the suspension out."
-msgstr "Wracasz do: {terminal}, żeby przeczekać zawieszenie."
+msgid "You wait out the {status_noun} there; it ends {clears_text}."
+msgstr ""
+
+#. placeholders: {load}, {city}
+#. one sentence of a longer line
+msgid "{load}, and a relief driver takes the truck back to {city}."
+msgstr ""
 
 msgid "Enter or Escape pulls back onto the highway."
 msgstr "Enter lub Escape i wracasz na autostradę."
@@ -31415,6 +32906,26 @@ msgstr ""
 #. placeholders: {clock_text}, {wake_air_instruction}
 #. one sentence of a longer line
 msgid ""
+"It is {clock_text}, your 70-hour cycle is fresh, you wake rested, and the "
+"delivery deadline kept counting.{wake_air_instruction}"
+msgstr ""
+
+#. placeholders: {lead}, {why}
+#. one sentence of a longer line
+msgid ""
+"{lead}{why} Out of service: thirty-four hours parked on the shoulder."
+msgstr ""
+
+#. placeholders: {lead}, {why}, {clock_text}, {wake_air_instruction}
+msgid ""
+"{lead}{why} Out of service: thirty-four hours parked on the shoulder. It is "
+"{clock_text}, your 70-hour cycle is fresh, you wake rested, and the "
+"delivery deadline kept counting.{wake_air_instruction}"
+msgstr ""
+
+#. placeholders: {clock_text}, {wake_air_instruction}
+#. one sentence of a longer line
+msgid ""
 "It is {clock_text}, driving and duty clocks reset, you wake rested, and the "
 "delivery deadline kept counting.{wake_air_instruction}"
 msgstr ""
@@ -31461,8 +32972,9 @@ msgid ""
 msgstr ""
 "Zatrzymanie na poboczu do kontroli.{polite} {summary} {outcome} {current}"
 
-msgid "Enter or Escape returns to the terminal."
-msgstr "Enter lub Escape wraca do terminala."
+msgid ""
+"Enter or Escape hands the truck to the relief driver and ends the run."
+msgstr ""
 
 msgid "CDL disqualified for life"
 msgstr "Dożywotni zakaz prowadzenia na CDL"
@@ -31471,8 +32983,8 @@ msgstr "Dożywotni zakaz prowadzenia na CDL"
 msgid "You pull onto the shoulder and stop.{tail}"
 msgstr "Zjeżdżasz na pobocze i się zatrzymujesz.{tail}"
 
-msgid "Enter or Escape continues from the terminal."
-msgstr "Enter lub Escape i jedziesz dalej z terminala."
+msgid "Enter or Escape continues."
+msgstr ""
 
 msgid "Felony stop"
 msgstr "Zatrzymanie za przestępstwo"
@@ -31480,37 +32992,30 @@ msgstr "Zatrzymanie za przestępstwo"
 msgid "Ran from a traffic stop"
 msgstr "Ucieczka przed kontrolą drogową"
 
-msgid "felony failure-to-stop enforcement"
-msgstr "egzekwowanie za przestępstwo niezatrzymania się"
-
-#. placeholders: {label}
-#. one sentence of a longer line
-msgid "Dispatch cancels the {label} load."
-msgstr "Dyspozytor anuluje ładunek {label}."
-
-#. placeholders: {label}
-msgid "Dispatch cancels the {label} load. No pay for this run."
-msgstr "Dyspozytor anuluje ładunek {label}. Bez zapłaty za ten kurs."
-
-#. one sentence of a longer line
-msgid "No pay for this run."
-msgstr "Bez zapłaty za ten kurs."
-
-msgid "No loaded trailer to lose, but the assignment is canceled."
+msgid "felony failure-to-stop booking and bond"
 msgstr ""
-"Nie ma załadowanej naczepy do stracenia, ale przydział zostaje anulowany."
 
-#. placeholders: {grouped}, {construction_zone_fine_clause}, {f}, {f2}
+#. placeholders: {f}
+msgid ", and booking and bond took {f} hours"
+msgstr ""
+
+#. placeholders: {f}
+#. one clause of a longer line
+msgid "and booking and bond took {f} hours"
+msgstr ""
+
+#. placeholders: {grouped}, {construction_zone_fine_clause}, {f}, {booking}
 #. one sentence of a longer line
 msgid ""
-"Felony failure-to-stop fine: {grouped} dollars, paid on the spot, with a "
-"major reputation hit.{construction_zone_fine_clause} Spike strips added {f} "
-"percent truck damage, processing took {f2} hours."
+"Bond: {grouped} dollars, posted to get out, with a major reputation "
+"hit.{construction_zone_fine_clause} Spike strips added {f} percent truck "
+"damage{booking}."
 msgstr ""
-"Grzywna za przestępstwo niezatrzymania się: {grouped} "
-"{grouped:dolar|dolary|dolarów}, płatne na miejscu, z poważnym ciosem w "
-"reputację.{construction_zone_fine_clause} Kolczatki dodały {f} procent "
-"uszkodzeń ciężarówki, procedury zajęły {f2} {f2:godzinę|godziny|godzin}."
+
+#. placeholders: {towed_to}
+#. one sentence of a longer line
+msgid "The truck was towed to {towed_to}."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -31520,29 +33025,64 @@ msgstr ""
 "Policja rozłożyła kolczatki w poprzek pasa, bo ciężarówka jechała dalej "
 "mimo świateł i syreny za nią."
 
-#. placeholders: {grouped}, {construction_zone_fine_clause}, {f}, {f2}, {load_text}, {terminal}
+#. placeholders: {grouped}, {construction_zone_fine_clause}, {f}, {booking}, {load_text}, {towed_to}
 msgid ""
 "Troopers laid spike strips across the lane after you kept driving with "
-"lights and siren behind you. Felony failure-to-stop fine: {grouped} "
-"dollars, paid on the spot, with a major reputation "
-"hit.{construction_zone_fine_clause} Spike strips added {f} percent truck "
-"damage, processing took {f2} hours. {load_text} You are released back to "
-"{terminal}."
+"lights and siren behind you. Bond: {grouped} dollars, posted to get out, "
+"with a major reputation hit.{construction_zone_fine_clause} Spike strips "
+"added {f} percent truck damage{booking}. {load_text} You are released after "
+"booking. The truck was towed to {towed_to}."
 msgstr ""
-"Policja rozłożyła kolczatki w poprzek pasa, bo ciężarówka jechała dalej "
-"mimo świateł i syreny za nią. Grzywna za przestępstwo niezatrzymania się: "
-"{grouped} {grouped:dolar|dolary|dolarów}, płatne na miejscu, z poważnym "
-"ciosem w reputację.{construction_zone_fine_clause} Kolczatki dodały {f} "
-"procent uszkodzeń ciężarówki, procedury zajęły {f2} "
-"{f2:godzinę|godziny|godzin}. {load_text} Wracasz do: {terminal}."
 
-#. placeholders: {load_text}, {terminal}
+#. placeholders: {load_text}
 #. one sentence of a longer line
-msgid "{load_text} You are released back to {terminal}."
-msgstr "{load_text} Wracasz do: {terminal}."
+msgid "{load_text} You are released after booking."
+msgstr ""
 
-msgid "Continue from the city terminal."
-msgstr "Kontynuuj z terminala w mieście."
+msgid "No loaded trailer to lose, but the assignment is canceled."
+msgstr ""
+"Nie ma załadowanej naczepy do stracenia, ale przydział zostaje anulowany."
+
+msgid "No loaded trailer to lose, but the load is canceled."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The load is yours to sort out with the shipper."
+msgstr ""
+
+#. placeholders: {cargo_label}
+#. one sentence of a longer line
+msgid "The {cargo_label} load does not deliver, so no pay for this run."
+msgstr ""
+
+#. placeholders: {cargo_label}
+msgid ""
+"The {cargo_label} load does not deliver, so no pay for this run. The load "
+"is yours to sort out with the shipper."
+msgstr ""
+
+#. placeholders: {cargo_label}
+#. one sentence of a longer line
+msgid "Dispatch cancels the {cargo_label} load."
+msgstr ""
+
+#. placeholders: {cargo_label}, {carrier}
+msgid ""
+"Dispatch cancels the {cargo_label} load. No pay for this run. {carrier} "
+"recovered the load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "No pay for this run."
+msgstr "Bez zapłaty za ten kurs."
+
+#. placeholders: {carrier}
+#. one sentence of a longer line
+msgid "{carrier} recovered the load."
+msgstr ""
+
+msgid "Continue from where the truck is parked."
+msgstr ""
 
 msgid "Held at the chain checkpoint."
 msgstr "Zatrzymanie przy punkcie kontroli łańcuchów."
@@ -32390,9 +33930,6 @@ msgstr "Tankowanie"
 msgid "last lot"
 msgstr ""
 
-msgid "shift"
-msgstr "zmiana"
-
 msgid "stalled"
 msgstr "unieruchomiona"
 
@@ -32696,6 +34233,9 @@ msgstr ""
 
 msgid "A chain is slapping the fender. Stop soon and tighten it."
 msgstr "Łańcuch obija błotnik. Wkrótce się zatrzymaj i go dociągnij."
+
+msgid "Reefer fuel is gone."
+msgstr ""
 
 #. placeholders: {speed_text}
 #. one sentence of a longer line
@@ -33184,6 +34724,28 @@ msgstr "Kierunkowskaz na pobocze."
 
 msgid "Pulling over to the shoulder."
 msgstr "Zjazd na pobocze."
+
+msgid ""
+"US hours rules again: 11 hours of driving in a 14-hour window, and a "
+"30-minute break after 8 hours of driving."
+msgstr ""
+
+msgid ""
+"Alaska hours rules now apply: up to 15 hours of driving and 20 on duty "
+"after 10 hours off, with no 30-minute break."
+msgstr ""
+
+msgid ""
+"Canadian hours rules now apply: up to 13 hours of driving and 14 on duty "
+"after 8 hours off, and no driving once 16 hours have passed since that "
+"break."
+msgstr ""
+
+msgid ""
+"Canadian north-of-60 hours rules now apply: up to 15 hours of driving and "
+"18 on duty after 8 hours off, and no driving once 20 hours have passed "
+"since that break."
+msgstr ""
 
 msgid "buff"
 msgstr "buff"
@@ -33930,90 +35492,12 @@ msgstr "{name}, jeszcze nieprzeniesione"
 msgid "This screen is not ported yet; Escape goes back."
 msgstr "Ten ekran nie został jeszcze przeniesiony; Escape wraca."
 
-#. placeholders: {terminal}, {the_city}
-msgid "{terminal} in {the_city} service area"
-msgstr "{terminal}, obszar obsługi {the_city}"
-
-#. one sentence of a longer line
-msgid "Fuel, repairs, wear, trailers, and reserves come from your cash."
-msgstr "Paliwo, naprawy, zużycie, naczepy i rezerwy idą z twojej gotówki."
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-msgid "New truck, {grouped} dollars working capital."
-msgstr ""
-"Nowa ciężarówka, {grouped} {grouped:dolar|dolary|dolarów} kapitału "
-"obrotowego."
-
-#. one sentence of a longer line
-msgid "Next: dispatch board."
-msgstr "Dalej: tablica zleceń."
-
-#. placeholders: {prefix}, {carrier_name}, {location}
-#. one sentence of a longer line
-msgid "{prefix}First-day briefing: leased to {carrier_name} at {location}."
-msgstr ""
-"{prefix}Odprawa pierwszego dnia: pod licencją przewoźnika {carrier_name} w "
-"{location}."
-
-#. placeholders: {prefix}, {carrier_name}, {location}, {grouped}
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name} at {location}. New "
-"truck, {grouped} dollars working capital. Fuel, repairs, wear, trailers, "
-"and reserves come from your cash. Next: dispatch board."
-msgstr ""
-"{prefix}Odprawa pierwszego dnia: pod licencją przewoźnika {carrier_name} w "
-"{location}. Nowa ciężarówka, {grouped} {grouped:dolar|dolary|dolarów} "
-"kapitału obrotowego. Paliwo, naprawy, zużycie, naczepy i rezerwy idą z "
-"twojej gotówki. Dalej: tablica zleceń."
-
-#. one sentence of a longer line
-msgid "Assigned loads; a refusal goes on your record."
-msgstr "Ładunki przydzielane, odmowa trafia do kartoteki."
-
-#. one sentence of a longer line
-msgid "Carrier covers fuel, repairs, insurance, and trailers."
-msgstr "Przewoźnik pokrywa paliwo, naprawy, ubezpieczenie i naczepy."
-
-#. placeholders: {summary}
-#. one sentence of a longer line
-msgid "Dispatch: {summary}."
-msgstr "Dyspozytor: {summary}."
-
-#. placeholders: {location}
-#. one sentence of a longer line
-msgid "Truck at {location}."
-msgstr "Ciężarówka w {location}."
-
-#. placeholders: {prefix}, {carrier_name}
-#. one sentence of a longer line
-msgid "{prefix}First-day briefing: {carrier_name}."
-msgstr "{prefix}Odprawa pierwszego dnia: {carrier_name}."
-
-#. placeholders: {prefix}, {carrier_name}, {location}, {summary}
-msgid ""
-"{prefix}First-day briefing: {carrier_name}. Truck at {location}. Carrier "
-"covers fuel, repairs, insurance, and trailers. Dispatch: {summary}. "
-"Assigned loads; a refusal goes on your record. Next: dispatch board."
-msgstr ""
-"{prefix}Odprawa pierwszego dnia: {carrier_name}. Ciężarówka w {location}. "
-"Przewoźnik pokrywa paliwo, naprawy, ubezpieczenie i naczepy. Dyspozytor: "
-"{summary}. Ładunki przydzielane, odmowa trafia do kartoteki. Dalej: tablica "
-"zleceń."
-
 msgid ""
 "Local service drives were retired in this update; you are parked at the "
 "terminal."
 msgstr ""
 "Lokalne kursy usługowe zostały wycofane w tej aktualizacji; stoisz w "
 "terminalu."
-
-msgid ""
-"Your saved run cannot go on: dispatch cancels it, and a relief driver "
-"brings the truck back."
-msgstr ""
-"Twój zapisany kurs nie może być kontynuowany: dyspozytor go anuluje, a "
-"kierowca zastępczy odprowadza ciężarówkę."
 
 msgid ""
 " The adjusted time covers the 10-hour sleep your current legal hours "
@@ -34031,6 +35515,19 @@ msgstr ""
 "Dyspozytor skorygował termin tej zapisanej dostawy do {f} "
 "{f:godziny|godzin|godzin}.{reason}"
 
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid ""
+"Your saved run cannot go on: dispatch takes the load back, and a relief "
+"driver takes the truck back to {city}."
+msgstr ""
+
+#. placeholders: {city}, {refusal}
+msgid ""
+"Your saved run cannot go on: dispatch takes the load back, and a relief "
+"driver takes the truck back to {city}. {refusal}"
+msgstr ""
+
 #. placeholders: {facility}
 msgid "driving to pickup at {facility}"
 msgstr "w drodze do odbioru w {facility}"
@@ -34045,14 +35542,6 @@ msgstr "odbiór dla"
 msgid "on the road to {facility}"
 msgstr "w drodze do {facility}"
 
-#. placeholders: {name}, {city}
-msgid "at {name} in {city}"
-msgstr "przy {name}, {city}"
-
-#. placeholders: {current_city}
-msgid "in {current_city}"
-msgstr "w {current_city}"
-
 #. placeholders: {format}, {day}, {year}, {hour}, {minute}, {am_pm}
 msgid "{format} {day}, {year} at {hour}:{minute} {am_pm}"
 msgstr "{day} {format} {year}, {hour}:{minute} {am_pm}"
@@ -34060,6 +35549,10 @@ msgstr "{day} {format} {year}, {hour}:{minute} {am_pm}"
 #. placeholders: {name}, {level}
 msgid "{name}: level {level}"
 msgstr "{name}: poziom {level}"
+
+#. placeholders: {status_label}
+msgid "{status_label} with no carrier"
+msgstr ""
 
 #. placeholders: {deliveries}
 msgid "{deliveries} deliveries"
@@ -36531,59 +38024,13 @@ msgid "Career start"
 msgstr "Start kariery"
 
 msgid ""
-"Company starts use assigned carrier equipment; the carrier pays fuel, "
-"repairs, insurance, and trailer support. The owner-operator start is higher "
-"risk: you own a brand-new truck and pay business costs from day one. Enter "
-"selects, Escape goes back."
+"Only carriers that hire in your home city are listed. Each one says where "
+"your truck starts: that carrier's nearest terminal. Company starts use "
+"assigned carrier equipment; the carrier pays fuel, repairs, insurance, and "
+"trailer support. The owner-operator start is higher risk: you own a "
+"brand-new truck and pay business costs from day one. Enter selects, Escape "
+"goes back."
 msgstr ""
-"Start w firmie oznacza przydzielony sprzęt przewoźnika; przewoźnik płaci za "
-"paliwo, naprawy, ubezpieczenie i obsługę naczep. Start jako "
-"kierowca-właściciel jest bardziej ryzykowny: masz na własność fabrycznie "
-"nową ciężarówkę i od pierwszego dnia płacisz koszty działalności. Enter "
-"wybiera, Escape cofa."
-
-msgid "Career start."
-msgstr "Start kariery."
-
-msgid "Home region"
-msgstr "Region macierzysty"
-
-msgid ""
-"Up and Down, Home and End, or a typed letter pick a region. Enter opens its "
-"cities, Escape goes back."
-msgstr ""
-"Strzałki w górę i w dół, Home i End albo wpisana litera wybierają region. "
-"Enter otwiera jego miasta, Escape cofa."
-
-#. placeholders: {carrier_name}
-msgid "Home region for your {carrier_name} career."
-msgstr "Region macierzysty twojej kariery w {carrier_name}."
-
-#. placeholders: {place}
-msgid "{place} (1 city)"
-msgstr "{place}, 1 miasto"
-
-#. placeholders: {place}
-msgid "{place}, 1 city."
-msgstr "{place}, 1 miasto."
-
-#. placeholders: {place}, {count}
-msgid "{place} ({count} cities)"
-msgstr "{place}, {count} {count:miasto|miasta|miast}"
-
-#. placeholders: {place}, {count}
-msgid "{place}, {count} cities."
-msgstr "{place}, {count} {count:miasto|miasta|miast}."
-
-msgid "Home terminal"
-msgstr "Baza macierzysta"
-
-msgid ""
-"Up and Down, Home and End, or a typed letter pick a city. Enter confirms "
-"your home terminal, Escape goes back."
-msgstr ""
-"Strzałki w górę i w dół, Home i End albo wpisana litera wybierają miasto. "
-"Enter potwierdza bazę macierzystą, Escape cofa."
 
 #. one sentence of a longer line
 msgid "Escape goes back to change it."
@@ -36618,13 +38065,76 @@ msgstr ""
 msgid "Loaded over existing driver named {name}. "
 msgstr "Wczytano w miejsce istniejącego kierowcy o imieniu {name}. "
 
-#. placeholders: {region}
-msgid "{region} terminals."
-msgstr "Terminale w regionie {region}."
+msgid "carrier hires"
+msgstr ""
 
-#. placeholders: {terminal_name}, {place}
-msgid "Start at {terminal_name} in {place}."
-msgstr "Start w {terminal_name}, {place}."
+msgid "carriers hire"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Career start."
+msgstr "Start kariery."
+
+#. placeholders: {count}, {noun}, {place}
+msgid "Career start. {count} {noun} in {place}."
+msgstr ""
+
+#. placeholders: {t}
+msgid " Truck starts at {t}."
+msgstr ""
+
+msgid "Home region"
+msgstr "Region macierzysty"
+
+msgid ""
+"Up and Down, Home and End, or a typed letter pick a region. Enter opens its "
+"home cities, Escape goes back."
+msgstr ""
+
+msgid "Home region for your new career."
+msgstr ""
+
+#. placeholders: {place}
+msgid "{place} (1 city)"
+msgstr "{place}, 1 miasto"
+
+#. placeholders: {place}
+msgid "{place}, 1 home city where a carrier is hiring."
+msgstr ""
+
+#. placeholders: {place}, {count}
+msgid "{place} ({count} cities)"
+msgstr "{place}, {count} {count:miasto|miasta|miast}"
+
+#. placeholders: {place}, {count}
+msgid "{place}, {count} home cities where a carrier is hiring."
+msgstr ""
+
+msgid "Home city"
+msgstr ""
+
+msgid ""
+"Up and Down, Home and End, or a typed letter pick your home city. Enter "
+"lists the carriers hiring there, Escape goes back."
+msgstr ""
+
+#. placeholders: {region}
+msgid "{region} home cities."
+msgstr ""
+
+#. placeholders: {place}
+#. one sentence of a longer line
+msgid "Home in {place}."
+msgstr ""
+
+#. placeholders: {place}, {count}, {noun}
+msgid "Home in {place}. {count} {noun} here."
+msgstr ""
+
+#. placeholders: {count}, {noun}
+#. one sentence of a longer line
+msgid "{count} {noun} here."
+msgstr ""
 
 msgid "Main menu"
 msgstr "Menu główne"
@@ -40217,9 +41727,6 @@ msgstr "Powrót do listy karier"
 msgid "Back to the saved careers, nothing changed."
 msgstr "Powrót do zapisanych karier, nic nie zmieniono."
 
-msgid "Your driving record"
-msgstr "Twoja kartoteka kierowcy"
-
 #. one sentence of a longer line
 msgid ""
 "Freight Fate now keeps a driving record for your career: citations, serious "
@@ -40228,22 +41735,15 @@ msgstr ""
 "Freight Fate prowadzi teraz kartotekę kierowcy dla twojej kariery: mandaty, "
 "poważne wykroczenia i to, czy twoje CDL jest czyste."
 
-#. placeholders: {standing}, {trust}, {current_text}
+#. placeholders: {standing}, {trust}
 msgid ""
 "Freight Fate now keeps a driving record for your career: citations, serious "
 "violations, and whether your CDL is clear. Two serious violations in three "
 "years suspend it; running from a police stop is a major offense that "
 "disqualifies it for a year. Reputation also decides how much freight "
 "dispatch shows you and how much choice you get. Nothing was reset or taken. "
-"{standing} {trust} {current_text}"
+"{standing} {trust}"
 msgstr ""
-"Freight Fate prowadzi teraz kartotekę kierowcy dla twojej kariery: mandaty, "
-"poważne wykroczenia i to, czy twoje CDL jest czyste. Dwa poważne "
-"wykroczenia w ciągu trzech lat zawieszają je; ucieczka z kontroli "
-"policyjnej to rażące naruszenie, za które CDL jest odbierane na rok. "
-"Reputacja decyduje też o tym, ile ładunków pokazuje ci dyspozytor i jak "
-"duży masz wybór. Niczego nie wyzerowano ani nie odebrano. {standing} "
-"{trust} {current_text}"
 
 #. one sentence of a longer line
 msgid "Nothing was reset or taken."
@@ -40266,46 +41766,27 @@ msgstr ""
 "kontroli policyjnej to rażące naruszenie, za które CDL jest odbierane na "
 "rok."
 
-msgid "Save file updated"
-msgstr "Plik zapisu zaktualizowany"
+msgid "Your driving record"
+msgstr "Twoja kartoteka kierowcy"
 
-#. one sentence of a longer line
-msgid "Save file updated."
-msgstr "Plik zapisu zaktualizowany."
-
-#. placeholders: {current_text}
 msgid ""
 "Save file updated. This career was converted from an older version: every "
 "truck you own now keeps its own fuel, damage, tire wear, and road grime. "
 "The truck you were driving keeps its condition; your other trucks start "
 "fueled and fresh. The updated save no longer opens in older versions of the "
-"game. {current_text}"
+"game."
 msgstr ""
-"Plik zapisu zaktualizowany. Ta kariera została przekonwertowana ze starszej "
-"wersji: każda twoja ciężarówka ma teraz własne paliwo, uszkodzenia, zużycie "
-"opon i brud z drogi. Ciężarówka, którą jeździsz, zachowuje swój stan; "
-"pozostałe zaczynają zatankowane i czyste. Zaktualizowany zapis nie otworzy "
-"się już w starszych wersjach gry. {current_text}"
 
-#. one sentence of a longer line
+msgid "Save file updated"
+msgstr "Plik zapisu zaktualizowany"
+
 msgid ""
-"The truck you were driving keeps its condition; your other trucks start "
-"fueled and fresh."
+"Turnpike doubles loads now need the turnpike doubles program. Your double "
+"van program still covers parcel doubles."
 msgstr ""
-"Ciężarówka, którą jeździsz, zachowuje swój stan; pozostałe zaczynają "
-"zatankowane i czyste."
 
-#. one sentence of a longer line
-msgid "The updated save no longer opens in older versions of the game."
-msgstr "Zaktualizowany zapis nie otworzy się już w starszych wersjach gry."
-
-#. one sentence of a longer line
-msgid ""
-"This career was converted from an older version: every truck you own now "
-"keeps its own fuel, damage, tire wear, and road grime."
+msgid "Trailer programs changed"
 msgstr ""
-"Ta kariera została przekonwertowana ze starszej wersji: każda twoja "
-"ciężarówka ma teraz własne paliwo, uszkodzenia, zużycie opon i brud z drogi."
 
 msgid ""
 "Type with the on-screen keyboard, then double tap. Flick left or right to "
@@ -41501,6 +42982,18 @@ msgstr "terminal przeładunkowy {place_name} w {city}"
 msgid "freight terminal {place_name} near {town} in {city}"
 msgstr "terminal przeładunkowy {place_name} w pobliżu {town} w {city}"
 
+msgid "travel center {place_name} in {city}"
+msgstr ""
+
+msgid "travel center {place_name} near {town} in {city}"
+msgstr ""
+
+msgid "truck parking {place_name} in {city}"
+msgstr ""
+
+msgid "truck parking {place_name} near {town} in {city}"
+msgstr ""
+
 msgid "warehouse {place_name} in {city}"
 msgstr "magazyn {place_name} w {city}"
 
@@ -41896,9 +43389,6 @@ msgstr "znak zapytania"
 msgid "exclamation mark"
 msgstr "wykrzyknik"
 
-msgid "percent"
-msgstr "procent"
-
 msgid "number sign"
 msgstr "krzyżyk"
 
@@ -42008,6 +43498,612 @@ msgstr ""
 #~ "kierowania i Dźwięk prowadzenia po pasie w sekcji Dźwięk zmieniają, w którą "
 #~ "stronę kierować i co się przechyla. Realistyczny ustawia to na wyłączone, "
 #~ "Zrównoważony na częściowe, Wszyscy asystenci na pełne."
+
+#~ msgid "{py_capitalize}. {grouped} dollars.{cdl}{record}"
+#~ msgstr ""
+#~ "{py_capitalize}. {grouped} {grouped:dolar|dolary|dolarów}.{cdl}{record}"
+
+#~ msgid ""
+#~ "Your level, record, and home terminal come with you, and the next load runs "
+#~ "on their pay and their tractor."
+#~ msgstr ""
+#~ "Twój poziom, kartoteka i baza macierzysta idą z tobą, a następny ładunek "
+#~ "jedzie za ich stawkę i ich ciągnikiem."
+
+#~ msgid ""
+#~ "{carrier_name} hires you away from {former}. Your level, record, and home "
+#~ "terminal come with you, and the next load runs on their pay and their "
+#~ "tractor."
+#~ msgstr ""
+#~ "{carrier_name} podkupuje cię od {former}. Twój poziom, kartoteka i baza "
+#~ "macierzysta idą z tobą, a następny ładunek jedzie za ich stawkę i ich "
+#~ "ciągnikiem."
+
+#~ msgid "{name} Company Yard"
+#~ msgstr "Plac firmowy {name}"
+
+#~ msgid ""
+#~ "The carrier's insurer will not carry a record like that; "
+#~ "{LAST_CHANCE_CARRIER_NAME} keeps you on sufferance until "
+#~ "{record_clears_text}."
+#~ msgstr ""
+#~ "Ubezpieczyciel przewoźnika nie przyjmie takiej kartoteki; "
+#~ "{LAST_CHANCE_CARRIER_NAME} trzyma cię z łaski do {record_clears_text}."
+
+#~ msgid ""
+#~ "Your CDL is suspended, so the yard holds your seat until it clears {clears}."
+#~ msgstr ""
+#~ "Twoje CDL jest zawieszone, więc plac trzyma twój fotel, dopóki zawieszenie "
+#~ "nie minie {clears}."
+
+#~ msgid "You cannot drive, not even bobtail, while your CDL is {verb}."
+#~ msgstr ""
+#~ "Nie możesz jeździć, nawet bez naczepy, dopóki twoje CDL jest {verb}."
+
+#~ msgid ""
+#~ "You cannot drive, not even bobtail, while your CDL is {verb}. The {noun} "
+#~ "ends {clears_text}."
+#~ msgstr ""
+#~ "Nie możesz jeździć, nawet bez naczepy, dopóki twoje CDL jest {verb}. {noun} "
+#~ "kończy się {clears_text}."
+
+#~ msgid ""
+#~ "{pay_text} {deadline} Equipment: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+#~ msgstr ""
+#~ "{pay_text} {deadline} Sprzęt: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+
+#~ msgid ""
+#~ "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+#~ msgstr ""
+#~ "{prefix}{load} {distance}. {pay_text} {deadline} Sprzęt: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+
+#~ msgid "turnpike doubles freight"
+#~ msgstr "podwójne naczepy na autostradach płatnych"
+
+#~ msgid "{answer}, but you are {shift_over}. {RESET_ADVICE}"
+#~ msgstr "{answer}, ale {shift_over}. {RESET_ADVICE}"
+
+#~ msgid "{name} in {the_city} service area"
+#~ msgstr "{name}, rejon {the_city}"
+
+#~ msgid ""
+#~ "{prefix}First-day briefing: leased to {carrier_name}, parked at {location}."
+#~ msgstr ""
+#~ "{prefix}Odprawa pierwszego dnia: pod licencją przewoźnika {carrier_name}, "
+#~ "postój: {location}."
+
+#~ msgid "Your assigned truck is parked at {location}."
+#~ msgstr "Twoja przydzielona ciężarówka stoi tu: {location}."
+
+#~ msgid ""
+#~ "Dispatch assigned this load. Accepting starts the deadhead from your "
+#~ "terminal to its origin facility. Route inspection after pickup covers rest, "
+#~ "fuel, toll, weather, and restrictions."
+#~ msgstr ""
+#~ "Dyspozytor przydzielił ten ładunek. Przyjęcie rozpoczyna dojazd na pusto z "
+#~ "terminala do zakładu nadania. Przegląd trasy po odbiorze obejmuje "
+#~ "odpoczynek, paliwo, opłaty drogowe, pogodę i ograniczenia."
+
+#~ msgid "{f} tons of {label} to {destination}, {distance_text}"
+#~ msgstr "{label}, {f} {f:tona|tony|ton}, do {destination}, {distance_text}"
+
+#~ msgid "Cargo: {label}."
+#~ msgstr "Ładunek: {label}."
+
+#~ msgid "CDL suspension"
+#~ msgstr "Zawieszenie CDL"
+
+#~ msgid "Suspension served, CDL clear."
+#~ msgstr "Zawieszenie odbyte, CDL znów ważne."
+
+#~ msgid "Suspension served, CDL clear. It is {clock_text}, {time_of_day}."
+#~ msgstr ""
+#~ "Zawieszenie odbyte, CDL znów ważne. Jest {clock_text}, {time_of_day}."
+
+#~ msgid ""
+#~ "You now drive for {LAST_CHANCE_CARRIER_NAME}: lower pay, shorter freight."
+#~ msgstr ""
+#~ "Teraz jeździsz dla {LAST_CHANCE_CARRIER_NAME}: niższa płaca, krótsze kursy."
+
+#~ msgid ""
+#~ "{former} ended your employment over your safety record. You now drive for "
+#~ "{LAST_CHANCE_CARRIER_NAME}: lower pay, shorter freight. Your money, levels "
+#~ "and belongings stay."
+#~ msgstr ""
+#~ "{former} zakończył twoje zatrudnienie z powodu profilu bezpieczeństwa. "
+#~ "Teraz jeździsz dla {LAST_CHANCE_CARRIER_NAME}: niższa płaca, krótsze kursy. "
+#~ "Twoje pieniądze, poziomy i wszystko, co posiadasz, zostają."
+
+#~ msgid "Wait out the CDL suspension"
+#~ msgstr "Przeczekaj zawieszenie CDL"
+
+#~ msgid ""
+#~ "Sits out the suspension in one go. The clock jumps to the day it clears, "
+#~ "money, truck, and record untouched."
+#~ msgstr ""
+#~ "Przeczekuje całe zawieszenie za jednym razem. Zegar przeskakuje do dnia "
+#~ "jego końca, pieniądze, ciężarówka i kartoteka pozostają nietknięte."
+
+#~ msgid ""
+#~ "Company drivers bill the carrier, owner-operators pay the regional diesel "
+#~ "price."
+#~ msgstr ""
+#~ "Kierowcy etatowi obciążają przewoźnika, kierowcy-właściciele płacą "
+#~ "regionalną cenę oleju napędowego."
+
+#~ msgid "Checked in."
+#~ msgstr "Zgłoszenie przyjęte."
+
+#~ msgid "Checked in. Load on {map} in the drop yard."
+#~ msgstr ""
+#~ "Zgłoszenie przyjęte. Ładunek na naczepie {map} na placu przeładunkowym."
+
+#~ msgid "Checked in. Dock assigned."
+#~ msgstr "Zgłoszenie przyjęte. Rampa przydzielona."
+
+#~ msgid ""
+#~ "Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
+#~ "of {label}."
+#~ msgstr ""
+#~ "Zostawiasz pustą naczepę w {facility} i podczepiasz {map} z ładunkiem: "
+#~ "{label}, {f} {f:tona|tony|ton}."
+
+#~ msgid "Loading {f} tons of {label} at {facility}."
+#~ msgstr "Załadunek w {facility}: {label}, {f} {f:tona|tony|ton}."
+
+#~ msgid ""
+#~ "Pickup {facility}: {state}. {f} tons of {label} for "
+#~ "{destination_facility_text}. {speed_text}. {engine}. Air {f2} psi, "
+#~ "{brake}.{speed_control_pause_text}"
+#~ msgstr ""
+#~ "Odbiór w {facility}: {state}. {label}, {f} {f:tona|tony|ton}, dla "
+#~ "{destination_facility_text}. {speed_text}. {engine}. Ciśnienie powietrza "
+#~ "{f2} psi, {brake}.{speed_control_pause_text}"
+
+#~ msgid "{f} tons of {label} for {destination_facility_text}."
+#~ msgstr "{label}, {f} {f:tona|tony|ton}, dla {destination_facility_text}."
+
+#~ msgid "Pickup canceled. Returned to {name}."
+#~ msgstr "Odbiór anulowany. Powrót do {name}."
+
+#~ msgid "Returned to {name}."
+#~ msgstr "Powrót do {name}."
+
+#~ msgid "{label} for {destination}"
+#~ msgstr "{label} do {destination}"
+
+#~ msgid "Cargo: {f} tons of {label}"
+#~ msgstr "Ładunek: {label}, {f} {f:tona|tony|ton}"
+
+#~ msgid ""
+#~ "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}."
+#~ msgstr ""
+#~ "Wznawianie: {drive_name}, {label}, {weight_tons} "
+#~ "{weight_tons:tona|tony|ton}, do {destination}."
+
+#~ msgid ""
+#~ "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
+#~ "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
+#~ "{report_lead}. {speed_control}{engine} {brake}"
+#~ msgstr ""
+#~ "Wznawianie: {drive_name}, {label}, {weight_tons} "
+#~ "{weight_tons:tona|tony|ton}, do {destination}. {progress} Wykorzystano "
+#~ "{hours_used} z {deadline_game_h} {deadline_game_h:godziny|godzin|godzin}. "
+#~ "{now}. {transmission} {report_lead}. {speed_control}{engine} {brake}"
+
+#~ msgid ""
+#~ "Pickup dispatch: deadhead from the terminal to {pickup_facility_text}. "
+#~ msgstr ""
+#~ "Zlecenie odbioru: dojazd na pusto z terminala do {pickup_facility_text}. "
+
+#~ msgid ""
+#~ "{game_minutes} hours used of a {deadline_game_h} hour delivery window."
+#~ msgstr ""
+#~ "Wykorzystano {game_minutes} {game_minutes:godzinę|godziny|godzin} z "
+#~ "{deadline_game_h} {deadline_game_h:godziny|godzin|godzin} na dostawę."
+
+#~ msgid "{remaining_miles} miles remain."
+#~ msgstr "Zostało {remaining_miles} {remaining_miles:mila|mile|mil}."
+
+#~ msgid "Cargo condition is {cargo_damage_pct} percent."
+#~ msgstr "Stan ładunku wynosi {cargo_damage_pct} procent."
+
+#~ msgid "I have the freight report as {words}, {condition} percent."
+#~ msgstr "Mam zgłoszenie ładunku: {words}, {condition} procent."
+
+#~ msgid ""
+#~ "I have the freight report as {words}, {condition} percent. Slow the "
+#~ "handling down and avoid any hard stop or sharp bend you can safely avoid."
+#~ msgstr ""
+#~ "Mam zgłoszenie ładunku: {words}, {condition} procent. Prowadź spokojniej i "
+#~ "unikaj gwałtownego hamowania i ostrych zakrętów, kiedy tylko możesz to "
+#~ "bezpiecznie zrobić."
+
+#~ msgid ""
+#~ "Slow the handling down and avoid any hard stop or sharp bend you can safely "
+#~ "avoid."
+#~ msgstr ""
+#~ "Prowadź spokojniej i unikaj gwałtownego hamowania i ostrych zakrętów, kiedy "
+#~ "tylko możesz to bezpiecznie zrobić."
+
+#~ msgid ""
+#~ "Bobtailed empty to {destination} in {f} hours. It is {clock_text}. "
+#~ "{pay_clause}Parked at {name}. {destination2} dispatch board available. Fuel "
+#~ "{f2} percent."
+#~ msgstr ""
+#~ "Przejazd samym ciągnikiem do {destination} w {f} "
+#~ "{f:godzinę|godziny|godzin}. Jest {clock_text}. {pay_clause}Zaparkowano: "
+#~ "{name}. Tablica zleceń w {destination2} dostępna. Paliwo {f2} procent."
+
+#~ msgid "{pay_clause}Parked at {name}."
+#~ msgstr "{pay_clause}Zaparkowano: {name}."
+
+#~ msgid ""
+#~ "Delivered {f} tons of {label} to {destination} in {f2} hours, "
+#~ "{else}.{receiver_service_clause} {clock_text}."
+#~ msgstr ""
+#~ "Dostarczono {label}, {f} {f:tona|tony|ton}, do {destination} w {f2} "
+#~ "{f2:godzinę|godziny|godzin}, {else}.{receiver_service_clause} {clock_text}."
+
+#~ msgid ""
+#~ "Delivered {f} tons of {label} to {destination} in {f2} hours, "
+#~ "{else}.{receiver_service_clause} {clock_text}. {pay_label} {grouped} "
+#~ "dollars. Charges {grouped2}: tolls {grouped3}, accessorials "
+#~ "{charge_summary}. {accessorial_clause} Business status: {status_label}. "
+#~ "Costs {grouped4}. Fines {grouped5}. Net {grouped6}, you have {grouped7}. "
+#~ "Parked at {name}."
+#~ msgstr ""
+#~ "Dostarczono {label}, {f} {f:tona|tony|ton}, do {destination} w {f2} "
+#~ "{f2:godzinę|godziny|godzin}, {else}.{receiver_service_clause} {clock_text}. "
+#~ "{pay_label} {grouped} {grouped:dolar|dolary|dolarów}. Opłaty {grouped2}: "
+#~ "drogowe {grouped3}, dodatkowe {charge_summary}. {accessorial_clause} Status "
+#~ "firmy: {status_label}. Koszty {grouped4}. Grzywny {grouped5}. Netto "
+#~ "{grouped6}, masz {grouped7}. Zaparkowano przy {name}."
+
+#~ msgid "Parked at {name}."
+#~ msgstr "Zaparkowano przy {name}."
+
+#~ msgid "Delivered {f} tons of {label} to {destination}."
+#~ msgstr "Dostarczono {f} {f:tonę|tony|ton} ładunku {label} do {destination}."
+
+#~ msgid "Parked at {name} for {the_city} service area."
+#~ msgstr "Zaparkowano przy {name}, obszar obsługi {the_city}."
+
+#~ msgid "At {facility}. {current}"
+#~ msgstr "Jesteś przy {facility}. {current}"
+
+#~ msgid ""
+#~ "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
+#~ "Hooking an empty."
+#~ msgstr ""
+#~ "Odstawianie załadowanej naczepy w {facility}, {f} {f:tona|tony|ton} ładunku "
+#~ "{cargo_label}. Podpinanie pustej."
+
+#~ msgid "Hooking an empty."
+#~ msgstr "Podpinanie pustej."
+
+#~ msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
+#~ msgstr ""
+#~ "Pod rampą w {facility}. Rozładunek: {f} {f:tona|tony|ton} ładunku "
+#~ "{cargo_label}."
+
+#~ msgid "Unloading {f} tons of {cargo_label}."
+#~ msgstr "Rozładunek: {f} {f:tona|tony|ton} ładunku {cargo_label}."
+
+#~ msgid "Paperwork, {facility}: {f} tons of {label}."
+#~ msgstr "Dokumenty, {facility}: {label}, {f} {f:tona|tony|ton}."
+
+#~ msgid ""
+#~ "Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, gross "
+#~ "{grouped2}. Charges {grouped3}: tolls {grouped4}, accessorials "
+#~ "{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
+#~ "{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
+#~ msgstr ""
+#~ "Dokumenty, {facility}: {label}, {f} {f:tona|tony|ton}. Stawka {grouped}, "
+#~ "brutto {grouped2}. Opłaty {grouped3}: drogowe {grouped4}, dodatkowe "
+#~ "{charge_summary}. {charge_fate} Grzywny {grouped5}. Netto około "
+#~ "{grouped6}.{advance_note} {timing}. {cargo_condition} {finish}, żeby się "
+#~ "rozliczyć."
+
+#~ msgid ""
+#~ "At {facility}. {f} tons of {label}. Speed {speed_text}. {else}. Stop, then "
+#~ "{finish}."
+#~ msgstr ""
+#~ "Jesteś przy {facility}. {f} {f:tona|tony|ton} ładunku {label}. Prędkość "
+#~ "{speed_text}. {else}. Zatrzymaj się, potem {finish}."
+
+#~ msgid "{f} tons of {label}."
+#~ msgstr "{label}, {f} {f:tona|tony|ton}."
+
+#~ msgid ""
+#~ "Load: {f} tons of {label}, gross {f2} tons, freight {cargo_status_clause}"
+#~ msgstr ""
+#~ "Ładunek: {f} {f:tona|tony|ton} ładunku {label}, brutto {f2} "
+#~ "{f2:tona|tony|ton}, ładunek {cargo_status_clause}"
+
+#~ msgid "{f} tons of {label} are assigned for {destination}."
+#~ msgstr ""
+#~ "{f} {f:tona|tony|ton} ładunku {label} przydzielone do {destination}."
+
+#~ msgid "Hauling {f} tons of {label} to {destination}."
+#~ msgstr "Wieziesz {f} {f:tonę|tony|ton} ładunku {label} do {destination}."
+
+#~ msgid ""
+#~ "Driving jobs are off the dispatch board until it clears, {clears_text}."
+#~ msgstr ""
+#~ "Zlecenia na jazdę znikają z tablicy zleceń, dopóki to nie minie, "
+#~ "{clears_text}."
+
+#~ msgid ""
+#~ "Your CDL is {verb} for {left}. Driving jobs are off the dispatch board "
+#~ "until it clears, {clears_text}. Your money and your truck are safe; rest, "
+#~ "repairs, and the garage are still open."
+#~ msgstr ""
+#~ "Twoje prawo jazdy CDL: {verb} na {left}. Zlecenia na jazdę znikają z "
+#~ "tablicy zleceń, dopóki to nie minie, {clears_text}. Twoje pieniądze i "
+#~ "ciężarówka są bezpieczne; odpoczynek, naprawy i warsztat są nadal dostępne."
+
+#~ msgid ""
+#~ "That is a serious violation on your record. One more inside three years and "
+#~ "your CDL is suspended for 60 days, and driving jobs stop until it clears."
+#~ msgstr ""
+#~ "To poważne wykroczenie w twojej kartotece. Jeszcze jedno w ciągu trzech "
+#~ "lat, a twoje prawo jazdy CDL zostanie zawieszone na 60 dni i zlecenia na "
+#~ "jazdę się skończą, dopóki to nie minie."
+
+#~ msgid "Return to terminal"
+#~ msgstr "Wróć do terminala"
+
+#~ msgid ""
+#~ "License pulled, so the truck stays put. Dispatch takes the load back."
+#~ msgstr ""
+#~ "Prawo jazdy zatrzymane, więc ciężarówka zostaje na miejscu. Dyspozytor "
+#~ "odbiera ładunek."
+
+#~ msgid "Dispatch takes the {label} load back and reassigns it"
+#~ msgstr "Dyspozytor odbiera ładunek {label} i przydziela go komuś innemu"
+
+#~ msgid "the terminal"
+#~ msgstr "terminal"
+
+#~ msgid ""
+#~ " The license is gone for good, so the truck stays here. {load}, and a "
+#~ "relief driver takes the truck in. You are released to {terminal}."
+#~ msgstr ""
+#~ " Prawo jazdy przepadło na dobre, więc ciężarówka zostaje tutaj. {load}, a "
+#~ "kierowca zastępczy odprowadza ciężarówkę. Wracasz do: {terminal}."
+
+#~ msgid "The license is gone for good, so the truck stays here."
+#~ msgstr "Prawo jazdy przepadło na dobre, więc ciężarówka zostaje tutaj."
+
+#~ msgid "You are released to {terminal}."
+#~ msgstr "Wracasz do: {terminal}."
+
+#~ msgid "{load}, and a relief driver takes the truck in."
+#~ msgstr "{load}, a kierowca zastępczy odprowadza ciężarówkę."
+
+#~ msgid ""
+#~ " The license is pulled as of now, so the truck stays here. {load}, and a "
+#~ "relief driver takes the truck in. You are released to {terminal} to wait "
+#~ "the suspension out."
+#~ msgstr ""
+#~ " Prawo jazdy zostaje zatrzymane od teraz, więc ciężarówka zostaje tutaj. "
+#~ "{load}, a kierowca zastępczy odprowadza ciężarówkę. Wracasz do: {terminal}, "
+#~ "żeby przeczekać zawieszenie."
+
+#~ msgid "The license is pulled as of now, so the truck stays here."
+#~ msgstr ""
+#~ "Prawo jazdy zostaje zatrzymane od teraz, więc ciężarówka zostaje tutaj."
+
+#~ msgid "You are released to {terminal} to wait the suspension out."
+#~ msgstr "Wracasz do: {terminal}, żeby przeczekać zawieszenie."
+
+#~ msgid "Enter or Escape returns to the terminal."
+#~ msgstr "Enter lub Escape wraca do terminala."
+
+#~ msgid "Enter or Escape continues from the terminal."
+#~ msgstr "Enter lub Escape i jedziesz dalej z terminala."
+
+#~ msgid "felony failure-to-stop enforcement"
+#~ msgstr "egzekwowanie za przestępstwo niezatrzymania się"
+
+#~ msgid "Dispatch cancels the {label} load."
+#~ msgstr "Dyspozytor anuluje ładunek {label}."
+
+#~ msgid "Dispatch cancels the {label} load. No pay for this run."
+#~ msgstr "Dyspozytor anuluje ładunek {label}. Bez zapłaty za ten kurs."
+
+#~ msgid ""
+#~ "Felony failure-to-stop fine: {grouped} dollars, paid on the spot, with a "
+#~ "major reputation hit.{construction_zone_fine_clause} Spike strips added {f} "
+#~ "percent truck damage, processing took {f2} hours."
+#~ msgstr ""
+#~ "Grzywna za przestępstwo niezatrzymania się: {grouped} "
+#~ "{grouped:dolar|dolary|dolarów}, płatne na miejscu, z poważnym ciosem w "
+#~ "reputację.{construction_zone_fine_clause} Kolczatki dodały {f} procent "
+#~ "uszkodzeń ciężarówki, procedury zajęły {f2} {f2:godzinę|godziny|godzin}."
+
+#~ msgid ""
+#~ "Troopers laid spike strips across the lane after you kept driving with "
+#~ "lights and siren behind you. Felony failure-to-stop fine: {grouped} "
+#~ "dollars, paid on the spot, with a major reputation "
+#~ "hit.{construction_zone_fine_clause} Spike strips added {f} percent truck "
+#~ "damage, processing took {f2} hours. {load_text} You are released back to "
+#~ "{terminal}."
+#~ msgstr ""
+#~ "Policja rozłożyła kolczatki w poprzek pasa, bo ciężarówka jechała dalej "
+#~ "mimo świateł i syreny za nią. Grzywna za przestępstwo niezatrzymania się: "
+#~ "{grouped} {grouped:dolar|dolary|dolarów}, płatne na miejscu, z poważnym "
+#~ "ciosem w reputację.{construction_zone_fine_clause} Kolczatki dodały {f} "
+#~ "procent uszkodzeń ciężarówki, procedury zajęły {f2} "
+#~ "{f2:godzinę|godziny|godzin}. {load_text} Wracasz do: {terminal}."
+
+#~ msgid "{load_text} You are released back to {terminal}."
+#~ msgstr "{load_text} Wracasz do: {terminal}."
+
+#~ msgid "Continue from the city terminal."
+#~ msgstr "Kontynuuj z terminala w mieście."
+
+#~ msgid "{terminal} in {the_city} service area"
+#~ msgstr "{terminal}, obszar obsługi {the_city}"
+
+#~ msgid "Fuel, repairs, wear, trailers, and reserves come from your cash."
+#~ msgstr "Paliwo, naprawy, zużycie, naczepy i rezerwy idą z twojej gotówki."
+
+#~ msgid "New truck, {grouped} dollars working capital."
+#~ msgstr ""
+#~ "Nowa ciężarówka, {grouped} {grouped:dolar|dolary|dolarów} kapitału "
+#~ "obrotowego."
+
+#~ msgid "Next: dispatch board."
+#~ msgstr "Dalej: tablica zleceń."
+
+#~ msgid "{prefix}First-day briefing: leased to {carrier_name} at {location}."
+#~ msgstr ""
+#~ "{prefix}Odprawa pierwszego dnia: pod licencją przewoźnika {carrier_name} w "
+#~ "{location}."
+
+#~ msgid ""
+#~ "{prefix}First-day briefing: leased to {carrier_name} at {location}. New "
+#~ "truck, {grouped} dollars working capital. Fuel, repairs, wear, trailers, "
+#~ "and reserves come from your cash. Next: dispatch board."
+#~ msgstr ""
+#~ "{prefix}Odprawa pierwszego dnia: pod licencją przewoźnika {carrier_name} w "
+#~ "{location}. Nowa ciężarówka, {grouped} {grouped:dolar|dolary|dolarów} "
+#~ "kapitału obrotowego. Paliwo, naprawy, zużycie, naczepy i rezerwy idą z "
+#~ "twojej gotówki. Dalej: tablica zleceń."
+
+#~ msgid "Assigned loads; a refusal goes on your record."
+#~ msgstr "Ładunki przydzielane, odmowa trafia do kartoteki."
+
+#~ msgid "Carrier covers fuel, repairs, insurance, and trailers."
+#~ msgstr "Przewoźnik pokrywa paliwo, naprawy, ubezpieczenie i naczepy."
+
+#~ msgid "Dispatch: {summary}."
+#~ msgstr "Dyspozytor: {summary}."
+
+#~ msgid "Truck at {location}."
+#~ msgstr "Ciężarówka w {location}."
+
+#~ msgid "{prefix}First-day briefing: {carrier_name}."
+#~ msgstr "{prefix}Odprawa pierwszego dnia: {carrier_name}."
+
+#~ msgid ""
+#~ "{prefix}First-day briefing: {carrier_name}. Truck at {location}. Carrier "
+#~ "covers fuel, repairs, insurance, and trailers. Dispatch: {summary}. "
+#~ "Assigned loads; a refusal goes on your record. Next: dispatch board."
+#~ msgstr ""
+#~ "{prefix}Odprawa pierwszego dnia: {carrier_name}. Ciężarówka w {location}. "
+#~ "Przewoźnik pokrywa paliwo, naprawy, ubezpieczenie i naczepy. Dyspozytor: "
+#~ "{summary}. Ładunki przydzielane, odmowa trafia do kartoteki. Dalej: tablica "
+#~ "zleceń."
+
+#~ msgid ""
+#~ "Your saved run cannot go on: dispatch cancels it, and a relief driver "
+#~ "brings the truck back."
+#~ msgstr ""
+#~ "Twój zapisany kurs nie może być kontynuowany: dyspozytor go anuluje, a "
+#~ "kierowca zastępczy odprowadza ciężarówkę."
+
+#~ msgid "in {current_city}"
+#~ msgstr "w {current_city}"
+
+#~ msgid ""
+#~ "Company starts use assigned carrier equipment; the carrier pays fuel, "
+#~ "repairs, insurance, and trailer support. The owner-operator start is higher "
+#~ "risk: you own a brand-new truck and pay business costs from day one. Enter "
+#~ "selects, Escape goes back."
+#~ msgstr ""
+#~ "Start w firmie oznacza przydzielony sprzęt przewoźnika; przewoźnik płaci za "
+#~ "paliwo, naprawy, ubezpieczenie i obsługę naczep. Start jako "
+#~ "kierowca-właściciel jest bardziej ryzykowny: masz na własność fabrycznie "
+#~ "nową ciężarówkę i od pierwszego dnia płacisz koszty działalności. Enter "
+#~ "wybiera, Escape cofa."
+
+#~ msgid ""
+#~ "Up and Down, Home and End, or a typed letter pick a region. Enter opens its "
+#~ "cities, Escape goes back."
+#~ msgstr ""
+#~ "Strzałki w górę i w dół, Home i End albo wpisana litera wybierają region. "
+#~ "Enter otwiera jego miasta, Escape cofa."
+
+#~ msgid "Home region for your {carrier_name} career."
+#~ msgstr "Region macierzysty twojej kariery w {carrier_name}."
+
+#~ msgid "{place}, 1 city."
+#~ msgstr "{place}, 1 miasto."
+
+#~ msgid "{place}, {count} cities."
+#~ msgstr "{place}, {count} {count:miasto|miasta|miast}."
+
+#~ msgid "Home terminal"
+#~ msgstr "Baza macierzysta"
+
+#~ msgid ""
+#~ "Up and Down, Home and End, or a typed letter pick a city. Enter confirms "
+#~ "your home terminal, Escape goes back."
+#~ msgstr ""
+#~ "Strzałki w górę i w dół, Home i End albo wpisana litera wybierają miasto. "
+#~ "Enter potwierdza bazę macierzystą, Escape cofa."
+
+#~ msgid "{region} terminals."
+#~ msgstr "Terminale w regionie {region}."
+
+#~ msgid "Start at {terminal_name} in {place}."
+#~ msgstr "Start w {terminal_name}, {place}."
+
+#~ msgid ""
+#~ "Freight Fate now keeps a driving record for your career: citations, serious "
+#~ "violations, and whether your CDL is clear. Two serious violations in three "
+#~ "years suspend it; running from a police stop is a major offense that "
+#~ "disqualifies it for a year. Reputation also decides how much freight "
+#~ "dispatch shows you and how much choice you get. Nothing was reset or taken. "
+#~ "{standing} {trust} {current_text}"
+#~ msgstr ""
+#~ "Freight Fate prowadzi teraz kartotekę kierowcy dla twojej kariery: mandaty, "
+#~ "poważne wykroczenia i to, czy twoje CDL jest czyste. Dwa poważne "
+#~ "wykroczenia w ciągu trzech lat zawieszają je; ucieczka z kontroli "
+#~ "policyjnej to rażące naruszenie, za które CDL jest odbierane na rok. "
+#~ "Reputacja decyduje też o tym, ile ładunków pokazuje ci dyspozytor i jak "
+#~ "duży masz wybór. Niczego nie wyzerowano ani nie odebrano. {standing} "
+#~ "{trust} {current_text}"
+
+#~ msgid "Save file updated."
+#~ msgstr "Plik zapisu zaktualizowany."
+
+#~ msgid ""
+#~ "Save file updated. This career was converted from an older version: every "
+#~ "truck you own now keeps its own fuel, damage, tire wear, and road grime. "
+#~ "The truck you were driving keeps its condition; your other trucks start "
+#~ "fueled and fresh. The updated save no longer opens in older versions of the "
+#~ "game. {current_text}"
+#~ msgstr ""
+#~ "Plik zapisu zaktualizowany. Ta kariera została przekonwertowana ze starszej "
+#~ "wersji: każda twoja ciężarówka ma teraz własne paliwo, uszkodzenia, zużycie "
+#~ "opon i brud z drogi. Ciężarówka, którą jeździsz, zachowuje swój stan; "
+#~ "pozostałe zaczynają zatankowane i czyste. Zaktualizowany zapis nie otworzy "
+#~ "się już w starszych wersjach gry. {current_text}"
+
+#~ msgid ""
+#~ "The truck you were driving keeps its condition; your other trucks start "
+#~ "fueled and fresh."
+#~ msgstr ""
+#~ "Ciężarówka, którą jeździsz, zachowuje swój stan; pozostałe zaczynają "
+#~ "zatankowane i czyste."
+
+#~ msgid "The updated save no longer opens in older versions of the game."
+#~ msgstr "Zaktualizowany zapis nie otworzy się już w starszych wersjach gry."
+
+#~ msgid ""
+#~ "This career was converted from an older version: every truck you own now "
+#~ "keeps its own fuel, damage, tire wear, and road grime."
+#~ msgstr ""
+#~ "Ta kariera została przekonwertowana ze starszej wersji: każda twoja "
+#~ "ciężarówka ma teraz własne paliwo, uszkodzenia, zużycie opon i brud z drogi."
 
 #~ msgid "auto"
 #~ msgstr "auto"
@@ -44569,16 +46665,6 @@ msgstr ""
 #~ msgid "Break due in {duration_text}."
 #~ msgstr "Do przerwy: {duration_text}."
 
-#~ msgid "no driving yet"
-#~ msgstr "jeszcze bez jazdy"
-
-#~ msgid "{driven} driving"
-#~ msgstr "{driven} jazdy"
-
-#~ msgid "At the wheel so far: {spent}, {duration_text} on duty this shift"
-#~ msgstr ""
-#~ "Dotąd za kierownicą: {spent}, w pracy na tej zmianie: {duration_text}"
-
 #~ msgid "Break due in {duration_text}{else}"
 #~ msgstr "Do przerwy: {duration_text}{else}"
 
@@ -46993,9 +49079,6 @@ msgstr ""
 
 #~ msgid "Parked at {name} for the {destination2} service area."
 #~ msgstr "Zaparkowano przy {name}, obszar obsługi {destination2}."
-
-#~ msgid "type"
-#~ msgstr "type"
 
 #~ msgid "names"
 #~ msgstr "names"

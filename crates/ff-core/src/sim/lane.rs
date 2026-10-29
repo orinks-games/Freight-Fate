@@ -125,6 +125,24 @@ pub const ASSIST_OFFSET_GAIN: f64 = 0.7;
 pub const ASSIST_YAW_GAIN: f64 = 3.0;
 pub const FPS_PER_MPH: f64 = 1.466_667;
 pub const G_FPS2: f64 = 32.174;
+/// How slowly the "steady" part of the tractor's lateral acceleration
+/// follows the real one, seconds. What a bend holds for many seconds is
+/// steady and a set of doubles tracks it; what changes faster than this -- a
+/// lane change, a swerve, a sudden correction -- is the transient that swings
+/// the rear trailer of a set (rearward amplification). ASSUMED: a lane change
+/// takes a few seconds, and the SAE J2179 test FHWA cites runs one in 200 ft
+/// at 55 mph, about 2.5 seconds.
+pub const LATERAL_STEADY_TAU_S: f64 = 3.0;
+/// How fast the steer the rear trailer of a set of doubles feels can build,
+/// g per second. A steering key is a switch: it puts the tractor at the
+/// driver's lateral cap on the first frame, a step no real hand on a wheel
+/// makes, and a step read straight into rearward amplification whipped a
+/// loaded set of pups on every keyboard lane change. The rear trailer
+/// instead feels the tractor's lateral acceleration rate-limited to this
+/// slew, so a tap of a tenth or two of a second stays small while a held
+/// full-lock swerve, an S-swerve or a partial-assist snap-back still builds
+/// past the whip threshold. ASSUMED; not calibrated against a measurement.
+pub const REAR_WHIP_STEER_SLEW_G_PER_S: f64 = 0.3;
 
 /// Only the modes where the driver does the lane work have a drift model.
 /// "full" is absent on purpose: it pins the offset to lane centre. The
@@ -275,6 +293,21 @@ pub struct LaneKeeping {
     gust_timer: f64,
     off_road_timer: f64,
     event_cooldown: f64,
+    /// The tractor's lateral acceleration last update, g, signed like the
+    /// heading (positive to the right). Zero when no drift model runs.
+    pub lateral_g: f64,
+    /// The driver's share of [`Self::lateral_g`] (no bend-tracking steer),
+    /// rate-limited to [`REAR_WHIP_STEER_SLEW_G_PER_S`]: the steer the rear
+    /// trailer of a set of doubles feels, g, signed.
+    pub rear_steer_g: f64,
+    steady_lateral_g: f64,
+    /// How hard the crosswind gust is shoving sideways this update, g,
+    /// unsigned: the rate the gust's sideways speed is changing. The tractor
+    /// already drifts with the gust through `drift_rate`; this is the same
+    /// push read as an acceleration, for the rear trailer of a set of
+    /// doubles, which the lane model does not steer.
+    pub wind_lateral_g: f64,
+    wind_lateral_fps: Option<f64>,
 }
 
 impl Default for LaneKeeping {
@@ -311,7 +344,27 @@ impl LaneKeeping {
             gust_timer: 0.0,
             off_road_timer: 0.0,
             event_cooldown: 0.0,
+            lateral_g: 0.0,
+            rear_steer_g: 0.0,
+            steady_lateral_g: 0.0,
+            wind_lateral_g: 0.0,
+            wind_lateral_fps: None,
         }
+    }
+
+    /// The part of the steer the rear trailer feels ([`Self::rear_steer_g`])
+    /// that is a quick steer rather than a bend held steady, g, unsigned.
+    /// See [`LATERAL_STEADY_TAU_S`] and [`REAR_WHIP_STEER_SLEW_G_PER_S`].
+    pub fn transient_lateral_g(&self) -> f64 {
+        (self.rear_steer_g - self.steady_lateral_g).abs()
+    }
+
+    fn clear_lateral(&mut self) {
+        self.lateral_g = 0.0;
+        self.rear_steer_g = 0.0;
+        self.steady_lateral_g = 0.0;
+        self.wind_lateral_g = 0.0;
+        self.wind_lateral_fps = None;
     }
 
     /// Whether a hold is following the road through a turn (see
@@ -402,12 +455,14 @@ impl LaneKeeping {
             self.offset = 0.0;
             self.yaw_rad = 0.0;
             self.off_road_timer = 0.0;
+            self.clear_lateral();
             return false;
         };
 
         let mph = speed_mps * MPH_PER_MPS;
         if mph < 2.0 {
             self.off_road_timer = 0.0;
+            self.clear_lateral();
             return false;
         }
         let fps = mph * FPS_PER_MPH;
@@ -425,6 +480,15 @@ impl LaneKeeping {
             self.gust_target = self.rng.uniform(-1.0, 1.0);
         }
         self.gust += (self.gust_target - self.gust) * (dt / 1.5).min(1.0);
+        // The gust's sideways speed on the truck before any assist damps the
+        // drift it causes (the assist steers the tractor; it does not stop
+        // the air). Its rate of change is the shove, in g.
+        let wind_fps = wind * self.gust * WIND_RATE * HALF_LANE_FT;
+        self.wind_lateral_g = match self.wind_lateral_fps {
+            Some(before) if dt > 0.0 => ((wind_fps - before) / dt).abs() / G_FPS2,
+            _ => 0.0,
+        };
+        self.wind_lateral_fps = Some(wind_fps);
 
         // What the driver asked the front axle for, plus whatever partial
         // lane keeping is contributing, capped so a held key is a steering
@@ -494,8 +558,8 @@ impl LaneKeeping {
         // is not, or a bend could not be held at the speed its own advisory
         // names. Both together still stop at the rollover ceiling.
         let driver_cap = rate_at(MAX_STEER_LATERAL_G);
-        let mut yaw_rate =
-            (fps * commanded.tan() / WHEELBASE_FT).clamp(-driver_cap, driver_cap) + tracking_yaw;
+        let driver_yaw = (fps * commanded.tan() / WHEELBASE_FT).clamp(-driver_cap, driver_cap);
+        let mut yaw_rate = driver_yaw + tracking_yaw;
         // The tire limit plus whatever the road's bank carries for the truck.
         let road_cap = rate_at(MAX_ROAD_LATERAL_G + bank.clamp(0.0, MAX_CREDITED_BANK));
         yaw_rate = yaw_rate.clamp(-road_cap, road_cap);
@@ -503,6 +567,20 @@ impl LaneKeeping {
         // far as the wheel asked, so a bend taken on ice runs wide even with
         // the wheel into it. This is where load and grip live now.
         yaw_rate *= grip.clamp(0.0, 1.0);
+        self.lateral_g = yaw_rate * fps / G_FPS2;
+        // The rear trailer of a set of doubles is whipped by the DRIVER's
+        // steer (keys, stick, and the lane-keeping helper riding on them),
+        // not by the road. A bend's tracking steer arrives in one frame
+        // where a baked curve starts, which the slew and the steady filter
+        // would read as a quick steer, and loaded pups whipped on ordinary
+        // curves at advisory speed. Curves are the rollover and curve
+        // warnings' job.
+        let driver_lateral_g =
+            driver_yaw.clamp(-road_cap, road_cap) * grip.clamp(0.0, 1.0) * fps / G_FPS2;
+        let slew = REAR_WHIP_STEER_SLEW_G_PER_S * dt;
+        self.rear_steer_g += (driver_lateral_g - self.rear_steer_g).clamp(-slew, slew);
+        self.steady_lateral_g +=
+            (self.rear_steer_g - self.steady_lateral_g) * (dt / LATERAL_STEADY_TAU_S).min(1.0);
 
         // The road turns underneath. Holding the wheel still in a bend leaves
         // the truck pointing where it was, so the RELATIVE heading opens up
@@ -596,6 +674,66 @@ mod tests {
     //! `tests/test_lane_discrete.py` (the DrivingState cases belong to the
     //! app-shell bucket).
     use super::*;
+
+    #[test]
+    fn a_held_bend_is_steady_and_a_quick_steer_is_transient() {
+        let mut lane = LaneKeeping::new(Some(7));
+        let speed = 60.0 / MPH_PER_MPS;
+        let bend = RoadConditions {
+            curvature: 1.0 / 3000.0,
+            ..RoadConditions::default()
+        };
+        // Curve assistance holds the bend: after a while it is all steady.
+        for _ in 0..600 {
+            lane.update(0.05, speed, bend, "partial", true);
+        }
+        assert!(lane.lateral_g > 0.05, "{}", lane.lateral_g);
+        assert!(
+            lane.transient_lateral_g() < 0.01,
+            "{}",
+            lane.transient_lateral_g()
+        );
+        // The key puts the tractor at its cap on the first frame, but the
+        // rear trailer's steer builds at the slew: a tenth-second tap stays
+        // small, a held full-lock swerve is a large transient.
+        let mut swerve = LaneKeeping::new(Some(7));
+        swerve.steering = 1.0;
+        swerve.update(0.05, speed, RoadConditions::default(), "off", false);
+        assert!(swerve.lateral_g > 0.15, "{}", swerve.lateral_g);
+        swerve.update(0.05, speed, RoadConditions::default(), "off", false);
+        let tap = swerve.transient_lateral_g();
+        assert!(tap <= REAR_WHIP_STEER_SLEW_G_PER_S * 0.1 + 1e-9, "{tap}");
+        for _ in 0..12 {
+            swerve.update(0.05, speed, RoadConditions::default(), "off", false);
+        }
+        assert!(
+            swerve.transient_lateral_g() > 0.15,
+            "{}",
+            swerve.transient_lateral_g()
+        );
+        // A baked bend starts in one frame, and curve assistance hands over
+        // its whole tracking steer at once: that is the road, not a quick
+        // steer, and the rear trailer's steer does not move.
+        let mut entry = LaneKeeping::new(Some(7));
+        let sharp = RoadConditions {
+            curvature: 1.0 / 883.0,
+            ..RoadConditions::default()
+        };
+        for _ in 0..100 {
+            entry.update(0.05, 65.0 / MPH_PER_MPS, sharp, "off", true);
+            assert!(
+                entry.transient_lateral_g() < 0.01,
+                "{}",
+                entry.transient_lateral_g()
+            );
+        }
+        assert!(entry.lateral_g > 0.3, "{}", entry.lateral_g);
+        // Full lane keeping runs no drift model and reports nothing.
+        let mut full = LaneKeeping::new(Some(7));
+        full.steering = 1.0;
+        full.update(0.05, speed, RoadConditions::default(), "full", false);
+        assert_eq!(full.transient_lateral_g(), 0.0);
+    }
 
     /// A left-hand bend of `radius_ft`, as the model now takes it.
     fn left_bend(radius_ft: f64) -> f64 {

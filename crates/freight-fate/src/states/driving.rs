@@ -50,7 +50,7 @@ use ff_core::sim::lane::LaneKeeping;
 use ff_core::sim::lane_guidance::LaneGuidance;
 use ff_core::sim::pedal_latch::PedalLatch;
 use ff_core::sim::trip::Trip;
-use ff_core::sim::trip_models::{ExitRampLayout, RoadStop};
+use ff_core::sim::trip_models::{BorderBooth, ExitRampLayout, RoadStop};
 use ff_core::sim::turn_guide::TurnGuide;
 
 use crate::states::driving_core::{
@@ -222,7 +222,9 @@ pub struct DrivingState {
     pub hos_stop_warning_pending: Option<String>,
     pub hos_plan_hint_check_key: Option<String>,
     pub hos_plan_hint_pending: Option<String>,
+    pub hos_jurisdiction_initialized: bool,
     pub enforcement_events: HashSet<String>,
+    pub pending_border_clearance: Option<BorderBooth>,
     pub out_of_service_count: i64,
     pub drowsy_said: bool,
     pub severe_said: bool,
@@ -477,6 +479,7 @@ pub struct DrivingState {
     pub equipment_event_logged: bool,
     pub limp_cap_mph: Option<f64>,
     pub limp_cruise_said: bool,
+    pub bc_limiter_said: bool,
     pub out_of_service_creep_s: f64,
     pub recovering: bool,
     // Warning state for tires, brakes, and engine. New drives start clear so
@@ -574,6 +577,11 @@ pub struct DrivingState {
     // where the terminal releases; the driver's own brake cancels it, and a
     // cancel holds for the rest of this ramp.
     pub approach_pull_ahead: bool,
+    // Seconds left in the current rear-trailer whip episode on a set of
+    // doubles: every whip frame restarts it, and a whip with none left is a
+    // new episode that is spoken and shown. One swerve is one line, and no
+    // freight shifts without a line for its episode.
+    pub rear_whip_cooldown_s: f64,
     pub approach_pull_ahead_canceled: bool,
     // A street control on a facility chain, played through the ramp
     // terminal's own state above (`driving_events/street_controls.rs`): the

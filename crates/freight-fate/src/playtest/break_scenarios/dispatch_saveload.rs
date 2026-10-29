@@ -29,13 +29,13 @@ pub fn dispatch_decline_budget() -> Outcome {
         harness.key(key_event(Key::from_char(ch), Some(ch)));
     }
     harness.key(key_event(Key::Return, None));
-    harness.expect_state::<CareerStartState>("after the name");
+    harness.expect_state::<HomeTerminalState>("after the name");
     harness.key(key_event(Key::Return, None));
-    harness.expect_state::<HomeTerminalState>("after the career start");
+    harness.expect_state::<HomeCityState>("after the home region");
     harness.key(key_event(Key::Return, None));
-    harness.expect_state::<HomeCityState>("after the home terminal");
+    harness.expect_state::<CareerStartState>("after the home city");
     harness.key(key_event(Key::Return, None));
-    harness.expect_state::<CityMenuState>("after the home city");
+    harness.expect_state::<CityMenuState>("after the career start");
     harness.key(key_event(Key::Return, None));
     harness.expect_state::<JobBoardState>("the dispatch board");
     let assigned = harness.with_state::<JobBoardState, bool>(|board, _| board.assigned_mode());

@@ -207,6 +207,7 @@ impl DrivingState {
             return match limit.kind {
                 "break" => "Break overdue.",
                 "drive" => "Out of driving time for this shift.",
+                "shift" => "Your shift limit has been reached.",
                 _ => "Your duty window has closed.",
             }
             .to_string();
@@ -215,6 +216,7 @@ impl DrivingState {
         match limit.kind {
             "break" => format!("30-minute break due in {left}."),
             "drive" => format!("Driving time left: {left}."),
+            "shift" => format!("Shift time left: {left}."),
             _ => format!("Duty window closes in {left}."),
         }
     }

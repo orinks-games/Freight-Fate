@@ -57,7 +57,7 @@ fn test_first_day_briefing_is_a_screen_of_lines() {
         "{rows:?}"
     );
     assert!(
-        rows[1].starts_with("Your assigned truck is parked at "),
+        rows[1].starts_with("Orientation and truck assignment are at Northstar Freight Lines "),
         "{rows:?}"
     );
     assert!(

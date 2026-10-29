@@ -352,12 +352,11 @@ impl DrivingState {
         accelerating: bool,
         clutch_disengaged: bool,
     ) {
+        self.announce_limp_cruise_cap(ctx);
+        self.announce_bc_limiter(ctx);
         if self.cruise_mph.is_none() {
             return;
         }
-        // A limp-mode cap under the set speed is invisible from the seat: the
-        // truck simply never reaches its number. Name it, once per engagement.
-        self.announce_limp_cruise_cap(ctx);
         self.acc_follow_cue_s = 0.0f64.max(self.acc_follow_cue_s - dt);
         if self.update_descent_control(ctx, dt, braking) {
             return;

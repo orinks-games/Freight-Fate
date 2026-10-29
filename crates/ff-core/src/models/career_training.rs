@@ -90,6 +90,16 @@ pub fn company_training_stage<P: CareerProfile + ?Sized>(profile: &P) -> Trainin
 pub fn training_guidance<P: CareerProfile + ?Sized>(profile: &P) -> TrainingGuidance {
     let stage = company_training_stage(profile);
     let carrier = carrier_name_of(profile);
+    if carrier.is_empty() {
+        // No carrier: nobody to train with, and nobody to name.
+        return TrainingGuidance::new(
+            stage,
+            "Get back on freight",
+            crate::models::career_objectives::NO_CARRIER_OBJECTIVE,
+            "There is no dispatch board until a carrier takes you on.",
+            "carrier seat",
+        );
+    }
     match stage {
         TrainingStage::FirstDispatch => TrainingGuidance::new(
             stage,

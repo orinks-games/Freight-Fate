@@ -149,6 +149,8 @@ impl DrivingState {
         let automatic = self.trip.truck.transmission.automatic;
         match action {
             Action::Engine => self.toggle_engine(ctx),
+            Action::Reefer => self.toggle_reefer(ctx),
+            Action::Apu => self.toggle_apu(ctx),
             Action::Neutral => {
                 if automatic {
                     return;

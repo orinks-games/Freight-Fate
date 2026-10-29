@@ -12,6 +12,7 @@ pub mod city_pickup;
 pub mod city_pickup_team;
 pub mod cloud_save_states;
 pub mod driving;
+pub mod driving_border;
 pub mod driving_controls;
 pub mod driving_core;
 pub mod driving_damage;

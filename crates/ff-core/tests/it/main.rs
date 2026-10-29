@@ -16,6 +16,8 @@
 mod data_support;
 mod sim_support;
 
+mod carrier_slice3;
+mod data_border_yards;
 mod data_city_keys;
 mod data_curve_management;
 mod data_facility_approaches;
@@ -36,6 +38,7 @@ mod data_street_turns;
 mod data_surface_streets;
 mod data_world;
 mod data_world_overlay;
+mod economy;
 mod profile_integrity_export;
 mod sim_bends_hold_their_advisory;
 mod sim_billboard_facing;

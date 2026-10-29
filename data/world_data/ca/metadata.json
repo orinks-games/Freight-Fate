@@ -1,0 +1,8 @@
+{
+  "route_stop_data": {
+    "schema": 1,
+    "position_units": "route miles from each leg.from city toward leg.to city",
+    "strategy": "Offline curated dataset from public DOT rest-area pages, operator location pages, operator locator APIs, and development-time map review. Runtime play never calls external route or amenity services.",
+    "license_notes": "OpenStreetMap-derived future imports require ODbL attribution/share-alike review. Current route data keeps source notes per stop and favors public agency/operator pages."
+  }
+}

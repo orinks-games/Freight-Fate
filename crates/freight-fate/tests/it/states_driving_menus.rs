@@ -505,7 +505,13 @@ fn test_settlement_pays_the_driver_and_parks_them_at_the_terminal() {
     );
     assert!(joined.contains("Net driver pay:"), "{joined}");
     assert!(joined.contains("Money after settlement:"), "{joined}");
-    assert!(joined.contains("Parked at "), "{joined}");
+    // "Parked at {place} in the {city} service area", or just "Parked in
+    // the {city} service area" when nothing honest names a place.
+    assert!(joined.contains("Parked "), "{joined}");
+    assert!(
+        joined.contains("Parked in the Philadelphia service area."),
+        "{joined}"
+    );
     // The active trip is closed out and the driver has moved.
     let profile = app.ctx.profile.as_ref().expect("a career");
     assert!(profile.active_trip.is_none());

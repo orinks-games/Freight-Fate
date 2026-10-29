@@ -213,7 +213,12 @@ fn tools_list() -> Value {
              Same seed, same road. pick chooses among multiple matches (1-based). \
              unit plants a staffed enforcement unit unit_ahead_mi up the road (default \
              3) so an encounter can be staged on purpose; the road's own seeded posts \
-             stay. Listen after staging for the truck's actual starting condition.",
+             stay. cargo_type and cargo_tons choose the load (a catalog cargo key, and \
+             tons aboard, default 20); hazmat names the material a placarded load is \
+             (paint, chlorine_cylinders, blasting_explosives, ...), and hour sets the \
+             Eastern career clock at the start (default 9; 24 and up are later days, \
+             day 0 is a Wednesday). Listen after staging for the truck's actual \
+             starting condition.",
             json!({
                 "feature": {"type": "string"},
                 "origin": {"type": "string", "description": "search one corridor from this city (fast and thorough)"},
@@ -222,6 +227,10 @@ fn tools_list() -> Value {
                 "pick": {"type": "integer", "description": "1-based match index, default 1"},
                 "unit": {"type": "string", "description": "plant a staffed enforcement unit ahead of the start: one of median_crossover, roving_patrol, work_zone_post, scale_apron_post, fixed_scale, urban_unit, cmv_unit, chain_control"},
                 "unit_ahead_mi": {"type": "number", "description": "how far up the road the planted unit sits, default 3"},
+                "cargo_type": {"type": "string", "description": "catalog cargo key the truck carries, e.g. hazardous or fuel_bulk; default: what the departure facility ships"},
+                "cargo_tons": {"type": "number", "description": "tons aboard, default 20"},
+                "hazmat": {"type": "string", "description": "hazardous material key, e.g. paint, chlorine_cylinders, consumer_fireworks, blasting_explosives, gasoline; sets cargo_type to match when it is not given"},
+                "hour": {"type": "number", "description": "career clock at the start, Eastern hours from day 0 (a Wednesday), default 9"},
             }),
             &["feature"],
         ),
@@ -626,8 +635,56 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
                     Some((kind, ahead))
                 }
             };
-            let (hit, opts, found, picked) =
+            let cargo = match args.get("cargo_type").and_then(Value::as_str) {
+                None => None,
+                Some(key) => {
+                    let key = key.trim().to_ascii_lowercase();
+                    if ff_core::models::jobs::cargo_type(&key).is_none() {
+                        return Err(format!("{key:?} is not in the cargo catalog"));
+                    }
+                    Some(key)
+                }
+            };
+            let tons = args.get("cargo_tons").and_then(Value::as_f64);
+            if tons.is_some_and(|t| !(t > 0.0 && t <= 40.0)) {
+                return Err("cargo_tons must be more than 0 and at most 40".to_string());
+            }
+            let hazmat = match args.get("hazmat").and_then(Value::as_str) {
+                None => None,
+                Some(key) => {
+                    let key = key.trim().to_ascii_lowercase();
+                    let Some(material) = ff_core::models::jobs::hazmat::hazmat_commodity(&key)
+                    else {
+                        return Err(format!(
+                            "{key:?} is not a hazardous material the game knows"
+                        ));
+                    };
+                    if cargo.as_deref().is_some_and(|c| c != material.cargo) {
+                        return Err(format!("{key} rides as {} cargo", material.cargo));
+                    }
+                    Some(material)
+                }
+            };
+            let cargo = cargo.or(hazmat.map(|m| m.cargo.to_string()));
+            let hour = args.get("hour").and_then(Value::as_f64);
+            if hour.is_some_and(|h| !(0.0..24.0 * 7.0).contains(&h)) {
+                return Err("hour must be from 0 up to 168, a week of career clock".to_string());
+            }
+            let (hit, mut opts, found, picked) =
                 discover(&feature, origin, destination, seed, pick, unit)?;
+            if let Some(key) = cargo {
+                opts.cargo_type = key.clone();
+                opts.departure_cargo = Some(key);
+            }
+            if let Some(tons) = tons {
+                opts.cargo = tons;
+            }
+            if let Some(material) = hazmat {
+                opts.departure_hazmat = Some(material.key.to_string());
+            }
+            if hour.is_some() {
+                opts.hour = hour;
+            }
             Ok(Command::StageHit {
                 hit: Box::new(hit),
                 found,
@@ -803,6 +860,41 @@ mod tests {
             }
         );
         assert_eq!(times, 1);
+    }
+
+    #[test]
+    fn start_at_refuses_a_load_the_game_cannot_carry() {
+        let unknown = serde_json::from_value(json!({
+            "feature": "departure",
+            "cargo_type": "moon_rocks"
+        }))
+        .unwrap();
+        let refusal = build_command("start_at", &unknown).err().unwrap();
+        assert!(refusal.contains("cargo catalog"), "{refusal}");
+        for (args, wanted) in [
+            (
+                json!({"feature": "departure", "hazmat": "moon_dust"}),
+                "hazardous material",
+            ),
+            (
+                json!({"feature": "departure", "hazmat": "paint", "cargo_type": "fuel_bulk"}),
+                "rides as hazardous",
+            ),
+            (json!({"feature": "departure", "hour": 168.0}), "hour"),
+        ] {
+            let args = serde_json::from_value(args).unwrap();
+            let refusal = build_command("start_at", &args).err().unwrap();
+            assert!(refusal.contains(wanted), "{refusal}");
+        }
+        for tons in [0.0, -3.0, 41.0] {
+            let args = serde_json::from_value(json!({
+                "feature": "departure",
+                "cargo_tons": tons
+            }))
+            .unwrap();
+            let refusal = build_command("start_at", &args).err().unwrap();
+            assert!(refusal.contains("cargo_tons"), "{tons}: {refusal}");
+        }
     }
 
     #[test]

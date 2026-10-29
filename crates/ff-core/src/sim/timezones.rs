@@ -403,13 +403,16 @@ mod tests {
     }
 
     #[test]
-    fn test_every_world_city_resolves_to_a_conus_zone() {
+    fn test_every_world_city_resolves_to_a_known_us_zone() {
+        // CONUS cities stay on the four continental clocks; Phase A ALCAN
+        // Fairbanks/Tok land on Alaska Time (already modeled). Hawaii is
+        // listed for completeness even though no HI cities ship yet.
         let world = crate::data::world::World::load().expect("the shipped world loads");
         for (key, city) in world.cities.iter() {
             let zone = zone_for(city.lat, city.lon, &city.state);
             assert!(
-                [EASTERN, CENTRAL, MOUNTAIN, PACIFIC].contains(&zone),
-                "{key} in {} landed outside the CONUS zones",
+                [EASTERN, CENTRAL, MOUNTAIN, PACIFIC, ALASKA, HAWAII].contains(&zone),
+                "{key} in {} landed outside the known US zones",
                 city.state
             );
         }

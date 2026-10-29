@@ -22,16 +22,26 @@
 //! * `world_data/us/gameplay/limit_artifacts.jsonl`, the screen's named
 //!   postings (see [`screen`]), which the loader folds.
 //!
-//! A leg is left as it is when its archive record is missing, when the
+//! A leg the archive does not hold (Alaska, the Yukon, British Columbia)
+//! is read along the truck route through its route points instead (see
+//! [`route`]): from the cache, or fetched with `--valhalla`. In Canada a
+//! bare number is km/h, an Alaska stretch with no posted way takes the
+//! state's 55 mph default (labelled assumed), and a limit that changes at a
+//! country border starts there (see [`region`]).
+//!
+//! A leg is left as it is when it has no road to read along, when the
 //! extract has no posted way along it (the sweep never regresses a leg to
 //! the bare heuristic), or when a posting on it was set by hand (a `source`
-//! that is not the OpenStreetMap read). Every such leg is counted in the
-//! report. Re-bake `world.ffdata` afterwards.
+//! this tool, the Python bakes before it, or the Alcan scaffold's labelled
+//! placeholders did not write). Every such leg is counted in the report.
+//! Re-bake `world.ffdata` afterwards.
 
 pub mod bake;
 pub mod exits;
 pub mod geo;
 pub mod pbf;
+pub mod region;
+pub mod route;
 pub mod screen;
 
 use std::collections::{BTreeMap, HashSet};
@@ -46,19 +56,33 @@ use crate::util::{self, Result};
 
 const USAGE: &str = "usage: osm-speed-limits --pbf FILE [--pbf FILE ...] \
                      [--only from:to;from:to] [--extract-date YYYY-MM-DD] \
-                     [--snapshot NAME] [--write]";
+                     [--snapshot NAME] [--valhalla] [--shape-cache FILE] [--write]";
 
 /// What `--snapshot` names when it is not given: the usual input.
 const DEFAULT_SNAPSHOT: &str = "Geofabrik extract";
 
 /// Every OpenStreetMap read this tool and the sweep before it wrote starts
-/// so; anything else on a leg was set by hand and is kept.
+/// so.
 const OSM_SOURCE_PREFIX: &str = "OpenStreetMap maxspeed tags";
 
-fn world_source_note(snapshot: &str, date: &str) -> String {
+/// What this tool writes where Alaska posts nothing.
+const ALASKA_DEFAULT_SOURCE: &str = "Assumed 55 mph where no posted OpenStreetMap maxspeed way \
+     lies along the road in Alaska: the unposted default under 13 AAC 02.275.";
+
+/// Sources a re-read replaces: this tool's, the Python Alcan bake's (its
+/// read and its Alaska default), and the Alcan scaffold's placeholders,
+/// which all begin "Coarse". Anything else on a leg was set by hand.
+const REPLACEABLE_SOURCES: &[&str] = &[
+    OSM_SOURCE_PREFIX,
+    "Read from OpenStreetMap maxspeed",
+    "Assumed 55 mph where no",
+    "Coarse ",
+];
+
+fn world_source_note(snapshot: &str, date: &str, road: &str) -> String {
     format!(
         "{OSM_SOURCE_PREFIX} on the corridor highway ways, read from the {snapshot} \
-         of {date} and matched within 90 m of the archived route; normalized \
+         of {date} and matched within 90 m of {road}; normalized \
          to mph, maxspeed:hgv preferred where tagged."
     )
 }
@@ -71,6 +95,12 @@ fn screen_source_note(snapshot: &str, date: &str) -> String {
          that limit. Thresholds calibrated on a hand-checked sample of 100 postings, \
          2026-10-17. Development-time screen, see `cargo tools osm-speed-limits`."
     )
+}
+
+/// Whether `--only` (either direction) takes this leg.
+fn selected(only: Option<&HashSet<String>>, id: &str) -> bool {
+    let (a, b) = id.split_once(':').unwrap_or_default();
+    only.is_none_or(|o| o.contains(id) || o.contains(&format!("{b}:{a}")))
 }
 
 fn leg_id(leg: &Value) -> String {
@@ -86,11 +116,12 @@ fn hand_set(leg: &Value) -> bool {
         .flatten()
         .any(|s| {
             !matches!(s.get("mph"), None | Some(Value::Null))
-                && !s
-                    .get("source")
-                    .map(Value::py_str)
-                    .unwrap_or_default()
-                    .starts_with(OSM_SOURCE_PREFIX)
+                && !REPLACEABLE_SOURCES.iter().any(|p| {
+                    s.get("source")
+                        .map(Value::py_str)
+                        .unwrap_or_default()
+                        .starts_with(p)
+                })
         })
 }
 
@@ -136,6 +167,11 @@ fn shard_row(id: &str, s: &bake::Sample, source: &str) -> Value {
         Some(mph) => {
             row.insert("mph", Value::Int(i128::from(mph)));
             row.insert("hgv", Value::Bool(s.hgv));
+            let source = if s.assumed {
+                ALASKA_DEFAULT_SOURCE
+            } else {
+                source
+            };
             row.insert("source", Value::Str(source.to_string()));
         }
         None => {
@@ -154,6 +190,8 @@ struct Tally {
     no_reading: usize,
     hand_set: usize,
     no_archive: usize,
+    from_valhalla: usize,
+    assumed: usize,
     repaired: usize,
     gaps: usize,
     hgv: usize,
@@ -164,8 +202,8 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let args = Args::parse(
         argv,
         &Spec {
-            values: &["pbf", "only", "extract-date", "snapshot"],
-            flags: &["write"],
+            values: &["pbf", "only", "extract-date", "snapshot", "shape-cache"],
+            flags: &["write", "valhalla"],
         },
     )
     .map_err(|e| format!("{e}\n{USAGE}"))?;
@@ -204,7 +242,38 @@ pub fn main(argv: &[String]) -> Result<i32> {
         lines.len(),
         pbfs.len()
     );
-    let cells = geo::corridor_cells(lines.values());
+    let canadian = region::canadian_states(&world);
+    let mut shapes = route::ShapeCache::load(
+        &args
+            .value("shape-cache")
+            .map_or_else(route::default_cache, PathBuf::from),
+    );
+    let fetch = args.flag("valhalla");
+    // The road of each selected leg the archive does not hold.
+    let mut fetched: BTreeMap<String, geo::LegLine> = BTreeMap::new();
+    for leg in world
+        .get("legs")
+        .and_then(Value::as_array)
+        .into_iter()
+        .flatten()
+    {
+        let id = leg_id(leg);
+        if lines.contains_key(&id) || !selected(only.as_ref(), &id) || hand_set(leg) {
+            continue;
+        }
+        match shapes.line(&id, leg, fetch) {
+            Ok(Some(line)) => {
+                fetched.insert(id, line);
+            }
+            Ok(None) => {}
+            Err(e) => println!("  {id}: {e}; kept as it is"),
+        }
+        shapes.save()?;
+    }
+    if !fetched.is_empty() {
+        println!("{} legs read along {}", fetched.len(), route::SOURCE);
+    }
+    let cells = geo::corridor_cells(lines.values().chain(fetched.values()));
     let ways = pbf::read_ways(&pbfs)?;
     let total_ways = ways.len();
     let index = geo::WayIndex::build(ways, &cells);
@@ -221,7 +290,8 @@ pub fn main(argv: &[String]) -> Result<i32> {
                 .into(),
         );
     }
-    let note = world_source_note(&snapshot, &date);
+    let note = world_source_note(&snapshot, &date, "the archived route");
+    let valhalla_note = world_source_note(&snapshot, &date, route::SOURCE);
     let mut tally = Tally::default();
     let mut full: BTreeMap<String, Vec<Value>> = shard_rows(&gameplay.join("speed_limits.jsonl"))?;
     let legs = world
@@ -230,14 +300,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
         .ok_or("world_source has no legs")?;
     for leg in legs.iter_mut() {
         let id = leg_id(leg);
-        let alt = {
-            let (a, b) = id.split_once(':').unwrap_or_default();
-            format!("{b}:{a}")
-        };
-        if only
-            .as_ref()
-            .is_some_and(|o| !o.contains(&id) && !o.contains(&alt))
-        {
+        if !selected(only.as_ref(), &id) {
             continue;
         }
         tally.selected += 1;
@@ -245,16 +308,36 @@ pub fn main(argv: &[String]) -> Result<i32> {
             tally.hand_set += 1;
             continue;
         }
-        let Some(line) = lines.get(&id) else {
-            tally.no_archive += 1;
-            continue;
+        let (line, note) = match (lines.get(&id), fetched.get(&id)) {
+            (Some(line), _) => (line, &note),
+            (None, Some(line)) => {
+                tally.from_valhalla += 1;
+                (line, &valhalla_note)
+            }
+            (None, None) => {
+                tally.no_archive += 1;
+                continue;
+            }
         };
         let highway = leg.get("highway").map(Value::py_str).unwrap_or_default();
         let miles = leg.get("miles").and_then(Value::as_f64).unwrap_or(0.0);
-        let samples = bake::bake_leg(&highway, line, miles, &index);
+        let regions = region::LegRegions::of(leg, line, &canadian);
+        for border in &regions.borders {
+            if let Some(measured) = border
+                .measured_mi
+                .filter(|m| (m - border.corridor_mi).abs() > 0.5)
+            {
+                println!(
+                    "  {id}: the road crosses the border at mile {measured:.1}; the corridor \
+                     says {}",
+                    border.corridor_mi
+                );
+            }
+        }
+        let samples = bake::bake_leg(&highway, line, miles, &index, &regions);
         full.insert(
             id.clone(),
-            samples.iter().map(|s| shard_row(&id, s, &note)).collect(),
+            samples.iter().map(|s| shard_row(&id, s, note)).collect(),
         );
         let mut profile = samples;
         tally.repaired += bake::repair(&highway, miles, &mut profile);
@@ -265,7 +348,8 @@ pub fn main(argv: &[String]) -> Result<i32> {
         tally.postings += profile.iter().filter(|s| s.mph.is_some()).count();
         tally.gaps += profile.iter().filter(|s| s.mph.is_none()).count();
         tally.hgv += profile.iter().filter(|s| s.hgv).count();
-        let rows = Value::Array(bake::world_rows(&profile, &note));
+        tally.assumed += profile.iter().filter(|s| s.assumed).count();
+        let rows = Value::Array(bake::world_rows(&profile, note, ALASKA_DEFAULT_SOURCE));
         let corridor = leg
             .as_object_mut()
             .ok_or_else(|| format!("{id} is not an object"))?
@@ -290,9 +374,9 @@ pub fn main(argv: &[String]) -> Result<i32> {
         tally.no_archive
     );
     println!(
-        "New profiles: {} postings ({} from truck limits), {} coverage gaps; the anchor \
-         repair dropped {}.",
-        tally.postings, tally.hgv, tally.gaps, tally.repaired
+        "New profiles: {} postings ({} from truck limits, {} Alaska's assumed default), {} \
+         coverage gaps; the anchor repair dropped {}. {} legs read along the Valhalla route.",
+        tally.postings, tally.hgv, tally.assumed, tally.gaps, tally.repaired, tally.from_valhalla
     );
 
     // The screen reads the profiles just baked, on every leg.

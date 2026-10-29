@@ -66,7 +66,12 @@ impl TruckStatusState {
             "Snow chains: aboard and fresh.".to_string()
         };
 
-        let mut lines = if p.owns_equipment() {
+        let mut lines = if ff_core::models::business::has_no_carrier(p) {
+            vec![
+                "Assignment: none. You have no carrier, so no tractor is assigned to you."
+                    .to_string(),
+            ]
+        } else if p.owns_equipment() {
             vec![
                 format!("Assignment: owned tractor, {}.", truck.label),
                 "Eligibility: owned tractor, carrier fleet rules do not apply.".to_string(),

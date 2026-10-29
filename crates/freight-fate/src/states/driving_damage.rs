@@ -170,6 +170,14 @@ pub fn cargo_status_clause(truck: &TruckState) -> String {
     )
 }
 
+fn min_cap(a: Option<f64>, b: Option<f64>) -> Option<f64> {
+    match (a, b) {
+        (Some(a), Some(b)) => Some(a.min(b)),
+        (Some(cap), None) | (None, Some(cap)) => Some(cap),
+        (None, None) => None,
+    }
+}
+
 impl DrivingState {
     // -- cargo condition -----------------------------------------------------
 
@@ -210,7 +218,13 @@ impl DrivingState {
             }
         };
         let speed_mph = self.trip.truck.speed_mph();
+        let ambient = self
+            .trip
+            .weather
+            .temperature_c()
+            .unwrap_or(ff_core::sim::vehicle::AMBIENT_C);
         let t = &mut self.trip.truck;
+        t.ambient_temp_c = ambient;
         t.corner_overspeed_mph =
             advisory_mph.map_or(0.0, |advisory| (speed_mph - advisory).max(0.0));
         // The advisory itself as well as the excess: a liquid load needs the
@@ -552,10 +566,11 @@ impl DrivingState {
     }
 
     pub fn update_damage_cap(&mut self, dt: f64) {
+        let limiter = (self.trip.state_at(None) == BC_STATE_NAME).then_some(BC_LIMITER_MPH);
         let target = self.damage_cap_target();
         let Some(target) = target.filter(|_| !self.limp_cap_suspended()) else {
             self.limp_cap_mph = None;
-            self.trip.truck.speed_cap_mph = None;
+            self.trip.truck.speed_cap_mph = limiter;
             return;
         };
         self.limp_cap_mph = Some(match self.limp_cap_mph {
@@ -565,7 +580,7 @@ impl DrivingState {
             None => target.max(self.trip.truck.speed_mph()),
             Some(cap) => target.max(cap - LIMP_CAP_RAMP_MPH_PER_S * dt),
         });
-        self.trip.truck.speed_cap_mph = self.limp_cap_mph;
+        self.trip.truck.speed_cap_mph = min_cap(self.limp_cap_mph, limiter);
     }
 
     /// Say once per engagement that limp mode, not the grade, owns the target.
@@ -574,9 +589,15 @@ impl DrivingState {
     /// set speed is unreachable for a reason the driver cannot see, so name it
     /// and name what cruise is holding instead.
     pub fn announce_limp_cruise_cap(&mut self, ctx: &mut GameContext) {
+        let Some(limp_cap) = self.limp_cap_mph else {
+            return;
+        };
         let (Some(cap), Some(target)) = (self.trip.truck.speed_cap_mph, self.cruise_mph) else {
             return;
         };
+        if cap + 1e-6 < limp_cap {
+            return;
+        }
         if self.limp_cruise_said {
             return;
         }
@@ -590,6 +611,28 @@ impl DrivingState {
         // easing line -- an assist changing what the truck does is a
         // consequence, not colour (automation-handoff sweep, 2026-08-20, the
         // deferred 2026-08-15 audit).
+        ctx.say_event_with(
+            message,
+            SayEvent::queued()
+                .priority(EventPriority::Important)
+                .category(SpeechCategory::Status),
+        );
+    }
+
+    pub fn announce_bc_limiter(&mut self, ctx: &mut GameContext) {
+        if self.bc_limiter_said
+            || self.trip.state_at(None) != BC_STATE_NAME
+            || self.limp_cap_mph.is_some()
+            || !self.trip.truck.speed_governed()
+        {
+            return;
+        }
+        self.bc_limiter_said = true;
+        let message = if self.terse_speech(ctx) {
+            "Limiter, 105 kilometres an hour."
+        } else {
+            "Speed limiter: British Columbia caps heavy trucks at 105 kilometres an hour."
+        };
         ctx.say_event_with(
             message,
             SayEvent::queued()

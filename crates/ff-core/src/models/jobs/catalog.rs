@@ -34,6 +34,10 @@ pub struct CargoType {
     /// Longer-combination-vehicle freight: only offered when both endpoint
     /// states are on the frozen LCV network (23 CFR 658 Appendix C).
     pub lcv_lanes: bool,
+    /// STAA twin 28s (`parcel_doubles`): only offered / routed on the
+    /// National Network approximation plus reasonable access (see
+    /// `data::national_network`).
+    pub national_network: bool,
 }
 
 impl CargoType {
@@ -56,6 +60,7 @@ impl CargoType {
             tank: false,
             baffled: false,
             lcv_lanes: false,
+            national_network: false,
         }
     }
 
@@ -85,6 +90,13 @@ impl CargoType {
         }
     }
 
+    const fn national_network(self) -> Self {
+        CargoType {
+            national_network: true,
+            ..self
+        }
+    }
+
     const fn equipment(self, equipment: &'static str) -> Self {
         CargoType { equipment, ..self }
     }
@@ -93,6 +105,13 @@ impl CargoType {
     /// one-credential view the XP and badge layers read.
     pub fn primary_credential(&self) -> Option<&'static str> {
         self.credentials.first().copied()
+    }
+
+    /// Fresh food and refrigerated goods need the trailer TRU.
+    pub fn needs_reefer(&self) -> bool {
+        self.key == "food"
+            || self.key == "refrigerated"
+            || self.credentials.contains(&"refrigerated")
     }
 
     /// The credentials in `held` still missing for this cargo, in catalog
@@ -228,9 +247,10 @@ pub static CARGO_CATALOG: Lazy<IndexMap<&'static str, CargoType>> = Lazy::new(||
         )
         .fragile(),
         // Twin 28-foot trailers: the parcel networks' linehaul workhorse.
-        // STAA doubles are legal on the National Network in every state --
-        // the freeze only bites the longer combinations -- so the T
-        // endorsement alone opens this freight coast to coast.
+        // STAA doubles are federally guaranteed on the National Network
+        // (and reasonable access off it); the freeze only bites longer
+        // combinations. The T endorsement opens the freight, and the
+        // National Network route gate keeps it on legal lanes.
         //
         // Parcel fills a pup's space long before its weight: two pups of
         // boxes run about 6 to 15 tonnes. The set is also some 4 tonnes
@@ -244,7 +264,8 @@ pub static CARGO_CATALOG: Lazy<IndexMap<&'static str, CargoType>> = Lazy::new(||
             (6.0, 15.0),
             &["doubles_triples"],
         )
-        .min_level(8),
+        .min_level(8)
+        .national_network(),
         // Placarded loads: the freight the H endorsement exists for. The
         // catalog's plain "chemicals" class stays non-placarded packaged
         // goods; this is the tanker-adjacent dry side -- drums, cylinders,
@@ -300,16 +321,18 @@ pub static CARGO_CATALOG: Lazy<IndexMap<&'static str, CargoType>> = Lazy::new(||
         )
         .min_level(18)
         .equipment("intermodal container chassis"),
-        // Turnpike doubles: two long trailers on the corridors whose networks
-        // were frozen into law in 1991. The game keeps the combination at
-        // legal GVW -- raising the weight ceiling on the frozen network is
-        // the oversize-permit economy's job, on the roadmap.
+        // 48-foot turnpike doubles on the classic LCV turnpike corridors
+        // (see `data::lcv_turnpikes`). Distinct from STAA 28-foot pups. Needs
+        // the doubles endorsement and the LCV certificate. Never placarded /
+        // hazmat -- hazmat in doubles is not modeled. The board keeps the
+        // combination under the route's LCV cap (`models::doubles`), with
+        // both trailers and the dolly in the tare.
         CargoType::plain(
             "turnpike_doubles",
-            "turnpike doubles freight",
+            "48-foot turnpike doubles freight",
             3.95,
             (14.0, 25.0),
-            &["lcv"],
+            &["doubles_triples", "lcv"],
         )
         .min_level(20)
         .lcv_lanes()

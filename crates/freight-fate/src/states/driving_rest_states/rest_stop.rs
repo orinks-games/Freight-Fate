@@ -438,15 +438,33 @@ impl RestStopState {
             };
             items.push(item);
         }
-        items.push(
-            MenuItem::new("Walk around the truck", |s: &mut Self, ctx| {
-                s.walk_around(ctx)
-            })
-            .help(
-                "A pre-trip walk-around: what an inspector would find on the tractor and the \
-                 trailer. Fifteen minutes on duty.",
-            ),
-        );
+        if d.trip.truck.doubles_hooked() {
+            // A set of doubles is two trailers and a dolly to walk: the row
+            // shows the longer time so it is on screen as well as spoken.
+            items.push(
+                MenuItem::new(
+                    format!(
+                        "Walk around the truck, both trailers and the dolly, {} minutes",
+                        fmt_f(walk_around_minutes(d), 0)
+                    ),
+                    |s: &mut Self, ctx| s.walk_around(ctx),
+                )
+                .help(
+                    "A pre-trip walk-around: what an inspector would find on the tractor, both \
+                     trailers and the converter dolly. Longer than a single trailer's.",
+                ),
+            );
+        } else {
+            items.push(
+                MenuItem::new("Walk around the truck", |s: &mut Self, ctx| {
+                    s.walk_around(ctx)
+                })
+                .help(
+                    "A pre-trip walk-around: what an inspector would find on the tractor and the \
+                     trailer. Fifteen minutes on duty.",
+                ),
+            );
+        }
         if has("save") {
             items.push(
                 MenuItem::new("Save at this stop", |s: &mut Self, ctx| {
@@ -1326,26 +1344,44 @@ impl RestStopState {
     fn walk_around(&mut self, ctx: &mut GameContext) {
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
             let lines = d.walk_around_lines(ctx);
+            let minutes = walk_around_minutes(d);
+            let doubles = d.trip.truck.doubles_hooked();
             advance_rest_clock(
                 d,
                 ctx,
-                WALK_AROUND_MIN,
+                minutes,
                 Some("on_duty_not_driving"),
                 "pre-trip walk-around",
             );
-            hos_mut_of(ctx).on_duty(WALK_AROUND_MIN);
-            let body = if lines.is_empty() {
+            hos_mut_of(ctx).on_duty(minutes);
+            let body = if lines.is_empty() && doubles {
+                "Nothing to write up: tires, brakes, lights, both trailers and the converter \
+                 dolly would all pass."
+                    .to_string()
+            } else if lines.is_empty() {
                 "Nothing to write up: tires, brakes, lights and the trailer would all pass."
                     .to_string()
             } else {
                 lines.join(" ")
             };
-            format!(
-                "Walk-around done, {} minutes. {body} It is {}. {}",
-                fmt_f(WALK_AROUND_MIN, 0),
-                clock_text(d.trip.local_hour()),
-                deadline_text(d, ctx)
-            )
+            // One whole sentence per case: a fragment spliced into a shell
+            // would go out in English whatever language the player reads.
+            if doubles {
+                format!(
+                    "Walk-around done, both trailers and the converter dolly, {} minutes. \
+                     {body} It is {}. {}",
+                    fmt_f(minutes, 0),
+                    clock_text(d.trip.local_hour()),
+                    deadline_text(d, ctx)
+                )
+            } else {
+                format!(
+                    "Walk-around done, {} minutes. {body} It is {}. {}",
+                    fmt_f(minutes, 0),
+                    clock_text(d.trip.local_hour()),
+                    deadline_text(d, ctx)
+                )
+            }
         }) else {
             return;
         };
@@ -1587,3 +1623,15 @@ impl Menu for RestStopState {
 }
 
 impl_state_for_menu!(RestStopState);
+
+/// How long the driver's own walk-around takes with what is hooked now: the
+/// stock walk-around, and more for a set of doubles
+/// (`models::doubles::walk_around_extra_min`).
+pub fn walk_around_minutes(d: &DrivingState) -> f64 {
+    let units = if d.trip.truck.doubles_hooked() {
+        d.trip.truck.trailer_set.units
+    } else {
+        1
+    };
+    WALK_AROUND_MIN + ff_core::models::doubles::walk_around_extra_min(units)
+}

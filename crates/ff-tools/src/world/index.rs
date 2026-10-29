@@ -82,9 +82,15 @@ fn build_country_files(data: &Object, index: &Value) -> Result<Vec<(PathBuf, Str
     {
         let from = field(leg, "from", "");
         let to = field(leg, "to", "");
+        // A cross-border leg (Blaine WA to Surrey BC) is filed under the
+        // country it starts in, like every leg goes to its start state's
+        // shard; only a destination country the index does not list fails.
         let code = country_of(cities.and_then(|c| c.get(from)), single)?;
-        if country_of(cities.and_then(|c| c.get(to)), single)? != code {
-            return Err(format!("Cross-country leg {from}->{to} is not supported."));
+        let to_code = country_of(cities.and_then(|c| c.get(to)), single)?;
+        if to_code != code && !by_country.contains_key(&to_code) {
+            return Err(format!(
+                "Cross-country leg {from}->{to} targets unknown country {to_code:?}."
+            ));
         }
         // Complete leg records pass through, optional corridor fields too.
         by_country
@@ -223,4 +229,56 @@ pub fn main(argv: &[String]) -> Result<i32> {
     }
     println!("Wrote {written} world_data file(s) from world_source/.");
     Ok(0)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn two_countries() -> Value {
+        pyjson::loads(
+            r#"{"countries": [
+                {"code": "US", "path": "us", "cities": "cities.json", "legs_dir": "legs"},
+                {"code": "CA", "path": "ca", "cities": "cities.json", "legs_dir": "legs"}
+            ]}"#,
+        )
+        .unwrap()
+    }
+
+    fn world(to_country: &str) -> Object {
+        let text = format!(
+            r#"{{"cities": {{
+                "blaine_wa_us": {{"name": "Blaine", "state": "WA", "country": "US"}},
+                "surrey_bc_ca": {{"name": "Surrey", "state": "BC", "country": "{to_country}"}}
+            }},
+            "legs": [{{"from": "blaine_wa_us", "to": "surrey_bc_ca", "miles": 20}}]}}"#
+        );
+        match pyjson::loads(&text).unwrap() {
+            Value::Object(o) => o,
+            _ => unreachable!(),
+        }
+    }
+
+    #[test]
+    fn a_cross_border_leg_is_filed_under_the_country_it_starts_in() {
+        let files = build_country_files(&world("CA"), &two_countries()).unwrap();
+        let text_of = |tail: &str| {
+            files
+                .iter()
+                .find(|(p, _)| p.ends_with(tail))
+                .map(|(_, t)| t.clone())
+                .unwrap_or_default()
+        };
+        assert!(text_of("us/legs/WA.json").contains("surrey_bc_ca"));
+        assert!(files
+            .iter()
+            .filter(|(p, _)| p.starts_with(world_data().join("ca")))
+            .all(|(_, t)| !t.contains("blaine_wa_us")));
+    }
+
+    #[test]
+    fn a_leg_into_an_unlisted_country_still_fails() {
+        let err = build_country_files(&world("MX"), &two_countries()).unwrap_err();
+        assert!(err.to_string().contains("MX"), "{err}");
+    }
 }

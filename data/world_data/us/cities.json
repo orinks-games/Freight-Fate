@@ -3565,6 +3565,23 @@
       "lat": 48.7519,
       "lon": -122.4787
     },
+    "blaine_wa_us": {
+      "spoken_city": "Blaine",
+      "state": "WA",
+      "country": "US",
+      "region": "pacific_northwest",
+      "locations": [
+        {
+          "name": "TA Express Blaine",
+          "type": "travel_center",
+          "lat": 48.99126,
+          "lon": -122.73412,
+          "source_note": "TravelCenters of America TA Express #0917 at 1300 Boblett Street, Blaine WA (I-5 Exit 275); operator page lists overnight truck parking (~34 spaces), diesel, and driver amenities. Real lot for the Blaine stand-in service pin (city pin stays near the Pacific Highway POE for corridor attach). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        }
+      ],
+      "lat": 48.9881108,
+      "lon": -122.743575
+    },
     "pendleton_or_us": {
       "spoken_city": "Pendleton",
       "state": "OR",
@@ -7994,6 +8011,442 @@
           "source": "Real frozen beef patty plant, 1208 Progress Boulevard in the Elberton Industrial Park; Food Safety and Inspection Service inspected establishment. Development Authority of Elbert County employer list, accessed 2026-08-16."
         }
       ]
+    },
+    "tok_ak_us": {
+      "spoken_city": "Tok",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 63.3366667,
+      "lon": -142.985555,
+      "locations": [
+        {
+          "name": "Young's Chevron (Alaska Highway)",
+          "type": "travel_center",
+          "lat": 63.3353228,
+          "lon": -142.985827,
+          "source_note": "Young's Chevron fuel on the Alaska Highway in Tok AK (Unorganized Borough). OSM amenity=fuel pin; stand-in fuel/parking for ALCAN Phase A Alaska entry (through-freight only; no Anchorage / Phase B graph). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        }
+      ]
+    },
+    "fairbanks_ak_us": {
+      "spoken_city": "Fairbanks",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 64.837845,
+      "lon": -147.716675,
+      "locations": [
+        {
+          "name": "Sourdough Fuel (1688 Airport Way)",
+          "type": "travel_center",
+          "lat": 64.8371392,
+          "lon": -147.7505063,
+          "source_note": "Sourdough Fuel at 1688 Airport Way, Fairbanks AK (Slaterville). OSM amenity=fuel pin on the Richardson / Airport Way approach. Stand-in fuel/parking for ALCAN Phase A Fairbanks terminus (through-freight only; Anchorage deferred to Phase B). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        },
+        {
+          "name": "Costco Fairbanks Warehouse (#1342)",
+          "type": "retail_distribution",
+          "lat": 64.8530351,
+          "lon": -147.7069502,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "cargo": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Costco Wholesale warehouse #1342 at 48 College Road, Fairbanks AK 99701-1706. Operator: https://www.costco.com/w/-/ak/fairbanks/1342. Receive-only big-box retail (no outbound ship role). ESRI World Imagery export 2026-09-24: large retail roof with multiple dry vans backed to east loading docks and staged tractors on the north service alley."
+        },
+        {
+          "name": "Fred Meyer West Fairbanks",
+          "type": "retail_distribution",
+          "lat": 64.8352006,
+          "lon": -147.817643,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "cargo": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Fred Meyer West Fairbanks (Kroger) at 3755 Airport Way, Fairbanks AK 99709. Operator store page: https://www.fredmeyer.com/stores/grocery/ak/fairbanks/west-fairbanks/701/00485 (OSM way/116072940 website tag; branch West Fairbanks). Receive-only grocery/retail. ESRI World Imagery export 2026-09-24: roof lettering \"Fred Meyer - Welcome to Fairbanks\"; multiple dry vans at south and west loading docks with truck staging."
+        },
+        {
+          "name": "Carlile Fairbanks Shipping Terminal",
+          "type": "cross_dock",
+          "lat": 64.851572,
+          "lon": -147.761956,
+          "ships": [
+            "general",
+            "retail",
+            "parcel",
+            "container"
+          ],
+          "receives": [
+            "general",
+            "retail",
+            "parcel",
+            "container"
+          ],
+          "cargo": [
+            "general",
+            "retail",
+            "parcel",
+            "container"
+          ],
+          "traits": [
+            "thin_outbound"
+          ],
+          "source_note": "Carlile Transportation Fairbanks Shipping Terminal at 900 Aurora Drive, Fairbanks AK 99709. Operator: https://www.carlile.biz/contact-and-terminals/fairbanks/ (LTL/FTL; Anchorage\u2194Fairbanks 5 days/week). Cross-dock receive+ship; thin_outbound trait keeps ship/origin weight low so inbound outweighs outbound. ESRI World Imagery export 2026-09-24: multi-building terminal yard with dozens of staged vans/containers and trailers at building faces."
+        },
+        {
+          "name": "Spenard Builders Supply Fairbanks",
+          "type": "construction_materials_yard",
+          "lat": 64.8470424,
+          "lon": -147.7762216,
+          "ships": [],
+          "receives": [
+            "construction",
+            "lumber_paper",
+            "steel"
+          ],
+          "cargo": [
+            "construction",
+            "lumber_paper",
+            "steel"
+          ],
+          "source_note": "Spenard Builders Supply (Builders FirstSource) Fairbanks lumber yard at 2460 Phillips Field Road, Fairbanks AK 99701. Operator: https://www.sbsalaska.com/locations/fairbanks/. Receive-only construction materials (no bulk). ESRI World Imagery export 2026-09-24: large materials yard with stacked wrapped lumber/sheet goods and wide truck aisles at Peger Road / Phillips Field Road."
+        }
+      ]
+    },
+    "glennallen_ak_us": {
+      "spoken_city": "Glennallen",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 62.1083455,
+      "lon": -145.4779829,
+      "locations": [
+        {
+          "name": "Hub of Alaska (Glenn Hwy / Richardson Hwy)",
+          "type": "travel_center",
+          "lat": 62.1083455,
+          "lon": -145.4779829,
+          "source_note": "Hub of Alaska travel center at the Glenn Highway / Richardson Highway junction, Glennallen AK (Unorganized Borough). Nominatim geocode 2026-09-24 (Hub of Alaska, Glenn Highway, Glennallen). Public directories (AllStays / truckstopsandservices) list diesel and ~20\u201325 truck parking spaces. Primary Glennallen fuel/parking pin for ALCAN Phase B1. City location type is company_yard because FREIGHT_LOCATION_TYPES has no travel_center/parking class (same soft type debt as Phase A corridor pins). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        },
+        {
+          "name": "Glennallen Fuel & Service (Glenn Highway)",
+          "type": "travel_center",
+          "lat": 62.1077746,
+          "lon": -145.5368658,
+          "source_note": "Glennallen Fuel & Service on the Glenn Highway, Glennallen AK. Nominatim geocode 2026-09-24. Public directories list diesel and ~10 truck parking spaces. Verified alternate Glennallen lot (Hub of Alaska remains primary). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        }
+      ]
+    },
+    "palmer_ak_us": {
+      "spoken_city": "Palmer",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 61.5997,
+      "lon": -149.1128,
+      "locations": [
+        {
+          "name": "Mat-Su Valley freight stand-in (Palmer)",
+          "type": "company_yard",
+          "lat": 61.5997,
+          "lon": -149.1128,
+          "source_note": "Palmer AK Mat-Su market stand-in yard. No verified public tractor-stop pin: Palmer Chevron on Glenn (~MP 42) remains unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. City is the sole Mat-Su market node on B1."
+        }
+      ]
+    },
+    "anchorage_ak_us": {
+      "spoken_city": "Anchorage",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 61.2181,
+      "lon": -149.9003,
+      "locations": [
+        {
+          "name": "Essential One (9250 King Street)",
+          "type": "travel_center",
+          "lat": 61.1370513,
+          "lon": -149.8790685,
+          "source_note": "Essential One / Petro 49 / Shoreside high-flow diesel and cardlock at 9250 King Street, Anchorage AK 99515. Nominatim address geocode 2026-09-24. AllStays lists ~3 truck parking spaces in a dirt lot \u2014 capacity debt recorded honestly; not a large travel center. Anchorage fuel pin for ALCAN Phase B1. company_yard type per FREIGHT_LOCATION_TYPES (no travel_center city location class). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        },
+        {
+          "name": "Port of Alaska / Ship Creek industrial drop",
+          "type": "terminal",
+          "lat": 61.2446867,
+          "lon": -149.8816953,
+          "source_note": "Port of Alaska (Anchorage) industrial / consignee delivery end near the port complex north of downtown / Ship Creek industrial area. Nominatim 'Port of Alaska, Anchorage' 2026-09-24. Delivery end for Anchorage \u2014 not a public truck stop; fuel/parking remains Essential One (~3 spaces)."
+        }
+      ]
+    },
+    "bear_valley_ak_us": {
+      "spoken_city": "Bear Valley",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 60.7902,
+      "lon": -148.8153,
+      "no_freight": true,
+      "locations": [],
+      "source_note": "Bear Valley is the Anton Anderson Memorial Tunnel staging end, not a freight market. Coordinates are the Bear Valley staging and tunnel-control way 232967259, OpenStreetMap via Nominatim, accessed 2026-10-09. No freight facility is asserted."
+    },
+    "whittier_ak_us": {
+      "spoken_city": "Whittier",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 60.78308,
+      "lon": -148.7331,
+      "no_freight": true,
+      "locations": [],
+      "source_note": "Whittier is a real road endpoint reached through the Anton Anderson Memorial Tunnel. No freight facility has a verified street address and coordinates, so this city deliberately has no facilities or generated jobs. Sources: https://www.alaskarailroad.com/sites/default/files/Communications/1.2025.08.29_WTMP_Final_Master_Plan.pdf and verified research accessed 2026-10-09."
+    },
+    "nenana_ak_us": {
+      "spoken_city": "Nenana",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 64.5635293,
+      "lon": -149.0959778,
+      "locations": [
+        {
+          "name": "Nenana Parks Highway pass-through stand-in",
+          "type": "company_yard",
+          "lat": 64.5635293,
+          "lon": -149.0959778,
+          "source_note": "Nenana AK Parks Highway pass-through stand-in. No verified public tractor-stop pin: A-Frame SVC / Parks fuel remains unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. Not a job-board market."
+        }
+      ]
+    },
+    "healy_ak_us": {
+      "spoken_city": "Healy",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 63.875976,
+      "lon": -149.01869,
+      "locations": [
+        {
+          "name": "Fisher Fuel (Parks Highway MM 249.5)",
+          "type": "travel_center",
+          "lat": 63.875976,
+          "lon": -149.01869,
+          "source_note": "Fisher Fuel at Parks Highway MM 249.5, Healy AK 99743. Coordinates from truckstopsandservices.com directory map pin (63.875976, -149.01869), cross-checked to MM 249.5 / AllStays / GasBuddy listings 2026-09-24. Diesel; AllStays lists ~3 truck parking spaces \u2014 capacity recorded honestly, not inflated. Thin pass-through fuel pin only; Healy is not a job-board market. company_yard type per FREIGHT_LOCATION_TYPES (no travel_center city location class). Retyped from company_yard to travel_center (ALCAN public lot class)."
+        }
+      ]
+    },
+    "wasilla_ak_us": {
+      "spoken_city": "Wasilla",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 61.5824216,
+      "lon": -149.442563,
+      "locations": [
+        {
+          "name": "Wasilla Parks Highway pass-through stand-in",
+          "type": "company_yard",
+          "lat": 61.5824216,
+          "lon": -149.442563,
+          "source_note": "Wasilla AK Parks Highway pass-through stand-in. Not a Mat-Su job-board market \u2014 Palmer remains the sole Mat-Su market. Holiday / Three Bears / Fishers Big Lake lots remain unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. No fuel pin."
+        }
+      ]
+    },
+    "delta_junction_ak_us": {
+      "spoken_city": "Delta Junction",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 64.0373478,
+      "lon": -145.732157,
+      "source_note": "Place name and centroid coordinates read from local Geofabrik Alaska OpenStreetMap place feature 150916769, accessed 2026-10-07; state/country are read as Alaska, US, and the region is assigned from the game's pacific_northwest map-region classification.",
+      "locations": [
+        {
+          "name": "Three Bears Delta Junction",
+          "type": "travel_center",
+          "lat": 64.0409252,
+          "lon": -145.7336269,
+          "source_note": "Three Bears operator page https://threebearsalaska.com/stores/three-bears-delta-junction-2/ confirms public diesel and 24/7 pumps at 2340 Nistler Road. Local Geofabrik Alaska OSM fuel feature 479382014 is nearby but does not tag diesel; Overture did not identify the exact station. Parking/capacity are not verified and are not claimed; no cargo roles."
+        }
+      ]
+    },
+    "valdez_ak_us": {
+      "spoken_city": "Valdez",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 61.1299396,
+      "lon": -146.349363,
+      "source_note": "Place name and centroid coordinates read from local Geofabrik Alaska OpenStreetMap place feature 150918679, accessed 2026-10-07; state/country are read as Alaska, US, and the region is assigned from the game's pacific_northwest map-region classification.",
+      "locations": [
+        {
+          "name": "Ryan J. Sontag Valdez Container Terminal",
+          "type": "terminal",
+          "lat": 61.1271,
+          "lon": -146.2972,
+          "ships": [
+            "container",
+            "general",
+            "construction"
+          ],
+          "receives": [
+            "container",
+            "general",
+            "construction"
+          ],
+          "source_note": "City of Valdez terminal page https://www.valdezak.gov/296/Ryan-J-Sontag-Valdez-Container-Terminal and its official terminal brochure (1460 Container Terminal Road; published coordinates 61.1271,-146.2972; floating freight pier). The local Geofabrik Alaska OSM extract identifies terminal relation 11301693; Overture did not identify the exact terminal. Container, general, and construction freight roles follow the official terminal description."
+        }
+      ]
+    },
+    "seward_ak_us": {
+      "spoken_city": "Seward",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 60.1013952,
+      "lon": -149.4404281,
+      "source_note": "Place name and centroid coordinates read from local Geofabrik Alaska OpenStreetMap place feature 150921353, accessed 2026-10-07; state/country are read as Alaska, US, and the region is assigned from the game's pacific_northwest map-region classification.",
+      "locations": [
+        {
+          "name": "Alaska Railroad Seward Freight Dock",
+          "type": "terminal",
+          "lat": 60.1215,
+          "lon": -149.4261,
+          "ships": [
+            "general"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Alaska Railroad 2024 Seward Freight Dock Expansion fact sheet https://www.alaskarailroad.com/sites/default/files/FCTSHT_2024_Seward_Freight_Dock_Expansion_FactSheet.pdf documents cargo staging/transfer and roll-on/roll-off freight operations. The berth location is matched to local Geofabrik Alaska OSM freight-dock track features 1157424039 and 1157424040; Overture did not return an exact dock. General freight roles only."
+        },
+        {
+          "name": "Essential One Seward",
+          "type": "travel_center",
+          "lat": 60.1248351,
+          "lon": -149.4377273,
+          "source_note": "Shoreside Petroleum operator page https://www.shoresidepetroleum.com/fuel-stations/essential-one-seward confirms gasoline and diesel at 1801 Seward Highway. Local Geofabrik Alaska OSM way 1306965054 matches the diesel/gasoline station and large-vehicle access; Overture did not return an exact fuel point. Parking/capacity are not verified and are not claimed; no cargo roles."
+        }
+      ]
+    },
+    "soldotna_ak_us": {
+      "spoken_city": "Soldotna",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 60.4847228,
+      "lon": -151.065349,
+      "source_note": "Place name and centroid coordinates read from local Geofabrik Alaska OpenStreetMap place feature 150919792, accessed 2026-10-07; state/country are read as Alaska, US, and the region is assigned from the game's pacific_northwest map-region classification.",
+      "locations": [
+        {
+          "name": "Essential One Soldotna",
+          "type": "travel_center",
+          "lat": 60.4910507,
+          "lon": -151.1583708,
+          "source_note": "Shoreside Petroleum operator page https://www.shoresidepetroleum.com/fuel-stations/essential-one-soldotna confirms gasoline and diesel at 43442 K Beach Road; coordinates are read from the operator page\u2019s embedded map. Local OSM and the filtered Overture search did not identify the exact fuel point. Parking/capacity are not verified and are not claimed; no cargo roles."
+        }
+      ]
+    },
+    "kenai_ak_us": {
+      "spoken_city": "Kenai",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 60.5544444,
+      "lon": -151.258333,
+      "source_note": "Place name and centroid coordinates read from local Geofabrik Alaska OpenStreetMap place feature 150920412, accessed 2026-10-07; state/country are read as Alaska, US, and the region is assigned from the game's pacific_northwest map-region classification.",
+      "locations": [
+        {
+          "name": "Carlile Kenai Shipping Terminal",
+          "type": "cross_dock",
+          "lat": 60.54652708,
+          "lon": -151.21596948,
+          "ships": [
+            "general"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "Carlile operator page https://www.carlile.biz/contact-and-terminals/kenai/ confirms 1216 Bridge Access Road and freight receiving, storage, distribution, FTL and LTL service. Local Geofabrik Alaska OSM building way 424614663 matches the address/name; Overture also returned Carlile at that address. General freight only; no unsupported cargo classes inferred."
+        }
+      ]
+    },
+    "homer_ak_us": {
+      "spoken_city": "Homer",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 59.6454064,
+      "lon": -151.5445643,
+      "source_note": "Place name and centroid coordinates read from local Geofabrik Alaska OpenStreetMap place feature 150917881, accessed 2026-10-07; state/country are read as Alaska, US, and the region is assigned from the game's pacific_northwest map-region classification.",
+      "locations": [
+        {
+          "name": "Port of Homer Deep Water Freight Dock",
+          "type": "terminal",
+          "lat": 59.6069444,
+          "lon": -151.4277778,
+          "ships": [
+            "general"
+          ],
+          "receives": [
+            "general"
+          ],
+          "source_note": "City of Homer page https://www.cityofhomer-ak.gov/port/deep-water-dock-scheduling identifies the Deep Water Dock as the Freight Dock at 4667 Freight Dock Road and publishes dockage, berth, depth, and crane details; official city dock material gives 59\u00b036\u203225\u2033N, 151\u00b025\u203240\u2033W. Local OSM contains Freight Dock Road but no exact berth feature; Overture returned Port & Harbor records but no exact freight dock. General freight only, from the official Freight Dock designation; no commodity classes inferred."
+        },
+        {
+          "name": "Essential One Homer",
+          "type": "travel_center",
+          "lat": 59.6426074,
+          "lon": -151.5376601,
+          "source_note": "Shoreside Petroleum operator page https://www.shoresidepetroleum.com/fuel-stations/essential-one-homer confirms gasoline and diesel at 94 Sterling Highway; coordinates are read from the operator page\u2019s embedded map. Local OSM and the filtered Overture search did not identify the exact fuel point. Parking/capacity are not verified and are not claimed; no cargo roles."
+        }
+      ]
+    },
+    "coldfoot_ak_us": {
+      "spoken_city": "Coldfoot",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 67.2533607,
+      "lon": -150.1800263,
+      "source_note": "Place name and centroid coordinates read from local Geofabrik Alaska OpenStreetMap place feature 150917268, accessed 2026-10-07; state/country are read as Alaska, US, and the region is assigned from the game's pacific_northwest map-region classification.",
+      "locations": [
+        {
+          "name": "Coldfoot Camp Fuel",
+          "type": "travel_center",
+          "lat": 67.2516115,
+          "lon": -150.1779408,
+          "source_note": "Coldfoot Camp amenities page https://www.coldfootcamp.com/amenities confirms gasoline and diesel 24/7. Local Geofabrik Alaska OSM fuel node 410734041 is tagged for diesel/gasoline and large-vehicle access; Overture found the camp nearby, not the exact pump. Parking/capacity are not verified and are not claimed; no cargo roles."
+        }
+      ]
+    },
+    "deadhorse_ak_us": {
+      "spoken_city": "Deadhorse",
+      "state": "AK",
+      "country": "US",
+      "region": "pacific_northwest",
+      "lat": 70.1999496,
+      "lon": -148.461816,
+      "source_note": "Place name and centroid coordinates read from local Geofabrik Alaska OpenStreetMap place feature 150918086, accessed 2026-10-07; state/country are read as Alaska, US, and the region is assigned from the game's pacific_northwest map-region classification.",
+      "locations": []
     },
     "manassas_va_us": {
       "spoken_city": "Manassas",

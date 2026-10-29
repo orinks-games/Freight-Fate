@@ -112,6 +112,12 @@ pub static SCENARIOS: &[Scenario] = &[
         run: enforcement::scale_check_in_guidance,
     },
     Scenario {
+        name: "run_the_border",
+        description: "Floor it through the Alcan port; pay the penalty, clear customs, and \
+                      continue driving.",
+        run: enforcement::run_the_border,
+    },
+    Scenario {
         name: "bald_tires_get_a_walk_around",
         description: "Roll past staffed commercial-vehicle units on bald tires; one must see the \
                       tread, pull the truck in for a Level 2, write the tire up and replace it.",

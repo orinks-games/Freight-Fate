@@ -108,6 +108,45 @@ fn realism_dispatch_preview_reports_fuel_inclusive_weight_margin() {
 }
 
 #[test]
+fn seasonal_dispatch_preview_names_the_gross_weight_cap() {
+    use ff_core::data::seasonal_weight::seasonal_gvw_cap_kg;
+    use ff_core::models::jobs::SeasonalWeightLimit;
+    use ff_core::pyfmt::fmt_grouped;
+    use ff_core::sim::vehicle::{TrailerSet, TruckState, KG_PER_LB};
+
+    let mut h = PlaytestHarness::new();
+    h.start_delivery(StartDelivery::named("Seasonal weight preview"));
+    let mut job = h.read_drive(|d| d.job.clone());
+    job.seasonal_weight_limit = Some(SeasonalWeightLimit {
+        highway: "Richardson Highway".to_string(),
+        percent: 85,
+    });
+    // The cap is spoken where it bites: a load the spring limit puts over
+    // the truck's gross weight.
+    job.weight_tons = 40.0;
+    let mut proposed = h.app.ctx.profile.as_ref().expect("career profile").clone();
+    proposed.take_slip_seat(&job);
+    let mut truck = TruckState::new(proposed.truck_specs());
+    truck.fuel_gal = proposed.truck_fuel_gal();
+    truck.trailer_set = TrailerSet::for_cargo_between(
+        job.cargo.key,
+        h.app.ctx.world,
+        &job.origin,
+        &job.destination,
+    )
+    .expect("a legal trailer set");
+    truck.trailer_set.legal_gvw_kg = seasonal_gvw_cap_kg(&truck, 85);
+    let cap = fmt_grouped((truck.trailer_set.legal_gvw_kg / KG_PER_LB).round(), 0);
+    let expected = format!(
+        "Spring weight limits on the Richardson Highway hold this truck to {cap} pounds gross."
+    );
+
+    let text = describe_job(&h.app.ctx, 1, &job, None);
+    assert!(text.contains("over the gross-weight limit"), "{text}");
+    assert!(text.contains(&expected), "{text}");
+}
+
+#[test]
 fn realism_dispatch_preview_uses_the_slip_seat_tractor_and_its_fuel() {
     let mut h = PlaytestHarness::new();
     h.start_delivery(StartDelivery::named("Slip-seat weight preview"));
