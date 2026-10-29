@@ -558,28 +558,23 @@ fn test_an_assigned_load_you_sleep_for_is_still_the_assignment() {
     assert_eq!(assigned.pay, warned.pay);
 }
 
-// -- a load staged where the truck is parked ------------------------------------------
+// -- a load staged at the home yard ----------------------------------------------------
 
 #[test]
 fn test_a_load_staged_at_the_home_yard_opens_the_pickup_without_a_deadhead() {
-    // The truck is parked at a facility in the city's own list (the one it
-    // last delivered to), so dispatch can hand out a load that ships from
-    // it -- and the first agent playtest (2026-09-02) then drove a two-mile
-    // "deadhead from the terminal to the terminal" on every assigned load.
-    // The shipping office is a walk across the yard: the pickup opens here.
+    // The home terminal is a facility in the city's own list, so dispatch
+    // can hand out a load that ships from it -- and the first agent
+    // playtest (2026-09-02) then drove a two-mile "deadhead from the
+    // terminal to the terminal" on every assigned load. The shipping office
+    // is a walk across the yard: the pickup opens here.
     let mut app = TestApp::new();
     app.record_audio();
-    let yard = app
+    app.ctx.profile = Some(Profile::named_in("Yard Load", "Austin"));
+    let terminal = app
         .ctx
         .world
-        .yard_pin_name("Austin")
-        .expect("Austin has a yard pin")
-        .to_string();
-    let mut p = Profile::named_in("Yard Load", "Austin");
-    p.parked_facility = yard.clone();
-    app.ctx.profile = Some(p);
-    let terminal = app.ctx.profile.as_ref().unwrap().parked_at(app.ctx.world);
-    assert_eq!(terminal.name, yard);
+        .home_terminal("Austin")
+        .expect("Austin has a yard");
     let jobs = austin_offers(&app);
     let mut job = job_with_supported_route(&app, "Austin", 2, &jobs);
     job.origin_location = terminal.name.clone();

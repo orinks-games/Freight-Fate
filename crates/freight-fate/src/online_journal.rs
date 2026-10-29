@@ -408,7 +408,7 @@ pub struct DeliveryFacts {
     pub deliveries: i64,
     /// `job.cargo.key`
     pub cargo_key: String,
-    /// `job.spoken_cargo_label()`
+    /// `job.cargo.label`
     pub cargo_label: String,
     /// `job.origin` (the world node id)
     pub job_origin: String,

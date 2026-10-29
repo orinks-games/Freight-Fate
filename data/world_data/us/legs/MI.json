@@ -69612,19 +69612,6 @@
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           }
-        ],
-        "toll_events": [
-          {
-            "name": "Mackinac Bridge toll",
-            "at_mi": 52.1,
-            "road": "I-75 Mackinac Bridge",
-            "authority": "Mackinac Bridge Authority",
-            "method": "cash_card",
-            "amount": 25.0,
-            "amount_plate": 25.0,
-            "estimated": false,
-            "source": "https://www.mackinacbridge.org/fares-traffic/fare-schedule/ (tractor-trailers 5 dollars per axle; a five-axle rig pays 25), accessed 2026-10-11. Position derived from the St. Ignace toll plaza on the leg's archived geometry."
-          }
         ]
       },
       "stops": [
@@ -69721,40 +69708,7 @@
       ],
       "divided": false,
       "lanes": 2,
-      "rerouted": true,
-      "crossings": [
-        {
-          "kind": "bridge",
-          "name": "Mackinac Bridge",
-          "hazmat": "none",
-          "bulk_flammable_banned": false,
-          "tank_banned": false,
-          "regulated_lb_limit": null,
-          "max_length_ft": null,
-          "max_width_ft": null,
-          "max_height_ft": null,
-          "hazmat_text": "",
-          "size_text": "",
-          "source_url": "https://www.mackinacbridge.org/about-the-bridge/frequently-asked-questions/",
-          "access_date": "2026-10-11",
-          "basis": "Wind levels read from the Mackinac Bridge Authority FAQ, sustained wind: 35 to 50 mph high-profile vehicles wait for an escort, 50 to 65 mph closed to high-profile vehicles, 65 mph and above closed to all traffic. Escorts read from the Mackinac Bridge Authority rules and regulations on 2026-10-11: placarded loads require an escort by bridge personnel, and trucks with a gross load over 40 tons (80,000 lb) must request one. The truck permit that waives escorts for some class 2 and 3 placards and heavy trucks (https://www.mackinacbridge.org/oversize-vehicle-escorts/) is not modelled; game drivers hold none.",
-          "wind": {
-            "escort_mph": 35.0,
-            "light_trailer_mph": null,
-            "light_trailer_min_payload_lb": 0,
-            "trucks_closed_mph": 50.0,
-            "closed_mph": 65.0,
-            "escort_text": "High winds on the Mackinac Bridge. Trucks wait for an escort across.",
-            "refused_text": "The Mackinac Bridge is closed to trucks in high winds."
-          },
-          "escort": {
-            "placarded": true,
-            "gross_over_lb": 80000,
-            "text": "The Mackinac Bridge escorts placarded and heavy loads across.",
-            "source_url": "https://www.mackinacbridge.org/fares-traffic/rules-regulations/"
-          }
-        }
-      ]
+      "rerouted": true
     },
     {
       "from": "traverse_city_mi_us",

@@ -13,7 +13,6 @@ use ff_core::sim::trip_models::Zone;
 use freight_fate::app::testing::TestApp;
 use freight_fate::states::base::Menu;
 use freight_fate::states::city::CityMenuState;
-use freight_fate::states::city_pickup::{start_loaded_drive, LoadedDriveOptions};
 use freight_fate::states::driving::DrivingState;
 use freight_fate::states::driving_core::{DRIVE_PHASE_DELIVERY, FAILURE_TO_STOP_DAMAGE_PCT};
 use freight_fate::states::driving_rest_states::{
@@ -34,7 +33,6 @@ fn params(title: &str, out_of_service: bool, inspection_on_stop: bool) -> Enforc
         out_of_service,
         warned: false,
         construction_zone: false,
-        fine_is_final: false,
         inspection_on_stop,
         inspection_level: None,
     }
@@ -175,55 +173,12 @@ fn test_a_pulled_licence_ends_the_run_from_the_shoulder() {
         TrafficStopState::new(ctx, d, false, 24.0, 65.0, false, false, false)
     });
     let rows = build_labels(&mut state, &mut app.ctx);
-    assert_eq!(rows, vec!["Hand the truck to the relief driver"]);
-    // Where the driver actually ends up: the truck and current_city stay in
-    // the city the run left from, never the home terminal.
-    let city = {
-        let p = app.ctx.profile.as_ref().expect("a career");
-        app.ctx.world.spoken_city(&p.current_city, None)
-    };
-    let text = state.outcome_text();
+    assert_eq!(rows, vec!["Return to terminal"]);
     assert!(
-        text.contains(&format!(
-            "a relief driver takes the truck back to {city}, where you are released."
-        )),
-        "{text}"
+        state.outcome_text().contains("You are released to"),
+        "{}",
+        state.outcome_text()
     );
-    assert!(!text.contains("released to"), "{text}");
-    assert!(!text.contains("terminal"), "{text}");
-}
-
-#[test]
-fn test_a_suspended_exit_says_where_the_driver_waits_it_out() {
-    let mut app = TestApp::new();
-    let drive = a_drive(&mut app);
-    {
-        let profile = app.ctx.profile.as_mut().expect("a career");
-        let now = profile.game_hours;
-        profile.driving_record.record_serious_violation(now);
-        profile.driving_record.record_serious_violation(now);
-        assert!(profile.driving_record.suspended(now));
-    }
-    let state = drive_and_ctx(&drive, &mut app, |d, ctx| {
-        TrafficStopState::new(ctx, d, false, 24.0, 65.0, false, false, false)
-    });
-    let (city, ends) = {
-        let p = app.ctx.profile.as_ref().expect("a career");
-        (
-            app.ctx.world.spoken_city(&p.current_city, None),
-            enforcement::clears_text(p),
-        )
-    };
-    let text = state.outcome_text();
-    assert!(
-        text.contains(&format!(
-            "a relief driver takes the truck back to {city}. You wait out the suspension \
-             there; it ends {ends}."
-        )),
-        "{text}"
-    );
-    assert!(!text.contains("released to"), "{text}");
-    assert!(!text.contains("clears"), "{text}");
 }
 
 #[test]
@@ -439,7 +394,7 @@ fn test_a_scale_bypass_is_inspected_on_the_shoulder_instead() {
 // -- the felony stop -------------------------------------------------------------------------
 
 #[test]
-fn test_the_felony_stop_cancels_the_load_and_releases_the_driver() {
+fn test_the_felony_stop_cancels_the_load_and_releases_to_the_terminal() {
     let mut app = TestApp::new();
     let drive = a_drive(&mut app);
     let money_before = app.ctx.profile.as_ref().expect("a career").money();
@@ -452,7 +407,7 @@ fn test_the_felony_stop_cancels_the_load_and_releases_the_driver() {
         state.summary()
     );
     assert!(
-        state.summary().contains("You are released after booking."),
+        state.summary().contains("You are released back to"),
         "{}",
         state.summary()
     );
@@ -472,7 +427,7 @@ fn test_the_felony_stop_cancels_the_load_and_releases_the_driver() {
     assert_eq!(with_drive(&drive, |d| d.failure_to_stop_count), 1);
 
     let rows = build_labels(&mut state, &mut app.ctx);
-    assert_eq!(rows, vec!["Continue"]);
+    assert_eq!(rows, vec!["Return to terminal"]);
 }
 
 #[test]
@@ -493,16 +448,6 @@ fn test_fleeing_a_stop_is_a_major_offense_on_the_licence() {
 
 // -- a CDL pulled at speed ---------------------------------------------------------------
 
-/// One serious violation and one run-off already on the record, so the next
-/// run-off is the second serious violation and suspends the CDL.
-fn one_run_off_from_a_suspension(app: &mut TestApp) {
-    let p = app.ctx.profile.as_mut().expect("a career");
-    let now = p.game_hours;
-    p.driving_record.record_serious_violation(now);
-    p.driving_record.record_fatigue_event(now);
-    assert!(!p.driving_record.suspended(now));
-}
-
 /// Two serious violations right now: the CDL is suspended.
 fn suspend_the_cdl(app: &mut TestApp) {
     let p = app.ctx.profile.as_mut().expect("a career");
@@ -516,7 +461,16 @@ fn suspend_the_cdl(app: &mut TestApp) {
 fn test_a_run_off_that_suspends_the_cdl_ends_the_drive() {
     let mut app = TestApp::new();
     let drive = a_drive(&mut app);
-    one_run_off_from_a_suspension(&mut app);
+    let home = {
+        // One serious violation and one run-off already on the record, so
+        // the next run-off is the second serious violation.
+        let p = app.ctx.profile.as_mut().expect("a career");
+        let now = p.game_hours;
+        p.driving_record.record_serious_violation(now);
+        p.driving_record.record_fatigue_event(now);
+        assert!(!p.driving_record.suspended(now));
+        p.current_city.clone()
+    };
     with_drive(&drive, |d| d.trip.truck.velocity_mps = 27.0);
     drive_and_ctx(&drive, &mut app, |d, ctx| {
         d.microsleep_misses = 0;
@@ -529,34 +483,23 @@ fn test_a_run_off_that_suspends_the_cdl_ends_the_drive() {
     assert!(top_is::<LicencePulledState>(&app), "the drive carried on");
     assert_eq!(with_drive(&drive, |d| d.trip.truck.velocity_mps), 0.0);
     assert!(with_drive(&drive, |d| d.trip.truck.parking_brake));
-    let (city, ends) = {
-        let p = app.ctx.profile.as_ref().expect("a career");
-        (
-            app.ctx.world.spoken_city(&p.current_city, None),
-            enforcement::clears_text(p),
-        )
-    };
     let text = with_top::<LicencePulledState, _>(&app, |s| s.outcome_text().to_string());
     assert!(
-        text.starts_with("You pull onto the shoulder and stop."),
-        "{text}"
-    );
-    assert!(
-        text.contains(&format!(
-            "a relief driver takes the truck back to {city}. You wait out the suspension \
-             there; it ends {ends}."
-        )),
+        text.starts_with(
+            "You pull onto the shoulder and stop. The license is pulled as of now, so the truck \
+             stays here."
+        ),
         "{text}"
     );
     let rows = with_top_ctx::<LicencePulledState, _>(&mut app, build_labels);
-    assert_eq!(rows, vec!["Hand the truck to the relief driver"]);
+    assert_eq!(rows, vec!["Return to terminal"]);
 
     // Escape never drives on: it closes the run out like the row does.
     with_top_ctx::<LicencePulledState, _>(&mut app, |s, ctx| s.go_back(ctx));
     assert!(top_is::<CityMenuState>(&app));
     let p = app.ctx.profile.as_ref().expect("a career");
     assert!(p.active_trip.is_none());
-    assert_eq!(p.current_city, "Buffalo");
+    assert_eq!(p.current_city, home);
 }
 
 #[test]
@@ -641,13 +584,8 @@ fn test_a_saved_trip_on_a_pulled_cdl_closes_out_instead_of_resuming() {
     let mut app = TestApp::new();
     let drive = a_drive(&mut app);
     let snapshot = drive_and_ctx(&drive, &mut app, |d, ctx| d.snapshot(ctx));
-    {
-        let p = app.ctx.profile.as_mut().expect("a career");
-        p.active_trip = Some(snapshot);
-        let now = p.game_hours;
-        p.driving_record.record_serious_violation(now);
-        p.driving_record.record_serious_violation(now);
-    }
+    app.ctx.profile.as_mut().expect("a career").active_trip = Some(snapshot);
+    suspend_the_cdl(&mut app);
     app.clear_speech();
     let entry = freight_fate::states::main_menu::world_entry_state(&mut app.ctx, false);
     assert!(entry.borrow().as_any().is::<CityMenuState>());
@@ -658,43 +596,11 @@ fn test_a_saved_trip_on_a_pulled_cdl_closes_out_instead_of_resuming() {
         .expect("a career")
         .active_trip
         .is_none());
-    let said = app.main_lines().join(" ");
-    let (city, refusal) = {
-        let p = app.ctx.profile.as_ref().expect("a career");
-        (
-            app.ctx.world.spoken_city(&p.current_city, None),
-            enforcement::suspension_drive_refusal_line(p),
-        )
-    };
-    assert!(
-        said.contains(&format!(
-            "Your saved run cannot go on: dispatch takes the load back, and a relief driver \
-             takes the truck back to {city}. {refusal}"
-        )),
-        "{said}"
-    );
-}
-
-#[test]
-fn test_a_loaded_departure_on_a_pulled_cdl_is_refused() {
-    let mut app = TestApp::new();
-    let drive = a_drive(&mut app);
-    let (job, route) = with_drive(&drive, |d| (d.job.clone(), d.route.clone()));
-    {
-        let p = app.ctx.profile.as_mut().expect("a career");
-        p.active_trip = None;
-        let now = p.game_hours;
-        p.driving_record.record_serious_violation(now);
-        p.driving_record.record_serious_violation(now);
-    }
-    app.clear_speech();
-    start_loaded_drive(&mut app.ctx, job, route, LoadedDriveOptions::default());
-    let p = app.ctx.profile.as_ref().expect("a career");
-    assert!(p.active_trip.is_none(), "the loaded leg departed");
-    let expected = enforcement::suspension_drive_refusal_line(p);
-    assert!(
-        app.main_lines().contains(&expected),
-        "{:?}",
-        app.main_lines()
+    assert_eq!(
+        app.main_lines(),
+        vec![
+            "Your saved run cannot go on: dispatch cancels it, and a relief driver brings the \
+             truck back."
+        ]
     );
 }

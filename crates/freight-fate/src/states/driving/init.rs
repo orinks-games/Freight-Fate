@@ -10,7 +10,6 @@
 use std::collections::{HashMap, HashSet, VecDeque};
 use std::sync::Arc;
 
-use ff_core::data::seasonal_weight::seasonal_gvw_cap_kg;
 use ff_core::data::world_models::Route;
 use ff_core::models::cargo_condition::cargo_fragility;
 use ff_core::models::jobs::Job;
@@ -28,7 +27,7 @@ use ff_core::sim::surge::{liquid_load_for, LiquidCargo};
 use ff_core::sim::trip_traffic::TrafficProvider;
 use ff_core::sim::truck_parking::TruckParkingProvider;
 use ff_core::sim::turn_guide::TurnGuide;
-use ff_core::sim::vehicle::{TrailerSet, TruckState};
+use ff_core::sim::vehicle::TruckState;
 use ff_core::sim::weather::WeatherProvider;
 
 use crate::app::GameContext;
@@ -87,36 +86,9 @@ impl DrivingState {
         } else {
             0.0
         };
-        truck.cargo_key = if phase == DRIVE_PHASE_DELIVERY {
-            job.cargo.key.to_string()
-        } else {
-            String::new()
-        };
-        truck.placarded_hazmat =
-            phase == DRIVE_PHASE_DELIVERY && matches!(job.cargo.key, "hazardous" | "fuel_bulk");
-        truck.hazard_class = job
-            .hazmat
-            .filter(|_| phase == DRIVE_PHASE_DELIVERY)
-            .map(|m| m.class);
         // A reposition run is the tractor alone -- nothing on the fifth
         // wheel. Pickup deadheads haul their empty box.
         truck.trailer_attached = !job.bobtail;
-        // A loaded run pulls the trailer set the job was booked on: a set of
-        // doubles weighs two trailers and a dolly, carries its route's gross
-        // cap, and handles like doubles. Pickup deadheads haul one empty.
-        // New jobs on a lane through a state with no recorded turnpike cap
-        // are refused at the board and the route menu. A trip already under
-        // way on one (an old save, dispatched under the old rules) is
-        // grandfathered and finishes clean at its legacy limit.
-        if phase == DRIVE_PHASE_DELIVERY && !job.bobtail {
-            truck.trailer_set =
-                TrailerSet::legacy_trip_on_route(job.cargo.key, ctx.world, Some(&route));
-            // A None limit is the en-route exception for jobs dispatched
-            // before a window; do not retrofit a cap while the truck is moving.
-            if let Some(limit) = &job.seasonal_weight_limit {
-                truck.trailer_set.legal_gvw_kg = seasonal_gvw_cap_kg(&truck, limit.percent);
-            }
-        }
         truck.transmission.automatic = ctx.settings.automatic_transmission;
         // How well this freight survives being thrown about. Fed to the truck
         // because the forces that move a load are the truck's, but what the
@@ -127,10 +99,6 @@ impl DrivingState {
             None
         };
         truck.cargo_fragility = cargo_fragility(delivery_cargo);
-        // Profile fuel (and wear) must land before the reefer auto-start, or a
-        // saved empty tank looks full and the TRU comes on with nothing to burn.
-        profile_of(ctx).load_truck_condition(&mut truck);
-        truck.set_cargo_needs_reefer(delivery_cargo.is_some_and(|c| c.needs_reefer()));
         // A tank load is the only freight that keeps moving after the truck
         // stops. How full the shell is comes straight from the load's weight,
         // so the wave is a deterministic property of the job -- the same run
@@ -140,6 +108,7 @@ impl DrivingState {
             delivery_cargo.map(|cargo| cargo as &dyn LiquidCargo),
             job.weight_tons,
         );
+        profile_of(ctx).load_truck_condition(&mut truck);
         truck.set_cold_air_start();
 
         let start_damage = profile_of(ctx).truck_damage_pct();
@@ -215,7 +184,6 @@ impl DrivingState {
                 imperial: ctx.settings.imperial_units,
                 hazard_scale,
                 career_hours: Some(profile_of(ctx).game_hours),
-                live_calendar: profile_of(ctx).live_calendar,
                 traffic_provider: live_traffic_provider(ctx),
                 parking_provider: live_parking_provider(ctx),
                 bobtail: job.bobtail,
@@ -375,9 +343,7 @@ impl DrivingState {
             hos_stop_warning_pending: None,
             hos_plan_hint_check_key: None,
             hos_plan_hint_pending: None,
-            hos_jurisdiction_initialized: false,
             enforcement_events: HashSet::new(),
-            pending_border_clearance: None,
             out_of_service_count: 0,
             drowsy_said: false,
             severe_said: false,
@@ -506,7 +472,6 @@ impl DrivingState {
             equipment_event_logged: false,
             limp_cap_mph: None,
             limp_cruise_said: false,
-            bc_limiter_said: false,
             out_of_service_creep_s: 0.0,
             recovering: false,
             maintenance_levels: [0; 3],
@@ -558,7 +523,6 @@ impl DrivingState {
             ramp_green_roll_said: false,
             ramp_assist_brake: 0.0,
             approach_pull_ahead: false,
-            rear_whip_cooldown_s: 0.0,
             approach_pull_ahead_canceled: false,
             street_bar_mi: None,
             street_control_kind: String::new(),

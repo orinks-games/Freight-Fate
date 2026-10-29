@@ -6,21 +6,18 @@ use indexmap::IndexMap;
 use once_cell::sync::Lazy;
 use parking_lot::Mutex;
 
-use crate::data::lcv_turnpikes::cargo_requires_lcv_turnpike;
-use crate::data::seasonal_weight::{seasonal_gvw_cap_kg, strictest_on_route};
-use crate::data::world::{max_alternate_miles, World};
-use crate::data::world_models::{City, CrossingLoad, Location};
+use crate::data::world::World;
+use crate::data::world_models::{City, Location};
 use crate::models::business_constants::DIRECT_FREIGHT_PAY_MULT;
-use crate::models::carriers::carrier;
 use crate::models::co_driver::{load_seed, team_load_drawn, TEAM_LOAD_PAY_MULT};
 use crate::models::jobs::team_deadline_hours;
 use crate::models::jobs::{
-    cargo_type, dispatch_deadline_hours, market_tag_cargo_bonus, minimum_pay_for_level, plan_hos,
-    CargoType, Job, SeasonalWeightLimit, DEADLINE_DISPATCH_SLACK_RANGE, FACILITY_SELECTION_WEIGHTS,
-    HELD_CREDENTIAL_CARGO_WEIGHT, HELD_CREDENTIAL_FACILITY_BONUS, HOOKUP_FEE, LEVEL_DISTANCE_CAPS,
-    LEVEL_DISTANCE_CAP_STEP_MI, MAX_DISPATCH_DISTANCE_MI, MIN_JOB_DISTANCE_MI, PREMIUM_LANE_LEVEL,
-    PREMIUM_LANE_LONG_HAUL_BIAS, SPECIALIZED_FREIGHT_LEVEL, SPECIALIZED_FREIGHT_WEIGHT,
-    THIN_OUTBOUND_ORIGIN_WEIGHT,
+    cargo_type, dispatch_deadline_hours, facility_cargo, market_tag_cargo_bonus,
+    minimum_pay_for_level, plan_hos, CargoType, Job, CARGO_CATALOG, DEADLINE_DISPATCH_SLACK_RANGE,
+    FACILITY_SELECTION_WEIGHTS, HELD_CREDENTIAL_CARGO_WEIGHT, HELD_CREDENTIAL_FACILITY_BONUS,
+    HOOKUP_FEE, LEVEL_DISTANCE_CAPS, LEVEL_DISTANCE_CAP_STEP_MI, MAX_DISPATCH_DISTANCE_MI,
+    MIN_JOB_DISTANCE_MI, PREMIUM_LANE_LEVEL, PREMIUM_LANE_LONG_HAUL_BIAS,
+    SPECIALIZED_FREIGHT_LEVEL, SPECIALIZED_FREIGHT_WEIGHT,
 };
 use crate::models::jobs::{BEHIND_HEADING_PENALTY, RETURN_LANE_MIN_POOL, RETURN_LANE_SHARE};
 use crate::models::market::Market;
@@ -28,9 +25,7 @@ use crate::models::start_options::{start_option, DEFAULT_START_KEY};
 use crate::pyfmt::round_py_n;
 use crate::pyrandom::PyRandom;
 use crate::sim::hos::HosClock;
-use crate::sim::vehicle::{
-    combination_tare_kg, TrailerSet, TruckSpecs, TruckState, KG_PER_TON, TRAILER_TARE_KG,
-};
+use crate::sim::vehicle::{combination_tare_kg, max_legal_cargo_tons, TruckSpecs};
 
 /// `(destination, route miles, route leg count)`.
 pub type Candidate = (String, f64, usize);
@@ -114,7 +109,6 @@ pub struct JobBoard<'w> {
     // The driver's live shift clock: deadlines plan around the hours already
     // burned, the way a real dispatcher asks what you have left.
     pub hos: Option<HosClock>,
-    calendar_hours: Option<f64>,
     rng: PyRandom,
 }
 
@@ -124,7 +118,6 @@ impl<'w> JobBoard<'w> {
         JobBoard {
             world,
             hos: hos.cloned(),
-            calendar_hours: None,
             rng: match seed {
                 Some(seed) => PyRandom::new_from_i64(seed),
                 None => PyRandom::new_unseeded(),
@@ -137,25 +130,7 @@ impl<'w> JobBoard<'w> {
         Self::new(world, Some(seed), None)
     }
 
-    pub fn with_calendar_hours(mut self, hours: f64) -> Self {
-        self.calendar_hours = Some(hours);
-        self
-    }
-
     pub fn distance_cap(level: i64) -> f64 {
-        Self::level_distance_cap_only(level)
-    }
-
-    /// Level distance cap combined with the carrier run-band max (tighter wins).
-    pub fn distance_cap_for_carrier(level: i64, carrier_key: &str) -> f64 {
-        let level_cap = Self::level_distance_cap_only(level);
-        match carrier(carrier_key) {
-            Some(c) => c.effective_distance_cap(level_cap),
-            None => level_cap,
-        }
-    }
-
-    fn level_distance_cap_only(level: i64) -> f64 {
         if let Some((_, cap)) = LEVEL_DISTANCE_CAPS.iter().find(|(l, _)| *l == level) {
             return *cap;
         }
@@ -187,13 +162,8 @@ impl<'w> JobBoard<'w> {
             .candidates(&city)
             .into_iter()
             .filter(|c| c.1 >= MIN_JOB_DISTANCE_MI)
-            .filter(|c| self.city_has_freight_receiver(&c.0))
             .collect();
-        let cap = Self::distance_cap_for_carrier(level, carrier_key);
-        // Run-band *max* is already folded into `cap` (tighter of level cap and
-        // carrier max). The run-band *min* is stored on the carrier for slice 4
-        // lane-area enforcement; applying it here would wipe short national
-        // boards (Northstar 400–3000) that rookies still need.
+        let cap = Self::distance_cap(level);
         let mut reachable: Vec<Candidate> =
             candidates.iter().filter(|c| c.1 <= cap).cloned().collect();
         if reachable.is_empty() && !candidates.is_empty() {
@@ -228,17 +198,9 @@ impl<'w> JobBoard<'w> {
         let mut attempts = 0;
         while jobs.len() < count && attempts < count * 30 {
             attempts += 1;
-            let Some(location) = self.choose_origin_location(city_obj, level, carrier_key, &held)
-            else {
-                // City has no freight-capable shipper (e.g. travel-center-only
-                // ALCAN pins). Empty board is honest.
-                break;
-            };
-            let Some(cargo_key) =
-                self.choose_cargo_for_location(city_obj, location, level, carrier_key, &held)
-            else {
-                continue;
-            };
+            let location = self.choose_origin_location(city_obj, level, carrier_key, &held);
+            let cargo_key =
+                self.choose_cargo_for_location(city_obj, location, level, carrier_key, &held);
             let cargo = cargo_type(cargo_key).expect("a catalog cargo key");
             let locked = !cargo.missing_credentials(endorsements).is_empty();
             // a locked job may appear once in a while as a teaser, otherwise skip
@@ -251,19 +213,13 @@ impl<'w> JobBoard<'w> {
             if cargo.lcv_lanes && !self.lcv_lane(&city, &destination) {
                 continue;
             }
-            // STAA twin trailers stay on the National Network approximation
-            // (plus reasonable access). Skip destinations with no twin-legal
-            // corridor option.
-            if cargo.national_network && !self.national_network_lane(&city, &destination) {
-                continue;
-            }
             let Some(dest_location) = self.destination_location(&destination, cargo, level) else {
                 continue;
             };
             let dest_location = dest_location.clone();
             let origin_name = location.name.clone();
             let location = location.clone();
-            if let Some(job) = self.make_job(
+            jobs.push(self.make_job(
                 cargo,
                 &city,
                 &origin_name,
@@ -275,9 +231,7 @@ impl<'w> JobBoard<'w> {
                 &dest_location,
                 carrier_key,
                 opts.direct_freight,
-            ) {
-                jobs.push(job);
-            }
+            ));
         }
         jobs.sort_by(|a, b| {
             a.distance_mi
@@ -319,17 +273,14 @@ impl<'w> JobBoard<'w> {
             .clone();
         let held: Vec<&str> = endorsements.iter().map(AsRef::as_ref).collect();
         for _ in 0..30 {
-            let location = self.choose_origin_location(city_obj, level, carrier_key, &held)?;
+            let location = self.choose_origin_location(city_obj, level, carrier_key, &held);
             let cargo_key =
-                self.choose_cargo_for_location(city_obj, location, level, carrier_key, &held)?;
+                self.choose_cargo_for_location(city_obj, location, level, carrier_key, &held);
             let cargo = cargo_type(cargo_key).expect("a catalog cargo key");
             if !cargo.missing_credentials(endorsements).is_empty() {
                 continue;
             }
             if cargo.lcv_lanes && !self.lcv_lane(&city, &destination) {
-                continue;
-            }
-            if cargo.national_network && !self.national_network_lane(&city, &destination) {
                 continue;
             }
             let Some(dest_location) = self.destination_location(&destination, cargo, level) else {
@@ -338,7 +289,7 @@ impl<'w> JobBoard<'w> {
             let dest_location = dest_location.clone();
             let origin_name = location.name.clone();
             let location = location.clone();
-            if let Some(job) = self.make_job(
+            return Some(self.make_job(
                 cargo,
                 &city,
                 &origin_name,
@@ -350,9 +301,7 @@ impl<'w> JobBoard<'w> {
                 &dest_location,
                 carrier_key,
                 opts.direct_freight,
-            ) {
-                return Some(job);
-            }
+            ));
         }
         None
     }
@@ -427,21 +376,20 @@ impl<'w> JobBoard<'w> {
         let exponent = exponent.unwrap_or(if level <= 2 { 2.0 } else { 1.0 });
         let mut weight = 1.0 / miles.powf(exponent);
         let option = start_option(Some(carrier_key));
-        let cap = Self::distance_cap_for_carrier(level, carrier_key).max(1.0);
-        let dispatch = option.dispatch_profile();
-        if dispatch.short_haul_bias != 0.0 {
+        let cap = Self::distance_cap(level).max(1.0);
+        if option.dispatch.short_haul_bias != 0.0 {
             let short_factor = (1.0 - miles.min(cap) / cap).max(0.0);
-            weight *= 1.0 + dispatch.short_haul_bias * short_factor;
+            weight *= 1.0 + option.dispatch.short_haul_bias * short_factor;
         }
-        if dispatch.long_haul_bias != 0.0 {
+        if option.dispatch.long_haul_bias != 0.0 {
             let long_factor = (miles / cap).min(1.0);
-            weight *= 1.0 + dispatch.long_haul_bias * long_factor;
+            weight *= 1.0 + option.dispatch.long_haul_bias * long_factor;
         }
         if level >= PREMIUM_LANE_LEVEL {
             // Premium-lane seniority: dispatch shows the long freight first.
             weight *= 1.0 + PREMIUM_LANE_LONG_HAUL_BIAS * (miles / cap).min(1.0);
         }
-        if dispatch.regional_bias != 0.0 {
+        if option.dispatch.regional_bias != 0.0 {
             let origin_region = self.world.cities.get(origin).map(|c| c.region.as_str());
             let dest_region = self
                 .world
@@ -449,7 +397,7 @@ impl<'w> JobBoard<'w> {
                 .get(destination)
                 .map(|c| c.region.as_str());
             if origin_region.is_some() && dest_region == origin_region {
-                weight *= 1.0 + dispatch.regional_bias;
+                weight *= 1.0 + option.dispatch.regional_bias;
             }
         }
         weight.max(1e-12)
@@ -477,17 +425,11 @@ impl<'w> JobBoard<'w> {
         1.0 - BEHIND_HEADING_PENALTY * behind
     }
 
-    /// Whether turnpike doubles may run between these cities: both ends sit
-    /// in ISTEA-freeze LCV states, and at least one supported corridor option
-    /// stays on a listed LCV turnpike (plus staging stubs). See
-    /// `data::lcv_turnpikes`.
+    /// Whether both ends of a lane sit in states on the frozen LCV network
+    /// (23 CFR 658 Appendix C). An endpoint check, deliberately: the route
+    /// between two LCV states can cross a non-LCV one, and modeling the
+    /// break-and-remake at the state line is the permit economy's job.
     pub(crate) fn lcv_lane(&self, origin: &str, destination: &str) -> bool {
-        use crate::data::lcv_turnpikes::city_allows_lcv_turnpike_endpoint;
-        if !city_allows_lcv_turnpike_endpoint(origin)
-            || !city_allows_lcv_turnpike_endpoint(destination)
-        {
-            return false;
-        }
         let state_of = |key: &str| {
             self.world
                 .cities
@@ -495,43 +437,8 @@ impl<'w> JobBoard<'w> {
                 .map(|c| c.state_code.as_str())
                 .unwrap_or("")
         };
-        if !(crate::models::credentials::lcv_state(state_of(origin))
-            && crate::models::credentials::lcv_state(state_of(destination)))
-        {
-            return false;
-        }
-        // A listed turnpike lane with a recorded LCV cap in every state it
-        // touches; a state with no cap makes the lane illegal, not 80,000 lb.
-        TrailerSet::for_cargo_between("turnpike_doubles", self.world, origin, destination).is_some()
-    }
-
-    /// Whether any supported corridor option from origin to destination stays
-    /// on the National Network approximation (plus reasonable access) inside
-    /// the lower-48 US so STAA twin trailers may run it. ALCAN, Canada, and
-    /// Alaska lanes are refused by policy. See `data::national_network`.
-    pub(crate) fn national_network_lane(&self, origin: &str, destination: &str) -> bool {
-        use crate::data::national_network::{
-            city_outside_lower_48, filter_staa_doubles_routes, route_outside_lower_48,
-        };
-        let city_blocked = |key: &str| {
-            self.world
-                .cities
-                .get(key)
-                .map(city_outside_lower_48)
-                .unwrap_or_else(|| crate::data::national_network::city_key_outside_lower_48(key))
-        };
-        if city_blocked(origin) || city_blocked(destination) {
-            return false;
-        }
-        match self.world.supported_route_options(origin, destination, 3) {
-            Ok(routes) => {
-                if routes.iter().all(route_outside_lower_48) && !routes.is_empty() {
-                    return false;
-                }
-                !filter_staa_doubles_routes(&routes).is_empty()
-            }
-            Err(_) => false,
-        }
+        crate::models::credentials::lcv_state(state_of(origin))
+            && crate::models::credentials::lcv_state(state_of(destination))
     }
 
     /// `(destination, route miles, route leg count)` for every other city.
@@ -544,27 +451,8 @@ impl<'w> JobBoard<'w> {
             }
         }
         let mut computed: Vec<Candidate> = Vec::new();
-        // Phase A ALCAN: the continuous graph may reach Canada pass-through
-        // towns, but the job board must not mint CA destinations for a US
-        // carrier (through-freight corridor ≠ cabotage board). Keep offers
-        // same-country until a Canada domestic career board is an explicit cut.
-        let origin_country = self
-            .world
-            .cities
-            .get(city)
-            .map(|c| c.country.as_str())
-            .unwrap_or("US");
         for dest in self.world.city_names() {
             if dest == city {
-                continue;
-            }
-            let dest_country = self
-                .world
-                .cities
-                .get(&dest)
-                .map(|c| c.country.as_str())
-                .unwrap_or("US");
-            if dest_country != origin_country {
                 continue;
             }
             if let Ok(Some(route)) = self.world.supported_route(city, &dest, None) {
@@ -579,27 +467,14 @@ impl<'w> JobBoard<'w> {
         computed
     }
 
-    /// True when the city has at least one facility that receives freight.
-    /// Travel centers and truck parking ship/receive nothing, so a corridor
-    /// of fuel-only pins must not soak up the destination cycle.
-    fn city_has_freight_receiver(&self, city: &str) -> bool {
-        let Some(city_obj) = self.world.cities.get(city) else {
-            return false;
-        };
-        city_obj
-            .locations
-            .iter()
-            .any(|location| !Self::cargo_for_location(location, "receives", None).is_empty())
-    }
-
     fn choose_origin_location<'c>(
         &mut self,
         city: &'c City,
         level: i64,
         carrier_key: &str,
         held: &[&str],
-    ) -> Option<&'c Location> {
-        let plausible: Vec<&Location> = city
+    ) -> &'c Location {
+        let mut plausible: Vec<&Location> = city
             .locations
             .iter()
             .filter(|location| {
@@ -608,19 +483,12 @@ impl<'w> JobBoard<'w> {
             })
             .collect();
         if plausible.is_empty() {
-            // No freight shipper at this city (travel_center / truck_parking
-            // pins ship nothing). Do not fall back onto a fuel lot.
-            return None;
+            plausible = city.locations.iter().collect();
         }
         let weights: Vec<f64> = plausible
             .iter()
             .map(|location| {
                 let mut weight = Self::facility_weight(city, location, carrier_key);
-                // Thin-outbound cross-docks (Fairbanks Carlile): inbound should
-                // outweigh outbound, so origin selection down-weights the ship role.
-                if location.traits.iter().any(|t| t == "thin_outbound") {
-                    weight *= THIN_OUTBOUND_ORIGIN_WEIGHT;
-                }
                 // A shipper of freight this driver is credentialed for is
                 // where dispatch sends this driver first.
                 if Self::cargo_for_location(location, "ships", Some(level))
@@ -633,7 +501,7 @@ impl<'w> JobBoard<'w> {
             })
             .collect();
         let idx = self.rng.choices_indices_weighted(&weights, 1)[0];
-        Some(plausible[idx])
+        plausible[idx]
     }
 
     /// The cargo asks for a course-earned credential (one no level grants:
@@ -657,12 +525,14 @@ impl<'w> JobBoard<'w> {
         level: i64,
         carrier_key: &str,
         held: &[&str],
-    ) -> Option<&'static str> {
-        let cargo_keys = Self::cargo_for_location(location, "ships", Some(level));
+    ) -> &'static str {
+        let mut cargo_keys = Self::cargo_for_location(location, "ships", Some(level));
         if cargo_keys.is_empty() {
-            // Do not invent freight from the full catalog for a pin that
-            // ships nothing (travel_center / truck_parking).
-            return None;
+            cargo_keys = CARGO_CATALOG
+                .values()
+                .filter(|cargo| cargo.min_level <= level)
+                .map(|cargo| cargo.key)
+                .collect();
         }
         let weights: Vec<f64> = cargo_keys
             .iter()
@@ -676,14 +546,10 @@ impl<'w> JobBoard<'w> {
             })
             .collect();
         let idx = self.rng.choices_indices_weighted(&weights, 1)[0];
-        Some(cargo_keys[idx])
+        cargo_keys[idx]
     }
 
     /// `_cargo_for_location(location, role, level)`.
-    ///
-    /// Trusts the parsed `ships` / `receives` lists. An explicit empty list
-    /// (receive-only / fuel-only) must not re-inflate from the facility-type
-    /// cargo table — that would make receive-only overrides ship again.
     pub fn cargo_for_location(
         location: &Location,
         role: &str,
@@ -693,6 +559,20 @@ impl<'w> JobBoard<'w> {
             location.ships.clone()
         } else {
             location.receives.clone()
+        };
+        let role_values = if role_values.is_empty() {
+            let typed: Vec<String> = facility_cargo(&location.facility_type)
+                .unwrap_or_default()
+                .into_iter()
+                .map(str::to_string)
+                .collect();
+            if typed.is_empty() {
+                location.cargo.clone()
+            } else {
+                typed
+            }
+        } else {
+            role_values
         };
         let mut allowed: Vec<&'static str> = Vec::new();
         for key in &role_values {
@@ -805,83 +685,12 @@ impl<'w> JobBoard<'w> {
         destination_facility: &Location,
         carrier_key: &str,
         direct_freight: bool,
-    ) -> Option<Job> {
-        let open_route = self
-            .world
-            .supported_route(origin, destination, None)
-            .ok()
-            .flatten();
-        // A tunnel or bridge that turns this load away is planned around. No
-        // legal road, or one far longer than the open road, is no job: a
-        // dispatcher would not book a load that cannot make the trip.
-        let material = super::hazmat::commodity_for(
-            cargo.key,
-            &format!(
-                "{origin}|{destination}|{}|{}",
-                origin_facility.id, destination_facility.id
-            ),
-        );
-        let load = CrossingLoad::standard_rig(true)
-            .with_cargo(
-                cargo.key,
-                cargo.tank,
-                (cargo.weight_tons.1 * 2000.0).round() as u32,
-            )
-            .with_hazard_class(material.map(|m| m.class));
-        let mut miles = miles;
-        let route = if load.regulated() {
-            let legal = self
-                .world
-                .legal_route(origin, destination, &load)
-                .ok()
-                .flatten();
-            if let Some(open) = &open_route {
-                let legal_road = legal.as_ref()?;
-                if legal_road
-                    .legs
-                    .iter()
-                    .map(|leg| leg.id)
-                    .ne(open.legs.iter().map(|leg| leg.id))
-                {
-                    if legal_road.miles() > max_alternate_miles(open.miles()) {
-                        return None;
-                    }
-                    miles = legal_road.miles();
-                }
-            }
-            legal
-        } else {
-            open_route
-        };
-        // Clamp to the legal gross for a stock tractor and what this freight
-        // hooks: 80,000 lb for a single or STAA twin 28s, the route's
-        // turnpike cap for turnpike doubles, with both trailers and the
-        // converter dolly in the tare. Heavier catalog ranges exist, but a
-        // dispatched load that starts illegal is a lie; the live overweight
-        // check still red-lights a truck that ends up over (a heavier
-        // tractor, a test load). Turnpike doubles are priced on the lanes
-        // the route menu will offer, and a lane with no recorded LCV cap in
-        // every state is no job at all, never an 80,000 lb one.
-        let mut set = if cargo_requires_lcv_turnpike(cargo.key) {
-            TrailerSet::for_cargo_between(cargo.key, self.world, origin, destination)?
-        } else {
-            TrailerSet::for_cargo_on_route(cargo.key, self.world, route.as_ref())?
-        };
-        let seasonal_weight_limit = self
-            .calendar_hours
-            .zip(route.as_ref())
-            .and_then(|(hours, route)| strictest_on_route(route, hours))
-            .map(|restriction| {
-                let mut truck = TruckState::new(TruckSpecs::default());
-                truck.trailer_set = set;
-                set.legal_gvw_kg = seasonal_gvw_cap_kg(&truck, restriction.percent);
-                SeasonalWeightLimit {
-                    highway: restriction.highway.to_string(),
-                    percent: restriction.percent,
-                }
-            });
-        let tare = combination_tare_kg(&TruckSpecs::default()) - TRAILER_TARE_KG + set.tare_kg;
-        let max_tons = ((set.legal_gvw_kg - tare) / KG_PER_TON).max(0.0);
+    ) -> Job {
+        // Clamp to 80,000 lb GVW for a stock tractor + trailer. Heavier
+        // catalog ranges exist, but a dispatched load that starts illegal
+        // is a lie; the live overweight check still red-lights a truck
+        // that ends up over (a heavier tractor, a test load).
+        let max_tons = max_legal_cargo_tons(combination_tare_kg(&TruckSpecs::default()));
         let hi = cargo.weight_tons.1.min(max_tons);
         let lo = cargo.weight_tons.0.min(hi);
         let weight = self.rng.uniform(lo, hi);
@@ -899,6 +708,11 @@ impl<'w> JobBoard<'w> {
         );
         // deadline: the honest HOS-compliant hours (driving, breaks, sleep),
         // shipper slack on top, plus a flat hour for fuel and the unexpected
+        let route = self
+            .world
+            .supported_route(origin, destination, None)
+            .ok()
+            .flatten();
         let slack = self.rng.uniform(
             DEADLINE_DISPATCH_SLACK_RANGE.0,
             DEADLINE_DISPATCH_SLACK_RANGE.1,
@@ -909,9 +723,7 @@ impl<'w> JobBoard<'w> {
             route.as_ref(),
             Some(self.world),
             self.hos.as_ref(),
-        ) * start_option(Some(carrier_key))
-            .dispatch_profile()
-            .deadline_slack;
+        ) * start_option(Some(carrier_key)).dispatch.deadline_slack;
         // Speak the stretch when the driver's current clock forces a sleep a
         // fresh clock would not have needed -- the long number is the law.
         // A fresh driver's sleeps, planned once for both questions below.
@@ -954,15 +766,11 @@ impl<'w> JobBoard<'w> {
             job.pay = round_py_n(job.pay * TEAM_LOAD_PAY_MULT, 2);
             job.deadline_game_h = round_py_n(
                 team_deadline_hours(miles, slack, route.as_ref(), Some(self.world))
-                    * start_option(Some(carrier_key))
-                        .dispatch_profile()
-                        .deadline_slack,
+                    * start_option(Some(carrier_key)).dispatch.deadline_slack,
                 1,
             );
         }
-        job.seasonal_weight_limit = seasonal_weight_limit;
-        job.hazmat = material;
-        Some(job)
+        job
     }
 }
 

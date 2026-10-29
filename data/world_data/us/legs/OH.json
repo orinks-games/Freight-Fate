@@ -14638,10 +14638,9 @@
             "road": "Ohio Turnpike",
             "authority": "Ohio Turnpike and Infrastructure Commission",
             "method": "ezpass",
-            "amount": 46.25,
-            "estimated": false,
-            "source": "Ohio Turnpike and Infrastructure Commission fare calculator, class 6 (high 5 axle), Lorain County West (142) to Westgate (4) including the Westgate barrier, E-ZPass and non-E-ZPass fares, accessed 2026-10-11: https://www.ohioturnpike.org/e-zpass/toll-rates",
-            "amount_plate": 56.25
+            "amount": 78.0,
+            "estimated": true,
+            "source": "Ohio Turnpike toll calculator, accessed 2026-06-16; estimated commercial vehicle toll across northern Ohio: https://www.ohioturnpike.org/e-zpass/toll-rates"
           },
           {
             "name": "Indiana Toll Road settlement",
@@ -14649,10 +14648,9 @@
             "road": "Indiana Toll Road",
             "authority": "Indiana Toll Road Concession Company",
             "method": "ezpass",
-            "amount": 91.37,
-            "estimated": false,
-            "source": "Indiana Toll Road calculator and published rate table, Eastpoint to Westpoint, eff. 2026-07-01; researched 2026-07-19 (tools/toll_rates.py in_full_length): https://www.indianatollroad.org/",
-            "amount_plate": 91.37
+            "amount": 68.0,
+            "estimated": true,
+            "source": "Indiana Toll Road toll road rates, accessed 2026-06-16; estimated 5-axle commercial toll segment: https://www.indianatollroad.org/toll-road-rates/"
           }
         ],
         "interchanges": [
@@ -18799,10 +18797,9 @@
             "road": "Ohio Turnpike (I-90)",
             "authority": "Ohio Turnpike and Infrastructure Commission",
             "method": "ezpass",
-            "amount": 28.0,
-            "estimated": false,
-            "source": "Ohio Turnpike and Infrastructure Commission fare calculator, class 6 (high 5 axle), North Ridgeville (151) to Perrysburg-Toledo (64), E-ZPass and non-E-ZPass fares, accessed 2026-10-11: https://www.ohioturnpike.org/e-zpass/toll-rates",
-            "amount_plate": 34.25
+            "amount": 25.0,
+            "estimated": true,
+            "source": "estimated 5-axle commercial tractor-trailer toll per Ohio Turnpike and Infrastructure Commission published rates; https://www.ohioturnpike.org/e-zpass/toll-rates"
           }
         ],
         "restrictions": [],
@@ -45439,15 +45436,14 @@
         ],
         "toll_events": [
           {
-            "name": "Beaver Valley Expressway toll",
-            "at_mi": 19.0,
-            "road": "Toll 376 Beaver Valley Expressway",
+            "name": "Pennsylvania Turnpike Gateway settlement",
+            "at_mi": 34.0,
+            "road": "Pennsylvania Turnpike (I-76)",
             "authority": "Pennsylvania Turnpike Commission",
             "method": "ezpass",
-            "amount": 12.72,
-            "estimated": false,
-            "source": "Pennsylvania Turnpike Commission 2026 schedules, Toll 376 West mainline plaza W18, Class 4 (5 axle); the Turnpike from Beaver Valley (13) to Cranberry (28) is untolled, accessed 2026-10-11: https://files.paturnpike.com/production/docs/default-source/resources/tolls/toll-schedule-2026/2026-e-zpass.pdf ; https://files.paturnpike.com/production/docs/default-source/resources/tolls/toll-schedule-2026/2026-toll-by-plate-(tbp).pdf",
-            "amount_plate": 25.44
+            "amount": 24.0,
+            "estimated": true,
+            "source": "estimated 5-axle commercial tractor-trailer toll per Pennsylvania Turnpike Commission published rates; https://www.paturnpike.com/toll-calculator"
           }
         ],
         "restrictions": [],

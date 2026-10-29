@@ -41,7 +41,7 @@ pub fn describe_job(ctx: &GameContext, total: usize, job: &Job, index: Option<us
     let p = profile(ctx);
     let business = settlement_for(p, job, true);
     let note = trailer_note(p, job);
-    let weight = load_weight_margin(ctx.world, p, job);
+    let weight = load_weight_margin(p, job);
     let preview = if weight.is_empty() {
         market_preview(&business)
     } else {
@@ -140,7 +140,7 @@ impl JobDetailState {
         let loaded_departure_h =
             pickup_drive_hours(ctx, job) + (PICKUP_CHECK_IN_MIN + PICKUP_LOADING_MIN) / 60.0;
         let mut lines = vec![
-            format!("Cargo: {}.", job.spoken_cargo_label()),
+            format!("Cargo: {}.", job.cargo.label),
             format!("Origin: {}.", job.origin_facility_text()),
             format!("Destination: {destination_text}."),
             format!("Distance: {}.", s.distance_text(job.distance_mi, false)),
@@ -163,12 +163,9 @@ impl JobDetailState {
         lines.extend(briefing::hours_lines(ctx, job));
         lines.push(briefing::fuel_line(ctx, job));
         lines.push(format!("Equipment: {}.", job.equipment_text()));
-        let weight = load_weight_margin(ctx.world, p, job);
+        let weight = load_weight_margin(p, job);
         if !weight.is_empty() {
             lines.insert(4, weight);
-        }
-        if let Some(material) = job.hazmat {
-            lines.insert(1, format!("Material: {}.", material.card_text()));
         }
         let trailer = trailer_note(p, job);
         if !trailer.is_empty() {

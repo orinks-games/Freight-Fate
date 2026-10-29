@@ -523,8 +523,8 @@ pub trait CareerProfile: StandingProfile {
     }
 }
 
-/// `business.carrier_name(profile)`: the carrier on the profile, or empty
-/// when there is none (no fallback carrier).
+/// `business.carrier_name(profile)`: the carrier on the profile, or the
+/// starter carrier when the profile carries none.
 pub fn carrier_name_of<P: StandingProfile + ?Sized>(profile: &P) -> String {
     crate::models::business::carrier_name(profile)
 }

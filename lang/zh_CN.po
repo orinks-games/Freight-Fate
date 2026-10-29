@@ -3916,69 +3916,6 @@ msgid ""
 "yesterday."
 msgstr "圣诞这一周。现在货物都是礼物，每个装卸口都想昨天就收到。"
 
-msgid "id"
-msgstr "id"
-
-msgid "spoken"
-msgstr ""
-
-msgid "type"
-msgstr "type"
-
-msgid "lat"
-msgstr "lat"
-
-msgid "lon"
-msgstr "lon"
-
-msgid "ships"
-msgstr "发货"
-
-msgid "receives"
-msgstr "收货"
-
-msgid "cargo"
-msgstr "货物"
-
-msgid "traits"
-msgstr ""
-
-msgid "no yards"
-msgstr ""
-
-#. placeholders: {id}
-msgid "yard {id} has no source URL"
-msgstr ""
-
-#. placeholders: {id}
-msgid "yard {id} needs an address and a source note"
-msgstr ""
-
-#. placeholders: {id}
-msgid "yard {id} sits outside the border city area"
-msgstr ""
-
-msgid "no consignees"
-msgstr ""
-
-#. placeholders: {spoken}
-msgid "consignee {spoken} has no source"
-msgstr ""
-
-#. placeholders: {spoken}
-msgid "consignee {spoken} is not spoken in plain text"
-msgstr ""
-
-msgid "bridge hours have no source URL"
-msgstr ""
-
-msgid "paperwork wait range is empty"
-msgstr ""
-
-#. placeholders: {line}
-msgid "spoken line is empty or not plain text: {line}"
-msgstr ""
-
 msgid "service area"
 msgstr "service area"
 
@@ -4138,23 +4075,6 @@ msgstr ""
 "both FHWA HPMS and the profile's own label class as level, above the {f} "
 "percent ceiling for {road_class} there."
 
-msgid "Dispatch only clears long doubles on the turnpike."
-msgstr ""
-
-msgid "Dispatch dropped a lane that leaves the turnpike."
-msgstr ""
-
-msgid ""
-"Dispatch can't clear twin trailers on that run. It leaves the National "
-"Network."
-msgstr ""
-
-msgid "Dispatch dropped a lane that leaves the National Network."
-msgstr ""
-
-msgid "Dispatch doesn't run twins on that lane."
-msgstr ""
-
 msgid "northeast"
 msgstr "northeast"
 
@@ -4220,27 +4140,6 @@ msgstr "California"
 
 msgid "the Pacific Northwest"
 msgstr "the Pacific Northwest"
-
-msgid "Richardson Highway"
-msgstr ""
-
-msgid "Alaska Highway"
-msgstr ""
-
-msgid "Tok Cutoff"
-msgstr ""
-
-msgid "Glenn Highway"
-msgstr ""
-
-msgid "Seward Highway"
-msgstr ""
-
-msgid "Sterling Highway"
-msgstr ""
-
-msgid "Kenai Spur Highway"
-msgstr ""
 
 msgid ""
 "Original welcome-sign copy pairing each state's well-known nickname with a "
@@ -4745,14 +4644,6 @@ msgstr "未知城市：{leg_from}"
 msgid "Unknown city: {leg_to}"
 msgstr "未知城市：{leg_to}"
 
-#. placeholders: {leg_from}, {leg_to}, {e}
-msgid "{leg_from} to {leg_to} has invalid crossings: {e}"
-msgstr ""
-
-#. placeholders: {leg_from}, {leg_to}
-msgid "{leg_from} to {leg_to}"
-msgstr ""
-
 #. placeholders: {a}
 msgid "Unknown city: {a}"
 msgstr "未知城市：{a}"
@@ -4775,6 +4666,16 @@ msgstr "未知设施编号：{facility_id}"
 
 msgid "terminal"
 msgstr "terminal"
+
+msgid "warehouse"
+msgstr "warehouse"
+
+msgid "distribution"
+msgstr "distribution"
+
+#. placeholders: {name}
+msgid "{name} Company Yard"
+msgstr "{name}公司车场"
 
 #. placeholders: {start}
 msgid "Unknown city: {start}"
@@ -4811,12 +4712,6 @@ msgstr "{city}的设施{rname}没有来源说明"
 #. placeholders: {city}, {rname}
 msgid "{city} facility {rname} has no cargo roles"
 msgstr "{city}的设施{rname}没有货物角色"
-
-#. placeholders: {city}, {rname}
-msgid ""
-"{city} facility {rname} is a fuel/rest pin and must not carry freight cargo "
-"roles"
-msgstr ""
 
 msgid "truck stop"
 msgstr "卡车服务站"
@@ -5016,9 +4911,6 @@ msgstr "ors"
 msgid "osm"
 msgstr "osm"
 
-msgid "distribution"
-msgstr "distribution"
-
 msgid "intermodal"
 msgstr "intermodal"
 
@@ -5030,9 +4922,6 @@ msgstr "port"
 
 msgid "rail"
 msgstr "rail"
-
-msgid "warehouse"
-msgstr "warehouse"
 
 msgid "air cargo area"
 msgstr "航空货运区"
@@ -5192,12 +5081,6 @@ msgstr ""
 
 msgid "industrial plant access road"
 msgstr "工业厂区通道"
-
-msgid "travel center access road"
-msgstr ""
-
-msgid "truck parking lot access"
-msgstr ""
 
 msgid "electronics"
 msgstr "electronics"
@@ -5407,12 +5290,6 @@ msgid "Curated representative freight terminal in the metro freight market."
 msgstr ""
 "Curated representative freight terminal in the metro freight market."
 
-msgid "Public travel center or commercial diesel stop with tractor parking."
-msgstr ""
-
-msgid "Public truck parking lot (may lack full travel-center amenities)."
-msgstr ""
-
 msgid "Curated representative warehouse in the metro freight market."
 msgstr "Curated representative warehouse in the metro freight market."
 
@@ -5455,12 +5332,6 @@ msgstr "{city}冷库"
 msgid "{city} Company Yard"
 msgstr "{city}公司车场"
 
-msgid "{city} Travel Center"
-msgstr ""
-
-msgid "{city} Truck Parking"
-msgstr ""
-
 msgid "{city} Materials Yard"
 msgstr "{city}建材堆场"
 
@@ -5499,14 +5370,6 @@ msgstr "{city}港口码头"
 
 msgid "{city} Steel and Industrial Works"
 msgstr "{city}钢铁和工业厂"
-
-#. placeholders: {leg_from}, {leg_to}
-msgid "{leg_from} to {leg_to} has invalid tunnel data"
-msgstr ""
-
-#. placeholders: {leg_from}, {leg_to}
-msgid "{leg_from} to {leg_to} tunnel"
-msgstr ""
 
 msgid "checkpoints"
 msgstr "checkpoints"
@@ -5711,38 +5574,6 @@ msgstr "{p}厂区引道{rid}"
 msgid "{p} facility approach {rid} has no turn segments"
 msgstr "{p}厂区引道{rid}没有转弯分段"
 
-#. placeholders: {context}
-msgid "{context} has no source URL or access date"
-msgstr ""
-
-#. placeholders: {context}
-msgid "{context} has invalid access date"
-msgstr ""
-
-#. placeholders: {context}
-msgid "{context} has no hours"
-msgstr ""
-
-#. placeholders: {context}
-msgid "{context} calendar"
-msgstr ""
-
-#. placeholders: {context}, {key}
-msgid "{context} has no published hours for {key}"
-msgstr ""
-
-#. placeholders: {context}
-msgid "{context} has invalid hours dates"
-msgstr ""
-
-#. placeholders: {context}
-msgid "{context} has invalid hours"
-msgstr ""
-
-#. placeholders: {context}
-msgid "{context} has invalid tunnel operating data"
-msgstr ""
-
 msgid "receiver"
 msgstr "收货方"
 
@@ -5785,9 +5616,6 @@ msgstr "公路变更"
 
 msgid "state line"
 msgstr "州界"
-
-msgid "port of entry"
-msgstr ""
 
 msgid "corridor place"
 msgstr "沿线地点"
@@ -5834,109 +5662,6 @@ msgstr "一处{kind_label}，标示为{value_text}。你的路线可以通过"
 #. placeholders: {py_capitalize}, {value_text}
 msgid "{py_capitalize}, signed {value_text}."
 msgstr "{py_capitalize}，标示为{value_text}。"
-
-msgid "explosives"
-msgstr ""
-
-msgid "flammable gas"
-msgstr ""
-
-msgid "nonflammable gas"
-msgstr ""
-
-msgid "poison gas"
-msgstr ""
-
-msgid "flammable liquid"
-msgstr ""
-
-msgid "flammable solid"
-msgstr ""
-
-msgid "spontaneously combustible"
-msgstr ""
-
-msgid "dangerous when wet"
-msgstr ""
-
-msgid "an oxidizer"
-msgstr ""
-
-msgid "an organic peroxide"
-msgstr ""
-
-msgid "poison"
-msgstr ""
-
-msgid "infectious"
-msgstr ""
-
-msgid "radioactive"
-msgstr ""
-
-msgid "corrosive"
-msgstr ""
-
-msgid "a miscellaneous hazardous material"
-msgstr ""
-
-#. placeholders: {spoken}
-#. one sentence of a longer line
-msgid "This load is {spoken}."
-msgstr ""
-
-#. placeholders: {spoken}, {reason}
-msgid "This load is {spoken}. {reason}"
-msgstr ""
-
-#. placeholders: {context}, {what}
-msgid "{context} crossing {what}"
-msgstr ""
-
-msgid "has an unknown kind"
-msgstr ""
-
-msgid "has no name or basis"
-msgstr ""
-
-msgid "has no source URL"
-msgstr ""
-
-msgid "has an invalid access date"
-msgstr ""
-
-msgid "has an invalid size limit"
-msgstr ""
-
-msgid "has a size limit with no spoken rule"
-msgstr ""
-
-msgid "has a cargo rule with no spoken rule"
-msgstr ""
-
-msgid "bans classes without naming any"
-msgstr ""
-
-msgid "limits classes with no spoken rule"
-msgstr ""
-
-msgid "has class hours with no classes, times or spoken rule"
-msgstr ""
-
-msgid "has invalid wind speeds"
-msgstr ""
-
-msgid "has a wind rule with no spoken rule"
-msgstr ""
-
-msgid "has an escort rule with nothing to escort or no spoken rule"
-msgstr ""
-
-msgid "models no rule"
-msgstr ""
-
-msgid "speaks money as a symbol"
-msgstr ""
 
 msgid "exit"
 msgstr "出口"
@@ -6036,10 +5761,6 @@ msgstr "转入{highway}。"
 #. placeholders: {name}
 msgid "{name} Freight Market Office"
 msgstr "{name}货运市场办事处"
-
-#. placeholders: {yard}
-msgid "{yard} Garage"
-msgstr ""
 
 #. placeholders: {name}
 msgid "{name} Garage"
@@ -6291,10 +6012,6 @@ msgstr "总收入"
 msgid "Carrier gross"
 msgstr "承运商总收入"
 
-msgid ""
-"No carrier. Apply to a carrier at the terminal to get back on freight."
-msgstr ""
-
 #. placeholders: {WEIGH_STATION_TRANSPONDER_LEVEL}
 msgid ""
 "Company drivers get a fleet transponder free once dispatch trusts them with "
@@ -6364,10 +6081,6 @@ msgid "You are already running as an owner-operator."
 msgstr "你已经是车主司机了。"
 
 msgid ""
-"Apply to a carrier first: a leased-on tractor is leased to a carrier."
-msgstr ""
-
-msgid ""
 "Hold a clear CDL: no lessor puts a suspended or disqualified driver in a "
 "truck."
 msgstr "持有状态良好的CDL：没有哪个出租方会让被暂扣或被取消资格的司机上车。"
@@ -6385,15 +6098,6 @@ msgid ""
 "Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "
 "working capital."
 msgstr "存够{grouped}美元：{grouped2}用于买断卡车，{grouped3}作为周转资金。"
-
-#. placeholders: {NO_CARRIER_STATUS}, {level}, {title}
-#. one sentence of a longer line
-msgid "{NO_CARRIER_STATUS} Level {level}: {title}."
-msgstr ""
-
-#. placeholders: {NO_CARRIER_STATUS}, {level}, {title}, {stage}
-msgid "{NO_CARRIER_STATUS} Level {level}: {title}. {stage}."
-msgstr ""
 
 #. placeholders: {level}, {title}
 #. one sentence of a longer line
@@ -6513,15 +6217,6 @@ msgid ""
 msgstr ""
 "{lead}挂靠在{carrier_name}。{level}级：{title}。总收入更高。你要承担燃油、维修、保养准备金、保险、挂车计划、卡车准备金"
 "和结算手续费。{readiness}{transponder}{next_business_unlock}"
-
-#. one sentence of a longer line
-msgid "Company driver with no carrier."
-msgstr ""
-
-#. placeholders: {level}, {title}, {NO_CARRIER_STATUS}
-msgid ""
-"Company driver with no carrier. Level {level}: {title}. {NO_CARRIER_STATUS}"
-msgstr ""
 
 #. one sentence of a longer line
 msgid "Settlements are driver wages and bonuses."
@@ -6733,9 +6428,6 @@ msgstr "经验{f}。{owed_text}声誉{f2}，满分100。"
 #. one sentence of a longer line
 msgid "{grouped} lifetime miles, {grouped2} dollars earned."
 msgstr "累计行驶{grouped}英里，共赚{grouped2}美元。"
-
-msgid "Chicago"
-msgstr "Chicago"
 
 msgid "rig"
 msgstr "rig"
@@ -7428,15 +7120,6 @@ msgstr "借助培训师的支持和更安全的货物，开始一份干净的服
 msgid "good first-week run"
 msgstr "不错的第一周行程"
 
-msgid "Apply to a carrier to get back on freight."
-msgstr ""
-
-msgid "Get back on freight"
-msgstr ""
-
-msgid "carrier seat"
-msgstr ""
-
 msgid "Build dispatcher trust"
 msgstr "建立调度员的信任"
 
@@ -7510,9 +7193,6 @@ msgstr "提升直接货源声誉"
 msgid ""
 "Activating your own authority needs level {AUTHORITY_ACTIVATION_LEVEL}."
 msgstr "激活自己的权限需要级别{AUTHORITY_ACTIVATION_LEVEL}。"
-
-msgid "There is no dispatch board until a carrier takes you on."
-msgstr ""
 
 msgid "First dispatch"
 msgstr "第一次调度"
@@ -7796,9 +7476,6 @@ msgid ""
 "dispatch moves you up to the {label2}."
 msgstr "卡车：{truck}，{label}，由承运商分配。到{min_level}级时，调度会把你调到{label2}。"
 
-msgid "Truck: none. You have no carrier, so no tractor is assigned to you."
-msgstr ""
-
 #. placeholders: {MOVE_UP_LEVEL}, {title}
 msgid "Reach level {MOVE_UP_LEVEL}: {title}."
 msgstr "达到{MOVE_UP_LEVEL}级：{title}。"
@@ -7818,42 +7495,23 @@ msgstr "靠准时、干净的行程，把调度信任度恢复到完全。"
 msgid "Settle the pay advance on your current load."
 msgstr "结清当前这单货物的预支工资。"
 
-#. placeholders: {city}
-msgid ""
-" You start at their {city} terminal, where your assigned truck is waiting."
-msgstr ""
-
-msgid " The next load runs on their pay and their tractor."
-msgstr ""
-
-#. placeholders: {report}
 #. one sentence of a longer line
-msgid "Your level and record come with you.{report}"
-msgstr ""
+msgid ""
+"Your level, record, and home terminal come with you, and the next load runs "
+"on their pay and their tractor."
+msgstr "你的等级、记录和基地都会跟着你，下一单货物就用他们的工资和他们的牵引车来跑。"
 
 #. placeholders: {carrier_name}, {former}
 #. one sentence of a longer line
 msgid "{carrier_name} hires you away from {former}."
 msgstr "{carrier_name}把你从{former}挖走了。"
 
-#. placeholders: {carrier_name}, {former}, {report}
+#. placeholders: {carrier_name}, {former}
 msgid ""
-"{carrier_name} hires you away from {former}. Your level and record come "
-"with you.{report}"
-msgstr ""
-
-msgid "local"
-msgstr "local"
-
-msgid "national"
-msgstr ""
-
-#. placeholders: {name}, {name2}
-msgid "{name} {name2} terminal"
-msgstr ""
-
-msgid "inert"
-msgstr ""
+"{carrier_name} hires you away from {former}. Your level, record, and home "
+"terminal come with you, and the next load runs on their pay and their "
+"tractor."
+msgstr "{carrier_name}把你从{former}挖走了。你的等级、记录和基地都会跟着你，下一单货物就用他们的工资和他们的牵引车来跑。"
 
 msgid "dan"
 msgstr ""
@@ -8251,49 +7909,6 @@ msgstr "，{level}级时承运商免费资助"
 msgid "carrier-sponsored free at level {level}"
 msgstr "由承运商赞助，在 {level} 级免费"
 
-msgid ""
-"Reverse refused. You don't back a set of doubles: the converter dolly is a "
-"second pivot and the rear trailer jackknifes within a few feet. Pull "
-"forward and go around instead."
-msgstr ""
-
-msgid ""
-"The rear trailer whipped on that steer and shifted its freight. On doubles "
-"the back trailer swings harder than the tractor, so ease into lane changes."
-msgstr ""
-
-msgid ""
-"The rear trailer whipped on that steer. On doubles the back trailer swings "
-"harder than the tractor, so ease into lane changes."
-msgstr ""
-
-#. placeholders: {DOUBLES_SECOND_HOOK_MIN}, {DOUBLES_WALK_AROUND_EXTRA_MIN}, {doubles_hook_extra_min}
-msgid ""
-"A set of doubles is two hook-ups, about {DOUBLES_SECOND_HOOK_MIN} minutes "
-"more, and a walk-around of both trailers and the converter dolly, about "
-"{DOUBLES_WALK_AROUND_EXTRA_MIN} minutes more: {doubles_hook_extra_min} "
-"extra minutes on duty."
-msgstr ""
-
-#. placeholders: {doubles_break_extra_min}
-msgid ""
-"Breaking a set of doubles is dropping the rear trailer, unhooking and "
-"parking the converter dolly, then dropping the lead trailer: about "
-"{doubles_break_extra_min} extra minutes on duty."
-msgstr ""
-
-#. placeholders: {doubles_break_extra_min}
-msgid ""
-"Doubles: drop the rear trailer, park the converter dolly, drop the lead, "
-"{doubles_break_extra_min} extra minutes on duty"
-msgstr ""
-
-msgid "British Columbia"
-msgstr ""
-
-msgid "Yukon"
-msgstr ""
-
 msgid "Pay advance already taken for this load. Deliver it first."
 msgstr "这单货物已经预支过工资了。先把它送达。"
 
@@ -8368,53 +7983,6 @@ msgid ""
 "Dispatch trust: last chance. One assigned load at a time, no refusals, and "
 "the carrier is deciding whether to keep you."
 msgstr "调度信任度：最后机会。一次只指派一单货物，不能拒绝，承运商正在考虑要不要留你。"
-
-msgid ""
-"Dispatch trust: none. You have no carrier, so there is no dispatch until "
-"one takes you on."
-msgstr ""
-
-msgid "Your carrier"
-msgstr ""
-
-#. placeholders: {carrier}
-msgid ""
-"Dispatch trust: last chance. One assigned load at a time and no refusals. "
-"{carrier} will not end your seat over your record or what you owe."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "One assigned load at a time and no refusals."
-msgstr ""
-
-#. placeholders: {carrier}
-#. one sentence of a longer line
-msgid "{carrier} will not end your seat over your record or what you owe."
-msgstr ""
-
-msgid ""
-"Dispatch trust: none. With a lifetime CDL disqualification there is no "
-"dispatch."
-msgstr ""
-
-#. placeholders: {status_verb}
-msgid ""
-"Dispatch trust: last chance. No loads at all while your CDL is "
-"{status_verb}."
-msgstr ""
-
-#. placeholders: {status_verb}
-#. one sentence of a longer line
-msgid "No loads at all while your CDL is {status_verb}."
-msgstr ""
-
-#. placeholders: {text}
-msgid "{text} Clean on-time runs rebuild it."
-msgstr ""
-
-#. placeholders: {band}
-msgid "Dispatch trust: {band}."
-msgstr "调度信任度：{band}。"
 
 msgid "You get the whole board."
 msgstr "你可以查看完整调度板。"
@@ -8517,17 +8085,13 @@ msgstr "保险附加费：{percent}%。"
 msgid "Insurance surcharge: {percent} percent until {until}."
 msgstr "保险附加费：{percent}%直至{until}。"
 
-#. placeholders: {keeper}, {record_clears_text}
+#. placeholders: {LAST_CHANCE_CARRIER_NAME}, {record_clears_text}
 msgid ""
-"The carrier's insurer will not carry a record like that; {keeper} keeps you "
-"on sufferance until {record_clears_text}."
+"The carrier's insurer will not carry a record like that; "
+"{LAST_CHANCE_CARRIER_NAME} keeps you on sufferance until "
+"{record_clears_text}."
 msgstr ""
-
-#. placeholders: {keeper}, {ages_out}
-msgid ""
-"{keeper} keeps you on sufferance whatever the record says; the oldest entry "
-"ages out {ages_out}."
-msgstr ""
+"承运商的保险公司不接受这样的记录；{LAST_CHANCE_CARRIER_NAME}勉强留着你，直到{record_clears_text}。"
 
 msgid ""
 "The carrier's insurer will not carry that record. The carrier ends your "
@@ -8592,11 +8156,10 @@ msgstr ""
 msgid "Your CDL is disqualified for life, so the seat is not coming back."
 msgstr "你的CDL被终身取消资格，所以这个位置不会回来了。"
 
-#. placeholders: {status_verb}, {status_noun}, {clears}
+#. placeholders: {clears}
 msgid ""
-"Your CDL is {status_verb}, so the yard holds your seat until the "
-"{status_noun} ends {clears}."
-msgstr ""
+"Your CDL is suspended, so the yard holds your seat until it clears {clears}."
+msgstr "你的CDL被暂扣，所以车场会为你保留位置，直到{clears}解除。"
 
 #. placeholders: {record_review_clears_text}
 #. one sentence of a longer line
@@ -8634,6 +8197,10 @@ msgstr "{line}把它还掉就能恢复。"
 
 msgid "Clean on-time runs rebuild it."
 msgstr "准时、干净的行程能把它重建起来。"
+
+#. placeholders: {band}
+msgid "Dispatch trust: {band}."
+msgstr "调度信任度：{band}。"
 
 msgid "nine"
 msgstr "九"
@@ -8768,53 +8335,28 @@ msgid ""
 "{clears_text}."
 msgstr "CDL处于{status_verb}状态时无法接受此任务。该状态会在{clears_text}解除。"
 
-msgid "suspension"
-msgstr "暂扣"
-
-#. placeholders: {status_noun}
-msgid "Wait out the CDL {status_noun}"
-msgstr ""
-
 msgid ""
 "You cannot drive with a lifetime CDL disqualification, not even bobtail."
 msgstr "CDL被终身取消资格，你不能开车，连单开车头也不行。"
+
+msgid "suspension"
+msgstr "暂扣"
 
 #. placeholders: {noun}, {clears_text}
 #. one sentence of a longer line
 msgid "The {noun} ends {clears_text}."
 msgstr "{noun}在{clears_text}结束。"
 
-#. placeholders: {status_verb}
+#. placeholders: {verb}
 #. one sentence of a longer line
-msgid "You cannot drive, not even bobtail, while your CDL is {status_verb}."
-msgstr ""
+msgid "You cannot drive, not even bobtail, while your CDL is {verb}."
+msgstr "你的CDL被{verb}期间，你不能开车，连单开车头也不行。"
 
-#. placeholders: {status_verb}, {noun}, {clears_text}, {wait_out_label}
+#. placeholders: {verb}, {noun}, {clears_text}
 msgid ""
-"You cannot drive, not even bobtail, while your CDL is {status_verb}. The "
-"{noun} ends {clears_text}. {wait_out_label} is on the terminal menu."
-msgstr ""
-
-#. placeholders: {wait_out_label}
-#. one sentence of a longer line
-msgid "{wait_out_label} is on the terminal menu."
-msgstr ""
-
-#. placeholders: {wait_out_label}
-#. one sentence of a longer line
-msgid "Choose {wait_out_label} on this menu to skip ahead."
-msgstr ""
-
-#. placeholders: {status_noun}, {days_text}
-#. one sentence of a longer line
-msgid "wait out the CDL {status_noun}, {days_text} remaining."
-msgstr ""
-
-#. placeholders: {status_noun}, {days_text}, {wait_out_label}
-msgid ""
-"wait out the CDL {status_noun}, {days_text} remaining. Choose "
-"{wait_out_label} on this menu to skip ahead."
-msgstr ""
+"You cannot drive, not even bobtail, while your CDL is {verb}. The {noun} "
+"ends {clears_text}."
+msgstr "CDL处于{verb}状态时不能驾驶，即使不挂挂车也不行。{noun}会在{clears_text}结束。"
 
 msgid "CDL: disqualified for life"
 msgstr "CDL：终身取消资格"
@@ -8946,57 +8488,6 @@ msgstr "{label}缺失或无效"
 msgid "{label} must be an ISO-8601 timestamp with timezone"
 msgstr "{label}必须是带时区的ISO-8601时间戳"
 
-msgid " at an impound lot"
-msgstr ""
-
-#. placeholders: {name}
-msgid " at {name}"
-msgstr ""
-
-#. placeholders: {city}
-msgid "in {city}"
-msgstr ""
-
-#. placeholders: {city}
-msgid "at an impound lot in {city}"
-msgstr ""
-
-#. placeholders: {name}, {city}
-msgid "at {name} in {city}"
-msgstr "在{city}的{name}"
-
-#. placeholders: {area}
-msgid "in {area}"
-msgstr ""
-
-#. placeholders: {city_text}
-msgid "at an impound lot in {city_text}"
-msgstr ""
-
-#. placeholders: {name}, {area}
-msgid "at {name} in {area}"
-msgstr ""
-
-#. placeholders: {the_city}
-msgid "{the_city} service area"
-msgstr ""
-
-#. placeholders: {name}, {state}
-msgid "an impound lot in {name}, {state}"
-msgstr ""
-
-#. placeholders: {name}
-msgid "an impound lot in {name}"
-msgstr ""
-
-#. placeholders: {city}
-msgid "an impound lot in {city}"
-msgstr ""
-
-#. placeholders: {unwrap_or_else}
-msgid "{unwrap_or_else} impound lot"
-msgstr ""
-
 #. placeholders: {the_city}
 msgid "{the_city} metro freight market"
 msgstr "{the_city}都市区货运市场"
@@ -9033,19 +8524,9 @@ msgstr "市场 {condition}。"
 msgid " Requires {credentials_clause}."
 msgstr " 需要{credentials_clause}。"
 
-#. placeholders: {tons}, {cargo}, {pickup}, {card}
-msgid "{tons} tons of {cargo} from {pickup} {card}."
-msgstr ""
-
 #. placeholders: {tons}, {cargo}, {pickup}, {dropoff}
 msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
 msgstr "{tons}吨{cargo}从{pickup}到{dropoff}。"
-
-#. placeholders: {highway}, {percent}
-msgid ""
-" Spring weight limits on the {highway}: axle loads held to {percent} "
-"percent of the legal limit."
-msgstr ""
 
 msgid "Pays"
 msgstr "报酬"
@@ -9084,24 +8565,21 @@ msgstr "截止时间 {hours} 小时，包括 10 小时休息。"
 msgid "Deadline {hours} hours."
 msgstr "截止时间{hours}小时。"
 
-#. placeholders: {pay_text}, {deadline}, {equipment}, {trailer}, {seasonal_weight}, {preview}, {market}, {endorsement}
+#. placeholders: {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
 #. one sentence of a longer line
 msgid ""
 "{pay_text} {deadline} Equipment: "
-"{equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
+"{equipment}.{trailer}{preview}{market}{endorsement}"
 msgstr ""
+"{pay_text} {deadline} 设备：{equipment}.{trailer}{preview}{market}{endorsement}"
 
-#. placeholders: {prefix}, {load}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {seasonal_weight}, {preview}, {market}, {endorsement}
+#. placeholders: {prefix}, {load}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
 msgid ""
 "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
-"{equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
+"{equipment}.{trailer}{preview}{market}{endorsement}"
 msgstr ""
-
-msgid "chilled food"
-msgstr ""
-
-msgid "chilled goods"
-msgstr ""
+"{prefix}{load} {distance}。{pay_text} {deadline} "
+"设备：{equipment}.{trailer}{preview}{market}{endorsement}"
 
 #. placeholders: {min_level}
 msgid "Level {min_level} drivers unlock this cargo."
@@ -9114,6 +8592,9 @@ msgstr "需要{credentials_clause}。"
 #. placeholders: {required_program_text}
 msgid "Requires {required_program_text} trailer program."
 msgstr "需要{required_program_text}挂车计划。"
+
+msgid "cargo"
+msgstr "货物"
 
 msgid "origin"
 msgstr "起点"
@@ -9130,12 +8611,6 @@ msgstr "空车头"
 msgid "assigned"
 msgstr "已分配"
 
-msgid "highway"
-msgstr ""
-
-msgid "percent"
-msgstr "百分号"
-
 msgid "team"
 msgstr ""
 
@@ -9146,6 +8621,12 @@ msgstr "{unwrap_or_else}货运市场"
 #. placeholders: {name}
 msgid "{name} yard"
 msgstr "{name}车场"
+
+msgid "ships"
+msgstr "发货"
+
+msgid "receives"
+msgstr "收货"
 
 msgid "general freight"
 msgstr "普通货物"
@@ -9198,8 +8679,8 @@ msgstr "液体食品"
 msgid "intermodal container chassis"
 msgstr "多式联运集装箱底盘"
 
-msgid "48-foot turnpike doubles freight"
-msgstr ""
+msgid "turnpike doubles freight"
+msgstr "收费公路双挂车货物"
 
 msgid "two 48-foot trailers"
 msgstr "两节48英尺挂车"
@@ -9246,70 +8727,6 @@ msgstr "中途休息停靠点：{break_stop_count}个。"
 #. one sentence of a longer line
 msgid "Sleep stops: {sleep_stop_count}."
 msgstr "睡眠停靠点：{sleep_stop_count}个。"
-
-msgid "paint"
-msgstr ""
-
-msgid "Paint"
-msgstr ""
-
-msgid "propane cylinders"
-msgstr ""
-
-msgid "Petroleum gases, liquefied"
-msgstr ""
-
-msgid "compressed nitrogen"
-msgstr ""
-
-msgid "Nitrogen, compressed"
-msgstr ""
-
-msgid "chlorine cylinders"
-msgstr ""
-
-msgid "Chlorine"
-msgstr ""
-
-msgid "calcium carbide"
-msgstr ""
-
-msgid "Calcium carbide"
-msgstr ""
-
-msgid "pool chlorine"
-msgstr ""
-
-msgid "Calcium hypochlorite, dry"
-msgstr ""
-
-msgid "sulfuric acid"
-msgstr ""
-
-msgid "Sulfuric acid with more than 51 percent acid"
-msgstr ""
-
-msgid "consumer fireworks"
-msgstr ""
-
-msgid "Fireworks"
-msgstr ""
-
-msgid "blasting explosives"
-msgstr ""
-
-msgid "Explosive, blasting, type E"
-msgstr ""
-
-msgid "gasoline"
-msgstr ""
-
-msgid "Gasoline"
-msgstr ""
-
-#. placeholders: {shipping_name}, {un_number}, {number}
-msgid "{shipping_name}, {un_number}, Class {number}"
-msgstr ""
 
 #. placeholders: {last_name}, {fallback_distance}
 #. one sentence of a longer line
@@ -9543,14 +8960,6 @@ msgstr "balance"
 msgid "diverged"
 msgstr "diverged"
 
-#. placeholders: {city}
-msgid "your home in {city}"
-msgstr ""
-
-#. placeholders: {city}
-msgid "your terminal in {city}"
-msgstr ""
-
 #. placeholders: {target}
 msgid ""
 "Freight Fate moved the saves that were in this folder to:\n"
@@ -9606,6 +9015,9 @@ msgstr "存档文件不是有效的档案对象。"
 msgid "Legacy Driver"
 msgstr "旧版司机"
 
+msgid "Chicago"
+msgstr "Chicago"
+
 msgid "deliveries"
 msgstr "deliveries"
 
@@ -9638,6 +9050,9 @@ msgstr "whole"
 
 msgid "grade"
 msgstr "grade"
+
+msgid "id"
+msgstr "id"
 
 msgid "watched"
 msgstr "受关注"
@@ -9693,25 +9108,19 @@ msgid ""
 "reset and no save was lost."
 msgstr "你的职业等级、经验、驾照签注、驾驶记录，以及你拥有的其他一切都会保留。你的职业生涯没有被重置，也没有丢失任何存档。"
 
-#. one sentence of a longer line
-msgid ""
-"At the terminal, choose Apply to a carrier to take a seat when you are "
-"ready."
-msgstr ""
+msgid "your carrier"
+msgstr "你的承运商"
 
-#. placeholders: {near}
-#. one sentence of a longer line
+#. placeholders: {money_text}, {former}
 msgid ""
-"No carrier that hires near {near} can take you on right now, so you have no "
-"carrier."
-msgstr ""
+"You owed {money_text}, which is more than {former} carries on a driver, and "
+"they have ended your employment."
+msgstr "你欠了{money_text}，超过了{former}能为一名司机承担的额度，他们已经解雇了你。"
 
-#. placeholders: {near}
 msgid ""
-"No carrier that hires near {near} can take you on right now, so you have no "
-"carrier. At the terminal, choose Apply to a carrier to take a seat when you "
-"are ready."
-msgstr ""
+"That balance is closed. You do not owe it to anyone any more, and your cash "
+"is back to zero."
+msgstr "那笔欠款已经结清。你不再欠任何人钱，你的现金归零。"
 
 #. one sentence of a longer line
 msgid ""
@@ -9742,37 +9151,6 @@ msgid ""
 msgstr ""
 "分配给你的牵引车回到{former}的车场，你转到{LAST_CHANCE_CARRIER_NAME}的工资单上：货物更短，工资更低，设备也相应差一些。"
 
-#. placeholders: {former}, {name}, {near}
-msgid ""
-"What changes is the seat. Your assigned tractor goes back to the {former} "
-"yard, and {name}, which hires near {near}, has taken you on."
-msgstr ""
-
-#. placeholders: {former}, {name}, {near}
-#. one sentence of a longer line
-msgid ""
-"Your assigned tractor goes back to the {former} yard, and {name}, which "
-"hires near {near}, has taken you on."
-msgstr ""
-
-#. placeholders: {former}
-msgid "Your assigned tractor goes back to the {former} yard."
-msgstr ""
-
-msgid "your carrier"
-msgstr "你的承运商"
-
-#. placeholders: {money_text}, {former}
-msgid ""
-"You owed {money_text}, which is more than {former} carries on a driver, and "
-"they have ended your employment."
-msgstr "你欠了{money_text}，超过了{former}能为一名司机承担的额度，他们已经解雇了你。"
-
-msgid ""
-"That balance is closed. You do not owe it to anyone any more, and your cash "
-"is back to zero."
-msgstr "那笔欠款已经结清。你不再欠任何人钱，你的现金归零。"
-
 msgid "termination"
 msgstr "解约"
 
@@ -9788,11 +9166,6 @@ msgid ""
 "The sale closes the loan. What you owed is settled and your cash is back to "
 "zero."
 msgstr "出售结清了贷款。你欠的钱已经还清，现金归零。"
-
-msgid ""
-"You are a company driver again. The owner-operator path is still open to "
-"you, and the buy-in gates are the same ones you cleared to get here."
-msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -10005,9 +9378,6 @@ msgstr "总统级卧铺车"
 msgid "northstar"
 msgstr "northstar"
 
-msgid "your home in Buffalo"
-msgstr ""
-
 #. placeholders: {f}, {f2}, {f3}, {f4}
 msgid ""
 "{f} percent pay share, {f2} dollars per mile floor, {f3} dollar stop pay, "
@@ -10125,40 +9495,6 @@ msgid ""
 msgstr ""
 "最难的开局方式。你一开始就挂靠承运商，开着一辆刚买的全新卡车：油箱加满，没有损坏，没有磨损。周转资金有限，燃油、维修、准备金和结算手续费这些运营成本都从"
 "你自己的现金里出，而不是承运商出。你仍然从一级起步，和其他人爬同样的职业阶梯：这改变的是谁付钱，而不是你走了多远。"
-
-msgid "its home region"
-msgstr ""
-
-#. placeholders: {name}, {tier}, {area}
-msgid "{name}: {tier} company driver, {area}"
-msgstr ""
-
-#. placeholders: {tier}, {area}, {max}
-msgid "A {tier} carrier in {area}, with loads of up to {max} miles."
-msgstr ""
-
-#. placeholders: {tier}, {area}
-#. one sentence of a longer line
-msgid "A {tier} company-driver start in {area}."
-msgstr ""
-
-#. placeholders: {tier}, {area}, {max}
-msgid ""
-"A {tier} company-driver start in {area}. Dispatch offers loads of up to "
-"{max} miles. The carrier assigns and maintains the tractor and pays fuel "
-"and routine repairs."
-msgstr ""
-
-#. placeholders: {max}
-#. one sentence of a longer line
-msgid "Dispatch offers loads of up to {max} miles."
-msgstr ""
-
-#. one sentence of a longer line
-msgid ""
-"The carrier assigns and maintains the tractor and pays fuel and routine "
-"repairs."
-msgstr ""
 
 msgid "in good shape"
 msgstr "状况良好"
@@ -10296,15 +9632,6 @@ msgid ""
 "Twin-trailer program for doubles freight: two short vans and a converter "
 "dolly."
 msgstr "双挂车计划，用于双挂车货物：两节短厢式挂车加一个转换台车。"
-
-msgid "48-foot turnpike doubles"
-msgstr ""
-
-msgid ""
-"LCV turnpike-doubles program: two 48-foot vans and a converter dolly, about "
-"102 feet of cargo length and 117 feet overall, staged on and off at "
-"turnpike exits."
-msgstr ""
 
 #. placeholders: {join}, {last}
 msgid "{join}, or {last}"
@@ -10746,8 +10073,17 @@ msgstr "电台目录中有重复的电台ID"
 msgid "imported stations collide with curated station ids"
 msgstr "导入的电台与精选电台的ID冲突"
 
+msgid "local"
+msgstr "local"
+
 msgid "codec"
 msgstr "codec"
+
+msgid "lat"
+msgstr "lat"
+
+msgid "lon"
+msgstr "lon"
 
 msgid "region"
 msgstr "region"
@@ -11233,27 +10569,6 @@ msgstr "staffed"
 msgid "tableau"
 msgstr "tableau"
 
-msgid "northwest territories"
-msgstr ""
-
-msgid "british columbia"
-msgstr ""
-
-msgid "new brunswick"
-msgstr ""
-
-msgid "nova scotia"
-msgstr ""
-
-msgid "prince edward island"
-msgstr ""
-
-msgid "newfoundland and labrador"
-msgstr ""
-
-msgid "alaska"
-msgstr "alaska"
-
 msgid "on duty, not driving"
 msgstr "当班，未驾驶"
 
@@ -11299,26 +10614,8 @@ msgstr "source"
 msgid "Hours enforcement off."
 msgstr "驾驶工时执法已关闭。"
 
-msgid "cycle"
-msgstr ""
-
-msgid ""
-"Take 36 hours off to restart your cycle, or wait for hours to age off your "
-"7-day ledger."
-msgstr ""
-
-msgid "Take 8 hours off at a rest stop to reset."
-msgstr ""
-
-msgid ""
-"Take a 34-hour restart, or wait for hours to age off your 8-day ledger."
-msgstr ""
-
 msgid "Sleep 10 hours at a rest stop to reset."
 msgstr "找个停靠点睡满10小时来重置。"
-
-msgid "drive"
-msgstr "drive"
 
 msgid "out of driving time for this shift"
 msgstr "本班次的驾驶时间已用完"
@@ -11329,59 +10626,8 @@ msgstr "本班次的驾驶时间已用完。"
 msgid "Your duty window has closed."
 msgstr "你的当班时段已经结束。"
 
-msgid "duty"
-msgstr "duty"
-
 msgid "past your duty window"
 msgstr "已超出当班时段"
-
-msgid "past your on-duty limit"
-msgstr ""
-
-msgid "Your on-duty limit has been reached."
-msgstr ""
-
-msgid "past your driving limit"
-msgstr ""
-
-msgid "Your driving limit has been reached."
-msgstr ""
-
-msgid "shift"
-msgstr ""
-
-msgid "past your shift limit"
-msgstr ""
-
-msgid "Your shift limit has been reached."
-msgstr ""
-
-msgid "Your 70-hour cycle is used up."
-msgstr ""
-
-msgid "out of cycle hours"
-msgstr ""
-
-msgid "Your 80-hour cycle is used up."
-msgstr ""
-
-msgid "Your 70-hour Canadian cycle is used up."
-msgstr ""
-
-msgid "Your 80-hour Canadian cycle is used up."
-msgstr ""
-
-msgid "Your break is overdue."
-msgstr ""
-
-msgid "past your break limit"
-msgstr ""
-
-msgid "past your hours limit"
-msgstr ""
-
-msgid "Your hours limit has been reached."
-msgstr ""
 
 msgid "driving"
 msgstr "驾驶中"
@@ -11395,35 +10641,6 @@ msgstr "你本班次的驾驶时间就结束了。你需要睡10小时"
 msgid "your duty window closes. You need 10 hours of sleep"
 msgstr "你的当班时段就结束了。你需要睡10小时"
 
-msgid "your 70-hour cycle is used up. You need a 34-hour restart"
-msgstr ""
-
-msgid "your Alaska driving limit is reached. You need 10 hours off"
-msgstr ""
-
-msgid "your Canadian driving limit is reached. You need 8 hours off"
-msgstr ""
-
-msgid "your 20 hours on duty are used. You need 10 hours off"
-msgstr ""
-
-msgid "your Canadian on-duty limit is reached. You need 8 hours off"
-msgstr ""
-
-msgid "your 80-hour cycle is used up. You need a 34-hour restart"
-msgstr ""
-
-msgid "your 70-hour Canadian cycle is used up. You need 36 hours off"
-msgstr ""
-
-msgid "your 80-hour Canadian cycle is used up. You need 36 hours off"
-msgstr ""
-
-msgid ""
-"your shift has run too long since your last 8 hours off. You need 8 hours "
-"off"
-msgstr ""
-
 msgid "you had driven past the 11-hour driving limit"
 msgstr "你已超过11小时驾驶上限"
 
@@ -11433,40 +10650,8 @@ msgstr "你的14小时当班时段已经过期"
 msgid "you were past the 30-minute break requirement"
 msgstr "你已超过30分钟中途休息的时限"
 
-msgid "you had used up your 70-hour cycle"
-msgstr ""
-
-msgid "you had passed the 15-hour driving limit"
-msgstr ""
-
-msgid "you had passed the 20-hour on-duty limit"
-msgstr ""
-
-msgid "you had used up your 80-hour cycle"
-msgstr ""
-
-msgid "you had passed the 13-hour driving limit"
-msgstr ""
-
-msgid "you had passed the 14-hour on-duty limit"
-msgstr ""
-
-msgid "you had passed the 18-hour on-duty limit"
-msgstr ""
-
-msgid "you had driven 16 hours after your last 8 hours off"
-msgstr ""
-
-msgid "you had driven 20 hours after your last 8 hours off"
-msgstr ""
-
 msgid "Hours of service: 30-minute break overdue."
 msgstr "驾驶工时：30分钟中途休息已经逾期。"
-
-msgid ""
-"Hours of service: your 70-hour cycle is used up. Take a 34-hour restart, or "
-"wait for hours to age off your 8-day ledger."
-msgstr ""
 
 msgid ""
 "Hours of service: past your limit. Sleep 10 hours at a rest stop to reset."
@@ -11502,87 +10687,6 @@ msgstr ""
 "驾驶工时：剩余驾驶时间{duration_text}，再过{duration_text2}须进行30分钟中途休息，14小时当班时段剩余{duration"
 "_text3}。"
 
-#. placeholders: {duration_text}, {duration_text2}
-msgid "Cycle: {duration_text} of 70 hours used, {duration_text2} left."
-msgstr ""
-
-msgid "your 80-hour cycle is used up"
-msgstr ""
-
-msgid "your 70-hour Canadian cycle is used up"
-msgstr ""
-
-msgid "your 80-hour Canadian cycle is used up"
-msgstr ""
-
-#. placeholders: {cycle_text}
-#. one sentence of a longer line
-msgid "Hours of service: {cycle_text}."
-msgstr ""
-
-#. placeholders: {cycle_text}, {advice}
-msgid "Hours of service: {cycle_text}. {advice}"
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Hours of service: past your limit."
-msgstr ""
-
-#. placeholders: {advice}
-msgid "Hours of service: past your limit. {advice}"
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Alaska hours rules."
-msgstr ""
-
-#. placeholders: {duration_text}, {duration_text2}
-msgid ""
-"Alaska hours rules. {duration_text} of driving and {duration_text2} on duty "
-"left."
-msgstr ""
-
-#. placeholders: {duration_text}, {duration_text2}
-#. one sentence of a longer line
-msgid "{duration_text} of driving and {duration_text2} on duty left."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Canadian hours rules."
-msgstr ""
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}
-msgid ""
-"Canadian hours rules. {duration_text} of driving, {duration_text2} on duty, "
-"and {duration_text3} of shift left."
-msgstr ""
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}
-#. one sentence of a longer line
-msgid ""
-"{duration_text} of driving, {duration_text2} on duty, and {duration_text3} "
-"of shift left."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "North of 60 hours rules."
-msgstr ""
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}
-msgid ""
-"North of 60 hours rules. {duration_text} of driving, {duration_text2} on "
-"duty, and {duration_text3} of shift left."
-msgstr ""
-
-#. placeholders: {duration_text}, {duration_text2}, {duration_text3}
-msgid ""
-" Cycle: {duration_text} used of {duration_text2}, {duration_text3} left."
-msgstr ""
-
-#. placeholders: {lead}, {status}, {cycle_clause}, {suffix}
-msgid "{lead} ELD status {status}.{cycle_clause}{suffix}"
-msgstr ""
-
 #. placeholders: {duration_text}
 msgid "Driving left: {duration_text}."
 msgstr "剩余驾驶时间：{duration_text}。"
@@ -11599,26 +10703,18 @@ msgstr "30 分钟休息时间为 {duration_text}。"
 msgid "Duty window closes in {duration_text}."
 msgstr "当班时段{duration_text}后结束。"
 
+msgid "drive"
+msgstr "drive"
+
+msgid "duty"
+msgstr "duty"
+
 msgid "At the wheel: no driving yet"
 msgstr "已驾驶时间：还没开车"
 
 #. placeholders: {driven}
 msgid "At the wheel {driven}"
 msgstr "已驾驶时间{driven}"
-
-msgid "no driving yet"
-msgstr "还没开车"
-
-#. placeholders: {driven}
-msgid "{driven} driving"
-msgstr "驾驶{driven}"
-
-#. placeholders: {spent}, {duration_text}
-msgid "At the wheel so far: {spent}, {duration_text} on duty this shift"
-msgstr "目前已驾驶时间：{spent}，本班次当班{duration_text}"
-
-msgid "Out of hours."
-msgstr "工时已用完。"
 
 msgid "nothing yet"
 msgstr "还没有什么"
@@ -11637,6 +10733,9 @@ msgstr "已驾驶{spent}。已当班{duration_text}。"
 msgid "On duty {duration_text}"
 msgstr "值班 {duration_text}"
 
+msgid "Out of hours."
+msgstr "工时已用完。"
+
 msgid "Your 30-minute break is overdue."
 msgstr "你的30分钟中途休息已经逾期。"
 
@@ -11647,20 +10746,6 @@ msgstr "中途休息：无需。"
 #. placeholders: {ENFORCEMENT_OFF}
 msgid "Break: none required. {ENFORCEMENT_OFF}"
 msgstr "中途休息：无需。{ENFORCEMENT_OFF}"
-
-#. one sentence of a longer line
-msgid "No 30-minute break is required."
-msgstr ""
-
-#. placeholders: {shift_over}, {reset_advice}
-msgid "No 30-minute break is required. {shift_over} {reset_advice}"
-msgstr ""
-
-msgid "No 30-minute break is required under Alaska hours rules."
-msgstr ""
-
-msgid "No 30-minute break is required under Canadian hours rules."
-msgstr ""
 
 msgid "Break overdue"
 msgstr "中途休息已逾期"
@@ -11698,9 +10783,9 @@ msgstr "{duration_text} 留在 14 小时窗口内"
 msgid "{answer}, but you are {shift_over}."
 msgstr "{answer}，但你{shift_over}。"
 
-#. placeholders: {answer}, {shift_over}, {reset_advice}
-msgid "{answer}, but you are {shift_over}. {reset_advice}"
-msgstr ""
+#. placeholders: {answer}, {shift_over}, {RESET_ADVICE}
+msgid "{answer}, but you are {shift_over}. {RESET_ADVICE}"
+msgstr "{answer}，但你{shift_over}。{RESET_ADVICE}"
 
 #. placeholders: {else}
 msgid "Driving time left: no limit{else}"
@@ -11716,14 +10801,6 @@ msgstr "且没有当班时段"
 #. placeholders: {duration_text}
 msgid "Driving time left: {duration_text}"
 msgstr "剩余驾驶时间：{duration_text}"
-
-#. placeholders: {duration_text}
-msgid "On-duty time left: {duration_text}"
-msgstr ""
-
-#. placeholders: {duration_text}
-msgid "Shift time left: {duration_text}"
-msgstr ""
 
 #. placeholders: {duration_text}
 msgid "Duty window closes in {duration_text}"
@@ -11747,68 +10824,11 @@ msgstr "休息已逾期"
 msgid ". Your 30-minute break is overdue and comes first"
 msgstr "。你的30分钟中途休息已逾期，要先休息"
 
-msgid "your Alaska driving limit runs out"
-msgstr ""
-
-msgid "your 20-hour on-duty limit runs out"
-msgstr ""
-
-msgid "your 80-hour cycle runs out"
-msgstr ""
-
-msgid "80-hour cycle"
-msgstr ""
-
-msgid "your Canadian driving limit runs out"
-msgstr ""
-
-msgid "your Canadian on-duty limit runs out"
-msgstr ""
-
-msgid "your 70-hour Canadian cycle runs out"
-msgstr ""
-
-msgid "70-hour Canadian cycle"
-msgstr ""
-
-msgid "your 80-hour Canadian cycle runs out"
-msgstr ""
-
-msgid "80-hour Canadian cycle"
-msgstr ""
-
-msgid "driving limit"
-msgstr ""
-
-msgid "on-duty limit"
-msgstr ""
-
-msgid "your shift reaches 16 hours after your last 8 hours off"
-msgstr ""
-
-msgid "your shift reaches 20 hours after your last 8 hours off"
-msgstr ""
-
-msgid "shift limit"
-msgstr ""
-
-#. placeholders: {nearest}
-msgid " You would arrive before {nearest}."
-msgstr ""
-
-#. placeholders: {nearest}, {duration_text}
-msgid ""
-" Your {nearest} comes about {duration_text} before you would reach it."
-msgstr ""
-
 msgid "your driving time for this shift runs out"
 msgstr "你本班次的驾驶时间用完"
 
 msgid "your duty window closes"
 msgstr "你的当班时段结束"
-
-msgid "your 70-hour cycle runs out"
-msgstr ""
 
 msgid "your 30-minute break is due"
 msgstr "你的30分钟中途休息到期"
@@ -11822,9 +10842,6 @@ msgstr "驾驶时间上限"
 
 msgid "duty window"
 msgstr "当班时段"
-
-msgid "70-hour cycle"
-msgstr ""
 
 #. placeholders: {limit_name}, {duration_text}
 msgid ""
@@ -12552,6 +11569,9 @@ msgstr "pacific"
 msgid "Pacific Time"
 msgstr "太平洋时间"
 
+msgid "alaska"
+msgstr "alaska"
+
 msgid "Alaska Time"
 msgstr "Alaska时间"
 
@@ -13133,12 +12153,6 @@ msgstr "{label} 领先"
 #. placeholders: {label}, {interchange}
 msgid "{label} ahead at {interchange}"
 msgstr "前方{interchange}处的{label}"
-
-msgid "U.S. Customs and Border Protection"
-msgstr ""
-
-msgid "Canada Border Services Agency"
-msgstr ""
 
 #. placeholders: {text}
 msgid "Billboard: {text}"
@@ -13835,88 +12849,6 @@ msgstr "unsupported"
 msgid "empty"
 msgstr "empty"
 
-msgid "minute"
-msgstr "分钟"
-
-msgid "hour"
-msgstr ""
-
-#. placeholders: {clock_text}
-#. one sentence of a longer line
-msgid "The next opening is at {clock_text}."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "The tunnel is closed for the night."
-msgstr ""
-
-#. placeholders: {clock_text}
-msgid ""
-"The tunnel is closed for the night. The next opening is at {clock_text}."
-msgstr ""
-
-msgid "Whittier"
-msgstr ""
-
-msgid "the staging area"
-msgstr ""
-
-#. placeholders: {target}, {clock_text}
-#. one sentence of a longer line
-msgid "Next opening toward {target} at {clock_text}."
-msgstr ""
-
-#. placeholders: {target}, {clock_text}, {wait_text}
-msgid ""
-"Next opening toward {target} at {clock_text}. You wait about {wait_text}."
-msgstr ""
-
-#. placeholders: {wait_text}
-#. one sentence of a longer line
-msgid "You wait about {wait_text}."
-msgstr ""
-
-#. placeholders: {text}, {wait_text}, {clock_text}
-msgid "{text} You wait {wait_text} on duty, until {clock_text}."
-msgstr ""
-
-#. placeholders: {text}, {wait_text}
-msgid "{text} You wait {wait_text} on duty."
-msgstr ""
-
-#. placeholders: {text}, {text2}, {clock_text}, {wait_text}, {clock_text2}
-msgid ""
-"{text} {text2} You wait on duty until {clock_text}, then {wait_text} for "
-"the escort, and may cross at {clock_text2}."
-msgstr ""
-
-msgid "The wind has dropped. You may cross."
-msgstr ""
-
-#. placeholders: {text}, {wait_text}
-msgid "{text} You wait {wait_text} on duty for the wind to drop."
-msgstr ""
-
-#. placeholders: {city}
-#. one sentence of a longer line
-msgid "Dispatch reroutes you from {city}."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "The wind is still too strong."
-msgstr ""
-
-#. placeholders: {city}
-msgid "The wind is still too strong. Dispatch reroutes you from {city}."
-msgstr ""
-
-msgid "There is no other road. You hold here until the wind drops."
-msgstr ""
-
-#. placeholders: {reason}, {city}
-msgid "{reason} Dispatch reroutes you from {city}."
-msgstr ""
-
 msgid "schema"
 msgstr "schema"
 
@@ -13959,45 +12891,6 @@ msgstr "每个轴都合法。"
 msgid "Reverse will not go in at this speed. Stop the truck first."
 msgstr "这个速度挂不进倒挡。先把卡车停下。"
 
-#. placeholders: {grouped}, {grouped2}
-msgid ""
-"{grouped} pounds over the {grouped2} pound gross limit for this set on this "
-"route."
-msgstr ""
-
-#. placeholders: {grouped}
-msgid ""
-"Legal under the {grouped} pound gross limit for this set on this route."
-msgstr ""
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-msgid ""
-"Gross {grouped} pounds, both trailers and the converter dolly included."
-msgstr ""
-
-#. placeholders: {grouped}, {verdict}
-msgid ""
-"Gross {grouped} pounds, both trailers and the converter dolly included. "
-"{verdict}"
-msgstr ""
-
-#. placeholders: {cargo_temp_degrees}
-msgid "Cargo temperature {cargo_temp_degrees}"
-msgstr ""
-
-#. placeholders: {f}
-msgid "{f} degrees"
-msgstr "{f}度"
-
-#. placeholders: {temp_c}
-msgid "{temp_c} degrees Celsius"
-msgstr ""
-
-#. placeholders: {cargo_temp_degrees}
-msgid "Reefer running at {cargo_temp_degrees}."
-msgstr ""
-
 msgid "simulated"
 msgstr "模拟"
 
@@ -14024,6 +12917,9 @@ msgstr "模拟天气"
 
 msgid "The observation is less than a minute old"
 msgstr "观测数据是不到一分钟前的"
+
+msgid "minute"
+msgstr "分钟"
 
 #. placeholders: {minutes}, {unit}
 msgid "The observation is {minutes} {unit} old"
@@ -14113,6 +13009,10 @@ msgstr "模拟状况"
 
 msgid "neutral conditions"
 msgstr "中性状况"
+
+#. placeholders: {f}
+msgid "{f} degrees"
+msgstr "{f}度"
 
 #. placeholders: {observation}, {value}
 msgid "observation {observation}; treated as {value} for driving"
@@ -15559,15 +14459,6 @@ msgstr "回正方向"
 
 msgid "Engine on or off"
 msgstr "发动机开关"
-
-msgid "Reefer on or off"
-msgstr ""
-
-msgid "apu"
-msgstr ""
-
-msgid "APU on or off"
-msgstr ""
 
 msgid "Parking brake"
 msgstr "驻车制动"
@@ -17097,36 +15988,14 @@ msgstr "另有{unexplained}条更早的记录{else:}，当时还没有保存原�
 msgid "No citations or violations on your record."
 msgstr "你的记录上没有罚单或违规。"
 
-#. placeholders: {prefix}
-#. one sentence of a longer line
-msgid "{prefix}You have no carrier right now."
-msgstr ""
-
-#. placeholders: {prefix}, {NO_CARRIER_OBJECTIVE}
-msgid "{prefix}You have no carrier right now. {NO_CARRIER_OBJECTIVE}"
-msgstr ""
-
-#. placeholders: {name}, {area}
-#. one sentence of a longer line
-msgid ""
-"Lease orientation is at {name} in {area}, where your truck is parked."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}
-#. one sentence of a longer line
-msgid "{prefix}First-day briefing: leased to {carrier_name}."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {name}, {area}
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}. Lease orientation is "
-"at {name} in {area}, where your truck is parked."
-msgstr ""
+#. placeholders: {name}, {the_city}
+msgid "{name} in {the_city} service area"
+msgstr "{the_city}服务区的{name}"
 
 #. placeholders: {prefix}, {carrier_name}, {location}
 msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}, parked {location}."
-msgstr ""
+"{prefix}First-day briefing: leased to {carrier_name}, parked at {location}."
+msgstr "{prefix}第一天简报：挂靠在{carrier_name}，停在{location}。"
 
 #. placeholders: {grouped}
 msgid ""
@@ -17146,20 +16015,9 @@ msgstr "下一个：调度板。"
 msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
 msgstr "{prefix}第一天简报：欢迎加入{carrier_name}。"
 
-#. placeholders: {name}, {area}
-msgid ""
-"Orientation and truck assignment are at {name} in {area}, where your "
-"assigned truck is parked."
-msgstr ""
-
 #. placeholders: {location}
-msgid "Your assigned truck is parked {location}."
-msgstr ""
-
-#. placeholders: {home}
-msgid ""
-"The carrier covered your travel from {home} and a hotel for orientation."
-msgstr ""
+msgid "Your assigned truck is parked at {location}."
+msgstr "分配给你的卡车停在{location}。"
 
 msgid "The carrier covers fuel, repairs, insurance, and trailer support."
 msgstr "承运商承担燃油、维修、保险和挂车支持。"
@@ -17181,11 +16039,6 @@ msgstr "count"
 
 msgid "trust"
 msgstr "trust"
-
-msgid ""
-"You have no carrier, so there is no dispatch board. Choose Apply to a "
-"carrier at the terminal to take a seat."
-msgstr ""
 
 msgid "key"
 msgstr "key"
@@ -17354,10 +16207,10 @@ msgid ""
 msgstr "调度指派了这次调车，一趟没有发货厂区的空车行驶。接受后的路线检查涵盖休息、燃油、过路费、天气和限制。"
 
 msgid ""
-"Dispatch assigned this load. Accepting starts the deadhead to its origin "
-"facility. Route inspection after pickup covers rest, fuel, toll, weather, "
-"and restrictions."
-msgstr ""
+"Dispatch assigned this load. Accepting starts the deadhead from your "
+"terminal to its origin facility. Route inspection after pickup covers rest, "
+"fuel, toll, weather, and restrictions."
+msgstr "调度指派了这单货物。接受后会开始从你的场站空车开往它的发货厂区。提货后的路线检查涵盖休息、燃油、过路费、天气和限制。"
 
 #. placeholders: {describe}
 msgid "Accept assigned dispatch: {describe}"
@@ -17397,9 +16250,9 @@ msgstr "返回场站"
 msgid "a reposition to {destination}, {distance_text}, no cargo"
 msgstr "调车去{destination}，{distance_text}，没有货物"
 
-#. placeholders: {f}, {cargo_label}, {destination}, {distance_text}
-msgid "{f} tons of {cargo_label} to {destination}, {distance_text}"
-msgstr ""
+#. placeholders: {f}, {label}, {destination}, {distance_text}
+msgid "{f} tons of {label} to {destination}, {distance_text}"
+msgstr "{f}吨{label}，送往{destination}，{distance_text}"
 
 #. placeholders: {join}
 msgid "Also posted today: {join}."
@@ -17659,9 +16512,9 @@ msgstr "Up和Down查看各行，Home和End跳到两头。Enter重复一行，在
 msgid "Job details"
 msgstr "任务详情"
 
-#. placeholders: {cargo_label}
-msgid "Cargo: {cargo_label}."
-msgstr ""
+#. placeholders: {label}
+msgid "Cargo: {label}."
+msgstr "货物：{label}。"
 
 #. placeholders: {origin_facility_text}
 msgid "Origin: {origin_facility_text}."
@@ -17690,10 +16543,6 @@ msgstr "截止时间为装货后{f}小时，约在{appointment_text}。"
 #. placeholders: {equipment_text}
 msgid "Equipment: {equipment_text}."
 msgstr "设备：{equipment_text}。"
-
-#. placeholders: {card_text}
-msgid "Material: {card_text}."
-msgstr ""
 
 #. placeholders: {trailer}
 msgid "Trailer: {trailer}"
@@ -17756,27 +16605,10 @@ msgstr "返回调度板"
 msgid "Back without accepting."
 msgstr "不接受，返回。"
 
-msgid ""
-"Load weight: this set of doubles is not legal on any lane dispatch can "
-"offer between these cities."
-msgstr ""
-
 #. placeholders: {grouped}
 msgid ""
 "Load weight: {grouped} pounds over the gross-weight limit with current fuel."
 msgstr "货物重量：{grouped} 磅超过当前燃油的总重限制。"
-
-#. placeholders: {grouped}
-msgid ""
-" The limit for this set of doubles on the lanes offered is {grouped} "
-"pounds, counting both trailers and the converter dolly."
-msgstr ""
-
-#. placeholders: {highway}, {grouped}
-msgid ""
-" Spring weight limits on the {highway} hold this truck to {grouped} pounds "
-"gross."
-msgstr ""
 
 msgid "Close out this career"
 msgstr "结束这段职业生涯"
@@ -17964,72 +16796,8 @@ msgstr "你欠{money_text}，有{money_text2}。{current}"
 msgid "A quarter of every settlement also keeps paying it down."
 msgstr "每笔结算的四分之一也会继续用来还款。"
 
-msgid "Apply to a carrier"
-msgstr ""
-
-msgid ""
-"Carriers that would take you on from your home. Choosing one puts you on "
-"their payroll at the terminal named. Escape returns to the terminal."
-msgstr ""
-
-#. placeholders: {name}, {tier}, {city}
-msgid "{name}: {tier} carrier, hires into its {city} terminal"
-msgstr ""
-
-#. placeholders: {city}
-msgid ", moves your home to {city}"
-msgstr ""
-
-#. placeholders: {city}
-#. one clause of a longer line
-msgid "moves your home to {city}"
-msgstr ""
-
-#. placeholders: {city}
-msgid " Your home is now {city}."
-msgstr ""
-
-#. placeholders: {city}, {moved}
-#. one sentence of a longer line
-msgid ""
-"You start at their {city} terminal, where your assigned truck is "
-"waiting.{moved} The dispatch board is open again."
-msgstr ""
-
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "{name} has taken you on."
-msgstr ""
-
-#. placeholders: {name}, {city}, {moved}
-msgid ""
-"{name} has taken you on. You start at their {city} terminal, where your "
-"assigned truck is waiting.{moved} The dispatch board is open again."
-msgstr ""
-
-msgid "Hires across the lower 48."
-msgstr ""
-
-#. placeholders: {lane_area}
-msgid "Based in {lane_area}."
-msgstr ""
-
-msgid "No carrier hires near your home or in your state right now"
-msgstr ""
-
-msgid "Returns to the terminal."
-msgstr ""
-
 msgid "job"
 msgstr "job"
-
-#. placeholders: {city_name}
-msgid "You are in {city_name}."
-msgstr ""
-
-#. placeholders: {city_name}, {city_state}
-msgid "You are in {city_name}, {city_state}."
-msgstr ""
 
 msgid "Terminal"
 msgstr "场站"
@@ -18049,10 +16817,6 @@ msgstr "，本周价格"
 #. one clause of a longer line
 msgid "this week's price"
 msgstr "本周价格"
-
-#. placeholders: {f}, {f2}, {live}
-msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a litre{live}"
-msgstr ""
 
 #. placeholders: {f}, {live}
 msgid "Garage: fuel {f} per gallon{live}"
@@ -18124,61 +16888,40 @@ msgstr "睡了10个小时。是{clock_text}、{time_of_day}。"
 msgid "Your CDL is clear. Nothing to wait out."
 msgstr "你的CDL没有问题。没有什么要等的。"
 
-#. placeholders: {py_capitalize}
+msgid "CDL suspension"
+msgstr "CDL暂扣"
+
 #. one sentence of a longer line
-msgid "{py_capitalize} served, CDL clear."
-msgstr ""
+msgid "Suspension served, CDL clear."
+msgstr "停牌期已满，CDL已恢复有效。"
 
-#. placeholders: {py_capitalize}, {clock_text}, {time_of_day}
+#. placeholders: {clock_text}, {time_of_day}
+msgid "Suspension served, CDL clear. It is {clock_text}, {time_of_day}."
+msgstr "停牌期已满，CDL已恢复有效。现在是{clock_text}，{time_of_day}。"
+
+#. placeholders: {LAST_CHANCE_CARRIER_NAME}
+#. one sentence of a longer line
 msgid ""
-"{py_capitalize} served, CDL clear. It is {clock_text}, {time_of_day}."
-msgstr ""
+"You now drive for {LAST_CHANCE_CARRIER_NAME}: lower pay, shorter freight."
+msgstr "你现在驾驶 {LAST_CHANCE_CARRIER_NAME}：工资更低，运费更短。"
 
-#. placeholders: {former}
-msgid "{former} ended your employment over your safety record."
-msgstr "{former} 因你的安全记录而终止你的雇佣关系。"
-
+#. one sentence of a longer line
 msgid "Your money, levels and belongings stay."
 msgstr "你的资金、职级和物品都会保留。"
 
-#. placeholders: {opening}, {name}
+#. placeholders: {former}
 #. one sentence of a longer line
-msgid "{opening} You now drive for {name}: lower pay, shorter freight."
-msgstr ""
+msgid "{former} ended your employment over your safety record."
+msgstr "{former} 因你的安全记录而终止你的雇佣关系。"
 
-#. placeholders: {opening}, {name}, {kept}
+#. placeholders: {former}, {LAST_CHANCE_CARRIER_NAME}
 msgid ""
-"{opening} You now drive for {name}: lower pay, shorter freight. {kept}"
+"{former} ended your employment over your safety record. You now drive for "
+"{LAST_CHANCE_CARRIER_NAME}: lower pay, shorter freight. Your money, levels "
+"and belongings stay."
 msgstr ""
-
-#. placeholders: {opening}, {name}, {near}
-#. one sentence of a longer line
-msgid ""
-"{opening} {name}, which hires near {near}, took you on knowing your record."
-msgstr ""
-
-#. placeholders: {opening}, {name}, {near}, {kept}
-msgid ""
-"{opening} {name}, which hires near {near}, took you on knowing your record. "
-"{kept}"
-msgstr ""
-
-#. placeholders: {kept}
-#. one sentence of a longer line
-msgid "{kept} Choose Apply to a carrier when you are ready."
-msgstr ""
-
-#. placeholders: {opening}, {near}
-#. one sentence of a longer line
-msgid ""
-"{opening} No carrier that hires near {near} can take you on right now."
-msgstr ""
-
-#. placeholders: {opening}, {near}, {kept}
-msgid ""
-"{opening} No carrier that hires near {near} can take you on right now. "
-"{kept} Choose Apply to a carrier when you are ready."
-msgstr ""
+"{former}因你的安全档案终止了雇佣关系。你现在为{LAST_CHANCE_CARRIER_NAME}驾驶：报酬更低，货运距离更短。你的资金、职级和"
+"物品都会保留。"
 
 msgid "Game saved. Backing up."
 msgstr "游戏已保存。正在备份。"
@@ -18213,35 +16956,9 @@ msgstr "在场站"
 msgid "{grouped} dollars.{cdl}{record}"
 msgstr "{grouped} 元.{cdl}{record}"
 
-#. placeholders: {no_truck_location_line}
-#. one sentence of a longer line
-msgid ""
-"{no_truck_location_line} No carrier and no truck until a carrier assigns "
-"you one."
-msgstr ""
-
-#. placeholders: {no_truck_location_line}, {grouped}, {cdl}, {record}
-msgid ""
-"{no_truck_location_line} No carrier and no truck until a carrier assigns "
-"you one. {grouped} dollars.{cdl}{record}"
-msgstr ""
-
-#. placeholders: {upper_first}, {grouped}, {cdl}, {record}
-msgid "{upper_first}. {grouped} dollars.{cdl}{record}"
-msgstr ""
-
-#. placeholders: {city_name}, {grouped}, {cdl}, {record}
-msgid "{city_name}. {grouped} dollars.{cdl}{record}"
-msgstr "{city_name}. {grouped} 元.{cdl}{record}"
-
 #. placeholders: {name}, {city_name}, {grouped}, {cdl}, {record}
 msgid "{name} in {city_name}. {grouped} dollars.{cdl}{record}"
 msgstr "{name} 中的 {city_name}。{grouped} 美元.{cdl}{record}"
-
-msgid ""
-"Carriers that would take you on from your home. There is no dispatch board "
-"until one does."
-msgstr ""
 
 msgid ""
 "Loads from local freight facilities. New company hires get an assigned "
@@ -18352,21 +17069,13 @@ msgstr "重复承运商、场站、经营成本和第一个目标。"
 msgid "The next career objective and the dispatch it suggests."
 msgstr "下一个职业目标，以及它建议的调度。"
 
-#. placeholders: {status_noun}
-#. one sentence of a longer line
-msgid "Sits out the {status_noun} in one go."
-msgstr ""
+msgid "Wait out the CDL suspension"
+msgstr "等待CDL暂扣期满"
 
-#. placeholders: {status_noun}
 msgid ""
-"Sits out the {status_noun} in one go. The clock jumps to the day it ends, "
+"Sits out the suspension in one go. The clock jumps to the day it clears, "
 "money, truck, and record untouched."
-msgstr ""
-
-#. one sentence of a longer line
-msgid ""
-"The clock jumps to the day it ends, money, truck, and record untouched."
-msgstr ""
+msgstr "一次性熬过暂扣期。时钟直接跳到恢复的那一天，钱、卡车和记录都不受影响。"
 
 msgid ""
 "Removes this career's save from this computer and its cloud backups from "
@@ -18413,10 +17122,6 @@ msgstr "防滑链：在车上，磨损百分之{f}。"
 
 msgid "Snow chains: aboard and fresh."
 msgstr "防滑链：在车上，全新。"
-
-msgid ""
-"Assignment: none. You have no carrier, so no tractor is assigned to you."
-msgstr ""
 
 #. placeholders: {label}
 msgid "Assignment: owned tractor, {label}."
@@ -18511,9 +17216,6 @@ msgstr "Enter重复一行，符合条件时则是买断。Escape回到场站。"
 #. placeholders: {status_label}
 msgid "Current status: {status_label}"
 msgstr "当前状况：{status_label}"
-
-msgid "Staying on the company-driver path."
-msgstr ""
 
 msgid "Staying a company driver."
 msgstr "继续当公司司机。"
@@ -18891,11 +17593,6 @@ msgstr "升级。你有{grouped}美元。{current}"
 msgid "Upgrades locked: carrier-assigned tractor"
 msgstr "升级未解锁：承运商指派的牵引车"
 
-msgid ""
-"Truck ownership starts with the leased-on owner-operator buy-in, and that "
-"needs a carrier to lease to. Apply to a carrier first."
-msgstr ""
-
 msgid "Trucks"
 msgstr "卡车"
 
@@ -18967,9 +17664,6 @@ msgstr "{dealer}卡车。"
 #. placeholders: {dealer}, {grouped}, {current}
 msgid "{dealer}Trucks. You have {grouped} dollars. {current}"
 msgstr "{dealer}卡车。你有{grouped}美元。{current}"
-
-msgid "Truck ownership locked: no carrier"
-msgstr ""
 
 msgid "Truck ownership locked: carrier-assigned tractor"
 msgstr "卡车所有权未解锁：承运商指派的牵引车"
@@ -19262,22 +17956,6 @@ msgstr "燃油：油箱已满"
 msgid "Refuel: {f} gallons"
 msgstr "加油：{f} 加仑"
 
-#. placeholders: {f2}
-#. one sentence of a longer line
-msgid "Diesel here is {f2} Canadian dollars a litre."
-msgstr ""
-
-#. placeholders: {f}, {grouped}
-#. one sentence of a longer line
-msgid "Refuel {f} gallons for {grouped} dollars."
-msgstr "加{f}加仑，{grouped}美元。"
-
-#. placeholders: {f}, {grouped}, {f2}
-msgid ""
-"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-"dollars a litre."
-msgstr ""
-
 #. placeholders: {f}, {grouped}
 msgid "Refuel {f} gallons for {grouped} dollars"
 msgstr "加油{f}加仑，{grouped}美元"
@@ -19292,12 +17970,6 @@ msgstr "维修：损坏{f}%"
 #. placeholders: {f}, {grouped}
 msgid "Repair {f} percent damage for {grouped} dollars"
 msgstr "维修百分之{f}的损伤，{grouped}美元"
-
-msgid "The engine is already off."
-msgstr ""
-
-msgid "Engine off."
-msgstr "发动机已关闭。"
 
 msgid "The tank is already full."
 msgstr "油箱已经满了。"
@@ -19623,16 +18295,10 @@ msgid ""
 "Truck washed for {grouped} dollars. You have {grouped2} dollars left."
 msgstr "卡车已洗好，花费{grouped}美元。你还剩{grouped2}美元。"
 
-msgid "Shut down the engine"
-msgstr "关闭发动机"
-
-msgid "The tractor must be off before this bay will fuel."
-msgstr ""
-
 msgid ""
 "Company drivers bill the carrier, owner-operators pay the regional diesel "
-"price. Shut the engine off first."
-msgstr ""
+"price."
+msgstr "公司司机记承运商账，车主司机按地区柴油价格付钱。"
 
 msgid "Company drivers bill the carrier, owner-operators pay the shop."
 msgstr "公司司机记承运商账，车主司机付钱给修理厂。"
@@ -19693,11 +18359,6 @@ msgstr "挂车计划"
 msgid "Add specialty trailer programs. Own authority buys trailers."
 msgstr "加入特种挂车计划。拥有自有运营资质后可以购买挂车。"
 
-msgid ""
-"Routes where spring weight limits would make this load overweight are not "
-"offered."
-msgstr ""
-
 msgid "loaded"
 msgstr "已装货"
 
@@ -19724,6 +18385,9 @@ msgstr " 承运商估计过路费{grouped}美元。"
 msgid "Loaded trip is {distance_text} via {join}.{toll_text}"
 msgstr "载货行程{distance_text}，途经{join}。{toll_text}"
 
+msgid "Shut down the engine"
+msgstr "关闭发动机"
+
 msgid "Start the engine"
 msgstr "启动发动机"
 
@@ -19735,6 +18399,9 @@ msgstr "启动发动机。松开驻车制动需要100 psi的气压。"
 
 msgid "Stop before touching the engine."
 msgstr "先停车再操作发动机。"
+
+msgid "Engine off."
+msgstr "发动机已关闭。"
 
 msgid "The engine will not start."
 msgstr "发动机无法启动。"
@@ -19780,12 +18447,6 @@ msgstr "那节挂车你已经让场地换过了。{described}检查没有问题�
 #. one sentence of a longer line
 msgid "{described} It checks out."
 msgstr "{described}检查没有问题。"
-
-#. placeholders: {py_capitalize}, {tank_walk_around_clause}
-msgid ""
-"{py_capitalize}, both trailers and the converter dolly, check "
-"out.{tank_walk_around_clause}"
-msgstr ""
 
 #. placeholders: {py_capitalize}, {tank_walk_around_clause}
 msgid "{py_capitalize} checks out.{tank_walk_around_clause}"
@@ -19846,16 +18507,21 @@ msgstr "{described}换挂车用了{f}分钟。"
 msgid "shipper check-in"
 msgstr "发货方报到"
 
-msgid "waiting on trailer paperwork"
-msgstr ""
+#. one sentence of a longer line
+msgid "Checked in."
+msgstr "已签入。"
 
-#. placeholders: {paperwork}, {map}, {doubles}
-msgid "Checked in.{paperwork} Load on {map} in the drop yard.{doubles}"
-msgstr ""
+#. placeholders: {map}
+msgid "Checked in. Load on {map} in the drop yard."
+msgstr "已办理登机手续。在卸货场装载 {map}。"
 
-#. placeholders: {paperwork}, {doubles}
-msgid "Checked in.{paperwork} Dock assigned.{doubles}"
-msgstr ""
+#. placeholders: {map}
+#. one sentence of a longer line
+msgid "Load on {map} in the drop yard."
+msgstr "货物位于甩挂场的{map}。"
+
+msgid "Checked in. Dock assigned."
+msgstr "已登记。码头已分配。"
 
 msgid "Check in at the shipping office before loading."
 msgstr "装货前先去发货办公室报到。"
@@ -19866,11 +18532,11 @@ msgstr "装货前先停车。"
 msgid "Hooking the loaded trailer"
 msgstr "正在挂上装好货的挂车"
 
-#. placeholders: {facility}, {map}, {f}, {cargo_label}, {doubles_clause}
+#. placeholders: {facility}, {map}, {f}, {label}
 msgid ""
 "Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
-"of {cargo_label}.{doubles_clause}"
-msgstr ""
+"of {label}."
+msgstr "正在{facility}甩下你的空挂车，挂上{map}，上面装着{f}吨{label}。"
 
 msgid "Dropping and hooking."
 msgstr "正在甩挂。"
@@ -19878,39 +18544,21 @@ msgstr "正在甩挂。"
 msgid "Loading cargo"
 msgstr "正在装货"
 
-#. placeholders: {f}, {cargo_label}, {facility}, {doubles_clause}
-msgid "Loading {f} tons of {cargo_label} at {facility}.{doubles_clause}"
-msgstr ""
+#. placeholders: {f}, {label}, {facility}
+msgid "Loading {f} tons of {label} at {facility}."
+msgstr "正在{facility}装{f}吨{label}。"
 
 msgid "Loading cargo."
 msgstr "正在装货。"
 
-msgid "dropping and hooking a set of doubles"
-msgstr ""
-
 msgid "dropping and hooking"
 msgstr "甩挂"
-
-msgid "loading and hooking a set of doubles"
-msgstr ""
 
 msgid "Load the cargo before departing."
 msgstr "出发前先装货。"
 
-#. one sentence of a longer line
-msgid "Dispatch cannot find a legal route for this load."
-msgstr ""
-
-#. placeholders: {reason}
-msgid "Dispatch cannot find a legal route for this load. {reason}"
-msgstr ""
-
 msgid "Dispatch cannot find a route for this load."
 msgstr "调度找不到这单货物的路线。"
-
-#. placeholders: {name}
-msgid "Routed around the {name}."
-msgstr ""
 
 #. placeholders: {destination_facility_text}
 msgid "Dispatch routed you to {destination_facility_text}. "
@@ -19950,33 +18598,35 @@ msgstr "气压{f2} psi，{brake}。{speed_control_pause_text}"
 msgid "Pickup {facility}: {state}."
 msgstr "提货点{facility}：{state}。"
 
-#. placeholders: {facility}, {state}, {f}, {cargo_label}, {destination_facility_text}, {speed_text}, {engine}, {f2}, {brake}, {speed_control_pause_text}
+#. placeholders: {facility}, {state}, {f}, {label}, {destination_facility_text}, {speed_text}, {engine}, {f2}, {brake}, {speed_control_pause_text}
 msgid ""
-"Pickup {facility}: {state}. {f} tons of {cargo_label} for "
+"Pickup {facility}: {state}. {f} tons of {label} for "
 "{destination_facility_text}. {speed_text}. {engine}. Air {f2} psi, "
 "{brake}.{speed_control_pause_text}"
 msgstr ""
+"提货点{facility}：{state}。运往{destination_facility_text}的{label}，重{f}吨。{speed_tex"
+"t}。{engine}。气压{f2} psi，{brake}。{speed_control_pause_text}"
 
-#. placeholders: {f}, {cargo_label}, {destination_facility_text}
+#. placeholders: {f}, {label}, {destination_facility_text}
 #. one sentence of a longer line
-msgid "{f} tons of {cargo_label} for {destination_facility_text}."
-msgstr ""
+msgid "{f} tons of {label} for {destination_facility_text}."
+msgstr "{f} 吨 {label} 为 {destination_facility_text}。"
 
 msgid "Saved. The pickup resumes here."
 msgstr "已保存。提货会从这里继续。"
-
-#. placeholders: {phrase}
-#. one sentence of a longer line
-msgid "Parked {phrase}."
-msgstr ""
 
 #. one sentence of a longer line
 msgid "Pickup canceled."
 msgstr "提货已取消。"
 
-#. placeholders: {phrase}
-msgid "Pickup canceled. Parked {phrase}."
-msgstr ""
+#. placeholders: {name}
+msgid "Pickup canceled. Returned to {name}."
+msgstr "提货已取消。已回到{name}。"
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "Returned to {name}."
+msgstr "已回到{name}。"
 
 msgid "Loaded and ready to roll"
 msgstr "已装好货，准备出发"
@@ -19987,9 +18637,9 @@ msgstr "正在装卸口装货"
 msgid "At a pickup facility"
 msgstr "在提货厂区"
 
-#. placeholders: {cargo_label}, {destination}
-msgid "{cargo_label} for {destination}"
-msgstr ""
+#. placeholders: {label}, {destination}
+msgid "{label} for {destination}"
+msgstr "送往{destination}的{label}"
 
 #. placeholders: {destination}
 msgid "Loaded and sealed for {destination}."
@@ -20032,11 +18682,6 @@ msgstr "已在{facility}报到。"
 #. placeholders: {facility}, {map}
 msgid "Checked in at {facility}. Load on {map} in the drop yard."
 msgstr "已在{facility}登记。货物位于甩挂场的{map}。"
-
-#. placeholders: {map}
-#. one sentence of a longer line
-msgid "Load on {map} in the drop yard."
-msgstr "货物位于甩挂场的{map}。"
 
 #. placeholders: {facility}
 msgid "Checked in at {facility}. Dock assigned."
@@ -20138,9 +18783,9 @@ msgstr "需要报到"
 msgid "Facility: {facility}"
 msgstr "厂区：{facility}"
 
-#. placeholders: {f}, {cargo_label}
-msgid "Cargo: {f} tons of {cargo_label}"
-msgstr ""
+#. placeholders: {f}, {label}
+msgid "Cargo: {f} tons of {label}"
+msgstr "货物：{f}吨{label}"
 
 #. placeholders: {destination}
 msgid "Destination: {destination}"
@@ -20149,12 +18794,6 @@ msgstr "目的地：{destination}"
 #. placeholders: {state}
 msgid "Status: {state}"
 msgstr "状态：{state}"
-
-#. placeholders: {f}
-msgid ""
-"Doubles: two hook-ups and a walk-around of both trailers and the dolly, {f} "
-"extra minutes on duty"
-msgstr ""
 
 #. placeholders: {hud_speed_text}
 msgid "Speed: {hud_speed_text}"
@@ -21082,18 +19721,21 @@ msgstr ""
 msgid "{progress} {hours_used} of {deadline_game_h} hours used."
 msgstr "{progress}截止时间{deadline_game_h}小时，已用{hours_used}小时。"
 
-#. placeholders: {drive_name}, {weight_tons}, {cargo_label}, {destination}
+#. placeholders: {drive_name}, {weight_tons}, {label}, {destination}
 #. one sentence of a longer line
 msgid ""
-"Resuming {drive_name}: {weight_tons} tons of {cargo_label} to {destination}."
-msgstr ""
+"Resuming {drive_name}: {weight_tons} tons of {label} to {destination}."
+msgstr "恢复{drive_name}：{weight_tons}吨{label}至{destination}。"
 
-#. placeholders: {drive_name}, {weight_tons}, {cargo_label}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {transmission}, {report_lead}, {speed_control}, {engine}, {brake}
+#. placeholders: {drive_name}, {weight_tons}, {label}, {destination}, {progress}, {hours_used}, {deadline_game_h}, {now}, {transmission}, {report_lead}, {speed_control}, {engine}, {brake}
 msgid ""
-"Resuming {drive_name}: {weight_tons} tons of {cargo_label} to "
-"{destination}. {progress} {hours_used} of {deadline_game_h} hours. {now}. "
-"{transmission} {report_lead}. {speed_control}{engine} {brake}"
+"Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
+"{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
+"{report_lead}. {speed_control}{engine} {brake}"
 msgstr ""
+"恢复{drive_name}：{weight_tons}吨{label}至{destination}。{progress} {hours_used} "
+"{deadline_game_h} 小时。{now}。{transmission} "
+"{report_lead}。{speed_control}{engine} {brake}"
 
 #. placeholders: {progress}, {hours_used}, {deadline_game_h}
 #. one sentence of a longer line
@@ -21101,8 +19743,9 @@ msgid "{progress} {hours_used} of {deadline_game_h} hours."
 msgstr "{progress} {hours_used} {deadline_game_h} 小时。"
 
 #. placeholders: {pickup_facility_text}
-msgid "Pickup dispatch: deadhead to {pickup_facility_text}. "
-msgstr ""
+msgid ""
+"Pickup dispatch: deadhead from the terminal to {pickup_facility_text}. "
+msgstr "提货调度：从场站空车开往{pickup_facility_text}。 "
 
 #. placeholders: {destination_facility_text}
 #. one sentence of a longer line
@@ -21131,118 +19774,6 @@ msgstr "{objective}现在是{now}。"
 
 msgid "amount"
 msgstr "amount"
-
-#. one sentence of a longer line
-msgid "Come to a full stop before it."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Every truck stops at the customs booth."
-msgstr ""
-
-#. placeholders: {name}, {short_distance_text}, {agency}
-#. one sentence of a longer line
-msgid "{name} ahead in {short_distance_text}, {agency}."
-msgstr ""
-
-#. placeholders: {name}, {short_distance_text}, {agency}
-msgid ""
-"{name} ahead in {short_distance_text}, {agency}. Every truck stops at the "
-"customs booth. Come to a full stop before it."
-msgstr ""
-
-msgid "Customs booth in half a mile. Stop at the booth."
-msgstr ""
-
-#. placeholders: {name}, {agency}, {penalty}
-msgid ""
-"At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Customs officers are following."
-msgstr ""
-
-#. placeholders: {control_hint}
-msgid ""
-"Customs officers are following. Signal with {control_hint} and stop on the "
-"shoulder."
-msgstr ""
-
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Signal with {control_hint} and stop on the shoulder."
-msgstr "用{control_hint}打转向灯，停到路肩上。"
-
-msgid "Ran the port of entry"
-msgstr ""
-
-msgid "Officers walk you back to the customs booth."
-msgstr ""
-
-#. placeholders: {grouped}
-msgid "a {grouped} US dollar civil penalty"
-msgstr ""
-
-#. placeholders: {grouped}, {grouped2}
-msgid ""
-"a {grouped} Canadian dollar penalty, charged as {grouped2} US dollars"
-msgstr ""
-
-#. one sentence of a longer line
-msgid ""
-"The officer asks for your passport and checks the eManifest your carrier "
-"filed before arrival."
-msgstr ""
-
-#. placeholders: {name}, {agency}
-msgid ""
-"{name}, {agency}. The officer asks for your passport and checks the "
-"eManifest your carrier filed before arrival."
-msgstr ""
-
-msgid "customs clearance"
-msgstr ""
-
-msgid "Canada"
-msgstr ""
-
-msgid "the United States"
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Officers examine the trailer for 45 minutes, then clear you."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Referred to secondary inspection."
-msgstr ""
-
-#. placeholders: {country}
-msgid ""
-"Referred to secondary inspection. Officers examine the trailer for 45 "
-"minutes, then clear you. Welcome to {country}."
-msgstr ""
-
-#. placeholders: {country}
-#. one sentence of a longer line
-msgid "Welcome to {country}."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Cleared."
-msgstr ""
-
-#. placeholders: {country}
-msgid "Cleared. Welcome to {country}."
-msgstr ""
-
-msgid "Answer the officer's questions and hand over your documents"
-msgstr ""
-
-msgid "Customs has to clear you before you drive on."
-msgstr ""
 
 msgid "local game time"
 msgstr "当地游戏时间"
@@ -21312,10 +19843,6 @@ msgstr "30 分钟休息时间为 {left}。"
 #. placeholders: {left}
 msgid "Driving time left: {left}."
 msgstr "剩余驾驶时间：{left}。"
-
-#. placeholders: {left}
-msgid "Shift time left: {left}."
-msgstr ""
 
 #. placeholders: {left}
 msgid "Duty window closes in {left}."
@@ -21545,20 +20072,6 @@ msgstr "{status} 状态菜单。"
 #. placeholders: {fuel}
 msgid "{fuel} fuel."
 msgstr "{fuel} 燃油。"
-
-#. placeholders: {apu}
-#. one sentence of a longer line
-msgid "{apu} APU on or off."
-msgstr ""
-
-#. placeholders: {reefer}
-#. one sentence of a longer line
-msgid "{reefer} reefer on or off."
-msgstr ""
-
-#. placeholders: {reefer}, {apu}
-msgid "{reefer} reefer on or off. {apu} APU on or off."
-msgstr ""
 
 #. placeholders: {clock}
 msgid "{clock} clock, deadline, and the hours limit that comes first."
@@ -21820,13 +20333,12 @@ msgstr "{speed} 说出你的车速。"
 msgid "{horn} sounds the horn, {engine_brake} the engine brake."
 msgstr "{horn} 鸣喇叭，{engine_brake} 发动机制动。"
 
-#. placeholders: {engine}, {reefer}, {apu}, {fuel}, {speed_limit}, {parking_brake}, {rest}
+#. placeholders: {engine}, {fuel}, {speed_limit}, {parking_brake}, {rest}
 msgid ""
-"{engine} starts or stops the engine, {reefer} the reefer, {apu} the APU, "
-"{fuel} reads fuel, {speed_limit} reads the posted speed limit here and how "
-"far over you are, {parking_brake} sets or releases the parking brake, "
-"{rest} plans a stop for fuel, a break, sleep or food while rolling; stopped "
-"at a stop, it opens its actions."
+"{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads "
+"the posted speed limit here and how far over you are, {parking_brake} sets "
+"or releases the parking brake, {rest} plans a stop for fuel, a break, sleep "
+"or food while rolling; stopped at a stop, it opens its actions."
 msgstr ""
 
 msgid ""
@@ -22234,12 +20746,6 @@ msgstr "燃油百分之{fraction}，{gallons}加仑。续航里程大约{distanc
 msgid "Range about {distance_text}."
 msgstr "续航里程大约{distance_text}。"
 
-msgid " Reefer on."
-msgstr ""
-
-msgid " APU on."
-msgstr ""
-
 #. placeholders: {safe_speed}
 msgid "Safe speed about {safe_speed}."
 msgstr "安全车速大约{safe_speed}。"
@@ -22329,19 +20835,6 @@ msgstr "路线：{progress}"
 #. placeholders: {fuel_fraction}
 msgid "Fuel: {fuel_fraction} percent"
 msgstr "燃油：百分之{fuel_fraction}"
-
-#. placeholders: {reefer}
-#. one sentence of a longer line
-msgid "Reefer: {reefer}."
-msgstr ""
-
-#. placeholders: {reefer}, {reefer_temp_status_text}, {apu}
-msgid "Reefer: {reefer}. {reefer_temp_status_text}. APU: {apu}"
-msgstr ""
-
-#. placeholders: {apu}
-msgid "APU: {apu}"
-msgstr ""
 
 #. placeholders: {air_status_text}
 msgid "Air brakes: {air_status_text}"
@@ -22631,33 +21124,6 @@ msgstr "打齿了！先按住{control_hint}踩下离合。"
 #. one sentence of a longer line
 msgid "Hold {control_hint} to press the clutch first."
 msgstr "先按住{control_hint}踩下离合。"
-
-msgid "No reefer load aboard."
-msgstr ""
-
-msgid "Reefer off."
-msgstr ""
-
-msgid "Reefer on."
-msgstr ""
-
-msgid "No fuel for the reefer."
-msgstr ""
-
-msgid "The reefer will not start."
-msgstr ""
-
-msgid "APU off."
-msgstr ""
-
-msgid "APU on."
-msgstr ""
-
-msgid "No fuel for the APU."
-msgstr ""
-
-msgid "The APU will not start."
-msgstr ""
 
 #. placeholders: {join_phrase}
 msgid "offers {join_phrase}"
@@ -23249,13 +21715,6 @@ msgstr "保持{speed_text}。"
 msgid "Limp mode. Holding {speed_text}."
 msgstr "跛行模式。保持{speed_text}。"
 
-msgid "Limiter, 105 kilometres an hour."
-msgstr ""
-
-msgid ""
-"Speed limiter: British Columbia caps heavy trucks at 105 kilometres an hour."
-msgstr ""
-
 #. placeholders: {damage_pct}
 msgid " Damage is down to {damage_pct} percent."
 msgstr " 损伤已降到百分之{damage_pct}。"
@@ -23639,15 +22098,14 @@ msgid ""
 "I have the update. Continue safely and call again if the situation changes."
 msgstr "情况我知道了。注意安全继续开，情况有变再打过来。"
 
-#. placeholders: {used}, {unit}, {hours_value}
-msgid "{used} {unit} used of a {hours_value} hour delivery window."
-msgstr ""
+#. placeholders: {game_minutes}, {deadline_game_h}
+msgid ""
+"{game_minutes} hours used of a {deadline_game_h} hour delivery window."
+msgstr "{deadline_game_h}小时的送货时限已经用了{game_minutes}小时。"
 
-msgid "remains"
-msgstr ""
-
-msgid "remain"
-msgstr ""
+#. placeholders: {remaining_miles}
+msgid "{remaining_miles} miles remain."
+msgstr "还剩{remaining_miles}英里。"
 
 #. placeholders: {damage_pct}
 msgid "Truck damage is {damage_pct} percent."
@@ -23661,8 +22119,8 @@ msgid " No usable chains under an active chain law."
 msgstr ""
 
 #. placeholders: {cargo_damage_pct}
-msgid "Cargo damage is {cargo_damage_pct} percent."
-msgstr ""
+msgid "Cargo condition is {cargo_damage_pct} percent."
+msgstr "货物状况百分之{cargo_damage_pct}。"
 
 msgid "Driver requested dispatch assistance."
 msgstr "司机请求调度协助。"
@@ -23902,22 +22360,22 @@ msgid ""
 "The freight is {words}. Continue and protect it through the next stop."
 msgstr "货物{words}。继续开，到下一个停靠点前保护好它。"
 
-#. placeholders: {words}, {damage}
-msgid ""
-"I have the freight report as {words}, with only {damage} percent cargo "
-"damage."
-msgstr ""
+#. placeholders: {words}, {condition}
+#. one sentence of a longer line
+msgid "I have the freight report as {words}, {condition} percent."
+msgstr "货物报告收到了，{words}，百分之{condition}。"
 
-#. placeholders: {words}, {damage}
+#. placeholders: {words}, {condition}
 msgid ""
-"I have the freight report as {words}, with {damage} percent cargo damage."
-msgstr ""
+"I have the freight report as {words}, {condition} percent. Slow the "
+"handling down and avoid any hard stop or sharp bend you can safely avoid."
+msgstr "货物报告收到了，{words}，百分之{condition}。操作放慢，能安全避开的急刹和急弯都避开。"
 
-#. placeholders: {report}
+#. one sentence of a longer line
 msgid ""
-"{report} Slow the handling down and avoid any hard stop or sharp bend you "
-"can safely avoid."
-msgstr ""
+"Slow the handling down and avoid any hard stop or sharp bend you can safely "
+"avoid."
+msgstr "操作放慢，能安全避开的急刹和急弯都避开。"
 
 msgid "A trooper has somebody stopped on the shoulder, not you."
 msgstr "州警在路肩拦下了别人，不是你。"
@@ -23986,9 +22444,6 @@ msgstr " 罚款{grouped}美元，罚单记入你的记录。"
 msgid "thirty minutes"
 msgstr "三十分钟"
 
-msgid "thirty-four hours"
-msgstr ""
-
 msgid "ten hours"
 msgstr "十小时"
 
@@ -24035,6 +22490,11 @@ msgid ""
 "Lights behind you for a routine inspection. Signal with {control_hint} and "
 "stop on the shoulder."
 msgstr "后面有警灯，要做例行检查。用{control_hint}打转向灯，停到路肩上。"
+
+#. placeholders: {control_hint}
+#. one sentence of a longer line
+msgid "Signal with {control_hint} and stop on the shoulder."
+msgstr "用{control_hint}打转向灯，停到路肩上。"
 
 msgid "Roadside inspection"
 msgstr "路检"
@@ -25784,9 +24244,6 @@ msgid ""
 "Back on the highway after the 30-minute break. Keep the logbook clean."
 msgstr "30分钟中途休息之后回到公路上了。保持工时记录干净。"
 
-msgid "Back on the highway with a fresh cycle. Keep the logbook clean."
-msgstr ""
-
 msgid "Back on the highway with a reset clock. Keep the logbook clean."
 msgstr "时钟重置后回到公路上了。保持工时记录干净。"
 
@@ -26426,12 +24883,14 @@ msgstr "没有货物，也没有报酬。 "
 msgid "Bobtailed empty to {destination} in {f} hours."
 msgstr "用了{f}小时单车头空驶到{destination}。"
 
-#. placeholders: {destination}, {f}, {clock_text}, {pay_clause}, {service_area_phrase}, {destination2}, {f2}
+#. placeholders: {destination}, {f}, {clock_text}, {pay_clause}, {name}, {destination2}, {f2}
 msgid ""
 "Bobtailed empty to {destination} in {f} hours. It is {clock_text}. "
-"{pay_clause}Parked {service_area_phrase}. {destination2} dispatch board "
-"available. Fuel {f2} percent."
+"{pay_clause}Parked at {name}. {destination2} dispatch board available. Fuel "
+"{f2} percent."
 msgstr ""
+"用了{f}小时单车头空驶到{destination}。现在是{clock_text}。{pay_clause}停在{name}。{destination"
+"2}调度板可用。燃油百分之{f2}。"
 
 #. placeholders: {f2}
 #. one sentence of a longer line
@@ -26443,10 +24902,10 @@ msgstr "燃油百分之{f2}。"
 msgid "{destination2} dispatch board available."
 msgstr "{destination2}调度板可用。"
 
-#. placeholders: {pay_clause}, {service_area_phrase}
+#. placeholders: {pay_clause}, {name}
 #. one sentence of a longer line
-msgid "{pay_clause}Parked {service_area_phrase}."
-msgstr ""
+msgid "{pay_clause}Parked at {name}."
+msgstr "{pay_clause}停在{name}。"
 
 #. placeholders: {f}
 msgid "The empty run added {f} percent truck damage."
@@ -26660,22 +25119,29 @@ msgstr "收费{grouped2}：通行费{grouped3}，配件{charge_summary}。"
 msgid "Costs {grouped4}."
 msgstr "成本 {grouped4}。"
 
-#. placeholders: {f}, {cargo_label}, {destination}, {f2}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}
+#. placeholders: {f}, {label}, {destination}, {f2}, {else}, {receiver_service_clause}, {clock_text}
 #. one sentence of a longer line
 msgid ""
-"Delivered {f} tons of {cargo_label} to {destination} in {f2} hours, "
-"{else}.{yard_drop}{receiver_service_clause} {clock_text}."
+"Delivered {f} tons of {label} to {destination} in {f2} hours, "
+"{else}.{receiver_service_clause} {clock_text}."
 msgstr ""
+"在{f2}小时内将{f}吨{label}交付给{destination}，{else}.{receiver_service_clause} "
+"{clock_text}。"
 
-#. placeholders: {f}, {cargo_label}, {destination}, {f2}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}, {pay_label}, {grouped}, {grouped2}, {grouped3}, {charge_summary}, {accessorial_clause}, {status_label}, {grouped4}, {grouped5}, {grouped6}, {grouped7}, {service_area_phrase}
+#. placeholders: {f}, {label}, {destination}, {f2}, {else}, {receiver_service_clause}, {clock_text}, {pay_label}, {grouped}, {grouped2}, {grouped3}, {charge_summary}, {accessorial_clause}, {status_label}, {grouped4}, {grouped5}, {grouped6}, {grouped7}, {name}
 msgid ""
-"Delivered {f} tons of {cargo_label} to {destination} in {f2} hours, "
-"{else}.{yard_drop}{receiver_service_clause} {clock_text}. {pay_label} "
-"{grouped} dollars. Charges {grouped2}: tolls {grouped3}, accessorials "
+"Delivered {f} tons of {label} to {destination} in {f2} hours, "
+"{else}.{receiver_service_clause} {clock_text}. {pay_label} {grouped} "
+"dollars. Charges {grouped2}: tolls {grouped3}, accessorials "
 "{charge_summary}. {accessorial_clause} Business status: {status_label}. "
 "Costs {grouped4}. Fines {grouped5}. Net {grouped6}, you have {grouped7}. "
-"Parked {service_area_phrase}."
+"Parked at {name}."
 msgstr ""
+"在{f2}小时内将{f}吨{label}交付给{destination}，{else}.{receiver_service_clause} "
+"{clock_text}。{pay_label} {grouped} "
+"美元。收费{grouped2}：通行费{grouped3}，配件{charge_summary}。{accessorial_clause} "
+"经营状况：{status_label}。成本 {grouped4}。罚款 "
+"{grouped5}。净{grouped6}，你有{grouped7}。停在{name}。"
 
 #. placeholders: {grouped5}
 #. one sentence of a longer line
@@ -26686,6 +25152,11 @@ msgstr "罚款{grouped5}。"
 #. one sentence of a longer line
 msgid "Net {grouped6}, you have {grouped7}."
 msgstr "净{grouped6}，你有{grouped7}。"
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "Parked at {name}."
+msgstr "停在{name}。"
 
 #. placeholders: {accessorial_clause}, {status_label}
 #. one sentence of a longer line
@@ -26782,9 +25253,9 @@ msgstr "经营成本：{grouped}美元。"
 msgid "Business cost detail: {business_charge_summary}."
 msgstr "经营成本明细：{business_charge_summary}。"
 
-#. placeholders: {f}, {cargo_label}, {destination}
-msgid "Delivered {f} tons of {cargo_label} to {destination}."
-msgstr ""
+#. placeholders: {f}, {label}, {destination}
+msgid "Delivered {f} tons of {label} to {destination}."
+msgstr "把{f}吨{label}送到了{destination}。"
 
 #. placeholders: {f}, {timing}
 msgid "Trip time: {f} hours, {timing}."
@@ -26794,9 +25265,9 @@ msgstr "行程时间：{f}小时，{timing}。"
 msgid "It is {clock_text}."
 msgstr "现在是{clock_text}。"
 
-#. placeholders: {service_area_phrase}
-msgid "Parked {service_area_phrase}."
-msgstr ""
+#. placeholders: {name}, {the_city}
+msgid "Parked at {name} for {the_city} service area."
+msgstr "停在{name}，属于{the_city}服务区域。"
 
 #. placeholders: {grouped}, {grouped2}, {charge_summary}
 msgid ""
@@ -26961,9 +25432,9 @@ msgstr "方向键浏览，Enter选择。“靠装卸口交付”完成这个任�
 msgid "Destination facility"
 msgstr "目的地厂区"
 
-#. placeholders: {facility}, {current}, {doubles}
-msgid "At {facility}. {current}{doubles}"
-msgstr ""
+#. placeholders: {facility}, {current}
+msgid "At {facility}. {current}"
+msgstr "到了{facility}。{current}"
 
 msgid "Drop the loaded trailer"
 msgstr "甩下满载的挂车"
@@ -27018,16 +25489,15 @@ msgid ""
 "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}."
 msgstr "正在{facility}甩下满载的挂车，{f}吨{cargo_label}。"
 
-#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
+#. placeholders: {facility}, {f}, {cargo_label}
 msgid ""
 "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
-"Hooking an empty.{doubles}"
-msgstr ""
+"Hooking an empty."
+msgstr "正在{facility}甩下满载的挂车，{f}吨{cargo_label}。正在挂上一节空挂车。"
 
-#. placeholders: {doubles}
 #. one sentence of a longer line
-msgid "Hooking an empty.{doubles}"
-msgstr ""
+msgid "Hooking an empty."
+msgstr "正在挂上一节空挂车。"
 
 msgid "Dropping the trailer."
 msgstr "正在甩挂车。"
@@ -27040,14 +25510,14 @@ msgstr "正在卸货"
 msgid "Docked at {facility}."
 msgstr "已靠上{facility}的装卸口。"
 
-#. placeholders: {facility}, {f}, {cargo_label}, {doubles}
-msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}.{doubles}"
-msgstr ""
+#. placeholders: {facility}, {f}, {cargo_label}
+msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
+msgstr "已靠上{facility}的装卸口。正在卸下{f}吨{cargo_label}。"
 
-#. placeholders: {f}, {cargo_label}, {doubles}
+#. placeholders: {f}, {cargo_label}
 #. one sentence of a longer line
-msgid "Unloading {f} tons of {cargo_label}.{doubles}"
-msgstr ""
+msgid "Unloading {f} tons of {cargo_label}."
+msgstr "正在卸下{f}吨{cargo_label}。"
 
 msgid "Unloading cargo."
 msgstr "正在卸货。"
@@ -27087,18 +25557,22 @@ msgstr "收费{grouped3}：通行费{grouped4}，配件{charge_summary}。"
 msgid "Net about {grouped6}.{advance_note} {timing}."
 msgstr "净关于{grouped6}.{advance_note} {timing}。"
 
-#. placeholders: {facility}, {f}, {cargo_label}
+#. placeholders: {facility}, {f}, {label}
 #. one sentence of a longer line
-msgid "Paperwork, {facility}: {f} tons of {cargo_label}."
-msgstr ""
+msgid "Paperwork, {facility}: {f} tons of {label}."
+msgstr "文书工作，{facility}：{f} 吨{label}。"
 
-#. placeholders: {facility}, {f}, {cargo_label}, {grouped}, {grouped2}, {grouped3}, {grouped4}, {charge_summary}, {charge_fate}, {grouped5}, {grouped6}, {advance_note}, {timing}, {cargo_condition}, {finish}
+#. placeholders: {facility}, {f}, {label}, {grouped}, {grouped2}, {grouped3}, {grouped4}, {charge_summary}, {charge_fate}, {grouped5}, {grouped6}, {advance_note}, {timing}, {cargo_condition}, {finish}
 msgid ""
-"Paperwork, {facility}: {f} tons of {cargo_label}. Rate {grouped}, gross "
+"Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, gross "
 "{grouped2}. Charges {grouped3}: tolls {grouped4}, accessorials "
 "{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
 "{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
 msgstr ""
+"文书工作，{facility}：{f} 吨{label}。费率 {grouped}，毛额 "
+"{grouped2}。收费{grouped3}：通行费{grouped4}，配件{charge_summary}。{charge_fate} 罚款 "
+"{grouped5}。净关于{grouped6}.{advance_note} {timing}。{cargo_condition} {finish} "
+"结算。"
 
 #. placeholders: {grouped}, {grouped2}
 #. one sentence of a longer line
@@ -27115,11 +25589,11 @@ msgstr "{cargo_condition}{finish}来结算。"
 msgid "{charge_fate} Fines {grouped5}."
 msgstr "{charge_fate} 罚款 {grouped5}。"
 
-#. placeholders: {facility}, {f}, {cargo_label}, {speed_text}, {else}, {finish}
+#. placeholders: {facility}, {f}, {label}, {speed_text}, {else}, {finish}
 msgid ""
-"At {facility}. {f} tons of {cargo_label}. Speed {speed_text}. {else}. Stop, "
-"then {finish}."
-msgstr ""
+"At {facility}. {f} tons of {label}. Speed {speed_text}. {else}. Stop, then "
+"{finish}."
+msgstr "到了{facility}。{f}吨{label}。车速{speed_text}。{else}。停车，然后{finish}。"
 
 #. placeholders: {speed_text}
 #. one sentence of a longer line
@@ -27131,10 +25605,10 @@ msgstr "车速{speed_text}。"
 msgid "Stop, then {finish}."
 msgstr "停车，然后{finish}。"
 
-#. placeholders: {f}, {cargo_label}
+#. placeholders: {f}, {label}
 #. one sentence of a longer line
-msgid "{f} tons of {cargo_label}."
-msgstr ""
+msgid "{f} tons of {label}."
+msgstr "{f}吨{label}。"
 
 msgid "Delivering"
 msgstr "正在送货"
@@ -27208,11 +25682,10 @@ msgstr "状态"
 msgid "{f} hours before the deadline, due {deadline_appointment}"
 msgstr "离截止时间还有{f}小时，{deadline_appointment}到期"
 
-#. placeholders: {f}, {cargo_label}, {f2}, {cargo_status_clause}
+#. placeholders: {f}, {label}, {f2}, {cargo_status_clause}
 msgid ""
-"Load: {f} tons of {cargo_label}, gross {f2} tons, freight "
-"{cargo_status_clause}"
-msgstr ""
+"Load: {f} tons of {label}, gross {f2} tons, freight {cargo_status_clause}"
+msgstr "货物：{f}吨{label}，总重{f2}吨，货物{cargo_status_clause}"
 
 #. placeholders: {clock}, {deadline_text}
 msgid "Time: {clock}, {deadline_text}"
@@ -27710,13 +26183,13 @@ msgstr "安装防滑链{when}：大约{f}分钟"
 msgid "Driving to pickup at {pickup_facility_text}."
 msgstr "正开往{pickup_facility_text}装货。"
 
-#. placeholders: {f}, {cargo_label}, {destination}
-msgid "{f} tons of {cargo_label} are assigned for {destination}."
-msgstr ""
+#. placeholders: {f}, {label}, {destination}
+msgid "{f} tons of {label} are assigned for {destination}."
+msgstr "{f}吨{label}已指派送往{destination}。"
 
-#. placeholders: {f}, {cargo_label}, {destination}
-msgid "Hauling {f} tons of {cargo_label} to {destination}."
-msgstr ""
+#. placeholders: {f}, {label}, {destination}
+msgid "Hauling {f} tons of {label} to {destination}."
+msgstr "正把{f}吨{label}运往{destination}。"
 
 #. placeholders: {duration_text}, {duration_text2}
 msgid "{duration_text} used of {duration_text2}."
@@ -28199,8 +26672,8 @@ msgstr "发动机关闭，驻车制动设置。"
 #. placeholders: {clears_text}
 #. one sentence of a longer line
 msgid ""
-"Driving jobs are off the dispatch board until it ends, {clears_text}."
-msgstr ""
+"Driving jobs are off the dispatch board until it clears, {clears_text}."
+msgstr "在解除之前，调度板上不会有驾驶任务，{clears_text}。"
 
 #. placeholders: {verb}, {left}
 #. one sentence of a longer line
@@ -28210,9 +26683,10 @@ msgstr "你的CDL被{verb}{left}。"
 #. placeholders: {verb}, {left}, {clears_text}
 msgid ""
 "Your CDL is {verb} for {left}. Driving jobs are off the dispatch board "
-"until it ends, {clears_text}. Your money and your truck are safe; rest, "
+"until it clears, {clears_text}. Your money and your truck are safe; rest, "
 "repairs, and the garage are still open."
 msgstr ""
+"你的CDL被{verb}{left}。在解除之前，调度板上不会有驾驶任务，{clears_text}。你的钱和卡车都没事；休息、维修和维修厂仍然开放。"
 
 #. one sentence of a longer line
 msgid ""
@@ -28222,8 +26696,8 @@ msgstr "你的钱和卡车都没事；休息、维修和维修厂仍然开放。
 
 msgid ""
 "That is a serious violation on your record. One more inside three years and "
-"your CDL is suspended for 60 days, and driving jobs stop until it ends."
-msgstr ""
+"your CDL is suspended for 60 days, and driving jobs stop until it clears."
+msgstr "这是你记录上的一次严重违规。三年内再有一次，你的CDL会被暂扣60天，在解除之前不会有驾驶任务。"
 
 #. placeholders: {which}
 #. one sentence of a longer line
@@ -28415,15 +26889,17 @@ msgstr "用承运商加油卡加{f}加仑。"
 msgid "Refuel {f} gallons on the carrier fuel card. {margin}"
 msgstr "用承运商加油卡加{f}加仑。{margin}"
 
-#. placeholders: {f}, {grouped}, {f2}, {margin}
-msgid ""
-"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-"dollars a litre. {margin}"
-msgstr ""
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Refuel {f} gallons for {grouped} dollars."
+msgstr "加{f}加仑，{grouped}美元。"
 
 #. placeholders: {f}, {grouped}, {margin}
 msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
 msgstr "加{f}加仑，{grouped}美元。{margin}"
+
+msgid "Shut the engine off before you fuel."
+msgstr "加油前先关掉发动机。"
 
 msgid "You cannot afford fuel here."
 msgstr "你在这里买不起燃油。"
@@ -28462,9 +26938,6 @@ msgstr ""
 #. placeholders: {name}
 msgid "Saved at {name}."
 msgstr "已在{name}存档。"
-
-msgid "Shut the engine off before you fuel."
-msgstr "加油前先关掉发动机。"
 
 msgid "Enter selects, Escape goes back."
 msgstr "Enter选择，Escape返回。"
@@ -28849,15 +27322,6 @@ msgstr "{name}已关闭"
 
 msgid "Nobody is at the scale house. There is nothing to check in at."
 msgstr "称重站里没人。没有地方可以报到。"
-
-#. placeholders: {f}
-msgid "Walk around the truck, both trailers and the dolly, {f} minutes"
-msgstr ""
-
-msgid ""
-"A pre-trip walk-around: what an inspector would find on the tractor, both "
-"trailers and the converter dolly. Longer than a single trailer's."
-msgstr ""
 
 msgid ""
 "A pre-trip walk-around: what an inspector would find on the tractor and the "
@@ -29297,30 +27761,8 @@ msgid "{outcome} {safety_record_line} It is {clock_text}."
 msgstr "{outcome}{safety_record_line}现在是{clock_text}。"
 
 msgid ""
-"Nothing to write up: tires, brakes, lights, both trailers and the converter "
-"dolly would all pass."
-msgstr ""
-
-msgid ""
 "Nothing to write up: tires, brakes, lights and the trailer would all pass."
 msgstr "没有要记录的问题：轮胎、刹车、车灯和挂车都能过关。"
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid ""
-"Walk-around done, both trailers and the converter dolly, {f} minutes."
-msgstr ""
-
-#. placeholders: {f}, {body}, {clock_text}, {deadline_text}
-msgid ""
-"Walk-around done, both trailers and the converter dolly, {f} minutes. "
-"{body} It is {clock_text}. {deadline_text}"
-msgstr ""
-
-#. placeholders: {body}, {clock_text}
-#. one sentence of a longer line
-msgid "{body} It is {clock_text}."
-msgstr "{body}现在是{clock_text}。"
 
 #. placeholders: {f}
 #. one sentence of a longer line
@@ -29331,6 +27773,11 @@ msgstr "绕车检查完成，{f}分钟。"
 msgid ""
 "Walk-around done, {f} minutes. {body} It is {clock_text}. {deadline_text}"
 msgstr "绕车检查完成，{f}分钟。{body}现在是{clock_text}。{deadline_text}"
+
+#. placeholders: {body}, {clock_text}
+#. one sentence of a longer line
+msgid "{body} It is {clock_text}."
+msgstr "{body}现在是{clock_text}。"
 
 msgid "No real-time parking data nearby."
 msgstr "附近没有实时停车位数据。"
@@ -29473,65 +27920,62 @@ msgstr ""
 msgid "{billing} It is {clock_text}."
 msgstr ""
 
-msgid "Hand the truck to the relief driver"
-msgstr ""
+msgid "Return to terminal"
+msgstr "回到场站"
 
 msgid ""
-"License pulled, so you cannot drive on. A relief driver takes the truck "
-"back to the city this run left from, and dispatch takes the load back."
-msgstr ""
+"License pulled, so the truck stays put. Dispatch takes the load back."
+msgstr "许可证被吊销，所以卡车保持原状。调度收回货物。"
 
 msgid "Pull back onto the highway"
 msgstr "开回公路上"
 
-#. placeholders: {cargo_label}
-msgid "Dispatch takes the {cargo_label} load back and reassigns it"
-msgstr ""
+#. placeholders: {label}
+msgid "Dispatch takes the {label} load back and reassigns it"
+msgstr "调度收回这单{label}货物并重新指派"
 
 msgid ""
 "There is no loaded trailer to hand back, and the assignment is canceled"
 msgstr "没有满载的挂车可以交回，指派已取消"
 
-#. placeholders: {load}, {city}
+msgid "the terminal"
+msgstr "场站"
+
+#. placeholders: {load}, {terminal}
 msgid ""
-" The license is gone for good, so you cannot drive the truck another mile. "
-"{load}, and a relief driver takes the truck back to {city}, where you are "
-"released."
-msgstr ""
+" The license is gone for good, so the truck stays here. {load}, and a "
+"relief driver takes the truck in. You are released to {terminal}."
+msgstr "驾照永远消失了，所以卡车留在这里。{load}，救援司机将卡车开进来。你被释放到 {terminal}。"
 
 #. one sentence of a longer line
-msgid ""
-"The license is gone for good, so you cannot drive the truck another mile."
-msgstr ""
+msgid "The license is gone for good, so the truck stays here."
+msgstr "驾照永远消失了，所以卡车留在这里。"
 
-#. placeholders: {load}, {city}
+#. placeholders: {terminal}
 #. one sentence of a longer line
-msgid ""
-"{load}, and a relief driver takes the truck back to {city}, where you are "
-"released."
-msgstr ""
+msgid "You are released to {terminal}."
+msgstr "你被放回{terminal}。"
 
-#. placeholders: {load}, {city}, {status_noun}, {clears_text}
+#. placeholders: {load}
+#. one sentence of a longer line
+msgid "{load}, and a relief driver takes the truck in."
+msgstr "{load}，一位接替司机把卡车开回去。"
+
+#. placeholders: {load}, {terminal}
 msgid ""
-" The license is pulled as of now, so you cannot drive the truck another "
-"mile. {load}, and a relief driver takes the truck back to {city}. You wait "
-"out the {status_noun} there; it ends {clears_text}."
-msgstr ""
+" The license is pulled as of now, so the truck stays here. {load}, and a "
+"relief driver takes the truck in. You are released to {terminal} to wait "
+"the suspension out."
+msgstr "目前驾照已被吊销，因此卡车仍留在这里。{load}，一名救援司机将卡车开进来。你被释放到 {terminal} 等待暂停结束。"
 
 #. one sentence of a longer line
-msgid ""
-"The license is pulled as of now, so you cannot drive the truck another mile."
-msgstr ""
+msgid "The license is pulled as of now, so the truck stays here."
+msgstr "目前驾照已被吊销，因此卡车仍留在这里。"
 
-#. placeholders: {status_noun}, {clears_text}
+#. placeholders: {terminal}
 #. one sentence of a longer line
-msgid "You wait out the {status_noun} there; it ends {clears_text}."
-msgstr ""
-
-#. placeholders: {load}, {city}
-#. one sentence of a longer line
-msgid "{load}, and a relief driver takes the truck back to {city}."
-msgstr ""
+msgid "You are released to {terminal} to wait the suspension out."
+msgstr "你被放回{terminal}，等待暂扣期结束。"
 
 msgid "Enter or Escape pulls back onto the highway."
 msgstr "Enter或Escape开回公路上。"
@@ -29633,26 +28077,6 @@ msgstr ""
 #. placeholders: {clock_text}, {wake_air_instruction}
 #. one sentence of a longer line
 msgid ""
-"It is {clock_text}, your 70-hour cycle is fresh, you wake rested, and the "
-"delivery deadline kept counting.{wake_air_instruction}"
-msgstr ""
-
-#. placeholders: {lead}, {why}
-#. one sentence of a longer line
-msgid ""
-"{lead}{why} Out of service: thirty-four hours parked on the shoulder."
-msgstr ""
-
-#. placeholders: {lead}, {why}, {clock_text}, {wake_air_instruction}
-msgid ""
-"{lead}{why} Out of service: thirty-four hours parked on the shoulder. It is "
-"{clock_text}, your 70-hour cycle is fresh, you wake rested, and the "
-"delivery deadline kept counting.{wake_air_instruction}"
-msgstr ""
-
-#. placeholders: {clock_text}, {wake_air_instruction}
-#. one sentence of a longer line
-msgid ""
 "It is {clock_text}, driving and duty clocks reset, you wake rested, and the "
 "delivery deadline kept counting.{wake_air_instruction}"
 msgstr "这是 {clock_text}，驾驶和值班时钟重置，你醒来休息，交货期限一直在计算。{wake_air_instruction}"
@@ -29693,9 +28117,8 @@ msgid ""
 "{outcome} {current}"
 msgstr "你停到路肩上接受执法检查。{polite}{summary}{outcome}{current}"
 
-msgid ""
-"Enter or Escape hands the truck to the relief driver and ends the run."
-msgstr ""
+msgid "Enter or Escape returns to the terminal."
+msgstr "Enter或Escape回到场站。"
 
 msgid "CDL disqualified for life"
 msgstr "CDL被终身取消资格"
@@ -29704,8 +28127,8 @@ msgstr "CDL被终身取消资格"
 msgid "You pull onto the shoulder and stop.{tail}"
 msgstr "你开到路肩上停下。{tail}"
 
-msgid "Enter or Escape continues."
-msgstr ""
+msgid "Enter or Escape continues from the terminal."
+msgstr "Enter或Escape从场站继续。"
 
 msgid "Felony stop"
 msgstr "重罪拦停"
@@ -29713,30 +28136,34 @@ msgstr "重罪拦停"
 msgid "Ran from a traffic stop"
 msgstr "逃避交通拦停"
 
-msgid "felony failure-to-stop booking and bond"
-msgstr ""
+msgid "felony failure-to-stop enforcement"
+msgstr "拒不停车重罪执法"
 
-#. placeholders: {f}
-msgid ", and booking and bond took {f} hours"
-msgstr ""
+#. placeholders: {label}
+#. one sentence of a longer line
+msgid "Dispatch cancels the {label} load."
+msgstr "调度取消了这单{label}货物。"
 
-#. placeholders: {f}
-#. one clause of a longer line
-msgid "and booking and bond took {f} hours"
-msgstr ""
+#. placeholders: {label}
+msgid "Dispatch cancels the {label} load. No pay for this run."
+msgstr "调度取消了这单{label}货物。这趟行程没有报酬。"
 
-#. placeholders: {grouped}, {construction_zone_fine_clause}, {f}, {booking}
+#. one sentence of a longer line
+msgid "No pay for this run."
+msgstr "这趟行程没有报酬。"
+
+msgid "No loaded trailer to lose, but the assignment is canceled."
+msgstr "没有满载的挂车可丢，但指派已取消。"
+
+#. placeholders: {grouped}, {construction_zone_fine_clause}, {f}, {f2}
 #. one sentence of a longer line
 msgid ""
-"Bond: {grouped} dollars, posted to get out, with a major reputation "
-"hit.{construction_zone_fine_clause} Spike strips added {f} percent truck "
-"damage{booking}."
+"Felony failure-to-stop fine: {grouped} dollars, paid on the spot, with a "
+"major reputation hit.{construction_zone_fine_clause} Spike strips added {f} "
+"percent truck damage, processing took {f2} hours."
 msgstr ""
-
-#. placeholders: {towed_to}
-#. one sentence of a longer line
-msgid "The truck was towed to {towed_to}."
-msgstr ""
+"拒不停车重罪罚款：{grouped}美元，当场缴纳，声誉严重受损。{construction_zone_fine_clause}破胎钉带让卡车损坏增加了"
+"百分之{f}，处理用了{f2}小时。"
 
 #. one sentence of a longer line
 msgid ""
@@ -29744,63 +28171,25 @@ msgid ""
 "lights and siren behind you."
 msgstr "你在后面有警灯和警笛的情况下继续开，州警在车道上铺了破胎钉带。"
 
-#. placeholders: {grouped}, {construction_zone_fine_clause}, {f}, {booking}, {load_text}, {towed_to}
+#. placeholders: {grouped}, {construction_zone_fine_clause}, {f}, {f2}, {load_text}, {terminal}
 msgid ""
 "Troopers laid spike strips across the lane after you kept driving with "
-"lights and siren behind you. Bond: {grouped} dollars, posted to get out, "
-"with a major reputation hit.{construction_zone_fine_clause} Spike strips "
-"added {f} percent truck damage{booking}. {load_text} You are released after "
-"booking. The truck was towed to {towed_to}."
+"lights and siren behind you. Felony failure-to-stop fine: {grouped} "
+"dollars, paid on the spot, with a major reputation "
+"hit.{construction_zone_fine_clause} Spike strips added {f} percent truck "
+"damage, processing took {f2} hours. {load_text} You are released back to "
+"{terminal}."
 msgstr ""
+"你在后面有警灯和警笛的情况下继续开，州警在车道上铺了破胎钉带。拒不停车重罪罚款：{grouped}美元，当场缴纳，声誉严重受损。{constructio"
+"n_zone_fine_clause}破胎钉带让卡车损坏增加了百分之{f}，处理用了{f2}小时。{load_text}你被放回{terminal}。"
 
-#. placeholders: {load_text}
+#. placeholders: {load_text}, {terminal}
 #. one sentence of a longer line
-msgid "{load_text} You are released after booking."
-msgstr ""
+msgid "{load_text} You are released back to {terminal}."
+msgstr "{load_text}你被放回{terminal}。"
 
-msgid "No loaded trailer to lose, but the assignment is canceled."
-msgstr "没有满载的挂车可丢，但指派已取消。"
-
-msgid "No loaded trailer to lose, but the load is canceled."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "The load is yours to sort out with the shipper."
-msgstr ""
-
-#. placeholders: {cargo_label}
-#. one sentence of a longer line
-msgid "The {cargo_label} load does not deliver, so no pay for this run."
-msgstr ""
-
-#. placeholders: {cargo_label}
-msgid ""
-"The {cargo_label} load does not deliver, so no pay for this run. The load "
-"is yours to sort out with the shipper."
-msgstr ""
-
-#. placeholders: {cargo_label}
-#. one sentence of a longer line
-msgid "Dispatch cancels the {cargo_label} load."
-msgstr ""
-
-#. placeholders: {cargo_label}, {carrier}
-msgid ""
-"Dispatch cancels the {cargo_label} load. No pay for this run. {carrier} "
-"recovered the load."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "No pay for this run."
-msgstr "这趟行程没有报酬。"
-
-#. placeholders: {carrier}
-#. one sentence of a longer line
-msgid "{carrier} recovered the load."
-msgstr ""
-
-msgid "Continue from where the truck is parked."
-msgstr ""
+msgid "Continue from the city terminal."
+msgstr "从城市场站继续。"
 
 msgid "Held at the chain checkpoint."
 msgstr "被防滑链检查站拦下。"
@@ -30589,6 +28978,9 @@ msgstr ""
 msgid "last lot"
 msgstr ""
 
+msgid "shift"
+msgstr ""
+
 msgid "stalled"
 msgstr ""
 
@@ -30883,9 +29275,6 @@ msgstr "一条轮胎防滑链断裂并在甩动。减速靠边停车检查。"
 
 msgid "A chain is slapping the fender. Stop soon and tighten it."
 msgstr "一条防滑链正在拍打挡泥板。尽快停车并将它收紧。"
-
-msgid "Reefer fuel is gone."
-msgstr ""
 
 #. placeholders: {speed_text}
 #. one sentence of a longer line
@@ -31301,28 +29690,6 @@ msgstr "打转向灯驶向路肩。"
 
 msgid "Pulling over to the shoulder."
 msgstr "正靠边停到路肩上。"
-
-msgid ""
-"US hours rules again: 11 hours of driving in a 14-hour window, and a "
-"30-minute break after 8 hours of driving."
-msgstr ""
-
-msgid ""
-"Alaska hours rules now apply: up to 15 hours of driving and 20 on duty "
-"after 10 hours off, with no 30-minute break."
-msgstr ""
-
-msgid ""
-"Canadian hours rules now apply: up to 13 hours of driving and 14 on duty "
-"after 8 hours off, and no driving once 16 hours have passed since that "
-"break."
-msgstr ""
-
-msgid ""
-"Canadian north-of-60 hours rules now apply: up to 15 hours of driving and "
-"18 on duty after 8 hours off, and no driving once 20 hours have passed "
-"since that break."
-msgstr ""
 
 msgid "buff"
 msgstr "buff"
@@ -32013,10 +30380,78 @@ msgstr "{name}，尚未移植"
 msgid "This screen is not ported yet; Escape goes back."
 msgstr "这个界面尚未移植；Escape返回。"
 
+#. placeholders: {terminal}, {the_city}
+msgid "{terminal} in {the_city} service area"
+msgstr "{the_city}服务区域的{terminal}"
+
+#. one sentence of a longer line
+msgid "Fuel, repairs, wear, trailers, and reserves come from your cash."
+msgstr "燃料、维修、磨损、拖车和储备都来自你的现金。"
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "New truck, {grouped} dollars working capital."
+msgstr "新卡车，{grouped} 美元流动资金。"
+
+#. one sentence of a longer line
+msgid "Next: dispatch board."
+msgstr "下一个：调度板。"
+
+#. placeholders: {prefix}, {carrier_name}, {location}
+#. one sentence of a longer line
+msgid "{prefix}First-day briefing: leased to {carrier_name} at {location}."
+msgstr "{prefix}首日简报：租给{carrier_name}，地址为{location}。"
+
+#. placeholders: {prefix}, {carrier_name}, {location}, {grouped}
+msgid ""
+"{prefix}First-day briefing: leased to {carrier_name} at {location}. New "
+"truck, {grouped} dollars working capital. Fuel, repairs, wear, trailers, "
+"and reserves come from your cash. Next: dispatch board."
+msgstr ""
+"{prefix}首日简报：租给{carrier_name}，地址为{location}。新卡车，{grouped} "
+"美元流动资金。燃料、维修、磨损、拖车和储备都来自你的现金。下一个：调度板。"
+
+#. one sentence of a longer line
+msgid "Assigned loads; a refusal goes on your record."
+msgstr "任务由调度分配；拒绝任务会记入记录。"
+
+#. one sentence of a longer line
+msgid "Carrier covers fuel, repairs, insurance, and trailers."
+msgstr "承运人承担燃油、维修、保险和拖车费用。"
+
+#. placeholders: {summary}
+#. one sentence of a longer line
+msgid "Dispatch: {summary}."
+msgstr "调度：{summary}。"
+
+#. placeholders: {location}
+#. one sentence of a longer line
+msgid "Truck at {location}."
+msgstr "卡车位于 {location}。"
+
+#. placeholders: {prefix}, {carrier_name}
+#. one sentence of a longer line
+msgid "{prefix}First-day briefing: {carrier_name}."
+msgstr "{prefix}第一天简报：{carrier_name}。"
+
+#. placeholders: {prefix}, {carrier_name}, {location}, {summary}
+msgid ""
+"{prefix}First-day briefing: {carrier_name}. Truck at {location}. Carrier "
+"covers fuel, repairs, insurance, and trailers. Dispatch: {summary}. "
+"Assigned loads; a refusal goes on your record. Next: dispatch board."
+msgstr ""
+"{prefix}首日简报：{carrier_name}。卡车位于{location}。承运商承担燃油、维修、保险和挂车费用。调度：{summary}。任"
+"务由调度分配；拒绝任务会记入记录。下一步：调度板。"
+
 msgid ""
 "Local service drives were retired in this update; you are parked at the "
 "terminal."
 msgstr "本地服务驾驶在这次更新中已取消；你停在场站。"
+
+msgid ""
+"Your saved run cannot go on: dispatch cancels it, and a relief driver "
+"brings the truck back."
+msgstr "你保存的行程无法继续：调度取消了它，一位接替司机会把卡车开回来。"
 
 msgid ""
 " The adjusted time covers the 10-hour sleep your current legal hours "
@@ -32029,19 +30464,6 @@ msgstr " 调整后的时间包含了这条路线的法定驾驶计划。"
 #. placeholders: {f}, {reason}
 msgid "Dispatch adjusted this saved delivery deadline to {f} hours.{reason}"
 msgstr "调度把这次保存的送货截止时间调整为{f}小时。{reason}"
-
-#. placeholders: {city}
-#. one sentence of a longer line
-msgid ""
-"Your saved run cannot go on: dispatch takes the load back, and a relief "
-"driver takes the truck back to {city}."
-msgstr ""
-
-#. placeholders: {city}, {refusal}
-msgid ""
-"Your saved run cannot go on: dispatch takes the load back, and a relief "
-"driver takes the truck back to {city}. {refusal}"
-msgstr ""
 
 #. placeholders: {facility}
 msgid "driving to pickup at {facility}"
@@ -32057,6 +30479,14 @@ msgstr "正去装货，目的地"
 msgid "on the road to {facility}"
 msgstr "在去{facility}的路上"
 
+#. placeholders: {name}, {city}
+msgid "at {name} in {city}"
+msgstr "在{city}的{name}"
+
+#. placeholders: {current_city}
+msgid "in {current_city}"
+msgstr "在{current_city}"
+
 #. placeholders: {format}, {day}, {year}, {hour}, {minute}, {am_pm}
 msgid "{format} {day}, {year} at {hour}:{minute} {am_pm}"
 msgstr "{year}年{format}{day}日，{am_pm} {hour}:{minute}"
@@ -32064,10 +30494,6 @@ msgstr "{year}年{format}{day}日，{am_pm} {hour}:{minute}"
 #. placeholders: {name}, {level}
 msgid "{name}: level {level}"
 msgstr "{name}：{level}级"
-
-#. placeholders: {status_label}
-msgid "{status_label} with no carrier"
-msgstr ""
 
 #. placeholders: {deliveries}
 msgid "{deliveries} deliveries"
@@ -34224,13 +32650,52 @@ msgid "Career start"
 msgstr "职业生涯起步"
 
 msgid ""
-"Only carriers that hire in your home city are listed. Each one says where "
-"your truck starts: that carrier's nearest terminal. Company starts use "
-"assigned carrier equipment; the carrier pays fuel, repairs, insurance, and "
-"trailer support. The owner-operator start is higher risk: you own a "
-"brand-new truck and pay business costs from day one. Enter selects, Escape "
-"goes back."
+"Company starts use assigned carrier equipment; the carrier pays fuel, "
+"repairs, insurance, and trailer support. The owner-operator start is higher "
+"risk: you own a brand-new truck and pay business costs from day one. Enter "
+"selects, Escape goes back."
 msgstr ""
+"公司司机起步使用承运商分配的设备；承运商负责燃油、维修、保险和挂车支持。车主司机起步风险更高：你拥有一辆全新的卡车，从第一天起就要支付经营成本。Ente"
+"r选择，Escape返回。"
+
+msgid "Career start."
+msgstr "职业生涯起步。"
+
+msgid "Home region"
+msgstr "所在地区"
+
+msgid ""
+"Up and Down, Home and End, or a typed letter pick a region. Enter opens its "
+"cities, Escape goes back."
+msgstr "用Up和Down、Home和End，或输入一个字母来选择地区。Enter打开该地区的城市，Escape返回。"
+
+#. placeholders: {carrier_name}
+msgid "Home region for your {carrier_name} career."
+msgstr "你在{carrier_name}的职业生涯所在地区。"
+
+#. placeholders: {place}
+msgid "{place} (1 city)"
+msgstr "{place}（1个城市）"
+
+#. placeholders: {place}
+msgid "{place}, 1 city."
+msgstr "{place}，1个城市。"
+
+#. placeholders: {place}, {count}
+msgid "{place} ({count} cities)"
+msgstr "{place}（{count}个城市）"
+
+#. placeholders: {place}, {count}
+msgid "{place}, {count} cities."
+msgstr "{place}，{count}个城市。"
+
+msgid "Home terminal"
+msgstr "基地"
+
+msgid ""
+"Up and Down, Home and End, or a typed letter pick a city. Enter confirms "
+"your home terminal, Escape goes back."
+msgstr "用Up和Down、Home和End，或输入一个字母来选择城市。Enter确认你的基地，Escape返回。"
 
 #. one sentence of a longer line
 msgid "Escape goes back to change it."
@@ -34261,76 +32726,13 @@ msgstr ""
 msgid "Loaded over existing driver named {name}. "
 msgstr "已覆盖载入名为{name}的现有司机。 "
 
-msgid "carrier hires"
-msgstr ""
-
-msgid "carriers hire"
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Career start."
-msgstr "职业生涯起步。"
-
-#. placeholders: {count}, {noun}, {place}
-msgid "Career start. {count} {noun} in {place}."
-msgstr ""
-
-#. placeholders: {t}
-msgid " Truck starts at {t}."
-msgstr ""
-
-msgid "Home region"
-msgstr "所在地区"
-
-msgid ""
-"Up and Down, Home and End, or a typed letter pick a region. Enter opens its "
-"home cities, Escape goes back."
-msgstr ""
-
-msgid "Home region for your new career."
-msgstr ""
-
-#. placeholders: {place}
-msgid "{place} (1 city)"
-msgstr "{place}（1个城市）"
-
-#. placeholders: {place}
-msgid "{place}, 1 home city where a carrier is hiring."
-msgstr ""
-
-#. placeholders: {place}, {count}
-msgid "{place} ({count} cities)"
-msgstr "{place}（{count}个城市）"
-
-#. placeholders: {place}, {count}
-msgid "{place}, {count} home cities where a carrier is hiring."
-msgstr ""
-
-msgid "Home city"
-msgstr ""
-
-msgid ""
-"Up and Down, Home and End, or a typed letter pick your home city. Enter "
-"lists the carriers hiring there, Escape goes back."
-msgstr ""
-
 #. placeholders: {region}
-msgid "{region} home cities."
-msgstr ""
+msgid "{region} terminals."
+msgstr "{region} 端子。"
 
-#. placeholders: {place}
-#. one sentence of a longer line
-msgid "Home in {place}."
-msgstr ""
-
-#. placeholders: {place}, {count}, {noun}
-msgid "Home in {place}. {count} {noun} here."
-msgstr ""
-
-#. placeholders: {count}, {noun}
-#. one sentence of a longer line
-msgid "{count} {noun} here."
-msgstr ""
+#. placeholders: {terminal_name}, {place}
+msgid "Start at {terminal_name} in {place}."
+msgstr "从{place}的{terminal_name}起步。"
 
 msgid "Main menu"
 msgstr "主菜单"
@@ -37212,21 +35614,27 @@ msgstr "返回职业生涯列表"
 msgid "Back to the saved careers, nothing changed."
 msgstr "返回已保存的职业生涯，没有任何更改。"
 
+msgid "Your driving record"
+msgstr "你的驾驶记录"
+
 #. one sentence of a longer line
 msgid ""
 "Freight Fate now keeps a driving record for your career: citations, serious "
 "violations, and whether your CDL is clear."
 msgstr "Freight Fate现在会为你的职业生涯保存驾驶记录：罚单、严重违规，以及你的CDL是否正常。"
 
-#. placeholders: {standing}, {trust}
+#. placeholders: {standing}, {trust}, {current_text}
 msgid ""
 "Freight Fate now keeps a driving record for your career: citations, serious "
 "violations, and whether your CDL is clear. Two serious violations in three "
 "years suspend it; running from a police stop is a major offense that "
 "disqualifies it for a year. Reputation also decides how much freight "
 "dispatch shows you and how much choice you get. Nothing was reset or taken. "
-"{standing} {trust}"
+"{standing} {trust} {current_text}"
 msgstr ""
+"Freight "
+"Fate现在会为你的职业生涯保存驾驶记录：罚单、严重违规，以及你的CDL是否正常。三年内两次严重违规会暂扣CDL；逃避警察拦停属于重大违法，会取消CDL"
+"资格一年。声誉还决定调度给你看多少货物，以及你有多少选择。什么都没有被重置或拿走。{standing}{trust}{current_text}"
 
 #. one sentence of a longer line
 msgid "Nothing was reset or taken."
@@ -37244,27 +35652,39 @@ msgid ""
 "stop is a major offense that disqualifies it for a year."
 msgstr "三年内两次严重违规会暂扣CDL；逃避警察拦停属于重大违法，会取消CDL资格一年。"
 
-msgid "Your driving record"
-msgstr "你的驾驶记录"
+msgid "Save file updated"
+msgstr "存档文件已更新"
 
+#. one sentence of a longer line
+msgid "Save file updated."
+msgstr "存档文件已更新。"
+
+#. placeholders: {current_text}
 msgid ""
 "Save file updated. This career was converted from an older version: every "
 "truck you own now keeps its own fuel, damage, tire wear, and road grime. "
 "The truck you were driving keeps its condition; your other trucks start "
 "fueled and fresh. The updated save no longer opens in older versions of the "
-"game."
+"game. {current_text}"
 msgstr ""
+"存档文件已更新。这段职业生涯是从旧版本转换来的：你拥有的每辆卡车现在都有各自的燃油、损坏、轮胎磨损和路面污垢。你正在开的卡车保留它的车况；你的其他卡车加"
+"满了油，状态全新。更新后的存档无法再用旧版本的游戏打开。{current_text}"
 
-msgid "Save file updated"
-msgstr "存档文件已更新"
-
+#. one sentence of a longer line
 msgid ""
-"Turnpike doubles loads now need the turnpike doubles program. Your double "
-"van program still covers parcel doubles."
-msgstr ""
+"The truck you were driving keeps its condition; your other trucks start "
+"fueled and fresh."
+msgstr "你正在开的卡车保留它的车况；你的其他卡车加满了油，状态全新。"
 
-msgid "Trailer programs changed"
-msgstr ""
+#. one sentence of a longer line
+msgid "The updated save no longer opens in older versions of the game."
+msgstr "更新后的存档无法再用旧版本的游戏打开。"
+
+#. one sentence of a longer line
+msgid ""
+"This career was converted from an older version: every truck you own now "
+"keeps its own fuel, damage, tire wear, and road grime."
+msgstr "这段职业生涯是从旧版本转换来的：你拥有的每辆卡车现在都有各自的燃油、损坏、轮胎磨损和路面污垢。"
 
 msgid ""
 "Type with the on-screen keyboard, then double tap. Flick left or right to "
@@ -38349,18 +36769,6 @@ msgstr "{city} 货运站 {place_name}"
 msgid "freight terminal {place_name} near {town} in {city}"
 msgstr "{city} {town} 附近的货运站 {place_name}"
 
-msgid "travel center {place_name} in {city}"
-msgstr ""
-
-msgid "travel center {place_name} near {town} in {city}"
-msgstr ""
-
-msgid "truck parking {place_name} in {city}"
-msgstr ""
-
-msgid "truck parking {place_name} near {town} in {city}"
-msgstr ""
-
 msgid "warehouse {place_name} in {city}"
 msgstr "仓库 {place_name} 位于 {city}"
 
@@ -38751,6 +37159,9 @@ msgstr "问号"
 msgid "exclamation mark"
 msgstr "感叹号"
 
+msgid "percent"
+msgstr "百分号"
+
 msgid "number sign"
 msgstr "井号"
 
@@ -38847,511 +37258,6 @@ msgstr "镜像地址不能包含查询参数或片段。"
 #~ "负责，除非开启了弯道辅助，而且每个出口都需要打转向灯并进入出口车道。在部分或关闭时，{lean}。道路声音只告诉你在车道中的位置，路边会有回应：擦到振动"
 #~ "带时是断续的抖动声，完全压上时是嗡嗡声，冲出路面时是碎石声。“音频”下的“转向引导”和“车道引导声音”可以改变转向方向和偏向的声音。写实把它设为关闭，均"
 #~ "衡设为部分，全部辅助设为完全。"
-
-#~ msgid "{py_capitalize}. {grouped} dollars.{cdl}{record}"
-#~ msgstr "{py_capitalize}. {grouped} 元.{cdl}{record}"
-
-#~ msgid ""
-#~ "Your level, record, and home terminal come with you, and the next load runs "
-#~ "on their pay and their tractor."
-#~ msgstr "你的等级、记录和基地都会跟着你，下一单货物就用他们的工资和他们的牵引车来跑。"
-
-#~ msgid ""
-#~ "{carrier_name} hires you away from {former}. Your level, record, and home "
-#~ "terminal come with you, and the next load runs on their pay and their "
-#~ "tractor."
-#~ msgstr "{carrier_name}把你从{former}挖走了。你的等级、记录和基地都会跟着你，下一单货物就用他们的工资和他们的牵引车来跑。"
-
-#~ msgid "{name} Company Yard"
-#~ msgstr "{name}公司车场"
-
-#~ msgid ""
-#~ "The carrier's insurer will not carry a record like that; "
-#~ "{LAST_CHANCE_CARRIER_NAME} keeps you on sufferance until "
-#~ "{record_clears_text}."
-#~ msgstr ""
-#~ "承运商的保险公司不接受这样的记录；{LAST_CHANCE_CARRIER_NAME}勉强留着你，直到{record_clears_text}。"
-
-#~ msgid ""
-#~ "Your CDL is suspended, so the yard holds your seat until it clears {clears}."
-#~ msgstr "你的CDL被暂扣，所以车场会为你保留位置，直到{clears}解除。"
-
-#~ msgid "You cannot drive, not even bobtail, while your CDL is {verb}."
-#~ msgstr "你的CDL被{verb}期间，你不能开车，连单开车头也不行。"
-
-#~ msgid ""
-#~ "You cannot drive, not even bobtail, while your CDL is {verb}. The {noun} "
-#~ "ends {clears_text}."
-#~ msgstr "CDL处于{verb}状态时不能驾驶，即使不挂挂车也不行。{noun}会在{clears_text}结束。"
-
-#~ msgid ""
-#~ "{pay_text} {deadline} Equipment: "
-#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
-#~ msgstr ""
-#~ "{pay_text} {deadline} 设备：{equipment}.{trailer}{preview}{market}{endorsement}"
-
-#~ msgid ""
-#~ "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
-#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
-#~ msgstr ""
-#~ "{prefix}{load} {distance}。{pay_text} {deadline} "
-#~ "设备：{equipment}.{trailer}{preview}{market}{endorsement}"
-
-#~ msgid "turnpike doubles freight"
-#~ msgstr "收费公路双挂车货物"
-
-#~ msgid "{answer}, but you are {shift_over}. {RESET_ADVICE}"
-#~ msgstr "{answer}，但你{shift_over}。{RESET_ADVICE}"
-
-#~ msgid "{name} in {the_city} service area"
-#~ msgstr "{the_city}服务区的{name}"
-
-#~ msgid ""
-#~ "{prefix}First-day briefing: leased to {carrier_name}, parked at {location}."
-#~ msgstr "{prefix}第一天简报：挂靠在{carrier_name}，停在{location}。"
-
-#~ msgid "Your assigned truck is parked at {location}."
-#~ msgstr "分配给你的卡车停在{location}。"
-
-#~ msgid ""
-#~ "Dispatch assigned this load. Accepting starts the deadhead from your "
-#~ "terminal to its origin facility. Route inspection after pickup covers rest, "
-#~ "fuel, toll, weather, and restrictions."
-#~ msgstr "调度指派了这单货物。接受后会开始从你的场站空车开往它的发货厂区。提货后的路线检查涵盖休息、燃油、过路费、天气和限制。"
-
-#~ msgid "{f} tons of {label} to {destination}, {distance_text}"
-#~ msgstr "{f}吨{label}，送往{destination}，{distance_text}"
-
-#~ msgid "Cargo: {label}."
-#~ msgstr "货物：{label}。"
-
-#~ msgid "CDL suspension"
-#~ msgstr "CDL暂扣"
-
-#~ msgid "Suspension served, CDL clear."
-#~ msgstr "停牌期已满，CDL已恢复有效。"
-
-#~ msgid "Suspension served, CDL clear. It is {clock_text}, {time_of_day}."
-#~ msgstr "停牌期已满，CDL已恢复有效。现在是{clock_text}，{time_of_day}。"
-
-#~ msgid ""
-#~ "You now drive for {LAST_CHANCE_CARRIER_NAME}: lower pay, shorter freight."
-#~ msgstr "你现在驾驶 {LAST_CHANCE_CARRIER_NAME}：工资更低，运费更短。"
-
-#~ msgid ""
-#~ "{former} ended your employment over your safety record. You now drive for "
-#~ "{LAST_CHANCE_CARRIER_NAME}: lower pay, shorter freight. Your money, levels "
-#~ "and belongings stay."
-#~ msgstr ""
-#~ "{former}因你的安全档案终止了雇佣关系。你现在为{LAST_CHANCE_CARRIER_NAME}驾驶：报酬更低，货运距离更短。你的资金、职级和"
-#~ "物品都会保留。"
-
-#~ msgid "Wait out the CDL suspension"
-#~ msgstr "等待CDL暂扣期满"
-
-#~ msgid ""
-#~ "Sits out the suspension in one go. The clock jumps to the day it clears, "
-#~ "money, truck, and record untouched."
-#~ msgstr "一次性熬过暂扣期。时钟直接跳到恢复的那一天，钱、卡车和记录都不受影响。"
-
-#~ msgid ""
-#~ "Company drivers bill the carrier, owner-operators pay the regional diesel "
-#~ "price."
-#~ msgstr "公司司机记承运商账，车主司机按地区柴油价格付钱。"
-
-#~ msgid "Checked in."
-#~ msgstr "已签入。"
-
-#~ msgid "Checked in. Load on {map} in the drop yard."
-#~ msgstr "已办理登机手续。在卸货场装载 {map}。"
-
-#~ msgid "Checked in. Dock assigned."
-#~ msgstr "已登记。码头已分配。"
-
-#~ msgid ""
-#~ "Dropping your empty at {facility} and hooking {map}, loaded with {f} tons "
-#~ "of {label}."
-#~ msgstr "正在{facility}甩下你的空挂车，挂上{map}，上面装着{f}吨{label}。"
-
-#~ msgid "Loading {f} tons of {label} at {facility}."
-#~ msgstr "正在{facility}装{f}吨{label}。"
-
-#~ msgid ""
-#~ "Pickup {facility}: {state}. {f} tons of {label} for "
-#~ "{destination_facility_text}. {speed_text}. {engine}. Air {f2} psi, "
-#~ "{brake}.{speed_control_pause_text}"
-#~ msgstr ""
-#~ "提货点{facility}：{state}。运往{destination_facility_text}的{label}，重{f}吨。{speed_tex"
-#~ "t}。{engine}。气压{f2} psi，{brake}。{speed_control_pause_text}"
-
-#~ msgid "{f} tons of {label} for {destination_facility_text}."
-#~ msgstr "{f} 吨 {label} 为 {destination_facility_text}。"
-
-#~ msgid "Pickup canceled. Returned to {name}."
-#~ msgstr "提货已取消。已回到{name}。"
-
-#~ msgid "Returned to {name}."
-#~ msgstr "已回到{name}。"
-
-#~ msgid "{label} for {destination}"
-#~ msgstr "送往{destination}的{label}"
-
-#~ msgid "Cargo: {f} tons of {label}"
-#~ msgstr "货物：{f}吨{label}"
-
-#~ msgid ""
-#~ "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}."
-#~ msgstr "恢复{drive_name}：{weight_tons}吨{label}至{destination}。"
-
-#~ msgid ""
-#~ "Resuming {drive_name}: {weight_tons} tons of {label} to {destination}. "
-#~ "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
-#~ "{report_lead}. {speed_control}{engine} {brake}"
-#~ msgstr ""
-#~ "恢复{drive_name}：{weight_tons}吨{label}至{destination}。{progress} {hours_used} "
-#~ "{deadline_game_h} 小时。{now}。{transmission} "
-#~ "{report_lead}。{speed_control}{engine} {brake}"
-
-#~ msgid ""
-#~ "Pickup dispatch: deadhead from the terminal to {pickup_facility_text}. "
-#~ msgstr "提货调度：从场站空车开往{pickup_facility_text}。 "
-
-#~ msgid ""
-#~ "{game_minutes} hours used of a {deadline_game_h} hour delivery window."
-#~ msgstr "{deadline_game_h}小时的送货时限已经用了{game_minutes}小时。"
-
-#~ msgid "{remaining_miles} miles remain."
-#~ msgstr "还剩{remaining_miles}英里。"
-
-#~ msgid "Cargo condition is {cargo_damage_pct} percent."
-#~ msgstr "货物状况百分之{cargo_damage_pct}。"
-
-#~ msgid "I have the freight report as {words}, {condition} percent."
-#~ msgstr "货物报告收到了，{words}，百分之{condition}。"
-
-#~ msgid ""
-#~ "I have the freight report as {words}, {condition} percent. Slow the "
-#~ "handling down and avoid any hard stop or sharp bend you can safely avoid."
-#~ msgstr "货物报告收到了，{words}，百分之{condition}。操作放慢，能安全避开的急刹和急弯都避开。"
-
-#~ msgid ""
-#~ "Slow the handling down and avoid any hard stop or sharp bend you can safely "
-#~ "avoid."
-#~ msgstr "操作放慢，能安全避开的急刹和急弯都避开。"
-
-#~ msgid ""
-#~ "Bobtailed empty to {destination} in {f} hours. It is {clock_text}. "
-#~ "{pay_clause}Parked at {name}. {destination2} dispatch board available. Fuel "
-#~ "{f2} percent."
-#~ msgstr ""
-#~ "用了{f}小时单车头空驶到{destination}。现在是{clock_text}。{pay_clause}停在{name}。{destination"
-#~ "2}调度板可用。燃油百分之{f2}。"
-
-#~ msgid "{pay_clause}Parked at {name}."
-#~ msgstr "{pay_clause}停在{name}。"
-
-#~ msgid ""
-#~ "Delivered {f} tons of {label} to {destination} in {f2} hours, "
-#~ "{else}.{receiver_service_clause} {clock_text}."
-#~ msgstr ""
-#~ "在{f2}小时内将{f}吨{label}交付给{destination}，{else}.{receiver_service_clause} "
-#~ "{clock_text}。"
-
-#~ msgid ""
-#~ "Delivered {f} tons of {label} to {destination} in {f2} hours, "
-#~ "{else}.{receiver_service_clause} {clock_text}. {pay_label} {grouped} "
-#~ "dollars. Charges {grouped2}: tolls {grouped3}, accessorials "
-#~ "{charge_summary}. {accessorial_clause} Business status: {status_label}. "
-#~ "Costs {grouped4}. Fines {grouped5}. Net {grouped6}, you have {grouped7}. "
-#~ "Parked at {name}."
-#~ msgstr ""
-#~ "在{f2}小时内将{f}吨{label}交付给{destination}，{else}.{receiver_service_clause} "
-#~ "{clock_text}。{pay_label} {grouped} "
-#~ "美元。收费{grouped2}：通行费{grouped3}，配件{charge_summary}。{accessorial_clause} "
-#~ "经营状况：{status_label}。成本 {grouped4}。罚款 "
-#~ "{grouped5}。净{grouped6}，你有{grouped7}。停在{name}。"
-
-#~ msgid "Parked at {name}."
-#~ msgstr "停在{name}。"
-
-#~ msgid "Delivered {f} tons of {label} to {destination}."
-#~ msgstr "把{f}吨{label}送到了{destination}。"
-
-#~ msgid "Parked at {name} for {the_city} service area."
-#~ msgstr "停在{name}，属于{the_city}服务区域。"
-
-#~ msgid "At {facility}. {current}"
-#~ msgstr "到了{facility}。{current}"
-
-#~ msgid ""
-#~ "Dropping the loaded trailer at {facility}, {f} tons of {cargo_label}. "
-#~ "Hooking an empty."
-#~ msgstr "正在{facility}甩下满载的挂车，{f}吨{cargo_label}。正在挂上一节空挂车。"
-
-#~ msgid "Hooking an empty."
-#~ msgstr "正在挂上一节空挂车。"
-
-#~ msgid "Docked at {facility}. Unloading {f} tons of {cargo_label}."
-#~ msgstr "已靠上{facility}的装卸口。正在卸下{f}吨{cargo_label}。"
-
-#~ msgid "Unloading {f} tons of {cargo_label}."
-#~ msgstr "正在卸下{f}吨{cargo_label}。"
-
-#~ msgid "Paperwork, {facility}: {f} tons of {label}."
-#~ msgstr "文书工作，{facility}：{f} 吨{label}。"
-
-#~ msgid ""
-#~ "Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, gross "
-#~ "{grouped2}. Charges {grouped3}: tolls {grouped4}, accessorials "
-#~ "{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
-#~ "{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
-#~ msgstr ""
-#~ "文书工作，{facility}：{f} 吨{label}。费率 {grouped}，毛额 "
-#~ "{grouped2}。收费{grouped3}：通行费{grouped4}，配件{charge_summary}。{charge_fate} 罚款 "
-#~ "{grouped5}。净关于{grouped6}.{advance_note} {timing}。{cargo_condition} {finish} "
-#~ "结算。"
-
-#~ msgid ""
-#~ "At {facility}. {f} tons of {label}. Speed {speed_text}. {else}. Stop, then "
-#~ "{finish}."
-#~ msgstr "到了{facility}。{f}吨{label}。车速{speed_text}。{else}。停车，然后{finish}。"
-
-#~ msgid "{f} tons of {label}."
-#~ msgstr "{f}吨{label}。"
-
-#~ msgid ""
-#~ "Load: {f} tons of {label}, gross {f2} tons, freight {cargo_status_clause}"
-#~ msgstr "货物：{f}吨{label}，总重{f2}吨，货物{cargo_status_clause}"
-
-#~ msgid "{f} tons of {label} are assigned for {destination}."
-#~ msgstr "{f}吨{label}已指派送往{destination}。"
-
-#~ msgid "Hauling {f} tons of {label} to {destination}."
-#~ msgstr "正把{f}吨{label}运往{destination}。"
-
-#~ msgid ""
-#~ "Driving jobs are off the dispatch board until it clears, {clears_text}."
-#~ msgstr "在解除之前，调度板上不会有驾驶任务，{clears_text}。"
-
-#~ msgid ""
-#~ "Your CDL is {verb} for {left}. Driving jobs are off the dispatch board "
-#~ "until it clears, {clears_text}. Your money and your truck are safe; rest, "
-#~ "repairs, and the garage are still open."
-#~ msgstr ""
-#~ "你的CDL被{verb}{left}。在解除之前，调度板上不会有驾驶任务，{clears_text}。你的钱和卡车都没事；休息、维修和维修厂仍然开放。"
-
-#~ msgid ""
-#~ "That is a serious violation on your record. One more inside three years and "
-#~ "your CDL is suspended for 60 days, and driving jobs stop until it clears."
-#~ msgstr "这是你记录上的一次严重违规。三年内再有一次，你的CDL会被暂扣60天，在解除之前不会有驾驶任务。"
-
-#~ msgid "Return to terminal"
-#~ msgstr "回到场站"
-
-#~ msgid ""
-#~ "License pulled, so the truck stays put. Dispatch takes the load back."
-#~ msgstr "许可证被吊销，所以卡车保持原状。调度收回货物。"
-
-#~ msgid "Dispatch takes the {label} load back and reassigns it"
-#~ msgstr "调度收回这单{label}货物并重新指派"
-
-#~ msgid "the terminal"
-#~ msgstr "场站"
-
-#~ msgid ""
-#~ " The license is gone for good, so the truck stays here. {load}, and a "
-#~ "relief driver takes the truck in. You are released to {terminal}."
-#~ msgstr "驾照永远消失了，所以卡车留在这里。{load}，救援司机将卡车开进来。你被释放到 {terminal}。"
-
-#~ msgid "The license is gone for good, so the truck stays here."
-#~ msgstr "驾照永远消失了，所以卡车留在这里。"
-
-#~ msgid "You are released to {terminal}."
-#~ msgstr "你被放回{terminal}。"
-
-#~ msgid "{load}, and a relief driver takes the truck in."
-#~ msgstr "{load}，一位接替司机把卡车开回去。"
-
-#~ msgid ""
-#~ " The license is pulled as of now, so the truck stays here. {load}, and a "
-#~ "relief driver takes the truck in. You are released to {terminal} to wait "
-#~ "the suspension out."
-#~ msgstr "目前驾照已被吊销，因此卡车仍留在这里。{load}，一名救援司机将卡车开进来。你被释放到 {terminal} 等待暂停结束。"
-
-#~ msgid "The license is pulled as of now, so the truck stays here."
-#~ msgstr "目前驾照已被吊销，因此卡车仍留在这里。"
-
-#~ msgid "You are released to {terminal} to wait the suspension out."
-#~ msgstr "你被放回{terminal}，等待暂扣期结束。"
-
-#~ msgid "Enter or Escape returns to the terminal."
-#~ msgstr "Enter或Escape回到场站。"
-
-#~ msgid "Enter or Escape continues from the terminal."
-#~ msgstr "Enter或Escape从场站继续。"
-
-#~ msgid "felony failure-to-stop enforcement"
-#~ msgstr "拒不停车重罪执法"
-
-#~ msgid "Dispatch cancels the {label} load."
-#~ msgstr "调度取消了这单{label}货物。"
-
-#~ msgid "Dispatch cancels the {label} load. No pay for this run."
-#~ msgstr "调度取消了这单{label}货物。这趟行程没有报酬。"
-
-#~ msgid ""
-#~ "Felony failure-to-stop fine: {grouped} dollars, paid on the spot, with a "
-#~ "major reputation hit.{construction_zone_fine_clause} Spike strips added {f} "
-#~ "percent truck damage, processing took {f2} hours."
-#~ msgstr ""
-#~ "拒不停车重罪罚款：{grouped}美元，当场缴纳，声誉严重受损。{construction_zone_fine_clause}破胎钉带让卡车损坏增加了"
-#~ "百分之{f}，处理用了{f2}小时。"
-
-#~ msgid ""
-#~ "Troopers laid spike strips across the lane after you kept driving with "
-#~ "lights and siren behind you. Felony failure-to-stop fine: {grouped} "
-#~ "dollars, paid on the spot, with a major reputation "
-#~ "hit.{construction_zone_fine_clause} Spike strips added {f} percent truck "
-#~ "damage, processing took {f2} hours. {load_text} You are released back to "
-#~ "{terminal}."
-#~ msgstr ""
-#~ "你在后面有警灯和警笛的情况下继续开，州警在车道上铺了破胎钉带。拒不停车重罪罚款：{grouped}美元，当场缴纳，声誉严重受损。{constructio"
-#~ "n_zone_fine_clause}破胎钉带让卡车损坏增加了百分之{f}，处理用了{f2}小时。{load_text}你被放回{terminal}。"
-
-#~ msgid "{load_text} You are released back to {terminal}."
-#~ msgstr "{load_text}你被放回{terminal}。"
-
-#~ msgid "Continue from the city terminal."
-#~ msgstr "从城市场站继续。"
-
-#~ msgid "{terminal} in {the_city} service area"
-#~ msgstr "{the_city}服务区域的{terminal}"
-
-#~ msgid "Fuel, repairs, wear, trailers, and reserves come from your cash."
-#~ msgstr "燃料、维修、磨损、拖车和储备都来自你的现金。"
-
-#~ msgid "New truck, {grouped} dollars working capital."
-#~ msgstr "新卡车，{grouped} 美元流动资金。"
-
-#~ msgid "Next: dispatch board."
-#~ msgstr "下一个：调度板。"
-
-#~ msgid "{prefix}First-day briefing: leased to {carrier_name} at {location}."
-#~ msgstr "{prefix}首日简报：租给{carrier_name}，地址为{location}。"
-
-#~ msgid ""
-#~ "{prefix}First-day briefing: leased to {carrier_name} at {location}. New "
-#~ "truck, {grouped} dollars working capital. Fuel, repairs, wear, trailers, "
-#~ "and reserves come from your cash. Next: dispatch board."
-#~ msgstr ""
-#~ "{prefix}首日简报：租给{carrier_name}，地址为{location}。新卡车，{grouped} "
-#~ "美元流动资金。燃料、维修、磨损、拖车和储备都来自你的现金。下一个：调度板。"
-
-#~ msgid "Assigned loads; a refusal goes on your record."
-#~ msgstr "任务由调度分配；拒绝任务会记入记录。"
-
-#~ msgid "Carrier covers fuel, repairs, insurance, and trailers."
-#~ msgstr "承运人承担燃油、维修、保险和拖车费用。"
-
-#~ msgid "Dispatch: {summary}."
-#~ msgstr "调度：{summary}。"
-
-#~ msgid "Truck at {location}."
-#~ msgstr "卡车位于 {location}。"
-
-#~ msgid "{prefix}First-day briefing: {carrier_name}."
-#~ msgstr "{prefix}第一天简报：{carrier_name}。"
-
-#~ msgid ""
-#~ "{prefix}First-day briefing: {carrier_name}. Truck at {location}. Carrier "
-#~ "covers fuel, repairs, insurance, and trailers. Dispatch: {summary}. "
-#~ "Assigned loads; a refusal goes on your record. Next: dispatch board."
-#~ msgstr ""
-#~ "{prefix}首日简报：{carrier_name}。卡车位于{location}。承运商承担燃油、维修、保险和挂车费用。调度：{summary}。任"
-#~ "务由调度分配；拒绝任务会记入记录。下一步：调度板。"
-
-#~ msgid ""
-#~ "Your saved run cannot go on: dispatch cancels it, and a relief driver "
-#~ "brings the truck back."
-#~ msgstr "你保存的行程无法继续：调度取消了它，一位接替司机会把卡车开回来。"
-
-#~ msgid "in {current_city}"
-#~ msgstr "在{current_city}"
-
-#~ msgid ""
-#~ "Company starts use assigned carrier equipment; the carrier pays fuel, "
-#~ "repairs, insurance, and trailer support. The owner-operator start is higher "
-#~ "risk: you own a brand-new truck and pay business costs from day one. Enter "
-#~ "selects, Escape goes back."
-#~ msgstr ""
-#~ "公司司机起步使用承运商分配的设备；承运商负责燃油、维修、保险和挂车支持。车主司机起步风险更高：你拥有一辆全新的卡车，从第一天起就要支付经营成本。Ente"
-#~ "r选择，Escape返回。"
-
-#~ msgid ""
-#~ "Up and Down, Home and End, or a typed letter pick a region. Enter opens its "
-#~ "cities, Escape goes back."
-#~ msgstr "用Up和Down、Home和End，或输入一个字母来选择地区。Enter打开该地区的城市，Escape返回。"
-
-#~ msgid "Home region for your {carrier_name} career."
-#~ msgstr "你在{carrier_name}的职业生涯所在地区。"
-
-#~ msgid "{place}, 1 city."
-#~ msgstr "{place}，1个城市。"
-
-#~ msgid "{place}, {count} cities."
-#~ msgstr "{place}，{count}个城市。"
-
-#~ msgid "Home terminal"
-#~ msgstr "基地"
-
-#~ msgid ""
-#~ "Up and Down, Home and End, or a typed letter pick a city. Enter confirms "
-#~ "your home terminal, Escape goes back."
-#~ msgstr "用Up和Down、Home和End，或输入一个字母来选择城市。Enter确认你的基地，Escape返回。"
-
-#~ msgid "{region} terminals."
-#~ msgstr "{region} 端子。"
-
-#~ msgid "Start at {terminal_name} in {place}."
-#~ msgstr "从{place}的{terminal_name}起步。"
-
-#~ msgid ""
-#~ "Freight Fate now keeps a driving record for your career: citations, serious "
-#~ "violations, and whether your CDL is clear. Two serious violations in three "
-#~ "years suspend it; running from a police stop is a major offense that "
-#~ "disqualifies it for a year. Reputation also decides how much freight "
-#~ "dispatch shows you and how much choice you get. Nothing was reset or taken. "
-#~ "{standing} {trust} {current_text}"
-#~ msgstr ""
-#~ "Freight "
-#~ "Fate现在会为你的职业生涯保存驾驶记录：罚单、严重违规，以及你的CDL是否正常。三年内两次严重违规会暂扣CDL；逃避警察拦停属于重大违法，会取消CDL"
-#~ "资格一年。声誉还决定调度给你看多少货物，以及你有多少选择。什么都没有被重置或拿走。{standing}{trust}{current_text}"
-
-#~ msgid "Save file updated."
-#~ msgstr "存档文件已更新。"
-
-#~ msgid ""
-#~ "Save file updated. This career was converted from an older version: every "
-#~ "truck you own now keeps its own fuel, damage, tire wear, and road grime. "
-#~ "The truck you were driving keeps its condition; your other trucks start "
-#~ "fueled and fresh. The updated save no longer opens in older versions of the "
-#~ "game. {current_text}"
-#~ msgstr ""
-#~ "存档文件已更新。这段职业生涯是从旧版本转换来的：你拥有的每辆卡车现在都有各自的燃油、损坏、轮胎磨损和路面污垢。你正在开的卡车保留它的车况；你的其他卡车加"
-#~ "满了油，状态全新。更新后的存档无法再用旧版本的游戏打开。{current_text}"
-
-#~ msgid ""
-#~ "The truck you were driving keeps its condition; your other trucks start "
-#~ "fueled and fresh."
-#~ msgstr "你正在开的卡车保留它的车况；你的其他卡车加满了油，状态全新。"
-
-#~ msgid "The updated save no longer opens in older versions of the game."
-#~ msgstr "更新后的存档无法再用旧版本的游戏打开。"
-
-#~ msgid ""
-#~ "This career was converted from an older version: every truck you own now "
-#~ "keeps its own fuel, damage, tire wear, and road grime."
-#~ msgstr "这段职业生涯是从旧版本转换来的：你拥有的每辆卡车现在都有各自的燃油、损坏、轮胎磨损和路面污垢。"
 
 #~ msgid "Routes update checks and downloads through a mirror you configure."
 #~ msgstr "通过你配置的镜像检查并下载更新。"
@@ -41349,6 +39255,15 @@ msgstr "镜像地址不能包含查询参数或片段。"
 #~ msgid "Break due in {duration_text}."
 #~ msgstr "{duration_text}后需要中途休息。"
 
+#~ msgid "no driving yet"
+#~ msgstr "还没开车"
+
+#~ msgid "{driven} driving"
+#~ msgstr "驾驶{driven}"
+
+#~ msgid "At the wheel so far: {spent}, {duration_text} on duty this shift"
+#~ msgstr "目前已驾驶时间：{spent}，本班次当班{duration_text}"
+
 #~ msgid "Break due in {duration_text}{else}"
 #~ msgstr "中途休息在{duration_text}{else}后到期"
 
@@ -43271,6 +41186,9 @@ msgstr "镜像地址不能包含查询参数或片段。"
 
 #~ msgid "Parked at {name} for the {destination2} service area."
 #~ msgstr "停在{name}，属于{destination2}服务区域。"
+
+#~ msgid "type"
+#~ msgstr "type"
 
 #~ msgid "names"
 #~ msgstr "names"

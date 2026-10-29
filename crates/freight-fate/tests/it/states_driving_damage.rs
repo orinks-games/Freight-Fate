@@ -95,45 +95,6 @@ fn a_damage_drive(app: &mut TestApp, business_status: &str, level: usize) -> Dri
     drive
 }
 
-fn a_bc_damage_drive(app: &mut TestApp, business_status: &str) -> DrivingState {
-    let world = app.ctx.world;
-    let mut profile = Profile::named_in("BC Limiter Tester", "Prince George");
-    profile.tutorial_done = true;
-    profile.business_status = business_status.to_string();
-    profile.career.xp = LEVEL_XP[0];
-    if business_status != COMPANY_DRIVER {
-        profile.owned_trucks = vec!["rig".to_string()];
-    }
-    app.ctx.profile = Some(profile);
-    let route = world
-        .route_from_cities(&["Prince George", "Dawson Creek"])
-        .expect("Prince George to Dawson Creek is a route");
-    let job = Job::new(
-        CARGO_CATALOG
-            .get("general")
-            .expect("the general cargo type"),
-        12.0,
-        "Prince George",
-        "yard",
-        "Dawson Creek",
-        route.miles(),
-        900.0,
-        12.0,
-    );
-    let mut drive = DrivingState::new(
-        &mut app.ctx,
-        job,
-        route,
-        Some(99),
-        DRIVE_PHASE_DELIVERY,
-        Some(10.0),
-    );
-    drive.trip.truck.set_air_ready(false);
-    drive.trip.set_npc_vehicles(Vec::new());
-    drive.weather_mut().current = WeatherKind::Clear;
-    drive
-}
-
 /// `_rolling(driving, mph)`.
 fn rolling(drive: &mut DrivingState, mph: f64) {
     drive.trip.truck.engine_on = true;
@@ -223,7 +184,6 @@ fn test_cruise_says_once_that_limp_mode_owns_the_target() {
     rolling(&mut drive, DAMAGE_LIMP_CAP_MPH);
     drive.trip.truck.damage_pct = DAMAGE_LIMP_PCT + 5.0;
     drive.trip.truck.speed_cap_mph = Some(DAMAGE_LIMP_CAP_MPH);
-    drive.update_damage_cap(1.0 / 60.0);
     drive.cruise_mph = Some(65.0);
     let from = app.ctx.message_log.messages.len();
 
@@ -237,89 +197,6 @@ fn test_cruise_says_once_that_limp_mode_owns_the_target() {
         .collect();
     assert_eq!(said.len(), 1, "{said:?}");
     assert!(said[0].contains("Holding 45"), "{:?}", said[0]);
-}
-
-#[test]
-fn test_bc_hardware_limiter_caps_clean_truck_and_speaks_once() {
-    let mut app = TestApp::new();
-    let mut drive = a_bc_damage_drive(&mut app, LEASED_OWNER_OPERATOR);
-    assert_eq!(drive.trip.state_at(None), "British Columbia");
-    let limit = BC_LIMITER_MPH;
-    drive.trip.truck.engine_on = true;
-    drive.trip.truck.transmission.automatic = true;
-    let cut_out = drive.trip.truck.specs.air_governor_cut_out_psi;
-    drive.trip.truck.set_air_pressure_psi(cut_out);
-    drive.trip.truck.parking_brake = false;
-    drive.trip.truck.grade = 0.0;
-    drive.trip.truck.grip = 1.0;
-    drive.trip.truck.velocity_mps = mph_to_mps(limit - 1.0);
-    drive.trip.truck.throttle = 1.0;
-    let mut maximum = drive.trip.truck.speed_mph();
-
-    for _ in 0..300 {
-        drive.update_damage_bands(&mut app.ctx, 1.0 / 60.0);
-        drive.trip.truck.throttle = 1.0;
-        drive.trip.truck.auto_shift();
-        drive.trip.truck.update(1.0 / 60.0);
-        maximum = maximum.max(drive.trip.truck.speed_mph());
-    }
-    assert_eq!(drive.trip.truck.speed_cap_mph, Some(limit));
-    assert!(maximum <= limit + 0.5, "maximum {maximum} mph");
-
-    drive.trip.truck.velocity_mps = mph_to_mps(limit);
-    drive.update_damage_bands(&mut app.ctx, 1.0 / 60.0);
-    let from = app.ctx.message_log.messages.len();
-    for _ in 0..5 {
-        drive.update_cruise(&mut app.ctx, 1.0 / 60.0, false, false, false);
-    }
-    let said = logged_since(&app, from);
-    assert_eq!(
-        said.iter()
-            .filter(|line| line.as_str()
-                == "Speed limiter: British Columbia caps heavy trucks at 105 kilometres an hour.")
-            .count(),
-        1,
-        "{said:?}"
-    );
-    assert!(
-        !said.iter().any(|line| line.contains("limp mode")),
-        "{said:?}"
-    );
-}
-
-#[test]
-fn test_us_truck_has_no_hardware_speed_cap_when_undamaged() {
-    let mut app = TestApp::new();
-    let mut drive = a_damage_drive(&mut app, LEASED_OWNER_OPERATOR, 1);
-    drive.update_damage_bands(&mut app.ctx, 1.0 / 60.0);
-    assert_eq!(drive.trip.truck.speed_cap_mph, None);
-}
-
-#[test]
-fn test_bc_limp_cap_owns_a_lower_limit_and_keeps_its_cruise_announcement() {
-    let mut app = TestApp::new();
-    let mut drive = a_bc_damage_drive(&mut app, LEASED_OWNER_OPERATOR);
-    rolling(&mut drive, DAMAGE_LIMP_CAP_MPH);
-    drive.trip.truck.damage_pct = DAMAGE_LIMP_PCT + 5.0;
-    drive.cruise_mph = Some(65.0);
-    drive.update_damage_bands(&mut app.ctx, 1.0 / 60.0);
-    assert_eq!(drive.trip.truck.speed_cap_mph, Some(DAMAGE_LIMP_CAP_MPH));
-
-    let from = app.ctx.message_log.messages.len();
-    for _ in 0..3 {
-        drive.update_cruise(&mut app.ctx, 1.0 / 60.0, false, false, false);
-    }
-    let said = logged_since(&app, from);
-    assert!(
-        said.iter().any(|line| line.contains("Limp mode. Holding")),
-        "{said:?}"
-    );
-    assert!(
-        !said
-            .iter()
-            .any(|line| line.contains("Speed limiter: British Columbia")),
-        "{said:?}"
-    );
 }
 
 // -- the out-of-service wall ----------------------------------------------------------

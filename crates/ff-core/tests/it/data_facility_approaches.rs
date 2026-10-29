@@ -20,19 +20,6 @@ const RAW_MARKERS: [&str; 7] = [
     "source_ref",
 ];
 
-/// Alaska Phase B3 markets whose endpoints landed after the last approach
-/// bake; their chains wait on an Alaska re-route (ROADMAP).
-const APPROACH_BAKE_PENDING_CITIES: [&str; 8] = [
-    "coldfoot_ak_us",
-    "deadhorse_ak_us",
-    "delta_junction_ak_us",
-    "homer_ak_us",
-    "kenai_ak_us",
-    "seward_ak_us",
-    "soldotna_ak_us",
-    "valdez_ak_us",
-];
-
 #[test]
 fn test_facility_approach_data_covers_full_facility_set() {
     let w = world();
@@ -45,37 +32,14 @@ fn test_facility_approach_data_covers_full_facility_set() {
     let n = |v: &serde_json::Value| v.as_u64().unwrap();
     let endpoints = read_json("facility_endpoints.json");
     let endpoint_coverage = &endpoints["coverage"];
-    // Endpoints swept after the last approach bake have no chain yet. Only
-    // the Alaska Phase B3 markets may be waiting (ROADMAP debt); any other
-    // gap means the two layers drifted.
-    let approaches = data["approaches"].as_object().expect("approaches");
-    let (mut pending_sourced, mut pending_fallback) = (0u64, 0u64);
-    for (id, row) in endpoints["endpoints"].as_object().expect("endpoints") {
-        if approaches.contains_key(id) {
-            continue;
-        }
-        let city = row["city"].as_str().unwrap_or_default();
-        assert!(
-            APPROACH_BAKE_PENDING_CITIES.contains(&city),
-            "{id} has an endpoint but no approach record"
-        );
-        if row["source_backed"].as_bool().unwrap_or(false) {
-            pending_sourced += 1;
-        } else {
-            pending_fallback += 1;
-        }
-    }
+    assert_eq!(coverage["facilities"], endpoint_coverage["facilities"]);
     assert_eq!(
-        n(&coverage["facilities"]) + pending_sourced + pending_fallback,
-        n(&endpoint_coverage["facilities"])
+        coverage["source_backed_endpoints"],
+        endpoint_coverage["source_backed"]
     );
     assert_eq!(
-        n(&coverage["source_backed_endpoints"]) + pending_sourced,
-        n(&endpoint_coverage["source_backed"])
-    );
-    assert_eq!(
-        n(&coverage["representative_fallback"]) + pending_fallback,
-        n(&endpoint_coverage["fallback"])
+        coverage["representative_fallback"],
+        endpoint_coverage["fallback"]
     );
     // Every sourced endpoint snapped to a road or fell back to the nearest
     // one, and a turn-by-turn chain needs a snapped road.

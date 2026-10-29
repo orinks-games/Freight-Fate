@@ -86,15 +86,8 @@ impl SolvencyProfile for Profile {
         &mut self.driving_record
     }
     fn set_carrier(&mut self, key: &str, name: &str) {
-        // A new carrier means that carrier's terminal; the truck stays put.
-        self.change_carrier(key, name);
-    }
-    fn let_go_near_phrase(&self) -> String {
-        Profile::let_go_near_phrase(self)
-    }
-    fn take_fallback_carrier(&mut self, firing_key: &str) -> Option<String> {
-        self.take_fallback_after_let_go(firing_key)
-            .map(|carrier| carrier.name.clone())
+        self.carrier_key = key.to_string();
+        self.carrier_name = name.to_string();
     }
     fn set_pay_advance(&mut self, amount: f64) {
         self.pay_advance = amount;
@@ -239,21 +232,6 @@ impl TrailerOwner for Profile {
 impl StartProfile for Profile {
     fn set_carrier_key(&mut self, key: &str) {
         self.carrier_key = key.to_string();
-    }
-    fn set_home_terminal_city(&mut self, city: &str) {
-        self.home_terminal_city = city.to_string();
-    }
-    fn home_base_city(&self) -> String {
-        self.current_city.clone()
-    }
-    fn set_current_city(&mut self, city: &str) {
-        self.current_city = city.to_string();
-    }
-    fn set_parked_facility(&mut self, facility: &str) {
-        self.parked_facility = facility.to_string();
-    }
-    fn set_home_city(&mut self, city: &str) {
-        self.home_city = city.to_string();
     }
     fn set_start_mode(&mut self, mode: &str) {
         self.start_mode = mode.to_string();

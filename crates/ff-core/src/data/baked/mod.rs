@@ -112,23 +112,9 @@ pub const MAGIC: &[u8; 8] = b"FFDATA\0\0";
 ///
 /// 8: a landmark carries the directions it is heard in (`directions`).
 ///
-/// 9: a leg carries the truck rules at its real tunnels and bridges
-/// (`crossings`).
-///
-/// 10: a corridor carries how many speed-limit postings the load-time
-/// artifact fold removed (`speed_limits_folded`).
-///
-/// 11: a crossing carries its published wind levels (`wind`).
-///
-/// 12: a crossing carries the loads it escorts in any weather (`escort`).
-///
-/// 13: a crossing names the hazard classes it bans (`banned_classes`,
-/// `bulk_banned_classes`), escorts by class, and keeps class hours
-/// (`hazmat_hours`).
-///
-/// 14: a crossing names the classes it allows only in small amounts
-/// (`limited_classes`, `limited_text`).
-pub const FORMAT_VERSION: u32 = 14;
+/// 9: a corridor carries how many speed-limit postings the load-time artifact
+/// fold removed (`speed_limits_folded`).
+pub const FORMAT_VERSION: u32 = 9;
 
 const HEADER_LEN: usize = 32;
 
@@ -155,8 +141,6 @@ pub const SECTION_LOCAL_GEOMETRY: &str = "local_geometry";
 pub const TEXT_FILES: &[&str] = &[
     "street_limits.json",
     "buffs.json",
-    "carriers.json",
-    "border_yards.json",
     "channel3000.json",
     "radio_catalog.json",
     "radio_imported.json",

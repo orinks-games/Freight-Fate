@@ -193,23 +193,6 @@ pub const UNSAFE_DAMAGE_FINE: f64 = 2300.0;
 /// and California and New York both pass 1,000 on a first offense; the federal
 /// exposure standing behind them reaches 10,000.
 pub const WEIGH_STATION_BYPASS_FINE: f64 = 1800.0;
-/// First US inbound-reporting violation under 19 U.S.C. 1436(b).
-/// Source: https://www.law.cornell.edu/uscode/text/19/1436.
-pub const BORDER_US_FIRST_FINE: f64 = 5_000.0;
-/// Later US inbound-reporting violations under 19 U.S.C. 1436(b).
-/// Source: https://www.law.cornell.edu/uscode/text/19/1436.
-pub const BORDER_US_REPEAT_FINE: f64 = 10_000.0;
-/// Bank of Canada FXUSDCAD 2025 average, 249 daily Valet API observations.
-pub const CAD_PER_USD: f64 = 1.3978;
-/// First CBSA AMPS C023 penalty, CAD 2,000 converted to USD at CAD_PER_USD.
-/// Source: https://www.cbsa-asfc.gc.ca/trade-commerce/amps/contraventions-infractions/c023-eng.html.
-pub const BORDER_CA_FIRST_FINE_USD: f64 = 1_431.0;
-/// Second CBSA AMPS C023 penalty, CAD 4,000 converted to USD at CAD_PER_USD.
-/// Source: https://www.cbsa-asfc.gc.ca/trade-commerce/amps/contraventions-infractions/c023-eng.html.
-pub const BORDER_CA_SECOND_FINE_USD: f64 = 2_862.0;
-/// Third-and-later CBSA AMPS C023 penalty, CAD 8,000 converted to USD at CAD_PER_USD.
-/// Source: https://www.cbsa-asfc.gc.ca/trade-commerce/amps/contraventions-infractions/c023-eng.html.
-pub const BORDER_CA_THIRD_FINE_USD: f64 = 5_723.0;
 /// The chain-law citation where no state figure has been sourced (CA, WA,
 /// NV, ID, MT, UT): UNVERIFIED placeholder, the old Colorado figure,
 /// until each state's own schedule is read.
@@ -648,106 +631,6 @@ pub fn trust_band_text(band: &str) -> &'static str {
      and the carrier is deciding whether to keep you."
 }
 
-/// Spoken in place of any trust line for a company driver with no carrier:
-/// there is no dispatcher to trust them or not.
-pub const NO_CARRIER_TRUST_TEXT: &str =
-    "Dispatch trust: none. You have no carrier, so there is no dispatch until one takes you on.";
-
-fn has_no_carrier<P: StandingProfile + ?Sized>(profile: &P) -> bool {
-    crate::models::carriers::is_unassigned_company_driver(
-        profile.carrier_key(),
-        profile.carrier_name(),
-        profile.business_status(),
-    )
-}
-
-/// [`trust_band_text`] for this driver. A driver kept on sufferance (the
-/// last-chance fleet, or the carrier that took them on after a let-go) is
-/// never let go over the record or the debt (`carrier_termination_due`,
-/// `solvency::hard_capped`), so their last-chance line says that instead of
-/// "deciding whether to keep you".
-pub fn trust_band_text_for<P: StandingProfile + ?Sized>(profile: &P, band: &str) -> String {
-    if let Some(text) = licence_trust_text(profile, band) {
-        return text;
-    }
-    if band == TRUST_LAST_CHANCE && kept_on_sufferance(profile) {
-        let carrier = match profile.carrier_name().trim() {
-            "" => "Your carrier",
-            name => name,
-        };
-        return format!(
-            "Dispatch trust: last chance. One assigned load at a time and no refusals. \
-             {carrier} will not end your seat over your record or what you owe."
-        );
-    }
-    trust_band_text(band).to_string()
-}
-
-/// The last-chance line when a pulled CDL is what put the driver there.
-///
-/// The carrier does not weigh a suspension or a disqualification against
-/// the seat (`carrier_termination_due` never reads the licence): it simply
-/// has no loads for a driver who cannot drive, and a lifetime
-/// disqualification ends dispatch for good. "The carrier is deciding whether
-/// to keep you" said neither. `None` when the licence is clear, or when the
-/// carrier really is weighing the seat over the record or the service.
-fn licence_trust_text<P: StandingProfile + ?Sized>(profile: &P, band: &str) -> Option<String> {
-    let record = profile.driving_record()?;
-    if band != TRUST_LAST_CHANCE || !record.suspended(profile.game_hours()) {
-        return None;
-    }
-    if record.lifetime_disqualified {
-        return Some(
-            "Dispatch trust: none. With a lifetime CDL disqualification there is no dispatch."
-                .to_string(),
-        );
-    }
-    if carrier_termination_due(profile) {
-        return None;
-    }
-    Some(format!(
-        "Dispatch trust: last chance. No loads at all while your CDL is {}.",
-        status_verb(record)
-    ))
-}
-
-/// [`trust_text`] for this driver: the sufferance wording where it applies,
-/// and [`NO_CARRIER_TRUST_TEXT`] with no carrier.
-pub fn trust_text_for<P: StandingProfile + ?Sized>(profile: &P, reputation: f64) -> String {
-    if has_no_carrier(profile) {
-        return NO_CARRIER_TRUST_TEXT.to_string();
-    }
-    let band = trust_band(reputation);
-    let text = trust_band_text_for(profile, band);
-    // Clean runs rebuild service, not a pulled licence.
-    if band == TRUST_FULL || licence_trust_text(profile, band).is_some() {
-        return text;
-    }
-    format!("{text} Clean on-time runs rebuild it.")
-}
-
-/// [`trust_text_for`] in the player's preferred score-display mode.
-pub fn trust_text_for_with_display<P: StandingProfile + ?Sized>(
-    profile: &P,
-    reputation: f64,
-    mode: ScoreDisplay,
-) -> String {
-    if has_no_carrier(profile) {
-        return NO_CARRIER_TRUST_TEXT.to_string();
-    }
-    let band = trust_band(reputation);
-    let plain = trust_band_text_for(profile, band);
-    let text = match plain.strip_prefix(&format!("Dispatch trust: {band}.")) {
-        Some(rest) => format!("{}{rest}", trust_score_head(reputation, mode)),
-        None => plain,
-    };
-    // Clean runs rebuild service, not a pulled licence.
-    if band == TRUST_FULL || licence_trust_text(profile, band).is_some() {
-        return text;
-    }
-    format!("{text} Clean on-time runs rebuild it.")
-}
-
 /// What a trust band means, after its label: the sentences that follow
 /// "Dispatch trust: full." Each is a whole literal, so a translation finds
 /// it when a reputation number stands between the label and the meaning.
@@ -1016,20 +899,6 @@ fn calendar_day_text<P: StandingProfile + ?Sized>(profile: &P, career_hours: f64
     format!("{weekday}, {}{when}", date_text(at))
 }
 
-/// The spoken day the oldest violation still counted leaves the review
-/// window, or empty with nothing counted.
-fn record_oldest_ages_out_text<P: StandingProfile + ?Sized>(profile: &P) -> String {
-    let counted = std::cell::Cell::new(None::<i64>);
-    record_clears_text(profile, |citations, serious| {
-        let total = citations + serious;
-        let first = counted.get().unwrap_or_else(|| {
-            counted.set(Some(total));
-            total
-        });
-        total > 0 && total >= first
-    })
-}
-
 /// The day the carrier's record review lets go: back under its floor.
 pub fn record_review_clears_text<P: StandingProfile + ?Sized>(profile: &P) -> String {
     record_clears_text(profile, |citations, serious| {
@@ -1075,37 +944,21 @@ pub fn record_consequence_text<P: StandingProfile + ?Sized>(profile: &P) -> Stri
         }
         return format!("Insurance surcharge: {percent} percent until {until}.");
     }
-    if has_no_carrier(profile) || !under_carrier_review(profile) {
+    if !under_carrier_review(profile) {
         return String::new();
     }
-    if kept_on_sufferance(profile) {
-        // Never let go over the record (`carrier_termination_due`), so no
-        // countdown to a let-go is spoken here, and a clean record (nothing
-        // left to age out) needs no line at all.
-        let ages_out = record_oldest_ages_out_text(profile);
-        if ages_out.trim().is_empty() {
-            return String::new();
-        }
-        let keeper = match profile.carrier_name().trim() {
-            "" => "Your carrier",
-            name => name,
-        };
-        if record_past_termination_floor(record, game_hours) {
+    if record_past_termination_floor(record, game_hours) {
+        if profile.carrier_key() == LAST_CHANCE_CARRIER_KEY {
             return format!(
-                "The carrier's insurer will not carry a record like that; {keeper} keeps you on \
+                "The carrier's insurer will not carry a record like that; {} keeps you on \
                  sufferance until {}.",
+                LAST_CHANCE_CARRIER_NAME,
                 record_clears_text(profile, |citations, serious| {
                     citations >= CARRIER_TERMINATION_CITATIONS
                         || serious >= CARRIER_TERMINATION_SERIOUS
                 })
             );
         }
-        return format!(
-            "{keeper} keeps you on sufferance whatever the record says; the oldest entry \
-             ages out {ages_out}."
-        );
-    }
-    if record_past_termination_floor(record, game_hours) {
         return "The carrier's insurer will not carry that record. The carrier ends your \
                 employment at the next terminal."
             .to_string();
@@ -1200,11 +1053,8 @@ pub fn standing_way_back<P: StandingProfile + ?Sized>(profile: &P) -> String {
             return "Your CDL is disqualified for life, so the seat is not coming back."
                 .to_string();
         }
-        let record = record_of(profile);
         return format!(
-            "Your CDL is {}, so the yard holds your seat until the {} ends {clears}.",
-            status_verb(record),
-            status_noun(record)
+            "Your CDL is suspended, so the yard holds your seat until it clears {clears}."
         );
     }
     if cause == CAUSE_RECORD {
@@ -1250,19 +1100,18 @@ pub fn dispatch_trust_line_with_display<P: StandingProfile + ?Sized>(
     profile: &P,
     mode: ScoreDisplay,
 ) -> String {
-    if has_no_carrier(profile) {
-        return NO_CARRIER_TRUST_TEXT.to_string();
-    }
     let band = standing_band(profile);
     let service_sets_band = band == trust_band(profile.career_reputation());
-    let plain = trust_band_text_for(profile, band);
-    let head_prefix = format!("Dispatch trust: {band}.");
-    let mut parts = vec![match plain.strip_prefix(&head_prefix) {
-        Some(suffix) if service_sets_band => format!(
+    let mut parts = vec![if service_sets_band {
+        let suffix = trust_band_text(band)
+            .strip_prefix(&format!("Dispatch trust: {band}."))
+            .unwrap_or("");
+        format!(
             "{}{suffix}",
             trust_score_head(profile.career_reputation(), mode)
-        ),
-        _ => plain,
+        )
+    } else {
+        trust_band_text(band).to_string()
     }];
     let way_back = standing_way_back(profile);
     if !way_back.is_empty() {
@@ -1288,27 +1137,13 @@ pub fn board_reputation_note(reputation: f64) -> String {
     }
 }
 
-/// A carrier that keeps this driver whatever the record says: the
-/// last-chance fleet, or the carrier that took them on after a termination
-/// knowing the record (`DrivingRecord::sufferance_carrier_key`).
-pub fn kept_on_sufferance<P: StandingProfile + ?Sized>(profile: &P) -> bool {
-    let key = profile.carrier_key();
-    key == LAST_CHANCE_CARRIER_KEY
-        || profile.driving_record().is_some_and(|record| {
-            !record.sufferance_carrier_key.is_empty() && record.sufferance_carrier_key == key
-        })
-}
-
 /// A company driver the carrier will not keep on the insurance any longer.
 pub fn carrier_termination_due<P: StandingProfile + ?Sized>(profile: &P) -> bool {
     if is_owner_operator(profile.business_status()) {
         return false;
     }
-    if kept_on_sufferance(profile) {
-        return false; // already taken on knowing the record; nowhere further down
-    }
-    if profile.carrier_key().trim().is_empty() {
-        return false; // no carrier to let the driver go
+    if profile.carrier_key() == LAST_CHANCE_CARRIER_KEY {
+        return false; // already at the fleet of last resort; nowhere further down
     }
     if profile.career_reputation() < REPUTATION_TERMINATION {
         return true;
@@ -1483,21 +1318,6 @@ pub fn suspension_refusal_line<P: StandingProfile + ?Sized>(profile: &P) -> Stri
     )
 }
 
-/// The CDL status as a noun: "disqualification" for a major offense,
-/// "suspension" for the serious-violation ladder.
-pub fn status_noun(record: &DrivingRecord) -> &'static str {
-    if status_verb(record) == "disqualified" {
-        "disqualification"
-    } else {
-        "suspension"
-    }
-}
-
-/// The terminal row that sits out a pulled CDL, named for what it is.
-pub fn wait_out_label(record: &DrivingRecord) -> String {
-    format!("Wait out the CDL {}", status_noun(record))
-}
-
 /// Why a bobtail (a drive with no trailer to another board) is refused while
 /// the CDL is pulled. A bobtail is still driving a commercial vehicle.
 pub fn suspension_drive_refusal_line<P: StandingProfile + ?Sized>(profile: &P) -> String {
@@ -1506,34 +1326,16 @@ pub fn suspension_drive_refusal_line<P: StandingProfile + ?Sized>(profile: &P) -
         return "You cannot drive with a lifetime CDL disqualification, not even bobtail."
             .to_string();
     }
-    let noun = status_noun(record);
+    let verb = status_verb(record);
+    let noun = if verb == "disqualified" {
+        "disqualification"
+    } else {
+        "suspension"
+    };
     format!(
-        "You cannot drive, not even bobtail, while your CDL is {}. The {noun} ends {}. {} is on \
-         the terminal menu.",
-        status_verb(record),
-        clears_text(profile),
-        wait_out_label(record)
+        "You cannot drive, not even bobtail, while your CDL is {verb}. The {noun} ends {}.",
+        clears_text(profile)
     )
-}
-
-/// The terminal's objective while the CDL is pulled: wait it out, with the
-/// real time left. Empty for a lifetime disqualification, which the greeting
-/// already says in full; `None` when the CDL is clear.
-pub fn suspended_objective_text<P: StandingProfile + ?Sized>(profile: &P) -> Option<String> {
-    let record = record_of(profile);
-    if record.lifetime_disqualified {
-        return Some(String::new());
-    }
-    let game_hours = profile.game_hours();
-    if !record.suspended(game_hours) {
-        return None;
-    }
-    Some(format!(
-        "wait out the CDL {}, {} remaining. Choose {} on this menu to skip ahead.",
-        status_noun(record),
-        days_text(record.days_left(game_hours)),
-        wait_out_label(record)
-    ))
 }
 
 /// The CDL line on the career screens: short, factual, always available.

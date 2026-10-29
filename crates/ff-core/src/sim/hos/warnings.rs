@@ -26,10 +26,7 @@ impl HosClock {
     /// into a window violation with no countdown (owner, 2026-07-24).
     pub fn re_arm_warnings(&mut self) {
         self.warned.retain(|w| {
-            !(w.starts_with("drive:")
-                || w.starts_with("duty:")
-                || w.starts_with("shift:")
-                || w.starts_with("break:"))
+            !(w.starts_with("drive:") || w.starts_with("duty:") || w.starts_with("break:"))
         });
     }
 
@@ -103,9 +100,7 @@ impl HosClock {
                     let priority = match kind {
                         "drive" => 0,
                         "duty" => 1,
-                        "shift" => 1,
                         "break" => 2,
-                        "cycle" => 3,
                         _ => 9,
                     };
                     candidates.push((

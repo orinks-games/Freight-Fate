@@ -253,25 +253,15 @@ fn match_here<'s, 'a>(
             };
             let next_text = match next {
                 Seg::Lit(text) => text.as_str(),
-                // Two holes side by side. A frame's holes break between
-                // sentences far more often than inside one, so try each
-                // sentence break from the right first: cutting at a comma
-                // instead took "Kenosha, Wisconsin" apart and left the rest
-                // of the board row -- the gross, the deadline, the pay --
-                // in English. Failing that the second is a tail opening
-                // with a comma (", then 74 miles on it"), so try each ", "
-                // from the right; failing that this one takes nothing and
-                // the next decides (a leading "{prefix}" is usually empty).
+                // Two holes side by side. The second is usually a tail that
+                // opens with a comma (", then 74 miles on it"), so try each
+                // ", " from the right first; failing that this one takes
+                // nothing and the next decides (a leading "{prefix}" is
+                // usually empty).
                 Seg::Hole(_) => {
-                    let mut sentences: Vec<usize> = line[pos..]
-                        .match_indices(". ")
-                        .map(|(at, _)| pos + at + ". ".len())
-                        .filter(|&at| at > pos && at < line.len())
-                        .collect();
-                    sentences.reverse();
-                    let splits = sentences
-                        .into_iter()
-                        .chain(line[pos..].rmatch_indices(", ").map(|(at, _)| pos + at))
+                    let splits = line[pos..]
+                        .rmatch_indices(", ")
+                        .map(|(at, _)| pos + at)
                         .chain(std::iter::once(pos));
                     for at in splits {
                         let depth = out.len();

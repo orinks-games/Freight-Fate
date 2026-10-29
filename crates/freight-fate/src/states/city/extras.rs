@@ -1,8 +1,6 @@
-//! The terminal's small side menus: picking a nearby city to bobtail to,
-//! paying down what a driver owes, and applying to a carrier when the
-//! driver has none.
+//! The terminal's two small side menus: picking a nearby city to bobtail
+//! to, and paying down what a driver owes.
 
-use ff_core::models::carriers::{openings_for_unassigned, CarrierOpening};
 use ff_core::models::jobs::make_reposition_job;
 use ff_core::models::solvency;
 
@@ -11,8 +9,7 @@ use crate::impl_state_for_menu;
 use crate::meaningful_play::MeaningfulPlayReason;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::city::{
-    launch_driving, profile, profile_mut, CityMenuState, DrivingLaunch, LaunchAnnouncement,
-    DRIVE_PHASE_DELIVERY,
+    launch_driving, profile, profile_mut, DrivingLaunch, LaunchAnnouncement, DRIVE_PHASE_DELIVERY,
 };
 
 /// Pick a nearby city to bobtail (drive empty) to, to shop its board.
@@ -223,114 +220,3 @@ impl Menu for PayDebtState {
 }
 
 impl_state_for_menu!(PayDebtState);
-
-/// A company driver with no carrier applies to one: carriers that hire in
-/// the home city first, and when none do, carriers with a terminal in the
-/// same state or province (taking one of those moves home there). The
-/// carrier that let the driver go is never listed.
-pub struct ApplyToCarrierState {
-    menu: MenuCore<Self>,
-    openings: Vec<CarrierOpening>,
-}
-
-impl ApplyToCarrierState {
-    pub fn new(ctx: &GameContext) -> Self {
-        let p = profile(ctx);
-        let openings = openings_for_unassigned(
-            ctx.world,
-            &p.driver_home_city(),
-            &p.driving_record.let_go_by,
-        );
-        ApplyToCarrierState {
-            menu: MenuCore::new("Apply to a carrier").with_intro_help(
-                "Carriers that would take you on from your home. Choosing one puts you on \
-                 their payroll at the terminal named. Escape returns to the terminal.",
-            ),
-            openings,
-        }
-    }
-
-    /// The spoken label for one opening.
-    pub fn opening_label(world: &ff_core::data::world::World, opening: &CarrierOpening) -> String {
-        let city = world.spoken_city(&opening.terminal_city, None);
-        let tier = if opening.carrier.is_local() {
-            "local"
-        } else if opening.carrier.is_national() {
-            "national"
-        } else {
-            "regional"
-        };
-        let mut label = format!(
-            "{}: {tier} carrier, hires into its {city} terminal",
-            opening.carrier.name
-        );
-        if opening.moves_home {
-            label.push_str(&format!(", moves your home to {city}"));
-        }
-        label
-    }
-
-    fn join(&mut self, ctx: &mut GameContext, index: usize) {
-        let Some(opening) = self.openings.get(index).cloned() else {
-            return;
-        };
-        let world = ctx.world;
-        profile_mut(ctx).join_carrier_opening(&opening);
-        ctx.mark_meaningful_play(MeaningfulPlayReason::BusinessChanged);
-        ctx.save_profile();
-        ctx.audio.play("ui/notify");
-        let city = world.spoken_city(&opening.terminal_city, None);
-        let moved = if opening.moves_home {
-            format!(" Your home is now {city}.")
-        } else {
-            String::new()
-        };
-        ctx.say(&format!(
-            "{} has taken you on. You start at their {city} terminal, where your assigned \
-             truck is waiting.{moved} The dispatch board is open again.",
-            opening.carrier.name
-        ));
-        ctx.pop_state_with(true, false);
-        let terminal = CityMenuState::new(ctx, true);
-        ctx.replace_state(terminal);
-    }
-}
-
-impl Menu for ApplyToCarrierState {
-    fn menu(&self) -> &MenuCore<Self> {
-        &self.menu
-    }
-
-    fn menu_mut(&mut self) -> &mut MenuCore<Self> {
-        &mut self.menu
-    }
-
-    fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
-        let world = ctx.world;
-        let mut items: Vec<MenuItem<Self>> = Vec::new();
-        for (i, opening) in self.openings.iter().enumerate() {
-            let label = Self::opening_label(world, opening);
-            let help = if opening.carrier.lane_area.is_empty() {
-                "Hires across the lower 48.".to_string()
-            } else {
-                format!("Based in {}.", opening.carrier.lane_area)
-            };
-            items.push(MenuItem::new(label, move |s: &mut Self, ctx| s.join(ctx, i)).help(help));
-        }
-        if items.is_empty() {
-            items.push(
-                MenuItem::new(
-                    "No carrier hires near your home or in your state right now",
-                    |s: &mut Self, ctx| s.go_back(ctx),
-                )
-                .help("Returns to the terminal."),
-            );
-        }
-        items.push(MenuItem::new("Back to terminal", |s: &mut Self, ctx| {
-            s.go_back(ctx)
-        }));
-        items
-    }
-}
-
-impl_state_for_menu!(ApplyToCarrierState);

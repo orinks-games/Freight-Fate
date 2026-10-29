@@ -47,10 +47,6 @@ pub struct RawCity {
     pub lon: Value,
     /// Required: Python read `c["locations"]`; each is validated later.
     pub locations: Vec<Value>,
-    /// A real map endpoint that deliberately has no verified freight facility.
-    /// Such a city remains routable but never receives generated facilities.
-    #[serde(default)]
-    pub no_freight: bool,
 }
 
 /// One leg as checked in. `corridor` stays raw: it is the lazy half.
@@ -71,10 +67,6 @@ pub struct RawLeg {
     pub divided: Value,
     #[serde(default)]
     pub truck_advisory: Value,
-    #[serde(default)]
-    pub crossings: Value,
-    #[serde(default)]
-    pub detour_for: Value,
     #[serde(default)]
     pub route_via: Value,
 }

@@ -895,9 +895,8 @@ fn test_world_cities_have_coordinates() {
     for city in world.cities.values() {
         assert!(city.lat != 0.0, "{} missing latitude", city.name);
         assert!(city.lon != 0.0, "{} missing longitude", city.name);
-        // ALCAN Phase A Fairbanks terminus (~64.8°N / ~-147.7°W).
-        assert!(city.lat > 24.0 && city.lat < 72.0);
-        assert!(city.lon > -170.0 && city.lon < -66.0);
+        assert!(city.lat > 24.0 && city.lat < 50.0);
+        assert!(city.lon > -125.0 && city.lon < -66.0);
     }
 }
 

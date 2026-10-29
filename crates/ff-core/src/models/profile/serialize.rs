@@ -61,15 +61,6 @@ impl Profile {
             Value::from(self.current_city.as_str()),
         );
         d.insert(
-            "home_terminal_city".into(),
-            Value::from(self.home_terminal_city.as_str()),
-        );
-        d.insert(
-            "parked_facility".into(),
-            Value::from(self.parked_facility.as_str()),
-        );
-        d.insert("home_city".into(), Value::from(self.home_city.as_str()));
-        d.insert(
             "created_line".into(),
             Value::from(self.created_line.as_str()),
         );
@@ -160,10 +151,6 @@ impl Profile {
         d.insert("trailer_programs".into(), strings(&self.trailer_programs));
         d.insert("owned_trailers".into(), strings(&self.owned_trailers));
         d.insert(
-            "turnpike_program_notice_seen".into(),
-            Value::from(self.turnpike_program_notice_seen),
-        );
-        d.insert(
             "owner_operator_declined".into(),
             Value::from(self.owner_operator_declined),
         );
@@ -209,9 +196,6 @@ impl Profile {
         // gate already vouched for it by save version, so stamp the explicit
         // marker on the resave and the version threshold is needed only once.
         if !d.contains_key("created_line") {
-            migrated = true;
-        }
-        if !d.contains_key("home_terminal_city") {
             migrated = true;
         }
         d.remove("version");
@@ -306,31 +290,11 @@ impl Profile {
         // gate already vouched for.
         let money = f("money", defaults.money);
 
-        let saved_home = s("home_terminal_city", "");
-        let home_terminal_city = migrate_home_terminal_city(
-            crate::models::carriers::hiring_carrier(
-                &s("carrier_key", &defaults.carrier_key),
-                &s("carrier_name", &defaults.carrier_name),
-                &s("business_status", &defaults.business_status),
-            ),
-            &saved_home,
-            &s("current_city", &defaults.current_city),
-        );
-        // A stale saved home (not the carrier's terminal city) was corrected:
-        // write the correction back on the next save.
-        if !saved_home.is_empty()
-            && crate::data::world::get_world().resolve_city_key(&saved_home) != home_terminal_city
-        {
-            migrated = true;
-        }
-        let mut profile = Profile {
+        Profile {
             name: s("name", &defaults.name),
             money,
             money_guard: MoneyGuard::seeded(money),
             current_city: s("current_city", &defaults.current_city),
-            home_terminal_city: home_terminal_city.clone(),
-            parked_facility: s("parked_facility", ""),
-            home_city: s("home_city", ""),
             created_line: s("created_line", &defaults.created_line),
             migration_notice_pending: b("migration_notice_pending", false),
             integrity_modified: b("integrity_modified", false),
@@ -360,8 +324,6 @@ impl Profile {
             weigh_station_transponder: b("weigh_station_transponder", false),
             trailer_programs: list("trailer_programs"),
             owned_trailers: list("owned_trailers"),
-            // Missing on every save written before the notice existed.
-            turnpike_program_notice_seen: b("turnpike_program_notice_seen", false),
             owner_operator_declined: b("owner_operator_declined", false),
             career,
             driving_record,
@@ -378,44 +340,6 @@ impl Profile {
             // A save that had to be migrated on load is rewritten on the next
             // save, so the conversion is not redone on every launch.
             needs_migration_resave: migrated,
-        };
-        // A save written before the flag owes the notice only if it leases
-        // double_van without turnpike_double right now; latch it otherwise so a
-        // later double_van lease never triggers it.
-        if !d.contains_key("turnpike_program_notice_seen") && !profile.turnpike_program_notice_due()
-        {
-            profile.turnpike_program_notice_seen = true;
         }
-        profile
     }
-}
-
-/// Home terminal city for a (possibly old) save: the hiring carrier's
-/// terminal city nearest the saved home (or `current_city` when the save has
-/// none), within the hiring radius for a regional. A saved home that is already one of the carrier's terminal cities
-/// is kept. No world-pin search: world `terminal`/`company_yard` pins are
-/// freight endpoints, never homes. With no hiring carrier (own authority)
-/// the saved home, or else the current city, is kept as a city key.
-pub(crate) fn migrate_home_terminal_city(
-    carrier: Option<&crate::models::carriers::Carrier>,
-    saved_home: &str,
-    current_city: &str,
-) -> String {
-    use crate::data::world::get_world;
-    let world = get_world();
-    let base = if saved_home.trim().is_empty() {
-        current_city
-    } else {
-        saved_home
-    };
-    let key = world.resolve_city_key(base);
-    let Some(carrier) = carrier else {
-        return key;
-    };
-    if carrier.terminal_city_keys.contains(&key) {
-        return key;
-    }
-    // A regional out of its hiring radius has no home there: the national
-    // fallback carrier's terminal city, never a terminal out of range.
-    crate::models::carriers::home_terminal_city_or_fallback(Some(carrier), world, &key)
 }

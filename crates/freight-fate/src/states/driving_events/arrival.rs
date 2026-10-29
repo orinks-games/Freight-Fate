@@ -657,7 +657,7 @@ impl DrivingState {
             self.phase,
             self.job.spoken_origin(),
             self.job.spoken_destination(),
-            self.job.spoken_cargo_label(),
+            self.job.cargo.label,
             fraction,
             moving,
             truck_label,

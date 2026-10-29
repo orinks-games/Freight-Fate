@@ -1,7 +1,7 @@
 //! Offline dispatch calls from a stopped drive.
 
 use chrono::Utc;
-use ff_core::models::cargo_condition::{cargo_condition_text, cargo_outcome, CARGO_OUTCOME_CLEAN};
+use ff_core::models::cargo_condition::cargo_condition_text;
 use ff_core::models::exchange::{stable_id, DispatchCallRequest, DispatchCallResponse, JsonObject};
 use ff_core::pyfmt::fmt_grouped;
 use ff_core::sim::hos::duration_text;
@@ -227,32 +227,15 @@ pub fn local_dispatch_response(
 
 fn request_summary(driving: &DrivingState, ctx: &GameContext, kind: &str) -> String {
     match kind {
-        CALL_DELAY => {
-            let used = hours_value(driving.trip.game_minutes / 60.0);
-            let unit = if used == "1" { "hour" } else { "hours" };
-            format!(
-                "{used} {unit} used of a {} hour delivery window.",
-                hours_value(driving.job.deadline_game_h)
-            )
-        }
+        CALL_DELAY => format!(
+            "{} hours used of a {} hour delivery window.",
+            driving.trip.game_minutes / 60.0,
+            driving.job.deadline_game_h
+        ),
         CALL_HOURS => hos_of(ctx).summary(&ctx.settings.hos_mode),
-        CALL_ROAD => {
-            // In the player's unit, like every other spoken distance; one
-            // decimal only while the decimal still matters.
-            let miles = driving.trip.remaining_miles();
-            let left = ctx.settings.distance_text(miles, miles < 10.0);
-            let verb = if !left.ends_with('s') {
-                "remains"
-            } else {
-                "remain"
-            };
-            format!("{left} {verb}.")
-        }
+        CALL_ROAD => format!("{} miles remain.", driving.trip.remaining_miles()),
         CALL_TRUCK => {
-            let mut summary = format!(
-                "Truck damage is {:.0} percent.",
-                driving.trip.truck.damage_pct
-            );
+            let mut summary = format!("Truck damage is {} percent.", driving.trip.truck.damage_pct);
             if let Some(defect) = visible_trailer_defect(driving, ctx) {
                 summary.push_str(&format!(" Trailer: {defect}."));
             }
@@ -262,21 +245,10 @@ fn request_summary(driving: &DrivingState, ctx: &GameContext, kind: &str) -> Str
             summary
         }
         CALL_LOAD => format!(
-            "Cargo damage is {:.0} percent.",
+            "Cargo condition is {} percent.",
             driving.trip.truck.cargo_damage_pct
         ),
         _ => "Driver requested dispatch assistance.".to_string(),
-    }
-}
-
-/// Hours for a spoken readout: a whole number without a trailing ".0"
-/// ("a 14 hour delivery window"), one decimal otherwise ("1.7 hours").
-fn hours_value(hours: f64) -> String {
-    let tenths = (hours * 10.0).round() / 10.0;
-    if tenths.fract() == 0.0 {
-        format!("{tenths:.0}")
-    } else {
-        format!("{tenths:.1}")
     }
 }
 
@@ -497,29 +469,20 @@ fn truck_response(driving: &DrivingState, ctx: &GameContext) -> (&'static str, S
 }
 
 fn load_response(driving: &DrivingState) -> (&'static str, String, JsonObject) {
-    let damage = driving.trip.truck.cargo_damage_pct;
-    let words = cargo_condition_text(damage, driving.trip.truck.liquid.is_some());
-    if damage < 1.0 {
+    let condition = driving.trip.truck.cargo_damage_pct;
+    let words = cargo_condition_text(condition, driving.trip.truck.liquid.is_some());
+    if condition < 1.0 {
         return (
             "continue",
             format!("The freight is {words}. Continue and protect it through the next stop."),
             JsonObject::new(),
         );
     }
-    // The condition word and the number say one thing: under the exception
-    // line the load is "shifted but sound", and calling that same load
-    // "damaged" in the next breath contradicted it ("as shifted but sound,
-    // 3 percent damaged"), while above it the word already says damaged.
-    let report = if cargo_outcome(damage) == CARGO_OUTCOME_CLEAN {
-        format!("I have the freight report as {words}, with only {damage:.0} percent cargo damage.")
-    } else {
-        format!("I have the freight report as {words}, with {damage:.0} percent cargo damage.")
-    };
     (
         "protect_load",
         format!(
-            "{report} Slow the handling down and avoid any hard stop or sharp bend you can \
-             safely avoid."
+            "I have the freight report as {words}, {condition:.0} percent. Slow the handling down \
+             and avoid any hard stop or sharp bend you can safely avoid."
         ),
         JsonObject::from_iter([("cargo_exception_recorded".to_string(), json!(true))]),
     )

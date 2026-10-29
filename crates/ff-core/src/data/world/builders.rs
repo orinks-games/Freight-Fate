@@ -90,13 +90,9 @@ pub(super) fn city_identity(
 pub(super) fn validate_city_locations(
     city: &str,
     locations: &[Location],
-    no_freight: bool,
     facilities_by_id: &mut HashMap<String, Location>,
 ) -> Result<(), DataError> {
     if locations.is_empty() {
-        if no_freight {
-            return Ok(());
-        }
         return Err(DataError::value(format!(
             "{city} has no freight facilities"
         )));
@@ -130,18 +126,9 @@ pub(super) fn validate_city_locations(
                 "{city} facility {rname} has no source note"
             )));
         }
-        let service_only = matches!(
-            location.facility_type.as_str(),
-            "travel_center" | "truck_parking"
-        );
-        if location.ships.is_empty() && location.receives.is_empty() && !service_only {
+        if location.ships.is_empty() && location.receives.is_empty() {
             return Err(DataError::value(format!(
                 "{city} facility {rname} has no cargo roles"
-            )));
-        }
-        if service_only && !(location.ships.is_empty() && location.receives.is_empty()) {
-            return Err(DataError::value(format!(
-                "{city} facility {rname} is a fuel/rest pin and must not carry freight cargo roles"
             )));
         }
         facilities_by_id.insert(location.id.clone(), location.clone());

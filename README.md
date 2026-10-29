@@ -240,8 +240,6 @@ Moving the truck:
 | B (hold) | Emergency brake — the hardest possible stop |
 | Left / Right arrow | Steer. With lane keeping on full, a tap changes lanes instead |
 | E | Start / stop engine |
-| Alt+R | Reefer on or off |
-| Alt+U | APU on or off |
 | P | Release / set parking brake. Setting it at speed grinds flat spots into the tread and costs real tire wear — it is the emergency backup, not a brake |
 | H | Horn |
 

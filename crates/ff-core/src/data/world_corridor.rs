@@ -21,7 +21,7 @@ use serde_json::{Map, Value};
 
 use super::grades::screen_grade_segments;
 use super::world_constants::{LIMIT_ARTIFACT_PLACE_CHECKPOINTS, LIMIT_EXPLAINING_CATEGORIES};
-use super::world_models::{CorridorDetail, DataError, TunnelData};
+use super::world_models::{CorridorDetail, DataError};
 use super::world_parsing::{
     fold_limit_artifacts, list_field, parse_billboard_bans, parse_checkpoint,
     parse_elevation_sample, parse_grade_segment, parse_hpms_terrain, parse_interchange,
@@ -68,22 +68,6 @@ pub fn raw_metadata_complete(corridor: &Value, from_state: &str, to_state: &str)
         return false;
     }
     from_state == to_state || corridor.get("state_crossings").is_some_and(py_truthy)
-}
-
-/// Validate a controlled-tunnel record eagerly while leaving the heavy road
-/// corridor lazy. A bad gate must reject the world at load time.
-pub fn validate_tunnel_raw(
-    corridor: &Value,
-    leg_from: &str,
-    leg_to: &str,
-) -> Result<(), DataError> {
-    let corridor = corridor_map(corridor);
-    let Some(value) = corridor.get("tunnel") else {
-        return Ok(());
-    };
-    let tunnel: TunnelData = serde_json::from_value(value.clone())
-        .map_err(|_| DataError::value(format!("{leg_from} to {leg_to} has invalid tunnel data")))?;
-    tunnel.validate(&format!("{leg_from} to {leg_to} tunnel"))
 }
 
 /// Parse a leg's heavy per-mile corridor detail into model records.
@@ -197,16 +181,6 @@ pub fn build_leg_corridor(
         leg_from,
         leg_to,
     )?;
-    let tunnel = corridor
-        .get("tunnel")
-        .map(|value| {
-            let tunnel: TunnelData = serde_json::from_value(value.clone()).map_err(|_| {
-                DataError::value(format!("{leg_from} to {leg_to} has invalid tunnel data"))
-            })?;
-            tunnel.validate(&format!("{leg_from} to {leg_to} tunnel"))?;
-            Ok::<TunnelData, DataError>(tunnel)
-        })
-        .transpose()?;
     let billboard_bans = parse_billboard_bans(
         list_field(corridor, "billboard_bans"),
         miles,
@@ -229,7 +203,6 @@ pub fn build_leg_corridor(
         landmarks,
         restrictions,
         lane_segments,
-        tunnel,
         billboard_bans,
     })
 }

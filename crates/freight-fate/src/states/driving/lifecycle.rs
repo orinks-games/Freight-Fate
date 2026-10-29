@@ -254,9 +254,7 @@ impl DrivingState {
                     "Resuming {drive_name}: {:.0} tons of {} to {destination}. {progress} \
                      {hours_used:.1} of {:.0} hours. {now}. {transmission} {report_lead}. \
                      {speed_control}{engine} {brake}",
-                    self.job.weight_tons,
-                    self.job.spoken_cargo_label(),
-                    self.job.deadline_game_h,
+                    self.job.weight_tons, self.job.cargo.label, self.job.deadline_game_h,
                 );
                 let text = text.trim_end().to_string();
                 ctx.say_with(text, Say::queued());
@@ -264,7 +262,7 @@ impl DrivingState {
         } else {
             let objective = if self.phase == DRIVE_PHASE_PICKUP {
                 format!(
-                    "Pickup dispatch: deadhead to {}. ",
+                    "Pickup dispatch: deadhead from the terminal to {}. ",
                     self.pickup_facility_text(ctx)
                 )
             } else {

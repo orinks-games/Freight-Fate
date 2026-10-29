@@ -70,9 +70,7 @@ const BAKED_MAGIC: &[u8] = b"FFDATA\x00\x00";
 /// the list is what [`verify_rust_payload`] checks did NOT leak into the
 /// payload, so a half-migrated build that ships both is caught.
 const RUST_BAKED_SOURCE_FILES: &[&str] = &[
-    "border_yards.json",
     "buffs.json",
-    "carriers.json",
     "channel3000.json",
     "city_services.json",
     "facility_approaches.json",
@@ -86,7 +84,6 @@ const RUST_BAKED_SOURCE_FILES: &[&str] = &[
     "world_data/index.json",
     "world_data/geo.json",
     "world_data/us/cities.json",
-    "world_data/ca/cities.json",
     "world_data/us/gameplay/curves.jsonl",
     "world_data/us/gameplay/curve_artifacts.jsonl",
 ];

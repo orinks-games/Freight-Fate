@@ -723,11 +723,7 @@ fn test_a_suspended_licence_holds_the_seat_but_an_old_violation_does_not() {
     assert!(p.record().suspended(hours));
     assert_eq!(standing_band(&p), TRUST_LAST_CHANCE);
     assert_eq!(standing_cause(&p), CAUSE_LICENCE);
-    let way_back = standing_way_back(&p);
-    assert!(
-        way_back.contains("holds your seat until the suspension ends"),
-        "{way_back}"
-    );
+    assert!(standing_way_back(&p).contains("clears"));
 }
 
 #[test]
@@ -1210,60 +1206,4 @@ fn a_career_saved_before_the_review_existed_starts_it_from_the_first_load() {
     let again = Profile::from_dict(&on.to_dict());
     assert_eq!(again.driving_record.review_started_h, 400.0 * DAY);
     crate::settings::paths::set_thread_data_dir(previous);
-}
-
-// --- dispatch trust on a pulled CDL -------------------------------------------
-
-#[test]
-fn a_lifetime_disqualification_is_not_told_the_carrier_is_deciding() {
-    let mut p = real_profile();
-    let now = p.game_hours;
-    p.driving_record.record_major_offense(now);
-    p.driving_record.record_major_offense(now);
-    assert!(p.driving_record.lifetime_disqualified);
-    let line = dispatch_trust_line(&p);
-    assert!(
-        line.starts_with(
-            "Dispatch trust: none. With a lifetime CDL disqualification there is no dispatch. \
-             Your CDL is disqualified for life, so the seat is not coming back."
-        ),
-        "{line}"
-    );
-    assert!(!line.contains("deciding whether to keep you"), "{line}");
-    assert!(!line.contains("rebuild"), "{line}");
-    let text = trust_text_for(&p, 0.0);
-    assert!(!text.contains("deciding whether to keep you"), "{text}");
-    assert!(!text.contains("rebuild"), "{text}");
-}
-
-#[test]
-fn a_timed_disqualification_says_no_loads_and_when_it_ends() {
-    let mut p = real_profile();
-    let now = p.game_hours;
-    p.driving_record.record_major_offense(now);
-    assert!(!carrier_termination_due(&p));
-    let line = dispatch_trust_line(&p);
-    let ends = clears_text(&p);
-    assert!(
-        line.starts_with(&format!(
-            "Dispatch trust: last chance. No loads at all while your CDL is disqualified. \
-             Your CDL is disqualified, so the yard holds your seat until the disqualification \
-             ends {ends}."
-        )),
-        "{line}"
-    );
-    assert!(!line.contains("deciding whether to keep you"), "{line}");
-    assert!(!line.contains("clears"), "{line}");
-}
-
-#[test]
-fn a_suspension_the_carrier_will_act_on_still_says_it_is_deciding() {
-    // Two serious violations also pass the insurer's floor: the carrier
-    // really does let the driver go at the next terminal visit.
-    let mut p = real_profile();
-    let now = p.game_hours;
-    p.driving_record.record_serious_violation(now);
-    p.driving_record.record_serious_violation(now);
-    assert!(carrier_termination_due(&p));
-    assert!(dispatch_trust_line(&p).contains("deciding whether to keep you"));
 }

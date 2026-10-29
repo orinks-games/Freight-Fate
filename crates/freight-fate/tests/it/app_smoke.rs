@@ -5,13 +5,12 @@
 
 use crate::states_city_support::*;
 use ff_core::models::business::LEASED_OWNER_OPERATOR;
-use ff_core::models::home_base::IMPOUND_LOT_FACILITY;
 use ff_core::models::profile::Profile;
 use freight_fate::app::testing::TestApp;
 use freight_fate::app::{smoke_audio_checks, smoke_checks, version, CliOptions};
 use freight_fate::states::base::{InputEvent, Key, Menu};
 use freight_fate::states::city::{
-    BobtailDestState, CityMenuState, GarageState, JobBoardState, TruckShopState, UpgradeShopState,
+    CityMenuState, GarageState, JobBoardState, TruckShopState, UpgradeShopState,
 };
 use freight_fate::states::city_pickup::PickupFacilityState;
 use freight_fate::states::driving::DrivingState;
@@ -30,11 +29,10 @@ fn new_career_to_city(app: &mut TestApp) {
     select::<MainMenuState>(app, "New career");
     assert!(is::<NameEntryState>(app));
     key(app, Key::Return); // default name
-    assert!(is::<HomeTerminalState>(app));
-    key(app, Key::Return); // default region
-    key(app, Key::Return); // default home city
     assert!(is::<CareerStartState>(app));
     key(app, Key::Return); // default start
+    key(app, Key::Return); // default region
+    key(app, Key::Return); // default home terminal
     assert!(is::<CityMenuState>(app));
 }
 
@@ -182,12 +180,12 @@ fn test_full_game_flow_headless() {
         app.dispatch_to_state(&InputEvent::typed(ch));
     }
     key(&mut app, Key::Return);
+    assert!(is::<CareerStartState>(&app));
+    key(&mut app, Key::Return); // default start: Northstar
     assert!(is::<HomeTerminalState>(&app));
     key(&mut app, Key::Return); // default region: Great Lakes
     assert!(is::<HomeCityState>(&app));
     key(&mut app, Key::Return); // default city: Chicago
-    assert!(is::<CareerStartState>(&app));
-    key(&mut app, Key::Return); // default start: Northstar
     assert!(is::<CityMenuState>(&app));
     assert_eq!(profile(&app).name, "Smoke");
     assert_eq!(profile(&app).current_city, "chicago_il_us");
@@ -353,42 +351,15 @@ fn test_full_game_flow_headless() {
     // continue back to the destination terminal hub
     select::<ArrivalState>(&mut app, "Continue to");
     assert!(is::<CityMenuState>(&app));
-    // Parked where the load was delivered (unless that is the home
-    // terminal city, where the carrier's own terminal wins).
-    let parked = profile(&app).parked_at(app.ctx.world);
-    assert!(!parked.name.is_empty() && parked.name != "Terminal");
-    assert_eq!(
-        parked.city_key,
-        app.ctx.world.resolve_city_key(&destination)
-    );
+    let terminal = app
+        .ctx
+        .world
+        .home_terminal(&destination)
+        .expect("the destination has a terminal");
     assert_eq!(
         with_state::<CityMenuState, _>(&app, |s, _| s.menu().title.clone()),
-        parked.name
+        terminal.name
     );
-
-    // The next dispatch deadheads from the delivered facility, not a
-    // terminal, and the pickup line must not claim otherwise.
-    key(&mut app, Key::Return); // job board
-    assert!(is::<JobBoardState>(&app));
-    accept_assigned_freight_with_deadhead(&mut app);
-    assert_eq!(
-        with_state::<DrivingState, _>(&app, |d, _| d.phase.to_string()),
-        DRIVE_PHASE_PICKUP
-    );
-    let spoken: Vec<String> = app
-        .main_lines()
-        .into_iter()
-        .chain(app.event_lines())
-        .collect();
-    assert!(
-        spoken
-            .iter()
-            .any(|l| l.contains("Pickup dispatch: deadhead to ")),
-        "{spoken:?}"
-    );
-    for line in &spoken {
-        assert!(!line.contains("from the terminal"), "{line}");
-    }
 
     // render a frame of every reachable lines() output
     app.render();
@@ -605,79 +576,4 @@ fn test_abandon_prompt_no_returns_to_pause_menu() {
     assert!(std::rc::Rc::ptr_eq(&app.state().expect("a state"), &pause));
     assert_eq!(profile(&app).money(), money);
     assert_eq!(profile(&app).active_trip, active_trip);
-}
-
-// -- leaving an impound lot ---------------------------------------------------------
-
-/// The hub's entry line, fresh.
-fn hub_parked_line(app: &mut TestApp) -> String {
-    app.clear_speech();
-    let hub = CityMenuState::new(&app.ctx, false);
-    app.push_state(hub);
-    app.main_lines()
-        .into_iter()
-        .find(|l| l.contains(" dollars."))
-        .expect("an entry line")
-}
-
-/// Pause the drive, abandon it, confirm Yes; returns what was said.
-fn abandon_the_drive(app: &mut TestApp) -> Vec<String> {
-    with_state_mut::<DrivingState, _>(app, |d, _| {
-        d.trip.position_mi = (d.trip.total_miles() / 2.0).min(10.0);
-    });
-    app.clear_speech();
-    key(app, Key::Escape);
-    assert!(is::<PauseMenuState>(app));
-    select::<PauseMenuState>(app, "Abandon job");
-    assert!(is::<AbandonJobConfirmationState>(app));
-    key(app, Key::Down); // Yes
-    key(app, Key::Return);
-    assert!(is::<CityMenuState>(app));
-    app.main_lines()
-}
-
-#[test]
-fn test_a_deadhead_out_of_the_impound_lot_then_abandoned_is_not_impounded() {
-    let mut app = TestApp::new();
-    new_career_to_city(&mut app);
-    profile_mut(&mut app).parked_facility = IMPOUND_LOT_FACILITY.to_string();
-    assert!(hub_parked_line(&mut app).contains("impound lot"));
-
-    key(&mut app, Key::Return); // job board
-    accept_assigned_freight_with_deadhead(&mut app);
-    // Driving out is what leaves the lot.
-    assert_ne!(profile(&app).parked_facility, IMPOUND_LOT_FACILITY);
-
-    let said = abandon_the_drive(&mut app);
-    assert!(
-        said.iter().any(|l| l.starts_with("Job abandoned.")),
-        "{said:?}"
-    );
-    assert_ne!(profile(&app).parked_facility, IMPOUND_LOT_FACILITY);
-    let line = hub_parked_line(&mut app);
-    assert!(!line.contains("impound"), "{line}");
-}
-
-#[test]
-fn test_an_empty_reposition_out_of_the_impound_lot_then_abandoned_is_not_impounded() {
-    let mut app = TestApp::new();
-    new_career_to_city(&mut app);
-    profile_mut(&mut app).business_status = LEASED_OWNER_OPERATOR.to_string();
-    profile_mut(&mut app).parked_facility = IMPOUND_LOT_FACILITY.to_string();
-    assert!(hub_parked_line(&mut app).contains("impound lot"));
-
-    select::<CityMenuState>(&mut app, "Bobtail to a nearby city");
-    assert!(is::<BobtailDestState>(&app));
-    key(&mut app, Key::Return);
-    assert!(is::<DrivingState>(&app));
-    assert_ne!(profile(&app).parked_facility, IMPOUND_LOT_FACILITY);
-
-    let said = abandon_the_drive(&mut app);
-    assert!(
-        said.iter().any(|l| l.starts_with("Reposition called off.")),
-        "{said:?}"
-    );
-    assert_ne!(profile(&app).parked_facility, IMPOUND_LOT_FACILITY);
-    let line = hub_parked_line(&mut app);
-    assert!(!line.contains("impound"), "{line}");
 }

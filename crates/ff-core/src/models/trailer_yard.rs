@@ -35,9 +35,7 @@
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 
-use crate::models::border_freight::paperwork_minutes;
 use crate::models::career::JobView;
-use crate::models::doubles::{doubles_break_extra_min, doubles_hook_extra_min};
 use crate::models::trailers::{owned_trailer_for_cargo, trailer_keys_for_cargo, trailer_type};
 use crate::pyfmt::{fmt_f, py_str_float, round_py_n};
 
@@ -84,9 +82,7 @@ pub const MODE_DROP_HOOK: &str = "drop_and_hook";
 pub const MODE_LIVE: &str = "live_load";
 
 /// One physical trailer, with a number on the side and a history behind it.
-/// Never written into a save: the pickup and trip snapshots keep only the job,
-/// and the unit is worked out again from its cargo and origin facility
-/// (`yard_trailers`, `preloaded_trailer`) whenever it is needed.
+/// Rides in the trip snapshot, so it serialises by field name.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct TrailerUnit {
     pub number: String,
@@ -273,10 +269,6 @@ pub struct PickupPlan {
     pub trailer: Option<TrailerUnit>,
     pub detention_minutes: f64,
     pub reason: &'static str,
-    /// A northbound trailer's paperwork at a border transfer yard, logged
-    /// at check-in, before `minutes`. It is the facility's hold, so it
-    /// counts toward detention; 0 everywhere else.
-    pub paperwork_minutes: f64,
 }
 
 impl PickupPlan {
@@ -290,36 +282,27 @@ impl PickupPlan {
 }
 
 /// Decide live load or drop-and-hook for this dispatch, and time it.
-///
-/// A set of doubles adds the second hook-up and the longer walk-around
-/// (`doubles::doubles_hook_extra_min`) to `minutes` whichever way it loads.
-/// That is the driver's own work, so it never counts toward detention.
 pub fn pickup_plan<J, P>(job: &J, profile: &P) -> PickupPlan
 where
     J: JobView + ?Sized,
     P: TrailerOwner + ?Sized,
 {
-    let doubles_min = doubles_hook_extra_min(job.cargo_key());
-    let paperwork = paperwork_minutes(job);
-    let held = |minutes: f64| (minutes + paperwork - DETENTION_FREE_MIN).max(0.0);
     if owns_the_trailer(profile, job) {
         return PickupPlan {
             mode: MODE_LIVE,
-            minutes: LIVE_LOAD_MIN + doubles_min,
+            minutes: LIVE_LOAD_MIN,
             trailer: None,
-            detention_minutes: held(LIVE_LOAD_MIN),
+            detention_minutes: 0.0,
             reason: "it is your own trailer, so this one loads at the dock",
-            paperwork_minutes: paperwork,
         };
     }
     if let Some(trailer) = preloaded_trailer(job) {
         return PickupPlan {
             mode: MODE_DROP_HOOK,
-            minutes: DROP_HOOK_MIN + doubles_min,
+            minutes: DROP_HOOK_MIN,
             trailer: Some(trailer),
-            detention_minutes: held(DROP_HOOK_MIN),
+            detention_minutes: 0.0,
             reason: "the yard has your load already on a trailer",
-            paperwork_minutes: paperwork,
         };
     }
     // Live load: the shipper's own hour, and sometimes a good deal more.
@@ -338,7 +321,7 @@ where
         0.0
     };
     let minutes = LIVE_LOAD_MIN + extra;
-    let detention = held(minutes);
+    let detention = (minutes - DETENTION_FREE_MIN).max(0.0);
     let reason = if detention > 0.0 {
         "the shipper is loading you at the dock, and they are running behind"
     } else {
@@ -346,11 +329,10 @@ where
     };
     PickupPlan {
         mode: MODE_LIVE,
-        minutes: minutes + doubles_min,
+        minutes,
         trailer: None,
         detention_minutes: detention,
         reason,
-        paperwork_minutes: paperwork,
     }
 }
 
@@ -417,14 +399,10 @@ where
     J: JobView + ?Sized,
     P: TrailerOwner + ?Sized,
 {
-    // A set of doubles is broken apart whichever way it comes off: the rear
-    // pup dropped, the dolly parked, the lead dropped or docked
-    // (`doubles::doubles_break_extra_min`).
-    let doubles_min = doubles_break_extra_min(job.cargo_key());
     if owns_the_trailer(profile, job) {
         return DeliveryPlan {
             mode: MODE_LIVE,
-            minutes: LIVE_UNLOAD_MIN + doubles_min,
+            minutes: LIVE_UNLOAD_MIN,
             keeps_trailer: true,
             reason: "it is your own trailer, so they unload you at the dock",
         };
@@ -437,14 +415,14 @@ where
     if facility_has_drop_yard(facility_type, facility_id) {
         return DeliveryPlan {
             mode: MODE_DROP_HOOK,
-            minutes: DROP_EMPTY_MIN + doubles_min,
+            minutes: DROP_EMPTY_MIN,
             keeps_trailer: false,
             reason: "the receiver takes the whole trailer and you leave with an empty",
         };
     }
     DeliveryPlan {
         mode: MODE_LIVE,
-        minutes: LIVE_UNLOAD_MIN + doubles_min,
+        minutes: LIVE_UNLOAD_MIN,
         keeps_trailer: true,
         reason: "the receiver is unloading you at the dock",
     }

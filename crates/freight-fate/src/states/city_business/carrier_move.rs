@@ -5,7 +5,7 @@
 //! one row per carrier, and each asks twice, because there is no moving back.
 
 use ff_core::models::carrier_move::{
-    apply_carrier_move, at_training_fleet, move_up_carriers, move_up_eligibility, move_up_home,
+    apply_carrier_move, at_training_fleet, move_up_carriers, move_up_eligibility,
 };
 use ff_core::models::start_options::CareerStartOption;
 
@@ -30,7 +30,7 @@ impl BusinessStatusState {
             )
             .help("What another carrier needs before it hires you away.")];
         }
-        move_up_carriers(ctx.world, move_up_home(p))
+        move_up_carriers()
             .into_iter()
             .map(|option| {
                 let key = option.key;
@@ -64,8 +64,7 @@ impl BusinessStatusState {
             return;
         }
         self.move_armed = None;
-        let world = ctx.world;
-        let line = apply_carrier_move(profile_mut(ctx), world, option);
+        let line = apply_carrier_move(profile_mut(ctx), option);
         save_business_change(ctx);
         ctx.audio.play("ui/notify");
         ctx.say(&line);

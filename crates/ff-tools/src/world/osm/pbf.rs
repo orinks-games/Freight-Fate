@@ -13,7 +13,7 @@ use std::time::Instant;
 use osmpbf::{BlobDecode, BlobReader, PrimitiveBlock};
 use rayon::iter::{ParallelBridge, ParallelIterator};
 
-use super::bake::way_limit_in;
+use super::bake::way_limit;
 use super::geo::OsmWay;
 use crate::util::Result;
 
@@ -28,45 +28,6 @@ struct RawWay {
     route_ref: String,
     mph: Option<f64>,
     hgv: bool,
-    ca_mph: Option<f64>,
-    ca_hgv: bool,
-}
-
-const CANADIAN_REF_CODES: &[&str] = &[
-    "AB", "BC", "MB", "NB", "NL", "NS", "NT", "NU", "ON", "PE", "QC", "SK", "YK", "YT",
-];
-const US_REF_CODES: &[&str] = &[
-    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS",
-    "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY",
-    "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV",
-    "WI", "WY", "DC",
-];
-
-/// Whether the way's own tags say its bare numbers are km/h (`Some(true)`)
-/// or mph (`Some(false)`): a `maxspeed:type` or `source:maxspeed` naming
-/// the country ("CA:urban"), else the province or state code that leads its
-/// `ref` ("BC 97"). `None` leaves it to where the way is.
-pub fn bare_unit_is_kmh(maxspeed_type: &str, route_ref: &str) -> Option<bool> {
-    let jurisdiction = maxspeed_type.trim().to_uppercase();
-    if jurisdiction.starts_with("CA:") {
-        return Some(true);
-    }
-    if jurisdiction.starts_with("US:") {
-        return Some(false);
-    }
-    let code = route_ref
-        .split(';')
-        .next()
-        .and_then(|r| r.split_whitespace().next())
-        .unwrap_or("")
-        .to_uppercase();
-    if CANADIAN_REF_CODES.contains(&code.as_str()) {
-        Some(true)
-    } else if US_REF_CODES.contains(&code.as_str()) {
-        Some(false)
-    } else {
-        None
-    }
 }
 
 fn ways_of(block: &PrimitiveBlock) -> Vec<RawWay> {
@@ -77,15 +38,12 @@ fn ways_of(block: &PrimitiveBlock) -> Vec<RawWay> {
             let mut maxspeed = None;
             let mut maxspeed_hgv = None;
             let mut route_ref = String::new();
-            let mut maxspeed_type = "";
             for (k, v) in way.tags() {
                 match k {
                     "highway" => highway = Some(v),
                     "maxspeed" => maxspeed = Some(v),
                     "maxspeed:hgv" => maxspeed_hgv = Some(v),
                     "ref" => route_ref = v.to_string(),
-                    "maxspeed:type" => maxspeed_type = v,
-                    "source:maxspeed" if maxspeed_type.is_empty() => maxspeed_type = v,
                     _ => {}
                 }
             }
@@ -95,21 +53,16 @@ fn ways_of(block: &PrimitiveBlock) -> Vec<RawWay> {
             if maxspeed.is_none() && maxspeed_hgv.is_none() {
                 continue;
             }
-            let hint = bare_unit_is_kmh(maxspeed_type, &route_ref);
-            let read = |kmh: bool| match way_limit_in(maxspeed, maxspeed_hgv, hint.unwrap_or(kmh)) {
+            let (mph, hgv) = match way_limit(maxspeed, maxspeed_hgv) {
                 Some((mph, hgv)) => (Some(mph), hgv),
                 None => (None, false),
             };
-            let (mph, hgv) = read(false);
-            let (ca_mph, ca_hgv) = read(true);
             out.push(RawWay {
                 id: way.id(),
                 refs: way.refs().collect(),
                 route_ref: route_ref.trim().to_string(),
                 mph,
                 hgv,
-                ca_mph,
-                ca_hgv,
             });
         }
     }
@@ -221,26 +174,9 @@ pub fn read_ways(paths: &[impl AsRef<Path>]) -> Result<Vec<OsmWay>> {
                 route_ref: way.route_ref,
                 mph: way.mph,
                 hgv: way.hgv,
-                ca_mph: way.ca_mph,
-                ca_hgv: way.ca_hgv,
                 coords,
             });
         }
     }
     Ok(out)
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn a_ways_own_tags_name_its_unit() {
-        assert_eq!(bare_unit_is_kmh("CA:BC:rural", ""), Some(true));
-        assert_eq!(bare_unit_is_kmh("US:AK:rural", "BC 97"), Some(false));
-        assert_eq!(bare_unit_is_kmh("", "BC 97;BC 2"), Some(true));
-        assert_eq!(bare_unit_is_kmh("", "AK 2"), Some(false));
-        assert_eq!(bare_unit_is_kmh("", "1"), None);
-        assert_eq!(bare_unit_is_kmh("sign", ""), None);
-    }
 }

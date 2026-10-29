@@ -4,17 +4,6 @@
 use crate::pyfmt::{fmt_grouped, round_py_n};
 use crate::pyrandom::PyRandom;
 
-/// 2025 annual average diesel prices from Statistics Canada table
-/// 18-10-0001-01, "Diesel fuel at self service filling stations":
-/// Vancouver for British Columbia and Whitehorse for Yukon.
-pub const CANADA_DIESEL_CENTS_PER_L: &[(&str, &str, f64)] = &[
-    ("BC", "British Columbia", 178.475),
-    ("YT", "Yukon", 168.433),
-];
-
-/// Litres in one US gallon.
-pub const LITRES_PER_US_GALLON: f64 = 3.785411784;
-
 /// Diesel $/gal by region, nudged by a per-session market wobble.
 ///
 /// Kept in the Python dict's insertion order: [`Economy::new`] draws one
@@ -44,24 +33,6 @@ pub fn region_fuel_price(region: &str) -> Option<f64> {
         .iter()
         .find(|(key, _)| *key == region)
         .map(|(_, price)| *price)
-}
-
-/// Canadian diesel price in USD per US gallon, for a state or province code
-/// or name. Values use Statistics Canada table 18-10-0001-01's 2025 annual
-/// average and the Bank of Canada 2025 CAD/USD average.
-pub fn canada_diesel_usd_per_gal(jurisdiction: &str) -> Option<f64> {
-    CANADA_DIESEL_CENTS_PER_L
-        .iter()
-        .find(|(code, name, _)| *code == jurisdiction || *name == jurisdiction)
-        .map(|(_, _, cents_per_litre)| {
-            *cents_per_litre / 100.0 * LITRES_PER_US_GALLON
-                / crate::models::enforcement::CAD_PER_USD
-        })
-}
-
-/// Canadian dollars per litre for a USD-per-US-gallon price.
-pub fn cad_per_litre(usd_per_gal: f64) -> f64 {
-    usd_per_gal * crate::models::enforcement::CAD_PER_USD / LITRES_PER_US_GALLON
 }
 
 /// Diesel price assumed for a region the table does not know.
@@ -208,25 +179,6 @@ impl Economy {
 
     pub fn fuel_cost(&self, region: &str, gallons: f64) -> f64 {
         round_py_n(self.fuel_price(region) * gallons, 2)
-    }
-
-    /// Diesel price for a market and jurisdiction. Canadian prices use their
-    /// 2025 local annual average with the market's session wobble, or the live
-    /// US national price adjustment; all other jurisdictions use the
-    /// unchanged regional price.
-    pub fn fuel_price_at(&self, region: &str, jurisdiction: &str) -> f64 {
-        let Some(base) = canada_diesel_usd_per_gal(jurisdiction) else {
-            return self.fuel_price(region);
-        };
-        match self.live_national {
-            Some(live) => round_py_n((live + (base - Self::table_national_price())).max(0.5), 2),
-            None => round_py_n(base * self.market_mult(region), 2),
-        }
-    }
-
-    /// Fuel cost for a market, jurisdiction, and number of US gallons.
-    pub fn fuel_cost_at(&self, region: &str, jurisdiction: &str, gallons: f64) -> f64 {
-        round_py_n(self.fuel_price_at(region, jurisdiction) * gallons, 2)
     }
 
     pub fn repair_cost(damage_pct: f64) -> f64 {

@@ -61,38 +61,8 @@ impl CareerObjective {
     }
 }
 
-/// The objective for a company driver with no carrier: there is one thing
-/// to do, and it names no carrier.
-pub const NO_CARRIER_OBJECTIVE: &str = "Apply to a carrier to get back on freight.";
-
 /// Return the current practical career objective without changing saves.
 pub fn career_objective<P: CareerProfile + ?Sized>(profile: &P) -> CareerObjective {
-    if crate::models::business::has_no_carrier(profile) {
-        return CareerObjective::new("Get back on freight", NO_CARRIER_OBJECTIVE, "carrier seat");
-    }
-    // A pulled CDL decides the plan: no load can be taken until it clears,
-    // so the objective is to wait it out, with the time left and the row
-    // that skips ahead. A lifetime disqualification has nothing to wait for
-    // and keeps the plan the career had.
-    if let Some(text) = crate::models::enforcement::suspended_objective_text(profile) {
-        if !text.is_empty() {
-            let mut objective = business_objective(profile);
-            let mut chars = text.chars();
-            objective.terminal_text = match chars.next() {
-                Some(first) => first.to_uppercase().collect::<String>() + chars.as_str(),
-                None => text,
-            };
-            if let Some(record) = profile.driving_record() {
-                objective.title = crate::models::enforcement::wait_out_label(record);
-            }
-            return objective;
-        }
-    }
-    business_objective(profile)
-}
-
-/// The plan the career's business path sets, with no CDL hold in the way.
-fn business_objective<P: CareerProfile + ?Sized>(profile: &P) -> CareerObjective {
     let status = profile.business_status();
     if status == INDEPENDENT_AUTHORITY {
         return independent_authority_objective(profile);
