@@ -72,6 +72,7 @@ const BAKED_MAGIC: &[u8] = b"FFDATA\x00\x00";
 const RUST_BAKED_SOURCE_FILES: &[&str] = &[
     "border_yards.json",
     "buffs.json",
+    "carriers.json",
     "channel3000.json",
     "city_services.json",
     "facility_approaches.json",

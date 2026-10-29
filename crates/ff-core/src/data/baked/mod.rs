@@ -155,6 +155,7 @@ pub const SECTION_LOCAL_GEOMETRY: &str = "local_geometry";
 pub const TEXT_FILES: &[&str] = &[
     "street_limits.json",
     "buffs.json",
+    "carriers.json",
     "border_yards.json",
     "channel3000.json",
     "radio_catalog.json",
