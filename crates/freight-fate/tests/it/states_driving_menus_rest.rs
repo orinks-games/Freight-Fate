@@ -685,6 +685,7 @@ fn test_pause_menu_lists_the_drive_controls() {
         "Controls and help",
         "Learn game sounds",
         "Settings",
+        "Achievements",
         "Drivers on duty",
         "Abandon job",
         "Quit to main menu",

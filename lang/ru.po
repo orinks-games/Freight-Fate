@@ -2191,6 +2191,51 @@ msgstr ""
 msgid "Jethro Tull - Teacher"
 msgstr "Jethro Tull - Teacher"
 
+msgid "earned"
+msgstr ""
+
+msgid "newest"
+msgstr ""
+
+msgid "locked"
+msgstr ""
+
+msgid "name"
+msgstr "name"
+
+msgid "original"
+msgstr ""
+
+msgid "Earned first"
+msgstr ""
+
+msgid "Newest"
+msgstr ""
+
+msgid "Locked first"
+msgstr ""
+
+msgid "A to Z"
+msgstr ""
+
+msgid "Original order"
+msgstr ""
+
+msgid "Sort: Earned first"
+msgstr ""
+
+msgid "Sort: Newest"
+msgstr ""
+
+msgid "Sort: Locked first"
+msgstr ""
+
+msgid "Sort: A to Z"
+msgstr ""
+
+msgid "Sort: Original order"
+msgstr ""
+
 #. placeholders: {path}
 msgid "Not a Freight Fate sound pack: {path}"
 msgstr "Это не звуковой пакет Freight Fate: {path}"
@@ -4490,6 +4535,69 @@ msgstr ""
 "контроля."
 
 msgid ""
+"Halloween week. Somewhere a porch light is on, and the candy bowl is going "
+"fast."
+msgstr ""
+
+msgid ""
+"Trick or treat. Big Jim is handing out business cards this year. Nobody "
+"wants them."
+msgstr ""
+
+msgid "Costume idea: a driver with a clean logbook. Nobody will believe it."
+msgstr ""
+
+msgid ""
+"Halloween week. Kids in costumes are out after dark. Take it slow where the "
+"houses start."
+msgstr ""
+
+msgid ""
+"Haunted house season. Nothing in there is as frightening as a dock "
+"appointment before sunrise."
+msgstr ""
+
+msgid ""
+"Halloween week. The hayrides are running, and the tractors are slower than "
+"you."
+msgstr ""
+
+msgid ""
+"Illinois grows more pumpkins than any other state. Most of them end up in a "
+"pie."
+msgstr ""
+
+msgid ""
+"Salem, Massachusetts, spends all of October on Halloween. Witches welcome. "
+"Trailers, less so."
+msgstr ""
+
+msgid ""
+"New England at Halloween. The leaves are mostly down, and the cider "
+"doughnuts are still hot."
+msgstr ""
+
+msgid ""
+"Sleepy Hollow is on the Hudson. The headless horseman rides all week. Keep "
+"your own head on the road."
+msgstr ""
+
+msgid ""
+"New Orleans takes its ghosts seriously. The cemetery tours are booked all "
+"week."
+msgstr ""
+
+msgid ""
+"Halloween week in farm country. Harvest is still on, so watch for grain "
+"trucks pulling out slow."
+msgstr ""
+
+msgid ""
+"Día de los Muertos is days away. The marigolds and sugar skulls are already "
+"out."
+msgstr ""
+
+msgid ""
 "Thanksgiving week. Somewhere a turkey is grateful you are hauling freight "
 "and not him."
 msgstr ""
@@ -4524,9 +4632,6 @@ msgstr ""
 
 msgid "id"
 msgstr "id"
-
-msgid "name"
-msgstr "name"
 
 msgid "spoken"
 msgstr ""
@@ -18411,15 +18516,15 @@ msgid ""
 msgstr ""
 "Получено {earned} из {ACHIEVEMENTS} во всех карьерах на этой установке."
 
-msgid "Controls and account scope"
-msgstr "Управление и охват аккаунта"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}. {done} из {achievements}"
 
 msgid "The account-wide earned count."
 msgstr "Число полученных достижений по всему аккаунту."
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}. {done} из {achievements}"
+msgid "Controls and account scope"
+msgstr "Управление и охват аккаунта"
 
 msgid "Back to Online"
 msgstr "Назад в «Онлайн»"
@@ -18466,6 +18571,14 @@ msgstr "Продолжайте играть, чтобы открыть его."
 msgid "Back to account categories"
 msgstr "Назад к категориям аккаунта"
 
+msgid ""
+"Left and Right change the order of the categories and the achievements in "
+"each one."
+msgstr ""
+
+msgid "Left and Right change the order of this category only."
+msgstr ""
+
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr ""
 "Все помощники: грузовик рулит сам. Рекомендуется для первых поездок."
@@ -18480,26 +18593,21 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations."
 msgstr ""
-"Он держит полосу, проходит повороты и углы улиц и сам съезжает с трассы на "
-"ваших съездах."
 
 #. placeholders: {control_steer_left}, {control_steer_right}
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits. A tap of {control_steer_left} or {control_steer_right} changes "
-"lanes. Speed, stops and the docks are yours."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations. A tap of "
+"{control_steer_left} or {control_steer_right} changes lanes. Speed, rest "
+"and fuel stops, and the docks are yours."
 msgstr ""
-"Он держит полосу, проходит повороты и углы улиц и сам съезжает с трассы на "
-"ваших съездах. Короткое нажатие {control_steer_left} или "
-"{control_steer_right} меняет полосу. Скорость, остановки и погрузочные доки "
-"на вас."
 
 #. one sentence of a longer line
-msgid "Speed, stops and the docks are yours."
-msgstr "Скорость, остановки и погрузочные доки на вас."
+msgid "Speed, rest and fuel stops, and the docks are yours."
+msgstr ""
 
 msgid "Balanced: you steer, with help."
 msgstr "Сбалансированный: вы рулите, с помощью."
@@ -20126,6 +20234,9 @@ msgid ""
 msgstr ""
 "Уровень, репутация, доверие диспетчера, история вождения и права CDL, "
 "баланс и долг, отметки в правах, итоги за карьеру и отдых."
+
+msgid "Achievements"
+msgstr "Достижения"
 
 msgid "Licenses and training"
 msgstr "Права и обучение"
@@ -28754,6 +28865,10 @@ msgstr "съезд к весам"
 msgid "ramp terminal"
 msgstr "конец съезда"
 
+#. placeholders: {name}
+msgid "At {name}."
+msgstr ""
+
 #. placeholders: {place}
 msgid "At {place}."
 msgstr "{place}."
@@ -28973,6 +29088,10 @@ msgstr "{capitalized} полоса свободна."
 #. placeholders: {name}
 msgid "Changing to the {name} lane for the exit."
 msgstr "Перестраиваемся в полосу {name} для съезда."
+
+#. placeholders: {name}
+msgid "Changing to the {name} lane for the lane closure."
+msgstr ""
 
 #. placeholders: {lane_count_words}
 msgid "The road narrows to {lane_count_words}."
@@ -35093,39 +35212,58 @@ msgstr " Теперь в полосе {lane_label}."
 msgid "The road narrows to {lane_count_words}.{moved}"
 msgstr "Дорога сужается до {lane_count_words}.{moved}"
 
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "The {closed_name} lane closes at the work zone ahead."
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"The {closed_name} lane closes at the work zone ahead. Waiting for a gap in "
+"the {open_name} lane."
+msgstr ""
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane."
+msgstr ""
+
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane."
 msgstr "Перестройтесь в полосу {open_name}."
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "The {lane_label} lane closes at the work zone ahead."
-msgstr "Полоса {lane_label} закрывается у зоны работ впереди."
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"The {lane_label} lane closes at the work zone ahead. Move to the "
+"The {closed_name} lane closes at the work zone ahead. Move to the "
 "{open_name} lane."
 msgstr ""
-"Полоса {lane_label} закрывается у зоны работ впереди. Перестройтесь в "
-"полосу {open_name}."
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "You are in the closed {closed_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"You are in the closed {closed_name} lane! Waiting for a gap in the "
+"{open_name} lane!"
+msgstr ""
 
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane!"
 msgstr "Перестройтесь в полосу {open_name}!"
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "You are in the closed {lane_label} lane!"
-msgstr "Вы в закрытой полосе {lane_label}!"
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"You are in the closed {lane_label} lane! Move to the {open_name} lane!"
+"You are in the closed {closed_name} lane! Move to the {open_name} lane!"
 msgstr ""
-"Вы в закрытой полосе {lane_label}! Перестройтесь в полосу {open_name}!"
 
 #. placeholders: {damage_pct}
 #. one sentence of a longer line
@@ -35808,8 +35946,8 @@ msgstr "Введите имя водителя."
 msgid "New career. Type your driver name, then Enter."
 msgstr "Новая карьера. Введите имя водителя, затем нажмите Enter."
 
-msgid "Achievements"
-msgstr "Достижения"
+msgid "This career's earned and locked achievements."
+msgstr ""
 
 msgid "Pick a saved career. Enter opens its achievements, Escape goes back."
 msgstr ""
@@ -35864,12 +36002,12 @@ msgstr ""
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "Получено {earned_count} из {ACHIEVEMENTS}."
 
-msgid "The total earned."
-msgstr "Всего получено."
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}. {done} из {achs}"
+
+msgid "The total earned."
+msgstr "Всего получено."
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr ""
@@ -37438,12 +37576,10 @@ msgstr "Удержание полосы: {lane_keeping_label}"
 #. one sentence of a longer line
 msgid ""
 "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
-"into tap lane changes, and takes your exits, including the destination "
-"exit, without a signal."
+"into tap lane changes, moves out of a lane a work zone closes, and takes "
+"your exits and open weigh stations, including the destination exit, without "
+"a signal."
 msgstr ""
-"Полное держит полосу, превращает {control_steer_left} и "
-"{control_steer_right} в смену полосы касанием и уходит на ваши съезды, "
-"включая съезд к месту доставки, без сигнала."
 
 #. one sentence of a longer line
 msgid "How much of the lane-holding work the truck does."
@@ -37453,30 +37589,17 @@ msgstr "Сколько работы по удержанию полосы дел�
 msgid ""
 "How much of the lane-holding work the truck does. Full holds the lane, "
 "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
-"and takes your exits, including the destination exit, without a signal. "
-"Partial steers the truck through the road's bends and drifts gently, with "
-"generous steering help; lane changes and speed are yours. Off drifts like a "
-"real wheel; bends are yours unless curve assistance is on, and every exit "
-"needs its signal and its exit lane. On partial or off {lean}. The road "
-"sound only says where you sit in your lane, and the road edge answers: a "
-"stutter clipping the rumble strip, a buzz fully on it, gravel off the "
-"pavement. Steering guide and Lane guide sound, under Audio, change which "
-"way to steer and what leans. Realistic sets this off, Balanced partial, All "
-"assists full."
+"moves out of a lane a work zone closes, and takes your exits and open weigh "
+"stations, including the destination exit, without a signal. Partial steers "
+"the truck through the road's bends and drifts gently, with generous "
+"steering help; lane changes and speed are yours. Off drifts like a real "
+"wheel; bends are yours unless curve assistance is on, and every exit needs "
+"its signal and its exit lane. On partial or off {lean}. The road sound only "
+"says where you sit in your lane, and the road edge answers: a stutter "
+"clipping the rumble strip, a buzz fully on it, gravel off the pavement. "
+"Steering guide and Lane guide sound, under Audio, change which way to steer "
+"and what leans. Realistic sets this off, Balanced partial, All assists full."
 msgstr ""
-"Сколько работы по удержанию полосы делает грузовик. Полное держит полосу, "
-"превращает {control_steer_left} и {control_steer_right} в смену полосы "
-"касанием и уходит на ваши съезды, включая съезд к месту доставки, без "
-"сигнала. Частичное ведёт грузовик по изгибам дороги и даёт мягкий снос со "
-"щедрой помощью в рулении; смена полосы и скорость на вас. Выключенное "
-"сносит, как настоящий руль; повороты на вас, если не включена помощь в "
-"поворотах, а каждому съезду нужен свой сигнал и своя полоса съезда. При "
-"частичном или выключенном {lean}. Звук дороги говорит только, где вы "
-"находитесь в полосе, а край дороги отвечает: дробь, когда вы задеваете "
-"шумовую полосу, гул, когда вы полностью на ней, гравий за краем асфальта. "
-"«Подсказка руления» и «Звук подсказки полосы» в разделе «Звук» меняют, в "
-"какую сторону рулить и что смещается. «Реалистичный» выключает это, "
-"«Сбалансированный» ставит частичное, «Все помощники» полное."
 
 #. one sentence of a longer line
 msgid ""
@@ -43511,6 +43634,81 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits."
+#~ msgstr ""
+#~ "Он держит полосу, проходит повороты и углы улиц и сам съезжает с трассы на "
+#~ "ваших съездах."
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits. A tap of {control_steer_left} or {control_steer_right} changes "
+#~ "lanes. Speed, stops and the docks are yours."
+#~ msgstr ""
+#~ "Он держит полосу, проходит повороты и углы улиц и сам съезжает с трассы на "
+#~ "ваших съездах. Короткое нажатие {control_steer_left} или "
+#~ "{control_steer_right} меняет полосу. Скорость, остановки и погрузочные доки "
+#~ "на вас."
+
+#~ msgid "Speed, stops and the docks are yours."
+#~ msgstr "Скорость, остановки и погрузочные доки на вас."
+
+#~ msgid "The {lane_label} lane closes at the work zone ahead."
+#~ msgstr "Полоса {lane_label} закрывается у зоны работ впереди."
+
+#~ msgid ""
+#~ "The {lane_label} lane closes at the work zone ahead. Move to the "
+#~ "{open_name} lane."
+#~ msgstr ""
+#~ "Полоса {lane_label} закрывается у зоны работ впереди. Перестройтесь в "
+#~ "полосу {open_name}."
+
+#~ msgid "You are in the closed {lane_label} lane!"
+#~ msgstr "Вы в закрытой полосе {lane_label}!"
+
+#~ msgid ""
+#~ "You are in the closed {lane_label} lane! Move to the {open_name} lane!"
+#~ msgstr ""
+#~ "Вы в закрытой полосе {lane_label}! Перестройтесь в полосу {open_name}!"
+
+#~ msgid ""
+#~ "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
+#~ "into tap lane changes, and takes your exits, including the destination "
+#~ "exit, without a signal."
+#~ msgstr ""
+#~ "Полное держит полосу, превращает {control_steer_left} и "
+#~ "{control_steer_right} в смену полосы касанием и уходит на ваши съезды, "
+#~ "включая съезд к месту доставки, без сигнала."
+
+#~ msgid ""
+#~ "How much of the lane-holding work the truck does. Full holds the lane, "
+#~ "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
+#~ "and takes your exits, including the destination exit, without a signal. "
+#~ "Partial steers the truck through the road's bends and drifts gently, with "
+#~ "generous steering help; lane changes and speed are yours. Off drifts like a "
+#~ "real wheel; bends are yours unless curve assistance is on, and every exit "
+#~ "needs its signal and its exit lane. On partial or off {lean}. The road "
+#~ "sound only says where you sit in your lane, and the road edge answers: a "
+#~ "stutter clipping the rumble strip, a buzz fully on it, gravel off the "
+#~ "pavement. Steering guide and Lane guide sound, under Audio, change which "
+#~ "way to steer and what leans. Realistic sets this off, Balanced partial, All "
+#~ "assists full."
+#~ msgstr ""
+#~ "Сколько работы по удержанию полосы делает грузовик. Полное держит полосу, "
+#~ "превращает {control_steer_left} и {control_steer_right} в смену полосы "
+#~ "касанием и уходит на ваши съезды, включая съезд к месту доставки, без "
+#~ "сигнала. Частичное ведёт грузовик по изгибам дороги и даёт мягкий снос со "
+#~ "щедрой помощью в рулении; смена полосы и скорость на вас. Выключенное "
+#~ "сносит, как настоящий руль; повороты на вас, если не включена помощь в "
+#~ "поворотах, а каждому съезду нужен свой сигнал и своя полоса съезда. При "
+#~ "частичном или выключенном {lean}. Звук дороги говорит только, где вы "
+#~ "находитесь в полосе, а край дороги отвечает: дробь, когда вы задеваете "
+#~ "шумовую полосу, гул, когда вы полностью на ней, гравий за краем асфальта. "
+#~ "«Подсказка руления» и «Звук подсказки полосы» в разделе «Звук» меняют, в "
+#~ "какую сторону рулить и что смещается. «Реалистичный» выключает это, "
+#~ "«Сбалансированный» ставит частичное, «Все помощники» полное."
 
 #~ msgid "{py_capitalize}. {grouped} dollars.{cdl}{record}"
 #~ msgstr ""

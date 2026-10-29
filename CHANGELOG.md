@@ -60,9 +60,12 @@
 - **The ELD now tracks your 70-hour, 8-day work cycle.** When a day of cycle hours is left the status line says so, and a 34-hour rest starts a fresh week.
 
 - **A menu letter can now choose its item at once.** Turn on Menu accelerator keys in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).
+- **Achievements can be sorted.** A new Sort row puts earned ones first by default, or newest, locked first, A to Z, or the original order.
+- **Achievements open from the terminal and the pause menu,** showing the career you are playing.
 
 ### Changed
 
+- **Full lane keeping now takes open weigh stations.** It signals for the scale, and the truck stops at it with facility stopping assistance on.
 - **Exit ramps are updated to October's road data.** Most exits know their ramp's length and the light or sign at its end, both ways.
 - **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.
 - **Adaptive cruise now holds highway work zones and heavy traffic at their limit.** The speed keeper takes over only on streets and facility approaches.
@@ -111,6 +114,9 @@
 
 - **Sitting through a training course now tires you, about half as fast as driving.** A multi-day course counts only its last daytime class day.
 
+- **Halloween week has more billboards, and they no longer repeat the same two lines.** They come up less often, and some are about the state you are in.
+- **Adaptive cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
+- **Full lane keeping now leaves a lane that a work zone closes.** It moves over when the signs come up, so All assists no longer drives into the barrels.
 - **Facility stopping assistance no longer gets you fined at a chain control.** A truck pulling into the chain-up area to put chains on is not cited.
 - **A crash on Windows now writes its cause into game.log,** so a bug report with the log shows what went wrong.
 - **A co-driver no longer crawls at 20 miles per hour after a downhill work zone.** They kept braking for the hill and ran out of hours.

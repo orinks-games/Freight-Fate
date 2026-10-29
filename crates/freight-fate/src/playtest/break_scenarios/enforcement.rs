@@ -53,6 +53,9 @@ pub fn scale_check_in_guidance() -> Outcome {
     let mut rig = Rig::new(RigOptions::default());
     let mut findings: Vec<String> = Vec::new();
     let (scale, _truckstop) = inject_open_scale(&mut rig.drive.trip);
+    // Partial until the X press: on full, lane keeping signals for the scale
+    // itself, and this scenario is about the driver's own press.
+    rig.app.ctx.settings.lane_keeping = "partial".to_string();
     rig.prepare(54.0, None);
     rig.press(Key::K); // cruise at the limit: the scale is the only demand
 
