@@ -72,11 +72,14 @@ impl DrivingState {
         let profile = profile_of(ctx);
         let date = calendar_date(profile.player_calendar_hours());
         let local_hour = self.trip.local_hour().rem_euclid(24.0);
+        let state = self.trip.state_code_at(self.trip.position_mi);
         let moment = BillboardMoment {
             incident: now.incident_since(self.billboard_watch),
             tired: profile.fatigue >= FATIGUE_DROWSY || SMALL_HOURS.contains(&local_hour),
             holiday: holiday_on(date.month(), date.day()),
             nth: self.pool_billboards_heard,
+            offset: self.billboard_offset,
+            state: state.as_deref(),
         };
         self.billboard_watch = now;
         self.pool_billboards_heard += 1;

@@ -110,15 +110,24 @@ fn test_account_achievement_browser_speaks_scope_controls_and_badge_states_witho
         opening.contains("earned across every career on this installation"),
         "{opening}"
     );
-    assert!(opening.contains("Controls and account scope"), "{opening}");
+    assert!(opening.contains("Sort: Earned first"), "{opening}");
 
     let account = app.state().unwrap();
     let rows = labels::<AccountAchievementsState>(&account, &app.ctx);
-    assert_eq!(rows[0], "Controls and account scope");
-    assert!(rows[1].starts_with("Summary:"));
+    // Sort first, the sorted categories under it, then the summary, the
+    // controls line and Back.
+    let n = categories().len();
+    assert_eq!(rows[0], "Sort: Earned first");
+    assert!(rows[n + 1].starts_with("Summary:"), "{rows:?}");
+    assert_eq!(rows[n + 2], "Controls and account scope");
+    assert_eq!(rows[n + 3], "Back to Online");
+    // Earned first: the one category holding the earned badge leads, the
+    // rest keep the catalog order.
+    let mut ordered: Vec<_> = categories().iter().collect();
+    ordered.sort_by_key(|category| category.id != earned.category);
     assert_eq!(
-        &rows[2..2 + categories().len()],
-        categories()
+        &rows[1..1 + n],
+        ordered
             .iter()
             .map(|category| {
                 let count = achievements_in_category(category.id).len();
@@ -128,6 +137,7 @@ fn test_account_achievement_browser_speaks_scope_controls_and_badge_states_witho
             .collect::<Vec<_>>()
     );
 
+    move_to::<AccountAchievementsState>(&mut app, &account, "Controls and account scope");
     app.clear_speech();
     press(&mut app, Key::Return);
     let controls = said(&app);
@@ -159,8 +169,12 @@ fn test_account_achievement_browser_speaks_scope_controls_and_badge_states_witho
     let category_state = app.state().unwrap();
     let category_rows = labels::<AccountAchievementCategoryState>(&category_state, &app.ctx);
     let catalog = achievements_in_category(earned.category);
-    assert_eq!(category_rows.len(), catalog.len() + 1);
-    for (row, achievement) in category_rows.iter().zip(catalog.iter()) {
+    // The Sort row, then the badges, earned first by default, then Back.
+    assert_eq!(category_rows.len(), catalog.len() + 2);
+    assert_eq!(category_rows[0], "Sort: Earned first");
+    let mut ordered = catalog.clone();
+    ordered.sort_by_key(|achievement| achievement.id != earned.id);
+    for (row, achievement) in category_rows[1..].iter().zip(ordered.iter()) {
         if achievement.id == earned.id {
             assert!(
                 row.starts_with(&format!("Earned: {}", earned.name)),
@@ -214,7 +228,8 @@ fn test_account_achievement_browser_speaks_scope_controls_and_badge_states_witho
     let hidden_state = app.state().unwrap();
     assert!(is_state::<AccountAchievementCategoryState>(&hidden_state));
     let hidden_rows = labels::<AccountAchievementCategoryState>(&hidden_state, &app.ctx);
-    assert_eq!(hidden_rows[0], format!("Locked: {HIDDEN_NAME}"));
+    assert_eq!(hidden_rows[1], format!("Locked: {HIDDEN_NAME}"));
+    move_to::<AccountAchievementCategoryState>(&mut app, &hidden_state, "Locked:");
     app.clear_speech();
     press(&mut app, Key::Return);
     assert!(said(&app).starts_with(&format!("Locked: {HIDDEN_NAME}")));
@@ -274,11 +289,8 @@ fn test_account_categories_and_late_badges_are_controller_reachable() {
     press(&mut app, Key::Return);
 
     let account = app.state().unwrap();
-    for button in [
-        ControllerButton::DPadDown,
-        ControllerButton::DPadDown,
-        ControllerButton::A,
-    ] {
+    // Down from the Sort row to the first category.
+    for button in [ControllerButton::DPadDown, ControllerButton::A] {
         with_state::<AccountAchievementsState, _>(&account, |state| {
             freight_fate::states::base::State::handle_controller(
                 state,
@@ -294,6 +306,7 @@ fn test_account_categories_and_late_badges_are_controller_reachable() {
 
     let category = app.state().unwrap();
     let rows = labels::<AccountAchievementCategoryState>(&category, &app.ctx);
+    // Sort first and Back last; the final badge is just above Back.
     let final_achievement = rows[rows.len() - 2].clone();
     for _ in 0..rows.len() - 2 {
         with_state::<AccountAchievementCategoryState, _>(&category, |state| {

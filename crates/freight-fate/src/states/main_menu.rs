@@ -48,7 +48,10 @@ mod shortcuts;
 mod touch_gestures;
 mod touch_practice;
 
-pub use achievements::{AchievementCareerState, AchievementCategoryState, AchievementsState};
+pub use achievements::{
+    open_career_achievements, AchievementCareerState, AchievementCategoryState, AchievementsState,
+    CAREER_ACHIEVEMENTS_HELP,
+};
 pub use careers::{
     CareerAction, CareerActionsState, ConfirmCareerActionState, LoadDriverState, ManageCareersState,
 };

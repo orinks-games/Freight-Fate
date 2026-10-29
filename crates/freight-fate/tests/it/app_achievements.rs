@@ -824,12 +824,19 @@ fn test_main_menu_achievement_path_is_keyboard_accessible() {
     );
     key(&mut app, Key::Return);
 
-    // The career picker opens the category menu, not a flat badge list.
+    // The career picker opens the category menu, not a flat badge list,
+    // landing on the Sort row above the categories.
     assert!(is::<AchievementsState>(&app));
+    assert_eq!(
+        current_label::<AchievementsState>(&app),
+        "Sort: Earned first"
+    );
     assert!(
-        current_label::<AchievementsState>(&app).starts_with("Summary: 1 of"),
-        "{}",
-        current_label::<AchievementsState>(&app)
+        labels::<AchievementsState>(&app)
+            .iter()
+            .any(|row| row.starts_with("Summary: 1 of")),
+        "{:?}",
+        labels::<AchievementsState>(&app)
     );
 
     // first_delivery ("Signed, Sealed, Hauled") lives in "Out on the Road";
@@ -896,7 +903,8 @@ fn test_category_with_nothing_earned_still_reads_naturally() {
         app.main_lines()
     );
     let rows = labels::<AchievementCategoryState>(&app);
-    for row in &rows[..rows.len() - 1] {
+    // Every row between Sort and Back.
+    for row in &rows[1..rows.len() - 1] {
         assert!(
             row.starts_with("Locked: A Secret the Manifest Is Keeping"),
             "{rows:?}"

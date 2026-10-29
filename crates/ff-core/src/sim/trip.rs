@@ -258,6 +258,9 @@ pub struct Trip {
     pub finished: bool,
     /// The control the stop callout names for signalling an exit.
     pub exit_hint: String,
+    /// Lane keeping signals for open scales itself, so a scale's callout
+    /// names no key. Set each frame by the driving layer.
+    pub scales_signal_themselves: bool,
     /// Facilities named in full already this leg (research doc R6).
     pub facilities_named: HashSet<String>,
     pub facility_leg: usize,
@@ -472,6 +475,7 @@ impl Trip {
             last_chatter_s: None,
             finished: false,
             exit_hint: "X".to_string(),
+            scales_signal_themselves: false,
             facilities_named: HashSet::new(),
             facility_leg: 0,
             waiting: false,

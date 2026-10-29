@@ -374,8 +374,21 @@ bookmarks usable.
       all-night diners take every other sign for a drowsy driver or between
       one and five in the morning; a holiday's week (New Year's, the Fourth
       of July, Halloween, Thanksgiving, Christmas, on the date the player
-      hears) takes every third. Placed attraction signs never change, and no
+      hears) takes every fourth. Placed attraction signs never change, and no
       line names an exit or a service (`data/billboards_dynamic.rs`).
+- [x] Holiday billboards vary and stay regional (owner, 2026-10-28: the
+      weigh station and scarecrow lines were all Halloween week had, and
+      every trip opened on the same one). Halloween has fifteen lines, seven
+      of them anchored to the states they are true in (Salem, Sleepy
+      Hollow, New Orleans, Illinois pumpkins, New England, the corn belt
+      harvest, the Day of the Dead in the border states). Each pool is walked
+      from a starting point set by the career hour at departure, so no line
+      repeats before the rest are read, and a three-line pool no longer
+      reads only its first line. The other holidays still have two or three
+      lines each.
+- [ ] (Found along the way) More New Year's, Fourth of July, Thanksgiving
+      and Christmas billboard lines, including regional ones, before
+      Thanksgiving week.
 - [ ] Billboards could also react to the cargo in the trailer and to the
       weather (owner, 2026-09-30: "at least one and two" shipped first).
 
@@ -730,6 +743,12 @@ into the release gate. Details stay in the linked dated sections, marked
 Everything found before 2026-09-25 moved to
 [2.0](#found-along-the-way-in-19-moved-to-20) that day.
 
+- [x] (Found along the way) Full lane keeping leaves a lane a work zone
+      closes and takes open weigh stations (owner, 2026-10-27).
+- [ ] (Found along the way) The closure merge cannot drop back behind
+      traffic with the cruise off.
+- [x] (Found along the way) Adaptive cruise reached two limit drops into
+      Wausau still over them (agent drive, 2026-10-27).
 - [ ] (Found along the way) 1.9.5 closes with no error on one Windows
       player's machine, twice, both on facility streets heading for
       Lynchburg, Virginia (issue #513, 2026-10-25). The log just stops, so
@@ -3659,6 +3678,48 @@ Minneapolis.
       repository is music deleted in August 2026; a filter-repo pass
       measured 346 MB. It needs a force push and fresh clones, so it waits
       for the owner.
+
+### October 27 All assists takes the closed lane and the scale (Found along the way)
+
+The owner asked for All assists to do the driving jobs that lead to
+violations (2026-10-27: "it should switch lanes and handle not crashing
+into the barrels"). An audit of what full lane keeping still left to the
+player found two: speed, following distance, bends, corners, exits, passing
+and the ramp lights were already the truck's.
+
+- [x] (Found along the way) **Full lane keeping leaves a lane a work zone
+      closes.** It rode the closed lane into the barrels: damage, the
+      barrel citation and a serious violation. `update_closure_merge`
+      moves into the open lane from a mile (or 20 real seconds) before the
+      taper, says "Changing to the left lane for the lane closure.", and
+      eases the cruise under a vehicle holding the gap so it can drop in
+      behind it, the way the co-driver already did. A pass, a move right
+      for an exit, and the move back from a pass no longer go into a lane
+      the zone ahead closes. A move left out of a right-lane closure counts
+      as a pass, so the truck keeps right again once the right lane is open
+      past the zone (the first agent drive rode the left lane on to the CB's
+      keep-right grumbling). The taper and barrel warnings on full say
+      "Waiting for a gap" instead of "Move to".
+- [x] (Found along the way) **Full lane keeping takes open weigh
+      stations.** It signals for an open scale that wants the truck
+      (`lane_keeping_signal_for_scale`), as it takes the destination exit,
+      and with facility stopping assistance on the truck brakes to the bar
+      and the scale opens. A signal the player cancels stays cancelled.
+- [x] (Found along the way) The same agent drive heard "Over the limit of
+      35 miles per hour" and then "of 25" on adaptive cruise, coming off
+      65 into Wausau on WI-29: the cruise eased for the drops but reached
+      each one still over it. A limit-drop overspeed on All assists is a
+      speeding observation the driver did nothing to earn.
+      Fixed: the truck's physics runs on the real clock and only the road
+      it covers is compressed, but the lookahead sized the braking
+      distance and its quarter-mile margin at real time. Both now scale
+      with the pace, as the setpoint walk already did; at ten and twenty
+      times cruise reaches 35 and 25 at or under the cap
+      (`transcript_driving_cruise_limit_drop_compressed`).
+- [ ] (Found along the way) On full lane keeping with the cruise off, the
+      closure merge cannot drop back behind traffic: the ease only works
+      through the cruise. Rare on All assists, where the speed keeper arms
+      the cruise.
 
 ### October 26 the road to the 2.0 nightlies (Found along the way)
 
