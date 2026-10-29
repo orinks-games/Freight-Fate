@@ -22,7 +22,7 @@ pub mod catalog;
 pub mod sort;
 
 pub use catalog::{ACHIEVEMENTS, CATALOG_DIGEST, CATEGORIES, HIDDEN_HELP, HIDDEN_NAME};
-pub use sort::AchievementSort;
+pub use sort::{career_order, AchievementSort, EarnedOrder};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct Achievement {

@@ -1068,9 +1068,9 @@ The service checks whether the stream plays and whether the station is already l
 
 ## Achievements and career progress
 
-Open Achievements from the main menu and choose a saved career. The menu reads how many achievements that driver has earned. Choose a category to browse its entries, using Up and Down to move and Enter to repeat an entry. Escape returns to the categories. On a controller, use the D-pad, A, and B.
+Open Achievements from the main menu and choose a saved career. While you play, Achievements on the terminal menu and the pause menu opens the current career's achievements directly. The menu reads how many achievements that driver has earned. Choose a category to browse its entries, using Up and Down to move and Enter to repeat an entry. Escape returns to the categories. On a controller, use the D-pad, A, and B.
 
-The first row, Sort, sets the order of the categories below it and of the entries inside them: earned first, locked first, A to Z, or the original order. Use Left and Right, or Enter, to change it; the game remembers your choice. Earned first is the default. Each category opens on its own Sort row, which changes that category alone until you leave the achievements. Account achievements under Online sort the same way.
+The first row, Sort, sets the order of the categories below it and of the entries inside them: earned first, newest first, locked first, A to Z, or the original order. Use Left and Right, or Enter, to change it; the game remembers your choice. Earned first is the default. Each category opens on its own Sort row, which changes that category alone until you leave the achievements. Account achievements under Online sort the same way.
 
 Earned entries include their descriptions. Locked entries don't give you the same detail, and hidden achievements keep their names secret until earned. You can browse them between trips without starting or changing a career.
 

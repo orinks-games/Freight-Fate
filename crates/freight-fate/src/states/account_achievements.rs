@@ -1,8 +1,8 @@
 //! Read-only category browser for achievements earned across this installation.
 
-use std::collections::HashSet;
-
-use ff_core::achievements::{entry_text, Achievement, AchievementCategory, ACHIEVEMENTS};
+use ff_core::achievements::{
+    entry_text, Achievement, AchievementCategory, EarnedOrder, ACHIEVEMENTS,
+};
 
 use crate::app::GameContext;
 use crate::impl_state_for_menu;
@@ -15,6 +15,20 @@ use crate::states::base::{Key, Label, Menu, MenuCore, MenuItem};
 const CONTROLS: &str = "Enter opens a category. Inside one, Enter repeats the achievement \
 and Escape returns to the categories. From the categories, Escape returns to Online. This \
 read-only collection combines every career on this installation.";
+
+/// The account's earned badges, ranked by when they were first earned. A
+/// badge the ledger has no trustworthy time for counts as the oldest.
+fn account_order(ctx: &GameContext) -> EarnedOrder {
+    let ledger = &ctx.account_achievements;
+    ledger
+        .ids()
+        .into_iter()
+        .map(|id| {
+            let rank = ledger.earned_at(&id).unwrap_or(i64::MIN);
+            (id, rank)
+        })
+        .collect()
+}
 
 pub struct AccountAchievementsState {
     menu: MenuCore<Self>,
@@ -41,8 +55,8 @@ impl AccountAchievementsState {
         self.menu.index == SORT_ROW
     }
 
-    fn earned(ctx: &GameContext) -> HashSet<String> {
-        ctx.account_achievements.ids().into_iter().collect()
+    fn earned(ctx: &GameContext) -> EarnedOrder {
+        account_order(ctx)
     }
 
     fn summary_label(ctx: &GameContext) -> String {
@@ -175,8 +189,8 @@ impl AccountAchievementCategoryState {
         self
     }
 
-    fn earned(ctx: &GameContext) -> HashSet<String> {
-        ctx.account_achievements.ids().into_iter().collect()
+    fn earned(ctx: &GameContext) -> EarnedOrder {
+        account_order(ctx)
     }
 
     fn step_sort(&mut self, ctx: &mut GameContext, direction: i64) {
@@ -203,7 +217,7 @@ impl Menu for AccountAchievementCategoryState {
         let done = self
             .achievements
             .iter()
-            .filter(|achievement| earned.contains(achievement.id))
+            .filter(|achievement| earned.contains_key(achievement.id))
             .count();
         ctx.say(&format!(
             "Account achievements, {}. {done} of {} earned. {}",
@@ -249,7 +263,7 @@ impl Menu for AccountAchievementCategoryState {
             .select_sound(None),
         );
         for achievement in sorted_achievements(sort, &self.achievements, &earned) {
-            let unlocked = earned.contains(achievement.id);
+            let unlocked = earned.contains_key(achievement.id);
             let (name, description) = entry_text(achievement, unlocked);
             let (label, help) = if unlocked {
                 (format!("Earned: {name}. {description}"), description)

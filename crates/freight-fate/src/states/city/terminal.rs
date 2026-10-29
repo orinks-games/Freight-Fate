@@ -36,7 +36,9 @@ use crate::states::city::{
 };
 use crate::states::driving_school::DrivingSchoolState;
 use crate::states::logbook::LogbookState;
-use crate::states::main_menu::{MainMenuState, SettingsState};
+use crate::states::main_menu::{
+    open_career_achievements, MainMenuState, SettingsState, CAREER_ACHIEVEMENTS_HELP,
+};
 
 use super::close_out::CloseOutCareerState;
 use super::truck_status::TruckStatusState;
@@ -802,6 +804,12 @@ impl Menu for CityMenuState {
                 "Level, reputation, dispatch trust, driving record and CDL, balance and debt, \
                  endorsements, lifetime numbers, and rest.",
             ),
+        );
+        items.push(
+            MenuItem::new("Achievements", |_s: &mut Self, ctx| {
+                open_career_achievements(ctx)
+            })
+            .help(CAREER_ACHIEVEMENTS_HELP),
         );
         items.push(
             MenuItem::new("Licenses and training", |s: &mut Self, ctx| {

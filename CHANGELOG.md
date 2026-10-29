@@ -5,7 +5,8 @@
 ### Added
 
 - **A menu letter can now choose its item at once.** Turn on Menu accelerator keys in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).
-- **Achievements can be sorted.** A new Sort row puts earned ones first by default, or locked first, A to Z, or the original order.
+- **Achievements can be sorted.** A new Sort row puts earned ones first by default, or newest, locked first, A to Z, or the original order.
+- **Achievements open from the terminal and the pause menu,** showing the career you are playing.
 
 ### Changed
 

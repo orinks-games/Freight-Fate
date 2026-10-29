@@ -2479,6 +2479,10 @@ msgid "earned"
 msgstr ""
 
 #: crates/ff-core/src/achievements/sort.rs
+msgid "newest"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
 msgid "locked"
 msgstr ""
 
@@ -2495,6 +2499,10 @@ msgid "Earned first"
 msgstr ""
 
 #: crates/ff-core/src/achievements/sort.rs
+msgid "Newest"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
 msgid "Locked first"
 msgstr ""
 
@@ -2508,6 +2516,10 @@ msgstr ""
 
 #: crates/ff-core/src/achievements/sort.rs
 msgid "Sort: Earned first"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Sort: Newest"
 msgstr ""
 
 #: crates/ff-core/src/achievements/sort.rs
@@ -21137,6 +21149,10 @@ msgid ""
 "debt, endorsements, lifetime numbers, and rest."
 msgstr ""
 
+#: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/driving_pause_states.rs crates/freight-fate/src/states/main_menu/achievements.rs crates/freight-fate/src/states/main_menu.rs
+msgid "Achievements"
+msgstr ""
+
 #: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/city_business.rs
 msgid "Licenses and training"
 msgstr ""
@@ -37914,8 +37930,8 @@ msgstr ""
 msgid "New career. Type your driver name, then Enter."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu/achievements.rs crates/freight-fate/src/states/main_menu.rs
-msgid "Achievements"
+#: crates/freight-fate/src/states/main_menu/achievements.rs
+msgid "This career's earned and locked achievements."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/achievements.rs
