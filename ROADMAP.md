@@ -365,8 +365,21 @@ bookmarks usable.
       all-night diners take every other sign for a drowsy driver or between
       one and five in the morning; a holiday's week (New Year's, the Fourth
       of July, Halloween, Thanksgiving, Christmas, on the date the player
-      hears) takes every third. Placed attraction signs never change, and no
+      hears) takes every fourth. Placed attraction signs never change, and no
       line names an exit or a service (`data/billboards_dynamic.rs`).
+- [x] Holiday billboards vary and stay regional (owner, 2026-10-28: the
+      weigh station and scarecrow lines were all Halloween week had, and
+      every trip opened on the same one). Halloween has fifteen lines, seven
+      of them anchored to the states they are true in (Salem, Sleepy
+      Hollow, New Orleans, Illinois pumpkins, New England, the corn belt
+      harvest, the Day of the Dead in the border states). Each pool is walked
+      from a starting point set by the career hour at departure, so no line
+      repeats before the rest are read, and a three-line pool no longer
+      reads only its first line. The other holidays still have two or three
+      lines each.
+- [ ] (Found along the way) More New Year's, Fourth of July, Thanksgiving
+      and Christmas billboard lines, including regional ones, before
+      Thanksgiving week.
 - [ ] Billboards could also react to the cargo in the trailer and to the
       weather (owner, 2026-09-30: "at least one and two" shipped first).
 
