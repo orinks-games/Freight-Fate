@@ -10,6 +10,7 @@
 
 ### Changed
 
+- **Duty watch now checks the drivers list every two minutes.** A driver coming on duty can be announced up to a minute later than before.
 - **Full lane keeping now takes open weigh stations.** It signals for the scale, and the truck stops at it with facility stopping assistance on.
 - **Exit ramps are updated to October's road data.** Most exits know their ramp's length and the light or sign at its end, both ways.
 - **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.
