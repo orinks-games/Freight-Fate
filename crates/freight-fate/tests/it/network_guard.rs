@@ -183,7 +183,7 @@ fn test_the_default_service_options_carry_the_live_transport() {
     }));
     assert!(outcome.is_err(), "the live transport was not the default");
     assert!(
-        was_refused(&online_presence::base_url()),
+        was_refused(&online_presence::presence_api_url("presence")),
         "{:?}",
         net::refused_requests()
     );
