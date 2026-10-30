@@ -60,6 +60,8 @@ workspace = true
 [dependencies]
 ff-core = { path = "../ff-core" }
 hearken.workspace = true
+# The self-updater (see src/updater.rs).
+hearken-update = { workspace = true, features = ["http"] }
 log.workspace = true
 env_logger.workspace = true
 serde.workspace = true

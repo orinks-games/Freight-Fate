@@ -58,6 +58,16 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         release::ios_signing::main,
     ),
     (
+        "update-manifests",
+        "sign the release's update manifests and write its file indexes",
+        release::updates::manifests_main,
+    ),
+    (
+        "update-key",
+        "show the game's update key (--new makes it, --print shows the CI secret)",
+        release::updates::key_main,
+    ),
+    (
         "windows-imports",
         "audit a Cargo build's Windows executable the way the release does",
         windows_runtime::check_windows_imports,

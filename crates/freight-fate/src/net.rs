@@ -132,8 +132,8 @@ pub fn download_agent() -> &'static Agent {
 /// Holding an agent sends nothing -- it is a TLS config and an idle
 /// connection pool -- so this is not where the network capability below is
 /// checked. Every path that actually SENDS checks it: [`request`], and
-/// `updater::apply::download`, which streams its body off this agent and so
-/// calls [`require_real_network`] itself.
+/// the updater's fetch (`updater::MirrorFetch`), which sends through the
+/// engine's own client and so calls [`require_real_network`] itself.
 pub fn agent(tier: Tier) -> &'static Agent {
     match tier {
         Tier::Orinks => &ORINKS_AGENT,

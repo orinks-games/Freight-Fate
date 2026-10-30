@@ -32,6 +32,7 @@ pub mod ios_signing;
 mod macos;
 mod packs;
 pub mod plist;
+pub mod updates;
 
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -98,10 +99,9 @@ const LICENSED_SOUND_TREE: &str = "sounds-licensed";
 /// Build-only leftovers in the Cargo profile directory that carry a native
 /// suffix on some platforms but are not runtime libraries.
 const CARGO_NON_RUNTIME_SUFFIXES: &[&str] = &["pdb", "d", "rlib", "lib", "exp"];
-/// The packs an update skips: most of the download, and they rarely change
-/// between builds. The in-game updater fetches the rest of a zip release by
-/// byte range and keeps the player's own packs when their size and CRC-32
-/// match the zip's index; build_info.json records both.
+/// The big packs every release carries. They rarely change between builds,
+/// so the in-game updater usually keeps the player's own (it compares every
+/// file against the release's signed file index; see `release/updates.rs`).
 pub const UPDATE_SKIPPED_PACKS: &[&str] =
     &["freight_fate/music.pak", "freight_fate/channel3000.pak"];
 
@@ -125,22 +125,42 @@ pub fn staged_dir() -> PathBuf {
 /// `.devN` the crate version cannot, so a snapshot never calls itself the
 /// stable release.
 pub fn project_version() -> Result<String> {
+    release_metadata("package-version")?
+        .ok_or_else(|| "Cargo.toml has no [workspace.metadata.release] package-version".into())
+}
+
+/// A string under `table` in the root Cargo.toml, or `None` when it has none.
+fn root_manifest_value(table: &str, key: &str) -> Result<Option<String>> {
     let manifest = util::read_text(&util::repo_root().join("Cargo.toml"))?;
     let mut in_table = false;
     for line in manifest.lines() {
         let line = line.trim();
         if line.starts_with('[') {
-            in_table = line == "[workspace.metadata.release]";
+            in_table = line == table;
             continue;
         }
         if in_table {
-            if let Some(value) = line.strip_prefix("package-version") {
-                let value = value.trim_start().trim_start_matches('=').trim();
-                return Ok(value.trim_matches('"').to_string());
+            if let Some(value) = line.strip_prefix(key) {
+                let value = value.trim_start();
+                if let Some(value) = value.strip_prefix('=') {
+                    let value = value.split('#').next().unwrap_or("").trim();
+                    return Ok(Some(value.trim_matches('"').to_string()));
+                }
             }
         }
     }
-    Err("Cargo.toml has no [workspace.metadata.release] package-version".into())
+    Ok(None)
+}
+
+/// A value under `[workspace.metadata.release]` in the root Cargo.toml.
+pub fn release_metadata(key: &str) -> Result<Option<String>> {
+    root_manifest_value("[workspace.metadata.release]", key)
+}
+
+/// The workspace's Cargo version (`[workspace.package] version`).
+pub fn crate_version() -> Result<String> {
+    root_manifest_value("[workspace.package]", "version")?
+        .ok_or_else(|| "Cargo.toml has no [workspace.package] version".into())
 }
 
 /// `version`: print the project version, or with `--release-line` the
@@ -232,23 +252,6 @@ fn build_commit() -> String {
     util::git(&util::repo_root(), &["rev-parse", "HEAD"]).unwrap_or_default()
 }
 
-fn file_crc32(path: &Path) -> Result<u32> {
-    use std::io::Read;
-    let mut file = std::fs::File::open(path).map_err(|e| format!("{}: {e}", path.display()))?;
-    let mut hasher = crc32fast::Hasher::new();
-    let mut buf = vec![0u8; 1 << 20];
-    loop {
-        let n = file
-            .read(&mut buf)
-            .map_err(|e| format!("{}: {e}", path.display()))?;
-        if n == 0 {
-            break;
-        }
-        hasher.update(&buf[..n]);
-    }
-    Ok(hasher.finalize())
-}
-
 /// Record what this build is, for the in-game updater.
 ///
 /// `package_version` is what the game reports as its own version, and what
@@ -280,21 +283,6 @@ pub fn stamp_build_info(root: &Path, label: &str) -> Result<()> {
         Value::from(label_package_version(label)?),
     );
     info.insert("commit", Value::from(build_commit()));
-    let mut packs = Vec::new();
-    for relative in UPDATE_SKIPPED_PACKS {
-        let path = root.join(relative);
-        if path.is_file() {
-            let size = path.metadata().map_err(|e| e.to_string())?.len();
-            let mut record = Object::new();
-            record.insert("path", Value::from(*relative));
-            record.insert("size", Value::from(size));
-            record.insert("crc32", Value::from(file_crc32(&path)? as u64));
-            packs.push(Value::Object(record));
-        }
-    }
-    if !packs.is_empty() {
-        info.insert("packs", Value::Array(packs));
-    }
     util::write_text(
         &root.join("build_info.json"),
         &pyjson::dumps(&Value::Object(info), &pyjson::Options::indent(2)),
@@ -347,8 +335,13 @@ fn stage_sound_pack(root: &Path) -> Result<()> {
     util::copy_file(&credits, &root.join("SOUND_CREDITS.md"))
 }
 
-fn cargo_build_command(target_dir: Option<&Path>) -> Command {
+fn cargo_build_command(target_dir: Option<&Path>, label: &str) -> Result<Command> {
     let mut cmd = Command::new("cargo");
+    // What the in-game updater knows this build as: its public update key,
+    // version and channel, baked into hearken-update.
+    for (name, value) in updates::bake_vars(label, &crate_version()?)? {
+        cmd.env(name, value);
+    }
     // No default features: the agent server is dev tooling, and a player has
     // no use for an agent at the wheel. The visual display is a default too,
     // so it is named back in.
@@ -365,7 +358,7 @@ fn cargo_build_command(target_dir: Option<&Path>) -> Command {
         cmd.arg("--target-dir").arg(dir);
     }
     cmd.current_dir(util::repo_root());
-    cmd
+    Ok(cmd)
 }
 
 fn cargo_profile_dir(target_dir: Option<&Path>) -> PathBuf {
@@ -896,7 +889,7 @@ fn build_rust(
     // Restore the verified music and Channel 3000 packs before Cargo runs.
     packs::ensure_music_pack(None)?;
     packs::ensure_channel3000_pack(None)?;
-    util::run(&mut cargo_build_command(target_dir))?;
+    util::run(&mut cargo_build_command(target_dir, label)?)?;
     let profile_dir = cargo_profile_dir(target_dir);
     let baked = bake_world_data(target_dir, None)?;
     let build = stage_rust_build(&profile_dir, &staged_dir(), &baked, platform, label)?;

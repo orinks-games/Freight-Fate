@@ -43954,31 +43954,6 @@ msgstr ""
 msgid "update-check"
 msgstr ""
 
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/update.rs
-msgid "Could not reach the update server."
-msgstr ""
-
-#. placeholders: {describe_error}
-#: crates/freight-fate/src/states/update.rs
-msgid "Could not reach the update server. {describe_error}"
-msgstr ""
-
-#: crates/freight-fate/src/states/update.rs
-msgid ""
-"On iPhone and iPad, updates come through the App Store or TestFlight."
-msgstr ""
-
-#: crates/freight-fate/src/states/update.rs
-msgid "AG Now keeps this copy up to date."
-msgstr ""
-
-#: crates/freight-fate/src/states/update.rs
-msgid ""
-"Updates are only available in the packaged game. This copy runs from "
-"source; update it with git."
-msgstr ""
-
 #: crates/freight-fate/src/states/update.rs
 msgid "Checking for updates..."
 msgstr ""
@@ -44014,12 +43989,6 @@ msgid ""
 "this version stops asking about this update."
 msgstr ""
 
-#: crates/freight-fate/src/states/update.rs
-msgid ""
-"Updates can only be installed in the packaged game. This copy runs from "
-"source."
-msgstr ""
-
 #. placeholders: {title}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/update.rs
@@ -44036,9 +44005,13 @@ msgstr ""
 msgid "The next update will still be offered."
 msgstr ""
 
-#. placeholders: {mb}
 #: crates/freight-fate/src/states/update.rs
-msgid " {mb} megabytes."
+msgid " of changes"
+msgstr ""
+
+#. placeholders: {f}, {changes}
+#: crates/freight-fate/src/states/update.rs
+msgid "{f} megabytes{changes}"
 msgstr ""
 
 #. one sentence of a longer line
@@ -44160,11 +44133,6 @@ msgstr ""
 msgid "The download arrived damaged, so it was not installed."
 msgstr ""
 
-#. placeholders: {describe_error}
-#: crates/freight-fate/src/states/update.rs
-msgid "The download failed. {describe_error}"
-msgstr ""
-
 #. placeholders: {sentence}
 #: crates/freight-fate/src/states/update.rs
 msgid "The download failed. {sentence}"
@@ -44218,9 +44186,7 @@ msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/update.rs
-msgid ""
-"Copy it over your game folder, which keeps your music and radio packs, then "
-"restart the game."
+msgid "Install it yourself, then restart the game."
 msgstr ""
 
 #. placeholders: {dest}
@@ -44232,31 +44198,8 @@ msgstr ""
 #. placeholders: {dest}
 #: crates/freight-fate/src/states/update.rs
 msgid ""
-"The new version is saved at {dest}. Copy it over your game folder, which "
-"keeps your music and radio packs, then restart the game."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/update.rs
-msgid "Install it yourself, then restart the game."
-msgstr ""
-
-#. placeholders: {dest}
-#: crates/freight-fate/src/states/update.rs
-msgid ""
 "The new version is saved at {dest}. Install it yourself, then restart the "
 "game."
-msgstr ""
-
-#. placeholders: {mb}
-#: crates/freight-fate/src/states/update.rs
-msgid ", {mb} megabytes"
-msgstr ""
-
-#. placeholders: {mb}
-#. one clause of a longer line
-#: crates/freight-fate/src/states/update.rs
-msgid "{mb} megabytes"
 msgstr ""
 
 #. placeholders: {title}, {size}

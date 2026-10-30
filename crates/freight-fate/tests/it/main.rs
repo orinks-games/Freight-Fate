@@ -225,7 +225,6 @@ mod transcript_tutorial_verbosity;
 mod transcript_wrong_way;
 mod updater;
 mod updater_agnow;
-mod updater_slim;
 mod updater_watchdog;
 mod windows_subsystem;
 

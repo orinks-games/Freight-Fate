@@ -15,9 +15,8 @@ use ff_core::settings::Settings;
 
 use crate::app::{version, GameContext, Say};
 use crate::impl_state_for_menu;
-use crate::net;
 use crate::states::base::{InputEvent, Key, Menu, MenuCore, MenuItem, State};
-use crate::updater::{self, DownloadError, UpdateInfo, UpdaterEnv};
+use crate::updater::{self, DownloadError, Install, Phase, Staged, UpdateInfo};
 
 /// Background release check; poll [`UpdateChecker::is_done`] from the main
 /// loop.
@@ -38,10 +37,9 @@ impl UpdateChecker {
             .update_mirror_enabled
             .then(|| settings.update_mirror_prefix.clone());
         let worker = checker.clone();
-        let current = version().to_string();
         std::thread::Builder::new()
             .name("update-check".into())
-            .spawn(move || worker.run(&channel, &current, build.as_ref(), mirror_prefix.as_deref()))
+            .spawn(move || worker.run(&channel, mirror_prefix.as_deref()))
             .ok();
         checker
     }
@@ -65,24 +63,17 @@ impl UpdateChecker {
         }
     }
 
-    fn run(
-        &self,
-        channel: &str,
-        current: &str,
-        build: Option<&updater::BuildInfo>,
-        mirror_prefix: Option<&str>,
-    ) {
-        match updater::check_for_update(channel, current, build, mirror_prefix) {
+    fn run(&self, channel: &str, mirror_prefix: Option<&str>) {
+        // Nothing stops a check once started: it ends with the game.
+        let never = AtomicBool::new(false);
+        match updater::check_for_update(channel, mirror_prefix, &never) {
             Ok(result) => {
                 *self.result.lock().unwrap_or_else(|e| e.into_inner()) = result;
             }
             Err(e) => {
-                // offline, rate-limited, GitHub down...
-                log::warn!("Update check failed: {e:?}");
-                *self.error.lock().unwrap_or_else(|e| e.into_inner()) = Some(format!(
-                    "Could not reach the update server. {}",
-                    net::describe_error(&e)
-                ));
+                // offline, rate-limited, GitHub down, a refused manifest...
+                log::warn!("Update check failed: {e}");
+                *self.error.lock().unwrap_or_else(|e| e.into_inner()) = Some(e);
             }
         }
         self.done.store(true, Ordering::SeqCst);
@@ -130,22 +121,9 @@ impl Default for UpdateCheckState {
 
 impl State for UpdateCheckState {
     fn enter(&mut self, ctx: &mut GameContext) {
-        if !updater::SELF_UPDATES {
-            self.message = "On iPhone and iPad, updates come through the App Store \
-                            or TestFlight."
-                .to_string();
-            ctx.say(&self.message);
-            return;
-        }
-        if updater::managed_by_agnow() {
-            self.message = "AG Now keeps this copy up to date.".to_string();
-            ctx.say(&self.message);
-            return;
-        }
-        if !updater::is_frozen() {
-            self.message = "Updates are only available in the packaged game. \
-                            This copy runs from source; update it with git."
-                .to_string();
+        let host = updater::Host::current();
+        if let Some(why) = updater::blocked(updater::running().as_ref(), &host) {
+            self.message = updater::blocked_line(why).to_string();
             ctx.say(&self.message);
             return;
         }
@@ -215,13 +193,19 @@ impl UpdatePromptState {
     }
 
     fn download(&mut self, ctx: &mut GameContext) {
-        if !updater::is_frozen() {
-            ctx.say(
-                "Updates can only be installed in the packaged game. This copy runs from source.",
-            );
+        let host = updater::Host::current();
+        if let Some(why) = updater::blocked(updater::running().as_ref(), &host) {
+            ctx.say(updater::blocked_line(why));
             return;
         }
-        ctx.replace_state(UpdateDownloadState::new(self.info.clone()));
+        let mirror = ctx
+            .settings
+            .update_mirror_enabled
+            .then(|| ctx.settings.update_mirror_prefix.clone());
+        ctx.replace_state(UpdateDownloadState::new_with_mirror(
+            self.info.clone(),
+            mirror,
+        ));
     }
 
     fn whats_new(&mut self, ctx: &mut GameContext) {
@@ -242,10 +226,16 @@ impl UpdatePromptState {
 }
 
 /// The download's size (`UpdateInfo::download_size`) spoken as whole
-/// megabytes, or `None` when unknown.
+/// megabytes, "of changes" when only the changed files are fetched, or
+/// `None` when unknown.
 fn megabytes(info: &UpdateInfo) -> Option<String> {
     let mb = info.download_size() as f64 / 1e6;
-    (mb != 0.0).then(|| fmt_f(mb, 0))
+    let changes = if info.update.plan.is_some() {
+        " of changes"
+    } else {
+        ""
+    };
+    (mb != 0.0).then(|| format!("{} megabytes{changes}", fmt_f(mb, 0)))
 }
 
 impl Menu for UpdatePromptState {
@@ -259,7 +249,7 @@ impl Menu for UpdatePromptState {
 
     fn announce_entry(&mut self, ctx: &mut GameContext) {
         let size = megabytes(&self.info)
-            .map(|mb| format!(" {mb} megabytes."))
+            .map(|mb| format!(" {mb}."))
             .unwrap_or_default();
         let text = format!(
             "Update available. {} is ready to install. You are on version {}.{size} {}",
@@ -357,45 +347,45 @@ impl State for WhatsNewState {
 /// `update` on the main thread.
 #[derive(Default)]
 struct DownloadOutcome {
-    new_root: Option<PathBuf>,
+    staged: Option<Staged>,
     staging: Option<PathBuf>,
     error: Option<String>,
-    /// The staged update is the smaller archive, without the sound packs
-    /// the install already has: installed by hand, it must be copied over
-    /// the game folder, not set up fresh.
-    leaves_out_packs: bool,
 }
 
-/// `updater.can_auto_apply` / `stash_for_manual_install`, injectable so a
+/// `updater::can_auto_apply` / `stash_for_manual_install`, injectable so a
 /// test can stage an update that needs a manual install without a real
-/// AppImage (the Python tests monkeypatched the module functions).
-pub type AutoApplyProbe = Box<dyn Fn(&Path) -> bool>;
-pub type StashHook = Box<dyn Fn(&Path) -> PathBuf>;
+/// AppImage.
+pub type AutoApplyProbe = Box<dyn Fn(&Staged, &Install) -> bool>;
+pub type StashHook = Box<dyn Fn(&Staged, &Path) -> PathBuf>;
 /// `updater::apply_and_restart`, injectable so a test can make the apply
-/// script fail to start without spawning a real shell.
-pub type ApplyHook = Box<dyn Fn(&Path, &Path) -> std::io::Result<()>>;
-/// `updater::download`, injectable so a test can play a transfer that
-/// stalls or fails part-way without the network.
+/// script fail to start without spawning a real shell. Takes the staged
+/// update, what it replaces, and the staging folder.
+pub type ApplyHook = Box<dyn Fn(&Staged, &Install, &Path) -> std::io::Result<()>>;
+/// `updater::download_and_stage`, injectable so a test can play a transfer
+/// that stalls or fails part-way without the network. Takes the update,
+/// the staging folder, the install, and the progress, phase and cancel
+/// channels.
 pub type FetchHook = Box<
     dyn FnOnce(
             &UpdateInfo,
             &Path,
+            &Install,
             &mut dyn FnMut(u64, u64),
+            &mut dyn FnMut(Phase),
             &AtomicBool,
-        ) -> Result<PathBuf, DownloadError>
+        ) -> Result<Staged, DownloadError>
         + Send,
 >;
 
 /// Seconds without a byte before this screen gives up on the worker.
 ///
 /// The worker fails its own transfer after
-/// [`updater::DOWNLOAD_IDLE_TIMEOUT`] and says why; this is the backstop
+/// [`hearken_update::IDLE_TIMEOUT`] and says why; this is the backstop
 /// for a worker that cannot even report, so the screen can never hold the
 /// player (issue 266).
-pub const STALL_TIMEOUT_S: f64 = updater::DOWNLOAD_IDLE_TIMEOUT.as_secs_f64() + 30.0;
-/// Seconds the unpack may take on this screen's clock: the worker's own
-/// unpacker bound, plus a moment for it to report back.
-pub const UNPACK_TIMEOUT_S: f64 = updater::UNPACK_TIMEOUT.as_secs_f64() + 30.0;
+pub const STALL_TIMEOUT_S: f64 = hearken_update::IDLE_TIMEOUT.as_secs_f64() + 30.0;
+/// Seconds the unpack may take on this screen's clock before it gives up.
+pub const UNPACK_TIMEOUT_S: f64 = 630.0;
 
 /// `text` as a spoken sentence: capitalized, with a closing full stop.
 fn sentence(text: &str) -> String {
@@ -444,6 +434,8 @@ pub struct UpdateDownloadState {
     idle_s: f64,
     unpack_s: f64,
     unpack_spoken: bool,
+    /// What the update replaces.
+    install: Install,
     can_auto_apply: AutoApplyProbe,
     stash_for_manual_install: StashHook,
     apply: ApplyHook,
@@ -452,6 +444,13 @@ pub struct UpdateDownloadState {
 
 impl UpdateDownloadState {
     pub fn new(info: UpdateInfo) -> Self {
+        Self::new_with_mirror(info, None)
+    }
+
+    /// The download through the player's mirror, when one is set.
+    pub fn new_with_mirror(info: UpdateInfo, mirror_prefix: Option<String>) -> Self {
+        let host = updater::Host::current();
+        let home = host.home.clone();
         Self {
             info,
             cancelled: Arc::new(AtomicBool::new(false)),
@@ -467,27 +466,42 @@ impl UpdateDownloadState {
             idle_s: 0.0,
             unpack_s: 0.0,
             unpack_spoken: false,
-            can_auto_apply: Box::new(|root| updater::can_auto_apply(root, &UpdaterEnv::current())),
+            install: host.install(),
+            can_auto_apply: Box::new(updater::can_auto_apply),
             // The home folder, so a parked update is somewhere the player
             // can find again, not under the system temp folder.
-            stash_for_manual_install: Box::new(|root| {
-                updater::stash_for_manual_install(root, UpdaterEnv::current().home.as_deref())
+            stash_for_manual_install: Box::new(move |staged, staging| {
+                updater::stash_for_manual_install(staged, staging, home.as_deref())
             }),
-            apply: Box::new(updater::apply_and_restart),
-            fetch: Some(Box::new(|info, dir, progress, cancelled| {
-                updater::download(info, dir, Some(progress), Some(cancelled))
-            })),
+            apply: Box::new(move |staged, install, staging| {
+                updater::apply_and_restart(staged, install, staging, &host).map(|_| ())
+            }),
+            fetch: Some(Box::new(
+                move |info, staging, install, progress, phase, cancelled| {
+                    let fetch = updater::fetch_for(mirror_prefix.as_deref())
+                        .map_err(|e| DownloadError::Io(std::io::Error::other(e.to_string())))?;
+                    updater::download_and_stage(
+                        info,
+                        fetch.as_ref(),
+                        staging,
+                        install,
+                        progress,
+                        phase,
+                        cancelled,
+                    )
+                },
+            )),
         }
     }
 
-    /// Test seam: a download that has already finished with `new_root`
-    /// staged under `staging` (`state.staging = ...; state.new_root = ...;
-    /// state.done.set()` in the Python tests), with the apply probes
+    /// Test seam: a download that has already finished with `staged`
+    /// under `staging`, replacing `install`, with the apply probes
     /// injected.
     pub fn finished_with(
         info: UpdateInfo,
         staging: PathBuf,
-        new_root: PathBuf,
+        staged: Staged,
+        install: Install,
         can_auto_apply: AutoApplyProbe,
         stash_for_manual_install: StashHook,
     ) -> Self {
@@ -495,8 +509,9 @@ impl UpdateDownloadState {
         {
             let mut outcome = state.outcome.lock().unwrap_or_else(|e| e.into_inner());
             outcome.staging = Some(staging);
-            outcome.new_root = Some(new_root);
+            outcome.staged = Some(staged);
         }
+        state.install = install;
         state.done.store(true, Ordering::SeqCst);
         state.started = true;
         state.can_auto_apply = can_auto_apply;
@@ -520,6 +535,12 @@ impl UpdateDownloadState {
         self
     }
 
+    /// Replace what the update replaces (test seam).
+    pub fn with_install(mut self, install: Install) -> Self {
+        self.install = install;
+        self
+    }
+
     /// The worker's staging folder, once it has made one.
     pub fn staging(&self) -> Option<PathBuf> {
         self.outcome
@@ -529,13 +550,10 @@ impl UpdateDownloadState {
             .clone()
     }
 
-    /// Mark the staged update as the smaller archive, without the sound
-    /// packs (test seam).
-    pub fn leaving_out_packs(self) -> Self {
-        self.outcome
-            .lock()
-            .unwrap_or_else(|e| e.into_inner())
-            .leaves_out_packs = true;
+    /// Replace the check that this copy can update itself (test seam; see
+    /// [`AutoApplyProbe`]).
+    pub fn with_auto_apply(mut self, probe: AutoApplyProbe) -> Self {
+        self.can_auto_apply = probe;
         self
     }
 
@@ -586,11 +604,12 @@ impl UpdateDownloadState {
             .clone()
     }
 
-    pub fn new_root(&self) -> Option<PathBuf> {
+    /// The staged update, once the worker has one.
+    pub fn staged(&self) -> Option<Staged> {
         self.outcome
             .lock()
             .unwrap_or_else(|e| e.into_inner())
-            .new_root
+            .staged
             .clone()
     }
 
@@ -598,6 +617,7 @@ impl UpdateDownloadState {
     fn work(
         fetch: FetchHook,
         info: UpdateInfo,
+        install: Install,
         outcome: Arc<Mutex<DownloadOutcome>>,
         progress: Arc<AtomicU64>,
         bytes: Arc<AtomicU64>,
@@ -607,104 +627,76 @@ impl UpdateDownloadState {
     ) {
         let is_cancelled = || cancelled.load(Ordering::SeqCst);
         let mut staged_in: Option<PathBuf> = None;
-        let result = (|| -> Result<(), DownloadError> {
+        let result = (|| -> Result<Staged, DownloadError> {
             let staging = updater::make_staging_dir()?;
             staged_in = Some(staging.clone());
             outcome.lock().unwrap_or_else(|e| e.into_inner()).staging = Some(staging.clone());
             let mut on_progress =
                 |done: u64, total: u64| Self::record_progress(&bytes, &progress, done, total);
-            let env = UpdaterEnv::current();
-            // Only the non-pack parts of the archive when this install's sound
-            // packs still match; any failure there falls back to the full one.
-            let mut keep_packs = None;
-            let mut archive = None;
-            if let Some(slim) = updater::slim::still_matches(&info, &env) {
-                match updater::slim::download(
-                    &info,
-                    slim,
-                    &staging,
-                    Some(&mut on_progress),
-                    Some(&cancelled),
-                ) {
-                    Ok(path) => {
-                        keep_packs = Some(slim.packs.clone());
-                        archive = Some(path);
-                    }
-                    Err(e @ (DownloadError::Cancelled | DownloadError::Stalled(_))) => {
-                        return Err(e)
-                    }
-                    Err(e) => {
-                        log::warn!("Smaller update download failed ({e:?}); fetching it whole")
-                    }
-                }
-            }
-            let archive = match archive {
-                Some(path) => path,
-                None => fetch(&info, &staging, &mut on_progress, &cancelled)?,
+            let mut on_phase = |now: Phase| {
+                let code = match now {
+                    Phase::Downloading => PHASE_DOWNLOADING,
+                    Phase::Unpacking => PHASE_UNPACKING,
+                };
+                phase.store(code, Ordering::SeqCst);
             };
-            if is_cancelled() {
-                return Err(DownloadError::Cancelled);
-            }
-            phase.store(PHASE_UNPACKING, Ordering::SeqCst);
-            log::info!("Update downloaded; unpacking {}", archive.display());
-            let new_root = updater::stage_update_with(
-                &archive,
+            // Only the changed files when this copy has the rest, else the
+            // whole archive: the same update staged either way.
+            let staged = fetch(
+                &info,
                 &staging,
-                &env,
-                Some(&cancelled),
-                updater::UNPACK_TIMEOUT,
+                &install,
+                &mut on_progress,
+                &mut on_phase,
+                &cancelled,
             )?;
-            if let Some(packs) = &keep_packs {
-                let whole = updater::slim::complete_staged(&new_root, packs, &env)?;
-                outcome
-                    .lock()
-                    .unwrap_or_else(|e| e.into_inner())
-                    .leaves_out_packs = !whole;
-            }
             if is_cancelled() {
                 return Err(DownloadError::Cancelled);
             }
-            log::info!("Update unpacked to {}", new_root.display());
-            outcome.lock().unwrap_or_else(|e| e.into_inner()).new_root = Some(new_root);
-            Ok(())
+            log::info!("Update staged in {}", staging.display());
+            Ok(staged)
         })();
-        if result.is_err() {
-            // Nothing will use a half-finished download: never leave up to
-            // 420 MB of it in the temp folder.
-            if let Some(staging) = &staged_in {
-                let _ = std::fs::remove_dir_all(staging);
-            }
-        }
-        let message = match result {
-            Ok(()) => None,
-            // The screen already left (Escape, or it gave up on a stall):
-            // nothing will read this outcome.
-            Err(_) if is_cancelled() => {
-                log::info!("Update download stopped after the screen left it");
+        let staged = match result {
+            Ok(staged) => Some(staged),
+            Err(e) => {
+                // Nothing will use a half-finished download: never leave it
+                // in the temp folder.
+                if let Some(staging) = &staged_in {
+                    let _ = std::fs::remove_dir_all(staging);
+                }
+                let message = match e {
+                    // The screen already left (Escape, or it gave up on a
+                    // stall): nothing will read this outcome.
+                    _ if is_cancelled() => {
+                        log::info!("Update download stopped after the screen left it");
+                        None
+                    }
+                    DownloadError::Cancelled => None,
+                    DownloadError::Stalled(idle) => Some(format!(
+                        "The download stopped. Nothing arrived for {} seconds.",
+                        idle.as_secs()
+                    )),
+                    DownloadError::Corrupt => {
+                        Some("The download arrived damaged, so it was not installed.".to_string())
+                    }
+                    DownloadError::Fetch(e) => {
+                        log::warn!("Update download failed: {e}");
+                        Some(format!("The download failed. {}", sentence(&e.to_string())))
+                    }
+                    DownloadError::Io(e) => {
+                        log::warn!("Update download failed: {e}");
+                        Some(format!("The download failed. {}", sentence(&e.to_string())))
+                    }
+                };
+                if let Some(message) = message {
+                    outcome.lock().unwrap_or_else(|e| e.into_inner()).error = Some(format!(
+                        "{message} Your game is unchanged. Try again later. {MANUAL_DOWNLOAD}"
+                    ));
+                }
                 None
             }
-            Err(DownloadError::Cancelled) => None,
-            Err(DownloadError::Stalled(idle)) => Some(format!(
-                "The download stopped. Nothing arrived for {} seconds.",
-                idle.as_secs()
-            )),
-            Err(DownloadError::Corrupt) => {
-                Some("The download arrived damaged, so it was not installed.".to_string())
-            }
-            Err(DownloadError::Net(e)) => {
-                log::warn!("Update download failed: {e:?}");
-                Some(format!("The download failed. {}", net::describe_error(&e)))
-            }
-            Err(DownloadError::Io(e)) => {
-                log::warn!("Update download failed: {e:?}");
-                Some(format!("The download failed. {}", sentence(&e.to_string())))
-            }
         };
-        if let Some(message) = message {
-            outcome.lock().unwrap_or_else(|e| e.into_inner()).error = Some(format!(
-                "{message} Your game is unchanged. Try again later. {MANUAL_DOWNLOAD}"
-            ));
-        }
+        outcome.lock().unwrap_or_else(|e| e.into_inner()).staged = staged;
         done.store(true, Ordering::SeqCst);
     }
 
@@ -758,21 +750,14 @@ impl UpdateDownloadState {
 }
 
 /// Where a download the game could not apply was saved, and how to
-/// install it. The smaller archive has no sound packs, so it only works
-/// copied over the game folder, which keeps the player's own.
-fn manual_install(dest: &Path, leaves_out_packs: bool) -> String {
-    let dest = dest.display();
-    if leaves_out_packs {
-        format!(
-            "The new version is saved at {dest}. Copy it over your game folder, \
-             which keeps your music and radio packs, then restart the game."
-        )
-    } else {
-        format!(
-            "The new version is saved at {dest}. Install it yourself, then \
-             restart the game."
-        )
-    }
+/// install it. The staged update is always the whole game, kept files and
+/// all.
+fn manual_install(dest: &Path) -> String {
+    format!(
+        "The new version is saved at {}. Install it yourself, then \
+         restart the game.",
+        dest.display()
+    )
 }
 
 impl State for UpdateDownloadState {
@@ -781,7 +766,7 @@ impl State for UpdateDownloadState {
             return;
         }
         let size = megabytes(&self.info)
-            .map(|mb| format!(", {mb} megabytes"))
+            .map(|mb| format!(", {mb}"))
             .unwrap_or_default();
         ctx.say(&format!(
             "Downloading {}{size}. The game restarts when the download \
@@ -790,6 +775,7 @@ impl State for UpdateDownloadState {
         ));
         self.started = true;
         let info = self.info.clone();
+        let install = self.install.clone();
         let outcome = Arc::clone(&self.outcome);
         let progress = Arc::clone(&self.progress);
         let bytes = Arc::clone(&self.bytes);
@@ -803,7 +789,7 @@ impl State for UpdateDownloadState {
             .name("update-download".into())
             .spawn(move || {
                 Self::work(
-                    fetch, info, outcome, progress, bytes, phase, cancelled, done,
+                    fetch, info, install, outcome, progress, bytes, phase, cancelled, done,
                 )
             });
         if let Err(e) = spawned {
@@ -827,47 +813,45 @@ impl State for UpdateDownloadState {
             return;
         }
         self.finished = true;
-        let (new_root, staging, error, leaves_out_packs) = {
+        let (staged, staging, error) = {
             let outcome = self.outcome.lock().unwrap_or_else(|e| e.into_inner());
             (
-                outcome.new_root.clone(),
+                outcome.staged.clone(),
                 outcome.staging.clone(),
                 outcome.error.clone(),
-                outcome.leaves_out_packs,
             )
         };
         if self.is_cancelled() {
             ctx.pop_state();
             return;
         }
-        let Some(new_root) = new_root.filter(|_| error.is_none()) else {
+        let (Some(staged), Some(staging)) = (staged.filter(|_| error.is_none()), staging) else {
             ctx.say(&error.unwrap_or_else(|| "The download failed.".to_string()));
             ctx.audio.play("ui/error");
             ctx.pop_state();
             return;
         };
-        if !(self.can_auto_apply)(&new_root) {
+        if !(self.can_auto_apply)(&staged, &self.install) {
             // e.g. an AppImage sitting in a folder this user cannot write
             // to, or a Mac app opened straight from a download: the swap
             // would fail, so park the download somewhere findable and say
             // where instead of dead-ending on restart.
-            let dest = (self.stash_for_manual_install)(&new_root);
+            let dest = (self.stash_for_manual_install)(&staged, &staging);
             ctx.say(&format!(
                 "Download complete, but this install cannot update itself. {}",
-                manual_install(&dest, leaves_out_packs)
+                manual_install(&dest)
             ));
             ctx.pop_state();
             return;
         }
-        let staging = staging.unwrap_or_else(|| new_root.clone());
-        if let Err(e) = (self.apply)(&new_root, &staging) {
+        if let Err(e) = (self.apply)(&staged, &self.install, &staging) {
             // Quitting now would close the game with nothing to bring it
             // back. Stay, and hand the player the update instead.
             log::warn!("Could not spawn the update apply script: {e}");
-            let dest = (self.stash_for_manual_install)(&new_root);
+            let dest = (self.stash_for_manual_install)(&staged, &staging);
             ctx.say(&format!(
                 "Download complete, but the update could not install itself. {}",
-                manual_install(&dest, leaves_out_packs)
+                manual_install(&dest)
             ));
             ctx.audio.play("ui/error");
             ctx.pop_state();

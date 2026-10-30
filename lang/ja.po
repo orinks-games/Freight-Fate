@@ -36319,26 +36319,6 @@ msgstr "{label}。空です。"
 msgid "update-check"
 msgstr "update-check"
 
-#. one sentence of a longer line
-msgid "Could not reach the update server."
-msgstr "アップデートのサーバーにつながりませんでした。"
-
-#. placeholders: {describe_error}
-msgid "Could not reach the update server. {describe_error}"
-msgstr "アップデートのサーバーにつながりませんでした。{describe_error}"
-
-msgid ""
-"On iPhone and iPad, updates come through the App Store or TestFlight."
-msgstr "iPhone と iPad では、アップデートは App Store か TestFlight から届きます。"
-
-msgid "AG Now keeps this copy up to date."
-msgstr ""
-
-msgid ""
-"Updates are only available in the packaged game. This copy runs from "
-"source; update it with git."
-msgstr "アップデートは配布版のゲームでだけ使えます。このコピーはソースから実行しているので、git で更新してください。"
-
 msgid "Checking for updates..."
 msgstr "アップデートを確認しています。"
 
@@ -36369,11 +36349,6 @@ msgstr ""
 "「ダウンロードして再起動」で今すぐインストールします。「新機能」で変更点を読み上げます。「このバージョンを飛ばす」で、このアップデートについて聞かなくな"
 "ります。"
 
-msgid ""
-"Updates can only be installed in the packaged game. This copy runs from "
-"source."
-msgstr "アップデートは配布版のゲームでだけインストールできます。このコピーはソースから実行しています。"
-
 #. placeholders: {title}
 #. one sentence of a longer line
 msgid "Skipping {title}."
@@ -36387,9 +36362,12 @@ msgstr "{title}を飛ばします。次のアップデートは引き続き案�
 msgid "The next update will still be offered."
 msgstr "次のアップデートは引き続き案内されます。"
 
-#. placeholders: {mb}
-msgid " {mb} megabytes."
-msgstr "{mb}メガバイト。"
+msgid " of changes"
+msgstr ""
+
+#. placeholders: {f}, {changes}
+msgid "{f} megabytes{changes}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Update available."
@@ -36489,10 +36467,6 @@ msgstr "ダウンロードが止まりました。{as_secs}秒間、何も届き
 msgid "The download arrived damaged, so it was not installed."
 msgstr "ダウンロードしたものが壊れていたため、インストールしませんでした。"
 
-#. placeholders: {describe_error}
-msgid "The download failed. {describe_error}"
-msgstr "ダウンロードに失敗しました。{describe_error}"
-
 #. placeholders: {sentence}
 msgid "The download failed. {sentence}"
 msgstr "ダウンロードに失敗しました。{sentence}"
@@ -36535,10 +36509,8 @@ msgid "The download stopped. Nothing arrived for {STALL_TIMEOUT_S} seconds."
 msgstr "ダウンロードが止まりました。{STALL_TIMEOUT_S}秒間、何も届きませんでした。"
 
 #. one sentence of a longer line
-msgid ""
-"Copy it over your game folder, which keeps your music and radio packs, then "
-"restart the game."
-msgstr "音楽とラジオのパックを残したまま、ゲームのフォルダーに上書きコピーして、ゲームを再起動してください。"
+msgid "Install it yourself, then restart the game."
+msgstr "自分でインストールしてから、ゲームを再起動してください。"
 
 #. placeholders: {dest}
 #. one sentence of a longer line
@@ -36547,29 +36519,9 @@ msgstr "新しいバージョンは{dest}に保存されています。"
 
 #. placeholders: {dest}
 msgid ""
-"The new version is saved at {dest}. Copy it over your game folder, which "
-"keeps your music and radio packs, then restart the game."
-msgstr ""
-"新しいバージョンは{dest}に保存されています。音楽とラジオのパックを残したまま、ゲームのフォルダーに上書きコピーして、ゲームを再起動してください。"
-
-#. one sentence of a longer line
-msgid "Install it yourself, then restart the game."
-msgstr "自分でインストールしてから、ゲームを再起動してください。"
-
-#. placeholders: {dest}
-msgid ""
 "The new version is saved at {dest}. Install it yourself, then restart the "
 "game."
 msgstr "新しいバージョンは{dest}に保存されています。自分でインストールしてから、ゲームを再起動してください。"
-
-#. placeholders: {mb}
-msgid ", {mb} megabytes"
-msgstr "、{mb}メガバイト"
-
-#. placeholders: {mb}
-#. one clause of a longer line
-msgid "{mb} megabytes"
-msgstr "{mb} MB"
 
 #. placeholders: {title}, {size}
 #. one sentence of a longer line
@@ -37784,6 +37736,49 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "Could not reach the update server."
+#~ msgstr "アップデートのサーバーにつながりませんでした。"
+
+#~ msgid "Could not reach the update server. {describe_error}"
+#~ msgstr "アップデートのサーバーにつながりませんでした。{describe_error}"
+
+#~ msgid ""
+#~ "On iPhone and iPad, updates come through the App Store or TestFlight."
+#~ msgstr "iPhone と iPad では、アップデートは App Store か TestFlight から届きます。"
+
+#~ msgid ""
+#~ "Updates are only available in the packaged game. This copy runs from "
+#~ "source; update it with git."
+#~ msgstr "アップデートは配布版のゲームでだけ使えます。このコピーはソースから実行しているので、git で更新してください。"
+
+#~ msgid ""
+#~ "Updates can only be installed in the packaged game. This copy runs from "
+#~ "source."
+#~ msgstr "アップデートは配布版のゲームでだけインストールできます。このコピーはソースから実行しています。"
+
+#~ msgid " {mb} megabytes."
+#~ msgstr "{mb}メガバイト。"
+
+#~ msgid "The download failed. {describe_error}"
+#~ msgstr "ダウンロードに失敗しました。{describe_error}"
+
+#~ msgid ""
+#~ "Copy it over your game folder, which keeps your music and radio packs, then "
+#~ "restart the game."
+#~ msgstr "音楽とラジオのパックを残したまま、ゲームのフォルダーに上書きコピーして、ゲームを再起動してください。"
+
+#~ msgid ""
+#~ "The new version is saved at {dest}. Copy it over your game folder, which "
+#~ "keeps your music and radio packs, then restart the game."
+#~ msgstr ""
+#~ "新しいバージョンは{dest}に保存されています。音楽とラジオのパックを残したまま、ゲームのフォルダーに上書きコピーして、ゲームを再起動してください。"
+
+#~ msgid ", {mb} megabytes"
+#~ msgstr "、{mb}メガバイト"
+
+#~ msgid "{mb} megabytes"
+#~ msgstr "{mb} MB"
 
 #~ msgid ""
 #~ "It holds the lane, steers the bends and street corners, and takes your "

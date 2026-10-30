@@ -800,9 +800,19 @@ Everything found before 2026-09-25 moved to
       with a 25 inside it, where the 2026-10-17 sample called the 35 at
       mile 16.0 a side street; the run is longer than the ramp-dip screen
       reaches, so nothing folds it.
-- [ ] (Found along the way) Sign release archives so the updater can
-      check them against a key built into the game, not only against the
-      checksum GitHub lists next to the file.
+- [x] Sign release archives so the updater can check them against a key
+      built into the game (owner go-ahead 2026-10-30). The game now uses
+      Hearken's engine updater (`hearken-update`): each release carries a
+      signed manifest per platform and a signed file index, and an update
+      downloads only the files over 64 KiB that changed, Linux tarballs
+      and AppImages included. `cargo tools update-manifests` signs them in
+      the release job; a build with no key baked in never updates.
+- [ ] (Found along the way) Make the update key once (`cargo tools
+      update-key --new`), commit its public half in the root `Cargo.toml`,
+      and set the `HEARKEN_UPDATE_SECRET` repository secret. Until then a
+      release has no manifests and its builds do not update themselves.
+- [x] Stable versions are three-part for the engine updater (owner rule
+      2026-10-30): a hotfix of 1.9.5 is 1.9.6, not 1.9.5.1.
 - [ ] (Found along the way) Port a deleted Python data tool into `ff-tools`
       when a data refresh needs it (October 22 section).
       [October 22 audit](#october-22-repository-size-and-security-audit)
@@ -1094,6 +1104,8 @@ Everything found before 2026-09-25 moved to
       gets the player's packs copied in before the swap. Linux tarballs and
       AppImages still download in full. The first update to carry this is
       itself full size.
+      Superseded 2026-10-30 by the engine updater's file index, which
+      covers every large file rather than the two packs.
 - [x] Configurable GitHub update mirror (issue #449, owner go-ahead
       2026-10-22): Settings, Updates can route both release discovery and
       archive downloads through a player-supplied HTTPS prefix. It is off

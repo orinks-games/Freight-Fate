@@ -35752,26 +35752,6 @@ msgstr "{label}。空。"
 msgid "update-check"
 msgstr "update-check"
 
-#. one sentence of a longer line
-msgid "Could not reach the update server."
-msgstr "无法连接更新服务器。"
-
-#. placeholders: {describe_error}
-msgid "Could not reach the update server. {describe_error}"
-msgstr "无法连接更新服务器。{describe_error}"
-
-msgid ""
-"On iPhone and iPad, updates come through the App Store or TestFlight."
-msgstr "在iPhone和iPad上，更新通过App Store或TestFlight提供。"
-
-msgid "AG Now keeps this copy up to date."
-msgstr ""
-
-msgid ""
-"Updates are only available in the packaged game. This copy runs from "
-"source; update it with git."
-msgstr "只有安装包版本的游戏才能更新。这个副本是从源代码运行的；请用git更新它。"
-
 msgid "Checking for updates..."
 msgstr "正在检查更新……"
 
@@ -35800,11 +35780,6 @@ msgid ""
 "this version stops asking about this update."
 msgstr "“下载并重启”会立即安装它。“更新内容”会读出改动。“跳过这个版本”就不再询问这次更新。"
 
-msgid ""
-"Updates can only be installed in the packaged game. This copy runs from "
-"source."
-msgstr "只有安装包版本的游戏才能安装更新。这个副本是从源代码运行的。"
-
 #. placeholders: {title}
 #. one sentence of a longer line
 msgid "Skipping {title}."
@@ -35818,9 +35793,12 @@ msgstr "跳过{title}。下一次更新仍然会提供。"
 msgid "The next update will still be offered."
 msgstr "下一次更新仍然会提供。"
 
-#. placeholders: {mb}
-msgid " {mb} megabytes."
-msgstr "{mb} 兆字节。"
+msgid " of changes"
+msgstr ""
+
+#. placeholders: {f}, {changes}
+msgid "{f} megabytes{changes}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Update available."
@@ -35918,10 +35896,6 @@ msgstr "下载停止了。已经{as_secs}秒没有收到任何数据。"
 msgid "The download arrived damaged, so it was not installed."
 msgstr "下载的文件已损坏，所以没有安装。"
 
-#. placeholders: {describe_error}
-msgid "The download failed. {describe_error}"
-msgstr "下载失败。{describe_error}"
-
 #. placeholders: {sentence}
 msgid "The download failed. {sentence}"
 msgstr "下载失败。{sentence}"
@@ -35964,10 +35938,8 @@ msgid "The download stopped. Nothing arrived for {STALL_TIMEOUT_S} seconds."
 msgstr "下载停止了。已经{STALL_TIMEOUT_S}秒没有收到任何数据。"
 
 #. one sentence of a longer line
-msgid ""
-"Copy it over your game folder, which keeps your music and radio packs, then "
-"restart the game."
-msgstr ""
+msgid "Install it yourself, then restart the game."
+msgstr "请自己安装，然后重启游戏。"
 
 #. placeholders: {dest}
 #. one sentence of a longer line
@@ -35976,28 +35948,9 @@ msgstr "新版本保存在{dest}。"
 
 #. placeholders: {dest}
 msgid ""
-"The new version is saved at {dest}. Copy it over your game folder, which "
-"keeps your music and radio packs, then restart the game."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Install it yourself, then restart the game."
-msgstr "请自己安装，然后重启游戏。"
-
-#. placeholders: {dest}
-msgid ""
 "The new version is saved at {dest}. Install it yourself, then restart the "
 "game."
 msgstr ""
-
-#. placeholders: {mb}
-msgid ", {mb} megabytes"
-msgstr "，{mb}兆字节"
-
-#. placeholders: {mb}
-#. one clause of a longer line
-msgid "{mb} megabytes"
-msgstr "{mb} MB"
 
 #. placeholders: {title}, {size}
 #. one sentence of a longer line
@@ -37199,6 +37152,38 @@ msgstr "镜像地址必须以 https:// 开头。"
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr "镜像地址不能包含查询参数或片段。"
+
+#~ msgid "Could not reach the update server."
+#~ msgstr "无法连接更新服务器。"
+
+#~ msgid "Could not reach the update server. {describe_error}"
+#~ msgstr "无法连接更新服务器。{describe_error}"
+
+#~ msgid ""
+#~ "On iPhone and iPad, updates come through the App Store or TestFlight."
+#~ msgstr "在iPhone和iPad上，更新通过App Store或TestFlight提供。"
+
+#~ msgid ""
+#~ "Updates are only available in the packaged game. This copy runs from "
+#~ "source; update it with git."
+#~ msgstr "只有安装包版本的游戏才能更新。这个副本是从源代码运行的；请用git更新它。"
+
+#~ msgid ""
+#~ "Updates can only be installed in the packaged game. This copy runs from "
+#~ "source."
+#~ msgstr "只有安装包版本的游戏才能安装更新。这个副本是从源代码运行的。"
+
+#~ msgid " {mb} megabytes."
+#~ msgstr "{mb} 兆字节。"
+
+#~ msgid "The download failed. {describe_error}"
+#~ msgstr "下载失败。{describe_error}"
+
+#~ msgid ", {mb} megabytes"
+#~ msgstr "，{mb}兆字节"
+
+#~ msgid "{mb} megabytes"
+#~ msgstr "{mb} MB"
 
 #~ msgid ""
 #~ "It holds the lane, steers the bends and street corners, and takes your "
