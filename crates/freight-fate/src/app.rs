@@ -1534,6 +1534,9 @@ pub fn main_with(options: CliOptions) -> i32 {
         return 0;
     }
     boot_timing::mark("single instance check");
+    // Before anything is read from the game folder: an update stopped
+    // part-way is put back first (the main menu says so).
+    crate::updater::note_interrupted_update();
     let code = run_game(&options);
     guard.release();
     boot_timing::mark("quit: done");

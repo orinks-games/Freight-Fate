@@ -40525,30 +40525,6 @@ msgstr "{label}. Vuoto."
 msgid "update-check"
 msgstr "update-check"
 
-#. one sentence of a longer line
-msgid "Could not reach the update server."
-msgstr "Impossibile raggiungere il server degli aggiornamenti."
-
-#. placeholders: {describe_error}
-msgid "Could not reach the update server. {describe_error}"
-msgstr ""
-"Impossibile raggiungere il server degli aggiornamenti. {describe_error}"
-
-msgid ""
-"On iPhone and iPad, updates come through the App Store or TestFlight."
-msgstr ""
-"Su iPhone e iPad, gli aggiornamenti arrivano dall'App Store o da TestFlight."
-
-msgid "AG Now keeps this copy up to date."
-msgstr ""
-
-msgid ""
-"Updates are only available in the packaged game. This copy runs from "
-"source; update it with git."
-msgstr ""
-"Gli aggiornamenti sono disponibili solo nel gioco pacchettizzato. Questa "
-"copia è avviata dal codice sorgente; aggiornala con git."
-
 msgid "Checking for updates..."
 msgstr "Ricerca degli aggiornamenti in corso."
 
@@ -40579,13 +40555,6 @@ msgstr ""
 "Scarica e riavvia lo installa subito. Novità legge le modifiche. Salta "
 "questa versione smette di chiedere di questo aggiornamento."
 
-msgid ""
-"Updates can only be installed in the packaged game. This copy runs from "
-"source."
-msgstr ""
-"Gli aggiornamenti si possono installare solo nel gioco pacchettizzato. "
-"Questa copia è avviata dal codice sorgente."
-
 #. placeholders: {title}
 #. one sentence of a longer line
 msgid "Skipping {title}."
@@ -40599,9 +40568,12 @@ msgstr "Salto {title}. Il prossimo aggiornamento verrà comunque proposto."
 msgid "The next update will still be offered."
 msgstr "Il prossimo aggiornamento verrà comunque proposto."
 
-#. placeholders: {mb}
-msgid " {mb} megabytes."
-msgstr " {mb} megabyte."
+msgid " of changes"
+msgstr ""
+
+#. placeholders: {f}, {changes}
+msgid "{f} megabytes{changes}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Update available."
@@ -40712,10 +40684,6 @@ msgstr ""
 msgid "The download arrived damaged, so it was not installed."
 msgstr "Il download è arrivato danneggiato, quindi non è stato installato."
 
-#. placeholders: {describe_error}
-msgid "The download failed. {describe_error}"
-msgstr "Il download non è riuscito. {describe_error}"
-
 #. placeholders: {sentence}
 msgid "The download failed. {sentence}"
 msgstr "Il download non è riuscito. {sentence}"
@@ -40762,12 +40730,8 @@ msgstr ""
 "secondi."
 
 #. one sentence of a longer line
-msgid ""
-"Copy it over your game folder, which keeps your music and radio packs, then "
-"restart the game."
-msgstr ""
-"Copiala sopra la cartella del gioco, che conserva i tuoi pacchetti di "
-"musica e radio, poi riavvia il gioco."
+msgid "Install it yourself, then restart the game."
+msgstr "Installala tu, poi riavvia il gioco."
 
 #. placeholders: {dest}
 #. one sentence of a longer line
@@ -40776,31 +40740,10 @@ msgstr "La nuova versione è salvata in {dest}."
 
 #. placeholders: {dest}
 msgid ""
-"The new version is saved at {dest}. Copy it over your game folder, which "
-"keeps your music and radio packs, then restart the game."
-msgstr ""
-"La nuova versione è salvata in {dest}. Copiala sopra la cartella del gioco, "
-"che conserva i tuoi pacchetti di musica e radio, poi riavvia il gioco."
-
-#. one sentence of a longer line
-msgid "Install it yourself, then restart the game."
-msgstr "Installala tu, poi riavvia il gioco."
-
-#. placeholders: {dest}
-msgid ""
 "The new version is saved at {dest}. Install it yourself, then restart the "
 "game."
 msgstr ""
 "La nuova versione è salvata in {dest}. Installala tu, poi riavvia il gioco."
-
-#. placeholders: {mb}
-msgid ", {mb} megabytes"
-msgstr ", {mb} megabyte"
-
-#. placeholders: {mb}
-#. one clause of a longer line
-msgid "{mb} megabytes"
-msgstr "{mb} megabyte"
 
 #. placeholders: {title}, {size}
 #. one sentence of a longer line
@@ -42081,6 +42024,58 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "Could not reach the update server."
+#~ msgstr "Impossibile raggiungere il server degli aggiornamenti."
+
+#~ msgid "Could not reach the update server. {describe_error}"
+#~ msgstr ""
+#~ "Impossibile raggiungere il server degli aggiornamenti. {describe_error}"
+
+#~ msgid ""
+#~ "On iPhone and iPad, updates come through the App Store or TestFlight."
+#~ msgstr ""
+#~ "Su iPhone e iPad, gli aggiornamenti arrivano dall'App Store o da TestFlight."
+
+#~ msgid ""
+#~ "Updates are only available in the packaged game. This copy runs from "
+#~ "source; update it with git."
+#~ msgstr ""
+#~ "Gli aggiornamenti sono disponibili solo nel gioco pacchettizzato. Questa "
+#~ "copia è avviata dal codice sorgente; aggiornala con git."
+
+#~ msgid ""
+#~ "Updates can only be installed in the packaged game. This copy runs from "
+#~ "source."
+#~ msgstr ""
+#~ "Gli aggiornamenti si possono installare solo nel gioco pacchettizzato. "
+#~ "Questa copia è avviata dal codice sorgente."
+
+#~ msgid " {mb} megabytes."
+#~ msgstr " {mb} megabyte."
+
+#~ msgid "The download failed. {describe_error}"
+#~ msgstr "Il download non è riuscito. {describe_error}"
+
+#~ msgid ""
+#~ "Copy it over your game folder, which keeps your music and radio packs, then "
+#~ "restart the game."
+#~ msgstr ""
+#~ "Copiala sopra la cartella del gioco, che conserva i tuoi pacchetti di "
+#~ "musica e radio, poi riavvia il gioco."
+
+#~ msgid ""
+#~ "The new version is saved at {dest}. Copy it over your game folder, which "
+#~ "keeps your music and radio packs, then restart the game."
+#~ msgstr ""
+#~ "La nuova versione è salvata in {dest}. Copiala sopra la cartella del gioco, "
+#~ "che conserva i tuoi pacchetti di musica e radio, poi riavvia il gioco."
+
+#~ msgid ", {mb} megabytes"
+#~ msgstr ", {mb} megabyte"
+
+#~ msgid "{mb} megabytes"
+#~ msgstr "{mb} megabyte"
 
 #~ msgid ""
 #~ "It holds the lane, steers the bends and street corners, and takes your "

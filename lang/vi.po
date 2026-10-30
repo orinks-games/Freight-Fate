@@ -35072,26 +35072,6 @@ msgstr ""
 msgid "update-check"
 msgstr ""
 
-#. one sentence of a longer line
-msgid "Could not reach the update server."
-msgstr "Không thể kết nối với máy chủ cập nhật."
-
-#. placeholders: {describe_error}
-msgid "Could not reach the update server. {describe_error}"
-msgstr ""
-
-msgid ""
-"On iPhone and iPad, updates come through the App Store or TestFlight."
-msgstr ""
-
-msgid "AG Now keeps this copy up to date."
-msgstr ""
-
-msgid ""
-"Updates are only available in the packaged game. This copy runs from "
-"source; update it with git."
-msgstr ""
-
 msgid "Checking for updates..."
 msgstr ""
 
@@ -35120,11 +35100,6 @@ msgid ""
 "this version stops asking about this update."
 msgstr ""
 
-msgid ""
-"Updates can only be installed in the packaged game. This copy runs from "
-"source."
-msgstr ""
-
 #. placeholders: {title}
 #. one sentence of a longer line
 msgid "Skipping {title}."
@@ -35138,8 +35113,11 @@ msgstr ""
 msgid "The next update will still be offered."
 msgstr ""
 
-#. placeholders: {mb}
-msgid " {mb} megabytes."
+msgid " of changes"
+msgstr ""
+
+#. placeholders: {f}, {changes}
+msgid "{f} megabytes{changes}"
 msgstr ""
 
 #. one sentence of a longer line
@@ -35238,10 +35216,6 @@ msgstr ""
 msgid "The download arrived damaged, so it was not installed."
 msgstr ""
 
-#. placeholders: {describe_error}
-msgid "The download failed. {describe_error}"
-msgstr ""
-
 #. placeholders: {sentence}
 msgid "The download failed. {sentence}"
 msgstr ""
@@ -35284,9 +35258,7 @@ msgid "The download stopped. Nothing arrived for {STALL_TIMEOUT_S} seconds."
 msgstr ""
 
 #. one sentence of a longer line
-msgid ""
-"Copy it over your game folder, which keeps your music and radio packs, then "
-"restart the game."
+msgid "Install it yourself, then restart the game."
 msgstr ""
 
 #. placeholders: {dest}
@@ -35296,27 +35268,8 @@ msgstr ""
 
 #. placeholders: {dest}
 msgid ""
-"The new version is saved at {dest}. Copy it over your game folder, which "
-"keeps your music and radio packs, then restart the game."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Install it yourself, then restart the game."
-msgstr ""
-
-#. placeholders: {dest}
-msgid ""
 "The new version is saved at {dest}. Install it yourself, then restart the "
 "game."
-msgstr ""
-
-#. placeholders: {mb}
-msgid ", {mb} megabytes"
-msgstr ""
-
-#. placeholders: {mb}
-#. one clause of a longer line
-msgid "{mb} megabytes"
 msgstr ""
 
 #. placeholders: {title}, {size}
@@ -36509,3 +36462,6 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "Could not reach the update server."
+#~ msgstr "Không thể kết nối với máy chủ cập nhật."

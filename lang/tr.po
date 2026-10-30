@@ -39490,29 +39490,6 @@ msgstr "{label}. Boş."
 msgid "update-check"
 msgstr ""
 
-#. one sentence of a longer line
-msgid "Could not reach the update server."
-msgstr "Güncelleme sunucusuna ulaşılamadı."
-
-#. placeholders: {describe_error}
-msgid "Could not reach the update server. {describe_error}"
-msgstr "Güncelleme sunucusuna ulaşılamadı. {describe_error}"
-
-msgid ""
-"On iPhone and iPad, updates come through the App Store or TestFlight."
-msgstr ""
-"iPhone ve iPad'de güncellemeler App Store ya da TestFlight üzerinden gelir."
-
-msgid "AG Now keeps this copy up to date."
-msgstr "Bu kopyayı AG Now güncel tutar."
-
-msgid ""
-"Updates are only available in the packaged game. This copy runs from "
-"source; update it with git."
-msgstr ""
-"Güncellemeler yalnızca paketlenmiş oyunda kullanılabilir. Bu kopya kaynak "
-"koddan çalışıyor; onu git ile güncelleyin."
-
 msgid "Checking for updates..."
 msgstr "Güncellemeler denetleniyor..."
 
@@ -39543,13 +39520,6 @@ msgstr ""
 "İndir ve yeniden başlat onu şimdi kurar. Yenilikler değişiklikleri okur. Bu "
 "sürümü atla bu güncelleme için sormayı bırakır."
 
-msgid ""
-"Updates can only be installed in the packaged game. This copy runs from "
-"source."
-msgstr ""
-"Güncellemeler yalnızca paketlenmiş oyunda kurulabilir. Bu kopya kaynak "
-"koddan çalışıyor."
-
 #. placeholders: {title}
 #. one sentence of a longer line
 msgid "Skipping {title}."
@@ -39563,9 +39533,12 @@ msgstr "Atlanıyor: {title}. Sonraki güncelleme yine önerilecek."
 msgid "The next update will still be offered."
 msgstr "Sonraki güncelleme yine önerilecek."
 
-#. placeholders: {mb}
-msgid " {mb} megabytes."
-msgstr " {mb} megabayt."
+msgid " of changes"
+msgstr ""
+
+#. placeholders: {f}, {changes}
+msgid "{f} megabytes{changes}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Update available."
@@ -39674,10 +39647,6 @@ msgstr "İndirme durdu. {as_secs} saniyedir hiçbir şey gelmedi."
 msgid "The download arrived damaged, so it was not installed."
 msgstr "İndirilen dosya bozuk geldi, bu yüzden kurulmadı."
 
-#. placeholders: {describe_error}
-msgid "The download failed. {describe_error}"
-msgstr "İndirme başarısız oldu. {describe_error}"
-
 #. placeholders: {sentence}
 msgid "The download failed. {sentence}"
 msgstr "İndirme başarısız oldu. {sentence}"
@@ -39722,12 +39691,8 @@ msgid "The download stopped. Nothing arrived for {STALL_TIMEOUT_S} seconds."
 msgstr "İndirme durdu. {STALL_TIMEOUT_S} saniyedir hiçbir şey gelmedi."
 
 #. one sentence of a longer line
-msgid ""
-"Copy it over your game folder, which keeps your music and radio packs, then "
-"restart the game."
-msgstr ""
-"Onu oyun klasörünüzün üzerine kopyalayın, bu müzik ve radyo paketlerinizi "
-"korur, sonra oyunu yeniden başlatın."
+msgid "Install it yourself, then restart the game."
+msgstr "Kendiniz kurun, sonra oyunu yeniden başlatın."
 
 #. placeholders: {dest}
 #. one sentence of a longer line
@@ -39736,33 +39701,11 @@ msgstr "Yeni sürüm şuraya kaydedildi: {dest}."
 
 #. placeholders: {dest}
 msgid ""
-"The new version is saved at {dest}. Copy it over your game folder, which "
-"keeps your music and radio packs, then restart the game."
-msgstr ""
-"Yeni sürüm şuraya kaydedildi: {dest}. Onu oyun klasörünüzün üzerine "
-"kopyalayın, bu müzik ve radyo paketlerinizi korur, sonra oyunu yeniden "
-"başlatın."
-
-#. one sentence of a longer line
-msgid "Install it yourself, then restart the game."
-msgstr "Kendiniz kurun, sonra oyunu yeniden başlatın."
-
-#. placeholders: {dest}
-msgid ""
 "The new version is saved at {dest}. Install it yourself, then restart the "
 "game."
 msgstr ""
 "Yeni sürüm şuraya kaydedildi: {dest}. Kendiniz kurun, sonra oyunu yeniden "
 "başlatın."
-
-#. placeholders: {mb}
-msgid ", {mb} megabytes"
-msgstr ", {mb} megabayt"
-
-#. placeholders: {mb}
-#. one clause of a longer line
-msgid "{mb} megabytes"
-msgstr "{mb} megabayt"
 
 #. placeholders: {title}, {size}
 #. one sentence of a longer line
@@ -41024,6 +40967,61 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "Could not reach the update server."
+#~ msgstr "Güncelleme sunucusuna ulaşılamadı."
+
+#~ msgid "Could not reach the update server. {describe_error}"
+#~ msgstr "Güncelleme sunucusuna ulaşılamadı. {describe_error}"
+
+#~ msgid ""
+#~ "On iPhone and iPad, updates come through the App Store or TestFlight."
+#~ msgstr ""
+#~ "iPhone ve iPad'de güncellemeler App Store ya da TestFlight üzerinden gelir."
+
+#~ msgid "AG Now keeps this copy up to date."
+#~ msgstr "Bu kopyayı AG Now güncel tutar."
+
+#~ msgid ""
+#~ "Updates are only available in the packaged game. This copy runs from "
+#~ "source; update it with git."
+#~ msgstr ""
+#~ "Güncellemeler yalnızca paketlenmiş oyunda kullanılabilir. Bu kopya kaynak "
+#~ "koddan çalışıyor; onu git ile güncelleyin."
+
+#~ msgid ""
+#~ "Updates can only be installed in the packaged game. This copy runs from "
+#~ "source."
+#~ msgstr ""
+#~ "Güncellemeler yalnızca paketlenmiş oyunda kurulabilir. Bu kopya kaynak "
+#~ "koddan çalışıyor."
+
+#~ msgid " {mb} megabytes."
+#~ msgstr " {mb} megabayt."
+
+#~ msgid "The download failed. {describe_error}"
+#~ msgstr "İndirme başarısız oldu. {describe_error}"
+
+#~ msgid ""
+#~ "Copy it over your game folder, which keeps your music and radio packs, then "
+#~ "restart the game."
+#~ msgstr ""
+#~ "Onu oyun klasörünüzün üzerine kopyalayın, bu müzik ve radyo paketlerinizi "
+#~ "korur, sonra oyunu yeniden başlatın."
+
+#~ msgid ""
+#~ "The new version is saved at {dest}. Copy it over your game folder, which "
+#~ "keeps your music and radio packs, then restart the game."
+#~ msgstr ""
+#~ "Yeni sürüm şuraya kaydedildi: {dest}. Onu oyun klasörünüzün üzerine "
+#~ "kopyalayın, bu müzik ve radyo paketlerinizi korur, sonra oyunu yeniden "
+#~ "başlatın."
+
+#~ msgid ", {mb} megabytes"
+#~ msgstr ", {mb} megabayt"
+
+#~ msgid "{mb} megabytes"
+#~ msgstr "{mb} megabayt"
 
 #~ msgid ""
 #~ "It holds the lane, steers the bends and street corners, and takes your "

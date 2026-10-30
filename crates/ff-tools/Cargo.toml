@@ -43,5 +43,7 @@ tar.workspace = true
 ureq.workspace = true
 chrono.workspace = true
 tempfile.workspace = true
+# Signing update manifests and writing file indexes (`update-manifests`).
+hearken-update.workspace = true
 
 [dev-dependencies]

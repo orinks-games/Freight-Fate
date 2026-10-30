@@ -1,59 +1,69 @@
-//! Port of `freight_fate/updater.py` — the in-game auto-updater.
+//! The in-game updater, on Hearken's signed engine updater
+//! (`hearken-update`).
 //!
-//! Checks GitHub releases for a newer build, downloads the right archive for
-//! this platform, and swaps it in with a tiny detached helper script that waits
-//! for the game to exit, copies the new files over the install folder, and
-//! relaunches.
+//! The engine does the checks, the download and the swap; this module says
+//! where Freight Fate publishes its updates and what this copy is. The
+//! spoken screens are in `states/update.rs`.
 //!
-//! Channels mirror the release pipeline: `stable` follows tagged releases
-//! (`v1.6.0`), `dev` follows snapshot prereleases. Public 1.8 snapshots use
-//! `nightly-YYYYMMDD`. Career 1.9 packaged builds on the same `dev` / snapshot
-//! setting follow a distinct family, `1.9-tester-YYYYMMDD`, so a 1.9 tester is
-//! never offered a 1.8 nightly and a 1.8 snapshot never picks a 1.9 tester.
-//! The packaged build carries a `build_info.json` next to the executable
-//! (written by `cargo tools build-release`) recording its tag, channel, and build
-//! date; that is how a snapshot knows a newer snapshot exists even though the
-//! project version number has not changed.
+//! - **What this copy is** comes from the build: `cargo tools build-release`
+//!   bakes the game's public update key, its update version and channel
+//!   into `hearken-update` (the `HEARKEN_UPDATE_*` variables). A build
+//!   without a key, such as `cargo run`, never updates itself.
+//! - **Channels**: `stable` follows tagged releases, `dev` the tester
+//!   snapshots (`1.9-tester-YYYYMMDD`). A snapshot's update version is the
+//!   next patch after the Cargo version, as a pre-release stamped with its
+//!   commit's time (`1.9.6-dev.202610300537`), so each newer snapshot sorts
+//!   above the last and below the stable it leads to.
+//! - **Where**: each release carries a signed manifest per platform,
+//!   `update-<channel>-<platform>.json`, beside its archive, and for a zip
+//!   a signed file index, so a player downloads only the files that changed.
+//!   Stable manifests are read from the latest release, snapshots from the
+//!   newest releases that carry one.
+//! - **A mirror**: a player who cannot reach GitHub can name an HTTPS
+//!   mirror prefix; every request goes through it. The manifests are
+//!   signed, so a mirror can withhold an update but never change one.
 //!
-//! The 1.8 `dev` channel is not a one-way nightly track: once dev work is
-//! promoted to a stable release, the nightly that follows is content-identical.
-//! So when a stable release is at least as new (by date) as the newest nightly,
-//! 1.8 dev followers are steered onto stable instead of the equivalent nightly.
-//! Career 1.9 snapshot updates skip that steering so a 1.9 tester cannot be
-//! pulled onto a 1.8 stable.
-//!
-//! Updates only apply to frozen packaged builds. Source checkouts are managed
-//! by git and the updater stays out of the way.
-//!
-//! Everything the Python module read off `sys` and `os.environ` (the
-//! platform, the executable path, `APPIMAGE`, the home folder, the pid) is
-//! gathered once into an [`UpdaterEnv`] so tests can fake any of it the way
-//! the pytest suite monkeypatched `updater.sys`.
+//! The old updater's releases stay as they were: the same archives under
+//! the same names, so copies from before this one still find and install
+//! the next release, and from then on update through this module.
 
 use std::fs;
+use std::io;
+use std::ops::Range;
 use std::path::{Path, PathBuf};
-use std::sync::Mutex;
+use std::sync::atomic::AtomicBool;
+use std::sync::{Arc, Mutex};
 
 use once_cell::sync::Lazy;
-use regex::Regex;
 use serde_json::Value;
 
-use crate::net::{self, NetError, Tier};
+pub use hearken_update::{
+    Blocked, DownloadError, Fetch, Host, Install, Limits, Phase, Running, Staged, Update,
+    UpdateSource,
+};
+use hearken_update::{
+    Body, FetchError, Found, GitHubReleases, HttpFetch, ManifestUrl, Query, RangeBody, SourceError,
+};
 
 pub const REPO: &str = "orinks-games/Freight-Fate";
 pub const APP_NAME: &str = "FreightFate";
-pub const API_BASE: &str = "https://api.github.com/repos/orinks-games/Freight-Fate";
-pub const USER_AGENT: &str = "FreightFate-updater";
-/// Seconds, per HTTP request.
-pub const TIMEOUT: f64 = 15.0;
-const RELEASE_PAGE_SIZE: usize = 100;
-const MAX_RELEASE_PAGES: usize = 10;
+/// The package name the manifests are signed for.
+pub const GAME: &str = "freight-fate";
 
 pub const CHANNELS: [&str; 2] = ["stable", "dev"];
 
+/// Where stable manifests are: the latest release's assets. GitHub
+/// redirects these to the release's own files, and the archive and file
+/// index are found beside the manifest.
+pub const STABLE_MANIFESTS: &str = "https://github.com/orinks-games/Freight-Fate/releases/latest/download/update-{channel}-{platform}.json";
+
+/// The platform name an AppImage copy is published under: the AppImage is
+/// its own archive, beside the tarball of the same platform.
+pub const APPIMAGE_PLATFORM_SUFFIX: &str = "-appimage";
+
 /// Validate and normalize a player-supplied GitHub mirror prefix.
 ///
-/// Mirrors receive the original GitHub URL immediately after this prefix, so
+/// Mirrors receive the original URL immediately after this prefix, so
 /// exactly one trailing slash keeps concatenation predictable.
 pub fn normalize_mirror_prefix(prefix: &str) -> Result<String, &'static str> {
     let prefix = prefix.trim();
@@ -70,7 +80,7 @@ pub fn normalize_mirror_prefix(prefix: &str) -> Result<String, &'static str> {
     Ok(format!("{}/", prefix.trim_end_matches('/')))
 }
 
-/// Prepend `mirror_prefix` to a GitHub URL, or leave it direct when disabled.
+/// Prepend `mirror_prefix` to a URL, or leave it direct when disabled.
 pub fn mirror_url(url: &str, mirror_prefix: Option<&str>) -> Result<String, &'static str> {
     match mirror_prefix {
         Some(prefix) => Ok(format!("{}{url}", normalize_mirror_prefix(prefix)?)),
@@ -78,37 +88,15 @@ pub fn mirror_url(url: &str, mirror_prefix: Option<&str>) -> Result<String, &'st
     }
 }
 
-// -- the process environment ---------------------------------------------------
+// -- the process ------------------------------------------------------------
 
-/// `sys.platform`, as the updater branches on it.
+/// `sys.platform`, as the build identity branches on it.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Platform {
     Windows,
     MacOs,
     Linux,
     Other,
-}
-
-/// CPU architecture of the packaged game. Release assets must match this as
-/// closely as the operating system: an Apple Silicon app cannot run on an
-/// Intel-only Mac.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum Architecture {
-    Aarch64,
-    X86_64,
-    Other,
-}
-
-impl Architecture {
-    pub fn current() -> Self {
-        if cfg!(target_arch = "aarch64") {
-            Self::Aarch64
-        } else if cfg!(target_arch = "x86_64") {
-            Self::X86_64
-        } else {
-            Self::Other
-        }
-    }
 }
 
 impl Platform {
@@ -125,67 +113,35 @@ impl Platform {
     }
 }
 
-/// The process facts the updater reads: platform, executable path, the
-/// `APPIMAGE` variable, the home folder, and the pid.
+/// The process facts the build identity reads, gathered so tests can fake
+/// them.
 #[derive(Debug, Clone)]
 pub struct UpdaterEnv {
     pub platform: Platform,
-    pub architecture: Architecture,
-    /// `sys.executable`.
+    /// The running executable.
     pub executable: PathBuf,
-    /// `os.environ.get("APPIMAGE")`.
-    pub appimage: Option<String>,
-    /// `Path.home()`.
-    pub home: Option<PathBuf>,
-    pub pid: u32,
 }
 
 impl UpdaterEnv {
-    /// The real process.
     pub fn current() -> Self {
         Self {
             platform: Platform::current(),
-            architecture: Architecture::current(),
             executable: std::env::current_exe().unwrap_or_default(),
-            appimage: std::env::var("APPIMAGE").ok(),
-            home: home_dir(),
-            pid: std::process::id(),
         }
     }
 
-    /// A fake environment for tests: the given platform and executable,
-    /// no `APPIMAGE`, no home, pid 4242.
+    /// A fake process for tests.
     pub fn fake(platform: Platform, executable: &Path) -> Self {
-        Self::fake_with_architecture(platform, Architecture::current(), executable)
-    }
-
-    pub fn fake_with_architecture(
-        platform: Platform,
-        architecture: Architecture,
-        executable: &Path,
-    ) -> Self {
         Self {
             platform,
-            architecture,
             executable: executable.to_path_buf(),
-            appimage: None,
-            home: None,
-            pid: 4242,
         }
     }
 }
 
-fn home_dir() -> Option<PathBuf> {
-    if cfg!(windows) {
-        std::env::var_os("USERPROFILE").map(PathBuf::from)
-    } else {
-        std::env::var_os("HOME").map(PathBuf::from)
-    }
-}
+// -- build identity -----------------------------------------------------------
 
-// -- build identity ---------------------------------------------------------
-
-/// What this running copy of the game is.
+/// What this running copy of the game is, from its `build_info.json`.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct BuildInfo {
     /// "v1.5.0", "nightly-20260611", or "1.9-tester-20260828"
@@ -195,7 +151,7 @@ pub struct BuildInfo {
     /// "2026-06-11" (UTC date); "" when unknown
     pub built_at: String,
     /// The commit this copy was built from; "" for builds stamped before
-    /// 2026-10-03. Tells a same-day rebuild apart from the copy it replaced.
+    /// 2026-10-03.
     pub commit: String,
 }
 
@@ -231,29 +187,13 @@ pub fn is_frozen_in(env: &UpdaterEnv) -> bool {
 
 /// Whether this build may download and apply its own updates. An iOS app
 /// cannot replace itself: the App Store or TestFlight does that.
-pub const SELF_UPDATES: bool = !cfg!(target_os = "ios");
+pub const SELF_UPDATES: bool = hearken_update::SELF_UPDATES;
 
 pub fn is_frozen() -> bool {
     is_frozen_in(&UpdaterEnv::current())
 }
 
-/// Whether a value of the `AGNOW` variable means the game runs on AG Now
-/// (agnow.brynify.me). AG Now sets `AGNOW=1` in every session it launches
-/// and updates the game with its own script; it also drops any program a
-/// game downloads into its own folder when the session ends, so an in-game
-/// update there costs the download and changes nothing.
-pub fn agnow_value_set(value: Option<&std::ffi::OsStr>) -> bool {
-    value.is_some_and(|v| {
-        let v = v.to_string_lossy();
-        let v = v.trim();
-        !v.is_empty() && v != "0"
-    })
-}
-
-/// True when this copy was launched by AG Now.
-pub fn managed_by_agnow() -> bool {
-    agnow_value_set(std::env::var_os("AGNOW").as_deref())
-}
+pub use hearken_update::{agnow_value_set, managed_by_agnow};
 
 /// Whether this copy may check for, download and apply its own updates:
 /// not on iPhone and iPad ([`SELF_UPDATES`]) and not on AG Now
@@ -262,63 +202,12 @@ pub fn self_updates() -> bool {
     SELF_UPDATES && !managed_by_agnow()
 }
 
-/// The folder holding the executable (and `_internal`).
-/// Undo `fs::canonicalize`'s Windows verbatim prefix (`\\?\C:\...`).
-///
-/// The apply script hands this path to robocopy, and robocopy refuses the
-/// `\\?\` form outright -- so on every Windows install both copies failed
-/// silently, the OLD build relaunched, and the same update was offered
-/// again: the other half of the tester "restart loop" (2026-08-31,
-/// reproduced over the MCP agent server with the copied script in hand).
-/// The drive form maps back to `C:\...`; a UNC share maps back to
-/// `\\server\share`.
-fn strip_verbatim(path: PathBuf) -> PathBuf {
-    let text = path.as_os_str().to_string_lossy();
-    if let Some(rest) = text.strip_prefix(r"\\?\UNC\") {
-        return PathBuf::from(format!(r"\\{rest}"));
-    }
-    if let Some(rest) = text.strip_prefix(r"\\?\") {
-        return PathBuf::from(rest.to_string());
-    }
-    path
-}
-
-pub fn install_root_in(env: &UpdaterEnv) -> PathBuf {
-    let exe = strip_verbatim(
-        fs::canonicalize(&env.executable).unwrap_or_else(|_| env.executable.clone()),
-    );
-    exe.parent()
-        .map(Path::to_path_buf)
-        .unwrap_or_else(|| PathBuf::from("."))
-}
-
-pub fn install_root() -> PathBuf {
-    install_root_in(&UpdaterEnv::current())
-}
-
 /// Folder containing immutable packaged assets and build metadata.
 fn resource_root_in(env: &UpdaterEnv) -> PathBuf {
     ff_core::data::data_resources::resource_dir_for_executable(
         &env.executable,
         env.platform == Platform::MacOs,
     )
-}
-
-/// What the apply script replaces: the enclosing `.app` bundle on
-/// macOS (the executable sits in `Contents/MacOS` inside it), else the
-/// folder holding the executable.
-pub fn install_target_in(env: &UpdaterEnv) -> PathBuf {
-    let root = install_root_in(env);
-    if env.platform == Platform::MacOs {
-        let mut cursor: Option<&Path> = Some(root.as_path());
-        while let Some(dir) = cursor {
-            if dir.extension().is_some_and(|ext| ext == "app") {
-                return dir.to_path_buf();
-            }
-            cursor = dir.parent();
-        }
-    }
-    root
 }
 
 /// Read build_info.json from the install folder. Returns `None` when
@@ -338,7 +227,7 @@ pub fn load_build_info_in(env: &UpdaterEnv, version: &str) -> Option<BuildInfo> 
     }
 }
 
-/// `(version asked for, the answer)` -- `lru_cache(maxsize=1)`.
+/// `(version asked for, the answer)`.
 type BuildInfoCache = Option<(String, Option<BuildInfo>)>;
 
 static BUILD_INFO_CACHE: Lazy<Mutex<BuildInfoCache>> = Lazy::new(|| Mutex::new(None));
@@ -368,6 +257,15 @@ fn stamp_str(value: Option<&Value>) -> String {
     }
 }
 
+/// Whether `tag` names a snapshot: a 1.8 `nightly-YYYYMMDD` or a 1.9
+/// `1.9-tester-YYYYMMDD`.
+fn is_snapshot_tag(tag: &str) -> bool {
+    let date = tag
+        .strip_prefix("1.9-tester-")
+        .or_else(|| tag.strip_prefix("nightly-"));
+    date.is_some_and(|d| d.len() == 8 && d.bytes().all(|b| b.is_ascii_digit()))
+}
+
 /// Normalize a packaged build stamp, preserving useful partial data.
 pub fn build_info_from_dict(data: &Value, version: &str) -> BuildInfo {
     let Value::Object(map) = data else {
@@ -379,10 +277,10 @@ pub fn build_info_from_dict(data: &Value, version: &str) -> BuildInfo {
     }
     let mut channel = stamp_str(map.get("channel"));
     if !CHANNELS.contains(&channel.as_str()) {
-        channel = if snapshot_date_of(&tag).is_empty() {
-            "stable".to_string()
-        } else {
+        channel = if is_snapshot_tag(&tag) {
             "dev".to_string()
+        } else {
+            "stable".to_string()
         };
     }
     BuildInfo {
@@ -407,101 +305,7 @@ pub fn resolve_channel(setting: &str, build: Option<&BuildInfo>) -> String {
     "stable".to_string()
 }
 
-// -- release discovery ------------------------------------------------------
-
-#[derive(Debug, Clone, PartialEq, Eq, Default)]
-pub struct UpdateInfo {
-    /// release tag to install
-    pub tag: String,
-    /// spoken name, e.g. "Freight Fate version 1.6.0"
-    pub title: String,
-    /// release notes flattened to speakable lines
-    pub notes: Vec<String>,
-    pub asset_name: String,
-    pub asset_url: String,
-    /// bytes
-    pub asset_size: i64,
-    /// Lowercase hex SHA-256 GitHub publishes for the asset; "" when unknown.
-    pub asset_sha256: String,
-    /// The smaller download that skips this install's unchanged sound packs,
-    /// when the archive's index shows they match (see [`slim`]).
-    pub slim: Option<SlimUpdate>,
-}
-
-impl UpdateInfo {
-    /// Bytes the player will download: only the non-pack ranges when the
-    /// smaller download applies.
-    pub fn download_size(&self) -> i64 {
-        match &self.slim {
-            Some(slim) => i64::try_from(slim.fetch_len()).unwrap_or(self.asset_size),
-            None => self.asset_size,
-        }
-    }
-}
-
-/// `_api_get`: one GitHub API request on the updater's tier.
-pub fn api_get(path: &str) -> Result<Value, NetError> {
-    api_get_with_mirror(path, None)
-}
-
-fn api_get_with_mirror(path: &str, mirror_prefix: Option<&str>) -> Result<Value, NetError> {
-    let headers = vec![
-        ("User-Agent".to_string(), USER_AGENT.to_string()),
-        (
-            "Accept".to_string(),
-            "application/vnd.github+json".to_string(),
-        ),
-    ];
-    net::request_json(
-        Tier::GitHub,
-        Some("GET"),
-        &mirror_url(&format!("{API_BASE}{path}"), mirror_prefix).map_err(|message| {
-            NetError::Other {
-                type_name: "InvalidMirror".to_string(),
-                message: message.to_string(),
-            }
-        })?,
-        None,
-        &headers,
-    )
-}
-
-static NUMBERS: Lazy<Regex> = Lazy::new(|| Regex::new(r"\d+").unwrap());
-
-/// `'v1.6.0' -> [1, 6, 0, 0]`; `'1.8.6.dev0' -> [1, 8, 6, -1, 0]`.
-///
-/// The trailing sentinel orders a `.devN` pre-release below the release
-/// it works toward and above the previous stable, so dev checkouts and
-/// nightlies are offered the stable they were promoted into. Unparseable
-/// text compares lowest.
-pub fn parse_version(text: &str) -> Vec<i64> {
-    let (base, dev) = match text.split_once(".dev") {
-        Some((base, dev)) => (base, Some(dev)),
-        None => (text, None),
-    };
-    let nums: Vec<i64> = NUMBERS
-        .find_iter(base)
-        .filter_map(|m| m.as_str().parse().ok())
-        .collect();
-    if nums.is_empty() {
-        return vec![0];
-    }
-    let mut parts = nums;
-    match dev {
-        Some(dev) => {
-            parts.push(-1);
-            parts.extend(
-                NUMBERS
-                    .find_iter(dev)
-                    .filter_map(|m| m.as_str().parse::<i64>().ok()),
-            );
-        }
-        None => parts.push(0),
-    }
-    parts
-}
-
-/// Player-facing wording for a version: '1.8.6.dev0' becomes
+/// Player-facing wording for the game's own version: '1.8.6.dev0' becomes
 /// '1.8.6 development build' so spoken menus never read packaging jargon.
 pub fn spoken_version(version: &str) -> String {
     match version.split_once(".dev") {
@@ -510,715 +314,339 @@ pub fn spoken_version(version: &str) -> String {
     }
 }
 
-/// The x86_64 Linux archives. The AppImage carries `uname -m`, the AppImage
-/// convention; the tarball's `x64` predates it and is what every release so
-/// far has been named, so it stays.
-pub const APPIMAGE_SUFFIX: &str = "-linux-x86_64.AppImage";
-pub const TARBALL_SUFFIX: &str = "-linux-x64.tar.gz";
-/// The ARM64 Linux archives: the Blazie BT Speak and BT Braille (Debian on a
-/// Raspberry Pi Compute Module), Raspberry Pi desktops, and the like. The
-/// tarball says `arm64` to match the Mac archive, the AppImage `aarch64`.
-pub const APPIMAGE_SUFFIX_AARCH64: &str = "-linux-aarch64.AppImage";
-pub const TARBALL_SUFFIX_AARCH64: &str = "-linux-arm64.tar.gz";
+// -- the update identity --------------------------------------------------------
 
-/// The Linux tarball suffix for this process's architecture. An ARM64
-/// process must never be offered the x86_64 download, or the reverse: the
-/// updater would install a game that cannot start.
-pub fn tarball_suffix(architecture: Architecture) -> &'static str {
-    match architecture {
-        Architecture::Aarch64 => TARBALL_SUFFIX_AARCH64,
-        Architecture::X86_64 | Architecture::Other => TARBALL_SUFFIX,
-    }
-}
-
-/// The Linux AppImage suffix for this process's architecture.
-pub fn appimage_suffix(architecture: Architecture) -> &'static str {
-    match architecture {
-        Architecture::Aarch64 => APPIMAGE_SUFFIX_AARCH64,
-        Architecture::X86_64 | Architecture::Other => APPIMAGE_SUFFIX,
-    }
-}
-
-/// The .AppImage file this process is running from, or `None`.
+/// What this copy is to the updater, as the release build baked it in;
+/// `None` for any build made without the update key.
 ///
-/// The AppImage runtime exports `APPIMAGE` with the file's absolute path.
-/// This must be checked before any executable-path heuristics: the payload
-/// runs from a read-only mount (or a throwaway extraction) under the temp
-/// directory, whose paths mislead directory-based logic.
-pub fn running_appimage_path(appimage: Option<&str>) -> Option<PathBuf> {
-    let raw = appimage?;
-    if raw.is_empty() {
-        return None;
-    }
-    let path = PathBuf::from(raw);
-    if path.is_file() {
-        Some(path)
-    } else {
-        None
-    }
+/// An AppImage copy is published under its own platform name
+/// (`linux-x64-appimage`), since its update is the AppImage file itself,
+/// not the tarball beside it.
+pub fn running() -> Option<Running> {
+    running_for(Running::baked()?, &Host::current())
 }
 
-pub fn platform_suffix(env: &UpdaterEnv) -> &'static str {
-    match env.platform {
-        Platform::Windows => "-windows-portable.zip",
-        // Stable releases keep their existing Mac archive contract. Career
-        // 1.9 snapshots specialize it in pick_asset below.
-        Platform::MacOs => "-macos.zip",
-        _ => {
-            if running_appimage_path(env.appimage.as_deref()).is_some() {
-                appimage_suffix(env.architecture)
-            } else {
-                tarball_suffix(env.architecture)
-            }
-        }
-    }
-}
-
-/// The `(name, url, size)` of this platform's archive, or `None`.
-pub fn pick_asset(
-    release: &Value,
-    suffix: Option<&str>,
-    env: &UpdaterEnv,
-) -> Option<(String, String, i64)> {
-    let release_tag = release
-        .get("tag_name")
-        .and_then(Value::as_str)
-        .unwrap_or("");
-    let suffix = match (suffix, env.platform, release_tag.starts_with("1.9-tester-")) {
-        (Some(suffix), _, _) => suffix,
-        (None, Platform::MacOs, true) => match env.architecture {
-            Architecture::Aarch64 => "-macos-arm64.zip",
-            // The snapshots are built natively for Apple Silicon. Do not
-            // offer that app to an Intel process.
-            Architecture::X86_64 | Architecture::Other => return None,
-        },
-        (None, _, _) => platform_suffix(env),
-    };
-    let assets = release.get("assets").and_then(Value::as_array)?;
-    for asset in assets {
-        let name = asset_name(asset);
-        if name.ends_with(suffix) {
-            let url = asset_url(asset)?;
-            return Some((name.to_string(), url, asset_size(asset)));
-        }
-    }
-    None
-}
-
-fn asset_name(asset: &Value) -> &str {
-    asset.get("name").and_then(Value::as_str).unwrap_or("")
-}
-
-/// The release asset named exactly `name`.
-fn asset_named<'a>(release: &'a Value, name: &str) -> Option<&'a Value> {
-    release
-        .get("assets")?
-        .as_array()?
-        .iter()
-        .find(|asset| asset_name(asset) == name)
-}
-
-fn asset_url(asset: &Value) -> Option<String> {
-    asset
-        .get("browser_download_url")
-        .and_then(Value::as_str)
-        .map(str::to_string)
-}
-
-/// An asset's size in bytes, whether listed as a number or a string; 0
-/// when missing.
-fn asset_size(asset: &Value) -> i64 {
-    match asset.get("size") {
-        Some(Value::Number(n)) => n.as_f64().map(|f| f as i64).unwrap_or(0),
-        Some(Value::String(s)) => s.trim().parse().unwrap_or(0),
-        _ => 0,
-    }
-}
-
-/// The SHA-256 GitHub records for an asset (its `digest`,
-/// `"sha256:<hex>"`), or "" when the release predates digests.
-fn asset_digest(asset: &Value) -> String {
-    asset
-        .get("digest")
-        .and_then(Value::as_str)
-        .and_then(|d| d.strip_prefix("sha256:"))
-        .unwrap_or("")
-        .to_ascii_lowercase()
-}
-
-static NIGHTLY: Lazy<Regex> = Lazy::new(|| Regex::new(r"^nightly-(\d{8})$").unwrap());
-static TESTER_19: Lazy<Regex> = Lazy::new(|| Regex::new(r"^1\.9-tester-(\d{8})$").unwrap());
-
-/// `'nightly-20260611' -> '20260611'`; `''` when not a nightly tag.
-pub fn nightly_date(tag: &str) -> String {
-    NIGHTLY
-        .captures(tag)
-        .map(|c| c[1].to_string())
-        .unwrap_or_default()
-}
-
-/// `'1.9-tester-20260828' -> '20260828'`; `''` when not a Career 1.9 tester tag.
-pub fn tester_19_date(tag: &str) -> String {
-    TESTER_19
-        .captures(tag)
-        .map(|c| c[1].to_string())
-        .unwrap_or_default()
-}
-
-/// YYYYMMDD from a `nightly-` or `1.9-tester-` tag; `''` when neither.
-fn snapshot_date_of(tag: &str) -> String {
-    let tester = tester_19_date(tag);
-    if !tester.is_empty() {
-        tester
-    } else {
-        nightly_date(tag)
-    }
-}
-
-fn version_major_minor_is_19(text: &str) -> bool {
-    let parts = parse_version(text);
-    parts.first() == Some(&1) && parts.get(1) == Some(&9)
-}
-
-/// Career 1.9 binaries (package version 1.9, or already on a 1.9-tester tag)
-/// follow `1.9-tester-YYYYMMDD` on the snapshot channel. Everyone else stays
-/// on public `nightly-YYYYMMDD`.
-fn is_career_19_line(current_version: &str, build: Option<&BuildInfo>) -> bool {
-    if version_major_minor_is_19(current_version) {
-        return true;
-    }
-    let Some(build) = build else {
-        return false;
-    };
-    !tester_19_date(&build.tag).is_empty() || version_major_minor_is_19(&build.tag)
-}
-
-fn tag_name(release: &Value) -> String {
-    release
-        .get("tag_name")
-        .and_then(Value::as_str)
-        .unwrap_or("")
-        .to_string()
-}
-
-fn is_prerelease(release: &Value) -> bool {
-    crate::online_presence::truthy(release.get("prerelease"))
-}
-
-fn pick_update_asset(release: &Value, env: &UpdaterEnv) -> Option<(String, String, i64)> {
-    let mut asset = pick_asset(release, None, env);
-    if asset.is_none() && running_appimage_path(env.appimage.as_deref()).is_some() {
-        // Releases published before the AppImage existed ship only the
-        // tarball; still offer the update. The download flow parks it for
-        // a manual install (can_auto_apply is False) instead of hiding it.
-        asset = pick_asset(release, Some(tarball_suffix(env.architecture)), env);
-    }
-    asset
-}
-
-/// The SHA-256 GitHub records for the asset named `name`, or "".
-fn asset_sha256(release: &Value, name: &str) -> String {
-    asset_named(release, name)
-        .map(asset_digest)
-        .unwrap_or_default()
-}
-
-fn update_from_release(release: &Value, title: &str, env: &UpdaterEnv) -> Option<UpdateInfo> {
-    let (name, url, size) = pick_update_asset(release, env)?;
-    Some(UpdateInfo {
-        asset_sha256: asset_sha256(release, &name),
-        slim: None,
-        tag: tag_name(release),
-        title: title.to_string(),
-        notes: flatten_markdown(release.get("body").and_then(Value::as_str)),
-        asset_name: name,
-        asset_url: url,
-        asset_size: size,
-    })
-}
-
-pub fn stable_update_from(
-    release: &Value,
-    current_version: &str,
-    env: &UpdaterEnv,
-) -> Option<UpdateInfo> {
-    let tag = tag_name(release);
-    if parse_version(&tag) <= parse_version(current_version) {
-        return None;
-    }
-    let title = stable_title(&tag);
-    update_from_release(release, &title, env)
-}
-
-fn snapshot_tag_date(tag: &str, career_19: bool) -> String {
-    if career_19 {
-        tester_19_date(tag)
-    } else {
-        nightly_date(tag)
-    }
-}
-
-fn snapshot_releases_newest_first<'a>(
-    releases: &'a [Value],
-    career_19: bool,
-    env: &UpdaterEnv,
-) -> Vec<&'a Value> {
-    let mut snapshots: Vec<&Value> = releases
-        .iter()
-        .filter(|r| {
-            is_prerelease(r)
-                && !snapshot_tag_date(&tag_name(r), career_19).is_empty()
-                && pick_update_asset(r, env).is_some()
-        })
-        .collect();
-    snapshots.sort_by_key(|r| std::cmp::Reverse(snapshot_tag_date(&tag_name(r), career_19)));
-    snapshots
-}
-
-/// The highest-versioned non-prerelease in the list, or `None`.
-fn latest_stable_release(releases: &[Value]) -> Option<&Value> {
-    releases
-        .iter()
-        .filter(|r| !is_prerelease(r) && parse_version(&tag_name(r)) > vec![0])
-        .max_by(|a, b| parse_version(&tag_name(a)).cmp(&parse_version(&tag_name(b))))
-}
-
-/// A release's date as `YYYYMMDD`: the nightly tag date for snapshots,
-/// else the `published_at` date for tagged releases; '' when unknown.
-fn release_date(release: Option<&Value>) -> String {
-    let Some(release) = release else {
-        return String::new();
-    };
-    let from_tag = snapshot_date_of(&tag_name(release));
-    if !from_tag.is_empty() {
-        return from_tag;
-    }
-    let published = release_timestamp(Some(release));
-    if published.is_empty() {
-        String::new()
-    } else {
-        published.chars().take(10).filter(|c| *c != '-').collect()
-    }
-}
-
-/// This build's date as `YYYYMMDD`: the nightly tag date, else the
-/// stamped build date; '' when unknown.
-fn build_date(build: Option<&BuildInfo>) -> String {
-    let Some(build) = build else {
-        return String::new();
-    };
-    let from_tag = snapshot_date_of(&build.tag);
-    if !from_tag.is_empty() {
-        from_tag
-    } else {
-        build.built_at.replace('-', "")
-    }
-}
-
-/// A release's full `published_at` (ISO 8601, sortable as text); ''
-/// when unknown. Dates alone cannot order a same-day stable and nightly,
-/// and both orderings really happen: the 04:00 UTC cron nightly precedes
-/// an afternoon promotion, but a small-hours stable precedes that same
-/// cron -- which then carries fixes merged in between (v1.8.5.1 day,
-/// 2026-07-23: stable 01:07, nightly 03:58 with two backports, and the
-/// date tie hid the nightly from every dev-channel player).
-fn release_timestamp(release: Option<&Value>) -> String {
-    let Some(release) = release else {
-        return String::new();
-    };
-    stamp_str(release.get("published_at"))
-}
-
-/// The running build's publish moment, recovered from its own release.
-///
-/// build_info carries only a date, so the release list is the one source
-/// of intra-day ordering for the copy the player is on.
-fn build_timestamp(
-    build: Option<&BuildInfo>,
-    releases: &[Value],
-    stable: Option<&Value>,
-) -> String {
-    let Some(build) = build else {
-        return String::new();
-    };
-    if let Some(stable) = stable {
-        if tag_name(stable) == build.tag {
-            return release_timestamp(Some(stable));
-        }
-    }
-    for release in releases {
-        if tag_name(release) == build.tag {
-            return release_timestamp(Some(release));
-        }
-    }
-    String::new()
-}
-
-/// Whether `release` (a stable build) is an upgrade for the running copy.
-///
-/// A stable build compares by version (two builds can share a date but differ
-/// in version); a nightly build compares by publish timestamp when both are
-/// known, else by date, since the version number is typically unchanged
-/// across the dev-to-stable promotion.
-fn stable_newer_than_build(
-    release: &Value,
-    build: Option<&BuildInfo>,
-    build_date: &str,
-    build_ts: &str,
-) -> bool {
-    let tag = tag_name(release);
-    if let Some(build) = build {
-        if tag == build.tag {
-            return false;
-        }
-        if nightly_date(&build.tag).is_empty() {
-            return parse_version(&tag) > parse_version(&build.tag);
-        }
-    }
-    let stable_ts = release_timestamp(Some(release));
-    if !build_ts.is_empty() && !stable_ts.is_empty() {
-        return stable_ts.as_str() > build_ts;
-    }
-    let stable_date = release_date(Some(release));
-    !(!build_date.is_empty() && !stable_date.is_empty() && stable_date.as_str() <= build_date)
-}
-
-fn snapshot_newer_than_build(
-    release: &Value,
-    build: Option<&BuildInfo>,
-    build_date: &str,
-    build_ts: &str,
-) -> bool {
-    let tag = tag_name(release);
-    if let Some(build) = build {
-        if tag == build.tag {
-            return rebuilt_under_same_tag(release, build);
-        }
-        let snapshot_ts = release_timestamp(Some(release));
-        if !build_ts.is_empty() && !snapshot_ts.is_empty() {
-            return snapshot_ts.as_str() > build_ts;
-        }
-        let snap_date = snapshot_date_of(&tag);
-        if !build_date.is_empty() && !snap_date.is_empty() && snap_date.as_str() <= build_date {
-            return false;
-        }
-    }
-    true
-}
-
-/// The line the release tool writes when a snapshot's notes have nothing in
-/// them: no changelog entry since the previous snapshot or the stable release.
-const QUIET_SNAPSHOT_LINE: &str = "- No user-facing changes";
-
-fn is_quiet_snapshot(release: &Value) -> bool {
-    is_prerelease(release)
-        && stamp_str(release.get("body"))
-            .lines()
-            .any(|line| line.trim() == QUIET_SNAPSHOT_LINE)
-}
-
-/// Whether anything a player would notice was published after this copy, up
-/// to and including `snapshot`. The nightly runs even when the day's commits
-/// were CI or tests alone (1.9-tester-20261007, four hours after v1.9.3 with a
-/// build-timeout change on top), and offering that copy is an update to the
-/// same game. A stable release in between counts as news: a snapshot's notes
-/// leave out what that release already listed, yet a copy from before it still
-/// lacks those fixes. Unknown publish times on either side mean offer it.
-fn carries_news_since_build(
-    snapshot: &Value,
-    releases: &[Value],
-    build: Option<&BuildInfo>,
-    build_ts: &str,
-    career_19: bool,
-) -> bool {
-    let snapshot_ts = release_timestamp(Some(snapshot));
-    if build_ts.is_empty() || snapshot_ts.is_empty() {
-        return true;
-    }
-    if build.is_some_and(|build| tag_name(snapshot) == build.tag) {
-        return true; // a re-cut under this copy's own tag; the commit decided
-    }
-    let mut news = news_between(releases, build_ts, &snapshot_ts, career_19);
-    news.next().is_some()
-}
-
-/// A release on this career line with something a player notices: a stable
-/// release, or a snapshot whose notes are not the quiet line.
-fn is_news(release: &Value, career_19: bool) -> bool {
-    let tag = tag_name(release);
-    if is_prerelease(release) {
-        !snapshot_tag_date(&tag, career_19).is_empty() && !is_quiet_snapshot(release)
-    } else if career_19 {
-        version_major_minor_is_19(&tag)
-    } else {
-        parse_version(&tag) > vec![0]
-    }
-}
-
-/// The releases with news published after `build_ts`, up to and including
-/// `snapshot_ts`.
-fn news_between<'a>(
-    releases: &'a [Value],
-    build_ts: &'a str,
-    snapshot_ts: &'a str,
-    career_19: bool,
-) -> impl Iterator<Item = &'a Value> {
-    releases.iter().filter(move |release| {
-        let published = release_timestamp(Some(release));
-        published.as_str() > build_ts
-            && published.as_str() <= snapshot_ts
-            && is_news(release, career_19)
-    })
-}
-
-/// What's new for a quiet snapshot offered to an older copy: the notes of
-/// every release with news since that copy, newest first, each under its
-/// spoken name. The quiet line alone would tell that player nothing changed
-/// when a stable release's fixes arrive with it. `None` when there are none.
-fn notes_since_build(
-    snapshot: &Value,
-    releases: &[Value],
-    build: Option<&BuildInfo>,
-    build_ts: &str,
-    career_19: bool,
-) -> Option<Vec<String>> {
-    let snapshot_ts = release_timestamp(Some(snapshot));
-    if !is_quiet_snapshot(snapshot)
-        || build_ts.is_empty()
-        || snapshot_ts.is_empty()
-        || build.is_some_and(|build| tag_name(snapshot) == build.tag)
+/// `running` for `host`: the AppImage platform when it runs from one.
+pub fn running_for(mut running: Running, host: &Host) -> Option<Running> {
+    if matches!(host.install(), Install::AppImage { .. })
+        && !running.platform.ends_with(APPIMAGE_PLATFORM_SUFFIX)
     {
-        return None;
+        running.platform.push_str(APPIMAGE_PLATFORM_SUFFIX);
     }
-    let mut news: Vec<&Value> = news_between(releases, build_ts, &snapshot_ts, career_19).collect();
-    news.sort_by_key(|release| std::cmp::Reverse(release_timestamp(Some(release))));
-    let notes: Vec<String> = news
-        .into_iter()
-        .flat_map(|release| {
-            let tag = tag_name(release);
-            let title = if is_prerelease(release) {
-                snapshot_title(career_19, &spoken_ymd(&snapshot_tag_date(&tag, career_19)))
-            } else {
-                stable_title(&tag)
-            };
-            std::iter::once(title).chain(flatten_markdown(
-                release.get("body").and_then(Value::as_str),
-            ))
-        })
-        .collect();
-    (!notes.is_empty()).then_some(notes)
+    Some(running)
 }
 
-/// A snapshot re-cut under the tag this copy carries (a second run on
-/// the same day, such as a release candidate) points at a different commit.
-/// Unknown on either side means not newer.
-fn rebuilt_under_same_tag(release: &Value, build: &BuildInfo) -> bool {
-    let target = stamp_str(release.get("target_commitish"));
-    let is_sha = |s: &str| s.len() == 40 && s.bytes().all(|b| b.is_ascii_hexdigit());
-    is_sha(&build.commit) && is_sha(&target) && !target.eq_ignore_ascii_case(&build.commit)
+/// Why this copy cannot update itself, if it cannot.
+pub fn blocked(running: Option<&Running>, host: &Host) -> Option<Blocked> {
+    hearken_update::blocked(running, host, managed_by_agnow())
 }
 
-fn spoken_ymd(date: &str) -> String {
-    format!("{}-{}-{}", &date[..4], &date[4..6], &date[6..])
-}
-
-/// The update to offer a dev-channel player.
-///
-/// On public 1.8 builds this is the newest `nightly-YYYYMMDD` snapshot, with
-/// the usual steer-to-stable once a promotion postdates that nightly. Career
-/// 1.9 packaged builds on the same channel look only at `1.9-tester-YYYYMMDD`
-/// prereleases: they must not land on a 1.8 nightly or a 1.8 stable.
-/// `stable` is the latest stable release (from `/releases/latest`); when
-/// omitted it is derived from `releases`. Pass `current_version` so a 1.9
-/// binary is recognized even before it is stamped with a tester tag.
-pub fn dev_update_from(
-    releases: &[Value],
-    build: Option<&BuildInfo>,
-    stable: Option<&Value>,
-    env: &UpdaterEnv,
-) -> Option<UpdateInfo> {
-    snapshot_update_from(releases, build, "", stable, env)
-}
-
-pub fn snapshot_update_from(
-    releases: &[Value],
-    build: Option<&BuildInfo>,
-    current_version: &str,
-    stable: Option<&Value>,
-    env: &UpdaterEnv,
-) -> Option<UpdateInfo> {
-    let career_19 = is_career_19_line(current_version, build);
-    let snapshots = snapshot_releases_newest_first(releases, career_19, env);
-    let latest_snapshot = snapshots.first().copied();
-    let stable = if career_19 {
-        None
-    } else {
-        stable.or_else(|| latest_stable_release(releases))
-    };
-
-    let build_date = build_date(build);
-    let build_ts = build_timestamp(build, releases, stable);
-    let snapshot_date_s = release_date(latest_snapshot);
-    let stable_date = release_date(stable);
-    let snapshot_ts = release_timestamp(latest_snapshot);
-    let stable_ts = release_timestamp(stable);
-
-    // Timestamps order a same-day stable and nightly; dates alone cannot,
-    // and a date tie wrongly favored a small-hours stable over the 04:00
-    // nightly that carried fixes merged between them (2026-07-23).
-    let stable_leads = if !snapshot_ts.is_empty() && !stable_ts.is_empty() {
-        stable_ts >= snapshot_ts
-    } else {
-        !stable_date.is_empty() && stable_date >= snapshot_date_s
-    };
-
-    if let Some(stable) = stable {
-        if stable_leads {
-            if stable_newer_than_build(stable, build, &build_date, &build_ts) {
-                let tag = tag_name(stable);
-                let title = stable_title(&tag);
-                return update_from_release(stable, &title, env);
-            }
-            return None; // already on the newest stable; nothing newer on dev
+/// Spoken: why this copy does not update itself.
+pub fn blocked_line(why: Blocked) -> &'static str {
+    match why {
+        Blocked::Store => "On iPhone and iPad, updates come through the App Store or TestFlight.",
+        Blocked::AgNow => "AG Now keeps this copy up to date.",
+        Blocked::DevBuild | Blocked::CargoBuild => {
+            "Updates are only available in the packaged game. This copy runs from source; \
+             update it with git."
         }
     }
+}
 
-    if let Some(snapshot) = latest_snapshot {
-        if snapshot_newer_than_build(snapshot, build, &build_date, &build_ts)
-            && carries_news_since_build(snapshot, releases, build, &build_ts, career_19)
-        {
-            let date = snapshot_tag_date(&tag_name(snapshot), career_19);
-            let spoken = spoken_ymd(&date);
-            let mut info = update_from_release(snapshot, &snapshot_title(career_19, &spoken), env)?;
-            if let Some(notes) = notes_since_build(snapshot, releases, build, &build_ts, career_19)
-            {
-                info.notes = notes;
-            }
-            return Some(info);
+/// The update version a snapshot's spoken title is made from:
+/// `1.9.6-dev.202610300537` is the 1.9 tester snapshot of 2026-10-30.
+fn snapshot_date(version: &str) -> Option<String> {
+    let (_, pre) = version.split_once('-')?;
+    let stamp = pre.strip_prefix("dev.")?;
+    let date = stamp.get(..8)?;
+    date.bytes()
+        .all(|b| b.is_ascii_digit())
+        .then(|| format!("{}-{}-{}", &date[..4], &date[4..6], &date[6..]))
+}
+
+/// The spoken name of an update: "Freight Fate version 1.9.6", or for a
+/// snapshot "Freight Fate 1.9 tester snapshot 2026-10-30".
+pub fn update_title(version: &str) -> String {
+    match snapshot_date(version) {
+        Some(date) => {
+            let mut parts = version.split(['.', '-']);
+            let (major, minor) = (parts.next().unwrap_or("1"), parts.next().unwrap_or("9"));
+            format!("Freight Fate {major}.{minor} tester snapshot {date}")
+        }
+        None => format!("Freight Fate version {}", version.trim_start_matches('v')),
+    }
+}
+
+// -- where updates are --------------------------------------------------------
+
+/// Freight Fate's releases: stable manifests from the latest release, and
+/// snapshot manifests from the newest releases that carry one.
+pub struct ReleaseSource {
+    stable: ManifestUrl,
+    snapshots: GitHubReleases,
+}
+
+impl ReleaseSource {
+    pub fn new() -> Self {
+        let (owner, repo) = REPO.split_once('/').expect("owner/repo");
+        Self {
+            stable: ManifestUrl::new(STABLE_MANIFESTS).expect("an HTTPS manifest URL"),
+            snapshots: GitHubReleases::new(owner, repo).expect("a GitHub name"),
         }
     }
-    None
 }
 
-fn stable_title(tag: &str) -> String {
-    format!("Freight Fate version {}", tag.trim_start_matches('v'))
-}
-
-fn snapshot_title(career_19: bool, spoken: &str) -> String {
-    if career_19 {
-        format!("Freight Fate 1.9 tester snapshot {spoken}")
-    } else {
-        format!("Freight Fate developer snapshot {spoken}")
+impl Default for ReleaseSource {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
-fn release_pages(api: &dyn Fn(&str) -> Result<Value, NetError>) -> Result<Vec<Value>, NetError> {
-    let mut releases = Vec::new();
-    for page in 1..=MAX_RELEASE_PAGES {
-        let path = format!("/releases?per_page={RELEASE_PAGE_SIZE}&page={page}");
-        let response = api(&path)?;
-        let page_releases = response.as_array().cloned().unwrap_or_default();
-        let exhausted = page_releases.len() < RELEASE_PAGE_SIZE;
-        releases.extend(page_releases);
-        if exhausted {
-            break;
-        }
-    }
-    Ok(releases)
-}
-
-/// Query GitHub for a newer release on `channel` through `api`
-/// (`_api_get`, injectable). Network trouble is the error; `Ok(None)` means
-/// already up to date.
-pub fn check_for_update_with(
-    channel: &str,
-    current_version: &str,
-    build: Option<&BuildInfo>,
-    env: &UpdaterEnv,
-    api: &dyn Fn(&str) -> Result<Value, NetError>,
-) -> Result<Option<UpdateInfo>, NetError> {
-    if channel == "dev" {
-        // Snapshot families share the release list. Read bounded 100-item
-        // pages so daily releases cannot hide the player's family, while the
-        // latest stable stays on its dedicated endpoint.
-        let releases = release_pages(api)?;
-        let stable = if is_career_19_line(current_version, build) {
-            None
+impl UpdateSource for ReleaseSource {
+    fn find(&self, query: &Query, fetch: &dyn Fetch) -> Result<Option<Found>, SourceError> {
+        if query.channel == "stable" {
+            self.stable.find(query, fetch)
         } else {
-            match api("/releases/latest") {
-                Ok(stable) => Some(stable),
-                Err(NetError::Http { code: 404, .. }) => None, // no stable release published yet
-                Err(e) => return Err(e),
-            }
+            self.snapshots.find(query, fetch)
+        }
+    }
+
+    fn describe(&self) -> String {
+        format!("github.com/{REPO}")
+    }
+}
+
+/// HTTPS through the engine's client, every request sent through the
+/// player's mirror when one is set.
+pub struct MirrorFetch {
+    inner: HttpFetch,
+    prefix: Option<String>,
+}
+
+impl MirrorFetch {
+    /// A fetch through `prefix`, or straight to each host with `None`. An
+    /// invalid prefix is refused up front.
+    pub fn new(prefix: Option<&str>) -> Result<Self, &'static str> {
+        let prefix = prefix.map(normalize_mirror_prefix).transpose()?;
+        Ok(Self {
+            inner: HttpFetch::default(),
+            prefix,
+        })
+    }
+
+    /// The URL to send, once the game may reach the network at all (see
+    /// [`crate::net::require_real_network`]): a test never sends one.
+    fn url(&self, url: &str) -> String {
+        let url = match &self.prefix {
+            Some(prefix) => format!("{prefix}{url}"),
+            None => url.to_string(),
         };
-        return Ok(snapshot_update_from(
-            &releases,
-            build,
-            current_version,
-            stable.as_ref(),
-            env,
-        ));
+        crate::net::require_real_network("GET", &url);
+        url
     }
-    let release = match api("/releases/latest") {
-        Ok(release) => release,
-        Err(NetError::Http { code: 404, .. }) => return Ok(None), // no stable release published yet
-        Err(e) => return Err(e),
-    };
-    if build.is_some_and(|build| is_running_release(build, &release)) {
-        return Ok(None);
-    }
-    Ok(stable_update_from(&release, current_version, env))
 }
 
-/// Whether `release` is the stable release this copy was built as. Its stamp
-/// is the authority over the version text: the 1.9.0 stable shipped saying
-/// `1.9.0.dev0` (and tagged `vv1.9.0`), and then offered itself forever.
-fn is_running_release(build: &BuildInfo, release: &Value) -> bool {
-    if !snapshot_date_of(&build.tag).is_empty() {
-        return false;
+impl Fetch for MirrorFetch {
+    fn get(&self, url: &str, headers: &[(&str, &str)], limit: u64) -> Result<Vec<u8>, FetchError> {
+        self.inner.get(&self.url(url), headers, limit)
     }
-    let tag = tag_name(release);
-    let release_version = tag.trim_start_matches('v');
-    !release_version.is_empty() && release_version == build.tag.trim_start_matches('v')
+
+    fn open(&self, url: &str) -> Result<Body, FetchError> {
+        self.inner.open(&self.url(url))
+    }
+
+    fn supports_ranges(&self) -> bool {
+        self.inner.supports_ranges()
+    }
+
+    fn open_range(&self, url: &str, range: Range<u64>) -> Result<Option<RangeBody>, FetchError> {
+        self.inner.open_range(&self.url(url), range)
+    }
 }
 
-/// [`check_for_update_with`] over the real GitHub API and process.
+/// The fetch for the player's settings.
+pub fn fetch_for(mirror_prefix: Option<&str>) -> Result<Arc<dyn Fetch>, &'static str> {
+    Ok(Arc::new(MirrorFetch::new(mirror_prefix)?))
+}
+
+// -- what an update is ------------------------------------------------------------
+
+/// An update to offer, with what the screens say about it.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct UpdateInfo {
+    /// The engine's checked update: its signed manifest, where its archive
+    /// is, and which files this copy can keep.
+    pub update: Update,
+    /// The version it installs: what Skip this version remembers.
+    pub tag: String,
+    /// Spoken name, e.g. "Freight Fate version 1.9.6".
+    pub title: String,
+    /// The release notes as speakable lines.
+    pub notes: Vec<String>,
+}
+
+impl UpdateInfo {
+    pub fn new(update: Update) -> Self {
+        let version = update.version().to_string();
+        Self {
+            title: update_title(&version),
+            notes: update.manifest.note_lines(),
+            tag: version,
+            update,
+        }
+    }
+
+    /// Bytes the player will download: only the changed files when this
+    /// copy has the rest.
+    pub fn download_size(&self) -> u64 {
+        self.update.download_size()
+    }
+}
+
+/// Look for an update on `channel`, and which of this copy's files it can
+/// keep. Blocking: run it off the game loop. `Ok(None)` is up to date.
 pub fn check_for_update(
     channel: &str,
-    current_version: &str,
-    build: Option<&BuildInfo>,
     mirror_prefix: Option<&str>,
-) -> Result<Option<UpdateInfo>, NetError> {
-    let env = UpdaterEnv::current();
-    let api = |path: &str| api_get_with_mirror(path, mirror_prefix);
-    let mut found = check_for_update_with(channel, current_version, build, &env, &api)?;
-    if let Some(info) = found.as_mut() {
-        info.asset_url =
-            mirror_url(&info.asset_url, mirror_prefix).map_err(|message| NetError::Other {
-                type_name: "InvalidMirror".to_string(),
-                message: message.to_string(),
-            })?;
-        slim::resolve(info, &env);
+    cancelled: &AtomicBool,
+) -> Result<Option<UpdateInfo>, String> {
+    let host = Host::current();
+    let running = running();
+    if let Some(why) = blocked(running.as_ref(), &host) {
+        return Err(blocked_line(why).to_string());
     }
-    Ok(found)
+    let running = running.expect("not blocked");
+    let fetch = fetch_for(mirror_prefix).map_err(str::to_string)?;
+    check_with(
+        &ReleaseSource::new(),
+        fetch.as_ref(),
+        &running,
+        &host.install(),
+        channel,
+        cancelled,
+    )
 }
 
-mod apply;
-mod notes;
-pub mod slim;
-mod zip_index;
+/// [`check_for_update`] against any source, fetch and install, for tests.
+pub fn check_with(
+    source: &dyn UpdateSource,
+    fetch: &dyn Fetch,
+    running: &Running,
+    install: &Install,
+    channel: &str,
+    cancelled: &AtomicBool,
+) -> Result<Option<UpdateInfo>, String> {
+    match hearken_update::check(source, fetch, running, channel) {
+        Ok(None) => Ok(None),
+        Ok(Some(mut update)) => {
+            update.plan = hearken_update::plan_until(&update, fetch, install, cancelled);
+            Ok(Some(UpdateInfo::new(update)))
+        }
+        Err(e) => {
+            log::warn!("Update check of {} failed: {e}", source.describe());
+            Err(check_error_line(&e))
+        }
+    }
+}
 
-pub use slim::SlimUpdate;
+/// Spoken: why a check found nothing it could offer.
+pub fn check_error_line(e: &hearken_update::CheckError) -> String {
+    use hearken_update::{CheckError, Refusal};
+    match e {
+        CheckError::Source(_) => "Could not reach the update server.".to_string(),
+        CheckError::Refused(Refusal::Manifest(_)) => {
+            "The update server offered an update that is not signed by Freight Fate, \
+             so it was ignored."
+                .to_string()
+        }
+        CheckError::Refused(_) => {
+            "The update server offered an update for another copy of the game, \
+             so it was ignored."
+                .to_string()
+        }
+        CheckError::BadRunningVersion(_) => {
+            "This copy does not know its own version, so it cannot update itself.".to_string()
+        }
+    }
+}
 
-pub use notes::flatten_markdown;
+// -- installing it ---------------------------------------------------------------
 
-pub use apply::{
-    apply_and_restart, apply_and_restart_with, can_auto_apply, download, extract, extract_with,
-    extracted_root, is_translocated, macos_bundle_swappable, make_staging_dir, quote_for_script,
-    run_bounded, stage_update, stage_update_with, stash_for_manual_install, stream_to_file,
-    write_apply_script, DownloadError, DOWNLOAD_IDLE_TIMEOUT, UNPACK_TIMEOUT,
-};
+/// The prefix of this game's staging folders under the system's temporary
+/// folder.
+pub const STAGING_PREFIX: &str = "freight-fate-update";
 
-#[cfg(test)]
-#[path = "updater/verbatim_tests.rs"]
-mod verbatim_tests;
+/// A new staging folder for one download.
+pub fn make_staging_dir() -> io::Result<PathBuf> {
+    hearken_update::make_staging_dir(STAGING_PREFIX)
+}
+
+/// Download `info` into `staging` and unpack it, ready to replace
+/// `install`: only the changed files when it can, else the whole archive.
+#[allow(clippy::too_many_arguments)]
+pub fn download_and_stage(
+    info: &UpdateInfo,
+    fetch: &dyn Fetch,
+    staging: &Path,
+    install: &Install,
+    progress: &mut dyn FnMut(u64, u64),
+    phase: &mut dyn FnMut(Phase),
+    cancelled: &AtomicBool,
+) -> Result<Staged, DownloadError> {
+    hearken_update::download_and_stage(
+        &info.update,
+        fetch,
+        staging,
+        install,
+        Limits::default(),
+        progress,
+        phase,
+        cancelled,
+    )
+}
+
+pub use hearken_update::{apply_and_restart, can_auto_apply, stash_for_manual_install};
+
+/// At start, before anything is read: put back an update that was stopped
+/// part-way. `Some` line to say when there was one.
+pub fn recover_interrupted() -> Option<String> {
+    let host = Host::current();
+    if blocked(running().as_ref(), &host).is_some() {
+        return None;
+    }
+    match hearken_update::recover_interrupted(&host.install()) {
+        Ok(hearken_update::Recovery::Nothing) => None,
+        Ok(hearken_update::Recovery::Restored) => Some(
+            "The last update did not finish, so the game was put back as it was. \
+             Check for updates in Settings to try again."
+                .to_string(),
+        ),
+        Ok(hearken_update::Recovery::NoBackup) => Some(
+            "The last update did not finish and could not be undone. Download the game \
+             again from github.com/orinks-games/Freight-Fate/releases."
+                .to_string(),
+        ),
+        Err(e) => {
+            log::warn!("Could not check for an unfinished update: {e}");
+            None
+        }
+    }
+}
+
+static RECOVERY_NOTICE: Mutex<Option<String>> = Mutex::new(None);
+
+/// [`recover_interrupted`] at start, keeping what to say for the main menu.
+pub fn note_interrupted_update() {
+    if let Some(line) = recover_interrupted() {
+        log::warn!("{line}");
+        *RECOVERY_NOTICE.lock().unwrap_or_else(|e| e.into_inner()) = Some(line);
+    }
+}
+
+/// What the start-up recovery found, once.
+pub fn take_recovery_notice() -> Option<String> {
+    RECOVERY_NOTICE
+        .lock()
+        .unwrap_or_else(|e| e.into_inner())
+        .take()
+}
