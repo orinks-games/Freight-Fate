@@ -3788,6 +3788,15 @@ Rules set that day:
       (2026-10-27) that the speed keeper is for streets and facility
       approaches only: cruise now holds highway work zones and heavy
       traffic at their limit, so that handoff no longer happens at all.
+- [x] (Found along the way, #518) On ice the co-driver judged a stop's
+      reach at 50 while the weather held the truck at 20, so a far lot could
+      be planned and never reached. Reach now follows the weather's pace,
+      and a plan the weather puts out of reach is dropped for a nearer lot.
+- [ ] (Found along the way) A slept shift is passed at the posted pace
+      whatever the weather, so on ice the truck covers miles in the jump
+      that it could not drive live.
+- [x] (Found along the way) The co-driver kept a cruise speed set under a
+      higher limit: 70 into Indiana's 65 for trucks. They now tap it down.
 - [ ] Co-driver damages the truck (issue #492).
 - [ ] Game stops responding when the player switches windows (report
       2026-10-21, answers asked for).
