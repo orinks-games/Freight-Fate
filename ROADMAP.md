@@ -811,9 +811,8 @@ Everything found before 2026-09-25 moved to
       update-key --new`), commit its public half in the root `Cargo.toml`,
       and set the `HEARKEN_UPDATE_SECRET` repository secret. Until then a
       release has no manifests and its builds do not update themselves.
-- [ ] (Found along the way) Stable versions must be three-part for the
-      engine updater (a hotfix of 1.9.5 is 1.9.6, not 1.9.5.1); waiting on
-      the owner's call.
+- [x] Stable versions are three-part for the engine updater (owner rule
+      2026-10-30): a hotfix of 1.9.5 is 1.9.6, not 1.9.5.1.
 - [ ] (Found along the way) Port a deleted Python data tool into `ff-tools`
       when a data refresh needs it (October 22 section).
       [October 22 audit](#october-22-repository-size-and-security-audit)
