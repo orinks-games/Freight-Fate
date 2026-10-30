@@ -1379,6 +1379,11 @@ Everything found before 2026-09-25 moved to
       windows on its window scene, since iOS 27 stops an app built with its
       SDK at launch without one (2026-10-22). Moving to SDL3, which has
       scene support of its own, would retire the shim.
+- [x] iOS VoiceOver responsiveness: the game loop waits out each frame in
+      the main run loop instead of asleep, so VoiceOver's questions about the
+      touch surface are answered at once and a menu swipe no longer beeps
+      and speaks about 250 ms late (verified on an iPhone 18 Pro, iOS 27.2,
+      2026-10-30).
 - [x] iOS sideload packaging: `cargo tools build-ios --sideload` builds a device
       IPA without an Apple certificate or provisioning profile, ready for
       re-signing in a sideloading tool; the signed `--device --ipa` path is
