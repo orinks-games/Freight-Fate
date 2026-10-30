@@ -71,7 +71,7 @@ hearken = { git = "https://github.com/orinks-games/hearken", rev = "dac1b3998cd9
 # downloads (only the files that changed, when it can) and swap. The game
 # uses its HTTPS client; ff-tools signs the manifests and writes the file
 # indexes with it.
-hearken-update = { git = "https://github.com/orinks-games/hearken", rev = "d97cd323d184122f26e207d35e1c02ad14a6c926", default-features = false }
+hearken-update = { git = "https://github.com/orinks-games/hearken", rev = "fa8d1f006cd4b03eba651dd9d4c0b1e2bdb6023d", default-features = false }
 raw-window-handle = "0.6"
 # AppKit's typed `NSWindow`, for asking a Mac whether the game window is
 # covered. Already in the build through `webbrowser`; only the window class
