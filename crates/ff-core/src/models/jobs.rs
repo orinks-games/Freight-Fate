@@ -25,7 +25,7 @@ mod team_tests;
 #[cfg(test)]
 mod tests;
 
-pub use board::{reachable_cities, JobBoard, OfferOptions};
+pub use board::{reachable_cities, turn_angle_deg, Candidate, JobBoard, OfferOptions};
 pub use deadline::{
     curve_ceilings, departure_deadline_hours, dispatch_deadline_hours, fair_active_deadline,
     minimum_pay_for_level, plan_hos, remaining_route_hos_plan, required_hours, route_drive_hours,
@@ -687,6 +687,56 @@ pub fn lane_key(world: &World, job: &Job) -> String {
         world.resolve_city_key(&job.destination)
     )
 }
+
+/// The same lane run the other way (`b:a` for `a:b`). A lane is recent in
+/// both directions: a truck that just came up from Dallas has run the
+/// Oklahoma City lane whichever way the next load points. None when the
+/// key is not a from:to pair.
+pub fn reverse_lane_key(lane: &str) -> Option<String> {
+    let (from, to) = lane.split_once(':')?;
+    if from.is_empty() || to.is_empty() {
+        return None;
+    }
+    Some(format!("{to}:{from}"))
+}
+
+/// Whether `lane` or the same lane the other way is in `recent`.
+pub fn lane_recent_either_way(recent: &[String], lane: &str) -> bool {
+    recent.iter().any(|r| r == lane)
+        || reverse_lane_key(lane).is_some_and(|back| recent.contains(&back))
+}
+
+/// The city the truck delivered from to get to `current_city`: the origin
+/// of the most recent lane, when that lane ended here. None after a fresh
+/// start, after a reposition that was not the last lane, or when the lane
+/// memory and the parked city disagree (an old save, a playtest lever).
+pub fn came_from_city(
+    world: &World,
+    recent_lanes: &[String],
+    current_city: &str,
+) -> Option<String> {
+    let (from, to) = recent_lanes.first()?.split_once(':')?;
+    if from.is_empty() || to != world.resolve_city_key(current_city) {
+        return None;
+    }
+    Some(from.to_string())
+}
+
+// Dispatch does not plan a truck straight back where it came from. The city
+// the truck just delivered from is on about this share of its next boards:
+// it still turns up, as a real backhaul does, but it stops being the
+// default. A weight would not do it: at the low levels the nearest city
+// takes nearly every draw however it is scaled, so the return is gated off
+// the board outright on the other boards, by the board's own seed. A board
+// with few cities to choose from keeps it, so a town with one or two
+// neighbours keeps its loads.
+pub const RETURN_LANE_SHARE: f64 = 0.35;
+/// Fewer cities in reach than this, and the straight return stays on.
+pub const RETURN_LANE_MIN_POOL: usize = 4;
+// Cities behind the truck (more than a right-angle turn back from the way it
+// arrived) draw down to this much less than cities ahead or across, so a
+// career's loads trace loops across the map instead of out-and-backs.
+pub const BEHIND_HEADING_PENALTY: f64 = 0.5;
 
 /// How many offers the dispatch board shows at this career level.
 pub fn board_offer_count(level: i64) -> usize {

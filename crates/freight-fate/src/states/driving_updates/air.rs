@@ -225,7 +225,7 @@ impl DrivingState {
                 self.direction_hold_s = 0.0;
                 self.trip.truck.transmission.shift_timer = 0.0;
                 ctx.audio
-                    .play_bank_with("vehicle/shift_manual", "vehicle/gear_shift", 0.55, 0.0);
+                    .play_bank_with("vehicle/shift_auto", "vehicle/gear_shift", 0.55, 0.0);
                 if want == "forward" {
                     self.trip.truck.transmission.gear = 1;
                     self.set_status("Forward gear selected.");

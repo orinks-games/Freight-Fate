@@ -79,6 +79,12 @@ impl Args {
         self.flags.iter().any(|f| f == name)
     }
 
+    /// Every value given for a repeatable option, in order.
+    #[cfg_attr(not(feature = "world"), allow(dead_code))]
+    pub fn all(&self, name: &str) -> &[String] {
+        self.values.get(name).map(Vec::as_slice).unwrap_or(&[])
+    }
+
     /// The last value given for `name`.
     pub fn value(&self, name: &str) -> Option<&str> {
         self.values

@@ -2474,6 +2474,66 @@ msgstr ""
 msgid "Jethro Tull - Teacher"
 msgstr ""
 
+#: crates/ff-core/src/achievements/sort.rs
+msgid "earned"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "newest"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "locked"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs crates/ff-core/src/models/exchange.rs crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_compat.rs
+msgid "name"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "original"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Earned first"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Newest"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Locked first"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "A to Z"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Original order"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Sort: Earned first"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Sort: Newest"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Sort: Locked first"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Sort: A to Z"
+msgstr ""
+
+#: crates/ff-core/src/achievements/sort.rs
+msgid "Sort: Original order"
+msgstr ""
+
 #. placeholders: {path}
 #: crates/ff-core/src/assets_pack.rs
 msgid "Not a Freight Fate sound pack: {path}"
@@ -4754,6 +4814,82 @@ msgstr ""
 #: crates/ff-core/src/data/billboards_dynamic.rs
 msgid ""
 "Happy Halloween. The scariest thing on this road is still the weigh station."
+msgstr ""
+
+#: crates/ff-core/src/data/billboards_dynamic.rs
+msgid ""
+"Halloween week. Somewhere a porch light is on, and the candy bowl is going "
+"fast."
+msgstr ""
+
+#: crates/ff-core/src/data/billboards_dynamic.rs
+msgid ""
+"Trick or treat. Big Jim is handing out business cards this year. Nobody "
+"wants them."
+msgstr ""
+
+#: crates/ff-core/src/data/billboards_dynamic.rs
+msgid "Costume idea: a driver with a clean logbook. Nobody will believe it."
+msgstr ""
+
+#: crates/ff-core/src/data/billboards_dynamic.rs
+msgid ""
+"Halloween week. Kids in costumes are out after dark. Take it slow where the "
+"houses start."
+msgstr ""
+
+#: crates/ff-core/src/data/billboards_dynamic.rs
+msgid ""
+"Haunted house season. Nothing in there is as frightening as a dock "
+"appointment before sunrise."
+msgstr ""
+
+#: crates/ff-core/src/data/billboards_dynamic.rs
+msgid ""
+"Halloween week. The hayrides are running, and the tractors are slower than "
+"you."
+msgstr ""
+
+#: crates/ff-core/src/data/billboards_dynamic.rs
+msgid ""
+"Illinois grows more pumpkins than any other state. Most of them end up in a "
+"pie."
+msgstr ""
+
+#: crates/ff-core/src/data/billboards_dynamic.rs
+msgid ""
+"Salem, Massachusetts, spends all of October on Halloween. Witches welcome. "
+"Trailers, less so."
+msgstr ""
+
+#: crates/ff-core/src/data/billboards_dynamic.rs
+msgid ""
+"New England at Halloween. The leaves are mostly down, and the cider "
+"doughnuts are still hot."
+msgstr ""
+
+#: crates/ff-core/src/data/billboards_dynamic.rs
+msgid ""
+"Sleepy Hollow is on the Hudson. The headless horseman rides all week. Keep "
+"your own head on the road."
+msgstr ""
+
+#: crates/ff-core/src/data/billboards_dynamic.rs
+msgid ""
+"New Orleans takes its ghosts seriously. The cemetery tours are booked all "
+"week."
+msgstr ""
+
+#: crates/ff-core/src/data/billboards_dynamic.rs
+msgid ""
+"Halloween week in farm country. Harvest is still on, so watch for grain "
+"trucks pulling out slow."
+msgstr ""
+
+#: crates/ff-core/src/data/billboards_dynamic.rs
+msgid ""
+"Día de los Muertos is days away. The marigolds and sugar skulls are already "
+"out."
 msgstr ""
 
 #: crates/ff-core/src/data/billboards_dynamic.rs
@@ -10377,10 +10513,6 @@ msgstr ""
 
 #: crates/ff-core/src/models/exchange.rs
 msgid "missing or invalid exchange_version"
-msgstr ""
-
-#: crates/ff-core/src/models/exchange.rs crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/profile.rs
-msgid "name"
 msgstr ""
 
 #. placeholders: {business_status}
@@ -19372,17 +19504,17 @@ msgid ""
 "{earned} of {ACHIEVEMENTS} earned across every career on this installation."
 msgstr ""
 
+#. placeholders: {title}, {done}, {achievements}
 #: crates/freight-fate/src/states/account_achievements.rs
-msgid "Controls and account scope"
+msgid "{title}. {done} of {achievements}"
 msgstr ""
 
 #: crates/freight-fate/src/states/account_achievements.rs
 msgid "The account-wide earned count."
 msgstr ""
 
-#. placeholders: {title}, {done}, {achievements}
 #: crates/freight-fate/src/states/account_achievements.rs
-msgid "{title}. {done} of {achievements}"
+msgid "Controls and account scope"
 msgstr ""
 
 #: crates/freight-fate/src/states/account_achievements.rs
@@ -19437,6 +19569,16 @@ msgstr ""
 msgid "Back to account categories"
 msgstr ""
 
+#: crates/freight-fate/src/states/achievement_sort.rs
+msgid ""
+"Left and Right change the order of the categories and the achievements in "
+"each one."
+msgstr ""
+
+#: crates/freight-fate/src/states/achievement_sort.rs
+msgid "Left and Right change the order of this category only."
+msgstr ""
+
 #: crates/freight-fate/src/states/assist_picker.rs
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr ""
@@ -19451,21 +19593,22 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/assist_picker.rs
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations."
 msgstr ""
 
 #. placeholders: {control_steer_left}, {control_steer_right}
 #: crates/freight-fate/src/states/assist_picker.rs
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits. A tap of {control_steer_left} or {control_steer_right} changes "
-"lanes. Speed, stops and the docks are yours."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations. A tap of "
+"{control_steer_left} or {control_steer_right} changes lanes. Speed, rest "
+"and fuel stops, and the docks are yours."
 msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/assist_picker.rs
-msgid "Speed, stops and the docks are yours."
+msgid "Speed, rest and fuel stops, and the docks are yours."
 msgstr ""
 
 #: crates/freight-fate/src/states/assist_picker.rs
@@ -21080,6 +21223,10 @@ msgstr ""
 msgid ""
 "Level, reputation, dispatch trust, driving record and CDL, balance and "
 "debt, endorsements, lifetime numbers, and rest."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/driving_pause_states.rs crates/freight-fate/src/states/main_menu/achievements.rs crates/freight-fate/src/states/main_menu.rs
+msgid "Achievements"
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/city_business.rs
@@ -30087,6 +30234,11 @@ msgstr ""
 msgid "ramp terminal"
 msgstr ""
 
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_events/update_exit.rs
+msgid "At {name}."
+msgstr ""
+
 #. placeholders: {place}
 #: crates/freight-fate/src/states/driving_events/update_exit.rs
 msgid "At {place}."
@@ -30354,6 +30506,11 @@ msgstr ""
 #. placeholders: {name}
 #: crates/freight-fate/src/states/driving_lane_gap.rs
 msgid "Changing to the {name} lane for the exit."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "Changing to the {name} lane for the lane closure."
 msgstr ""
 
 #. placeholders: {lane_count_words}
@@ -36989,23 +37146,55 @@ msgstr ""
 msgid "The road narrows to {lane_count_words}.{moved}"
 msgstr ""
 
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "The {closed_name} lane closes at the work zone ahead."
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid ""
+"The {closed_name} lane closes at the work zone ahead. Waiting for a gap in "
+"the {open_name} lane."
+msgstr ""
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "Waiting for a gap in the {open_name} lane."
+msgstr ""
+
 #. placeholders: {open_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_updates/lanes.rs
 msgid "Move to the {open_name} lane."
 msgstr ""
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_updates/lanes.rs
-msgid "The {lane_label} lane closes at the work zone ahead."
-msgstr ""
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 #: crates/freight-fate/src/states/driving_updates/lanes.rs
 msgid ""
-"The {lane_label} lane closes at the work zone ahead. Move to the "
+"The {closed_name} lane closes at the work zone ahead. Move to the "
 "{open_name} lane."
+msgstr ""
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "Waiting for a gap in the {open_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "You are in the closed {closed_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid ""
+"You are in the closed {closed_name} lane! Waiting for a gap in the "
+"{open_name} lane!"
 msgstr ""
 
 #. placeholders: {open_name}
@@ -37014,16 +37203,10 @@ msgstr ""
 msgid "Move to the {open_name} lane!"
 msgstr ""
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_updates/lanes.rs
-msgid "You are in the closed {lane_label} lane!"
-msgstr ""
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 #: crates/freight-fate/src/states/driving_updates/lanes.rs
 msgid ""
-"You are in the closed {lane_label} lane! Move to the {open_name} lane!"
+"You are in the closed {closed_name} lane! Move to the {open_name} lane!"
 msgstr ""
 
 #. placeholders: {damage_pct}
@@ -37823,8 +38006,8 @@ msgstr ""
 msgid "New career. Type your driver name, then Enter."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu/achievements.rs crates/freight-fate/src/states/main_menu.rs
-msgid "Achievements"
+#: crates/freight-fate/src/states/main_menu/achievements.rs
+msgid "This career's earned and locked achievements."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/achievements.rs
@@ -37887,13 +38070,13 @@ msgstr ""
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu/achievements.rs
-msgid "The total earned."
-msgstr ""
-
 #. placeholders: {title}, {done}, {achs}
 #: crates/freight-fate/src/states/main_menu/achievements.rs
 msgid "{title}. {done} of {achs}"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/achievements.rs
+msgid "The total earned."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/achievements.rs
@@ -39512,8 +39695,9 @@ msgstr ""
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid ""
 "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
-"into tap lane changes, and takes your exits, including the destination "
-"exit, without a signal."
+"into tap lane changes, moves out of a lane a work zone closes, and takes "
+"your exits and open weigh stations, including the destination exit, without "
+"a signal."
 msgstr ""
 
 #. one sentence of a longer line
@@ -39526,16 +39710,16 @@ msgstr ""
 msgid ""
 "How much of the lane-holding work the truck does. Full holds the lane, "
 "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
-"and takes your exits, including the destination exit, without a signal. "
-"Partial steers the truck through the road's bends and drifts gently, with "
-"generous steering help; lane changes and speed are yours. Off drifts like a "
-"real wheel; bends are yours unless curve assistance is on, and every exit "
-"needs its signal and its exit lane. On partial or off {lean}. The road "
-"sound only says where you sit in your lane, and the road edge answers: a "
-"stutter clipping the rumble strip, a buzz fully on it, gravel off the "
-"pavement. Steering guide and Lane guide sound, under Audio, change which "
-"way to steer and what leans. Realistic sets this off, Balanced partial, All "
-"assists full."
+"moves out of a lane a work zone closes, and takes your exits and open weigh "
+"stations, including the destination exit, without a signal. Partial steers "
+"the truck through the road's bends and drifts gently, with generous "
+"steering help; lane changes and speed are yours. Off drifts like a real "
+"wheel; bends are yours unless curve assistance is on, and every exit needs "
+"its signal and its exit lane. On partial or off {lean}. The road sound only "
+"says where you sit in your lane, and the road edge answers: a stutter "
+"clipping the rumble strip, a buzz fully on it, gravel off the pavement. "
+"Steering guide and Lane guide sound, under Audio, change which way to steer "
+"and what leans. Realistic sets this off, Balanced partial, All assists full."
 msgstr ""
 
 #. one sentence of a longer line
@@ -43770,31 +43954,6 @@ msgstr ""
 msgid "update-check"
 msgstr ""
 
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/update.rs
-msgid "Could not reach the update server."
-msgstr ""
-
-#. placeholders: {describe_error}
-#: crates/freight-fate/src/states/update.rs
-msgid "Could not reach the update server. {describe_error}"
-msgstr ""
-
-#: crates/freight-fate/src/states/update.rs
-msgid ""
-"On iPhone and iPad, updates come through the App Store or TestFlight."
-msgstr ""
-
-#: crates/freight-fate/src/states/update.rs
-msgid "AG Now keeps this copy up to date."
-msgstr ""
-
-#: crates/freight-fate/src/states/update.rs
-msgid ""
-"Updates are only available in the packaged game. This copy runs from "
-"source; update it with git."
-msgstr ""
-
 #: crates/freight-fate/src/states/update.rs
 msgid "Checking for updates..."
 msgstr ""
@@ -43830,12 +43989,6 @@ msgid ""
 "this version stops asking about this update."
 msgstr ""
 
-#: crates/freight-fate/src/states/update.rs
-msgid ""
-"Updates can only be installed in the packaged game. This copy runs from "
-"source."
-msgstr ""
-
 #. placeholders: {title}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/update.rs
@@ -43852,9 +44005,13 @@ msgstr ""
 msgid "The next update will still be offered."
 msgstr ""
 
-#. placeholders: {mb}
 #: crates/freight-fate/src/states/update.rs
-msgid " {mb} megabytes."
+msgid " of changes"
+msgstr ""
+
+#. placeholders: {f}, {changes}
+#: crates/freight-fate/src/states/update.rs
+msgid "{f} megabytes{changes}"
 msgstr ""
 
 #. one sentence of a longer line
@@ -43976,11 +44133,6 @@ msgstr ""
 msgid "The download arrived damaged, so it was not installed."
 msgstr ""
 
-#. placeholders: {describe_error}
-#: crates/freight-fate/src/states/update.rs
-msgid "The download failed. {describe_error}"
-msgstr ""
-
 #. placeholders: {sentence}
 #: crates/freight-fate/src/states/update.rs
 msgid "The download failed. {sentence}"
@@ -44034,9 +44186,7 @@ msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/update.rs
-msgid ""
-"Copy it over your game folder, which keeps your music and radio packs, then "
-"restart the game."
+msgid "Install it yourself, then restart the game."
 msgstr ""
 
 #. placeholders: {dest}
@@ -44048,31 +44198,8 @@ msgstr ""
 #. placeholders: {dest}
 #: crates/freight-fate/src/states/update.rs
 msgid ""
-"The new version is saved at {dest}. Copy it over your game folder, which "
-"keeps your music and radio packs, then restart the game."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/update.rs
-msgid "Install it yourself, then restart the game."
-msgstr ""
-
-#. placeholders: {dest}
-#: crates/freight-fate/src/states/update.rs
-msgid ""
 "The new version is saved at {dest}. Install it yourself, then restart the "
 "game."
-msgstr ""
-
-#. placeholders: {mb}
-#: crates/freight-fate/src/states/update.rs
-msgid ", {mb} megabytes"
-msgstr ""
-
-#. placeholders: {mb}
-#. one clause of a longer line
-#: crates/freight-fate/src/states/update.rs
-msgid "{mb} megabytes"
 msgstr ""
 
 #. placeholders: {title}, {size}

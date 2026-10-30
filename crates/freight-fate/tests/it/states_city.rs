@@ -106,6 +106,64 @@ fn test_new_hire_board_offers_single_assignment_with_decline() {
     assert!(help.contains(&format!("level {SENIOR_LOAD_CHOICE_LEVEL}")));
 }
 
+/// Came down from Milwaukee to Chicago; the board holds the load straight
+/// back up (the shortest) and one to Indianapolis. Dispatch assigns
+/// Indianapolis: a lane is recent in both directions, so the straight
+/// return waits behind every unseen lane (owner report, 2026-10-26: a load
+/// north, then the next one straight back south).
+#[test]
+fn the_load_straight_back_where_the_truck_came_from_is_not_the_assignment() {
+    let mut app = TestApp::new();
+    new_hire(&mut app, "Loop Driver");
+    {
+        let p = profile_mut(&mut app);
+        p.career.deliveries = 12;
+        p.recent_lanes = vec!["milwaukee_wi_us:chicago_il_us".to_string()];
+    }
+    let mut onward = job(180.0);
+    onward.destination = "Indianapolis".to_string();
+    push_board(&mut app, vec![onward, job(92.0)]);
+
+    assert!(with_state::<JobBoardState, _>(&app, |b, _| b.assigned_mode()));
+    let labels = labels::<JobBoardState>(&app);
+    assert!(
+        labels[0].starts_with("Accept assigned dispatch:"),
+        "{labels:?}"
+    );
+    assert!(labels[0].contains("180 miles"), "{labels:?}");
+    // The return is still on the board, behind the onward load.
+    let order: Vec<f64> = with_state::<JobBoardState, _>(&app, |b, _| {
+        b.assigned_queue()
+            .iter()
+            .map(|&i| b.jobs[i].distance_mi)
+            .collect()
+    });
+    assert_eq!(order, vec![180.0, 92.0]);
+}
+
+/// The same board for a senior driver who picks: the cursor opens on the
+/// Indianapolis load, and the return is a row down, still theirs to take.
+#[test]
+fn the_cursor_skips_the_straight_return_when_the_driver_picks() {
+    let mut app = TestApp::new();
+    new_hire(&mut app, "Loop Picker");
+    {
+        let p = profile_mut(&mut app);
+        p.career.xp = LEVEL_XP[(SENIOR_LOAD_CHOICE_LEVEL - 1) as usize];
+        p.career.deliveries = 20;
+        p.career.reputation = 80.0;
+        p.recent_lanes = vec!["milwaukee_wi_us:chicago_il_us".to_string()];
+    }
+    let mut onward = job(180.0);
+    onward.destination = "Indianapolis".to_string();
+    push_board(&mut app, vec![job(92.0), onward]);
+
+    assert!(!with_state::<JobBoardState, _>(&app, |b, _| b.assigned_mode()));
+    let focused = with_state::<JobBoardState, _>(&app, |b, _| b.jobs[b.menu().index].distance_mi);
+    assert_eq!(focused, 180.0);
+    assert_eq!(with_state::<JobBoardState, _>(&app, |b, _| b.jobs.len()), 2);
+}
+
 #[test]
 fn test_declining_assignment_costs_reputation_and_draws_next_load() {
     let mut app = TestApp::new();

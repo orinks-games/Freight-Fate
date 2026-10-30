@@ -2150,6 +2150,51 @@ msgstr ""
 msgid "Jethro Tull - Teacher"
 msgstr "Jethro Tull - Teacher"
 
+msgid "earned"
+msgstr ""
+
+msgid "newest"
+msgstr ""
+
+msgid "locked"
+msgstr ""
+
+msgid "name"
+msgstr "ad"
+
+msgid "original"
+msgstr ""
+
+msgid "Earned first"
+msgstr ""
+
+msgid "Newest"
+msgstr ""
+
+msgid "Locked first"
+msgstr ""
+
+msgid "A to Z"
+msgstr ""
+
+msgid "Original order"
+msgstr ""
+
+msgid "Sort: Earned first"
+msgstr ""
+
+msgid "Sort: Newest"
+msgstr ""
+
+msgid "Sort: Locked first"
+msgstr ""
+
+msgid "Sort: A to Z"
+msgstr ""
+
+msgid "Sort: Original order"
+msgstr ""
+
 #. placeholders: {path}
 msgid "Not a Freight Fate sound pack: {path}"
 msgstr "Bu bir Freight Fate ses paketi değil: {path}"
@@ -4383,6 +4428,69 @@ msgid ""
 msgstr ""
 "Cadılar Bayramınız kutlu olsun. Bu yoldaki en korkunç şey hâlâ kantar "
 "istasyonu."
+
+msgid ""
+"Halloween week. Somewhere a porch light is on, and the candy bowl is going "
+"fast."
+msgstr ""
+
+msgid ""
+"Trick or treat. Big Jim is handing out business cards this year. Nobody "
+"wants them."
+msgstr ""
+
+msgid "Costume idea: a driver with a clean logbook. Nobody will believe it."
+msgstr ""
+
+msgid ""
+"Halloween week. Kids in costumes are out after dark. Take it slow where the "
+"houses start."
+msgstr ""
+
+msgid ""
+"Haunted house season. Nothing in there is as frightening as a dock "
+"appointment before sunrise."
+msgstr ""
+
+msgid ""
+"Halloween week. The hayrides are running, and the tractors are slower than "
+"you."
+msgstr ""
+
+msgid ""
+"Illinois grows more pumpkins than any other state. Most of them end up in a "
+"pie."
+msgstr ""
+
+msgid ""
+"Salem, Massachusetts, spends all of October on Halloween. Witches welcome. "
+"Trailers, less so."
+msgstr ""
+
+msgid ""
+"New England at Halloween. The leaves are mostly down, and the cider "
+"doughnuts are still hot."
+msgstr ""
+
+msgid ""
+"Sleepy Hollow is on the Hudson. The headless horseman rides all week. Keep "
+"your own head on the road."
+msgstr ""
+
+msgid ""
+"New Orleans takes its ghosts seriously. The cemetery tours are booked all "
+"week."
+msgstr ""
+
+msgid ""
+"Halloween week in farm country. Harvest is still on, so watch for grain "
+"trucks pulling out slow."
+msgstr ""
+
+msgid ""
+"Día de los Muertos is days away. The marigolds and sugar skulls are already "
+"out."
+msgstr ""
 
 msgid ""
 "Thanksgiving week. Somewhere a turkey is grateful you are hauling freight "
@@ -9250,9 +9358,6 @@ msgstr "kaza"
 
 msgid "missing or invalid exchange_version"
 msgstr "exchange_version eksik ya da geçersiz"
-
-msgid "name"
-msgstr "ad"
 
 #. placeholders: {business_status}
 msgid "unknown business_status {business_status}"
@@ -16983,15 +17088,15 @@ msgstr ""
 "Bu kurulumdaki bütün kariyerlerde {ACHIEVEMENTS} başarımdan {earned} "
 "kazanıldı."
 
-msgid "Controls and account scope"
-msgstr "Kontroller ve hesap kapsamı"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}. {achievements} içinden {done}"
 
 msgid "The account-wide earned count."
 msgstr "Hesap genelinde kazanılan sayı."
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}. {achievements} içinden {done}"
+msgid "Controls and account scope"
+msgstr "Kontroller ve hesap kapsamı"
 
 msgid "Back to Online"
 msgstr "Çevrimiçi menüsüne dön"
@@ -17037,6 +17142,14 @@ msgstr "Açmak için oynamaya devam edin."
 msgid "Back to account categories"
 msgstr "Hesap kategorilerine dön"
 
+msgid ""
+"Left and Right change the order of the categories and the achievements in "
+"each one."
+msgstr ""
+
+msgid "Left and Right change the order of this category only."
+msgstr ""
+
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr ""
 "Tüm yardımlar: direksiyonu tır kullanır. İlk sürüşleriniz için önerilir."
@@ -17051,24 +17164,21 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations."
 msgstr ""
-"Şeridi tutar, virajları ve sokak köşelerini döner, çıkışlarınızı alır."
 
 #. placeholders: {control_steer_left}, {control_steer_right}
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits. A tap of {control_steer_left} or {control_steer_right} changes "
-"lanes. Speed, stops and the docks are yours."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations. A tap of "
+"{control_steer_left} or {control_steer_right} changes lanes. Speed, rest "
+"and fuel stops, and the docks are yours."
 msgstr ""
-"Şeridi tutar, virajları ve sokak köşelerini döner, çıkışlarınızı alır. "
-"{control_steer_left} veya {control_steer_right} tuşuna bir dokunuş şerit "
-"değiştirir. Hız, duruşlar ve rampalar sizde."
 
 #. one sentence of a longer line
-msgid "Speed, stops and the docks are yours."
-msgstr "Hız, duruşlar ve rampalar sizde."
+msgid "Speed, rest and fuel stops, and the docks are yours."
+msgstr ""
 
 msgid "Balanced: you steer, with help."
 msgstr "Dengeli: direksiyonu yardımla siz kullanırsınız."
@@ -18493,6 +18603,9 @@ msgid ""
 msgstr ""
 "Seviye, itibar, sevkiyat güveni, sürüş sicili ve CDL, bakiye ve borç, "
 "ehliyet ekleri, toplam sayılar ve dinlenme."
+
+msgid "Achievements"
+msgstr "Başarımlar"
 
 msgid "Licenses and training"
 msgstr "Ehliyetler ve eğitim"
@@ -26469,6 +26582,10 @@ msgstr "kantar rampası"
 msgid "ramp terminal"
 msgstr "rampa sonu"
 
+#. placeholders: {name}
+msgid "At {name}."
+msgstr ""
+
 #. placeholders: {place}
 msgid "At {place}."
 msgstr "Konum: {place}."
@@ -26687,6 +26804,10 @@ msgstr "{capitalized} şerit boş."
 #. placeholders: {name}
 msgid "Changing to the {name} lane for the exit."
 msgstr "Çıkış için {name} şeride geçiliyor."
+
+#. placeholders: {name}
+msgid "Changing to the {name} lane for the lane closure."
+msgstr ""
 
 #. placeholders: {lane_count_words}
 msgid "The road narrows to {lane_count_words}."
@@ -32568,38 +32689,58 @@ msgstr " Şimdi {lane_label} şeritte."
 msgid "The road narrows to {lane_count_words}.{moved}"
 msgstr "Yol daralıyor: {lane_count_words}.{moved}"
 
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "The {closed_name} lane closes at the work zone ahead."
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"The {closed_name} lane closes at the work zone ahead. Waiting for a gap in "
+"the {open_name} lane."
+msgstr ""
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane."
+msgstr ""
+
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane."
 msgstr "{open_name} şeride geçin."
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "The {lane_label} lane closes at the work zone ahead."
-msgstr "İlerideki yol çalışmasında {lane_label} şerit kapanıyor."
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"The {lane_label} lane closes at the work zone ahead. Move to the "
+"The {closed_name} lane closes at the work zone ahead. Move to the "
 "{open_name} lane."
 msgstr ""
-"İlerideki yol çalışmasında {lane_label} şerit kapanıyor. {open_name} şeride "
-"geçin."
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "You are in the closed {closed_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"You are in the closed {closed_name} lane! Waiting for a gap in the "
+"{open_name} lane!"
+msgstr ""
 
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane!"
 msgstr "{open_name} şeride geçin!"
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "You are in the closed {lane_label} lane!"
-msgstr "Kapalı şeritteseniz: {lane_label}!"
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"You are in the closed {lane_label} lane! Move to the {open_name} lane!"
-msgstr "Kapalı şeritteseniz: {lane_label}! {open_name} şeride geçin!"
+"You are in the closed {closed_name} lane! Move to the {open_name} lane!"
+msgstr ""
 
 #. placeholders: {damage_pct}
 #. one sentence of a longer line
@@ -33334,8 +33475,8 @@ msgstr "Şoför adınızı yazın."
 msgid "New career. Type your driver name, then Enter."
 msgstr "Yeni kariyer. Şoför adınızı yazın, sonra Enter."
 
-msgid "Achievements"
-msgstr "Başarımlar"
+msgid "This career's earned and locked achievements."
+msgstr ""
 
 msgid "Pick a saved career. Enter opens its achievements, Escape goes back."
 msgstr ""
@@ -33388,12 +33529,12 @@ msgstr ""
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "{ACHIEVEMENTS} başarımdan {earned_count} kazanıldı."
 
-msgid "The total earned."
-msgstr "Kazanılan toplam."
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}. {achs} içinden {done}"
+
+msgid "The total earned."
+msgstr "Kazanılan toplam."
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr "Yukarı ve Aşağı gezinir, Enter girişi tekrarlar, Escape geri döner."
@@ -34935,12 +35076,10 @@ msgstr "Şerit takibi: {lane_keeping_label}"
 #. one sentence of a longer line
 msgid ""
 "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
-"into tap lane changes, and takes your exits, including the destination "
-"exit, without a signal."
+"into tap lane changes, moves out of a lane a work zone closes, and takes "
+"your exits and open weigh stations, including the destination exit, without "
+"a signal."
 msgstr ""
-"Tam şeridi tutar, {control_steer_left} ve {control_steer_right} tuşlarını "
-"dokunarak şerit değiştirmeye çevirir ve varış çıkışı dahil çıkışlarınızı "
-"sinyalsiz alır."
 
 #. one sentence of a longer line
 msgid "How much of the lane-holding work the truck does."
@@ -34950,29 +35089,17 @@ msgstr "Şeridi tutma işinin ne kadarını tırın yaptığı."
 msgid ""
 "How much of the lane-holding work the truck does. Full holds the lane, "
 "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
-"and takes your exits, including the destination exit, without a signal. "
-"Partial steers the truck through the road's bends and drifts gently, with "
-"generous steering help; lane changes and speed are yours. Off drifts like a "
-"real wheel; bends are yours unless curve assistance is on, and every exit "
-"needs its signal and its exit lane. On partial or off {lean}. The road "
-"sound only says where you sit in your lane, and the road edge answers: a "
-"stutter clipping the rumble strip, a buzz fully on it, gravel off the "
-"pavement. Steering guide and Lane guide sound, under Audio, change which "
-"way to steer and what leans. Realistic sets this off, Balanced partial, All "
-"assists full."
+"moves out of a lane a work zone closes, and takes your exits and open weigh "
+"stations, including the destination exit, without a signal. Partial steers "
+"the truck through the road's bends and drifts gently, with generous "
+"steering help; lane changes and speed are yours. Off drifts like a real "
+"wheel; bends are yours unless curve assistance is on, and every exit needs "
+"its signal and its exit lane. On partial or off {lean}. The road sound only "
+"says where you sit in your lane, and the road edge answers: a stutter "
+"clipping the rumble strip, a buzz fully on it, gravel off the pavement. "
+"Steering guide and Lane guide sound, under Audio, change which way to steer "
+"and what leans. Realistic sets this off, Balanced partial, All assists full."
 msgstr ""
-"Şeridi tutma işinin ne kadarını tırın yaptığı. Tam şeridi tutar, "
-"{control_steer_left} ve {control_steer_right} tuşlarını dokunarak şerit "
-"değiştirmeye çevirir ve varış çıkışı dahil çıkışlarınızı sinyalsiz alır. "
-"Kısmi, tırı yolun virajlarından geçirir ve cömert direksiyon yardımıyla "
-"hafifçe kayar; şerit değiştirme ve hız sizde. Kapalı gerçek bir direksiyon "
-"gibi kayar; viraj yardımı açık değilse virajlar sizde ve her çıkış için "
-"sinyal ve çıkış şeridi gerekir. Kısmi ya da kapalıda {lean}. Yol sesi "
-"yalnızca şeritte nerede olduğunuzu söyler, yol kenarı da yanıt verir: "
-"titreşimli şeride sürtünce kesik bir ses, tamamen üstündeyken vızıltı, "
-"asfalttan çıkınca çakıl. Ses altındaki Direksiyon kılavuzu ve Şerit "
-"kılavuzu sesi, hangi yöne çevireceğinizi ve neyin kayacağını değiştirir. "
-"Gerçekçi bunu kapalı, Dengeli kısmi, Tüm yardımlar tam yapar."
 
 #. one sentence of a longer line
 msgid ""
@@ -39363,29 +39490,6 @@ msgstr "{label}. Boş."
 msgid "update-check"
 msgstr ""
 
-#. one sentence of a longer line
-msgid "Could not reach the update server."
-msgstr "Güncelleme sunucusuna ulaşılamadı."
-
-#. placeholders: {describe_error}
-msgid "Could not reach the update server. {describe_error}"
-msgstr "Güncelleme sunucusuna ulaşılamadı. {describe_error}"
-
-msgid ""
-"On iPhone and iPad, updates come through the App Store or TestFlight."
-msgstr ""
-"iPhone ve iPad'de güncellemeler App Store ya da TestFlight üzerinden gelir."
-
-msgid "AG Now keeps this copy up to date."
-msgstr "Bu kopyayı AG Now güncel tutar."
-
-msgid ""
-"Updates are only available in the packaged game. This copy runs from "
-"source; update it with git."
-msgstr ""
-"Güncellemeler yalnızca paketlenmiş oyunda kullanılabilir. Bu kopya kaynak "
-"koddan çalışıyor; onu git ile güncelleyin."
-
 msgid "Checking for updates..."
 msgstr "Güncellemeler denetleniyor..."
 
@@ -39416,13 +39520,6 @@ msgstr ""
 "İndir ve yeniden başlat onu şimdi kurar. Yenilikler değişiklikleri okur. Bu "
 "sürümü atla bu güncelleme için sormayı bırakır."
 
-msgid ""
-"Updates can only be installed in the packaged game. This copy runs from "
-"source."
-msgstr ""
-"Güncellemeler yalnızca paketlenmiş oyunda kurulabilir. Bu kopya kaynak "
-"koddan çalışıyor."
-
 #. placeholders: {title}
 #. one sentence of a longer line
 msgid "Skipping {title}."
@@ -39436,9 +39533,12 @@ msgstr "Atlanıyor: {title}. Sonraki güncelleme yine önerilecek."
 msgid "The next update will still be offered."
 msgstr "Sonraki güncelleme yine önerilecek."
 
-#. placeholders: {mb}
-msgid " {mb} megabytes."
-msgstr " {mb} megabayt."
+msgid " of changes"
+msgstr ""
+
+#. placeholders: {f}, {changes}
+msgid "{f} megabytes{changes}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Update available."
@@ -39547,10 +39647,6 @@ msgstr "İndirme durdu. {as_secs} saniyedir hiçbir şey gelmedi."
 msgid "The download arrived damaged, so it was not installed."
 msgstr "İndirilen dosya bozuk geldi, bu yüzden kurulmadı."
 
-#. placeholders: {describe_error}
-msgid "The download failed. {describe_error}"
-msgstr "İndirme başarısız oldu. {describe_error}"
-
 #. placeholders: {sentence}
 msgid "The download failed. {sentence}"
 msgstr "İndirme başarısız oldu. {sentence}"
@@ -39595,12 +39691,8 @@ msgid "The download stopped. Nothing arrived for {STALL_TIMEOUT_S} seconds."
 msgstr "İndirme durdu. {STALL_TIMEOUT_S} saniyedir hiçbir şey gelmedi."
 
 #. one sentence of a longer line
-msgid ""
-"Copy it over your game folder, which keeps your music and radio packs, then "
-"restart the game."
-msgstr ""
-"Onu oyun klasörünüzün üzerine kopyalayın, bu müzik ve radyo paketlerinizi "
-"korur, sonra oyunu yeniden başlatın."
+msgid "Install it yourself, then restart the game."
+msgstr "Kendiniz kurun, sonra oyunu yeniden başlatın."
 
 #. placeholders: {dest}
 #. one sentence of a longer line
@@ -39609,33 +39701,11 @@ msgstr "Yeni sürüm şuraya kaydedildi: {dest}."
 
 #. placeholders: {dest}
 msgid ""
-"The new version is saved at {dest}. Copy it over your game folder, which "
-"keeps your music and radio packs, then restart the game."
-msgstr ""
-"Yeni sürüm şuraya kaydedildi: {dest}. Onu oyun klasörünüzün üzerine "
-"kopyalayın, bu müzik ve radyo paketlerinizi korur, sonra oyunu yeniden "
-"başlatın."
-
-#. one sentence of a longer line
-msgid "Install it yourself, then restart the game."
-msgstr "Kendiniz kurun, sonra oyunu yeniden başlatın."
-
-#. placeholders: {dest}
-msgid ""
 "The new version is saved at {dest}. Install it yourself, then restart the "
 "game."
 msgstr ""
 "Yeni sürüm şuraya kaydedildi: {dest}. Kendiniz kurun, sonra oyunu yeniden "
 "başlatın."
-
-#. placeholders: {mb}
-msgid ", {mb} megabytes"
-msgstr ", {mb} megabayt"
-
-#. placeholders: {mb}
-#. one clause of a longer line
-msgid "{mb} megabytes"
-msgstr "{mb} megabayt"
 
 #. placeholders: {title}, {size}
 #. one sentence of a longer line
@@ -40897,6 +40967,132 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "Could not reach the update server."
+#~ msgstr "Güncelleme sunucusuna ulaşılamadı."
+
+#~ msgid "Could not reach the update server. {describe_error}"
+#~ msgstr "Güncelleme sunucusuna ulaşılamadı. {describe_error}"
+
+#~ msgid ""
+#~ "On iPhone and iPad, updates come through the App Store or TestFlight."
+#~ msgstr ""
+#~ "iPhone ve iPad'de güncellemeler App Store ya da TestFlight üzerinden gelir."
+
+#~ msgid "AG Now keeps this copy up to date."
+#~ msgstr "Bu kopyayı AG Now güncel tutar."
+
+#~ msgid ""
+#~ "Updates are only available in the packaged game. This copy runs from "
+#~ "source; update it with git."
+#~ msgstr ""
+#~ "Güncellemeler yalnızca paketlenmiş oyunda kullanılabilir. Bu kopya kaynak "
+#~ "koddan çalışıyor; onu git ile güncelleyin."
+
+#~ msgid ""
+#~ "Updates can only be installed in the packaged game. This copy runs from "
+#~ "source."
+#~ msgstr ""
+#~ "Güncellemeler yalnızca paketlenmiş oyunda kurulabilir. Bu kopya kaynak "
+#~ "koddan çalışıyor."
+
+#~ msgid " {mb} megabytes."
+#~ msgstr " {mb} megabayt."
+
+#~ msgid "The download failed. {describe_error}"
+#~ msgstr "İndirme başarısız oldu. {describe_error}"
+
+#~ msgid ""
+#~ "Copy it over your game folder, which keeps your music and radio packs, then "
+#~ "restart the game."
+#~ msgstr ""
+#~ "Onu oyun klasörünüzün üzerine kopyalayın, bu müzik ve radyo paketlerinizi "
+#~ "korur, sonra oyunu yeniden başlatın."
+
+#~ msgid ""
+#~ "The new version is saved at {dest}. Copy it over your game folder, which "
+#~ "keeps your music and radio packs, then restart the game."
+#~ msgstr ""
+#~ "Yeni sürüm şuraya kaydedildi: {dest}. Onu oyun klasörünüzün üzerine "
+#~ "kopyalayın, bu müzik ve radyo paketlerinizi korur, sonra oyunu yeniden "
+#~ "başlatın."
+
+#~ msgid ", {mb} megabytes"
+#~ msgstr ", {mb} megabayt"
+
+#~ msgid "{mb} megabytes"
+#~ msgstr "{mb} megabayt"
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits."
+#~ msgstr ""
+#~ "Şeridi tutar, virajları ve sokak köşelerini döner, çıkışlarınızı alır."
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits. A tap of {control_steer_left} or {control_steer_right} changes "
+#~ "lanes. Speed, stops and the docks are yours."
+#~ msgstr ""
+#~ "Şeridi tutar, virajları ve sokak köşelerini döner, çıkışlarınızı alır. "
+#~ "{control_steer_left} veya {control_steer_right} tuşuna bir dokunuş şerit "
+#~ "değiştirir. Hız, duruşlar ve rampalar sizde."
+
+#~ msgid "Speed, stops and the docks are yours."
+#~ msgstr "Hız, duruşlar ve rampalar sizde."
+
+#~ msgid "The {lane_label} lane closes at the work zone ahead."
+#~ msgstr "İlerideki yol çalışmasında {lane_label} şerit kapanıyor."
+
+#~ msgid ""
+#~ "The {lane_label} lane closes at the work zone ahead. Move to the "
+#~ "{open_name} lane."
+#~ msgstr ""
+#~ "İlerideki yol çalışmasında {lane_label} şerit kapanıyor. {open_name} şeride "
+#~ "geçin."
+
+#~ msgid "You are in the closed {lane_label} lane!"
+#~ msgstr "Kapalı şeritteseniz: {lane_label}!"
+
+#~ msgid ""
+#~ "You are in the closed {lane_label} lane! Move to the {open_name} lane!"
+#~ msgstr "Kapalı şeritteseniz: {lane_label}! {open_name} şeride geçin!"
+
+#~ msgid ""
+#~ "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
+#~ "into tap lane changes, and takes your exits, including the destination "
+#~ "exit, without a signal."
+#~ msgstr ""
+#~ "Tam şeridi tutar, {control_steer_left} ve {control_steer_right} tuşlarını "
+#~ "dokunarak şerit değiştirmeye çevirir ve varış çıkışı dahil çıkışlarınızı "
+#~ "sinyalsiz alır."
+
+#~ msgid ""
+#~ "How much of the lane-holding work the truck does. Full holds the lane, "
+#~ "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
+#~ "and takes your exits, including the destination exit, without a signal. "
+#~ "Partial steers the truck through the road's bends and drifts gently, with "
+#~ "generous steering help; lane changes and speed are yours. Off drifts like a "
+#~ "real wheel; bends are yours unless curve assistance is on, and every exit "
+#~ "needs its signal and its exit lane. On partial or off {lean}. The road "
+#~ "sound only says where you sit in your lane, and the road edge answers: a "
+#~ "stutter clipping the rumble strip, a buzz fully on it, gravel off the "
+#~ "pavement. Steering guide and Lane guide sound, under Audio, change which "
+#~ "way to steer and what leans. Realistic sets this off, Balanced partial, All "
+#~ "assists full."
+#~ msgstr ""
+#~ "Şeridi tutma işinin ne kadarını tırın yaptığı. Tam şeridi tutar, "
+#~ "{control_steer_left} ve {control_steer_right} tuşlarını dokunarak şerit "
+#~ "değiştirmeye çevirir ve varış çıkışı dahil çıkışlarınızı sinyalsiz alır. "
+#~ "Kısmi, tırı yolun virajlarından geçirir ve cömert direksiyon yardımıyla "
+#~ "hafifçe kayar; şerit değiştirme ve hız sizde. Kapalı gerçek bir direksiyon "
+#~ "gibi kayar; viraj yardımı açık değilse virajlar sizde ve her çıkış için "
+#~ "sinyal ve çıkış şeridi gerekir. Kısmi ya da kapalıda {lean}. Yol sesi "
+#~ "yalnızca şeritte nerede olduğunuzu söyler, yol kenarı da yanıt verir: "
+#~ "titreşimli şeride sürtünce kesik bir ses, tamamen üstündeyken vızıltı, "
+#~ "asfalttan çıkınca çakıl. Ses altındaki Direksiyon kılavuzu ve Şerit "
+#~ "kılavuzu sesi, hangi yöne çevireceğinizi ve neyin kayacağını değiştirir. "
+#~ "Gerçekçi bunu kapalı, Dengeli kısmi, Tüm yardımlar tam yapar."
 
 #~ msgid "auto"
 #~ msgstr "otomatik"

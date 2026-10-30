@@ -58,6 +58,16 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         release::ios_signing::main,
     ),
     (
+        "update-manifests",
+        "sign the release's update manifests and write its file indexes",
+        release::updates::manifests_main,
+    ),
+    (
+        "update-key",
+        "show the game's update key (--new makes it, --print shows the CI secret)",
+        release::updates::key_main,
+    ),
+    (
         "windows-imports",
         "audit a Cargo build's Windows executable the way the release does",
         windows_runtime::check_windows_imports,
@@ -128,6 +138,18 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         "index-world",
         "regenerate data/world_data/ from data/world_source/ (--check: verify in sync)",
         world::index::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "osm-speed-limits",
+        "re-read the map's posted speed limits from Geofabrik OpenStreetMap extracts",
+        world::osm::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "osm-exits",
+        "re-read the map's exits and their ramps from an OpenStreetMap extract",
+        world::osm::exits::main,
     ),
 ];
 

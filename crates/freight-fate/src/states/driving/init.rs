@@ -377,6 +377,7 @@ impl DrivingState {
             traffic_seen: false,
             billboard_watch: BillboardWatch::now(ctx, start_damage),
             pool_billboards_heard: 0,
+            billboard_offset: profile_of(ctx).game_hours.max(0.0) as usize,
             brake_squeal_cooldown_s: 0.0,
             hydro_active: false,
             jake_slip_active: false,

@@ -226,7 +226,8 @@ fn test_roving_posts_add_state_trooper_traffic() {
 fn test_faster_merging_vehicle_with_a_safe_gap_moves_into_player_lane() {
     let mut manager = manager(1);
     manager.sync_environment(42.0, weather("great_lakes", 1).effects());
-    manager.vehicles = vec![v("merge", 0.8, 45.0, 1, "merging", "car").with_lane(-1)];
+    // Mile 1.5 is inside one 55 zone, so the car is still below road speed.
+    manager.vehicles = vec![v("merge", 1.5, 45.0, 1, "merging", "car").with_lane(-1)];
 
     manager.update(0.0, 0.0, 20.0, None, None);
     let situation = manager.next_situation(0.0, 55.0).expect("a situation");

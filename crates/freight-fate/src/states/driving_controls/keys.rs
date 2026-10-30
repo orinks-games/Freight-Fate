@@ -156,7 +156,7 @@ impl DrivingState {
                 let result = self.trip.truck.transmission.request_gear(0);
                 if result.ok {
                     ctx.audio
-                        .play_bank("vehicle/shift_manual", "vehicle/gear_shift");
+                        .play_bank("vehicle/shift_auto", "vehicle/gear_shift");
                     ctx.say("Neutral.");
                 }
             }

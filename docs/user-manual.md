@@ -589,7 +589,7 @@ The GPS announces state lines, towns, route changes, work zones, tolls, and usef
 
 ### Construction and exits
 
-Slow as the work-zone limit steps down, and leave a closing lane when instructed. Continuing past the urgent barrel warning causes damage, a 1,000 dollar citation, and a serious violation. That citation is charged once per zone and isn't doubled again for construction. If the road itself reduces the lane count and repositions you, there's no penalty for that move.
+Slow as the work-zone limit steps down, and leave a closing lane when instructed. With full lane keeping, the truck leaves it for you when the signs come up, and waits behind traffic for a gap if it has to. Continuing past the urgent barrel warning causes damage, a 1,000 dollar citation, and a serious violation. That citation is charged once per zone and isn't doubled again for construction. If the road itself reduces the lane count and repositions you, there's no penalty for that move.
 
 While you're rolling, T asks what the stop is for: fuel, a break, sleep, fuel and sleep, or food and coffee. Each choice gives the distance to its stop, and Enter plans the next stop for it. With planning hints enabled, a break or sleep plan takes the recommended stop. The list opens on fuel when the tank is low or won't reach the next pumps. Press T again to cancel the plan.
 
@@ -1068,7 +1068,9 @@ The service checks whether the stream plays and whether the station is already l
 
 ## Achievements and career progress
 
-Open Achievements from the main menu and choose a saved career. The menu reads how many achievements that driver has earned. Choose a category to browse its entries, using Up and Down to move and Enter to repeat an entry. Escape returns to the categories. On a controller, use the D-pad, A, and B.
+Open Achievements from the main menu and choose a saved career. While you play, Achievements on the terminal menu and the pause menu opens the current career's achievements directly. The menu reads how many achievements that driver has earned. Choose a category to browse its entries, using Up and Down to move and Enter to repeat an entry. Escape returns to the categories. On a controller, use the D-pad, A, and B.
+
+The first row, Sort, sets the order of the categories below it and of the entries inside them: earned first, newest first, locked first, A to Z, or the original order. Use Left and Right, or Enter, to change it; the game remembers your choice. Earned first is the default. Each category opens on its own Sort row, which changes that category alone until you leave the achievements. Account achievements under Online sort the same way.
 
 Earned entries include their descriptions. Locked entries don't give you the same detail, and hidden achievements keep their names secret until earned. You can browse them between trips without starting or changing a career.
 
@@ -1118,7 +1120,7 @@ It may need a certificate, endorsement, or trailer you do not have. Press F1 on 
 
 ### Why did I get a citation at a weigh station?
 
-When you hear "Open weigh station ahead", every truck must pull in. Press X to signal for the scale exit, stop at the scale, then press T to check in. A closed scale is not announced, and you can drive past it.
+When you hear "Open weigh station ahead", every truck must pull in. Press X to signal for the scale exit, stop at the scale, then press T to check in. With full lane keeping, the truck signals for the scale itself, and with facility stopping assistance on it also stops there for you. A closed scale is not announced, and you can drive past it.
 
 ### Why is the speed limit 55 on a fast highway?
 

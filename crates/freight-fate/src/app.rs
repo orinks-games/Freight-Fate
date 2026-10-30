@@ -112,13 +112,55 @@ impl FrameClock {
             let frame = Duration::from_secs_f64(1.0 / fps as f64);
             let elapsed = self.last.elapsed();
             if elapsed < frame {
-                std::thread::sleep(frame - elapsed);
+                wait_out_frame(frame - elapsed);
             }
         }
         let now = Instant::now();
         let dt = now.duration_since(self.last).as_secs_f64();
         self.last = now;
         dt
+    }
+}
+
+/// The rest of the frame, asleep.
+#[cfg(not(target_os = "ios"))]
+fn wait_out_frame(rest: Duration) {
+    std::thread::sleep(rest);
+}
+
+/// The rest of the frame, inside the main run loop rather than asleep.
+/// With VoiceOver on, VoiceOver asks the app about its touch surface on
+/// every touch and waits for the answer, which UIKit gives only while the
+/// main run loop runs. Sleeping made each of those questions wait for the
+/// next event pump, and a swipe's beep and line came about a quarter of a
+/// second late. Speech handed to the main thread waits on it the same way.
+#[cfg(target_os = "ios")]
+fn wait_out_frame(rest: Duration) {
+    use std::ffi::c_void;
+
+    #[link(name = "CoreFoundation", kind = "framework")]
+    extern "C" {
+        static kCFRunLoopDefaultMode: *const c_void;
+        fn CFRunLoopRunInMode(mode: *const c_void, seconds: f64, return_after_source: u8) -> i32;
+    }
+    /// `kCFRunLoopRunFinished`: the mode has nothing in it to wait on.
+    const RUN_FINISHED: i32 = 1;
+
+    let until = Instant::now() + rest;
+    loop {
+        let left = until.saturating_duration_since(Instant::now());
+        if left.is_zero() {
+            return;
+        }
+        // SAFETY: the game loop runs on the main thread, whose run loop this
+        // is, and the mode is CoreFoundation's own constant. Events handled
+        // here queue up for the next `SdlShell::poll`, as they would in SDL's
+        // own pump.
+        let result = unsafe { CFRunLoopRunInMode(kCFRunLoopDefaultMode, left.as_secs_f64(), 0) };
+        if result == RUN_FINISHED {
+            std::thread::sleep(left);
+            return;
+        }
     }
 }
 
@@ -1534,6 +1576,9 @@ pub fn main_with(options: CliOptions) -> i32 {
         return 0;
     }
     boot_timing::mark("single instance check");
+    // Before anything is read from the game folder: an update stopped
+    // part-way is put back first (the main menu says so).
+    crate::updater::note_interrupted_update();
     let code = run_game(&options);
     guard.release();
     boot_timing::mark("quit: done");

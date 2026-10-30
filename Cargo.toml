@@ -19,6 +19,10 @@ authors = ["Joshua Tubbs (Orinks)"]
 # `cargo tools version` prints it; `--release-line` drops the suffix.
 [workspace.metadata.release]
 package-version = "1.9.5.dev0"
+# The public half of the game's update key: the in-game updater trusts only
+# manifests signed with it. Empty until `cargo tools update-key --new` makes
+# the key; until then release builds do not update themselves.
+update-key = "ed25519:8b4e51ae5641d2fbe9d00654b8549bb80c4c215268b1f59f00599affc1ea3323"
 
 [workspace.dependencies]
 thiserror = "2"
@@ -61,7 +65,13 @@ sdl2 = "0.38"
 #   [patch."https://github.com/orinks-games/hearken"]
 #   hearken = { path = "../hearken/crates/hearken" }
 # to a cargo config (never commit it).
-hearken = { git = "https://github.com/orinks-games/hearken", rev = "d82640344b2a290fc13de43e7ec9545bedadbdeb", default-features = false, features = ["kira", "radio"] }
+hearken = { git = "https://github.com/orinks-games/hearken", rev = "dac1b3998cd989692e8e6515c2e71d1b9ba60d21", default-features = false, features = ["kira", "radio"] }
+# The engine's signed self-updater, on its own: Freight Fate keeps its own
+# update screens and release tooling, and uses the engine's checks,
+# downloads (only the files that changed, when it can) and swap. The game
+# uses its HTTPS client; ff-tools signs the manifests and writes the file
+# indexes with it.
+hearken-update = { git = "https://github.com/orinks-games/hearken", rev = "fa8d1f006cd4b03eba651dd9d4c0b1e2bdb6023d", default-features = false }
 raw-window-handle = "0.6"
 # AppKit's typed `NSWindow`, for asking a Mac whether the game window is
 # covered. Already in the build through `webbrowser`; only the window class

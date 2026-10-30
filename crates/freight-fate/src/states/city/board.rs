@@ -20,7 +20,7 @@ use ff_core::models::dispatch_policy::{
     declines_remaining, dispatch_policy, DECLINE_REPUTATION_PENALTY, SENIOR_LOAD_CHOICE_LEVEL,
 };
 use ff_core::models::enforcement;
-use ff_core::models::jobs::{lane_key, route_drive_hours, Job};
+use ff_core::models::jobs::{lane_key, lane_recent_either_way, route_drive_hours, Job};
 use ff_core::models::profile::Profile;
 use ff_core::models::trailers::{
     compatible_with_programs, owned_trailer_for_cargo, required_program_text,
@@ -644,10 +644,20 @@ impl JobBoardState {
         candidates
     }
 
+    /// The load the cursor opens on: the best-scored one that is not a lane
+    /// the driver has just run, in either direction, else the best-scored
+    /// one. The straight return stays on the board as a choice; it stops
+    /// being the choice dispatch makes for the driver.
     fn recommended_job_index(&self, ctx: &GameContext) -> Option<usize> {
         let mut candidates = self.scored_candidates(ctx);
         sort_scored(&mut candidates);
-        candidates.first().map(|c| c.1)
+        let p = profile(ctx);
+        let world = ctx.world;
+        candidates
+            .iter()
+            .find(|c| !lane_recent_either_way(&p.recent_lanes, &lane_key(world, &self.jobs[c.1])))
+            .or(candidates.first())
+            .map(|c| c.1)
     }
 
     /// Unlocked jobs in the order dispatch would assign them, best first.
@@ -670,14 +680,17 @@ impl JobBoardState {
             .copied()
             .filter(|i| declined.contains(i))
             .collect();
-        // Lane variety: dispatch prefers a lane the driver has not just run.
-        // A stable partition, so score order still rules inside each group,
-        // and when every candidate is a recent lane nothing changes -- the
-        // nudge can delay a repeat, never block dispatch.
-        let recent: HashSet<&String> = profile(ctx).recent_lanes.iter().collect();
+        // Lane variety: dispatch prefers a lane the driver has not just run,
+        // in either direction, so the load straight back where the truck
+        // came from waits behind every unseen lane. A stable partition, so
+        // score order still rules inside each group, and when every
+        // candidate is a recent lane nothing changes -- the nudge can delay
+        // a repeat, never block dispatch.
+        let recent = &profile(ctx).recent_lanes;
         if !recent.is_empty() {
             let world = ctx.world;
-            let is_recent = |i: &usize| recent.contains(&lane_key(world, &self.jobs[*i]));
+            let is_recent =
+                |i: &usize| lane_recent_either_way(recent, &lane_key(world, &self.jobs[*i]));
             let mut not_recent: Vec<usize> =
                 fresh.iter().copied().filter(|i| !is_recent(i)).collect();
             let recent_ones: Vec<usize> = fresh.iter().copied().filter(is_recent).collect();

@@ -15,6 +15,7 @@
 //! produces the same bytes.
 
 pub mod index;
+pub mod osm;
 
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
@@ -100,9 +101,7 @@ pub fn load_world(root: &Path) -> Result<Object> {
     Ok(data)
 }
 
-/// The exact text every source file should hold, keyed by path. The test
-/// writes a world with it; nothing else writes the source now.
-#[cfg(test)]
+/// The exact text every source file should hold, keyed by path.
 fn build_source_files(data: &Object, root: &Path) -> Vec<(PathBuf, String)> {
     let cities = data.get("cities").and_then(Value::as_object);
     let mut meta = Object::new();
@@ -136,9 +135,9 @@ fn build_source_files(data: &Object, root: &Path) -> Vec<(PathBuf, String)> {
 
 /// Write the world source back out as shards; return how many files
 /// changed. Only changed files are touched, and a shard with no legs left
-/// is removed so a renamed state cannot linger.
-#[cfg(test)]
-fn save_world(data: &Object, root: &Path) -> Result<usize> {
+/// is removed so a renamed state cannot linger. `osm-speed-limits` writes
+/// the source through this.
+pub fn save_world(data: &Object, root: &Path) -> Result<usize> {
     let files = build_source_files(data, root);
     std::fs::create_dir_all(root.join("legs")).map_err(|e| e.to_string())?;
     let mut written = 0;

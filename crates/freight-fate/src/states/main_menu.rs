@@ -48,7 +48,10 @@ mod shortcuts;
 mod touch_gestures;
 mod touch_practice;
 
-pub use achievements::{AchievementCareerState, AchievementCategoryState, AchievementsState};
+pub use achievements::{
+    open_career_achievements, AchievementCareerState, AchievementCategoryState, AchievementsState,
+    CAREER_ACHIEVEMENTS_HELP,
+};
 pub use careers::{
     CareerAction, CareerActionsState, ConfirmCareerActionState, LoadDriverState, ManageCareersState,
 };
@@ -591,7 +594,8 @@ impl MainMenuState {
 
     /// Start a fresh silent check for the next main-menu update cycle.
     pub fn arm_update_check(settings: &ff_core::settings::Settings) {
-        if !updater::is_frozen() || !updater::self_updates() {
+        let host = updater::Host::current();
+        if updater::blocked(updater::running().as_ref(), &host).is_some() {
             return;
         }
         let mut guard = UPDATE_CHECK.lock().unwrap_or_else(|e| e.into_inner());
@@ -726,6 +730,9 @@ impl Menu for MainMenuState {
                  no engine, traffic, or alert sounds. Check that sound works \
                  elsewhere, then start Freight Fate again.",
             );
+        }
+        if let Some(line) = updater::take_recovery_notice() {
+            ctx.say(&line);
         }
         if crate::online_presence::take_secret_store_timeout_notice() {
             ctx.say(

@@ -2203,6 +2203,51 @@ msgstr ""
 msgid "Jethro Tull - Teacher"
 msgstr "Jethro Tull - Teacher"
 
+msgid "earned"
+msgstr ""
+
+msgid "newest"
+msgstr ""
+
+msgid "locked"
+msgstr ""
+
+msgid "name"
+msgstr "name"
+
+msgid "original"
+msgstr ""
+
+msgid "Earned first"
+msgstr ""
+
+msgid "Newest"
+msgstr ""
+
+msgid "Locked first"
+msgstr ""
+
+msgid "A to Z"
+msgstr ""
+
+msgid "Original order"
+msgstr ""
+
+msgid "Sort: Earned first"
+msgstr ""
+
+msgid "Sort: Newest"
+msgstr ""
+
+msgid "Sort: Locked first"
+msgstr ""
+
+msgid "Sort: A to Z"
+msgstr ""
+
+msgid "Sort: Original order"
+msgstr ""
+
 #. placeholders: {path}
 msgid "Not a Freight Fate sound pack: {path}"
 msgstr "To nie jest pakiet dźwięków Freight Fate: {path}"
@@ -4515,6 +4560,69 @@ msgid ""
 msgstr ""
 "Wesołego Halloween. Najstraszniejsza rzecz na tej drodze to wciąż stacja "
 "ważenia."
+
+msgid ""
+"Halloween week. Somewhere a porch light is on, and the candy bowl is going "
+"fast."
+msgstr ""
+
+msgid ""
+"Trick or treat. Big Jim is handing out business cards this year. Nobody "
+"wants them."
+msgstr ""
+
+msgid "Costume idea: a driver with a clean logbook. Nobody will believe it."
+msgstr ""
+
+msgid ""
+"Halloween week. Kids in costumes are out after dark. Take it slow where the "
+"houses start."
+msgstr ""
+
+msgid ""
+"Haunted house season. Nothing in there is as frightening as a dock "
+"appointment before sunrise."
+msgstr ""
+
+msgid ""
+"Halloween week. The hayrides are running, and the tractors are slower than "
+"you."
+msgstr ""
+
+msgid ""
+"Illinois grows more pumpkins than any other state. Most of them end up in a "
+"pie."
+msgstr ""
+
+msgid ""
+"Salem, Massachusetts, spends all of October on Halloween. Witches welcome. "
+"Trailers, less so."
+msgstr ""
+
+msgid ""
+"New England at Halloween. The leaves are mostly down, and the cider "
+"doughnuts are still hot."
+msgstr ""
+
+msgid ""
+"Sleepy Hollow is on the Hudson. The headless horseman rides all week. Keep "
+"your own head on the road."
+msgstr ""
+
+msgid ""
+"New Orleans takes its ghosts seriously. The cemetery tours are booked all "
+"week."
+msgstr ""
+
+msgid ""
+"Halloween week in farm country. Harvest is still on, so watch for grain "
+"trucks pulling out slow."
+msgstr ""
+
+msgid ""
+"Día de los Muertos is days away. The marigolds and sugar skulls are already "
+"out."
+msgstr ""
 
 msgid ""
 "Thanksgiving week. Somewhere a turkey is grateful you are hauling freight "
@@ -9494,9 +9602,6 @@ msgstr "kolizja"
 
 msgid "missing or invalid exchange_version"
 msgstr "brak lub nieprawidłowe pole exchange_version"
-
-msgid "name"
-msgstr "name"
 
 #. placeholders: {business_status}
 msgid "unknown business_status {business_status}"
@@ -17314,15 +17419,15 @@ msgid ""
 msgstr ""
 "Zdobyte {earned} z {ACHIEVEMENTS} we wszystkich karierach w tej instalacji."
 
-msgid "Controls and account scope"
-msgstr "Sterowanie i zakres konta"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}. {done} z {achievements}"
 
 msgid "The account-wide earned count."
 msgstr "Liczba zdobytych w całym koncie."
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}. {done} z {achievements}"
+msgid "Controls and account scope"
+msgstr "Sterowanie i zakres konta"
 
 msgid "Back to Online"
 msgstr "Wróć do menu Online"
@@ -17367,6 +17472,14 @@ msgstr "Graj dalej, żeby je odblokować."
 msgid "Back to account categories"
 msgstr "Wróć do kategorii konta"
 
+msgid ""
+"Left and Right change the order of the categories and the achievements in "
+"each one."
+msgstr ""
+
+msgid "Left and Right change the order of this category only."
+msgstr ""
+
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr "Wszyscy asystenci: ciężarówka kieruje. Zalecane na pierwsze jazdy."
 
@@ -17379,23 +17492,21 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits."
-msgstr "Trzyma pas, pokonuje zakręty i rogi ulic i bierze twoje zjazdy."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations."
+msgstr ""
 
 #. placeholders: {control_steer_left}, {control_steer_right}
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits. A tap of {control_steer_left} or {control_steer_right} changes "
-"lanes. Speed, stops and the docks are yours."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations. A tap of "
+"{control_steer_left} or {control_steer_right} changes lanes. Speed, rest "
+"and fuel stops, and the docks are yours."
 msgstr ""
-"Trzyma pas, pokonuje zakręty i rogi ulic i bierze twoje zjazdy. Stuknięcie "
-"{control_steer_left} lub {control_steer_right} zmienia pas. Prędkość, "
-"postoje i rampy są twoje."
 
 #. one sentence of a longer line
-msgid "Speed, stops and the docks are yours."
-msgstr "Prędkość, postoje i rampy są twoje."
+msgid "Speed, rest and fuel stops, and the docks are yours."
+msgstr ""
 
 msgid "Balanced: you steer, with help."
 msgstr "Zrównoważony: kierujesz ty, z pomocą."
@@ -18852,6 +18963,9 @@ msgid ""
 msgstr ""
 "Poziom, reputacja, zaufanie dyspozytora, kartoteka kierowcy i CDL, saldo i "
 "dług, wpisy w prawie jazdy, wyniki z całej kariery i odpoczynek."
+
+msgid "Achievements"
+msgstr "Osiągnięcia"
 
 msgid "Licenses and training"
 msgstr "Prawo jazdy i szkolenia"
@@ -27104,6 +27218,10 @@ msgstr "rampa stacji ważenia"
 msgid "ramp terminal"
 msgstr "koniec rampy"
 
+#. placeholders: {name}
+msgid "At {name}."
+msgstr ""
+
 #. placeholders: {place}
 msgid "At {place}."
 msgstr "Jesteś przy {place}."
@@ -27324,6 +27442,10 @@ msgstr "{capitalized} pas otwarty."
 #. placeholders: {name}
 msgid "Changing to the {name} lane for the exit."
 msgstr "Zmiana na {name} pas przed zjazdem."
+
+#. placeholders: {name}
+msgid "Changing to the {name} lane for the lane closure."
+msgstr ""
 
 #. placeholders: {lane_count_words}
 msgid "The road narrows to {lane_count_words}."
@@ -33350,38 +33472,58 @@ msgstr " Teraz na pasie: {lane_label}."
 msgid "The road narrows to {lane_count_words}.{moved}"
 msgstr "Droga się zwęża: {lane_count_words}.{moved}"
 
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "The {closed_name} lane closes at the work zone ahead."
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"The {closed_name} lane closes at the work zone ahead. Waiting for a gap in "
+"the {open_name} lane."
+msgstr ""
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane."
+msgstr ""
+
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane."
 msgstr "Zjedź na {open_name} pas."
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "The {lane_label} lane closes at the work zone ahead."
-msgstr "Przy strefie robót przed tobą zamyka się {lane_label} pas."
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"The {lane_label} lane closes at the work zone ahead. Move to the "
+"The {closed_name} lane closes at the work zone ahead. Move to the "
 "{open_name} lane."
 msgstr ""
-"Przy strefie robót przed tobą zamyka się {lane_label} pas. Zjedź na "
-"{open_name} pas."
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "You are in the closed {closed_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"You are in the closed {closed_name} lane! Waiting for a gap in the "
+"{open_name} lane!"
+msgstr ""
 
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane!"
 msgstr "Zjedź na {open_name} pas!"
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "You are in the closed {lane_label} lane!"
-msgstr "Zajmujesz zamknięty {lane_label} pas!"
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"You are in the closed {lane_label} lane! Move to the {open_name} lane!"
-msgstr "Zajmujesz zamknięty {lane_label} pas! Zjedź na {open_name} pas!"
+"You are in the closed {closed_name} lane! Move to the {open_name} lane!"
+msgstr ""
 
 #. placeholders: {damage_pct}
 #. one sentence of a longer line
@@ -34124,8 +34266,8 @@ msgstr "Wpisz imię kierowcy."
 msgid "New career. Type your driver name, then Enter."
 msgstr "Nowa kariera. Wpisz imię kierowcy i naciśnij Enter."
 
-msgid "Achievements"
-msgstr "Osiągnięcia"
+msgid "This career's earned and locked achievements."
+msgstr ""
 
 msgid "Pick a saved career. Enter opens its achievements, Escape goes back."
 msgstr ""
@@ -34178,12 +34320,12 @@ msgstr ""
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "Zdobyte {earned_count} z {ACHIEVEMENTS}."
 
-msgid "The total earned."
-msgstr "Łączna liczba zdobytych."
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}. {done} z {achs}"
+
+msgid "The total earned."
+msgstr "Łączna liczba zdobytych."
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr ""
@@ -35747,12 +35889,10 @@ msgstr "Utrzymanie pasa: {lane_keeping_label}"
 #. one sentence of a longer line
 msgid ""
 "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
-"into tap lane changes, and takes your exits, including the destination "
-"exit, without a signal."
+"into tap lane changes, moves out of a lane a work zone closes, and takes "
+"your exits and open weigh stations, including the destination exit, without "
+"a signal."
 msgstr ""
-"Pełne trzyma pas, zmienia {control_steer_left} i {control_steer_right} w "
-"zmianę pasa stuknięciem i bierze twoje zjazdy, łącznie ze zjazdem "
-"docelowym, bez kierunkowskazu."
 
 #. one sentence of a longer line
 msgid "How much of the lane-holding work the truck does."
@@ -35762,31 +35902,17 @@ msgstr "Jak dużą część pracy przy trzymaniu pasa wykonuje ciężarówka."
 msgid ""
 "How much of the lane-holding work the truck does. Full holds the lane, "
 "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
-"and takes your exits, including the destination exit, without a signal. "
-"Partial steers the truck through the road's bends and drifts gently, with "
-"generous steering help; lane changes and speed are yours. Off drifts like a "
-"real wheel; bends are yours unless curve assistance is on, and every exit "
-"needs its signal and its exit lane. On partial or off {lean}. The road "
-"sound only says where you sit in your lane, and the road edge answers: a "
-"stutter clipping the rumble strip, a buzz fully on it, gravel off the "
-"pavement. Steering guide and Lane guide sound, under Audio, change which "
-"way to steer and what leans. Realistic sets this off, Balanced partial, All "
-"assists full."
+"moves out of a lane a work zone closes, and takes your exits and open weigh "
+"stations, including the destination exit, without a signal. Partial steers "
+"the truck through the road's bends and drifts gently, with generous "
+"steering help; lane changes and speed are yours. Off drifts like a real "
+"wheel; bends are yours unless curve assistance is on, and every exit needs "
+"its signal and its exit lane. On partial or off {lean}. The road sound only "
+"says where you sit in your lane, and the road edge answers: a stutter "
+"clipping the rumble strip, a buzz fully on it, gravel off the pavement. "
+"Steering guide and Lane guide sound, under Audio, change which way to steer "
+"and what leans. Realistic sets this off, Balanced partial, All assists full."
 msgstr ""
-"Jak dużą część pracy przy trzymaniu pasa wykonuje ciężarówka. Pełne trzyma "
-"pas, zmienia {control_steer_left} i {control_steer_right} w zmianę pasa "
-"stuknięciem i bierze twoje zjazdy, łącznie ze zjazdem docelowym, bez "
-"kierunkowskazu. Częściowe prowadzi ciężarówkę przez zakręty drogi i "
-"łagodnie znosi, z hojną pomocą w kierowaniu; zmiany pasa i prędkość należą "
-"do ciebie. Wyłączone znosi jak prawdziwa kierownica; zakręty należą do "
-"ciebie, chyba że włączony jest asystent zakrętów, a każdy zjazd wymaga "
-"kierunkowskazu i pasa zjazdu. Przy częściowym lub wyłączonym utrzymaniu "
-"pasa {lean}. Dźwięk drogi mówi tylko, gdzie jesteś na swoim pasie, a "
-"krawędź drogi odpowiada: terkotanie przy muśnięciu pasa akustycznego, "
-"buczenie, gdy jesteś na nim całkiem, żwir poza asfaltem. Wskazówka "
-"kierowania i Dźwięk prowadzenia po pasie w sekcji Dźwięk zmieniają, w którą "
-"stronę kierować i co się przechyla. Realistyczny ustawia to na wyłączone, "
-"Zrównoważony na częściowe, Wszyscy asystenci na pełne."
 
 #. one sentence of a longer line
 msgid ""
@@ -40257,29 +40383,6 @@ msgstr "{label}. Puste."
 msgid "update-check"
 msgstr "update-check"
 
-#. one sentence of a longer line
-msgid "Could not reach the update server."
-msgstr "Nie udało się połączyć z serwerem aktualizacji."
-
-#. placeholders: {describe_error}
-msgid "Could not reach the update server. {describe_error}"
-msgstr "Nie udało się połączyć z serwerem aktualizacji. {describe_error}"
-
-msgid ""
-"On iPhone and iPad, updates come through the App Store or TestFlight."
-msgstr ""
-"Na iPhonie i iPadzie aktualizacje przychodzą przez App Store lub TestFlight."
-
-msgid "AG Now keeps this copy up to date."
-msgstr ""
-
-msgid ""
-"Updates are only available in the packaged game. This copy runs from "
-"source; update it with git."
-msgstr ""
-"Aktualizacje są dostępne tylko w wersji instalacyjnej gry. Ta kopia działa "
-"ze źródeł; aktualizuj ją przez git."
-
 msgid "Checking for updates..."
 msgstr "Sprawdzanie aktualizacji..."
 
@@ -40310,13 +40413,6 @@ msgstr ""
 "Pobierz i uruchom ponownie instaluje ją teraz. Co nowego odczytuje zmiany. "
 "Pomiń tę wersję przestaje pytać o tę aktualizację."
 
-msgid ""
-"Updates can only be installed in the packaged game. This copy runs from "
-"source."
-msgstr ""
-"Aktualizacje można instalować tylko w wersji instalacyjnej gry. Ta kopia "
-"działa ze źródeł."
-
 #. placeholders: {title}
 #. one sentence of a longer line
 msgid "Skipping {title}."
@@ -40330,9 +40426,12 @@ msgstr "Pomijam {title}. Następna aktualizacja nadal będzie proponowana."
 msgid "The next update will still be offered."
 msgstr "Następna aktualizacja nadal będzie proponowana."
 
-#. placeholders: {mb}
-msgid " {mb} megabytes."
-msgstr " {mb} {mb:megabajt|megabajty|megabajtów}."
+msgid " of changes"
+msgstr ""
+
+#. placeholders: {f}, {changes}
+msgid "{f} megabytes{changes}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Update available."
@@ -40444,10 +40543,6 @@ msgstr ""
 msgid "The download arrived damaged, so it was not installed."
 msgstr "Pobrany plik jest uszkodzony, więc nie został zainstalowany."
 
-#. placeholders: {describe_error}
-msgid "The download failed. {describe_error}"
-msgstr "Pobieranie nie powiodło się. {describe_error}"
-
 #. placeholders: {sentence}
 msgid "The download failed. {sentence}"
 msgstr "Pobieranie nie powiodło się. {sentence}"
@@ -40498,12 +40593,8 @@ msgstr ""
 "{STALL_TIMEOUT_S:sekundę|sekundy|sekund} nic nie dotarło."
 
 #. one sentence of a longer line
-msgid ""
-"Copy it over your game folder, which keeps your music and radio packs, then "
-"restart the game."
-msgstr ""
-"Skopiuj go do folderu gry, co zachowa twoją muzykę i pakiety radiowe, a "
-"potem uruchom grę ponownie."
+msgid "Install it yourself, then restart the game."
+msgstr "Zainstaluj ją samodzielnie, a potem uruchom grę ponownie."
 
 #. placeholders: {dest}
 #. one sentence of a longer line
@@ -40512,32 +40603,11 @@ msgstr "Nowa wersja jest zapisana w {dest}."
 
 #. placeholders: {dest}
 msgid ""
-"The new version is saved at {dest}. Copy it over your game folder, which "
-"keeps your music and radio packs, then restart the game."
-msgstr ""
-"Nowa wersja jest zapisana w {dest}. Skopiuj ją do folderu gry, co zachowa "
-"twoją muzykę i pakiety radiowe, a potem uruchom grę ponownie."
-
-#. one sentence of a longer line
-msgid "Install it yourself, then restart the game."
-msgstr "Zainstaluj ją samodzielnie, a potem uruchom grę ponownie."
-
-#. placeholders: {dest}
-msgid ""
 "The new version is saved at {dest}. Install it yourself, then restart the "
 "game."
 msgstr ""
 "Nowa wersja jest zapisana w {dest}. Zainstaluj ją samodzielnie, a potem "
 "uruchom grę ponownie."
-
-#. placeholders: {mb}
-msgid ", {mb} megabytes"
-msgstr ", {mb} {mb:megabajt|megabajty|megabajtów}"
-
-#. placeholders: {mb}
-#. one clause of a longer line
-msgid "{mb} megabytes"
-msgstr "{mb} MB"
 
 #. placeholders: {title}, {size}
 #. one sentence of a longer line
@@ -41810,6 +41880,129 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "Could not reach the update server."
+#~ msgstr "Nie udało się połączyć z serwerem aktualizacji."
+
+#~ msgid "Could not reach the update server. {describe_error}"
+#~ msgstr "Nie udało się połączyć z serwerem aktualizacji. {describe_error}"
+
+#~ msgid ""
+#~ "On iPhone and iPad, updates come through the App Store or TestFlight."
+#~ msgstr ""
+#~ "Na iPhonie i iPadzie aktualizacje przychodzą przez App Store lub TestFlight."
+
+#~ msgid ""
+#~ "Updates are only available in the packaged game. This copy runs from "
+#~ "source; update it with git."
+#~ msgstr ""
+#~ "Aktualizacje są dostępne tylko w wersji instalacyjnej gry. Ta kopia działa "
+#~ "ze źródeł; aktualizuj ją przez git."
+
+#~ msgid ""
+#~ "Updates can only be installed in the packaged game. This copy runs from "
+#~ "source."
+#~ msgstr ""
+#~ "Aktualizacje można instalować tylko w wersji instalacyjnej gry. Ta kopia "
+#~ "działa ze źródeł."
+
+#~ msgid " {mb} megabytes."
+#~ msgstr " {mb} {mb:megabajt|megabajty|megabajtów}."
+
+#~ msgid "The download failed. {describe_error}"
+#~ msgstr "Pobieranie nie powiodło się. {describe_error}"
+
+#~ msgid ""
+#~ "Copy it over your game folder, which keeps your music and radio packs, then "
+#~ "restart the game."
+#~ msgstr ""
+#~ "Skopiuj go do folderu gry, co zachowa twoją muzykę i pakiety radiowe, a "
+#~ "potem uruchom grę ponownie."
+
+#~ msgid ""
+#~ "The new version is saved at {dest}. Copy it over your game folder, which "
+#~ "keeps your music and radio packs, then restart the game."
+#~ msgstr ""
+#~ "Nowa wersja jest zapisana w {dest}. Skopiuj ją do folderu gry, co zachowa "
+#~ "twoją muzykę i pakiety radiowe, a potem uruchom grę ponownie."
+
+#~ msgid ", {mb} megabytes"
+#~ msgstr ", {mb} {mb:megabajt|megabajty|megabajtów}"
+
+#~ msgid "{mb} megabytes"
+#~ msgstr "{mb} MB"
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits."
+#~ msgstr "Trzyma pas, pokonuje zakręty i rogi ulic i bierze twoje zjazdy."
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits. A tap of {control_steer_left} or {control_steer_right} changes "
+#~ "lanes. Speed, stops and the docks are yours."
+#~ msgstr ""
+#~ "Trzyma pas, pokonuje zakręty i rogi ulic i bierze twoje zjazdy. Stuknięcie "
+#~ "{control_steer_left} lub {control_steer_right} zmienia pas. Prędkość, "
+#~ "postoje i rampy są twoje."
+
+#~ msgid "Speed, stops and the docks are yours."
+#~ msgstr "Prędkość, postoje i rampy są twoje."
+
+#~ msgid "The {lane_label} lane closes at the work zone ahead."
+#~ msgstr "Przy strefie robót przed tobą zamyka się {lane_label} pas."
+
+#~ msgid ""
+#~ "The {lane_label} lane closes at the work zone ahead. Move to the "
+#~ "{open_name} lane."
+#~ msgstr ""
+#~ "Przy strefie robót przed tobą zamyka się {lane_label} pas. Zjedź na "
+#~ "{open_name} pas."
+
+#~ msgid "You are in the closed {lane_label} lane!"
+#~ msgstr "Zajmujesz zamknięty {lane_label} pas!"
+
+#~ msgid ""
+#~ "You are in the closed {lane_label} lane! Move to the {open_name} lane!"
+#~ msgstr "Zajmujesz zamknięty {lane_label} pas! Zjedź na {open_name} pas!"
+
+#~ msgid ""
+#~ "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
+#~ "into tap lane changes, and takes your exits, including the destination "
+#~ "exit, without a signal."
+#~ msgstr ""
+#~ "Pełne trzyma pas, zmienia {control_steer_left} i {control_steer_right} w "
+#~ "zmianę pasa stuknięciem i bierze twoje zjazdy, łącznie ze zjazdem "
+#~ "docelowym, bez kierunkowskazu."
+
+#~ msgid ""
+#~ "How much of the lane-holding work the truck does. Full holds the lane, "
+#~ "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
+#~ "and takes your exits, including the destination exit, without a signal. "
+#~ "Partial steers the truck through the road's bends and drifts gently, with "
+#~ "generous steering help; lane changes and speed are yours. Off drifts like a "
+#~ "real wheel; bends are yours unless curve assistance is on, and every exit "
+#~ "needs its signal and its exit lane. On partial or off {lean}. The road "
+#~ "sound only says where you sit in your lane, and the road edge answers: a "
+#~ "stutter clipping the rumble strip, a buzz fully on it, gravel off the "
+#~ "pavement. Steering guide and Lane guide sound, under Audio, change which "
+#~ "way to steer and what leans. Realistic sets this off, Balanced partial, All "
+#~ "assists full."
+#~ msgstr ""
+#~ "Jak dużą część pracy przy trzymaniu pasa wykonuje ciężarówka. Pełne trzyma "
+#~ "pas, zmienia {control_steer_left} i {control_steer_right} w zmianę pasa "
+#~ "stuknięciem i bierze twoje zjazdy, łącznie ze zjazdem docelowym, bez "
+#~ "kierunkowskazu. Częściowe prowadzi ciężarówkę przez zakręty drogi i "
+#~ "łagodnie znosi, z hojną pomocą w kierowaniu; zmiany pasa i prędkość należą "
+#~ "do ciebie. Wyłączone znosi jak prawdziwa kierownica; zakręty należą do "
+#~ "ciebie, chyba że włączony jest asystent zakrętów, a każdy zjazd wymaga "
+#~ "kierunkowskazu i pasa zjazdu. Przy częściowym lub wyłączonym utrzymaniu "
+#~ "pasa {lean}. Dźwięk drogi mówi tylko, gdzie jesteś na swoim pasie, a "
+#~ "krawędź drogi odpowiada: terkotanie przy muśnięciu pasa akustycznego, "
+#~ "buczenie, gdy jesteś na nim całkiem, żwir poza asfaltem. Wskazówka "
+#~ "kierowania i Dźwięk prowadzenia po pasie w sekcji Dźwięk zmieniają, w którą "
+#~ "stronę kierować i co się przechyla. Realistyczny ustawia to na wyłączone, "
+#~ "Zrównoważony na częściowe, Wszyscy asystenci na pełne."
 
 #~ msgid "auto"
 #~ msgstr "auto"

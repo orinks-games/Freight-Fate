@@ -72,13 +72,20 @@ fn ten_times_rig() -> Rig {
         ..RigOptions::default()
     });
     rig.app.ctx.settings.time_scale = 10.0;
+    // The driver signals for the scale here, so lane keeping is partial:
+    // on full it signals for an open scale itself.
+    rig.app.ctx.settings.lane_keeping = "partial".to_string();
     rig.drive.trip.time_scale = 10.0;
     rig
 }
 
-/// One frame at a pinned 61 mph: the driver ignores every instruction.
+/// One frame at a pinned 61 mph: the driver ignores every instruction. The
+/// road is kept clear of traffic, which a truck that never slows would only
+/// run into (ramp traffic merging at the exits the October 2026 re-read
+/// added did, and the collision took the cab past the pause).
 fn hold_61_for(rig: &mut Rig, frames: usize, until: impl Fn(&Rig) -> bool) -> usize {
     for frame in 0..frames {
+        rig.drive.trip.traffic_manager.vehicles.clear();
         rig.drive.trip.truck.velocity_mps = mph_to_mps(61.0);
         rig.step(1, DT, None);
         if until(rig) {

@@ -26,7 +26,8 @@ use crate::states::driving_menu_states::{keep_rows, push_over_drive, DriveRef};
 use crate::states::driving_rest_states::ShoulderSleepConfirmationState;
 use crate::states::learn_sounds::LearnSoundsState;
 use crate::states::main_menu::{
-    controls_help_page, HelpState, InputPracticeState, MainMenuState, SettingsState,
+    controls_help_page, open_career_achievements, HelpState, InputPracticeState, MainMenuState,
+    SettingsState, CAREER_ACHIEVEMENTS_HELP,
 };
 use crate::states::online_states::DriversOnlineState;
 
@@ -267,6 +268,12 @@ impl PauseMenuState {
                 ),
             );
         }
+        items.push(
+            MenuItem::new("Achievements", |_s: &mut Self, ctx| {
+                open_career_achievements(ctx)
+            })
+            .help(CAREER_ACHIEVEMENTS_HELP),
+        );
         items.push(
             MenuItem::new("Drivers on duty", |_s: &mut Self, ctx: &mut GameContext| {
                 let state = DriversOnlineState::new(ctx);

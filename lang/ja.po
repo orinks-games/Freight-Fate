@@ -1931,6 +1931,51 @@ msgstr "研修クラスを担当したRayが、成長ぶりを見るために1�
 msgid "Jethro Tull - Teacher"
 msgstr "Jethro Tull - Teacher"
 
+msgid "earned"
+msgstr ""
+
+msgid "newest"
+msgstr ""
+
+msgid "locked"
+msgstr ""
+
+msgid "name"
+msgstr "name"
+
+msgid "original"
+msgstr ""
+
+msgid "Earned first"
+msgstr ""
+
+msgid "Newest"
+msgstr ""
+
+msgid "Locked first"
+msgstr ""
+
+msgid "A to Z"
+msgstr ""
+
+msgid "Original order"
+msgstr ""
+
+msgid "Sort: Earned first"
+msgstr ""
+
+msgid "Sort: Newest"
+msgstr ""
+
+msgid "Sort: Locked first"
+msgstr ""
+
+msgid "Sort: A to Z"
+msgstr ""
+
+msgid "Sort: Original order"
+msgstr ""
+
 #. placeholders: {path}
 msgid "Not a Freight Fate sound pack: {path}"
 msgstr "Freight Fateのサウンドパックではありません：{path}"
@@ -3830,6 +3875,69 @@ msgstr "ハロウィンの週です。トウモロコシ迷路が開き、かか
 msgid ""
 "Happy Halloween. The scariest thing on this road is still the weigh station."
 msgstr "ハッピーハロウィン。この道で一番怖いのは、やはり計量所です。"
+
+msgid ""
+"Halloween week. Somewhere a porch light is on, and the candy bowl is going "
+"fast."
+msgstr ""
+
+msgid ""
+"Trick or treat. Big Jim is handing out business cards this year. Nobody "
+"wants them."
+msgstr ""
+
+msgid "Costume idea: a driver with a clean logbook. Nobody will believe it."
+msgstr ""
+
+msgid ""
+"Halloween week. Kids in costumes are out after dark. Take it slow where the "
+"houses start."
+msgstr ""
+
+msgid ""
+"Haunted house season. Nothing in there is as frightening as a dock "
+"appointment before sunrise."
+msgstr ""
+
+msgid ""
+"Halloween week. The hayrides are running, and the tractors are slower than "
+"you."
+msgstr ""
+
+msgid ""
+"Illinois grows more pumpkins than any other state. Most of them end up in a "
+"pie."
+msgstr ""
+
+msgid ""
+"Salem, Massachusetts, spends all of October on Halloween. Witches welcome. "
+"Trailers, less so."
+msgstr ""
+
+msgid ""
+"New England at Halloween. The leaves are mostly down, and the cider "
+"doughnuts are still hot."
+msgstr ""
+
+msgid ""
+"Sleepy Hollow is on the Hudson. The headless horseman rides all week. Keep "
+"your own head on the road."
+msgstr ""
+
+msgid ""
+"New Orleans takes its ghosts seriously. The cemetery tours are booked all "
+"week."
+msgstr ""
+
+msgid ""
+"Halloween week in farm country. Harvest is still on, so watch for grain "
+"trucks pulling out slow."
+msgstr ""
+
+msgid ""
+"Día de los Muertos is days away. The marigolds and sugar skulls are already "
+"out."
+msgstr ""
 
 msgid ""
 "Thanksgiving week. Somewhere a turkey is grateful you are hauling freight "
@@ -8308,9 +8416,6 @@ msgstr "事故"
 
 msgid "missing or invalid exchange_version"
 msgstr "exchange_version がないか無効です"
-
-msgid "name"
-msgstr "name"
 
 #. placeholders: {business_status}
 msgid "unknown business_status {business_status}"
@@ -15645,15 +15750,15 @@ msgid ""
 "{earned} of {ACHIEVEMENTS} earned across every career on this installation."
 msgstr "このインストールのすべてのキャリアで{ACHIEVEMENTS}件中{earned}件を獲得しています。"
 
-msgid "Controls and account scope"
-msgstr "操作とアカウントの範囲"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}。{achievements}件中{done}件"
 
 msgid "The account-wide earned count."
 msgstr "アカウント全体の獲得数。"
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}。{achievements}件中{done}件"
+msgid "Controls and account scope"
+msgstr "操作とアカウントの範囲"
 
 msgid "Back to Online"
 msgstr "オンラインに戻る"
@@ -15697,6 +15802,14 @@ msgstr "プレイを続けると解除されます。"
 msgid "Back to account categories"
 msgstr "アカウントのカテゴリーに戻る"
 
+msgid ""
+"Left and Right change the order of the categories and the achievements in "
+"each one."
+msgstr ""
+
+msgid "Left and Right change the order of this category only."
+msgstr ""
+
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr "すべてのアシスト：トラックが操舵します。最初の数回の運転におすすめです。"
 
@@ -15708,22 +15821,21 @@ msgstr "{control_steer_left}か{control_steer_right}を軽く押すと車線を�
 
 #. one sentence of a longer line
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits."
-msgstr "車線を保ち、カーブや街角を曲がり、出口も取ってくれます。"
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations."
+msgstr ""
 
 #. placeholders: {control_steer_left}, {control_steer_right}
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits. A tap of {control_steer_left} or {control_steer_right} changes "
-"lanes. Speed, stops and the docks are yours."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations. A tap of "
+"{control_steer_left} or {control_steer_right} changes lanes. Speed, rest "
+"and fuel stops, and the docks are yours."
 msgstr ""
-"車線を保ち、カーブや街角を曲がり、出口も取ってくれます。{control_steer_left}か{control_steer_right}を軽く押すと"
-"車線を変えます。速度、停車、ドックは自分で担当します。"
 
 #. one sentence of a longer line
-msgid "Speed, stops and the docks are yours."
-msgstr "速度、停車、ドックは自分で担当します。"
+msgid "Speed, rest and fuel stops, and the docks are yours."
+msgstr ""
 
 msgid "Balanced: you steer, with help."
 msgstr "バランス：補助を受けながら自分で操舵します。"
@@ -17040,6 +17152,9 @@ msgid ""
 "Level, reputation, dispatch trust, driving record and CDL, balance and "
 "debt, endorsements, lifetime numbers, and rest."
 msgstr "レベル、評判、配車係の信頼、運転記録とCDL、残高と借金、免許付記、通算の数字、休息。"
+
+msgid "Achievements"
+msgstr "実績"
 
 msgid "Licenses and training"
 msgstr "免許と研修"
@@ -24449,6 +24564,10 @@ msgstr "計量所のランプ"
 msgid "ramp terminal"
 msgstr "ランプの終わり"
 
+#. placeholders: {name}
+msgid "At {name}."
+msgstr ""
+
 #. placeholders: {place}
 msgid "At {place}."
 msgstr "{place}に着きました。"
@@ -24664,6 +24783,10 @@ msgstr "{capitalized}の車線が空いています。"
 #. placeholders: {name}
 msgid "Changing to the {name} lane for the exit."
 msgstr "出口に向けて{name}の車線に移ります。"
+
+#. placeholders: {name}
+msgid "Changing to the {name} lane for the lane closure."
+msgstr ""
 
 #. placeholders: {lane_count_words}
 msgid "The road narrows to {lane_count_words}."
@@ -30153,36 +30276,58 @@ msgstr "{lane_label}の車線に移りました。"
 msgid "The road narrows to {lane_count_words}.{moved}"
 msgstr "道路が{lane_count_words}に狭くなります。{moved}"
 
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "The {closed_name} lane closes at the work zone ahead."
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"The {closed_name} lane closes at the work zone ahead. Waiting for a gap in "
+"the {open_name} lane."
+msgstr ""
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane."
+msgstr ""
+
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane."
 msgstr "{open_name}の車線に移ってください。"
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "The {lane_label} lane closes at the work zone ahead."
-msgstr "前方の工事区間で、{lane_label}の車線が閉鎖されます。"
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"The {lane_label} lane closes at the work zone ahead. Move to the "
+"The {closed_name} lane closes at the work zone ahead. Move to the "
 "{open_name} lane."
-msgstr "前方の工事区間で、{lane_label}の車線が閉鎖されます。{open_name}の車線に移ってください。"
+msgstr ""
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "You are in the closed {closed_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"You are in the closed {closed_name} lane! Waiting for a gap in the "
+"{open_name} lane!"
+msgstr ""
 
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane!"
 msgstr "{open_name}の車線に移ってください！"
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "You are in the closed {lane_label} lane!"
-msgstr "閉鎖された{lane_label}の車線にいます！"
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"You are in the closed {lane_label} lane! Move to the {open_name} lane!"
-msgstr "閉鎖された{lane_label}の車線にいます！{open_name}の車線に移ってください！"
+"You are in the closed {closed_name} lane! Move to the {open_name} lane!"
+msgstr ""
 
 #. placeholders: {damage_pct}
 #. one sentence of a longer line
@@ -30852,8 +30997,8 @@ msgstr "ドライバー名を入力してください。"
 msgid "New career. Type your driver name, then Enter."
 msgstr "新しいキャリア。ドライバー名を入力して、Enterを押してください。"
 
-msgid "Achievements"
-msgstr "実績"
+msgid "This career's earned and locked achievements."
+msgstr ""
 
 msgid "Pick a saved career. Enter opens its achievements, Escape goes back."
 msgstr "保存されたキャリアを選んでください。Enter で実績を開き、Escape で戻ります。"
@@ -30903,12 +31048,12 @@ msgstr "{name}の実績。{ACHIEVEMENTS}件中{earned_count}件獲得。{current
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "{ACHIEVEMENTS}件中{earned_count}件獲得。"
 
-msgid "The total earned."
-msgstr "獲得した合計です。"
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}。{achs}件中{done}件"
+
+msgid "The total earned."
+msgstr "獲得した合計です。"
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr "上下で移動し、Enter で項目を繰り返し、Escape で戻ります。"
@@ -32291,11 +32436,10 @@ msgstr "レーンキープ：{lane_keeping_label}"
 #. one sentence of a longer line
 msgid ""
 "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
-"into tap lane changes, and takes your exits, including the destination "
-"exit, without a signal."
+"into tap lane changes, moves out of a lane a work zone closes, and takes "
+"your exits and open weigh stations, including the destination exit, without "
+"a signal."
 msgstr ""
-"フルでは、車線を保ち、{control_steer_left}と{control_steer_right}を軽く押すと車線を変えるようにし、目的地の出口"
-"も含めて、合図なしで出口を取ります。"
 
 #. one sentence of a longer line
 msgid "How much of the lane-holding work the truck does."
@@ -32305,23 +32449,17 @@ msgstr "トラックが車線を保つ作業をどれだけ受け持つかです
 msgid ""
 "How much of the lane-holding work the truck does. Full holds the lane, "
 "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
-"and takes your exits, including the destination exit, without a signal. "
-"Partial steers the truck through the road's bends and drifts gently, with "
-"generous steering help; lane changes and speed are yours. Off drifts like a "
-"real wheel; bends are yours unless curve assistance is on, and every exit "
-"needs its signal and its exit lane. On partial or off {lean}. The road "
-"sound only says where you sit in your lane, and the road edge answers: a "
-"stutter clipping the rumble strip, a buzz fully on it, gravel off the "
-"pavement. Steering guide and Lane guide sound, under Audio, change which "
-"way to steer and what leans. Realistic sets this off, Balanced partial, All "
-"assists full."
+"moves out of a lane a work zone closes, and takes your exits and open weigh "
+"stations, including the destination exit, without a signal. Partial steers "
+"the truck through the road's bends and drifts gently, with generous "
+"steering help; lane changes and speed are yours. Off drifts like a real "
+"wheel; bends are yours unless curve assistance is on, and every exit needs "
+"its signal and its exit lane. On partial or off {lean}. The road sound only "
+"says where you sit in your lane, and the road edge answers: a stutter "
+"clipping the rumble strip, a buzz fully on it, gravel off the pavement. "
+"Steering guide and Lane guide sound, under Audio, change which way to steer "
+"and what leans. Realistic sets this off, Balanced partial, All assists full."
 msgstr ""
-"トラックが車線を保つ作業をどれだけ受け持つかです。フルでは、車線を保ち、{control_steer_left}と{control_steer_righ"
-"t}を軽く押すと車線を変えるようにし、目的地の出口も含めて、合図なしで出口を取ります。一部では、道路のカーブに沿ってトラックを操舵し、穏やかにふらつき、"
-"たっぷりと操舵を補助します。車線変更と速度は自分で行います。オフでは、本物のハンドルのようにふらつきます。カーブアシストがオンでなければカーブは自分で曲"
-"がり、どの出口でも合図と出口車線が必要です。一部とオフでは、{lean}。路面の音は車線の中のどこにいるかだけを伝え、道路の端では音が答えます。ランブル"
-"ストリップをかすると断続音、完全に乗るとブーンという音、舗装から外れると砂利の音です。オーディオの操舵ガイドとレーンガイドの音で、切る方向と、何が傾くか"
-"を変えられます。リアルではオフ、バランスでは一部、すべてのアシストではフルになります。"
 
 #. one sentence of a longer line
 msgid ""
@@ -36181,26 +36319,6 @@ msgstr "{label}。空です。"
 msgid "update-check"
 msgstr "update-check"
 
-#. one sentence of a longer line
-msgid "Could not reach the update server."
-msgstr "アップデートのサーバーにつながりませんでした。"
-
-#. placeholders: {describe_error}
-msgid "Could not reach the update server. {describe_error}"
-msgstr "アップデートのサーバーにつながりませんでした。{describe_error}"
-
-msgid ""
-"On iPhone and iPad, updates come through the App Store or TestFlight."
-msgstr "iPhone と iPad では、アップデートは App Store か TestFlight から届きます。"
-
-msgid "AG Now keeps this copy up to date."
-msgstr ""
-
-msgid ""
-"Updates are only available in the packaged game. This copy runs from "
-"source; update it with git."
-msgstr "アップデートは配布版のゲームでだけ使えます。このコピーはソースから実行しているので、git で更新してください。"
-
 msgid "Checking for updates..."
 msgstr "アップデートを確認しています。"
 
@@ -36231,11 +36349,6 @@ msgstr ""
 "「ダウンロードして再起動」で今すぐインストールします。「新機能」で変更点を読み上げます。「このバージョンを飛ばす」で、このアップデートについて聞かなくな"
 "ります。"
 
-msgid ""
-"Updates can only be installed in the packaged game. This copy runs from "
-"source."
-msgstr "アップデートは配布版のゲームでだけインストールできます。このコピーはソースから実行しています。"
-
 #. placeholders: {title}
 #. one sentence of a longer line
 msgid "Skipping {title}."
@@ -36249,9 +36362,12 @@ msgstr "{title}を飛ばします。次のアップデートは引き続き案�
 msgid "The next update will still be offered."
 msgstr "次のアップデートは引き続き案内されます。"
 
-#. placeholders: {mb}
-msgid " {mb} megabytes."
-msgstr "{mb}メガバイト。"
+msgid " of changes"
+msgstr ""
+
+#. placeholders: {f}, {changes}
+msgid "{f} megabytes{changes}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Update available."
@@ -36351,10 +36467,6 @@ msgstr "ダウンロードが止まりました。{as_secs}秒間、何も届き
 msgid "The download arrived damaged, so it was not installed."
 msgstr "ダウンロードしたものが壊れていたため、インストールしませんでした。"
 
-#. placeholders: {describe_error}
-msgid "The download failed. {describe_error}"
-msgstr "ダウンロードに失敗しました。{describe_error}"
-
 #. placeholders: {sentence}
 msgid "The download failed. {sentence}"
 msgstr "ダウンロードに失敗しました。{sentence}"
@@ -36397,10 +36509,8 @@ msgid "The download stopped. Nothing arrived for {STALL_TIMEOUT_S} seconds."
 msgstr "ダウンロードが止まりました。{STALL_TIMEOUT_S}秒間、何も届きませんでした。"
 
 #. one sentence of a longer line
-msgid ""
-"Copy it over your game folder, which keeps your music and radio packs, then "
-"restart the game."
-msgstr "音楽とラジオのパックを残したまま、ゲームのフォルダーに上書きコピーして、ゲームを再起動してください。"
+msgid "Install it yourself, then restart the game."
+msgstr "自分でインストールしてから、ゲームを再起動してください。"
 
 #. placeholders: {dest}
 #. one sentence of a longer line
@@ -36409,29 +36519,9 @@ msgstr "新しいバージョンは{dest}に保存されています。"
 
 #. placeholders: {dest}
 msgid ""
-"The new version is saved at {dest}. Copy it over your game folder, which "
-"keeps your music and radio packs, then restart the game."
-msgstr ""
-"新しいバージョンは{dest}に保存されています。音楽とラジオのパックを残したまま、ゲームのフォルダーに上書きコピーして、ゲームを再起動してください。"
-
-#. one sentence of a longer line
-msgid "Install it yourself, then restart the game."
-msgstr "自分でインストールしてから、ゲームを再起動してください。"
-
-#. placeholders: {dest}
-msgid ""
 "The new version is saved at {dest}. Install it yourself, then restart the "
 "game."
 msgstr "新しいバージョンは{dest}に保存されています。自分でインストールしてから、ゲームを再起動してください。"
-
-#. placeholders: {mb}
-msgid ", {mb} megabytes"
-msgstr "、{mb}メガバイト"
-
-#. placeholders: {mb}
-#. one clause of a longer line
-msgid "{mb} megabytes"
-msgstr "{mb} MB"
 
 #. placeholders: {title}, {size}
 #. one sentence of a longer line
@@ -37646,6 +37736,109 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "Could not reach the update server."
+#~ msgstr "アップデートのサーバーにつながりませんでした。"
+
+#~ msgid "Could not reach the update server. {describe_error}"
+#~ msgstr "アップデートのサーバーにつながりませんでした。{describe_error}"
+
+#~ msgid ""
+#~ "On iPhone and iPad, updates come through the App Store or TestFlight."
+#~ msgstr "iPhone と iPad では、アップデートは App Store か TestFlight から届きます。"
+
+#~ msgid ""
+#~ "Updates are only available in the packaged game. This copy runs from "
+#~ "source; update it with git."
+#~ msgstr "アップデートは配布版のゲームでだけ使えます。このコピーはソースから実行しているので、git で更新してください。"
+
+#~ msgid ""
+#~ "Updates can only be installed in the packaged game. This copy runs from "
+#~ "source."
+#~ msgstr "アップデートは配布版のゲームでだけインストールできます。このコピーはソースから実行しています。"
+
+#~ msgid " {mb} megabytes."
+#~ msgstr "{mb}メガバイト。"
+
+#~ msgid "The download failed. {describe_error}"
+#~ msgstr "ダウンロードに失敗しました。{describe_error}"
+
+#~ msgid ""
+#~ "Copy it over your game folder, which keeps your music and radio packs, then "
+#~ "restart the game."
+#~ msgstr "音楽とラジオのパックを残したまま、ゲームのフォルダーに上書きコピーして、ゲームを再起動してください。"
+
+#~ msgid ""
+#~ "The new version is saved at {dest}. Copy it over your game folder, which "
+#~ "keeps your music and radio packs, then restart the game."
+#~ msgstr ""
+#~ "新しいバージョンは{dest}に保存されています。音楽とラジオのパックを残したまま、ゲームのフォルダーに上書きコピーして、ゲームを再起動してください。"
+
+#~ msgid ", {mb} megabytes"
+#~ msgstr "、{mb}メガバイト"
+
+#~ msgid "{mb} megabytes"
+#~ msgstr "{mb} MB"
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits."
+#~ msgstr "車線を保ち、カーブや街角を曲がり、出口も取ってくれます。"
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits. A tap of {control_steer_left} or {control_steer_right} changes "
+#~ "lanes. Speed, stops and the docks are yours."
+#~ msgstr ""
+#~ "車線を保ち、カーブや街角を曲がり、出口も取ってくれます。{control_steer_left}か{control_steer_right}を軽く押すと"
+#~ "車線を変えます。速度、停車、ドックは自分で担当します。"
+
+#~ msgid "Speed, stops and the docks are yours."
+#~ msgstr "速度、停車、ドックは自分で担当します。"
+
+#~ msgid "The {lane_label} lane closes at the work zone ahead."
+#~ msgstr "前方の工事区間で、{lane_label}の車線が閉鎖されます。"
+
+#~ msgid ""
+#~ "The {lane_label} lane closes at the work zone ahead. Move to the "
+#~ "{open_name} lane."
+#~ msgstr "前方の工事区間で、{lane_label}の車線が閉鎖されます。{open_name}の車線に移ってください。"
+
+#~ msgid "You are in the closed {lane_label} lane!"
+#~ msgstr "閉鎖された{lane_label}の車線にいます！"
+
+#~ msgid ""
+#~ "You are in the closed {lane_label} lane! Move to the {open_name} lane!"
+#~ msgstr "閉鎖された{lane_label}の車線にいます！{open_name}の車線に移ってください！"
+
+#~ msgid ""
+#~ "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
+#~ "into tap lane changes, and takes your exits, including the destination "
+#~ "exit, without a signal."
+#~ msgstr ""
+#~ "フルでは、車線を保ち、{control_steer_left}と{control_steer_right}を軽く押すと車線を変えるようにし、目的地の出口"
+#~ "も含めて、合図なしで出口を取ります。"
+
+#~ msgid ""
+#~ "How much of the lane-holding work the truck does. Full holds the lane, "
+#~ "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
+#~ "and takes your exits, including the destination exit, without a signal. "
+#~ "Partial steers the truck through the road's bends and drifts gently, with "
+#~ "generous steering help; lane changes and speed are yours. Off drifts like a "
+#~ "real wheel; bends are yours unless curve assistance is on, and every exit "
+#~ "needs its signal and its exit lane. On partial or off {lean}. The road "
+#~ "sound only says where you sit in your lane, and the road edge answers: a "
+#~ "stutter clipping the rumble strip, a buzz fully on it, gravel off the "
+#~ "pavement. Steering guide and Lane guide sound, under Audio, change which "
+#~ "way to steer and what leans. Realistic sets this off, Balanced partial, All "
+#~ "assists full."
+#~ msgstr ""
+#~ "トラックが車線を保つ作業をどれだけ受け持つかです。フルでは、車線を保ち、{control_steer_left}と{control_steer_righ"
+#~ "t}を軽く押すと車線を変えるようにし、目的地の出口も含めて、合図なしで出口を取ります。一部では、道路のカーブに沿ってトラックを操舵し、穏やかにふらつき、"
+#~ "たっぷりと操舵を補助します。車線変更と速度は自分で行います。オフでは、本物のハンドルのようにふらつきます。カーブアシストがオンでなければカーブは自分で曲"
+#~ "がり、どの出口でも合図と出口車線が必要です。一部とオフでは、{lean}。路面の音は車線の中のどこにいるかだけを伝え、道路の端では音が答えます。ランブル"
+#~ "ストリップをかすると断続音、完全に乗るとブーンという音、舗装から外れると砂利の音です。オーディオの操舵ガイドとレーンガイドの音で、切る方向と、何が傾くか"
+#~ "を変えられます。リアルではオフ、バランスでは一部、すべてのアシストではフルになります。"
 
 #~ msgid "auto"
 #~ msgstr "自動"

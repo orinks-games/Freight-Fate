@@ -2233,6 +2233,51 @@ msgstr ""
 msgid "Jethro Tull - Teacher"
 msgstr ""
 
+msgid "earned"
+msgstr ""
+
+msgid "newest"
+msgstr ""
+
+msgid "locked"
+msgstr ""
+
+msgid "name"
+msgstr "name"
+
+msgid "original"
+msgstr ""
+
+msgid "Earned first"
+msgstr ""
+
+msgid "Newest"
+msgstr ""
+
+msgid "Locked first"
+msgstr ""
+
+msgid "A to Z"
+msgstr ""
+
+msgid "Original order"
+msgstr ""
+
+msgid "Sort: Earned first"
+msgstr ""
+
+msgid "Sort: Newest"
+msgstr ""
+
+msgid "Sort: Locked first"
+msgstr ""
+
+msgid "Sort: A to Z"
+msgstr ""
+
+msgid "Sort: Original order"
+msgstr ""
+
 #. placeholders: {path}
 msgid "Not a Freight Fate sound pack: {path}"
 msgstr "No es un paquete de sonido de Freight Fate: {path}"
@@ -4612,6 +4657,69 @@ msgid ""
 msgstr ""
 "Feliz Halloween. Lo más aterrador de esta carretera sigue siendo la "
 "estación de pesaje."
+
+msgid ""
+"Halloween week. Somewhere a porch light is on, and the candy bowl is going "
+"fast."
+msgstr ""
+
+msgid ""
+"Trick or treat. Big Jim is handing out business cards this year. Nobody "
+"wants them."
+msgstr ""
+
+msgid "Costume idea: a driver with a clean logbook. Nobody will believe it."
+msgstr ""
+
+msgid ""
+"Halloween week. Kids in costumes are out after dark. Take it slow where the "
+"houses start."
+msgstr ""
+
+msgid ""
+"Haunted house season. Nothing in there is as frightening as a dock "
+"appointment before sunrise."
+msgstr ""
+
+msgid ""
+"Halloween week. The hayrides are running, and the tractors are slower than "
+"you."
+msgstr ""
+
+msgid ""
+"Illinois grows more pumpkins than any other state. Most of them end up in a "
+"pie."
+msgstr ""
+
+msgid ""
+"Salem, Massachusetts, spends all of October on Halloween. Witches welcome. "
+"Trailers, less so."
+msgstr ""
+
+msgid ""
+"New England at Halloween. The leaves are mostly down, and the cider "
+"doughnuts are still hot."
+msgstr ""
+
+msgid ""
+"Sleepy Hollow is on the Hudson. The headless horseman rides all week. Keep "
+"your own head on the road."
+msgstr ""
+
+msgid ""
+"New Orleans takes its ghosts seriously. The cemetery tours are booked all "
+"week."
+msgstr ""
+
+msgid ""
+"Halloween week in farm country. Harvest is still on, so watch for grain "
+"trucks pulling out slow."
+msgstr ""
+
+msgid ""
+"Día de los Muertos is days away. The marigolds and sugar skulls are already "
+"out."
+msgstr ""
 
 msgid ""
 "Thanksgiving week. Somewhere a turkey is grateful you are hauling freight "
@@ -9639,9 +9747,6 @@ msgstr "choque"
 
 msgid "missing or invalid exchange_version"
 msgstr "exchange_version ausente o no válido"
-
-msgid "name"
-msgstr "name"
 
 #. placeholders: {business_status}
 msgid "unknown business_status {business_status}"
@@ -17485,15 +17590,15 @@ msgstr ""
 "{earned} de {ACHIEVEMENTS} conseguidos entre todas las carreras de esta "
 "instalación."
 
-msgid "Controls and account scope"
-msgstr "Controles y alcance de la cuenta"
+#. placeholders: {title}, {done}, {achievements}
+msgid "{title}. {done} of {achievements}"
+msgstr "{title}. {done} de {achievements}"
 
 msgid "The account-wide earned count."
 msgstr "El total de logros conseguidos en la cuenta."
 
-#. placeholders: {title}, {done}, {achievements}
-msgid "{title}. {done} of {achievements}"
-msgstr "{title}. {done} de {achievements}"
+msgid "Controls and account scope"
+msgstr "Controles y alcance de la cuenta"
 
 msgid "Back to Online"
 msgstr "Volver a En línea"
@@ -17539,6 +17644,14 @@ msgstr "Sigue jugando para desbloquearlo."
 msgid "Back to account categories"
 msgstr "Volver a las categorías de la cuenta"
 
+msgid ""
+"Left and Right change the order of the categories and the achievements in "
+"each one."
+msgstr ""
+
+msgid "Left and Right change the order of this category only."
+msgstr ""
+
 msgid "All assists: the truck steers. Recommended for your first drives."
 msgstr ""
 "Todas las asistencias: el camión conduce. Recomendado para tus primeros "
@@ -17553,24 +17666,21 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations."
 msgstr ""
-"Mantiene el carril, toma las curvas y las esquinas y coge tus salidas."
 
 #. placeholders: {control_steer_left}, {control_steer_right}
 msgid ""
-"It holds the lane, steers the bends and street corners, and takes your "
-"exits. A tap of {control_steer_left} or {control_steer_right} changes "
-"lanes. Speed, stops and the docks are yours."
+"It holds the lane, steers the bends and street corners, moves out of closed "
+"lanes, and takes your exits and open weigh stations. A tap of "
+"{control_steer_left} or {control_steer_right} changes lanes. Speed, rest "
+"and fuel stops, and the docks are yours."
 msgstr ""
-"Mantiene el carril, toma las curvas y las esquinas y coge tus salidas. Un "
-"toque de {control_steer_left} o {control_steer_right} cambia de carril. La "
-"velocidad, las paradas y los muelles son cosa tuya."
 
 #. one sentence of a longer line
-msgid "Speed, stops and the docks are yours."
-msgstr "La velocidad, las paradas y los muelles son cosa tuya."
+msgid "Speed, rest and fuel stops, and the docks are yours."
+msgstr ""
 
 msgid "Balanced: you steer, with help."
 msgstr "Equilibrado: conduces tú, con ayuda."
@@ -19019,6 +19129,9 @@ msgid ""
 msgstr ""
 "Nivel, reputación, confianza de despacho, historial de conducción y CDL, "
 "saldo y deuda, habilitaciones, cifras totales y descanso."
+
+msgid "Achievements"
+msgstr "Logros"
 
 msgid "Licenses and training"
 msgstr "Licencias y formación"
@@ -27173,6 +27286,10 @@ msgstr "weigh station ramp"
 msgid "ramp terminal"
 msgstr "ramp terminal"
 
+#. placeholders: {name}
+msgid "At {name}."
+msgstr ""
+
 #. placeholders: {place}
 msgid "At {place}."
 msgstr "En {place}."
@@ -27395,6 +27512,10 @@ msgstr "Carril de la {capitalized} libre."
 #. placeholders: {name}
 msgid "Changing to the {name} lane for the exit."
 msgstr "Cambiando al carril de la {name} para la salida."
+
+#. placeholders: {name}
+msgid "Changing to the {name} lane for the lane closure."
+msgstr ""
 
 #. placeholders: {lane_count_words}
 msgid "The road narrows to {lane_count_words}."
@@ -33393,41 +33514,58 @@ msgstr " Ahora en el carril de la {lane_label}."
 msgid "The road narrows to {lane_count_words}.{moved}"
 msgstr "La carretera se estrecha a {lane_count_words}.{moved}"
 
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "The {closed_name} lane closes at the work zone ahead."
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"The {closed_name} lane closes at the work zone ahead. Waiting for a gap in "
+"the {open_name} lane."
+msgstr ""
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane."
+msgstr ""
+
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane."
 msgstr "Pásate al carril de la {open_name}."
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "The {lane_label} lane closes at the work zone ahead."
-msgstr ""
-"El carril de la {lane_label} se cierra en la zona de obras de más adelante."
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"The {lane_label} lane closes at the work zone ahead. Move to the "
+"The {closed_name} lane closes at the work zone ahead. Move to the "
 "{open_name} lane."
 msgstr ""
-"El carril de la {lane_label} se cierra en la zona de obras de más adelante. "
-"Pásate al carril de la {open_name}."
+
+#. placeholders: {open_name}
+#. one sentence of a longer line
+msgid "Waiting for a gap in the {open_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}
+#. one sentence of a longer line
+msgid "You are in the closed {closed_name} lane!"
+msgstr ""
+
+#. placeholders: {closed_name}, {open_name}
+msgid ""
+"You are in the closed {closed_name} lane! Waiting for a gap in the "
+"{open_name} lane!"
+msgstr ""
 
 #. placeholders: {open_name}
 #. one sentence of a longer line
 msgid "Move to the {open_name} lane!"
 msgstr "¡Pásate al carril de la {open_name}!"
 
-#. placeholders: {lane_label}
-#. one sentence of a longer line
-msgid "You are in the closed {lane_label} lane!"
-msgstr "¡Estás en el carril cerrado de la {lane_label}!"
-
-#. placeholders: {lane_label}, {open_name}
+#. placeholders: {closed_name}, {open_name}
 msgid ""
-"You are in the closed {lane_label} lane! Move to the {open_name} lane!"
+"You are in the closed {closed_name} lane! Move to the {open_name} lane!"
 msgstr ""
-"¡Estás en el carril cerrado de la {lane_label}! ¡Pásate al carril de la "
-"{open_name}!"
 
 #. placeholders: {damage_pct}
 #. one sentence of a longer line
@@ -34176,8 +34314,8 @@ msgstr "Escribe el nombre de tu conductor."
 msgid "New career. Type your driver name, then Enter."
 msgstr "Nueva carrera. Escribe el nombre de tu conductor y pulsa Enter."
 
-msgid "Achievements"
-msgstr "Logros"
+msgid "This career's earned and locked achievements."
+msgstr ""
 
 msgid "Pick a saved career. Enter opens its achievements, Escape goes back."
 msgstr ""
@@ -34231,12 +34369,12 @@ msgstr ""
 msgid "{earned_count} of {ACHIEVEMENTS} earned."
 msgstr "{earned_count} de {ACHIEVEMENTS} conseguidos."
 
-msgid "The total earned."
-msgstr "El total conseguido."
-
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
 msgstr "{title}. {done} de {achs}"
+
+msgid "The total earned."
+msgstr "El total conseguido."
 
 msgid "Up and Down move, Enter repeats the entry, Escape goes back."
 msgstr ""
@@ -35814,12 +35952,10 @@ msgstr "Mantenimiento de carril: {lane_keeping_label}"
 #. one sentence of a longer line
 msgid ""
 "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
-"into tap lane changes, and takes your exits, including the destination "
-"exit, without a signal."
+"into tap lane changes, moves out of a lane a work zone closes, and takes "
+"your exits and open weigh stations, including the destination exit, without "
+"a signal."
 msgstr ""
-"Completo mantiene el carril, convierte {control_steer_left} y "
-"{control_steer_right} en cambios de carril con un toque y toma tus salidas, "
-"incluida la salida de destino, sin intermitente."
 
 #. one sentence of a longer line
 msgid "How much of the lane-holding work the truck does."
@@ -35829,31 +35965,17 @@ msgstr "Cuánto del trabajo de mantener el carril hace el camión."
 msgid ""
 "How much of the lane-holding work the truck does. Full holds the lane, "
 "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
-"and takes your exits, including the destination exit, without a signal. "
-"Partial steers the truck through the road's bends and drifts gently, with "
-"generous steering help; lane changes and speed are yours. Off drifts like a "
-"real wheel; bends are yours unless curve assistance is on, and every exit "
-"needs its signal and its exit lane. On partial or off {lean}. The road "
-"sound only says where you sit in your lane, and the road edge answers: a "
-"stutter clipping the rumble strip, a buzz fully on it, gravel off the "
-"pavement. Steering guide and Lane guide sound, under Audio, change which "
-"way to steer and what leans. Realistic sets this off, Balanced partial, All "
-"assists full."
+"moves out of a lane a work zone closes, and takes your exits and open weigh "
+"stations, including the destination exit, without a signal. Partial steers "
+"the truck through the road's bends and drifts gently, with generous "
+"steering help; lane changes and speed are yours. Off drifts like a real "
+"wheel; bends are yours unless curve assistance is on, and every exit needs "
+"its signal and its exit lane. On partial or off {lean}. The road sound only "
+"says where you sit in your lane, and the road edge answers: a stutter "
+"clipping the rumble strip, a buzz fully on it, gravel off the pavement. "
+"Steering guide and Lane guide sound, under Audio, change which way to steer "
+"and what leans. Realistic sets this off, Balanced partial, All assists full."
 msgstr ""
-"Cuánto del trabajo de mantener el carril hace el camión. Completo mantiene "
-"el carril, convierte {control_steer_left} y {control_steer_right} en "
-"cambios de carril con un toque y toma tus salidas, incluida la salida de "
-"destino, sin intermitente. Parcial lleva el camión por las curvas de la "
-"carretera y deriva suavemente, con una ayuda de dirección generosa; los "
-"cambios de carril y la velocidad son cosa tuya. Desactivado deriva como un "
-"volante real; las curvas son cosa tuya salvo que la asistencia en curvas "
-"esté activada, y cada salida necesita su intermitente y su carril de "
-"salida. En parcial o desactivado, {lean}. El sonido de la carretera solo "
-"dice dónde vas dentro de tu carril, y el borde de la carretera responde: un "
-"traqueteo al rozar la banda sonora, un zumbido de lleno sobre ella, grava "
-"fuera del asfalto. Guía de dirección y Sonido de guía de carril, en Audio, "
-"cambian hacia dónde girar y qué se inclina. Realista lo pone en "
-"desactivado, Equilibrado en parcial y Todas las asistencias en completo."
 
 #. one sentence of a longer line
 msgid ""
@@ -40395,31 +40517,6 @@ msgstr "{label}. Vacío."
 msgid "update-check"
 msgstr "update-check"
 
-#. one sentence of a longer line
-msgid "Could not reach the update server."
-msgstr "No se pudo conectar con el servidor de actualizaciones."
-
-#. placeholders: {describe_error}
-msgid "Could not reach the update server. {describe_error}"
-msgstr ""
-"No se pudo conectar con el servidor de actualizaciones. {describe_error}"
-
-msgid ""
-"On iPhone and iPad, updates come through the App Store or TestFlight."
-msgstr ""
-"En iPhone y iPad, las actualizaciones llegan a través de la App Store o "
-"TestFlight."
-
-msgid "AG Now keeps this copy up to date."
-msgstr ""
-
-msgid ""
-"Updates are only available in the packaged game. This copy runs from "
-"source; update it with git."
-msgstr ""
-"Las actualizaciones solo están disponibles en el juego empaquetado. Esta "
-"copia se ejecuta desde el código fuente; actualízala con git."
-
 msgid "Checking for updates..."
 msgstr "Buscando actualizaciones..."
 
@@ -40450,13 +40547,6 @@ msgstr ""
 "Descargar y reiniciar la instala ahora. Novedades lee los cambios. Saltar "
 "esta versión deja de preguntar por esta actualización."
 
-msgid ""
-"Updates can only be installed in the packaged game. This copy runs from "
-"source."
-msgstr ""
-"Las actualizaciones solo se pueden instalar en el juego empaquetado. Esta "
-"copia se ejecuta desde el código fuente."
-
 #. placeholders: {title}
 #. one sentence of a longer line
 msgid "Skipping {title}."
@@ -40470,9 +40560,12 @@ msgstr "Saltando {title}. La próxima actualización se seguirá ofreciendo."
 msgid "The next update will still be offered."
 msgstr "La próxima actualización se seguirá ofreciendo."
 
-#. placeholders: {mb}
-msgid " {mb} megabytes."
-msgstr " {mb} megabytes."
+msgid " of changes"
+msgstr ""
+
+#. placeholders: {f}, {changes}
+msgid "{f} megabytes{changes}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Update available."
@@ -40582,10 +40675,6 @@ msgstr "La descarga se detuvo. No llegó nada durante {as_secs} segundos."
 msgid "The download arrived damaged, so it was not installed."
 msgstr "La descarga llegó dañada, así que no se instaló."
 
-#. placeholders: {describe_error}
-msgid "The download failed. {describe_error}"
-msgstr "La descarga falló. {describe_error}"
-
 #. placeholders: {sentence}
 msgid "The download failed. {sentence}"
 msgstr "La descarga falló. {sentence}"
@@ -40631,10 +40720,8 @@ msgstr ""
 "La descarga se detuvo. No llegó nada durante {STALL_TIMEOUT_S} segundos."
 
 #. one sentence of a longer line
-msgid ""
-"Copy it over your game folder, which keeps your music and radio packs, then "
-"restart the game."
-msgstr ""
+msgid "Install it yourself, then restart the game."
+msgstr "Instálala tú y luego reinicia el juego."
 
 #. placeholders: {dest}
 #. one sentence of a longer line
@@ -40643,28 +40730,9 @@ msgstr "La nueva versión está guardada en {dest}."
 
 #. placeholders: {dest}
 msgid ""
-"The new version is saved at {dest}. Copy it over your game folder, which "
-"keeps your music and radio packs, then restart the game."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Install it yourself, then restart the game."
-msgstr "Instálala tú y luego reinicia el juego."
-
-#. placeholders: {dest}
-msgid ""
 "The new version is saved at {dest}. Install it yourself, then restart the "
 "game."
 msgstr ""
-
-#. placeholders: {mb}
-msgid ", {mb} megabytes"
-msgstr ", {mb} megabytes"
-
-#. placeholders: {mb}
-#. one clause of a longer line
-msgid "{mb} megabytes"
-msgstr "{mb} megabytes"
 
 #. placeholders: {title}, {size}
 #. one sentence of a longer line
@@ -41931,6 +41999,121 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "Could not reach the update server."
+#~ msgstr "No se pudo conectar con el servidor de actualizaciones."
+
+#~ msgid "Could not reach the update server. {describe_error}"
+#~ msgstr ""
+#~ "No se pudo conectar con el servidor de actualizaciones. {describe_error}"
+
+#~ msgid ""
+#~ "On iPhone and iPad, updates come through the App Store or TestFlight."
+#~ msgstr ""
+#~ "En iPhone y iPad, las actualizaciones llegan a través de la App Store o "
+#~ "TestFlight."
+
+#~ msgid ""
+#~ "Updates are only available in the packaged game. This copy runs from "
+#~ "source; update it with git."
+#~ msgstr ""
+#~ "Las actualizaciones solo están disponibles en el juego empaquetado. Esta "
+#~ "copia se ejecuta desde el código fuente; actualízala con git."
+
+#~ msgid ""
+#~ "Updates can only be installed in the packaged game. This copy runs from "
+#~ "source."
+#~ msgstr ""
+#~ "Las actualizaciones solo se pueden instalar en el juego empaquetado. Esta "
+#~ "copia se ejecuta desde el código fuente."
+
+#~ msgid " {mb} megabytes."
+#~ msgstr " {mb} megabytes."
+
+#~ msgid "The download failed. {describe_error}"
+#~ msgstr "La descarga falló. {describe_error}"
+
+#~ msgid ", {mb} megabytes"
+#~ msgstr ", {mb} megabytes"
+
+#~ msgid "{mb} megabytes"
+#~ msgstr "{mb} megabytes"
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits."
+#~ msgstr ""
+#~ "Mantiene el carril, toma las curvas y las esquinas y coge tus salidas."
+
+#~ msgid ""
+#~ "It holds the lane, steers the bends and street corners, and takes your "
+#~ "exits. A tap of {control_steer_left} or {control_steer_right} changes "
+#~ "lanes. Speed, stops and the docks are yours."
+#~ msgstr ""
+#~ "Mantiene el carril, toma las curvas y las esquinas y coge tus salidas. Un "
+#~ "toque de {control_steer_left} o {control_steer_right} cambia de carril. La "
+#~ "velocidad, las paradas y los muelles son cosa tuya."
+
+#~ msgid "Speed, stops and the docks are yours."
+#~ msgstr "La velocidad, las paradas y los muelles son cosa tuya."
+
+#~ msgid "The {lane_label} lane closes at the work zone ahead."
+#~ msgstr ""
+#~ "El carril de la {lane_label} se cierra en la zona de obras de más adelante."
+
+#~ msgid ""
+#~ "The {lane_label} lane closes at the work zone ahead. Move to the "
+#~ "{open_name} lane."
+#~ msgstr ""
+#~ "El carril de la {lane_label} se cierra en la zona de obras de más adelante. "
+#~ "Pásate al carril de la {open_name}."
+
+#~ msgid "You are in the closed {lane_label} lane!"
+#~ msgstr "¡Estás en el carril cerrado de la {lane_label}!"
+
+#~ msgid ""
+#~ "You are in the closed {lane_label} lane! Move to the {open_name} lane!"
+#~ msgstr ""
+#~ "¡Estás en el carril cerrado de la {lane_label}! ¡Pásate al carril de la "
+#~ "{open_name}!"
+
+#~ msgid ""
+#~ "Full holds the lane, turns {control_steer_left} and {control_steer_right} "
+#~ "into tap lane changes, and takes your exits, including the destination "
+#~ "exit, without a signal."
+#~ msgstr ""
+#~ "Completo mantiene el carril, convierte {control_steer_left} y "
+#~ "{control_steer_right} en cambios de carril con un toque y toma tus salidas, "
+#~ "incluida la salida de destino, sin intermitente."
+
+#~ msgid ""
+#~ "How much of the lane-holding work the truck does. Full holds the lane, "
+#~ "turns {control_steer_left} and {control_steer_right} into tap lane changes, "
+#~ "and takes your exits, including the destination exit, without a signal. "
+#~ "Partial steers the truck through the road's bends and drifts gently, with "
+#~ "generous steering help; lane changes and speed are yours. Off drifts like a "
+#~ "real wheel; bends are yours unless curve assistance is on, and every exit "
+#~ "needs its signal and its exit lane. On partial or off {lean}. The road "
+#~ "sound only says where you sit in your lane, and the road edge answers: a "
+#~ "stutter clipping the rumble strip, a buzz fully on it, gravel off the "
+#~ "pavement. Steering guide and Lane guide sound, under Audio, change which "
+#~ "way to steer and what leans. Realistic sets this off, Balanced partial, All "
+#~ "assists full."
+#~ msgstr ""
+#~ "Cuánto del trabajo de mantener el carril hace el camión. Completo mantiene "
+#~ "el carril, convierte {control_steer_left} y {control_steer_right} en "
+#~ "cambios de carril con un toque y toma tus salidas, incluida la salida de "
+#~ "destino, sin intermitente. Parcial lleva el camión por las curvas de la "
+#~ "carretera y deriva suavemente, con una ayuda de dirección generosa; los "
+#~ "cambios de carril y la velocidad son cosa tuya. Desactivado deriva como un "
+#~ "volante real; las curvas son cosa tuya salvo que la asistencia en curvas "
+#~ "esté activada, y cada salida necesita su intermitente y su carril de "
+#~ "salida. En parcial o desactivado, {lean}. El sonido de la carretera solo "
+#~ "dice dónde vas dentro de tu carril, y el borde de la carretera responde: un "
+#~ "traqueteo al rozar la banda sonora, un zumbido de lleno sobre ella, grava "
+#~ "fuera del asfalto. Guía de dirección y Sonido de guía de carril, en Audio, "
+#~ "cambian hacia dónde girar y qué se inclina. Realista lo pone en "
+#~ "desactivado, Equilibrado en parcial y Todas las asistencias en completo."
 
 #~ msgid "auto"
 #~ msgstr "automático"
