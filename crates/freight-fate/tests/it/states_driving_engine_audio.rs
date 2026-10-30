@@ -670,7 +670,7 @@ fn test_manual_shift_clunks_at_the_lever_and_again_when_the_gear_takes() {
     harness.with_drive(|drive, ctx| drive.manual_shift(ctx, 5));
     assert_eq!(
         log.borrow().banks.as_slice(),
-        &[("vehicle/shift_manual".to_string(), 1.0)],
+        &[("vehicle/shift_auto".to_string(), 1.0)],
         "the lever clunk, at full level"
     );
 
@@ -688,7 +688,7 @@ fn test_manual_shift_clunks_at_the_lever_and_again_when_the_gear_takes() {
     update_audio(&mut harness, 0.0);
     assert_eq!(
         log.borrow().banks.as_slice(),
-        &[("vehicle/shift_manual".to_string(), SHIFT_END_CLUNK_VOLUME)],
+        &[("vehicle/shift_auto".to_string(), SHIFT_END_CLUNK_VOLUME)],
         "the engagement clunk, softer"
     );
 
