@@ -22,7 +22,7 @@ package-version = "1.9.5.dev0"
 # The public half of the game's update key: the in-game updater trusts only
 # manifests signed with it. Empty until `cargo tools update-key --new` makes
 # the key; until then release builds do not update themselves.
-update-key = ""
+update-key = "ed25519:8b4e51ae5641d2fbe9d00654b8549bb80c4c215268b1f59f00599affc1ea3323"
 
 [workspace.dependencies]
 thiserror = "2"
