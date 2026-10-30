@@ -315,7 +315,7 @@ impl DrivingState {
             // clutch comes back in -- is played by update_audio when it
             // actually happens, the way an automatic's engagement is.
             ctx.audio
-                .play_bank("vehicle/shift_manual", "vehicle/gear_shift");
+                .play_bank("vehicle/shift_auto", "vehicle/gear_shift");
             self.manual_engage_clunk_pending = true;
             ctx.say(&result.message);
             if let Some(tutorial) = self.tutorial.as_mut() {
