@@ -291,7 +291,7 @@ impl DrivingState {
                 self.manual_engage_clunk_pending = false;
             } else if !tr.shifting() && tr.clutch <= 0.5 {
                 ctx.audio.play_bank_with(
-                    "vehicle/shift_manual",
+                    "vehicle/shift_auto",
                     "vehicle/gear_shift",
                     SHIFT_END_CLUNK_VOLUME,
                     0.0,
