@@ -7,7 +7,7 @@ members = [
 ]
 
 [workspace.package]
-version = "1.9.5"
+version = "1.9.6"
 edition = "2021"
 rust-version = "1.95"
 license = "PolyForm-Noncommercial-1.0.0"
@@ -18,7 +18,7 @@ authors = ["Joshua Tubbs (Orinks)"]
 # crate version cannot, so a snapshot never calls itself the stable release.
 # `cargo tools version` prints it; `--release-line` drops the suffix.
 [workspace.metadata.release]
-package-version = "1.9.5.dev0"
+package-version = "1.9.6.dev0"
 # The public half of the game's update key: the in-game updater trusts only
 # manifests signed with it. Empty until `cargo tools update-key --new` makes
 # the key; until then release builds do not update themselves.

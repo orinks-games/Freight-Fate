@@ -121,7 +121,7 @@ pub fn staged_dir() -> PathBuf {
 }
 
 /// The version a developer snapshot reports: `[workspace.metadata.release]
-/// package-version` in the root Cargo.toml (`1.9.5.dev0`). It carries the
+/// package-version` in the root Cargo.toml (`1.9.6.dev0`). It carries the
 /// `.devN` the crate version cannot, so a snapshot never calls itself the
 /// stable release.
 pub fn project_version() -> Result<String> {

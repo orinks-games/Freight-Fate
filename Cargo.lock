@@ -903,7 +903,7 @@ checksum = "da7c62ceae207dd37ea5b845da6a0696c799f85e97da1ab5b7910be3c1c80223"
 
 [[package]]
 name = "ff-core"
-version = "1.9.5"
+version = "1.9.6"
 dependencies = [
  "aho-corasick",
  "base64 0.22.1",
@@ -932,7 +932,7 @@ dependencies = [
 
 [[package]]
 name = "ff-tools"
-version = "1.9.5"
+version = "1.9.6"
 dependencies = [
  "base64 0.22.1",
  "chrono",
@@ -1009,7 +1009,7 @@ dependencies = [
 
 [[package]]
 name = "freight-fate"
-version = "1.9.5"
+version = "1.9.6"
 dependencies = [
  "ab_glyph",
  "base64 0.22.1",

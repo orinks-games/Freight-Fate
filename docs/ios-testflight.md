@@ -61,7 +61,7 @@ summary, and sends them to TestFlight as the build's release notes.
   use the same bundle id.
 - Version (CFBundleShortVersionString): the project version (package-version
   under [workspace.metadata.release] in the root Cargo.toml) cut to three
-  numbers, so 1.9.5.dev0 is 1.9.5. To ship a new version, change it there; the
+  numbers, so 1.9.6.dev0 is 1.9.6. To ship a new version, change it there; the
   run refuses a version lower than one TestFlight already has.
 - Build number (CFBundleVersion): the run asks App Store Connect for the highest
   number it has for the app and uses max(that, run number) + 1, so it continues
