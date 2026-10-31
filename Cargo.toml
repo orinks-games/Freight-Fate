@@ -65,13 +65,13 @@ sdl2 = "0.38"
 #   [patch."https://github.com/orinks-games/hearken"]
 #   hearken = { path = "../hearken/crates/hearken" }
 # to a cargo config (never commit it).
-hearken = { git = "https://github.com/orinks-games/hearken", rev = "2cd22a7607b63729ed8f3af9a5270eee3ee0a0f9", default-features = false, features = ["kira", "radio"] }
+hearken = { git = "https://github.com/orinks-games/hearken", rev = "8ebfb69e3690a89c5312f4050fdeb9868826d130", default-features = false, features = ["kira", "radio"] }
 # The engine's signed self-updater, on its own: Freight Fate keeps its own
 # update screens and release tooling, and uses the engine's checks,
 # downloads (only the files that changed, when it can) and swap. The game
 # uses its HTTPS client; ff-tools signs the manifests and writes the file
 # indexes with it.
-hearken-update = { git = "https://github.com/orinks-games/hearken", rev = "2cd22a7607b63729ed8f3af9a5270eee3ee0a0f9", default-features = false }
+hearken-update = { git = "https://github.com/orinks-games/hearken", rev = "8ebfb69e3690a89c5312f4050fdeb9868826d130", default-features = false }
 raw-window-handle = "0.6"
 # AppKit's typed `NSWindow`, for asking a Mac whether the game window is
 # covered. Already in the build through `webbrowser`; only the window class
