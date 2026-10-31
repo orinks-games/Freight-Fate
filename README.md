@@ -127,6 +127,12 @@ Install these prerequisites first:
   Debian and Ubuntu, `alsa-lib-devel` on Fedora) for sound, and the SDL2
   development packages the nightly Career 1.9 workflow installs.
 
+Hearken's [Getting started](https://github.com/orinks-games/hearken#getting-started)
+gives the install commands for each of these on macOS, Windows and Linux.
+It also installs the `hearken` command, whose `hearken doctor` checks that
+nothing is missing, and `hearken play orinks-games/Freight-Fate` clones,
+builds and starts the game in one step.
+
 Then clone Career 1.9 and run the game:
 
 ```powershell
