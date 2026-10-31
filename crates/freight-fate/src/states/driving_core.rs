@@ -49,7 +49,7 @@ use ff_core::sim::vehicle::TruckState;
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, Say};
-use crate::audio::RADIO_TUNE_FADE_MS;
+use crate::audio::{youtube, RADIO_TUNE_FADE_MS};
 use crate::states::base::{Menu, MenuItem};
 use crate::states::driving::DrivingState;
 
@@ -762,6 +762,16 @@ impl RadioPlaybackBackend for DrivingRadioBackend<'_> {
 
     fn stop_radio(&mut self) {
         self.ctx.audio.stop_music_with(600);
+    }
+
+    fn refusal_note(&self, station: &RadioStation) -> Option<String> {
+        youtube::needs_yt_dlp(&station.playlist_entries).then(|| {
+            format!(
+                "{} needs yt-dlp for its YouTube links, and it is not installed; \
+                 it is off the dial for the rest of this session.",
+                station.display_name()
+            )
+        })
     }
 }
 

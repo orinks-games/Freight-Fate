@@ -23288,6 +23288,12 @@ msgstr ""
 "Hatırlatma: {control_hint} tuşunu basılı tutun, {control_hint2} seçin, "
 "sonra debriyajı bırakın."
 
+#. placeholders: {display_name}
+msgid ""
+"{display_name} needs yt-dlp for its YouTube links, and it is not installed; "
+"it is off the dial for the rest of this session."
+msgstr ""
+
 msgid "station has no stream URL"
 msgstr "istasyonun yayın adresi yok"
 
@@ -32857,13 +32863,23 @@ msgid "no playable entry in this playlist"
 msgstr "bu çalma listesinde çalınabilir parça yok"
 
 #. one sentence of a longer line
-msgid "Check the tracks in your Playlists folder."
-msgstr "Playlists klasörünüzdeki parçaları kontrol edin."
+msgid "Its YouTube links need yt-dlp, which is not installed."
+msgstr ""
 
 #. placeholders: {display_name}
 #. one sentence of a longer line
 msgid "Nothing in {display_name} would play."
 msgstr "{display_name} içinden hiçbir şey çalmadı."
+
+#. placeholders: {display_name}
+msgid ""
+"Nothing in {display_name} would play. Its YouTube links need yt-dlp, which "
+"is not installed."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Check the tracks in your Playlists folder."
+msgstr "Playlists klasörünüzdeki parçaları kontrol edin."
 
 #. placeholders: {display_name}
 msgid ""

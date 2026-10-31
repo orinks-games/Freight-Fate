@@ -23926,6 +23926,12 @@ msgstr ""
 "Напоминание: удерживайте {control_hint}, выберите {control_hint2}, затем "
 "отпустите сцепление."
 
+#. placeholders: {display_name}
+msgid ""
+"{display_name} needs yt-dlp for its YouTube links, and it is not installed; "
+"it is off the dial for the rest of this session."
+msgstr ""
+
 msgid "station has no stream URL"
 msgstr "у станции нет адреса потока"
 
@@ -33830,13 +33836,23 @@ msgid "no playable entry in this playlist"
 msgstr "в этом плейлисте нечего воспроизвести"
 
 #. one sentence of a longer line
-msgid "Check the tracks in your Playlists folder."
-msgstr "Проверьте треки в папке Playlists."
+msgid "Its YouTube links need yt-dlp, which is not installed."
+msgstr ""
 
 #. placeholders: {display_name}
 #. one sentence of a longer line
 msgid "Nothing in {display_name} would play."
 msgstr "В {display_name} ничего не воспроизводится."
+
+#. placeholders: {display_name}
+msgid ""
+"Nothing in {display_name} would play. Its YouTube links need yt-dlp, which "
+"is not installed."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Check the tracks in your Playlists folder."
+msgstr "Проверьте треки в папке Playlists."
 
 #. placeholders: {display_name}
 msgid ""

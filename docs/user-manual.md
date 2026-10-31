@@ -1060,6 +1060,8 @@ To bring your own music, put an M3U, M3U8, or PLS playlist in the Playlists fold
 
 Stations remember their position when you tune away. Your playlists normally play in order and resume where you left them. Turn on Shuffle personal playlists to hear every track once in a random order, with a new order each time through. Unreadable entries are skipped, and slow streams get time to connect. If none can play, the game explains the problem and names the folder.
 
+A playlist can also hold YouTube links, livestreams included. Freight Fate doesn't include the program that plays them, yt-dlp, so install it yourself. Put yt-dlp.exe in the Playlists folder, or install it so it is on your PATH; on a Mac, Homebrew works. A YouTube link takes a few seconds longer to start than other streams. If YouTube links stop playing, update yt-dlp.
+
 ### Suggesting a station
 
 If a station is missing, open Suggest a station in the Radio app. Enter its type, name, and stream address; Control V lets you paste. For AM or FM, include the call sign and state. City and frequency are optional. You'll need account setup and Online services enabled.
