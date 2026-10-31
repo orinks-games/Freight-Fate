@@ -715,6 +715,18 @@ jobs:
           "$FF_TOOLS" release-notes check-size --input notes.md --max-characters 120000
           test -s release-assets/checksums.txt
 
+      # The in-game updater's files: for each archive, a manifest signed
+      # with the game's update key (update-<channel>-<platform>.json) and,
+      # for a zip, a signed file index, so a player downloads only the
+      # files that changed. The secret is given to this step only. Before
+      # Cargo.toml has an update-key this writes nothing.
+      - name: Sign the update manifests
+        env:
+          HEARKEN_UPDATE_SECRET: ${{ secrets.HEARKEN_UPDATE_SECRET }}
+          TAG: ${{ needs.prepare.outputs.tag }}
+        run: |
+          "$FF_TOOLS" update-manifests --dir release-assets --tag "$TAG" --notes notes.md
+
       - name: Create prerelease
         if: ${{ inputs.dry_run != true && needs.prepare.outputs.is_prerelease == 'true' }}
         env:
