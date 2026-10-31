@@ -13,7 +13,7 @@ use ff_core::radio_rotation::{cue_after, RotationCue, StationRotation};
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
-use crate::audio::{VolumeUpdate, CH_RADIO_FX, RADIO_TUNE_FADE_MS};
+use crate::audio::{youtube, VolumeUpdate, CH_RADIO_FX, RADIO_TUNE_FADE_MS};
 use crate::states::driving::{DrivingState, PlaylistShuffleLap};
 use crate::states::driving_core::*;
 use crate::states::driving_updates::{
@@ -717,13 +717,20 @@ impl DrivingState {
             return;
         }
         self.playlist_silence_spoken.insert(station.id.clone());
-        ctx.say_event_with(
+        // YouTube links play only through a yt-dlp the player installs, so
+        // its absence is the one cause worth naming.
+        let line = if youtube::needs_yt_dlp(&station.playlist_entries) {
+            format!(
+                "Nothing in {} would play. Its YouTube links need yt-dlp, which is not installed.",
+                station.display_name()
+            )
+        } else {
             format!(
                 "Nothing in {} would play. Check the tracks in your Playlists folder.",
                 station.display_name()
-            ),
-            SayEvent::queued().category(SpeechCategory::Status),
-        );
+            )
+        };
+        ctx.say_event_with(line, SayEvent::queued().category(SpeechCategory::Status));
     }
 
     /// Badges for actually living on the dial rather than just switching it on.

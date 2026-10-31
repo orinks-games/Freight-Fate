@@ -23829,6 +23829,12 @@ msgstr ""
 "Przypomnienie: przytrzymaj {control_hint}, wybierz {control_hint2}, a potem "
 "puść sprzęgło."
 
+#. placeholders: {display_name}
+msgid ""
+"{display_name} needs yt-dlp for its YouTube links, and it is not installed; "
+"it is off the dial for the rest of this session."
+msgstr ""
+
 msgid "station has no stream URL"
 msgstr "stacja nie ma adresu strumienia"
 
@@ -33642,13 +33648,23 @@ msgid "no playable entry in this playlist"
 msgstr "w tej playliście nie ma nic do odtworzenia"
 
 #. one sentence of a longer line
-msgid "Check the tracks in your Playlists folder."
-msgstr "Sprawdź utwory w folderze Playlists."
+msgid "Its YouTube links need yt-dlp, which is not installed."
+msgstr ""
 
 #. placeholders: {display_name}
 #. one sentence of a longer line
 msgid "Nothing in {display_name} would play."
 msgstr "Nic z {display_name} nie chce się odtworzyć."
+
+#. placeholders: {display_name}
+msgid ""
+"Nothing in {display_name} would play. Its YouTube links need yt-dlp, which "
+"is not installed."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Check the tracks in your Playlists folder."
+msgstr "Sprawdź utwory w folderze Playlists."
 
 #. placeholders: {display_name}
 msgid ""

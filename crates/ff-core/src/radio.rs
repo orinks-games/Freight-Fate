@@ -280,6 +280,10 @@ pub trait RadioPlaybackBackend {
         self.play_station(&reception.station, volume)
     }
     fn stop_radio(&mut self);
+    /// A fixable cause, known to the backend, for a station leaving the dial.
+    fn refusal_note(&self, _station: &RadioStation) -> Option<String> {
+        None
+    }
 }
 
 #[derive(Debug, Clone, PartialEq)]

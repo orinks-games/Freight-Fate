@@ -25,6 +25,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa"
 
 [[package]]
+name = "aead"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1973cfbc1a2daf9cf550e74e1f088c28e7f7d8c1e1418fb6c9dc5184b7e84c99"
+dependencies = [
+ "crypto-common 0.2.2",
+ "inout",
+]
+
+[[package]]
 name = "ahash"
 version = "0.8.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -118,7 +128,7 @@ version = "1.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "40c48f72fd53cd289104fc64099abca73db4166ad86ea0b4341abe65af83dadc"
 dependencies = [
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -129,7 +139,7 @@ checksum = "291e6a250ff86cd4a820112fb8898808a366d8f9f58ce16d1f538353ad55747d"
 dependencies = [
  "anstyle",
  "once_cell_polyfill",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -346,6 +356,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "chacha20poly1305"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9b89e1c441e926b9c82a8d023f6e1b7ae0adcfaa7d621814e4d60789bac751cb"
+dependencies = [
+ "aead",
+ "chacha20",
+ "cipher",
+ "poly1305",
+]
+
+[[package]]
 name = "chrono"
 version = "0.4.45"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -376,6 +398,12 @@ checksum = "c0f78a02292a74a88ac736019ab962ece0bc380e3f977bf72e376c5d78ff0678"
 dependencies = [
  "cc",
 ]
+
+[[package]]
+name = "cmov"
+version = "0.5.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0c9ea0ac24bc397ab3c98583a3c9ba74fa56b09a4449bbe172b9b1ddb016027a"
 
 [[package]]
 name = "colorchoice"
@@ -580,6 +608,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "ctutils"
+version = "0.4.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a2376ffd6f96d8a9db59875b4b6b0237d6900b5baf64279714e05493ce64828a"
+dependencies = [
+ "cmov",
+]
+
+[[package]]
 name = "curve25519-dalek"
 version = "4.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -710,6 +747,7 @@ checksum = "f1dd6dbb5841937940781866fa1281a1ff7bd3bf827091440879f9994983d5c2"
 dependencies = [
  "block-buffer 0.12.1",
  "crypto-common 0.2.2",
+ "ctutils",
 ]
 
 [[package]]
@@ -730,7 +768,7 @@ dependencies = [
  "libc",
  "option-ext",
  "redox_users",
- "windows-sys 0.59.0",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -848,7 +886,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.59.0",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -874,7 +912,7 @@ dependencies = [
  "ed25519-dalek",
  "flate2",
  "hex",
- "hmac",
+ "hmac 0.12.1",
  "indexmap",
  "log",
  "memmap2 0.9.12",
@@ -1164,21 +1202,24 @@ checksum = "ed5909b6e89a2db4456e54cd5f673791d7eca6732202bbf2a9cc504fe2f9b84a"
 [[package]]
 name = "hearken"
 version = "0.1.0"
-source = "git+https://github.com/orinks-games/hearken?rev=dac1b3998cd989692e8e6515c2e71d1b9ba60d21#dac1b3998cd989692e8e6515c2e71d1b9ba60d21"
+source = "git+https://github.com/orinks-games/hearken?rev=8ebfb69e3690a89c5312f4050fdeb9868826d130#8ebfb69e3690a89c5312f4050fdeb9868826d130"
 dependencies = [
  "hearken-app",
  "hearken-radio",
+ "hearken-replay",
  "hearken-speech",
 ]
 
 [[package]]
 name = "hearken-app"
 version = "0.1.0"
-source = "git+https://github.com/orinks-games/hearken?rev=dac1b3998cd989692e8e6515c2e71d1b9ba60d21#dac1b3998cd989692e8e6515c2e71d1b9ba60d21"
+source = "git+https://github.com/orinks-games/hearken?rev=8ebfb69e3690a89c5312f4050fdeb9868826d130#8ebfb69e3690a89c5312f4050fdeb9868826d130"
 dependencies = [
  "dirs",
  "env_logger",
  "hearken-audio",
+ "hearken-discord",
+ "hearken-seal",
  "hearken-speech",
  "hearken-synth",
  "libc",
@@ -1192,7 +1233,7 @@ dependencies = [
 [[package]]
 name = "hearken-audio"
 version = "0.1.0"
-source = "git+https://github.com/orinks-games/hearken?rev=dac1b3998cd989692e8e6515c2e71d1b9ba60d21#dac1b3998cd989692e8e6515c2e71d1b9ba60d21"
+source = "git+https://github.com/orinks-games/hearken?rev=8ebfb69e3690a89c5312f4050fdeb9868826d130#8ebfb69e3690a89c5312f4050fdeb9868826d130"
 dependencies = [
  "cpal",
  "hearken-pack",
@@ -1205,19 +1246,35 @@ dependencies = [
 ]
 
 [[package]]
+name = "hearken-bake"
+version = "0.1.0"
+source = "git+https://github.com/orinks-games/hearken?rev=8ebfb69e3690a89c5312f4050fdeb9868826d130#8ebfb69e3690a89c5312f4050fdeb9868826d130"
+
+[[package]]
+name = "hearken-discord"
+version = "0.1.0"
+source = "git+https://github.com/orinks-games/hearken?rev=8ebfb69e3690a89c5312f4050fdeb9868826d130#8ebfb69e3690a89c5312f4050fdeb9868826d130"
+dependencies = [
+ "log",
+ "serde_json",
+]
+
+[[package]]
 name = "hearken-pack"
 version = "0.1.0"
-source = "git+https://github.com/orinks-games/hearken?rev=dac1b3998cd989692e8e6515c2e71d1b9ba60d21#dac1b3998cd989692e8e6515c2e71d1b9ba60d21"
+source = "git+https://github.com/orinks-games/hearken?rev=8ebfb69e3690a89c5312f4050fdeb9868826d130#8ebfb69e3690a89c5312f4050fdeb9868826d130"
 dependencies = [
- "chacha20",
+ "chacha20poly1305",
  "getrandom 0.4.3",
+ "hearken-bake",
 ]
 
 [[package]]
 name = "hearken-radio"
 version = "0.1.0"
-source = "git+https://github.com/orinks-games/hearken?rev=dac1b3998cd989692e8e6515c2e71d1b9ba60d21#dac1b3998cd989692e8e6515c2e71d1b9ba60d21"
+source = "git+https://github.com/orinks-games/hearken?rev=8ebfb69e3690a89c5312f4050fdeb9868826d130#8ebfb69e3690a89c5312f4050fdeb9868826d130"
 dependencies = [
+ "flate2",
  "hearken-audio",
  "icy-metadata",
  "log",
@@ -1236,9 +1293,32 @@ dependencies = [
 ]
 
 [[package]]
+name = "hearken-replay"
+version = "0.1.0"
+source = "git+https://github.com/orinks-games/hearken?rev=8ebfb69e3690a89c5312f4050fdeb9868826d130#8ebfb69e3690a89c5312f4050fdeb9868826d130"
+dependencies = [
+ "serde",
+ "serde_json",
+ "sha2 0.11.1",
+]
+
+[[package]]
+name = "hearken-seal"
+version = "0.1.0"
+source = "git+https://github.com/orinks-games/hearken?rev=8ebfb69e3690a89c5312f4050fdeb9868826d130#8ebfb69e3690a89c5312f4050fdeb9868826d130"
+dependencies = [
+ "chacha20poly1305",
+ "getrandom 0.4.3",
+ "hearken-bake",
+ "hkdf",
+ "log",
+ "sha2 0.11.1",
+]
+
+[[package]]
 name = "hearken-speech"
 version = "0.1.0"
-source = "git+https://github.com/orinks-games/hearken?rev=dac1b3998cd989692e8e6515c2e71d1b9ba60d21#dac1b3998cd989692e8e6515c2e71d1b9ba60d21"
+source = "git+https://github.com/orinks-games/hearken?rev=8ebfb69e3690a89c5312f4050fdeb9868826d130#8ebfb69e3690a89c5312f4050fdeb9868826d130"
 dependencies = [
  "log",
  "objc2",
@@ -1250,7 +1330,7 @@ dependencies = [
 [[package]]
 name = "hearken-synth"
 version = "0.1.0"
-source = "git+https://github.com/orinks-games/hearken?rev=dac1b3998cd989692e8e6515c2e71d1b9ba60d21#dac1b3998cd989692e8e6515c2e71d1b9ba60d21"
+source = "git+https://github.com/orinks-games/hearken?rev=8ebfb69e3690a89c5312f4050fdeb9868826d130#8ebfb69e3690a89c5312f4050fdeb9868826d130"
 dependencies = [
  "fundsp",
  "log",
@@ -1259,7 +1339,7 @@ dependencies = [
 [[package]]
 name = "hearken-update"
 version = "0.1.0"
-source = "git+https://github.com/orinks-games/hearken?rev=fa8d1f006cd4b03eba651dd9d4c0b1e2bdb6023d#fa8d1f006cd4b03eba651dd9d4c0b1e2bdb6023d"
+source = "git+https://github.com/orinks-games/hearken?rev=8ebfb69e3690a89c5312f4050fdeb9868826d130#8ebfb69e3690a89c5312f4050fdeb9868826d130"
 dependencies = [
  "ed25519-dalek",
  "flate2",
@@ -1282,12 +1362,30 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 
 [[package]]
+name = "hkdf"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4aaa26c720c68b866f2c96ef5c1264b3e6f473fe5d4ce61cd44bbe913e553018"
+dependencies = [
+ "hmac 0.13.0",
+]
+
+[[package]]
 name = "hmac"
 version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6c49c37c09c17a53d937dfbb742eb3a961d65a994e6bcdcf37e7399d0cc8ab5e"
 dependencies = [
  "digest 0.10.7",
+]
+
+[[package]]
+name = "hmac"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6303bc9732ae41b04cb554b844a762b4115a61bfaa81e3e83050991eeb56863f"
+dependencies = [
+ "digest 0.11.3",
 ]
 
 [[package]]
@@ -2183,6 +2281,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f6b464fbc74e149a392436b17d523f769e057cb6877f6a5c4618bc6f11800548"
 
 [[package]]
+name = "poly1305"
+version = "0.9.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6e2d0073b297041425c7c3df6eb4792d598a15323fe63346852b092eca02904c"
+dependencies = [
+ "cpufeatures 0.3.1",
+ "universal-hash",
+]
+
+[[package]]
 name = "portable-atomic"
 version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2547,7 +2655,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys 0.12.1",
- "windows-sys 0.59.0",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -2626,7 +2734,7 @@ dependencies = [
  "security-framework 3.7.0",
  "security-framework-sys",
  "webpki-root-certs",
- "windows-sys 0.59.0",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -2647,7 +2755,7 @@ dependencies = [
  "security-framework 3.7.0",
  "security-framework-sys",
  "webpki-root-certs",
- "windows-sys 0.59.0",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -3179,7 +3287,7 @@ dependencies = [
  "getrandom 0.4.3",
  "once_cell",
  "rustix 1.1.5",
- "windows-sys 0.59.0",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -3395,6 +3503,16 @@ name = "unicode-ident"
 version = "1.0.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2c754d6c33795a1c324727428e5a7dedb5b06195f9890bdbcba760d3e246563"
+
+[[package]]
+name = "universal-hash"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f4987bdc12753382e0bec4a65c50738ffaabc998b9cdd1f952fb5f39b0048a96"
+dependencies = [
+ "crypto-common 0.2.2",
+ "ctutils",
+]
 
 [[package]]
 name = "untrusted"
@@ -3682,7 +3800,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.59.0",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
