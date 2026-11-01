@@ -4374,3 +4374,9 @@ a public build leaks.
 ### Platforms and community
 
 [Read this section in the detailed roadmap](docs/roadmap-details.md#platforms-and-community).
+
+## Updater and local save protection
+
+- [x] Add stable, beta and alpha subscriptions and configurable branch builds for alpha.
+- [x] Default automatic update offers to Remind me later and suppress held activation.
+- [ ] Activate sealed careers after provisioning the persistent release key; verify packaged migration and cloud round trips before release. See [release integration](docs/updater-and-sealed-saves.md).

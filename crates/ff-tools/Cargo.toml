@@ -45,5 +45,6 @@ chrono.workspace = true
 tempfile.workspace = true
 # Signing update manifests and writing file indexes (`update-manifests`).
 hearken-update.workspace = true
+hearken-seal.workspace = true
 
 [dev-dependencies]

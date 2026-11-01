@@ -35,8 +35,10 @@ pub fn committed_key() -> Result<Option<PublicKey>> {
 
 /// The channel a build labelled `label` follows.
 pub fn channel_of(label: &str) -> &'static str {
-    if is_snapshot_label(label) {
-        "dev"
+    if label.starts_with("alpha-") {
+        "alpha"
+    } else if is_snapshot_label(label) {
+        "beta"
     } else {
         "stable"
     }
@@ -71,7 +73,14 @@ pub fn update_version(label: &str, crate_version: &str, commit_stamp: &str) -> R
                 "the commit time {commit_stamp:?} is not YYYYMMDDHHMM"
             ));
         }
-        let version = format!("{major}.{minor}.{}-dev.{commit_stamp}", patch + 1);
+        // Keep the established tester ordering: beta sorts below dev in
+        // SemVer, so renaming that prerelease would strand existing copies.
+        let prerelease = if label.starts_with("alpha-") {
+            "alpha"
+        } else {
+            "dev"
+        };
+        let version = format!("{major}.{minor}.{}-{prerelease}.{commit_stamp}", patch + 1);
         return Version::parse(&version)
             .map(|_| version.clone())
             .ok_or_else(|| format!("{version} is not a version"));
@@ -178,7 +187,7 @@ fn read_key_file(text: &str) -> Option<SecretKey> {
 
 /// The key file: `hearken/update-keys/freight-fate.key` in the config
 /// folder, where Hearken's own tools keep a game's update key.
-fn key_file() -> Result<PathBuf> {
+pub(super) fn key_file() -> Result<PathBuf> {
     let base = if cfg!(windows) {
         std::env::var_os("APPDATA").map(PathBuf::from)
     } else if cfg!(target_os = "macos") {
@@ -307,6 +316,16 @@ pub fn write_manifests(
         let path = dir.join(format!("update-{channel}-{platform}.json"));
         util::write_text(&path, &text)?;
         written.push(path);
+        // Old packaged copies still request dev. Sign an alias rather than
+        // renaming a beta manifest: the engine authenticates its channel.
+        if channel == "beta" {
+            let mut legacy = manifest.clone();
+            legacy.channel = "dev".into();
+            let text = manifest::sign(&legacy, secret).map_err(|e| e.to_string())?;
+            let path = dir.join(format!("update-dev-{platform}.json"));
+            util::write_text(&path, &text)?;
+            written.push(path);
+        }
     }
     Ok(written)
 }
@@ -404,7 +423,7 @@ pub fn key_main(argv: &[String]) -> Result<i32> {
 }
 
 /// Writes a new file only its owner can read. Never overwrites one.
-fn write_private(path: &Path, text: &str) -> Result<()> {
+pub(super) fn write_private(path: &Path, text: &str) -> Result<()> {
     use std::io::Write;
     if let Some(parent) = path.parent() {
         std::fs::create_dir_all(parent).map_err(|e| format!("{}: {e}", parent.display()))?;
@@ -447,6 +466,40 @@ mod tests {
         let v = |s: &str| Version::parse(s).unwrap();
         assert!(v("1.9.6-dev.202610300537").is_newer_than(&v("1.9.5")));
         assert!(v("1.9.6").is_newer_than(&v("1.9.6-dev.202610300537")));
+    }
+
+    #[test]
+    fn alpha_branch_builds_and_legacy_beta_manifests_are_separate() {
+        assert_eq!(channel_of("alpha-20261101090000"), "alpha");
+        assert_eq!(channel_of("1.9-tester-20261101"), "beta");
+        assert_eq!(
+            update_version("alpha-20261101090000", "2.0.0", "202611010900").unwrap(),
+            "2.0.1-alpha.202611010900"
+        );
+        let dir = tempfile::tempdir().unwrap();
+        std::fs::write(
+            dir.path().join("FreightFate-test-linux-x64.tar.gz"),
+            b"archive",
+        )
+        .unwrap();
+        let key = SecretKey::generate().unwrap();
+        write_manifests(
+            dir.path(),
+            "1.9-tester-20261101",
+            "1.9.7-dev.202611010900",
+            "notes",
+            &key,
+        )
+        .unwrap();
+        for channel in ["beta", "dev"] {
+            let bytes =
+                std::fs::read(dir.path().join(format!("update-{channel}-linux-x64.json"))).unwrap();
+            assert_eq!(
+                manifest::open(&bytes, &key.public()).unwrap().channel,
+                channel
+            );
+        }
+        assert!(!dir.path().join("update-alpha-linux-x64.json").exists());
     }
 
     #[test]

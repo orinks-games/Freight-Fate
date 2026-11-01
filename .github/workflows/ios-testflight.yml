@@ -255,6 +255,8 @@ jobs:
           echo "Build number \`$build_number\`" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Build, sign and package the iOS app
+        env:
+          HEARKEN_SEAL_KEY: ${{ secrets.HEARKEN_SEAL_KEY }}
         shell: bash
         run: |
           set -euo pipefail

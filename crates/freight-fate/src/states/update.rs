@@ -37,10 +37,13 @@ impl UpdateChecker {
             .update_mirror_enabled
             .then(|| settings.update_mirror_prefix.clone());
         let worker = checker.clone();
-        std::thread::Builder::new()
+        if let Err(error) = std::thread::Builder::new()
             .name("update-check".into())
             .spawn(move || worker.run(&channel, mirror_prefix.as_deref()))
-            .ok();
+        {
+            log::warn!("Could not start update check: {error}");
+            return Self::finished(None, Some("The update check could not start.".into()));
+        }
         checker
     }
 
@@ -182,6 +185,12 @@ pub struct UpdatePromptState {
 }
 
 impl UpdatePromptState {
+    pub fn at_start(info: UpdateInfo) -> Self {
+        let mut prompt = Self::new(info);
+        prompt.menu.index = 2;
+        prompt
+    }
+
     pub fn new(info: UpdateInfo) -> Self {
         Self {
             menu: MenuCore::new("Update available").with_intro_help(
@@ -239,6 +248,14 @@ fn megabytes(info: &UpdateInfo) -> Option<String> {
 }
 
 impl Menu for UpdatePromptState {
+    fn held_key_moves_nothing(&self, _key: Key) -> bool {
+        true
+    }
+
+    fn wants_controller_repeat(&self) -> bool {
+        false
+    }
+
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
     }

@@ -38,6 +38,11 @@ type Command = fn(&[String]) -> util::Result<i32>;
 /// Every command: its name, what it does, and its entry point.
 const COMMANDS: &[(&str, &str, Command)] = &[
     (
+        "seal-key",
+        "prepare and check the local career sealing key",
+        release::seal::main,
+    ),
+    (
         "build-release",
         "build, verify and archive the player release for this platform",
         release::main,

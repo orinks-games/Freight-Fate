@@ -4,6 +4,8 @@
 
 ### Added
 
+- **Choose stable, beta, or alpha updates in Settings.** Existing snapshot followers move to beta.
+
 - **A menu letter can now choose its item at once.** Turn on Menu accelerator keys in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).
 - **Achievements can be sorted.** A new Sort row puts earned ones first by default, or newest, locked first, A to Z, or the original order.
 - **Achievements open from the terminal and the pause menu,** showing the career you are playing.
@@ -20,6 +22,8 @@
 - **Dispatch stops sending you straight back where you came from.** The city you just delivered from is on about one board in three, and it is no longer the load dispatch assigns or the one the cursor opens on while another load is there.
 
 ### Fixed
+
+- **Automatic update offers start on Remind me later.** Holding a key cannot install an update by accident.
 
 - **Manual gear shifts now play the same short gear-change sound as automatic shifts.**
 - **The Mac game no longer freezes at launch with VoiceOver on.** It could stop responding for up to two minutes while VoiceOver was starting.

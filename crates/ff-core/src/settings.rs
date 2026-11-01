@@ -192,7 +192,7 @@ pub const ACC_GAP_DEFAULT: &str = "normal";
 pub const LANE_CUE_LOUDNESS_MODES: [&str; 3] = ["subtle", "standard", "prominent"];
 pub const DESCENT_SPEED_CONTROL_MODES: [&str; 4] = ["off", "realistic", "balanced", "interactive"];
 pub const PEDAL_LATCH_MODES: [&str; 2] = ["on", "off"];
-pub const UPDATE_CHANNELS: [&str; 3] = ["", "stable", "dev"];
+pub const UPDATE_CHANNELS: [&str; 4] = ["", "stable", "beta", "alpha"];
 
 /// One preset field's value: the assist switches are bools, descent speed
 /// control and lane keeping are modes.

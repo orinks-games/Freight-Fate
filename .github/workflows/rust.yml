@@ -152,6 +152,9 @@ jobs:
       - name: cargo fmt --check
         run: cargo fmt --all --check
 
+      - name: Check shared channel source resolver
+        run: node --test .github/actions/update-source/resolve.test.cjs
+
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           shared-key: tools-light
@@ -213,10 +216,10 @@ jobs:
         include:
           - name: Windows
             os: windows-2025
-            packages: -p freight-fate
+            packages: -p freight-fate -p hearken-seal
           - name: Linux
             os: ubuntu-24.04
-            packages: -p ff-core -p freight-fate
+            packages: -p ff-core -p freight-fate -p hearken-seal
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
     env:
@@ -298,10 +301,10 @@ jobs:
           cache-key: test
 
       - name: Build the test binaries
-        run: cargo test -p ff-core -p freight-fate --no-run --locked --timings
+        run: cargo test -p ff-core -p freight-fate -p hearken-seal --no-run --locked --timings
 
       - name: cargo test
-        run: cargo test -p ff-core -p freight-fate --locked
+        run: cargo test -p ff-core -p freight-fate -p hearken-seal --locked
 
       - name: cargo test (agent server)
         run: cargo test -p freight-fate --test agent_server --locked

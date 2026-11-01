@@ -10499,6 +10499,38 @@ msgstr ""
 "{target}\n"
 "Vous pouvez supprimer ce fichier indicateur sans risque."
 
+msgid "The career has no valid file name."
+msgstr ""
+
+msgid "Career not found."
+msgstr ""
+
+msgid "This build cannot open this sealed career. Use the released game."
+msgstr ""
+
+#. placeholders: {reason}
+#. one sentence of a longer line
+msgid "The career could not be authenticated: {reason}."
+msgstr ""
+
+#. placeholders: {reason}
+msgid ""
+"The career could not be authenticated: {reason}. Under Online, restore a "
+"cloud backup."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Under Online, restore a cloud backup."
+msgstr ""
+
+msgid ""
+"The career file was left unchanged. Try again; if it still fails, use "
+"Report a problem."
+msgstr ""
+
+msgid "This build cannot replace a sealed career. Use the released game."
+msgstr ""
+
 msgid "version"
 msgstr "version"
 
@@ -12115,8 +12147,11 @@ msgstr "équilibré"
 msgid "interactive"
 msgstr "interactif"
 
-msgid "dev"
-msgstr "dev"
+msgid "alpha"
+msgstr ""
+
+msgid "beta"
+msgstr ""
 
 msgid "stable"
 msgstr "stable"
@@ -34294,6 +34329,15 @@ msgstr "{name}, pas encore porté"
 msgid "This screen is not ported yet; Escape goes back."
 msgstr "Cet écran n'est pas encore porté ; Escape revient en arrière."
 
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} could not be opened."
+msgstr ""
+
+#. placeholders: {name}, {error}
+msgid "{name} could not be opened. {error}"
+msgstr ""
+
 #. placeholders: {terminal}, {the_city}
 msgid "{terminal} in {the_city} service area"
 msgstr "{terminal}, zone de service de {the_city}"
@@ -34456,145 +34500,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Report problems at github.com/{REPO}/issues."
 msgstr "Signalez les problèmes sur github.com/{REPO}/issues."
-
-msgid ""
-"Game sounds could not start on this computer: the voice, but no engine, "
-"traffic, or alert sounds. Check that sound works elsewhere, then start "
-"Freight Fate again."
-msgstr ""
-"Les sons du jeu n'ont pas pu démarrer sur cet ordinateur : la voix "
-"fonctionne, mais pas les sons du moteur, de la circulation ni des alertes. "
-"Vérifiez que le son marche ailleurs, puis relancez Freight Fate."
-
-msgid ""
-"The system password store did not answer in time, so online features may "
-"need you to link your account again under Online. If a permission dialog is "
-"still open, allow Freight Fate and restart."
-msgstr ""
-"Le gestionnaire de mots de passe du système n'a pas répondu à temps, les "
-"fonctions en ligne peuvent donc vous demander de relier à nouveau votre "
-"compte dans En ligne. Si une fenêtre d'autorisation est encore ouverte, "
-"autorisez Freight Fate et redémarrez."
-
-#. placeholders: {count}
-msgid "{count} saved career could not be read and was moved aside. "
-msgstr ""
-"{count} carrière sauvegardée n'a pas pu être lue et a été mise de côté. "
-
-#. placeholders: {count}
-msgid "{count} saved careers could not be read and were moved aside. "
-msgstr ""
-"{count} carrières sauvegardées n'ont pas pu être lues et ont été mises de "
-"côté. "
-
-msgid ""
-"Your lane keeping setting could not be read, so it is set to full: the "
-"truck holds the lane and takes your exits. Change it in Settings, Gameplay, "
-"Driving assistance. "
-msgstr ""
-"Votre réglage de maintien de voie n'a pas pu être lu, il est donc réglé sur "
-"complet : le camion tient la voie et prend vos sorties. Changez-le dans "
-"Paramètres, Jeu, Assistance à la conduite. "
-
-msgid ""
-"Game sounds could not start on this computer: the voice, but no engine, "
-"traffic, or alert sounds. Check that sound works elsewhere, then start "
-"Freight Fate again. "
-msgstr ""
-"Les sons du jeu n'ont pas pu démarrer sur cet ordinateur : la voix "
-"fonctionne, mais pas les sons du moteur, de la circulation ni des alertes. "
-"Vérifiez que le son marche ailleurs, puis relancez Freight Fate. "
-
-msgid ""
-"The system password store did not answer in time, so online features may "
-"need you to link your account again under Online. If a permission dialog is "
-"still open, allow Freight Fate and restart. "
-msgstr ""
-"Le gestionnaire de mots de passe du système n'a pas répondu à temps, les "
-"fonctions en ligne peuvent donc vous demander de relier à nouveau votre "
-"compte dans En ligne. Si une fenêtre d'autorisation est encore ouverte, "
-"autorisez Freight Fate et redémarrez. "
-
-msgid ""
-"Your saved careers are from an earlier version of Freight Fate; they are "
-"listed under Choose career. "
-msgstr ""
-"Vos carrières sauvegardées viennent d'une ancienne version de Freight Fate "
-"; elles sont dans Choisir une carrière. "
-
-#. placeholders: {version}
-#. one sentence of a longer line
-msgid "Freight Fate {version}."
-msgstr "Freight Fate {version}."
-
-#. placeholders: {version}, {warning}
-msgid "Freight Fate {version}. {warning}"
-msgstr "Freight Fate {version}. {warning}"
-
-#. placeholders: {career_summary}
-msgid "Continue latest career: {career_summary}"
-msgstr "Continuer la dernière carrière : {career_summary}"
-
-#. placeholders: {name}
-msgid "Load the newest save for {name}."
-msgstr "Charger la sauvegarde la plus récente de {name}."
-
-msgid "Any saved career, not only the newest."
-msgstr ""
-"N'importe quelle carrière sauvegardée, pas seulement la plus récente."
-
-msgid "Reset or delete saved careers."
-msgstr "Réinitialiser ou supprimer des carrières sauvegardées."
-
-msgid "New career"
-msgstr "Nouvelle carrière"
-
-msgid "Start a fresh career."
-msgstr "Commencer une nouvelle carrière."
-
-msgid "Earned and locked achievements for a saved career."
-msgstr "Succès obtenus et verrouillés d'une carrière sauvegardée."
-
-msgid ""
-"Drivers on duty, your orinks.net account, cloud backup and restore, and "
-"Discord presence."
-msgstr ""
-"Chauffeurs en service, votre compte orinks.net, sauvegarde et restauration "
-"cloud, et présence Discord."
-
-msgid "How to play"
-msgstr "Comment jouer"
-
-msgid "The controls and the goal of the game."
-msgstr "Les commandes et le but du jeu."
-
-msgid "Any sound the road uses, and what it means."
-msgstr "Tous les sons de la route, et ce qu'ils signifient."
-
-msgid "Units, transmission mode, volumes, weather, voices, and trip pacing."
-msgstr "Unités, mode de boîte, volumes, météo, voix et rythme des trajets."
-
-msgid ""
-"Units, transmission mode, volumes, weather, voices, update channel, and "
-"trip pacing."
-msgstr ""
-"Unités, mode de boîte, volumes, météo, voix, canal de mise à jour et rythme "
-"des trajets."
-
-msgid "Report a problem"
-msgstr "Signaler un problème"
-
-msgid "The bug report page on GitHub, in your web browser."
-msgstr "La page de rapport de bug sur GitHub, dans votre navigateur web."
-
-msgid "Exit the game."
-msgstr "Quitter le jeu."
-
-msgid "Quit"
-msgstr "Quitter"
-
-msgid "In the main menu"
-msgstr "Dans le menu principal"
 
 msgid "Quit Freight Fate?"
 msgstr "Quitter Freight Fate ?"
@@ -34965,6 +34870,148 @@ msgstr ""
 "Le site était injoignable, les sauvegardes cloud sont donc toujours là ; "
 "Sauvegarde cloud, dans le menu En ligne, pourra les supprimer plus tard."
 
+msgid ""
+"Game sounds could not start on this computer: the voice, but no engine, "
+"traffic, or alert sounds. Check that sound works elsewhere, then start "
+"Freight Fate again."
+msgstr ""
+"Les sons du jeu n'ont pas pu démarrer sur cet ordinateur : la voix "
+"fonctionne, mais pas les sons du moteur, de la circulation ni des alertes. "
+"Vérifiez que le son marche ailleurs, puis relancez Freight Fate."
+
+msgid ""
+"The system password store did not answer in time, so online features may "
+"need you to link your account again under Online. If a permission dialog is "
+"still open, allow Freight Fate and restart."
+msgstr ""
+"Le gestionnaire de mots de passe du système n'a pas répondu à temps, les "
+"fonctions en ligne peuvent donc vous demander de relier à nouveau votre "
+"compte dans En ligne. Si une fenêtre d'autorisation est encore ouverte, "
+"autorisez Freight Fate et redémarrez."
+
+#. placeholders: {count}
+msgid "{count} saved career could not be read and was moved aside. "
+msgstr ""
+"{count} carrière sauvegardée n'a pas pu être lue et a été mise de côté. "
+
+#. placeholders: {count}
+msgid "{count} saved careers could not be read and were moved aside. "
+msgstr ""
+"{count} carrières sauvegardées n'ont pas pu être lues et ont été mises de "
+"côté. "
+
+msgid ""
+"Your lane keeping setting could not be read, so it is set to full: the "
+"truck holds the lane and takes your exits. Change it in Settings, Gameplay, "
+"Driving assistance. "
+msgstr ""
+"Votre réglage de maintien de voie n'a pas pu être lu, il est donc réglé sur "
+"complet : le camion tient la voie et prend vos sorties. Changez-le dans "
+"Paramètres, Jeu, Assistance à la conduite. "
+
+msgid ""
+"Game sounds could not start on this computer: the voice, but no engine, "
+"traffic, or alert sounds. Check that sound works elsewhere, then start "
+"Freight Fate again. "
+msgstr ""
+"Les sons du jeu n'ont pas pu démarrer sur cet ordinateur : la voix "
+"fonctionne, mais pas les sons du moteur, de la circulation ni des alertes. "
+"Vérifiez que le son marche ailleurs, puis relancez Freight Fate. "
+
+msgid ""
+"The system password store did not answer in time, so online features may "
+"need you to link your account again under Online. If a permission dialog is "
+"still open, allow Freight Fate and restart. "
+msgstr ""
+"Le gestionnaire de mots de passe du système n'a pas répondu à temps, les "
+"fonctions en ligne peuvent donc vous demander de relier à nouveau votre "
+"compte dans En ligne. Si une fenêtre d'autorisation est encore ouverte, "
+"autorisez Freight Fate et redémarrez. "
+
+msgid ""
+"Your saved careers are from an earlier version of Freight Fate; they are "
+"listed under Choose career. "
+msgstr ""
+"Vos carrières sauvegardées viennent d'une ancienne version de Freight Fate "
+"; elles sont dans Choisir une carrière. "
+
+#. placeholders: {version}
+#. one sentence of a longer line
+msgid "Freight Fate {version}."
+msgstr "Freight Fate {version}."
+
+#. placeholders: {version}, {warning}
+msgid "Freight Fate {version}. {warning}"
+msgstr "Freight Fate {version}. {warning}"
+
+#. placeholders: {career_summary}
+msgid "Continue latest career: {career_summary}"
+msgstr "Continuer la dernière carrière : {career_summary}"
+
+#. placeholders: {name}
+msgid "Load the newest save for {name}."
+msgstr "Charger la sauvegarde la plus récente de {name}."
+
+msgid "Any saved career, not only the newest."
+msgstr ""
+"N'importe quelle carrière sauvegardée, pas seulement la plus récente."
+
+msgid "Reset or delete saved careers."
+msgstr "Réinitialiser ou supprimer des carrières sauvegardées."
+
+msgid "New career"
+msgstr "Nouvelle carrière"
+
+msgid "Start a fresh career."
+msgstr "Commencer une nouvelle carrière."
+
+msgid "Earned and locked achievements for a saved career."
+msgstr "Succès obtenus et verrouillés d'une carrière sauvegardée."
+
+msgid "Online"
+msgstr "En ligne"
+
+msgid ""
+"Drivers on duty, your orinks.net account, cloud backup and restore, and "
+"Discord presence."
+msgstr ""
+"Chauffeurs en service, votre compte orinks.net, sauvegarde et restauration "
+"cloud, et présence Discord."
+
+msgid "How to play"
+msgstr "Comment jouer"
+
+msgid "The controls and the goal of the game."
+msgstr "Les commandes et le but du jeu."
+
+msgid "Any sound the road uses, and what it means."
+msgstr "Tous les sons de la route, et ce qu'ils signifient."
+
+msgid "Units, transmission mode, volumes, weather, voices, and trip pacing."
+msgstr "Unités, mode de boîte, volumes, météo, voix et rythme des trajets."
+
+msgid ""
+"Units, transmission mode, volumes, weather, voices, update channel, and "
+"trip pacing."
+msgstr ""
+"Unités, mode de boîte, volumes, météo, voix, canal de mise à jour et rythme "
+"des trajets."
+
+msgid "Report a problem"
+msgstr "Signaler un problème"
+
+msgid "The bug report page on GitHub, in your web browser."
+msgstr "La page de rapport de bug sur GitHub, dans votre navigateur web."
+
+msgid "Exit the game."
+msgstr "Quitter le jeu."
+
+msgid "Quit"
+msgstr "Quitter"
+
+msgid "In the main menu"
+msgstr "Dans le menu principal"
+
 msgid "Leaving key and button practice."
 msgstr "Fin de l'entraînement aux touches et boutons."
 
@@ -35129,9 +35176,6 @@ msgstr "reports"
 #. placeholders: {label}
 msgid "Open {label} settings."
 msgstr "Ouvrir les paramètres {label}."
-
-msgid "Online"
-msgstr "En ligne"
 
 msgid ""
 "Online options have moved to the Online menu on the main menu; this opens "
@@ -36213,165 +36257,6 @@ msgstr ""
 "Le journal de session consigne tout ce que le jeu a dit à voix haute. "
 "Envoyez-le avec un signalement de bug."
 
-#. placeholders: {else}
-msgid "Update channel: {else}"
-msgstr "Canal de mise à jour : {else}"
-
-msgid "developer snapshots"
-msgstr "versions de développement"
-
-msgid "stable releases"
-msgstr "versions stables"
-
-msgid "Stable releases or developer snapshots."
-msgstr "Versions stables ou versions de développement."
-
-#. placeholders: {on_off}
-msgid "Use GitHub mirror for updates: {on_off}"
-msgstr ""
-
-msgid ""
-"Checks for and downloads updates through a GitHub mirror. Turn it on, then "
-"enter the mirror's address in GitHub mirror prefix, just below."
-msgstr ""
-
-msgid "GitHub mirror prefix: not set"
-msgstr ""
-
-#. placeholders: {update_mirror_prefix}
-msgid "GitHub mirror prefix: {update_mirror_prefix}"
-msgstr ""
-
-msgid ""
-"The mirror's address, put in front of every GitHub link. Use a mirror you "
-"trust: updates download through it."
-msgstr ""
-
-msgid "Check for updates"
-msgstr "Rechercher des mises à jour"
-
-msgid "Look for a new version now."
-msgstr "Chercher une nouvelle version maintenant."
-
-#. placeholders: {assist_preset_label}
-msgid "Driving assistance preset: {assist_preset_label}"
-msgstr "Préréglage d'assistance à la conduite : {assist_preset_label}"
-
-msgid ""
-"Realistic is modern truck safety support. Balanced adds partial lane "
-"keeping, a firmer hand on descents, and stopping at your destination. All "
-"assists turns on every assist and sets lane keeping to full: the truck "
-"holds the lane, a tap changes lanes, and your destination exit is taken for "
-"you. Changing one assist makes this Custom. You still choose routes and "
-"handle yards and docks. Presets never change pacing, hours rules, "
-"transmission, weather, or hazards."
-msgstr ""
-"Réaliste, c'est l'aide à la sécurité d'un camion moderne. Équilibré ajoute "
-"un maintien de voie partiel, une main plus ferme en descente et l'arrêt à "
-"votre destination. Toutes les assistances active chaque assistance et règle "
-"le maintien de voie sur complet : le camion tient la voie, un appui bref "
-"change de voie, et votre sortie de destination est prise pour vous. Changer "
-"une assistance fait passer ceci en Personnalisé. Vous choisissez toujours "
-"les itinéraires et gérez les cours et les quais. Les préréglages ne "
-"changent jamais le rythme, les règles de temps de service, la boîte de "
-"vitesses, la météo ni les dangers."
-
-#. placeholders: {lane_keeping_label}
-msgid "Lane keeping: {lane_keeping_label}"
-msgstr "Maintien de voie : {lane_keeping_label}"
-
-#. placeholders: {control_steer_left}, {control_steer_right}
-#. one sentence of a longer line
-msgid ""
-"Full holds the lane, turns {control_steer_left} and {control_steer_right} "
-"into tap lane changes, moves out of a lane a work zone closes, and takes "
-"your exits and open weigh stations, including the destination exit, without "
-"a signal."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "How much of the lane-holding work the truck does."
-msgstr "La part du travail de maintien dans la voie que fait le camion."
-
-#. placeholders: {control_steer_left}, {control_steer_right}
-msgid ""
-"How much of the lane-holding work the truck does. Full holds the lane, "
-"turns {control_steer_left} and {control_steer_right} into tap lane changes, "
-"moves out of a lane a work zone closes, and takes your exits and open weigh "
-"stations, including the destination exit, without a signal. Partial steers "
-"the truck through the road's bends and drifts gently, with generous "
-"steering help; lane changes and speed are yours. Off drifts like a real "
-"wheel; bends are yours unless curve assistance is on, and every exit needs "
-"its signal and its exit lane. On partial or off {lean}. The road sound only "
-"says where you sit in your lane, and the road edge answers: a stutter "
-"clipping the rumble strip, a buzz fully on it, gravel off the pavement. "
-"Steering guide and Lane guide sound, under Audio, change which way to steer "
-"and what leans. Realistic sets this off, Balanced partial, All assists full."
-msgstr ""
-
-#. one sentence of a longer line
-msgid ""
-"Off drifts like a real wheel; bends are yours unless curve assistance is "
-"on, and every exit needs its signal and its exit lane."
-msgstr ""
-"Désactivé dérive comme un vrai volant ; les virages sont pour vous sauf si "
-"l'assistance en virage est activée, et chaque sortie demande son clignotant "
-"et sa voie de sortie."
-
-#. placeholders: {lean}
-#. one sentence of a longer line
-msgid "On partial or off {lean}."
-msgstr "En partiel ou désactivé, {lean}."
-
-#. one sentence of a longer line
-msgid ""
-"Partial steers the truck through the road's bends and drifts gently, with "
-"generous steering help; lane changes and speed are yours."
-msgstr ""
-"Partiel dirige le camion dans les virages de la route et dérive doucement, "
-"avec une aide à la direction généreuse ; les changements de voie et la "
-"vitesse sont pour vous."
-
-#. one sentence of a longer line
-msgid "Realistic sets this off, Balanced partial, All assists full."
-msgstr ""
-"Réaliste règle ceci sur désactivé, Équilibré sur partiel, Toutes les "
-"assistances sur complet."
-
-#. one sentence of a longer line
-msgid ""
-"Steering guide and Lane guide sound, under Audio, change which way to steer "
-"and what leans."
-msgstr ""
-"Guide de direction et Son du guide de voie, dans Audio, changent le sens "
-"dans lequel diriger et ce qui penche."
-
-#. one sentence of a longer line
-msgid ""
-"The road sound only says where you sit in your lane, and the road edge "
-"answers: a stutter clipping the rumble strip, a buzz fully on it, gravel "
-"off the pavement."
-msgstr ""
-"Le son de la route dit seulement où vous êtes dans votre voie, et le bord "
-"de la route répond : un crépitement en effleurant la bande rugueuse, un "
-"bourdonnement en plein dessus, du gravier hors de la chaussée."
-
-#. placeholders: {acc_gap_label}
-msgid "Following gap: {acc_gap_label}"
-msgstr "Intervalle de suivi : {acc_gap_label}"
-
-msgid ""
-"How much room adaptive cruise leaves to the vehicle ahead. Close is two and "
-"a half seconds, normal three, far three and a half. Weather widens the gap "
-"whichever you pick. All three stay clear of a following-too-close citation. "
-"The preset above never changes it."
-msgstr ""
-"L'espace que le régulateur adaptatif laisse avec le véhicule de devant. "
-"Proche, c'est deux secondes et demie, normal trois, loin trois et demie. La "
-"météo augmente l'intervalle quel que soit votre choix. Les trois restent à "
-"l'abri d'une contravention pour distance trop courte. Le préréglage "
-"au-dessus ne le change jamais."
-
 #. placeholders: {pct}
 msgid "Master volume: {pct} percent"
 msgstr "Volume général : {pct} pour cent"
@@ -36588,6 +36473,162 @@ msgid "Menu movement, selection, warning, and cash sounds."
 msgstr ""
 "Les sons de déplacement, de sélection, d'avertissement et d'argent dans les "
 "menus."
+
+#. placeholders: {_}
+msgid "Update channel: {_}"
+msgstr ""
+
+msgid "stable releases"
+msgstr "versions stables"
+
+msgid "Stable releases, beta testing, or early alpha builds."
+msgstr ""
+
+#. placeholders: {on_off}
+msgid "Use GitHub mirror for updates: {on_off}"
+msgstr ""
+
+msgid ""
+"Checks for and downloads updates through a GitHub mirror. Turn it on, then "
+"enter the mirror's address in GitHub mirror prefix, just below."
+msgstr ""
+
+msgid "GitHub mirror prefix: not set"
+msgstr ""
+
+#. placeholders: {update_mirror_prefix}
+msgid "GitHub mirror prefix: {update_mirror_prefix}"
+msgstr ""
+
+msgid ""
+"The mirror's address, put in front of every GitHub link. Use a mirror you "
+"trust: updates download through it."
+msgstr ""
+
+msgid "Check for updates"
+msgstr "Rechercher des mises à jour"
+
+msgid "Look for a new version now."
+msgstr "Chercher une nouvelle version maintenant."
+
+#. placeholders: {assist_preset_label}
+msgid "Driving assistance preset: {assist_preset_label}"
+msgstr "Préréglage d'assistance à la conduite : {assist_preset_label}"
+
+msgid ""
+"Realistic is modern truck safety support. Balanced adds partial lane "
+"keeping, a firmer hand on descents, and stopping at your destination. All "
+"assists turns on every assist and sets lane keeping to full: the truck "
+"holds the lane, a tap changes lanes, and your destination exit is taken for "
+"you. Changing one assist makes this Custom. You still choose routes and "
+"handle yards and docks. Presets never change pacing, hours rules, "
+"transmission, weather, or hazards."
+msgstr ""
+"Réaliste, c'est l'aide à la sécurité d'un camion moderne. Équilibré ajoute "
+"un maintien de voie partiel, une main plus ferme en descente et l'arrêt à "
+"votre destination. Toutes les assistances active chaque assistance et règle "
+"le maintien de voie sur complet : le camion tient la voie, un appui bref "
+"change de voie, et votre sortie de destination est prise pour vous. Changer "
+"une assistance fait passer ceci en Personnalisé. Vous choisissez toujours "
+"les itinéraires et gérez les cours et les quais. Les préréglages ne "
+"changent jamais le rythme, les règles de temps de service, la boîte de "
+"vitesses, la météo ni les dangers."
+
+#. placeholders: {lane_keeping_label}
+msgid "Lane keeping: {lane_keeping_label}"
+msgstr "Maintien de voie : {lane_keeping_label}"
+
+#. placeholders: {control_steer_left}, {control_steer_right}
+#. one sentence of a longer line
+msgid ""
+"Full holds the lane, turns {control_steer_left} and {control_steer_right} "
+"into tap lane changes, moves out of a lane a work zone closes, and takes "
+"your exits and open weigh stations, including the destination exit, without "
+"a signal."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "How much of the lane-holding work the truck does."
+msgstr "La part du travail de maintien dans la voie que fait le camion."
+
+#. placeholders: {control_steer_left}, {control_steer_right}
+msgid ""
+"How much of the lane-holding work the truck does. Full holds the lane, "
+"turns {control_steer_left} and {control_steer_right} into tap lane changes, "
+"moves out of a lane a work zone closes, and takes your exits and open weigh "
+"stations, including the destination exit, without a signal. Partial steers "
+"the truck through the road's bends and drifts gently, with generous "
+"steering help; lane changes and speed are yours. Off drifts like a real "
+"wheel; bends are yours unless curve assistance is on, and every exit needs "
+"its signal and its exit lane. On partial or off {lean}. The road sound only "
+"says where you sit in your lane, and the road edge answers: a stutter "
+"clipping the rumble strip, a buzz fully on it, gravel off the pavement. "
+"Steering guide and Lane guide sound, under Audio, change which way to steer "
+"and what leans. Realistic sets this off, Balanced partial, All assists full."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Off drifts like a real wheel; bends are yours unless curve assistance is "
+"on, and every exit needs its signal and its exit lane."
+msgstr ""
+"Désactivé dérive comme un vrai volant ; les virages sont pour vous sauf si "
+"l'assistance en virage est activée, et chaque sortie demande son clignotant "
+"et sa voie de sortie."
+
+#. placeholders: {lean}
+#. one sentence of a longer line
+msgid "On partial or off {lean}."
+msgstr "En partiel ou désactivé, {lean}."
+
+#. one sentence of a longer line
+msgid ""
+"Partial steers the truck through the road's bends and drifts gently, with "
+"generous steering help; lane changes and speed are yours."
+msgstr ""
+"Partiel dirige le camion dans les virages de la route et dérive doucement, "
+"avec une aide à la direction généreuse ; les changements de voie et la "
+"vitesse sont pour vous."
+
+#. one sentence of a longer line
+msgid "Realistic sets this off, Balanced partial, All assists full."
+msgstr ""
+"Réaliste règle ceci sur désactivé, Équilibré sur partiel, Toutes les "
+"assistances sur complet."
+
+#. one sentence of a longer line
+msgid ""
+"Steering guide and Lane guide sound, under Audio, change which way to steer "
+"and what leans."
+msgstr ""
+"Guide de direction et Son du guide de voie, dans Audio, changent le sens "
+"dans lequel diriger et ce qui penche."
+
+#. one sentence of a longer line
+msgid ""
+"The road sound only says where you sit in your lane, and the road edge "
+"answers: a stutter clipping the rumble strip, a buzz fully on it, gravel "
+"off the pavement."
+msgstr ""
+"Le son de la route dit seulement où vous êtes dans votre voie, et le bord "
+"de la route répond : un crépitement en effleurant la bande rugueuse, un "
+"bourdonnement en plein dessus, du gravier hors de la chaussée."
+
+#. placeholders: {acc_gap_label}
+msgid "Following gap: {acc_gap_label}"
+msgstr "Intervalle de suivi : {acc_gap_label}"
+
+msgid ""
+"How much room adaptive cruise leaves to the vehicle ahead. Close is two and "
+"a half seconds, normal three, far three and a half. Weather widens the gap "
+"whichever you pick. All three stay clear of a following-too-close citation. "
+"The preset above never changes it."
+msgstr ""
+"L'espace que le régulateur adaptatif laisse avec le véhicule de devant. "
+"Proche, c'est deux secondes et demie, normal trois, loin trois et demie. La "
+"météo augmente l'intervalle quel que soit votre choix. Les trois restent à "
+"l'abri d'une contravention pour distance trop courte. Le préréglage "
+"au-dessus ne le change jamais."
 
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
@@ -40869,6 +40910,9 @@ msgstr "{label}. Vide."
 msgid "update-check"
 msgstr "update-check"
 
+msgid "The update check could not start."
+msgstr ""
+
 msgid "Checking for updates..."
 msgstr "Recherche de mises à jour..."
 
@@ -42373,6 +42417,18 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "dev"
+#~ msgstr "dev"
+
+#~ msgid "Update channel: {else}"
+#~ msgstr "Canal de mise à jour : {else}"
+
+#~ msgid "developer snapshots"
+#~ msgstr "versions de développement"
+
+#~ msgid "Stable releases or developer snapshots."
+#~ msgstr "Versions stables ou versions de développement."
 
 #~ msgid "Could not reach the update server."
 #~ msgstr "Impossible de joindre le serveur de mises à jour."

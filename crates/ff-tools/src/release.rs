@@ -32,6 +32,7 @@ pub mod ios_signing;
 mod macos;
 mod packs;
 pub mod plist;
+pub mod seal;
 pub mod updates;
 
 use std::path::{Path, PathBuf};
@@ -228,7 +229,7 @@ pub fn cargo_exe_name(platform: &str) -> String {
 
 /// True for public 1.8 nightlies and Career 1.9 tester prereleases.
 pub fn is_snapshot_label(label: &str) -> bool {
-    if label.starts_with("nightly-") {
+    if label.starts_with("nightly-") || label.starts_with("alpha-") || label.starts_with("beta-") {
         return true;
     }
     label
@@ -270,10 +271,7 @@ pub fn stamp_build_info(root: &Path, label: &str) -> Result<()> {
             format!("v{}", label.strip_prefix('v').unwrap_or(label))
         }),
     );
-    info.insert(
-        "channel",
-        Value::from(if snapshot { "dev" } else { "stable" }),
-    );
+    info.insert("channel", Value::from(updates::channel_of(label)));
     info.insert(
         "built_at",
         Value::from(chrono::Utc::now().format("%Y-%m-%d").to_string()),
@@ -342,6 +340,7 @@ fn cargo_build_command(target_dir: Option<&Path>, label: &str) -> Result<Command
     for (name, value) in updates::bake_vars(label, &crate_version()?)? {
         cmd.env(name, value);
     }
+    seal::configure(&mut cmd)?;
     // No default features: the agent server is dev tooling, and a player has
     // no use for an agent at the wheel. The visual display is a default too,
     // so it is named back in.

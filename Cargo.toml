@@ -4,6 +4,7 @@ members = [
     "crates/ff-core",
     "crates/freight-fate",
     "crates/ff-tools",
+    "vendor/hearken-seal",
 ]
 
 [workspace.package]
@@ -72,6 +73,7 @@ hearken = { git = "https://github.com/orinks-games/hearken", rev = "8ebfb69e3690
 # uses its HTTPS client; ff-tools signs the manifests and writes the file
 # indexes with it.
 hearken-update = { git = "https://github.com/orinks-games/hearken", rev = "8ebfb69e3690a89c5312f4050fdeb9868826d130", default-features = false }
+hearken-seal = { git = "https://github.com/orinks-games/hearken", rev = "8ebfb69e3690a89c5312f4050fdeb9868826d130", default-features = false }
 raw-window-handle = "0.6"
 # AppKit's typed `NSWindow`, for asking a Mac whether the game window is
 # covered. Already in the build through `webbrowser`; only the window class
@@ -130,3 +132,8 @@ opt-level = 1
 # nothing in iteration time and speeds every test that parses, hashes or
 # decompresses.
 opt-level = 2
+
+# Preserve existing Unicode/spaced career filenames until this name-policy
+# extension is available upstream; the seal format and cryptography are unchanged.
+[patch."https://github.com/orinks-games/hearken"]
+hearken-seal = { path = "vendor/hearken-seal" }

@@ -68,13 +68,13 @@ fn test_spoken_version_translates_dev_suffix() {
 fn test_resolve_channel_prefers_explicit_setting() {
     let nightly = BuildInfo::new("nightly-20260610", "dev", "2026-06-10");
     assert_eq!(resolve_channel("stable", Some(&nightly)), "stable");
-    assert_eq!(resolve_channel("dev", None), "dev");
+    assert_eq!(resolve_channel("dev", None), "beta");
 }
 
 #[test]
 fn test_resolve_channel_follows_build_when_unset() {
     let nightly = BuildInfo::new("nightly-20260610", "dev", "2026-06-10");
-    assert_eq!(resolve_channel("", Some(&nightly)), "dev");
+    assert_eq!(resolve_channel("", Some(&nightly)), "beta");
     assert_eq!(resolve_channel("", None), "stable");
 }
 
@@ -514,4 +514,122 @@ fn stable_and_snapshot_checks_go_to_their_own_places() {
     assert_eq!(source.describe(), "github.com/orinks-games/Freight-Fate");
     assert!(updater::STABLE_MANIFESTS
         .starts_with("https://github.com/orinks-games/Freight-Fate/releases/latest/download/"));
+}
+
+#[test]
+fn automatic_offer_defaults_to_later_and_ignores_held_enter() {
+    use freight_fate::states::base::{InputEvent, Key, Mods};
+    let mut app = TestApp::new();
+    let mut prompt = UpdatePromptState::at_start(info("1.9.9"));
+    Menu::enter(&mut prompt, &mut app.ctx);
+    assert!(prompt.current_text(&app.ctx).contains("Remind me later"));
+    prompt.jump(&mut app.ctx, 0);
+    app.clear_speech();
+    for key in [Key::Return, Key::Space, Key::KpEnter] {
+        Menu::handle_event(
+            &mut prompt,
+            &mut app.ctx,
+            &InputEvent::KeyDown {
+                key,
+                mods: Mods::NONE,
+                text: None,
+                repeat: true,
+            },
+        );
+    }
+    assert!(!Menu::wants_controller_repeat(&prompt));
+    assert!(app.main_lines().is_empty());
+    app.shutdown();
+}
+
+#[test]
+fn channel_tiers_choose_the_newest_signed_build_without_downgrades() {
+    struct Channels(SecretKey);
+    impl UpdateSource for Channels {
+        fn find(&self, q: &Query, _: &dyn Fetch) -> Result<Option<Found>, SourceError> {
+            let version = match q.channel.as_str() {
+                "alpha" => "2.0.1-alpha.202611010900",
+                "beta" => "1.9.9-dev.202611010900",
+                _ => "1.9.8",
+            };
+            Ok(Some(Found {
+                manifest: hearken_update::manifest::sign(&manifest(version, &q.channel), &self.0)
+                    .unwrap()
+                    .into_bytes(),
+                location: "https://example.test/update.json".into(),
+                files: vec![],
+            }))
+        }
+        fn describe(&self) -> String {
+            "channel fixtures".into()
+        }
+    }
+    let source = Channels(SecretKey::generate().unwrap());
+    let install = Install::Folder {
+        dir: std::env::temp_dir(),
+        exe: "FreightFate.exe".into(),
+    };
+    let never = AtomicBool::new(false);
+    for (channel, expected) in [
+        ("stable", "1.9.8"),
+        ("beta", "1.9.9-dev.202611010900"),
+        ("alpha", "2.0.1-alpha.202611010900"),
+    ] {
+        let update = updater::check_with(
+            &source,
+            &NoNetwork,
+            &running_on(&source.0, "1.9.7"),
+            &install,
+            channel,
+            &never,
+        )
+        .unwrap()
+        .unwrap();
+        assert_eq!(update.tag, expected);
+    }
+    assert!(updater::check_with(
+        &source,
+        &NoNetwork,
+        &running_on(&source.0, "3.0.0"),
+        &install,
+        "alpha",
+        &never
+    )
+    .unwrap()
+    .is_none());
+}
+
+#[test]
+fn changing_channel_discards_the_old_subscription_check() {
+    use freight_fate::states::base::{InputEvent, Key, Mods};
+    use freight_fate::states::main_menu::MainMenuState;
+    use freight_fate::states::update::UpdateChecker;
+    let _serial = UPDATE_CHECK_TESTS.lock().unwrap_or_else(|e| e.into_inner());
+    let mut app = TestApp::new();
+    app.ctx.settings.update_channel = "alpha".into();
+    MainMenuState::install_update_check(
+        Some(UpdateChecker::finished(Some(info("2.0.1")), None)),
+        false,
+    );
+    let mut state = SettingsCategoryState::new("updates");
+    Menu::enter(&mut state, &mut app.ctx);
+    let index = state
+        .build_items(&mut app.ctx)
+        .iter()
+        .position(|item| item.text(&state, &app.ctx).starts_with("Update channel:"))
+        .unwrap();
+    state.jump(&mut app.ctx, index);
+    Menu::handle_event(
+        &mut state,
+        &mut app.ctx,
+        &InputEvent::KeyDown {
+            key: Key::Right,
+            mods: Mods::NONE,
+            text: None,
+            repeat: false,
+        },
+    );
+    assert_eq!(app.ctx.settings.update_channel, "stable");
+    assert_eq!(MainMenuState::update_check_status(), (false, false));
+    app.shutdown();
 }

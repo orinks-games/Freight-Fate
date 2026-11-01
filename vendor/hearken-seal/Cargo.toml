@@ -1,0 +1,23 @@
+[package]
+name = "hearken-seal"
+description = "A game's data files sealed against editing in a release: authenticated, encrypted, and checked against the folder's history"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.95"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/orinks-games/hearken"
+authors = ["Joshua Tubbs (Orinks)"]
+build = "build.rs"
+
+[build-dependencies]
+hearken-bake = { git = "https://github.com/orinks-games/hearken", rev = "8ebfb69e3690a89c5312f4050fdeb9868826d130" }
+
+[dependencies]
+chacha20poly1305 = { version = "0.11", default-features = false, features = ["alloc"] }
+hkdf = "0.13"
+sha2 = { version = "0.11", default-features = false }
+getrandom = "0.4"
+log = "0.4"
+
+[dev-dependencies]
+tempfile = "3"

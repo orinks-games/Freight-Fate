@@ -133,12 +133,12 @@ pub fn install_restored_profile(profile: &Value) -> Result<PathBuf, String> {
     let signed = profile.to_dict();
     let name = save_slot_name(&profile.name);
     let path = save_path_for(&name);
-    let tmp = path.with_extension("ffsave.tmp");
+    ff_core::models::profile::sealed::ensure_writable(&path).map_err(|e| e.to_string())?;
     let backup = path.with_extension("ffsave.bak");
     if let Some(parent) = path.parent() {
         fs::create_dir_all(parent).map_err(|e| e.to_string())?;
     }
-    fs::write(&tmp, encode_save_bytes(&signed)).map_err(|e| e.to_string())?;
+
     let mut moved_old = false;
     let installed = (|| -> std::io::Result<()> {
         if path.exists() {
@@ -146,10 +146,9 @@ pub fn install_restored_profile(profile: &Value) -> Result<PathBuf, String> {
             fs::rename(&path, &backup)?;
             moved_old = true;
         }
-        fs::rename(&tmp, &path)
+        ff_core::models::profile::sealed::write(&path, &encode_save_bytes(&signed))
     })();
     if let Err(e) = installed {
-        let _ = fs::remove_file(&tmp);
         if moved_old && backup.exists() && !path.exists() {
             let _ = fs::rename(&backup, &path);
         }

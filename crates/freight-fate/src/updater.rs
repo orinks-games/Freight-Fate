@@ -9,8 +9,9 @@
 //!   bakes the game's public update key, its update version and channel
 //!   into `hearken-update` (the `HEARKEN_UPDATE_*` variables). A build
 //!   without a key, such as `cargo run`, never updates itself.
-//! - **Channels**: `stable` follows tagged releases, `dev` the tester
-//!   snapshots (`1.9-tester-YYYYMMDD`). A snapshot's update version is the
+//! - **Channels**: `stable` follows tagged releases, `beta` the tester
+//!   snapshots (`1.9-tester-YYYYMMDD`), and `alpha` early branch builds.
+//!   Existing `dev` subscriptions migrate to beta. A snapshot's update version is the
 //!   next patch after the Cargo version, as a pre-release stamped with its
 //!   commit's time (`1.9.6-dev.202610300537`), so each newer snapshot sorts
 //!   above the last and below the stable it leads to.
@@ -50,7 +51,7 @@ pub const APP_NAME: &str = "FreightFate";
 /// The package name the manifests are signed for.
 pub const GAME: &str = "freight-fate";
 
-pub const CHANNELS: [&str; 2] = ["stable", "dev"];
+pub const CHANNELS: [&str; 3] = ["stable", "beta", "alpha"];
 
 /// Where stable manifests are: the latest release's assets. GitHub
 /// redirects these to the release's own files, and the archive and file
@@ -294,6 +295,12 @@ pub fn build_info_from_dict(data: &Value, version: &str) -> BuildInfo {
 /// The effective update channel: the player's explicit choice, else
 /// whatever channel this build came from.
 pub fn resolve_channel(setting: &str, build: Option<&BuildInfo>) -> String {
+    if setting == "dev" {
+        return "beta".to_string();
+    }
+    if setting.is_empty() && build.is_some_and(|b| b.channel == "dev") {
+        return "beta".to_string();
+    }
     if CHANNELS.contains(&setting) {
         return setting.to_string();
     }
@@ -536,17 +543,46 @@ pub fn check_with(
     channel: &str,
     cancelled: &AtomicBool,
 ) -> Result<Option<UpdateInfo>, String> {
-    match hearken_update::check(source, fetch, running, channel) {
-        Ok(None) => Ok(None),
-        Ok(Some(mut update)) => {
-            update.plan = hearken_update::plan_until(&update, fetch, install, cancelled);
-            Ok(Some(UpdateInfo::new(update)))
+    let channels: &[&str] = match channel {
+        "alpha" => &["alpha", "beta", "stable"],
+        "beta" | "dev" => &["beta", "stable"],
+        _ => &["stable"],
+    };
+    let mut best: Option<Update> = None;
+    let mut first_error = None;
+    for candidate in channels {
+        if cancelled.load(std::sync::atomic::Ordering::Relaxed) {
+            return Ok(None);
         }
-        Err(e) => {
-            log::warn!("Update check of {} failed: {e}", source.describe());
-            Err(check_error_line(&e))
+        match hearken_update::check(source, fetch, running, candidate) {
+            Ok(Some(update)) => {
+                let newer = best.as_ref().is_none_or(|old| {
+                    let a = hearken_update::Version::parse(update.version());
+                    let b = hearken_update::Version::parse(old.version());
+                    a.zip(b).is_some_and(|(a, b)| a.is_newer_than(&b))
+                });
+                if newer {
+                    best = Some(update);
+                }
+            }
+            Ok(None) => {}
+            Err(e) => {
+                log::warn!("Update channel {candidate}: {e}");
+                if first_error.is_none() {
+                    first_error = Some(check_error_line(&e));
+                }
+            }
         }
     }
+    if best.is_none() {
+        if let Some(error) = first_error {
+            return Err(error);
+        }
+    }
+    if let Some(update) = best.as_mut() {
+        update.plan = hearken_update::plan_until(update, fetch, install, cancelled);
+    }
+    Ok(best.map(UpdateInfo::new))
 }
 
 /// Spoken: why a check found nothing it could offer.
