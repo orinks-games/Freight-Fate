@@ -16,7 +16,9 @@ Cloud upload content and driver-board validation remain portable profile JSON. S
 
 ## Activation and key recovery
 
-Run `cargo tools seal-key --new` once with owner approval. Back up the generated private key securely, record only its printed seal-id under workspace.metadata.release, and provision the file's contents as the repository HEARKEN_SEAL_KEY secret. Never commit or log the key. Desktop and iOS release packaging checks its ID before compiling; a missing or different key fails the build once seal-id is configured. Without seal-id, packaging deliberately remains unsealed.
+Freight Fate now has a persistent seal-id and repository secret configured. The key is backed up in Dropbox under `Hearken key backup/seal-keys/freight-fate.key`; retain it for future releases.
+
+For a new game only, run `cargo tools seal-key --new` once with owner approval. Back up the generated private key securely, record only its printed seal-id under workspace.metadata.release, and provision the file's contents as the repository HEARKEN_SEAL_KEY secret. Never commit or log the key. Desktop and iOS release packaging checks its ID before compiling; a missing or different key fails the build once seal-id is configured. Without seal-id, packaging deliberately remains unsealed.
 
 Retain the same key for every platform and release channel. A new key cannot read existing sealed careers. Developer builds do not seal and refuse to overwrite sealed careers. Cloud backups remain the supported cross-device restore path. Older released versions cannot open the new sealed format; preserve migration backups when testing rollback.
 

@@ -4,6 +4,8 @@
 
 ### Added
 
+- **New releases seal career saves against local editing.** Existing careers migrate with a backup; cloud backups retain their verification.
+
 - **Choose stable, beta, or alpha updates in Settings.** Existing snapshot followers move to beta.
 
 - **A menu letter can now choose its item at once.** Turn on Menu accelerator keys in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).

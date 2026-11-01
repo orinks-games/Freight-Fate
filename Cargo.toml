@@ -19,6 +19,8 @@ authors = ["Joshua Tubbs (Orinks)"]
 # crate version cannot, so a snapshot never calls itself the stable release.
 # `cargo tools version` prints it; `--release-line` drops the suffix.
 [workspace.metadata.release]
+# Persistent save-sealing identity; the private key is backed up separately.
+seal-id = "k1:d371c108f7f1437a"
 package-version = "1.9.6.dev0"
 # The public half of the game's update key: the in-game updater trusts only
 # manifests signed with it. Empty until `cargo tools update-key --new` makes

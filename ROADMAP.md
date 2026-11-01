@@ -4379,4 +4379,5 @@ a public build leaks.
 
 - [x] Add stable, beta and alpha subscriptions and configurable branch builds for alpha.
 - [x] Default automatic update offers to Remind me later and suppress held activation.
-- [ ] Activate sealed careers after provisioning the persistent release key; verify packaged migration and cloud round trips before release. See [release integration](docs/updater-and-sealed-saves.md).
+- [x] Provision and back up the persistent sealing key; enable sealed careers in future release builds.
+- [ ] Verify packaged migration and production cloud round trips before release. See [release integration](docs/updater-and-sealed-saves.md).
