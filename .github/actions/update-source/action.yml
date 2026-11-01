@@ -1,0 +1,27 @@
+name: Resolve update source
+description: Map a signed update channel to its source branch without publishing or changing a checkout.
+inputs:
+  channel:
+    description: Update channel, such as stable, beta, or alpha.
+    required: true
+  channel-branches:
+    description: JSON object mapping channel names to source branch names.
+    required: true
+  branch:
+    description: Optional explicit source branch override.
+    required: false
+    default: ''
+outputs:
+  branch:
+    description: Validated source branch for the caller to check out and pin.
+    value: ${{ steps.resolve.outputs.branch }}
+runs:
+  using: composite
+  steps:
+    - id: resolve
+      shell: bash
+      env:
+        UPDATE_SOURCE_CHANNEL: ${{ inputs.channel }}
+        UPDATE_SOURCE_BRANCHES: ${{ inputs.channel-branches }}
+        UPDATE_SOURCE_OVERRIDE: ${{ inputs.branch }}
+      run: node "$GITHUB_ACTION_PATH/resolve.cjs"

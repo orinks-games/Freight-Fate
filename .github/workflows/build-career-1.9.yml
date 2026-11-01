@@ -1,7 +1,7 @@
-name: Career 1.9 snapshot
+name: Freight Fate builds
 
-# The nightly (and the stable release path) for the 1.9 line, which since
-# the 2026-09-20 cutover is `dev` (see CAREER_BRANCH below).
+# Beta snapshots follow dev; alpha builds may follow a feature branch.
+# Explicit version tags remain the stable release path (see CAREER_BRANCH).
 #
 # A scheduled run executes the copy of this file on the DEFAULT branch
 # (main), whatever the checked-out code is, so after changing it here push
@@ -41,9 +41,14 @@ on:
         type: boolean
         default: false
       branch:
-        description: "Branch to build (a dry run is the way to try one)"
+        description: "Optional branch override; beta uses dev, alpha uses feat/career-2.0"
         type: string
-        default: dev
+        default: ""
+      channel:
+        description: "Update channel for this branch build"
+        type: choice
+        options: [beta, alpha]
+        default: beta
       release_candidate:
         description: "Also publish as the 1.9 release candidate under nightly-YYYYMMDD, where 1.8 developer-snapshot players' updater finds it"
         type: boolean
@@ -59,32 +64,34 @@ permissions:
   contents: write
 
 concurrency:
-  group: career-19-snapshot
+  group: career-snapshot-${{ inputs.channel || 'beta' }}
   # A scheduled start queues behind a running build instead of cancelling
   # it, so the backup start can never kill a late primary run.
   cancel-in-progress: ${{ github.event_name != 'schedule' }}
 
-env:
-  # `dev` since the 1.9 cutover (2026-09-20). This built feat/career-1.9
-  # while 1.9 was a side line; dev IS the 1.9 line now, and this is the
-  # only workflow that knows how to build the Rust game, so it is the
-  # nightly -- and now the only one that builds the game at all. build.yml
-  # ran the Python/Nuitka path and was deleted with the 1.8 line: dev has
-  # no Python gameplay left to feed it, and the owner ruled on 2026-09-20
-  # that 1.8 gets no further releases, so it had no job on either trigger.
-  #
-  # The `1.9-tester-*` tag scheme deliberately does NOT change. The
-  # in-game updater's developer-snapshot channel finds builds by that
-  # name, so renaming it would strand everyone already on one.
-  # A manual run may name another branch to try; the schedule always
-  # builds dev.
-  # Tag pushes build the tagged commit. Schedule/dispatch still build
-  # `dev` (or the dispatch branch). A tag that only exists on another
-  # tip must not silently rebuild today's dev.
-  CAREER_BRANCH: ${{ github.event_name == 'push' && github.ref || inputs.branch || 'dev' }}
-
 jobs:
+  source:
+    name: Resolve source branch
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      ref: ${{ github.event_name == 'push' && github.ref || format('refs/heads/{0}', steps.branch.outputs.branch) }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.workflow_sha }}
+      - uses: ./.github/actions/update-source
+        id: branch
+        if: github.event_name != 'push'
+        with:
+          channel: ${{ inputs.channel || 'beta' }}
+          channel-branches: '{"beta":"dev","alpha":"feat/career-2.0"}'
+          branch: ${{ inputs.branch }}
+
   prepare:
+    needs: source
+    env:
+      CAREER_BRANCH: ${{ needs.source.outputs.ref }}
     name: Prepare
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -93,6 +100,7 @@ jobs:
       tag: ${{ steps.check.outputs.tag }}
       commit_sha: ${{ steps.check.outputs.commit_sha }}
       is_prerelease: ${{ steps.check.outputs.is_prerelease }}
+      channel: ${{ steps.check.outputs.channel }}
       version: ${{ steps.check.outputs.version }}
     steps:
       - uses: actions/checkout@v6
@@ -136,6 +144,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SCHEDULE: ${{ github.event.schedule }}
+          UPDATE_CHANNEL: ${{ inputs.channel || 'beta' }}
         run: |
           echo "commit_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
@@ -149,13 +158,19 @@ jobs:
             echo "tag=$TAG" >> "$GITHUB_OUTPUT"
             echo "version=$VERSION" >> "$GITHUB_OUTPUT"
             echo "is_prerelease=false" >> "$GITHUB_OUTPUT"
+            echo "channel=stable" >> "$GITHUB_OUTPUT"
             echo "should_build=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          echo "tag=1.9-tester-$(date -u +%Y%m%d)" >> "$GITHUB_OUTPUT"
+          if [ "$UPDATE_CHANNEL" = "alpha" ]; then
+            echo "tag=alpha-$(date -u +%Y%m%d%H%M%S)" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=1.9-tester-$(date -u +%Y%m%d)" >> "$GITHUB_OUTPUT"
+          fi
           echo "version=" >> "$GITHUB_OUTPUT"
           echo "is_prerelease=true" >> "$GITHUB_OUTPUT"
+          echo "channel=$UPDATE_CHANNEL" >> "$GITHUB_OUTPUT"
 
           if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
             echo "should_build=true" >> "$GITHUB_OUTPUT"
@@ -323,6 +338,8 @@ jobs:
           path: data
 
       - name: Build the portable release
+        env:
+          HEARKEN_SEAL_KEY: ${{ secrets.HEARKEN_SEAL_KEY }}
         run: ./build-release.ps1 --tag "${{ needs.prepare.outputs.tag }}"
 
       - name: Check Prism registered its backends
@@ -442,6 +459,8 @@ jobs:
         # probes (speech, audio device) that 2026-08-30 moved onto worker
         # threads; with them gone the launch proof is back. Bounded at 120 s
         # inside the builder, which dumps the game log on failure.
+        env:
+          HEARKEN_SEAL_KEY: ${{ secrets.HEARKEN_SEAL_KEY }}
         run: cargo tools build-release --smoke --tag "${{ needs.prepare.outputs.tag }}"
 
       - name: Check Prism registered its backends
@@ -536,6 +555,8 @@ jobs:
         # --smoke boots the staged tarball payload for five frames with dummy
         # drivers, the same proof the Mac job gets. Staging refuses an
         # executable that links SDL2 dynamically.
+        env:
+          HEARKEN_SEAL_KEY: ${{ secrets.HEARKEN_SEAL_KEY }}
         run: cargo tools build-release --smoke --tag "${{ needs.prepare.outputs.tag }}"
 
       - name: Check Prism registered its backends
@@ -727,11 +748,12 @@ jobs:
         run: |
           "$FF_TOOLS" update-manifests --dir release-assets --tag "$TAG" --notes notes.md
 
-      - name: Create prerelease
+      - name: Publish beta or alpha release
         if: ${{ inputs.dry_run != true && needs.prepare.outputs.is_prerelease == 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ needs.prepare.outputs.tag }}
+          UPDATE_CHANNEL: ${{ needs.prepare.outputs.channel }}
           COMMIT_SHA: ${{ needs.prepare.outputs.commit_sha }}
         run: |
           if gh release view "$TAG" >/dev/null 2>&1; then
@@ -739,15 +761,17 @@ jobs:
           elif git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
             git push origin ":refs/tags/$TAG"
           fi
+          LABEL="Beta"
+          if [ "$UPDATE_CHANNEL" = "alpha" ]; then LABEL="Alpha"; fi
           gh release create "$TAG" release-assets/* --notes-file notes.md \
-            --title "Freight Fate 1.9 tester snapshot $(date -u +%Y-%m-%d)" \
-            --prerelease --target "$COMMIT_SHA"
+            --title "Freight Fate $LABEL $(date -u +%Y-%m-%d)" \
+            --prerelease --latest=false --target "$COMMIT_SHA"
 
       # Keep the release page to the last week of tester snapshots; testers
       # can still roll back that far. Tags stay (the notes step reads the
       # previous one). A failed prune never fails the release.
-      - name: Prune old tester snapshots
-        if: ${{ inputs.dry_run != true && needs.prepare.outputs.is_prerelease == 'true' }}
+      - name: Prune old beta snapshots
+        if: ${{ inputs.dry_run != true && needs.prepare.outputs.channel == 'beta' }}
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -763,7 +787,7 @@ jobs:
       # archives keep their own build_info.json, so once installed the game
       # follows `1.9-tester-*` like any tester build.
       - name: Publish the release candidate for 1.8 developer snapshots
-        if: ${{ inputs.dry_run != true && inputs.release_candidate && needs.prepare.outputs.is_prerelease == 'true' }}
+        if: ${{ inputs.dry_run != true && inputs.release_candidate && inputs.channel != 'alpha' && needs.prepare.outputs.is_prerelease == 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ needs.prepare.outputs.tag }}
@@ -803,7 +827,7 @@ jobs:
           done
           gh release create "$BRIDGE" "${assets[@]}" --notes-file bridge-notes.md \
             --title "Freight Fate 1.9 release candidate $(date -u +%Y-%m-%d)" \
-            --prerelease --target "$COMMIT_SHA"
+            --prerelease --latest=false --target "$COMMIT_SHA"
 
       - name: Create stable release
         if: ${{ inputs.dry_run != true && needs.prepare.outputs.is_prerelease == 'false' }}
@@ -837,4 +861,4 @@ jobs:
           done
           gh release create "$TAG" "${assets[@]}" --notes-file notes.md \
             --title "Freight Fate $VERSION" \
-            --target "$COMMIT_SHA"
+            --latest --target "$COMMIT_SHA"
