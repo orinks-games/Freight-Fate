@@ -142,7 +142,9 @@ jobs:
             /*
             !/*/
             /.cargo/
+            /.github/actions/update-source/
             /crates/
+            /vendor/
             /lang/
             /data/buffs.json
 
