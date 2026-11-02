@@ -14,6 +14,10 @@ messages, PR text, and docs.
   truly accessible, designed with accessibility at the forefront, crafted for
   keyboard and screen reader use, specifically optimized for screen reader
   users, or anything that means the same thing.
+- Exception for games: a game may say once, plainly, that it is an audio game
+  for blind and visually impaired players (for example "An audio trucking game
+  for blind and visually impaired players."). Say it one time, in the opening
+  description, and nothing beyond that.
 - Skip audio puffery too: "rich and immersive soundscapes", "a game designed to
   be heard", "sounds like you're really there", "your eyes don't matter, only
   your ears do", and the like.
