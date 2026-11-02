@@ -1,6 +1,7 @@
 # Freight Fate
 
-Freight Fate is a cross-country trucking simulation where you haul freight
+Freight Fate is an audio trucking game for blind and visually impaired players: a cross-country
+trucking simulation where you haul freight
 between more than 600 American cities, manage fuel, tolls, weather, and
 deadlines, and build a driving career.
 
