@@ -62,6 +62,10 @@ instead. That saves-folder spot also works on Windows and Linux, as
 `saves/lang/es.po`; when both folders have a file for the same language,
 the one next to the program wins.
 
+Downloads from October 13 to 17, 2026 had a `translations` folder next to
+the program. The game never read it; it now moves it into the saves folder
+as `old-translations`, so copy anything you changed there into `lang`.
+
 The game's log, `game.log`, has a line starting with `Using the translation
 file` and the path whenever it loads your file.
 

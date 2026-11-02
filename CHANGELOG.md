@@ -28,6 +28,7 @@
 
 ### Fixed
 
+- **The unused translations folder from mid-October downloads leaves the game folder.** It moves to the saves folder as old-translations, so any edits in it are kept.
 - **Automatic update offers start on Remind me later.** Holding a key cannot install an update by accident.
 
 - **Manual gear shifts now play the same short gear-change sound as automatic shifts.**
