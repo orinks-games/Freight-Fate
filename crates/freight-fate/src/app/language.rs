@@ -177,11 +177,14 @@ pub fn offered_languages() -> &'static [&'static l10n::Language] {
 }
 
 /// The folder downloads from October 13 to 17, 2026 carried the translator's
-/// kit in, beside the program. The game never read it, and updates leave it
-/// in place, so a translator who found it edited files that did nothing.
-const OLD_KIT_DIR: &str = "translations";
+/// kit in, beside the program, as `translations`. The game never read it,
+/// and updates leave it in place, so a translator who found it edited files
+/// that did nothing.
+fn old_kit_dir(game: &Path) -> PathBuf {
+    game.join("translations")
+}
 
-/// Move a packaged game's leftover [`OLD_KIT_DIR`] out of the game folder
+/// Move a packaged game's leftover kit folder out of the game folder
 /// and into the data folder, as `old-translations`, so the folder that
 /// works (`lang`) is the only one a translator finds there. It is moved, not
 /// deleted, in case a translator's edits are in it.
@@ -194,7 +197,7 @@ pub fn retire_old_translation_kit() {
 /// [`retire_old_translation_kit`] with both folders given; the new path,
 /// when something was moved.
 fn retire_old_translation_kit_in(game: &Path, data: &Path) -> Option<PathBuf> {
-    let old = game.join(OLD_KIT_DIR);
+    let old = old_kit_dir(game);
     // Only the kit: it always has the template in it.
     if !old.join("freight-fate.pot").is_file() {
         return None;
@@ -324,7 +327,7 @@ mod tests {
     fn the_old_kit_folder_moves_to_the_data_folder_with_its_files() {
         let game = tempfile::tempdir().expect("game folder");
         let data = tempfile::tempdir().expect("data folder");
-        let old = game.path().join(OLD_KIT_DIR);
+        let old = old_kit_dir(game.path());
         std::fs::create_dir_all(&old).expect("old kit");
         std::fs::write(old.join("freight-fate.pot"), "").expect("template");
         write_catalog(&old, "pl", "Poprawione.");
@@ -341,7 +344,7 @@ mod tests {
     fn a_translations_folder_that_is_not_the_kit_stays() {
         let game = tempfile::tempdir().expect("game folder");
         let data = tempfile::tempdir().expect("data folder");
-        let other = game.path().join(OLD_KIT_DIR);
+        let other = old_kit_dir(game.path());
         std::fs::create_dir_all(&other).expect("folder");
         assert_eq!(
             retire_old_translation_kit_in(game.path(), data.path()),
