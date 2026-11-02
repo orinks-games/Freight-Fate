@@ -1,14 +1,12 @@
 # Freight Fate
 
-An accessible, audio-first cross-country trucking simulation. Haul freight
+Freight Fate is a cross-country trucking simulation where you haul freight
 between more than 600 American cities, manage fuel, tolls, weather, and
-deadlines, and build a driving career entirely by ear.
+deadlines, and build a driving career.
 
-Freight Fate is designed for blind and low-vision players first: every screen
-is fully voiced through your screen reader (NVDA, JAWS, SAPI, VoiceOver,
-Speech Dispatcher, and more through the native Prism speech bridge),
-and the road speaks to you through a rich procedural soundscape. A simple
-visual display mirrors all speech for sighted players and helpers.
+Supports NVDA, JAWS, SAPI, VoiceOver, Speech Dispatcher, and more through the
+native Prism speech bridge. Road events use procedural sounds. A simple visual
+display mirrors all speech for sighted players and helpers.
 
 ## Features
 
@@ -66,7 +64,7 @@ Score display in Settings, Speech can read reputation and dispatch trust as both
   them through Hearken, the game's own Rust audio engine, with the engine note
   pitch-tracking RPM in real time. If no sound device can be opened, the game
   continues silently and says so rather than failing to start.
-- **Screen reader native** — menus with first-letter navigation, contextual
+- **Screen reader support** — menus with first-letter navigation, contextual
   F1 help everywhere, on-demand information keys while driving, a message log
   you can walk back through from any screen, and a choice of terse or normal
   speech verbosity.
@@ -455,8 +453,8 @@ and `legs/CA.json`, so a one-leg edit changes only its state's file.
 
 ### Playtesting
 
-Freight Fate is audio-first, so the way to review a playthrough is the transcript
-of what the game says. The Rust playtest harness drives the real game states
+Review a playthrough through the transcript of what the game says. The Rust
+playtest harness drives the real game states
 headlessly and is used by the Cargo integration tests. Run a focused transcript
 test by name while iterating, then the whole game crate before landing:
 
