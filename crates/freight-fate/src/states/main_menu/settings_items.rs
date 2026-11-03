@@ -679,8 +679,8 @@ impl SettingsCategoryState {
                         )
                     }),
                     adjust(|s, ctx, d| s.toggle_transmission(ctx, d)),
-                    "Automatic shifts for you. Manual uses the clutch \
-                     with W and Q to shift up and down.",
+                    "Automatic shifts for you. Manual: hold the clutch, \
+                     then {{shift_up}} shifts up and {{shift_down}} shifts down.",
                 ),
                 row(
                     dyn_label(|s| {
@@ -805,7 +805,7 @@ impl SettingsCategoryState {
                 adjust(|s, ctx, d| s.cycle_cue_loudness(ctx, d)),
                 "How loud the lane and edge cues are next to everything \
                  else: the rumble-strip and shoulder textures, the lane \
-                 locator on I, and the warning bars before a hairpin. It \
+                 locator on {{lane_locator}}, and the warning bars before a hairpin. It \
                  rides on the Gameplay cues volume above and moves those \
                  cues alone. Quieter sits under the engine, standard \
                  matches it, louder cuts through.",

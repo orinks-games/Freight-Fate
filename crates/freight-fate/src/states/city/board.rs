@@ -59,8 +59,8 @@ pub const JOB_BOARD_INTRO_HELP: &str =
     "Enter accepts. F1 is job details. Tab is the market. Escape goes back.";
 
 const ASSIGNED_INTRO_HELP: &str =
-    "Assigned load. Enter accepts. Decline costs dispatch trust until your next promotion. F1 \
-     is details. Escape goes back.";
+    "Assigned load. Enter accepts. Declining costs reputation and uses one of your declines, \
+     which refill at your next promotion. F1 is details. Escape goes back.";
 
 /// How long dispatch keeps assigning loads: a new hire waits for level 8, but
 /// a driver at level 8 or above is only here because standing slipped.
@@ -459,8 +459,8 @@ impl JobBoardState {
                     |s: &mut Self, ctx| s.decline_assignment(ctx),
                 )
                 .help(
-                    "Dispatch draws another load. Costs reputation from a budget that refills \
-                     at the next level.",
+                    "Dispatch picks another load. Costs reputation and one decline; declines \
+                     refill at your next promotion.",
                 ),
             );
         }

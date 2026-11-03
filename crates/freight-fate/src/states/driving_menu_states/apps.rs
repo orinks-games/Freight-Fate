@@ -5,6 +5,7 @@ use ff_core::sim::hos;
 use ff_core::sim::trip_models::RoadStop;
 
 use crate::app::{GameContext, Say};
+use crate::bindings::Action;
 use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving_menu_states::DriveRef;
@@ -286,11 +287,13 @@ impl DriverAppScreenState {
                 } else {
                     lines.push(format!("ELD route note: {context}"));
                 }
-                lines.push(
-                    "ELD keys: Alt A time at the wheel, Alt S when the break is due, \
-                     Alt D what ends this shift."
-                        .to_string(),
-                );
+                lines.push(format!(
+                    "ELD keys: {} time at the wheel, {} when the break is due, \
+                     {} what ends this shift.",
+                    ctx.control_name(Action::HosWheel),
+                    ctx.control_name(Action::HosBreak),
+                    ctx.control_name(Action::HosDrive),
+                ));
                 lines
             })
             .unwrap_or_default()

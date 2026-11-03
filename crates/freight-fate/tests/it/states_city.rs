@@ -509,7 +509,7 @@ fn test_assigned_board_help_describes_accept_and_decline() {
 
     let help = with_state::<JobBoardState, _>(&app, |b, _| b.intro_help().to_string());
     assert!(help.contains("Assigned load"));
-    assert!(help.contains("Decline costs dispatch trust"));
+    assert!(help.contains("Declining costs reputation"));
     // the browsable class-level help is untouched for senior boards
     assert!(JOB_BOARD_INTRO_HELP.contains("Tab is the market"));
 }

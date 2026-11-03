@@ -168,7 +168,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
     (
         "Career, equipment, and money",
         &[
-            "New company hires get an assigned load. Load choice opens at level eight. Declining costs trust; low trust can remove load choice again.",
+            "New company hires get an assigned load. Load choice opens at level eight. Declining costs reputation; low dispatch trust can remove load choice again.",
             "Jobs name cargo, weight, pay, deadline, facilities, and equipment requirements. F1 reads the details. Fuel adds weight; check before filling a marginal load.",
             "Walk around a dropped trailer before leaving. A defect can be refused at the yard or found later at inspection.",
             "Company drivers receive wages and bonuses. Owners receive higher gross with fuel, repair, reserves, trailer charges, and fees to pay.",

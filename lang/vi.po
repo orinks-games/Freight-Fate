@@ -13041,13 +13041,13 @@ msgstr ""
 
 msgid ""
 "A soft tock, once a beat, panned to where the truck sits inside its lane. "
-"You turn it on and off yourself and it keeps ticking until you stop it. "
-"Press I to toggle it. The demo walks it from the left of the lane to the "
-"right."
+"You turn it on and off yourself with the lane locator key, and it keeps "
+"ticking until you stop it. The demo walks it from the left of the lane to "
+"the right."
 msgstr ""
 
 msgid ""
-"Lane keeping partial or off, above walking pace, and the I-key lane locator "
+"Lane keeping partial or off, above walking pace, and the lane locator "
 "switched on."
 msgstr ""
 
@@ -13100,7 +13100,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-"The I-key locator silences ordinary steering clicks, but not an armed exit "
+"The lane locator silences ordinary steering clicks, but not an armed exit "
 "signal."
 msgstr ""
 
@@ -13116,7 +13116,7 @@ msgstr ""
 
 msgid ""
 "Straightening up clicks it off only with lane keeping partial or off and "
-"the I-key locator off. Canceling a running exit blinker clicks it off in "
+"the lane locator off. Canceling a running exit blinker clicks it off in "
 "every mode."
 msgstr ""
 
@@ -13396,9 +13396,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Always. Nothing turns it off. Every post that is allowed to cost you "
-"anything sounds this first, at every enforcement presence setting, and the "
-"radio is pulled down out of the way so you can hear it."
+"Always. Nothing turns it off. Every post that can cost you anything sounds "
+"this first, and the radio is pulled down out of the way so you can hear it."
 msgstr ""
 
 msgid "Police car going by"
@@ -13408,15 +13407,15 @@ msgid ""
 "The marker again, with a vehicle going past a fifth of a second behind it. "
 "You have just passed an enforcement post and a marked car is around it. "
 "This one is news, not a warning: it sounds once you are already by, and it "
-"does not tell you whether anybody was sitting there. The demo plays it on "
-"the left, the side an ordinary post is on, and then on the right, the side "
-"a weigh station is on."
+"means an officer was sitting there. The demo plays it on the left, the side "
+"an ordinary post is on, and then on the right, the side a weigh station is "
+"on."
 msgstr ""
 
 msgid ""
-"Past a post with somebody in it, at any enforcement presence setting. Past "
-"an empty one, only with presence set to full. Never past a scale that is "
-"being worked: there the approach bed carries the warning instead."
+"Past a post with an officer in it. An empty post is silent. Never past a "
+"scale that is being worked: there the weigh station approach sound carries "
+"the warning instead."
 msgstr ""
 
 msgid "Siren"
@@ -15865,8 +15864,9 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Assigned load. Enter accepts. Decline costs dispatch trust until your next "
-"promotion. F1 is details. Escape goes back."
+"Assigned load. Enter accepts. Declining costs reputation and uses one of "
+"your declines, which refill at your next promotion. F1 is details. Escape "
+"goes back."
 msgstr ""
 
 #. placeholders: {SENIOR_LOAD_CHOICE_LEVEL}
@@ -15987,8 +15987,8 @@ msgid "Decline and request another load: {remaining} decline{s_ending} left"
 msgstr ""
 
 msgid ""
-"Dispatch draws another load. Costs reputation from a budget that refills at "
-"the next level."
+"Dispatch picks another load. Costs reputation and one decline; declines "
+"refill at your next promotion."
 msgstr ""
 
 msgid "Review the rest of today's board"
@@ -24502,9 +24502,10 @@ msgstr ""
 msgid "ELD route note: {context}"
 msgstr ""
 
+#. placeholders: {control_name}, {control_name2}, {control_name3}
 msgid ""
-"ELD keys: Alt A time at the wheel, Alt S when the break is due, Alt D what "
-"ends this shift."
+"ELD keys: {control_name} time at the wheel, {control_name2} when the break "
+"is due, {control_name3} what ends this shift."
 msgstr ""
 
 msgid "Road chatter: enforcement reports are quiet in this mode."
@@ -31512,9 +31513,21 @@ msgstr ""
 msgid "Transmission: {else}"
 msgstr ""
 
+#. one sentence of a longer line
+msgid "Automatic shifts for you."
+msgstr ""
+
+#. placeholders: {control_shift_up}, {control_shift_down}
 msgid ""
-"Automatic shifts for you. Manual uses the clutch with W and Q to shift up "
-"and down."
+"Automatic shifts for you. Manual: hold the clutch, then {control_shift_up} "
+"shifts up and {control_shift_down} shifts down."
+msgstr ""
+
+#. placeholders: {control_shift_up}, {control_shift_down}
+#. one sentence of a longer line
+msgid ""
+"Manual: hold the clutch, then {control_shift_up} shifts up and "
+"{control_shift_down} shifts down."
 msgstr ""
 
 #. placeholders: {automatic_direction_changes}
@@ -31609,12 +31622,31 @@ msgstr ""
 msgid "Lane and edge cue volume: {cue_loudness_label}"
 msgstr ""
 
+#. placeholders: {control_lane_locator}
+#. one sentence of a longer line
 msgid ""
 "How loud the lane and edge cues are next to everything else: the "
-"rumble-strip and shoulder textures, the lane locator on I, and the warning "
-"bars before a hairpin. It rides on the Gameplay cues volume above and moves "
-"those cues alone. Quieter sits under the engine, standard matches it, "
-"louder cuts through."
+"rumble-strip and shoulder textures, the lane locator on "
+"{control_lane_locator}, and the warning bars before a hairpin."
+msgstr ""
+
+#. placeholders: {control_lane_locator}
+msgid ""
+"How loud the lane and edge cues are next to everything else: the "
+"rumble-strip and shoulder textures, the lane locator on "
+"{control_lane_locator}, and the warning bars before a hairpin. It rides on "
+"the Gameplay cues volume above and moves those cues alone. Quieter sits "
+"under the engine, standard matches it, louder cuts through."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"It rides on the Gameplay cues volume above and moves those cues alone."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Quieter sits under the engine, standard matches it, louder cuts through."
 msgstr ""
 
 #. placeholders: {else}
@@ -33312,7 +33344,7 @@ msgstr "Sự nghiệp, thiết bị và tiền bạc"
 
 msgid ""
 "New company hires get an assigned load. Load choice opens at level eight. "
-"Declining costs trust; low trust can remove load choice again."
+"Declining costs reputation; low dispatch trust can remove load choice again."
 msgstr ""
 
 msgid ""
