@@ -855,11 +855,21 @@ impl GameContext {
     /// frame never waits on the screen reader.
     pub fn update_event_voice_report(&mut self) {
         if self.event_pacer.wants_voice_report() || !self.held_events.is_empty() {
-            if let Some(report) = self.speech.event_voice_report() {
+            // Ask the voice the road lines are spoken by. With the SAPI
+            // event voice off they go to the main voice, and the idle event
+            // voice beside it would always answer quiet (owner's NVDA
+            // 2026.3 drive, 2026-11-03).
+            let report = if self.settings.sapi_events {
+                self.speech.event_voice_report()
+            } else {
+                self.speech.main_voice_report()
+            };
+            if let Some(report) = report {
                 self.event_pacer
                     .observe_voice(report.speaking, report.age.as_secs_f64());
             }
         }
+        self.note_voice_reporting();
         self.release_held_event();
     }
 

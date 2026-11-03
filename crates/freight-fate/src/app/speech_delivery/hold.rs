@@ -168,6 +168,25 @@ impl GameContext {
         }
     }
 
+    /// Log once when the road voice starts or stops reporting whether it
+    /// is speaking, so a session log says whether holding was in play.
+    pub(super) fn note_voice_reporting(&mut self) {
+        let reporting = self.event_pacer.voice_reporting();
+        if reporting != self.voice_reporting_logged {
+            self.voice_reporting_logged = reporting;
+            let voice = if self.settings.sapi_events {
+                self.speech.event_backend_name()
+            } else {
+                self.speech.backend_name()
+            };
+            log::info!(
+                target: TRANSCRIPT_TARGET,
+                "[hold] {voice} {} whether it is speaking",
+                if reporting { "reports" } else { "stopped reporting" }
+            );
+        }
+    }
+
     /// How many road lines are waiting for the voice to fall quiet.
     pub fn held_event_count(&self) -> usize {
         self.held_events.len()

@@ -216,6 +216,8 @@ pub struct GameContext {
     /// Road lines waiting for the event voice to fall quiet (see
     /// `speech_delivery::hold`).
     pub(crate) held_events: VecDeque<super::speech_delivery::HeldEvent>,
+    /// Whether the last `[hold]` log line said the road voice reports.
+    pub(crate) voice_reporting_logged: bool,
 
     // -- music rotation ----------------------------------------------------------------
     pub(crate) music_pool_positions: HashMap<(String, Vec<String>), usize>,
@@ -298,6 +300,7 @@ impl GameContext {
             ladder_last: HashMap::new(),
             handed_back: VecDeque::new(),
             held_events: VecDeque::new(),
+            voice_reporting_logged: false,
             music_pool_positions: HashMap::new(),
             music_pool_last: HashMap::new(),
             music_rotation_pool: None,

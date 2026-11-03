@@ -190,3 +190,20 @@ fn test_without_reports_lines_go_straight_to_the_voice() {
     assert_eq!(app.ctx.held_event_count(), 0);
     app.shutdown();
 }
+
+#[test]
+fn test_with_both_voices_on_the_screen_reader_lines_still_wait() {
+    // SAPI event voice off: road lines go to the main voice, and that is
+    // the voice asked.
+    let mut app = TestApp::new();
+    let clock = app.fake_pacer_clock();
+    app.ctx.settings.sapi_events = false;
+    talking(&mut app);
+    app.ctx
+        .say_event_with("Rest area in 5 miles.", SayEvent::queued());
+    assert_eq!(app.ctx.held_event_count(), 1);
+    clock.advance(1.0);
+    frame(&mut app, false);
+    assert!(heard(&app, "Rest area"));
+    app.shutdown();
+}
