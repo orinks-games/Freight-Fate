@@ -45,6 +45,7 @@ mod app_playtest_levers;
 mod app_smoke;
 mod app_speech_audio;
 mod app_speech_ducking;
+mod app_speech_hold;
 mod app_state_stack;
 mod app_touch_gestures;
 mod audio_backends;

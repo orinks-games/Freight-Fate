@@ -57,6 +57,9 @@ macro_rules! transcript {
     };
 }
 
+mod hold;
+pub(crate) use hold::{EventLine, HeldEvent};
+
 /// How many hand-backs `GameContext::handed_back` keeps. An audit trail for a
 /// bench run, not a history: a long session must not grow it without end.
 const HANDED_BACK_KEPT: usize = 512;
@@ -634,7 +637,7 @@ impl GameContext {
     pub fn say_event_with(&mut self, text: impl IntoSpoken, opts: SayEvent) {
         let spoken = text.into_spoken();
         let SayEvent {
-            mut interrupt,
+            interrupt,
             review,
             priority,
             key,
@@ -738,10 +741,40 @@ impl GameContext {
             }
             return;
         }
+        let line = EventLine {
+            text,
+            priority,
+            interrupt,
+            protect: protect_for(category),
+            valid,
+            key: key.map(str::to_string),
+            receipt,
+            review,
+        };
+        if self.should_hold_event(&line) {
+            self.hold_event(line);
+            return;
+        }
+        self.deliver_event(line);
+    }
+
+    /// Hand a road line to the voice now: the pacer's verdict, the speech
+    /// call, the receipt, the duck, the hand-back, and message review.
+    pub(crate) fn deliver_event(&mut self, line: EventLine) {
+        let EventLine {
+            text,
+            priority,
+            mut interrupt,
+            protect,
+            valid,
+            key,
+            receipt,
+            review,
+        } = line;
+        let key = key.as_deref();
         transcript!("[event] {}", text);
         self.event_pacer.note_spoken(&text, key);
         let mut cut = None;
-        let protect = protect_for(category);
         if self.settings.sapi_events {
             if interrupt {
                 cut = self
@@ -820,13 +853,14 @@ impl GameContext {
     /// playing, and the threaded sink answers from its last report, so the
     /// frame never waits on the screen reader.
     pub fn update_event_voice_report(&mut self) {
-        if !self.event_pacer.wants_voice_report() {
-            return;
+        if self.event_pacer.wants_voice_report() || !self.held_events.is_empty() {
+            if let Some(report) = self.speech.event_voice_report() {
+                self.event_pacer
+                    .observe_voice(report.speaking, report.age.as_secs_f64());
+            }
         }
-        if let Some(report) = self.speech.event_voice_report() {
-            self.event_pacer
-                .observe_voice(report.speaking, report.age.as_secs_f64());
-        }
+        self.release_held_event();
+        self.release_overdue_held();
     }
 
     /// Per-frame: bring the mix back once the event voice falls silent.
@@ -866,12 +900,14 @@ impl GameContext {
     /// (tester transcript, 2026-08-11).
     pub fn pause_event_speech(&mut self) {
         self.event_pacer.pause();
+        self.held_events.clear();
         self.speech.stop_event();
     }
 
     /// Back at the wheel; nothing from before the pause is news.
     pub fn resume_event_speech(&mut self) {
         self.event_pacer.resume();
+        self.held_events.clear();
         self.speech.stop_event();
     }
 
@@ -956,6 +992,7 @@ impl GameContext {
 
     pub fn stop_event_speech(&mut self) {
         self.event_pacer.reset();
+        self.held_events.clear();
         self.speech.stop_event();
     }
 
@@ -967,6 +1004,7 @@ impl GameContext {
     /// the game.
     pub fn stop_speech(&mut self) {
         self.event_pacer.reset();
+        self.held_events.clear();
         self.speech.stop_main();
         self.speech.stop_event();
     }

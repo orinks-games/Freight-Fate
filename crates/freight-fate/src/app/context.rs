@@ -213,6 +213,9 @@ pub struct GameContext {
     /// from what the VOICE received has to be able to tell the two apart; the
     /// playtest rig reads this. Bounded: only the recent ones are kept.
     pub(crate) handed_back: VecDeque<String>,
+    /// Road lines waiting for the event voice to fall quiet (see
+    /// `speech_delivery::hold`).
+    pub(crate) held_events: VecDeque<super::speech_delivery::HeldEvent>,
 
     // -- music rotation ----------------------------------------------------------------
     pub(crate) music_pool_positions: HashMap<(String, Vec<String>), usize>,
@@ -294,6 +297,7 @@ impl GameContext {
             ladder_said: HashSet::new(),
             ladder_last: HashMap::new(),
             handed_back: VecDeque::new(),
+            held_events: VecDeque::new(),
             music_pool_positions: HashMap::new(),
             music_pool_last: HashMap::new(),
             music_rotation_pool: None,
