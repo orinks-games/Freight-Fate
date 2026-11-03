@@ -58,7 +58,7 @@ macro_rules! transcript {
 }
 
 mod hold;
-pub(crate) use hold::{EventLine, HeldEvent};
+pub(crate) use hold::{EventLine, HeldEvent, VoiceWatch};
 
 /// How many hand-backs `GameContext::handed_back` keeps. An audit trail for a
 /// bench run, not a history: a long session must not grow it without end.
@@ -395,6 +395,7 @@ impl GameContext {
             cut = self.event_pacer.note_channel_purged();
         }
         self.speech.say(&text, interrupt);
+        self.note_main_said();
         self.log_mostly_heard_cut();
         if let Some(cut) = cut {
             self.requeue_cut_event(cut);
@@ -846,31 +847,6 @@ impl GameContext {
         }
         self.speech_ducked = true;
         self.audio.set_speech_duck(SPEECH_DUCK_LEVEL);
-    }
-
-    /// Per-frame: let the event voice correct the pacer's estimate when it
-    /// can say whether it is speaking (NVDA 2026.3 and later, SAPI,
-    /// OneCore). Asked only while the estimate says a line could still be
-    /// playing, and the threaded sink answers from its last report, so the
-    /// frame never waits on the screen reader.
-    pub fn update_event_voice_report(&mut self) {
-        if self.event_pacer.wants_voice_report() || !self.held_events.is_empty() {
-            // Ask the voice the road lines are spoken by. With the SAPI
-            // event voice off they go to the main voice, and the idle event
-            // voice beside it would always answer quiet (owner's NVDA
-            // 2026.3 drive, 2026-11-03).
-            let report = if self.settings.sapi_events {
-                self.speech.event_voice_report()
-            } else {
-                self.speech.main_voice_report()
-            };
-            if let Some(report) = report {
-                self.event_pacer
-                    .observe_voice(report.speaking, report.age.as_secs_f64());
-            }
-        }
-        self.note_voice_reporting();
-        self.release_held_event();
     }
 
     /// Per-frame: bring the mix back once the event voice falls silent.

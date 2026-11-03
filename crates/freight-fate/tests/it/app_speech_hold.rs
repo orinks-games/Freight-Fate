@@ -207,3 +207,35 @@ fn test_with_both_voices_on_the_screen_reader_lines_still_wait() {
     assert!(heard(&app, "Rest area"));
     app.shutdown();
 }
+
+#[test]
+fn test_a_road_line_waits_for_an_info_readout_on_the_shared_voice() {
+    // Both voices on the screen reader, long after the last road line: the
+    // player asks for the clock, and a road line raised in the same frame
+    // waits for the readout instead of going out over it (owner's NVDA
+    // 2026.3 drive, 2026-11-03).
+    let mut app = TestApp::new();
+    let clock = app.fake_pacer_clock();
+    app.ctx.settings.sapi_events = false;
+    talking(&mut app);
+    for _ in 0..20 {
+        clock.advance(1.0);
+        frame(&mut app, false);
+    }
+
+    app.ctx.say("It's 3:15 PM.");
+    app.ctx
+        .say_event_with("Rest area in 5 miles.", SayEvent::queued());
+    assert_eq!(app.ctx.held_event_count(), 1, "the readout is speech");
+
+    clock.advance(0.1);
+    frame(&mut app, false);
+    assert!(!heard(&app, "Rest area"), "too soon for the voice to start");
+    clock.advance(1.0);
+    frame(&mut app, true);
+    assert!(!heard(&app, "Rest area"), "still reading the clock");
+    clock.advance(1.0);
+    frame(&mut app, false);
+    assert!(heard(&app, "Rest area"));
+    app.shutdown();
+}

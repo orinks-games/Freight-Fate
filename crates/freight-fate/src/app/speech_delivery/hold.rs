@@ -32,6 +32,28 @@ const HELD_IMPORTANT_MAX_S: f64 = 8.0;
 /// behind whatever the voice is saying, quiet or not.
 const HELD_CRITICAL_MAX_S: f64 = 6.0;
 
+/// How long after a main-channel line is handed to a shared voice a quiet
+/// report still counts as stale: the screen reader may not have started on
+/// it yet. The pacer's start grace, for lines it never sees.
+const MAIN_START_GRACE_S: f64 = 0.4;
+
+/// What the road voice has said about itself.
+#[derive(Default)]
+pub(crate) struct VoiceWatch {
+    /// The voice has answered at least once since the event-voice setting
+    /// last changed (the value is that setting), so it is asked every
+    /// frame from then on: an info readout on the main channel must count
+    /// as speech even when no road line is playing.
+    answers_for: Option<bool>,
+    /// When the latest report was taken, on the pacer's clock.
+    seen_at: f64,
+    /// When the last main-channel line went to a voice shared with the
+    /// road, on the pacer's clock.
+    main_said_at: f64,
+    /// Whether the last `[hold]` log line said the voice reports.
+    logged: bool,
+}
+
 /// One road line after the speech ladder and the repeat checks, ready for
 /// the voice.
 pub(crate) struct EventLine {
@@ -57,7 +79,7 @@ impl GameContext {
         !line.interrupt
             && !line.receipt
             && self.event_pacer.voice_reporting()
-            && (!self.held_events.is_empty() || !self.event_pacer.voice_quiet())
+            && (!self.held_events.is_empty() || !self.road_voice_quiet())
     }
 
     /// Queue a line for the quiet voice. A newer line about the same
@@ -96,7 +118,7 @@ impl GameContext {
         }
         self.drop_stale_held();
         self.release_overdue_critical();
-        if !self.event_pacer.voice_quiet() {
+        if !self.road_voice_quiet() {
             return;
         }
         if let Some(index) = self.next_held_index() {
@@ -172,8 +194,8 @@ impl GameContext {
     /// is speaking, so a session log says whether holding was in play.
     pub(super) fn note_voice_reporting(&mut self) {
         let reporting = self.event_pacer.voice_reporting();
-        if reporting != self.voice_reporting_logged {
-            self.voice_reporting_logged = reporting;
+        if reporting != self.voice_watch.logged {
+            self.voice_watch.logged = reporting;
             let voice = if self.settings.sapi_events {
                 self.speech.event_backend_name()
             } else {
@@ -185,6 +207,61 @@ impl GameContext {
                 if reporting { "reports" } else { "stopped reporting" }
             );
         }
+    }
+
+    /// Per-frame: let the road voice correct the pacer's estimate when it
+    /// can say whether it is speaking (NVDA 2026.3 and later, SAPI,
+    /// OneCore), then speak the next held line if it is quiet. The threaded
+    /// sink answers from its last report, so the frame never waits on the
+    /// screen reader.
+    pub fn update_event_voice_report(&mut self) {
+        let sapi_events = self.settings.sapi_events;
+        if self
+            .voice_watch
+            .answers_for
+            .is_some_and(|s| s != sapi_events)
+        {
+            self.voice_watch.answers_for = None;
+        }
+        if self.event_pacer.wants_voice_report()
+            || !self.held_events.is_empty()
+            || self.voice_watch.answers_for.is_some()
+        {
+            // Ask the voice the road lines are spoken by. With the SAPI
+            // event voice off they go to the main voice, and the idle event
+            // voice beside it would always answer quiet (owner's NVDA
+            // 2026.3 drive, 2026-11-03).
+            let report = if sapi_events {
+                self.speech.event_voice_report()
+            } else {
+                self.speech.main_voice_report()
+            };
+            if let Some(report) = report {
+                let age = report.age.as_secs_f64();
+                self.voice_watch.answers_for = Some(sapi_events);
+                self.voice_watch.seen_at = self.event_pacer.now() - age;
+                self.event_pacer.observe_voice(report.speaking, age);
+            }
+        }
+        self.note_voice_reporting();
+        self.release_held_event();
+    }
+
+    /// Note a main-channel line handed to the voice. When that voice also
+    /// carries the road, a readout is speech the road lines must wait for,
+    /// though the pacer never sees it (owner's second NVDA 2026.3 drive,
+    /// 2026-11-03: a held line went out the instant Clock was pressed).
+    pub(super) fn note_main_said(&mut self) {
+        if self.event_voice_shares_main() {
+            self.voice_watch.main_said_at = self.event_pacer.now();
+        }
+    }
+
+    /// Quiet by a report taken after the last line either channel handed
+    /// to the road voice had time to start.
+    fn road_voice_quiet(&mut self) -> bool {
+        self.event_pacer.voice_quiet()
+            && self.voice_watch.seen_at >= self.voice_watch.main_said_at + MAIN_START_GRACE_S
     }
 
     /// How many road lines are waiting for the voice to fall quiet.
