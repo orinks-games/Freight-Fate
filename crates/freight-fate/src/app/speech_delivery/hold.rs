@@ -8,9 +8,11 @@
 //! held line that is still true is spoken, and chatter that waited past its
 //! budget is dropped instead of read late.
 //!
-//! Interrupting lines, lines waiting on a delivery receipt, and every line
-//! while the voice cannot report go straight to the voice, exactly as
-//! before.
+//! Held chatter keeps the pacer's 3-second budget; a route line waits up
+//! to 8 seconds; a queued critical line is never dropped and goes after 6
+//! seconds even if the voice never falls quiet. Interrupting lines, lines
+//! waiting on a delivery receipt, and every line while the voice cannot
+//! report go straight to the voice, exactly as before.
 
 use ff_core::message_log::MessageCategory;
 
@@ -18,11 +20,17 @@ use crate::speech::{EventPriority, Protect, Valid};
 
 use super::{GameContext, TRANSCRIPT_TARGET};
 
-/// How long an `Important` or `Critical` line waits for a quiet voice
-/// before it is spoken anyway. A screen reader that never falls quiet
-/// (a long document read aloud beside the game) must not swallow a road
-/// instruction; this is roughly one long readout.
-const HELD_URGENT_MAX_S: f64 = 12.0;
+/// How long an `Important` line may wait before its moment has passed.
+/// Longer than chatter's budget, so a road instruction outlasts a readout
+/// or two; past it, the road has moved on and usually says it again. The
+/// owner's drive on 2026-11-03 heard "Construction zone ahead, cruise
+/// easing to 55" spoken twelve seconds late, after a hazard brake, and
+/// then again when cruise resumed.
+const HELD_IMPORTANT_MAX_S: f64 = 8.0;
+
+/// A queued `Critical` line is never dropped: past this wait it is spoken
+/// behind whatever the voice is saying, quiet or not.
+const HELD_CRITICAL_MAX_S: f64 = 6.0;
 
 /// One road line after the speech ladder and the repeat checks, ready for
 /// the voice.
@@ -86,10 +94,11 @@ impl GameContext {
             }
             return;
         }
+        self.drop_stale_held();
+        self.release_overdue_critical();
         if !self.event_pacer.voice_quiet() {
             return;
         }
-        self.drop_stale_held();
         if let Some(index) = self.next_held_index() {
             if let Some(held) = self.held_events.remove(index) {
                 self.deliver_event(held.line);
@@ -98,8 +107,9 @@ impl GameContext {
     }
 
     /// Drop held lines whose moment has passed: chatter older than its
-    /// wait budget, and anything its own check says is no longer true.
-    /// An urgent line past `HELD_URGENT_MAX_S` is not dropped; it is next.
+    /// wait budget, an `Important` line older than `HELD_IMPORTANT_MAX_S`,
+    /// and anything its own check says is no longer true. A `Critical` line
+    /// is never dropped for age.
     fn drop_stale_held(&mut self) {
         let now = self.event_pacer.now();
         let ambient_budget = self.event_pacer.wait_budget_s(EventPriority::Ambient);
@@ -107,7 +117,11 @@ impl GameContext {
         while let Some(held) = self.held_events.pop_front() {
             let waited = now - held.raised_at;
             let untrue = held.line.valid.as_ref().is_some_and(|valid| !valid());
-            let stale = held.line.priority == EventPriority::Ambient && waited > ambient_budget;
+            let stale = match held.line.priority {
+                EventPriority::Ambient => waited > ambient_budget,
+                EventPriority::Important => waited > HELD_IMPORTANT_MAX_S,
+                EventPriority::Critical => false,
+            };
             if untrue || stale {
                 log::info!(
                     target: TRANSCRIPT_TARGET,
@@ -139,13 +153,13 @@ impl GameContext {
             .map(|(index, _)| index)
     }
 
-    /// Per-frame: an urgent line held past `HELD_URGENT_MAX_S` goes now,
-    /// quiet voice or not.
-    pub(super) fn release_overdue_held(&mut self) {
+    /// A `Critical` line held past `HELD_CRITICAL_MAX_S` goes now, queued
+    /// behind whatever the voice is saying.
+    fn release_overdue_critical(&mut self) {
         let now = self.event_pacer.now();
         let overdue = self.held_events.iter().position(|held| {
-            held.line.priority >= EventPriority::Important
-                && now - held.raised_at > HELD_URGENT_MAX_S
+            held.line.priority == EventPriority::Critical
+                && now - held.raised_at > HELD_CRITICAL_MAX_S
         });
         if let Some(index) = overdue {
             if let Some(held) = self.held_events.remove(index) {

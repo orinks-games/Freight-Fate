@@ -104,19 +104,63 @@ fn test_an_interrupting_line_is_never_held() {
 }
 
 #[test]
-fn test_an_urgent_line_is_not_kept_waiting_forever() {
+fn test_a_route_line_whose_moment_passed_is_dropped() {
+    // Held behind a hazard brake and its aftermath for over eight seconds:
+    // the road has moved on, and saying it now would only precede the
+    // game saying it again.
     let mut app = TestApp::new();
     let clock = rig(&mut app);
     talking(&mut app);
     app.ctx.say_event_with(
-        "Exit 42 in half a mile.",
+        "Construction zone ahead, cruise easing to 55.",
         SayEvent::queued().priority(EventPriority::Important),
     );
-    for _ in 0..30 {
+    for _ in 0..18 {
         clock.advance(0.5);
         frame(&mut app, true);
     }
-    assert!(heard(&app, "Exit 42"));
+    assert_eq!(app.ctx.held_event_count(), 0);
+    frame(&mut app, false);
+    assert!(!heard(&app, "cruise easing"));
+    app.shutdown();
+}
+
+#[test]
+fn test_a_queued_critical_line_is_never_dropped() {
+    let mut app = TestApp::new();
+    let clock = rig(&mut app);
+    talking(&mut app);
+    app.ctx.say_event_with(
+        "Engine stalled.",
+        SayEvent::queued().priority(EventPriority::Critical),
+    );
+    for _ in 0..14 {
+        clock.advance(0.5);
+        frame(&mut app, true);
+    }
+    assert!(heard(&app, "Engine stalled."));
+    app.shutdown();
+}
+
+#[test]
+fn test_chatter_is_held_not_dropped_by_the_estimate() {
+    // With the voice reporting, the hold judges chatter by how long it
+    // actually waited, not by the length-based estimate of what is ahead.
+    let mut app = TestApp::new();
+    let clock = rig(&mut app);
+    app.ctx.say_event_with(
+        "Open weigh station ahead in two miles. Have your paperwork ready.",
+        SayEvent::queued(),
+    );
+    frame(&mut app, true);
+    app.ctx.say_event_with(
+        "End of construction zone. Speed limit 65.",
+        SayEvent::queued(),
+    );
+    assert_eq!(app.ctx.held_event_count(), 1);
+    clock.advance(1.0);
+    frame(&mut app, false);
+    assert!(heard(&app, "End of construction zone"));
     app.shutdown();
 }
 

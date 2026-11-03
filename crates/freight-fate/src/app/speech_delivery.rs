@@ -726,6 +726,7 @@ impl GameContext {
         if !interrupt
             && priority == EventPriority::Ambient
             && self.settings.sapi_events
+            && !self.event_pacer.voice_reporting()
             && self.event_pacer.would_start_stale(&text, priority)
         {
             // Chatter that would start speaking after the moment it
@@ -860,7 +861,6 @@ impl GameContext {
             }
         }
         self.release_held_event();
-        self.release_overdue_held();
     }
 
     /// Per-frame: bring the mix back once the event voice falls silent.
