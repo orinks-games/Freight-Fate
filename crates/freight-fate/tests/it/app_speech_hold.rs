@@ -252,7 +252,8 @@ fn test_chatter_outlasts_a_long_readout_instead_of_going_stale() {
         clock.advance(1.0);
         frame(&mut app, false);
     }
-    app.ctx.say("It's 3:15 PM, day 2. Next rest due in 6 hours.");
+    app.ctx
+        .say("It's 3:15 PM, day 2. Next rest due in 6 hours.");
     app.ctx.say_event_with(
         "Exit traffic, 2 miles. Hold right.",
         SayEvent::queued().priority(EventPriority::Ambient),
