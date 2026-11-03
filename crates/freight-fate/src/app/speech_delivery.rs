@@ -804,13 +804,29 @@ impl GameContext {
     /// voice itself getting louder. Restoration is edge-driven, not polled:
     /// `update_speech_duck` runs once per frame from the main loop and
     /// restores the mix when the pacer's projection -- the same estimate the
-    /// staleness budget runs on -- says the voice is done.
+    /// staleness budget runs on, corrected by the voice's own reports where
+    /// it gives them -- says the voice is done.
     fn engage_speech_duck(&mut self) {
         if !self.settings.duck_audio_for_speech {
             return;
         }
         self.speech_ducked = true;
         self.audio.set_speech_duck(SPEECH_DUCK_LEVEL);
+    }
+
+    /// Per-frame: let the event voice correct the pacer's estimate when it
+    /// can say whether it is speaking (NVDA 2026.3 and later, SAPI,
+    /// OneCore). Asked only while the estimate says a line could still be
+    /// playing, and the threaded sink answers from its last report, so the
+    /// frame never waits on the screen reader.
+    pub fn update_event_voice_report(&mut self) {
+        if !self.event_pacer.wants_voice_report() {
+            return;
+        }
+        if let Some(report) = self.speech.event_voice_report() {
+            self.event_pacer
+                .observe_voice(report.speaking, report.age.as_secs_f64());
+        }
     }
 
     /// Per-frame: bring the mix back once the event voice falls silent.

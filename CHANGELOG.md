@@ -15,6 +15,7 @@
 
 ### Changed
 
+- **Game sounds step back for speech only while NVDA 2026.3 or SAPI is speaking.** Older NVDA versions keep the timing they had.
 - **Daily development releases are now labeled Beta.** Stable releases remain the default download.
 
 - **Updates are signed, and only what changed is downloaded.** The game now checks every update against Freight Fate's own signature before installing it, and skips any large file you already have, not only the music and radio packs. An update stopped part-way, by a power cut for instance, is put back at the next start.

@@ -10,7 +10,7 @@ authors = ["Joshua Tubbs (Orinks)"]
 build = "build.rs"
 
 [build-dependencies]
-hearken-bake = { git = "https://github.com/orinks-games/hearken", rev = "8ebfb69e3690a89c5312f4050fdeb9868826d130" }
+hearken-bake = { git = "https://github.com/orinks-games/hearken", rev = "a9d452a76365ce0e933050611d02d65fd616617a" }
 
 [dependencies]
 chacha20poly1305 = { version = "0.11", default-features = false, features = ["alloc"] }

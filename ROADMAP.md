@@ -41,6 +41,8 @@ bookmarks usable.
 
 ## 1.9 in flight (`feat/career-1.9`)
 
+- [x] The event voice reports when it stops (owner, 2026-11-03): NVDA 2026.3 added `nvdaController_isSpeaking`, which Prism 0.18.3 already wraps; SAPI and OneCore answer too. Hearken's speech worker asks it, at most every 100 ms and only while a line could still be playing, and the pacer ends its length-based estimate when the voice reports silence, or holds it open while the voice is still talking. Game sounds stepping back for speech, the controller Back button's "anything speaking" check and the staleness budget all follow. Older NVDA and JAWS keep the estimate. Waiting on a listening pass with a fast and a slow NVDA rate.
+
 - [x] YouTube links in personal playlists (owner, 2026-10-30): a playlist entry that is a YouTube page, livestream or video, plays through a yt-dlp the player installs (Playlists folder first, then the PATH; Homebrew's folders on a Mac). Not shipped with the game: size, upkeep and YouTube's terms. The shared station list and the site's suggestion form still take only real streams. Each fresh tune asks yt-dlp for the address, kept until ten minutes before its own expiry. A playlist that will not play because yt-dlp is missing says so.
 
 - [x] Optional menu accelerator keys (owner, 2026-10-24): Gameplay, Controls offers immediate activation for unique initials; duplicate initials retain selection-only cycling. Off by default.
