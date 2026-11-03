@@ -239,3 +239,32 @@ fn test_a_road_line_waits_for_an_info_readout_on_the_shared_voice() {
     assert!(heard(&app, "Rest area"));
     app.shutdown();
 }
+
+#[test]
+fn test_chatter_outlasts_a_long_readout_instead_of_going_stale() {
+    // A ten-second Clock readout used to cost "Exit traffic, 2 miles. Hold
+    // right" its 3-second budget (owner's third drive, 2026-11-03).
+    let mut app = TestApp::new();
+    let clock = app.fake_pacer_clock();
+    app.ctx.settings.sapi_events = false;
+    talking(&mut app);
+    for _ in 0..20 {
+        clock.advance(1.0);
+        frame(&mut app, false);
+    }
+    app.ctx.say("It's 3:15 PM, day 2. Next rest due in 6 hours.");
+    app.ctx.say_event_with(
+        "Exit traffic, 2 miles. Hold right.",
+        SayEvent::queued().priority(EventPriority::Ambient),
+    );
+    assert_eq!(app.ctx.held_event_count(), 1);
+    for _ in 0..80 {
+        clock.advance(0.1);
+        frame(&mut app, true);
+    }
+    assert_eq!(app.ctx.held_event_count(), 1, "kept through the readout");
+    clock.advance(0.1);
+    frame(&mut app, false);
+    assert!(heard(&app, "Exit traffic"));
+    app.shutdown();
+}

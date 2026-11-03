@@ -37,6 +37,12 @@ const HELD_CRITICAL_MAX_S: f64 = 6.0;
 /// it yet. The pacer's start grace, for lines it never sees.
 const MAIN_START_GRACE_S: f64 = 0.4;
 
+/// The most waiting time a player-asked readout may excuse from a held
+/// line's budget. A road line waits out a Clock or Route readout (about ten
+/// seconds at a normal rate) without going stale, but a player reading
+/// readout after readout does not hold the road back forever.
+const HELD_READOUT_MAX_S: f64 = 15.0;
+
 /// What the road voice has said about itself.
 #[derive(Default)]
 pub(crate) struct VoiceWatch {
@@ -52,6 +58,11 @@ pub(crate) struct VoiceWatch {
     main_said_at: f64,
     /// Whether the last `[hold]` log line said the voice reports.
     logged: bool,
+    /// A main-channel line on the shared voice has not yet been followed
+    /// by a quiet report: the player is hearing a readout.
+    readout_playing: bool,
+    /// The previous frame's pacer time, to measure readout time.
+    last_frame_at: Option<f64>,
 }
 
 /// One road line after the speech ladder and the repeat checks, ready for
@@ -71,6 +82,9 @@ pub(crate) struct EventLine {
 pub(crate) struct HeldEvent {
     line: EventLine,
     raised_at: f64,
+    /// Seconds of that wait spent behind a player-asked readout, which do
+    /// not count against the line's budget (up to `HELD_READOUT_MAX_S`).
+    readout_s: f64,
 }
 
 impl GameContext {
@@ -99,7 +113,11 @@ impl GameContext {
         }
         log::info!(target: TRANSCRIPT_TARGET, "[hold] {}", line.text);
         let raised_at = self.event_pacer.now();
-        self.held_events.push_back(HeldEvent { line, raised_at });
+        self.held_events.push_back(HeldEvent {
+            line,
+            raised_at,
+            readout_s: 0.0,
+        });
     }
 
     /// Per-frame: speak the next held line once the voice is quiet.
@@ -137,7 +155,11 @@ impl GameContext {
         let ambient_budget = self.event_pacer.wait_budget_s(EventPriority::Ambient);
         let mut kept = std::collections::VecDeque::with_capacity(self.held_events.len());
         while let Some(held) = self.held_events.pop_front() {
-            let waited = now - held.raised_at;
+            // The owner's third drive (2026-11-03) lost "Exit traffic, 2
+            // miles. Hold right" and a 5-mile scale notice to a ten-second
+            // Clock readout: chatter's 3-second budget is for waiting on
+            // other road lines, not on an answer the player asked for.
+            let waited = now - held.raised_at - held.readout_s;
             let untrue = held.line.valid.as_ref().is_some_and(|valid| !valid());
             let stale = match held.line.priority {
                 EventPriority::Ambient => waited > ambient_budget,
@@ -244,7 +266,27 @@ impl GameContext {
             }
         }
         self.note_voice_reporting();
+        self.excuse_readout_time();
         self.release_held_event();
+    }
+
+    /// Credit held lines with the frame's time while a readout plays.
+    fn excuse_readout_time(&mut self) {
+        let now = self.event_pacer.now();
+        let elapsed = self
+            .voice_watch
+            .last_frame_at
+            .map_or(0.0, |last| (now - last).max(0.0));
+        self.voice_watch.last_frame_at = Some(now);
+        if self.voice_watch.readout_playing && self.road_voice_quiet() {
+            self.voice_watch.readout_playing = false;
+        }
+        if !self.voice_watch.readout_playing || !self.event_pacer.voice_reporting() {
+            return;
+        }
+        for held in &mut self.held_events {
+            held.readout_s = (held.readout_s + elapsed).min(HELD_READOUT_MAX_S);
+        }
     }
 
     /// Note a main-channel line handed to the voice. When that voice also
@@ -254,6 +296,7 @@ impl GameContext {
     pub(super) fn note_main_said(&mut self) {
         if self.event_voice_shares_main() {
             self.voice_watch.main_said_at = self.event_pacer.now();
+            self.voice_watch.readout_playing = true;
         }
     }
 
