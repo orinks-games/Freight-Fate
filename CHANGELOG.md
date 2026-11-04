@@ -17,6 +17,7 @@
 
 ### Changed
 
+- **Citations now clear from your record in 30 game days, and serious violations and crashes in 90.** Two serious violations within 180 days, not three years, suspend your CDL.
 - **Road announcements now wait for NVDA 2026.3 or SAPI to finish speaking.** The most urgent goes next; stale chatter is skipped.
 - **Game sounds step back for speech only while NVDA 2026.3 or SAPI is speaking.** Older NVDA versions keep the timing they had.
 - **Daily development releases are now labeled Beta.** Stable releases remain the default download.
@@ -39,6 +40,7 @@
 - **Halloween week has more billboards, and they no longer repeat the same two lines.** They come up less often, and some are about the state you are in.
 - **Adaptive cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
 - **Full lane keeping now leaves a lane that a work zone closes.** It moves over when the signs come up, so All assists no longer drives into the barrels.
+- **Barrel citations from before that fix come off your record.** The fine is refunded the first time you load the career.
 - **Facility stopping assistance no longer gets you fined at a chain control.** A truck pulling into the chain-up area to put chains on is not cited.
 - **A crash on Windows now writes its cause into game.log,** so a bug report with the log shows what went wrong.
 - **A co-driver no longer crawls at 20 miles per hour after a downhill work zone.** They kept braking for the hill and ran out of hours.

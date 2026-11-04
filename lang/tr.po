@@ -8863,6 +8863,9 @@ msgstr "Ücret avansı sınırına ulaşıldı. Kapatmak için bir yük teslim e
 msgid "lifetime"
 msgstr "ömür boyu"
 
+msgid "Drove through the barrels in a work zone"
+msgstr "Yol çalışmasında varillerin arasından geçti"
+
 msgid "Great Lakes Training Transport"
 msgstr "Great Lakes Training Transport"
 
@@ -8996,15 +8999,19 @@ msgstr "sicil"
 msgid "citations"
 msgstr "ceza"
 
+#. placeholders: {count_word}, {noun}, {REVIEW_WINDOW_DAYS}
+msgid "{count_word} {noun} in the last {REVIEW_WINDOW_DAYS} days"
+msgstr ""
+
 msgid "serious violation"
 msgstr "ciddi ihlal"
 
 msgid "serious violations"
 msgstr "ciddi ihlal"
 
-#. placeholders: {join}
-msgid "{join} in the last year"
-msgstr "son bir yılda {join}"
+#. placeholders: {count_word}, {noun}, {SERIOUS_REVIEW_WINDOW_DAYS}
+msgid "{count_word} {noun} in the last {SERIOUS_REVIEW_WINDOW_DAYS} days"
+msgstr ""
 
 msgid ", next year"
 msgstr ", gelecek yıl"
@@ -9243,12 +9250,12 @@ msgstr "güvenlik olayı"
 msgid "safety incidents"
 msgstr "güvenlik olayı"
 
+#. placeholders: {join}, {REVIEW_WINDOW_DAYS}
+msgid "{join} in the last {REVIEW_WINDOW_DAYS} days"
+msgstr ""
+
 msgid "crashes"
 msgstr "kaza"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join} ve {last}"
 
 msgid "major offense"
 msgstr "ağır suç"
@@ -9671,6 +9678,10 @@ msgstr "standart CDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "{endorsement_label}"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join} ve {last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -29166,22 +29177,35 @@ msgid ""
 "open."
 msgstr "Paranız ve tırınız güvende; dinlenme, onarım ve garaj hâlâ açık."
 
-msgid ""
-"That is a serious violation on your record. One more inside three years and "
-"your CDL is suspended for 60 days, and driving jobs stop until it clears."
-msgstr ""
-"Bu, sicilinizde ciddi bir ihlal. Üç yıl içinde bir tane daha olursa ticari "
-"ehliyetiniz 60 gün askıya alınır ve bu süre bitene kadar sürüş işleri durur."
-
-#. placeholders: {which}
+#. placeholders: {SERIOUS_WINDOW_DAYS}
 #. one sentence of a longer line
-msgid "That is your {which} serious violation in three years."
-msgstr "Bu, üç yıl içindeki {which} ciddi ihlaliniz."
-
-#. placeholders: {which}, {suspension_text}
 msgid ""
-"That is your {which} serious violation in three years. {suspension_text}"
-msgstr "Bu, üç yıl içindeki {which} ciddi ihlaliniz. {suspension_text}"
+"One more inside {SERIOUS_WINDOW_DAYS} days and your CDL is suspended for 60 "
+"days, and driving jobs stop until it clears."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "That is a serious violation on your record."
+msgstr ""
+
+#. placeholders: {SERIOUS_WINDOW_DAYS}
+msgid ""
+"That is a serious violation on your record. One more inside "
+"{SERIOUS_WINDOW_DAYS} days and your CDL is suspended for 60 days, and "
+"driving jobs stop until it clears."
+msgstr ""
+
+#. placeholders: {which}, {SERIOUS_WINDOW_DAYS}
+#. one sentence of a longer line
+msgid ""
+"That is your {which} serious violation in {SERIOUS_WINDOW_DAYS} days."
+msgstr ""
+
+#. placeholders: {which}, {SERIOUS_WINDOW_DAYS}, {suspension_text}
+msgid ""
+"That is your {which} serious violation in {SERIOUS_WINDOW_DAYS} days. "
+"{suspension_text}"
+msgstr ""
 
 msgid "This driver"
 msgstr "Bu şoför"
@@ -32804,9 +32828,6 @@ msgstr ""
 
 msgid "The work crew called it in"
 msgstr "Yol ekibi bildirdi"
-
-msgid "Drove through the barrels in a work zone"
-msgstr "Yol çalışmasında varillerin arasından geçti"
 
 #. placeholders: {grouped}
 #. one sentence of a longer line
@@ -39401,18 +39422,12 @@ msgstr ""
 #. placeholders: {standing}, {trust}, {current_text}
 msgid ""
 "Freight Fate now keeps a driving record for your career: citations, serious "
-"violations, and whether your CDL is clear. Two serious violations in three "
-"years suspend it; running from a police stop is a major offense that "
+"violations, and whether your CDL is clear. Two serious violations in 180 "
+"days suspend it; running from a police stop is a major offense that "
 "disqualifies it for a year. Reputation also decides how much freight "
 "dispatch shows you and how much choice you get. Nothing was reset or taken. "
 "{standing} {trust} {current_text}"
 msgstr ""
-"Freight Fate artık kariyeriniz için bir sürüş sicili tutuyor: cezalar, "
-"ciddi ihlaller ve CDL ehliyetinizin temiz olup olmadığı. Üç yılda iki ciddi "
-"ihlal onu askıya alır; polis durdurmasından kaçmak, onu bir yıl iptal "
-"ettiren ağır bir suçtur. İtibar ayrıca sevkiyatın size ne kadar yük "
-"göstereceğini ve ne kadar seçim hakkınız olacağını belirler. Hiçbir şey "
-"sıfırlanmadı ya da alınmadı. {standing} {trust} {current_text}"
 
 #. one sentence of a longer line
 msgid "Nothing was reset or taken."
@@ -39428,11 +39443,9 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"Two serious violations in three years suspend it; running from a police "
-"stop is a major offense that disqualifies it for a year."
+"Two serious violations in 180 days suspend it; running from a police stop "
+"is a major offense that disqualifies it for a year."
 msgstr ""
-"Üç yılda iki ciddi ihlal onu askıya alır; polis durdurmasından kaçmak, onu "
-"bir yıl iptal ettiren ağır bir suçtur."
 
 msgid "Save file updated"
 msgstr "Kayıt dosyası güncellendi"
@@ -41030,6 +41043,45 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "{join} in the last year"
+#~ msgstr "son bir yılda {join}"
+
+#~ msgid ""
+#~ "That is a serious violation on your record. One more inside three years and "
+#~ "your CDL is suspended for 60 days, and driving jobs stop until it clears."
+#~ msgstr ""
+#~ "Bu, sicilinizde ciddi bir ihlal. Üç yıl içinde bir tane daha olursa ticari "
+#~ "ehliyetiniz 60 gün askıya alınır ve bu süre bitene kadar sürüş işleri durur."
+
+#~ msgid "That is your {which} serious violation in three years."
+#~ msgstr "Bu, üç yıl içindeki {which} ciddi ihlaliniz."
+
+#~ msgid ""
+#~ "That is your {which} serious violation in three years. {suspension_text}"
+#~ msgstr "Bu, üç yıl içindeki {which} ciddi ihlaliniz. {suspension_text}"
+
+#~ msgid ""
+#~ "Freight Fate now keeps a driving record for your career: citations, serious "
+#~ "violations, and whether your CDL is clear. Two serious violations in three "
+#~ "years suspend it; running from a police stop is a major offense that "
+#~ "disqualifies it for a year. Reputation also decides how much freight "
+#~ "dispatch shows you and how much choice you get. Nothing was reset or taken. "
+#~ "{standing} {trust} {current_text}"
+#~ msgstr ""
+#~ "Freight Fate artık kariyeriniz için bir sürüş sicili tutuyor: cezalar, "
+#~ "ciddi ihlaller ve CDL ehliyetinizin temiz olup olmadığı. Üç yılda iki ciddi "
+#~ "ihlal onu askıya alır; polis durdurmasından kaçmak, onu bir yıl iptal "
+#~ "ettiren ağır bir suçtur. İtibar ayrıca sevkiyatın size ne kadar yük "
+#~ "göstereceğini ve ne kadar seçim hakkınız olacağını belirler. Hiçbir şey "
+#~ "sıfırlanmadı ya da alınmadı. {standing} {trust} {current_text}"
+
+#~ msgid ""
+#~ "Two serious violations in three years suspend it; running from a police "
+#~ "stop is a major offense that disqualifies it for a year."
+#~ msgstr ""
+#~ "Üç yılda iki ciddi ihlal onu askıya alır; polis durdurmasından kaçmak, onu "
+#~ "bir yıl iptal ettiren ağır bir suçtur."
 
 #~ msgid "Update channel: {else}"
 #~ msgstr "Güncelleme kanalı: {else}"

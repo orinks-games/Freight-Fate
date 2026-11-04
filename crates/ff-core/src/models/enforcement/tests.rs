@@ -963,11 +963,11 @@ fn cite(p: &mut FakeProfile, times: i64, at: f64) {
 fn a_record_over_the_review_floor_holds_a_company_driver_at_guarded() {
     let mut p = profile();
     p.game_hours = 400.0 * DAY;
-    cite(&mut p, 3, 300.0 * DAY);
+    cite(&mut p, 3, 380.0 * DAY);
     // Three is the floor, not over it.
     assert_eq!(record_band(&p), TRUST_FULL);
     assert_eq!(standing_band(&p), TRUST_FULL);
-    cite(&mut p, 1, 350.0 * DAY);
+    cite(&mut p, 1, 395.0 * DAY);
     assert_eq!(record_band(&p), TRUST_GUARDED);
     assert_eq!(standing_band(&p), TRUST_GUARDED);
     assert_eq!(standing_cause(&p), CAUSE_RECORD);
@@ -977,7 +977,7 @@ fn a_record_over_the_review_floor_holds_a_company_driver_at_guarded() {
         "{way_back}"
     );
     assert!(
-        way_back.contains("four citations in the last year"),
+        way_back.contains("four citations in the last 30 days"),
         "{way_back}"
     );
     assert!(way_back.contains("keeps it there until"), "{way_back}");
@@ -1036,14 +1036,14 @@ fn the_window_empties_and_the_hold_lets_go() {
 }
 
 /// The hold lifts when the record is back under the floor, not when its
-/// oldest entry leaves: a citation on day 10 and a serious violation on day
-/// 100 hold the review until the serious one ages out (2026-09-28).
+/// first entry leaves: a citation on day 100 and a serious violation on day
+/// 110 hold the review until the serious one ages out (2026-09-28).
 #[test]
 fn the_hold_lifts_when_the_record_is_back_under_the_floor() {
     let mut p = profile();
     p.game_hours = 120.0 * DAY;
-    cite(&mut p, 1, 10.0 * DAY);
-    p.record_mut().serious_violations.push(100.0 * DAY);
+    cite(&mut p, 1, 100.0 * DAY);
+    p.record_mut().serious_violations.push(110.0 * DAY);
     assert_eq!(record_band(&p), TRUST_GUARDED);
     let lifts = p
         .driving_record()
@@ -1052,8 +1052,8 @@ fn the_hold_lifts_when_the_record_is_back_under_the_floor() {
             c > CARRIER_REVIEW_CITATIONS || s >= CARRIER_REVIEW_SERIOUS
         })
         .expect("the review holds");
-    assert!((lifts - (100.0 + REVIEW_WINDOW_DAYS as f64) * DAY).abs() < 1e-6);
-    p.game_hours = (10.0 + REVIEW_WINDOW_DAYS as f64) * DAY + 1.0;
+    assert!((lifts - (110.0 + SERIOUS_REVIEW_WINDOW_DAYS as f64) * DAY).abs() < 1e-6);
+    p.game_hours = (100.0 + REVIEW_WINDOW_DAYS as f64) * DAY + 1.0;
     assert_eq!(
         record_band(&p),
         TRUST_GUARDED,
@@ -1125,11 +1125,14 @@ fn the_record_line_counts_recent_citations_and_says_what_they_cost() {
     p.game_hours = 400.0 * DAY;
     cite(&mut p, 2, 380.0 * DAY);
     // Under the floor: counted, nothing more.
-    assert_eq!(standing_text(&p), "Record: two citations in the last year.");
+    assert_eq!(
+        standing_text(&p),
+        "Record: two citations in the last 30 days."
+    );
     cite(&mut p, 2, 390.0 * DAY);
     let line = standing_text(&p);
     assert!(
-        line.starts_with("Record: four citations in the last year."),
+        line.starts_with("Record: four citations in the last 30 days."),
         "{line}"
     );
     assert!(
@@ -1140,7 +1143,7 @@ fn the_record_line_counts_recent_citations_and_says_what_they_cost() {
     p.record_mut().record_serious_violation(395.0 * DAY);
     let line = standing_text(&p);
     assert!(
-        line.contains("four citations in the last year, one serious violation."),
+        line.contains("four citations in the last 30 days, one serious violation."),
         "{line}"
     );
     assert!(

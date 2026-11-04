@@ -9266,6 +9266,9 @@ msgstr "Limite di anticipi raggiunto. Consegna un carico per ridurlo."
 msgid "lifetime"
 msgstr "a vita"
 
+msgid "Drove through the barrels in a work zone"
+msgstr "Passato sopra i birilli in un cantiere"
+
 msgid "Great Lakes Training Transport"
 msgstr "Great Lakes Training Transport"
 
@@ -9401,15 +9404,19 @@ msgstr "registro"
 msgid "citations"
 msgstr "multe"
 
+#. placeholders: {count_word}, {noun}, {REVIEW_WINDOW_DAYS}
+msgid "{count_word} {noun} in the last {REVIEW_WINDOW_DAYS} days"
+msgstr ""
+
 msgid "serious violation"
 msgstr "infrazione grave"
 
 msgid "serious violations"
 msgstr "infrazioni gravi"
 
-#. placeholders: {join}
-msgid "{join} in the last year"
-msgstr "{join} nell'ultimo anno"
+#. placeholders: {count_word}, {noun}, {SERIOUS_REVIEW_WINDOW_DAYS}
+msgid "{count_word} {noun} in the last {SERIOUS_REVIEW_WINDOW_DAYS} days"
+msgstr ""
 
 msgid ", next year"
 msgstr ", l'anno prossimo"
@@ -9653,12 +9660,12 @@ msgstr ""
 msgid "safety incidents"
 msgstr ""
 
+#. placeholders: {join}, {REVIEW_WINDOW_DAYS}
+msgid "{join} in the last {REVIEW_WINDOW_DAYS} days"
+msgstr ""
+
 msgid "crashes"
 msgstr "incidenti"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join} e {last}"
 
 msgid "major offense"
 msgstr "infrazione gravissima"
@@ -10089,6 +10096,10 @@ msgstr "CDL standard"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "{endorsement_label}"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join} e {last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -29968,23 +29979,35 @@ msgstr ""
 "I tuoi soldi e il tuo camion sono al sicuro; riposo, riparazioni e officina "
 "restano disponibili."
 
-msgid ""
-"That is a serious violation on your record. One more inside three years and "
-"your CDL is suspended for 60 days, and driving jobs stop until it clears."
-msgstr ""
-"È un'infrazione grave nel tuo registro di guida. Un'altra entro tre anni e "
-"la tua CDL viene sospesa per 60 giorni, e gli incarichi di guida si fermano "
-"finché non si risolve."
-
-#. placeholders: {which}
+#. placeholders: {SERIOUS_WINDOW_DAYS}
 #. one sentence of a longer line
-msgid "That is your {which} serious violation in three years."
-msgstr "È la tua {which} infrazione grave in tre anni."
-
-#. placeholders: {which}, {suspension_text}
 msgid ""
-"That is your {which} serious violation in three years. {suspension_text}"
-msgstr "È la tua {which} infrazione grave in tre anni. {suspension_text}"
+"One more inside {SERIOUS_WINDOW_DAYS} days and your CDL is suspended for 60 "
+"days, and driving jobs stop until it clears."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "That is a serious violation on your record."
+msgstr ""
+
+#. placeholders: {SERIOUS_WINDOW_DAYS}
+msgid ""
+"That is a serious violation on your record. One more inside "
+"{SERIOUS_WINDOW_DAYS} days and your CDL is suspended for 60 days, and "
+"driving jobs stop until it clears."
+msgstr ""
+
+#. placeholders: {which}, {SERIOUS_WINDOW_DAYS}
+#. one sentence of a longer line
+msgid ""
+"That is your {which} serious violation in {SERIOUS_WINDOW_DAYS} days."
+msgstr ""
+
+#. placeholders: {which}, {SERIOUS_WINDOW_DAYS}, {suspension_text}
+msgid ""
+"That is your {which} serious violation in {SERIOUS_WINDOW_DAYS} days. "
+"{suspension_text}"
+msgstr ""
 
 msgid "This driver"
 msgstr "Questo autista"
@@ -33670,9 +33693,6 @@ msgstr ""
 
 msgid "The work crew called it in"
 msgstr "La squadra dei lavori l'ha segnalato"
-
-msgid "Drove through the barrels in a work zone"
-msgstr "Passato sopra i birilli in un cantiere"
 
 #. placeholders: {grouped}
 #. one sentence of a longer line
@@ -40432,18 +40452,12 @@ msgstr ""
 #. placeholders: {standing}, {trust}, {current_text}
 msgid ""
 "Freight Fate now keeps a driving record for your career: citations, serious "
-"violations, and whether your CDL is clear. Two serious violations in three "
-"years suspend it; running from a police stop is a major offense that "
+"violations, and whether your CDL is clear. Two serious violations in 180 "
+"days suspend it; running from a police stop is a major offense that "
 "disqualifies it for a year. Reputation also decides how much freight "
 "dispatch shows you and how much choice you get. Nothing was reset or taken. "
 "{standing} {trust} {current_text}"
 msgstr ""
-"Freight Fate ora tiene un registro di guida per la tua carriera: multe, "
-"infrazioni gravi e se la tua CDL è pulita. Due infrazioni gravi in tre anni "
-"la sospendono; scappare da un controllo della polizia è un'infrazione "
-"gravissima che la squalifica per un anno. La reputazione decide anche "
-"quante merci ti mostra la centrale e quanta scelta hai. Non è stato "
-"azzerato né tolto niente. {standing} {trust} {current_text}"
 
 #. one sentence of a longer line
 msgid "Nothing was reset or taken."
@@ -40459,11 +40473,9 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"Two serious violations in three years suspend it; running from a police "
-"stop is a major offense that disqualifies it for a year."
+"Two serious violations in 180 days suspend it; running from a police stop "
+"is a major offense that disqualifies it for a year."
 msgstr ""
-"Due infrazioni gravi in tre anni la sospendono; scappare da un controllo "
-"della polizia è un'infrazione gravissima che la squalifica per un anno."
 
 msgid "Save file updated"
 msgstr "File di salvataggio aggiornato"
@@ -42087,6 +42099,46 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "{join} in the last year"
+#~ msgstr "{join} nell'ultimo anno"
+
+#~ msgid ""
+#~ "That is a serious violation on your record. One more inside three years and "
+#~ "your CDL is suspended for 60 days, and driving jobs stop until it clears."
+#~ msgstr ""
+#~ "È un'infrazione grave nel tuo registro di guida. Un'altra entro tre anni e "
+#~ "la tua CDL viene sospesa per 60 giorni, e gli incarichi di guida si fermano "
+#~ "finché non si risolve."
+
+#~ msgid "That is your {which} serious violation in three years."
+#~ msgstr "È la tua {which} infrazione grave in tre anni."
+
+#~ msgid ""
+#~ "That is your {which} serious violation in three years. {suspension_text}"
+#~ msgstr "È la tua {which} infrazione grave in tre anni. {suspension_text}"
+
+#~ msgid ""
+#~ "Freight Fate now keeps a driving record for your career: citations, serious "
+#~ "violations, and whether your CDL is clear. Two serious violations in three "
+#~ "years suspend it; running from a police stop is a major offense that "
+#~ "disqualifies it for a year. Reputation also decides how much freight "
+#~ "dispatch shows you and how much choice you get. Nothing was reset or taken. "
+#~ "{standing} {trust} {current_text}"
+#~ msgstr ""
+#~ "Freight Fate ora tiene un registro di guida per la tua carriera: multe, "
+#~ "infrazioni gravi e se la tua CDL è pulita. Due infrazioni gravi in tre anni "
+#~ "la sospendono; scappare da un controllo della polizia è un'infrazione "
+#~ "gravissima che la squalifica per un anno. La reputazione decide anche "
+#~ "quante merci ti mostra la centrale e quanta scelta hai. Non è stato "
+#~ "azzerato né tolto niente. {standing} {trust} {current_text}"
+
+#~ msgid ""
+#~ "Two serious violations in three years suspend it; running from a police "
+#~ "stop is a major offense that disqualifies it for a year."
+#~ msgstr ""
+#~ "Due infrazioni gravi in tre anni la sospendono; scappare da un controllo "
+#~ "della polizia è un'infrazione gravissima che la squalifica per un anno."
 
 #~ msgid "dev"
 #~ msgstr "dev"

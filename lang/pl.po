@@ -9098,6 +9098,9 @@ msgstr "Limit zaliczek osiągnięty. Dostarcz ładunek, żeby spłacić zaliczk�
 msgid "lifetime"
 msgstr "dożywotnio"
 
+msgid "Drove through the barrels in a work zone"
+msgstr "Przejazd przez beczki w strefie robót"
+
 msgid "Great Lakes Training Transport"
 msgstr "Great Lakes Training Transport"
 
@@ -9231,15 +9234,19 @@ msgstr "kartoteka"
 msgid "citations"
 msgstr "mandaty"
 
+#. placeholders: {count_word}, {noun}, {REVIEW_WINDOW_DAYS}
+msgid "{count_word} {noun} in the last {REVIEW_WINDOW_DAYS} days"
+msgstr ""
+
 msgid "serious violation"
 msgstr "poważne wykroczenie"
 
 msgid "serious violations"
 msgstr "poważne wykroczenia"
 
-#. placeholders: {join}
-msgid "{join} in the last year"
-msgstr "{join} w ostatnim roku"
+#. placeholders: {count_word}, {noun}, {SERIOUS_REVIEW_WINDOW_DAYS}
+msgid "{count_word} {noun} in the last {SERIOUS_REVIEW_WINDOW_DAYS} days"
+msgstr ""
 
 msgid ", next year"
 msgstr ", w przyszłym roku"
@@ -9481,12 +9488,12 @@ msgstr ""
 msgid "safety incidents"
 msgstr ""
 
+#. placeholders: {join}, {REVIEW_WINDOW_DAYS}
+msgid "{join} in the last {REVIEW_WINDOW_DAYS} days"
+msgstr ""
+
 msgid "crashes"
 msgstr "wypadki"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join} i {last}"
 
 msgid "major offense"
 msgstr "rażące naruszenie"
@@ -9915,6 +9922,10 @@ msgstr "standardowe CDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "{endorsement_label}"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join} i {last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -29856,24 +29867,35 @@ msgstr ""
 "Twoje pieniądze i ciężarówka są bezpieczne; odpoczynek, naprawy i warsztat "
 "są nadal dostępne."
 
-msgid ""
-"That is a serious violation on your record. One more inside three years and "
-"your CDL is suspended for 60 days, and driving jobs stop until it clears."
-msgstr ""
-"To poważne wykroczenie w twojej kartotece. Jeszcze jedno w ciągu trzech "
-"lat, a twoje prawo jazdy CDL zostanie zawieszone na 60 dni i zlecenia na "
-"jazdę się skończą, dopóki to nie minie."
-
-#. placeholders: {which}
+#. placeholders: {SERIOUS_WINDOW_DAYS}
 #. one sentence of a longer line
-msgid "That is your {which} serious violation in three years."
-msgstr "To twoje {which} poważne wykroczenie w ciągu trzech lat."
-
-#. placeholders: {which}, {suspension_text}
 msgid ""
-"That is your {which} serious violation in three years. {suspension_text}"
+"One more inside {SERIOUS_WINDOW_DAYS} days and your CDL is suspended for 60 "
+"days, and driving jobs stop until it clears."
 msgstr ""
-"To twoje {which} poważne wykroczenie w ciągu trzech lat. {suspension_text}"
+
+#. one sentence of a longer line
+msgid "That is a serious violation on your record."
+msgstr ""
+
+#. placeholders: {SERIOUS_WINDOW_DAYS}
+msgid ""
+"That is a serious violation on your record. One more inside "
+"{SERIOUS_WINDOW_DAYS} days and your CDL is suspended for 60 days, and "
+"driving jobs stop until it clears."
+msgstr ""
+
+#. placeholders: {which}, {SERIOUS_WINDOW_DAYS}
+#. one sentence of a longer line
+msgid ""
+"That is your {which} serious violation in {SERIOUS_WINDOW_DAYS} days."
+msgstr ""
+
+#. placeholders: {which}, {SERIOUS_WINDOW_DAYS}, {suspension_text}
+msgid ""
+"That is your {which} serious violation in {SERIOUS_WINDOW_DAYS} days. "
+"{suspension_text}"
+msgstr ""
 
 msgid "This driver"
 msgstr "Ten kierowca"
@@ -33587,9 +33609,6 @@ msgstr ""
 
 msgid "The work crew called it in"
 msgstr "Zgłosiła to ekipa drogowa"
-
-msgid "Drove through the barrels in a work zone"
-msgstr "Przejazd przez beczki w strefie robót"
 
 #. placeholders: {grouped}
 #. one sentence of a longer line
@@ -40291,19 +40310,12 @@ msgstr ""
 #. placeholders: {standing}, {trust}, {current_text}
 msgid ""
 "Freight Fate now keeps a driving record for your career: citations, serious "
-"violations, and whether your CDL is clear. Two serious violations in three "
-"years suspend it; running from a police stop is a major offense that "
+"violations, and whether your CDL is clear. Two serious violations in 180 "
+"days suspend it; running from a police stop is a major offense that "
 "disqualifies it for a year. Reputation also decides how much freight "
 "dispatch shows you and how much choice you get. Nothing was reset or taken. "
 "{standing} {trust} {current_text}"
 msgstr ""
-"Freight Fate prowadzi teraz kartotekę kierowcy dla twojej kariery: mandaty, "
-"poważne wykroczenia i to, czy twoje CDL jest czyste. Dwa poważne "
-"wykroczenia w ciągu trzech lat zawieszają je; ucieczka z kontroli "
-"policyjnej to rażące naruszenie, za które CDL jest odbierane na rok. "
-"Reputacja decyduje też o tym, ile ładunków pokazuje ci dyspozytor i jak "
-"duży masz wybór. Niczego nie wyzerowano ani nie odebrano. {standing} "
-"{trust} {current_text}"
 
 #. one sentence of a longer line
 msgid "Nothing was reset or taken."
@@ -40319,12 +40331,9 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"Two serious violations in three years suspend it; running from a police "
-"stop is a major offense that disqualifies it for a year."
+"Two serious violations in 180 days suspend it; running from a police stop "
+"is a major offense that disqualifies it for a year."
 msgstr ""
-"Dwa poważne wykroczenia w ciągu trzech lat zawieszają je; ucieczka z "
-"kontroli policyjnej to rażące naruszenie, za które CDL jest odbierane na "
-"rok."
 
 msgid "Save file updated"
 msgstr "Plik zapisu zaktualizowany"
@@ -41943,6 +41952,49 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "{join} in the last year"
+#~ msgstr "{join} w ostatnim roku"
+
+#~ msgid ""
+#~ "That is a serious violation on your record. One more inside three years and "
+#~ "your CDL is suspended for 60 days, and driving jobs stop until it clears."
+#~ msgstr ""
+#~ "To poważne wykroczenie w twojej kartotece. Jeszcze jedno w ciągu trzech "
+#~ "lat, a twoje prawo jazdy CDL zostanie zawieszone na 60 dni i zlecenia na "
+#~ "jazdę się skończą, dopóki to nie minie."
+
+#~ msgid "That is your {which} serious violation in three years."
+#~ msgstr "To twoje {which} poważne wykroczenie w ciągu trzech lat."
+
+#~ msgid ""
+#~ "That is your {which} serious violation in three years. {suspension_text}"
+#~ msgstr ""
+#~ "To twoje {which} poważne wykroczenie w ciągu trzech lat. {suspension_text}"
+
+#~ msgid ""
+#~ "Freight Fate now keeps a driving record for your career: citations, serious "
+#~ "violations, and whether your CDL is clear. Two serious violations in three "
+#~ "years suspend it; running from a police stop is a major offense that "
+#~ "disqualifies it for a year. Reputation also decides how much freight "
+#~ "dispatch shows you and how much choice you get. Nothing was reset or taken. "
+#~ "{standing} {trust} {current_text}"
+#~ msgstr ""
+#~ "Freight Fate prowadzi teraz kartotekę kierowcy dla twojej kariery: mandaty, "
+#~ "poważne wykroczenia i to, czy twoje CDL jest czyste. Dwa poważne "
+#~ "wykroczenia w ciągu trzech lat zawieszają je; ucieczka z kontroli "
+#~ "policyjnej to rażące naruszenie, za które CDL jest odbierane na rok. "
+#~ "Reputacja decyduje też o tym, ile ładunków pokazuje ci dyspozytor i jak "
+#~ "duży masz wybór. Niczego nie wyzerowano ani nie odebrano. {standing} "
+#~ "{trust} {current_text}"
+
+#~ msgid ""
+#~ "Two serious violations in three years suspend it; running from a police "
+#~ "stop is a major offense that disqualifies it for a year."
+#~ msgstr ""
+#~ "Dwa poważne wykroczenia w ciągu trzech lat zawieszają je; ucieczka z "
+#~ "kontroli policyjnej to rażące naruszenie, za które CDL jest odbierane na "
+#~ "rok."
 
 #~ msgid "dev"
 #~ msgstr "deweloperski"

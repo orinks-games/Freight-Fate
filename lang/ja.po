@@ -7963,6 +7963,9 @@ msgstr "前払いの上限に達しました。積荷を届けて返済してく
 msgid "lifetime"
 msgstr "永久"
 
+msgid "Drove through the barrels in a work zone"
+msgstr "工事区間でドラム缶の中を走った"
+
 msgid "Great Lakes Training Transport"
 msgstr "Great Lakes Training Transport"
 
@@ -8085,15 +8088,19 @@ msgstr "記録"
 msgid "citations"
 msgstr "違反切符"
 
+#. placeholders: {count_word}, {noun}, {REVIEW_WINDOW_DAYS}
+msgid "{count_word} {noun} in the last {REVIEW_WINDOW_DAYS} days"
+msgstr ""
+
 msgid "serious violation"
 msgstr "重大違反"
 
 msgid "serious violations"
 msgstr "重大違反"
 
-#. placeholders: {join}
-msgid "{join} in the last year"
-msgstr "過去1年間に{join}"
+#. placeholders: {count_word}, {noun}, {SERIOUS_REVIEW_WINDOW_DAYS}
+msgid "{count_word} {noun} in the last {SERIOUS_REVIEW_WINDOW_DAYS} days"
+msgstr ""
 
 msgid ", next year"
 msgstr "、来年"
@@ -8307,12 +8314,12 @@ msgstr ""
 msgid "safety incidents"
 msgstr ""
 
+#. placeholders: {join}, {REVIEW_WINDOW_DAYS}
+msgid "{join} in the last {REVIEW_WINDOW_DAYS} days"
+msgstr ""
+
 msgid "crashes"
 msgstr "事故"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join}と{last}"
 
 msgid "major offense"
 msgstr "一発取消違反"
@@ -8725,6 +8732,10 @@ msgstr "標準のCDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "{endorsement_label}"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join}と{last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -27005,20 +27016,35 @@ msgid ""
 "open."
 msgstr "お金とトラックはそのままです。休息、修理、ガレージは使えます。"
 
-msgid ""
-"That is a serious violation on your record. One more inside three years and "
-"your CDL is suspended for 60 days, and driving jobs stop until it clears."
-msgstr "記録に重大違反が付きました。3年以内にもう1回あると、CDLが60日間停止され、解除されるまで運転の依頼はなくなります。"
-
-#. placeholders: {which}
+#. placeholders: {SERIOUS_WINDOW_DAYS}
 #. one sentence of a longer line
-msgid "That is your {which} serious violation in three years."
-msgstr "3年間で{which}の重大違反です。"
-
-#. placeholders: {which}, {suspension_text}
 msgid ""
-"That is your {which} serious violation in three years. {suspension_text}"
-msgstr "3年間で{which}の重大違反です。{suspension_text}"
+"One more inside {SERIOUS_WINDOW_DAYS} days and your CDL is suspended for 60 "
+"days, and driving jobs stop until it clears."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "That is a serious violation on your record."
+msgstr ""
+
+#. placeholders: {SERIOUS_WINDOW_DAYS}
+msgid ""
+"That is a serious violation on your record. One more inside "
+"{SERIOUS_WINDOW_DAYS} days and your CDL is suspended for 60 days, and "
+"driving jobs stop until it clears."
+msgstr ""
+
+#. placeholders: {which}, {SERIOUS_WINDOW_DAYS}
+#. one sentence of a longer line
+msgid ""
+"That is your {which} serious violation in {SERIOUS_WINDOW_DAYS} days."
+msgstr ""
+
+#. placeholders: {which}, {SERIOUS_WINDOW_DAYS}, {suspension_text}
+msgid ""
+"That is your {which} serious violation in {SERIOUS_WINDOW_DAYS} days. "
+"{suspension_text}"
+msgstr ""
 
 msgid "This driver"
 msgstr "このドライバー"
@@ -30390,9 +30416,6 @@ msgstr ""
 
 msgid "The work crew called it in"
 msgstr "工事作業員が通報しました"
-
-msgid "Drove through the barrels in a work zone"
-msgstr "工事区間でドラム缶の中を走った"
 
 #. placeholders: {grouped}
 #. one sentence of a longer line
@@ -36246,16 +36269,12 @@ msgstr "Freight Fateでは、キャリアごとに運転記録をつけるよう
 #. placeholders: {standing}, {trust}, {current_text}
 msgid ""
 "Freight Fate now keeps a driving record for your career: citations, serious "
-"violations, and whether your CDL is clear. Two serious violations in three "
-"years suspend it; running from a police stop is a major offense that "
+"violations, and whether your CDL is clear. Two serious violations in 180 "
+"days suspend it; running from a police stop is a major offense that "
 "disqualifies it for a year. Reputation also decides how much freight "
 "dispatch shows you and how much choice you get. Nothing was reset or taken. "
 "{standing} {trust} {current_text}"
 msgstr ""
-"Freight "
-"Fateでは、キャリアごとに運転記録をつけるようになりました。違反切符、重大違反、CDLに問題がないかどうかです。3年以内に重大違反が2回あるとCDLが"
-"停止されます。警察の停止命令から逃げるのは一発取消違反で、1年間失格になります。評判によって、配車係が見せてくれる貨物の量と、選べる幅も決まります。何も"
-"リセットされたり取り上げられたりはしていません。{standing} {trust} {current_text}"
 
 #. one sentence of a longer line
 msgid "Nothing was reset or taken."
@@ -36269,9 +36288,9 @@ msgstr "評判によって、配車係が見せてくれる貨物の量と、選
 
 #. one sentence of a longer line
 msgid ""
-"Two serious violations in three years suspend it; running from a police "
-"stop is a major offense that disqualifies it for a year."
-msgstr "3年以内に重大違反が2回あるとCDLが停止されます。警察の停止命令から逃げるのは一発取消違反で、1年間失格になります。"
+"Two serious violations in 180 days suspend it; running from a police stop "
+"is a major offense that disqualifies it for a year."
+msgstr ""
 
 msgid "Save file updated"
 msgstr "セーブファイルを更新しました"
@@ -37799,6 +37818,39 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "{join} in the last year"
+#~ msgstr "過去1年間に{join}"
+
+#~ msgid ""
+#~ "That is a serious violation on your record. One more inside three years and "
+#~ "your CDL is suspended for 60 days, and driving jobs stop until it clears."
+#~ msgstr "記録に重大違反が付きました。3年以内にもう1回あると、CDLが60日間停止され、解除されるまで運転の依頼はなくなります。"
+
+#~ msgid "That is your {which} serious violation in three years."
+#~ msgstr "3年間で{which}の重大違反です。"
+
+#~ msgid ""
+#~ "That is your {which} serious violation in three years. {suspension_text}"
+#~ msgstr "3年間で{which}の重大違反です。{suspension_text}"
+
+#~ msgid ""
+#~ "Freight Fate now keeps a driving record for your career: citations, serious "
+#~ "violations, and whether your CDL is clear. Two serious violations in three "
+#~ "years suspend it; running from a police stop is a major offense that "
+#~ "disqualifies it for a year. Reputation also decides how much freight "
+#~ "dispatch shows you and how much choice you get. Nothing was reset or taken. "
+#~ "{standing} {trust} {current_text}"
+#~ msgstr ""
+#~ "Freight "
+#~ "Fateでは、キャリアごとに運転記録をつけるようになりました。違反切符、重大違反、CDLに問題がないかどうかです。3年以内に重大違反が2回あるとCDLが"
+#~ "停止されます。警察の停止命令から逃げるのは一発取消違反で、1年間失格になります。評判によって、配車係が見せてくれる貨物の量と、選べる幅も決まります。何も"
+#~ "リセットされたり取り上げられたりはしていません。{standing} {trust} {current_text}"
+
+#~ msgid ""
+#~ "Two serious violations in three years suspend it; running from a police "
+#~ "stop is a major offense that disqualifies it for a year."
+#~ msgstr "3年以内に重大違反が2回あるとCDLが停止されます。警察の停止命令から逃げるのは一発取消違反で、1年間失格になります。"
 
 #~ msgid "dev"
 #~ msgstr "開発版"
