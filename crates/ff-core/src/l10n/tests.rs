@@ -1100,3 +1100,31 @@ fn a_long_line_of_commas_is_matched_without_retrying_every_cut() {
     assert_eq!(caps["e"], "");
     assert_eq!(caps["f"], "Right");
 }
+
+/// The shipped Polish catalog, as a player gets it.
+fn shipped_polish() -> Translator {
+    let po = include_str!("../../../../lang/pl.po");
+    Translator::new(Catalog::from_po("pl", po).expect("lang/pl.po parses"))
+}
+
+#[test]
+fn shipped_polish_says_a_numbered_job_whole() {
+    // "Job 2 of 7: " leads into the load sentence; the clause split broke
+    // that sentence at the commas inside its place names, so the whole
+    // sentence stayed English (issue 549).
+    let tr = shipped_polish();
+    let out = tr.translate(
+        "Job 2 of 7: 19 tons of general freight from Pendleton Grocery Distribution Center in \
+         Pendleton, Oregon to Boise Grocery Distribution Center in Boise, Idaho. 364 miles. \
+         Deadline 6 hours.",
+    );
+    assert!(out.starts_with("Zlecenie 2 z 7: "), "{out}");
+    assert!(!out.contains(" tons of "), "{out}");
+    let out = tr.translate(
+        "Recommended dispatch, senior company lane: Job 1 of 7: 13 tons of refrigerated goods \
+         from Pendleton Food Processing Plant in Pendleton, Oregon to Spokane Grocery \
+         Distribution Center in Spokane, Washington. 332 miles. Deadline 6 hours.",
+    );
+    assert!(out.contains("Zlecenie 1 z 7: "), "{out}");
+    assert!(!out.contains(" tons of "), "{out}");
+}

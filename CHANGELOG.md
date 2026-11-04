@@ -32,6 +32,7 @@
 
 ### Fixed
 
+- **Numbered loads on the dispatch board are read in your language.** The load line after "Job 1 of 7" stayed in English.
 - **The unused translations folder from mid-October downloads leaves the game folder.** It moves to the saves folder as old-translations, so any edits in it are kept.
 - **Automatic update offers start on Remind me later.** Holding a key cannot install an update by accident.
 
