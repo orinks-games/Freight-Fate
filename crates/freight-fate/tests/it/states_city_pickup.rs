@@ -328,14 +328,14 @@ fn test_pickup_save_and_departure_keep_speed_control_session() {
     assert!(app
         .main_lines()
         .iter()
-        .any(|line| line.contains("Speed control paused, target 47 miles per hour.")));
+        .any(|line| line.contains("Cruise paused, set 47 miles per hour.")));
 
     with_state_mut::<PickupFacilityState, _>(&mut app, |p, ctx| p.status(ctx));
     assert!(app
         .main_lines()
         .last()
         .unwrap()
-        .contains("target 47 miles per hour"));
+        .contains("set 47 miles per hour"));
 
     key(&mut app, Key::Return); // check in
     let snapshot = profile(&app).active_trip.clone().unwrap();
@@ -879,13 +879,16 @@ fn test_idling_through_the_load_burns_fuel_and_shutting_down_does_not() {
 }
 
 #[test]
-fn test_the_load_report_names_the_fuel_burned_idling() {
+fn test_pickup_status_names_the_fuel_burned_idling() {
     let mut app = TestApp::new();
     pickup_running(&mut app);
     load_out(&mut app);
     let loaded_line = app.main_lines().last().unwrap().to_lowercase();
-    assert!(loaded_line.contains("idling"), "{loaded_line}");
-    assert!(loaded_line.contains("gallon"), "{loaded_line}");
+    assert!(!loaded_line.contains("idling"), "{loaded_line}");
+    with_state_mut::<PickupFacilityState, _>(&mut app, |p, ctx| p.status(ctx));
+    let status = app.main_lines().last().unwrap().to_lowercase();
+    assert!(status.contains("idling here burned"), "{status}");
+    assert!(status.contains("gallon"), "{status}");
 }
 
 #[test]
@@ -916,11 +919,10 @@ fn test_shutting_down_after_check_in_stops_the_idle_before_the_load() {
         with_state::<PickupFacilityState, _>(&app, |p, _| (p.truck.engine_on, p.truck.fuel_gal));
     assert!(!engine_on);
     assert_eq!(after_load, before_load);
-    let loaded_line = app.main_lines().last().unwrap().to_lowercase();
-    assert!(
-        loaded_line.contains("burned idling before you shut down"),
-        "{loaded_line}"
-    );
+    with_state_mut::<PickupFacilityState, _>(&mut app, |p, ctx| p.status(ctx));
+    let status = app.main_lines().last().unwrap().to_lowercase();
+    assert!(status.contains("engine off"), "{status}");
+    assert!(status.contains("idling here burned"), "{status}");
 }
 
 #[test]
@@ -1082,7 +1084,7 @@ fn test_accepting_job_starts_drivable_pickup_leg() {
         .filter(|text| text.starts_with("Accepted."))
         .collect();
     assert!(!dispatch.is_empty());
-    assert!(dispatch.last().unwrap().contains("Drive empty"));
+    assert!(dispatch.last().unwrap().contains(" empty to "));
 }
 
 #[test]

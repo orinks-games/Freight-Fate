@@ -103,7 +103,7 @@ impl DrivingState {
         // throttle (automation-handoff sweep, 2026-08-20, the deferred
         // 2026-08-15 audit).
         ctx.say_event_with(
-            "Automatic speed control paused for pickup.",
+            "Cruise paused for pickup.",
             SayEvent::queued()
                 .priority(EventPriority::Important)
                 .category(SpeechCategory::Confirmation),
@@ -190,6 +190,7 @@ impl DrivingState {
                             truck: Some(drive.trip.truck.clone()),
                             speed_control_armed: drive.speed_control_armed,
                             speed_control_target_mph: drive.speed_control_target_mph,
+                            pulled_in: true,
                             ..Default::default()
                         };
                         let state = PickupFacilityState::new(ctx, job, opts);

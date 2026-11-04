@@ -355,6 +355,8 @@ pub struct PickupOptions {
     pub speed_control_target_mph: Option<f64>,
     pub announce_speed_control_status: bool,
     pub trailer_refused: bool,
+    /// The drive's "Pulling into" line just named the facility.
+    pub pulled_in: bool,
 }
 
 pub struct PickupFacilityState {
@@ -372,6 +374,9 @@ pub struct PickupFacilityState {
     /// not a running total the driver has to carry.
     idle_gallons: f64,
     just_loaded: bool,
+    /// Until the first announcement: the pull-in line already named the
+    /// facility, so the menu opens on its first row.
+    pulled_in: bool,
     pub announce_speed_control_status: bool,
     pub truck: TruckState,
     pub speed_control_armed: bool,
@@ -412,6 +417,7 @@ impl PickupFacilityState {
             offer_refusal: false,
             idle_gallons: 0.0,
             just_loaded: false,
+            pulled_in: opts.pulled_in,
             announce_speed_control_status: opts.announce_speed_control_status,
             truck,
             speed_control_armed: opts.speed_control_armed,
@@ -440,6 +446,7 @@ impl PickupFacilityState {
                 speed_control_target_mph: target,
                 announce_speed_control_status: true,
                 trailer_refused: flag("trailer_refused"),
+                pulled_in: false,
             },
         ))
     }
@@ -471,7 +478,7 @@ impl PickupFacilityState {
             Some(mph) => ctx.settings.speed_text(mph),
             None => "the posted limit when the open road begins".to_string(),
         };
-        format!(" Speed control paused, target {target}.")
+        format!(" Cruise paused, set {target}.")
     }
 
     /// The pre-trip on the trailer, done on purpose rather than to you.
@@ -873,7 +880,19 @@ impl PickupFacilityState {
             fmt_f(self.truck.air_pressure_psi(), 0),
             self.speed_control_pause_text(ctx)
         );
-        ctx.say(&text);
+        // The idling bill lives here rather than on the loaded line, where
+        // it was trivia spoken over the next instruction (owner, 2026-11-04).
+        // Rounded to a tenth, so the smallest number spoken is one worth
+        // hearing rather than "0.0 gallons".
+        let idle = if round_py_n(self.idle_gallons, 1) > 0.0 {
+            format!(
+                " Idling here burned {} gallons.",
+                fmt_f(self.idle_gallons, 1)
+            )
+        } else {
+            String::new()
+        };
+        ctx.say(&format!("{text}{idle}"));
     }
 
     fn save_and_quit(&mut self, ctx: &mut GameContext) {
@@ -985,23 +1004,6 @@ impl Menu for PickupFacilityState {
                 if let Some(trailer) = plan.trailer.as_ref() {
                     lead.push_str(&format!(" {}", trailer.describe()));
                 }
-                // Rounded to a tenth, so the smallest number that can be
-                // spoken is one worth hearing rather than "0.0 gallons".
-                // Off now means every idle gallon came before the shutdown;
-                // a bare "burned idling" after the load read as the engine
-                // having run through it (tester report, 2026-09-28).
-                if round_py_n(self.idle_gallons, 1) > 0.0 {
-                    let when = if self.truck.engine_on {
-                        ""
-                    } else {
-                        " before you shut down"
-                    };
-                    lead.push_str(&format!(
-                        " {} gallons burned idling{when}.",
-                        fmt_f(self.idle_gallons, 1)
-                    ));
-                }
-                self.idle_gallons = 0.0;
                 self.just_loaded = false;
             }
             lead
@@ -1017,6 +1019,9 @@ impl Menu for PickupFacilityState {
             } else {
                 format!("Checked in at {facility}. Dock assigned.")
             }
+        } else if self.pulled_in {
+            // "Pulling into X." was the line just before (owner, 2026-11-04).
+            String::new()
         } else {
             format!("Arrived at {facility}.")
         };
@@ -1026,12 +1031,14 @@ impl Menu for PickupFacilityState {
             String::new()
         };
         self.announce_speed_control_status = false;
+        self.pulled_in = false;
         let intro = self
             .team_intro(ctx)
             .map(|intro| format!(" {intro}"))
             .unwrap_or_default();
         let current = self.current_text(ctx);
-        ctx.say(&format!("{lead}{speed_control}{intro} {current}"));
+        let text = format!("{lead}{speed_control}{intro} {current}");
+        ctx.say(text.trim_start());
     }
 
     fn exit(&mut self, ctx: &mut GameContext) {
@@ -1164,7 +1171,7 @@ impl Menu for PickupFacilityState {
                 Some(mph) => ctx.settings.speed_text(mph),
                 None => "posted limit when the open road begins".to_string(),
             };
-            lines.push(format!("Speed control: paused   Cruise speed: {target}"));
+            lines.push(format!("Cruise: paused   Cruise speed: {target}"));
         }
         lines.push(String::new());
         for (i, item) in self.menu.items.iter().enumerate() {

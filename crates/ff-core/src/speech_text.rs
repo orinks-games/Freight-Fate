@@ -54,7 +54,13 @@ pub fn type_prefix_is_redundant(label: &str, name: &str) -> bool {
         return false;
     }
     let name_words = words(name);
-    label_words.iter().all(|word| name_words.contains(word))
+    // The head noun is enough: "Buffalo Grocery Distribution Center" is
+    // already a distribution center, so "grocery and retail distribution
+    // center Buffalo Grocery Distribution Center" says it twice.
+    let head = label_words
+        .last()
+        .is_some_and(|word| name_words.contains(word));
+    head || label_words.iter().all(|word| name_words.contains(word))
 }
 
 /// A spoken city with a leading "the" for phrases like "the {city} service
@@ -515,7 +521,7 @@ fn pacenote_terse(pacenote: &SpokenMessage) -> &str {
 /// pacenote carry the moment.)
 pub fn cruise_curve_easing(pacenote: &SpokenMessage, advisory_speed_text: &str) -> SpokenMessage {
     SpokenMessage::with_terse(
-        format!("{pacenote} Adaptive cruise easing to {advisory_speed_text}."),
+        format!("{pacenote} Cruise easing to {advisory_speed_text}."),
         pacenote_terse(pacenote),
     )
 }
@@ -549,7 +555,7 @@ pub fn curve_assist_slowing(pacenote: &SpokenMessage) -> SpokenMessage {
 pub fn cruise_curve_paused_assisted(pacenote: &SpokenMessage) -> SpokenMessage {
     SpokenMessage::with_terse(
         format!(
-            "{pacenote} Adaptive cruise paused for the bend, curve assistance slowing. \
+            "{pacenote} Cruise paused for the bend, curve assistance slowing. \
              Cruise resumes past the bend."
         ),
         format!(
@@ -565,10 +571,10 @@ pub fn cruise_curve_paused_assisted(pacenote: &SpokenMessage) -> SpokenMessage {
 /// back on its own past the bend, once the truck is rolling off the brakes
 /// at road speed (owner ruling, 2026-09-01 -- on the highway a hazard or a
 /// curve pauses cruise and it comes back). The line says so, because the
-/// old "Adaptive cruise off" told the driver to expect a session that had
+/// old "Cruise off" told the driver to expect a session that had
 /// in fact survived.
 ///
-/// Was a bare `message + " Adaptive cruise off; ..."`, and that plus sign is
+/// Was a bare `message + " Cruise off; ..."`, and that plus sign is
 /// why the quiet rung still spoke full curve calls: concatenating a
 /// `SpokenMessage` yields a plain `str`, so the short form was thrown away
 /// before the delivery layer ever looked for it (owner playtest,
@@ -577,7 +583,7 @@ pub fn cruise_curve_paused_assisted(pacenote: &SpokenMessage) -> SpokenMessage {
 /// pacenote's short form.
 pub fn cruise_curve_paused(pacenote: &SpokenMessage) -> SpokenMessage {
     SpokenMessage::with_terse(
-        format!("{pacenote} Adaptive cruise paused for the bend. Resumes past it."),
+        format!("{pacenote} Cruise paused for the bend. Resumes past it."),
         format!("{} Cruise paused.", pacenote_terse(pacenote)),
     )
 }
@@ -1155,7 +1161,7 @@ mod tests {
         assert_eq!(
             pair.normal,
             "Sharp left, half a mile. Advise 35 miles per hour. \
-             Adaptive cruise easing to 35 miles per hour."
+             Cruise easing to 35 miles per hour."
         );
         assert_eq!(
             pair.terse.as_deref(),
@@ -1231,13 +1237,9 @@ mod tests {
             "Change lanes or brake! Slow car ahead.",
             "Change lanes or brake! Slow car ahead.",
         );
-        let grown = pair.plus("Automatic speed control canceled.");
-        assert!(grown
-            .render(false)
-            .ends_with("Automatic speed control canceled."));
-        assert!(grown
-            .render(true)
-            .ends_with("Automatic speed control canceled."));
+        let grown = pair.plus("Cruise canceled.");
+        assert!(grown.render(false).ends_with("Cruise canceled."));
+        assert!(grown.render(true).ends_with("Cruise canceled."));
         assert!(grown.render(true).starts_with("Change lanes or brake!"));
         // A line with no terse form stays that way.
         let plain = SpokenMessage::new("Collision!").plus("Total damage 12 percent.");
@@ -1429,7 +1431,7 @@ mod tests {
         let paused = cruise_curve_paused(&pacenote);
         assert_eq!(
             paused.normal,
-            "Sharp right, half a mile. Advise 35 miles per hour. Adaptive cruise paused for the \
+            "Sharp right, half a mile. Advise 35 miles per hour. Cruise paused for the \
              bend. Resumes past it."
         );
         assert_eq!(

@@ -231,12 +231,9 @@ fn test_facility_menu_waits_for_full_stop() {
     let paperwork = last_main(&harness);
     for phrase in [
         "Paperwork, ",
-        "pay for the load ",
-        "Charges ",
-        "Those charges do not reduce driver pay",
-        "Net about ",
+        ": about ",
+        " dollars to you, ",
         "hours to the deadline",
-        "Cargo condition",
         "Dock and deliver to settle",
     ] {
         assert!(paperwork.contains(phrase), "{paperwork}");
@@ -244,8 +241,8 @@ fn test_facility_menu_waits_for_full_stop() {
     // A company driver's estimate is wages, not the carrier's gross: the
     // board quoted 224 dollars for a load this line then called 330 of
     // "net driver pay" (agent playtest, 2026-09-02).
-    let gross = dollars_after(&paperwork, ", pay for the load ");
-    let net = dollars_after(&paperwork, "Net about ");
+    let gross = harness.read_drive(|d| d.job.pay);
+    let net = dollars_after(&paperwork, ": about ");
     assert!(net > 0.0 && net < gross, "{paperwork}");
 
     let minutes_before_unloading = harness.read_drive(|d| d.trip.game_minutes);

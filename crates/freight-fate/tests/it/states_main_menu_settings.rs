@@ -236,7 +236,7 @@ fn gameplay_subcategory_rows(category: &str) -> &'static [&'static str] {
             "Latching brake",
             "Predictive cruise",
             "Curve callouts",
-            "Speed keeper",
+            "Low-speed cruise",
             "Lane keeping",
             "Following gap",
             "Back",
@@ -344,7 +344,7 @@ fn test_exactly_one_speed_keeper_row_in_the_whole_tree() {
     let rows = all_settings_rows(&mut app);
     let speed_keeper_rows: Vec<_> = rows
         .iter()
-        .filter(|(_, label, _)| label.starts_with("Speed keeper"))
+        .filter(|(_, label, _)| label.starts_with("Low-speed cruise"))
         .collect();
     assert_eq!(speed_keeper_rows.len(), 1, "{speed_keeper_rows:?}");
     assert_eq!(speed_keeper_rows[0].0, "assistance");
@@ -454,8 +454,8 @@ fn test_every_gameplay_setting_stays_reachable_after_the_split() {
         reachable("controls", "Visual display"),
         cfg!(feature = "visuals")
     );
-    assert!(reachable("assistance", "Speed keeper"));
-    assert!(!reachable("controls", "Speed keeper"));
+    assert!(reachable("assistance", "Low-speed cruise"));
+    assert!(!reachable("controls", "Low-speed cruise"));
     assert!(reachable("difficulty", "Driving mode"));
     assert!(reachable("difficulty", "Hours of service"));
     assert!(reachable("difficulty", "Hours of service planning hints"));
@@ -481,7 +481,7 @@ fn test_settings_menu_toggles_speed_keeper() {
     let mut app = TestApp::new();
     assert!(app.ctx.settings.speed_keeper);
     open_settings_category(&mut app, "Driving assistance");
-    move_to::<Cat>(&mut app, "Speed keeper");
+    move_to::<Cat>(&mut app, "Low-speed cruise");
     key(&mut app, Key::Return);
     assert!(!app.ctx.settings.speed_keeper);
     key(&mut app, Key::Left);
@@ -870,7 +870,7 @@ fn driving_assistance_names_moved_keys() {
     };
     assert!(help("Latching brake").contains("One press of F7 releases it"));
     assert!(help("Curve callouts").contains("Press F8 to list the next few"));
-    assert!(help("Speed keeper").contains("F9 holds your current speed"));
+    assert!(help("Low-speed cruise").contains("F9 holds your current speed"));
     assert!(help("Lane keeping").contains("A tap of F10 or F11 changes lanes"));
 
     open_settings_category(&mut app, "Driving assistance");
@@ -989,14 +989,14 @@ fn test_gameplay_reorg_notice_fires_once_for_a_pre_reorg_settings_file() {
         .any(|line| line.contains("Nothing about your settings changed")));
     assert!(spoken
         .iter()
-        .any(|line| line.contains("Speed keeper is now in Driving assistance")));
+        .any(|line| line.contains("Low-speed cruise is now in Driving assistance")));
     let first = spoken
         .iter()
         .position(|s| s.contains("Gameplay is now a category"))
         .unwrap();
     let second = spoken
         .iter()
-        .position(|s| s.contains("Speed keeper is now in"))
+        .position(|s| s.contains("Low-speed cruise is now in"))
         .unwrap();
     assert!(first < second, "{spoken:?}");
     // Cleared, and persisted so a restart does not replay it.
@@ -1030,7 +1030,7 @@ fn test_a_player_one_layout_behind_hears_only_the_newer_notice() {
     let spoken = app.main_lines();
     assert!(spoken
         .iter()
-        .any(|line| line.contains("Speed keeper is now in Driving assistance")));
+        .any(|line| line.contains("Low-speed cruise is now in Driving assistance")));
     assert!(!spoken
         .iter()
         .any(|line| line.contains("Gameplay is now a category")));
@@ -1054,7 +1054,7 @@ fn test_a_player_two_layouts_behind_hears_the_driving_speech_notice() {
         .any(|line| line.contains("Gameplay is now a category")));
     assert!(!spoken
         .iter()
-        .any(|line| line.contains("Speed keeper is now in")));
+        .any(|line| line.contains("Low-speed cruise is now in")));
 }
 
 #[test]

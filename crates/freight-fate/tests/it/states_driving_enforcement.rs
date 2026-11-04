@@ -499,7 +499,7 @@ fn test_the_tableau_intro_terse_form_keeps_the_bare_fact() {
         let message = drive.tableau_intro_message(&post);
         assert_eq!(
             message.render(true),
-            "A trooper has somebody stopped on the shoulder, not you."
+            "A trooper has somebody stopped in the median, not you."
         );
         if message.normal == message.render(true) {
             bare_seen = true;
@@ -507,7 +507,7 @@ fn test_the_tableau_intro_terse_form_keeps_the_bare_fact() {
             flavored_seen = true;
             assert!(message
                 .normal
-                .starts_with("A trooper has somebody stopped on the shoulder "));
+                .starts_with("A trooper has somebody stopped in the median "));
             assert!(message.normal.ends_with(", not you."));
         }
     }
@@ -957,7 +957,7 @@ fn test_a_gap_the_assist_owns_is_never_the_drivers_disregard() {
     // closing the gap with the throttle open and never touching the brake.
     // That read as the driver's disregard and cost him 2,400 dollars on I-94
     // (2026-08-24), doubled for the construction zone, with the cab
-    // announcing "Speed keeper holding 55 miles per hour" as it happened.
+    // announcing "Cruise holding 55 miles per hour" as it happened.
     //
     // The question is who has the pedal, not what the pedal is doing.
     let mut app = TestApp::new();

@@ -799,7 +799,6 @@ impl ArrivalState {
         if let Some(line) = achievement_summary.clone() {
             self.summary_parts.push(line);
         }
-        let timing = if on_time { "On time" } else { "Late" };
         let mut bonus_lines: Vec<String> = Vec::new();
         if on_time_bonus_paid >= 1.0 {
             bonus_lines.push(format!(
@@ -907,17 +906,28 @@ impl ArrivalState {
                 .collect::<Vec<_>>(),
         );
         let mut lines = vec![
+            // The first row is the one read on arrival: where, whether on
+            // time, and what it paid. The rows below itemize it.
+            // The screen's title already says "Delivery complete".
+            if on_time {
+                format!(
+                    "On time in {}. Net {} dollars.",
+                    job.spoken_destination(),
+                    fmt_grouped(net_pay, 0)
+                )
+            } else {
+                format!(
+                    "Late in {}. Net {} dollars.",
+                    job.spoken_destination(),
+                    fmt_grouped(net_pay, 0)
+                )
+            },
             format!(
-                "Delivered {} tons of {} to {}.",
+                "Load: {} tons of {}.",
                 fmt_f(job.weight_tons, 0),
-                job.cargo.label,
-                job.spoken_destination()
+                job.cargo.label
             ),
-            format!(
-                "Trip time: {} hours, {}.",
-                fmt_f(hours, 1),
-                timing.to_lowercase()
-            ),
+            format!("Trip time: {} hours.", fmt_f(hours, 1)),
             format!(
                 "It is {}.",
                 clock_text(to_local(game_hours, destination_timezone))
@@ -954,10 +964,6 @@ impl ArrivalState {
         lines.extend(charge_lines);
         lines.extend(advance_lines);
         lines.extend(self.team_line.clone());
-        lines.push(format!(
-            "Net driver pay: {} dollars.",
-            fmt_grouped(net_pay, 0)
-        ));
         lines.push(format!(
             "Money after settlement: {} dollars.",
             fmt_grouped(profile_of(ctx).money(), 0)

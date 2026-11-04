@@ -185,7 +185,15 @@ impl DrivingState {
                 self.closing_text(self.trip.remaining_miles())
             ),
         };
-        ctx.say(&format!("{lead} On {road} in {state}, toward {toward}."));
+        // The state once: a city in the state the truck is already in needs
+        // no state of its own (owner's drive, 2026-11-04: "On US-219 South in
+        // New York, toward Jamestown, New York").
+        if city_state(ctx, &toward_city) == state {
+            let toward = ctx.world.spoken_city(&toward_city, Some(false));
+            ctx.say(&format!("{lead} On {road} toward {toward}."));
+        } else {
+            ctx.say(&format!("{lead} On {road} in {state}, toward {toward}."));
+        }
     }
 
     // --- One fact per key (Tim K., 2026-08-16) -------------------------

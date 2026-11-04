@@ -6392,6 +6392,11 @@ msgstr " 距离{level}级还差{grouped}。"
 msgid "Career stage: {stage}."
 msgstr "职业阶段：{stage}。"
 
+#. placeholders: {deliveries}, {f3}
+#. one sentence of a longer line
+msgid "Deliveries {deliveries}, {f3} percent on time."
+msgstr ""
+
 #. placeholders: {level}, {title}
 #. one sentence of a longer line
 msgid "Level {level}, {title}."
@@ -6400,17 +6405,10 @@ msgstr "{level}级，{title}。"
 #. placeholders: {level}, {title}, {f}, {owed_text}, {f2}, {deliveries}, {f3}, {grouped}, {grouped2}, {stage}, {status}, {next_text}
 msgid ""
 "Level {level}, {title}. {f} experience.{owed_text} Reputation {f2} out of "
-"100. {deliveries} deliveries, {f3} percent on time. {grouped} lifetime "
+"100. Deliveries {deliveries}, {f3} percent on time. {grouped} lifetime "
 "miles, {grouped2} dollars earned. Career stage: {stage}. "
 "{status}.{next_text}"
 msgstr ""
-"{level}级，{title}。经验{f}。{owed_text}声誉{f2}，满分100。送货{deliveries}次，准时率百分之{f3}。累计"
-"行驶{grouped}英里，共赚{grouped2}美元。职业阶段：{stage}。{status}。{next_text}"
-
-#. placeholders: {deliveries}, {f3}
-#. one sentence of a longer line
-msgid "{deliveries} deliveries, {f3} percent on time."
-msgstr "送货{deliveries}次，准时率百分之{f3}。"
 
 #. placeholders: {f}, {owed_text}, {f2}
 #. one sentence of a longer line
@@ -8515,66 +8513,55 @@ msgstr "{city_lower}货运市场"
 msgid "{city_lower} metro freight market"
 msgstr "{city_lower}都市区货运市场"
 
+#. placeholders: {city}, {destination}
+msgid "{city} to {destination}"
+msgstr ""
+
+#. placeholders: {origin}, {destination}
+msgid "{origin} to {destination}"
+msgstr ""
+
 #. placeholders: {index}, {unwrap_or_else}
 msgid "Job {index} of {unwrap_or_else}: "
 msgstr "第{index}个任务，共{unwrap_or_else}个： "
-
-#. placeholders: {condition}
-msgid " Market {condition}."
-msgstr "市场 {condition}。"
 
 #. placeholders: {credentials_clause}
 msgid " Requires {credentials_clause}."
 msgstr " 需要{credentials_clause}。"
 
-#. placeholders: {tons}, {cargo}, {pickup}, {dropoff}
-msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
-msgstr "{tons}吨{cargo}从{pickup}到{dropoff}。"
+#. placeholders: {tons}, {cargo}, {route}
+msgid "{tons} tons of {cargo}, {route}."
+msgstr ""
 
-msgid "Pays"
-msgstr "报酬"
+#. placeholders: {miles}
+msgid " {miles} empty to the pickup first."
+msgstr ""
 
 #. placeholders: {pay}
 msgid "Pays {pay} dollars."
 msgstr "支付 {pay} 美元。"
 
-#. placeholders: {pay}
-msgid "Pay for the load: {pay} dollars."
-msgstr "货物运费：{pay}美元。"
-
-#. placeholders: {hours}
-msgid ""
-"Deadline {hours} hours. Team load: you and a co-driver take turns at the "
-"wheel."
+#. placeholders: {pay}, {pay_preview}
+msgid "Pays {pay} dollars, {pay_preview}."
 msgstr ""
 
 #. one sentence of a longer line
 msgid "Team load: you and a co-driver take turns at the wheel."
 msgstr ""
 
-#. placeholders: {hours}
-msgid "Deadline {hours} hours, includes a 10-hour rest."
-msgstr "截止时间 {hours} 小时，包括 10 小时休息。"
-
-#. placeholders: {hours}
-msgid "Deadline {hours} hours."
-msgstr "截止时间{hours}小时。"
-
-#. placeholders: {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
-#. one sentence of a longer line
+#. placeholders: {distance}, {hours}
 msgid ""
-"{pay_text} {deadline} Equipment: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
+"{distance}, deadline {hours} hours. Team load: you and a co-driver take "
+"turns at the wheel."
 msgstr ""
-"{pay_text} {deadline} 设备：{equipment}.{trailer}{preview}{market}{endorsement}"
 
-#. placeholders: {prefix}, {load}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
-msgid ""
-"{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
+#. placeholders: {distance}, {hours}
+msgid "{distance}, deadline {hours} hours with a 10-hour rest."
 msgstr ""
-"{prefix}{load} {distance}。{pay_text} {deadline} "
-"设备：{equipment}.{trailer}{preview}{market}{endorsement}"
+
+#. placeholders: {distance}, {hours}
+msgid "{distance}, deadline {hours} hours."
+msgstr ""
 
 #. placeholders: {min_level}
 msgid "Level {min_level} drivers unlock this cargo."
@@ -13389,10 +13376,9 @@ msgid ""
 msgstr "你超过了这里的限速。这不是罚单，也不一定有人看见了你，但看见的警察会采取行动。提示音重复得越快，你超得越多。"
 
 msgid ""
-"More than 7 miles per hour over the posted limit: past anything adaptive "
-"cruise will do on its own, and short of where a trooper can act on your "
-"speed."
-msgstr "超出限速每小时7英里以上：超过了自适应巡航自己会开到的范围，但还没到州警会因车速对你采取行动的程度。"
+"More than 7 miles per hour over the posted limit: past anything cruise will "
+"do on its own, and short of where a trooper can act on your speed."
+msgstr ""
 
 msgid "Gear grind"
 msgstr "齿轮打齿"
@@ -13946,8 +13932,8 @@ msgid "Limit {limit_value}."
 msgstr "限速{limit_value}。"
 
 #. placeholders: {pacenote}, {advisory_speed_text}
-msgid "{pacenote} Adaptive cruise easing to {advisory_speed_text}."
-msgstr "{pacenote}自适应巡航正在降到{advisory_speed_text}。"
+msgid "{pacenote} Cruise easing to {advisory_speed_text}."
+msgstr ""
 
 #. placeholders: {pacenote}
 msgid "{pacenote} Curve assistance slowing."
@@ -13959,15 +13945,14 @@ msgstr "过弯后恢复巡航。"
 
 #. placeholders: {pacenote}
 #. one sentence of a longer line
-msgid ""
-"{pacenote} Adaptive cruise paused for the bend, curve assistance slowing."
-msgstr "{pacenote}自适应巡航为弯道暂停，弯道辅助正在减速。"
+msgid "{pacenote} Cruise paused for the bend, curve assistance slowing."
+msgstr ""
 
 #. placeholders: {pacenote}
 msgid ""
-"{pacenote} Adaptive cruise paused for the bend, curve assistance slowing. "
-"Cruise resumes past the bend."
-msgstr "{pacenote}自适应巡航为弯道暂停，弯道辅助正在减速。过弯后恢复巡航。"
+"{pacenote} Cruise paused for the bend, curve assistance slowing. Cruise "
+"resumes past the bend."
+msgstr ""
 
 #. placeholders: {pacenote_terse}
 msgid "{pacenote_terse} Cruise paused; assistance slowing."
@@ -13979,12 +13964,12 @@ msgstr "过了就恢复。"
 
 #. placeholders: {pacenote}
 #. one sentence of a longer line
-msgid "{pacenote} Adaptive cruise paused for the bend."
-msgstr "{pacenote}自适应巡航为弯道暂停。"
+msgid "{pacenote} Cruise paused for the bend."
+msgstr ""
 
 #. placeholders: {pacenote}
-msgid "{pacenote} Adaptive cruise paused for the bend. Resumes past it."
-msgstr "{pacenote}自适应巡航为弯道暂停。过了就恢复。"
+msgid "{pacenote} Cruise paused for the bend. Resumes past it."
+msgstr ""
 
 #. placeholders: {pacenote_terse}
 msgid "{pacenote_terse} Cruise paused."
@@ -14514,8 +14499,8 @@ msgstr ""
 msgid "Heat or air conditioning"
 msgstr ""
 
-msgid "Automatic speed control"
-msgstr "自动速度控制"
+msgid "Cruise"
+msgstr ""
 
 msgid "Resume the last cruise speed"
 msgstr "恢复上次的巡航速度"
@@ -16181,13 +16166,13 @@ msgid ""
 "is assigned until you run your own truck."
 msgstr "标价是公司的收入；你的工资从中支付。在你开自己的卡车之前，路线由公司指派。"
 
-#. placeholders: {grouped}, {grouped2}
-msgid "Take-home about {grouped} dollars after {grouped2} dollars costs."
-msgstr "扣除{grouped2}美元费用后带回家约{grouped}美元。"
+#. placeholders: {take_home}
+msgid "about {take_home} after costs"
+msgstr ""
 
-#. placeholders: {grouped}
-msgid "Your pay about {grouped} dollars."
-msgstr "你的工资约为{grouped}美元。"
+#. placeholders: {take_home}
+msgid "about {take_home} to you"
+msgstr ""
 
 #. placeholders: {highway}
 #. one sentence of a longer line
@@ -16226,19 +16211,12 @@ msgstr "本季节在{highway}行驶的卡车必须携带防滑链。你没有防
 msgid "Dispatch board"
 msgstr "调度板"
 
-#. placeholders: {remaining}, {s_ending}
-msgid "{remaining} decline{s_ending} left before your next promotion. "
-msgstr "下次晋升前还可拒绝{remaining}次。"
+msgid " This assignment needs an extra rest on your current hours."
+msgstr ""
 
-msgid "No declines left until your next promotion. "
-msgstr "下次晋升前已不能再拒绝任务。"
-
-msgid "This assignment needs an extra rest on your current hours. "
-msgstr "这项任务需要你在当前的时间内额外休息。"
-
-#. placeholders: {decline_note}, {hos_note}, {market}, {current}
-msgid "Dispatch board. {decline_note}{hos_note}{market}{current}"
-msgstr "调度板。{decline_note}{hos_note}{market}{current}"
+#. placeholders: {current}, {hos_note}
+msgid "Dispatch board. {current}{hos_note}"
+msgstr ""
 
 msgid ""
 "Dispatch is sending you empty, with no pickup. After you accept, Route "
@@ -16252,8 +16230,8 @@ msgid ""
 msgstr "调度指派了这批货。接受后，从你的车场空车开往提货点。提货后，“路线规划”会列出休息、燃油、过路费、天气和限制。"
 
 #. placeholders: {describe}
-msgid "Accept assigned dispatch: {describe}"
-msgstr "接受指派的调度：{describe}"
+msgid "Assigned load: {describe}"
+msgstr ""
 
 #. placeholders: {remaining}, {s_ending}
 msgid "Decline and request another load: {remaining} decline{s_ending} left"
@@ -16369,23 +16347,19 @@ msgid ""
 "That load's facility is no longer on the network. Dispatch pulled the offer."
 msgstr "那单货物的厂区已经不在路网上了。调度撤回了这个报价。"
 
-#. placeholders: {equipment_note}, {distance_text}, {cloned}, {origin_facility_text}
+#. placeholders: {equipment_note}, {distance_text}, {origin_short_name}
 msgid ""
-"Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to pickup "
-"at {origin_facility_text}."
+"Accepted.{equipment_note} {distance_text} empty to {origin_short_name}."
 msgstr ""
-"已接受。{equipment_note}先沿{cloned}空驶{distance_text}，前往{origin_facility_text}提货。"
 
 msgid ""
 "That load's city is no longer on the network. Dispatch pulled the offer."
 msgstr "那单货物的城市已经不在路网上了。调度撤回了这个报价。"
 
-#. placeholders: {equipment_note}, {distance_text}, {cloned}, {origin_facility_text}
+#. placeholders: {equipment_note}, {distance_text}, {origin_offer_text}
 msgid ""
-"Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to "
-"{origin_facility_text}."
+"Accepted.{equipment_note} {distance_text} empty to {origin_offer_text}."
 msgstr ""
-"已接受。{equipment_note}先沿{cloned}空驶{distance_text}，前往{origin_facility_text}。"
 
 #. placeholders: {equipment_note}
 msgid "Accepted.{equipment_note} The load is here in the yard."
@@ -16537,10 +16511,6 @@ msgstr "{prefix}空车调位至{destination}，距离{distance_text}。报酬{gr
 msgid "a drive"
 msgstr "一段行驶"
 
-#. placeholders: {origin}, {deadhead}
-msgid "Load in {origin}, {deadhead} empty first. "
-msgstr "在{origin}装货，先空车开{deadhead}。 "
-
 msgid ""
 "Up and down review the lines, Home and End jump to the ends. Enter repeats "
 "a line, or accepts on Accept this dispatch. Escape returns to the dispatch "
@@ -16581,6 +16551,12 @@ msgstr "截止时间为装货后{f}小时，约在{appointment_text}。"
 #. placeholders: {equipment_text}
 msgid "Equipment: {equipment_text}."
 msgstr "设备：{equipment_text}。"
+
+msgid "Market: tight, so this load pays more than usual."
+msgstr ""
+
+msgid "Market: loose, so this load pays less than usual."
+msgstr ""
 
 #. placeholders: {trailer}
 msgid "Trailer: {trailer}"
@@ -18465,8 +18441,8 @@ msgid "the posted limit when the open road begins"
 msgstr "开阔道路开始时的标示限速"
 
 #. placeholders: {target}
-msgid " Speed control paused, target {target}."
-msgstr "速度控制暂停，目标{target}。"
+msgid " Cruise paused, set {target}."
+msgstr ""
 
 msgid ""
 "Nothing to walk around yet. The shipper is loading the trailer you came in "
@@ -18652,6 +18628,10 @@ msgstr ""
 msgid "{f} tons of {label} for {destination_facility_text}."
 msgstr "{f} 吨 {label} 为 {destination_facility_text}。"
 
+#. placeholders: {f}
+msgid " Idling here burned {f} gallons."
+msgstr ""
+
 msgid "Saved. The pickup resumes here."
 msgstr "已保存。提货会从这里继续。"
 
@@ -18706,13 +18686,6 @@ msgid ""
 " {wait} minutes past the two free hours at the dock: {dollars} dollars "
 "detention, paid to the carrier."
 msgstr " 在月台超出两小时免费时间{wait}分钟：{dollars}美元等候费，付给公司。"
-
-msgid " before you shut down"
-msgstr " 在你熄火之前"
-
-#. placeholders: {f}, {when}
-msgid " {f} gallons burned idling{when}."
-msgstr " 怠速烧掉了{f}加仑燃油{when}。"
 
 #. placeholders: {facility}
 #. one sentence of a longer line
@@ -18860,8 +18833,8 @@ msgid "posted limit when the open road begins"
 msgstr "开阔道路开始时的标示限速"
 
 #. placeholders: {target}
-msgid "Speed control: paused   Cruise speed: {target}"
-msgstr "速度控制：已暂停，开阔道路目标速度：{target}"
+msgid "Cruise: paused   Cruise speed: {target}"
+msgstr ""
 
 msgid "Route planning"
 msgstr "路线规划"
@@ -19698,12 +19671,12 @@ msgstr "发动机怠速中。"
 msgid "{control_hint} lists the controls."
 msgstr "{control_hint}列出各项操作。"
 
-msgid "Automatic speed control paused. "
-msgstr "自动速度控制暂停。"
+msgid "Cruise paused. "
+msgstr ""
 
 #. placeholders: {control_hint}
-msgid "Automatic speed control paused. {control_hint} cancels it. "
-msgstr "自动速度控制暂停。{control_hint} 取消它。"
+msgid "Cruise paused. {control_hint} cancels it. "
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -19783,9 +19756,8 @@ msgid "{progress} {hours_used} of {deadline_game_h} hours."
 msgstr "{progress} {hours_used} {deadline_game_h} 小时。"
 
 #. placeholders: {pickup_facility_text}
-msgid ""
-"Pickup dispatch: drive empty from the terminal to {pickup_facility_text}. "
-msgstr "提货调度：从场站空车开往{pickup_facility_text}。 "
+msgid "Drive empty to {pickup_facility_text}. "
+msgstr ""
 
 #. placeholders: {destination_facility_text}
 #. one sentence of a longer line
@@ -19796,21 +19768,23 @@ msgstr "已装货，送往{destination_facility_text}。"
 msgid "Loaded for {destination_facility_text}. {progress_summary} "
 msgstr "已装货，送往{destination_facility_text}。{progress_summary} "
 
+msgid " Manual transmission."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "At the wheel."
 msgstr "开始驾驶。"
 
 #. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
 msgid ""
-"At the wheel. {objective}It is {now}. {transmission} {report_lead}. "
-"{engine} {help}"
+"At the wheel. {objective}It is {now}.{transmission} {report_lead}. {engine} "
+"{help}"
 msgstr ""
-"在方向盘上。{objective}就是{now}。{transmission} {report_lead}。{engine} {help}"
 
-#. placeholders: {objective}, {now}
+#. placeholders: {objective}, {now}, {transmission}, {report_lead}
 #. one sentence of a longer line
-msgid "{objective}It is {now}."
-msgstr "{objective}现在是{now}。"
+msgid "{objective}It is {now}.{transmission} {report_lead}."
+msgstr ""
 
 msgid "amount"
 msgstr "amount"
@@ -19952,19 +19926,29 @@ msgid ""
 "Hold {emergency_brake} for the emergency brake, the hardest possible stop."
 msgstr "按住 {emergency_brake} 紧急制动，这是最猛的停车方式。"
 
+#. one sentence of a longer line
+msgid ""
+"It follows traffic on open roads and holds the limit in low-speed zones."
+msgstr ""
+
+#. placeholders: {cruise}
+#. one sentence of a longer line
+msgid "{cruise} starts cruise."
+msgstr ""
+
 #. placeholders: {cruise}
 msgid ""
-"{cruise} starts automatic speed control: adaptive cruise on open roads, the "
-"speed keeper in low-speed zones."
-msgstr "{cruise} 开启自动速度控制：开阔道路上是自适应巡航，低速区是限速保持。"
+"{cruise} starts cruise. It follows traffic on open roads and holds the "
+"limit in low-speed zones."
+msgstr ""
 
 msgid "Weather widens the gap."
 msgstr "天气会拉大车距。"
 
 msgid ""
-"Cruise eases early for a sharp posted-limit drop, the keeper for the next "
-"turn or the next lower limit."
-msgstr "标示限速大幅下降前巡航会提早减速，限速保持则在下一个弯道或下一个更低限速前减速。"
+"Cruise eases early for a sharp posted-limit drop, and in low-speed zones "
+"for the next turn or the next lower limit."
+msgstr ""
 
 msgid "Braking cancels it."
 msgstr "踩刹车会取消。"
@@ -20308,10 +20292,15 @@ msgid ""
 msgstr "倒车时，用右扳机停下，松开，然后再按一次即可前进。"
 
 #. placeholders: {cruise_cap}
+#. one sentence of a longer line
+msgid "{cruise_cap} starts cruise."
+msgstr ""
+
+#. placeholders: {cruise_cap}
 msgid ""
-"{cruise_cap} starts automatic speed control: adaptive cruise on open roads, "
-"the speed keeper in low-speed zones."
-msgstr "{cruise_cap} 开启自动速度控制：开阔道路上是自适应巡航，低速区是限速保持。"
+"{cruise_cap} starts cruise. It follows traffic on open roads and holds the "
+"limit in low-speed zones."
+msgstr ""
 
 #. placeholders: {cruise_down}, {cruise_up}
 msgid "{cruise_down} or {cruise_up} change the cruise speed by five."
@@ -20461,34 +20450,36 @@ msgstr "标示限速"
 msgid "for the {other}"
 msgstr "为了{other}"
 
-#. placeholders: {speed_text}, {reason}, {speed_text2}
-msgid "speed keeper holding {speed_text} {reason}, set {speed_text2}"
-msgstr "限速保持维持在{speed_text}，{reason}，设定为{speed_text2}"
+#. placeholders: {speed}, {reason}, {speed2}
+msgid "cruise holding {speed} {reason}, set {speed2}"
+msgstr ""
 
-#. placeholders: {speed_text}, {keeper_held_reason}, {speed_text2}
-msgid ""
-"speed keeper holding {speed_text} {keeper_held_reason}, set {speed_text2}"
-msgstr "限速保持维持在{speed_text}，{keeper_held_reason}，设定为{speed_text2}"
+#. placeholders: {speed}, {keeper_held_reason}, {speed2}
+msgid "cruise holding {speed} {keeper_held_reason}, set {speed2}"
+msgstr ""
 
-#. placeholders: {speed_text}
-msgid "speed keeper holding {speed_text}"
-msgstr "限速保持维持在{speed_text}"
+#. placeholders: {speed}
+msgid "cruise holding {speed}"
+msgstr ""
 
-#. placeholders: {speed_text}, {why}, {speed_text2}
-msgid "adaptive cruise holding {speed_text}{why}, set {speed_text2}"
-msgstr "自适应巡航维持在{speed_text}{why}，设定为{speed_text2}"
+#. placeholders: {speed}, {why}, {speed2}
+msgid "cruise holding {speed}{why}, set {speed2}"
+msgstr ""
 
-#. placeholders: {speed_text}
-msgid "adaptive cruise set at {speed_text}"
-msgstr "自适应巡航设定为{speed_text}"
+#. placeholders: {speed}
+msgid "cruise set at {speed}"
+msgstr ""
 
-#. placeholders: {speed_text}
-msgid " Cruise speed {speed_text}."
-msgstr "开放道路目标 {speed_text}。"
+#. placeholders: {speed_value}
+msgid " Cruise speed {speed_value}."
+msgstr ""
 
-#. placeholders: {keeper_target}
-msgid " Automatic speed control paused.{keeper_target}"
-msgstr "自动速度控制暂停。{keeper_target}"
+#. placeholders: {speed_value}
+msgid " Cruise paused, set {speed_value}."
+msgstr ""
+
+msgid " Cruise paused."
+msgstr ""
 
 #. placeholders: {rpm}
 msgid ", {rpm} RPM"
@@ -20870,20 +20861,12 @@ msgstr "日历：{calendar}"
 msgid "Clock: {clock_text} {clock_zone_label} ({time_of_day})"
 msgstr "时钟：{clock_text} {clock_zone_label}，{time_of_day}"
 
-#. placeholders: {cruise_holding_text}
-msgid "Cruise: {cruise_holding_text}"
-msgstr "巡航：{cruise_holding_text}"
-
-#. placeholders: {keeper_holding_text}
-msgid "Speed control: {keeper_holding_text}"
-msgstr "速度控制：{keeper_holding_text}"
-
 #. placeholders: {open_road_target}
 msgid "Cruise speed: {open_road_target}"
 msgstr "开阔道路目标速度：{open_road_target}"
 
-msgid "Speed control: paused; resumes when the truck is rolling"
-msgstr "速度控制：已暂停；卡车开起来后恢复"
+msgid "Cruise paused; resumes when the truck is rolling"
+msgstr ""
 
 #. placeholders: {start_damage}
 msgid "Damage: new damage {start_damage} percent"
@@ -22410,6 +22393,13 @@ msgstr "因为超速"
 msgid "over a light out"
 msgstr "因为车灯不亮"
 
+msgid "A trooper has somebody stopped in the median, not you."
+msgstr ""
+
+#. placeholders: {reason}
+msgid "A trooper has somebody stopped in the median {reason}, not you."
+msgstr ""
+
 #. placeholders: {reason}
 msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
 msgstr "州警在路肩拦下了别人，{reason}，不是你。"
@@ -22816,8 +22806,8 @@ msgstr "目的地就在前方，{facility}。在大门处停车。"
 msgid "Stop at the gate."
 msgstr "在大门处停车。"
 
-msgid " Speed keeper off."
-msgstr " 限速保持已关闭。"
+msgid " Cruise off."
+msgstr "巡航关闭。"
 
 #. placeholders: {pickup_facility_text}
 msgid "At {pickup_facility_text}. Stop to check in."
@@ -23218,12 +23208,12 @@ msgstr "高怠速，{rpm}转每分钟。"
 msgid "High idle off."
 msgstr "高怠速已关闭。"
 
-msgid "Automatic speed control off."
-msgstr "自动速度控制已关闭。"
+msgid "Cruise off."
+msgstr "巡航已关闭。"
 
 #. placeholders: {minimum}
-msgid "Adaptive cruise needs the engine running and at least {minimum}."
-msgstr "自适应巡航需要发动机运转，速度至少{minimum}。"
+msgid "Cruise needs the engine running and at least {minimum}."
+msgstr ""
 
 msgid "Open road"
 msgstr "开阔道路"
@@ -23253,8 +23243,8 @@ msgid " in the {value}"
 msgstr " ，在{value}中"
 
 #. placeholders: {else}, {speed_text}, {exit_note}
-msgid "Adaptive cruise {else} at {speed_text}{exit_note}."
-msgstr "自适应巡航{else}，{speed_text}{exit_note}。"
+msgid "Cruise {else} at {speed_text}{exit_note}."
+msgstr ""
 
 msgid "resuming"
 msgstr "已恢复"
@@ -23266,9 +23256,6 @@ msgstr "巡航恢复，{speed_value}{exit_note}。"
 #. placeholders: {rpm}
 msgid "High idle {rpm} RPM."
 msgstr "高怠速{rpm}转每分钟。"
-
-msgid "Adaptive cruise off."
-msgstr "自适应巡航已关闭。"
 
 #. placeholders: {speed_text}, {speed_text2}
 msgid ""
@@ -23285,8 +23272,8 @@ msgid "{speed_number}, ramp {speed_number2}."
 msgstr "{speed_number}，匝道{speed_number2}。"
 
 #. placeholders: {speed_text}
-msgid "Adaptive cruise {speed_text}."
-msgstr "自适应巡航{speed_text}。"
+msgid "Cruise {speed_text}."
+msgstr ""
 
 #. placeholders: {speed_text}
 msgid "Open-road cruise target {speed_text}."
@@ -23303,11 +23290,8 @@ msgstr "在{zone_reason}区域"
 msgid "No cruise {place}."
 msgstr "无法使用巡航 {place}。"
 
-msgid "The speed keeper needs the engine running and the truck rolling."
-msgstr "限速保持需要发动机运转，卡车在行驶。"
-
-msgid "Speed keeper off."
-msgstr "速度保持器关闭。"
+msgid "Cruise needs the engine running and the truck rolling."
+msgstr ""
 
 msgid "Construction zone ahead"
 msgstr "前方施工区"
@@ -23319,27 +23303,27 @@ msgid "Posted limit lower"
 msgstr "限速降低"
 
 #. placeholders: {reason}, {eased}
-msgid "{reason}; speed keeper easing to {eased}."
-msgstr "{reason}；限速保持减速到{eased}。"
+msgid "{reason}; cruise easing to {eased}."
+msgstr ""
 
 #. placeholders: {speed_value}
-msgid "Speed keeper easing to {speed_value}."
-msgstr "限速保持减速到{speed_value}。"
+msgid "Cruise easing to {speed_value}."
+msgstr "巡航减速到{speed_value}。"
 
 msgid "for the traffic ahead"
 msgstr "因为前方车流"
 
 #. placeholders: {held}
-msgid "Speed keeper down to {held} on this grade."
-msgstr "这段坡道上速度保持器降至{held}。"
+msgid "Cruise down to {held} on this grade."
+msgstr "这段坡道上巡航速度降至{held}。"
 
 #. placeholders: {held}
-msgid "Speed keeper building to {held} for the merge."
-msgstr "限速保持加速到{held}准备汇入。"
+msgid "Cruise building to {held} for the merge."
+msgstr ""
 
 #. placeholders: {held}
-msgid "Speed keeper building to {held}."
-msgstr "限速保持加速到{held}。"
+msgid "Cruise building to {held}."
+msgstr ""
 
 msgid " on this grade"
 msgstr " ，在这个坡道上"
@@ -23350,20 +23334,20 @@ msgstr "制动。"
 
 #. placeholders: {held}, {because}
 #. one sentence of a longer line
-msgid "Speed keeper can't hold {held}{because}."
-msgstr "速度守门员无法持有{held}{because}。"
+msgid "Cruise can't hold {held}{because}."
+msgstr ""
 
 #. placeholders: {held}, {because}
-msgid "Speed keeper can't hold {held}{because}. Brake."
-msgstr "速度守门员无法持有{held}{because}。制动。"
+msgid "Cruise can't hold {held}{because}. Brake."
+msgstr ""
 
 #. placeholders: {held}, {zone}
-msgid "Speed keeper holding {held} through {zone}."
-msgstr "限速保持在{zone}中保持{held}。"
+msgid "Cruise holding {held} through {zone}."
+msgstr ""
 
 #. placeholders: {held}
-msgid "Speed keeper holding {held}."
-msgstr "限速保持维持在{held}。"
+msgid "Cruise holding {held}."
+msgstr ""
 
 msgid "Wet roads, longer gap."
 msgstr "路面湿滑，间隔加大。"
@@ -23383,21 +23367,18 @@ msgstr "easing-capped"
 msgid "building-capped"
 msgstr "building-capped"
 
-msgid "Cruise off."
-msgstr "巡航已关闭。"
-
 #. placeholders: {title_case}
 #. one sentence of a longer line
 msgid "{title_case} zone."
 msgstr "{title_case}区域。"
 
 #. placeholders: {title_case}, {held}
-msgid "{title_case} zone. Speed keeper holding {held}."
-msgstr "{title_case}区域。限速保持维持在{held}。"
+msgid "{title_case} zone. Cruise holding {held}."
+msgstr ""
 
 #. placeholders: {speed_value}
-msgid "Speed keeper holding {speed_value}."
-msgstr "限速保持维持在{speed_value}。"
+msgid "Cruise holding {speed_value}."
+msgstr ""
 
 msgid "through the construction zone"
 msgstr ""
@@ -23426,8 +23407,8 @@ msgstr "巡航缓至{eased}。"
 msgid "{capitalize_first}, cruise easing to {speed_value}."
 msgstr "{capitalize_first}，巡航减速到{speed_value}。"
 
-msgid "Stopped traffic ahead; adaptive cruise canceled."
-msgstr "前方车流停滞；自适应巡航已取消。"
+msgid "Stopped traffic ahead; cruise canceled."
+msgstr ""
 
 msgid "Traffic ahead, slowing."
 msgstr "前方车流正在减速。"
@@ -23440,10 +23421,6 @@ msgstr "为了弯道"
 
 msgid "for the grade"
 msgstr "为了坡道"
-
-#. placeholders: {held}
-msgid "Cruise down to {held} on this grade."
-msgstr "这段坡道上巡航速度降至{held}。"
 
 msgid "Slowing for the ramp."
 msgstr "驶向坡道时减速。"
@@ -24258,12 +24235,12 @@ msgstr "承运商。"
 msgid "your settlement."
 msgstr "你的结算。"
 
-msgid "Automatic speed control paused."
-msgstr "自动速度控制已暂停。"
+msgid "Cruise paused."
+msgstr ""
 
 #. placeholders: {keeper}
-msgid "Speed keeper holding {keeper}."
-msgstr "限速保持维持在{keeper}。"
+msgid "Cruise holding {keeper}."
+msgstr ""
 
 msgid ""
 "Back on the highway after the 30-minute break. Keep the logbook clean."
@@ -24637,6 +24614,10 @@ msgstr "已走了百分之{journey_progress_percent}，离{spoken_name}还有{ah
 #. placeholders: {journey_progress_percent}, {closing_text}
 msgid "{journey_progress_percent} percent there, {closing_text} left."
 msgstr "已走了百分之{journey_progress_percent}，还剩{closing_text}。"
+
+#. placeholders: {lead}, {road}, {toward}
+msgid "{lead} On {road} toward {toward}."
+msgstr ""
 
 #. placeholders: {lead}, {road}, {state}, {toward}
 msgid "{lead} On {road} in {state}, toward {toward}."
@@ -25220,12 +25201,6 @@ msgstr "{join}，以及{wear_parts}"
 msgid "The run added {joined}."
 msgstr "这趟行程增加了{joined}。"
 
-msgid "Late"
-msgstr "迟到"
-
-msgid "On time"
-msgstr "准时"
-
 msgid "No delivery bonus on this run."
 msgstr "这趟行程没有送达奖金。"
 
@@ -25270,13 +25245,36 @@ msgstr "经营成本：{grouped}美元。"
 msgid "Business cost detail: {business_charge_summary}."
 msgstr "经营成本明细：{business_charge_summary}。"
 
-#. placeholders: {f}, {label}, {destination}
-msgid "Delivered {f} tons of {label} to {destination}."
-msgstr "把{f}吨{label}送到了{destination}。"
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "Net {grouped} dollars."
+msgstr ""
 
-#. placeholders: {f}, {timing}
-msgid "Trip time: {f} hours, {timing}."
-msgstr "行程时间：{f}小时，{timing}。"
+#. placeholders: {destination}
+#. one sentence of a longer line
+msgid "On time in {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {grouped}
+msgid "On time in {destination}. Net {grouped} dollars."
+msgstr ""
+
+#. placeholders: {destination}
+#. one sentence of a longer line
+msgid "Late in {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {grouped}
+msgid "Late in {destination}. Net {grouped} dollars."
+msgstr ""
+
+#. placeholders: {f}, {label}
+msgid "Load: {f} tons of {label}."
+msgstr ""
+
+#. placeholders: {f}
+msgid "Trip time: {f} hours."
+msgstr ""
 
 #. placeholders: {clock_text}
 msgid "It is {clock_text}."
@@ -25299,10 +25297,6 @@ msgstr "经营状况：{status_label}。"
 #. placeholders: {f}
 msgid "Receiver service after check-in: {f} hours."
 msgstr "报到后收货方服务：{f}小时。"
-
-#. placeholders: {grouped}
-msgid "Net driver pay: {grouped} dollars."
-msgstr "司机净收入：{grouped}美元。"
 
 #. placeholders: {grouped}
 msgid "Money after settlement: {grouped} dollars."
@@ -25449,10 +25443,6 @@ msgstr "方向键浏览，Enter选择。“靠装卸口交付”完成这个任�
 msgid "Destination facility"
 msgstr "目的地厂区"
 
-#. placeholders: {facility}, {current}
-msgid "At {facility}. {current}"
-msgstr "到了{facility}。{current}"
-
 msgid "Drop the loaded trailer"
 msgstr "甩下满载的挂车"
 
@@ -25552,60 +25542,14 @@ msgid "{f} hours past the deadline"
 msgstr "超过截止时间{f}小时"
 
 #. placeholders: {f}
-msgid "Truck damage this run {f} percent, may reduce pay."
-msgstr "这趟行程卡车损坏百分之{f}，可能会减少报酬。"
-
-msgid "Cargo condition: no new damage recorded."
-msgstr "货物状况：没有记录新的损坏。"
-
-msgid "Those charges come off this settlement."
-msgstr "这些费用从这次结算里扣除。"
-
-msgid "Those charges do not reduce driver pay."
-msgstr "这些费用不会减少司机工资。"
-
-#. placeholders: {grouped3}, {grouped4}, {charge_summary}
-#. one sentence of a longer line
-msgid ""
-"Charges {grouped3}: tolls {grouped4}, extra charges {charge_summary}."
-msgstr "收费{grouped3}：通行费{grouped4}，配件{charge_summary}。"
-
-#. placeholders: {grouped6}, {advance_note}, {timing}
-#. one sentence of a longer line
-msgid "Net about {grouped6}.{advance_note} {timing}."
-msgstr "净关于{grouped6}.{advance_note} {timing}。"
-
-#. placeholders: {facility}, {f}, {label}
-#. one sentence of a longer line
-msgid "Paperwork, {facility}: {f} tons of {label}."
-msgstr "文书工作，{facility}：{f} 吨{label}。"
-
-#. placeholders: {facility}, {f}, {label}, {grouped}, {grouped2}, {grouped3}, {grouped4}, {charge_summary}, {charge_fate}, {grouped5}, {grouped6}, {advance_note}, {timing}, {cargo_condition}, {finish}
-msgid ""
-"Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, pay for the "
-"load {grouped2}. Charges {grouped3}: tolls {grouped4}, extra charges "
-"{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
-"{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
+msgid " Truck damage this run {f} percent, may reduce pay."
 msgstr ""
-"单据，{facility}：{f}吨{label}。运价{grouped}，货物报酬{grouped2}。费用{grouped3}：过路费{groupe"
-"d4}，额外费用{charge_summary}。{charge_fate} "
-"罚款{grouped5}。净收入约{grouped6}。{advance_note} {timing}。{cargo_condition} "
-"{finish}以结算。"
 
-#. placeholders: {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid "Rate {grouped}, pay for the load {grouped2}."
-msgstr "运价{grouped}，货物报酬{grouped2}。"
-
-#. placeholders: {cargo_condition}, {finish}
-#. one sentence of a longer line
-msgid "{cargo_condition} {finish} to settle."
-msgstr "{cargo_condition}{finish}来结算。"
-
-#. placeholders: {charge_fate}, {grouped5}
-#. one sentence of a longer line
-msgid "{charge_fate} Fines {grouped5}."
-msgstr "{charge_fate} 罚款 {grouped5}。"
+#. placeholders: {facility}, {grouped}, {timing}, {advance_note}, {cargo_condition}, {finish}
+msgid ""
+"Paperwork, {facility}: about {grouped} dollars to you, "
+"{timing}.{advance_note}{cargo_condition} {finish} to settle."
+msgstr ""
 
 #. placeholders: {facility}, {f}, {label}, {speed_text}, {else}, {finish}
 msgid ""
@@ -25627,6 +25571,10 @@ msgstr "停车，然后{finish}。"
 #. one sentence of a longer line
 msgid "{f} tons of {label}."
 msgstr "{f}吨{label}。"
+
+#. placeholders: {facility}, {current}
+msgid "At {facility}. {current}"
+msgstr "到了{facility}。{current}"
 
 msgid "Delivering"
 msgstr "正在送货"
@@ -26339,8 +26287,8 @@ msgstr "前方装货点：{facility}。在大门处停车。"
 msgid "At {facility}. Stop to check in."
 msgstr "到了{facility}。停车报到。"
 
-msgid "Automatic speed control paused for pickup."
-msgstr "自动速度控制暂停以进行拾取。"
+msgid "Cruise paused for pickup."
+msgstr ""
 
 msgid "Pulling into pickup. Check-in menu opening."
 msgstr "正在驶入装货点。报到菜单正在打开。"
@@ -28501,8 +28449,8 @@ msgstr "课程在一条练习道路上进行，什么都不计：不花钱，没
 msgid "Leave the school."
 msgstr "离开驾校。"
 
-msgid "Automatic speed control is already on."
-msgstr "自动速度控制已经开着。"
+msgid "Cruise is already on."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "No remembered cruise speed yet."
@@ -28521,11 +28469,11 @@ msgid "Resume needs the engine running."
 msgstr "恢复需要发动机运转。"
 
 #. placeholders: {spoken}
-msgid "Resuming automatic speed control at {spoken}."
-msgstr "在{spoken}恢复自动速度控制。"
+msgid "Resuming cruise at {spoken}."
+msgstr ""
 
-msgid "Automatic speed control canceled."
-msgstr "自动速度控制已取消。"
+msgid "Cruise canceled."
+msgstr ""
 
 #. placeholders: {floor}
 #. one sentence of a longer line
@@ -28540,8 +28488,8 @@ msgstr "游轮在 {floor} 恢复。踏板是你的。"
 msgid "Pedals are yours."
 msgstr "踏板是你的。"
 
-msgid "Speed control resuming."
-msgstr "速度控制正在恢复。"
+msgid "Cruise resuming."
+msgstr ""
 
 msgid "turn"
 msgstr "转弯"
@@ -28549,10 +28497,6 @@ msgstr "转弯"
 #. placeholders: {held}
 msgid "Cruise held to {held} for chains."
 msgstr "因安装防滑链，巡航速度限制为{held}。"
-
-#. placeholders: {held}
-msgid "Speed keeper held to {held} for chains."
-msgstr "因安装防滑链，速度保持器限制为{held}。"
 
 msgid ""
 "Up and down arrows review each line; Home and End jump to the first and "
@@ -29920,9 +29864,6 @@ msgstr "撞上了！"
 msgid "Collision! Damage {damage} percent."
 msgstr "撞上了！损坏百分之{damage}。"
 
-msgid " Cruise off."
-msgstr "巡航关闭。"
-
 msgid "Slowing for the bend."
 msgstr "转弯时减速。"
 
@@ -30538,6 +30479,9 @@ msgstr "{year}年{format}{day}日，{am_pm} {hour}:{minute}"
 #. placeholders: {name}, {level}
 msgid "{name}: level {level}"
 msgstr "{name}：{level}级"
+
+msgid "1 delivery"
+msgstr ""
 
 #. placeholders: {deliveries}
 msgid "{deliveries} deliveries"
@@ -31185,14 +31129,12 @@ msgstr ""
 "。你的设置都没有改变。"
 
 msgid ""
-"Two rows moved. Speed keeper is now in Driving assistance instead of "
+"Two rows moved. Low-speed cruise is now in Driving assistance instead of "
 "Controls. Lane and edge cue prominence is now Lane and edge cue volume, in "
 "Audio under Gameplay cues volume. Your choices came with them. Overspeed "
 "warning no longer has a row: it stays quiet until you are heading for a "
 "ticket."
 msgstr ""
-"有两行换了位置。限速保持现在在“驾驶辅助”里，不在“操作”里了。车道和路边提示突出程度现在叫车道和路边提示音量，在“音频”的游戏提示音量下面。你的选择也"
-"跟着过去了。超速警告不再有单独一行：在你快要被开罚单之前它都保持安静。"
 
 msgid ""
 "Speech verbosity is now Driving speech, in the Speech category, with two "
@@ -31486,21 +31428,18 @@ msgstr "卡车向车道边缘偏移时，会有语音和声音警告。"
 msgid "Stop-and-go assistance"
 msgstr "走走停停辅助"
 
-msgid "Adaptive cruise slows behind traffic and resumes when it is safe."
-msgstr "自适应巡航会在车流后面减速，安全时再恢复。"
+msgid "Cruise slows behind traffic and resumes when it is safe."
+msgstr ""
 
 msgid "Descent speed control"
 msgstr "下坡速度控制"
 
 msgid ""
-"With adaptive cruise on, holds a steep downhill grade at the speed your "
-"truck can take it at with its load, on the engine brake and short brake "
-"applications. On Standard and Strong, braking sets a new, lower speed to "
-"hold. Strong also caps every descent at 55 miles per hour and steps in "
-"sooner."
+"With cruise on, holds a steep downhill grade at the speed your truck can "
+"take it at with its load, on the engine brake and short brake applications. "
+"On Standard and Strong, braking sets a new, lower speed to hold. Strong "
+"also caps every descent at 55 miles per hour and steps in sooner."
 msgstr ""
-"开着自适应巡航时，在陡下坡上用发动机制动和短促刹车，保持你的卡车带着货能承受的车速。在标准和强档，踩刹车会设定一个新的、更低的保持车速。强档还会把每段下"
-"坡限制在每小时 55 英里，并更早介入。"
 
 msgid "Exit speed assistance"
 msgstr "出口速度辅助"
@@ -31616,26 +31555,24 @@ msgstr "你的车速已经够慢的弯道不会播报。"
 msgid "Press {control_upcoming} to list the next few either way."
 msgstr "无论哪种情况，按{control_upcoming}都能列出接下来的几个弯道。"
 
-msgid "Speed keeper"
-msgstr "限速保持"
+msgid "Low-speed cruise"
+msgstr ""
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
 msgid ""
 "In low-speed zones, like facility roads, gates, and construction zones, "
-"{control_cruise} holds your current speed, then hands back to adaptive "
-"cruise on open roads."
-msgstr "在低速区域，比如厂区道路、大门和施工区，{control_cruise}会保持你当前的车速，到了开阔道路再交回给自适应巡航。"
+"{control_cruise} holds your current speed, then hands back to normal cruise "
+"on open roads."
+msgstr ""
 
 #. placeholders: {control_cruise}
 msgid ""
 "In low-speed zones, like facility roads, gates, and construction zones, "
-"{control_cruise} holds your current speed, then hands back to adaptive "
-"cruise on open roads. It eases off early for the next turn or the next "
-"lower limit. Braking cancels it. Presets never change this."
+"{control_cruise} holds your current speed, then hands back to normal cruise "
+"on open roads. It eases off early for the next turn or the next lower "
+"limit. Braking cancels it. Presets never change this."
 msgstr ""
-"在设施道路、大门和施工区等低速区域，{control_cruise}保持你当前的车速，到开阔道路上再交还给自适应巡航。它会为下一个转弯或下一个更低的限速"
-"提前松油。踩刹车会取消。预设从不改变这一点。"
 
 #. one sentence of a longer line
 msgid "It eases off early for the next turn or the next lower limit."
@@ -32443,13 +32380,11 @@ msgid "Following gap: {acc_gap_label}"
 msgstr "跟车间隔：{acc_gap_label}"
 
 msgid ""
-"How much room adaptive cruise leaves to the vehicle ahead. Close is two and "
-"a half seconds, normal three, far three and a half. Weather widens the gap "
+"How much room cruise leaves to the vehicle ahead. Close is two and a half "
+"seconds, normal three, far three and a half. Weather widens the gap "
 "whichever you pick. All three stay clear of a following-too-close citation. "
 "The preset above never changes it."
 msgstr ""
-"自适应巡航和前车之间留多少距离。近是2.5秒，正常是3秒，远是3.5秒。无论你选哪个，天气都会加大间隔。三种都不会让你因跟车太近被开罚单。上面的预设永远"
-"不会改变它。"
 
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
@@ -33131,14 +33066,25 @@ msgid ""
 "{control_horn} sounds the horn while held."
 msgstr "{control_transmission_mode}在自动和手动换挡之间切换。按住{control_horn}时鸣喇叭。"
 
-msgid "Speed control and hills"
-msgstr "速度控制和坡道"
+msgid "Cruise and hills"
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"On open roads it follows traffic; on low-speed roads it follows local "
+"limits, queues and corners."
+msgstr ""
+
+#. placeholders: {control_cruise}
+#. one sentence of a longer line
+msgid "{control_cruise} turns cruise on."
+msgstr ""
 
 #. placeholders: {control_cruise}
 msgid ""
-"{control_cruise} starts automatic speed control: adaptive cruise on open "
-"roads, speed keeper on supported low-speed roads."
-msgstr "{control_cruise}启动自动速度控制：开阔道路上是自适应巡航，在支持的低速道路上是限速保持。"
+"{control_cruise} turns cruise on. On open roads it follows traffic; on "
+"low-speed roads it follows local limits, queues and corners."
+msgstr ""
 
 msgid ""
 "Cruise follows traffic. Its normal three second clear-weather gap increases "
@@ -33170,10 +33116,14 @@ msgid ""
 msgstr "{control_speed}读出当前的速度控制模式和开阔道路目标速度。"
 
 msgid ""
-"Speed keeper follows local limits, queues, and corners, then hands over to "
-"cruise on open road. The target keys still change the remembered cruise "
-"speed."
-msgstr "限速保持会遵循当地限速、排队车流和转角，然后在开阔道路上交给巡航。目标速度键仍然会改变记住的巡航速度。"
+"The target keys change the open-road cruise speed, even while cruise holds "
+"a lower limit."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Cruise pauses at the pickup and comes back on after you leave with the load."
+msgstr ""
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
@@ -33183,17 +33133,9 @@ msgstr "再按一次{control_cruise}或者踩一下刹车即可取消。"
 #. placeholders: {control_cruise}, {control_cruise_resume}
 msgid ""
 "Press {control_cruise} again or touch the brakes to cancel. "
-"{control_cruise_resume} resumes the previous target. Speed control pauses "
-"at the pickup and comes back on after you leave with the load."
+"{control_cruise_resume} resumes the previous target. Cruise pauses at the "
+"pickup and comes back on after you leave with the load."
 msgstr ""
-"再按一次{control_cruise}或轻踩刹车即可取消。{control_cruise_resume}恢复之前的目标。速度控制在提货点暂停，带着货离"
-"开后会重新打开。"
-
-#. one sentence of a longer line
-msgid ""
-"Speed control pauses at the pickup and comes back on after you leave with "
-"the load."
-msgstr "速度控制在提货点暂停，带着货离开后会重新打开。"
 
 #. placeholders: {control_cruise_resume}
 #. one sentence of a longer line
@@ -37267,6 +37209,407 @@ msgstr "镜像地址必须以 https:// 开头。"
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr "镜像地址不能包含查询参数或片段。"
+
+#~ msgid ""
+#~ "Level {level}, {title}. {f} experience.{owed_text} Reputation {f2} out of "
+#~ "100. {deliveries} deliveries, {f3} percent on time. {grouped} lifetime "
+#~ "miles, {grouped2} dollars earned. Career stage: {stage}. "
+#~ "{status}.{next_text}"
+#~ msgstr ""
+#~ "{level}级，{title}。经验{f}。{owed_text}声誉{f2}，满分100。送货{deliveries}次，准时率百分之{f3}。累计"
+#~ "行驶{grouped}英里，共赚{grouped2}美元。职业阶段：{stage}。{status}。{next_text}"
+
+#~ msgid "{deliveries} deliveries, {f3} percent on time."
+#~ msgstr "送货{deliveries}次，准时率百分之{f3}。"
+
+#~ msgid " Market {condition}."
+#~ msgstr "市场 {condition}。"
+
+#~ msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
+#~ msgstr "{tons}吨{cargo}从{pickup}到{dropoff}。"
+
+#~ msgid "Pays"
+#~ msgstr "报酬"
+
+#~ msgid "Pay for the load: {pay} dollars."
+#~ msgstr "货物运费：{pay}美元。"
+
+#~ msgid "Deadline {hours} hours, includes a 10-hour rest."
+#~ msgstr "截止时间 {hours} 小时，包括 10 小时休息。"
+
+#~ msgid "Deadline {hours} hours."
+#~ msgstr "截止时间{hours}小时。"
+
+#~ msgid ""
+#~ "{pay_text} {deadline} Equipment: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+#~ msgstr ""
+#~ "{pay_text} {deadline} 设备：{equipment}.{trailer}{preview}{market}{endorsement}"
+
+#~ msgid ""
+#~ "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+#~ msgstr ""
+#~ "{prefix}{load} {distance}。{pay_text} {deadline} "
+#~ "设备：{equipment}.{trailer}{preview}{market}{endorsement}"
+
+#~ msgid ""
+#~ "More than 7 miles per hour over the posted limit: past anything adaptive "
+#~ "cruise will do on its own, and short of where a trooper can act on your "
+#~ "speed."
+#~ msgstr "超出限速每小时7英里以上：超过了自适应巡航自己会开到的范围，但还没到州警会因车速对你采取行动的程度。"
+
+#~ msgid "{pacenote} Adaptive cruise easing to {advisory_speed_text}."
+#~ msgstr "{pacenote}自适应巡航正在降到{advisory_speed_text}。"
+
+#~ msgid ""
+#~ "{pacenote} Adaptive cruise paused for the bend, curve assistance slowing."
+#~ msgstr "{pacenote}自适应巡航为弯道暂停，弯道辅助正在减速。"
+
+#~ msgid ""
+#~ "{pacenote} Adaptive cruise paused for the bend, curve assistance slowing. "
+#~ "Cruise resumes past the bend."
+#~ msgstr "{pacenote}自适应巡航为弯道暂停，弯道辅助正在减速。过弯后恢复巡航。"
+
+#~ msgid "{pacenote} Adaptive cruise paused for the bend."
+#~ msgstr "{pacenote}自适应巡航为弯道暂停。"
+
+#~ msgid "{pacenote} Adaptive cruise paused for the bend. Resumes past it."
+#~ msgstr "{pacenote}自适应巡航为弯道暂停。过了就恢复。"
+
+#~ msgid "Automatic speed control"
+#~ msgstr "自动速度控制"
+
+#~ msgid "Take-home about {grouped} dollars after {grouped2} dollars costs."
+#~ msgstr "扣除{grouped2}美元费用后带回家约{grouped}美元。"
+
+#~ msgid "Your pay about {grouped} dollars."
+#~ msgstr "你的工资约为{grouped}美元。"
+
+#~ msgid "{remaining} decline{s_ending} left before your next promotion. "
+#~ msgstr "下次晋升前还可拒绝{remaining}次。"
+
+#~ msgid "No declines left until your next promotion. "
+#~ msgstr "下次晋升前已不能再拒绝任务。"
+
+#~ msgid "This assignment needs an extra rest on your current hours. "
+#~ msgstr "这项任务需要你在当前的时间内额外休息。"
+
+#~ msgid "Dispatch board. {decline_note}{hos_note}{market}{current}"
+#~ msgstr "调度板。{decline_note}{hos_note}{market}{current}"
+
+#~ msgid "Accept assigned dispatch: {describe}"
+#~ msgstr "接受指派的调度：{describe}"
+
+#~ msgid ""
+#~ "Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to pickup "
+#~ "at {origin_facility_text}."
+#~ msgstr ""
+#~ "已接受。{equipment_note}先沿{cloned}空驶{distance_text}，前往{origin_facility_text}提货。"
+
+#~ msgid ""
+#~ "Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to "
+#~ "{origin_facility_text}."
+#~ msgstr ""
+#~ "已接受。{equipment_note}先沿{cloned}空驶{distance_text}，前往{origin_facility_text}。"
+
+#~ msgid "Load in {origin}, {deadhead} empty first. "
+#~ msgstr "在{origin}装货，先空车开{deadhead}。 "
+
+#~ msgid " Speed control paused, target {target}."
+#~ msgstr "速度控制暂停，目标{target}。"
+
+#~ msgid " before you shut down"
+#~ msgstr " 在你熄火之前"
+
+#~ msgid " {f} gallons burned idling{when}."
+#~ msgstr " 怠速烧掉了{f}加仑燃油{when}。"
+
+#~ msgid "Speed control: paused   Cruise speed: {target}"
+#~ msgstr "速度控制：已暂停，开阔道路目标速度：{target}"
+
+#~ msgid "Automatic speed control paused. "
+#~ msgstr "自动速度控制暂停。"
+
+#~ msgid "Automatic speed control paused. {control_hint} cancels it. "
+#~ msgstr "自动速度控制暂停。{control_hint} 取消它。"
+
+#~ msgid ""
+#~ "Pickup dispatch: drive empty from the terminal to {pickup_facility_text}. "
+#~ msgstr "提货调度：从场站空车开往{pickup_facility_text}。 "
+
+#~ msgid ""
+#~ "At the wheel. {objective}It is {now}. {transmission} {report_lead}. "
+#~ "{engine} {help}"
+#~ msgstr ""
+#~ "在方向盘上。{objective}就是{now}。{transmission} {report_lead}。{engine} {help}"
+
+#~ msgid "{objective}It is {now}."
+#~ msgstr "{objective}现在是{now}。"
+
+#~ msgid ""
+#~ "{cruise} starts automatic speed control: adaptive cruise on open roads, the "
+#~ "speed keeper in low-speed zones."
+#~ msgstr "{cruise} 开启自动速度控制：开阔道路上是自适应巡航，低速区是限速保持。"
+
+#~ msgid ""
+#~ "Cruise eases early for a sharp posted-limit drop, the keeper for the next "
+#~ "turn or the next lower limit."
+#~ msgstr "标示限速大幅下降前巡航会提早减速，限速保持则在下一个弯道或下一个更低限速前减速。"
+
+#~ msgid ""
+#~ "{cruise_cap} starts automatic speed control: adaptive cruise on open roads, "
+#~ "the speed keeper in low-speed zones."
+#~ msgstr "{cruise_cap} 开启自动速度控制：开阔道路上是自适应巡航，低速区是限速保持。"
+
+#~ msgid "speed keeper holding {speed_text} {reason}, set {speed_text2}"
+#~ msgstr "限速保持维持在{speed_text}，{reason}，设定为{speed_text2}"
+
+#~ msgid ""
+#~ "speed keeper holding {speed_text} {keeper_held_reason}, set {speed_text2}"
+#~ msgstr "限速保持维持在{speed_text}，{keeper_held_reason}，设定为{speed_text2}"
+
+#~ msgid "speed keeper holding {speed_text}"
+#~ msgstr "限速保持维持在{speed_text}"
+
+#~ msgid "adaptive cruise holding {speed_text}{why}, set {speed_text2}"
+#~ msgstr "自适应巡航维持在{speed_text}{why}，设定为{speed_text2}"
+
+#~ msgid "adaptive cruise set at {speed_text}"
+#~ msgstr "自适应巡航设定为{speed_text}"
+
+#~ msgid " Cruise speed {speed_text}."
+#~ msgstr "开放道路目标 {speed_text}。"
+
+#~ msgid " Automatic speed control paused.{keeper_target}"
+#~ msgstr "自动速度控制暂停。{keeper_target}"
+
+#~ msgid "Cruise: {cruise_holding_text}"
+#~ msgstr "巡航：{cruise_holding_text}"
+
+#~ msgid "Speed control: {keeper_holding_text}"
+#~ msgstr "速度控制：{keeper_holding_text}"
+
+#~ msgid "Speed control: paused; resumes when the truck is rolling"
+#~ msgstr "速度控制：已暂停；卡车开起来后恢复"
+
+#~ msgid " Speed keeper off."
+#~ msgstr " 限速保持已关闭。"
+
+#~ msgid "Automatic speed control off."
+#~ msgstr "自动速度控制已关闭。"
+
+#~ msgid "Adaptive cruise needs the engine running and at least {minimum}."
+#~ msgstr "自适应巡航需要发动机运转，速度至少{minimum}。"
+
+#~ msgid "Adaptive cruise {else} at {speed_text}{exit_note}."
+#~ msgstr "自适应巡航{else}，{speed_text}{exit_note}。"
+
+#~ msgid "Adaptive cruise off."
+#~ msgstr "自适应巡航已关闭。"
+
+#~ msgid "Adaptive cruise {speed_text}."
+#~ msgstr "自适应巡航{speed_text}。"
+
+#~ msgid "The speed keeper needs the engine running and the truck rolling."
+#~ msgstr "限速保持需要发动机运转，卡车在行驶。"
+
+#~ msgid "Speed keeper off."
+#~ msgstr "速度保持器关闭。"
+
+#~ msgid "{reason}; speed keeper easing to {eased}."
+#~ msgstr "{reason}；限速保持减速到{eased}。"
+
+#~ msgid "Speed keeper easing to {speed_value}."
+#~ msgstr "限速保持减速到{speed_value}。"
+
+#~ msgid "Speed keeper down to {held} on this grade."
+#~ msgstr "这段坡道上速度保持器降至{held}。"
+
+#~ msgid "Speed keeper building to {held} for the merge."
+#~ msgstr "限速保持加速到{held}准备汇入。"
+
+#~ msgid "Speed keeper building to {held}."
+#~ msgstr "限速保持加速到{held}。"
+
+#~ msgid "Speed keeper can't hold {held}{because}."
+#~ msgstr "速度守门员无法持有{held}{because}。"
+
+#~ msgid "Speed keeper can't hold {held}{because}. Brake."
+#~ msgstr "速度守门员无法持有{held}{because}。制动。"
+
+#~ msgid "Speed keeper holding {held} through {zone}."
+#~ msgstr "限速保持在{zone}中保持{held}。"
+
+#~ msgid "Speed keeper holding {held}."
+#~ msgstr "限速保持维持在{held}。"
+
+#~ msgid "{title_case} zone. Speed keeper holding {held}."
+#~ msgstr "{title_case}区域。限速保持维持在{held}。"
+
+#~ msgid "Speed keeper holding {speed_value}."
+#~ msgstr "限速保持维持在{speed_value}。"
+
+#~ msgid "Stopped traffic ahead; adaptive cruise canceled."
+#~ msgstr "前方车流停滞；自适应巡航已取消。"
+
+#~ msgid "Automatic speed control paused."
+#~ msgstr "自动速度控制已暂停。"
+
+#~ msgid "Speed keeper holding {keeper}."
+#~ msgstr "限速保持维持在{keeper}。"
+
+#~ msgid "Late"
+#~ msgstr "迟到"
+
+#~ msgid "On time"
+#~ msgstr "准时"
+
+#~ msgid "Delivered {f} tons of {label} to {destination}."
+#~ msgstr "把{f}吨{label}送到了{destination}。"
+
+#~ msgid "Trip time: {f} hours, {timing}."
+#~ msgstr "行程时间：{f}小时，{timing}。"
+
+#~ msgid "Net driver pay: {grouped} dollars."
+#~ msgstr "司机净收入：{grouped}美元。"
+
+#~ msgid "Truck damage this run {f} percent, may reduce pay."
+#~ msgstr "这趟行程卡车损坏百分之{f}，可能会减少报酬。"
+
+#~ msgid "Cargo condition: no new damage recorded."
+#~ msgstr "货物状况：没有记录新的损坏。"
+
+#~ msgid "Those charges come off this settlement."
+#~ msgstr "这些费用从这次结算里扣除。"
+
+#~ msgid "Those charges do not reduce driver pay."
+#~ msgstr "这些费用不会减少司机工资。"
+
+#~ msgid ""
+#~ "Charges {grouped3}: tolls {grouped4}, extra charges {charge_summary}."
+#~ msgstr "收费{grouped3}：通行费{grouped4}，配件{charge_summary}。"
+
+#~ msgid "Net about {grouped6}.{advance_note} {timing}."
+#~ msgstr "净关于{grouped6}.{advance_note} {timing}。"
+
+#~ msgid "Paperwork, {facility}: {f} tons of {label}."
+#~ msgstr "文书工作，{facility}：{f} 吨{label}。"
+
+#~ msgid ""
+#~ "Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, pay for the "
+#~ "load {grouped2}. Charges {grouped3}: tolls {grouped4}, extra charges "
+#~ "{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
+#~ "{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
+#~ msgstr ""
+#~ "单据，{facility}：{f}吨{label}。运价{grouped}，货物报酬{grouped2}。费用{grouped3}：过路费{groupe"
+#~ "d4}，额外费用{charge_summary}。{charge_fate} "
+#~ "罚款{grouped5}。净收入约{grouped6}。{advance_note} {timing}。{cargo_condition} "
+#~ "{finish}以结算。"
+
+#~ msgid "Rate {grouped}, pay for the load {grouped2}."
+#~ msgstr "运价{grouped}，货物报酬{grouped2}。"
+
+#~ msgid "{cargo_condition} {finish} to settle."
+#~ msgstr "{cargo_condition}{finish}来结算。"
+
+#~ msgid "{charge_fate} Fines {grouped5}."
+#~ msgstr "{charge_fate} 罚款 {grouped5}。"
+
+#~ msgid "Automatic speed control paused for pickup."
+#~ msgstr "自动速度控制暂停以进行拾取。"
+
+#~ msgid "Automatic speed control is already on."
+#~ msgstr "自动速度控制已经开着。"
+
+#~ msgid "Resuming automatic speed control at {spoken}."
+#~ msgstr "在{spoken}恢复自动速度控制。"
+
+#~ msgid "Automatic speed control canceled."
+#~ msgstr "自动速度控制已取消。"
+
+#~ msgid "Speed control resuming."
+#~ msgstr "速度控制正在恢复。"
+
+#~ msgid "Speed keeper held to {held} for chains."
+#~ msgstr "因安装防滑链，速度保持器限制为{held}。"
+
+#~ msgid ""
+#~ "Two rows moved. Speed keeper is now in Driving assistance instead of "
+#~ "Controls. Lane and edge cue prominence is now Lane and edge cue volume, in "
+#~ "Audio under Gameplay cues volume. Your choices came with them. Overspeed "
+#~ "warning no longer has a row: it stays quiet until you are heading for a "
+#~ "ticket."
+#~ msgstr ""
+#~ "有两行换了位置。限速保持现在在“驾驶辅助”里，不在“操作”里了。车道和路边提示突出程度现在叫车道和路边提示音量，在“音频”的游戏提示音量下面。你的选择也"
+#~ "跟着过去了。超速警告不再有单独一行：在你快要被开罚单之前它都保持安静。"
+
+#~ msgid "Adaptive cruise slows behind traffic and resumes when it is safe."
+#~ msgstr "自适应巡航会在车流后面减速，安全时再恢复。"
+
+#~ msgid ""
+#~ "With adaptive cruise on, holds a steep downhill grade at the speed your "
+#~ "truck can take it at with its load, on the engine brake and short brake "
+#~ "applications. On Standard and Strong, braking sets a new, lower speed to "
+#~ "hold. Strong also caps every descent at 55 miles per hour and steps in "
+#~ "sooner."
+#~ msgstr ""
+#~ "开着自适应巡航时，在陡下坡上用发动机制动和短促刹车，保持你的卡车带着货能承受的车速。在标准和强档，踩刹车会设定一个新的、更低的保持车速。强档还会把每段下"
+#~ "坡限制在每小时 55 英里，并更早介入。"
+
+#~ msgid "Speed keeper"
+#~ msgstr "限速保持"
+
+#~ msgid ""
+#~ "In low-speed zones, like facility roads, gates, and construction zones, "
+#~ "{control_cruise} holds your current speed, then hands back to adaptive "
+#~ "cruise on open roads."
+#~ msgstr "在低速区域，比如厂区道路、大门和施工区，{control_cruise}会保持你当前的车速，到了开阔道路再交回给自适应巡航。"
+
+#~ msgid ""
+#~ "In low-speed zones, like facility roads, gates, and construction zones, "
+#~ "{control_cruise} holds your current speed, then hands back to adaptive "
+#~ "cruise on open roads. It eases off early for the next turn or the next "
+#~ "lower limit. Braking cancels it. Presets never change this."
+#~ msgstr ""
+#~ "在设施道路、大门和施工区等低速区域，{control_cruise}保持你当前的车速，到开阔道路上再交还给自适应巡航。它会为下一个转弯或下一个更低的限速"
+#~ "提前松油。踩刹车会取消。预设从不改变这一点。"
+
+#~ msgid ""
+#~ "How much room adaptive cruise leaves to the vehicle ahead. Close is two and "
+#~ "a half seconds, normal three, far three and a half. Weather widens the gap "
+#~ "whichever you pick. All three stay clear of a following-too-close citation. "
+#~ "The preset above never changes it."
+#~ msgstr ""
+#~ "自适应巡航和前车之间留多少距离。近是2.5秒，正常是3秒，远是3.5秒。无论你选哪个，天气都会加大间隔。三种都不会让你因跟车太近被开罚单。上面的预设永远"
+#~ "不会改变它。"
+
+#~ msgid "Speed control and hills"
+#~ msgstr "速度控制和坡道"
+
+#~ msgid ""
+#~ "{control_cruise} starts automatic speed control: adaptive cruise on open "
+#~ "roads, speed keeper on supported low-speed roads."
+#~ msgstr "{control_cruise}启动自动速度控制：开阔道路上是自适应巡航，在支持的低速道路上是限速保持。"
+
+#~ msgid ""
+#~ "Speed keeper follows local limits, queues, and corners, then hands over to "
+#~ "cruise on open road. The target keys still change the remembered cruise "
+#~ "speed."
+#~ msgstr "限速保持会遵循当地限速、排队车流和转角，然后在开阔道路上交给巡航。目标速度键仍然会改变记住的巡航速度。"
+
+#~ msgid ""
+#~ "Press {control_cruise} again or touch the brakes to cancel. "
+#~ "{control_cruise_resume} resumes the previous target. Speed control pauses "
+#~ "at the pickup and comes back on after you leave with the load."
+#~ msgstr ""
+#~ "再按一次{control_cruise}或轻踩刹车即可取消。{control_cruise_resume}恢复之前的目标。速度控制在提货点暂停，带着货离"
+#~ "开后会重新打开。"
+
+#~ msgid ""
+#~ "Speed control pauses at the pickup and comes back on after you leave with "
+#~ "the load."
+#~ msgstr "速度控制在提货点暂停，带着货离开后会重新打开。"
 
 #~ msgid ""
 #~ "Delivered {f} tons of {label} to {destination} in {f2} hours, "
@@ -42270,9 +42613,6 @@ msgstr "镜像地址不能包含查询参数或片段。"
 
 #~ msgid "{reason}; adaptive cruise easing to {eased}."
 #~ msgstr "{reason}；自适应巡航减速到{eased}。"
-
-#~ msgid "Cruise easing to {speed_value}."
-#~ msgstr "巡航减速到{speed_value}。"
 
 #~ msgid "{capitalize_first}; adaptive cruise easing to {eased}."
 #~ msgstr "{capitalize_first}；自适应巡航减速到{eased}。"

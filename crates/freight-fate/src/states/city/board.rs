@@ -208,19 +208,13 @@ pub(super) fn pay_basis_note(status: &str) -> &'static str {
     }
 }
 
+/// After "Pays N dollars, " on a board line: what the driver keeps.
 fn market_preview(business: &BusinessSettlement) -> String {
-    let charges = business.business_charge_total();
-    if charges > 0.0 {
-        return format!(
-            "Take-home about {} dollars after {} dollars costs.",
-            fmt_grouped(business.net_before_advance, 0),
-            fmt_grouped(charges, 0)
-        );
+    let take_home = fmt_grouped(business.net_before_advance, 0);
+    if business.business_charge_total() > 0.0 {
+        return format!("about {take_home} after costs");
     }
-    format!(
-        "Your pay about {} dollars.",
-        fmt_grouped(business.net_before_advance, 0)
-    )
+    format!("about {take_home} to you")
 }
 
 /// Stop planning's no-chains reminder, while the driver is still at the
@@ -395,36 +389,15 @@ impl JobBoardState {
     }
 
     fn announce_assignment(&mut self, ctx: &mut GameContext) {
-        let p = profile(ctx);
-        let remaining = declines_remaining(p);
-        // How assignment works, and what listed amounts mean, are on the
-        // rows' help and the job details: the entry line is only what is
-        // news today.
-        let decline_note = if self.assigned_queue.len() < 2 {
-            String::new()
-        } else if remaining > 0 {
-            format!(
-                "{remaining} decline{} left before your next promotion. ",
-                if remaining != 1 { "s" } else { "" }
-            )
-        } else {
-            "No declines left until your next promotion. ".to_string()
-        };
+        // The load comes first. The declines left are on the Decline item,
+        // and Tab reads the market watch.
         let hos_note = if self.job_exceeds_current_hos(ctx, self.assigned_job()) {
-            "This assignment needs an extra rest on your current hours. "
+            " This assignment needs an extra rest on your current hours."
         } else {
             ""
         };
-        let market = p.market.headline();
-        let market = if market.is_empty() {
-            market
-        } else {
-            format!("{market} ")
-        };
         let current = self.current_text(ctx);
-        ctx.say(&format!(
-            "Dispatch board. {decline_note}{hos_note}{market}{current}"
-        ));
+        ctx.say(&format!("Dispatch board. {current}{hos_note}"));
     }
 
     fn build_assignment_items(&mut self, ctx: &GameContext) -> Vec<MenuItem<Self>> {
@@ -439,10 +412,7 @@ impl JobBoardState {
              and restrictions."
         };
         let mut items = vec![MenuItem::new(
-            format!(
-                "Accept assigned dispatch: {}",
-                self.describe(ctx, job, None)
-            ),
+            format!("Assigned load: {}", self.describe(ctx, job, None)),
             move |s: &mut Self, ctx| s.accept(ctx, index),
         )
         .help(assignment_help)];
@@ -940,10 +910,9 @@ impl JobBoardState {
         let equipment_note = dispatch_equipment_note(ctx, &job);
         profile_mut(ctx).dispatch_board_cache = None;
         let line = format!(
-            "Accepted.{equipment_note} Drive empty {} on {} to pickup at {}.",
-            ctx.settings.distance_text(route.miles(), true),
-            route.highways().first().cloned().unwrap_or_default(),
-            job.origin_facility_text()
+            "Accepted.{equipment_note} {} empty to {}.",
+            ctx.settings.distance_text(route.miles(), false),
+            job.origin_short_name()
         );
         ctx.mark_meaningful_play(MeaningfulPlayReason::JobAccepted);
         // The deadhead is time enough for 511 to answer before the pickup.
@@ -993,10 +962,9 @@ impl JobBoardState {
         // this long (heard live: "in Las Vegas, Nevada in Las Vegas, Nevada"
         // and "211.0 miles", 2026-09-12).
         let line = format!(
-            "Accepted.{equipment_note} Drive empty {} on {} to {}.",
+            "Accepted.{equipment_note} {} empty to {}.",
             ctx.settings.distance_text(corridor.miles(), false),
-            corridor.highways().first().cloned().unwrap_or_default(),
-            job.origin_facility_text(),
+            job.origin_offer_text(),
         );
         ctx.mark_meaningful_play(MeaningfulPlayReason::JobAccepted);
         warm_route_feeds(ctx, &job.origin, &job.destination);

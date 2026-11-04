@@ -250,7 +250,7 @@ fn test_active_drive_snapshot_restores_paused_speed_control_session() {
     let lines = harness.app.speech().lines();
     let resume_message = lines
         .iter()
-        .find(|line| line.contains("Automatic speed control paused."))
+        .find(|line| line.contains("Cruise paused."))
         .unwrap_or_else(|| panic!("no paused-cruise line: {lines:#?}"));
     // Just the state: the target is on Space and Tab, the key in the help.
     assert!(!resume_message.contains("cruise speed"), "{resume_message}");

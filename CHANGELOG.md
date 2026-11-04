@@ -27,7 +27,7 @@
 - **Full lane keeping now takes open weigh stations.** It signals for the scale, and the truck stops at it with facility stopping assistance on.
 - **Exit ramps are updated to October's road data.** Most exits know their ramp's length and the light or sign at its end, both ways.
 - **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.
-- **Adaptive cruise now holds highway work zones and heavy traffic at their limit.** The speed keeper takes over only on streets and facility approaches.
+- **Cruise now holds highway work zones and heavy traffic at their limit.** Low-speed cruise takes over only on streets and facility approaches.
 - **Dispatch stops sending you straight back where you came from.** The city you just delivered from is on about one board in three, and it is no longer the load dispatch assigns or the one the cursor opens on while another load is there.
 - **Instructions use plain words instead of trucker slang and road-engineering terms.** You hear Drive empty instead of Deadhead, and Lane ending instead of Taper squeezing.
 - **The open-road target is now called the cruise speed.**
@@ -35,6 +35,12 @@
 - **Route-transition assistance is now Ramp assistance.** Two more rows were renamed: Lower game sounds during speech, and Letters run menu items.
 - **Settings help, How to play and many spoken lines are shorter and plainer.**
 - **Loads list Pay for the load instead of carrier gross.** Settlements say extra charges and billing fees instead of accessorials and factoring.
+- **Dispatch board lines are shorter.** Facility names, equipment and the market are in the job details, which F1 opens.
+- **Cruise has one name.** Speed keeper, adaptive cruise and automatic speed control lines all say Cruise now; the low-speed setting is Low-speed cruise.
+- **The delivery screen opens on where, whether on time, and your net pay.** Paperwork at the dock is one short line.
+- **Arriving at a facility names it once.** After Pulling into, the menu opens on its first row.
+- **The speed readout says miles per hour once,** and the road readout names a state only when your destination is in another one.
+- **Idle fuel burned at a pickup is now in Pickup status** instead of the loaded line. The weather readout no longer ends with It is day.
 
 ### Removed
 
@@ -50,7 +56,7 @@
 - **The Mac game no longer freezes at launch with VoiceOver on.** It could stop responding for up to two minutes while VoiceOver was starting.
 - **Halloween week has more billboards, and they no longer repeat the same two lines.** They come up less often, and some are about the state you are in.
 - **Your planned stop is announced at every driving speech setting, with the key to signal for it.** Pressing X while it is read no longer brings the line back.
-- **Adaptive cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
+- **Cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
 - **Full lane keeping now leaves a lane that a work zone closes.** It moves over when the signs come up, so All assists no longer drives into the barrels.
 - **The lane ending warning before a lane closure now names the open lane.** With the left lane closed it used to say merge left.
 - **Barrel citations from before that fix come off your record.** The fine is refunded the first time you load the career.
@@ -60,6 +66,10 @@
 - **On ice, a co-driver now plans a stop they can reach at icy speeds.** They used to plan one their hours could not reach.
 - **Learn game sounds no longer describes a police setting that was removed.** The police car going by now says it always means an officer was there.
 - **Declining an assigned load now says it costs reputation, not dispatch trust,** which is what it has always taken.
+- **Facility names no longer repeat their kind,** as in grocery distribution center Buffalo Grocery Distribution Center.
+- **Releasing the parking brake in your first drive gives one line, not two.**
+- **A trooper the radio placed in the median is still in the median when you pass.**
+- **The career summary no longer says 1 deliveries.**
 - **Help that named the shift, lane locator and hours keys now names the keys you set.**
 - **A co-driver now lowers the cruise speed when the limit drops.** Entering a state with a lower truck limit, they kept the old speed.
 - **Adaptive cruise no longer repeats a work zone's slowdown after a stop.** Braking for a hazard or turning cruise off in the approach used to bring the line back.

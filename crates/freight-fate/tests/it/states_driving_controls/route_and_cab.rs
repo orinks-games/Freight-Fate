@@ -19,8 +19,7 @@ fn test_route_key_reports_progress_then_road_state_and_destination() {
     assert_eq!(
         last(&app),
         format!(
-            "{pct} percent there, 34 miles left. On I-90 East in New York, toward Rochester, \
-             New York."
+            "{pct} percent there, 34 miles left. On I-90 East toward Rochester."
         )
     );
 }
@@ -52,7 +51,7 @@ fn test_route_key_counts_down_to_a_planned_stop_instead_of_the_destination() {
     );
     assert!(!report.contains("left."), "{report}");
     assert!(
-        report.contains("On I-90 East in New York, toward Rochester, New York."),
+        report.contains("On I-90 East toward Rochester."),
         "{report}"
     );
 }
@@ -87,7 +86,7 @@ fn test_route_key_reports_reverse_route_direction() {
     d.handle_key_event(&mut app.ctx, &key(Key::R));
 
     assert!(
-        last(&app).contains("On I-90 West in New York, toward Buffalo, New York"),
+        last(&app).contains("On I-90 West toward Buffalo."),
         "{}",
         last(&app)
     );

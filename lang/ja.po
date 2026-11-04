@@ -6401,6 +6401,11 @@ msgstr " レベル{level}まであと{grouped}です。"
 msgid "Career stage: {stage}."
 msgstr "キャリアの段階：{stage}。"
 
+#. placeholders: {deliveries}, {f3}
+#. one sentence of a longer line
+msgid "Deliveries {deliveries}, {f3} percent on time."
+msgstr ""
+
 #. placeholders: {level}, {title}
 #. one sentence of a longer line
 msgid "Level {level}, {title}."
@@ -6409,17 +6414,10 @@ msgstr "レベル{level}、{title}。"
 #. placeholders: {level}, {title}, {f}, {owed_text}, {f2}, {deliveries}, {f3}, {grouped}, {grouped2}, {stage}, {status}, {next_text}
 msgid ""
 "Level {level}, {title}. {f} experience.{owed_text} Reputation {f2} out of "
-"100. {deliveries} deliveries, {f3} percent on time. {grouped} lifetime "
+"100. Deliveries {deliveries}, {f3} percent on time. {grouped} lifetime "
 "miles, {grouped2} dollars earned. Career stage: {stage}. "
 "{status}.{next_text}"
 msgstr ""
-"レベル{level}、{title}。経験値{f}。{owed_text}評判は100中{f2}。配達{deliveries}件、期限内{f3}パーセン"
-"ト。通算{grouped}マイル、稼ぎは{grouped2}ドル。キャリアの段階：{stage}。{status}。{next_text}"
-
-#. placeholders: {deliveries}, {f3}
-#. one sentence of a longer line
-msgid "{deliveries} deliveries, {f3} percent on time."
-msgstr "配達{deliveries}件、期限内{f3}パーセント。"
 
 #. placeholders: {f}, {owed_text}, {f2}
 #. one sentence of a longer line
@@ -8549,66 +8547,55 @@ msgstr "{city_lower}の貨物市場"
 msgid "{city_lower} metro freight market"
 msgstr "{city_lower}都市圏の貨物市場"
 
+#. placeholders: {city}, {destination}
+msgid "{city} to {destination}"
+msgstr ""
+
+#. placeholders: {origin}, {destination}
+msgid "{origin} to {destination}"
+msgstr ""
+
 #. placeholders: {index}, {unwrap_or_else}
 msgid "Job {index} of {unwrap_or_else}: "
 msgstr "{unwrap_or_else}件中{index}件目： "
-
-#. placeholders: {condition}
-msgid " Market {condition}."
-msgstr "市場は{condition}です。"
 
 #. placeholders: {credentials_clause}
 msgid " Requires {credentials_clause}."
 msgstr " {credentials_clause}が必要です。"
 
-#. placeholders: {tons}, {cargo}, {pickup}, {dropoff}
-msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
-msgstr "{pickup}から{dropoff}への{cargo}{tons}トン。"
+#. placeholders: {tons}, {cargo}, {route}
+msgid "{tons} tons of {cargo}, {route}."
+msgstr ""
 
-msgid "Pays"
-msgstr "報酬"
+#. placeholders: {miles}
+msgid " {miles} empty to the pickup first."
+msgstr ""
 
 #. placeholders: {pay}
 msgid "Pays {pay} dollars."
 msgstr "報酬は{pay}ドル。"
 
-#. placeholders: {pay}
-msgid "Pay for the load: {pay} dollars."
-msgstr "積荷の支払い: {pay}ドル。"
-
-#. placeholders: {hours}
-msgid ""
-"Deadline {hours} hours. Team load: you and a co-driver take turns at the "
-"wheel."
-msgstr "期限は{hours}時間。チームの積荷です。相棒の運転手と交代でハンドルを握ります。"
+#. placeholders: {pay}, {pay_preview}
+msgid "Pays {pay} dollars, {pay_preview}."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Team load: you and a co-driver take turns at the wheel."
 msgstr "チームの積荷です。相棒の運転手と交代でハンドルを握ります。"
 
-#. placeholders: {hours}
-msgid "Deadline {hours} hours, includes a 10-hour rest."
-msgstr "期限は{hours}時間、10時間の休息を含みます。"
-
-#. placeholders: {hours}
-msgid "Deadline {hours} hours."
-msgstr "期限は{hours}時間。"
-
-#. placeholders: {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
-#. one sentence of a longer line
+#. placeholders: {distance}, {hours}
 msgid ""
-"{pay_text} {deadline} Equipment: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
+"{distance}, deadline {hours} hours. Team load: you and a co-driver take "
+"turns at the wheel."
 msgstr ""
-"{pay_text}{deadline}装備：{equipment}。{trailer}{preview}{market}{endorsement}"
 
-#. placeholders: {prefix}, {load}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
-msgid ""
-"{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
+#. placeholders: {distance}, {hours}
+msgid "{distance}, deadline {hours} hours with a 10-hour rest."
 msgstr ""
-"{prefix}{load}、{distance}。{pay_text}{deadline}装備：{equipment}。{trailer}{previ"
-"ew}{market}{endorsement}"
+
+#. placeholders: {distance}, {hours}
+msgid "{distance}, deadline {hours} hours."
+msgstr ""
 
 #. placeholders: {min_level}
 msgid "Level {min_level} drivers unlock this cargo."
@@ -13503,10 +13490,9 @@ msgstr ""
 "ここの制限速度を超えています。違反切符ではなく、誰かに見られたとも限りませんが、見ていた警官は対処します。チャイムの間隔が速いほど、大きく超えています。"
 
 msgid ""
-"More than 7 miles per hour over the posted limit: past anything adaptive "
-"cruise will do on its own, and short of where a trooper can act on your "
-"speed."
-msgstr "制限速度を時速7マイルより多く超えたとき。アダプティブクルーズが自分では出さない速度で、州警察官が速度で取り締まれる手前です。"
+"More than 7 miles per hour over the posted limit: past anything cruise will "
+"do on its own, and short of where a trooper can act on your speed."
+msgstr ""
 
 msgid "Gear grind"
 msgstr "ギアの擦れ"
@@ -14084,8 +14070,8 @@ msgid "Limit {limit_value}."
 msgstr "制限{limit_value}。"
 
 #. placeholders: {pacenote}, {advisory_speed_text}
-msgid "{pacenote} Adaptive cruise easing to {advisory_speed_text}."
-msgstr "{pacenote}アダプティブクルーズが{advisory_speed_text}まで減速します。"
+msgid "{pacenote} Cruise easing to {advisory_speed_text}."
+msgstr ""
 
 #. placeholders: {pacenote}
 msgid "{pacenote} Curve assistance slowing."
@@ -14097,15 +14083,14 @@ msgstr "カーブを過ぎるとクルーズが再開します。"
 
 #. placeholders: {pacenote}
 #. one sentence of a longer line
-msgid ""
-"{pacenote} Adaptive cruise paused for the bend, curve assistance slowing."
-msgstr "{pacenote}カーブのためアダプティブクルーズを一時停止し、カーブアシストが減速します。"
+msgid "{pacenote} Cruise paused for the bend, curve assistance slowing."
+msgstr ""
 
 #. placeholders: {pacenote}
 msgid ""
-"{pacenote} Adaptive cruise paused for the bend, curve assistance slowing. "
-"Cruise resumes past the bend."
-msgstr "{pacenote}カーブのためアダプティブクルーズを一時停止し、カーブアシストが減速します。カーブを過ぎるとクルーズが再開します。"
+"{pacenote} Cruise paused for the bend, curve assistance slowing. Cruise "
+"resumes past the bend."
+msgstr ""
 
 #. placeholders: {pacenote_terse}
 msgid "{pacenote_terse} Cruise paused; assistance slowing."
@@ -14117,12 +14102,12 @@ msgstr "過ぎると再開します。"
 
 #. placeholders: {pacenote}
 #. one sentence of a longer line
-msgid "{pacenote} Adaptive cruise paused for the bend."
-msgstr "{pacenote}カーブのためアダプティブクルーズを一時停止します。"
+msgid "{pacenote} Cruise paused for the bend."
+msgstr ""
 
 #. placeholders: {pacenote}
-msgid "{pacenote} Adaptive cruise paused for the bend. Resumes past it."
-msgstr "{pacenote}カーブのためアダプティブクルーズを一時停止します。過ぎると再開します。"
+msgid "{pacenote} Cruise paused for the bend. Resumes past it."
+msgstr ""
 
 #. placeholders: {pacenote_terse}
 msgid "{pacenote_terse} Cruise paused."
@@ -14660,8 +14645,8 @@ msgstr "空調"
 msgid "Heat or air conditioning"
 msgstr "暖房か冷房"
 
-msgid "Automatic speed control"
-msgstr "自動速度制御"
+msgid "Cruise"
+msgstr ""
 
 msgid "Resume the last cruise speed"
 msgstr "前回のクルーズ速度に戻す"
@@ -16326,13 +16311,13 @@ msgid ""
 "is assigned until you run your own truck."
 msgstr "表示の報酬は会社の取り分で、あなたにはそこから給料が払われます。自分のトラックで走るまでは、ルートは割り当てです。"
 
-#. placeholders: {grouped}, {grouped2}
-msgid "Take-home about {grouped} dollars after {grouped2} dollars costs."
-msgstr "費用{grouped2}ドルを引いて、手取りは約{grouped}ドル。"
+#. placeholders: {take_home}
+msgid "about {take_home} after costs"
+msgstr ""
 
-#. placeholders: {grouped}
-msgid "Your pay about {grouped} dollars."
-msgstr "あなたの取り分は約{grouped}ドル。"
+#. placeholders: {take_home}
+msgid "about {take_home} to you"
+msgstr ""
 
 #. placeholders: {highway}
 #. one sentence of a longer line
@@ -16374,19 +16359,12 @@ msgstr ""
 msgid "Dispatch board"
 msgstr "配車ボード"
 
-#. placeholders: {remaining}, {s_ending}
-msgid "{remaining} decline{s_ending} left before your next promotion. "
-msgstr "次の昇進まで、あと{remaining}回断れます。"
+msgid " This assignment needs an extra rest on your current hours."
+msgstr ""
 
-msgid "No declines left until your next promotion. "
-msgstr "次の昇進まで、もう断れません。"
-
-msgid "This assignment needs an extra rest on your current hours. "
-msgstr "今の運転時間だと、この割り当てには追加の休息が必要です。"
-
-#. placeholders: {decline_note}, {hos_note}, {market}, {current}
-msgid "Dispatch board. {decline_note}{hos_note}{market}{current}"
-msgstr "配車ボード。{decline_note}{hos_note}{market}{current}"
+#. placeholders: {current}, {hos_note}
+msgid "Dispatch board. {current}{hos_note}"
+msgstr ""
 
 msgid ""
 "Dispatch is sending you empty, with no pickup. After you accept, Route "
@@ -16402,8 +16380,8 @@ msgstr ""
 "確認できます。"
 
 #. placeholders: {describe}
-msgid "Accept assigned dispatch: {describe}"
-msgstr "割り当てられた配車を受ける：{describe}"
+msgid "Assigned load: {describe}"
+msgstr ""
 
 #. placeholders: {remaining}, {s_ending}
 msgid "Decline and request another load: {remaining} decline{s_ending} left"
@@ -16519,25 +16497,19 @@ msgid ""
 "That load's facility is no longer on the network. Dispatch pulled the offer."
 msgstr "その積荷の施設はもうネットワークにありません。配車係が依頼を取り下げました。"
 
-#. placeholders: {equipment_note}, {distance_text}, {cloned}, {origin_facility_text}
+#. placeholders: {equipment_note}, {distance_text}, {origin_short_name}
 msgid ""
-"Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to pickup "
-"at {origin_facility_text}."
+"Accepted.{equipment_note} {distance_text} empty to {origin_short_name}."
 msgstr ""
-"受けました。{equipment_note}{cloned}経由で{distance_text}の空荷回送をして、{origin_facility_te"
-"xt}で積み込みます。"
 
 msgid ""
 "That load's city is no longer on the network. Dispatch pulled the offer."
 msgstr "その積荷の都市はもうネットワークにありません。配車係が依頼を取り下げました。"
 
-#. placeholders: {equipment_note}, {distance_text}, {cloned}, {origin_facility_text}
+#. placeholders: {equipment_note}, {distance_text}, {origin_offer_text}
 msgid ""
-"Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to "
-"{origin_facility_text}."
+"Accepted.{equipment_note} {distance_text} empty to {origin_offer_text}."
 msgstr ""
-"受けました。{equipment_note}{cloned}経由で{distance_text}の空荷回送をして、{origin_facility_te"
-"xt}へ向かいます。"
 
 #. placeholders: {equipment_note}
 msgid "Accepted.{equipment_note} The load is here in the yard."
@@ -16689,10 +16661,6 @@ msgstr "{prefix}{destination}への空荷回送、{distance_text}。報酬は{gr
 msgid "a drive"
 msgstr "運転"
 
-#. placeholders: {origin}, {deadhead}
-msgid "Load in {origin}, {deadhead} empty first. "
-msgstr "荷積みは{origin}、まず空車で{deadhead}。 "
-
 msgid ""
 "Up and down review the lines, Home and End jump to the ends. Enter repeats "
 "a line, or accepts on Accept this dispatch. Escape returns to the dispatch "
@@ -16735,6 +16703,12 @@ msgstr "期限：積み込みから{f}時間、だいたい{appointment_text}。
 #. placeholders: {equipment_text}
 msgid "Equipment: {equipment_text}."
 msgstr "装備：{equipment_text}。"
+
+msgid "Market: tight, so this load pays more than usual."
+msgstr ""
+
+msgid "Market: loose, so this load pays less than usual."
+msgstr ""
 
 #. placeholders: {trailer}
 msgid "Trailer: {trailer}"
@@ -18643,8 +18617,8 @@ msgid "the posted limit when the open road begins"
 msgstr "一般道路に出たときの制限速度"
 
 #. placeholders: {target}
-msgid " Speed control paused, target {target}."
-msgstr "速度制御は一時停止中、目標は{target}です。"
+msgid " Cruise paused, set {target}."
+msgstr ""
 
 msgid ""
 "Nothing to walk around yet. The shipper is loading the trailer you came in "
@@ -18830,6 +18804,10 @@ msgstr ""
 msgid "{f} tons of {label} for {destination_facility_text}."
 msgstr "{destination_facility_text}行きの{label}{f}トン。"
 
+#. placeholders: {f}
+msgid " Idling here burned {f} gallons."
+msgstr ""
+
 msgid "Saved. The pickup resumes here."
 msgstr "保存しました。積み込みはここから再開します。"
 
@@ -18884,13 +18862,6 @@ msgid ""
 " {wait} minutes past the two free hours at the dock: {dollars} dollars "
 "detention, paid to the carrier."
 msgstr " ドックの無料の2時間を{wait}分超過：待機料{dollars}ドルは会社に支払われます。"
-
-msgid " before you shut down"
-msgstr " エンジンを止める前に"
-
-#. placeholders: {f}, {when}
-msgid " {f} gallons burned idling{when}."
-msgstr " {when}アイドリングで燃料を{f}ガロン使いました。"
 
 #. placeholders: {facility}
 #. one sentence of a longer line
@@ -19038,8 +19009,8 @@ msgid "posted limit when the open road begins"
 msgstr "一般道路に出たときの制限速度"
 
 #. placeholders: {target}
-msgid "Speed control: paused   Cruise speed: {target}"
-msgstr "速度制御：一時停止中   一般道路での目標：{target}"
+msgid "Cruise: paused   Cruise speed: {target}"
+msgstr ""
 
 msgid "Route planning"
 msgstr "ルート計画"
@@ -19895,12 +19866,12 @@ msgstr "エンジンはアイドリング中です。"
 msgid "{control_hint} lists the controls."
 msgstr "{control_hint}で操作の一覧を読みます。"
 
-msgid "Automatic speed control paused. "
-msgstr "自動速度制御は一時停止中です。"
+msgid "Cruise paused. "
+msgstr ""
 
 #. placeholders: {control_hint}
-msgid "Automatic speed control paused. {control_hint} cancels it. "
-msgstr "自動速度制御は一時停止中です。{control_hint}で取り消します。"
+msgid "Cruise paused. {control_hint} cancels it. "
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -19980,9 +19951,8 @@ msgid "{progress} {hours_used} of {deadline_game_h} hours."
 msgstr "{progress}{deadline_game_h}時間中{hours_used}時間を使用。"
 
 #. placeholders: {pickup_facility_text}
-msgid ""
-"Pickup dispatch: drive empty from the terminal to {pickup_facility_text}. "
-msgstr "積み込みの配車：ターミナルから{pickup_facility_text}への空荷回送です。 "
+msgid "Drive empty to {pickup_facility_text}. "
+msgstr ""
 
 #. placeholders: {destination_facility_text}
 #. one sentence of a longer line
@@ -19993,21 +19963,23 @@ msgstr "{destination_facility_text}行きの積荷を載せています。"
 msgid "Loaded for {destination_facility_text}. {progress_summary} "
 msgstr "{destination_facility_text}行きの積荷を載せています。{progress_summary} "
 
+msgid " Manual transmission."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "At the wheel."
 msgstr "運転席にいます。"
 
 #. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
 msgid ""
-"At the wheel. {objective}It is {now}. {transmission} {report_lead}. "
-"{engine} {help}"
+"At the wheel. {objective}It is {now}.{transmission} {report_lead}. {engine} "
+"{help}"
 msgstr ""
-"運転席にいます。{objective}{now}です。{transmission}{report_lead}。{engine}{help}"
 
-#. placeholders: {objective}, {now}
+#. placeholders: {objective}, {now}, {transmission}, {report_lead}
 #. one sentence of a longer line
-msgid "{objective}It is {now}."
-msgstr "{objective}{now}です。"
+msgid "{objective}It is {now}.{transmission} {report_lead}."
+msgstr ""
 
 msgid "amount"
 msgstr "amount"
@@ -20151,19 +20123,29 @@ msgid ""
 "Hold {emergency_brake} for the emergency brake, the hardest possible stop."
 msgstr "{emergency_brake} を押し続けると非常ブレーキ、最も強い停止です。"
 
+#. one sentence of a longer line
+msgid ""
+"It follows traffic on open roads and holds the limit in low-speed zones."
+msgstr ""
+
+#. placeholders: {cruise}
+#. one sentence of a longer line
+msgid "{cruise} starts cruise."
+msgstr ""
+
 #. placeholders: {cruise}
 msgid ""
-"{cruise} starts automatic speed control: adaptive cruise on open roads, the "
-"speed keeper in low-speed zones."
-msgstr "{cruise} で自動速度制御を開始します。一般道路ではアダプティブクルーズ、低速区間では速度キープです。"
+"{cruise} starts cruise. It follows traffic on open roads and holds the "
+"limit in low-speed zones."
+msgstr ""
 
 msgid "Weather widens the gap."
 msgstr "天候で車間が広がります。"
 
 msgid ""
-"Cruise eases early for a sharp posted-limit drop, the keeper for the next "
-"turn or the next lower limit."
-msgstr "クルーズは標識の制限速度が大きく下がる前に早めに減速し、速度キープは次のカーブか次の低い制限速度の前に減速します。"
+"Cruise eases early for a sharp posted-limit drop, and in low-speed zones "
+"for the next turn or the next lower limit."
+msgstr ""
 
 msgid "Braking cancels it."
 msgstr "ブレーキで解除されます。"
@@ -20525,10 +20507,15 @@ msgid ""
 msgstr "後退中は右トリガーで停止し、離してから、もう一度引くと前進します。"
 
 #. placeholders: {cruise_cap}
+#. one sentence of a longer line
+msgid "{cruise_cap} starts cruise."
+msgstr ""
+
+#. placeholders: {cruise_cap}
 msgid ""
-"{cruise_cap} starts automatic speed control: adaptive cruise on open roads, "
-"the speed keeper in low-speed zones."
-msgstr "{cruise_cap} で自動速度制御を開始します。一般道路ではアダプティブクルーズ、低速区間では速度キープです。"
+"{cruise_cap} starts cruise. It follows traffic on open roads and holds the "
+"limit in low-speed zones."
+msgstr ""
 
 #. placeholders: {cruise_down}, {cruise_up}
 msgid "{cruise_down} or {cruise_up} change the cruise speed by five."
@@ -20680,34 +20667,36 @@ msgstr "制限速度"
 msgid "for the {other}"
 msgstr "{other}のため"
 
-#. placeholders: {speed_text}, {reason}, {speed_text2}
-msgid "speed keeper holding {speed_text} {reason}, set {speed_text2}"
-msgstr "速度キープが{reason}{speed_text}を維持、設定{speed_text2}"
+#. placeholders: {speed}, {reason}, {speed2}
+msgid "cruise holding {speed} {reason}, set {speed2}"
+msgstr ""
 
-#. placeholders: {speed_text}, {keeper_held_reason}, {speed_text2}
-msgid ""
-"speed keeper holding {speed_text} {keeper_held_reason}, set {speed_text2}"
-msgstr "速度キープが{keeper_held_reason}{speed_text}を維持、設定{speed_text2}"
+#. placeholders: {speed}, {keeper_held_reason}, {speed2}
+msgid "cruise holding {speed} {keeper_held_reason}, set {speed2}"
+msgstr ""
 
-#. placeholders: {speed_text}
-msgid "speed keeper holding {speed_text}"
-msgstr "速度キープが{speed_text}を維持"
+#. placeholders: {speed}
+msgid "cruise holding {speed}"
+msgstr ""
 
-#. placeholders: {speed_text}, {why}, {speed_text2}
-msgid "adaptive cruise holding {speed_text}{why}, set {speed_text2}"
-msgstr "アダプティブクルーズが{why}{speed_text}を維持、設定{speed_text2}"
+#. placeholders: {speed}, {why}, {speed2}
+msgid "cruise holding {speed}{why}, set {speed2}"
+msgstr ""
 
-#. placeholders: {speed_text}
-msgid "adaptive cruise set at {speed_text}"
-msgstr "アダプティブクルーズを{speed_text}に設定"
+#. placeholders: {speed}
+msgid "cruise set at {speed}"
+msgstr ""
 
-#. placeholders: {speed_text}
-msgid " Cruise speed {speed_text}."
-msgstr "一般道路での目標は{speed_text}です。"
+#. placeholders: {speed_value}
+msgid " Cruise speed {speed_value}."
+msgstr ""
 
-#. placeholders: {keeper_target}
-msgid " Automatic speed control paused.{keeper_target}"
-msgstr "自動速度制御は一時停止中です。{keeper_target}"
+#. placeholders: {speed_value}
+msgid " Cruise paused, set {speed_value}."
+msgstr ""
+
+msgid " Cruise paused."
+msgstr ""
 
 #. placeholders: {rpm}
 msgid ", {rpm} RPM"
@@ -21090,20 +21079,12 @@ msgstr "日付：{calendar}"
 msgid "Clock: {clock_text} {clock_zone_label} ({time_of_day})"
 msgstr "時刻：{clock_text} {clock_zone_label}（{time_of_day}）"
 
-#. placeholders: {cruise_holding_text}
-msgid "Cruise: {cruise_holding_text}"
-msgstr "クルーズ：{cruise_holding_text}"
-
-#. placeholders: {keeper_holding_text}
-msgid "Speed control: {keeper_holding_text}"
-msgstr "速度制御：{keeper_holding_text}"
-
 #. placeholders: {open_road_target}
 msgid "Cruise speed: {open_road_target}"
 msgstr "一般道路での目標：{open_road_target}"
 
-msgid "Speed control: paused; resumes when the truck is rolling"
-msgstr "速度制御：一時停止中。トラックが動き出すと再開します"
+msgid "Cruise paused; resumes when the truck is rolling"
+msgstr ""
 
 #. placeholders: {start_damage}
 msgid "Damage: new damage {start_damage} percent"
@@ -22649,6 +22630,13 @@ msgstr "スピード違反で"
 msgid "over a light out"
 msgstr "ライト切れで"
 
+msgid "A trooper has somebody stopped in the median, not you."
+msgstr ""
+
+#. placeholders: {reason}
+msgid "A trooper has somebody stopped in the median {reason}, not you."
+msgstr ""
+
 #. placeholders: {reason}
 msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
 msgstr "州警察官が{reason}路肩で誰かを停めています。こちらではありません。"
@@ -23060,8 +23048,8 @@ msgstr "目的地が前方です、{facility}。ゲートで停まってくだ�
 msgid "Stop at the gate."
 msgstr "ゲートで停まってください。"
 
-msgid " Speed keeper off."
-msgstr " 速度キープはオフです。"
+msgid " Cruise off."
+msgstr "クルーズ、オフ。"
 
 #. placeholders: {pickup_facility_text}
 msgid "At {pickup_facility_text}. Stop to check in."
@@ -23465,12 +23453,12 @@ msgstr "高めのアイドリング、{rpm}回転。"
 msgid "High idle off."
 msgstr "高めのアイドリングをオフにしました。"
 
-msgid "Automatic speed control off."
-msgstr "自動速度制御オフ。"
+msgid "Cruise off."
+msgstr "クルーズオフ。"
 
 #. placeholders: {minimum}
-msgid "Adaptive cruise needs the engine running and at least {minimum}."
-msgstr "アダプティブクルーズには、エンジンがかかっていて、少なくとも{minimum}出ている必要があります。"
+msgid "Cruise needs the engine running and at least {minimum}."
+msgstr ""
 
 msgid "Open road"
 msgstr "一般道路"
@@ -23500,8 +23488,8 @@ msgid " in the {value}"
 msgstr " {value}に合わせて"
 
 #. placeholders: {else}, {speed_text}, {exit_note}
-msgid "Adaptive cruise {else} at {speed_text}{exit_note}."
-msgstr "アダプティブクルーズ{else}、{speed_text}{exit_note}。"
+msgid "Cruise {else} at {speed_text}{exit_note}."
+msgstr ""
 
 msgid "resuming"
 msgstr "再開"
@@ -23513,9 +23501,6 @@ msgstr "クルーズ再開、{speed_value}{exit_note}。"
 #. placeholders: {rpm}
 msgid "High idle {rpm} RPM."
 msgstr "高めのアイドリング、{rpm}回転。"
-
-msgid "Adaptive cruise off."
-msgstr "アダプティブクルーズオフ。"
 
 #. placeholders: {speed_text}, {speed_text2}
 msgid ""
@@ -23532,8 +23517,8 @@ msgid "{speed_number}, ramp {speed_number2}."
 msgstr "{speed_number}、ランプ{speed_number2}。"
 
 #. placeholders: {speed_text}
-msgid "Adaptive cruise {speed_text}."
-msgstr "アダプティブクルーズ{speed_text}。"
+msgid "Cruise {speed_text}."
+msgstr ""
 
 #. placeholders: {speed_text}
 msgid "Open-road cruise target {speed_text}."
@@ -23550,11 +23535,8 @@ msgstr "{zone_reason}区間では"
 msgid "No cruise {place}."
 msgstr "{place}クルーズは使えません。"
 
-msgid "The speed keeper needs the engine running and the truck rolling."
-msgstr "速度キープには、エンジンがかかっていて、トラックが動いている必要があります。"
-
-msgid "Speed keeper off."
-msgstr "速度キープ、オフ。"
+msgid "Cruise needs the engine running and the truck rolling."
+msgstr ""
 
 msgid "Construction zone ahead"
 msgstr "前方に工事区間"
@@ -23566,27 +23548,27 @@ msgid "Posted limit lower"
 msgstr "制限速度が下がります"
 
 #. placeholders: {reason}, {eased}
-msgid "{reason}; speed keeper easing to {eased}."
-msgstr "{reason}。速度キープを{eased}まで落とします。"
+msgid "{reason}; cruise easing to {eased}."
+msgstr ""
 
 #. placeholders: {speed_value}
-msgid "Speed keeper easing to {speed_value}."
-msgstr "速度キープを{speed_value}まで落とします。"
+msgid "Cruise easing to {speed_value}."
+msgstr "クルーズを{speed_value}まで落とします。"
 
 msgid "for the traffic ahead"
 msgstr "前方の車のため"
 
 #. placeholders: {held}
-msgid "Speed keeper down to {held} on this grade."
-msgstr "この勾配で速度キープを{held}に下げます。"
+msgid "Cruise down to {held} on this grade."
+msgstr "この勾配でクルーズを{held}に下げます。"
 
 #. placeholders: {held}
-msgid "Speed keeper building to {held} for the merge."
-msgstr "速度キープが合流に向けて{held}まで加速します。"
+msgid "Cruise building to {held} for the merge."
+msgstr ""
 
 #. placeholders: {held}
-msgid "Speed keeper building to {held}."
-msgstr "速度キープが{held}まで加速します。"
+msgid "Cruise building to {held}."
+msgstr ""
 
 msgid " on this grade"
 msgstr " この勾配では"
@@ -23597,20 +23579,20 @@ msgstr "ブレーキを踏んでください。"
 
 #. placeholders: {held}, {because}
 #. one sentence of a longer line
-msgid "Speed keeper can't hold {held}{because}."
-msgstr "速度キープは{because}{held}を維持できません。"
+msgid "Cruise can't hold {held}{because}."
+msgstr ""
 
 #. placeholders: {held}, {because}
-msgid "Speed keeper can't hold {held}{because}. Brake."
-msgstr "速度キープは{because}{held}を維持できません。ブレーキを踏んでください。"
+msgid "Cruise can't hold {held}{because}. Brake."
+msgstr ""
 
 #. placeholders: {held}, {zone}
-msgid "Speed keeper holding {held} through {zone}."
-msgstr "速度キープが{zone}で{held}を維持します。"
+msgid "Cruise holding {held} through {zone}."
+msgstr ""
 
 #. placeholders: {held}
-msgid "Speed keeper holding {held}."
-msgstr "速度キープが{held}を維持します。"
+msgid "Cruise holding {held}."
+msgstr ""
 
 msgid "Wet roads, longer gap."
 msgstr "路面がぬれています。車間を広げます。"
@@ -23630,21 +23612,18 @@ msgstr "easing-capped"
 msgid "building-capped"
 msgstr "building-capped"
 
-msgid "Cruise off."
-msgstr "クルーズオフ。"
-
 #. placeholders: {title_case}
 #. one sentence of a longer line
 msgid "{title_case} zone."
 msgstr "{title_case}区間。"
 
 #. placeholders: {title_case}, {held}
-msgid "{title_case} zone. Speed keeper holding {held}."
-msgstr "{title_case}区間。速度キープが{held}を維持します。"
+msgid "{title_case} zone. Cruise holding {held}."
+msgstr ""
 
 #. placeholders: {speed_value}
-msgid "Speed keeper holding {speed_value}."
-msgstr "速度キープが{speed_value}を維持します。"
+msgid "Cruise holding {speed_value}."
+msgstr ""
 
 msgid "through the construction zone"
 msgstr ""
@@ -23673,8 +23652,8 @@ msgstr "クルーズを{eased}まで落とします。"
 msgid "{capitalize_first}, cruise easing to {speed_value}."
 msgstr "{capitalize_first}、クルーズを{speed_value}まで落とします。"
 
-msgid "Stopped traffic ahead; adaptive cruise canceled."
-msgstr "前方で車が停まっています。アダプティブクルーズを取り消しました。"
+msgid "Stopped traffic ahead; cruise canceled."
+msgstr ""
 
 msgid "Traffic ahead, slowing."
 msgstr "前方に車、減速します。"
@@ -23687,10 +23666,6 @@ msgstr "カーブに合わせて"
 
 msgid "for the grade"
 msgstr "勾配に合わせて"
-
-#. placeholders: {held}
-msgid "Cruise down to {held} on this grade."
-msgstr "この勾配でクルーズを{held}に下げます。"
 
 msgid "Slowing for the ramp."
 msgstr "ランプに向けて減速します。"
@@ -24506,12 +24481,12 @@ msgstr "運送会社。"
 msgid "your settlement."
 msgstr "あなたの精算。"
 
-msgid "Automatic speed control paused."
-msgstr "自動速度制御を一時停止しました。"
+msgid "Cruise paused."
+msgstr ""
 
 #. placeholders: {keeper}
-msgid "Speed keeper holding {keeper}."
-msgstr "速度キープが{keeper}を維持します。"
+msgid "Cruise holding {keeper}."
+msgstr ""
 
 msgid ""
 "Back on the highway after the 30-minute break. Keep the logbook clean."
@@ -24887,6 +24862,10 @@ msgstr "{journey_progress_percent}パーセント進みました。{spoken_name}
 #. placeholders: {journey_progress_percent}, {closing_text}
 msgid "{journey_progress_percent} percent there, {closing_text} left."
 msgstr "{journey_progress_percent}パーセント進みました。残り{closing_text}です。"
+
+#. placeholders: {lead}, {road}, {toward}
+msgid "{lead} On {road} toward {toward}."
+msgstr ""
 
 #. placeholders: {lead}, {road}, {state}, {toward}
 msgid "{lead} On {road} in {state}, toward {toward}."
@@ -25476,12 +25455,6 @@ msgstr "{join}、{wear_parts}"
 msgid "The run added {joined}."
 msgstr "この運行で{joined}増えました。"
 
-msgid "Late"
-msgstr "遅延"
-
-msgid "On time"
-msgstr "期限内"
-
 msgid "No delivery bonus on this run."
 msgstr "この運行では配達ボーナスはありません。"
 
@@ -25526,13 +25499,36 @@ msgstr "事業経費：{grouped}ドル。"
 msgid "Business cost detail: {business_charge_summary}."
 msgstr "事業経費の内訳：{business_charge_summary}。"
 
-#. placeholders: {f}, {label}, {destination}
-msgid "Delivered {f} tons of {label} to {destination}."
-msgstr "{label}{f}トンを{destination}に配達しました。"
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "Net {grouped} dollars."
+msgstr ""
 
-#. placeholders: {f}, {timing}
-msgid "Trip time: {f} hours, {timing}."
-msgstr "所要時間：{f}時間、{timing}。"
+#. placeholders: {destination}
+#. one sentence of a longer line
+msgid "On time in {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {grouped}
+msgid "On time in {destination}. Net {grouped} dollars."
+msgstr ""
+
+#. placeholders: {destination}
+#. one sentence of a longer line
+msgid "Late in {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {grouped}
+msgid "Late in {destination}. Net {grouped} dollars."
+msgstr ""
+
+#. placeholders: {f}, {label}
+msgid "Load: {f} tons of {label}."
+msgstr ""
+
+#. placeholders: {f}
+msgid "Trip time: {f} hours."
+msgstr ""
 
 #. placeholders: {clock_text}
 msgid "It is {clock_text}."
@@ -25556,10 +25552,6 @@ msgstr "事業状況：{status_label}。"
 #. placeholders: {f}
 msgid "Receiver service after check-in: {f} hours."
 msgstr "受付後の荷受けの作業：{f}時間。"
-
-#. placeholders: {grouped}
-msgid "Net driver pay: {grouped} dollars."
-msgstr "ドライバーの手取り：{grouped}ドル。"
 
 #. placeholders: {grouped}
 msgid "Money after settlement: {grouped} dollars."
@@ -25706,10 +25698,6 @@ msgstr "矢印キーで移動し、Enter で選びます。「荷降ろし場に
 msgid "Destination facility"
 msgstr "目的地の施設"
 
-#. placeholders: {facility}, {current}
-msgid "At {facility}. {current}"
-msgstr "{facility}に着きました。{current}"
-
 msgid "Drop the loaded trailer"
 msgstr "積んだトレーラーを切り離す"
 
@@ -25809,60 +25797,14 @@ msgid "{f} hours past the deadline"
 msgstr "期限を{f}時間過ぎています"
 
 #. placeholders: {f}
-msgid "Truck damage this run {f} percent, may reduce pay."
-msgstr "この運行のトラックの損傷{f}パーセント、報酬が減ることがあります。"
-
-msgid "Cargo condition: no new damage recorded."
-msgstr "積荷の状態：新しい損傷の記録はありません。"
-
-msgid "Those charges come off this settlement."
-msgstr "これらの費用はこの精算から差し引かれます。"
-
-msgid "Those charges do not reduce driver pay."
-msgstr "これらの費用はドライバーの報酬を減らしません。"
-
-#. placeholders: {grouped3}, {grouped4}, {charge_summary}
-#. one sentence of a longer line
-msgid ""
-"Charges {grouped3}: tolls {grouped4}, extra charges {charge_summary}."
-msgstr "請求額{grouped3}：通行料{grouped4}、付帯料金{charge_summary}。"
-
-#. placeholders: {grouped6}, {advance_note}, {timing}
-#. one sentence of a longer line
-msgid "Net about {grouped6}.{advance_note} {timing}."
-msgstr "手取りは約{grouped6}。{advance_note}{timing}。"
-
-#. placeholders: {facility}, {f}, {label}
-#. one sentence of a longer line
-msgid "Paperwork, {facility}: {f} tons of {label}."
-msgstr "書類、{facility}：{label}{f}トン。"
-
-#. placeholders: {facility}, {f}, {label}, {grouped}, {grouped2}, {grouped3}, {grouped4}, {charge_summary}, {charge_fate}, {grouped5}, {grouped6}, {advance_note}, {timing}, {cargo_condition}, {finish}
-msgid ""
-"Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, pay for the "
-"load {grouped2}. Charges {grouped3}: tolls {grouped4}, extra charges "
-"{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
-"{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
+msgid " Truck damage this run {f} percent, may reduce pay."
 msgstr ""
-"書類、{facility}：{label}{f}トン。運賃{grouped}、貨物の報酬{grouped2}。費用{grouped3}：通行料{grou"
-"ped4}、追加料金{charge_summary}。{charge_fate} "
-"罰金{grouped5}。差し引き約{grouped6}。{advance_note} {timing}。{cargo_condition} "
-"{finish}で精算します。"
 
-#. placeholders: {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid "Rate {grouped}, pay for the load {grouped2}."
-msgstr "運賃{grouped}、貨物の報酬{grouped2}。"
-
-#. placeholders: {cargo_condition}, {finish}
-#. one sentence of a longer line
-msgid "{cargo_condition} {finish} to settle."
-msgstr "{cargo_condition}{finish}で精算します。"
-
-#. placeholders: {charge_fate}, {grouped5}
-#. one sentence of a longer line
-msgid "{charge_fate} Fines {grouped5}."
-msgstr "{charge_fate}罰金{grouped5}。"
+#. placeholders: {facility}, {grouped}, {timing}, {advance_note}, {cargo_condition}, {finish}
+msgid ""
+"Paperwork, {facility}: about {grouped} dollars to you, "
+"{timing}.{advance_note}{cargo_condition} {finish} to settle."
+msgstr ""
 
 #. placeholders: {facility}, {f}, {label}, {speed_text}, {else}, {finish}
 msgid ""
@@ -25885,6 +25827,10 @@ msgstr "停車してから、{finish}。"
 #. one sentence of a longer line
 msgid "{f} tons of {label}."
 msgstr "{label}{f}トン。"
+
+#. placeholders: {facility}, {current}
+msgid "At {facility}. {current}"
+msgstr "{facility}に着きました。{current}"
 
 msgid "Delivering"
 msgstr "配達中"
@@ -26602,8 +26548,8 @@ msgstr "積み込み先が前方です：{facility}。ゲートで停まって�
 msgid "At {facility}. Stop to check in."
 msgstr "{facility}に着きました。停車して受付をしてください。"
 
-msgid "Automatic speed control paused for pickup."
-msgstr "積み込みのため、自動速度制御を一時停止しました。"
+msgid "Cruise paused for pickup."
+msgstr ""
 
 msgid "Pulling into pickup. Check-in menu opening."
 msgstr "積み込み先に入ります。受付のメニューを開きます。"
@@ -28799,8 +28745,8 @@ msgstr "レッスンは何も影響しない練習コースで行います。お
 msgid "Leave the school."
 msgstr "教習所を出ます。"
 
-msgid "Automatic speed control is already on."
-msgstr "自動速度制御はもうオンです。"
+msgid "Cruise is already on."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "No remembered cruise speed yet."
@@ -28819,11 +28765,11 @@ msgid "Resume needs the engine running."
 msgstr "再開するにはエンジンがかかっている必要があります。"
 
 #. placeholders: {spoken}
-msgid "Resuming automatic speed control at {spoken}."
-msgstr "{spoken}で自動速度制御を再開します。"
+msgid "Resuming cruise at {spoken}."
+msgstr ""
 
-msgid "Automatic speed control canceled."
-msgstr "自動速度制御を取り消しました。"
+msgid "Cruise canceled."
+msgstr ""
 
 #. placeholders: {floor}
 #. one sentence of a longer line
@@ -28838,8 +28784,8 @@ msgstr "クルーズは{floor}で再開します。それまではペダルを�
 msgid "Pedals are yours."
 msgstr "ペダルは自分で操作してください。"
 
-msgid "Speed control resuming."
-msgstr "速度制御を再開します。"
+msgid "Cruise resuming."
+msgstr ""
 
 msgid "turn"
 msgstr "turn"
@@ -28847,10 +28793,6 @@ msgstr "turn"
 #. placeholders: {held}
 msgid "Cruise held to {held} for chains."
 msgstr "チェーンのため、クルーズを{held}に抑えます。"
-
-#. placeholders: {held}
-msgid "Speed keeper held to {held} for chains."
-msgstr "チェーンのため、速度キープを{held}に抑えます。"
 
 msgid ""
 "Up and down arrows review each line; Home and End jump to the first and "
@@ -30234,9 +30176,6 @@ msgstr "衝突！"
 msgid "Collision! Damage {damage} percent."
 msgstr "衝突！損傷{damage}パーセント。"
 
-msgid " Cruise off."
-msgstr "クルーズ、オフ。"
-
 msgid "Slowing for the bend."
 msgstr "カーブに向けて減速します。"
 
@@ -30856,6 +30795,9 @@ msgstr "{year}年{format}{day}日 {am_pm}{hour}:{minute}"
 #. placeholders: {name}, {level}
 msgid "{name}: level {level}"
 msgstr "{name}：レベル{level}"
+
+msgid "1 delivery"
+msgstr ""
 
 #. placeholders: {deliveries}
 msgid "{deliveries} deliveries"
@@ -31513,15 +31455,12 @@ msgstr ""
 "情報源は、読み上げと天気から、ワールドと周囲の車に移りました。設定内容は何も変わっていません。"
 
 msgid ""
-"Two rows moved. Speed keeper is now in Driving assistance instead of "
+"Two rows moved. Low-speed cruise is now in Driving assistance instead of "
 "Controls. Lane and edge cue prominence is now Lane and edge cue volume, in "
 "Audio under Gameplay cues volume. Your choices came with them. Overspeed "
 "warning no longer has a row: it stays quiet until you are heading for a "
 "ticket."
 msgstr ""
-"2つの項目が移りました。速度キープは操作ではなく運転アシストにあります。車線と路肩の合図の目立ち具合は、車線と路肩の合図の音量になり、オーディオのゲーム"
-"プレイの合図の音量の中にあります。選んでいた設定はそのまま引き継がれています。速度超過の警告には項目がなくなりました。違反切符を切られそうになるまで鳴り"
-"ません。"
 
 msgid ""
 "Speech verbosity is now Driving speech, in the Speech category, with two "
@@ -31817,21 +31756,18 @@ msgstr "トラックが車線の端に寄っていくと、読み上げと音で
 msgid "Stop-and-go assistance"
 msgstr "渋滞アシスト"
 
-msgid "Adaptive cruise slows behind traffic and resumes when it is safe."
-msgstr "アダプティブクルーズが前の車に合わせて減速し、安全になったら再び走り出します。"
+msgid "Cruise slows behind traffic and resumes when it is safe."
+msgstr ""
 
 msgid "Descent speed control"
 msgstr "降坂制御"
 
 msgid ""
-"With adaptive cruise on, holds a steep downhill grade at the speed your "
-"truck can take it at with its load, on the engine brake and short brake "
-"applications. On Standard and Strong, braking sets a new, lower speed to "
-"hold. Strong also caps every descent at 55 miles per hour and steps in "
-"sooner."
+"With cruise on, holds a steep downhill grade at the speed your truck can "
+"take it at with its load, on the engine brake and short brake applications. "
+"On Standard and Strong, braking sets a new, lower speed to hold. Strong "
+"also caps every descent at 55 miles per hour and steps in sooner."
 msgstr ""
-"アダプティブクルーズがオンのとき、急な下り坂で、積荷を載せたトラックが耐えられる速度をエンジンブレーキと短いブレーキで保ちます。標準と強では、ブレーキを"
-"かけると、保つ速度が新しく低い速度になります。強はさらにすべての下り坂を時速55マイルまでに抑え、早めに介入します。"
 
 msgid "Exit speed assistance"
 msgstr "出口速度アシスト"
@@ -31949,28 +31885,24 @@ msgstr "すでに十分遅いカーブは案内しません。"
 msgid "Press {control_upcoming} to list the next few either way."
 msgstr "どちらの場合も、{control_upcoming}でこの先のいくつかを一覧にできます。"
 
-msgid "Speed keeper"
-msgstr "速度キープ"
+msgid "Low-speed cruise"
+msgstr ""
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
 msgid ""
 "In low-speed zones, like facility roads, gates, and construction zones, "
-"{control_cruise} holds your current speed, then hands back to adaptive "
-"cruise on open roads."
+"{control_cruise} holds your current speed, then hands back to normal cruise "
+"on open roads."
 msgstr ""
-"施設内の道路、ゲート、工事区間のような低速区間では、{control_cruise}で今の速度を保ち、一般道路に出るとアダプティブクルーズに引き継ぎます"
-"。"
 
 #. placeholders: {control_cruise}
 msgid ""
 "In low-speed zones, like facility roads, gates, and construction zones, "
-"{control_cruise} holds your current speed, then hands back to adaptive "
-"cruise on open roads. It eases off early for the next turn or the next "
-"lower limit. Braking cancels it. Presets never change this."
+"{control_cruise} holds your current speed, then hands back to normal cruise "
+"on open roads. It eases off early for the next turn or the next lower "
+"limit. Braking cancels it. Presets never change this."
 msgstr ""
-"施設内の道路、ゲート、工事区間のような低速区域では、{control_cruise}で今の速度を保ち、開けた道路に出るとアダプティブクルーズに戻します。"
-"次の曲がり角や、次に下がる制限速度に向けて早めに緩めます。ブレーキで解除されます。プリセットでは変わりません。"
 
 #. one sentence of a longer line
 msgid "It eases off early for the next turn or the next lower limit."
@@ -32801,13 +32733,11 @@ msgid "Following gap: {acc_gap_label}"
 msgstr "車間時間：{acc_gap_label}"
 
 msgid ""
-"How much room adaptive cruise leaves to the vehicle ahead. Close is two and "
-"a half seconds, normal three, far three and a half. Weather widens the gap "
+"How much room cruise leaves to the vehicle ahead. Close is two and a half "
+"seconds, normal three, far three and a half. Weather widens the gap "
 "whichever you pick. All three stay clear of a following-too-close citation. "
 "The preset above never changes it."
 msgstr ""
-"アダプティブクルーズが前の車との間にどれだけ余裕を取るかです。近いは2.5秒、標準は3秒、遠いは3.5秒です。どれを選んでも、天気が悪いと車間が広がりま"
-"す。3つとも、車間不保持の違反切符にはなりません。上のプリセットでは変わりません。"
 
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
@@ -33509,14 +33439,25 @@ msgstr ""
 "{control_transmission_mode}でオートマとマニュアルの変速を切り替えます。{control_horn}を押している間、クラクショ"
 "ンが鳴ります。"
 
-msgid "Speed control and hills"
-msgstr "速度制御と坂"
+msgid "Cruise and hills"
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"On open roads it follows traffic; on low-speed roads it follows local "
+"limits, queues and corners."
+msgstr ""
+
+#. placeholders: {control_cruise}
+#. one sentence of a longer line
+msgid "{control_cruise} turns cruise on."
+msgstr ""
 
 #. placeholders: {control_cruise}
 msgid ""
-"{control_cruise} starts automatic speed control: adaptive cruise on open "
-"roads, speed keeper on supported low-speed roads."
-msgstr "{control_cruise}で自動速度制御を始めます。一般道路ではアダプティブクルーズ、対応する低速の道路では速度キープです。"
+"{control_cruise} turns cruise on. On open roads it follows traffic; on "
+"low-speed roads it follows local limits, queues and corners."
+msgstr ""
 
 msgid ""
 "Cruise follows traffic. Its normal three second clear-weather gap increases "
@@ -33550,12 +33491,14 @@ msgid ""
 msgstr "{control_speed}で、作動中の速度制御のモードと一般道路での目標を読み上げます。"
 
 msgid ""
-"Speed keeper follows local limits, queues, and corners, then hands over to "
-"cruise on open road. The target keys still change the remembered cruise "
-"speed."
+"The target keys change the open-road cruise speed, even while cruise holds "
+"a lower limit."
 msgstr ""
-"速度キープは、地域の制限速度、車の列、曲がり角に合わせて走り、一般道路に出るとクルーズに引き継ぎます。目標のキーでは、記憶されたクルーズの速度を変えられ"
-"ます。"
+
+#. one sentence of a longer line
+msgid ""
+"Cruise pauses at the pickup and comes back on after you leave with the load."
+msgstr ""
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
@@ -33565,17 +33508,9 @@ msgstr "もう一度{control_cruise}を押すか、ブレーキに触れると�
 #. placeholders: {control_cruise}, {control_cruise_resume}
 msgid ""
 "Press {control_cruise} again or touch the brakes to cancel. "
-"{control_cruise_resume} resumes the previous target. Speed control pauses "
-"at the pickup and comes back on after you leave with the load."
+"{control_cruise_resume} resumes the previous target. Cruise pauses at the "
+"pickup and comes back on after you leave with the load."
 msgstr ""
-"取り消すには、{control_cruise}をもう一度押すか、ブレーキに触れます。{control_cruise_resume}で前の目標に戻ります。"
-"速度制御は荷積み先で一時停止し、貨物を積んで出発すると戻ります。"
-
-#. one sentence of a longer line
-msgid ""
-"Speed control pauses at the pickup and comes back on after you leave with "
-"the load."
-msgstr "速度制御は荷積み先で一時停止し、貨物を積んで出発すると戻ります。"
 
 #. placeholders: {control_cruise_resume}
 #. one sentence of a longer line
@@ -37835,6 +37770,419 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid ""
+#~ "Level {level}, {title}. {f} experience.{owed_text} Reputation {f2} out of "
+#~ "100. {deliveries} deliveries, {f3} percent on time. {grouped} lifetime "
+#~ "miles, {grouped2} dollars earned. Career stage: {stage}. "
+#~ "{status}.{next_text}"
+#~ msgstr ""
+#~ "レベル{level}、{title}。経験値{f}。{owed_text}評判は100中{f2}。配達{deliveries}件、期限内{f3}パーセン"
+#~ "ト。通算{grouped}マイル、稼ぎは{grouped2}ドル。キャリアの段階：{stage}。{status}。{next_text}"
+
+#~ msgid "{deliveries} deliveries, {f3} percent on time."
+#~ msgstr "配達{deliveries}件、期限内{f3}パーセント。"
+
+#~ msgid " Market {condition}."
+#~ msgstr "市場は{condition}です。"
+
+#~ msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
+#~ msgstr "{pickup}から{dropoff}への{cargo}{tons}トン。"
+
+#~ msgid "Pays"
+#~ msgstr "報酬"
+
+#~ msgid "Pay for the load: {pay} dollars."
+#~ msgstr "積荷の支払い: {pay}ドル。"
+
+#~ msgid ""
+#~ "Deadline {hours} hours. Team load: you and a co-driver take turns at the "
+#~ "wheel."
+#~ msgstr "期限は{hours}時間。チームの積荷です。相棒の運転手と交代でハンドルを握ります。"
+
+#~ msgid "Deadline {hours} hours, includes a 10-hour rest."
+#~ msgstr "期限は{hours}時間、10時間の休息を含みます。"
+
+#~ msgid "Deadline {hours} hours."
+#~ msgstr "期限は{hours}時間。"
+
+#~ msgid ""
+#~ "{pay_text} {deadline} Equipment: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+#~ msgstr ""
+#~ "{pay_text}{deadline}装備：{equipment}。{trailer}{preview}{market}{endorsement}"
+
+#~ msgid ""
+#~ "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+#~ msgstr ""
+#~ "{prefix}{load}、{distance}。{pay_text}{deadline}装備：{equipment}。{trailer}{previ"
+#~ "ew}{market}{endorsement}"
+
+#~ msgid ""
+#~ "More than 7 miles per hour over the posted limit: past anything adaptive "
+#~ "cruise will do on its own, and short of where a trooper can act on your "
+#~ "speed."
+#~ msgstr "制限速度を時速7マイルより多く超えたとき。アダプティブクルーズが自分では出さない速度で、州警察官が速度で取り締まれる手前です。"
+
+#~ msgid "{pacenote} Adaptive cruise easing to {advisory_speed_text}."
+#~ msgstr "{pacenote}アダプティブクルーズが{advisory_speed_text}まで減速します。"
+
+#~ msgid ""
+#~ "{pacenote} Adaptive cruise paused for the bend, curve assistance slowing."
+#~ msgstr "{pacenote}カーブのためアダプティブクルーズを一時停止し、カーブアシストが減速します。"
+
+#~ msgid ""
+#~ "{pacenote} Adaptive cruise paused for the bend, curve assistance slowing. "
+#~ "Cruise resumes past the bend."
+#~ msgstr "{pacenote}カーブのためアダプティブクルーズを一時停止し、カーブアシストが減速します。カーブを過ぎるとクルーズが再開します。"
+
+#~ msgid "{pacenote} Adaptive cruise paused for the bend."
+#~ msgstr "{pacenote}カーブのためアダプティブクルーズを一時停止します。"
+
+#~ msgid "{pacenote} Adaptive cruise paused for the bend. Resumes past it."
+#~ msgstr "{pacenote}カーブのためアダプティブクルーズを一時停止します。過ぎると再開します。"
+
+#~ msgid "Automatic speed control"
+#~ msgstr "自動速度制御"
+
+#~ msgid "Take-home about {grouped} dollars after {grouped2} dollars costs."
+#~ msgstr "費用{grouped2}ドルを引いて、手取りは約{grouped}ドル。"
+
+#~ msgid "Your pay about {grouped} dollars."
+#~ msgstr "あなたの取り分は約{grouped}ドル。"
+
+#~ msgid "{remaining} decline{s_ending} left before your next promotion. "
+#~ msgstr "次の昇進まで、あと{remaining}回断れます。"
+
+#~ msgid "No declines left until your next promotion. "
+#~ msgstr "次の昇進まで、もう断れません。"
+
+#~ msgid "This assignment needs an extra rest on your current hours. "
+#~ msgstr "今の運転時間だと、この割り当てには追加の休息が必要です。"
+
+#~ msgid "Dispatch board. {decline_note}{hos_note}{market}{current}"
+#~ msgstr "配車ボード。{decline_note}{hos_note}{market}{current}"
+
+#~ msgid "Accept assigned dispatch: {describe}"
+#~ msgstr "割り当てられた配車を受ける：{describe}"
+
+#~ msgid ""
+#~ "Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to pickup "
+#~ "at {origin_facility_text}."
+#~ msgstr ""
+#~ "受けました。{equipment_note}{cloned}経由で{distance_text}の空荷回送をして、{origin_facility_te"
+#~ "xt}で積み込みます。"
+
+#~ msgid ""
+#~ "Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to "
+#~ "{origin_facility_text}."
+#~ msgstr ""
+#~ "受けました。{equipment_note}{cloned}経由で{distance_text}の空荷回送をして、{origin_facility_te"
+#~ "xt}へ向かいます。"
+
+#~ msgid "Load in {origin}, {deadhead} empty first. "
+#~ msgstr "荷積みは{origin}、まず空車で{deadhead}。 "
+
+#~ msgid " Speed control paused, target {target}."
+#~ msgstr "速度制御は一時停止中、目標は{target}です。"
+
+#~ msgid " before you shut down"
+#~ msgstr " エンジンを止める前に"
+
+#~ msgid " {f} gallons burned idling{when}."
+#~ msgstr " {when}アイドリングで燃料を{f}ガロン使いました。"
+
+#~ msgid "Speed control: paused   Cruise speed: {target}"
+#~ msgstr "速度制御：一時停止中   一般道路での目標：{target}"
+
+#~ msgid "Automatic speed control paused. "
+#~ msgstr "自動速度制御は一時停止中です。"
+
+#~ msgid "Automatic speed control paused. {control_hint} cancels it. "
+#~ msgstr "自動速度制御は一時停止中です。{control_hint}で取り消します。"
+
+#~ msgid ""
+#~ "Pickup dispatch: drive empty from the terminal to {pickup_facility_text}. "
+#~ msgstr "積み込みの配車：ターミナルから{pickup_facility_text}への空荷回送です。 "
+
+#~ msgid ""
+#~ "At the wheel. {objective}It is {now}. {transmission} {report_lead}. "
+#~ "{engine} {help}"
+#~ msgstr ""
+#~ "運転席にいます。{objective}{now}です。{transmission}{report_lead}。{engine}{help}"
+
+#~ msgid "{objective}It is {now}."
+#~ msgstr "{objective}{now}です。"
+
+#~ msgid ""
+#~ "{cruise} starts automatic speed control: adaptive cruise on open roads, the "
+#~ "speed keeper in low-speed zones."
+#~ msgstr "{cruise} で自動速度制御を開始します。一般道路ではアダプティブクルーズ、低速区間では速度キープです。"
+
+#~ msgid ""
+#~ "Cruise eases early for a sharp posted-limit drop, the keeper for the next "
+#~ "turn or the next lower limit."
+#~ msgstr "クルーズは標識の制限速度が大きく下がる前に早めに減速し、速度キープは次のカーブか次の低い制限速度の前に減速します。"
+
+#~ msgid ""
+#~ "{cruise_cap} starts automatic speed control: adaptive cruise on open roads, "
+#~ "the speed keeper in low-speed zones."
+#~ msgstr "{cruise_cap} で自動速度制御を開始します。一般道路ではアダプティブクルーズ、低速区間では速度キープです。"
+
+#~ msgid "speed keeper holding {speed_text} {reason}, set {speed_text2}"
+#~ msgstr "速度キープが{reason}{speed_text}を維持、設定{speed_text2}"
+
+#~ msgid ""
+#~ "speed keeper holding {speed_text} {keeper_held_reason}, set {speed_text2}"
+#~ msgstr "速度キープが{keeper_held_reason}{speed_text}を維持、設定{speed_text2}"
+
+#~ msgid "speed keeper holding {speed_text}"
+#~ msgstr "速度キープが{speed_text}を維持"
+
+#~ msgid "adaptive cruise holding {speed_text}{why}, set {speed_text2}"
+#~ msgstr "アダプティブクルーズが{why}{speed_text}を維持、設定{speed_text2}"
+
+#~ msgid "adaptive cruise set at {speed_text}"
+#~ msgstr "アダプティブクルーズを{speed_text}に設定"
+
+#~ msgid " Cruise speed {speed_text}."
+#~ msgstr "一般道路での目標は{speed_text}です。"
+
+#~ msgid " Automatic speed control paused.{keeper_target}"
+#~ msgstr "自動速度制御は一時停止中です。{keeper_target}"
+
+#~ msgid "Cruise: {cruise_holding_text}"
+#~ msgstr "クルーズ：{cruise_holding_text}"
+
+#~ msgid "Speed control: {keeper_holding_text}"
+#~ msgstr "速度制御：{keeper_holding_text}"
+
+#~ msgid "Speed control: paused; resumes when the truck is rolling"
+#~ msgstr "速度制御：一時停止中。トラックが動き出すと再開します"
+
+#~ msgid " Speed keeper off."
+#~ msgstr " 速度キープはオフです。"
+
+#~ msgid "Automatic speed control off."
+#~ msgstr "自動速度制御オフ。"
+
+#~ msgid "Adaptive cruise needs the engine running and at least {minimum}."
+#~ msgstr "アダプティブクルーズには、エンジンがかかっていて、少なくとも{minimum}出ている必要があります。"
+
+#~ msgid "Adaptive cruise {else} at {speed_text}{exit_note}."
+#~ msgstr "アダプティブクルーズ{else}、{speed_text}{exit_note}。"
+
+#~ msgid "Adaptive cruise off."
+#~ msgstr "アダプティブクルーズオフ。"
+
+#~ msgid "Adaptive cruise {speed_text}."
+#~ msgstr "アダプティブクルーズ{speed_text}。"
+
+#~ msgid "The speed keeper needs the engine running and the truck rolling."
+#~ msgstr "速度キープには、エンジンがかかっていて、トラックが動いている必要があります。"
+
+#~ msgid "Speed keeper off."
+#~ msgstr "速度キープ、オフ。"
+
+#~ msgid "{reason}; speed keeper easing to {eased}."
+#~ msgstr "{reason}。速度キープを{eased}まで落とします。"
+
+#~ msgid "Speed keeper easing to {speed_value}."
+#~ msgstr "速度キープを{speed_value}まで落とします。"
+
+#~ msgid "Speed keeper down to {held} on this grade."
+#~ msgstr "この勾配で速度キープを{held}に下げます。"
+
+#~ msgid "Speed keeper building to {held} for the merge."
+#~ msgstr "速度キープが合流に向けて{held}まで加速します。"
+
+#~ msgid "Speed keeper building to {held}."
+#~ msgstr "速度キープが{held}まで加速します。"
+
+#~ msgid "Speed keeper can't hold {held}{because}."
+#~ msgstr "速度キープは{because}{held}を維持できません。"
+
+#~ msgid "Speed keeper can't hold {held}{because}. Brake."
+#~ msgstr "速度キープは{because}{held}を維持できません。ブレーキを踏んでください。"
+
+#~ msgid "Speed keeper holding {held} through {zone}."
+#~ msgstr "速度キープが{zone}で{held}を維持します。"
+
+#~ msgid "Speed keeper holding {held}."
+#~ msgstr "速度キープが{held}を維持します。"
+
+#~ msgid "{title_case} zone. Speed keeper holding {held}."
+#~ msgstr "{title_case}区間。速度キープが{held}を維持します。"
+
+#~ msgid "Speed keeper holding {speed_value}."
+#~ msgstr "速度キープが{speed_value}を維持します。"
+
+#~ msgid "Stopped traffic ahead; adaptive cruise canceled."
+#~ msgstr "前方で車が停まっています。アダプティブクルーズを取り消しました。"
+
+#~ msgid "Automatic speed control paused."
+#~ msgstr "自動速度制御を一時停止しました。"
+
+#~ msgid "Speed keeper holding {keeper}."
+#~ msgstr "速度キープが{keeper}を維持します。"
+
+#~ msgid "Late"
+#~ msgstr "遅延"
+
+#~ msgid "On time"
+#~ msgstr "期限内"
+
+#~ msgid "Delivered {f} tons of {label} to {destination}."
+#~ msgstr "{label}{f}トンを{destination}に配達しました。"
+
+#~ msgid "Trip time: {f} hours, {timing}."
+#~ msgstr "所要時間：{f}時間、{timing}。"
+
+#~ msgid "Net driver pay: {grouped} dollars."
+#~ msgstr "ドライバーの手取り：{grouped}ドル。"
+
+#~ msgid "Truck damage this run {f} percent, may reduce pay."
+#~ msgstr "この運行のトラックの損傷{f}パーセント、報酬が減ることがあります。"
+
+#~ msgid "Cargo condition: no new damage recorded."
+#~ msgstr "積荷の状態：新しい損傷の記録はありません。"
+
+#~ msgid "Those charges come off this settlement."
+#~ msgstr "これらの費用はこの精算から差し引かれます。"
+
+#~ msgid "Those charges do not reduce driver pay."
+#~ msgstr "これらの費用はドライバーの報酬を減らしません。"
+
+#~ msgid ""
+#~ "Charges {grouped3}: tolls {grouped4}, extra charges {charge_summary}."
+#~ msgstr "請求額{grouped3}：通行料{grouped4}、付帯料金{charge_summary}。"
+
+#~ msgid "Net about {grouped6}.{advance_note} {timing}."
+#~ msgstr "手取りは約{grouped6}。{advance_note}{timing}。"
+
+#~ msgid "Paperwork, {facility}: {f} tons of {label}."
+#~ msgstr "書類、{facility}：{label}{f}トン。"
+
+#~ msgid ""
+#~ "Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, pay for the "
+#~ "load {grouped2}. Charges {grouped3}: tolls {grouped4}, extra charges "
+#~ "{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
+#~ "{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
+#~ msgstr ""
+#~ "書類、{facility}：{label}{f}トン。運賃{grouped}、貨物の報酬{grouped2}。費用{grouped3}：通行料{grou"
+#~ "ped4}、追加料金{charge_summary}。{charge_fate} "
+#~ "罰金{grouped5}。差し引き約{grouped6}。{advance_note} {timing}。{cargo_condition} "
+#~ "{finish}で精算します。"
+
+#~ msgid "Rate {grouped}, pay for the load {grouped2}."
+#~ msgstr "運賃{grouped}、貨物の報酬{grouped2}。"
+
+#~ msgid "{cargo_condition} {finish} to settle."
+#~ msgstr "{cargo_condition}{finish}で精算します。"
+
+#~ msgid "{charge_fate} Fines {grouped5}."
+#~ msgstr "{charge_fate}罰金{grouped5}。"
+
+#~ msgid "Automatic speed control paused for pickup."
+#~ msgstr "積み込みのため、自動速度制御を一時停止しました。"
+
+#~ msgid "Automatic speed control is already on."
+#~ msgstr "自動速度制御はもうオンです。"
+
+#~ msgid "Resuming automatic speed control at {spoken}."
+#~ msgstr "{spoken}で自動速度制御を再開します。"
+
+#~ msgid "Automatic speed control canceled."
+#~ msgstr "自動速度制御を取り消しました。"
+
+#~ msgid "Speed control resuming."
+#~ msgstr "速度制御を再開します。"
+
+#~ msgid "Speed keeper held to {held} for chains."
+#~ msgstr "チェーンのため、速度キープを{held}に抑えます。"
+
+#~ msgid ""
+#~ "Two rows moved. Speed keeper is now in Driving assistance instead of "
+#~ "Controls. Lane and edge cue prominence is now Lane and edge cue volume, in "
+#~ "Audio under Gameplay cues volume. Your choices came with them. Overspeed "
+#~ "warning no longer has a row: it stays quiet until you are heading for a "
+#~ "ticket."
+#~ msgstr ""
+#~ "2つの項目が移りました。速度キープは操作ではなく運転アシストにあります。車線と路肩の合図の目立ち具合は、車線と路肩の合図の音量になり、オーディオのゲーム"
+#~ "プレイの合図の音量の中にあります。選んでいた設定はそのまま引き継がれています。速度超過の警告には項目がなくなりました。違反切符を切られそうになるまで鳴り"
+#~ "ません。"
+
+#~ msgid "Adaptive cruise slows behind traffic and resumes when it is safe."
+#~ msgstr "アダプティブクルーズが前の車に合わせて減速し、安全になったら再び走り出します。"
+
+#~ msgid ""
+#~ "With adaptive cruise on, holds a steep downhill grade at the speed your "
+#~ "truck can take it at with its load, on the engine brake and short brake "
+#~ "applications. On Standard and Strong, braking sets a new, lower speed to "
+#~ "hold. Strong also caps every descent at 55 miles per hour and steps in "
+#~ "sooner."
+#~ msgstr ""
+#~ "アダプティブクルーズがオンのとき、急な下り坂で、積荷を載せたトラックが耐えられる速度をエンジンブレーキと短いブレーキで保ちます。標準と強では、ブレーキを"
+#~ "かけると、保つ速度が新しく低い速度になります。強はさらにすべての下り坂を時速55マイルまでに抑え、早めに介入します。"
+
+#~ msgid "Speed keeper"
+#~ msgstr "速度キープ"
+
+#~ msgid ""
+#~ "In low-speed zones, like facility roads, gates, and construction zones, "
+#~ "{control_cruise} holds your current speed, then hands back to adaptive "
+#~ "cruise on open roads."
+#~ msgstr ""
+#~ "施設内の道路、ゲート、工事区間のような低速区間では、{control_cruise}で今の速度を保ち、一般道路に出るとアダプティブクルーズに引き継ぎます"
+#~ "。"
+
+#~ msgid ""
+#~ "In low-speed zones, like facility roads, gates, and construction zones, "
+#~ "{control_cruise} holds your current speed, then hands back to adaptive "
+#~ "cruise on open roads. It eases off early for the next turn or the next "
+#~ "lower limit. Braking cancels it. Presets never change this."
+#~ msgstr ""
+#~ "施設内の道路、ゲート、工事区間のような低速区域では、{control_cruise}で今の速度を保ち、開けた道路に出るとアダプティブクルーズに戻します。"
+#~ "次の曲がり角や、次に下がる制限速度に向けて早めに緩めます。ブレーキで解除されます。プリセットでは変わりません。"
+
+#~ msgid ""
+#~ "How much room adaptive cruise leaves to the vehicle ahead. Close is two and "
+#~ "a half seconds, normal three, far three and a half. Weather widens the gap "
+#~ "whichever you pick. All three stay clear of a following-too-close citation. "
+#~ "The preset above never changes it."
+#~ msgstr ""
+#~ "アダプティブクルーズが前の車との間にどれだけ余裕を取るかです。近いは2.5秒、標準は3秒、遠いは3.5秒です。どれを選んでも、天気が悪いと車間が広がりま"
+#~ "す。3つとも、車間不保持の違反切符にはなりません。上のプリセットでは変わりません。"
+
+#~ msgid "Speed control and hills"
+#~ msgstr "速度制御と坂"
+
+#~ msgid ""
+#~ "{control_cruise} starts automatic speed control: adaptive cruise on open "
+#~ "roads, speed keeper on supported low-speed roads."
+#~ msgstr "{control_cruise}で自動速度制御を始めます。一般道路ではアダプティブクルーズ、対応する低速の道路では速度キープです。"
+
+#~ msgid ""
+#~ "Speed keeper follows local limits, queues, and corners, then hands over to "
+#~ "cruise on open road. The target keys still change the remembered cruise "
+#~ "speed."
+#~ msgstr ""
+#~ "速度キープは、地域の制限速度、車の列、曲がり角に合わせて走り、一般道路に出るとクルーズに引き継ぎます。目標のキーでは、記憶されたクルーズの速度を変えられ"
+#~ "ます。"
+
+#~ msgid ""
+#~ "Press {control_cruise} again or touch the brakes to cancel. "
+#~ "{control_cruise_resume} resumes the previous target. Speed control pauses "
+#~ "at the pickup and comes back on after you leave with the load."
+#~ msgstr ""
+#~ "取り消すには、{control_cruise}をもう一度押すか、ブレーキに触れます。{control_cruise_resume}で前の目標に戻ります。"
+#~ "速度制御は荷積み先で一時停止し、貨物を積んで出発すると戻ります。"
+
+#~ msgid ""
+#~ "Speed control pauses at the pickup and comes back on after you leave with "
+#~ "the load."
+#~ msgstr "速度制御は荷積み先で一時停止し、貨物を積んで出発すると戻ります。"
 
 #~ msgid ""
 #~ "Delivered {f} tons of {label} to {destination} in {f2} hours, "
@@ -43087,9 +43435,6 @@ msgstr ""
 
 #~ msgid "{reason}; adaptive cruise easing to {eased}."
 #~ msgstr "{reason}。アダプティブクルーズを{eased}まで落とします。"
-
-#~ msgid "Cruise easing to {speed_value}."
-#~ msgstr "クルーズを{speed_value}まで落とします。"
 
 #~ msgid "{capitalize_first}; adaptive cruise easing to {eased}."
 #~ msgstr "{capitalize_first}、アダプティブクルーズを{eased}まで落とします。"

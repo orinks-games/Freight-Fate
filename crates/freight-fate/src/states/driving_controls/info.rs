@@ -23,7 +23,11 @@ impl DrivingState {
     /// reads as the keeper ignoring the road (New Haven log; owner, Spokane,
     /// 2026-08-22: "the truck slows to 15 while the speed stays 25"). Say the
     /// live number, and the set one only when it differs.
-    pub fn keeper_holding_text(&self, ctx: &GameContext) -> String {
+    ///
+    /// `bare` drops the unit from every number, for the Space readout,
+    /// whose truck speed has already named it.
+    pub fn keeper_holding_text(&self, ctx: &GameContext, bare: bool) -> String {
+        let speed = |mph: f64| speed_words(ctx, mph, bare);
         let held = self.keeper_mph.unwrap_or(0.0);
         if let Some((at_mi, eased, why)) = self.keeper_ease_target.as_ref() {
             if self.trip.position_mi < *at_mi && *eased < held {
@@ -33,9 +37,9 @@ impl DrivingState {
                     other => format!("for the {other}"),
                 };
                 return format!(
-                    "speed keeper holding {} {reason}, set {}",
-                    ctx.settings.speed_text(*eased),
-                    ctx.settings.speed_text(held)
+                    "cruise holding {} {reason}, set {}",
+                    speed(*eased),
+                    speed(held)
                 );
             }
         }
@@ -46,14 +50,14 @@ impl DrivingState {
         if !self.keeper_held_reason.is_empty() {
             if let Some(live) = self.keeper_held_mph.filter(|live| *live < held - 0.5) {
                 return format!(
-                    "speed keeper holding {} {}, set {}",
-                    ctx.settings.speed_text(live),
+                    "cruise holding {} {}, set {}",
+                    speed(live),
                     self.keeper_held_reason,
-                    ctx.settings.speed_text(held)
+                    speed(held)
                 );
             }
         }
-        format!("speed keeper holding {}", ctx.settings.speed_text(held))
+        format!("cruise holding {}", speed(held))
     }
 
     /// What adaptive cruise is holding RIGHT NOW, for a readout.
@@ -76,7 +80,8 @@ impl DrivingState {
     /// after every cap -- the armed ramp, a bend, a lower posted limit, a
     /// zone, the grade, the weather, the lead vehicle. Re-deriving it from a
     /// key press would mean re-running look-aheads that latch state.
-    pub fn cruise_holding_text(&self, ctx: &GameContext) -> String {
+    pub fn cruise_holding_text(&self, ctx: &GameContext, bare: bool) -> String {
+        let speed = |mph: f64| speed_words(ctx, mph, bare);
         let set = self.cruise_mph.unwrap_or(0.0);
         if let Some(held) = self.cruise_held_mph {
             // Half a mile an hour under is the same number once spoken.
@@ -86,20 +91,16 @@ impl DrivingState {
                 } else {
                     format!(" {}", self.cruise_held_reason)
                 };
-                return format!(
-                    "adaptive cruise holding {}{why}, set {}",
-                    ctx.settings.speed_text(held),
-                    ctx.settings.speed_text(set)
-                );
+                return format!("cruise holding {}{why}, set {}", speed(held), speed(set));
             }
         }
-        format!("adaptive cruise set at {}", ctx.settings.speed_text(set))
+        format!("cruise set at {}", speed(set))
     }
 
     /// `_speak_speed()`: Space.
     ///
     /// Three short sentences rather than one run-on: the gauges, then the
-    /// controller, then the air. The run-on named "automatic speed control"
+    /// controller, then the air. The run-on named "cruise"
     /// ahead of the controller that already names itself, spoke the default
     /// cruise speed nobody set, and listed four normal air states every
     /// time (bscross32, 2026-10: "why did I need all of that in one
@@ -110,19 +111,25 @@ impl DrivingState {
         // number the keeper was just said to be set at.
         let keeper_target = match self.speed_control_target_mph {
             Some(mph) if self.keeper_mph.is_none_or(|set| (set - mph).abs() >= 0.5) => {
-                format!(" Cruise speed {}.", ctx.settings.speed_text(mph))
+                format!(" Cruise speed {}.", ctx.settings.speed_value(mph))
             }
             _ => String::new(),
         };
         let control = if self.cruise_mph.is_some() {
-            format!(" {}.", capitalize_first(&self.cruise_holding_text(ctx)))
+            format!(
+                " {}.",
+                capitalize_first(&self.cruise_holding_text(ctx, true))
+            )
         } else if self.keeper_mph.is_some() {
             format!(
                 " {}.{keeper_target}",
-                capitalize_first(&self.keeper_holding_text(ctx))
+                capitalize_first(&self.keeper_holding_text(ctx, true))
             )
         } else if self.speed_control_armed {
-            format!(" Automatic speed control paused.{keeper_target}")
+            match self.speed_control_target_mph {
+                Some(mph) => format!(" Cruise paused, set {}.", ctx.settings.speed_value(mph)),
+                None => " Cruise paused.".to_string(),
+            }
         } else {
             String::new()
         };
@@ -854,16 +861,29 @@ impl DrivingState {
                 .collect();
             parts.push(format!("Ahead: {}.", ahead.join(", then ")));
         }
-        parts.push(format!("It is {tod}."));
+        // Daylight is the default; only the dark or the half-light is news.
+        if tod != "day" {
+            parts.push(format!("It is {tod}."));
+        }
         ctx.say(&parts.join(" "));
     }
 }
 
-/// "speed keeper holding ..." as the start of its own sentence.
-fn capitalize_first(text: &str) -> String {
+/// "cruise holding ..." as the start of its own sentence.
+pub(super) fn capitalize_first(text: &str) -> String {
     let mut chars = text.chars();
     match chars.next() {
         Some(first) => first.to_uppercase().collect::<String>() + chars.as_str(),
         None => String::new(),
+    }
+}
+
+/// A speed in the player's unit, or its bare number when the sentence
+/// already said the unit.
+fn speed_words(ctx: &GameContext, mph: f64, bare: bool) -> String {
+    if bare {
+        ctx.settings.speed_value(mph)
+    } else {
+        ctx.settings.speed_text(mph)
     }
 }

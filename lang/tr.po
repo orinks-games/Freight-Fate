@@ -7138,6 +7138,11 @@ msgstr " Seviye {level} için {grouped} daha."
 msgid "Career stage: {stage}."
 msgstr "Kariyer aşaması: {stage}."
 
+#. placeholders: {deliveries}, {f3}
+#. one sentence of a longer line
+msgid "Deliveries {deliveries}, {f3} percent on time."
+msgstr ""
+
 #. placeholders: {level}, {title}
 #. one sentence of a longer line
 msgid "Level {level}, {title}."
@@ -7146,18 +7151,10 @@ msgstr "Seviye {level}, {title}."
 #. placeholders: {level}, {title}, {f}, {owed_text}, {f2}, {deliveries}, {f3}, {grouped}, {grouped2}, {stage}, {status}, {next_text}
 msgid ""
 "Level {level}, {title}. {f} experience.{owed_text} Reputation {f2} out of "
-"100. {deliveries} deliveries, {f3} percent on time. {grouped} lifetime "
+"100. Deliveries {deliveries}, {f3} percent on time. {grouped} lifetime "
 "miles, {grouped2} dollars earned. Career stage: {stage}. "
 "{status}.{next_text}"
 msgstr ""
-"Seviye {level}, {title}. {f} deneyim.{owed_text} İtibar 100 üzerinden {f2}. "
-"{deliveries} teslimat, yüzde {f3} zamanında. Toplam {grouped} mil, "
-"{grouped2} dolar kazanç. Kariyer aşaması: {stage}. {status}.{next_text}"
-
-#. placeholders: {deliveries}, {f3}
-#. one sentence of a longer line
-msgid "{deliveries} deliveries, {f3} percent on time."
-msgstr "{deliveries} teslimat, yüzde {f3} zamanında."
 
 #. placeholders: {f}, {owed_text}, {f2}
 #. one sentence of a longer line
@@ -9491,70 +9488,56 @@ msgstr "{city_lower} yük pazarı"
 msgid "{city_lower} metro freight market"
 msgstr "{city_lower} metropol yük pazarı"
 
+#. placeholders: {city}, {destination}
+msgid "{city} to {destination}"
+msgstr ""
+
+#. placeholders: {origin}, {destination}
+msgid "{origin} to {destination}"
+msgstr ""
+
 #. placeholders: {index}, {unwrap_or_else}
 msgid "Job {index} of {unwrap_or_else}: "
 msgstr "İş {index}, toplam {unwrap_or_else}: "
-
-#. placeholders: {condition}
-msgid " Market {condition}."
-msgstr " Pazar {condition}."
 
 #. placeholders: {credentials_clause}
 msgid " Requires {credentials_clause}."
 msgstr " Gerekli: {credentials_clause}."
 
-#. placeholders: {tons}, {cargo}, {pickup}, {dropoff}
-msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
-msgstr "{tons} ton {cargo}, çıkış {pickup}, varış {dropoff}."
+#. placeholders: {tons}, {cargo}, {route}
+msgid "{tons} tons of {cargo}, {route}."
+msgstr ""
 
-msgid "Pays"
-msgstr "Ödeme"
+#. placeholders: {miles}
+msgid " {miles} empty to the pickup first."
+msgstr ""
 
 #. placeholders: {pay}
 msgid "Pays {pay} dollars."
 msgstr "Ödeme {pay} dolar."
 
-#. placeholders: {pay}
-msgid "Pay for the load: {pay} dollars."
-msgstr "Yük ücreti: {pay} dolar."
-
-#. placeholders: {hours}
-msgid ""
-"Deadline {hours} hours. Team load: you and a co-driver take turns at the "
-"wheel."
+#. placeholders: {pay}, {pay_preview}
+msgid "Pays {pay} dollars, {pay_preview}."
 msgstr ""
-"Teslim süresi {hours} saat. Ekip yükü: siz ve bir yardımcı şoför "
-"direksiyona sırayla geçersiniz."
 
 #. one sentence of a longer line
 msgid "Team load: you and a co-driver take turns at the wheel."
 msgstr ""
 "Ekip yükü: siz ve bir yardımcı şoför direksiyona sırayla geçersiniz."
 
-#. placeholders: {hours}
-msgid "Deadline {hours} hours, includes a 10-hour rest."
-msgstr "Teslim süresi {hours} saat, 10 saatlik dinlenme dahil."
-
-#. placeholders: {hours}
-msgid "Deadline {hours} hours."
-msgstr "Teslim süresi {hours} saat."
-
-#. placeholders: {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
-#. one sentence of a longer line
+#. placeholders: {distance}, {hours}
 msgid ""
-"{pay_text} {deadline} Equipment: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
+"{distance}, deadline {hours} hours. Team load: you and a co-driver take "
+"turns at the wheel."
 msgstr ""
-"{pay_text} {deadline} Ekipman: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
 
-#. placeholders: {prefix}, {load}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
-msgid ""
-"{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
+#. placeholders: {distance}, {hours}
+msgid "{distance}, deadline {hours} hours with a 10-hour rest."
 msgstr ""
-"{prefix}{load} {distance}. {pay_text} {deadline} Ekipman: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
+
+#. placeholders: {distance}, {hours}
+msgid "{distance}, deadline {hours} hours."
+msgstr ""
 
 #. placeholders: {min_level}
 msgid "Level {min_level} drivers unlock this cargo."
@@ -14698,13 +14681,9 @@ msgstr ""
 "tekrarlanırsa o kadar fazla aşıyorsunuz."
 
 msgid ""
-"More than 7 miles per hour over the posted limit: past anything adaptive "
-"cruise will do on its own, and short of where a trooper can act on your "
-"speed."
+"More than 7 miles per hour over the posted limit: past anything cruise will "
+"do on its own, and short of where a trooper can act on your speed."
 msgstr ""
-"Hız sınırının saatte 7 milden fazla üstünde: uyarlamalı hız sabitleyicinin "
-"kendi başına yapacağı her şeyin ötesinde, bir polisin hızınız için işlem "
-"yapabileceği noktanın altında."
 
 msgid "Gear grind"
 msgstr "Vites gıcırtısı"
@@ -15340,9 +15319,8 @@ msgid "Limit {limit_value}."
 msgstr "Sınır {limit_value}."
 
 #. placeholders: {pacenote}, {advisory_speed_text}
-msgid "{pacenote} Adaptive cruise easing to {advisory_speed_text}."
+msgid "{pacenote} Cruise easing to {advisory_speed_text}."
 msgstr ""
-"{pacenote} Uyarlamalı hız sabitleyici {advisory_speed_text} hıza iniyor."
 
 #. placeholders: {pacenote}
 msgid "{pacenote} Curve assistance slowing."
@@ -15354,19 +15332,14 @@ msgstr "Hız sabitleyici virajdan sonra devam eder."
 
 #. placeholders: {pacenote}
 #. one sentence of a longer line
-msgid ""
-"{pacenote} Adaptive cruise paused for the bend, curve assistance slowing."
+msgid "{pacenote} Cruise paused for the bend, curve assistance slowing."
 msgstr ""
-"{pacenote} Uyarlamalı hız sabitleyici viraj için durdu, viraj yardımı "
-"yavaşlatıyor."
 
 #. placeholders: {pacenote}
 msgid ""
-"{pacenote} Adaptive cruise paused for the bend, curve assistance slowing. "
-"Cruise resumes past the bend."
+"{pacenote} Cruise paused for the bend, curve assistance slowing. Cruise "
+"resumes past the bend."
 msgstr ""
-"{pacenote} Uyarlamalı hız sabitleyici viraj için durdu, viraj yardımı "
-"yavaşlatıyor. Hız sabitleyici virajdan sonra devam eder."
 
 #. placeholders: {pacenote_terse}
 msgid "{pacenote_terse} Cruise paused; assistance slowing."
@@ -15378,14 +15351,12 @@ msgstr "Ondan sonra devam eder."
 
 #. placeholders: {pacenote}
 #. one sentence of a longer line
-msgid "{pacenote} Adaptive cruise paused for the bend."
-msgstr "{pacenote} Uyarlamalı hız sabitleyici viraj için durdu."
+msgid "{pacenote} Cruise paused for the bend."
+msgstr ""
 
 #. placeholders: {pacenote}
-msgid "{pacenote} Adaptive cruise paused for the bend. Resumes past it."
+msgid "{pacenote} Cruise paused for the bend. Resumes past it."
 msgstr ""
-"{pacenote} Uyarlamalı hız sabitleyici viraj için durdu. Ondan sonra devam "
-"eder."
 
 #. placeholders: {pacenote_terse}
 msgid "{pacenote_terse} Cruise paused."
@@ -15942,8 +15913,8 @@ msgstr "iklimlendirme"
 msgid "Heat or air conditioning"
 msgstr "Isıtma veya klima"
 
-msgid "Automatic speed control"
-msgstr "Otomatik hız kontrolü"
+msgid "Cruise"
+msgstr ""
 
 msgid "Resume the last cruise speed"
 msgstr "Son seyir hızına dön"
@@ -17711,14 +17682,13 @@ msgstr ""
 "Listelenen ücret şirketin kazancıdır; size bundan maaş ödenir. Kendi "
 "tırınızı sürene kadar güzergâh size atanır."
 
-#. placeholders: {grouped}, {grouped2}
-msgid "Take-home about {grouped} dollars after {grouped2} dollars costs."
+#. placeholders: {take_home}
+msgid "about {take_home} after costs"
 msgstr ""
-"{grouped2} dolar giderden sonra eline geçen yaklaşık {grouped} dolar."
 
-#. placeholders: {grouped}
-msgid "Your pay about {grouped} dollars."
-msgstr "Ücretiniz yaklaşık {grouped} dolar."
+#. placeholders: {take_home}
+msgid "about {take_home} to you"
+msgstr ""
 
 #. placeholders: {highway}
 #. one sentence of a longer line
@@ -17761,19 +17731,12 @@ msgstr ""
 msgid "Dispatch board"
 msgstr "İş panosu"
 
-#. placeholders: {remaining}, {s_ending}
-msgid "{remaining} decline{s_ending} left before your next promotion. "
-msgstr "Bir sonraki terfinize kadar {remaining} ret hakkınız kaldı. "
+msgid " This assignment needs an extra rest on your current hours."
+msgstr ""
 
-msgid "No declines left until your next promotion. "
-msgstr "Bir sonraki terfinize kadar ret hakkınız kalmadı. "
-
-msgid "This assignment needs an extra rest on your current hours. "
-msgstr "Bu görev şu anki sürelerinizle fazladan bir dinlenme gerektiriyor. "
-
-#. placeholders: {decline_note}, {hos_note}, {market}, {current}
-msgid "Dispatch board. {decline_note}{hos_note}{market}{current}"
-msgstr "İş panosu. {decline_note}{hos_note}{market}{current}"
+#. placeholders: {current}, {hos_note}
+msgid "Dispatch board. {current}{hos_note}"
+msgstr ""
 
 msgid ""
 "Dispatch is sending you empty, with no pickup. After you accept, Route "
@@ -17793,8 +17756,8 @@ msgstr ""
 "ücretlerini, havayı ve kısıtlamaları listeler."
 
 #. placeholders: {describe}
-msgid "Accept assigned dispatch: {describe}"
-msgstr "Atanan işi kabul et: {describe}"
+msgid "Assigned load: {describe}"
+msgstr ""
 
 #. placeholders: {remaining}, {s_ending}
 msgid "Decline and request another load: {remaining} decline{s_ending} left"
@@ -17920,25 +17883,19 @@ msgid ""
 "That load's facility is no longer on the network. Dispatch pulled the offer."
 msgstr "Bu yükün tesisi artık ağda değil. Sevkiyat teklifi geri çekti."
 
-#. placeholders: {equipment_note}, {distance_text}, {cloned}, {origin_facility_text}
+#. placeholders: {equipment_note}, {distance_text}, {origin_short_name}
 msgid ""
-"Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to pickup "
-"at {origin_facility_text}."
+"Accepted.{equipment_note} {distance_text} empty to {origin_short_name}."
 msgstr ""
-"Kabul edildi.{equipment_note} {cloned} üzerinden {distance_text} boş sefer. "
-"Yükleme yeri: {origin_facility_text}."
 
 msgid ""
 "That load's city is no longer on the network. Dispatch pulled the offer."
 msgstr "Bu yükün şehri artık ağda değil. Sevkiyat teklifi geri çekti."
 
-#. placeholders: {equipment_note}, {distance_text}, {cloned}, {origin_facility_text}
+#. placeholders: {equipment_note}, {distance_text}, {origin_offer_text}
 msgid ""
-"Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to "
-"{origin_facility_text}."
+"Accepted.{equipment_note} {distance_text} empty to {origin_offer_text}."
 msgstr ""
-"Kabul edildi.{equipment_note} {cloned} üzerinden {distance_text} boş sefer. "
-"Varış: {origin_facility_text}."
 
 #. placeholders: {equipment_note}
 msgid "Accepted.{equipment_note} The load is here in the yard."
@@ -18111,10 +18068,6 @@ msgstr ""
 msgid "a drive"
 msgstr "bir sürüş"
 
-#. placeholders: {origin}, {deadhead}
-msgid "Load in {origin}, {deadhead} empty first. "
-msgstr "Yükleme {origin}, önce {deadhead} boş sürüş. "
-
 msgid ""
 "Up and down review the lines, Home and End jump to the ends. Enter repeats "
 "a line, or accepts on Accept this dispatch. Escape returns to the dispatch "
@@ -18159,6 +18112,12 @@ msgstr ""
 #. placeholders: {equipment_text}
 msgid "Equipment: {equipment_text}."
 msgstr "Ekipman: {equipment_text}."
+
+msgid "Market: tight, so this load pays more than usual."
+msgstr ""
+
+msgid "Market: loose, so this load pays less than usual."
+msgstr ""
 
 #. placeholders: {trailer}
 msgid "Trailer: {trailer}"
@@ -20225,8 +20184,8 @@ msgid "the posted limit when the open road begins"
 msgstr "açık yol başlayınca levhadaki hız sınırı"
 
 #. placeholders: {target}
-msgid " Speed control paused, target {target}."
-msgstr " Hız kontrolü duraklatıldı, hedef {target}."
+msgid " Cruise paused, set {target}."
+msgstr ""
 
 msgid ""
 "Nothing to walk around yet. The shipper is loading the trailer you came in "
@@ -20425,6 +20384,10 @@ msgstr ""
 msgid "{f} tons of {label} for {destination_facility_text}."
 msgstr "{f} ton {label}, varış: {destination_facility_text}."
 
+#. placeholders: {f}
+msgid " Idling here burned {f} gallons."
+msgstr ""
+
 msgid "Saved. The pickup resumes here."
 msgstr "Kaydedildi. Yükleme buradan devam eder."
 
@@ -20483,13 +20446,6 @@ msgid ""
 msgstr ""
 " Rampadaki iki ücretsiz saatin {wait} dakika ötesinde: {dollars} dolar "
 "bekleme ücreti, şirkete ödendi."
-
-msgid " before you shut down"
-msgstr ", motoru kapatmadan önce"
-
-#. placeholders: {f}, {when}
-msgid " {f} gallons burned idling{when}."
-msgstr " Rölantide {f} galon yakıt yandı{when}."
 
 #. placeholders: {facility}
 #. one sentence of a longer line
@@ -20646,8 +20602,8 @@ msgid "posted limit when the open road begins"
 msgstr "açık yol başlayınca levhadaki sınır"
 
 #. placeholders: {target}
-msgid "Speed control: paused   Cruise speed: {target}"
-msgstr "Hız kontrolü: duraklatıldı   Açık yol hedefi: {target}"
+msgid "Cruise: paused   Cruise speed: {target}"
+msgstr ""
 
 msgid "Route planning"
 msgstr "Güzergâh planlama"
@@ -21576,13 +21532,12 @@ msgstr "Motor rölantide."
 msgid "{control_hint} lists the controls."
 msgstr "{control_hint} kontrolleri listeler."
 
-msgid "Automatic speed control paused. "
-msgstr "Otomatik hız kontrolü duraklatıldı. "
+msgid "Cruise paused. "
+msgstr ""
 
 #. placeholders: {control_hint}
-msgid "Automatic speed control paused. {control_hint} cancels it. "
+msgid "Cruise paused. {control_hint} cancels it. "
 msgstr ""
-"Otomatik hız kontrolü duraklatıldı. {control_hint} onu iptal eder.  "
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -21664,10 +21619,8 @@ msgid "{progress} {hours_used} of {deadline_game_h} hours."
 msgstr "{progress} {deadline_game_h} saatin {hours_used} saati."
 
 #. placeholders: {pickup_facility_text}
-msgid ""
-"Pickup dispatch: drive empty from the terminal to {pickup_facility_text}. "
+msgid "Drive empty to {pickup_facility_text}. "
 msgstr ""
-"Yükleme görevi: terminalden boş gidiş, varış: {pickup_facility_text}.  "
 
 #. placeholders: {destination_facility_text}
 #. one sentence of a longer line
@@ -21678,22 +21631,23 @@ msgstr "Yüklendi, varış: {destination_facility_text}."
 msgid "Loaded for {destination_facility_text}. {progress_summary} "
 msgstr "Yüklendi, varış: {destination_facility_text}. {progress_summary}  "
 
+msgid " Manual transmission."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "At the wheel."
 msgstr "Direksiyondasınız."
 
 #. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
 msgid ""
-"At the wheel. {objective}It is {now}. {transmission} {report_lead}. "
-"{engine} {help}"
+"At the wheel. {objective}It is {now}.{transmission} {report_lead}. {engine} "
+"{help}"
 msgstr ""
-"Direksiyondasınız. {objective}Saat {now}. {transmission} {report_lead}. "
-"{engine} {help}"
 
-#. placeholders: {objective}, {now}
+#. placeholders: {objective}, {now}, {transmission}, {report_lead}
 #. one sentence of a longer line
-msgid "{objective}It is {now}."
-msgstr "{objective}Saat {now}."
+msgid "{objective}It is {now}.{transmission} {report_lead}."
+msgstr ""
 
 msgid "amount"
 msgstr "miktar"
@@ -21852,23 +21806,29 @@ msgid ""
 msgstr ""
 "En sert duruş olan acil fren için {emergency_brake} tuşunu basılı tutun."
 
+#. one sentence of a longer line
+msgid ""
+"It follows traffic on open roads and holds the limit in low-speed zones."
+msgstr ""
+
+#. placeholders: {cruise}
+#. one sentence of a longer line
+msgid "{cruise} starts cruise."
+msgstr ""
+
 #. placeholders: {cruise}
 msgid ""
-"{cruise} starts automatic speed control: adaptive cruise on open roads, the "
-"speed keeper in low-speed zones."
+"{cruise} starts cruise. It follows traffic on open roads and holds the "
+"limit in low-speed zones."
 msgstr ""
-"{cruise} otomatik hız kontrolünü başlatır: açık yolda uyarlamalı hız "
-"sabitleyici, düşük hız bölgelerinde hız koruyucu."
 
 msgid "Weather widens the gap."
 msgstr "Kötü hava takip mesafesini açar."
 
 msgid ""
-"Cruise eases early for a sharp posted-limit drop, the keeper for the next "
-"turn or the next lower limit."
+"Cruise eases early for a sharp posted-limit drop, and in low-speed zones "
+"for the next turn or the next lower limit."
 msgstr ""
-"Hız sabitleyici, levhadaki sınır keskin düşecekse erkenden yavaşlar; hız "
-"koruyucu da bir sonraki dönüş ya da bir sonraki düşük sınır için yavaşlar."
 
 msgid "Braking cancels it."
 msgstr "Frenlemek iptal eder."
@@ -22291,12 +22251,15 @@ msgstr ""
 "basın."
 
 #. placeholders: {cruise_cap}
-msgid ""
-"{cruise_cap} starts automatic speed control: adaptive cruise on open roads, "
-"the speed keeper in low-speed zones."
+#. one sentence of a longer line
+msgid "{cruise_cap} starts cruise."
 msgstr ""
-"{cruise_cap} otomatik hız kontrolünü başlatır: açık yolda uyarlamalı hız "
-"sabitleyici, düşük hız bölgelerinde hız koruyucu."
+
+#. placeholders: {cruise_cap}
+msgid ""
+"{cruise_cap} starts cruise. It follows traffic on open roads and holds the "
+"limit in low-speed zones."
+msgstr ""
 
 #. placeholders: {cruise_down}, {cruise_up}
 msgid "{cruise_down} or {cruise_up} change the cruise speed by five."
@@ -22479,36 +22442,36 @@ msgstr "levhadaki sınır"
 msgid "for the {other}"
 msgstr "{other} için"
 
-#. placeholders: {speed_text}, {reason}, {speed_text2}
-msgid "speed keeper holding {speed_text} {reason}, set {speed_text2}"
-msgstr "hız koruyucu {reason} {speed_text} tutuyor, ayar {speed_text2}"
-
-#. placeholders: {speed_text}, {keeper_held_reason}, {speed_text2}
-msgid ""
-"speed keeper holding {speed_text} {keeper_held_reason}, set {speed_text2}"
+#. placeholders: {speed}, {reason}, {speed2}
+msgid "cruise holding {speed} {reason}, set {speed2}"
 msgstr ""
-"hız koruyucu {keeper_held_reason} {speed_text} tutuyor, ayar {speed_text2}"
 
-#. placeholders: {speed_text}
-msgid "speed keeper holding {speed_text}"
-msgstr "hız koruyucu {speed_text} tutuyor"
-
-#. placeholders: {speed_text}, {why}, {speed_text2}
-msgid "adaptive cruise holding {speed_text}{why}, set {speed_text2}"
+#. placeholders: {speed}, {keeper_held_reason}, {speed2}
+msgid "cruise holding {speed} {keeper_held_reason}, set {speed2}"
 msgstr ""
-"uyarlamalı hız sabitleyici {speed_text} tutuyor{why}, ayar {speed_text2}"
 
-#. placeholders: {speed_text}
-msgid "adaptive cruise set at {speed_text}"
-msgstr "uyarlamalı hız sabitleyici {speed_text} ayarlı"
+#. placeholders: {speed}
+msgid "cruise holding {speed}"
+msgstr ""
 
-#. placeholders: {speed_text}
-msgid " Cruise speed {speed_text}."
-msgstr " Açık yol hedefi {speed_text}."
+#. placeholders: {speed}, {why}, {speed2}
+msgid "cruise holding {speed}{why}, set {speed2}"
+msgstr ""
 
-#. placeholders: {keeper_target}
-msgid " Automatic speed control paused.{keeper_target}"
-msgstr " Otomatik hız kontrolü duraklatıldı.{keeper_target}"
+#. placeholders: {speed}
+msgid "cruise set at {speed}"
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid " Cruise speed {speed_value}."
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid " Cruise paused, set {speed_value}."
+msgstr ""
+
+msgid " Cruise paused."
+msgstr ""
 
 #. placeholders: {rpm}
 msgid ", {rpm} RPM"
@@ -22896,20 +22859,12 @@ msgstr "Takvim: {calendar}"
 msgid "Clock: {clock_text} {clock_zone_label} ({time_of_day})"
 msgstr "Saat: {clock_text} {clock_zone_label} ({time_of_day})"
 
-#. placeholders: {cruise_holding_text}
-msgid "Cruise: {cruise_holding_text}"
-msgstr "Hız sabitleyici: {cruise_holding_text}"
-
-#. placeholders: {keeper_holding_text}
-msgid "Speed control: {keeper_holding_text}"
-msgstr "Hız kontrolü: {keeper_holding_text}"
-
 #. placeholders: {open_road_target}
 msgid "Cruise speed: {open_road_target}"
 msgstr "Açık yol hedefi: {open_road_target}"
 
-msgid "Speed control: paused; resumes when the truck is rolling"
-msgstr "Hız kontrolü: duraklatıldı; tır hareket edince devam eder"
+msgid "Cruise paused; resumes when the truck is rolling"
+msgstr ""
 
 #. placeholders: {start_damage}
 msgid "Damage: new damage {start_damage} percent"
@@ -24568,6 +24523,13 @@ msgstr "hız için"
 msgid "over a light out"
 msgstr "yanmayan bir lamba için"
 
+msgid "A trooper has somebody stopped in the median, not you."
+msgstr ""
+
+#. placeholders: {reason}
+msgid "A trooper has somebody stopped in the median {reason}, not you."
+msgstr ""
+
 #. placeholders: {reason}
 msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
 msgstr ""
@@ -25018,8 +24980,8 @@ msgstr "Varış yeri ileride, {facility}. Kapıda durun."
 msgid "Stop at the gate."
 msgstr "Kapıda durun."
 
-msgid " Speed keeper off."
-msgstr " Hız koruyucu kapalı."
+msgid " Cruise off."
+msgstr " Hız sabitleyici kapalı."
 
 #. placeholders: {pickup_facility_text}
 msgid "At {pickup_facility_text}. Stop to check in."
@@ -25444,14 +25406,12 @@ msgstr "Yüksek rölanti, {rpm} devir."
 msgid "High idle off."
 msgstr "Yüksek rölanti kapalı."
 
-msgid "Automatic speed control off."
-msgstr "Otomatik hız kontrolü kapalı."
+msgid "Cruise off."
+msgstr "Hız sabitleyici kapalı."
 
 #. placeholders: {minimum}
-msgid "Adaptive cruise needs the engine running and at least {minimum}."
+msgid "Cruise needs the engine running and at least {minimum}."
 msgstr ""
-"Uyarlamalı hız sabitleyici için motorun çalışıyor olması ve en az {minimum} "
-"hız gerekir."
 
 msgid "Open road"
 msgstr "Açık yol"
@@ -25481,8 +25441,8 @@ msgid " in the {value}"
 msgstr " {value} içinde"
 
 #. placeholders: {else}, {speed_text}, {exit_note}
-msgid "Adaptive cruise {else} at {speed_text}{exit_note}."
-msgstr "Uyarlamalı hız sabitleyici {else}: {speed_text}{exit_note}."
+msgid "Cruise {else} at {speed_text}{exit_note}."
+msgstr ""
 
 msgid "resuming"
 msgstr "devam ediyor"
@@ -25494,9 +25454,6 @@ msgstr "Hız sabitleyici devam ediyor, {speed_value}{exit_note}."
 #. placeholders: {rpm}
 msgid "High idle {rpm} RPM."
 msgstr "Yüksek rölanti {rpm} devir."
-
-msgid "Adaptive cruise off."
-msgstr "Uyarlamalı hız sabitleyici kapalı."
 
 #. placeholders: {speed_text}, {speed_text2}
 msgid ""
@@ -25513,8 +25470,8 @@ msgid "{speed_number}, ramp {speed_number2}."
 msgstr "{speed_number}, rampa {speed_number2}."
 
 #. placeholders: {speed_text}
-msgid "Adaptive cruise {speed_text}."
-msgstr "Uyarlamalı hız sabitleyici {speed_text}."
+msgid "Cruise {speed_text}."
+msgstr ""
 
 #. placeholders: {speed_text}
 msgid "Open-road cruise target {speed_text}."
@@ -25531,12 +25488,8 @@ msgstr "{zone_reason} bölgesinde"
 msgid "No cruise {place}."
 msgstr "{place} hız sabitleyici kullanılamaz."
 
-msgid "The speed keeper needs the engine running and the truck rolling."
+msgid "Cruise needs the engine running and the truck rolling."
 msgstr ""
-"Hız koruyucu için motorun çalışıyor ve tırın hareket ediyor olması gerekir."
-
-msgid "Speed keeper off."
-msgstr "Hız koruyucu kapalı."
 
 msgid "Construction zone ahead"
 msgstr "İleride yol çalışması"
@@ -25548,27 +25501,27 @@ msgid "Posted limit lower"
 msgstr "Levhadaki sınır düşüyor"
 
 #. placeholders: {reason}, {eased}
-msgid "{reason}; speed keeper easing to {eased}."
-msgstr "{reason}; hız koruyucu {eased} hıza iniyor."
+msgid "{reason}; cruise easing to {eased}."
+msgstr ""
 
 #. placeholders: {speed_value}
-msgid "Speed keeper easing to {speed_value}."
-msgstr "Hız koruyucu {speed_value} hıza iniyor."
+msgid "Cruise easing to {speed_value}."
+msgstr ""
 
 msgid "for the traffic ahead"
 msgstr "öndeki trafik için"
 
 #. placeholders: {held}
-msgid "Speed keeper down to {held} on this grade."
-msgstr "Hız koruyucu bu eğimde {held} hıza indi."
+msgid "Cruise down to {held} on this grade."
+msgstr "Hız sabitleyici bu eğimde {held} hıza indi."
 
 #. placeholders: {held}
-msgid "Speed keeper building to {held} for the merge."
-msgstr "Hız koruyucu katılmak için {held} hıza çıkıyor."
+msgid "Cruise building to {held} for the merge."
+msgstr ""
 
 #. placeholders: {held}
-msgid "Speed keeper building to {held}."
-msgstr "Hız koruyucu {held} hıza çıkıyor."
+msgid "Cruise building to {held}."
+msgstr ""
 
 msgid " on this grade"
 msgstr " bu eğimde"
@@ -25579,20 +25532,20 @@ msgstr "Fren yapın."
 
 #. placeholders: {held}, {because}
 #. one sentence of a longer line
-msgid "Speed keeper can't hold {held}{because}."
-msgstr "Hız koruyucu{because} {held} hızı tutamıyor."
+msgid "Cruise can't hold {held}{because}."
+msgstr ""
 
 #. placeholders: {held}, {because}
-msgid "Speed keeper can't hold {held}{because}. Brake."
-msgstr "Hız koruyucu{because} {held} hızı tutamıyor. Fren yapın."
+msgid "Cruise can't hold {held}{because}. Brake."
+msgstr ""
 
 #. placeholders: {held}, {zone}
-msgid "Speed keeper holding {held} through {zone}."
-msgstr "Hız koruyucu {zone} boyunca {held} tutuyor."
+msgid "Cruise holding {held} through {zone}."
+msgstr ""
 
 #. placeholders: {held}
-msgid "Speed keeper holding {held}."
-msgstr "Hız koruyucu {held} tutuyor."
+msgid "Cruise holding {held}."
+msgstr ""
 
 msgid "Wet roads, longer gap."
 msgstr "Islak yol, takip mesafesi uzun."
@@ -25612,21 +25565,18 @@ msgstr ""
 msgid "building-capped"
 msgstr ""
 
-msgid "Cruise off."
-msgstr "Hız sabitleyici kapalı."
-
 #. placeholders: {title_case}
 #. one sentence of a longer line
 msgid "{title_case} zone."
 msgstr "{title_case} bölgesi."
 
 #. placeholders: {title_case}, {held}
-msgid "{title_case} zone. Speed keeper holding {held}."
-msgstr "{title_case} bölgesi. Hız koruyucu {held} tutuyor."
+msgid "{title_case} zone. Cruise holding {held}."
+msgstr ""
 
 #. placeholders: {speed_value}
-msgid "Speed keeper holding {speed_value}."
-msgstr "Hız koruyucu {speed_value} tutuyor."
+msgid "Cruise holding {speed_value}."
+msgstr ""
 
 msgid "through the construction zone"
 msgstr ""
@@ -25655,8 +25605,8 @@ msgstr "Hız sabitleyici {eased} hıza iniyor."
 msgid "{capitalize_first}, cruise easing to {speed_value}."
 msgstr "{capitalize_first}, hız sabitleyici {speed_value} hıza iniyor."
 
-msgid "Stopped traffic ahead; adaptive cruise canceled."
-msgstr "İleride trafik durmuş; uyarlamalı hız sabitleyici iptal edildi."
+msgid "Stopped traffic ahead; cruise canceled."
+msgstr ""
 
 msgid "Traffic ahead, slowing."
 msgstr "İleride trafik var, yavaşlanıyor."
@@ -25669,10 +25619,6 @@ msgstr "viraj için"
 
 msgid "for the grade"
 msgstr "eğim için"
-
-#. placeholders: {held}
-msgid "Cruise down to {held} on this grade."
-msgstr "Hız sabitleyici bu eğimde {held} hıza indi."
 
 msgid "Slowing for the ramp."
 msgstr "Rampa için yavaşlanıyor."
@@ -26515,12 +26461,12 @@ msgstr "taşıyıcı firma."
 msgid "your settlement."
 msgstr "sizin hesap kesiminiz."
 
-msgid "Automatic speed control paused."
-msgstr "Otomatik hız kontrolü duraklatıldı."
+msgid "Cruise paused."
+msgstr ""
 
 #. placeholders: {keeper}
-msgid "Speed keeper holding {keeper}."
-msgstr "Hız koruyucu {keeper} tutuyor."
+msgid "Cruise holding {keeper}."
+msgstr ""
 
 msgid ""
 "Back on the highway after the 30-minute break. Keep the logbook clean."
@@ -26913,6 +26859,10 @@ msgstr ""
 #. placeholders: {journey_progress_percent}, {closing_text}
 msgid "{journey_progress_percent} percent there, {closing_text} left."
 msgstr "Yüzde {journey_progress_percent} tamamlandı, {closing_text} kaldı."
+
+#. placeholders: {lead}, {road}, {toward}
+msgid "{lead} On {road} toward {toward}."
+msgstr ""
 
 #. placeholders: {lead}, {road}, {state}, {toward}
 msgid "{lead} On {road} in {state}, toward {toward}."
@@ -27527,12 +27477,6 @@ msgstr "{join} ve {wear_parts}"
 msgid "The run added {joined}."
 msgstr "Sefer şunları ekledi: {joined}."
 
-msgid "Late"
-msgstr "Geç"
-
-msgid "On time"
-msgstr "Zamanında"
-
 msgid "No delivery bonus on this run."
 msgstr "Bu seferde teslimat bonusu yok."
 
@@ -27579,13 +27523,36 @@ msgstr "İşletme giderleri: {grouped} dolar."
 msgid "Business cost detail: {business_charge_summary}."
 msgstr "İşletme gideri ayrıntısı: {business_charge_summary}."
 
-#. placeholders: {f}, {label}, {destination}
-msgid "Delivered {f} tons of {label} to {destination}."
-msgstr "{f} ton {label} teslim edildi, varış: {destination}."
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "Net {grouped} dollars."
+msgstr ""
 
-#. placeholders: {f}, {timing}
-msgid "Trip time: {f} hours, {timing}."
-msgstr "Sefer süresi: {f} saat, {timing}."
+#. placeholders: {destination}
+#. one sentence of a longer line
+msgid "On time in {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {grouped}
+msgid "On time in {destination}. Net {grouped} dollars."
+msgstr ""
+
+#. placeholders: {destination}
+#. one sentence of a longer line
+msgid "Late in {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {grouped}
+msgid "Late in {destination}. Net {grouped} dollars."
+msgstr ""
+
+#. placeholders: {f}, {label}
+msgid "Load: {f} tons of {label}."
+msgstr ""
+
+#. placeholders: {f}
+msgid "Trip time: {f} hours."
+msgstr ""
 
 #. placeholders: {clock_text}
 msgid "It is {clock_text}."
@@ -27610,10 +27577,6 @@ msgstr "İşletme durumu: {status_label}."
 #. placeholders: {f}
 msgid "Receiver service after check-in: {f} hours."
 msgstr "Kayıttan sonra alıcıdaki işlem: {f} saat."
-
-#. placeholders: {grouped}
-msgid "Net driver pay: {grouped} dollars."
-msgstr "Net şoför ücreti: {grouped} dolar."
 
 #. placeholders: {grouped}
 msgid "Money after settlement: {grouped} dollars."
@@ -27767,10 +27730,6 @@ msgstr ""
 msgid "Destination facility"
 msgstr "Varış tesisi"
 
-#. placeholders: {facility}, {current}
-msgid "At {facility}. {current}"
-msgstr "Konum: {facility}. {current}"
-
 msgid "Drop the loaded trailer"
 msgstr "Yüklü dorseyi bırak"
 
@@ -27875,63 +27834,14 @@ msgid "{f} hours past the deadline"
 msgstr "Teslim süresi {f} saat geçti"
 
 #. placeholders: {f}
-msgid "Truck damage this run {f} percent, may reduce pay."
-msgstr "Bu seferde tır hasarı yüzde {f}, ücreti düşürebilir."
-
-msgid "Cargo condition: no new damage recorded."
-msgstr "Yük durumu: yeni hasar kaydedilmedi."
-
-msgid "Those charges come off this settlement."
-msgstr "Bu masraflar bu hesap kesiminden düşülür."
-
-msgid "Those charges do not reduce driver pay."
-msgstr "Bu masraflar şoför ücretini düşürmez."
-
-#. placeholders: {grouped3}, {grouped4}, {charge_summary}
-#. one sentence of a longer line
-msgid ""
-"Charges {grouped3}: tolls {grouped4}, extra charges {charge_summary}."
+msgid " Truck damage this run {f} percent, may reduce pay."
 msgstr ""
-"Masraflar {grouped3}: otoyol ücreti {grouped4}, ek hizmetler "
-"{charge_summary}."
 
-#. placeholders: {grouped6}, {advance_note}, {timing}
-#. one sentence of a longer line
-msgid "Net about {grouped6}.{advance_note} {timing}."
-msgstr "Net yaklaşık {grouped6}.{advance_note} {timing}."
-
-#. placeholders: {facility}, {f}, {label}
-#. one sentence of a longer line
-msgid "Paperwork, {facility}: {f} tons of {label}."
-msgstr "Evraklar, {facility}: {f} ton {label}."
-
-#. placeholders: {facility}, {f}, {label}, {grouped}, {grouped2}, {grouped3}, {grouped4}, {charge_summary}, {charge_fate}, {grouped5}, {grouped6}, {advance_note}, {timing}, {cargo_condition}, {finish}
+#. placeholders: {facility}, {grouped}, {timing}, {advance_note}, {cargo_condition}, {finish}
 msgid ""
-"Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, pay for the "
-"load {grouped2}. Charges {grouped3}: tolls {grouped4}, extra charges "
-"{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
-"{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
+"Paperwork, {facility}: about {grouped} dollars to you, "
+"{timing}.{advance_note}{cargo_condition} {finish} to settle."
 msgstr ""
-"Evrak, {facility}: {f} ton {label}. Tarife {grouped}, yük ücreti "
-"{grouped2}. Masraflar {grouped3}: geçiş ücretleri {grouped4}, ek masraflar "
-"{charge_summary}. {charge_fate} Cezalar {grouped5}. Net yaklaşık "
-"{grouped6}.{advance_note} {timing}. {cargo_condition} Hesaplaşmak için "
-"{finish}."
-
-#. placeholders: {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid "Rate {grouped}, pay for the load {grouped2}."
-msgstr "Tarife {grouped}, yük ücreti {grouped2}."
-
-#. placeholders: {cargo_condition}, {finish}
-#. one sentence of a longer line
-msgid "{cargo_condition} {finish} to settle."
-msgstr "{cargo_condition} Hesap kesimi için: {finish}."
-
-#. placeholders: {charge_fate}, {grouped5}
-#. one sentence of a longer line
-msgid "{charge_fate} Fines {grouped5}."
-msgstr "{charge_fate} Cezalar {grouped5}."
 
 #. placeholders: {facility}, {f}, {label}, {speed_text}, {else}, {finish}
 msgid ""
@@ -27955,6 +27865,10 @@ msgstr "Durun, sonra: {finish}."
 #. one sentence of a longer line
 msgid "{f} tons of {label}."
 msgstr "{f} ton {label}."
+
+#. placeholders: {facility}, {current}
+msgid "At {facility}. {current}"
+msgstr "Konum: {facility}. {current}"
 
 msgid "Delivering"
 msgstr "Teslim ediliyor"
@@ -28738,8 +28652,8 @@ msgstr "Yükleme yeri ileride: {facility}. Kapıda durun."
 msgid "At {facility}. Stop to check in."
 msgstr "Konum: {facility}. Kayıt için durun."
 
-msgid "Automatic speed control paused for pickup."
-msgstr "Otomatik hız kontrolü yükleme için duraklatıldı."
+msgid "Cruise paused for pickup."
+msgstr ""
 
 msgid "Pulling into pickup. Check-in menu opening."
 msgstr "Yükleme yerine giriliyor. Kayıt menüsü açılıyor."
@@ -31098,8 +31012,8 @@ msgstr ""
 msgid "Leave the school."
 msgstr "Kurstan ayrıl."
 
-msgid "Automatic speed control is already on."
-msgstr "Otomatik hız kontrolü zaten açık."
+msgid "Cruise is already on."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "No remembered cruise speed yet."
@@ -31118,11 +31032,11 @@ msgid "Resume needs the engine running."
 msgstr "Devam etmek için motorun çalışması gerekir."
 
 #. placeholders: {spoken}
-msgid "Resuming automatic speed control at {spoken}."
-msgstr "Otomatik hız kontrolü {spoken} hızla devam ediyor."
+msgid "Resuming cruise at {spoken}."
+msgstr ""
 
-msgid "Automatic speed control canceled."
-msgstr "Otomatik hız kontrolü iptal edildi."
+msgid "Cruise canceled."
+msgstr ""
 
 #. placeholders: {floor}
 #. one sentence of a longer line
@@ -31137,8 +31051,8 @@ msgstr "Hız sabitleyici {floor} hızla devam eder. Pedallar sizde."
 msgid "Pedals are yours."
 msgstr "Pedallar sizde."
 
-msgid "Speed control resuming."
-msgstr "Hız kontrolü devam ediyor."
+msgid "Cruise resuming."
+msgstr ""
 
 msgid "turn"
 msgstr ""
@@ -31146,10 +31060,6 @@ msgstr ""
 #. placeholders: {held}
 msgid "Cruise held to {held} for chains."
 msgstr "Zincirler için hız sabitleyici {held} hızda tutuldu."
-
-#. placeholders: {held}
-msgid "Speed keeper held to {held} for chains."
-msgstr "Zincirler için hız tutucu {held} hızda tutuldu."
 
 msgid ""
 "Up and down arrows review each line; Home and End jump to the first and "
@@ -32636,9 +32546,6 @@ msgstr "Çarpışma!"
 msgid "Collision! Damage {damage} percent."
 msgstr "Çarpışma! Hasar yüzde {damage}."
 
-msgid " Cruise off."
-msgstr " Hız sabitleyici kapalı."
-
 msgid "Slowing for the bend."
 msgstr "Viraj için yavaşlanıyor."
 
@@ -33307,6 +33214,9 @@ msgstr "{day} {format} {year}, saat {hour}:{minute} {am_pm}"
 #. placeholders: {name}, {level}
 msgid "{name}: level {level}"
 msgstr "{name}: seviye {level}"
+
+msgid "1 delivery"
+msgstr ""
 
 #. placeholders: {deliveries}
 msgid "{deliveries} deliveries"
@@ -34015,17 +33925,12 @@ msgstr ""
 "taşındı. Ayarlarınızda hiçbir şey değişmedi."
 
 msgid ""
-"Two rows moved. Speed keeper is now in Driving assistance instead of "
+"Two rows moved. Low-speed cruise is now in Driving assistance instead of "
 "Controls. Lane and edge cue prominence is now Lane and edge cue volume, in "
 "Audio under Gameplay cues volume. Your choices came with them. Overspeed "
 "warning no longer has a row: it stays quiet until you are heading for a "
 "ticket."
 msgstr ""
-"İki satır taşındı. Hız tutucu artık Kontroller yerine Sürüş yardımı içinde. "
-"Şerit ve kenar işareti belirginliği artık Şerit ve kenar işareti ses düzeyi "
-"oldu, Ses altında Oynanış işaretleri ses düzeyi içinde. Seçimleriniz de "
-"onlarla taşındı. Hız aşımı uyarısının artık satırı yok: cezaya doğru "
-"gitmedikçe sessiz kalır."
 
 msgid ""
 "Speech verbosity is now Driving speech, in the Speech category, with two "
@@ -34348,25 +34253,18 @@ msgstr "Tır şerit kenarına kaydığında sesli ve konuşmalı bir uyarı."
 msgid "Stop-and-go assistance"
 msgstr "Dur kalk yardımı"
 
-msgid "Adaptive cruise slows behind traffic and resumes when it is safe."
+msgid "Cruise slows behind traffic and resumes when it is safe."
 msgstr ""
-"Uyarlamalı hız sabitleyici trafiğin arkasında yavaşlar ve güvenli olunca "
-"yeniden hızlanır."
 
 msgid "Descent speed control"
 msgstr "İniş hız kontrolü"
 
 msgid ""
-"With adaptive cruise on, holds a steep downhill grade at the speed your "
-"truck can take it at with its load, on the engine brake and short brake "
-"applications. On Standard and Strong, braking sets a new, lower speed to "
-"hold. Strong also caps every descent at 55 miles per hour and steps in "
-"sooner."
+"With cruise on, holds a steep downhill grade at the speed your truck can "
+"take it at with its load, on the engine brake and short brake applications. "
+"On Standard and Strong, braking sets a new, lower speed to hold. Strong "
+"also caps every descent at 55 miles per hour and steps in sooner."
 msgstr ""
-"Uyarlamalı hız sabitleyici açıkken dik bir inişte tırınızın yüküyle "
-"kaldırabileceği hızı motor freni ve kısa frenlemelerle korur. Standart ve "
-"Güçlü'de frenlemek korunacak yeni, daha düşük bir hız belirler. Güçlü "
-"ayrıca her inişi saatte 55 mil ile sınırlar ve daha erken devreye girer."
 
 msgid "Exit speed assistance"
 msgstr "Çıkış hızı yardımı"
@@ -34507,31 +34405,24 @@ msgstr ""
 "Her durumda sonraki birkaç virajı listelemek için {control_upcoming} tuşuna "
 "basın."
 
-msgid "Speed keeper"
-msgstr "Hız tutucu"
+msgid "Low-speed cruise"
+msgstr ""
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
 msgid ""
 "In low-speed zones, like facility roads, gates, and construction zones, "
-"{control_cruise} holds your current speed, then hands back to adaptive "
-"cruise on open roads."
+"{control_cruise} holds your current speed, then hands back to normal cruise "
+"on open roads."
 msgstr ""
-"Tesis yolları, kapılar ve yol çalışmaları gibi düşük hızlı bölgelerde "
-"{control_cruise} şu anki hızınızı tutar, açık yolda ise uyarlamalı hız "
-"sabitleyiciye devreder."
 
 #. placeholders: {control_cruise}
 msgid ""
 "In low-speed zones, like facility roads, gates, and construction zones, "
-"{control_cruise} holds your current speed, then hands back to adaptive "
-"cruise on open roads. It eases off early for the next turn or the next "
-"lower limit. Braking cancels it. Presets never change this."
+"{control_cruise} holds your current speed, then hands back to normal cruise "
+"on open roads. It eases off early for the next turn or the next lower "
+"limit. Braking cancels it. Presets never change this."
 msgstr ""
-"Tesis yolları, kapılar ve çalışma alanları gibi düşük hız bölgelerinde "
-"{control_cruise} mevcut hızınızı korur, sonra açık yolda uyarlamalı hız "
-"sabitleyiciye devreder. Sonraki dönüş veya sonraki daha düşük sınır için "
-"erkenden gevşer. Frenlemek iptal eder. Hazır ayarlar bunu asla değiştirmez."
 
 #. one sentence of a longer line
 msgid "It eases off early for the next turn or the next lower limit."
@@ -35485,15 +35376,11 @@ msgid "Following gap: {acc_gap_label}"
 msgstr "Takip mesafesi: {acc_gap_label}"
 
 msgid ""
-"How much room adaptive cruise leaves to the vehicle ahead. Close is two and "
-"a half seconds, normal three, far three and a half. Weather widens the gap "
+"How much room cruise leaves to the vehicle ahead. Close is two and a half "
+"seconds, normal three, far three and a half. Weather widens the gap "
 "whichever you pick. All three stay clear of a following-too-close citation. "
 "The preset above never changes it."
 msgstr ""
-"Uyarlamalı hız sabitleyicinin öndeki araçla arasında ne kadar mesafe "
-"bıraktığı. Yakın iki buçuk saniye, normal üç, uzak üç buçuk. Hangisini "
-"seçerseniz seçin hava mesafeyi açar. Üçü de çok yakından takip cezasından "
-"uzak durur. Yukarıdaki ön ayar bunu asla değiştirmez."
 
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
@@ -36291,16 +36178,25 @@ msgstr ""
 "{control_transmission_mode} otomatik ve manuel vites arasında geçiş yapar. "
 "{control_horn} basılı tutulduğu sürece korna çalar."
 
-msgid "Speed control and hills"
-msgstr "Hız kontrolü ve yokuşlar"
+msgid "Cruise and hills"
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"On open roads it follows traffic; on low-speed roads it follows local "
+"limits, queues and corners."
+msgstr ""
+
+#. placeholders: {control_cruise}
+#. one sentence of a longer line
+msgid "{control_cruise} turns cruise on."
+msgstr ""
 
 #. placeholders: {control_cruise}
 msgid ""
-"{control_cruise} starts automatic speed control: adaptive cruise on open "
-"roads, speed keeper on supported low-speed roads."
+"{control_cruise} turns cruise on. On open roads it follows traffic; on "
+"low-speed roads it follows local limits, queues and corners."
 msgstr ""
-"{control_cruise} otomatik hız kontrolünü başlatır: açık yolda uyarlamalı "
-"hız sabitleyici, desteklenen düşük hızlı yollarda hız tutucu."
 
 msgid ""
 "Cruise follows traffic. Its normal three second clear-weather gap increases "
@@ -36342,13 +36238,14 @@ msgstr ""
 "{control_speed} etkin hız kontrolü modunu ve açık yol hedefini okur."
 
 msgid ""
-"Speed keeper follows local limits, queues, and corners, then hands over to "
-"cruise on open road. The target keys still change the remembered cruise "
-"speed."
+"The target keys change the open-road cruise speed, even while cruise holds "
+"a lower limit."
 msgstr ""
-"Hız tutucu yerel hız sınırlarını, kuyrukları ve köşeleri izler, sonra açık "
-"yolda hız sabitleyiciye devreder. Hedef tuşları yine hatırlanan sabit hızı "
-"değiştirir."
+
+#. one sentence of a longer line
+msgid ""
+"Cruise pauses at the pickup and comes back on after you leave with the load."
+msgstr ""
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
@@ -36359,19 +36256,9 @@ msgstr ""
 #. placeholders: {control_cruise}, {control_cruise_resume}
 msgid ""
 "Press {control_cruise} again or touch the brakes to cancel. "
-"{control_cruise_resume} resumes the previous target. Speed control pauses "
-"at the pickup and comes back on after you leave with the load."
+"{control_cruise_resume} resumes the previous target. Cruise pauses at the "
+"pickup and comes back on after you leave with the load."
 msgstr ""
-"İptal etmek için {control_cruise} tuşuna yeniden basın ya da frenlere "
-"dokunun. {control_cruise_resume} önceki hedefe döner. Hız kontrolü "
-"yüklemede duraklar ve yükle ayrıldığınızda yeniden açılır."
-
-#. one sentence of a longer line
-msgid ""
-"Speed control pauses at the pickup and comes back on after you leave with "
-"the load."
-msgstr ""
-"Hız kontrolü yüklemede duraklar ve yükle ayrıldığınızda yeniden açılır."
 
 #. placeholders: {control_cruise_resume}
 #. one sentence of a longer line
@@ -41083,6 +40970,467 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid ""
+#~ "Level {level}, {title}. {f} experience.{owed_text} Reputation {f2} out of "
+#~ "100. {deliveries} deliveries, {f3} percent on time. {grouped} lifetime "
+#~ "miles, {grouped2} dollars earned. Career stage: {stage}. "
+#~ "{status}.{next_text}"
+#~ msgstr ""
+#~ "Seviye {level}, {title}. {f} deneyim.{owed_text} İtibar 100 üzerinden {f2}. "
+#~ "{deliveries} teslimat, yüzde {f3} zamanında. Toplam {grouped} mil, "
+#~ "{grouped2} dolar kazanç. Kariyer aşaması: {stage}. {status}.{next_text}"
+
+#~ msgid "{deliveries} deliveries, {f3} percent on time."
+#~ msgstr "{deliveries} teslimat, yüzde {f3} zamanında."
+
+#~ msgid " Market {condition}."
+#~ msgstr " Pazar {condition}."
+
+#~ msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
+#~ msgstr "{tons} ton {cargo}, çıkış {pickup}, varış {dropoff}."
+
+#~ msgid "Pays"
+#~ msgstr "Ödeme"
+
+#~ msgid "Pay for the load: {pay} dollars."
+#~ msgstr "Yük ücreti: {pay} dolar."
+
+#~ msgid ""
+#~ "Deadline {hours} hours. Team load: you and a co-driver take turns at the "
+#~ "wheel."
+#~ msgstr ""
+#~ "Teslim süresi {hours} saat. Ekip yükü: siz ve bir yardımcı şoför "
+#~ "direksiyona sırayla geçersiniz."
+
+#~ msgid "Deadline {hours} hours, includes a 10-hour rest."
+#~ msgstr "Teslim süresi {hours} saat, 10 saatlik dinlenme dahil."
+
+#~ msgid "Deadline {hours} hours."
+#~ msgstr "Teslim süresi {hours} saat."
+
+#~ msgid ""
+#~ "{pay_text} {deadline} Equipment: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+#~ msgstr ""
+#~ "{pay_text} {deadline} Ekipman: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+
+#~ msgid ""
+#~ "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+#~ msgstr ""
+#~ "{prefix}{load} {distance}. {pay_text} {deadline} Ekipman: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+
+#~ msgid ""
+#~ "More than 7 miles per hour over the posted limit: past anything adaptive "
+#~ "cruise will do on its own, and short of where a trooper can act on your "
+#~ "speed."
+#~ msgstr ""
+#~ "Hız sınırının saatte 7 milden fazla üstünde: uyarlamalı hız sabitleyicinin "
+#~ "kendi başına yapacağı her şeyin ötesinde, bir polisin hızınız için işlem "
+#~ "yapabileceği noktanın altında."
+
+#~ msgid "{pacenote} Adaptive cruise easing to {advisory_speed_text}."
+#~ msgstr ""
+#~ "{pacenote} Uyarlamalı hız sabitleyici {advisory_speed_text} hıza iniyor."
+
+#~ msgid ""
+#~ "{pacenote} Adaptive cruise paused for the bend, curve assistance slowing."
+#~ msgstr ""
+#~ "{pacenote} Uyarlamalı hız sabitleyici viraj için durdu, viraj yardımı "
+#~ "yavaşlatıyor."
+
+#~ msgid ""
+#~ "{pacenote} Adaptive cruise paused for the bend, curve assistance slowing. "
+#~ "Cruise resumes past the bend."
+#~ msgstr ""
+#~ "{pacenote} Uyarlamalı hız sabitleyici viraj için durdu, viraj yardımı "
+#~ "yavaşlatıyor. Hız sabitleyici virajdan sonra devam eder."
+
+#~ msgid "{pacenote} Adaptive cruise paused for the bend."
+#~ msgstr "{pacenote} Uyarlamalı hız sabitleyici viraj için durdu."
+
+#~ msgid "{pacenote} Adaptive cruise paused for the bend. Resumes past it."
+#~ msgstr ""
+#~ "{pacenote} Uyarlamalı hız sabitleyici viraj için durdu. Ondan sonra devam "
+#~ "eder."
+
+#~ msgid "Automatic speed control"
+#~ msgstr "Otomatik hız kontrolü"
+
+#~ msgid "Take-home about {grouped} dollars after {grouped2} dollars costs."
+#~ msgstr ""
+#~ "{grouped2} dolar giderden sonra eline geçen yaklaşık {grouped} dolar."
+
+#~ msgid "Your pay about {grouped} dollars."
+#~ msgstr "Ücretiniz yaklaşık {grouped} dolar."
+
+#~ msgid "{remaining} decline{s_ending} left before your next promotion. "
+#~ msgstr "Bir sonraki terfinize kadar {remaining} ret hakkınız kaldı. "
+
+#~ msgid "No declines left until your next promotion. "
+#~ msgstr "Bir sonraki terfinize kadar ret hakkınız kalmadı. "
+
+#~ msgid "This assignment needs an extra rest on your current hours. "
+#~ msgstr "Bu görev şu anki sürelerinizle fazladan bir dinlenme gerektiriyor. "
+
+#~ msgid "Dispatch board. {decline_note}{hos_note}{market}{current}"
+#~ msgstr "İş panosu. {decline_note}{hos_note}{market}{current}"
+
+#~ msgid "Accept assigned dispatch: {describe}"
+#~ msgstr "Atanan işi kabul et: {describe}"
+
+#~ msgid ""
+#~ "Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to pickup "
+#~ "at {origin_facility_text}."
+#~ msgstr ""
+#~ "Kabul edildi.{equipment_note} {cloned} üzerinden {distance_text} boş sefer. "
+#~ "Yükleme yeri: {origin_facility_text}."
+
+#~ msgid ""
+#~ "Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to "
+#~ "{origin_facility_text}."
+#~ msgstr ""
+#~ "Kabul edildi.{equipment_note} {cloned} üzerinden {distance_text} boş sefer. "
+#~ "Varış: {origin_facility_text}."
+
+#~ msgid "Load in {origin}, {deadhead} empty first. "
+#~ msgstr "Yükleme {origin}, önce {deadhead} boş sürüş. "
+
+#~ msgid " Speed control paused, target {target}."
+#~ msgstr " Hız kontrolü duraklatıldı, hedef {target}."
+
+#~ msgid " before you shut down"
+#~ msgstr ", motoru kapatmadan önce"
+
+#~ msgid " {f} gallons burned idling{when}."
+#~ msgstr " Rölantide {f} galon yakıt yandı{when}."
+
+#~ msgid "Speed control: paused   Cruise speed: {target}"
+#~ msgstr "Hız kontrolü: duraklatıldı   Açık yol hedefi: {target}"
+
+#~ msgid "Automatic speed control paused. "
+#~ msgstr "Otomatik hız kontrolü duraklatıldı. "
+
+#~ msgid "Automatic speed control paused. {control_hint} cancels it. "
+#~ msgstr ""
+#~ "Otomatik hız kontrolü duraklatıldı. {control_hint} onu iptal eder.  "
+
+#~ msgid ""
+#~ "Pickup dispatch: drive empty from the terminal to {pickup_facility_text}. "
+#~ msgstr ""
+#~ "Yükleme görevi: terminalden boş gidiş, varış: {pickup_facility_text}.  "
+
+#~ msgid ""
+#~ "At the wheel. {objective}It is {now}. {transmission} {report_lead}. "
+#~ "{engine} {help}"
+#~ msgstr ""
+#~ "Direksiyondasınız. {objective}Saat {now}. {transmission} {report_lead}. "
+#~ "{engine} {help}"
+
+#~ msgid "{objective}It is {now}."
+#~ msgstr "{objective}Saat {now}."
+
+#~ msgid ""
+#~ "{cruise} starts automatic speed control: adaptive cruise on open roads, the "
+#~ "speed keeper in low-speed zones."
+#~ msgstr ""
+#~ "{cruise} otomatik hız kontrolünü başlatır: açık yolda uyarlamalı hız "
+#~ "sabitleyici, düşük hız bölgelerinde hız koruyucu."
+
+#~ msgid ""
+#~ "Cruise eases early for a sharp posted-limit drop, the keeper for the next "
+#~ "turn or the next lower limit."
+#~ msgstr ""
+#~ "Hız sabitleyici, levhadaki sınır keskin düşecekse erkenden yavaşlar; hız "
+#~ "koruyucu da bir sonraki dönüş ya da bir sonraki düşük sınır için yavaşlar."
+
+#~ msgid ""
+#~ "{cruise_cap} starts automatic speed control: adaptive cruise on open roads, "
+#~ "the speed keeper in low-speed zones."
+#~ msgstr ""
+#~ "{cruise_cap} otomatik hız kontrolünü başlatır: açık yolda uyarlamalı hız "
+#~ "sabitleyici, düşük hız bölgelerinde hız koruyucu."
+
+#~ msgid "speed keeper holding {speed_text} {reason}, set {speed_text2}"
+#~ msgstr "hız koruyucu {reason} {speed_text} tutuyor, ayar {speed_text2}"
+
+#~ msgid ""
+#~ "speed keeper holding {speed_text} {keeper_held_reason}, set {speed_text2}"
+#~ msgstr ""
+#~ "hız koruyucu {keeper_held_reason} {speed_text} tutuyor, ayar {speed_text2}"
+
+#~ msgid "speed keeper holding {speed_text}"
+#~ msgstr "hız koruyucu {speed_text} tutuyor"
+
+#~ msgid "adaptive cruise holding {speed_text}{why}, set {speed_text2}"
+#~ msgstr ""
+#~ "uyarlamalı hız sabitleyici {speed_text} tutuyor{why}, ayar {speed_text2}"
+
+#~ msgid "adaptive cruise set at {speed_text}"
+#~ msgstr "uyarlamalı hız sabitleyici {speed_text} ayarlı"
+
+#~ msgid " Cruise speed {speed_text}."
+#~ msgstr " Açık yol hedefi {speed_text}."
+
+#~ msgid " Automatic speed control paused.{keeper_target}"
+#~ msgstr " Otomatik hız kontrolü duraklatıldı.{keeper_target}"
+
+#~ msgid "Cruise: {cruise_holding_text}"
+#~ msgstr "Hız sabitleyici: {cruise_holding_text}"
+
+#~ msgid "Speed control: {keeper_holding_text}"
+#~ msgstr "Hız kontrolü: {keeper_holding_text}"
+
+#~ msgid "Speed control: paused; resumes when the truck is rolling"
+#~ msgstr "Hız kontrolü: duraklatıldı; tır hareket edince devam eder"
+
+#~ msgid " Speed keeper off."
+#~ msgstr " Hız koruyucu kapalı."
+
+#~ msgid "Automatic speed control off."
+#~ msgstr "Otomatik hız kontrolü kapalı."
+
+#~ msgid "Adaptive cruise needs the engine running and at least {minimum}."
+#~ msgstr ""
+#~ "Uyarlamalı hız sabitleyici için motorun çalışıyor olması ve en az {minimum} "
+#~ "hız gerekir."
+
+#~ msgid "Adaptive cruise {else} at {speed_text}{exit_note}."
+#~ msgstr "Uyarlamalı hız sabitleyici {else}: {speed_text}{exit_note}."
+
+#~ msgid "Adaptive cruise off."
+#~ msgstr "Uyarlamalı hız sabitleyici kapalı."
+
+#~ msgid "Adaptive cruise {speed_text}."
+#~ msgstr "Uyarlamalı hız sabitleyici {speed_text}."
+
+#~ msgid "The speed keeper needs the engine running and the truck rolling."
+#~ msgstr ""
+#~ "Hız koruyucu için motorun çalışıyor ve tırın hareket ediyor olması gerekir."
+
+#~ msgid "Speed keeper off."
+#~ msgstr "Hız koruyucu kapalı."
+
+#~ msgid "{reason}; speed keeper easing to {eased}."
+#~ msgstr "{reason}; hız koruyucu {eased} hıza iniyor."
+
+#~ msgid "Speed keeper easing to {speed_value}."
+#~ msgstr "Hız koruyucu {speed_value} hıza iniyor."
+
+#~ msgid "Speed keeper down to {held} on this grade."
+#~ msgstr "Hız koruyucu bu eğimde {held} hıza indi."
+
+#~ msgid "Speed keeper building to {held} for the merge."
+#~ msgstr "Hız koruyucu katılmak için {held} hıza çıkıyor."
+
+#~ msgid "Speed keeper building to {held}."
+#~ msgstr "Hız koruyucu {held} hıza çıkıyor."
+
+#~ msgid "Speed keeper can't hold {held}{because}."
+#~ msgstr "Hız koruyucu{because} {held} hızı tutamıyor."
+
+#~ msgid "Speed keeper can't hold {held}{because}. Brake."
+#~ msgstr "Hız koruyucu{because} {held} hızı tutamıyor. Fren yapın."
+
+#~ msgid "Speed keeper holding {held} through {zone}."
+#~ msgstr "Hız koruyucu {zone} boyunca {held} tutuyor."
+
+#~ msgid "Speed keeper holding {held}."
+#~ msgstr "Hız koruyucu {held} tutuyor."
+
+#~ msgid "{title_case} zone. Speed keeper holding {held}."
+#~ msgstr "{title_case} bölgesi. Hız koruyucu {held} tutuyor."
+
+#~ msgid "Speed keeper holding {speed_value}."
+#~ msgstr "Hız koruyucu {speed_value} tutuyor."
+
+#~ msgid "Stopped traffic ahead; adaptive cruise canceled."
+#~ msgstr "İleride trafik durmuş; uyarlamalı hız sabitleyici iptal edildi."
+
+#~ msgid "Automatic speed control paused."
+#~ msgstr "Otomatik hız kontrolü duraklatıldı."
+
+#~ msgid "Speed keeper holding {keeper}."
+#~ msgstr "Hız koruyucu {keeper} tutuyor."
+
+#~ msgid "Late"
+#~ msgstr "Geç"
+
+#~ msgid "On time"
+#~ msgstr "Zamanında"
+
+#~ msgid "Delivered {f} tons of {label} to {destination}."
+#~ msgstr "{f} ton {label} teslim edildi, varış: {destination}."
+
+#~ msgid "Trip time: {f} hours, {timing}."
+#~ msgstr "Sefer süresi: {f} saat, {timing}."
+
+#~ msgid "Net driver pay: {grouped} dollars."
+#~ msgstr "Net şoför ücreti: {grouped} dolar."
+
+#~ msgid "Truck damage this run {f} percent, may reduce pay."
+#~ msgstr "Bu seferde tır hasarı yüzde {f}, ücreti düşürebilir."
+
+#~ msgid "Cargo condition: no new damage recorded."
+#~ msgstr "Yük durumu: yeni hasar kaydedilmedi."
+
+#~ msgid "Those charges come off this settlement."
+#~ msgstr "Bu masraflar bu hesap kesiminden düşülür."
+
+#~ msgid "Those charges do not reduce driver pay."
+#~ msgstr "Bu masraflar şoför ücretini düşürmez."
+
+#~ msgid ""
+#~ "Charges {grouped3}: tolls {grouped4}, extra charges {charge_summary}."
+#~ msgstr ""
+#~ "Masraflar {grouped3}: otoyol ücreti {grouped4}, ek hizmetler "
+#~ "{charge_summary}."
+
+#~ msgid "Net about {grouped6}.{advance_note} {timing}."
+#~ msgstr "Net yaklaşık {grouped6}.{advance_note} {timing}."
+
+#~ msgid "Paperwork, {facility}: {f} tons of {label}."
+#~ msgstr "Evraklar, {facility}: {f} ton {label}."
+
+#~ msgid ""
+#~ "Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, pay for the "
+#~ "load {grouped2}. Charges {grouped3}: tolls {grouped4}, extra charges "
+#~ "{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
+#~ "{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
+#~ msgstr ""
+#~ "Evrak, {facility}: {f} ton {label}. Tarife {grouped}, yük ücreti "
+#~ "{grouped2}. Masraflar {grouped3}: geçiş ücretleri {grouped4}, ek masraflar "
+#~ "{charge_summary}. {charge_fate} Cezalar {grouped5}. Net yaklaşık "
+#~ "{grouped6}.{advance_note} {timing}. {cargo_condition} Hesaplaşmak için "
+#~ "{finish}."
+
+#~ msgid "Rate {grouped}, pay for the load {grouped2}."
+#~ msgstr "Tarife {grouped}, yük ücreti {grouped2}."
+
+#~ msgid "{cargo_condition} {finish} to settle."
+#~ msgstr "{cargo_condition} Hesap kesimi için: {finish}."
+
+#~ msgid "{charge_fate} Fines {grouped5}."
+#~ msgstr "{charge_fate} Cezalar {grouped5}."
+
+#~ msgid "Automatic speed control paused for pickup."
+#~ msgstr "Otomatik hız kontrolü yükleme için duraklatıldı."
+
+#~ msgid "Automatic speed control is already on."
+#~ msgstr "Otomatik hız kontrolü zaten açık."
+
+#~ msgid "Resuming automatic speed control at {spoken}."
+#~ msgstr "Otomatik hız kontrolü {spoken} hızla devam ediyor."
+
+#~ msgid "Automatic speed control canceled."
+#~ msgstr "Otomatik hız kontrolü iptal edildi."
+
+#~ msgid "Speed control resuming."
+#~ msgstr "Hız kontrolü devam ediyor."
+
+#~ msgid "Speed keeper held to {held} for chains."
+#~ msgstr "Zincirler için hız tutucu {held} hızda tutuldu."
+
+#~ msgid ""
+#~ "Two rows moved. Speed keeper is now in Driving assistance instead of "
+#~ "Controls. Lane and edge cue prominence is now Lane and edge cue volume, in "
+#~ "Audio under Gameplay cues volume. Your choices came with them. Overspeed "
+#~ "warning no longer has a row: it stays quiet until you are heading for a "
+#~ "ticket."
+#~ msgstr ""
+#~ "İki satır taşındı. Hız tutucu artık Kontroller yerine Sürüş yardımı içinde. "
+#~ "Şerit ve kenar işareti belirginliği artık Şerit ve kenar işareti ses düzeyi "
+#~ "oldu, Ses altında Oynanış işaretleri ses düzeyi içinde. Seçimleriniz de "
+#~ "onlarla taşındı. Hız aşımı uyarısının artık satırı yok: cezaya doğru "
+#~ "gitmedikçe sessiz kalır."
+
+#~ msgid "Adaptive cruise slows behind traffic and resumes when it is safe."
+#~ msgstr ""
+#~ "Uyarlamalı hız sabitleyici trafiğin arkasında yavaşlar ve güvenli olunca "
+#~ "yeniden hızlanır."
+
+#~ msgid ""
+#~ "With adaptive cruise on, holds a steep downhill grade at the speed your "
+#~ "truck can take it at with its load, on the engine brake and short brake "
+#~ "applications. On Standard and Strong, braking sets a new, lower speed to "
+#~ "hold. Strong also caps every descent at 55 miles per hour and steps in "
+#~ "sooner."
+#~ msgstr ""
+#~ "Uyarlamalı hız sabitleyici açıkken dik bir inişte tırınızın yüküyle "
+#~ "kaldırabileceği hızı motor freni ve kısa frenlemelerle korur. Standart ve "
+#~ "Güçlü'de frenlemek korunacak yeni, daha düşük bir hız belirler. Güçlü "
+#~ "ayrıca her inişi saatte 55 mil ile sınırlar ve daha erken devreye girer."
+
+#~ msgid "Speed keeper"
+#~ msgstr "Hız tutucu"
+
+#~ msgid ""
+#~ "In low-speed zones, like facility roads, gates, and construction zones, "
+#~ "{control_cruise} holds your current speed, then hands back to adaptive "
+#~ "cruise on open roads."
+#~ msgstr ""
+#~ "Tesis yolları, kapılar ve yol çalışmaları gibi düşük hızlı bölgelerde "
+#~ "{control_cruise} şu anki hızınızı tutar, açık yolda ise uyarlamalı hız "
+#~ "sabitleyiciye devreder."
+
+#~ msgid ""
+#~ "In low-speed zones, like facility roads, gates, and construction zones, "
+#~ "{control_cruise} holds your current speed, then hands back to adaptive "
+#~ "cruise on open roads. It eases off early for the next turn or the next "
+#~ "lower limit. Braking cancels it. Presets never change this."
+#~ msgstr ""
+#~ "Tesis yolları, kapılar ve çalışma alanları gibi düşük hız bölgelerinde "
+#~ "{control_cruise} mevcut hızınızı korur, sonra açık yolda uyarlamalı hız "
+#~ "sabitleyiciye devreder. Sonraki dönüş veya sonraki daha düşük sınır için "
+#~ "erkenden gevşer. Frenlemek iptal eder. Hazır ayarlar bunu asla değiştirmez."
+
+#~ msgid ""
+#~ "How much room adaptive cruise leaves to the vehicle ahead. Close is two and "
+#~ "a half seconds, normal three, far three and a half. Weather widens the gap "
+#~ "whichever you pick. All three stay clear of a following-too-close citation. "
+#~ "The preset above never changes it."
+#~ msgstr ""
+#~ "Uyarlamalı hız sabitleyicinin öndeki araçla arasında ne kadar mesafe "
+#~ "bıraktığı. Yakın iki buçuk saniye, normal üç, uzak üç buçuk. Hangisini "
+#~ "seçerseniz seçin hava mesafeyi açar. Üçü de çok yakından takip cezasından "
+#~ "uzak durur. Yukarıdaki ön ayar bunu asla değiştirmez."
+
+#~ msgid "Speed control and hills"
+#~ msgstr "Hız kontrolü ve yokuşlar"
+
+#~ msgid ""
+#~ "{control_cruise} starts automatic speed control: adaptive cruise on open "
+#~ "roads, speed keeper on supported low-speed roads."
+#~ msgstr ""
+#~ "{control_cruise} otomatik hız kontrolünü başlatır: açık yolda uyarlamalı "
+#~ "hız sabitleyici, desteklenen düşük hızlı yollarda hız tutucu."
+
+#~ msgid ""
+#~ "Speed keeper follows local limits, queues, and corners, then hands over to "
+#~ "cruise on open road. The target keys still change the remembered cruise "
+#~ "speed."
+#~ msgstr ""
+#~ "Hız tutucu yerel hız sınırlarını, kuyrukları ve köşeleri izler, sonra açık "
+#~ "yolda hız sabitleyiciye devreder. Hedef tuşları yine hatırlanan sabit hızı "
+#~ "değiştirir."
+
+#~ msgid ""
+#~ "Press {control_cruise} again or touch the brakes to cancel. "
+#~ "{control_cruise_resume} resumes the previous target. Speed control pauses "
+#~ "at the pickup and comes back on after you leave with the load."
+#~ msgstr ""
+#~ "İptal etmek için {control_cruise} tuşuna yeniden basın ya da frenlere "
+#~ "dokunun. {control_cruise_resume} önceki hedefe döner. Hız kontrolü "
+#~ "yüklemede duraklar ve yükle ayrıldığınızda yeniden açılır."
+
+#~ msgid ""
+#~ "Speed control pauses at the pickup and comes back on after you leave with "
+#~ "the load."
+#~ msgstr ""
+#~ "Hız kontrolü yüklemede duraklar ve yükle ayrıldığınızda yeniden açılır."
 
 #~ msgid ""
 #~ "Delivered {f} tons of {label} to {destination} in {f2} hours, "

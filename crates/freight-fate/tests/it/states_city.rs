@@ -89,16 +89,17 @@ fn test_new_hire_board_offers_single_assignment_with_decline() {
 
     assert!(with_state::<JobBoardState, _>(&app, |b, _| b.assigned_mode()));
     let labels = labels::<JobBoardState>(&app);
-    assert!(labels[0].starts_with("Accept assigned dispatch:"));
+    assert!(labels[0].starts_with("Assigned load:"));
     assert!(labels[0].contains("70 miles")); // the recommended (shortest) load
     assert!(labels[1].starts_with("Decline and request another load:"));
     assert!(labels[1].contains(&format!("{NEW_HIRE_DECLINE_BUDGET} declines left")));
     assert_eq!(labels.last().unwrap(), "Back to terminal");
     let said = app.main_lines().last().cloned().unwrap();
     assert!(said.starts_with("Dispatch board. "));
-    assert!(said.contains(&format!(
-        "{NEW_HIRE_DECLINE_BUDGET} declines left before your next promotion."
-    )));
+    assert!(
+        said.starts_with("Dispatch board. Assigned load: "),
+        "{said}"
+    );
     // How long assignment lasts is on the review row's help.
     select::<JobBoardState>(&mut app, "Review the rest of today's board");
     key(&mut app, Key::F1);
@@ -126,10 +127,7 @@ fn the_load_straight_back_where_the_truck_came_from_is_not_the_assignment() {
 
     assert!(with_state::<JobBoardState, _>(&app, |b, _| b.assigned_mode()));
     let labels = labels::<JobBoardState>(&app);
-    assert!(
-        labels[0].starts_with("Accept assigned dispatch:"),
-        "{labels:?}"
-    );
+    assert!(labels[0].starts_with("Assigned load:"), "{labels:?}");
     assert!(labels[0].contains("180 miles"), "{labels:?}");
     // The return is still on the board, behind the onward load.
     let order: Vec<f64> = with_state::<JobBoardState, _>(&app, |b, _| {
@@ -181,7 +179,7 @@ fn test_declining_assignment_costs_reputation_and_draws_next_load() {
     assert!(said.contains("service record"));
     assert!(said.contains("180 miles")); // the next candidate was drawn
     let labels = labels::<JobBoardState>(&app);
-    assert!(labels[0].starts_with("Accept assigned dispatch:"));
+    assert!(labels[0].starts_with("Assigned load:"));
     assert!(labels[0].contains("180 miles"));
 }
 
@@ -198,7 +196,7 @@ fn test_exhausted_decline_budget_locks_board_to_accept_only() {
     push_board(&mut app, vec![job(180.0), job(70.0)]);
 
     let labels = labels::<JobBoardState>(&app);
-    assert!(labels[0].starts_with("Accept assigned dispatch:"));
+    assert!(labels[0].starts_with("Assigned load:"));
     assert!(!labels.iter().any(|l| l.starts_with("Decline")));
 }
 
@@ -210,7 +208,7 @@ fn test_single_candidate_assignment_offers_no_decline() {
     push_board(&mut app, vec![job(70.0)]);
 
     let labels = labels::<JobBoardState>(&app);
-    assert!(labels[0].starts_with("Accept assigned dispatch:"));
+    assert!(labels[0].starts_with("Assigned load:"));
     assert!(!labels.iter().any(|l| l.starts_with("Decline")));
 }
 
@@ -981,9 +979,9 @@ fn test_company_driver_bulk_job_uses_carrier_trailer_support() {
 
     // New company hires get the load as a dispatch assignment.
     let row = labels::<JobBoardState>(&app)[0].clone();
-    assert!(row.starts_with("Accept assigned dispatch:"));
+    assert!(row.starts_with("Assigned load:"));
     assert!(!row.contains("Carrier trailer provided"));
-    assert!(row.contains("Your pay about"));
+    assert!(row.contains(" to you."), "{row}");
     assert!(!row.contains("Locked job"));
 }
 
@@ -1001,9 +999,8 @@ fn test_owner_operator_hears_missing_trailer_gate_and_preview() {
     let row = labels::<JobBoardState>(&app)[0].clone();
     assert!(row.starts_with("Locked job 1 of 1"));
     assert!(row.contains("Needs Bulk trailer program"));
-    assert!(row.contains("Pay for the load"));
-    assert!(row.contains("Take-home about"));
-    assert!(row.contains("dollars costs"));
+    assert!(row.contains("Pays "));
+    assert!(row.contains(" after costs."), "{row}");
 }
 
 #[test]
@@ -1021,7 +1018,7 @@ fn test_own_authority_owned_trailer_row_shows_direct_market_fit() {
     let row = labels::<JobBoardState>(&app)[0].clone();
     assert!(row.starts_with("Job 1 of 1"));
     assert!(row.contains("Owned trailer: Bulk"));
-    assert!(row.contains("Pay for the load"));
+    assert!(row.contains("Pays "));
     assert!(!row.contains("owned-trailer reserve"));
     assert!(!row.contains("Locked job"));
 }
@@ -1950,7 +1947,7 @@ fn test_company_driver_board_labels_carrier_gross() {
     assert!(with_state::<JobBoardState, _>(&app, |b, _| !b
         .jobs
         .is_empty()));
-    assert!(labels::<JobBoardState>(&app)[0].contains("Pay for the load"));
+    assert!(labels::<JobBoardState>(&app)[0].contains("Pays "));
 }
 
 #[test]
@@ -1975,7 +1972,7 @@ fn test_owner_operator_job_board_labels_missing_trailer_program() {
     push_board(&mut app, vec![job]);
 
     assert!(labels::<JobBoardState>(&app)[0].contains("Needs Reefer trailer program"));
-    assert!(labels::<JobBoardState>(&app)[0].contains("Pay for the load"));
+    assert!(labels::<JobBoardState>(&app)[0].contains("Pays "));
     key(&mut app, Key::Return);
     assert!(profile(&app).active_trip.is_none());
 }
@@ -2030,7 +2027,7 @@ fn test_own_authority_job_board_labels_owned_trailer_and_program_charge() {
     }
     push_board(&mut app, vec![job()]);
     let row = labels::<JobBoardState>(&app)[0].clone();
-    assert!(row.contains("Pay for the load"));
+    assert!(row.contains("Pays "));
     assert!(row.contains("Owned trailer: Reefer"));
     assert!(!row.contains("owned-trailer reserve"));
     app.pop_state();
@@ -2088,7 +2085,7 @@ fn test_direct_freight_board_pays_more_and_uses_direct_label() {
     }
     push_board(&mut app, vec![direct[0].clone()]);
     let row = labels::<JobBoardState>(&app)[0].clone();
-    assert!(row.contains("Pay for the load"));
+    assert!(row.contains("Pays "));
     assert!(row.contains("Trailer program:"));
 }
 

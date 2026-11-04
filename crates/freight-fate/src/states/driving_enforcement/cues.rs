@@ -136,12 +136,25 @@ impl DrivingState {
             &post.id(),
             "tableau_intro",
         ));
+        // Where the CB put the stop, so the pass does not move it: "stopped
+        // in the median" on the radio was followed by "on the shoulder" as
+        // the truck went by (owner's drive, US-219, 2026-11-04).
+        let median = post.kind == ff_core::sim::enforcement_posts::KIND_MEDIAN;
+        let bare = if median {
+            "A trooper has somebody stopped in the median, not you."
+        } else {
+            TABLEAU_INTRO_LINE
+        };
         if rng.random() >= 0.5 {
-            return SpokenMessage::new(TABLEAU_INTRO_LINE);
+            return SpokenMessage::new(bare);
         }
         let reason = *rng.choice(&TABLEAU_INTRO_REASONS);
-        let normal = format!("A trooper has somebody stopped on the shoulder {reason}, not you.");
-        SpokenMessage::with_terse(normal, TABLEAU_INTRO_LINE)
+        let normal = if median {
+            format!("A trooper has somebody stopped in the median {reason}, not you.")
+        } else {
+            format!("A trooper has somebody stopped on the shoulder {reason}, not you.")
+        };
+        SpokenMessage::with_terse(normal, bare)
     }
 
     /// The siren of a trooper working somebody else, heard before you reach

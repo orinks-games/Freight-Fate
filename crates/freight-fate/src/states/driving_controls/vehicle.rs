@@ -233,13 +233,18 @@ impl DrivingState {
                 ctx.audio.play_with("vehicle/brake_release", 0.65, 0.0);
                 self.note_instruction_demonstrated(ctx, "parking_brake");
                 self.set_status("Parking brake released.");
-                let psi = self.trip.truck.air_pressure_psi();
-                ctx.say_with(
-                    format!("Parking brake released. Air pressure {psi:.0} psi."),
-                    Say::new().category(SpeechCategory::Confirmation),
-                );
-                if let Some(tutorial) = self.tutorial.as_mut() {
-                    tutorial.on_parking_brake_released(ctx);
+                // An instructor's release line already says what to do
+                // next; the plain confirmation would repeat its first half.
+                let taught = self
+                    .tutorial
+                    .as_mut()
+                    .is_some_and(|tutorial| tutorial.on_parking_brake_released(ctx));
+                if !taught {
+                    let psi = self.trip.truck.air_pressure_psi();
+                    ctx.say_with(
+                        format!("Parking brake released. Air pressure {psi:.0} psi."),
+                        Say::new().category(SpeechCategory::Confirmation),
+                    );
                 }
             } else {
                 ctx.audio.play("ui/error");

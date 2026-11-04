@@ -1724,7 +1724,7 @@ fn test_ramp_terminal_hands_the_speed_keeper_back_after_the_stop_bar() {
 
     assert_eq!(d.keeper_mph, Some(ACCESS_ZONE_MPH));
     assert!(!d.speed_control_paused_at_stop);
-    assert_eq!(said_count(&app, "Speed keeper holding"), 1);
+    assert_eq!(said_count(&app, "Cruise holding"), 1);
 }
 
 #[test]

@@ -7478,6 +7478,11 @@ msgstr " Mancano {grouped} al livello {level}."
 msgid "Career stage: {stage}."
 msgstr "Fase di carriera: {stage}."
 
+#. placeholders: {deliveries}, {f3}
+#. one sentence of a longer line
+msgid "Deliveries {deliveries}, {f3} percent on time."
+msgstr ""
+
 #. placeholders: {level}, {title}
 #. one sentence of a longer line
 msgid "Level {level}, {title}."
@@ -7486,20 +7491,10 @@ msgstr "Livello {level}, {title}."
 #. placeholders: {level}, {title}, {f}, {owed_text}, {f2}, {deliveries}, {f3}, {grouped}, {grouped2}, {stage}, {status}, {next_text}
 msgid ""
 "Level {level}, {title}. {f} experience.{owed_text} Reputation {f2} out of "
-"100. {deliveries} deliveries, {f3} percent on time. {grouped} lifetime "
+"100. Deliveries {deliveries}, {f3} percent on time. {grouped} lifetime "
 "miles, {grouped2} dollars earned. Career stage: {stage}. "
 "{status}.{next_text}"
 msgstr ""
-"Livello {level}, {title}. {f} punti esperienza.{owed_text} Reputazione {f2} "
-"su 100. {deliveries} {deliveries:consegna|consegne}, {f3} per cento in "
-"orario. {grouped} miglia totali, {grouped2} dollari guadagnati. Fase di "
-"carriera: {stage}. {status}.{next_text}"
-
-#. placeholders: {deliveries}, {f3}
-#. one sentence of a longer line
-msgid "{deliveries} deliveries, {f3} percent on time."
-msgstr ""
-"{deliveries} {deliveries:consegna|consegne}, {f3} per cento in orario."
 
 #. placeholders: {f}, {owed_text}, {f2}
 #. one sentence of a longer line
@@ -9900,70 +9895,56 @@ msgstr "mercato merci di {city_lower}"
 msgid "{city_lower} metro freight market"
 msgstr "mercato merci dell'area metropolitana di {city_lower}"
 
+#. placeholders: {city}, {destination}
+msgid "{city} to {destination}"
+msgstr ""
+
+#. placeholders: {origin}, {destination}
+msgid "{origin} to {destination}"
+msgstr ""
+
 #. placeholders: {index}, {unwrap_or_else}
 msgid "Job {index} of {unwrap_or_else}: "
 msgstr "Incarico {index} di {unwrap_or_else}: "
-
-#. placeholders: {condition}
-msgid " Market {condition}."
-msgstr " Mercato {condition}."
 
 #. placeholders: {credentials_clause}
 msgid " Requires {credentials_clause}."
 msgstr " Richiede {credentials_clause}."
 
-#. placeholders: {tons}, {cargo}, {pickup}, {dropoff}
-msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
-msgstr "{tons} tonnellate di {cargo} da {pickup} a {dropoff}."
+#. placeholders: {tons}, {cargo}, {route}
+msgid "{tons} tons of {cargo}, {route}."
+msgstr ""
 
-msgid "Pays"
-msgstr "Paga"
+#. placeholders: {miles}
+msgid " {miles} empty to the pickup first."
+msgstr ""
 
 #. placeholders: {pay}
 msgid "Pays {pay} dollars."
 msgstr "Paga {pay} dollari."
 
-#. placeholders: {pay}
-msgid "Pay for the load: {pay} dollars."
-msgstr "Compenso per il carico: {pay} dollari."
-
-#. placeholders: {hours}
-msgid ""
-"Deadline {hours} hours. Team load: you and a co-driver take turns at the "
-"wheel."
+#. placeholders: {pay}, {pay_preview}
+msgid "Pays {pay} dollars, {pay_preview}."
 msgstr ""
-"Scadenza tra {hours} {hours:ora|ore}. Carico in coppia: tu e un secondo "
-"autista vi date il cambio al volante."
 
 #. one sentence of a longer line
 msgid "Team load: you and a co-driver take turns at the wheel."
 msgstr ""
 "Carico in coppia: tu e un secondo autista vi date il cambio al volante."
 
-#. placeholders: {hours}
-msgid "Deadline {hours} hours, includes a 10-hour rest."
-msgstr "Scadenza tra {hours} {hours:ora|ore}, compreso un riposo di 10 ore."
-
-#. placeholders: {hours}
-msgid "Deadline {hours} hours."
-msgstr "Scadenza tra {hours} {hours:ora|ore}."
-
-#. placeholders: {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
-#. one sentence of a longer line
+#. placeholders: {distance}, {hours}
 msgid ""
-"{pay_text} {deadline} Equipment: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
+"{distance}, deadline {hours} hours. Team load: you and a co-driver take "
+"turns at the wheel."
 msgstr ""
-"{pay_text} {deadline} Attrezzatura: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
 
-#. placeholders: {prefix}, {load}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {preview}, {market}, {endorsement}
-msgid ""
-"{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
+#. placeholders: {distance}, {hours}
+msgid "{distance}, deadline {hours} hours with a 10-hour rest."
 msgstr ""
-"{prefix}{load} {distance}. {pay_text} {deadline} Attrezzatura: "
-"{equipment}.{trailer}{preview}{market}{endorsement}"
+
+#. placeholders: {distance}, {hours}
+msgid "{distance}, deadline {hours} hours."
+msgstr ""
 
 #. placeholders: {min_level}
 msgid "Level {min_level} drivers unlock this cargo."
@@ -15176,13 +15157,9 @@ msgstr ""
 "ripete in fretta, più sei oltre."
 
 msgid ""
-"More than 7 miles per hour over the posted limit: past anything adaptive "
-"cruise will do on its own, and short of where a trooper can act on your "
-"speed."
+"More than 7 miles per hour over the posted limit: past anything cruise will "
+"do on its own, and short of where a trooper can act on your speed."
 msgstr ""
-"Più di 7 miglia orarie oltre il limite indicato: oltre quello che il cruise "
-"control adattivo fa da solo, e prima della soglia in cui un agente può "
-"agire sulla tua velocità."
 
 msgid "Gear grind"
 msgstr "Grattata del cambio"
@@ -15835,9 +15812,8 @@ msgid "Limit {limit_value}."
 msgstr "Limite {limit_value}."
 
 #. placeholders: {pacenote}, {advisory_speed_text}
-msgid "{pacenote} Adaptive cruise easing to {advisory_speed_text}."
+msgid "{pacenote} Cruise easing to {advisory_speed_text}."
 msgstr ""
-"{pacenote} Il cruise control adattivo scende a {advisory_speed_text}."
 
 #. placeholders: {pacenote}
 msgid "{pacenote} Curve assistance slowing."
@@ -15849,19 +15825,14 @@ msgstr "Il cruise riprende dopo la curva."
 
 #. placeholders: {pacenote}
 #. one sentence of a longer line
-msgid ""
-"{pacenote} Adaptive cruise paused for the bend, curve assistance slowing."
+msgid "{pacenote} Cruise paused for the bend, curve assistance slowing."
 msgstr ""
-"{pacenote} Cruise control adattivo in pausa per la curva, l'assistenza in "
-"curva rallenta."
 
 #. placeholders: {pacenote}
 msgid ""
-"{pacenote} Adaptive cruise paused for the bend, curve assistance slowing. "
-"Cruise resumes past the bend."
+"{pacenote} Cruise paused for the bend, curve assistance slowing. Cruise "
+"resumes past the bend."
 msgstr ""
-"{pacenote} Cruise control adattivo in pausa per la curva, l'assistenza in "
-"curva rallenta. Il cruise riprende dopo la curva."
 
 #. placeholders: {pacenote_terse}
 msgid "{pacenote_terse} Cruise paused; assistance slowing."
@@ -15873,13 +15844,12 @@ msgstr "Riprende dopo."
 
 #. placeholders: {pacenote}
 #. one sentence of a longer line
-msgid "{pacenote} Adaptive cruise paused for the bend."
-msgstr "{pacenote} Cruise control adattivo in pausa per la curva."
+msgid "{pacenote} Cruise paused for the bend."
+msgstr ""
 
 #. placeholders: {pacenote}
-msgid "{pacenote} Adaptive cruise paused for the bend. Resumes past it."
+msgid "{pacenote} Cruise paused for the bend. Resumes past it."
 msgstr ""
-"{pacenote} Cruise control adattivo in pausa per la curva. Riprende dopo."
 
 #. placeholders: {pacenote_terse}
 msgid "{pacenote_terse} Cruise paused."
@@ -16447,8 +16417,8 @@ msgstr "climate"
 msgid "Heat or air conditioning"
 msgstr "Riscaldamento o aria condizionata"
 
-msgid "Automatic speed control"
-msgstr "Controllo automatico della velocità"
+msgid "Cruise"
+msgstr ""
 
 msgid "Resume the last cruise speed"
 msgstr "Riprendi l'ultima velocità di crociera"
@@ -18249,14 +18219,13 @@ msgstr ""
 "La paga indicata è ciò che guadagna l'azienda; tu ricevi uno stipendio da "
 "quella. Il percorso ti viene assegnato finché non guidi un camion tuo."
 
-#. placeholders: {grouped}, {grouped2}
-msgid "Take-home about {grouped} dollars after {grouped2} dollars costs."
+#. placeholders: {take_home}
+msgid "about {take_home} after costs"
 msgstr ""
-"Guadagno netto di circa {grouped} dollari, dopo {grouped2} dollari di costi."
 
-#. placeholders: {grouped}
-msgid "Your pay about {grouped} dollars."
-msgstr "La tua paga, circa {grouped} dollari."
+#. placeholders: {take_home}
+msgid "about {take_home} to you"
+msgstr ""
 
 #. placeholders: {highway}
 #. one sentence of a longer line
@@ -18300,21 +18269,12 @@ msgstr ""
 msgid "Dispatch board"
 msgstr "Bacheca degli incarichi"
 
-#. placeholders: {remaining}, {s_ending}
-msgid "{remaining} decline{s_ending} left before your next promotion. "
+msgid " This assignment needs an extra rest on your current hours."
 msgstr ""
-"{remaining} {remaining:rifiuto rimasto|rifiuti rimasti} prima della "
-"prossima promozione. "
 
-msgid "No declines left until your next promotion. "
-msgstr "Nessun rifiuto rimasto fino alla prossima promozione. "
-
-msgid "This assignment needs an extra rest on your current hours. "
-msgstr "Con le tue ore attuali questo incarico richiede un riposo in più. "
-
-#. placeholders: {decline_note}, {hos_note}, {market}, {current}
-msgid "Dispatch board. {decline_note}{hos_note}{market}{current}"
-msgstr "Bacheca degli incarichi. {decline_note}{hos_note}{market}{current}"
+#. placeholders: {current}, {hos_note}
+msgid "Dispatch board. {current}{hos_note}"
+msgstr ""
 
 msgid ""
 "Dispatch is sending you empty, with no pickup. After you accept, Route "
@@ -18334,8 +18294,8 @@ msgstr ""
 "elenca soste, carburante, pedaggi, meteo e restrizioni."
 
 #. placeholders: {describe}
-msgid "Accept assigned dispatch: {describe}"
-msgstr "Accetta l'incarico assegnato: {describe}"
+msgid "Assigned load: {describe}"
+msgstr ""
 
 #. placeholders: {remaining}, {s_ending}
 msgid "Decline and request another load: {remaining} decline{s_ending} left"
@@ -18467,13 +18427,10 @@ msgstr ""
 "La struttura di quel carico non è più sulla rete. La centrale ha ritirato "
 "l'offerta."
 
-#. placeholders: {equipment_note}, {distance_text}, {cloned}, {origin_facility_text}
+#. placeholders: {equipment_note}, {distance_text}, {origin_short_name}
 msgid ""
-"Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to pickup "
-"at {origin_facility_text}."
+"Accepted.{equipment_note} {distance_text} empty to {origin_short_name}."
 msgstr ""
-"Accettato.{equipment_note} Viaggio a vuoto di {distance_text} su {cloned} "
-"fino al ritiro presso {origin_facility_text}."
 
 msgid ""
 "That load's city is no longer on the network. Dispatch pulled the offer."
@@ -18481,13 +18438,10 @@ msgstr ""
 "La città di quel carico non è più sulla rete. La centrale ha ritirato "
 "l'offerta."
 
-#. placeholders: {equipment_note}, {distance_text}, {cloned}, {origin_facility_text}
+#. placeholders: {equipment_note}, {distance_text}, {origin_offer_text}
 msgid ""
-"Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to "
-"{origin_facility_text}."
+"Accepted.{equipment_note} {distance_text} empty to {origin_offer_text}."
 msgstr ""
-"Accettato.{equipment_note} Viaggio a vuoto di {distance_text} su {cloned} "
-"fino a {origin_facility_text}."
 
 #. placeholders: {equipment_note}
 msgid "Accepted.{equipment_note} The load is here in the yard."
@@ -18663,10 +18617,6 @@ msgstr ""
 msgid "a drive"
 msgstr "un viaggio"
 
-#. placeholders: {origin}, {deadhead}
-msgid "Load in {origin}, {deadhead} empty first. "
-msgstr "Carico a {origin}, prima {deadhead} a vuoto. "
-
 msgid ""
 "Up and down review the lines, Home and End jump to the ends. Enter repeats "
 "a line, or accepts on Accept this dispatch. Escape returns to the dispatch "
@@ -18711,6 +18661,12 @@ msgstr ""
 #. placeholders: {equipment_text}
 msgid "Equipment: {equipment_text}."
 msgstr "Attrezzatura: {equipment_text}."
+
+msgid "Market: tight, so this load pays more than usual."
+msgstr ""
+
+msgid "Market: loose, so this load pays less than usual."
+msgstr ""
 
 #. placeholders: {trailer}
 msgid "Trailer: {trailer}"
@@ -20841,8 +20797,8 @@ msgid "the posted limit when the open road begins"
 msgstr "il limite indicato quando inizia la strada aperta"
 
 #. placeholders: {target}
-msgid " Speed control paused, target {target}."
-msgstr " Controllo della velocità in pausa, obiettivo {target}."
+msgid " Cruise paused, set {target}."
+msgstr ""
 
 msgid ""
 "Nothing to walk around yet. The shipper is loading the trailer you came in "
@@ -21041,6 +20997,10 @@ msgstr ""
 msgid "{f} tons of {label} for {destination_facility_text}."
 msgstr "{f} tonnellate di {label} per {destination_facility_text}."
 
+#. placeholders: {f}
+msgid " Idling here burned {f} gallons."
+msgstr ""
+
 msgid "Saved. The pickup resumes here."
 msgstr "Salvato. Il ritiro riprende da qui."
 
@@ -21099,13 +21059,6 @@ msgid ""
 msgstr ""
 " {wait} minuti oltre le due ore gratuite alla banchina: {dollars} dollari "
 "per l'attesa, pagati all'azienda."
-
-msgid " before you shut down"
-msgstr " prima di spegnere"
-
-#. placeholders: {f}, {when}
-msgid " {f} gallons burned idling{when}."
-msgstr " {f} galloni bruciati al minimo{when}."
 
 #. placeholders: {facility}
 #. one sentence of a longer line
@@ -21265,9 +21218,8 @@ msgid "posted limit when the open road begins"
 msgstr "limite indicato quando inizia la strada aperta"
 
 #. placeholders: {target}
-msgid "Speed control: paused   Cruise speed: {target}"
+msgid "Cruise: paused   Cruise speed: {target}"
 msgstr ""
-"Controllo della velocità: in pausa   Obiettivo su strada aperta: {target}"
 
 msgid "Route planning"
 msgstr "Pianificazione del percorso"
@@ -22232,13 +22184,12 @@ msgstr "Motore al minimo."
 msgid "{control_hint} lists the controls."
 msgstr "{control_hint} elenca i comandi."
 
-msgid "Automatic speed control paused. "
-msgstr "Controllo automatico della velocità in pausa. "
+msgid "Cruise paused. "
+msgstr ""
 
 #. placeholders: {control_hint}
-msgid "Automatic speed control paused. {control_hint} cancels it. "
+msgid "Cruise paused. {control_hint} cancels it. "
 msgstr ""
-"Controllo automatico della velocità in pausa. {control_hint} lo annulla. "
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -22321,10 +22272,8 @@ msgid "{progress} {hours_used} of {deadline_game_h} hours."
 msgstr "{progress} {hours_used} ore su {deadline_game_h}."
 
 #. placeholders: {pickup_facility_text}
-msgid ""
-"Pickup dispatch: drive empty from the terminal to {pickup_facility_text}. "
+msgid "Drive empty to {pickup_facility_text}. "
 msgstr ""
-"Incarico di ritiro: viaggio a vuoto dalla sede a {pickup_facility_text}. "
 
 #. placeholders: {destination_facility_text}
 #. one sentence of a longer line
@@ -22335,22 +22284,23 @@ msgstr "Carico per {destination_facility_text}."
 msgid "Loaded for {destination_facility_text}. {progress_summary} "
 msgstr "Carico per {destination_facility_text}. {progress_summary} "
 
+msgid " Manual transmission."
+msgstr ""
+
 #. one sentence of a longer line
 msgid "At the wheel."
 msgstr "Al volante."
 
 #. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
 msgid ""
-"At the wheel. {objective}It is {now}. {transmission} {report_lead}. "
-"{engine} {help}"
+"At the wheel. {objective}It is {now}.{transmission} {report_lead}. {engine} "
+"{help}"
 msgstr ""
-"Al volante. {objective}Sono le {now}. {transmission} {report_lead}. "
-"{engine} {help}"
 
-#. placeholders: {objective}, {now}
+#. placeholders: {objective}, {now}, {transmission}, {report_lead}
 #. one sentence of a longer line
-msgid "{objective}It is {now}."
-msgstr "{objective}Sono le {now}."
+msgid "{objective}It is {now}.{transmission} {report_lead}."
+msgstr ""
 
 msgid "amount"
 msgstr "amount"
@@ -22514,24 +22464,29 @@ msgstr ""
 "Tieni premuto {emergency_brake} per il freno di emergenza, l'arresto più "
 "deciso possibile."
 
+#. one sentence of a longer line
+msgid ""
+"It follows traffic on open roads and holds the limit in low-speed zones."
+msgstr ""
+
+#. placeholders: {cruise}
+#. one sentence of a longer line
+msgid "{cruise} starts cruise."
+msgstr ""
+
 #. placeholders: {cruise}
 msgid ""
-"{cruise} starts automatic speed control: adaptive cruise on open roads, the "
-"speed keeper in low-speed zones."
+"{cruise} starts cruise. It follows traffic on open roads and holds the "
+"limit in low-speed zones."
 msgstr ""
-"{cruise} avvia il controllo automatico della velocità: cruise control "
-"adattivo su strada libera, mantenitore di velocità nelle zone a bassa "
-"velocità."
 
 msgid "Weather widens the gap."
 msgstr "Il meteo allunga la distanza."
 
 msgid ""
-"Cruise eases early for a sharp posted-limit drop, the keeper for the next "
-"turn or the next lower limit."
+"Cruise eases early for a sharp posted-limit drop, and in low-speed zones "
+"for the next turn or the next lower limit."
 msgstr ""
-"Il cruise rallenta in anticipo prima di un forte calo del limite indicato, "
-"il mantenitore prima della prossima curva o del prossimo limite più basso."
 
 msgid "Braking cancels it."
 msgstr "Frenare lo annulla."
@@ -22956,13 +22911,15 @@ msgstr ""
 "nuovo per andare avanti."
 
 #. placeholders: {cruise_cap}
-msgid ""
-"{cruise_cap} starts automatic speed control: adaptive cruise on open roads, "
-"the speed keeper in low-speed zones."
+#. one sentence of a longer line
+msgid "{cruise_cap} starts cruise."
 msgstr ""
-"{cruise_cap} avvia il controllo automatico della velocità: cruise control "
-"adattivo su strada libera, mantenitore di velocità nelle zone a bassa "
-"velocità."
+
+#. placeholders: {cruise_cap}
+msgid ""
+"{cruise_cap} starts cruise. It follows traffic on open roads and holds the "
+"limit in low-speed zones."
+msgstr ""
 
 #. placeholders: {cruise_down}, {cruise_up}
 msgid "{cruise_down} or {cruise_up} change the cruise speed by five."
@@ -23150,38 +23107,36 @@ msgstr "limite indicato"
 msgid "for the {other}"
 msgstr "per {other}"
 
-#. placeholders: {speed_text}, {reason}, {speed_text2}
-msgid "speed keeper holding {speed_text} {reason}, set {speed_text2}"
+#. placeholders: {speed}, {reason}, {speed2}
+msgid "cruise holding {speed} {reason}, set {speed2}"
 msgstr ""
-"mantenitore di velocità a {speed_text} {reason}, impostato a {speed_text2}"
 
-#. placeholders: {speed_text}, {keeper_held_reason}, {speed_text2}
-msgid ""
-"speed keeper holding {speed_text} {keeper_held_reason}, set {speed_text2}"
+#. placeholders: {speed}, {keeper_held_reason}, {speed2}
+msgid "cruise holding {speed} {keeper_held_reason}, set {speed2}"
 msgstr ""
-"mantenitore di velocità a {speed_text} {keeper_held_reason}, impostato a "
-"{speed_text2}"
 
-#. placeholders: {speed_text}
-msgid "speed keeper holding {speed_text}"
-msgstr "mantenitore di velocità a {speed_text}"
-
-#. placeholders: {speed_text}, {why}, {speed_text2}
-msgid "adaptive cruise holding {speed_text}{why}, set {speed_text2}"
+#. placeholders: {speed}
+msgid "cruise holding {speed}"
 msgstr ""
-"cruise control adattivo a {speed_text}{why}, impostato a {speed_text2}"
 
-#. placeholders: {speed_text}
-msgid "adaptive cruise set at {speed_text}"
-msgstr "cruise control adattivo impostato a {speed_text}"
+#. placeholders: {speed}, {why}, {speed2}
+msgid "cruise holding {speed}{why}, set {speed2}"
+msgstr ""
 
-#. placeholders: {speed_text}
-msgid " Cruise speed {speed_text}."
-msgstr " Obiettivo su strada aperta {speed_text}."
+#. placeholders: {speed}
+msgid "cruise set at {speed}"
+msgstr ""
 
-#. placeholders: {keeper_target}
-msgid " Automatic speed control paused.{keeper_target}"
-msgstr " Controllo automatico della velocità in pausa.{keeper_target}"
+#. placeholders: {speed_value}
+msgid " Cruise speed {speed_value}."
+msgstr ""
+
+#. placeholders: {speed_value}
+msgid " Cruise paused, set {speed_value}."
+msgstr ""
+
+msgid " Cruise paused."
+msgstr ""
 
 #. placeholders: {rpm}
 msgid ", {rpm} RPM"
@@ -23570,21 +23525,12 @@ msgstr "Calendario: {calendar}"
 msgid "Clock: {clock_text} {clock_zone_label} ({time_of_day})"
 msgstr "Orologio: {clock_text} {clock_zone_label} ({time_of_day})"
 
-#. placeholders: {cruise_holding_text}
-msgid "Cruise: {cruise_holding_text}"
-msgstr "Cruise: {cruise_holding_text}"
-
-#. placeholders: {keeper_holding_text}
-msgid "Speed control: {keeper_holding_text}"
-msgstr "Controllo della velocità: {keeper_holding_text}"
-
 #. placeholders: {open_road_target}
 msgid "Cruise speed: {open_road_target}"
 msgstr "Obiettivo su strada aperta: {open_road_target}"
 
-msgid "Speed control: paused; resumes when the truck is rolling"
+msgid "Cruise paused; resumes when the truck is rolling"
 msgstr ""
-"Controllo della velocità: in pausa; riprende quando il camion è in movimento"
 
 #. placeholders: {start_damage}
 msgid "Damage: new damage {start_damage} percent"
@@ -25287,6 +25233,13 @@ msgstr "per eccesso di velocità"
 msgid "over a light out"
 msgstr "per una luce bruciata"
 
+msgid "A trooper has somebody stopped in the median, not you."
+msgstr ""
+
+#. placeholders: {reason}
+msgid "A trooper has somebody stopped in the median {reason}, not you."
+msgstr ""
+
 #. placeholders: {reason}
 msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
 msgstr ""
@@ -25740,8 +25693,8 @@ msgstr "Destinazione davanti, {facility}. Fermati al cancello."
 msgid "Stop at the gate."
 msgstr "Fermati al cancello."
 
-msgid " Speed keeper off."
-msgstr " Mantenitore di velocità spento."
+msgid " Cruise off."
+msgstr " Cruise control spento."
 
 #. placeholders: {pickup_facility_text}
 msgid "At {pickup_facility_text}. Stop to check in."
@@ -26171,13 +26124,12 @@ msgstr "Minimo alto, {rpm} giri."
 msgid "High idle off."
 msgstr "Minimo alto spento."
 
-msgid "Automatic speed control off."
-msgstr "Controllo automatico della velocità spento."
+msgid "Cruise off."
+msgstr "Cruise control spento."
 
 #. placeholders: {minimum}
-msgid "Adaptive cruise needs the engine running and at least {minimum}."
+msgid "Cruise needs the engine running and at least {minimum}."
 msgstr ""
-"Il cruise control adattivo richiede il motore acceso e almeno {minimum}."
 
 msgid "Open road"
 msgstr "Strada aperta"
@@ -26207,8 +26159,8 @@ msgid " in the {value}"
 msgstr " con {value}"
 
 #. placeholders: {else}, {speed_text}, {exit_note}
-msgid "Adaptive cruise {else} at {speed_text}{exit_note}."
-msgstr "Cruise control adattivo {else} a {speed_text}{exit_note}."
+msgid "Cruise {else} at {speed_text}{exit_note}."
+msgstr ""
 
 msgid "resuming"
 msgstr "riattivato"
@@ -26220,9 +26172,6 @@ msgstr "Cruise control in ripresa, {speed_value}{exit_note}."
 #. placeholders: {rpm}
 msgid "High idle {rpm} RPM."
 msgstr "Minimo alto {rpm} giri."
-
-msgid "Adaptive cruise off."
-msgstr "Cruise control adattivo spento."
 
 #. placeholders: {speed_text}, {speed_text2}
 msgid ""
@@ -26241,8 +26190,8 @@ msgid "{speed_number}, ramp {speed_number2}."
 msgstr "{speed_number}, rampa {speed_number2}."
 
 #. placeholders: {speed_text}
-msgid "Adaptive cruise {speed_text}."
-msgstr "Cruise control adattivo {speed_text}."
+msgid "Cruise {speed_text}."
+msgstr ""
 
 #. placeholders: {speed_text}
 msgid "Open-road cruise target {speed_text}."
@@ -26259,13 +26208,8 @@ msgstr "in una zona di {zone_reason}"
 msgid "No cruise {place}."
 msgstr "Niente cruise control {place}."
 
-msgid "The speed keeper needs the engine running and the truck rolling."
+msgid "Cruise needs the engine running and the truck rolling."
 msgstr ""
-"Il mantenitore di velocità richiede il motore acceso e il camion in "
-"movimento."
-
-msgid "Speed keeper off."
-msgstr "Mantenitore di velocità spento."
 
 msgid "Construction zone ahead"
 msgstr "Cantiere più avanti"
@@ -26277,27 +26221,27 @@ msgid "Posted limit lower"
 msgstr "Limite indicato più basso"
 
 #. placeholders: {reason}, {eased}
-msgid "{reason}; speed keeper easing to {eased}."
-msgstr "{reason}; il mantenitore di velocità scende a {eased}."
+msgid "{reason}; cruise easing to {eased}."
+msgstr ""
 
 #. placeholders: {speed_value}
-msgid "Speed keeper easing to {speed_value}."
-msgstr "Mantenitore di velocità in discesa a {speed_value}."
+msgid "Cruise easing to {speed_value}."
+msgstr "Cruise control in discesa a {speed_value}."
 
 msgid "for the traffic ahead"
 msgstr "per il traffico davanti"
 
 #. placeholders: {held}
-msgid "Speed keeper down to {held} on this grade."
-msgstr "Il mantenitore di velocità scende a {held} su questa pendenza."
+msgid "Cruise down to {held} on this grade."
+msgstr "Il cruise control scende a {held} su questa pendenza."
 
 #. placeholders: {held}
-msgid "Speed keeper building to {held} for the merge."
-msgstr "Il mantenitore di velocità sale a {held} per l'immissione."
+msgid "Cruise building to {held} for the merge."
+msgstr ""
 
 #. placeholders: {held}
-msgid "Speed keeper building to {held}."
-msgstr "Il mantenitore di velocità sale a {held}."
+msgid "Cruise building to {held}."
+msgstr ""
 
 msgid " on this grade"
 msgstr " su questa pendenza"
@@ -26308,21 +26252,20 @@ msgstr "Frena."
 
 #. placeholders: {held}, {because}
 #. one sentence of a longer line
-msgid "Speed keeper can't hold {held}{because}."
-msgstr "Il mantenitore di velocità non riesce a tenere {held}{because}."
+msgid "Cruise can't hold {held}{because}."
+msgstr ""
 
 #. placeholders: {held}, {because}
-msgid "Speed keeper can't hold {held}{because}. Brake."
+msgid "Cruise can't hold {held}{because}. Brake."
 msgstr ""
-"Il mantenitore di velocità non riesce a tenere {held}{because}. Frena."
 
 #. placeholders: {held}, {zone}
-msgid "Speed keeper holding {held} through {zone}."
-msgstr "Il mantenitore di velocità tiene {held} attraverso {zone}."
+msgid "Cruise holding {held} through {zone}."
+msgstr ""
 
 #. placeholders: {held}
-msgid "Speed keeper holding {held}."
-msgstr "Il mantenitore di velocità tiene {held}."
+msgid "Cruise holding {held}."
+msgstr ""
 
 msgid "Wet roads, longer gap."
 msgstr "Strade bagnate, distanza più lunga."
@@ -26342,21 +26285,18 @@ msgstr "easing-capped"
 msgid "building-capped"
 msgstr "building-capped"
 
-msgid "Cruise off."
-msgstr "Cruise control spento."
-
 #. placeholders: {title_case}
 #. one sentence of a longer line
 msgid "{title_case} zone."
 msgstr "Zona di {title_case}."
 
 #. placeholders: {title_case}, {held}
-msgid "{title_case} zone. Speed keeper holding {held}."
-msgstr "Zona di {title_case}. Il mantenitore di velocità tiene {held}."
+msgid "{title_case} zone. Cruise holding {held}."
+msgstr ""
 
 #. placeholders: {speed_value}
-msgid "Speed keeper holding {speed_value}."
-msgstr "Il mantenitore di velocità tiene {speed_value}."
+msgid "Cruise holding {speed_value}."
+msgstr ""
 
 msgid "through the construction zone"
 msgstr ""
@@ -26385,8 +26325,8 @@ msgstr "Il cruise control scende a {eased}."
 msgid "{capitalize_first}, cruise easing to {speed_value}."
 msgstr "{capitalize_first}, cruise control in discesa a {speed_value}."
 
-msgid "Stopped traffic ahead; adaptive cruise canceled."
-msgstr "Traffico fermo più avanti; cruise control adattivo annullato."
+msgid "Stopped traffic ahead; cruise canceled."
+msgstr ""
 
 msgid "Traffic ahead, slowing."
 msgstr "Traffico davanti, rallento."
@@ -26399,10 +26339,6 @@ msgstr "per la curva"
 
 msgid "for the grade"
 msgstr "per la pendenza"
-
-#. placeholders: {held}
-msgid "Cruise down to {held} on this grade."
-msgstr "Il cruise control scende a {held} su questa pendenza."
 
 msgid "Slowing for the ramp."
 msgstr "Rallento per la rampa."
@@ -27253,12 +27189,12 @@ msgstr "vettore."
 msgid "your settlement."
 msgstr "la tua liquidazione."
 
-msgid "Automatic speed control paused."
-msgstr "Controllo automatico della velocità in pausa."
+msgid "Cruise paused."
+msgstr ""
 
 #. placeholders: {keeper}
-msgid "Speed keeper holding {keeper}."
-msgstr "Il mantenitore di velocità tiene {keeper}."
+msgid "Cruise holding {keeper}."
+msgstr ""
 
 msgid ""
 "Back on the highway after the 30-minute break. Keep the logbook clean."
@@ -27657,6 +27593,10 @@ msgstr ""
 #. placeholders: {journey_progress_percent}, {closing_text}
 msgid "{journey_progress_percent} percent there, {closing_text} left."
 msgstr "Sei al {journey_progress_percent} percento, mancano {closing_text}."
+
+#. placeholders: {lead}, {road}, {toward}
+msgid "{lead} On {road} toward {toward}."
+msgstr ""
 
 #. placeholders: {lead}, {road}, {state}, {toward}
 msgid "{lead} On {road} in {state}, toward {toward}."
@@ -28289,12 +28229,6 @@ msgstr "{join} e {wear_parts}"
 msgid "The run added {joined}."
 msgstr "Il viaggio ha aggiunto {joined}."
 
-msgid "Late"
-msgstr "In ritardo"
-
-msgid "On time"
-msgstr "Puntuale"
-
 msgid "No delivery bonus on this run."
 msgstr "Nessun bonus di consegna per questo viaggio."
 
@@ -28342,13 +28276,36 @@ msgstr "Costi d'impresa: {grouped} dollari."
 msgid "Business cost detail: {business_charge_summary}."
 msgstr "Dettaglio dei costi d'impresa: {business_charge_summary}."
 
-#. placeholders: {f}, {label}, {destination}
-msgid "Delivered {f} tons of {label} to {destination}."
-msgstr "Consegnate {f} tonnellate di {label} a {destination}."
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "Net {grouped} dollars."
+msgstr ""
 
-#. placeholders: {f}, {timing}
-msgid "Trip time: {f} hours, {timing}."
-msgstr "Durata del viaggio: {f} ore, {timing}."
+#. placeholders: {destination}
+#. one sentence of a longer line
+msgid "On time in {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {grouped}
+msgid "On time in {destination}. Net {grouped} dollars."
+msgstr ""
+
+#. placeholders: {destination}
+#. one sentence of a longer line
+msgid "Late in {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {grouped}
+msgid "Late in {destination}. Net {grouped} dollars."
+msgstr ""
+
+#. placeholders: {f}, {label}
+msgid "Load: {f} tons of {label}."
+msgstr ""
+
+#. placeholders: {f}
+msgid "Trip time: {f} hours."
+msgstr ""
 
 #. placeholders: {clock_text}
 msgid "It is {clock_text}."
@@ -28373,10 +28330,6 @@ msgstr "Situazione aziendale: {status_label}."
 #. placeholders: {f}
 msgid "Receiver service after check-in: {f} hours."
 msgstr "Servizio del destinatario dopo la presentazione: {f} ore."
-
-#. placeholders: {grouped}
-msgid "Net driver pay: {grouped} dollars."
-msgstr "Paga netta dell'autista: {grouped} dollari."
 
 #. placeholders: {grouped}
 msgid "Money after settlement: {grouped} dollars."
@@ -28531,10 +28484,6 @@ msgstr ""
 msgid "Destination facility"
 msgstr "Struttura di destinazione"
 
-#. placeholders: {facility}, {current}
-msgid "At {facility}. {current}"
-msgstr "Sei a {facility}. {current}"
-
 msgid "Drop the loaded trailer"
 msgstr "Sgancia il rimorchio carico"
 
@@ -28641,62 +28590,14 @@ msgid "{f} hours past the deadline"
 msgstr "{f} ore oltre la scadenza"
 
 #. placeholders: {f}
-msgid "Truck damage this run {f} percent, may reduce pay."
+msgid " Truck damage this run {f} percent, may reduce pay."
 msgstr ""
-"Danni al camion in questo viaggio {f} percento, la paga potrebbe calare."
 
-msgid "Cargo condition: no new damage recorded."
-msgstr "Stato del carico: nessun nuovo danno registrato."
-
-msgid "Those charges come off this settlement."
-msgstr "Questi addebiti vengono tolti da questo compenso."
-
-msgid "Those charges do not reduce driver pay."
-msgstr "Questi addebiti non riducono la paga dell'autista."
-
-#. placeholders: {grouped3}, {grouped4}, {charge_summary}
-#. one sentence of a longer line
+#. placeholders: {facility}, {grouped}, {timing}, {advance_note}, {cargo_condition}, {finish}
 msgid ""
-"Charges {grouped3}: tolls {grouped4}, extra charges {charge_summary}."
+"Paperwork, {facility}: about {grouped} dollars to you, "
+"{timing}.{advance_note}{cargo_condition} {finish} to settle."
 msgstr ""
-"Spese {grouped3}: pedaggi {grouped4}, servizi accessori {charge_summary}."
-
-#. placeholders: {grouped6}, {advance_note}, {timing}
-#. one sentence of a longer line
-msgid "Net about {grouped6}.{advance_note} {timing}."
-msgstr "Netto circa {grouped6}.{advance_note} {timing}."
-
-#. placeholders: {facility}, {f}, {label}
-#. one sentence of a longer line
-msgid "Paperwork, {facility}: {f} tons of {label}."
-msgstr "Documenti, {facility}: {f} tonnellate di {label}."
-
-#. placeholders: {facility}, {f}, {label}, {grouped}, {grouped2}, {grouped3}, {grouped4}, {charge_summary}, {charge_fate}, {grouped5}, {grouped6}, {advance_note}, {timing}, {cargo_condition}, {finish}
-msgid ""
-"Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, pay for the "
-"load {grouped2}. Charges {grouped3}: tolls {grouped4}, extra charges "
-"{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
-"{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
-msgstr ""
-"Documenti, {facility}: {f} tonnellate di {label}. Tariffa {grouped}, paga "
-"per il carico {grouped2}. Spese {grouped3}: pedaggi {grouped4}, spese extra "
-"{charge_summary}. {charge_fate} Multe {grouped5}. Netto circa "
-"{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} per saldare."
-
-#. placeholders: {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid "Rate {grouped}, pay for the load {grouped2}."
-msgstr "Tariffa {grouped}, paga per il carico {grouped2}."
-
-#. placeholders: {cargo_condition}, {finish}
-#. one sentence of a longer line
-msgid "{cargo_condition} {finish} to settle."
-msgstr "{cargo_condition} {finish} per chiudere il compenso."
-
-#. placeholders: {charge_fate}, {grouped5}
-#. one sentence of a longer line
-msgid "{charge_fate} Fines {grouped5}."
-msgstr "{charge_fate} Multe {grouped5}."
 
 #. placeholders: {facility}, {f}, {label}, {speed_text}, {else}, {finish}
 msgid ""
@@ -28720,6 +28621,10 @@ msgstr "Fermati, poi {finish}."
 #. one sentence of a longer line
 msgid "{f} tons of {label}."
 msgstr "{f} tonnellate di {label}."
+
+#. placeholders: {facility}, {current}
+msgid "At {facility}. {current}"
+msgstr "Sei a {facility}. {current}"
 
 msgid "Delivering"
 msgstr "In consegna"
@@ -29517,8 +29422,8 @@ msgstr "Carico davanti: {facility}. Fermati al cancello."
 msgid "At {facility}. Stop to check in."
 msgstr "Sei a {facility}. Fermati per presentarti."
 
-msgid "Automatic speed control paused for pickup."
-msgstr "Controllo automatico della velocità in pausa per il ritiro."
+msgid "Cruise paused for pickup."
+msgstr ""
 
 msgid "Pulling into pickup. Check-in menu opening."
 msgstr "Entri al carico. Si apre il menu di presentazione."
@@ -31960,8 +31865,8 @@ msgstr ""
 msgid "Leave the school."
 msgstr "Esci dalla scuola."
 
-msgid "Automatic speed control is already on."
-msgstr "Il controllo automatico della velocità è già attivo."
+msgid "Cruise is already on."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "No remembered cruise speed yet."
@@ -31980,11 +31885,11 @@ msgid "Resume needs the engine running."
 msgstr "Per riprendere serve il motore acceso."
 
 #. placeholders: {spoken}
-msgid "Resuming automatic speed control at {spoken}."
-msgstr "Riprendo il controllo automatico della velocità a {spoken}."
+msgid "Resuming cruise at {spoken}."
+msgstr ""
 
-msgid "Automatic speed control canceled."
-msgstr "Controllo automatico della velocità annullato."
+msgid "Cruise canceled."
+msgstr ""
 
 #. placeholders: {floor}
 #. one sentence of a longer line
@@ -31999,8 +31904,8 @@ msgstr "Il cruise control riprende a {floor}. I pedali sono tuoi."
 msgid "Pedals are yours."
 msgstr "I pedali sono tuoi."
 
-msgid "Speed control resuming."
-msgstr "Il controllo della velocità riprende."
+msgid "Cruise resuming."
+msgstr ""
 
 msgid "turn"
 msgstr "turn"
@@ -32008,10 +31913,6 @@ msgstr "turn"
 #. placeholders: {held}
 msgid "Cruise held to {held} for chains."
 msgstr "Cruise control limitato a {held} per le catene."
-
-#. placeholders: {held}
-msgid "Speed keeper held to {held} for chains."
-msgstr "Mantenitore di velocità limitato a {held} per le catene."
 
 msgid ""
 "Up and down arrows review each line; Home and End jump to the first and "
@@ -33490,9 +33391,6 @@ msgstr "Collisione!"
 msgid "Collision! Damage {damage} percent."
 msgstr "Collisione! Danni al {damage} percento."
 
-msgid " Cruise off."
-msgstr " Cruise control spento."
-
 msgid "Slowing for the bend."
 msgstr "Rallento per la curva."
 
@@ -34170,6 +34068,9 @@ msgstr "{day} {format} {year} alle {hour}:{minute} {am_pm}"
 #. placeholders: {name}, {level}
 msgid "{name}: level {level}"
 msgstr "{name}: livello {level}"
+
+msgid "1 delivery"
+msgstr ""
 
 #. placeholders: {deliveries}
 msgid "{deliveries} deliveries"
@@ -34890,18 +34791,12 @@ msgstr ""
 "traffico. Le tue impostazioni non sono cambiate."
 
 msgid ""
-"Two rows moved. Speed keeper is now in Driving assistance instead of "
+"Two rows moved. Low-speed cruise is now in Driving assistance instead of "
 "Controls. Lane and edge cue prominence is now Lane and edge cue volume, in "
 "Audio under Gameplay cues volume. Your choices came with them. Overspeed "
 "warning no longer has a row: it stays quiet until you are heading for a "
 "ticket."
 msgstr ""
-"Due righe si sono spostate. Il mantenitore di velocità ora è in Assistenza "
-"alla guida invece che in Controlli. Risalto dei segnali di corsia e bordo "
-"ora si chiama Volume dei segnali di corsia e bordo, in Audio sotto Volume "
-"dei segnali di gioco. Le tue scelte sono rimaste. L'avviso di velocità "
-"eccessiva non ha più una riga: resta in silenzio finché non stai per "
-"prendere una multa."
 
 msgid ""
 "Speech verbosity is now Driving speech, in the Speech category, with two "
@@ -35232,26 +35127,18 @@ msgstr ""
 msgid "Stop-and-go assistance"
 msgstr "Assistenza stop and go"
 
-msgid "Adaptive cruise slows behind traffic and resumes when it is safe."
+msgid "Cruise slows behind traffic and resumes when it is safe."
 msgstr ""
-"Il cruise control adattivo rallenta dietro al traffico e riparte quando è "
-"sicuro."
 
 msgid "Descent speed control"
 msgstr "Controllo della velocità in discesa"
 
 msgid ""
-"With adaptive cruise on, holds a steep downhill grade at the speed your "
-"truck can take it at with its load, on the engine brake and short brake "
-"applications. On Standard and Strong, braking sets a new, lower speed to "
-"hold. Strong also caps every descent at 55 miles per hour and steps in "
-"sooner."
+"With cruise on, holds a steep downhill grade at the speed your truck can "
+"take it at with its load, on the engine brake and short brake applications. "
+"On Standard and Strong, braking sets a new, lower speed to hold. Strong "
+"also caps every descent at 55 miles per hour and steps in sooner."
 msgstr ""
-"Con il cruise control adattivo acceso, tiene una discesa ripida alla "
-"velocità che il tuo camion regge con il suo carico, con il freno motore e "
-"brevi frenate. Su Standard e Forte, frenare imposta una nuova velocità più "
-"bassa da tenere. Forte limita anche ogni discesa a 55 miglia orarie e "
-"interviene prima."
 
 msgid "Exit speed assistance"
 msgstr "Assistenza alla velocità di uscita"
@@ -35394,32 +35281,24 @@ msgstr "Le curve per cui sei già abbastanza lento restano in silenzio."
 msgid "Press {control_upcoming} to list the next few either way."
 msgstr "Premi {control_upcoming} per elencare le prossime in ogni caso."
 
-msgid "Speed keeper"
-msgstr "Mantenitore di velocità"
+msgid "Low-speed cruise"
+msgstr ""
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
 msgid ""
 "In low-speed zones, like facility roads, gates, and construction zones, "
-"{control_cruise} holds your current speed, then hands back to adaptive "
-"cruise on open roads."
+"{control_cruise} holds your current speed, then hands back to normal cruise "
+"on open roads."
 msgstr ""
-"Nelle zone a bassa velocità, come strade delle strutture, cancelli e "
-"cantieri, {control_cruise} mantiene la tua velocità attuale, poi ripassa al "
-"cruise control adattivo su strada aperta."
 
 #. placeholders: {control_cruise}
 msgid ""
 "In low-speed zones, like facility roads, gates, and construction zones, "
-"{control_cruise} holds your current speed, then hands back to adaptive "
-"cruise on open roads. It eases off early for the next turn or the next "
-"lower limit. Braking cancels it. Presets never change this."
+"{control_cruise} holds your current speed, then hands back to normal cruise "
+"on open roads. It eases off early for the next turn or the next lower "
+"limit. Braking cancels it. Presets never change this."
 msgstr ""
-"Nelle zone a bassa velocità, come le strade delle strutture, i cancelli e i "
-"cantieri, {control_cruise} tiene la tua velocità attuale, poi ripassa al "
-"cruise control adattivo sulle strade aperte. Alleggerisce presto per la "
-"prossima svolta o il prossimo limite più basso. Frenare lo annulla. Le "
-"preimpostazioni non cambiano mai questo."
 
 #. one sentence of a longer line
 msgid "It eases off early for the next turn or the next lower limit."
@@ -36384,15 +36263,11 @@ msgid "Following gap: {acc_gap_label}"
 msgstr "Distanza di sicurezza: {acc_gap_label}"
 
 msgid ""
-"How much room adaptive cruise leaves to the vehicle ahead. Close is two and "
-"a half seconds, normal three, far three and a half. Weather widens the gap "
+"How much room cruise leaves to the vehicle ahead. Close is two and a half "
+"seconds, normal three, far three and a half. Weather widens the gap "
 "whichever you pick. All three stay clear of a following-too-close citation. "
 "The preset above never changes it."
 msgstr ""
-"Quanto spazio lascia il cruise control adattivo al veicolo davanti. Vicino "
-"è due secondi e mezzo, normale tre, lontano tre e mezzo. Il meteo allarga "
-"la distanza qualunque scelta fai. Tutte e tre evitano una multa per "
-"distanza troppo ravvicinata. La preimpostazione qui sopra non la cambia mai."
 
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
@@ -37203,17 +37078,25 @@ msgstr ""
 "{control_transmission_mode} passa dal cambio automatico al manuale e "
 "viceversa. {control_horn} suona il clacson finché lo tieni premuto."
 
-msgid "Speed control and hills"
-msgstr "Controllo della velocità e salite"
+msgid "Cruise and hills"
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"On open roads it follows traffic; on low-speed roads it follows local "
+"limits, queues and corners."
+msgstr ""
+
+#. placeholders: {control_cruise}
+#. one sentence of a longer line
+msgid "{control_cruise} turns cruise on."
+msgstr ""
 
 #. placeholders: {control_cruise}
 msgid ""
-"{control_cruise} starts automatic speed control: adaptive cruise on open "
-"roads, speed keeper on supported low-speed roads."
+"{control_cruise} turns cruise on. On open roads it follows traffic; on "
+"low-speed roads it follows local limits, queues and corners."
 msgstr ""
-"{control_cruise} avvia il controllo automatico della velocità: cruise "
-"control adattivo su strada aperta, mantenitore di velocità sulle strade a "
-"bassa velocità supportate."
 
 msgid ""
 "Cruise follows traffic. Its normal three second clear-weather gap increases "
@@ -37257,13 +37140,14 @@ msgstr ""
 "l'obiettivo su strada aperta."
 
 msgid ""
-"Speed keeper follows local limits, queues, and corners, then hands over to "
-"cruise on open road. The target keys still change the remembered cruise "
-"speed."
+"The target keys change the open-road cruise speed, even while cruise holds "
+"a lower limit."
 msgstr ""
-"Il mantenitore di velocità segue limiti locali, code e curve, poi passa al "
-"cruise su strada aperta. I tasti dell'obiettivo cambiano comunque la "
-"velocità di crociera memorizzata."
+
+#. one sentence of a longer line
+msgid ""
+"Cruise pauses at the pickup and comes back on after you leave with the load."
+msgstr ""
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
@@ -37273,20 +37157,9 @@ msgstr "Premi di nuovo {control_cruise} o tocca i freni per annullare."
 #. placeholders: {control_cruise}, {control_cruise_resume}
 msgid ""
 "Press {control_cruise} again or touch the brakes to cancel. "
-"{control_cruise_resume} resumes the previous target. Speed control pauses "
-"at the pickup and comes back on after you leave with the load."
+"{control_cruise_resume} resumes the previous target. Cruise pauses at the "
+"pickup and comes back on after you leave with the load."
 msgstr ""
-"Premi di nuovo {control_cruise} o tocca i freni per annullare. "
-"{control_cruise_resume} riprende l'obiettivo precedente. Il controllo della "
-"velocità va in pausa al ritiro e si riattiva quando riparti con il carico."
-
-#. one sentence of a longer line
-msgid ""
-"Speed control pauses at the pickup and comes back on after you leave with "
-"the load."
-msgstr ""
-"Il controllo della velocità va in pausa al ritiro e si riattiva quando "
-"riparti con il carico."
 
 #. placeholders: {control_cruise_resume}
 #. one sentence of a longer line
@@ -42122,6 +41995,481 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid ""
+#~ "Level {level}, {title}. {f} experience.{owed_text} Reputation {f2} out of "
+#~ "100. {deliveries} deliveries, {f3} percent on time. {grouped} lifetime "
+#~ "miles, {grouped2} dollars earned. Career stage: {stage}. "
+#~ "{status}.{next_text}"
+#~ msgstr ""
+#~ "Livello {level}, {title}. {f} punti esperienza.{owed_text} Reputazione {f2} "
+#~ "su 100. {deliveries} {deliveries:consegna|consegne}, {f3} per cento in "
+#~ "orario. {grouped} miglia totali, {grouped2} dollari guadagnati. Fase di "
+#~ "carriera: {stage}. {status}.{next_text}"
+
+#~ msgid "{deliveries} deliveries, {f3} percent on time."
+#~ msgstr ""
+#~ "{deliveries} {deliveries:consegna|consegne}, {f3} per cento in orario."
+
+#~ msgid " Market {condition}."
+#~ msgstr " Mercato {condition}."
+
+#~ msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
+#~ msgstr "{tons} tonnellate di {cargo} da {pickup} a {dropoff}."
+
+#~ msgid "Pays"
+#~ msgstr "Paga"
+
+#~ msgid "Pay for the load: {pay} dollars."
+#~ msgstr "Compenso per il carico: {pay} dollari."
+
+#~ msgid ""
+#~ "Deadline {hours} hours. Team load: you and a co-driver take turns at the "
+#~ "wheel."
+#~ msgstr ""
+#~ "Scadenza tra {hours} {hours:ora|ore}. Carico in coppia: tu e un secondo "
+#~ "autista vi date il cambio al volante."
+
+#~ msgid "Deadline {hours} hours, includes a 10-hour rest."
+#~ msgstr "Scadenza tra {hours} {hours:ora|ore}, compreso un riposo di 10 ore."
+
+#~ msgid "Deadline {hours} hours."
+#~ msgstr "Scadenza tra {hours} {hours:ora|ore}."
+
+#~ msgid ""
+#~ "{pay_text} {deadline} Equipment: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+#~ msgstr ""
+#~ "{pay_text} {deadline} Attrezzatura: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+
+#~ msgid ""
+#~ "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+#~ msgstr ""
+#~ "{prefix}{load} {distance}. {pay_text} {deadline} Attrezzatura: "
+#~ "{equipment}.{trailer}{preview}{market}{endorsement}"
+
+#~ msgid ""
+#~ "More than 7 miles per hour over the posted limit: past anything adaptive "
+#~ "cruise will do on its own, and short of where a trooper can act on your "
+#~ "speed."
+#~ msgstr ""
+#~ "Più di 7 miglia orarie oltre il limite indicato: oltre quello che il cruise "
+#~ "control adattivo fa da solo, e prima della soglia in cui un agente può "
+#~ "agire sulla tua velocità."
+
+#~ msgid "{pacenote} Adaptive cruise easing to {advisory_speed_text}."
+#~ msgstr ""
+#~ "{pacenote} Il cruise control adattivo scende a {advisory_speed_text}."
+
+#~ msgid ""
+#~ "{pacenote} Adaptive cruise paused for the bend, curve assistance slowing."
+#~ msgstr ""
+#~ "{pacenote} Cruise control adattivo in pausa per la curva, l'assistenza in "
+#~ "curva rallenta."
+
+#~ msgid ""
+#~ "{pacenote} Adaptive cruise paused for the bend, curve assistance slowing. "
+#~ "Cruise resumes past the bend."
+#~ msgstr ""
+#~ "{pacenote} Cruise control adattivo in pausa per la curva, l'assistenza in "
+#~ "curva rallenta. Il cruise riprende dopo la curva."
+
+#~ msgid "{pacenote} Adaptive cruise paused for the bend."
+#~ msgstr "{pacenote} Cruise control adattivo in pausa per la curva."
+
+#~ msgid "{pacenote} Adaptive cruise paused for the bend. Resumes past it."
+#~ msgstr ""
+#~ "{pacenote} Cruise control adattivo in pausa per la curva. Riprende dopo."
+
+#~ msgid "Automatic speed control"
+#~ msgstr "Controllo automatico della velocità"
+
+#~ msgid "Take-home about {grouped} dollars after {grouped2} dollars costs."
+#~ msgstr ""
+#~ "Guadagno netto di circa {grouped} dollari, dopo {grouped2} dollari di costi."
+
+#~ msgid "Your pay about {grouped} dollars."
+#~ msgstr "La tua paga, circa {grouped} dollari."
+
+#~ msgid "{remaining} decline{s_ending} left before your next promotion. "
+#~ msgstr ""
+#~ "{remaining} {remaining:rifiuto rimasto|rifiuti rimasti} prima della "
+#~ "prossima promozione. "
+
+#~ msgid "No declines left until your next promotion. "
+#~ msgstr "Nessun rifiuto rimasto fino alla prossima promozione. "
+
+#~ msgid "This assignment needs an extra rest on your current hours. "
+#~ msgstr "Con le tue ore attuali questo incarico richiede un riposo in più. "
+
+#~ msgid "Dispatch board. {decline_note}{hos_note}{market}{current}"
+#~ msgstr "Bacheca degli incarichi. {decline_note}{hos_note}{market}{current}"
+
+#~ msgid "Accept assigned dispatch: {describe}"
+#~ msgstr "Accetta l'incarico assegnato: {describe}"
+
+#~ msgid ""
+#~ "Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to pickup "
+#~ "at {origin_facility_text}."
+#~ msgstr ""
+#~ "Accettato.{equipment_note} Viaggio a vuoto di {distance_text} su {cloned} "
+#~ "fino al ritiro presso {origin_facility_text}."
+
+#~ msgid ""
+#~ "Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to "
+#~ "{origin_facility_text}."
+#~ msgstr ""
+#~ "Accettato.{equipment_note} Viaggio a vuoto di {distance_text} su {cloned} "
+#~ "fino a {origin_facility_text}."
+
+#~ msgid "Load in {origin}, {deadhead} empty first. "
+#~ msgstr "Carico a {origin}, prima {deadhead} a vuoto. "
+
+#~ msgid " Speed control paused, target {target}."
+#~ msgstr " Controllo della velocità in pausa, obiettivo {target}."
+
+#~ msgid " before you shut down"
+#~ msgstr " prima di spegnere"
+
+#~ msgid " {f} gallons burned idling{when}."
+#~ msgstr " {f} galloni bruciati al minimo{when}."
+
+#~ msgid "Speed control: paused   Cruise speed: {target}"
+#~ msgstr ""
+#~ "Controllo della velocità: in pausa   Obiettivo su strada aperta: {target}"
+
+#~ msgid "Automatic speed control paused. "
+#~ msgstr "Controllo automatico della velocità in pausa. "
+
+#~ msgid "Automatic speed control paused. {control_hint} cancels it. "
+#~ msgstr ""
+#~ "Controllo automatico della velocità in pausa. {control_hint} lo annulla. "
+
+#~ msgid ""
+#~ "Pickup dispatch: drive empty from the terminal to {pickup_facility_text}. "
+#~ msgstr ""
+#~ "Incarico di ritiro: viaggio a vuoto dalla sede a {pickup_facility_text}. "
+
+#~ msgid ""
+#~ "At the wheel. {objective}It is {now}. {transmission} {report_lead}. "
+#~ "{engine} {help}"
+#~ msgstr ""
+#~ "Al volante. {objective}Sono le {now}. {transmission} {report_lead}. "
+#~ "{engine} {help}"
+
+#~ msgid "{objective}It is {now}."
+#~ msgstr "{objective}Sono le {now}."
+
+#~ msgid ""
+#~ "{cruise} starts automatic speed control: adaptive cruise on open roads, the "
+#~ "speed keeper in low-speed zones."
+#~ msgstr ""
+#~ "{cruise} avvia il controllo automatico della velocità: cruise control "
+#~ "adattivo su strada libera, mantenitore di velocità nelle zone a bassa "
+#~ "velocità."
+
+#~ msgid ""
+#~ "Cruise eases early for a sharp posted-limit drop, the keeper for the next "
+#~ "turn or the next lower limit."
+#~ msgstr ""
+#~ "Il cruise rallenta in anticipo prima di un forte calo del limite indicato, "
+#~ "il mantenitore prima della prossima curva o del prossimo limite più basso."
+
+#~ msgid ""
+#~ "{cruise_cap} starts automatic speed control: adaptive cruise on open roads, "
+#~ "the speed keeper in low-speed zones."
+#~ msgstr ""
+#~ "{cruise_cap} avvia il controllo automatico della velocità: cruise control "
+#~ "adattivo su strada libera, mantenitore di velocità nelle zone a bassa "
+#~ "velocità."
+
+#~ msgid "speed keeper holding {speed_text} {reason}, set {speed_text2}"
+#~ msgstr ""
+#~ "mantenitore di velocità a {speed_text} {reason}, impostato a {speed_text2}"
+
+#~ msgid ""
+#~ "speed keeper holding {speed_text} {keeper_held_reason}, set {speed_text2}"
+#~ msgstr ""
+#~ "mantenitore di velocità a {speed_text} {keeper_held_reason}, impostato a "
+#~ "{speed_text2}"
+
+#~ msgid "speed keeper holding {speed_text}"
+#~ msgstr "mantenitore di velocità a {speed_text}"
+
+#~ msgid "adaptive cruise holding {speed_text}{why}, set {speed_text2}"
+#~ msgstr ""
+#~ "cruise control adattivo a {speed_text}{why}, impostato a {speed_text2}"
+
+#~ msgid "adaptive cruise set at {speed_text}"
+#~ msgstr "cruise control adattivo impostato a {speed_text}"
+
+#~ msgid " Cruise speed {speed_text}."
+#~ msgstr " Obiettivo su strada aperta {speed_text}."
+
+#~ msgid " Automatic speed control paused.{keeper_target}"
+#~ msgstr " Controllo automatico della velocità in pausa.{keeper_target}"
+
+#~ msgid "Cruise: {cruise_holding_text}"
+#~ msgstr "Cruise: {cruise_holding_text}"
+
+#~ msgid "Speed control: {keeper_holding_text}"
+#~ msgstr "Controllo della velocità: {keeper_holding_text}"
+
+#~ msgid "Speed control: paused; resumes when the truck is rolling"
+#~ msgstr ""
+#~ "Controllo della velocità: in pausa; riprende quando il camion è in movimento"
+
+#~ msgid " Speed keeper off."
+#~ msgstr " Mantenitore di velocità spento."
+
+#~ msgid "Automatic speed control off."
+#~ msgstr "Controllo automatico della velocità spento."
+
+#~ msgid "Adaptive cruise needs the engine running and at least {minimum}."
+#~ msgstr ""
+#~ "Il cruise control adattivo richiede il motore acceso e almeno {minimum}."
+
+#~ msgid "Adaptive cruise {else} at {speed_text}{exit_note}."
+#~ msgstr "Cruise control adattivo {else} a {speed_text}{exit_note}."
+
+#~ msgid "Adaptive cruise off."
+#~ msgstr "Cruise control adattivo spento."
+
+#~ msgid "Adaptive cruise {speed_text}."
+#~ msgstr "Cruise control adattivo {speed_text}."
+
+#~ msgid "The speed keeper needs the engine running and the truck rolling."
+#~ msgstr ""
+#~ "Il mantenitore di velocità richiede il motore acceso e il camion in "
+#~ "movimento."
+
+#~ msgid "Speed keeper off."
+#~ msgstr "Mantenitore di velocità spento."
+
+#~ msgid "{reason}; speed keeper easing to {eased}."
+#~ msgstr "{reason}; il mantenitore di velocità scende a {eased}."
+
+#~ msgid "Speed keeper easing to {speed_value}."
+#~ msgstr "Mantenitore di velocità in discesa a {speed_value}."
+
+#~ msgid "Speed keeper down to {held} on this grade."
+#~ msgstr "Il mantenitore di velocità scende a {held} su questa pendenza."
+
+#~ msgid "Speed keeper building to {held} for the merge."
+#~ msgstr "Il mantenitore di velocità sale a {held} per l'immissione."
+
+#~ msgid "Speed keeper building to {held}."
+#~ msgstr "Il mantenitore di velocità sale a {held}."
+
+#~ msgid "Speed keeper can't hold {held}{because}."
+#~ msgstr "Il mantenitore di velocità non riesce a tenere {held}{because}."
+
+#~ msgid "Speed keeper can't hold {held}{because}. Brake."
+#~ msgstr ""
+#~ "Il mantenitore di velocità non riesce a tenere {held}{because}. Frena."
+
+#~ msgid "Speed keeper holding {held} through {zone}."
+#~ msgstr "Il mantenitore di velocità tiene {held} attraverso {zone}."
+
+#~ msgid "Speed keeper holding {held}."
+#~ msgstr "Il mantenitore di velocità tiene {held}."
+
+#~ msgid "{title_case} zone. Speed keeper holding {held}."
+#~ msgstr "Zona di {title_case}. Il mantenitore di velocità tiene {held}."
+
+#~ msgid "Speed keeper holding {speed_value}."
+#~ msgstr "Il mantenitore di velocità tiene {speed_value}."
+
+#~ msgid "Stopped traffic ahead; adaptive cruise canceled."
+#~ msgstr "Traffico fermo più avanti; cruise control adattivo annullato."
+
+#~ msgid "Automatic speed control paused."
+#~ msgstr "Controllo automatico della velocità in pausa."
+
+#~ msgid "Speed keeper holding {keeper}."
+#~ msgstr "Il mantenitore di velocità tiene {keeper}."
+
+#~ msgid "Late"
+#~ msgstr "In ritardo"
+
+#~ msgid "On time"
+#~ msgstr "Puntuale"
+
+#~ msgid "Delivered {f} tons of {label} to {destination}."
+#~ msgstr "Consegnate {f} tonnellate di {label} a {destination}."
+
+#~ msgid "Trip time: {f} hours, {timing}."
+#~ msgstr "Durata del viaggio: {f} ore, {timing}."
+
+#~ msgid "Net driver pay: {grouped} dollars."
+#~ msgstr "Paga netta dell'autista: {grouped} dollari."
+
+#~ msgid "Truck damage this run {f} percent, may reduce pay."
+#~ msgstr ""
+#~ "Danni al camion in questo viaggio {f} percento, la paga potrebbe calare."
+
+#~ msgid "Cargo condition: no new damage recorded."
+#~ msgstr "Stato del carico: nessun nuovo danno registrato."
+
+#~ msgid "Those charges come off this settlement."
+#~ msgstr "Questi addebiti vengono tolti da questo compenso."
+
+#~ msgid "Those charges do not reduce driver pay."
+#~ msgstr "Questi addebiti non riducono la paga dell'autista."
+
+#~ msgid ""
+#~ "Charges {grouped3}: tolls {grouped4}, extra charges {charge_summary}."
+#~ msgstr ""
+#~ "Spese {grouped3}: pedaggi {grouped4}, servizi accessori {charge_summary}."
+
+#~ msgid "Net about {grouped6}.{advance_note} {timing}."
+#~ msgstr "Netto circa {grouped6}.{advance_note} {timing}."
+
+#~ msgid "Paperwork, {facility}: {f} tons of {label}."
+#~ msgstr "Documenti, {facility}: {f} tonnellate di {label}."
+
+#~ msgid ""
+#~ "Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, pay for the "
+#~ "load {grouped2}. Charges {grouped3}: tolls {grouped4}, extra charges "
+#~ "{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
+#~ "{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
+#~ msgstr ""
+#~ "Documenti, {facility}: {f} tonnellate di {label}. Tariffa {grouped}, paga "
+#~ "per il carico {grouped2}. Spese {grouped3}: pedaggi {grouped4}, spese extra "
+#~ "{charge_summary}. {charge_fate} Multe {grouped5}. Netto circa "
+#~ "{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} per saldare."
+
+#~ msgid "Rate {grouped}, pay for the load {grouped2}."
+#~ msgstr "Tariffa {grouped}, paga per il carico {grouped2}."
+
+#~ msgid "{cargo_condition} {finish} to settle."
+#~ msgstr "{cargo_condition} {finish} per chiudere il compenso."
+
+#~ msgid "{charge_fate} Fines {grouped5}."
+#~ msgstr "{charge_fate} Multe {grouped5}."
+
+#~ msgid "Automatic speed control paused for pickup."
+#~ msgstr "Controllo automatico della velocità in pausa per il ritiro."
+
+#~ msgid "Automatic speed control is already on."
+#~ msgstr "Il controllo automatico della velocità è già attivo."
+
+#~ msgid "Resuming automatic speed control at {spoken}."
+#~ msgstr "Riprendo il controllo automatico della velocità a {spoken}."
+
+#~ msgid "Automatic speed control canceled."
+#~ msgstr "Controllo automatico della velocità annullato."
+
+#~ msgid "Speed control resuming."
+#~ msgstr "Il controllo della velocità riprende."
+
+#~ msgid "Speed keeper held to {held} for chains."
+#~ msgstr "Mantenitore di velocità limitato a {held} per le catene."
+
+#~ msgid ""
+#~ "Two rows moved. Speed keeper is now in Driving assistance instead of "
+#~ "Controls. Lane and edge cue prominence is now Lane and edge cue volume, in "
+#~ "Audio under Gameplay cues volume. Your choices came with them. Overspeed "
+#~ "warning no longer has a row: it stays quiet until you are heading for a "
+#~ "ticket."
+#~ msgstr ""
+#~ "Due righe si sono spostate. Il mantenitore di velocità ora è in Assistenza "
+#~ "alla guida invece che in Controlli. Risalto dei segnali di corsia e bordo "
+#~ "ora si chiama Volume dei segnali di corsia e bordo, in Audio sotto Volume "
+#~ "dei segnali di gioco. Le tue scelte sono rimaste. L'avviso di velocità "
+#~ "eccessiva non ha più una riga: resta in silenzio finché non stai per "
+#~ "prendere una multa."
+
+#~ msgid "Adaptive cruise slows behind traffic and resumes when it is safe."
+#~ msgstr ""
+#~ "Il cruise control adattivo rallenta dietro al traffico e riparte quando è "
+#~ "sicuro."
+
+#~ msgid ""
+#~ "With adaptive cruise on, holds a steep downhill grade at the speed your "
+#~ "truck can take it at with its load, on the engine brake and short brake "
+#~ "applications. On Standard and Strong, braking sets a new, lower speed to "
+#~ "hold. Strong also caps every descent at 55 miles per hour and steps in "
+#~ "sooner."
+#~ msgstr ""
+#~ "Con il cruise control adattivo acceso, tiene una discesa ripida alla "
+#~ "velocità che il tuo camion regge con il suo carico, con il freno motore e "
+#~ "brevi frenate. Su Standard e Forte, frenare imposta una nuova velocità più "
+#~ "bassa da tenere. Forte limita anche ogni discesa a 55 miglia orarie e "
+#~ "interviene prima."
+
+#~ msgid "Speed keeper"
+#~ msgstr "Mantenitore di velocità"
+
+#~ msgid ""
+#~ "In low-speed zones, like facility roads, gates, and construction zones, "
+#~ "{control_cruise} holds your current speed, then hands back to adaptive "
+#~ "cruise on open roads."
+#~ msgstr ""
+#~ "Nelle zone a bassa velocità, come strade delle strutture, cancelli e "
+#~ "cantieri, {control_cruise} mantiene la tua velocità attuale, poi ripassa al "
+#~ "cruise control adattivo su strada aperta."
+
+#~ msgid ""
+#~ "In low-speed zones, like facility roads, gates, and construction zones, "
+#~ "{control_cruise} holds your current speed, then hands back to adaptive "
+#~ "cruise on open roads. It eases off early for the next turn or the next "
+#~ "lower limit. Braking cancels it. Presets never change this."
+#~ msgstr ""
+#~ "Nelle zone a bassa velocità, come le strade delle strutture, i cancelli e i "
+#~ "cantieri, {control_cruise} tiene la tua velocità attuale, poi ripassa al "
+#~ "cruise control adattivo sulle strade aperte. Alleggerisce presto per la "
+#~ "prossima svolta o il prossimo limite più basso. Frenare lo annulla. Le "
+#~ "preimpostazioni non cambiano mai questo."
+
+#~ msgid ""
+#~ "How much room adaptive cruise leaves to the vehicle ahead. Close is two and "
+#~ "a half seconds, normal three, far three and a half. Weather widens the gap "
+#~ "whichever you pick. All three stay clear of a following-too-close citation. "
+#~ "The preset above never changes it."
+#~ msgstr ""
+#~ "Quanto spazio lascia il cruise control adattivo al veicolo davanti. Vicino "
+#~ "è due secondi e mezzo, normale tre, lontano tre e mezzo. Il meteo allarga "
+#~ "la distanza qualunque scelta fai. Tutte e tre evitano una multa per "
+#~ "distanza troppo ravvicinata. La preimpostazione qui sopra non la cambia mai."
+
+#~ msgid "Speed control and hills"
+#~ msgstr "Controllo della velocità e salite"
+
+#~ msgid ""
+#~ "{control_cruise} starts automatic speed control: adaptive cruise on open "
+#~ "roads, speed keeper on supported low-speed roads."
+#~ msgstr ""
+#~ "{control_cruise} avvia il controllo automatico della velocità: cruise "
+#~ "control adattivo su strada aperta, mantenitore di velocità sulle strade a "
+#~ "bassa velocità supportate."
+
+#~ msgid ""
+#~ "Speed keeper follows local limits, queues, and corners, then hands over to "
+#~ "cruise on open road. The target keys still change the remembered cruise "
+#~ "speed."
+#~ msgstr ""
+#~ "Il mantenitore di velocità segue limiti locali, code e curve, poi passa al "
+#~ "cruise su strada aperta. I tasti dell'obiettivo cambiano comunque la "
+#~ "velocità di crociera memorizzata."
+
+#~ msgid ""
+#~ "Press {control_cruise} again or touch the brakes to cancel. "
+#~ "{control_cruise_resume} resumes the previous target. Speed control pauses "
+#~ "at the pickup and comes back on after you leave with the load."
+#~ msgstr ""
+#~ "Premi di nuovo {control_cruise} o tocca i freni per annullare. "
+#~ "{control_cruise_resume} riprende l'obiettivo precedente. Il controllo della "
+#~ "velocità va in pausa al ritiro e si riattiva quando riparti con il carico."
+
+#~ msgid ""
+#~ "Speed control pauses at the pickup and comes back on after you leave with "
+#~ "the load."
+#~ msgstr ""
+#~ "Il controllo della velocità va in pausa al ritiro e si riattiva quando "
+#~ "riparti con il carico."
 
 #~ msgid ""
 #~ "Delivered {f} tons of {label} to {destination} in {f2} hours, "
@@ -48701,9 +49049,6 @@ msgstr ""
 
 #~ msgid "{reason}; adaptive cruise easing to {eased}."
 #~ msgstr "{reason}; il cruise control adattivo scende a {eased}."
-
-#~ msgid "Cruise easing to {speed_value}."
-#~ msgstr "Cruise control in discesa a {speed_value}."
 
 #~ msgid "{capitalize_first}; adaptive cruise easing to {eased}."
 #~ msgstr "{capitalize_first}; il cruise control adattivo scende a {eased}."

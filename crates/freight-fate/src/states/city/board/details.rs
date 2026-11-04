@@ -2,6 +2,7 @@
 
 use ff_core::models::business::pay_label;
 use ff_core::models::jobs::{credentials_clause, facility_text, DescribeOptions, Job};
+use ff_core::models::market::market_condition;
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
 use ff_core::sim::timezones::{appointment_text, city_zone};
 
@@ -42,39 +43,31 @@ pub fn describe_job(ctx: &GameContext, total: usize, job: &Job, index: Option<us
     let business = settlement_for(p, job, true);
     let note = trailer_note(p, job);
     let weight = load_weight_margin(p, job);
-    let preview = if weight.is_empty() {
-        market_preview(&business)
-    } else {
-        format!("{} {weight}", market_preview(&business))
-    };
+    let preview = market_preview(&business);
     let distance = ctx.settings.distance_text(job.distance_mi, false);
-    let text = job.describe(&DescribeOptions {
+    // A load dispatch relayed from a nearby city: the empty drive to the
+    // pickup comes first, and the board line says how far.
+    let here = ctx.world.resolve_city_key(&p.current_city);
+    let empty_first = if ctx.world.resolve_city_key(&job.origin) == here {
+        String::new()
+    } else {
+        ctx.world
+            .supported_route(&here, &job.origin, None)
+            .ok()
+            .flatten()
+            .map(|route| ctx.settings.distance_text(route.miles(), false))
+            .unwrap_or_else(|| "a drive".to_string())
+    };
+    job.describe(&DescribeOptions {
         index,
         total: index.map(|_| total),
-        pay_label: pay_label(&p.business_status),
         trailer_note: &note,
         display_pay: Some(business.gross_pay),
-        market_preview: &preview,
+        pay_preview: &preview,
         distance_text: &distance,
-    });
-    // A load dispatch relayed from a nearby city: the deadhead comes first,
-    // and the driver hears so before the load itself.
-    let here = ctx.world.resolve_city_key(&p.current_city);
-    if ctx.world.resolve_city_key(&job.origin) == here {
-        return text;
-    }
-    let deadhead = ctx
-        .world
-        .supported_route(&here, &job.origin, None)
-        .ok()
-        .flatten()
-        .map(|route| ctx.settings.distance_text(route.miles(), false))
-        .unwrap_or_else(|| "a drive".to_string());
-    let waiting = format!("Load in {}, {deadhead} empty first. ", job.spoken_origin());
-    match index {
-        Some(_) => text.replacen(": ", &format!(": {waiting}"), 1),
-        None => format!("{waiting}{text}"),
-    }
+        empty_first: &empty_first,
+        extra: &weight,
+    })
 }
 
 const JOB_DETAIL_INTRO_HELP: &str =
@@ -160,6 +153,11 @@ impl JobDetailState {
         lines.extend(briefing::hours_lines(ctx, job));
         lines.push(briefing::fuel_line(ctx, job));
         lines.push(format!("Equipment: {}.", job.equipment_text()));
+        match market_condition(job.market_mult) {
+            "tight" => lines.push("Market: tight, so this load pays more than usual.".to_string()),
+            "loose" => lines.push("Market: loose, so this load pays less than usual.".to_string()),
+            _ => {}
+        }
         let weight = load_weight_margin(p, job);
         if !weight.is_empty() {
             lines.insert(4, weight);

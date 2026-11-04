@@ -114,10 +114,10 @@ impl DrivingState {
             return String::new();
         }
         if self.instruction_retired(ctx, "cruise_set") {
-            return "Automatic speed control paused. ".to_string();
+            return "Cruise paused. ".to_string();
         }
         format!(
-            "Automatic speed control paused. {} cancels it. ",
+            "Cruise paused. {} cancels it. ",
             ctx.control_hint("cruise_set")
         )
     }
@@ -261,10 +261,7 @@ impl DrivingState {
             }
         } else {
             let objective = if self.phase == DRIVE_PHASE_PICKUP {
-                format!(
-                    "Pickup dispatch: drive empty from the terminal to {}. ",
-                    self.pickup_facility_text(ctx)
-                )
+                format!("Drive empty to {}. ", self.pickup_facility_text(ctx))
             } else {
                 format!(
                     "Loaded for {}. {} ",
@@ -279,10 +276,15 @@ impl DrivingState {
                 ctx.say_with(text, Say::queued());
             } else {
                 let engine = self.engine_entry_instruction(ctx);
-                let transmission = self.transmission_sentence();
+                // Automatic is the usual; only a manual truck is news.
+                let transmission = if self.trip.truck.transmission.automatic {
+                    ""
+                } else {
+                    " Manual transmission."
+                };
                 let help = self.help_hint_tail(ctx);
                 let text = format!(
-                    "At the wheel. {objective}It is {now}. {transmission} {report_lead}. {engine} \
+                    "At the wheel. {objective}It is {now}.{transmission} {report_lead}. {engine} \
                      {help}"
                 );
                 ctx.say_with(text.trim_end().to_string(), Say::queued());

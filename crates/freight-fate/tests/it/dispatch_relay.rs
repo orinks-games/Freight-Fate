@@ -49,11 +49,7 @@ fn test_accepting_a_relayed_load_drives_the_deadhead_and_the_approach_as_one_pic
 
     // The offer says the deadhead comes first.
     let text = describe_job(&app.ctx, 1, &job, Some(1));
-    assert!(
-        text.contains(&format!("Load in {}", job.spoken_origin())),
-        "{text}"
-    );
-    assert!(text.contains(" empty first. "), "{text}");
+    assert!(text.contains(" empty to the pickup first. "), "{text}");
 
     let mut board = JobBoardState::new(&app.ctx, vec![job.clone()]);
     app.clear_speech();

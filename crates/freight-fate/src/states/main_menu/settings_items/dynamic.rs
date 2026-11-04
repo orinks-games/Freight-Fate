@@ -101,7 +101,7 @@ impl SettingsCategoryState {
         items.push(row(
             dyn_label(|s| format!("Following gap: {}", acc_gap_label(s))),
             adjust(|s, ctx, d| s.cycle_acc_gap(ctx, d)),
-            "How much room adaptive cruise leaves to the vehicle \
+            "How much room cruise leaves to the vehicle \
              ahead. Close is two and a half seconds, normal three, far \
              three and a half. Weather widens the gap whichever you \
              pick. All three stay clear of a following-too-close \

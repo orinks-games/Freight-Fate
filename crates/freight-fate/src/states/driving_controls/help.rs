@@ -115,13 +115,13 @@ impl DrivingState {
             "Hold {emergency_brake} for the emergency brake, the hardest possible stop."
         ));
         lines.push(format!(
-            "{cruise} starts automatic speed control: adaptive cruise on open roads, \
-             the speed keeper in low-speed zones."
+            "{cruise} starts cruise. It follows traffic on open roads \
+             and holds the limit in low-speed zones."
         ));
         lines.push("Weather widens the gap.".to_string());
         lines.push(
-            "Cruise eases early for a sharp posted-limit drop, the keeper for the next \
-             turn or the next lower limit."
+            "Cruise eases early for a sharp posted-limit drop, and in low-speed zones \
+             for the next turn or the next lower limit."
                 .to_string(),
         );
         lines.push("Braking cancels it.".to_string());
@@ -393,8 +393,8 @@ impl DrivingState {
         let radio_status = n(Action::RadioStatus);
         let now_playing = n(Action::RadioNowPlaying);
         lines.push(format!(
-            "{cruise_cap} starts automatic speed control: adaptive cruise on open roads, \
-             the speed keeper in low-speed zones."
+            "{cruise_cap} starts cruise. It follows traffic on open roads \
+             and holds the limit in low-speed zones."
         ));
         lines.push(format!(
             "{cruise_down} or {cruise_up} change the cruise speed by five."

@@ -423,7 +423,7 @@ const ENGINE_BRAKE: SoundCategory = SoundCategory {
         )
         .when(
             "More than 7 miles per hour over the posted limit: past \
-             anything adaptive cruise will do on its own, and short of where \
+             anything cruise will do on its own, and short of where \
              a trooper can act on your speed.",
         ),
         SoundEntry::new(

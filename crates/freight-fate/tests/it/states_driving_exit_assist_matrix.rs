@@ -899,8 +899,8 @@ fn faults(preset: Preset, kind: Kind, run: &Run) -> Vec<String> {
             "Facility stopping assistance",
             settings.destination_approach_assist,
         ),
-        ("Adaptive cruise", preset.cruise()),
-        ("Automatic speed control", preset.cruise()),
+        ("Cruise", preset.cruise()),
+        ("Cruise", preset.cruise()),
     ];
     for (name, on) in named {
         if !on && heard.contains(name) {

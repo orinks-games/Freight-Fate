@@ -195,7 +195,7 @@ fn test_dispatch_board_keeps_route_planning_out_of_load_offer() {
         .collect();
 
     assert!(
-        rows.iter().any(|row| row.contains("Equipment:")),
+        rows.iter().all(|row| !row.contains("Equipment:")),
         "{rows:#?}"
     );
     assert!(

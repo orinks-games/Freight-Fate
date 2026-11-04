@@ -463,7 +463,7 @@ impl DrivingState {
         // The normal/terse pair rides the event from the sim layer; the
         // delivery layer picks the rendering (R5), so no rewriting here.
         let message = if speed_control_was_active {
-            message.plus("Automatic speed control paused.")
+            message.plus("Cruise paused.")
         } else {
             message
         };
@@ -1303,7 +1303,7 @@ impl DrivingState {
             );
             ctx.play_event_cue(category, "ui/notify", 1.0, 0.0);
             let keeper = ctx.settings.speed_text(self.keeper_mph.unwrap_or(0.0));
-            let message = message.plus(&format!("Speed keeper holding {keeper}."));
+            let message = message.plus(&format!("Cruise holding {keeper}."));
             let mut opts = SayEvent::queued().priority(EventPriority::Important);
             opts.category = category;
             ctx.say_event_with(message, opts);

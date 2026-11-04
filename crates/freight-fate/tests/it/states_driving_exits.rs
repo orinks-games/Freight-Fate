@@ -1114,7 +1114,7 @@ fn test_a_fresh_cruise_session_inherits_an_armed_exit_s_ramp_cap() {
     // Cancelling cruise clears the exit cap. On the Denver run the descent
     // cancelled it about a mile from the ramp, the driver re-engaged at 53,
     // and the new session had forgotten the exit -- its own line said
-    // "adaptive cruise set at 53 miles per hour" with no "for the ramp" note,
+    // "cruise set at 53 miles per hour" with no "for the ramp" note,
     // which is the tell. The cap belongs to the road ahead, not to whichever
     // cruise session happened to be running when the exit was announced.
     //
@@ -1150,7 +1150,7 @@ fn test_a_fresh_cruise_session_inherits_an_armed_exit_s_ramp_cap() {
 
 #[test]
 fn test_the_ramp_cap_holds_road_speed_until_the_exit() {
-    // Owner playtest, 2026-08-21: heard "adaptive cruise will ease to 40 for
+    // Owner playtest, 2026-08-21: heard "cruise will ease to 40 for
     // the ramp" five miles from the exit and reported the truck slowing early.
     // It was not slowing: the cap holds road speed until about half a mile
     // out and only then sheds. The line is gone (owner, 2026-10-14); the
@@ -1178,7 +1178,7 @@ fn test_the_ramp_cap_holds_road_speed_until_the_exit() {
 #[test]
 fn test_the_exit_assist_leaves_cruise_alone_while_it_has_nothing_to_shed() {
     // Owner, Spokane, twice (2026-08-21 and -22): on the run-in to the
-    // destination exit the status said "automatic speed control paused" and
+    // destination exit the status said "cruise paused" and
     // the truck ran from 60 to 69 down a 3.7 percent grade.
     //
     // The exit speed assist paused speed control the moment the exit came

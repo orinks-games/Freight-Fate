@@ -60,7 +60,7 @@ fn accept_assigned_freight_with_deadhead(app: &mut TestApp) {
         assert!(is::<JobBoardState>(app));
     }
     key(app, Key::Home);
-    assert!(labels::<JobBoardState>(app)[0].starts_with("Accept assigned dispatch:"));
+    assert!(labels::<JobBoardState>(app)[0].starts_with("Assigned load:"));
     key(app, Key::Return);
     assert!(
         is::<DrivingState>(app),

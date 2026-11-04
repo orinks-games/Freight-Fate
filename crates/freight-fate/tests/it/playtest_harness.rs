@@ -303,10 +303,7 @@ fn test_playtest_route_report_includes_current_location_on_real_keyboard_path() 
 
     let transcript = harness.transcript();
     let last = transcript.last().expect("R said something");
-    assert!(
-        last.ends_with("On I-90 East in New York, toward Rochester, New York."),
-        "{last}"
-    );
+    assert!(last.ends_with("On I-90 East toward Rochester."), "{last}");
     assert!(last.contains("percent there"), "{last}");
 }
 
@@ -603,7 +600,7 @@ fn test_realistic_speed_control_transitions_do_not_issue_speeding_fines() {
     assert!(!text.to_lowercase().contains("speeding fines"), "{text}");
     assert_eq!(result.deliveries, 1);
     // Cruise held the zone itself: no handoff to the keeper and back.
-    assert!(!text.contains("Speed keeper holding"), "{text}");
+    assert!(!text.contains("Cruise holding"), "{text}");
     // At the posted limit, not highway speed. The tolerance is cruise's own
     // brake margin (`CRUISE_BRAKE_OVER_MPH`, 2.5): the retarder holds the
     // truck that close over before the service brakes snub. It is far inside
@@ -781,7 +778,10 @@ fn test_each_driving_mode_completes_a_full_spoken_delivery() {
         assert_eq!(result.deliveries, 1);
         assert_eq!(result.destination, result.current_city);
         assert!(result.transcript_text().contains("Dispatch routed you to"));
-        assert!(result.transcript_text().to_lowercase().contains("arrived"));
+        assert!(result
+            .transcript_text()
+            .to_lowercase()
+            .contains("pulling into"));
         result.assert_no_known_destination_exit_regressions();
     }
 }
@@ -815,7 +815,7 @@ fn test_playtest_harness_records_headless_delivery_transcript() {
     let transcript = result.transcript_text();
     assert!(transcript.contains("Freight Fate"));
     assert!(transcript.contains("Dispatch routed you to"));
-    assert!(transcript.to_lowercase().contains("arrived"));
+    assert!(transcript.to_lowercase().contains("pulling into"));
     assert_eq!(result.deliveries, 1);
     result.assert_no_known_destination_exit_regressions();
 }
@@ -839,7 +839,7 @@ fn test_new_hire_transcript_runs_assigned_load_and_route() {
 
     let transcript = result.transcript_text();
     assert!(transcript.contains("Dispatch board. "));
-    assert!(transcript.contains("Accept assigned dispatch:"));
+    assert!(transcript.contains("Assigned load:"));
     assert!(transcript.contains("Dispatch routed you to"));
     // The route menu never appears for a new company hire.
     assert!(!transcript.contains("Route planning to"));
@@ -863,7 +863,7 @@ fn test_owner_operator_transcript_keeps_load_and_route_choice() {
 
     let transcript = result.transcript_text();
     assert!(transcript.contains("dispatches available")); // browsable, not assigned
-    assert!(!transcript.contains("Accept assigned dispatch:"));
+    assert!(!transcript.contains("Assigned load:"));
     assert!(transcript.contains("Route planning to")); // route choice preserved
     assert!(transcript.contains("route option"));
     assert!(!transcript.contains("Dispatch routed you to"));
@@ -937,27 +937,20 @@ fn test_speed_control_follows_job_from_deadhead_to_loaded_trip() {
     });
 
     let transcript = harness.transcript_text();
-    assert!(transcript.contains("Speed keeper holding"));
+    assert!(transcript.contains("Cruise holding"));
     assert_eq!(
-        announcements_of(
-            &harness.result(),
-            "Automatic speed control paused for pickup"
-        ),
+        announcements_of(&harness.result(), "Cruise paused for pickup"),
         1
     );
     // And it comes back on its own after the pickup.
     let after = transcript
-        .split("Automatic speed control paused for pickup")
+        .split("Cruise paused for pickup")
         .last()
         .unwrap_or_default();
     assert!(
-        [
-            "Speed keeper holding",
-            "Cruise resuming",
-            "Speed control resuming"
-        ]
-        .iter()
-        .any(|line| after.contains(line)),
+        ["Cruise holding", "Cruise resuming", "Cruise resuming"]
+            .iter()
+            .any(|line| after.contains(line)),
         "{after}"
     );
 }

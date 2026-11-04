@@ -68,14 +68,14 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
         ],
     ),
     (
-        "Speed control and hills",
+        "Cruise and hills",
         &[
-            "{{cruise}} starts automatic speed control: adaptive cruise on open roads, speed keeper on supported low-speed roads.",
+            "{{cruise}} turns cruise on. On open roads it follows traffic; on low-speed roads it follows local limits, queues and corners.",
             "Cruise follows traffic. Its normal three second clear-weather gap increases in poor weather. It does not steer.",
             "Plus and Minus, including keypad keys, move the cruise speed to the next multiple of five. Hold Control to change it by one.",
             "Cruise prepares for sharp posted-limit drops and holds no more than five over the posted limit. {{speed}} reads the active speed-control mode and cruise speed.",
-            "Speed keeper follows local limits, queues, and corners, then hands over to cruise on open road. The target keys still change the remembered cruise speed.",
-            "Press {{cruise}} again or touch the brakes to cancel. {{cruise_resume}} resumes the previous target. Speed control pauses at the pickup and comes back on after you leave with the load.",
+            "The target keys change the open-road cruise speed, even while cruise holds a lower limit.",
+            "Press {{cruise}} again or touch the brakes to cancel. {{cruise_resume}} resumes the previous target. Cruise pauses at the pickup and comes back on after you leave with the load.",
             "Before a descent, reduce speed and choose a lower gear. Use the engine brake for steady control and short brake applications with cooling time between them.",
             "{{engine_brake}} enables the engine brake. While enabled, {{jake_stage_1}}, {{jake_stage_2}}, and {{jake_stage_3}} choose its stage. {{auto_jake}} selects automatic or manual stage management.",
             "Hot brakes lose stopping power. {{safe_speed}} gives a safe speed for the load, grade, weather, and bend. Strong engine braking can break traction on ice.",

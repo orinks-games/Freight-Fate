@@ -145,12 +145,12 @@ pub(super) const DRIVING_ASSIST_SPECS: [(&str, &str, &str); 12] = [
     (
         "stop_and_go_assist",
         "Stop-and-go assistance",
-        "Adaptive cruise slows behind traffic and resumes when it is safe.",
+        "Cruise slows behind traffic and resumes when it is safe.",
     ),
     (
         "descent_speed_control",
         "Descent speed control",
-        "With adaptive cruise on, holds a steep downhill grade at the speed your truck can take it at with its load, on the engine brake and short brake applications. On Standard and Strong, braking sets a new, lower speed to hold. Strong also caps every descent at 55 miles per hour and steps in sooner.",
+        "With cruise on, holds a steep downhill grade at the speed your truck can take it at with its load, on the engine brake and short brake applications. On Standard and Strong, braking sets a new, lower speed to hold. Strong also caps every descent at 55 miles per hour and steps in sooner.",
     ),
     (
         "exit_speed_assist",
@@ -197,8 +197,8 @@ pub(super) const DRIVING_ASSIST_SPECS: [(&str, &str, &str); 12] = [
     // input-accessibility aids above it, presets never touch it.
     (
         "speed_keeper",
-        "Speed keeper",
-        "In low-speed zones, like facility roads, gates, and construction zones, {{cruise}} holds your current speed, then hands back to adaptive cruise on open roads. It eases off early for the next turn or the next lower limit. Braking cancels it. Presets never change this.",
+        "Low-speed cruise",
+        "In low-speed zones, like facility roads, gates, and construction zones, {{cruise}} holds your current speed, then hands back to normal cruise on open roads. It eases off early for the next turn or the next lower limit. Braking cancels it. Presets never change this.",
     ),
 ];
 

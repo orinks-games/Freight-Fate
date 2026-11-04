@@ -398,7 +398,7 @@ impl DrivingState {
             format!("Destination ahead, {facility}. Stop at the gate.")
         };
         if keeper_held {
-            message.push_str(" Speed keeper off.");
+            message.push_str(" Cruise off.");
         }
         self.seed_gate_grace_at_gate(ctx, &message);
         if keeper_held {

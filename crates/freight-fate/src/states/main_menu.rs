@@ -575,7 +575,11 @@ pub fn career_summary(
         ),
         format!("{} dollars", fmt_grouped(profile.money(), 0)),
         career_location(ctx, profile),
-        format!("{} deliveries", profile.career.deliveries),
+        if profile.career.deliveries == 1 {
+            "1 delivery".to_string()
+        } else {
+            format!("{} deliveries", profile.career.deliveries)
+        },
     ];
     if include_saved {
         parts.push(format!("last saved {}", saved_label(path)));

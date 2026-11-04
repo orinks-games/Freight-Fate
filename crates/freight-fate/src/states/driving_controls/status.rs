@@ -9,6 +9,7 @@ use crate::app::GameContext;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 
+use super::info::capitalize_first;
 use super::WEAR_STATUS_PCT;
 
 impl DrivingState {
@@ -99,17 +100,14 @@ impl DrivingState {
             // The same live-then-set shape the keeper's row below uses: when
             // anything holds cruise under its set speed, the status screen has
             // to say which of the two numbers is real.
-            lines.insert(1, format!("Cruise: {}", self.cruise_holding_text(ctx)));
+            lines.insert(1, capitalize_first(&self.cruise_holding_text(ctx, false)));
         } else if self.keeper_mph.is_some() {
-            lines.insert(
-                1,
-                format!("Speed control: {}", self.keeper_holding_text(ctx)),
-            );
+            lines.insert(1, capitalize_first(&self.keeper_holding_text(ctx, false)));
             lines.insert(2, format!("Cruise speed: {}", self.open_road_target(ctx)));
         } else if self.speed_control_armed {
             lines.insert(
                 1,
-                "Speed control: paused; resumes when the truck is rolling".to_string(),
+                "Cruise paused; resumes when the truck is rolling".to_string(),
             );
             lines.insert(2, format!("Cruise speed: {}", self.open_road_target(ctx)));
         }
