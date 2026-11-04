@@ -2567,6 +2567,8 @@ msgstr ""
 
 msgid "; no big rigs allowed, so you can only stop here without a trailer"
 msgstr ""
+"; caminhões grandes não são permitidos, então aqui você só pode parar sem "
+"reboque"
 
 msgid "baked bytes"
 msgstr "bytes compactados"
@@ -7060,6 +7062,8 @@ msgid ""
 "Own authority active. Direct freight is available on the dispatch board, "
 "with insurance, compliance and billing fees in settlement."
 msgstr ""
+"Registro próprio ativo. Fretes diretos estão disponíveis no quadro de "
+"fretes, com taxas de seguro, conformidade e cobrança no acerto."
 
 msgid "Next: activate own authority from Business status."
 msgstr "Próximo passo: ativar o registro próprio em Situação do negócio."
@@ -7120,7 +7124,7 @@ msgstr "A assinatura da tag eletrônica de posto de pesagem está ativa. "
 
 #. one sentence of a longer line
 msgid "Direct freight pays more per load."
-msgstr ""
+msgstr "Fretes diretos pagam mais por carga."
 
 #. one sentence of a longer line
 msgid "Own authority active."
@@ -7132,12 +7136,18 @@ msgid ""
 "load. You pay fuel, repairs, insurance, trailer reserve, truck reserve, "
 "compliance reserve and billing fees. {transponder}{next_business_unlock}"
 msgstr ""
+"Registro próprio ativo. Nível {level}: {title}. Fretes diretos pagam mais "
+"por carga. Você paga combustível, consertos, seguro, reserva do reboque, "
+"reserva do caminhão, reserva de conformidade e taxas de cobrança. "
+"{transponder}{next_business_unlock}"
 
 #. one sentence of a longer line
 msgid ""
 "You pay fuel, repairs, insurance, trailer reserve, truck reserve, "
 "compliance reserve and billing fees."
 msgstr ""
+"Você paga combustível, consertos, seguro, reserva do reboque, reserva do "
+"caminhão, reserva de conformidade e taxas de cobrança."
 
 msgid "You chose the owner-operator start. "
 msgstr "Você escolheu começar como motorista autônomo. "
@@ -7147,7 +7157,7 @@ msgstr "A reserva de preparação do registro próprio está separada. "
 
 #. one sentence of a longer line
 msgid "Loads pay more."
-msgstr ""
+msgstr "As cargas pagam mais."
 
 #. one sentence of a longer line
 msgid ""
@@ -7168,6 +7178,10 @@ msgid ""
 "pay fuel, repairs, maintenance reserve, insurance, trailer program, truck "
 "reserve, and settlement fees. {readiness}{transponder}{next_business_unlock}"
 msgstr ""
+"{lead}Agregado à {carrier_name}. Nível {level}: {title}. As cargas pagam "
+"mais. Você paga combustível, consertos, reserva de manutenção, seguro, "
+"programa de reboque, reserva do caminhão e taxas do acerto. "
+"{readiness}{transponder}{next_business_unlock}"
 
 #. one sentence of a longer line
 msgid "Settlements are driver wages and bonuses."
@@ -7616,7 +7630,7 @@ msgid "Business preparation"
 msgstr "Preparação para o negócio"
 
 msgid "Your savings target is now shown."
-msgstr ""
+msgstr "Sua meta de economia agora aparece."
 
 msgid ""
 "Saving for the owner-operator buy-in instead of a lease-purchase deal."
@@ -7672,7 +7686,7 @@ msgid "Settled Owner-Operator"
 msgstr "Autônomo estabelecido nos acertos"
 
 msgid "Owner-operator settlements are now routine."
-msgstr ""
+msgstr "Os acertos de autônomo agora são rotina."
 
 msgid ""
 "Learning fuel, maintenance, insurance, trailer, and settlement reserves."
@@ -7703,6 +7717,8 @@ msgstr "Preparação do registro próprio"
 msgid ""
 "Authority prep reserve can unlock when the other requirements are met."
 msgstr ""
+"A reserva para o registro próprio pode ser liberada quando os outros "
+"requisitos forem cumpridos."
 
 msgid ""
 "Studying full authority while staying focused on one-truck operations."
@@ -7714,7 +7730,7 @@ msgid "Direct Freight Prep"
 msgstr "Preparação para fretes diretos"
 
 msgid "The steps to direct freight are now listed."
-msgstr ""
+msgstr "Os passos até os fretes diretos agora estão listados."
 
 msgid ""
 "Building reputation and working capital before direct broker freight."
@@ -7739,7 +7755,7 @@ msgid "Final authority activation checklist."
 msgstr "Lista final para ativar o registro próprio."
 
 msgid "Getting ready to run under your own authority."
-msgstr ""
+msgstr "Preparando-se para rodar com registro próprio."
 
 msgid "Independent Authority Operator"
 msgstr "Operador independente com registro próprio"
@@ -7750,10 +7766,14 @@ msgstr "Registro próprio"
 msgid ""
 "Own authority and direct freight unlock when the other requirements are met."
 msgstr ""
+"O registro próprio e os fretes diretos são liberados quando os outros "
+"requisitos forem cumpridos."
 
 msgid ""
 "Direct freight is available, with insurance, compliance and billing fees."
 msgstr ""
+"Fretes diretos estão disponíveis, com taxas de seguro, conformidade e "
+"cobrança."
 
 msgid "Contract Freight Builder"
 msgstr "Construtor de fretes por contrato"
@@ -7765,7 +7785,7 @@ msgid "Premium direct freight reputation matters more."
 msgstr "A reputação em fretes diretos premium pesa mais."
 
 msgid "Building repeat customers for your one truck."
-msgstr ""
+msgstr "Formando clientes fixos para o seu único caminhão."
 
 msgid "Specialized Trailer Operator"
 msgstr "Operador de reboque especializado"
@@ -7828,6 +7848,7 @@ msgstr "Motorista sênior da frota"
 
 msgid "Dispatch favors you with steadier premium freight on company trucks."
 msgstr ""
+"A central dá a você fretes premium mais constantes nos caminhões da empresa."
 
 msgid "A senior company driver with a settled place on the fleet."
 msgstr "Um motorista sênior da transportadora com lugar garantido na frota."
@@ -7852,7 +7873,7 @@ msgid "Company Fleet Captain"
 msgstr "Capitão da frota da empresa"
 
 msgid "Top fleet standing: first pick of company freight."
-msgstr ""
+msgstr "Melhor posição na frota: primeira escolha dos fretes da empresa."
 
 msgid "A career company driver at the buy-in fork who kept the safer seat."
 msgstr ""
@@ -7867,6 +7888,7 @@ msgstr "O trabalho de longa distância da empresa vira o ritmo normal."
 
 msgid "Miles and reputation keep growing on carrier equipment."
 msgstr ""
+"Milhas e reputação continuam crescendo com o equipamento da empresa."
 
 msgid "Senior Fleet Regular"
 msgstr "Regular sênior da frota"
@@ -7905,6 +7927,8 @@ msgstr ""
 msgid ""
 "An elite company driver with first call on the most valuable freight."
 msgstr ""
+"Um motorista de elite da empresa, o primeiro a receber os fretes mais "
+"valiosos."
 
 msgid "Master Company Driver"
 msgstr "Mestre motorista da transportadora"
@@ -8851,13 +8875,16 @@ msgid "manual transmission training"
 msgstr "treinamento de câmbio manual"
 
 msgid "a small pay bonus for drives in a manual truck"
-msgstr ""
+msgstr "um pequeno bônus de pagamento por viagens em caminhão manual"
 
 msgid ""
 "You retook the skills test in a manual truck, and the automatic-only "
 "restriction is off your license. Drives in a manual truck now pay a small "
 "bonus at settlement."
 msgstr ""
+"Você refez o exame prático em um caminhão manual, e a restrição de só "
+"automático saiu da sua habilitação. Viagens em caminhão manual agora pagam "
+"um pequeno bônus no acerto."
 
 msgid "refrigerated certificate"
 msgstr "certificado de carga refrigerada"
@@ -9094,7 +9121,7 @@ msgstr ""
 "enquanto você dirige."
 
 msgid " Enter books it."
-msgstr ""
+msgstr " Enter reserva."
 
 #. placeholders: {grouped}
 msgid "{grouped} dollars"
@@ -9320,6 +9347,9 @@ msgid ""
 "{LAST_CHANCE_CARRIER_NAME} keeps you on, on probation, until "
 "{record_clears_text}."
 msgstr ""
+"A seguradora da empresa não cobre um histórico assim; a "
+"{LAST_CHANCE_CARRIER_NAME} mantém você, em período de experiência, até "
+"{record_clears_text}."
 
 msgid ""
 "The carrier's insurer will not carry that record. The carrier ends your "
@@ -9607,6 +9637,8 @@ msgid ""
 "You cannot drive with a lifetime CDL disqualification, not even without a "
 "trailer."
 msgstr ""
+"Você não pode dirigir com uma desqualificação vitalícia da CDL, nem mesmo "
+"sem reboque."
 
 msgid "suspension"
 msgstr "suspensão"
@@ -9621,12 +9653,16 @@ msgstr "A {noun} termina {clears_text}."
 msgid ""
 "You cannot drive, not even without a trailer, while your CDL is {verb}."
 msgstr ""
+"Você não pode dirigir, nem mesmo sem reboque, enquanto sua CDL estiver "
+"{verb}."
 
 #. placeholders: {verb}, {noun}, {clears_text}
 msgid ""
 "You cannot drive, not even without a trailer, while your CDL is {verb}. The "
 "{noun} ends {clears_text}."
 msgstr ""
+"Você não pode dirigir, nem mesmo sem reboque, enquanto sua CDL estiver "
+"{verb}. A {noun} termina {clears_text}."
 
 msgid "CDL: disqualified for life"
 msgstr "CDL: cassada para sempre"
@@ -10045,13 +10081,15 @@ msgstr ""
 #. placeholders: {lower}
 #. one sentence of a longer line
 msgid "No {lower} stop with 30 minutes to spare."
-msgstr ""
+msgstr "Nenhuma parada de {lower} com 30 minutos de folga."
 
 #. placeholders: {lower}, {name}, {fallback_distance}
 msgid ""
 "No {lower} stop with 30 minutes to spare. Last legal stop: {name}, "
 "{fallback_distance} ahead."
 msgstr ""
+"Nenhuma parada de {lower} com 30 minutos de folga. Última parada legal: "
+"{name}, a {fallback_distance}."
 
 #. placeholders: {lower}
 msgid "No reachable {lower} stop before your hours limit."
@@ -10069,10 +10107,12 @@ msgid ""
 "Destination fits this shift, about {destination_travel_min} minutes. No "
 "rest stop needed first."
 msgstr ""
+"O destino cabe neste turno, cerca de {destination_travel_min} minutos. Não "
+"precisa parar para descansar antes."
 
 #. one sentence of a longer line
 msgid "No rest stop needed first."
-msgstr ""
+msgstr "Não precisa parar para descansar antes."
 
 #. placeholders: {last_name}, {fallback_distance}, {last_minutes}
 #. one sentence of a longer line
@@ -10128,10 +10168,10 @@ msgid "{earlier} Stop here."
 msgstr "{earlier} Pare aqui."
 
 msgid "This stop also leaves time to spare."
-msgstr ""
+msgstr "Esta parada também deixa tempo de folga."
 
 msgid "No earlier stop leaves 30 minutes to spare."
-msgstr ""
+msgstr "Nenhuma parada anterior deixa 30 minutos de folga."
 
 #. placeholders: {action}, {minutes}
 #. one sentence of a longer line
@@ -10275,17 +10315,21 @@ msgid ""
 "This copy of the game cannot open this career. Use a released version of "
 "Freight Fate."
 msgstr ""
+"Esta cópia do jogo não consegue abrir esta carreira. Use uma versão lançada "
+"do Freight Fate."
 
 #. placeholders: {reason}
 #. one sentence of a longer line
 msgid "The career file could not be verified: {reason}."
-msgstr ""
+msgstr "Não foi possível verificar o arquivo da carreira: {reason}."
 
 #. placeholders: {reason}
 msgid ""
 "The career file could not be verified: {reason}. Under Online, restore a "
 "cloud backup."
 msgstr ""
+"Não foi possível verificar o arquivo da carreira: {reason}. Em Online, "
+"restaure um backup na nuvem."
 
 #. one sentence of a longer line
 msgid "Under Online, restore a cloud backup."
@@ -10526,6 +10570,8 @@ msgid ""
 "The owner-operator path is still open to you, and the buy-in requirements "
 "are the same ones you met to get here."
 msgstr ""
+"O caminho de autônomo continua aberto, e os requisitos de entrada são os "
+"mesmos que você cumpriu para chegar aqui."
 
 #. placeholders: {hiring}
 #. one sentence of a longer line
@@ -10542,6 +10588,9 @@ msgid ""
 "tractor. The owner-operator path is still open to you, and the buy-in "
 "requirements are the same ones you met to get here."
 msgstr ""
+"Você voltou a ser motorista contratado, na folha de pagamento da {hiring} e "
+"num cavalo mecânico da empresa. O caminho de autônomo continua aberto, e os "
+"requisitos de entrada são os mesmos que você cumpriu para chegar aqui."
 
 msgid "repossession"
 msgstr "repossession"
@@ -10581,6 +10630,9 @@ msgid ""
 "buy-in stays open under Business status, and the requirements are the ones "
 "you already met."
 msgstr ""
+"A partir de agora os acertos são salário de motorista e bônus. A entrada "
+"como autônomo continua aberta em Situação do negócio, e você já cumpriu os "
+"requisitos."
 
 #. one sentence of a longer line
 msgid "Held there; a quarter of each settlement pays it down."
@@ -13751,11 +13803,11 @@ msgid "Live weather ready."
 msgstr "Tempo ao vivo pronto."
 
 msgid "Using the last known conditions."
-msgstr ""
+msgstr "Usando as últimas condições conhecidas."
 
 #. placeholders: {notice}
 msgid "{notice}. Using the last known conditions."
-msgstr ""
+msgstr "{notice}. Usando as últimas condições conhecidas."
 
 msgid "Live weather unavailable."
 msgstr "Tempo ao vivo indisponível."
@@ -14158,7 +14210,7 @@ msgid "traffic merging for {highway}"
 msgstr "veículos entrando para a {highway}"
 
 msgid "traffic merging for roadwork"
-msgstr ""
+msgstr "trânsito entrando na via por causa de obras"
 
 #. placeholders: {city_state}
 msgid "Crossing into {city_state}. "
@@ -14536,11 +14588,11 @@ msgstr "A idade da observação não está disponível"
 
 #. one sentence of a longer line
 msgid "Mild conditions until live weather loads"
-msgstr ""
+msgstr "Condições amenas até o clima ao vivo carregar"
 
 #. placeholders: {source_label}
 msgid "{source_label}. Mild conditions until live weather loads"
-msgstr ""
+msgstr "{source_label}. Condições amenas até o clima ao vivo carregar"
 
 #. placeholders: {conditions}
 msgid "Live weather: {conditions}"
@@ -14777,11 +14829,17 @@ msgid ""
 "ticking until you stop it. The demo walks it from the left of the lane to "
 "the right."
 msgstr ""
+"Um toque suave, uma vez por batida, posicionado onde o caminhão está dentro "
+"da faixa. Você liga e desliga com a tecla do localizador de faixa, e ele "
+"continua até você parar. A demonstração o leva da esquerda para a direita "
+"da faixa."
 
 msgid ""
 "Lane keeping partial or off, above walking pace, and the lane locator "
 "switched on."
 msgstr ""
+"Manutenção de faixa parcial ou desligada, acima do passo de uma pessoa, e o "
+"localizador de faixa ligado."
 
 msgid "Lane guide tone"
 msgstr "Tom de guia de faixa"
@@ -14859,6 +14917,8 @@ msgid ""
 "The lane locator silences ordinary steering clicks, but not an armed exit "
 "signal."
 msgstr ""
+"O localizador de faixa silencia os cliques normais da direção, mas não uma "
+"seta de saída ligada."
 
 msgid "Blinker off"
 msgstr "Pisca desligado"
@@ -14879,6 +14939,9 @@ msgid ""
 "the lane locator off. Canceling a running exit blinker clicks it off in "
 "every mode."
 msgstr ""
+"Endireitar desliga com um clique só com a manutenção de faixa parcial ou "
+"desligada e o localizador de faixa desligado. Cancelar uma seta de saída em "
+"andamento desliga com um clique em qualquer modo."
 
 msgid "Signal tone"
 msgstr "Tom de sinal"
@@ -14987,6 +15050,8 @@ msgid ""
 "Two cylinders braking: the lightest setting. Enough to hold speed on a "
 "gentle grade without touching the brakes. Drivers call this the jake."
 msgstr ""
+"Dois cilindros freando: o ajuste mais leve. Basta para manter a velocidade "
+"numa descida suave sem tocar nos freios. Os motoristas chamam isso de jake."
 
 msgid "Engine brake, stage two"
 msgstr "Freio motor, estágio dois"
@@ -14995,6 +15060,8 @@ msgid ""
 "Four cylinders braking. The usual working setting on a long descent. "
 "Drivers call this the jake."
 msgstr ""
+"Quatro cilindros freando. O ajuste de trabalho comum numa descida longa. Os "
+"motoristas chamam isso de jake."
 
 msgid "Engine brake, stage three"
 msgstr "Freio motor, estágio três"
@@ -15141,6 +15208,9 @@ msgid ""
 "ending callout names which side. Move over when told or you will go through "
 "the barrels."
 msgstr ""
+"Obras à frente. O limite sinalizado cai, uma faixa pode fechar, e o aviso "
+"de fim de faixa diz de que lado. Mude quando mandarem ou você vai passar "
+"pelos cones."
 
 msgid "Traffic slowing"
 msgstr "Trânsito reduzindo"
@@ -15237,6 +15307,8 @@ msgid ""
 "Always. Nothing turns it off. Every post that can cost you anything sounds "
 "this first, and the radio is pulled down out of the way so you can hear it."
 msgstr ""
+"Sempre. Nada desliga. Todo posto que pode custar algo a você toca isto "
+"primeiro, e o rádio abaixa para você ouvir."
 
 msgid "Police car going by"
 msgstr "Viatura passando"
@@ -15249,12 +15321,20 @@ msgid ""
 "an ordinary post is on, and then on the right, the side a weigh station is "
 "on."
 msgstr ""
+"O marcador de novo, com um veículo passando um quinto de segundo depois. "
+"Você acabou de passar um posto de fiscalização e há uma viatura nele. Isto "
+"é notícia, não aviso: toca quando você já passou e significa que havia um "
+"policial ali. A demonstração toca à esquerda, o lado de um posto comum, e "
+"depois à direita, o lado de um posto de pesagem."
 
 msgid ""
 "Past a post with an officer in it. An empty post is silent. Never past a "
 "scale that is being worked: there the weigh station approach sound carries "
 "the warning instead."
 msgstr ""
+"Ao passar um posto com um policial. Um posto vazio fica em silêncio. Nunca "
+"ao passar uma balança em operação: ali o aviso vem do som de aproximação do "
+"posto de pesagem."
 
 msgid "Siren"
 msgstr "Sirene"
@@ -16720,6 +16800,8 @@ msgstr ""
 #. one sentence of a longer line
 msgid "If you think this is wrong, use Report a problem on the main menu."
 msgstr ""
+"Se você acha que isso está errado, use Relatar um problema no menu "
+"principal."
 
 #. one sentence of a longer line
 msgid ""
@@ -16745,16 +16827,22 @@ msgid ""
 "local career is safe and nothing public changed. If you think this is "
 "wrong, use Report a problem on the main menu."
 msgstr ""
+"{name}: backup não aceito. Os números deste salvamento não parecem de um "
+"jogo possível, então o servidor recusou e marcou para revisão. Sua carreira "
+"local está segura e nada público mudou. Se você acha que isso está errado, "
+"use Relatar um problema no menu principal."
 
 #. one sentence of a longer line
 msgid "It is not something you did."
-msgstr ""
+msgstr "Não foi algo que você fez."
 
 #. one sentence of a longer line
 msgid ""
 "Your game and orinks.net read this save differently, usually because one of "
 "them needs an update."
 msgstr ""
+"Seu jogo e o orinks.net leem este salvamento de forma diferente, geralmente "
+"porque um dos dois precisa de atualização."
 
 #. placeholders: {name}
 msgid ""
@@ -16762,6 +16850,9 @@ msgid ""
 "differently, usually because one of them needs an update. It is not "
 "something you did. Your local career is safe."
 msgstr ""
+"{name}: backup não aceito. Seu jogo e o orinks.net leem este salvamento de "
+"forma diferente, geralmente porque um dos dois precisa de atualização. Não "
+"foi algo que você fez. Sua carreira local está segura."
 
 #. one sentence of a longer line
 msgid ""
@@ -18007,6 +18098,9 @@ msgid ""
 "your declines, which refill at your next promotion. F1 is details. Escape "
 "goes back."
 msgstr ""
+"Carga atribuída. Enter aceita. Recusar custa reputação e gasta uma das suas "
+"recusas, que se renovam na sua próxima promoção. F1 mostra os detalhes. "
+"Escape volta."
 
 #. placeholders: {SENIOR_LOAD_CHOICE_LEVEL}
 msgid "until level {SENIOR_LOAD_CHOICE_LEVEL}"
@@ -18037,16 +18131,22 @@ msgid ""
 "Listed pay is the full rate. Insurance, compliance, trailer, truck and "
 "billing fees come out at settlement."
 msgstr ""
+"O pagamento listado é a tarifa cheia. Taxas de seguro, conformidade, "
+"reboque, caminhão e cobrança são descontadas no acerto."
 
 msgid ""
 "Listed pay is the full rate for the load. Trailer program needs are listed "
 "on each job."
 msgstr ""
+"O pagamento listado é a tarifa cheia da carga. As necessidades do programa "
+"de reboque aparecem em cada frete."
 
 msgid ""
 "Listed pay is what the carrier earns; you are paid wages from it. Routing "
 "is assigned until you run your own truck."
 msgstr ""
+"O pagamento listado é o que a empresa ganha; você recebe salário dele. A "
+"rota é atribuída até você rodar com seu próprio caminhão."
 
 #. placeholders: {grouped}, {grouped2}
 msgid "Take-home about {grouped} dollars after {grouped2} dollars costs."
@@ -18120,12 +18220,18 @@ msgid ""
 "Dispatch is sending you empty, with no pickup. After you accept, Route "
 "planning lists rest, fuel, tolls, weather and restrictions."
 msgstr ""
+"A central está mandando você vazio, sem coleta. Depois de aceitar, "
+"Planejamento de rota lista descanso, combustível, pedágios, clima e "
+"restrições."
 
 msgid ""
 "Dispatch assigned this load. Accepting starts the empty drive from your "
 "terminal to the pickup. After pickup, Route planning lists rest, fuel, "
 "tolls, weather and restrictions."
 msgstr ""
+"A central atribuiu esta carga. Aceitar inicia a viagem vazia do seu "
+"terminal até a coleta. Depois da coleta, Planejamento de rota lista "
+"descanso, combustível, pedágios, clima e restrições."
 
 #. placeholders: {describe}
 msgid "Accept assigned dispatch: {describe}"
@@ -18141,6 +18247,8 @@ msgid ""
 "Dispatch picks another load. Costs reputation and one decline; declines "
 "refill at your next promotion."
 msgstr ""
+"A central escolhe outra carga. Custa reputação e uma recusa; as recusas se "
+"renovam na sua próxima promoção."
 
 msgid "Review the rest of today's board"
 msgstr "Ver o resto do quadro de hoje"
@@ -18327,23 +18435,30 @@ msgid ""
 "After you accept, Route planning lists rest, fuel, tolls, weather and "
 "restrictions."
 msgstr ""
+"Depois de aceitar, Planejamento de rota lista descanso, combustível, "
+"pedágios, clima e restrições."
 
 #. placeholders: {destination}
 #. one sentence of a longer line
 msgid "Dispatch is sending you empty to {destination}."
-msgstr ""
+msgstr "A central está mandando você vazio para {destination}."
 
 #. placeholders: {destination}
 msgid ""
 "Dispatch is sending you empty to {destination}. After you accept, Route "
 "planning lists rest, fuel, tolls, weather and restrictions."
 msgstr ""
+"A central está mandando você vazio para {destination}. Depois de aceitar, "
+"Planejamento de rota lista descanso, combustível, pedágios, clima e "
+"restrições."
 
 #. one sentence of a longer line
 msgid ""
 "After pickup, Route planning lists rest, fuel, tolls, weather and "
 "restrictions."
 msgstr ""
+"Depois da coleta, Planejamento de rota lista descanso, combustível, "
+"pedágios, clima e restrições."
 
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 #. one sentence of a longer line
@@ -18358,6 +18473,9 @@ msgid ""
 "After pickup, Route planning lists rest, fuel, tolls, weather and "
 "restrictions."
 msgstr ""
+"Oferta de carga de {origin_facility_text} para {destination_facility_text}. "
+"Depois da coleta, Planejamento de rota lista descanso, combustível, "
+"pedágios, clima e restrições."
 
 #. placeholders: {hours}
 msgid ""
@@ -18444,7 +18562,7 @@ msgstr "uma viagem"
 
 #. placeholders: {origin}, {deadhead}
 msgid "Load in {origin}, {deadhead} empty first. "
-msgstr ""
+msgstr "Carga em {origin}, antes {deadhead} vazio. "
 
 msgid ""
 "Up and down review the lines, Home and End jump to the ends. Enter repeats "
@@ -18512,7 +18630,7 @@ msgstr "Destino: {city}."
 
 #. placeholders: {grouped}
 msgid "Pay for driving empty: {grouped} dollars."
-msgstr ""
+msgstr "Pagamento por rodar vazio: {grouped} dólares."
 
 msgid "No cargo, no trailer program, no endorsement needed."
 msgstr "Sem carga, sem programa de reboque, sem endosso necessário."
@@ -18658,7 +18776,7 @@ msgstr ""
 "menu Salvamentos na nuvem pode removê-los depois."
 
 msgid "Drive to a nearby city without a trailer"
-msgstr ""
+msgstr "Dirigir sem reboque até uma cidade próxima"
 
 msgid ""
 "Drive empty to a nearby city for its dispatch board. No load and no pay, "
@@ -18676,12 +18794,15 @@ msgstr "Não há rota até essa cidade."
 msgid ""
 "Drive without a trailer to {spoken_dest}, {distance_text} on {cloned}."
 msgstr ""
+"Dirigir sem reboque até {spoken_dest}, {distance_text} pela {cloned}."
 
 #. placeholders: {spoken_dest}, {distance_text}, {cloned}
 msgid ""
 "Drive without a trailer to {spoken_dest}, {distance_text} on {cloned}. No "
 "pay."
 msgstr ""
+"Dirigir sem reboque até {spoken_dest}, {distance_text} pela {cloned}. Sem "
+"pagamento."
 
 #. one sentence of a longer line
 msgid "No pay."
@@ -19161,11 +19282,11 @@ msgstr "Elegibilidade: {line}"
 
 #. placeholders: {maintenance_status_line}, {compound}
 msgid "{maintenance_status_line} Tires: {compound}."
-msgstr ""
+msgstr "{maintenance_status_line} Pneus: {compound}."
 
 #. placeholders: {f}, {compound}
 msgid "Tire wear: {f} percent, {compound} tires."
-msgstr ""
+msgstr "Desgaste dos pneus: {f} por cento, pneus {compound}."
 
 #. placeholders: {f}
 msgid "Brake wear: {f} percent."
@@ -19330,12 +19451,17 @@ msgid ""
 "dollars left. Own authority unlocks after you meet the delivery, "
 "reputation, trailer program and cash requirements."
 msgstr ""
+"Reserva para o registro próprio separada: {grouped} dólares. Restam "
+"{grouped2} dólares. O registro próprio é liberado quando você cumprir os "
+"requisitos de entregas, reputação, programa de reboque e dinheiro."
 
 #. one sentence of a longer line
 msgid ""
 "Own authority unlocks after you meet the delivery, reputation, trailer "
 "program and cash requirements."
 msgstr ""
+"O registro próprio é liberado quando você cumprir os requisitos de "
+"entregas, reputação, programa de reboque e dinheiro."
 
 #. placeholders: {grouped2}
 #. one sentence of a longer line
@@ -19385,11 +19511,15 @@ msgid ""
 "dollars left. Dispatch now lists direct freight. Settlement includes "
 "insurance, compliance, trailer, truck and billing fees."
 msgstr ""
+"Registro próprio ativo. Custo inicial {grouped} dólares. Restam {grouped2} "
+"dólares. A central agora lista fretes diretos. O acerto inclui taxas de "
+"seguro, conformidade, reboque, caminhão e cobrança."
 
 #. one sentence of a longer line
 msgid ""
 "Settlement includes insurance, compliance, trailer, truck and billing fees."
 msgstr ""
+"O acerto inclui taxas de seguro, conformidade, reboque, caminhão e cobrança."
 
 #. placeholders: {grouped}
 #. one sentence of a longer line
@@ -19421,7 +19551,7 @@ msgstr "A próxima liberação da carreira ou do negócio."
 
 #. placeholders: {grouped}
 msgid "Owner-operator buy-in: {grouped} dollars"
-msgstr ""
+msgstr "Entrada como autônomo: {grouped} dólares"
 
 msgid "Higher revenue, but your business pays operating costs."
 msgstr "Receita maior, mas seu negócio paga os custos de operação."
@@ -19472,6 +19602,8 @@ msgid ""
 "Direct freight is available. Settlement includes insurance, compliance and "
 "billing fees."
 msgstr ""
+"Fretes diretos estão disponíveis. O acerto inclui taxas de seguro, "
+"conformidade e cobrança."
 
 msgid "Authority prep reserve: set"
 msgstr "Reserva de preparação do registro próprio: separada"
@@ -19485,7 +19617,7 @@ msgid "Activate own authority: {grouped} dollars"
 msgstr "Ativar o registro próprio: {grouped} dólares"
 
 msgid "Direct freight, more pay per load, more business costs."
-msgstr ""
+msgstr "Fretes diretos: mais pagamento por carga, mais custos do negócio."
 
 msgid "Own authority locked"
 msgstr "Registro próprio bloqueado"
@@ -19513,6 +19645,8 @@ msgid ""
 "Open weigh stations check this truck as it rolls past, so it often does not "
 "have to pull in."
 msgstr ""
+"Os postos de pesagem abertos verificam este caminhão enquanto ele passa, "
+"então muitas vezes ele não precisa entrar."
 
 #. placeholders: {grouped}
 msgid "Subscribe to weigh station transponder: {grouped} dollars"
@@ -19522,6 +19656,9 @@ msgid ""
 "A clean truck can be waved past most open scales instead of pulling in. "
 "Once active, a small amount per mile comes out of each settlement."
 msgstr ""
+"Um caminhão em ordem pode ser liberado na maioria das balanças abertas em "
+"vez de entrar. Depois de ativo, um pequeno valor por milha sai de cada "
+"acerto."
 
 msgid "Weigh station transponder locked"
 msgstr "Tag eletrônica de posto de pesagem bloqueada"
@@ -19536,6 +19673,8 @@ msgid ""
 "Upgrades apply to every tractor you own. Enter buys the next tier, F1 is "
 "details. Escape returns to the garage."
 msgstr ""
+"As melhorias valem para todos os seus cavalos mecânicos. Enter compra o "
+"próximo nível, F1 mostra os detalhes. Escape volta à oficina."
 
 msgid ""
 "Upgrades unlock with the owner-operator buy-in, from level 18 under "
@@ -19831,6 +19970,8 @@ msgid ""
 "Direct loads for this trailer now set aside money for its upkeep at "
 "settlement."
 msgstr ""
+"As cargas diretas com este reboque agora separam dinheiro para a manutenção "
+"dele no acerto."
 
 #. placeholders: {label}, {grouped}
 #. one sentence of a longer line
@@ -19843,6 +19984,9 @@ msgid ""
 "dollars left. Direct loads for this trailer now set aside money for its "
 "upkeep at settlement."
 msgstr ""
+"Reboque {label} comprado por {grouped} dólares. Restam {grouped2} dólares. "
+"As cargas diretas com este reboque agora separam dinheiro para a manutenção "
+"dele no acerto."
 
 #. one sentence of a longer line
 msgid "Trailers."
@@ -19863,6 +20007,8 @@ msgid ""
 "Enter books a course. Courses take game time, and a background check runs "
 "while you drive. Escape returns to the terminal."
 msgstr ""
+"Enter reserva um curso. Os cursos levam tempo de jogo, e uma verificação de "
+"antecedentes corre enquanto você dirige. Escape volta ao terminal."
 
 #. placeholders: {label}, {grouped}, {grouped2}
 msgid "The {label} course costs {grouped} dollars and you have {grouped2}."
@@ -20224,7 +20370,7 @@ msgid "Tires replaced. {grouped} dollars. {remaining_balance_text}"
 msgstr "Pneus trocados. {grouped} dólares. {remaining_balance_text}"
 
 msgid "Tire type: the carrier chooses its own tires"
-msgstr ""
+msgstr "Tipo de pneu: a empresa escolhe os próprios pneus"
 
 #. placeholders: {grouped}
 msgid "Switch to all-season tires: fresh set for {grouped} dollars"
@@ -20630,6 +20776,8 @@ msgid ""
 "Take it, and an inspector can write you up for it at the first weigh "
 "station."
 msgstr ""
+"Se aceitar, um fiscal pode autuar você por isso no primeiro posto de "
+"pesagem."
 
 #. placeholders: {name}, {defect}, {condition_text}, {f}, {tank_walk_around_clause}
 msgid ""
@@ -20637,11 +20785,16 @@ msgid ""
 "up for it at the first weigh station. Refuse for a swap, about {f} "
 "minutes.{tank_walk_around_clause}"
 msgstr ""
+"{name}: {defect}, {condition_text}. Se aceitar, um fiscal pode autuar você "
+"por isso no primeiro posto de pesagem. Recuse para trocar, cerca de {f} "
+"minutos.{tank_walk_around_clause}"
 
 msgid ""
 "The baffles calm the surge after a couple of swings, but it still pushes a "
 "moment after you brake."
 msgstr ""
+"As chicanas acalmam o balanço depois de umas duas oscilações, mas ainda "
+"empurra um instante depois de frear."
 
 msgid "Smooth bore, nothing in there slows it down."
 msgstr "Sem quebra-ondas, nada lá dentro segura o movimento."
@@ -20832,12 +20985,16 @@ msgid ""
 " {wait} minutes past the two free hours at the dock: {dollars} dollars "
 "detention pay at settlement."
 msgstr ""
+" {wait} minutos além das duas horas livres na doca: {dollars} dólares de "
+"estadia no acerto."
 
 #. placeholders: {wait}, {dollars}
 msgid ""
 " {wait} minutes past the two free hours at the dock: {dollars} dollars "
 "detention, paid to the carrier."
 msgstr ""
+" {wait} minutos além das duas horas livres na doca: {dollars} dólares de "
+"estadia, pagos à empresa."
 
 msgid " before you shut down"
 msgstr " antes de você desligar"
@@ -20919,7 +21076,7 @@ msgstr "Recusar este reboque"
 #. placeholders: {f}
 #. one sentence of a longer line
 msgid "About {f} minutes, and the yard keeps the problem."
-msgstr ""
+msgstr "Cerca de {f} minutos, e o pátio fica com o problema."
 
 #. one sentence of a longer line
 msgid "The yard brings a sound one."
@@ -20930,6 +21087,8 @@ msgid ""
 "The yard brings a sound one. About {f} minutes, and the yard keeps the "
 "problem."
 msgstr ""
+"O pátio traz um em bom estado. Cerca de {f} minutos, e o pátio fica com o "
+"problema."
 
 msgid "Pickup status"
 msgstr "Status da coleta"
@@ -21747,19 +21906,24 @@ msgstr ""
 
 msgid "orinks.net has not confirmed this backup. Local save unchanged."
 msgstr ""
+"O orinks.net não confirmou este backup. Salvamento local sem mudanças."
 
 msgid ""
 "orinks.net has not confirmed this backup. It was not restored, and your "
 "local career is unchanged."
 msgstr ""
+"O orinks.net não confirmou este backup. Ele não foi restaurado, e sua "
+"carreira local não mudou."
 
 msgid "This backup is damaged. Local save unchanged."
-msgstr ""
+msgstr "Este backup está danificado. Salvamento local sem mudanças."
 
 msgid ""
 "This backup is damaged. It was not restored, and your local career is "
 "unchanged."
 msgstr ""
+"Este backup está danificado. Ele não foi restaurado, e sua carreira local "
+"não mudou."
 
 msgid "Backup needs a newer Freight Fate version. Nothing restored."
 msgstr ""
@@ -22196,7 +22360,7 @@ msgstr "A tecla do acelerador nunca trava."
 #. placeholders: {down}
 msgid ""
 "In automatic, stop, release {down}, then press and hold it again to reverse."
-msgstr ""
+msgstr "No automático, pare, solte {down} e segure de novo para dar ré."
 
 #. placeholders: {up}
 msgid ""
@@ -22236,7 +22400,7 @@ msgstr ""
 "baixo."
 
 msgid "Braking cancels it."
-msgstr ""
+msgstr "Frear cancela."
 
 msgid "At the planned pickup it pauses and resumes once you depart."
 msgstr "Na coleta planejada ele pausa e retoma assim que você parte."
@@ -22261,6 +22425,9 @@ msgid ""
 "Parked with the parking brake set, {cruise} runs the engine at a fast idle; "
 "plus and minus adjust it, and releasing the parking brake drops it."
 msgstr ""
+"Estacionado com o freio de estacionamento puxado, {cruise} deixa o motor em "
+"marcha lenta acelerada; mais e menos ajustam, e soltar o freio de "
+"estacionamento desliga."
 
 #. placeholders: {exit}
 msgid ""
@@ -22274,6 +22441,8 @@ msgid ""
 "Unless lane keeping is on full, move to the right lane, then steer right "
 "into the exit lane where it opens."
 msgstr ""
+"A não ser que a manutenção de faixa esteja completa, passe para a faixa da "
+"direita e depois vire à direita para a faixa de saída onde ela abre."
 
 msgid ""
 "Keep road speed to there, then brake to the exit speed before the ramp "
@@ -22294,6 +22463,9 @@ msgid ""
 "{exit} also signals a pull-over when a trooper signals you to pull over for "
 "speeding, a scale bypass, or unsafe equipment: signal, then brake to a stop."
 msgstr ""
+"{exit} também sinaliza que você vai encostar quando um policial manda parar "
+"por excesso de velocidade, por pular a balança ou por equipamento inseguro: "
+"dê seta e freie até parar."
 
 msgid ""
 "Ignoring the lights brings failure-to-stop warnings, then a stop that "
@@ -22475,6 +22647,9 @@ msgid ""
 "sign at the end of the ramp, the next lower speed limit, the next stop, and "
 "the next bend you need to slow for."
 msgstr ""
+"{upcoming} lê o que vem pela frente: sua saída sinalizada, o semáforo ou a "
+"placa de pare no fim da alça, o próximo limite de velocidade menor, a "
+"próxima parada e a próxima curva em que você precisa reduzir."
 
 #. placeholders: {safe_speed}
 msgid ""
@@ -22550,6 +22725,8 @@ msgid ""
 "Fully stopped away from route points, {rest} offers emergency sleep on the "
 "shoulder."
 msgstr ""
+"Totalmente parado longe dos pontos da rota, {rest} oferece dormir de "
+"emergência no acostamento."
 
 #. placeholders: {horn}
 msgid "{horn} horn."
@@ -22630,6 +22807,8 @@ msgid ""
 "In automatic, stop, let the left trigger return to neutral, then press and "
 "hold it again to reverse."
 msgstr ""
+"No automático, pare, deixe o gatilho esquerdo voltar ao neutro e segure de "
+"novo para dar ré."
 
 msgid ""
 "While reversing, stop with the right trigger, release, then press it again "
@@ -22664,12 +22843,16 @@ msgstr ""
 msgid ""
 "Parked with the parking brake set, {cruise} runs the engine at a fast idle."
 msgstr ""
+"Estacionado com o freio de estacionamento puxado, {cruise} deixa o motor em "
+"marcha lenta acelerada."
 
 #. placeholders: {take_exit}
 msgid ""
 "{take_exit} signals for the next announced exit, or a pull-over when a "
 "trooper signals you to pull over."
 msgstr ""
+"{take_exit} dá seta para a próxima saída anunciada, ou para encostar quando "
+"um policial manda parar."
 
 #. placeholders: {route}, {weather}, {clock}
 msgid ""
@@ -22980,12 +23163,13 @@ msgstr "Mantendo a velocidade."
 
 msgid "The engine brake is sliding the drive wheels. Lower it a stage."
 msgstr ""
+"O freio motor está fazendo as rodas de tração patinarem. Baixe um estágio."
 
 msgid "brake in short bursts"
-msgstr ""
+msgstr "freie em toques curtos"
 
 msgid "shift down or brake in short bursts"
-msgstr ""
+msgstr "reduza a marcha ou freie em toques curtos"
 
 #. placeholders: {stage}, {losing}
 msgid "Jake stage {stage} is not holding it; {losing}."
@@ -23881,12 +24065,14 @@ msgid "Load {words}, {cargo_damage_pct} percent. {consequence}"
 msgstr "Carga {words}, {cargo_damage_pct} por cento. {consequence}"
 
 msgid "The receiver will note the damage and hold back part of the pay."
-msgstr ""
+msgstr "O destinatário vai anotar o dano e reter parte do pagamento."
 
 msgid ""
 "Damaged enough for a claim. The receiver will take it, and the carrier pays "
 "for what you broke."
 msgstr ""
+"Danificado o bastante para uma reclamação. O destinatário vai aceitar, e a "
+"empresa paga o que você quebrou."
 
 msgid "The dock will refuse a load in this state."
 msgstr "A doca vai recusar uma carga neste estado."
@@ -24421,12 +24607,20 @@ msgid ""
 "Dispatch logged preventable equipment damage against your record; repeated "
 "damage can cost you your job. Press {control_hint} to restart the engine."
 msgstr ""
+"A central tirou o {grounded} de serviço. A empresa cobre a conta. "
+"{handover}. Isso levou {GROUNDED_SWAP_MIN} horas e agora são {clock_text}. "
+"O dano no caminhão em que você está é de {damage_pct} por cento. A central "
+"registrou dano evitável ao equipamento no seu histórico; danos repetidos "
+"podem custar o seu emprego. Pressione {control_hint} para ligar o motor de "
+"novo."
 
 #. one sentence of a longer line
 msgid ""
 "Dispatch logged preventable equipment damage against your record; repeated "
 "damage can cost you your job."
 msgstr ""
+"A central registrou dano evitável ao equipamento no seu histórico; danos "
+"repetidos podem custar o seu emprego."
 
 #. placeholders: {GROUNDED_SWAP_MIN}, {clock_text}
 #. one sentence of a longer line
@@ -27251,7 +27445,7 @@ msgid "The load has settled."
 msgstr "A carga se assentou."
 
 msgid "The baffles calm the surge after a couple of swings."
-msgstr ""
+msgstr "As chicanas acalmam o balanço depois de umas duas oscilações."
 
 msgid "Smooth bore: nothing inside to slow the wave down."
 msgstr "Tanque sem quebra-ondas: nada lá dentro para frear a onda."
@@ -27487,7 +27681,7 @@ msgstr "Alertas de clima: {join}."
 
 #. placeholders: {distance_text}
 msgid "Traffic: no slowdowns reported in the next {distance_text}."
-msgstr ""
+msgstr "Trânsito: nenhuma lentidão informada nos próximos {distance_text}."
 
 #. placeholders: {distance_text}
 msgid "Truck stops: no listed route stop in the next {distance_text}."
@@ -27521,6 +27715,8 @@ msgid ""
 "ELD keys: {control_name} time at the wheel, {control_name2} when the break "
 "is due, {control_name3} what ends this shift."
 msgstr ""
+"Teclas do ELD: {control_name} tempo ao volante, {control_name2} quando a "
+"pausa vence, {control_name3} o que encerra este turno."
 
 msgid "Road chatter: enforcement reports are quiet in this mode."
 msgstr ""
@@ -27568,6 +27764,8 @@ msgstr "Multas pendentes de cargas anteriores: {grouped} dólares, quitadas."
 msgid ""
 "Pay for driving empty: {grouped} dollars. You now have {grouped2} dollars. "
 msgstr ""
+"Pagamento por rodar vazio: {grouped} dólares. Agora você tem {grouped2} "
+"dólares. "
 
 #. placeholders: {grouped2}
 #. one sentence of a longer line
@@ -27580,7 +27778,7 @@ msgstr "Sem carga e sem pagamento. "
 #. placeholders: {destination}, {f}
 #. one sentence of a longer line
 msgid "Drove without a trailer to {destination} in {f} hours."
-msgstr ""
+msgstr "Dirigiu sem reboque até {destination} em {f} horas."
 
 #. placeholders: {destination}, {f}, {clock_text}, {pay_clause}, {name}, {destination2}, {f2}
 msgid ""
@@ -27588,6 +27786,9 @@ msgid ""
 "{pay_clause}Parked at {name}. {destination2} dispatch board available. Fuel "
 "{f2} percent."
 msgstr ""
+"Dirigiu sem reboque até {destination} em {f} horas. São {clock_text}. "
+"{pay_clause}Estacionado em {name}. Quadro de fretes de {destination2} "
+"disponível. Combustível {f2} por cento."
 
 #. placeholders: {f2}
 #. one sentence of a longer line
@@ -27677,6 +27878,8 @@ msgid ""
 "Receiver took the load but noted damage, {cargo_condition_text} at {f} "
 "percent."
 msgstr ""
+"O destinatário aceitou a carga, mas anotou dano, {cargo_condition_text} a "
+"{f} por cento."
 
 #. placeholders: {cargo_condition_text}, {f}, {grouped}, {grouped2}, {claim_holder}
 msgid ""
@@ -27684,6 +27887,9 @@ msgid ""
 "percent. Claim about {grouped} dollars, {grouped2} off this settlement. "
 "{claim_holder}."
 msgstr ""
+"O destinatário aceitou a carga, mas anotou dano, {cargo_condition_text} a "
+"{f} por cento. Reclamação de cerca de {grouped} dólares, {grouped2} "
+"descontados deste acerto. {claim_holder}."
 
 #. placeholders: {cargo_condition_text}, {f}
 #. one sentence of a longer line
@@ -27691,12 +27897,16 @@ msgid ""
 "The receiver noted damage on the paperwork: load arrived "
 "{cargo_condition_text} at {f} percent."
 msgstr ""
+"O destinatário anotou dano na papelada: a carga chegou "
+"{cargo_condition_text} a {f} por cento."
 
 #. placeholders: {cargo_condition_text}, {f}, {grouped}
 msgid ""
 "The receiver noted damage on the paperwork: load arrived "
 "{cargo_condition_text} at {f} percent. {grouped} dollars held back."
 msgstr ""
+"O destinatário anotou dano na papelada: a carga chegou "
+"{cargo_condition_text} a {f} por cento. {grouped} dólares retidos."
 
 #. placeholders: {grouped}
 #. one sentence of a longer line
@@ -27860,6 +28070,12 @@ msgid ""
 "Costs {grouped4}. Fines {grouped5}. Net {grouped6}, you have {grouped7}. "
 "Parked at {name}."
 msgstr ""
+"Entregou {f} toneladas de {label} em {destination} em {f2} horas, "
+"{else}.{receiver_service_clause} {clock_text}. {pay_label}: {grouped} "
+"dólares. Encargos {grouped2}: pedágios {grouped3}, encargos extras "
+"{charge_summary}. {accessorial_clause} Situação do negócio: {status_label}. "
+"Custos {grouped4}. Multas {grouped5}. Líquido {grouped6}, você tem "
+"{grouped7}. Estacionado em {name}."
 
 #. placeholders: {grouped5}
 #. one sentence of a longer line
@@ -28306,11 +28522,15 @@ msgid ""
 "{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
 "{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
 msgstr ""
+"Papelada, {facility}: {f} toneladas de {label}. Tarifa {grouped}, pagamento "
+"pela carga {grouped2}. Encargos {grouped3}: pedágios {grouped4}, encargos "
+"extras {charge_summary}. {charge_fate} Multas {grouped5}. Líquido cerca de "
+"{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} para acertar."
 
 #. placeholders: {grouped}, {grouped2}
 #. one sentence of a longer line
 msgid "Rate {grouped}, pay for the load {grouped2}."
-msgstr ""
+msgstr "Tarifa {grouped}, pagamento pela carga {grouped2}."
 
 #. placeholders: {cargo_condition}, {finish}
 #. one sentence of a longer line
@@ -28713,12 +28933,14 @@ msgid ""
 "How to play, opened at the driving keys page. Left and Right change pages, "
 "Up and Down read lines."
 msgstr ""
+"Como jogar, aberto na página das teclas de direção. Esquerda e Direita "
+"mudam de página, Cima e Baixo leem as linhas."
 
 msgid "Learn game sounds"
 msgstr "Conhecer os sons do jogo"
 
 msgid "Every sound the road uses, and what each one means."
-msgstr ""
+msgstr "Todos os sons que a estrada usa, e o que cada um significa."
 
 msgid "Practice keys and buttons"
 msgstr "Praticar teclas e botões"
@@ -28730,6 +28952,9 @@ msgid ""
 "A mobile mechanic patches the truck up enough to drive on. Costs far more "
 "than a garage, an hour and a half, and billed even into debt."
 msgstr ""
+"Um mecânico móvel remenda o caminhão o bastante para seguir. Custa muito "
+"mais que uma oficina, uma hora e meia, e é cobrado mesmo que você fique "
+"devendo."
 
 msgid ""
 "Report a delay, hours, road conditions, truck trouble, or load trouble."
@@ -30002,7 +30227,7 @@ msgstr ""
 "de direção."
 
 msgid "This finishes a split rest, and both parts count."
-msgstr ""
+msgstr "Isto completa um descanso dividido, e as duas partes contam."
 
 msgid ""
 "Your legal driving window pauses while you sleep. This rest alone does not "
@@ -30055,7 +30280,7 @@ msgstr " O quarto custa {f} dólares."
 #. placeholders: {span}
 #. one sentence of a longer line
 msgid "Clock moves ahead {span}."
-msgstr ""
+msgstr "O relógio avança {span}."
 
 #. placeholders: {span}, {more}, {name}
 #. one sentence of a longer line
@@ -30067,6 +30292,9 @@ msgid ""
 "Sleep {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
 "moves ahead {span}. {deadline}{pending}{cost} Select again to sleep."
 msgstr ""
+"Dormir {span}{more} em {name}. {effect} {legal} Cansaço de {f} para {f2}. O "
+"relógio avança {span}. {deadline}{pending}{cost} Selecione de novo para "
+"dormir."
 
 #. placeholders: {deadline}, {pending}, {cost}
 #. one sentence of a longer line
@@ -30254,7 +30482,7 @@ msgid "{name} is closed"
 msgstr "{name} está fechado"
 
 msgid "The weigh station is closed."
-msgstr ""
+msgstr "O posto de pesagem está fechado."
 
 msgid ""
 "A pre-trip walk-around: what an inspector would find on the tractor and the "
@@ -30790,10 +31018,10 @@ msgid "Pairs with 7 hours in the sleeper berth."
 msgstr "Combina com 7 horas na cabine-leito."
 
 msgid "Pairs with 3 more hours at parking where you can sleep."
-msgstr ""
+msgstr "Combina com mais 3 horas num estacionamento onde dá para dormir."
 
 msgid "Pairs with 2 more hours at parking where you can sleep."
-msgstr ""
+msgstr "Combina com mais 2 horas num estacionamento onde dá para dormir."
 
 #. placeholders: {pair}, {hours}
 msgid "{pair} Clock and deadline advance {hours} hours."
@@ -31888,12 +32116,16 @@ msgstr ""
 msgid ""
 "The chain control is holding the truck, and there are no chains aboard."
 msgstr ""
+"O controle de correntes está segurando o caminhão, e não há correntes a "
+"bordo."
 
 #. placeholders: {name}
 msgid ""
 "{name} needs you. The chain control is holding the truck, and there are no "
 "chains aboard."
 msgstr ""
+"{name} precisa de você. O controle de correntes está segurando o caminhão, "
+"e não há correntes a bordo."
 
 #. placeholders: {name}
 msgid "{name} has the truck stopped and needs you to choose what to do."
@@ -32053,7 +32285,7 @@ msgstr ""
 
 #. placeholders: {name}
 msgid "{name} put the chains on at the chain control."
-msgstr ""
+msgstr "{name} colocou as correntes no controle de correntes."
 
 #. placeholders: {name}, {animal}
 #. one sentence of a longer line
@@ -32600,11 +32832,15 @@ msgid ""
 "30-minute break. Wait here, which counts as your break, or sleep at the "
 "chain control."
 msgstr ""
+"Voltar leva {drive}, mais direção do que você tem antes da sua pausa de 30 "
+"minutos. Espere aqui, o que conta como sua pausa, ou durma no controle de "
+"correntes."
 
 #. one sentence of a longer line
 msgid ""
 "Wait here, which counts as your break, or sleep at the chain control."
 msgstr ""
+"Espere aqui, o que conta como sua pausa, ou durma no controle de correntes."
 
 #. placeholders: {drive}
 #. one sentence of a longer line
@@ -32672,7 +32908,7 @@ msgstr ""
 "temporada de correntes. O fiscal dá uma advertência."
 
 msgid "No chains aboard on a Colorado road that requires carrying them"
-msgstr ""
+msgstr "Sem correntes a bordo numa estrada do Colorado que exige levá-las"
 
 #. one sentence of a longer line
 msgid "Chain check."
@@ -33080,7 +33316,7 @@ msgid "Slowing for the bend."
 msgstr "Reduzindo para a curva."
 
 msgid "Ramp assistance released."
-msgstr "Assistência de transição de rota liberada."
+msgstr "Assistência em alças liberada."
 
 msgid "Back on the pavement."
 msgstr "De volta ao asfalto."
@@ -34614,13 +34850,13 @@ msgid "Custom"
 msgstr "Personalizado"
 
 msgid "Light"
-msgstr ""
+msgstr "Leve"
 
 msgid "Standard"
-msgstr ""
+msgstr "Padrão"
 
 msgid "Strong"
-msgstr ""
+msgstr "Forte"
 
 #. placeholders: {g}
 msgid "{g} times"
@@ -34814,6 +35050,11 @@ msgid ""
 "hold. Strong also caps every descent at 55 miles per hour and steps in "
 "sooner."
 msgstr ""
+"Com o piloto automático adaptativo ligado, segura uma descida íngreme na "
+"velocidade que seu caminhão aguenta com a carga, com o freio motor e "
+"freadas curtas. Em Padrão e Forte, frear define uma nova velocidade mais "
+"baixa para manter. Forte também limita toda descida a 55 milhas por hora e "
+"age mais cedo."
 
 msgid "Exit speed assistance"
 msgstr "Assistência de velocidade da saída"
@@ -34823,6 +35064,10 @@ msgid ""
 "lane, keeps the approach within 10 miles per hour of road speed, and brakes "
 "in the exit lane to the exit speed. You still take the exit."
 msgstr ""
+"Para uma saída sinalizada: reduz o caminhão se ele estiver rápido demais "
+"para chegar à faixa de saída, mantém a aproximação a até 10 milhas por hora "
+"da velocidade da via e freia na faixa de saída até a velocidade da saída. A "
+"saída é você quem pega."
 
 msgid "Facility stopping assistance"
 msgstr "Assistência de parada na instalação"
@@ -34835,6 +35080,13 @@ msgid ""
 "duty, and to take them off, about 10. It never buys chains. Realistic "
 "leaves it off; Balanced and All assists turn it on."
 msgstr ""
+"No último trecho até uma instalação, uma área de descanso ou um posto de "
+"pesagem aberto, controla o acelerador e os freios: até 12 milhas por hora, "
+"um avanço lento nos últimos 200 pés e depois uma parada. Nunca escolhe uma "
+"saída, entra num pátio ou encosta na doca. Numa área com lei de correntes, "
+"para para colocá-las, cerca de 30 minutos em serviço, e para tirá-las, "
+"cerca de 10. Nunca compra correntes. Realista deixa desligado; Equilibrado "
+"e Todas as assistências ligam."
 
 msgid "Curve assistance"
 msgstr "Assistência em curvas"
@@ -34846,14 +35098,21 @@ msgid ""
 "sound moves to one side only when you drift. Lane keeping is a separate "
 "setting and keeps you between the lines the rest of the time."
 msgstr ""
+"Faz as curvas mapeadas por você: reduz para a velocidade indicada com os "
+"freios de serviço, juntando o freio motor só numa descida íngreme, e vira "
+"na curva e nas esquinas. Enquanto ele vira, o som do motor só vai para um "
+"lado quando você sai da linha. A manutenção de faixa é um ajuste separado e "
+"mantém você entre as linhas no resto do tempo."
 
 msgid "Ramp assistance"
-msgstr "Assistência de transição de rota"
+msgstr "Assistência em alças"
 
 msgid ""
 "On an exit ramp, holds the truck to the ramp's speed and stops it for the "
 "light, stop sign, yield or roundabout at the end."
 msgstr ""
+"Numa alça de saída, mantém o caminhão na velocidade da alça e o para no "
+"semáforo, na placa de pare, no dê a preferência ou na rotatória do fim."
 
 msgid "Latching brake"
 msgstr "Freio com trava"
@@ -34874,6 +35133,8 @@ msgid ""
 "Tap the brake, then press again and hold half a second: a click and a "
 "spoken line confirm the brake now holds by itself."
 msgstr ""
+"Toque o freio, depois aperte de novo e segure meio segundo: um clique e uma "
+"frase confirmam que o freio agora segura sozinho."
 
 #. placeholders: {control_brake}
 msgid ""
@@ -34882,6 +35143,10 @@ msgid ""
 "{control_brake} releases it; the accelerator releases it instantly. The "
 "throttle key never latches. Presets never change this."
 msgstr ""
+"Toque o freio, depois aperte de novo e segure meio segundo: um clique e uma "
+"frase confirmam que o freio agora segura sozinho. Um toque em "
+"{control_brake} solta; o acelerador solta na hora. A tecla do acelerador "
+"nunca trava. As predefinições nunca mudam isso."
 
 msgid "Predictive cruise"
 msgstr "Piloto automático preditivo"
@@ -34891,6 +35156,9 @@ msgid ""
 "a climb, easing at a crest, no speed added before a descent. Presets never "
 "change this."
 msgstr ""
+"O piloto automático lê a estrada uma milha e meia à frente: um pouco mais "
+"de velocidade antes de uma subida, alivia no topo e não acrescenta "
+"velocidade antes de uma descida. As predefinições nunca mudam isso."
 
 msgid "Curve callouts"
 msgstr "Avisos de curvas"
@@ -34947,6 +35215,10 @@ msgid ""
 "cruise on open roads. It eases off early for the next turn or the next "
 "lower limit. Braking cancels it. Presets never change this."
 msgstr ""
+"Em zonas de baixa velocidade, como vias de instalações, portões e obras, "
+"{control_cruise} mantém sua velocidade atual e depois devolve ao piloto "
+"automático adaptativo na estrada aberta. Alivia cedo para a próxima curva "
+"ou o próximo limite menor. Frear cancela. As predefinições nunca mudam isso."
 
 #. one sentence of a longer line
 msgid "It eases off early for the next turn or the next lower limit."
@@ -34974,6 +35246,10 @@ msgid ""
 "gives the reputation number only when reputation is what sets it. When "
 "debt, your CDL or your record sets it, you hear the reason instead."
 msgstr ""
+"Escolha se a reputação e a confiança da central leem a descrição e a "
+"pontuação, só a pontuação ou só a descrição. A confiança da central dá o "
+"número da reputação só quando é a reputação que a define. Quando a dívida, "
+"sua CDL ou seu histórico a definem, você ouve o motivo."
 
 #. placeholders: {replace}
 msgid "Driving speech: {replace}"
@@ -34988,6 +35264,14 @@ msgid ""
 "appear in message review. Readout keys always answer. Billboards, place "
 "names, and landmarks have their own switches below."
 msgstr ""
+"Quanto a estrada diz a você. Padrão fala cada confirmação, atualização de "
+"status e aviso de trânsito, e uma dica de direção por trecho. Silencioso "
+"fala confirmações curtas, aberturas de faixa e atualizações de status, mas "
+"não o trânsito ao redor nem as dicas. Só urgente mantém os avisos de "
+"segurança e as orientações que pedem ação. As frases que um ajuste deixa de "
+"fora não fazem som e não aparecem na revisão de mensagens. As teclas de "
+"leitura sempre respondem. Outdoors, nomes de lugares e pontos de referência "
+"têm seus próprios botões abaixo."
 
 #. placeholders: {chatter_summary}
 msgid "Roadside chatter: {chatter_summary}"
@@ -34999,6 +35283,10 @@ msgid ""
 "below pick each kind. Safety and navigation are never affected. Town names "
 "are the Place callouts row below."
 msgstr ""
+"Avisos extras entre as orientações: parques, rios, passagens de montanha, "
+"museus e outdoors. Seta direita liga todos, seta esquerda desliga todos; os "
+"botões abaixo escolhem cada tipo. Segurança e navegação nunca são afetadas. "
+"Os nomes de cidades são a linha Avisos de cidades abaixo."
 
 #. placeholders: {on_off}
 msgid "Speak parks and forests: {on_off}"
@@ -35193,6 +35481,15 @@ msgid ""
 "the time left on a delivery. You can switch mid-drive from the pause menu; "
 "the change starts when the truck next stops."
 msgstr ""
+"A velocidade do relógio e o quanto a estrada pressiona. Tranquilo passa "
+"cerca de dez minutos de estrada e relógio a cada minuto real, com mais "
+"tempo para reagir a perigos, dano e cansaço mais leves e uma fala mais "
+"calma. Padrão mantém a pressão normal, cerca de vinte minutos a cada minuto "
+"real. Tempo real mantém a pressão do Padrão e roda o relógio em velocidade "
+"real, acertado com a data e a hora do seu computador. Trocar nunca muda "
+"suas horas de serviço nem o tempo restante de uma entrega. Você pode trocar "
+"no meio da viagem pelo menu de pausa; a mudança começa quando o caminhão "
+"parar."
 
 #. placeholders: {hos_label}
 msgid "Hours of service: {hos_label}"
@@ -35223,6 +35520,8 @@ msgid ""
 "Early advice to stop for a break or sleep while you have time to spare, "
 "plus the last stop you can legally reach."
 msgstr ""
+"Aviso antecipado para parar para uma pausa ou para dormir enquanto há "
+"folga, mais a última parada que você consegue alcançar dentro da lei."
 
 #. placeholders: {control_rest}
 msgid ""
@@ -35236,10 +35535,22 @@ msgid ""
 "truck. It never buys anything. Hours warnings and readout keys work whether "
 "this is on or off."
 msgstr ""
+"Aviso antecipado para parar para uma pausa ou para dormir enquanto há "
+"folga, mais a última parada que você consegue alcançar dentro da lei. Em "
+"movimento, {control_rest} planeja a parada recomendada; aperte de novo para "
+"cancelar. Com a fala na direção em Padrão, uma dica é dita antes do próximo "
+"aviso de horas; Silencioso e Só urgente a calam. Também avisa sobre leis de "
+"correntes: no quadro de fretes, quando a carga passa por uma estrada que "
+"exige correntes e a oficina do terminal ainda pode vender um jogo a você, e "
+"na estrada, quando uma lei de correntes sinalizada vale para o seu "
+"caminhão. Nunca compra nada. Os avisos de horas e as teclas de leitura "
+"funcionam com isto ligado ou desligado."
 
 #. one sentence of a longer line
 msgid "Hours warnings and readout keys work whether this is on or off."
 msgstr ""
+"Os avisos de horas e as teclas de leitura funcionam com isto ligado ou "
+"desligado."
 
 #. one sentence of a longer line
 msgid ""
@@ -35247,10 +35558,14 @@ msgid ""
 "a road that needs chains and the terminal garage can still sell you a set, "
 "and on the road when a posted chain law covers your truck."
 msgstr ""
+"Também avisa sobre leis de correntes: no quadro de fretes, quando a carga "
+"passa por uma estrada que exige correntes e a oficina do terminal ainda "
+"pode vender um jogo a você, e na estrada, quando uma lei de correntes "
+"sinalizada vale para o seu caminhão."
 
 #. one sentence of a longer line
 msgid "It never buys anything."
-msgstr ""
+msgstr "Nunca compra nada."
 
 #. placeholders: {control_rest}
 #. one sentence of a longer line
@@ -35258,12 +35573,16 @@ msgid ""
 "While rolling, {control_rest} plans the recommended stop; press it again to "
 "cancel."
 msgstr ""
+"Em movimento, {control_rest} planeja a parada recomendada; aperte de novo "
+"para cancelar."
 
 #. one sentence of a longer line
 msgid ""
 "With Standard driving speech one hint is spoken before the next hours "
 "warning; Quiet and Urgent only keep it silent."
 msgstr ""
+"Com a fala na direção em Padrão, uma dica é dita antes do próximo aviso de "
+"horas; Silencioso e Só urgente a calam."
 
 #. placeholders: {else}
 msgid "Weather source: {else}"
@@ -35291,6 +35610,8 @@ msgid ""
 "Real time uses live incident reports from state road information services "
 "when available."
 msgstr ""
+"Tempo real usa relatos de incidentes ao vivo dos serviços estaduais de "
+"informação rodoviária quando disponíveis."
 
 #. placeholders: {else}
 msgid "Fuel prices: {else}"
@@ -35315,6 +35636,8 @@ msgstr "Fonte do estacionamento: {else}"
 msgid ""
 "Real time uses live truck parking from state parking systems when available."
 msgstr ""
+"Tempo real usa vagas de estacionamento de caminhões ao vivo dos sistemas "
+"estaduais de estacionamento quando disponíveis."
 
 #. placeholders: {on_off}
 msgid "Live weather controls calendar: {on_off}"
@@ -35360,13 +35683,15 @@ msgstr "Câmbio: {else}"
 
 #. one sentence of a longer line
 msgid "Automatic shifts for you."
-msgstr ""
+msgstr "Automático troca as marchas para você."
 
 #. placeholders: {control_shift_up}, {control_shift_down}
 msgid ""
 "Automatic shifts for you. Manual: hold the clutch, then {control_shift_up} "
 "shifts up and {control_shift_down} shifts down."
 msgstr ""
+"Automático troca as marchas para você. Manual: segure a embreagem, e "
+"{control_shift_up} sobe a marcha e {control_shift_down} reduz."
 
 #. placeholders: {control_shift_up}, {control_shift_down}
 #. one sentence of a longer line
@@ -35374,6 +35699,8 @@ msgid ""
 "Manual: hold the clutch, then {control_shift_up} shifts up and "
 "{control_shift_down} shifts down."
 msgstr ""
+"Manual: segure a embreagem, e {control_shift_up} sobe a marcha e "
+"{control_shift_down} reduz."
 
 msgid ""
 "Game-controller input alongside the keyboard, which always stays active. "
@@ -35411,13 +35738,17 @@ msgstr ""
 
 #. placeholders: {on_off}
 msgid "Letters run menu items: {on_off}"
-msgstr ""
+msgstr "Letras acionam itens do menu: {on_off}"
 
 msgid ""
 "On, typing the first letter of an item runs it when no other item starts "
 "with that letter. When several share it, the letter moves between them and "
 "Enter runs the one you are on. Off, letters only move to the item."
 msgstr ""
+"Ligado, digitar a primeira letra de um item o aciona quando nenhum outro "
+"item começa com essa letra. Quando vários a compartilham, a letra passa "
+"entre eles e Enter aciona aquele em que você está. Desligado, as letras só "
+"levam ao item."
 
 msgid "Keyboard shortcuts"
 msgstr "Atalhos de teclado"
@@ -35474,6 +35805,9 @@ msgid ""
 "rumble-strip and shoulder textures, the lane locator on "
 "{control_lane_locator}, and the warning bars before a hairpin."
 msgstr ""
+"O volume dos sinais de faixa e de borda em relação ao resto: as texturas da "
+"faixa sonora e do acostamento, o localizador de faixa em "
+"{control_lane_locator} e as barras de aviso antes de uma curva fechadíssima."
 
 #. placeholders: {control_lane_locator}
 msgid ""
@@ -35483,15 +35817,22 @@ msgid ""
 "only these cues, on top of Gameplay cues volume. Quieter sits under the "
 "engine, standard matches it, louder cuts through."
 msgstr ""
+"O volume dos sinais de faixa e de borda em relação ao resto: as texturas da "
+"faixa sonora e do acostamento, o localizador de faixa em "
+"{control_lane_locator} e as barras de aviso antes de uma curva "
+"fechadíssima. Só ajusta estes sinais, por cima do Volume dos sinais de "
+"jogo. Mais baixo fica abaixo do motor, padrão iguala, mais alto se "
+"sobressai."
 
 #. one sentence of a longer line
 msgid "It adjusts only these cues, on top of Gameplay cues volume."
-msgstr ""
+msgstr "Só ajusta estes sinais, por cima do Volume dos sinais de jogo."
 
 #. one sentence of a longer line
 msgid ""
 "Quieter sits under the engine, standard matches it, louder cuts through."
 msgstr ""
+"Mais baixo fica abaixo do motor, padrão iguala, mais alto se sobressai."
 
 #. placeholders: {else}
 msgid "Steering guide: {else}"
@@ -35743,10 +36084,13 @@ msgid ""
 "exits and open weigh stations without a signal, including the destination "
 "exit."
 msgstr ""
+"Completa segura a faixa, sai de uma faixa que uma obra fecha e pega suas "
+"saídas e os postos de pesagem abertos sem seta, inclusive a saída do "
+"destino."
 
 #. one sentence of a longer line
 msgid "How much of the steering the truck does."
-msgstr ""
+msgstr "Quanto da direção o caminhão faz."
 
 #. placeholders: {control_steer_left}, {control_steer_right}
 msgid ""
@@ -35763,23 +36107,41 @@ msgid ""
 "guide sound, under Audio, change which way to steer and what leans. "
 "Realistic sets this off, Balanced partial, All assists full."
 msgstr ""
+"Quanto da direção o caminhão faz. Completa segura a faixa, sai de uma faixa "
+"que uma obra fecha e pega suas saídas e os postos de pesagem abertos sem "
+"seta, inclusive a saída do destino. Um toque em {control_steer_left} ou "
+"{control_steer_right} muda de faixa. Parcial vira nas curvas com um desvio "
+"suave e ajuda generosa; mudanças de faixa e velocidade são com você. "
+"Desligada deriva como um caminhão de verdade; as curvas são com você a "
+"menos que a assistência em curvas esteja ligada, e toda saída precisa de "
+"seta e da faixa de saída. Em parcial ou desligada, {lean}. O ruído da "
+"estrada diz onde você está na faixa, e a borda avisa quando você sai dela: "
+"uma trepidação na beira da faixa sonora, um zumbido em cima dela, cascalho "
+"fora do asfalto. Guia de direção e Som de guia de faixa, em Áudio, mudam "
+"para que lado virar e o que se inclina. Realista põe em desligada, "
+"Equilibrado em parcial, Todas as assistências em completa."
 
 #. one sentence of a longer line
 msgid ""
 "Off drifts like a real truck; bends are yours unless curve assistance is "
 "on, and every exit needs a signal and the exit lane."
 msgstr ""
+"Desligada deriva como um caminhão de verdade; as curvas são com você a "
+"menos que a assistência em curvas esteja ligada, e toda saída precisa de "
+"seta e da faixa de saída."
 
 #. placeholders: {lean}
 #. one sentence of a longer line
 msgid "On partial or off, {lean}."
-msgstr ""
+msgstr "Em parcial ou desligada, {lean}."
 
 #. one sentence of a longer line
 msgid ""
 "Partial steers through bends with a gentle drift and generous help; lane "
 "changes and speed are yours."
 msgstr ""
+"Parcial vira nas curvas com um desvio suave e ajuda generosa; mudanças de "
+"faixa e velocidade são com você."
 
 #. one sentence of a longer line
 msgid "Realistic sets this off, Balanced partial, All assists full."
@@ -35793,6 +36155,9 @@ msgid ""
 "you leave it: a stutter on the edge of the rumble strip, a buzz fully on "
 "it, gravel off the pavement."
 msgstr ""
+"O ruído da estrada diz onde você está na faixa, e a borda avisa quando você "
+"sai dela: uma trepidação na beira da faixa sonora, um zumbido em cima dela, "
+"cascalho fora do asfalto."
 
 #. one sentence of a longer line
 msgid ""
@@ -36559,6 +36924,8 @@ msgid ""
 "Parked with the parking brake set, {control_cruise} runs the engine at a "
 "fast idle."
 msgstr ""
+"Estacionado com o freio de estacionamento puxado, {control_cruise} deixa o "
+"motor em marcha lenta acelerada."
 
 #. one sentence of a longer line
 msgid "Set the parking brake when stopped."
@@ -36570,6 +36937,10 @@ msgid ""
 "and tire damage. Parked with the parking brake set, {control_cruise} runs "
 "the engine at a fast idle."
 msgstr ""
+"Puxe o freio de estacionamento quando parado. Puxá-lo em movimento causa "
+"uma parada brusca e danos aos pneus. Estacionado com o freio de "
+"estacionamento puxado, {control_cruise} deixa o motor em marcha lenta "
+"acelerada."
 
 #. one sentence of a longer line
 msgid ""
@@ -36691,12 +37062,17 @@ msgid ""
 "{control_cruise_resume} resumes the previous target. Speed control pauses "
 "at the pickup and comes back on after you leave with the load."
 msgstr ""
+"Aperte {control_cruise} de novo ou toque nos freios para cancelar. "
+"{control_cruise_resume} retoma o alvo anterior. O controle de velocidade "
+"pausa na coleta e volta depois que você sai com a carga."
 
 #. one sentence of a longer line
 msgid ""
 "Speed control pauses at the pickup and comes back on after you leave with "
 "the load."
 msgstr ""
+"O controle de velocidade pausa na coleta e volta depois que você sai com a "
+"carga."
 
 #. placeholders: {control_cruise_resume}
 #. one sentence of a longer line
@@ -36980,6 +37356,9 @@ msgid ""
 "or stop sign at the end of the ramp, the next lower speed limit, the next "
 "stop, and the next bend you need to slow for."
 msgstr ""
+"{control_upcoming} lê o que vem pela frente: sua saída sinalizada, o "
+"semáforo ou a placa de pare no fim da alça, o próximo limite de velocidade "
+"menor, a próxima parada e a próxima curva em que você precisa reduzir."
 
 #. placeholders: {control_cb}
 #. one sentence of a longer line
@@ -37036,6 +37415,9 @@ msgid ""
 "Keyboard shortcuts or Controller buttons. These pages follow your "
 "assignments."
 msgstr ""
+"A maioria das teclas de direção pode ser mudada em Configurações, "
+"Jogabilidade, Controles e depois Atalhos de teclado ou Botões do controle. "
+"Estas páginas seguem as suas atribuições."
 
 msgid "Steering and curves"
 msgstr "Direção e curvas"
@@ -37078,11 +37460,17 @@ msgid ""
 "moves to. Road noise tells you position: sound to the right means the truck "
 "sits right of center."
 msgstr ""
+"Com o guia de direção padrão, vire para o lado para onde o som do motor "
+"vai. O ruído da estrada diz a posição: som à direita significa que o "
+"caminhão está à direita do centro."
 
 msgid ""
 "With lane keeping off and curve assistance off, hold toward a called bend "
 "to follow the road. Letting go straightens the truck with the road."
 msgstr ""
+"Com a manutenção de faixa e a assistência em curvas desligadas, segure para "
+"o lado de uma curva anunciada para seguir a estrada. Ao soltar, o caminhão "
+"se alinha com a estrada."
 
 #. placeholders: {control_straighten}
 #. one sentence of a longer line
@@ -37125,6 +37513,8 @@ msgid ""
 "The Steering guide setting can reverse which way to steer, and Lane guide "
 "sound can use a soft tone instead of the engine."
 msgstr ""
+"O ajuste Guia de direção pode inverter para que lado virar, e Som de guia "
+"de faixa pode usar um tom suave em vez do motor."
 
 #. placeholders: {control_lane_locator}
 #. one sentence of a longer line
@@ -37132,6 +37522,9 @@ msgid ""
 "{control_lane_locator} turns the lane locator on or off: a soft tock that "
 "follows your place in the lane, with lane keeping partial or off."
 msgstr ""
+"{control_lane_locator} liga ou desliga o localizador de faixa: um toque "
+"suave que acompanha sua posição na faixa, com a manutenção de faixa parcial "
+"ou desligada."
 
 #. placeholders: {control_lane_locator}
 msgid ""
@@ -37140,11 +37533,17 @@ msgid ""
 "Steering guide setting can reverse which way to steer, and Lane guide sound "
 "can use a soft tone instead of the engine."
 msgstr ""
+"{control_lane_locator} liga ou desliga o localizador de faixa: um toque "
+"suave que acompanha sua posição na faixa, com a manutenção de faixa parcial "
+"ou desligada. O ajuste Guia de direção pode inverter para que lado virar, e "
+"Som de guia de faixa pode usar um tom suave em vez do motor."
 
 msgid ""
 "Curve assistance slows and steers through mapped bends. If you brake, it "
 "stops slowing for that bend but keeps steering."
 msgstr ""
+"A assistência em curvas reduz e vira nas curvas mapeadas. Se você frear, "
+"ela para de reduzir naquela curva, mas continua virando."
 
 msgid "Exits, ramps, and arrival"
 msgstr "Saídas, rampas e chegada"
@@ -37244,10 +37643,12 @@ msgid ""
 "If you miss the destination exit, follow the safe turnaround. Exits you "
 "have no reason to take are not announced."
 msgstr ""
+"Se você perder a saída do destino, siga o retorno seguro. Saídas que você "
+"não tem motivo para pegar não são anunciadas."
 
 #. one sentence of a longer line
 msgid "A nearby stop always comes first."
-msgstr ""
+msgstr "Uma parada próxima sempre vem primeiro."
 
 #. placeholders: {control_rest}
 #. one sentence of a longer line
@@ -37261,6 +37662,9 @@ msgid ""
 "stopped elsewhere, {control_rest} offers emergency sleep on the shoulder. A "
 "nearby stop always comes first."
 msgstr ""
+"Totalmente parado numa parada da rota, {control_rest} abre os serviços "
+"dela. Totalmente parado em outro lugar, {control_rest} oferece dormir de "
+"emergência no acostamento. Uma parada próxima sempre vem primeiro."
 
 #. placeholders: {control_rest}
 #. one sentence of a longer line
@@ -37268,6 +37672,8 @@ msgid ""
 "Fully stopped elsewhere, {control_rest} offers emergency sleep on the "
 "shoulder."
 msgstr ""
+"Totalmente parado em outro lugar, {control_rest} oferece dormir de "
+"emergência no acostamento."
 
 msgid "Traffic, weather, and enforcement"
 msgstr "Trânsito, clima e fiscalização"
@@ -37326,6 +37732,9 @@ msgid ""
 "something is stopped in your lane: move to the open lane it names, or brake "
 "almost to a stop."
 msgstr ""
+"Quando ouvir Freie agora, reduza na hora. Mude de faixa ou freie significa "
+"que há algo parado na sua faixa: passe para a faixa livre indicada, ou "
+"freie quase até parar."
 
 msgid ""
 "No lane open means brake. Full lane keeping can pass slow vehicles, but "
@@ -37403,6 +37812,8 @@ msgstr ""
 msgid ""
 "CB chatter is what other drivers say they saw, and it is not always right."
 msgstr ""
+"A conversa no PX é o que outros motoristas dizem ter visto, e nem sempre "
+"está certa."
 
 #. placeholders: {control_cb}
 msgid ""
@@ -37410,6 +37821,9 @@ msgid ""
 "It can be stale and never claims the road is clear. {control_cb} repeats it "
 "with updated distance."
 msgstr ""
+"A conversa no PX é o que outros motoristas dizem ter visto, e nem sempre "
+"está certa. Pode estar desatualizada e nunca afirma que a estrada está "
+"livre. {control_cb} repete com a distância atualizada."
 
 #. one sentence of a longer line
 msgid "It can be stale and never claims the road is clear."
@@ -37460,6 +37874,8 @@ msgid ""
 "Any thirty minutes in a row without driving count as that break, including "
 "loading or inspection. They do not necessarily reset the duty window."
 msgstr ""
+"Qualquer meia hora seguida sem dirigir conta como essa pausa, inclusive "
+"carregamento ou inspeção. Não zera necessariamente a janela de serviço."
 
 msgid ""
 "Both hours modes use these limits. Relaxed changes enforcement pressure. "
@@ -37468,6 +37884,11 @@ msgid ""
 "Real time. No warning comes for a limit you will not reach before the trip "
 "ends."
 msgstr ""
+"Os dois modos de horas usam estes limites. Tranquilo muda a pressão da "
+"fiscalização. Um aviso vem antes de cada limite: uma hora antes no modo de "
+"condução Tranquilo, duas horas em Padrão, e duas horas, uma hora e trinta "
+"minutos em Tempo real. Não vem aviso para um limite que você não vai "
+"alcançar antes do fim da viagem."
 
 #. one sentence of a longer line
 msgid "Check again as traffic or weather changes."
@@ -37497,9 +37918,15 @@ msgid ""
 "or 8 hours. Pair 8 with 2, or 7 with 3, for a split rest. The long part "
 "pauses the duty window; the short part does not, until the pair is done."
 msgstr ""
+"Dormir dez horas é o jeito mais simples de zerar. Estacionamentos com "
+"cabine-leito também oferecem 2, 3, 7 ou 8 horas. Junte 8 com 2, ou 7 com 3, "
+"para um descanso dividido. A parte longa pausa a janela de serviço; a curta "
+"não, até o par se completar."
 
 msgid "A nap that is not part of a split leaves the duty window running."
 msgstr ""
+"Um cochilo que não faz parte de um descanso dividido deixa a janela de "
+"serviço correndo."
 
 msgid ""
 "Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
@@ -37529,6 +37956,8 @@ msgid ""
 "Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
 "leaves you fully rested."
 msgstr ""
+"Dormir 10 horas no pátio dá um descanso ruim. Dez horas num estacionamento "
+"com cabine-leito deixam você totalmente descansado."
 
 #. placeholders: {control_rest}
 msgid ""
@@ -37554,6 +37983,9 @@ msgid ""
 "New company hires get an assigned load. Load choice opens at level eight. "
 "Declining costs reputation; low dispatch trust can remove load choice again."
 msgstr ""
+"Os novos motoristas da empresa recebem uma carga atribuída. A escolha de "
+"carga abre no nível oito. Recusar custa reputação; uma confiança da central "
+"baixa pode tirar a escolha de carga de novo."
 
 msgid ""
 "Jobs name cargo, weight, pay, deadline, facilities, and equipment "
@@ -37575,11 +38007,17 @@ msgid ""
 "Company drivers receive wages and bonuses. Owner-operators earn more per "
 "load but pay fuel, repairs, reserves, trailer charges and fees."
 msgstr ""
+"Motoristas contratados recebem salário e bônus. Autônomos ganham mais por "
+"carga, mas pagam combustível, consertos, reservas, encargos do reboque e "
+"taxas."
 
 msgid ""
 "Settlement lists the pay for the load, charges the carrier covers, your own "
 "costs, and what you take home. On-time and undamaged freight pays better."
 msgstr ""
+"O acerto lista o pagamento pela carga, os encargos que a empresa cobre, "
+"seus próprios custos e o que você leva para casa. Carga no prazo e sem dano "
+"paga melhor."
 
 msgid ""
 "Unpaid charges become a balance owed. Later settlements use one quarter for "
@@ -37594,6 +38032,9 @@ msgid ""
 "At that limit, a company driver changes carrier or an owner loses tractors "
 "and returns to company driving."
 msgstr ""
+"Os avisos de dívida dizem o máximo que você pode dever e o que acontece "
+"quando chega lá. Nesse limite, um motorista contratado muda de empresa, ou "
+"um dono perde cavalos mecânicos e volta a dirigir para uma empresa."
 
 msgid ""
 "You keep career level, experience, endorsements, and record. Career stats "
@@ -37617,6 +38058,10 @@ msgid ""
 "component puts the truck out of service. As damage builds, the truck loses "
 "power, then goes into limp mode, then out of service."
 msgstr ""
+"Com oitenta por cento de desgaste num componente, marque o serviço. Com "
+"cem, esse componente tira o caminhão de serviço. Conforme o dano cresce, o "
+"caminhão perde potência, depois entra em modo de emergência e depois sai de "
+"serviço."
 
 msgid ""
 "Owners buy tractors, upgrades, and trailer programs. Each truck keeps its "
@@ -37808,6 +38253,9 @@ msgid ""
 "speed. No slowdowns reported in the next twenty miles does not guarantee an "
 "empty road."
 msgstr ""
+"Trânsito informa o trânsito à frente, inclusive a distância e a velocidade "
+"de um veículo informado. Nenhuma lentidão informada nas próximas vinte "
+"milhas não garante uma estrada vazia."
 
 msgid ""
 "Truck stops lists up to three route stops in the next hundred miles, with "
@@ -37830,10 +38278,15 @@ msgid ""
 "enforcement off, there are no enforcement reports. {control_cb} repeats the "
 "last chatter with its distance updated."
 msgstr ""
+"A conversa da estrada traz relatos informais de motoristas que podem estar "
+"desatualizados. Com a fiscalização de horas desligada, não há relatos de "
+"fiscalização. {control_cb} repete a última conversa com a distância "
+"atualizada."
 
 #. one sentence of a longer line
 msgid "With hours enforcement off, there are no enforcement reports."
 msgstr ""
+"Com a fiscalização de horas desligada, não há relatos de fiscalização."
 
 #. placeholders: {control_cb}
 #. one sentence of a longer line
@@ -37932,6 +38385,11 @@ msgid ""
 "station, then a fallback. A stream that fails is off the dial until you "
 "restart the game. Roadhouse and Night Line are available across the map."
 msgstr ""
+"As rádios regionais somem conforme você sai do alcance delas. As favoritas "
+"tocam de qualquer lugar e nunca somem. Se a recepção falhar, o rádio tenta "
+"uma rádio local limpa e depois uma reserva. Um stream que falha sai do dial "
+"até você reiniciar o jogo. Roadhouse e Night Line estão disponíveis no mapa "
+"inteiro."
 
 msgid ""
 "Put M3U, M3U8, or PLS playlists in the Playlists folder inside your saves "
@@ -37958,6 +38416,11 @@ msgid ""
 "Fate's regional stations and voiced breaks off the dial. Real streams and "
 "personal playlists remain unless streamer-safe mode hides them."
 msgstr ""
+"Original usa o menu licenciado e as faixas da Roadhouse. Sintetizada toca "
+"música que o jogo compõe mais as três faixas originais, e tira do dial as "
+"rádios regionais do Freight Fate e seus intervalos falados. Streams reais e "
+"playlists pessoais continuam, a menos que o modo seguro para transmissão os "
+"esconda."
 
 msgid ""
 "Streamer-safe mode keeps built-in safe stations. With Synthesized music, "
@@ -38060,6 +38523,9 @@ msgid ""
 "covers another. Lower game sounds during speech turns the engine, weather, "
 "and radio to half volume while the road voice speaks."
 msgstr ""
+"Ajuste música, rádio, motor, clima e sinais de jogo separadamente se um "
+"encobrir outro. A opção \"Sons do jogo abaixam para a fala\" põe o motor, o "
+"clima e o rádio na metade do volume enquanto a voz da estrada fala."
 
 msgid ""
 "Driving speech chooses Standard, Quiet, or Urgent only announcements. "
@@ -38132,6 +38598,10 @@ msgid ""
 "careers. Restoring checks the backup first and keeps your replaced save as "
 "a spare copy. Back up this career now uploads immediately."
 msgstr ""
+"O backup na nuvem guarda os dez últimos backups de cada carreira, para até "
+"dez carreiras. Restaurar verifica o backup primeiro e guarda o seu "
+"salvamento substituído como cópia reserva. Fazer backup desta carreira "
+"agora envia na hora."
 
 msgid "Discord shows broad activity and clears it after half an hour idle."
 msgstr ""
@@ -38583,6 +39053,8 @@ msgid ""
 "To practice the buttons, hold Back and press Start on any screen. Press "
 "Start twice to leave."
 msgstr ""
+"Para praticar os botões, segure Voltar e aperte Start em qualquer tela. "
+"Aperte Start duas vezes para sair."
 
 msgid ""
 "If the controller does nothing, check that Controller is enabled under "
@@ -38854,7 +39326,7 @@ msgid "Profile sharing: not set up"
 msgstr "Compartilhamento do perfil: não configurado"
 
 msgid "Profile sharing: turning off"
-msgstr ""
+msgstr "Compartilhamento do perfil: desligando"
 
 #. placeholders: {on_off}
 msgid "Profile sharing: {on_off}"
