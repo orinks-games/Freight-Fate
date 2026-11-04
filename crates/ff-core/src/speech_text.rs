@@ -398,7 +398,8 @@ impl Default for StopCalloutParts<'_> {
 ///
 /// Terse drops the stop-type prefix (the proper name mostly repeats it),
 /// the "in"/"at" scaffolding, and the key instruction -- and keeps the
-/// parking qualifier, because that is the fact the plan turns on.
+/// parking qualifier, because that is the fact the plan turns on. A planned
+/// stop keeps a short key instruction: it is the exit the driver means to take.
 ///
 /// `exit_hint` names the control that signals for the exit; the driving
 /// layer sets it to the device-correct hint, or to "" once the player has
@@ -454,6 +455,12 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
     }
     if fuel == Some(false) {
         terse = format!("{terse} No fuel.");
+    }
+    // The planned stop keeps its key in terse: it is the exit the driver
+    // chose, and on quiet this line was the only word about it before the
+    // exit went by with no signal set.
+    if !planned_prefix.is_empty() && !exit_hint.is_empty() {
+        terse = format!("{terse} Press {exit_hint} to signal.");
     }
     SpokenMessage::with_terse(normal_parts.join(" "), terse)
 }
@@ -974,9 +981,32 @@ mod tests {
         });
         assert_eq!(
             pair.terse.as_deref(),
-            Some("Planned stop, Sweetwater Rest Area, 3 miles.")
+            Some("Planned stop, Sweetwater Rest Area, 3 miles. Press X to signal.")
         );
         assert!(pair.normal.contains("Press X"));
+    }
+
+    #[test]
+    fn test_terse_keeps_the_key_only_for_the_planned_stop() {
+        let parts = StopCalloutParts {
+            typed_name: "public rest area: Sweetwater Rest Area",
+            plain_name: "Sweetwater Rest Area",
+            distance: "3 miles",
+            parking_certainty: "likely",
+            ..Default::default()
+        };
+        let ambient = stop_callout(&parts);
+        assert!(!ambient.terse.as_deref().unwrap_or("").contains("Press"));
+        // Retired once the player has signaled enough exits, planned or not.
+        let retired = stop_callout(&StopCalloutParts {
+            planned_prefix: "Planned stop, ",
+            exit_hint: "",
+            ..parts
+        });
+        assert_eq!(
+            retired.terse.as_deref(),
+            Some("Planned stop, Sweetwater Rest Area, 3 miles.")
+        );
     }
 
     #[test]

@@ -15727,6 +15727,10 @@ msgstr "Aperte {exit_hint} para dar seta para a saída."
 msgid "{terse} No fuel."
 msgstr ""
 
+#. placeholders: {terse}, {exit_hint}
+msgid "{terse} Press {exit_hint} to signal."
+msgstr ""
+
 msgid "estimated "
 msgstr "estimado em "
 
@@ -26970,6 +26974,14 @@ msgstr "{name2} também está à frente."
 
 #. placeholders: {range_text}
 msgid "Fuel range only {range_text}."
+msgstr ""
+
+#. placeholders: {hint}
+msgid " Press {hint} to signal for the exit."
+msgstr ""
+
+#. placeholders: {hint}
+msgid " Press {hint} to signal."
 msgstr ""
 
 msgid "Rest-stop planning unavailable during a police stop."
