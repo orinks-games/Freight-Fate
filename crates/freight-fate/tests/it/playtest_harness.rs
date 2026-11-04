@@ -1027,6 +1027,10 @@ fn assert_delivery_completes(job_rank: usize, route_rank: usize) {
 macro_rules! delivery_property_case {
     ($name:ident, $job_rank:expr, $route_rank:expr) => {
         #[test]
+        #[cfg_attr(
+            not(feature = "slow-tests"),
+            ignore = "sweep: a whole delivery per job and route"
+        )]
         fn $name() {
             assert_delivery_completes($job_rank, $route_rank);
         }

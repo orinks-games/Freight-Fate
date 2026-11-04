@@ -719,6 +719,7 @@ impl DrivingState {
     /// the frame that would otherwise have carried the reading across.
     pub fn refresh_live_facts(&self) {
         live::set_overspeed_active(self.overspeed_active);
+        live::set_exit_signal_on(self.exit_signal_on);
         live::set_pull_over_active(self.trip.pull_over_active);
         live::set_damage_pct(self.trip.truck.damage_pct);
         live::set_position_mi(self.trip.position_mi);

@@ -38,6 +38,7 @@
 - **Manual gear shifts now play the same short gear-change sound as automatic shifts.**
 - **The Mac game no longer freezes at launch with VoiceOver on.** It could stop responding for up to two minutes while VoiceOver was starting.
 - **Halloween week has more billboards, and they no longer repeat the same two lines.** They come up less often, and some are about the state you are in.
+- **Your planned stop is announced at every driving speech setting, with the key to signal for it.** Pressing X while it is read no longer brings the line back.
 - **Adaptive cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
 - **Full lane keeping now leaves a lane that a work zone closes.** It moves over when the signs come up, so All assists no longer drives into the barrels.
 - **The taper warning before a lane closure now names the open lane.** With the left lane closed it used to say merge left.
@@ -47,6 +48,8 @@
 - **A co-driver no longer crawls at 20 miles per hour after a downhill work zone.** They kept braking for the hill and ran out of hours.
 - **On ice, a co-driver now plans a stop they can reach at icy speeds.** They used to plan one their hours could not reach.
 - **A co-driver now lowers the cruise speed when the limit drops.** Entering a state with a lower truck limit, they kept the old speed.
+- **Adaptive cruise no longer repeats a work zone's slowdown after a stop.** Braking for a hazard or turning cruise off in the approach used to bring the line back.
+- **A road line cut off by a Clock or Route readout is no longer lost to a Brake warning.** With NVDA 2026.3 or SAPI, it plays after the warning.
 
 ## 1.9.5 - 2026-10-25
 

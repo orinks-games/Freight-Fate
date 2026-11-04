@@ -22,8 +22,15 @@ fn main() {
         .join("vendor")
         .join("sdl2")
         .join(format!("{os}-{arch}"));
-    println!("cargo:rerun-if-changed={}", dir.display());
     if !dir.is_dir() {
+        // Watch the parent instead: a rerun-if-changed path that does not
+        // exist counts as changed on every build, which rebuilt the whole
+        // game crate and relinked every test binary on each Linux and macOS
+        // `cargo test`, even with nothing edited.
+        println!(
+            "cargo:rerun-if-changed={}",
+            dir.parent().unwrap_or(&dir).display()
+        );
         // macOS and Linux are not vendored on purpose: SDL2 is compiled in
         // statically there (see Cargo.toml), so there is nothing missing and
         // nothing to warn about.
@@ -32,6 +39,7 @@ fn main() {
         }
         return;
     }
+    println!("cargo:rerun-if-changed={}", dir.display());
     println!("cargo:rustc-link-search=native={}", dir.display());
     let out = PathBuf::from(env::var("OUT_DIR").unwrap());
     if let Some(profile) = out.ancestors().nth(3) {

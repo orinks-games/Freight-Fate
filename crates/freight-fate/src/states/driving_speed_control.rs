@@ -111,10 +111,13 @@ impl DrivingState {
         self.acc_following = false;
         self.acc_weather_gap_said = false;
         self.acc_limit_capped = false;
-        self.acc_limit_cap_said = None;
-        self.acc_limit_hold = None;
         self.acc_weather_cap_said = None;
-        self.construction_slowdown = None;
+        // The limit drop or work zone cruise was slowing for, and what it
+        // said about it, stay: they are the road ahead, not this session.
+        // `engage_cruise` keeps them while they still apply. Cleared here, a
+        // hazard stop in a work-zone approach made cruise say "cruise easing
+        // to 55" and "to 45" a second time once it was back up to speed
+        // (owner's NVDA drives, 2026-11-03).
     }
 
     /// `_clear_keeper()`.
@@ -503,12 +506,22 @@ impl DrivingState {
     /// distance and whose limit is lower than the current corridor limit.
     /// `None` when there is nothing to pre-brake for.
     pub fn restricted_zone_limit_ahead(&mut self, ctx: &mut GameContext) -> Option<(f64, String)> {
+        let position = self.trip.position_mi;
         if !self.speed_control_armed || !ctx.settings.speed_keeper {
-            self.construction_slowdown = None;
-            self.construction_taper_stage = None;
+            // A zone already slowed for stays known while cruise is off, so
+            // setting cruise again inside its approach does not announce it
+            // a second time (owner's NVDA drives, 2026-11-03). Past its end,
+            // or with the keeper switched off, it is forgotten.
+            let passed = self
+                .construction_slowdown
+                .as_ref()
+                .is_none_or(|(end_mi, _, _)| position >= *end_mi);
+            if passed || !ctx.settings.speed_keeper {
+                self.construction_slowdown = None;
+                self.construction_taper_stage = None;
+            }
             return None;
         }
-        let position = self.trip.position_mi;
         let held = self.construction_slowdown.clone();
         let (limit_mph, reason) = match held {
             // Keep aiming at a zone already being slowed for. The warning

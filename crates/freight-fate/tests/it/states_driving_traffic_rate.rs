@@ -1239,8 +1239,8 @@ fn bounded_sweep() -> (Vec<Forced>, Vec<Census>, f64, usize) {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: seeded deliveries over a spread of real corridors -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: seeded deliveries over a spread of real corridors"
 )]
 fn traffic_drives_the_road_it_is_on_not_the_road_it_was_drawn_on() {
     // The defect this file was written for. A bubble vehicle's speed used to
@@ -1275,8 +1275,8 @@ fn traffic_drives_the_road_it_is_on_not_the_road_it_was_drawn_on() {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: seeded deliveries over a spread of real corridors -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: seeded deliveries over a spread of real corridors"
 )]
 fn nobody_is_on_the_brakes_where_the_road_gives_no_reason() {
     // "Merging is POSITIONAL: it happens at interchanges, and hard braking
@@ -1304,8 +1304,8 @@ fn nobody_is_on_the_brakes_where_the_road_gives_no_reason() {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: seeded deliveries over a spread of real corridors -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: seeded deliveries over a spread of real corridors"
 )]
 fn the_road_still_has_traffic_on_it() {
     // The guard on every change in this file. The complaint that started it
@@ -1334,8 +1334,8 @@ fn the_road_still_has_traffic_on_it() {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: seeded deliveries over a spread of real corridors -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: seeded deliveries over a spread of real corridors"
 )]
 fn every_forced_slow_down_is_one_the_road_explains() {
     // What the whole sweep is for, as an assertion: the truck may only be
@@ -1575,8 +1575,8 @@ fn with_a_lane_open_the_call_offers_it() {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: seeded deliveries over a spread of real corridors -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: seeded deliveries over a spread of real corridors"
 )]
 fn nobody_is_placed_in_a_lane_the_road_does_not_have() {
     // "Passing traffic lives in the left lane" was applied to every road,

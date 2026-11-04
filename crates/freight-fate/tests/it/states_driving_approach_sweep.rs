@@ -803,8 +803,8 @@ pub fn what_went_wrong(destination: &Destination, arrival: &Arrival) -> Option<S
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: hands-off arrivals at every kind of destination on the map -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: hands-off arrivals at every kind of destination on the map"
 )]
 fn test_the_approach_assist_stops_the_truck_at_every_kind_of_destination() {
     let world = get_world();

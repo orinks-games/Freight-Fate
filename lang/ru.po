@@ -15620,6 +15620,10 @@ msgstr "Нажмите {exit_hint}, чтобы включить сигнал с�
 msgid "{terse} No fuel."
 msgstr ""
 
+#. placeholders: {terse}, {exit_hint}
+msgid "{terse} Press {exit_hint} to signal."
+msgstr ""
+
 msgid "estimated "
 msgstr "примерно"
 
@@ -27164,6 +27168,14 @@ msgstr "Впереди есть ещё {name2}."
 
 #. placeholders: {range_text}
 msgid "Fuel range only {range_text}."
+msgstr ""
+
+#. placeholders: {hint}
+msgid " Press {hint} to signal for the exit."
+msgstr ""
+
+#. placeholders: {hint}
+msgid " Press {hint} to signal."
 msgstr ""
 
 msgid "Rest-stop planning unavailable during a police stop."

@@ -148,6 +148,7 @@ impl DrivingState {
             return;
         }
         self.exit_signal_on = true;
+        self.refresh_live_facts();
         self.canceled_exit_key = None;
         self.exit_cancel_armed = false;
         self.exit_signal_canceled = false;

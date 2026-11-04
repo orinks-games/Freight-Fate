@@ -15327,6 +15327,10 @@ msgstr "Çıkış için sinyal vermek üzere {exit_hint} tuşuna basın."
 msgid "{terse} No fuel."
 msgstr "{terse} Yakıt yok."
 
+#. placeholders: {terse}, {exit_hint}
+msgid "{terse} Press {exit_hint} to signal."
+msgstr ""
+
 msgid "estimated "
 msgstr "tahminen "
 
@@ -26388,6 +26392,14 @@ msgstr "İleride ayrıca {name2} var."
 
 #. placeholders: {range_text}
 msgid "Fuel range only {range_text}."
+msgstr ""
+
+#. placeholders: {hint}
+msgid " Press {hint} to signal for the exit."
+msgstr ""
+
+#. placeholders: {hint}
+msgid " Press {hint} to signal."
 msgstr ""
 
 msgid "Rest-stop planning unavailable during a police stop."
