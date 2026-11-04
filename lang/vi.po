@@ -17765,8 +17765,9 @@ msgid "this week's price"
 msgstr ""
 
 #. placeholders: {f}, {f2}, {live}
-msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a litre{live}"
+msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
 msgstr ""
+"Xưởng sửa: nhiên liệu {f} mỗi gallon, {f2} đô la Canada mỗi lít{live}"
 
 #. placeholders: {f}, {live}
 msgid "Garage: fuel {f} per gallon{live}"
@@ -18971,8 +18972,8 @@ msgstr ""
 
 #. placeholders: {f2}
 #. one sentence of a longer line
-msgid "Diesel here is {f2} Canadian dollars a litre."
-msgstr ""
+msgid "Diesel here is {f2} Canadian dollars a liter."
+msgstr "Dầu diesel ở đây giá {f2} đô la Canada mỗi lít."
 
 #. placeholders: {f}, {grouped}
 #. one sentence of a longer line
@@ -18982,8 +18983,10 @@ msgstr ""
 #. placeholders: {f}, {grouped}, {f2}
 msgid ""
 "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-"dollars a litre."
+"dollars a liter."
 msgstr ""
+"Đổ {f} gallon với giá {grouped} đô la. Dầu diesel ở đây giá {f2} đô la "
+"Canada mỗi lít."
 
 #. placeholders: {f}, {grouped}
 msgid "Refuel {f} gallons for {grouped} dollars"
@@ -20845,32 +20848,38 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-#. placeholders: {name}, {agency}, {penalty}
+msgid ", which your carrier pays"
+msgstr ", do hãng vận tải của bạn trả"
+
+#. one clause of a longer line
+msgid "which your carrier pays"
+msgstr "do hãng vận tải của bạn trả"
+
+#. placeholders: {name}, {agency}, {penalty}, {payer}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}."
+"{penalty}{payer}."
 msgstr ""
+"Tại {name}, {agency} đã chặn xe tải vì chạy qua trạm hải quan: "
+"{penalty}{payer}."
 
-#. one sentence of a longer line
-msgid "Customs officers are following."
-msgstr ""
-
-#. placeholders: {control_hint}
+#. placeholders: {border_chase_line}, {control_hint}
 msgid ""
-"Customs officers are following. Signal with {control_hint} and stop on the "
-"shoulder."
+"{border_chase_line} Signal with {control_hint} and stop on the shoulder."
 msgstr ""
-
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Signal with {control_hint} and stop on the shoulder."
-msgstr ""
+"{border_chase_line} Ra tín hiệu bằng {control_hint} và dừng ở lề đường."
 
 msgid "Ran the port of entry"
 msgstr ""
 
-msgid "Officers walk you back to the customs booth."
-msgstr ""
+msgid "Officers escort you and the truck back to the port."
+msgstr "Nhân viên hộ tống bạn và xe tải quay lại cửa khẩu."
+
+msgid "An RCMP cruiser is behind you with its lights on."
+msgstr "Một xe tuần tra RCMP đang bật đèn phía sau bạn."
+
+msgid "A Border Patrol vehicle is behind you with its lights on."
+msgstr "Một xe Tuần tra Biên giới đang bật đèn phía sau bạn."
 
 #. placeholders: {grouped}
 msgid "a {grouped} US dollar civil penalty"
@@ -22906,12 +22915,15 @@ msgstr ""
 msgid "Limp mode. Holding {speed_text}."
 msgstr ""
 
-msgid "Limiter, 105 kilometres an hour."
-msgstr ""
+msgid "Limiter, 105 kilometers per hour."
+msgstr "Bộ giới hạn, 105 km mỗi giờ."
 
 msgid ""
-"Speed limiter: British Columbia caps heavy trucks at 105 kilometres an hour."
+"Speed limiter: British Columbia caps heavy trucks at 105 kilometers per "
+"hour, about 65 miles per hour."
 msgstr ""
+"Bộ giới hạn tốc độ: British Columbia giới hạn xe tải nặng ở 105 km mỗi giờ, "
+"khoảng 65 dặm mỗi giờ."
 
 #. placeholders: {damage_pct}
 msgid " Damage is down to {damage_pct} percent."
@@ -23673,6 +23685,11 @@ msgstr ""
 msgid ""
 "Lights behind you for a routine inspection. Signal with {control_hint} and "
 "stop on the shoulder."
+msgstr ""
+
+#. placeholders: {control_hint}
+#. one sentence of a longer line
+msgid "Signal with {control_hint} and stop on the shoulder."
 msgstr ""
 
 msgid "Roadside inspection"
@@ -28034,8 +28051,10 @@ msgstr ""
 #. placeholders: {f}, {grouped}, {f2}, {margin}
 msgid ""
 "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-"dollars a litre. {margin}"
+"dollars a liter. {margin}"
 msgstr ""
+"Đổ {f} gallon với giá {grouped} đô la. Dầu diesel ở đây giá {f2} đô la "
+"Canada mỗi lít. {margin}"
 
 #. placeholders: {f}, {grouped}, {margin}
 msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
@@ -29193,6 +29212,23 @@ msgstr ""
 
 msgid "The officer lets you go with a warning."
 msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "Penalty: {grouped} dollars, paid by your carrier."
+msgstr "Tiền phạt: {grouped} đô la, do hãng vận tải của bạn trả."
+
+#. placeholders: {grouped}
+msgid ""
+"Penalty: {grouped} dollars, paid by your carrier. You take the reputation "
+"hit."
+msgstr ""
+"Tiền phạt: {grouped} đô la, do hãng vận tải của bạn trả. Uy tín của bạn bị "
+"ảnh hưởng."
+
+#. one sentence of a longer line
+msgid "You take the reputation hit."
+msgstr "Uy tín của bạn bị ảnh hưởng."
 
 #. placeholders: {grouped}, {construction_zone_fine_clause}
 msgid ""

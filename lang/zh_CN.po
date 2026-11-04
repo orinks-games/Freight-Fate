@@ -18051,8 +18051,8 @@ msgid "this week's price"
 msgstr "本周价格"
 
 #. placeholders: {f}, {f2}, {live}
-msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a litre{live}"
-msgstr ""
+msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
+msgstr "修理厂：燃油每加仑 {f}，每升 {f2} 加元{live}"
 
 #. placeholders: {f}, {live}
 msgid "Garage: fuel {f} per gallon{live}"
@@ -19264,8 +19264,8 @@ msgstr "加油：{f} 加仑"
 
 #. placeholders: {f2}
 #. one sentence of a longer line
-msgid "Diesel here is {f2} Canadian dollars a litre."
-msgstr ""
+msgid "Diesel here is {f2} Canadian dollars a liter."
+msgstr "这里的柴油每升 {f2} 加元。"
 
 #. placeholders: {f}, {grouped}
 #. one sentence of a longer line
@@ -19275,8 +19275,8 @@ msgstr "加{f}加仑，{grouped}美元。"
 #. placeholders: {f}, {grouped}, {f2}
 msgid ""
 "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-"dollars a litre."
-msgstr ""
+"dollars a liter."
+msgstr "加 {f} 加仑油，花费 {grouped} 美元。这里的柴油每升 {f2} 加元。"
 
 #. placeholders: {f}, {grouped}
 msgid "Refuel {f} gallons for {grouped} dollars"
@@ -21154,32 +21154,35 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-#. placeholders: {name}, {agency}, {penalty}
+msgid ", which your carrier pays"
+msgstr "，由你的承运公司支付"
+
+#. one clause of a longer line
+msgid "which your carrier pays"
+msgstr "由你的承运公司支付"
+
+#. placeholders: {name}, {agency}, {penalty}, {payer}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}."
-msgstr ""
+"{penalty}{payer}."
+msgstr "在 {name}，{agency} 因你闯过海关检查站拦停了卡车：{penalty}{payer}。"
 
-#. one sentence of a longer line
-msgid "Customs officers are following."
-msgstr ""
-
-#. placeholders: {control_hint}
+#. placeholders: {border_chase_line}, {control_hint}
 msgid ""
-"Customs officers are following. Signal with {control_hint} and stop on the "
-"shoulder."
-msgstr ""
-
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Signal with {control_hint} and stop on the shoulder."
-msgstr "用{control_hint}打转向灯，停到路肩上。"
+"{border_chase_line} Signal with {control_hint} and stop on the shoulder."
+msgstr "{border_chase_line}用 {control_hint} 打信号，在路肩停车。"
 
 msgid "Ran the port of entry"
 msgstr ""
 
-msgid "Officers walk you back to the customs booth."
-msgstr ""
+msgid "Officers escort you and the truck back to the port."
+msgstr "警员护送你和卡车返回口岸。"
+
+msgid "An RCMP cruiser is behind you with its lights on."
+msgstr "一辆加拿大皇家骑警的警车亮着警灯跟在你后面。"
+
+msgid "A Border Patrol vehicle is behind you with its lights on."
+msgstr "一辆边境巡逻队的车辆亮着警灯跟在你后面。"
 
 #. placeholders: {grouped}
 msgid "a {grouped} US dollar civil penalty"
@@ -23249,12 +23252,13 @@ msgstr "保持{speed_text}。"
 msgid "Limp mode. Holding {speed_text}."
 msgstr "跛行模式。保持{speed_text}。"
 
-msgid "Limiter, 105 kilometres an hour."
-msgstr ""
+msgid "Limiter, 105 kilometers per hour."
+msgstr "限速器，每小时 105 公里。"
 
 msgid ""
-"Speed limiter: British Columbia caps heavy trucks at 105 kilometres an hour."
-msgstr ""
+"Speed limiter: British Columbia caps heavy trucks at 105 kilometers per "
+"hour, about 65 miles per hour."
+msgstr "限速器：不列颠哥伦比亚省将重型卡车限速为每小时 105 公里，约每小时 65 英里。"
 
 #. placeholders: {damage_pct}
 msgid " Damage is down to {damage_pct} percent."
@@ -24035,6 +24039,11 @@ msgid ""
 "Lights behind you for a routine inspection. Signal with {control_hint} and "
 "stop on the shoulder."
 msgstr "后面有警灯，要做例行检查。用{control_hint}打转向灯，停到路肩上。"
+
+#. placeholders: {control_hint}
+#. one sentence of a longer line
+msgid "Signal with {control_hint} and stop on the shoulder."
+msgstr "用{control_hint}打转向灯，停到路肩上。"
 
 msgid "Roadside inspection"
 msgstr "路检"
@@ -28418,8 +28427,8 @@ msgstr "用承运商加油卡加{f}加仑。{margin}"
 #. placeholders: {f}, {grouped}, {f2}, {margin}
 msgid ""
 "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-"dollars a litre. {margin}"
-msgstr ""
+"dollars a liter. {margin}"
+msgstr "加 {f} 加仑油，花费 {grouped} 美元。这里的柴油每升 {f2} 加元。{margin}"
 
 #. placeholders: {f}, {grouped}, {margin}
 msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
@@ -29598,6 +29607,21 @@ msgstr "被拦停"
 
 msgid "The officer lets you go with a warning."
 msgstr "警员给了你一个警告就放你走了。"
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "Penalty: {grouped} dollars, paid by your carrier."
+msgstr "罚款：{grouped} 美元，由你的承运公司支付。"
+
+#. placeholders: {grouped}
+msgid ""
+"Penalty: {grouped} dollars, paid by your carrier. You take the reputation "
+"hit."
+msgstr "罚款：{grouped} 美元，由你的承运公司支付。你的声誉受损。"
+
+#. one sentence of a longer line
+msgid "You take the reputation hit."
+msgstr "你的声誉受损。"
 
 #. placeholders: {grouped}, {construction_zone_fine_clause}
 msgid ""

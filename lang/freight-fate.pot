@@ -22569,7 +22569,7 @@ msgstr ""
 
 #. placeholders: {f}, {f2}, {live}
 #: crates/freight-fate/src/states/city/terminal.rs
-msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a litre{live}"
+msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
 msgstr ""
 
 #. placeholders: {f}, {live}
@@ -24067,7 +24067,7 @@ msgstr ""
 #. placeholders: {f2}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city_garage.rs
-msgid "Diesel here is {f2} Canadian dollars a litre."
+msgid "Diesel here is {f2} Canadian dollars a liter."
 msgstr ""
 
 #. placeholders: {f}, {grouped}
@@ -24080,7 +24080,7 @@ msgstr ""
 #: crates/freight-fate/src/states/city_garage.rs
 msgid ""
 "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-"dollars a litre."
+"dollars a liter."
 msgstr ""
 
 #. placeholders: {f}, {grouped}
@@ -26419,29 +26419,26 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-#. placeholders: {name}, {agency}, {penalty}
+#: crates/freight-fate/src/states/driving_border.rs
+msgid ", which your carrier pays"
+msgstr ""
+
+#. one clause of a longer line
+#: crates/freight-fate/src/states/driving_border.rs
+msgid "which your carrier pays"
+msgstr ""
+
+#. placeholders: {name}, {agency}, {penalty}, {payer}
 #: crates/freight-fate/src/states/driving_border.rs
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}."
+"{penalty}{payer}."
 msgstr ""
 
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_border.rs
-msgid "Customs officers are following."
-msgstr ""
-
-#. placeholders: {control_hint}
+#. placeholders: {border_chase_line}, {control_hint}
 #: crates/freight-fate/src/states/driving_border.rs
 msgid ""
-"Customs officers are following. Signal with {control_hint} and stop on the "
-"shoulder."
-msgstr ""
-
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_border.rs
-msgid "Signal with {control_hint} and stop on the shoulder."
+"{border_chase_line} Signal with {control_hint} and stop on the shoulder."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_border.rs
@@ -26449,7 +26446,15 @@ msgid "Ran the port of entry"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_border.rs
-msgid "Officers walk you back to the customs booth."
+msgid "Officers escort you and the truck back to the port."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_border.rs
+msgid "An RCMP cruiser is behind you with its lights on."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_border.rs
+msgid "A Border Patrol vehicle is behind you with its lights on."
 msgstr ""
 
 #. placeholders: {grouped}
@@ -28964,12 +28969,13 @@ msgid "Limp mode. Holding {speed_text}."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_damage.rs
-msgid "Limiter, 105 kilometres an hour."
+msgid "Limiter, 105 kilometers per hour."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_damage.rs
 msgid ""
-"Speed limiter: British Columbia caps heavy trucks at 105 kilometres an hour."
+"Speed limiter: British Columbia caps heavy trucks at 105 kilometers per "
+"hour, about 65 miles per hour."
 msgstr ""
 
 #. placeholders: {damage_pct}
@@ -29906,6 +29912,12 @@ msgstr ""
 msgid ""
 "Lights behind you for a routine inspection. Signal with {control_hint} and "
 "stop on the shoulder."
+msgstr ""
+
+#. placeholders: {control_hint}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_enforcement/inspections.rs
+msgid "Signal with {control_hint} and stop on the shoulder."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_enforcement/inspections.rs crates/freight-fate/src/states/driving_enforcement/watch.rs
@@ -35376,7 +35388,7 @@ msgstr ""
 #: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
 msgid ""
 "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-"dollars a litre. {margin}"
+"dollars a liter. {margin}"
 msgstr ""
 
 #. placeholders: {f}, {grouped}, {margin}
@@ -36802,6 +36814,24 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/roadside.rs
 msgid "The officer lets you go with a warning."
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/roadside.rs
+msgid "Penalty: {grouped} dollars, paid by your carrier."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_rest_states/roadside.rs
+msgid ""
+"Penalty: {grouped} dollars, paid by your carrier. You take the reputation "
+"hit."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/roadside.rs
+msgid "You take the reputation hit."
 msgstr ""
 
 #. placeholders: {grouped}, {construction_zone_fine_clause}

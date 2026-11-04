@@ -18205,8 +18205,8 @@ msgid "this week's price"
 msgstr "今週の価格"
 
 #. placeholders: {f}, {f2}, {live}
-msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a litre{live}"
-msgstr ""
+msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
+msgstr "整備工場：燃料は1ガロン{f}、1リットル{f2}カナダドル{live}"
 
 #. placeholders: {f}, {live}
 msgid "Garage: fuel {f} per gallon{live}"
@@ -19438,8 +19438,8 @@ msgstr "給油：{f}ガロン"
 
 #. placeholders: {f2}
 #. one sentence of a longer line
-msgid "Diesel here is {f2} Canadian dollars a litre."
-msgstr ""
+msgid "Diesel here is {f2} Canadian dollars a liter."
+msgstr "ここの軽油は1リットル{f2}カナダドルです。"
 
 #. placeholders: {f}, {grouped}
 #. one sentence of a longer line
@@ -19449,8 +19449,8 @@ msgstr "{grouped}ドルで{f}ガロン給油します。"
 #. placeholders: {f}, {grouped}, {f2}
 msgid ""
 "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-"dollars a litre."
-msgstr ""
+"dollars a liter."
+msgstr "{f}ガロンを{grouped}ドルで給油。ここの軽油は1リットル{f2}カナダドルです。"
 
 #. placeholders: {f}, {grouped}
 msgid "Refuel {f} gallons for {grouped} dollars"
@@ -21353,32 +21353,35 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-#. placeholders: {name}, {agency}, {penalty}
+msgid ", which your carrier pays"
+msgstr "、運送会社が支払います"
+
+#. one clause of a longer line
+msgid "which your carrier pays"
+msgstr "運送会社が支払います"
+
+#. placeholders: {name}, {agency}, {penalty}, {payer}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}."
-msgstr ""
+"{penalty}{payer}."
+msgstr "{name}で、税関を通過せずに走ったため{agency}がトラックを止めました：{penalty}{payer}。"
 
-#. one sentence of a longer line
-msgid "Customs officers are following."
-msgstr ""
-
-#. placeholders: {control_hint}
+#. placeholders: {border_chase_line}, {control_hint}
 msgid ""
-"Customs officers are following. Signal with {control_hint} and stop on the "
-"shoulder."
-msgstr ""
-
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Signal with {control_hint} and stop on the shoulder."
-msgstr "{control_hint}でウインカーを出して、路肩に停まってください。"
+"{border_chase_line} Signal with {control_hint} and stop on the shoulder."
+msgstr "{border_chase_line}{control_hint}で合図して路肩に止まってください。"
 
 msgid "Ran the port of entry"
 msgstr ""
 
-msgid "Officers walk you back to the customs booth."
-msgstr ""
+msgid "Officers escort you and the truck back to the port."
+msgstr "係官があなたとトラックを入国審査所まで連れ戻します。"
+
+msgid "An RCMP cruiser is behind you with its lights on."
+msgstr "RCMPのパトカーが警告灯をつけて後ろにいます。"
+
+msgid "A Border Patrol vehicle is behind you with its lights on."
+msgstr "国境警備隊の車両が警告灯をつけて後ろにいます。"
 
 #. placeholders: {grouped}
 msgid "a {grouped} US dollar civil penalty"
@@ -23476,12 +23479,13 @@ msgstr "{speed_text}を維持します。"
 msgid "Limp mode. Holding {speed_text}."
 msgstr "リンプモード。{speed_text}を維持します。"
 
-msgid "Limiter, 105 kilometres an hour."
-msgstr ""
+msgid "Limiter, 105 kilometers per hour."
+msgstr "リミッター、時速105キロ。"
 
 msgid ""
-"Speed limiter: British Columbia caps heavy trucks at 105 kilometres an hour."
-msgstr ""
+"Speed limiter: British Columbia caps heavy trucks at 105 kilometers per "
+"hour, about 65 miles per hour."
+msgstr "速度リミッター：ブリティッシュコロンビア州では大型トラックは時速105キロ、約65マイルに制限されています。"
 
 #. placeholders: {damage_pct}
 msgid " Damage is down to {damage_pct} percent."
@@ -24276,6 +24280,11 @@ msgid ""
 "Lights behind you for a routine inspection. Signal with {control_hint} and "
 "stop on the shoulder."
 msgstr "後ろでパトカーのライトが点きました。定例の検査です。{control_hint}でウインカーを出して、路肩に停まってください。"
+
+#. placeholders: {control_hint}
+#. one sentence of a longer line
+msgid "Signal with {control_hint} and stop on the shoulder."
+msgstr "{control_hint}でウインカーを出して、路肩に停まってください。"
 
 msgid "Roadside inspection"
 msgstr "路上検査"
@@ -28685,8 +28694,8 @@ msgstr "運送会社の燃料カードで{f}ガロン給油します。{margin}"
 #. placeholders: {f}, {grouped}, {f2}, {margin}
 msgid ""
 "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-"dollars a litre. {margin}"
-msgstr ""
+"dollars a liter. {margin}"
+msgstr "{f}ガロンを{grouped}ドルで給油。ここの軽油は1リットル{f2}カナダドルです。{margin}"
 
 #. placeholders: {f}, {grouped}, {margin}
 msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
@@ -29883,6 +29892,21 @@ msgstr "停車させられました"
 
 msgid "The officer lets you go with a warning."
 msgstr "警官は警告だけで行かせてくれました。"
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "Penalty: {grouped} dollars, paid by your carrier."
+msgstr "罰金：{grouped}ドル、運送会社が支払います。"
+
+#. placeholders: {grouped}
+msgid ""
+"Penalty: {grouped} dollars, paid by your carrier. You take the reputation "
+"hit."
+msgstr "罰金：{grouped}ドル、運送会社が支払います。評判は下がります。"
+
+#. one sentence of a longer line
+msgid "You take the reputation hit."
+msgstr "評判は下がります。"
 
 #. placeholders: {grouped}, {construction_zone_fine_clause}
 msgid ""

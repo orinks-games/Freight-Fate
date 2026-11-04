@@ -19629,8 +19629,8 @@ msgid "this week's price"
 msgstr "bu haftanın fiyatı"
 
 #. placeholders: {f}, {f2}, {live}
-msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a litre{live}"
-msgstr ""
+msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
+msgstr "Servis: yakıt galonu {f}, litresi {f2} Kanada doları{live}"
 
 #. placeholders: {f}, {live}
 msgid "Garage: fuel {f} per gallon{live}"
@@ -20954,8 +20954,8 @@ msgstr "Yakıt al: {f} galon"
 
 #. placeholders: {f2}
 #. one sentence of a longer line
-msgid "Diesel here is {f2} Canadian dollars a litre."
-msgstr ""
+msgid "Diesel here is {f2} Canadian dollars a liter."
+msgstr "Burada dizelin litresi {f2} Kanada doları."
 
 #. placeholders: {f}, {grouped}
 #. one sentence of a longer line
@@ -20965,8 +20965,10 @@ msgstr "{grouped} dolara {f} galon yakıt al."
 #. placeholders: {f}, {grouped}, {f2}
 msgid ""
 "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-"dollars a litre."
+"dollars a liter."
 msgstr ""
+"{grouped} dolara {f} galon yakıt al. Burada dizelin litresi {f2} Kanada "
+"doları."
 
 #. placeholders: {f}, {grouped}
 msgid "Refuel {f} gallons for {grouped} dollars"
@@ -23008,32 +23010,38 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-#. placeholders: {name}, {agency}, {penalty}
+msgid ", which your carrier pays"
+msgstr ", bunu taşıma şirketin öder"
+
+#. one clause of a longer line
+msgid "which your carrier pays"
+msgstr "bunu taşıma şirketin öder"
+
+#. placeholders: {name}, {agency}, {penalty}, {payer}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}."
+"{penalty}{payer}."
 msgstr ""
+"{name} noktasında {agency}, gümrük kulübesini geçtiğin için tırı durdurdu: "
+"{penalty}{payer}."
 
-#. one sentence of a longer line
-msgid "Customs officers are following."
-msgstr ""
-
-#. placeholders: {control_hint}
+#. placeholders: {border_chase_line}, {control_hint}
 msgid ""
-"Customs officers are following. Signal with {control_hint} and stop on the "
-"shoulder."
+"{border_chase_line} Signal with {control_hint} and stop on the shoulder."
 msgstr ""
-
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Signal with {control_hint} and stop on the shoulder."
-msgstr "{control_hint} ile sinyal verin ve emniyet şeridinde durun."
+"{border_chase_line} {control_hint} ile sinyal ver ve emniyet şeridinde dur."
 
 msgid "Ran the port of entry"
 msgstr ""
 
-msgid "Officers walk you back to the customs booth."
-msgstr ""
+msgid "Officers escort you and the truck back to the port."
+msgstr "Memurlar seni ve tırı sınır kapısına geri götürüyor."
+
+msgid "An RCMP cruiser is behind you with its lights on."
+msgstr "Bir RCMP devriye aracı ışıkları yanık şekilde arkanda."
+
+msgid "A Border Patrol vehicle is behind you with its lights on."
+msgstr "Bir Sınır Devriyesi aracı ışıkları yanık şekilde arkanda."
 
 #. placeholders: {grouped}
 msgid "a {grouped} US dollar civil penalty"
@@ -25324,12 +25332,15 @@ msgstr "{speed_text} hızda tutuluyor."
 msgid "Limp mode. Holding {speed_text}."
 msgstr "Acil durum modu. {speed_text} hızda tutuluyor."
 
-msgid "Limiter, 105 kilometres an hour."
-msgstr ""
+msgid "Limiter, 105 kilometers per hour."
+msgstr "Hız sınırlayıcı, saatte 105 kilometre."
 
 msgid ""
-"Speed limiter: British Columbia caps heavy trucks at 105 kilometres an hour."
+"Speed limiter: British Columbia caps heavy trucks at 105 kilometers per "
+"hour, about 65 miles per hour."
 msgstr ""
+"Hız sınırlayıcı: British Columbia ağır tırları saatte 105 kilometreyle, "
+"yaklaşık saatte 65 mille sınırlar."
 
 #. placeholders: {damage_pct}
 msgid " Damage is down to {damage_pct} percent."
@@ -26177,6 +26188,11 @@ msgid ""
 msgstr ""
 "Arkanızda olağan bir denetim için ışıklar yanıyor. {control_hint} ile "
 "sinyal verin ve emniyet şeridinde durun."
+
+#. placeholders: {control_hint}
+#. one sentence of a longer line
+msgid "Signal with {control_hint} and stop on the shoulder."
+msgstr "{control_hint} ile sinyal verin ve emniyet şeridinde durun."
 
 msgid "Roadside inspection"
 msgstr "Yol kenarı denetimi"
@@ -30829,8 +30845,10 @@ msgstr "Taşıyıcı firmanın yakıt kartıyla {f} galon yakıt al. {margin}"
 #. placeholders: {f}, {grouped}, {f2}, {margin}
 msgid ""
 "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-"dollars a litre. {margin}"
+"dollars a liter. {margin}"
 msgstr ""
+"{grouped} dolara {f} galon yakıt al. Burada dizelin litresi {f2} Kanada "
+"doları. {margin}"
 
 #. placeholders: {f}, {grouped}, {margin}
 msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
@@ -32103,6 +32121,21 @@ msgstr "Kenara çekildi"
 
 msgid "The officer lets you go with a warning."
 msgstr "Memur sizi uyarıyla bırakıyor."
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "Penalty: {grouped} dollars, paid by your carrier."
+msgstr "Ceza: {grouped} dolar, taşıma şirketin öder."
+
+#. placeholders: {grouped}
+msgid ""
+"Penalty: {grouped} dollars, paid by your carrier. You take the reputation "
+"hit."
+msgstr "Ceza: {grouped} dolar, taşıma şirketin öder. İtibarın zedelenir."
+
+#. one sentence of a longer line
+msgid "You take the reputation hit."
+msgstr "İtibarın zedelenir."
 
 #. placeholders: {grouped}, {construction_zone_fine_clause}
 msgid ""

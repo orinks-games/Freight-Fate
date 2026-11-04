@@ -20196,8 +20196,9 @@ msgid "this week's price"
 msgstr "il prezzo di questa settimana"
 
 #. placeholders: {f}, {f2}, {live}
-msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a litre{live}"
+msgid "Garage: fuel {f} per gallon, {f2} Canadian dollars a liter{live}"
 msgstr ""
+"Officina: carburante a {f} al gallone, {f2} dollari canadesi al litro{live}"
 
 #. placeholders: {f}, {live}
 msgid "Garage: fuel {f} per gallon{live}"
@@ -21551,8 +21552,8 @@ msgstr "Rifornimento: {f} {f:gallone|galloni}"
 
 #. placeholders: {f2}
 #. one sentence of a longer line
-msgid "Diesel here is {f2} Canadian dollars a litre."
-msgstr ""
+msgid "Diesel here is {f2} Canadian dollars a liter."
+msgstr "Qui il gasolio costa {f2} dollari canadesi al litro."
 
 #. placeholders: {f}, {grouped}
 #. one sentence of a longer line
@@ -21562,8 +21563,10 @@ msgstr "Rifornisci {f} galloni per {grouped} dollari."
 #. placeholders: {f}, {grouped}, {f2}
 msgid ""
 "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-"dollars a litre."
+"dollars a liter."
 msgstr ""
+"Rifornisci {f} galloni per {grouped} dollari. Qui il gasolio costa {f2} "
+"dollari canadesi al litro."
 
 #. placeholders: {f}, {grouped}
 msgid "Refuel {f} gallons for {grouped} dollars"
@@ -23673,33 +23676,40 @@ msgstr ""
 msgid "Customs booth in half a mile. Stop at the booth."
 msgstr ""
 
-#. placeholders: {name}, {agency}, {penalty}
+msgid ", which your carrier pays"
+msgstr ", pagata dalla tua azienda di trasporti"
+
+#. one clause of a longer line
+msgid "which your carrier pays"
+msgstr "pagata dalla tua azienda di trasporti"
+
+#. placeholders: {name}, {agency}, {penalty}, {payer}
 msgid ""
 "At {name}, {agency} stopped the truck for running the customs booth: "
-"{penalty}."
+"{penalty}{payer}."
 msgstr ""
+"A {name}, {agency} ha fermato il camion per aver saltato la dogana: "
+"{penalty}{payer}."
 
-#. one sentence of a longer line
-msgid "Customs officers are following."
-msgstr ""
-
-#. placeholders: {control_hint}
+#. placeholders: {border_chase_line}, {control_hint}
 msgid ""
-"Customs officers are following. Signal with {control_hint} and stop on the "
-"shoulder."
+"{border_chase_line} Signal with {control_hint} and stop on the shoulder."
 msgstr ""
-
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Signal with {control_hint} and stop on the shoulder."
-msgstr ""
-"Metti la freccia con {control_hint} e fermati sulla corsia d'emergenza."
+"{border_chase_line} Segnala con {control_hint} e fermati sulla corsia "
+"d'emergenza."
 
 msgid "Ran the port of entry"
 msgstr ""
 
-msgid "Officers walk you back to the customs booth."
+msgid "Officers escort you and the truck back to the port."
+msgstr "Gli agenti scortano te e il camion fino al valico."
+
+msgid "An RCMP cruiser is behind you with its lights on."
+msgstr "Un'auto della RCMP è dietro di te con i lampeggianti accesi."
+
+msgid "A Border Patrol vehicle is behind you with its lights on."
 msgstr ""
+"Un veicolo della Border Patrol è dietro di te con i lampeggianti accesi."
 
 #. placeholders: {grouped}
 msgid "a {grouped} US dollar civil penalty"
@@ -26038,12 +26048,15 @@ msgstr "Mantengo {speed_text}."
 msgid "Limp mode. Holding {speed_text}."
 msgstr "Modalità di emergenza. Mantengo {speed_text}."
 
-msgid "Limiter, 105 kilometres an hour."
-msgstr ""
+msgid "Limiter, 105 kilometers per hour."
+msgstr "Limitatore, 105 chilometri orari."
 
 msgid ""
-"Speed limiter: British Columbia caps heavy trucks at 105 kilometres an hour."
+"Speed limiter: British Columbia caps heavy trucks at 105 kilometers per "
+"hour, about 65 miles per hour."
 msgstr ""
+"Limitatore di velocità: la Columbia Britannica limita i camion pesanti a "
+"105 chilometri orari, circa 65 miglia orarie."
 
 #. placeholders: {damage_pct}
 msgid " Damage is down to {damage_pct} percent."
@@ -26909,6 +26922,12 @@ msgid ""
 msgstr ""
 "Lampeggianti dietro di te per un controllo di routine. Metti la freccia con "
 "{control_hint} e fermati sulla corsia d'emergenza."
+
+#. placeholders: {control_hint}
+#. one sentence of a longer line
+msgid "Signal with {control_hint} and stop on the shoulder."
+msgstr ""
+"Metti la freccia con {control_hint} e fermati sulla corsia d'emergenza."
 
 msgid "Roadside inspection"
 msgstr "Controllo su strada"
@@ -31638,8 +31657,10 @@ msgstr ""
 #. placeholders: {f}, {grouped}, {f2}, {margin}
 msgid ""
 "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
-"dollars a litre. {margin}"
+"dollars a liter. {margin}"
 msgstr ""
+"Rifornisci {f} galloni per {grouped} dollari. Qui il gasolio costa {f2} "
+"dollari canadesi al litro. {margin}"
 
 #. placeholders: {f}, {grouped}, {margin}
 msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
@@ -32957,6 +32978,23 @@ msgstr "Fermato"
 
 msgid "The officer lets you go with a warning."
 msgstr "L'agente ti lascia andare con un avvertimento."
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+msgid "Penalty: {grouped} dollars, paid by your carrier."
+msgstr "Sanzione: {grouped} dollari, pagata dalla tua azienda di trasporti."
+
+#. placeholders: {grouped}
+msgid ""
+"Penalty: {grouped} dollars, paid by your carrier. You take the reputation "
+"hit."
+msgstr ""
+"Sanzione: {grouped} dollari, pagata dalla tua azienda di trasporti. La tua "
+"reputazione ne risente."
+
+#. one sentence of a longer line
+msgid "You take the reputation hit."
+msgstr "La tua reputazione ne risente."
 
 #. placeholders: {grouped}, {construction_zone_fine_clause}
 msgid ""
