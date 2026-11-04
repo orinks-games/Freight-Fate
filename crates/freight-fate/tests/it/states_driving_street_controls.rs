@@ -632,6 +632,10 @@ fn reds_on_the_arterial(seed: i64, mph: f64) -> usize {
 }
 
 #[test]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: ten drives down a signalled arterial"
+)]
 fn test_a_truck_at_the_limit_rides_the_green_band_down_an_arterial() {
     // Arterial signals are coordinated: offset so a truck at the posted limit
     // arrives on green. The band is not a promise -- the first light is met

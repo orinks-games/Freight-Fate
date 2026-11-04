@@ -259,19 +259,20 @@ jobs:
         include:
           - name: Windows
             os: windows-2025
-            rustflags: --cfg ci_quick
+            features: ""
           - name: macOS
             os: macos-26
-            rustflags: --cfg ci_quick
-          # The FULL suite: no `--cfg ci_quick`, so the whole-map sweeps the
-          # per-push workflow (rust.yml) leaves out run here, and only here.
-          # They are headless driving logic, so one platform proves them.
+            features: ""
+          # The FULL suite: `slow-tests` turns on the whole-map sweeps and
+          # other long tests that a plain `cargo test` (rust.yml, a local
+          # run) skips. They run here, and only here. They are headless
+          # driving logic, so one platform proves them.
           - name: Linux x86_64
             os: ubuntu-24.04
-            rustflags: ""
+            features: --features freight-fate/slow-tests
           - name: Linux aarch64
             os: ubuntu-24.04-arm
-            rustflags: --cfg ci_quick
+            features: ""
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     env:
@@ -283,9 +284,6 @@ jobs:
       RUST_BACKTRACE: "1"
       HOMEBREW_NO_AUTO_UPDATE: "1"
       CMAKE_POLICY_VERSION_MINIMUM: "3.5"
-      # clippy and the tests on the same RUSTFLAGS, so both share one debug
-      # build of the native dependencies (SDL2, Prism).
-      RUSTFLAGS: ${{ matrix.rustflags }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -302,7 +300,7 @@ jobs:
         run: cargo clippy --all-targets --locked -- -D warnings
 
       - name: Test Rust workspace
-        run: cargo test -p ff-core -p freight-fate --locked
+        run: cargo test -p ff-core -p freight-fate ${{ matrix.features }} --locked
 
       - name: Test the agent server
         run: cargo test -p freight-fate --test agent_server --locked

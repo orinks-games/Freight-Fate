@@ -269,16 +269,19 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   full pair at the end, exactly once, because that is where the surprises
   live: a change to spoken text can strand an assertion in a file three
   directories from anything obviously related.
-- **The per-push CI runs a quick set; your local run is the full one.**
-  `rust.yml` passes `--cfg ci_quick`, and every test marked
-  `#[cfg_attr(ci_quick, ignore = "sweep: ...")]` -- the whole-map sweeps: a
-  500-mile delivery per state line, every facility exit, every kind of
-  destination, ~96 job origins -- is skipped there. They cost as much as
-  the other 2,400 game-crate tests together. The nightly Career 1.9
-  snapshot, a manual dispatch of `rust.yml`, and any plain local
-  `cargo test` run them all, so a sweep failure surfaces within a day. A
-  new test that drives more than a few seconds of the map should carry
-  that attribute; one that pins a single behaviour should not.
+- **A plain `cargo test` skips the slow tests; `cargo test-all` runs them.**
+  Every test marked `#[cfg_attr(not(feature = "slow-tests"), ignore =
+  "...")]` -- the whole-map sweeps: a 500-mile delivery per state line,
+  every facility exit, every kind of destination, ~96 job origins, plus a
+  few other multi-second drives -- is skipped by a plain run, local or CI.
+  They cost several times the rest of the suite together. `cargo test-all`
+  (an alias for `cargo test -p ff-core -p freight-fate --features
+  freight-fate/slow-tests`), the nightly Career 1.9 snapshot and a manual
+  dispatch of `rust.yml` run them, so a sweep failure surfaces within a
+  day. Run `cargo test-all` before pushing a change to driving, traffic,
+  the assists or world data. A new test that drives more than a second or
+  two of the map should carry that attribute; one that pins a single
+  behaviour should not.
 - Adversarial battery: `cargo run -p freight-fate --bin freightfate --
   --break-battery`. Every registered scenario, deliberately unreasonable play
   against the real driving state. `--list-break-scenarios` names them,

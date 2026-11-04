@@ -94,12 +94,8 @@ zstd = "0.13"
 # Rust, so the window needs no SDL_ttf (and no FreeType) on any platform.
 ab_glyph = "0.2"
 
+# Every crate inherits these (`[lints] workspace = true`).
 [workspace.lints.rust]
-# `--cfg ci_quick` is what the per-push CI passes so the whole-map sweeps
-# (`#[cfg_attr(ci_quick, ignore = "sweep: ...")]`) are left to the nightly
-# snapshot build and to full local runs; see .github/workflows/rust.yml.
-# Declared here so `unexpected_cfgs` stays quiet under `-D warnings`.
-unexpected_cfgs = { level = "warn", check-cfg = ["cfg(ci_quick)"] }
 
 [profile.release]
 opt-level = 3

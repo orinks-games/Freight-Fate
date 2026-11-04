@@ -44,13 +44,15 @@
 # once (ff_core::data::world's OnceCell), so ~3,300 game-crate tests would
 # each pay that load; `frame_time` also needs the machine to itself.
 #
-# Pushes and PRs pass `--cfg ci_quick`, which turns every
-# `#[cfg_attr(ci_quick, ignore = "sweep: ...")]` test into an ignored one.
-# Those are the whole-map sweeps -- a 500-mile delivery per state line, every
-# facility exit, every kind of destination, ~96 job origins -- and they cost
-# as much as the other 2,400 game-crate tests together. They run in full on
-# the nightly (build-career-1.9.yml's Linux x86_64 test leg), on a manual
-# `workflow_dispatch` of this workflow, and in any local `cargo test`.
+# The whole-map sweeps and other long tests -- a 500-mile delivery per state
+# line, every facility exit, every kind of destination, ~96 job origins --
+# carry `#[cfg_attr(not(feature = "slow-tests"), ignore = "...")]`, so a
+# plain `cargo test` (pushes, PRs, a local run) skips them. They run with
+# `--features freight-fate/slow-tests` (`cargo test-all` locally): on a
+# manual `workflow_dispatch` of this workflow and on the nightly
+# (build-career-1.9.yml's Linux x86_64 test leg). A feature rather than a
+# `--cfg`, so turning them on rebuilds only the workspace crates, not every
+# dependency.
 #
 # Each crate builds its integration tests as one binary, `it`, plus a few
 # that need a process of their own (`cargo tools test-targets` lists them
@@ -107,7 +109,7 @@ on:
       - "tests/fixtures/**"
       - "tools/jaws/**"
       - "lang/**"
-  # A manual run is the FULL suite: no `--cfg ci_quick`, sweeps included.
+  # A manual run is the FULL suite: the slow tests included.
   workflow_dispatch:
 
 # A newer push to the same branch or PR supersedes the run in flight.
@@ -230,10 +232,6 @@ jobs:
       HEARKEN_TEST_NO_SPEECH: "1"
       SDL_VIDEODRIVER: dummy
       SDL_AUDIODRIVER: dummy
-      # Pushes and PRs run the quick set (see the header); a manual dispatch
-      # runs everything. (`cond && a || b` is the Actions conditional; it is
-      # safe here because the flag is never empty.)
-      RUSTFLAGS: ${{ (github.event_name == 'push' || github.event_name == 'pull_request') && '--cfg ci_quick' || '' }}
     steps:
       # A plain checkout: sounds.pak is an ordinary blob, not an LFS object,
       # so the audio tests have the real pack.
@@ -246,7 +244,7 @@ jobs:
       - name: Build the test binaries
         # The build on its own, so a compile failure reads as one and the
         # timing report covers exactly the compile.
-        run: cargo test ${{ matrix.packages }} --no-run --locked --timings
+        run: cargo test ${{ matrix.packages }} ${{ github.event_name == 'workflow_dispatch' && '--features freight-fate/slow-tests' || '' }} --no-run --locked --timings
 
       - name: The game starts on a clean Windows
         # The snapshot's payload DLL check, on the executable the step above
@@ -257,7 +255,8 @@ jobs:
         run: cargo run -q -p ff-tools --no-default-features --locked -- windows-imports target/debug
 
       - name: cargo test
-        run: cargo test ${{ matrix.packages }} --locked
+        # A manual dispatch adds the slow tests (see the header).
+        run: cargo test ${{ matrix.packages }} ${{ github.event_name == 'workflow_dispatch' && '--features freight-fate/slow-tests' || '' }} --locked
 
       - name: cargo test (agent server)
         # Agent tooling, not the game: `test = false` keeps it out of the run
@@ -291,8 +290,6 @@ jobs:
       SDL_VIDEODRIVER: dummy
       SDL_AUDIODRIVER: dummy
       HOMEBREW_NO_AUTO_UPDATE: "1"
-      # A tag runs the quick set, as a push does; a manual run, everything.
-      RUSTFLAGS: ${{ github.event_name == 'push' && '--cfg ci_quick' || '' }}
     steps:
       - uses: actions/checkout@v6
 
@@ -303,10 +300,11 @@ jobs:
           cache-key: test
 
       - name: Build the test binaries
-        run: cargo test -p ff-core -p freight-fate -p hearken-seal --no-run --locked --timings
+        run: cargo test -p ff-core -p freight-fate -p hearken-seal ${{ github.event_name == 'workflow_dispatch' && '--features freight-fate/slow-tests' || '' }} --no-run --locked --timings
 
       - name: cargo test
-        run: cargo test -p ff-core -p freight-fate -p hearken-seal --locked
+        # A tag runs the default set, as a push does; a manual run, everything.
+        run: cargo test -p ff-core -p freight-fate -p hearken-seal ${{ github.event_name == 'workflow_dispatch' && '--features freight-fate/slow-tests' || '' }} --locked
 
       - name: cargo test (agent server)
         run: cargo test -p freight-fate --test agent_server --locked
