@@ -4,7 +4,7 @@
 use crate::pyfmt::{fmt_grouped, round_py_n};
 use crate::pyrandom::PyRandom;
 
-/// Diesel prices in Canadian cents per litre, after the consumer carbon tax
+/// Diesel prices in Canadian cents per liter, after the consumer carbon tax
 /// ended on April 1, 2025, from Statistics Canada table 18-10-0001-01,
 /// "Diesel fuel at self service filling stations".
 ///
@@ -13,11 +13,10 @@ use crate::pyrandom::PyRandom;
 /// - British Columbia, derived: Vancouver's April to December 2025 average
 ///   (174.1) with Metro Vancouver's extra motor fuel tax taken out, so the
 ///   price stands for the province rather than the TransLink region. B.C.
-///   charges 27.50 cents a litre on clear diesel in the Vancouver area and
-///   15.00 elsewhere; taking the 12.50 difference out gives 161.6, and the
-///   table keeps the reviewed 162.0.
+///   charges 27.50 cents a liter on clear diesel in the Vancouver area and
+///   15.00 elsewhere; taking the 12.50 difference out of 174.1 gives 161.6.
 pub const CANADA_DIESEL_CENTS_PER_L: &[(&str, &str, f64)] =
-    &[("BC", "British Columbia", 162.0), ("YT", "Yukon", 162.9)];
+    &[("BC", "British Columbia", 161.6), ("YT", "Yukon", 162.9)];
 
 /// Litres in one US gallon.
 pub const LITRES_PER_US_GALLON: f64 = 3.785411784;
@@ -66,7 +65,7 @@ pub fn canada_diesel_usd_per_gal(jurisdiction: &str) -> Option<f64> {
         })
 }
 
-/// Canadian dollars per litre for a USD-per-US-gallon price.
+/// Canadian dollars per liter for a USD-per-US-gallon price.
 pub fn cad_per_litre(usd_per_gal: f64) -> f64 {
     usd_per_gal * crate::models::enforcement::CAD_PER_USD / LITRES_PER_US_GALLON
 }
