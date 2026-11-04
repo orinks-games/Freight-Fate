@@ -292,9 +292,14 @@ fn test_bc_limiter_terse_line_names_kilometers_per_hour() {
     let mut app = TestApp::new();
     app.ctx.settings.driving_speech = "quiet".to_string();
     let mut drive = a_bc_damage_drive(&mut app, LEASED_OWNER_OPERATOR);
+    // The quiet rung silences status lines once the tutorial is done; before
+    // then the line is still heard, in its terse rendering.
+    app.ctx.profile.as_mut().unwrap().tutorial_done = false;
     drive.trip.truck.engine_on = true;
-    drive.update_damage_bands(&mut app.ctx, 1.0 / 60.0);
     let from = app.ctx.message_log.messages.len();
+    drive.update_damage_bands(&mut app.ctx, 1.0 / 60.0);
+    // The limiter is announced once the truck is held at its cap.
+    drive.trip.truck.velocity_mps = mph_to_mps(BC_LIMITER_MPH);
     drive.announce_bc_limiter(&mut app.ctx);
     for _ in 0..5 {
         drive.update_cruise(&mut app.ctx, 1.0 / 60.0, false, false, false);

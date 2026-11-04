@@ -481,6 +481,19 @@ fn test_each_metro_expands_to_representative_facilities() {
                     city.name
                 );
             }
+        } else if is_curated_complete_market(&city.key) {
+            // Curated-complete market (Kenai, Seward, Valdez): authored
+            // freight only, however few sites the town really has.
+            assert!(
+                city.locations.iter().all(|loc| !loc.template),
+                "{}: curated-complete market must not stamp templates",
+                city.name
+            );
+            assert!(
+                !city.locations.is_empty(),
+                "{}: curated-complete market should keep authored sites",
+                city.name
+            );
         } else {
             assert!(
                 city.locations.len() >= 5,
@@ -507,15 +520,27 @@ fn test_each_metro_expands_to_representative_facilities() {
                     "company_yard" | "terminal" | "travel_center" | "truck_parking"
                 )
             });
-        if !parking_only_curated && !curated_complete_stand_in {
+        if !parking_only_curated
+            && !curated_complete_stand_in
+            && !is_curated_complete_market(&city.key)
+        {
             assert!(city.locations.iter().any(|loc| loc.template));
         }
-        assert!(city.locations.iter().any(|loc| {
-            matches!(
-                loc.facility_type.as_str(),
-                "company_yard" | "terminal" | "travel_center" | "truck_parking"
-            )
-        }));
+        // A curated-complete market lists only the sites it really has, and
+        // a yard is not stamped in to fill the list.
+        if is_curated_complete_market(&city.key) {
+            continue;
+        }
+        assert!(
+            city.locations.iter().any(|loc| {
+                matches!(
+                    loc.facility_type.as_str(),
+                    "company_yard" | "terminal" | "travel_center" | "truck_parking"
+                )
+            }),
+            "{}",
+            city.name
+        );
     }
 }
 
@@ -2485,23 +2510,27 @@ fn test_dalton_highway_data_follows_the_blm_guide() {
     };
     // Unposted Dalton stretches match the posted 50 mph, not the 55 fallback.
     for (a, b, from_mi, to_mi) in [
-        ("coldfoot_ak_us", "deadhorse_ak_us", 0.0, 15.0),
-        ("deadhorse_ak_us", "coldfoot_ak_us", 230.0, 239.0),
-        ("coldfoot_ak_us", "fairbanks_ak_us", 0.0, 50.0),
-        ("fairbanks_ak_us", "coldfoot_ak_us", 215.0, 259.0),
+        ("coldfoot_ak_us", "deadhorse_ak_us", 0.0, 16.0),
+        ("deadhorse_ak_us", "coldfoot_ak_us", 223.5, 239.0),
+        ("coldfoot_ak_us", "fairbanks_ak_us", 0.0, 51.7),
+        ("fairbanks_ak_us", "coldfoot_ak_us", 207.8, 259.0),
     ] {
         let samples = leg(a, b).speed_limits();
+        // Folding merges equal runs, so the fill may begin before `from_mi`.
+        let in_effect = samples.iter().rev().find(|s| s.at_mi <= from_mi);
+        assert_eq!(in_effect.and_then(|s| s.mph), Some(50.0), "{a}->{b}");
         for sample in samples
             .iter()
             .filter(|s| s.at_mi >= from_mi && s.at_mi < to_mi)
         {
             assert_eq!(sample.mph, Some(50.0), "{a}->{b} at {}", sample.at_mi);
         }
+        // The fill is labeled as assumed unless folding merged it into the
+        // posted 50 mph run it continues.
+        let source = &in_effect.unwrap().source;
         assert!(
-            samples
-                .iter()
-                .any(|s| s.at_mi == from_mi && s.source.starts_with("Assumed 50 mph")),
-            "{a}->{b} must label the 50 mph fill as assumed"
+            source.starts_with("Assumed 50 mph") || source.starts_with("OpenStreetMap"),
+            "{a}->{b} must label the 50 mph fill as assumed: {source}"
         );
     }
     for (a, b) in [

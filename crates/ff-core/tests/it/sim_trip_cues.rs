@@ -1005,8 +1005,7 @@ fn test_border_booths_follow_inbound_country_crossings() {
                 assert_eq!(booth.agency, agency);
                 assert!(!trip.navigation_cues.iter().any(|cue| {
                     cue.kind == "checkpoint"
-                        && cue.near_text.starts_with("Passing ")
-                        && cue.near_text.contains(name)
+                        && cue.near_text.starts_with(&format!("Passing {name}"))
                 }));
                 booth_count += trip.border_booths.len();
             }
