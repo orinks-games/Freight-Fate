@@ -670,7 +670,8 @@ fn test_the_safety_record_rides_on_the_profile_and_survives_a_save() {
 fn test_an_aged_record_stops_raising_the_safety_record() {
     use ff_core::models::profile::Profile;
     use ff_core::models::safety_record::{
-        score_for_profile, SAFETY_RECORD_BASELINE, SAFETY_RECORD_WINDOW_DAYS,
+        score_for_profile, SAFETY_RECORD_BASELINE, SAFETY_RECORD_SERIOUS_WINDOW_DAYS,
+        SAFETY_RECORD_WINDOW_DAYS,
     };
 
     let mut profile = Profile::named("Aged");
@@ -691,8 +692,16 @@ fn test_an_aged_record_stops_raising_the_safety_record() {
     profile.game_hours = booked + window_h - 1.0;
     assert_eq!(score_for_profile(&profile, 0.0), fresh);
 
-    // One hour past it: the scale sees a clean record again.
+    // One hour past it: only the serious violation still counts.
     profile.game_hours = booked + window_h + 1.0;
+    let serious_only = score_for_profile(&profile, 0.0);
+    assert!(
+        serious_only > SAFETY_RECORD_BASELINE && serious_only < fresh,
+        "{serious_only}"
+    );
+
+    // One hour past the serious window: the scale sees a clean record again.
+    profile.game_hours = booked + SAFETY_RECORD_SERIOUS_WINDOW_DAYS as f64 * 24.0 + 1.0;
     assert_eq!(score_for_profile(&profile, 0.0), SAFETY_RECORD_BASELINE);
     assert_eq!(profile.driving_record.citations, 1);
     assert_eq!(profile.driving_record.fatigue_events, 1);

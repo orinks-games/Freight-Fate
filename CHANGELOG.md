@@ -40,6 +40,7 @@
 - **Halloween week has more billboards, and they no longer repeat the same two lines.** They come up less often, and some are about the state you are in.
 - **Adaptive cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
 - **Full lane keeping now leaves a lane that a work zone closes.** It moves over when the signs come up, so All assists no longer drives into the barrels.
+- **The taper warning before a lane closure now names the open lane.** With the left lane closed it used to say merge left.
 - **Barrel citations from before that fix come off your record.** The fine is refunded the first time you load the career.
 - **Facility stopping assistance no longer gets you fined at a chain control.** A truck pulling into the chain-up area to put chains on is not cited.
 - **A crash on Windows now writes its cause into game.log,** so a bug report with the log shows what went wrong.
