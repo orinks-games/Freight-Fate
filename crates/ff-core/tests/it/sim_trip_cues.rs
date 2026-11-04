@@ -976,7 +976,7 @@ fn test_border_booths_follow_inbound_country_crossings() {
             "surrey_bc_ca",
             Some((
                 "Pacific Highway Port of Entry",
-                3.3,
+                1.5,
                 "CA",
                 "Canada Border Services Agency",
             )),
@@ -986,7 +986,7 @@ fn test_border_booths_follow_inbound_country_crossings() {
             "blaine_wa_us",
             Some((
                 "Blaine Pacific Highway Port of Entry",
-                12.8,
+                14.5,
                 "US",
                 "U.S. Customs and Border Protection",
             )),

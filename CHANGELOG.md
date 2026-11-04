@@ -21,7 +21,7 @@
 
 - **Drivers can call dispatch while stopped for trip-specific help.** Report delays, hours, road conditions, truck trouble or load trouble.
 
-- **Trucks now stop for customs at the border on the Alaska Highway and both ways at Blaine.** Driving past the booth brings a penalty, which a company driver's carrier pays.
+- **Trucks now stop for customs at the border on the Alaska Highway and both ways at Blaine.** Driving past the booth brings a penalty, which a company driver's carrier pays. The Pacific Highway booths sit at the truck crossing just north of Blaine, not at Peace Arch.
 
 - **Alaska's spring weight limits now apply.** From April to mid-June, loads on thawing Alaska highways are lighter, and offers name the road setting the limit.
 

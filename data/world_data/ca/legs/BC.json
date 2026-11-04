@@ -2457,42 +2457,42 @@
         "checkpoints": [
           {
             "name": "Pacific Highway Port of Entry",
-            "at_mi": 12.7,
+            "at_mi": 14.3,
             "type": "border",
             "state": "British Columbia",
             "highway": "Hwy 15 / Pacific Highway",
-            "lat": 49.0027525,
-            "lon": -122.7340767,
-            "source": "Canada Border Services Agency Pacific Highway office (813), 28 176th Street, Surrey, BC. Commercial hours read as 24 hours, 7 days a week, and a dedicated FAST lane open 24 hours, from the CBSA Directory of Offices and Services page (https://www.cbsa-asfc.gc.ca/do-rb/offices-bureaux/398-eng.html, Internet Archive 2024 copy; the live page now points to the new cloud directory) and the CBSA FAST contact page (https://www.cbsa-asfc.gc.ca/prog/fast-expres/contact-eng.html, modified 2022-06-06), both read 2026-10-07. Coordinates read from the OSM facility way 144822144 centre. Mile derived: 0.1 mi north of this leg's approximate border crossing, since the inspection plaza sits just north of the line."
+            "lat": 49.0027824,
+            "lon": -122.7337558,
+            "source": "Canada Border Services Agency Pacific Highway office (813), 28 176th Street, Surrey, BC. Commercial hours read as 24 hours, 7 days a week, and a dedicated FAST lane open 24 hours, from the CBSA Directory of Offices and Services page (https://www.cbsa-asfc.gc.ca/do-rb/offices-bureaux/398-eng.html, Internet Archive 2024 copy; the live page now points to the new cloud directory) and the CBSA FAST contact page (https://www.cbsa-asfc.gc.ca/prog/fast-expres/contact-eng.html, modified 2022-06-06), both read 2026-10-07. Coordinates read from the OSM facility way 144822144 center through Overpass 2026-11-04. Miles from public Valhalla auto routes over OpenStreetMap (valhalla1.openstreetmap.de) through the inspection booths, read 2026-11-04, measured from the Blaine end; the international boundary position (lat 49.00212 on Hwy 15) was read from OpenStreetMap through Nominatim reverse lookups the same day."
           },
           {
             "name": "Blaine Pacific Highway Port of Entry",
-            "at_mi": 12.8,
+            "at_mi": 14.5,
             "type": "border",
             "state": "Washington",
             "highway": "Hwy 15 / Pacific Highway",
-            "lat": 49.002,
-            "lon": -122.756,
-            "source": "Pacific Highway commercial port of entry (Blaine). Locked Phase A POE; Sumas is alternate only. Prefer Hwy 15 / Pacific Highway label (not Hwy 99 / Peace Arch)."
+            "lat": 49.0018762,
+            "lon": -122.738196,
+            "source": "U.S. Customs and Border Protection Blaine Pacific Highway commercial port of entry. Coordinates from the OSM commercial inspection booth node 8288274953 (\"Port of Entry - Blaine\", hgv/goods/hazmat designated), read through Overpass 2026-11-04. Locked Phase A port of entry; Sumas is alternate only. Prefer Hwy 15 / Pacific Highway label (not Hwy 99 / Peace Arch). Miles from public Valhalla auto routes over OpenStreetMap (valhalla1.openstreetmap.de) through the inspection booths, read 2026-11-04, measured from the Blaine end; the international boundary position (lat 49.00212 on Hwy 15) was read from OpenStreetMap through Nominatim reverse lookups the same day."
           }
         ],
         "state_miles": [
           {
             "state": "British Columbia",
-            "miles": 15.0
+            "miles": 14.4
           },
           {
             "state": "Washington",
-            "miles": 1.0
+            "miles": 1.6
           }
         ],
         "state_crossings": [
           {
-            "at_mi": 12.8,
+            "at_mi": 14.4,
             "from_state": "British Columbia",
             "state": "Washington",
             "place": "Washington\u2013British Columbia border on Hwy 15 at the Pacific Highway Port of Entry",
-            "source": "International border on the continuous Pacific Highway truck path; position approximate from public POE coordinates matched to Valhalla geometry (development-time)."
+            "source": "International border on the continuous Pacific Highway truck path. Miles from public Valhalla auto routes over OpenStreetMap (valhalla1.openstreetmap.de) through the inspection booths, read 2026-11-04, measured from the Blaine end; the international boundary position (lat 49.00212 on Hwy 15) was read from OpenStreetMap through Nominatim reverse lookups the same day."
           }
         ],
         "border_crossing": {
