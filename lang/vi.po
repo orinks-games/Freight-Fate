@@ -11485,6 +11485,21 @@ msgstr ""
 msgid "{base} in {days_ahead} days"
 msgstr ""
 
+msgid "minivan"
+msgstr "xe minivan"
+
+msgid "sports car"
+msgstr "xe thể thao"
+
+msgid "tanker"
+msgstr "xe bồn"
+
+msgid "car hauler"
+msgstr "xe chở ô tô"
+
+msgid "service vehicle"
+msgstr ""
+
 msgid "cruising"
 msgstr ""
 
@@ -11513,9 +11528,6 @@ msgid "{f} kilometers per hour"
 msgstr ""
 
 msgid "passing"
-msgstr ""
-
-msgid "service vehicle"
 msgstr ""
 
 msgid "right lane"
@@ -24235,6 +24247,10 @@ msgid "{name} lane closed for construction."
 msgstr ""
 
 #. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by an {vehicle}."
+msgstr ""
+
+#. placeholders: {name}, {vehicle}
 msgid "{name} lane blocked by a {vehicle}."
 msgstr ""
 
@@ -29539,6 +29555,17 @@ msgstr ""
 #. placeholders: {damage_pct}
 #. one sentence of a longer line
 msgid "Truck damage {damage_pct} percent."
+msgstr ""
+
+#. placeholders: {vehicle_class}, {lane_name}
+#. one sentence of a longer line
+msgid "You sideswiped an {vehicle_class} in the {lane_name} lane!"
+msgstr ""
+
+#. placeholders: {vehicle_class}, {lane_name}, {damage_pct}
+msgid ""
+"You sideswiped an {vehicle_class} in the {lane_name} lane! Truck damage "
+"{damage_pct} percent."
 msgstr ""
 
 #. placeholders: {vehicle_class}, {lane_name}

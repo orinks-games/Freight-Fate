@@ -1194,3 +1194,39 @@ fn test_a_busy_freeway_carries_company_in_the_lanes_beside_the_truck() {
         .iter()
         .all(|v| v.key.matches(':').count() == 1));
 }
+
+#[test]
+fn test_tankers_and_car_haulers_are_tractor_trailers() {
+    // They are semis with a different trailer: the same limiter and the same
+    // weight on a grade, so they string out with the semis on a hill.
+    for class in ["tanker", "car hauler"] {
+        assert_eq!(
+            governed_band(class),
+            Some(GOVERNED_TRUCK_BAND_MPH),
+            "{class}"
+        );
+        assert_eq!(climb_speed_mph(class, 6.0), climb_speed_mph("semi", 6.0));
+    }
+}
+
+#[test]
+fn test_the_freeway_mix_keeps_the_old_shares_of_heavy_traffic() {
+    // Thirteen kinds now, but the road is as heavy as the four-kind mix was:
+    // light vehicles 5.0, box trucks 1.4, tractor-trailers 2.0, service 0.3.
+    use ff_core::sim::traffic_manager::{rig_class, FREEWAY_CLASSES};
+    let share = |pick: &dyn Fn(&str) -> bool| -> f64 {
+        FREEWAY_CLASSES
+            .iter()
+            .filter(|(class, _)| pick(class))
+            .map(|(_, weight)| weight)
+            .sum()
+    };
+    let near = |a: f64, b: f64| (a - b).abs() < 1e-9;
+    assert!(near(share(&|c| rig_class(c) == "semi"), 2.0));
+    assert!(near(share(&|c| c == "box truck"), 1.4));
+    assert!(near(share(&|c| c == "service vehicle"), 0.3));
+    assert!(near(
+        share(&|c| !matches!(rig_class(c), "semi" | "box truck" | "service vehicle")),
+        5.0
+    ));
+}

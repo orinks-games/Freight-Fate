@@ -13152,27 +13152,27 @@ msgstr ""
 msgid "yield"
 msgstr ""
 
-#: crates/ff-core/src/sim/cross_traffic.rs crates/ff-core/src/sim/traffic_manager/beside.rs crates/ff-core/src/sim/traffic_manager.rs
+#: crates/ff-core/src/sim/cross_traffic.rs crates/ff-core/src/sim/traffic_manager.rs
 msgid "car"
 msgstr ""
 
-#: crates/ff-core/src/sim/cross_traffic.rs crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_core/constants.rs
+#: crates/ff-core/src/sim/cross_traffic.rs crates/ff-core/src/sim/traffic_manager.rs crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_core/constants.rs
 msgid "pickup"
 msgstr ""
 
-#: crates/ff-core/src/sim/cross_traffic.rs crates/ff-core/src/sim/traffic_manager/beside.rs crates/ff-core/src/sim/traffic_manager.rs crates/freight-fate/src/states/driving_core/constants.rs
+#: crates/ff-core/src/sim/cross_traffic.rs crates/ff-core/src/sim/traffic_manager.rs crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_lane_gap.rs
 msgid "box truck"
 msgstr ""
 
-#: crates/ff-core/src/sim/cross_traffic.rs crates/ff-core/src/sim/traffic_manager/beside.rs crates/ff-core/src/sim/traffic_manager.rs crates/freight-fate/src/states/driving_core/constants.rs
+#: crates/ff-core/src/sim/cross_traffic.rs crates/ff-core/src/sim/traffic_manager.rs crates/freight-fate/src/states/driving_core/constants.rs
 msgid "semi"
 msgstr ""
 
-#: crates/ff-core/src/sim/cross_traffic.rs
+#: crates/ff-core/src/sim/cross_traffic.rs crates/ff-core/src/sim/traffic_manager.rs
 msgid "motorcycle"
 msgstr ""
 
-#: crates/ff-core/src/sim/cross_traffic.rs crates/freight-fate/src/states/driving_core/constants.rs
+#: crates/ff-core/src/sim/cross_traffic.rs crates/ff-core/src/sim/traffic_manager.rs crates/freight-fate/src/states/driving_core/constants.rs
 msgid "bus"
 msgstr ""
 
@@ -14630,6 +14630,26 @@ msgstr ""
 msgid "{base} in {days_ahead} days"
 msgstr ""
 
+#: crates/ff-core/src/sim/traffic_manager.rs
+msgid "minivan"
+msgstr ""
+
+#: crates/ff-core/src/sim/traffic_manager.rs crates/freight-fate/src/states/driving_lane_gap.rs crates/freight-fate/src/states/driving_traffic_sounds.rs
+msgid "sports car"
+msgstr ""
+
+#: crates/ff-core/src/sim/traffic_manager.rs
+msgid "tanker"
+msgstr ""
+
+#: crates/ff-core/src/sim/traffic_manager.rs crates/freight-fate/src/states/driving_lane_gap.rs crates/freight-fate/src/states/driving_traffic_sounds.rs crates/freight-fate/src/visuals/scene_drive.rs
+msgid "car hauler"
+msgstr ""
+
+#: crates/ff-core/src/sim/traffic_manager.rs crates/freight-fate/src/states/driving_traffic_sounds.rs crates/freight-fate/src/visuals/scene_drive.rs
+msgid "service vehicle"
+msgstr ""
+
 #: crates/ff-core/src/sim/traffic_manager.rs crates/ff-core/src/sim/trip_models.rs
 msgid "cruising"
 msgstr ""
@@ -14667,10 +14687,6 @@ msgstr ""
 
 #: crates/ff-core/src/sim/traffic_manager/beside.rs crates/ff-core/src/sim/traffic_manager.rs crates/ff-core/src/sim/trip_models.rs
 msgid "passing"
-msgstr ""
-
-#: crates/ff-core/src/sim/traffic_manager/beside.rs crates/ff-core/src/sim/traffic_manager.rs crates/freight-fate/src/states/driving_traffic_sounds.rs crates/freight-fate/src/visuals/scene_drive.rs
-msgid "service vehicle"
 msgstr ""
 
 #: crates/ff-core/src/sim/traffic_manager/vehicle.rs crates/ff-core/src/sim/trip_models.rs
@@ -30617,6 +30633,11 @@ msgstr ""
 
 #. placeholders: {name}, {vehicle}
 #: crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "{name} lane blocked by an {vehicle}."
+msgstr ""
+
+#. placeholders: {name}, {vehicle}
+#: crates/freight-fate/src/states/driving_lane_gap.rs
 msgid "{name} lane blocked by a {vehicle}."
 msgstr ""
 
@@ -37196,6 +37217,19 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_updates/lanes.rs
 msgid "Truck damage {damage_pct} percent."
+msgstr ""
+
+#. placeholders: {vehicle_class}, {lane_name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "You sideswiped an {vehicle_class} in the {lane_name} lane!"
+msgstr ""
+
+#. placeholders: {vehicle_class}, {lane_name}, {damage_pct}
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid ""
+"You sideswiped an {vehicle_class} in the {lane_name} lane! Truck damage "
+"{damage_pct} percent."
 msgstr ""
 
 #. placeholders: {vehicle_class}, {lane_name}

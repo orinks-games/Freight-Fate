@@ -11732,6 +11732,21 @@ msgstr "明日の{base}"
 msgid "{base} in {days_ahead} days"
 msgstr "{days_ahead}日後の{base}"
 
+msgid "minivan"
+msgstr "ミニバン"
+
+msgid "sports car"
+msgstr "スポーツカー"
+
+msgid "tanker"
+msgstr "タンクローリー"
+
+msgid "car hauler"
+msgstr "車両運搬車"
+
+msgid "service vehicle"
+msgstr "作業車両"
+
 msgid "cruising"
 msgstr "巡航中"
 
@@ -11761,9 +11776,6 @@ msgstr "時速{f}キロメートル"
 
 msgid "passing"
 msgstr "追い越し"
-
-msgid "service vehicle"
-msgstr "作業車両"
 
 msgid "right lane"
 msgstr "右車線"
@@ -24870,6 +24882,10 @@ msgid "{name} lane closed for construction."
 msgstr "{name}の車線は工事で閉鎖されています。"
 
 #. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by an {vehicle}."
+msgstr "{name}の車線は{vehicle}でふさがっています。"
+
+#. placeholders: {name}, {vehicle}
 msgid "{name} lane blocked by a {vehicle}."
 msgstr "{name}の車線は{vehicle}でふさがっています。"
 
@@ -30317,6 +30333,17 @@ msgstr "{lane_label}の車線は閉鎖されています。{lane_name}の車線�
 #. one sentence of a longer line
 msgid "Truck damage {damage_pct} percent."
 msgstr "トラックの損傷{damage_pct}パーセント。"
+
+#. placeholders: {vehicle_class}, {lane_name}
+#. one sentence of a longer line
+msgid "You sideswiped an {vehicle_class} in the {lane_name} lane!"
+msgstr "{lane_name}の車線の{vehicle_class}に側面から接触しました！"
+
+#. placeholders: {vehicle_class}, {lane_name}, {damage_pct}
+msgid ""
+"You sideswiped an {vehicle_class} in the {lane_name} lane! Truck damage "
+"{damage_pct} percent."
+msgstr "{lane_name}の車線の{vehicle_class}に側面から接触しました！トラックの損傷{damage_pct}パーセント。"
 
 #. placeholders: {vehicle_class}, {lane_name}
 #. one sentence of a longer line
