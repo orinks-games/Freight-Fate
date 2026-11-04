@@ -40,7 +40,7 @@ impl DrivingState {
                     ctx.settings.speed_text(mph),
                     SayEvent::queued()
                         .category(SpeechCategory::Status)
-                        .key("speed callout")
+                        .key("speed_callout")
                         .valid(move || (live::speed_mph() - mph).abs() < SPEED_CALLOUT_TRUE_MPH),
                 );
             }
