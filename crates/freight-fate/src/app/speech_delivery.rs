@@ -398,7 +398,7 @@ impl GameContext {
         self.note_main_said();
         self.log_mostly_heard_cut();
         if let Some(cut) = cut {
-            self.requeue_cut_event(cut);
+            self.hand_back_after_readout(cut);
         }
         if review {
             self.message_log.add(&text, MessageCategory::General);
@@ -484,10 +484,7 @@ impl GameContext {
         // the text here, a playtest log answers the question by itself --
         // grep the requeues, read each one, ask whether it was still true.
         transcript!("[pacer] cut line requeued: {}", text);
-        if self.handed_back.len() == HANDED_BACK_KEPT {
-            self.handed_back.pop_front();
-        }
-        self.handed_back.push_back(text.clone());
+        self.note_handed_back(&text);
         if interrupt {
             self.event_pacer.note_ahead(&text);
         } else {
@@ -500,6 +497,13 @@ impl GameContext {
         } else {
             self.speech.say(&text, false);
         }
+    }
+
+    fn note_handed_back(&mut self, text: &str) {
+        if self.handed_back.len() == HANDED_BACK_KEPT {
+            self.handed_back.pop_front();
+        }
+        self.handed_back.push_back(text.to_string());
     }
 
     /// How many of the voice's deliveries containing `phrase` were the pacer

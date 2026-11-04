@@ -133,8 +133,6 @@ impl DrivingState {
         self.acc_following = false;
         self.acc_weather_gap_said = false;
         self.acc_limit_capped = false;
-        self.acc_limit_cap_said = None;
-        self.acc_limit_hold = None;
         self.acc_weather_cap_said = None;
         let mut effective_mph = match self.cruise_exit_mph {
             Some(exit) => set.min(exit),
@@ -164,6 +162,15 @@ impl DrivingState {
             posted + ACC_LIMIT_OFFSET_MPH
         };
         if cap_mph < effective_mph {
+            // The line below names this cap, so the loop must not announce
+            // it again as news.
+            self.acc_limit_cap_said = Some(
+                self.acc_limit_cap_said
+                    .map_or(cap_mph, |said| said.min(cap_mph)),
+            );
+            if !restricted {
+                self.trip.note_limit_preannounced(cap_mph);
+            }
             effective_mph = cap_mph;
             exit_note = match limit_reason.as_deref() {
                 Some("construction" | "construction merge") => {
@@ -178,6 +185,9 @@ impl DrivingState {
                 }
                 _ => format!(" for the {} limit", ctx.settings.speed_value(posted)),
             };
+        } else if self.acc_limit_hold.is_none() && self.construction_slowdown.is_none() {
+            // Nothing ahead is being slowed for: the next drop is news.
+            self.acc_limit_cap_said = None;
         }
         let effects = self.trip.weather.effects();
         if effects.is_adverse() && effects.safe_speed_mph < effective_mph {

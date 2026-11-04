@@ -207,6 +207,7 @@ mod transcript_career_arc_playtest;
 mod transcript_career_stats;
 mod transcript_city_services;
 mod transcript_cruise_resume_ramp;
+mod transcript_cruise_zone_resume;
 mod transcript_destination_terminal_miss;
 mod transcript_driving_cruise_limit_drop_compressed;
 mod transcript_driving_cruise_weather;

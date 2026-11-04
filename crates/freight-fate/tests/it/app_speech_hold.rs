@@ -306,3 +306,57 @@ fn test_a_road_line_cutting_into_a_readout_ends_the_excuse() {
     assert!(!heard(&app, "59 miles"));
     app.shutdown();
 }
+
+#[test]
+fn test_a_road_line_cut_by_a_readout_survives_a_brake_line() {
+    // "Construction, 6 miles. Merge right" was cut 1.3 seconds in by a
+    // Clock readout, queued behind it, purged by "Brake!" and ruled mostly
+    // heard (owner's NVDA drives, 2026-11-03). Held instead, it goes once
+    // the voice is quiet, after the Brake line.
+    const MERGE: &str = "Construction, 6 miles. Merge right.";
+    const BRAKE: &str = "Brake! A vehicle stopped ahead.";
+    let mut app = TestApp::new();
+    let clock = app.fake_pacer_clock();
+    app.ctx.settings.sapi_events = false;
+    talking(&mut app);
+    for _ in 0..20 {
+        clock.advance(1.0);
+        frame(&mut app, false);
+    }
+    app.ctx
+        .say_event_with(MERGE, SayEvent::queued().priority(EventPriority::Important));
+    assert_eq!(app.ctx.held_event_count(), 0, "a quiet voice takes it now");
+    clock.advance(0.6);
+    frame(&mut app, true);
+    clock.advance(0.7);
+    frame(&mut app, true);
+
+    app.ctx
+        .say("It's 3:15 PM, day 2. Next rest due in 6 hours.");
+    assert_eq!(app.ctx.held_event_count(), 1, "the cut line waits");
+    clock.advance(1.0);
+    frame(&mut app, true);
+    app.ctx
+        .say_event_with(BRAKE, SayEvent::new().priority(EventPriority::Critical));
+    for _ in 0..20 {
+        clock.advance(0.1);
+        frame(&mut app, true);
+    }
+    assert_eq!(app.ctx.held_event_count(), 1, "kept through the Brake line");
+    clock.advance(0.1);
+    frame(&mut app, false);
+    let lines = app.speech().lines();
+    let merges: Vec<usize> = lines
+        .iter()
+        .enumerate()
+        .filter(|(_, line)| line.contains(MERGE))
+        .map(|(at, _)| at)
+        .collect();
+    let brake = lines
+        .iter()
+        .position(|line| line.contains(BRAKE))
+        .expect("the Brake line was spoken");
+    assert_eq!(merges.len(), 2, "{lines:?}");
+    assert!(merges[1] > brake, "{lines:?}");
+    app.shutdown();
+}

@@ -16,7 +16,7 @@
 
 use ff_core::message_log::MessageCategory;
 
-use crate::speech::{EventPriority, Protect, Valid};
+use crate::speech::{Cut, EventPriority, Protect, Valid};
 
 use super::{GameContext, TRANSCRIPT_TARGET};
 
@@ -298,6 +298,37 @@ impl GameContext {
             self.voice_watch.main_said_at = self.event_pacer.now();
             self.voice_watch.readout_playing = true;
         }
+    }
+
+    /// Hand back a road line an info readout cut on the shared voice.
+    ///
+    /// A voice that reports on itself gets the line held until the readout
+    /// ends, like any road line raised during one. Queued straight behind
+    /// the readout instead, it sat in the screen reader's queue where the
+    /// next Brake line purged it, and the pacer, counting the readout's
+    /// time as the line playing, ruled it mostly heard: "Construction, 6
+    /// miles. Merge right" was lost after 1.3 seconds of it (owner's NVDA
+    /// drives, 2026-11-03). Held, it goes once the voice is quiet, after
+    /// the Brake line if one came. A voice that cannot report gets the
+    /// line queued behind the readout, as before.
+    pub(super) fn hand_back_after_readout(&mut self, cut: Cut) {
+        if !self.event_pacer.voice_reporting() {
+            self.requeue_cut_event(cut);
+            return;
+        }
+        let (text, priority) = cut;
+        log::info!(target: TRANSCRIPT_TARGET, "[pacer] cut line held for the readout: {text}");
+        self.note_handed_back(&text);
+        self.hold_event(EventLine {
+            text,
+            priority,
+            interrupt: false,
+            protect: Protect::Yes,
+            valid: None,
+            key: None,
+            receipt: false,
+            review: false,
+        });
     }
 
     /// A road line went to the voice: from here the wait is on the road,
