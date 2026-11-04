@@ -96,7 +96,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     outputs:
-      should_build: ${{ steps.check.outputs.should_build }}
+      should_build: ${{ steps.check.outputs.should_build || 'false' }}
       tag: ${{ steps.check.outputs.tag }}
       commit_sha: ${{ steps.check.outputs.commit_sha }}
       is_prerelease: ${{ steps.check.outputs.is_prerelease }}
@@ -131,9 +131,21 @@ jobs:
           fi
           echo "::warning::$msg"
 
+      # A scheduled start with no new commits since the last snapshot stops
+      # here, before the release tooling is built.
+      - name: Skip a night with no new commits
+        id: early
+        if: github.event_name == 'schedule'
+        run: |
+          if [ -n "$(git tag --points-at HEAD --list '1.9-tester-*')" ]; then
+            echo "The last snapshot already built $(git rev-parse --short HEAD); nothing new."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
       # The release-notes, community-station, translation-kit and snapshot
       # commands, built without the world feature so the game is not.
       - name: Build the release tooling
+        if: steps.early.outputs.skip != 'true'
         run: |
           rustup show
           cargo build -p ff-tools --no-default-features --locked
@@ -141,6 +153,7 @@ jobs:
 
       - name: Check snapshot conditions
         id: check
+        if: steps.early.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SCHEDULE: ${{ github.event.schedule }}
