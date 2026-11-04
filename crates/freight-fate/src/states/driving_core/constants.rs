@@ -550,6 +550,9 @@ pub const CRUISE_TRIM_LIMIT: f64 = 0.4; // how far trim may pull away from the f
                                         // what the truck can comfortably do, so speed keeps up and the error never grows
                                         // into a governor slam.
 pub const CRUISE_ACCEL_MPH_PER_S: f64 = 2.5;
+// How far over a lower cap the truck must be before cruise says it is easing
+// to it. Under that, the cap only stops a climb, and "easing" would be untrue.
+pub const CRUISE_EASE_SPOKEN_OVER_MPH: f64 = 2.0;
 // Belt and suspenders for the downgrade: even where gravity does the
 // accelerating, cruise must not add throttle as the engine nears the governor.
 // Demand tapers to nothing across this fraction of max RPM below the redline, so

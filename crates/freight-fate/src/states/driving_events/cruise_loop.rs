@@ -125,7 +125,15 @@ impl DrivingState {
             Some(_) => self.acc_limit_hold = None,
             None => {}
         }
-        let speed = self.trip.truck.speed_mph();
+        // Priced at the speed cruise is climbing to (what it held last frame,
+        // after every cap) as well as the speed it is doing: a truck pulling up from 44 toward 80 found a drop to 40 a
+        // quarter mile ahead only once it was already past 47, and then had
+        // to ease back for it (owner's drive out of Buffalo, 2026-11-04).
+        let speed = self
+            .trip
+            .truck
+            .speed_mph()
+            .max(self.cruise_held_mph.unwrap_or(0.0));
         let mut probe = start + ACC_LIMIT_LOOKAHEAD_STEP_MI;
         while probe <= end + 1e-6 {
             let (limit, reason) = self.trip.speed_limit_at(probe);
@@ -561,9 +569,18 @@ impl DrivingState {
             // a work zone the zone slips out of the window and back in, and a
             // plain on/off latch recited the same easing line all the way to
             // the barrels.
-            if self
-                .acc_limit_cap_said
-                .is_none_or(|said| cap_mph < said - 0.5)
+            //
+            // Spoken only when the cap really slows the truck. Climbing out
+            // of a town at 44 with the set speed at 80, a 60 cap and then a
+            // 45 cap each said "Cruise easing to" a second apart, though the
+            // truck was under both and never eased at all (owner's drive out
+            // of Buffalo, 2026-11-04). A cap the truck is under stays
+            // unlatched, so it speaks if a hill later carries the truck over.
+            let slowing = self.trip.truck.speed_mph() > cap_mph + CRUISE_EASE_SPOKEN_OVER_MPH;
+            if slowing
+                && self
+                    .acc_limit_cap_said
+                    .is_none_or(|said| cap_mph < said - 0.5)
             {
                 self.acc_limit_cap_said = Some(cap_mph);
                 // The cause only where the speed limit cue does not already
@@ -627,9 +644,12 @@ impl DrivingState {
         let safe_mph = effects.safe_speed_mph;
         if adverse && safe_mph < target_mph {
             target_mph = safe_mph;
-            if self
-                .acc_weather_cap_said
-                .is_none_or(|said| safe_mph < said - 0.5)
+            // The same rule as the limit's line: only a truck the weather is
+            // actually slowing hears that it is easing.
+            if self.trip.truck.speed_mph() > safe_mph + CRUISE_EASE_SPOKEN_OVER_MPH
+                && self
+                    .acc_weather_cap_said
+                    .is_none_or(|said| safe_mph < said - 0.5)
             {
                 self.acc_weather_cap_said = Some(safe_mph);
                 let kind = self.trip.weather.current.value();
