@@ -843,6 +843,7 @@ impl DrivingState {
             );
             return;
         }
+        let message = self.without_signal_request_once_armed(event, message);
         if let Some(sound) = sound {
             // A turn earcon belongs to the words that name the turn. The
             // maneuver lead is NAVIGATION_ADVISORY, which the quiet rungs
@@ -887,6 +888,20 @@ impl DrivingState {
             self.refresh_live_facts();
             let named = event.data.limit_mph;
             opts = opts.valid(move || live::limit_line_holds(named));
+        }
+        if kind == TripEventKind::StopAhead {
+            // A planned stop's call cut mid-sentence comes back only while
+            // the exit is still ahead, and, when it asks for the signal,
+            // only while the signal is off: the X that cut it set the signal,
+            // and "Press X to signal" handed back after that asked for a
+            // press that cancels it (agent drive, I-40, 2026-11-04).
+            if let Some(stop_at) = event.data.stop.as_ref().map(|stop| stop.at_mi) {
+                let asks_for_signal = message.normal.contains("to signal");
+                self.refresh_live_facts();
+                opts = opts.valid(move || {
+                    live::position_mi() < stop_at && !(asks_for_signal && live::exit_signal_on())
+                });
+            }
         }
         ctx.say_event_with(message, opts);
         // Any spoken route line pushes spaced ambient chatter back, so
@@ -1080,6 +1095,14 @@ impl DrivingState {
     /// quiet, a tone at urgent_only, which is what makes those two rungs
     /// different settings.
     pub fn event_category(event: &TripEvent) -> Option<SpeechCategory> {
+        if event.kind == TripEventKind::StopAhead && event.data.planned.unwrap_or(false) {
+            // The stop the player planned is where they mean to exit, and
+            // this call is when to signal for it. As a heads-up it went
+            // silent at urgent only, and a driver who planned a rest stop
+            // heard nothing until "Past your planned stop" (Orinks,
+            // 2026-11-04).
+            return Some(SpeechCategory::Navigation);
+        }
         if event.kind == TripEventKind::GpsCue && event.data.limit_change.unwrap_or(false) {
             // "Speed limit raised to 55" is the road's state; S answers it on
             // demand. The other GPS cues -- merge onto this highway, take that

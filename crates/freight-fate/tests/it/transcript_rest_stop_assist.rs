@@ -833,3 +833,120 @@ fn test_t_plans_a_sleep_stop_well_beyond_the_exit_window() {
     assert!(harness.read_drive(|d| d.exit_stop.is_none()));
     assert!(!harness.read_drive(|d| d.exit_signal_on));
 }
+
+/// Plan the sleep stop twenty miles out, then roll from just outside the
+/// stop-ahead lookahead to a mile short of it at `rung`; every line said.
+fn planned_stop_approach(rung: &str, plan: bool, signal_first: bool) -> Vec<String> {
+    let mut harness = driving_app();
+    harness.app.ctx.settings.driving_speech = rung.to_string();
+    // The speech modes apply once the tutorial is behind the career.
+    if let Some(profile) = harness.app.ctx.profile.as_mut() {
+        profile.tutorial_done = true;
+    }
+    let stop = sleep_stop(&mut harness, 20.0);
+    rolling(&mut harness, 60.0);
+    if plan {
+        press_t(&mut harness);
+    }
+    let at = stop.at_mi;
+    // Inside the exit window to signal first, just outside the call otherwise;
+    // the call goes out on the first frame either way.
+    let start = if signal_first { at - 4.0 } else { at - 5.05 };
+    harness.with_drive(move |d, _| d.trip.position_mi = start);
+    if signal_first {
+        press_x(&mut harness);
+        assert!(harness.read_drive(|d| d.exit_signal_on));
+    }
+    harness.clear_speech();
+    for _ in 0..600 {
+        rolling(&mut harness, 60.0);
+        drive_frame(&mut harness);
+        if harness.read_drive(|d| d.trip.position_mi) > at - 1.0 {
+            break;
+        }
+    }
+    spoken(&harness)
+}
+
+#[test]
+fn test_planned_stop_is_called_with_its_key_at_every_speech_mode() {
+    // Orinks, 2026-11-04: on quiet the call for a planned rest stop never
+    // said which key signals for it, and on urgent only it was not spoken at
+    // all, so a planned stop could go by with no signal set.
+    for rung in ["standard", "quiet", "urgent_only"] {
+        let said = planned_stop_approach(rung, true, false);
+        let call = said
+            .iter()
+            .find(|line| line.contains("Planned stop, "))
+            .unwrap_or_else(|| panic!("{rung}: no planned stop call in {said:?}"));
+        assert!(call.contains("Prairie View Rest Area"), "{rung}: {call}");
+        assert!(call.contains("Press X to signal"), "{rung}: {call}");
+    }
+}
+
+#[test]
+fn test_an_unplanned_stop_stays_a_heads_up_at_urgent_only() {
+    // Only the plan is promoted; other stops stay out of urgent only.
+    let said = planned_stop_approach("urgent_only", false, false);
+    assert!(
+        !said.iter().any(|line| line.contains("Prairie View")),
+        "{said:?}"
+    );
+}
+
+#[test]
+fn test_planned_stop_call_does_not_ask_for_a_signal_already_set() {
+    // Pressing X again would cancel the signal the driver already set.
+    for rung in ["standard", "quiet", "urgent_only"] {
+        let said = planned_stop_approach(rung, true, true);
+        let call = said
+            .iter()
+            .find(|line| line.contains("Planned stop, "))
+            .unwrap_or_else(|| panic!("{rung}: no planned stop call in {said:?}"));
+        assert!(!call.contains("Press X"), "{rung}: {call}");
+    }
+}
+
+#[test]
+fn test_x_during_the_planned_stop_call_does_not_bring_the_key_back() {
+    // Agent drive, I-40, 2026-11-04: X pressed while "Planned stop ...
+    // Press X to signal." was speaking set the signal, and the cut line was
+    // then handed back whole, asking for a press that would cancel it.
+    for rung in ["standard", "quiet"] {
+        let mut harness = driving_app();
+        harness.app.ctx.settings.driving_speech = rung.to_string();
+        if let Some(profile) = harness.app.ctx.profile.as_mut() {
+            profile.tutorial_done = true;
+        }
+        let stop = sleep_stop(&mut harness, 20.0);
+        rolling(&mut harness, 60.0);
+        press_t(&mut harness);
+        let at = stop.at_mi;
+        harness.with_drive(move |d, _| d.trip.position_mi = at - 5.05);
+        harness.clear_speech();
+        let mut pressed = false;
+        for _ in 0..900 {
+            rolling(&mut harness, 60.0);
+            drive_frame(&mut harness);
+            if !pressed
+                && spoken(&harness)
+                    .iter()
+                    .any(|l| l.contains("Planned stop, "))
+            {
+                press_x(&mut harness);
+                assert!(harness.read_drive(|d| d.exit_signal_on), "{rung}");
+                pressed = true;
+            }
+            if harness.read_drive(|d| d.trip.position_mi) > at - 1.0 {
+                break;
+            }
+        }
+        assert!(pressed, "{rung}: {:?}", spoken(&harness));
+        let said = spoken(&harness);
+        let asks = said
+            .iter()
+            .filter(|line| line.contains("Planned stop, ") && line.contains("Press X"))
+            .count();
+        assert_eq!(asks, 1, "{rung}: {said:?}");
+    }
+}

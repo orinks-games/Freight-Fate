@@ -17485,6 +17485,11 @@ msgstr ""
 msgid "{terse} No fuel."
 msgstr ""
 
+#. placeholders: {terse}, {exit_hint}
+#: crates/ff-core/src/speech_text.rs
+msgid "{terse} Press {exit_hint} to signal."
+msgstr ""
+
 #: crates/ff-core/src/speech_text.rs
 msgid "estimated "
 msgstr ""
@@ -29997,6 +30002,16 @@ msgstr ""
 #. placeholders: {range_text}
 #: crates/freight-fate/src/states/driving_events/stop_plan.rs
 msgid "Fuel range only {range_text}."
+msgstr ""
+
+#. placeholders: {hint}
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid " Press {hint} to signal for the exit."
+msgstr ""
+
+#. placeholders: {hint}
+#: crates/freight-fate/src/states/driving_events/stop_plan.rs
+msgid " Press {hint} to signal."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/stops.rs

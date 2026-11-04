@@ -6,7 +6,8 @@
 //! service planning hints on, a break or sleep plan takes the stop the hours
 //! advice recommends, as T did before it asked.
 
-use ff_core::sim::trip_models::RoadStop;
+use ff_core::sim::trip_models::{RoadStop, TripEvent, TripEventKind};
+use ff_core::speech_text::SpokenMessage;
 
 use crate::app::GameContext;
 use crate::states::driving::DrivingState;
@@ -305,5 +306,41 @@ impl DrivingState {
             String::new()
         };
         self.speak_selected_rest_stop(ctx, &candidate, choice.prefix, &note);
+    }
+}
+
+impl DrivingState {
+    /// The planned stop's call, minus "Press X to signal" when the exit is
+    /// already signaled for: pressing X then would cancel it. The ambient
+    /// stop calls re-render for the same reason; the planned one skips that
+    /// queue and is checked here instead.
+    pub(super) fn without_signal_request_once_armed(
+        &self,
+        event: &TripEvent,
+        mut message: SpokenMessage,
+    ) -> SpokenMessage {
+        if event.kind != TripEventKind::StopAhead || self.trip.exit_hint.is_empty() {
+            return message;
+        }
+        let Some(stop) = event.data.stop.as_ref() else {
+            return message;
+        };
+        if !(self.exit_signal_on || self.exit_is_armed_for(stop)) {
+            return message;
+        }
+        let hint = &self.trip.exit_hint;
+        let normal_tail = format!(" Press {hint} to signal for the exit.");
+        if let Some(rest) = message.normal.strip_suffix(&normal_tail) {
+            message.normal = rest.to_string();
+        }
+        let terse_tail = format!(" Press {hint} to signal.");
+        if let Some(rest) = message
+            .terse
+            .as_deref()
+            .and_then(|terse| terse.strip_suffix(&terse_tail))
+        {
+            message.terse = Some(rest.to_string());
+        }
+        message
     }
 }
