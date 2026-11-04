@@ -15,6 +15,10 @@ use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 use crate::states::driving_updates::live;
 
+/// How far the truck's speed may drift from a speed callout before the
+/// callout is no longer worth saying.
+const SPEED_CALLOUT_TRUE_MPH: f64 = 3.0;
+
 impl DrivingState {
     pub fn update_announcements(&mut self, ctx: &mut GameContext, dt: f64) {
         if ctx.settings.renders_terse() {
@@ -27,9 +31,17 @@ impl DrivingState {
             let mph = self.trip.truck.speed_mph();
             if (mph - self.last_announced_mph).abs() >= 5.0 && mph > 1.0 {
                 self.last_announced_mph = mph;
+                // True only while the truck is still near that speed. A
+                // callout held behind a readout was spoken 7.7 seconds late,
+                // mid-brake, as "59" with the truck at 41 (owner's NVDA
+                // drive, 2026-11-03). The key lets a newer callout replace
+                // one still waiting.
                 ctx.say_event_with(
                     ctx.settings.speed_text(mph),
-                    SayEvent::queued().category(SpeechCategory::Status),
+                    SayEvent::queued()
+                        .category(SpeechCategory::Status)
+                        .key("speed_callout")
+                        .valid(move || (live::speed_mph() - mph).abs() < SPEED_CALLOUT_TRUE_MPH),
                 );
             }
         }

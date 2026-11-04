@@ -31,8 +31,10 @@ const KEY_BEAT_S: f64 = 1.5;
 const STALL_LIMIT_S: f64 = 180.0;
 /// How far ahead to look for a stop to end the shift at.
 const SHIFT_STOP_REACH_MI: f64 = 40.0;
-/// The pace a stop's reach is judged at: a stop farther than this covers in
-/// the time left before the break is due is out of reach.
+/// The pace a stop's reach is judged at in fair weather: a stop farther than
+/// this covers in the time left before the break is due is out of reach.
+/// Weather that slows the truck slows this too (see
+/// [`DrivingState::co_driver_pace_mph`]).
 pub(crate) const REACH_MPH: f64 = 50.0;
 /// How close to the posted limit the co-driver brings the truck by hand
 /// before setting the cruise, and how far under it a set speed may sit
@@ -99,6 +101,8 @@ pub struct Pilot {
     /// Descent control said it cannot hold the grade: the speed the
     /// co-driver brakes the truck down to before letting off again.
     pub descent_snub_to: Option<f64>,
+    /// The pace the stop they are making for was judged in reach at.
+    pub plan_pace_mph: f64,
 }
 
 /// The longest a hand-back waits for the passing lane to clear. Traffic
@@ -396,9 +400,18 @@ impl DrivingState {
             let low_set = self
                 .cruise_mph
                 .is_some_and(|set| set < limit - CRUISE_SET_MARGIN_MPH);
+            // A lower limit ahead of a set speed taken under a higher one: the
+            // set speed comes down to it. Crossing into Indiana's 65 for
+            // trucks, the co-driver held the 70 set in Illinois (agent
+            // drive, 2026-10-26).
+            let high_set = self.cruise_mph.is_some_and(|set| set > limit + 0.5);
             let open_road = zone.is_none() && self.ramp_mi.is_none() && !self.exit_signal_on;
-            if low_set && open_road && pilot.beat_s == 0.0 {
-                self.pilot_press(ctx, pilot, Action::CruiseUp);
+            if open_road && pilot.beat_s == 0.0 {
+                if low_set {
+                    self.pilot_press(ctx, pilot, Action::CruiseUp);
+                } else if high_set {
+                    self.pilot_press(ctx, pilot, Action::CruiseDown);
+                }
             }
         }
 
@@ -572,6 +585,16 @@ impl DrivingState {
                 pilot.making_for = None;
             }
         }
+        // Weather that slowed the truck since the plan was made (ice holds it
+        // at 20) can put the stop out of the hours left: judged again at the
+        // pace the truck can make now. Kept, a lot 67 miles off on ice was
+        // crawled toward until the hours ran out short of it (issue #518).
+        if let Some((key, purpose)) = pilot.making_for.clone() {
+            let pace = self.co_driver_pace_mph();
+            if pace < pilot.plan_pace_mph - 0.5 {
+                self.pilot_recheck_reach(ctx, pilot, &key, purpose);
+            }
+        }
         if pilot.making_for.is_some() {
             return;
         }
@@ -608,12 +631,7 @@ impl DrivingState {
         let Some(stop) = kept.or_else(first) else {
             return;
         };
-        let reach = if (pilot.rested || pilot.last_lot) && purpose == StopPurpose::ShiftEnd {
-            self.co_driver_hours_reach_mi(ctx)
-        } else {
-            self.co_driver_reach_mi(ctx, purpose)
-        };
-        if stop.at_mi - here > reach {
+        if stop.at_mi - here > self.pilot_reach_mi(ctx, pilot, purpose) {
             return;
         }
         log::info!(
@@ -629,6 +647,74 @@ impl DrivingState {
         self.selected_stop_assist_armed = false;
         self.selected_stop_assist_said = false;
         pilot.making_for = Some((stop.key(), purpose));
+        pilot.plan_pace_mph = self.co_driver_pace_mph();
+    }
+
+    /// How far ahead the stop for `purpose` may be.
+    fn pilot_reach_mi(&self, ctx: &GameContext, pilot: &Pilot, purpose: StopPurpose) -> f64 {
+        if (pilot.rested || pilot.last_lot) && purpose == StopPurpose::ShiftEnd {
+            self.co_driver_hours_reach_mi(ctx)
+        } else {
+            self.co_driver_reach_mi(ctx, purpose)
+        }
+    }
+
+    /// The pace slowed since the plan: drop the stop if the hours left no
+    /// longer reach it, so a nearer one is planned in its place. A lot that
+    /// was the last one in reach stops being that, and the shift runs on
+    /// until a lot is in reach or the hours are gone.
+    fn pilot_recheck_reach(
+        &mut self,
+        ctx: &GameContext,
+        pilot: &mut Pilot,
+        key: &str,
+        purpose: StopPurpose,
+    ) {
+        let pace = self.co_driver_pace_mph();
+        pilot.plan_pace_mph = pace;
+        let on_its_ramp = self
+            .ramp_stop
+            .as_ref()
+            .is_some_and(|stop| stop.key() == key);
+        let Some(at_mi) = self
+            .trip
+            .stops
+            .iter()
+            .find(|stop| stop.key() == key)
+            .map(|stop| stop.at_mi)
+        else {
+            return;
+        };
+        let ahead = at_mi - self.trip.position_mi;
+        if on_its_ramp || ahead <= self.pilot_reach_mi(ctx, pilot, purpose) {
+            return;
+        }
+        log::info!(
+            target: TRANSCRIPT_TARGET,
+            "[co-driver] {key} is out of reach at {pace:.0} miles per hour"
+        );
+        pilot.making_for = None;
+        if pilot.last_lot {
+            pilot.last_lot = false;
+            pilot.shift_over = false;
+        }
+        if self.trip.planned_stop_key.as_deref() == Some(key) {
+            self.trip.planned_stop_key = None;
+        }
+        if self.selected_stop_key.as_deref() == Some(key) {
+            self.clear_selected_stop_intent();
+        }
+    }
+
+    /// The pace the co-driver can make: [`REACH_MPH`], or less where the
+    /// weather holds the truck under it, the same cap they drive to.
+    pub(crate) fn co_driver_pace_mph(&self) -> f64 {
+        let effects = self.trip.weather.effects();
+        if effects.is_adverse() {
+            REACH_MPH.min(effects.safe_speed_mph)
+        } else {
+            REACH_MPH
+        }
     }
 
     /// The stops past `from_mi` that serve `purpose`, nearest first.
@@ -651,15 +737,17 @@ impl DrivingState {
     }
 
     /// How far ahead a stop for `purpose` may be: the shift's end looks a
-    /// short way, the break as far as the time left before it is due.
+    /// short way, the break as far as the time left before it is due. Both
+    /// shrink with the pace the weather allows.
     pub(crate) fn co_driver_reach_mi(&self, ctx: &GameContext, purpose: StopPurpose) -> f64 {
+        let pace = self.co_driver_pace_mph();
         match purpose {
-            StopPurpose::ShiftEnd => SHIFT_STOP_REACH_MI,
+            StopPurpose::ShiftEnd => SHIFT_STOP_REACH_MI * pace / REACH_MPH,
             StopPurpose::Break => {
                 let left_min = co_driver::BREAK_REQUIRED_AFTER_MIN
                     - co_driver::CO_DRIVER_SUMMON_LEAD_MIN
                     - hos_of(ctx).since_break_min;
-                left_min.max(0.0) / 60.0 * REACH_MPH
+                left_min.max(0.0) / 60.0 * pace
             }
             StopPurpose::Fuel => f64::INFINITY,
         }
@@ -673,7 +761,7 @@ impl DrivingState {
         let left_min = co_driver::shift_left_min(hos_of(ctx), &ctx.settings.hos_mode)
             .unwrap_or(0.0)
             - co_driver::CO_DRIVER_SUMMON_LEAD_MIN;
-        left_min.max(0.0) / 60.0 * REACH_MPH
+        left_min.max(0.0) / 60.0 * self.co_driver_pace_mph()
     }
 
     /// The lot to end the shift at now: the player's rest will not be in
@@ -709,7 +797,7 @@ impl DrivingState {
         if rest_left.is_none_or(|rest| rest <= hours_left) {
             return None;
         }
-        let reach = hours_left.max(0.0) / 60.0 * REACH_MPH;
+        let reach = hours_left.max(0.0) / 60.0 * self.co_driver_pace_mph();
         if self.trip.total_miles() - here <= reach {
             return None;
         }

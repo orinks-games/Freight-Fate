@@ -41,6 +41,11 @@ bookmarks usable.
 
 ## 1.9 in flight (`feat/career-1.9`)
 
+- [x] The event voice reports when it stops (owner, 2026-11-03): NVDA 2026.3 added `nvdaController_isSpeaking`, which Prism 0.18.3 already wraps; SAPI and OneCore answer too. Hearken's speech worker asks it, at most every 100 ms and only while a line could still be playing, and the pacer ends its length-based estimate when the voice reports silence, or holds it open while the voice is still talking. Game sounds stepping back for speech, the controller Back button's "anything speaking" check and the staleness budget all follow. Road lines also wait for it (owner, same day): while the voice reports it is talking, a queued road line is held by the game instead of stacked in the screen reader's queue; when it reports quiet, the most urgent held line still true is spoken, and chatter held past its 3-second budget, or a route line past 8 seconds, is dropped to message review (the owner's PC drive heard a work-zone easing line spoken 12 seconds late after a hazard brake, right before the game said it again). Interrupting lines and receipt-tracked lines never wait, and a queued critical line is never dropped: it goes after 6 seconds even if the voice never falls quiet. With both voices on the screen reader, the game asks the main voice, keeps asking once it has answered, and counts an info readout (Clock, Route) as speech: a road line raised during a readout waits for it, and the readout's time does not count against the line's budget. Older NVDA and JAWS keep the estimate and get every line at once. Waiting on a listening pass with a fast and a slow NVDA rate.
+- [ ] (Found along the way) After a hazard stop in a work-zone approach, cruise coming back said "Construction zone ahead, cruise easing to 55" and "to 45" a second time for the same zone (owner's NVDA drives, 2026-11-03, I-84 and WI-29). It happened on all four drives that day, about 9 to 12 seconds after "Cruise resuming"; the bench resume (stop, keeper, cruise) does not repeat it yet.
+- [ ] (Found along the way) A road line cut by an info key is requeued, but a Brake line arriving next dropped it as "mostly heard" though only its first 1.3 seconds were spoken ("Construction, 6 miles. Merge right", owner's NVDA drives, 2026-11-03).
+- [ ] (Found along the way) The cruise dial speaks every step while held ("cruise target 57, 58, 59, 60") several times a second (owner's NVDA drive, 2026-11-03).
+
 - [x] YouTube links in personal playlists (owner, 2026-10-30): a playlist entry that is a YouTube page, livestream or video, plays through a yt-dlp the player installs (Playlists folder first, then the PATH; Homebrew's folders on a Mac). Not shipped with the game: size, upkeep and YouTube's terms. The shared station list and the site's suggestion form still take only real streams. Each fresh tune asks yt-dlp for the address, kept until ten minutes before its own expiry. A playlist that will not play because yt-dlp is missing says so.
 
 - [x] Optional menu accelerator keys (owner, 2026-10-24): Gameplay, Controls offers immediate activation for unique initials; duplicate initials retain selection-only cycling. Off by default.
@@ -3790,6 +3795,15 @@ Rules set that day:
       (2026-10-27) that the speed keeper is for streets and facility
       approaches only: cruise now holds highway work zones and heavy
       traffic at their limit, so that handoff no longer happens at all.
+- [x] (Found along the way, #518) On ice the co-driver judged a stop's
+      reach at 50 while the weather held the truck at 20, so a far lot could
+      be planned and never reached. Reach now follows the weather's pace,
+      and a plan the weather puts out of reach is dropped for a nearer lot.
+- [ ] (Found along the way) A slept shift is passed at the posted pace
+      whatever the weather, so on ice the truck covers miles in the jump
+      that it could not drive live.
+- [x] (Found along the way) The co-driver kept a cruise speed set under a
+      higher limit: 70 into Indiana's 65 for trucks. They now tap it down.
 - [ ] Co-driver damages the truck (issue #492).
 - [ ] Game stops responding when the player switches windows (report
       2026-10-21, answers asked for).

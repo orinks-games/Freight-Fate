@@ -1156,6 +1156,7 @@ impl App {
             self.ctx.say_with(line, Say::queued());
         }
         self.ctx.audio.update(dt); // advance time-based audio fades
+        self.ctx.update_event_voice_report();
         self.ctx.update_speech_duck(); // restore the mix after speech
 
         // Which calendar the player hears, for every date the career speaks.

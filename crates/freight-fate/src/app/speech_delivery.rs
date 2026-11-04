@@ -57,6 +57,9 @@ macro_rules! transcript {
     };
 }
 
+mod hold;
+pub(crate) use hold::{EventLine, HeldEvent, VoiceWatch};
+
 /// How many hand-backs `GameContext::handed_back` keeps. An audit trail for a
 /// bench run, not a history: a long session must not grow it without end.
 const HANDED_BACK_KEPT: usize = 512;
@@ -392,6 +395,7 @@ impl GameContext {
             cut = self.event_pacer.note_channel_purged();
         }
         self.speech.say(&text, interrupt);
+        self.note_main_said();
         self.log_mostly_heard_cut();
         if let Some(cut) = cut {
             self.requeue_cut_event(cut);
@@ -634,7 +638,7 @@ impl GameContext {
     pub fn say_event_with(&mut self, text: impl IntoSpoken, opts: SayEvent) {
         let spoken = text.into_spoken();
         let SayEvent {
-            mut interrupt,
+            interrupt,
             review,
             priority,
             key,
@@ -723,6 +727,7 @@ impl GameContext {
         if !interrupt
             && priority == EventPriority::Ambient
             && self.settings.sapi_events
+            && !self.event_pacer.voice_reporting()
             && self.event_pacer.would_start_stale(&text, priority)
         {
             // Chatter that would start speaking after the moment it
@@ -738,10 +743,41 @@ impl GameContext {
             }
             return;
         }
+        let line = EventLine {
+            text,
+            priority,
+            interrupt,
+            protect: protect_for(category),
+            valid,
+            key: key.map(str::to_string),
+            receipt,
+            review,
+        };
+        if self.should_hold_event(&line) {
+            self.hold_event(line);
+            return;
+        }
+        self.deliver_event(line);
+    }
+
+    /// Hand a road line to the voice now: the pacer's verdict, the speech
+    /// call, the receipt, the duck, the hand-back, and message review.
+    pub(crate) fn deliver_event(&mut self, line: EventLine) {
+        let EventLine {
+            text,
+            priority,
+            mut interrupt,
+            protect,
+            valid,
+            key,
+            receipt,
+            review,
+        } = line;
+        let key = key.as_deref();
+        self.note_road_line_delivered();
         transcript!("[event] {}", text);
         self.event_pacer.note_spoken(&text, key);
         let mut cut = None;
-        let protect = protect_for(category);
         if self.settings.sapi_events {
             if interrupt {
                 cut = self
@@ -804,7 +840,8 @@ impl GameContext {
     /// voice itself getting louder. Restoration is edge-driven, not polled:
     /// `update_speech_duck` runs once per frame from the main loop and
     /// restores the mix when the pacer's projection -- the same estimate the
-    /// staleness budget runs on -- says the voice is done.
+    /// staleness budget runs on, corrected by the voice's own reports where
+    /// it gives them -- says the voice is done.
     fn engage_speech_duck(&mut self) {
         if !self.settings.duck_audio_for_speech {
             return;
@@ -850,12 +887,14 @@ impl GameContext {
     /// (tester transcript, 2026-08-11).
     pub fn pause_event_speech(&mut self) {
         self.event_pacer.pause();
+        self.held_events.clear();
         self.speech.stop_event();
     }
 
     /// Back at the wheel; nothing from before the pause is news.
     pub fn resume_event_speech(&mut self) {
         self.event_pacer.resume();
+        self.held_events.clear();
         self.speech.stop_event();
     }
 
@@ -940,6 +979,7 @@ impl GameContext {
 
     pub fn stop_event_speech(&mut self) {
         self.event_pacer.reset();
+        self.held_events.clear();
         self.speech.stop_event();
     }
 
@@ -951,6 +991,7 @@ impl GameContext {
     /// the game.
     pub fn stop_speech(&mut self) {
         self.event_pacer.reset();
+        self.held_events.clear();
         self.speech.stop_main();
         self.speech.stop_event();
     }
