@@ -47,7 +47,8 @@ mod tests;
 
 pub use migrate::{parse_settings_text, py_json_dump_flat, SETTINGS_FILE_NAME};
 pub use paths::{
-    data_dir, game_root, save_root, set_thread_data_dir, thread_data_dir, DATA_DIR_ENV,
+    data_dir, game_root, packaged_game_root, save_root, set_thread_data_dir, thread_data_dir,
+    DATA_DIR_ENV,
 };
 
 // Driving-mode pacing, as a game-clock multiplier: at 20x, one real minute

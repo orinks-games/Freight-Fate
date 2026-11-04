@@ -606,6 +606,9 @@ impl App {
         // tests, the harness, the tools) stay English unless a language is
         // forced for the run, so a developer's own locale never changes a
         // transcript a test reads.
+        if shell.is_some() {
+            language::retire_old_translation_kit();
+        }
         if shell.is_some() || std::env::var_os(language::LANG_ENV).is_some() {
             ctx.apply_language();
         }
