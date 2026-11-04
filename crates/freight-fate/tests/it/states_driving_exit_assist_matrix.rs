@@ -945,7 +945,10 @@ fn faults(preset: Preset, kind: Kind, run: &Run) -> Vec<String> {
 }
 
 #[test]
-#[cfg_attr(ci_quick, ignore = "sweep: every assist over every kind of exit")]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: every assist over every kind of exit"
+)]
 fn test_every_assist_follows_the_exit_rules_on_every_kind_of_exit() {
     let mut failures = Vec::new();
     let mut passed = 0;

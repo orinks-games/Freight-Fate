@@ -235,8 +235,8 @@ macro_rules! sweep_shard_tests {
         $(
             #[test]
             #[cfg_attr(
-                ci_quick,
-                ignore = "sweep: about 96 origins across the whole network -- left to the nightly by --cfg ci_quick"
+                not(feature = "slow-tests"),
+                ignore = "sweep: about 96 origins across the whole network"
             )]
             fn $name() {
                 $check($shard);
@@ -1338,6 +1338,10 @@ fn share(mix: &(usize, std::collections::BTreeMap<&'static str, usize>), key: &s
 }
 
 #[test]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: thousands of boards across the whole network"
+)]
 fn hazmat_and_tank_holders_see_placarded_and_fuel_freight_map_wide() {
     // 2026-09-16: nobody on staging had ever hauled a placarded or bulk fuel
     // load, because the board offered a hazmat holder 1.2 percent placarded

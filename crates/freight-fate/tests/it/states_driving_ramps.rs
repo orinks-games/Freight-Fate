@@ -465,6 +465,11 @@ fn test_blowing_the_stop_sign_is_dice_not_a_guaranteed_clip() {
         } else {
             clean += 1;
         }
+        // Both outcomes seen is the whole claim; the rest of the seeds add
+        // nothing but time.
+        if clipped > 0 && clean > 0 {
+            break;
+        }
     }
     assert!(clipped > 0, "no seed ever met cross traffic");
     assert!(clean > 0, "every seed clipped: the certainty is back");
@@ -481,6 +486,11 @@ fn test_running_the_red_light_is_dice_not_a_guaranteed_clip() {
             clipped += 1;
         } else {
             clean += 1;
+        }
+        // Both outcomes seen is the whole claim; the rest of the seeds add
+        // nothing but time.
+        if clipped > 0 && clean > 0 {
+            break;
         }
     }
     assert!(clipped > 0, "no seed ever met cross traffic");

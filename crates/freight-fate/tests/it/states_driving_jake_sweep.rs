@@ -1044,8 +1044,8 @@ fn off_grade(traces: &[Trace], causes: &[Cause], barking_only: bool) -> Vec<Stri
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: every bench road driven end to end -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: every bench road driven end to end"
 )]
 fn test_the_retarder_only_ever_answers_a_grade() {
     let traces: Vec<Trace> = roads().iter().map(drive_road).collect();

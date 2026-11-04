@@ -269,16 +269,18 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   full pair at the end, exactly once, because that is where the surprises
   live: a change to spoken text can strand an assertion in a file three
   directories from anything obviously related.
-- **The per-push CI runs a quick set; your local run is the full one.**
-  `rust.yml` passes `--cfg ci_quick`, and every test marked
-  `#[cfg_attr(ci_quick, ignore = "sweep: ...")]` -- the whole-map sweeps: a
-  500-mile delivery per state line, every facility exit, every kind of
-  destination, ~96 job origins -- is skipped there. They cost as much as
-  the other 2,400 game-crate tests together. The nightly Career 1.9
-  snapshot, a manual dispatch of `rust.yml`, and any plain local
-  `cargo test` run them all, so a sweep failure surfaces within a day. A
-  new test that drives more than a few seconds of the map should carry
-  that attribute; one that pins a single behaviour should not.
+- **A plain `cargo test` skips the slow tests; `cargo test-all` runs them.**
+  Every test marked `#[cfg_attr(not(feature = "slow-tests"), ignore =
+  "...")]` -- the whole-map sweeps: a 500-mile delivery per state line,
+  every facility exit, every kind of destination, ~96 job origins, plus a
+  few other multi-second drives -- is skipped by a plain run, local or CI.
+  They cost several times the rest of the suite together. `cargo test-all`
+  (an alias for `cargo test -p ff-core -p freight-fate --features
+  freight-fate/slow-tests`) and the nightly Career 1.9 snapshot run them,
+  so a sweep failure surfaces within a day. Run `cargo test-all` before pushing a change to driving, traffic,
+  the assists or world data. A new test that drives more than a second or
+  two of the map should carry that attribute; one that pins a single
+  behaviour should not.
 - Adversarial battery: `cargo run -p freight-fate --bin freightfate --
   --break-battery`. Every registered scenario, deliberately unreasonable play
   against the real driving state. `--list-break-scenarios` names them,
@@ -334,14 +336,13 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   services. Codex's restricted shell can block initialization even when the
   same check passes with normal Windows access. Use the authorized elevated
   tool path for that verification; keep the game's save sandbox enabled.
-- Rust CI (`.github/workflows/rust.yml`) runs on GitHub's hosted runners
-  (free for this public repository; owner rule 2026-10-17: Blacksmith's paid
-  minutes are for the private repositories) in Hearken's and Echo Parlor's
-  shape: a no-build checks job (fmt, the
+- CI runs no tests per push (owner rule 2026-11-04: test locally or in a
+  cloud session; no paid CI for these games). `.github/workflows/rust.yml`
+  is one no-build checks job on GitHub's hosted runners (fmt, the
   translation files, `cargo tools test-targets`, the Hearken leaf-type
-  grep) that finishes in well under a minute, clippy once on Linux, and the
-  game's tests on Windows and Linux in parallel (ff-core, which is headless,
-  on Linux only). A manual dispatch or a `v*` tag adds the tests on macOS.
+  grep) that finishes in well under a minute, and `changelog.yml` is the
+  changelog gate. The nightly Career 1.9 snapshot is where CI lints and
+  tests.
   Every compiling job goes through `.github/actions/rust-setup` (the
   platform's build dependencies, the pinned toolchain, sccache and rust-cache). SDL2 is
   vendored for `windows-x86_64` alone. macOS and Linux build from
@@ -365,8 +366,7 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   (release notes, the changelog gate, translations, the test-target check)
   build without the game: `cargo run -p ff-tools --no-default-features --
   <command>`.
-- Tests: `cargo test -p ff-tools`. CI runs them on Windows and Linux under
-  the required `test (windows-latest)` and `test (ubuntu-latest)` checks.
+- Tests: `cargo test -p ff-tools`, locally; no CI runs them.
 - Git hooks: `git config core.hooksPath .githooks` once per clone (cargo fmt
   and the world index check on commit, the changelog gate on push).
 
