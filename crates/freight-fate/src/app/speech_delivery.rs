@@ -774,6 +774,7 @@ impl GameContext {
             review,
         } = line;
         let key = key.as_deref();
+        self.note_road_line_delivered();
         transcript!("[event] {}", text);
         self.event_pacer.note_spoken(&text, key);
         let mut cut = None;

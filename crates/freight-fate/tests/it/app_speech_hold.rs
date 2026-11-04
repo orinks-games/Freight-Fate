@@ -269,3 +269,40 @@ fn test_chatter_outlasts_a_long_readout_instead_of_going_stale() {
     assert!(heard(&app, "Exit traffic"));
     app.shutdown();
 }
+
+#[test]
+fn test_a_road_line_cutting_into_a_readout_ends_the_excuse() {
+    // A Brake line cut into a Clock readout, and the held "59 miles per
+    // hour" behind it still went out 7.7 seconds late (owner's NVDA drive,
+    // 2026-11-03).
+    let mut app = TestApp::new();
+    let clock = app.fake_pacer_clock();
+    app.ctx.settings.sapi_events = false;
+    talking(&mut app);
+    for _ in 0..20 {
+        clock.advance(1.0);
+        frame(&mut app, false);
+    }
+    app.ctx
+        .say("It's 3:15 PM, day 2. Next rest due in 6 hours.");
+    app.ctx.say_event_with(
+        "59 miles per hour",
+        SayEvent::queued().priority(EventPriority::Ambient),
+    );
+    assert_eq!(app.ctx.held_event_count(), 1);
+    clock.advance(1.0);
+    frame(&mut app, true);
+    app.ctx.say_event_with(
+        "Brake! A vehicle stopped ahead.",
+        SayEvent::new().priority(EventPriority::Critical),
+    );
+    for _ in 0..40 {
+        clock.advance(0.1);
+        frame(&mut app, true);
+    }
+    assert_eq!(app.ctx.held_event_count(), 0, "dropped, not excused");
+    clock.advance(0.1);
+    frame(&mut app, false);
+    assert!(!heard(&app, "59 miles"));
+    app.shutdown();
+}

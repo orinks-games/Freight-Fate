@@ -300,6 +300,13 @@ impl GameContext {
         }
     }
 
+    /// A road line went to the voice: from here the wait is on the road,
+    /// not on the readout, so it counts against held lines again (a Brake
+    /// line cutting into a readout kept excusing a held speed callout).
+    pub(super) fn note_road_line_delivered(&mut self) {
+        self.voice_watch.readout_playing = false;
+    }
+
     /// Quiet by a report taken after the last line either channel handed
     /// to the road voice had time to start.
     fn road_voice_quiet(&mut self) -> bool {
