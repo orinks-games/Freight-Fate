@@ -149,6 +149,7 @@ pub(super) fn event_voice_label(s: &Settings) -> String {
     }
     match s.event_backend.as_str() {
         "OneCore" => "Windows OneCore".to_string(),
+        crate::speech::BUILTIN_BACKEND => "built-in voice".to_string(),
         other => other.to_string(),
     }
 }

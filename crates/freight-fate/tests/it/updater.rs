@@ -42,6 +42,7 @@ fn manifest(version: &str, channel: &str) -> Manifest {
         notes: "## Changes\n- **Cruise control.** K sets cruise.".into(),
         published: None,
         index: None,
+        built: None,
     }
 }
 

@@ -13,6 +13,7 @@
 - **Achievements open from the terminal and the pause menu,** showing the career you are playing.
 - **Translators can put a corrected language file in a lang folder next to the game.** The saves folder still works too.
 - **Your playlists can play YouTube links, livestreams included.** This needs yt-dlp, which you install yourself; the manual says where it goes.
+- **A built-in voice speaks when no screen reader or system voice is running.** It can also be chosen as the driving event voice.
 
 ### Changed
 

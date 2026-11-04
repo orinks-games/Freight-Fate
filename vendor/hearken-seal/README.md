@@ -1,6 +1,6 @@
 # Freight Fate filename compatibility
 
-Vendored from Hearken commit `35f366bc149c0f4a2f9f3b99a457df9d7cebb39e`, crate `hearken-seal`. Original MIT/Apache licenses are included.
+Vendored from Hearken commit `35f366bc149c0f4a2f9f3b99a457df9d7cebb39e` (unchanged through `8fe117bd3b6073e254aaaf1b847ef8f8195496ea`), crate `hearken-seal`. Original MIT/Apache licenses are included.
 
 The only behavioral change permits the Unicode letters/numbers and spaces already used by Freight Fate career filenames, with a 240-byte limit leaving room for backup suffixes. Traversal, separators, leading dots/spaces, trailing dots/spaces, reserved vault suffixes, and other punctuation remain rejected. Format, encryption, key derivation, witness rules, and atomic writes are unchanged. Cargo metadata is made standalone.
 
