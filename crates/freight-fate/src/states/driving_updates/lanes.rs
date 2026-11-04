@@ -891,7 +891,7 @@ impl DrivingState {
             fine,
             true,
             false,
-            "Drove through the barrels in a work zone",
+            ff_core::models::enforcement::WORK_ZONE_BARRELS_REASON,
         );
         ctx.audio.play("ui/error");
         let tail = if ladder.is_empty() {

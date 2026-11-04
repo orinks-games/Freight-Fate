@@ -194,7 +194,7 @@ impl Menu for DrivingRecordNoticeState {
         let text = format!(
             "Freight Fate now keeps a driving record for your career: \
              citations, serious violations, and whether your CDL is clear. \
-             Two serious violations in three years suspend it; running from a \
+             Two serious violations in 180 days suspend it; running from a \
              police stop is a major offense that disqualifies it for a year. \
              Reputation also decides how much freight dispatch shows you and \
              how much choice you get. Nothing was reset or taken. {standing} \

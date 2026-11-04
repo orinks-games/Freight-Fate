@@ -112,12 +112,18 @@ impl Trip {
         }
         for zone in &self.zones {
             if zone.reason == "construction merge" {
+                // Merge away from the coned-off lane. A zone that does not
+                // say which lane closes keeps the old "left".
+                let side = match zone.closed_side.as_deref() {
+                    Some("left") => "right",
+                    _ => "left",
+                };
                 add(
                     &mut pressures,
                     zone.start_mi,
                     zone.end_mi,
                     "construction_merge",
-                    "left",
+                    side,
                     "construction taper traffic".to_string(),
                 );
             }

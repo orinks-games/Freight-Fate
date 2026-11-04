@@ -7815,6 +7815,9 @@ msgstr ""
 msgid "lifetime"
 msgstr ""
 
+msgid "Drove through the barrels in a work zone"
+msgstr ""
+
 msgid "Great Lakes Training Transport"
 msgstr ""
 
@@ -7937,14 +7940,18 @@ msgstr ""
 msgid "citations"
 msgstr ""
 
+#. placeholders: {count_word}, {noun}, {REVIEW_WINDOW_DAYS}
+msgid "{count_word} {noun} in the last {REVIEW_WINDOW_DAYS} days"
+msgstr ""
+
 msgid "serious violation"
 msgstr ""
 
 msgid "serious violations"
 msgstr ""
 
-#. placeholders: {join}
-msgid "{join} in the last year"
+#. placeholders: {count_word}, {noun}, {SERIOUS_REVIEW_WINDOW_DAYS}
+msgid "{count_word} {noun} in the last {SERIOUS_REVIEW_WINDOW_DAYS} days"
 msgstr ""
 
 msgid ", next year"
@@ -8152,11 +8159,11 @@ msgstr ""
 msgid "safety incidents"
 msgstr ""
 
-msgid "crashes"
+#. placeholders: {join}, {REVIEW_WINDOW_DAYS}
+msgid "{join} in the last {REVIEW_WINDOW_DAYS} days"
 msgstr ""
 
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
+msgid "crashes"
 msgstr ""
 
 msgid "major offense"
@@ -8566,6 +8573,10 @@ msgstr ""
 
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
+msgstr ""
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
 msgstr ""
 
 #. placeholders: {f}
@@ -26344,19 +26355,34 @@ msgid ""
 "open."
 msgstr ""
 
-msgid ""
-"That is a serious violation on your record. One more inside three years and "
-"your CDL is suspended for 60 days, and driving jobs stop until it clears."
-msgstr ""
-
-#. placeholders: {which}
+#. placeholders: {SERIOUS_WINDOW_DAYS}
 #. one sentence of a longer line
-msgid "That is your {which} serious violation in three years."
+msgid ""
+"One more inside {SERIOUS_WINDOW_DAYS} days and your CDL is suspended for 60 "
+"days, and driving jobs stop until it clears."
 msgstr ""
 
-#. placeholders: {which}, {suspension_text}
+#. one sentence of a longer line
+msgid "That is a serious violation on your record."
+msgstr ""
+
+#. placeholders: {SERIOUS_WINDOW_DAYS}
 msgid ""
-"That is your {which} serious violation in three years. {suspension_text}"
+"That is a serious violation on your record. One more inside "
+"{SERIOUS_WINDOW_DAYS} days and your CDL is suspended for 60 days, and "
+"driving jobs stop until it clears."
+msgstr ""
+
+#. placeholders: {which}, {SERIOUS_WINDOW_DAYS}
+#. one sentence of a longer line
+msgid ""
+"That is your {which} serious violation in {SERIOUS_WINDOW_DAYS} days."
+msgstr ""
+
+#. placeholders: {which}, {SERIOUS_WINDOW_DAYS}, {suspension_text}
+msgid ""
+"That is your {which} serious violation in {SERIOUS_WINDOW_DAYS} days. "
+"{suspension_text}"
 msgstr ""
 
 msgid "This driver"
@@ -29623,9 +29649,6 @@ msgid ""
 msgstr ""
 
 msgid "The work crew called it in"
-msgstr ""
-
-msgid "Drove through the barrels in a work zone"
 msgstr ""
 
 #. placeholders: {grouped}
@@ -35025,8 +35048,8 @@ msgstr ""
 #. placeholders: {standing}, {trust}, {current_text}
 msgid ""
 "Freight Fate now keeps a driving record for your career: citations, serious "
-"violations, and whether your CDL is clear. Two serious violations in three "
-"years suspend it; running from a police stop is a major offense that "
+"violations, and whether your CDL is clear. Two serious violations in 180 "
+"days suspend it; running from a police stop is a major offense that "
 "disqualifies it for a year. Reputation also decides how much freight "
 "dispatch shows you and how much choice you get. Nothing was reset or taken. "
 "{standing} {trust} {current_text}"
@@ -35044,8 +35067,8 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"Two serious violations in three years suspend it; running from a police "
-"stop is a major offense that disqualifies it for a year."
+"Two serious violations in 180 days suspend it; running from a police stop "
+"is a major offense that disqualifies it for a year."
 msgstr ""
 
 msgid "Save file updated"

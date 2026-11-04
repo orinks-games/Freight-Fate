@@ -7931,6 +7931,9 @@ msgstr "已达到预支上限。送达一单货物来还款。"
 msgid "lifetime"
 msgstr "终身"
 
+msgid "Drove through the barrels in a work zone"
+msgstr "在施工区开车撞穿路障桶"
+
 msgid "Great Lakes Training Transport"
 msgstr "Great Lakes Training Transport"
 
@@ -8053,15 +8056,19 @@ msgstr "记录"
 msgid "citations"
 msgstr "罚单"
 
+#. placeholders: {count_word}, {noun}, {REVIEW_WINDOW_DAYS}
+msgid "{count_word} {noun} in the last {REVIEW_WINDOW_DAYS} days"
+msgstr ""
+
 msgid "serious violation"
 msgstr "严重违规"
 
 msgid "serious violations"
 msgstr "严重违规"
 
-#. placeholders: {join}
-msgid "{join} in the last year"
-msgstr "过去一年{join}"
+#. placeholders: {count_word}, {noun}, {SERIOUS_REVIEW_WINDOW_DAYS}
+msgid "{count_word} {noun} in the last {SERIOUS_REVIEW_WINDOW_DAYS} days"
+msgstr ""
 
 msgid ", next year"
 msgstr "，明年"
@@ -8273,12 +8280,12 @@ msgstr ""
 msgid "safety incidents"
 msgstr ""
 
+#. placeholders: {join}, {REVIEW_WINDOW_DAYS}
+msgid "{join} in the last {REVIEW_WINDOW_DAYS} days"
+msgstr ""
+
 msgid "crashes"
 msgstr "次事故"
-
-#. placeholders: {join}, {last}
-msgid "{join} and {last}"
-msgstr "{join}和{last}"
 
 msgid "major offense"
 msgstr "重大违法"
@@ -8691,6 +8698,10 @@ msgstr "标准CDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "{endorsement_label}"
+
+#. placeholders: {join}, {last}
+msgid "{join} and {last}"
+msgstr "{join}和{last}"
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -26747,20 +26758,35 @@ msgid ""
 "open."
 msgstr "你的钱和卡车都没事；休息、维修和维修厂仍然开放。"
 
-msgid ""
-"That is a serious violation on your record. One more inside three years and "
-"your CDL is suspended for 60 days, and driving jobs stop until it clears."
-msgstr "这是你记录上的一次严重违规。三年内再有一次，你的CDL会被暂扣60天，在解除之前不会有驾驶任务。"
-
-#. placeholders: {which}
+#. placeholders: {SERIOUS_WINDOW_DAYS}
 #. one sentence of a longer line
-msgid "That is your {which} serious violation in three years."
-msgstr "这是你三年内的{which}次严重违规。"
-
-#. placeholders: {which}, {suspension_text}
 msgid ""
-"That is your {which} serious violation in three years. {suspension_text}"
-msgstr "这是你三年内的{which}次严重违规。{suspension_text}"
+"One more inside {SERIOUS_WINDOW_DAYS} days and your CDL is suspended for 60 "
+"days, and driving jobs stop until it clears."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "That is a serious violation on your record."
+msgstr ""
+
+#. placeholders: {SERIOUS_WINDOW_DAYS}
+msgid ""
+"That is a serious violation on your record. One more inside "
+"{SERIOUS_WINDOW_DAYS} days and your CDL is suspended for 60 days, and "
+"driving jobs stop until it clears."
+msgstr ""
+
+#. placeholders: {which}, {SERIOUS_WINDOW_DAYS}
+#. one sentence of a longer line
+msgid ""
+"That is your {which} serious violation in {SERIOUS_WINDOW_DAYS} days."
+msgstr ""
+
+#. placeholders: {which}, {SERIOUS_WINDOW_DAYS}, {suspension_text}
+msgid ""
+"That is your {which} serious violation in {SERIOUS_WINDOW_DAYS} days. "
+"{suspension_text}"
+msgstr ""
 
 msgid "This driver"
 msgstr "这位司机"
@@ -30085,9 +30111,6 @@ msgstr "你撞穿了路障桶，猛地冲进了{open_name}车道。卡车受损�
 
 msgid "The work crew called it in"
 msgstr "施工队报了警"
-
-msgid "Drove through the barrels in a work zone"
-msgstr "在施工区开车撞穿路障桶"
 
 #. placeholders: {grouped}
 #. one sentence of a longer line
@@ -35698,15 +35721,12 @@ msgstr "Freight Fate现在会为你的职业生涯保存驾驶记录：罚单、
 #. placeholders: {standing}, {trust}, {current_text}
 msgid ""
 "Freight Fate now keeps a driving record for your career: citations, serious "
-"violations, and whether your CDL is clear. Two serious violations in three "
-"years suspend it; running from a police stop is a major offense that "
+"violations, and whether your CDL is clear. Two serious violations in 180 "
+"days suspend it; running from a police stop is a major offense that "
 "disqualifies it for a year. Reputation also decides how much freight "
 "dispatch shows you and how much choice you get. Nothing was reset or taken. "
 "{standing} {trust} {current_text}"
 msgstr ""
-"Freight "
-"Fate现在会为你的职业生涯保存驾驶记录：罚单、严重违规，以及你的CDL是否正常。三年内两次严重违规会暂扣CDL；逃避警察拦停属于重大违法，会取消CDL"
-"资格一年。声誉还决定调度给你看多少货物，以及你有多少选择。什么都没有被重置或拿走。{standing}{trust}{current_text}"
 
 #. one sentence of a longer line
 msgid "Nothing was reset or taken."
@@ -35720,9 +35740,9 @@ msgstr "声誉还决定调度给你看多少货物，以及你有多少选择。
 
 #. one sentence of a longer line
 msgid ""
-"Two serious violations in three years suspend it; running from a police "
-"stop is a major offense that disqualifies it for a year."
-msgstr "三年内两次严重违规会暂扣CDL；逃避警察拦停属于重大违法，会取消CDL资格一年。"
+"Two serious violations in 180 days suspend it; running from a police stop "
+"is a major offense that disqualifies it for a year."
+msgstr ""
 
 msgid "Save file updated"
 msgstr "存档文件已更新"
@@ -37227,6 +37247,38 @@ msgstr "镜像地址必须以 https:// 开头。"
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr "镜像地址不能包含查询参数或片段。"
+
+#~ msgid "{join} in the last year"
+#~ msgstr "过去一年{join}"
+
+#~ msgid ""
+#~ "That is a serious violation on your record. One more inside three years and "
+#~ "your CDL is suspended for 60 days, and driving jobs stop until it clears."
+#~ msgstr "这是你记录上的一次严重违规。三年内再有一次，你的CDL会被暂扣60天，在解除之前不会有驾驶任务。"
+
+#~ msgid "That is your {which} serious violation in three years."
+#~ msgstr "这是你三年内的{which}次严重违规。"
+
+#~ msgid ""
+#~ "That is your {which} serious violation in three years. {suspension_text}"
+#~ msgstr "这是你三年内的{which}次严重违规。{suspension_text}"
+
+#~ msgid ""
+#~ "Freight Fate now keeps a driving record for your career: citations, serious "
+#~ "violations, and whether your CDL is clear. Two serious violations in three "
+#~ "years suspend it; running from a police stop is a major offense that "
+#~ "disqualifies it for a year. Reputation also decides how much freight "
+#~ "dispatch shows you and how much choice you get. Nothing was reset or taken. "
+#~ "{standing} {trust} {current_text}"
+#~ msgstr ""
+#~ "Freight "
+#~ "Fate现在会为你的职业生涯保存驾驶记录：罚单、严重违规，以及你的CDL是否正常。三年内两次严重违规会暂扣CDL；逃避警察拦停属于重大违法，会取消CDL"
+#~ "资格一年。声誉还决定调度给你看多少货物，以及你有多少选择。什么都没有被重置或拿走。{standing}{trust}{current_text}"
+
+#~ msgid ""
+#~ "Two serious violations in three years suspend it; running from a police "
+#~ "stop is a major offense that disqualifies it for a year."
+#~ msgstr "三年内两次严重违规会暂扣CDL；逃避警察拦停属于重大违法，会取消CDL资格一年。"
 
 #~ msgid "dev"
 #~ msgstr "开发版"

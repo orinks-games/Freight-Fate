@@ -75,13 +75,16 @@ pub fn suspension_text(ctx: &GameContext, hours: f64, verb: &str) -> String {
 /// Spoken movement on the serious-violation ladder, consequence attached.
 pub fn serious_violation_text(ctx: &GameContext, count: i64, hours: f64) -> String {
     if count <= 1 {
-        return "That is a serious violation on your record. One more inside three years and your \
-                CDL is suspended for 60 days, and driving jobs stop until it clears."
-            .to_string();
+        return format!(
+            "That is a serious violation on your record. One more inside {} days and your CDL \
+             is suspended for 60 days, and driving jobs stop until it clears.",
+            enforcement::SERIOUS_WINDOW_DAYS
+        );
     }
     let which = enforcement::ordinal_word(count);
     format!(
-        "That is your {which} serious violation in three years. {}",
+        "That is your {which} serious violation in {} days. {}",
+        enforcement::SERIOUS_WINDOW_DAYS,
         suspension_text(ctx, hours, "suspended")
     )
 }

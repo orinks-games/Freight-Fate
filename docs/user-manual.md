@@ -350,7 +350,7 @@ A metro is a freight area rather than a single pickup point. You might be headin
 
 Deliveries earn experience for service and mileage, with bonuses for undamaged freight, specialty work, and on-time streaks. Refrigerated freight opens at level 2, heavy haul at 3, and high-value freight at 4. As you advance, you'll see longer routes, wider boards, more equipment, and new business choices.
 
-Your record affects those opportunities. A citation costs four reputation points. A serious violation costs ten for a game year, while a major offense costs twenty permanently. Record reviews and insurance look at the recent year; serious-violation rules for your CDL look back three years.
+Your record affects those opportunities. A citation costs four reputation points for 30 game days. A serious violation or a crash costs ten for 90 game days, while a major offense costs twenty permanently. Record reviews and insurance count citations from the last 30 game days and serious violations from the last 90; serious-violation rules for your CDL look back 180 game days.
 
 ## Pickup, loading, and route planning
 
@@ -663,7 +663,7 @@ Recent citations and out-of-service orders make an inspection more likely. A Lev
 
 A Level 3 inspection checks the license and paperwork in about 15 minutes. Roadcheck week in May increases inspection chances. Before departing, a fifteen-minute walk-around can reveal the defects an inspector would find.
 
-Serious violations include driving fifteen or more over, reckless driving, unsafe lane changes, tailgating, failure to stop, barrels, and repeated fatigued driving. Two within three years suspend your CDL for 60 days. Three or more mean 120 days, and suspensions run consecutively. Fleeing disqualifies you for a year the first time and for life the second.
+Serious violations include driving fifteen or more over, reckless driving, unsafe lane changes, tailgating, failure to stop, barrels, and repeated fatigued driving. Two within 180 game days suspend your CDL for 60 days. Three or more mean 120 days, and suspensions run consecutively. Fleeing disqualifies you for a year the first time and for life the second.
 
 During a suspension, you can't take driving work, and an active or saved drive ends. You keep your level, experience, endorsements, and equipment. Career stats and Driver status let you review the record and hear what another violation would mean.
 

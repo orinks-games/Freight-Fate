@@ -489,7 +489,7 @@ fn test_the_carriers_record_review_holds_the_iron_and_names_the_day_it_ages_out(
     assert!(equipment_held_back(&profile));
     let spoken = equipment_hold_text(&profile, false);
     assert!(
-        spoken.contains("the carrier's record review found four citations in the last year"),
+        spoken.contains("the carrier's record review found four citations in the last 30 days"),
         "{spoken}"
     );
     assert!(
