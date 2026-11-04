@@ -434,7 +434,7 @@ impl RestStopState {
                     format!("{} is closed", self.stop.spoken_name()),
                     |s: &mut Self, ctx| s.inspect(ctx),
                 )
-                .help("Nobody is at the scale house. There is nothing to check in at.")
+                .help("The weigh station is closed.")
             };
             items.push(item);
         }
@@ -636,7 +636,7 @@ impl RestStopState {
                             None => "take a full 10-hour reset".to_string(),
                         };
                         format!(
-                            "Warning: this sleep did NOT reset your hours, and your duty window \
+                            "Warning: this sleep did not reset your hours, and your duty window \
                              has closed. Finish the split or {reset} before driving. "
                         )
                     } else {
@@ -647,13 +647,13 @@ impl RestStopState {
                             // the driver wakes with the hours they went to
                             // bed with, and is told so.
                             format!(
-                                "This sleep did NOT reset your hours, but your duty window \
+                                "This sleep did not reset your hours, but your duty window \
                                  paused while you slept. It closes in {} hours, at {closes}. ",
                                 fmt_f(duty_left_h, 1)
                             )
                         } else {
                             format!(
-                                "This sleep did NOT reset your hours. Your duty window closes \
+                                "This sleep did not reset your hours. Your duty window closes \
                                  in {} hours, at {closes}. ",
                                 fmt_f(duty_left_h, 1)
                             )
@@ -1421,8 +1421,8 @@ fn sleeper_split_help(hours: i64) -> String {
     let pair = match hours {
         2 => "Pairs with 8 hours in the sleeper berth.",
         3 => "Pairs with 7 hours in the sleeper berth.",
-        7 => "Pairs with 3 more hours at sleep-capable parking.",
-        _ => "Pairs with 2 more hours at sleep-capable parking.",
+        7 => "Pairs with 3 more hours at parking where you can sleep.",
+        _ => "Pairs with 2 more hours at parking where you can sleep.",
     };
     format!("{pair} Clock and deadline advance {hours} hours.")
 }

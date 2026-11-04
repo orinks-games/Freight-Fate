@@ -396,14 +396,14 @@ const ENGINE_BRAKE: SoundCategory = SoundCategory {
         SoundEntry::new(
             "Engine brake, stage one",
             &[Cue::new("engine/jake_1600").volume(0.19).hold_s(2.5)],
-            "Two cylinders of retard: the lightest setting. Enough to hold \
+            "Two cylinders braking: the lightest setting. Enough to hold \
              speed on a gentle grade without touching the brakes. Drivers \
              call this the jake.",
         ),
         SoundEntry::new(
             "Engine brake, stage two",
             &[Cue::new("engine/jake_1600").volume(0.49).hold_s(2.5)],
-            "Four cylinders of retard. The usual working setting on a long \
+            "Four cylinders braking. The usual working setting on a long \
              descent. Drivers call this the jake.",
         ),
         SoundEntry::new(

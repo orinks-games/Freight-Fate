@@ -221,7 +221,7 @@ fn test_walking_a_bad_trailer_finds_it_and_offers_the_refusal() {
     let lines = app.main_lines();
     let found = lines
         .iter()
-        .position(|line| line.contains("Take it and the write-up"))
+        .position(|line| line.contains("Take it, and an inspector can write you up"))
         .unwrap_or_else(|| panic!("no walk-around line: {lines:?}"));
     assert!(lines[found].contains(defect), "{lines:?}");
     assert!(lines[found].contains(&unit.number));
@@ -1072,14 +1072,17 @@ fn test_accepting_job_starts_drivable_pickup_leg() {
     }
     assert_eq!(total, miles);
     assert_eq!(remaining, miles);
-    assert!(first_line.contains("Driving empty to pickup"), "{first_line}");
+    assert!(
+        first_line.contains("Driving empty to pickup"),
+        "{first_line}"
+    );
     let dispatch: Vec<String> = app
         .main_lines()
         .into_iter()
         .filter(|text| text.starts_with("Accepted."))
         .collect();
     assert!(!dispatch.is_empty());
-    assert!(dispatch.last().unwrap().contains("Deadhead"));
+    assert!(dispatch.last().unwrap().contains("Drive empty"));
 }
 
 #[test]

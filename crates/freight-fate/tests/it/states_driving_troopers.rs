@@ -1047,7 +1047,7 @@ fn test_f1_help_names_non_speed_enforcement_pullovers() {
         .last()
         .unwrap_or_else(|| panic!("F1 said nothing at all"));
     assert!(
-        last.contains("X also signals a pull-over when a trooper lights you up"),
+        last.contains("X also signals a pull-over when a trooper signals you to pull over"),
         "{last}"
     );
     assert!(

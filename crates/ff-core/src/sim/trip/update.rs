@@ -241,9 +241,9 @@ impl Trip {
                         "last_known" => {
                             let notice = self.weather.last_known_notice();
                             if notice.is_empty() {
-                                "Last-known conditions in use.".to_string()
+                                "Using the last known conditions.".to_string()
                             } else {
-                                format!("{notice}. Last-known conditions in use.")
+                                format!("{notice}. Using the last known conditions.")
                             }
                         }
                         _ => "Live weather unavailable.".to_string(),

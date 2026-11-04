@@ -516,7 +516,7 @@ impl PickupFacilityState {
         ctx.audio.play("ui/warning");
         let name = crate::states::city::py_capitalize(&trailer.spoken_name());
         ctx.say(&format!(
-            "{name}: {defect}, {}. Take it and the write-up is yours at the first scale. \
+            "{name}: {defect}, {}. Take it, and an inspector can write you up for it at the first weigh station. \
              Refuse for a swap, about {} minutes.{}",
             trailer.condition_text(),
             fmt_f(TRAILER_SWAP_MIN, 0),
@@ -542,7 +542,7 @@ impl PickupFacilityState {
             return String::new();
         };
         let behaviour = if liquid.baffled {
-            "The baffles settle it in a couple of cycles, but it still arrives after you do."
+            "The baffles calm the surge after a couple of swings, but it still pushes a moment after you brake."
         } else {
             "Smooth bore, nothing in there slows it down."
         };
@@ -972,13 +972,13 @@ impl Menu for PickupFacilityState {
                     let wait = fmt_f(plan.detention_minutes, 0);
                     if is_owner_operator(&profile(ctx).business_status) {
                         lead.push_str(&format!(
-                            " {wait} minutes past the free time, {dollars} dollars detention \
-                             owed to you at settlement."
+                            " {wait} minutes past the two free hours at the dock: {dollars} \
+                             dollars detention pay at settlement."
                         ));
                     } else {
                         lead.push_str(&format!(
-                            " {wait} minutes past the free time, {dollars} dollars detention \
-                             owed to the carrier."
+                            " {wait} minutes past the two free hours at the dock: {dollars} \
+                             dollars detention, paid to the carrier."
                         ));
                     }
                 }
@@ -1087,8 +1087,8 @@ impl Menu for PickupFacilityState {
                     s.refuse_trailer(ctx)
                 })
                 .help(format!(
-                    "The yard brings a sound one. About {} minutes, and the write-up stays \
-                     with them.",
+                    "The yard brings a sound one. About {} minutes, and the yard keeps the \
+                     problem.",
                     fmt_f(TRAILER_SWAP_MIN, 0)
                 )),
             );
@@ -1164,9 +1164,7 @@ impl Menu for PickupFacilityState {
                 Some(mph) => ctx.settings.speed_text(mph),
                 None => "posted limit when the open road begins".to_string(),
             };
-            lines.push(format!(
-                "Speed control: paused   Cruise speed: {target}"
-            ));
+            lines.push(format!("Speed control: paused   Cruise speed: {target}"));
         }
         lines.push(String::new());
         for (i, item) in self.menu.items.iter().enumerate() {

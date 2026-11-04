@@ -284,7 +284,7 @@ mod tests {
         assert_eq!(brand.tier, "landmark");
         assert!(brand.bans_big_rigs);
         assert!(text.contains("landmark"));
-        assert!(text.contains("big rigs") && text.contains("bobtail"));
+        assert!(text.contains("big rigs") && text.contains("without a trailer"));
     }
 
     #[test]

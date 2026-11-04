@@ -105,19 +105,13 @@ impl DrivingState {
                 1,
                 format!("Speed control: {}", self.keeper_holding_text(ctx)),
             );
-            lines.insert(
-                2,
-                format!("Cruise speed: {}", self.open_road_target(ctx)),
-            );
+            lines.insert(2, format!("Cruise speed: {}", self.open_road_target(ctx)));
         } else if self.speed_control_armed {
             lines.insert(
                 1,
                 "Speed control: paused; resumes when the truck is rolling".to_string(),
             );
-            lines.insert(
-                2,
-                format!("Cruise speed: {}", self.open_road_target(ctx)),
-            );
+            lines.insert(2, format!("Cruise speed: {}", self.open_road_target(ctx)));
         }
         let truck = &self.trip.truck;
         if truck.damage_pct - self.start_damage > 1.0 {

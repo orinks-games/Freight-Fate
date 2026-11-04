@@ -703,7 +703,7 @@ fn test_alt_d_carries_the_next_legal_stop_context() {
     // answers "when does this shift end".
     assert!(
         verbose.contains("Destination fits this shift")
-            && verbose.contains("No HOS stop first"),
+            && verbose.contains("No rest stop needed first"),
         "{verbose}"
     );
 
@@ -761,7 +761,7 @@ fn test_controller_clock_button_keeps_the_whole_hours_report() {
     // A pad has nowhere to put three more info buttons, so this one press must
     // still carry the hours a keyboard player gets from Alt A/S/D.
     assert!(
-        last(&app).contains("14-hour window"),
+        last(&app).contains("duty window"),
         "{}",
         last(&app)
     );

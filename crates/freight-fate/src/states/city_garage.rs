@@ -548,7 +548,7 @@ impl GarageState {
     fn tire_swap_label(ctx: &GameContext) -> String {
         let p = profile(ctx);
         if !player_pays_operating_costs(&p.business_status) {
-            return "Tire compound: the carrier specs its own rubber".to_string();
+            return "Tire type: the carrier chooses its own tires".to_string();
         }
         if p.tire_type() == "winter" {
             let cost = round_py_n(100.0 * TIRE_SERVICE_COST_PER_PCT, 2);

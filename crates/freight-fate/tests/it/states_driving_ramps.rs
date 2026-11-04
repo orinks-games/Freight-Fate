@@ -2122,9 +2122,7 @@ fn test_route_transition_assistance_brakes_to_the_sign_without_slamming() {
         "the stop peaked at {hardest_mps2:.2} m/s2: {lines:?}"
     );
     assert!(
-        !lines
-            .iter()
-            .any(|line| line == "Ramp assistance released."),
+        !lines.iter().any(|line| line == "Ramp assistance released."),
         "released while still braking for the sign: {lines:?}"
     );
 }

@@ -333,8 +333,8 @@ impl FacilityArrivalState {
                 "Those charges do not reduce driver pay."
             };
             format!(
-                "Paperwork, {facility}: {} tons of {}. Rate {}, gross {}. Charges {}: tolls {}, \
-                 accessorials {}. {charge_fate} Fines {}. Net about {}.{advance_note} {timing}. \
+                "Paperwork, {facility}: {} tons of {}. Rate {}, pay for the load {}. Charges {}: tolls {}, \
+                 extra charges {}. {charge_fate} Fines {}. Net about {}.{advance_note} {timing}. \
                  {cargo_condition} {finish} to settle.",
                 fmt_f(job.weight_tons, 0),
                 job.cargo.label,

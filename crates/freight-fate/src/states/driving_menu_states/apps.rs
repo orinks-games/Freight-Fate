@@ -181,10 +181,7 @@ impl DriverAppScreenState {
                 }
                 let mut lines = vec![
                     format!("Weather source: {source}."),
-                    format!(
-                        "Observation age: {}.",
-                        d.trip.weather.observation_age_value()
-                    ),
+                    format!("Report age: {}.", d.trip.weather.observation_age_value()),
                     format!(
                         "Conditions: {}.",
                         d.trip.weather.source_conditions(imperial)

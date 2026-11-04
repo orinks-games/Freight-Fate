@@ -134,8 +134,8 @@ impl DrivingState {
         lines.push("Control with plus or minus, by one.".to_string());
         lines.push(format!("{cruise_resume} resumes the last cruise speed."));
         lines.push(format!(
-            "Parked with the brake set, {cruise} latches a high idle; plus and minus \
-             adjust it, and releasing the parking brake drops it."
+            "Parked with the parking brake set, {cruise} runs the engine at a fast \
+             idle; plus and minus adjust it, and releasing the parking brake drops it."
         ));
         lines.push(format!(
             "{exit} signals for the next announced route exit, by number when known, \
@@ -155,7 +155,7 @@ impl DrivingState {
                 .to_string(),
         );
         lines.push(format!(
-            "{exit} also signals a pull-over when a trooper lights you up for speeding, \
+            "{exit} also signals a pull-over when a trooper signals you to pull over for speeding, \
              a scale bypass, or unsafe equipment: signal, then brake to a stop."
         ));
         lines.push(
@@ -405,11 +405,11 @@ impl DrivingState {
                 .to_string(),
         );
         lines.push(format!(
-            "Parked with the brake set, {cruise} latches a high idle."
+            "Parked with the parking brake set, {cruise} runs the engine at a fast idle."
         ));
         lines.push(format!(
             "{take_exit} signals for the next announced exit, or a pull-over when a \
-             trooper lights you up."
+             trooper signals you to pull over."
         ));
         lines.push(format!(
             "{route} reads your route and current location, {weather} the weather, \

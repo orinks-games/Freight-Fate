@@ -341,7 +341,7 @@ impl DrivingState {
         if !hos::HOS_NON_ENFORCED_MODES.contains(&mode.as_str()) {
             if hos_of(ctx).in_violation(mode) {
                 return Some(
-                    "You are past your hours-of-service limit, and there is no route POI here."
+                    "You are past your hours-of-service limit, and there is no stop here."
                         .to_string(),
                 );
             }

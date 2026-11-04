@@ -963,8 +963,8 @@ pub fn record_consequence_text<P: StandingProfile + ?Sized>(profile: &P) -> Stri
     if record_past_termination_floor(record, game_hours) {
         if profile.carrier_key() == LAST_CHANCE_CARRIER_KEY {
             return format!(
-                "The carrier's insurer will not carry a record like that; {} keeps you on \
-                 sufferance until {}.",
+                "The carrier's insurer will not carry a record like that; {} keeps you on, on \
+                 probation, until {}.",
                 LAST_CHANCE_CARRIER_NAME,
                 record_clears_text(profile, |citations, serious| {
                     citations >= CARRIER_TERMINATION_CITATIONS

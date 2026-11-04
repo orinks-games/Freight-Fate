@@ -271,9 +271,7 @@ impl Job {
         let pay = fmt_grouped(opts.display_pay.unwrap_or(self.pay), 0);
         let pay_text = match opts.pay_label {
             "" | "Pays" => format!("Pays {pay} dollars."),
-            "Carrier gross" => format!("Carrier gross {pay} dollars."),
-            "Direct gross" => format!("Direct gross {pay} dollars."),
-            "Gross revenue" => format!("Gross revenue {pay} dollars."),
+            "Pay for the load" => format!("Pay for the load: {pay} dollars."),
             other => format!("{other} {pay} dollars."),
         };
         let distance = if opts.distance_text.is_empty() {

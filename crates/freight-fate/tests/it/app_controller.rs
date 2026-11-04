@@ -744,10 +744,7 @@ fn test_controller_speed_control_handoff_status_adjustment_and_brake() {
         said.contains("Speed keeper holding 25 miles per hour"),
         "{said}"
     );
-    assert!(
-        said.contains("Cruise speed 60 miles per hour."),
-        "{said}"
-    );
+    assert!(said.contains("Cruise speed 60 miles per hour."), "{said}");
 
     app.dispatch_controller(&button_up(ControllerButton::B, 0));
     app.dispatch_controller(&button(ControllerButton::RightShoulder, 0));

@@ -54,7 +54,7 @@ fn back_to_back_berth_sleeps_count_toward_the_reset() {
     // The preview forecasts the 4 hours the sleep will spend, not a full 10.
     let preview = h.app.speech().lines().join(" ");
     assert!(preview.contains("Sleep 4 hours more at"), "{preview}");
-    assert!(preview.contains("Clock +4 hours."), "{preview}");
+    assert!(preview.contains("Clock moves ahead 4 hours."), "{preview}");
     h.clear_speech();
     h.select_menu_item("Sleep 4 hours more to finish a 10-hour reset");
     let woke = h.app.speech().lines().join(" ");

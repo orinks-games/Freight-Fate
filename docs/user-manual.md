@@ -298,7 +298,7 @@ If a load needs a qualification you don't have, visit Licenses and training. Car
 
 ## Business status
 
-As a company driver, you're paid wages and bonuses from the carrier's gross revenue. The carrier provides the equipment and routine service. Choosing a carrier changes more than the name on the job: each has its own wage floor, stop pay, pay share, bonuses, deadlines, and mix of freight.
+As a company driver, you're paid wages and bonuses from what the carrier earns. The carrier provides the equipment and routine service. Choosing a carrier changes more than the name on the job: each has its own wage floor, stop pay, pay share, bonuses, deadlines, and mix of freight.
 
 | Trust | What dispatch does |
 | --- | --- |
@@ -326,7 +326,7 @@ An owner who chooses Go back to company driving gets two confirmations before an
 
 Owning the truck means paying for fuel, repairs, maintenance and insurance reserves, trailer costs, truck reserves, and fees. A larger gross payment isn't all take-home money.
 
-Authority preparation can open at level 21. Own authority can open at level 25, once you have 75 deliveries, reputation of 92, a specialty program, no advance, and the startup money plus working capital. Direct freight pays higher gross, with deductions for insurance, compliance, trailers, trucks, and factoring. If you own a trailer that matches the freight, its reserve replaces the program charge.
+Authority preparation can open at level 21. Own authority can open at level 25, once you have 75 deliveries, reputation of 92, a specialty program, no advance, and the startup money plus working capital. Direct freight pays higher gross, with deductions for insurance, compliance, trailers, trucks, and billing fees. If you own a trailer that matches the freight, its reserve replaces the program charge.
 
 Owners can open Truck dealer from the terminal. Upgrades apply across the fleet, but the condition of each truck belongs to that truck.
 
@@ -354,7 +354,7 @@ Your record affects those opportunities. A citation costs four reputation points
 
 ## Pickup, loading, and route planning
 
-Before you can deliver the load, you have to collect it. That first drive is local deadhead: you're traveling to the pickup without cargo. Stop at the gate and check in before loading or collecting the trailer. Check-in uses 15 on-duty minutes. Live loading takes about 60 minutes, represented by a short spoken wait.
+Before you can deliver the load, you have to collect it. That first drive is an empty drive: you're traveling to the pickup without cargo. Stop at the gate and check in before loading or collecting the trailer. Check-in uses 15 on-duty minutes. Live loading takes about 60 minutes, represented by a short spoken wait.
 
 ### Drop and hook, and the walk-around
 
@@ -382,8 +382,8 @@ A control marked Driving commands has no controller button. Hold the right bumpe
 | P | Right bumper plus Y | Release or set the parking brake. Set it above a crawl and the spring brakes slam on: a screech, a hard stop, and permanent flat spots ground into the tires, worse the faster you were going. It is not a brake pedal. |
 | K | Y | Start or cancel automatic speed control. It uses adaptive cruise on the highway, work zones and heavy traffic included, and speed keeper on streets and facility approaches. It pauses through the planned pickup and resumes once the loaded truck is rolling. Braking elsewhere also cancels it. Parked with the parking brake set, K latches a high idle instead. |
 | Shift+K | Driving commands | Resume automatic speed control at the last speed you had set, after braking cancelled it. |
-| Plus / Minus | Right bumper plus D-pad right or left | Raise or lower the open-road cruise target while automatic speed control is active, snapping outward to the next multiple of 5 mph: from 32 it lands on 35, then 40. The keypad Plus and Minus keys work too. |
-| Ctrl+Plus / Ctrl+Minus | Not on the controller | Raise or lower the open-road cruise target by exactly 1 mph, no snapping, for setting a precise number. |
+| Plus / Minus | Right bumper plus D-pad right or left | Raise or lower the cruise speed while automatic speed control is active, snapping outward to the next multiple of 5 mph: from 32 it lands on 35, then 40. The keypad Plus and Minus keys work too. |
+| Ctrl+Plus / Ctrl+Minus | Not on the controller | Raise or lower the cruise speed by exactly 1 mph, no snapping, for setting a precise number. |
 | X | D-pad down | Signal for or cancel the next announced route exit. The truck takes the ramp when speed, lane setup, and route intent are valid. |
 | T | Right bumper plus D-pad down | While rolling, choose what the stop is for, such as fuel, a break or sleep, then hear the planned stop's distance, exit, and stopping-assistance state. T never signals or takes the exit; press X for that. When fully stopped at a supported route stop, T opens its menu; away from route points, it opens the emergency shoulder-sleep confirmation. |
 | J | Right stick click | Toggle the engine brake. It engages at the stage you last selected, like a real dash switch. In an automatic, J arms the truck's own retarder management unless you have turned that off. |
@@ -681,7 +681,7 @@ If you're already at Great Lakes, debt stops at the ceiling. Excess is written o
 
 Your legal hours are the same in both hours modes: eleven driving hours after ten off, a fourteen-hour duty window, and a thirty-minute break after eight cumulative driving hours. Relaxed reduces enforcement pressure; it doesn't extend those limits.
 
-Any thirty consecutive minutes without driving can meet the driving-break requirement. Loading and inspections can count, but they won't reset the duty window. Moving the truck for work counts even when you're bobtail.
+Any thirty consecutive minutes without driving can meet the driving-break requirement. Loading and inspections can count, but they won't reset the duty window. Moving the truck for work counts even when you're driving without a trailer.
 
 Check your hours before choosing how far to continue. Alt+A reads time used, Alt+S tells you when the break is due, and Alt+D reads both shift limits with reachable legal rest. C gives the clock, deadline, and nearest limit. On a controller, D-pad right reads the clock with all of these limits in one report. Before each limit you'll hear one warning: with one hour left in the Relaxed driving mode, two hours in Standard, and two hours, one hour and thirty minutes in Real time. A limit the trip ends inside gets no warning. When you leave with a load, the departure line says your driving time left, your fuel, and whether the run needs a break or a sleep.
 
@@ -841,7 +841,7 @@ Follow the destination exit into the local streets and yard. Stop at the gate an
 
 Unloading uses on-duty time. When it's finished, settlement explains the load's condition, elapsed time, whether you were on time, and the money involved. You'll hear gross pay, reimbursements, driver costs, net pay, and your cash balance, along with truck condition and career changes.
 
-On-time delivery pays ten percent extra. Arriving even earlier doesn't add another bonus, while late freight pays less. Company tolls and approved accessorials don't reduce driver wages. Tickets you've already paid aren't charged a second time.
+On-time delivery pays ten percent extra. Arriving even earlier doesn't add another bonus, while late freight pays less. Company tolls and approved extra charges don't reduce driver wages. Tickets you've already paid aren't charged a second time.
 
 Damaged freight can bring an exception deduction, a claim, or a refusal with no delivery pay. A fragile load tolerates less abuse than bulk freight. Hard braking, fast bends, and collisions can all affect the cargo. If you can't cover the resulting charges, they become debt.
 

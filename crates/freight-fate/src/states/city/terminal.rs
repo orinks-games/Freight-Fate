@@ -771,9 +771,10 @@ impl Menu for CityMenuState {
         // dispatch instead (ROADMAP).
         if is_owner_operator(status) {
             items.push(
-                MenuItem::new("Drive to a nearby city without a trailer", |s: &mut Self, ctx| {
-                    s.bobtail(ctx)
-                })
+                MenuItem::new(
+                    "Drive to a nearby city without a trailer",
+                    |s: &mut Self, ctx| s.bobtail(ctx),
+                )
                 .help(
                     "Drive empty to a nearby city for its dispatch board. Costs fuel and hours \
                      of service, no load, no pay.",
@@ -848,7 +849,7 @@ impl Menu for CityMenuState {
         );
         items.push(
             MenuItem::new("Logbook", |s: &mut Self, ctx| s.logbook(ctx))
-                .help("Recent Record of Duty Status entries."),
+                .help("Recent logbook entries."),
         );
         items.push(
             MenuItem::new("Sleep 10 hours", |s: &mut Self, ctx| s.sleep(ctx))

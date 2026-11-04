@@ -70,10 +70,7 @@ pub fn describe_job(ctx: &GameContext, total: usize, job: &Job, index: Option<us
         .flatten()
         .map(|route| ctx.settings.distance_text(route.miles(), false))
         .unwrap_or_else(|| "a drive".to_string());
-    let waiting = format!(
-        "Load in {}, {deadhead} empty first. ",
-        job.spoken_origin()
-    );
+    let waiting = format!("Load in {}, {deadhead} empty first. ", job.spoken_origin());
     match index {
         Some(_) => text.replacen(": ", &format!(": {waiting}"), 1),
         None => format!("{waiting}{text}"),
@@ -196,7 +193,7 @@ impl JobDetailState {
                 ctx.settings.distance_text(job.distance_mi, false)
             ),
             format!(
-                "Pay: {} dollars, the empty-mile rate.",
+                "Pay for driving empty: {} dollars.",
                 fmt_grouped(job.pay, 0)
             ),
             "No cargo, no trailer program, no endorsement needed.".to_string(),

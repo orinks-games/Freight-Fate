@@ -178,7 +178,7 @@ impl ArrivalState {
             let promotion = self.handle_fleet_promotion(ctx, previous_level, &mut announcements);
             announcements.extend(promotion);
             format!(
-                "Reposition pay at the empty-mile rate: {} dollars. You now have {} dollars. ",
+                "Pay for driving empty: {} dollars. You now have {} dollars. ",
                 fmt_grouped(job.pay, 0),
                 fmt_grouped(money, 0)
             )
@@ -250,7 +250,7 @@ impl ArrivalState {
     ) -> String {
         let owner_op = is_owner_operator(&profile_of(ctx).business_status);
         let claim_holder = if owner_op {
-            "Claim against your own authority"
+            "Claim against your own business"
         } else {
             "Carrier carries the claim, on your record"
         };
@@ -284,7 +284,7 @@ impl ArrivalState {
         }
         if cargo.outcome == "claim" {
             return format!(
-                "Receiver took the load with an exception, {} at {} percent. Claim about {} \
+                "Receiver took the load but noted damage, {} at {} percent. Claim about {} \
                  dollars, {} off this settlement. {claim_holder}.",
                 cargo_condition_text(cargo.condition_pct, liquid),
                 fmt_f(cargo.condition_pct, 0),
@@ -293,7 +293,7 @@ impl ArrivalState {
             );
         }
         format!(
-            "Exception on the bill of lading, load arrived {} at {} percent. {} dollars held \
+            "The receiver noted damage on the paperwork: load arrived {} at {} percent. {} dollars held \
              back.",
             cargo_condition_text(cargo.condition_pct, liquid),
             fmt_f(cargo.condition_pct, 0),
@@ -491,7 +491,7 @@ impl ArrivalState {
             if manual_bonus >= 1.0 {
                 net_pay = round_py_n(net_pay + manual_bonus, 2);
                 self.summary_parts.push(format!(
-                    "Manual-spec differential: {} dollars.",
+                    "Manual transmission bonus: {} dollars.",
                     fmt_grouped(manual_bonus, 0)
                 ));
             }
@@ -714,8 +714,8 @@ impl ArrivalState {
         self.summary_parts.insert(
             0,
             format!(
-                "Delivered {} tons of {} to {} in {} hours, {}.{receiver_service_clause} {}. {} {} dollars. \
-                 Charges {}: tolls {}, accessorials {}. {accessorial_clause} Business status: {}. Costs {}. \
+                "Delivered {} tons of {} to {} in {} hours, {}.{receiver_service_clause} {}. {}: {} dollars. \
+                 Charges {}: tolls {}, extra charges {}. {accessorial_clause} Business status: {}. Costs {}. \
                  Fines {}. Net {}, you have {}. Parked at {}.",
                 fmt_f(job.weight_tons, 0),
                 job.cargo.label,
@@ -934,7 +934,7 @@ impl ArrivalState {
             ),
             format!(
                 "Carrier-paid or reimbursed charges: {} dollars, including tolls {} and \
-                 accessorials {}.",
+                 extra charges {}.",
                 fmt_grouped(carrier_charges, 0),
                 fmt_grouped(toll_expense, 0),
                 charge_summary(&accessorials)

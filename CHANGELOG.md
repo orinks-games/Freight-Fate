@@ -8,7 +8,7 @@
 
 - **Choose stable, beta, or alpha updates in Settings.** Existing snapshot followers move to beta.
 
-- **A menu letter can now choose its item at once.** Turn on Menu accelerator keys in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).
+- **A menu letter can now choose its item at once.** Turn on Letters run menu items in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).
 - **Achievements can be sorted.** A new Sort row puts earned ones first by default, or newest, locked first, A to Z, or the original order.
 - **Achievements open from the terminal and the pause menu,** showing the career you are playing.
 - **Translators can put a corrected language file in a lang folder next to the game.** The saves folder still works too.
@@ -19,7 +19,7 @@
 
 - **Citations now clear from your record in 30 game days, and serious violations and crashes in 90.** Two serious violations within 180 days, not three years, suspend your CDL.
 - **Road announcements now wait for NVDA 2026.3 or SAPI to finish speaking.** The most urgent goes next; stale chatter is skipped.
-- **Game sounds step back for speech only while NVDA 2026.3 or SAPI is speaking.** Older NVDA versions keep the timing they had.
+- **Lower game sounds during speech works only while NVDA 2026.3 or SAPI is speaking.** Older NVDA versions keep the timing they had.
 - **Daily development releases are now labeled Beta.** Stable releases remain the default download.
 
 - **Updates are signed, and only what changed is downloaded.** The game now checks every update against Freight Fate's own signature before installing it, and skips any large file you already have, not only the music and radio packs. An update stopped part-way, by a power cut for instance, is put back at the next start.
@@ -29,6 +29,16 @@
 - **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.
 - **Adaptive cruise now holds highway work zones and heavy traffic at their limit.** The speed keeper takes over only on streets and facility approaches.
 - **Dispatch stops sending you straight back where you came from.** The city you just delivered from is on about one board in three, and it is no longer the load dispatch assigns or the one the cursor opens on while another load is there.
+- **Instructions use plain words instead of trucker slang and road-engineering terms.** You hear Drive empty instead of Deadhead, and Lane ending instead of Taper squeezing.
+- **The open-road target is now called the cruise speed.**
+- **Descent speed control levels are now Off, Light, Standard and Strong.** Your saved choice carries over.
+- **Route-transition assistance is now Ramp assistance.** Two more rows were renamed: Lower game sounds during speech, and Letters run menu items.
+- **Settings help, How to play and many spoken lines are shorter and plainer.**
+- **Loads list Pay for the load instead of carrier gross.** Settlements say extra charges and billing fees instead of accessorials and factoring.
+
+### Removed
+
+- **The Automatic direction changes setting is gone.** Both of its choices already drove the same way.
 
 ### Fixed
 
@@ -42,7 +52,7 @@
 - **Your planned stop is announced at every driving speech setting, with the key to signal for it.** Pressing X while it is read no longer brings the line back.
 - **Adaptive cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
 - **Full lane keeping now leaves a lane that a work zone closes.** It moves over when the signs come up, so All assists no longer drives into the barrels.
-- **The taper warning before a lane closure now names the open lane.** With the left lane closed it used to say merge left.
+- **The lane ending warning before a lane closure now names the open lane.** With the left lane closed it used to say merge left.
 - **Barrel citations from before that fix come off your record.** The fine is refunded the first time you load the career.
 - **Facility stopping assistance no longer gets you fined at a chain control.** A truck pulling into the chain-up area to put chains on is not cited.
 - **A crash on Windows now writes its cause into game.log,** so a bug report with the log shows what went wrong.

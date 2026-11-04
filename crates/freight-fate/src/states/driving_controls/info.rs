@@ -478,7 +478,8 @@ impl DrivingState {
             } else if grade < -0.005 {
                 if truck.jake_slipping() {
                     parts.push(
-                        "The engine brake is sliding the drive wheels. Lower it a stage.".to_string(),
+                        "The engine brake is sliding the drive wheels. Lower it a stage."
+                            .to_string(),
                     );
                 } else if accel_mph_s > GRADE_HOLDING_MPH_PER_S {
                     if stage > 0 {

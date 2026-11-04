@@ -116,10 +116,10 @@ pub const CREDENTIALS: &[Credential] = &[
         prereqs: &[],
         wait_days: 0.0,
         needs_clean_record: false,
-        unlocks: "a manual-spec pay differential on drives made on a manual gearbox",
+        unlocks: "a small pay bonus for drives in a manual truck",
         announcement: "You retook the skills test in a manual truck, and the automatic-only \
-             restriction is off your license. Drives made on a manual gearbox now \
-             pay a small manual-spec differential in the settlement.",
+             restriction is off your license. Drives in a manual truck now pay a \
+             small bonus at settlement.",
     },
     // -- Certificates: carrier training ------------------------------------
     Credential {

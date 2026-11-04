@@ -2257,8 +2257,8 @@ msgstr "{join}，以及{parts}"
 msgid "{spoken} is a roadside landmark known for {phrase}"
 msgstr "{spoken}是一处路边地标，以{phrase}闻名"
 
-msgid "; no big rigs allowed, so you can only stop here running bobtail"
-msgstr "；不允许大型卡车进入，所以只有单车头行驶时才能在这里停靠"
+msgid "; no big rigs allowed, so you can only stop here without a trailer"
+msgstr ""
 
 msgid "baked bytes"
 msgstr "baked bytes"
@@ -6003,14 +6003,8 @@ msgstr "挂靠承运商的车主司机"
 msgid "company driver"
 msgstr "公司司机"
 
-msgid "Direct gross"
-msgstr "直接总收入"
-
-msgid "Gross revenue"
-msgstr "总收入"
-
-msgid "Carrier gross"
-msgstr "承运商总收入"
+msgid "Pay for the load"
+msgstr "货物运费"
 
 #. placeholders: {WEIGH_STATION_TRANSPONDER_LEVEL}
 msgid ""
@@ -6110,8 +6104,8 @@ msgstr "{carrier_name}。{level}级：{title}。{stage}。{menu_summary}"
 
 msgid ""
 "Own authority active. Direct freight is available on the dispatch board, "
-"with insurance, compliance, and factoring costs in settlement."
-msgstr "自有运营资质已生效。调度板上有直接货源，结算时会扣除保险、合规和保理费用。"
+"with insurance, compliance and billing fees in settlement."
+msgstr ""
 
 msgid "Next: activate own authority from Business status."
 msgstr "下一步：在经营状况中启用自有运营资质。"
@@ -6165,8 +6159,8 @@ msgid "Weigh station transponder subscription is active. "
 msgstr "称重站电子标签订阅已生效。 "
 
 #. one sentence of a longer line
-msgid "Direct freight pays higher gross."
-msgstr "直接货源的总收入更高。"
+msgid "Direct freight pays more per load."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Own authority active."
@@ -6174,18 +6168,16 @@ msgstr "自有运营资质已生效。"
 
 #. placeholders: {level}, {title}, {transponder}, {next_business_unlock}
 msgid ""
-"Own authority active. Level {level}: {title}. Direct freight pays higher "
-"gross. You pay fuel, repairs, insurance, trailer reserve, truck reserve, "
-"compliance reserve, and factoring costs. {transponder}{next_business_unlock}"
+"Own authority active. Level {level}: {title}. Direct freight pays more per "
+"load. You pay fuel, repairs, insurance, trailer reserve, truck reserve, "
+"compliance reserve and billing fees. {transponder}{next_business_unlock}"
 msgstr ""
-"自有运营资质已生效。{level}级：{title}。直接货源的总收入更高。你要承担燃油、维修、保险、挂车准备金、卡车准备金、合规准备金和保理费用。{t"
-"ransponder}{next_business_unlock}"
 
 #. one sentence of a longer line
 msgid ""
 "You pay fuel, repairs, insurance, trailer reserve, truck reserve, "
-"compliance reserve, and factoring costs."
-msgstr "你要承担燃油、维修、保险、挂车准备金、卡车准备金、合规准备金和保理费用。"
+"compliance reserve and billing fees."
+msgstr ""
 
 msgid "You chose the owner-operator start. "
 msgstr "你选择了以车主司机身份起步。 "
@@ -6194,8 +6186,8 @@ msgid "Authority prep reserve is set. "
 msgstr "资质准备金已预留。 "
 
 #. one sentence of a longer line
-msgid "Gross revenue is higher."
-msgstr "总收入更高。"
+msgid "Loads pay more."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -6210,13 +6202,10 @@ msgstr "{lead}挂靠在{carrier_name}。"
 
 #. placeholders: {lead}, {carrier_name}, {level}, {title}, {readiness}, {transponder}, {next_business_unlock}
 msgid ""
-"{lead}Leased to {carrier_name}. Level {level}: {title}. Gross revenue is "
-"higher. You pay fuel, repairs, maintenance reserve, insurance, trailer "
-"program, truck reserve, and settlement fees. "
-"{readiness}{transponder}{next_business_unlock}"
+"{lead}Leased to {carrier_name}. Level {level}: {title}. Loads pay more. You "
+"pay fuel, repairs, maintenance reserve, insurance, trailer program, truck "
+"reserve, and settlement fees. {readiness}{transponder}{next_business_unlock}"
 msgstr ""
-"{lead}挂靠在{carrier_name}。{level}级：{title}。总收入更高。你要承担燃油、维修、保养准备金、保险、挂车计划、卡车准备金"
-"和结算手续费。{readiness}{transponder}{next_business_unlock}"
 
 #. one sentence of a longer line
 msgid "Settlements are driver wages and bonuses."
@@ -6321,7 +6310,7 @@ msgstr "自有挂车准备金"
 msgid "authority compliance reserve"
 msgstr "运营资质合规准备金"
 
-msgid "factoring fee"
+msgid "billing fee"
 msgstr "保理费"
 
 msgid "insurance reserve, surcharged for your driving record"
@@ -6591,8 +6580,8 @@ msgstr "车主司机候选人"
 msgid "Business preparation"
 msgstr "经营准备"
 
-msgid "Working-capital target becomes visible."
-msgstr "周转资金目标现在可以看到了。"
+msgid "Your savings target is now shown."
+msgstr ""
 
 msgid ""
 "Saving for the owner-operator buy-in instead of a lease-purchase deal."
@@ -6639,8 +6628,8 @@ msgstr "有资格买下自己的卡车并承担运营成本。"
 msgid "Settled Owner-Operator"
 msgstr "稳定的车主司机"
 
-msgid "Owner-operator settlements become the normal business rhythm."
-msgstr "车主司机结算成为正常的经营节奏。"
+msgid "Owner-operator settlements are now routine."
+msgstr ""
 
 msgid ""
 "Learning fuel, maintenance, insurance, trailer, and settlement reserves."
@@ -6664,8 +6653,9 @@ msgstr "资质准备候选人"
 msgid "Authority preparation"
 msgstr "资质准备"
 
-msgid "Authority prep reserve can unlock when other gates are met."
-msgstr "其他门槛满足后，可以解锁资质准备金。"
+msgid ""
+"Authority prep reserve can unlock when the other requirements are met."
+msgstr ""
 
 msgid ""
 "Studying full authority while staying focused on one-truck operations."
@@ -6674,8 +6664,8 @@ msgstr "研究完整的运营资质，同时专注于单车运营。"
 msgid "Direct Freight Prep"
 msgstr "直接货源准备"
 
-msgid "Direct freight readiness gates become clearer."
-msgstr "直接货源的准备门槛更清楚了。"
+msgid "The steps to direct freight are now listed."
+msgstr ""
 
 msgid ""
 "Building reputation and working capital before direct broker freight."
@@ -6696,9 +6686,8 @@ msgstr "资质就绪经营者"
 msgid "Final authority activation checklist."
 msgstr "最终的运营资质启用清单。"
 
-msgid ""
-"Prepared for own authority without simulating a full compliance office."
-msgstr "已为自有运营资质做好准备，无需模拟整个合规办公室。"
+msgid "Getting ready to run under your own authority."
+msgstr ""
 
 msgid "Independent Authority Operator"
 msgstr "独立资质经营者"
@@ -6706,12 +6695,13 @@ msgstr "独立资质经营者"
 msgid "Own authority"
 msgstr "自有运营资质"
 
-msgid "Own authority and direct freight unlock when other gates are met."
-msgstr "其他门槛满足后，解锁自有运营资质和直接货源。"
+msgid ""
+"Own authority and direct freight unlock when the other requirements are met."
+msgstr ""
 
 msgid ""
-"Direct freight is available with insurance, compliance, and factoring costs."
-msgstr "可以接直接货源，需承担保险、合规和保理费用。"
+"Direct freight is available, with insurance, compliance and billing fees."
+msgstr ""
 
 msgid "Contract Freight Builder"
 msgstr "合同货运经营者"
@@ -6722,8 +6712,8 @@ msgstr "成熟车主司机"
 msgid "Premium direct freight reputation matters more."
 msgstr "优质直接货源的声誉更重要了。"
 
-msgid "Building a stronger one-truck book of repeat freight."
-msgstr "建立更稳固的单车回头货源。"
+msgid "Building repeat customers for your one truck."
+msgstr ""
 
 msgid "Specialized Trailer Operator"
 msgstr "特种挂车经营者"
@@ -6778,8 +6768,8 @@ msgstr "把开承运商的设备当作长期职业，而不是等候室。"
 msgid "Fleet Senior Driver"
 msgstr "车队资深司机"
 
-msgid "Dispatch favors you with steadier premium freight on company iron."
-msgstr "调度会优先让你开公司车跑更稳定的优质货物。"
+msgid "Dispatch favors you with steadier premium freight on company trucks."
+msgstr ""
 
 msgid "A senior company driver with a settled place on the fleet."
 msgstr "在车队中站稳脚跟的资深公司司机。"
@@ -6799,9 +6789,8 @@ msgstr "指派车队阶梯的顶端，风险仍由承运商承担。"
 msgid "Company Fleet Captain"
 msgstr "公司车队队长"
 
-msgid ""
-"Fleet-captain standing: priority company freight and mentoring weight."
-msgstr "车队队长地位：优先获得公司货物，指导意见也更有分量。"
+msgid "Top fleet standing: first pick of company freight."
+msgstr ""
 
 msgid "A career company driver at the buy-in fork who kept the safer seat."
 msgstr "走到买断岔路口，却选择了更安全位置的职业公司司机。"
@@ -6812,8 +6801,8 @@ msgstr "资深公司货运司机"
 msgid "Long-haul company work becomes the normal rhythm."
 msgstr "长途公司任务成为日常节奏。"
 
-msgid "Miles and reputation compound on carrier equipment."
-msgstr "里程和声誉在承运商的设备上不断累积。"
+msgid "Miles and reputation keep growing on carrier equipment."
+msgstr ""
 
 msgid "Senior Fleet Regular"
 msgstr "车队资深常客"
@@ -6843,8 +6832,9 @@ msgstr "优质公司线路司机"
 msgid "Premium company lanes favor high reputation and clean timing."
 msgstr "优质公司线路偏爱高声誉和准时送达。"
 
-msgid "An elite company driver with first call on high-consequence freight."
-msgstr "精英公司司机，优先接手出了事后果严重的货物。"
+msgid ""
+"An elite company driver with first call on the most valuable freight."
+msgstr ""
 
 msgid "Master Company Driver"
 msgstr "大师级公司司机"
@@ -7677,14 +7667,14 @@ msgstr "手动变速箱"
 msgid "manual transmission training"
 msgstr "手动变速箱培训"
 
-msgid "a manual-spec pay differential on drives made on a manual gearbox"
-msgstr "用手动变速箱驾驶时的手动挡工资补贴"
+msgid "a small pay bonus for drives in a manual truck"
+msgstr ""
 
 msgid ""
 "You retook the skills test in a manual truck, and the automatic-only "
-"restriction is off your license. Drives made on a manual gearbox now pay a "
-"small manual-spec differential in the settlement."
-msgstr "你在手动挡卡车上重考了技能考试，驾照上的仅限自动挡限制已经取消。用手动变速箱开的行程，现在会在结算时多拿一点手动挡补贴。"
+"restriction is off your license. Drives in a manual truck now pay a small "
+"bonus at settlement."
+msgstr ""
 
 msgid "refrigerated certificate"
 msgstr "冷藏培训证书"
@@ -7884,8 +7874,8 @@ msgid ""
 "drive."
 msgstr " 背景调查大约需要{wait_days}天，会在你开车期间完成。"
 
-msgid " Enter books it, or says why you do not qualify."
-msgstr " 按 Enter 预约，或者告诉你为什么不符合条件。"
+msgid " Enter books it."
+msgstr ""
 
 #. placeholders: {grouped}
 msgid "{grouped} dollars"
@@ -8095,10 +8085,9 @@ msgstr "保险附加费：{percent}%直至{until}。"
 #. placeholders: {LAST_CHANCE_CARRIER_NAME}, {record_clears_text}
 msgid ""
 "The carrier's insurer will not carry a record like that; "
-"{LAST_CHANCE_CARRIER_NAME} keeps you on sufferance until "
+"{LAST_CHANCE_CARRIER_NAME} keeps you on, on probation, until "
 "{record_clears_text}."
 msgstr ""
-"承运商的保险公司不接受这样的记录；{LAST_CHANCE_CARRIER_NAME}勉强留着你，直到{record_clears_text}。"
 
 msgid ""
 "The carrier's insurer will not carry that record. The carrier ends your "
@@ -8343,8 +8332,9 @@ msgid ""
 msgstr "CDL处于{status_verb}状态时无法接受此任务。该状态会在{clears_text}解除。"
 
 msgid ""
-"You cannot drive with a lifetime CDL disqualification, not even bobtail."
-msgstr "CDL被终身取消资格，你不能开车，连单开车头也不行。"
+"You cannot drive with a lifetime CDL disqualification, not even without a "
+"trailer."
+msgstr ""
 
 msgid "suspension"
 msgstr "暂扣"
@@ -8356,14 +8346,15 @@ msgstr "{noun}在{clears_text}结束。"
 
 #. placeholders: {verb}
 #. one sentence of a longer line
-msgid "You cannot drive, not even bobtail, while your CDL is {verb}."
-msgstr "你的CDL被{verb}期间，你不能开车，连单开车头也不行。"
+msgid ""
+"You cannot drive, not even without a trailer, while your CDL is {verb}."
+msgstr ""
 
 #. placeholders: {verb}, {noun}, {clears_text}
 msgid ""
-"You cannot drive, not even bobtail, while your CDL is {verb}. The {noun} "
-"ends {clears_text}."
-msgstr "CDL处于{verb}状态时不能驾驶，即使不挂挂车也不行。{noun}会在{clears_text}结束。"
+"You cannot drive, not even without a trailer, while your CDL is {verb}. The "
+"{noun} ends {clears_text}."
+msgstr ""
 
 msgid "CDL: disqualified for life"
 msgstr "CDL：终身取消资格"
@@ -8543,16 +8534,8 @@ msgid "Pays {pay} dollars."
 msgstr "支付 {pay} 美元。"
 
 #. placeholders: {pay}
-msgid "Carrier gross {pay} dollars."
-msgstr "承运商总收入{pay}美元。"
-
-#. placeholders: {pay}
-msgid "Direct gross {pay} dollars."
-msgstr "直接毛额{pay}元。"
-
-#. placeholders: {pay}
-msgid "Gross revenue {pay} dollars."
-msgstr "总收入{pay} 美元。"
+msgid "Pay for the load: {pay} dollars."
+msgstr "货物运费：{pay}美元。"
 
 #. placeholders: {hours}
 msgid ""
@@ -8778,14 +8761,14 @@ msgstr "最后一个可依法停车的地点是{name}，位于前方{fallback_di
 
 #. placeholders: {lower}
 #. one sentence of a longer line
-msgid "No {lower} stop with a 30-minute buffer."
-msgstr "没有 {lower} 停止，有 30 分钟的缓冲。"
+msgid "No {lower} stop with 30 minutes to spare."
+msgstr ""
 
 #. placeholders: {lower}, {name}, {fallback_distance}
 msgid ""
-"No {lower} stop with a 30-minute buffer. Last legal stop: {name}, "
+"No {lower} stop with 30 minutes to spare. Last legal stop: {name}, "
 "{fallback_distance} ahead."
-msgstr "没有 {lower} 停止，有 30 分钟的缓冲。最后合法停靠站：{name}，前方为{fallback_distance}。"
+msgstr ""
 
 #. placeholders: {lower}
 msgid "No reachable {lower} stop before your hours limit."
@@ -8798,13 +8781,13 @@ msgstr "本次轮班内可以到达目的地，约需{destination_travel_min}分
 
 #. placeholders: {destination_travel_min}
 msgid ""
-"Destination fits this shift, about {destination_travel_min} minutes. No HOS "
-"stop first."
-msgstr "本次轮班内可以到达目的地，约需{destination_travel_min}分钟，中途无需因驾驶工时停车。"
+"Destination fits this shift, about {destination_travel_min} minutes. No "
+"rest stop needed first."
+msgstr ""
 
 #. one sentence of a longer line
-msgid "No HOS stop first."
-msgstr "中途无需因驾驶工时停车。"
+msgid "No rest stop needed first."
+msgstr ""
 
 #. placeholders: {last_name}, {fallback_distance}, {last_minutes}
 #. one sentence of a longer line
@@ -8853,11 +8836,11 @@ msgstr ""
 msgid "{earlier} Stop here."
 msgstr "{earlier} 到此为止。"
 
-msgid "This stop also has a comfortable estimated buffer."
-msgstr "这个停靠点的预计余量也很宽裕。"
+msgid "This stop also leaves time to spare."
+msgstr ""
 
-msgid "No earlier compatible stop offers a 30-minute estimated buffer."
-msgstr "之前没有合适的停靠点能留出30分钟的预计余量。"
+msgid "No earlier stop leaves 30 minutes to spare."
+msgstr ""
 
 #. placeholders: {action}, {minutes}
 #. one sentence of a longer line
@@ -8987,17 +8970,19 @@ msgstr ""
 msgid "Career not found."
 msgstr ""
 
-msgid "This build cannot open this sealed career. Use the released game."
+msgid ""
+"This copy of the game cannot open this career. Use a released version of "
+"Freight Fate."
 msgstr ""
 
 #. placeholders: {reason}
 #. one sentence of a longer line
-msgid "The career could not be authenticated: {reason}."
+msgid "The career file could not be verified: {reason}."
 msgstr ""
 
 #. placeholders: {reason}
 msgid ""
-"The career could not be authenticated: {reason}. Under Online, restore a "
+"The career file could not be verified: {reason}. Under Online, restore a "
 "cloud backup."
 msgstr ""
 
@@ -9212,9 +9197,9 @@ msgstr "出售结清了贷款。你欠的钱已经还清，现金归零。"
 
 #. one sentence of a longer line
 msgid ""
-"The owner-operator path is still open to you, and the buy-in gates are the "
-"same ones you cleared to get here."
-msgstr "车主司机这条路仍然对你开放，买断门槛和你当初达到的一样。"
+"The owner-operator path is still open to you, and the buy-in requirements "
+"are the same ones you met to get here."
+msgstr ""
 
 #. placeholders: {hiring}
 #. one sentence of a longer line
@@ -9226,9 +9211,9 @@ msgstr "你又成了公司司机，在{hiring}的工资单上，开承运商的�
 #. placeholders: {hiring}
 msgid ""
 "You are a company driver again, on the payroll at {hiring} and in a carrier "
-"tractor. The owner-operator path is still open to you, and the buy-in gates "
-"are the same ones you cleared to get here."
-msgstr "你又成了公司司机，在{hiring}的工资单上，开承运商的牵引车。车主司机这条路仍然对你开放，买断门槛和你当初达到的一样。"
+"tractor. The owner-operator path is still open to you, and the buy-in "
+"requirements are the same ones you met to get here."
+msgstr ""
 
 msgid "repossession"
 msgstr "收回"
@@ -9261,9 +9246,9 @@ msgstr ""
 
 msgid ""
 "Settlements are driver wages and bonuses from here. The owner-operator "
-"buy-in stays open under Business status, and the gates are the ones you "
-"already cleared."
-msgstr "从现在起，结算是司机的工资和奖金。车主司机买断一直在经营状况里开放，门槛就是你已经达到过的那些。"
+"buy-in stays open under Business status, and the requirements are the ones "
+"you already met."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Held there; a quarter of each settlement pays it down."
@@ -10722,13 +10707,13 @@ msgstr "ELD 状态：{replace}。"
 #. placeholders: {duration_text}, {duration_text2}
 msgid ""
 "Hours of service: {duration_text} of driving left, {duration_text2} left in "
-"the 14-hour window."
+"the duty window."
 msgstr "驾驶工时：剩余驾驶时间{duration_text}，14小时当班时段剩余{duration_text2}。"
 
 #. placeholders: {duration_text}, {duration_text2}, {duration_text3}
 msgid ""
 "Hours of service: {duration_text} of driving left, 30-minute break due in "
-"{duration_text2}, {duration_text3} left in the 14-hour window."
+"{duration_text2}, {duration_text3} left in the duty window."
 msgstr ""
 "驾驶工时：剩余驾驶时间{duration_text}，再过{duration_text2}须进行30分钟中途休息，14小时当班时段剩余{duration"
 "_text3}。"
@@ -10816,12 +10801,12 @@ msgid "duty window {duration_text}"
 msgstr "当班时段 {duration_text}"
 
 #. placeholders: {duration_text}
-msgid ", {duration_text} left in the 14-hour window"
+msgid ", {duration_text} left in the duty window"
 msgstr ", {duration_text} 留在 14 小时窗口内"
 
 #. placeholders: {duration_text}
 #. one clause of a longer line
-msgid "{duration_text} left in the 14-hour window"
+msgid "{duration_text} left in the duty window"
 msgstr "{duration_text} 留在 14 小时窗口内"
 
 #. placeholders: {answer}, {shift_over}
@@ -10895,17 +10880,17 @@ msgid ""
 msgstr " 你的{limit_name}会在你到达之前大约{duration_text}到来。"
 
 msgid ""
-"Sleeper split open: 2 more hours off duty or in the sleeper to pair it."
+"Split rest started: 2 more hours off duty or in the sleeper finish it."
 msgstr "卧铺分段休息尚未配对：还需离岗或在卧铺休息2小时。"
 
 msgid ""
-"Sleeper split open: 3 more hours off duty or in the sleeper to pair it."
+"Split rest started: 3 more hours off duty or in the sleeper finish it."
 msgstr "卧铺分段休息尚未配对：还需离岗或在卧铺休息3小时。"
 
-msgid "Sleeper split open: 7 more hours in the sleeper to pair it."
+msgid "Split rest started: 7 more hours in the sleeper finish it."
 msgstr "卧铺分段休息尚未配对：还需在卧铺休息7小时。"
 
-msgid "Sleeper split open: 8 more hours in the sleeper to pair it."
+msgid "Split rest started: 8 more hours in the sleeper finish it."
 msgstr "卧铺分段休息尚未配对：还需在卧铺休息8小时。"
 
 msgid "warned"
@@ -12231,12 +12216,12 @@ msgstr "{reason}区"
 msgid "Live weather ready."
 msgstr "实时天气已就绪。"
 
-msgid "Last-known conditions in use."
-msgstr "正在使用最近一次已知的天气状况。"
+msgid "Using the last known conditions."
+msgstr ""
 
 #. placeholders: {notice}
-msgid "{notice}. Last-known conditions in use."
-msgstr "{notice}。最后已知的使用条件。"
+msgid "{notice}. Using the last known conditions."
+msgstr ""
 
 msgid "Live weather unavailable."
 msgstr "无法获取实时天气。"
@@ -12276,19 +12261,19 @@ msgstr "出口车流，{distance}。靠{side}，{speed}。"
 msgid "Hold {side}, {speed}."
 msgstr "靠{side}，{speed}。"
 
+#. placeholders: {distance}
+#. one sentence of a longer line
+msgid "Lane ending, {distance}."
+msgstr "收窄处拥挤，{distance}。"
+
+#. placeholders: {distance}, {side}
+msgid "Lane ending, {distance}. Merge {side}."
+msgstr "收窄处拥挤，{distance}。向{side}并线。"
+
 #. placeholders: {side}
 #. one sentence of a longer line
 msgid "Merge {side}."
 msgstr "向{side}并线。"
-
-#. placeholders: {distance}
-#. one sentence of a longer line
-msgid "Taper squeezing, {distance}."
-msgstr "收窄处拥挤，{distance}。"
-
-#. placeholders: {distance}, {side}
-msgid "Taper squeezing, {distance}. Merge {side}."
-msgstr "收窄处拥挤，{distance}。向{side}并线。"
 
 #. placeholders: {side}
 #. one sentence of a longer line
@@ -12629,8 +12614,8 @@ msgstr "前往{label}的出口车流"
 msgid "traffic merging for {highway}"
 msgstr "并入{highway}的车流"
 
-msgid "construction taper traffic"
-msgstr "施工收窄处车流"
+msgid "traffic merging for roadwork"
+msgstr ""
 
 #. placeholders: {city_state}
 msgid "Crossing into {city_state}. "
@@ -12955,20 +12940,20 @@ msgstr "正在加载你当前路线位置的实时天气"
 msgid "Last-known live weather for your current route position"
 msgstr "你当前路线位置最近一次已知的实时天气"
 
-msgid "Simulated fallback weather; live weather is unavailable"
+msgid "Simulated weather; live weather is unavailable"
 msgstr "模拟备用天气；无法获取实时天气"
 
 msgid "Simulated weather"
 msgstr "模拟天气"
 
-msgid "The observation is less than a minute old"
+msgid "The report is less than a minute old"
 msgstr "观测数据是不到一分钟前的"
 
 msgid "minute"
 msgstr "分钟"
 
 #. placeholders: {minutes}, {unit}
-msgid "The observation is {minutes} {unit} old"
+msgid "The report is {minutes} {unit} old"
 msgstr "观测数据是{minutes}{unit}前的"
 
 msgid "Live weather is updating for your current location"
@@ -12983,16 +12968,16 @@ msgstr "不适用"
 msgid "unavailable"
 msgstr "不可用"
 
-msgid "Observation age is unavailable"
+msgid "Report age is unavailable"
 msgstr "观测时间不可用"
 
 #. one sentence of a longer line
-msgid "Temporary neutral driving conditions in use"
-msgstr "正在使用临时的中性驾驶条件"
+msgid "Mild conditions until live weather loads"
+msgstr ""
 
 #. placeholders: {source_label}
-msgid "{source_label}. Temporary neutral driving conditions in use"
-msgstr "{source_label}。正在使用临时的中性驾驶条件"
+msgid "{source_label}. Mild conditions until live weather loads"
+msgstr ""
 
 #. placeholders: {conditions}
 msgid "Live weather: {conditions}"
@@ -13017,12 +13002,11 @@ msgstr "无法获取实时天气"
 
 #. placeholders: {conditions}
 #. one sentence of a longer line
-msgid "Simulated fallback weather: {conditions}."
+msgid "Simulated weather: {conditions}."
 msgstr "模拟备用天气：{conditions}。"
 
 #. placeholders: {conditions}
-msgid ""
-"Simulated fallback weather: {conditions}. Live weather is unavailable"
+msgid "Simulated weather: {conditions}. Live weather is unavailable"
 msgstr "模拟备用天气：{conditions}。无法获取实时天气"
 
 #. placeholders: {conditions}
@@ -13035,7 +13019,7 @@ msgstr "实时天气"
 msgid "Last-known live weather"
 msgstr "最近一次已知的实时天气"
 
-msgid "Live weather is unavailable. Simulated fallback weather"
+msgid "Live weather is unavailable. Simulated weather"
 msgstr "无法获取实时天气。模拟备用天气"
 
 msgid "Live conditions"
@@ -13046,9 +13030,6 @@ msgstr "实时天气加载期间的临时状况"
 
 msgid "Last-known conditions"
 msgstr "最近一次已知的状况"
-
-msgid "Simulated fallback conditions"
-msgstr "模拟备用状况"
 
 msgid "Simulated conditions"
 msgstr "模拟状况"
@@ -13370,17 +13351,17 @@ msgid "Engine brake, stage one"
 msgstr "发动机制动，第一档"
 
 msgid ""
-"Two cylinders of retard: the lightest setting. Enough to hold speed on a "
+"Two cylinders braking: the lightest setting. Enough to hold speed on a "
 "gentle grade without touching the brakes. Drivers call this the jake."
-msgstr "两个气缸的制动：最轻的一档。足以在缓坡上不碰刹车就保持车速。司机们把它叫作jake。"
+msgstr ""
 
 msgid "Engine brake, stage two"
 msgstr "发动机制动，第二档"
 
 msgid ""
-"Four cylinders of retard. The usual working setting on a long descent. "
+"Four cylinders braking. The usual working setting on a long descent. "
 "Drivers call this the jake."
-msgstr "四个气缸的制动。长下坡时常用的工作档位。司机们把它叫作jake。"
+msgstr ""
 
 msgid "Engine brake, stage three"
 msgstr "发动机制动，第三档"
@@ -13494,10 +13475,10 @@ msgid "Construction zone"
 msgstr "施工区"
 
 msgid ""
-"Roadwork ahead. The posted limit drops, a lane may close, and the taper "
-"callout names which side. Move over when told or you will go through the "
-"barrels."
-msgstr "前方道路施工。限速降低，可能有车道封闭，收窄处的播报会说出是哪一侧。听到提示就换道，否则你会撞进路障桶里。"
+"Roadwork ahead. The posted limit drops, a lane may close, and the lane "
+"ending callout names which side. Move over when told or you will go through "
+"the barrels."
+msgstr ""
 
 msgid "Traffic slowing"
 msgstr "车流减速"
@@ -14952,8 +14933,8 @@ msgid ""
 msgstr "{name}：备份经审核后被拒绝。这段职业生涯不再备份到你的orinks.net账户。你本地的职业生涯是安全的。"
 
 #. one sentence of a longer line
-msgid "If you think this is wrong, say so in the tester document."
-msgstr "如果你觉得有误，请在测试者文档里说明。"
+msgid "If you think this is wrong, use Report a problem on the main menu."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -14975,23 +14956,25 @@ msgid ""
 "{name}: backup not accepted. The numbers in this save do not look like "
 "possible play, so the server declined it and flagged it for review. Your "
 "local career is safe and nothing public changed. If you think this is "
-"wrong, say so in the tester document."
+"wrong, use Report a problem on the main menu."
 msgstr ""
-"{name}：备份未被接受。这个存档里的数字看起来不像是正常游玩能达到的，所以服务器拒绝了它，并标记为待审核。你本地的职业生涯是安全的，公开的内容也没有"
-"任何变化。如果你觉得有误，请在测试者文档里说明。"
+
+#. one sentence of a longer line
+msgid "It is not something you did."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"Your game and the server disagree about this save's shape, usually a build "
-"mismatch, not something you did."
-msgstr "你的游戏和服务器对这个存档的结构看法不一致，通常是版本不匹配，不是你做错了什么。"
+"Your game and orinks.net read this save differently, usually because one of "
+"them needs an update."
+msgstr ""
 
 #. placeholders: {name}
 msgid ""
-"{name}: backup not accepted. Your game and the server disagree about this "
-"save's shape, usually a build mismatch, not something you did. Your local "
-"career is safe."
-msgstr "{name}：备份未被接受。你的游戏和服务器对这个存档的结构看法不一致，通常是版本不匹配，不是你做错了什么。你本地的职业生涯是安全的。"
+"{name}: backup not accepted. Your game and orinks.net read this save "
+"differently, usually because one of them needs an update. It is not "
+"something you did. Your local career is safe."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -16171,19 +16154,19 @@ msgid "Needs {required_program_text} trailer program."
 msgstr "需要{required_program_text}挂车计划。"
 
 msgid ""
-"Listed amounts are direct freight gross. Insurance, compliance, trailer, "
-"truck, and factoring costs come out at settlement."
-msgstr "列出的金额为直接运费总额。保险、合规、拖车、卡车和保理费用在结算时产生。"
+"Listed pay is the full rate. Insurance, compliance, trailer, truck and "
+"billing fees come out at settlement."
+msgstr ""
 
 msgid ""
-"Listed amounts are owner-operator gross revenue. Trailer program needs are "
-"listed on each job."
-msgstr "所列金额为车主司机总收入。每项任务都会列出挂车计划要求。"
+"Listed pay is the full rate for the load. Trailer program needs are listed "
+"on each job."
+msgstr ""
 
 msgid ""
-"Listed amounts are carrier gross, your settlement pays driver wages. "
-"Routing is assigned until you run your own truck."
-msgstr "所列金额为承运商总收入，你的结算会支付司机工资。在驾驶自己的卡车之前，路线由调度分配。"
+"Listed pay is what the carrier earns; you are paid wages from it. Routing "
+"is assigned until you run your own truck."
+msgstr ""
 
 #. placeholders: {grouped}, {grouped2}
 msgid "Take-home about {grouped} dollars after {grouped2} dollars costs."
@@ -16245,16 +16228,15 @@ msgid "Dispatch board. {decline_note}{hos_note}{market}{current}"
 msgstr "调度板。{decline_note}{hos_note}{market}{current}"
 
 msgid ""
-"Dispatch assigned this reposition, an empty deadhead with no pickup "
-"facility. Route inspection after accepting covers rest, fuel, toll, "
-"weather, and restrictions."
-msgstr "调度指派了这次调车，一趟没有发货厂区的空车行驶。接受后的路线检查涵盖休息、燃油、过路费、天气和限制。"
+"Dispatch is sending you empty, with no pickup. After you accept, Route "
+"planning lists rest, fuel, tolls, weather and restrictions."
+msgstr ""
 
 msgid ""
-"Dispatch assigned this load. Accepting starts the deadhead from your "
-"terminal to its origin facility. Route inspection after pickup covers rest, "
-"fuel, toll, weather, and restrictions."
-msgstr "调度指派了这单货物。接受后会开始从你的场站空车开往它的发货厂区。提货后的路线检查涵盖休息、燃油、过路费、天气和限制。"
+"Dispatch assigned this load. Accepting starts the empty drive from your "
+"terminal to the pickup. After pickup, Route planning lists rest, fuel, "
+"tolls, weather and restrictions."
+msgstr ""
 
 #. placeholders: {describe}
 msgid "Accept assigned dispatch: {describe}"
@@ -16376,8 +16358,8 @@ msgstr "那单货物的厂区已经不在路网上了。调度撤回了这个报
 
 #. placeholders: {equipment_note}, {distance_text}, {cloned}, {origin_facility_text}
 msgid ""
-"Accepted.{equipment_note} Deadhead {distance_text} on {cloned} to pickup at "
-"{origin_facility_text}."
+"Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to pickup "
+"at {origin_facility_text}."
 msgstr ""
 "已接受。{equipment_note}先沿{cloned}空驶{distance_text}，前往{origin_facility_text}提货。"
 
@@ -16387,7 +16369,7 @@ msgstr "那单货物的城市已经不在路网上了。调度撤回了这个报
 
 #. placeholders: {equipment_note}, {distance_text}, {cloned}, {origin_facility_text}
 msgid ""
-"Accepted.{equipment_note} Deadhead {distance_text} on {cloned} to "
+"Accepted.{equipment_note} Drive empty {distance_text} on {cloned} to "
 "{origin_facility_text}."
 msgstr ""
 "已接受。{equipment_note}先沿{cloned}空驶{distance_text}，前往{origin_facility_text}。"
@@ -16431,23 +16413,28 @@ msgstr "任务 "
 msgid "Locked job "
 msgstr "未解锁的任务 "
 
+#. one sentence of a longer line
+msgid ""
+"After you accept, Route planning lists rest, fuel, tolls, weather and "
+"restrictions."
+msgstr ""
+
 #. placeholders: {destination}
 #. one sentence of a longer line
-msgid "Carrier-assigned reposition: an empty deadhead to {destination}."
-msgstr "承运商指派的调车：空车开往{destination}。"
+msgid "Dispatch is sending you empty to {destination}."
+msgstr ""
 
 #. placeholders: {destination}
 msgid ""
-"Carrier-assigned reposition: an empty deadhead to {destination}. Route "
-"inspection after accepting covers rest, fuel, toll, weather, and "
-"restrictions."
-msgstr "承运商指派的调车：空车开往{destination}。接受后的路线检查涵盖休息、燃油、过路费、天气和限制。"
+"Dispatch is sending you empty to {destination}. After you accept, Route "
+"planning lists rest, fuel, tolls, weather and restrictions."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"Route inspection after accepting covers rest, fuel, toll, weather, and "
+"After pickup, Route planning lists rest, fuel, tolls, weather and "
 "restrictions."
-msgstr "接受后的路线检查涵盖休息、燃油、过路费、天气和限制。"
+msgstr ""
 
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 #. one sentence of a longer line
@@ -16458,17 +16445,9 @@ msgstr "货物报价，从{origin_facility_text}到{destination_facility_text}�
 #. placeholders: {origin_facility_text}, {destination_facility_text}
 msgid ""
 "Load offer from {origin_facility_text} to {destination_facility_text}. "
-"Route inspection after pickup covers rest, fuel, toll, weather, and "
+"After pickup, Route planning lists rest, fuel, tolls, weather and "
 "restrictions."
 msgstr ""
-"货物报价，从{origin_facility_text}到{destination_facility_text}。提货后的路线检查涵盖休息、燃油、过路费"
-"、天气和限制。"
-
-#. one sentence of a longer line
-msgid ""
-"Route inspection after pickup covers rest, fuel, toll, weather, and "
-"restrictions."
-msgstr "提货后的路线检查涵盖休息、燃油、过路费、天气和限制。"
 
 #. placeholders: {hours}
 msgid ""
@@ -16544,8 +16523,8 @@ msgid "a drive"
 msgstr "一段行驶"
 
 #. placeholders: {origin}, {deadhead}
-msgid "Load in {origin}, {deadhead} deadhead first. "
-msgstr "货物在{origin}，需要先空驶{deadhead}。"
+msgid "Load in {origin}, {deadhead} empty first. "
+msgstr ""
 
 msgid ""
 "Up and down review the lines, Home and End jump to the ends. Enter repeats "
@@ -16608,8 +16587,8 @@ msgid "Destination: {city}."
 msgstr "目的地：{city}。"
 
 #. placeholders: {grouped}
-msgid "Pay: {grouped} dollars, the empty-mile rate."
-msgstr "报酬：{grouped}美元，按空驶里程费率。"
+msgid "Pay for driving empty: {grouped} dollars."
+msgstr ""
 
 msgid "No cargo, no trailer program, no endorsement needed."
 msgstr "没有货物，不需要挂车计划，也不需要驾照签注。"
@@ -16741,8 +16720,8 @@ msgid ""
 "Cloud saves menu can remove them later."
 msgstr "无法连接网站，所以云备份还在；以后可以在“云存档”菜单里删除它们。"
 
-msgid "Bobtail to a nearby city"
-msgstr "单开车头去附近城市"
+msgid "Drive to a nearby city without a trailer"
+msgstr ""
 
 msgid ""
 "Drive empty to a nearby city for its dispatch board. No load and no pay, "
@@ -16754,12 +16733,15 @@ msgstr "没有通往那个城市的路线。"
 
 #. placeholders: {spoken_dest}, {distance_text}, {cloned}
 #. one sentence of a longer line
-msgid "Bobtail to {spoken_dest}, {distance_text} on {cloned}."
-msgstr "沿{cloned}单开车头行驶{distance_text}，前往{spoken_dest}。"
+msgid ""
+"Drive without a trailer to {spoken_dest}, {distance_text} on {cloned}."
+msgstr ""
 
 #. placeholders: {spoken_dest}, {distance_text}, {cloned}
-msgid "Bobtail to {spoken_dest}, {distance_text} on {cloned}. No pay."
-msgstr "沿{cloned}单开车头行驶{distance_text}，前往{spoken_dest}。没有报酬。"
+msgid ""
+"Drive without a trailer to {spoken_dest}, {distance_text} on {cloned}. No "
+"pay."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "No pay."
@@ -17079,7 +17061,7 @@ msgstr "时钟、职业天数和外面的天气状况。"
 msgid "Logbook"
 msgstr "驾驶日志"
 
-msgid "Recent Record of Duty Status entries."
+msgid "Recent logbook entries."
 msgstr "最近的值班状态记录条目。"
 
 msgid "Sleep 10 hours"
@@ -17188,12 +17170,12 @@ msgid "Eligibility: {line}"
 msgstr "资格：{line}"
 
 #. placeholders: {maintenance_status_line}, {compound}
-msgid "{maintenance_status_line} Compound: {compound}."
-msgstr "{maintenance_status_line}胎面类型：{compound}。"
+msgid "{maintenance_status_line} Tires: {compound}."
+msgstr ""
 
 #. placeholders: {f}, {compound}
-msgid "Tire wear: {f} percent, {compound} compound."
-msgstr "轮胎磨损：百分之{f}，{compound}胎面。"
+msgid "Tire wear: {f} percent, {compound} tires."
+msgstr ""
 
 #. placeholders: {f}
 msgid "Brake wear: {f} percent."
@@ -17227,14 +17209,11 @@ msgstr "仍在装货"
 msgid "Live weather loading"
 msgstr "实时天气加载中"
 
-msgid "Simulated fallback weather"
-msgstr "模拟的备用天气"
-
 msgid "less than a minute"
 msgstr "不到一分钟"
 
 #. placeholders: {age}
-msgid " The observation is {age} old."
+msgid " The report is {age} old."
 msgstr " 这次观测是{age}前的。"
 
 msgid " Live weather is updating."
@@ -17345,16 +17324,15 @@ msgstr "已预留资质准备金：{grouped}美元。"
 #. placeholders: {grouped}, {grouped2}
 msgid ""
 "Authority prep reserve set aside: {grouped} dollars. You have {grouped2} "
-"dollars left. Own authority unlocks after the delivery, reputation, trailer "
-"program, and cash gates."
+"dollars left. Own authority unlocks after you meet the delivery, "
+"reputation, trailer program and cash requirements."
 msgstr ""
-"已预留资质准备金：{grouped}美元。你还剩{grouped2}美元。达到送货、声誉、挂车计划和现金这几道门槛后，自有运营资质就会解锁。"
 
 #. one sentence of a longer line
 msgid ""
-"Own authority unlocks after the delivery, reputation, trailer program, and "
-"cash gates."
-msgstr "达到送货、声誉、挂车计划和现金这几道门槛后，自有运营资质就会解锁。"
+"Own authority unlocks after you meet the delivery, reputation, trailer "
+"program and cash requirements."
+msgstr ""
 
 #. placeholders: {grouped2}
 #. one sentence of a longer line
@@ -17400,15 +17378,13 @@ msgstr "调度现在会列出直接货源。"
 msgid ""
 "Own authority active. Startup cost {grouped} dollars. You have {grouped2} "
 "dollars left. Dispatch now lists direct freight. Settlement includes "
-"insurance, compliance, trailer, truck, and factoring costs."
+"insurance, compliance, trailer, truck and billing fees."
 msgstr ""
-"自有运营资质已生效。启动费用{grouped}美元。你还剩{grouped2}美元。调度现在会列出直接货源。结算包括保险、合规、挂车、卡车和保理费用。"
 
 #. one sentence of a longer line
 msgid ""
-"Settlement includes insurance, compliance, trailer, truck, and factoring "
-"costs."
-msgstr "结算包括保险、合规、挂车、卡车和保理费用。"
+"Settlement includes insurance, compliance, trailer, truck and billing fees."
+msgstr ""
 
 #. placeholders: {grouped}
 #. one sentence of a longer line
@@ -17439,8 +17415,8 @@ msgid "The next career or business unlock."
 msgstr "下一个职业或经营解锁项。"
 
 #. placeholders: {grouped}
-msgid "Buy into leased-on owner-operator: {grouped} dollars"
-msgstr "买断成为挂靠承运商的车主司机：{grouped}美元"
+msgid "Owner-operator buy-in: {grouped} dollars"
+msgstr ""
 
 msgid "Higher revenue, but your business pays operating costs."
 msgstr "收入更高，但你的经营要承担运营成本。"
@@ -17480,9 +17456,9 @@ msgid "Own authority active"
 msgstr "自有运营资质已生效"
 
 msgid ""
-"Direct freight is available. Settlement includes insurance, compliance, and "
-"factoring costs."
-msgstr "有直接货源可接。结算包括保险、合规和保理费用。"
+"Direct freight is available. Settlement includes insurance, compliance and "
+"billing fees."
+msgstr ""
 
 msgid "Authority prep reserve: set"
 msgstr "资质准备金：已预留"
@@ -17494,8 +17470,8 @@ msgstr "自有运营资质启动所需的准备金已预留。"
 msgid "Activate own authority: {grouped} dollars"
 msgstr "启用自有运营资质：{grouped}美元"
 
-msgid "Direct freight, higher gross revenue, more business overhead."
-msgstr "直接货源，毛收入更高，经营开销也更大。"
+msgid "Direct freight, more pay per load, more business costs."
+msgstr ""
 
 msgid "Own authority locked"
 msgstr "自有运营资质未解锁"
@@ -17520,9 +17496,9 @@ msgid "Weigh station transponder: subscribed"
 msgstr "称重站电子标签：已订阅"
 
 msgid ""
-"Open scales run a weigh-in-motion check on this truck instead of demanding "
-"every truck pull in."
-msgstr "开放的称重站会对这辆卡车做动态称重检查，而不是要求每辆卡车都进站。"
+"Open weigh stations check this truck as it rolls past, so it often does not "
+"have to pull in."
+msgstr ""
 
 #. placeholders: {grouped}
 msgid "Subscribe to weigh station transponder: {grouped} dollars"
@@ -17530,8 +17506,8 @@ msgstr "订阅称重站电子标签：{grouped}美元"
 
 msgid ""
 "A clean truck can be waved past most open scales instead of pulling in. "
-"Adds a small per-mile settlement reserve once active."
-msgstr "车况良好的卡车在大多数开放的称重站可以直接放行，不用进站。启用后每英里在结算中加扣一小笔准备金。"
+"Once active, a small amount per mile comes out of each settlement."
+msgstr ""
 
 msgid "Weigh station transponder locked"
 msgstr "称重站电子标签未解锁"
@@ -17543,9 +17519,9 @@ msgid "Upgrades"
 msgstr "升级"
 
 msgid ""
-"Upgrades apply to every tractor you own. Enter buys the next tier, F1 says "
-"what it does. Escape returns to the garage."
-msgstr "升级适用于你拥有的每一辆牵引车。Enter购买下一级，F1说明它的作用。Escape回到修理厂。"
+"Upgrades apply to every tractor you own. Enter buys the next tier, F1 is "
+"details. Escape returns to the garage."
+msgstr ""
 
 msgid ""
 "Upgrades unlock with the owner-operator buy-in, from level 18 under "
@@ -17801,8 +17777,9 @@ msgstr "{label}挂车要{grouped}美元，你有{grouped2}美元。"
 
 #. one sentence of a longer line
 msgid ""
-"Matching direct freight now uses an owned-trailer reserve at settlement."
-msgstr "匹配的直接货源现在会在结算时扣除自有挂车准备金。"
+"Direct loads for this trailer now set aside money for its upkeep at "
+"settlement."
+msgstr ""
 
 #. placeholders: {label}, {grouped}
 #. one sentence of a longer line
@@ -17812,9 +17789,9 @@ msgstr "已购买{label}挂车，花费{grouped}美元。"
 #. placeholders: {label}, {grouped}, {grouped2}
 msgid ""
 "{label} trailer purchased for {grouped} dollars. You have {grouped2} "
-"dollars left. Matching direct freight now uses an owned-trailer reserve at "
-"settlement."
-msgstr "已购买{label}挂车，花费{grouped}美元。你还剩{grouped2}美元。匹配的直接货源现在会在结算时扣除自有挂车准备金。"
+"dollars left. Direct loads for this trailer now set aside money for its "
+"upkeep at settlement."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Trailers."
@@ -17831,10 +17808,9 @@ msgid "The carrier supplies the trailer for every load."
 msgstr "每单货物的挂车都由承运商提供。"
 
 msgid ""
-"Enter books a course, or says why you do not qualify. Courses take game "
-"time, and a background check runs while you drive. Escape returns to the "
-"terminal."
-msgstr "Enter预约一门课程，或者说明你为什么不符合条件。课程要花游戏时间，背景调查会在你开车期间进行。Escape回到场站。"
+"Enter books a course. Courses take game time, and a background check runs "
+"while you drive. Escape returns to the terminal."
+msgstr ""
 
 #. placeholders: {label}, {grouped}, {grouped2}
 msgid "The {label} course costs {grouped} dollars and you have {grouped2}."
@@ -18161,8 +18137,8 @@ msgstr "部分轮胎保养修复了百分之{f}的磨损，花费{grouped}美元
 msgid "Tires replaced. {grouped} dollars. {remaining_balance_text}"
 msgstr "轮胎已更换。{grouped}美元。{remaining_balance_text}"
 
-msgid "Tire compound: the carrier specs its own rubber"
-msgstr "轮胎类型：承运商指定自己的轮胎"
+msgid "Tire type: the carrier chooses its own tires"
+msgstr ""
 
 #. placeholders: {grouped}
 msgid "Switch to all-season tires: fresh set for {grouped} dollars"
@@ -18502,22 +18478,22 @@ msgid "Refuse for a swap, about {f} minutes.{tank_walk_around_clause}"
 msgstr "拒绝调换，约{f}分钟。{tank_walk_around_clause}"
 
 #. one sentence of a longer line
-msgid "Take it and the write-up is yours at the first scale."
-msgstr "拿着它，第一级的文章就是你的了。"
+msgid ""
+"Take it, and an inspector can write you up for it at the first weigh "
+"station."
+msgstr ""
 
 #. placeholders: {name}, {defect}, {condition_text}, {f}, {tank_walk_around_clause}
 msgid ""
-"{name}: {defect}, {condition_text}. Take it and the write-up is yours at "
-"the first scale. Refuse for a swap, about {f} "
+"{name}: {defect}, {condition_text}. Take it, and an inspector can write you "
+"up for it at the first weigh station. Refuse for a swap, about {f} "
 "minutes.{tank_walk_around_clause}"
 msgstr ""
-"{name}：{defect}、{condition_text}。拿着它，第一级的文章就是你的了。拒绝调换，约{f}分钟。{tank_walk_arou"
-"nd_clause}"
 
 msgid ""
-"The baffles settle it in a couple of cycles, but it still arrives after you "
-"do."
-msgstr "防波板晃几下就能让它稳住，但它还是会比你晚一步到。"
+"The baffles calm the surge after a couple of swings, but it still pushes a "
+"moment after you brake."
+msgstr ""
 
 msgid "Smooth bore, nothing in there slows it down."
 msgstr "光滑内壁，里面没有任何东西能减缓它。"
@@ -18701,15 +18677,15 @@ msgstr " {verb}用了{f}分钟。"
 
 #. placeholders: {wait}, {dollars}
 msgid ""
-" {wait} minutes past the free time, {dollars} dollars detention owed to you "
-"at settlement."
-msgstr " 超出免费时间{wait}分钟，结算时承运商要付给你{dollars}美元滞留费。"
+" {wait} minutes past the two free hours at the dock: {dollars} dollars "
+"detention pay at settlement."
+msgstr ""
 
 #. placeholders: {wait}, {dollars}
 msgid ""
-" {wait} minutes past the free time, {dollars} dollars detention owed to the "
-"carrier."
-msgstr " 超出免费时间{wait}分钟，要付给承运商{dollars}美元滞留费。"
+" {wait} minutes past the two free hours at the dock: {dollars} dollars "
+"detention, paid to the carrier."
+msgstr ""
 
 msgid " before you shut down"
 msgstr " 在你熄火之前"
@@ -18783,8 +18759,8 @@ msgstr "拒收这节挂车"
 
 #. placeholders: {f}
 #. one sentence of a longer line
-msgid "About {f} minutes, and the write-up stays with them."
-msgstr "大约{f}分钟，故障记录单留在他们那里。"
+msgid "About {f} minutes, and the yard keeps the problem."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "The yard brings a sound one."
@@ -18792,9 +18768,9 @@ msgstr "场地会拿一节好的过来。"
 
 #. placeholders: {f}
 msgid ""
-"The yard brings a sound one. About {f} minutes, and the write-up stays with "
-"them."
-msgstr "场地会拿一节好的过来。大约{f}分钟，故障记录单留在他们那里。"
+"The yard brings a sound one. About {f} minutes, and the yard keeps the "
+"problem."
+msgstr ""
 
 msgid "Pickup status"
 msgstr "提货状态"
@@ -18864,7 +18840,7 @@ msgid "posted limit when the open road begins"
 msgstr "开阔道路开始时的标示限速"
 
 #. placeholders: {target}
-msgid "Speed control: paused   Open-road target: {target}"
+msgid "Speed control: paused   Cruise speed: {target}"
 msgstr "速度控制：已暂停，开阔道路目标速度：{target}"
 
 msgid "Route planning"
@@ -19536,21 +19512,21 @@ msgid ""
 "changed. Open this career again for the current conflict."
 msgstr "记录这次冲突之后，云端副本又被改动了。什么都没有改变。重新打开这段职业生涯，查看当前的冲突。"
 
-msgid "Backup is not server-verified. Local save unchanged."
-msgstr "备份未经服务器验证。本地存档没有改变。"
+msgid "orinks.net has not confirmed this backup. Local save unchanged."
+msgstr ""
 
 msgid ""
-"This backup is not server-verified. It was not restored, and your local "
-"career is unchanged."
-msgstr "这个备份未经服务器验证。它没有被恢复，你本地的职业生涯没有改变。"
+"orinks.net has not confirmed this backup. It was not restored, and your "
+"local career is unchanged."
+msgstr ""
 
-msgid "Backup failed its integrity check. Local save unchanged."
-msgstr "备份没有通过完整性检查。本地存档没有改变。"
+msgid "This backup is damaged. Local save unchanged."
+msgstr ""
 
 msgid ""
-"This backup failed its integrity check. It was not restored, and your local "
-"career is unchanged."
-msgstr "这个备份没有通过完整性检查。它没有被恢复，你本地的职业生涯没有改变。"
+"This backup is damaged. It was not restored, and your local career is "
+"unchanged."
+msgstr ""
 
 msgid "Backup needs a newer Freight Fate version. Nothing restored."
 msgstr "备份需要更新版本的Freight Fate。没有恢复任何内容。"
@@ -19788,7 +19764,7 @@ msgstr "{progress} {hours_used} {deadline_game_h} 小时。"
 
 #. placeholders: {pickup_facility_text}
 msgid ""
-"Pickup dispatch: deadhead from the terminal to {pickup_facility_text}. "
+"Pickup dispatch: drive empty from the terminal to {pickup_facility_text}. "
 msgstr "提货调度：从场站空车开往{pickup_facility_text}。 "
 
 #. placeholders: {destination_facility_text}
@@ -19901,8 +19877,7 @@ msgstr " 驾驶工时已移到{control_name}、{control_name2}和{control_name3}
 msgid "Fatigue is severe, and no route stop is nearby."
 msgstr "疲劳很严重，附近没有路线上的停靠点。"
 
-msgid ""
-"You are past your hours-of-service limit, and there is no route POI here."
+msgid "You are past your hours-of-service limit, and there is no stop here."
 msgstr "你已经超过驾驶工时上限，这里也没有路线上的停靠点。"
 
 #. placeholders: {action}, {remaining_min}
@@ -19941,24 +19916,8 @@ msgstr "油门键永远不会锁定。"
 
 #. placeholders: {down}
 msgid ""
-"In automatic with deliberate direction changes, stop, release {down}, then "
-"press and hold it again to reverse."
-msgstr "在自动档、刻意换向模式下，停车，松开{down}，然后再按住它就是倒车。"
-
-#. placeholders: {up}
-msgid ""
-"While reversing, stop with {up}, release, then press and hold again for "
-"forward."
-msgstr "倒车时，用{up}停车，松开，再按住就是前进。"
-
-msgid "A quick tap just brakes."
-msgstr "轻按一下只是刹车。"
-
-#. placeholders: {down}
-msgid ""
-"In automatic with simple direction changes, stop, release {down}, then "
-"press and hold it again to reverse."
-msgstr "在自动档、简单换向模式下，停车，松开{down}，然后再按住它就是倒车。"
+"In automatic, stop, release {down}, then press and hold it again to reverse."
+msgstr ""
 
 #. placeholders: {up}
 msgid ""
@@ -19987,15 +19946,15 @@ msgid ""
 "turn or the next lower limit."
 msgstr "标示限速大幅下降前巡航会提早减速，限速保持则在下一个弯道或下一个更低限速前减速。"
 
-msgid "Braking cancels the session."
-msgstr "刹车会取消这次保持。"
+msgid "Braking cancels it."
+msgstr ""
 
 msgid "At the planned pickup it pauses and resumes once you depart."
 msgstr "到达计划的提货点时它会暂停，你出发后恢复。"
 
 msgid ""
-"Plus and minus, including the keypad keys, change the open-road target by "
-"five; it never holds more than five over the posted limit."
+"Plus and minus, including the keypad keys, change the cruise speed by five; "
+"it never holds more than five over the posted limit."
 msgstr "加号和减号，包括小键盘上的，以五为单位调整开阔道路的目标速度；它绝不会超过标示限速五以上。"
 
 msgid "Control with plus or minus, by one."
@@ -20007,9 +19966,9 @@ msgstr "{cruise_resume} 恢复上次的巡航速度。"
 
 #. placeholders: {cruise}
 msgid ""
-"Parked with the brake set, {cruise} latches a high idle; plus and minus "
-"adjust it, and releasing the parking brake drops it."
-msgstr "停车并拉上刹车时，{cruise} 锁定高怠速；加号和减号调整它，松开驻车制动即取消。"
+"Parked with the parking brake set, {cruise} runs the engine at a fast idle; "
+"plus and minus adjust it, and releasing the parking brake drops it."
+msgstr ""
 
 #. placeholders: {exit}
 msgid ""
@@ -20019,8 +19978,8 @@ msgstr "{exit} 为路线上下一个播报的出口打转向灯，已知时按�
 
 msgid ""
 "Unless lane keeping is on full, move to the right lane, then steer right "
-"into the exit lane where it opens, just before the gore."
-msgstr "除非车道保持为完全，先并入右侧车道，然后在出口车道开口处、分流三角区之前向右转进出口车道。"
+"into the exit lane where it opens."
+msgstr ""
 
 msgid ""
 "Keep road speed to there, then brake to the exit speed before the ramp "
@@ -20034,9 +19993,9 @@ msgstr "匝道通常止于红绿灯或停车标志，下匝道时会播报。"
 
 #. placeholders: {exit}
 msgid ""
-"{exit} also signals a pull-over when a trooper lights you up for speeding, "
-"a scale bypass, or unsafe equipment: signal, then brake to a stop."
-msgstr "当警察因超速、绕过地磅或设备不安全对你亮灯时，{exit} 也表示靠边停车：打转向灯，然后刹车停下。"
+"{exit} also signals a pull-over when a trooper signals you to pull over for "
+"speeding, a scale bypass, or unsafe equipment: signal, then brake to a stop."
+msgstr ""
 
 msgid ""
 "Ignoring the lights brings failure-to-stop warnings, then a stop that "
@@ -20188,11 +20147,10 @@ msgstr "{copy_last} 复制游戏说的最后一句话。"
 
 #. placeholders: {upcoming}
 msgid ""
-"{upcoming} reads the road ahead that no other key answers: the exit your "
-"signal is on for, the ramp control coming up, the next imposed limit, the "
-"next stop, and the next bend that demands slowing."
+"{upcoming} reads what is coming up: your signaled exit, the light or stop "
+"sign at the end of the ramp, the next lower speed limit, the next stop, and "
+"the next bend you need to slow for."
 msgstr ""
-"{upcoming} 读出其他按键不会告诉你的前方路况：你打转向灯要去的出口、即将到来的匝道管制、下一个强制限速、下一站，以及下一个需要减速的弯道。"
 
 #. placeholders: {safe_speed}
 msgid ""
@@ -20252,9 +20210,9 @@ msgstr "停在路线站点时，{rest} 打开该站的菜单：加油、休息�
 
 #. placeholders: {rest}
 msgid ""
-"Fully stopped away from route points, {rest} opens the emergency "
-"shoulder-sleep warning instead."
-msgstr "在远离路线点的地方完全停下时，{rest} 改为打开路肩紧急睡眠警告。"
+"Fully stopped away from route points, {rest} offers emergency sleep on the "
+"shoulder."
+msgstr ""
 
 #. placeholders: {horn}
 msgid "{horn} horn."
@@ -20319,19 +20277,9 @@ msgid ""
 msgstr "按住左肩键作为离合器；{shift_up} 升一挡，{shift_down} 降一挡。"
 
 msgid ""
-"In automatic with deliberate direction changes, stop, let the left trigger "
-"return to neutral, then press and hold it again to reverse."
-msgstr "自动挡且换向需刻意操作时，先停车，让左扳机回到空位，然后再次按住它即可倒车。"
-
-msgid ""
-"While reversing, stop with the right trigger, let it return to neutral, "
-"then press and hold again for forward."
-msgstr "倒车时，用右扳机停下，让它回到空位，然后再次按住即可前进。"
-
-msgid ""
-"In automatic with simple direction changes, stop, let the left trigger "
-"return to neutral, then press and hold it again to reverse."
-msgstr "自动挡且换向为简单模式时，先停车，让左扳机回到空位，然后再次按住它即可倒车。"
+"In automatic, stop, let the left trigger return to neutral, then press and "
+"hold it again to reverse."
+msgstr ""
 
 msgid ""
 "While reversing, stop with the right trigger, release, then press it again "
@@ -20345,7 +20293,7 @@ msgid ""
 msgstr "{cruise_cap} 开启自动速度控制：开阔道路上是自适应巡航，低速区是限速保持。"
 
 #. placeholders: {cruise_down}, {cruise_up}
-msgid "{cruise_down} or {cruise_up} change the open-road target by five."
+msgid "{cruise_down} or {cruise_up} change the cruise speed by five."
 msgstr "{cruise_down} 或 {cruise_up} 以五为单位调整开阔道路的目标速度。"
 
 msgid ""
@@ -20354,14 +20302,15 @@ msgid ""
 msgstr "计划提货期间它会暂停，满载的卡车开动后恢复。"
 
 #. placeholders: {cruise}
-msgid "Parked with the brake set, {cruise} latches a high idle."
-msgstr "停车并拉上刹车时，{cruise} 锁定高怠速。"
+msgid ""
+"Parked with the parking brake set, {cruise} runs the engine at a fast idle."
+msgstr ""
 
 #. placeholders: {take_exit}
 msgid ""
 "{take_exit} signals for the next announced exit, or a pull-over when a "
-"trooper lights you up."
-msgstr "{take_exit} 为下一个播报的出口打转向灯，或在警察对你亮灯时靠边停车。"
+"trooper signals you to pull over."
+msgstr ""
 
 #. placeholders: {route}, {weather}, {clock}
 msgid ""
@@ -20513,7 +20462,7 @@ msgid "adaptive cruise set at {speed_text}"
 msgstr "自适应巡航设定为{speed_text}"
 
 #. placeholders: {speed_text}
-msgid " Open-road target {speed_text}."
+msgid " Cruise speed {speed_text}."
 msgstr "开放道路目标 {speed_text}。"
 
 #. placeholders: {keeper_target}
@@ -20634,14 +20583,14 @@ msgstr "车速正在上升。"
 msgid "Holding speed."
 msgstr "保持车速。"
 
-msgid "The jake is sliding the drive wheels; back it off a stage."
-msgstr "发动机制动让驱动轮打滑了；降一档。"
+msgid "The engine brake is sliding the drive wheels. Lower it a stage."
+msgstr ""
 
-msgid "snub the brakes"
-msgstr "点刹"
+msgid "brake in short bursts"
+msgstr ""
 
-msgid "gear down or snub the brakes"
-msgstr "降档或点刹"
+msgid "shift down or brake in short bursts"
+msgstr ""
 
 #. placeholders: {stage}, {losing}
 msgid "Jake stage {stage} is not holding it; {losing}."
@@ -20909,7 +20858,7 @@ msgid "Speed control: {keeper_holding_text}"
 msgstr "速度控制：{keeper_holding_text}"
 
 #. placeholders: {open_road_target}
-msgid "Open-road target: {open_road_target}"
+msgid "Cruise speed: {open_road_target}"
 msgstr "开阔道路目标速度：{open_road_target}"
 
 msgid "Speed control: paused; resumes when the truck is rolling"
@@ -21119,7 +21068,7 @@ msgstr "驻车制动已拉上。气压{psi} psi。"
 msgid "Parking brake set. Air {psi} psi."
 msgstr "驻车制动已启用。气压{psi} psi。"
 
-msgid "Parking brake dynamited at speed!"
+msgid "Parking brake pulled at speed!"
 msgstr "高速行驶中猛拉驻车制动！"
 
 #. one sentence of a longer line
@@ -21130,13 +21079,13 @@ msgstr "弹簧制动猛地锁住驱动桥，轮胎在胎面上磨出了平斑。
 
 #. placeholders: {spoken}
 #. one sentence of a longer line
-msgid "You dynamited the parking brake at {spoken}!"
+msgid "You pulled the parking brake at {spoken}!"
 msgstr "你在{spoken}时猛拉了驻车制动！"
 
 #. placeholders: {spoken}
 msgid ""
-"You dynamited the parking brake at {spoken}! The spring brakes slam the "
-"drive axle and the tires grind flat spots into the tread."
+"You pulled the parking brake at {spoken}! The spring brakes slam the drive "
+"axle and the tires grind flat spots into the tread."
 msgstr "你在{spoken}时猛拉了驻车制动！弹簧制动猛地锁住驱动桥，轮胎在胎面上磨出了平斑。"
 
 msgid " Truck still slowing."
@@ -21371,15 +21320,15 @@ msgstr "驾驶和值班时钟重置，但你仍然很累。{wake_air_instruction
 #. placeholders: {engine_off}
 #. one sentence of a longer line
 msgid ""
-"{engine_off}You sleep poorly on the checkpoint apron, woken again and again "
-"by passing trucks."
+"{engine_off}You sleep poorly at the chain control, woken again and again by "
+"passing trucks."
 msgstr "{engine_off}你在检查站的停车区睡得很差，不断被过往卡车吵醒。"
 
 #. placeholders: {engine_off}, {clock_text}, {wake_air_instruction}
 msgid ""
-"{engine_off}You sleep poorly on the checkpoint apron, woken again and again "
-"by passing trucks. It is {clock_text}. Driving and duty clocks reset, but "
-"you are still tired.{wake_air_instruction}"
+"{engine_off}You sleep poorly at the chain control, woken again and again by "
+"passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
+"are still tired.{wake_air_instruction}"
 msgstr ""
 "{engine_off}你在检查站的停车区睡得很差，不断被过往卡车吵醒。现在是{clock_text}。驾驶和在岗计时已重置，但你仍然疲劳。{wake_"
 "air_instruction}"
@@ -21488,15 +21437,13 @@ msgstr "货物{words}，百分之{cargo_damage_pct}。"
 msgid "Load {words}, {cargo_damage_pct} percent. {consequence}"
 msgstr "货物{words}，百分之{cargo_damage_pct}。{consequence}"
 
-msgid ""
-"The receiver will note an exception on the bill of lading and hold back "
-"part of the pay."
-msgstr "收货方会在提单上记录异常，并扣下一部分报酬。"
+msgid "The receiver will note the damage and hold back part of the pay."
+msgstr ""
 
 msgid ""
-"Claim territory now. The receiver will take it, and the carrier pays for "
-"what you broke."
-msgstr "现在到了索赔的地步。收货方会收货，承运商为你弄坏的东西买单。"
+"Damaged enough for a claim. The receiver will take it, and the carrier pays "
+"for what you broke."
+msgstr ""
 
 msgid "The dock will refuse a load in this state."
 msgstr "货物这个样子，装卸口会拒收。"
@@ -21966,18 +21913,15 @@ msgid ""
 "Dispatch has taken the {grounded} out of service. The carrier covers the "
 "bill. {handover}. That cost {GROUNDED_SWAP_MIN} hours and it is now "
 "{clock_text}. Damage on the truck you are in is {damage_pct} percent. "
-"Dispatch logged preventable equipment damage against your record; a pattern "
-"of it costs the seat. Press {control_hint} to restart the engine."
+"Dispatch logged preventable equipment damage against your record; repeated "
+"damage can cost you your job. Press {control_hint} to restart the engine."
 msgstr ""
-"调度已让{grounded}停驶。费用由承运商承担。{handover}。这耽误了{GROUNDED_SWAP_MIN}小时，现在是{clock_tex"
-"t}。你现在开的这辆卡车损坏百分之{damage_pct}。调度在你的记录上记了一次可避免的设备损坏；屡次发生会丢掉这份工作。按{control_hin"
-"t}重新启动发动机。"
 
 #. one sentence of a longer line
 msgid ""
-"Dispatch logged preventable equipment damage against your record; a pattern "
-"of it costs the seat."
-msgstr "调度在你的记录上记了一次可避免的设备损坏；屡次发生会丢掉这份工作。"
+"Dispatch logged preventable equipment damage against your record; repeated "
+"damage can cost you your job."
+msgstr ""
 
 #. placeholders: {GROUNDED_SWAP_MIN}, {clock_text}
 #. one sentence of a longer line
@@ -22899,7 +22843,7 @@ msgid "deliver to {destination_facility_text}"
 msgstr "送到{destination_facility_text}"
 
 #. placeholders: {pickup_facility_text}
-msgid "Deadheading to pickup at {pickup_facility_text}"
+msgid "Driving empty to pickup at {pickup_facility_text}"
 msgstr "空车前往{pickup_facility_text}装货"
 
 #. placeholders: {destination}
@@ -23092,14 +23036,13 @@ msgstr "车上没有防滑链。厂区停车辅助无法替你安装。"
 
 #. placeholders: {f}, {f2}
 #. one sentence of a longer line
-msgid ""
-"Chain-up needs about {f} minutes and your 14-hour window has {f2} left."
+msgid "Chain-up needs about {f} minutes and your duty window has {f2} left."
 msgstr "安装防滑链大约需要{f}分钟，而你的14小时工作窗口只剩{f2}。"
 
 #. placeholders: {f}, {f2}
 msgid ""
-"Chain-up needs about {f} minutes and your 14-hour window has {f2} left. "
-"Find a place to stop."
+"Chain-up needs about {f} minutes and your duty window has {f2} left. Find a "
+"place to stop."
 msgstr "安装防滑链大约需要{f}分钟，而你的14小时工作窗口只剩{f2}。找个地方停车。"
 
 #. one sentence of a longer line
@@ -24412,11 +24355,11 @@ msgstr "错过了{place}，无信号。{recovery}"
 
 #. placeholders: {missed}
 #. one sentence of a longer line
-msgid "Boxed out of the exit lane, missed {missed}."
+msgid "Traffic blocked the exit lane, missed {missed}."
 msgstr "被出出出口车道，错过了 {missed}。"
 
 #. placeholders: {missed}, {recovery}
-msgid "Boxed out of the exit lane, missed {missed}. {recovery}"
+msgid "Traffic blocked the exit lane, missed {missed}. {recovery}"
 msgstr "被出出出口车道，错过了 {missed}。{recovery}"
 
 #. placeholders: {missed}
@@ -24622,8 +24565,8 @@ msgstr "货物稳住了。"
 msgid "The load has settled."
 msgstr "货物已经稳住了。"
 
-msgid "Baffles will damp the wave in a couple of cycles."
-msgstr "防波板晃几下就能把涌浪压住。"
+msgid "The baffles calm the surge after a couple of swings."
+msgstr ""
 
 msgid "Smooth bore: nothing inside to slow the wave down."
 msgstr "光罐：里面没有东西能减缓涌浪。"
@@ -24826,7 +24769,7 @@ msgid "Weather source: {source}."
 msgstr "天气来源：{source}。"
 
 #. placeholders: {observation_age_value}
-msgid "Observation age: {observation_age_value}."
+msgid "Report age: {observation_age_value}."
 msgstr "观测时间：{observation_age_value}。"
 
 #. placeholders: {source_conditions}
@@ -24849,8 +24792,8 @@ msgid "Weather alerts: {join}."
 msgstr "天气预警：{join}。"
 
 #. placeholders: {distance_text}
-msgid "Traffic: no reported pinch in the next {distance_text}."
-msgstr "车流：接下来{distance_text}内没有报告的拥堵点。"
+msgid "Traffic: no slowdowns reported in the next {distance_text}."
+msgstr ""
 
 #. placeholders: {distance_text}
 msgid "Truck stops: no listed route stop in the next {distance_text}."
@@ -24918,16 +24861,10 @@ msgstr "调车完成"
 msgid "Fines carried over from earlier loads: {grouped} dollars, settled."
 msgstr "之前货物遗留的罚款：{grouped}美元，已结清。"
 
-#. placeholders: {grouped}
-#. one sentence of a longer line
-msgid "Reposition pay at the empty-mile rate: {grouped} dollars."
-msgstr "按空驶里程费率支付的调车费：{grouped}美元。"
-
 #. placeholders: {grouped}, {grouped2}
 msgid ""
-"Reposition pay at the empty-mile rate: {grouped} dollars. You now have "
-"{grouped2} dollars. "
-msgstr "按空驶里程费率支付的调车费：{grouped}美元。你现在有{grouped2}美元。 "
+"Pay for driving empty: {grouped} dollars. You now have {grouped2} dollars. "
+msgstr ""
 
 #. placeholders: {grouped2}
 #. one sentence of a longer line
@@ -24939,17 +24876,15 @@ msgstr "没有货物，也没有报酬。 "
 
 #. placeholders: {destination}, {f}
 #. one sentence of a longer line
-msgid "Bobtailed empty to {destination} in {f} hours."
-msgstr "用了{f}小时单车头空驶到{destination}。"
+msgid "Drove without a trailer to {destination} in {f} hours."
+msgstr ""
 
 #. placeholders: {destination}, {f}, {clock_text}, {pay_clause}, {name}, {destination2}, {f2}
 msgid ""
-"Bobtailed empty to {destination} in {f} hours. It is {clock_text}. "
+"Drove without a trailer to {destination} in {f} hours. It is {clock_text}. "
 "{pay_clause}Parked at {name}. {destination2} dispatch board available. Fuel "
 "{f2} percent."
 msgstr ""
-"用了{f}小时单车头空驶到{destination}。现在是{clock_text}。{pay_clause}停在{name}。{destination"
-"2}调度板可用。燃油百分之{f2}。"
 
 #. placeholders: {f2}
 #. one sentence of a longer line
@@ -24970,7 +24905,7 @@ msgstr "{pay_clause}停在{name}。"
 msgid "The empty run added {f} percent truck damage."
 msgstr "这趟空驶让卡车损坏增加了百分之{f}。"
 
-msgid "Claim against your own authority"
+msgid "Claim against your own business"
 msgstr "索赔由你的自有运营资质承担"
 
 msgid "Carrier carries the claim, on your record"
@@ -25028,31 +24963,29 @@ msgstr "索赔约{grouped}美元，{grouped2}就此结算。"
 #. placeholders: {cargo_condition_text}, {f}
 #. one sentence of a longer line
 msgid ""
-"Receiver took the load with an exception, {cargo_condition_text} at {f} "
+"Receiver took the load but noted damage, {cargo_condition_text} at {f} "
 "percent."
-msgstr "接收器以 {f} 百分比的异常 {cargo_condition_text} 接收货物。"
+msgstr ""
 
 #. placeholders: {cargo_condition_text}, {f}, {grouped}, {grouped2}, {claim_holder}
 msgid ""
-"Receiver took the load with an exception, {cargo_condition_text} at {f} "
+"Receiver took the load but noted damage, {cargo_condition_text} at {f} "
 "percent. Claim about {grouped} dollars, {grouped2} off this settlement. "
 "{claim_holder}."
 msgstr ""
-"接收器以 {f} 百分比的异常 {cargo_condition_text} "
-"接收货物。索赔约{grouped}美元，{grouped2}就此结算。{claim_holder}。"
 
 #. placeholders: {cargo_condition_text}, {f}
 #. one sentence of a longer line
 msgid ""
-"Exception on the bill of lading, load arrived {cargo_condition_text} at {f} "
-"percent."
-msgstr "提单上有异常记录，货物到达时{cargo_condition_text}，百分之{f}。"
+"The receiver noted damage on the paperwork: load arrived "
+"{cargo_condition_text} at {f} percent."
+msgstr ""
 
 #. placeholders: {cargo_condition_text}, {f}, {grouped}
 msgid ""
-"Exception on the bill of lading, load arrived {cargo_condition_text} at {f} "
-"percent. {grouped} dollars held back."
-msgstr "提单上有异常记录，货物到达时{cargo_condition_text}，百分之{f}。扣留{grouped}美元。"
+"The receiver noted damage on the paperwork: load arrived "
+"{cargo_condition_text} at {f} percent. {grouped} dollars held back."
+msgstr ""
 
 #. placeholders: {grouped}
 #. one sentence of a longer line
@@ -25119,7 +25052,7 @@ msgid "Owner-operator business costs: {business_charge_summary}."
 msgstr "车主司机经营成本：{business_charge_summary}。"
 
 #. placeholders: {grouped}
-msgid "Manual-spec differential: {grouped} dollars."
+msgid "Manual transmission bonus: {grouped} dollars."
 msgstr "手动规格差价：{grouped}美元。"
 
 #. placeholders: {grouped}
@@ -25170,7 +25103,8 @@ msgstr "由承运商支付，不从司机工资里扣。"
 
 #. placeholders: {grouped2}, {grouped3}, {charge_summary}
 #. one sentence of a longer line
-msgid "Charges {grouped2}: tolls {grouped3}, accessorials {charge_summary}."
+msgid ""
+"Charges {grouped2}: tolls {grouped3}, extra charges {charge_summary}."
 msgstr "收费{grouped2}：通行费{grouped3}，配件{charge_summary}。"
 
 #. placeholders: {grouped4}
@@ -25190,17 +25124,12 @@ msgstr ""
 #. placeholders: {f}, {label}, {destination}, {f2}, {else}, {receiver_service_clause}, {clock_text}, {pay_label}, {grouped}, {grouped2}, {grouped3}, {charge_summary}, {accessorial_clause}, {status_label}, {grouped4}, {grouped5}, {grouped6}, {grouped7}, {name}
 msgid ""
 "Delivered {f} tons of {label} to {destination} in {f2} hours, "
-"{else}.{receiver_service_clause} {clock_text}. {pay_label} {grouped} "
-"dollars. Charges {grouped2}: tolls {grouped3}, accessorials "
+"{else}.{receiver_service_clause} {clock_text}. {pay_label}: {grouped} "
+"dollars. Charges {grouped2}: tolls {grouped3}, extra charges "
 "{charge_summary}. {accessorial_clause} Business status: {status_label}. "
 "Costs {grouped4}. Fines {grouped5}. Net {grouped6}, you have {grouped7}. "
 "Parked at {name}."
 msgstr ""
-"在{f2}小时内将{f}吨{label}交付给{destination}，{else}.{receiver_service_clause} "
-"{clock_text}。{pay_label} {grouped} "
-"美元。收费{grouped2}：通行费{grouped3}，配件{charge_summary}。{accessorial_clause} "
-"经营状况：{status_label}。成本 {grouped4}。罚款 "
-"{grouped5}。净{grouped6}，你有{grouped7}。停在{name}。"
 
 #. placeholders: {grouped5}
 #. one sentence of a longer line
@@ -25221,11 +25150,6 @@ msgstr "停在{name}。"
 #. one sentence of a longer line
 msgid "{accessorial_clause} Business status: {status_label}."
 msgstr "{accessorial_clause}经营状况：{status_label}。"
-
-#. placeholders: {pay_label}, {grouped}
-#. one sentence of a longer line
-msgid "{pay_label} {grouped} dollars."
-msgstr "{pay_label}{grouped}美元。"
 
 msgid "on time"
 msgstr "准时"
@@ -25331,7 +25255,7 @@ msgstr "停在{name}，属于{the_city}服务区域。"
 #. placeholders: {grouped}, {grouped2}, {charge_summary}
 msgid ""
 "Carrier-paid or reimbursed charges: {grouped} dollars, including tolls "
-"{grouped2} and accessorials {charge_summary}."
+"{grouped2} and extra charges {charge_summary}."
 msgstr "承运商支付或报销的费用：{grouped}美元，包括过路费{grouped2}和附加费用{charge_summary}。"
 
 #. placeholders: {status_label}
@@ -25608,7 +25532,8 @@ msgstr "这些费用不会减少司机工资。"
 
 #. placeholders: {grouped3}, {grouped4}, {charge_summary}
 #. one sentence of a longer line
-msgid "Charges {grouped3}: tolls {grouped4}, accessorials {charge_summary}."
+msgid ""
+"Charges {grouped3}: tolls {grouped4}, extra charges {charge_summary}."
 msgstr "收费{grouped3}：通行费{grouped4}，配件{charge_summary}。"
 
 #. placeholders: {grouped6}, {advance_note}, {timing}
@@ -25623,20 +25548,16 @@ msgstr "文书工作，{facility}：{f} 吨{label}。"
 
 #. placeholders: {facility}, {f}, {label}, {grouped}, {grouped2}, {grouped3}, {grouped4}, {charge_summary}, {charge_fate}, {grouped5}, {grouped6}, {advance_note}, {timing}, {cargo_condition}, {finish}
 msgid ""
-"Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, gross "
-"{grouped2}. Charges {grouped3}: tolls {grouped4}, accessorials "
+"Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, pay for the "
+"load {grouped2}. Charges {grouped3}: tolls {grouped4}, extra charges "
 "{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
 "{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
 msgstr ""
-"文书工作，{facility}：{f} 吨{label}。费率 {grouped}，毛额 "
-"{grouped2}。收费{grouped3}：通行费{grouped4}，配件{charge_summary}。{charge_fate} 罚款 "
-"{grouped5}。净关于{grouped6}.{advance_note} {timing}。{cargo_condition} {finish} "
-"结算。"
 
 #. placeholders: {grouped}, {grouped2}
 #. one sentence of a longer line
-msgid "Rate {grouped}, gross {grouped2}."
-msgstr "费率 {grouped}，毛额 {grouped2}。"
+msgid "Rate {grouped}, pay for the load {grouped2}."
+msgstr ""
 
 #. placeholders: {cargo_condition}, {finish}
 #. one sentence of a longer line
@@ -26008,15 +25929,15 @@ msgid "Controls and help"
 msgstr "操作与帮助"
 
 msgid ""
-"The how-to-play reference at the driving keys. Left and Right change pages, "
+"How to play, opened at the driving keys page. Left and Right change pages, "
 "Up and Down read lines."
-msgstr "驾驶按键的玩法参考。Left和Right翻页，Up和Down读行。"
+msgstr ""
 
 msgid "Learn game sounds"
 msgstr "学习游戏声音"
 
-msgid "Plays any sound the road uses and says what it means."
-msgstr "播放道路上用到的任何声音，并说明它的含义。"
+msgid "Every sound the road uses, and what each one means."
+msgstr ""
 
 msgid "Practice keys and buttons"
 msgstr "练习按键和按钮"
@@ -26025,9 +25946,9 @@ msgid "Names what each key or controller button does while driving."
 msgstr "说出驾驶时每个按键或手柄按钮的作用。"
 
 msgid ""
-"A mobile mechanic patches the truck up enough to drive on. Far dearer than "
-"a garage, an hour and a half, and billed even into debt."
-msgstr "流动维修技师把卡车修到能继续开的程度。比维修厂贵得多，要一个半小时，钱不够也会记成欠款。"
+"A mobile mechanic patches the truck up enough to drive on. Costs far more "
+"than a garage, an hour and a half, and billed even into debt."
+msgstr ""
 
 msgid ""
 "Report a delay, hours, road conditions, truck trouble, or load trouble."
@@ -26094,7 +26015,7 @@ msgstr "等待防滑链法规解除"
 
 msgid ""
 "Waits on duty, not driving, half an hour at a time, up to 8 hours or until "
-"your 14-hour window runs out."
+"your duty window runs out."
 msgstr "每次等待半小时，计入在岗时间而非驾驶时间，最多等待8小时或直到14小时工作窗口用尽。"
 
 #. placeholders: {city}
@@ -26127,12 +26048,12 @@ msgid ""
 "job drops the load."
 msgstr "只有在停靠点才会存档。驾驶从上一个停靠点继续。放弃任务会丢掉货物。"
 
-msgid "Sleep at the checkpoint (10 hours)"
+msgid "Sleep at the chain control (10 hours)"
 msgstr "在检查站睡觉（10小时）"
 
 msgid ""
-"Poor sleep on the checkpoint apron. Resets hours of service. Fatigue "
-"remains, and the deadline keeps running."
+"Poor sleep at the chain control. Resets hours of service. Fatigue remains, "
+"and the deadline keeps running."
 msgstr "在检查站停车区睡不好。重置驾驶工时。疲劳仍在，截止时间继续计时。"
 
 msgid "Emergency shoulder sleep"
@@ -27176,8 +27097,8 @@ msgid ""
 "A full 10-hour sleep resets your driving hours and legal driving window."
 msgstr "完整的10小时睡眠会重置你的驾驶时间和法定驾驶时段。"
 
-msgid "This completes a sleeper split and credits the paired rests."
-msgstr "这次完成了卧铺分段休息，配对的休息都会计入。"
+msgid "This finishes a split rest, and both parts count."
+msgstr ""
 
 msgid ""
 "Your legal driving window pauses while you sleep. This rest alone does not "
@@ -27221,8 +27142,8 @@ msgstr " 房间要{f}美元。"
 
 #. placeholders: {span}
 #. one sentence of a longer line
-msgid "Clock +{span}."
-msgstr "时钟+{span}。"
+msgid "Clock moves ahead {span}."
+msgstr ""
 
 #. placeholders: {span}, {more}, {name}
 #. one sentence of a longer line
@@ -27232,10 +27153,8 @@ msgstr "在 {name} 处睡眠 {span}{more}。"
 #. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {pending}, {cost}
 msgid ""
 "Sleep {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
-"+{span}. {deadline}{pending}{cost} Select again to sleep."
+"moves ahead {span}. {deadline}{pending}{cost} Select again to sleep."
 msgstr ""
-"在 {name} 处睡眠 {span}{more}。{effect} {legal} 疲劳 {f} 至 "
-"{f2}。时钟+{span}。{deadline}{pending}{cost} 再次选择睡眠。"
 
 #. placeholders: {deadline}, {pending}, {cost}
 #. one sentence of a longer line
@@ -27394,8 +27313,8 @@ msgstr "记录检查站报到。"
 msgid "{name} is closed"
 msgstr "{name}已关闭"
 
-msgid "Nobody is at the scale house. There is nothing to check in at."
-msgstr "称重站里没人。没有地方可以报到。"
+msgid "The weigh station is closed."
+msgstr ""
 
 msgid ""
 "A pre-trip walk-around: what an inspector would find on the tractor and the "
@@ -27485,13 +27404,13 @@ msgstr "开车之前先完成分段休息，或者{reset}。"
 
 #. one sentence of a longer line
 msgid ""
-"Warning: this sleep did NOT reset your hours, and your duty window has "
+"Warning: this sleep did not reset your hours, and your duty window has "
 "closed."
 msgstr "警告：这次睡眠没有重置你的工时，而且你的当班时段已经结束。"
 
 #. placeholders: {reset}
 msgid ""
-"Warning: this sleep did NOT reset your hours, and your duty window has "
+"Warning: this sleep did not reset your hours, and your duty window has "
 "closed. Finish the split or {reset} before driving. "
 msgstr "警告：这次睡眠没有重置你的工时，而且你的当班时段已经结束。开车之前先完成分段休息，或者{reset}。 "
 
@@ -27502,23 +27421,23 @@ msgstr "它在{f}小时后，也就是{closes}结束。"
 
 #. one sentence of a longer line
 msgid ""
-"This sleep did NOT reset your hours, but your duty window paused while you "
+"This sleep did not reset your hours, but your duty window paused while you "
 "slept."
 msgstr "这次睡眠没有重置你的工时，但你睡觉时当班时段暂停了。"
 
 #. placeholders: {f}, {closes}
 msgid ""
-"This sleep did NOT reset your hours, but your duty window paused while you "
+"This sleep did not reset your hours, but your duty window paused while you "
 "slept. It closes in {f} hours, at {closes}. "
 msgstr "这次睡眠没有重置你的工时，但你睡觉时当班时段暂停了。它在{f}小时后，也就是{closes}结束。 "
 
 #. one sentence of a longer line
-msgid "This sleep did NOT reset your hours."
+msgid "This sleep did not reset your hours."
 msgstr "这次睡眠没有重置你的工时。"
 
 #. placeholders: {f}, {closes}
 msgid ""
-"This sleep did NOT reset your hours. Your duty window closes in {f} hours, "
+"This sleep did not reset your hours. Your duty window closes in {f} hours, "
 "at {closes}. "
 msgstr "这次睡眠没有重置你的工时。你的当班时段在{f}小时后，也就是{closes}结束。 "
 
@@ -27869,11 +27788,11 @@ msgstr "与卧铺里的8小时配对。"
 msgid "Pairs with 7 hours in the sleeper berth."
 msgstr "与卧铺里的7小时配对。"
 
-msgid "Pairs with 3 more hours at sleep-capable parking."
-msgstr "与可过夜停车位再休息3小时配对。"
+msgid "Pairs with 3 more hours at parking where you can sleep."
+msgstr ""
 
-msgid "Pairs with 2 more hours at sleep-capable parking."
-msgstr "与可过夜停车位再休息2小时配对。"
+msgid "Pairs with 2 more hours at parking where you can sleep."
+msgstr ""
 
 #. placeholders: {pair}, {hours}
 msgid "{pair} Clock and deadline advance {hours} hours."
@@ -28265,10 +28184,10 @@ msgstr "{load_text}你被放回{terminal}。"
 msgid "Continue from the city terminal."
 msgstr "从城市场站继续。"
 
-msgid "Held at the chain checkpoint."
+msgid "Held at the chain control."
 msgstr "被防滑链检查站拦下。"
 
-msgid "Sleep at the checkpoint"
+msgid "Sleep at the chain control"
 msgstr "在检查站睡觉"
 
 msgid "Cancel"
@@ -28278,8 +28197,8 @@ msgid "Back without sleeping."
 msgstr "不睡觉，返回。"
 
 msgid ""
-"Poor rest on the checkpoint apron. Resets hours of service; the deadline "
-"keeps running."
+"Poor rest at the chain control. Resets hours of service; the deadline keeps "
+"running."
 msgstr "在检查站停车区休息不好。重置驾驶工时；截止时间继续计时。"
 
 msgid "Cancel and keep looking for a safe stop"
@@ -28302,13 +28221,13 @@ msgstr "截止时间继续计时。"
 
 #. placeholders: {reason}
 #. one sentence of a longer line
-msgid "{reason} 10 hours of poor rest, HOS reset if enforced."
+msgid "{reason} 10 hours of poor rest, hours of service reset if enforced."
 msgstr "{reason}休息质量不佳的10小时；如果启用工时规则，则重置驾驶工时。"
 
 #. placeholders: {title}, {reason}, {current}
 msgid ""
-"{title}. {reason} 10 hours of poor rest, HOS reset if enforced. The "
-"deadline keeps running. {current}"
+"{title}. {reason} 10 hours of poor rest, hours of service reset if "
+"enforced. The deadline keeps running. {current}"
 msgstr "{title}。{reason}休息质量不佳的10小时；如果启用工时规则，则重置驾驶工时。截止时间继续计时。{current}"
 
 #. one sentence of a longer line
@@ -28318,15 +28237,15 @@ msgstr "可能有罚单和轻微损坏；截止日期仍在继续。"
 #. placeholders: {reason}
 #. one sentence of a longer line
 msgid ""
-"{reason} Emergency shoulder sleep: 10 hours of poor rest, HOS reset if "
-"enforced."
+"{reason} Emergency shoulder sleep: 10 hours of poor rest, hours of service "
+"reset if enforced."
 msgstr "{reason}紧急在路肩睡觉：休息质量差，共10小时；若强制执行驾驶工时，则会重置计时。"
 
 #. placeholders: {title}, {reason}, {current}
 msgid ""
-"{title}. {reason} Emergency shoulder sleep: 10 hours of poor rest, HOS "
-"reset if enforced. Ticket and light damage possible; the deadline keeps "
-"running. {current}"
+"{title}. {reason} Emergency shoulder sleep: 10 hours of poor rest, hours of "
+"service reset if enforced. Ticket and light damage possible; the deadline "
+"keeps running. {current}"
 msgstr ""
 "{title}。{reason}紧急在路肩睡觉：休息质量差，共10小时；若强制执行驾驶工时，则会重置计时。可能收到罚单并遭受轻微损坏；截止时间仍在倒计时"
 "。{current}"
@@ -28867,13 +28786,13 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"The chain checkpoint is holding the truck, and there are no chains aboard."
+"The chain control is holding the truck, and there are no chains aboard."
 msgstr ""
 
 #. placeholders: {name}
 msgid ""
-"{name} needs you. The chain checkpoint is holding the truck, and there are "
-"no chains aboard."
+"{name} needs you. The chain control is holding the truck, and there are no "
+"chains aboard."
 msgstr ""
 
 #. placeholders: {name}
@@ -29030,7 +28949,7 @@ msgid "{capitalize} got across ahead of the truck."
 msgstr ""
 
 #. placeholders: {name}
-msgid "{name} put the chains on at the checkpoint."
+msgid "{name} put the chains on at the chain control."
 msgstr ""
 
 #. placeholders: {name}, {animal}
@@ -29395,11 +29314,11 @@ msgid ""
 msgstr "没有防滑链就不能继续行驶。在这里等法规解除，或者掉头。"
 
 #. one sentence of a longer line
-msgid "Chain checkpoint."
+msgid "Chain control."
 msgstr "防滑链检查站。"
 
 #. placeholders: {after}
-msgid "Chain checkpoint. The officer stops you again. {after}"
+msgid "Chain control. The officer stops you again. {after}"
 msgstr "防滑链检查站。警员再次将你拦下。{after}"
 
 #. one sentence of a longer line
@@ -29411,8 +29330,7 @@ msgid "An officer stops you and gives you a warning."
 msgstr "警员将你拦下，给了你一个警告。"
 
 #. placeholders: {after}
-msgid ""
-"Chain checkpoint. An officer stops you and gives you a warning. {after}"
+msgid "Chain control. An officer stops you and gives you a warning. {after}"
 msgstr "防滑链检查站。警员将你拦下，给了你一个警告。{after}"
 
 #. placeholders: {level}
@@ -29430,7 +29348,7 @@ msgstr ""
 
 #. placeholders: {grouped}, {construction_zone_fine_clause}, {after}, {grouped2}
 msgid ""
-"Chain checkpoint. An officer stops you and writes a chain-law citation, "
+"Chain control. An officer stops you and writes a chain-law citation, "
 "{grouped} dollars.{construction_zone_fine_clause} {after} You have "
 "{grouped2} dollars."
 msgstr ""
@@ -29444,12 +29362,11 @@ msgid ""
 "The chain law has lifted. The officer waves you back onto the highway."
 msgstr "防滑链法规已解除。警员挥手示意你驶回公路。"
 
-msgid ""
-"Held at the chain checkpoint. Put your chains on from the pause menu."
+msgid "Held at the chain control. Put your chains on from the pause menu."
 msgstr "你被防滑链检查站拦下。请从暂停菜单安装防滑链。"
 
 msgid ""
-"Held at the chain checkpoint. You have no chains. Call dispatch for a set, "
+"Held at the chain control. You have no chains. Call dispatch for a set, "
 "wait here until the chain law lifts, or turn back."
 msgstr ""
 
@@ -29469,40 +29386,39 @@ msgid "The officer waves you back onto the highway."
 msgstr "警员挥手示意你驶回公路。"
 
 #. one sentence of a longer line
-msgid "Sleep at the checkpoint from the pause menu, or turn back."
+msgid "Sleep at the chain control from the pause menu, or turn back."
 msgstr "从暂停菜单选择在检查站睡觉，或者掉头。"
 
 #. placeholders: {waited_text}
 #. one sentence of a longer line
-msgid ""
-"You waited {waited_text}, and your 14-hour duty window is nearly used up."
+msgid "You waited {waited_text}, and your duty window is nearly used up."
 msgstr "你已等待{waited_text}，14小时工作窗口即将用尽。"
 
 #. placeholders: {waited_text}
 msgid ""
-"You waited {waited_text}, and your 14-hour duty window is nearly used up. "
-"The chain law still stands. Sleep at the checkpoint from the pause menu, or "
-"turn back."
+"You waited {waited_text}, and your duty window is nearly used up. The chain "
+"law still stands. Sleep at the chain control from the pause menu, or turn "
+"back."
 msgstr "你已等待{waited_text}，14小时工作窗口即将用尽。防滑链法规仍然生效。从暂停菜单选择在检查站睡觉，或者掉头。"
 
 #. one sentence of a longer line
-msgid "Sleep at the checkpoint from the pause menu."
+msgid "Sleep at the chain control from the pause menu."
 msgstr "从暂停菜单选择在检查站睡觉。"
 
 #. placeholders: {waited_text}
 msgid ""
-"You waited {waited_text}, and your 14-hour duty window is nearly used up. "
-"The chain law still stands. Sleep at the checkpoint from the pause menu."
+"You waited {waited_text}, and your duty window is nearly used up. The chain "
+"law still stands. Sleep at the chain control from the pause menu."
 msgstr "你已等待{waited_text}，14小时工作窗口即将用尽。防滑链法规仍然生效。从暂停菜单选择在检查站睡觉。"
 
 msgid ""
-"Your 14-hour duty window is nearly used up. The chain law still stands. "
-"Sleep at the checkpoint from the pause menu, or turn back."
+"Your duty window is nearly used up. The chain law still stands. Sleep at "
+"the chain control from the pause menu, or turn back."
 msgstr "你的14小时工作窗口即将用尽。防滑链法规仍然生效。从暂停菜单选择在检查站睡觉，或者掉头。"
 
 msgid ""
-"Your 14-hour duty window is nearly used up. The chain law still stands. "
-"Sleep at the checkpoint from the pause menu."
+"Your duty window is nearly used up. The chain law still stands. Sleep at "
+"the chain control from the pause menu."
 msgstr "你的14小时工作窗口即将用尽。防滑链法规仍然生效。从暂停菜单选择在检查站睡觉。"
 
 #. one sentence of a longer line
@@ -29519,9 +29435,6 @@ msgid ""
 "You waited {duration_text}. The chain law still stands. Wait again, or turn "
 "back."
 msgstr "你等待了{duration_text}。防滑链法规仍然生效。继续等待，或者掉头。"
-
-msgid "chain checkpoint"
-msgstr "防滑链检查站"
 
 msgid "The chain law still stands."
 msgstr "防滑链法规仍然生效。"
@@ -29541,11 +29454,12 @@ msgstr "掉头返回需要驾驶{drive}，超过你在30分钟休息前剩余的
 msgid ""
 "Turning back takes {drive}, more driving than you have before your "
 "30-minute break. Wait here, which counts as your break, or sleep at the "
-"checkpoint."
+"chain control."
 msgstr ""
 
 #. one sentence of a longer line
-msgid "Wait here, which counts as your break, or sleep at the checkpoint."
+msgid ""
+"Wait here, which counts as your break, or sleep at the chain control."
 msgstr ""
 
 #. placeholders: {drive}
@@ -29556,13 +29470,13 @@ msgstr "掉头返回需要驾驶{drive}，超过工时允许的时间。"
 #. placeholders: {drive}
 msgid ""
 "Turning back takes {drive} of driving, more than your hours allow. Wait "
-"here for the chain law to lift, or sleep at the checkpoint from the pause "
-"menu."
+"here for the chain law to lift, or sleep at the chain control from the "
+"pause menu."
 msgstr "掉头返回需要驾驶{drive}，超过工时允许的时间。在这里等防滑链法规解除，或者从暂停菜单选择在检查站睡觉。"
 
 #. one sentence of a longer line
 msgid ""
-"Wait here for the chain law to lift, or sleep at the checkpoint from the "
+"Wait here for the chain law to lift, or sleep at the chain control from the "
 "pause menu."
 msgstr "在这里等防滑链法规解除，或者从暂停菜单选择在检查站睡觉。"
 
@@ -29573,13 +29487,13 @@ msgstr "前方的防滑链法规仍然生效。"
 #. placeholders: {city}, {distance_text}, {f}
 #. one sentence of a longer line
 msgid ""
-"You turned back to {city}, {distance_text} behind the checkpoint, in {f} "
+"You turned back to {city}, {distance_text} behind the chain control, in {f} "
 "minutes."
 msgstr "你用了{f}分钟掉头返回{city}，这里位于检查站后方{distance_text}。"
 
 #. placeholders: {city}, {distance_text}, {f}
 msgid ""
-"You turned back to {city}, {distance_text} behind the checkpoint, in {f} "
+"You turned back to {city}, {distance_text} behind the chain control, in {f} "
 "minutes. The chain law ahead still stands."
 msgstr "你用了{f}分钟掉头返回{city}，这里位于检查站后方{distance_text}。前方的防滑链法规仍然生效。"
 
@@ -29598,8 +29512,8 @@ msgid ""
 "officer gives you a warning."
 msgstr "防滑链检查。在防滑链季节驶入山区线路，车上却没有防滑链。警员给了你一个警告。"
 
-msgid "No chains aboard on a Colorado chain-carry corridor"
-msgstr "科罗拉多州铁链运输走廊上没有铁链"
+msgid "No chains aboard on a Colorado road that requires carrying them"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Chain check."
@@ -29972,7 +29886,7 @@ msgstr "巡航关闭。"
 msgid "Slowing for the bend."
 msgstr "转弯时减速。"
 
-msgid "Route-transition assistance released."
+msgid "Ramp assistance released."
 msgstr "路线转换辅助已释放。"
 
 msgid "Back on the pavement."
@@ -31357,6 +31271,15 @@ msgstr "全部辅助"
 msgid "Custom"
 msgstr "自定义"
 
+msgid "Light"
+msgstr ""
+
+msgid "Standard"
+msgstr ""
+
+msgid "Strong"
+msgstr ""
+
 #. placeholders: {g}
 msgid "{g} times"
 msgstr "{g}倍"
@@ -31424,12 +31347,6 @@ msgstr "车道保持恢复为{lane_keeping_label}。"
 
 msgid "Driving assistance preset: Custom."
 msgstr "驾驶辅助预设：自定义。"
-
-msgid "deliberate"
-msgstr "谨慎"
-
-msgid "simple"
-msgstr "简单"
 
 #. placeholders: {date_text}, {clock_text}
 msgid "Clock aligned to {date_text}, {clock_text}."
@@ -31538,57 +31455,50 @@ msgstr "下坡速度控制"
 msgid ""
 "With adaptive cruise on, holds a steep downhill grade at the speed your "
 "truck can take it at with its load, on the engine brake and short brake "
-"applications. Balanced and Interactive capture a lower target when you "
-"brake. Interactive also caps every descent at 55 miles per hour and "
-"intervenes harder."
+"applications. On Standard and Strong, braking sets a new, lower speed to "
+"hold. Strong also caps every descent at 55 miles per hour and steps in "
+"sooner."
 msgstr ""
-"开启自适应巡航时，用发动机制动和短促的刹车，把陡下坡的车速保持在你的卡车带着这批货物能承受的速度。均衡和互动模式在你刹车时会采用更低的目标速度。互动模式"
-"还会把所有下坡限制在每小时55英里，并且介入得更强。"
 
 msgid "Exit speed assistance"
 msgstr "出口速度辅助"
 
 msgid ""
-"For a signaled exit: slows a truck too fast for the gore, keeps the "
-"approach within 10 miles per hour of road speed, and brakes in the exit "
-"lane to the exit speed. You still take the exit."
-msgstr "对于有信号的出口：将卡车减速至速度过快，保持接近道路速度 10 英里/小时以内，并在出口车道制动至出口速度。你还是选择出口。"
+"For a signaled exit: slows the truck if it is too fast to reach the exit "
+"lane, keeps the approach within 10 miles per hour of road speed, and brakes "
+"in the exit lane to the exit speed. You still take the exit."
+msgstr ""
 
 msgid "Facility stopping assistance"
 msgstr "厂区停车辅助"
 
 msgid ""
-"On the final approach, after any exit, it works the throttle and brakes: up "
-"to 12 miles per hour through the facility lane, creeping the last 200 feet, "
-"then stopping at pickup and delivery facilities, rest stops, and required "
-"weigh stations. It never chooses an exit, enters a yard, or docks. In a "
-"chain-law area it stops to put snow chains on and take them off, and it may "
-"spend on-duty minutes on chains: about 30 to chain up, 10 to take them off. "
-"It never buys chains. Realistic leaves it off; Balanced and All assists "
-"turn it on."
+"On the last stretch to a facility, rest stop or open weigh station, it "
+"works the throttle and brakes: up to 12 miles per hour, a slow creep for "
+"the last 200 feet, then a stop. It never picks an exit, enters a yard or "
+"docks. In a chain-law area it stops to put chains on, about 30 minutes on "
+"duty, and to take them off, about 10. It never buys chains. Realistic "
+"leaves it off; Balanced and All assists turn it on."
 msgstr ""
-"最后接近阶段，驶出任何出口之后，它会操作油门和刹车：在厂区车道里最高每小时12英里，最后200英尺慢慢挪，然后在装货和送货厂区、休息区和必须进入的称重站"
-"停下。它从不替你选择出口、进入场院或靠上装卸口。在防滑链管制区，它会停车安装和拆除防滑链，并可能占用在岗时间：安装约30分钟，拆除约10分钟。它从不购买"
-"防滑链。写实预设不开启它；均衡和全部辅助会开启。"
 
 msgid "Curve assistance"
 msgstr "弯道辅助"
 
 msgid ""
 "Takes mapped bends for you: slows to the advised speed on the service "
-"brakes, never the engine brake, and holds the wheel through the bend and "
-"through street corners. On a real downgrade it does raise the jake. While "
-"it steers, the engine leans only when you drift. Lane keeping is a separate "
-"setting and holds you between the lines the rest of the time."
+"brakes, adding the engine brake only on a steep downgrade, and steers "
+"through the bend and through street corners. While it steers, the engine "
+"sound moves to one side only when you drift. Lane keeping is a separate "
+"setting and keeps you between the lines the rest of the time."
 msgstr ""
-"替你通过地图上标注的弯道：只用行车制动减速到建议速度，绝不用发动机制动，并在弯道和街道转角中握住方向盘。在真正的下坡上，它确实会加大发动机制动。它转向时"
-"，只有在你偏移时发动机声音才会偏向一侧。车道保持是另一项设置，其余时间负责让你保持在车道线之间。"
 
-msgid "Route-transition assistance"
+msgid "Ramp assistance"
 msgstr "路线转换辅助"
 
-msgid "Speed and lane help at confirmed route transitions."
-msgstr "在确认的路线转换处提供车速和车道帮助。"
+msgid ""
+"On an exit ramp, holds the truck to the ramp's speed and stops it for the "
+"light, stop sign, yield or roundabout at the end."
+msgstr ""
 
 msgid "Latching brake"
 msgstr "锁定刹车"
@@ -31607,27 +31517,25 @@ msgstr "预设永远不会改变这一项。"
 #. one sentence of a longer line
 msgid ""
 "Tap the brake, then press again and hold half a second: a click and a "
-"spoken confirmation latch it hands-free."
-msgstr "轻按一下刹车，然后再按住半秒：一声咔嗒和一句语音确认后，刹车就锁定了，不用一直按着。"
+"spoken line confirm the brake now holds by itself."
+msgstr ""
 
 #. placeholders: {control_brake}
 msgid ""
 "Tap the brake, then press again and hold half a second: a click and a "
-"spoken confirmation latch it hands-free. One press of {control_brake} "
-"releases it; the accelerator releases it instantly. The throttle key never "
-"latches. Presets never change this."
+"spoken line confirm the brake now holds by itself. One press of "
+"{control_brake} releases it; the accelerator releases it instantly. The "
+"throttle key never latches. Presets never change this."
 msgstr ""
-"轻按一下刹车，然后再按住半秒：一声咔嗒和一句语音确认后，刹车就锁定了，不用一直按着。按一下{control_brake}就会松开；踩油门会立刻松开。油门"
-"键永远不会锁定。预设永远不会改变这一项。"
 
 msgid "Predictive cruise"
 msgstr "预见性巡航"
 
 msgid ""
 "Cruise reads the road a mile and a half ahead: a little extra speed before "
-"a climb, easing at a crest, no speed added before a descent. It says what "
-"it is doing once per hill. Presets never change this."
-msgstr "巡航会读取前方1.5英里的道路：爬坡前稍微多加点速，到坡顶时收油，下坡前不加速。每座山它只说一次自己在做什么。预设永远不会改变这一项。"
+"a climb, easing at a crest, no speed added before a descent. Presets never "
+"change this."
+msgstr ""
 
 msgid "Curve callouts"
 msgstr "弯道播报"
@@ -31673,10 +31581,8 @@ msgid ""
 "In low-speed zones, like facility roads, gates, and construction zones, "
 "{control_cruise} holds your current speed, then hands back to adaptive "
 "cruise on open roads. It eases off early for the next turn or the next "
-"lower limit. Braking cancels the session. Presets never change this."
+"lower limit. Braking cancels it. Presets never change this."
 msgstr ""
-"在低速区域，比如厂区道路、大门和施工区，{control_cruise}会保持你当前的车速，到了开阔道路再交回给自适应巡航。遇到下一个转弯或下一个更低的"
-"限速，它会提前收油。刹车会取消这次保持。预设永远不会改变这一项。"
 
 #. one sentence of a longer line
 msgid "It eases off early for the next turn or the next lower limit."
@@ -31697,9 +31603,10 @@ msgstr "分数显示：{score_display_label}"
 
 msgid ""
 "Choose whether reputation and dispatch trust read both their descriptive "
-"band and score, only the score, or only the description. A trust score is "
-"spoken only when service sets its band."
-msgstr "选择声誉和调度信任度是同时读出描述等级和分数，只读分数，还是只读描述。只有服务记录决定了信任度的等级时，才会读出信任分数。"
+"band and score, only the score, or only the description. Dispatch trust "
+"gives the reputation number only when reputation is what sets it. When "
+"debt, your CDL or your record sets it, you hear the reason instead."
+msgstr ""
 
 #. placeholders: {replace}
 msgid "Driving speech: {replace}"
@@ -31710,25 +31617,21 @@ msgid ""
 "update and traffic call, and a driving tip once per leg. Quiet speaks short "
 "confirmations, lane openings, and status updates, but not the traffic "
 "around you or tips. Urgent only keeps safety warnings and directions "
-"requiring action. What a setting leaves out makes no sound and stays out of "
-"the event buffer. Readout keys always answer. Billboards, place names, and "
-"landmarks have their own switches below."
+"requiring action. Lines a setting leaves out make no sound and do not "
+"appear in message review. Readout keys always answer. Billboards, place "
+"names, and landmarks have their own switches below."
 msgstr ""
-"路上告诉你多少信息。标准会播报每一条确认、状态更新和车流提示，每个路段还有一条驾驶小贴士。安静播报简短确认、车道畅通和状态更新，但不播报周围车流和小贴士"
-"。仅紧急只保留安全警告和需要你行动的指示。设置省略的内容不会发出声音，也不会进入事件缓冲区。查询键总会回答。广告牌、地名和地标在下面有各自的开关。"
 
 #. placeholders: {chatter_summary}
 msgid "Roadside chatter: {chatter_summary}"
 msgstr "沿途见闻：{chatter_summary}"
 
 msgid ""
-"Color between navigation cues: parks, rivers, mountain passes, museums, and "
-"billboards. Right arrow turns all on, Left arrow all off; the switches "
+"Extra callouts between directions: parks, rivers, mountain passes, museums "
+"and billboards. Right arrow turns all on, Left arrow all off; the switches "
 "below pick each kind. Safety and navigation are never affected. Town names "
 "are the Place callouts row below."
 msgstr ""
-"导航提示之间的点缀：公园、河流、山口、博物馆和广告牌。Right方向键全部打开，Left方向键全部关闭；下面的开关分别选择每一类。安全和导航从不受影响。"
-"城镇名称在下面的“地名播报”一行。"
 
 #. placeholders: {on_off}
 msgid "Speak parks and forests: {on_off}"
@@ -31890,14 +31793,14 @@ msgid "Driving mode: {pace_label}"
 msgstr "驾驶模式：{pace_label}"
 
 msgid ""
-"Pacing and pressure. Relaxed passes about ten minutes of road and clock "
-"each real minute, with wider hazard windows, gentler damage and fatigue, "
-"calmer speech, and the most time to respond. Standard keeps balanced "
-"pressure and moves twice as fast, about twenty minutes each real minute. "
-"Real time keeps Standard's pressure and runs the driving clock at the speed "
-"of a real clock, lined up with your computer's date and time; delivery time "
-"remaining and hours of service do not move. Changeable mid-drive from the "
-"pause menu; the new pacing starts when the truck next stops."
+"How fast the clock runs and how hard the road pushes. Relaxed passes about "
+"ten minutes of road and clock each real minute, with more time to react to "
+"hazards, gentler damage and fatigue, and calmer speech. Standard keeps "
+"normal pressure at about twenty minutes each real minute. Real time keeps "
+"Standard's pressure and runs the clock at real speed, matched to your "
+"computer's date and time. Switching never changes your hours of service or "
+"the time left on a delivery. You can switch mid-drive from the pause menu; "
+"the change starts when the truck next stops."
 msgstr ""
 
 #. placeholders: {hos_label}
@@ -31921,26 +31824,52 @@ msgstr "关闭"
 msgid "On"
 msgstr "开启"
 
+#. one sentence of a longer line
 msgid ""
-"Optional early advice for a break or sleep stop with time to spare. If an "
-"earlier stop fits, the hint also names the last legally reachable fallback. "
-"While rolling, use the Rest control to select the recommended stop; use it "
-"again to cancel. Standard driving speech speaks one suggestion before the "
-"next hours warning. The driving time readout gives full hours and route "
-"details. Quiet and Urgent only keep the automatic hint silent. Your "
-"required hours warnings and readout controls still work when this is off. "
-"It also reminds you before a chain-law road if you have no chains: on the "
-"dispatch board when the load crosses a road where trucks must carry chains "
-"this season, or where live weather or a weather alert puts a chain law in "
-"effect for your truck, while the terminal garage can still sell you a set, "
-"and on the road when a posted chain law requires chains on your truck. It "
-"never buys anything."
+"Early advice to stop for a break or sleep while you have time to spare, "
+"plus the last stop you can legally reach."
 msgstr ""
-"可选的提前建议，在时间充裕时为中途休息或睡觉找停靠点。如果有更早的停靠点合适，提示还会说出最后一个合法能到达的备选。行驶中用“休息”控制键选择推荐的停靠"
-"点；再用一次即可取消。标准驾驶播报会在下一次工时警告之前说一条建议。驾驶时间查询会给出完整的工时和路线详情。安静和仅紧急模式下自动提示保持静音。关闭这一"
-"项时，必要的工时警告和查询控制仍然有效。如果你没有防滑链，它还会在防滑链法规路段前提醒你：当任务经过本季节要求卡车携带防滑链的道路，或实时天气或天气警报"
-"使你的卡车需要遵守防滑链法规时，会在场站修理厂还能出售防滑链的情况下于调度板提醒你；在路上，当已发布的防滑链法规要求你的卡车安装防滑链时也会提醒。它从不"
-"购买任何东西。"
+
+#. placeholders: {control_rest}
+msgid ""
+"Early advice to stop for a break or sleep while you have time to spare, "
+"plus the last stop you can legally reach. While rolling, {control_rest} "
+"plans the recommended stop; press it again to cancel. With Standard driving "
+"speech one hint is spoken before the next hours warning; Quiet and Urgent "
+"only keep it silent. It also warns about chain laws: at the dispatch board "
+"when the load crosses a road that needs chains and the terminal garage can "
+"still sell you a set, and on the road when a posted chain law covers your "
+"truck. It never buys anything. Hours warnings and readout keys work whether "
+"this is on or off."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Hours warnings and readout keys work whether this is on or off."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"It also warns about chain laws: at the dispatch board when the load crosses "
+"a road that needs chains and the terminal garage can still sell you a set, "
+"and on the road when a posted chain law covers your truck."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "It never buys anything."
+msgstr ""
+
+#. placeholders: {control_rest}
+#. one sentence of a longer line
+msgid ""
+"While rolling, {control_rest} plans the recommended stop; press it again to "
+"cancel."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"With Standard driving speech one hint is spoken before the next hours "
+"warning; Quiet and Urgent only keep it silent."
+msgstr ""
 
 #. placeholders: {else}
 msgid "Weather source: {else}"
@@ -31963,9 +31892,9 @@ msgid "Traffic source: {else}"
 msgstr "车流来源：{else}"
 
 msgid ""
-"Real time uses live traffic incidents from state 511 services when "
-"available."
-msgstr "“实时”在可用时使用各州511服务的实时交通事件。"
+"Real time uses live incident reports from state road information services "
+"when available."
+msgstr ""
 
 #. placeholders: {else}
 msgid "Fuel prices: {else}"
@@ -31985,8 +31914,8 @@ msgid "Parking source: {else}"
 msgstr "停车来源：{else}"
 
 msgid ""
-"Real time uses live truck parking availability from TPIMS when available."
-msgstr "“实时”在可用时使用TPIMS的实时卡车停车位信息。"
+"Real time uses live truck parking from state parking systems when available."
+msgstr ""
 
 #. placeholders: {on_off}
 msgid "Live weather controls calendar: {on_off}"
@@ -32044,16 +31973,6 @@ msgid ""
 "{control_shift_down} shifts down."
 msgstr ""
 
-#. placeholders: {automatic_direction_changes}
-msgid "Automatic direction changes: {automatic_direction_changes}"
-msgstr "自动换向：{automatic_direction_changes}"
-
-msgid ""
-"Both styles change direction with a fresh press at a standstill; a brake "
-"held through a stop just holds the truck. Deliberate requires the release "
-"and press everywhere. Automatic transmission only."
-msgstr "两种方式都是在停稳时重新按一下来换向；停车时一直踩着的刹车只是把卡车停住。“谨慎”要求在任何情况下都先松开再按。仅限自动变速箱。"
-
 msgid ""
 "Game-controller input alongside the keyboard, which always stays active. "
 "The first connected controller is used."
@@ -32085,13 +32004,13 @@ msgid ""
 msgstr ""
 
 #. placeholders: {on_off}
-msgid "Menu accelerator keys: {on_off}"
+msgid "Letters run menu items: {on_off}"
 msgstr ""
 
 msgid ""
-"When on, typing a unique first letter immediately activates that menu item. "
-"Shared initials only move between matches; press Enter to activate. Off "
-"only moves the selection."
+"On, typing the first letter of an item runs it when no other item starts "
+"with that letter. When several share it, the letter moves between them and "
+"Enter runs the one you are on. Off, letters only move to the item."
 msgstr ""
 
 msgid "Keyboard shortcuts"
@@ -32148,14 +32067,13 @@ msgstr ""
 msgid ""
 "How loud the lane and edge cues are next to everything else: the "
 "rumble-strip and shoulder textures, the lane locator on "
-"{control_lane_locator}, and the warning bars before a hairpin. It rides on "
-"the Gameplay cues volume above and moves those cues alone. Quieter sits "
-"under the engine, standard matches it, louder cuts through."
+"{control_lane_locator}, and the warning bars before a hairpin. It adjusts "
+"only these cues, on top of Gameplay cues volume. Quieter sits under the "
+"engine, standard matches it, louder cuts through."
 msgstr ""
 
 #. one sentence of a longer line
-msgid ""
-"It rides on the Gameplay cues volume above and moves those cues alone."
+msgid "It adjusts only these cues, on top of Gameplay cues volume."
 msgstr ""
 
 #. one sentence of a longer line
@@ -32310,7 +32228,7 @@ msgid ""
 msgstr ""
 
 #. placeholders: {on_off}
-msgid "Game sounds step back for speech: {on_off}"
+msgid "Lower game sounds during speech: {on_off}"
 msgstr "语音播报时降低游戏声音：{on_off}"
 
 msgid ""
@@ -32383,51 +32301,49 @@ msgstr ""
 msgid "Lane keeping: {lane_keeping_label}"
 msgstr "车道保持：{lane_keeping_label}"
 
-#. placeholders: {control_steer_left}, {control_steer_right}
 #. one sentence of a longer line
 msgid ""
-"Full holds the lane, turns {control_steer_left} and {control_steer_right} "
-"into tap lane changes, moves out of a lane a work zone closes, and takes "
-"your exits and open weigh stations, including the destination exit, without "
-"a signal."
+"Full holds the lane, moves out of a lane a work zone closes, and takes your "
+"exits and open weigh stations without a signal, including the destination "
+"exit."
 msgstr ""
 
 #. one sentence of a longer line
-msgid "How much of the lane-holding work the truck does."
-msgstr "卡车替你做多少保持车道的工作。"
+msgid "How much of the steering the truck does."
+msgstr ""
 
 #. placeholders: {control_steer_left}, {control_steer_right}
 msgid ""
-"How much of the lane-holding work the truck does. Full holds the lane, "
-"turns {control_steer_left} and {control_steer_right} into tap lane changes, "
-"moves out of a lane a work zone closes, and takes your exits and open weigh "
-"stations, including the destination exit, without a signal. Partial steers "
-"the truck through the road's bends and drifts gently, with generous "
-"steering help; lane changes and speed are yours. Off drifts like a real "
-"wheel; bends are yours unless curve assistance is on, and every exit needs "
-"its signal and its exit lane. On partial or off {lean}. The road sound only "
-"says where you sit in your lane, and the road edge answers: a stutter "
-"clipping the rumble strip, a buzz fully on it, gravel off the pavement. "
-"Steering guide and Lane guide sound, under Audio, change which way to steer "
-"and what leans. Realistic sets this off, Balanced partial, All assists full."
+"How much of the steering the truck does. Full holds the lane, moves out of "
+"a lane a work zone closes, and takes your exits and open weigh stations "
+"without a signal, including the destination exit. A tap of "
+"{control_steer_left} or {control_steer_right} changes lanes. Partial steers "
+"through bends with a gentle drift and generous help; lane changes and speed "
+"are yours. Off drifts like a real truck; bends are yours unless curve "
+"assistance is on, and every exit needs a signal and the exit lane. On "
+"partial or off, {lean}. Road noise tells you where you sit in the lane, and "
+"the edge tells you when you leave it: a stutter on the edge of the rumble "
+"strip, a buzz fully on it, gravel off the pavement. Steering guide and Lane "
+"guide sound, under Audio, change which way to steer and what leans. "
+"Realistic sets this off, Balanced partial, All assists full."
 msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"Off drifts like a real wheel; bends are yours unless curve assistance is "
-"on, and every exit needs its signal and its exit lane."
-msgstr "关闭时偏移就像真实的方向盘；弯道由你负责，除非开启了弯道辅助，而且每个出口都需要打转向灯并进入出口车道。"
+"Off drifts like a real truck; bends are yours unless curve assistance is "
+"on, and every exit needs a signal and the exit lane."
+msgstr ""
 
 #. placeholders: {lean}
 #. one sentence of a longer line
-msgid "On partial or off {lean}."
-msgstr "在部分或关闭时，{lean}。"
+msgid "On partial or off, {lean}."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"Partial steers the truck through the road's bends and drifts gently, with "
-"generous steering help; lane changes and speed are yours."
-msgstr "部分会带卡车通过道路的弯道，偏移很轻，转向帮助很充足；变道和车速由你负责。"
+"Partial steers through bends with a gentle drift and generous help; lane "
+"changes and speed are yours."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Realistic sets this off, Balanced partial, All assists full."
@@ -32435,16 +32351,16 @@ msgstr "写实把它设为关闭，均衡设为部分，全部辅助设为完全
 
 #. one sentence of a longer line
 msgid ""
-"Steering guide and Lane guide sound, under Audio, change which way to steer "
-"and what leans."
-msgstr "“音频”下的“转向引导”和“车道引导声音”可以改变转向方向和偏向的声音。"
+"Road noise tells you where you sit in the lane, and the edge tells you when "
+"you leave it: a stutter on the edge of the rumble strip, a buzz fully on "
+"it, gravel off the pavement."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"The road sound only says where you sit in your lane, and the road edge "
-"answers: a stutter clipping the rumble strip, a buzz fully on it, gravel "
-"off the pavement."
-msgstr "道路声音只告诉你在车道中的位置，路边会有回应：擦到振动带时是断续的抖动声，完全压上时是嗡嗡声，冲出路面时是碎石声。"
+"Steering guide and Lane guide sound, under Audio, change which way to steer "
+"and what leans."
+msgstr "“音频”下的“转向引导”和“车道引导声音”可以改变转向方向和偏向的声音。"
 
 #. placeholders: {acc_gap_label}
 msgid "Following gap: {acc_gap_label}"
@@ -33060,22 +32976,11 @@ msgid ""
 "truck stopped."
 msgstr "自动挡时，完全停稳，松开{control_brake}，然后再按住它就能倒车。快速轻按一下，或者停车时一直踩着刹车，卡车都会保持停住。"
 
-#. one sentence of a longer line
-msgid "Both direction-change styles use this gesture."
-msgstr "两种换向方式都用这个操作。"
-
 #. placeholders: {control_accelerate}
-#. one sentence of a longer line
 msgid ""
 "While reversing, stop with {control_accelerate}, release it, then press and "
 "hold again for forward."
 msgstr "倒车时，用{control_accelerate}停下，松开，然后再按住它就能前进。"
-
-#. placeholders: {control_accelerate}
-msgid ""
-"While reversing, stop with {control_accelerate}, release it, then press and "
-"hold again for forward. Both direction-change styles use this gesture."
-msgstr "倒车时，用{control_accelerate}停下，松开，然后再按住它就能前进。两种换向方式都用这个操作。"
 
 msgid ""
 "With Latching brake on, tap the brake, then press and hold again for half a "
@@ -33093,8 +32998,10 @@ msgstr "高速时拉驻车制动会导致急停并损坏轮胎。"
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
-msgid "Parked with it set, {control_cruise} holds high idle."
-msgstr "拉着驻车制动停车时，{control_cruise}保持高怠速。"
+msgid ""
+"Parked with the parking brake set, {control_cruise} runs the engine at a "
+"fast idle."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Set the parking brake when stopped."
@@ -33103,8 +33010,9 @@ msgstr "停车时拉上驻车制动。"
 #. placeholders: {control_cruise}
 msgid ""
 "Set the parking brake when stopped. Applying it at speed causes a hard stop "
-"and tire damage. Parked with it set, {control_cruise} holds high idle."
-msgstr "停车时拉上驻车制动。高速时拉驻车制动会导致急停并损坏轮胎。拉着驻车制动停车时，{control_cruise}保持高怠速。"
+"and tire damage. Parked with the parking brake set, {control_cruise} runs "
+"the engine at a fast idle."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -33162,8 +33070,8 @@ msgid ""
 msgstr "巡航会跟随车流。晴天时正常的3秒间隔，在恶劣天气中会加大。它不会转向。"
 
 msgid ""
-"Plus and Minus, including keypad keys, move the open-road target to the "
-"next multiple of five. Hold Control to change it by one."
+"Plus and Minus, including keypad keys, move the cruise speed to the next "
+"multiple of five. Hold Control to change it by one."
 msgstr "加号和减号，包括小键盘上的，会把开阔道路目标速度调到下一个5的倍数。按住Control则每次改1。"
 
 #. one sentence of a longer line
@@ -33176,13 +33084,13 @@ msgstr "巡航会为限速的大幅下降提前做准备，并且最多只比限
 msgid ""
 "Cruise prepares for sharp posted-limit drops and holds no more than five "
 "over the posted limit. {control_speed} reads the active speed-control mode "
-"and open-road target."
+"and cruise speed."
 msgstr "巡航会为限速的大幅下降提前做准备，并且最多只比限速高5。{control_speed}读出当前的速度控制模式和开阔道路目标速度。"
 
 #. placeholders: {control_speed}
 #. one sentence of a longer line
 msgid ""
-"{control_speed} reads the active speed-control mode and open-road target."
+"{control_speed} reads the active speed-control mode and cruise speed."
 msgstr "{control_speed}读出当前的速度控制模式和开阔道路目标速度。"
 
 msgid ""
@@ -33190,11 +33098,6 @@ msgid ""
 "cruise on open road. The target keys still change the remembered cruise "
 "speed."
 msgstr "限速保持会遵循当地限速、排队车流和转角，然后在开阔道路上交给巡航。目标速度键仍然会改变记住的巡航速度。"
-
-#. one sentence of a longer line
-msgid ""
-"Pickup pauses the session through loading and resumes it after departure."
-msgstr "取货时，这次控制在装货期间暂停，出发后恢复。"
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
@@ -33204,11 +33107,15 @@ msgstr "再按一次{control_cruise}或者踩一下刹车即可取消。"
 #. placeholders: {control_cruise}, {control_cruise_resume}
 msgid ""
 "Press {control_cruise} again or touch the brakes to cancel. "
-"{control_cruise_resume} resumes the previous target. Pickup pauses the "
-"session through loading and resumes it after departure."
+"{control_cruise_resume} resumes the previous target. Speed control pauses "
+"at the pickup and comes back on after you leave with the load."
 msgstr ""
-"再按一次{control_cruise}或者踩一下刹车即可取消。{control_cruise_resume}恢复之前的目标速度。取货时，这次控制在装货"
-"期间暂停，出发后恢复。"
+
+#. one sentence of a longer line
+msgid ""
+"Speed control pauses at the pickup and comes back on after you leave with "
+"the load."
+msgstr ""
 
 #. placeholders: {control_cruise_resume}
 #. one sentence of a longer line
@@ -33444,11 +33351,10 @@ msgstr ""
 
 #. placeholders: {control_upcoming}
 msgid ""
-"{control_upcoming} speaks the road ahead that no other key answers: your "
-"signaled exit, ramp control, next lower limit, stop, and bend requiring "
-"slowing."
+"{control_upcoming} reads what is coming up: your signaled exit, the light "
+"or stop sign at the end of the ramp, the next lower speed limit, the next "
+"stop, and the next bend you need to slow for."
 msgstr ""
-"{control_upcoming}说出其他键都不回答的前方道路信息：你打了转向灯的出口、匝道控制、下一个更低的限速、停靠点，以及需要减速的弯道。"
 
 #. placeholders: {control_cb}
 #. one sentence of a longer line
@@ -33490,9 +33396,10 @@ msgid ""
 msgstr "左右任意一个Control键停止驾驶事件语音。Escape暂停。F2按名称列出驾驶命令；Enter执行选中的命令。"
 
 msgid ""
-"Change eligible shortcuts under Settings, Gameplay, Controls, then Keyboard "
-"shortcuts or Controller buttons. These pages follow your assignments."
-msgstr "可以在设置、游戏玩法、操作里，再进入快捷键或手柄按键，更改可调整的快捷键。这些页面会跟随你的分配。"
+"Most driving keys can be changed under Settings, Gameplay, Controls, then "
+"Keyboard shortcuts or Controller buttons. These pages follow your "
+"assignments."
+msgstr ""
 
 msgid "Steering and curves"
 msgstr "转向和弯道"
@@ -33524,14 +33431,15 @@ msgid ""
 msgstr "部分会跟着弯道走，偏移很轻。关闭时转向全由你负责，除非开启了弯道辅助。按住一个转向控制键越过车道线即可变道。"
 
 msgid ""
-"With the default steering guide, steer toward the engine's lean. Road noise "
-"tells you position: sound to the right means the truck sits right of center."
-msgstr "使用默认的转向引导时，朝发动机声音偏向的一侧转。道路噪音告诉你位置：声音在右边，说明卡车偏在中心右侧。"
+"With the default steering guide, steer toward the side the engine sound "
+"moves to. Road noise tells you position: sound to the right means the truck "
+"sits right of center."
+msgstr ""
 
 msgid ""
 "With lane keeping off and curve assistance off, hold toward a called bend "
-"to follow the road. Releasing the control squares the truck with the road."
-msgstr "车道保持和弯道辅助都关闭时，朝播报的弯道方向按住转向键就能沿着道路走。松开控制键，卡车会和道路摆正。"
+"to follow the road. Letting go straightens the truck with the road."
+msgstr ""
 
 #. placeholders: {control_straighten}
 #. one sentence of a longer line
@@ -33561,30 +33469,29 @@ msgstr "振动带和碎石声来自你压到的那一侧路边。轻轻修正。
 
 #. one sentence of a longer line
 msgid ""
-"Steering guide can reverse the convention; Lane guide sound can use a "
-"separate soft tone."
-msgstr "“转向引导”可以反转这个约定；“车道引导声音”可以改用单独的轻柔提示音。"
+"The Steering guide setting can reverse which way to steer, and Lane guide "
+"sound can use a soft tone instead of the engine."
+msgstr ""
 
 #. placeholders: {control_lane_locator}
 #. one sentence of a longer line
 msgid ""
-"{control_lane_locator} toggles a continuous lane-position tock on partial "
-"or off."
-msgstr "在部分或关闭时，{control_lane_locator}开关持续的车道位置嗒嗒声。"
+"{control_lane_locator} turns the lane locator on or off: a soft tock that "
+"follows your place in the lane, with lane keeping partial or off."
+msgstr ""
 
 #. placeholders: {control_lane_locator}
 msgid ""
-"{control_lane_locator} toggles a continuous lane-position tock on partial "
-"or off. Steering guide can reverse the convention; Lane guide sound can use "
-"a separate soft tone."
+"{control_lane_locator} turns the lane locator on or off: a soft tock that "
+"follows your place in the lane, with lane keeping partial or off. The "
+"Steering guide setting can reverse which way to steer, and Lane guide sound "
+"can use a soft tone instead of the engine."
 msgstr ""
-"在部分或关闭时，{control_lane_locator}开关持续的车道位置嗒嗒声。“转向引导”可以反转这个约定；“车道引导声音”可以改用单独的轻柔提"
-"示音。"
 
 msgid ""
-"Curve assistance slows and steers through mapped bends. Your brake releases "
-"its slowing for that bend, while steering assistance remains."
-msgstr "弯道辅助会在地图上标注的弯道里减速并转向。你一踩刹车，它就放弃这个弯道的减速，但转向辅助仍然保留。"
+"Curve assistance slows and steers through mapped bends. If you brake, it "
+"stops slowing for that bend but keeps steering."
+msgstr ""
 
 msgid "Exits, ramps, and arrival"
 msgstr "出口、匝道和到达"
@@ -33663,9 +33570,13 @@ msgid ""
 msgstr "按照当地街道和场院的引导行驶，在大门停下，然后确认到达。到了收货方，选择“靠装卸口交付”。"
 
 msgid ""
-"Miss the destination exit and follow the next safe turnaround. Ordinary "
-"exits without a current action stay quiet."
-msgstr "错过目的地出口时，就按下一个安全掉头走。当前不需要操作的普通出口不会播报。"
+"If you miss the destination exit, follow the safe turnaround. Exits you "
+"have no reason to take are not announced."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "A nearby stop always comes first."
+msgstr ""
 
 #. placeholders: {control_rest}
 #. one sentence of a longer line
@@ -33675,18 +33586,16 @@ msgstr "在路线停靠点完全停下时，{control_rest}打开它的服务。"
 #. placeholders: {control_rest}
 msgid ""
 "Fully stopped at a route stop, {control_rest} opens its services. Fully "
-"stopped elsewhere, {control_rest} opens the emergency shoulder-sleep "
-"warning; nearby route points always take priority."
+"stopped elsewhere, {control_rest} offers emergency sleep on the shoulder. A "
+"nearby stop always comes first."
 msgstr ""
-"在路线停靠点完全停下时，{control_rest}打开它的服务。在其他地方完全停下时，{control_rest}打开紧急路肩睡觉的警告；附近的路线地"
-"点总是优先。"
 
 #. placeholders: {control_rest}
 #. one sentence of a longer line
 msgid ""
-"Fully stopped elsewhere, {control_rest} opens the emergency shoulder-sleep "
-"warning; nearby route points always take priority."
-msgstr "在其他地方完全停下时，{control_rest}打开紧急路肩睡觉的警告；附近的路线地点总是优先。"
+"Fully stopped elsewhere, {control_rest} offers emergency sleep on the "
+"shoulder."
+msgstr ""
 
 msgid "Traffic, weather, and enforcement"
 msgstr "车流、天气和执法"
@@ -33728,9 +33637,10 @@ msgid ""
 msgstr "在入口匝道上，主线车流在你的左边。远处高速公路的声音随车流活动变化，所以繁忙路段和安静路段听起来不一样。"
 
 msgid ""
-"Brake now means slow promptly. Change lanes or brake names an available "
-"lane. A fixed object needs a near-stop if you cannot change lanes."
-msgstr "“刹车”表示马上减速。“变道或刹车”会说出可用的车道。如果无法变道，遇到固定障碍物就要几乎停下。"
+"When you hear Brake now, slow down right away. Change lanes or brake means "
+"something is stopped in your lane: move to the open lane it names, or brake "
+"almost to a stop."
+msgstr ""
 
 msgid ""
 "No lane open means brake. Full lane keeping can pass slow vehicles, but "
@@ -33789,15 +33699,16 @@ msgid ""
 msgstr "州警向你示意时，用{control_take_exit}并刹车停下，接受驾照和驾驶日志检查。不理会警灯会升级为强制拦停或追捕。"
 
 #. one sentence of a longer line
-msgid "CB chatter reports what other drivers saw, with uncertainty."
-msgstr "CB闲聊会报告其他司机看到的情况，但不一定准确。"
+msgid ""
+"CB chatter is what other drivers say they saw, and it is not always right."
+msgstr ""
 
 #. placeholders: {control_cb}
 msgid ""
-"CB chatter reports what other drivers saw, with uncertainty. It can be "
-"stale and never claims the road is clear. {control_cb} repeats it with "
-"updated distance."
-msgstr "CB闲聊会报告其他司机看到的情况，但不一定准确。它可能已经过时，而且从不保证道路畅通。{control_cb}会重复它，并更新距离。"
+"CB chatter is what other drivers say they saw, and it is not always right. "
+"It can be stale and never claims the road is clear. {control_cb} repeats it "
+"with updated distance."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "It can be stale and never claims the road is clear."
@@ -33835,15 +33746,16 @@ msgid ""
 msgstr "工时时钟规定，休息10小时后可以驾驶11小时，并且要在14小时的当班时段内。累计驾驶8小时后，需要一次30分钟的中途休息。"
 
 msgid ""
-"Any thirty consecutive non-driving minutes satisfy that break, including "
+"Any thirty minutes in a row without driving count as that break, including "
 "loading or inspection. They do not necessarily reset the duty window."
-msgstr "任何连续30分钟不驾驶的时间都算这次中途休息，包括装货或检查。但它们不一定会重置当班时段。"
+msgstr ""
 
 msgid ""
 "Both hours modes use these limits. Relaxed changes enforcement pressure. "
 "One warning comes before each limit: one hour left in the Relaxed driving "
 "mode, two hours in Standard, and two hours, one hour and thirty minutes in "
-"Real time. None comes for a limit the trip ends inside."
+"Real time. No warning comes for a limit you will not reach before the trip "
+"ends."
 msgstr ""
 
 #. one sentence of a longer line
@@ -33869,15 +33781,13 @@ msgstr ""
 "的限制和能到达的休息地点。车流或天气变化时再查一次。"
 
 msgid ""
-"Ten-hour sleep is the simplest reset. Supported sleeper parking offers two, "
-"three, seven, or eight hours for an eight-plus-two or seven-plus-three "
-"split."
-msgstr "睡满10小时是最简单的重置。支持卧铺的停车位可以选择2、3、7或8小时，用来做8加2或7加3的分段休息。"
+"Ten-hour sleep is the simplest reset. Sleeper parking also offers 2, 3, 7 "
+"or 8 hours. Pair 8 with 2, or 7 with 3, for a split rest. The long part "
+"pauses the duty window; the short part does not, until the pair is done."
+msgstr ""
 
-msgid ""
-"The long split pauses the duty window. The short half counts until the pair "
-"completes. A nap that leaves the window running tells you when it closes."
-msgstr "长的那一段会暂停当班时段。短的那一半在两段凑齐之前一直计入。如果小睡时当班时段还在走，会告诉你它什么时候结束。"
+msgid "A nap that is not part of a split leaves the duty window running."
+msgstr ""
 
 msgid ""
 "Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
@@ -33896,9 +33806,9 @@ msgid ""
 msgstr "停靠点只提供列出的服务。停车场满了也可能还在卖柴油。汽车旅馆可能提供完整休息，但要你自己付钱。"
 
 msgid ""
-"Sleep 10 hours in the lot is poor rest. Sleeper parking gives fully-rested "
-"ten-hour sleep."
-msgstr "“在停车场睡10小时”休息效果不好。卧铺停车位能让你睡满10小时并完全恢复。"
+"Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
+"leaves you fully rested."
+msgstr ""
 
 #. placeholders: {control_rest}
 msgid ""
@@ -33933,14 +33843,14 @@ msgid ""
 msgstr "离开前，绕甩挂的挂车走一圈检查。缺陷可能在场院被拒收，或者稍后在检查时被发现。"
 
 msgid ""
-"Company drivers receive wages and bonuses. Owners receive higher gross with "
-"fuel, repair, reserves, trailer charges, and fees to pay."
-msgstr "公司司机拿工资和奖金。车主司机的毛收入更高，但要支付燃油、维修、准备金、挂车费用和各种费用。"
+"Company drivers receive wages and bonuses. Owner-operators earn more per "
+"load but pay fuel, repairs, reserves, trailer charges and fees."
+msgstr ""
 
 msgid ""
-"Settlement separates gross pay, carrier-paid or reimbursed charges, driver "
-"costs, and net driver pay. On-time and undamaged freight pays better."
-msgstr "结算会分开列出毛收入、承运商支付或报销的费用、司机成本，以及司机净收入。按时且没有损坏的货物收入更高。"
+"Settlement lists the pay for the load, charges the carrier covers, your own "
+"costs, and what you take home. On-time and undamaged freight pays better."
+msgstr ""
 
 msgid ""
 "Unpaid charges become a balance owed. Later settlements use one quarter for "
@@ -33948,10 +33858,10 @@ msgid ""
 msgstr "未付的费用会变成未结欠款。之后的结算会拿出四分之一同时偿还债务和预支款，剩下四分之三归你。"
 
 msgid ""
-"Debt warnings name the ceiling and consequence. At the ceiling, a company "
-"driver changes carrier or an owner loses tractors and returns to company "
-"driving."
-msgstr "债务警告会说明上限和后果。达到上限时，公司司机会更换承运商，车主司机则会失去牵引车，回去当公司司机。"
+"Debt warnings say the most you can owe and what happens when you reach it. "
+"At that limit, a company driver changes carrier or an owner loses tractors "
+"and returns to company driving."
+msgstr ""
 
 msgid ""
 "You keep career level, experience, endorsements, and record. Career stats "
@@ -33966,9 +33876,9 @@ msgstr "修理厂可以加油、维修、换轮胎，以及保养刹车和发动
 
 msgid ""
 "At eighty percent component wear, arrange service. At one hundred, that "
-"component puts the truck out of service. Damage has separate reduced-power, "
-"limp-mode, and out-of-service bands."
-msgstr "部件磨损到百分之80时，安排保养。到百分之100时，这个部件会让卡车停驶。损坏另有动力受限、跛行模式和停驶几个阶段。"
+"component puts the truck out of service. As damage builds, the truck loses "
+"power, then goes into limp mode, then out of service."
+msgstr ""
 
 msgid ""
 "Owners buy tractors, upgrades, and trailer programs. Each truck keeps its "
@@ -34103,9 +34013,9 @@ msgstr ""
 
 msgid ""
 "Traffic reports traffic ahead, including a reported vehicle's distance and "
-"speed. No reported pinch in the next twenty miles does not guarantee an "
+"speed. No slowdowns reported in the next twenty miles does not guarantee an "
 "empty road."
-msgstr "“车流”报告前方的车流，包括被报告车辆的距离和速度。接下来20英里内没有报告拥堵，并不保证道路空无一车。"
+msgstr ""
 
 msgid ""
 "Truck stops lists up to three route stops in the next hundred miles, with "
@@ -34114,20 +34024,19 @@ msgid ""
 msgstr "“卡车服务站”列出接下来100英里内最多三个路线停靠点，并说明距离和服务。选择停靠点前，先看看有没有燃油、维修和停车位。"
 
 #. one sentence of a longer line
-msgid "Enforcement reports are quiet in hours modes without enforcement."
-msgstr "在没有执法的工时模式下，执法报告保持安静。"
-
-#. one sentence of a longer line
 msgid "Road chatter gives informal driver reports that may be stale."
 msgstr "“沿途见闻”提供司机们非正式的报告，可能已经过时。"
 
 #. placeholders: {control_cb}
 msgid ""
-"Road chatter gives informal driver reports that may be stale. Enforcement "
-"reports are quiet in hours modes without enforcement. {control_cb} repeats "
-"the last chatter with its distance updated."
+"Road chatter gives informal driver reports that may be stale. With hours "
+"enforcement off, there are no enforcement reports. {control_cb} repeats the "
+"last chatter with its distance updated."
 msgstr ""
-"“沿途见闻”提供司机们非正式的报告，可能已经过时。在没有执法的工时模式下，执法报告保持安静。{control_cb}重复最近一条闲聊，并更新它的距离。"
+
+#. one sentence of a longer line
+msgid "With hours enforcement off, there are no enforcement reports."
+msgstr ""
 
 #. placeholders: {control_cb}
 #. one sentence of a longer line
@@ -34204,11 +34113,9 @@ msgstr "电台状态会列出能收到的电台。用“电台”应用选择或
 msgid ""
 "Regional stations fade as you leave their range. Favorites play from "
 "anywhere and never fade. If reception fails, the radio tries a clear local "
-"station, then a fallback. Failed streams leave the dial for that session. "
-"Roadhouse and Night Line are available across the map."
+"station, then a fallback. A stream that fails is off the dial until you "
+"restart the game. Roadhouse and Night Line are available across the map."
 msgstr ""
-"离开覆盖范围时，地区电台会逐渐消失。收藏的电台在任何地方都能播放，也不会消失。如果信号断了，收音机会先找一个清晰的本地电台，再换备用电台。播放失败的网络"
-"电台在本次游戏中会从频道中移除。Roadhouse和Night Line在整张地图上都能收到。"
 
 msgid ""
 "Put M3U, M3U8, or PLS playlists in the Playlists folder inside your saves "
@@ -34226,13 +34133,11 @@ msgstr ""
 "个人播放列表通常按顺序播放，并从你上次离开的地方继续。随机播放会按随机顺序把每首歌都播一遍，然后换一个新的顺序。无法读取的条目会被跳过。"
 
 msgid ""
-"Original music uses licensed menu and Roadhouse tracks. Synthesized uses "
-"music the game composes and the original three tracks, removing fictional "
-"regional stations and voiced breaks. Real streams and personal playlists "
-"remain unless streamer-safe mode hides them."
+"Original uses the licensed menu and Roadhouse tracks. Synthesized plays "
+"music the game composes plus the three original tracks, and takes Freight "
+"Fate's regional stations and voiced breaks off the dial. Real streams and "
+"personal playlists remain unless streamer-safe mode hides them."
 msgstr ""
-"“原版”音乐使用授权的菜单和Roadhouse曲目。“合成”使用游戏自己作的曲子和三首原版曲目，并移除虚构的地区电台和有人声的插播。真实的网络电台和个人"
-"播放列表仍然保留，除非直播安全模式把它们隐藏。"
 
 msgid ""
 "Streamer-safe mode keeps built-in safe stations. With Synthesized music, "
@@ -34302,11 +34207,9 @@ msgstr ""
 
 msgid ""
 "Adjust music, radio, engine, weather, and gameplay cues separately if one "
-"covers another. Game sounds step back for speech lowers engine, weather, "
+"covers another. Lower game sounds during speech turns the engine, weather, "
 "and radio to half volume while the road voice speaks."
 msgstr ""
-"如果某个声音盖过了另一个，可以分别调整音乐、收音机、发动机、天气和游戏提示的音量。“语音播报时降低游戏声音”会在道路语音说话时把发动机、天气和收音机降到"
-"一半音量。"
 
 msgid ""
 "Driving speech chooses Standard, Quiet, or Urgent only announcements. "
@@ -34353,12 +34256,10 @@ msgid ""
 msgstr "主页分享包括你的动态、成就和行车日志。公开主页不包含当前现金、完整存档、坐标和精确位置。职业统计需要一个已被接受的私人备份。"
 
 msgid ""
-"Cloud backup keeps ten accepted revisions per career and up to ten careers. "
-"Restore checks the signed backup and keeps the replaced local save as a "
-"fallback. Back up this career now uploads immediately."
+"Cloud backup keeps the last ten backups of each career, for up to ten "
+"careers. Restoring checks the backup first and keeps your replaced save as "
+"a spare copy. Back up this career now uploads immediately."
 msgstr ""
-"云备份为每段职业生涯保留10个已接受的版本，最多保留10段职业生涯。恢复时会检查带签名的备份，并把被替换的本地存档留作备用。“现在备份这段职业生涯”会立"
-"即上传。"
 
 msgid "Discord shows broad activity and clears it after half an hour idle."
 msgstr "Discord会显示大致活动，闲置半小时后自动清除。"
@@ -34720,9 +34621,9 @@ msgid "{pad_radio} turns it on or off."
 msgstr "{pad_radio} 打开或关闭电台。"
 
 msgid ""
-"To learn the buttons, hold Back and press Start on any screen. Each button "
-"you press says what it does; Start twice leaves."
-msgstr "要学习按钮，可在任何界面按住 Back 再按 Start。按下的每个按钮都会说出它的作用；按两次 Start 退出。"
+"To practice the buttons, hold Back and press Start on any screen. Press "
+"Start twice to leave."
+msgstr ""
 
 msgid ""
 "If the controller does nothing, check that Controller is enabled under "
@@ -34942,8 +34843,8 @@ msgstr "在浏览器中打开你的orinks.net司机设置页面，可以设置�
 msgid "Profile sharing: not set up"
 msgstr "主页分享：未设置"
 
-msgid "Profile sharing: off requested"
-msgstr "主页分享：已请求关闭"
+msgid "Profile sharing: turning off"
+msgstr ""
 
 #. placeholders: {on_off}
 msgid "Profile sharing: {on_off}"
@@ -37271,6 +37172,1374 @@ msgstr "镜像地址必须以 https:// 开头。"
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr "镜像地址不能包含查询参数或片段。"
+
+#~ msgid ""
+#~ "Delivered {f} tons of {label} to {destination} in {f2} hours, "
+#~ "{else}.{receiver_service_clause} {clock_text}. {pay_label} {grouped} "
+#~ "dollars. Charges {grouped2}: tolls {grouped3}, extra charges "
+#~ "{charge_summary}. {accessorial_clause} Business status: {status_label}. "
+#~ "Costs {grouped4}. Fines {grouped5}. Net {grouped6}, you have {grouped7}. "
+#~ "Parked at {name}."
+#~ msgstr ""
+#~ "在{f2}小时内将{f}吨{label}交付给{destination}，{else}.{receiver_service_clause} "
+#~ "{clock_text}。{pay_label} {grouped} "
+#~ "美元。收费{grouped2}：通行费{grouped3}，配件{charge_summary}。{accessorial_clause} "
+#~ "经营状况：{status_label}。成本 {grouped4}。罚款 "
+#~ "{grouped5}。净{grouped6}，你有{grouped7}。停在{name}。"
+
+#~ msgid "{pay_label} {grouped} dollars."
+#~ msgstr "{pay_label}{grouped}美元。"
+
+#~ msgid "; no big rigs allowed, so you can only stop here running bobtail"
+#~ msgstr "；不允许大型卡车进入，所以只有单车头行驶时才能在这里停靠"
+
+#~ msgid "Direct gross"
+#~ msgstr "直接总收入"
+
+#~ msgid "Gross revenue"
+#~ msgstr "总收入"
+
+#~ msgid "Carrier gross"
+#~ msgstr "承运商总收入"
+
+#~ msgid ""
+#~ "Own authority active. Direct freight is available on the dispatch board, "
+#~ "with insurance, compliance, and factoring costs in settlement."
+#~ msgstr "自有运营资质已生效。调度板上有直接货源，结算时会扣除保险、合规和保理费用。"
+
+#~ msgid "Direct freight pays higher gross."
+#~ msgstr "直接货源的总收入更高。"
+
+#~ msgid ""
+#~ "Own authority active. Level {level}: {title}. Direct freight pays higher "
+#~ "gross. You pay fuel, repairs, insurance, trailer reserve, truck reserve, "
+#~ "compliance reserve, and factoring costs. {transponder}{next_business_unlock}"
+#~ msgstr ""
+#~ "自有运营资质已生效。{level}级：{title}。直接货源的总收入更高。你要承担燃油、维修、保险、挂车准备金、卡车准备金、合规准备金和保理费用。{t"
+#~ "ransponder}{next_business_unlock}"
+
+#~ msgid ""
+#~ "You pay fuel, repairs, insurance, trailer reserve, truck reserve, "
+#~ "compliance reserve, and factoring costs."
+#~ msgstr "你要承担燃油、维修、保险、挂车准备金、卡车准备金、合规准备金和保理费用。"
+
+#~ msgid "Gross revenue is higher."
+#~ msgstr "总收入更高。"
+
+#~ msgid ""
+#~ "{lead}Leased to {carrier_name}. Level {level}: {title}. Gross revenue is "
+#~ "higher. You pay fuel, repairs, maintenance reserve, insurance, trailer "
+#~ "program, truck reserve, and settlement fees. "
+#~ "{readiness}{transponder}{next_business_unlock}"
+#~ msgstr ""
+#~ "{lead}挂靠在{carrier_name}。{level}级：{title}。总收入更高。你要承担燃油、维修、保养准备金、保险、挂车计划、卡车准备金"
+#~ "和结算手续费。{readiness}{transponder}{next_business_unlock}"
+
+#~ msgid "factoring fee"
+#~ msgstr "保理费"
+
+#~ msgid "Working-capital target becomes visible."
+#~ msgstr "周转资金目标现在可以看到了。"
+
+#~ msgid "Owner-operator settlements become the normal business rhythm."
+#~ msgstr "车主司机结算成为正常的经营节奏。"
+
+#~ msgid "Authority prep reserve can unlock when other gates are met."
+#~ msgstr "其他门槛满足后，可以解锁资质准备金。"
+
+#~ msgid "Direct freight readiness gates become clearer."
+#~ msgstr "直接货源的准备门槛更清楚了。"
+
+#~ msgid ""
+#~ "Prepared for own authority without simulating a full compliance office."
+#~ msgstr "已为自有运营资质做好准备，无需模拟整个合规办公室。"
+
+#~ msgid "Own authority and direct freight unlock when other gates are met."
+#~ msgstr "其他门槛满足后，解锁自有运营资质和直接货源。"
+
+#~ msgid ""
+#~ "Direct freight is available with insurance, compliance, and factoring costs."
+#~ msgstr "可以接直接货源，需承担保险、合规和保理费用。"
+
+#~ msgid "Building a stronger one-truck book of repeat freight."
+#~ msgstr "建立更稳固的单车回头货源。"
+
+#~ msgid "Dispatch favors you with steadier premium freight on company iron."
+#~ msgstr "调度会优先让你开公司车跑更稳定的优质货物。"
+
+#~ msgid ""
+#~ "Fleet-captain standing: priority company freight and mentoring weight."
+#~ msgstr "车队队长地位：优先获得公司货物，指导意见也更有分量。"
+
+#~ msgid "Miles and reputation compound on carrier equipment."
+#~ msgstr "里程和声誉在承运商的设备上不断累积。"
+
+#~ msgid "An elite company driver with first call on high-consequence freight."
+#~ msgstr "精英公司司机，优先接手出了事后果严重的货物。"
+
+#~ msgid "a manual-spec pay differential on drives made on a manual gearbox"
+#~ msgstr "用手动变速箱驾驶时的手动挡工资补贴"
+
+#~ msgid ""
+#~ "You retook the skills test in a manual truck, and the automatic-only "
+#~ "restriction is off your license. Drives made on a manual gearbox now pay a "
+#~ "small manual-spec differential in the settlement."
+#~ msgstr "你在手动挡卡车上重考了技能考试，驾照上的仅限自动挡限制已经取消。用手动变速箱开的行程，现在会在结算时多拿一点手动挡补贴。"
+
+#~ msgid " Enter books it, or says why you do not qualify."
+#~ msgstr " 按 Enter 预约，或者告诉你为什么不符合条件。"
+
+#~ msgid ""
+#~ "The carrier's insurer will not carry a record like that; "
+#~ "{LAST_CHANCE_CARRIER_NAME} keeps you on sufferance until "
+#~ "{record_clears_text}."
+#~ msgstr ""
+#~ "承运商的保险公司不接受这样的记录；{LAST_CHANCE_CARRIER_NAME}勉强留着你，直到{record_clears_text}。"
+
+#~ msgid ""
+#~ "You cannot drive with a lifetime CDL disqualification, not even bobtail."
+#~ msgstr "CDL被终身取消资格，你不能开车，连单开车头也不行。"
+
+#~ msgid "You cannot drive, not even bobtail, while your CDL is {verb}."
+#~ msgstr "你的CDL被{verb}期间，你不能开车，连单开车头也不行。"
+
+#~ msgid ""
+#~ "You cannot drive, not even bobtail, while your CDL is {verb}. The {noun} "
+#~ "ends {clears_text}."
+#~ msgstr "CDL处于{verb}状态时不能驾驶，即使不挂挂车也不行。{noun}会在{clears_text}结束。"
+
+#~ msgid "Carrier gross {pay} dollars."
+#~ msgstr "承运商总收入{pay}美元。"
+
+#~ msgid "Direct gross {pay} dollars."
+#~ msgstr "直接毛额{pay}元。"
+
+#~ msgid "Gross revenue {pay} dollars."
+#~ msgstr "总收入{pay} 美元。"
+
+#~ msgid "No {lower} stop with a 30-minute buffer."
+#~ msgstr "没有 {lower} 停止，有 30 分钟的缓冲。"
+
+#~ msgid ""
+#~ "No {lower} stop with a 30-minute buffer. Last legal stop: {name}, "
+#~ "{fallback_distance} ahead."
+#~ msgstr "没有 {lower} 停止，有 30 分钟的缓冲。最后合法停靠站：{name}，前方为{fallback_distance}。"
+
+#~ msgid ""
+#~ "Destination fits this shift, about {destination_travel_min} minutes. No HOS "
+#~ "stop first."
+#~ msgstr "本次轮班内可以到达目的地，约需{destination_travel_min}分钟，中途无需因驾驶工时停车。"
+
+#~ msgid "No HOS stop first."
+#~ msgstr "中途无需因驾驶工时停车。"
+
+#~ msgid "This stop also has a comfortable estimated buffer."
+#~ msgstr "这个停靠点的预计余量也很宽裕。"
+
+#~ msgid "No earlier compatible stop offers a 30-minute estimated buffer."
+#~ msgstr "之前没有合适的停靠点能留出30分钟的预计余量。"
+
+#~ msgid ""
+#~ "The owner-operator path is still open to you, and the buy-in gates are the "
+#~ "same ones you cleared to get here."
+#~ msgstr "车主司机这条路仍然对你开放，买断门槛和你当初达到的一样。"
+
+#~ msgid ""
+#~ "You are a company driver again, on the payroll at {hiring} and in a carrier "
+#~ "tractor. The owner-operator path is still open to you, and the buy-in gates "
+#~ "are the same ones you cleared to get here."
+#~ msgstr "你又成了公司司机，在{hiring}的工资单上，开承运商的牵引车。车主司机这条路仍然对你开放，买断门槛和你当初达到的一样。"
+
+#~ msgid ""
+#~ "Settlements are driver wages and bonuses from here. The owner-operator "
+#~ "buy-in stays open under Business status, and the gates are the ones you "
+#~ "already cleared."
+#~ msgstr "从现在起，结算是司机的工资和奖金。车主司机买断一直在经营状况里开放，门槛就是你已经达到过的那些。"
+
+#~ msgid ""
+#~ "Hours of service: {duration_text} of driving left, {duration_text2} left in "
+#~ "the 14-hour window."
+#~ msgstr "驾驶工时：剩余驾驶时间{duration_text}，14小时当班时段剩余{duration_text2}。"
+
+#~ msgid ""
+#~ "Hours of service: {duration_text} of driving left, 30-minute break due in "
+#~ "{duration_text2}, {duration_text3} left in the 14-hour window."
+#~ msgstr ""
+#~ "驾驶工时：剩余驾驶时间{duration_text}，再过{duration_text2}须进行30分钟中途休息，14小时当班时段剩余{duration"
+#~ "_text3}。"
+
+#~ msgid ", {duration_text} left in the 14-hour window"
+#~ msgstr ", {duration_text} 留在 14 小时窗口内"
+
+#~ msgid "{duration_text} left in the 14-hour window"
+#~ msgstr "{duration_text} 留在 14 小时窗口内"
+
+#~ msgid ""
+#~ "Sleeper split open: 2 more hours off duty or in the sleeper to pair it."
+#~ msgstr "卧铺分段休息尚未配对：还需离岗或在卧铺休息2小时。"
+
+#~ msgid ""
+#~ "Sleeper split open: 3 more hours off duty or in the sleeper to pair it."
+#~ msgstr "卧铺分段休息尚未配对：还需离岗或在卧铺休息3小时。"
+
+#~ msgid "Sleeper split open: 7 more hours in the sleeper to pair it."
+#~ msgstr "卧铺分段休息尚未配对：还需在卧铺休息7小时。"
+
+#~ msgid "Sleeper split open: 8 more hours in the sleeper to pair it."
+#~ msgstr "卧铺分段休息尚未配对：还需在卧铺休息8小时。"
+
+#~ msgid "Last-known conditions in use."
+#~ msgstr "正在使用最近一次已知的天气状况。"
+
+#~ msgid "{notice}. Last-known conditions in use."
+#~ msgstr "{notice}。最后已知的使用条件。"
+
+#~ msgid "Taper squeezing, {distance}."
+#~ msgstr "收窄处拥挤，{distance}。"
+
+#~ msgid "Taper squeezing, {distance}. Merge {side}."
+#~ msgstr "收窄处拥挤，{distance}。向{side}并线。"
+
+#~ msgid "construction taper traffic"
+#~ msgstr "施工收窄处车流"
+
+#~ msgid "Simulated fallback weather; live weather is unavailable"
+#~ msgstr "模拟备用天气；无法获取实时天气"
+
+#~ msgid "The observation is less than a minute old"
+#~ msgstr "观测数据是不到一分钟前的"
+
+#~ msgid "The observation is {minutes} {unit} old"
+#~ msgstr "观测数据是{minutes}{unit}前的"
+
+#~ msgid "Observation age is unavailable"
+#~ msgstr "观测时间不可用"
+
+#~ msgid "Temporary neutral driving conditions in use"
+#~ msgstr "正在使用临时的中性驾驶条件"
+
+#~ msgid "{source_label}. Temporary neutral driving conditions in use"
+#~ msgstr "{source_label}。正在使用临时的中性驾驶条件"
+
+#~ msgid "Simulated fallback weather: {conditions}."
+#~ msgstr "模拟备用天气：{conditions}。"
+
+#~ msgid ""
+#~ "Simulated fallback weather: {conditions}. Live weather is unavailable"
+#~ msgstr "模拟备用天气：{conditions}。无法获取实时天气"
+
+#~ msgid "Live weather is unavailable. Simulated fallback weather"
+#~ msgstr "无法获取实时天气。模拟备用天气"
+
+#~ msgid "Simulated fallback conditions"
+#~ msgstr "模拟备用状况"
+
+#~ msgid ""
+#~ "Two cylinders of retard: the lightest setting. Enough to hold speed on a "
+#~ "gentle grade without touching the brakes. Drivers call this the jake."
+#~ msgstr "两个气缸的制动：最轻的一档。足以在缓坡上不碰刹车就保持车速。司机们把它叫作jake。"
+
+#~ msgid ""
+#~ "Four cylinders of retard. The usual working setting on a long descent. "
+#~ "Drivers call this the jake."
+#~ msgstr "四个气缸的制动。长下坡时常用的工作档位。司机们把它叫作jake。"
+
+#~ msgid ""
+#~ "Roadwork ahead. The posted limit drops, a lane may close, and the taper "
+#~ "callout names which side. Move over when told or you will go through the "
+#~ "barrels."
+#~ msgstr "前方道路施工。限速降低，可能有车道封闭，收窄处的播报会说出是哪一侧。听到提示就换道，否则你会撞进路障桶里。"
+
+#~ msgid "If you think this is wrong, say so in the tester document."
+#~ msgstr "如果你觉得有误，请在测试者文档里说明。"
+
+#~ msgid ""
+#~ "{name}: backup not accepted. The numbers in this save do not look like "
+#~ "possible play, so the server declined it and flagged it for review. Your "
+#~ "local career is safe and nothing public changed. If you think this is "
+#~ "wrong, say so in the tester document."
+#~ msgstr ""
+#~ "{name}：备份未被接受。这个存档里的数字看起来不像是正常游玩能达到的，所以服务器拒绝了它，并标记为待审核。你本地的职业生涯是安全的，公开的内容也没有"
+#~ "任何变化。如果你觉得有误，请在测试者文档里说明。"
+
+#~ msgid ""
+#~ "Your game and the server disagree about this save's shape, usually a build "
+#~ "mismatch, not something you did."
+#~ msgstr "你的游戏和服务器对这个存档的结构看法不一致，通常是版本不匹配，不是你做错了什么。"
+
+#~ msgid ""
+#~ "{name}: backup not accepted. Your game and the server disagree about this "
+#~ "save's shape, usually a build mismatch, not something you did. Your local "
+#~ "career is safe."
+#~ msgstr "{name}：备份未被接受。你的游戏和服务器对这个存档的结构看法不一致，通常是版本不匹配，不是你做错了什么。你本地的职业生涯是安全的。"
+
+#~ msgid ""
+#~ "Listed amounts are direct freight gross. Insurance, compliance, trailer, "
+#~ "truck, and factoring costs come out at settlement."
+#~ msgstr "列出的金额为直接运费总额。保险、合规、拖车、卡车和保理费用在结算时产生。"
+
+#~ msgid ""
+#~ "Listed amounts are owner-operator gross revenue. Trailer program needs are "
+#~ "listed on each job."
+#~ msgstr "所列金额为车主司机总收入。每项任务都会列出挂车计划要求。"
+
+#~ msgid ""
+#~ "Listed amounts are carrier gross, your settlement pays driver wages. "
+#~ "Routing is assigned until you run your own truck."
+#~ msgstr "所列金额为承运商总收入，你的结算会支付司机工资。在驾驶自己的卡车之前，路线由调度分配。"
+
+#~ msgid ""
+#~ "Dispatch assigned this reposition, an empty deadhead with no pickup "
+#~ "facility. Route inspection after accepting covers rest, fuel, toll, "
+#~ "weather, and restrictions."
+#~ msgstr "调度指派了这次调车，一趟没有发货厂区的空车行驶。接受后的路线检查涵盖休息、燃油、过路费、天气和限制。"
+
+#~ msgid ""
+#~ "Dispatch assigned this load. Accepting starts the deadhead from your "
+#~ "terminal to its origin facility. Route inspection after pickup covers rest, "
+#~ "fuel, toll, weather, and restrictions."
+#~ msgstr "调度指派了这单货物。接受后会开始从你的场站空车开往它的发货厂区。提货后的路线检查涵盖休息、燃油、过路费、天气和限制。"
+
+#~ msgid ""
+#~ "Accepted.{equipment_note} Deadhead {distance_text} on {cloned} to pickup at "
+#~ "{origin_facility_text}."
+#~ msgstr ""
+#~ "已接受。{equipment_note}先沿{cloned}空驶{distance_text}，前往{origin_facility_text}提货。"
+
+#~ msgid ""
+#~ "Accepted.{equipment_note} Deadhead {distance_text} on {cloned} to "
+#~ "{origin_facility_text}."
+#~ msgstr ""
+#~ "已接受。{equipment_note}先沿{cloned}空驶{distance_text}，前往{origin_facility_text}。"
+
+#~ msgid "Carrier-assigned reposition: an empty deadhead to {destination}."
+#~ msgstr "承运商指派的调车：空车开往{destination}。"
+
+#~ msgid ""
+#~ "Carrier-assigned reposition: an empty deadhead to {destination}. Route "
+#~ "inspection after accepting covers rest, fuel, toll, weather, and "
+#~ "restrictions."
+#~ msgstr "承运商指派的调车：空车开往{destination}。接受后的路线检查涵盖休息、燃油、过路费、天气和限制。"
+
+#~ msgid ""
+#~ "Route inspection after accepting covers rest, fuel, toll, weather, and "
+#~ "restrictions."
+#~ msgstr "接受后的路线检查涵盖休息、燃油、过路费、天气和限制。"
+
+#~ msgid ""
+#~ "Load offer from {origin_facility_text} to {destination_facility_text}. "
+#~ "Route inspection after pickup covers rest, fuel, toll, weather, and "
+#~ "restrictions."
+#~ msgstr ""
+#~ "货物报价，从{origin_facility_text}到{destination_facility_text}。提货后的路线检查涵盖休息、燃油、过路费"
+#~ "、天气和限制。"
+
+#~ msgid ""
+#~ "Route inspection after pickup covers rest, fuel, toll, weather, and "
+#~ "restrictions."
+#~ msgstr "提货后的路线检查涵盖休息、燃油、过路费、天气和限制。"
+
+#~ msgid "Load in {origin}, {deadhead} deadhead first. "
+#~ msgstr "货物在{origin}，需要先空驶{deadhead}。"
+
+#~ msgid "Pay: {grouped} dollars, the empty-mile rate."
+#~ msgstr "报酬：{grouped}美元，按空驶里程费率。"
+
+#~ msgid "Bobtail to a nearby city"
+#~ msgstr "单开车头去附近城市"
+
+#~ msgid "Bobtail to {spoken_dest}, {distance_text} on {cloned}."
+#~ msgstr "沿{cloned}单开车头行驶{distance_text}，前往{spoken_dest}。"
+
+#~ msgid "Bobtail to {spoken_dest}, {distance_text} on {cloned}. No pay."
+#~ msgstr "沿{cloned}单开车头行驶{distance_text}，前往{spoken_dest}。没有报酬。"
+
+#~ msgid "Recent Record of Duty Status entries."
+#~ msgstr "最近的值班状态记录条目。"
+
+#~ msgid "{maintenance_status_line} Compound: {compound}."
+#~ msgstr "{maintenance_status_line}胎面类型：{compound}。"
+
+#~ msgid "Tire wear: {f} percent, {compound} compound."
+#~ msgstr "轮胎磨损：百分之{f}，{compound}胎面。"
+
+#~ msgid "Simulated fallback weather"
+#~ msgstr "模拟的备用天气"
+
+#~ msgid " The observation is {age} old."
+#~ msgstr " 这次观测是{age}前的。"
+
+#~ msgid ""
+#~ "Authority prep reserve set aside: {grouped} dollars. You have {grouped2} "
+#~ "dollars left. Own authority unlocks after the delivery, reputation, trailer "
+#~ "program, and cash gates."
+#~ msgstr ""
+#~ "已预留资质准备金：{grouped}美元。你还剩{grouped2}美元。达到送货、声誉、挂车计划和现金这几道门槛后，自有运营资质就会解锁。"
+
+#~ msgid ""
+#~ "Own authority unlocks after the delivery, reputation, trailer program, and "
+#~ "cash gates."
+#~ msgstr "达到送货、声誉、挂车计划和现金这几道门槛后，自有运营资质就会解锁。"
+
+#~ msgid ""
+#~ "Own authority active. Startup cost {grouped} dollars. You have {grouped2} "
+#~ "dollars left. Dispatch now lists direct freight. Settlement includes "
+#~ "insurance, compliance, trailer, truck, and factoring costs."
+#~ msgstr ""
+#~ "自有运营资质已生效。启动费用{grouped}美元。你还剩{grouped2}美元。调度现在会列出直接货源。结算包括保险、合规、挂车、卡车和保理费用。"
+
+#~ msgid ""
+#~ "Settlement includes insurance, compliance, trailer, truck, and factoring "
+#~ "costs."
+#~ msgstr "结算包括保险、合规、挂车、卡车和保理费用。"
+
+#~ msgid "Buy into leased-on owner-operator: {grouped} dollars"
+#~ msgstr "买断成为挂靠承运商的车主司机：{grouped}美元"
+
+#~ msgid ""
+#~ "Direct freight is available. Settlement includes insurance, compliance, and "
+#~ "factoring costs."
+#~ msgstr "有直接货源可接。结算包括保险、合规和保理费用。"
+
+#~ msgid "Direct freight, higher gross revenue, more business overhead."
+#~ msgstr "直接货源，毛收入更高，经营开销也更大。"
+
+#~ msgid ""
+#~ "Open scales run a weigh-in-motion check on this truck instead of demanding "
+#~ "every truck pull in."
+#~ msgstr "开放的称重站会对这辆卡车做动态称重检查，而不是要求每辆卡车都进站。"
+
+#~ msgid ""
+#~ "A clean truck can be waved past most open scales instead of pulling in. "
+#~ "Adds a small per-mile settlement reserve once active."
+#~ msgstr "车况良好的卡车在大多数开放的称重站可以直接放行，不用进站。启用后每英里在结算中加扣一小笔准备金。"
+
+#~ msgid ""
+#~ "Upgrades apply to every tractor you own. Enter buys the next tier, F1 says "
+#~ "what it does. Escape returns to the garage."
+#~ msgstr "升级适用于你拥有的每一辆牵引车。Enter购买下一级，F1说明它的作用。Escape回到修理厂。"
+
+#~ msgid ""
+#~ "Matching direct freight now uses an owned-trailer reserve at settlement."
+#~ msgstr "匹配的直接货源现在会在结算时扣除自有挂车准备金。"
+
+#~ msgid ""
+#~ "{label} trailer purchased for {grouped} dollars. You have {grouped2} "
+#~ "dollars left. Matching direct freight now uses an owned-trailer reserve at "
+#~ "settlement."
+#~ msgstr "已购买{label}挂车，花费{grouped}美元。你还剩{grouped2}美元。匹配的直接货源现在会在结算时扣除自有挂车准备金。"
+
+#~ msgid ""
+#~ "Enter books a course, or says why you do not qualify. Courses take game "
+#~ "time, and a background check runs while you drive. Escape returns to the "
+#~ "terminal."
+#~ msgstr "Enter预约一门课程，或者说明你为什么不符合条件。课程要花游戏时间，背景调查会在你开车期间进行。Escape回到场站。"
+
+#~ msgid "Tire compound: the carrier specs its own rubber"
+#~ msgstr "轮胎类型：承运商指定自己的轮胎"
+
+#~ msgid "Take it and the write-up is yours at the first scale."
+#~ msgstr "拿着它，第一级的文章就是你的了。"
+
+#~ msgid ""
+#~ "{name}: {defect}, {condition_text}. Take it and the write-up is yours at "
+#~ "the first scale. Refuse for a swap, about {f} "
+#~ "minutes.{tank_walk_around_clause}"
+#~ msgstr ""
+#~ "{name}：{defect}、{condition_text}。拿着它，第一级的文章就是你的了。拒绝调换，约{f}分钟。{tank_walk_arou"
+#~ "nd_clause}"
+
+#~ msgid ""
+#~ "The baffles settle it in a couple of cycles, but it still arrives after you "
+#~ "do."
+#~ msgstr "防波板晃几下就能让它稳住，但它还是会比你晚一步到。"
+
+#~ msgid ""
+#~ " {wait} minutes past the free time, {dollars} dollars detention owed to you "
+#~ "at settlement."
+#~ msgstr " 超出免费时间{wait}分钟，结算时承运商要付给你{dollars}美元滞留费。"
+
+#~ msgid ""
+#~ " {wait} minutes past the free time, {dollars} dollars detention owed to the "
+#~ "carrier."
+#~ msgstr " 超出免费时间{wait}分钟，要付给承运商{dollars}美元滞留费。"
+
+#~ msgid "About {f} minutes, and the write-up stays with them."
+#~ msgstr "大约{f}分钟，故障记录单留在他们那里。"
+
+#~ msgid ""
+#~ "The yard brings a sound one. About {f} minutes, and the write-up stays with "
+#~ "them."
+#~ msgstr "场地会拿一节好的过来。大约{f}分钟，故障记录单留在他们那里。"
+
+#~ msgid "Speed control: paused   Open-road target: {target}"
+#~ msgstr "速度控制：已暂停，开阔道路目标速度：{target}"
+
+#~ msgid "Backup is not server-verified. Local save unchanged."
+#~ msgstr "备份未经服务器验证。本地存档没有改变。"
+
+#~ msgid ""
+#~ "This backup is not server-verified. It was not restored, and your local "
+#~ "career is unchanged."
+#~ msgstr "这个备份未经服务器验证。它没有被恢复，你本地的职业生涯没有改变。"
+
+#~ msgid "Backup failed its integrity check. Local save unchanged."
+#~ msgstr "备份没有通过完整性检查。本地存档没有改变。"
+
+#~ msgid ""
+#~ "This backup failed its integrity check. It was not restored, and your local "
+#~ "career is unchanged."
+#~ msgstr "这个备份没有通过完整性检查。它没有被恢复，你本地的职业生涯没有改变。"
+
+#~ msgid ""
+#~ "Pickup dispatch: deadhead from the terminal to {pickup_facility_text}. "
+#~ msgstr "提货调度：从场站空车开往{pickup_facility_text}。 "
+
+#~ msgid ""
+#~ "You are past your hours-of-service limit, and there is no route POI here."
+#~ msgstr "你已经超过驾驶工时上限，这里也没有路线上的停靠点。"
+
+#~ msgid ""
+#~ "In automatic with deliberate direction changes, stop, release {down}, then "
+#~ "press and hold it again to reverse."
+#~ msgstr "在自动档、刻意换向模式下，停车，松开{down}，然后再按住它就是倒车。"
+
+#~ msgid ""
+#~ "While reversing, stop with {up}, release, then press and hold again for "
+#~ "forward."
+#~ msgstr "倒车时，用{up}停车，松开，再按住就是前进。"
+
+#~ msgid "A quick tap just brakes."
+#~ msgstr "轻按一下只是刹车。"
+
+#~ msgid ""
+#~ "In automatic with simple direction changes, stop, release {down}, then "
+#~ "press and hold it again to reverse."
+#~ msgstr "在自动档、简单换向模式下，停车，松开{down}，然后再按住它就是倒车。"
+
+#~ msgid "Braking cancels the session."
+#~ msgstr "刹车会取消这次保持。"
+
+#~ msgid ""
+#~ "Plus and minus, including the keypad keys, change the open-road target by "
+#~ "five; it never holds more than five over the posted limit."
+#~ msgstr "加号和减号，包括小键盘上的，以五为单位调整开阔道路的目标速度；它绝不会超过标示限速五以上。"
+
+#~ msgid ""
+#~ "Parked with the brake set, {cruise} latches a high idle; plus and minus "
+#~ "adjust it, and releasing the parking brake drops it."
+#~ msgstr "停车并拉上刹车时，{cruise} 锁定高怠速；加号和减号调整它，松开驻车制动即取消。"
+
+#~ msgid ""
+#~ "Unless lane keeping is on full, move to the right lane, then steer right "
+#~ "into the exit lane where it opens, just before the gore."
+#~ msgstr "除非车道保持为完全，先并入右侧车道，然后在出口车道开口处、分流三角区之前向右转进出口车道。"
+
+#~ msgid ""
+#~ "{exit} also signals a pull-over when a trooper lights you up for speeding, "
+#~ "a scale bypass, or unsafe equipment: signal, then brake to a stop."
+#~ msgstr "当警察因超速、绕过地磅或设备不安全对你亮灯时，{exit} 也表示靠边停车：打转向灯，然后刹车停下。"
+
+#~ msgid ""
+#~ "{upcoming} reads the road ahead that no other key answers: the exit your "
+#~ "signal is on for, the ramp control coming up, the next imposed limit, the "
+#~ "next stop, and the next bend that demands slowing."
+#~ msgstr ""
+#~ "{upcoming} 读出其他按键不会告诉你的前方路况：你打转向灯要去的出口、即将到来的匝道管制、下一个强制限速、下一站，以及下一个需要减速的弯道。"
+
+#~ msgid ""
+#~ "Fully stopped away from route points, {rest} opens the emergency "
+#~ "shoulder-sleep warning instead."
+#~ msgstr "在远离路线点的地方完全停下时，{rest} 改为打开路肩紧急睡眠警告。"
+
+#~ msgid ""
+#~ "In automatic with deliberate direction changes, stop, let the left trigger "
+#~ "return to neutral, then press and hold it again to reverse."
+#~ msgstr "自动挡且换向需刻意操作时，先停车，让左扳机回到空位，然后再次按住它即可倒车。"
+
+#~ msgid ""
+#~ "While reversing, stop with the right trigger, let it return to neutral, "
+#~ "then press and hold again for forward."
+#~ msgstr "倒车时，用右扳机停下，让它回到空位，然后再次按住即可前进。"
+
+#~ msgid ""
+#~ "In automatic with simple direction changes, stop, let the left trigger "
+#~ "return to neutral, then press and hold it again to reverse."
+#~ msgstr "自动挡且换向为简单模式时，先停车，让左扳机回到空位，然后再次按住它即可倒车。"
+
+#~ msgid "{cruise_down} or {cruise_up} change the open-road target by five."
+#~ msgstr "{cruise_down} 或 {cruise_up} 以五为单位调整开阔道路的目标速度。"
+
+#~ msgid "Parked with the brake set, {cruise} latches a high idle."
+#~ msgstr "停车并拉上刹车时，{cruise} 锁定高怠速。"
+
+#~ msgid ""
+#~ "{take_exit} signals for the next announced exit, or a pull-over when a "
+#~ "trooper lights you up."
+#~ msgstr "{take_exit} 为下一个播报的出口打转向灯，或在警察对你亮灯时靠边停车。"
+
+#~ msgid " Open-road target {speed_text}."
+#~ msgstr "开放道路目标 {speed_text}。"
+
+#~ msgid "The jake is sliding the drive wheels; back it off a stage."
+#~ msgstr "发动机制动让驱动轮打滑了；降一档。"
+
+#~ msgid "snub the brakes"
+#~ msgstr "点刹"
+
+#~ msgid "gear down or snub the brakes"
+#~ msgstr "降档或点刹"
+
+#~ msgid "Open-road target: {open_road_target}"
+#~ msgstr "开阔道路目标速度：{open_road_target}"
+
+#~ msgid "Parking brake dynamited at speed!"
+#~ msgstr "高速行驶中猛拉驻车制动！"
+
+#~ msgid "You dynamited the parking brake at {spoken}!"
+#~ msgstr "你在{spoken}时猛拉了驻车制动！"
+
+#~ msgid ""
+#~ "You dynamited the parking brake at {spoken}! The spring brakes slam the "
+#~ "drive axle and the tires grind flat spots into the tread."
+#~ msgstr "你在{spoken}时猛拉了驻车制动！弹簧制动猛地锁住驱动桥，轮胎在胎面上磨出了平斑。"
+
+#~ msgid ""
+#~ "{engine_off}You sleep poorly on the checkpoint apron, woken again and again "
+#~ "by passing trucks."
+#~ msgstr "{engine_off}你在检查站的停车区睡得很差，不断被过往卡车吵醒。"
+
+#~ msgid ""
+#~ "{engine_off}You sleep poorly on the checkpoint apron, woken again and again "
+#~ "by passing trucks. It is {clock_text}. Driving and duty clocks reset, but "
+#~ "you are still tired.{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}你在检查站的停车区睡得很差，不断被过往卡车吵醒。现在是{clock_text}。驾驶和在岗计时已重置，但你仍然疲劳。{wake_"
+#~ "air_instruction}"
+
+#~ msgid ""
+#~ "The receiver will note an exception on the bill of lading and hold back "
+#~ "part of the pay."
+#~ msgstr "收货方会在提单上记录异常，并扣下一部分报酬。"
+
+#~ msgid ""
+#~ "Claim territory now. The receiver will take it, and the carrier pays for "
+#~ "what you broke."
+#~ msgstr "现在到了索赔的地步。收货方会收货，承运商为你弄坏的东西买单。"
+
+#~ msgid ""
+#~ "Dispatch has taken the {grounded} out of service. The carrier covers the "
+#~ "bill. {handover}. That cost {GROUNDED_SWAP_MIN} hours and it is now "
+#~ "{clock_text}. Damage on the truck you are in is {damage_pct} percent. "
+#~ "Dispatch logged preventable equipment damage against your record; a pattern "
+#~ "of it costs the seat. Press {control_hint} to restart the engine."
+#~ msgstr ""
+#~ "调度已让{grounded}停驶。费用由承运商承担。{handover}。这耽误了{GROUNDED_SWAP_MIN}小时，现在是{clock_tex"
+#~ "t}。你现在开的这辆卡车损坏百分之{damage_pct}。调度在你的记录上记了一次可避免的设备损坏；屡次发生会丢掉这份工作。按{control_hin"
+#~ "t}重新启动发动机。"
+
+#~ msgid ""
+#~ "Dispatch logged preventable equipment damage against your record; a pattern "
+#~ "of it costs the seat."
+#~ msgstr "调度在你的记录上记了一次可避免的设备损坏；屡次发生会丢掉这份工作。"
+
+#~ msgid "Deadheading to pickup at {pickup_facility_text}"
+#~ msgstr "空车前往{pickup_facility_text}装货"
+
+#~ msgid ""
+#~ "Chain-up needs about {f} minutes and your 14-hour window has {f2} left."
+#~ msgstr "安装防滑链大约需要{f}分钟，而你的14小时工作窗口只剩{f2}。"
+
+#~ msgid ""
+#~ "Chain-up needs about {f} minutes and your 14-hour window has {f2} left. "
+#~ "Find a place to stop."
+#~ msgstr "安装防滑链大约需要{f}分钟，而你的14小时工作窗口只剩{f2}。找个地方停车。"
+
+#~ msgid "Boxed out of the exit lane, missed {missed}."
+#~ msgstr "被出出出口车道，错过了 {missed}。"
+
+#~ msgid "Boxed out of the exit lane, missed {missed}. {recovery}"
+#~ msgstr "被出出出口车道，错过了 {missed}。{recovery}"
+
+#~ msgid "Baffles will damp the wave in a couple of cycles."
+#~ msgstr "防波板晃几下就能把涌浪压住。"
+
+#~ msgid "Observation age: {observation_age_value}."
+#~ msgstr "观测时间：{observation_age_value}。"
+
+#~ msgid "Traffic: no reported pinch in the next {distance_text}."
+#~ msgstr "车流：接下来{distance_text}内没有报告的拥堵点。"
+
+#~ msgid "Reposition pay at the empty-mile rate: {grouped} dollars."
+#~ msgstr "按空驶里程费率支付的调车费：{grouped}美元。"
+
+#~ msgid ""
+#~ "Reposition pay at the empty-mile rate: {grouped} dollars. You now have "
+#~ "{grouped2} dollars. "
+#~ msgstr "按空驶里程费率支付的调车费：{grouped}美元。你现在有{grouped2}美元。 "
+
+#~ msgid "Bobtailed empty to {destination} in {f} hours."
+#~ msgstr "用了{f}小时单车头空驶到{destination}。"
+
+#~ msgid ""
+#~ "Bobtailed empty to {destination} in {f} hours. It is {clock_text}. "
+#~ "{pay_clause}Parked at {name}. {destination2} dispatch board available. Fuel "
+#~ "{f2} percent."
+#~ msgstr ""
+#~ "用了{f}小时单车头空驶到{destination}。现在是{clock_text}。{pay_clause}停在{name}。{destination"
+#~ "2}调度板可用。燃油百分之{f2}。"
+
+#~ msgid "Claim against your own authority"
+#~ msgstr "索赔由你的自有运营资质承担"
+
+#~ msgid ""
+#~ "Receiver took the load with an exception, {cargo_condition_text} at {f} "
+#~ "percent."
+#~ msgstr "接收器以 {f} 百分比的异常 {cargo_condition_text} 接收货物。"
+
+#~ msgid ""
+#~ "Receiver took the load with an exception, {cargo_condition_text} at {f} "
+#~ "percent. Claim about {grouped} dollars, {grouped2} off this settlement. "
+#~ "{claim_holder}."
+#~ msgstr ""
+#~ "接收器以 {f} 百分比的异常 {cargo_condition_text} "
+#~ "接收货物。索赔约{grouped}美元，{grouped2}就此结算。{claim_holder}。"
+
+#~ msgid ""
+#~ "Exception on the bill of lading, load arrived {cargo_condition_text} at {f} "
+#~ "percent."
+#~ msgstr "提单上有异常记录，货物到达时{cargo_condition_text}，百分之{f}。"
+
+#~ msgid ""
+#~ "Exception on the bill of lading, load arrived {cargo_condition_text} at {f} "
+#~ "percent. {grouped} dollars held back."
+#~ msgstr "提单上有异常记录，货物到达时{cargo_condition_text}，百分之{f}。扣留{grouped}美元。"
+
+#~ msgid "Manual-spec differential: {grouped} dollars."
+#~ msgstr "手动规格差价：{grouped}美元。"
+
+#~ msgid "Charges {grouped2}: tolls {grouped3}, accessorials {charge_summary}."
+#~ msgstr "收费{grouped2}：通行费{grouped3}，配件{charge_summary}。"
+
+#~ msgid ""
+#~ "Delivered {f} tons of {label} to {destination} in {f2} hours, "
+#~ "{else}.{receiver_service_clause} {clock_text}. {pay_label} {grouped} "
+#~ "dollars. Charges {grouped2}: tolls {grouped3}, accessorials "
+#~ "{charge_summary}. {accessorial_clause} Business status: {status_label}. "
+#~ "Costs {grouped4}. Fines {grouped5}. Net {grouped6}, you have {grouped7}. "
+#~ "Parked at {name}."
+#~ msgstr ""
+#~ "在{f2}小时内将{f}吨{label}交付给{destination}，{else}.{receiver_service_clause} "
+#~ "{clock_text}。{pay_label} {grouped} "
+#~ "美元。收费{grouped2}：通行费{grouped3}，配件{charge_summary}。{accessorial_clause} "
+#~ "经营状况：{status_label}。成本 {grouped4}。罚款 "
+#~ "{grouped5}。净{grouped6}，你有{grouped7}。停在{name}。"
+
+#~ msgid ""
+#~ "Carrier-paid or reimbursed charges: {grouped} dollars, including tolls "
+#~ "{grouped2} and accessorials {charge_summary}."
+#~ msgstr "承运商支付或报销的费用：{grouped}美元，包括过路费{grouped2}和附加费用{charge_summary}。"
+
+#~ msgid "Charges {grouped3}: tolls {grouped4}, accessorials {charge_summary}."
+#~ msgstr "收费{grouped3}：通行费{grouped4}，配件{charge_summary}。"
+
+#~ msgid ""
+#~ "Paperwork, {facility}: {f} tons of {label}. Rate {grouped}, gross "
+#~ "{grouped2}. Charges {grouped3}: tolls {grouped4}, accessorials "
+#~ "{charge_summary}. {charge_fate} Fines {grouped5}. Net about "
+#~ "{grouped6}.{advance_note} {timing}. {cargo_condition} {finish} to settle."
+#~ msgstr ""
+#~ "文书工作，{facility}：{f} 吨{label}。费率 {grouped}，毛额 "
+#~ "{grouped2}。收费{grouped3}：通行费{grouped4}，配件{charge_summary}。{charge_fate} 罚款 "
+#~ "{grouped5}。净关于{grouped6}.{advance_note} {timing}。{cargo_condition} {finish} "
+#~ "结算。"
+
+#~ msgid "Rate {grouped}, gross {grouped2}."
+#~ msgstr "费率 {grouped}，毛额 {grouped2}。"
+
+#~ msgid ""
+#~ "The how-to-play reference at the driving keys. Left and Right change pages, "
+#~ "Up and Down read lines."
+#~ msgstr "驾驶按键的玩法参考。Left和Right翻页，Up和Down读行。"
+
+#~ msgid "Plays any sound the road uses and says what it means."
+#~ msgstr "播放道路上用到的任何声音，并说明它的含义。"
+
+#~ msgid ""
+#~ "A mobile mechanic patches the truck up enough to drive on. Far dearer than "
+#~ "a garage, an hour and a half, and billed even into debt."
+#~ msgstr "流动维修技师把卡车修到能继续开的程度。比维修厂贵得多，要一个半小时，钱不够也会记成欠款。"
+
+#~ msgid ""
+#~ "Waits on duty, not driving, half an hour at a time, up to 8 hours or until "
+#~ "your 14-hour window runs out."
+#~ msgstr "每次等待半小时，计入在岗时间而非驾驶时间，最多等待8小时或直到14小时工作窗口用尽。"
+
+#~ msgid "Sleep at the checkpoint (10 hours)"
+#~ msgstr "在检查站睡觉（10小时）"
+
+#~ msgid ""
+#~ "Poor sleep on the checkpoint apron. Resets hours of service. Fatigue "
+#~ "remains, and the deadline keeps running."
+#~ msgstr "在检查站停车区睡不好。重置驾驶工时。疲劳仍在，截止时间继续计时。"
+
+#~ msgid "This completes a sleeper split and credits the paired rests."
+#~ msgstr "这次完成了卧铺分段休息，配对的休息都会计入。"
+
+#~ msgid "Clock +{span}."
+#~ msgstr "时钟+{span}。"
+
+#~ msgid ""
+#~ "Sleep {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
+#~ "+{span}. {deadline}{pending}{cost} Select again to sleep."
+#~ msgstr ""
+#~ "在 {name} 处睡眠 {span}{more}。{effect} {legal} 疲劳 {f} 至 "
+#~ "{f2}。时钟+{span}。{deadline}{pending}{cost} 再次选择睡眠。"
+
+#~ msgid "Nobody is at the scale house. There is nothing to check in at."
+#~ msgstr "称重站里没人。没有地方可以报到。"
+
+#~ msgid ""
+#~ "Warning: this sleep did NOT reset your hours, and your duty window has "
+#~ "closed."
+#~ msgstr "警告：这次睡眠没有重置你的工时，而且你的当班时段已经结束。"
+
+#~ msgid ""
+#~ "Warning: this sleep did NOT reset your hours, and your duty window has "
+#~ "closed. Finish the split or {reset} before driving. "
+#~ msgstr "警告：这次睡眠没有重置你的工时，而且你的当班时段已经结束。开车之前先完成分段休息，或者{reset}。 "
+
+#~ msgid ""
+#~ "This sleep did NOT reset your hours, but your duty window paused while you "
+#~ "slept."
+#~ msgstr "这次睡眠没有重置你的工时，但你睡觉时当班时段暂停了。"
+
+#~ msgid ""
+#~ "This sleep did NOT reset your hours, but your duty window paused while you "
+#~ "slept. It closes in {f} hours, at {closes}. "
+#~ msgstr "这次睡眠没有重置你的工时，但你睡觉时当班时段暂停了。它在{f}小时后，也就是{closes}结束。 "
+
+#~ msgid "This sleep did NOT reset your hours."
+#~ msgstr "这次睡眠没有重置你的工时。"
+
+#~ msgid ""
+#~ "This sleep did NOT reset your hours. Your duty window closes in {f} hours, "
+#~ "at {closes}. "
+#~ msgstr "这次睡眠没有重置你的工时。你的当班时段在{f}小时后，也就是{closes}结束。 "
+
+#~ msgid "Pairs with 3 more hours at sleep-capable parking."
+#~ msgstr "与可过夜停车位再休息3小时配对。"
+
+#~ msgid "Pairs with 2 more hours at sleep-capable parking."
+#~ msgstr "与可过夜停车位再休息2小时配对。"
+
+#~ msgid "Held at the chain checkpoint."
+#~ msgstr "被防滑链检查站拦下。"
+
+#~ msgid "Sleep at the checkpoint"
+#~ msgstr "在检查站睡觉"
+
+#~ msgid ""
+#~ "Poor rest on the checkpoint apron. Resets hours of service; the deadline "
+#~ "keeps running."
+#~ msgstr "在检查站停车区休息不好。重置驾驶工时；截止时间继续计时。"
+
+#~ msgid "{reason} 10 hours of poor rest, HOS reset if enforced."
+#~ msgstr "{reason}休息质量不佳的10小时；如果启用工时规则，则重置驾驶工时。"
+
+#~ msgid ""
+#~ "{title}. {reason} 10 hours of poor rest, HOS reset if enforced. The "
+#~ "deadline keeps running. {current}"
+#~ msgstr "{title}。{reason}休息质量不佳的10小时；如果启用工时规则，则重置驾驶工时。截止时间继续计时。{current}"
+
+#~ msgid ""
+#~ "{reason} Emergency shoulder sleep: 10 hours of poor rest, HOS reset if "
+#~ "enforced."
+#~ msgstr "{reason}紧急在路肩睡觉：休息质量差，共10小时；若强制执行驾驶工时，则会重置计时。"
+
+#~ msgid ""
+#~ "{title}. {reason} Emergency shoulder sleep: 10 hours of poor rest, HOS "
+#~ "reset if enforced. Ticket and light damage possible; the deadline keeps "
+#~ "running. {current}"
+#~ msgstr ""
+#~ "{title}。{reason}紧急在路肩睡觉：休息质量差，共10小时；若强制执行驾驶工时，则会重置计时。可能收到罚单并遭受轻微损坏；截止时间仍在倒计时"
+#~ "。{current}"
+
+#~ msgid "Chain checkpoint."
+#~ msgstr "防滑链检查站。"
+
+#~ msgid "Chain checkpoint. The officer stops you again. {after}"
+#~ msgstr "防滑链检查站。警员再次将你拦下。{after}"
+
+#~ msgid ""
+#~ "Chain checkpoint. An officer stops you and gives you a warning. {after}"
+#~ msgstr "防滑链检查站。警员将你拦下，给了你一个警告。{after}"
+
+#~ msgid ""
+#~ "Chain checkpoint. An officer stops you and writes a chain-law citation, "
+#~ "{grouped} dollars.{construction_zone_fine_clause} {after} You have "
+#~ "{grouped2} dollars."
+#~ msgstr ""
+#~ "防滑链检查站。警员将你拦下，并因违反防滑链规定开出{grouped}美元罚单。{construction_zone_fine_clause}{after"
+#~ "}你还有{grouped2}美元。"
+
+#~ msgid ""
+#~ "Held at the chain checkpoint. Put your chains on from the pause menu."
+#~ msgstr "你被防滑链检查站拦下。请从暂停菜单安装防滑链。"
+
+#~ msgid "Sleep at the checkpoint from the pause menu, or turn back."
+#~ msgstr "从暂停菜单选择在检查站睡觉，或者掉头。"
+
+#~ msgid ""
+#~ "You waited {waited_text}, and your 14-hour duty window is nearly used up."
+#~ msgstr "你已等待{waited_text}，14小时工作窗口即将用尽。"
+
+#~ msgid ""
+#~ "You waited {waited_text}, and your 14-hour duty window is nearly used up. "
+#~ "The chain law still stands. Sleep at the checkpoint from the pause menu, or "
+#~ "turn back."
+#~ msgstr "你已等待{waited_text}，14小时工作窗口即将用尽。防滑链法规仍然生效。从暂停菜单选择在检查站睡觉，或者掉头。"
+
+#~ msgid "Sleep at the checkpoint from the pause menu."
+#~ msgstr "从暂停菜单选择在检查站睡觉。"
+
+#~ msgid ""
+#~ "You waited {waited_text}, and your 14-hour duty window is nearly used up. "
+#~ "The chain law still stands. Sleep at the checkpoint from the pause menu."
+#~ msgstr "你已等待{waited_text}，14小时工作窗口即将用尽。防滑链法规仍然生效。从暂停菜单选择在检查站睡觉。"
+
+#~ msgid ""
+#~ "Your 14-hour duty window is nearly used up. The chain law still stands. "
+#~ "Sleep at the checkpoint from the pause menu, or turn back."
+#~ msgstr "你的14小时工作窗口即将用尽。防滑链法规仍然生效。从暂停菜单选择在检查站睡觉，或者掉头。"
+
+#~ msgid ""
+#~ "Your 14-hour duty window is nearly used up. The chain law still stands. "
+#~ "Sleep at the checkpoint from the pause menu."
+#~ msgstr "你的14小时工作窗口即将用尽。防滑链法规仍然生效。从暂停菜单选择在检查站睡觉。"
+
+#~ msgid "chain checkpoint"
+#~ msgstr "防滑链检查站"
+
+#~ msgid ""
+#~ "Turning back takes {drive} of driving, more than your hours allow. Wait "
+#~ "here for the chain law to lift, or sleep at the checkpoint from the pause "
+#~ "menu."
+#~ msgstr "掉头返回需要驾驶{drive}，超过工时允许的时间。在这里等防滑链法规解除，或者从暂停菜单选择在检查站睡觉。"
+
+#~ msgid ""
+#~ "Wait here for the chain law to lift, or sleep at the checkpoint from the "
+#~ "pause menu."
+#~ msgstr "在这里等防滑链法规解除，或者从暂停菜单选择在检查站睡觉。"
+
+#~ msgid ""
+#~ "You turned back to {city}, {distance_text} behind the checkpoint, in {f} "
+#~ "minutes."
+#~ msgstr "你用了{f}分钟掉头返回{city}，这里位于检查站后方{distance_text}。"
+
+#~ msgid ""
+#~ "You turned back to {city}, {distance_text} behind the checkpoint, in {f} "
+#~ "minutes. The chain law ahead still stands."
+#~ msgstr "你用了{f}分钟掉头返回{city}，这里位于检查站后方{distance_text}。前方的防滑链法规仍然生效。"
+
+#~ msgid "No chains aboard on a Colorado chain-carry corridor"
+#~ msgstr "科罗拉多州铁链运输走廊上没有铁链"
+
+#~ msgid "Route-transition assistance released."
+#~ msgstr "路线转换辅助已释放。"
+
+#~ msgid "deliberate"
+#~ msgstr "谨慎"
+
+#~ msgid "simple"
+#~ msgstr "简单"
+
+#~ msgid ""
+#~ "With adaptive cruise on, holds a steep downhill grade at the speed your "
+#~ "truck can take it at with its load, on the engine brake and short brake "
+#~ "applications. Balanced and Interactive capture a lower target when you "
+#~ "brake. Interactive also caps every descent at 55 miles per hour and "
+#~ "intervenes harder."
+#~ msgstr ""
+#~ "开启自适应巡航时，用发动机制动和短促的刹车，把陡下坡的车速保持在你的卡车带着这批货物能承受的速度。均衡和互动模式在你刹车时会采用更低的目标速度。互动模式"
+#~ "还会把所有下坡限制在每小时55英里，并且介入得更强。"
+
+#~ msgid ""
+#~ "For a signaled exit: slows a truck too fast for the gore, keeps the "
+#~ "approach within 10 miles per hour of road speed, and brakes in the exit "
+#~ "lane to the exit speed. You still take the exit."
+#~ msgstr "对于有信号的出口：将卡车减速至速度过快，保持接近道路速度 10 英里/小时以内，并在出口车道制动至出口速度。你还是选择出口。"
+
+#~ msgid ""
+#~ "On the final approach, after any exit, it works the throttle and brakes: up "
+#~ "to 12 miles per hour through the facility lane, creeping the last 200 feet, "
+#~ "then stopping at pickup and delivery facilities, rest stops, and required "
+#~ "weigh stations. It never chooses an exit, enters a yard, or docks. In a "
+#~ "chain-law area it stops to put snow chains on and take them off, and it may "
+#~ "spend on-duty minutes on chains: about 30 to chain up, 10 to take them off. "
+#~ "It never buys chains. Realistic leaves it off; Balanced and All assists "
+#~ "turn it on."
+#~ msgstr ""
+#~ "最后接近阶段，驶出任何出口之后，它会操作油门和刹车：在厂区车道里最高每小时12英里，最后200英尺慢慢挪，然后在装货和送货厂区、休息区和必须进入的称重站"
+#~ "停下。它从不替你选择出口、进入场院或靠上装卸口。在防滑链管制区，它会停车安装和拆除防滑链，并可能占用在岗时间：安装约30分钟，拆除约10分钟。它从不购买"
+#~ "防滑链。写实预设不开启它；均衡和全部辅助会开启。"
+
+#~ msgid ""
+#~ "Takes mapped bends for you: slows to the advised speed on the service "
+#~ "brakes, never the engine brake, and holds the wheel through the bend and "
+#~ "through street corners. On a real downgrade it does raise the jake. While "
+#~ "it steers, the engine leans only when you drift. Lane keeping is a separate "
+#~ "setting and holds you between the lines the rest of the time."
+#~ msgstr ""
+#~ "替你通过地图上标注的弯道：只用行车制动减速到建议速度，绝不用发动机制动，并在弯道和街道转角中握住方向盘。在真正的下坡上，它确实会加大发动机制动。它转向时"
+#~ "，只有在你偏移时发动机声音才会偏向一侧。车道保持是另一项设置，其余时间负责让你保持在车道线之间。"
+
+#~ msgid "Route-transition assistance"
+#~ msgstr "路线转换辅助"
+
+#~ msgid "Speed and lane help at confirmed route transitions."
+#~ msgstr "在确认的路线转换处提供车速和车道帮助。"
+
+#~ msgid ""
+#~ "Tap the brake, then press again and hold half a second: a click and a "
+#~ "spoken confirmation latch it hands-free."
+#~ msgstr "轻按一下刹车，然后再按住半秒：一声咔嗒和一句语音确认后，刹车就锁定了，不用一直按着。"
+
+#~ msgid ""
+#~ "Tap the brake, then press again and hold half a second: a click and a "
+#~ "spoken confirmation latch it hands-free. One press of {control_brake} "
+#~ "releases it; the accelerator releases it instantly. The throttle key never "
+#~ "latches. Presets never change this."
+#~ msgstr ""
+#~ "轻按一下刹车，然后再按住半秒：一声咔嗒和一句语音确认后，刹车就锁定了，不用一直按着。按一下{control_brake}就会松开；踩油门会立刻松开。油门"
+#~ "键永远不会锁定。预设永远不会改变这一项。"
+
+#~ msgid ""
+#~ "Cruise reads the road a mile and a half ahead: a little extra speed before "
+#~ "a climb, easing at a crest, no speed added before a descent. It says what "
+#~ "it is doing once per hill. Presets never change this."
+#~ msgstr "巡航会读取前方1.5英里的道路：爬坡前稍微多加点速，到坡顶时收油，下坡前不加速。每座山它只说一次自己在做什么。预设永远不会改变这一项。"
+
+#~ msgid ""
+#~ "In low-speed zones, like facility roads, gates, and construction zones, "
+#~ "{control_cruise} holds your current speed, then hands back to adaptive "
+#~ "cruise on open roads. It eases off early for the next turn or the next "
+#~ "lower limit. Braking cancels the session. Presets never change this."
+#~ msgstr ""
+#~ "在低速区域，比如厂区道路、大门和施工区，{control_cruise}会保持你当前的车速，到了开阔道路再交回给自适应巡航。遇到下一个转弯或下一个更低的"
+#~ "限速，它会提前收油。刹车会取消这次保持。预设永远不会改变这一项。"
+
+#~ msgid ""
+#~ "Choose whether reputation and dispatch trust read both their descriptive "
+#~ "band and score, only the score, or only the description. A trust score is "
+#~ "spoken only when service sets its band."
+#~ msgstr "选择声誉和调度信任度是同时读出描述等级和分数，只读分数，还是只读描述。只有服务记录决定了信任度的等级时，才会读出信任分数。"
+
+#~ msgid ""
+#~ "How much the road tells you. Standard speaks every confirmation, status "
+#~ "update and traffic call, and a driving tip once per leg. Quiet speaks short "
+#~ "confirmations, lane openings, and status updates, but not the traffic "
+#~ "around you or tips. Urgent only keeps safety warnings and directions "
+#~ "requiring action. What a setting leaves out makes no sound and stays out of "
+#~ "the event buffer. Readout keys always answer. Billboards, place names, and "
+#~ "landmarks have their own switches below."
+#~ msgstr ""
+#~ "路上告诉你多少信息。标准会播报每一条确认、状态更新和车流提示，每个路段还有一条驾驶小贴士。安静播报简短确认、车道畅通和状态更新，但不播报周围车流和小贴士"
+#~ "。仅紧急只保留安全警告和需要你行动的指示。设置省略的内容不会发出声音，也不会进入事件缓冲区。查询键总会回答。广告牌、地名和地标在下面有各自的开关。"
+
+#~ msgid ""
+#~ "Color between navigation cues: parks, rivers, mountain passes, museums, and "
+#~ "billboards. Right arrow turns all on, Left arrow all off; the switches "
+#~ "below pick each kind. Safety and navigation are never affected. Town names "
+#~ "are the Place callouts row below."
+#~ msgstr ""
+#~ "导航提示之间的点缀：公园、河流、山口、博物馆和广告牌。Right方向键全部打开，Left方向键全部关闭；下面的开关分别选择每一类。安全和导航从不受影响。"
+#~ "城镇名称在下面的“地名播报”一行。"
+
+#~ msgid ""
+#~ "Optional early advice for a break or sleep stop with time to spare. If an "
+#~ "earlier stop fits, the hint also names the last legally reachable fallback. "
+#~ "While rolling, use the Rest control to select the recommended stop; use it "
+#~ "again to cancel. Standard driving speech speaks one suggestion before the "
+#~ "next hours warning. The driving time readout gives full hours and route "
+#~ "details. Quiet and Urgent only keep the automatic hint silent. Your "
+#~ "required hours warnings and readout controls still work when this is off. "
+#~ "It also reminds you before a chain-law road if you have no chains: on the "
+#~ "dispatch board when the load crosses a road where trucks must carry chains "
+#~ "this season, or where live weather or a weather alert puts a chain law in "
+#~ "effect for your truck, while the terminal garage can still sell you a set, "
+#~ "and on the road when a posted chain law requires chains on your truck. It "
+#~ "never buys anything."
+#~ msgstr ""
+#~ "可选的提前建议，在时间充裕时为中途休息或睡觉找停靠点。如果有更早的停靠点合适，提示还会说出最后一个合法能到达的备选。行驶中用“休息”控制键选择推荐的停靠"
+#~ "点；再用一次即可取消。标准驾驶播报会在下一次工时警告之前说一条建议。驾驶时间查询会给出完整的工时和路线详情。安静和仅紧急模式下自动提示保持静音。关闭这一"
+#~ "项时，必要的工时警告和查询控制仍然有效。如果你没有防滑链，它还会在防滑链法规路段前提醒你：当任务经过本季节要求卡车携带防滑链的道路，或实时天气或天气警报"
+#~ "使你的卡车需要遵守防滑链法规时，会在场站修理厂还能出售防滑链的情况下于调度板提醒你；在路上，当已发布的防滑链法规要求你的卡车安装防滑链时也会提醒。它从不"
+#~ "购买任何东西。"
+
+#~ msgid ""
+#~ "Real time uses live traffic incidents from state 511 services when "
+#~ "available."
+#~ msgstr "“实时”在可用时使用各州511服务的实时交通事件。"
+
+#~ msgid ""
+#~ "Real time uses live truck parking availability from TPIMS when available."
+#~ msgstr "“实时”在可用时使用TPIMS的实时卡车停车位信息。"
+
+#~ msgid "Automatic direction changes: {automatic_direction_changes}"
+#~ msgstr "自动换向：{automatic_direction_changes}"
+
+#~ msgid ""
+#~ "Both styles change direction with a fresh press at a standstill; a brake "
+#~ "held through a stop just holds the truck. Deliberate requires the release "
+#~ "and press everywhere. Automatic transmission only."
+#~ msgstr "两种方式都是在停稳时重新按一下来换向；停车时一直踩着的刹车只是把卡车停住。“谨慎”要求在任何情况下都先松开再按。仅限自动变速箱。"
+
+#~ msgid "Game sounds step back for speech: {on_off}"
+#~ msgstr "语音播报时降低游戏声音：{on_off}"
+
+#~ msgid "How much of the lane-holding work the truck does."
+#~ msgstr "卡车替你做多少保持车道的工作。"
+
+#~ msgid ""
+#~ "Off drifts like a real wheel; bends are yours unless curve assistance is "
+#~ "on, and every exit needs its signal and its exit lane."
+#~ msgstr "关闭时偏移就像真实的方向盘；弯道由你负责，除非开启了弯道辅助，而且每个出口都需要打转向灯并进入出口车道。"
+
+#~ msgid "On partial or off {lean}."
+#~ msgstr "在部分或关闭时，{lean}。"
+
+#~ msgid ""
+#~ "Partial steers the truck through the road's bends and drifts gently, with "
+#~ "generous steering help; lane changes and speed are yours."
+#~ msgstr "部分会带卡车通过道路的弯道，偏移很轻，转向帮助很充足；变道和车速由你负责。"
+
+#~ msgid ""
+#~ "The road sound only says where you sit in your lane, and the road edge "
+#~ "answers: a stutter clipping the rumble strip, a buzz fully on it, gravel "
+#~ "off the pavement."
+#~ msgstr "道路声音只告诉你在车道中的位置，路边会有回应：擦到振动带时是断续的抖动声，完全压上时是嗡嗡声，冲出路面时是碎石声。"
+
+#~ msgid "Both direction-change styles use this gesture."
+#~ msgstr "两种换向方式都用这个操作。"
+
+#~ msgid ""
+#~ "While reversing, stop with {control_accelerate}, release it, then press and "
+#~ "hold again for forward. Both direction-change styles use this gesture."
+#~ msgstr "倒车时，用{control_accelerate}停下，松开，然后再按住它就能前进。两种换向方式都用这个操作。"
+
+#~ msgid "Parked with it set, {control_cruise} holds high idle."
+#~ msgstr "拉着驻车制动停车时，{control_cruise}保持高怠速。"
+
+#~ msgid ""
+#~ "Set the parking brake when stopped. Applying it at speed causes a hard stop "
+#~ "and tire damage. Parked with it set, {control_cruise} holds high idle."
+#~ msgstr "停车时拉上驻车制动。高速时拉驻车制动会导致急停并损坏轮胎。拉着驻车制动停车时，{control_cruise}保持高怠速。"
+
+#~ msgid ""
+#~ "Plus and Minus, including keypad keys, move the open-road target to the "
+#~ "next multiple of five. Hold Control to change it by one."
+#~ msgstr "加号和减号，包括小键盘上的，会把开阔道路目标速度调到下一个5的倍数。按住Control则每次改1。"
+
+#~ msgid ""
+#~ "Cruise prepares for sharp posted-limit drops and holds no more than five "
+#~ "over the posted limit. {control_speed} reads the active speed-control mode "
+#~ "and open-road target."
+#~ msgstr "巡航会为限速的大幅下降提前做准备，并且最多只比限速高5。{control_speed}读出当前的速度控制模式和开阔道路目标速度。"
+
+#~ msgid ""
+#~ "{control_speed} reads the active speed-control mode and open-road target."
+#~ msgstr "{control_speed}读出当前的速度控制模式和开阔道路目标速度。"
+
+#~ msgid ""
+#~ "Pickup pauses the session through loading and resumes it after departure."
+#~ msgstr "取货时，这次控制在装货期间暂停，出发后恢复。"
+
+#~ msgid ""
+#~ "Press {control_cruise} again or touch the brakes to cancel. "
+#~ "{control_cruise_resume} resumes the previous target. Pickup pauses the "
+#~ "session through loading and resumes it after departure."
+#~ msgstr ""
+#~ "再按一次{control_cruise}或者踩一下刹车即可取消。{control_cruise_resume}恢复之前的目标速度。取货时，这次控制在装货"
+#~ "期间暂停，出发后恢复。"
+
+#~ msgid ""
+#~ "{control_upcoming} speaks the road ahead that no other key answers: your "
+#~ "signaled exit, ramp control, next lower limit, stop, and bend requiring "
+#~ "slowing."
+#~ msgstr ""
+#~ "{control_upcoming}说出其他键都不回答的前方道路信息：你打了转向灯的出口、匝道控制、下一个更低的限速、停靠点，以及需要减速的弯道。"
+
+#~ msgid ""
+#~ "Change eligible shortcuts under Settings, Gameplay, Controls, then Keyboard "
+#~ "shortcuts or Controller buttons. These pages follow your assignments."
+#~ msgstr "可以在设置、游戏玩法、操作里，再进入快捷键或手柄按键，更改可调整的快捷键。这些页面会跟随你的分配。"
+
+#~ msgid ""
+#~ "With the default steering guide, steer toward the engine's lean. Road noise "
+#~ "tells you position: sound to the right means the truck sits right of center."
+#~ msgstr "使用默认的转向引导时，朝发动机声音偏向的一侧转。道路噪音告诉你位置：声音在右边，说明卡车偏在中心右侧。"
+
+#~ msgid ""
+#~ "With lane keeping off and curve assistance off, hold toward a called bend "
+#~ "to follow the road. Releasing the control squares the truck with the road."
+#~ msgstr "车道保持和弯道辅助都关闭时，朝播报的弯道方向按住转向键就能沿着道路走。松开控制键，卡车会和道路摆正。"
+
+#~ msgid ""
+#~ "Steering guide can reverse the convention; Lane guide sound can use a "
+#~ "separate soft tone."
+#~ msgstr "“转向引导”可以反转这个约定；“车道引导声音”可以改用单独的轻柔提示音。"
+
+#~ msgid ""
+#~ "{control_lane_locator} toggles a continuous lane-position tock on partial "
+#~ "or off."
+#~ msgstr "在部分或关闭时，{control_lane_locator}开关持续的车道位置嗒嗒声。"
+
+#~ msgid ""
+#~ "{control_lane_locator} toggles a continuous lane-position tock on partial "
+#~ "or off. Steering guide can reverse the convention; Lane guide sound can use "
+#~ "a separate soft tone."
+#~ msgstr ""
+#~ "在部分或关闭时，{control_lane_locator}开关持续的车道位置嗒嗒声。“转向引导”可以反转这个约定；“车道引导声音”可以改用单独的轻柔提"
+#~ "示音。"
+
+#~ msgid ""
+#~ "Curve assistance slows and steers through mapped bends. Your brake releases "
+#~ "its slowing for that bend, while steering assistance remains."
+#~ msgstr "弯道辅助会在地图上标注的弯道里减速并转向。你一踩刹车，它就放弃这个弯道的减速，但转向辅助仍然保留。"
+
+#~ msgid ""
+#~ "Miss the destination exit and follow the next safe turnaround. Ordinary "
+#~ "exits without a current action stay quiet."
+#~ msgstr "错过目的地出口时，就按下一个安全掉头走。当前不需要操作的普通出口不会播报。"
+
+#~ msgid ""
+#~ "Fully stopped at a route stop, {control_rest} opens its services. Fully "
+#~ "stopped elsewhere, {control_rest} opens the emergency shoulder-sleep "
+#~ "warning; nearby route points always take priority."
+#~ msgstr ""
+#~ "在路线停靠点完全停下时，{control_rest}打开它的服务。在其他地方完全停下时，{control_rest}打开紧急路肩睡觉的警告；附近的路线地"
+#~ "点总是优先。"
+
+#~ msgid ""
+#~ "Fully stopped elsewhere, {control_rest} opens the emergency shoulder-sleep "
+#~ "warning; nearby route points always take priority."
+#~ msgstr "在其他地方完全停下时，{control_rest}打开紧急路肩睡觉的警告；附近的路线地点总是优先。"
+
+#~ msgid ""
+#~ "Brake now means slow promptly. Change lanes or brake names an available "
+#~ "lane. A fixed object needs a near-stop if you cannot change lanes."
+#~ msgstr "“刹车”表示马上减速。“变道或刹车”会说出可用的车道。如果无法变道，遇到固定障碍物就要几乎停下。"
+
+#~ msgid "CB chatter reports what other drivers saw, with uncertainty."
+#~ msgstr "CB闲聊会报告其他司机看到的情况，但不一定准确。"
+
+#~ msgid ""
+#~ "CB chatter reports what other drivers saw, with uncertainty. It can be "
+#~ "stale and never claims the road is clear. {control_cb} repeats it with "
+#~ "updated distance."
+#~ msgstr "CB闲聊会报告其他司机看到的情况，但不一定准确。它可能已经过时，而且从不保证道路畅通。{control_cb}会重复它，并更新距离。"
+
+#~ msgid ""
+#~ "Any thirty consecutive non-driving minutes satisfy that break, including "
+#~ "loading or inspection. They do not necessarily reset the duty window."
+#~ msgstr "任何连续30分钟不驾驶的时间都算这次中途休息，包括装货或检查。但它们不一定会重置当班时段。"
+
+#~ msgid ""
+#~ "Ten-hour sleep is the simplest reset. Supported sleeper parking offers two, "
+#~ "three, seven, or eight hours for an eight-plus-two or seven-plus-three "
+#~ "split."
+#~ msgstr "睡满10小时是最简单的重置。支持卧铺的停车位可以选择2、3、7或8小时，用来做8加2或7加3的分段休息。"
+
+#~ msgid ""
+#~ "The long split pauses the duty window. The short half counts until the pair "
+#~ "completes. A nap that leaves the window running tells you when it closes."
+#~ msgstr "长的那一段会暂停当班时段。短的那一半在两段凑齐之前一直计入。如果小睡时当班时段还在走，会告诉你它什么时候结束。"
+
+#~ msgid ""
+#~ "Sleep 10 hours in the lot is poor rest. Sleeper parking gives fully-rested "
+#~ "ten-hour sleep."
+#~ msgstr "“在停车场睡10小时”休息效果不好。卧铺停车位能让你睡满10小时并完全恢复。"
+
+#~ msgid ""
+#~ "Company drivers receive wages and bonuses. Owners receive higher gross with "
+#~ "fuel, repair, reserves, trailer charges, and fees to pay."
+#~ msgstr "公司司机拿工资和奖金。车主司机的毛收入更高，但要支付燃油、维修、准备金、挂车费用和各种费用。"
+
+#~ msgid ""
+#~ "Settlement separates gross pay, carrier-paid or reimbursed charges, driver "
+#~ "costs, and net driver pay. On-time and undamaged freight pays better."
+#~ msgstr "结算会分开列出毛收入、承运商支付或报销的费用、司机成本，以及司机净收入。按时且没有损坏的货物收入更高。"
+
+#~ msgid ""
+#~ "Debt warnings name the ceiling and consequence. At the ceiling, a company "
+#~ "driver changes carrier or an owner loses tractors and returns to company "
+#~ "driving."
+#~ msgstr "债务警告会说明上限和后果。达到上限时，公司司机会更换承运商，车主司机则会失去牵引车，回去当公司司机。"
+
+#~ msgid ""
+#~ "At eighty percent component wear, arrange service. At one hundred, that "
+#~ "component puts the truck out of service. Damage has separate reduced-power, "
+#~ "limp-mode, and out-of-service bands."
+#~ msgstr "部件磨损到百分之80时，安排保养。到百分之100时，这个部件会让卡车停驶。损坏另有动力受限、跛行模式和停驶几个阶段。"
+
+#~ msgid ""
+#~ "Traffic reports traffic ahead, including a reported vehicle's distance and "
+#~ "speed. No reported pinch in the next twenty miles does not guarantee an "
+#~ "empty road."
+#~ msgstr "“车流”报告前方的车流，包括被报告车辆的距离和速度。接下来20英里内没有报告拥堵，并不保证道路空无一车。"
+
+#~ msgid "Enforcement reports are quiet in hours modes without enforcement."
+#~ msgstr "在没有执法的工时模式下，执法报告保持安静。"
+
+#~ msgid ""
+#~ "Road chatter gives informal driver reports that may be stale. Enforcement "
+#~ "reports are quiet in hours modes without enforcement. {control_cb} repeats "
+#~ "the last chatter with its distance updated."
+#~ msgstr ""
+#~ "“沿途见闻”提供司机们非正式的报告，可能已经过时。在没有执法的工时模式下，执法报告保持安静。{control_cb}重复最近一条闲聊，并更新它的距离。"
+
+#~ msgid ""
+#~ "Regional stations fade as you leave their range. Favorites play from "
+#~ "anywhere and never fade. If reception fails, the radio tries a clear local "
+#~ "station, then a fallback. Failed streams leave the dial for that session. "
+#~ "Roadhouse and Night Line are available across the map."
+#~ msgstr ""
+#~ "离开覆盖范围时，地区电台会逐渐消失。收藏的电台在任何地方都能播放，也不会消失。如果信号断了，收音机会先找一个清晰的本地电台，再换备用电台。播放失败的网络"
+#~ "电台在本次游戏中会从频道中移除。Roadhouse和Night Line在整张地图上都能收到。"
+
+#~ msgid ""
+#~ "Original music uses licensed menu and Roadhouse tracks. Synthesized uses "
+#~ "music the game composes and the original three tracks, removing fictional "
+#~ "regional stations and voiced breaks. Real streams and personal playlists "
+#~ "remain unless streamer-safe mode hides them."
+#~ msgstr ""
+#~ "“原版”音乐使用授权的菜单和Roadhouse曲目。“合成”使用游戏自己作的曲子和三首原版曲目，并移除虚构的地区电台和有人声的插播。真实的网络电台和个人"
+#~ "播放列表仍然保留，除非直播安全模式把它们隐藏。"
+
+#~ msgid ""
+#~ "Adjust music, radio, engine, weather, and gameplay cues separately if one "
+#~ "covers another. Game sounds step back for speech lowers engine, weather, "
+#~ "and radio to half volume while the road voice speaks."
+#~ msgstr ""
+#~ "如果某个声音盖过了另一个，可以分别调整音乐、收音机、发动机、天气和游戏提示的音量。“语音播报时降低游戏声音”会在道路语音说话时把发动机、天气和收音机降到"
+#~ "一半音量。"
+
+#~ msgid ""
+#~ "Cloud backup keeps ten accepted revisions per career and up to ten careers. "
+#~ "Restore checks the signed backup and keeps the replaced local save as a "
+#~ "fallback. Back up this career now uploads immediately."
+#~ msgstr ""
+#~ "云备份为每段职业生涯保留10个已接受的版本，最多保留10段职业生涯。恢复时会检查带签名的备份，并把被替换的本地存档留作备用。“现在备份这段职业生涯”会立"
+#~ "即上传。"
+
+#~ msgid ""
+#~ "To learn the buttons, hold Back and press Start on any screen. Each button "
+#~ "you press says what it does; Start twice leaves."
+#~ msgstr "要学习按钮，可在任何界面按住 Back 再按 Start。按下的每个按钮都会说出它的作用；按两次 Start 退出。"
+
+#~ msgid "Profile sharing: off requested"
+#~ msgstr "主页分享：已请求关闭"
 
 #~ msgid ""
 #~ "A soft tock, once a beat, panned to where the truck sits inside its lane. "

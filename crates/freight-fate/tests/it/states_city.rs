@@ -577,7 +577,7 @@ fn test_f1_on_dispatch_job_opens_structured_detail_view() {
     // so a player who does not know the geography can ask for it here.
     assert!(joined.contains("in Buffalo, New York"));
     assert!(joined.contains("Distance:"));
-    assert!(joined.contains("Carrier gross:"));
+    assert!(joined.contains("Pay for the load:"));
     assert!(joined.contains("Dollars per mile:"));
     assert!(!joined.contains("Route details happen after pickup"));
     assert_eq!(rows[rows.len() - 2], "Accept this dispatch");
@@ -1001,7 +1001,7 @@ fn test_owner_operator_hears_missing_trailer_gate_and_preview() {
     let row = labels::<JobBoardState>(&app)[0].clone();
     assert!(row.starts_with("Locked job 1 of 1"));
     assert!(row.contains("Needs Bulk trailer program"));
-    assert!(row.contains("Gross revenue"));
+    assert!(row.contains("Pay for the load"));
     assert!(row.contains("Take-home about"));
     assert!(row.contains("dollars costs"));
 }
@@ -1021,7 +1021,7 @@ fn test_own_authority_owned_trailer_row_shows_direct_market_fit() {
     let row = labels::<JobBoardState>(&app)[0].clone();
     assert!(row.starts_with("Job 1 of 1"));
     assert!(row.contains("Owned trailer: Bulk"));
-    assert!(row.contains("Direct gross"));
+    assert!(row.contains("Pay for the load"));
     assert!(!row.contains("owned-trailer reserve"));
     assert!(!row.contains("Locked job"));
 }
@@ -1535,7 +1535,7 @@ fn test_a_disqualified_owner_operator_cannot_bobtail() {
     assert_eq!(
         expected,
         format!(
-            "You cannot drive, not even bobtail, while your CDL is disqualified. The \
+            "You cannot drive, not even without a trailer, while your CDL is disqualified. The \
              disqualification ends {ends}."
         )
     );
@@ -1563,7 +1563,7 @@ fn test_a_lifetime_disqualification_refuses_bobtail_without_an_end_date() {
     }
     assert_eq!(
         enforcement::suspension_drive_refusal_line(profile(&app)),
-        "You cannot drive with a lifetime CDL disqualification, not even bobtail."
+        "You cannot drive with a lifetime CDL disqualification, not even without a trailer."
     );
 }
 
@@ -1950,7 +1950,7 @@ fn test_company_driver_board_labels_carrier_gross() {
     assert!(with_state::<JobBoardState, _>(&app, |b, _| !b
         .jobs
         .is_empty()));
-    assert!(labels::<JobBoardState>(&app)[0].contains("Carrier gross"));
+    assert!(labels::<JobBoardState>(&app)[0].contains("Pay for the load"));
 }
 
 #[test]
@@ -1975,7 +1975,7 @@ fn test_owner_operator_job_board_labels_missing_trailer_program() {
     push_board(&mut app, vec![job]);
 
     assert!(labels::<JobBoardState>(&app)[0].contains("Needs Reefer trailer program"));
-    assert!(labels::<JobBoardState>(&app)[0].contains("Gross revenue"));
+    assert!(labels::<JobBoardState>(&app)[0].contains("Pay for the load"));
     key(&mut app, Key::Return);
     assert!(profile(&app).active_trip.is_none());
 }
@@ -2030,7 +2030,7 @@ fn test_own_authority_job_board_labels_owned_trailer_and_program_charge() {
     }
     push_board(&mut app, vec![job()]);
     let row = labels::<JobBoardState>(&app)[0].clone();
-    assert!(row.contains("Direct gross"));
+    assert!(row.contains("Pay for the load"));
     assert!(row.contains("Owned trailer: Reefer"));
     assert!(!row.contains("owned-trailer reserve"));
     app.pop_state();
@@ -2088,7 +2088,7 @@ fn test_direct_freight_board_pays_more_and_uses_direct_label() {
     }
     push_board(&mut app, vec![direct[0].clone()]);
     let row = labels::<JobBoardState>(&app)[0].clone();
-    assert!(row.contains("Direct gross"));
+    assert!(row.contains("Pay for the load"));
     assert!(row.contains("Trailer program:"));
 }
 

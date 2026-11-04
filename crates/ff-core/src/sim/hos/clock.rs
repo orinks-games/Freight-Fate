@@ -628,14 +628,14 @@ impl HosClock {
         };
         let hours = if duty_left <= break_left {
             format!(
-                "Hours of service: {} of driving left, {} left in the 14-hour window.",
+                "Hours of service: {} of driving left, {} left in the duty window.",
                 duration_text(drive_left),
                 duration_text(duty_left),
             )
         } else {
             format!(
                 "Hours of service: {} of driving left, 30-minute break due in {}, \
-                 {} left in the 14-hour window.",
+                 {} left in the duty window.",
                 duration_text(drive_left),
                 duration_text(break_left),
                 duration_text(duty_left),
@@ -773,7 +773,7 @@ impl HosClock {
                 answer.push_str(&if terse {
                     format!(", duty window {}", duration_text(duty_left))
                 } else {
-                    format!(", {} left in the 14-hour window", duration_text(duty_left))
+                    format!(", {} left in the duty window", duration_text(duty_left))
                 });
             }
         }
@@ -892,16 +892,16 @@ impl HosClock {
         }
         let last = rest_events.last()?;
         if last.status == "sleeper_berth" && last.minutes >= SPLIT_LONG_ALT_MIN {
-            return Some("Sleeper split open: 2 more hours off duty or in the sleeper to pair it.");
+            return Some("Split rest started: 2 more hours off duty or in the sleeper finish it.");
         }
         if last.status == "sleeper_berth" && last.minutes >= SPLIT_LONG_MIN {
-            return Some("Sleeper split open: 3 more hours off duty or in the sleeper to pair it.");
+            return Some("Split rest started: 3 more hours off duty or in the sleeper finish it.");
         }
         if last.minutes >= SPLIT_SHORT_ALT_MIN {
-            return Some("Sleeper split open: 7 more hours in the sleeper to pair it.");
+            return Some("Split rest started: 7 more hours in the sleeper finish it.");
         }
         if last.minutes >= SPLIT_SHORT_MIN {
-            return Some("Sleeper split open: 8 more hours in the sleeper to pair it.");
+            return Some("Split rest started: 8 more hours in the sleeper finish it.");
         }
         None
     }

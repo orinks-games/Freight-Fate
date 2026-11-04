@@ -197,13 +197,13 @@ pub fn trailer_note(p: &Profile, job: &Job) -> String {
 /// the help on a job's pay line (F1 on it in the job details).
 pub(super) fn pay_basis_note(status: &str) -> &'static str {
     if status == INDEPENDENT_AUTHORITY {
-        "Listed amounts are direct freight gross. Insurance, compliance, trailer, truck, and \
-         factoring costs come out at settlement."
+        "Listed pay is the full rate. Insurance, compliance, trailer, truck and billing fees \
+         come out at settlement."
     } else if is_owner_operator(status) {
-        "Listed amounts are owner-operator gross revenue. Trailer program needs are listed on \
+        "Listed pay is the full rate for the load. Trailer program needs are listed on \
          each job."
     } else {
-        "Listed amounts are carrier gross, your settlement pays driver wages. Routing is \
+        "Listed pay is what the carrier earns; you are paid wages from it. Routing is \
          assigned until you run your own truck."
     }
 }
@@ -1186,8 +1186,8 @@ impl Menu for JobBoardState {
             } else {
                 format!(
                     "Load offer from {} to \
-                     {}. Route inspection after \
-                     pickup covers rest, fuel, toll, weather, and restrictions.",
+                     {}. After pickup, Route planning lists rest, \
+                     fuel, tolls, weather and restrictions.",
                     job.origin_facility_text(),
                     job.destination_facility_text()
                 )

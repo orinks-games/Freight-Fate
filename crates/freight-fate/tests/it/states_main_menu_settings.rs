@@ -871,7 +871,7 @@ fn driving_assistance_names_moved_keys() {
     assert!(help("Latching brake").contains("One press of F7 releases it"));
     assert!(help("Curve callouts").contains("Press F8 to list the next few"));
     assert!(help("Speed keeper").contains("F9 holds your current speed"));
-    assert!(help("Lane keeping").contains("turns F10 and F11 into tap lane changes"));
+    assert!(help("Lane keeping").contains("A tap of F10 or F11 changes lanes"));
 
     open_settings_category(&mut app, "Driving assistance");
     app.ctx.settings.apply_driving_assistance_preset("balanced");
@@ -1296,10 +1296,7 @@ fn test_the_assist_help_says_what_chain_work_costs_and_that_nothing_is_bought() 
         .find(|(label, _)| label.starts_with("Facility stopping assistance"))
         .map(|(_, help)| help)
         .expect("a facility stopping row");
-    assert!(
-        facility.contains("may spend on-duty minutes on chains"),
-        "{facility}"
-    );
+    assert!(facility.contains("about 30 minutes on duty"), "{facility}");
     assert!(facility.contains("It never buys chains."), "{facility}");
     assert!(!facility.contains("money"), "{facility}");
     open_settings_category(&mut app, "Difficulty and hours of service");
@@ -1308,9 +1305,6 @@ fn test_the_assist_help_says_what_chain_work_costs_and_that_nothing_is_bought() 
         .find(|(label, _)| label.starts_with("Hours of service planning hints"))
         .map(|(_, help)| help)
         .expect("a stop planning row");
-    assert!(
-        planning.contains("reminds you before a chain-law road"),
-        "{planning}"
-    );
+    assert!(planning.contains("warns about chain laws"), "{planning}");
     assert!(planning.contains("never buys anything"), "{planning}");
 }

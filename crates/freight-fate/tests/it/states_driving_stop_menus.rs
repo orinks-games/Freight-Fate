@@ -231,7 +231,7 @@ fn test_facility_menu_waits_for_full_stop() {
     let paperwork = last_main(&harness);
     for phrase in [
         "Paperwork, ",
-        "gross ",
+        "pay for the load ",
         "Charges ",
         "Those charges do not reduce driver pay",
         "Net about ",
@@ -244,7 +244,7 @@ fn test_facility_menu_waits_for_full_stop() {
     // A company driver's estimate is wages, not the carrier's gross: the
     // board quoted 224 dollars for a load this line then called 330 of
     // "net driver pay" (agent playtest, 2026-09-02).
-    let gross = dollars_after(&paperwork, ", gross ");
+    let gross = dollars_after(&paperwork, ", pay for the load ");
     let net = dollars_after(&paperwork, "Net about ");
     assert!(net > 0.0 && net < gross, "{paperwork}");
 
