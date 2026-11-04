@@ -629,7 +629,18 @@ fn test_adaptive_cruise_caps_at_posted_limit() {
     assert!(harness.read_drive(|d| d.acc_limit_capped));
     assert!(harness.read_drive(|d| d.truck().throttle) < 0.8); // backed off the throttle
     assert!(harness.read_drive(|d| d.truck().brake) > 0.0); // braking down toward the limit
-    assert!(said_any(&harness, "ruise easing to"));
+                                                            // The set line names the cap; "Cruise easing to 50" right after it was
+                                                            // the same number twice.
+    assert!(
+        said_any(&harness, "for the 45 limit"),
+        "{:?}",
+        spoken(&harness)
+    );
+    assert!(
+        !said_any(&harness, "ruise easing to"),
+        "{:?}",
+        spoken(&harness)
+    );
 }
 
 #[test]
@@ -649,12 +660,22 @@ fn test_adaptive_cruise_slows_before_large_limit_drop() {
     assert!(harness.read_drive(|d| d.acc_limit_capped));
     assert!(harness.read_drive(|d| d.truck().throttle) < 0.8);
     assert!(harness.read_drive(|d| d.truck().brake) > 0.0);
-    assert!(said_any(&harness, "ruise easing to"));
+    assert!(
+        said_any(&harness, "for the 40 limit ahead"),
+        "{:?}",
+        spoken(&harness)
+    );
+    assert!(
+        !said_any(&harness, "ruise easing to"),
+        "{:?}",
+        spoken(&harness)
+    );
 }
 
 #[test]
 fn test_adaptive_cruise_easing_preannounces_the_capped_target() {
-    // Cruise's own "easing to X" line for a plain posted-limit drop already
+    // Cruise's own "easing to X" line (or the set line, when the drop is
+    // already in view as cruise is set) for a plain posted-limit drop already
     // named a number; wiring it into the trip's pre-announce set is the other
     // half of the fix that lets a plain arrival confirmation for that same
     // number stay quiet (owner's live playtest, 2026-08-12). What cruise
@@ -674,7 +695,12 @@ fn test_adaptive_cruise_easing_preannounces_the_capped_target() {
 
     frame(&mut harness, DT);
 
-    assert!(said_any(&harness, "ruise easing to"));
+    // The set line names the capped target, so it pre-announces it too.
+    assert!(
+        said_any(&harness, "for the 40 limit ahead"),
+        "{:?}",
+        spoken(&harness)
+    );
     // 40 + ACC_LIMIT_OFFSET_MPH
     assert!(harness.read_drive(|d| d
         .trip

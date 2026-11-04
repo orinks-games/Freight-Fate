@@ -597,9 +597,15 @@ impl DrivingState {
                     self.trip.note_limit_preannounced(cap_mph);
                 }
             }
-        } else if cap_mph >= set_mph {
+        } else if cap_mph >= set_mph
+            && self.acc_limit_hold.is_none()
+            && self.construction_slowdown.is_none()
+        {
             // Back out on the open road at the set speed: the next drop is
-            // news again.
+            // news again. A set speed under the cap of a zone still ahead is
+            // not open road: cruise set low there and dialled back up said
+            // the zone's easing line a second time (agent drive, WI-29,
+            // 2026-11-04).
             self.acc_limit_cap_said = None;
         }
         self.acc_limit_capped = limit_capped;
