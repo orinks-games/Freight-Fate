@@ -32,6 +32,7 @@ fn snapshot_info() -> UpdateInfo {
             notes: String::new(),
             published: None,
             index: None,
+            built: None,
         },
         archive_url: "https://example.test/a".into(),
         index_url: None,

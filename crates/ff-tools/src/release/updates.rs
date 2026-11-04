@@ -310,6 +310,9 @@ pub fn write_manifests(
             notes: notes.to_string(),
             published: Some(chrono::Utc::now().format("%Y-%m-%dT%H:%M:%SZ").to_string()),
             index,
+            // The channel this archive was built for; the beta alias signed
+            // for dev below keeps it, as Hearken's own release does.
+            built: Some(channel.to_string()),
         };
         let text = manifest::sign(&manifest, secret)
             .map_err(|e| format!("could not sign the manifest for {name}: {e}"))?;
