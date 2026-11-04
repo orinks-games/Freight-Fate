@@ -264,8 +264,7 @@ jobs:
             os: macos-26
             features: ""
           # The FULL suite: `slow-tests` turns on the whole-map sweeps and
-          # other long tests that a plain `cargo test` (rust.yml, a local
-          # run) skips. They run here, and only here. They are headless
+          # other long tests that a plain `cargo test` skips. They run here, and only here. They are headless
           # driving logic, so one platform proves them.
           - name: Linux x86_64
             os: ubuntu-24.04
@@ -290,8 +289,7 @@ jobs:
           ref: ${{ needs.prepare.outputs.commit_sha }}
 
       - name: Set up Rust and the build caches
-        # The same `test` cache rust.yml's test jobs keep, so a night after
-        # a day of pushes starts warm.
+        # One `test` cache per platform, kept from night to night.
         uses: ./.github/actions/rust-setup
         with:
           cache-key: test
