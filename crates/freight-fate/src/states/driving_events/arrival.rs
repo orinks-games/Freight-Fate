@@ -725,7 +725,7 @@ impl DrivingState {
         };
         let title = if self.phase == DRIVE_PHASE_PICKUP {
             format!(
-                "Deadheading to pickup at {}",
+                "Driving empty to pickup at {}",
                 self.pickup_facility_text(ctx)
             )
         } else {

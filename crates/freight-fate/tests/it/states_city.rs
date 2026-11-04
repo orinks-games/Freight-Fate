@@ -1528,7 +1528,7 @@ fn test_a_disqualified_owner_operator_cannot_bobtail() {
     let city = CityMenuState::new(&app.ctx, false);
     app.push_state(city);
     app.clear_speech();
-    select::<CityMenuState>(&mut app, "Bobtail to a nearby city");
+    select::<CityMenuState>(&mut app, "Drive to a nearby city without a trailer");
     assert!(is::<CityMenuState>(&app), "the bobtail menu opened");
     let expected = enforcement::suspension_drive_refusal_line(profile(&app));
     let ends = enforcement::clears_text(profile(&app));

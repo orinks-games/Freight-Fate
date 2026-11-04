@@ -431,13 +431,12 @@ impl JobBoardState {
         let index = self.assigned_queue[0];
         let job = &self.jobs[index];
         let assignment_help = if job.bobtail {
-            "Dispatch assigned this reposition, an empty deadhead with no pickup facility. \
-             Route inspection after accepting covers rest, fuel, toll, weather, and \
-             restrictions."
+            "Dispatch is sending you empty, with no pickup. After you accept, Route \
+             planning lists rest, fuel, tolls, weather and restrictions."
         } else {
-            "Dispatch assigned this load. Accepting starts the deadhead from your terminal to \
-             its origin facility. Route inspection after pickup covers rest, fuel, toll, \
-             weather, and restrictions."
+            "Dispatch assigned this load. Accepting starts the empty drive from your terminal \
+             to the pickup. After pickup, Route planning lists rest, fuel, tolls, weather \
+             and restrictions."
         };
         let mut items = vec![MenuItem::new(
             format!(
@@ -941,7 +940,7 @@ impl JobBoardState {
         let equipment_note = dispatch_equipment_note(ctx, &job);
         profile_mut(ctx).dispatch_board_cache = None;
         let line = format!(
-            "Accepted.{equipment_note} Deadhead {} on {} to pickup at {}.",
+            "Accepted.{equipment_note} Drive empty {} on {} to pickup at {}.",
             ctx.settings.distance_text(route.miles(), true),
             route.highways().first().cloned().unwrap_or_default(),
             job.origin_facility_text()
@@ -994,7 +993,7 @@ impl JobBoardState {
         // this long (heard live: "in Las Vegas, Nevada in Las Vegas, Nevada"
         // and "211.0 miles", 2026-09-12).
         let line = format!(
-            "Accepted.{equipment_note} Deadhead {} on {} to {}.",
+            "Accepted.{equipment_note} Drive empty {} on {} to {}.",
             ctx.settings.distance_text(corridor.miles(), false),
             corridor.highways().first().cloned().unwrap_or_default(),
             job.origin_facility_text(),
@@ -1179,9 +1178,9 @@ impl Menu for JobBoardState {
             }
             let help_text = if job.bobtail {
                 format!(
-                    "Carrier-assigned reposition: an empty deadhead to \
-                     {}. Route inspection after accepting \
-                     covers rest, fuel, toll, weather, and restrictions.",
+                    "Dispatch is sending you empty to {}. After you \
+                     accept, Route planning lists rest, fuel, tolls, \
+                     weather and restrictions.",
                     job.spoken_destination()
                 )
             } else {

@@ -232,7 +232,7 @@ fn gameplay_subcategory_rows(category: &str) -> &'static [&'static str] {
             "Exit speed assistance",
             "Facility stopping assistance",
             "Curve assistance",
-            "Route-transition assistance",
+            "Ramp assistance",
             "Latching brake",
             "Predictive cruise",
             "Curve callouts",
@@ -259,12 +259,11 @@ fn gameplay_subcategory_rows(category: &str) -> &'static [&'static str] {
         "controls" => &[
             "Units",
             "Transmission",
-            "Automatic direction changes",
             "Controller",
             "Haptics",
             #[cfg(feature = "visuals")]
             "Visual display",
-            "Menu accelerator keys",
+            "Letters run menu items",
             "Keyboard shortcuts",
             "Controller buttons",
             "Back",
@@ -448,7 +447,6 @@ fn test_every_gameplay_setting_stays_reachable_after_the_split() {
     // Moved out of flat Gameplay.
     assert!(reachable("controls", "Units"));
     assert!(reachable("controls", "Transmission"));
-    assert!(reachable("controls", "Automatic direction changes"));
     assert!(reachable("controls", "Controller"));
     assert!(reachable("controls", "Haptics"));
     // Only a build with the visual display has a row to turn it off.
@@ -488,26 +486,6 @@ fn test_settings_menu_toggles_speed_keeper() {
     assert!(!app.ctx.settings.speed_keeper);
     key(&mut app, Key::Left);
     assert!(app.ctx.settings.speed_keeper);
-}
-
-#[test]
-fn test_settings_menu_cycles_automatic_direction_changes() {
-    let mut app = TestApp::new();
-    assert_eq!(app.ctx.settings.automatic_direction_changes, "simple");
-    open_settings_category(&mut app, "Controls");
-    move_to::<Cat>(&mut app, "Automatic direction changes");
-    assert!(
-        current_help::<Cat>(&app).starts_with("Both styles change direction with a fresh press")
-    );
-    key(&mut app, Key::Return);
-    assert_eq!(app.ctx.settings.automatic_direction_changes, "deliberate");
-    assert_eq!(Settings::load().automatic_direction_changes, "deliberate");
-    assert_eq!(
-        current_label::<Cat>(&app),
-        "Automatic direction changes: deliberate"
-    );
-    key(&mut app, Key::Left);
-    assert_eq!(app.ctx.settings.automatic_direction_changes, "simple");
 }
 
 #[test]

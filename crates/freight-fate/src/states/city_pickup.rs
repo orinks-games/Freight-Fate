@@ -1165,7 +1165,7 @@ impl Menu for PickupFacilityState {
                 None => "posted limit when the open road begins".to_string(),
             };
             lines.push(format!(
-                "Speed control: paused   Open-road target: {target}"
+                "Speed control: paused   Cruise speed: {target}"
             ));
         }
         lines.push(String::new());

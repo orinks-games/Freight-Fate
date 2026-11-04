@@ -50,14 +50,13 @@ fn last_help(harness: &PlaytestHarness) -> String {
 // -- the drive's own help ---------------------------------------------------------------
 
 #[test]
-fn test_driving_help_explains_selected_automatic_direction_style() {
+fn test_driving_help_explains_automatic_direction_changes() {
     let mut harness = a_drive("Direction Help");
 
-    harness.app.ctx.settings.automatic_direction_changes = "simple".to_string();
     harness.clear_speech();
     harness.with_drive(|drive, ctx| drive.speak_keyboard_help(ctx));
     let said = last_help(&harness);
-    assert!(said.contains("simple direction changes"), "{said}");
+    assert!(!said.contains("direction changes"), "{said}");
     assert!(said.contains("press and hold it again"), "{said}");
     assert!(said.contains("holds the truck"), "{said}");
     assert!(
@@ -76,19 +75,10 @@ fn test_driving_help_explains_selected_automatic_direction_style() {
     );
     assert!(said.contains("emergency shoulder-sleep warning"), "{said}");
 
-    harness.app.ctx.settings.automatic_direction_changes = "deliberate".to_string();
-    harness.clear_speech();
-    harness.with_drive(|drive, ctx| drive.speak_keyboard_help(ctx));
-    let said = last_help(&harness);
-    assert!(said.contains("deliberate direction changes"), "{said}");
-    assert!(said.contains("press and hold it again"), "{said}");
-    assert!(said.contains("A quick tap just brakes"), "{said}");
-
-    harness.app.ctx.settings.automatic_direction_changes = "simple".to_string();
     harness.clear_speech();
     harness.with_drive(|drive, ctx| drive.speak_controller_help(ctx));
     let said = last_help(&harness);
-    assert!(said.contains("simple direction changes"), "{said}");
+    assert!(!said.contains("direction changes"), "{said}");
     assert!(said.contains("press and hold it again"), "{said}");
     assert!(
         said.contains("D-pad up reads your route and current location"),
@@ -104,11 +94,6 @@ fn test_driving_help_explains_selected_automatic_direction_style() {
     );
     assert!(said.contains("opens emergency shoulder sleep"), "{said}");
 
-    harness.app.ctx.settings.automatic_direction_changes = "deliberate".to_string();
-    harness.clear_speech();
-    harness.with_drive(|drive, ctx| drive.speak_controller_help(ctx));
-    let said = last_help(&harness);
-    assert!(said.contains("deliberate direction changes"), "{said}");
     assert!(
         said.contains("let the left trigger return to neutral"),
         "{said}"
@@ -153,9 +138,8 @@ fn test_how_to_play_documents_new_gameplay_systems() {
         "wait for air pressure to reach 100 psi",
         "press and hold it again to reverse",
         "brake held through the stop keeps the truck stopped",
-        "both direction-change styles",
         "active speed-control mode",
-        "open-road target",
+        "cruise speed",
         "company drivers follow dispatch",
         "owner-operators choose a route after loading",
         "nearby route points always take priority",

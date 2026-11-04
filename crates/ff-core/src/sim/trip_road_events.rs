@@ -124,7 +124,7 @@ impl Trip {
                     zone.end_mi,
                     "construction_merge",
                     side,
-                    "construction taper traffic".to_string(),
+                    "traffic merging for roadwork".to_string(),
                 );
             }
         }

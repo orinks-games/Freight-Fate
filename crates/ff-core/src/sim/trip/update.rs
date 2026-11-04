@@ -733,7 +733,7 @@ impl Trip {
         let text = match pressure.kind.as_str() {
             "exit" => format!("Exit traffic, {distance}. Hold {side}, {speed}."),
             // No target speed: the taper's posted limit is spoken separately.
-            "construction_merge" => format!("Taper squeezing, {distance}. Merge {side}."),
+            "construction_merge" => format!("Lane ending, {distance}. Merge {side}."),
             "route_merge" => format!("Merging traffic, {distance}. Keep {side}."),
             _ => format!("Traffic pack, {distance}. {speed}."),
         };

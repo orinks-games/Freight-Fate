@@ -39,7 +39,7 @@ fn test_speed_key_includes_speed_keeper_target_when_active() {
         "{said}"
     );
     assert!(
-        said.contains("Open-road target 55 miles per hour."),
+        said.contains("Cruise speed 55 miles per hour."),
         "{said}"
     );
 }

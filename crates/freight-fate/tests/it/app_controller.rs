@@ -745,7 +745,7 @@ fn test_controller_speed_control_handoff_status_adjustment_and_brake() {
         "{said}"
     );
     assert!(
-        said.contains("Open-road target 60 miles per hour."),
+        said.contains("Cruise speed 60 miles per hour."),
         "{said}"
     );
 
@@ -753,7 +753,7 @@ fn test_controller_speed_control_handoff_status_adjustment_and_brake() {
     app.dispatch_controller(&button(ControllerButton::RightShoulder, 0));
     app.dispatch_controller(&button(ControllerButton::DPadRight, 0));
     let target =
-        with_drive(&shared, |d| d.speed_control_target_mph).expect("the open-road target moved");
+        with_drive(&shared, |d| d.speed_control_target_mph).expect("the cruise speed moved");
     assert!((target - 65.0).abs() <= 1.0, "{target}");
 
     app.dispatch_controller(&button(ControllerButton::Start, 0));

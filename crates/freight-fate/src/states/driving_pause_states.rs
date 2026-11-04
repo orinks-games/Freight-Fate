@@ -135,7 +135,7 @@ impl PauseMenuState {
                 let state = LearnSoundsState::new();
                 ctx.push_state(state);
             })
-            .help("Plays any sound the road uses and says what it means."),
+            .help("Every sound the road uses, and what each one means."),
             MenuItem::new("Practice keys and buttons", |_s: &mut Self, ctx: &mut GameContext| {
                 ctx.push_state(InputPracticeState::new());
             })

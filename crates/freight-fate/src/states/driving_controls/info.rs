@@ -101,16 +101,16 @@ impl DrivingState {
     /// Three short sentences rather than one run-on: the gauges, then the
     /// controller, then the air. The run-on named "automatic speed control"
     /// ahead of the controller that already names itself, spoke the default
-    /// open-road target nobody set, and listed four normal air states every
+    /// cruise speed nobody set, and listed four normal air states every
     /// time (bscross32, 2026-10: "why did I need all of that in one
     /// message?"). What is normal goes unsaid; Tab still lists all of it.
     pub fn speak_speed(&mut self, ctx: &mut GameContext) {
         let gear = self.gear_text();
-        // The open-road target only when one was set, and not when it is the
+        // The cruise speed only when one was set, and not when it is the
         // number the keeper was just said to be set at.
         let keeper_target = match self.speed_control_target_mph {
             Some(mph) if self.keeper_mph.is_none_or(|set| (set - mph).abs() >= 0.5) => {
-                format!(" Open-road target {}.", ctx.settings.speed_text(mph))
+                format!(" Cruise speed {}.", ctx.settings.speed_text(mph))
             }
             _ => String::new(),
         };
@@ -478,14 +478,14 @@ impl DrivingState {
             } else if grade < -0.005 {
                 if truck.jake_slipping() {
                     parts.push(
-                        "The jake is sliding the drive wheels; back it off a stage.".to_string(),
+                        "The engine brake is sliding the drive wheels. Lower it a stage.".to_string(),
                     );
                 } else if accel_mph_s > GRADE_HOLDING_MPH_PER_S {
                     if stage > 0 {
                         let losing = if truck.transmission.automatic {
-                            "snub the brakes"
+                            "brake in short bursts"
                         } else {
-                            "gear down or snub the brakes"
+                            "shift down or brake in short bursts"
                         };
                         parts.push(format!("Jake stage {stage} is not holding it; {losing}."));
                     } else if truck.throttle <= 0.05 {

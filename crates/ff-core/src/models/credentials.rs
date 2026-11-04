@@ -395,7 +395,7 @@ pub fn course_help_text(cred: &Credential) -> String {
             cred.wait_days as i64
         ));
     }
-    text.push_str(" Enter books it, or says why you do not qualify.");
+    text.push_str(" Enter books it.");
     text
 }
 
@@ -444,7 +444,7 @@ mod tests {
             help,
             "Unlocks fresh food and refrigerated goods. The carrier sponsors it free at \
              level 2, or you can pay 900 dollars for it yourself from level 1. Enter books \
-             it, or says why you do not qualify."
+             it."
         );
         let help = course_help_text(credential("hazmat").unwrap());
         assert!(

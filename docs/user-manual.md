@@ -249,7 +249,7 @@ The terminal is your stop between jobs. Before taking another load, you can revi
 | --- | --- |
 | Dispatch board | Browse freight offers from local facilities. |
 | Truck dealer | Owner-operators only. Browse tractors at the local dealer, buy one, or switch between the trucks you own. The intro names a local dealer when one is listed for that area. |
-| Bobtail to a nearby city | Owner-operators only. Drive empty to a nearby city for its dispatch board. It costs fuel and hours of service, with no load and no pay. |
+| Drive to a nearby city without a trailer | Owner-operators only. Drive empty to a nearby city for its dispatch board. It costs fuel and hours of service, with no load and no pay. |
 | Career plan | Review your next realistic career objective after the first dispatch. |
 | Business status | Review company-driver or owner-operator status. |
 | Garage | Refuel, repair, service the tires, brakes, and engine, buy snow chains, and wash the truck; owner-operators can also switch to winter tires, buy upgrades, buy tractors, switch owned tractors, add trailer programs, or buy trailers after own authority. |
@@ -290,7 +290,7 @@ Owners can also choose tire compounds and buy upgrades for torque, drag, tank ca
 
 As an owner, Truck dealer lets you browse tractors, buy one, or switch to another truck you already own. Garage also gives you access to owned trucks and trailer programs. A specialty program opens equipment for suitable freight; after reaching own authority, you can buy your own trailers. The [business guide](#business-status) explains the progression and costs.
 
-Bobtail to a nearby city lets an owner travel empty to another dispatch board. You're still using fuel and legal hours, and there's no delivery pay for that move. Check whether the work you hope to find is worth the trip before leaving.
+Drive to a nearby city without a trailer lets an owner travel empty to another dispatch board. You're still using fuel and legal hours, and there's no delivery pay for that move. Check whether the work you hope to find is worth the trip before leaving.
 
 ### Licenses and training
 
@@ -394,7 +394,7 @@ A control marked Driving commands has no controller button. Hold the right bumpe
 | Z | Not on the controller | Lower or raise the driver window. With it down you hear the wind rush in and the road louder; it closes again at the start of every drive. |
 | Alt+Z | Not on the controller | Step the fan: off, low, medium, high. The fan runs while the engine does. |
 | Shift+Z | Not on the controller | Switch the fan between heat and air conditioning. A drive starts on whichever the weather calls for. |
-| Space | B | Report speed, gear, and the active speed-control mode and open-road target when speed control is on. RPM is added with a manual transmission, and air pressure or the parking brake only when they need attention. With the signal set for an exit, it ends with that exit and how far away it is. Tab has the full air and brake readings. |
+| Space | B | Report speed, gear, and the active speed-control mode and cruise speed when speed control is on. RPM is added with a manual transmission, and air pressure or the parking brake only when they need attention. With the signal set for an exit, it ends with that exit and how far away it is. Tab has the full air and brake readings. |
 | S | Right bumper plus X | Report the posted speed limit here, the zone if any, and how far over you are. In bend country it adds the bend's advisory speed, since the posted limit and the yellow diamond are different numbers on a real road. On a delivery ramp that ends at a traffic light, S answers with the light and the distance to the stop bar instead, since the light is the law there. |
 | D | Driving commands | Report one safe-speed number for right now. Weather grip, a steep downgrade, and the next bend are already baked into the number. On an exit ramp it is the exit speed. |
 | G | Driving commands | Report the grade under the wheels: the slope, how far it runs, and whether the truck is holding, pulling, or losing it, including whether the engine brake has the descent or is about to lose it. G also names the next grade ahead worth planning for, how far off and how long it runs, including one that steepens without flattening out first, and the gentler pull automatic speed control is building speed for when nothing steep is coming. |
@@ -855,9 +855,9 @@ Choose how much driving you'd like to handle yourself. Realistic keeps safety su
 
 Adjusting an assistance setting changes the preset name to Custom. Your driving pace, legal hours, transmission, weather and traffic sources, and separate options stay as they are. On the first-launch screen, Escape keeps your selection.
 
-For downhill assistance, choose Off, Realistic, Balanced, or Interactive. Interactive applies to downhill control only; it isn't a preset for all your driving assistance. Following gap lets you choose close, normal, or far spacing behind traffic. Emergency braking, lane-departure warnings, stop-and-go, exit speed, facility stopping, curves, and route transitions each have their own settings too.
+For downhill assistance, choose Off, Light, Standard, or Strong. Following gap lets you choose close, normal, or far spacing behind traffic. Emergency braking, lane-departure warnings, stop-and-go, exit speed, facility stopping, curves, and ramps each have their own settings too.
 
-Exit speed assistance slows you down once you're in the deceleration lane for your selected exit. Depending on your settings, stopping or transition assistance may also provide that braking. Near a facility entrance, facility stopping assistance handles the accelerator and brakes, and can pull away when the ramp light or stop sign allows it. Speed keeper helps with the streets in between.
+Exit speed assistance slows you down once you're in the exit lane for your selected exit. Depending on your settings, stopping or transition assistance may also provide that braking. Near a facility entrance, facility stopping assistance handles the accelerator and brakes, and can pull away when the ramp light or stop sign allows it. Speed keeper helps with the streets in between.
 
 Press the brake whenever you want to take over the pedals. You still choose optional stops and confirm delivery yourself.
 
@@ -908,7 +908,7 @@ Here you choose where the game's weather, traffic reports, and fuel prices come 
 | Setting | Purpose |
 | --- | --- |
 | Weather source | Switches between simulated weather and live conditions for your current route position while driving. Route planning checks live city conditions along the route when available. |
-| Traffic source | Switches between simulated traffic incidents and live reports from state 511 services when available. |
+| Traffic source | Switches between simulated traffic incidents and live incident reports from state road information services when available. |
 | Fuel prices | This week's national average, the default, puts the federal weekly diesel price at every pump, with each region's usual difference on top. Simulated draws a price per region for the session. |
 | Parking source | Switches between simulated truck parking and live availability when available. |
 | Live weather controls calendar | When on, live weather uses today's real date and season. When off, live conditions continue while the career date advances at midnight and its seasons pass. |
@@ -922,7 +922,6 @@ This is where you change units, transmission, and eligible shortcuts. Open Keybo
 | --- | --- |
 | Units | Switch speed and distance between miles and kilometers. |
 | Transmission | Switch between automatic and manual transmission. |
-| Automatic direction changes | In an automatic, both styles now change direction the same way: a fresh press held at a standstill. A brake held through a stop just holds the truck. The setting remains for familiarity. |
 | Controller | Accept controller input alongside the keyboard. The keyboard always stays active. While it is on, it names the controller the game is using. |
 | Haptics | Use controller vibration for hazards, hard braking, rumble strips, and road seams. |
 | Visual display | On by default: the game window draws the road, the dashboard, menus, and captions of what the game says. Off keeps the window dark and saves battery. Speech and sound are the same either way. |
@@ -950,7 +949,7 @@ If one sound is covering another, adjust that sound's volume rather than lowerin
 | In-cab radio volume | Driving radio music volume. It defaults lower than speech and safety cues. |
 | Radio streamer-safe mode | Limit the radio to built-in safe stations while streaming or recording. Off by default. See [Choosing music for your drive](#choosing-music-for-your-drive) for how it works with Synthesized music. |
 | Shuffle personal playlists | Play your music in a random order. Off by default; see [Playing your own music](#playing-your-own-music). |
-| Game sounds step back for speech | Off by default. On, the engine, weather, and radio drop to half volume while the road voice speaks, then come back. |
+| Lower game sounds during speech | Off by default. On, the engine, weather, and radio drop to half volume while the road voice speaks, then come back. |
 | Menu and UI sounds volume | Menu movement, selection, warning, and cash sounds. |
 
 ### Speech settings

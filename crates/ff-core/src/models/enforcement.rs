@@ -1338,7 +1338,7 @@ pub fn suspension_refusal_line<P: StandingProfile + ?Sized>(profile: &P) -> Stri
 pub fn suspension_drive_refusal_line<P: StandingProfile + ?Sized>(profile: &P) -> String {
     let record = record_of(profile);
     if record.lifetime_disqualified {
-        return "You cannot drive with a lifetime CDL disqualification, not even bobtail."
+        return "You cannot drive with a lifetime CDL disqualification, not even without a trailer."
             .to_string();
     }
     let verb = status_verb(record);
@@ -1348,7 +1348,7 @@ pub fn suspension_drive_refusal_line<P: StandingProfile + ?Sized>(profile: &P) -
         "suspension"
     };
     format!(
-        "You cannot drive, not even bobtail, while your CDL is {verb}. The {noun} ends {}.",
+        "You cannot drive, not even without a trailer, while your CDL is {verb}. The {noun} ends {}.",
         clears_text(profile)
     )
 }

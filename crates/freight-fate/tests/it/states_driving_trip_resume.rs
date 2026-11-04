@@ -254,7 +254,7 @@ fn test_active_drive_snapshot_restores_paused_speed_control_session() {
         .unwrap_or_else(|| panic!("no paused-cruise line: {lines:#?}"));
     // Just the state: the target is on Space and Tab, the key in the help.
     assert!(
-        !resume_message.contains("open-road target"),
+        !resume_message.contains("cruise speed"),
         "{resume_message}"
     );
 }

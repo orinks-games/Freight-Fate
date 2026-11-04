@@ -233,7 +233,7 @@ impl DriverAppScreenState {
                 }
                 vec![next.unwrap_or_else(|| {
                     format!(
-                        "Traffic: no reported pinch in the next {}.",
+                        "Traffic: no slowdowns reported in the next {}.",
                         ctx.settings.distance_text(20.0, false)
                     )
                 })]

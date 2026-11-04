@@ -771,7 +771,7 @@ impl Menu for CityMenuState {
         // dispatch instead (ROADMAP).
         if is_owner_operator(status) {
             items.push(
-                MenuItem::new("Bobtail to a nearby city", |s: &mut Self, ctx| {
+                MenuItem::new("Drive to a nearby city without a trailer", |s: &mut Self, ctx| {
                     s.bobtail(ctx)
                 })
                 .help(

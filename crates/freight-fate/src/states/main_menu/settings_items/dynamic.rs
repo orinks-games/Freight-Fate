@@ -79,19 +79,19 @@ impl SettingsCategoryState {
             dyn_label(|s| format!("Lane keeping: {}", lane_keeping_label(s))),
             adjust(|s, ctx, d| s.cycle_lane_keeping(ctx, d)),
             |s| {
-                "How much of the lane-holding work the truck does. Full \
-                 holds the lane, turns {{steer_left}} and {{steer_right}} into tap lane \
-                 changes, moves out of a lane a work zone closes, and takes \
-                 your exits and open weigh stations, including the destination \
-                 exit, without a signal. Partial steers the truck through \
-                 the road's bends and drifts gently, with generous steering \
-                 help; lane changes and speed are yours. Off drifts like a \
-                 real wheel; bends are yours unless curve assistance is \
-                 on, and every exit needs its signal and its exit lane. On \
-                 partial or off {lean}. The road sound only says where you \
-                 sit in your lane, and the road edge answers: a stutter \
-                 clipping the rumble strip, a buzz fully on it, gravel off \
-                 the pavement. Steering guide and Lane guide sound, under \
+                "How much of the steering the truck does. Full holds the \
+                 lane, moves out of a lane a work zone closes, and takes your \
+                 exits and open weigh stations without a signal, including \
+                 the destination exit. A tap of {{steer_left}} or \
+                 {{steer_right}} changes lanes. Partial steers through bends \
+                 with a gentle drift and generous help; lane changes and \
+                 speed are yours. Off drifts like a real truck; bends are \
+                 yours unless curve assistance is on, and every exit needs a \
+                 signal and the exit lane. On partial or off, {lean}. Road \
+                 noise tells you where you sit in the lane, and the edge \
+                 tells you when you leave it: a stutter on the edge of the \
+                 rumble strip, a buzz fully on it, gravel off the pavement. \
+                 Steering guide and Lane guide sound, under \
                  Audio, change which way to steer and what leans. \
                  Realistic sets this off, Balanced partial, All assists \
                  full."

@@ -104,26 +104,13 @@ impl DrivingState {
             ));
             lines.push("The throttle key never latches.".to_string());
         }
-        if ctx.settings.automatic_direction_changes == "deliberate" {
-            lines.push(format!(
-                "In automatic with deliberate direction changes, stop, release \
-                 {down}, then press and hold it again to reverse."
-            ));
-            lines.push(format!(
-                "While reversing, stop with {up}, release, then press and hold \
-                 again for forward."
-            ));
-            lines.push("A quick tap just brakes.".to_string());
-        } else {
-            lines.push(format!(
-                "In automatic with simple direction changes, stop, release {down}, \
-                 then press and hold it again to reverse."
-            ));
-            lines.push(format!(
-                "While reversing, stop with {up}, release, then hold it again for forward."
-            ));
-            lines.push("A brake held through a stop just holds the truck.".to_string());
-        }
+        lines.push(format!(
+            "In automatic, stop, release {down}, then press and hold it again to reverse."
+        ));
+        lines.push(format!(
+            "While reversing, stop with {up}, release, then hold it again for forward."
+        ));
+        lines.push("A brake held through a stop just holds the truck.".to_string());
         lines.push(format!(
             "Hold {emergency_brake} for the emergency brake, the hardest possible stop."
         ));
@@ -137,10 +124,10 @@ impl DrivingState {
              turn or the next lower limit."
                 .to_string(),
         );
-        lines.push("Braking cancels the session.".to_string());
+        lines.push("Braking cancels it.".to_string());
         lines.push("At the planned pickup it pauses and resumes once you depart.".to_string());
         lines.push(
-            "Plus and minus, including the keypad keys, change the open-road target by \
+            "Plus and minus, including the keypad keys, change the cruise speed by \
              five; it never holds more than five over the posted limit."
                 .to_string(),
         );
@@ -156,7 +143,7 @@ impl DrivingState {
         ));
         lines.push(
             "Unless lane keeping is on full, move to the right lane, then steer right \
-             into the exit lane where it opens, just before the gore."
+             into the exit lane where it opens."
                 .to_string(),
         );
         lines.push(
@@ -266,9 +253,9 @@ impl DrivingState {
         lines.push("Control C copies the message you are on.".to_string());
         lines.push(format!("{copy_last} copies the last thing the game said."));
         lines.push(format!(
-            "{upcoming} reads the road ahead that no other key answers: the exit your \
-             signal is on for, the ramp control coming up, the next imposed limit, the \
-             next stop, and the next bend that demands slowing."
+            "{upcoming} reads what is coming up: your signaled exit, the light or stop \
+             sign at the end of the ramp, the next lower speed limit, the next stop, and \
+             the next bend you need to slow for."
         ));
         lines.push(format!(
             "Bends that demand slowing are called before they arrive, like Sharp left, \
@@ -305,8 +292,8 @@ impl DrivingState {
              inspect, roadside assistance, or save where available."
         ));
         lines.push(format!(
-            "Fully stopped away from route points, {rest} opens the emergency \
-             shoulder-sleep warning instead."
+            "Fully stopped away from route points, {rest} offers emergency \
+             sleep on the shoulder."
         ));
         lines.push(format!("{horn} horn."));
         lines.push(format!(
@@ -365,21 +352,9 @@ impl DrivingState {
                 "Hold the left bumper for the clutch; {shift_up} shifts up a gear, \
                  {shift_down} shifts down."
             ));
-        } else if ctx.settings.automatic_direction_changes == "deliberate" {
-            lines.push(
-                "In automatic with deliberate direction changes, stop, let the left \
-                 trigger return to neutral, then press and hold it again to reverse."
-                    .to_string(),
-            );
-            lines.push(
-                "While reversing, stop with the right trigger, let it return to \
-                 neutral, then press and hold again for forward."
-                    .to_string(),
-            );
-            lines.push("A quick tap just brakes.".to_string());
         } else {
             lines.push(
-                "In automatic with simple direction changes, stop, let the left \
+                "In automatic, stop, let the left \
                  trigger return to neutral, then press and hold it again to reverse."
                     .to_string(),
             );
@@ -422,7 +397,7 @@ impl DrivingState {
              the speed keeper in low-speed zones."
         ));
         lines.push(format!(
-            "{cruise_down} or {cruise_up} change the open-road target by five."
+            "{cruise_down} or {cruise_up} change the cruise speed by five."
         ));
         lines.push(
             "It pauses through the planned pickup and resumes once the loaded truck is \

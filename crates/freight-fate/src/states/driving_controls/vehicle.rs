@@ -273,10 +273,10 @@ impl DrivingState {
             ctx.audio.play_with("vehicle/tire_screech", 0.9, 0.0);
             ctx.audio.play_with("vehicle/brake_set", 0.9, 0.0);
             ctx.controller.rumble.alert();
-            self.set_status("Parking brake dynamited at speed!");
+            self.set_status("Parking brake pulled at speed!");
             let spoken = ctx.settings.speed_text(speed);
             ctx.say(&format!(
-                "You dynamited the parking brake at {spoken}! The spring brakes slam the drive \
+                "You pulled the parking brake at {spoken}! The spring brakes slam the drive \
                  axle and the tires grind flat spots into the tread."
             ));
             return;

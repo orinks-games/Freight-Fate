@@ -2440,7 +2440,7 @@ fn test_merge_traffic_pressures_drop_the_speed_advisory() {
     );
     assert_eq!(
         construction_merge_msg.normal,
-        format!("Taper squeezing, {distance}. Merge left.")
+        format!("Lane ending, {distance}. Merge left.")
     );
     assert!(!route_merge_msg.normal.contains("35"));
     assert!(!construction_merge_msg.normal.contains("35"));

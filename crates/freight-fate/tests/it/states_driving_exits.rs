@@ -921,7 +921,7 @@ fn test_exit_traffic_pressure_changes_missed_lane_recovery() {
 
     assert!(harness.read_drive(|d| d.ramp_mi.is_none()));
     assert!(
-        said_any(&harness, "Boxed out of the exit lane"),
+        said_any(&harness, "Traffic blocked the exit lane"),
         "{:?}",
         spoken(&harness)
     );
@@ -997,7 +997,7 @@ fn test_merging_and_construction_pressures_still_speak_unsignalled() {
     let at = harness.read_drive(|d| d.trip.position_mi) + 1.6;
     for (kind, direction, phrase) in [
         ("route_merge", "right", "Merging traffic,"),
-        ("construction_merge", "left", "Taper squeezing,"),
+        ("construction_merge", "left", "Lane ending,"),
         ("traffic_pack", "right", "Traffic pack,"),
     ] {
         // Real time between the three cues: these are AMBIENT lines, and

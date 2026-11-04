@@ -2124,7 +2124,7 @@ fn test_route_transition_assistance_brakes_to_the_sign_without_slamming() {
     assert!(
         !lines
             .iter()
-            .any(|line| line == "Route-transition assistance released."),
+            .any(|line| line == "Ramp assistance released."),
         "released while still braking for the sign: {lines:?}"
     );
 }
@@ -2206,7 +2206,7 @@ fn test_route_transition_assistance_does_not_chatter_at_the_ramp_cap() {
     );
     let released = spoken(&harness.app)
         .iter()
-        .filter(|line| *line == "Route-transition assistance released.")
+        .filter(|line| *line == "Ramp assistance released.")
         .count();
     assert!(released <= 1, "{:?}", spoken(&harness.app));
 }

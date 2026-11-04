@@ -511,7 +511,7 @@ const HAZARDS: SoundCategory = SoundCategory {
             "Construction zone",
             &[Cue::new("events/construction_zone")],
             "Roadwork ahead. The posted limit drops, a lane may close, and \
-             the taper callout names which side. Move over when told or you \
+             the lane ending callout names which side. Move over when told or you \
              will go through the barrels.",
         ),
         SoundEntry::new(

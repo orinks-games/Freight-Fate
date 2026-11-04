@@ -512,8 +512,8 @@ impl UpgradeShopState {
     pub fn new() -> Self {
         UpgradeShopState {
             menu: MenuCore::new("Upgrades").with_intro_help(
-                "Upgrades apply to every tractor you own. Enter buys the next tier, F1 says \
-                 what it does. Escape returns to the garage.",
+                "Upgrades apply to every tractor you own. Enter buys the next tier, F1 is \
+                 details. Escape returns to the garage.",
             ),
         }
     }
@@ -1064,7 +1064,7 @@ impl EndorsementCourseState {
     pub fn new() -> Self {
         EndorsementCourseState {
             menu: MenuCore::new("Licenses and training").with_intro_help(
-                "Enter books a course, or says why you do not qualify. Courses take game \
+                "Enter books a course. Courses take game \
                  time, and a background check runs while you drive. Escape returns to the \
                  terminal.",
             ),

@@ -212,7 +212,7 @@ impl ArrivalState {
         self.summary_parts.insert(
             0,
             format!(
-                "Bobtailed empty to {} in {} hours. It is {}. {pay_clause}Parked at {}. \
+                "Drove without a trailer to {} in {} hours. It is {}. {pay_clause}Parked at {}. \
                  {} dispatch board available. Fuel {} percent.",
                 job.spoken_destination(),
                 fmt_f(hours, 1),

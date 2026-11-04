@@ -1072,7 +1072,7 @@ fn test_accepting_job_starts_drivable_pickup_leg() {
     }
     assert_eq!(total, miles);
     assert_eq!(remaining, miles);
-    assert!(first_line.contains("Deadheading to pickup"), "{first_line}");
+    assert!(first_line.contains("Driving empty to pickup"), "{first_line}");
     let dispatch: Vec<String> = app
         .main_lines()
         .into_iter()

@@ -71,7 +71,7 @@ pub fn describe_job(ctx: &GameContext, total: usize, job: &Job, index: Option<us
         .map(|route| ctx.settings.distance_text(route.miles(), false))
         .unwrap_or_else(|| "a drive".to_string());
     let waiting = format!(
-        "Load in {}, {deadhead} deadhead first. ",
+        "Load in {}, {deadhead} empty first. ",
         job.spoken_origin()
     );
     match index {

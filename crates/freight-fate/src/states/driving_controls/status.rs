@@ -107,7 +107,7 @@ impl DrivingState {
             );
             lines.insert(
                 2,
-                format!("Open-road target: {}", self.open_road_target(ctx)),
+                format!("Cruise speed: {}", self.open_road_target(ctx)),
             );
         } else if self.speed_control_armed {
             lines.insert(
@@ -116,7 +116,7 @@ impl DrivingState {
             );
             lines.insert(
                 2,
-                format!("Open-road target: {}", self.open_road_target(ctx)),
+                format!("Cruise speed: {}", self.open_road_target(ctx)),
             );
         }
         let truck = &self.trip.truck;
@@ -186,7 +186,7 @@ impl DrivingState {
         lines
     }
 
-    /// The open-road target the keeper's two status rows both print.
+    /// The cruise speed the keeper's two status rows both print.
     fn open_road_target(&self, ctx: &GameContext) -> String {
         match self.speed_control_target_mph {
             Some(mph) => ctx.settings.speed_text(mph),

@@ -894,7 +894,7 @@ fn faults(preset: Preset, kind: Kind, run: &Run) -> Vec<String> {
     let named = [
         ("Exit speed assistance", settings.exit_speed_assist),
         (
-            "Route-transition assistance",
+            "Ramp assistance",
             settings.route_transition_assist,
         ),
         ("Curve assistance", settings.curve_speed_assist),
