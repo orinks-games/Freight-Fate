@@ -4262,8 +4262,8 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       (Valdez, Kenai, Seward, Homer, Soldotna, Delta Junction, Coldfoot,
       Deadhorse) have no `facility_approaches.json` chains yet; the last
       approach bake predates them. Re-route them from the Alaska extract.
-- [ ] (Found along the way) The Dalton's 12% grade cap is assumed from the BLM
-      guide's "10% to 12%" wording; a surveyed profile should replace the
+- [ ] (Found along the way) The Dalton's 12% grade cap cites the BLM guide's
+      "10% to 12%" steep grades; a surveyed profile should still replace the
       DEM-derived Atigun and mi 149 segments.
 - [ ] (Found along the way) Kenai's seafood plant carries its operating name,
       Inlet Fish Producers; North Pacific Seafoods' current parent company is

@@ -2548,7 +2548,10 @@ fn test_dalton_highway_data_follows_the_blm_guide() {
             .grade_segments()
             .iter()
             .filter(|g| g.avg_grade_pct.abs() == 12.0)
-            .all(|g| g.source.contains("ASSUMED")));
+            .all(
+                |g| g.source.contains("BLM 2024 Dalton Highway Visitor Guide")
+                    && !g.source.contains("ASSUMED")
+            ));
         let summit = leg
             .elevation_samples()
             .iter()

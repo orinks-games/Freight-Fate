@@ -2609,7 +2609,7 @@
             "type": "highway_change",
             "state": "Alaska",
             "highway": "Seward Highway / Sterling Highway",
-            "source": "The MILEPOST Seward Highway MP 37 junction; 127−37=90 miles from Anchorage."
+            "source": "The MILEPOST Seward Highway MP 37 junction; 127\u221237=90 miles from Anchorage."
           }
         ],
         "state_miles": [
@@ -2618,7 +2618,7 @@
             "miles": 127.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 127.0722 mi; paid miles 127 from mileposts: The MILEPOST Seward Highway mileposts; Anchorage–Seward is approximately 126–127 paid miles, represented as 127. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 127.0722 mi; paid miles 127 from mileposts: The MILEPOST Seward Highway mileposts; Anchorage\u2013Seward is approximately 126\u2013127 paid miles, represented as 127. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -5779,7 +5779,7 @@
             "miles": 42.0
           }
         ],
-        "source": "Paid miles re-set to Parks Highway milepost arithmetic from Anchorage (Parks/Glenn milepost Anchorage MP0 → Wasilla~MP42). Shape (route_points lat/lon) unchanged from prior public Valhalla truck densify; at_mi rescaled to paid 42. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 43.6 mi; paid miles 44. George Parks Highway / Glenn Highway (AK-3 / AK-1). Parks to Glenn–Parks interchange to Glenn; ALCAN Phase B2; paid ~44 (public Valhalla truck ~43.6). Reverse edge mirrored from forward densify (Phase A ALCAN pattern).",
+        "source": "Paid miles re-set to Parks Highway milepost arithmetic from Anchorage (Parks/Glenn milepost Anchorage MP0 \u2192 Wasilla~MP42). Shape (route_points lat/lon) unchanged from prior public Valhalla truck densify; at_mi rescaled to paid 42. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 43.6 mi; paid miles 44. George Parks Highway / Glenn Highway (AK-3 / AK-1). Parks to Glenn\u2013Parks interchange to Glenn; ALCAN Phase B2; paid ~44 (public Valhalla truck ~43.6). Reverse edge mirrored from forward densify (Phase A ALCAN pattern).",
         "landmarks": [],
         "speed_limits": [
           {
@@ -15727,7 +15727,7 @@
             "end_mi": 69.5,
             "avg_grade_pct": 12.0,
             "terrain": "mountain",
-            "source": "Derived from adjacent Open-Meteo DEM elevation samples on the Valhalla loaded-semi route; grade=(elevation change in feet)/(paid-mile interval x 5280) x 100; grouped by the existing terrain classifier. Samples are 0.25 mi on the Dalton and 1 mi elsewhere. Capped at 12% from the DEM-derived 13.98%: ASSUMED ceiling, because the BLM 2024 Dalton Highway Visitor Guide (https://www.blm.gov/sites/default/files/docs/2024-03/BLM-AK-2024_DaltonHwy_VisitorGuide_508_reduced.pdf) says the steep grades run 10% to 12%; the DEM spike is not a surveyed grade."
+            "source": "Derived from adjacent Open-Meteo DEM elevation samples on the Valhalla loaded-semi route; grade=(elevation change in feet)/(paid-mile interval x 5280) x 100; grouped by the existing terrain classifier. Samples are 0.25 mi on the Dalton and 1 mi elsewhere. Capped at 12% from the DEM-derived 13.98%: the top of the 10% to 12% steep grades given by the BLM 2024 Dalton Highway Visitor Guide (https://www.blm.gov/sites/default/files/docs/2024-03/BLM-AK-2024_DaltonHwy_VisitorGuide_508_reduced.pdf); the DEM spike is not a surveyed grade."
           },
           {
             "start_mi": 69.5,
@@ -16203,7 +16203,7 @@
             "end_mi": 149.2,
             "avg_grade_pct": 12.0,
             "terrain": "mountain",
-            "source": "Derived from adjacent Open-Meteo DEM elevation samples on the Valhalla loaded-semi route; grade=(elevation change in feet)/(paid-mile interval x 5280) x 100; grouped by the existing terrain classifier. Samples are 0.25 mi on the Dalton and 1 mi elsewhere. Capped at 12% from the DEM-derived 14%: ASSUMED ceiling, because the BLM 2024 Dalton Highway Visitor Guide (https://www.blm.gov/sites/default/files/docs/2024-03/BLM-AK-2024_DaltonHwy_VisitorGuide_508_reduced.pdf) says the steep grades run 10% to 12%; the DEM spike is not a surveyed grade."
+            "source": "Derived from adjacent Open-Meteo DEM elevation samples on the Valhalla loaded-semi route; grade=(elevation change in feet)/(paid-mile interval x 5280) x 100; grouped by the existing terrain classifier. Samples are 0.25 mi on the Dalton and 1 mi elsewhere. Capped at 12% from the DEM-derived 14%: the top of the 10% to 12% steep grades given by the BLM 2024 Dalton Highway Visitor Guide (https://www.blm.gov/sites/default/files/docs/2024-03/BLM-AK-2024_DaltonHwy_VisitorGuide_508_reduced.pdf); the DEM spike is not a surveyed grade."
           },
           {
             "start_mi": 149.2,
@@ -16623,7 +16623,7 @@
             "miles": 239.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 241.2141 mi; paid miles 239 from mileposts: BLM Alaska 2024 Dalton Highway Visitor Guide: Coldfoot MP 175 to Deadhorse MP 414; derived paid miles 414−175=239. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. BLM describes the Dalton as mostly gravel; separate gravel-surface gameplay is not modeled. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 241.2141 mi; paid miles 239 from mileposts: BLM Alaska 2024 Dalton Highway Visitor Guide: Coldfoot MP 175 to Deadhorse MP 414; derived paid miles 414\u2212175=239. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. BLM describes the Dalton as mostly gravel; separate gravel-surface gameplay is not modeled. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -16671,7 +16671,7 @@
           "name": "Yukon River Camp",
           "at_mi": 119,
           "type": "travel_center",
-          "source": "Yukon River Camp https://yukonrivercamp.com/ confirms gas and diesel; Dalton MP 56 (BLM 2024 guide), 175−56=119 paid miles south of Coldfoot. Local OSM node 410640133 supports large-vehicle access; parking capacity not verified.",
+          "source": "Yukon River Camp https://yukonrivercamp.com/ confirms gas and diesel; Dalton MP 56 (BLM 2024 guide), 175\u221256=119 paid miles south of Coldfoot. Local OSM node 410640133 supports large-vehicle access; parking capacity not verified.",
           "actions": [
             "fuel"
           ],
@@ -31324,7 +31324,7 @@
             "end_mi": 90.0,
             "avg_grade_pct": -12.0,
             "terrain": "mountain",
-            "source": "Derived from adjacent Open-Meteo DEM elevation samples on the Valhalla loaded-semi route; grade=(elevation change in feet)/(paid-mile interval x 5280) x 100; grouped by the existing terrain classifier. Samples are 0.25 mi on the Dalton and 1 mi elsewhere. Capped at 12% from the DEM-derived -14%: ASSUMED ceiling, because the BLM 2024 Dalton Highway Visitor Guide (https://www.blm.gov/sites/default/files/docs/2024-03/BLM-AK-2024_DaltonHwy_VisitorGuide_508_reduced.pdf) says the steep grades run 10% to 12%; the DEM spike is not a surveyed grade."
+            "source": "Derived from adjacent Open-Meteo DEM elevation samples on the Valhalla loaded-semi route; grade=(elevation change in feet)/(paid-mile interval x 5280) x 100; grouped by the existing terrain classifier. Samples are 0.25 mi on the Dalton and 1 mi elsewhere. Capped at 12% from the DEM-derived -14%: the top of the 10% to 12% steep grades given by the BLM 2024 Dalton Highway Visitor Guide (https://www.blm.gov/sites/default/files/docs/2024-03/BLM-AK-2024_DaltonHwy_VisitorGuide_508_reduced.pdf); the DEM spike is not a surveyed grade."
           },
           {
             "start_mi": 90.0,
@@ -31800,7 +31800,7 @@
             "end_mi": 170.5,
             "avg_grade_pct": -12.0,
             "terrain": "mountain",
-            "source": "Derived from adjacent Open-Meteo DEM elevation samples on the Valhalla loaded-semi route; grade=(elevation change in feet)/(paid-mile interval x 5280) x 100; grouped by the existing terrain classifier. Samples are 0.25 mi on the Dalton and 1 mi elsewhere. Capped at 12% from the DEM-derived -13.98%: ASSUMED ceiling, because the BLM 2024 Dalton Highway Visitor Guide (https://www.blm.gov/sites/default/files/docs/2024-03/BLM-AK-2024_DaltonHwy_VisitorGuide_508_reduced.pdf) says the steep grades run 10% to 12%; the DEM spike is not a surveyed grade."
+            "source": "Derived from adjacent Open-Meteo DEM elevation samples on the Valhalla loaded-semi route; grade=(elevation change in feet)/(paid-mile interval x 5280) x 100; grouped by the existing terrain classifier. Samples are 0.25 mi on the Dalton and 1 mi elsewhere. Capped at 12% from the DEM-derived -13.98%: the top of the 10% to 12% steep grades given by the BLM 2024 Dalton Highway Visitor Guide (https://www.blm.gov/sites/default/files/docs/2024-03/BLM-AK-2024_DaltonHwy_VisitorGuide_508_reduced.pdf); the DEM spike is not a surveyed grade."
           },
           {
             "start_mi": 170.5,
@@ -32430,7 +32430,7 @@
             "miles": 239.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 241.2142 mi; paid miles 239 from mileposts: BLM Alaska 2024 Dalton Highway Visitor Guide: Coldfoot MP 175 to Deadhorse MP 414; derived paid miles 414−175=239. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. BLM describes the Dalton as mostly gravel; separate gravel-surface gameplay is not modeled. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 241.2142 mi; paid miles 239 from mileposts: BLM Alaska 2024 Dalton Highway Visitor Guide: Coldfoot MP 175 to Deadhorse MP 414; derived paid miles 414\u2212175=239. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. BLM describes the Dalton as mostly gravel; separate gravel-surface gameplay is not modeled. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -34280,7 +34280,7 @@
             "miles": 96.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 95.4419 mi; paid miles 96 from mileposts: The MILEPOST Richardson Highway mileposts; Delta Junction to Fairbanks is 96 paid miles. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. The split Tok–Delta and Delta–Fairbanks paid-mile total is 204, two miles above the retired 202-mile composite; the residual is preserved, not redistributed. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 95.4419 mi; paid miles 96 from mileposts: The MILEPOST Richardson Highway mileposts; Delta Junction to Fairbanks is 96 paid miles. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. The split Tok\u2013Delta and Delta\u2013Fairbanks paid-mile total is 204, two miles above the retired 202-mile composite; the residual is preserved, not redistributed. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -37164,7 +37164,7 @@
             "miles": 151.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 150.7879 mi; paid miles 151 from mileposts: The MILEPOST Richardson Highway mileposts, approximately MP 115 at Glennallen to MP 266 at Delta Junction; derived as 266−115=151. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 150.7879 mi; paid miles 151 from mileposts: The MILEPOST Richardson Highway mileposts, approximately MP 115 at Glennallen to MP 266 at Delta Junction; derived as 266\u2212115=151. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -39226,7 +39226,7 @@
             "miles": 108.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 107.3264 mi; paid miles 108 from mileposts: The MILEPOST Alaska Highway mileposts; Tok to Delta Junction is 108 paid miles. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. The split Tok–Delta and Delta–Fairbanks paid-mile total is 204, two miles above the retired 202-mile composite; the residual is preserved, not redistributed. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 107.3264 mi; paid miles 108 from mileposts: The MILEPOST Alaska Highway mileposts; Tok to Delta Junction is 108 paid miles. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. The split Tok\u2013Delta and Delta\u2013Fairbanks paid-mile total is 204, two miles above the retired 202-mile composite; the residual is preserved, not redistributed. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -44402,7 +44402,7 @@
             "type": "place",
             "state": "Alaska",
             "highway": "Dalton Highway",
-            "source": "BLM Alaska 2024 Dalton Highway Visitor Guide MP 115 plus the 84-mile Fairbanks–Livengood approach; 84+115=199."
+            "source": "BLM Alaska 2024 Dalton Highway Visitor Guide MP 115 plus the 84-mile Fairbanks\u2013Livengood approach; 84+115=199."
           }
         ],
         "state_miles": [
@@ -46253,7 +46253,7 @@
             "miles": 96.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 95.0685 mi; paid miles 96 from mileposts: The MILEPOST Richardson Highway mileposts; Delta Junction to Fairbanks is 96 paid miles. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. The split Tok–Delta and Delta–Fairbanks paid-mile total is 204, two miles above the retired 202-mile composite; the residual is preserved, not redistributed. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 95.0685 mi; paid miles 96 from mileposts: The MILEPOST Richardson Highway mileposts; Delta Junction to Fairbanks is 96 paid miles. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. The split Tok\u2013Delta and Delta\u2013Fairbanks paid-mile total is 204, two miles above the retired 202-mile composite; the residual is preserved, not redistributed. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -46389,7 +46389,7 @@
             "miles": 53.0
           }
         ],
-        "source": "Paid miles re-set to Parks Highway milepost arithmetic from Anchorage (Parks milepost Fairbanks~MP358 → Nenana~MP305). Shape (route_points lat/lon) unchanged from prior public Valhalla truck densify; at_mi rescaled to paid 53. Fairbanks pin on Airport Way at about MP 358, 4 mi short of the Parks terminus at MP 362; paid miles match the pin. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 56.5 mi; paid miles 57. George Parks Highway (AK-3). Parks Highway Fairbanks to Nenana; ALCAN Phase B2; paid ~57 (public Valhalla truck ~56.5).",
+        "source": "Paid miles re-set to Parks Highway milepost arithmetic from Anchorage (Parks milepost Fairbanks~MP358 \u2192 Nenana~MP305). Shape (route_points lat/lon) unchanged from prior public Valhalla truck densify; at_mi rescaled to paid 53. Fairbanks pin on Airport Way at about MP 358, 4 mi short of the Parks terminus at MP 362; paid miles match the pin. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 56.5 mi; paid miles 57. George Parks Highway (AK-3). Parks Highway Fairbanks to Nenana; ALCAN Phase B2; paid ~57 (public Valhalla truck ~56.5).",
         "landmarks": [],
         "speed_limits": [
           {
@@ -49241,7 +49241,7 @@
             "miles": 151.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 150.8913 mi; paid miles 151 from mileposts: The MILEPOST Richardson Highway mileposts, approximately MP 115 at Glennallen to MP 266 at Delta Junction; derived as 266−115=151. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 150.8913 mi; paid miles 151 from mileposts: The MILEPOST Richardson Highway mileposts, approximately MP 115 at Glennallen to MP 266 at Delta Junction; derived as 266\u2212115=151. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -51905,7 +51905,7 @@
             "miles": 115.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 117.7467 mi; paid miles 115 from mileposts: The MILEPOST Richardson Highway mileposts, MP 0 at Valdez to approximately MP 115 at Glennallen; derived as 115−0=115. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 117.7467 mi; paid miles 115 from mileposts: The MILEPOST Richardson Highway mileposts, MP 0 at Valdez to approximately MP 115 at Glennallen; derived as 115\u22120=115. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -52041,7 +52041,7 @@
             "miles": 56.0
           }
         ],
-        "source": "Paid miles re-set to Parks Highway milepost arithmetic from Anchorage (Parks milepost Healy~MP249 → Nenana~MP305). Shape (route_points lat/lon) unchanged from prior public Valhalla truck densify; at_mi rescaled to paid 56. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 55.6 mi; paid miles 58. George Parks Highway (AK-3). Parks Highway Nenana to Healy (Fisher Fuel pin); ALCAN Phase B2; paid ~58 plan/Valhalla band (router ~55.6 at Fisher pin). Reverse edge mirrored from forward densify (Phase A ALCAN pattern).",
+        "source": "Paid miles re-set to Parks Highway milepost arithmetic from Anchorage (Parks milepost Healy~MP249 \u2192 Nenana~MP305). Shape (route_points lat/lon) unchanged from prior public Valhalla truck densify; at_mi rescaled to paid 56. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 55.6 mi; paid miles 58. George Parks Highway (AK-3). Parks Highway Nenana to Healy (Fisher Fuel pin); ALCAN Phase B2; paid ~58 plan/Valhalla band (router ~55.6 at Fisher pin). Reverse edge mirrored from forward densify (Phase A ALCAN pattern).",
         "landmarks": [],
         "speed_limits": [
           {
@@ -52199,7 +52199,7 @@
             "miles": 207.0
           }
         ],
-        "source": "Paid miles confirmed Parks milepost Healy~MP249 ↔ Wasilla~MP42 = 207. Shape unchanged from prior public Valhalla truck densify. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 206.0 mi; paid miles 207. George Parks Highway (AK-3). Parks Highway Healy to Wasilla via Broad Pass; Cantwell collapsed (diesel claimed at Vitus/Food Mart, tractor parking unverified 2026-09-24); paid ~207 (public Valhalla truck ~206).",
+        "source": "Paid miles confirmed Parks milepost Healy~MP249 \u2194 Wasilla~MP42 = 207. Shape unchanged from prior public Valhalla truck densify. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 206.0 mi; paid miles 207. George Parks Highway (AK-3). Parks Highway Healy to Wasilla via Broad Pass; Cantwell collapsed (diesel claimed at Vitus/Food Mart, tractor parking unverified 2026-09-24); paid ~207 (public Valhalla truck ~206).",
         "landmarks": [],
         "speed_limits": [
           {
@@ -53838,7 +53838,7 @@
             "miles": 75.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 74.7071 mi; paid miles 75 from mileposts: The MILEPOST and Bell's Alaska Highway logs place Homer in town near MP 173, not at the MP 179.5 end of the Spit; Soldotna is around MP 94–96. The city-pin drive is about 75 miles, with router distance recorded separately. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 74.7071 mi; paid miles 75 from mileposts: The MILEPOST and Bell's Alaska Highway logs place Homer in town near MP 173, not at the MP 179.5 end of the Spit; Soldotna is around MP 94\u201396. The city-pin drive is about 75 miles, with router distance recorded separately. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -54147,7 +54147,7 @@
             "miles": 11.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 11.5544 mi; paid miles 11 from mileposts: The MILEPOST Kenai Spur Highway mileage; Soldotna–Kenai is approximately 11 paid miles. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 11.5544 mi; paid miles 11 from mileposts: The MILEPOST Kenai Spur Highway mileage; Soldotna\u2013Kenai is approximately 11 paid miles. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -54247,7 +54247,7 @@
             "miles": 53.0
           }
         ],
-        "source": "Paid miles re-set to Parks Highway milepost arithmetic from Anchorage (Parks milepost Nenana~MP305 → Fairbanks~MP358). Shape (route_points lat/lon) unchanged from prior public Valhalla truck densify; at_mi rescaled to paid 53. Fairbanks pin on Airport Way at about MP 358, 4 mi short of the Parks terminus at MP 362; paid miles match the pin. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 56.5 mi; paid miles 57. George Parks Highway (AK-3). Parks Highway Fairbanks to Nenana; ALCAN Phase B2; paid ~57 (public Valhalla truck ~56.5). Reverse edge mirrored from forward densify (Phase A ALCAN pattern).",
+        "source": "Paid miles re-set to Parks Highway milepost arithmetic from Anchorage (Parks milepost Nenana~MP305 \u2192 Fairbanks~MP358). Shape (route_points lat/lon) unchanged from prior public Valhalla truck densify; at_mi rescaled to paid 53. Fairbanks pin on Airport Way at about MP 358, 4 mi short of the Parks terminus at MP 362; paid miles match the pin. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 56.5 mi; paid miles 57. George Parks Highway (AK-3). Parks Highway Fairbanks to Nenana; ALCAN Phase B2; paid ~57 (public Valhalla truck ~56.5). Reverse edge mirrored from forward densify (Phase A ALCAN pattern).",
         "landmarks": [],
         "speed_limits": [
           {
@@ -54371,7 +54371,7 @@
             "miles": 56.0
           }
         ],
-        "source": "Paid miles re-set to Parks Highway milepost arithmetic from Anchorage (Parks milepost Nenana~MP305 → Healy~MP249). Shape (route_points lat/lon) unchanged from prior public Valhalla truck densify; at_mi rescaled to paid 56. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 55.6 mi; paid miles 58. George Parks Highway (AK-3). Parks Highway Nenana to Healy (Fisher Fuel pin); ALCAN Phase B2; paid ~58 plan/Valhalla band (router ~55.6 at Fisher pin).",
+        "source": "Paid miles re-set to Parks Highway milepost arithmetic from Anchorage (Parks milepost Nenana~MP305 \u2192 Healy~MP249). Shape (route_points lat/lon) unchanged from prior public Valhalla truck densify; at_mi rescaled to paid 56. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 55.6 mi; paid miles 58. George Parks Highway (AK-3). Parks Highway Nenana to Healy (Fisher Fuel pin); ALCAN Phase B2; paid ~58 plan/Valhalla band (router ~55.6 at Fisher pin).",
         "landmarks": [],
         "speed_limits": [
           {
@@ -54805,7 +54805,7 @@
             "miles": 13.0
           }
         ],
-        "source": "Palmer–Wasilla connector: paid miles kept at 13 from public Valhalla truck densify (planned/published ~11). Named honesty debt vs ~11; retrace onto the Palmer–Wasilla Highway (~11) the next time that corridor is touched. Shape unchanged. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 13.5 mi; paid miles 13. Mat-Su Parks/Glenn local connector. Mat-Su Palmer–Wasilla connector KEEP; published ~11 mi, Valhalla truck ~13.3 — paid 13 Valhalla (within ±5 of published); ALCAN Phase B2.",
+        "source": "Palmer\u2013Wasilla connector: paid miles kept at 13 from public Valhalla truck densify (planned/published ~11). Named honesty debt vs ~11; retrace onto the Palmer\u2013Wasilla Highway (~11) the next time that corridor is touched. Shape unchanged. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 13.5 mi; paid miles 13. Mat-Su Parks/Glenn local connector. Mat-Su Palmer\u2013Wasilla connector KEEP; published ~11 mi, Valhalla truck ~13.3 \u2014 paid 13 Valhalla (within \u00b15 of published); ALCAN Phase B2.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -57237,7 +57237,7 @@
             "miles": 127.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 127.0468 mi; paid miles 127 from mileposts: The MILEPOST Seward Highway mileposts; Anchorage–Seward is approximately 126–127 paid miles, represented as 127. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 127.0468 mi; paid miles 127 from mileposts: The MILEPOST Seward Highway mileposts; Anchorage\u2013Seward is approximately 126\u2013127 paid miles, represented as 127. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -63707,7 +63707,7 @@
             "miles": 75.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 74.7109 mi; paid miles 75 from mileposts: The MILEPOST and Bell's Alaska Highway logs place Homer in town near MP 173, not at the MP 179.5 end of the Spit; Soldotna is around MP 94–96. The city-pin drive is about 75 miles, with router distance recorded separately. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 74.7109 mi; paid miles 75 from mileposts: The MILEPOST and Bell's Alaska Highway logs place Homer in town near MP 173, not at the MP 179.5 end of the Spit; Soldotna is around MP 94\u201396. The city-pin drive is about 75 miles, with router distance recorded separately. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -64022,7 +64022,7 @@
             "miles": 11.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 11.5668 mi; paid miles 11 from mileposts: The MILEPOST Kenai Spur Highway mileage; Soldotna–Kenai is approximately 11 paid miles. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 11.5668 mi; paid miles 11 from mileposts: The MILEPOST Kenai Spur Highway mileage; Soldotna\u2013Kenai is approximately 11 paid miles. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -67934,7 +67934,7 @@
             "miles": 108.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 107.5063 mi; paid miles 108 from mileposts: The MILEPOST Alaska Highway mileposts; Tok to Delta Junction is 108 paid miles. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. The split Tok–Delta and Delta–Fairbanks paid-mile total is 204, two miles above the retired 202-mile composite; the residual is preserved, not redistributed. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 107.5063 mi; paid miles 108 from mileposts: The MILEPOST Alaska Highway mileposts; Tok to Delta Junction is 108 paid miles. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. The split Tok\u2013Delta and Delta\u2013Fairbanks paid-mile total is 204, two miles above the retired 202-mile composite; the residual is preserved, not redistributed. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -68341,7 +68341,7 @@
             "miles": 297.5
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), sampled 2026-09-22. Router reported 386.8 mi; paid miles 387. Alaska Highway ALCAN Phase A through-freight filament Tok→Whitehorse via the Alcan / Beaver Creek border (border_crossing id alcan_beaver_creek). Named honesty debts carried: US HOS through-freight clock; CA truck caps; Blaine HGV refine.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), sampled 2026-09-22. Router reported 386.8 mi; paid miles 387. Alaska Highway ALCAN Phase A through-freight filament Tok\u2192Whitehorse via the Alcan / Beaver Creek border (border_crossing id alcan_beaver_creek). Named honesty debts carried: US HOS through-freight clock; CA truck caps; Blaine HGV refine.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -68570,8 +68570,8 @@
             "at_mi": 89.5,
             "from_state": "Alaska",
             "state": "Yukon",
-            "place": "Alaska–Yukon border on the Alaska Highway at Alcan, Alaska",
-            "source": "Alaska–Yukon border on the Alaska Highway at Alcan, Alaska; international line matched to loaded-semi Valhalla route geometry (development-time)."
+            "place": "Alaska\u2013Yukon border on the Alaska Highway at Alcan, Alaska",
+            "source": "Alaska\u2013Yukon border on the Alaska Highway at Alcan, Alaska; international line matched to loaded-semi Valhalla route geometry (development-time)."
           }
         ],
         "border_crossing": {
@@ -70793,7 +70793,7 @@
             "miles": 115.0
           }
         ],
-        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 117.7522 mi; paid miles 115 from mileposts: The MILEPOST Richardson Highway mileposts, MP 0 at Valdez to approximately MP 115 at Glennallen; derived as 115−0=115. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
+        "source": "Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options matching tools/reroute_leg.py), accessed 2026-10-07. Router-reported 117.7522 mi; paid miles 115 from mileposts: The MILEPOST Richardson Highway mileposts, MP 0 at Valdez to approximately MP 115 at Glennallen; derived as 115\u22120=115. Route points and Open-Meteo elevation positions are sampled from the Valhalla shape and scaled to paid miles. The road is within Alaska; state miles are derived from the paid total. Overall terrain is derived from the dominant Open-Meteo grade-segment classifier. The two-lane, undivided summary is an assumed corridor-level default, not a claim that every urban segment has only two lanes. Where no posted OSM speed sample exists, 55 mph is explicitly assumed under 13 AAC 02.275. Unverified truck parking and capacity are not claimed.",
         "landmarks": [],
         "speed_limits": [
           {
@@ -70929,7 +70929,7 @@
             "miles": 42.0
           }
         ],
-        "source": "Paid miles re-set to Parks Highway milepost arithmetic from Anchorage (Parks/Glenn milepost Wasilla~MP42 → Anchorage MP0). Shape (route_points lat/lon) unchanged from prior public Valhalla truck densify; at_mi rescaled to paid 42. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 43.6 mi; paid miles 44. George Parks Highway / Glenn Highway (AK-3 / AK-1). Parks to Glenn–Parks interchange to Glenn; ALCAN Phase B2; paid ~44 (public Valhalla truck ~43.6).",
+        "source": "Paid miles re-set to Parks Highway milepost arithmetic from Anchorage (Parks/Glenn milepost Wasilla~MP42 \u2192 Anchorage MP0). Shape (route_points lat/lon) unchanged from prior public Valhalla truck densify; at_mi rescaled to paid 42. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 43.6 mi; paid miles 44. George Parks Highway / Glenn Highway (AK-3 / AK-1). Parks to Glenn\u2013Parks interchange to Glenn; ALCAN Phase B2; paid ~44 (public Valhalla truck ~43.6).",
         "landmarks": [],
         "speed_limits": [
           {
@@ -71093,7 +71093,7 @@
             "miles": 207.0
           }
         ],
-        "source": "Paid miles confirmed Parks milepost Healy~MP249 ↔ Wasilla~MP42 = 207. Shape unchanged from prior public Valhalla truck densify. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 206.0 mi; paid miles 207. George Parks Highway (AK-3). Parks Highway Healy to Wasilla via Broad Pass; Cantwell collapsed (diesel claimed at Vitus/Food Mart, tractor parking unverified 2026-09-24); paid ~207 (public Valhalla truck ~206). Reverse edge mirrored from forward densify (Phase A ALCAN pattern).",
+        "source": "Paid miles confirmed Parks milepost Healy~MP249 \u2194 Wasilla~MP42 = 207. Shape unchanged from prior public Valhalla truck densify. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 206.0 mi; paid miles 207. George Parks Highway (AK-3). Parks Highway Healy to Wasilla via Broad Pass; Cantwell collapsed (diesel claimed at Vitus/Food Mart, tractor parking unverified 2026-09-24); paid ~207 (public Valhalla truck ~206). Reverse edge mirrored from forward densify (Phase A ALCAN pattern).",
         "landmarks": [],
         "speed_limits": [
           {
@@ -71343,7 +71343,7 @@
             "miles": 13.0
           }
         ],
-        "source": "Palmer–Wasilla connector: paid miles kept at 13 from public Valhalla truck densify (planned/published ~11). Named honesty debt vs ~11; retrace onto the Palmer–Wasilla Highway (~11) the next time that corridor is touched. Shape unchanged. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 13.5 mi; paid miles 13. Mat-Su Parks/Glenn local connector. Mat-Su Palmer–Wasilla connector KEEP; published ~11 mi, Valhalla truck ~13.3 — paid 13 Valhalla (within ±5 of published); ALCAN Phase B2. Reverse edge mirrored from forward densify (Phase A ALCAN pattern).",
+        "source": "Palmer\u2013Wasilla connector: paid miles kept at 13 from public Valhalla truck densify (planned/published ~11). Named honesty debt vs ~11; retrace onto the Palmer\u2013Wasilla Highway (~11) the next time that corridor is touched. Shape unchanged. Prior: Development-time public Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de, loaded-semi options), sampled 2026-09-24. Router reported 13.5 mi; paid miles 13. Mat-Su Parks/Glenn local connector. Mat-Su Palmer\u2013Wasilla connector KEEP; published ~11 mi, Valhalla truck ~13.3 \u2014 paid 13 Valhalla (within \u00b15 of published); ALCAN Phase B2. Reverse edge mirrored from forward densify (Phase A ALCAN pattern).",
         "landmarks": [],
         "speed_limits": [
           {
