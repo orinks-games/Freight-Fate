@@ -66,6 +66,7 @@
 
 ### Fixed
 
+- **Speed limits no longer jump to 70 and back where the map has no posting.** An unmapped stretch keeps the limits on either side, and state truck limits such as California's 55 apply there too.
 - **The copy key copies the message you stepped back to.** It used to copy the newest line instead.
 - **Left and Right say nothing while you are parked or the engine is off.**
 - **Weigh station callouts say Open or Closed, as the signs do.** A closed scale is said once on arrival, with no exit key offered ahead of it.
