@@ -52,8 +52,46 @@ fn a_cap_that_slows_the_truck_still_says_so() {
         "{transcript}"
     );
     assert!(
-        lines.iter().filter(|line| line.contains("easing to")).count() == 1,
+        lines
+            .iter()
+            .filter(|line| line.contains("easing to"))
+            .count()
+            == 1,
         "{transcript}"
     );
     assert!(speed <= 45.5, "{speed:.1} mph:\n{transcript}");
+}
+
+/// A drop to 30 four miles on, caught at full pace, then the clock goes to
+/// real time (a signaled exit does this). Cruise must take the 55 back for
+/// the real miles left before the drop, not crawl them at 35.
+#[test]
+fn a_drop_held_at_full_pace_lets_go_when_the_clock_goes_real() {
+    let mut harness = cruising("Easing Pinned", 60.0, 55.0, &FLAT);
+    harness.with_drive(|d, _| {
+        let limits = [(0.0, 55.0), (START_MI + 4.0, 30.0)];
+        bench_road_segments(d, &limits, &FLAT, 20.0);
+        d.trip.position_mi = START_MI;
+    });
+    harness.app.ctx.settings.time_scale = 20.0;
+    frames(&mut harness, 30, DT);
+    let held = harness.read_drive(|d| d.cruise_held_mph.unwrap_or(0.0));
+    assert!(
+        held <= 35.5,
+        "the drop was not caught at full pace: {held:.1}"
+    );
+    harness.app.ctx.settings.time_scale = 1.0;
+    harness.with_drive(|d, _| d.trip.time_scale = 1.0);
+    frames(&mut harness, (15.0 / DT) as usize, DT);
+    let (held, ahead) = harness.read_drive(|d| {
+        (
+            d.cruise_held_mph.unwrap_or(0.0),
+            START_MI + 4.0 - d.trip.position_mi,
+        )
+    });
+    assert!(ahead > 1.0, "{ahead:.2} miles left");
+    assert!(
+        held >= 55.0,
+        "still holding {held:.1} with {ahead:.2} miles to the drop"
+    );
 }

@@ -72,12 +72,26 @@ impl DrivingState {
     /// conversion the "drops to X" pacenote uses
     /// (`Trip::limit_drop_warning_lead_mi`).
     pub fn acc_limit_lookahead_mi(&self, speed_mph: f64, target_mph: f64) -> f64 {
+        self.acc_limit_lookahead_at_scale_mi(
+            speed_mph,
+            target_mph,
+            self.trip.effective_time_scale(),
+        )
+    }
+
+    /// [`Self::acc_limit_lookahead_mi`] under a given clock compression.
+    pub fn acc_limit_lookahead_at_scale_mi(
+        &self,
+        speed_mph: f64,
+        target_mph: f64,
+        scale: f64,
+    ) -> f64 {
         let speed_mps = 0.0f64.max(speed_mph * 0.44704);
         let target_mps = 0.0f64.max(target_mph * 0.44704);
         if target_mps >= speed_mps {
             return ACC_LIMIT_LOOKAHEAD_MIN_MI;
         }
-        let scale = self.trip.effective_time_scale().max(1.0);
+        let scale = scale.max(1.0);
         let braking_m = (speed_mps * speed_mps - target_mps * target_mps)
             / (2.0 * ACC_LIMIT_COMFORT_DECEL_MPS2);
         let braking_mi = 0.0f64.max(braking_m / 1609.344) * scale;
@@ -85,10 +99,8 @@ impl DrivingState {
         let mean_mph = (speed_mph + target_mph) / 2.0;
         let ramp_mi = ramp_real_s * mean_mph * scale / 3600.0;
         let margin_mi = ACC_LIMIT_LOOKAHEAD_MIN_MI * scale;
-        ACC_LIMIT_LOOKAHEAD_MIN_MI.max(
-            self.acc_limit_lookahead_max_mi()
-                .min(braking_mi.max(ramp_mi) + margin_mi),
-        )
+        let max_mi = LIMIT_WARNING_MAX_LEAD_MI.min(ACC_LIMIT_LOOKAHEAD_MAX_MI * scale);
+        ACC_LIMIT_LOOKAHEAD_MIN_MI.max(max_mi.min(braking_mi.max(ramp_mi) + margin_mi))
     }
 
     /// How far ahead the posted-limit scan looks.
@@ -115,9 +127,37 @@ impl DrivingState {
         // retracts as cruise slows: without this the drop fell back out of
         // sight, the cap lifted, and cruise wound the truck up again --
         // then found the drop again a moment later (see `acc_limit_hold`).
+        //
+        // Held only while the drop is still inside the window this road
+        // calls for, priced where the truck's own slowing cannot shrink it:
+        // at the open-road speed and the trip's full compression. A drop
+        // caught five miles out at full pace stayed held after a signaled
+        // exit put the clock on real time, and cruise crawled the real miles
+        // to it at the lower number (owner's drive into Jamestown,
+        // 2026-11-04).
         let mut lowest_at = start;
+        let road_mph = under_wheels + ACC_LIMIT_OFFSET_MPH;
+        let open_mph = self
+            .trip
+            .truck
+            .speed_mph()
+            .max(self.cruise_mph.map_or(road_mph, |set| set.min(road_mph)));
+        let window_scale = if self.trip.real_time_override().is_some() {
+            self.trip.effective_time_scale()
+        } else {
+            self.trip.time_scale
+        };
         match self.acc_limit_hold.clone() {
-            Some((at_mi, limit, reason)) if start < at_mi && limit < lowest_limit => {
+            Some((at_mi, limit, reason))
+                if start < at_mi
+                    && limit < lowest_limit
+                    && at_mi - start
+                        <= self.acc_limit_lookahead_at_scale_mi(
+                            open_mph,
+                            limit + ACC_LIMIT_OFFSET_MPH,
+                            window_scale,
+                        ) + ACC_LIMIT_LOOKAHEAD_STEP_MI =>
+            {
                 lowest_limit = limit;
                 lowest_reason = reason;
                 lowest_at = at_mi;
@@ -126,8 +166,8 @@ impl DrivingState {
             None => {}
         }
         // Priced at the speed cruise is climbing to (what it held last frame,
-        // after every cap) as well as the speed it is doing: a truck pulling up from 44 toward 80 found a drop to 40 a
-        // quarter mile ahead only once it was already past 47, and then had
+        // after every cap) as well as the speed it is doing: a truck pulling
+        // up from 44 toward 80 found a drop to 40 a quarter mile ahead only once it was already past 47, and then had
         // to ease back for it (owner's drive out of Buffalo, 2026-11-04).
         let speed = self
             .trip
