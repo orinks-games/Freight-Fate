@@ -50,14 +50,13 @@ fn last_help(harness: &PlaytestHarness) -> String {
 // -- the drive's own help ---------------------------------------------------------------
 
 #[test]
-fn test_driving_help_explains_selected_automatic_direction_style() {
+fn test_driving_help_explains_automatic_direction_changes() {
     let mut harness = a_drive("Direction Help");
 
-    harness.app.ctx.settings.automatic_direction_changes = "simple".to_string();
     harness.clear_speech();
     harness.with_drive(|drive, ctx| drive.speak_keyboard_help(ctx));
     let said = last_help(&harness);
-    assert!(said.contains("simple direction changes"), "{said}");
+    assert!(!said.contains("direction changes"), "{said}");
     assert!(said.contains("press and hold it again"), "{said}");
     assert!(said.contains("holds the truck"), "{said}");
     assert!(
@@ -74,21 +73,12 @@ fn test_driving_help_explains_selected_automatic_direction_style() {
         said.contains("Fully stopped away from route points"),
         "{said}"
     );
-    assert!(said.contains("emergency shoulder-sleep warning"), "{said}");
+    assert!(said.contains("emergency sleep on the shoulder"), "{said}");
 
-    harness.app.ctx.settings.automatic_direction_changes = "deliberate".to_string();
-    harness.clear_speech();
-    harness.with_drive(|drive, ctx| drive.speak_keyboard_help(ctx));
-    let said = last_help(&harness);
-    assert!(said.contains("deliberate direction changes"), "{said}");
-    assert!(said.contains("press and hold it again"), "{said}");
-    assert!(said.contains("A quick tap just brakes"), "{said}");
-
-    harness.app.ctx.settings.automatic_direction_changes = "simple".to_string();
     harness.clear_speech();
     harness.with_drive(|drive, ctx| drive.speak_controller_help(ctx));
     let said = last_help(&harness);
-    assert!(said.contains("simple direction changes"), "{said}");
+    assert!(!said.contains("direction changes"), "{said}");
     assert!(said.contains("press and hold it again"), "{said}");
     assert!(
         said.contains("D-pad up reads your route and current location"),
@@ -104,11 +94,6 @@ fn test_driving_help_explains_selected_automatic_direction_style() {
     );
     assert!(said.contains("opens emergency shoulder sleep"), "{said}");
 
-    harness.app.ctx.settings.automatic_direction_changes = "deliberate".to_string();
-    harness.clear_speech();
-    harness.with_drive(|drive, ctx| drive.speak_controller_help(ctx));
-    let said = last_help(&harness);
-    assert!(said.contains("deliberate direction changes"), "{said}");
     assert!(
         said.contains("let the left trigger return to neutral"),
         "{said}"
@@ -153,13 +138,12 @@ fn test_how_to_play_documents_new_gameplay_systems() {
         "wait for air pressure to reach 100 psi",
         "press and hold it again to reverse",
         "brake held through the stop keeps the truck stopped",
-        "both direction-change styles",
         "active speed-control mode",
-        "open-road target",
+        "cruise speed",
         "company drivers follow dispatch",
         "owner-operators choose a route after loading",
-        "nearby route points always take priority",
-        "thirty consecutive non-driving minutes",
+        "a nearby stop always comes first",
+        "thirty minutes in a row without driving",
         "both hours modes use these limits",
         "eleven driving hours",
         "fourteen-hour duty window",
@@ -175,12 +159,12 @@ fn test_how_to_play_documents_new_gameplay_systems() {
         "private backups",
         "the deadline keeps running",
         "full lane keeping",
-        "next safe turnaround",
+        "follow the safe turnaround",
         "posted-limit drops",
         "cb chatter",
         "next multiple of five",
         "computer clock",
-        "fully-rested ten-hour sleep",
+        "leaves you fully rested",
     ] {
         assert!(
             help_text.contains(phrase),
@@ -211,7 +195,7 @@ fn test_dispatch_board_keeps_route_planning_out_of_load_offer() {
         .collect();
 
     assert!(
-        rows.iter().any(|row| row.contains("Equipment:")),
+        rows.iter().all(|row| !row.contains("Equipment:")),
         "{rows:#?}"
     );
     assert!(
@@ -228,7 +212,7 @@ fn test_dispatch_board_keeps_route_planning_out_of_load_offer() {
     );
     let first_help = items[0].help_text(&state, &app.ctx);
     assert!(
-        first_help.contains("Route inspection after pickup covers rest, fuel, toll"),
+        first_help.contains("After pickup, Route planning lists rest, fuel, tolls"),
         "{first_help}"
     );
 

@@ -524,7 +524,7 @@ impl DrivingState {
     pub fn turn_advice_text(&self, ctx: &GameContext, cue: &NavigationCue) -> String {
         let target = ctx.settings.speed_text(self.turn_speed_mph(cue));
         let advice = format!("Advise {target}.");
-        // "Speed keeper easing." used to follow on every corner the keeper
+        // "Cruise easing." used to follow on every corner the keeper
         // slowed for. Owner, 2026-10-25: the move onto city streets said too
         // much; what the keeper does is in the settings help.
         advice

@@ -23,7 +23,11 @@ impl DrivingState {
     /// reads as the keeper ignoring the road (New Haven log; owner, Spokane,
     /// 2026-08-22: "the truck slows to 15 while the speed stays 25"). Say the
     /// live number, and the set one only when it differs.
-    pub fn keeper_holding_text(&self, ctx: &GameContext) -> String {
+    ///
+    /// `bare` drops the unit from every number, for the Space readout,
+    /// whose truck speed has already named it.
+    pub fn keeper_holding_text(&self, ctx: &GameContext, bare: bool) -> String {
+        let speed = |mph: f64| speed_words(ctx, mph, bare);
         let held = self.keeper_mph.unwrap_or(0.0);
         if let Some((at_mi, eased, why)) = self.keeper_ease_target.as_ref() {
             if self.trip.position_mi < *at_mi && *eased < held {
@@ -33,9 +37,9 @@ impl DrivingState {
                     other => format!("for the {other}"),
                 };
                 return format!(
-                    "speed keeper holding {} {reason}, set {}",
-                    ctx.settings.speed_text(*eased),
-                    ctx.settings.speed_text(held)
+                    "cruise holding {} {reason}, set {}",
+                    speed(*eased),
+                    speed(held)
                 );
             }
         }
@@ -46,14 +50,14 @@ impl DrivingState {
         if !self.keeper_held_reason.is_empty() {
             if let Some(live) = self.keeper_held_mph.filter(|live| *live < held - 0.5) {
                 return format!(
-                    "speed keeper holding {} {}, set {}",
-                    ctx.settings.speed_text(live),
+                    "cruise holding {} {}, set {}",
+                    speed(live),
                     self.keeper_held_reason,
-                    ctx.settings.speed_text(held)
+                    speed(held)
                 );
             }
         }
-        format!("speed keeper holding {}", ctx.settings.speed_text(held))
+        format!("cruise holding {}", speed(held))
     }
 
     /// What adaptive cruise is holding RIGHT NOW, for a readout.
@@ -76,7 +80,8 @@ impl DrivingState {
     /// after every cap -- the armed ramp, a bend, a lower posted limit, a
     /// zone, the grade, the weather, the lead vehicle. Re-deriving it from a
     /// key press would mean re-running look-aheads that latch state.
-    pub fn cruise_holding_text(&self, ctx: &GameContext) -> String {
+    pub fn cruise_holding_text(&self, ctx: &GameContext, bare: bool) -> String {
+        let speed = |mph: f64| speed_words(ctx, mph, bare);
         let set = self.cruise_mph.unwrap_or(0.0);
         if let Some(held) = self.cruise_held_mph {
             // Half a mile an hour under is the same number once spoken.
@@ -86,43 +91,45 @@ impl DrivingState {
                 } else {
                     format!(" {}", self.cruise_held_reason)
                 };
-                return format!(
-                    "adaptive cruise holding {}{why}, set {}",
-                    ctx.settings.speed_text(held),
-                    ctx.settings.speed_text(set)
-                );
+                return format!("cruise holding {}{why}, set {}", speed(held), speed(set));
             }
         }
-        format!("adaptive cruise set at {}", ctx.settings.speed_text(set))
+        format!("cruise set at {}", speed(set))
     }
 
     /// `_speak_speed()`: Space.
     ///
     /// Three short sentences rather than one run-on: the gauges, then the
-    /// controller, then the air. The run-on named "automatic speed control"
+    /// controller, then the air. The run-on named "cruise"
     /// ahead of the controller that already names itself, spoke the default
-    /// open-road target nobody set, and listed four normal air states every
+    /// cruise speed nobody set, and listed four normal air states every
     /// time (bscross32, 2026-10: "why did I need all of that in one
     /// message?"). What is normal goes unsaid; Tab still lists all of it.
     pub fn speak_speed(&mut self, ctx: &mut GameContext) {
         let gear = self.gear_text();
-        // The open-road target only when one was set, and not when it is the
+        // The cruise speed only when one was set, and not when it is the
         // number the keeper was just said to be set at.
         let keeper_target = match self.speed_control_target_mph {
             Some(mph) if self.keeper_mph.is_none_or(|set| (set - mph).abs() >= 0.5) => {
-                format!(" Open-road target {}.", ctx.settings.speed_text(mph))
+                format!(" Cruise speed {}.", ctx.settings.speed_value(mph))
             }
             _ => String::new(),
         };
         let control = if self.cruise_mph.is_some() {
-            format!(" {}.", capitalize_first(&self.cruise_holding_text(ctx)))
+            format!(
+                " {}.",
+                capitalize_first(&self.cruise_holding_text(ctx, true))
+            )
         } else if self.keeper_mph.is_some() {
             format!(
                 " {}.{keeper_target}",
-                capitalize_first(&self.keeper_holding_text(ctx))
+                capitalize_first(&self.keeper_holding_text(ctx, true))
             )
         } else if self.speed_control_armed {
-            format!(" Automatic speed control paused.{keeper_target}")
+            match self.speed_control_target_mph {
+                Some(mph) => format!(" Cruise paused, set {}.", ctx.settings.speed_value(mph)),
+                None => " Cruise paused.".to_string(),
+            }
         } else {
             String::new()
         };
@@ -242,8 +249,11 @@ impl DrivingState {
         // Name the state once and the 55 under a 65 sign explains itself.
         let (is_truck_limit, cap_state) = self.trip.truck_limit_at(position);
         let split = match cap_state {
-            Some(state) => format!(" {state} holds trucks to this."),
-            None => String::new(),
+            Some(state) if self.truck_limit_state_named.as_deref() != Some(state.as_str()) => {
+                self.truck_limit_state_named = Some(state.clone());
+                format!(" {state} holds trucks to this.")
+            }
+            _ => String::new(),
         };
         // A posted 55 through hairpin country is honest -- the yellow
         // diamond is advisory, not the limit -- but S saying only "55"
@@ -394,8 +404,6 @@ impl DrivingState {
                         "The CB called an enforcement post {}. You have passed it.",
                         Trip::cb_side(post)
                     )
-                } else if post.tableau {
-                    self.trip.cb_tableau_message(post, ahead)
                 } else {
                     self.trip.cb_patrol_message(post, ahead)
                 }
@@ -478,14 +486,15 @@ impl DrivingState {
             } else if grade < -0.005 {
                 if truck.jake_slipping() {
                     parts.push(
-                        "The jake is sliding the drive wheels; back it off a stage.".to_string(),
+                        "The engine brake is sliding the drive wheels. Lower it a stage."
+                            .to_string(),
                     );
                 } else if accel_mph_s > GRADE_HOLDING_MPH_PER_S {
                     if stage > 0 {
                         let losing = if truck.transmission.automatic {
-                            "snub the brakes"
+                            "brake in short bursts"
                         } else {
-                            "gear down or snub the brakes"
+                            "shift down or brake in short bursts"
                         };
                         parts.push(format!("Jake stage {stage} is not holding it; {losing}."));
                     } else if truck.throttle <= 0.05 {
@@ -853,16 +862,29 @@ impl DrivingState {
                 .collect();
             parts.push(format!("Ahead: {}.", ahead.join(", then ")));
         }
-        parts.push(format!("It is {tod}."));
+        // Daylight is the default; only the dark or the half-light is news.
+        if tod != "day" {
+            parts.push(format!("It is {tod}."));
+        }
         ctx.say(&parts.join(" "));
     }
 }
 
-/// "speed keeper holding ..." as the start of its own sentence.
-fn capitalize_first(text: &str) -> String {
+/// "cruise holding ..." as the start of its own sentence.
+pub(super) fn capitalize_first(text: &str) -> String {
     let mut chars = text.chars();
     match chars.next() {
         Some(first) => first.to_uppercase().collect::<String>() + chars.as_str(),
         None => String::new(),
+    }
+}
+
+/// A speed in the player's unit, or its bare number when the sentence
+/// already said the unit.
+fn speed_words(ctx: &GameContext, mph: f64, bare: bool) -> String {
+    if bare {
+        ctx.settings.speed_value(mph)
+    } else {
+        ctx.settings.speed_text(mph)
     }
 }

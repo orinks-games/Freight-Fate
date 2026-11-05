@@ -78,7 +78,7 @@ impl HosStopAdvice {
                     name = stop.spoken_name(),
                 ),
                 None => format!(
-                    "No {lower} stop with a 30-minute buffer. Last legal stop: {name}, {fallback_distance} ahead.",
+                    "No {lower} stop with 30 minutes to spare. Last legal stop: {name}, {fallback_distance} ahead.",
                     lower = self.action,
                     name = stop.spoken_name(),
                 ),
@@ -93,7 +93,7 @@ impl HosStopAdvice {
     pub fn summary(&self, suggested_distance: &str, fallback_distance: &str) -> String {
         if self.destination_reachable {
             return format!(
-                "Destination fits this shift, about {:.0} minutes. No HOS stop first.",
+                "Destination fits this shift, about {:.0} minutes. No rest stop needed first.",
                 self.destination_travel_min.ceil()
             );
         }
@@ -117,9 +117,9 @@ impl HosStopAdvice {
                 minutes = self.travel_min.ceil(),
                 buffer = (self.remaining_min - self.travel_min).floor(),
                 earlier = if self.suggested.is_some() {
-                    "This stop also has a comfortable estimated buffer."
+                    "This stop also leaves time to spare."
                 } else {
-                    "No earlier compatible stop offers a 30-minute estimated buffer."
+                    "No earlier stop leaves 30 minutes to spare."
                 },
             ),
             None => format!(
@@ -323,7 +323,7 @@ mod tests {
         assert!(plan.stop.is_none());
         assert!(plan
             .summary("5 miles", "5 miles")
-            .contains("No HOS stop first"));
+            .contains("No rest stop needed first"));
     }
 
     #[test]
@@ -514,7 +514,7 @@ mod tests {
         assert!(advice.suggested.is_none());
         let hint = advice.planning_hint("40 miles", "40 miles").unwrap();
         assert!(
-            hint.contains("No sleep stop with a 30-minute buffer"),
+            hint.contains("No sleep stop with 30 minutes to spare"),
             "{hint}"
         );
         assert!(hint.contains("Last legal stop:"), "{hint}");

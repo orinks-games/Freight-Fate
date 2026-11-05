@@ -220,7 +220,7 @@ fn test_a_new_street_says_its_limit_and_the_yard_says_the_yard_limit() {
 
 #[test]
 fn test_cruise_handing_a_street_to_the_keeper_names_no_zone() {
-    // "Facility Access Road zone. Speed keeper holding 30" called a city
+    // "Facility Access Road zone. Cruise holding 30" called a city
     // street a zone when adaptive cruise handed it to the keeper.
     let mut harness = on_the_streets("Street Handoff", Vec::new(), Vec::new(), false, 0.2, 25.0);
     harness.app.ctx.settings.speed_keeper = true;
@@ -231,7 +231,7 @@ fn test_cruise_handing_a_street_to_the_keeper_names_no_zone() {
     });
     let heard = harness.transcript_text();
     assert!(
-        heard.contains("Speed keeper holding 30 miles per hour."),
+        heard.contains("Cruise holding 30 miles per hour."),
         "{heard}"
     );
     assert!(!heard.contains("zone"), "{heard}");
@@ -428,7 +428,7 @@ fn test_the_assists_stop_at_a_street_stop_sign_and_drive_on_from_it() {
     assert!(stopped_at_sign, "never stopped at the sign\n{heard}");
     assert!(heard.contains("Stop sign ahead."), "{heard}");
     assert!(heard.contains("Stopped at the sign."), "{heard}");
-    assert!(!heard.contains("Speed keeper pulling ahead."), "{heard}");
+    assert!(!heard.contains("Cruise pulling ahead."), "{heard}");
     assert!(
         harness.read_drive(|d| d.trip.position_mi) > node + 0.05,
         "never drove on\n{heard}"

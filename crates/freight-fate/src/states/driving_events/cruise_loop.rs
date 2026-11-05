@@ -438,14 +438,13 @@ impl DrivingState {
                 // (`spoken_zone`): "Facility Access Road zone" named a city
                 // street (live drive into Abilene, 2026-09-24).
                 let message = match ff_core::sim::trip::spoken_zone(&zone_reason) {
-                    Some(zone) if zone.ends_with(" zone") => format!(
-                        "{} zone. Speed keeper holding {held}.",
-                        title_case(&zone_reason)
-                    ),
+                    Some(zone) if zone.ends_with(" zone") => {
+                        format!("{} zone. Cruise holding {held}.", title_case(&zone_reason))
+                    }
                     _ => super::cruise::keeper_holding_line(&held, &zone_reason),
                 };
                 let terse = format!(
-                    "Speed keeper holding {}.",
+                    "Cruise holding {}.",
                     ctx.settings.speed_value(self.keeper_mph.unwrap_or(0.0))
                 );
                 self.say_route_confirmation(ctx, SpokenMessage::with_terse(message, terse));
@@ -636,7 +635,7 @@ impl DrivingState {
                 // the toll charge off the ambient channel. As AMBIENT this
                 // was droppable as stale chatter, and it WAS dropped:
                 // tester Darren's I-75 log, 2026-08-18, "[pacer] stale
-                // ambient dropped: Construction zone ahead; adaptive cruise
+                // ambient dropped: Construction zone ahead; cruise
                 // easing to 45 miles per hour" -- seventeen seconds before
                 // a trooper stopped him over the gap the easing was
                 // closing. The truck slowed itself and never said why.
@@ -743,7 +742,7 @@ impl DrivingState {
                 // cruise is still holding the gap.
                 let mut opts = SayEvent::queued().priority(EventPriority::Important);
                 opts.category = Some(SpeechCategory::Safety);
-                ctx.say_event_with("Stopped traffic ahead; adaptive cruise canceled.", opts);
+                ctx.say_event_with("Stopped traffic ahead; cruise canceled.", opts);
                 return;
             }
             // Approach control: a slower lead constrains the target only once the
@@ -788,8 +787,8 @@ impl DrivingState {
         // since 2026-08-20 (Brandon: cruise said "resuming at 70" and held 23
         // through a zone); Space and the status screen still read out the set
         // speed. Owner's own session log, New York, 2026-08-23, one second
-        // apart: "Adaptive cruise resuming at 33 miles per hour for the ramp"
-        // and then "44 miles per hour, ... adaptive cruise set at 80 miles per
+        // apart: "Cruise resuming at 33 miles per hour for the ramp"
+        // and then "44 miles per hour, ... cruise set at 80 miles per
         // hour". A driver checking mid-ramp was answered with a number nothing
         // on the road was going to allow.
         //

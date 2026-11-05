@@ -382,7 +382,7 @@ fn test_a_resumed_street_chain_calls_its_first_corner_fresh() {
     assert!(resumed.keeper_mph.is_none());
     let heard = [harness.app.main_lines(), harness.app.event_lines()].concat();
     assert!(
-        !heard.iter().any(|line| line.contains("speed keeper needs")),
+        !heard.iter().any(|line| line.contains("cruise needs")),
         "{heard:?}"
     );
 }

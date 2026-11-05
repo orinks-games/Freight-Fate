@@ -698,7 +698,7 @@ fn test_controller_info_buttons_speak() {
     app.dispatch_controller(&button(ControllerButton::DPadUp, 0));
     let said = app.main_lines().last().cloned().unwrap_or_default();
     assert!(said.contains("percent there"), "{said}");
-    assert!(said.contains(", toward "), "{said}");
+    assert!(said.contains(" toward "), "{said}");
     app.shutdown();
 }
 
@@ -740,20 +740,14 @@ fn test_controller_speed_control_handoff_status_adjustment_and_brake() {
     app.clear_speech();
     app.dispatch_controller(&button(ControllerButton::B, 0));
     let said = app.main_lines().last().cloned().unwrap_or_default();
-    assert!(
-        said.contains("Speed keeper holding 25 miles per hour"),
-        "{said}"
-    );
-    assert!(
-        said.contains("Open-road target 60 miles per hour."),
-        "{said}"
-    );
+    assert!(said.contains("Cruise holding 25."), "{said}");
+    assert!(said.contains("Cruise speed 60."), "{said}");
 
     app.dispatch_controller(&button_up(ControllerButton::B, 0));
     app.dispatch_controller(&button(ControllerButton::RightShoulder, 0));
     app.dispatch_controller(&button(ControllerButton::DPadRight, 0));
     let target =
-        with_drive(&shared, |d| d.speed_control_target_mph).expect("the open-road target moved");
+        with_drive(&shared, |d| d.speed_control_target_mph).expect("the cruise speed moved");
     assert!((target - 65.0).abs() <= 1.0, "{target}");
 
     app.dispatch_controller(&button(ControllerButton::Start, 0));
@@ -799,7 +793,7 @@ fn test_paused_speed_control_can_be_canceled_by_keyboard_or_controller() {
     let offs = app
         .main_lines()
         .iter()
-        .filter(|t| *t == "Automatic speed control off.")
+        .filter(|t| *t == "Cruise off.")
         .count();
     assert_eq!(offs, 2, "{:?}", app.main_lines());
     app.shutdown();

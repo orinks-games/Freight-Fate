@@ -293,6 +293,8 @@ fn test_dispatch_warns_before_accepting_job_that_exceeds_current_hos() {
         "{:?}",
         app.main_lines()
     );
+    // The warning is about hours; the ELD status sentence was noise there.
+    assert!(!app.main_lines().last().unwrap().contains("ELD status"));
     assert!(profile(&app).active_trip.is_none());
 
     board.accept(&mut app.ctx, 0);

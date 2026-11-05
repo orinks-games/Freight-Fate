@@ -16,6 +16,16 @@ use super::{
 };
 
 impl Trip {
+    /// Whether `stop` is a weigh station staffed on this trip: its post is a
+    /// fixed scale rather than a closed apron.
+    pub fn scale_open(&self, stop: &RoadStop) -> bool {
+        let key = stop.key();
+        self.posts
+            .iter()
+            .find(|post| post.anchor == key)
+            .is_some_and(|post| post.kind == KIND_FIXED_SCALE)
+    }
+
     /// Jump to a saved point without re-announcing what is behind it.
     pub fn restore(&mut self, position_mi: f64, game_minutes: f64) {
         self.position_mi = position_mi.clamp(0.0, self.total_miles().max(0.0));
@@ -241,9 +251,9 @@ impl Trip {
                         "last_known" => {
                             let notice = self.weather.last_known_notice();
                             if notice.is_empty() {
-                                "Last-known conditions in use.".to_string()
+                                "Using the last known conditions.".to_string()
                             } else {
-                                format!("{notice}. Last-known conditions in use.")
+                                format!("{notice}. Using the last known conditions.")
                             }
                         }
                         _ => "Live weather unavailable.".to_string(),
@@ -466,8 +476,16 @@ impl Trip {
                 let stop = self.stops[i].clone();
                 let typed = self.name_facility(&stop.name, &stop.spoken_name());
                 let distance = self.ahead_text(ahead);
-                let parking_normal = stop.parking_text();
                 let planned = self.is_planned(&stop);
+                let scale = stop.stop_type == "weigh_station";
+                let open = scale.then(|| self.scale_open(&stop));
+                // A scale's sign says open or closed; parking is not why a
+                // truck takes that exit, and a closed one needs no key.
+                let parking_normal = if scale {
+                    String::new()
+                } else {
+                    stop.parking_text()
+                };
                 let message = stop_callout(&StopCalloutParts {
                     planned_prefix: self.planned_prefix(&stop),
                     typed_name: &typed,
@@ -475,14 +493,14 @@ impl Trip {
                     exit_label: &stop.exit_label,
                     distance: &distance,
                     parking_normal: &parking_normal,
-                    parking_certainty: &stop.parking,
-                    exit_hint: if self.scales_signal_themselves && stop.stop_type == "weigh_station"
-                    {
+                    parking_certainty: if scale { "likely" } else { &stop.parking },
+                    exit_hint: if scale && (self.scales_signal_themselves || open == Some(false)) {
                         ""
                     } else {
                         &self.exit_hint
                     },
                     fuel: stop.fuel_callout(),
+                    open,
                 });
                 // The plan flag rides the event so the driving layer can rank
                 // the stop the player chose above ambient roadside chatter.
@@ -733,7 +751,7 @@ impl Trip {
         let text = match pressure.kind.as_str() {
             "exit" => format!("Exit traffic, {distance}. Hold {side}, {speed}."),
             // No target speed: the taper's posted limit is spoken separately.
-            "construction_merge" => format!("Taper squeezing, {distance}. Merge {side}."),
+            "construction_merge" => format!("Lane ending, {distance}. Merge {side}."),
             "route_merge" => format!("Merging traffic, {distance}. Keep {side}."),
             _ => format!("Traffic pack, {distance}. {speed}."),
         };
@@ -760,6 +778,15 @@ impl Trip {
                     continue;
                 }
                 self.announced_traffic_pressures.insert(key);
+                // Merging traffic at a split the route keeps right through
+                // says what the keep-right call already says.
+                if pressure.kind == "route_merge"
+                    && self.navigation_cues.iter().any(|cue| {
+                        cue.kind == "maneuver" && (cue.at_mi - pressure.start_mi).abs() <= 2.0
+                    })
+                {
+                    continue;
+                }
                 let message = self.traffic_pressure_message(&pressure, ahead);
                 self.emit(
                     TripEventKind::GpsCue,
@@ -803,6 +830,11 @@ impl Trip {
             if self.posts[i].kind == KIND_FIXED_SCALE || self.posts[i].kind == KIND_SCALE_APRON {
                 continue; // the scale has its own approach cue; the CB stays out of it
             }
+            if self.posts[i].tableau {
+                // Busy with somebody else: no risk to this truck, and a call
+                // about it read as the player's own stop (owner, 2026-11-05).
+                continue;
+            }
             let post = self.posts[i].clone();
             let urgency = self.cb_urgency(&post);
             candidates.push((ahead, i, urgency));
@@ -822,16 +854,8 @@ impl Trip {
             return;
         }
         let post = self.posts[i].clone();
-        if post.tableau && (self.pull_over_active || post.declined) {
-            // The tableau line waits its turn; dropped, not spoken later.
-            return;
-        }
         self.cb_calls_made += 1;
-        let message = if post.tableau {
-            self.cb_tableau_message(&post, ahead)
-        } else {
-            self.cb_patrol_message(&post, ahead)
-        };
+        let message = self.cb_patrol_message(&post, ahead);
         self.emit(
             TripEventKind::GpsCue,
             SpokenMessage::new(message),
@@ -887,7 +911,7 @@ impl Trip {
                     TripEventData {
                         key: Some(key),
                         context: Some("weigh_station".to_string()),
-                        evidence: Some(vec!["HOS/ELD violation".to_string()]),
+                        evidence: Some(vec!["hours-of-service violation".to_string()]),
                         ..Default::default()
                     },
                 );
@@ -995,7 +1019,7 @@ impl Trip {
                 TripEventData {
                     key: Some(key),
                     context: Some(context.to_string()),
-                    evidence: Some(vec!["HOS/ELD violation".to_string()]),
+                    evidence: Some(vec!["hours-of-service violation".to_string()]),
                     ..Default::default()
                 },
             );

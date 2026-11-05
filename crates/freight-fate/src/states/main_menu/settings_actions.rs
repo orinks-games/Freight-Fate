@@ -71,8 +71,15 @@ pub(super) fn assist_preset_label(s: &Settings) -> &'static str {
     }
 }
 
+/// The saved keys stay "realistic", "balanced" and "interactive"; the
+/// spoken names say how strong the help is.
 pub(super) fn descent_level_label(s: &Settings) -> String {
-    title_case(&s.descent_speed_control)
+    match s.descent_speed_control.as_str() {
+        "realistic" => "Light".to_string(),
+        "balanced" => "Standard".to_string(),
+        "interactive" => "Strong".to_string(),
+        other => title_case(other),
+    }
 }
 
 pub(super) fn pace_label(s: &Settings) -> String {
@@ -289,13 +296,6 @@ impl SettingsCategoryState {
 
     pub(super) fn toggle_transmission(&mut self, ctx: &mut GameContext, _d: i64) {
         ctx.settings.automatic_transmission = !ctx.settings.automatic_transmission;
-        self.announce(ctx);
-    }
-
-    pub(super) fn cycle_automatic_direction_changes(&mut self, ctx: &mut GameContext, d: i64) {
-        let modes = ["simple", "deliberate"];
-        let i = cycle_index(&modes, &ctx.settings.automatic_direction_changes, d, 0);
-        ctx.settings.automatic_direction_changes = modes[i].to_string();
         self.announce(ctx);
     }
 

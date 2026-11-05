@@ -71,7 +71,7 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
             "A full 10-hour sleep resets your driving hours and legal driving window."
         }
         SleepChoice::Sleeper(_) if completed_split => {
-            "This completes a sleeper split and credits the paired rests."
+            "This finishes a split rest, and both parts count."
         }
         SleepChoice::Sleeper(7 | 8) => {
             "Your legal driving window pauses while you sleep. This rest alone does not restore driving time; pairing the split can."
@@ -125,7 +125,7 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
         String::new()
     };
     format!(
-        "Sleep {span}{more} at {}. {effect} {legal} Fatigue {} to {}. Clock +{span}. \
+        "Sleep {span}{more} at {}. {effect} {legal} Fatigue {} to {}. Clock moves ahead {span}. \
          {deadline}{pending}{cost} Select again to sleep.",
         choice.name(),
         fmt_f(profile.fatigue, 0),

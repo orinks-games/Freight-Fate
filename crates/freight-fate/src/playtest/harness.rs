@@ -1015,7 +1015,7 @@ impl PlaytestHarness {
             let (position, speed, ramp) =
                 self.read_drive(|d| (d.trip.position_mi, d.truck().speed_mph(), d.ramp_mi));
             panic!(
-                "automatic speed control never completed the destination exit: \
+                "cruise never completed the destination exit: \
                  position={position:.2}, speed={speed:.1}, ramp={ramp:?}, \
                  signaled={signaled}\n{}",
                 self.transcript_text()

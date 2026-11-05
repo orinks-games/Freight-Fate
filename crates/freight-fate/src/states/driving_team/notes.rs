@@ -144,7 +144,7 @@ impl DrivingState {
         let done = self.do_install_chains(ctx).is_some();
         profile_mut_of(ctx).fatigue = fatigue;
         if done {
-            let line = format!("{name} put the chains on at the checkpoint.");
+            let line = format!("{name} put the chains on at the chain control.");
             self.co_driver_note(ctx, line, NoteWeight::Wake);
         }
     }

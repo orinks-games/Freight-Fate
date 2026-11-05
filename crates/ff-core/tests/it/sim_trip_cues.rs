@@ -706,3 +706,36 @@ fn test_a_zone_exit_rise_waits_for_the_limit_window() {
         trip.events.iter().map(|e| e.text()).collect::<Vec<_>>()
     );
 }
+
+#[test]
+fn test_a_highway_change_gets_one_keep_right_call_and_no_continue_on() {
+    // Owner drive into Grand Rapids, 2026-11-05: the split was called twice
+    // and a "Continue on" for the same road followed a second later.
+    let mut seen = 0;
+    for (a, b) in [
+        ("Chicago", "Grand Rapids"),
+        ("Chicago", "Denver"),
+        ("Chicago", "Indianapolis"),
+    ] {
+        let trip = make_trip(world(), a, b, 2);
+        let cues = trip.build_navigation_cues();
+        let maneuvers: Vec<&NavigationCue> =
+            cues.iter().filter(|cue| cue.kind == "maneuver").collect();
+        seen += maneuvers.len();
+        for cue in maneuvers {
+            let leg = cue.key.trim_start_matches("maneuver:");
+            assert!(
+                !cues.iter().any(|c| c.key == format!("continue:{leg}")),
+                "{a} -> {b}: {} also has a Continue on",
+                cue.near_text
+            );
+            assert!(
+                cue.near_text.starts_with("Keep right for "),
+                "{}",
+                cue.near_text
+            );
+            assert!(!cue.text.contains("toward"), "{}", cue.text);
+        }
+    }
+    assert!(seen > 0, "none of these routes changes highway");
+}

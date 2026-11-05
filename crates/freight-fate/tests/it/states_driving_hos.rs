@@ -464,7 +464,7 @@ fn test_split_sleeper_rest_action_advances_clock_and_speaks_status() {
     let lines = spoken(&harness);
     let status_at = lines
         .iter()
-        .position(|line| line.contains("Sleeper split open"))
+        .position(|line| line.contains("Split rest started"))
         .unwrap_or_else(|| panic!("no pending-split status line: {lines:#?}"));
     let badge_at = lines
         .iter()
@@ -503,7 +503,7 @@ fn test_split_sleeper_rest_action_advances_clock_and_speaks_status() {
             )
         });
     assert!(completed.contains("of driving left"), "{completed}");
-    assert!(completed.contains("14-hour window"), "{completed}");
+    assert!(completed.contains("duty window"), "{completed}");
 }
 
 /// The long half of a split stops the duty window while it runs. A tester
@@ -570,7 +570,7 @@ fn test_long_sleeper_period_pauses_duty_window_and_says_so() {
         )),
         "{woke}"
     );
-    assert!(woke.contains("Sleeper split open"), "{woke}");
+    assert!(woke.contains("Split rest started"), "{woke}");
 }
 
 #[test]
@@ -865,7 +865,7 @@ fn test_emergency_shoulder_sleep_pause_menu_constraints() {
         .find(|line| line.contains("Emergency shoulder sleep:"))
         .unwrap_or_default();
     assert!(
-        said.contains("HOS reset if enforced"),
+        said.contains("hours of service reset if enforced"),
         "{:?}",
         spoken(&harness)
     );
@@ -1122,7 +1122,10 @@ fn test_hos_off_still_allows_fatigue_emergency_shoulder_sleep() {
     assert!(harness.state_is::<ShoulderSleepConfirmationState>());
     let said = last(&harness);
     assert!(said.contains("poor rest"), "{said}");
-    assert!(said.contains("HOS reset if enforced"), "{said}");
+    assert!(
+        said.contains("hours of service reset if enforced"),
+        "{said}"
+    );
 
     let minutes_before = harness.read_drive(|d| d.trip.game_minutes);
     harness.key(InputEvent::key(Key::Return)); // the focused Cancel row
@@ -1207,7 +1210,7 @@ fn test_serious_hos_inspection_orders_out_of_service_reset() {
         message: "Inspection station open.".into(),
         data: TripEventData {
             key: Some("scale:1".to_string()),
-            evidence: Some(vec!["HOS/ELD violation".to_string()]),
+            evidence: Some(vec!["hours-of-service violation".to_string()]),
             ..Default::default()
         },
     };
@@ -1305,7 +1308,7 @@ fn test_drive_limit_inspection_still_orders_ten_hours() {
         message: "Inspection station open.".into(),
         data: TripEventData {
             key: Some("scale:drive".to_string()),
-            evidence: Some(vec!["HOS/ELD violation".to_string()]),
+            evidence: Some(vec!["hours-of-service violation".to_string()]),
             ..Default::default()
         },
     };
@@ -1365,7 +1368,7 @@ fn test_the_truck_never_rolls_under_an_out_of_service_order() {
         message: "Inspection station open.".into(),
         data: TripEventData {
             key: Some("scale:served".to_string()),
-            evidence: Some(vec!["HOS/ELD violation".to_string()]),
+            evidence: Some(vec!["hours-of-service violation".to_string()]),
             ..Default::default()
         },
     };

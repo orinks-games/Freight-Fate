@@ -176,13 +176,10 @@ impl Menu for MainMenuState {
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
         let mut items: Vec<MenuItem<Self>> = Vec::new();
         let saves = loadable_saves();
-        if let Some((latest_path, latest_profile)) = saves.first() {
+        if let Some((_, latest_profile)) = saves.first() {
             items.push(
                 MenuItem::new(
-                    format!(
-                        "Continue latest career: {}",
-                        career_summary(ctx, latest_path, latest_profile, false)
-                    ),
+                    continue_summary(ctx, latest_profile),
                     |s: &mut Self, ctx| s.continue_latest(ctx),
                 )
                 .help(format!("Load the newest save for {}.", latest_profile.name)),

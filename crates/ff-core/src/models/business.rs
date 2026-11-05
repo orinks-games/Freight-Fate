@@ -146,14 +146,11 @@ pub fn status_label(status: &str) -> &'static str {
     "company driver"
 }
 
-pub fn pay_label(status: &str) -> &'static str {
-    if status == INDEPENDENT_AUTHORITY {
-        return "Direct gross";
-    }
-    if status == LEASED_OWNER_OPERATOR {
-        return "Gross revenue";
-    }
-    "Carrier gross"
+/// The name of a load's full pay on the board and in settlement. Every
+/// business status says it the same way; the board footer says who keeps
+/// what (see `pay_basis_note`).
+pub fn pay_label(_status: &str) -> &'static str {
+    "Pay for the load"
 }
 
 pub fn player_pays_operating_costs(status: &str) -> bool {
@@ -393,7 +390,7 @@ pub fn next_business_unlock<P: BusinessProfile + ?Sized>(profile: &P) -> String 
     let status = profile.business_status();
     if status == INDEPENDENT_AUTHORITY {
         return "Own authority active. Direct freight is available on the dispatch \
-                board, with insurance, compliance, and factoring costs in settlement."
+                board, with insurance, compliance and billing fees in settlement."
             .to_string();
     }
     let level = profile.career().level();
@@ -502,7 +499,7 @@ fn business_status_summary_inner<P: BusinessProfile + ?Sized>(profile: &P) -> St
         };
         if status == INDEPENDENT_AUTHORITY {
             return format!(
-                "Own authority active. Level {}: {}. Direct freight pays higher gross. You pay fuel, repairs, insurance, trailer reserve, truck reserve, compliance reserve, and factoring costs. {transponder}{}",
+                "Own authority active. Level {}: {}. Direct freight pays more per load. You pay fuel, repairs, insurance, trailer reserve, truck reserve, compliance reserve and billing fees. {transponder}{}",
                 rank.level,
                 rank.title,
                 next_business_unlock(profile)
@@ -519,7 +516,7 @@ fn business_status_summary_inner<P: BusinessProfile + ?Sized>(profile: &P) -> St
             ""
         };
         return format!(
-            "{lead}Leased to {}. Level {}: {}. Gross revenue is higher. You pay fuel, repairs, maintenance reserve, insurance, trailer program, truck reserve, and settlement fees. {readiness}{transponder}{}",
+            "{lead}Leased to {}. Level {}: {}. Loads pay more. You pay fuel, repairs, maintenance reserve, insurance, trailer program, truck reserve, and settlement fees. {readiness}{transponder}{}",
             carrier_name(profile),
             rank.level,
             rank.title,
@@ -671,7 +668,7 @@ pub fn independent_authority_charges_for_trailers<S: AsRef<str>>(
             amount: round_py_n(miles * AUTHORITY_COMPLIANCE_PER_MILE, 2),
         },
         BusinessCharge {
-            label: "factoring fee",
+            label: "billing fee",
             amount: round_py_n(gross_pay * AUTHORITY_FACTORING_FEE_SHARE, 2),
         },
     ];

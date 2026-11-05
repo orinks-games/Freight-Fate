@@ -227,38 +227,18 @@ fn test_the_tableau_busy_window_suppresses_only_that_posts_catches() {
     assert!(watching_outside.contains(&other.id()));
 }
 
-// `test_the_tableau_cues_play_once_each` is live in `crates/freight-fate/tests/states_driving_enforcement.rs`.
-
-// `test_tableau_audio_defers_while_the_players_own_stop_is_active` is live in `crates/freight-fate/tests/states_driving_enforcement.rs`.
-
-// `test_a_post_that_already_caught_the_player_never_also_runs_its_tableau` is live in `crates/freight-fate/tests/states_driving_enforcement.rs`.
-
-// `test_the_tableau_intro_line_speaks_once_and_says_it_is_not_the_player` is live in `crates/freight-fate/tests/states_driving_enforcement.rs`.
-
-// `test_the_tableau_intro_line_stays_silent_while_deferred` is live in `crates/freight-fate/tests/states_driving_enforcement.rs`.
-
-// `test_the_tableau_intro_terse_form_keeps_the_bare_fact` is live in `crates/freight-fate/tests/states_driving_enforcement.rs`.
-
 #[test]
-fn test_the_tableau_cb_line_waits_for_the_players_own_stop_and_a_declined_post() {
-    // The CB speech-side twin of the audio deferral above.
+fn test_the_cb_never_reports_a_trooper_with_somebody_else_stopped() {
+    // Owner, 2026-11-05: reports of other drivers being stopped confused
+    // players, so a tableau post gets no CB line.
     let mut trip = trip();
     let mut post = post_kind(trip.position_mi + 2.0, KIND_MEDIAN);
     post.tableau = true;
-    let post_id = post.id();
     trip.posts = vec![post];
-
-    trip.pull_over_active = true;
-    trip.check_enforcement_heads_up();
-    assert!(!trip
-        .events
-        .iter()
-        .any(|e| e.text().contains("somebody stopped")));
-
-    trip.pull_over_active = false;
-    trip.heads_up_seen.remove(&post_id);
-    trip.posts[0].declined = true;
-    trip.check_enforcement_heads_up();
+    for _ in 0..20 {
+        trip.check_enforcement_heads_up();
+        trip.position_mi += 0.1;
+    }
     assert!(!trip
         .events
         .iter()
@@ -596,18 +576,6 @@ fn test_cb_chatter_varies_by_what_the_post_actually_is() {
             .iter()
             .any(|marker| line.contains(marker)));
     }
-}
-
-#[test]
-fn test_cb_tableau_line_reports_a_trooper_with_a_customer() {
-    let trip = trip();
-    let post = post_kind(20.0, KIND_MEDIAN);
-    let line = trip.cb_tableau_message(&post, 3.0);
-    assert!(line.to_lowercase().contains("trooper"));
-    assert!(!line.contains("CB chatter"), "{line}");
-    assert!(line.to_lowercase().contains("somebody stopped"));
-    assert!(line.contains(Trip::cb_side(&post)));
-    assert!(line.contains("3.0") || line.contains("miles"));
 }
 
 #[test]
