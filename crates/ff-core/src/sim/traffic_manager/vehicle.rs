@@ -46,6 +46,13 @@ pub struct TrafficVehicle {
     /// hand. Weather is read live instead, so a clearing sky lifts the whole
     /// road rather than only what spawns next.
     pub slowdown_mph: f64,
+    /// The lane this vehicle left to pass something slower, and comes back
+    /// to once that lane has room (`platoon.rs`). `None` for a vehicle in
+    /// the lane it was born in, including a passer born in the left lane.
+    pub home_lane: Option<i64>,
+    /// The key of the vehicle (or `"truck"`) this one is holding its
+    /// following gap behind, this frame; `None` when the road ahead is open.
+    pub holding_behind: Option<String>,
 }
 
 impl TrafficVehicle {
@@ -72,6 +79,8 @@ impl TrafficVehicle {
             limit_share: None,
             governor_mph: None,
             slowdown_mph: 0.0,
+            home_lane: None,
+            holding_behind: None,
         }
     }
 
@@ -221,6 +230,8 @@ impl From<NPCVehicle> for TrafficVehicle {
             limit_share: None,
             governor_mph: None,
             slowdown_mph: 0.0,
+            home_lane: None,
+            holding_behind: None,
         }
     }
 }

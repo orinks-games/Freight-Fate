@@ -27,9 +27,11 @@ use crate::sim::weather::{effects, WeatherEffects, WeatherKind};
 use crate::speech_text::{brake_lights_cue, merging_traffic_cue, slow_lead_cue};
 
 mod beside;
+mod platoon;
 mod vehicle;
 mod work_zone;
 
+pub use platoon::{DECIDE_AHEAD_S, MIN_GAP_MI, PASS_WANT_MPH, TRUCK_LENGTH_MI};
 pub use vehicle::{
     braking_cause_line, BrakingZone, TrafficSituation, TrafficVehicle, BRAKING_CAUSE_LINES,
 };
@@ -1332,7 +1334,8 @@ impl TrafficManager {
         let merge_lane = self.merge_room_lane(truck_lanes);
         let mut kept = Vec::new();
         let vehicles = std::mem::take(&mut self.vehicles);
-        for mut vehicle in vehicles {
+        let company = self.road_snapshot(&vehicles, position_mi, time_scale);
+        for (index, mut vehicle) in vehicles.into_iter().enumerate() {
             let gap = vehicle.position_mi - position_mi;
             // Every road question below is asked of the road under the
             // vehicle where this frame found it, so resolve that leg once.
@@ -1491,10 +1494,19 @@ impl TrafficManager {
             // just as unmodelled -- and an unknown class is not
             // climb-modelled, which is what a car is.
             let climb = climb_speed_mph(&vehicle.vehicle_class, grade_here);
-            let target = vehicle.target_speed_mph.min(climb);
+            // What is ahead in this lane, and whether to go round it or sit
+            // behind it (`platoon.rs`): decided on the road as the frame
+            // found it, before this vehicle moves.
+            let follow = self.see_the_road(&company, index, &mut vehicle, lanes_here);
+            vehicle.relative_lane = self.player_lane - vehicle.lane;
+            let pace = follow.as_ref().map_or(f64::INFINITY, |f| f.pace_mph);
+            let target = vehicle.target_speed_mph.min(climb).min(pace);
             let delta = target - vehicle.speed_mph;
             vehicle.speed_mph += (-6.0 * dt).max((4.0 * dt).min(delta));
             vehicle.position_mi += vehicle.speed_mph.max(0.0) * game_hours;
+            if let Some(follow) = follow {
+                self.hold_behind(&mut vehicle, follow.ahead, game_hours);
+            }
             if makes_room {
                 self.hold_for_merge(&mut vehicle, position_mi, time_scale);
             }

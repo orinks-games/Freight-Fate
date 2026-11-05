@@ -9,7 +9,7 @@ use ff_core::sim::traffic_manager::{
     climb_speed_mph, governed_band, BrakingZone, TrafficManager, TrafficVehicle,
     CLIMB_MIN_GRADE_PCT, GOVERNED_BOX_TRUCK_BAND_MPH, GOVERNED_CLASSES, GOVERNED_TRUCK_BAND_MPH,
     MAX_BUBBLE_VEHICLES, MERGE_FREE_START_MI, MERGE_WINDOW_MI, NO_SPAWN_AHEAD_MI,
-    NO_SPAWN_BEHIND_MI, SPAWN_CELL_MI,
+    NO_SPAWN_BEHIND_MI, SPAWN_CELL_MI, TRUCK_LENGTH_MI,
 };
 use ff_core::sim::trip::{Trip, TripOptions};
 use ff_core::sim::trip_models::{hourly_volume_fraction, leg_lane_count, DIRECTIONAL_SPLIT};
@@ -1337,4 +1337,208 @@ fn freeway_turn_offs_land_on_an_interchange() {
         mile += 1.7;
     }
     assert!(checked > 5, "only {checked} freeway miles checked");
+}
+
+// -- vehicles that see each other (slice 4, 2026-11-05) -----------------------
+
+/// A straight road with the given number of lanes our side and no bubble,
+/// so only the vehicles a test places are on it.
+fn open_road(lanes: i64) -> TrafficManager {
+    let mut leg = Leg::new("A", "B", 100.0, "I-1", "flat", Vec::new());
+    leg.lanes = lanes;
+    if lanes == 1 {
+        leg.divided = Some(false);
+    }
+    let route = Route::from_legs(vec!["A".to_string(), "B".to_string()], vec![leg]);
+    let mut manager = manager_for_route(&route, 7);
+    manager.rolling_bubble = false;
+    assert_eq!(manager.lane_count_at(20.0), lanes);
+    manager
+}
+
+fn placed(key: &str, mile: f64, mph: f64, lane: i64) -> TrafficVehicle {
+    v(key, mile, mph, 0, "cruising", "car").with_lane(lane)
+}
+
+#[test]
+fn a_faster_vehicle_drops_in_behind_a_slower_one_where_there_is_one_lane() {
+    let mut manager = open_road(1);
+    manager.truck_speed_mph = 40.0;
+    manager.vehicles.push(placed("slow", 21.0, 40.0, 0));
+    manager.vehicles.push(placed("fast", 20.0, 60.0, 0));
+    let truck_mi = 10.0;
+    for _ in 0..600 {
+        manager.update(1.0, truck_mi, 1.0, Some(12.0), Some(false));
+        let slow = manager.vehicles.iter().find(|v| v.key == "slow").unwrap();
+        let fast = manager.vehicles.iter().find(|v| v.key == "fast").unwrap();
+        assert!(
+            fast.position_mi + fast.length_mi < slow.position_mi,
+            "the fast car drove through the slow one at mile {:.2}",
+            fast.position_mi
+        );
+        assert_eq!(fast.lane, 0, "there is no lane to pass in");
+    }
+    let slow = manager.vehicles.iter().find(|v| v.key == "slow").unwrap();
+    let fast = manager.vehicles.iter().find(|v| v.key == "fast").unwrap();
+    assert!(
+        (fast.speed_mph - 40.0).abs() < 0.5,
+        "sits at {:.1}",
+        fast.speed_mph
+    );
+    let gap_s = (slow.position_mi - fast.length_mi - fast.position_mi) / 40.0 * 3600.0;
+    assert!((gap_s - 2.0).abs() < 0.3, "holds a {gap_s:.1} second gap");
+    assert_eq!(fast.holding_behind.as_deref(), Some("slow"));
+}
+
+#[test]
+fn a_faster_vehicle_passes_where_there_is_a_lane_and_comes_back() {
+    let mut manager = open_road(2);
+    manager.truck_speed_mph = 40.0;
+    manager.vehicles.push(placed("slow", 21.0, 40.0, 0));
+    manager.vehicles.push(placed("fast", 20.0, 60.0, 0));
+    let truck_mi = 10.0;
+    let mut moved_over_at = None;
+    let mut back_at = None;
+    for second in 0..900 {
+        manager.update(1.0, truck_mi, 1.0, Some(12.0), Some(false));
+        let slow = manager.vehicles.iter().find(|v| v.key == "slow").unwrap();
+        let fast = manager.vehicles.iter().find(|v| v.key == "fast").unwrap();
+        if fast.lane == 1 && moved_over_at.is_none() {
+            moved_over_at = Some(second);
+            assert_eq!(fast.home_lane, Some(0));
+        }
+        if fast.lane == 0 && moved_over_at.is_some() && back_at.is_none() {
+            back_at = Some(second);
+            assert!(
+                fast.position_mi > slow.position_mi + slow.length_mi + 0.25,
+                "came back {:.2} miles ahead of the slow car",
+                fast.position_mi - slow.position_mi
+            );
+            assert_eq!(fast.home_lane, None);
+        }
+        if fast.lane == slow.lane {
+            assert!(
+                (fast.position_mi - slow.position_mi).abs() > slow.length_mi,
+                "the two shared a spot in one lane at second {second}"
+            );
+        }
+    }
+    let fast = manager.vehicles.iter().find(|v| v.key == "fast").unwrap();
+    assert!(moved_over_at.is_some(), "never moved over to pass");
+    assert!(back_at.is_some(), "never came back to the right lane");
+    assert!(
+        (fast.speed_mph - 60.0).abs() < 0.5,
+        "kept its own pace, {:.1}",
+        fast.speed_mph
+    );
+}
+
+#[test]
+fn nothing_moves_into_the_trucks_lane_beside_it() {
+    // The truck is in the left lane, a tenth of a mile behind a car that
+    // wants past a slow one in the right lane: the move waits until the
+    // truck is clear of the window the L key reads.
+    let mut manager = open_road(2);
+    manager.player_lane = 1;
+    manager.truck_speed_mph = 60.0;
+    manager.vehicles.push(placed("slow", 21.0, 40.0, 0));
+    manager.vehicles.push(placed("fast", 20.1, 65.0, 0));
+    let mut truck_mi = 20.0;
+    for _ in 0..100 {
+        manager.update(1.0, truck_mi, 1.0, Some(12.0), Some(false));
+        truck_mi += 60.0 / 3600.0;
+        let fast = manager.vehicles.iter().find(|v| v.key == "fast").unwrap();
+        assert_eq!(fast.lane, 0, "moved over beside the truck");
+    }
+    let fast = manager.vehicles.iter().find(|v| v.key == "fast").unwrap();
+    assert_eq!(fast.holding_behind.as_deref(), Some("slow"));
+}
+
+#[test]
+fn a_vehicle_behind_the_truck_passes_it_where_there_is_a_lane() {
+    let mut manager = open_road(2);
+    manager.player_lane = 0;
+    manager.truck_speed_mph = 50.0;
+    manager.vehicles.push(placed("fast", 19.0, 65.0, 0));
+    let truck_mi = 20.0;
+    let mut passed_in_lane = None;
+    let mut back_at = None;
+    for second in 0..900 {
+        manager.update(1.0, truck_mi, 1.0, Some(12.0), Some(false));
+        let fast = &manager.vehicles[0];
+        let gap = fast.position_mi - truck_mi;
+        if fast.lane == 0 {
+            // Behind the truck, or back in front of it clear of the window
+            // the L key reads: never alongside it in its own lane.
+            assert!(
+                gap < -(fast.length_mi + TRUCK_LENGTH_MI) || gap > 0.47,
+                "in the truck's lane {gap:.2} miles from it at second {second}"
+            );
+        } else if gap.abs() < 0.05 {
+            passed_in_lane = Some(fast.lane);
+        }
+        if fast.lane == 0 && gap > 0.47 && back_at.is_none() {
+            back_at = Some(second);
+        }
+    }
+    assert_eq!(passed_in_lane, Some(1), "went by in the left lane");
+    assert!(back_at.is_some(), "never came back to the right lane ahead");
+}
+
+#[test]
+fn a_vehicle_behind_the_truck_waits_where_there_is_no_lane() {
+    let mut manager = open_road(1);
+    manager.truck_speed_mph = 50.0;
+    manager.vehicles.push(placed("fast", 19.5, 65.0, 0));
+    let truck_mi = 20.0;
+    for _ in 0..300 {
+        manager.update(1.0, truck_mi, 1.0, Some(12.0), Some(false));
+        let fast = &manager.vehicles[0];
+        assert!(
+            fast.position_mi + fast.length_mi < truck_mi - TRUCK_LENGTH_MI,
+            "went through the truck"
+        );
+    }
+    let fast = &manager.vehicles[0];
+    assert_eq!(fast.holding_behind.as_deref(), Some("truck"));
+    assert!(fast.speed_mph <= 50.5, "still doing {:.1}", fast.speed_mph);
+}
+
+#[test]
+fn a_platoon_forms_behind_a_slow_truck_on_a_two_lane_road() {
+    let mut manager = open_road(1);
+    manager.truck_speed_mph = 40.0;
+    manager.vehicles.push(placed("semi", 22.0, 35.0, 0));
+    manager.vehicles.push(placed("car1", 21.0, 58.0, 0));
+    manager.vehicles.push(placed("car2", 20.0, 62.0, 0));
+    manager.vehicles.push(placed("car3", 19.2, 55.0, 0));
+    let truck_mi = 5.0;
+    for _ in 0..900 {
+        manager.update(1.0, truck_mi, 1.0, Some(12.0), Some(false));
+    }
+    let mut order: Vec<(&str, f64, f64)> = manager
+        .vehicles
+        .iter()
+        .map(|v| (v.key.as_str(), v.position_mi, v.speed_mph))
+        .collect();
+    order.sort_by(|a, b| a.1.partial_cmp(&b.1).unwrap());
+    assert_eq!(
+        order.iter().map(|o| o.0).collect::<Vec<_>>(),
+        ["car3", "car2", "car1", "semi"],
+        "the order on the road changed: {order:?}"
+    );
+    for (key, _, mph) in &order {
+        assert!(
+            (mph - 35.0).abs() < 0.5,
+            "{key} doing {mph:.1} behind a semi at 35"
+        );
+    }
+    for pair in order.windows(2) {
+        let gap_s = (pair[1].1 - 0.25 - pair[0].1) / 35.0 * 3600.0;
+        assert!(
+            (gap_s - 2.0).abs() < 0.3,
+            "{} holds {gap_s:.1} seconds",
+            pair[0].0
+        );
+    }
 }

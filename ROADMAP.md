@@ -305,9 +305,10 @@ bookmarks usable.
       the denser freeways: per-class loudness, `TRAFFIC_BED_PEAK`, and
       whether the right lane needs company too (it is left empty because a
       vehicle there is a slowdown the driver must answer).
-- [ ] (Found along the way) Bubble vehicles in one lane pass through each
-      other: there is no NPC-to-NPC following, which more vehicles per mile
-      make more likely to be heard as two sounds in one place.
+- [x] (Found along the way) Bubble vehicles in one lane passed through each
+      other: since 2026-11-05 a faster vehicle passes where there is a lane
+      and drops in two seconds behind where there is not (see
+      [November 4](#november-4-traffic-at-the-roads-own-pace-found-along-the-way)).
 - [x] Lane keeping no longer passes into an oncoming passing lane (player
       report relayed by the owner, 2026-10-13: "the cruise control swerves
       you right into oncoming cars", three damaged loads). The lane bake
@@ -747,8 +748,9 @@ Everything found before 2026-09-25 moved to
 
 - [x] (Found along the way) Traffic runs at a share of the posted limit,
       towns included; a slow call means the truck is gaining on the vehicle;
-      freeway traffic turns off at interchanges (owner, 2026-11-04). Slice 4,
-      vehicles that follow and pass each other, waits on a listening pass.
+      freeway traffic turns off at interchanges (owner, 2026-11-04), and
+      vehicles pass each other where there is a lane or queue two seconds
+      behind where there is not (2026-11-05).
 - [x] (Found along the way) Full lane keeping leaves a lane a work zone
       closes and takes open weigh stations (owner, 2026-10-27).
 - [ ] (Found along the way) The closure merge cannot drop back behind
@@ -3879,14 +3881,19 @@ town at 15 to 23 mph. Design: the doc "Realistic traffic pass: design"
       percent to 2 percent, forced brakes from 8 to 2 (both a car at 88
       percent of a 25 zone with the sweep's truck still at 58), with the
       bubble as full as before (0.56 against 0.58 vehicles per mile).
-- [ ] (Found along the way) Slice 4, vehicles that see each other: a faster
-      vehicle passes a slower one where there is a lane and drops in two
-      seconds behind where there is not, so platoons form behind slow trucks
-      and freeway passes are heard. After the owner's listening pass on the
-      first three slices. This also closes the pass-through item under
-      Traffic sounds above.
-- [ ] (Found along the way) Re-run the census sweep after slice 4 and record
-      the share bands and forced-brake rate here.
+- [x] Slice 4, vehicles that see each other (`platoon.rs`): a faster vehicle
+      moves over to pass a slower one where the road has a lane with room
+      in it, by the same clearance the L key reads, and comes back once
+      clear; where there is no lane, or no room, it drops in two seconds
+      behind and holds that gap, so a platoon forms behind a slow truck on
+      a two-lane road and a freeway pass is heard. The truck is an occupant
+      like any other: traffic behind it passes it or waits, and nothing
+      moves into its lane inside the sideswipe window.
+- [x] Census sweep after slice 4 (same miles, 5,605 sightings): forced
+      brakes still 2, the bubble as full (0.57 vehicles per mile), 5 percent
+      of sightings out of their lane passing something slower and 16 percent
+      holding a gap behind what is ahead; traffic under 80 percent of its
+      limit 3 percent (vehicles queued behind a slower one count here now).
 
 ## 2.0 planned -- the working week and home
 
