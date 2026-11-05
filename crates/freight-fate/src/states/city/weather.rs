@@ -63,7 +63,6 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
     let hour = to_local(game_hours, zone).rem_euclid(24.0);
     let live_calendar_setting = ctx.settings.live_weather_controls_calendar;
     let imperial = ctx.settings.imperial_units;
-    let real_weather_on = ctx.settings.real_weather;
     let reading: Option<LiveReading> = ctx.real_weather_provider().map(|provider| {
         // Keyed by the city key, not the spoken name: two cities can share
         // a spoken name but they are different places with different skies.
@@ -155,8 +154,6 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
         "Live weather"
     } else if loading {
         "Live weather loading"
-    } else if real_weather_on {
-        "Simulated fallback weather"
     } else {
         "Simulated weather"
     };
@@ -172,7 +169,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
                     if minutes == 1 { "minute" } else { "minutes" }
                 )
             };
-            freshness = format!(" The observation is {age} old.");
+            freshness = format!(" The report is {age} old.");
         }
     }
     if last_known && refreshing {

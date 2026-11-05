@@ -398,7 +398,7 @@ impl DrivingState {
             format!("Destination ahead, {facility}. Stop at the gate.")
         };
         if keeper_held {
-            message.push_str(" Speed keeper off.");
+            message.push_str(" Cruise off.");
         }
         self.seed_gate_grace_at_gate(ctx, &message);
         if keeper_held {
@@ -725,7 +725,7 @@ impl DrivingState {
         };
         let title = if self.phase == DRIVE_PHASE_PICKUP {
             format!(
-                "Deadheading to pickup at {}",
+                "Driving empty to pickup at {}",
                 self.pickup_facility_text(ctx)
             )
         } else {

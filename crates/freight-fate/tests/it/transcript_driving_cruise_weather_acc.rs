@@ -91,7 +91,7 @@ fn test_hazard_announces_speed_control_pause_once() {
     assert!(harness.read_drive(|d| d.cruise_mph).is_none());
     let said = last(&harness);
     assert!(said.starts_with("Brake now!"), "{said}");
-    assert_eq!(said.matches("Automatic speed control paused.").count(), 1);
+    assert_eq!(said.matches("Cruise paused.").count(), 1);
     assert!(!said.contains("canceled"), "{said}");
 }
 
@@ -936,10 +936,9 @@ fn test_adaptive_cruise_holds_heavy_traffic_itself() {
             .any(|line| line.starts_with("Entering heavy traffic zone. Speed limit 50 now.")),
         "{lines:#?}"
     );
-    assert!(
-        !lines.iter().any(|line| line.contains("Speed keeper")),
-        "{lines:#?}"
-    );
+    // The open-road controller stays in charge: the low-speed hold never
+    // takes this zone.
+    assert!(harness.read_drive(|d| d.keeper_mph.is_none()), "{lines:#?}");
 }
 
 #[test]
@@ -1093,7 +1092,7 @@ fn test_speed_control_restores_cruise_target_after_zone() {
     assert_eq!(
         spoken(&harness)
             .iter()
-            .filter(|e| e.contains("Speed keeper holding"))
+            .filter(|e| e.contains("Cruise holding"))
             .count(),
         1,
         "{:#?}",
@@ -1133,7 +1132,7 @@ fn test_cruise_target_can_be_adjusted_while_keeper_is_active() {
             .expect("a target"),
         25.0
     ));
-    assert_eq!(last(&harness), "Open-road cruise target 25 miles per hour.");
+    assert_eq!(last(&harness), "Cruise speed 25 miles per hour.");
 }
 
 /// The posted-limit scan sees a drop further out under time compression:
@@ -1241,7 +1240,7 @@ fn test_a_hazard_that_leaves_the_truck_below_cruise_speed_still_resumes() {
         spoken(&harness)
     );
     assert!(
-        said_any(&harness, "Speed control resuming."),
+        said_any(&harness, "Cruise resuming."),
         "{:?}",
         spoken(&harness)
     );

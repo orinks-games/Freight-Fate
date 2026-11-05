@@ -128,20 +128,20 @@ impl PauseMenuState {
                 ctx.push_state(state);
             })
             .help(
-                "The how-to-play reference at the driving keys. Left and Right change pages, Up \
+                "How to play, opened at the driving keys page. Left and Right change pages, Up \
                  and Down read lines.",
             ),
             MenuItem::new("Learn game sounds", |_s: &mut Self, ctx: &mut GameContext| {
                 let state = LearnSoundsState::new();
                 ctx.push_state(state);
             })
-            .help("Plays any sound the road uses and says what it means."),
+            .help("Every sound the road uses, and what each one means."),
             MenuItem::new("Practice keys and buttons", |_s: &mut Self, ctx: &mut GameContext| {
                 ctx.push_state(InputPracticeState::new());
             })
             .help("Names what each key or controller button does while driving."),
             MenuItem::new(mechanic_label(d), |s: &mut Self, ctx| s.mechanic(ctx)).help(
-                "A mobile mechanic patches the truck up enough to drive on. Far dearer than a \
+                "A mobile mechanic patches the truck up enough to drive on. Costs far more than a \
                  garage, an hour and a half, and billed even into debt.",
             ),
             MenuItem::new("Settings", |_s: &mut Self, ctx: &mut GameContext| {
@@ -254,7 +254,7 @@ impl PauseMenuState {
                 })
                 .help(
                     "Waits on duty, not driving, half an hour at a time, up to 8 hours or until \
-                     your 14-hour window runs out.",
+                     your duty window runs out.",
                 ),
             );
             items.insert(
@@ -307,11 +307,12 @@ impl PauseMenuState {
                 .unwrap_or(items.len());
             items.insert(
                 settings_index,
-                MenuItem::new("Sleep at the checkpoint (10 hours)", |s: &mut Self, ctx| {
-                    s.sleep_at_chain_checkpoint(ctx)
-                })
+                MenuItem::new(
+                    "Sleep at the chain control (10 hours)",
+                    |s: &mut Self, ctx| s.sleep_at_chain_checkpoint(ctx),
+                )
                 .help(
-                    "Poor sleep on the checkpoint apron. Resets hours of service. Fatigue \
+                    "Poor sleep at the chain control. Resets hours of service. Fatigue \
                      remains, and the deadline keeps running.",
                 ),
             );

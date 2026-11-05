@@ -136,7 +136,7 @@ pub const SETTINGS_LAYOUT_NOTICES: [(i64, &str); 3] = [
     ),
     (
         2,
-        "Two rows moved. Speed keeper is now in Driving assistance instead of \
+        "Two rows moved. Low-speed cruise is now in Driving assistance instead of \
          Controls. Lane and edge cue prominence is now Lane and edge cue \
          volume, in Audio under Gameplay cues volume. Your choices came with \
          them. Overspeed warning no longer has a row: it stays quiet until you \

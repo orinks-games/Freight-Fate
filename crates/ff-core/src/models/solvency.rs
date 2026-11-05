@@ -561,7 +561,7 @@ pub fn apply_repossession<P: SolvencyProfile + ?Sized>(profile: &mut P) -> Vec<S
         format!(
             "You are a company driver again, on the payroll at {hiring} and in a \
              carrier tractor. The owner-operator path is still open to you, and \
-             the buy-in gates are the same ones you cleared to get here."
+             the buy-in requirements are the same ones you met to get here."
         ),
     ];
     let record = profile.driving_record_mut();
@@ -636,7 +636,7 @@ pub fn apply_return_to_company_driving<P: SolvencyProfile + ?Sized>(
             money_text(buy_back)
         ),
         "Settlements are driver wages and bonuses from here. The owner-operator buy-in \
-         stays open under Business status, and the gates are the ones you already cleared."
+         stays open under Business status, and the requirements are the ones you already met."
             .to_string(),
     ]
 }

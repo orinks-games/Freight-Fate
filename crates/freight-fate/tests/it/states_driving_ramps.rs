@@ -1724,7 +1724,7 @@ fn test_ramp_terminal_hands_the_speed_keeper_back_after_the_stop_bar() {
 
     assert_eq!(d.keeper_mph, Some(ACCESS_ZONE_MPH));
     assert!(!d.speed_control_paused_at_stop);
-    assert_eq!(said_count(&app, "Speed keeper holding"), 1);
+    assert_eq!(said_count(&app, "Cruise holding"), 1);
 }
 
 #[test]
@@ -2122,9 +2122,7 @@ fn test_route_transition_assistance_brakes_to_the_sign_without_slamming() {
         "the stop peaked at {hardest_mps2:.2} m/s2: {lines:?}"
     );
     assert!(
-        !lines
-            .iter()
-            .any(|line| line == "Route-transition assistance released."),
+        !lines.iter().any(|line| line == "Ramp assistance released."),
         "released while still braking for the sign: {lines:?}"
     );
 }
@@ -2206,7 +2204,7 @@ fn test_route_transition_assistance_does_not_chatter_at_the_ramp_cap() {
     );
     let released = spoken(&harness.app)
         .iter()
-        .filter(|line| *line == "Route-transition assistance released.")
+        .filter(|line| *line == "Ramp assistance released.")
         .count();
     assert!(released <= 1, "{:?}", spoken(&harness.app));
 }
