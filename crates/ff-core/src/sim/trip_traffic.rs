@@ -190,7 +190,9 @@ impl Trip {
     ///
     /// No "CB chatter" opener: the CB's own sound marks the line as radio
     /// talk, and the words are the report (owner, 2026-10-01). A fresh
-    /// report leads with how far; a stale one with who said it.
+    /// report leads with how far, and so does a stale one, which says it is old:
+    /// "a while back" with no distance read as a trooper already behind the
+    /// truck (owner's drive, 2026-11-04).
     pub fn cb_patrol_message(&self, post: &EnforcementPost, ahead_mi: f64) -> String {
         let distance = cap_first(&self.ahead_text(ahead_mi.max(0.0)));
         let confidence = self.cb_confidence(post);
@@ -199,14 +201,14 @@ impl Trip {
             return match confidence {
                 "strong" => format!("{distance}: two drivers say troopers are working {side}."),
                 "ordinary" => format!("{distance}: a driver says troopers are working {side}."),
-                _ => format!("Somebody said troopers were working {side} a while back."),
+                _ => format!("{distance}: an old report of troopers {side}."),
             };
         }
         if post.kind == KIND_SCALE_APRON || post.kind == KIND_FIXED_SCALE {
             return match confidence {
                 "strong" => format!("{distance}: two drivers say they're checking logs {side}."),
                 "ordinary" => format!("{distance}: a driver says they're checking logs {side}."),
-                _ => format!("Somebody said they were checking logs {side} a while back."),
+                _ => format!("{distance}: an old report of log checks {side}."),
             };
         }
         if post.kind == KIND_CMV {
@@ -217,9 +219,7 @@ impl Trip {
                 "ordinary" => {
                     format!("{distance}: a driver says they're checking logs and equipment {side}.")
                 }
-                _ => format!(
-                    "Somebody said they were checking logs and equipment {side} a while back."
-                ),
+                _ => format!("{distance}: an old report of log and equipment checks {side}."),
             };
         }
         if post.kind == KIND_CHAIN {
@@ -230,33 +230,15 @@ impl Trip {
                 "ordinary" => {
                     format!("{distance}: a driver says the chain control is checking rigs {side}.")
                 }
-                _ => format!(
-                    "Somebody said the chain control was checking rigs {side} a while back."
-                ),
+                _ => {
+                    format!("{distance}: an old report of the chain control checking rigs {side}.")
+                }
             };
         }
         match confidence {
             "strong" => format!("{distance}: two drivers call a trooper {side}."),
             "ordinary" => format!("{distance}: a driver reports a trooper {side}."),
-            _ => format!("Somebody called a trooper {side} a while back."),
-        }
-    }
-
-    /// CB chatter for a trooper who already has somebody else stopped.
-    pub fn cb_tableau_message(&self, post: &EnforcementPost, ahead_mi: f64) -> String {
-        let distance = cap_first(&self.ahead_text(ahead_mi.max(0.0)));
-        let confidence = self.cb_confidence(post);
-        let side = Self::cb_side(post);
-        match confidence {
-            "strong" => {
-                format!(
-                    "{distance}: two drivers say a trooper already has somebody stopped {side}."
-                )
-            }
-            "ordinary" => {
-                format!("{distance}: a driver says a trooper already has somebody stopped {side}.")
-            }
-            _ => format!("Somebody said a trooper had somebody stopped {side} a while back."),
+            _ => format!("{distance}: an old report of a trooper {side}."),
         }
     }
 

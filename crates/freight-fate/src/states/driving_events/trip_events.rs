@@ -463,7 +463,7 @@ impl DrivingState {
         // The normal/terse pair rides the event from the sim layer; the
         // delivery layer picks the rendering (R5), so no rewriting here.
         let message = if speed_control_was_active {
-            message.plus("Automatic speed control paused.")
+            message.plus("Cruise paused.")
         } else {
             message
         };
@@ -788,14 +788,21 @@ impl DrivingState {
                             if ahead <= 0.0 {
                                 return None;
                             }
+                            let scale = stop.stop_type == "weigh_station";
+                            let open = scale.then(|| drive.trip.scale_open(&stop));
+                            let parking_normal = if scale {
+                                String::new()
+                            } else {
+                                stop.parking_text()
+                            };
                             let parts = StopCalloutParts {
                                 planned_prefix: drive.trip.planned_prefix(&stop),
                                 typed_name: &typed_name,
                                 plain_name: &stop.name,
                                 exit_label: &stop.exit_label,
                                 distance: &drive.trip.ahead_text(ahead),
-                                parking_normal: &stop.parking_text(),
-                                parking_certainty: &stop.parking,
+                                parking_normal: &parking_normal,
+                                parking_certainty: if scale { "likely" } else { &stop.parking },
                                 // Already signaled: "Press X to signal for the
                                 // exit" with the signal on asks for a press
                                 // that would cancel it, or move it off the
@@ -804,14 +811,15 @@ impl DrivingState {
                                 // on full signals for itself.
                                 exit_hint: if drive.exit_signal_on
                                     || drive.exit_is_armed_for(&stop)
-                                    || (stop.stop_type == "weigh_station"
-                                        && ctx.settings.lane_is_automated())
+                                    || open == Some(false)
+                                    || (scale && ctx.settings.lane_is_automated())
                                 {
                                     ""
                                 } else {
                                     &exit_hint
                                 },
                                 fuel: stop.fuel_callout(),
+                                open,
                             };
                             // The rung's rendering, as the line had when it
                             // queued: re-rendered as the normal form, quiet
@@ -1303,7 +1311,7 @@ impl DrivingState {
             );
             ctx.play_event_cue(category, "ui/notify", 1.0, 0.0);
             let keeper = ctx.settings.speed_text(self.keeper_mph.unwrap_or(0.0));
-            let message = message.plus(&format!("Speed keeper holding {keeper}."));
+            let message = message.plus(&format!("Cruise holding {keeper}."));
             let mut opts = SayEvent::queued().priority(EventPriority::Important);
             opts.category = category;
             ctx.say_event_with(message, opts);
@@ -1399,7 +1407,7 @@ impl DrivingState {
             }
         }
         if evidence.is_empty() {
-            evidence = vec!["HOS/ELD violation".to_string()];
+            evidence = vec!["hours-of-service violation".to_string()];
         }
         let evidence_text = evidence.join(", ");
         ctx.audio.play("ui/error");
@@ -1420,15 +1428,14 @@ impl DrivingState {
                 "ten hours"
             };
             let return_message = if break_only {
-                "Back on the highway after the 30-minute break. Keep the logbook clean."
+                "Back on the highway after the 30-minute break."
             } else {
-                "Back on the highway with a reset clock. Keep the logbook clean."
+                "Back on the highway with a reset clock."
             };
-            let summary = format!(
-                "{} Evidence: {evidence_text}. The officer writes the order: out of service, \
-                 {oos_phrase}, right here.",
-                event.text()
-            );
+            // What happened and the citation, nothing else: where the stop
+            // was is the lights line's, and the scale's "wave you in" said
+            // shoulder and weigh station in one breath (owner, 2026-11-04).
+            let summary = format!("Out of service {oos_phrase}. Citation: {evidence_text}.");
             let lights = format!(
                 "Lights and siren behind you for a log check. Signal with {} and stop on the \
                  shoulder.",
@@ -1455,7 +1462,7 @@ impl DrivingState {
                 0.0f64.max(profile.career.reputation - hos::HOS_REPUTATION_HIT);
         }
         let message = format!(
-            "{} Evidence: {evidence_text}. Fined {} dollars, and your reputation took a hit.",
+            "{} Citation: {evidence_text}. Fined {} dollars, and your reputation took a hit.",
             event.text(),
             ff_core::pyfmt::fmt_grouped(fine, 0)
         );

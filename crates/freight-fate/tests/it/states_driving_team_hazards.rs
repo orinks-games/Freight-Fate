@@ -414,7 +414,7 @@ fn a_work_zone_on_a_downgrade_stays_on_cruise_with_the_co_driver() {
         })
     });
     assert!(past, "never got past the zone");
-    assert!(!keeper, "the speed keeper took a highway work zone");
+    assert!(!keeper, "the cruise took a highway work zone");
     assert!(in_zone_max <= 47.5, "{in_zone_max:.0} in the 45 work zone");
     assert!(!crawled, "crawled past the zone");
     let speed = harness.read_drive(|d| d.truck().speed_mph());

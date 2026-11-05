@@ -270,6 +270,10 @@ pub struct Census {
     /// Posted limit in the cell the rolling bubble drew it in, or `None` for
     /// a vehicle that did not come from the rolling bubble.
     pub spawn_mph: Option<f64>,
+    /// Out of its lane to get round something slower (`platoon.rs`).
+    pub passing_on_its_own: bool,
+    /// Holding its following gap behind what is ahead, this count.
+    pub holding_a_gap: bool,
 }
 
 impl Census {
@@ -479,6 +483,8 @@ pub fn drive_corridor(corridor: &Corridor, seed: i64, hour: f64, max_miles: f64)
                         lanes_here: manager.lane_count_at(v.position_mi),
                         here_mph: manager.posted_limit_at(v.position_mi),
                         spawn_mph: spawn_cell_mi(&v.key).map(|mile| manager.posted_limit_at(mile)),
+                        passing_on_its_own: v.home_lane.is_some(),
+                        holding_a_gap: v.holding_behind.is_some(),
                     })
                     .collect::<Vec<_>>()
             }));
@@ -750,6 +756,16 @@ fn traffic_forced_slow_rate_sweep() {
     println!(
         "  ... of those, drawn where the road was slower: {carried} ({:.1}% of all)",
         per_hundred(carried, census.len() as f64)
+    );
+    let passing = census.iter().filter(|c| c.passing_on_its_own).count();
+    let holding = census.iter().filter(|c| c.holding_a_gap).count();
+    println!(
+        "  out of their lane passing something slower : {passing} ({:.1}%)",
+        per_hundred(passing, census.len() as f64)
+    );
+    println!(
+        "  holding a gap behind what is ahead         : {holding} ({:.1}%)",
+        per_hundred(holding, census.len() as f64)
     );
     let mut share_bands: BTreeMap<i64, usize> = BTreeMap::new();
     for c in &census {
@@ -1127,7 +1143,7 @@ pub fn bench_lead(lanes_your_side: i64, lead_mph: f64) -> BenchRun {
             if let Some(lead) = d.trip.traffic_manager.vehicles.first_mut() {
                 lead.speed_mph = lead_mph;
                 lead.target_speed_mph = lead_mph;
-                lead.limit_offset_mph = None;
+                lead.limit_share = None;
             }
         });
     }
@@ -1501,7 +1517,7 @@ fn met_a_slow_lead(name: &str, lanes_your_side: i64, lead_mph: f64) -> (Vec<Stri
             if let Some(lead) = d.trip.traffic_manager.vehicles.first_mut() {
                 lead.speed_mph = lead_mph;
                 lead.target_speed_mph = lead_mph;
-                lead.limit_offset_mph = None;
+                lead.limit_share = None;
             }
         });
     }

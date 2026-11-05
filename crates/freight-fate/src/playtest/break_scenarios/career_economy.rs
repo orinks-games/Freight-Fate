@@ -635,11 +635,11 @@ pub fn owner_op_buyin_at_level_18_boundary() -> Outcome {
         );
         if !labels
             .iter()
-            .any(|label| label.contains("Buy into leased-on"))
+            .any(|label| label.contains("Owner-operator buy-in"))
         {
             findings.push("level 18 with exact capital: no buy-in menu item offered".to_string());
         } else {
-            select_containing(&mut app, "Buy into leased-on");
+            select_containing(&mut app, "Owner-operator buy-in");
             let (status, money) = {
                 let profile = app.ctx.profile.as_ref().expect("a profile");
                 (profile.business_status.clone(), profile.money())
@@ -682,7 +682,7 @@ pub fn owner_op_buyin_at_level_18_boundary() -> Outcome {
     );
     if labels
         .iter()
-        .any(|label| label.contains("Buy into leased-on"))
+        .any(|label| label.contains("Owner-operator buy-in"))
     {
         findings.push(
             "level 17 (one short) still offered the owner-operator buy-in menu item".to_string(),

@@ -45,7 +45,7 @@ pub fn is_highway_zone_reason(reason: &str) -> bool {
 /// What a spoken line calls the stretch a zone reason stands for: nothing
 /// for a public street of a chain, which is just a street with its own
 /// limit (the turn-by-turn says its name), "the yard" or "the lot", and
-/// "the (reason) zone" for everything else. "Speed keeper holding 55 miles
+/// "the (reason) zone" for everything else. "Cruise holding 55 miles
 /// per hour through the facility access road zone" named ten miles of city
 /// streets as one zone (live drive into Abilene, 2026-09-24).
 pub fn spoken_zone(reason: &str) -> Option<String> {

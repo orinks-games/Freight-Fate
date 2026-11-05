@@ -1015,7 +1015,7 @@ fn six_citations_in_three_years_end_the_employment() {
     p.carrier_key = LAST_CHANCE_CARRIER_KEY.to_string();
     assert!(!carrier_termination_due(&p));
     assert_eq!(record_band(&p), TRUST_POOR);
-    assert!(record_consequence_text(&p).contains("sufferance"));
+    assert!(record_consequence_text(&p).contains("on probation"));
 }
 
 #[test]

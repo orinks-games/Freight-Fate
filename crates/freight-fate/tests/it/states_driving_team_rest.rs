@@ -350,8 +350,7 @@ fn the_first_offer_of_a_co_driver_explains_it_once() {
     let said = harness.transcript().join("\n");
     assert!(
         said.contains(&format!(
-            "{INTRO} Dan can take the wheel from this menu while you rest in the sleeper. Dan \
-             hands the wheel back once you have had your 10-hour rest."
+            "{INTRO} Dan can take the wheel from this menu while you rest in the sleeper."
         )),
         "{said}"
     );

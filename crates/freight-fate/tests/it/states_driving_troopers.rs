@@ -1047,7 +1047,7 @@ fn test_f1_help_names_non_speed_enforcement_pullovers() {
         .last()
         .unwrap_or_else(|| panic!("F1 said nothing at all"));
     assert!(
-        last.contains("X also signals a pull-over when a trooper lights you up"),
+        last.contains("X also signals a pull-over when a trooper signals you to pull over"),
         "{last}"
     );
     assert!(
@@ -1180,7 +1180,6 @@ fn test_out_of_service_stop_shuts_down_the_engine() {
     assert!(!drive.trip.truck.engine_on);
     let text =
         with_top::<EnforcementStopState, _>(&mut app, |stop, _| stop.outcome_text().to_lowercase());
-    assert!(text.contains("shut down the engine"), "{text}");
     // Ten hours parked with the engine off bleeds the air down, so the
     // outcome says where the truck stands.
     assert!(text.contains("engine off, air"), "{text}");

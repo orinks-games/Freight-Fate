@@ -243,7 +243,7 @@ fn test_home_terminal_prefers_explicit_terminal_and_falls_back_to_yard() {
     assert_eq!(explicit.service_area(), "Nashville, Tennessee");
     assert_eq!(fallback.name, "Chicago Company Yard");
     assert_eq!(fallback.label(), "company yard");
-    assert_eq!(fallback.spoken_name(), "company yard: Chicago Company Yard");
+    assert_eq!(fallback.spoken_name(), "Chicago Company Yard");
 }
 
 #[test]

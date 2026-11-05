@@ -143,7 +143,7 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         15,
         "Owner-Operator Candidate",
         "Business preparation",
-        "Working-capital target becomes visible.",
+        "Your savings target is now shown.",
         "Saving for the owner-operator buy-in instead of a lease-purchase deal.",
     ),
     rank(
@@ -175,7 +175,7 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         19,
         "Settled Owner-Operator",
         "Owner-operator",
-        "Owner-operator settlements become the normal business rhythm.",
+        "Owner-operator settlements are now routine.",
         "Learning fuel, maintenance, insurance, trailer, and settlement reserves.",
     ),
     rank(
@@ -190,14 +190,14 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         21,
         "Authority Prep Candidate",
         "Authority preparation",
-        "Authority prep reserve can unlock when other gates are met.",
+        "Authority prep reserve can unlock when the other requirements are met.",
         "Studying full authority while staying focused on one-truck operations.",
     ),
     rank(
         22,
         "Direct Freight Prep",
         "Authority preparation",
-        "Direct freight readiness gates become clearer.",
+        "The steps to direct freight are now listed.",
         "Building reputation and working capital before direct broker freight.",
     ),
     rank(
@@ -212,21 +212,21 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         "Authority-Ready Operator",
         "Authority preparation",
         "Final authority activation checklist.",
-        "Prepared for own authority without simulating a full compliance office.",
+        "Getting ready to run under your own authority.",
     ),
     rank(
         25,
         "Independent Authority Operator",
         "Own authority",
-        "Own authority and direct freight unlock when other gates are met.",
-        "Direct freight is available with insurance, compliance, and factoring costs.",
+        "Own authority and direct freight unlock when the other requirements are met.",
+        "Direct freight is available, with insurance, compliance and billing fees.",
     ),
     rank(
         26,
         "Contract Freight Builder",
         "Established owner-operator",
         "Premium direct freight reputation matters more.",
-        "Building a stronger one-truck book of repeat freight.",
+        "Building repeat customers for your one truck.",
     ),
     rank(
         27,
@@ -378,7 +378,7 @@ pub const COMPANY_CAREER_RANKS: [CareerRank; 30] = [
         16,
         "Fleet Senior Driver",
         "Career company driver",
-        "Dispatch favors you with steadier premium freight on company iron.",
+        "Dispatch favors you with steadier premium freight on company trucks.",
         "A senior company driver with a settled place on the fleet.",
     ),
     rank(
@@ -393,7 +393,7 @@ pub const COMPANY_CAREER_RANKS: [CareerRank; 30] = [
         18,
         "Company Fleet Captain",
         "Career company driver",
-        "Fleet-captain standing: priority company freight and mentoring weight.",
+        "Top fleet standing: first pick of company freight.",
         "A career company driver at the buy-in fork who kept the safer seat.",
     ),
     rank(
@@ -401,7 +401,7 @@ pub const COMPANY_CAREER_RANKS: [CareerRank; 30] = [
         "Veteran Company Hauler",
         "Career company driver",
         "Long-haul company work becomes the normal rhythm.",
-        "Miles and reputation compound on carrier equipment.",
+        "Miles and reputation keep growing on carrier equipment.",
     ),
     rank(
         20,
@@ -422,7 +422,7 @@ pub const COMPANY_CAREER_RANKS: [CareerRank; 30] = [
         "Premium Company Lane Driver",
         "Elite company driver",
         "Premium company lanes favor high reputation and clean timing.",
-        "An elite company driver with first call on high-consequence freight.",
+        "An elite company driver with first call on the most valuable freight.",
     ),
     rank(
         23,

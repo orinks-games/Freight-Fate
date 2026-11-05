@@ -386,7 +386,7 @@ impl DrivingState {
             // the pedals for a ramp that ends at the gate: it is still
             // driving the truck in (owner, 2026-10-25, Facility streets off).
             ctx.say_event_with(
-                "Route-transition assistance released.",
+                "Ramp assistance released.",
                 SayEvent::queued()
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),

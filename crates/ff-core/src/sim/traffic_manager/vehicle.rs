@@ -24,25 +24,35 @@ pub struct TrafficVehicle {
     /// The route mile this vehicle leaves the highway at, for bubble
     /// traffic: without it a slower vehicle ahead was permanent.
     pub exit_at_mi: Option<f64>,
-    /// How this driver runs relative to whatever is posted, in mph. Drawn
-    /// once from the intent's band; `None` for a vehicle whose speed did not
-    /// come from a draw at all (a marked unit, an injected jam, a vehicle a
-    /// test placed by hand), which is left alone.
+    /// How this driver runs relative to whatever is posted, as a share of
+    /// it (1.0 is the limit itself). Drawn once from the intent's band;
+    /// `None` for a vehicle whose speed did not come from a draw at all (a
+    /// marked unit, an injected jam, a vehicle a test placed by hand), which
+    /// is left alone.
     ///
     /// The speed itself is NOT a property of the vehicle: the number posted
     /// changes along a leg -- through every town a US route passes -- and a
     /// speed drawn once at the spawn cell and kept forever is a town speed
     /// carried out onto the open road, or a highway speed carried into town.
-    /// Keeping the OFFSET and re-reading the posting under the wheels is what
-    /// makes a vehicle drive the road it is on.
-    pub limit_offset_mph: Option<f64>,
+    /// Keeping the SHARE and re-reading the posting under the wheels is what
+    /// makes a vehicle drive the road it is on, at a pace that fits it.
+    pub limit_share: Option<f64>,
     /// The limiter this vehicle's machine carries, drawn once from its
     /// class's band. `None` for a class that is not governed.
     pub governor_mph: Option<f64>,
     /// Conditions coming off the top that belong to this vehicle rather than
-    /// to the road: the rush-hour draw. Weather is read live instead, so a
-    /// clearing sky lifts the whole road rather than only what spawns next.
+    /// to the road. The bubble draws none (rush hour is denser, not slower;
+    /// a jam's pace comes from its zone), so this is for a vehicle placed by
+    /// hand. Weather is read live instead, so a clearing sky lifts the whole
+    /// road rather than only what spawns next.
     pub slowdown_mph: f64,
+    /// The lane this vehicle left to pass something slower, and comes back
+    /// to once that lane has room (`platoon.rs`). `None` for a vehicle in
+    /// the lane it was born in, including a passer born in the left lane.
+    pub home_lane: Option<i64>,
+    /// The key of the vehicle (or `"truck"`) this one is holding its
+    /// following gap behind, this frame; `None` when the road ahead is open.
+    pub holding_behind: Option<String>,
 }
 
 impl TrafficVehicle {
@@ -66,22 +76,24 @@ impl TrafficVehicle {
             length_mi: 0.25,
             lane: 0,
             exit_at_mi: None,
-            limit_offset_mph: None,
+            limit_share: None,
             governor_mph: None,
             slowdown_mph: 0.0,
+            home_lane: None,
+            holding_behind: None,
         }
     }
 
     /// Record what the speed draw decided, so the target can be re-read
     /// against the road the vehicle is on rather than the road it was drawn
-    /// on. See [`TrafficVehicle::limit_offset_mph`].
+    /// on. See [`TrafficVehicle::limit_share`].
     pub fn with_speed_draw(
         mut self,
-        limit_offset_mph: f64,
+        limit_share: f64,
         governor_mph: Option<f64>,
         slowdown_mph: f64,
     ) -> Self {
-        self.limit_offset_mph = Some(limit_offset_mph);
+        self.limit_share = Some(limit_share);
         self.governor_mph = governor_mph;
         self.slowdown_mph = slowdown_mph;
         self
@@ -129,18 +141,26 @@ impl TrafficVehicle {
         .to_string()
     }
 
-    pub fn reason(&self) -> &'static str {
+    /// What the hazard call names this vehicle as. An ordinary vehicle the
+    /// truck is closing on is a slow one of its own class: the old labels
+    /// called every cruiser "steady truck traffic" and every slow-role
+    /// vehicle a "slow car", so the call said "Slow car right ahead" about a
+    /// semi (census sweep, 2026-11-04).
+    pub fn reason(&self) -> String {
         if self.vehicle_class == "state trooper" {
-            return "state trooper ahead";
+            return "state trooper ahead".to_string();
         }
         match self.intent.as_str() {
-            "cruising" => "steady truck traffic",
-            "following" => "slow car ahead",
-            "merging" => "merging traffic",
-            "braking" => "brake lights ahead",
-            "passing" => "passing traffic",
-            "patrolling" => "marked unit ahead",
-            _ => "traffic ahead",
+            "cruising" | "following" => {
+                let class = self.vehicle_class.trim();
+                let class = if class.is_empty() { "vehicle" } else { class };
+                format!("slow {class} ahead")
+            }
+            "merging" => "merging traffic".to_string(),
+            "braking" => "brake lights ahead".to_string(),
+            "passing" => "passing traffic".to_string(),
+            "patrolling" => "marked unit ahead".to_string(),
+            _ => "traffic ahead".to_string(),
         }
     }
 
@@ -207,9 +227,11 @@ impl From<NPCVehicle> for TrafficVehicle {
             length_mi: npc.length_mi,
             lane: npc.lane,
             exit_at_mi: None,
-            limit_offset_mph: None,
+            limit_share: None,
             governor_mph: None,
             slowdown_mph: 0.0,
+            home_lane: None,
+            holding_behind: None,
         }
     }
 }

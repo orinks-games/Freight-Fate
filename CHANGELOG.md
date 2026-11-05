@@ -8,7 +8,7 @@
 
 - **Choose stable, beta, or alpha updates in Settings.** Existing snapshot followers move to beta.
 
-- **A menu letter can now choose its item at once.** Turn on Menu accelerator keys in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).
+- **A menu letter can now choose its item at once.** Turn on Letters run menu items in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).
 - **Achievements can be sorted.** A new Sort row puts earned ones first by default, or newest, locked first, A to Z, or the original order.
 - **Achievements open from the terminal and the pause menu,** showing the career you are playing.
 - **Translators can put a corrected language file in a lang folder next to the game.** The saves folder still works too.
@@ -18,9 +18,13 @@
 ### Changed
 
 - **Live road reports now cover only your road, in your direction, within 10 miles.** Each says how far ahead it is.
+- **Traffic now runs near the posted limit, in towns as on the highway.** Rush hour brings more vehicles, not slower ones.
+- **A slow vehicle ahead is called only while you are gaining on it.** Cruise no longer adds "Traffic ahead, slowing" for the same vehicle.
+- **Freeway traffic now leaves at an interchange** instead of disappearing between exits.
+- **Vehicles now pass each other or drop in behind.** A faster vehicle moves over where there is a lane, and queues two seconds back where there is not; nothing moves into your lane beside you.
 - **Citations now clear from your record in 30 game days, and serious violations and crashes in 90.** Two serious violations within 180 days, not three years, suspend your CDL.
 - **Road announcements now wait for NVDA 2026.3 or SAPI to finish speaking.** The most urgent goes next; stale chatter is skipped.
-- **Game sounds step back for speech only while NVDA 2026.3 or SAPI is speaking.** Older NVDA versions keep the timing they had.
+- **Lower game sounds during speech works only while NVDA 2026.3 or SAPI is speaking.** Older NVDA versions keep the timing they had.
 - **Daily development releases are now labeled Beta.** Stable releases remain the default download.
 
 - **Updates are signed, and only what changed is downloaded.** The game now checks every update against Freight Fate's own signature before installing it, and skips any large file you already have, not only the music and radio packs. An update stopped part-way, by a power cut for instance, is put back at the next start.
@@ -28,11 +32,21 @@
 - **Full lane keeping now takes open weigh stations.** It signals for the scale, and the truck stops at it with facility stopping assistance on.
 - **Exit ramps are updated to October's road data.** Most exits know their ramp's length and the light or sign at its end, both ways.
 - **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.
-- **Adaptive cruise now holds highway work zones and heavy traffic at their limit.** The speed keeper takes over only on streets and facility approaches.
+- **Cruise now holds highway work zones and heavy traffic at their limit.** Low-speed cruise takes over only on streets and facility approaches.
 - **Dispatch stops sending you straight back where you came from.** The city you just delivered from is on about one board in three, and it is no longer the load dispatch assigns or the one the cursor opens on while another load is there.
+- **Spoken lines, help and menus are shorter and use plain words, and some settings have new names.** Cruise has one name, and the dispatch board and delivery list are shorter.
+
+### Removed
+
+- **The Automatic direction changes setting is gone.** Both of its choices already drove the same way.
+- **Troopers working someone else's stop are gone,** with their siren, their pass sound and the CB reports about them.
 
 ### Fixed
 
+- **Speed limits no longer jump to 70 and back where the map has no posting.** An unmapped stretch keeps the limits on either side, and state truck limits such as California's 55 apply there too.
+- **The copy key copies the message you stepped back to.** It used to copy the newest line instead.
+- **Numbered loads on the dispatch board are read in your language.** The load line after "Job 1 of 7" stayed in English.
+- **The brake warning now names the vehicle ahead.** It said "Slow car" for a semi or a box truck.
 - **The unused translations folder from mid-October downloads leaves the game folder.** It moves to the saves folder as old-translations, so any edits in it are kept.
 - **Automatic update offers start on Remind me later.** Holding a key cannot install an update by accident.
 
@@ -40,15 +54,18 @@
 - **The Mac game no longer freezes at launch with VoiceOver on.** It could stop responding for up to two minutes while VoiceOver was starting.
 - **Halloween week has more billboards, and they no longer repeat the same two lines.** They come up less often, and some are about the state you are in.
 - **Your planned stop is announced at every driving speech setting, with the key to signal for it.** Pressing X while it is read no longer brings the line back.
-- **Adaptive cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
+- **Cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
 - **Full lane keeping now leaves a lane that a work zone closes.** It moves over when the signs come up, so All assists no longer drives into the barrels.
-- **The taper warning before a lane closure now names the open lane.** With the left lane closed it used to say merge left.
+- **The lane ending warning before a lane closure now names the open lane.** With the left lane closed it used to say merge left.
 - **Barrel citations from before that fix come off your record.** The fine is refunded the first time you load the career.
 - **Facility stopping assistance no longer gets you fined at a chain control.** A truck pulling into the chain-up area to put chains on is not cited.
 - **A crash on Windows now writes its cause into game.log,** so a bug report with the log shows what went wrong.
 - **A co-driver no longer crawls at 20 miles per hour after a downhill work zone.** They kept braking for the hill and ran out of hours.
 - **On ice, a co-driver now plans a stop they can reach at icy speeds.** They used to plan one their hours could not reach.
+- **A trooper the radio placed in the median is still in the median when you pass.**
 - **A co-driver now lowers the cruise speed when the limit drops.** Entering a state with a lower truck limit, they kept the old speed.
+- **Cruise no longer crawls toward an exit for a lower limit miles ahead.** It keeps the road's limit until it needs to slow for the drop.
+- **Cruise no longer says it is easing while the truck speeds up.** Pulling away under a lower limit, it read out two speeds a second apart.
 - **Adaptive cruise no longer repeats a work zone's slowdown after a stop.** Braking for a hazard or turning cruise off in the approach used to bring the line back.
 - **A road line cut off by a Clock or Route readout is no longer lost to a Brake warning.** With NVDA 2026.3 or SAPI, it plays after the warning.
 

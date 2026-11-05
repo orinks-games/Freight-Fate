@@ -127,7 +127,7 @@ fn test_rolling_t_plans_exact_sleep_stop_without_silently_selecting_exit() {
     assert!(!harness.read_drive(|d| d.exit_signal_on));
     let said = last(&harness);
     assert!(
-        said.contains("Sleep stop planned, public rest area: Prairie View Rest Area"),
+        said.contains("Sleep stop planned, Prairie View Rest Area"),
         "{said}"
     );
     assert!(said.contains("Press X to signal."), "{said}");
@@ -467,10 +467,10 @@ fn test_selected_stop_assist_reaches_full_stop_and_sleep_menu() {
     }));
     assert!(spoken(&harness)
         .iter()
-        .any(|line| line.contains("Stopped at public rest area: Prairie View Rest Area")));
+        .any(|line| line.contains("Stopped at Prairie View Rest Area")));
     assert_eq!(
         harness.with_state::<RestStopState, _>(|state, _| state.menu().title.clone()),
-        "public rest area: Prairie View Rest Area"
+        "Prairie View Rest Area"
     );
     assert_eq!(
         harness.focused_label().unwrap_or_default(),
@@ -500,7 +500,7 @@ fn test_selected_stop_assist_reaches_full_stop_and_sleep_menu() {
     let selected_i = index_of("Sleep stop planned");
     let armed_i = index_of("Signal ");
     let braking_i = index_of("Slowing for the");
-    let stopped_i = index_of("Stopped at public rest area");
+    let stopped_i = index_of("Stopped at Prairie View Rest Area");
     let menu_i = index_of("Sleep 10 hours");
     assert!(
         selected_i < armed_i && armed_i < braking_i && braking_i < stopped_i && stopped_i < menu_i,
@@ -819,7 +819,7 @@ fn test_t_plans_a_sleep_stop_well_beyond_the_exit_window() {
     );
     let said = last(&harness);
     assert!(
-        said.contains("Sleep stop planned, public rest area: Prairie View Rest Area"),
+        said.contains("Sleep stop planned, Prairie View Rest Area"),
         "{said}"
     );
     assert!(

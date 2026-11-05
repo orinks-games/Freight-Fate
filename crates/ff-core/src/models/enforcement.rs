@@ -963,8 +963,8 @@ pub fn record_consequence_text<P: StandingProfile + ?Sized>(profile: &P) -> Stri
     if record_past_termination_floor(record, game_hours) {
         if profile.carrier_key() == LAST_CHANCE_CARRIER_KEY {
             return format!(
-                "The carrier's insurer will not carry a record like that; {} keeps you on \
-                 sufferance until {}.",
+                "The carrier's insurer will not carry a record like that; {} keeps you on, on \
+                 probation, until {}.",
                 LAST_CHANCE_CARRIER_NAME,
                 record_clears_text(profile, |citations, serious| {
                     citations >= CARRIER_TERMINATION_CITATIONS
@@ -1338,7 +1338,7 @@ pub fn suspension_refusal_line<P: StandingProfile + ?Sized>(profile: &P) -> Stri
 pub fn suspension_drive_refusal_line<P: StandingProfile + ?Sized>(profile: &P) -> String {
     let record = record_of(profile);
     if record.lifetime_disqualified {
-        return "You cannot drive with a lifetime CDL disqualification, not even bobtail."
+        return "You cannot drive with a lifetime CDL disqualification, not even without a trailer."
             .to_string();
     }
     let verb = status_verb(record);
@@ -1348,7 +1348,7 @@ pub fn suspension_drive_refusal_line<P: StandingProfile + ?Sized>(profile: &P) -
         "suspension"
     };
     format!(
-        "You cannot drive, not even bobtail, while your CDL is {verb}. The {noun} ends {}.",
+        "You cannot drive, not even without a trailer, while your CDL is {verb}. The {noun} ends {}.",
         clears_text(profile)
     )
 }

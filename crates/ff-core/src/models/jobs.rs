@@ -9,7 +9,6 @@ use serde_json::{json, Map, Value};
 use crate::data::world::World;
 use crate::data::world_constants::{lookup, LOCATION_TYPE_LABELS};
 use crate::models::career::JobView;
-use crate::models::market::market_condition;
 use crate::models::save_migration::json_f64;
 use crate::models::start_options::pay_plan_for_key;
 use crate::models::trailers::{required_program_text, trailer_keys_for_cargo};
@@ -151,12 +150,28 @@ pub struct Job {
 pub struct DescribeOptions<'a> {
     pub index: Option<usize>,
     pub total: Option<usize>,
-    /// `"Pays"` when empty.
-    pub pay_label: &'a str,
     pub trailer_note: &'a str,
     pub display_pay: Option<f64>,
-    pub market_preview: &'a str,
+    /// After "Pays N dollars, ": what the driver keeps, such as
+    /// "about 247 to you".
+    pub pay_preview: &'a str,
     pub distance_text: &'a str,
+    /// The empty drive to a pickup in another city, such as "40 miles".
+    pub empty_first: &'a str,
+    /// Any closing sentences, such as a weight warning.
+    pub extra: &'a str,
+}
+
+/// "Buffalo to Jamestown, New York", naming the state once when both
+/// cities share it.
+/// The origin as a route names it: the city alone when the destination is
+/// in the same state, which the destination then says.
+pub fn route_origin<'a>(origin: &'a str, destination: &str) -> &'a str {
+    let state = |place: &str| place.rsplit_once(", ").map(|(_, s)| s.to_string());
+    match (origin.rsplit_once(", "), state(destination)) {
+        (Some((city, from_state)), Some(to_state)) if from_state == to_state => city,
+        _ => origin,
+    }
 }
 
 impl Job {
@@ -230,6 +245,8 @@ impl Job {
         })
     }
 
+    /// The board line: only what decides whether to take the load. The
+    /// facilities, equipment and market are on the job details screen.
     pub fn describe(&self, opts: &DescribeOptions<'_>) -> String {
         let prefix = match opts.index {
             Some(index) => format!(
@@ -240,41 +257,33 @@ impl Job {
             ),
             None => String::new(),
         };
-        let condition = market_condition(self.market_mult);
-        let market = if condition != "steady" {
-            format!(" Market {condition}.")
-        } else {
-            String::new()
-        };
-        let preview = if opts.market_preview.is_empty() {
-            String::new()
-        } else {
-            format!(" {}", opts.market_preview)
-        };
         let endorsement = if self.cargo.credentials.is_empty() {
             String::new()
         } else {
             format!(" Requires {}.", credentials_clause(self.cargo.credentials))
         };
-        // Whole sentences, so a catalog has each one with its words: the
-        // load, the pay and the deadline are each a line of their own.
+        // Whole sentences, so a catalog has each one with its words.
         let tons = fmt_f(self.weight_tons, 0);
         let cargo = self.cargo.label;
-        let pickup = self.origin_offer_text();
-        let dropoff = self.destination_offer_text();
-        let load = format!("{tons} tons of {cargo} from {pickup} to {dropoff}.");
+        let destination = self.spoken_destination();
+        let origin = route_origin(self.spoken_origin(), destination);
+        let load = format!("{tons} tons of {cargo} from {origin} to {destination}.");
         let trailer = if opts.trailer_note.is_empty() {
             String::new()
         } else {
             format!(" {}", opts.trailer_note)
         };
+        let empty_first = if opts.empty_first.is_empty() {
+            String::new()
+        } else {
+            let miles = opts.empty_first;
+            format!(" {miles} empty to the pickup first.")
+        };
         let pay = fmt_grouped(opts.display_pay.unwrap_or(self.pay), 0);
-        let pay_text = match opts.pay_label {
-            "" | "Pays" => format!("Pays {pay} dollars."),
-            "Carrier gross" => format!("Carrier gross {pay} dollars."),
-            "Direct gross" => format!("Direct gross {pay} dollars."),
-            "Gross revenue" => format!("Gross revenue {pay} dollars."),
-            other => format!("{other} {pay} dollars."),
+        let pay_text = if opts.pay_preview.is_empty() {
+            format!("Pays {pay} dollars.")
+        } else {
+            format!("Pays {pay} dollars, {}.", opts.pay_preview)
         };
         let distance = if opts.distance_text.is_empty() {
             format!("{} miles", fmt_f(self.distance_mi, 0))
@@ -284,17 +293,19 @@ impl Job {
         let hours = fmt_f(self.deadline_game_h, 0);
         let deadline = if self.team {
             format!(
-                "Deadline {hours} hours. Team load: you and a co-driver take turns at the wheel."
+                "{distance}, deadline {hours} hours. Team load: you and a co-driver take turns at the wheel."
             )
         } else if self.deadline_covers_rest {
-            format!("Deadline {hours} hours, includes a 10-hour rest.")
+            format!("{distance}, deadline {hours} hours with a 10-hour rest.")
         } else {
-            format!("Deadline {hours} hours.")
+            format!("{distance}, deadline {hours} hours.")
         };
-        let equipment = self.cargo.equipment_text();
-        format!(
-            "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: {equipment}.{trailer}{preview}{market}{endorsement}"
-        )
+        let extra = if opts.extra.is_empty() {
+            String::new()
+        } else {
+            format!(" {}", opts.extra)
+        };
+        format!("{prefix}{load} {deadline}{empty_first} {pay_text}{trailer}{endorsement}{extra}")
     }
 
     pub fn origin_facility_text(&self) -> String {
@@ -304,6 +315,17 @@ impl Job {
             self.spoken_origin(),
             &self.origin_locality,
         )
+    }
+
+    /// The pickup's own name, for a line spoken in its city: "Buffalo
+    /// Grocery Distribution Center", or the metro market when it has none.
+    pub fn origin_short_name(&self) -> String {
+        let name = self.origin_location.trim();
+        if self.origin_type == "metro_market" || is_legacy_facility_name(self.spoken_origin(), name)
+        {
+            return self.origin_offer_text();
+        }
+        name.to_string()
     }
 
     pub fn origin_offer_text(&self) -> String {

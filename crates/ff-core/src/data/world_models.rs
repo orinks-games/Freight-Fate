@@ -164,7 +164,7 @@ impl HomeTerminal {
     }
 
     pub fn spoken_name(&self) -> String {
-        format!("{}: {}", self.label(), self.name)
+        crate::speech_text::typed_name(self.label(), &self.name, ": ")
     }
 
     pub fn service_area(&self) -> String {

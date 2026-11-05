@@ -658,27 +658,21 @@ pub fn loaded_departure_line(
     lead: &str,
     route: &Route,
     engine_on: bool,
-    next_context: &str,
 ) -> String {
     // Never "Departing now" over a dead engine: a driver who shut down at the
     // shipper leaves on a real start-up, and the line has to say so or the
     // truck simply sits there in silence.
-    let tail = if engine_on {
-        "Departing now.".to_string()
-    } else {
-        format!(
-            "Engine off. {} starts it, {} releases the parking brake once air is up.",
-            ctx.control_hint("engine"),
-            ctx.control_hint("parking_brake")
-        )
-    };
-    // The hours and tank before the road, so the driver can plan the stops
-    // instead of meeting them as a countdown (player report, 2026-10-17).
-    format!(
-        "{lead}{} {} {next_context} {tail}",
+    // A dead engine is the At the wheel line's to explain; it follows at
+    // once with the key that starts it.
+    let tail = if engine_on { " Departing now." } else { "" };
+    // The stop this run needs before the road, so the driver can plan it
+    // instead of meeting it as a countdown (player report, 2026-10-17).
+    let line = format!(
+        "{lead}{} {}{tail}",
         crate::states::city_pickup::route_departure_summary(route, &ctx.settings),
         board::briefing::departure_briefing(ctx, route, false)
-    )
+    );
+    line.split_whitespace().collect::<Vec<_>>().join(" ")
 }
 
 /// Hand the wheel to the driving state.
@@ -765,9 +759,6 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
         LaunchAnnouncement::Line(line) => line,
         LaunchAnnouncement::LoadedDeparture { lead } => {
             let engine_on = resume.as_ref().is_some_and(|r| r.engine_on);
-            let next_context = driving
-                .trip
-                .next_navigation_context(ctx.settings.imperial_units);
             match resume.as_ref().and_then(|r| r.team) {
                 // The co-driver starts the truck; the player hears who it is.
                 Some(_) => {
@@ -776,8 +767,8 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
                     let carrier = ff_core::models::career::carrier_name_of(profile(ctx));
                     // Your own hours and the tank, as on a solo departure,
                     // without the solo driver's sleep plan.
-                    format!(
-                        "{} {lead}{} {} {next_context} {} takes the wheel.",
+                    let line = format!(
+                        "{} {lead}{} {} {} takes the wheel.",
                         ff_core::models::co_driver::pairing_line(&pairing, &carrier),
                         crate::states::city_pickup::route_departure_summary(
                             &route_for_line,
@@ -785,11 +776,11 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
                         ),
                         board::briefing::departure_briefing(ctx, &route_for_line, true),
                         pairing.co_driver.name
-                    )
+                    );
+                    // An empty briefing leaves a double space behind.
+                    line.split_whitespace().collect::<Vec<_>>().join(" ")
                 }
-                None => {
-                    loaded_departure_line(ctx, &lead, &route_for_line, engine_on, &next_context)
-                }
+                None => loaded_departure_line(ctx, &lead, &route_for_line, engine_on),
             }
         }
     };

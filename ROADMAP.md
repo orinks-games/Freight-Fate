@@ -41,6 +41,8 @@ bookmarks usable.
 
 ## 1.9 in flight (`feat/career-1.9`)
 
+- [x] (Found along the way) Speed limits flip-flopped where the map has no posting (owner's Kenosha to Traverse City drive, 2026-11-04: 60, 70, 55 on the Tri-State in Lake County inside two minutes). An untagged stretch longer than four miles fell back to the open-road number, and 263 of them sat between two lower postings. Fixed 2026-11-05: a gap takes at most the higher posting around it when both are 55 or more, or both are 45 or more and the gap is at most 10 miles. Calibrated on the October profile itself: on tagged road between two postings of 55 or more, the stretch between was posted higher than both for most of its length 0.1% of the time over 5 miles and 1.9% over 40; with a 45 or 50 at one end, 5.1% over 10 miles and 13.4% over 40. A gap leaving a town limit under 45 still reads the open-road number. The state truck caps (California 55, Oregon 55, Arizona 65 and the rest) now bind in gaps and on legs with no profile; they used to apply to postings only.
+- [ ] (Found along the way) Kenosha and Milwaukee to Chicago leave I-94 just past the state line and run about 25 miles down US-41 (Skokie Highway, with signals) to Lake Cook Road, while the game still calls the road I-94; checked against OpenStreetMap 2026-11-05. The 55, 45, 55 and 50 heard there are US-41's real limits. Re-route both legs onto the Tri-State and re-read their limits, then check which other legs leave their named interstate the same way (the limit-artifact screen's off-route verdicts are a start).
 - [x] The event voice reports when it stops (owner, 2026-11-03): NVDA 2026.3 added `nvdaController_isSpeaking`, which Prism 0.18.3 already wraps; SAPI and OneCore answer too. Hearken's speech worker asks it, at most every 100 ms and only while a line could still be playing, and the pacer ends its length-based estimate when the voice reports silence, or holds it open while the voice is still talking. Game sounds stepping back for speech, the controller Back button's "anything speaking" check and the staleness budget all follow. Road lines also wait for it (owner, same day): while the voice reports it is talking, a queued road line is held by the game instead of stacked in the screen reader's queue; when it reports quiet, the most urgent held line still true is spoken, and chatter held past its 3-second budget, or a route line past 8 seconds, is dropped to message review (the owner's PC drive heard a work-zone easing line spoken 12 seconds late after a hazard brake, right before the game said it again). Interrupting lines and receipt-tracked lines never wait, and a queued critical line is never dropped: it goes after 6 seconds even if the voice never falls quiet. With both voices on the screen reader, the game asks the main voice, keeps asking once it has answered, and counts an info readout (Clock, Route) as speech: a road line raised during a readout waits for it, and the readout's time does not count against the line's budget. Older NVDA and JAWS keep the estimate and get every line at once. Waiting on a listening pass with a fast and a slow NVDA rate.
 - [x] Shorter record windows (owner, 2026-11-04): a citation counts for 30 game days, a serious violation or crash for 90, in reputation, the carrier's review, the insurance surcharge and the scale's screening; the CDL suspension ladder looks back 180. A game day is about one delivery, so the old year was several hundred loads for one ticket.
 - [x] Barrel strikes from before full lane keeping left closed lanes are forgiven once (owner, 2026-11-04): a player was cited when the assist held the truck in a coned-off lane. On the first load of a save written before the repair, each barrel strike the record still explains comes off (its citation, serious violation and entry), its fine is refunded, and a suspension it started is lifted. Saves carry no build stamp, so a strike the driver steered into is forgiven too. A strike older than the 60 kept entries cannot be found and stays.
@@ -300,16 +302,18 @@ bookmarks usable.
       met slower traffic: two vehicles heard through the I-65 rush zone.
       The vehicle ahead in the truck's lane, the one callouts name, is heard
       to half a mile and always takes a sound first.
-- [ ] (Found along the way) Callouts name a slow vehicle up to 2.2 miles
-      ahead, beyond any hearing; whether the warning should wait until it is
-      audible is a design call for the owner.
+- [x] (Found along the way) Callouts name a slow vehicle up to 2.2 miles
+      ahead, beyond any hearing. Called at half a mile since 2026-10-09, and
+      since 2026-11-04 only while the truck is gaining on it (see
+      [November 4](#november-4-traffic-at-the-roads-own-pace-found-along-the-way)).
 - [ ] (Found along the way) A second owner listening pass on traffic after
       the denser freeways: per-class loudness, `TRAFFIC_BED_PEAK`, and
       whether the right lane needs company too (it is left empty because a
       vehicle there is a slowdown the driver must answer).
-- [ ] (Found along the way) Bubble vehicles in one lane pass through each
-      other: there is no NPC-to-NPC following, which more vehicles per mile
-      make more likely to be heard as two sounds in one place.
+- [x] (Found along the way) Bubble vehicles in one lane passed through each
+      other: since 2026-11-05 a faster vehicle passes where there is a lane
+      and drops in two seconds behind where there is not (see
+      [November 4](#november-4-traffic-at-the-roads-own-pace-found-along-the-way)).
 - [x] Lane keeping no longer passes into an oncoming passing lane (player
       report relayed by the owner, 2026-10-13: "the cruise control swerves
       you right into oncoming cars", three damaged loads). The lane bake
@@ -747,6 +751,11 @@ into the release gate. Details stay in the linked dated sections, marked
 Everything found before 2026-09-25 moved to
 [2.0](#found-along-the-way-in-19-moved-to-20) that day.
 
+- [x] (Found along the way) Traffic runs at a share of the posted limit,
+      towns included; a slow call means the truck is gaining on the vehicle;
+      freeway traffic turns off at interchanges (owner, 2026-11-04), and
+      vehicles pass each other where there is a lane or queue two seconds
+      behind where there is not (2026-11-05).
 - [x] (Found along the way) Full lane keeping leaves a lane a work zone
       closes and takes open weigh stations (owner, 2026-10-27).
 - [ ] (Found along the way) The closure merge cannot drop back behind
@@ -3838,6 +3847,58 @@ with everything off):
   departure cannot be staged through `start_at` today.
 - Three "Found along the way" items above: the keeper trailing a posted
   drop, silent damage, the rural 70 posted on a boulevard.
+
+### November 4 traffic at the road's own pace (Found along the way)
+
+The owner's US-219 drive, Buffalo to Jamestown (2026-11-04): "Slow box
+truck 0.5 miles ahead, at 48" and, forty seconds later, "Slow box truck
+0.4 miles ahead, at 42" while they crawled to the exit. The log showed the
+second call going out with the truck already slower than the box truck
+(39.9 against 41.5, cruise easing for a limit drop), and the crawl itself
+was the 30 limit. Underneath: a third of all traffic ahead was born into a
+"slow" role that ran 3 to 10 under the posting, with a flat 4 to 10 more
+off every vehicle born in rush hour, as fixed miles per hour kept into
+every town -- 15 to 23 in a 30 zone. The census sweep
+(`states_driving_traffic_rate.rs`, 2,082 miles, 5,670 sightings) measured
+15 percent of traffic under 80 percent of its limit, and seven of the eight
+times traffic forced the truck to brake were that role, four of them in a
+town at 15 to 23 mph. Design: the doc "Realistic traffic pass: design"
+(project thread, 2026-11-04).
+
+- [x] Speeds are a share of the posting: 88 to 108 percent for ordinary
+      traffic, 105 to 115 for passers, re-read under the wheels as before;
+      governors and the climb model unchanged. The slow role is no longer
+      drawn, the flat rush draw is gone (rush hour is denser, not slower;
+      jams pace from their zone), and the floor is 85 percent of the limit.
+- [x] A slow call means the truck is gaining on the vehicle by 5 mph or
+      more, judged when the call is spoken, whatever the vehicle was born
+      as; a cruising semi at 62 caught at 70 is called like any other. A
+      vehicle not called is not marked announced.
+- [x] Cruise's "Traffic ahead, slowing" stays quiet for a vehicle the slow
+      call named within the last mile; the notify tone still plays.
+- [x] Freeway turn-offs move to the first interchange at or past the drawn
+      mile (within 15 miles); off a freeway the drawn mile stands.
+- [x] The hazard call names the vehicle's class ("Slow semi right ahead");
+      it said "Slow car" for every slow vehicle and "Steady truck traffic"
+      for every cruiser, whatever they were.
+- [x] Census sweep after the first three slices (same 2,082 miles, 5,546
+      sightings): traffic under 80 percent of its limit fell from 15
+      percent to 2 percent, forced brakes from 8 to 2 (both a car at 88
+      percent of a 25 zone with the sweep's truck still at 58), with the
+      bubble as full as before (0.56 against 0.58 vehicles per mile).
+- [x] Slice 4, vehicles that see each other (`platoon.rs`): a faster vehicle
+      moves over to pass a slower one where the road has a lane with room
+      in it, by the same clearance the L key reads, and comes back once
+      clear; where there is no lane, or no room, it drops in two seconds
+      behind and holds that gap, so a platoon forms behind a slow truck on
+      a two-lane road and a freeway pass is heard. The truck is an occupant
+      like any other: traffic behind it passes it or waits, and nothing
+      moves into its lane inside the sideswipe window.
+- [x] Census sweep after slice 4 (same miles, 5,605 sightings): forced
+      brakes still 2, the bubble as full (0.57 vehicles per mile), 5 percent
+      of sightings out of their lane passing something slower and 16 percent
+      holding a gap behind what is ahead; traffic under 80 percent of its
+      limit 3 percent (vehicles queued behind a slower one count here now).
 
 ## 2.0 planned -- the working week and home
 
