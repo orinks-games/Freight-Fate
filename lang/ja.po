@@ -11706,9 +11706,6 @@ msgstr "{days_ahead}日後の{base}"
 msgid "cruising"
 msgstr "巡航中"
 
-msgid "following"
-msgstr "追従中"
-
 msgid "merging"
 msgstr "合流中"
 
@@ -11730,6 +11727,9 @@ msgstr "時速{f}マイル"
 msgid "{f} kilometers per hour"
 msgstr "時速{f}キロメートル"
 
+msgid "following"
+msgstr "追従中"
+
 msgid "passing"
 msgstr "追い越し"
 
@@ -11748,11 +11748,12 @@ msgstr "州警察官"
 msgid "state trooper ahead"
 msgstr "前方に州警察官"
 
-msgid "steady truck traffic"
-msgstr "トラックの流れが続いています"
+msgid "vehicle"
+msgstr "車両"
 
-msgid "slow car ahead"
-msgstr "前方に遅い車"
+#. placeholders: {class}
+msgid "slow {class} ahead"
+msgstr ""
 
 msgid "merging traffic"
 msgstr "合流してくる車"
@@ -11768,9 +11769,6 @@ msgstr "前方にパトカー"
 
 msgid "traffic ahead"
 msgstr "前方に車"
-
-msgid "vehicle"
-msgstr "車両"
 
 #. placeholders: {class}
 msgid "Merging {class} on the right ramp"
@@ -12491,6 +12489,12 @@ msgstr "到着"
 #. placeholders: {text}, {parking_spaces}
 msgid "{text}, {parking_spaces} spaces"
 msgstr "{text}、駐車スペース{parking_spaces}台"
+
+msgid "steady truck traffic"
+msgstr "トラックの流れが続いています"
+
+msgid "slow car ahead"
+msgstr "前方に遅い車"
 
 msgid "Left lane open."
 msgstr "左車線が空いています。"
@@ -23434,7 +23438,7 @@ msgstr "クルーズ速度{speed_text}。ランプ進入{speed_text2}。"
 #. placeholders: {speed_text2}
 #. one sentence of a longer line
 msgid "Ramp approach {speed_text2}."
-msgstr ""
+msgstr "ランプ進入{speed_text2}。"
 
 #. placeholders: {speed_number}, {speed_number2}
 msgid "{speed_number}, ramp {speed_number2}."

@@ -13271,9 +13271,6 @@ msgstr "{base} tra {days_ahead} giorni"
 msgid "cruising"
 msgstr "in marcia"
 
-msgid "following"
-msgstr "in coda"
-
 msgid "merging"
 msgstr "in immissione"
 
@@ -13295,6 +13292,9 @@ msgstr "{f} miglia orarie"
 msgid "{f} kilometers per hour"
 msgstr "{f} chilometri orari"
 
+msgid "following"
+msgstr "in coda"
+
 msgid "passing"
 msgstr "in sorpasso"
 
@@ -13313,11 +13313,12 @@ msgstr "agente della polizia stradale"
 msgid "state trooper ahead"
 msgstr "agente della polizia stradale più avanti"
 
-msgid "steady truck traffic"
-msgstr "traffico costante di camion"
+msgid "vehicle"
+msgstr "veicolo"
 
-msgid "slow car ahead"
-msgstr "auto lenta più avanti"
+#. placeholders: {class}
+msgid "slow {class} ahead"
+msgstr ""
 
 msgid "merging traffic"
 msgstr "traffico in immissione"
@@ -13333,9 +13334,6 @@ msgstr "auto della polizia più avanti"
 
 msgid "traffic ahead"
 msgstr "traffico più avanti"
-
-msgid "vehicle"
-msgstr "veicolo"
 
 #. placeholders: {class}
 msgid "Merging {class} on the right ramp"
@@ -14066,6 +14064,12 @@ msgstr "arrivato"
 #. placeholders: {text}, {parking_spaces}
 msgid "{text}, {parking_spaces} spaces"
 msgstr "{text}, {parking_spaces} {parking_spaces:posto|posti}"
+
+msgid "steady truck traffic"
+msgstr "traffico costante di camion"
+
+msgid "slow car ahead"
+msgstr "auto lenta più avanti"
 
 msgid "Left lane open."
 msgstr "Corsia sinistra libera."
@@ -26113,7 +26117,7 @@ msgstr ""
 #. placeholders: {speed_text2}
 #. one sentence of a longer line
 msgid "Ramp approach {speed_text2}."
-msgstr ""
+msgstr "Avvicinamento alla rampa {speed_text2}."
 
 #. placeholders: {speed_number}, {speed_number2}
 msgid "{speed_number}, ramp {speed_number2}."

@@ -1197,6 +1197,9 @@ fn real_time_empty_bubble_arrival_reaches_the_player_traffic_status() {
     {
         trip.position_mi = arrival.position_mi - 0.3;
     }
+    // At road speed: a slow call is about the truck gaining on the vehicle,
+    // and a truck at rest gains on nothing.
+    trip.truck.velocity_mps = 65.0 / crate::sim::vehicle::MPS_TO_MPH;
     trip.check_npc_traffic_cues();
     assert!(
         trip.events

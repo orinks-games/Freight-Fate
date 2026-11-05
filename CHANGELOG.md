@@ -17,6 +17,10 @@
 
 ### Changed
 
+- **Traffic now runs near the posted limit, in towns as on the highway.** Rush hour brings more vehicles, not slower ones.
+- **A slow vehicle ahead is called only while you are gaining on it.** Cruise no longer adds "Traffic ahead, slowing" for the same vehicle.
+- **Freeway traffic now leaves at an interchange** instead of disappearing between exits.
+- **Vehicles now pass each other or drop in behind.** A faster vehicle moves over where there is a lane, and queues two seconds back where there is not; nothing moves into your lane beside you.
 - **Citations now clear from your record in 30 game days, and serious violations and crashes in 90.** Two serious violations within 180 days, not three years, suspend your CDL.
 - **Road announcements now wait for NVDA 2026.3 or SAPI to finish speaking.** The most urgent goes next; stale chatter is skipped.
 - **Lower game sounds during speech works only while NVDA 2026.3 or SAPI is speaking.** Older NVDA versions keep the timing they had.
@@ -66,6 +70,7 @@
 - **Left and Right say nothing while you are parked or the engine is off.**
 - **Weigh station callouts say Open or Closed, as the signs do.** A closed scale is said once on arrival, with no exit key offered ahead of it.
 - **Numbered loads on the dispatch board are read in your language.** The load line after "Job 1 of 7" stayed in English.
+- **The brake warning now names the vehicle ahead.** It said "Slow car" for a semi or a box truck.
 - **The unused translations folder from mid-October downloads leaves the game folder.** It moves to the saves folder as old-translations, so any edits in it are kept.
 - **Automatic update offers start on Remind me later.** Holding a key cannot install an update by accident.
 
@@ -89,6 +94,8 @@
 - **The career summary no longer says 1 deliveries.**
 - **Help that named the shift, lane locator and hours keys now names the keys you set.**
 - **A co-driver now lowers the cruise speed when the limit drops.** Entering a state with a lower truck limit, they kept the old speed.
+- **Cruise no longer crawls toward an exit for a lower limit miles ahead.** It keeps the road's limit until it needs to slow for the drop.
+- **Cruise no longer says it is easing while the truck speeds up.** Pulling away under a lower limit, it read out two speeds a second apart.
 - **Adaptive cruise no longer repeats a work zone's slowdown after a stop.** Braking for a hazard or turning cruise off in the approach used to bring the line back.
 - **A road line cut off by a Clock or Route readout is no longer lost to a Brake warning.** With NVDA 2026.3 or SAPI, it plays after the warning.
 
