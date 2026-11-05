@@ -53,6 +53,7 @@
 - **A state's truck speed limit is named once per state** in the speed readout.
 - **The extra rest warning before accepting a load says only the hours left.**
 - **The settlement route names the cities without their states.**
+- **Two speed limit drops close together are said as one,** the lower: Speed limit drops to 45, without Reduced to 55 just before it.
 
 ### Removed
 
