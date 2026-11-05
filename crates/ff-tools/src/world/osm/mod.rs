@@ -401,8 +401,16 @@ pub fn main(argv: &[String]) -> Result<i32> {
             // verdicts add this run's to the last full run's.
             let world = ff_core::data::world::World::load_from_json(&root.join("data"))
                 .map_err(|e| format!("reloading the world to count folds: {e}"))?;
-            let folds: usize = world.legs.iter().map(|l| l.corridor().speed_limits_folded).sum();
-            let old = meta.get("counts").and_then(Value::as_object).cloned().unwrap_or_default();
+            let folds: usize = world
+                .legs
+                .iter()
+                .map(|l| l.corridor().speed_limits_folded)
+                .sum();
+            let old = meta
+                .get("counts")
+                .and_then(Value::as_object)
+                .cloned()
+                .unwrap_or_default();
             let n = |k: &str| old.get(k).and_then(Value::as_i64).unwrap_or(0) as usize;
             let on_highway = n("on_highway") + counts.on_highway;
             let mixed = n("mixed") + counts.mixed;
