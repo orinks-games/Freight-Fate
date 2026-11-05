@@ -113,6 +113,15 @@ fn jsonl(meta: Object, rows: &[Value]) -> String {
     }
 }
 
+/// The `meta` object of an existing shard, without its `data_version`.
+fn existing_meta(path: &Path) -> Option<Object> {
+    let text = util::read_text_lf(path)?;
+    let first = text.lines().next()?;
+    let mut meta = pyjson::loads(first).ok()?.get("meta")?.as_object()?.clone();
+    meta.remove("data_version");
+    Some(meta)
+}
+
 /// Existing shard rows by leg id, so a partial run keeps the others.
 fn shard_rows(path: &Path) -> Result<BTreeMap<String, Vec<Value>>> {
     let mut out: BTreeMap<String, Vec<Value>> = BTreeMap::new();
@@ -310,6 +319,11 @@ pub fn main(argv: &[String]) -> Result<i32> {
             })
         })
         .collect();
+    // A partial run screens only its own legs and splices them in below.
+    let views: Vec<screen::LegView> = match &only {
+        Some(o) => views.into_iter().filter(|v| o.contains(&v.id)).collect(),
+        None => views,
+    };
     let (artifacts, counts) = screen::screen(&views, &lines, &index);
     println!(
         "Screen: {} short drop-and-return postings checked, {} on their highway, {} mixed, \
@@ -327,9 +341,6 @@ pub fn main(argv: &[String]) -> Result<i32> {
     if !args.flag("write") {
         println!("(dry run; pass --write to update the map data)");
         return Ok(0);
-    }
-    if only.is_some() {
-        println!("The screen covers the whole map, so it is written only on a full run.");
     }
     save_world(&world, &source)?;
     super::index::main(&[])?;
@@ -356,10 +367,41 @@ pub fn main(argv: &[String]) -> Result<i32> {
             "speed_gap_mi" => bake::SPEED_GAP_MI,
         },
     };
-    util::write_text(
-        &gameplay.join("speed_limits.jsonl"),
-        &jsonl(speed_meta, &all_rows),
-    )?;
+    // The meta names the extract the whole layer was read from; a partial
+    // run keeps it, and each of its rows names its own extract.
+    let speed_path = gameplay.join("speed_limits.jsonl");
+    let speed_meta = match (&only, existing_meta(&speed_path)) {
+        (Some(_), Some(meta)) => meta,
+        _ => speed_meta,
+    };
+    util::write_text(&speed_path, &jsonl(speed_meta, &all_rows))?;
+
+    if let Some(o) = &only {
+        let path = gameplay.join("limit_artifacts.jsonl");
+        let mut rows: Vec<Value> = shard_rows(&path)?
+            .into_iter()
+            .filter(|(leg, _)| !o.contains(leg))
+            .flat_map(|(_, r)| r)
+            .collect();
+        rows.extend(artifacts.iter().cloned());
+        rows.sort_by(|a, b| {
+            let key = |r: &Value| {
+                (
+                    r.get("leg").map(Value::py_str).unwrap_or_default(),
+                    r.get("at_mi").and_then(Value::as_f64).unwrap_or(0.0),
+                )
+            };
+            let (ka, kb) = (key(a), key(b));
+            ka.0.cmp(&kb.0).then(ka.1.total_cmp(&kb.1))
+        });
+        if let Some(meta) = existing_meta(&path) {
+            util::write_text(&path, &jsonl(meta, &rows))?;
+            println!(
+                "Screen rows for the selected legs spliced into the whole-map screen; its \
+                 counts are the last full run's."
+            );
+        }
+    }
 
     if only.is_none() {
         let mut reasons = Object::new();

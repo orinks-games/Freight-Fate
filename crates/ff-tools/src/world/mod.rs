@@ -16,6 +16,7 @@
 
 pub mod index;
 pub mod osm;
+pub mod reroute;
 
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
