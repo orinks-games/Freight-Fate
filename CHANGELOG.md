@@ -36,6 +36,7 @@
 
 ### Fixed
 
+- **Speed limits no longer jump to 70 and back where the map has no posting.** An unmapped stretch keeps the limits on either side, and state truck limits such as California's 55 apply there too.
 - **The brake warning now names the vehicle ahead.** It said "Slow car" for a semi or a box truck.
 - **The unused translations folder from mid-October downloads leaves the game folder.** It moves to the saves folder as old-translations, so any edits in it are kept.
 - **Automatic update offers start on Remind me later.** Holding a key cannot install an update by accident.
