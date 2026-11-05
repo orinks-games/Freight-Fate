@@ -442,10 +442,6 @@ pub struct DrivingState {
     pub enforcement_prev_mi: f64,
     pub passed_post_ids: HashSet<String>,
     pub marked_post_ids: HashSet<String>,
-    // A tableau's two cues, each fired once: the siren some seconds
-    // before the spot, and the stopped pair as you go by it.
-    pub tableau_siren_ids: HashSet<String>,
-    pub tableau_pass_ids: HashSet<String>,
     pub scale_bed_key: String,
     pub scale_bed_volume: f64,
     pub radio_cue_duck: f64,
@@ -1069,6 +1065,9 @@ pub struct DrivingState {
     /// A team departure chosen at the shipper: the co-driver takes the
     /// wheel on the drive's first frame.
     pub pending_team: Option<crate::states::driving_team::TeamMode>,
+    /// The state whose truck limit the speed readout last explained, so
+    /// "Michigan holds trucks to this" is said once per state.
+    pub truck_limit_state_named: Option<String>,
 }
 
 // The accessors onto the trip, the trip swap and the `State` facade live in

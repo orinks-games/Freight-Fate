@@ -413,13 +413,13 @@ impl AgentPolicy {
                 let Some(set) = observed.cruise_set_mph else {
                     let _ = plan.reply.send(Ok(if observed.keeper_mph.is_some() {
                         format!(
-                            "The speed keeper has this zone, so adaptive cruise is not \
+                            "Low-speed cruise has this zone, so open-road cruise is not \
                              available here; the dial is not walked.\n{}",
                             drain_ears(&self.ears)
                         )
                     } else {
                         format!(
-                            "Adaptive cruise did not engage; listen for why (engine, air, \
+                            "Cruise did not engage; listen for why (engine, air, \
                              speed, or the zone).\n{}",
                             drain_ears(&self.ears)
                         )

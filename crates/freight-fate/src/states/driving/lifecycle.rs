@@ -96,15 +96,6 @@ impl DrivingState {
         format!("Press {} to start the engine.", ctx.control_hint("engine"))
     }
 
-    /// The "F1 lists the controls" pointer, retired once the player has
-    /// opened the controls help a few times (research doc R7).
-    pub fn help_hint_tail(&self, ctx: &mut GameContext) -> String {
-        if self.instruction_retired(ctx, "help") {
-            return String::new();
-        }
-        format!("{} lists the controls.", ctx.control_hint("help"))
-    }
-
     /// `_resumed_speed_control_status()`.
     ///
     /// The state, and the key that cancels it until the player has pressed
@@ -114,10 +105,10 @@ impl DrivingState {
             return String::new();
         }
         if self.instruction_retired(ctx, "cruise_set") {
-            return "Automatic speed control paused. ".to_string();
+            return "Cruise paused. ".to_string();
         }
         format!(
-            "Automatic speed control paused. {} cancels it. ",
+            "Cruise paused. {} cancels it. ",
             ctx.control_hint("cruise_set")
         )
     }
@@ -260,32 +251,24 @@ impl DrivingState {
                 ctx.say_with(text, Say::queued());
             }
         } else {
-            let objective = if self.phase == DRIVE_PHASE_PICKUP {
-                format!(
-                    "Pickup dispatch: deadhead from the terminal to {}. ",
-                    self.pickup_facility_text(ctx)
-                )
-            } else {
-                format!(
-                    "Loaded for {}. {} ",
-                    self.destination_facility_text(ctx),
-                    self.trip.progress_summary(imperial)
-                )
-            };
-            let report_lead = self.trip.weather.report_lead(imperial);
-            if self.terse_speech(ctx) {
-                let parked = self.parked_entry_status();
-                let text = format!("{objective}{now}. {mode}. {report_lead}. {parked}");
+            // The clock and the engine, and nothing else: where to was just
+            // said by the accept or departure line, and the weather, the
+            // transmission and the controls are on their own keys (owner,
+            // 2026-11-05: "Keep the time, engine off and that's it").
+            // A co-driver taking the wheel from the dock was just announced;
+            // the player is not the one at the wheel.
+            if self.pending_team.is_none() {
+                let text = if self.terse_speech(ctx) {
+                    format!("{now}. {}", self.parked_entry_status())
+                } else {
+                    let engine = if self.trip.truck.engine_on {
+                        "Engine idling."
+                    } else {
+                        "Engine off."
+                    };
+                    format!("At the wheel. It is {now}. {engine}")
+                };
                 ctx.say_with(text, Say::queued());
-            } else {
-                let engine = self.engine_entry_instruction(ctx);
-                let transmission = self.transmission_sentence();
-                let help = self.help_hint_tail(ctx);
-                let text = format!(
-                    "At the wheel. {objective}It is {now}. {transmission} {report_lead}. {engine} \
-                     {help}"
-                );
-                ctx.say_with(text.trim_end().to_string(), Say::queued());
             }
         }
         if self.tutorial.is_some() {

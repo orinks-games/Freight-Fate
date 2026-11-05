@@ -111,10 +111,14 @@ pub(crate) fn departure_briefing(ctx: &GameContext, route: &Route, team: bool) -
     let mode = &ctx.settings.hos_mode;
     let mut parts: Vec<String> = Vec::new();
     let mut needs: Option<String> = None;
-    if limits(mode).is_some() {
+    // Only what changes the plan: hours already out, the stop this run
+    // needs, a tank short of the trip. Full hours and fuel are on H and F
+    // (owner, 2026-11-04: "we only need the essential information").
+    let shift_over = limits(mode).is_some() && p.hos.shift_over_kind(mode).is_some();
+    if shift_over {
         parts.push(p.hos.drive_time_summary(mode, true));
     }
-    if limits(mode).is_some() && !team {
+    if limits(mode).is_some() && !team && !shift_over {
         let plan = plan_hos(route.miles(), Some(route), Some(ctx.world), Some(&p.hos));
         needs = match (plan.sleeps, plan.breaks) {
             (0, 0) => None,
@@ -132,8 +136,6 @@ pub(crate) fn departure_briefing(ctx: &GameContext, route: &Route, team: bool) -
         parts.push(format!(
             "Fuel: {percent} percent, about {range} of range, short of this trip."
         ));
-    } else {
-        parts.push(format!("Fuel: {percent} percent."));
     }
     parts.extend(needs);
     parts.join(" ")

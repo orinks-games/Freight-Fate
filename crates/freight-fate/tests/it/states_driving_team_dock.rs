@@ -82,10 +82,10 @@ fn the_co_driver_drives_out_of_the_shipper_and_the_terms_are_read_first() {
     );
     let said = harness.transcript().join("\n");
     assert!(said.contains("takes the wheel."), "{said}");
-    assert!(!said.contains("Engine off."), "{said}");
-    // The hours and tank are read as on a solo departure, without a sleep
-    // plan the team will not need.
-    assert!(said.contains("Fuel: "), "{said}");
+    // The player is not at the wheel, so no engine line after the handover.
+    let after = said.split("takes the wheel.").last().unwrap_or_default();
+    assert!(!after.contains("Engine off."), "{said}");
+    // No sleep plan the team will not need.
     assert!(!said.contains("This run needs"), "{said}");
     // The first frame on the road hands the wheel over.
     harness.advance_frame_clock();

@@ -299,11 +299,14 @@ impl DrivingState {
             ctx.say("Still changing lanes.");
             return;
         }
-        if !self.trip.truck.engine_on || self.trip.truck.speed_mph() < LANE_MIN_MPH {
+        // Parked or engine off: the arrows do nothing and say nothing
+        // (owner, 2026-11-05). Rolling too slowly is worth a word.
+        if !self.trip.truck.engine_on || self.trip.truck.speed_mph() < 0.5 {
+            return;
+        }
+        if self.trip.truck.speed_mph() < LANE_MIN_MPH {
             let minimum = ctx.settings.speed_text(LANE_MIN_MPH);
-            ctx.say(&format!(
-                "Lane changes need the engine running and at least {minimum}."
-            ));
+            ctx.say(&format!("Lane changes need at least {minimum}."));
             return;
         }
         let lane_count = self.lane.lane_count;

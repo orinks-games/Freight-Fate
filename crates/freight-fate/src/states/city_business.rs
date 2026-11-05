@@ -230,8 +230,8 @@ impl BusinessStatusState {
         ctx.audio.play("ui/cash");
         ctx.say(&format!(
             "Authority prep reserve set aside: {} dollars. You have {} dollars left. Own \
-             authority unlocks after the delivery, reputation, trailer program, and cash \
-             gates.",
+             authority unlocks after you meet the delivery, reputation, trailer program and \
+             cash requirements.",
             fmt_grouped(AUTHORITY_READY_RESERVE, 0),
             fmt_grouped(money, 0)
         ));
@@ -286,8 +286,8 @@ impl BusinessStatusState {
             "Own authority active. Startup cost \
              {} dollars. You have \
              {} dollars left. Dispatch now lists direct freight. \
-             Settlement includes insurance, compliance, trailer, truck, and \
-             factoring costs.",
+             Settlement includes insurance, compliance, trailer, truck and \
+             billing fees.",
             fmt_grouped(AUTHORITY_ACTIVATION_COST, 0),
             fmt_grouped(money, 0)
         ));
@@ -332,7 +332,7 @@ impl Menu for BusinessStatusState {
                 items.push(
                     MenuItem::new(
                         format!(
-                            "Buy into leased-on owner-operator: {} dollars",
+                            "Owner-operator buy-in: {} dollars",
                             fmt_grouped(OWNER_OPERATOR_BUY_IN, 0)
                         ),
                         |s: &mut Self, ctx| s.become_owner_operator(ctx),
@@ -387,7 +387,7 @@ impl Menu for BusinessStatusState {
                 items.push(
                     MenuItem::new("Own authority active", |s: &mut Self, ctx| s.summary(ctx)).help(
                         "Direct freight is available. Settlement includes \
-                             insurance, compliance, and factoring costs.",
+                             insurance, compliance and billing fees.",
                     ),
                 );
             } else if has_authority_readiness(p) {
@@ -407,7 +407,7 @@ impl Menu for BusinessStatusState {
                             ),
                             |s: &mut Self, ctx| s.activate_authority(ctx),
                         )
-                        .help("Direct freight, higher gross revenue, more business overhead."),
+                        .help("Direct freight, more pay per load, more business costs."),
                     );
                 } else {
                     items.push(
@@ -446,8 +446,8 @@ impl Menu for BusinessStatusState {
                         |s: &mut Self, ctx| s.summary(ctx),
                     )
                     .help(
-                        "Open scales run a weigh-in-motion check on this \
-                         truck instead of demanding every truck pull in.",
+                        "Open weigh stations check this truck as it rolls \
+                         past, so it often does not have to pull in.",
                     ),
                 );
             } else {
@@ -464,8 +464,8 @@ impl Menu for BusinessStatusState {
                         )
                         .help(
                             "A clean truck can be waved past most open scales \
-                             instead of pulling in. Adds a small per-mile \
-                             settlement reserve once active.",
+                             instead of pulling in. Once active, a small \
+                             amount per mile comes out of each settlement.",
                         ),
                     );
                 } else {
@@ -512,8 +512,8 @@ impl UpgradeShopState {
     pub fn new() -> Self {
         UpgradeShopState {
             menu: MenuCore::new("Upgrades").with_intro_help(
-                "Upgrades apply to every tractor you own. Enter buys the next tier, F1 says \
-                 what it does. Escape returns to the garage.",
+                "Upgrades apply to every tractor you own. Enter buys the next tier, F1 is \
+                 details. Escape returns to the garage.",
             ),
         }
     }
@@ -992,8 +992,8 @@ impl TrailerProgramState {
         ctx.say(&format!(
             "{} trailer purchased for \
              {} dollars. You have \
-             {} dollars left. Matching direct freight now uses \
-             an owned-trailer reserve at settlement.",
+             {} dollars left. Direct loads for this trailer now \
+             set aside money for its upkeep at settlement.",
             trailer.label,
             fmt_grouped(trailer.purchase_price, 0),
             fmt_grouped(money, 0)
@@ -1064,7 +1064,7 @@ impl EndorsementCourseState {
     pub fn new() -> Self {
         EndorsementCourseState {
             menu: MenuCore::new("Licenses and training").with_intro_help(
-                "Enter books a course, or says why you do not qualify. Courses take game \
+                "Enter books a course. Courses take game \
                  time, and a background check runs while you drive. Escape returns to the \
                  terminal.",
             ),

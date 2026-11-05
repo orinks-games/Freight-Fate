@@ -866,14 +866,11 @@ fn test_the_cruise_dial_answers_with_the_number_alone_at_quiet() {
     // between them -- so at quiet the figure is the whole message (owner,
     // 2026-08-17).
     use crate::speech_text::SpokenMessage;
-    let line = SpokenMessage::with_terse("Adaptive cruise 62 miles per hour.", "62.");
+    let line = SpokenMessage::with_terse("Cruise 62 miles per hour.", "62.");
     for rung in ["coaching", "standard"] {
         let mut s = Settings::default();
         s.driving_speech = rung.to_string();
-        assert_eq!(
-            line.render(s.renders_terse()),
-            "Adaptive cruise 62 miles per hour."
-        );
+        assert_eq!(line.render(s.renders_terse()), "Cruise 62 miles per hour.");
     }
     for rung in ["quiet", "urgent_only"] {
         let mut s = Settings::default();

@@ -60,7 +60,7 @@ fn accept_assigned_freight_with_deadhead(app: &mut TestApp) {
         assert!(is::<JobBoardState>(app));
     }
     key(app, Key::Home);
-    assert!(labels::<JobBoardState>(app)[0].starts_with("Accept assigned dispatch:"));
+    assert!(labels::<JobBoardState>(app)[0].starts_with("Assigned load:"));
     key(app, Key::Return);
     assert!(
         is::<DrivingState>(app),
@@ -243,11 +243,9 @@ fn test_full_game_flow_headless() {
         .find(|text| text.contains("Dispatch routed you to"))
         .expect("a departure line");
     assert!(departure.contains("Loaded trip is"), "{departure}");
-    // This flow never started the engine, and the departure line says so
-    // rather than claiming a departure the truck cannot make -- it names the
-    // very key the drive below presses next.
+    // This flow never started the engine, so the departure line claims no
+    // departure the truck cannot make; At the wheel names the start key.
     assert!(!departure.contains("Departing now"), "{departure}");
-    assert!(departure.contains("Engine off."), "{departure}");
     assert!(!departure.contains("Break stops:"), "{departure}");
     assert!(!departure.contains("Fuel stops:"), "{departure}");
 

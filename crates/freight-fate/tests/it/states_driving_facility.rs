@@ -260,7 +260,7 @@ fn test_the_speed_keeper_hands_off_at_the_gate_instead_of_missing_it() {
     assert!(d.keeper_mph.is_none(), "the gate hands the pedals back");
     assert!(d.gate_grace_s > 0.0, "with a reaction window of its own");
     let line = last_with(&app, "Destination ahead");
-    assert!(line.contains("Speed keeper off"), "{line}");
+    assert!(line.contains("Cruise off"), "{line}");
     // Inside that window the next frame is still an arrival.
     d.handle_arrival_gate(&mut app.ctx);
     assert_eq!(d.gate_miss_count, 0);

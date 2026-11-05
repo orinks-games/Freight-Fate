@@ -813,9 +813,9 @@ fn shipped_chinese_translates_dispatch_pickup_and_driving_lines() {
     let tr = shipped_chinese();
     assert_eq!(
         tr.translate(
-            "Needs an extra rest on this shift's hours. ELD status off duty. Hours of service: 11 hours of driving left, 5.2 hours left in the 14-hour window. Sleeper split open: 7 more hours in the sleeper to pair it. Enter again to accept."
+            "Needs an extra rest on this shift's hours. Hours of service: 11 hours of driving left, 5.2 hours left in the duty window. Split rest started: 7 more hours in the sleeper finish it. Enter again to accept."
         ),
-        "按本次轮班的工时计算，需要额外休息。ELD 状态：下班。驾驶工时：剩余驾驶时间11小时，14小时当班时段剩余5.2小时。卧铺分段休息尚未配对：还需在卧铺休息7小时。再次按Enter接受。"
+        "按本次轮班的工时计算，需要额外休息。驾驶工时：剩余驾驶时间11小时，14小时当班时段剩余5.2小时。卧铺分段休息尚未配对：还需在卧铺休息7小时。再次按Enter接受。"
     );
     assert_eq!(
         tr.translate("Loaded and sealed for Valencia, California."),
@@ -841,7 +841,7 @@ fn shipped_spanish_says_every_eld_status_whole() {
     // "ELD status en duty not de conducción".
     let tr = shipped_spanish();
     let hours = "Hours of service: 11 hours of driving left, 30-minute break due in 8 hours, \
-                 14 hours left in the 14-hour window";
+                 14 hours left in the duty window";
     let spanish_hours = "Horas de servicio: quedan 11 horas de conducción, la pausa de 30 minutos \
                          toca en 8 horas y quedan 14 horas de la ventana de 14 horas";
     for (status, spoken) in [
@@ -916,13 +916,13 @@ fn shipped_spanish_says_places_board_rows_and_regions_whole() {
     for (english, spanish) in [
         ("Pulling into freight terminal Bemidji Company Yard in Bemidji.", "Entrando en terminal de carga Bemidji Company Yard en Bemidji."),
         ("Loaded for freight terminal Macon Terminal in Macon.", "Cargado para terminal de carga Macon Terminal en Macon."),
-        ("Dispatch routed you to retail distribution hub Amazon Fulfillment Center KRB1 in Kenosha, Wisconsin.", "Despacho te ha enviado a centro de distribución comercial Amazon Fulfillment Center KRB1 en Kenosha, Wisconsin."),
+        ("Dispatch routed you to Kenosha, Wisconsin.", "Despacho te envió a Kenosha, Wisconsin."),
         ("Market watch: automotive tight, farm inputs tight, lumber paper loose, steel loose.", "Vistazo al mercado: automoción al alza, insumos agrícolas al alza, madera y papel a la baja, acero a la baja."),
-        ("16 tons of general freight from Chicago Parcel Hub in Chicago, Illinois to the Fargo metro freight market. 62 miles. Carrier gross 332 dollars. Deadline 3 hours. Equipment: dry van trailer.", "16 toneladas de carga general desde Chicago Parcel Hub en Chicago, Illinois hasta el mercado de carga metropolitano de Fargo. 62 millas. Ingreso bruto de la empresa de transporte: 332 dólares. Plazo de entrega: 3 horas. Equipo: remolque de furgón seco."),
-        ("16 tons of general freight from Chicago Parcel Hub in Chicago, Illinois to Amazon Fulfillment Center KRB1 in Kenosha, Wisconsin. 62 miles. Gross revenue 332 dollars. Deadline 12 hours, includes a 10-hour rest. Equipment: dry van trailer.", "16 toneladas de carga general desde Chicago Parcel Hub en Chicago, Illinois hasta Amazon Fulfillment Center KRB1 en Kenosha, Wisconsin. 62 millas. Ingresos brutos: 332 dólares. Plazo de entrega: 12 horas, incluye un descanso de 10 horas. Equipo: remolque de furgón seco."),
+        ("16 tons of general freight from Chicago, Illinois to Fargo, North Dakota. 62 miles, deadline 3 hours. Pays 332 dollars.", "16 toneladas de carga general de Chicago, Illinois a Fargo, North Dakota. 62 millas, plazo 3 horas. Paga 332 dólares."),
+        ("16 tons of general freight from Chicago, Illinois to Kenosha, Wisconsin. 62 miles, deadline 12 hours with a 10-hour rest. Pays 332 dollars.", "16 toneladas de carga general de Chicago, Illinois a Kenosha, Wisconsin. 62 millas, plazo 12 horas con un descanso de 10 horas. Paga 332 dólares."),
         (
-            "Accepted. Deadhead 1.1 miles on South Canal Street to pickup at Chicago Parcel Hub in Chicago, Illinois.",
-            "Aceptado. Trayecto en vacío de 1,1 millas por South Canal Street hasta la recogida en Chicago Parcel Hub en Chicago, Illinois.",
+            "Accepted. 1.1 miles empty to Chicago Parcel Hub.",
+            "Aceptada. 1,1 millas en vacío hasta Chicago Parcel Hub.",
         ),
         (
             "Pulling into port Port of Tacoma in Tacoma, Washington.",
@@ -1099,4 +1099,31 @@ fn a_long_line_of_commas_is_matched_without_retrying_every_cut() {
     assert_eq!(caps["d"], "Left");
     assert_eq!(caps["e"], "");
     assert_eq!(caps["f"], "Right");
+}
+
+/// The shipped Polish catalog, as a player gets it.
+fn shipped_polish() -> Translator {
+    let po = include_str!("../../../../lang/pl.po");
+    Translator::new(Catalog::from_po("pl", po).expect("lang/pl.po parses"))
+}
+
+#[test]
+fn shipped_polish_says_a_numbered_job_whole() {
+    // "Job 2 of 7: " leads into the load sentence; the clause split broke
+    // that sentence at the commas inside its place names, so the whole
+    // sentence stayed English (issue 549).
+    let tr = shipped_polish();
+    let out = tr.translate(
+        "Job 2 of 7: 19 tons of general freight from Pendleton, Oregon to Boise, Idaho. 364 miles, \
+         deadline 6 hours. Pays 1,204 dollars.",
+    );
+    assert!(out.starts_with("Zlecenie 2 z 7: "), "{out}");
+    assert!(!out.contains(" tons of "), "{out}");
+    let out = tr.translate(
+        "Recommended dispatch, senior company lane: Job 1 of 7: 13 tons of refrigerated goods from \
+         Pendleton, Oregon to Spokane, Washington. 332 miles, deadline 6 hours. Pays 1,090 \
+         dollars.",
+    );
+    assert!(out.contains("Zlecenie 1 z 7: "), "{out}");
+    assert!(!out.contains(" tons of "), "{out}");
 }

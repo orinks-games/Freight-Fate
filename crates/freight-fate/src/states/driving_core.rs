@@ -555,7 +555,9 @@ pub type PendingSound = (f64, String, f64, f64);
 pub trait Instructor {
     fn begin(&mut self, ctx: &mut GameContext);
     fn on_engine_started(&mut self, ctx: &mut GameContext);
-    fn on_parking_brake_released(&mut self, ctx: &mut GameContext);
+    /// True when the instructor spoke its own release line, which then
+    /// stands in for the plain confirmation.
+    fn on_parking_brake_released(&mut self, ctx: &mut GameContext) -> bool;
     fn on_gear_engaged(&mut self, ctx: &mut GameContext);
     fn update(&mut self, ctx: &mut GameContext, dt: f64, truck: &TruckState);
 }
@@ -617,7 +619,7 @@ impl Instructor for Tutorial {
         }
     }
 
-    fn on_parking_brake_released(&mut self, ctx: &mut GameContext) {
+    fn on_parking_brake_released(&mut self, ctx: &mut GameContext) -> bool {
         if self.stage == 1 && ctx.settings.automatic_transmission {
             self.stage = 2;
             self.timer = 0.0;
@@ -627,6 +629,7 @@ impl Instructor for Tutorial {
                 ctx.control_hint("accelerate")
             );
             ctx.say_with(text, Say::queued());
+            true
         } else if self.stage == 1 {
             self.timer = 0.0;
             self.hinted = false;
@@ -634,6 +637,9 @@ impl Instructor for Tutorial {
                 "Parking brake released. Shift into first gear.",
                 Say::queued(),
             );
+            true
+        } else {
+            false
         }
     }
 
