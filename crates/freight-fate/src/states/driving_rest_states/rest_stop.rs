@@ -180,7 +180,9 @@ impl RestStopState {
             // twice in one breath (QA, 2026-10-07). The row says it once.
             let row = self.current_text(ctx);
             if row.starts_with(&self.stop.spoken_name()) {
-                parts.clear();
+                // Closed: the row is the whole news.
+                ctx.say(&row);
+                return;
             }
             parts.push("Inspection station.".to_string());
             parts.push(format!("It is {}.", clock_text(d.trip.local_hour())));

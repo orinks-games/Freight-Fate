@@ -16,6 +16,16 @@ use super::{
 };
 
 impl Trip {
+    /// Whether `stop` is a weigh station staffed on this trip: its post is a
+    /// fixed scale rather than a closed apron.
+    pub fn scale_open(&self, stop: &RoadStop) -> bool {
+        let key = stop.key();
+        self.posts
+            .iter()
+            .find(|post| post.anchor == key)
+            .is_some_and(|post| post.kind == KIND_FIXED_SCALE)
+    }
+
     /// Jump to a saved point without re-announcing what is behind it.
     pub fn restore(&mut self, position_mi: f64, game_minutes: f64) {
         self.position_mi = position_mi.clamp(0.0, self.total_miles().max(0.0));
@@ -466,8 +476,16 @@ impl Trip {
                 let stop = self.stops[i].clone();
                 let typed = self.name_facility(&stop.name, &stop.spoken_name());
                 let distance = self.ahead_text(ahead);
-                let parking_normal = stop.parking_text();
                 let planned = self.is_planned(&stop);
+                let scale = stop.stop_type == "weigh_station";
+                let open = scale.then(|| self.scale_open(&stop));
+                // A scale's sign says open or closed; parking is not why a
+                // truck takes that exit, and a closed one needs no key.
+                let parking_normal = if scale {
+                    String::new()
+                } else {
+                    stop.parking_text()
+                };
                 let message = stop_callout(&StopCalloutParts {
                     planned_prefix: self.planned_prefix(&stop),
                     typed_name: &typed,
@@ -475,14 +493,14 @@ impl Trip {
                     exit_label: &stop.exit_label,
                     distance: &distance,
                     parking_normal: &parking_normal,
-                    parking_certainty: &stop.parking,
-                    exit_hint: if self.scales_signal_themselves && stop.stop_type == "weigh_station"
-                    {
+                    parking_certainty: if scale { "likely" } else { &stop.parking },
+                    exit_hint: if scale && (self.scales_signal_themselves || open == Some(false)) {
                         ""
                     } else {
                         &self.exit_hint
                     },
                     fuel: stop.fuel_callout(),
+                    open,
                 });
                 // The plan flag rides the event so the driving layer can rank
                 // the stop the player chose above ambient roadside chatter.

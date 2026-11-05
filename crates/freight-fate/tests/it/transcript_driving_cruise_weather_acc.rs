@@ -1101,7 +1101,7 @@ fn test_cruise_target_can_be_adjusted_while_keeper_is_active() {
             .expect("a target"),
         25.0
     ));
-    assert_eq!(last(&harness), "Open-road cruise target 25 miles per hour.");
+    assert_eq!(last(&harness), "Cruise speed 25 miles per hour.");
 }
 
 /// The posted-limit scan sees a drop further out under time compression:

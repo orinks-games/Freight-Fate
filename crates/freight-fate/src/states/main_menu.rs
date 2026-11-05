@@ -578,6 +578,24 @@ pub fn career_summary(
             profile.carrier_name,
             status_label(&profile.business_status)
         ),
+    ];
+    parts.extend(career_progress(ctx, profile));
+    if include_saved {
+        parts.push(format!("last saved {}", saved_label(path)));
+    }
+    parts.join(", ")
+}
+
+/// The main menu's Continue row: the newest career without its carrier,
+/// which the player already knows.
+pub fn continue_summary(ctx: &GameContext, profile: &Profile) -> String {
+    let mut parts = vec![format!("level {}", profile.career.level())];
+    parts.extend(career_progress(ctx, profile));
+    format!("Continue {}: {}", profile.name, parts.join(", "))
+}
+
+fn career_progress(ctx: &GameContext, profile: &Profile) -> [String; 3] {
+    [
         format!("{} dollars", fmt_grouped(profile.money(), 0)),
         career_location(ctx, profile),
         if profile.career.deliveries == 1 {
@@ -585,11 +603,7 @@ pub fn career_summary(
         } else {
             format!("{} deliveries", profile.career.deliveries)
         },
-    ];
-    if include_saved {
-        parts.push(format!("last saved {}", saved_label(path)));
-    }
-    parts.join(", ")
+    ]
 }
 
 // -- the main menu ----------------------------------------------------------------------

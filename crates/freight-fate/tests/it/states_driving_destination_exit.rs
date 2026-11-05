@@ -666,9 +666,7 @@ fn test_destination_exit_keeps_cruise_and_eases_for_ramp() {
     drive.adjust_cruise(&mut app.ctx, -1, false);
     assert_eq!(
         app.main_lines().last().cloned().unwrap_or_default(),
-        format!(
-            "Open-road cruise target 55 miles per hour. Ramp approach target {ramp_mph:.0} miles per hour."
-        )
+        format!("Cruise speed 55 miles per hour. Ramp approach {ramp_mph:.0} miles per hour.")
     );
     for _ in 0..3 {
         drive.adjust_cruise(&mut app.ctx, -1, false);
@@ -682,9 +680,7 @@ fn test_destination_exit_keeps_cruise_and_eases_for_ramp() {
         .min(drive.cruise_exit_mph.unwrap_or(f64::INFINITY));
     let said = app.main_lines().last().cloned().unwrap_or_default();
     assert!(
-        said.ends_with(&format!(
-            "Ramp approach target {spoken_target:.0} miles per hour."
-        )),
+        said.ends_with(&format!("Ramp approach {spoken_target:.0} miles per hour.")),
         "{said}"
     );
 }

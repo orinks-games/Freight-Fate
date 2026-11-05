@@ -45,6 +45,10 @@
 - **Roadside inspections say you were stopped, the citation, and the fine.** The shoulder, the paperwork and driving tips are gone.
 - **Old CB trooper reports lead with the distance.**
 - **The terminal and career lines name your home city once.**
+- **The main menu opens on Continue and your driver name.** The carrier and job type are left off; Choose career still lists them.
+- **Finishing a pickup says where the load is going and how long loading took.** Company drivers no longer hear the carrier's detention pay.
+- **The delivery list is plainer.** Detention pay and tolls get their own rows, unloading is in minutes, and an empty charges row is gone.
+- **Changing the cruise speed while cruise is paused says Cruise speed,** the same name as everywhere else.
 
 ### Removed
 
@@ -52,6 +56,7 @@
 
 ### Fixed
 
+- **Weigh station callouts say Open or Closed, as the signs do.** A closed scale is said once on arrival, with no exit key offered ahead of it.
 - **Numbered loads on the dispatch board are read in your language.** The load line after "Job 1 of 7" stayed in English.
 - **The unused translations folder from mid-October downloads leaves the game folder.** It moves to the saves folder as old-translations, so any edits in it are kept.
 - **Automatic update offers start on Remind me later.** Holding a key cannot install an update by accident.

@@ -18647,27 +18647,17 @@ msgstr "送往{destination}的{label}"
 msgid "Loaded and sealed for {destination}."
 msgstr "已装货并封好，运往{destination}。"
 
-msgid "Dropping and hooking"
-msgstr "正在甩挂"
+#. placeholders: {destination}, {minutes}
+msgid "Hooked for {destination} in {minutes} minutes."
+msgstr "已为{destination}挂好车，用时{minutes}分钟。"
 
-msgid "Loading"
-msgstr "正在装货"
+#. placeholders: {destination}, {minutes}
+msgid "Loaded for {destination} in {minutes} minutes."
+msgstr "已为{destination}装货，用时{minutes}分钟。"
 
-#. placeholders: {verb}, {f}
-msgid " {verb} took {f} minutes."
-msgstr " {verb}用了{f}分钟。"
-
-#. placeholders: {wait}, {dollars}
-msgid ""
-" {wait} minutes past the two free hours at the dock: {dollars} dollars "
-"detention pay at settlement."
-msgstr " 在月台超出两小时免费时间{wait}分钟：结算时得到{dollars}美元等候费。"
-
-#. placeholders: {wait}, {dollars}
-msgid ""
-" {wait} minutes past the two free hours at the dock: {dollars} dollars "
-"detention, paid to the carrier."
-msgstr " 在月台超出两小时免费时间{wait}分钟：{dollars}美元等候费，付给公司。"
+#. placeholders: {dollars}
+msgid " Detention pay {dollars} dollars at settlement."
+msgstr " 滞留费{dollars}美元，结算时支付。"
 
 #. placeholders: {condition}
 msgid " The trailer is {condition}."
@@ -23240,14 +23230,13 @@ msgid "High idle {rpm} RPM."
 msgstr "高怠速{rpm}转每分钟。"
 
 #. placeholders: {speed_text}, {speed_text2}
-msgid ""
-"Open-road cruise target {speed_text}. Ramp approach target {speed_text2}."
-msgstr "开阔道路巡航目标{speed_text}。匝道接近目标{speed_text2}。"
+msgid "Cruise speed {speed_text}. Ramp approach {speed_text2}."
+msgstr "巡航速度{speed_text}。匝道接近{speed_text2}。"
 
 #. placeholders: {speed_text2}
 #. one sentence of a longer line
-msgid "Ramp approach target {speed_text2}."
-msgstr "匝道接近目标{speed_text2}。"
+msgid "Ramp approach {speed_text2}."
+msgstr ""
 
 #. placeholders: {speed_number}, {speed_number2}
 msgid "{speed_number}, ramp {speed_number2}."
@@ -23258,8 +23247,8 @@ msgid "Cruise {speed_text}."
 msgstr "巡航{speed_text}。"
 
 #. placeholders: {speed_text}
-msgid "Open-road cruise target {speed_text}."
-msgstr "开阔道路巡航目标{speed_text}。"
+msgid "Cruise speed {speed_text}."
+msgstr "巡航速度{speed_text}。"
 
 msgid "on city streets"
 msgstr "在城市街道上"
@@ -25138,11 +25127,6 @@ msgstr "罚款{grouped5}。"
 msgid "Net {grouped6}, you have {grouped7}."
 msgstr "净{grouped6}，你有{grouped7}。"
 
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Parked at {name}."
-msgstr "停在{name}。"
-
 #. placeholders: {accessorial_clause}, {status_label}
 #. one sentence of a longer line
 msgid "{accessorial_clause} Business status: {status_label}."
@@ -25216,9 +25200,6 @@ msgid ""
 "{grouped2} dollars owed."
 msgstr "未结欠款：这次结算拿出{grouped}美元偿还，还欠{grouped2}美元。"
 
-msgid "No driver-responsibility charges and no balance owed."
-msgstr "没有司机责任费用，也没有未结欠款。"
-
 #. placeholders: {grouped}
 msgid "Business costs: {grouped} dollars."
 msgstr "经营成本：{grouped}美元。"
@@ -25262,23 +25243,29 @@ msgstr "行程时间：{f}小时。"
 msgid "It is {clock_text}."
 msgstr "现在是{clock_text}。"
 
-#. placeholders: {name}, {the_city}
-msgid "Parked at {name} for {the_city} service area."
-msgstr "停在{name}，属于{the_city}服务区域。"
+#. placeholders: {name}
+msgid "Parked at {name}."
+msgstr "停在{name}。"
 
-#. placeholders: {grouped}, {grouped2}, {charge_summary}
-msgid ""
-"Carrier-paid or reimbursed charges: {grouped} dollars, including tolls "
-"{grouped2} and extra charges {charge_summary}."
-msgstr "承运商支付或报销的费用：{grouped}美元，包括过路费{grouped2}和附加费用{charge_summary}。"
+#. placeholders: {name}, {city}
+msgid "Parked at {name} in {city}."
+msgstr "已停在{city}的{name}。"
 
 #. placeholders: {status_label}
 msgid "Business status: {status_label}."
 msgstr "经营状况：{status_label}。"
 
+#. placeholders: {grouped}
+msgid "Tolls: {grouped} dollars."
+msgstr "通行费：{grouped}美元。"
+
+#. placeholders: {label}, {grouped}
+msgid "{label}: {grouped} dollars."
+msgstr "{label}：{grouped}美元。"
+
 #. placeholders: {f}
-msgid "Receiver service after check-in: {f} hours."
-msgstr "报到后收货方服务：{f}小时。"
+msgid "Unloading took {f} minutes."
+msgstr "卸货用时{f}分钟。"
 
 #. placeholders: {grouped}
 msgid "Money after settlement: {grouped} dollars."
@@ -30445,16 +30432,24 @@ msgstr "{year}年{format}{day}日，{am_pm} {hour}:{minute}"
 msgid "{name}: level {level}"
 msgstr "{name}：{level}级"
 
+#. placeholders: {saved_label}
+msgid "last saved {saved_label}"
+msgstr "上次保存于{saved_label}"
+
+#. placeholders: {level}
+msgid "level {level}"
+msgstr "{level}级"
+
+#. placeholders: {name}, {join}
+msgid "Continue {name}: {join}"
+msgstr "继续{name}：{join}"
+
 msgid "1 delivery"
 msgstr "1次送达"
 
 #. placeholders: {deliveries}
 msgid "{deliveries} deliveries"
 msgstr "送货{deliveries}次"
-
-#. placeholders: {saved_label}
-msgid "last saved {saved_label}"
-msgstr "上次保存于{saved_label}"
 
 msgid "Freight Fate"
 msgstr "Freight Fate"
@@ -30852,10 +30847,6 @@ msgstr "货运命运{version}。"
 #. placeholders: {version}, {warning}
 msgid "Freight Fate {version}. {warning}"
 msgstr "货运命运{version}。{warning}"
-
-#. placeholders: {career_summary}
-msgid "Continue latest career: {career_summary}"
-msgstr "继续最近的职业生涯：{career_summary}"
 
 #. placeholders: {name}
 msgid "Load the newest save for {name}."
@@ -32786,9 +32777,9 @@ msgid ""
 msgstr "“在线”汇集了司机主页、账户成就、分享和私人云备份。"
 
 msgid ""
-"Once you have a saved career, Continue latest career returns to your newest "
-"saved trip. Choose career lets you select another driver."
-msgstr "有了已保存的职业生涯后，“继续最近的职业生涯”会回到你最新保存的行程。“选择职业生涯”可以选择另一位司机。"
+"Once you have a saved career, Continue returns to your newest saved trip. "
+"Choose career lets you select another driver."
+msgstr "有了已保存的职业生涯后，“继续”会回到你最新保存的行程。“选择职业生涯”可以选择另一位司机。"
 
 msgid ""
 "Manage careers offers reset and deletion. The game asks you to confirm "
@@ -37182,6 +37173,64 @@ msgstr "镜像地址必须以 https:// 开头。"
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr "镜像地址不能包含查询参数或片段。"
+
+#. A weigh station's sign, said after its callout.
+msgid "Open."
+msgstr "开放。"
+
+msgid "Closed."
+msgstr "关闭。"
+
+#~ msgid "Parked at {name} for {the_city} service area."
+#~ msgstr "停在{name}，属于{the_city}服务区域。"
+
+#~ msgid ""
+#~ "Carrier-paid or reimbursed charges: {grouped} dollars, including tolls "
+#~ "{grouped2} and extra charges {charge_summary}."
+#~ msgstr "承运商支付或报销的费用：{grouped}美元，包括过路费{grouped2}和附加费用{charge_summary}。"
+
+#~ msgid "Receiver service after check-in: {f} hours."
+#~ msgstr "报到后收货方服务：{f}小时。"
+
+#~ msgid ""
+#~ "Open-road cruise target {speed_text}. Ramp approach target {speed_text2}."
+#~ msgstr "开阔道路巡航目标{speed_text}。匝道接近目标{speed_text2}。"
+
+#~ msgid "Ramp approach target {speed_text2}."
+#~ msgstr "匝道接近目标{speed_text2}。"
+
+#~ msgid "Open-road cruise target {speed_text}."
+#~ msgstr "开阔道路巡航目标{speed_text}。"
+
+#~ msgid "No driver-responsibility charges and no balance owed."
+#~ msgstr "没有司机责任费用，也没有未结欠款。"
+
+#~ msgid "Dropping and hooking"
+#~ msgstr "正在甩挂"
+
+#~ msgid "Loading"
+#~ msgstr "正在装货"
+
+#~ msgid " {verb} took {f} minutes."
+#~ msgstr " {verb}用了{f}分钟。"
+
+#~ msgid ""
+#~ " {wait} minutes past the two free hours at the dock: {dollars} dollars "
+#~ "detention pay at settlement."
+#~ msgstr " 在月台超出两小时免费时间{wait}分钟：结算时得到{dollars}美元等候费。"
+
+#~ msgid ""
+#~ " {wait} minutes past the two free hours at the dock: {dollars} dollars "
+#~ "detention, paid to the carrier."
+#~ msgstr " 在月台超出两小时免费时间{wait}分钟：{dollars}美元等候费，付给公司。"
+
+#~ msgid "Continue latest career: {career_summary}"
+#~ msgstr "继续最近的职业生涯：{career_summary}"
+
+#~ msgid ""
+#~ "Once you have a saved career, Continue latest career returns to your newest "
+#~ "saved trip. Choose career lets you select another driver."
+#~ msgstr "有了已保存的职业生涯后，“继续最近的职业生涯”会回到你最新保存的行程。“选择职业生涯”可以选择另一位司机。"
 
 #~ msgid "{city} to {destination}"
 #~ msgstr "{city}到{destination}"

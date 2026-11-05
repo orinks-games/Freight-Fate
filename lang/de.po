@@ -21041,31 +21041,17 @@ msgstr "{label} nach {destination}"
 msgid "Loaded and sealed for {destination}."
 msgstr "Beladen und plombiert für {destination}."
 
-msgid "Dropping and hooking"
-msgstr "Aufliegertausch"
+#. placeholders: {destination}, {minutes}
+msgid "Hooked for {destination} in {minutes} minutes."
+msgstr "Angekuppelt für {destination} in {minutes} Minuten."
 
-msgid "Loading"
-msgstr "Beladung"
+#. placeholders: {destination}, {minutes}
+msgid "Loaded for {destination} in {minutes} minutes."
+msgstr "Beladen für {destination} in {minutes} Minuten."
 
-#. placeholders: {verb}, {f}
-msgid " {verb} took {f} minutes."
-msgstr " {verb} hat {f} Minuten gedauert."
-
-#. placeholders: {wait}, {dollars}
-msgid ""
-" {wait} minutes past the two free hours at the dock: {dollars} dollars "
-"detention pay at settlement."
-msgstr ""
-" {wait} Minuten über die zwei freien Stunden an der Rampe: {dollars} Dollar "
-"Standgeld bei der Abrechnung."
-
-#. placeholders: {wait}, {dollars}
-msgid ""
-" {wait} minutes past the two free hours at the dock: {dollars} dollars "
-"detention, paid to the carrier."
-msgstr ""
-" {wait} Minuten über die zwei freien Stunden an der Rampe: {dollars} Dollar "
-"Standgeld, an die Firma gezahlt."
+#. placeholders: {dollars}
+msgid " Detention pay {dollars} dollars at settlement."
+msgstr " Standgeld {dollars} Dollar bei der Abrechnung."
 
 #. placeholders: {condition}
 msgid " The trailer is {condition}."
@@ -26223,16 +26209,13 @@ msgid "High idle {rpm} RPM."
 msgstr "Erhöhter Leerlauf {rpm} Umdrehungen pro Minute."
 
 #. placeholders: {speed_text}, {speed_text2}
-msgid ""
-"Open-road cruise target {speed_text}. Ramp approach target {speed_text2}."
-msgstr ""
-"Tempomatziel auf freier Strecke {speed_text}. Ziel vor der Ausfahrt "
-"{speed_text2}."
+msgid "Cruise speed {speed_text}. Ramp approach {speed_text2}."
+msgstr "Tempomat-Tempo {speed_text}. Rampenanfahrt {speed_text2}."
 
 #. placeholders: {speed_text2}
 #. one sentence of a longer line
-msgid "Ramp approach target {speed_text2}."
-msgstr "Ziel vor der Ausfahrt {speed_text2}."
+msgid "Ramp approach {speed_text2}."
+msgstr ""
 
 #. placeholders: {speed_number}, {speed_number2}
 msgid "{speed_number}, ramp {speed_number2}."
@@ -26243,8 +26226,8 @@ msgid "Cruise {speed_text}."
 msgstr "Tempomat {speed_text}."
 
 #. placeholders: {speed_text}
-msgid "Open-road cruise target {speed_text}."
-msgstr "Tempomatziel auf freier Strecke {speed_text}."
+msgid "Cruise speed {speed_text}."
+msgstr "Tempomat-Tempo {speed_text}."
 
 msgid "on city streets"
 msgstr "in Stadtstraßen"
@@ -28211,11 +28194,6 @@ msgstr "Bußgelder {grouped5}."
 msgid "Net {grouped6}, you have {grouped7}."
 msgstr "Netto {grouped6}, du hast {grouped7}."
 
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Parked at {name}."
-msgstr "Geparkt bei {name}."
-
 #. placeholders: {accessorial_clause}, {status_label}
 #. one sentence of a longer line
 msgid "{accessorial_clause} Business status: {status_label}."
@@ -28291,9 +28269,6 @@ msgstr ""
 "Offener Betrag: {grouped} Dollar dieser Abrechnung haben ihn verringert, es "
 "bleiben {grouped2} Dollar offen."
 
-msgid "No driver-responsibility charges and no balance owed."
-msgstr "Keine Kosten zulasten des Fahrers und kein offener Betrag."
-
 #. placeholders: {grouped}
 msgid "Business costs: {grouped} dollars."
 msgstr "Geschäftskosten: {grouped} Dollar."
@@ -28337,25 +28312,29 @@ msgstr "Fahrzeit: {f} Stunden."
 msgid "It is {clock_text}."
 msgstr "Es ist {clock_text}."
 
-#. placeholders: {name}, {the_city}
-msgid "Parked at {name} for {the_city} service area."
-msgstr "Geparkt bei {name} für das Einzugsgebiet von {the_city}."
+#. placeholders: {name}
+msgid "Parked at {name}."
+msgstr "Geparkt bei {name}."
 
-#. placeholders: {grouped}, {grouped2}, {charge_summary}
-msgid ""
-"Carrier-paid or reimbursed charges: {grouped} dollars, including tolls "
-"{grouped2} and extra charges {charge_summary}."
-msgstr ""
-"Von der Spedition bezahlte oder erstattete Kosten: {grouped} Dollar, davon "
-"Maut {grouped2} und Zusatzleistungen {charge_summary}."
+#. placeholders: {name}, {city}
+msgid "Parked at {name} in {city}."
+msgstr "Geparkt bei {name} in {city}."
 
 #. placeholders: {status_label}
 msgid "Business status: {status_label}."
 msgstr "Geschäftsstatus: {status_label}."
 
+#. placeholders: {grouped}
+msgid "Tolls: {grouped} dollars."
+msgstr "Maut: {grouped} Dollar."
+
+#. placeholders: {label}, {grouped}
+msgid "{label}: {grouped} dollars."
+msgstr "{label}: {grouped} Dollar."
+
 #. placeholders: {f}
-msgid "Receiver service after check-in: {f} hours."
-msgstr "Abfertigung beim Empfänger nach dem Anmelden: {f} Stunden."
+msgid "Unloading took {f} minutes."
+msgstr "Das Entladen dauerte {f} Minuten."
 
 #. placeholders: {grouped}
 msgid "Money after settlement: {grouped} dollars."
@@ -34096,16 +34075,24 @@ msgstr "{day}. {format} {year}, {hour}:{minute} {am_pm}"
 msgid "{name}: level {level}"
 msgstr "{name}: Level {level}"
 
+#. placeholders: {saved_label}
+msgid "last saved {saved_label}"
+msgstr "zuletzt gespeichert {saved_label}"
+
+#. placeholders: {level}
+msgid "level {level}"
+msgstr "Level {level}"
+
+#. placeholders: {name}, {join}
+msgid "Continue {name}: {join}"
+msgstr "{name} fortsetzen: {join}"
+
 msgid "1 delivery"
 msgstr "1 Lieferung"
 
 #. placeholders: {deliveries}
 msgid "{deliveries} deliveries"
 msgstr "{deliveries} {deliveries:Lieferung|Lieferungen}"
-
-#. placeholders: {saved_label}
-msgid "last saved {saved_label}"
-msgstr "zuletzt gespeichert {saved_label}"
 
 msgid "Freight Fate"
 msgstr "Freight Fate"
@@ -34571,10 +34558,6 @@ msgstr "Freight Fate {version}."
 #. placeholders: {version}, {warning}
 msgid "Freight Fate {version}. {warning}"
 msgstr "Freight Fate {version}. {warning}"
-
-#. placeholders: {career_summary}
-msgid "Continue latest career: {career_summary}"
-msgstr "Letzte Karriere fortsetzen: {career_summary}"
 
 #. placeholders: {name}
 msgid "Load the newest save for {name}."
@@ -36817,12 +36800,12 @@ msgstr ""
 "Cloud-Sicherungen."
 
 msgid ""
-"Once you have a saved career, Continue latest career returns to your newest "
-"saved trip. Choose career lets you select another driver."
+"Once you have a saved career, Continue returns to your newest saved trip. "
+"Choose career lets you select another driver."
 msgstr ""
-"Sobald du eine gespeicherte Karriere hast, bringt dich Letzte Karriere "
-"fortsetzen zu deiner neuesten gespeicherten Fahrt zurück. Mit Karriere "
-"wählen wählst du einen anderen Fahrer."
+"Sobald du eine gespeicherte Karriere hast, bringt dich Fortsetzen zu deiner "
+"neuesten gespeicherten Fahrt zurück. Mit Karriere wählen wählst du einen "
+"anderen Fahrer."
 
 msgid ""
 "Manage careers offers reset and deletion. The game asks you to confirm "
@@ -42080,6 +42063,75 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#. A weigh station's sign, said after its callout.
+msgid "Open."
+msgstr "Geöffnet."
+
+msgid "Closed."
+msgstr "Geschlossen."
+
+#~ msgid "Parked at {name} for {the_city} service area."
+#~ msgstr "Geparkt bei {name} für das Einzugsgebiet von {the_city}."
+
+#~ msgid ""
+#~ "Carrier-paid or reimbursed charges: {grouped} dollars, including tolls "
+#~ "{grouped2} and extra charges {charge_summary}."
+#~ msgstr ""
+#~ "Von der Spedition bezahlte oder erstattete Kosten: {grouped} Dollar, davon "
+#~ "Maut {grouped2} und Zusatzleistungen {charge_summary}."
+
+#~ msgid "Receiver service after check-in: {f} hours."
+#~ msgstr "Abfertigung beim Empfänger nach dem Anmelden: {f} Stunden."
+
+#~ msgid ""
+#~ "Open-road cruise target {speed_text}. Ramp approach target {speed_text2}."
+#~ msgstr ""
+#~ "Tempomatziel auf freier Strecke {speed_text}. Ziel vor der Ausfahrt "
+#~ "{speed_text2}."
+
+#~ msgid "Ramp approach target {speed_text2}."
+#~ msgstr "Ziel vor der Ausfahrt {speed_text2}."
+
+#~ msgid "Open-road cruise target {speed_text}."
+#~ msgstr "Tempomatziel auf freier Strecke {speed_text}."
+
+#~ msgid "No driver-responsibility charges and no balance owed."
+#~ msgstr "Keine Kosten zulasten des Fahrers und kein offener Betrag."
+
+#~ msgid "Dropping and hooking"
+#~ msgstr "Aufliegertausch"
+
+#~ msgid "Loading"
+#~ msgstr "Beladung"
+
+#~ msgid " {verb} took {f} minutes."
+#~ msgstr " {verb} hat {f} Minuten gedauert."
+
+#~ msgid ""
+#~ " {wait} minutes past the two free hours at the dock: {dollars} dollars "
+#~ "detention pay at settlement."
+#~ msgstr ""
+#~ " {wait} Minuten über die zwei freien Stunden an der Rampe: {dollars} Dollar "
+#~ "Standgeld bei der Abrechnung."
+
+#~ msgid ""
+#~ " {wait} minutes past the two free hours at the dock: {dollars} dollars "
+#~ "detention, paid to the carrier."
+#~ msgstr ""
+#~ " {wait} Minuten über die zwei freien Stunden an der Rampe: {dollars} Dollar "
+#~ "Standgeld, an die Firma gezahlt."
+
+#~ msgid "Continue latest career: {career_summary}"
+#~ msgstr "Letzte Karriere fortsetzen: {career_summary}"
+
+#~ msgid ""
+#~ "Once you have a saved career, Continue latest career returns to your newest "
+#~ "saved trip. Choose career lets you select another driver."
+#~ msgstr ""
+#~ "Sobald du eine gespeicherte Karriere hast, bringt dich Letzte Karriere "
+#~ "fortsetzen zu deiner neuesten gespeicherten Fahrt zurück. Mit Karriere "
+#~ "wählen wählst du einen anderen Fahrer."
 
 #~ msgid "{city} to {destination}"
 #~ msgstr "{city} nach {destination}"

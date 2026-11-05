@@ -382,6 +382,9 @@ pub struct StopCalloutParts<'a> {
     /// says "No fuel." (terse keeps only the "No fuel." verdict), `None`
     /// says nothing -- a weigh station is not a place anyone fuels.
     pub fuel: Option<bool>,
+    /// A weigh station's sign: `Some(true)` says "Open.", `Some(false)`
+    /// "Closed.", in terse too, since it decides whether to take the exit.
+    pub open: Option<bool>,
 }
 
 impl Default for StopCalloutParts<'_> {
@@ -396,6 +399,7 @@ impl Default for StopCalloutParts<'_> {
             parking_certainty: "",
             exit_hint: "X",
             fuel: None,
+            open: None,
         }
     }
 }
@@ -422,7 +426,13 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
         parking_certainty,
         exit_hint,
         fuel,
+        open,
     } = *parts;
+    let sign = match open {
+        Some(true) => "Open.",
+        Some(false) => "Closed.",
+        None => "",
+    };
     let exit_part = if exit_label.is_empty() {
         String::new()
     } else {
@@ -440,6 +450,9 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
     }
     // Whether there are pumps is the fact a driver exits on: a truck-parking
     // lot named "Truck Stop" sold nothing (issue #272, "The 115 Truck Stop").
+    if !sign.is_empty() {
+        normal_parts.push(sign.to_string());
+    }
     match fuel {
         Some(true) => normal_parts.push("Fuel.".to_string()),
         Some(false) => normal_parts.push("No fuel.".to_string()),
@@ -458,6 +471,9 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
         .unwrap_or_else(|| terse_parking_label("unknown").expect("unknown is in the table"));
     if !parking_terse.is_empty() {
         terse = format!("{terse} {parking_terse}");
+    }
+    if !sign.is_empty() {
+        terse = format!("{terse} {sign}");
     }
     if fuel == Some(false) {
         terse = format!("{terse} No fuel.");
@@ -1060,6 +1076,7 @@ mod tests {
                 parking_certainty: "confirmed",
                 exit_hint,
                 fuel: None,
+                open: None,
             })
         };
 
@@ -1110,6 +1127,38 @@ mod tests {
         let unsaid = callout(None);
         assert!(!unsaid.normal.contains("fuel."), "{}", unsaid.normal);
         assert!(!unsaid.terse.as_deref().unwrap().contains("fuel"));
+    }
+
+    #[test]
+    fn test_a_weigh_station_callout_says_open_or_closed() {
+        // The sign decides whether to take the exit; a driver who heard only
+        // "No truck parking" exited for a closed scale (drive, 2026-11-05).
+        let closed = stop_callout(&StopCalloutParts {
+            typed_name: "I-43 Weigh Station",
+            plain_name: "I-43 Weigh Station",
+            distance: "5 miles",
+            parking_certainty: "likely",
+            exit_hint: "",
+            open: Some(false),
+            ..Default::default()
+        });
+        assert_eq!(closed.normal, "I-43 Weigh Station in 5 miles. Closed.");
+        assert_eq!(
+            closed.terse.as_deref(),
+            Some("I-43 Weigh Station, 5 miles. Closed.")
+        );
+        let open = stop_callout(&StopCalloutParts {
+            typed_name: "I-43 Weigh Station",
+            plain_name: "I-43 Weigh Station",
+            distance: "5 miles",
+            parking_certainty: "likely",
+            open: Some(true),
+            ..Default::default()
+        });
+        assert_eq!(
+            open.normal,
+            "I-43 Weigh Station in 5 miles. Open. Press X to signal for the exit."
+        );
     }
 
     #[test]

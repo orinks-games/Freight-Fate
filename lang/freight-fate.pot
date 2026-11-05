@@ -5935,7 +5935,7 @@ msgstr ""
 msgid "confirmed truck parking"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/speech_text.rs
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/sim/trip/update.rs crates/ff-core/src/speech_text.rs crates/freight-fate/src/states/driving_events/trip_events.rs
 msgid "likely"
 msgstr ""
 
@@ -23274,31 +23274,19 @@ msgstr ""
 msgid "Loaded and sealed for {destination}."
 msgstr ""
 
+#. placeholders: {destination}, {minutes}
 #: crates/freight-fate/src/states/city_pickup.rs
-msgid "Dropping and hooking"
+msgid "Hooked for {destination} in {minutes} minutes."
 msgstr ""
 
+#. placeholders: {destination}, {minutes}
 #: crates/freight-fate/src/states/city_pickup.rs
-msgid "Loading"
+msgid "Loaded for {destination} in {minutes} minutes."
 msgstr ""
 
-#. placeholders: {verb}, {f}
+#. placeholders: {dollars}
 #: crates/freight-fate/src/states/city_pickup.rs
-msgid " {verb} took {f} minutes."
-msgstr ""
-
-#. placeholders: {wait}, {dollars}
-#: crates/freight-fate/src/states/city_pickup.rs
-msgid ""
-" {wait} minutes past the two free hours at the dock: {dollars} dollars "
-"detention pay at settlement."
-msgstr ""
-
-#. placeholders: {wait}, {dollars}
-#: crates/freight-fate/src/states/city_pickup.rs
-msgid ""
-" {wait} minutes past the two free hours at the dock: {dollars} dollars "
-"detention, paid to the carrier."
+msgid " Detention pay {dollars} dollars at settlement."
 msgstr ""
 
 #. placeholders: {condition}
@@ -28889,14 +28877,13 @@ msgstr ""
 
 #. placeholders: {speed_text}, {speed_text2}
 #: crates/freight-fate/src/states/driving_events/cruise.rs
-msgid ""
-"Open-road cruise target {speed_text}. Ramp approach target {speed_text2}."
+msgid "Cruise speed {speed_text}. Ramp approach {speed_text2}."
 msgstr ""
 
 #. placeholders: {speed_text2}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_events/cruise.rs
-msgid "Ramp approach target {speed_text2}."
+msgid "Ramp approach {speed_text2}."
 msgstr ""
 
 #. placeholders: {speed_number}, {speed_number2}
@@ -28911,7 +28898,7 @@ msgstr ""
 
 #. placeholders: {speed_text}
 #: crates/freight-fate/src/states/driving_events/cruise.rs
-msgid "Open-road cruise target {speed_text}."
+msgid "Cruise speed {speed_text}."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/cruise.rs
@@ -31257,12 +31244,6 @@ msgstr ""
 msgid "Net {grouped6}, you have {grouped7}."
 msgstr ""
 
-#. placeholders: {name}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Parked at {name}."
-msgstr ""
-
 #. placeholders: {accessorial_clause}, {status_label}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
@@ -31355,10 +31336,6 @@ msgid ""
 "{grouped2} dollars owed."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "No driver-responsibility charges and no balance owed."
-msgstr ""
-
 #. placeholders: {grouped}
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
 msgid "Business costs: {grouped} dollars."
@@ -31412,16 +31389,14 @@ msgstr ""
 msgid "It is {clock_text}."
 msgstr ""
 
-#. placeholders: {name}, {the_city}
+#. placeholders: {name}
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Parked at {name} for {the_city} service area."
+msgid "Parked at {name}."
 msgstr ""
 
-#. placeholders: {grouped}, {grouped2}, {charge_summary}
+#. placeholders: {name}, {city}
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Carrier-paid or reimbursed charges: {grouped} dollars, including tolls "
-"{grouped2} and extra charges {charge_summary}."
+msgid "Parked at {name} in {city}."
 msgstr ""
 
 #. placeholders: {status_label}
@@ -31429,9 +31404,19 @@ msgstr ""
 msgid "Business status: {status_label}."
 msgstr ""
 
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
+msgid "Tolls: {grouped} dollars."
+msgstr ""
+
+#. placeholders: {label}, {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
+msgid "{label}: {grouped} dollars."
+msgstr ""
+
 #. placeholders: {f}
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Receiver service after check-in: {f} hours."
+msgid "Unloading took {f} minutes."
 msgstr ""
 
 #. placeholders: {grouped}
@@ -37739,6 +37724,21 @@ msgstr ""
 msgid "{name}: level {level}"
 msgstr ""
 
+#. placeholders: {saved_label}
+#: crates/freight-fate/src/states/main_menu.rs
+msgid "last saved {saved_label}"
+msgstr ""
+
+#. placeholders: {level}
+#: crates/freight-fate/src/states/main_menu.rs
+msgid "level {level}"
+msgstr ""
+
+#. placeholders: {name}, {join}
+#: crates/freight-fate/src/states/main_menu.rs
+msgid "Continue {name}: {join}"
+msgstr ""
+
 #: crates/freight-fate/src/states/main_menu.rs
 msgid "1 delivery"
 msgstr ""
@@ -37746,11 +37746,6 @@ msgstr ""
 #. placeholders: {deliveries}
 #: crates/freight-fate/src/states/main_menu.rs
 msgid "{deliveries} deliveries"
-msgstr ""
-
-#. placeholders: {saved_label}
-#: crates/freight-fate/src/states/main_menu.rs
-msgid "last saved {saved_label}"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu.rs crates/freight-fate/src/visuals/screens.rs
@@ -38240,11 +38235,6 @@ msgstr ""
 #. placeholders: {version}, {warning}
 #: crates/freight-fate/src/states/main_menu/home.rs
 msgid "Freight Fate {version}. {warning}"
-msgstr ""
-
-#. placeholders: {career_summary}
-#: crates/freight-fate/src/states/main_menu/home.rs
-msgid "Continue latest career: {career_summary}"
 msgstr ""
 
 #. placeholders: {name}
@@ -40550,8 +40540,8 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
-"Once you have a saved career, Continue latest career returns to your newest "
-"saved trip. Choose career lets you select another driver."
+"Once you have a saved career, Continue returns to your newest saved trip. "
+"Choose career lets you select another driver."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
@@ -45777,4 +45767,13 @@ msgstr ""
 
 #: lang/extra.pot
 msgid "The mirror address cannot contain a query or fragment."
+msgstr ""
+
+#. A weigh station's sign, said after its callout.
+#: lang/extra.pot
+msgid "Open."
+msgstr ""
+
+#: lang/extra.pot
+msgid "Closed."
 msgstr ""

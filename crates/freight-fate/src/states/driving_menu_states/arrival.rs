@@ -881,9 +881,6 @@ impl ArrivalState {
                 fmt_grouped(profile_of(ctx).fines_owed, 0)
             ));
         }
-        if charge_lines.is_empty() {
-            charge_lines.push("No driver-responsibility charges and no balance owed.".to_string());
-        }
         let business_cost_lines: Vec<String> = if business.business_charges.is_empty() {
             Vec::new()
         } else {
@@ -932,31 +929,50 @@ impl ArrivalState {
                 "It is {}.",
                 clock_text(to_local(game_hours, destination_timezone))
             ),
-            format!(
-                "Parked at {} for {} service area.",
-                self.terminal.name,
-                ff_core::speech_text::the_city(job.spoken_destination())
-            ),
+            {
+                let city = job.spoken_destination();
+                let town = city.split(", ").next().unwrap_or(city);
+                if self.terminal.name.contains(town) {
+                    format!("Parked at {}.", self.terminal.name)
+                } else {
+                    format!("Parked at {} in {city}.", self.terminal.name)
+                }
+            },
             format!(
                 "{}: {} dollars.",
                 pay_label(&business_status),
                 fmt_grouped(gross_pay, 0)
             ),
-            format!(
-                "Carrier-paid or reimbursed charges: {} dollars, including tolls {} and \
-                 extra charges {}.",
-                fmt_grouped(carrier_charges, 0),
-                fmt_grouped(toll_expense, 0),
-                charge_summary(&accessorials)
-            ),
             format!("Business status: {}.", business.status_label),
         ];
+        // Each carrier-ledger item on its own row, by what it is: detention
+        // is money paid for waiting, not a negative charge, and a zero toll
+        // is nothing to read.
+        let mut ledger_lines: Vec<String> = Vec::new();
+        if toll_expense >= 1.0 {
+            ledger_lines.push(format!("Tolls: {} dollars.", fmt_grouped(toll_expense, 0)));
+        }
+        for charge in &accessorials {
+            if charge.amount.abs() >= 1.0 {
+                let mut label = charge.label.chars();
+                let label = label
+                    .next()
+                    .map(|c| c.to_uppercase().chain(label).collect::<String>())
+                    .unwrap_or_default();
+                ledger_lines.push(format!(
+                    "{label}: {} dollars.",
+                    fmt_grouped(charge.amount.abs(), 0)
+                ));
+            }
+        }
+        let status_row = lines.len() - 1;
+        lines.splice(status_row..status_row, ledger_lines);
         if receiver_service_hours >= 0.05 {
             lines.insert(
                 2,
                 format!(
-                    "Receiver service after check-in: {} hours.",
-                    fmt_f(receiver_service_hours, 1)
+                    "Unloading took {} minutes.",
+                    fmt_f(receiver_service_hours * 60.0, 0)
                 ),
             );
         }

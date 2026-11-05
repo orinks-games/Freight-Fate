@@ -788,14 +788,21 @@ impl DrivingState {
                             if ahead <= 0.0 {
                                 return None;
                             }
+                            let scale = stop.stop_type == "weigh_station";
+                            let open = scale.then(|| drive.trip.scale_open(&stop));
+                            let parking_normal = if scale {
+                                String::new()
+                            } else {
+                                stop.parking_text()
+                            };
                             let parts = StopCalloutParts {
                                 planned_prefix: drive.trip.planned_prefix(&stop),
                                 typed_name: &typed_name,
                                 plain_name: &stop.name,
                                 exit_label: &stop.exit_label,
                                 distance: &drive.trip.ahead_text(ahead),
-                                parking_normal: &stop.parking_text(),
-                                parking_certainty: &stop.parking,
+                                parking_normal: &parking_normal,
+                                parking_certainty: if scale { "likely" } else { &stop.parking },
                                 // Already signaled: "Press X to signal for the
                                 // exit" with the signal on asks for a press
                                 // that would cancel it, or move it off the
@@ -804,14 +811,15 @@ impl DrivingState {
                                 // on full signals for itself.
                                 exit_hint: if drive.exit_signal_on
                                     || drive.exit_is_armed_for(&stop)
-                                    || (stop.stop_type == "weigh_station"
-                                        && ctx.settings.lane_is_automated())
+                                    || open == Some(false)
+                                    || (scale && ctx.settings.lane_is_automated())
                                 {
                                     ""
                                 } else {
                                     &exit_hint
                                 },
                                 fuel: stop.fuel_callout(),
+                                open,
                             };
                             // The rung's rendering, as the line had when it
                             // queued: re-rendered as the normal form, quiet

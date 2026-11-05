@@ -85,9 +85,9 @@ Quit closes the game.
 
 Once you have a saved career, three more options appear on the main menu.
 
-#### Continue latest career
+#### Continue
 
-Continue latest career resumes your newest readable career save.
+The first row, Continue, names your newest readable career and resumes it.
 
 #### Choose career
 

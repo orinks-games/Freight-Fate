@@ -474,7 +474,7 @@ fn test_quit_during_pickup_drive_resumes_from_the_last_stop() {
     );
     select::<PauseMenuState>(&mut app, "Quit to main menu");
 
-    select::<MainMenuState>(&mut app, "Continue latest career");
+    select::<MainMenuState>(&mut app, "Continue ");
 
     assert!(is::<DrivingState>(&app));
     let (phase, position) =
@@ -830,7 +830,7 @@ fn test_engine_off_at_the_pickup_survives_save_and_quit() {
     );
 
     select::<PickupFacilityState>(&mut app, "Save and quit to main menu");
-    select::<MainMenuState>(&mut app, "Continue latest career");
+    select::<MainMenuState>(&mut app, "Continue ");
 
     assert!(is::<PickupFacilityState>(&app));
     assert!(!with_state::<PickupFacilityState, _>(&app, |p, _| p

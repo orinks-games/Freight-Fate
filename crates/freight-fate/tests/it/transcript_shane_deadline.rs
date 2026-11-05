@@ -140,7 +140,7 @@ fn shane_payson_on_schedule_check_in_stays_on_time_after_live_unload() {
     let transcript = arrival.summary_lines.join("\n");
     assert!(transcript.contains("On time in Payson."), "{transcript}");
     assert!(
-        transcript.contains("Receiver service after check-in: 0.8 hours."),
+        transcript.contains("Unloading took 45 minutes."),
         "{transcript}"
     );
     assert!(transcript.contains("It is 6:04 PM."), "{transcript}");
@@ -207,7 +207,7 @@ fn receiver_menu_captures_check_in_before_advancing_the_unload_clock() {
         "{transcript}"
     );
     assert!(
-        transcript.contains("Receiver service after check-in: 0.8 hours."),
+        transcript.contains("Unloading took 45 minutes."),
         "{transcript}"
     );
     assert!(

@@ -156,7 +156,7 @@ fn continue_latest_career(harness: &mut PlaytestHarness) {
     let labels = harness.menu_labels();
     let row = labels
         .iter()
-        .find(|row| row.starts_with("Continue latest career"))
+        .find(|row| row.starts_with("Continue "))
         .cloned()
         .unwrap_or_else(|| panic!("no continue row on the title screen: {labels:?}"));
     harness.select_menu_item(&row);

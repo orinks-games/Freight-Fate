@@ -23,7 +23,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
             "Settings lets you change driving assistance, sound, speech, and controls. Report a problem opens the bug-report page in your browser. Quit closes the game.",
             "Achievements lets you review a saved driver's earned and locked achievements. With no saved careers, there is no record to review yet.",
             "Online brings together driver profiles, account achievements, sharing, and private cloud backups.",
-            "Once you have a saved career, Continue latest career returns to your newest saved trip. Choose career lets you select another driver.",
+            "Once you have a saved career, Continue returns to your newest saved trip. Choose career lets you select another driver.",
             "Manage careers offers reset and deletion. The game asks you to confirm before either happens.",
         ],
     ),

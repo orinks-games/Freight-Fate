@@ -274,7 +274,7 @@ impl DrivingState {
                 let ramp_target = target.min(exit);
                 let message = SpokenMessage::with_terse(
                     format!(
-                        "Open-road cruise target {}. Ramp approach target {}.",
+                        "Cruise speed {}. Ramp approach {}.",
                         ctx.settings.speed_text(target),
                         ctx.settings.speed_text(ramp_target)
                     ),
@@ -298,10 +298,7 @@ impl DrivingState {
             }
         } else {
             let message = SpokenMessage::with_terse(
-                format!(
-                    "Open-road cruise target {}.",
-                    ctx.settings.speed_text(target)
-                ),
+                format!("Cruise speed {}.", ctx.settings.speed_text(target)),
                 format!("{}.", self.speed_number(ctx, target)),
             );
             ctx.say_with(message, Say::new().category(SpeechCategory::Confirmation));

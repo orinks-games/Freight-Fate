@@ -980,28 +980,21 @@ impl Menu for PickupFacilityState {
         let plan = self.pickup_plan(ctx);
         let facility = self.facility();
         let lead = if self.loaded {
-            let mut lead = format!("Loaded and sealed for {}.", self.job.spoken_destination());
+            let destination = self.job.spoken_destination();
+            let mut lead = format!("Loaded and sealed for {destination}.");
             if self.just_loaded {
-                let verb = if plan.is_drop_hook() {
-                    "Dropping and hooking"
+                let minutes = fmt_f(plan.minutes, 0);
+                lead = if plan.is_drop_hook() {
+                    format!("Hooked for {destination} in {minutes} minutes.")
                 } else {
-                    "Loading"
+                    format!("Loaded for {destination} in {minutes} minutes.")
                 };
-                lead.push_str(&format!(" {verb} took {} minutes.", fmt_f(plan.minutes, 0)));
-                if plan.detention_minutes > 0.0 {
+                // A company driver's detention goes to the carrier, so only
+                // an owner-operator hears what it pays.
+                if plan.detention_minutes > 0.0 && is_owner_operator(&profile(ctx).business_status)
+                {
                     let dollars = fmt_grouped(plan.detention_pay(), 0);
-                    let wait = fmt_f(plan.detention_minutes, 0);
-                    if is_owner_operator(&profile(ctx).business_status) {
-                        lead.push_str(&format!(
-                            " {wait} minutes past the two free hours at the dock: {dollars} \
-                             dollars detention pay at settlement."
-                        ));
-                    } else {
-                        lead.push_str(&format!(
-                            " {wait} minutes past the two free hours at the dock: {dollars} \
-                             dollars detention, paid to the carrier."
-                        ));
-                    }
+                    lead.push_str(&format!(" Detention pay {dollars} dollars at settlement."));
                 }
                 // The trailer was named at check-in; a sound one is not
                 // news, so only its condition when it is worn or defective.

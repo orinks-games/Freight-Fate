@@ -385,7 +385,7 @@ fn test_toll_route_delivery_settlement_records_expense() {
     assert!(
         summary_lines
             .iter()
-            .any(|line| line.contains("Carrier-paid or reimbursed charges")),
+            .any(|line| line.starts_with("Business status:")),
         "{summary_lines:#?}"
     );
     assert!(

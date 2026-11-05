@@ -18820,27 +18820,17 @@ msgstr "{destination}行きの{label}"
 msgid "Loaded and sealed for {destination}."
 msgstr "{destination}行きで積み込み、封印しました。"
 
-msgid "Dropping and hooking"
-msgstr "ドロップ・アンド・フック中"
+#. placeholders: {destination}, {minutes}
+msgid "Hooked for {destination} in {minutes} minutes."
+msgstr "{destination}行きを{minutes}分で連結しました。"
 
-msgid "Loading"
-msgstr "積み込み中"
+#. placeholders: {destination}, {minutes}
+msgid "Loaded for {destination} in {minutes} minutes."
+msgstr "{destination}行きを{minutes}分で積みました。"
 
-#. placeholders: {verb}, {f}
-msgid " {verb} took {f} minutes."
-msgstr " {verb}に{f}分かかりました。"
-
-#. placeholders: {wait}, {dollars}
-msgid ""
-" {wait} minutes past the two free hours at the dock: {dollars} dollars "
-"detention pay at settlement."
-msgstr " ドックの無料の2時間を{wait}分超過：精算時に待機料{dollars}ドル。"
-
-#. placeholders: {wait}, {dollars}
-msgid ""
-" {wait} minutes past the two free hours at the dock: {dollars} dollars "
-"detention, paid to the carrier."
-msgstr " ドックの無料の2時間を{wait}分超過：待機料{dollars}ドルは会社に支払われます。"
+#. placeholders: {dollars}
+msgid " Detention pay {dollars} dollars at settlement."
+msgstr " 待機料{dollars}ドルは精算時に支払われます。"
 
 #. placeholders: {condition}
 msgid " The trailer is {condition}."
@@ -23482,14 +23472,13 @@ msgid "High idle {rpm} RPM."
 msgstr "高めのアイドリング、{rpm}回転。"
 
 #. placeholders: {speed_text}, {speed_text2}
-msgid ""
-"Open-road cruise target {speed_text}. Ramp approach target {speed_text2}."
-msgstr "一般道路のクルーズ目標{speed_text}。ランプ手前の目標{speed_text2}。"
+msgid "Cruise speed {speed_text}. Ramp approach {speed_text2}."
+msgstr "クルーズ速度{speed_text}。ランプ進入{speed_text2}。"
 
 #. placeholders: {speed_text2}
 #. one sentence of a longer line
-msgid "Ramp approach target {speed_text2}."
-msgstr "ランプ手前の目標{speed_text2}。"
+msgid "Ramp approach {speed_text2}."
+msgstr ""
 
 #. placeholders: {speed_number}, {speed_number2}
 msgid "{speed_number}, ramp {speed_number2}."
@@ -23500,8 +23489,8 @@ msgid "Cruise {speed_text}."
 msgstr "クルーズ{speed_text}。"
 
 #. placeholders: {speed_text}
-msgid "Open-road cruise target {speed_text}."
-msgstr "一般道路のクルーズ目標{speed_text}。"
+msgid "Cruise speed {speed_text}."
+msgstr "クルーズ速度{speed_text}。"
 
 msgid "on city streets"
 msgstr "市街地では"
@@ -25389,11 +25378,6 @@ msgstr "罰金{grouped5}。"
 msgid "Net {grouped6}, you have {grouped7}."
 msgstr "手取り{grouped6}、手持ちは{grouped7}です。"
 
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "Parked at {name}."
-msgstr "{name}に駐車しました。"
-
 #. placeholders: {accessorial_clause}, {status_label}
 #. one sentence of a longer line
 msgid "{accessorial_clause} Business status: {status_label}."
@@ -25467,9 +25451,6 @@ msgid ""
 "{grouped2} dollars owed."
 msgstr "未払い残高：この精算から{grouped}ドルを返済し、残りは{grouped2}ドルです。"
 
-msgid "No driver-responsibility charges and no balance owed."
-msgstr "ドライバー責任の請求も未払い残高もありません。"
-
 #. placeholders: {grouped}
 msgid "Business costs: {grouped} dollars."
 msgstr "事業経費：{grouped}ドル。"
@@ -25513,24 +25494,29 @@ msgstr "所要時間：{f}時間。"
 msgid "It is {clock_text}."
 msgstr "今は{clock_text}です。"
 
-#. placeholders: {name}, {the_city}
-msgid "Parked at {name} for {the_city} service area."
-msgstr "{the_city}サービスエリアの{name}に駐車しました。"
+#. placeholders: {name}
+msgid "Parked at {name}."
+msgstr "{name}に駐車しました。"
 
-#. placeholders: {grouped}, {grouped2}, {charge_summary}
-msgid ""
-"Carrier-paid or reimbursed charges: {grouped} dollars, including tolls "
-"{grouped2} and extra charges {charge_summary}."
-msgstr ""
-"運送会社負担または払い戻しの費用：{grouped}ドル。通行料{grouped2}、付帯料金{charge_summary}を含みます。"
+#. placeholders: {name}, {city}
+msgid "Parked at {name} in {city}."
+msgstr "{city}の{name}に駐車しました。"
 
 #. placeholders: {status_label}
 msgid "Business status: {status_label}."
 msgstr "事業状況：{status_label}。"
 
+#. placeholders: {grouped}
+msgid "Tolls: {grouped} dollars."
+msgstr "通行料：{grouped}ドル。"
+
+#. placeholders: {label}, {grouped}
+msgid "{label}: {grouped} dollars."
+msgstr "{label}：{grouped}ドル。"
+
 #. placeholders: {f}
-msgid "Receiver service after check-in: {f} hours."
-msgstr "受付後の荷受けの作業：{f}時間。"
+msgid "Unloading took {f} minutes."
+msgstr "荷降ろしに{f}分かかりました。"
 
 #. placeholders: {grouped}
 msgid "Money after settlement: {grouped} dollars."
@@ -30756,16 +30742,24 @@ msgstr "{year}年{format}{day}日 {am_pm}{hour}:{minute}"
 msgid "{name}: level {level}"
 msgstr "{name}：レベル{level}"
 
+#. placeholders: {saved_label}
+msgid "last saved {saved_label}"
+msgstr "最終保存 {saved_label}"
+
+#. placeholders: {level}
+msgid "level {level}"
+msgstr "レベル{level}"
+
+#. placeholders: {name}, {join}
+msgid "Continue {name}: {join}"
+msgstr "{name}を続ける：{join}"
+
 msgid "1 delivery"
 msgstr "配達1件"
 
 #. placeholders: {deliveries}
 msgid "{deliveries} deliveries"
 msgstr "{deliveries}回配達"
-
-#. placeholders: {saved_label}
-msgid "last saved {saved_label}"
-msgstr "最終保存 {saved_label}"
 
 msgid "Freight Fate"
 msgstr "Freight Fate"
@@ -31173,10 +31167,6 @@ msgstr "Freight Fate {version}。"
 #. placeholders: {version}, {warning}
 msgid "Freight Fate {version}. {warning}"
 msgstr "Freight Fate {version}。{warning}"
-
-#. placeholders: {career_summary}
-msgid "Continue latest career: {career_summary}"
-msgstr "最新のキャリアを続ける：{career_summary}"
 
 #. placeholders: {name}
 msgid "Load the newest save for {name}."
@@ -33145,9 +33135,9 @@ msgid ""
 msgstr "オンラインには、ドライバープロフィール、アカウントの実績、共有、非公開のクラウドバックアップがまとまっています。"
 
 msgid ""
-"Once you have a saved career, Continue latest career returns to your newest "
-"saved trip. Choose career lets you select another driver."
-msgstr "保存したキャリアがあれば、最新のキャリアを続けるで、一番新しい保存した運行に戻ります。キャリアを選ぶで、別のドライバーを選べます。"
+"Once you have a saved career, Continue returns to your newest saved trip. "
+"Choose career lets you select another driver."
+msgstr "保存したキャリアがあれば、続けるで一番新しい保存した運行に戻ります。キャリアを選ぶで、別のドライバーを選べます。"
 
 msgid ""
 "Manage careers offers reset and deletion. The game asks you to confirm "
@@ -37742,6 +37732,65 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#. A weigh station's sign, said after its callout.
+msgid "Open."
+msgstr "営業中。"
+
+msgid "Closed."
+msgstr "閉鎖中。"
+
+#~ msgid "Parked at {name} for {the_city} service area."
+#~ msgstr "{the_city}サービスエリアの{name}に駐車しました。"
+
+#~ msgid ""
+#~ "Carrier-paid or reimbursed charges: {grouped} dollars, including tolls "
+#~ "{grouped2} and extra charges {charge_summary}."
+#~ msgstr ""
+#~ "運送会社負担または払い戻しの費用：{grouped}ドル。通行料{grouped2}、付帯料金{charge_summary}を含みます。"
+
+#~ msgid "Receiver service after check-in: {f} hours."
+#~ msgstr "受付後の荷受けの作業：{f}時間。"
+
+#~ msgid ""
+#~ "Open-road cruise target {speed_text}. Ramp approach target {speed_text2}."
+#~ msgstr "一般道路のクルーズ目標{speed_text}。ランプ手前の目標{speed_text2}。"
+
+#~ msgid "Ramp approach target {speed_text2}."
+#~ msgstr "ランプ手前の目標{speed_text2}。"
+
+#~ msgid "Open-road cruise target {speed_text}."
+#~ msgstr "一般道路のクルーズ目標{speed_text}。"
+
+#~ msgid "No driver-responsibility charges and no balance owed."
+#~ msgstr "ドライバー責任の請求も未払い残高もありません。"
+
+#~ msgid "Dropping and hooking"
+#~ msgstr "ドロップ・アンド・フック中"
+
+#~ msgid "Loading"
+#~ msgstr "積み込み中"
+
+#~ msgid " {verb} took {f} minutes."
+#~ msgstr " {verb}に{f}分かかりました。"
+
+#~ msgid ""
+#~ " {wait} minutes past the two free hours at the dock: {dollars} dollars "
+#~ "detention pay at settlement."
+#~ msgstr " ドックの無料の2時間を{wait}分超過：精算時に待機料{dollars}ドル。"
+
+#~ msgid ""
+#~ " {wait} minutes past the two free hours at the dock: {dollars} dollars "
+#~ "detention, paid to the carrier."
+#~ msgstr " ドックの無料の2時間を{wait}分超過：待機料{dollars}ドルは会社に支払われます。"
+
+#~ msgid "Continue latest career: {career_summary}"
+#~ msgstr "最新のキャリアを続ける：{career_summary}"
+
+#~ msgid ""
+#~ "Once you have a saved career, Continue latest career returns to your newest "
+#~ "saved trip. Choose career lets you select another driver."
+#~ msgstr "保存したキャリアがあれば、最新のキャリアを続けるで、一番新しい保存した運行に戻ります。キャリアを選ぶで、別のドライバーを選べます。"
 
 #~ msgid "{city} to {destination}"
 #~ msgstr "{city}から{destination}"
