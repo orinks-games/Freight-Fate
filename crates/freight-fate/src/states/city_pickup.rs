@@ -787,9 +787,11 @@ impl PickupFacilityState {
                 lead.push_str(&construction);
                 lead.push(' ');
             }
+            // The city only: the At the wheel line right after names the
+            // facility (owner, 2026-11-04: only the essentials).
             lead.push_str(&format!(
                 "Dispatch routed you to {}. ",
-                self.job.destination_facility_text()
+                self.job.spoken_destination()
             ));
             start_loaded_drive(
                 ctx,
@@ -1001,8 +1003,17 @@ impl Menu for PickupFacilityState {
                         ));
                     }
                 }
+                // The trailer was named at check-in; a sound one is not
+                // news, so only its condition when it is worn or defective.
                 if let Some(trailer) = plan.trailer.as_ref() {
-                    lead.push_str(&format!(" {}", trailer.describe()));
+                    let condition = trailer.condition_text();
+                    let defect = trailer.defect();
+                    if condition != "in good shape" || defect.is_some() {
+                        lead.push_str(&format!(" The trailer is {condition}."));
+                    }
+                    if let Some(defect) = defect {
+                        lead.push_str(&format!(" Walking around it you find a {defect}."));
+                    }
                 }
                 self.just_loaded = false;
             }

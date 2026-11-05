@@ -1210,7 +1210,7 @@ fn test_serious_hos_inspection_orders_out_of_service_reset() {
         message: "Inspection station open.".into(),
         data: TripEventData {
             key: Some("scale:1".to_string()),
-            evidence: Some(vec!["HOS/ELD violation".to_string()]),
+            evidence: Some(vec!["hours-of-service violation".to_string()]),
             ..Default::default()
         },
     };
@@ -1308,7 +1308,7 @@ fn test_drive_limit_inspection_still_orders_ten_hours() {
         message: "Inspection station open.".into(),
         data: TripEventData {
             key: Some("scale:drive".to_string()),
-            evidence: Some(vec!["HOS/ELD violation".to_string()]),
+            evidence: Some(vec!["hours-of-service violation".to_string()]),
             ..Default::default()
         },
     };
@@ -1368,7 +1368,7 @@ fn test_the_truck_never_rolls_under_an_out_of_service_order() {
         message: "Inspection station open.".into(),
         data: TripEventData {
             key: Some("scale:served".to_string()),
-            evidence: Some(vec!["HOS/ELD violation".to_string()]),
+            evidence: Some(vec!["hours-of-service violation".to_string()]),
             ..Default::default()
         },
     };

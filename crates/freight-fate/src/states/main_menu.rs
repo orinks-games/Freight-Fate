@@ -530,11 +530,16 @@ pub fn career_location(ctx: &GameContext, profile: &Profile) -> String {
         return format!("on the road to {facility}");
     }
     match ctx.world.home_terminal(&profile.current_city) {
-        Ok(terminal) => format!(
-            "at {} in {}",
-            terminal.name,
-            ctx.world.spoken_city(&profile.current_city, None)
-        ),
+        // "Sheboygan Company Yard in Sheboygan" says the city twice.
+        Ok(terminal) => {
+            let city = ctx.world.spoken_city(&profile.current_city, None);
+            let short_city = city.split(',').next().unwrap_or(&city).trim().to_string();
+            if terminal.name.contains(&short_city) {
+                format!("at {}", terminal.name)
+            } else {
+                format!("at {} in {city}", terminal.name)
+            }
+        }
         Err(_) => format!("in {}", profile.current_city),
     }
 }

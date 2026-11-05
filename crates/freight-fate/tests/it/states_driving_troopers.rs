@@ -1180,7 +1180,6 @@ fn test_out_of_service_stop_shuts_down_the_engine() {
     assert!(!drive.trip.truck.engine_on);
     let text =
         with_top::<EnforcementStopState, _>(&mut app, |stop, _| stop.outcome_text().to_lowercase());
-    assert!(text.contains("shut down the engine"), "{text}");
     // Ten hours parked with the engine off bleeds the air down, so the
     // outcome says where the truck stands.
     assert!(text.contains("engine off, air"), "{text}");

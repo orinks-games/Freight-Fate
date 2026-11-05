@@ -6404,7 +6404,7 @@ msgstr "キャリアの段階：{stage}。"
 #. placeholders: {deliveries}, {f3}
 #. one sentence of a longer line
 msgid "Deliveries {deliveries}, {f3} percent on time."
-msgstr ""
+msgstr "配達{deliveries}件、定時率{f3}パーセント。"
 
 #. placeholders: {level}, {title}
 #. one sentence of a longer line
@@ -6418,6 +6418,9 @@ msgid ""
 "miles, {grouped2} dollars earned. Career stage: {stage}. "
 "{status}.{next_text}"
 msgstr ""
+"レベル{level}、{title}。経験値{f}。{owed_text} "
+"評判100中{f2}。配達{deliveries}件、定時率{f3}パーセント。通算{grouped}マイル、獲得{grouped2}ドル。キャリア段階"
+"：{stage}。{status}。{next_text}"
 
 #. placeholders: {f}, {owed_text}, {f2}
 #. one sentence of a longer line
@@ -8547,14 +8550,6 @@ msgstr "{city_lower}の貨物市場"
 msgid "{city_lower} metro freight market"
 msgstr "{city_lower}都市圏の貨物市場"
 
-#. placeholders: {city}, {destination}
-msgid "{city} to {destination}"
-msgstr ""
-
-#. placeholders: {origin}, {destination}
-msgid "{origin} to {destination}"
-msgstr ""
-
 #. placeholders: {index}, {unwrap_or_else}
 msgid "Job {index} of {unwrap_or_else}: "
 msgstr "{unwrap_or_else}件中{index}件目： "
@@ -8563,13 +8558,13 @@ msgstr "{unwrap_or_else}件中{index}件目： "
 msgid " Requires {credentials_clause}."
 msgstr " {credentials_clause}が必要です。"
 
-#. placeholders: {tons}, {cargo}, {route}
-msgid "{tons} tons of {cargo}, {route}."
-msgstr ""
+#. placeholders: {tons}, {cargo}, {origin}, {destination}
+msgid "{tons} tons of {cargo} from {origin} to {destination}."
+msgstr "{origin}から{destination}へ{cargo}{tons}トン。"
 
 #. placeholders: {miles}
 msgid " {miles} empty to the pickup first."
-msgstr ""
+msgstr " まず集荷先まで空荷で{miles}。"
 
 #. placeholders: {pay}
 msgid "Pays {pay} dollars."
@@ -8577,7 +8572,7 @@ msgstr "報酬は{pay}ドル。"
 
 #. placeholders: {pay}, {pay_preview}
 msgid "Pays {pay} dollars, {pay_preview}."
-msgstr ""
+msgstr "報酬{pay}ドル、{pay_preview}。"
 
 #. one sentence of a longer line
 msgid "Team load: you and a co-driver take turns at the wheel."
@@ -8587,15 +8582,15 @@ msgstr "チームの積荷です。相棒の運転手と交代でハンドルを
 msgid ""
 "{distance}, deadline {hours} hours. Team load: you and a co-driver take "
 "turns at the wheel."
-msgstr ""
+msgstr "{distance}、期限{hours}時間。チームの積荷です。相棒の運転手と交代でハンドルを握ります。"
 
 #. placeholders: {distance}, {hours}
 msgid "{distance}, deadline {hours} hours with a 10-hour rest."
-msgstr ""
+msgstr "{distance}、期限{hours}時間、10時間の休息込み。"
 
 #. placeholders: {distance}, {hours}
 msgid "{distance}, deadline {hours} hours."
-msgstr ""
+msgstr "{distance}、期限{hours}時間。"
 
 #. placeholders: {min_level}
 msgid "Level {min_level} drivers unlock this cargo."
@@ -12393,8 +12388,8 @@ msgstr "{spoken_name}は開いています。"
 msgid "{spoken_name} is open. Officers wave you in for an ELD check."
 msgstr "{spoken_name}は開いています。警官がELD検査のために誘導しています。"
 
-msgid "HOS/ELD violation"
-msgstr "運転時間規制とELDの違反"
+msgid "hours-of-service violation"
+msgstr "勤務時間違反"
 
 msgid "Trooper in the construction zone clocks your speed."
 msgstr "工事区間で州警察官が速度を測っています。"
@@ -12804,9 +12799,9 @@ msgstr "{distance}：{side}州警察官が取り締まり中だと、ドライ�
 msgid "{distance}: a driver says troopers are working {side}."
 msgstr "{distance}：{side}州警察官が取り締まり中だと、ドライバーが言っています。"
 
-#. placeholders: {side}
-msgid "Somebody said troopers were working {side} a while back."
-msgstr "少し前に、{side}州警察官が取り締まっていたと誰かが言っていました。"
+#. placeholders: {distance}, {side}
+msgid "{distance}: an old report of troopers {side}."
+msgstr "{distance}：警官たちの古い情報、{side}。"
 
 #. placeholders: {distance}, {side}
 msgid "{distance}: two drivers say they're checking logs {side}."
@@ -12816,9 +12811,9 @@ msgstr "{distance}：{side}運転日誌を確認していると、ドライバ�
 msgid "{distance}: a driver says they're checking logs {side}."
 msgstr "{distance}：{side}運転日誌を確認していると、ドライバーが言っています。"
 
-#. placeholders: {side}
-msgid "Somebody said they were checking logs {side} a while back."
-msgstr "少し前に、{side}運転日誌を確認していたと誰かが言っていました。"
+#. placeholders: {distance}, {side}
+msgid "{distance}: an old report of log checks {side}."
+msgstr "{distance}：運行記録の検査の古い情報、{side}。"
 
 #. placeholders: {distance}, {side}
 msgid ""
@@ -12830,10 +12825,9 @@ msgid ""
 "{distance}: a driver says they're checking logs and equipment {side}."
 msgstr "{distance}：{side}運転日誌と装備を確認していると、ドライバーが言っています。"
 
-#. placeholders: {side}
-msgid ""
-"Somebody said they were checking logs and equipment {side} a while back."
-msgstr "少し前に、{side}運転日誌と装備を確認していたと誰かが言っていました。"
+#. placeholders: {distance}, {side}
+msgid "{distance}: an old report of log and equipment checks {side}."
+msgstr "{distance}：運行記録と装備の検査の古い情報、{side}。"
 
 #. placeholders: {distance}, {side}
 msgid ""
@@ -12844,10 +12838,9 @@ msgstr "{distance}：{side}チェーン規制でトラックを確認してい�
 msgid "{distance}: a driver says the chain control is checking rigs {side}."
 msgstr "{distance}：{side}チェーン規制でトラックを確認していると、ドライバーが言っています。"
 
-#. placeholders: {side}
-msgid ""
-"Somebody said the chain control was checking rigs {side} a while back."
-msgstr "少し前に、{side}チェーン規制でトラックを確認していたと誰かが言っていました。"
+#. placeholders: {distance}, {side}
+msgid "{distance}: an old report of the chain control checking rigs {side}."
+msgstr "{distance}：チェーン規制の検査の古い情報、{side}。"
 
 #. placeholders: {distance}, {side}
 msgid "{distance}: two drivers call a trooper {side}."
@@ -12857,9 +12850,9 @@ msgstr "{distance}：{side}州警察官がいると、ドライバー2人が知�
 msgid "{distance}: a driver reports a trooper {side}."
 msgstr "{distance}：{side}州警察官がいると、ドライバーが知らせています。"
 
-#. placeholders: {side}
-msgid "Somebody called a trooper {side} a while back."
-msgstr "少し前に、{side}州警察官がいると誰かが知らせていました。"
+#. placeholders: {distance}, {side}
+msgid "{distance}: an old report of a trooper {side}."
+msgstr "{distance}：警官の古い情報、{side}。"
 
 #. placeholders: {distance}, {side}
 msgid ""
@@ -12871,9 +12864,9 @@ msgid ""
 "{distance}: a driver says a trooper already has somebody stopped {side}."
 msgstr "{distance}：{side}州警察官がすでに誰かを止めていると、ドライバーが言っています。"
 
-#. placeholders: {side}
-msgid "Somebody said a trooper had somebody stopped {side} a while back."
-msgstr "少し前に、{side}州警察官が誰かを止めていたと誰かが言っていました。"
+#. placeholders: {distance}, {side}
+msgid "{distance}: an old report of a trooper with somebody stopped {side}."
+msgstr "{distance}：誰かを止めている警官の古い情報、{side}。"
 
 #. placeholders: {where_}
 msgid "an enforcement post {where_} on this stretch"
@@ -13492,7 +13485,7 @@ msgstr ""
 msgid ""
 "More than 7 miles per hour over the posted limit: past anything cruise will "
 "do on its own, and short of where a trooper can act on your speed."
-msgstr ""
+msgstr "標識の制限を時速7マイル超える速度：クルーズが自分では出さない速度で、警官が速度で取り締まれる手前です。"
 
 msgid "Gear grind"
 msgstr "ギアの擦れ"
@@ -14071,7 +14064,7 @@ msgstr "制限{limit_value}。"
 
 #. placeholders: {pacenote}, {advisory_speed_text}
 msgid "{pacenote} Cruise easing to {advisory_speed_text}."
-msgstr ""
+msgstr "{pacenote} クルーズが{advisory_speed_text}に減速中。"
 
 #. placeholders: {pacenote}
 msgid "{pacenote} Curve assistance slowing."
@@ -14084,13 +14077,13 @@ msgstr "カーブを過ぎるとクルーズが再開します。"
 #. placeholders: {pacenote}
 #. one sentence of a longer line
 msgid "{pacenote} Cruise paused for the bend, curve assistance slowing."
-msgstr ""
+msgstr "{pacenote} カーブのためクルーズ一時停止、カーブ支援が減速中。"
 
 #. placeholders: {pacenote}
 msgid ""
 "{pacenote} Cruise paused for the bend, curve assistance slowing. Cruise "
 "resumes past the bend."
-msgstr ""
+msgstr "{pacenote} カーブのためクルーズ一時停止、カーブ支援が減速中。カーブを過ぎるとクルーズ再開。"
 
 #. placeholders: {pacenote_terse}
 msgid "{pacenote_terse} Cruise paused; assistance slowing."
@@ -14103,11 +14096,11 @@ msgstr "過ぎると再開します。"
 #. placeholders: {pacenote}
 #. one sentence of a longer line
 msgid "{pacenote} Cruise paused for the bend."
-msgstr ""
+msgstr "{pacenote} カーブのためクルーズ一時停止。"
 
 #. placeholders: {pacenote}
 msgid "{pacenote} Cruise paused for the bend. Resumes past it."
-msgstr ""
+msgstr "{pacenote} カーブのためクルーズ一時停止。過ぎると再開。"
 
 #. placeholders: {pacenote_terse}
 msgid "{pacenote_terse} Cruise paused."
@@ -14646,7 +14639,7 @@ msgid "Heat or air conditioning"
 msgstr "暖房か冷房"
 
 msgid "Cruise"
-msgstr ""
+msgstr "クルーズ"
 
 msgid "Resume the last cruise speed"
 msgstr "前回のクルーズ速度に戻す"
@@ -16232,34 +16225,20 @@ msgstr "プレイテスト操作：{spoken}への積荷をボードに追加し�
 msgid "This screen arrives with its own port."
 msgstr "この画面には専用のポートがあります。"
 
-msgid "Departing now."
-msgstr "出発します。"
-
-#. placeholders: {control_hint}, {control_hint2}
-msgid ""
-"Engine off. {control_hint} starts it, {control_hint2} releases the parking "
-"brake once air is up."
-msgstr ""
-"エンジンはオフです。{control_hint}でエンジンをかけ、エアがたまったら{control_hint2}で駐車ブレーキを解除します。"
-
-#. placeholders: {control_hint}, {control_hint2}
-#. one sentence of a longer line
-msgid ""
-"{control_hint} starts it, {control_hint2} releases the parking brake once "
-"air is up."
-msgstr "{control_hint}でエンジンをかけ、エアがたまったら{control_hint2}で駐車ブレーキを解除します。"
+msgid " Departing now."
+msgstr " 今から出発します。"
 
 #. placeholders: {f}
 msgid " Deadline extended to {f} hours."
 msgstr "期限が{f}時間に延長されました。"
 
-#. placeholders: {pairing_line}, {lead}, {route_departure_summary}, {departure_briefing}, {next_context}, {name}
+#. placeholders: {pairing_line}, {lead}, {route_departure_summary}, {departure_briefing}, {name}
 msgid ""
-"{pairing_line} {lead}{route_departure_summary} {departure_briefing} "
-"{next_context} {name} takes the wheel."
+"{pairing_line} {lead}{route_departure_summary} {departure_briefing} {name} "
+"takes the wheel."
 msgstr ""
-"{pairing_line}{lead}{route_departure_summary}{departure_briefing}{next_conte"
-"xt}{name}がハンドルを握ります。"
+"{pairing_line} {lead}{route_departure_summary} {departure_briefing} "
+"{name}がハンドルを握ります。"
 
 msgid ""
 "Enter accepts. F1 is job details. Tab is the market. Escape goes back."
@@ -16313,11 +16292,11 @@ msgstr "表示の報酬は会社の取り分で、あなたにはそこから給
 
 #. placeholders: {take_home}
 msgid "about {take_home} after costs"
-msgstr ""
+msgstr "経費差し引き後約{take_home}"
 
 #. placeholders: {take_home}
 msgid "about {take_home} to you"
-msgstr ""
+msgstr "あなたの取り分約{take_home}"
 
 #. placeholders: {highway}
 #. one sentence of a longer line
@@ -16360,11 +16339,11 @@ msgid "Dispatch board"
 msgstr "配車ボード"
 
 msgid " This assignment needs an extra rest on your current hours."
-msgstr ""
+msgstr " この配車は今の時間では追加の休憩が必要です。"
 
 #. placeholders: {current}, {hos_note}
 msgid "Dispatch board. {current}{hos_note}"
-msgstr ""
+msgstr "配車ボード。{current}{hos_note}"
 
 msgid ""
 "Dispatch is sending you empty, with no pickup. After you accept, Route "
@@ -16381,7 +16360,7 @@ msgstr ""
 
 #. placeholders: {describe}
 msgid "Assigned load: {describe}"
-msgstr ""
+msgstr "割り当てられた積荷：{describe}"
 
 #. placeholders: {remaining}, {s_ending}
 msgid "Decline and request another load: {remaining} decline{s_ending} left"
@@ -16500,7 +16479,7 @@ msgstr "その積荷の施設はもうネットワークにありません。配
 #. placeholders: {equipment_note}, {distance_text}, {origin_short_name}
 msgid ""
 "Accepted.{equipment_note} {distance_text} empty to {origin_short_name}."
-msgstr ""
+msgstr "受注しました。{equipment_note} {origin_short_name}まで空荷で{distance_text}。"
 
 msgid ""
 "That load's city is no longer on the network. Dispatch pulled the offer."
@@ -16509,7 +16488,7 @@ msgstr "その積荷の都市はもうネットワークにありません。配
 #. placeholders: {equipment_note}, {distance_text}, {origin_offer_text}
 msgid ""
 "Accepted.{equipment_note} {distance_text} empty to {origin_offer_text}."
-msgstr ""
+msgstr "受注しました。{equipment_note} {origin_offer_text}まで空荷で{distance_text}。"
 
 #. placeholders: {equipment_note}
 msgid "Accepted.{equipment_note} The load is here in the yard."
@@ -16634,10 +16613,6 @@ msgstr "この運行には10時間の睡眠が必要です。"
 msgid "This run needs {sleeps} 10-hour sleeps."
 msgstr "この運行には10時間の睡眠が{sleeps}回必要です。"
 
-#. placeholders: {percent}
-msgid "Fuel: {percent} percent."
-msgstr "燃料：{percent}パーセント。"
-
 #. placeholders: {i}, {total}
 msgid "Job {i} of {total}: "
 msgstr "{total}件中{i}件目の依頼： "
@@ -16705,10 +16680,10 @@ msgid "Equipment: {equipment_text}."
 msgstr "装備：{equipment_text}。"
 
 msgid "Market: tight, so this load pays more than usual."
-msgstr ""
+msgstr "市場：逼迫しているので、この積荷は普段より高くなります。"
 
 msgid "Market: loose, so this load pays less than usual."
-msgstr ""
+msgstr "市場：緩いので、この積荷は普段より安くなります。"
 
 #. placeholders: {trailer}
 msgid "Trailer: {trailer}"
@@ -17123,14 +17098,18 @@ msgstr "{city}サービスエリア"
 msgid "At the terminal"
 msgstr "ターミナルにて"
 
+#. placeholders: {name}, {city_name}
+msgid "{name} in {city_name}"
+msgstr "{city_name}の{name}"
+
 #. placeholders: {grouped}, {cdl}, {record}
 #. one sentence of a longer line
 msgid "{grouped} dollars.{cdl}{record}"
 msgstr "{grouped}ドル。{cdl}{record}"
 
-#. placeholders: {name}, {city_name}, {grouped}, {cdl}, {record}
-msgid "{name} in {city_name}. {grouped} dollars.{cdl}{record}"
-msgstr "{city_name}の{name}。{grouped}ドル。{cdl}{record}"
+#. placeholders: {place}, {grouped}, {cdl}, {record}
+msgid "{place}. {grouped} dollars.{cdl}{record}"
+msgstr "{place}。{grouped}ドル。{cdl}{record}"
 
 msgid ""
 "Loads from local freight facilities. New company hires get an assigned "
@@ -18618,7 +18597,7 @@ msgstr "一般道路に出たときの制限速度"
 
 #. placeholders: {target}
 msgid " Cruise paused, set {target}."
-msgstr ""
+msgstr " クルーズ一時停止、設定{target}。"
 
 msgid ""
 "Nothing to walk around yet. The shipper is loading the trailer you came in "
@@ -18752,9 +18731,9 @@ msgstr "出発する前に積荷を積み込んでください。"
 msgid "Dispatch cannot find a route for this load."
 msgstr "配車係はこの積荷のルートを見つけられません。"
 
-#. placeholders: {destination_facility_text}
-msgid "Dispatch routed you to {destination_facility_text}. "
-msgstr "配車係が{destination_facility_text}へのルートを決めました。 "
+#. placeholders: {destination}
+msgid "Dispatch routed you to {destination}. "
+msgstr "配車係が{destination}へ向かわせました。 "
 
 msgid "Back to pickup facility"
 msgstr "積み込み施設に戻る"
@@ -18806,7 +18785,7 @@ msgstr "{destination_facility_text}行きの{label}{f}トン。"
 
 #. placeholders: {f}
 msgid " Idling here burned {f} gallons."
-msgstr ""
+msgstr " ここでのアイドリングで{f}ガロン消費しました。"
 
 msgid "Saved. The pickup resumes here."
 msgstr "保存しました。積み込みはここから再開します。"
@@ -18862,6 +18841,10 @@ msgid ""
 " {wait} minutes past the two free hours at the dock: {dollars} dollars "
 "detention, paid to the carrier."
 msgstr " ドックの無料の2時間を{wait}分超過：待機料{dollars}ドルは会社に支払われます。"
+
+#. placeholders: {condition}
+msgid " The trailer is {condition}."
+msgstr " トレーラーは{condition}です。"
 
 #. placeholders: {facility}
 #. one sentence of a longer line
@@ -19010,7 +18993,7 @@ msgstr "一般道路に出たときの制限速度"
 
 #. placeholders: {target}
 msgid "Cruise: paused   Cruise speed: {target}"
-msgstr ""
+msgstr "クルーズ：一時停止   クルーズ速度：{target}"
 
 msgid "Route planning"
 msgstr "ルート計画"
@@ -19867,11 +19850,11 @@ msgid "{control_hint} lists the controls."
 msgstr "{control_hint}で操作の一覧を読みます。"
 
 msgid "Cruise paused. "
-msgstr ""
+msgstr "クルーズ一時停止。 "
 
 #. placeholders: {control_hint}
 msgid "Cruise paused. {control_hint} cancels it. "
-msgstr ""
+msgstr "クルーズ一時停止。{control_hint}で解除します。 "
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -19952,19 +19935,14 @@ msgstr "{progress}{deadline_game_h}時間中{hours_used}時間を使用。"
 
 #. placeholders: {pickup_facility_text}
 msgid "Drive empty to {pickup_facility_text}. "
-msgstr ""
+msgstr "{pickup_facility_text}まで空荷で走ってください。 "
 
 #. placeholders: {destination_facility_text}
-#. one sentence of a longer line
-msgid "Loaded for {destination_facility_text}."
-msgstr "{destination_facility_text}行きの積荷を載せています。"
-
-#. placeholders: {destination_facility_text}, {progress_summary}
-msgid "Loaded for {destination_facility_text}. {progress_summary} "
-msgstr "{destination_facility_text}行きの積荷を載せています。{progress_summary} "
+msgid "Loaded for {destination_facility_text}. "
+msgstr "{destination_facility_text}行きを積みました。 "
 
 msgid " Manual transmission."
-msgstr ""
+msgstr " マニュアル変速。"
 
 #. one sentence of a longer line
 msgid "At the wheel."
@@ -19972,14 +19950,15 @@ msgstr "運転席にいます。"
 
 #. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
 msgid ""
-"At the wheel. {objective}It is {now}.{transmission} {report_lead}. {engine} "
+"At the wheel. {objective}It is {now}.{transmission}{report_lead} {engine} "
 "{help}"
 msgstr ""
+"運転席です。{objective}現在{now}。{transmission}{report_lead} {engine} {help}"
 
-#. placeholders: {objective}, {now}, {transmission}, {report_lead}
+#. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
 #. one sentence of a longer line
-msgid "{objective}It is {now}.{transmission} {report_lead}."
-msgstr ""
+msgid "{objective}It is {now}.{transmission}{report_lead} {engine} {help}"
+msgstr "{objective}現在{now}。{transmission}{report_lead} {engine} {help}"
 
 msgid "amount"
 msgstr "amount"
@@ -20126,18 +20105,18 @@ msgstr "{emergency_brake} を押し続けると非常ブレーキ、最も強い
 #. one sentence of a longer line
 msgid ""
 "It follows traffic on open roads and holds the limit in low-speed zones."
-msgstr ""
+msgstr "開けた道路では交通に合わせ、低速区間では制限速度を保ちます。"
 
 #. placeholders: {cruise}
 #. one sentence of a longer line
 msgid "{cruise} starts cruise."
-msgstr ""
+msgstr "{cruise}でクルーズを開始します。"
 
 #. placeholders: {cruise}
 msgid ""
 "{cruise} starts cruise. It follows traffic on open roads and holds the "
 "limit in low-speed zones."
-msgstr ""
+msgstr "{cruise}でクルーズを開始します。開けた道路では交通に合わせ、低速区間では制限速度を保ちます。"
 
 msgid "Weather widens the gap."
 msgstr "天候で車間が広がります。"
@@ -20145,7 +20124,7 @@ msgstr "天候で車間が広がります。"
 msgid ""
 "Cruise eases early for a sharp posted-limit drop, and in low-speed zones "
 "for the next turn or the next lower limit."
-msgstr ""
+msgstr "クルーズは標識の制限速度が大きく下がる手前と、低速区間では次の曲がり角や次の低い制限の手前で早めに減速します。"
 
 msgid "Braking cancels it."
 msgstr "ブレーキで解除されます。"
@@ -20509,13 +20488,13 @@ msgstr "後退中は右トリガーで停止し、離してから、もう一度
 #. placeholders: {cruise_cap}
 #. one sentence of a longer line
 msgid "{cruise_cap} starts cruise."
-msgstr ""
+msgstr "{cruise_cap}でクルーズを開始します。"
 
 #. placeholders: {cruise_cap}
 msgid ""
 "{cruise_cap} starts cruise. It follows traffic on open roads and holds the "
 "limit in low-speed zones."
-msgstr ""
+msgstr "{cruise_cap}でクルーズを開始します。開けた道路では交通に合わせ、低速区間では制限速度を保ちます。"
 
 #. placeholders: {cruise_down}, {cruise_up}
 msgid "{cruise_down} or {cruise_up} change the cruise speed by five."
@@ -20669,34 +20648,34 @@ msgstr "{other}のため"
 
 #. placeholders: {speed}, {reason}, {speed2}
 msgid "cruise holding {speed} {reason}, set {speed2}"
-msgstr ""
+msgstr "クルーズ{speed}を維持中{reason}、設定{speed2}"
 
 #. placeholders: {speed}, {keeper_held_reason}, {speed2}
 msgid "cruise holding {speed} {keeper_held_reason}, set {speed2}"
-msgstr ""
+msgstr "クルーズ{speed}を維持中{keeper_held_reason}、設定{speed2}"
 
 #. placeholders: {speed}
 msgid "cruise holding {speed}"
-msgstr ""
+msgstr "クルーズ{speed}を維持中"
 
 #. placeholders: {speed}, {why}, {speed2}
 msgid "cruise holding {speed}{why}, set {speed2}"
-msgstr ""
+msgstr "クルーズ{speed}を維持中{why}、設定{speed2}"
 
 #. placeholders: {speed}
 msgid "cruise set at {speed}"
-msgstr ""
+msgstr "クルーズ設定{speed}"
 
 #. placeholders: {speed_value}
 msgid " Cruise speed {speed_value}."
-msgstr ""
+msgstr " クルーズ速度{speed_value}。"
 
 #. placeholders: {speed_value}
 msgid " Cruise paused, set {speed_value}."
-msgstr ""
+msgstr " クルーズ一時停止、設定{speed_value}。"
 
 msgid " Cruise paused."
-msgstr ""
+msgstr " クルーズ一時停止。"
 
 #. placeholders: {rpm}
 msgid ", {rpm} RPM"
@@ -21084,7 +21063,7 @@ msgid "Cruise speed: {open_road_target}"
 msgstr "一般道路での目標：{open_road_target}"
 
 msgid "Cruise paused; resumes when the truck is rolling"
-msgstr ""
+msgstr "クルーズ一時停止。トラックが動けば再開します"
 
 #. placeholders: {start_damage}
 msgid "Damage: new damage {start_damage} percent"
@@ -22631,11 +22610,11 @@ msgid "over a light out"
 msgstr "ライト切れで"
 
 msgid "A trooper has somebody stopped in the median, not you."
-msgstr ""
+msgstr "中央分離帯で警官が誰かを止めています。あなたではありません。"
 
 #. placeholders: {reason}
 msgid "A trooper has somebody stopped in the median {reason}, not you."
-msgstr ""
+msgstr "中央分離帯で警官が誰かを止めています{reason}。あなたではありません。"
 
 #. placeholders: {reason}
 msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
@@ -23458,7 +23437,7 @@ msgstr "クルーズオフ。"
 
 #. placeholders: {minimum}
 msgid "Cruise needs the engine running and at least {minimum}."
-msgstr ""
+msgstr "クルーズにはエンジン始動と{minimum}以上が必要です。"
 
 msgid "Open road"
 msgstr "一般道路"
@@ -23489,7 +23468,7 @@ msgstr " {value}に合わせて"
 
 #. placeholders: {else}, {speed_text}, {exit_note}
 msgid "Cruise {else} at {speed_text}{exit_note}."
-msgstr ""
+msgstr "クルーズ{else}、{speed_text}{exit_note}。"
 
 msgid "resuming"
 msgstr "再開"
@@ -23518,7 +23497,7 @@ msgstr "{speed_number}、ランプ{speed_number2}。"
 
 #. placeholders: {speed_text}
 msgid "Cruise {speed_text}."
-msgstr ""
+msgstr "クルーズ{speed_text}。"
 
 #. placeholders: {speed_text}
 msgid "Open-road cruise target {speed_text}."
@@ -23536,7 +23515,7 @@ msgid "No cruise {place}."
 msgstr "{place}クルーズは使えません。"
 
 msgid "Cruise needs the engine running and the truck rolling."
-msgstr ""
+msgstr "クルーズにはエンジン始動と走行中のトラックが必要です。"
 
 msgid "Construction zone ahead"
 msgstr "前方に工事区間"
@@ -23549,7 +23528,7 @@ msgstr "制限速度が下がります"
 
 #. placeholders: {reason}, {eased}
 msgid "{reason}; cruise easing to {eased}."
-msgstr ""
+msgstr "{reason}。クルーズが{eased}に減速中。"
 
 #. placeholders: {speed_value}
 msgid "Cruise easing to {speed_value}."
@@ -23564,11 +23543,11 @@ msgstr "この勾配でクルーズを{held}に下げます。"
 
 #. placeholders: {held}
 msgid "Cruise building to {held} for the merge."
-msgstr ""
+msgstr "合流のためクルーズが{held}まで加速中。"
 
 #. placeholders: {held}
 msgid "Cruise building to {held}."
-msgstr ""
+msgstr "クルーズが{held}まで加速中。"
 
 msgid " on this grade"
 msgstr " この勾配では"
@@ -23580,19 +23559,19 @@ msgstr "ブレーキを踏んでください。"
 #. placeholders: {held}, {because}
 #. one sentence of a longer line
 msgid "Cruise can't hold {held}{because}."
-msgstr ""
+msgstr "クルーズは{held}を保てません{because}。"
 
 #. placeholders: {held}, {because}
 msgid "Cruise can't hold {held}{because}. Brake."
-msgstr ""
+msgstr "クルーズは{held}を保てません{because}。ブレーキを。"
 
 #. placeholders: {held}, {zone}
 msgid "Cruise holding {held} through {zone}."
-msgstr ""
+msgstr "クルーズが{zone}で{held}を維持中。"
 
 #. placeholders: {held}
 msgid "Cruise holding {held}."
-msgstr ""
+msgstr "クルーズ{held}を維持中。"
 
 msgid "Wet roads, longer gap."
 msgstr "路面がぬれています。車間を広げます。"
@@ -23619,11 +23598,11 @@ msgstr "{title_case}区間。"
 
 #. placeholders: {title_case}, {held}
 msgid "{title_case} zone. Cruise holding {held}."
-msgstr ""
+msgstr "{title_case}区間。クルーズ{held}を維持中。"
 
 #. placeholders: {speed_value}
 msgid "Cruise holding {speed_value}."
-msgstr ""
+msgstr "クルーズ{speed_value}を維持中。"
 
 msgid "through the construction zone"
 msgstr ""
@@ -23653,7 +23632,7 @@ msgid "{capitalize_first}, cruise easing to {speed_value}."
 msgstr "{capitalize_first}、クルーズを{speed_value}まで落とします。"
 
 msgid "Stopped traffic ahead; cruise canceled."
-msgstr ""
+msgstr "前方の交通が停止、クルーズ解除。"
 
 msgid "Traffic ahead, slowing."
 msgstr "前方に車、減速します。"
@@ -24482,35 +24461,31 @@ msgid "your settlement."
 msgstr "あなたの精算。"
 
 msgid "Cruise paused."
-msgstr ""
+msgstr "クルーズ一時停止。"
 
 #. placeholders: {keeper}
 msgid "Cruise holding {keeper}."
-msgstr ""
+msgstr "クルーズ{keeper}を維持中。"
 
-msgid ""
-"Back on the highway after the 30-minute break. Keep the logbook clean."
-msgstr "30分休憩を終えて高速道路に戻りました。運転日誌はきちんと守ってください。"
+msgid "Back on the highway after the 30-minute break."
+msgstr "30分休憩を終えて高速道路に戻りました。"
 
-msgid "Back on the highway with a reset clock. Keep the logbook clean."
-msgstr "時計をリセットして高速道路に戻りました。運転日誌はきちんと守ってください。"
+msgid "Back on the highway with a reset clock."
+msgstr "時計がリセットされ、高速道路に戻りました。"
+
+#. placeholders: {evidence_text}
+#. one sentence of a longer line
+msgid "Citation: {evidence_text}."
+msgstr "違反：{evidence_text}。"
 
 #. placeholders: {oos_phrase}
 #. one sentence of a longer line
-msgid ""
-"The officer writes the order: out of service, {oos_phrase}, right here."
-msgstr "警官が命令書を書きます。この場で{oos_phrase}の走行禁止です。"
+msgid "Out of service {oos_phrase}."
+msgstr "運行停止{oos_phrase}。"
 
-#. placeholders: {text}, {evidence_text}
-#. one sentence of a longer line
-msgid "{text} Evidence: {evidence_text}."
-msgstr "{text}証拠：{evidence_text}。"
-
-#. placeholders: {text}, {evidence_text}, {oos_phrase}
-msgid ""
-"{text} Evidence: {evidence_text}. The officer writes the order: out of "
-"service, {oos_phrase}, right here."
-msgstr "{text}証拠：{evidence_text}。警官が命令書を書きます。この場で{oos_phrase}の走行禁止です。"
+#. placeholders: {oos_phrase}, {evidence_text}
+msgid "Out of service {oos_phrase}. Citation: {evidence_text}."
+msgstr "運行停止{oos_phrase}。違反：{evidence_text}。"
 
 #. one sentence of a longer line
 msgid "Lights and siren behind you for a log check."
@@ -24530,11 +24505,16 @@ msgstr "運転日誌の確認"
 msgid "Fined {grouped} dollars, and your reputation took a hit."
 msgstr "{grouped}ドルの罰金で、評判も下がりました。"
 
+#. placeholders: {text}, {evidence_text}
+#. one sentence of a longer line
+msgid "{text} Citation: {evidence_text}."
+msgstr "{text} 違反：{evidence_text}。"
+
 #. placeholders: {text}, {evidence_text}, {grouped}
 msgid ""
-"{text} Evidence: {evidence_text}. Fined {grouped} dollars, and your "
+"{text} Citation: {evidence_text}. Fined {grouped} dollars, and your "
 "reputation took a hit."
-msgstr "{text}証拠：{evidence_text}。{grouped}ドルの罰金で、評判も下がりました。"
+msgstr "{text} 違反：{evidence_text}。罰金{grouped}ドル、評判も下がりました。"
 
 msgid "departure acceleration lane"
 msgstr "出発時の加速車線"
@@ -24865,7 +24845,7 @@ msgstr "{journey_progress_percent}パーセント進みました。残り{closin
 
 #. placeholders: {lead}, {road}, {toward}
 msgid "{lead} On {road} toward {toward}."
-msgstr ""
+msgstr "{lead} {road}を{toward}方面へ。"
 
 #. placeholders: {lead}, {road}, {state}, {toward}
 msgid "{lead} On {road} in {state}, toward {toward}."
@@ -24928,13 +24908,12 @@ msgstr "ここには方面の標識がありません。"
 msgid "{py_capitalize} to {target}."
 msgstr "{target}まで{py_capitalize}。"
 
-#. placeholders: {street}, {city}
-msgid "on city streets, {street}, in {city}"
-msgstr "{city}の市街地、{street}"
+#. placeholders: {street}
+msgid "on city streets, {street}"
+msgstr "市街地、{street}"
 
-#. placeholders: {city}
-msgid "on the facility approach in {city}"
-msgstr "{city}の施設への進入路"
+msgid "on the facility approach"
+msgstr "施設への進入路"
 
 #. placeholders: {highway}
 msgid "the {highway} on-ramp"
@@ -25502,33 +25481,33 @@ msgstr "事業経費の内訳：{business_charge_summary}。"
 #. placeholders: {grouped}
 #. one sentence of a longer line
 msgid "Net {grouped} dollars."
-msgstr ""
+msgstr "手取り{grouped}ドル。"
 
 #. placeholders: {destination}
 #. one sentence of a longer line
 msgid "On time in {destination}."
-msgstr ""
+msgstr "{destination}に定時到着。"
 
 #. placeholders: {destination}, {grouped}
 msgid "On time in {destination}. Net {grouped} dollars."
-msgstr ""
+msgstr "{destination}に定時到着。手取り{grouped}ドル。"
 
 #. placeholders: {destination}
 #. one sentence of a longer line
 msgid "Late in {destination}."
-msgstr ""
+msgstr "{destination}に遅着。"
 
 #. placeholders: {destination}, {grouped}
 msgid "Late in {destination}. Net {grouped} dollars."
-msgstr ""
+msgstr "{destination}に遅着。手取り{grouped}ドル。"
 
 #. placeholders: {f}, {label}
 msgid "Load: {f} tons of {label}."
-msgstr ""
+msgstr "積荷：{label}{f}トン。"
 
 #. placeholders: {f}
 msgid "Trip time: {f} hours."
-msgstr ""
+msgstr "所要時間：{f}時間。"
 
 #. placeholders: {clock_text}
 msgid "It is {clock_text}."
@@ -25798,13 +25777,15 @@ msgstr "期限を{f}時間過ぎています"
 
 #. placeholders: {f}
 msgid " Truck damage this run {f} percent, may reduce pay."
-msgstr ""
+msgstr " この運行のトラック損傷{f}パーセント、報酬が減る場合があります。"
 
 #. placeholders: {facility}, {grouped}, {timing}, {advance_note}, {cargo_condition}, {finish}
 msgid ""
 "Paperwork, {facility}: about {grouped} dollars to you, "
 "{timing}.{advance_note}{cargo_condition} {finish} to settle."
 msgstr ""
+"書類、{facility}：あなたの取り分は約{grouped}ドル、{timing}。{advance_note}{cargo_condition} "
+"精算は{finish}。"
 
 #. placeholders: {facility}, {f}, {label}, {speed_text}, {else}, {finish}
 msgid ""
@@ -26549,7 +26530,7 @@ msgid "At {facility}. Stop to check in."
 msgstr "{facility}に着きました。停車して受付をしてください。"
 
 msgid "Cruise paused for pickup."
-msgstr ""
+msgstr "集荷のためクルーズ一時停止。"
 
 msgid "Pulling into pickup. Check-in menu opening."
 msgstr "積み込み先に入ります。受付のメニューを開きます。"
@@ -28297,14 +28278,13 @@ msgstr ""
 msgid "Merge back up to speed."
 msgstr "加速して流れに戻ってください。"
 
-msgid " You signaled and pulled over promptly."
-msgstr " ウインカーを出して、すぐに停車しました。"
+#. one sentence of a longer line
+msgid "License and logbook check."
+msgstr "免許と運行記録の確認。"
 
-#. placeholders: {polite}, {outcome}, {current}
-msgid ""
-"You stop on the shoulder for a license and logbook check.{polite} {outcome} "
-"{current}"
-msgstr "免許と運転日誌の確認のため、路肩に停車しました。{polite}{outcome}{current}"
+#. placeholders: {outcome}, {current}
+msgid "License and logbook check. {outcome} {current}"
+msgstr "免許と運行記録の確認。{outcome} {current}"
 
 msgid "Pulled over"
 msgstr "停車させられました"
@@ -28314,57 +28294,39 @@ msgstr "警官は警告だけで行かせてくれました。"
 
 #. placeholders: {grouped}, {construction_zone_fine_clause}
 msgid ""
-"Fine: {grouped} dollars, paid on the spot, and a reputation "
-"hit.{construction_zone_fine_clause}"
-msgstr "罰金：{grouped}ドル、その場で支払い、評判も下がりました。{construction_zone_fine_clause}"
+"Fined {grouped} dollars and a reputation hit.{construction_zone_fine_clause}"
+msgstr "罰金{grouped}ドルと評判の低下。{construction_zone_fine_clause}"
 
-#. placeholders: {join}
-msgid " The order stands because {join}."
-msgstr " {join}ため、命令は有効なままです。"
-
-#. placeholders: {clock_text}, {wake_air_instruction}
+#. placeholders: {wake_air_instruction}
 #. one sentence of a longer line
 msgid ""
-"It is {clock_text}, the 30-minute break is satisfied, and the delivery "
+"The 30-minute break is done, and the delivery deadline kept "
+"counting.{wake_air_instruction}"
+msgstr "30分休憩は済み、配達期限は進み続けました。{wake_air_instruction}"
+
+#. placeholders: {why}, {clock_text}
+#. one sentence of a longer line
+msgid "{why} It is {clock_text}."
+msgstr "{why} 現在{clock_text}。"
+
+#. placeholders: {why}, {clock_text}, {wake_air_instruction}
+msgid ""
+"{why} It is {clock_text}. The 30-minute break is done, and the delivery "
 "deadline kept counting.{wake_air_instruction}"
-msgstr "今は{clock_text}です。30分休憩の条件は満たされ、配達期限は進み続けました。{wake_air_instruction}"
+msgstr "{why} 現在{clock_text}。30分休憩は済み、配達期限は進み続けました。{wake_air_instruction}"
 
-#. placeholders: {lead}, {why}
-#. one sentence of a longer line
-msgid "{lead}{why} Out of service: thirty minutes parked on the shoulder."
-msgstr "{lead}{why}走行禁止：路肩で30分停車。"
-
-#. placeholders: {lead}, {why}, {clock_text}, {wake_air_instruction}
-msgid ""
-"{lead}{why} Out of service: thirty minutes parked on the shoulder. It is "
-"{clock_text}, the 30-minute break is satisfied, and the delivery deadline "
-"kept counting.{wake_air_instruction}"
-msgstr ""
-"{lead}{why}走行禁止：路肩で30分停車。今は{clock_text}です。30分休憩の条件は満たされ、配達期限は進み続けました。{wake_a"
-"ir_instruction}"
-
-#. placeholders: {clock_text}, {wake_air_instruction}
+#. placeholders: {wake_air_instruction}
 #. one sentence of a longer line
 msgid ""
-"It is {clock_text}, driving and duty clocks reset, you wake rested, and the "
-"delivery deadline kept counting.{wake_air_instruction}"
-msgstr ""
-"{clock_text}です。運転と勤務の時計がリセットされ、すっきり目覚めましたが、配達期限は進み続けました。{wake_air_instructio"
-"n}"
+"You are rested, and the delivery deadline kept "
+"counting.{wake_air_instruction}"
+msgstr "休息は取れ、配達期限は進み続けました。{wake_air_instruction}"
 
-#. placeholders: {lead}, {why}
-#. one sentence of a longer line
-msgid "{lead}{why} Out of service: ten hours parked on the shoulder."
-msgstr "{lead}{why}走行禁止：路肩で10時間停車。"
-
-#. placeholders: {lead}, {why}, {clock_text}, {wake_air_instruction}
+#. placeholders: {why}, {clock_text}, {wake_air_instruction}
 msgid ""
-"{lead}{why} Out of service: ten hours parked on the shoulder. It is "
-"{clock_text}, driving and duty clocks reset, you wake rested, and the "
-"delivery deadline kept counting.{wake_air_instruction}"
-msgstr ""
-"{lead}{why}走行禁止：路肩で10時間停車。{clock_text}です。運転と勤務の時計がリセットされ、すっきり目覚めましたが、配達期限は進み"
-"続けました。{wake_air_instruction}"
+"{why} It is {clock_text}. You are rested, and the delivery deadline kept "
+"counting.{wake_air_instruction}"
+msgstr "{why} 現在{clock_text}。休息は取れ、配達期限は進み続けました。{wake_air_instruction}"
 
 msgid "weigh station bypass inspection"
 msgstr "計量所を素通りしたことによる検査"
@@ -28381,12 +28343,6 @@ msgstr "停車はすでに処理済みです。"
 #. placeholders: {summary}, {outcome}, {current}
 msgid "Stop already settled. {summary} {outcome} {current}"
 msgstr "停車はすでに処理済みです。{summary}{outcome}{current}"
-
-#. placeholders: {polite}, {summary}, {outcome}, {current}
-msgid ""
-"You stop on the shoulder for an enforcement inspection.{polite} {summary} "
-"{outcome} {current}"
-msgstr "取り締まりの検査のため、路肩に停車しました。{polite}{summary}{outcome}{current}"
 
 msgid "Enter or Escape returns to the terminal."
 msgstr "Enter か Escape でターミナルに戻ります。"
@@ -28746,7 +28702,7 @@ msgid "Leave the school."
 msgstr "教習所を出ます。"
 
 msgid "Cruise is already on."
-msgstr ""
+msgstr "クルーズはすでにオンです。"
 
 #. one sentence of a longer line
 msgid "No remembered cruise speed yet."
@@ -28766,10 +28722,10 @@ msgstr "再開するにはエンジンがかかっている必要があります
 
 #. placeholders: {spoken}
 msgid "Resuming cruise at {spoken}."
-msgstr ""
+msgstr "{spoken}でクルーズ再開。"
 
 msgid "Cruise canceled."
-msgstr ""
+msgstr "クルーズ解除。"
 
 #. placeholders: {floor}
 #. one sentence of a longer line
@@ -28785,7 +28741,7 @@ msgid "Pedals are yours."
 msgstr "ペダルは自分で操作してください。"
 
 msgid "Cruise resuming."
-msgstr ""
+msgstr "クルーズ再開。"
 
 msgid "turn"
 msgstr "turn"
@@ -29124,16 +29080,16 @@ msgstr "{name}が運転した距離の報酬は半分になります。"
 msgid "While {name} drives, you are logged in the sleeper berth."
 msgstr "{name}が運転している間、あなたは寝台として記録されます。"
 
-#. placeholders: {pay}
+#. placeholders: {back}, {pay}
 #. one sentence of a longer line
-msgid "{pay} Those miles earn you half the experience."
-msgstr "{pay}その距離で得られる経験値は半分です。"
+msgid "{back} {pay} Those miles earn you half the experience."
+msgstr "{back} {pay} その走行距離の経験値は半分です。"
 
-#. placeholders: {pay}, {name}
+#. placeholders: {back}, {pay}, {name}
 msgid ""
-"{pay} Those miles earn you half the experience. While {name} drives, you "
-"are logged in the sleeper berth."
-msgstr "{pay}その距離で得られる経験値は半分です。{name}が運転している間、あなたは寝台として記録されます。"
+"{back} {pay} Those miles earn you half the experience. While {name} drives, "
+"you are logged in the sleeper berth."
+msgstr "{back} {pay} その走行距離の経験値は半分です。{name}が運転している間、あなたは寝台で記録されます。"
 
 #. placeholders: {name}, {left}
 msgid ""
@@ -29170,6 +29126,14 @@ msgid ""
 "{name} can take the wheel from this menu while you rest in the sleeper."
 msgstr ""
 
+#. one sentence of a longer line
+msgid "This load is long enough to share with a co-driver."
+msgstr ""
+
+#. placeholders: {take}
+msgid "This load is long enough to share with a co-driver. {take}"
+msgstr "この積荷は相棒の運転手と分け合えるほど長距離です。{take}"
+
 #. placeholders: {name}
 msgid "{name} drives to the receiver's gate unless something needs you."
 msgstr ""
@@ -29180,14 +29144,6 @@ msgstr ""
 
 #. placeholders: {name}
 msgid "{name} hands the wheel back once you have had your 10-hour rest."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "This load is long enough to share with a co-driver."
-msgstr ""
-
-#. placeholders: {take}, {back}
-msgid "This load is long enough to share with a co-driver. {take} {back}"
 msgstr ""
 
 #. placeholders: {status}
@@ -30780,6 +30736,10 @@ msgstr "積み込みに向かう先"
 msgid "on the road to {facility}"
 msgstr "{facility}に向かって走行中"
 
+#. placeholders: {name}
+msgid "at {name}"
+msgstr "{name}で"
+
 #. placeholders: {name}, {city}
 msgid "at {name} in {city}"
 msgstr "{city}の{name}にいます"
@@ -30797,7 +30757,7 @@ msgid "{name}: level {level}"
 msgstr "{name}：レベル{level}"
 
 msgid "1 delivery"
-msgstr ""
+msgstr "配達1件"
 
 #. placeholders: {deliveries}
 msgid "{deliveries} deliveries"
@@ -31461,6 +31421,8 @@ msgid ""
 "warning no longer has a row: it stays quiet until you are heading for a "
 "ticket."
 msgstr ""
+"2つの項目が移動しました。低速クルーズは操作ではなく運転支援にあります。車線と路肩の合図の目立ち具合は車線と路肩の合図の音量になり、オーディオのゲーム合"
+"図の音量の下にあります。選んだ設定はそのままです。速度超過の警告には項目がなくなりました。違反に向かうまで鳴りません。"
 
 msgid ""
 "Speech verbosity is now Driving speech, in the Speech category, with two "
@@ -31757,7 +31719,7 @@ msgid "Stop-and-go assistance"
 msgstr "渋滞アシスト"
 
 msgid "Cruise slows behind traffic and resumes when it is safe."
-msgstr ""
+msgstr "クルーズは前の車の後ろで減速し、安全になると再開します。"
 
 msgid "Descent speed control"
 msgstr "降坂制御"
@@ -31768,6 +31730,8 @@ msgid ""
 "On Standard and Strong, braking sets a new, lower speed to hold. Strong "
 "also caps every descent at 55 miles per hour and steps in sooner."
 msgstr ""
+"クルーズがオンのとき、急な下り坂を積荷を載せたトラックが耐えられる速度に、エンジンブレーキと短いブレーキで保ちます。標準と強では、ブレーキで新しい低い速"
+"度に設定されます。強はすべての下り坂を時速55マイルに抑え、早めに介入します。"
 
 msgid "Exit speed assistance"
 msgstr "出口速度アシスト"
@@ -31886,7 +31850,7 @@ msgid "Press {control_upcoming} to list the next few either way."
 msgstr "どちらの場合も、{control_upcoming}でこの先のいくつかを一覧にできます。"
 
 msgid "Low-speed cruise"
-msgstr ""
+msgstr "低速クルーズ"
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
@@ -31895,6 +31859,7 @@ msgid ""
 "{control_cruise} holds your current speed, then hands back to normal cruise "
 "on open roads."
 msgstr ""
+"施設内の道路、ゲート、工事区間などの低速区間では、{control_cruise}が今の速度を保ち、開けた道路では通常のクルーズに戻します。"
 
 #. placeholders: {control_cruise}
 msgid ""
@@ -31903,6 +31868,8 @@ msgid ""
 "on open roads. It eases off early for the next turn or the next lower "
 "limit. Braking cancels it. Presets never change this."
 msgstr ""
+"施設内の道路、ゲート、工事区間などの低速区間では、{control_cruise}が今の速度を保ち、開けた道路では通常のクルーズに戻します。次の曲がり角"
+"や次の低い制限の手前で早めに減速します。ブレーキで解除されます。プリセットはこれを変えません。"
 
 #. one sentence of a longer line
 msgid "It eases off early for the next turn or the next lower limit."
@@ -32738,6 +32705,8 @@ msgid ""
 "whichever you pick. All three stay clear of a following-too-close citation. "
 "The preset above never changes it."
 msgstr ""
+"クルーズが前の車との間に取る余裕です。近いは2.5秒、普通は3秒、遠いは3.5秒です。天候はどれを選んでも車間を広げます。3つとも車間距離不保持の違反に"
+"はなりません。上のプリセットはこれを変えません。"
 
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
@@ -33440,24 +33409,25 @@ msgstr ""
 "ンが鳴ります。"
 
 msgid "Cruise and hills"
-msgstr ""
+msgstr "クルーズと坂道"
 
 #. one sentence of a longer line
 msgid ""
 "On open roads it follows traffic; on low-speed roads it follows local "
 "limits, queues and corners."
-msgstr ""
+msgstr "開けた道路では交通に合わせ、低速の道では地域の制限、渋滞、カーブに合わせます。"
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
 msgid "{control_cruise} turns cruise on."
-msgstr ""
+msgstr "{control_cruise}でクルーズをオンにします。"
 
 #. placeholders: {control_cruise}
 msgid ""
 "{control_cruise} turns cruise on. On open roads it follows traffic; on "
 "low-speed roads it follows local limits, queues and corners."
 msgstr ""
+"{control_cruise}でクルーズをオンにします。開けた道路では交通に合わせ、低速の道では地域の制限、渋滞、カーブに合わせます。"
 
 msgid ""
 "Cruise follows traffic. Its normal three second clear-weather gap increases "
@@ -33493,12 +33463,12 @@ msgstr "{control_speed}で、作動中の速度制御のモードと一般道路
 msgid ""
 "The target keys change the open-road cruise speed, even while cruise holds "
 "a lower limit."
-msgstr ""
+msgstr "目標キーは、クルーズが低い制限を保っている間も、開けた道路でのクルーズ速度を変えます。"
 
 #. one sentence of a longer line
 msgid ""
 "Cruise pauses at the pickup and comes back on after you leave with the load."
-msgstr ""
+msgstr "クルーズは集荷先で一時停止し、積荷を載せて出発すると再びオンになります。"
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
@@ -33511,6 +33481,8 @@ msgid ""
 "{control_cruise_resume} resumes the previous target. Cruise pauses at the "
 "pickup and comes back on after you leave with the load."
 msgstr ""
+"解除するにはもう一度{control_cruise}を押すか、ブレーキに軽く触れます。{control_cruise_resume}で前の目標に戻ります"
+"。クルーズは集荷先で一時停止し、積荷を載せて出発すると再びオンになります。"
 
 #. placeholders: {control_cruise_resume}
 #. one sentence of a longer line
@@ -37770,6 +37742,167 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "{city} to {destination}"
+#~ msgstr "{city}から{destination}"
+
+#~ msgid "{origin} to {destination}"
+#~ msgstr "{origin}から{destination}"
+
+#~ msgid "{tons} tons of {cargo}, {route}."
+#~ msgstr "{cargo}{tons}トン、{route}。"
+
+#~ msgid "HOS/ELD violation"
+#~ msgstr "運転時間規制とELDの違反"
+
+#~ msgid "Somebody said troopers were working {side} a while back."
+#~ msgstr "少し前に、{side}州警察官が取り締まっていたと誰かが言っていました。"
+
+#~ msgid "Somebody said they were checking logs {side} a while back."
+#~ msgstr "少し前に、{side}運転日誌を確認していたと誰かが言っていました。"
+
+#~ msgid ""
+#~ "Somebody said they were checking logs and equipment {side} a while back."
+#~ msgstr "少し前に、{side}運転日誌と装備を確認していたと誰かが言っていました。"
+
+#~ msgid ""
+#~ "Somebody said the chain control was checking rigs {side} a while back."
+#~ msgstr "少し前に、{side}チェーン規制でトラックを確認していたと誰かが言っていました。"
+
+#~ msgid "Somebody called a trooper {side} a while back."
+#~ msgstr "少し前に、{side}州警察官がいると誰かが知らせていました。"
+
+#~ msgid "Somebody said a trooper had somebody stopped {side} a while back."
+#~ msgstr "少し前に、{side}州警察官が誰かを止めていたと誰かが言っていました。"
+
+#~ msgid "Departing now."
+#~ msgstr "出発します。"
+
+#~ msgid ""
+#~ "Engine off. {control_hint} starts it, {control_hint2} releases the parking "
+#~ "brake once air is up."
+#~ msgstr ""
+#~ "エンジンはオフです。{control_hint}でエンジンをかけ、エアがたまったら{control_hint2}で駐車ブレーキを解除します。"
+
+#~ msgid ""
+#~ "{control_hint} starts it, {control_hint2} releases the parking brake once "
+#~ "air is up."
+#~ msgstr "{control_hint}でエンジンをかけ、エアがたまったら{control_hint2}で駐車ブレーキを解除します。"
+
+#~ msgid ""
+#~ "{pairing_line} {lead}{route_departure_summary} {departure_briefing} "
+#~ "{next_context} {name} takes the wheel."
+#~ msgstr ""
+#~ "{pairing_line}{lead}{route_departure_summary}{departure_briefing}{next_conte"
+#~ "xt}{name}がハンドルを握ります。"
+
+#~ msgid "Fuel: {percent} percent."
+#~ msgstr "燃料：{percent}パーセント。"
+
+#~ msgid "{name} in {city_name}. {grouped} dollars.{cdl}{record}"
+#~ msgstr "{city_name}の{name}。{grouped}ドル。{cdl}{record}"
+
+#~ msgid "Dispatch routed you to {destination_facility_text}. "
+#~ msgstr "配車係が{destination_facility_text}へのルートを決めました。 "
+
+#~ msgid "Loaded for {destination_facility_text}."
+#~ msgstr "{destination_facility_text}行きの積荷を載せています。"
+
+#~ msgid "Loaded for {destination_facility_text}. {progress_summary} "
+#~ msgstr "{destination_facility_text}行きの積荷を載せています。{progress_summary} "
+
+#~ msgid ""
+#~ "Back on the highway after the 30-minute break. Keep the logbook clean."
+#~ msgstr "30分休憩を終えて高速道路に戻りました。運転日誌はきちんと守ってください。"
+
+#~ msgid "Back on the highway with a reset clock. Keep the logbook clean."
+#~ msgstr "時計をリセットして高速道路に戻りました。運転日誌はきちんと守ってください。"
+
+#~ msgid ""
+#~ "The officer writes the order: out of service, {oos_phrase}, right here."
+#~ msgstr "警官が命令書を書きます。この場で{oos_phrase}の走行禁止です。"
+
+#~ msgid "{text} Evidence: {evidence_text}."
+#~ msgstr "{text}証拠：{evidence_text}。"
+
+#~ msgid ""
+#~ "{text} Evidence: {evidence_text}. The officer writes the order: out of "
+#~ "service, {oos_phrase}, right here."
+#~ msgstr "{text}証拠：{evidence_text}。警官が命令書を書きます。この場で{oos_phrase}の走行禁止です。"
+
+#~ msgid ""
+#~ "{text} Evidence: {evidence_text}. Fined {grouped} dollars, and your "
+#~ "reputation took a hit."
+#~ msgstr "{text}証拠：{evidence_text}。{grouped}ドルの罰金で、評判も下がりました。"
+
+#~ msgid "on city streets, {street}, in {city}"
+#~ msgstr "{city}の市街地、{street}"
+
+#~ msgid "on the facility approach in {city}"
+#~ msgstr "{city}の施設への進入路"
+
+#~ msgid " You signaled and pulled over promptly."
+#~ msgstr " ウインカーを出して、すぐに停車しました。"
+
+#~ msgid ""
+#~ "You stop on the shoulder for a license and logbook check.{polite} {outcome} "
+#~ "{current}"
+#~ msgstr "免許と運転日誌の確認のため、路肩に停車しました。{polite}{outcome}{current}"
+
+#~ msgid ""
+#~ "Fine: {grouped} dollars, paid on the spot, and a reputation "
+#~ "hit.{construction_zone_fine_clause}"
+#~ msgstr "罰金：{grouped}ドル、その場で支払い、評判も下がりました。{construction_zone_fine_clause}"
+
+#~ msgid " The order stands because {join}."
+#~ msgstr " {join}ため、命令は有効なままです。"
+
+#~ msgid ""
+#~ "It is {clock_text}, the 30-minute break is satisfied, and the delivery "
+#~ "deadline kept counting.{wake_air_instruction}"
+#~ msgstr "今は{clock_text}です。30分休憩の条件は満たされ、配達期限は進み続けました。{wake_air_instruction}"
+
+#~ msgid "{lead}{why} Out of service: thirty minutes parked on the shoulder."
+#~ msgstr "{lead}{why}走行禁止：路肩で30分停車。"
+
+#~ msgid ""
+#~ "{lead}{why} Out of service: thirty minutes parked on the shoulder. It is "
+#~ "{clock_text}, the 30-minute break is satisfied, and the delivery deadline "
+#~ "kept counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "{lead}{why}走行禁止：路肩で30分停車。今は{clock_text}です。30分休憩の条件は満たされ、配達期限は進み続けました。{wake_a"
+#~ "ir_instruction}"
+
+#~ msgid ""
+#~ "It is {clock_text}, driving and duty clocks reset, you wake rested, and the "
+#~ "delivery deadline kept counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "{clock_text}です。運転と勤務の時計がリセットされ、すっきり目覚めましたが、配達期限は進み続けました。{wake_air_instructio"
+#~ "n}"
+
+#~ msgid "{lead}{why} Out of service: ten hours parked on the shoulder."
+#~ msgstr "{lead}{why}走行禁止：路肩で10時間停車。"
+
+#~ msgid ""
+#~ "{lead}{why} Out of service: ten hours parked on the shoulder. It is "
+#~ "{clock_text}, driving and duty clocks reset, you wake rested, and the "
+#~ "delivery deadline kept counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "{lead}{why}走行禁止：路肩で10時間停車。{clock_text}です。運転と勤務の時計がリセットされ、すっきり目覚めましたが、配達期限は進み"
+#~ "続けました。{wake_air_instruction}"
+
+#~ msgid ""
+#~ "You stop on the shoulder for an enforcement inspection.{polite} {summary} "
+#~ "{outcome} {current}"
+#~ msgstr "取り締まりの検査のため、路肩に停車しました。{polite}{summary}{outcome}{current}"
+
+#~ msgid "{pay} Those miles earn you half the experience."
+#~ msgstr "{pay}その距離で得られる経験値は半分です。"
+
+#~ msgid ""
+#~ "{pay} Those miles earn you half the experience. While {name} drives, you "
+#~ "are logged in the sleeper berth."
+#~ msgstr "{pay}その距離で得られる経験値は半分です。{name}が運転している間、あなたは寝台として記録されます。"
 
 #~ msgid ""
 #~ "Level {level}, {title}. {f} experience.{owed_text} Reputation {f2} out of "

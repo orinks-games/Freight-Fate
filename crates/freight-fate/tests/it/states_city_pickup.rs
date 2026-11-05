@@ -180,12 +180,13 @@ fn test_drop_and_hook_gets_the_truck_out_in_a_fraction_of_the_time() {
         hours_before + DROP_HOOK_MIN / 60.0
     );
     assert!(profile(&app).hos.duty_min > 0.0);
-    // The driver is told which trailer they are pulling and what shape it
-    // is in -- the whole risk of hooking somebody else's box.
-    let lines = app.main_lines();
-    let readout = lines[lines.len().saturating_sub(3)..].join(" ");
-    assert!(readout.contains(&plan.trailer.as_ref().unwrap().number));
-    assert!(readout.to_lowercase().contains("hooked to"));
+    // The driver is told which trailer they are pulling (at check-in);
+    // its shape only when it is worn or defective.
+    let lines = app.main_lines().join(" ");
+    assert!(
+        lines.contains(&plan.trailer.as_ref().unwrap().number),
+        "{lines}"
+    );
 }
 
 // -- the walk-around, and refusing a trailer ---------------------------------------
@@ -947,10 +948,12 @@ fn test_departing_with_the_engine_off_names_the_start_control() {
     // Never "Departing now" over a dead engine, and the key named is the one
     // this driver's settings actually bind.
     assert!(!departure.contains("Departing now"), "{departure}");
-    assert!(
-        departure.contains(&app.ctx.control_hint("engine")),
-        "{departure}"
-    );
+    // The At the wheel line right after names the start key.
+    let wheel = lines
+        .iter()
+        .find(|line| line.starts_with("At the wheel."))
+        .expect("the At the wheel line");
+    assert!(wheel.contains(&app.ctx.control_hint("engine")), "{wheel}");
 }
 
 #[test]

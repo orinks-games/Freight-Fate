@@ -41,6 +41,10 @@
 - **Arriving at a facility names it once.** After Pulling into, the menu opens on its first row.
 - **The speed readout says miles per hour once,** and the road readout names a state only when your destination is in another one.
 - **Idle fuel burned at a pickup is now in Pickup status** instead of the loaded line. The weather readout no longer ends with It is day.
+- **Starting a drive with a load says only what you need.** At the wheel names the facility and time; hours and fuel come up only when they run short.
+- **Roadside inspections say you were stopped, the citation, and the fine.** The shoulder, the paperwork and driving tips are gone.
+- **Old CB trooper reports lead with the distance.**
+- **The terminal and career lines name your home city once.**
 
 ### Removed
 

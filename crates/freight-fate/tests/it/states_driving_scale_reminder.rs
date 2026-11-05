@@ -930,7 +930,7 @@ fn a_held_brake_key_does_not_read_the_stop_screen_row_over_and_over() {
         app.speech().transcript_lines()
     );
     assert_eq!(
-        count(&app, "Fine: "),
+        count(&app, "Fined "),
         1,
         "{:?}",
         app.speech().transcript_lines()

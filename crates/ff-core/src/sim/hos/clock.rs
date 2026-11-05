@@ -695,7 +695,7 @@ impl HosClock {
     }
 
     /// Which blown limit ended the shift, or None; the driving clock leads.
-    fn shift_over_kind(&self, mode: &str) -> Option<&'static str> {
+    pub fn shift_over_kind(&self, mode: &str) -> Option<&'static str> {
         let statuses = self.statuses(mode);
         let blown = |kind: &str| {
             statuses

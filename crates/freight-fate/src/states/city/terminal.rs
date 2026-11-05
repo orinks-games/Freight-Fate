@@ -719,9 +719,15 @@ impl Menu for CityMenuState {
                     format!("{} dollars.", fmt_grouped(p.money(), 0))
                 }
             } else {
+                // "Sheboygan Company Yard in Sheboygan" says the city twice.
+                let short_city = city_name.split(',').next().unwrap_or(&city_name).trim();
+                let place = if terminal.name.contains(short_city) {
+                    terminal.spoken_name()
+                } else {
+                    format!("{} in {city_name}", terminal.spoken_name())
+                };
                 format!(
-                    "{} in {city_name}. {} dollars.{cdl}{record}",
-                    terminal.spoken_name(),
+                    "{place}. {} dollars.{cdl}{record}",
                     fmt_grouped(p.money(), 0)
                 )
             }

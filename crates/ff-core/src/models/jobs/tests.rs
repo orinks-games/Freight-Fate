@@ -1418,11 +1418,11 @@ fn test_board_line_names_the_shared_state_once() {
     job.origin_spoken = "South Bend, Indiana".to_string();
     job.destination_spoken = "Fort Wayne, Indiana".to_string();
     let text = job.describe_plain();
-    assert!(text.contains(", South Bend to Fort Wayne, Indiana. 85 miles, deadline 4 hours."));
+    assert!(text.contains(" from South Bend to Fort Wayne, Indiana. 85 miles, deadline 4 hours."));
     assert!(text.ends_with("Pays 833 dollars."));
     assert!(!text.contains("Distribution Center"));
     assert_eq!(
-        route_pair("Chicago, Illinois", "Kenosha, Wisconsin"),
-        "Chicago, Illinois to Kenosha, Wisconsin"
+        route_origin("Chicago, Illinois", "Kenosha, Wisconsin"),
+        "Chicago, Illinois"
     );
 }

@@ -887,7 +887,7 @@ impl Trip {
                     TripEventData {
                         key: Some(key),
                         context: Some("weigh_station".to_string()),
-                        evidence: Some(vec!["HOS/ELD violation".to_string()]),
+                        evidence: Some(vec!["hours-of-service violation".to_string()]),
                         ..Default::default()
                     },
                 );
@@ -995,7 +995,7 @@ impl Trip {
                 TripEventData {
                     key: Some(key),
                     context: Some(context.to_string()),
-                    evidence: Some(vec!["HOS/ELD violation".to_string()]),
+                    evidence: Some(vec!["hours-of-service violation".to_string()]),
                     ..Default::default()
                 },
             );

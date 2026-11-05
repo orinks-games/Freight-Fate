@@ -1729,7 +1729,7 @@ fn test_the_terminal_does_not_double_the_dalles_article() {
     app.push_state(city);
 
     let entry = entry_announcement(&app);
-    assert!(entry.contains(" in The Dalles. "), "{entry}");
+    assert!(entry.contains("The Dalles Company Yard. "), "{entry}");
     assert!(!entry.contains("the The"), "{entry}");
 }
 

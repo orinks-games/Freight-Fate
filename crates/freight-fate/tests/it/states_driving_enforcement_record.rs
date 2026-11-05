@@ -910,7 +910,7 @@ fn test_a_settled_stop_is_read_back_as_history_not_as_a_fresh_charge() {
         .last()
         .cloned()
         .unwrap_or_else(|| panic!("the stop said nothing"));
-    assert!(first.starts_with("You stop on the shoulder"), "{first}");
+    assert!(!first.starts_with("Stop already settled"), "{first}");
 
     // Told again: same detail, plainly already settled.
     stop.announce_entry(&mut app.ctx);

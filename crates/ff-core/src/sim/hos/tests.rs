@@ -1550,7 +1550,7 @@ fn test_route_backed_weigh_station_emits_evidence() {
     assert_eq!(events[0].data.context.as_deref(), Some("weigh_station"));
     assert_eq!(
         events[0].data.evidence,
-        Some(vec!["HOS/ELD violation".to_string()])
+        Some(vec!["hours-of-service violation".to_string()])
     );
 }
 

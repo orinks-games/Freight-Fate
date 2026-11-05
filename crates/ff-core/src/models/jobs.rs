@@ -164,13 +164,13 @@ pub struct DescribeOptions<'a> {
 
 /// "Buffalo to Jamestown, New York", naming the state once when both
 /// cities share it.
-pub fn route_pair(origin: &str, destination: &str) -> String {
+/// The origin as a route names it: the city alone when the destination is
+/// in the same state, which the destination then says.
+pub fn route_origin<'a>(origin: &'a str, destination: &str) -> &'a str {
     let state = |place: &str| place.rsplit_once(", ").map(|(_, s)| s.to_string());
     match (origin.rsplit_once(", "), state(destination)) {
-        (Some((city, from_state)), Some(to_state)) if from_state == to_state => {
-            format!("{city} to {destination}")
-        }
-        _ => format!("{origin} to {destination}"),
+        (Some((city, from_state)), Some(to_state)) if from_state == to_state => city,
+        _ => origin,
     }
 }
 
@@ -265,8 +265,9 @@ impl Job {
         // Whole sentences, so a catalog has each one with its words.
         let tons = fmt_f(self.weight_tons, 0);
         let cargo = self.cargo.label;
-        let route = route_pair(self.spoken_origin(), self.spoken_destination());
-        let load = format!("{tons} tons of {cargo}, {route}.");
+        let destination = self.spoken_destination();
+        let origin = route_origin(self.spoken_origin(), destination);
+        let load = format!("{tons} tons of {cargo} from {origin} to {destination}.");
         let trailer = if opts.trailer_note.is_empty() {
             String::new()
         } else {

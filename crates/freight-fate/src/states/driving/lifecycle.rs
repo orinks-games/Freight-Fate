@@ -260,19 +260,25 @@ impl DrivingState {
                 ctx.say_with(text, Say::queued());
             }
         } else {
+            // Where to, the clock, the weather and how to start: the road,
+            // the miles and the grade were just said by the departure line
+            // and the merge, and R repeats them (owner, 2026-11-04: "we only
+            // need the essential information").
             let objective = if self.phase == DRIVE_PHASE_PICKUP {
                 format!("Drive empty to {}. ", self.pickup_facility_text(ctx))
             } else {
-                format!(
-                    "Loaded for {}. {} ",
-                    self.destination_facility_text(ctx),
-                    self.trip.progress_summary(imperial)
-                )
+                format!("Loaded for {}. ", self.destination_facility_text(ctx))
             };
-            let report_lead = self.trip.weather.report_lead(imperial);
+            // Weather still loading says nothing yet; "Live weather ready"
+            // follows when it lands.
+            let report_lead = if self.trip.weather.source_status() == "loading" {
+                String::new()
+            } else {
+                format!(" {}.", self.trip.weather.report_lead(imperial))
+            };
             if self.terse_speech(ctx) {
                 let parked = self.parked_entry_status();
-                let text = format!("{objective}{now}. {mode}. {report_lead}. {parked}");
+                let text = format!("{objective}{now}. {mode}.{report_lead} {parked}");
                 ctx.say_with(text, Say::queued());
             } else {
                 let engine = self.engine_entry_instruction(ctx);
@@ -284,7 +290,7 @@ impl DrivingState {
                 };
                 let help = self.help_hint_tail(ctx);
                 let text = format!(
-                    "At the wheel. {objective}It is {now}.{transmission} {report_lead}. {engine} \
+                    "At the wheel. {objective}It is {now}.{transmission}{report_lead} {engine} \
                      {help}"
                 );
                 ctx.say_with(text.trim_end().to_string(), Say::queued());

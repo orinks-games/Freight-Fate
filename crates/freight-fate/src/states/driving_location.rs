@@ -481,7 +481,7 @@ impl DrivingState {
         // readout kept it, and that inconsistency is the bug.
         let where_text = match where_ {
             Some(where_) => where_.to_string(),
-            None => self.local_where_text(ctx),
+            None => self.local_where_text(),
         };
         let distance = distance_mi.unwrap_or_else(|| self.trip.remaining_miles());
         // The distance opens a sentence of its own ("Half a mile to the
@@ -567,15 +567,14 @@ impl DrivingState {
 
     /// `_local_where_text()`: where the truck is on a local street route,
     /// spoken.
-    pub fn local_where_text(&self, ctx: &GameContext) -> String {
-        let city = ctx
-            .world
-            .spoken_city(&self.trip.route.cities[0], Some(true));
+    pub fn local_where_text(&self) -> String {
+        // No city: the place the readout counts down to names it, and
+        // saying it twice was a long line (owner's drive, 2026-11-04).
         let street = self.street_under_the_wheels();
         if !street.is_empty() {
-            return format!("on city streets, {street}, in {city}");
+            return format!("on city streets, {street}");
         }
-        format!("on the facility approach in {city}")
+        "on the facility approach".to_string()
     }
 
     /// `_departure_ramp_text()`: what the departure chain is actually driving

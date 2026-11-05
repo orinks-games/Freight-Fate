@@ -916,13 +916,13 @@ fn shipped_spanish_says_places_board_rows_and_regions_whole() {
     for (english, spanish) in [
         ("Pulling into freight terminal Bemidji Company Yard in Bemidji.", "Entrando en terminal de carga Bemidji Company Yard en Bemidji."),
         ("Loaded for freight terminal Macon Terminal in Macon.", "Cargado para terminal de carga Macon Terminal en Macon."),
-        ("Dispatch routed you to retail distribution hub Amazon Fulfillment Center KRB1 in Kenosha, Wisconsin.", "Despacho te ha enviado a centro de distribución comercial Amazon Fulfillment Center KRB1 en Kenosha, Wisconsin."),
+        ("Dispatch routed you to Kenosha, Wisconsin.", "Despacho te envió a Kenosha, Wisconsin."),
         ("Market watch: automotive tight, farm inputs tight, lumber paper loose, steel loose.", "Vistazo al mercado: automoción al alza, insumos agrícolas al alza, madera y papel a la baja, acero a la baja."),
-        ("16 tons of general freight from Chicago Parcel Hub in Chicago, Illinois to the Fargo metro freight market. 62 miles. Pay for the load: 332 dollars. Deadline 3 hours. Equipment: dry van trailer.", "16 toneladas de carga general desde Chicago Parcel Hub en Chicago, Illinois hasta el mercado de carga metropolitano de Fargo. 62 millas. Pago por la carga: 332 dólares. Plazo de entrega: 3 horas. Equipo: remolque de furgón seco."),
-        ("16 tons of general freight from Chicago Parcel Hub in Chicago, Illinois to Amazon Fulfillment Center KRB1 in Kenosha, Wisconsin. 62 miles. Pay for the load: 332 dollars. Deadline 12 hours, includes a 10-hour rest. Equipment: dry van trailer.", "16 toneladas de carga general desde Chicago Parcel Hub en Chicago, Illinois hasta Amazon Fulfillment Center KRB1 en Kenosha, Wisconsin. 62 millas. Pago por la carga: 332 dólares. Plazo de entrega: 12 horas, incluye un descanso de 10 horas. Equipo: remolque de furgón seco."),
+        ("16 tons of general freight from Chicago, Illinois to Fargo, North Dakota. 62 miles, deadline 3 hours. Pays 332 dollars.", "16 toneladas de carga general de Chicago, Illinois a Fargo, North Dakota. 62 millas, plazo 3 horas. Paga 332 dólares."),
+        ("16 tons of general freight from Chicago, Illinois to Kenosha, Wisconsin. 62 miles, deadline 12 hours with a 10-hour rest. Pays 332 dollars.", "16 toneladas de carga general de Chicago, Illinois a Kenosha, Wisconsin. 62 millas, plazo 12 horas con un descanso de 10 horas. Paga 332 dólares."),
         (
-            "Accepted. Drive empty 1.1 miles on South Canal Street to pickup at Chicago Parcel Hub in Chicago, Illinois.",
-            "Aceptado. Trayecto en vacío de 1,1 millas por South Canal Street hasta la recogida en Chicago Parcel Hub en Chicago, Illinois.",
+            "Accepted. 1.1 miles empty to Chicago Parcel Hub.",
+            "Aceptada. 1,1 millas en vacío hasta Chicago Parcel Hub.",
         ),
         (
             "Pulling into port Port of Tacoma in Tacoma, Washington.",
@@ -1114,16 +1114,15 @@ fn shipped_polish_says_a_numbered_job_whole() {
     // sentence stayed English (issue 549).
     let tr = shipped_polish();
     let out = tr.translate(
-        "Job 2 of 7: 19 tons of general freight from Pendleton Grocery Distribution Center in \
-         Pendleton, Oregon to Boise Grocery Distribution Center in Boise, Idaho. 364 miles. \
-         Deadline 6 hours.",
+        "Job 2 of 7: 19 tons of general freight from Pendleton, Oregon to Boise, Idaho. 364 miles, \
+         deadline 6 hours. Pays 1,204 dollars.",
     );
     assert!(out.starts_with("Zlecenie 2 z 7: "), "{out}");
     assert!(!out.contains(" tons of "), "{out}");
     let out = tr.translate(
-        "Recommended dispatch, senior company lane: Job 1 of 7: 13 tons of refrigerated goods \
-         from Pendleton Food Processing Plant in Pendleton, Oregon to Spokane Grocery \
-         Distribution Center in Spokane, Washington. 332 miles. Deadline 6 hours.",
+        "Recommended dispatch, senior company lane: Job 1 of 7: 13 tons of refrigerated goods from \
+         Pendleton, Oregon to Spokane, Washington. 332 miles, deadline 6 hours. Pays 1,090 \
+         dollars.",
     );
     assert!(out.contains("Zlecenie 1 z 7: "), "{out}");
     assert!(!out.contains(" tons of "), "{out}");

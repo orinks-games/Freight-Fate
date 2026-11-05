@@ -7311,6 +7311,7 @@ msgstr "Этап карьеры: {stage}."
 #. one sentence of a longer line
 msgid "Deliveries {deliveries}, {f3} percent on time."
 msgstr ""
+"Доставок {deliveries}, {f3} {f3:процент|процента|процентов} вовремя."
 
 #. placeholders: {level}, {title}
 #. one sentence of a longer line
@@ -7324,6 +7325,10 @@ msgid ""
 "miles, {grouped2} dollars earned. Career stage: {stage}. "
 "{status}.{next_text}"
 msgstr ""
+"Уровень {level}, {title}. Опыт {f}.{owed_text} Репутация {f2} из 100. "
+"Доставок {deliveries}, {f3} {f3:процент|процента|процентов} вовремя. Всего "
+"миль: {grouped}, заработано долларов: {grouped2}. Этап карьеры: {stage}. "
+"{status}.{next_text}"
 
 #. placeholders: {f}, {owed_text}, {f2}
 #. one sentence of a longer line
@@ -9703,14 +9708,6 @@ msgstr "грузовой рынок {city_lower}"
 msgid "{city_lower} metro freight market"
 msgstr "грузовой рынок агломерации {city_lower}"
 
-#. placeholders: {city}, {destination}
-msgid "{city} to {destination}"
-msgstr ""
-
-#. placeholders: {origin}, {destination}
-msgid "{origin} to {destination}"
-msgstr ""
-
 #. placeholders: {index}, {unwrap_or_else}
 msgid "Job {index} of {unwrap_or_else}: "
 msgstr "Заказ {index} из {unwrap_or_else}:"
@@ -9719,13 +9716,14 @@ msgstr "Заказ {index} из {unwrap_or_else}:"
 msgid " Requires {credentials_clause}."
 msgstr " Требуется: {credentials_clause}."
 
-#. placeholders: {tons}, {cargo}, {route}
-msgid "{tons} tons of {cargo}, {route}."
+#. placeholders: {tons}, {cargo}, {origin}, {destination}
+msgid "{tons} tons of {cargo} from {origin} to {destination}."
 msgstr ""
+"{cargo}, {tons} {tons:тонна|тонны|тонн}, из {origin} в {destination}."
 
 #. placeholders: {miles}
 msgid " {miles} empty to the pickup first."
-msgstr ""
+msgstr " Сначала {miles} порожняком до погрузки."
 
 #. placeholders: {pay}
 msgid "Pays {pay} dollars."
@@ -9733,7 +9731,7 @@ msgstr "Оплата {pay} {pay:доллар|доллара|долларов}."
 
 #. placeholders: {pay}, {pay_preview}
 msgid "Pays {pay} dollars, {pay_preview}."
-msgstr ""
+msgstr "Платит {pay} {pay:доллар|доллара|долларов}, {pay_preview}."
 
 #. one sentence of a longer line
 msgid "Team load: you and a co-driver take turns at the wheel."
@@ -9744,14 +9742,17 @@ msgid ""
 "{distance}, deadline {hours} hours. Team load: you and a co-driver take "
 "turns at the wheel."
 msgstr ""
+"{distance}, срок {hours} {hours:час|часа|часов}. Командный рейс: вы и "
+"напарник по очереди сидите за рулём."
 
 #. placeholders: {distance}, {hours}
 msgid "{distance}, deadline {hours} hours with a 10-hour rest."
 msgstr ""
+"{distance}, срок {hours} {hours:час|часа|часов} с 10-часовым отдыхом."
 
 #. placeholders: {distance}, {hours}
 msgid "{distance}, deadline {hours} hours."
-msgstr ""
+msgstr "{distance}, срок {hours} {hours:час|часа|часов}."
 
 #. placeholders: {min_level}
 msgid "Level {min_level} drivers unlock this cargo."
@@ -13765,8 +13766,8 @@ msgstr ""
 "{spoken_name} открыт. Инспекторы машут вам заехать на проверку бортового "
 "журнала."
 
-msgid "HOS/ELD violation"
-msgstr "нарушение режима труда и отдыха по бортовому журналу"
+msgid "hours-of-service violation"
+msgstr "нарушение режима труда и отдыха"
 
 msgid "Trooper in the construction zone clocks your speed."
 msgstr "Полицейский в зоне ремонта засекает вашу скорость."
@@ -14181,9 +14182,9 @@ msgstr "{distance}: двое водителей говорят, что поли�
 msgid "{distance}: a driver says troopers are working {side}."
 msgstr "{distance}: водитель говорит, что полиция работает {side}."
 
-#. placeholders: {side}
-msgid "Somebody said troopers were working {side} a while back."
-msgstr "Кто-то говорил, что полиция работала {side} некоторое время назад."
+#. placeholders: {distance}, {side}
+msgid "{distance}: an old report of troopers {side}."
+msgstr "{distance}: старое сообщение о полицейских {side}."
 
 #. placeholders: {distance}, {side}
 msgid "{distance}: two drivers say they're checking logs {side}."
@@ -14193,9 +14194,9 @@ msgstr "{distance}: двое водителей говорят, что пров�
 msgid "{distance}: a driver says they're checking logs {side}."
 msgstr "{distance}: водитель говорит, что проверяют журналы {side}."
 
-#. placeholders: {side}
-msgid "Somebody said they were checking logs {side} a while back."
-msgstr "Кто-то говорил, что проверяли журналы {side} некоторое время назад."
+#. placeholders: {distance}, {side}
+msgid "{distance}: an old report of log checks {side}."
+msgstr "{distance}: старое сообщение о проверке журналов {side}."
 
 #. placeholders: {distance}, {side}
 msgid ""
@@ -14209,12 +14210,9 @@ msgid ""
 msgstr ""
 "{distance}: водитель говорит, что проверяют журналы и технику {side}."
 
-#. placeholders: {side}
-msgid ""
-"Somebody said they were checking logs and equipment {side} a while back."
-msgstr ""
-"Кто-то говорил, что проверяли журналы и технику {side} некоторое время "
-"назад."
+#. placeholders: {distance}, {side}
+msgid "{distance}: an old report of log and equipment checks {side}."
+msgstr "{distance}: старое сообщение о проверке журналов и техники {side}."
 
 #. placeholders: {distance}, {side}
 msgid ""
@@ -14228,12 +14226,9 @@ msgid "{distance}: a driver says the chain control is checking rigs {side}."
 msgstr ""
 "{distance}: водитель говорит, что контроль цепей проверяет грузовики {side}."
 
-#. placeholders: {side}
-msgid ""
-"Somebody said the chain control was checking rigs {side} a while back."
-msgstr ""
-"Кто-то говорил, что контроль цепей проверял грузовики {side} некоторое "
-"время назад."
+#. placeholders: {distance}, {side}
+msgid "{distance}: an old report of the chain control checking rigs {side}."
+msgstr "{distance}: старое сообщение о контроле цепей {side}."
 
 #. placeholders: {distance}, {side}
 msgid "{distance}: two drivers call a trooper {side}."
@@ -14243,9 +14238,9 @@ msgstr "{distance}: двое водителей сообщают о полице
 msgid "{distance}: a driver reports a trooper {side}."
 msgstr "{distance}: водитель сообщает о полицейском {side}."
 
-#. placeholders: {side}
-msgid "Somebody called a trooper {side} a while back."
-msgstr "Кто-то сообщал о полицейском {side} некоторое время назад."
+#. placeholders: {distance}, {side}
+msgid "{distance}: an old report of a trooper {side}."
+msgstr "{distance}: старое сообщение о полицейском {side}."
 
 #. placeholders: {distance}, {side}
 msgid ""
@@ -14260,11 +14255,10 @@ msgid ""
 msgstr ""
 "{distance}: водитель говорит, что полицейский уже кого-то остановил {side}."
 
-#. placeholders: {side}
-msgid "Somebody said a trooper had somebody stopped {side} a while back."
+#. placeholders: {distance}, {side}
+msgid "{distance}: an old report of a trooper with somebody stopped {side}."
 msgstr ""
-"Кто-то говорил, что полицейский кого-то остановил {side} некоторое время "
-"назад."
+"{distance}: старое сообщение о полицейском, остановившем кого-то, {side}."
 
 #. placeholders: {where_}
 msgid "an enforcement post {where_} on this stretch"
@@ -14953,6 +14947,8 @@ msgid ""
 "More than 7 miles per hour over the posted limit: past anything cruise will "
 "do on its own, and short of where a trooper can act on your speed."
 msgstr ""
+"Больше 7 миль в час сверх ограничения: больше, чем круиз-контроль сделает "
+"сам, и меньше, чем полицейский может наказать за скорость."
 
 msgid "Gear grind"
 msgstr "Скрежет передачи"
@@ -15606,6 +15602,7 @@ msgstr "Ограничение {limit_value}."
 #. placeholders: {pacenote}, {advisory_speed_text}
 msgid "{pacenote} Cruise easing to {advisory_speed_text}."
 msgstr ""
+"{pacenote} Круиз-контроль снижает скорость до {advisory_speed_text}."
 
 #. placeholders: {pacenote}
 msgid "{pacenote} Curve assistance slowing."
@@ -15619,12 +15616,16 @@ msgstr "Круиз-контроль возобновится после пово
 #. one sentence of a longer line
 msgid "{pacenote} Cruise paused for the bend, curve assistance slowing."
 msgstr ""
+"{pacenote} Круиз-контроль на паузе для поворота, помощь в поворотах "
+"тормозит."
 
 #. placeholders: {pacenote}
 msgid ""
 "{pacenote} Cruise paused for the bend, curve assistance slowing. Cruise "
 "resumes past the bend."
 msgstr ""
+"{pacenote} Круиз-контроль на паузе для поворота, помощь в поворотах "
+"тормозит. Круиз-контроль продолжит после поворота."
 
 #. placeholders: {pacenote_terse}
 msgid "{pacenote_terse} Cruise paused; assistance slowing."
@@ -15637,11 +15638,12 @@ msgstr "Возобновится после него."
 #. placeholders: {pacenote}
 #. one sentence of a longer line
 msgid "{pacenote} Cruise paused for the bend."
-msgstr ""
+msgstr "{pacenote} Круиз-контроль на паузе для поворота."
 
 #. placeholders: {pacenote}
 msgid "{pacenote} Cruise paused for the bend. Resumes past it."
 msgstr ""
+"{pacenote} Круиз-контроль на паузе для поворота. Продолжит после него."
 
 #. placeholders: {pacenote_terse}
 msgid "{pacenote_terse} Cruise paused."
@@ -16215,7 +16217,7 @@ msgid "Heat or air conditioning"
 msgstr "Обогрев или кондиционер"
 
 msgid "Cruise"
-msgstr ""
+msgstr "Круиз-контроль"
 
 msgid "Resume the last cruise speed"
 msgstr "Вернуть последнюю скорость круиз-контроля"
@@ -17914,37 +17916,20 @@ msgstr "Рычаг плейтеста: на доску добавлен груз
 msgid "This screen arrives with its own port."
 msgstr "Этот экран приходит со своим портом."
 
-msgid "Departing now."
-msgstr "Отправляемся."
-
-#. placeholders: {control_hint}, {control_hint2}
-msgid ""
-"Engine off. {control_hint} starts it, {control_hint2} releases the parking "
-"brake once air is up."
-msgstr ""
-"Двигатель выключен. {control_hint} заводит его, {control_hint2} отпускает "
-"стояночный тормоз, когда поднимется давление воздуха."
-
-#. placeholders: {control_hint}, {control_hint2}
-#. one sentence of a longer line
-msgid ""
-"{control_hint} starts it, {control_hint2} releases the parking brake once "
-"air is up."
-msgstr ""
-"{control_hint} заводит его, {control_hint2} отпускает стояночный тормоз, "
-"когда поднимется давление воздуха."
+msgid " Departing now."
+msgstr " Отправление сейчас."
 
 #. placeholders: {f}
 msgid " Deadline extended to {f} hours."
 msgstr " Срок доставки продлён до {f} {f:часа|часов|часов}."
 
-#. placeholders: {pairing_line}, {lead}, {route_departure_summary}, {departure_briefing}, {next_context}, {name}
+#. placeholders: {pairing_line}, {lead}, {route_departure_summary}, {departure_briefing}, {name}
 msgid ""
-"{pairing_line} {lead}{route_departure_summary} {departure_briefing} "
-"{next_context} {name} takes the wheel."
+"{pairing_line} {lead}{route_departure_summary} {departure_briefing} {name} "
+"takes the wheel."
 msgstr ""
-"{pairing_line} {lead}{route_departure_summary} {departure_briefing} "
-"{next_context} За руль садится {name}."
+"{pairing_line} {lead}{route_departure_summary} {departure_briefing} {name} "
+"садится за руль."
 
 msgid ""
 "Enter accepts. F1 is job details. Tab is the market. Escape goes back."
@@ -18007,11 +17992,11 @@ msgstr ""
 
 #. placeholders: {take_home}
 msgid "about {take_home} after costs"
-msgstr ""
+msgstr "около {take_home} после расходов"
 
 #. placeholders: {take_home}
 msgid "about {take_home} to you"
-msgstr ""
+msgstr "около {take_home} вам"
 
 #. placeholders: {highway}
 #. one sentence of a longer line
@@ -18055,11 +18040,11 @@ msgid "Dispatch board"
 msgstr "Доска заказов"
 
 msgid " This assignment needs an extra rest on your current hours."
-msgstr ""
+msgstr " Этому заданию нужен дополнительный отдых при ваших текущих часах."
 
 #. placeholders: {current}, {hos_note}
 msgid "Dispatch board. {current}{hos_note}"
-msgstr ""
+msgstr "Доска заказов. {current}{hos_note}"
 
 msgid ""
 "Dispatch is sending you empty, with no pickup. After you accept, Route "
@@ -18080,7 +18065,7 @@ msgstr ""
 
 #. placeholders: {describe}
 msgid "Assigned load: {describe}"
-msgstr ""
+msgstr "Назначенный груз: {describe}"
 
 #. placeholders: {remaining}, {s_ending}
 msgid "Decline and request another load: {remaining} decline{s_ending} left"
@@ -18218,6 +18203,7 @@ msgstr ""
 msgid ""
 "Accepted.{equipment_note} {distance_text} empty to {origin_short_name}."
 msgstr ""
+"Принято.{equipment_note} {distance_text} порожняком до {origin_short_name}."
 
 msgid ""
 "That load's city is no longer on the network. Dispatch pulled the offer."
@@ -18228,6 +18214,7 @@ msgstr ""
 msgid ""
 "Accepted.{equipment_note} {distance_text} empty to {origin_offer_text}."
 msgstr ""
+"Принято.{equipment_note} {distance_text} порожняком до {origin_offer_text}."
 
 #. placeholders: {equipment_note}
 msgid "Accepted.{equipment_note} The load is here in the yard."
@@ -18377,10 +18364,6 @@ msgid "This run needs {sleeps} 10-hour sleeps."
 msgstr ""
 "Этому рейсу нужно {sleeps} {sleeps:ночёвка|ночёвки|ночёвок} по 10 часов."
 
-#. placeholders: {percent}
-msgid "Fuel: {percent} percent."
-msgstr "Топливо: {percent} {percent:процент|процента|процентов}."
-
 #. placeholders: {i}, {total}
 msgid "Job {i} of {total}: "
 msgstr "Заказ {i} из {total}: "
@@ -18453,10 +18436,10 @@ msgid "Equipment: {equipment_text}."
 msgstr "Оборудование: {equipment_text}."
 
 msgid "Market: tight, so this load pays more than usual."
-msgstr ""
+msgstr "Рынок: напряжённый, поэтому этот груз платит больше обычного."
 
 msgid "Market: loose, so this load pays less than usual."
-msgstr ""
+msgstr "Рынок: вялый, поэтому этот груз платит меньше обычного."
 
 #. placeholders: {trailer}
 msgid "Trailer: {trailer}"
@@ -18900,16 +18883,18 @@ msgstr "Зона обслуживания {city}"
 msgid "At the terminal"
 msgstr "В терминале"
 
+#. placeholders: {name}, {city_name}
+msgid "{name} in {city_name}"
+msgstr "{name}, {city_name}"
+
 #. placeholders: {grouped}, {cdl}, {record}
 #. one sentence of a longer line
 msgid "{grouped} dollars.{cdl}{record}"
 msgstr "{grouped} {grouped:доллар|доллара|долларов}.{cdl}{record}"
 
-#. placeholders: {name}, {city_name}, {grouped}, {cdl}, {record}
-msgid "{name} in {city_name}. {grouped} dollars.{cdl}{record}"
-msgstr ""
-"{name} в {city_name}. {grouped} "
-"{grouped:доллар|доллара|долларов}.{cdl}{record}"
+#. placeholders: {place}, {grouped}, {cdl}, {record}
+msgid "{place}. {grouped} dollars.{cdl}{record}"
+msgstr "{place}. {grouped} {grouped:доллар|доллара|долларов}.{cdl}{record}"
 
 msgid ""
 "Loads from local freight facilities. New company hires get an assigned "
@@ -20699,7 +20684,7 @@ msgstr "ограничение скорости, когда начнётся о�
 
 #. placeholders: {target}
 msgid " Cruise paused, set {target}."
-msgstr ""
+msgstr " Круиз-контроль на паузе, задано {target}."
 
 msgid ""
 "Nothing to walk around yet. The shipper is loading the trailer you came in "
@@ -20846,9 +20831,9 @@ msgstr "Погрузите груз перед отправлением."
 msgid "Dispatch cannot find a route for this load."
 msgstr "Диспетчер не может найти маршрут для этого груза."
 
-#. placeholders: {destination_facility_text}
-msgid "Dispatch routed you to {destination_facility_text}. "
-msgstr "Диспетчер проложил вам маршрут до {destination_facility_text}. "
+#. placeholders: {destination}
+msgid "Dispatch routed you to {destination}. "
+msgstr "Диспетчер отправил вас в {destination}. "
 
 msgid "Back to pickup facility"
 msgstr "Назад к месту погрузки"
@@ -20905,6 +20890,7 @@ msgstr "{label}, {f} {f:тонна|тонны|тонн}, для {destination_fac
 #. placeholders: {f}
 msgid " Idling here burned {f} gallons."
 msgstr ""
+" Работа на холостом ходу здесь сожгла {f} {f:галлон|галлона|галлонов}."
 
 msgid "Saved. The pickup resumes here."
 msgstr "Сохранено. Погрузка продолжится отсюда."
@@ -20964,6 +20950,10 @@ msgid ""
 msgstr ""
 " {wait} {wait:минута|минуты|минут} сверх двух бесплатных часов у рампы: "
 "{dollars} {dollars:доллар|доллара|долларов} за простой, выплачено компании."
+
+#. placeholders: {condition}
+msgid " The trailer is {condition}."
+msgstr " Прицеп {condition}."
 
 #. placeholders: {facility}
 #. one sentence of a longer line
@@ -21121,7 +21111,7 @@ msgstr "ограничение скорости, когда начнётся о�
 
 #. placeholders: {target}
 msgid "Cruise: paused   Cruise speed: {target}"
-msgstr ""
+msgstr "Круиз-контроль: на паузе   Скорость круиз-контроля: {target}"
 
 msgid "Route planning"
 msgstr "Планирование маршрута"
@@ -22069,11 +22059,11 @@ msgid "{control_hint} lists the controls."
 msgstr "{control_hint} перечисляет элементы управления."
 
 msgid "Cruise paused. "
-msgstr ""
+msgstr "Круиз-контроль на паузе. "
 
 #. placeholders: {control_hint}
 msgid "Cruise paused. {control_hint} cancels it. "
-msgstr ""
+msgstr "Круиз-контроль на паузе. {control_hint} отменяет его. "
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -22165,19 +22155,14 @@ msgstr ""
 
 #. placeholders: {pickup_facility_text}
 msgid "Drive empty to {pickup_facility_text}. "
-msgstr ""
+msgstr "Поезжайте порожняком до {pickup_facility_text}. "
 
 #. placeholders: {destination_facility_text}
-#. one sentence of a longer line
-msgid "Loaded for {destination_facility_text}."
-msgstr "Загружено до {destination_facility_text}."
-
-#. placeholders: {destination_facility_text}, {progress_summary}
-msgid "Loaded for {destination_facility_text}. {progress_summary} "
-msgstr "Загружено до {destination_facility_text}. {progress_summary} "
+msgid "Loaded for {destination_facility_text}. "
+msgstr "Загружено для {destination_facility_text}. "
 
 msgid " Manual transmission."
-msgstr ""
+msgstr " Механическая коробка."
 
 #. one sentence of a longer line
 msgid "At the wheel."
@@ -22185,14 +22170,16 @@ msgstr "Вы за рулём."
 
 #. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
 msgid ""
-"At the wheel. {objective}It is {now}.{transmission} {report_lead}. {engine} "
+"At the wheel. {objective}It is {now}.{transmission}{report_lead} {engine} "
 "{help}"
 msgstr ""
+"За рулём. {objective}Сейчас {now}.{transmission}{report_lead} {engine} "
+"{help}"
 
-#. placeholders: {objective}, {now}, {transmission}, {report_lead}
+#. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
 #. one sentence of a longer line
-msgid "{objective}It is {now}.{transmission} {report_lead}."
-msgstr ""
+msgid "{objective}It is {now}.{transmission}{report_lead} {engine} {help}"
+msgstr "{objective}Сейчас {now}.{transmission}{report_lead} {engine} {help}"
 
 msgid "amount"
 msgstr "amount"
@@ -22364,17 +22351,21 @@ msgstr ""
 msgid ""
 "It follows traffic on open roads and holds the limit in low-speed zones."
 msgstr ""
+"На открытой дороге он следует за потоком, а в зонах малой скорости держит "
+"ограничение."
 
 #. placeholders: {cruise}
 #. one sentence of a longer line
 msgid "{cruise} starts cruise."
-msgstr ""
+msgstr "{cruise} включает круиз-контроль."
 
 #. placeholders: {cruise}
 msgid ""
 "{cruise} starts cruise. It follows traffic on open roads and holds the "
 "limit in low-speed zones."
 msgstr ""
+"{cruise} включает круиз-контроль. На открытой дороге он следует за потоком, "
+"а в зонах малой скорости держит ограничение."
 
 msgid "Weather widens the gap."
 msgstr "Погода увеличивает дистанцию."
@@ -22383,6 +22374,9 @@ msgid ""
 "Cruise eases early for a sharp posted-limit drop, and in low-speed zones "
 "for the next turn or the next lower limit."
 msgstr ""
+"Круиз-контроль заранее сбрасывает скорость перед резким снижением "
+"ограничения, а в зонах малой скорости перед следующим поворотом или "
+"следующим более низким ограничением."
 
 msgid "Braking cancels it."
 msgstr "Торможение отменяет."
@@ -22815,13 +22809,15 @@ msgstr ""
 #. placeholders: {cruise_cap}
 #. one sentence of a longer line
 msgid "{cruise_cap} starts cruise."
-msgstr ""
+msgstr "{cruise_cap} включает круиз-контроль."
 
 #. placeholders: {cruise_cap}
 msgid ""
 "{cruise_cap} starts cruise. It follows traffic on open roads and holds the "
 "limit in low-speed zones."
 msgstr ""
+"{cruise_cap} включает круиз-контроль. На открытой дороге он следует за "
+"потоком, а в зонах малой скорости держит ограничение."
 
 #. placeholders: {cruise_down}, {cruise_up}
 msgid "{cruise_down} or {cruise_up} change the cruise speed by five."
@@ -23011,34 +23007,34 @@ msgstr "из-за: {other}"
 
 #. placeholders: {speed}, {reason}, {speed2}
 msgid "cruise holding {speed} {reason}, set {speed2}"
-msgstr ""
+msgstr "круиз-контроль держит {speed} {reason}, задано {speed2}"
 
 #. placeholders: {speed}, {keeper_held_reason}, {speed2}
 msgid "cruise holding {speed} {keeper_held_reason}, set {speed2}"
-msgstr ""
+msgstr "круиз-контроль держит {speed} {keeper_held_reason}, задано {speed2}"
 
 #. placeholders: {speed}
 msgid "cruise holding {speed}"
-msgstr ""
+msgstr "круиз-контроль держит {speed}"
 
 #. placeholders: {speed}, {why}, {speed2}
 msgid "cruise holding {speed}{why}, set {speed2}"
-msgstr ""
+msgstr "круиз-контроль держит {speed}{why}, задано {speed2}"
 
 #. placeholders: {speed}
 msgid "cruise set at {speed}"
-msgstr ""
+msgstr "круиз-контроль задан на {speed}"
 
 #. placeholders: {speed_value}
 msgid " Cruise speed {speed_value}."
-msgstr ""
+msgstr " Скорость круиз-контроля {speed_value}."
 
 #. placeholders: {speed_value}
 msgid " Cruise paused, set {speed_value}."
-msgstr ""
+msgstr " Круиз-контроль на паузе, задано {speed_value}."
 
 msgid " Cruise paused."
-msgstr ""
+msgstr " Круиз-контроль на паузе."
 
 #. placeholders: {rpm}
 msgid ", {rpm} RPM"
@@ -23443,7 +23439,7 @@ msgid "Cruise speed: {open_road_target}"
 msgstr "Цель на открытой дороге: {open_road_target}"
 
 msgid "Cruise paused; resumes when the truck is rolling"
-msgstr ""
+msgstr "Круиз-контроль на паузе; продолжит, когда грузовик поедет"
 
 #. placeholders: {start_damage}
 msgid "Damage: new damage {start_damage} percent"
@@ -25243,11 +25239,12 @@ msgid "over a light out"
 msgstr "из-за неработающей фары"
 
 msgid "A trooper has somebody stopped in the median, not you."
-msgstr ""
+msgstr "Полицейский остановил кого-то на разделительной полосе, не вас."
 
 #. placeholders: {reason}
 msgid "A trooper has somebody stopped in the median {reason}, not you."
 msgstr ""
+"Полицейский остановил кого-то на разделительной полосе {reason}, не вас."
 
 #. placeholders: {reason}
 msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
@@ -26149,7 +26146,7 @@ msgstr "Круиз-контроль выключен."
 
 #. placeholders: {minimum}
 msgid "Cruise needs the engine running and at least {minimum}."
-msgstr ""
+msgstr "Круиз-контролю нужен работающий двигатель и не меньше {minimum}."
 
 msgid "Open road"
 msgstr "Открытая дорога"
@@ -26180,7 +26177,7 @@ msgstr " в {value}"
 
 #. placeholders: {else}, {speed_text}, {exit_note}
 msgid "Cruise {else} at {speed_text}{exit_note}."
-msgstr ""
+msgstr "Круиз-контроль {else} на {speed_text}{exit_note}."
 
 msgid "resuming"
 msgstr "возобновлён"
@@ -26211,7 +26208,7 @@ msgstr "{speed_number}, съезд {speed_number2}."
 
 #. placeholders: {speed_text}
 msgid "Cruise {speed_text}."
-msgstr ""
+msgstr "Круиз-контроль {speed_text}."
 
 #. placeholders: {speed_text}
 msgid "Open-road cruise target {speed_text}."
@@ -26229,7 +26226,7 @@ msgid "No cruise {place}."
 msgstr "Круиз-контроль недоступен {place}."
 
 msgid "Cruise needs the engine running and the truck rolling."
-msgstr ""
+msgstr "Круиз-контролю нужен работающий двигатель и движущийся грузовик."
 
 msgid "Construction zone ahead"
 msgstr "Впереди дорожные работы"
@@ -26242,7 +26239,7 @@ msgstr "Ограничение скорости ниже"
 
 #. placeholders: {reason}, {eased}
 msgid "{reason}; cruise easing to {eased}."
-msgstr ""
+msgstr "{reason}; круиз-контроль снижает скорость до {eased}."
 
 #. placeholders: {speed_value}
 msgid "Cruise easing to {speed_value}."
@@ -26257,11 +26254,11 @@ msgstr "Круиз-контроль снижен до {held} на этом ук�
 
 #. placeholders: {held}
 msgid "Cruise building to {held} for the merge."
-msgstr ""
+msgstr "Круиз-контроль разгоняется до {held} для въезда в поток."
 
 #. placeholders: {held}
 msgid "Cruise building to {held}."
-msgstr ""
+msgstr "Круиз-контроль разгоняется до {held}."
 
 msgid " on this grade"
 msgstr " на этом уклоне"
@@ -26273,19 +26270,19 @@ msgstr "Тормозите."
 #. placeholders: {held}, {because}
 #. one sentence of a longer line
 msgid "Cruise can't hold {held}{because}."
-msgstr ""
+msgstr "Круиз-контроль не может держать {held}{because}."
 
 #. placeholders: {held}, {because}
 msgid "Cruise can't hold {held}{because}. Brake."
-msgstr ""
+msgstr "Круиз-контроль не может держать {held}{because}. Тормозите."
 
 #. placeholders: {held}, {zone}
 msgid "Cruise holding {held} through {zone}."
-msgstr ""
+msgstr "Круиз-контроль держит {held} через {zone}."
 
 #. placeholders: {held}
 msgid "Cruise holding {held}."
-msgstr ""
+msgstr "Круиз-контроль держит {held}."
 
 msgid "Wet roads, longer gap."
 msgstr "Мокрая дорога, дистанция больше."
@@ -26312,11 +26309,11 @@ msgstr "Зона: {title_case}."
 
 #. placeholders: {title_case}, {held}
 msgid "{title_case} zone. Cruise holding {held}."
-msgstr ""
+msgstr "Зона: {title_case}. Круиз-контроль держит {held}."
 
 #. placeholders: {speed_value}
 msgid "Cruise holding {speed_value}."
-msgstr ""
+msgstr "Круиз-контроль держит {speed_value}."
 
 msgid "through the construction zone"
 msgstr ""
@@ -26346,7 +26343,7 @@ msgid "{capitalize_first}, cruise easing to {speed_value}."
 msgstr "{capitalize_first}, круиз-контроль снижает до {speed_value}."
 
 msgid "Stopped traffic ahead; cruise canceled."
-msgstr ""
+msgstr "Впереди стоит поток; круиз-контроль отменён."
 
 msgid "Traffic ahead, slowing."
 msgstr "Впереди движение, снижаем скорость."
@@ -27210,41 +27207,31 @@ msgid "your settlement."
 msgstr "ваш расчёт."
 
 msgid "Cruise paused."
-msgstr ""
+msgstr "Круиз-контроль на паузе."
 
 #. placeholders: {keeper}
 msgid "Cruise holding {keeper}."
-msgstr ""
+msgstr "Круиз-контроль держит {keeper}."
 
-msgid ""
-"Back on the highway after the 30-minute break. Keep the logbook clean."
-msgstr ""
-"Снова на трассе после 30-минутного перерыва. Держите журнал в чистоте."
+msgid "Back on the highway after the 30-minute break."
+msgstr "Снова на трассе после 30-минутного перерыва."
 
-msgid "Back on the highway with a reset clock. Keep the logbook clean."
-msgstr ""
-"Снова на трассе со сброшенным счётчиком часов. Держите журнал в чистоте."
+msgid "Back on the highway with a reset clock."
+msgstr "Снова на трассе со сброшенными часами."
+
+#. placeholders: {evidence_text}
+#. one sentence of a longer line
+msgid "Citation: {evidence_text}."
+msgstr "Нарушение: {evidence_text}."
 
 #. placeholders: {oos_phrase}
 #. one sentence of a longer line
-msgid ""
-"The officer writes the order: out of service, {oos_phrase}, right here."
-msgstr ""
-"Инспектор выписывает предписание: запрет на движение, {oos_phrase}, прямо "
-"здесь."
+msgid "Out of service {oos_phrase}."
+msgstr "Запрет на движение {oos_phrase}."
 
-#. placeholders: {text}, {evidence_text}
-#. one sentence of a longer line
-msgid "{text} Evidence: {evidence_text}."
-msgstr "{text} Доказательства: {evidence_text}."
-
-#. placeholders: {text}, {evidence_text}, {oos_phrase}
-msgid ""
-"{text} Evidence: {evidence_text}. The officer writes the order: out of "
-"service, {oos_phrase}, right here."
-msgstr ""
-"{text} Доказательства: {evidence_text}. Инспектор выписывает предписание: "
-"запрет на движение, {oos_phrase}, прямо здесь."
+#. placeholders: {oos_phrase}, {evidence_text}
+msgid "Out of service {oos_phrase}. Citation: {evidence_text}."
+msgstr "Запрет на движение {oos_phrase}. Нарушение: {evidence_text}."
 
 #. one sentence of a longer line
 msgid "Lights and siren behind you for a log check."
@@ -27268,12 +27255,17 @@ msgstr ""
 "Штраф {grouped} {grouped:доллар|доллара|долларов}, и ваша репутация "
 "пострадала."
 
+#. placeholders: {text}, {evidence_text}
+#. one sentence of a longer line
+msgid "{text} Citation: {evidence_text}."
+msgstr "{text} Нарушение: {evidence_text}."
+
 #. placeholders: {text}, {evidence_text}, {grouped}
 msgid ""
-"{text} Evidence: {evidence_text}. Fined {grouped} dollars, and your "
+"{text} Citation: {evidence_text}. Fined {grouped} dollars, and your "
 "reputation took a hit."
 msgstr ""
-"{text} Доказательства: {evidence_text}. Штраф {grouped} "
+"{text} Нарушение: {evidence_text}. Штраф {grouped} "
 "{grouped:доллар|доллара|долларов}, и ваша репутация пострадала."
 
 msgid "departure acceleration lane"
@@ -27619,7 +27611,7 @@ msgstr ""
 
 #. placeholders: {lead}, {road}, {toward}
 msgid "{lead} On {road} toward {toward}."
-msgstr ""
+msgstr "{lead} По {road} в сторону {toward}."
 
 #. placeholders: {lead}, {road}, {state}, {toward}
 msgid "{lead} On {road} in {state}, toward {toward}."
@@ -27682,13 +27674,12 @@ msgstr "Указателей направления здесь нет."
 msgid "{py_capitalize} to {target}."
 msgstr "{py_capitalize} к {target}."
 
-#. placeholders: {street}, {city}
-msgid "on city streets, {street}, in {city}"
-msgstr "на городских улицах, {street}, {city}"
+#. placeholders: {street}
+msgid "on city streets, {street}"
+msgstr "по городским улицам, {street}"
 
-#. placeholders: {city}
-msgid "on the facility approach in {city}"
-msgstr "на подъезде к объекту, {city}"
+msgid "on the facility approach"
+msgstr "на подъезде к предприятию"
 
 #. placeholders: {highway}
 msgid "the {highway} on-ramp"
@@ -28325,33 +28316,37 @@ msgstr "Подробности расходов бизнеса: {business_charge
 #. placeholders: {grouped}
 #. one sentence of a longer line
 msgid "Net {grouped} dollars."
-msgstr ""
+msgstr "Чистыми {grouped} {grouped:доллар|доллара|долларов}."
 
 #. placeholders: {destination}
 #. one sentence of a longer line
 msgid "On time in {destination}."
-msgstr ""
+msgstr "Вовремя в {destination}."
 
 #. placeholders: {destination}, {grouped}
 msgid "On time in {destination}. Net {grouped} dollars."
 msgstr ""
+"Вовремя в {destination}. Чистыми {grouped} "
+"{grouped:доллар|доллара|долларов}."
 
 #. placeholders: {destination}
 #. one sentence of a longer line
 msgid "Late in {destination}."
-msgstr ""
+msgstr "С опозданием в {destination}."
 
 #. placeholders: {destination}, {grouped}
 msgid "Late in {destination}. Net {grouped} dollars."
 msgstr ""
+"С опозданием в {destination}. Чистыми {grouped} "
+"{grouped:доллар|доллара|долларов}."
 
 #. placeholders: {f}, {label}
 msgid "Load: {f} tons of {label}."
-msgstr ""
+msgstr "Груз: {label}, {f} {f:тонна|тонны|тонн}."
 
 #. placeholders: {f}
 msgid "Trip time: {f} hours."
-msgstr ""
+msgstr "Время в пути: {f} {f:час|часа|часов}."
 
 #. placeholders: {clock_text}
 msgid "It is {clock_text}."
@@ -28644,12 +28639,16 @@ msgstr "срок доставки прошёл {f} {f:час|часа|часов
 #. placeholders: {f}
 msgid " Truck damage this run {f} percent, may reduce pay."
 msgstr ""
+" Повреждения грузовика за рейс {f} {f:процент|процента|процентов}, оплата "
+"может снизиться."
 
 #. placeholders: {facility}, {grouped}, {timing}, {advance_note}, {cargo_condition}, {finish}
 msgid ""
 "Paperwork, {facility}: about {grouped} dollars to you, "
 "{timing}.{advance_note}{cargo_condition} {finish} to settle."
 msgstr ""
+"Документы, {facility}: около {grouped} {grouped:доллара|долларов|долларов} "
+"вам, {timing}.{advance_note}{cargo_condition} {finish} для расчёта."
 
 #. placeholders: {facility}, {f}, {label}, {speed_text}, {else}, {finish}
 msgid ""
@@ -29478,7 +29477,7 @@ msgid "At {facility}. Stop to check in."
 msgstr "{facility}. Остановитесь, чтобы отметиться."
 
 msgid "Cruise paused for pickup."
-msgstr ""
+msgstr "Круиз-контроль на паузе для погрузки."
 
 msgid "Pulling into pickup. Check-in menu opening."
 msgstr "Заезжаем на погрузку. Открывается меню регистрации."
@@ -31441,16 +31440,13 @@ msgstr ""
 msgid "Merge back up to speed."
 msgstr "Разгоняйтесь и вливайтесь в поток."
 
-msgid " You signaled and pulled over promptly."
-msgstr " Вы включили сигнал и быстро остановились."
+#. one sentence of a longer line
+msgid "License and logbook check."
+msgstr "Проверка прав и журнала."
 
-#. placeholders: {polite}, {outcome}, {current}
-msgid ""
-"You stop on the shoulder for a license and logbook check.{polite} {outcome} "
-"{current}"
-msgstr ""
-"Вы останавливаетесь на обочине для проверки прав и журнала.{polite} "
-"{outcome} {current}"
+#. placeholders: {outcome}, {current}
+msgid "License and logbook check. {outcome} {current}"
+msgstr "Проверка прав и журнала. {outcome} {current}"
 
 msgid "Pulled over"
 msgstr "Остановлен полицией"
@@ -31460,63 +31456,47 @@ msgstr "Инспектор отпускает вас с предупрежден
 
 #. placeholders: {grouped}, {construction_zone_fine_clause}
 msgid ""
-"Fine: {grouped} dollars, paid on the spot, and a reputation "
-"hit.{construction_zone_fine_clause}"
+"Fined {grouped} dollars and a reputation hit.{construction_zone_fine_clause}"
 msgstr ""
-"Штраф: {grouped} {grouped:доллар|доллара|долларов}, оплачен на месте, и "
-"удар по репутации.{construction_zone_fine_clause}"
+"Штраф {grouped} {grouped:доллар|доллара|долларов} и удар по "
+"репутации.{construction_zone_fine_clause}"
 
-#. placeholders: {join}
-msgid " The order stands because {join}."
-msgstr " Предписание остаётся в силе, потому что {join}."
-
-#. placeholders: {clock_text}, {wake_air_instruction}
+#. placeholders: {wake_air_instruction}
 #. one sentence of a longer line
 msgid ""
-"It is {clock_text}, the 30-minute break is satisfied, and the delivery "
-"deadline kept counting.{wake_air_instruction}"
+"The 30-minute break is done, and the delivery deadline kept "
+"counting.{wake_air_instruction}"
 msgstr ""
-"Сейчас {clock_text}, 30-минутный перерыв засчитан, а срок доставки "
-"продолжал идти.{wake_air_instruction}"
-
-#. placeholders: {lead}, {why}
-#. one sentence of a longer line
-msgid "{lead}{why} Out of service: thirty minutes parked on the shoulder."
-msgstr "{lead}{why} Запрет на движение: тридцать минут стоянки на обочине."
-
-#. placeholders: {lead}, {why}, {clock_text}, {wake_air_instruction}
-msgid ""
-"{lead}{why} Out of service: thirty minutes parked on the shoulder. It is "
-"{clock_text}, the 30-minute break is satisfied, and the delivery deadline "
-"kept counting.{wake_air_instruction}"
-msgstr ""
-"{lead}{why} Запрет на движение: тридцать минут стоянки на обочине. Сейчас "
-"{clock_text}, 30-минутный перерыв засчитан, а срок доставки продолжал "
+"30-минутный перерыв сделан, а срок доставки продолжал "
 "идти.{wake_air_instruction}"
 
-#. placeholders: {clock_text}, {wake_air_instruction}
+#. placeholders: {why}, {clock_text}
+#. one sentence of a longer line
+msgid "{why} It is {clock_text}."
+msgstr "{why} Сейчас {clock_text}."
+
+#. placeholders: {why}, {clock_text}, {wake_air_instruction}
+msgid ""
+"{why} It is {clock_text}. The 30-minute break is done, and the delivery "
+"deadline kept counting.{wake_air_instruction}"
+msgstr ""
+"{why} Сейчас {clock_text}. 30-минутный перерыв сделан, а срок доставки "
+"продолжал идти.{wake_air_instruction}"
+
+#. placeholders: {wake_air_instruction}
 #. one sentence of a longer line
 msgid ""
-"It is {clock_text}, driving and duty clocks reset, you wake rested, and the "
-"delivery deadline kept counting.{wake_air_instruction}"
-msgstr ""
-"Сейчас {clock_text}, часы вождения и смены сброшены, вы проснулись "
-"отдохнувшим, а срок доставки продолжал идти.{wake_air_instruction}"
+"You are rested, and the delivery deadline kept "
+"counting.{wake_air_instruction}"
+msgstr "Вы отдохнули, а срок доставки продолжал идти.{wake_air_instruction}"
 
-#. placeholders: {lead}, {why}
-#. one sentence of a longer line
-msgid "{lead}{why} Out of service: ten hours parked on the shoulder."
-msgstr "{lead}{why} Запрет на движение: десять часов стоянки на обочине."
-
-#. placeholders: {lead}, {why}, {clock_text}, {wake_air_instruction}
+#. placeholders: {why}, {clock_text}, {wake_air_instruction}
 msgid ""
-"{lead}{why} Out of service: ten hours parked on the shoulder. It is "
-"{clock_text}, driving and duty clocks reset, you wake rested, and the "
-"delivery deadline kept counting.{wake_air_instruction}"
+"{why} It is {clock_text}. You are rested, and the delivery deadline kept "
+"counting.{wake_air_instruction}"
 msgstr ""
-"{lead}{why} Запрет на движение: десять часов стоянки на обочине. Сейчас "
-"{clock_text}, часы вождения и смены сброшены, вы проснулись отдохнувшим, а "
-"срок доставки продолжал идти.{wake_air_instruction}"
+"{why} Сейчас {clock_text}. Вы отдохнули, а срок доставки продолжал "
+"идти.{wake_air_instruction}"
 
 msgid "weigh station bypass inspection"
 msgstr "проверка за объезд пункта весового контроля"
@@ -31535,14 +31515,6 @@ msgstr "Остановка уже урегулирована."
 #. placeholders: {summary}, {outcome}, {current}
 msgid "Stop already settled. {summary} {outcome} {current}"
 msgstr "Остановка уже урегулирована. {summary} {outcome} {current}"
-
-#. placeholders: {polite}, {summary}, {outcome}, {current}
-msgid ""
-"You stop on the shoulder for an enforcement inspection.{polite} {summary} "
-"{outcome} {current}"
-msgstr ""
-"Вы останавливаетесь на обочине для проверки.{polite} {summary} {outcome} "
-"{current}"
 
 msgid "Enter or Escape returns to the terminal."
 msgstr "Enter или Escape возвращают на базу."
@@ -31945,7 +31917,7 @@ msgid "Leave the school."
 msgstr "Выйти из школы."
 
 msgid "Cruise is already on."
-msgstr ""
+msgstr "Круиз-контроль уже включён."
 
 #. one sentence of a longer line
 msgid "No remembered cruise speed yet."
@@ -31965,10 +31937,10 @@ msgstr "Для возобновления нужен работающий дви
 
 #. placeholders: {spoken}
 msgid "Resuming cruise at {spoken}."
-msgstr ""
+msgstr "Круиз-контроль продолжает на {spoken}."
 
 msgid "Cruise canceled."
-msgstr ""
+msgstr "Круиз-контроль отменён."
 
 #. placeholders: {floor}
 #. one sentence of a longer line
@@ -31984,7 +31956,7 @@ msgid "Pedals are yours."
 msgstr "Педали ваши."
 
 msgid "Cruise resuming."
-msgstr ""
+msgstr "Круиз-контроль продолжает."
 
 msgid "turn"
 msgstr "turn"
@@ -32335,18 +32307,18 @@ msgid "While {name} drives, you are logged in the sleeper berth."
 msgstr ""
 "Пока ведёт {name}, вы записаны в журнале как находящийся в спальнике."
 
-#. placeholders: {pay}
+#. placeholders: {back}, {pay}
 #. one sentence of a longer line
-msgid "{pay} Those miles earn you half the experience."
-msgstr "{pay} За эти мили вы получаете половину опыта."
+msgid "{back} {pay} Those miles earn you half the experience."
+msgstr "{back} {pay} Эти мили дают вам половину опыта."
 
-#. placeholders: {pay}, {name}
+#. placeholders: {back}, {pay}, {name}
 msgid ""
-"{pay} Those miles earn you half the experience. While {name} drives, you "
-"are logged in the sleeper berth."
+"{back} {pay} Those miles earn you half the experience. While {name} drives, "
+"you are logged in the sleeper berth."
 msgstr ""
-"{pay} За эти мили вы получаете половину опыта. Пока ведёт {name}, вы "
-"записаны в журнале как находящийся в спальнике."
+"{back} {pay} Эти мили дают вам половину опыта. Пока {name} ведёт, вы "
+"записаны в спальном отсеке."
 
 #. placeholders: {name}, {left}
 msgid ""
@@ -32383,6 +32355,15 @@ msgid ""
 "{name} can take the wheel from this menu while you rest in the sleeper."
 msgstr ""
 
+#. one sentence of a longer line
+msgid "This load is long enough to share with a co-driver."
+msgstr ""
+
+#. placeholders: {take}
+msgid "This load is long enough to share with a co-driver. {take}"
+msgstr ""
+"Этот груз достаточно длинный, чтобы разделить его с напарником. {take}"
+
 #. placeholders: {name}
 msgid "{name} drives to the receiver's gate unless something needs you."
 msgstr ""
@@ -32393,14 +32374,6 @@ msgstr ""
 
 #. placeholders: {name}
 msgid "{name} hands the wheel back once you have had your 10-hour rest."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "This load is long enough to share with a co-driver."
-msgstr ""
-
-#. placeholders: {take}, {back}
-msgid "This load is long enough to share with a co-driver. {take} {back}"
 msgstr ""
 
 #. placeholders: {status}
@@ -34146,6 +34119,10 @@ msgstr "забирает груз для"
 msgid "on the road to {facility}"
 msgstr "в пути к {facility}"
 
+#. placeholders: {name}
+msgid "at {name}"
+msgstr "у {name}"
+
 #. placeholders: {name}, {city}
 msgid "at {name} in {city}"
 msgstr "{name}, {city}"
@@ -34163,7 +34140,7 @@ msgid "{name}: level {level}"
 msgstr "{name}: уровень {level}"
 
 msgid "1 delivery"
-msgstr ""
+msgstr "1 доставка"
 
 #. placeholders: {deliveries}
 msgid "{deliveries} deliveries"
@@ -34891,6 +34868,12 @@ msgid ""
 "warning no longer has a row: it stays quiet until you are heading for a "
 "ticket."
 msgstr ""
+"Две строки переехали. Круиз-контроль на малой скорости теперь в Помощи "
+"водителю, а не в Управлении. Заметность сигналов полосы и края теперь "
+"называется Громкость сигналов полосы и края и находится в Звуке под "
+"Громкостью игровых сигналов. Ваш выбор сохранился. У предупреждения о "
+"превышении скорости больше нет строки: оно молчит, пока вы не идёте к "
+"штрафу."
 
 msgid ""
 "Speech verbosity is now Driving speech, in the Speech category, with two "
@@ -35219,7 +35202,7 @@ msgid "Stop-and-go assistance"
 msgstr "Помощь в пробках"
 
 msgid "Cruise slows behind traffic and resumes when it is safe."
-msgstr ""
+msgstr "Круиз-контроль тормозит за потоком и продолжает, когда безопасно."
 
 msgid "Descent speed control"
 msgstr "Контроль скорости на спуске"
@@ -35230,6 +35213,11 @@ msgid ""
 "On Standard and Strong, braking sets a new, lower speed to hold. Strong "
 "also caps every descent at 55 miles per hour and steps in sooner."
 msgstr ""
+"При включённом круиз-контроле держит крутой спуск на той скорости, которую "
+"ваш грузовик выдерживает с грузом, моторным тормозом и короткими "
+"торможениями. В режимах Стандарт и Сильный торможение задаёт новую, более "
+"низкую скорость. Сильный также ограничивает каждый спуск 55 милями в час и "
+"вмешивается раньше."
 
 msgid "Exit speed assistance"
 msgstr "Помощь со скоростью съезда"
@@ -35373,7 +35361,7 @@ msgstr ""
 "Нажмите {control_upcoming}, чтобы в любом случае перечислить ближайшие."
 
 msgid "Low-speed cruise"
-msgstr ""
+msgstr "Круиз-контроль на малой скорости"
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
@@ -35382,6 +35370,9 @@ msgid ""
 "{control_cruise} holds your current speed, then hands back to normal cruise "
 "on open roads."
 msgstr ""
+"В зонах малой скорости, например на дорогах предприятий, у ворот и в зонах "
+"ремонта, {control_cruise} держит вашу текущую скорость, а на открытой "
+"дороге возвращает управление обычному круиз-контролю."
 
 #. placeholders: {control_cruise}
 msgid ""
@@ -35390,6 +35381,11 @@ msgid ""
 "on open roads. It eases off early for the next turn or the next lower "
 "limit. Braking cancels it. Presets never change this."
 msgstr ""
+"В зонах малой скорости, например на дорогах предприятий, у ворот и в зонах "
+"ремонта, {control_cruise} держит вашу текущую скорость, а на открытой "
+"дороге возвращает управление обычному круиз-контролю. Он заранее сбрасывает "
+"скорость перед следующим поворотом или следующим более низким ограничением. "
+"Торможение отменяет его. Предустановки этого не меняют."
 
 #. one sentence of a longer line
 msgid "It eases off early for the next turn or the next lower limit."
@@ -36352,6 +36348,10 @@ msgid ""
 "whichever you pick. All three stay clear of a following-too-close citation. "
 "The preset above never changes it."
 msgstr ""
+"Сколько места круиз-контроль оставляет до машины впереди. Близко это две с "
+"половиной секунды, нормально три, далеко три с половиной. Погода "
+"увеличивает дистанцию при любом выборе. Все три не доводят до штрафа за "
+"слишком короткую дистанцию. Предустановка выше её никогда не меняет."
 
 msgid ""
 "Up and Down pick a control, Enter then a key press moves it, Escape goes "
@@ -37160,24 +37160,29 @@ msgstr ""
 "переключением передач. {control_horn} подаёт гудок, пока удерживается."
 
 msgid "Cruise and hills"
-msgstr ""
+msgstr "Круиз-контроль и уклоны"
 
 #. one sentence of a longer line
 msgid ""
 "On open roads it follows traffic; on low-speed roads it follows local "
 "limits, queues and corners."
 msgstr ""
+"На открытой дороге он следует за потоком; на медленных дорогах следует "
+"местным ограничениям, очередям и поворотам."
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
 msgid "{control_cruise} turns cruise on."
-msgstr ""
+msgstr "{control_cruise} включает круиз-контроль."
 
 #. placeholders: {control_cruise}
 msgid ""
 "{control_cruise} turns cruise on. On open roads it follows traffic; on "
 "low-speed roads it follows local limits, queues and corners."
 msgstr ""
+"{control_cruise} включает круиз-контроль. На открытой дороге он следует за "
+"потоком; на медленных дорогах следует местным ограничениям, очередям и "
+"поворотам."
 
 msgid ""
 "Cruise follows traffic. Its normal three second clear-weather gap increases "
@@ -37224,11 +37229,15 @@ msgid ""
 "The target keys change the open-road cruise speed, even while cruise holds "
 "a lower limit."
 msgstr ""
+"Клавиши цели меняют скорость круиз-контроля на открытой дороге, даже пока "
+"он держит более низкое ограничение."
 
 #. one sentence of a longer line
 msgid ""
 "Cruise pauses at the pickup and comes back on after you leave with the load."
 msgstr ""
+"Круиз-контроль встаёт на паузу при погрузке и снова включается, когда вы "
+"уезжаете с грузом."
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
@@ -37242,6 +37251,9 @@ msgid ""
 "{control_cruise_resume} resumes the previous target. Cruise pauses at the "
 "pickup and comes back on after you leave with the load."
 msgstr ""
+"Нажмите {control_cruise} ещё раз или коснитесь тормоза, чтобы отменить. "
+"{control_cruise_resume} возвращает прежнюю цель. Круиз-контроль встаёт на "
+"паузу при погрузке и снова включается, когда вы уезжаете с грузом."
 
 #. placeholders: {control_cruise_resume}
 #. one sentence of a longer line
@@ -42047,6 +42059,198 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "{city} to {destination}"
+#~ msgstr "{city} до {destination}"
+
+#~ msgid "{origin} to {destination}"
+#~ msgstr "{origin} до {destination}"
+
+#~ msgid "{tons} tons of {cargo}, {route}."
+#~ msgstr "{cargo}, {tons} {tons:тонна|тонны|тонн}, {route}."
+
+#~ msgid "HOS/ELD violation"
+#~ msgstr "нарушение режима труда и отдыха по бортовому журналу"
+
+#~ msgid "Somebody said troopers were working {side} a while back."
+#~ msgstr "Кто-то говорил, что полиция работала {side} некоторое время назад."
+
+#~ msgid "Somebody said they were checking logs {side} a while back."
+#~ msgstr "Кто-то говорил, что проверяли журналы {side} некоторое время назад."
+
+#~ msgid ""
+#~ "Somebody said they were checking logs and equipment {side} a while back."
+#~ msgstr ""
+#~ "Кто-то говорил, что проверяли журналы и технику {side} некоторое время "
+#~ "назад."
+
+#~ msgid ""
+#~ "Somebody said the chain control was checking rigs {side} a while back."
+#~ msgstr ""
+#~ "Кто-то говорил, что контроль цепей проверял грузовики {side} некоторое "
+#~ "время назад."
+
+#~ msgid "Somebody called a trooper {side} a while back."
+#~ msgstr "Кто-то сообщал о полицейском {side} некоторое время назад."
+
+#~ msgid "Somebody said a trooper had somebody stopped {side} a while back."
+#~ msgstr ""
+#~ "Кто-то говорил, что полицейский кого-то остановил {side} некоторое время "
+#~ "назад."
+
+#~ msgid "Departing now."
+#~ msgstr "Отправляемся."
+
+#~ msgid ""
+#~ "Engine off. {control_hint} starts it, {control_hint2} releases the parking "
+#~ "brake once air is up."
+#~ msgstr ""
+#~ "Двигатель выключен. {control_hint} заводит его, {control_hint2} отпускает "
+#~ "стояночный тормоз, когда поднимется давление воздуха."
+
+#~ msgid ""
+#~ "{control_hint} starts it, {control_hint2} releases the parking brake once "
+#~ "air is up."
+#~ msgstr ""
+#~ "{control_hint} заводит его, {control_hint2} отпускает стояночный тормоз, "
+#~ "когда поднимется давление воздуха."
+
+#~ msgid ""
+#~ "{pairing_line} {lead}{route_departure_summary} {departure_briefing} "
+#~ "{next_context} {name} takes the wheel."
+#~ msgstr ""
+#~ "{pairing_line} {lead}{route_departure_summary} {departure_briefing} "
+#~ "{next_context} За руль садится {name}."
+
+#~ msgid "Fuel: {percent} percent."
+#~ msgstr "Топливо: {percent} {percent:процент|процента|процентов}."
+
+#~ msgid "{name} in {city_name}. {grouped} dollars.{cdl}{record}"
+#~ msgstr ""
+#~ "{name} в {city_name}. {grouped} "
+#~ "{grouped:доллар|доллара|долларов}.{cdl}{record}"
+
+#~ msgid "Dispatch routed you to {destination_facility_text}. "
+#~ msgstr "Диспетчер проложил вам маршрут до {destination_facility_text}. "
+
+#~ msgid "Loaded for {destination_facility_text}."
+#~ msgstr "Загружено до {destination_facility_text}."
+
+#~ msgid "Loaded for {destination_facility_text}. {progress_summary} "
+#~ msgstr "Загружено до {destination_facility_text}. {progress_summary} "
+
+#~ msgid ""
+#~ "Back on the highway after the 30-minute break. Keep the logbook clean."
+#~ msgstr ""
+#~ "Снова на трассе после 30-минутного перерыва. Держите журнал в чистоте."
+
+#~ msgid "Back on the highway with a reset clock. Keep the logbook clean."
+#~ msgstr ""
+#~ "Снова на трассе со сброшенным счётчиком часов. Держите журнал в чистоте."
+
+#~ msgid ""
+#~ "The officer writes the order: out of service, {oos_phrase}, right here."
+#~ msgstr ""
+#~ "Инспектор выписывает предписание: запрет на движение, {oos_phrase}, прямо "
+#~ "здесь."
+
+#~ msgid "{text} Evidence: {evidence_text}."
+#~ msgstr "{text} Доказательства: {evidence_text}."
+
+#~ msgid ""
+#~ "{text} Evidence: {evidence_text}. The officer writes the order: out of "
+#~ "service, {oos_phrase}, right here."
+#~ msgstr ""
+#~ "{text} Доказательства: {evidence_text}. Инспектор выписывает предписание: "
+#~ "запрет на движение, {oos_phrase}, прямо здесь."
+
+#~ msgid ""
+#~ "{text} Evidence: {evidence_text}. Fined {grouped} dollars, and your "
+#~ "reputation took a hit."
+#~ msgstr ""
+#~ "{text} Доказательства: {evidence_text}. Штраф {grouped} "
+#~ "{grouped:доллар|доллара|долларов}, и ваша репутация пострадала."
+
+#~ msgid "on city streets, {street}, in {city}"
+#~ msgstr "на городских улицах, {street}, {city}"
+
+#~ msgid "on the facility approach in {city}"
+#~ msgstr "на подъезде к объекту, {city}"
+
+#~ msgid " You signaled and pulled over promptly."
+#~ msgstr " Вы включили сигнал и быстро остановились."
+
+#~ msgid ""
+#~ "You stop on the shoulder for a license and logbook check.{polite} {outcome} "
+#~ "{current}"
+#~ msgstr ""
+#~ "Вы останавливаетесь на обочине для проверки прав и журнала.{polite} "
+#~ "{outcome} {current}"
+
+#~ msgid ""
+#~ "Fine: {grouped} dollars, paid on the spot, and a reputation "
+#~ "hit.{construction_zone_fine_clause}"
+#~ msgstr ""
+#~ "Штраф: {grouped} {grouped:доллар|доллара|долларов}, оплачен на месте, и "
+#~ "удар по репутации.{construction_zone_fine_clause}"
+
+#~ msgid " The order stands because {join}."
+#~ msgstr " Предписание остаётся в силе, потому что {join}."
+
+#~ msgid ""
+#~ "It is {clock_text}, the 30-minute break is satisfied, and the delivery "
+#~ "deadline kept counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "Сейчас {clock_text}, 30-минутный перерыв засчитан, а срок доставки "
+#~ "продолжал идти.{wake_air_instruction}"
+
+#~ msgid "{lead}{why} Out of service: thirty minutes parked on the shoulder."
+#~ msgstr "{lead}{why} Запрет на движение: тридцать минут стоянки на обочине."
+
+#~ msgid ""
+#~ "{lead}{why} Out of service: thirty minutes parked on the shoulder. It is "
+#~ "{clock_text}, the 30-minute break is satisfied, and the delivery deadline "
+#~ "kept counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "{lead}{why} Запрет на движение: тридцать минут стоянки на обочине. Сейчас "
+#~ "{clock_text}, 30-минутный перерыв засчитан, а срок доставки продолжал "
+#~ "идти.{wake_air_instruction}"
+
+#~ msgid ""
+#~ "It is {clock_text}, driving and duty clocks reset, you wake rested, and the "
+#~ "delivery deadline kept counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "Сейчас {clock_text}, часы вождения и смены сброшены, вы проснулись "
+#~ "отдохнувшим, а срок доставки продолжал идти.{wake_air_instruction}"
+
+#~ msgid "{lead}{why} Out of service: ten hours parked on the shoulder."
+#~ msgstr "{lead}{why} Запрет на движение: десять часов стоянки на обочине."
+
+#~ msgid ""
+#~ "{lead}{why} Out of service: ten hours parked on the shoulder. It is "
+#~ "{clock_text}, driving and duty clocks reset, you wake rested, and the "
+#~ "delivery deadline kept counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "{lead}{why} Запрет на движение: десять часов стоянки на обочине. Сейчас "
+#~ "{clock_text}, часы вождения и смены сброшены, вы проснулись отдохнувшим, а "
+#~ "срок доставки продолжал идти.{wake_air_instruction}"
+
+#~ msgid ""
+#~ "You stop on the shoulder for an enforcement inspection.{polite} {summary} "
+#~ "{outcome} {current}"
+#~ msgstr ""
+#~ "Вы останавливаетесь на обочине для проверки.{polite} {summary} {outcome} "
+#~ "{current}"
+
+#~ msgid "{pay} Those miles earn you half the experience."
+#~ msgstr "{pay} За эти мили вы получаете половину опыта."
+
+#~ msgid ""
+#~ "{pay} Those miles earn you half the experience. While {name} drives, you "
+#~ "are logged in the sleeper berth."
+#~ msgstr ""
+#~ "{pay} За эти мили вы получаете половину опыта. Пока ведёт {name}, вы "
+#~ "записаны в журнале как находящийся в спальнике."
 
 #~ msgid ""
 #~ "Level {level}, {title}. {f} experience.{owed_text} Reputation {f2} out of "

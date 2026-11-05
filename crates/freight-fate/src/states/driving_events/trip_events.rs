@@ -1399,7 +1399,7 @@ impl DrivingState {
             }
         }
         if evidence.is_empty() {
-            evidence = vec!["HOS/ELD violation".to_string()];
+            evidence = vec!["hours-of-service violation".to_string()];
         }
         let evidence_text = evidence.join(", ");
         ctx.audio.play("ui/error");
@@ -1420,15 +1420,14 @@ impl DrivingState {
                 "ten hours"
             };
             let return_message = if break_only {
-                "Back on the highway after the 30-minute break. Keep the logbook clean."
+                "Back on the highway after the 30-minute break."
             } else {
-                "Back on the highway with a reset clock. Keep the logbook clean."
+                "Back on the highway with a reset clock."
             };
-            let summary = format!(
-                "{} Evidence: {evidence_text}. The officer writes the order: out of service, \
-                 {oos_phrase}, right here.",
-                event.text()
-            );
+            // What happened and the citation, nothing else: where the stop
+            // was is the lights line's, and the scale's "wave you in" said
+            // shoulder and weigh station in one breath (owner, 2026-11-04).
+            let summary = format!("Out of service {oos_phrase}. Citation: {evidence_text}.");
             let lights = format!(
                 "Lights and siren behind you for a log check. Signal with {} and stop on the \
                  shoulder.",
@@ -1455,7 +1454,7 @@ impl DrivingState {
                 0.0f64.max(profile.career.reputation - hos::HOS_REPUTATION_HIT);
         }
         let message = format!(
-            "{} Evidence: {evidence_text}. Fined {} dollars, and your reputation took a hit.",
+            "{} Citation: {evidence_text}. Fined {} dollars, and your reputation took a hit.",
             event.text(),
             ff_core::pyfmt::fmt_grouped(fine, 0)
         );
