@@ -13,6 +13,7 @@ use std::sync::OnceLock;
 use regex::Regex;
 
 use crate::cli::{Args, Spec, UsageError};
+use crate::release_notes_reword::Published;
 use crate::util::{self, py_splitlines, py_strip, Result};
 
 const CHANGELOG_PATH: &str = "CHANGELOG.md";
@@ -411,13 +412,26 @@ fn sections_added_since(
     ));
     base.extend(republished_entries(released)?);
     base.extend(extra_excluded.iter().cloned());
+    let published = Published::new(base);
     Ok(nightly_candidate_sections(head_text, released)
         .into_iter()
         .filter_map(|s| {
             let entries: Vec<String> = s
                 .entries
                 .into_iter()
-                .filter(|e| !base.contains(&normalize_entry(e)))
+                .filter(|e| {
+                    let normalized = normalize_entry(e);
+                    match published.match_for(&normalized) {
+                        None => true,
+                        Some(same) if same == normalized => false,
+                        Some(old) => {
+                            // A reword of a published bullet: say so in the
+                            // build log, so a wrong match can be spotted.
+                            eprintln!("Reworded, already published: {normalized}\n  was: {old}");
+                            false
+                        }
+                    }
+                })
                 .collect();
             (!entries.is_empty()).then_some(Section {
                 title: s.title,
