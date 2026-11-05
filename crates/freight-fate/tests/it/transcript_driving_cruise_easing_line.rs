@@ -95,3 +95,40 @@ fn a_drop_held_at_full_pace_lets_go_when_the_clock_goes_real() {
         "still holding {held:.1} with {ahead:.2} miles to the drop"
     );
 }
+
+/// Cruise set 75 at 40 mph with a 30 limit just ahead, and `exit_mph` the
+/// exit's own cruise number, if any. What was said over six seconds.
+fn exit_cap_run(name: &str, exit_mph: Option<f64>) -> Vec<String> {
+    let mut harness = cruising(name, 40.0, 55.0, &FLAT);
+    harness.with_drive(move |d, _| {
+        let limits = [(0.0, 55.0), (START_MI + 0.05, 30.0)];
+        bench_road_segments(d, &limits, &FLAT, 1.0);
+        d.trip.position_mi = START_MI;
+        d.cruise_mph = Some(75.0);
+        d.cruise_exit_mph = exit_mph;
+    });
+    harness.clear_speech();
+    frames(&mut harness, (6.0 / DT) as usize, DT);
+    spoken(&harness)
+}
+
+/// Set for the exit at 30, then the 30 limit's cap of 35 over a truck doing
+/// 40: the exit's number was just spoken and the truck is on its way down to
+/// it, so "easing to 35" would read as cruise speeding back up (agent drive,
+/// Jamestown, 2026-11-04).
+#[test]
+fn a_limit_cap_over_the_exit_number_says_nothing() {
+    let lines = exit_cap_run("Easing Exit", Some(30.0));
+    assert!(
+        !lines.iter().any(|line| line.contains("easing to")),
+        "{}",
+        lines.join("\n")
+    );
+    // With no exit armed the same cap is news.
+    let lines = exit_cap_run("Easing No Exit", None);
+    assert!(
+        lines.iter().any(|line| line.contains("easing to 35")),
+        "{}",
+        lines.join("\n")
+    );
+}
