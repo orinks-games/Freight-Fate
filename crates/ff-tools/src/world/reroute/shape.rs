@@ -366,6 +366,37 @@ pub fn decode(geom: &serde_json::Value) -> Option<Decoded> {
     Some((coords, ele))
 }
 
+/// The shortest step whose heading the archive can still carry. Each vertex
+/// is rounded to [`QUANT_DEG`] (1e-5 degree of latitude, about 1.11 m), so a
+/// step of length L can point up to atan(1.11 / L) off true; at 12.7 m that
+/// error falls to [`SIGN_HYSTERESIS_DEG`], the smallest turn the curve finder
+/// treats as a real change of direction.
+pub const MIN_HEADING_STEP_M: f64 = 12.7;
+
+/// The archived line with every vertex closer than [`MIN_HEADING_STEP_M`]
+/// to the last one kept dropped (the ends always stay), for reading
+/// curvature off quantized points. A 1.4 m step left by two joined ways
+/// otherwise turns one gentle bend into a zig and a zag that the radius
+/// window splits, reading a 3000 ft bend as 500 ft.
+pub fn thin_for_heading(coords: &[(f64, f64)]) -> Vec<(f64, f64)> {
+    let mut out: Vec<(f64, f64)> = Vec::with_capacity(coords.len());
+    for (i, &p) in coords.iter().enumerate() {
+        let last = i + 1 == coords.len();
+        match out.last() {
+            Some(&q) if haversine_m(q.1, q.0, p.1, p.0) < MIN_HEADING_STEP_M => {
+                if last {
+                    if out.len() > 1 {
+                        out.pop();
+                    }
+                    out.push(p);
+                }
+            }
+            _ => out.push(p),
+        }
+    }
+    out
+}
+
 /// A vertex's position on the leg's own mileage scale.
 pub fn at_mi(cum_m: &[f64], k: usize, mile_scale: f64) -> f64 {
     round_py_n(cum_m[k] / M_PER_MI * mile_scale, 2)
@@ -440,6 +471,25 @@ mod tests {
             pts.push((-88.0 + deg_lon(radius_m), 42.0 + deg_lat(i as f64 * 50.0)));
         }
         pts
+    }
+
+    #[test]
+    fn a_near_duplicate_vertex_does_not_make_a_gentle_bend_sharp() {
+        // A 1000 m-radius bend with one vertex re-quantized 1.4 m off its
+        // neighbour, the way two joined ways leave it.
+        let mut coords = bend(1000.0);
+        let k = 30;
+        let (lon, lat) = coords[k];
+        coords.insert(k + 1, (lon + 0.000_01, lat + 0.000_01));
+        let thinned = thin_for_heading(&coords);
+        let cum = cumulative_m(&thinned);
+        let c = analyse(&thinned, &cum);
+        let ft = 1000.0 * FT_PER_M;
+        for curve in &c.curves {
+            assert!(curve.min_radius_ft as f64 > 0.7 * ft, "{curve:?}");
+        }
+        assert_eq!(thinned.first(), coords.first());
+        assert_eq!(thinned.last(), coords.last());
     }
 
     #[test]
