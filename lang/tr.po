@@ -14042,16 +14042,11 @@ msgstr "bu kesimde {where_} bir denetim noktası"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "{distance} sonra {where_} bir denetim noktası"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "Canlı yol raporu: {description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "Canlı yol raporu, {distance} ileride: {text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr ". Etkilenen şeritler: {lanes}."
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "Etkilenen şeritler: {lanes}."
 
@@ -41055,6 +41050,12 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "Canlı yol raporu: {description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr ". Etkilenen şeritler: {lanes}."
 
 #~ msgid "{join} in the last year"
 #~ msgstr "son bir yılda {join}"

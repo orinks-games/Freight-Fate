@@ -17,6 +17,7 @@
 
 ### Changed
 
+- **Live road reports now cover only your road, in your direction, within 10 miles.** Each says how far ahead it is.
 - **Citations now clear from your record in 30 game days, and serious violations and crashes in 90.** Two serious violations within 180 days, not three years, suspend your CDL.
 - **Road announcements now wait for NVDA 2026.3 or SAPI to finish speaking.** The most urgent goes next; stale chatter is skipped.
 - **Game sounds step back for speech only while NVDA 2026.3 or SAPI is speaking.** Older NVDA versions keep the timing they had.

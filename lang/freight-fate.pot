@@ -16136,18 +16136,12 @@ msgstr ""
 msgid "an enforcement post {where_} in {distance}"
 msgstr ""
 
-#. placeholders: {description}
+#. placeholders: {distance}, {text}
 #: crates/ff-core/src/sim/trip_traffic.rs
-msgid "Live road report: {description}"
+msgid "Live road report, {distance} ahead: {text}"
 msgstr ""
 
 #. placeholders: {lanes}
-#: crates/ff-core/src/sim/trip_traffic.rs
-msgid ". {lanes} affected."
-msgstr ""
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 #: crates/ff-core/src/sim/trip_traffic.rs
 msgid "{lanes} affected."
 msgstr ""

@@ -48,6 +48,7 @@ mod sim_facility_approaches;
 mod sim_interchanges;
 mod sim_lane_straighten;
 mod sim_limit_lookahead;
+mod sim_live_road_reports;
 mod sim_maxspeed;
 mod sim_multilane_speech;
 mod sim_real_construction_zones;

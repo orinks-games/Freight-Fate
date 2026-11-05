@@ -12816,16 +12816,11 @@ msgstr "这段路{where_}有一个执法点"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "{distance}后{where_}有一个执法点"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "实时路况报告：{description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "实时路况报告，前方{distance}：{text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr "。{lanes}受影响。"
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "{lanes}受影响。"
 
@@ -37247,6 +37242,12 @@ msgstr "镜像地址必须以 https:// 开头。"
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr "镜像地址不能包含查询参数或片段。"
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "实时路况报告：{description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr "。{lanes}受影响。"
 
 #~ msgid "{join} in the last year"
 #~ msgstr "过去一年{join}"

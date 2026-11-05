@@ -14546,16 +14546,11 @@ msgstr "ein Kontrollposten {where_} auf dieser Strecke"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "ein Kontrollposten {where_} in {distance}"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "Aktuelle Verkehrsmeldung: {description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "Aktuelle Verkehrsmeldung, in {distance}: {text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr ". {lanes} betroffen."
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "{lanes} betroffen."
 
@@ -42183,6 +42178,12 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "Aktuelle Verkehrsmeldung: {description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr ". {lanes} betroffen."
 
 #~ msgid "{join} in the last year"
 #~ msgstr "{join} im letzten Jahr"

@@ -12907,16 +12907,11 @@ msgstr "この区間に取り締まりの拠点、{where_}"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "{distance}先に取り締まりの拠点、{where_}"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "道路情報：{description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "道路情報、{distance}先：{text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr "。{lanes}に影響があります。"
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "{lanes}に影響があります。"
 
@@ -37830,6 +37825,12 @@ msgstr ""
 
 msgid "The mirror address cannot contain a query or fragment."
 msgstr ""
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "道路情報：{description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr "。{lanes}に影響があります。"
 
 #~ msgid "{join} in the last year"
 #~ msgstr "過去1年間に{join}"
