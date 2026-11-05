@@ -97,7 +97,10 @@ fn test_a_car_alongside_on_the_left_is_heard_on_the_left() {
     drive.update_traffic_sounds(&mut app.ctx, FRAME);
     let heard = sounds(&log);
     assert_eq!(heard.len(), 1, "{heard:?}");
-    assert_eq!(heard[0].key, "traffic/car_loop");
+    assert!(
+        traffic_sound_takes("car").contains(&heard[0].key.as_str()),
+        "{heard:?}"
+    );
     assert!(heard[0].pan < -0.5, "{heard:?}");
     assert!(heard[0].volume > 0.3, "{heard:?}");
 }
