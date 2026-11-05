@@ -57,6 +57,7 @@
 - **Cruise no longer says it is easing while the truck speeds up.** Pulling away under a lower limit, it read out two speeds a second apart.
 - **Adaptive cruise no longer repeats a work zone's slowdown after a stop.** Braking for a hazard or turning cruise off in the approach used to bring the line back.
 - **A road line cut off by a Clock or Route readout is no longer lost to a Brake warning.** With NVDA 2026.3 or SAPI, it plays after the warning.
+- **The exit countdown is no longer lost while other lines are speaking.** With NVDA 2026.3 or SAPI, the 2-mile and 1-mile calls and the exit speed now always play.
 
 ## 1.9.5 - 2026-10-25
 
