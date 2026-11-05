@@ -383,7 +383,7 @@ impl Menu for OnlineHubState {
                         return "Profile sharing: not set up".to_string();
                     }
                     if ctx.settings.profile_sharing_pending_off {
-                        "Profile sharing: off requested".to_string()
+                        "Profile sharing: turning off".to_string()
                     } else {
                         format!(
                             "Profile sharing: {}",

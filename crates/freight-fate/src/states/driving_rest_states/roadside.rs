@@ -284,18 +284,10 @@ impl Menu for TrafficStopState {
     }
 
     fn announce_entry(&mut self, ctx: &mut GameContext) {
-        let polite = if self.signaled {
-            " You signaled and pulled over promptly."
-        } else {
-            ""
-        };
         let outcome = self.outcome_text.clone();
         let current = self.current_text(ctx);
         ctx.say_with(
-            format!(
-                "You stop on the shoulder for a license and logbook check.{polite} {outcome} \
-                 {current}"
-            ),
+            format!("License and logbook check. {outcome} {current}"),
             Say::new(),
         );
     }
@@ -428,7 +420,7 @@ impl EnforcementStopState {
         let reason = self.menu.title.clone();
         let ladder = d.log_enforcement(ctx, self.fine, self.warned, false, &reason);
         self.outcome_text = format!(
-            "Fine: {} dollars, paid on the spot, and a reputation hit.{}",
+            "Fined {} dollars and a reputation hit.{}",
             fmt_grouped(self.fine, 0),
             construction_zone_fine_clause(self.construction_zone)
         );
@@ -446,7 +438,14 @@ impl EnforcementStopState {
             let why = if causes.is_empty() {
                 String::new()
             } else {
-                format!(" The order stands because {}.", causes.join(" and "))
+                {
+                    let joined = causes.join(" and ");
+                    let mut chars = joined.chars();
+                    match chars.next() {
+                        Some(first) => format!(" {}{}.", first.to_uppercase(), chars.as_str()),
+                        None => String::new(),
+                    }
+                }
             };
             // Ten hours parked is a real overnight fast-forward, the same as
             // every other sleep path -- the engine must not idle through the
@@ -455,29 +454,22 @@ impl EnforcementStopState {
             // break is not overnight: leave the engine running.
             let minutes = hos_of(ctx).out_of_service_minutes(&mode);
             let break_only = minutes < hos::SLEEP_MIN;
-            let engine_off = if break_only {
-                String::new()
-            } else {
-                shut_down_engine(d, ctx)
-            };
+            // Shutting down is what the order does, not news; the wake line
+            // says the engine is off when it is.
+            if !break_only {
+                shut_down_engine(d, ctx);
+            }
             d.place_out_of_service_minutes(ctx, minutes);
-            let lead = if engine_off.trim().is_empty() {
-                String::new()
-            } else {
-                format!(" {}", engine_off.trim())
-            };
             let oos_line = if break_only {
                 format!(
-                    "{lead}{why} Out of service: thirty minutes parked on the shoulder. It is \
-                     {}, the 30-minute break is satisfied, and the delivery deadline kept \
-                     counting.{}",
+                    "{why} It is {}. The 30-minute break is done, and the delivery deadline \
+                     kept counting.{}",
                     clock_text(d.trip.local_hour()),
                     wake_air_instruction(d)
                 )
             } else {
                 format!(
-                    "{lead}{why} Out of service: ten hours parked on the shoulder. It is {}, \
-                     driving and duty clocks reset, you wake rested, and the delivery deadline kept \
+                    "{why} It is {}. You are rested, and the delivery deadline kept \
                      counting.{}",
                     clock_text(d.trip.local_hour()),
                     wake_air_instruction(d)
@@ -540,11 +532,6 @@ impl Menu for EnforcementStopState {
     /// the detail. Led in the past tense instead, so the money is plainly
     /// already spent.
     fn announce_entry(&mut self, ctx: &mut GameContext) {
-        let polite = if self.signaled {
-            " You signaled and pulled over promptly."
-        } else {
-            ""
-        };
         let summary = self.summary.clone();
         let outcome = self.outcome_text.clone();
         let current = self.current_text(ctx);
@@ -556,13 +543,7 @@ impl Menu for EnforcementStopState {
             return;
         }
         self.stop_announced = true;
-        ctx.say_with(
-            format!(
-                "You stop on the shoulder for an enforcement inspection.{polite} {summary} \
-                 {outcome} {current}"
-            ),
-            Say::new(),
-        );
+        ctx.say_with(format!("{summary} {outcome} {current}"), Say::new());
     }
 
     fn presence(&self, _ctx: &GameContext) -> Option<PresenceState> {

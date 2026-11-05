@@ -393,7 +393,7 @@ fn the_touch_gestures_screen_moves_a_gesture_and_saves_it() {
     let labels = harness.menu_labels();
     for wanted in [
         "Tap: Speed",
-        "Gas hold, tap with a second finger: Automatic speed control",
+        "Gas hold, tap with a second finger: Cruise",
         "Brake hold, double tap with a second finger: Engine on or off",
         "Two-finger double tap: Pause",
         "Reset every touch gesture to its default",

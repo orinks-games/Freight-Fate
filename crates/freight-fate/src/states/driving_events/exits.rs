@@ -643,7 +643,7 @@ impl DrivingState {
         // keeping automated they never press it, because the game itself says
         // "lane keeping will take this exit". Gating the speed assist on the
         // signal therefore switched it off for exactly the preset that
-        // promises the most help: the announcement said "adaptive cruise will
+        // promises the most help: the announcement said "cruise will
         // ease to 40 for the ramp", nothing eased, and the truck went through
         // the gore at 53 and missed the exit (owner playtest, Denver->
         // Silverthorne, 2026-08-19). Automated lane keeping IS the commitment.
@@ -744,7 +744,7 @@ impl DrivingState {
                 // truck at road speed was over it, wrong now that the gore
                 // accepts road speed. Paused with nothing to do, the assist
                 // coasted; on a 3.7 percent downgrade the truck ran from 60 to
-                // 69 with "automatic speed control paused" the only thing the
+                // 69 with "cruise paused" the only thing the
                 // status said (owner, Spokane, twice, 2026-08-21/22). Cruise
                 // holds the grade and its own glide eases to its exit floor
                 // at the gore, which is what the callout promised.

@@ -82,7 +82,7 @@ enum Cause {
 impl Cause {
     fn label(self) -> &'static str {
         match self {
-            Cause::Cruise => "adaptive cruise",
+            Cause::Cruise => "cruise",
             Cause::CurveAssist => "curve assist",
             Cause::AutoMode => "auto mode (J)",
             Cause::Driver => "driver stalk",

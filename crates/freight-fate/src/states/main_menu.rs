@@ -530,11 +530,16 @@ pub fn career_location(ctx: &GameContext, profile: &Profile) -> String {
         return format!("on the road to {facility}");
     }
     match ctx.world.home_terminal(&profile.current_city) {
-        Ok(terminal) => format!(
-            "at {} in {}",
-            terminal.name,
-            ctx.world.spoken_city(&profile.current_city, None)
-        ),
+        // "Sheboygan Company Yard in Sheboygan" says the city twice.
+        Ok(terminal) => {
+            let city = ctx.world.spoken_city(&profile.current_city, None);
+            let short_city = city.split(',').next().unwrap_or(&city).trim().to_string();
+            if terminal.name.contains(&short_city) {
+                format!("at {}", terminal.name)
+            } else {
+                format!("at {} in {city}", terminal.name)
+            }
+        }
         Err(_) => format!("in {}", profile.current_city),
     }
 }
@@ -573,14 +578,32 @@ pub fn career_summary(
             profile.carrier_name,
             status_label(&profile.business_status)
         ),
-        format!("{} dollars", fmt_grouped(profile.money(), 0)),
-        career_location(ctx, profile),
-        format!("{} deliveries", profile.career.deliveries),
     ];
+    parts.extend(career_progress(ctx, profile));
     if include_saved {
         parts.push(format!("last saved {}", saved_label(path)));
     }
     parts.join(", ")
+}
+
+/// The main menu's Continue row: the newest career without its carrier,
+/// which the player already knows.
+pub fn continue_summary(ctx: &GameContext, profile: &Profile) -> String {
+    let mut parts = vec![format!("level {}", profile.career.level())];
+    parts.extend(career_progress(ctx, profile));
+    format!("Continue {}: {}", profile.name, parts.join(", "))
+}
+
+fn career_progress(ctx: &GameContext, profile: &Profile) -> [String; 3] {
+    [
+        format!("{} dollars", fmt_grouped(profile.money(), 0)),
+        career_location(ctx, profile),
+        if profile.career.deliveries == 1 {
+            "1 delivery".to_string()
+        } else {
+            format!("{} deliveries", profile.career.deliveries)
+        },
+    ]
 }
 
 // -- the main menu ----------------------------------------------------------------------

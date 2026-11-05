@@ -490,6 +490,14 @@ pub fn copy_last_spoken(ctx: &mut GameContext) {
 /// screen opened or focus last moved (`GameContext::note_copy_focus`), the
 /// focused row is copied instead, without its position cue.
 pub fn copy_last_spoken_with_focus(ctx: &mut GameContext, focus: Option<CopyFocus>) {
+    // Stepping through the history with comma and period picks the line:
+    // copying the newest instead handed over whatever the game said last,
+    // a lane-change refusal, not the line the player had gone to (owner,
+    // 2026-11-05).
+    if let Some(reviewed) = ctx.message_log.open_review_message().cloned() {
+        copy_text(ctx, Some(reviewed.text));
+        return;
+    }
     let newest = newest_copyable_line(ctx);
     let quiet = ctx.message_log.total_added() == ctx.copy_mark;
     let text = match focus {

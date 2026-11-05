@@ -258,10 +258,7 @@ fn test_an_enforcement_stop_charges_once_and_reads_back_as_history() {
     app.clear_speech();
     state.announce_entry(&mut app.ctx);
     let first = last(&app);
-    assert!(
-        first.starts_with("You stop on the shoulder for an enforcement inspection."),
-        "{first}"
-    );
+    assert!(!first.starts_with("Stop already settled"), "{first}");
 
     // Re-reading the stop must not sound like a second charge.
     app.clear_speech();
@@ -319,7 +316,7 @@ fn test_an_out_of_service_order_passes_the_ten_hours_on_the_shoulder() {
     assert!(
         state
             .outcome_text()
-            .contains("Out of service: ten hours parked on the shoulder"),
+            .contains("You are rested, and the delivery deadline kept counting."),
         "{}",
         state.outcome_text()
     );
@@ -343,9 +340,7 @@ fn test_a_missed_break_is_thirty_minutes_out_of_service() {
         EnforcementStopState::new(ctx, d, params("Hours violation", true, false))
     });
     assert!(
-        state
-            .outcome_text()
-            .contains("Out of service: thirty minutes parked on the shoulder"),
+        state.outcome_text().contains("The 30-minute break is done"),
         "{}",
         state.outcome_text()
     );

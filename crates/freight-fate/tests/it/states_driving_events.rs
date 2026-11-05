@@ -1328,7 +1328,7 @@ fn test_the_dial_with_cruise_off_says_it_is_off() {
     d.adjust_cruise(&mut app.ctx, 1, false);
 
     let spoken = app.main_lines().join(" ");
-    assert_eq!(spoken, "Adaptive cruise off.");
+    assert_eq!(spoken, "Cruise off.");
 }
 
 #[test]
@@ -1430,7 +1430,7 @@ fn test_the_keeper_owns_up_when_it_cannot_hold_the_number() {
 
     assert!(d.keeper_overrun_said);
     let spoken = app.event_lines().join(" ");
-    assert!(spoken.contains("Speed keeper can't hold"), "{spoken}");
+    assert!(spoken.contains("Cruise can't hold"), "{spoken}");
     assert!(spoken.contains("on this grade"), "{spoken}");
 }
 
@@ -1463,7 +1463,7 @@ fn test_the_limit_lookahead_grows_with_the_speed_to_shed() {
 
 /// The working setpoint walks down in REAL seconds, so under time
 /// compression the truck covers more road while cruise eases than the
-/// physics alone says (roadmap, "Adaptive cruise's own limit lookahead
+/// physics alone says (roadmap, "Cruise's own limit lookahead
 /// ignores time compression").
 #[test]
 fn test_the_limit_lookahead_opens_up_with_time_compression() {

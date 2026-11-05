@@ -455,7 +455,7 @@ impl DrivingState {
             if pressure.is_some() {
                 self.say_confirmation_event(
                     ctx,
-                    &format!("Boxed out of the exit lane, missed {missed}. {recovery}"),
+                    &format!("Traffic blocked the exit lane, missed {missed}. {recovery}"),
                 );
             } else {
                 self.say_confirmation_event(
