@@ -66,6 +66,7 @@ impl DrivingState {
         let place_road = n(Action::PlaceRoad);
         let place_town = n(Action::PlaceTown);
         let place_direction = n(Action::PlaceDirection);
+        let place_county = n(Action::PlaceCounty);
         let weather = n(Action::Weather);
         let lane = n(Action::Lane);
         let lane_locator = n(Action::LaneLocator);
@@ -220,7 +221,7 @@ impl DrivingState {
         ));
         lines.push(format!(
             "{place_state} the state, {place_road} the road, {place_town} the town or \
-             the nearest one, {place_direction} the direction."
+             the nearest one, {place_direction} the direction, {place_county} the county."
         ));
         lines.push("The keypad numbers work the same way.".to_string());
         lines.push(format!("{weather} weather."));

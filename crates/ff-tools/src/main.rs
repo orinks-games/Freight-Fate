@@ -23,6 +23,7 @@ mod pyjson;
 mod radio;
 mod release;
 mod release_notes;
+mod release_notes_reword;
 mod translation_kit;
 mod util;
 mod windows_runtime;
@@ -149,6 +150,12 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         "osm-speed-limits",
         "re-read the map's posted speed limits from Geofabrik OpenStreetMap extracts",
         world::osm::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "census-counties",
+        "write the county each stretch of every leg runs through, from Census county lines",
+        world::counties::main,
     ),
     #[cfg(feature = "world")]
     (

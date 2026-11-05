@@ -114,7 +114,9 @@ pub const MAGIC: &[u8; 8] = b"FFDATA\0\0";
 ///
 /// 9: a corridor carries how many speed-limit postings the load-time artifact
 /// fold removed (`speed_limits_folded`).
-pub const FORMAT_VERSION: u32 = 9;
+///
+/// 10: a corridor carries the county each stretch runs through (`counties`).
+pub const FORMAT_VERSION: u32 = 10;
 
 const HEADER_LEN: usize = 32;
 
