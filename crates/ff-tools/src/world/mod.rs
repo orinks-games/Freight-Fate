@@ -15,6 +15,7 @@
 //! produces the same bytes.
 
 pub mod index;
+pub mod layers;
 pub mod osm;
 
 use std::collections::BTreeMap;
