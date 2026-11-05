@@ -5373,6 +5373,24 @@ msgstr ""
 "Добро пожаловать в Wyoming, штат Равенства, первым давший женщинам право "
 "голоса, родину гейзера Old Faithful и огромных просторов, где никого нет."
 
+msgid "\\bon (?:I|US)-\\d+ ?([NSEW])B?\\b"
+msgstr ""
+
+msgid "lat"
+msgstr "lat"
+
+msgid "lon"
+msgstr "lon"
+
+msgid "both"
+msgstr "both"
+
+msgid "forward"
+msgstr "forward"
+
+msgid "reverse"
+msgstr "reverse"
+
 msgid "Opposite-direction copy"
 msgstr "Копия для обратного направления"
 
@@ -5603,15 +5621,6 @@ msgstr "curated"
 
 msgid "placeholder"
 msgstr "placeholder"
-
-msgid "both"
-msgstr "both"
-
-msgid "forward"
-msgstr "forward"
-
-msgid "reverse"
-msgstr "reverse"
 
 msgid "ta "
 msgstr "ta "
@@ -11554,12 +11563,6 @@ msgstr "местная"
 msgid "codec"
 msgstr "codec"
 
-msgid "lat"
-msgstr "lat"
-
-msgid "lon"
-msgstr "lon"
-
 msgid "region"
 msgstr "region"
 
@@ -14288,16 +14291,11 @@ msgstr "пост контроля {where_} на этом участке"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "пост контроля {where_} через {distance}"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "Дорожная сводка в реальном времени: {description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "Дорожная сводка в реальном времени, через {distance}: {text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr ". Затронуто: {lanes}."
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "Затронуто: {lanes}."
 
@@ -27639,6 +27637,10 @@ msgstr "Округ здесь неизвестен."
 #. placeholders: {county}
 msgid "In {county}."
 msgstr "Округ: {county}."
+
+#. placeholders: {target}
+msgid "At {target}."
+msgstr ""
 
 #. placeholders: {py_capitalize}, {target}
 msgid "{py_capitalize} to {target}."
@@ -42060,6 +42062,12 @@ msgstr "Закрыта."
 #~ "{control_place_state} называет штат, {control_place_road} дорогу, "
 #~ "{control_place_town} город или ближайший город, а {control_place_direction} "
 #~ "направление. Клавиши цифрового блока тоже работают."
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "Дорожная сводка в реальном времени: {description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr ". Затронуто: {lanes}."
 
 #~ msgid "keep right for {shield} toward {toward}"
 #~ msgstr "держитесь правее на {shield} в сторону {toward}"

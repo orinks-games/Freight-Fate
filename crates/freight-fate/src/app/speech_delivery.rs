@@ -127,6 +127,12 @@ pub struct SayEvent {
     /// A zero-argument "is this line still true?" consulted if the line is
     /// cut mid-sentence and offered a rescue.
     pub valid: Option<Valid>,
+    /// Never dropped for waiting on a busy voice: past the critical wait it
+    /// is spoken behind whatever the voice is saying.
+    pub keep: bool,
+    /// A held line in the same group is replaced by this one, so a line
+    /// kept through a long wait never speaks after the one that updates it.
+    pub group: Option<&'static str>,
 }
 
 impl SayEvent {
@@ -181,6 +187,16 @@ impl SayEvent {
 
     pub fn valid(mut self, valid: impl Fn() -> bool + 'static) -> Self {
         self.valid = Some(Box::new(valid));
+        self
+    }
+
+    pub fn keep(mut self) -> Self {
+        self.keep = true;
+        self
+    }
+
+    pub fn group(mut self, group: &'static str) -> Self {
+        self.group = Some(group);
         self
     }
 }
@@ -650,6 +666,8 @@ impl GameContext {
             category,
             receipt,
             valid,
+            keep,
+            group,
         } = opts;
         let key = key.as_deref();
         if self.co_driver_away && !force && !self.speech_requested {
@@ -756,6 +774,8 @@ impl GameContext {
             key: key.map(str::to_string),
             receipt,
             review,
+            keep,
+            group,
         };
         if self.should_hold_event(&line) {
             self.hold_event(line);
@@ -776,10 +796,15 @@ impl GameContext {
             key,
             receipt,
             review,
+            keep,
+            group: _,
         } = line;
         let key = key.as_deref();
         self.note_road_line_delivered();
         transcript!("[event] {}", text);
+        if keep {
+            self.note_kept_delivered(&text);
+        }
         self.event_pacer.note_spoken(&text, key);
         let mut cut = None;
         if self.settings.sapi_events {

@@ -616,7 +616,16 @@ impl DrivingState {
             // of Buffalo, 2026-11-04). A cap the truck is under stays
             // unlatched, so it speaks if a hill later carries the truck over.
             let slowing = self.trip.truck.speed_mph() > cap_mph + CRUISE_EASE_SPOKEN_OVER_MPH;
+            // Nor when the exit's own number, already spoken, is at or under
+            // this one: "set at 30 for the exit" and then "easing to 35" in
+            // the next breath read as cruise speeding up past the exit
+            // (agent drive, Jamestown, 2026-11-04). The truck is on its way
+            // down to the exit's number through this cap anyway.
+            let exit_named = self
+                .cruise_exit_mph
+                .is_some_and(|exit| exit <= cap_mph + 0.5);
             if slowing
+                && !exit_named
                 && self
                     .acc_limit_cap_said
                     .is_none_or(|said| cap_mph < said - 0.5)

@@ -5405,6 +5405,24 @@ msgstr ""
 "Witaj w Wyoming, Stanie Równości, pierwszym, który dał kobietom prawo "
 "głosu, ojczyźnie Old Faithful i mnóstwa szerokiego pustkowia."
 
+msgid "\\bon (?:I|US)-\\d+ ?([NSEW])B?\\b"
+msgstr ""
+
+msgid "lat"
+msgstr "lat"
+
+msgid "lon"
+msgstr "lon"
+
+msgid "both"
+msgstr "both"
+
+msgid "forward"
+msgstr "forward"
+
+msgid "reverse"
+msgstr "reverse"
+
 msgid "Opposite-direction copy"
 msgstr "Kopia dla przeciwnego kierunku"
 
@@ -5636,15 +5654,6 @@ msgstr "curated"
 
 msgid "placeholder"
 msgstr "placeholder"
-
-msgid "both"
-msgstr "both"
-
-msgid "forward"
-msgstr "forward"
-
-msgid "reverse"
-msgstr "reverse"
 
 msgid "ta "
 msgstr "ta "
@@ -11578,12 +11587,6 @@ msgstr "local"
 msgid "codec"
 msgstr "codec"
 
-msgid "lat"
-msgstr "lat"
-
-msgid "lon"
-msgstr "lon"
-
 msgid "region"
 msgstr "region"
 
@@ -14310,16 +14313,11 @@ msgstr "punkt kontroli {where_} na tym odcinku"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "punkt kontroli {where_} za {distance}"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "Komunikat drogowy na żywo: {description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "Komunikat drogowy na żywo, {distance} przed tobą: {text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr ". Utrudnienia na pasach: {lanes}."
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "Utrudnienia na pasach: {lanes}."
 
@@ -27504,6 +27502,10 @@ msgstr "Nieznane hrabstwo."
 #. placeholders: {county}
 msgid "In {county}."
 msgstr "Hrabstwo: {county}."
+
+#. placeholders: {target}
+msgid "At {target}."
+msgstr ""
 
 #. placeholders: {py_capitalize}, {target}
 msgid "{py_capitalize} to {target}."
@@ -41878,6 +41880,12 @@ msgstr "Zamknięta."
 #~ "{control_place_town} miejscowość lub najbliższą miejscowość, a "
 #~ "{control_place_direction} kierunek. Odpowiedniki na klawiaturze numerycznej "
 #~ "też działają."
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "Komunikat drogowy na żywo: {description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr ". Utrudnienia na pasach: {lanes}."
 
 #~ msgid "keep right for {shield} toward {toward}"
 #~ msgstr "trzymaj się prawej na {shield} w kierunku {toward}"

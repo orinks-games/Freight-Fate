@@ -4598,6 +4598,24 @@ msgid ""
 "Old Faithful and a great deal of wide-open nobody."
 msgstr "Wyomingへようこそ、平等の州。最初に女性に投票を認めた州で、Old Faithfulと、果てしなく広がる無人の土地があります。"
 
+msgid "\\bon (?:I|US)-\\d+ ?([NSEW])B?\\b"
+msgstr ""
+
+msgid "lat"
+msgstr "lat"
+
+msgid "lon"
+msgstr "lon"
+
+msgid "both"
+msgstr "both"
+
+msgid "forward"
+msgstr "forward"
+
+msgid "reverse"
+msgstr "reverse"
+
 msgid "Opposite-direction copy"
 msgstr "反対方向の複製"
 
@@ -4828,15 +4846,6 @@ msgstr "curated"
 
 msgid "placeholder"
 msgstr "placeholder"
-
-msgid "both"
-msgstr "both"
-
-msgid "forward"
-msgstr "forward"
-
-msgid "reverse"
-msgstr "reverse"
 
 msgid "ta "
 msgstr "ta "
@@ -10204,12 +10213,6 @@ msgstr "ローカル"
 msgid "codec"
 msgstr "codec"
 
-msgid "lat"
-msgstr "lat"
-
-msgid "lon"
-msgstr "lon"
-
 msgid "region"
 msgstr "region"
 
@@ -12899,16 +12902,11 @@ msgstr "この区間に取り締まりの拠点、{where_}"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "{distance}先に取り締まりの拠点、{where_}"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "道路情報：{description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "道路情報、{distance}先：{text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr "。{lanes}に影響があります。"
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "{lanes}に影響があります。"
 
@@ -24882,6 +24880,10 @@ msgstr "ここがどの郡かわかりません。"
 #. placeholders: {county}
 msgid "In {county}."
 msgstr "{county}にいます。"
+
+#. placeholders: {target}
+msgid "At {target}."
+msgstr ""
 
 #. placeholders: {py_capitalize}, {target}
 msgid "{py_capitalize} to {target}."
@@ -37753,6 +37755,12 @@ msgstr "閉鎖中。"
 #~ msgstr ""
 #~ "{control_place_state}で州、{control_place_road}で道路、{control_place_town}で町か一番近い町"
 #~ "、{control_place_direction}で方角を読み上げます。テンキーの対応するキーでも使えます。"
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "道路情報：{description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr "。{lanes}に影響があります。"
 
 #~ msgid "keep right for {shield} toward {toward}"
 #~ msgstr "右寄りに進み、{shield}で{toward}方面へ"

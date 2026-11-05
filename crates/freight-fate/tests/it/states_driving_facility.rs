@@ -187,6 +187,38 @@ fn test_the_route_readout_at_a_ramp_with_streets_after_it_counts_to_the_gate() {
     );
 }
 
+#[test]
+fn test_the_route_readout_past_the_end_of_a_delivery_ramp_says_the_truck_is_there() {
+    // Agent drive, Jamestown, 2026-11-04: rolling past the end of the
+    // market's ramp at 9 mph, R said "50 feet to the Jamestown, New York
+    // metro freight market" for the whole half minute it took to drive by.
+    let mut app = TestApp::new();
+    let mut d = a_drive(&mut app);
+    d.destination_chain_ahead = Some(false);
+    d.destination_exit_taken = true;
+    let mut stop = ff_core::sim::trip_models::RoadStop::new(
+        "destination",
+        d.trip.position_mi,
+        "delivery_destination",
+    );
+    stop.interchange_mi = None;
+    d.ramp_stop = Some(stop);
+    for ramp_mi in [0.0, -0.02] {
+        d.ramp_mi = Some(ramp_mi);
+        app.clear_speech();
+        d.speak_route_status(&mut app.ctx);
+        let line = app.main_lines().pop().expect("R said nothing");
+        assert!(!line.contains("feet"), "{line}");
+        assert!(line.contains(". At "), "{line}");
+    }
+    // Short of it, the countdown still counts.
+    d.ramp_mi = Some(60.0 / 5280.0);
+    app.clear_speech();
+    d.speak_route_status(&mut app.ctx);
+    let line = app.main_lines().pop().expect("R said nothing");
+    assert!(line.contains("50 feet to"), "{line}");
+}
+
 /// `_at_gate`: put the truck right at the finished route end, rolling at
 /// `mph`.
 fn at_gate(d: &mut DrivingState, mph: f64, warned: bool) {

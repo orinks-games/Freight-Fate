@@ -5699,6 +5699,30 @@ msgid ""
 "Old Faithful and a great deal of wide-open nobody."
 msgstr ""
 
+#: crates/ff-core/src/data/stop_bounds.rs
+msgid "\\bon (?:I|US)-\\d+ ?([NSEW])B?\\b"
+msgstr ""
+
+#: crates/ff-core/src/data/stop_bounds.rs crates/ff-core/src/radio.rs
+msgid "lat"
+msgstr ""
+
+#: crates/ff-core/src/data/stop_bounds.rs crates/ff-core/src/radio.rs
+msgid "lon"
+msgstr ""
+
+#: crates/ff-core/src/data/stop_bounds.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/ff-core/src/sim/enforcement_posts.rs
+msgid "both"
+msgstr ""
+
+#: crates/ff-core/src/data/stop_bounds.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/freight-fate/src/states/driving_updates/air.rs
+msgid "forward"
+msgstr ""
+
+#: crates/ff-core/src/data/stop_bounds.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/ff-core/src/engine_audio.rs
+msgid "reverse"
+msgstr ""
+
 #: crates/ff-core/src/data/stop_twins.rs
 msgid "Opposite-direction copy"
 msgstr ""
@@ -5990,18 +6014,6 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
 msgid "placeholder"
-msgstr ""
-
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/ff-core/src/sim/enforcement_posts.rs crates/freight-fate/src/states/main_menu/settings_actions.rs
-msgid "both"
-msgstr ""
-
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/freight-fate/src/states/driving_updates/air.rs
-msgid "forward"
-msgstr ""
-
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_models.rs crates/ff-core/src/engine_audio.rs crates/ff-core/src/input_hints.rs
-msgid "reverse"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
@@ -12656,14 +12668,6 @@ msgid "codec"
 msgstr ""
 
 #: crates/ff-core/src/radio.rs
-msgid "lat"
-msgstr ""
-
-#: crates/ff-core/src/radio.rs
-msgid "lon"
-msgstr ""
-
-#: crates/ff-core/src/radio.rs
 msgid "region"
 msgstr ""
 
@@ -16127,18 +16131,12 @@ msgstr ""
 msgid "an enforcement post {where_} in {distance}"
 msgstr ""
 
-#. placeholders: {description}
+#. placeholders: {distance}, {text}
 #: crates/ff-core/src/sim/trip_traffic.rs
-msgid "Live road report: {description}"
+msgid "Live road report, {distance} ahead: {text}"
 msgstr ""
 
 #. placeholders: {lanes}
-#: crates/ff-core/src/sim/trip_traffic.rs
-msgid ". {lanes} affected."
-msgstr ""
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 #: crates/ff-core/src/sim/trip_traffic.rs
 msgid "{lanes} affected."
 msgstr ""
@@ -30651,6 +30649,11 @@ msgstr ""
 #. placeholders: {county}
 #: crates/freight-fate/src/states/driving_location.rs
 msgid "In {county}."
+msgstr ""
+
+#. placeholders: {target}
+#: crates/freight-fate/src/states/driving_location.rs
+msgid "At {target}."
 msgstr ""
 
 #. placeholders: {py_capitalize}, {target}

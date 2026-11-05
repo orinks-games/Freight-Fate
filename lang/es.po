@@ -5508,6 +5508,24 @@ msgstr ""
 "las mujeres, hogar del Old Faithful y de muchísimo espacio abierto sin "
 "nadie."
 
+msgid "\\bon (?:I|US)-\\d+ ?([NSEW])B?\\b"
+msgstr ""
+
+msgid "lat"
+msgstr "lat"
+
+msgid "lon"
+msgstr "lon"
+
+msgid "both"
+msgstr "ambos"
+
+msgid "forward"
+msgstr "forward"
+
+msgid "reverse"
+msgstr "reverse"
+
 msgid "Opposite-direction copy"
 msgstr "Copia en sentido contrario"
 
@@ -5739,15 +5757,6 @@ msgstr "curated"
 
 msgid "placeholder"
 msgstr "placeholder"
-
-msgid "both"
-msgstr "ambos"
-
-msgid "forward"
-msgstr "forward"
-
-msgid "reverse"
-msgstr "reverse"
 
 msgid "ta "
 msgstr "ta "
@@ -11723,12 +11732,6 @@ msgstr "local"
 msgid "codec"
 msgstr "codec"
 
-msgid "lat"
-msgstr "lat"
-
-msgid "lon"
-msgstr "lon"
-
 msgid "region"
 msgstr "region"
 
@@ -14472,16 +14475,11 @@ msgstr "un puesto de control {where_} en este tramo"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "un puesto de control {where_} en {distance}"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "Aviso de carretera en directo: {description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "Aviso de carretera en directo, a {distance}: {text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr ". Afecta a {lanes}."
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "Afecta a {lanes}."
 
@@ -27567,6 +27565,10 @@ msgstr "Aquí no se conoce el condado."
 #. placeholders: {county}
 msgid "In {county}."
 msgstr "En {county}."
+
+#. placeholders: {target}
+msgid "At {target}."
+msgstr ""
 
 #. placeholders: {py_capitalize}, {target}
 msgid "{py_capitalize} to {target}."
@@ -41981,6 +41983,12 @@ msgstr "Cerrada."
 #~ "{control_place_town} el pueblo o el pueblo más cercano, y "
 #~ "{control_place_direction} la dirección. Las teclas equivalentes del teclado "
 #~ "numérico también funcionan."
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "Aviso de carretera en directo: {description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr ". Afecta a {lanes}."
 
 #~ msgid "keep right for {shield} toward {toward}"
 #~ msgstr "mantente a la derecha para {shield} hacia {toward}"

@@ -4553,6 +4553,24 @@ msgid ""
 "Old Faithful and a great deal of wide-open nobody."
 msgstr "欢迎来到Wyoming，平等之州，第一个让女性投票的州，Old Faithful的家乡，还有大片空旷无人的土地。"
 
+msgid "\\bon (?:I|US)-\\d+ ?([NSEW])B?\\b"
+msgstr ""
+
+msgid "lat"
+msgstr "lat"
+
+msgid "lon"
+msgstr "lon"
+
+msgid "both"
+msgstr "both"
+
+msgid "forward"
+msgstr "forward"
+
+msgid "reverse"
+msgstr "reverse"
+
 msgid "Opposite-direction copy"
 msgstr "Opposite-direction copy"
 
@@ -4781,15 +4799,6 @@ msgstr "curated"
 
 msgid "placeholder"
 msgstr "placeholder"
-
-msgid "both"
-msgstr "both"
-
-msgid "forward"
-msgstr "forward"
-
-msgid "reverse"
-msgstr "reverse"
 
 msgid "ta "
 msgstr "ta "
@@ -10115,12 +10124,6 @@ msgstr "local"
 msgid "codec"
 msgstr "codec"
 
-msgid "lat"
-msgstr "lat"
-
-msgid "lon"
-msgstr "lon"
-
 msgid "region"
 msgstr "region"
 
@@ -12808,16 +12811,11 @@ msgstr "这段路{where_}有一个执法点"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "{distance}后{where_}有一个执法点"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "实时路况报告：{description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "实时路况报告，前方{distance}：{text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr "。{lanes}受影响。"
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "{lanes}受影响。"
 
@@ -24636,6 +24634,10 @@ msgstr "这里不知道是哪个县。"
 #. placeholders: {county}
 msgid "In {county}."
 msgstr "在{county}。"
+
+#. placeholders: {target}
+msgid "At {target}."
+msgstr ""
 
 #. placeholders: {py_capitalize}, {target}
 msgid "{py_capitalize} to {target}."
@@ -37192,6 +37194,12 @@ msgstr "关闭。"
 #~ msgstr ""
 #~ "{control_place_state}读出州，{control_place_road}读出道路，{control_place_town}读出城镇或最"
 #~ "近的城镇，{control_place_direction}读出方向。小键盘上对应的键也可以用。"
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "实时路况报告：{description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr "。{lanes}受影响。"
 
 #~ msgid "keep right for {shield} toward {toward}"
 #~ msgstr "靠右走{shield}，前往{toward}方向"

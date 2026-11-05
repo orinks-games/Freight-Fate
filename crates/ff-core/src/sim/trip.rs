@@ -73,6 +73,9 @@ pub const PACENOTE_LINK_GAP_MI: f64 = 0.3;
 /// the road the truck genuinely needs to reach ramp speed, widened so the
 /// clock is already real by the time anything has to start shedding.
 pub const EXIT_APPROACH_DECOMPRESS_SLACK: f64 = 1.5;
+/// With nothing to shed before the gore, the clock goes real only for this
+/// last stretch: the half-mile call and the exit lane.
+pub const EXIT_FINAL_REAL_MI: f64 = 0.5;
 /// And pacing climbs back over this many real seconds afterwards.
 pub const EXIT_APPROACH_RELEASE_S: f64 = 3.0;
 

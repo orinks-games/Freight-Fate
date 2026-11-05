@@ -5533,6 +5533,24 @@ msgstr ""
 "donne, patria dell'Old Faithful e di tantissimo spazio aperto senza anima "
 "viva."
 
+msgid "\\bon (?:I|US)-\\d+ ?([NSEW])B?\\b"
+msgstr ""
+
+msgid "lat"
+msgstr "lat"
+
+msgid "lon"
+msgstr "lon"
+
+msgid "both"
+msgstr "both"
+
+msgid "forward"
+msgstr "forward"
+
+msgid "reverse"
+msgstr "reverse"
+
 msgid "Opposite-direction copy"
 msgstr "Opposite-direction copy"
 
@@ -5764,15 +5782,6 @@ msgstr "curated"
 
 msgid "placeholder"
 msgstr "placeholder"
-
-msgid "both"
-msgstr "both"
-
-msgid "forward"
-msgstr "forward"
-
-msgid "reverse"
-msgstr "reverse"
 
 msgid "ta "
 msgstr "ta "
@@ -11742,12 +11751,6 @@ msgstr "locale"
 msgid "codec"
 msgstr "codec"
 
-msgid "lat"
-msgstr "lat"
-
-msgid "lon"
-msgstr "lon"
-
 msgid "region"
 msgstr "region"
 
@@ -14489,16 +14492,11 @@ msgstr "un posto di controllo {where_} su questo tratto"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "un posto di controllo {where_} tra {distance}"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "Segnalazione stradale in diretta: {description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "Segnalazione stradale in diretta, tra {distance}: {text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr ". Interessate: {lanes}."
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "Interessate: {lanes}."
 
@@ -27613,6 +27611,10 @@ msgstr "Contea sconosciuta qui."
 #. placeholders: {county}
 msgid "In {county}."
 msgstr "In {county}."
+
+#. placeholders: {target}
+msgid "At {target}."
+msgstr ""
 
 #. placeholders: {py_capitalize}, {target}
 msgid "{py_capitalize} to {target}."
@@ -41998,6 +42000,12 @@ msgstr "Chiusa."
 #~ "{control_place_town} il paese o il paese più vicino, e "
 #~ "{control_place_direction} la direzione. Funzionano anche i tasti "
 #~ "equivalenti del tastierino."
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "Segnalazione stradale in diretta: {description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr ". Interessate: {lanes}."
 
 #~ msgid "keep right for {shield} toward {toward}"
 #~ msgstr "tieni la destra per {shield} verso {toward}"

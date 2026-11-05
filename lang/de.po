@@ -5559,6 +5559,24 @@ msgstr ""
 "ließ, Heimat von Old Faithful und einer Menge weiter, menschenleerer "
 "Landschaft."
 
+msgid "\\bon (?:I|US)-\\d+ ?([NSEW])B?\\b"
+msgstr ""
+
+msgid "lat"
+msgstr "lat"
+
+msgid "lon"
+msgstr "lon"
+
+msgid "both"
+msgstr "both"
+
+msgid "forward"
+msgstr "forward"
+
+msgid "reverse"
+msgstr "reverse"
+
 msgid "Opposite-direction copy"
 msgstr "Text für die Gegenrichtung"
 
@@ -5789,15 +5807,6 @@ msgstr "curated"
 
 msgid "placeholder"
 msgstr "placeholder"
-
-msgid "both"
-msgstr "both"
-
-msgid "forward"
-msgstr "forward"
-
-msgid "reverse"
-msgstr "reverse"
 
 msgid "ta "
 msgstr "ta "
@@ -11784,12 +11793,6 @@ msgstr "lokal"
 msgid "codec"
 msgstr "codec"
 
-msgid "lat"
-msgstr "lat"
-
-msgid "lon"
-msgstr "lon"
-
 msgid "region"
 msgstr "region"
 
@@ -14521,16 +14524,11 @@ msgstr "ein Kontrollposten {where_} auf dieser Strecke"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "ein Kontrollposten {where_} in {distance}"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "Aktuelle Verkehrsmeldung: {description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "Aktuelle Verkehrsmeldung, in {distance}: {text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr ". {lanes} betroffen."
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "{lanes} betroffen."
 
@@ -27645,6 +27643,10 @@ msgstr "Hier ist kein County bekannt."
 #. placeholders: {county}
 msgid "In {county}."
 msgstr "In {county}."
+
+#. placeholders: {target}
+msgid "At {target}."
+msgstr ""
 
 #. placeholders: {py_capitalize}, {target}
 msgid "{py_capitalize} to {target}."
@@ -42076,6 +42078,12 @@ msgstr "Geschlossen."
 #~ "Straße, {control_place_town} den Ort oder den nächsten Ort und "
 #~ "{control_place_direction} die Richtung. Die entsprechenden Tasten auf dem "
 #~ "Ziffernblock gehen auch."
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "Aktuelle Verkehrsmeldung: {description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr ". {lanes} betroffen."
 
 #~ msgid "keep right for {shield} toward {toward}"
 #~ msgstr "rechts halten auf {shield} Richtung {toward}"

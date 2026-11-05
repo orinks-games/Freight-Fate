@@ -5467,6 +5467,24 @@ msgstr ""
 "Bem-vindo ao Wyoming, o Estado da Igualdade, primeiro a deixar as mulheres "
 "votarem, terra do Old Faithful e de muito espaço aberto sem ninguém."
 
+msgid "\\bon (?:I|US)-\\d+ ?([NSEW])B?\\b"
+msgstr ""
+
+msgid "lat"
+msgstr "lat"
+
+msgid "lon"
+msgstr "lon"
+
+msgid "both"
+msgstr "both"
+
+msgid "forward"
+msgstr "forward"
+
+msgid "reverse"
+msgstr "reverse"
+
 msgid "Opposite-direction copy"
 msgstr "Texto para o sentido oposto"
 
@@ -5697,15 +5715,6 @@ msgstr "curated"
 
 msgid "placeholder"
 msgstr "placeholder"
-
-msgid "both"
-msgstr "both"
-
-msgid "forward"
-msgstr "forward"
-
-msgid "reverse"
-msgstr "reverse"
 
 msgid "ta "
 msgstr "ta "
@@ -11663,12 +11672,6 @@ msgstr "local"
 msgid "codec"
 msgstr "codec"
 
-msgid "lat"
-msgstr "lat"
-
-msgid "lon"
-msgstr "lon"
-
 msgid "region"
 msgstr "region"
 
@@ -14412,16 +14415,11 @@ msgstr "um posto de fiscalização {where_} neste trecho"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "um posto de fiscalização {where_} em {distance}"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "Ocorrência na via ao vivo: {description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "Ocorrência na via ao vivo, a {distance}: {text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr ". {lanes} afetadas."
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "{lanes} afetadas."
 
@@ -27455,6 +27453,10 @@ msgstr "Nenhum condado conhecido aqui."
 #. placeholders: {county}
 msgid "In {county}."
 msgstr "Em {county}."
+
+#. placeholders: {target}
+msgid "At {target}."
+msgstr ""
 
 #. placeholders: {py_capitalize}, {target}
 msgid "{py_capitalize} to {target}."
@@ -41755,6 +41757,12 @@ msgstr "Fechada."
 #~ "{control_place_town} a cidade ou a cidade mais próxima, e "
 #~ "{control_place_direction} o sentido. As teclas equivalentes do keypad "
 #~ "também funcionam."
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "Ocorrência na via ao vivo: {description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr ". {lanes} afetadas."
 
 #~ msgid "keep right for {shield} toward {toward}"
 #~ msgstr "mantenha a direita para a {shield} sentido {toward}"

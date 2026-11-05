@@ -922,7 +922,7 @@ impl TrafficManager {
         if let Some(baked) = leg_speed_limit_at(leg, offset) {
             return baked;
         }
-        corridor_speed_limit(&leg.highway, "")
+        crate::sim::limit_gaps::unposted_limit(leg, offset, corridor_speed_limit(&leg.highway, ""))
     }
 
     /// Signed grade at a route mile, positive uphill in the direction of

@@ -4496,6 +4496,24 @@ msgid ""
 "Old Faithful and a great deal of wide-open nobody."
 msgstr ""
 
+msgid "\\bon (?:I|US)-\\d+ ?([NSEW])B?\\b"
+msgstr ""
+
+msgid "lat"
+msgstr ""
+
+msgid "lon"
+msgstr ""
+
+msgid "both"
+msgstr ""
+
+msgid "forward"
+msgstr ""
+
+msgid "reverse"
+msgstr ""
+
 msgid "Opposite-direction copy"
 msgstr ""
 
@@ -4721,15 +4739,6 @@ msgid "curated"
 msgstr ""
 
 msgid "placeholder"
-msgstr ""
-
-msgid "both"
-msgstr ""
-
-msgid "forward"
-msgstr ""
-
-msgid "reverse"
 msgstr ""
 
 msgid "ta "
@@ -9967,12 +9976,6 @@ msgstr ""
 msgid "codec"
 msgstr ""
 
-msgid "lat"
-msgstr ""
-
-msgid "lon"
-msgstr ""
-
 msgid "region"
 msgstr ""
 
@@ -12653,16 +12656,11 @@ msgstr ""
 msgid "an enforcement post {where_} in {distance}"
 msgstr ""
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
 msgstr ""
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr ""
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr ""
 
@@ -24257,6 +24255,10 @@ msgstr ""
 
 #. placeholders: {county}
 msgid "In {county}."
+msgstr ""
+
+#. placeholders: {target}
+msgid "At {target}."
 msgstr ""
 
 #. placeholders: {py_capitalize}, {target}
