@@ -30,6 +30,7 @@ mod data_nj_truck_routes;
 mod data_regions;
 mod data_service_plazas;
 mod data_stop_access;
+mod data_stop_bounds;
 mod data_stop_exits;
 mod data_street_chain;
 mod data_street_turns;
