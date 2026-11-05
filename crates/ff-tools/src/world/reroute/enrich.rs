@@ -42,7 +42,8 @@ use crate::util::{self, Result};
 use crate::world::{load_world, save_world, source_root};
 
 const USAGE: &str = "usage: reroute-enrich (--leg from:to ... | --all-pending) --pbf FILE \
-                     [--pbf FILE ...] [--extract-date YYYY-MM-DD] [--snapshot NAME] [--write]";
+                     [--pbf FILE ...] [--extract-date YYYY-MM-DD] [--snapshot NAME] \
+                     [--boundaries FILE [--boundaries-read YYYY-MM-DD]] [--write]";
 
 /// Layers this pass rebuilds, judged by count.
 const REBUILT: &[&str] = &["speed_limits", "state_miles", "interchanges", "curves"];
@@ -308,7 +309,14 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let args = Args::parse(
         argv,
         &Spec {
-            values: &["leg", "pbf", "extract-date", "snapshot"],
+            values: &[
+                "leg",
+                "pbf",
+                "extract-date",
+                "snapshot",
+                "boundaries",
+                "boundaries-read",
+            ],
             flags: &["write", "all-pending"],
         },
     )
@@ -379,7 +387,12 @@ pub fn main(argv: &[String]) -> Result<i32> {
         "reading roads and state lines from {} extract(s) dated {date}",
         pbfs.len()
     );
-    let net = roads::read(&pbfs, &cells)?;
+    // A bounding-box cut drops the state relations whose members leave the
+    // box, so the boundaries can come from their own file.
+    let boundary_file = args.path("boundaries");
+    let mut road_files = pbfs.clone();
+    road_files.extend(boundary_file.clone());
+    let net = roads::read(&road_files, &cells)?;
     println!(
         "  {} roads along the legs, {} state boundary ways",
         net.index.ways.len(),
@@ -395,10 +408,17 @@ pub fn main(argv: &[String]) -> Result<i32> {
         "derived 2026-11-05: the leg's archived route geometry intersected with OpenStreetMap \
          U.S. state boundary relations (boundary=administrative, admin_level=4); at_mi = \
          cumulative geometry distance at each boundary crossing, rescaled to leg miles; state \
-         miles = differences of those boundaries. OpenStreetMap, {snapshot} of {date}: \
-         https://www.openstreetmap.org/."
+         miles = differences of those boundaries. OpenStreetMap, {}: \
+         https://www.openstreetmap.org/.",
+        match (&boundary_file, args.value("boundaries-read")) {
+            (Some(_), Some(read)) =>
+                format!("boundary relations read from the OpenStreetMap API on {read}"),
+            (Some(_), None) => "boundary relations from a separate OpenStreetMap file".to_string(),
+            _ => format!("{snapshot} of {date}"),
+        }
     );
     let mut curve_counts = BTreeMap::new();
+    let mut lost_lines: Vec<String> = Vec::new();
     let mut gameplay: Vec<(String, Vec<Value>, Vec<Value>)> = Vec::new();
     for p in &picked {
         let leg = &legs[p.index];
@@ -466,6 +486,23 @@ pub fn main(argv: &[String]) -> Result<i32> {
                 "  crosses into {} at mile {} ({})",
                 c.state, c.at_mi, c.place
             );
+        }
+        let to = leg.get("to").and_then(Value::as_str).unwrap_or_default();
+        let end_code = world
+            .get("cities")
+            .and_then(|c| c.get(to))
+            .and_then(|c| c.get("state"))
+            .map(Value::py_str)
+            .unwrap_or_default();
+        let ends_in = crossings
+            .last()
+            .map(|c| c.state.clone())
+            .unwrap_or_else(|| state_name(&world, &code));
+        if ends_in != state_name(&world, &end_code) {
+            lost_lines.push(format!(
+                "{id}: the state lines read leave it in {ends_in}, not {}",
+                state_name(&world, &end_code)
+            ));
         }
         let miles_rows: Vec<Value> = state_miles
             .iter()
@@ -607,6 +644,10 @@ pub fn main(argv: &[String]) -> Result<i32> {
             }
             println!("  {key:20} {w:5} -> {n:5}{verdict}");
         }
+    }
+    for line in &lost_lines {
+        println!("\nSTATE LINES MISSING: {line}. Is a boundary relation missing from the extract?");
+        failures += 1;
     }
     if exits != 0 || limits != 0 {
         println!("\nA delegated builder exited non-zero (exits {exits}, limits {limits}).");
