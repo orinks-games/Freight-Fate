@@ -33,31 +33,7 @@
 - **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.
 - **Cruise now holds highway work zones and heavy traffic at their limit.** Low-speed cruise takes over only on streets and facility approaches.
 - **Dispatch stops sending you straight back where you came from.** The city you just delivered from is on about one board in three, and it is no longer the load dispatch assigns or the one the cursor opens on while another load is there.
-- **Instructions use plain words instead of trucker slang and road-engineering terms.** You hear Drive empty instead of Deadhead, and Lane ending instead of Taper squeezing.
-- **The open-road target is now called the cruise speed.**
-- **Descent speed control levels are now Off, Light, Standard and Strong.** Your saved choice carries over.
-- **Route-transition assistance is now Ramp assistance.** Two more rows were renamed: Lower game sounds during speech, and Letters run menu items.
-- **Settings help, How to play and many spoken lines are shorter and plainer.**
-- **Loads list Pay for the load instead of carrier gross.** Settlements say extra charges and billing fees instead of accessorials and factoring.
-- **Dispatch board lines are shorter.** Facility names, equipment and the market are in the job details, which F1 opens.
-- **Cruise has one name.** Speed keeper, adaptive cruise and automatic speed control lines all say Cruise now; the low-speed setting is Low-speed cruise.
-- **The delivery screen opens on where, whether on time, and your net pay.** Paperwork at the dock is one short line.
-- **Arriving at a facility names it once.** After Pulling into, the menu opens on its first row.
-- **The speed readout says miles per hour once,** and the road readout names a state only when your destination is in another one.
-- **Idle fuel burned at a pickup is now in Pickup status** instead of the loaded line. The weather readout no longer ends with It is day.
-- **Starting a drive says only the time and the engine.** Where you are going was said when you accepted; hours and fuel come up only when they run short.
-- **Roadside inspections say you were stopped, the citation, and the fine.** The shoulder, the paperwork and driving tips are gone.
-- **Old CB trooper reports lead with the distance.**
-- **The terminal and career lines name your home city once.**
-- **The main menu opens on Continue and your driver name.** The carrier and job type are left off; Choose career still lists them.
-- **Finishing a pickup says where the load is going and how long loading took.** Company drivers no longer hear the carrier's detention pay.
-- **The delivery list is plainer.** Detention pay and tolls get their own rows, unloading is in minutes, and an empty charges row is gone.
-- **Changing the cruise speed while cruise is paused says Cruise speed,** the same name as everywhere else.
-- **A highway change gets one Keep right call, with the miles,** and no Continue on line repeating it.
-- **A state's truck speed limit is named once per state** in the speed readout.
-- **The extra rest warning before accepting a load says only the hours left.**
-- **The settlement route names the cities without their states.**
-- **Two speed limit drops close together are said as one,** the lower: Speed limit drops to 45, without Reduced to 55 just before it.
+- **Spoken lines, help and menus are shorter and use plain words, and some settings have new names.** Cruise has one name, and the dispatch board and delivery list are shorter.
 
 ### Removed
 
@@ -68,8 +44,6 @@
 
 - **Speed limits no longer jump to 70 and back where the map has no posting.** An unmapped stretch keeps the limits on either side, and state truck limits such as California's 55 apply there too.
 - **The copy key copies the message you stepped back to.** It used to copy the newest line instead.
-- **Left and Right say nothing while you are parked or the engine is off.**
-- **Weigh station callouts say Open or Closed, as the signs do.** A closed scale is said once on arrival, with no exit key offered ahead of it.
 - **Numbered loads on the dispatch board are read in your language.** The load line after "Job 1 of 7" stayed in English.
 - **The brake warning now names the vehicle ahead.** It said "Slow car" for a semi or a box truck.
 - **The unused translations folder from mid-October downloads leaves the game folder.** It moves to the saves folder as old-translations, so any edits in it are kept.
@@ -87,13 +61,7 @@
 - **A crash on Windows now writes its cause into game.log,** so a bug report with the log shows what went wrong.
 - **A co-driver no longer crawls at 20 miles per hour after a downhill work zone.** They kept braking for the hill and ran out of hours.
 - **On ice, a co-driver now plans a stop they can reach at icy speeds.** They used to plan one their hours could not reach.
-- **Learn game sounds no longer describes a police setting that was removed.** The police car going by now says it always means an officer was there.
-- **Declining an assigned load now says it costs reputation, not dispatch trust,** which is what it has always taken.
-- **Facility names no longer repeat their kind,** as in grocery distribution center Buffalo Grocery Distribution Center.
-- **Releasing the parking brake in your first drive gives one line, not two.**
 - **A trooper the radio placed in the median is still in the median when you pass.**
-- **The career summary no longer says 1 deliveries.**
-- **Help that named the shift, lane locator and hours keys now names the keys you set.**
 - **A co-driver now lowers the cruise speed when the limit drops.** Entering a state with a lower truck limit, they kept the old speed.
 - **Cruise no longer crawls toward an exit for a lower limit miles ahead.** It keeps the road's limit until it needs to slow for the drop.
 - **Cruise no longer says it is easing while the truck speeds up.** Pulling away under a lower limit, it read out two speeds a second apart.
