@@ -318,7 +318,8 @@ jobs:
     # snapshot whose builds are done is not held up by a slow Windows or
     # macOS runner. clippy runs on macOS and Linux here, so the
     # `cfg(target_os)` code still gets linted; rust.yml owns Windows clippy
-    # on pull requests, so it is skipped here.
+    # on pull requests and on pushes to the branches it watches, so it is
+    # skipped here.
     name: Test (${{ matrix.name }})
     needs: prepare
     if: needs.prepare.outputs.should_build == 'true'
