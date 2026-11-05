@@ -479,6 +479,7 @@ pub fn parse_cars_events(data: &Value, _state: &str, construction: bool) -> Vec<
             continue;
         }
         let (road_name, location_text, remainder) = split_cars_title(&title);
+        let direction = cars_title_direction(&title).to_string();
         let description = if title.is_empty() {
             chain_str(item, &["tooltip"], "")
         } else {
@@ -528,10 +529,33 @@ pub fn parse_cars_events(data: &Value, _state: &str, construction: bool) -> Vec<
             location_text,
             work_type,
             closure,
-            direction: String::new(),
+            direction,
         });
     }
     events
+}
+
+/// The one direction a CARS title holds ("I-80 eastbound: Exit ramp
+/// closed." is "East"); empty for both directions or none named.
+pub fn cars_title_direction(title: &str) -> &'static str {
+    let road = title.split(": ").next().unwrap_or("").to_lowercase();
+    if road.contains("both directions") {
+        return "";
+    }
+    let found: Vec<&'static str> = [
+        ("northbound", "North"),
+        ("southbound", "South"),
+        ("eastbound", "East"),
+        ("westbound", "West"),
+    ]
+    .into_iter()
+    .filter(|(word, _)| road.contains(word))
+    .map(|(_, direction)| direction)
+    .collect();
+    match found[..] {
+        [one] => one,
+        _ => "",
+    }
 }
 
 static CARS_PAREN: Lazy<Regex> = Lazy::new(|| Regex::new(r"\(([^)]*)\)\s*").unwrap());

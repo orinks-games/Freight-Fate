@@ -12790,16 +12790,11 @@ msgstr "这段路{where_}有一个执法点"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "{distance}后{where_}有一个执法点"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "实时路况报告：{description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "实时路况报告，前方{distance}：{text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr "。{lanes}受影响。"
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "{lanes}受影响。"
 
@@ -37144,6 +37139,12 @@ msgstr "开放。"
 
 msgid "Closed."
 msgstr "关闭。"
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "实时路况报告：{description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr "。{lanes}受影响。"
 
 #~ msgid "keep right for {shield} toward {toward}"
 #~ msgstr "靠右走{shield}，前往{toward}方向"

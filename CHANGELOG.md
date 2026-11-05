@@ -17,6 +17,7 @@
 
 ### Changed
 
+- **Live road reports now cover only your road, in your direction, within 10 miles.** Each says how far ahead it is.
 - **Traffic now runs near the posted limit, in towns as on the highway.** Rush hour brings more vehicles, not slower ones.
 - **A slow vehicle ahead is called only while you are gaining on it.** Cruise no longer adds "Traffic ahead, slowing" for the same vehicle.
 - **Freeway traffic now leaves at an interchange** instead of disappearing between exits.

@@ -14469,16 +14469,11 @@ msgstr "un posto di controllo {where_} su questo tratto"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "un posto di controllo {where_} tra {distance}"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "Segnalazione stradale in diretta: {description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "Segnalazione stradale in diretta, tra {distance}: {text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr ". Interessate: {lanes}."
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "Interessate: {lanes}."
 
@@ -41945,6 +41940,12 @@ msgstr "Aperta."
 
 msgid "Closed."
 msgstr "Chiusa."
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "Segnalazione stradale in diretta: {description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr ". Interessate: {lanes}."
 
 #~ msgid "keep right for {shield} toward {toward}"
 #~ msgstr "tieni la destra per {shield} verso {toward}"

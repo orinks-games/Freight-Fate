@@ -14268,16 +14268,11 @@ msgstr "пост контроля {where_} на этом участке"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "пост контроля {where_} через {distance}"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "Дорожная сводка в реальном времени: {description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "Дорожная сводка в реальном времени, через {distance}: {text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr ". Затронуто: {lanes}."
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "Затронуто: {lanes}."
 
@@ -42007,6 +42002,12 @@ msgstr "Открыта."
 
 msgid "Closed."
 msgstr "Закрыта."
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "Дорожная сводка в реальном времени: {description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr ". Затронуто: {lanes}."
 
 #~ msgid "keep right for {shield} toward {toward}"
 #~ msgstr "держитесь правее на {shield} в сторону {toward}"

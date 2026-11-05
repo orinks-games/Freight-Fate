@@ -14012,16 +14012,11 @@ msgstr "bu kesimde {where_} bir denetim noktası"
 msgid "an enforcement post {where_} in {distance}"
 msgstr "{distance} sonra {where_} bir denetim noktası"
 
-#. placeholders: {description}
-msgid "Live road report: {description}"
-msgstr "Canlı yol raporu: {description}"
+#. placeholders: {distance}, {text}
+msgid "Live road report, {distance} ahead: {text}"
+msgstr "Canlı yol raporu, {distance} ileride: {text}"
 
 #. placeholders: {lanes}
-msgid ". {lanes} affected."
-msgstr ". Etkilenen şeritler: {lanes}."
-
-#. placeholders: {lanes}
-#. one sentence of a longer line
 msgid "{lanes} affected."
 msgstr "Etkilenen şeritler: {lanes}."
 
@@ -40919,6 +40914,12 @@ msgstr "Açık."
 
 msgid "Closed."
 msgstr "Kapalı."
+
+#~ msgid "Live road report: {description}"
+#~ msgstr "Canlı yol raporu: {description}"
+
+#~ msgid ". {lanes} affected."
+#~ msgstr ". Etkilenen şeritler: {lanes}."
 
 #~ msgid "keep right for {shield} toward {toward}"
 #~ msgstr "{toward} yönünde {shield} için sağda kalın"
