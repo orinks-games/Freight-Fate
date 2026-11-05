@@ -13130,6 +13130,21 @@ msgstr "{base} jutro"
 msgid "{base} in {days_ahead} days"
 msgstr "{base} za {days_ahead} {days_ahead:dzień|dni|dni}"
 
+msgid "minivan"
+msgstr "minivan"
+
+msgid "sports car"
+msgstr "samochód sportowy"
+
+msgid "tanker"
+msgstr "cysterna"
+
+msgid "car hauler"
+msgstr "laweta"
+
+msgid "service vehicle"
+msgstr "pojazd serwisowy"
+
 msgid "cruising"
 msgstr "jazda ze stałą prędkością"
 
@@ -13159,9 +13174,6 @@ msgstr "{f} {f:kilometr|kilometry|kilometrów} na godzinę"
 
 msgid "passing"
 msgstr "wyprzedzanie"
-
-msgid "service vehicle"
-msgstr "pojazd serwisowy"
 
 msgid "right lane"
 msgstr "prawy pas"
@@ -27529,6 +27541,10 @@ msgid "{name} lane closed for construction."
 msgstr "{name} pas zamknięty z powodu robót."
 
 #. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by an {vehicle}."
+msgstr "{name} pas zablokowany, {vehicle}."
+
+#. placeholders: {name}, {vehicle}
 msgid "{name} lane blocked by a {vehicle}."
 msgstr "{name} pas zablokowany, {vehicle}."
 
@@ -33507,6 +33523,19 @@ msgstr "Zamknięty jest {lane_label} pas. Trzymasz {lane_name} pas."
 #. one sentence of a longer line
 msgid "Truck damage {damage_pct} percent."
 msgstr "Uszkodzenia ciężarówki {damage_pct} procent."
+
+#. placeholders: {vehicle_class}, {lane_name}
+#. one sentence of a longer line
+msgid "You sideswiped an {vehicle_class} in the {lane_name} lane!"
+msgstr "Boczne otarcie, {vehicle_class}, {lane_name} pas!"
+
+#. placeholders: {vehicle_class}, {lane_name}, {damage_pct}
+msgid ""
+"You sideswiped an {vehicle_class} in the {lane_name} lane! Truck damage "
+"{damage_pct} percent."
+msgstr ""
+"Boczne otarcie, {vehicle_class}, {lane_name} pas! Uszkodzenia ciężarówki "
+"{damage_pct} procent."
 
 #. placeholders: {vehicle_class}, {lane_name}
 #. one sentence of a longer line

@@ -11,7 +11,7 @@
 //! tailgater the driver has to answer, where one in the lane beside is
 //! company.
 
-use super::{choose, TrafficManager, TrafficVehicle, EXIT_AFTER_MAX_MI, EXIT_AFTER_MIN_MI};
+use super::{freeway_class, TrafficManager, TrafficVehicle, EXIT_AFTER_MAX_MI, EXIT_AFTER_MIN_MI};
 use super::{NO_SPAWN_BEHIND_MI, SPAWN_CELL_MI};
 use crate::pyrandom::PyRandom;
 
@@ -56,11 +56,7 @@ impl TrafficManager {
                 continue;
             };
             let intent = "passing";
-            let vehicle_class = choose(
-                rng,
-                &["car", "box truck", "semi", "service vehicle"],
-                &[5.0, 1.4, 2.0, 0.3],
-            );
+            let vehicle_class = freeway_class(rng);
             let (limit_offset, governor) = Self::intent_speed_draw(intent, rng, vehicle_class);
             let rush_slowdown = if self.rush_hour_traffic_bias(leg) != 0.0 {
                 rng.uniform(4.0, 10.0)

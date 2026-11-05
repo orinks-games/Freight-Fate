@@ -11641,6 +11641,21 @@ msgstr "明天{base}"
 msgid "{base} in {days_ahead} days"
 msgstr "{days_ahead}天后的{base}"
 
+msgid "minivan"
+msgstr "小型面包车"
+
+msgid "sports car"
+msgstr "跑车"
+
+msgid "tanker"
+msgstr "油罐车"
+
+msgid "car hauler"
+msgstr "轿运车"
+
+msgid "service vehicle"
+msgstr "工程车"
+
 msgid "cruising"
 msgstr "巡航"
 
@@ -11670,9 +11685,6 @@ msgstr "每小时{f}公里"
 
 msgid "passing"
 msgstr "超车"
-
-msgid "service vehicle"
-msgstr "工程车"
 
 msgid "right lane"
 msgstr "右车道"
@@ -24613,6 +24625,10 @@ msgid "{name} lane closed for construction."
 msgstr "{name}车道因施工封闭。"
 
 #. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by an {vehicle}."
+msgstr "{name}车道被一辆{vehicle}挡住了。"
+
+#. placeholders: {name}, {vehicle}
 msgid "{name} lane blocked by a {vehicle}."
 msgstr "{name}车道被一辆{vehicle}挡住了。"
 
@@ -30001,6 +30017,17 @@ msgstr "{lane_label}车道封闭。保持在{lane_name}车道。"
 #. one sentence of a longer line
 msgid "Truck damage {damage_pct} percent."
 msgstr "卡车损坏百分之{damage_pct}。"
+
+#. placeholders: {vehicle_class}, {lane_name}
+#. one sentence of a longer line
+msgid "You sideswiped an {vehicle_class} in the {lane_name} lane!"
+msgstr "你在{lane_name}车道上剐蹭了一辆{vehicle_class}！"
+
+#. placeholders: {vehicle_class}, {lane_name}, {damage_pct}
+msgid ""
+"You sideswiped an {vehicle_class} in the {lane_name} lane! Truck damage "
+"{damage_pct} percent."
+msgstr "你在{lane_name}车道上剐蹭了一辆{vehicle_class}！卡车损坏百分之{damage_pct}。"
 
 #. placeholders: {vehicle_class}, {lane_name}
 #. one sentence of a longer line

@@ -5,13 +5,15 @@ use ff_core::models::business::LEASED_OWNER_OPERATOR;
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
 use ff_core::sim::cross_traffic::{CrossTraffic, CrossVehicle, CROSS_CLASSES};
-use ff_core::sim::traffic_manager::TrafficVehicle;
+use ff_core::sim::traffic_manager::{TrafficVehicle, FREEWAY_CLASSES};
 
 use freight_fate::app::testing::{AudioLog, RecordedLoop, TestApp};
 use freight_fate::audio::{CH_TRAFFIC_BED, CH_TRAFFIC_SOUNDS};
 use freight_fate::states::driving::DrivingState;
 use freight_fate::states::driving_core::*;
-use freight_fate::states::driving_traffic_sounds::traffic_sound_key;
+use freight_fate::states::driving_traffic_sounds::{
+    traffic_sound_key, traffic_sound_key_for, traffic_sound_takes,
+};
 
 const FRAME: f64 = 1.0 / 60.0;
 
@@ -95,7 +97,10 @@ fn test_a_car_alongside_on_the_left_is_heard_on_the_left() {
     drive.update_traffic_sounds(&mut app.ctx, FRAME);
     let heard = sounds(&log);
     assert_eq!(heard.len(), 1, "{heard:?}");
-    assert_eq!(heard[0].key, "traffic/car_loop");
+    assert!(
+        traffic_sound_takes("car").contains(&heard[0].key.as_str()),
+        "{heard:?}"
+    );
     assert!(heard[0].pan < -0.5, "{heard:?}");
     assert!(heard[0].volume > 0.3, "{heard:?}");
 }
@@ -126,6 +131,9 @@ fn test_every_sound_is_in_the_sound_pack() {
         .map(|(class, _, _)| traffic_sound_key(class))
         .collect();
     keys.extend(["state trooper", "semi", "box truck"].map(traffic_sound_key));
+    for (class, _) in FREEWAY_CLASSES {
+        keys.extend(traffic_sound_takes(class));
+    }
     keys.push("traffic/highway_bed");
     for key in keys {
         assert!(
@@ -357,4 +365,27 @@ fn test_the_car_the_game_calls_out_ahead_takes_a_sound_first() {
         "{:?}",
         sounds(&log)
     );
+}
+
+#[test]
+fn test_every_freeway_class_has_its_own_sound() {
+    // The freeway mix grew from four kinds to thirteen (owner, 2026-11-04):
+    // none of the new ones may fall back to the car by accident.
+    for (class, _) in FREEWAY_CLASSES {
+        let key = traffic_sound_key(class);
+        assert!(class == "car" || key != "traffic/car_loop", "{class}");
+    }
+}
+
+#[test]
+fn test_a_vehicle_keeps_one_take_and_a_string_of_cars_uses_them_all() {
+    let first = traffic_sound_key_for("car", "lead-7");
+    for _ in 0..5 {
+        assert_eq!(traffic_sound_key_for("car", "lead-7"), first);
+    }
+    let heard: std::collections::HashSet<&str> = (0..40)
+        .map(|n| traffic_sound_key_for("car", &format!("bubble-{n}")))
+        .collect();
+    assert_eq!(heard.len(), traffic_sound_takes("car").len(), "{heard:?}");
+    assert_eq!(traffic_sound_key_for("tanker", "x"), "traffic/tanker_loop");
 }
