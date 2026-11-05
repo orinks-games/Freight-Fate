@@ -479,13 +479,22 @@ impl DrivingState {
         // The distance opens a sentence of its own ("Half a mile to the
         // gate"), so it starts like one; "half a mile" after the full stop
         // read as a run-on (agent playtest, 2026-09-02).
+        // At the point or rolled past it, the countdown has nothing left to
+        // count: the closing ladder never says zero, so it read "50 feet to
+        // the market" for the whole half minute a truck took to roll past
+        // (owner, Jamestown, 2026-11-04).
+        let closing = if distance <= 0.0 {
+            format!("At {target}.")
+        } else {
+            format!(
+                "{} to {target}.",
+                crate::states::city::py_capitalize(&self.closing_text(distance))
+            )
+        };
         let parts = [
             // Only the opening letter: the rest names streets and cities.
             format!("{}.", crate::states::city::upper_first(&where_text)),
-            format!(
-                "{} to {target}.",
-                crate::states::city::py_capitalize(&self.closing_text(distance.max(0.0)))
-            ),
+            closing,
         ];
         let line = parts
             .iter()

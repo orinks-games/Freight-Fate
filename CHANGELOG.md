@@ -48,6 +48,9 @@
 - **A co-driver no longer crawls at 20 miles per hour after a downhill work zone.** They kept braking for the hill and ran out of hours.
 - **On ice, a co-driver now plans a stop they can reach at icy speeds.** They used to plan one their hours could not reach.
 - **A co-driver now lowers the cruise speed when the limit drops.** Entering a state with a lower truck limit, they kept the old speed.
+- **Facility stopping assistance brakes smoothly all the way to the gate.** It no longer walks the last 200 feet at 2 miles per hour.
+- **The route readout says you are at the stop once you reach it.** It used to keep saying 50 feet until the truck rolled past.
+- **Cruise no longer says it is easing to the limit right after setting a lower speed for the exit.**
 - **The last mile before a signaled exit passes faster when you are already slow enough for it.** Only the final half mile now runs in real time.
 - **Cruise no longer crawls toward an exit for a lower limit miles ahead.** It keeps the road's limit until it needs to slow for the drop.
 - **Cruise no longer says it is easing while the truck speeds up.** Pulling away under a lower limit, it read out two speeds a second apart.

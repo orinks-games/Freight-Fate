@@ -360,7 +360,21 @@ impl DrivingState {
             );
             return;
         }
-        self.hold_approach_speed(remaining_m, ARRIVAL_CREEP_MPH);
+        // The last lengths: the same comfort-rate shed, carried all the way to
+        // the point and floored at the walk, so the truck is still braking
+        // smoothly into the gate rather than down at two miles an hour two
+        // hundred feet out. That flat walk took over a minute on the real
+        // clock a delivery ramp runs on (owner, Jamestown, 2026-11-04: "way,
+        // way, way too slow"). Under the profile, the shed hold drives the
+        // truck back up to it, so an early stop is still impossible.
+        let (hold_mph, lane) = self.arrival_shed_hold_mph(remaining_m, ARRIVAL_CREEP_MPH);
+        self.hold_approach_speed_profile(
+            remaining_m,
+            hold_mph,
+            ARRIVAL_CREEP_MPH,
+            Some(lane),
+            ARRIVAL_CREEP_THROTTLE_MAX,
+        );
     }
 
     /// The pace the arrival keeps on a facility lane `remaining_m` short of
@@ -371,6 +385,12 @@ impl DrivingState {
     /// still moves. The final creep stretch is the caller's. The second
     /// half says which of the two the hold is.
     fn facility_lane_hold_mph(&mut self, remaining_m: f64) -> (f64, LaneHold) {
+        self.arrival_shed_hold_mph(remaining_m, FACILITY_LANE_ROLL_MPH)
+    }
+
+    /// `facility_lane_hold_mph` with the floor chosen by the caller: the
+    /// lane roll out on the lane, the gate walk in the final lengths.
+    fn arrival_shed_hold_mph(&mut self, remaining_m: f64, floor_mph: f64) -> (f64, LaneHold) {
         let (posted_mph, _) = self.trip.speed_limit_at(self.trip.position_mi);
         // On the facility's streets there is no ramp advisory to cap it;
         // the street's own posted number is the lane's.
@@ -387,21 +407,17 @@ impl DrivingState {
         } else {
             LaneHold::Lane
         };
-        (profile_mph.min(lane_mph).max(FACILITY_LANE_ROLL_MPH), kind)
+        (profile_mph.min(lane_mph).max(floor_mph), kind)
     }
 
-    /// The stop profile's pedal for this frame: brake down to `target_mph`
-    /// over `remaining_m`, or hold it with a capped throttle nudge.
+    /// The stop profile's pedal for this frame, with the pedal ceiling chosen
+    /// by the caller: a creep to a point, or the chain ramp's run up to the
+    /// posted limit. Brake down to `target_mph` over `remaining_m`, or hold it
+    /// with a capped throttle nudge.
     ///
     /// Shared by the arrival latch above and the chain ramp's roll to the
     /// streets. Nothing is added while anyone has a foot on the brake, and the
     /// throttle is only ever raised, so a driver's own pedal always wins.
-    fn hold_approach_speed(&mut self, remaining_m: f64, target_mph: f64) {
-        self.hold_approach_speed_with(remaining_m, target_mph, ARRIVAL_CREEP_THROTTLE_MAX);
-    }
-
-    /// `hold_approach_speed` with the pedal ceiling chosen by the caller: a
-    /// creep to a point, or the chain ramp's run up to the posted limit.
     fn hold_approach_speed_with(&mut self, remaining_m: f64, target_mph: f64, throttle_max: f64) {
         self.hold_approach_speed_profile(remaining_m, target_mph, target_mph, None, throttle_max);
     }

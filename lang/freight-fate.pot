@@ -30770,6 +30770,11 @@ msgstr ""
 msgid "No signed direction here."
 msgstr ""
 
+#. placeholders: {target}
+#: crates/freight-fate/src/states/driving_location.rs
+msgid "At {target}."
+msgstr ""
+
 #. placeholders: {py_capitalize}, {target}
 #: crates/freight-fate/src/states/driving_location.rs
 msgid "{py_capitalize} to {target}."
