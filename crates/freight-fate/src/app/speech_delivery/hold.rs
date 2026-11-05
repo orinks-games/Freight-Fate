@@ -10,7 +10,8 @@
 //!
 //! Held chatter keeps the pacer's 3-second budget; a route line waits up
 //! to 8 seconds; a queued critical line is never dropped and goes after 6
-//! seconds even if the voice never falls quiet. Interrupting lines, lines
+//! seconds even if the voice never falls quiet, and so does a route line
+//! marked to keep (an exit countdown). Interrupting lines, lines
 //! waiting on a delivery receipt, and every line while the voice cannot
 //! report go straight to the voice, exactly as before.
 
@@ -63,7 +64,13 @@ pub(crate) struct VoiceWatch {
     readout_playing: bool,
     /// The previous frame's pacer time, to measure readout time.
     last_frame_at: Option<f64>,
+    /// The latest kept lines handed to the voice, so one a readout cuts
+    /// off is held again as kept.
+    kept_said: std::collections::VecDeque<String>,
 }
+
+/// How many delivered kept lines `VoiceWatch::kept_said` remembers.
+const KEPT_SAID_MAX: usize = 4;
 
 /// One road line after the speech ladder and the repeat checks, ready for
 /// the voice.
@@ -76,6 +83,10 @@ pub(crate) struct EventLine {
     pub key: Option<String>,
     pub receipt: bool,
     pub review: bool,
+    /// Never dropped for age; goes like a queued critical line.
+    pub keep: bool,
+    /// A newer held line in the same group replaces this one.
+    pub group: Option<&'static str>,
 }
 
 /// A line held for a quiet voice, and when it was raised.
@@ -97,8 +108,8 @@ impl GameContext {
     }
 
     /// Queue a line for the quiet voice. A newer line about the same
-    /// condition (the same key) replaces the older one, and the same words
-    /// already waiting are not held twice.
+    /// condition (the same key or group) replaces the older one, and the
+    /// same words already waiting are not held twice.
     pub(super) fn hold_event(&mut self, line: EventLine) {
         if self
             .held_events
@@ -110,6 +121,10 @@ impl GameContext {
         if let Some(key) = line.key.as_deref() {
             self.held_events
                 .retain(|held| held.line.key.as_deref() != Some(key));
+        }
+        if let Some(group) = line.group {
+            self.held_events
+                .retain(|held| held.line.group != Some(group));
         }
         log::info!(target: TRANSCRIPT_TARGET, "[hold] {}", line.text);
         let raised_at = self.event_pacer.now();
@@ -162,6 +177,7 @@ impl GameContext {
             let waited = now - held.raised_at - held.readout_s;
             let untrue = held.line.valid.as_ref().is_some_and(|valid| !valid());
             let stale = match held.line.priority {
+                _ if held.line.keep => false,
                 EventPriority::Ambient => waited > ambient_budget,
                 EventPriority::Important => waited > HELD_IMPORTANT_MAX_S,
                 EventPriority::Critical => false,
@@ -197,12 +213,12 @@ impl GameContext {
             .map(|(index, _)| index)
     }
 
-    /// A `Critical` line held past `HELD_CRITICAL_MAX_S` goes now, queued
-    /// behind whatever the voice is saying.
+    /// A `Critical` or kept line held past `HELD_CRITICAL_MAX_S` goes now,
+    /// queued behind whatever the voice is saying.
     fn release_overdue_critical(&mut self) {
         let now = self.event_pacer.now();
         let overdue = self.held_events.iter().position(|held| {
-            held.line.priority == EventPriority::Critical
+            (held.line.priority == EventPriority::Critical || held.line.keep)
                 && now - held.raised_at > HELD_CRITICAL_MAX_S
         });
         if let Some(index) = overdue {
@@ -319,6 +335,7 @@ impl GameContext {
         let (text, priority) = cut;
         log::info!(target: TRANSCRIPT_TARGET, "[pacer] cut line held for the readout: {text}");
         self.note_handed_back(&text);
+        let keep = self.voice_watch.kept_said.contains(&text);
         self.hold_event(EventLine {
             text,
             priority,
@@ -328,7 +345,18 @@ impl GameContext {
             key: None,
             receipt: false,
             review: false,
+            keep,
+            group: None,
         });
+    }
+
+    /// Remember a kept line handed to the voice (see `hand_back_after_readout`).
+    pub(super) fn note_kept_delivered(&mut self, text: &str) {
+        let said = &mut self.voice_watch.kept_said;
+        if said.len() == KEPT_SAID_MAX {
+            said.pop_front();
+        }
+        said.push_back(text.to_string());
     }
 
     /// A road line went to the voice: from here the wait is on the road,
@@ -343,6 +371,13 @@ impl GameContext {
     fn road_voice_quiet(&mut self) -> bool {
         self.event_pacer.voice_quiet()
             && self.voice_watch.seen_at >= self.voice_watch.main_said_at + MAIN_START_GRACE_S
+    }
+
+    /// Whether a line in `group` is still waiting for the voice.
+    pub fn holds_group(&self, group: &str) -> bool {
+        self.held_events
+            .iter()
+            .any(|held| held.line.group == Some(group))
     }
 
     /// How many road lines are waiting for the voice to fall quiet.
