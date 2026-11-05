@@ -595,6 +595,16 @@ impl HosClock {
 
     /// Spoken status for the C key and Tab report.
     pub fn summary(&self, mode: &str) -> String {
+        self.summary_with(mode, true)
+    }
+
+    /// The summary without the ELD status sentence: the hours alone, for a
+    /// warning where the status tells the driver nothing.
+    pub fn hours_summary(&self, mode: &str) -> String {
+        self.summary_with(mode, false)
+    }
+
+    fn summary_with(&self, mode: &str, with_status: bool) -> String {
         if is_non_enforced(mode) {
             return ENFORCEMENT_OFF.to_string();
         }
@@ -641,7 +651,11 @@ impl HosClock {
                 duration_text(duty_left),
             )
         };
-        let mut sentences = vec![status, hours];
+        let mut sentences = if with_status {
+            vec![status, hours]
+        } else {
+            vec![hours]
+        };
         if let Some(pending) = self.split_pending_summary() {
             sentences.push(pending.to_string());
         }

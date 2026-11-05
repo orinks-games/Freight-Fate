@@ -201,6 +201,16 @@ impl MessageLog {
         Some(&self.messages[positions[self.index as usize]])
     }
 
+    /// The message the player is stepping through, while a review is still
+    /// open; `None` once it has lapsed or before any review.
+    pub fn open_review_message(&mut self) -> Option<&Message> {
+        let now = (self.clock)();
+        match self.reviewed_at {
+            Some(at) if now - at <= REVIEW_WINDOW_S => self.current_message(),
+            _ => None,
+        }
+    }
+
     /// Open or extend a review session.
     ///
     /// A press that arrives after the window has closed starts over: back at

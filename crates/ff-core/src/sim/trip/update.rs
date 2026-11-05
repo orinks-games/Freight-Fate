@@ -778,6 +778,15 @@ impl Trip {
                     continue;
                 }
                 self.announced_traffic_pressures.insert(key);
+                // Merging traffic at a split the route keeps right through
+                // says what the keep-right call already says.
+                if pressure.kind == "route_merge"
+                    && self.navigation_cues.iter().any(|cue| {
+                        cue.kind == "maneuver" && (cue.at_mi - pressure.start_mi).abs() <= 2.0
+                    })
+                {
+                    continue;
+                }
                 let message = self.traffic_pressure_message(&pressure, ahead);
                 self.emit(
                     TripEventKind::GpsCue,
@@ -821,6 +830,11 @@ impl Trip {
             if self.posts[i].kind == KIND_FIXED_SCALE || self.posts[i].kind == KIND_SCALE_APRON {
                 continue; // the scale has its own approach cue; the CB stays out of it
             }
+            if self.posts[i].tableau {
+                // Busy with somebody else: no risk to this truck, and a call
+                // about it read as the player's own stop (owner, 2026-11-05).
+                continue;
+            }
             let post = self.posts[i].clone();
             let urgency = self.cb_urgency(&post);
             candidates.push((ahead, i, urgency));
@@ -840,16 +854,8 @@ impl Trip {
             return;
         }
         let post = self.posts[i].clone();
-        if post.tableau && (self.pull_over_active || post.declined) {
-            // The tableau line waits its turn; dropped, not spoken later.
-            return;
-        }
         self.cb_calls_made += 1;
-        let message = if post.tableau {
-            self.cb_tableau_message(&post, ahead)
-        } else {
-            self.cb_patrol_message(&post, ahead)
-        };
+        let message = self.cb_patrol_message(&post, ahead);
         self.emit(
             TripEventKind::GpsCue,
             SpokenMessage::new(message),

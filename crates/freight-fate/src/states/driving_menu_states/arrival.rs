@@ -895,11 +895,13 @@ impl ArrivalState {
                 ),
             ]
         };
+        // Bare names: the route reads as one chain, and a state on only the
+        // one city whose name is shared elsewhere sounded like a mistake.
         let cities: Vec<String> = unique_consecutive(
             &d.route
                 .cities
                 .iter()
-                .map(|c| ctx.world.spoken_city(c, None))
+                .map(|c| ctx.world.spoken_city(c, Some(false)))
                 .collect::<Vec<_>>(),
         );
         let mut lines = vec![

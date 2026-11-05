@@ -12109,16 +12109,30 @@ msgstr "continue"
 msgid "Continue on {highway} for {distance_text} toward {toward}."
 msgstr "沿{highway}继续行驶{distance_text}，前往{toward}方向。"
 
-msgid "maneuver"
-msgstr "maneuver"
+#. placeholders: {shield}
+#. one sentence of a longer line
+msgid "Keep right for {shield}."
+msgstr "靠右走{shield}。"
 
-#. placeholders: {shield}, {toward}
-msgid "keep right for {shield} toward {toward}"
-msgstr "靠右走{shield}，前往{toward}方向"
+#. placeholders: {shield}, {distance_text}, {toward}
+msgid "Keep right for {shield}. {distance_text} toward {toward}."
+msgstr "靠右走{shield}。前往{toward}方向{distance_text}。"
+
+#. placeholders: {distance_text}, {toward}
+#. one sentence of a longer line
+msgid "{distance_text} toward {toward}."
+msgstr "前往{toward}方向{distance_text}。"
 
 #. placeholders: {shield}, {toward}
 msgid "Keep right for {shield} toward {toward}."
 msgstr "靠右走{shield}，前往{toward}方向。"
+
+msgid "maneuver"
+msgstr "maneuver"
+
+#. placeholders: {shield}
+msgid "keep right for {shield}"
+msgstr "靠右走{shield}"
 
 #. placeholders: {from_state}, {into_state}, {place}
 msgid "crossing from {from_state} into {into_state} near {place}"
@@ -12763,20 +12777,6 @@ msgstr "{distance}：一位司机报告州警{side}。"
 #. placeholders: {distance}, {side}
 msgid "{distance}: an old report of a trooper {side}."
 msgstr "{distance}：旧消息，有警察，{side}。"
-
-#. placeholders: {distance}, {side}
-msgid ""
-"{distance}: two drivers say a trooper already has somebody stopped {side}."
-msgstr "{distance}：两位司机说一名州警已经{side}拦下了一辆车。"
-
-#. placeholders: {distance}, {side}
-msgid ""
-"{distance}: a driver says a trooper already has somebody stopped {side}."
-msgstr "{distance}：一位司机说一名州警已经{side}拦下了一辆车。"
-
-#. placeholders: {distance}, {side}
-msgid "{distance}: an old report of a trooper with somebody stopped {side}."
-msgstr "{distance}：旧消息，警察拦下了别人，{side}。"
 
 #. placeholders: {where_}
 msgid "an enforcement post {where_} on this stretch"
@@ -19643,10 +19643,6 @@ msgstr "{highway}，从{start}到{end}"
 msgid "Engine idling."
 msgstr "发动机怠速中。"
 
-#. placeholders: {control_hint}
-msgid "{control_hint} lists the controls."
-msgstr "{control_hint}列出各项操作。"
-
 msgid "Cruise paused. "
 msgstr "巡航已暂停。 "
 
@@ -19731,32 +19727,18 @@ msgstr ""
 msgid "{progress} {hours_used} of {deadline_game_h} hours."
 msgstr "{progress} {hours_used} {deadline_game_h} 小时。"
 
-#. placeholders: {pickup_facility_text}
-msgid "Drive empty to {pickup_facility_text}. "
-msgstr "空车开往{pickup_facility_text}。 "
-
-#. placeholders: {destination_facility_text}
-msgid "Loaded for {destination_facility_text}. "
-msgstr "已为{destination_facility_text}装货。 "
-
-msgid " Manual transmission."
-msgstr " 手动变速。"
-
 #. one sentence of a longer line
 msgid "At the wheel."
 msgstr "开始驾驶。"
 
-#. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
-msgid ""
-"At the wheel. {objective}It is {now}.{transmission}{report_lead} {engine} "
-"{help}"
-msgstr ""
-"在驾驶座上。{objective}现在是{now}。{transmission}{report_lead} {engine} {help}"
+#. placeholders: {now}, {engine}
+msgid "At the wheel. It is {now}. {engine}"
+msgstr "在驾驶座上。现在是{now}。{engine}"
 
-#. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
+#. placeholders: {now}
 #. one sentence of a longer line
-msgid "{objective}It is {now}.{transmission}{report_lead} {engine} {help}"
-msgstr "{objective}现在是{now}。{transmission}{report_lead} {engine} {help}"
+msgid "It is {now}."
+msgstr "现在是{now}。"
 
 msgid "amount"
 msgstr "amount"
@@ -20748,8 +20730,8 @@ msgid "Still changing lanes."
 msgstr "还在换道。"
 
 #. placeholders: {minimum}
-msgid "Lane changes need the engine running and at least {minimum}."
-msgstr "换道需要发动机运转，并且车速至少{minimum}。"
+msgid "Lane changes need at least {minimum}."
+msgstr "变道需要至少{minimum}。"
 
 #. placeholders: {side}
 msgid "No lane to your {side} here."
@@ -22349,32 +22331,6 @@ msgid ""
 "Slow the handling down and avoid any hard stop or sharp bend you can safely "
 "avoid."
 msgstr "操作放慢，能安全避开的急刹和急弯都避开。"
-
-msgid "A trooper has somebody stopped on the shoulder, not you."
-msgstr "州警在路肩拦下了别人，不是你。"
-
-msgid "Another trooper has somebody stopped, not you."
-msgstr ""
-
-msgid "for a log check"
-msgstr "查工时记录"
-
-msgid "for speeding"
-msgstr "因为超速"
-
-msgid "over a light out"
-msgstr "因为车灯不亮"
-
-msgid "A trooper has somebody stopped in the median, not you."
-msgstr "警察在中央分隔带拦下了别人，不是你。"
-
-#. placeholders: {reason}
-msgid "A trooper has somebody stopped in the median {reason}, not you."
-msgstr "警察在中央分隔带拦下了别人{reason}，不是你。"
-
-#. placeholders: {reason}
-msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
-msgstr "州警在路肩拦下了别人，{reason}，不是你。"
 
 msgid "roadside inspection"
 msgstr "路检"
@@ -37181,6 +37137,65 @@ msgstr "开放。"
 msgid "Closed."
 msgstr "关闭。"
 
+#~ msgid "keep right for {shield} toward {toward}"
+#~ msgstr "靠右走{shield}，前往{toward}方向"
+
+#~ msgid ""
+#~ "{distance}: two drivers say a trooper already has somebody stopped {side}."
+#~ msgstr "{distance}：两位司机说一名州警已经{side}拦下了一辆车。"
+
+#~ msgid ""
+#~ "{distance}: a driver says a trooper already has somebody stopped {side}."
+#~ msgstr "{distance}：一位司机说一名州警已经{side}拦下了一辆车。"
+
+#~ msgid "{distance}: an old report of a trooper with somebody stopped {side}."
+#~ msgstr "{distance}：旧消息，警察拦下了别人，{side}。"
+
+#~ msgid "A trooper has somebody stopped on the shoulder, not you."
+#~ msgstr "州警在路肩拦下了别人，不是你。"
+
+#~ msgid "for a log check"
+#~ msgstr "查工时记录"
+
+#~ msgid "for speeding"
+#~ msgstr "因为超速"
+
+#~ msgid "over a light out"
+#~ msgstr "因为车灯不亮"
+
+#~ msgid "A trooper has somebody stopped in the median, not you."
+#~ msgstr "警察在中央分隔带拦下了别人，不是你。"
+
+#~ msgid "A trooper has somebody stopped in the median {reason}, not you."
+#~ msgstr "警察在中央分隔带拦下了别人{reason}，不是你。"
+
+#~ msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
+#~ msgstr "州警在路肩拦下了别人，{reason}，不是你。"
+
+#~ msgid "Lane changes need the engine running and at least {minimum}."
+#~ msgstr "换道需要发动机运转，并且车速至少{minimum}。"
+
+#~ msgid "{control_hint} lists the controls."
+#~ msgstr "{control_hint}列出各项操作。"
+
+#~ msgid "Drive empty to {pickup_facility_text}. "
+#~ msgstr "空车开往{pickup_facility_text}。 "
+
+#~ msgid "Loaded for {destination_facility_text}. "
+#~ msgstr "已为{destination_facility_text}装货。 "
+
+#~ msgid " Manual transmission."
+#~ msgstr " 手动变速。"
+
+#~ msgid ""
+#~ "At the wheel. {objective}It is {now}.{transmission}{report_lead} {engine} "
+#~ "{help}"
+#~ msgstr ""
+#~ "在驾驶座上。{objective}现在是{now}。{transmission}{report_lead} {engine} {help}"
+
+#~ msgid "{objective}It is {now}.{transmission}{report_lead} {engine} {help}"
+#~ msgstr "{objective}现在是{now}。{transmission}{report_lead} {engine} {help}"
+
 #~ msgid "Parked at {name} for {the_city} service area."
 #~ msgstr "停在{name}，属于{the_city}服务区域。"
 
@@ -42324,9 +42339,6 @@ msgstr "关闭。"
 
 #~ msgid "Press {control_hint} to cancel it."
 #~ msgstr "按{control_hint}取消它。"
-
-#~ msgid "It is {now}."
-#~ msgstr "现在是{now}。"
 
 #~ msgid "Parked."
 #~ msgstr "已停车。"

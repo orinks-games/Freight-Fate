@@ -13804,16 +13804,30 @@ msgstr "weiter"
 msgid "Continue on {highway} for {distance_text} toward {toward}."
 msgstr "Weiter auf {highway}, {distance_text} lang, Richtung {toward}."
 
-msgid "maneuver"
-msgstr "Manöver"
+#. placeholders: {shield}
+#. one sentence of a longer line
+msgid "Keep right for {shield}."
+msgstr "Rechts halten auf {shield}."
 
-#. placeholders: {shield}, {toward}
-msgid "keep right for {shield} toward {toward}"
-msgstr "rechts halten auf {shield} Richtung {toward}"
+#. placeholders: {shield}, {distance_text}, {toward}
+msgid "Keep right for {shield}. {distance_text} toward {toward}."
+msgstr "Rechts halten auf {shield}. {distance_text} Richtung {toward}."
+
+#. placeholders: {distance_text}, {toward}
+#. one sentence of a longer line
+msgid "{distance_text} toward {toward}."
+msgstr "{distance_text} Richtung {toward}."
 
 #. placeholders: {shield}, {toward}
 msgid "Keep right for {shield} toward {toward}."
 msgstr "Rechts halten auf {shield} Richtung {toward}."
+
+msgid "maneuver"
+msgstr "Manöver"
+
+#. placeholders: {shield}
+msgid "keep right for {shield}"
+msgstr "rechts halten auf {shield}"
 
 #. placeholders: {from_state}, {into_state}, {place}
 msgid "crossing from {from_state} into {into_state} near {place}"
@@ -14473,26 +14487,6 @@ msgstr "{distance}: Ein Fahrer meldet einen Polizisten {side}."
 #. placeholders: {distance}, {side}
 msgid "{distance}: an old report of a trooper {side}."
 msgstr "{distance}: eine alte Meldung von einem Polizisten {side}."
-
-#. placeholders: {distance}, {side}
-msgid ""
-"{distance}: two drivers say a trooper already has somebody stopped {side}."
-msgstr ""
-"{distance}: Zwei Fahrer sagen, ein Polizist hat {side} schon jemanden "
-"angehalten."
-
-#. placeholders: {distance}, {side}
-msgid ""
-"{distance}: a driver says a trooper already has somebody stopped {side}."
-msgstr ""
-"{distance}: Ein Fahrer sagt, ein Polizist hat {side} schon jemanden "
-"angehalten."
-
-#. placeholders: {distance}, {side}
-msgid "{distance}: an old report of a trooper with somebody stopped {side}."
-msgstr ""
-"{distance}: eine alte Meldung von einem Polizisten, der jemanden angehalten "
-"hat, {side}."
 
 #. placeholders: {where_}
 msgid "an enforcement post {where_} on this stretch"
@@ -22188,10 +22182,6 @@ msgstr "{highway} von {start} nach {end}"
 msgid "Engine idling."
 msgstr "Motor im Leerlauf."
 
-#. placeholders: {control_hint}
-msgid "{control_hint} lists the controls."
-msgstr "{control_hint} listet die Steuerung auf."
-
 msgid "Cruise paused. "
 msgstr "Tempomat pausiert. "
 
@@ -22279,33 +22269,18 @@ msgstr ""
 msgid "{progress} {hours_used} of {deadline_game_h} hours."
 msgstr "{progress} {hours_used} von {deadline_game_h} Stunden."
 
-#. placeholders: {pickup_facility_text}
-msgid "Drive empty to {pickup_facility_text}. "
-msgstr "Fahr leer nach {pickup_facility_text}. "
-
-#. placeholders: {destination_facility_text}
-msgid "Loaded for {destination_facility_text}. "
-msgstr "Beladen für {destination_facility_text}. "
-
-msgid " Manual transmission."
-msgstr " Schaltgetriebe."
-
 #. one sentence of a longer line
 msgid "At the wheel."
 msgstr "Am Steuer."
 
-#. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
-msgid ""
-"At the wheel. {objective}It is {now}.{transmission}{report_lead} {engine} "
-"{help}"
-msgstr ""
-"Am Steuer. {objective}Es ist {now}.{transmission}{report_lead} {engine} "
-"{help}"
+#. placeholders: {now}, {engine}
+msgid "At the wheel. It is {now}. {engine}"
+msgstr "Am Steuer. Es ist {now}. {engine}"
 
-#. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
+#. placeholders: {now}
 #. one sentence of a longer line
-msgid "{objective}It is {now}.{transmission}{report_lead} {engine} {help}"
-msgstr "{objective}Es ist {now}.{transmission}{report_lead} {engine} {help}"
+msgid "It is {now}."
+msgstr "Es ist {now}."
 
 msgid "amount"
 msgstr "amount"
@@ -23459,9 +23434,8 @@ msgid "Still changing lanes."
 msgstr "Spurwechsel läuft noch."
 
 #. placeholders: {minimum}
-msgid "Lane changes need the engine running and at least {minimum}."
-msgstr ""
-"Spurwechsel brauchen einen laufenden Motor und mindestens {minimum}."
+msgid "Lane changes need at least {minimum}."
+msgstr "Spurwechsel brauchen mindestens {minimum}."
 
 #. placeholders: {side}
 msgid "No lane to your {side} here."
@@ -25246,38 +25220,6 @@ msgid ""
 msgstr ""
 "Fahr ruhiger und vermeide jede Vollbremsung und jede scharfe Kurve, die du "
 "sicher vermeiden kannst."
-
-msgid "A trooper has somebody stopped on the shoulder, not you."
-msgstr ""
-"Ein Polizist hat jemanden auf dem Seitenstreifen angehalten, nicht dich."
-
-msgid "Another trooper has somebody stopped, not you."
-msgstr ""
-
-msgid "for a log check"
-msgstr "für eine Fahrtenbuchkontrolle"
-
-msgid "for speeding"
-msgstr "wegen zu schnellen Fahrens"
-
-msgid "over a light out"
-msgstr "wegen einer kaputten Lampe"
-
-msgid "A trooper has somebody stopped in the median, not you."
-msgstr ""
-"Ein Polizist hat jemanden auf dem Mittelstreifen angehalten, nicht dich."
-
-#. placeholders: {reason}
-msgid "A trooper has somebody stopped in the median {reason}, not you."
-msgstr ""
-"Ein Polizist hat jemanden auf dem Mittelstreifen angehalten {reason}, nicht "
-"dich."
-
-#. placeholders: {reason}
-msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
-msgstr ""
-"Ein Polizist hat jemanden auf dem Seitenstreifen angehalten, {reason}, "
-"nicht dich."
 
 msgid "roadside inspection"
 msgstr "Straßenkontrolle"
@@ -42071,6 +42013,79 @@ msgstr "Geöffnet."
 msgid "Closed."
 msgstr "Geschlossen."
 
+#~ msgid "keep right for {shield} toward {toward}"
+#~ msgstr "rechts halten auf {shield} Richtung {toward}"
+
+#~ msgid ""
+#~ "{distance}: two drivers say a trooper already has somebody stopped {side}."
+#~ msgstr ""
+#~ "{distance}: Zwei Fahrer sagen, ein Polizist hat {side} schon jemanden "
+#~ "angehalten."
+
+#~ msgid ""
+#~ "{distance}: a driver says a trooper already has somebody stopped {side}."
+#~ msgstr ""
+#~ "{distance}: Ein Fahrer sagt, ein Polizist hat {side} schon jemanden "
+#~ "angehalten."
+
+#~ msgid "{distance}: an old report of a trooper with somebody stopped {side}."
+#~ msgstr ""
+#~ "{distance}: eine alte Meldung von einem Polizisten, der jemanden angehalten "
+#~ "hat, {side}."
+
+#~ msgid "A trooper has somebody stopped on the shoulder, not you."
+#~ msgstr ""
+#~ "Ein Polizist hat jemanden auf dem Seitenstreifen angehalten, nicht dich."
+
+#~ msgid "for a log check"
+#~ msgstr "für eine Fahrtenbuchkontrolle"
+
+#~ msgid "for speeding"
+#~ msgstr "wegen zu schnellen Fahrens"
+
+#~ msgid "over a light out"
+#~ msgstr "wegen einer kaputten Lampe"
+
+#~ msgid "A trooper has somebody stopped in the median, not you."
+#~ msgstr ""
+#~ "Ein Polizist hat jemanden auf dem Mittelstreifen angehalten, nicht dich."
+
+#~ msgid "A trooper has somebody stopped in the median {reason}, not you."
+#~ msgstr ""
+#~ "Ein Polizist hat jemanden auf dem Mittelstreifen angehalten {reason}, nicht "
+#~ "dich."
+
+#~ msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
+#~ msgstr ""
+#~ "Ein Polizist hat jemanden auf dem Seitenstreifen angehalten, {reason}, "
+#~ "nicht dich."
+
+#~ msgid "Lane changes need the engine running and at least {minimum}."
+#~ msgstr ""
+#~ "Spurwechsel brauchen einen laufenden Motor und mindestens {minimum}."
+
+#~ msgid "{control_hint} lists the controls."
+#~ msgstr "{control_hint} listet die Steuerung auf."
+
+#~ msgid "Drive empty to {pickup_facility_text}. "
+#~ msgstr "Fahr leer nach {pickup_facility_text}. "
+
+#~ msgid "Loaded for {destination_facility_text}. "
+#~ msgstr "Beladen für {destination_facility_text}. "
+
+#~ msgid " Manual transmission."
+#~ msgstr " Schaltgetriebe."
+
+#~ msgid ""
+#~ "At the wheel. {objective}It is {now}.{transmission}{report_lead} {engine} "
+#~ "{help}"
+#~ msgstr ""
+#~ "Am Steuer. {objective}Es ist {now}.{transmission}{report_lead} {engine} "
+#~ "{help}"
+
+#~ msgid "{objective}It is {now}.{transmission}{report_lead} {engine} {help}"
+#~ msgstr "{objective}Es ist {now}.{transmission}{report_lead} {engine} {help}"
+
 #~ msgid "Parked at {name} for {the_city} service area."
 #~ msgstr "Geparkt bei {name} für das Einzugsgebiet von {the_city}."
 
@@ -48832,9 +48847,6 @@ msgstr "Geschlossen."
 
 #~ msgid "Press {control_hint} to cancel it."
 #~ msgstr "Drück {control_hint}, um sie abzubrechen."
-
-#~ msgid "It is {now}."
-#~ msgstr "Es ist {now}."
 
 #~ msgid "Parked."
 #~ msgstr "Geparkt."

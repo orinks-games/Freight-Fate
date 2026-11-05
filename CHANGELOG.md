@@ -41,7 +41,7 @@
 - **Arriving at a facility names it once.** After Pulling into, the menu opens on its first row.
 - **The speed readout says miles per hour once,** and the road readout names a state only when your destination is in another one.
 - **Idle fuel burned at a pickup is now in Pickup status** instead of the loaded line. The weather readout no longer ends with It is day.
-- **Starting a drive with a load says only what you need.** At the wheel names the facility and time; hours and fuel come up only when they run short.
+- **Starting a drive says only the time and the engine.** Where you are going was said when you accepted; hours and fuel come up only when they run short.
 - **Roadside inspections say you were stopped, the citation, and the fine.** The shoulder, the paperwork and driving tips are gone.
 - **Old CB trooper reports lead with the distance.**
 - **The terminal and career lines name your home city once.**
@@ -49,13 +49,20 @@
 - **Finishing a pickup says where the load is going and how long loading took.** Company drivers no longer hear the carrier's detention pay.
 - **The delivery list is plainer.** Detention pay and tolls get their own rows, unloading is in minutes, and an empty charges row is gone.
 - **Changing the cruise speed while cruise is paused says Cruise speed,** the same name as everywhere else.
+- **A highway change gets one Keep right call, with the miles,** and no Continue on line repeating it.
+- **A state's truck speed limit is named once per state** in the speed readout.
+- **The extra rest warning before accepting a load says only the hours left.**
+- **The settlement route names the cities without their states.**
 
 ### Removed
 
 - **The Automatic direction changes setting is gone.** Both of its choices already drove the same way.
+- **Troopers working someone else's stop are gone,** with their siren, their pass sound and the CB reports about them.
 
 ### Fixed
 
+- **The copy key copies the message you stepped back to.** It used to copy the newest line instead.
+- **Left and Right say nothing while you are parked or the engine is off.**
 - **Weigh station callouts say Open or Closed, as the signs do.** A closed scale is said once on arrival, with no exit key offered ahead of it.
 - **Numbered loads on the dispatch board are read in your language.** The load line after "Job 1 of 7" stayed in English.
 - **The unused translations folder from mid-October downloads leaves the game folder.** It moves to the saves folder as old-translations, so any edits in it are kept.

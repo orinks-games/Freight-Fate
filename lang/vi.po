@@ -11955,15 +11955,29 @@ msgstr ""
 msgid "Continue on {highway} for {distance_text} toward {toward}."
 msgstr ""
 
-msgid "maneuver"
+#. placeholders: {shield}
+#. one sentence of a longer line
+msgid "Keep right for {shield}."
 msgstr ""
 
-#. placeholders: {shield}, {toward}
-msgid "keep right for {shield} toward {toward}"
+#. placeholders: {shield}, {distance_text}, {toward}
+msgid "Keep right for {shield}. {distance_text} toward {toward}."
+msgstr ""
+
+#. placeholders: {distance_text}, {toward}
+#. one sentence of a longer line
+msgid "{distance_text} toward {toward}."
 msgstr ""
 
 #. placeholders: {shield}, {toward}
 msgid "Keep right for {shield} toward {toward}."
+msgstr ""
+
+msgid "maneuver"
+msgstr ""
+
+#. placeholders: {shield}
+msgid "keep right for {shield}"
 msgstr ""
 
 #. placeholders: {from_state}, {into_state}, {place}
@@ -12608,20 +12622,6 @@ msgstr ""
 
 #. placeholders: {distance}, {side}
 msgid "{distance}: an old report of a trooper {side}."
-msgstr ""
-
-#. placeholders: {distance}, {side}
-msgid ""
-"{distance}: two drivers say a trooper already has somebody stopped {side}."
-msgstr ""
-
-#. placeholders: {distance}, {side}
-msgid ""
-"{distance}: a driver says a trooper already has somebody stopped {side}."
-msgstr ""
-
-#. placeholders: {distance}, {side}
-msgid "{distance}: an old report of a trooper with somebody stopped {side}."
 msgstr ""
 
 #. placeholders: {where_}
@@ -19330,10 +19330,6 @@ msgstr ""
 msgid "Engine idling."
 msgstr ""
 
-#. placeholders: {control_hint}
-msgid "{control_hint} lists the controls."
-msgstr ""
-
 msgid "Cruise paused. "
 msgstr ""
 
@@ -19413,30 +19409,17 @@ msgstr ""
 msgid "{progress} {hours_used} of {deadline_game_h} hours."
 msgstr ""
 
-#. placeholders: {pickup_facility_text}
-msgid "Drive empty to {pickup_facility_text}. "
-msgstr ""
-
-#. placeholders: {destination_facility_text}
-msgid "Loaded for {destination_facility_text}. "
-msgstr ""
-
-msgid " Manual transmission."
-msgstr ""
-
 #. one sentence of a longer line
 msgid "At the wheel."
 msgstr ""
 
-#. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
-msgid ""
-"At the wheel. {objective}It is {now}.{transmission}{report_lead} {engine} "
-"{help}"
+#. placeholders: {now}, {engine}
+msgid "At the wheel. It is {now}. {engine}"
 msgstr ""
 
-#. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
+#. placeholders: {now}
 #. one sentence of a longer line
-msgid "{objective}It is {now}.{transmission}{report_lead} {engine} {help}"
+msgid "It is {now}."
 msgstr ""
 
 msgid "amount"
@@ -20415,7 +20398,7 @@ msgid "Still changing lanes."
 msgstr ""
 
 #. placeholders: {minimum}
-msgid "Lane changes need the engine running and at least {minimum}."
+msgid "Lane changes need at least {minimum}."
 msgstr ""
 
 #. placeholders: {side}
@@ -21977,32 +21960,6 @@ msgstr ""
 msgid ""
 "Slow the handling down and avoid any hard stop or sharp bend you can safely "
 "avoid."
-msgstr ""
-
-msgid "A trooper has somebody stopped on the shoulder, not you."
-msgstr ""
-
-msgid "Another trooper has somebody stopped, not you."
-msgstr ""
-
-msgid "for a log check"
-msgstr ""
-
-msgid "for speeding"
-msgstr ""
-
-msgid "over a light out"
-msgstr ""
-
-msgid "A trooper has somebody stopped in the median, not you."
-msgstr ""
-
-#. placeholders: {reason}
-msgid "A trooper has somebody stopped in the median {reason}, not you."
-msgstr ""
-
-#. placeholders: {reason}
-msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
 msgstr ""
 
 msgid "roadside inspection"

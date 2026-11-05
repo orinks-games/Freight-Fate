@@ -891,18 +891,14 @@ fn test_the_arrows_only_tap_a_lane_change_when_lane_keeping_is_automated() {
 }
 
 #[test]
-fn test_a_lane_change_needs_the_engine_and_road_speed() {
+fn test_a_lane_change_while_parked_does_nothing_and_says_nothing() {
     let mut app = TestApp::new();
     let mut d = a_drive(&mut app);
     app.ctx.settings.lane_keeping = "full".to_string();
     d.lane.lane_count = 2;
     app.clear_speech();
     d.handle_key_event(&mut app.ctx, &key(Key::Left));
-    assert!(
-        last(&app).contains("Lane changes need the engine running"),
-        "{}",
-        last(&app)
-    );
+    assert_eq!(last(&app), "", "parked with the engine off");
     assert_eq!(d.lane_change_target, None);
 }
 

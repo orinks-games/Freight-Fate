@@ -852,7 +852,7 @@ impl JobBoardState {
             held_load::hold_for_rest(profile_mut(ctx), &job);
             ctx.save_profile();
             ctx.audio.play("ui/warning");
-            let summary = profile(ctx).hos.summary(&ctx.settings.hos_mode);
+            let summary = profile(ctx).hos.hours_summary(&ctx.settings.hos_mode);
             ctx.say(&format!(
                 "Needs an extra rest on this shift's hours. {summary} Enter again to accept."
             ));

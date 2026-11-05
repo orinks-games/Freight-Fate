@@ -12199,16 +12199,30 @@ msgstr "直進"
 msgid "Continue on {highway} for {distance_text} toward {toward}."
 msgstr "{highway}を{toward}方面へ{distance_text}進みます。"
 
-msgid "maneuver"
-msgstr "操作"
+#. placeholders: {shield}
+#. one sentence of a longer line
+msgid "Keep right for {shield}."
+msgstr "右寄りに進み、{shield}へ。"
 
-#. placeholders: {shield}, {toward}
-msgid "keep right for {shield} toward {toward}"
-msgstr "右寄りに進み、{shield}で{toward}方面へ"
+#. placeholders: {shield}, {distance_text}, {toward}
+msgid "Keep right for {shield}. {distance_text} toward {toward}."
+msgstr "右寄りに進み、{shield}へ。{toward}方面へ{distance_text}。"
+
+#. placeholders: {distance_text}, {toward}
+#. one sentence of a longer line
+msgid "{distance_text} toward {toward}."
+msgstr "{toward}方面へ{distance_text}。"
 
 #. placeholders: {shield}, {toward}
 msgid "Keep right for {shield} toward {toward}."
 msgstr "右寄りに進み、{shield}で{toward}方面へ。"
+
+msgid "maneuver"
+msgstr "操作"
+
+#. placeholders: {shield}
+msgid "keep right for {shield}"
+msgstr "右寄りに進み、{shield}へ"
 
 #. placeholders: {from_state}, {into_state}, {place}
 msgid "crossing from {from_state} into {into_state} near {place}"
@@ -12853,20 +12867,6 @@ msgstr "{distance}：{side}州警察官がいると、ドライバーが知ら�
 #. placeholders: {distance}, {side}
 msgid "{distance}: an old report of a trooper {side}."
 msgstr "{distance}：警官の古い情報、{side}。"
-
-#. placeholders: {distance}, {side}
-msgid ""
-"{distance}: two drivers say a trooper already has somebody stopped {side}."
-msgstr "{distance}：{side}州警察官がすでに誰かを止めていると、ドライバー2人が言っています。"
-
-#. placeholders: {distance}, {side}
-msgid ""
-"{distance}: a driver says a trooper already has somebody stopped {side}."
-msgstr "{distance}：{side}州警察官がすでに誰かを止めていると、ドライバーが言っています。"
-
-#. placeholders: {distance}, {side}
-msgid "{distance}: an old report of a trooper with somebody stopped {side}."
-msgstr "{distance}：誰かを止めている警官の古い情報、{side}。"
 
 #. placeholders: {where_}
 msgid "an enforcement post {where_} on this stretch"
@@ -19835,10 +19835,6 @@ msgstr "{start}から{end}までの{highway}"
 msgid "Engine idling."
 msgstr "エンジンはアイドリング中です。"
 
-#. placeholders: {control_hint}
-msgid "{control_hint} lists the controls."
-msgstr "{control_hint}で操作の一覧を読みます。"
-
 msgid "Cruise paused. "
 msgstr "クルーズ一時停止。 "
 
@@ -19923,32 +19919,18 @@ msgstr ""
 msgid "{progress} {hours_used} of {deadline_game_h} hours."
 msgstr "{progress}{deadline_game_h}時間中{hours_used}時間を使用。"
 
-#. placeholders: {pickup_facility_text}
-msgid "Drive empty to {pickup_facility_text}. "
-msgstr "{pickup_facility_text}まで空荷で走ってください。 "
-
-#. placeholders: {destination_facility_text}
-msgid "Loaded for {destination_facility_text}. "
-msgstr "{destination_facility_text}行きを積みました。 "
-
-msgid " Manual transmission."
-msgstr " マニュアル変速。"
-
 #. one sentence of a longer line
 msgid "At the wheel."
 msgstr "運転席にいます。"
 
-#. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
-msgid ""
-"At the wheel. {objective}It is {now}.{transmission}{report_lead} {engine} "
-"{help}"
-msgstr ""
-"運転席です。{objective}現在{now}。{transmission}{report_lead} {engine} {help}"
+#. placeholders: {now}, {engine}
+msgid "At the wheel. It is {now}. {engine}"
+msgstr "運転席です。現在{now}。{engine}"
 
-#. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
+#. placeholders: {now}
 #. one sentence of a longer line
-msgid "{objective}It is {now}.{transmission}{report_lead} {engine} {help}"
-msgstr "{objective}現在{now}。{transmission}{report_lead} {engine} {help}"
+msgid "It is {now}."
+msgstr "{now}です。"
 
 msgid "amount"
 msgstr "amount"
@@ -20963,8 +20945,8 @@ msgid "Still changing lanes."
 msgstr "まだ車線を変えている途中です。"
 
 #. placeholders: {minimum}
-msgid "Lane changes need the engine running and at least {minimum}."
-msgstr "車線を変えるには、エンジンがかかっていて、少なくとも{minimum}が必要です。"
+msgid "Lane changes need at least {minimum}."
+msgstr "車線変更には{minimum}以上が必要です。"
 
 #. placeholders: {side}
 msgid "No lane to your {side} here."
@@ -22583,32 +22565,6 @@ msgid ""
 "Slow the handling down and avoid any hard stop or sharp bend you can safely "
 "avoid."
 msgstr "運転を穏やかにして、安全に避けられる急停止や急カーブは避けてください。"
-
-msgid "A trooper has somebody stopped on the shoulder, not you."
-msgstr "州警察官が路肩で誰かを停めています。こちらではありません。"
-
-msgid "Another trooper has somebody stopped, not you."
-msgstr ""
-
-msgid "for a log check"
-msgstr "運転記録の確認で"
-
-msgid "for speeding"
-msgstr "スピード違反で"
-
-msgid "over a light out"
-msgstr "ライト切れで"
-
-msgid "A trooper has somebody stopped in the median, not you."
-msgstr "中央分離帯で警官が誰かを止めています。あなたではありません。"
-
-#. placeholders: {reason}
-msgid "A trooper has somebody stopped in the median {reason}, not you."
-msgstr "中央分離帯で警官が誰かを止めています{reason}。あなたではありません。"
-
-#. placeholders: {reason}
-msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
-msgstr "州警察官が{reason}路肩で誰かを停めています。こちらではありません。"
 
 msgid "roadside inspection"
 msgstr "路上検査"
@@ -37740,6 +37696,65 @@ msgstr "営業中。"
 msgid "Closed."
 msgstr "閉鎖中。"
 
+#~ msgid "keep right for {shield} toward {toward}"
+#~ msgstr "右寄りに進み、{shield}で{toward}方面へ"
+
+#~ msgid ""
+#~ "{distance}: two drivers say a trooper already has somebody stopped {side}."
+#~ msgstr "{distance}：{side}州警察官がすでに誰かを止めていると、ドライバー2人が言っています。"
+
+#~ msgid ""
+#~ "{distance}: a driver says a trooper already has somebody stopped {side}."
+#~ msgstr "{distance}：{side}州警察官がすでに誰かを止めていると、ドライバーが言っています。"
+
+#~ msgid "{distance}: an old report of a trooper with somebody stopped {side}."
+#~ msgstr "{distance}：誰かを止めている警官の古い情報、{side}。"
+
+#~ msgid "A trooper has somebody stopped on the shoulder, not you."
+#~ msgstr "州警察官が路肩で誰かを停めています。こちらではありません。"
+
+#~ msgid "for a log check"
+#~ msgstr "運転記録の確認で"
+
+#~ msgid "for speeding"
+#~ msgstr "スピード違反で"
+
+#~ msgid "over a light out"
+#~ msgstr "ライト切れで"
+
+#~ msgid "A trooper has somebody stopped in the median, not you."
+#~ msgstr "中央分離帯で警官が誰かを止めています。あなたではありません。"
+
+#~ msgid "A trooper has somebody stopped in the median {reason}, not you."
+#~ msgstr "中央分離帯で警官が誰かを止めています{reason}。あなたではありません。"
+
+#~ msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
+#~ msgstr "州警察官が{reason}路肩で誰かを停めています。こちらではありません。"
+
+#~ msgid "Lane changes need the engine running and at least {minimum}."
+#~ msgstr "車線を変えるには、エンジンがかかっていて、少なくとも{minimum}が必要です。"
+
+#~ msgid "{control_hint} lists the controls."
+#~ msgstr "{control_hint}で操作の一覧を読みます。"
+
+#~ msgid "Drive empty to {pickup_facility_text}. "
+#~ msgstr "{pickup_facility_text}まで空荷で走ってください。 "
+
+#~ msgid "Loaded for {destination_facility_text}. "
+#~ msgstr "{destination_facility_text}行きを積みました。 "
+
+#~ msgid " Manual transmission."
+#~ msgstr " マニュアル変速。"
+
+#~ msgid ""
+#~ "At the wheel. {objective}It is {now}.{transmission}{report_lead} {engine} "
+#~ "{help}"
+#~ msgstr ""
+#~ "運転席です。{objective}現在{now}。{transmission}{report_lead} {engine} {help}"
+
+#~ msgid "{objective}It is {now}.{transmission}{report_lead} {engine} {help}"
+#~ msgstr "{objective}現在{now}。{transmission}{report_lead} {engine} {help}"
+
 #~ msgid "Parked at {name} for {the_city} service area."
 #~ msgstr "{the_city}サービスエリアの{name}に駐車しました。"
 
@@ -43155,9 +43170,6 @@ msgstr "閉鎖中。"
 
 #~ msgid "Press {control_hint} to cancel it."
 #~ msgstr "{control_hint}で取り消します。"
-
-#~ msgid "It is {now}."
-#~ msgstr "{now}です。"
 
 #~ msgid "Parked."
 #~ msgstr "駐車中。"

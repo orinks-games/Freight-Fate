@@ -7306,7 +7306,7 @@ msgstr ""
 msgid "a two-finger swipe up"
 msgstr ""
 
-#: crates/ff-core/src/input_hints.rs crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_controls/help.rs crates/freight-fate/src/states/driving_core.rs
+#: crates/ff-core/src/input_hints.rs crates/freight-fate/src/states/driving_controls/help.rs crates/freight-fate/src/states/driving_core.rs crates/freight-fate/src/states/main_menu/input_practice.rs
 msgid "help"
 msgstr ""
 
@@ -15227,18 +15227,35 @@ msgstr ""
 msgid "Continue on {highway} for {distance_text} toward {toward}."
 msgstr ""
 
+#. placeholders: {shield}
+#. one sentence of a longer line
 #: crates/ff-core/src/sim/trip/placement.rs
-msgid "maneuver"
+msgid "Keep right for {shield}."
 msgstr ""
 
-#. placeholders: {shield}, {toward}
+#. placeholders: {shield}, {distance_text}, {toward}
 #: crates/ff-core/src/sim/trip/placement.rs
-msgid "keep right for {shield} toward {toward}"
+msgid "Keep right for {shield}. {distance_text} toward {toward}."
+msgstr ""
+
+#. placeholders: {distance_text}, {toward}
+#. one sentence of a longer line
+#: crates/ff-core/src/sim/trip/placement.rs
+msgid "{distance_text} toward {toward}."
 msgstr ""
 
 #. placeholders: {shield}, {toward}
 #: crates/ff-core/src/sim/trip/placement.rs
 msgid "Keep right for {shield} toward {toward}."
+msgstr ""
+
+#: crates/ff-core/src/sim/trip/placement.rs
+msgid "maneuver"
+msgstr ""
+
+#. placeholders: {shield}
+#: crates/ff-core/src/sim/trip/placement.rs
+msgid "keep right for {shield}"
 msgstr ""
 
 #. placeholders: {from_state}, {into_state}, {place}
@@ -16072,23 +16089,6 @@ msgstr ""
 #. placeholders: {distance}, {side}
 #: crates/ff-core/src/sim/trip_traffic.rs
 msgid "{distance}: an old report of a trooper {side}."
-msgstr ""
-
-#. placeholders: {distance}, {side}
-#: crates/ff-core/src/sim/trip_traffic.rs
-msgid ""
-"{distance}: two drivers say a trooper already has somebody stopped {side}."
-msgstr ""
-
-#. placeholders: {distance}, {side}
-#: crates/ff-core/src/sim/trip_traffic.rs
-msgid ""
-"{distance}: a driver says a trooper already has somebody stopped {side}."
-msgstr ""
-
-#. placeholders: {distance}, {side}
-#: crates/ff-core/src/sim/trip_traffic.rs
-msgid "{distance}: an old report of a trooper with somebody stopped {side}."
 msgstr ""
 
 #. placeholders: {where_}
@@ -24520,11 +24520,6 @@ msgstr ""
 msgid "Engine idling."
 msgstr ""
 
-#. placeholders: {control_hint}
-#: crates/freight-fate/src/states/driving/lifecycle.rs
-msgid "{control_hint} lists the controls."
-msgstr ""
-
 #: crates/freight-fate/src/states/driving/lifecycle.rs
 msgid "Cruise paused. "
 msgstr ""
@@ -24623,36 +24618,20 @@ msgstr ""
 msgid "{progress} {hours_used} of {deadline_game_h} hours."
 msgstr ""
 
-#. placeholders: {pickup_facility_text}
-#: crates/freight-fate/src/states/driving/lifecycle.rs
-msgid "Drive empty to {pickup_facility_text}. "
-msgstr ""
-
-#. placeholders: {destination_facility_text}
-#: crates/freight-fate/src/states/driving/lifecycle.rs
-msgid "Loaded for {destination_facility_text}. "
-msgstr ""
-
-#: crates/freight-fate/src/states/driving/lifecycle.rs
-msgid " Manual transmission."
-msgstr ""
-
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving/lifecycle.rs
 msgid "At the wheel."
 msgstr ""
 
-#. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
+#. placeholders: {now}, {engine}
 #: crates/freight-fate/src/states/driving/lifecycle.rs
-msgid ""
-"At the wheel. {objective}It is {now}.{transmission}{report_lead} {engine} "
-"{help}"
+msgid "At the wheel. It is {now}. {engine}"
 msgstr ""
 
-#. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
+#. placeholders: {now}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving/lifecycle.rs
-msgid "{objective}It is {now}.{transmission}{report_lead} {engine} {help}"
+msgid "It is {now}."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving/snapshot.rs
@@ -25860,7 +25839,7 @@ msgstr ""
 
 #. placeholders: {minimum}
 #: crates/freight-fate/src/states/driving_controls/keys.rs
-msgid "Lane changes need the engine running and at least {minimum}."
+msgid "Lane changes need at least {minimum}."
 msgstr ""
 
 #. placeholders: {side}
@@ -27778,40 +27757,6 @@ msgstr ""
 msgid ""
 "Slow the handling down and avoid any hard stop or sharp bend you can safely "
 "avoid."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_enforcement.rs
-msgid "A trooper has somebody stopped on the shoulder, not you."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_enforcement.rs
-msgid "Another trooper has somebody stopped, not you."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_enforcement.rs
-msgid "for a log check"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_enforcement.rs
-msgid "for speeding"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_enforcement.rs
-msgid "over a light out"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_enforcement/cues.rs
-msgid "A trooper has somebody stopped in the median, not you."
-msgstr ""
-
-#. placeholders: {reason}
-#: crates/freight-fate/src/states/driving_enforcement/cues.rs
-msgid "A trooper has somebody stopped in the median {reason}, not you."
-msgstr ""
-
-#. placeholders: {reason}
-#: crates/freight-fate/src/states/driving_enforcement/cues.rs
-msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_enforcement/inspections.rs

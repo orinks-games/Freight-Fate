@@ -767,7 +767,7 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
                     let carrier = ff_core::models::career::carrier_name_of(profile(ctx));
                     // Your own hours and the tank, as on a solo departure,
                     // without the solo driver's sleep plan.
-                    format!(
+                    let line = format!(
                         "{} {lead}{} {} {} takes the wheel.",
                         ff_core::models::co_driver::pairing_line(&pairing, &carrier),
                         crate::states::city_pickup::route_departure_summary(
@@ -776,7 +776,9 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
                         ),
                         board::briefing::departure_briefing(ctx, &route_for_line, true),
                         pairing.co_driver.name
-                    )
+                    );
+                    // An empty briefing leaves a double space behind.
+                    line.split_whitespace().collect::<Vec<_>>().join(" ")
                 }
                 None => loaded_departure_line(ctx, &lead, &route_for_line, engine_on),
             }

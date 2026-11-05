@@ -249,8 +249,11 @@ impl DrivingState {
         // Name the state once and the 55 under a 65 sign explains itself.
         let (is_truck_limit, cap_state) = self.trip.truck_limit_at(position);
         let split = match cap_state {
-            Some(state) => format!(" {state} holds trucks to this."),
-            None => String::new(),
+            Some(state) if self.truck_limit_state_named.as_deref() != Some(state.as_str()) => {
+                self.truck_limit_state_named = Some(state.clone());
+                format!(" {state} holds trucks to this.")
+            }
+            _ => String::new(),
         };
         // A posted 55 through hairpin country is honest -- the yellow
         // diamond is advisory, not the limit -- but S saying only "55"
@@ -401,8 +404,6 @@ impl DrivingState {
                         "The CB called an enforcement post {}. You have passed it.",
                         Trip::cb_side(post)
                     )
-                } else if post.tableau {
-                    self.trip.cb_tableau_message(post, ahead)
                 } else {
                     self.trip.cb_patrol_message(post, ahead)
                 }

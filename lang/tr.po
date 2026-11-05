@@ -13313,16 +13313,30 @@ msgstr "devam"
 msgid "Continue on {highway} for {distance_text} toward {toward}."
 msgstr "{highway} üzerinde {toward} yönünde {distance_text} devam edin."
 
-msgid "maneuver"
-msgstr "manevra"
+#. placeholders: {shield}
+#. one sentence of a longer line
+msgid "Keep right for {shield}."
+msgstr "{shield} için sağda kalın."
 
-#. placeholders: {shield}, {toward}
-msgid "keep right for {shield} toward {toward}"
-msgstr "{toward} yönünde {shield} için sağda kalın"
+#. placeholders: {shield}, {distance_text}, {toward}
+msgid "Keep right for {shield}. {distance_text} toward {toward}."
+msgstr "{shield} için sağda kalın. {toward} yönünde {distance_text}."
+
+#. placeholders: {distance_text}, {toward}
+#. one sentence of a longer line
+msgid "{distance_text} toward {toward}."
+msgstr "{toward} yönünde {distance_text}."
 
 #. placeholders: {shield}, {toward}
 msgid "Keep right for {shield} toward {toward}."
 msgstr "{toward} yönünde {shield} için sağda kalın."
+
+msgid "maneuver"
+msgstr "manevra"
+
+#. placeholders: {shield}
+msgid "keep right for {shield}"
+msgstr "{shield} için sağda kalın"
 
 #. placeholders: {from_state}, {into_state}, {place}
 msgid "crossing from {from_state} into {into_state} near {place}"
@@ -13985,23 +13999,6 @@ msgstr "{distance}: bir şoför {side} polis bildiriyor."
 #. placeholders: {distance}, {side}
 msgid "{distance}: an old report of a trooper {side}."
 msgstr "{distance}: bir polis hakkında eski bir ihbar, {side}."
-
-#. placeholders: {distance}, {side}
-msgid ""
-"{distance}: two drivers say a trooper already has somebody stopped {side}."
-msgstr ""
-"{distance}: iki şoför {side} polisin birini durdurmuş olduğunu söylüyor."
-
-#. placeholders: {distance}, {side}
-msgid ""
-"{distance}: a driver says a trooper already has somebody stopped {side}."
-msgstr ""
-"{distance}: bir şoför {side} polisin birini durdurmuş olduğunu söylüyor."
-
-#. placeholders: {distance}, {side}
-msgid "{distance}: an old report of a trooper with somebody stopped {side}."
-msgstr ""
-"{distance}: birini durdurmuş bir polis hakkında eski bir ihbar, {side}."
 
 #. placeholders: {where_}
 msgid "an enforcement post {where_} on this stretch"
@@ -21505,10 +21502,6 @@ msgstr "{highway}, {start} ile {end} arası"
 msgid "Engine idling."
 msgstr "Motor rölantide."
 
-#. placeholders: {control_hint}
-msgid "{control_hint} lists the controls."
-msgstr "{control_hint} kontrolleri listeler."
-
 msgid "Cruise paused. "
 msgstr "Hız sabitleyici duraklatıldı. "
 
@@ -21595,33 +21588,18 @@ msgstr ""
 msgid "{progress} {hours_used} of {deadline_game_h} hours."
 msgstr "{progress} {deadline_game_h} saatin {hours_used} saati."
 
-#. placeholders: {pickup_facility_text}
-msgid "Drive empty to {pickup_facility_text}. "
-msgstr "{pickup_facility_text} konumuna boş gidin. "
-
-#. placeholders: {destination_facility_text}
-msgid "Loaded for {destination_facility_text}. "
-msgstr "{destination_facility_text} için yüklendi. "
-
-msgid " Manual transmission."
-msgstr " Manuel şanzıman."
-
 #. one sentence of a longer line
 msgid "At the wheel."
 msgstr "Direksiyondasınız."
 
-#. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
-msgid ""
-"At the wheel. {objective}It is {now}.{transmission}{report_lead} {engine} "
-"{help}"
-msgstr ""
-"Direksiyonda. {objective}Saat {now}.{transmission}{report_lead} {engine} "
-"{help}"
+#. placeholders: {now}, {engine}
+msgid "At the wheel. It is {now}. {engine}"
+msgstr "Direksiyonda. Saat {now}. {engine}"
 
-#. placeholders: {objective}, {now}, {transmission}, {report_lead}, {engine}, {help}
+#. placeholders: {now}
 #. one sentence of a longer line
-msgid "{objective}It is {now}.{transmission}{report_lead} {engine} {help}"
-msgstr "{objective}Saat {now}.{transmission}{report_lead} {engine} {help}"
+msgid "It is {now}."
+msgstr "Saat {now}."
 
 msgid "amount"
 msgstr "miktar"
@@ -22753,10 +22731,8 @@ msgid "Still changing lanes."
 msgstr "Şerit değiştirme sürüyor."
 
 #. placeholders: {minimum}
-msgid "Lane changes need the engine running and at least {minimum}."
-msgstr ""
-"Şerit değiştirmek için motorun çalışıyor olması ve en az {minimum} hız "
-"gerekir."
+msgid "Lane changes need at least {minimum}."
+msgstr "Şerit değiştirmek için en az {minimum} gerekir."
 
 #. placeholders: {side}
 msgid "No lane to your {side} here."
@@ -24487,36 +24463,6 @@ msgid ""
 msgstr ""
 "Daha yumuşak sürün, güvenle kaçınabileceğiniz sert duruşlardan ve keskin "
 "virajlardan kaçının."
-
-msgid "A trooper has somebody stopped on the shoulder, not you."
-msgstr ""
-"Bir trafik polisi emniyet şeridinde başka birini durdurmuş, sizi değil."
-
-msgid "Another trooper has somebody stopped, not you."
-msgstr ""
-
-msgid "for a log check"
-msgstr "seyir defteri kontrolü için"
-
-msgid "for speeding"
-msgstr "hız için"
-
-msgid "over a light out"
-msgstr "yanmayan bir lamba için"
-
-msgid "A trooper has somebody stopped in the median, not you."
-msgstr "Bir trafik polisi orta refüjde birini durdurdu, sizi değil."
-
-#. placeholders: {reason}
-msgid "A trooper has somebody stopped in the median {reason}, not you."
-msgstr ""
-"Bir trafik polisi orta refüjde birini durdurdu {reason}, sizi değil."
-
-#. placeholders: {reason}
-msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
-msgstr ""
-"Bir trafik polisi {reason} başka birini emniyet şeridinde durdurmuş, sizi "
-"değil."
 
 msgid "roadside inspection"
 msgstr "yol kenarı denetimi"
@@ -40965,6 +40911,75 @@ msgstr "Açık."
 
 msgid "Closed."
 msgstr "Kapalı."
+
+#~ msgid "keep right for {shield} toward {toward}"
+#~ msgstr "{toward} yönünde {shield} için sağda kalın"
+
+#~ msgid ""
+#~ "{distance}: two drivers say a trooper already has somebody stopped {side}."
+#~ msgstr ""
+#~ "{distance}: iki şoför {side} polisin birini durdurmuş olduğunu söylüyor."
+
+#~ msgid ""
+#~ "{distance}: a driver says a trooper already has somebody stopped {side}."
+#~ msgstr ""
+#~ "{distance}: bir şoför {side} polisin birini durdurmuş olduğunu söylüyor."
+
+#~ msgid "{distance}: an old report of a trooper with somebody stopped {side}."
+#~ msgstr ""
+#~ "{distance}: birini durdurmuş bir polis hakkında eski bir ihbar, {side}."
+
+#~ msgid "A trooper has somebody stopped on the shoulder, not you."
+#~ msgstr ""
+#~ "Bir trafik polisi emniyet şeridinde başka birini durdurmuş, sizi değil."
+
+#~ msgid "for a log check"
+#~ msgstr "seyir defteri kontrolü için"
+
+#~ msgid "for speeding"
+#~ msgstr "hız için"
+
+#~ msgid "over a light out"
+#~ msgstr "yanmayan bir lamba için"
+
+#~ msgid "A trooper has somebody stopped in the median, not you."
+#~ msgstr "Bir trafik polisi orta refüjde birini durdurdu, sizi değil."
+
+#~ msgid "A trooper has somebody stopped in the median {reason}, not you."
+#~ msgstr ""
+#~ "Bir trafik polisi orta refüjde birini durdurdu {reason}, sizi değil."
+
+#~ msgid "A trooper has somebody stopped on the shoulder {reason}, not you."
+#~ msgstr ""
+#~ "Bir trafik polisi {reason} başka birini emniyet şeridinde durdurmuş, sizi "
+#~ "değil."
+
+#~ msgid "Lane changes need the engine running and at least {minimum}."
+#~ msgstr ""
+#~ "Şerit değiştirmek için motorun çalışıyor olması ve en az {minimum} hız "
+#~ "gerekir."
+
+#~ msgid "{control_hint} lists the controls."
+#~ msgstr "{control_hint} kontrolleri listeler."
+
+#~ msgid "Drive empty to {pickup_facility_text}. "
+#~ msgstr "{pickup_facility_text} konumuna boş gidin. "
+
+#~ msgid "Loaded for {destination_facility_text}. "
+#~ msgstr "{destination_facility_text} için yüklendi. "
+
+#~ msgid " Manual transmission."
+#~ msgstr " Manuel şanzıman."
+
+#~ msgid ""
+#~ "At the wheel. {objective}It is {now}.{transmission}{report_lead} {engine} "
+#~ "{help}"
+#~ msgstr ""
+#~ "Direksiyonda. {objective}Saat {now}.{transmission}{report_lead} {engine} "
+#~ "{help}"
+
+#~ msgid "{objective}It is {now}.{transmission}{report_lead} {engine} {help}"
+#~ msgstr "{objective}Saat {now}.{transmission}{report_lead} {engine} {help}"
 
 #~ msgid "Parked at {name} for {the_city} service area."
 #~ msgstr "Park yeri: {name}, {the_city} hizmet bölgesi."

@@ -813,9 +813,9 @@ fn shipped_chinese_translates_dispatch_pickup_and_driving_lines() {
     let tr = shipped_chinese();
     assert_eq!(
         tr.translate(
-            "Needs an extra rest on this shift's hours. ELD status off duty. Hours of service: 11 hours of driving left, 5.2 hours left in the duty window. Split rest started: 7 more hours in the sleeper finish it. Enter again to accept."
+            "Needs an extra rest on this shift's hours. Hours of service: 11 hours of driving left, 5.2 hours left in the duty window. Split rest started: 7 more hours in the sleeper finish it. Enter again to accept."
         ),
-        "按本次轮班的工时计算，需要额外休息。ELD 状态：下班。驾驶工时：剩余驾驶时间11小时，14小时当班时段剩余5.2小时。卧铺分段休息尚未配对：还需在卧铺休息7小时。再次按Enter接受。"
+        "按本次轮班的工时计算，需要额外休息。驾驶工时：剩余驾驶时间11小时，14小时当班时段剩余5.2小时。卧铺分段休息尚未配对：还需在卧铺休息7小时。再次按Enter接受。"
     );
     assert_eq!(
         tr.translate("Loaded and sealed for Valencia, California."),

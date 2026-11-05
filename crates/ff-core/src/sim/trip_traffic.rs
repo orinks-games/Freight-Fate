@@ -229,24 +229,6 @@ impl Trip {
         }
     }
 
-    /// CB chatter for a trooper who already has somebody else stopped.
-    pub fn cb_tableau_message(&self, post: &EnforcementPost, ahead_mi: f64) -> String {
-        let distance = cap_first(&self.ahead_text(ahead_mi.max(0.0)));
-        let confidence = self.cb_confidence(post);
-        let side = Self::cb_side(post);
-        match confidence {
-            "strong" => {
-                format!(
-                    "{distance}: two drivers say a trooper already has somebody stopped {side}."
-                )
-            }
-            "ordinary" => {
-                format!("{distance}: a driver says a trooper already has somebody stopped {side}.")
-            }
-            _ => format!("{distance}: an old report of a trooper with somebody stopped {side}."),
-        }
-    }
-
     /// The on-demand road-ahead readout's enforcement clause, at full detail
     /// whatever the presence setting is.
     pub fn cb_patrol_status(&self, post: &EnforcementPost, ahead_mi: f64) -> String {
