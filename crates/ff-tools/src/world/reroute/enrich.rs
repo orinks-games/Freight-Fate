@@ -88,11 +88,12 @@ fn curve_rows(
     p: &Picked,
     net: &roads::Network,
 ) -> (Vec<Value>, BTreeMap<&'static str, usize>) {
-    let cum = shape::cumulative_m(&p.coords);
+    let coords = shape::thin_for_heading(&p.coords);
+    let cum = shape::cumulative_m(&coords);
     let raw = cum[cum.len() - 1] / M_PER_MI;
     let scale = if raw > 0.0 { p.miles / raw } else { 1.0 };
-    let curv = shape::analyse(&p.coords, &cum);
-    let corridor = made_of(net, &p.coords, &cum);
+    let curv = shape::analyse(&coords, &cum);
+    let corridor = made_of(net, &coords, &cum);
     let hi = p.miles - shape::CONNECTOR_WINDOW_MI;
     let mut why: BTreeMap<&'static str, usize> = BTreeMap::new();
     let rows = curv
@@ -101,7 +102,7 @@ fn curve_rows(
         .map(|c| {
             let start = shape::at_mi(&cum, c.a, scale);
             let end = shape::at_mi(&cum, c.b, scale);
-            let (lon, lat) = p.coords[c.apex];
+            let (lon, lat) = coords[c.apex];
             let near = net.nearest(lat, lon, CONNECTOR_CORRIDOR_M + 1e-9);
             let (read, reason) = classify_connector(
                 near.map(|(_, d)| d),
