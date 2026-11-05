@@ -394,11 +394,42 @@ pub fn main(argv: &[String]) -> Result<i32> {
             let (ka, kb) = (key(a), key(b));
             ka.0.cmp(&kb.0).then(ka.1.total_cmp(&kb.1))
         });
-        if let Some(meta) = existing_meta(&path) {
+        if let Some(mut meta) = existing_meta(&path) {
+            util::write_text(&path, &jsonl(meta.clone(), &rows))?;
+            // The counts describe the whole map. Named rows and folds are
+            // recounted from the file and the loader; the on-highway and mixed
+            // verdicts add this run's to the last full run's.
+            let world = ff_core::data::world::World::load_from_json(&root.join("data"))
+                .map_err(|e| format!("reloading the world to count folds: {e}"))?;
+            let folds: usize = world.legs.iter().map(|l| l.corridor().speed_limits_folded).sum();
+            let old = meta.get("counts").and_then(Value::as_object).cloned().unwrap_or_default();
+            let n = |k: &str| old.get(k).and_then(Value::as_i64).unwrap_or(0) as usize;
+            let on_highway = n("on_highway") + counts.on_highway;
+            let mixed = n("mixed") + counts.mixed;
+            let named = rows.len();
+            let candidates = on_highway + mixed + named;
+            let fold_ratio = if candidates == 0 {
+                0.0
+            } else {
+                ff_core::pyfmt::round_py_n(folds as f64 / candidates as f64, 3)
+            };
+            meta.insert(
+                "counts",
+                Value::Object(crate::pyobj! {
+                    "candidates" => candidates,
+                    "on_highway" => on_highway,
+                    "mixed" => mixed,
+                    "named" => named,
+                    "place_guarded" => named.saturating_sub(folds),
+                    "folds" => folds,
+                    "skipped_candidates" => n("skipped_candidates"),
+                    "fold_ratio" => fold_ratio,
+                }),
+            );
             util::write_text(&path, &jsonl(meta, &rows))?;
             println!(
-                "Screen rows for the selected legs spliced into the whole-map screen; its \
-                 counts are the last full run's."
+                "Screen rows for the selected legs spliced into the whole-map screen: {named} \
+                 named, {folds} fold at load."
             );
         }
     }
