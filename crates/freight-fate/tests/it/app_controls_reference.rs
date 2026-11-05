@@ -32,13 +32,13 @@ fn test_controls_help_page_points_at_the_driving_keys() {
     // cue, the traffic-pressure advisory and two of the three bends were
     // already other keys' answers, so the help now promises only the road
     // nothing else covers. Pinned on the promise, not the old phrasing.
-    assert!(joined.contains("U speaks the road ahead that no other key answers"));
+    assert!(joined.contains("U reads what is coming up"));
     // And U must never advertise police activity again (owner ruling): the
     // check is scoped to U's own line, because a sibling line legitimately
     // explains what the hours-of-service keys do with enforcement off.
     let u_line = lines
         .iter()
-        .find(|line| line.starts_with("U speaks"))
+        .find(|line| line.starts_with("U reads"))
         .unwrap()
         .to_lowercase();
     let _ = HELP_PAGES;
@@ -62,8 +62,8 @@ fn test_help_pages_explain_t_roadside_sleep_and_poi_priority() {
         .flat_map(|(_title, lines)| lines)
         .collect::<Vec<String>>()
         .join(" ");
-    assert!(joined.contains("T opens the emergency shoulder-sleep warning"));
-    assert!(joined.contains("nearby route points always take priority"));
+    assert!(joined.contains("T offers emergency sleep on the shoulder"));
+    assert!(joined.contains("A nearby stop always comes first"));
     assert!(joined.contains("T or the pause menu offers emergency shoulder sleep"));
     assert!(joined.contains(
         "right bumper plus D-pad down opens route-stop actions or emergency shoulder sleep"

@@ -258,7 +258,6 @@ impl DrivingState {
         self.update_scale_bed(ctx);
         if self.ramp_mi.is_none() {
             self.update_marked_unit_passes(ctx, previous_mi);
-            self.update_tableaus(ctx, previous_mi);
         }
         let mut id = std::mem::take(&mut self.post_id_scratch);
         let mut audible: Vec<String> = Vec::new();

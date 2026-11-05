@@ -90,12 +90,12 @@ impl TruckStatusState {
         let tire_wear = p.tire_wear_pct();
         let tire_line = if tire_wear >= ff_core::sim::vehicle::COMPONENT_SERVICE_WARNING_PCT {
             format!(
-                "{} Compound: {compound}.",
+                "{} Tires: {compound}.",
                 maintenance_status_line(MaintenanceComponent::Tires, tire_wear)
             )
         } else {
             format!(
-                "Tire wear: {} percent, {compound} compound.",
+                "Tire wear: {} percent, {compound} tires.",
                 fmt_f(tire_wear, 0)
             )
         };

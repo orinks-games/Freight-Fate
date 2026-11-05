@@ -1248,8 +1248,8 @@ fn test_great_falls_signal_stop_does_not_become_a_two_mph_destination_crawl() {
         "Braking for the light.",
         "Red light.",
         "Light green.",
-        "Pulling into construction materials yard Great Falls Materials Yard",
-        "At construction materials yard Great Falls Materials Yard in Great Falls.",
+        "Pulling into Great Falls Materials Yard",
+        "Dock and deliver",
     ]);
     // The green release activates the handoff with only the light color;
     // the latch a frame later must not add another announcement.
@@ -1503,7 +1503,7 @@ fn test_the_assist_drives_from_the_clear_sign_to_the_entrance_hold_hands_off() {
     // The keeper takes the street limit in silence: "Speed limit 25" is
     // the line the driver needs (owner, 2026-10-25).
     assert!(
-        !release.said("Speed keeper holding"),
+        !release.said("Cruise holding"),
         "{}",
         release.report(destination)
     );
@@ -1682,10 +1682,9 @@ fn test_shelby_cross_dock_approach_assist_reaches_the_arrival_gate() {
         );
         assert!(
             !arrival.said("shelby_mt_us")
-                && arrival.said(
-                    "At freight terminal Shelby Cross-Dock in Shelby, Montana. Drop the loaded \
-                     trailer and hook an empty. 1 of 4."
-                ),
+                && arrival
+                    .said("Pulling into freight terminal Shelby Cross-Dock in Shelby, Montana.")
+                && arrival.said("Drop the loaded trailer and hook an empty. 1 of 4."),
             "level {level}: dock speech was not player-ready and actionable: {}",
             arrival.report(&destination)
         );

@@ -251,7 +251,10 @@ impl Trip {
                         on_it_tail(&self.distance_text(segment_miles))
                     ),
                 ));
-            } else if segment_miles >= 40.0 {
+            }
+            let maneuver = i > 0 && self.route.legs[i - 1].highway != leg.highway;
+            let long = segment_miles >= 40.0;
+            if i > 0 && long && !maneuver {
                 cues.push(NavigationCue::new(
                     &format!("continue:{i}"),
                     "continue",
@@ -264,13 +267,24 @@ impl Trip {
                     "",
                 ));
             }
-            if i > 0 && self.route.legs[i - 1].highway != leg.highway {
+            if maneuver {
+                // One call ahead and one at the split; the split's call
+                // carries the miles, so no Continue on line repeats the
+                // destination a second later (owner drive, 2026-11-05).
+                let near = if long {
+                    format!(
+                        "Keep right for {shield}. {} toward {toward}.",
+                        self.distance_text(segment_miles)
+                    )
+                } else {
+                    format!("Keep right for {shield} toward {toward}.")
+                };
                 cues.push(NavigationCue::new(
                     &format!("maneuver:{i}"),
                     "maneuver",
                     start,
-                    &format!("keep right for {shield} toward {toward}"),
-                    &format!("Keep right for {shield} toward {toward}."),
+                    &format!("keep right for {shield}"),
+                    &near,
                 ));
             }
             for crossing in leg.state_crossings() {

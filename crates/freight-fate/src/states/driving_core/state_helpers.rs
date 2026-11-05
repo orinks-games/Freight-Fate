@@ -162,7 +162,7 @@ pub fn perform_shoulder_sleep(
     }
     let mut parts = vec![if at_chain_checkpoint {
         format!(
-            "{engine_off}You sleep poorly on the checkpoint apron, woken again and again by \
+            "{engine_off}You sleep poorly at the chain control, woken again and again by \
              passing trucks. It is {}. Driving and duty clocks reset, but you are still tired.{}",
             clock_text(driving.trip.local_hour()),
             wake_air_instruction(driving)

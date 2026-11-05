@@ -20,7 +20,7 @@ fn test_speed_key_includes_cruise_set_speed_when_active() {
     d.handle_key_event(&mut app.ctx, &key(Key::Space));
     let said = last(&app);
     assert!(
-        said.contains("Adaptive cruise set at 55 miles per hour."),
+        said.contains("Cruise set at 55."),
         "{said}"
     );
 }
@@ -35,11 +35,11 @@ fn test_speed_key_includes_speed_keeper_target_when_active() {
     d.handle_key_event(&mut app.ctx, &key(Key::Space));
     let said = last(&app);
     assert!(
-        said.contains("Speed keeper holding 15 miles per hour."),
+        said.contains("Cruise holding 15."),
         "{said}"
     );
     assert!(
-        said.contains("Open-road target 55 miles per hour."),
+        said.contains("Cruise speed 55."),
         "{said}"
     );
 }
@@ -703,7 +703,7 @@ fn test_alt_d_carries_the_next_legal_stop_context() {
     // answers "when does this shift end".
     assert!(
         verbose.contains("Destination fits this shift")
-            && verbose.contains("No HOS stop first"),
+            && verbose.contains("No rest stop needed first"),
         "{verbose}"
     );
 
@@ -761,7 +761,7 @@ fn test_controller_clock_button_keeps_the_whole_hours_report() {
     // A pad has nowhere to put three more info buttons, so this one press must
     // still carry the hours a keyboard player gets from Alt A/S/D.
     assert!(
-        last(&app).contains("14-hour window"),
+        last(&app).contains("duty window"),
         "{}",
         last(&app)
     );
@@ -891,18 +891,14 @@ fn test_the_arrows_only_tap_a_lane_change_when_lane_keeping_is_automated() {
 }
 
 #[test]
-fn test_a_lane_change_needs_the_engine_and_road_speed() {
+fn test_a_lane_change_while_parked_does_nothing_and_says_nothing() {
     let mut app = TestApp::new();
     let mut d = a_drive(&mut app);
     app.ctx.settings.lane_keeping = "full".to_string();
     d.lane.lane_count = 2;
     app.clear_speech();
     d.handle_key_event(&mut app.ctx, &key(Key::Left));
-    assert!(
-        last(&app).contains("Lane changes need the engine running"),
-        "{}",
-        last(&app)
-    );
+    assert_eq!(last(&app), "", "parked with the engine off");
     assert_eq!(d.lane_change_target, None);
 }
 

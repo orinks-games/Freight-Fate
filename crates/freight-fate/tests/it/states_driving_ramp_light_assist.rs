@@ -81,7 +81,7 @@ fn all_assists_take_the_truck_on_from_a_ramp_light_it_stopped_short_of() {
     let released: Vec<String> = harness
         .transcript()
         .into_iter()
-        .filter(|line| line.contains("Route-transition assistance released"))
+        .filter(|line| line.contains("Ramp assistance released"))
         .collect();
     assert!(released.is_empty(), "{released:?}");
 }

@@ -1,23 +1,16 @@
-//! The enforcement earcons: the signature marker, the marked-unit pass, the
-//! tableau's siren and shoulder pass, and the weigh-station approach bed.
+//! The enforcement earcons: the signature marker, the marked-unit pass and
+//! the weigh-station approach bed.
 
-use ff_core::pyrandom::PyRandom;
-use ff_core::sim::enforcement_posts::{
-    post_seed, EnforcementPost, KIND_FIXED_SCALE, KIND_SCALE_APRON, TABLEAU_SIREN_LEAD_MI,
-};
-use ff_core::speech_pacing::SpeechCategory;
-use ff_core::speech_text::SpokenMessage;
+use ff_core::sim::enforcement_posts::{EnforcementPost, KIND_FIXED_SCALE, KIND_SCALE_APRON};
 
-use crate::app::{GameContext, SayEvent};
+use crate::app::GameContext;
 use crate::audio::CH_SCALE;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 
 use super::{
     PASS_BASE_VOLUME, PASS_PAN, PASS_TRIGGER_MI, SCALE_BED_CLOSED_MAX_VOLUME, SCALE_BED_FADE_MS,
-    SCALE_BED_MIN_VOLUME, SCALE_BED_OPEN_MAX_VOLUME, SCALE_BED_START_MI, TABLEAU_ANOTHER_LINE,
-    TABLEAU_INTRO_LINE, TABLEAU_INTRO_REASONS, TABLEAU_PASS_VOLUME, TABLEAU_REPEAT_WINDOW_MI,
-    TABLEAU_SHOULDER_PAN, TABLEAU_SIREN_VOLUME,
+    SCALE_BED_MIN_VOLUME, SCALE_BED_OPEN_MAX_VOLUME, SCALE_BED_START_MI,
 };
 
 impl DrivingState {
@@ -96,9 +89,9 @@ impl DrivingState {
             }
             self.passed_post_ids.insert(id);
             if post.tableau {
-                // The tableau already gets its own richer pass -- the siren
-                // lead and the stopped pair hard on the shoulder -- so the
-                // anonymous marked-unit pass would only double it up.
+                // Busy with somebody else: silent, like an empty post. Its
+                // siren and "not you" line read as the player's own stop
+                // (owner, 2026-11-05).
                 continue;
             }
             if !post.staffed {
@@ -116,137 +109,6 @@ impl DrivingState {
             }
             let post = post.clone();
             self.play_marked_unit_pass(ctx, &post);
-        }
-    }
-
-    // -- the tableau ---------------------------------------------------------
-
-    /// The reliable "not you" line, with a seeded pinch of why.
-    ///
-    /// Deterministic per tableau (named, seeded like the scale-selection and
-    /// observation draws elsewhere in this module): a reload never changes
-    /// whether a given post's line carries a reason or which one. About half
-    /// the time it names one of a small fixed set of reasons; the rest of the
-    /// time it stays the bare fact. Terse mode always gets the bare fact --
-    /// the reason is colour, not information a terse driver is shortchanged
-    /// without.
-    pub fn tableau_intro_message(&self, post: &EnforcementPost) -> SpokenMessage {
-        let mut rng = PyRandom::new_from_str(&post_seed(
-            Some(self.trip_seed),
-            &post.id(),
-            "tableau_intro",
-        ));
-        if rng.random() >= 0.5 {
-            return SpokenMessage::new(TABLEAU_INTRO_LINE);
-        }
-        let reason = *rng.choice(&TABLEAU_INTRO_REASONS);
-        let normal = format!("A trooper has somebody stopped on the shoulder {reason}, not you.");
-        SpokenMessage::with_terse(normal, TABLEAU_INTRO_LINE)
-    }
-
-    /// The siren of a trooper working somebody else, heard before you reach
-    /// them.
-    ///
-    /// Same two-element shape as the marked-unit pass -- the marker leads,
-    /// then the vehicle -- with the siren asset standing in for the whoosh.
-    /// This is the one enforcement sound that means "not about you": a trooper
-    /// who already has a customer is off the hunt.
-    ///
-    /// The siren alone reads as easily as a driver's own pull-over starting,
-    /// so it now says whose stop this is, every time, on top of the audio -- a
-    /// tester mistook it for their own until the line was added.
-    pub fn play_tableau_siren_pass(&mut self, ctx: &mut GameContext, post: &EnforcementPost) {
-        let volume = 1.0f64.min(TABLEAU_SIREN_VOLUME * 1.4f64.min(self.ambience_scale()));
-        self.play_enforcement_marker(ctx, volume, TABLEAU_SHOULDER_PAN);
-        self.schedule_sound(
-            PASS_MARKER_LEAD_S,
-            "events/police_siren",
-            volume,
-            TABLEAU_SHOULDER_PAN,
-        );
-        // ROUTE: this line exists solely to stop the siren reading as YOUR
-        // pull-over (the tester misread that created it). A busy channel
-        // dropping the explainer recreates exactly that confusion, so it
-        // waits its turn instead of dying stale.
-        let mut message = self.tableau_intro_message(post);
-        // A second stopped pair a few miles after the first: the same line
-        // word for word sounded like the first one repeating (owner's drive
-        // across Ohio, 2026-10-25, two troopers a minute apart).
-        let id = post.id();
-        let another_close_behind = self.trip.posts.iter().any(|other| {
-            other.id() != id
-                && self.tableau_siren_ids.contains(&other.id())
-                && (post.at_mi - TABLEAU_REPEAT_WINDOW_MI..post.at_mi).contains(&other.at_mi)
-        });
-        if another_close_behind {
-            message = SpokenMessage::new(TABLEAU_ANOTHER_LINE);
-        }
-        ctx.say_event_with(
-            message,
-            SayEvent::queued()
-                .priority(EventPriority::Important)
-                .category(SpeechCategory::Status),
-        );
-    }
-
-    /// The stopped pair, panned hard to the shoulder as you go by.
-    ///
-    /// Reuses the pass-by vocabulary already used for a marked unit and for
-    /// ordinary traffic: a cruiser and the car it stopped, both parked hard
-    /// right, gone in a moment because that is exactly how long you are
-    /// alongside a parked pair at highway speed. No marker, no radio duck --
-    /// it is news, not a warning.
-    pub fn play_tableau_pass(&mut self, ctx: &mut GameContext) {
-        let volume = 1.0f64.min(TABLEAU_PASS_VOLUME * 1.4f64.min(self.ambience_scale()));
-        ctx.audio
-            .play_with("traffic/trooper_pass", volume, TABLEAU_SHOULDER_PAN);
-        ctx.audio
-            .play_with("traffic/car_pass", volume * 0.85, TABLEAU_SHOULDER_PAN);
-    }
-
-    /// Fire the siren lead and the shoulder pass for every tableau post.
-    ///
-    /// Deferred, then dropped for the trip, never layered on top of the
-    /// player's own encounter. While the cab already has a demand on the
-    /// driver -- their own pull-over, a hazard, a ramp, a microsleep, the
-    /// arrival menu -- this is skipped outright: a trigger mile crossed during
-    /// a busy frame is simply never revisited once the cab is quiet again, so
-    /// the cue is lost rather than replayed out of place. A post that has
-    /// already had its own look at the player (`declined`, set whether it let
-    /// them go or wrote them up) never runs its tableau cue either: the story
-    /// is already about the player, not "somebody else."
-    pub fn update_tableaus(&mut self, ctx: &mut GameContext, previous_mi: f64) {
-        if self.enforcement_busy() {
-            return;
-        }
-        let position = self.trip.position_mi;
-        let crosses = |trigger: f64| previous_mi < trigger && trigger <= position;
-        let crossed: Vec<(usize, bool, bool)> = self
-            .trip
-            .posts
-            .iter()
-            .enumerate()
-            .filter(|(_, post)| post.tableau && !post.declined)
-            .map(|(i, post)| {
-                (
-                    i,
-                    crosses(post.at_mi - TABLEAU_SIREN_LEAD_MI),
-                    crosses(post.at_mi + PASS_TRIGGER_MI),
-                )
-            })
-            .filter(|&(_, siren, pass)| siren || pass)
-            .collect();
-        for (i, siren, pass) in crossed {
-            let post = self.trip.posts[i].clone();
-            let id = post.id();
-            if siren && !self.tableau_siren_ids.contains(&id) {
-                self.tableau_siren_ids.insert(id.clone());
-                self.play_tableau_siren_pass(ctx, &post);
-            }
-            if pass && !self.tableau_pass_ids.contains(&id) {
-                self.tableau_pass_ids.insert(id);
-                self.play_tableau_pass(ctx);
-            }
         }
     }
 

@@ -213,7 +213,7 @@ const TABLE: &[Row] = &[
     (
         Action::Cruise,
         "cruise",
-        "Automatic speed control",
+        "Cruise",
         &[Chord::plain(Key::K)],
         &[PadChord::plain(Pad::Y)],
     ),

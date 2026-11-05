@@ -254,11 +254,10 @@ impl DrivingState {
         } else {
             let consequence = match outcome {
                 "exception" => {
-                    "The receiver will note an exception on the bill of lading and hold back part \
-                     of the pay."
+                    "The receiver will note the damage and hold back part of the pay."
                 }
                 "claim" => {
-                    "Claim territory now. The receiver will take it, and the carrier pays for \
+                    "Damaged enough for a claim. The receiver will take it, and the carrier pays for \
                      what you broke."
                 }
                 _ => "The dock will refuse a load in this state.",
@@ -828,7 +827,7 @@ impl DrivingState {
                 "Dispatch has taken the {grounded} out of service. The carrier covers the bill. \
                  {handover}. That cost {:.0} hours and it is now {}. Damage on the truck you are \
                  in is {damage_pct:.0} percent. Dispatch logged preventable equipment damage \
-                 against your record; a pattern of it costs the seat. Press {} to restart the \
+                 against your record; repeated damage can cost you your job. Press {} to restart the \
                  engine.",
                 GROUNDED_SWAP_MIN / 60.0,
                 clock_text(self.trip.local_hour()),

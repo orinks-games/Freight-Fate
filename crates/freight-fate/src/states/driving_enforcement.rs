@@ -33,7 +33,7 @@
 //! during a stop already in progress. Deferred, never dropped: the post keeps
 //! watching, and the moment the cab is quiet again it gets its look.
 //!
-//! Submodules: [`cues`] (the earcons, the tableau, the scale bed), [`scales`]
+//! Submodules: [`cues`] (the earcons and the scale bed), [`scales`]
 //! (weigh stations, their guidance and their screening), [`watch`] (the siren
 //! hold, the road sample, and the per-frame draw).
 
@@ -87,29 +87,9 @@ pub const RADIO_CUE_DUCK_S: f64 = 1.1;
 /// How far past a post the truck has to be before its pass earcon has fired.
 pub const PASS_TRIGGER_MI: f64 = 0.05;
 
-// The tableau: a staffed patrol post that already has somebody stopped. Both
-// cues scale with the road's own presence exactly the way the ordinary
-// marked-unit pass does (`play_marked_unit_pass`) -- that scaling is loudness,
-// never whether a cue plays at all. The mechanical truth is the catch
-// suppression in `EnforcementPost::tableau_busy_at`, which neither cue's
-// volume touches.
-pub const TABLEAU_SHOULDER_PAN: f64 = 0.85; // hard right: US traffic keeps the shoulder there
-pub const TABLEAU_SIREN_VOLUME: f64 = 0.7;
-pub const TABLEAU_PASS_VOLUME: f64 = 0.7;
-
-// The tableau's own introduction. Testers mistook the siren-and-pass cues
-// for their own stop, so this reliably says whose stop it is -- every
-// tableau, never a chance draw the way the CB flavor line is. Only the
-// reason for the stop is a seeded pinch of colour, landing on some
-// occurrences and not others; terse mode keeps the bare fact either way.
-pub const TABLEAU_INTRO_LINE: &str = "A trooper has somebody stopped on the shoulder, not you.";
-/// The line for a stopped pair within [`TABLEAU_REPEAT_WINDOW_MI`] of one
-/// already passed.
-pub const TABLEAU_ANOTHER_LINE: &str = "Another trooper has somebody stopped, not you.";
-/// How far back a passed stopped pair makes the next one "another".
-pub const TABLEAU_REPEAT_WINDOW_MI: f64 = 20.0;
-pub const TABLEAU_INTRO_REASONS: [&str; 3] =
-    ["for speeding", "for a log check", "over a light out"];
+// A staffed post that already has somebody stopped (the tableau) is silent,
+// like an empty one: it cannot catch the truck (`tableau_busy_at`), and its
+// siren and "not you" line read as the player's own stop (owner, 2026-11-05).
 
 /// One short reminder this close to an announced open scale, if the truck is
 /// still over the bypass speed with no scale exit armed. The full notice can

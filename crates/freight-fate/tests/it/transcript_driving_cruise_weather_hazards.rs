@@ -957,7 +957,7 @@ fn test_with_no_lane_open_the_call_is_brake_and_says_so() {
     let harness = meet_a_slow_car("Nowhere", "full", 2, 0, &[1], false);
     assert_eq!(
         the_call(&harness),
-        "Brake! Slow car right ahead. No lane open. Automatic speed control paused."
+        "Brake! Slow car right ahead. No lane open. Cruise paused."
     );
     assert!(!harness.read_drive(|d| d.hazard_dodgeable));
     assert!(harness.read_drive(|d| d.cruise_mph).is_none());
@@ -1006,5 +1006,5 @@ fn test_lane_keeping_on_full_passes_on_the_named_side_with_cruise_still_armed() 
     // Cruise rode through the dodge: still armed, still set.
     assert!(harness.read_drive(|d| d.speed_control_armed));
     assert_eq!(harness.read_drive(|d| d.cruise_mph), Some(65.0));
-    assert!(!said_any(&harness, "Automatic speed control"));
+    assert!(!said_any(&harness, "Cruise"));
 }

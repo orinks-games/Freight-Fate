@@ -670,7 +670,7 @@ fn test_no_chain_up_without_time_in_the_14_hour_window() {
     assert!(pending(&drive).is_none());
     assert!(
         lines(&app).contains(
-            &"Chain-up needs about 30 minutes and your 14-hour window has 20 left. Find a place \
+            &"Chain-up needs about 30 minutes and your duty window has 20 left. Find a place \
               to stop."
                 .to_string()
         ),

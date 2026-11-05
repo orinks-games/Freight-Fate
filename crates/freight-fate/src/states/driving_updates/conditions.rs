@@ -732,7 +732,7 @@ impl DrivingState {
         if !self.chain_law_cited.insert(key) {
             ctx.audio.play("ui/warning");
             ctx.say_event_with(
-                format!("Chain checkpoint. The officer stops you again. {after}"),
+                format!("Chain control. The officer stops you again. {after}"),
                 SayEvent::queued()
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Navigation),
@@ -742,7 +742,7 @@ impl DrivingState {
         if self.new_driver_warning(ctx) {
             ctx.audio.play("ui/warning");
             ctx.say_event_with(
-                format!("Chain checkpoint. An officer stops you and gives you a warning. {after}"),
+                format!("Chain control. An officer stops you and gives you a warning. {after}"),
                 SayEvent::queued()
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Navigation),
@@ -778,7 +778,7 @@ impl DrivingState {
         // queue instead of an interrupt that could erase one.
         ctx.say_event_with(
             format!(
-                "Chain checkpoint. An officer stops you and writes a chain-law citation, {} \
+                "Chain control. An officer stops you and writes a chain-law citation, {} \
                  dollars.{} {after} You have {} dollars.",
                 fmt_grouped(fine, 0),
                 construction_zone_fine_clause(zone),
@@ -790,7 +790,7 @@ impl DrivingState {
         );
     }
 
-    /// Stop the truck on the checkpoint apron with the parking brake set.
+    /// Stop the truck at the chain control with the parking brake set.
     pub fn hold_at_chain_checkpoint(&mut self, ctx: &mut GameContext) {
         self.chain_checkpoint_hold = true;
         let truck = &mut self.trip.truck;
@@ -829,9 +829,9 @@ impl DrivingState {
         if !self.trip.truck.parking_brake || self.trip.truck.velocity_mps > 0.0 {
             self.hold_at_chain_checkpoint(ctx);
             let line = if self.usable_chains_aboard(ctx) {
-                "Held at the chain checkpoint. Put your chains on from the pause menu."
+                "Held at the chain control. Put your chains on from the pause menu."
             } else {
-                "Held at the chain checkpoint. You have no chains. Call dispatch for a set, \
+                "Held at the chain control. You have no chains. Call dispatch for a set, \
                  wait here until the chain law lifts, or turn back."
             };
             ctx.say_event_with(line, SayEvent::new().category(SpeechCategory::Navigation));
@@ -867,21 +867,21 @@ impl DrivingState {
                 let waited_text = ff_core::sim::hos::duration_text(waited / 60.0);
                 return Some(match (waited > 0.0, turn_back) {
                     (true, true) => format!(
-                        "You waited {waited_text}, and your 14-hour duty window is nearly used \
-                         up. The chain law still stands. Sleep at the checkpoint from the pause \
+                        "You waited {waited_text}, and your duty window is nearly used \
+                         up. The chain law still stands. Sleep at the chain control from the pause \
                          menu, or turn back."
                     ),
                     (true, false) => format!(
-                        "You waited {waited_text}, and your 14-hour duty window is nearly used \
-                         up. The chain law still stands. Sleep at the checkpoint from the pause \
+                        "You waited {waited_text}, and your duty window is nearly used \
+                         up. The chain law still stands. Sleep at the chain control from the pause \
                          menu."
                     ),
-                    (false, true) => "Your 14-hour duty window is nearly used up. The chain law \
-                                      still stands. Sleep at the checkpoint from the pause menu, \
+                    (false, true) => "Your duty window is nearly used up. The chain law \
+                                      still stands. Sleep at the chain control from the pause menu, \
                                       or turn back."
                         .to_string(),
-                    (false, false) => "Your 14-hour duty window is nearly used up. The chain \
-                                       law still stands. Sleep at the checkpoint from the pause \
+                    (false, false) => "Your duty window is nearly used up. The chain \
+                                       law still stands. Sleep at the chain control from the pause \
                                        menu."
                         .to_string(),
                 });
@@ -897,7 +897,7 @@ impl DrivingState {
                 ctx,
                 CHAIN_WAIT_STEP_MIN,
                 Some("on_duty_not_driving"),
-                "chain checkpoint",
+                "chain control",
             );
             hos_mut_of(ctx).on_duty(CHAIN_WAIT_STEP_MIN);
             waited += CHAIN_WAIT_STEP_MIN;
@@ -908,7 +908,7 @@ impl DrivingState {
         }
     }
 
-    /// After a sleep at the checkpoint: ask again for the warnings and the
+    /// After a sleep at the chain control: ask again for the warnings and the
     /// live sky where the truck stands, and release the hold when the law
     /// lifted overnight. Returns the line to add: the lift, or that the law
     /// still stands. None when the truck was not held.
@@ -967,12 +967,12 @@ impl DrivingState {
         Some(if limit.kind == "break" {
             format!(
                 "Turning back takes {drive}, more driving than you have before your 30-minute \
-                 break. Wait here, which counts as your break, or sleep at the checkpoint."
+                 break. Wait here, which counts as your break, or sleep at the chain control."
             )
         } else {
             format!(
                 "Turning back takes {drive} of driving, more than your hours allow. Wait here \
-                 for the chain law to lift, or sleep at the checkpoint from the pause menu."
+                 for the chain law to lift, or sleep at the chain control from the pause menu."
             )
         })
     }
@@ -1014,7 +1014,7 @@ impl DrivingState {
         let city = ctx.world.city(&key).map(|c| c.name.clone()).unwrap_or(key);
         ctx.audio.play("ui/warning");
         Some(format!(
-            "You turned back to {city}, {} behind the checkpoint, in {} minutes. The chain law \
+            "You turned back to {city}, {} behind the chain control, in {} minutes. The chain law \
              ahead still stands.",
             ctx.settings.distance_text(miles, false),
             fmt_f(minutes, 0)
@@ -1105,7 +1105,7 @@ impl DrivingState {
             fine,
             false,
             false,
-            "No chains aboard on a Colorado chain-carry corridor",
+            "No chains aboard on a Colorado road that requires carrying them",
         );
         ctx.audio.play("ui/error");
         ctx.say_event_with(

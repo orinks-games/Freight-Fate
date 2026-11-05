@@ -656,16 +656,16 @@ impl CloudSlotState {
                 );
             }
             "unverified" => {
-                self.status = "Backup is not server-verified. Local save unchanged.".to_string();
+                self.status =
+                    "orinks.net has not confirmed this backup. Local save unchanged.".to_string();
                 ctx.say(
-                    "This backup is not server-verified. It was not restored, and your local career is unchanged.",
+                    "orinks.net has not confirmed this backup. It was not restored, and your local career is unchanged.",
                 );
             }
             "integrity_failed" => {
-                self.status =
-                    "Backup failed its integrity check. Local save unchanged.".to_string();
+                self.status = "This backup is damaged. Local save unchanged.".to_string();
                 ctx.say(
-                    "This backup failed its integrity check. It was not restored, and your local career is unchanged.",
+                    "This backup is damaged. It was not restored, and your local career is unchanged.",
                 );
             }
             "update_required" => {

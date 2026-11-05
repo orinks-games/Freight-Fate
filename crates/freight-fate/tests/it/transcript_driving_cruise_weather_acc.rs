@@ -91,7 +91,7 @@ fn test_hazard_announces_speed_control_pause_once() {
     assert!(harness.read_drive(|d| d.cruise_mph).is_none());
     let said = last(&harness);
     assert!(said.starts_with("Brake now!"), "{said}");
-    assert_eq!(said.matches("Automatic speed control paused.").count(), 1);
+    assert_eq!(said.matches("Cruise paused.").count(), 1);
     assert!(!said.contains("canceled"), "{said}");
 }
 
@@ -610,6 +610,37 @@ fn test_adaptive_cruise_follow_cue_does_not_repeat_within_the_cooldown() {
 }
 
 #[test]
+fn test_adaptive_cruise_follow_cue_stays_quiet_after_the_slow_call() {
+    // "Slow semi 0.5 miles ahead, at 49" and three seconds later "Traffic
+    // ahead, slowing" were one semi twice (owner, US-219, 2026-11-04). The
+    // call names the vehicle; cruise settling in behind it keeps the notify
+    // tone and drops its words.
+    let mut harness = bench_drive("ACC After Call", 200.0, 0.0);
+    harness.with_drive(|d, _| {
+        let at = d.trip.position_mi + 0.04;
+        d.trip.set_npc_vehicles(vec![NPCVehicle::new(
+            "npc:acc", at, 44.0, 44.0, 0, "slow_car",
+        )
+        .into()]);
+        d.trip.traffic_manager.last_slow_call = Some(("npc:acc".to_string(), d.trip.position_mi));
+    });
+    press(&mut harness, Key::E, None);
+    harness.with_drive(|d, _| {
+        d.truck_mut().transmission.gear = 10;
+        d.truck_mut().velocity_mps = 29.0; // ~65 mph
+    });
+    harness.clear_speech();
+    press(&mut harness, Key::K, None);
+    frame(&mut harness, DT);
+    assert!(harness.read_drive(|d| d.acc_following));
+    assert!(
+        !said_any(&harness, "Traffic ahead, slowing."),
+        "{:#?}",
+        spoken(&harness)
+    );
+}
+
+#[test]
 fn test_adaptive_cruise_caps_at_posted_limit() {
     // A posted limit well below the held set speed: predictive ACC must ease
     // off rather than carry the driver over the limit into a speeding strike.
@@ -905,10 +936,9 @@ fn test_adaptive_cruise_holds_heavy_traffic_itself() {
             .any(|line| line.starts_with("Entering heavy traffic zone. Speed limit 50 now.")),
         "{lines:#?}"
     );
-    assert!(
-        !lines.iter().any(|line| line.contains("Speed keeper")),
-        "{lines:#?}"
-    );
+    // The open-road controller stays in charge: the low-speed hold never
+    // takes this zone.
+    assert!(harness.read_drive(|d| d.keeper_mph.is_none()), "{lines:#?}");
 }
 
 #[test]
@@ -1062,7 +1092,7 @@ fn test_speed_control_restores_cruise_target_after_zone() {
     assert_eq!(
         spoken(&harness)
             .iter()
-            .filter(|e| e.contains("Speed keeper holding"))
+            .filter(|e| e.contains("Cruise holding"))
             .count(),
         1,
         "{:#?}",
@@ -1102,7 +1132,7 @@ fn test_cruise_target_can_be_adjusted_while_keeper_is_active() {
             .expect("a target"),
         25.0
     ));
-    assert_eq!(last(&harness), "Open-road cruise target 25 miles per hour.");
+    assert_eq!(last(&harness), "Cruise speed 25 miles per hour.");
 }
 
 /// The posted-limit scan sees a drop further out under time compression:
@@ -1210,7 +1240,7 @@ fn test_a_hazard_that_leaves_the_truck_below_cruise_speed_still_resumes() {
         spoken(&harness)
     );
     assert!(
-        said_any(&harness, "Speed control resuming."),
+        said_any(&harness, "Cruise resuming."),
         "{:?}",
         spoken(&harness)
     );

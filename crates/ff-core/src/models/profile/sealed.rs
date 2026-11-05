@@ -33,11 +33,11 @@ pub fn read(path: &Path) -> io::Result<(Vec<u8>, bool)> {
         Opened::Missing => Err(io::Error::new(io::ErrorKind::NotFound, "Career not found.")),
         Opened::Locked => Err(io::Error::new(
             io::ErrorKind::PermissionDenied,
-            "This build cannot open this sealed career. Use the released game.",
+            "This copy of the game cannot open this career. Use a released version of Freight Fate.",
         )),
         Opened::Tampered(reason) => Err(io::Error::new(
             io::ErrorKind::InvalidData,
-            format!("The career could not be authenticated: {reason}. Under Online, restore a cloud backup."),
+            format!("The career file could not be verified: {reason}. Under Online, restore a cloud backup."),
         )),
         Opened::Failed(error) => {
             log::warn!("Could not read career {}: {error}", path.display());
