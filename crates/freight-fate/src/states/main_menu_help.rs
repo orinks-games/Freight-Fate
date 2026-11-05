@@ -90,7 +90,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
             "{{fuel}} reads fuel and range. {{clock}} reads the clock, deadline, and nearest hours limit.",
             "{{hos_wheel}} speaks time at the wheel and on duty. {{hos_break}} reads when the break is due. {{hos_drive}} reads what ends the shift and reachable legal rest.",
             "{{route}} speaks how far along you are, distance remaining, and your location. A planned stop changes the distance to that stop.",
-            "{{place_state}} reads the state, {{place_road}} the road, {{place_town}} the town or nearest town, and {{place_direction}} the direction. Keypad equivalents work too.",
+            "{{place_state}} reads the state, {{place_road}} the road, {{place_town}} the town or nearest town, {{place_direction}} the direction, and {{place_county}} the county. Keypad equivalents work too.",
             "{{weather}} reads weather. {{lane}} reads lane position and whether the lane beside you is open.",
             "{{take_exit}} signals for an announced exit or cancels the signal. {{rest}} plans rest while moving or opens a nearby stop when fully stopped.",
             "{{upcoming}} reads what is coming up: your signaled exit, the light or stop sign at the end of the ramp, the next lower speed limit, the next stop, and the next bend you need to slow for.",

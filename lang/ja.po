@@ -4017,6 +4017,25 @@ msgstr "バフ{buff_id}：ヘルプと購入時の読み上げ文が必要です
 msgid "left"
 msgstr "左"
 
+#. placeholders: {from_city}, {to_city}
+msgid "{from_city} to {to_city} county run must be an object"
+msgstr "{from_city}から{to_city}: 郡の区間はオブジェクトでなければなりません"
+
+#. placeholders: {from_city}, {to_city}, {py_str_float}, {py_str_float2}
+msgid ""
+"{from_city} to {to_city} county run has at_mi {py_str_float}, outside leg "
+"mileage 0-{py_str_float2}"
+msgstr ""
+"{from_city}から{to_city}: 郡の区間の at_mi {py_str_float} が区間の距離 0-{py_str_float2} "
+"の範囲外です"
+
+#. placeholders: {from_city}, {to_city}, {py_str_float}
+msgid "{from_city} to {to_city} county run at {py_str_float} has no name"
+msgstr "{from_city}から{to_city}: {py_str_float} の郡の区間に名前がありません"
+
+msgid "source"
+msgstr "source"
+
 msgid "motorway"
 msgstr "motorway"
 
@@ -5386,6 +5405,9 @@ msgstr "landmarks"
 
 msgid "restrictions"
 msgstr "restrictions"
+
+msgid "counties"
+msgstr "counties"
 
 #. placeholders: {shard}
 msgid "{shard} does not contain a 'legs' list"
@@ -10714,9 +10736,6 @@ msgstr "status"
 msgid "minutes"
 msgstr "分"
 
-msgid "source"
-msgstr "source"
-
 msgid "Hours enforcement off."
 msgstr "運転時間の取り締まり、オフ。"
 
@@ -14728,6 +14747,9 @@ msgstr "町"
 
 msgid "The direction"
 msgstr "方角"
+
+msgid "The county"
+msgstr "郡"
 
 msgid "Engine brake"
 msgstr "エンジンブレーキ"
@@ -20257,12 +20279,13 @@ msgstr ""
 msgid "{route} progress, distance left, and where you are."
 msgstr "{route} 進み具合、残りの距離、現在地。"
 
-#. placeholders: {place_state}, {place_road}, {place_town}, {place_direction}
+#. placeholders: {place_state}, {place_road}, {place_town}, {place_direction}, {place_county}
 msgid ""
 "{place_state} the state, {place_road} the road, {place_town} the town or "
-"the nearest one, {place_direction} the direction."
+"the nearest one, {place_direction} the direction, {place_county} the county."
 msgstr ""
-"{place_state} 州、{place_road} 道路、{place_town} 町または最寄りの町、{place_direction} 方角。"
+"{place_state} 州、{place_road} 道路、{place_town} 町または最寄りの町、{place_direction} "
+"方角、{place_county} 郡。"
 
 msgid "The keypad numbers work the same way."
 msgstr "テンキーの数字も同じように使えます。"
@@ -24852,6 +24875,13 @@ msgstr "市街地です。ここには方面の標識がありません。"
 
 msgid "No signed direction here."
 msgstr "ここには方面の標識がありません。"
+
+msgid "No county known here."
+msgstr "ここがどの郡かわかりません。"
+
+#. placeholders: {county}
+msgid "In {county}."
+msgstr "{county}にいます。"
 
 #. placeholders: {py_capitalize}, {target}
 msgid "{py_capitalize} to {target}."
@@ -33616,24 +33646,26 @@ msgstr ""
 msgid "Keypad equivalents work too."
 msgstr "テンキーの対応するキーでも使えます。"
 
-#. placeholders: {control_place_state}, {control_place_road}, {control_place_town}, {control_place_direction}
+#. placeholders: {control_place_state}, {control_place_road}, {control_place_town}, {control_place_direction}, {control_place_county}
 #. one sentence of a longer line
 msgid ""
 "{control_place_state} reads the state, {control_place_road} the road, "
-"{control_place_town} the town or nearest town, and "
-"{control_place_direction} the direction."
+"{control_place_town} the town or nearest town, {control_place_direction} "
+"the direction, and {control_place_county} the county."
 msgstr ""
 "{control_place_state}で州、{control_place_road}で道路、{control_place_town}で町か一番近い町"
-"、{control_place_direction}で方角を読み上げます。"
+"、{control_place_direction}で方角、{control_place_county}で郡を読み上げます。"
 
-#. placeholders: {control_place_state}, {control_place_road}, {control_place_town}, {control_place_direction}
+#. placeholders: {control_place_state}, {control_place_road}, {control_place_town}, {control_place_direction}, {control_place_county}
 msgid ""
 "{control_place_state} reads the state, {control_place_road} the road, "
-"{control_place_town} the town or nearest town, and "
-"{control_place_direction} the direction. Keypad equivalents work too."
+"{control_place_town} the town or nearest town, {control_place_direction} "
+"the direction, and {control_place_county} the county. Keypad equivalents "
+"work too."
 msgstr ""
 "{control_place_state}で州、{control_place_road}で道路、{control_place_town}で町か一番近い町"
-"、{control_place_direction}で方角を読み上げます。テンキーの対応するキーでも使えます。"
+"、{control_place_direction}で方角、{control_place_county}で郡を読み上げます。テンキーの対応するキーでも使"
+"えます。"
 
 #. placeholders: {control_lane}
 #. one sentence of a longer line
@@ -37699,6 +37731,28 @@ msgstr "営業中。"
 
 msgid "Closed."
 msgstr "閉鎖中。"
+
+#~ msgid ""
+#~ "{place_state} the state, {place_road} the road, {place_town} the town or "
+#~ "the nearest one, {place_direction} the direction."
+#~ msgstr ""
+#~ "{place_state} 州、{place_road} 道路、{place_town} 町または最寄りの町、{place_direction} 方角。"
+
+#~ msgid ""
+#~ "{control_place_state} reads the state, {control_place_road} the road, "
+#~ "{control_place_town} the town or nearest town, and "
+#~ "{control_place_direction} the direction."
+#~ msgstr ""
+#~ "{control_place_state}で州、{control_place_road}で道路、{control_place_town}で町か一番近い町"
+#~ "、{control_place_direction}で方角を読み上げます。"
+
+#~ msgid ""
+#~ "{control_place_state} reads the state, {control_place_road} the road, "
+#~ "{control_place_town} the town or nearest town, and "
+#~ "{control_place_direction} the direction. Keypad equivalents work too."
+#~ msgstr ""
+#~ "{control_place_state}で州、{control_place_road}で道路、{control_place_town}で町か一番近い町"
+#~ "、{control_place_direction}で方角を読み上げます。テンキーの対応するキーでも使えます。"
 
 #~ msgid "keep right for {shield} toward {toward}"
 #~ msgstr "右寄りに進み、{shield}で{toward}方面へ"

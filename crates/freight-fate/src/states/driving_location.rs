@@ -3,6 +3,7 @@
 
 use std::sync::Arc;
 
+use ff_core::data::counties::county_at;
 use ff_core::data::world_models::Leg;
 use ff_core::sim::trip::spoken_short_miles;
 use ff_core::sim::trip_models::leg_state_at;
@@ -454,6 +455,26 @@ impl DrivingState {
         }
     }
 
+    /// Alt+5, the county the truck is in.
+    ///
+    /// On a highway leg it is the county under the wheels, from the runs
+    /// the map carries along each leg. On city streets it is the county of
+    /// the city the streets belong to.
+    pub fn speak_current_county(&mut self, ctx: &mut GameContext) {
+        let county = match self.highway_frame() {
+            Some(frame) => county_at(frame.leg.counties(), frame.native_offset).to_string(),
+            None => {
+                let city = self.local_route_city();
+                city_county(ctx, &city)
+            }
+        };
+        if county.is_empty() {
+            ctx.say("No county known here.");
+        } else {
+            ctx.say(&format!("In {county}."));
+        }
+    }
+
     /// `_say_local_status(target, where=None)`: one route report for a local
     /// street route -- where the truck is, what it is actually driving at, and
     /// the next maneuver if one is left. Sentences that come up empty are
@@ -603,6 +624,39 @@ impl DrivingState {
 }
 
 /// `world.cities[key].state`, empty where the key is not a world city.
+/// The county a city sits in: the one most of its legs start or end in.
+/// Each leg's road begins wherever the route left the city, so a city on a
+/// county line can answer from either side; the majority is its centre.
+fn city_county(ctx: &GameContext, city: &str) -> String {
+    let key = ctx.world.resolve_city_key(city);
+    let mut votes: Vec<(String, usize)> = Vec::new();
+    for leg in ctx.world.neighbors(&key) {
+        let offset = if leg.a == key {
+            0.0
+        } else if leg.b == key {
+            leg.miles
+        } else {
+            continue;
+        };
+        let county = county_at(leg.counties(), offset);
+        if county.is_empty() {
+            continue;
+        }
+        match votes.iter_mut().find(|(name, _)| name == county) {
+            Some((_, count)) => *count += 1,
+            None => votes.push((county.to_string(), 1)),
+        }
+    }
+    // The first county to reach the top count wins a tie, so the answer
+    // follows the map's leg order and never changes between presses.
+    let top = votes.iter().map(|(_, count)| *count).max().unwrap_or(0);
+    votes
+        .into_iter()
+        .find(|(_, count)| *count == top)
+        .map(|(name, _)| name)
+        .unwrap_or_default()
+}
+
 fn city_state(ctx: &GameContext, city: &str) -> String {
     let key = ctx.world.resolve_city_key(city);
     ctx.world

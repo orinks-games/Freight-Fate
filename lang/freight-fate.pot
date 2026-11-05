@@ -2486,7 +2486,7 @@ msgstr ""
 msgid "locked"
 msgstr ""
 
-#: crates/ff-core/src/achievements/sort.rs crates/ff-core/src/models/exchange.rs crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_compat.rs
+#: crates/ff-core/src/achievements/sort.rs crates/ff-core/src/data/counties.rs crates/ff-core/src/models/exchange.rs crates/ff-core/src/models/profile/serialize.rs
 msgid "name"
 msgstr ""
 
@@ -4991,6 +4991,27 @@ msgstr ""
 msgid "left"
 msgstr ""
 
+#. placeholders: {from_city}, {to_city}
+#: crates/ff-core/src/data/counties.rs
+msgid "{from_city} to {to_city} county run must be an object"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {py_str_float}, {py_str_float2}
+#: crates/ff-core/src/data/counties.rs
+msgid ""
+"{from_city} to {to_city} county run has at_mi {py_str_float}, outside leg "
+"mileage 0-{py_str_float2}"
+msgstr ""
+
+#. placeholders: {from_city}, {to_city}, {py_str_float}
+#: crates/ff-core/src/data/counties.rs
+msgid "{from_city} to {to_city} county run at {py_str_float} has no name"
+msgstr ""
+
+#: crates/ff-core/src/data/counties.rs crates/ff-core/src/sim/hos/clock.rs crates/ff-core/src/sim/truck_parking.rs
+msgid "source"
+msgstr ""
+
 #: crates/ff-core/src/data/curves.rs
 msgid "motorway"
 msgstr ""
@@ -6724,6 +6745,10 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_corridor.rs
 msgid "restrictions"
+msgstr ""
+
+#: crates/ff-core/src/data/world_corridor.rs
+msgid "counties"
 msgstr ""
 
 #. placeholders: {shard}
@@ -13321,10 +13346,6 @@ msgstr ""
 msgid "minutes"
 msgstr ""
 
-#: crates/ff-core/src/sim/hos/clock.rs crates/ff-core/src/sim/truck_parking.rs
-msgid "source"
-msgstr ""
-
 #: crates/ff-core/src/sim/hos/clock.rs
 msgid "Hours enforcement off."
 msgstr ""
@@ -18316,6 +18337,10 @@ msgstr ""
 
 #: crates/freight-fate/src/bindings.rs
 msgid "The direction"
+msgstr ""
+
+#: crates/freight-fate/src/bindings.rs
+msgid "The county"
 msgstr ""
 
 #: crates/freight-fate/src/bindings.rs
@@ -25017,11 +25042,11 @@ msgstr ""
 msgid "{route} progress, distance left, and where you are."
 msgstr ""
 
-#. placeholders: {place_state}, {place_road}, {place_town}, {place_direction}
+#. placeholders: {place_state}, {place_road}, {place_town}, {place_direction}, {place_county}
 #: crates/freight-fate/src/states/driving_controls/help.rs
 msgid ""
 "{place_state} the state, {place_road} the road, {place_town} the town or "
-"the nearest one, {place_direction} the direction."
+"the nearest one, {place_direction} the direction, {place_county} the county."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
@@ -30617,6 +30642,15 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_location.rs
 msgid "No signed direction here."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_location.rs
+msgid "No county known here."
+msgstr ""
+
+#. placeholders: {county}
+#: crates/freight-fate/src/states/driving_location.rs
+msgid "In {county}."
 msgstr ""
 
 #. placeholders: {py_capitalize}, {target}
@@ -41050,21 +41084,22 @@ msgstr ""
 msgid "Keypad equivalents work too."
 msgstr ""
 
-#. placeholders: {control_place_state}, {control_place_road}, {control_place_town}, {control_place_direction}
+#. placeholders: {control_place_state}, {control_place_road}, {control_place_town}, {control_place_direction}, {control_place_county}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
 "{control_place_state} reads the state, {control_place_road} the road, "
-"{control_place_town} the town or nearest town, and "
-"{control_place_direction} the direction."
+"{control_place_town} the town or nearest town, {control_place_direction} "
+"the direction, and {control_place_county} the county."
 msgstr ""
 
-#. placeholders: {control_place_state}, {control_place_road}, {control_place_town}, {control_place_direction}
+#. placeholders: {control_place_state}, {control_place_road}, {control_place_town}, {control_place_direction}, {control_place_county}
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
 "{control_place_state} reads the state, {control_place_road} the road, "
-"{control_place_town} the town or nearest town, and "
-"{control_place_direction} the direction. Keypad equivalents work too."
+"{control_place_town} the town or nearest town, {control_place_direction} "
+"the direction, and {control_place_county} the county. Keypad equivalents "
+"work too."
 msgstr ""
 
 #. placeholders: {control_lane}

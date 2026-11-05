@@ -190,6 +190,7 @@ impl DrivingState {
             Action::PlaceRoad => self.speak_current_road(ctx),
             Action::PlaceTown => self.speak_current_town(ctx),
             Action::PlaceDirection => self.speak_current_direction(ctx),
+            Action::PlaceCounty => self.speak_current_county(ctx),
             Action::JakeStage1 => self.select_jake_stage(ctx, 1),
             Action::JakeStage2 => self.select_jake_stage(ctx, 2),
             Action::JakeStage3 => self.select_jake_stage(ctx, 3),

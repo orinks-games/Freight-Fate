@@ -3970,6 +3970,24 @@ msgstr "增益{buff_id}：必须提供帮助文本和购买播报"
 msgid "left"
 msgstr "左"
 
+#. placeholders: {from_city}, {to_city}
+msgid "{from_city} to {to_city} county run must be an object"
+msgstr "{from_city}到{to_city}：县段必须是对象"
+
+#. placeholders: {from_city}, {to_city}, {py_str_float}, {py_str_float2}
+msgid ""
+"{from_city} to {to_city} county run has at_mi {py_str_float}, outside leg "
+"mileage 0-{py_str_float2}"
+msgstr ""
+"{from_city}到{to_city}：县段的 at_mi 为 {py_str_float}，超出路段里程 0-{py_str_float2}"
+
+#. placeholders: {from_city}, {to_city}, {py_str_float}
+msgid "{from_city} to {to_city} county run at {py_str_float} has no name"
+msgstr "{from_city}到{to_city}：{py_str_float} 处的县段没有名称"
+
+msgid "source"
+msgstr "source"
+
 msgid "motorway"
 msgstr "motorway"
 
@@ -5382,6 +5400,9 @@ msgstr "landmarks"
 
 msgid "restrictions"
 msgstr "restrictions"
+
+msgid "counties"
+msgstr "counties"
 
 #. placeholders: {shard}
 msgid "{shard} does not contain a 'legs' list"
@@ -10626,9 +10647,6 @@ msgstr "status"
 msgid "minutes"
 msgstr "分钟"
 
-msgid "source"
-msgstr "source"
-
 msgid "Hours enforcement off."
 msgstr "驾驶工时执法已关闭。"
 
@@ -14582,6 +14600,9 @@ msgstr "所在城镇"
 
 msgid "The direction"
 msgstr "行驶方向"
+
+msgid "The county"
+msgstr "县"
 
 msgid "Engine brake"
 msgstr "发动机制动"
@@ -20055,12 +20076,13 @@ msgstr ""
 msgid "{route} progress, distance left, and where you are."
 msgstr "{route} 进度、剩余距离和你的位置。"
 
-#. placeholders: {place_state}, {place_road}, {place_town}, {place_direction}
+#. placeholders: {place_state}, {place_road}, {place_town}, {place_direction}, {place_county}
 msgid ""
 "{place_state} the state, {place_road} the road, {place_town} the town or "
-"the nearest one, {place_direction} the direction."
+"the nearest one, {place_direction} the direction, {place_county} the county."
 msgstr ""
-"{place_state} 州，{place_road} 道路，{place_town} 城镇或最近的城镇，{place_direction} 方向。"
+"{place_state} 州，{place_road} 道路，{place_town} 城镇或最近的城镇，{place_direction} "
+"方向，{place_county} 县。"
 
 msgid "The keypad numbers work the same way."
 msgstr "小键盘数字键也一样。"
@@ -24607,6 +24629,13 @@ msgstr "在城市街道上。这里没有方向标志。"
 
 msgid "No signed direction here."
 msgstr "这里没有方向标志。"
+
+msgid "No county known here."
+msgstr "这里不知道是哪个县。"
+
+#. placeholders: {county}
+msgid "In {county}."
+msgstr "在{county}。"
 
 #. placeholders: {py_capitalize}, {target}
 msgid "{py_capitalize} to {target}."
@@ -33236,24 +33265,25 @@ msgstr "{control_route}说出你走了多远、剩余距离和你的位置。有
 msgid "Keypad equivalents work too."
 msgstr "小键盘上对应的键也可以用。"
 
-#. placeholders: {control_place_state}, {control_place_road}, {control_place_town}, {control_place_direction}
+#. placeholders: {control_place_state}, {control_place_road}, {control_place_town}, {control_place_direction}, {control_place_county}
 #. one sentence of a longer line
 msgid ""
 "{control_place_state} reads the state, {control_place_road} the road, "
-"{control_place_town} the town or nearest town, and "
-"{control_place_direction} the direction."
+"{control_place_town} the town or nearest town, {control_place_direction} "
+"the direction, and {control_place_county} the county."
 msgstr ""
 "{control_place_state}读出州，{control_place_road}读出道路，{control_place_town}读出城镇或最"
-"近的城镇，{control_place_direction}读出方向。"
+"近的城镇，{control_place_direction}读出方向，{control_place_county}读出县。"
 
-#. placeholders: {control_place_state}, {control_place_road}, {control_place_town}, {control_place_direction}
+#. placeholders: {control_place_state}, {control_place_road}, {control_place_town}, {control_place_direction}, {control_place_county}
 msgid ""
 "{control_place_state} reads the state, {control_place_road} the road, "
-"{control_place_town} the town or nearest town, and "
-"{control_place_direction} the direction. Keypad equivalents work too."
+"{control_place_town} the town or nearest town, {control_place_direction} "
+"the direction, and {control_place_county} the county. Keypad equivalents "
+"work too."
 msgstr ""
 "{control_place_state}读出州，{control_place_road}读出道路，{control_place_town}读出城镇或最"
-"近的城镇，{control_place_direction}读出方向。小键盘上对应的键也可以用。"
+"近的城镇，{control_place_direction}读出方向，{control_place_county}读出县。小键盘上对应的键也可以用。"
 
 #. placeholders: {control_lane}
 #. one sentence of a longer line
@@ -37140,6 +37170,28 @@ msgstr "开放。"
 
 msgid "Closed."
 msgstr "关闭。"
+
+#~ msgid ""
+#~ "{place_state} the state, {place_road} the road, {place_town} the town or "
+#~ "the nearest one, {place_direction} the direction."
+#~ msgstr ""
+#~ "{place_state} 州，{place_road} 道路，{place_town} 城镇或最近的城镇，{place_direction} 方向。"
+
+#~ msgid ""
+#~ "{control_place_state} reads the state, {control_place_road} the road, "
+#~ "{control_place_town} the town or nearest town, and "
+#~ "{control_place_direction} the direction."
+#~ msgstr ""
+#~ "{control_place_state}读出州，{control_place_road}读出道路，{control_place_town}读出城镇或最"
+#~ "近的城镇，{control_place_direction}读出方向。"
+
+#~ msgid ""
+#~ "{control_place_state} reads the state, {control_place_road} the road, "
+#~ "{control_place_town} the town or nearest town, and "
+#~ "{control_place_direction} the direction. Keypad equivalents work too."
+#~ msgstr ""
+#~ "{control_place_state}读出州，{control_place_road}读出道路，{control_place_town}读出城镇或最"
+#~ "近的城镇，{control_place_direction}读出方向。小键盘上对应的键也可以用。"
 
 #~ msgid "keep right for {shield} toward {toward}"
 #~ msgstr "靠右走{shield}，前往{toward}方向"
