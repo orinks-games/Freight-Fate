@@ -191,6 +191,15 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         "hpms-terrain",
         "re-read every leg's terrain class from FHWA HPMS",
         world::layers::hpms::terrain::main,
+        "reroute-leg",
+        "put a leg on the road a loaded truck takes, from the Valhalla truck router",
+        world::reroute::leg_main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "reroute-enrich",
+        "rebuild a rerouted leg's curves, grades, state lines, exits and limits",
+        world::reroute::enrich_main,
     ),
 ];
 
