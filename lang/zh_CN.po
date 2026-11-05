@@ -11644,9 +11644,6 @@ msgstr "{days_ahead}天后的{base}"
 msgid "cruising"
 msgstr "巡航"
 
-msgid "following"
-msgstr "跟车"
-
 msgid "merging"
 msgstr "并线"
 
@@ -11668,6 +11665,9 @@ msgstr "每小时{f}英里"
 msgid "{f} kilometers per hour"
 msgstr "每小时{f}公里"
 
+msgid "following"
+msgstr "跟车"
+
 msgid "passing"
 msgstr "超车"
 
@@ -11686,11 +11686,12 @@ msgstr "州警"
 msgid "state trooper ahead"
 msgstr "前方有州警"
 
-msgid "steady truck traffic"
-msgstr "卡车车流稳定"
+msgid "vehicle"
+msgstr "车辆"
 
-msgid "slow car ahead"
-msgstr "前方有慢车"
+#. placeholders: {class}
+msgid "slow {class} ahead"
+msgstr ""
 
 msgid "merging traffic"
 msgstr "并线车流"
@@ -11706,9 +11707,6 @@ msgstr "前方有警车"
 
 msgid "traffic ahead"
 msgstr "前方有车流"
-
-msgid "vehicle"
-msgstr "车辆"
 
 #. placeholders: {class}
 msgid "Merging {class} on the right ramp"
@@ -12415,6 +12413,12 @@ msgstr "arrived"
 #. placeholders: {text}, {parking_spaces}
 msgid "{text}, {parking_spaces} spaces"
 msgstr "{text}，{parking_spaces}个车位"
+
+msgid "steady truck traffic"
+msgstr "卡车车流稳定"
+
+msgid "slow car ahead"
+msgstr "前方有慢车"
 
 msgid "Left lane open."
 msgstr "左侧车道畅通。"

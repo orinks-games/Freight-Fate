@@ -13133,9 +13133,6 @@ msgstr "{base} za {days_ahead} {days_ahead:dzień|dni|dni}"
 msgid "cruising"
 msgstr "jazda ze stałą prędkością"
 
-msgid "following"
-msgstr "jazda za pojazdem"
-
 msgid "merging"
 msgstr "włączanie się do ruchu"
 
@@ -13157,6 +13154,9 @@ msgstr "{f} {f:mila|mile|mil} na godzinę"
 msgid "{f} kilometers per hour"
 msgstr "{f} {f:kilometr|kilometry|kilometrów} na godzinę"
 
+msgid "following"
+msgstr "jazda za pojazdem"
+
 msgid "passing"
 msgstr "wyprzedzanie"
 
@@ -13175,11 +13175,12 @@ msgstr "policjant stanowy"
 msgid "state trooper ahead"
 msgstr "policjant stanowy przed tobą"
 
-msgid "steady truck traffic"
-msgstr "stały ruch ciężarówek"
+msgid "vehicle"
+msgstr "pojazd"
 
-msgid "slow car ahead"
-msgstr "wolny samochód przed tobą"
+#. placeholders: {class}
+msgid "slow {class} ahead"
+msgstr ""
 
 msgid "merging traffic"
 msgstr "pojazdy włączające się do ruchu"
@@ -13195,9 +13196,6 @@ msgstr "oznakowany radiowóz przed tobą"
 
 msgid "traffic ahead"
 msgstr "ruch przed tobą"
-
-msgid "vehicle"
-msgstr "pojazd"
 
 #. placeholders: {class}
 msgid "Merging {class} on the right ramp"
@@ -13911,6 +13909,12 @@ msgstr "arrived"
 #. placeholders: {text}, {parking_spaces}
 msgid "{text}, {parking_spaces} spaces"
 msgstr "{text}, {parking_spaces} {parking_spaces:miejsce|miejsca|miejsc}"
+
+msgid "steady truck traffic"
+msgstr "stały ruch ciężarówek"
+
+msgid "slow car ahead"
+msgstr "wolny samochód przed tobą"
 
 msgid "Left lane open."
 msgstr "Lewy pas otwarty."

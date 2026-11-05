@@ -13432,9 +13432,6 @@ msgstr "{base} dans {days_ahead} jours"
 msgid "cruising"
 msgstr "en croisière"
 
-msgid "following"
-msgstr "en suivi"
-
 msgid "merging"
 msgstr "en insertion"
 
@@ -13456,6 +13453,9 @@ msgstr "{f} miles à l'heure"
 msgid "{f} kilometers per hour"
 msgstr "{f} kilomètres à l'heure"
 
+msgid "following"
+msgstr "en suivi"
+
 msgid "passing"
 msgstr "dépassement"
 
@@ -13474,11 +13474,12 @@ msgstr "policier"
 msgid "state trooper ahead"
 msgstr "policier devant"
 
-msgid "steady truck traffic"
-msgstr "circulation régulière de camions"
+msgid "vehicle"
+msgstr "véhicule"
 
-msgid "slow car ahead"
-msgstr "voiture lente devant"
+#. placeholders: {class}
+msgid "slow {class} ahead"
+msgstr ""
 
 msgid "merging traffic"
 msgstr "circulation qui s'insère"
@@ -13494,9 +13495,6 @@ msgstr "voiture de police devant"
 
 msgid "traffic ahead"
 msgstr "circulation devant"
-
-msgid "vehicle"
-msgstr "véhicule"
 
 #. placeholders: {class}
 msgid "Merging {class} on the right ramp"
@@ -14215,6 +14213,12 @@ msgstr "arrivé"
 #. placeholders: {text}, {parking_spaces}
 msgid "{text}, {parking_spaces} spaces"
 msgstr "{text}, {parking_spaces} places"
+
+msgid "steady truck traffic"
+msgstr "circulation régulière de camions"
+
+msgid "slow car ahead"
+msgstr "voiture lente devant"
 
 msgid "Left lane open."
 msgstr "Voie de gauche libre."

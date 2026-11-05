@@ -13107,9 +13107,6 @@ msgstr "{base} через {days_ahead} {days_ahead:день|дня|дней}"
 msgid "cruising"
 msgstr "движется"
 
-msgid "following"
-msgstr "следует за машиной"
-
 msgid "merging"
 msgstr "перестраивается"
 
@@ -13131,6 +13128,9 @@ msgstr "{f} {f:миля|мили|миль} в час"
 msgid "{f} kilometers per hour"
 msgstr "{f} {f:километр|километра|километров} в час"
 
+msgid "following"
+msgstr "следует за машиной"
+
 msgid "passing"
 msgstr "обгоняет"
 
@@ -13149,11 +13149,12 @@ msgstr "полицейский штата"
 msgid "state trooper ahead"
 msgstr "впереди полицейский штата"
 
-msgid "steady truck traffic"
-msgstr "стабильный поток грузовиков"
+msgid "vehicle"
+msgstr "машина"
 
-msgid "slow car ahead"
-msgstr "впереди медленная машина"
+#. placeholders: {class}
+msgid "slow {class} ahead"
+msgstr ""
 
 msgid "merging traffic"
 msgstr "вливающийся поток"
@@ -13169,9 +13170,6 @@ msgstr "впереди патрульная машина"
 
 msgid "traffic ahead"
 msgstr "впереди затор"
-
-msgid "vehicle"
-msgstr "машина"
 
 #. placeholders: {class}
 msgid "Merging {class} on the right ramp"
@@ -13893,6 +13891,12 @@ msgstr "прибыли"
 #. placeholders: {text}, {parking_spaces}
 msgid "{text}, {parking_spaces} spaces"
 msgstr "{text}, {parking_spaces} {parking_spaces:место|места|мест}"
+
+msgid "steady truck traffic"
+msgstr "стабильный поток грузовиков"
+
+msgid "slow car ahead"
+msgstr "впереди медленная машина"
 
 msgid "Left lane open."
 msgstr "Левая полоса свободна."

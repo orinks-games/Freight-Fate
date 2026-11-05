@@ -12844,9 +12844,6 @@ msgstr "{days_ahead} gün sonra {base}"
 msgid "cruising"
 msgstr "seyirde"
 
-msgid "following"
-msgstr "takipte"
-
 msgid "merging"
 msgstr "katılıyor"
 
@@ -12868,6 +12865,9 @@ msgstr "saatte {f} mil"
 msgid "{f} kilometers per hour"
 msgstr "saatte {f} kilometre"
 
+msgid "following"
+msgstr "takipte"
+
 msgid "passing"
 msgstr "sollama"
 
@@ -12886,11 +12886,12 @@ msgstr "eyalet polisi"
 msgid "state trooper ahead"
 msgstr "ileride eyalet polisi"
 
-msgid "steady truck traffic"
-msgstr "düzenli tır trafiği"
+msgid "vehicle"
+msgstr "araç"
 
-msgid "slow car ahead"
-msgstr "ileride yavaş otomobil"
+#. placeholders: {class}
+msgid "slow {class} ahead"
+msgstr ""
 
 msgid "merging traffic"
 msgstr "katılan trafik"
@@ -12906,9 +12907,6 @@ msgstr "ileride ekip aracı"
 
 msgid "traffic ahead"
 msgstr "ileride trafik"
-
-msgid "vehicle"
-msgstr "araç"
 
 #. placeholders: {class}
 msgid "Merging {class} on the right ramp"
@@ -13624,6 +13622,12 @@ msgstr "varıldı"
 #. placeholders: {text}, {parking_spaces}
 msgid "{text}, {parking_spaces} spaces"
 msgstr "{text}, {parking_spaces} park yeri"
+
+msgid "steady truck traffic"
+msgstr "düzenli tır trafiği"
+
+msgid "slow car ahead"
+msgstr "ileride yavaş otomobil"
 
 msgid "Left lane open."
 msgstr "Sol şerit boş."

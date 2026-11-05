@@ -14635,10 +14635,6 @@ msgid "cruising"
 msgstr ""
 
 #: crates/ff-core/src/sim/traffic_manager.rs crates/ff-core/src/sim/trip_models.rs
-msgid "following"
-msgstr ""
-
-#: crates/ff-core/src/sim/traffic_manager.rs crates/ff-core/src/sim/trip_models.rs
 msgid "merging"
 msgstr ""
 
@@ -14665,6 +14661,10 @@ msgstr ""
 msgid "{f} kilometers per hour"
 msgstr ""
 
+#: crates/ff-core/src/sim/traffic_manager.rs crates/ff-core/src/sim/trip_models.rs
+msgid "following"
+msgstr ""
+
 #: crates/ff-core/src/sim/traffic_manager/beside.rs crates/ff-core/src/sim/traffic_manager.rs crates/ff-core/src/sim/trip_models.rs
 msgid "passing"
 msgstr ""
@@ -14689,12 +14689,13 @@ msgstr ""
 msgid "state trooper ahead"
 msgstr ""
 
-#: crates/ff-core/src/sim/traffic_manager/vehicle.rs crates/ff-core/src/sim/trip_models.rs
-msgid "steady truck traffic"
+#: crates/ff-core/src/sim/traffic_manager/vehicle.rs crates/freight-fate/src/states/driving_lane_gap.rs
+msgid "vehicle"
 msgstr ""
 
-#: crates/ff-core/src/sim/traffic_manager/vehicle.rs crates/ff-core/src/sim/trip_models.rs
-msgid "slow car ahead"
+#. placeholders: {class}
+#: crates/ff-core/src/sim/traffic_manager/vehicle.rs
+msgid "slow {class} ahead"
 msgstr ""
 
 #: crates/ff-core/src/sim/traffic_manager/vehicle.rs crates/ff-core/src/sim/trip_models.rs
@@ -14715,10 +14716,6 @@ msgstr ""
 
 #: crates/ff-core/src/sim/traffic_manager/vehicle.rs crates/ff-core/src/sim/trip_models.rs
 msgid "traffic ahead"
-msgstr ""
-
-#: crates/ff-core/src/sim/traffic_manager/vehicle.rs crates/freight-fate/src/states/driving_lane_gap.rs
-msgid "vehicle"
 msgstr ""
 
 #. placeholders: {class}
@@ -15612,6 +15609,14 @@ msgstr ""
 #. placeholders: {text}, {parking_spaces}
 #: crates/ff-core/src/sim/trip_models.rs
 msgid "{text}, {parking_spaces} spaces"
+msgstr ""
+
+#: crates/ff-core/src/sim/trip_models.rs
+msgid "steady truck traffic"
+msgstr ""
+
+#: crates/ff-core/src/sim/trip_models.rs
+msgid "slow car ahead"
 msgstr ""
 
 #: crates/ff-core/src/sim/trip_models/hazards.rs
