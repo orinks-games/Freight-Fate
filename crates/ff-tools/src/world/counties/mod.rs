@@ -150,9 +150,12 @@ impl<'a> Walker<'a> {
     }
 }
 
-/// `(at_mi, county index)` runs along one leg; empty when no sample lands
-/// in any county.
-fn leg_runs(line: &LegLine, leg_miles: f64, lookup: &Lookup) -> (Vec<(f64, usize)>, usize, usize) {
+/// `(at_mi, county index)` runs along one leg, with the samples taken and
+/// how many of them fell in no county.
+type LegRuns = (Vec<(f64, usize)>, usize, usize);
+
+/// The county runs along one leg; empty when no sample lands in any county.
+fn leg_runs(line: &LegLine, leg_miles: f64, lookup: &Lookup) -> LegRuns {
     let walk = Walker::new(line, leg_miles);
     let county_at = |mile: f64| {
         let (lat, lon) = walk.point(mile);
@@ -262,7 +265,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
         .get_mut("legs")
         .and_then(Value::as_array_mut)
         .ok_or("world_source has no legs")?;
-    let computed: Vec<Option<(Vec<(f64, usize)>, usize, usize)>> = legs
+    let computed: Vec<Option<LegRuns>> = legs
         .par_iter()
         .map(|leg| {
             let line = lines.get(&leg_id(leg))?;
