@@ -152,6 +152,12 @@ const COMMANDS: &[(&str, &str, Command)] = &[
     ),
     #[cfg(feature = "world")]
     (
+        "census-counties",
+        "write the county each stretch of every leg runs through, from Census county lines",
+        world::counties::main,
+    ),
+    #[cfg(feature = "world")]
+    (
         "osm-exits",
         "re-read the map's exits and their ramps from an OpenStreetMap extract",
         world::osm::exits::main,

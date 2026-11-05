@@ -12,6 +12,7 @@
 - **Translators can put a corrected language file in a lang folder next to the game.** The saves folder still works too.
 - **Choose stable, beta, or alpha updates in Settings.** Existing snapshot followers move to beta.
 - **New releases seal career saves against local editing.** Existing careers migrate with a backup; cloud backups retain their verification.
+- **Alt+5 names the county you are driving through.** On city streets it names the city's county.
 
 ### Changed
 
