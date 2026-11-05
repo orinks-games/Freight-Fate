@@ -227,38 +227,18 @@ fn test_the_tableau_busy_window_suppresses_only_that_posts_catches() {
     assert!(watching_outside.contains(&other.id()));
 }
 
-// `test_the_tableau_cues_play_once_each` is live in `crates/freight-fate/tests/states_driving_enforcement.rs`.
-
-// `test_tableau_audio_defers_while_the_players_own_stop_is_active` is live in `crates/freight-fate/tests/states_driving_enforcement.rs`.
-
-// `test_a_post_that_already_caught_the_player_never_also_runs_its_tableau` is live in `crates/freight-fate/tests/states_driving_enforcement.rs`.
-
-// `test_the_tableau_intro_line_speaks_once_and_says_it_is_not_the_player` is live in `crates/freight-fate/tests/states_driving_enforcement.rs`.
-
-// `test_the_tableau_intro_line_stays_silent_while_deferred` is live in `crates/freight-fate/tests/states_driving_enforcement.rs`.
-
-// `test_the_tableau_intro_terse_form_keeps_the_bare_fact` is live in `crates/freight-fate/tests/states_driving_enforcement.rs`.
-
 #[test]
-fn test_the_tableau_cb_line_waits_for_the_players_own_stop_and_a_declined_post() {
-    // The CB speech-side twin of the audio deferral above.
+fn test_the_cb_never_reports_a_trooper_with_somebody_else_stopped() {
+    // Owner, 2026-11-05: reports of other drivers being stopped confused
+    // players, so a tableau post gets no CB line.
     let mut trip = trip();
     let mut post = post_kind(trip.position_mi + 2.0, KIND_MEDIAN);
     post.tableau = true;
-    let post_id = post.id();
     trip.posts = vec![post];
-
-    trip.pull_over_active = true;
-    trip.check_enforcement_heads_up();
-    assert!(!trip
-        .events
-        .iter()
-        .any(|e| e.text().contains("somebody stopped")));
-
-    trip.pull_over_active = false;
-    trip.heads_up_seen.remove(&post_id);
-    trip.posts[0].declined = true;
-    trip.check_enforcement_heads_up();
+    for _ in 0..20 {
+        trip.check_enforcement_heads_up();
+        trip.position_mi += 0.1;
+    }
     assert!(!trip
         .events
         .iter()
@@ -599,18 +579,6 @@ fn test_cb_chatter_varies_by_what_the_post_actually_is() {
 }
 
 #[test]
-fn test_cb_tableau_line_reports_a_trooper_with_a_customer() {
-    let trip = trip();
-    let post = post_kind(20.0, KIND_MEDIAN);
-    let line = trip.cb_tableau_message(&post, 3.0);
-    assert!(line.to_lowercase().contains("trooper"));
-    assert!(!line.contains("CB chatter"), "{line}");
-    assert!(line.to_lowercase().contains("somebody stopped"));
-    assert!(line.contains(Trip::cb_side(&post)));
-    assert!(line.contains("3.0") || line.contains("miles"));
-}
-
-#[test]
 fn test_spoken_cb_lines_are_capped_for_a_whole_run() {
     assert_eq!(CB_CALLS_PER_RUN, 2);
 }
@@ -670,7 +638,8 @@ fn test_the_safety_record_rides_on_the_profile_and_survives_a_save() {
 fn test_an_aged_record_stops_raising_the_safety_record() {
     use ff_core::models::profile::Profile;
     use ff_core::models::safety_record::{
-        score_for_profile, SAFETY_RECORD_BASELINE, SAFETY_RECORD_WINDOW_DAYS,
+        score_for_profile, SAFETY_RECORD_BASELINE, SAFETY_RECORD_SERIOUS_WINDOW_DAYS,
+        SAFETY_RECORD_WINDOW_DAYS,
     };
 
     let mut profile = Profile::named("Aged");
@@ -691,8 +660,16 @@ fn test_an_aged_record_stops_raising_the_safety_record() {
     profile.game_hours = booked + window_h - 1.0;
     assert_eq!(score_for_profile(&profile, 0.0), fresh);
 
-    // One hour past it: the scale sees a clean record again.
+    // One hour past it: only the serious violation still counts.
     profile.game_hours = booked + window_h + 1.0;
+    let serious_only = score_for_profile(&profile, 0.0);
+    assert!(
+        serious_only > SAFETY_RECORD_BASELINE && serious_only < fresh,
+        "{serious_only}"
+    );
+
+    // One hour past the serious window: the scale sees a clean record again.
+    profile.game_hours = booked + SAFETY_RECORD_SERIOUS_WINDOW_DAYS as f64 * 24.0 + 1.0;
     assert_eq!(score_for_profile(&profile, 0.0), SAFETY_RECORD_BASELINE);
     assert_eq!(profile.driving_record.citations, 1);
     assert_eq!(profile.driving_record.fatigue_events, 1);
@@ -854,11 +831,14 @@ fn test_a_reckless_driver_meets_the_same_road_and_a_very_different_bill() {
 #[test]
 fn test_speeding_scales_from_free_to_expensive_with_no_flat_spot() {
     // Being seen is now the ONLY thing speeding costs, so the curve between
-    // legal and habitual has to be a curve.
+    // legal and habitual has to be a curve. Six seeds were too few: the
+    // October exits re-read moved the posts and the occasional rate on Los
+    // Angeles to Phoenix swung from 0.67 to 1.34, while 24 seeds hold it
+    // at 0.45 before and 0.56 after.
     for (a, b) in [("Chicago", "Denver"), ("Los Angeles", "Phoenix")] {
         let rate = |over: f64, damage: f64, duty: f64, recover_mi: f64| {
             let mut totals = Vec::new();
-            for seed in 0..6 {
+            for seed in 0..24 {
                 let mut trip = trip_seeded(a, b, seed);
                 let stops = walk(&mut trip, over, damage, 0, duty, recover_mi, seed);
                 totals.push(stops as f64 / trip.route.miles() * 500.0);
@@ -880,7 +860,10 @@ fn test_speeding_scales_from_free_to_expensive_with_no_flat_spot() {
             habitual >= 2.0,
             "{a}->{b}: a habitual speeder saw only {habitual:.2}"
         );
-        assert!(habitual > occasional * 3.0);
+        assert!(
+            habitual > occasional * 3.0,
+            "{a}->{b}: habitual {habitual:.2} against occasional {occasional:.2}"
+        );
     }
 }
 

@@ -11,7 +11,7 @@ use crate::states::driving::DrivingState;
 use crate::states::driving_core::profile_of;
 use crate::states::driving_pause_states::PauseMenuState;
 
-use super::pilot::{StopPurpose, REACH_MPH};
+use super::pilot::StopPurpose;
 use super::TeamMode;
 
 impl DrivingState {
@@ -72,9 +72,10 @@ pub fn terms_text(ctx: &GameContext, name: &str) -> String {
     } else {
         format!("Miles {name} drives pay you half.")
     };
+    let back = back_text(ctx, name);
     format!(
-        "{pay} Those miles earn you half the experience. While {name} drives, you are logged in the \
-         sleeper berth."
+        "{back} {pay} Those miles earn you half the experience. While {name} drives, you are \
+         logged in the sleeper berth."
     )
 }
 
@@ -97,7 +98,7 @@ fn short_shift_text(ctx: &GameContext, d: &DrivingState, name: &str) -> Option<S
     // Where their hours reach a lot, they park there; where they do not,
     // the rest is slept on the shoulder (see `shoulder`).
     let here = d.trip.position_mi;
-    let reach = hours_left.max(0.0) / 60.0 * REACH_MPH;
+    let reach = hours_left.max(0.0) / 60.0 * d.co_driver_pace_mph();
     let lot_in_reach = d
         .co_driver_stops(StopPurpose::ShiftEnd, here)
         .iter()
@@ -120,7 +121,7 @@ fn short_shift_text(ctx: &GameContext, d: &DrivingState, name: &str) -> Option<S
 /// co-driver is offered: at the shipper's dock (`at_dock`) or in the pause
 /// menu. Before it, the rows turned up with nothing to say why (owner
 /// report, 2026-10-19).
-pub fn intro_text(ctx: &GameContext, name: &str, at_dock: bool) -> String {
+pub fn intro_text(name: &str, at_dock: bool) -> String {
     let take = if at_dock {
         format!(
             "{name} can drive from here, or take over later from the pause menu, while you rest \
@@ -129,15 +130,21 @@ pub fn intro_text(ctx: &GameContext, name: &str, at_dock: bool) -> String {
     } else {
         format!("{name} can take the wheel from this menu while you rest in the sleeper.")
     };
+    // When they hand back is on the rows' help with the pay terms, so the
+    // load line stays short (owner, 2026-11-04).
+    format!("This load is long enough to share with a co-driver. {take}")
+}
+
+/// When the co-driver hands the wheel back.
+fn back_text(ctx: &GameContext, name: &str) -> String {
     let mode = &ctx.settings.hos_mode;
-    let back = if !co_driver::enforced(mode) {
+    if !co_driver::enforced(mode) {
         format!("{name} drives to the receiver's gate unless something needs you.")
     } else if co_driver::fully_rested(&profile_of(ctx).hos) {
         format!("{name} drives until their own hours run out.")
     } else {
         format!("{name} hands the wheel back once you have had your 10-hour rest.")
-    };
-    format!("This load is long enough to share with a co-driver. {take} {back}")
+    }
 }
 
 /// The introduction, if this career has not heard it yet. The caller
@@ -147,7 +154,7 @@ pub fn new_intro(ctx: &GameContext, name: &str, at_dock: bool) -> Option<String>
     if co_driver::introduced(&profile.achievement_stats) {
         return None;
     }
-    Some(intro_text(ctx, name, at_dock))
+    Some(intro_text(name, at_dock))
 }
 
 /// Record that this career has heard the introduction.

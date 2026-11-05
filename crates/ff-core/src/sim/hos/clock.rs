@@ -595,6 +595,16 @@ impl HosClock {
 
     /// Spoken status for the C key and Tab report.
     pub fn summary(&self, mode: &str) -> String {
+        self.summary_with(mode, true)
+    }
+
+    /// The summary without the ELD status sentence: the hours alone, for a
+    /// warning where the status tells the driver nothing.
+    pub fn hours_summary(&self, mode: &str) -> String {
+        self.summary_with(mode, false)
+    }
+
+    fn summary_with(&self, mode: &str, with_status: bool) -> String {
         if is_non_enforced(mode) {
             return ENFORCEMENT_OFF.to_string();
         }
@@ -628,20 +638,24 @@ impl HosClock {
         };
         let hours = if duty_left <= break_left {
             format!(
-                "Hours of service: {} of driving left, {} left in the 14-hour window.",
+                "Hours of service: {} of driving left, {} left in the duty window.",
                 duration_text(drive_left),
                 duration_text(duty_left),
             )
         } else {
             format!(
                 "Hours of service: {} of driving left, 30-minute break due in {}, \
-                 {} left in the 14-hour window.",
+                 {} left in the duty window.",
                 duration_text(drive_left),
                 duration_text(break_left),
                 duration_text(duty_left),
             )
         };
-        let mut sentences = vec![status, hours];
+        let mut sentences = if with_status {
+            vec![status, hours]
+        } else {
+            vec![hours]
+        };
         if let Some(pending) = self.split_pending_summary() {
             sentences.push(pending.to_string());
         }
@@ -695,7 +709,7 @@ impl HosClock {
     }
 
     /// Which blown limit ended the shift, or None; the driving clock leads.
-    fn shift_over_kind(&self, mode: &str) -> Option<&'static str> {
+    pub fn shift_over_kind(&self, mode: &str) -> Option<&'static str> {
         let statuses = self.statuses(mode);
         let blown = |kind: &str| {
             statuses
@@ -773,7 +787,7 @@ impl HosClock {
                 answer.push_str(&if terse {
                     format!(", duty window {}", duration_text(duty_left))
                 } else {
-                    format!(", {} left in the 14-hour window", duration_text(duty_left))
+                    format!(", {} left in the duty window", duration_text(duty_left))
                 });
             }
         }
@@ -892,16 +906,16 @@ impl HosClock {
         }
         let last = rest_events.last()?;
         if last.status == "sleeper_berth" && last.minutes >= SPLIT_LONG_ALT_MIN {
-            return Some("Sleeper split open: 2 more hours off duty or in the sleeper to pair it.");
+            return Some("Split rest started: 2 more hours off duty or in the sleeper finish it.");
         }
         if last.status == "sleeper_berth" && last.minutes >= SPLIT_LONG_MIN {
-            return Some("Sleeper split open: 3 more hours off duty or in the sleeper to pair it.");
+            return Some("Split rest started: 3 more hours off duty or in the sleeper finish it.");
         }
         if last.minutes >= SPLIT_SHORT_ALT_MIN {
-            return Some("Sleeper split open: 7 more hours in the sleeper to pair it.");
+            return Some("Split rest started: 7 more hours in the sleeper finish it.");
         }
         if last.minutes >= SPLIT_SHORT_MIN {
-            return Some("Sleeper split open: 8 more hours in the sleeper to pair it.");
+            return Some("Split rest started: 8 more hours in the sleeper finish it.");
         }
         None
     }

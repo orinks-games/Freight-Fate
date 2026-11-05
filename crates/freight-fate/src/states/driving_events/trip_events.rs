@@ -7,6 +7,7 @@ use ff_core::data::world_parsing::crc32;
 use ff_core::models::trailer_yard::pickup_plan;
 use ff_core::pyrandom::PyRandom;
 use ff_core::sim::driving_modes::tuning_for_time_scale;
+use ff_core::sim::trip::is_highway_zone_reason;
 use ff_core::sim::trip_models::{TripEvent, TripEventKind};
 use ff_core::speech_pacing::SpeechCategory;
 use ff_core::speech_text::{
@@ -462,7 +463,7 @@ impl DrivingState {
         // The normal/terse pair rides the event from the sim layer; the
         // delivery layer picks the rendering (R5), so no rewriting here.
         let message = if speed_control_was_active {
-            message.plus("Automatic speed control paused.")
+            message.plus("Cruise paused.")
         } else {
             message
         };
@@ -787,26 +788,38 @@ impl DrivingState {
                             if ahead <= 0.0 {
                                 return None;
                             }
+                            let scale = stop.stop_type == "weigh_station";
+                            let open = scale.then(|| drive.trip.scale_open(&stop));
+                            let parking_normal = if scale {
+                                String::new()
+                            } else {
+                                stop.parking_text()
+                            };
                             let parts = StopCalloutParts {
                                 planned_prefix: drive.trip.planned_prefix(&stop),
                                 typed_name: &typed_name,
                                 plain_name: &stop.name,
                                 exit_label: &stop.exit_label,
                                 distance: &drive.trip.ahead_text(ahead),
-                                parking_normal: &stop.parking_text(),
-                                parking_certainty: &stop.parking,
+                                parking_normal: &parking_normal,
+                                parking_certainty: if scale { "likely" } else { &stop.parking },
                                 // Already signaled: "Press X to signal for the
                                 // exit" with the signal on asks for a press
                                 // that would cancel it, or move it off the
                                 // scale it was set for (adversarial battery,
-                                // 2026-10-25).
-                                exit_hint: if drive.exit_signal_on || drive.exit_is_armed_for(&stop)
+                                // 2026-10-25). Nor for a scale lane keeping
+                                // on full signals for itself.
+                                exit_hint: if drive.exit_signal_on
+                                    || drive.exit_is_armed_for(&stop)
+                                    || open == Some(false)
+                                    || (scale && ctx.settings.lane_is_automated())
                                 {
                                     ""
                                 } else {
                                     &exit_hint
                                 },
                                 fuel: stop.fuel_callout(),
+                                open,
                             };
                             // The rung's rendering, as the line had when it
                             // queued: re-rendered as the normal form, quiet
@@ -838,6 +851,7 @@ impl DrivingState {
             );
             return;
         }
+        let message = self.without_signal_request_once_armed(event, message);
         if let Some(sound) = sound {
             // A turn earcon belongs to the words that name the turn. The
             // maneuver lead is NAVIGATION_ADVISORY, which the quiet rungs
@@ -882,6 +896,20 @@ impl DrivingState {
             self.refresh_live_facts();
             let named = event.data.limit_mph;
             opts = opts.valid(move || live::limit_line_holds(named));
+        }
+        if kind == TripEventKind::StopAhead {
+            // A planned stop's call cut mid-sentence comes back only while
+            // the exit is still ahead, and, when it asks for the signal,
+            // only while the signal is off: the X that cut it set the signal,
+            // and "Press X to signal" handed back after that asked for a
+            // press that cancels it (agent drive, I-40, 2026-11-04).
+            if let Some(stop_at) = event.data.stop.as_ref().map(|stop| stop.at_mi) {
+                let asks_for_signal = message.normal.contains("to signal");
+                self.refresh_live_facts();
+                opts = opts.valid(move || {
+                    live::position_mi() < stop_at && !(asks_for_signal && live::exit_signal_on())
+                });
+            }
         }
         ctx.say_event_with(message, opts);
         // Any spoken route line pushes spaced ambient chatter back, so
@@ -1075,6 +1103,14 @@ impl DrivingState {
     /// quiet, a tone at urgent_only, which is what makes those two rungs
     /// different settings.
     pub fn event_category(event: &TripEvent) -> Option<SpeechCategory> {
+        if event.kind == TripEventKind::StopAhead && event.data.planned.unwrap_or(false) {
+            // The stop the player planned is where they mean to exit, and
+            // this call is when to signal for it. As a heads-up it went
+            // silent at urgent only, and a driver who planned a rest stop
+            // heard nothing until "Past your planned stop" (Orinks,
+            // 2026-11-04).
+            return Some(SpeechCategory::Navigation);
+        }
         if event.kind == TripEventKind::GpsCue && event.data.limit_change.unwrap_or(false) {
             // "Speed limit raised to 55" is the road's state; S answers it on
             // demand. The other GPS cues -- merge onto this highway, take that
@@ -1226,6 +1262,16 @@ impl DrivingState {
         if self.cruise_mph.is_none() {
             return false;
         }
+        // Cruise holds a highway work zone or heavy traffic at its limit,
+        // keeper or no keeper (owner rule, 2026-10-27, issue #518).
+        if event
+            .data
+            .zone
+            .as_ref()
+            .is_some_and(|zone| is_highway_zone_reason(&zone.reason))
+        {
+            return false;
+        }
         if event.kind == TripEventKind::ZoneEnter {
             return true;
         }
@@ -1265,7 +1311,7 @@ impl DrivingState {
             );
             ctx.play_event_cue(category, "ui/notify", 1.0, 0.0);
             let keeper = ctx.settings.speed_text(self.keeper_mph.unwrap_or(0.0));
-            let message = message.plus(&format!("Speed keeper holding {keeper}."));
+            let message = message.plus(&format!("Cruise holding {keeper}."));
             let mut opts = SayEvent::queued().priority(EventPriority::Important);
             opts.category = category;
             ctx.say_event_with(message, opts);
@@ -1361,7 +1407,7 @@ impl DrivingState {
             }
         }
         if evidence.is_empty() {
-            evidence = vec!["HOS/ELD violation".to_string()];
+            evidence = vec!["hours-of-service violation".to_string()];
         }
         let evidence_text = evidence.join(", ");
         ctx.audio.play("ui/error");
@@ -1382,15 +1428,14 @@ impl DrivingState {
                 "ten hours"
             };
             let return_message = if break_only {
-                "Back on the highway after the 30-minute break. Keep the logbook clean."
+                "Back on the highway after the 30-minute break."
             } else {
-                "Back on the highway with a reset clock. Keep the logbook clean."
+                "Back on the highway with a reset clock."
             };
-            let summary = format!(
-                "{} Evidence: {evidence_text}. The officer writes the order: out of service, \
-                 {oos_phrase}, right here.",
-                event.text()
-            );
+            // What happened and the citation, nothing else: where the stop
+            // was is the lights line's, and the scale's "wave you in" said
+            // shoulder and weigh station in one breath (owner, 2026-11-04).
+            let summary = format!("Out of service {oos_phrase}. Citation: {evidence_text}.");
             let lights = format!(
                 "Lights and siren behind you for a log check. Signal with {} and stop on the \
                  shoulder.",
@@ -1417,7 +1462,7 @@ impl DrivingState {
                 0.0f64.max(profile.career.reputation - hos::HOS_REPUTATION_HIT);
         }
         let message = format!(
-            "{} Evidence: {evidence_text}. Fined {} dollars, and your reputation took a hit.",
+            "{} Citation: {evidence_text}. Fined {} dollars, and your reputation took a hit.",
             event.text(),
             ff_core::pyfmt::fmt_grouped(fine, 0)
         );

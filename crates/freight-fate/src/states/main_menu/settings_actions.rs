@@ -71,8 +71,15 @@ pub(super) fn assist_preset_label(s: &Settings) -> &'static str {
     }
 }
 
+/// The saved keys stay "realistic", "balanced" and "interactive"; the
+/// spoken names say how strong the help is.
 pub(super) fn descent_level_label(s: &Settings) -> String {
-    title_case(&s.descent_speed_control)
+    match s.descent_speed_control.as_str() {
+        "realistic" => "Light".to_string(),
+        "balanced" => "Standard".to_string(),
+        "interactive" => "Strong".to_string(),
+        other => title_case(other),
+    }
 }
 
 pub(super) fn pace_label(s: &Settings) -> String {
@@ -149,6 +156,7 @@ pub(super) fn event_voice_label(s: &Settings) -> String {
     }
     match s.event_backend.as_str() {
         "OneCore" => "Windows OneCore".to_string(),
+        crate::speech::BUILTIN_BACKEND => "built-in voice".to_string(),
         other => other.to_string(),
     }
 }
@@ -288,13 +296,6 @@ impl SettingsCategoryState {
 
     pub(super) fn toggle_transmission(&mut self, ctx: &mut GameContext, _d: i64) {
         ctx.settings.automatic_transmission = !ctx.settings.automatic_transmission;
-        self.announce(ctx);
-    }
-
-    pub(super) fn cycle_automatic_direction_changes(&mut self, ctx: &mut GameContext, d: i64) {
-        let modes = ["simple", "deliberate"];
-        let i = cycle_index(&modes, &ctx.settings.automatic_direction_changes, d, 0);
-        ctx.settings.automatic_direction_changes = modes[i].to_string();
         self.announce(ctx);
     }
 
@@ -534,6 +535,11 @@ impl SettingsCategoryState {
         self.announce(ctx);
     }
 
+    pub(super) fn toggle_menu_accelerator_keys(&mut self, ctx: &mut GameContext, _d: i64) {
+        ctx.settings.menu_accelerator_keys = !ctx.settings.menu_accelerator_keys;
+        self.announce(ctx);
+    }
+
     pub(super) fn toggle_controller(&mut self, ctx: &mut GameContext, _d: i64) {
         ctx.settings.controller_enabled = !ctx.settings.controller_enabled;
         ctx.apply_controller();
@@ -722,12 +728,17 @@ impl SettingsCategoryState {
         self.announce(ctx);
     }
 
-    pub(super) fn toggle_update_channel(&mut self, ctx: &mut GameContext, _d: i64) {
-        ctx.settings.update_channel = if update_channel(&ctx.settings) == "dev" {
-            "stable".to_string()
-        } else {
-            "dev".to_string()
-        };
+    pub(super) fn toggle_update_channel(&mut self, ctx: &mut GameContext, d: i64) {
+        let channels = updater::CHANNELS;
+        let index = channels
+            .iter()
+            .position(|c| *c == update_channel(&ctx.settings))
+            .unwrap_or(0);
+        ctx.settings.update_channel =
+            channels[(index as i64 + d).rem_euclid(channels.len() as i64) as usize].to_string();
+        // Discard a result requested on the old subscription. The next home
+        // entry starts a check for the newly saved choice.
+        super::MainMenuState::install_update_check(None, false);
         self.announce(ctx);
     }
 

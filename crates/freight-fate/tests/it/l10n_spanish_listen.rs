@@ -76,8 +76,8 @@ fn the_chicago_start_and_kenosha_drive_are_whole_spanish() {
         let lines = harness.app.main_lines();
         let said = lines.join(" ");
         assert!(said.contains("Chicago Company Yard"), "{said}");
-        assert!(said.contains("toward Kenosha"), "{said}");
-        assert!(said.contains("to pickup at"), "{said}");
+        assert!(said.contains("routed you to Kenosha"), "{said}");
+        assert!(said.contains(" empty to "), "{said}");
         let mut leaks = Vec::new();
         // The board's market and offer rows and the facility phrases
         // ("retail distribution hub ... in Kenosha") included.

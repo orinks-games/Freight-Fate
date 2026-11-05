@@ -11,7 +11,10 @@ const DT: f64 = 1.0 / 60.0;
 /// feet short of the ramp light and sat there through every green after it,
 /// with every assist on and nobody at the pedals.
 #[test]
-#[cfg_attr(ci_quick, ignore = "sweep: drives the last miles of a 345-mile load")]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: drives the last miles of a 345-mile load"
+)]
 fn all_assists_take_the_truck_on_from_a_ramp_light_it_stopped_short_of() {
     let mut harness = PlaytestHarness::new();
     harness.start_route(
@@ -78,7 +81,7 @@ fn all_assists_take_the_truck_on_from_a_ramp_light_it_stopped_short_of() {
     let released: Vec<String> = harness
         .transcript()
         .into_iter()
-        .filter(|line| line.contains("Route-transition assistance released"))
+        .filter(|line| line.contains("Ramp assistance released"))
         .collect();
     assert!(released.is_empty(), "{released:?}");
 }

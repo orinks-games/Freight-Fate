@@ -136,7 +136,7 @@ pub const SETTINGS_LAYOUT_NOTICES: [(i64, &str); 3] = [
     ),
     (
         2,
-        "Two rows moved. Speed keeper is now in Driving assistance instead of \
+        "Two rows moved. Low-speed cruise is now in Driving assistance instead of \
          Controls. Lane and edge cue prominence is now Lane and edge cue \
          volume, in Audio under Gameplay cues volume. Your choices came with \
          them. Overspeed warning no longer has a row: it stays quiet until you \
@@ -277,7 +277,7 @@ pub(super) fn base_handle_event<S: Menu>(s: &mut S, ctx: &mut GameContext, event
         _ => {
             if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
                 let lower: String = ch.to_lowercase().collect();
-                s.first_letter_jump(ctx, &lower);
+                s.first_letter_input(ctx, &lower, event.key_repeat());
             }
         }
     }

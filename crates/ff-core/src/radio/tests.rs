@@ -2245,6 +2245,39 @@ fn test_a_refused_playlist_says_its_tracks_would_not_open() {
 }
 
 #[test]
+fn test_a_backend_that_knows_why_a_station_refused_says_so() {
+    // The game knows what a station alone does not show: a playlist of
+    // YouTube links with no yt-dlp installed. Its note replaces the
+    // radio's own sentence in the handover.
+    struct NotingBackend;
+    impl RadioPlaybackBackend for NotingBackend {
+        fn play_station(
+            &mut self,
+            station: &RadioStation,
+            _volume: f64,
+        ) -> Result<(), RadioPlaybackError> {
+            if station.source_type == PERSONAL_PLAYLIST_SOURCE_TYPE {
+                return Err(RadioPlaybackError("needs yt-dlp".into()));
+            }
+            Ok(())
+        }
+        fn stop_radio(&mut self) {}
+        fn refusal_note(&self, station: &RadioStation) -> Option<String> {
+            Some(format!("{} needs a helper.", station.display_name()))
+        }
+    }
+    let mut catalog = catalog();
+    catalog.push(playlist_station(&["https://youtu.be/a"]));
+    let mut state = RadioState::new(catalog);
+    let action = state.select_station("playlist-test", Some(&mut NotingBackend));
+    assert!(action.fallback_used);
+    assert!(action
+        .message
+        .contains("Playlist, Test Mix needs a helper."));
+    assert!(!action.message.contains("would open"));
+}
+
+#[test]
 fn test_reloading_the_folder_puts_a_new_playlist_on_the_dial() {
     // A playlist added mid-run used to need a whole new drive to be seen.
     let tmp = tempfile::tempdir().unwrap();

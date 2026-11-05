@@ -38,6 +38,7 @@
 //! fields with `getattr`, and `models::profile::Profile` implements the trait.
 
 mod record;
+mod record_repair;
 #[cfg(test)]
 mod tests;
 
@@ -59,15 +60,22 @@ pub const HOURS_PER_DAY: f64 = 24.0;
 /// Speeding this far over the posted limit is a serious traffic violation, not
 /// an expensive inconvenience.
 pub const SERIOUS_SPEED_MPH_OVER: f64 = 15.0;
-/// Convictions count against each other for three years (the 383.51 license
-/// ladder; this is the law, not the carrier).
-pub const SERIOUS_WINDOW_DAYS: i64 = 3 * 365;
-/// How far back the carrier's record review, the insurer's surcharge and the
-/// reputation weight look: one game year. 391.25 says three, and that is
-/// what the license ladder above keeps, but the clock only moves on the road
-/// -- a game day per delivery, in practice -- so a three-year hold on
-/// equipment and money was one no career ever drove off (owner, 2026-09-14).
-pub const REVIEW_WINDOW_DAYS: i64 = 365;
+/// How long serious violations count against each other on the license
+/// ladder. 383.51 says three years. The game clock only moves on the road --
+/// a game day per delivery, in practice, and about 40 minutes of play for an
+/// early load -- so three game years was a thousand deliveries and a year
+/// still several hundred. 180 game days keeps the ladder the longest memory
+/// the record has (owner, 2026-11-04).
+pub const SERIOUS_WINDOW_DAYS: i64 = 180;
+/// How far back the carrier's record review, the insurer's surcharge, the
+/// scale's screening and the reputation weight count a citation: 30 game
+/// days, about 30 deliveries. 391.25 says three years, which no career ever
+/// drove off; a year was still several hundred loads for one ticket (owner,
+/// 2026-11-04, after a player's barrel strike).
+pub const REVIEW_WINDOW_DAYS: i64 = 30;
+/// The same reviews count a serious violation or a crash for three times as
+/// long as a citation, so the worse offense still costs more.
+pub const SERIOUS_REVIEW_WINDOW_DAYS: i64 = 90;
 pub const SERIOUS_SECOND_SUSPENSION_DAYS: i64 = 60;
 pub const SERIOUS_THIRD_SUSPENSION_DAYS: i64 = 120;
 
@@ -254,6 +262,8 @@ pub const STOP_SIGN_FINE: f64 = 240.0;
 /// to 1,000 dollars. This takes the top of that range: it sits above the
 /// equipment fines because what it risks is the crew, not the truck.
 pub const WORK_ZONE_BARRELS_FINE: f64 = 1000.0;
+/// The record's reason for a barrel strike, as the driver reads it back.
+pub const WORK_ZONE_BARRELS_REASON: &str = "Drove through the barrels in a work zone";
 /// Failing to pull over promptly -- and then stopping -- is not fleeing. It is
 /// charged as failing to obey a lawful order, which rides in with reckless
 /// driving as a serious traffic violation under 49 CFR 383.51 Table 2, above
@@ -316,12 +326,11 @@ pub const REPUTATION_TERMINATION: f64 = 8.0;
 // been spent too -- and the ledger itself is never written down for it, so a
 // record that ages out gives the points back.
 //
-// The window is the review's one game year (REVIEW_WINDOW_DAYS): the clock
+// The windows are the review's (REVIEW_WINDOW_DAYS for a citation,
+// SERIOUS_REVIEW_WINDOW_DAYS for a serious violation or a crash): the clock
 // only moves while the truck rolls or rests, so a delivery is about a game
-// day and a three-year window is longer than any career yet played -- a
-// weight that never lifts is a lifetime mark by another name. A year is long
-// enough to outlast a bad month and short enough to be driven off (owner,
-// 2026-09-14).
+// day, and a weight that never lifts is a lifetime mark by another name
+// (owner, 2026-09-14; shortened from a year 2026-11-04).
 pub const REPUTATION_WINDOW_DAYS: i64 = REVIEW_WINDOW_DAYS;
 pub const RECORD_CITATION_REPUTATION: f64 = 4.0;
 pub const RECORD_SERIOUS_REPUTATION: f64 = 10.0;
@@ -331,8 +340,8 @@ pub const RECORD_REPUTATION_CAP: f64 = 60.0;
 /// What the driving record costs off reputation right now. A crash counts as
 /// a serious event (owner ruling, 2026-09-24).
 pub fn record_reputation_penalty(record: &DrivingRecord, game_hours: f64) -> f64 {
-    let serious = record.serious_within(game_hours, REPUTATION_WINDOW_DAYS)
-        + record.crashes_within(game_hours, REPUTATION_WINDOW_DAYS);
+    let serious = record.serious_within(game_hours, SERIOUS_REVIEW_WINDOW_DAYS)
+        + record.crashes_within(game_hours, SERIOUS_REVIEW_WINDOW_DAYS);
     let penalty = RECORD_CITATION_REPUTATION
         * record.citations_within(game_hours, REPUTATION_WINDOW_DAYS) as f64
         + RECORD_SERIOUS_REPUTATION * serious as f64
@@ -835,7 +844,8 @@ pub fn standing_cause<P: StandingProfile + ?Sized>(profile: &P) -> &'static str 
     CAUSE_SERVICE
 }
 
-/// "three citations and one serious violation in the last year".
+/// "four citations in the last 30 days and one serious violation in the
+/// last 90 days": each count names its own window.
 pub fn record_window_phrase(record: &DrivingRecord, game_hours: f64) -> String {
     let citations = record.citations_in_window(game_hours);
     let serious = record.serious_in_review_window(game_hours);
@@ -846,7 +856,10 @@ pub fn record_window_phrase(record: &DrivingRecord, game_hours: f64) -> String {
         } else {
             "citations"
         };
-        parts.push(format!("{} {noun}", count_word(citations)));
+        parts.push(format!(
+            "{} {noun} in the last {REVIEW_WINDOW_DAYS} days",
+            count_word(citations)
+        ));
     }
     if serious > 0 {
         let noun = if serious == 1 {
@@ -854,12 +867,12 @@ pub fn record_window_phrase(record: &DrivingRecord, game_hours: f64) -> String {
         } else {
             "serious violations"
         };
-        parts.push(format!("{} {noun}", count_word(serious)));
+        parts.push(format!(
+            "{} {noun} in the last {SERIOUS_REVIEW_WINDOW_DAYS} days",
+            count_word(serious)
+        ));
     }
-    if parts.is_empty() {
-        return String::new();
-    }
-    format!("{} in the last year", parts.join(" and "))
+    parts.join(" and ")
 }
 
 /// The spoken calendar day the record stops meeting `holds(citations,
@@ -950,8 +963,8 @@ pub fn record_consequence_text<P: StandingProfile + ?Sized>(profile: &P) -> Stri
     if record_past_termination_floor(record, game_hours) {
         if profile.carrier_key() == LAST_CHANCE_CARRIER_KEY {
             return format!(
-                "The carrier's insurer will not carry a record like that; {} keeps you on \
-                 sufferance until {}.",
+                "The carrier's insurer will not carry a record like that; {} keeps you on, on \
+                 probation, until {}.",
                 LAST_CHANCE_CARRIER_NAME,
                 record_clears_text(profile, |citations, serious| {
                     citations >= CARRIER_TERMINATION_CITATIONS
@@ -1226,7 +1239,7 @@ pub fn standing_text<P: StandingProfile + ?Sized>(profile: &P) -> String {
     }
     let citations = record.citations_in_window(game_hours);
     let incidents = record.safety_incidents_within(game_hours, REVIEW_WINDOW_DAYS);
-    let crashes = record.crashes_within(game_hours, REVIEW_WINDOW_DAYS);
+    let crashes = record.crashes_within(game_hours, SERIOUS_REVIEW_WINDOW_DAYS);
     let serious = record.serious_in_window(game_hours);
     let majors = record.major_count();
     if citations == 0 && incidents == 0 && crashes == 0 && serious == 0 && majors == 0 {
@@ -1237,26 +1250,28 @@ pub fn standing_text<P: StandingProfile + ?Sized>(profile: &P) -> String {
     // string of them came to ask what the record was for (owner, 2026-09-12).
     // A safety incident and a crash are on the record too: the list below
     // this line names them, and the line said "clean" over them (issue #347).
-    let mut last_year = Vec::new();
+    let mut recent = Vec::new();
     for (count, one, many) in [
         (citations, "citation", "citations"),
         (incidents, "safety incident", "safety incidents"),
-        (crashes, "crash", "crashes"),
     ] {
         if count != 0 {
             let noun = if count == 1 { one } else { many };
-            last_year.push(format!("{} {noun}", count_word(count)));
+            recent.push(format!("{} {noun}", count_word(count)));
         }
     }
-    if !last_year.is_empty() {
-        let join = match last_year.split_last() {
-            Some((last, rest)) if !rest.is_empty() => {
-                let join = rest.join(", ");
-                format!("{join} and {last}")
-            }
-            _ => last_year.concat(),
-        };
-        parts.push(format!("{join} in the last year"));
+    if !recent.is_empty() {
+        parts.push(format!(
+            "{} in the last {REVIEW_WINDOW_DAYS} days",
+            recent.join(" and ")
+        ));
+    }
+    if crashes != 0 {
+        let noun = if crashes == 1 { "crash" } else { "crashes" };
+        parts.push(format!(
+            "{} {noun} in the last {SERIOUS_REVIEW_WINDOW_DAYS} days",
+            count_word(crashes)
+        ));
     }
     if serious != 0 {
         let noun = if serious == 1 {
@@ -1323,7 +1338,7 @@ pub fn suspension_refusal_line<P: StandingProfile + ?Sized>(profile: &P) -> Stri
 pub fn suspension_drive_refusal_line<P: StandingProfile + ?Sized>(profile: &P) -> String {
     let record = record_of(profile);
     if record.lifetime_disqualified {
-        return "You cannot drive with a lifetime CDL disqualification, not even bobtail."
+        return "You cannot drive with a lifetime CDL disqualification, not even without a trailer."
             .to_string();
     }
     let verb = status_verb(record);
@@ -1333,7 +1348,7 @@ pub fn suspension_drive_refusal_line<P: StandingProfile + ?Sized>(profile: &P) -
         "suspension"
     };
     format!(
-        "You cannot drive, not even bobtail, while your CDL is {verb}. The {noun} ends {}.",
+        "You cannot drive, not even without a trailer, while your CDL is {verb}. The {noun} ends {}.",
         clears_text(profile)
     )
 }

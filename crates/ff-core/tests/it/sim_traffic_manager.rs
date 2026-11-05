@@ -9,7 +9,7 @@ use ff_core::sim::traffic_manager::{
     climb_speed_mph, governed_band, BrakingZone, TrafficManager, TrafficVehicle,
     CLIMB_MIN_GRADE_PCT, GOVERNED_BOX_TRUCK_BAND_MPH, GOVERNED_CLASSES, GOVERNED_TRUCK_BAND_MPH,
     MAX_BUBBLE_VEHICLES, MERGE_FREE_START_MI, MERGE_WINDOW_MI, NO_SPAWN_AHEAD_MI,
-    NO_SPAWN_BEHIND_MI, SPAWN_CELL_MI,
+    NO_SPAWN_BEHIND_MI, SPAWN_CELL_MI, TRUCK_LENGTH_MI,
 };
 use ff_core::sim::trip::{Trip, TripOptions};
 use ff_core::sim::trip_models::{hourly_volume_fraction, leg_lane_count, DIRECTIONAL_SPLIT};
@@ -76,7 +76,7 @@ fn test_state_trooper_vehicle_has_clear_status_reason() {
 #[test]
 fn test_traffic_vehicle_maps_new_intents_to_legacy_behavior_and_reason() {
     let expected = [
-        ("cruising", "steady_truck", "steady truck traffic"),
+        ("cruising", "steady_truck", "slow car ahead"),
         ("following", "slow_car", "slow car ahead"),
         ("merging", "merging_vehicle", "merging traffic"),
         ("braking", "braking_traffic", "brake lights ahead"),
@@ -226,7 +226,8 @@ fn test_roving_posts_add_state_trooper_traffic() {
 fn test_faster_merging_vehicle_with_a_safe_gap_moves_into_player_lane() {
     let mut manager = manager(1);
     manager.sync_environment(42.0, weather("great_lakes", 1).effects());
-    manager.vehicles = vec![v("merge", 0.8, 45.0, 1, "merging", "car").with_lane(-1)];
+    // Mile 1.5 is inside one 55 zone, so the car is still below road speed.
+    manager.vehicles = vec![v("merge", 1.5, 45.0, 1, "merging", "car").with_lane(-1)];
 
     manager.update(0.0, 0.0, 20.0, None, None);
     let situation = manager.next_situation(0.0, 55.0).expect("a situation");
@@ -314,11 +315,11 @@ fn test_slow_lead_is_called_only_once_it_can_be_heard() {
     let mut manager = manager(1);
     manager.vehicles = vec![v("slow", 1.5, 41.0, 0, "following", "box truck")];
     assert!(
-        manager.next_situation(0.0, 45.0).is_none(),
+        manager.next_situation(0.0, 55.0).is_none(),
         "a slow lead a mile and a half out is out of earshot, so it is not called yet"
     );
     let situation = manager
-        .next_situation(1.1, 45.0)
+        .next_situation(1.1, 55.0)
         .expect("called once it is within half a mile");
     assert_eq!(situation.kind, "following");
     assert!(situation.message.normal.starts_with("Slow box truck"));
@@ -1192,4 +1193,352 @@ fn test_a_busy_freeway_carries_company_in_the_lanes_beside_the_truck() {
     assert!(bubble_on(two_lane)
         .iter()
         .all(|v| v.key.matches(':').count() == 1));
+}
+
+// -- speeds as a share of the limit, calls judged by closing (2026-11-04) ----
+
+#[test]
+fn a_slow_call_needs_the_truck_to_be_closing() {
+    // Owner, US-219, 2026-11-04: "Slow box truck 0.4 miles ahead, at 42"
+    // went out while cruise had already eased the truck to 39.9 for a limit
+    // drop. The call is about the truck's own closing, not the vehicle's
+    // role, and a vehicle not called is not marked announced, so it is
+    // still called once the truck does catch it.
+    let mut manager = manager(1);
+    manager.vehicles = vec![v("lead", 0.44, 41.5, 0, "cruising", "box truck")];
+    assert!(
+        manager.next_situation(0.0, 39.9).is_none(),
+        "a vehicle pulling away is not slow"
+    );
+    assert!(
+        manager.next_situation(0.0, 44.0).is_none(),
+        "closing under five miles an hour is pacing, not catching"
+    );
+    let situation = manager
+        .next_situation(0.0, 55.0)
+        .expect("called once the truck is closing on it");
+    assert_eq!(situation.kind, "following");
+    assert!(
+        situation
+            .message
+            .normal
+            .starts_with("Slow box truck 0.4 miles ahead"),
+        "{}",
+        situation.message.normal
+    );
+    assert!(manager.slow_call_fresh("lead", 0.0));
+    assert!(manager.slow_call_fresh("lead", 0.9));
+    assert!(!manager.slow_call_fresh("lead", 1.2));
+    assert!(!manager.slow_call_fresh("other", 0.0));
+}
+
+#[test]
+fn a_cruiser_the_truck_catches_is_called_like_any_slow_vehicle() {
+    // A semi at 62 on a 70 was never called, though cruise settled in
+    // behind it just the same; the label it was born with decided, not the
+    // closing speed.
+    let mut manager = manager(1);
+    manager.vehicles = vec![v("semi", 0.5, 62.0, 0, "cruising", "semi")];
+    let situation = manager.next_situation(0.0, 70.0).expect("a situation");
+    assert!(situation.message.normal.starts_with("Slow semi"));
+}
+
+#[test]
+fn town_traffic_runs_near_the_limit() {
+    // The old band ran 3 to 10 under, plus a flat rush draw, as fixed miles
+    // per hour: 15 to 23 in a 30 zone. A share of the limit keeps a town
+    // street's traffic at or near its 30.
+    let mut rng = PyRandom::new_from_i64(7);
+    for intent in ["cruising", "following"] {
+        for _ in 0..200 {
+            let speed = TrafficManager::intent_speed(intent, 30.0, &mut rng, "car");
+            assert!((26.4..=32.4).contains(&speed), "{intent} {speed}");
+        }
+    }
+    let manager = manager(1);
+    assert!((manager.floor_speed(30.0) - 25.5).abs() < 1e-9);
+    assert!((manager.floor_speed(70.0) - 59.5).abs() < 1e-9);
+}
+
+#[test]
+fn the_bubble_draws_no_slow_role_and_no_rush_slowdown() {
+    // Rush hour is denser, not slower: the flat 4 to 10 off every vehicle
+    // born in the window is gone, and nobody is born into the slow role.
+    let mut seen = 0usize;
+    for seed in 0..12 {
+        let mut manager = manager(seed);
+        manager.hour = 17.0;
+        manager.sync_environment(60.0, effects(WeatherKind::Clear));
+        let mut position = 0.0;
+        while position < 40.0 {
+            position += 0.5;
+            manager.update(1.0, position, 20.0, Some(17.0), None);
+            for vehicle in &manager.vehicles {
+                if vehicle.limit_share.is_none() {
+                    continue;
+                }
+                seen += 1;
+                assert_ne!(vehicle.intent, "following", "{}", vehicle.key);
+                assert_eq!(vehicle.slowdown_mph, 0.0, "{}", vehicle.key);
+                // The target was set before this frame's move, so judge it
+                // against the slower of the posting here and the posting a
+                // frame back.
+                let posted = manager
+                    .posted_limit_at(vehicle.position_mi)
+                    .min(manager.posted_limit_at((vehicle.position_mi - 0.35).max(0.0)));
+                let floor = manager.floor_speed(posted);
+                assert!(
+                    vehicle.target_speed_mph
+                        >= floor.min(vehicle.governor_mph.unwrap_or(floor)) - 0.01
+                        || vehicle.intent == "braking"
+                        || vehicle.intent == "merging",
+                    "{} {} aims at {:.1} on a {posted:.0}",
+                    vehicle.key,
+                    vehicle.intent,
+                    vehicle.target_speed_mph
+                );
+            }
+        }
+    }
+    assert!(seen > 100, "the bubble placed only {seen} vehicles");
+}
+
+#[test]
+fn freeway_turn_offs_land_on_an_interchange() {
+    // Nobody vanishes from a rural interstate four miles from the nearest
+    // exit: a drawn turn-off on a freeway moves up to the first interchange
+    // at or past it, within the search window.
+    let manager = manager(1);
+    let ramps: Vec<f64> = ramp_miles(&manager).into_iter().map(|m| m - 0.1).collect();
+    assert!(ramps.len() > 3, "the fixture route has no interchanges");
+    let mut checked = 0usize;
+    let mut mile = 0.5;
+    while mile < manager.route.miles() {
+        let drawn = mile;
+        let got = manager.turn_off_mile(drawn);
+        if manager.freeway_presence_at(drawn) <= 0.0 {
+            assert_eq!(got, drawn, "off a freeway the drawn mile stands");
+        } else {
+            let expected = ramps
+                .iter()
+                .copied()
+                .filter(|m| *m + 1e-9 >= drawn && *m <= drawn + 15.0)
+                .fold(f64::INFINITY, f64::min);
+            if expected.is_finite() {
+                assert!(
+                    (got - expected).abs() < 1e-6,
+                    "at {drawn}: {got} vs {expected}"
+                );
+                checked += 1;
+            } else {
+                assert_eq!(got, drawn, "no interchange within reach at {drawn}");
+            }
+        }
+        mile += 1.7;
+    }
+    assert!(checked > 5, "only {checked} freeway miles checked");
+}
+
+// -- vehicles that see each other (slice 4, 2026-11-05) -----------------------
+
+/// A straight road with the given number of lanes our side and no bubble,
+/// so only the vehicles a test places are on it.
+fn open_road(lanes: i64) -> TrafficManager {
+    let mut leg = Leg::new("A", "B", 100.0, "I-1", "flat", Vec::new());
+    leg.lanes = lanes;
+    if lanes == 1 {
+        leg.divided = Some(false);
+    }
+    let route = Route::from_legs(vec!["A".to_string(), "B".to_string()], vec![leg]);
+    let mut manager = manager_for_route(&route, 7);
+    manager.rolling_bubble = false;
+    assert_eq!(manager.lane_count_at(20.0), lanes);
+    manager
+}
+
+fn placed(key: &str, mile: f64, mph: f64, lane: i64) -> TrafficVehicle {
+    v(key, mile, mph, 0, "cruising", "car").with_lane(lane)
+}
+
+#[test]
+fn a_faster_vehicle_drops_in_behind_a_slower_one_where_there_is_one_lane() {
+    let mut manager = open_road(1);
+    manager.truck_speed_mph = 40.0;
+    manager.vehicles.push(placed("slow", 21.0, 40.0, 0));
+    manager.vehicles.push(placed("fast", 20.0, 60.0, 0));
+    let truck_mi = 10.0;
+    for _ in 0..600 {
+        manager.update(1.0, truck_mi, 1.0, Some(12.0), Some(false));
+        let slow = manager.vehicles.iter().find(|v| v.key == "slow").unwrap();
+        let fast = manager.vehicles.iter().find(|v| v.key == "fast").unwrap();
+        assert!(
+            fast.position_mi + fast.length_mi < slow.position_mi,
+            "the fast car drove through the slow one at mile {:.2}",
+            fast.position_mi
+        );
+        assert_eq!(fast.lane, 0, "there is no lane to pass in");
+    }
+    let slow = manager.vehicles.iter().find(|v| v.key == "slow").unwrap();
+    let fast = manager.vehicles.iter().find(|v| v.key == "fast").unwrap();
+    assert!(
+        (fast.speed_mph - 40.0).abs() < 0.5,
+        "sits at {:.1}",
+        fast.speed_mph
+    );
+    let gap_s = (slow.position_mi - fast.length_mi - fast.position_mi) / 40.0 * 3600.0;
+    assert!((gap_s - 2.0).abs() < 0.3, "holds a {gap_s:.1} second gap");
+    assert_eq!(fast.holding_behind.as_deref(), Some("slow"));
+}
+
+#[test]
+fn a_faster_vehicle_passes_where_there_is_a_lane_and_comes_back() {
+    let mut manager = open_road(2);
+    manager.truck_speed_mph = 40.0;
+    manager.vehicles.push(placed("slow", 21.0, 40.0, 0));
+    manager.vehicles.push(placed("fast", 20.0, 60.0, 0));
+    let truck_mi = 10.0;
+    let mut moved_over_at = None;
+    let mut back_at = None;
+    for second in 0..900 {
+        manager.update(1.0, truck_mi, 1.0, Some(12.0), Some(false));
+        let slow = manager.vehicles.iter().find(|v| v.key == "slow").unwrap();
+        let fast = manager.vehicles.iter().find(|v| v.key == "fast").unwrap();
+        if fast.lane == 1 && moved_over_at.is_none() {
+            moved_over_at = Some(second);
+            assert_eq!(fast.home_lane, Some(0));
+        }
+        if fast.lane == 0 && moved_over_at.is_some() && back_at.is_none() {
+            back_at = Some(second);
+            assert!(
+                fast.position_mi > slow.position_mi + slow.length_mi + 0.25,
+                "came back {:.2} miles ahead of the slow car",
+                fast.position_mi - slow.position_mi
+            );
+            assert_eq!(fast.home_lane, None);
+        }
+        if fast.lane == slow.lane {
+            assert!(
+                (fast.position_mi - slow.position_mi).abs() > slow.length_mi,
+                "the two shared a spot in one lane at second {second}"
+            );
+        }
+    }
+    let fast = manager.vehicles.iter().find(|v| v.key == "fast").unwrap();
+    assert!(moved_over_at.is_some(), "never moved over to pass");
+    assert!(back_at.is_some(), "never came back to the right lane");
+    assert!(
+        (fast.speed_mph - 60.0).abs() < 0.5,
+        "kept its own pace, {:.1}",
+        fast.speed_mph
+    );
+}
+
+#[test]
+fn nothing_moves_into_the_trucks_lane_beside_it() {
+    // The truck is in the left lane, a tenth of a mile behind a car that
+    // wants past a slow one in the right lane: the move waits until the
+    // truck is clear of the window the L key reads.
+    let mut manager = open_road(2);
+    manager.player_lane = 1;
+    manager.truck_speed_mph = 60.0;
+    manager.vehicles.push(placed("slow", 21.0, 40.0, 0));
+    manager.vehicles.push(placed("fast", 20.1, 65.0, 0));
+    let mut truck_mi = 20.0;
+    for _ in 0..100 {
+        manager.update(1.0, truck_mi, 1.0, Some(12.0), Some(false));
+        truck_mi += 60.0 / 3600.0;
+        let fast = manager.vehicles.iter().find(|v| v.key == "fast").unwrap();
+        assert_eq!(fast.lane, 0, "moved over beside the truck");
+    }
+    let fast = manager.vehicles.iter().find(|v| v.key == "fast").unwrap();
+    assert_eq!(fast.holding_behind.as_deref(), Some("slow"));
+}
+
+#[test]
+fn a_vehicle_behind_the_truck_passes_it_where_there_is_a_lane() {
+    let mut manager = open_road(2);
+    manager.player_lane = 0;
+    manager.truck_speed_mph = 50.0;
+    manager.vehicles.push(placed("fast", 19.0, 65.0, 0));
+    let truck_mi = 20.0;
+    let mut passed_in_lane = None;
+    let mut back_at = None;
+    for second in 0..900 {
+        manager.update(1.0, truck_mi, 1.0, Some(12.0), Some(false));
+        let fast = &manager.vehicles[0];
+        let gap = fast.position_mi - truck_mi;
+        if fast.lane == 0 {
+            // Behind the truck, or back in front of it clear of the window
+            // the L key reads: never alongside it in its own lane.
+            assert!(
+                gap < -(fast.length_mi + TRUCK_LENGTH_MI) || gap > 0.47,
+                "in the truck's lane {gap:.2} miles from it at second {second}"
+            );
+        } else if gap.abs() < 0.05 {
+            passed_in_lane = Some(fast.lane);
+        }
+        if fast.lane == 0 && gap > 0.47 && back_at.is_none() {
+            back_at = Some(second);
+        }
+    }
+    assert_eq!(passed_in_lane, Some(1), "went by in the left lane");
+    assert!(back_at.is_some(), "never came back to the right lane ahead");
+}
+
+#[test]
+fn a_vehicle_behind_the_truck_waits_where_there_is_no_lane() {
+    let mut manager = open_road(1);
+    manager.truck_speed_mph = 50.0;
+    manager.vehicles.push(placed("fast", 19.5, 65.0, 0));
+    let truck_mi = 20.0;
+    for _ in 0..300 {
+        manager.update(1.0, truck_mi, 1.0, Some(12.0), Some(false));
+        let fast = &manager.vehicles[0];
+        assert!(
+            fast.position_mi + fast.length_mi < truck_mi - TRUCK_LENGTH_MI,
+            "went through the truck"
+        );
+    }
+    let fast = &manager.vehicles[0];
+    assert_eq!(fast.holding_behind.as_deref(), Some("truck"));
+    assert!(fast.speed_mph <= 50.5, "still doing {:.1}", fast.speed_mph);
+}
+
+#[test]
+fn a_platoon_forms_behind_a_slow_truck_on_a_two_lane_road() {
+    let mut manager = open_road(1);
+    manager.truck_speed_mph = 40.0;
+    manager.vehicles.push(placed("semi", 22.0, 35.0, 0));
+    manager.vehicles.push(placed("car1", 21.0, 58.0, 0));
+    manager.vehicles.push(placed("car2", 20.0, 62.0, 0));
+    manager.vehicles.push(placed("car3", 19.2, 55.0, 0));
+    let truck_mi = 5.0;
+    for _ in 0..900 {
+        manager.update(1.0, truck_mi, 1.0, Some(12.0), Some(false));
+    }
+    let mut order: Vec<(&str, f64, f64)> = manager
+        .vehicles
+        .iter()
+        .map(|v| (v.key.as_str(), v.position_mi, v.speed_mph))
+        .collect();
+    order.sort_by(|a, b| a.1.partial_cmp(&b.1).unwrap());
+    assert_eq!(
+        order.iter().map(|o| o.0).collect::<Vec<_>>(),
+        ["car3", "car2", "car1", "semi"],
+        "the order on the road changed: {order:?}"
+    );
+    for (key, _, mph) in &order {
+        assert!(
+            (mph - 35.0).abs() < 0.5,
+            "{key} doing {mph:.1} behind a semi at 35"
+        );
+    }
+    for pair in order.windows(2) {
+        let gap_s = (pair[1].1 - 0.25 - pair[0].1) / 35.0 * 3600.0;
+        assert!(
+            (gap_s - 2.0).abs() < 0.3,
+            "{} holds {gap_s:.1} seconds",
+            pair[0].0
+        );
+    }
 }

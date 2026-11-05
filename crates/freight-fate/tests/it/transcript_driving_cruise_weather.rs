@@ -116,7 +116,7 @@ fn test_shift_k_resumes_the_braked_away_cruise_speed() {
         set_speed,
         1.0
     ));
-    assert!(said_any(&harness, "Resuming automatic speed control"));
+    assert!(said_any(&harness, "Resuming cruise"));
     frame(&mut harness, DT);
     assert!(approx_abs(
         harness
@@ -339,7 +339,7 @@ fn test_speed_keeper_holds_through_a_facility_zone() {
         10.0,
         0.5
     ));
-    assert!(said_any(&harness, "Speed keeper holding"));
+    assert!(said_any(&harness, "Cruise holding"));
     frames(&mut harness, 60 * 10, DT); // ten seconds, no keys held
     assert!(harness.read_drive(|d| d.keeper_mph).is_some());
     assert!((harness.read_drive(|d| d.truck().speed_mph()) - 10.0).abs() < 4.0);
@@ -363,7 +363,7 @@ fn test_speed_keeper_cancels_on_braking() {
     frame(&mut harness, DT);
     assert!(harness.read_drive(|d| d.keeper_mph).is_none());
     assert!(!harness.read_drive(|d| d.speed_control_armed));
-    assert!(said_any(&harness, "Speed keeper off."));
+    assert!(said_any(&harness, "Cruise off."));
 
     // The access stretch ends.
     harness.with_drive(|d, _| d.trip.zones.clear());
@@ -605,7 +605,7 @@ fn test_speed_keeper_eases_for_a_lower_posted_limit_and_says_so() {
     assert!(
         lines
             .iter()
-            .any(|e| e == "Posted limit lower; speed keeper easing to 15 miles per hour."),
+            .any(|e| e == "Posted limit lower; cruise easing to 15 miles per hour."),
         "{lines:#?}"
     );
     assert!(harness.read_drive(|d| d.truck().speed_mph()) <= 15.0 + KEEPER_SNUB_OVER_MPH);
@@ -617,7 +617,7 @@ fn test_speed_keeper_eases_for_a_lower_posted_limit_and_says_so() {
     assert_eq!(
         lines
             .iter()
-            .filter(|e| e.contains("speed keeper easing to 15"))
+            .filter(|e| e.contains("cruise easing to 15"))
             .count(),
         1
     );
@@ -628,7 +628,7 @@ fn test_speed_keeper_eases_for_a_lower_posted_limit_and_says_so() {
     assert!(harness.read_drive(|d| d.trip.limit_drop_preannounced.contains(&15.0)));
 }
 
-/// Agent drive A (2026-09-24): "Posted limit lower; speed keeper easing to
+/// Agent drive A (2026-09-24): "Posted limit lower; cruise easing to
 /// 15" said again while the truck was building speed from 9. A truck under
 /// the number is not being eased, so nothing is said.
 #[test]
@@ -670,7 +670,7 @@ fn test_speed_keeper_says_nothing_of_easing_when_already_under_the_number() {
         "{lines:#?}"
     );
     assert!(
-        !lines.iter().any(|e| e.contains("speed keeper easing")),
+        !lines.iter().any(|e| e.contains("cruise easing")),
         "{lines:#?}"
     );
 }
@@ -716,7 +716,7 @@ fn test_speed_keeper_takes_the_next_street_up_to_its_posted_number() {
     assert!(
         spoken(&harness)
             .iter()
-            .any(|e| e == "Speed keeper holding 25 miles per hour."),
+            .any(|e| e == "Cruise holding 25 miles per hour."),
         "{:#?}",
         spoken(&harness)
     );
@@ -726,7 +726,7 @@ fn test_speed_keeper_takes_the_next_street_up_to_its_posted_number() {
     // the assist raising it again as the frames run on.
     let said_at_the_street = spoken(&harness)
         .iter()
-        .filter(|e| e.contains("Speed keeper holding 25"))
+        .filter(|e| e.contains("Cruise holding 25"))
         .count();
     assert_eq!(said_at_the_street, 1, "{:#?}", spoken(&harness));
     frames(&mut harness, 60 * 40, DT);
@@ -736,7 +736,7 @@ fn test_speed_keeper_takes_the_next_street_up_to_its_posted_number() {
     assert_eq!(
         spoken(&harness)
             .iter()
-            .filter(|e| e.contains("Speed keeper holding 25"))
+            .filter(|e| e.contains("Cruise holding 25"))
             .count(),
         said_at_the_street,
         "{:#?}",
@@ -754,7 +754,7 @@ fn test_speed_keeper_takes_the_next_street_up_to_its_posted_number() {
     )); // the number it was handed
     assert!(!spoken(&harness)[before..]
         .iter()
-        .any(|e| e.contains("Speed keeper holding")));
+        .any(|e| e.contains("Cruise holding")));
 }
 
 #[test]
@@ -808,7 +808,8 @@ fn test_speed_keeper_ignores_a_slower_vehicle_miles_up_the_road() {
     // it is re-placed each frame so its gap behaves the way the patch's did.
     let mut harness = bench_drive("Far Lead", 200.0, 0.0);
     release_keys(&mut harness);
-    post_zone(&mut harness, 45.0, "construction");
+    // A street: a highway work zone is cruise's now (issue #518).
+    post_zone(&mut harness, 45.0, "facility access road");
     let gap_mi = 2.2;
     let lead_mph = 35.0;
     press(&mut harness, Key::E, None);

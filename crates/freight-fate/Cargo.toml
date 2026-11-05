@@ -53,6 +53,9 @@ agent-server = []
 # life of the renderer, which the borrow-checked `Texture<'creator>` cannot
 # live beside in the same struct. The renderer frees it when it goes.
 visuals = ["dep:ab_glyph", "dep:memmap2", "dep:objc2-app-kit", "sdl2/unsafe_textures"]
+# The game crate's long tests (whole-map drives and sweeps), skipped by a
+# plain `cargo test`; see ff-core's feature of the same name.
+slow-tests = ["ff-core/slow-tests"]
 
 [lints]
 workspace = true
@@ -60,6 +63,8 @@ workspace = true
 [dependencies]
 ff-core = { path = "../ff-core" }
 hearken.workspace = true
+# The self-updater (see src/updater.rs).
+hearken-update = { workspace = true, features = ["http"] }
 log.workspace = true
 env_logger.workspace = true
 serde.workspace = true

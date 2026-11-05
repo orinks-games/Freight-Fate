@@ -206,13 +206,13 @@ const LANE: SoundCategory = SoundCategory {
                     .delay_s(3.0),
             ],
             "A soft tock, once a beat, panned to where the truck sits inside \
-             its lane. You turn it on and off yourself and it keeps ticking \
-             until you stop it. Press I to toggle it. The demo \
+             its lane. You turn it on and off yourself with the lane locator \
+             key, and it keeps ticking until you stop it. The demo \
              walks it from the left of the lane to the right.",
         )
         .when(
-            "Lane keeping partial or off, above walking pace, and the I-key \
-             lane locator switched on.",
+            "Lane keeping partial or off, above walking pace, and the lane \
+             locator switched on.",
         ),
         SoundEntry::new(
             "Lane guide tone",
@@ -292,7 +292,7 @@ const LANE: SoundCategory = SoundCategory {
              blinker clicking off; an assisted lane change ends with the \
              sound of tires crossing the painted line.",
         )
-        .when("The I-key locator silences ordinary steering clicks, but not an armed exit signal."),
+        .when("The lane locator silences ordinary steering clicks, but not an armed exit signal."),
         SoundEntry::new(
             "Blinker off",
             // Quieter and from straight ahead, exactly as
@@ -305,7 +305,7 @@ const LANE: SoundCategory = SoundCategory {
         )
         .when(
             "Straightening up clicks it off only with lane keeping partial or \
-             off and the I-key locator off. Canceling a running exit blinker \
+             off and the lane locator off. Canceling a running exit blinker \
              clicks it off in every mode.",
         ),
         SoundEntry::new(
@@ -396,14 +396,14 @@ const ENGINE_BRAKE: SoundCategory = SoundCategory {
         SoundEntry::new(
             "Engine brake, stage one",
             &[Cue::new("engine/jake_1600").volume(0.19).hold_s(2.5)],
-            "Two cylinders of retard: the lightest setting. Enough to hold \
+            "Two cylinders braking: the lightest setting. Enough to hold \
              speed on a gentle grade without touching the brakes. Drivers \
              call this the jake.",
         ),
         SoundEntry::new(
             "Engine brake, stage two",
             &[Cue::new("engine/jake_1600").volume(0.49).hold_s(2.5)],
-            "Four cylinders of retard. The usual working setting on a long \
+            "Four cylinders braking. The usual working setting on a long \
              descent. Drivers call this the jake.",
         ),
         SoundEntry::new(
@@ -423,7 +423,7 @@ const ENGINE_BRAKE: SoundCategory = SoundCategory {
         )
         .when(
             "More than 7 miles per hour over the posted limit: past \
-             anything adaptive cruise will do on its own, and short of where \
+             anything cruise will do on its own, and short of where \
              a trooper can act on your speed.",
         ),
         SoundEntry::new(
@@ -511,7 +511,7 @@ const HAZARDS: SoundCategory = SoundCategory {
             "Construction zone",
             &[Cue::new("events/construction_zone")],
             "Roadwork ahead. The posted limit drops, a lane may close, and \
-             the taper callout names which side. Move over when told or you \
+             the lane ending callout names which side. Move over when told or you \
              will go through the barrels.",
         ),
         SoundEntry::new(
@@ -585,10 +585,9 @@ const ENFORCEMENT: SoundCategory = SoundCategory {
              officer sitting there has to go on.",
         )
         .when(
-            "Always. Nothing turns it off. Every post that is allowed \
-             to cost you anything sounds this first, at every enforcement \
-             presence setting, and the radio is pulled down out of the way \
-             so you can hear it.",
+            "Always. Nothing turns it off. Every post that can cost you \
+             anything sounds this first, and the radio is pulled down out of \
+             the way so you can hear it.",
         ),
         SoundEntry::new(
             "Police car going by",
@@ -613,16 +612,15 @@ const ENFORCEMENT: SoundCategory = SoundCategory {
             "The marker again, with a vehicle going past a fifth of a second \
              behind it. You have just passed an enforcement post and a marked \
              car is around it. This one is news, not a warning: it sounds \
-             once you are already by, and it does not tell you whether \
-             anybody was sitting there. The demo plays it on the left, the \
+             once you are already by, and it means an officer was sitting \
+             there. The demo plays it on the left, the \
              side an ordinary post is on, and then on the right, the side a \
              weigh station is on.",
         )
         .when(
-            "Past a post with somebody in it, at any enforcement \
-             presence setting. Past an empty one, only with presence set to \
-             full. Never past a scale that is being worked: there the \
-             approach bed carries the warning instead.",
+            "Past a post with an officer in it. An empty post is silent. \
+             Never past a scale that is being worked: there the weigh \
+             station approach sound carries the warning instead.",
         ),
         SoundEntry::new(
             "Siren",

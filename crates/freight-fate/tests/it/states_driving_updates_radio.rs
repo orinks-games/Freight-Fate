@@ -820,6 +820,53 @@ fn test_a_playlist_with_nothing_playable_says_so_once() {
     assert!(!tape.stopped().is_empty());
 }
 
+#[test]
+fn test_a_playlist_of_youtube_links_names_yt_dlp_when_it_is_missing() {
+    // YouTube links play only through a yt-dlp the player installs, so its
+    // absence is the cause the line names, not the tracks.
+    let mut app = TestApp::new();
+    let mut d = a_denver_drive(&mut app, 5);
+    let _tape = MusicAudio::install(&mut app);
+    let station = a_playlist_station("pl-youtube", &["https://www.youtube.com/watch?v=live"]);
+    app.clear_speech();
+    d.playlist_nothing_plays(&mut app.ctx, &station);
+    let said = app.event_lines();
+    assert_eq!(said.len(), 1);
+    if freight_fate::audio::youtube::yt_dlp_installed() {
+        assert!(said[0].contains("Check the tracks in your Playlists folder."));
+    } else {
+        assert_eq!(
+            said[0],
+            "Nothing in My Playlist would play. Its YouTube links need yt-dlp, which is not installed."
+        );
+    }
+}
+
+#[test]
+fn test_a_playlist_that_leaves_the_dial_for_want_of_yt_dlp_names_it() {
+    // The handover after a playlist refuses twice is what the player hears
+    // when tuning to it; that sentence names yt-dlp, not the tracks.
+    let mut app = TestApp::new();
+    let mut d = a_denver_drive(&mut app, 5);
+    let youtube = a_playlist_station("pl-youtube", &["https://youtu.be/live"]);
+    let files = a_playlist_station("pl-files", &["C:/music/one.ogg"]);
+    let (youtube_note, files_note) = d.with_radio_backend(&mut app.ctx, |_radio, backend| {
+        (backend.refusal_note(&youtube), backend.refusal_note(&files))
+    });
+    assert_eq!(files_note, None);
+    if freight_fate::audio::youtube::yt_dlp_installed() {
+        assert_eq!(youtube_note, None);
+    } else {
+        assert_eq!(
+            youtube_note.as_deref(),
+            Some(
+                "My Playlist needs yt-dlp for its YouTube links, and it is not \
+                 installed; it is off the dial for the rest of this session."
+            )
+        );
+    }
+}
+
 /// A playlist station tuned in, engine running, with the entry on the air.
 fn tune_playlist(
     app: &mut TestApp,

@@ -127,7 +127,10 @@ jobs:
           fi
           binary="target/${{ matrix.target }}/debug/freightfate"
           test -x "$binary"
-          if ! nm -gU "$binary" | grep -q 'ff_touch'; then
+          # Read nm's whole output before matching: `grep -q` quits at the first
+          # hit, nm dies of SIGPIPE, and pipefail fails the step on a good binary.
+          symbols="$(nm -gU "$binary")"
+          if ! grep -q 'ff_touch' <<<"$symbols"; then
             echo "::error::$binary carries no ff_touch symbols."
             exit 1
           fi

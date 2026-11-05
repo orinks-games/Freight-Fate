@@ -89,21 +89,77 @@ fn test_new_hire_board_offers_single_assignment_with_decline() {
 
     assert!(with_state::<JobBoardState, _>(&app, |b, _| b.assigned_mode()));
     let labels = labels::<JobBoardState>(&app);
-    assert!(labels[0].starts_with("Accept assigned dispatch:"));
+    assert!(labels[0].starts_with("Assigned load:"));
     assert!(labels[0].contains("70 miles")); // the recommended (shortest) load
     assert!(labels[1].starts_with("Decline and request another load:"));
     assert!(labels[1].contains(&format!("{NEW_HIRE_DECLINE_BUDGET} declines left")));
     assert_eq!(labels.last().unwrap(), "Back to terminal");
     let said = app.main_lines().last().cloned().unwrap();
     assert!(said.starts_with("Dispatch board. "));
-    assert!(said.contains(&format!(
-        "{NEW_HIRE_DECLINE_BUDGET} declines left before your next promotion."
-    )));
+    assert!(
+        said.starts_with("Dispatch board. Assigned load: "),
+        "{said}"
+    );
     // How long assignment lasts is on the review row's help.
     select::<JobBoardState>(&mut app, "Review the rest of today's board");
     key(&mut app, Key::F1);
     let help = app.main_lines().last().cloned().unwrap();
     assert!(help.contains(&format!("level {SENIOR_LOAD_CHOICE_LEVEL}")));
+}
+
+/// Came down from Milwaukee to Chicago; the board holds the load straight
+/// back up (the shortest) and one to Indianapolis. Dispatch assigns
+/// Indianapolis: a lane is recent in both directions, so the straight
+/// return waits behind every unseen lane (owner report, 2026-10-26: a load
+/// north, then the next one straight back south).
+#[test]
+fn the_load_straight_back_where_the_truck_came_from_is_not_the_assignment() {
+    let mut app = TestApp::new();
+    new_hire(&mut app, "Loop Driver");
+    {
+        let p = profile_mut(&mut app);
+        p.career.deliveries = 12;
+        p.recent_lanes = vec!["milwaukee_wi_us:chicago_il_us".to_string()];
+    }
+    let mut onward = job(180.0);
+    onward.destination = "Indianapolis".to_string();
+    push_board(&mut app, vec![onward, job(92.0)]);
+
+    assert!(with_state::<JobBoardState, _>(&app, |b, _| b.assigned_mode()));
+    let labels = labels::<JobBoardState>(&app);
+    assert!(labels[0].starts_with("Assigned load:"), "{labels:?}");
+    assert!(labels[0].contains("180 miles"), "{labels:?}");
+    // The return is still on the board, behind the onward load.
+    let order: Vec<f64> = with_state::<JobBoardState, _>(&app, |b, _| {
+        b.assigned_queue()
+            .iter()
+            .map(|&i| b.jobs[i].distance_mi)
+            .collect()
+    });
+    assert_eq!(order, vec![180.0, 92.0]);
+}
+
+/// The same board for a senior driver who picks: the cursor opens on the
+/// Indianapolis load, and the return is a row down, still theirs to take.
+#[test]
+fn the_cursor_skips_the_straight_return_when_the_driver_picks() {
+    let mut app = TestApp::new();
+    new_hire(&mut app, "Loop Picker");
+    {
+        let p = profile_mut(&mut app);
+        p.career.xp = LEVEL_XP[(SENIOR_LOAD_CHOICE_LEVEL - 1) as usize];
+        p.career.deliveries = 20;
+        p.career.reputation = 80.0;
+        p.recent_lanes = vec!["milwaukee_wi_us:chicago_il_us".to_string()];
+    }
+    let mut onward = job(180.0);
+    onward.destination = "Indianapolis".to_string();
+    push_board(&mut app, vec![job(92.0), onward]);
+
+    assert!(!with_state::<JobBoardState, _>(&app, |b, _| b.assigned_mode()));
+    let focused = with_state::<JobBoardState, _>(&app, |b, _| b.jobs[b.menu().index].distance_mi);
+    assert_eq!(focused, 180.0);
+    assert_eq!(with_state::<JobBoardState, _>(&app, |b, _| b.jobs.len()), 2);
 }
 
 #[test]
@@ -123,7 +179,7 @@ fn test_declining_assignment_costs_reputation_and_draws_next_load() {
     assert!(said.contains("service record"));
     assert!(said.contains("180 miles")); // the next candidate was drawn
     let labels = labels::<JobBoardState>(&app);
-    assert!(labels[0].starts_with("Accept assigned dispatch:"));
+    assert!(labels[0].starts_with("Assigned load:"));
     assert!(labels[0].contains("180 miles"));
 }
 
@@ -140,7 +196,7 @@ fn test_exhausted_decline_budget_locks_board_to_accept_only() {
     push_board(&mut app, vec![job(180.0), job(70.0)]);
 
     let labels = labels::<JobBoardState>(&app);
-    assert!(labels[0].starts_with("Accept assigned dispatch:"));
+    assert!(labels[0].starts_with("Assigned load:"));
     assert!(!labels.iter().any(|l| l.starts_with("Decline")));
 }
 
@@ -152,7 +208,7 @@ fn test_single_candidate_assignment_offers_no_decline() {
     push_board(&mut app, vec![job(70.0)]);
 
     let labels = labels::<JobBoardState>(&app);
-    assert!(labels[0].starts_with("Accept assigned dispatch:"));
+    assert!(labels[0].starts_with("Assigned load:"));
     assert!(!labels.iter().any(|l| l.starts_with("Decline")));
 }
 
@@ -451,7 +507,7 @@ fn test_assigned_board_help_describes_accept_and_decline() {
 
     let help = with_state::<JobBoardState, _>(&app, |b, _| b.intro_help().to_string());
     assert!(help.contains("Assigned load"));
-    assert!(help.contains("Decline costs dispatch trust"));
+    assert!(help.contains("Declining costs reputation"));
     // the browsable class-level help is untouched for senior boards
     assert!(JOB_BOARD_INTRO_HELP.contains("Tab is the market"));
 }
@@ -519,7 +575,7 @@ fn test_f1_on_dispatch_job_opens_structured_detail_view() {
     // so a player who does not know the geography can ask for it here.
     assert!(joined.contains("in Buffalo, New York"));
     assert!(joined.contains("Distance:"));
-    assert!(joined.contains("Carrier gross:"));
+    assert!(joined.contains("Pay for the load:"));
     assert!(joined.contains("Dollars per mile:"));
     assert!(!joined.contains("Route details happen after pickup"));
     assert_eq!(rows[rows.len() - 2], "Accept this dispatch");
@@ -923,9 +979,9 @@ fn test_company_driver_bulk_job_uses_carrier_trailer_support() {
 
     // New company hires get the load as a dispatch assignment.
     let row = labels::<JobBoardState>(&app)[0].clone();
-    assert!(row.starts_with("Accept assigned dispatch:"));
+    assert!(row.starts_with("Assigned load:"));
     assert!(!row.contains("Carrier trailer provided"));
-    assert!(row.contains("Your pay about"));
+    assert!(row.contains(" to you."), "{row}");
     assert!(!row.contains("Locked job"));
 }
 
@@ -943,9 +999,8 @@ fn test_owner_operator_hears_missing_trailer_gate_and_preview() {
     let row = labels::<JobBoardState>(&app)[0].clone();
     assert!(row.starts_with("Locked job 1 of 1"));
     assert!(row.contains("Needs Bulk trailer program"));
-    assert!(row.contains("Gross revenue"));
-    assert!(row.contains("Take-home about"));
-    assert!(row.contains("dollars costs"));
+    assert!(row.contains("Pays "));
+    assert!(row.contains(" after costs."), "{row}");
 }
 
 #[test]
@@ -963,7 +1018,7 @@ fn test_own_authority_owned_trailer_row_shows_direct_market_fit() {
     let row = labels::<JobBoardState>(&app)[0].clone();
     assert!(row.starts_with("Job 1 of 1"));
     assert!(row.contains("Owned trailer: Bulk"));
-    assert!(row.contains("Direct gross"));
+    assert!(row.contains("Pays "));
     assert!(!row.contains("owned-trailer reserve"));
     assert!(!row.contains("Locked job"));
 }
@@ -1470,14 +1525,14 @@ fn test_a_disqualified_owner_operator_cannot_bobtail() {
     let city = CityMenuState::new(&app.ctx, false);
     app.push_state(city);
     app.clear_speech();
-    select::<CityMenuState>(&mut app, "Bobtail to a nearby city");
+    select::<CityMenuState>(&mut app, "Drive to a nearby city without a trailer");
     assert!(is::<CityMenuState>(&app), "the bobtail menu opened");
     let expected = enforcement::suspension_drive_refusal_line(profile(&app));
     let ends = enforcement::clears_text(profile(&app));
     assert_eq!(
         expected,
         format!(
-            "You cannot drive, not even bobtail, while your CDL is disqualified. The \
+            "You cannot drive, not even without a trailer, while your CDL is disqualified. The \
              disqualification ends {ends}."
         )
     );
@@ -1505,7 +1560,7 @@ fn test_a_lifetime_disqualification_refuses_bobtail_without_an_end_date() {
     }
     assert_eq!(
         enforcement::suspension_drive_refusal_line(profile(&app)),
-        "You cannot drive with a lifetime CDL disqualification, not even bobtail."
+        "You cannot drive with a lifetime CDL disqualification, not even without a trailer."
     );
 }
 
@@ -1674,7 +1729,7 @@ fn test_the_terminal_does_not_double_the_dalles_article() {
     app.push_state(city);
 
     let entry = entry_announcement(&app);
-    assert!(entry.contains(" in The Dalles. "), "{entry}");
+    assert!(entry.contains("The Dalles Company Yard. "), "{entry}");
     assert!(!entry.contains("the The"), "{entry}");
 }
 
@@ -1892,7 +1947,7 @@ fn test_company_driver_board_labels_carrier_gross() {
     assert!(with_state::<JobBoardState, _>(&app, |b, _| !b
         .jobs
         .is_empty()));
-    assert!(labels::<JobBoardState>(&app)[0].contains("Carrier gross"));
+    assert!(labels::<JobBoardState>(&app)[0].contains("Pays "));
 }
 
 #[test]
@@ -1917,7 +1972,7 @@ fn test_owner_operator_job_board_labels_missing_trailer_program() {
     push_board(&mut app, vec![job]);
 
     assert!(labels::<JobBoardState>(&app)[0].contains("Needs Reefer trailer program"));
-    assert!(labels::<JobBoardState>(&app)[0].contains("Gross revenue"));
+    assert!(labels::<JobBoardState>(&app)[0].contains("Pays "));
     key(&mut app, Key::Return);
     assert!(profile(&app).active_trip.is_none());
 }
@@ -1972,7 +2027,7 @@ fn test_own_authority_job_board_labels_owned_trailer_and_program_charge() {
     }
     push_board(&mut app, vec![job()]);
     let row = labels::<JobBoardState>(&app)[0].clone();
-    assert!(row.contains("Direct gross"));
+    assert!(row.contains("Pays "));
     assert!(row.contains("Owned trailer: Reefer"));
     assert!(!row.contains("owned-trailer reserve"));
     app.pop_state();
@@ -2030,7 +2085,7 @@ fn test_direct_freight_board_pays_more_and_uses_direct_label() {
     }
     push_board(&mut app, vec![direct[0].clone()]);
     let row = labels::<JobBoardState>(&app)[0].clone();
-    assert!(row.contains("Direct gross"));
+    assert!(row.contains("Pays "));
     assert!(row.contains("Trailer program:"));
 }
 

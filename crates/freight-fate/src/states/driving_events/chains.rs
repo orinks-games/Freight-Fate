@@ -267,7 +267,7 @@ impl DrivingState {
                     self.cancel_cruise(ctx, true);
                 }
                 // Quietly: the street's "Speed limit 25." follows at once,
-                // and "Speed keeper holding 25" before it said the same
+                // and "Cruise holding 25" before it said the same
                 // number twice (owner, 2026-10-25: the move onto city
                 // streets said too much).
                 self.engage_keeper(ctx, limit, &zone_reason, Some(limit), false);

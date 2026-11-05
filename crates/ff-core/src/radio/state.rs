@@ -988,6 +988,9 @@ impl RadioState {
             // and the radio hands over to the next station on the same band
             // rather than dropping the player to the silent fallback.
             let original = reception;
+            let refusal = backend
+                .refusal_note(&original.station)
+                .unwrap_or_else(|| Self::refusal_clause(&original.station));
             self.mark_unplayable(&original.station.id.clone());
             let replacement = self
                 .same_band_replacement(&original.station)
@@ -1002,11 +1005,7 @@ impl RadioState {
                 "Radio handover."
             };
             return RadioAction {
-                message: Self::play_message(
-                    prefix,
-                    &replacement,
-                    &Self::refusal_clause(&original.station),
-                ),
+                message: Self::play_message(prefix, &replacement, &refusal),
                 station: replacement.station.clone(),
                 enabled: true,
                 reception: replacement,

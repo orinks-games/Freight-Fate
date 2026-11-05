@@ -7,6 +7,7 @@ pub mod enforcement_posts;
 pub mod hos;
 pub mod lane;
 pub mod lane_guidance;
+pub mod limit_gaps;
 pub mod pedal_latch;
 pub mod real_fuel_price;
 pub mod real_traffic;

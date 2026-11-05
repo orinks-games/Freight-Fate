@@ -45,6 +45,9 @@ fn ten_times_rig() -> Rig {
         ..RigOptions::default()
     });
     rig.app.ctx.settings.time_scale = 10.0;
+    // The driver signals for the scale here, so lane keeping is partial:
+    // on full it signals for an open scale itself.
+    rig.app.ctx.settings.lane_keeping = "partial".to_string();
     rig.drive.trip.time_scale = 10.0;
     rig
 }

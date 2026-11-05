@@ -760,9 +760,9 @@ fn test_the_status_readout_names_the_grade_cap_and_leaves_the_set_speed_alone() 
         d.update_cruise(ctx, DT, false, false, false);
     });
 
-    let readout = harness.with_drive(|d, ctx| d.cruise_holding_text(ctx));
+    let readout = harness.with_drive(|d, ctx| d.cruise_holding_text(ctx, false));
     assert_eq!(
-        readout, "adaptive cruise holding 55 miles per hour for the grade, set 65 miles per hour",
+        readout, "cruise holding 55 miles per hour for the grade, set 65 miles per hour",
         "{readout}"
     );
     // And the driver's own number is still the set speed, not the cap.

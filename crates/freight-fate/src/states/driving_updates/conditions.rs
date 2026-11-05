@@ -360,7 +360,21 @@ impl DrivingState {
             );
             return;
         }
-        self.hold_approach_speed(remaining_m, ARRIVAL_CREEP_MPH);
+        // The last lengths: the same comfort-rate shed, carried all the way to
+        // the point and floored at the walk, so the truck is still braking
+        // smoothly into the gate rather than down at two miles an hour two
+        // hundred feet out. That flat walk took over a minute on the real
+        // clock a delivery ramp runs on (owner, Jamestown, 2026-11-04: "way,
+        // way, way too slow"). Under the profile, the shed hold drives the
+        // truck back up to it, so an early stop is still impossible.
+        let (hold_mph, lane) = self.arrival_shed_hold_mph(remaining_m, ARRIVAL_CREEP_MPH);
+        self.hold_approach_speed_profile(
+            remaining_m,
+            hold_mph,
+            ARRIVAL_CREEP_MPH,
+            Some(lane),
+            ARRIVAL_CREEP_THROTTLE_MAX,
+        );
     }
 
     /// The pace the arrival keeps on a facility lane `remaining_m` short of
@@ -371,6 +385,12 @@ impl DrivingState {
     /// still moves. The final creep stretch is the caller's. The second
     /// half says which of the two the hold is.
     fn facility_lane_hold_mph(&mut self, remaining_m: f64) -> (f64, LaneHold) {
+        self.arrival_shed_hold_mph(remaining_m, FACILITY_LANE_ROLL_MPH)
+    }
+
+    /// `facility_lane_hold_mph` with the floor chosen by the caller: the
+    /// lane roll out on the lane, the gate walk in the final lengths.
+    fn arrival_shed_hold_mph(&mut self, remaining_m: f64, floor_mph: f64) -> (f64, LaneHold) {
         let (posted_mph, _) = self.trip.speed_limit_at(self.trip.position_mi);
         // On the facility's streets there is no ramp advisory to cap it;
         // the street's own posted number is the lane's.
@@ -387,21 +407,17 @@ impl DrivingState {
         } else {
             LaneHold::Lane
         };
-        (profile_mph.min(lane_mph).max(FACILITY_LANE_ROLL_MPH), kind)
+        (profile_mph.min(lane_mph).max(floor_mph), kind)
     }
 
-    /// The stop profile's pedal for this frame: brake down to `target_mph`
-    /// over `remaining_m`, or hold it with a capped throttle nudge.
+    /// The stop profile's pedal for this frame, with the pedal ceiling chosen
+    /// by the caller: a creep to a point, or the chain ramp's run up to the
+    /// posted limit. Brake down to `target_mph` over `remaining_m`, or hold it
+    /// with a capped throttle nudge.
     ///
     /// Shared by the arrival latch above and the chain ramp's roll to the
     /// streets. Nothing is added while anyone has a foot on the brake, and the
     /// throttle is only ever raised, so a driver's own pedal always wins.
-    fn hold_approach_speed(&mut self, remaining_m: f64, target_mph: f64) {
-        self.hold_approach_speed_with(remaining_m, target_mph, ARRIVAL_CREEP_THROTTLE_MAX);
-    }
-
-    /// `hold_approach_speed` with the pedal ceiling chosen by the caller: a
-    /// creep to a point, or the chain ramp's run up to the posted limit.
     fn hold_approach_speed_with(&mut self, remaining_m: f64, target_mph: f64, throttle_max: f64) {
         self.hold_approach_speed_profile(remaining_m, target_mph, target_mph, None, throttle_max);
     }
@@ -662,7 +678,8 @@ impl DrivingState {
     /// per level; the roll is seeded, so a reload does not re-roll the dice.
     pub fn update_chain_law(&mut self, ctx: &mut GameContext) {
         let level = self.trip.chain_law_level();
-        if level == 0 || self.trip.truck.speed_mph() < 3.0 {
+        // The assist pulling in to chain up is not rolling in without chains.
+        if level == 0 || self.trip.truck.speed_mph() < 3.0 || self.chain_up_pending() {
             return;
         }
         let Some(area) = self.trip.chain_law_area_at(self.trip.position_mi) else {
@@ -715,7 +732,7 @@ impl DrivingState {
         if !self.chain_law_cited.insert(key) {
             ctx.audio.play("ui/warning");
             ctx.say_event_with(
-                format!("Chain checkpoint. The officer stops you again. {after}"),
+                format!("Chain control. The officer stops you again. {after}"),
                 SayEvent::queued()
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Navigation),
@@ -725,7 +742,7 @@ impl DrivingState {
         if self.new_driver_warning(ctx) {
             ctx.audio.play("ui/warning");
             ctx.say_event_with(
-                format!("Chain checkpoint. An officer stops you and gives you a warning. {after}"),
+                format!("Chain control. An officer stops you and gives you a warning. {after}"),
                 SayEvent::queued()
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Navigation),
@@ -761,7 +778,7 @@ impl DrivingState {
         // queue instead of an interrupt that could erase one.
         ctx.say_event_with(
             format!(
-                "Chain checkpoint. An officer stops you and writes a chain-law citation, {} \
+                "Chain control. An officer stops you and writes a chain-law citation, {} \
                  dollars.{} {after} You have {} dollars.",
                 fmt_grouped(fine, 0),
                 construction_zone_fine_clause(zone),
@@ -773,7 +790,7 @@ impl DrivingState {
         );
     }
 
-    /// Stop the truck on the checkpoint apron with the parking brake set.
+    /// Stop the truck at the chain control with the parking brake set.
     pub fn hold_at_chain_checkpoint(&mut self, ctx: &mut GameContext) {
         self.chain_checkpoint_hold = true;
         let truck = &mut self.trip.truck;
@@ -812,9 +829,9 @@ impl DrivingState {
         if !self.trip.truck.parking_brake || self.trip.truck.velocity_mps > 0.0 {
             self.hold_at_chain_checkpoint(ctx);
             let line = if self.usable_chains_aboard(ctx) {
-                "Held at the chain checkpoint. Put your chains on from the pause menu."
+                "Held at the chain control. Put your chains on from the pause menu."
             } else {
-                "Held at the chain checkpoint. You have no chains. Call dispatch for a set, \
+                "Held at the chain control. You have no chains. Call dispatch for a set, \
                  wait here until the chain law lifts, or turn back."
             };
             ctx.say_event_with(line, SayEvent::new().category(SpeechCategory::Navigation));
@@ -850,21 +867,21 @@ impl DrivingState {
                 let waited_text = ff_core::sim::hos::duration_text(waited / 60.0);
                 return Some(match (waited > 0.0, turn_back) {
                     (true, true) => format!(
-                        "You waited {waited_text}, and your 14-hour duty window is nearly used \
-                         up. The chain law still stands. Sleep at the checkpoint from the pause \
+                        "You waited {waited_text}, and your duty window is nearly used \
+                         up. The chain law still stands. Sleep at the chain control from the pause \
                          menu, or turn back."
                     ),
                     (true, false) => format!(
-                        "You waited {waited_text}, and your 14-hour duty window is nearly used \
-                         up. The chain law still stands. Sleep at the checkpoint from the pause \
+                        "You waited {waited_text}, and your duty window is nearly used \
+                         up. The chain law still stands. Sleep at the chain control from the pause \
                          menu."
                     ),
-                    (false, true) => "Your 14-hour duty window is nearly used up. The chain law \
-                                      still stands. Sleep at the checkpoint from the pause menu, \
+                    (false, true) => "Your duty window is nearly used up. The chain law \
+                                      still stands. Sleep at the chain control from the pause menu, \
                                       or turn back."
                         .to_string(),
-                    (false, false) => "Your 14-hour duty window is nearly used up. The chain \
-                                       law still stands. Sleep at the checkpoint from the pause \
+                    (false, false) => "Your duty window is nearly used up. The chain \
+                                       law still stands. Sleep at the chain control from the pause \
                                        menu."
                         .to_string(),
                 });
@@ -880,7 +897,7 @@ impl DrivingState {
                 ctx,
                 CHAIN_WAIT_STEP_MIN,
                 Some("on_duty_not_driving"),
-                "chain checkpoint",
+                "chain control",
             );
             hos_mut_of(ctx).on_duty(CHAIN_WAIT_STEP_MIN);
             waited += CHAIN_WAIT_STEP_MIN;
@@ -891,7 +908,7 @@ impl DrivingState {
         }
     }
 
-    /// After a sleep at the checkpoint: ask again for the warnings and the
+    /// After a sleep at the chain control: ask again for the warnings and the
     /// live sky where the truck stands, and release the hold when the law
     /// lifted overnight. Returns the line to add: the lift, or that the law
     /// still stands. None when the truck was not held.
@@ -950,12 +967,12 @@ impl DrivingState {
         Some(if limit.kind == "break" {
             format!(
                 "Turning back takes {drive}, more driving than you have before your 30-minute \
-                 break. Wait here, which counts as your break, or sleep at the checkpoint."
+                 break. Wait here, which counts as your break, or sleep at the chain control."
             )
         } else {
             format!(
                 "Turning back takes {drive} of driving, more than your hours allow. Wait here \
-                 for the chain law to lift, or sleep at the checkpoint from the pause menu."
+                 for the chain law to lift, or sleep at the chain control from the pause menu."
             )
         })
     }
@@ -997,7 +1014,7 @@ impl DrivingState {
         let city = ctx.world.city(&key).map(|c| c.name.clone()).unwrap_or(key);
         ctx.audio.play("ui/warning");
         Some(format!(
-            "You turned back to {city}, {} behind the checkpoint, in {} minutes. The chain law \
+            "You turned back to {city}, {} behind the chain control, in {} minutes. The chain law \
              ahead still stands.",
             ctx.settings.distance_text(miles, false),
             fmt_f(minutes, 0)
@@ -1088,7 +1105,7 @@ impl DrivingState {
             fine,
             false,
             false,
-            "No chains aboard on a Colorado chain-carry corridor",
+            "No chains aboard on a Colorado road that requires carrying them",
         );
         ctx.audio.play("ui/error");
         ctx.say_event_with(

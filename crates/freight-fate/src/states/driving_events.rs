@@ -120,7 +120,8 @@ pub fn event_category_for_kind(kind: TripEventKind) -> Option<SpeechCategory> {
         // A stop you have not reached yet: "Road Ranger, exit 292, one mile."
         // Worth a tone at urgent only rather than words -- a player who has
         // turned the road down that far knows how to pull in, and the arrival
-        // itself (STOP_REACHED) still speaks.
+        // itself (STOP_REACHED) still speaks. The stop the player PLANNED is
+        // navigation, not a heads-up (`DrivingState::event_category`).
         TripEventKind::StopAhead => Some(SpeechCategory::NavigationAdvisory),
         TripEventKind::StopReached => Some(SpeechCategory::Navigation),
         TripEventKind::Checkpoint => Some(SpeechCategory::Navigation),

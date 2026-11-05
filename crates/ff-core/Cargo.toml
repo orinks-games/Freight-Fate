@@ -12,10 +12,18 @@ authors.workspace = true
 name = "ff_core"
 path = "src/lib.rs"
 
+[features]
+# The whole-map sweeps and other long tests: every test marked
+# `#[cfg_attr(not(feature = "slow-tests"), ignore = "...")]`. A plain
+# `cargo test` skips them; `cargo test-all` (see .cargo/config.toml) and the
+# nightly snapshot run them. Nothing outside tests reads it.
+slow-tests = []
+
 [lints]
 workspace = true
 
 [dependencies]
+hearken-seal.workspace = true
 thiserror.workspace = true
 log.workspace = true
 serde.workspace = true

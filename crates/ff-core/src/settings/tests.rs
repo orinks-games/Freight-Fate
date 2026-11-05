@@ -99,12 +99,12 @@ fn the_struct_carries_the_persisted_fields_in_python_order() {
     // (2026-10-12) and automatic_jake (2026-10-14) were added on the Rust side;
     // lane_centering_assist was retired for 1.9, and the three Mastodon
     // sharing fields on 2026-10-15; visual_display (2026-10-15) and
-    // radio_cab_speakers (2026-10-18).
-    assert_eq!(Settings::FIELD_NAMES.len(), 98);
+    // radio_cab_speakers (2026-10-18), achievement_sort (2026-10-28).
+    assert_eq!(Settings::FIELD_NAMES.len(), 100);
     assert_eq!(Settings::FIELD_NAMES[0], "online_services");
-    assert_eq!(Settings::FIELD_NAMES[81], "settings_layout_notice_from");
+    assert_eq!(Settings::FIELD_NAMES[82], "settings_layout_notice_from");
     let pairs = Settings::default().ordered_values();
-    assert_eq!(pairs.len(), 98);
+    assert_eq!(pairs.len(), 100);
     for ((name, _), field) in pairs.iter().zip(Settings::FIELD_NAMES) {
         assert_eq!(name, field);
     }
@@ -153,7 +153,7 @@ fn the_defaults_match_the_python_dataclass() {
         "online_presence": false, "duty_notifications": false,
         "profile_sharing_consent_version": 0,
         "profile_sharing_pending_off": false, "cloud_saves": false,
-        "controller_enabled": true, "haptics_enabled": true, "online_offer_seen": false,
+        "controller_enabled": true, "menu_accelerator_keys": false, "haptics_enabled": true, "online_offer_seen": false,
         "settings_version": 3, "settings_layout_notice_from": -1,
         "key_bindings": "", "pad_bindings": "", "touch_bindings": "",
         "touch_haptics": true, "touch_practice_offered": false,
@@ -161,14 +161,14 @@ fn the_defaults_match_the_python_dataclass() {
         "touch_still_hold_ms": 500.0, "touch_rotate_degrees": 30.0, "touch_parking_brake_mph": 1.0,
         "steering_guide_inverted": false, "assist_preset_chosen": false,
         "facility_streets": true,
-        "language": "auto", "visual_display": true
+        "language": "auto", "visual_display": true, "achievement_sort": "earned"
     }"#,
     )
     .unwrap();
     let Value::Object(expected) = expected else {
         unreachable!()
     };
-    assert_eq!(expected.len(), 98);
+    assert_eq!(expected.len(), 100);
     for (name, value) in s.ordered_values() {
         assert_eq!(Some(&value), expected.get(name), "{name}");
     }
@@ -224,7 +224,7 @@ fn the_file_text_is_what_json_dump_wrote() {
          \"touch_deep_swipe_factor\": 3.0,\n  \"touch_still_hold_ms\": 500.0,\n  \
          \"touch_rotate_degrees\": 30.0,\n  \"touch_parking_brake_mph\": 1.0,\n  \
          \"steering_guide_inverted\": false,\n  \"assist_preset_chosen\": false,\n  \"facility_streets\": true,\n  \"language\": \"auto\",\n  \
-         \"visual_display\": true,\n  \"steering_assist\": \"off\"\n}"
+         \"visual_display\": true,\n  \"achievement_sort\": \"earned\",\n  \"steering_assist\": \"off\"\n}"
     ));
     assert!(text.contains("\n  \"time_scale\": 10.0,\n"));
     assert!(text.contains("\n  \"radio_volume\": 0.25,\n"));
@@ -866,14 +866,11 @@ fn test_the_cruise_dial_answers_with_the_number_alone_at_quiet() {
     // between them -- so at quiet the figure is the whole message (owner,
     // 2026-08-17).
     use crate::speech_text::SpokenMessage;
-    let line = SpokenMessage::with_terse("Adaptive cruise 62 miles per hour.", "62.");
+    let line = SpokenMessage::with_terse("Cruise 62 miles per hour.", "62.");
     for rung in ["coaching", "standard"] {
         let mut s = Settings::default();
         s.driving_speech = rung.to_string();
-        assert_eq!(
-            line.render(s.renders_terse()),
-            "Adaptive cruise 62 miles per hour."
-        );
+        assert_eq!(line.render(s.renders_terse()), "Cruise 62 miles per hour.");
     }
     for rung in ["quiet", "urgent_only"] {
         let mut s = Settings::default();

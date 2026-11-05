@@ -17,6 +17,30 @@ fn scenario(json: Value) -> Scenario {
     Scenario::from_json(&args).expect("a valid scenario")
 }
 
+/// `came_from` writes the lane memory as one delivery into the parked
+/// city, so the board that opens next is the one a driver who just made
+/// that run would see.
+#[test]
+fn came_from_writes_the_lane_the_truck_just_ran() {
+    let mut app = TestApp::new();
+    apply(
+        &mut app.ctx,
+        &scenario(json!({"city": "Milwaukee", "came_from": "Chicago"})),
+    )
+    .expect("the scenario applies");
+    let p = app.ctx.profile.as_ref().expect("a career");
+    assert_eq!(
+        p.recent_lanes,
+        vec!["chicago_il_us:milwaukee_wi_us".to_string()]
+    );
+    assert!(p.dispatch_board_cache.is_none());
+    let refused = apply(
+        &mut app.ctx,
+        &scenario(json!({"came_from": "Nowhere Special"})),
+    );
+    assert_eq!(refused, Err("no city called Nowhere Special".to_string()));
+}
+
 #[test]
 fn test_a_scenario_creates_a_bench_career_and_sets_every_part_asked_for() {
     let mut app = TestApp::new();

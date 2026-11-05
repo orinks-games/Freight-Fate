@@ -289,7 +289,7 @@ fn test_independent_authority_settlement_adds_business_overhead() {
 
     let labels: Vec<&str> = direct.business_charges.iter().map(|c| c.label).collect();
     assert!(labels.contains(&"authority compliance reserve"));
-    assert!(labels.contains(&"factoring fee"));
+    assert!(labels.contains(&"billing fee"));
     assert_eq!(direct.status_label, "own authority");
     assert!(direct.business_charge_total() > leased.business_charge_total());
 }
@@ -404,8 +404,8 @@ fn company_pay_uses_the_wage_floor_share_and_trust_bonus() {
         status_label(LEASED_OWNER_OPERATOR),
         "leased-on owner-operator"
     );
-    assert_eq!(pay_label(INDEPENDENT_AUTHORITY), "Direct gross");
-    assert_eq!(pay_label(LEASED_OWNER_OPERATOR), "Gross revenue");
+    assert_eq!(pay_label(INDEPENDENT_AUTHORITY), "Pay for the load");
+    assert_eq!(pay_label(LEASED_OWNER_OPERATOR), "Pay for the load");
     assert!(player_pays_operating_costs(INDEPENDENT_AUTHORITY));
     assert!(!player_pays_operating_costs(COMPANY_DRIVER));
     let owner = settle(LEASED_OWNER_OPERATOR, &job);

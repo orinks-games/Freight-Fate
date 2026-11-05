@@ -8,6 +8,7 @@
 //! (see `ff_core::sim::vehicle::descent` for the method and its sources).
 
 use ff_core::sim::transmission::JAKE_MAX_RPM;
+use ff_core::sim::trip::is_highway_zone_reason;
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
@@ -71,9 +72,7 @@ impl DrivingState {
     pub fn refresh_descent_safe(&mut self, ctx: &GameContext) {
         // The posted cap cruise keeps here, for `descent_hold_mph`.
         let (limit, reason) = self.trip.speed_limit_at(self.trip.position_mi);
-        let restricted = reason
-            .as_deref()
-            .is_some_and(|reason| RESTRICTED_ZONE_REASONS.contains(&reason));
+        let restricted = reason.as_deref().is_some_and(is_highway_zone_reason);
         self.descent_posted_cap_mph = Some(if restricted {
             limit
         } else {

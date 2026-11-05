@@ -199,6 +199,7 @@ pub fn best_relay(
                 market: request.market,
                 carrier_key: request.carrier_key,
                 direct_freight: request.direct_freight,
+                came_from: None,
             },
         );
         for job in offers {
@@ -412,6 +413,10 @@ mod tests {
     }
 
     #[test]
+    #[cfg_attr(
+        not(feature = "slow-tests"),
+        ignore = "sweep: a relay from every North Carolina town"
+    )]
     fn test_a_level_1_relay_from_north_carolina_stays_close() {
         let world = get_world();
         let endorsements: [&str; 0] = [];

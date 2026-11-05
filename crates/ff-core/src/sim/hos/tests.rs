@@ -339,7 +339,7 @@ fn test_split_pending_summary_names_needed_pair() {
 
     assert_eq!(
         c.split_pending_summary(),
-        Some("Sleeper split open: 2 more hours off duty or in the sleeper to pair it.")
+        Some("Split rest started: 2 more hours off duty or in the sleeper finish it.")
     );
 }
 
@@ -351,7 +351,7 @@ fn test_hos_summary_mentions_pending_sleeper_split() {
 
     let summary = c.summary("realistic");
 
-    assert!(summary.contains("Sleeper split open"));
+    assert!(summary.contains("Split rest started"));
     assert!(summary.contains("2 more hours"));
 }
 
@@ -498,7 +498,7 @@ fn test_hos_summary_includes_time_units() {
 
     assert!(summary.contains("9 hours of driving left"));
     assert!(summary.contains("30-minute break due in 6 hours"));
-    assert!(summary.contains("12 hours left in the 14-hour window"));
+    assert!(summary.contains("12 hours left in the duty window"));
 }
 
 #[test]
@@ -511,7 +511,7 @@ fn test_hos_summary_omits_break_when_duty_window_closes_first() {
 
     let summary = c.summary("realistic");
 
-    assert!(summary.contains("1.8 hours left in the 14-hour window"));
+    assert!(summary.contains("1.8 hours left in the duty window"));
     assert!(!summary.contains("30-minute break due"));
 }
 
@@ -634,7 +634,7 @@ fn test_break_key_answers_the_break_first_then_the_window_that_closes_first() {
     let said = duty_closes_first().break_summary("realistic", false);
 
     assert!(said.starts_with("30-minute break due in 3.5 hours"));
-    assert!(said.contains(", 1.8 hours left in the 14-hour window"));
+    assert!(said.contains(", 1.8 hours left in the duty window"));
 }
 
 #[test]
@@ -756,7 +756,7 @@ fn test_drive_time_key_carries_the_pending_sleeper_split() {
     for terse in [false, true] {
         assert!(c
             .drive_time_summary("realistic", terse)
-            .contains("Sleeper split open"));
+            .contains("Split rest started"));
     }
     // The split belongs to the shift-ending key, not the other two.
     assert!(!c
@@ -1550,7 +1550,7 @@ fn test_route_backed_weigh_station_emits_evidence() {
     assert_eq!(events[0].data.context.as_deref(), Some("weigh_station"));
     assert_eq!(
         events[0].data.evidence,
-        Some(vec!["HOS/ELD violation".to_string()])
+        Some(vec!["hours-of-service violation".to_string()])
     );
 }
 

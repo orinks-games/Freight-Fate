@@ -356,7 +356,7 @@ fn changing_business_status_marks_business_changed() {
     }
     app.push_state(BusinessStatusState::new());
 
-    select::<BusinessStatusState>(&mut app, "Buy into leased-on owner-operator");
+    select::<BusinessStatusState>(&mut app, "Owner-operator buy-in");
 
     assert_eq!(
         pending_reason(&app),

@@ -38,6 +38,11 @@ type Command = fn(&[String]) -> util::Result<i32>;
 /// Every command: its name, what it does, and its entry point.
 const COMMANDS: &[(&str, &str, Command)] = &[
     (
+        "seal-key",
+        "prepare and check the local career sealing key",
+        release::seal::main,
+    ),
+    (
         "build-release",
         "build, verify and archive the player release for this platform",
         release::main,
@@ -56,6 +61,16 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         "ios-signing",
         "find the TestFlight signing profile and manage uploads (App Store Connect)",
         release::ios_signing::main,
+    ),
+    (
+        "update-manifests",
+        "sign the release's update manifests and write its file indexes",
+        release::updates::manifests_main,
+    ),
+    (
+        "update-key",
+        "show the game's update key (--new makes it, --print shows the CI secret)",
+        release::updates::key_main,
     ),
     (
         "windows-imports",
@@ -128,6 +143,24 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         "index-world",
         "regenerate data/world_data/ from data/world_source/ (--check: verify in sync)",
         world::index::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "osm-speed-limits",
+        "re-read the map's posted speed limits from Geofabrik OpenStreetMap extracts",
+        world::osm::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "census-counties",
+        "write the county each stretch of every leg runs through, from Census county lines",
+        world::counties::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "osm-exits",
+        "re-read the map's exits and their ramps from an OpenStreetMap extract",
+        world::osm::exits::main,
     ),
 ];
 

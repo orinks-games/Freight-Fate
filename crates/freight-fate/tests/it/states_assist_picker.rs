@@ -113,11 +113,12 @@ fn every_row_says_what_the_truck_does() {
     );
     // The steer keys are read in the player's own bindings, never as tokens.
     assert!(rows[0].1.starts_with(
-        "It holds the lane, steers the bends and street corners, and takes your exits. A tap of "
+        "It holds the lane, steers the bends and street corners, moves out of closed lanes, and \
+         takes your exits and open weigh stations. A tap of "
     ));
     assert!(rows[0]
         .1
-        .ends_with("changes lanes. Speed, stops and the docks are yours."));
+        .ends_with("changes lanes. Speed, rest and fuel stops, and the docks are yours."));
     assert!(!rows[0].1.contains("{{"), "{}", rows[0].1);
     assert_eq!(
         rows[1].1,

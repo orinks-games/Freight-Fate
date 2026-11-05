@@ -143,15 +143,15 @@ up to your orinks.net account. Your local career is safe."
             "{name}: backup not accepted. The numbers in this save do not \
 look like possible play, so the server declined it and flagged \
 it for review. Your local career is safe and nothing public \
-changed. If you think this is wrong, say so in the tester \
-document."
+changed. If you think this is wrong, use Report a problem \
+on the main menu."
         );
     }
     if SCHEMA_REJECTION_REASONS.contains(&reason) {
         return format!(
-            "{name}: backup not accepted. Your game and the server \
-disagree about this save's shape, usually a build mismatch, \
-not something you did. Your local career is safe."
+            "{name}: backup not accepted. Your game and orinks.net read \
+this save differently, usually because one of them needs an \
+update. It is not something you did. Your local career is safe."
         );
     }
     if CATALOG_REJECTION_REASONS.contains(&reason) {

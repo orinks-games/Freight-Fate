@@ -277,9 +277,11 @@ pub struct DrivingState {
     pub construction_seen: bool,
     pub traffic_seen: bool,
     // Billboards that notice the drive: the record at the last pool sign,
-    // and how many pool signs this trip has read.
+    // how many pool signs this trip has read, and where this trip starts in
+    // each pool of drive-aware lines (the career hour at departure).
     pub billboard_watch: crate::states::driving_events::billboard_moment::BillboardWatch,
     pub pool_billboards_heard: usize,
+    pub billboard_offset: usize,
     pub brake_squeal_cooldown_s: f64, // hot-brake squeal cue spacing
     pub hydro_active: bool,           // spoken hydroplane warning edge tracking
     pub jake_slip_active: bool,       // spoken jake-slip warning edge tracking
@@ -440,10 +442,6 @@ pub struct DrivingState {
     pub enforcement_prev_mi: f64,
     pub passed_post_ids: HashSet<String>,
     pub marked_post_ids: HashSet<String>,
-    // A tableau's two cues, each fired once: the siren some seconds
-    // before the spot, and the stopped pair as you go by it.
-    pub tableau_siren_ids: HashSet<String>,
-    pub tableau_pass_ids: HashSet<String>,
     pub scale_bed_key: String,
     pub scale_bed_volume: f64,
     pub radio_cue_duck: f64,
@@ -1067,6 +1065,9 @@ pub struct DrivingState {
     /// A team departure chosen at the shipper: the co-driver takes the
     /// wheel on the drive's first frame.
     pub pending_team: Option<crate::states::driving_team::TeamMode>,
+    /// The state whose truck limit the speed readout last explained, so
+    /// "Michigan holds trucks to this" is said once per state.
+    pub truck_limit_state_named: Option<String>,
 }
 
 // The accessors onto the trip, the trip swap and the `State` facade live in

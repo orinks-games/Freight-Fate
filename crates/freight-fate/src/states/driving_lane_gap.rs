@@ -65,6 +65,16 @@ const PASS_CLEAR_MARGIN_MI: f64 = 200.0 / 5280.0;
 /// A sudden lane closure runs on past where it was seen: its cones, then a
 /// work area. A short closure's length, kept clear of before moving back.
 const CLOSURE_CLEAR_MI: f64 = 0.5;
+/// How far ahead of a work zone's taper lane keeping starts leaving the
+/// lane it closes: the first sign comes up about a mile out, and a driver
+/// merges there rather than at the cones.
+pub const CLOSURE_MERGE_LOOKAHEAD_MI: f64 = 1.0;
+/// The same, in real seconds of road: at ten times speed a mile goes by in
+/// a few real seconds, too few to wait out a vehicle holding the gap.
+pub const CLOSURE_MERGE_REAL_S: f64 = 20.0;
+/// The step the look-ahead samples the closure at; a taper is a mile long
+/// and the shortest work area a fraction of one.
+const CLOSURE_MERGE_PROBE_MI: f64 = 0.1;
 
 /// A traffic vehicle's real length, by kind. `TrafficVehicle::length_mi` is
 /// a quarter mile for every vehicle, a deliberately wide footprint the
@@ -245,7 +255,7 @@ impl DrivingState {
             return;
         }
         let target = self.lane.lane - 1;
-        if Some(target) == self.closed_lane_here() || !self.lane_gap_open(target) {
+        if self.lane_closes_ahead(target) || !self.lane_gap_open(target) {
             return;
         }
         self.begin_lane_change(target);
@@ -286,6 +296,11 @@ impl DrivingState {
             return false;
         };
         let home = self.lane.lane;
+        if self.lane_closes_ahead(home + step) {
+            // Not into a lane the work zone ahead is closing: the truck
+            // would only have to leave it again at the cones.
+            return false;
+        }
         self.begin_lane_change(home + step);
         self.passing = Some((home, home + step));
         // A thing in the lane stays where it is: the truck holds the passing
@@ -302,6 +317,105 @@ impl DrivingState {
                 }
         });
         true
+    }
+
+    // -- full lane keeping leaves a lane the work zone closes ----------------
+
+    /// How far ahead of the taper lane keeping on full starts moving out of
+    /// a lane a work zone closes: the mile of signs before the cones, or
+    /// [`CLOSURE_MERGE_REAL_S`] of road at the truck's speed and the time
+    /// scale, whichever is longer.
+    pub fn closure_merge_lookahead_mi(&self) -> f64 {
+        let scale = self.trip.effective_time_scale().max(1.0);
+        let real_mi = self.trip.truck.speed_mph() * CLOSURE_MERGE_REAL_S * scale / 3600.0;
+        CLOSURE_MERGE_LOOKAHEAD_MI.max(real_mi)
+    }
+
+    /// Whether `lane` is coned off here or anywhere within the merge
+    /// look-ahead. Sampled along the stretch, not only at its far end, so a
+    /// short work zone that fits inside the look-ahead is still seen.
+    pub fn lane_closes_ahead(&self, lane: i64) -> bool {
+        if self.closed_lane_here() == Some(lane) {
+            return true;
+        }
+        let count = self.lane.lane_count;
+        let here = self.trip.position_mi;
+        let end = (here + self.closure_merge_lookahead_mi()).min(self.trip.total_miles());
+        let mut probe = here + CLOSURE_MERGE_PROBE_MI;
+        while probe <= end {
+            if self.trip.closed_lane_at(Some(probe), Some(count)) == Some(lane) {
+                return true;
+            }
+            probe += CLOSURE_MERGE_PROBE_MI;
+        }
+        false
+    }
+
+    /// Lane keeping on full moves out of a lane a work zone closes, the way
+    /// it moves right for an exit: when the signs come up, into the open
+    /// lane, and only when the clearance reading calls that lane open. With
+    /// traffic holding the gap shut it eases the cruise under the vehicle
+    /// beside the truck so it can drop in behind. It used to hold the closed
+    /// lane until the barrels, which on All assists cost damage, a serious
+    /// violation and a step toward losing the CDL, all for a merge the
+    /// player had been told the truck would steer (owner, 2026-10-27).
+    pub fn update_closure_merge(&mut self, ctx: &mut GameContext) {
+        if !ctx.settings.lane_is_automated() || self.ramp_mi.is_some() {
+            return;
+        }
+        let lane = self.lane.lane;
+        let closed_here = self.closed_lane_here() == Some(lane);
+        if !self.lane_closes_ahead(lane) {
+            return;
+        }
+        // Ahead of the taper, a hazard being answered and a pass under way
+        // come first; once the cones are here, the closure does.
+        if !closed_here && (self.hazard_deadline.is_some() || self.passing.is_some()) {
+            return;
+        }
+        if !self.lane_keeping_may_change_lanes() {
+            return;
+        }
+        let Some(open) = self.open_lane_beside(lane) else {
+            return;
+        };
+        if !self.lane_gap_open(open) {
+            self.ease_for_closure_gap(open);
+            return;
+        }
+        // The pass, if one was under way, ends here: the lane it went into
+        // is closing. A move left out of a right-lane closure is a pass of
+        // the closure itself: the move back waits until the right lane is
+        // open past the zone, then keeps right as after any pass. It used to
+        // ride the left lane to the CB's keep-right grumbling (agent drive,
+        // WI-29, 2026-10-27).
+        self.passing = (open > lane).then_some((lane, open));
+        self.pass_clear_mi = None;
+        self.begin_lane_change(open);
+        let name = lane_label(open, self.lane.lane_count);
+        ctx.say_event_with(
+            format!("Changing to the {name} lane for the lane closure."),
+            SayEvent::queued()
+                .priority(EventPriority::Important)
+                .category(SpeechCategory::Confirmation),
+        );
+    }
+
+    /// Traffic in the open lane keeps lane keeping out of it: ease under the
+    /// vehicle holding the gap so it pulls ahead and the truck drops in
+    /// behind. One already behind the cab and slower is left behind by the
+    /// truck's own speed, and one ahead and slower is passed, so neither is
+    /// eased for.
+    fn ease_for_closure_gap(&mut self, open: i64) {
+        let Some(blocker) = self.lane_gap_blocker(open) else {
+            return;
+        };
+        let speed = self.trip.truck.speed_mph();
+        if blocker.speed_mph + 2.0 < speed {
+            return;
+        }
+        self.pass_return_ease_mph =
+            Some((blocker.speed_mph - PASS_RETURN_EASE_MPH).max(LANE_MIN_MPH));
     }
 
     /// Whether an armed exit is so close that a lane change out and back,
@@ -356,7 +470,7 @@ impl DrivingState {
         if self.hazard_deadline.is_some()
             || beside_it
             || !self.lane_keeping_may_change_lanes()
-            || Some(home) == self.closed_lane_here()
+            || self.lane_closes_ahead(home)
         {
             return;
         }

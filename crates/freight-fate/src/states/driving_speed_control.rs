@@ -11,6 +11,7 @@
 //! and where the cruise loop imports them; they are re-exported here so this
 //! module's own surface reads like the Python file's.
 
+use ff_core::sim::trip::is_highway_zone_reason;
 use ff_core::sim::trip_route_helpers::zone_key;
 use ff_core::sim::vehicle::MIN_STOPPING_DECEL_MPS2;
 use ff_core::speech_pacing::SpeechCategory;
@@ -94,6 +95,14 @@ impl DrivingState {
         self.descent_safe_key = None;
         self.descent_posted_cap_mph = None;
         self.trip.truck.descent_gear_hold = false;
+        // Descent control runs only under cruise, so it ends with it. Left
+        // marked as holding when a work zone's keeper took over on a grade,
+        // it had nothing to release it, and the co-driver braked to a hold
+        // of 20 for the rest of the shift (issue #518).
+        self.descent_control_active = false;
+        self.descent_limit_state = String::new();
+        self.descent_beaten_s = 0.0;
+        self.descent_capture_active = false;
         self.cruise_jake_last_step = 0;
         self.cruise_snubbing = false;
         self.pcc_phase = String::new();
@@ -102,10 +111,13 @@ impl DrivingState {
         self.acc_following = false;
         self.acc_weather_gap_said = false;
         self.acc_limit_capped = false;
-        self.acc_limit_cap_said = None;
-        self.acc_limit_hold = None;
         self.acc_weather_cap_said = None;
-        self.construction_slowdown = None;
+        // The limit drop or work zone cruise was slowing for, and what it
+        // said about it, stay: they are the road ahead, not this session.
+        // `engage_cruise` keeps them while they still apply. Cleared here, a
+        // hazard stop in a work-zone approach made cruise say "cruise easing
+        // to 55" and "to 45" a second time once it was back up to speed
+        // (owner's NVDA drives, 2026-11-03).
     }
 
     /// `_clear_keeper()`.
@@ -170,7 +182,7 @@ impl DrivingState {
     /// remembered set speed.
     pub fn resume_cruise(&mut self, ctx: &mut GameContext) {
         if self.speed_control_armed || self.cruise_mph.is_some() || self.keeper_mph.is_some() {
-            ctx.say("Automatic speed control is already on.");
+            ctx.say("Cruise is already on.");
             return;
         }
         let Some(target) = self.resume_target_mph else {
@@ -184,10 +196,7 @@ impl DrivingState {
         }
         self.restore_speed_control_session(ctx, true, Some(target));
         let spoken = ctx.settings.speed_text(target);
-        ctx.say_with(
-            format!("Resuming automatic speed control at {spoken}."),
-            Say::new(),
-        );
+        ctx.say_with(format!("Resuming cruise at {spoken}."), Say::new());
         // The per-frame resume helper engages cruise or the keeper as soon as
         // the truck is rolling and off the brakes -- pressing resume while
         // still slowing arms it for the moment conditions clear.
@@ -296,7 +305,7 @@ impl DrivingState {
             // throttle (automation-handoff sweep, 2026-08-20, the deferred
             // 2026-08-15 audit).
             ctx.say_event_with(
-                "Automatic speed control canceled.",
+                "Cruise canceled.",
                 SayEvent::queued()
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),
@@ -377,7 +386,10 @@ impl DrivingState {
             }
         }
         let position = self.trip.position_mi;
-        let (limit, mut zone_reason) = self.trip.speed_limit_at(position);
+        let (limit, zone_reason) = self.trip.speed_limit_at(position);
+        // A highway work zone or heavy traffic resumes on cruise, which holds
+        // its limit; the keeper is for streets, yards and approaches.
+        let mut zone_reason = zone_reason.filter(|reason| !is_highway_zone_reason(reason));
         if zone_reason.is_none() && self.departure_ramp_mi.is_some() {
             // An acceleration lane is open road by the map and a low-speed
             // regime by the truck, and that gap left it with NO automation at
@@ -399,7 +411,7 @@ impl DrivingState {
             // 2026-08-15 audit).
             let held = ctx.settings.speed_text(self.keeper_mph.unwrap_or(0.0));
             let resuming = if zone_reason == "acceleration lane" {
-                format!("Speed keeper building to {held} for the merge.")
+                format!("Cruise building to {held} for the merge.")
             } else {
                 crate::states::driving_events::cruise::keeper_holding_line(&held, &zone_reason)
             };
@@ -438,7 +450,7 @@ impl DrivingState {
             }
             self.engage_keeper(ctx, limit, KEEPER_OPEN_ROAD_BRIDGE, Some(limit), false);
             ctx.say_event_with(
-                "Speed control resuming.",
+                "Cruise resuming.",
                 SayEvent::queued()
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),
@@ -491,12 +503,22 @@ impl DrivingState {
     /// distance and whose limit is lower than the current corridor limit.
     /// `None` when there is nothing to pre-brake for.
     pub fn restricted_zone_limit_ahead(&mut self, ctx: &mut GameContext) -> Option<(f64, String)> {
+        let position = self.trip.position_mi;
         if !self.speed_control_armed || !ctx.settings.speed_keeper {
-            self.construction_slowdown = None;
-            self.construction_taper_stage = None;
+            // A zone already slowed for stays known while cruise is off, so
+            // setting cruise again inside its approach does not announce it
+            // a second time (owner's NVDA drives, 2026-11-03). Past its end,
+            // or with the keeper switched off, it is forgotten.
+            let passed = self
+                .construction_slowdown
+                .as_ref()
+                .is_none_or(|(end_mi, _, _)| position >= *end_mi);
+            if passed || !ctx.settings.speed_keeper {
+                self.construction_slowdown = None;
+                self.construction_taper_stage = None;
+            }
             return None;
         }
-        let position = self.trip.position_mi;
         let held = self.construction_slowdown.clone();
         let (limit_mph, reason) = match held {
             // Keep aiming at a zone already being slowed for. The warning
@@ -861,12 +883,7 @@ impl DrivingState {
         if capped && !self.chain_cap_said {
             self.chain_cap_said = true;
             let held = ctx.settings.speed_text(CHAIN_SAFE_MPH);
-            let line = if self.cruise_mph.is_some() {
-                format!("Cruise held to {held} for chains.")
-            } else {
-                format!("Speed keeper held to {held} for chains.")
-            };
-            self.say_route_confirmation(ctx, line);
+            self.say_route_confirmation(ctx, format!("Cruise held to {held} for chains."));
         }
     }
 }

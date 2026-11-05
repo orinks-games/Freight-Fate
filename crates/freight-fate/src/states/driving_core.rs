@@ -49,7 +49,7 @@ use ff_core::sim::vehicle::TruckState;
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, Say};
-use crate::audio::RADIO_TUNE_FADE_MS;
+use crate::audio::{youtube, RADIO_TUNE_FADE_MS};
 use crate::states::base::{Menu, MenuItem};
 use crate::states::driving::DrivingState;
 
@@ -555,7 +555,9 @@ pub type PendingSound = (f64, String, f64, f64);
 pub trait Instructor {
     fn begin(&mut self, ctx: &mut GameContext);
     fn on_engine_started(&mut self, ctx: &mut GameContext);
-    fn on_parking_brake_released(&mut self, ctx: &mut GameContext);
+    /// True when the instructor spoke its own release line, which then
+    /// stands in for the plain confirmation.
+    fn on_parking_brake_released(&mut self, ctx: &mut GameContext) -> bool;
     fn on_gear_engaged(&mut self, ctx: &mut GameContext);
     fn update(&mut self, ctx: &mut GameContext, dt: f64, truck: &TruckState);
 }
@@ -617,7 +619,7 @@ impl Instructor for Tutorial {
         }
     }
 
-    fn on_parking_brake_released(&mut self, ctx: &mut GameContext) {
+    fn on_parking_brake_released(&mut self, ctx: &mut GameContext) -> bool {
         if self.stage == 1 && ctx.settings.automatic_transmission {
             self.stage = 2;
             self.timer = 0.0;
@@ -627,6 +629,7 @@ impl Instructor for Tutorial {
                 ctx.control_hint("accelerate")
             );
             ctx.say_with(text, Say::queued());
+            true
         } else if self.stage == 1 {
             self.timer = 0.0;
             self.hinted = false;
@@ -634,6 +637,9 @@ impl Instructor for Tutorial {
                 "Parking brake released. Shift into first gear.",
                 Say::queued(),
             );
+            true
+        } else {
+            false
         }
     }
 
@@ -762,6 +768,16 @@ impl RadioPlaybackBackend for DrivingRadioBackend<'_> {
 
     fn stop_radio(&mut self) {
         self.ctx.audio.stop_music_with(600);
+    }
+
+    fn refusal_note(&self, station: &RadioStation) -> Option<String> {
+        youtube::needs_yt_dlp(&station.playlist_entries).then(|| {
+            format!(
+                "{} needs yt-dlp for its YouTube links, and it is not installed; \
+                 it is off the dial for the rest of this session.",
+                station.display_name()
+            )
+        })
     }
 }
 

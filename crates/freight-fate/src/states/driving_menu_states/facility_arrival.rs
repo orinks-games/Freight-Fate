@@ -20,9 +20,8 @@ use crate::states::base::{Menu, MenuCore, MenuItem, TimedMessageState};
 use crate::states::city_pickup::sync_facility_engine_audio;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, carrier_accessorial_charges, charge_summary, charge_total,
-    has_weigh_station_transponder, hos_mut_of, is_owner_operator, profile_of, wallet_delta,
-    FacilityEngine, DOCKING_MAX_MPH, UNLOADING_WAIT_S,
+    advance_rest_clock, carrier_accessorial_charges, has_weigh_station_transponder, hos_mut_of,
+    is_owner_operator, profile_of, wallet_delta, FacilityEngine, DOCKING_MAX_MPH, UNLOADING_WAIT_S,
 };
 use crate::states::driving_menu_states::{keep_rows, settlement_hours, DriveRef};
 
@@ -73,9 +72,10 @@ impl FacilityArrivalState {
     fn announce_over_drive(&mut self, ctx: &mut GameContext, driving: &mut DrivingState) {
         ctx.audio
             .set_ambient(Some(facility_ambient_key(&driving.job.destination_type)));
-        let facility = driving.destination_facility_text(ctx);
+        // "Pulling into X." was the line just before (owner, 2026-11-04);
+        // the menu opens on its first row.
         let current = self.current_text(ctx);
-        ctx.say(&format!("At {facility}. {current}"));
+        ctx.say(&current);
     }
 
     pub fn facility(&self, ctx: &mut GameContext) -> String {
@@ -266,7 +266,6 @@ impl FacilityArrivalState {
             let tolls = d.trip.toll_expense();
             let profile = profile_of(ctx);
             let accessorials = carrier_accessorial_charges(job, Some(profile));
-            let carrier_charges = tolls + charge_total(&accessorials);
             // Only what a previous settlement could not collect. Speeding
             // itself is charged on the shoulder by the trooper who saw it, or
             // not at all.
@@ -319,31 +318,19 @@ impl FacilityArrivalState {
             } else {
                 format!("{} hours past the deadline", fmt_f(-remaining, 1))
             };
+            // The short version: what the driver will get and whether it is
+            // on time. The settlement screen itemizes the rest.
             let cargo_condition = if trip_damage > 1.0 {
                 format!(
-                    "Truck damage this run {} percent, may reduce pay.",
+                    " Truck damage this run {} percent, may reduce pay.",
                     fmt_f(trip_damage, 0)
                 )
             } else {
-                "Cargo condition: no new damage recorded.".to_string()
-            };
-            let charge_fate = if owner_op {
-                "Those charges come off this settlement."
-            } else {
-                "Those charges do not reduce driver pay."
+                String::new()
             };
             format!(
-                "Paperwork, {facility}: {} tons of {}. Rate {}, gross {}. Charges {}: tolls {}, \
-                 accessorials {}. {charge_fate} Fines {}. Net about {}.{advance_note} {timing}. \
-                 {cargo_condition} {finish} to settle.",
-                fmt_f(job.weight_tons, 0),
-                job.cargo.label,
-                fmt_grouped(job.pay, 0),
-                fmt_grouped(estimated_pay, 0),
-                fmt_grouped(carrier_charges, 0),
-                fmt_grouped(tolls, 0),
-                charge_summary(&accessorials),
-                fmt_grouped(driver_charges, 0),
+                "Paperwork, {facility}: about {} dollars to you, {timing}.{advance_note}{cargo_condition} \
+                 {finish} to settle.",
                 fmt_grouped(net_estimated_pay, 0),
             )
         }) else {

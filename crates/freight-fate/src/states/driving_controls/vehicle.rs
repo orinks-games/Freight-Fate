@@ -233,13 +233,18 @@ impl DrivingState {
                 ctx.audio.play_with("vehicle/brake_release", 0.65, 0.0);
                 self.note_instruction_demonstrated(ctx, "parking_brake");
                 self.set_status("Parking brake released.");
-                let psi = self.trip.truck.air_pressure_psi();
-                ctx.say_with(
-                    format!("Parking brake released. Air pressure {psi:.0} psi."),
-                    Say::new().category(SpeechCategory::Confirmation),
-                );
-                if let Some(tutorial) = self.tutorial.as_mut() {
-                    tutorial.on_parking_brake_released(ctx);
+                // An instructor's release line already says what to do
+                // next; the plain confirmation would repeat its first half.
+                let taught = self
+                    .tutorial
+                    .as_mut()
+                    .is_some_and(|tutorial| tutorial.on_parking_brake_released(ctx));
+                if !taught {
+                    let psi = self.trip.truck.air_pressure_psi();
+                    ctx.say_with(
+                        format!("Parking brake released. Air pressure {psi:.0} psi."),
+                        Say::new().category(SpeechCategory::Confirmation),
+                    );
                 }
             } else {
                 ctx.audio.play("ui/error");
@@ -273,10 +278,10 @@ impl DrivingState {
             ctx.audio.play_with("vehicle/tire_screech", 0.9, 0.0);
             ctx.audio.play_with("vehicle/brake_set", 0.9, 0.0);
             ctx.controller.rumble.alert();
-            self.set_status("Parking brake dynamited at speed!");
+            self.set_status("Parking brake pulled at speed!");
             let spoken = ctx.settings.speed_text(speed);
             ctx.say(&format!(
-                "You dynamited the parking brake at {spoken}! The spring brakes slam the drive \
+                "You pulled the parking brake at {spoken}! The spring brakes slam the drive \
                  axle and the tires grind flat spots into the tread."
             ));
             return;
@@ -315,7 +320,7 @@ impl DrivingState {
             // clutch comes back in -- is played by update_audio when it
             // actually happens, the way an automatic's engagement is.
             ctx.audio
-                .play_bank("vehicle/shift_manual", "vehicle/gear_shift");
+                .play_bank("vehicle/shift_auto", "vehicle/gear_shift");
             self.manual_engage_clunk_pending = true;
             ctx.say(&result.message);
             if let Some(tutorial) = self.tutorial.as_mut() {

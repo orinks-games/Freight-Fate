@@ -68,9 +68,11 @@ impl DrivingState {
         // A truck already cited in this chain law area carries the ticket:
         // a patrol further up the same control does not write it again
         // (the checkpoint's own rule, `update_chain_law`).
+        // A truck braking into the chain-up area to chain up is complying.
         let chain_level = match self.trip.chain_law_area_at(position) {
             Some(area)
-                if !self.trip.rig_compliant_at(position)
+                if !self.chain_up_pending()
+                    && !self.trip.rig_compliant_at(position)
                     && !self
                         .chain_law_cited
                         .contains(&(area as i64, self.trip.chain_law_level())) =>
@@ -256,7 +258,6 @@ impl DrivingState {
         self.update_scale_bed(ctx);
         if self.ramp_mi.is_none() {
             self.update_marked_unit_passes(ctx, previous_mi);
-            self.update_tableaus(ctx, previous_mi);
         }
         let mut id = std::mem::take(&mut self.post_id_scratch);
         let mut audible: Vec<String> = Vec::new();

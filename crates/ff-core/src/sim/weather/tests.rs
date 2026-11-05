@@ -362,9 +362,7 @@ fn test_weather_system_falls_back_when_offline() {
     assert!(!ws.live);
     assert!(changes.iter().any(|c| c.is_some())); // simulated weather still evolves
     assert_eq!(ws.source_status(), "fallback");
-    assert!(ws
-        .report_lead(true)
-        .starts_with("Simulated fallback weather: "));
+    assert!(ws.report_lead(true).starts_with("Simulated weather: "));
     assert_eq!(ws.observation_age_value(), "not applicable");
 }
 
@@ -435,7 +433,7 @@ fn test_observation_age_text_rounds_down_to_whole_minutes() {
     ws.set_city("Chicago", 41.88, -87.63);
     assert_eq!(
         ws.observation_age_text().as_deref(),
-        Some("The observation is less than a minute old")
+        Some("The report is less than a minute old")
     );
     assert_eq!(ws.observation_age_value(), "less than a minute old");
 
@@ -450,7 +448,7 @@ fn test_observation_age_text_rounds_down_to_whole_minutes() {
     ws.set_city("Chicago", 41.88, -87.63);
     assert_eq!(
         ws.observation_age_text().as_deref(),
-        Some("The observation is 1 minute old")
+        Some("The report is 1 minute old")
     );
     assert_eq!(
         ws.last_known_notice(),
@@ -467,10 +465,7 @@ fn test_observation_age_text_rounds_down_to_whole_minutes() {
     );
     assert_eq!(ws.observation_age_text(), None);
     assert_eq!(ws.last_known_notice(), "");
-    assert_eq!(
-        ws.live_observation_notice(),
-        "Observation age is unavailable"
-    );
+    assert_eq!(ws.live_observation_notice(), "Report age is unavailable");
     assert_eq!(ws.observation_age_value(), "unavailable");
     assert!(ws.live_weather_loading());
     assert_eq!(ws.source_status(), "loading");
@@ -478,7 +473,7 @@ fn test_observation_age_text_rounds_down_to_whole_minutes() {
     assert_eq!(
         ws.report_lead(true),
         "Live weather is loading for your current route position. \
-         Temporary neutral driving conditions in use"
+         Mild conditions until live weather loads"
     );
 }
 
@@ -823,7 +818,7 @@ fn test_live_change_omits_modeled_temperature_and_does_not_hide_later_stale_stat
         "{}",
         delayed[0]
     );
-    assert!(delayed[0].contains("Last-known conditions in use"));
+    assert!(delayed[0].contains("Using the last known conditions"));
     assert!(!delayed[0].to_lowercase().contains("updat"));
 }
 
@@ -1202,6 +1197,9 @@ fn real_time_empty_bubble_arrival_reaches_the_player_traffic_status() {
     {
         trip.position_mi = arrival.position_mi - 0.3;
     }
+    // At road speed: a slow call is about the truck gaining on the vehicle,
+    // and a truck at rest gains on nothing.
+    trip.truck.velocity_mps = 65.0 / crate::sim::vehicle::MPS_TO_MPH;
     trip.check_npc_traffic_cues();
     assert!(
         trip.events
@@ -1249,7 +1247,7 @@ fn test_speed_limit_varies_by_corridor_and_drops_in_cities() {
 
     let mut trip = make_trip(2, 1.0); // Chicago -> Indianapolis, an Interstate corridor
                                       // Near the origin city the limit drops to the urban value.
-    let (near_city, reason) = trip.speed_limit_at(1.0);
+    let (near_city, reason) = trip.speed_limit_at(2.0);
     assert!(reason.is_none());
     assert_eq!(near_city, URBAN_LIMIT_MPH);
     // Out on the open road it is the faster corridor limit.
@@ -2440,7 +2438,7 @@ fn test_merge_traffic_pressures_drop_the_speed_advisory() {
     );
     assert_eq!(
         construction_merge_msg.normal,
-        format!("Taper squeezing, {distance}. Merge left.")
+        format!("Lane ending, {distance}. Merge left.")
     );
     assert!(!route_merge_msg.normal.contains("35"));
     assert!(!construction_merge_msg.normal.contains("35"));

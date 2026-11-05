@@ -221,7 +221,10 @@ fn the_driver_kept_it_clean(r: &Report) {
 }
 
 #[test]
-#[cfg_attr(ci_quick, ignore = "sweep: drives five miles of mountain road")]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: drives five miles of mountain road"
+)]
 fn by_sight_alone_a_driver_steers_a_mountain_bend_and_follows_a_slow_car() {
     // Denver toward Salt Lake City: a 40 mph bend four miles from the
     // staged start, on road that narrows to one lane each way.
@@ -273,7 +276,10 @@ fn by_sight_alone_a_driver_steers_a_mountain_bend_and_follows_a_slow_car() {
 }
 
 #[test]
-#[cfg_attr(ci_quick, ignore = "sweep: drives three miles of interstate")]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: drives three miles of interstate"
+)]
 fn by_sight_alone_a_driver_passes_a_slow_car_and_keeps_right() {
     let mut h = PlaytestHarness::new();
     {

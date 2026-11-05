@@ -246,7 +246,7 @@ pub fn menu_default_handle_event<M: Menu>(menu: &mut M, ctx: &mut GameContext, e
         _ => {
             if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
                 let lower: String = ch.to_lowercase().collect();
-                menu.first_letter_jump(ctx, &lower);
+                menu.first_letter_input(ctx, &lower, event.key_repeat());
             }
         }
     }

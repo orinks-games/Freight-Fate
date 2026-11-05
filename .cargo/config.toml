@@ -29,3 +29,6 @@ linker = "rust-lld.exe"
 # (crates/ff-tools). `cargo tools help` lists the commands.
 [alias]
 tools = ["run", "--quiet", "-p", "ff-tools", "--"]
+# `cargo test-all`: the game and ff-core with the whole-map sweeps and the
+# other long tests (`slow-tests`) that a plain `cargo test` skips.
+test-all = ["test", "-p", "ff-core", "-p", "freight-fate", "--features", "freight-fate/slow-tests"]

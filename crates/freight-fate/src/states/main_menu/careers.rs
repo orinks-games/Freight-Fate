@@ -309,7 +309,7 @@ impl ConfirmCareerActionState {
             // A career loaded from a file named apart from it: the reset went
             // to the file its name points at, so the old career goes.
             Ok(written) if written != self.path => {
-                if let Err(e) = std::fs::remove_file(&self.path) {
+                if let Err(e) = ff_core::models::profile::sealed::remove(&self.path) {
                     log::warn!("Could not remove {}: {e}", self.path.display());
                 }
             }
@@ -363,7 +363,7 @@ impl ConfirmCareerActionState {
 
     fn finish_delete(&mut self, ctx: &mut GameContext, cloud_line: &str) {
         let name = self.name.clone();
-        if let Err(e) = std::fs::remove_file(&self.path) {
+        if let Err(e) = ff_core::models::profile::sealed::remove(&self.path) {
             if self.path.exists() {
                 log::error!("Could not delete {}: {e}", self.path.display());
                 ctx.reset_to(MainMenuState::new());

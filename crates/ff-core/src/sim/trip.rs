@@ -40,8 +40,8 @@ mod zones;
 
 pub use lookups::LaneRun;
 pub use streets::{
-    is_gate_zone_reason, is_street_zone_reason, spoken_zone, LOT_ZONE, STOP_STREET_ZONE,
-    STREET_ZONE, YARD_ZONE,
+    is_gate_zone_reason, is_highway_zone_reason, is_street_zone_reason, spoken_zone, LOT_ZONE,
+    STOP_STREET_ZONE, STREET_ZONE, YARD_ZONE,
 };
 
 /// A stop is announced ("stop ahead") when it first comes within this many
@@ -73,6 +73,9 @@ pub const PACENOTE_LINK_GAP_MI: f64 = 0.3;
 /// the road the truck genuinely needs to reach ramp speed, widened so the
 /// clock is already real by the time anything has to start shedding.
 pub const EXIT_APPROACH_DECOMPRESS_SLACK: f64 = 1.5;
+/// With nothing to shed before the gore, the clock goes real only for this
+/// last stretch: the half-mile call and the exit lane.
+pub const EXIT_FINAL_REAL_MI: f64 = 0.5;
 /// And pacing climbs back over this many real seconds afterwards.
 pub const EXIT_APPROACH_RELEASE_S: f64 = 3.0;
 
@@ -253,6 +256,9 @@ pub struct Trip {
     pub finished: bool,
     /// The control the stop callout names for signalling an exit.
     pub exit_hint: String,
+    /// Lane keeping signals for open scales itself, so a scale's callout
+    /// names no key. Set each frame by the driving layer.
+    pub scales_signal_themselves: bool,
     /// Facilities named in full already this leg (research doc R6).
     pub facilities_named: HashSet<String>,
     pub facility_leg: usize,
@@ -459,6 +465,7 @@ impl Trip {
             last_chatter_s: None,
             finished: false,
             exit_hint: "X".to_string(),
+            scales_signal_themselves: false,
             facilities_named: HashSet::new(),
             facility_leg: 0,
             waiting: false,

@@ -466,7 +466,7 @@ impl Career {
         format!(
             "Level {level}, {}. {} experience.{owed_text} \
              Reputation {} out of 100. \
-             {} deliveries, {} percent on time. \
+             Deliveries {}, {} percent on time. \
              {} lifetime miles, \
              {} dollars earned. \
              Career stage: {}. {}.{next_text}",

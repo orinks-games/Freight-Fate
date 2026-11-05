@@ -651,3 +651,25 @@ fn text_capture_declines_the_review_keys() {
     assert_eq!(app.main_lines(), vec!["field got it"]);
     app.shutdown();
 }
+
+/// Stepping back through the history picks the line the copy key takes,
+/// not whatever the game said last.
+#[test]
+fn copy_last_spoken_copies_the_line_being_reviewed() {
+    let mut app = TestApp::new();
+    app.push_state(menu());
+    app.ctx.say("Loaded for Kenosha, Wisconsin in 45 minutes.");
+    app.ctx
+        .say("Lane changes need the engine running and at least 10 miles per hour.");
+    // The first press lands on the newest line, the second on the one before.
+    app.dispatch_to_state(&key_event(Key::Comma));
+    app.dispatch_to_state(&key_event(Key::Comma));
+    let reviewed = last(&app);
+    app.dispatch_to_state(&copy_event());
+    assert_eq!(
+        app.ctx.clipboard.get_text().as_deref(),
+        Some(reviewed.as_str())
+    );
+    assert_eq!(reviewed, "Loaded for Kenosha, Wisconsin in 45 minutes.");
+    app.shutdown();
+}

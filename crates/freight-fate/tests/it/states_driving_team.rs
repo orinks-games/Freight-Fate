@@ -66,7 +66,10 @@ fn transcript_tail(harness: &PlaytestHarness) -> String {
 }
 
 #[test]
-#[cfg_attr(ci_quick, ignore = "sweep: drives the last miles of a load asleep")]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: drives the last miles of a load asleep"
+)]
 fn a_slept_shift_runs_ahead_to_the_receivers_gate_and_wakes_the_driver() {
     let mut harness = quiet_drive("Team Run");
     harness.with_drive(|d, ctx| {
@@ -113,10 +116,12 @@ fn a_slept_shift_runs_ahead_to_the_receivers_gate_and_wakes_the_driver() {
         harness.with_state::<ArrivalState, _>(|arrival, _| arrival.summary_parts.join(" "));
     assert!(summary.contains("Lou drove"), "{summary}");
     // The share is a row of its own on the settlement menu, read just
-    // before the net pay it explains.
+    // before the money it left you; the net pay is in the first row.
     let rows = harness.with_state::<ArrivalState, _>(|arrival, _| arrival.summary_lines.clone());
     let share = rows.iter().position(|l| l.starts_with("Lou drove"));
-    let net = rows.iter().position(|l| l.starts_with("Net driver pay"));
+    let net = rows
+        .iter()
+        .position(|l| l.starts_with("Money after settlement"));
     assert!(share.is_some() && share.map(|i| i + 1) == net, "{rows:?}");
     let note = harness.with_state::<ArrivalState, _>(|arrival, _| arrival.team_note.clone());
     assert!(
@@ -138,7 +143,10 @@ fn a_slept_shift_runs_ahead_to_the_receivers_gate_and_wakes_the_driver() {
 }
 
 #[test]
-#[cfg_attr(ci_quick, ignore = "sweep: drives through a fuel stop")]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: drives through a fuel stop"
+)]
 fn the_co_driver_fuels_at_a_stop_and_gets_back_on_the_road() {
     let mut harness = quiet_drive("Team Fuel");
     let found = harness.with_drive(|d, ctx| {

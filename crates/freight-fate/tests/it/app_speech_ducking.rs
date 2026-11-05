@@ -4,8 +4,9 @@
 //! A warning must survive a loud cab -- engine, weather, and the radio --
 //! without the voice itself getting louder. The duck engages the moment a
 //! line reaches the event channel and restores on the pacer's own
-//! projection of when the voice falls silent: no polling of the speech
-//! backend, which cannot be asked. (The backend half -- which channels the
+//! projection of when the voice falls silent, corrected by the voice's own
+//! report where it can give one (NVDA 2026.3 and later, SAPI, OneCore).
+//! (The backend half -- which channels the
 //! duck scales -- is `tests/audio_speech_ducking.rs`.)
 
 use ff_core::settings::Settings;
@@ -153,5 +154,53 @@ fn test_with_ducking_off_a_say_path_earcon_leaves_the_mix_alone() {
         audio.borrow().ducks
     );
     assert!(!app.ctx.speech_ducked());
+    app.shutdown();
+}
+
+#[test]
+fn test_a_voice_that_reports_silence_restores_the_mix_before_the_estimate() {
+    // A fast NVDA rate finishes the line well before the length-based
+    // estimate; the mix comes back when the voice says so.
+    let mut app = TestApp::new();
+    let (audio, clock) = rig(&mut app);
+    app.ctx.say_event_with(
+        "Open weigh station ahead in two miles. Have your paperwork ready.",
+        SayEvent::queued(),
+    );
+    clock.advance(1.0);
+    app.speech_mut().set_voice_speaking(Some(false));
+    app.ctx.update_event_voice_report();
+    app.ctx.update_speech_duck();
+    assert_eq!(audio.borrow().ducks, vec![SPEECH_DUCK_LEVEL, 1.0]);
+    app.shutdown();
+}
+
+#[test]
+fn test_a_voice_still_speaking_keeps_the_mix_down_past_the_estimate() {
+    // A slow voice is still on the line after the estimate ran out.
+    let mut app = TestApp::new();
+    let (audio, clock) = rig(&mut app);
+    app.ctx
+        .say_event_with("Weigh station open.", SayEvent::queued());
+    clock.advance(2.0);
+    app.speech_mut().set_voice_speaking(Some(true));
+    app.ctx.update_event_voice_report();
+    app.ctx.update_speech_duck();
+    assert_eq!(audio.borrow().ducks, vec![SPEECH_DUCK_LEVEL]);
+
+    clock.advance(0.1);
+    app.speech_mut().set_voice_speaking(Some(false));
+    app.ctx.update_event_voice_report();
+    app.ctx.update_speech_duck();
+    assert_eq!(audio.borrow().ducks, vec![SPEECH_DUCK_LEVEL, 1.0]);
+    app.shutdown();
+}
+
+#[test]
+fn test_the_voice_is_not_asked_while_nothing_was_said() {
+    let mut app = TestApp::new();
+    let (_audio, _clock) = rig(&mut app);
+    app.ctx.update_event_voice_report();
+    assert_eq!(app.speech().voice_reports(), 0);
     app.shutdown();
 }

@@ -2,15 +2,30 @@
 //! badges (the `Achievement*State` classes of `main_menu.py`).
 
 use ff_core::achievements::{
-    achievements_in_category, categories, earned_ids, entry_text, Achievement, AchievementCategory,
-    AchievementProfile, ACHIEVEMENTS,
+    career_order, earned_ids, entry_text, Achievement, AchievementCategory, AchievementProfile,
+    ACHIEVEMENTS,
 };
 use ff_core::models::profile::Profile;
 
 use crate::app::GameContext;
 use crate::impl_state_for_menu;
-use crate::states::base::{Label, Menu, MenuCore, MenuItem};
+use crate::states::achievement_sort::{
+    category_sort, chosen_sort, sorted_achievements, sorted_categories, step_category_sort,
+    step_chosen_sort, SortOverrides, CATEGORIES_SORT_HELP, CATEGORY_SORT_HELP,
+};
+use crate::states::base::{Key, Label, Menu, MenuCore, MenuItem};
 use crate::states::main_menu::loadable_saves;
+
+/// Help for the Achievements row on the terminal and pause menus.
+pub const CAREER_ACHIEVEMENTS_HELP: &str = "This career's earned and locked achievements.";
+
+/// Open the loaded career's achievements, from the terminal or the pause
+/// menu, without the main menu's career picker.
+pub fn open_career_achievements(ctx: &mut GameContext) {
+    if let Some(profile) = ctx.profile.clone() {
+        ctx.push_state(AchievementsState::new(profile));
+    }
+}
 
 fn earned_count(profile: &Profile) -> usize {
     earned_ids(profile as &dyn AchievementProfile).len()
@@ -78,11 +93,16 @@ impl Menu for AchievementCareerState {
 
 impl_state_for_menu!(AchievementCareerState);
 
-/// The category menu: pick a category, then browse its achievements.
+/// The category menu: pick a category, then browse its achievements. The
+/// sort row orders the categories and, by default, the badges inside them.
 pub struct AchievementsState {
     menu: MenuCore<Self>,
     pub profile: Profile,
+    overrides: SortOverrides,
 }
+
+/// The sort row is the first row of both screens, above the list it sorts.
+const SORT_ROW: usize = 0;
 
 impl AchievementsState {
     pub fn new(profile: Profile) -> Self {
@@ -90,6 +110,7 @@ impl AchievementsState {
             menu: MenuCore::new(&format!("Achievements for {}", profile.name))
                 .with_intro_help("Up and Down pick a category, Enter opens it, Escape goes back."),
             profile,
+            overrides: SortOverrides::default(),
         }
     }
 
@@ -108,6 +129,15 @@ impl AchievementsState {
             earned_count(&self.profile),
             ACHIEVEMENTS.len()
         ));
+    }
+
+    fn step_sort(&mut self, ctx: &mut GameContext, direction: i64) {
+        step_chosen_sort(ctx, direction);
+        self.refresh(ctx, true);
+    }
+
+    fn on_sort_row(&self) -> bool {
+        self.menu.index == SORT_ROW
     }
 }
 
@@ -131,32 +161,58 @@ impl Menu for AchievementsState {
         ctx.say(&text);
     }
 
-    fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
-        let earned = earned_ids(&self.profile as &dyn AchievementProfile);
+    fn handle_extra_key(&mut self, ctx: &mut GameContext, key: Key) -> bool {
+        let direction = match key {
+            Key::Right => 1,
+            Key::Left => -1,
+            _ => return false,
+        };
+        if !self.on_sort_row() {
+            return false;
+        }
+        self.step_sort(ctx, direction);
+        true
+    }
+
+    fn adjust(&mut self, ctx: &mut GameContext, direction: i64) {
+        if self.on_sort_row() {
+            self.step_sort(ctx, direction);
+        }
+    }
+
+    fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
+        let earned = career_order(&self.profile.achievements);
         let mut items = vec![MenuItem::new(
-            Label::dynamic(|s: &Self, _ctx| s.summary_label()),
-            |s: &mut Self, ctx| s.summary(ctx),
+            Label::dynamic(|_s: &Self, ctx| chosen_sort(ctx).label().to_string()),
+            |s: &mut Self, ctx| s.step_sort(ctx, 1),
         )
-        .help("The total earned.")];
-        for category in categories() {
-            let achs = achievements_in_category(category.id);
-            let done = achs.iter().filter(|a| earned.contains(a.id)).count();
-            let c: &'static AchievementCategory = category;
+        .help(CATEGORIES_SORT_HELP)
+        .select_sound(None)];
+        for row in sorted_categories(chosen_sort(ctx), &earned) {
+            let c: &'static AchievementCategory = row.category;
+            let done = row.earned;
+            let achs = row.achievements;
             let a = achs.clone();
             items.push(
                 MenuItem::new(
-                    format!("{}. {done} of {}", category.title, achs.len()),
+                    format!("{}. {done} of {}", c.title, achs.len()),
                     move |s: &mut Self, ctx| {
-                        ctx.push_state(AchievementCategoryState::new(
-                            s.profile.clone(),
-                            c,
-                            a.clone(),
-                        ))
+                        ctx.push_state(
+                            AchievementCategoryState::new(s.profile.clone(), c, a.clone())
+                                .with_overrides(s.overrides.clone()),
+                        )
                     },
                 )
-                .help(category.description),
+                .help(c.description),
             );
         }
+        items.push(
+            MenuItem::new(
+                Label::dynamic(|s: &Self, _ctx| s.summary_label()),
+                |s: &mut Self, ctx| s.summary(ctx),
+            )
+            .help("The total earned."),
+        );
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
         items
     }
@@ -165,12 +221,15 @@ impl Menu for AchievementsState {
 impl_state_for_menu!(AchievementsState);
 
 /// One category's achievements: earned ones tell their story, locked ones
-/// show their goal, and hidden ones keep the secret until earned.
+/// show their goal, and hidden ones keep the secret until earned. The sort
+/// row above the badges changes this category's order alone.
 pub struct AchievementCategoryState {
     menu: MenuCore<Self>,
     pub profile: Profile,
     pub category: &'static AchievementCategory,
+    /// The category's badges in catalog order; each build sorts a copy.
     pub achs: Vec<&'static Achievement>,
+    overrides: SortOverrides,
 }
 
 impl AchievementCategoryState {
@@ -185,12 +244,28 @@ impl AchievementCategoryState {
             profile,
             category,
             achs,
+            overrides: SortOverrides::default(),
         }
+    }
+
+    /// Share the categories screen's per-category picks.
+    pub fn with_overrides(mut self, overrides: SortOverrides) -> Self {
+        self.overrides = overrides;
+        self
     }
 
     fn earned_count(&self) -> usize {
         let earned = earned_ids(&self.profile as &dyn AchievementProfile);
         self.achs.iter().filter(|a| earned.contains(a.id)).count()
+    }
+
+    fn step_sort(&mut self, ctx: &mut GameContext, direction: i64) {
+        step_category_sort(ctx, &self.overrides, self.category, direction);
+        self.refresh(ctx, true);
+    }
+
+    fn on_sort_row(&self) -> bool {
+        self.menu.index == SORT_ROW
     }
 }
 
@@ -214,11 +289,40 @@ impl Menu for AchievementCategoryState {
         ctx.say(&text);
     }
 
-    fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
-        let earned = earned_ids(&self.profile as &dyn AchievementProfile);
-        let mut items = Vec::new();
-        for achievement in &self.achs {
-            let unlocked = earned.contains(achievement.id);
+    fn handle_extra_key(&mut self, ctx: &mut GameContext, key: Key) -> bool {
+        let direction = match key {
+            Key::Right => 1,
+            Key::Left => -1,
+            _ => return false,
+        };
+        if !self.on_sort_row() {
+            return false;
+        }
+        self.step_sort(ctx, direction);
+        true
+    }
+
+    fn adjust(&mut self, ctx: &mut GameContext, direction: i64) {
+        if self.on_sort_row() {
+            self.step_sort(ctx, direction);
+        }
+    }
+
+    fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
+        let earned = career_order(&self.profile.achievements);
+        let sort = category_sort(ctx, &self.overrides, self.category);
+        let mut items = vec![MenuItem::new(
+            Label::dynamic(|s: &Self, ctx| {
+                category_sort(ctx, &s.overrides, s.category)
+                    .label()
+                    .to_string()
+            }),
+            |s: &mut Self, ctx| s.step_sort(ctx, 1),
+        )
+        .help(CATEGORY_SORT_HELP)
+        .select_sound(None)];
+        for achievement in sorted_achievements(sort, &self.achs, &earned) {
+            let unlocked = earned.contains_key(achievement.id);
             let (name, description) = entry_text(achievement, unlocked);
             let (label, help_text) = if unlocked {
                 (format!("Earned: {name} - {description}"), description)

@@ -19,6 +19,7 @@ use crate::models::jobs::{
     MIN_JOB_DISTANCE_MI, PREMIUM_LANE_LEVEL, PREMIUM_LANE_LONG_HAUL_BIAS,
     SPECIALIZED_FREIGHT_LEVEL, SPECIALIZED_FREIGHT_WEIGHT,
 };
+use crate::models::jobs::{BEHIND_HEADING_PENALTY, RETURN_LANE_MIN_POOL, RETURN_LANE_SHARE};
 use crate::models::market::Market;
 use crate::models::start_options::{start_option, DEFAULT_START_KEY};
 use crate::pyfmt::round_py_n;
@@ -55,6 +56,11 @@ pub struct OfferOptions<'a> {
     pub market: Option<&'a Market>,
     pub carrier_key: Option<&'a str>,
     pub direct_freight: bool,
+    /// The city the truck delivered from to get here (`came_from_city`).
+    /// With it, the board draws that city at `RETURN_LANE_WEIGHT` and leans
+    /// away from cities behind the truck; without it (the default, and
+    /// every board built for a relay) the spread is what it always was.
+    pub came_from: Option<&'a str>,
 }
 
 impl<'a> OfferOptions<'a> {
@@ -173,7 +179,21 @@ impl<'w> JobBoard<'w> {
         // Pick a spread of DISTINCT destinations up front so the board never
         // collapses to one back-and-forth city (a start with a single nearby
         // neighbour used to be locked into one route). Nearer cities stay likelier.
-        let dest_cycle = self.spread_destinations(&city, &reachable, level, count, carrier_key);
+        // A city the map does not know leaves the spread exactly as it was:
+        // no gate draw, no lean.
+        let came_from = opts
+            .came_from
+            .filter(|c| !c.is_empty())
+            .map(|c| self.world.resolve_city_key(c))
+            .filter(|key| self.world.cities.contains_key(key));
+        let dest_cycle = self.spread_destinations(
+            &city,
+            &reachable,
+            level,
+            count,
+            carrier_key,
+            came_from.as_deref(),
+        );
         let held: Vec<&str> = endorsements.iter().map(AsRef::as_ref).collect();
         let mut attempts = 0;
         while jobs.len() < count && attempts < count * 30 {
@@ -291,13 +311,14 @@ impl<'w> JobBoard<'w> {
     /// Aims for at least three distinct cities (or as many as the network
     /// allows) so the dispatch board offers real choices instead of repeating
     /// one destination. Rookies still lean toward short hauls.
-    fn spread_destinations(
+    pub(crate) fn spread_destinations(
         &mut self,
         origin: &str,
         reachable: &[Candidate],
         level: i64,
         count: usize,
         carrier_key: &str,
+        came_from: Option<&str>,
     ) -> Vec<Candidate> {
         let mut best: IndexMap<String, Candidate> = IndexMap::new();
         for cand in reachable {
@@ -308,7 +329,16 @@ impl<'w> JobBoard<'w> {
                 }
             }
         }
-        let pool: Vec<Candidate> = best.into_values().collect();
+        let mut pool: Vec<Candidate> = best.into_values().collect();
+        // The straight return is on about RETURN_LANE_SHARE of the boards
+        // after a delivery, by this board's own draw, so the same board
+        // reopened shows the same thing. Only when there is enough else to
+        // offer.
+        if let Some(from) = came_from {
+            if pool.len() >= RETURN_LANE_MIN_POOL && self.rng.random() >= RETURN_LANE_SHARE {
+                pool.retain(|cand| cand.0 != from);
+            }
+        }
         let target = pool.len().min(count.max(3));
         let exponent = if level <= 2 { 2.0 } else { 1.0 };
         let mut chosen: Vec<Candidate> = Vec::new();
@@ -318,6 +348,7 @@ impl<'w> JobBoard<'w> {
                 .iter()
                 .map(|cand| {
                     self.destination_weight(origin, cand, level, carrier_key, Some(exponent))
+                        * self.arrival_factor(origin, &cand.0, came_from)
                 })
                 .collect();
             let idx = self.rng.choices_indices_weighted(&weights, 1)[0];
@@ -370,6 +401,28 @@ impl<'w> JobBoard<'w> {
             }
         }
         weight.max(1e-12)
+    }
+
+    /// How the way the truck arrived changes a destination's draw: a city
+    /// behind the truck (more than a right-angle turn back from the arrival
+    /// heading) draws down toward `1 - BEHIND_HEADING_PENALTY` at a full
+    /// reversal, which the city it came from is. Cities ahead or across are
+    /// untouched, and so is everything when `came_from` is None or unknown
+    /// to the map. Whether the return city is on the board at all is
+    /// `RETURN_LANE_SHARE`'s draw in `spread_destinations`.
+    pub fn arrival_factor(&self, here: &str, destination: &str, came_from: Option<&str>) -> f64 {
+        let Some(from) = came_from else {
+            return 1.0;
+        };
+        let coords = |key: &str| self.world.cities.get(key).map(|c| (c.lat, c.lon));
+        let (Some(from), Some(here), Some(dest)) =
+            (coords(from), coords(here), coords(destination))
+        else {
+            return 1.0;
+        };
+        let turn = turn_angle_deg(from, here, dest);
+        let behind = ((turn - 90.0) / 90.0).clamp(0.0, 1.0);
+        1.0 - BEHIND_HEADING_PENALTY * behind
     }
 
     /// Whether both ends of a lane sit in states on the frozen LCV network
@@ -718,5 +771,29 @@ impl<'w> JobBoard<'w> {
             );
         }
         job
+    }
+}
+
+/// Initial compass bearing from `a` to `b`, in degrees from north, for
+/// `(lat, lon)` pairs in degrees.
+fn bearing_deg(a: (f64, f64), b: (f64, f64)) -> f64 {
+    let (lat1, lon1) = (a.0.to_radians(), a.1.to_radians());
+    let (lat2, lon2) = (b.0.to_radians(), b.1.to_radians());
+    let dlon = lon2 - lon1;
+    let y = dlon.sin() * lat2.cos();
+    let x = lat1.cos() * lat2.sin() - lat1.sin() * lat2.cos() * dlon.cos();
+    y.atan2(x).to_degrees().rem_euclid(360.0)
+}
+
+/// How far a truck that drove `from` to `here` turns to head for `to`: 0
+/// straight on, 90 a right angle either way, 180 straight back.
+pub fn turn_angle_deg(from: (f64, f64), here: (f64, f64), to: (f64, f64)) -> f64 {
+    let arrived = bearing_deg(from, here);
+    let leaving = bearing_deg(here, to);
+    let diff = (leaving - arrived).rem_euclid(360.0);
+    if diff > 180.0 {
+        360.0 - diff
+    } else {
+        diff
     }
 }

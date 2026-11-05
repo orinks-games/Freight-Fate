@@ -2,7 +2,9 @@
 //! Jim answers an incident at the next pool sign, once; the small-hours signs
 //! come out when the driver is drowsy; placed attraction signs never change.
 
-use ff_core::data::billboards_dynamic::{CITATION_LINES, COLLISION_LINES, SMALL_HOURS_LINES};
+use ff_core::data::billboards_dynamic::{
+    holiday_signs, Holiday, CITATION_LINES, COLLISION_LINES, HOLIDAY_EVERY, SMALL_HOURS_LINES,
+};
 use ff_core::data::world::get_world;
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
@@ -131,4 +133,35 @@ fn test_the_small_hours_signs_find_a_drowsy_driver_every_other_sign() {
     assert!(one_of(&said, SMALL_HOURS_LINES), "{said}");
     let said = read(&mut d, &mut app, &pool_sign());
     assert!(said.contains("steam table"), "{said}");
+}
+
+#[test]
+fn test_halloween_week_reads_varied_signs_true_in_new_york() {
+    let mut app = TestApp::new();
+    let mut d = a_drive(&mut app);
+    // March 21 plus 221 days: October 28, Halloween week.
+    app.ctx.profile.as_mut().unwrap().calendar_offset_days = 221;
+    let mut heard = Vec::new();
+    for _ in 0..HOLIDAY_EVERY * 8 {
+        let said = read(&mut d, &mut app, &pool_sign());
+        if !said.contains("steam table") {
+            heard.push(said);
+        }
+    }
+    assert_eq!(heard.len(), 8, "{heard:?}");
+    let mut distinct = heard.clone();
+    distinct.sort();
+    distinct.dedup();
+    assert_eq!(
+        distinct.len(),
+        8,
+        "a Halloween line came back early: {heard:?}"
+    );
+    for said in &heard {
+        let sign = holiday_signs(Holiday::Halloween)
+            .iter()
+            .find(|sign| said.contains(sign.text))
+            .unwrap_or_else(|| panic!("not a Halloween sign: {said}"));
+        assert!(sign.holds_in(Some("NY")), "read in New York: {said}");
+    }
 }

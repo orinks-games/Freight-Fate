@@ -10,8 +10,8 @@ use crate::sim::enforcement_posts::{
     post_seed, EnforcementPost, KIND_CHAIN, KIND_CMV, KIND_FIXED_SCALE, KIND_MEDIAN, KIND_ROVING,
     KIND_SCALE_APRON, KIND_URBAN, KIND_WORK_ZONE,
 };
-use crate::sim::real_traffic::RealTrafficProvider;
-use crate::sim::real_traffic_parsers::TrafficEvent;
+use crate::sim::real_traffic::{road_name_matches, RealTrafficProvider};
+use crate::sim::real_traffic_parsers::{split_cars_title, TrafficEvent};
 use crate::sim::trip::Trip;
 use crate::sim::trip_models::*;
 use crate::sim::trip_route_helpers::{leg_states, leg_track, runs_against_travel, snap_to_leg};
@@ -20,7 +20,20 @@ use crate::speech_text::SpokenMessage;
 /// Incident lookups filter the whole cached state feed by distance, so
 /// re-check on a mile cadence rather than every simulation tick.
 pub const REAL_TRAFFIC_CHECK_INTERVAL_MI: f64 = 1.0;
-pub const REAL_TRAFFIC_RADIUS_MI: f64 = 50.0;
+/// How far ahead of the truck a live road report is spoken.
+pub const LIVE_REPORT_AHEAD_MI: f64 = 10.0;
+/// The feed lookup around each probe point: the lookahead, plus room for a
+/// road that winds away from the straight line.
+const LIVE_REPORT_QUERY_RADIUS_MI: f64 = LIVE_REPORT_AHEAD_MI + 2.0;
+/// How far off the line a report that names the truck's road may sit. A
+/// leg's route points run about 25 miles apart, and the real road bows up to
+/// a couple of miles off the chord between two of them (I-80 through Gary
+/// sits 1.8 miles off it), so this is the snap's own 2-mile reach: the road
+/// name does the matching.
+const LIVE_REPORT_NAMED_OFF_ROAD_MI: f64 = 2.0;
+/// How far off the line a report that names no road may sit before it reads
+/// as a crossing road's.
+const LIVE_REPORT_UNNAMED_OFF_ROAD_MI: f64 = 0.25;
 
 /// The duck-typed `traffic_provider` the Python trip asked two questions of.
 /// The real provider answers from its cache; a test double answers from a
@@ -177,7 +190,9 @@ impl Trip {
     ///
     /// No "CB chatter" opener: the CB's own sound marks the line as radio
     /// talk, and the words are the report (owner, 2026-10-01). A fresh
-    /// report leads with how far; a stale one with who said it.
+    /// report leads with how far, and so does a stale one, which says it is old:
+    /// "a while back" with no distance read as a trooper already behind the
+    /// truck (owner's drive, 2026-11-04).
     pub fn cb_patrol_message(&self, post: &EnforcementPost, ahead_mi: f64) -> String {
         let distance = cap_first(&self.ahead_text(ahead_mi.max(0.0)));
         let confidence = self.cb_confidence(post);
@@ -186,14 +201,14 @@ impl Trip {
             return match confidence {
                 "strong" => format!("{distance}: two drivers say troopers are working {side}."),
                 "ordinary" => format!("{distance}: a driver says troopers are working {side}."),
-                _ => format!("Somebody said troopers were working {side} a while back."),
+                _ => format!("{distance}: an old report of troopers {side}."),
             };
         }
         if post.kind == KIND_SCALE_APRON || post.kind == KIND_FIXED_SCALE {
             return match confidence {
                 "strong" => format!("{distance}: two drivers say they're checking logs {side}."),
                 "ordinary" => format!("{distance}: a driver says they're checking logs {side}."),
-                _ => format!("Somebody said they were checking logs {side} a while back."),
+                _ => format!("{distance}: an old report of log checks {side}."),
             };
         }
         if post.kind == KIND_CMV {
@@ -204,9 +219,7 @@ impl Trip {
                 "ordinary" => {
                     format!("{distance}: a driver says they're checking logs and equipment {side}.")
                 }
-                _ => format!(
-                    "Somebody said they were checking logs and equipment {side} a while back."
-                ),
+                _ => format!("{distance}: an old report of log and equipment checks {side}."),
             };
         }
         if post.kind == KIND_CHAIN {
@@ -217,33 +230,15 @@ impl Trip {
                 "ordinary" => {
                     format!("{distance}: a driver says the chain control is checking rigs {side}.")
                 }
-                _ => format!(
-                    "Somebody said the chain control was checking rigs {side} a while back."
-                ),
+                _ => {
+                    format!("{distance}: an old report of the chain control checking rigs {side}.")
+                }
             };
         }
         match confidence {
             "strong" => format!("{distance}: two drivers call a trooper {side}."),
             "ordinary" => format!("{distance}: a driver reports a trooper {side}."),
-            _ => format!("Somebody called a trooper {side} a while back."),
-        }
-    }
-
-    /// CB chatter for a trooper who already has somebody else stopped.
-    pub fn cb_tableau_message(&self, post: &EnforcementPost, ahead_mi: f64) -> String {
-        let distance = cap_first(&self.ahead_text(ahead_mi.max(0.0)));
-        let confidence = self.cb_confidence(post);
-        let side = Self::cb_side(post);
-        match confidence {
-            "strong" => {
-                format!(
-                    "{distance}: two drivers say a trooper already has somebody stopped {side}."
-                )
-            }
-            "ordinary" => {
-                format!("{distance}: a driver says a trooper already has somebody stopped {side}.")
-            }
-            _ => format!("Somebody said a trooper had somebody stopped {side} a while back."),
+            _ => format!("{distance}: an old report of a trooper {side}."),
         }
     }
 
@@ -293,7 +288,12 @@ impl Trip {
             .cloned()
     }
 
-    /// Announce nearby real-time incidents from the state 511 APIs.
+    /// Speak real-time incidents from the state 511 feeds that sit on the
+    /// truck's own road, on its side of it, within
+    /// [`LIVE_REPORT_AHEAD_MI`] ahead. A feed lists every report in the
+    /// state; ramps on crossing roads and the other carriageway stay quiet
+    /// (Orinks, 2026-11-05: thirteen reports in ninety seconds near Gary,
+    /// nearly all for other roads).
     pub fn check_real_traffic_events(&mut self) {
         let Some(provider) = self.traffic_provider.clone() else {
             return;
@@ -303,37 +303,30 @@ impl Trip {
         }
         self.next_real_traffic_check_mi = self.position_mi + REAL_TRAFFIC_CHECK_INTERVAL_MI;
 
-        let (leg_i, leg_start) = self.leg_at_mile(self.position_mi);
-        let leg = self.route.legs[leg_i].clone();
-        if leg.route_points().is_empty() {
-            return;
+        // The truck's spot and the end of the lookahead, each with the state
+        // whose feed covers it: a report just over a state line is in the
+        // next state's feed.
+        let mut probes: Vec<(String, f64, f64)> = Vec::new();
+        for mile in [self.position_mi, self.position_mi + LIVE_REPORT_AHEAD_MI] {
+            let Some((state, lat, lon)) = self.route_point_at(mile) else {
+                continue;
+            };
+            if !probes.iter().any(|(s, _, _)| *s == state) {
+                probes.push((state, lat, lon));
+            }
         }
-        let forward = self.route.cities[leg_i] == leg.a;
-        let route_offset = self.position_mi - leg_start;
-        let leg_offset = if forward {
-            route_offset
-        } else {
-            leg.miles - route_offset
-        };
-
-        let state = leg_state_at(&leg, leg_offset);
-        if state.is_empty() {
-            return;
+        let mut seen: Vec<String> = Vec::new();
+        let mut events: Vec<TrafficEvent> = Vec::new();
+        for (state, lat, lon) in &probes {
+            for event in provider.get_events_near(state, *lat, *lon, LIVE_REPORT_QUERY_RADIUS_MI) {
+                if !seen.contains(&event.id) {
+                    seen.push(event.id.clone());
+                    events.push(event);
+                }
+            }
         }
-        let point = leg
-            .route_points()
-            .iter()
-            .min_by(|a, b| {
-                (a.at_mi - leg_offset)
-                    .abs()
-                    .partial_cmp(&(b.at_mi - leg_offset).abs())
-                    .expect("finite mileposts")
-            })
-            .copied()
-            .expect("route points are non-empty");
 
-        let events = provider.get_events_near(&state, point.lat, point.lon, REAL_TRAFFIC_RADIUS_MI);
-
+        let mut reports: Vec<(f64, TrafficEvent, String)> = Vec::new();
         for event in events {
             if event.severity != "high" && event.severity != "medium" {
                 continue;
@@ -346,12 +339,36 @@ impl Trip {
             if self.announced_real_traffic.contains(&event_key) {
                 continue;
             }
+            let Some((mile, highway)) = self.live_report_mile(&event) else {
+                continue;
+            };
+            let ahead_mi = mile - self.position_mi;
+            // Behind the truck it no longer matters; further out it is
+            // spoken once it comes within range.
+            if !(0.0..=LIVE_REPORT_AHEAD_MI).contains(&ahead_mi) {
+                continue;
+            }
+            let text = live_report_text(&event, &highway);
+            if text.is_empty() {
+                continue;
+            }
+            reports.push((ahead_mi, event, text));
+        }
+        reports.sort_by(|a, b| a.0.total_cmp(&b.0));
+
+        for (ahead_mi, event, text) in reports {
+            let event_key = format!("real_traffic:{}", event.id);
             // "Live road report", not "traffic alert": these describe the
             // REAL road today; the simulation does not act on them at all
             // (Brandon, 2026-08-21; owner call the same day).
-            let mut message = format!("Live road report: {}", event.description);
+            let distance = self.ahead_text(ahead_mi);
+            let mut message = format!("Live road report, {distance} ahead: {text}");
+            if !message.ends_with('.') {
+                message.push('.');
+            }
             if let Some(lanes) = event.lanes_affected.as_ref().filter(|l| !l.is_empty()) {
-                message += &format!(". {lanes} affected.");
+                message.push(' ');
+                message.push_str(&format!("{lanes} affected."));
             }
             self.emit(
                 TripEventKind::GpsCue,
@@ -363,6 +380,65 @@ impl Trip {
             );
             self.announced_real_traffic.insert(event_key);
         }
+    }
+
+    /// The state, latitude and longitude of the road at a trip mile; None
+    /// past the end of the route or on a leg with no route points.
+    fn route_point_at(&self, mile: f64) -> Option<(String, f64, f64)> {
+        if mile > self.total_miles() {
+            return None;
+        }
+        let (leg_i, leg_start) = self.leg_at_mile(mile);
+        let leg = &self.route.legs[leg_i];
+        let forward = self.route.cities[leg_i] == leg.a;
+        let route_offset = mile - leg_start;
+        let leg_offset = if forward {
+            route_offset
+        } else {
+            leg.miles - route_offset
+        };
+        let state = leg_state_at(leg, leg_offset);
+        if state.is_empty() {
+            return None;
+        }
+        let point = leg.route_points().iter().min_by(|a, b| {
+            (a.at_mi - leg_offset)
+                .abs()
+                .total_cmp(&(b.at_mi - leg_offset).abs())
+        })?;
+        Some((state, point.lat, point.lon))
+    }
+
+    /// Where a report meets the road the truck will drive in the next
+    /// [`LIVE_REPORT_AHEAD_MI`], as a trip mile, with that leg's highway.
+    /// None when the report names another road, sits off the road, or holds
+    /// only the other direction of travel.
+    fn live_report_mile(&self, event: &TrafficEvent) -> Option<(f64, String)> {
+        let (Some(lat), Some(lon)) = (event.latitude, event.longitude) else {
+            return None;
+        };
+        let reach = self.position_mi + LIVE_REPORT_AHEAD_MI;
+        self.leg_starts
+            .iter()
+            .zip(self.route.legs.iter())
+            .enumerate()
+            .filter(|(_, (start, leg))| **start <= reach && **start + leg.miles >= self.position_mi)
+            .filter_map(|(i, (start, leg))| {
+                // A report that names its road must name this one; one that
+                // does not has to sit right on the line.
+                let max_off_mi = match report_on_highway(&event.road_name, &leg.highway) {
+                    Some(false) => return None,
+                    Some(true) => LIVE_REPORT_NAMED_OFF_ROAD_MI,
+                    None => LIVE_REPORT_UNNAMED_OFF_ROAD_MI,
+                };
+                let forward = self.route.cities[i] == leg.a;
+                let snap = snap_to_leg(lat, lon, leg, forward, *start)?;
+                (snap.off_road_mi <= max_off_mi
+                    && !runs_against_travel(&event.direction, snap.bearing_deg))
+                .then(|| (snap, leg.highway.clone()))
+            })
+            .min_by(|a, b| a.0.off_road_mi.total_cmp(&b.0.off_road_mi))
+            .map(|(snap, highway)| (snap.mile, highway))
     }
 
     /// `{(highway, state): [(lat, lon), ...]}` from the route legs, each
@@ -523,6 +599,69 @@ impl Trip {
             _ => None,
         }
     }
+}
+
+/// Whether a feed's road name is the leg's highway: None when the feed names
+/// no road. Concurrent routes ("I-80/I-94") match on any of their names, and
+/// a state route matches by number whatever the state calls it ("IN 912"
+/// is the map's "SR-912").
+pub fn report_on_highway(report_road: &str, highway: &str) -> Option<bool> {
+    let report_road = report_road.trim();
+    if report_road.is_empty() {
+        return None;
+    }
+    let highway = highway.trim();
+    // Indiana's feed calls the toll road's stretch of I-80 "I-80 Toll".
+    let names = report_road
+        .split(['/', '&', ',', ';'])
+        .map(|part| part.split(" - ").next().unwrap_or("").trim())
+        .map(|part| part.strip_suffix(" Toll").unwrap_or(part).trim())
+        .filter(|part| !part.is_empty());
+    for name in names {
+        if road_name_matches(name, highway) {
+            return Some(true);
+        }
+        if let (Some(a), Some(b)) = (state_route_number(name), state_route_number(highway)) {
+            if a == b {
+                return Some(true);
+            }
+        }
+    }
+    Some(false)
+}
+
+/// The number of a state route ("SR-26", "IN 912", "State Road 3"); None
+/// for an interstate, a US route, or anything without a plain number.
+fn state_route_number(road: &str) -> Option<String> {
+    let road = road.trim().to_uppercase();
+    let split = road.find(|c: char| c.is_ascii_digit())?;
+    let (prefix, rest) = road.split_at(split);
+    let prefix: String = prefix.chars().filter(|c| c.is_ascii_alphabetic()).collect();
+    if prefix.is_empty()
+        || matches!(
+            prefix.as_str(),
+            "I" | "INTERSTATE" | "US" | "USHWY" | "USROUTE"
+        )
+    {
+        return None;
+    }
+    let number: String = rest
+        .chars()
+        .take_while(|c| c.is_ascii_alphanumeric())
+        .collect();
+    Some(number)
+}
+
+/// The spoken text of a report. A CARS title leads with its road and a
+/// mile-point range ("US 20 (Mile Point 42.5 - 42.61): Lane closed."); on the
+/// truck's own road only the part after the colon is news.
+pub fn live_report_text(event: &TrafficEvent, highway: &str) -> String {
+    let description = event.description.trim();
+    let (road, _, rest) = split_cars_title(description);
+    if !road.is_empty() && report_on_highway(&road, highway) == Some(true) && !rest.is_empty() {
+        return rest;
+    }
+    description.to_string()
 }
 
 /// A distance phrase opening a sentence: "half a mile" becomes "Half a mile".

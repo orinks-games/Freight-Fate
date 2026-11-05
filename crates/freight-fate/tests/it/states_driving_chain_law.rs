@@ -509,7 +509,7 @@ fn test_a_cited_truck_with_chains_aboard_is_held_until_they_are_on() {
     assert!(with_drive(&drive, |d| d.trip.truck.parking_brake));
     assert!(spoken(&app)
         .iter()
-        .any(|s| s.starts_with("Held at the chain checkpoint")));
+        .any(|s| s.starts_with("Held at the chain control")));
 
     // Chains on: waved through.
     with_drive(&drive, |d| d.trip.truck.chains_on = true);
@@ -808,7 +808,7 @@ fn test_a_held_truck_with_no_chains_to_put_on_hears_the_ways_out() {
     let drive = held_with_a_worn_out_set(&mut app);
     assert!(
         spoken(&app).iter().any(|s| s
-            == "Held at the chain checkpoint. You have no chains. Call dispatch for a set, wait \
+            == "Held at the chain control. You have no chains. Call dispatch for a set, wait \
                 here until the chain law lifts, or turn back."),
         "{:?}",
         spoken(&app)
@@ -923,7 +923,7 @@ fn test_a_truck_that_turns_back_and_returns_is_held_again_but_not_fined_twice() 
     assert!(
         spoken(&app)
             .iter()
-            .any(|s| s.starts_with("Chain checkpoint. The officer stops you again.")),
+            .any(|s| s.starts_with("Chain control. The officer stops you again.")),
         "{:?}",
         spoken(&app)
     );
@@ -986,7 +986,7 @@ fn test_waiting_stops_at_the_duty_window() {
     let line = drive_and_ctx(&drive, &mut app, |d, ctx| d.wait_for_chain_law_to_lift(ctx))
         .expect("held, so it waits");
     assert!(
-        line.starts_with("You waited 30 minutes, and your 14-hour duty window"),
+        line.starts_with("You waited 30 minutes, and your duty window"),
         "{line}"
     );
     assert!(with_drive(&drive, |d| d.chain_checkpoint_hold));
@@ -1117,7 +1117,7 @@ fn test_turning_back_past_the_drive_limit_is_refused() {
     assert_eq!(
         line,
         "Turning back takes 8 minutes of driving, more than your hours allow. Wait here for the \
-         chain law to lift, or sleep at the checkpoint from the pause menu."
+         chain law to lift, or sleep at the chain control from the pause menu."
     );
     assert!(
         with_drive(&drive, |d| d.chain_checkpoint_hold),
@@ -1153,7 +1153,7 @@ fn test_a_held_truck_out_of_hours_can_always_sleep_at_the_checkpoint() {
     assert!(
         labels
             .iter()
-            .any(|l| l == "Sleep at the checkpoint (10 hours)"),
+            .any(|l| l == "Sleep at the chain control (10 hours)"),
         "{labels:?}"
     );
     let (money_before, damage_before) =
@@ -1164,7 +1164,7 @@ fn test_a_held_truck_out_of_hours_can_always_sleep_at_the_checkpoint() {
     let items = confirm.build_items(&mut app.ctx);
     let index = items
         .iter()
-        .position(|item| item.text(&confirm, &app.ctx) == "Sleep at the checkpoint")
+        .position(|item| item.text(&confirm, &app.ctx) == "Sleep at the chain control")
         .expect("the sleep row");
     confirm.menu_mut().items = items;
     confirm.menu_mut().index = index;
@@ -1203,7 +1203,7 @@ fn test_turning_back_past_the_8_hour_break_limit_is_refused() {
     assert_eq!(
         line,
         "Turning back takes 20 minutes, more driving than you have before your 30-minute break. \
-         Wait here, which counts as your break, or sleep at the checkpoint."
+         Wait here, which counts as your break, or sleep at the chain control."
     );
     assert!(with_drive(&drive, |d| d.chain_checkpoint_hold));
     assert_eq!(with_drive(&drive, |d| d.trip.position_mi), position);
@@ -1219,9 +1219,9 @@ fn test_an_expired_window_does_not_offer_a_turn_back_that_would_be_refused() {
     let line = drive_and_ctx(&drive, &mut app, |d, ctx| d.wait_for_chain_law_to_lift(ctx))
         .expect("held, so it answers");
     assert!(
-        line.starts_with("Your 14-hour duty window is nearly used up.")
+        line.starts_with("Your duty window is nearly used up.")
             && line.ends_with(
-                "The chain law still stands. Sleep at the checkpoint from the pause menu."
+                "The chain law still stands. Sleep at the chain control from the pause menu."
             ),
         "{line}"
     );
@@ -1270,7 +1270,7 @@ fn test_an_alert_that_expires_overnight_lifts_the_hold_after_a_checkpoint_sleep(
     let items = confirm.build_items(&mut app.ctx);
     let index = items
         .iter()
-        .position(|item| item.text(&confirm, &app.ctx) == "Sleep at the checkpoint")
+        .position(|item| item.text(&confirm, &app.ctx) == "Sleep at the chain control")
         .expect("the sleep row");
     confirm.menu_mut().items = items;
     confirm.menu_mut().index = index;
@@ -1307,7 +1307,7 @@ fn test_a_checkpoint_sleep_says_the_chain_law_still_stands() {
     let items = confirm.build_items(&mut app.ctx);
     let index = items
         .iter()
-        .position(|item| item.text(&confirm, &app.ctx) == "Sleep at the checkpoint")
+        .position(|item| item.text(&confirm, &app.ctx) == "Sleep at the chain control")
         .expect("the sleep row");
     confirm.menu_mut().items = items;
     confirm.menu_mut().index = index;

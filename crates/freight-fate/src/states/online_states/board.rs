@@ -45,8 +45,8 @@ fn updated_at_ms(entry: &Value) -> f64 {
 
 /// How long the open board waits before quietly asking again.
 ///
-/// The site answers this from a sixty-second cache, so asking faster only
-/// gets the same answer back and spends a request to do it.
+/// The backend answers this from a sixty-second snapshot, so asking faster
+/// only gets the same answer back and spends a request to do it.
 const BOARD_POLL_S: f64 = 60.0;
 
 /// The name a row is filed under, for ordering and for keeping the cursor on

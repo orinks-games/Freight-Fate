@@ -9,7 +9,7 @@ use ff_core::models::safety_record::{
 };
 use ff_core::pyrandom::PyRandom;
 use ff_core::settings::short_distance_text_for;
-use ff_core::sim::enforcement_posts::{post_seed, KIND_FIXED_SCALE};
+use ff_core::sim::enforcement_posts::post_seed;
 use ff_core::sim::trip_models::{RoadStop, ENFORCEMENT_WARNING_MAX_MI, SCALE_WARNING_REAL_S};
 use ff_core::speech_pacing::SpeechCategory;
 
@@ -29,13 +29,7 @@ impl DrivingState {
     /// Settled once when the trip was built, from a named seeded draw over the
     /// stop's own key, so a reload cannot reopen a dark scale.
     pub fn scale_is_open(&self, stop: &RoadStop) -> bool {
-        let key = stop.key();
-        for post in &self.trip.posts {
-            if post.anchor == key {
-                return post.kind == KIND_FIXED_SCALE;
-            }
-        }
-        false
+        self.trip.scale_open(stop)
     }
 
     /// Lead distance for the open-scale call, sized in real seconds.
@@ -503,5 +497,43 @@ impl DrivingState {
         };
         let score = refresh_selection_score(profile, damage_pct);
         safety_record_text(score).to_string()
+    }
+
+    // -- full lane keeping takes the open scale ------------------------------
+
+    /// Lane keeping on full signals for an open scale that wants this truck,
+    /// as it takes the destination exit: a scale is not optional, and on All
+    /// assists signalling for one was the last lane job left to the player
+    /// (owner, 2026-10-27). The co-driver presses the same key. A signal the
+    /// player cancelled stays cancelled, and a stop they chose that comes
+    /// first keeps the key.
+    pub fn lane_keeping_signal_for_scale(&mut self, ctx: &mut GameContext) {
+        if !ctx.settings.lane_is_automated()
+            || self.exit_signal_on
+            || self.ramp_mi.is_some()
+            || self.pull_over.is_some()
+            || self.enforcement_bypassed(ctx)
+        {
+            return;
+        }
+        let window = self.exit_window_mi();
+        let Some((stop, _)) = self.check_in_scale_ahead(ctx, window) else {
+            return;
+        };
+        if self.canceled_exit_key.as_deref() == Some(Self::destination_exit_key(&stop).as_str()) {
+            return;
+        }
+        if self.selected_rest_stop().is_none() {
+            self.exit_stop = Some(stop);
+        }
+        self.toggle_exit_signal(ctx);
+    }
+
+    /// Whether the truck brakes itself to a stop at this scale: lane keeping
+    /// on full took the ramp, and the stop-at-the-destination assist is on.
+    pub fn scale_stop_is_assisted(&self, ctx: &GameContext, stop: &RoadStop) -> bool {
+        stop.stop_type == "weigh_station"
+            && ctx.settings.lane_is_automated()
+            && ctx.settings.destination_approach_assist
     }
 }

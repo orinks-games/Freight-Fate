@@ -246,9 +246,39 @@ fn test_a_slow_box_truck_is_spoken_only_at_standard() {
 }
 
 #[test]
-fn test_urgent_only_still_says_the_work_zone_took_the_cruise() {
+fn test_urgent_only_still_says_a_zone_took_the_cruise() {
     // The pedals are the driver's again. As a zone entry this was dropped
     // whole at urgent only, and the cruise let go without a word.
+    let mut app = an_app("urgent_only");
+    let mut drive = a_drive(&mut app);
+    app.ctx.settings.speed_keeper = false;
+    drive.cruise_mph = Some(65.0);
+    app.clear_speech();
+
+    let event = TripEvent {
+        kind: TripEventKind::ZoneEnter,
+        message: SpokenMessage::new("Speed limit 45."),
+        data: TripEventData {
+            zone: Some(a_zone("controlled ramp", None)),
+            ..TripEventData::default()
+        },
+    };
+    drive.handle_trip_event(&mut app.ctx, &event);
+
+    assert!(drive.cruise_mph.is_none());
+    let lines = app.event_lines();
+    assert!(
+        lines.iter().any(|line| line.ends_with("Cruise off.")),
+        "{lines:?}"
+    );
+    app.shutdown();
+}
+
+#[test]
+fn test_a_work_zone_keeps_the_cruise() {
+    // Cruise holds a highway work zone at its limit, keeper or no keeper
+    // (owner rule, 2026-10-27, issue #518): nothing lets go, so nothing
+    // says it did.
     let mut app = an_app("urgent_only");
     let mut drive = a_drive(&mut app);
     app.ctx.settings.speed_keeper = false;
@@ -265,10 +295,10 @@ fn test_urgent_only_still_says_the_work_zone_took_the_cruise() {
     };
     drive.handle_trip_event(&mut app.ctx, &event);
 
-    assert!(drive.cruise_mph.is_none());
+    assert_eq!(drive.cruise_mph, Some(65.0));
     let lines = app.event_lines();
     assert!(
-        lines.iter().any(|line| line.ends_with("Cruise off.")),
+        !lines.iter().any(|line| line.contains("Cruise off.")),
         "{lines:?}"
     );
     app.shutdown();

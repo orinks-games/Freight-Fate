@@ -36,7 +36,9 @@ use crate::states::city::{
 };
 use crate::states::driving_school::DrivingSchoolState;
 use crate::states::logbook::LogbookState;
-use crate::states::main_menu::{MainMenuState, SettingsState};
+use crate::states::main_menu::{
+    open_career_achievements, MainMenuState, SettingsState, CAREER_ACHIEVEMENTS_HELP,
+};
 
 use super::close_out::CloseOutCareerState;
 use super::truck_status::TruckStatusState;
@@ -717,9 +719,15 @@ impl Menu for CityMenuState {
                     format!("{} dollars.", fmt_grouped(p.money(), 0))
                 }
             } else {
+                // "Sheboygan Company Yard in Sheboygan" says the city twice.
+                let short_city = city_name.split(',').next().unwrap_or(&city_name).trim();
+                let place = if terminal.name.contains(short_city) {
+                    terminal.spoken_name()
+                } else {
+                    format!("{} in {city_name}", terminal.spoken_name())
+                };
                 format!(
-                    "{} in {city_name}. {} dollars.{cdl}{record}",
-                    terminal.spoken_name(),
+                    "{place}. {} dollars.{cdl}{record}",
                     fmt_grouped(p.money(), 0)
                 )
             }
@@ -769,9 +777,10 @@ impl Menu for CityMenuState {
         // dispatch instead (ROADMAP).
         if is_owner_operator(status) {
             items.push(
-                MenuItem::new("Bobtail to a nearby city", |s: &mut Self, ctx| {
-                    s.bobtail(ctx)
-                })
+                MenuItem::new(
+                    "Drive to a nearby city without a trailer",
+                    |s: &mut Self, ctx| s.bobtail(ctx),
+                )
                 .help(
                     "Drive empty to a nearby city for its dispatch board. Costs fuel and hours \
                      of service, no load, no pay.",
@@ -802,6 +811,12 @@ impl Menu for CityMenuState {
                 "Level, reputation, dispatch trust, driving record and CDL, balance and debt, \
                  endorsements, lifetime numbers, and rest.",
             ),
+        );
+        items.push(
+            MenuItem::new("Achievements", |_s: &mut Self, ctx| {
+                open_career_achievements(ctx)
+            })
+            .help(CAREER_ACHIEVEMENTS_HELP),
         );
         items.push(
             MenuItem::new("Licenses and training", |s: &mut Self, ctx| {
@@ -840,7 +855,7 @@ impl Menu for CityMenuState {
         );
         items.push(
             MenuItem::new("Logbook", |s: &mut Self, ctx| s.logbook(ctx))
-                .help("Recent Record of Duty Status entries."),
+                .help("Recent logbook entries."),
         );
         items.push(
             MenuItem::new("Sleep 10 hours", |s: &mut Self, ctx| s.sleep(ctx))

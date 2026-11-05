@@ -295,18 +295,20 @@ fn audit(harness: &mut PlaytestHarness) -> Vec<String> {
     // same question asked of adaptive cruise.
     {
         let binding = binding_cruise_cap(&t);
-        if let Some(said) = number_after(&space, r"(?i)adaptive cruise set at (\d+)") {
+        if let Some(said) = number_after(&space, r"(?i)cruise set at (\d+)") {
             if let Some((cap, why)) = binding {
                 if cap < said - 1.0 {
                     out.push(format!(
-                        "Space said adaptive cruise set at {said}; cruise is capped at \
+                        "Space said cruise set at {said}; cruise is capped at \
                          {cap:.0} for {why} and the truck is doing {:.0} -- {space}",
                         t.speed_mph
                     ));
                 }
             }
         }
-        if let Some(said) = number_after(&space, r"(?i)adaptive cruise holding (\d+)") {
+        if let Some(said) =
+            number_after(&space, r"(?i)cruise holding (\d+)").filter(|_| t.cruise_set_mph.is_some())
+        {
             // The published number may be lower than any ceiling this audit
             // knows about -- the posted-limit cap, the weather and the lead
             // vehicle all move it too. What it must never be is HIGHER than a
@@ -319,7 +321,7 @@ fn audit(harness: &mut PlaytestHarness) -> Vec<String> {
                     ));
                 }
             }
-            if let Some(set) = number_after(&space, r"set (\d+) miles per hour") {
+            if let Some(set) = number_after(&space, r"set (\d+)") {
                 let real = t.cruise_set_mph.unwrap_or(0.0);
                 if (set - real).abs() > 0.6 {
                     out.push(format!(
@@ -399,7 +401,10 @@ fn audit(harness: &mut PlaytestHarness) -> Vec<String> {
     // The keeper's readout already answers with two numbers when it is easing
     // ("holding 15 for the corner, set 25"). Audited here so the pattern the
     // cruise check above measures against is itself pinned.
-    if let Some(said) = number_after(&space, r"(?i)speed keeper holding (\d+)") {
+    // One name for both controllers, so the truth says which one spoke.
+    if let Some(said) =
+        number_after(&space, r"(?i)cruise holding (\d+)").filter(|_| t.keeper_mph.is_some())
+    {
         let held = t.keeper_mph.unwrap_or(0.0);
         let eased = t
             .keeper_ease
@@ -628,7 +633,7 @@ fn test_the_status_readout_names_the_speed_cruise_is_actually_holding_on_a_ramp(
     let ramp_number =
         number_after(&resumed, r"Cruise resuming, (\d+)").expect("the resume names a number");
     let space = ask(&mut harness, Key::Space);
-    let holding = number_after(&space, r"(?i)adaptive cruise holding (\d+)")
+    let holding = number_after(&space, r"(?i)cruise holding (\d+)")
         .expect("the status readout names what cruise is holding");
     // The resume names the ramp's own number -- where the glide is going --
     // and Space names where the glide is now. Both are about the ramp, and
@@ -638,7 +643,7 @@ fn test_the_status_readout_names_the_speed_cruise_is_actually_holding_on_a_ramp(
         "the resume said {ramp_number} for the exit and Space said {holding} -- {space}"
     );
     assert!(
-        space.contains("set 80 miles per hour"),
+        space.contains("set 80."),
         "the set speed went missing from the readout -- {space}"
     );
 }
@@ -697,7 +702,8 @@ fn test_the_readouts_stay_true_while_the_speed_keeper_has_the_truck() {
     let mut harness = a_drive(65.0, 0.0, 1.0);
     harness.press_key(Key::E, None);
     harness.with_drive(|d, _| {
-        d.trip.zones = vec![Zone::new(0.0, 20.0, 35.0, "heavy traffic")];
+        // A street: highway heavy traffic stays on cruise (issue #518).
+        d.trip.zones = vec![Zone::new(0.0, 20.0, 35.0, "facility access road")];
         d.truck_mut().transmission.automatic = true;
         d.truck_mut().transmission.gear = 8;
         d.truck_mut().velocity_mps = 34.0 * MPS_PER_MPH;
@@ -722,7 +728,7 @@ fn test_the_readouts_stay_true_while_the_speed_keeper_has_the_truck() {
         for _ in 0..15 {
             frame(&mut harness, 1.0 / 30.0);
         }
-        if ask(&mut harness, Key::Space).contains("Speed keeper holding") {
+        if ask(&mut harness, Key::Space).contains("Cruise holding") {
             saw_keeper_row += 1;
         }
         let mut found = audit(&mut harness);
@@ -986,7 +992,7 @@ fn test_the_cruise_row_names_the_speed_a_lower_posted_limit_left_it() {
         "cruise handed the truck off; this case is about the controller that stays"
     );
     let space = ask(&mut harness, Key::Space);
-    let claimed = number_after(&space, r"(?i)adaptive cruise (?:holding|set at) (\d+)")
+    let claimed = number_after(&space, r"(?i)cruise (?:holding|set at) (\d+)")
         .expect("the cruise row names a number");
     assert!(
         (claimed - still).abs() <= 6.0,
