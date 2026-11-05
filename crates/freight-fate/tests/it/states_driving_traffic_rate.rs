@@ -1127,7 +1127,7 @@ pub fn bench_lead(lanes_your_side: i64, lead_mph: f64) -> BenchRun {
             if let Some(lead) = d.trip.traffic_manager.vehicles.first_mut() {
                 lead.speed_mph = lead_mph;
                 lead.target_speed_mph = lead_mph;
-                lead.limit_offset_mph = None;
+                lead.limit_share = None;
             }
         });
     }
@@ -1501,7 +1501,7 @@ fn met_a_slow_lead(name: &str, lanes_your_side: i64, lead_mph: f64) -> (Vec<Stri
             if let Some(lead) = d.trip.traffic_manager.vehicles.first_mut() {
                 lead.speed_mph = lead_mph;
                 lead.target_speed_mph = lead_mph;
-                lead.limit_offset_mph = None;
+                lead.limit_share = None;
             }
         });
     }

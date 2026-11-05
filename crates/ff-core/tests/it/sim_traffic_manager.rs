@@ -76,7 +76,7 @@ fn test_state_trooper_vehicle_has_clear_status_reason() {
 #[test]
 fn test_traffic_vehicle_maps_new_intents_to_legacy_behavior_and_reason() {
     let expected = [
-        ("cruising", "steady_truck", "steady truck traffic"),
+        ("cruising", "steady_truck", "slow car ahead"),
         ("following", "slow_car", "slow car ahead"),
         ("merging", "merging_vehicle", "merging traffic"),
         ("braking", "braking_traffic", "brake lights ahead"),
@@ -315,11 +315,11 @@ fn test_slow_lead_is_called_only_once_it_can_be_heard() {
     let mut manager = manager(1);
     manager.vehicles = vec![v("slow", 1.5, 41.0, 0, "following", "box truck")];
     assert!(
-        manager.next_situation(0.0, 45.0).is_none(),
+        manager.next_situation(0.0, 55.0).is_none(),
         "a slow lead a mile and a half out is out of earshot, so it is not called yet"
     );
     let situation = manager
-        .next_situation(1.1, 45.0)
+        .next_situation(1.1, 55.0)
         .expect("called once it is within half a mile");
     assert_eq!(situation.kind, "following");
     assert!(situation.message.normal.starts_with("Slow box truck"));
@@ -1193,4 +1193,148 @@ fn test_a_busy_freeway_carries_company_in_the_lanes_beside_the_truck() {
     assert!(bubble_on(two_lane)
         .iter()
         .all(|v| v.key.matches(':').count() == 1));
+}
+
+// -- speeds as a share of the limit, calls judged by closing (2026-11-04) ----
+
+#[test]
+fn a_slow_call_needs_the_truck_to_be_closing() {
+    // Owner, US-219, 2026-11-04: "Slow box truck 0.4 miles ahead, at 42"
+    // went out while cruise had already eased the truck to 39.9 for a limit
+    // drop. The call is about the truck's own closing, not the vehicle's
+    // role, and a vehicle not called is not marked announced, so it is
+    // still called once the truck does catch it.
+    let mut manager = manager(1);
+    manager.vehicles = vec![v("lead", 0.44, 41.5, 0, "cruising", "box truck")];
+    assert!(
+        manager.next_situation(0.0, 39.9).is_none(),
+        "a vehicle pulling away is not slow"
+    );
+    assert!(
+        manager.next_situation(0.0, 44.0).is_none(),
+        "closing under five miles an hour is pacing, not catching"
+    );
+    let situation = manager
+        .next_situation(0.0, 55.0)
+        .expect("called once the truck is closing on it");
+    assert_eq!(situation.kind, "following");
+    assert!(
+        situation
+            .message
+            .normal
+            .starts_with("Slow box truck 0.4 miles ahead"),
+        "{}",
+        situation.message.normal
+    );
+    assert!(manager.slow_call_fresh("lead", 0.0));
+    assert!(manager.slow_call_fresh("lead", 0.9));
+    assert!(!manager.slow_call_fresh("lead", 1.2));
+    assert!(!manager.slow_call_fresh("other", 0.0));
+}
+
+#[test]
+fn a_cruiser_the_truck_catches_is_called_like_any_slow_vehicle() {
+    // A semi at 62 on a 70 was never called, though cruise settled in
+    // behind it just the same; the label it was born with decided, not the
+    // closing speed.
+    let mut manager = manager(1);
+    manager.vehicles = vec![v("semi", 0.5, 62.0, 0, "cruising", "semi")];
+    let situation = manager.next_situation(0.0, 70.0).expect("a situation");
+    assert!(situation.message.normal.starts_with("Slow semi"));
+}
+
+#[test]
+fn town_traffic_runs_near_the_limit() {
+    // The old band ran 3 to 10 under, plus a flat rush draw, as fixed miles
+    // per hour: 15 to 23 in a 30 zone. A share of the limit keeps a town
+    // street's traffic at or near its 30.
+    let mut rng = PyRandom::new_from_i64(7);
+    for intent in ["cruising", "following"] {
+        for _ in 0..200 {
+            let speed = TrafficManager::intent_speed(intent, 30.0, &mut rng, "car");
+            assert!((26.4..=32.4).contains(&speed), "{intent} {speed}");
+        }
+    }
+    let manager = manager(1);
+    assert!((manager.floor_speed(30.0) - 25.5).abs() < 1e-9);
+    assert!((manager.floor_speed(70.0) - 59.5).abs() < 1e-9);
+}
+
+#[test]
+fn the_bubble_draws_no_slow_role_and_no_rush_slowdown() {
+    // Rush hour is denser, not slower: the flat 4 to 10 off every vehicle
+    // born in the window is gone, and nobody is born into the slow role.
+    let mut seen = 0usize;
+    for seed in 0..12 {
+        let mut manager = manager(seed);
+        manager.hour = 17.0;
+        manager.sync_environment(60.0, effects(WeatherKind::Clear));
+        let mut position = 0.0;
+        while position < 40.0 {
+            position += 0.5;
+            manager.update(1.0, position, 20.0, Some(17.0), None);
+            for vehicle in &manager.vehicles {
+                if vehicle.limit_share.is_none() {
+                    continue;
+                }
+                seen += 1;
+                assert_ne!(vehicle.intent, "following", "{}", vehicle.key);
+                assert_eq!(vehicle.slowdown_mph, 0.0, "{}", vehicle.key);
+                // The target was set before this frame's move, so judge it
+                // against the slower of the posting here and the posting a
+                // frame back.
+                let posted = manager
+                    .posted_limit_at(vehicle.position_mi)
+                    .min(manager.posted_limit_at((vehicle.position_mi - 0.35).max(0.0)));
+                let floor = manager.floor_speed(posted);
+                assert!(
+                    vehicle.target_speed_mph
+                        >= floor.min(vehicle.governor_mph.unwrap_or(floor)) - 0.01
+                        || vehicle.intent == "braking"
+                        || vehicle.intent == "merging",
+                    "{} {} aims at {:.1} on a {posted:.0}",
+                    vehicle.key,
+                    vehicle.intent,
+                    vehicle.target_speed_mph
+                );
+            }
+        }
+    }
+    assert!(seen > 100, "the bubble placed only {seen} vehicles");
+}
+
+#[test]
+fn freeway_turn_offs_land_on_an_interchange() {
+    // Nobody vanishes from a rural interstate four miles from the nearest
+    // exit: a drawn turn-off on a freeway moves up to the first interchange
+    // at or past it, within the search window.
+    let manager = manager(1);
+    let ramps: Vec<f64> = ramp_miles(&manager).into_iter().map(|m| m - 0.1).collect();
+    assert!(ramps.len() > 3, "the fixture route has no interchanges");
+    let mut checked = 0usize;
+    let mut mile = 0.5;
+    while mile < manager.route.miles() {
+        let drawn = mile;
+        let got = manager.turn_off_mile(drawn);
+        if manager.freeway_presence_at(drawn) <= 0.0 {
+            assert_eq!(got, drawn, "off a freeway the drawn mile stands");
+        } else {
+            let expected = ramps
+                .iter()
+                .copied()
+                .filter(|m| *m + 1e-9 >= drawn && *m <= drawn + 15.0)
+                .fold(f64::INFINITY, f64::min);
+            if expected.is_finite() {
+                assert!(
+                    (got - expected).abs() < 1e-6,
+                    "at {drawn}: {got} vs {expected}"
+                );
+                checked += 1;
+            } else {
+                assert_eq!(got, drawn, "no interchange within reach at {drawn}");
+            }
+        }
+        mile += 1.7;
+    }
+    assert!(checked > 5, "only {checked} freeway miles checked");
 }

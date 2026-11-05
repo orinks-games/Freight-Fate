@@ -708,8 +708,19 @@ impl DrivingState {
             self.acc_follow_cue_s = ACC_FOLLOW_CUE_COOLDOWN_S;
             ctx.play_event_cue(Some(SpeechCategory::Traffic), "ui/notify", 0.55, 0.0);
             // Settling in behind a slower vehicle is the assist doing its
-            // job, and the notify tone marks it: words at standard only.
-            self.say_route_line(ctx, "Traffic ahead, slowing.", SpeechCategory::Traffic);
+            // job, and the notify tone marks it: words at standard only, and
+            // none when the slow call has just named this very vehicle.
+            // "Slow semi 0.5 miles ahead, at 49" and three seconds later
+            // "Traffic ahead, slowing" were one semi twice (owner, US-219,
+            // 2026-11-04).
+            let just_called = context.as_ref().is_some_and(|c| {
+                self.trip
+                    .traffic_manager
+                    .slow_call_fresh(&c.lead.key, self.trip.position_mi)
+            });
+            if !just_called {
+                self.say_route_line(ctx, "Traffic ahead, slowing.", SpeechCategory::Traffic);
+            }
         }
         self.acc_following = following;
         // Publish what cruise is really holding, for the status keys. The

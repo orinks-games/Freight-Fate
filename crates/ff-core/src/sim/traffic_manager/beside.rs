@@ -52,23 +52,19 @@ impl TrafficManager {
             if mile <= 0.0 {
                 continue;
             }
-            let Some(leg) = self.leg_at(mile) else {
+            if self.leg_at(mile).is_none() {
                 continue;
-            };
+            }
             let intent = "passing";
             let vehicle_class = choose(
                 rng,
                 &["car", "box truck", "semi", "service vehicle"],
                 &[5.0, 1.4, 2.0, 0.3],
             );
-            let (limit_offset, governor) = Self::intent_speed_draw(intent, rng, vehicle_class);
-            let rush_slowdown = if self.rush_hour_traffic_bias(leg) != 0.0 {
-                rng.uniform(4.0, 10.0)
-            } else {
-                0.0
-            };
-            let speed = self.road_speed_mph(mile, limit_offset, governor, rush_slowdown);
-            let exit_at = mile + rng.uniform(EXIT_AFTER_MIN_MI, EXIT_AFTER_MAX_MI);
+            let (limit_share, governor) = Self::intent_speed_draw(intent, rng, vehicle_class);
+            let speed = self.road_speed_mph(mile, limit_share, governor, 0.0);
+            let exit_at =
+                self.turn_off_mile(mile + rng.uniform(EXIT_AFTER_MIN_MI, EXIT_AFTER_MAX_MI));
             beside.push(
                 TrafficVehicle::new(
                     &format!("bubble:{cell}:{lane}"),
@@ -81,7 +77,7 @@ impl TrafficManager {
                 )
                 .with_lane(lane)
                 .with_exit_at(Some(exit_at))
-                .with_speed_draw(limit_offset, governor, rush_slowdown),
+                .with_speed_draw(limit_share, governor, 0.0),
             );
         }
         beside

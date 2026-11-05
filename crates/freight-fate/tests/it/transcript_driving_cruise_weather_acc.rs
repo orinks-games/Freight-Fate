@@ -610,6 +610,37 @@ fn test_adaptive_cruise_follow_cue_does_not_repeat_within_the_cooldown() {
 }
 
 #[test]
+fn test_adaptive_cruise_follow_cue_stays_quiet_after_the_slow_call() {
+    // "Slow semi 0.5 miles ahead, at 49" and three seconds later "Traffic
+    // ahead, slowing" were one semi twice (owner, US-219, 2026-11-04). The
+    // call names the vehicle; cruise settling in behind it keeps the notify
+    // tone and drops its words.
+    let mut harness = bench_drive("ACC After Call", 200.0, 0.0);
+    harness.with_drive(|d, _| {
+        let at = d.trip.position_mi + 0.04;
+        d.trip.set_npc_vehicles(vec![NPCVehicle::new(
+            "npc:acc", at, 44.0, 44.0, 0, "slow_car",
+        )
+        .into()]);
+        d.trip.traffic_manager.last_slow_call = Some(("npc:acc".to_string(), d.trip.position_mi));
+    });
+    press(&mut harness, Key::E, None);
+    harness.with_drive(|d, _| {
+        d.truck_mut().transmission.gear = 10;
+        d.truck_mut().velocity_mps = 29.0; // ~65 mph
+    });
+    harness.clear_speech();
+    press(&mut harness, Key::K, None);
+    frame(&mut harness, DT);
+    assert!(harness.read_drive(|d| d.acc_following));
+    assert!(
+        !said_any(&harness, "Traffic ahead, slowing."),
+        "{:#?}",
+        spoken(&harness)
+    );
+}
+
+#[test]
 fn test_adaptive_cruise_caps_at_posted_limit() {
     // A posted limit well below the held set speed: predictive ACC must ease
     // off rather than carry the driver over the limit into a speeding strike.

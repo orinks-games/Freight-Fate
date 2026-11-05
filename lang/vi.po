@@ -11488,9 +11488,6 @@ msgstr ""
 msgid "cruising"
 msgstr ""
 
-msgid "following"
-msgstr ""
-
 msgid "merging"
 msgstr ""
 
@@ -11512,6 +11509,9 @@ msgstr ""
 msgid "{f} kilometers per hour"
 msgstr ""
 
+msgid "following"
+msgstr ""
+
 msgid "passing"
 msgstr ""
 
@@ -11530,10 +11530,11 @@ msgstr ""
 msgid "state trooper ahead"
 msgstr ""
 
-msgid "steady truck traffic"
+msgid "vehicle"
 msgstr ""
 
-msgid "slow car ahead"
+#. placeholders: {class}
+msgid "slow {class} ahead"
 msgstr ""
 
 msgid "merging traffic"
@@ -11549,9 +11550,6 @@ msgid "marked unit ahead"
 msgstr ""
 
 msgid "traffic ahead"
-msgstr ""
-
-msgid "vehicle"
 msgstr ""
 
 #. placeholders: {class}
@@ -12258,6 +12256,12 @@ msgstr ""
 
 #. placeholders: {text}, {parking_spaces}
 msgid "{text}, {parking_spaces} spaces"
+msgstr ""
+
+msgid "steady truck traffic"
+msgstr ""
+
+msgid "slow car ahead"
 msgstr ""
 
 msgid "Left lane open."
