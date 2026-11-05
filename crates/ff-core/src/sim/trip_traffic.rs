@@ -25,9 +25,12 @@ pub const LIVE_REPORT_AHEAD_MI: f64 = 10.0;
 /// The feed lookup around each probe point: the lookahead, plus room for a
 /// road that winds away from the straight line.
 const LIVE_REPORT_QUERY_RADIUS_MI: f64 = LIVE_REPORT_AHEAD_MI + 2.0;
-/// How far off the line a report that names the truck's road may sit: feed
-/// markers drift a little from the mapped road.
-const LIVE_REPORT_NAMED_OFF_ROAD_MI: f64 = 1.0;
+/// How far off the line a report that names the truck's road may sit. A
+/// leg's route points run about 25 miles apart, and the real road bows up to
+/// a couple of miles off the chord between two of them (I-80 through Gary
+/// sits 1.8 miles off it), so this is the snap's own 2-mile reach: the road
+/// name does the matching.
+const LIVE_REPORT_NAMED_OFF_ROAD_MI: f64 = 2.0;
 /// How far off the line a report that names no road may sit before it reads
 /// as a crossing road's.
 const LIVE_REPORT_UNNAMED_OFF_ROAD_MI: f64 = 0.25;
@@ -626,9 +629,11 @@ pub fn report_on_highway(report_road: &str, highway: &str) -> Option<bool> {
         return None;
     }
     let highway = highway.trim();
+    // Indiana's feed calls the toll road's stretch of I-80 "I-80 Toll".
     let names = report_road
         .split(['/', '&', ',', ';'])
         .map(|part| part.split(" - ").next().unwrap_or("").trim())
+        .map(|part| part.strip_suffix(" Toll").unwrap_or(part).trim())
         .filter(|part| !part.is_empty());
     for name in names {
         if road_name_matches(name, highway) {

@@ -6,7 +6,7 @@ use std::sync::Arc;
 
 use crate::sim_support::*;
 use ff_core::data::world_models::{CorridorDetail, Leg, Route, RoutePoint, StateMileage};
-use ff_core::sim::real_traffic_parsers::TrafficEvent;
+use ff_core::sim::real_traffic_parsers::{cars_title_direction, TrafficEvent};
 use ff_core::sim::trip::{Trip, TripOptions};
 use ff_core::sim::trip_traffic::{report_on_highway, TrafficProvider};
 use ff_core::sim::vehicle::{TruckSpecs, TruckState};
@@ -188,5 +188,26 @@ fn feed_road_names_match_the_maps_highway() {
     assert_eq!(report_on_highway("I-90 - NYS Thruway", "I-90"), Some(true));
     assert_eq!(report_on_highway("US 12", "I-94"), Some(false));
     assert_eq!(report_on_highway("US 12", "SR-12"), Some(false));
+    assert_eq!(report_on_highway("I-80 Toll", "I-80"), Some(true));
     assert_eq!(report_on_highway("", "I-94"), None);
+}
+
+#[test]
+fn a_cars_title_gives_the_direction_it_holds() {
+    assert_eq!(
+        cars_title_direction("I-80 eastbound: Exit ramp closed."),
+        "East"
+    );
+    assert_eq!(
+        cars_title_direction("I-80 westbound (Mile Point 15): Entrance ramp closed."),
+        "West"
+    );
+    assert_eq!(
+        cars_title_direction("IN 51 in both directions (Mile Point 3.24 - 3.53): Building fire."),
+        ""
+    );
+    assert_eq!(
+        cars_title_direction("US 231 (Mile Point 297.29 - 291.74): Road closed."),
+        ""
+    );
 }
