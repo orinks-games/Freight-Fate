@@ -3079,12 +3079,12 @@ fn test_zero_amount_toll_entry_marker_does_not_record_expense() {
     use crate::sim::trip_models::TripEventKind;
 
     let mut trip = make_trip_on("Philadelphia", "Pittsburgh", seeded(2));
-    trip.position_mi = 16.1;
+    trip.position_mi = 16.3;
     assert_eq!(
         gps_messages(&trip.update(0.0)),
         vec!["ticket system toll point ahead, Pennsylvania Turnpike eastern ticket entry."]
     );
-    trip.position_mi = 18.0;
+    trip.position_mi = 18.2;
     let entry = trip.update(0.0);
     // Nothing is charged at a ticket entry, and the cue ahead named it.
     assert!(

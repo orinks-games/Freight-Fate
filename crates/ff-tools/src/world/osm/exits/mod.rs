@@ -313,8 +313,11 @@ pub fn main(argv: &[String]) -> Result<i32> {
     }
 
     report(&tally, &found, &ramp_counts);
-    let meta = record::layer_meta(&world, &sources, &ramp_counts, &tally.carry, &pbfs);
-    world.insert("ramp_length_bake", Value::Object(meta));
+    // The meta describes the whole map's ramp read, so a partial run leaves it.
+    if only.is_none() {
+        let meta = record::layer_meta(&world, &sources, &ramp_counts, &tally.carry, &pbfs);
+        world.insert("ramp_length_bake", Value::Object(meta));
+    }
     if !args.flag("write") {
         println!("(dry run; pass --write to update the map data)");
         return Ok(0);

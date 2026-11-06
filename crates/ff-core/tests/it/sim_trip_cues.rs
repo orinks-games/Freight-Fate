@@ -275,7 +275,7 @@ fn test_non_toll_route_does_not_charge_tolls() {
 fn test_zero_amount_toll_entry_marker_does_not_record_expense() {
     let mut trip = make_trip(world(), "Philadelphia", "Pittsburgh", 2);
 
-    trip.position_mi = 16.1;
+    trip.position_mi = 16.3;
     let advance = trip.update(0.0);
     assert_eq!(
         gps_messages(&advance),
