@@ -16,9 +16,9 @@ use crate::states::base::{Label, Menu, MenuCore, MenuItem};
 
 pub const GUEST_DISCLOSURE: &str = "As a guest you go on the orinks.net drivers board under a \
 name orinks.net picks, like Copper Fox 12, with no account. This turns Profile sharing on, so \
-your guest name, on-duty activity, achievements and road-journal posts can show publicly. \
-Cloud backup needs an account. Connect one later and your journal and achievements come with \
-you. Profile sharing on the Online menu turns sharing off.";
+your guest name and on-duty activity show publicly on the board. A driver profile, road \
+journal, achievements and cloud backup need an account. Profile sharing on the Online menu \
+turns sharing off.";
 
 /// The guest this computer is signed in as, or `None`. Cheap enough for a
 /// menu label: one small file next to the identity.

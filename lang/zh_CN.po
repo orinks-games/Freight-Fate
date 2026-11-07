@@ -34668,6 +34668,11 @@ msgid ""
 msgstr ""
 
 msgid ""
+"Your profile needs an orinks.net account. Choose Connect an orinks.net "
+"account first."
+msgstr ""
+
+msgid ""
 "Your profile needs your orinks.net account. Choose Set up orinks.net "
 "account first."
 msgstr "你的主页需要orinks.net账户。请先选择“设置orinks.net账户”。"
@@ -34840,16 +34845,17 @@ msgstr "设置orinks.net账户"
 msgid ""
 "Connects the game to your orinks.net account, which turns Profile sharing "
 "on and starts backing your careers up. Both are single items on this menu. "
-"A guest's journal and achievements move to the account. Driver name and "
-"signed-in computers are on Open my driver setup page below."
+"Driver name and signed-in computers are on Open my driver setup page below."
 msgstr ""
+"把游戏连接到你的orinks.net账户，这会开启主页分享并开始备份你的职业生涯。这两项在这个菜单上各有一项单独的开关。司机名称和已登录的电脑在下面的“"
+"打开我的司机设置页面”里。"
 
 msgid "Hear your guest name or ask orinks.net for a new one."
 msgstr ""
 
 msgid ""
 "Puts you on the drivers board under a name orinks.net picks, with no "
-"account. Cloud backup needs an account."
+"account. A profile and cloud backup need an account."
 msgstr ""
 
 msgid "Open my driver setup page"
@@ -35109,9 +35115,6 @@ msgstr ""
 msgid "your driver"
 msgstr "你的司机"
 
-msgid " Your guest journal and achievements moved to it."
-msgstr ""
-
 msgid " Your guest driver is this account now."
 msgstr ""
 
@@ -35270,6 +35273,10 @@ msgstr "orinks.net没有回应。列表大约每分钟会自动重试一次。"
 msgid "No drivers are on duty right now"
 msgstr "现在没有司机在岗"
 
+#. placeholders: {name}
+msgid "{name}, guest"
+msgstr ""
+
 msgid "activity"
 msgstr "activity"
 
@@ -35278,6 +35285,9 @@ msgstr "detail"
 
 msgid "went off duty"
 msgstr "已下班"
+
+msgid "A guest driver, with no orinks.net account and no profile."
+msgstr ""
 
 msgid "Opens this driver's public profile."
 msgstr "打开这位司机的公开主页。"
@@ -35390,10 +35400,9 @@ msgstr "{n}人在岗"
 msgid ""
 "As a guest you go on the orinks.net drivers board under a name orinks.net "
 "picks, like Copper Fox 12, with no account. This turns Profile sharing on, "
-"so your guest name, on-duty activity, achievements and road-journal posts "
-"can show publicly. Cloud backup needs an account. Connect one later and "
-"your journal and achievements come with you. Profile sharing on the Online "
-"menu turns sharing off."
+"so your guest name and on-duty activity show publicly on the board. A "
+"driver profile, road journal, achievements and cloud backup need an "
+"account. Profile sharing on the Online menu turns sharing off."
 msgstr ""
 
 msgid "Go online as a guest"
@@ -37316,14 +37325,6 @@ msgstr "关闭。"
 #~ msgstr ""
 #~ "Enter打开一项或向前更改设置，Right也是向前，Left向后。Escape返回。“在岗司机”、“司机名录”、上下班通知和“账户成就”不连接也能用。"
 #~ "其他功能需要orinks.net账户，而且你分享的一切都可以再关掉。"
-
-#~ msgid ""
-#~ "Connects the game to your orinks.net account, which turns Profile sharing "
-#~ "on and starts backing your careers up. Both are single items on this menu. "
-#~ "Driver name and signed-in computers are on Open my driver setup page below."
-#~ msgstr ""
-#~ "把游戏连接到你的orinks.net账户，这会开启主页分享并开始备份你的职业生涯。这两项在这个菜单上各有一项单独的开关。司机名称和已登录的电脑在下面的“"
-#~ "打开我的司机设置页面”里。"
 
 #~ msgid "Connected to orinks.net as {display}."
 #~ msgstr "已以{display}的身份连接到orinks.net。"

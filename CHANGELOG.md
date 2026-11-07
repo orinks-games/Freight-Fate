@@ -13,7 +13,7 @@
 - **Choose stable, beta, or alpha updates in Settings.** Existing snapshot followers move to beta.
 - **New releases seal career saves against local editing.** Existing careers migrate with a backup; cloud backups retain their verification.
 - **Alt+5 names the county you are driving through.** On city streets it names the city's county.
-- **Drive online as a guest, with no orinks.net account.** orinks.net picks your name, like Copper Fox 12; connecting an account later keeps your journal and achievements.
+- **Drive online as a guest, with no orinks.net account.** You show on the drivers board under a name orinks.net picks, like Copper Fox 12.
 
 ### Changed
 

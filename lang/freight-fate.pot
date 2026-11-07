@@ -42646,6 +42646,12 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
 msgid ""
+"Your profile needs an orinks.net account. Choose Connect an orinks.net "
+"account first."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
+msgid ""
 "Your profile needs your orinks.net account. Choose Set up orinks.net "
 "account first."
 msgstr ""
@@ -42848,8 +42854,7 @@ msgstr ""
 msgid ""
 "Connects the game to your orinks.net account, which turns Profile sharing "
 "on and starts backing your careers up. Both are single items on this menu. "
-"A guest's journal and achievements move to the account. Driver name and "
-"signed-in computers are on Open my driver setup page below."
+"Driver name and signed-in computers are on Open my driver setup page below."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
@@ -42859,7 +42864,7 @@ msgstr ""
 #: crates/freight-fate/src/states/online_hub.rs
 msgid ""
 "Puts you on the drivers board under a name orinks.net picks, with no "
-"account. Cloud backup needs an account."
+"account. A profile and cloud backup need an account."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
@@ -43157,10 +43162,6 @@ msgid "your driver"
 msgstr ""
 
 #: crates/freight-fate/src/states/online_states.rs
-msgid " Your guest journal and achievements moved to it."
-msgstr ""
-
-#: crates/freight-fate/src/states/online_states.rs
 msgid " Your guest driver is this account now."
 msgstr ""
 
@@ -43355,6 +43356,11 @@ msgstr ""
 msgid "No drivers are on duty right now"
 msgstr ""
 
+#. placeholders: {name}
+#: crates/freight-fate/src/states/online_states/board.rs
+msgid "{name}, guest"
+msgstr ""
+
 #: crates/freight-fate/src/states/online_states/board.rs crates/freight-fate/src/states/online_states/directory.rs crates/freight-fate/src/states/online_states/profile.rs
 msgid "activity"
 msgstr ""
@@ -43365,6 +43371,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/board.rs
 msgid "went off duty"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/board.rs
+msgid "A guest driver, with no orinks.net account and no profile."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_states/board.rs crates/freight-fate/src/states/online_states/directory.rs
@@ -43512,10 +43522,9 @@ msgstr ""
 msgid ""
 "As a guest you go on the orinks.net drivers board under a name orinks.net "
 "picks, like Copper Fox 12, with no account. This turns Profile sharing on, "
-"so your guest name, on-duty activity, achievements and road-journal posts "
-"can show publicly. Cloud backup needs an account. Connect one later and "
-"your journal and achievements come with you. Profile sharing on the Online "
-"menu turns sharing off."
+"so your guest name and on-duty activity show publicly on the board. A "
+"driver profile, road journal, achievements and cloud backup need an "
+"account. Profile sharing on the Online menu turns sharing off."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_states/guest.rs

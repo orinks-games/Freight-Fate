@@ -55,6 +55,11 @@ fn row_driver_id(entry: &Value) -> String {
     field_text(entry, "driverId")
 }
 
+/// A guest driver: on the board with no account, so no profile to open.
+fn is_guest_row(entry: &Value) -> bool {
+    entry.get("guest") == Some(&Value::Bool(true))
+}
+
 /// Sort a board by name, and keep it that way.
 ///
 /// The site sends the drivers whose status moved most recently first, which
@@ -352,6 +357,14 @@ impl Menu for DriversOnlineState {
                     };
                     let driver_id = row_driver_id(entry);
                     let gone = held_id.as_deref() == Some(driver_id.as_str());
+                    let guest = is_guest_row(entry);
+                    // A guest has no profile, so its name says why Enter
+                    // opens nothing.
+                    let name = if guest {
+                        format!("{name}, guest")
+                    } else {
+                        name
+                    };
                     let mut bits = vec![name, field_text(entry, "activity")];
                     let detail = field_text(entry, "detail");
                     if !detail.is_empty() {
@@ -370,10 +383,13 @@ impl Menu for DriversOnlineState {
                         .filter(|bit| !bit.is_empty())
                         .collect::<Vec<_>>()
                         .join(". ");
-                    items.push(
+                    items.push(if guest {
+                        MenuItem::new(label, |s: &mut Self, ctx| s.speak_current(ctx))
+                            .help("A guest driver, with no orinks.net account and no profile.")
+                    } else {
                         MenuItem::new(label, |s: &mut Self, ctx| s.open_selected_profile(ctx))
-                            .help("Opens this driver's public profile."),
-                    );
+                            .help("Opens this driver's public profile.")
+                    });
                     self.row_keys.push(RowKey::Driver(driver_id));
                 }
             }

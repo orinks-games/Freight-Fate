@@ -54,7 +54,6 @@ fn ready() -> PollResult {
         driver_id: Some("rig-hauler".to_string()),
         token: Some(format!("ffd_{}", "b".repeat(64))),
         display_name: Some("Rig Hauler".to_string()),
-        ..Default::default()
     }
 }
 

@@ -303,9 +303,6 @@ pub struct PollResult {
     pub driver_id: Option<String>,
     pub token: Option<String>,
     pub display_name: Option<String>,
-    /// The guest driver this computer was signed in as moved onto the
-    /// account: its journal and achievements are the account's now.
-    pub guest_moved: bool,
 }
 
 impl PollResult {
@@ -473,7 +470,6 @@ pub fn poll_activation(activation: &Activation, transport: &dyn Transport) -> Po
                         .get("display_name")
                         .filter(|v| !v.is_null())
                         .map(value_text),
-                    guest_moved: map.get("guest_moved") == Some(&Value::Bool(true)),
                 },
                 _ => {
                     // A "ready" that carries no identity is not a claim the caller

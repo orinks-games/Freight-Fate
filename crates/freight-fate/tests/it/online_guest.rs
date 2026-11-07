@@ -9,9 +9,7 @@ use freight_fate::app::testing::TestApp;
 use freight_fate::app::SharedState;
 use freight_fate::net::testing::{ClosureTransport, FakeTransport};
 use freight_fate::net::{NetError, SharedTransport};
-use freight_fate::online_activation::{
-    poll_activation, start_activation, start_activation_as, Activation,
-};
+use freight_fate::online_activation::{start_activation, start_activation_as};
 use freight_fate::online_guest::{
     self, create_guest, guest_for, load_guest, rename_guest, save_guest, GuestCreate, GuestRecord,
     GuestRename,
@@ -185,25 +183,6 @@ fn a_guest_connecting_an_account_proves_itself() {
 }
 
 #[test]
-fn a_ready_poll_says_when_the_guest_moved() {
-    let activation = Activation {
-        device_code: "a".repeat(64),
-        user_code: "WKQR-3468".to_string(),
-        verification_uri: "https://orinks.net/activate".to_string(),
-        verification_uri_complete: "https://orinks.net/activate?code=WKQR-3468".to_string(),
-        expires_at: 0.0,
-        interval: 3.0,
-    };
-    let ready = json!({"status": "ready", "driver_id": "road-star-1a2b3c4d", "token": "ffd_x", "display_name": "Road Star"});
-    let (plain, _) = routed(vec![("/activate/poll", Ok(ready.clone()))]);
-    assert!(!poll_activation(&activation, plain.as_ref()).guest_moved);
-    let mut moved_body = ready;
-    moved_body["guest_moved"] = Value::Bool(true);
-    let (moved, _) = routed(vec![("/activate/poll", Ok(moved_body))]);
-    assert!(poll_activation(&activation, moved.as_ref()).guest_moved);
-}
-
-#[test]
 fn the_guest_record_counts_only_for_its_own_identity() {
     let dir = temp_dir();
     assert_eq!(load_guest(dir.path()), None);
@@ -258,6 +237,8 @@ fn going_online_as_a_guest_saves_it_and_turns_sharing_on() {
     );
     assert!(app.ctx.settings.online_presence);
     assert!(!app.ctx.settings.cloud_saves, "guests get no cloud backup");
+    // No profile, so the journal and achievements are never queued.
+    assert!(!app.ctx.services.journal.enabled());
     let spoken = said(&app);
     assert!(
         spoken.contains("You're Copper Fox 12 on the drivers board."),
@@ -351,34 +332,97 @@ fn asking_for_a_new_name_saves_it_here() {
     assert!(said(&app).contains("You're Quiet Heron 7 now."));
 }
 
-#[test]
-fn connecting_an_account_ends_the_guest_and_says_what_moved() {
-    let mut app = TestApp::new();
-    let _identity = install_identity(&app, None);
-    install_cloud(&mut app, FakeTransport::revisions(), false);
-    let (_first, _) = make_guest(&mut app);
+/// Connect an account from a guest computer; orinks.net answers with
+/// `driver_id`.
+fn connect_as(app: &mut TestApp, driver_id: &str, display_name: &str) {
     let _sharing = install_transport(FakeTransport::replying(
         json!({"ok": true, "enabled": true}),
     ));
     let mut setup = OnlineSetupState::new(&mut app.ctx);
     setup.threaded = false;
-    let shared = push(&mut app, setup);
+    let shared = push(app, setup);
     let result = freight_fate::online_activation::PollResult {
         status: "ready".to_string(),
-        driver_id: Some("road-star-1a2b3c4d".to_string()),
+        driver_id: Some(driver_id.to_string()),
         token: Some(format!("ffd_{}", "d".repeat(64))),
-        display_name: Some("Road Star".to_string()),
-        guest_moved: true,
+        display_name: Some(display_name.to_string()),
     };
     with_state::<OnlineSetupState, _>(&shared, |s| {
         s.phase = SetupPhase::Waiting;
         s.outcome.post(SetupOutcome::Ready(result));
     });
-    update::<OnlineSetupState>(&mut app, &shared);
+    update::<OnlineSetupState>(app, &shared);
+}
+
+#[test]
+fn connecting_an_account_with_a_driver_ends_the_guest() {
+    let mut app = TestApp::new();
+    let _identity = install_identity(&app, None);
+    install_cloud(&mut app, FakeTransport::revisions(), false);
+    let (_first, _) = make_guest(&mut app);
+    connect_as(&mut app, "road-star-1a2b3c4d", "Road Star");
     assert_eq!(current_guest(), None);
     assert_eq!(load_guest(&ff_core::models::profile::data_dir()), None);
-    assert!(said(&app).contains(
-        "Connected to orinks.net as Road Star. Your guest journal and achievements moved to it."
-    ));
+    let spoken = said(&app);
+    assert!(
+        spoken.contains("Connected to orinks.net as Road Star. Your careers now back up"),
+        "{spoken}"
+    );
     assert!(app.ctx.settings.cloud_saves);
+}
+
+#[test]
+fn an_account_with_no_driver_takes_the_guest_over() {
+    let mut app = TestApp::new();
+    let _identity = install_identity(&app, None);
+    install_cloud(&mut app, FakeTransport::revisions(), false);
+    let (_first, _) = make_guest(&mut app);
+    connect_as(&mut app, "guest-0123456789abcdef", "Copper Fox 12");
+    assert_eq!(current_guest(), None);
+    assert!(said(&app).contains(
+        "Connected to orinks.net as Copper Fox 12. Your guest driver is this account now."
+    ));
+}
+
+#[test]
+fn a_guest_has_no_profile_of_its_own() {
+    let mut app = TestApp::new();
+    let _identity = install_identity(&app, None);
+    install_cloud(&mut app, FakeTransport::revisions(), false);
+    let (_transport, _) = make_guest(&mut app);
+    let hub_state = OnlineHubState::new(&mut app.ctx);
+    let hub = push(&mut app, hub_state);
+    app.clear_speech();
+    move_to::<OnlineHubState>(&mut app, &hub, "Your profile");
+    press(&mut app, Key::Return);
+    assert!(said(&app).contains(
+        "Your profile needs an orinks.net account. Choose Connect an orinks.net account first."
+    ));
+}
+
+#[test]
+fn the_board_names_a_guest_and_opens_no_profile_for_it() {
+    let mut app = TestApp::new();
+    let _guard = install_transport(FakeTransport::replying(json!({"drivers": [
+        {"driverId": "guest-0123456789abcdef", "displayName": "Copper Fox 12",
+         "activity": "Driving", "detail": "I-80", "updatedAt": 0, "guest": true},
+    ]})));
+    let mut board = freight_fate::states::online_states::DriversOnlineState::new(&mut app.ctx);
+    board.threaded = false;
+    let shared = push(&mut app, board);
+    update::<freight_fate::states::online_states::DriversOnlineState>(&mut app, &shared);
+    let rows = labels::<freight_fate::states::online_states::DriversOnlineState>(&shared, &app.ctx);
+    assert!(
+        rows.iter()
+            .any(|row| row.starts_with("Copper Fox 12, guest. Driving. I-80.")),
+        "{rows:?}"
+    );
+    let depth = app.ctx.stack_len();
+    move_to::<freight_fate::states::online_states::DriversOnlineState>(
+        &mut app,
+        &shared,
+        "Copper Fox 12, guest",
+    );
+    press(&mut app, Key::Return);
+    assert_eq!(app.ctx.stack_len(), depth, "no profile opens for a guest");
 }

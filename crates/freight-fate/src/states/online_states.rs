@@ -258,7 +258,7 @@ impl OnlineSetupState {
         let threaded = self.threaded;
         let data_dir = ff_core::models::profile::data_dir();
         // A guest connecting an account proves itself with its own token, so
-        // its journal and achievements move to the account.
+        // an account with no driver yet can take the guest over.
         let current = load_identity();
         let guest = online_guest::guest_for(current.as_ref(), &data_dir).and(current);
         self.worker = run_worker(threaded, "online-activation", move || {
@@ -357,7 +357,8 @@ impl OnlineSetupState {
             return;
         }
         // Whatever this computer was signed in as, it is an account driver now.
-        let was_guest = online_guest::load_guest(&ff_core::models::profile::data_dir()).is_some();
+        let adopted = online_guest::load_guest(&ff_core::models::profile::data_dir())
+            .is_some_and(|guest| guest.driver_id == identity.driver_id);
         online_guest::clear_guest(&ff_core::models::profile::data_dir());
         // Cloud backup needs no server handshake -- the next accepted save
         // uploads itself -- so it is on the moment the account is connected.
@@ -384,9 +385,7 @@ impl OnlineSetupState {
         };
         self.phase = SetupPhase::Sharing;
         self.refresh(ctx, true);
-        let guest_note = if result.guest_moved {
-            " Your guest journal and achievements moved to it."
-        } else if was_guest {
+        let guest_note = if adopted {
             " Your guest driver is this account now."
         } else {
             ""

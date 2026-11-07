@@ -3,10 +3,10 @@
 //! orinks.net makes the guest (`POST /api/freight-fate/guest`) and names it
 //! from word lists, like "Copper Fox 12", so a player never types a name the
 //! board would have to screen. The guest gets an ordinary driver identity
-//! (`OnlineIdentity`, saved the usual way), so the drivers board, Profile
-//! sharing, the road journal and achievements all work unchanged. Cloud backup
-//! is the one thing a guest cannot have: restoring on another computer takes an
-//! account, and the server refuses guests.
+//! (`OnlineIdentity`, saved the usual way), so the drivers board and Profile
+//! sharing work unchanged. A guest is on the board and nowhere else: profiles
+//! need an account, so the road journal, achievements and cloud backup are
+//! refused by the server and never sent from here (`profile_identity`).
 //!
 //! Which identity is a guest is remembered here, in `online-guest.json` beside
 //! `online.json`, with the name the server gave it. The record counts only
@@ -15,8 +15,9 @@
 //! and then dropping the record is all it takes to stop being a guest.
 //!
 //! Connecting an account sends the guest's own token with the activation
-//! request (`online_activation::start_activation_as`), so its journal and
-//! achievements follow it to the account.
+//! request (`online_activation::start_activation_as`). An account with no
+//! driver yet takes the guest over, name and all; one that has a driver
+//! replaces it, and orinks.net deletes the guest.
 
 use std::fs;
 use std::io;
@@ -80,6 +81,15 @@ pub fn clear_guest(data_dir: &Path) {
 pub fn guest_for(identity: Option<&OnlineIdentity>, data_dir: &Path) -> Option<GuestRecord> {
     let identity = identity?;
     load_guest(data_dir).filter(|record| record.driver_id == identity.driver_id)
+}
+
+/// The identity the road journal and achievements may post as: `identity`,
+/// unless it is a guest's. Profiles need an account, so a guest has none.
+pub fn profile_identity(
+    identity: Option<OnlineIdentity>,
+    data_dir: &Path,
+) -> Option<OnlineIdentity> {
+    identity.filter(|identity| guest_for(Some(identity), data_dir).is_none())
 }
 
 /// What asking for a guest came to.

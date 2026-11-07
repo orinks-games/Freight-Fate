@@ -107,6 +107,13 @@ impl OnlineHubState {
     /// The player's own public profile, through the same screen a driver on
     /// the drivers list opens: what other players hear about them.
     fn your_profile(&mut self, ctx: &mut GameContext) {
+        if current_guest().is_some() {
+            ctx.say(
+                "Your profile needs an orinks.net account. Choose Connect an orinks.net account \
+                 first.",
+            );
+            return;
+        }
         let Some(identity) = load_identity() else {
             ctx.say(
                 "Your profile needs your orinks.net account. Choose Set up orinks.net account \
@@ -395,8 +402,7 @@ impl Menu for OnlineHubState {
             .help(
                 "Connects the game to your orinks.net account, which turns Profile sharing on \
                  and starts backing your careers up. Both are single items on this menu. \
-                 A guest's journal and achievements move to the account. Driver name and \
-                 signed-in computers are on Open my driver setup page below.",
+                 Driver name and signed-in computers are on Open my driver setup page below.",
             ),
             // Always here, so the rows below keep their places (adjust_row).
             MenuItem::new(Label::dynamic(|_: &Self, _| Self::guest_label()), |s: &mut Self, ctx| {
@@ -407,7 +413,7 @@ impl Menu for OnlineHubState {
                     "Hear your guest name or ask orinks.net for a new one.".to_string()
                 } else {
                     "Puts you on the drivers board under a name orinks.net picks, with no \
-                     account. Cloud backup needs an account."
+                     account. A profile and cloud backup need an account."
                         .to_string()
                 }
             })),

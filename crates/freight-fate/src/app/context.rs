@@ -807,7 +807,12 @@ impl GameContext {
         self.services.online.set_identity(identity.clone());
         self.services.duty.set_identity(identity.as_ref());
         self.services.cloud.set_identity(identity.clone());
-        self.services.journal.set_identity(identity);
+        // A guest's journal and achievements are never sent: no profile.
+        let journal = match ff_core::models::profile::data_dir_if_allowed() {
+            Some(dir) => crate::online_guest::profile_identity(identity, &dir),
+            None => identity,
+        };
+        self.services.journal.set_identity(journal);
     }
 
     /// Reflect the controller setting (e.g. after a settings change).

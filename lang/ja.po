@@ -35176,6 +35176,11 @@ msgid ""
 msgstr ""
 
 msgid ""
+"Your profile needs an orinks.net account. Choose Connect an orinks.net "
+"account first."
+msgstr ""
+
+msgid ""
 "Your profile needs your orinks.net account. Choose Set up orinks.net "
 "account first."
 msgstr "プロフィールにはorinks.netのアカウントが必要です。先に「orinks.netのアカウントを設定」を選んでください。"
@@ -35353,16 +35358,17 @@ msgstr "orinks.netのアカウントを設定"
 msgid ""
 "Connects the game to your orinks.net account, which turns Profile sharing "
 "on and starts backing your careers up. Both are single items on this menu. "
-"A guest's journal and achievements move to the account. Driver name and "
-"signed-in computers are on Open my driver setup page below."
+"Driver name and signed-in computers are on Open my driver setup page below."
 msgstr ""
+"ゲームをorinks.netのアカウントにつなぎます。これでプロフィールの共有がオンになり、キャリアのバックアップが始まります。どちらもこのメニューの一"
+"つの項目です。ドライバー名とサインイン中のコンピューターは、下の「ドライバー設定ページを開く」にあります。"
 
 msgid "Hear your guest name or ask orinks.net for a new one."
 msgstr ""
 
 msgid ""
 "Puts you on the drivers board under a name orinks.net picks, with no "
-"account. Cloud backup needs an account."
+"account. A profile and cloud backup need an account."
 msgstr ""
 
 msgid "Open my driver setup page"
@@ -35634,9 +35640,6 @@ msgstr ""
 msgid "your driver"
 msgstr "自分のドライバー"
 
-msgid " Your guest journal and achievements moved to it."
-msgstr ""
-
 msgid " Your guest driver is this account now."
 msgstr ""
 
@@ -35804,6 +35807,10 @@ msgstr "orinks.netが応答しませんでした。一覧はおよそ1分ごと�
 msgid "No drivers are on duty right now"
 msgstr "今勤務中のドライバーはいません"
 
+#. placeholders: {name}
+msgid "{name}, guest"
+msgstr ""
+
 msgid "activity"
 msgstr "activity"
 
@@ -35812,6 +35819,9 @@ msgstr "detail"
 
 msgid "went off duty"
 msgstr "勤務を終えました"
+
+msgid "A guest driver, with no orinks.net account and no profile."
+msgstr ""
 
 msgid "Opens this driver's public profile."
 msgstr "このドライバーの公開プロフィールを開きます。"
@@ -35924,10 +35934,9 @@ msgstr "{n}人が勤務中"
 msgid ""
 "As a guest you go on the orinks.net drivers board under a name orinks.net "
 "picks, like Copper Fox 12, with no account. This turns Profile sharing on, "
-"so your guest name, on-duty activity, achievements and road-journal posts "
-"can show publicly. Cloud backup needs an account. Connect one later and "
-"your journal and achievements come with you. Profile sharing on the Online "
-"menu turns sharing off."
+"so your guest name and on-duty activity show publicly on the board. A "
+"driver profile, road journal, achievements and cloud backup need an "
+"account. Profile sharing on the Online menu turns sharing off."
 msgstr ""
 
 msgid "Go online as a guest"
@@ -37875,14 +37884,6 @@ msgstr "閉鎖中。"
 #~ "Enter で項目を開くか設定を次の値に変え、右でも次の値に、左で前の値にします。Escape "
 #~ "で戻ります。運行中のドライバー、ドライバー名簿、勤務の通知、アカウントの実績は、つながなくても使えます。それ以外はorinks.netのアカウントが必要"
 #~ "で、共有するものはすべて後からオフにできます。"
-
-#~ msgid ""
-#~ "Connects the game to your orinks.net account, which turns Profile sharing "
-#~ "on and starts backing your careers up. Both are single items on this menu. "
-#~ "Driver name and signed-in computers are on Open my driver setup page below."
-#~ msgstr ""
-#~ "ゲームをorinks.netのアカウントにつなぎます。これでプロフィールの共有がオンになり、キャリアのバックアップが始まります。どちらもこのメニューの一"
-#~ "つの項目です。ドライバー名とサインイン中のコンピューターは、下の「ドライバー設定ページを開く」にあります。"
 
 #~ msgid "Connected to orinks.net as {display}."
 #~ msgstr "{display}としてorinks.netにつながりました。"
