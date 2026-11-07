@@ -19489,6 +19489,10 @@ msgstr ""
 msgid "ready"
 msgstr ""
 
+#: crates/freight-fate/src/online_guest.rs
+msgid "token"
+msgstr ""
+
 #: crates/freight-fate/src/online_journal.rs
 msgid "online-journal"
 msgstr ""
@@ -34905,7 +34909,7 @@ msgstr ""
 msgid "Sleep at the chain control"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_rest_states/shoulder.rs crates/freight-fate/src/states/online_states.rs
+#: crates/freight-fate/src/states/driving_rest_states/shoulder.rs crates/freight-fate/src/states/online_states/guest.rs crates/freight-fate/src/states/online_states.rs
 msgid "Cancel"
 msgstr ""
 
@@ -42635,14 +42639,32 @@ msgstr ""
 msgid ""
 "Enter opens an item or changes a setting forward, Right also forward, Left "
 "backward. Escape goes back. Drivers on duty, the Driver directory, the duty "
-"notices, and Account achievements work without connecting. The rest waits "
-"for an orinks.net account, and everything you share can be turned off again."
+"notices, and Account achievements work without connecting. Drive online as "
+"a guest puts you on the board with no account. The rest waits for an "
+"orinks.net account, and everything you share can be turned off again."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
 msgid ""
 "Your profile needs your orinks.net account. Choose Set up orinks.net "
 "account first."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
+msgid "Your orinks.net account is connected, so there's no guest driver."
+msgstr ""
+
+#. placeholders: {display_name}
+#: crates/freight-fate/src/states/online_hub.rs
+msgid "Guest name: {display_name}"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
+msgid "Guest driver: off, account connected"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs crates/freight-fate/src/states/online_states/guest.rs
+msgid "Drive online as a guest"
 msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
@@ -42675,6 +42697,12 @@ msgstr ""
 #. placeholders: {clipboard_note}
 #: crates/freight-fate/src/states/online_hub.rs
 msgid "Opening your driver setup page in your browser.{clipboard_note}"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
+msgid ""
+"Cloud backup needs an orinks.net account. Choose Connect an orinks.net "
+"account."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
@@ -42805,6 +42833,10 @@ msgid ""
 msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
+msgid "Connect an orinks.net account"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
 msgid "orinks.net account: connected"
 msgstr ""
 
@@ -42816,7 +42848,18 @@ msgstr ""
 msgid ""
 "Connects the game to your orinks.net account, which turns Profile sharing "
 "on and starts backing your careers up. Both are single items on this menu. "
-"Driver name and signed-in computers are on Open my driver setup page below."
+"A guest's journal and achievements move to the account. Driver name and "
+"signed-in computers are on Open my driver setup page below."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
+msgid "Hear your guest name or ask orinks.net for a new one."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_hub.rs
+msgid ""
+"Puts you on the drivers board under a name orinks.net picks, with no "
+"account. Cloud backup needs an account."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_hub.rs
@@ -43113,26 +43156,27 @@ msgstr ""
 msgid "your driver"
 msgstr ""
 
-#. placeholders: {display}
-#. one sentence of a longer line
 #: crates/freight-fate/src/states/online_states.rs
-msgid "Connected to orinks.net as {display}."
+msgid " Your guest journal and achievements moved to it."
 msgstr ""
 
-#. placeholders: {display}
+#: crates/freight-fate/src/states/online_states.rs
+msgid " Your guest driver is this account now."
+msgstr ""
+
+#. placeholders: {display}, {guest_note}
+#. one sentence of a longer line
 #: crates/freight-fate/src/states/online_states.rs
 msgid ""
-"Connected to orinks.net as {display}. Your careers now back up to that "
-"account. Turning Profile sharing on."
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account."
 msgstr ""
 
-#. one sentence of a longer line
+#. placeholders: {display}, {guest_note}
 #: crates/freight-fate/src/states/online_states.rs
-msgid "Your careers now back up to that account."
-msgstr ""
-
-#: crates/freight-fate/src/states/online_states.rs
-msgid "profile-sharing"
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account. Turning Profile sharing on."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_states.rs
@@ -43171,10 +43215,6 @@ msgid "Puts the activation code on the clipboard."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_states.rs
-msgid "Hear what gets shared"
-msgstr ""
-
-#: crates/freight-fate/src/states/online_states.rs
 msgid "Leave without connecting this account."
 msgstr ""
 
@@ -43210,10 +43250,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states.rs
 msgid "Still waiting."
-msgstr ""
-
-#: crates/freight-fate/src/states/online_states.rs
-msgid "Could not reach orinks.net. Try again."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_states.rs
@@ -43470,6 +43506,149 @@ msgstr ""
 #. placeholders: {n}
 #: crates/freight-fate/src/states/online_states/directory.rs
 msgid "{n} on duty"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid ""
+"As a guest you go on the orinks.net drivers board under a name orinks.net "
+"picks, like Copper Fox 12, with no account. This turns Profile sharing on, "
+"so your guest name, on-duty activity, achievements and road-journal posts "
+"can show publicly. Cloud backup needs an account. Connect one later and "
+"your journal and achievements come with you. Profile sharing on the Online "
+"menu turns sharing off."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Go online as a guest"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Asking orinks.net for a guest name"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Turning Profile sharing on"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Still working. Stay here for the result."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Asking orinks.net for a guest name."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "online-guest"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "orinks.net is busy. Try again in a minute."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs crates/freight-fate/src/states/online_states.rs
+msgid "Could not reach orinks.net. Try again."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid ""
+"This computer could not save the guest driver. Nothing was changed. Check "
+"your password store, then try again."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs crates/freight-fate/src/states/online_states.rs
+msgid "profile-sharing"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "You're {name} on the drivers board."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Profile sharing on the Online menu tries again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet. Profile sharing on the Online menu tries again."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Gets a guest name from orinks.net and turns Profile sharing on."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs crates/freight-fate/src/states/online_states.rs
+msgid "Hear what gets shared"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Guest name"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Still asking."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "This computer isn't driving as a guest."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "guest-rename"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Asking for a new name"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Ask for a new name"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "orinks.net picks another name at random. Ask again for another."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "You're {name}."
+msgstr ""
+
+#. placeholders: {TITLE}, {name}, {current}
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "{TITLE}. You're {name}. {current}"
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "You're {name} now."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "That's a lot of names. Try again in a minute."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid ""
+"orinks.net no longer has this guest. Connect an orinks.net account from the "
+"Online menu."
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/guest.rs
+msgid "Still asking. Stay here for the new name."
 msgstr ""
 
 #: crates/freight-fate/src/states/online_states/profile.rs

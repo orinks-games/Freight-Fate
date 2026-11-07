@@ -15592,6 +15592,9 @@ msgstr "retry"
 msgid "ready"
 msgstr "ready"
 
+msgid "token"
+msgstr ""
+
 msgid "online-journal"
 msgstr "online-journal"
 
@@ -34659,16 +34662,28 @@ msgstr "玩法说明：{title}，第{page}页，共{HELP_PAGES}页"
 msgid ""
 "Enter opens an item or changes a setting forward, Right also forward, Left "
 "backward. Escape goes back. Drivers on duty, the Driver directory, the duty "
-"notices, and Account achievements work without connecting. The rest waits "
-"for an orinks.net account, and everything you share can be turned off again."
+"notices, and Account achievements work without connecting. Drive online as "
+"a guest puts you on the board with no account. The rest waits for an "
+"orinks.net account, and everything you share can be turned off again."
 msgstr ""
-"Enter打开一项或向前更改设置，Right也是向前，Left向后。Escape返回。“在岗司机”、“司机名录”、上下班通知和“账户成就”不连接也能用。"
-"其他功能需要orinks.net账户，而且你分享的一切都可以再关掉。"
 
 msgid ""
 "Your profile needs your orinks.net account. Choose Set up orinks.net "
 "account first."
 msgstr "你的主页需要orinks.net账户。请先选择“设置orinks.net账户”。"
+
+msgid "Your orinks.net account is connected, so there's no guest driver."
+msgstr ""
+
+#. placeholders: {display_name}
+msgid "Guest name: {display_name}"
+msgstr ""
+
+msgid "Guest driver: off, account connected"
+msgstr ""
+
+msgid "Drive online as a guest"
+msgstr ""
 
 msgid "The browser could not be opened. The address is on your clipboard."
 msgstr "无法打开浏览器。网址已复制到剪贴板。"
@@ -34695,6 +34710,11 @@ msgstr " 网址也已复制到剪贴板。"
 #. placeholders: {clipboard_note}
 msgid "Opening your driver setup page in your browser.{clipboard_note}"
 msgstr "正在浏览器中打开你的司机设置页面。{clipboard_note}"
+
+msgid ""
+"Cloud backup needs an orinks.net account. Choose Connect an orinks.net "
+"account."
+msgstr ""
 
 msgid ""
 "Cloud backup needs your orinks.net account. Choose Set up orinks.net "
@@ -34808,6 +34828,9 @@ msgstr ""
 "orinks.net及共享服务的总开关。关闭后会停止在岗司机列表、主页共享、云备份、电台推荐和Discord状态，但不会丢失相关设置。实时天气、车流和停"
 "车信息可在“设置”中分别开关。"
 
+msgid "Connect an orinks.net account"
+msgstr ""
+
 msgid "orinks.net account: connected"
 msgstr "orinks.net账户：已连接"
 
@@ -34817,10 +34840,17 @@ msgstr "设置orinks.net账户"
 msgid ""
 "Connects the game to your orinks.net account, which turns Profile sharing "
 "on and starts backing your careers up. Both are single items on this menu. "
-"Driver name and signed-in computers are on Open my driver setup page below."
+"A guest's journal and achievements move to the account. Driver name and "
+"signed-in computers are on Open my driver setup page below."
 msgstr ""
-"把游戏连接到你的orinks.net账户，这会开启主页分享并开始备份你的职业生涯。这两项在这个菜单上各有一项单独的开关。司机名称和已登录的电脑在下面的“"
-"打开我的司机设置页面”里。"
+
+msgid "Hear your guest name or ask orinks.net for a new one."
+msgstr ""
+
+msgid ""
+"Puts you on the drivers board under a name orinks.net picks, with no "
+"account. Cloud backup needs an account."
+msgstr ""
 
 msgid "Open my driver setup page"
 msgstr "打开我的司机设置页面"
@@ -35079,23 +35109,24 @@ msgstr ""
 msgid "your driver"
 msgstr "你的司机"
 
-#. placeholders: {display}
-#. one sentence of a longer line
-msgid "Connected to orinks.net as {display}."
-msgstr "已以{display}的身份连接到orinks.net。"
+msgid " Your guest journal and achievements moved to it."
+msgstr ""
 
-#. placeholders: {display}
+msgid " Your guest driver is this account now."
+msgstr ""
+
+#. placeholders: {display}, {guest_note}
+#. one sentence of a longer line
 msgid ""
-"Connected to orinks.net as {display}. Your careers now back up to that "
-"account. Turning Profile sharing on."
-msgstr "已以{display}的身份连接到orinks.net。你的职业生涯现在会备份到那个账户。正在开启主页分享。"
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account."
+msgstr ""
 
-#. one sentence of a longer line
-msgid "Your careers now back up to that account."
-msgstr "你的职业生涯现在会备份到那个账户。"
-
-msgid "profile-sharing"
-msgstr "profile-sharing"
+#. placeholders: {display}, {guest_note}
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account. Turning Profile sharing on."
+msgstr ""
 
 msgid ""
 "Profile sharing is on. Your driver profile fills in as you drive. Both this "
@@ -35124,9 +35155,6 @@ msgstr "复制我的激活码"
 
 msgid "Puts the activation code on the clipboard."
 msgstr "把激活码复制到剪贴板。"
-
-msgid "Hear what gets shared"
-msgstr "听听会分享什么"
 
 msgid "Leave without connecting this account."
 msgstr "不连接这个账户，直接离开。"
@@ -35159,9 +35187,6 @@ msgstr "回到Freight Fate。{current}"
 
 msgid "Still waiting."
 msgstr "还在等待。"
-
-msgid "Could not reach orinks.net. Try again."
-msgstr "无法连接orinks.net。请再试一次。"
 
 msgid ""
 "Your activation code expired. Choose Set up this computer with orinks.net "
@@ -35361,6 +35386,119 @@ msgstr "没有人在岗"
 #. placeholders: {n}
 msgid "{n} on duty"
 msgstr "{n}人在岗"
+
+msgid ""
+"As a guest you go on the orinks.net drivers board under a name orinks.net "
+"picks, like Copper Fox 12, with no account. This turns Profile sharing on, "
+"so your guest name, on-duty activity, achievements and road-journal posts "
+"can show publicly. Cloud backup needs an account. Connect one later and "
+"your journal and achievements come with you. Profile sharing on the Online "
+"menu turns sharing off."
+msgstr ""
+
+msgid "Go online as a guest"
+msgstr ""
+
+msgid "Asking orinks.net for a guest name"
+msgstr ""
+
+msgid "Turning Profile sharing on"
+msgstr ""
+
+msgid "Still working. Stay here for the result."
+msgstr ""
+
+msgid "Asking orinks.net for a guest name."
+msgstr ""
+
+msgid "online-guest"
+msgstr ""
+
+msgid "orinks.net is busy. Try again in a minute."
+msgstr ""
+
+msgid "Could not reach orinks.net. Try again."
+msgstr "无法连接orinks.net。请再试一次。"
+
+msgid ""
+"This computer could not save the guest driver. Nothing was changed. Check "
+"your password store, then try again."
+msgstr ""
+
+msgid "profile-sharing"
+msgstr "profile-sharing"
+
+#. placeholders: {name}
+msgid "You're {name} on the drivers board."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Profile sharing on the Online menu tries again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet. Profile sharing on the Online menu tries again."
+msgstr ""
+
+msgid "Gets a guest name from orinks.net and turns Profile sharing on."
+msgstr ""
+
+msgid "Hear what gets shared"
+msgstr "听听会分享什么"
+
+msgid "Guest name"
+msgstr ""
+
+msgid "Still asking."
+msgstr ""
+
+msgid "This computer isn't driving as a guest."
+msgstr ""
+
+msgid "guest-rename"
+msgstr ""
+
+msgid "Asking for a new name"
+msgstr ""
+
+msgid "Ask for a new name"
+msgstr ""
+
+msgid "orinks.net picks another name at random. Ask again for another."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You're {name}."
+msgstr ""
+
+#. placeholders: {TITLE}, {name}, {current}
+msgid "{TITLE}. You're {name}. {current}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "You're {name} now."
+msgstr ""
+
+msgid "That's a lot of names. Try again in a minute."
+msgstr ""
+
+msgid ""
+"orinks.net no longer has this guest. Connect an orinks.net account from the "
+"Online menu."
+msgstr ""
+
+msgid "Still asking. Stay here for the new name."
+msgstr ""
 
 msgid "out-of-service order"
 msgstr "次停驶令"
@@ -37169,6 +37307,34 @@ msgstr "开放。"
 
 msgid "Closed."
 msgstr "关闭。"
+
+#~ msgid ""
+#~ "Enter opens an item or changes a setting forward, Right also forward, Left "
+#~ "backward. Escape goes back. Drivers on duty, the Driver directory, the duty "
+#~ "notices, and Account achievements work without connecting. The rest waits "
+#~ "for an orinks.net account, and everything you share can be turned off again."
+#~ msgstr ""
+#~ "Enter打开一项或向前更改设置，Right也是向前，Left向后。Escape返回。“在岗司机”、“司机名录”、上下班通知和“账户成就”不连接也能用。"
+#~ "其他功能需要orinks.net账户，而且你分享的一切都可以再关掉。"
+
+#~ msgid ""
+#~ "Connects the game to your orinks.net account, which turns Profile sharing "
+#~ "on and starts backing your careers up. Both are single items on this menu. "
+#~ "Driver name and signed-in computers are on Open my driver setup page below."
+#~ msgstr ""
+#~ "把游戏连接到你的orinks.net账户，这会开启主页分享并开始备份你的职业生涯。这两项在这个菜单上各有一项单独的开关。司机名称和已登录的电脑在下面的“"
+#~ "打开我的司机设置页面”里。"
+
+#~ msgid "Connected to orinks.net as {display}."
+#~ msgstr "已以{display}的身份连接到orinks.net。"
+
+#~ msgid ""
+#~ "Connected to orinks.net as {display}. Your careers now back up to that "
+#~ "account. Turning Profile sharing on."
+#~ msgstr "已以{display}的身份连接到orinks.net。你的职业生涯现在会备份到那个账户。正在开启主页分享。"
+
+#~ msgid "Your careers now back up to that account."
+#~ msgstr "你的职业生涯现在会备份到那个账户。"
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "
