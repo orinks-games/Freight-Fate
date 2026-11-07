@@ -99,6 +99,7 @@ pub fn is_identity(path: &Path) -> bool {
     IDENTITY_NAMES.contains(&name)
         || name.starts_with("online.json")
         || name.starts_with("online.token")
+        || name.starts_with("online-guest.json")
 }
 
 /// The live-data feeds a sandbox reads: real weather (and with it the

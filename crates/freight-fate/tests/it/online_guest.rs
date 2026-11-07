@@ -259,9 +259,8 @@ fn going_online_as_a_guest_saves_it_and_turns_sharing_on() {
     assert!(app.ctx.settings.online_presence);
     assert!(!app.ctx.settings.cloud_saves, "guests get no cloud backup");
     let spoken = said(&app);
-    assert!(spoken.contains("You're Copper Fox 12."), "{spoken}");
     assert!(
-        spoken.contains("You're on the drivers board when you're on duty."),
+        spoken.contains("You're Copper Fox 12 on the drivers board."),
         "{spoken}"
     );
     let urls: Vec<String> = seen.lock().unwrap().iter().map(|c| c.0.clone()).collect();

@@ -139,10 +139,11 @@ impl GuestSetupState {
         ctx.apply_online_presence();
         ctx.apply_cloud_saves();
         ctx.audio.play("ui/menu_select");
-        self.name = Some(name.clone());
+        // The name is said with the sharing answer, a moment from now, so one
+        // line never cuts off the other.
+        self.name = Some(name);
         self.phase = GuestPhase::Sharing;
         self.refresh(ctx, true);
-        ctx.say(&format!("You're {name}. Turning Profile sharing on."));
         self.share(identity);
     }
 
@@ -160,6 +161,7 @@ impl GuestSetupState {
 
     fn finish_sharing(&mut self, ctx: &mut GameContext, answer: &str) {
         self.phase = GuestPhase::Idle;
+        let name = self.name.clone().unwrap_or_default();
         if answer == "ok" {
             ctx.settings.online_presence = true;
             ctx.settings.profile_sharing_consent_version = PROFILE_SHARING_CONSENT_VERSION;
@@ -167,12 +169,12 @@ impl GuestSetupState {
                 log::warn!("Could not save settings: {e}");
             }
             ctx.apply_online_presence();
-            ctx.say("You're on the drivers board when you're on duty.");
+            ctx.say(&format!("You're {name} on the drivers board."));
         } else {
-            ctx.say(
-                "Your guest driver is saved, but orinks.net could not turn Profile sharing on, \
-                 so nothing is public yet. Profile sharing on the Online menu tries again.",
-            );
+            ctx.say(&format!(
+                "You're {name}, but orinks.net could not turn Profile sharing on, so nothing \
+                 is public yet. Profile sharing on the Online menu tries again."
+            ));
         }
         ctx.pop_state();
     }
