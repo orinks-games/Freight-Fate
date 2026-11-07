@@ -15731,6 +15731,9 @@ msgstr "retry"
 msgid "ready"
 msgstr "ready"
 
+msgid "token"
+msgstr ""
+
 msgid "online-journal"
 msgstr "online-journal"
 
@@ -35167,17 +35170,33 @@ msgstr "遊び方、{title}、{HELP_PAGES}ページ中{page}ページ目"
 msgid ""
 "Enter opens an item or changes a setting forward, Right also forward, Left "
 "backward. Escape goes back. Drivers on duty, the Driver directory, the duty "
-"notices, and Account achievements work without connecting. The rest waits "
-"for an orinks.net account, and everything you share can be turned off again."
+"notices, and Account achievements work without connecting. Drive online as "
+"a guest puts you on the board with no account. The rest waits for an "
+"orinks.net account, and everything you share can be turned off again."
 msgstr ""
-"Enter で項目を開くか設定を次の値に変え、右でも次の値に、左で前の値にします。Escape "
-"で戻ります。運行中のドライバー、ドライバー名簿、勤務の通知、アカウントの実績は、つながなくても使えます。それ以外はorinks.netのアカウントが必要"
-"で、共有するものはすべて後からオフにできます。"
+
+msgid ""
+"Your profile needs an orinks.net account. Choose Connect an orinks.net "
+"account first."
+msgstr ""
 
 msgid ""
 "Your profile needs your orinks.net account. Choose Set up orinks.net "
 "account first."
 msgstr "プロフィールにはorinks.netのアカウントが必要です。先に「orinks.netのアカウントを設定」を選んでください。"
+
+msgid "Your orinks.net account is connected, so there's no guest driver."
+msgstr ""
+
+#. placeholders: {display_name}
+msgid "Guest name: {display_name}"
+msgstr ""
+
+msgid "Guest driver: off, account connected"
+msgstr ""
+
+msgid "Drive online as a guest"
+msgstr ""
 
 msgid "The browser could not be opened. The address is on your clipboard."
 msgstr "ブラウザーを開けませんでした。アドレスはクリップボードにあります。"
@@ -35204,6 +35223,11 @@ msgstr " アドレスはクリップボードにもあります。"
 #. placeholders: {clipboard_note}
 msgid "Opening your driver setup page in your browser.{clipboard_note}"
 msgstr "ブラウザーでドライバー設定ページを開いています。{clipboard_note}"
+
+msgid ""
+"Cloud backup needs an orinks.net account. Choose Connect an orinks.net "
+"account."
+msgstr ""
 
 msgid ""
 "Cloud backup needs your orinks.net account. Choose Set up orinks.net "
@@ -35322,6 +35346,9 @@ msgstr ""
 "orinks.netと共有サービスのメインスイッチです。オフにすると、ドライバー一覧、プロフィールの共有、クラウドバックアップ、局の提案、Discord"
 "のプレゼンスを、設定を失わずに止めます。実際の天気、周囲の車、駐車場には、設定の中にそれぞれの切り替えがあります。"
 
+msgid "Connect an orinks.net account"
+msgstr ""
+
 msgid "orinks.net account: connected"
 msgstr "orinks.netのアカウント：接続済み"
 
@@ -35335,6 +35362,14 @@ msgid ""
 msgstr ""
 "ゲームをorinks.netのアカウントにつなぎます。これでプロフィールの共有がオンになり、キャリアのバックアップが始まります。どちらもこのメニューの一"
 "つの項目です。ドライバー名とサインイン中のコンピューターは、下の「ドライバー設定ページを開く」にあります。"
+
+msgid "Hear your guest name or ask orinks.net for a new one."
+msgstr ""
+
+msgid ""
+"Puts you on the drivers board under a name orinks.net picks, with no "
+"account. A profile and cloud backup need an account."
+msgstr ""
 
 msgid "Open my driver setup page"
 msgstr "ドライバー設定ページを開く"
@@ -35605,25 +35640,21 @@ msgstr ""
 msgid "your driver"
 msgstr "自分のドライバー"
 
-#. placeholders: {display}
-#. one sentence of a longer line
-msgid "Connected to orinks.net as {display}."
-msgstr "{display}としてorinks.netにつながりました。"
-
-#. placeholders: {display}
-msgid ""
-"Connected to orinks.net as {display}. Your careers now back up to that "
-"account. Turning Profile sharing on."
+msgid " Your guest driver is this account now."
 msgstr ""
-"{display}としてorinks.netにつながりました。これからキャリアはそのアカウントにバックアップされます。プロフィールの共有をオンにしていま"
-"す。"
 
+#. placeholders: {display}, {guest_note}
 #. one sentence of a longer line
-msgid "Your careers now back up to that account."
-msgstr "これからキャリアはそのアカウントにバックアップされます。"
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account."
+msgstr ""
 
-msgid "profile-sharing"
-msgstr "profile-sharing"
+#. placeholders: {display}, {guest_note}
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account. Turning Profile sharing on."
+msgstr ""
 
 msgid ""
 "Profile sharing is on. Your driver profile fills in as you drive. Both this "
@@ -35658,9 +35689,6 @@ msgstr "アクティベーションコードをコピー"
 msgid "Puts the activation code on the clipboard."
 msgstr "アクティベーションコードをクリップボードにコピーします。"
 
-msgid "Hear what gets shared"
-msgstr "何が共有されるかを聞く"
-
 msgid "Leave without connecting this account."
 msgstr "このアカウントをつながずに抜けます。"
 
@@ -35693,9 +35721,6 @@ msgstr "Freight Fateに戻りました。{current}"
 
 msgid "Still waiting."
 msgstr "まだ待っています。"
-
-msgid "Could not reach orinks.net. Try again."
-msgstr "orinks.netにつながりませんでした。もう一度試してください。"
 
 msgid ""
 "Your activation code expired. Choose Set up this computer with orinks.net "
@@ -35782,6 +35807,10 @@ msgstr "orinks.netが応答しませんでした。一覧はおよそ1分ごと�
 msgid "No drivers are on duty right now"
 msgstr "今勤務中のドライバーはいません"
 
+#. placeholders: {name}
+msgid "{name}, guest"
+msgstr ""
+
 msgid "activity"
 msgstr "activity"
 
@@ -35790,6 +35819,9 @@ msgstr "detail"
 
 msgid "went off duty"
 msgstr "勤務を終えました"
+
+msgid "A guest driver, with no orinks.net account and no profile."
+msgstr ""
 
 msgid "Opens this driver's public profile."
 msgstr "このドライバーの公開プロフィールを開きます。"
@@ -35898,6 +35930,118 @@ msgstr "勤務中はなし"
 #. placeholders: {n}
 msgid "{n} on duty"
 msgstr "{n}人が勤務中"
+
+msgid ""
+"As a guest you go on the orinks.net drivers board under a name orinks.net "
+"picks, like Copper Fox 12, with no account. This turns Profile sharing on, "
+"so your guest name and on-duty activity show publicly on the board. A "
+"driver profile, road journal, achievements and cloud backup need an "
+"account. Profile sharing on the Online menu turns sharing off."
+msgstr ""
+
+msgid "Go online as a guest"
+msgstr ""
+
+msgid "Asking orinks.net for a guest name"
+msgstr ""
+
+msgid "Turning Profile sharing on"
+msgstr ""
+
+msgid "Still working. Stay here for the result."
+msgstr ""
+
+msgid "Asking orinks.net for a guest name."
+msgstr ""
+
+msgid "online-guest"
+msgstr ""
+
+msgid "orinks.net is busy. Try again in a minute."
+msgstr ""
+
+msgid "Could not reach orinks.net. Try again."
+msgstr "orinks.netにつながりませんでした。もう一度試してください。"
+
+msgid ""
+"This computer could not save the guest driver. Nothing was changed. Check "
+"your password store, then try again."
+msgstr ""
+
+msgid "profile-sharing"
+msgstr "profile-sharing"
+
+#. placeholders: {name}
+msgid "You're {name} on the drivers board."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Profile sharing on the Online menu tries again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet. Profile sharing on the Online menu tries again."
+msgstr ""
+
+msgid "Gets a guest name from orinks.net and turns Profile sharing on."
+msgstr ""
+
+msgid "Hear what gets shared"
+msgstr "何が共有されるかを聞く"
+
+msgid "Guest name"
+msgstr ""
+
+msgid "Still asking."
+msgstr ""
+
+msgid "This computer isn't driving as a guest."
+msgstr ""
+
+msgid "guest-rename"
+msgstr ""
+
+msgid "Asking for a new name"
+msgstr ""
+
+msgid "Ask for a new name"
+msgstr ""
+
+msgid "orinks.net picks another name at random. Ask again for another."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You're {name}."
+msgstr ""
+
+#. placeholders: {TITLE}, {name}, {current}
+msgid "{TITLE}. You're {name}. {current}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "You're {name} now."
+msgstr ""
+
+msgid "That's a lot of names. Try again in a minute."
+msgstr ""
+
+msgid ""
+"orinks.net no longer has this guest. Connect an orinks.net account from the "
+"Online menu."
+msgstr ""
+
+msgid "Still asking. Stay here for the new name."
+msgstr ""
 
 msgid "out-of-service order"
 msgstr "走行禁止命令"
@@ -37730,6 +37874,29 @@ msgstr "営業中。"
 
 msgid "Closed."
 msgstr "閉鎖中。"
+
+#~ msgid ""
+#~ "Enter opens an item or changes a setting forward, Right also forward, Left "
+#~ "backward. Escape goes back. Drivers on duty, the Driver directory, the duty "
+#~ "notices, and Account achievements work without connecting. The rest waits "
+#~ "for an orinks.net account, and everything you share can be turned off again."
+#~ msgstr ""
+#~ "Enter で項目を開くか設定を次の値に変え、右でも次の値に、左で前の値にします。Escape "
+#~ "で戻ります。運行中のドライバー、ドライバー名簿、勤務の通知、アカウントの実績は、つながなくても使えます。それ以外はorinks.netのアカウントが必要"
+#~ "で、共有するものはすべて後からオフにできます。"
+
+#~ msgid "Connected to orinks.net as {display}."
+#~ msgstr "{display}としてorinks.netにつながりました。"
+
+#~ msgid ""
+#~ "Connected to orinks.net as {display}. Your careers now back up to that "
+#~ "account. Turning Profile sharing on."
+#~ msgstr ""
+#~ "{display}としてorinks.netにつながりました。これからキャリアはそのアカウントにバックアップされます。プロフィールの共有をオンにしていま"
+#~ "す。"
+
+#~ msgid "Your careers now back up to that account."
+#~ msgstr "これからキャリアはそのアカウントにバックアップされます。"
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "

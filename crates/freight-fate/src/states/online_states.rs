@@ -24,17 +24,22 @@ use crate::app::{GameContext, Say};
 use crate::impl_state_for_menu;
 use crate::net::{wait_seconds, Event, Transport};
 use crate::online_activation::{self, Activation, PollResult};
+use crate::online_guest;
 use crate::online_presence::{self, OnlineIdentity};
 use crate::states::base::{InputEvent, Label, Menu, MenuCore, MenuItem};
 
 mod board;
 mod directory;
+mod guest;
 mod profile;
 mod support;
 
 pub use board::{updated_text, DriversOnlineState};
 pub use directory::{
     directory_row_text, last_on_duty_text, last_on_duty_text_at, DriverDirectoryState,
+};
+pub use guest::{
+    current_guest, GuestNameState, GuestOutcome, GuestPhase, GuestSetupState, GUEST_DISCLOSURE,
 };
 pub use profile::{profile_rows, DriverProfileState};
 pub use support::{
@@ -252,8 +257,16 @@ impl OnlineSetupState {
         let schedule = self.schedule;
         let threaded = self.threaded;
         let data_dir = ff_core::models::profile::data_dir();
+        // A guest connecting an account proves itself with its own token, so
+        // an account with no driver yet can take the guest over.
+        let current = load_identity();
+        let guest = online_guest::guest_for(current.as_ref(), &data_dir).and(current);
         self.worker = run_worker(threaded, "online-activation", move || {
-            let activation = online_activation::start_activation(transport.as_ref(), &data_dir);
+            let activation = online_activation::start_activation_as(
+                transport.as_ref(),
+                &data_dir,
+                guest.as_ref(),
+            );
             if stop.is_set() {
                 // player already backed out
                 return;
@@ -343,6 +356,10 @@ impl OnlineSetupState {
             );
             return;
         }
+        // Whatever this computer was signed in as, it is an account driver now.
+        let adopted = online_guest::load_guest(&ff_core::models::profile::data_dir())
+            .is_some_and(|guest| guest.driver_id == identity.driver_id);
+        online_guest::clear_guest(&ff_core::models::profile::data_dir());
         // Cloud backup needs no server handshake -- the next accepted save
         // uploads itself -- so it is on the moment the account is connected.
         // Profile sharing does need one: orinks.net stays the authority on
@@ -368,8 +385,13 @@ impl OnlineSetupState {
         };
         self.phase = SetupPhase::Sharing;
         self.refresh(ctx, true);
+        let guest_note = if adopted {
+            " Your guest driver is this account now."
+        } else {
+            ""
+        };
         ctx.say(&format!(
-            "Connected to orinks.net as {display}. Your careers now back up \
+            "Connected to orinks.net as {display}.{guest_note} Your careers now back up \
              to that account. Turning Profile sharing on."
         ));
         let outcome = self.outcome.clone();

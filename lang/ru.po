@@ -17379,6 +17379,9 @@ msgstr "повтор"
 msgid "ready"
 msgstr "готово"
 
+msgid "token"
+msgstr ""
+
 msgid "online-journal"
 msgstr "online-journal"
 
@@ -39264,14 +39267,15 @@ msgstr "Как играть - {title} ({page}/{HELP_PAGES})"
 msgid ""
 "Enter opens an item or changes a setting forward, Right also forward, Left "
 "backward. Escape goes back. Drivers on duty, the Driver directory, the duty "
-"notices, and Account achievements work without connecting. The rest waits "
-"for an orinks.net account, and everything you share can be turned off again."
+"notices, and Account achievements work without connecting. Drive online as "
+"a guest puts you on the board with no account. The rest waits for an "
+"orinks.net account, and everything you share can be turned off again."
 msgstr ""
-"Enter открывает пункт или меняет настройку вперёд, Right тоже вперёд, Left "
-"назад. Escape возвращает назад. «Водители в рейсе», «Каталог водителей», "
-"оповещения о рейсах и «Достижения аккаунта» работают без подключения. "
-"Остальному нужен аккаунт orinks.net, и всё, чем вы делитесь, можно снова "
-"выключить."
+
+msgid ""
+"Your profile needs an orinks.net account. Choose Connect an orinks.net "
+"account first."
+msgstr ""
 
 msgid ""
 "Your profile needs your orinks.net account. Choose Set up orinks.net "
@@ -39279,6 +39283,19 @@ msgid ""
 msgstr ""
 "Для профиля нужен ваш аккаунт orinks.net. Сначала выберите «Настроить "
 "аккаунт orinks.net»."
+
+msgid "Your orinks.net account is connected, so there's no guest driver."
+msgstr ""
+
+#. placeholders: {display_name}
+msgid "Guest name: {display_name}"
+msgstr ""
+
+msgid "Guest driver: off, account connected"
+msgstr ""
+
+msgid "Drive online as a guest"
+msgstr ""
 
 msgid "The browser could not be opened. The address is on your clipboard."
 msgstr "Не удалось открыть браузер. Адрес скопирован в буфер обмена."
@@ -39308,6 +39325,11 @@ msgstr " Адрес также скопирован в буфер обмена."
 #. placeholders: {clipboard_note}
 msgid "Opening your driver setup page in your browser.{clipboard_note}"
 msgstr "Открываем страницу настройки водителя в браузере.{clipboard_note}"
+
+msgid ""
+"Cloud backup needs an orinks.net account. Choose Connect an orinks.net "
+"account."
+msgstr ""
 
 msgid ""
 "Cloud backup needs your orinks.net account. Choose Set up orinks.net "
@@ -39448,6 +39470,9 @@ msgstr ""
 "предложения станций и статус в Discord, не теряя их настроек. У погоды, "
 "движения и парковки в реальном времени свои переключатели в «Настройках»."
 
+msgid "Connect an orinks.net account"
+msgstr ""
+
 msgid "orinks.net account: connected"
 msgstr "Аккаунт orinks.net: подключён"
 
@@ -39463,6 +39488,14 @@ msgstr ""
 "профиля и начинает резервное копирование ваших карьер. Обе функции это "
 "отдельные пункты в этом меню. Имя водителя и компьютеры, вошедшие в "
 "аккаунт, находятся в пункте «Открыть мою страницу настройки водителя» ниже."
+
+msgid "Hear your guest name or ask orinks.net for a new one."
+msgstr ""
+
+msgid ""
+"Puts you on the drivers board under a name orinks.net picks, with no "
+"account. A profile and cloud backup need an account."
+msgstr ""
 
 msgid "Open my driver setup page"
 msgstr "Открыть мою страницу настройки водителя"
@@ -39770,25 +39803,21 @@ msgstr ""
 msgid "your driver"
 msgstr "ваш водитель"
 
-#. placeholders: {display}
-#. one sentence of a longer line
-msgid "Connected to orinks.net as {display}."
-msgstr "Подключено к orinks.net: {display}."
-
-#. placeholders: {display}
-msgid ""
-"Connected to orinks.net as {display}. Your careers now back up to that "
-"account. Turning Profile sharing on."
+msgid " Your guest driver is this account now."
 msgstr ""
-"Подключено к orinks.net: {display}. Теперь ваши карьеры копируются в этот "
-"аккаунт. Включаем публикацию профиля."
 
+#. placeholders: {display}, {guest_note}
 #. one sentence of a longer line
-msgid "Your careers now back up to that account."
-msgstr "Теперь ваши карьеры копируются в этот аккаунт."
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account."
+msgstr ""
 
-msgid "profile-sharing"
-msgstr "profile-sharing"
+#. placeholders: {display}, {guest_note}
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account. Turning Profile sharing on."
+msgstr ""
 
 msgid ""
 "Profile sharing is on. Your driver profile fills in as you drive. Both this "
@@ -39825,9 +39854,6 @@ msgstr "Скопировать мой код активации"
 msgid "Puts the activation code on the clipboard."
 msgstr "Копирует код активации в буфер обмена."
 
-msgid "Hear what gets shared"
-msgstr "Послушать, чем вы делитесь"
-
 msgid "Leave without connecting this account."
 msgstr "Выйти, не подключая этот аккаунт."
 
@@ -39863,9 +39889,6 @@ msgstr "Снова во Freight Fate. {current}"
 
 msgid "Still waiting."
 msgstr "Всё ещё ждём."
-
-msgid "Could not reach orinks.net. Try again."
-msgstr "Не удалось связаться с orinks.net. Попробуйте ещё раз."
 
 msgid ""
 "Your activation code expired. Choose Set up this computer with orinks.net "
@@ -39969,6 +39992,10 @@ msgstr ""
 msgid "No drivers are on duty right now"
 msgstr "Сейчас в рейсе нет ни одного водителя"
 
+#. placeholders: {name}
+msgid "{name}, guest"
+msgstr ""
+
 msgid "activity"
 msgstr "activity"
 
@@ -39977,6 +40004,9 @@ msgstr "detail"
 
 msgid "went off duty"
 msgstr "больше не в рейсе"
+
+msgid "A guest driver, with no orinks.net account and no profile."
+msgstr ""
 
 msgid "Opens this driver's public profile."
 msgstr "Открывает публичный профиль этого водителя."
@@ -40086,6 +40116,118 @@ msgstr "в рейсе никого"
 #. placeholders: {n}
 msgid "{n} on duty"
 msgstr "в рейсе {n}"
+
+msgid ""
+"As a guest you go on the orinks.net drivers board under a name orinks.net "
+"picks, like Copper Fox 12, with no account. This turns Profile sharing on, "
+"so your guest name and on-duty activity show publicly on the board. A "
+"driver profile, road journal, achievements and cloud backup need an "
+"account. Profile sharing on the Online menu turns sharing off."
+msgstr ""
+
+msgid "Go online as a guest"
+msgstr ""
+
+msgid "Asking orinks.net for a guest name"
+msgstr ""
+
+msgid "Turning Profile sharing on"
+msgstr ""
+
+msgid "Still working. Stay here for the result."
+msgstr ""
+
+msgid "Asking orinks.net for a guest name."
+msgstr ""
+
+msgid "online-guest"
+msgstr ""
+
+msgid "orinks.net is busy. Try again in a minute."
+msgstr ""
+
+msgid "Could not reach orinks.net. Try again."
+msgstr "Не удалось связаться с orinks.net. Попробуйте ещё раз."
+
+msgid ""
+"This computer could not save the guest driver. Nothing was changed. Check "
+"your password store, then try again."
+msgstr ""
+
+msgid "profile-sharing"
+msgstr "profile-sharing"
+
+#. placeholders: {name}
+msgid "You're {name} on the drivers board."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Profile sharing on the Online menu tries again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet. Profile sharing on the Online menu tries again."
+msgstr ""
+
+msgid "Gets a guest name from orinks.net and turns Profile sharing on."
+msgstr ""
+
+msgid "Hear what gets shared"
+msgstr "Послушать, чем вы делитесь"
+
+msgid "Guest name"
+msgstr ""
+
+msgid "Still asking."
+msgstr ""
+
+msgid "This computer isn't driving as a guest."
+msgstr ""
+
+msgid "guest-rename"
+msgstr ""
+
+msgid "Asking for a new name"
+msgstr ""
+
+msgid "Ask for a new name"
+msgstr ""
+
+msgid "orinks.net picks another name at random. Ask again for another."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You're {name}."
+msgstr ""
+
+#. placeholders: {TITLE}, {name}, {current}
+msgid "{TITLE}. You're {name}. {current}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "You're {name} now."
+msgstr ""
+
+msgid "That's a lot of names. Try again in a minute."
+msgstr ""
+
+msgid ""
+"orinks.net no longer has this guest. Connect an orinks.net account from the "
+"Online menu."
+msgstr ""
+
+msgid "Still asking. Stay here for the new name."
+msgstr ""
 
 msgid "out-of-service order"
 msgstr "запрет на движение"
@@ -42034,6 +42176,31 @@ msgstr "Открыта."
 
 msgid "Closed."
 msgstr "Закрыта."
+
+#~ msgid ""
+#~ "Enter opens an item or changes a setting forward, Right also forward, Left "
+#~ "backward. Escape goes back. Drivers on duty, the Driver directory, the duty "
+#~ "notices, and Account achievements work without connecting. The rest waits "
+#~ "for an orinks.net account, and everything you share can be turned off again."
+#~ msgstr ""
+#~ "Enter открывает пункт или меняет настройку вперёд, Right тоже вперёд, Left "
+#~ "назад. Escape возвращает назад. «Водители в рейсе», «Каталог водителей», "
+#~ "оповещения о рейсах и «Достижения аккаунта» работают без подключения. "
+#~ "Остальному нужен аккаунт orinks.net, и всё, чем вы делитесь, можно снова "
+#~ "выключить."
+
+#~ msgid "Connected to orinks.net as {display}."
+#~ msgstr "Подключено к orinks.net: {display}."
+
+#~ msgid ""
+#~ "Connected to orinks.net as {display}. Your careers now back up to that "
+#~ "account. Turning Profile sharing on."
+#~ msgstr ""
+#~ "Подключено к orinks.net: {display}. Теперь ваши карьеры копируются в этот "
+#~ "аккаунт. Включаем публикацию профиля."
+
+#~ msgid "Your careers now back up to that account."
+#~ msgstr "Теперь ваши карьеры копируются в этот аккаунт."
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "
