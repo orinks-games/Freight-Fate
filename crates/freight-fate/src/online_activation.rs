@@ -31,6 +31,7 @@ use sha2::{Digest, Sha256};
 
 use crate::net::{NetError, Transport};
 pub use crate::online_presence::base_url;
+use crate::online_presence::OnlineIdentity;
 
 /// An opaque, stable name for this computer, for the computer list.
 ///
@@ -302,6 +303,9 @@ pub struct PollResult {
     pub driver_id: Option<String>,
     pub token: Option<String>,
     pub display_name: Option<String>,
+    /// The guest driver this computer was signed in as moved onto the
+    /// account: its journal and achievements are the account's now.
+    pub guest_moved: bool,
 }
 
 impl PollResult {
@@ -346,12 +350,32 @@ fn required_str(reply: &Value, key: &str) -> Option<String> {
 /// expected to show one generic "couldn't reach Orinks, try again" message
 /// for all of them -- there is nothing actionable to say differently.
 pub fn start_activation(transport: &dyn Transport, data_dir: &Path) -> Option<Activation> {
+    start_activation_as(transport, data_dir, None)
+}
+
+/// [`start_activation`] for a guest driver connecting an account: its id and
+/// token go with the request, so orinks.net can move its journal and
+/// achievements to the account that claims the code. A server that does not
+/// know guests ignores both.
+pub fn start_activation_as(
+    transport: &dyn Transport,
+    data_dir: &Path,
+    guest: Option<&OnlineIdentity>,
+) -> Option<Activation> {
     // An older server ignores an unknown field, so this is safe to send
     // before the site half is everywhere.
+    let mut body = json!({"machine_key": machine_key(data_dir)});
+    let headers = match guest {
+        Some(guest) => {
+            body["guest_driver_id"] = Value::from(guest.driver_id.as_str());
+            guest.auth_headers()
+        }
+        None => Vec::new(),
+    };
     let reply = match transport.call(
         &format!("{}/api/freight-fate/activate/start", base_url()),
-        Some(&json!({"machine_key": machine_key(data_dir)})),
-        &[],
+        Some(&body),
+        &headers,
         None,
     ) {
         Ok(reply) => reply,
@@ -449,6 +473,7 @@ pub fn poll_activation(activation: &Activation, transport: &dyn Transport) -> Po
                         .get("display_name")
                         .filter(|v| !v.is_null())
                         .map(value_text),
+                    guest_moved: map.get("guest_moved") == Some(&Value::Bool(true)),
                 },
                 _ => {
                     // A "ready" that carries no identity is not a claim the caller
