@@ -535,18 +535,18 @@ fn test_upgrade_f1_help_explains_player_benefits() {
     }
 
     let engine = &help_by_label["engine tune"];
-    assert!(engine.contains("more pulling power"));
+    assert!(engine.contains("adds pulling power"));
     assert!(engine.contains("heavy freight"));
     let aero = &help_by_label["aerodynamic kit"];
-    assert!(aero.contains("burn less fuel at highway speed"));
-    assert!(aero.contains("same tank last longer"));
+    assert!(aero.contains("cuts fuel use at highway speed"));
+    assert!(aero.contains("without adding tank capacity"));
     let tank = &help_by_label["long-range tank"];
     assert!(tank.contains("fifty gallons"));
-    assert!(tank.contains("carry more fuel"));
-    assert!(tank.contains("more distance between fuel stops"));
+    assert!(tank.contains("fuel capacity"));
+    assert!(tank.contains("fuel efficiency stays the same"));
     let brakes = &help_by_label["reinforced brakes"];
     assert!(brakes.contains("emergency stops"));
-    assert!(brakes.contains("downhill control"));
+    assert!(brakes.contains("mountain descents"));
 }
 
 #[test]

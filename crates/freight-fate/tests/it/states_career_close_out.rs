@@ -75,7 +75,9 @@ fn test_the_disqualification_notice_reads_once_at_the_terminal() {
     with_state::<CareerSetbackNoticeState, _>(&app, |s, _| {
         assert_eq!(s.title(), "Your driving career is over");
         assert!(s.lines.iter().any(|l| l.contains("Close out this career")));
-        assert!(s.lines.iter().any(|l| l.contains("Nothing is taken away")));
+        assert!(s.lines.iter().any(|l| l.contains(
+            "Your money, levels, achievements, road journal and driving record are kept"
+        )));
     });
     with_state_mut::<CareerSetbackNoticeState, _>(&mut app, Menu::go_back);
     assert!(is::<CityMenuState>(&app));
