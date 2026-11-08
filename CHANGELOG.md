@@ -17,6 +17,7 @@
 ### Changed
 
 - **Achievement descriptions and roadside billboards read more naturally.** Song references and achievement requirements are unchanged.
+- **Career descriptions use plainer language.** The lifetime-disqualification notice clearly distinguishes lost driving privileges from the career record you keep.
 
 - **Help focuses on driving actions and controls.** Learn game sounds explains cue meanings without sound-design commentary.
 

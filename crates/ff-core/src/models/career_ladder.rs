@@ -100,7 +100,7 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         "Company driver",
         "Dispatch assigns you one long-haul sleeper tractor that you drive on \
          every load, with priority access to fragile and high-value lanes.",
-        "Dispatch trusts the driver with higher-consequence freight.",
+        "Dispatch trusts you with fragile and high-value freight.",
     ),
     rank(
         10,
@@ -151,7 +151,7 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         "Leased-On Applicant",
         "Owner-operator preparation",
         "Every owner-operator buy-in requirement appears in full.",
-        "Finalizing delivery, reputation, and cash readiness.",
+        "Meeting the delivery, reputation, and savings requirements.",
     ),
     rank(
         17,
@@ -184,7 +184,7 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         "Owner-operator",
         "Specialty trailer programs matter more, and LCV training opens for \
          doubles-endorsed drivers with a clean recent record.",
-        "Running as a steady leased-on business with clearer upside and costs.",
+        "Running a steady leased-on business and managing its costs.",
     ),
     rank(
         21,
@@ -240,7 +240,7 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         "Premium Lane Operator",
         "Established owner-operator",
         "Premium lanes favor high reputation and the right trailer.",
-        "An established owner-operator with strong freight-market choice.",
+        "An established owner-operator with a wide choice of freight.",
     ),
     rank(
         29,
@@ -328,7 +328,7 @@ pub const COMPANY_CAREER_RANKS: [CareerRank; 30] = [
         "Company driver",
         "Dispatch assigns you one long-haul sleeper tractor that you drive on \
          every load, with priority access to fragile and high-value lanes.",
-        "Dispatch trusts the driver with higher-consequence freight.",
+        "Dispatch trusts you with fragile and high-value freight.",
     ),
     rank(
         10,
@@ -372,7 +372,7 @@ pub const COMPANY_CAREER_RANKS: [CareerRank; 30] = [
         "Dedicated Company Driver",
         "Career company driver",
         "Senior company lanes stay open without the owner-operator prep track.",
-        "Choosing carrier equipment as a long-term career, not a waiting room.",
+        "Choosing carrier equipment for a long-term career.",
     ),
     rank(
         16,
@@ -394,7 +394,7 @@ pub const COMPANY_CAREER_RANKS: [CareerRank; 30] = [
         "Company Fleet Captain",
         "Career company driver",
         "Top fleet standing: first pick of company freight.",
-        "A career company driver at the buy-in fork who kept the safer seat.",
+        "A career company driver who chose to stay on the payroll.",
     ),
     rank(
         19,
@@ -408,7 +408,7 @@ pub const COMPANY_CAREER_RANKS: [CareerRank; 30] = [
         "Senior Fleet Regular",
         "Career company driver",
         "Specialty company freight and clean-service bonuses matter more.",
-        "A dependable senior company driver with nothing left to prove on risk.",
+        "A dependable senior company driver on carrier equipment.",
     ),
     rank(
         21,
@@ -421,7 +421,7 @@ pub const COMPANY_CAREER_RANKS: [CareerRank; 30] = [
         22,
         "Premium Company Lane Driver",
         "Elite company driver",
-        "Premium company lanes favor high reputation and clean timing.",
+        "Premium company lanes favor high reputation and on-time deliveries.",
         "An elite company driver with first call on the most valuable freight.",
     ),
     rank(

@@ -1030,16 +1030,15 @@ pub fn career_ended_text() -> &'static str {
 /// should not be a line gone to the first keypress.
 pub fn disqualification_notice_lines() -> Vec<String> {
     vec![
-        "That was the second major offense on your CDL. Under the federal rules a second \
-         major offense disqualifies a commercial license for life, and there is no waiting \
-         it out."
+        "That was the second major offense on your CDL. Your license is disqualified for \
+         life in this career. Waiting will not restore it."
             .to_string(),
         "No carrier can put you in a seat, the dispatch board is closed to you, and the \
          owner-operator buy-in is off the table. Rest, the garage, the logbook and your \
          stats still work here."
             .to_string(),
-        "Nothing is taken away. Your money, your levels, your achievements, your road journal \
-         and your whole record stay, and this career can be opened and read any time."
+        "Your money, levels, achievements, road journal and driving record are kept. \
+         You can open this career and read them any time."
             .to_string(),
         "When you are done with it, Close out this career on the terminal menu removes the \
          save from this computer and every cloud backup of it from your account. Nothing \
