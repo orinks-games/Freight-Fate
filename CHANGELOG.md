@@ -22,7 +22,7 @@
 
 - **Help focuses on driving actions and controls.** Learn game sounds explains cue meanings without sound-design commentary.
 
-- **The manual and README use current cruise and settings names.** The control reference also clarifies stop planning and cruise-speed adjustments.
+- **The manual and README use current cruise and settings names.** The control reference also clarifies stop planning, cruise-speed adjustments, and weigh-station bypass clearance.
 
 - **Updates check and install faster.** Unchanged sound packs are no longer copied or checked twice.
 - **Spoken lines, help and menus are shorter and use plain words, and some settings have new names.** Cruise has one name, and the dispatch board and delivery list are shorter.

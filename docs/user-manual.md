@@ -61,7 +61,7 @@ Open How to play for the built-in guide. You can read a whole page or read a lit
 
 ### Learn game sounds
 
-Use Learn game sounds when you want to get familiar with a road cue before hearing it during a drive. Select a sound to hear it and read its explanation. You can also open this screen from the pause menu.
+Use Learn game sounds when you want to get familiar with a road cue before hearing it during a drive. Select a cue and press Enter to hear it. F1 explains its meaning. You can also open this screen from the pause menu.
 
 ### Practice keys and buttons
 
@@ -376,7 +376,7 @@ A control marked Driving commands has no controller button. Hold the right bumpe
 | --- | --- | --- |
 | Up arrow, hold | Right trigger, as far as you press it | Throttle. |
 | Down arrow, hold | Left trigger, as far as you press it | Brake. To select reverse: stop fully, release the key, then press and hold it again for a moment. A quick tap, or a brake held through the stop, just brakes. The same press-and-hold on the Up arrow brings forward gear back. |
-| Down arrow, tap then press and hold | Not on the controller | Latch the brake so it stays applied hands-free. A click and a spoken confirmation mark the catch after about half a second of holding. Press Down arrow once to take it back; the accelerator releases it instantly. The throttle key never latches. Turn the gesture off under Settings, Driving assistance, Latching brake. |
+| Down arrow, tap then press and hold | Not on the controller | Latch the brake so it stays applied hands-free. The game confirms when it catches after about half a second of holding. Press Down arrow once to take it back; the accelerator releases it instantly. The throttle key never latches. Turn the gesture off under Settings, Driving assistance, Latching brake. |
 | B, hold | Left trigger, all the way down | Emergency brake. |
 | E | Right bumper plus A | Start the engine. Stop the engine only below 5 miles per hour. |
 | P | Right bumper plus Y | Release or set the parking brake. Applying it while moving causes a hard stop and tire damage that increases with speed. Use the brake pedal for normal stops. |
@@ -576,7 +576,7 @@ Cruise follows traffic and leaves a wider gap in poor weather. It doesn't steer.
 
 A passing vehicle grows louder as it draws alongside, then fades as it moves ahead. Its position in the stereo field helps you hear which side it's on. At a controlled ramp crossing, cross traffic moves across the sound field. Stop for the control and wait for a clear gap before pulling out.
 
-On an on-ramp, mainline traffic stays to your left and grows more distant as the ramp moves away. The distant freeway sound also follows traffic activity, so a busy highway sounds different from a quiet stretch at night. Use Learn game sounds if you'd like to hear a cue on its own before meeting it on the road.
+On an on-ramp, listen for mainline traffic to your left. Use Learn game sounds to practice gameplay cues before meeting them on the road.
 
 ### Traffic reports and hazards
 
@@ -616,7 +616,7 @@ A meal or coffee can reduce fatigue for a while. A half-hour meal also meets the
 
 A CAT Scale weigh takes ten on-duty minutes and reads the steer, drive, trailer, and gross weights. The tandem limit is 34,000 pounds and the gross limit is 80,000. The first weigh costs 15 dollars and 25 cents. A reweigh at the same scale within 24 hours costs 5 dollars and 25 cents. Company drivers bill the carrier.
 
-For an open scale, slow into its lane, signal with X, stop, and use T to check in. On a controller, signal with D-pad down and check in with the right bumper and D-pad down. A required scale takes priority over a sleep plan.
+Unless your transponder clears you to bypass an open scale, signal with X, slow into its lane, stop, and use T to check in. On a controller, signal with D-pad down and check in with the right bumper and D-pad down. A required scale takes priority over a sleep plan.
 
 Don't wait for an empty tank before looking for fuel. Warnings tell you when it's near fifteen percent and when your range won't reach the next fuel stop or destination. The fifteen percent warning names the next fuel stop. Truck stops, fuel stations, service plazas and truck parking lots say Fuel or No fuel as they come up. An owner pays for rescue; a company driver takes a service-record hit.
 
@@ -874,7 +874,7 @@ Low-speed cruise covers the slower parts of a trip: local limits, corners, and q
 
 Predictive cruise checks about a mile and a half ahead for hills. Curve callouts are optional, and U and D still answer when those callouts are off.
 
-Latching brake is on by default, for the keyboard brake; the left trigger doesn't latch. Tap the brake, then press and hold it again for half a second. A click and spoken confirmation tell you it's latched, so you can release the key. Press the brake again or accelerate to take it back. The throttle never latches. These independent accommodations and cue volumes aren't changed by presets.
+Latching brake is on by default, for the keyboard brake; the left trigger doesn't latch. Tap the brake, then press and hold it again for half a second. The game confirms when it latches, so you can release the key. Press the brake again or accelerate to take it back. The throttle never latches. These independent accommodations and cue volumes aren't changed by presets.
 
 ### Settings reference
 
@@ -887,7 +887,7 @@ Choose the driving pace first. Relaxed gives you more time to react, Standard co
 | Setting | Purpose |
 | --- | --- |
 | Driving mode | Choose Relaxed, Standard, or Real time. The explanations below help you choose your pace. |
-| Hours of service | Choose realistic or relaxed legal limits. Both use the same 11-hour driving limit, 14-hour duty window, and break after 8 hours. Relaxed reduces fines, inspections, and random hazards. |
+| Hours of service | Choose realistic or relaxed enforcement. Both use the same 11-hour driving limit, 14-hour duty window, and break after 8 hours. Relaxed reduces fines, inspections, and random hazards. |
 | Hours of service planning hints | Off by default. On, when the delivery is out of legal reach, the cab suggests a break or sleep stop once, with time to spare before the next hours warning, and names the last stop you can legally reach if it suggests an earlier one. While rolling, choosing a break or sleep from T plans that stop; press T again to cancel. Quiet and Urgent only driving speech skip the spoken suggestion. |
 
 #### Choosing your driving pace
@@ -1017,7 +1017,7 @@ Everything in Freight Fate can be played by ear, and everything the game says ca
 - **While you drive**, the window shows the road from behind your truck: your lane and the lanes beside you, the traffic around you with brake lights and signals, bends and hills as they come, and the signs on your route, including speed limits, curve warnings with their advisory speed, work zones, exits, rest areas, weigh stations, state lines, and billboards. The sky follows the time of day where you are, and rain, snow, fog, and storms show as they happen.
 - **The dashboard** shows your speed with the posted limit and cruise speed marked on the dial, engine speed and gear, fuel, air pressure, truck and cargo damage, warning lights such as the parking brake and low air, turn signals, the next bend and your next turn, the time and weather, how far you have left, and a traffic display of every vehicle within half a mile.
 - **Blind-spot lights** glow amber on the truck's mirrors, with the lane shaded on the traffic display, while traffic holds the lane beside you. They answer the same way the "lane open" announcement and the L key do: change lanes only once the light on that side is out.
-- **Captions** show each announcement for a few seconds, so nothing the game says is missed.
+- **Captions** show each announcement for a few seconds. Use message review to return to one you missed.
 
 The window can be resized or made full screen, and everything scales with it. To turn the drawing off, set Visual display to off under Settings, Gameplay, Controls; the window stays dark and uses less power. The game also stops drawing while its window is minimized or, on a Mac, covered by other windows.
 
@@ -1111,7 +1111,7 @@ It may need a certificate, endorsement, or trailer you do not have. Press F1 on 
 
 ### Why did I get a citation at a weigh station?
 
-When you hear "Open weigh station ahead", every truck must pull in. Press X to signal for the scale exit, stop at the scale, then press T to check in. With full lane keeping, the truck signals for the scale itself, and with facility stopping assistance on it also stops there for you. A closed scale is not announced, and you can drive past it.
+When you hear "Open weigh station ahead", pull in unless your transponder clears you to bypass it. Press X to signal for the scale exit, stop at the scale, then press T to check in. With full lane keeping, the truck signals for the scale itself, and with facility stopping assistance on it also stops there for you. A closed scale is not announced, and you can drive past it.
 
 ### Why is the speed limit 55 on a fast highway?
 
