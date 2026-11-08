@@ -1,0 +1,117 @@
+name: Test against a Hearken branch
+
+# Builds and tests Freight Fate against a Hearken branch, tag or commit
+# before that Hearken change is merged or pinned here, on Windows, Linux and
+# macOS. Started by hand (Actions > Test against a Hearken branch > Run
+# workflow). Hearken itself knows nothing about this game; the check lives
+# here so the engine stays game-agnostic.
+#
+# Freight Fate comes from the ref the run is started on; Hearken from the
+# `hearken_ref` input. Nothing is published and no cache is saved.
+
+on:
+  workflow_dispatch:
+    inputs:
+      hearken_ref:
+        description: Hearken branch, tag or commit to test against
+        required: true
+        default: main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hearken-preview-${{ github.ref }}-${{ inputs.hearken_ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  CMAKE_POLICY_VERSION_MINIMUM: "3.5"
+
+jobs:
+  test:
+    name: Freight Fate on Hearken ${{ inputs.hearken_ref }} (${{ matrix.name }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows
+            os: windows-2025
+          - name: Linux
+            os: ubuntu-24.04
+          - name: macOS
+            os: macos-15
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 75
+    env:
+      FREIGHT_FATE_NO_SPEECH: "1"
+      HEARKEN_TEST_NO_SPEECH: "1"
+      SDL_VIDEODRIVER: dummy
+      SDL_AUDIODRIVER: dummy
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      # Fast Linux links without re-running Prism's LTO, as in the nightly's
+      # test legs. Applies only when building for Linux.
+      CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS: "-C link-arg=-fno-lto -C link-arg=-fuse-ld=mold"
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/checkout@v6
+        with:
+          repository: orinks-games/hearken
+          ref: ${{ inputs.hearken_ref }}
+          path: _hearken
+
+      # Restores the nightly's dependency cache where one fits; saves none.
+      - uses: ./.github/actions/rust-setup
+        with:
+          cache-key: hearken-preview
+          save-cache: "false"
+          sccache: "true"
+          linux-packages: mold
+
+      # Every Hearken crate from that checkout, in a cargo config outside
+      # this tree. The checkout moves out of the Freight Fate directory
+      # first: Cargo looks for a crate's workspace upward from it, and inside
+      # this tree it takes the game's workspace for Hearken's and fails to
+      # inherit Hearken's dependencies. The lockfile's Hearken entries change
+      # with the patch, so the cargo calls below do not pass --locked.
+      - name: Point Freight Fate at that Hearken
+        shell: bash
+        run: |
+          mv _hearken "$RUNNER_TEMP/hearken"
+          root="$RUNNER_TEMP/hearken/crates"
+          game="$GITHUB_WORKSPACE"
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            root="$(cygpath -m "$root")"
+            game="$(cygpath -m "$game")"
+          fi
+          # Freight Fate patches hearken-seal to its own copy in vendor/.
+          # That Hearken's crates take it by path, so they must take the same
+          # copy, or Cargo finds two hearken-seal crates.
+          if [ -f vendor/hearken-seal/Cargo.toml ]; then
+            sed -i.bak "s#^hearken-seal = { path = \"crates/hearken-seal\" }#hearken-seal = { path = \"$game/vendor/hearken-seal\" }#" \
+              "$RUNNER_TEMP/hearken/Cargo.toml"
+            grep -n '^hearken-seal' "$RUNNER_TEMP/hearken/Cargo.toml"
+          fi
+          home="${CARGO_HOME:-$HOME/.cargo}"
+          mkdir -p "$home"
+          {
+            echo '[patch."https://github.com/orinks-games/hearken"]'
+            for c in hearken hearken-app hearken-speech hearken-audio hearken-radio hearken-synth hearken-update; do
+              echo "$c = { path = \"$root/$c\" }"
+            done
+          } >> "$home/config.toml"
+          cat "$home/config.toml"
+
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+
+      - name: cargo test
+        run: cargo test -p ff-core -p freight-fate
+
+      - name: cargo test (agent server)
+        run: cargo test -p freight-fate --test agent_server
+
+      - name: Speech backends Prism registered
+        shell: bash
+        run: cargo run -p freight-fate --bin freightfate -- --list-speech-backends
