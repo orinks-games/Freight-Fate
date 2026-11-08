@@ -87,3 +87,22 @@ fn test_place_record_names_the_destination_off_the_exit() {
     assert!(place.contains("Erie"), "{place}");
     assert!(!place.contains("Buffalo"), "{place}");
 }
+
+#[test]
+fn test_town_key_names_the_destination_on_its_streets() {
+    let mut app = TestApp::new();
+    let mut d = a_drive(&mut app);
+    d.facility_streets_on = true;
+    d.trip.position_mi = d.trip.route.miles() - 0.1;
+    d.destination_exit_taken = true;
+    assert!(
+        d.begin_surface_chain(&mut app.ctx, false),
+        "the Erie freight market has a street chain"
+    );
+    app.clear_speech();
+    d.speak_current_town(&mut app.ctx);
+    d.speak_current_state(&mut app.ctx);
+    let lines = app.main_lines();
+    assert!(lines[0].starts_with("In Erie"), "{lines:?}");
+    assert_eq!(lines[1], "In Pennsylvania.");
+}
