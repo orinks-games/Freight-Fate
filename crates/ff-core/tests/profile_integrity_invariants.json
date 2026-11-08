@@ -136,7 +136,7 @@
     },
     "deep_repair": {
       "category": "career",
-      "description": "You brought the truck back from 75 percent damage or worse. Only one way to go from there."
+      "description": "You brought the truck back from 75 percent damage or worse. Back on the road instead of in the scrapyard."
     },
     "desert_summer": {
       "category": "weather_seasons",
@@ -228,7 +228,7 @@
     },
     "first_rest_stop": {
       "category": "working_day",
-      "description": "Your first rest stop. The romance lasted as long as the vending machine's stare."
+      "description": "Your first rest stop. Time to park the truck and stretch your legs."
     },
     "first_ticket": {
       "category": "working_day",
@@ -236,7 +236,7 @@
     },
     "first_upgrade": {
       "category": "career",
-      "description": "Your first upgrade, a small taste of souped-up confidence."
+      "description": "Your first upgrade is installed. The truck is starting to feel like yours."
     },
     "five_deliveries": {
       "category": "career",
@@ -332,7 +332,7 @@
     },
     "hundred_fifty_cities": {
       "category": "places",
-      "description": "A hundred fifty cities delivered. The far side of the map is feeling left out."
+      "description": "Freight delivered in a hundred fifty cities. The far side of the map is feeling left out."
     },
     "hundred_grand": {
       "category": "career",
@@ -340,7 +340,7 @@
     },
     "hundred_k_miles": {
       "category": "career",
-      "description": "A hundred thousand miles. The road owns most of you now, but not all of you today."
+      "description": "A hundred thousand miles. You could name a few stretches worth coming back to."
     },
     "inspection": {
       "category": "working_day",
@@ -400,7 +400,7 @@
     },
     "level_twenty_five": {
       "category": "career",
-      "description": "Career level 25. You qualify for your own operating authority. In freight, that's arriving."
+      "description": "Career level 25. You qualify for your own operating authority."
     },
     "long_day_run": {
       "category": "road",
@@ -460,7 +460,7 @@
     },
     "multi_state": {
       "category": "road",
-      "description": "Three states on one route. The map had to clear its throat."
+      "description": "Three states on one route. A few more names for the song."
     },
     "muskogee_arrival": {
       "category": "radio_songs",
@@ -604,7 +604,7 @@
     },
     "self_paid_course": {
       "category": "career",
-      "description": "You paid for an endorsement course yourself. Ambition has tuition, and you paid cash."
+      "description": "You paid for an endorsement course out of your own pocket."
     },
     "seventy_five_cities": {
       "category": "places",
@@ -624,7 +624,7 @@
     },
     "slept_on_route": {
       "category": "working_day",
-      "description": "Ten hours in the bunk, and you woke up legal. Unglamorous, and heroic."
+      "description": "Ten hours in the bunk, and you woke up legal."
     },
     "southbound_run": {
       "category": "road",
@@ -668,7 +668,7 @@
     },
     "thirty_states": {
       "category": "places",
-      "description": "Thirty states delivered. Most folks need a camper and a lifetime to see that much."
+      "description": "Freight delivered in thirty states. Most folks need a camper and a lifetime to see that much."
     },
     "thousand_miles": {
       "category": "career",
@@ -696,7 +696,7 @@
     },
     "traffic_slowing": {
       "category": "working_day",
-      "description": "Heavy traffic, and you kept a sane following distance. You let the jam breathe."
+      "description": "Heavy traffic, and you left room for the driver ahead."
     },
     "trainer_ride_along": {
       "category": "hidden",
@@ -1207,7 +1207,7 @@
       "suggestedHomeTerminal": "Milwaukee"
     },
     "northstar": {
-      "description": "A balanced company-driver path. The carrier assigns and maintains the tractor, pays fuel and routine repairs, and offers steady wage math without a sharp specialty.",
+      "description": "The carrier assigns and maintains your tractor, pays for fuel and routine repairs, and offers steady wages across a broad mix of freight.",
       "dispatch": "balanced dispatch",
       "favoredFreight": [],
       "name": "Northstar Freight Lines",
@@ -1221,7 +1221,7 @@
     },
     "prairie_link": {
       "description": "A mile-focused company start. The per-mile wage floor is higher, but stop pay is lower, so it favors steady regional mileage over very short hops. Dispatch leans toward same-region grain and bulk work. The carrier still assigns and maintains the tractor.",
-      "dispatch": "more same-region lanes, more longer lanes",
+      "dispatch": "more same-region lanes, more long-haul work",
       "favoredFreight": [
         "grain",
         "farm inputs",
@@ -1238,7 +1238,7 @@
     },
     "summit_value": {
       "description": "A performance-sensitive company start. Good on-time runs pay better, but the guaranteed floor is smaller. Dispatch leans toward longer and higher-value lanes. The carrier still supplies equipment, authority, insurance, fuel, and repairs.",
-      "dispatch": "more longer lanes",
+      "dispatch": "more long-haul work",
       "favoredFreight": [
         "electronics",
         "automotive parts",
