@@ -16,6 +16,8 @@
 
 ### Changed
 
+- **The manual and README use current cruise and settings names.** The control reference also clarifies stop planning and cruise-speed adjustments.
+
 - **Updates check and install faster.** Unchanged sound packs are no longer copied or checked twice.
 - **Spoken lines, help and menus are shorter and use plain words, and some settings have new names.** Cruise has one name, and the dispatch board and delivery list are shorter.
 - **Road announcements now wait for NVDA 2026.3 or SAPI to finish speaking.** The most urgent goes next; stale chatter is skipped.

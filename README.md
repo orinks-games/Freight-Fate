@@ -11,81 +11,68 @@ display mirrors all speech for sighted players and helpers.
 
 ## Features
 
-Score display in Settings, Speech can read reputation and dispatch trust as both a description and number, percentage only, or description only. A trust line reads, for example, "Dispatch trust: full. Reputation 85 out of 100."
-
-- **Career mode** — accept jobs inside metro freight markets, deadhead to
-  specific origin facilities, deliver to specific receivers, earn money and
-  experience, level through a 30-rank trucking career, unlock cargo
-  endorsements, then buy into a leased-on owner-operator path when your career
-  and working capital are ready.
-- **Realistic freight markets** — the 623-city route graph acts as metro
-  service areas, while each market expands into representative ports, rail and
-  intermodal ramps, air cargo areas, parcel hubs, distribution centers, cold
-  storage, food processors, farms/elevators, manufacturing plants, steel and
-  automotive sites, chemical terminals, construction yards, mines/quarries,
-  lumber/paper facilities, cross-docks, and company yards.
-- **Real driving** — a tuned Class 8 truck simulation: 450 horsepower,
-  ten gears (manual with clutch, or automatic), air-brake pressure,
-  parking brakes, engine braking, grades, stalls, brake fade, and
-  fuel economy.
-- **Business progression** — choose a grounded company-driver carrier with
-  assigned equipment plus modest wage and dispatch tradeoffs, or start as a
-  higher-risk leased-on owner-operator with owned starter equipment and real
-  operating costs. Owner-operators can add specialty trailer programs for
-  reefer, flatbed, and bulk freight, then prepare for a limited own-authority
-  direct-freight mode with trailer ownership at the end of the career arc.
-- **Trucks and upgrades** — owner-operators can earn their way into a heavy
-  hauler with more torque and a bigger tank (and worse aerodynamics), and
-  outfit any truck with an engine tune, aerodynamic kit, long-range tank, or
-  reinforced brakes. Every purchase changes the physics.
-- **A living market** — each cargo class has a pay rate that drifts day by
-  day, and each metro weights freight by regional specialization. The job
-  board tells you when electronics are tight or bulk freight has gone loose;
-  chase the tight markets.
-- **A living road** — dynamic regional weather that changes grip and safe
-  speeds, construction and traffic zones, road hazards that demand quick
-  braking, curated rest stops and service plazas with parking certainty,
-  carrier-paid toll-road settlement charges, and roadside rescue when you run dry.
-- **Real-world weather (optional)** — flip Settings → Speech and weather →
-  Weather source to
-  "real world" and each city uses its live current conditions from the free
-  [National Weather Service](https://www.weather.gov/documentation/services-web-api)
-  API. If it is raining in Chicago right now, it is raining in your game. Works
-  without an API key and falls back to simulated weather offline. A separate
-  calendar setting lets career dates and seasons keep advancing while live
-  conditions remain enabled.
-- **Route planning** — route options per job with distance, highways, state
-  context, grade/terrain, toll events, curated POIs, and weather forecasts.
-  Geometry coverage is broad, while generated placeholder POIs are reported as
-  data gaps instead of dispatch-ready truck stops. Facilities add local pickup
-  and delivery realism without pretending that every suburb or shipper needs a
-  separate highway node.
-- **Original audio** — sound effects and music are original project assets,
-  with sources documented in the audio credits. The Rust audio engine plays
-  them through Hearken, the game's own Rust audio engine, with the engine note
-  pitch-tracking RPM in real time. If no sound device can be opened, the game
-  continues silently and says so rather than failing to start.
-- **Screen reader support** — menus with first-letter navigation, contextual
-  F1 help everywhere, on-demand information keys while driving, a message log
-  you can walk back through from any screen, and a choice of terse or normal
-  speech verbosity.
-- **Discord Rich Presence (optional)** — when Discord is running, your profile
-  can show what you are up to: in the main menu, at the terminal, driving a
-  route, resting, or delivering, with the broad route and cargo. Only general
-  game activity is shared — never your save files or personal details — and it
-  is on by default but easily switched off under Discord presence on the
-  Online menu, on the main menu. The game starts and runs whether or
-  not Discord is open.
+- **Career mode**: accept jobs in metro freight markets, drive to pickup
+  facilities, and deliver to receivers. Earn money and experience through 30
+  career ranks, unlock cargo endorsements, and buy into a leased-on
+  owner-operator business when you meet the career and cash requirements.
+- **Freight markets**: the 623 cities represent metro service areas. Jobs take
+  you to ports, rail and intermodal ramps, air cargo areas, parcel hubs,
+  distribution centers, cold storage, food processors, farms and grain
+  elevators, factories, steel and automotive sites, chemical terminals,
+  construction yards, mines and quarries, lumber and paper facilities,
+  cross-docks, and company yards.
+- **Driving**: a Class 8 truck with 450 horsepower and ten gears. Choose manual
+  shifting with a clutch or automatic transmission. Manage air-brake pressure,
+  parking brakes, engine braking, grades, stalls, brake fade, and fuel economy.
+- **Business progression**: a company driver gets assigned equipment, wages,
+  and a carrier's dispatch terms. A leased-on owner-operator starts with a
+  truck and pays its operating costs, taking on more financial risk. Owners
+  can add reefer, flatbed, and bulk
+  trailer programs, then work toward own authority, trailer ownership, and
+  direct freight later in the career.
+- **Trucks and upgrades**: owner-operators can buy a heavy hauler with more
+  torque and a bigger tank, at the cost of worse aerodynamics. Engine tunes,
+  aerodynamic kits, long-range tanks, and reinforced brakes change how a
+  truck drives.
+- **Freight prices**: cargo rates change daily, and each metro has its own
+  freight mix. The job board reports tight and loose markets so you can choose
+  where to look for work.
+- **Road conditions**: regional weather changes grip and safe speeds.
+  Construction, traffic, and hazards can slow a trip. Plan rest stops and
+  service plazas, account for carrier-paid toll charges, and call roadside
+  rescue if you run out of fuel. Stop information includes parking availability.
+- **Real-world weather (optional)**: set Weather source under Settings,
+  Gameplay, World and traffic to "real world" to use current conditions from
+  the free [National Weather Service](https://www.weather.gov/documentation/services-web-api)
+  API. It needs no API key and falls back to simulated weather offline. You can
+  keep the career calendar and seasons advancing while using live conditions.
+- **Route planning**: compare distance, highways, states, grades, terrain,
+  tolls, points of interest, and forecasts. Some mapped places lack verified
+  truck-stop information; the game marks those gaps. Pickup and delivery
+  facilities have their own approaches within each metro area.
+- **Sound and music**: effects and music are project assets, with sources
+  listed in the audio credits. Hearken plays them, and the engine note follows
+  RPM. If no sound device opens, the game continues silently and reports the
+  problem. Learn game sounds lets you listen to cues and learn their meanings.
+- **Menus and speech**: first-letter navigation, contextual F1 help, driving
+  readout keys, and a message log available from any screen. Choose Standard,
+  Quiet, or Urgent only driving speech; readout keys answer in every mode.
+  Score display under Settings, Speech reads reputation as a description and
+  number, percentage only, or description only. A trust line can read
+  "Dispatch trust: full. Reputation 85 out of 100."
+- **Discord Rich Presence (optional)**: while Discord is running, your profile
+  can show general game activity, route, and cargo. It never shares save files
+  or personal details. It is on by default; turn it off under Discord presence
+  in the main menu's Online screen. The game runs without Discord.
 
 ## Download and play
 
 1. Open [Freight Fate releases](https://github.com/orinks-games/Freight-Fate/releases).
 2. Choose the latest numbered stable release. Stable is recommended for most
    players. If you want to test Career 1.9, choose the newest prerelease build.
-   Its dated tag looks like `1.9-tester-20260829`, spoken as "1 point 9 tester,
-   August 29, 2026." In Settings, choose `Update channel: developer snapshots`
-   to receive later Career 1.9 prerelease builds. A career saved in a tester
-   build may not load in an older stable release.
+   Under Settings, Updates, choose `Update channel: beta` for testing
+   releases or `Update channel: alpha` for earlier builds. A career saved in
+   a tester build may not load in an older stable release.
 3. Under Assets, Windows players should download the file ending in
    `-windows-portable.zip`. Career 1.9 testers using an Apple Silicon Mac
    should download the file ending in `-macos-arm64.zip`. The Career 1.9 Mac
@@ -102,7 +89,7 @@ Score display in Settings, Speech can read reputation and dispatch trust as both
    to Applications. If macOS blocks the first launch, open System Settings,
    choose Privacy & Security, and allow Freight Fate to open.
 
-For a complete player-facing guide to careers, dispatch, driving,
+For a guide to careers, dispatch, driving,
 route stops, saves, settings, audio, speech, and troubleshooting, see the
 [Freight Fate Player Manual](docs/user-manual.md).
 
@@ -201,9 +188,10 @@ the file from quarantine.
 
 ## Controls
 
-Freight Fate plays with the keyboard or a game controller, and both stay active
-at all times. Spoken prompts name whichever you last used, so "press X to take
-it" on the keyboard becomes "press D-pad down to take it" on a controller.
+Freight Fate plays with the keyboard or a game controller. The keyboard
+stays active when you use a controller. Spoken prompts name whichever you
+last used, so "press X to take it" on the keyboard becomes "press D-pad down
+to take it" on a controller.
 
 ### Keyboard
 
@@ -252,7 +240,7 @@ Gears and the engine brake:
 
 | Key | Action |
 | --- | --- |
-| Left Shift (hold) | Clutch (manual mode) |
+| Either Shift (hold) | Clutch (manual mode) |
 | W | Shift up a gear (manual mode) |
 | Q | Shift down a gear (manual mode) |
 | N | Neutral (manual mode) |
@@ -268,25 +256,25 @@ Speed control:
 | --- | --- |
 | K | Automatic speed control on / off. Parked with the brake set, it latches a high idle instead |
 | Shift+K | Resume the last speed after braking canceled it |
-| Plus / minus (keypad too) | Raise / lower the remembered open-road target by 5 |
+| Plus / minus (keypad too) | Move the cruise target to the next multiple of five; hold Control to change it by one |
 
 Route actions:
 
 | Key | Action |
 | --- | --- |
 | X | Signal for the next announced exit, or cancel that signal. Also signals a pull-over when a trooper lights you up |
-| T | Plan the next sleep-capable stop while rolling; at a stop, open its menu; fully stopped away from stops, open emergency shoulder sleep |
+| T | Plan a stop for fuel, a break, sleep, or food while rolling; at a stop, open its menu; fully stopped away from stops, open emergency shoulder sleep |
 | Enter | Go inside on a city-service arrival, or open a facility arrival once fully stopped |
 | Tab | Driving status menu |
 | Escape | Pause menu |
 
-Asking the truck and the road questions:
+Driving readouts:
 
 | Key | Action |
 | --- | --- |
 | Space | Speed, gear, RPM, the speed-control mode in use, and air pressure |
 | S | Posted speed limit. On a ramp with a signal, the light and the distance to the stop bar |
-| D | The one safe speed for right here — weather, an armed exit, and the bend ahead already folded in |
+| D | Safe speed for current weather, your signaled exit, and the bend ahead |
 | G | The grade under the wheels, whether the truck is holding it, and the next grade ahead |
 | R | Route progress, distance left, and where you are |
 | Shift+R | Next listed highway exit |
@@ -298,7 +286,7 @@ Asking the truck and the road questions:
 | F | Fuel and range |
 | V | Weather and forecast |
 | L | Lane position, and whether the lane beside you is open or blocked |
-| I | Lane locator on / off — a soft tock once a beat, panned to where you sit inside your lane. Available on lane keeping partial or off |
+| I | Lane locator on / off. Available with lane keeping partial or off; hear the cue in Learn game sounds |
 | A | Repeat the last driving announcement |
 | F1 | List all controls |
 | Left or Right Ctrl | Stop the driving event voice mid-sentence |
@@ -319,8 +307,8 @@ Plug in an Xbox, PlayStation, or other compatible controller and the game picks
 up the first one automatically. It detects a controller connected or unplugged
 mid-game — unplugging pauses the drive — and you can switch back to the keyboard
 at any time. Button names below use the Xbox layout; the equivalents map
-automatically on other pads. Turn controller support off under Settings →
-Gameplay → Controller if you prefer keyboard only.
+automatically on other pads. Turn controller support off under Settings,
+Gameplay, Controls, Controller if you prefer keyboard only.
 
 #### Menus
 
@@ -361,7 +349,7 @@ Hold the right bumper (RB) as a modifier for a second layer of driving bindings:
 | RB + B | Fuel and range |
 | RB + Y | Release / set parking brake |
 | RB + D-pad Up | Route progress |
-| RB + D-pad Down | Open a route stop, or emergency shoulder sleep away from stops, when fully stopped. |
+| RB + D-pad Down | Plan a stop while moving; open stop services or emergency shoulder sleep when fully stopped |
 | RB + D-pad Left / Right | Lower / raise the open-road cruise target |
 | RB + Start | Driving status menu |
 
@@ -383,18 +371,15 @@ stop.
 
 ### Air-brake model
 
-Freight Fate models air pressure without asking players to run a full CDL
-inspection before every dispatch. A cold trip starts with low pressure and
+A cold trip starts with low air pressure and
 the parking brake set. Start the engine, wait for the compressor to build
 air to 100 psi, then press `P` to release the parking brake. Repeated brake
 applications draw from separate truck and trailer air tanks, low air warns
-around 60 psi, and spring brakes apply around 40 psi. Normal driving should
-feel familiar; the extra detail mostly gives clearer warnings if you pump the
-brakes hard, ignore low air, or drive damaged equipment. Press `Tab` while
-driving to review primary, secondary, and trailer air, compressor state,
+around 60 psi, and spring brakes apply around 40 psi. Warnings tell you when
+air is low or brakes are hot. Press `Tab` while driving to review primary, secondary, and trailer air, compressor state,
 parking or spring brake state, and brake heat.
 
-The thresholds are grounded in official CDL and air-brake references:
+The thresholds follow these CDL and air-brake references:
 [FMCSA](https://www.fmcsa.dot.gov/sites/fmcsa.dot.gov/files/docs/brake_safety_systems_02-14.pdf)
 describes typical 110-130 psi compressor cut-out, cut-in about 20 psi lower,
 and an 85-to-100 psi build-up check; the
@@ -404,8 +389,7 @@ places low-air warnings between 55 and 75 psi; the
 and governor checks; and
 [SGI](https://sgi.sk.ca/air-brake/-/knowledge_base/air-brake/air-governor)
 lists 120-145 psi cut-out and 100 psi minimum cut-in. Build-up time is
-compressed for playability so startup is a short, understandable pause
-rather than minutes of waiting.
+shortened so you can build pressure without waiting several minutes.
 
 ## Development
 

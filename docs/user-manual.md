@@ -143,7 +143,7 @@ Start the engine with E, then give the air pressure time to reach 100 psi. The b
 
 On a controller, hold the right bumper and press A to start the engine, then hold the right bumper and press Y to release the parking brake. The right trigger accelerates and the left trigger brakes, as far as you press them. Y starts automatic speed control and B reads your speed.
 
-You don't have to hold the accelerator for the whole trip. When automatic speed control is available, K starts it. That leaves you more time to listen to the road and learn the readouts. Press Space to check your speed and speed-control mode. On the open road, K uses adaptive cruise. In supported low-speed areas, it uses speed keeper to help you manage an approach to a pickup or delivery facility.
+You don't have to hold the accelerator for the whole trip. When automatic speed control is available, K starts it. That leaves you more time to listen to the road and learn the readouts. Press Space to check your speed and speed-control mode. On the open road, K uses cruise. In supported low-speed areas, it uses low-speed cruise to help you manage an approach to a pickup or delivery facility.
 
 ### Collecting the freight
 
@@ -380,7 +380,7 @@ A control marked Driving commands has no controller button. Hold the right bumpe
 | B, hold | Left trigger, all the way down | Emergency brake. |
 | E | Right bumper plus A | Start the engine. Stop the engine only below 5 miles per hour. |
 | P | Right bumper plus Y | Release or set the parking brake. Set it above a crawl and the spring brakes slam on: a screech, a hard stop, and permanent flat spots ground into the tires, worse the faster you were going. It is not a brake pedal. |
-| K | Y | Start or cancel automatic speed control. It uses adaptive cruise on the highway, work zones and heavy traffic included, and speed keeper on streets and facility approaches. It pauses through the planned pickup and resumes once the loaded truck is rolling. Braking elsewhere also cancels it. Parked with the parking brake set, K latches a high idle instead. |
+| K | Y | Start or cancel automatic speed control. It uses cruise on the highway, work zones and heavy traffic included, and low-speed cruise on streets and facility approaches. It pauses through the planned pickup and resumes once the loaded truck is rolling. Braking elsewhere also cancels it. Parked with the parking brake set, K latches a high idle instead. |
 | Shift+K | Driving commands | Resume automatic speed control at the last speed you had set, after braking cancelled it. |
 | Plus / Minus | Right bumper plus D-pad right or left | Raise or lower the cruise speed while automatic speed control is active, snapping outward to the next multiple of 5 mph: from 32 it lands on 35, then 40. The keypad Plus and Minus keys work too. |
 | Ctrl+Plus / Ctrl+Minus | Not on the controller | Raise or lower the cruise speed by exactly 1 mph, no snapping, for setting a precise number. |
@@ -501,9 +501,9 @@ If the load is close to the weight limit, check before filling the tank. Fuel ad
 
 Set the parking brake once you're stopped. Pulling it at speed brings a hard stop and can flat-spot the tires. With it set, K, or Y on a controller, holds high idle until you release the brake.
 
-On open road at twenty miles per hour or above, K starts adaptive cruise. On streets and facility approaches, it starts speed keeper instead. Cruise holds a work zone or heavy traffic at its limit. The control follows traffic and leaves a wider gap in bad weather.
+On open road at twenty miles per hour or above, K starts cruise. On streets and facility approaches, it starts low-speed cruise instead. Cruise holds a work zone or heavy traffic at its limit. The control follows traffic and leaves a wider gap in bad weather.
 
-Plus and Minus move the cruise target outward to the next multiple of five: from 32, Plus selects 35, then 40. On a controller, hold the right bumper and press D-pad right or left. Hold Control to adjust one mile per hour at a time. Space tells you which mode is active, its target, and whether conditions are holding you below it. Braking cancels the control; Shift+K resumes. A pickup pauses the session through loading and saving, then resumes it after departure.
+Plus and Minus move the cruise target outward to the next multiple of five: from 32, Plus selects 35, then 40. On a controller, hold the right bumper and press D-pad right or left. Hold Control to adjust one mile per hour at a time. Space tells you which mode is active, its target, and whether conditions are holding you below it. Braking cancels the control; Shift+K resumes. Cruise pauses through pickup and loading, then resumes after departure.
 
 J switches on the engine brake, and 1, 2, or 3 selects two, four, or six cylinders while it's enabled. On a controller, the right stick click switches it on, and the right bumper with the right stick click steps to the next stage. A lower gear and higher RPM give it more braking effect. Alt+J chooses automatic stage management or manual selection. Listen for town noise restrictions: the game warns before fining you for using it, with exceptions for downhill grades and emergencies.
 
@@ -570,7 +570,7 @@ Traffic moves around you throughout the trip. Vehicles can slow, brake, merge, p
 
 L checks your lane and the space beside you; on a controller, choose Lane position in Driving commands. Check it before moving over, then listen for clearance before returning after a pass. Traffic sounds help you notice a vehicle, but they don't replace that lane check. A car may be beside you even while you're concentrating on an exit or a curve.
 
-Adaptive cruise follows traffic and leaves a wider gap in poor weather. It doesn't steer. With full lane keeping, the truck can pass slow traffic and return when there's room; it won't start a pass within two miles of an exit. You still need to respond to hazards and debris. If you missed the clearance announcement, L gives you another check.
+Cruise follows traffic and leaves a wider gap in poor weather. It doesn't steer. With full lane keeping, the truck can pass slow traffic and return when there's room; it won't start a pass within two miles of an exit. You still need to respond to hazards and debris. If you missed the clearance announcement, L gives you another check.
 
 ### Listening to nearby vehicles
 
@@ -604,7 +604,7 @@ If you miss the destination exit, follow the next safe turnaround. A blocked lan
 
 At a ramp light, you'll hear each change in its steady cycle. Stop for red. At yellow, stop if you safely can; entering on yellow is permitted. A stop sign needs a complete stop and a clear gap before you pull out. Listen for the sensor tick becoming faster near the stop bar. The game clock runs in real time through these controlled ramp intersections.
 
-When the way is clear, pull ahead as directed. Facility stopping assistance can manage the pedals on the way to the gate, while speed keeper handles any city streets between. Pressing your brake cancels that pedal assistance.
+When the way is clear, pull ahead as directed. Facility stopping assistance can manage the pedals on the way to the gate, while low-speed cruise handles any city streets between. Pressing your brake cancels that pedal assistance.
 
 Local streets have their own limits and corner calls. Each corner is called with its distance and the speed to take it at, and the turn's chime plays with the call, on the side you turn. Take a corner faster than about three miles per hour over that speed and you miss it: the truck goes around the block and comes out on the street you missed, a few minutes later. Traffic controls aren't modeled throughout the street network. A driveway takes you into a yard at fifteen miles per hour; where there isn't a driveway, the gate may be on the street.
 
@@ -850,7 +850,7 @@ Damaged freight can bring an exception deduction, a claim, or a refusal with no 
 
 Settings save as you change them. Use Up or Down to choose a setting, then Right or Enter for its next available value, or Left to go back to the previous value. On a controller, the D-pad does the same, and A selects the next value. Gameplay contains driving assistance, difficulty and hours, world and traffic, and controls. Audio, Speech, Updates, Problem reports, and Online have separate choices where supported.
 
-### Driving assistance and speed keeper
+### Driving assistance
 
 Choose how much driving you'd like to handle yourself. Realistic keeps safety support but leaves you to steer, while Balanced adds help following the road and stopping at facilities. All assists keeps the truck centered in its lane, takes route exits, and limits assisted descents to 55 miles per hour.
 
@@ -858,7 +858,7 @@ Adjusting an assistance setting changes the preset name to Custom. Your driving 
 
 For downhill assistance, choose Off, Light, Standard, or Strong. Following gap lets you choose close, normal, or far spacing behind traffic. Emergency braking, lane-departure warnings, stop-and-go, exit speed, facility stopping, curves, and ramps each have their own settings too.
 
-Exit speed assistance slows you down once you're in the exit lane for your selected exit. Depending on your settings, stopping or transition assistance may also provide that braking. Near a facility entrance, facility stopping assistance handles the accelerator and brakes, and can pull away when the ramp light or stop sign allows it. Speed keeper helps with the streets in between.
+Exit speed assistance slows you down once you're in the exit lane for your selected exit. Depending on your settings, stopping or transition assistance may also provide that braking. Near a facility entrance, facility stopping assistance handles the accelerator and brakes, and can pull away when the ramp light or stop sign allows it. Low-speed cruise helps with the streets in between.
 
 Press the brake whenever you want to take over the pedals. You still choose optional stops and confirm delivery yourself.
 
@@ -870,7 +870,7 @@ Full lane keeping centers the truck and takes route exits. Use the arrows, or pu
 
 Releasing the arrows, or letting go of the left stick, squares the truck with the road. Slash does the same while another key is held. The presets set lane keeping to off for Realistic, partial for Balanced, and full for All assists.
 
-Speed keeper covers the slower parts of a trip: local limits, corners, and queues. It hands over to cruise when you reach open road. If you turn it off, use the pedals until cruise can resume at twenty miles per hour.
+Low-speed cruise covers the slower parts of a trip: local limits, corners, and queues. It hands over to cruise when you reach open road. If you turn it off, use the pedals until cruise can resume at twenty miles per hour.
 
 Predictive cruise checks about a mile and a half ahead for hills. Curve callouts are optional, and U and D still answer when those callouts are off.
 
