@@ -20,11 +20,11 @@
 
 - **Achievement descriptions and roadside billboards read more naturally.** Song references and achievement requirements are unchanged.
 - **Career descriptions use plainer language.** The lifetime-disqualification notice clearly distinguishes lost driving privileges from the career record you keep.
-- **Truck upgrade help is shorter.** Truck descriptions no longer imply immunity to breakdowns or crosswinds, or a coast-to-coast run without stops.
+- **Truck descriptions and upgrade help are clearer,** without implying immunity to breakdowns or crosswinds.
 
 - **Help focuses on driving actions and controls.** Learn game sounds explains cue meanings without sound-design commentary.
 
-- **The manual and README use current cruise and settings names.** The control reference also clarifies stop planning, cruise-speed adjustments, and weigh-station bypass clearance.
+- **The manual uses current control names** and clarifies cruise adjustments, stop planning, and weigh-station bypass clearance.
 
 - **Updates check and install faster.** Unchanged sound packs are no longer copied or checked twice.
 - **Spoken lines, help and menus are shorter and use plain words, and some settings have new names.** Cruise has one name, and the dispatch board and delivery list are shorter.
@@ -52,7 +52,7 @@
 
 ### Fixed
 
-- **Cloud restore confirmations, detention pay and outstanding charges are clearer.** Help now notes weigh-station bypass clearance and the two-minute driver-notification check.
+- **Cloud restore confirmations, detention pay and outstanding charges are clearer.** Driver-notification help now gives the correct two-minute interval.
 
 - **Road lines are no longer lost while other lines speak.** With NVDA 2026.3 or SAPI, the 2-mile and 1-mile exit calls always play, and a line cut off by a readout plays after a Brake warning.
 - **Your planned stop is announced at every driving speech setting, with the key to signal for it.** Pressing X while it is read no longer brings the line back.
