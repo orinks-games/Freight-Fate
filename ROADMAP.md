@@ -3823,6 +3823,10 @@ Rules set that day:
 - [x] (Found along the way) The co-driver kept a cruise speed set under a
       higher limit: 70 into Indiana's 65 for trucks. They now tap it down.
 - [ ] Co-driver damages the truck (issue #492).
+- [x] Engine brake citation seconds after the zone warning (issue #531).
+      Any pause in the bark (throttle, a gear change) cleared the grace
+      window, and the next bark was cited at once. The pause now holds the
+      grace clock; only switching the engine brake off ends it.
 - [ ] Game stops responding when the player switches windows (report
       2026-10-21, answers asked for).
 - [x] Speed limits re-read from October OpenStreetMap (PR #515).

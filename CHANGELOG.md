@@ -49,6 +49,7 @@
 - **Rest areas across a divided highway are no longer announced.** On I-43 north to Green Bay you hear Rest Area #52, not #51 too.
 - **The route readout says you are at the stop once you reach it.** It used to keep saying 50 feet until the truck rolled past.
 - **The copy key copies the message you stepped back to.** It used to copy the newest line instead.
+- **You get the full 10 seconds to switch off the engine brake in a no engine brake zone.** Pressing the throttle or changing gear after the warning used to bring a citation within seconds.
 - **Numbered loads on the dispatch board are read in your language.** The load line after "Job 1 of 7" stayed in English.
 
 - **Speed limits no longer jump to 70 and back where the map has no posting.** An unmapped stretch keeps the limits on either side, and state truck limits such as California's 55 apply there too.
