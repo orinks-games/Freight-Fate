@@ -50,6 +50,7 @@
 - **The route readout says you are at the stop once you reach it.** It used to keep saying 50 feet until the truck rolled past.
 - **The copy key copies the message you stepped back to.** It used to copy the newest line instead.
 - **Numbered loads on the dispatch board are read in your language.** The load line after "Job 1 of 7" stayed in English.
+- **Alt+1 and Alt+3 name the destination once you take its exit.** They used to name the city and state you left.
 
 - **Speed limits no longer jump to 70 and back where the map has no posting.** An unmapped stretch keeps the limits on either side, and state truck limits such as California's 55 apply there too.
 - **Cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
