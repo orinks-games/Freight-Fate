@@ -432,3 +432,44 @@ fn test_restoring_a_career_this_computer_no_longer_has_claims_no_fallback() {
     );
     assert!(!said.contains("fallback"), "{said}");
 }
+
+/// Both optional-summary paths must state the replacement as a full sentence.
+#[test]
+fn test_restore_confirmation_is_complete_with_or_without_summary() {
+    for summary in [None, Some("level 4, 12 deliveries")] {
+        let mut app = TestApp::new();
+        let mut entry = a_revision();
+        if let Some(summary) = summary {
+            entry["summary"] = json!(summary);
+        }
+        let slot = share(CloudSlotState::new(
+            &mut app.ctx,
+            "Road Star",
+            vec![entry.clone()],
+            None,
+            None,
+        ));
+        let state =
+            ConfirmRestoreState::new(&mut app.ctx, SlotHandle::new(slot, "Road Star"), entry);
+        app.clear_speech();
+        push(&mut app, state);
+        let said = app.main_lines().join(" ");
+        assert!(
+            said.contains("This will replace this computer's save for that career."),
+            "{said}"
+        );
+        assert!(
+            said.contains("The replaced save is kept as a fallback file."),
+            "{said}"
+        );
+        assert!(!said.contains(", replacing"), "{said}");
+        if summary.is_some() {
+            assert!(
+                said.contains("It is level 4, 12 deliveries. This will replace"),
+                "{said}"
+            );
+        } else {
+            assert!(!said.contains("It is"), "{said}");
+        }
+    }
+}
