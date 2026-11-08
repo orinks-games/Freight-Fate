@@ -16,6 +16,8 @@
 
 ### Changed
 
+- **The revised writing is translated into all eleven supported languages.** Existing untranslated text remains unchanged.
+
 - **Truck-stop service descriptions focus on their effects in the game,** without implying that an oil change repairs existing engine damage.
 
 - **Achievement descriptions and roadside billboards read more naturally.** Song references and achievement requirements are unchanged.
