@@ -393,6 +393,10 @@ fn test_pay_plan_and_dispatch_summaries_are_spoken_plainly() {
             .summary(),
         "more short training loads, more appointment slack"
     );
+    assert_eq!(
+        start_option(Some("summit_value")).dispatch.summary(),
+        "more long-haul work"
+    );
     assert_eq!(start_option(None).dispatch.summary(), "balanced dispatch");
     assert_eq!(DispatchProfile::default(), DispatchProfile::BALANCED);
 }

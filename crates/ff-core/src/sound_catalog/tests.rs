@@ -11,8 +11,7 @@ fn cue_meanings_explain_outcomes_without_production_commentary() {
     assert!(clear.contains("cleared the hazard"));
     assert!(clear.contains("Urgent only"));
     let collision = entry_by_name("Collision").unwrap().meaning;
-    assert!(collision.contains("damage report"));
-    assert!(collision.contains("Urgent only"));
+    assert!(collision.contains("Check its damage"));
     let strips = entry_by_name("Transverse strips").unwrap().meaning;
     assert!(strips.contains("Brake as soon as you hear them"));
     for entry in catalog_entries() {

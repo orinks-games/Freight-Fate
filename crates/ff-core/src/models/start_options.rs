@@ -79,7 +79,7 @@ impl DispatchProfile {
             parts.push("more same-region lanes");
         }
         if self.long_haul_bias != 0.0 {
-            parts.push("more longer lanes");
+            parts.push("more long-haul work");
         }
         if self.deadline_slack > 1.0 {
             parts.push("more appointment slack");
@@ -184,9 +184,9 @@ pub const START_OPTIONS: [CareerStartOption; 5] = [
         mode: START_MODE_COMPANY,
         menu_summary: "Balanced company-driver start with steady wages, normal training \
                        support, and assigned carrier equipment.",
-        help_text: "A balanced company-driver path. The carrier assigns and maintains \
-                    the tractor, pays fuel and routine repairs, and offers steady wage \
-                    math without a sharp specialty.",
+        help_text: "The carrier assigns and maintains your tractor, pays for fuel \
+                    and routine repairs, and offers steady wages across a broad \
+                    mix of freight.",
         default_city: "Chicago",
         company_pay: Some(NORTHSTAR_PAY),
         ..DEFAULTS

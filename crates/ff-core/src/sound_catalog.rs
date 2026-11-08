@@ -498,8 +498,8 @@ const HAZARDS: SoundCategory = SoundCategory {
         SoundEntry::new(
             "Collision",
             &[Cue::new("vehicle/collision").volume(0.9)],
-            "You hit the hazard. A spoken damage report follows, except with driving \
-             speech set to Urgent only, when the sound alone reports the collision.",
+            "The truck has collided with something. Check its damage before \
+             continuing.",
         ),
         SoundEntry::new(
             "Construction zone",
