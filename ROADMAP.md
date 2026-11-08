@@ -838,6 +838,11 @@ Everything found before 2026-09-25 moved to
       release has no manifests and its builds do not update themselves.
 - [x] Stable versions are three-part for the engine updater (owner rule
       2026-10-30): a hotfix of 1.9.5 is 1.9.6, not 1.9.5.1.
+- [x] (Found along the way) Windows updates survive a briefly locked file
+      (issue 575): the install script waits for the old program to be
+      free and retries locked files, the next start no longer fails to
+      put a stopped install back, and the script's steps land in game.log
+      (Hearken PR 54).
 - [ ] (Found along the way) Port a deleted Python data tool into `ff-tools`
       when a data refresh needs it (October 22 section).
       [October 22 audit](#october-22-repository-size-and-security-audit)

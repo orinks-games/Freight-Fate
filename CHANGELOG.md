@@ -70,6 +70,7 @@
 - **A trooper the radio placed in the median is still in the median when you pass.**
 - **Manual gear shifts now play the same short gear-change sound as automatic shifts.**
 - **Halloween week has more billboards, and they no longer repeat the same two lines.** They come up less often, and some are about the state you are in.
+- **On Windows, an update no longer fails and comes back when a game file is briefly in use.** It waits for the file, and game.log records each install step. Thanks to lightsrage ([issue 575](https://github.com/orinks-games/Freight-Fate/issues/575)).
 - **Automatic update offers start on Remind me later.** Holding a key cannot install an update by accident.
 - **The unused translations folder from mid-October downloads leaves the game folder.** It moves to the saves folder as old-translations, so any edits in it are kept.
 - **The Mac game no longer freezes at launch with VoiceOver on.** It could stop responding for up to two minutes while VoiceOver was starting.
