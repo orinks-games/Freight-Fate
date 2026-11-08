@@ -17060,6 +17060,9 @@ msgstr ""
 msgid "ready"
 msgstr ""
 
+msgid "token"
+msgstr ""
+
 msgid "online-journal"
 msgstr ""
 
@@ -38210,13 +38213,15 @@ msgstr "Nasıl oynanır, {title}, {page} / {HELP_PAGES}"
 msgid ""
 "Enter opens an item or changes a setting forward, Right also forward, Left "
 "backward. Escape goes back. Drivers on duty, the Driver directory, the duty "
-"notices, and Account achievements work without connecting. The rest waits "
-"for an orinks.net account, and everything you share can be turned off again."
+"notices, and Account achievements work without connecting. Drive online as "
+"a guest puts you on the board with no account. The rest waits for an "
+"orinks.net account, and everything you share can be turned off again."
 msgstr ""
-"Enter bir öğeyi açar ya da bir ayarı ileri değiştirir, Sağ da ileri, Sol "
-"geri değiştirir. Escape geri döner. Görevdeki şoförler, Şoför dizini, görev "
-"bildirimleri ve Hesap başarımları bağlanmadan çalışır. Geri kalanı bir "
-"orinks.net hesabı bekler ve paylaştığınız her şey yeniden kapatılabilir."
+
+msgid ""
+"Your profile needs an orinks.net account. Choose Connect an orinks.net "
+"account first."
+msgstr ""
 
 msgid ""
 "Your profile needs your orinks.net account. Choose Set up orinks.net "
@@ -38224,6 +38229,19 @@ msgid ""
 msgstr ""
 "Profiliniz için orinks.net hesabınız gerekir. Önce orinks.net hesabı kur'u "
 "seçin."
+
+msgid "Your orinks.net account is connected, so there's no guest driver."
+msgstr ""
+
+#. placeholders: {display_name}
+msgid "Guest name: {display_name}"
+msgstr ""
+
+msgid "Guest driver: off, account connected"
+msgstr ""
+
+msgid "Drive online as a guest"
+msgstr ""
 
 msgid "The browser could not be opened. The address is on your clipboard."
 msgstr "Tarayıcı açılamadı. Adres panonuzda."
@@ -38252,6 +38270,11 @@ msgstr " Adres panonuzda da var."
 #. placeholders: {clipboard_note}
 msgid "Opening your driver setup page in your browser.{clipboard_note}"
 msgstr "Şoför kurulum sayfanız tarayıcınızda açılıyor.{clipboard_note}"
+
+msgid ""
+"Cloud backup needs an orinks.net account. Choose Connect an orinks.net "
+"account."
+msgstr ""
 
 msgid ""
 "Cloud backup needs your orinks.net account. Choose Set up orinks.net "
@@ -38391,6 +38414,9 @@ msgstr ""
 "durumunu ayarlarını kaybetmeden durdurur. Canlı hava, trafik ve parkın "
 "Ayarlar altında kendi anahtarları var."
 
+msgid "Connect an orinks.net account"
+msgstr ""
+
 msgid "orinks.net account: connected"
 msgstr "orinks.net hesabı: bağlı"
 
@@ -38406,6 +38432,14 @@ msgstr ""
 "kariyerlerinizi yedeklemeye başlar. İkisi de bu menüde tek birer öğedir. "
 "Şoför adı ve oturum açmış bilgisayarlar aşağıdaki Şoför kurulum sayfamı aç "
 "içindedir."
+
+msgid "Hear your guest name or ask orinks.net for a new one."
+msgstr ""
+
+msgid ""
+"Puts you on the drivers board under a name orinks.net picks, with no "
+"account. A profile and cloud backup need an account."
+msgstr ""
 
 msgid "Open my driver setup page"
 msgstr "Şoför kurulum sayfamı aç"
@@ -38711,24 +38745,20 @@ msgstr ""
 msgid "your driver"
 msgstr "şoförünüz"
 
-#. placeholders: {display}
-#. one sentence of a longer line
-msgid "Connected to orinks.net as {display}."
-msgstr "orinks.net'e bağlandınız: {display}."
-
-#. placeholders: {display}
-msgid ""
-"Connected to orinks.net as {display}. Your careers now back up to that "
-"account. Turning Profile sharing on."
+msgid " Your guest driver is this account now."
 msgstr ""
-"orinks.net'e bağlandınız: {display}. Kariyerleriniz artık o hesaba "
-"yedekleniyor. Profil paylaşımı açılıyor."
 
+#. placeholders: {display}, {guest_note}
 #. one sentence of a longer line
-msgid "Your careers now back up to that account."
-msgstr "Kariyerleriniz artık o hesaba yedekleniyor."
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account."
+msgstr ""
 
-msgid "profile-sharing"
+#. placeholders: {display}, {guest_note}
+msgid ""
+"Connected to orinks.net as {display}.{guest_note} Your careers now back up "
+"to that account. Turning Profile sharing on."
 msgstr ""
 
 msgid ""
@@ -38766,9 +38796,6 @@ msgstr "Etkinleştirme kodumu kopyala"
 msgid "Puts the activation code on the clipboard."
 msgstr "Etkinleştirme kodunu panoya koyar."
 
-msgid "Hear what gets shared"
-msgstr "Neyin paylaşıldığını dinle"
-
 msgid "Leave without connecting this account."
 msgstr "Bu hesabı bağlamadan çıkın."
 
@@ -38804,9 +38831,6 @@ msgstr "Freight Fate'e geri döndünüz. {current}"
 
 msgid "Still waiting."
 msgstr "Hâlâ bekleniyor."
-
-msgid "Could not reach orinks.net. Try again."
-msgstr "orinks.net'e ulaşılamadı. Yeniden deneyin."
 
 msgid ""
 "Your activation code expired. Choose Set up this computer with orinks.net "
@@ -38906,6 +38930,10 @@ msgstr ""
 msgid "No drivers are on duty right now"
 msgstr "Şu anda görevde şoför yok"
 
+#. placeholders: {name}
+msgid "{name}, guest"
+msgstr ""
+
 msgid "activity"
 msgstr ""
 
@@ -38914,6 +38942,9 @@ msgstr ""
 
 msgid "went off duty"
 msgstr "görevi bıraktı"
+
+msgid "A guest driver, with no orinks.net account and no profile."
+msgstr ""
 
 msgid "Opens this driver's public profile."
 msgstr "Bu şoförün herkese açık profilini açar."
@@ -39023,6 +39054,118 @@ msgstr "görevde kimse yok"
 #. placeholders: {n}
 msgid "{n} on duty"
 msgstr "{n} görevde"
+
+msgid ""
+"As a guest you go on the orinks.net drivers board under a name orinks.net "
+"picks, like Copper Fox 12, with no account. This turns Profile sharing on, "
+"so your guest name and on-duty activity show publicly on the board. A "
+"driver profile, road journal, achievements and cloud backup need an "
+"account. Profile sharing on the Online menu turns sharing off."
+msgstr ""
+
+msgid "Go online as a guest"
+msgstr ""
+
+msgid "Asking orinks.net for a guest name"
+msgstr ""
+
+msgid "Turning Profile sharing on"
+msgstr ""
+
+msgid "Still working. Stay here for the result."
+msgstr ""
+
+msgid "Asking orinks.net for a guest name."
+msgstr ""
+
+msgid "online-guest"
+msgstr ""
+
+msgid "orinks.net is busy. Try again in a minute."
+msgstr ""
+
+msgid "Could not reach orinks.net. Try again."
+msgstr "orinks.net'e ulaşılamadı. Yeniden deneyin."
+
+msgid ""
+"This computer could not save the guest driver. Nothing was changed. Check "
+"your password store, then try again."
+msgstr ""
+
+msgid "profile-sharing"
+msgstr ""
+
+#. placeholders: {name}
+msgid "You're {name} on the drivers board."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Profile sharing on the Online menu tries again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet."
+msgstr ""
+
+#. placeholders: {name}
+msgid ""
+"You're {name}, but orinks.net could not turn Profile sharing on, so nothing "
+"is public yet. Profile sharing on the Online menu tries again."
+msgstr ""
+
+msgid "Gets a guest name from orinks.net and turns Profile sharing on."
+msgstr ""
+
+msgid "Hear what gets shared"
+msgstr "Neyin paylaşıldığını dinle"
+
+msgid "Guest name"
+msgstr ""
+
+msgid "Still asking."
+msgstr ""
+
+msgid "This computer isn't driving as a guest."
+msgstr ""
+
+msgid "guest-rename"
+msgstr ""
+
+msgid "Asking for a new name"
+msgstr ""
+
+msgid "Ask for a new name"
+msgstr ""
+
+msgid "orinks.net picks another name at random. Ask again for another."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You're {name}."
+msgstr ""
+
+#. placeholders: {TITLE}, {name}, {current}
+msgid "{TITLE}. You're {name}. {current}"
+msgstr ""
+
+#. placeholders: {name}
+msgid "You're {name} now."
+msgstr ""
+
+msgid "That's a lot of names. Try again in a minute."
+msgstr ""
+
+msgid ""
+"orinks.net no longer has this guest. Connect an orinks.net account from the "
+"Online menu."
+msgstr ""
+
+msgid "Still asking. Stay here for the new name."
+msgstr ""
 
 msgid "out-of-service order"
 msgstr "hizmet dışı kararı"
@@ -40945,6 +41088,30 @@ msgstr "Açık."
 
 msgid "Closed."
 msgstr "Kapalı."
+
+#~ msgid ""
+#~ "Enter opens an item or changes a setting forward, Right also forward, Left "
+#~ "backward. Escape goes back. Drivers on duty, the Driver directory, the duty "
+#~ "notices, and Account achievements work without connecting. The rest waits "
+#~ "for an orinks.net account, and everything you share can be turned off again."
+#~ msgstr ""
+#~ "Enter bir öğeyi açar ya da bir ayarı ileri değiştirir, Sağ da ileri, Sol "
+#~ "geri değiştirir. Escape geri döner. Görevdeki şoförler, Şoför dizini, görev "
+#~ "bildirimleri ve Hesap başarımları bağlanmadan çalışır. Geri kalanı bir "
+#~ "orinks.net hesabı bekler ve paylaştığınız her şey yeniden kapatılabilir."
+
+#~ msgid "Connected to orinks.net as {display}."
+#~ msgstr "orinks.net'e bağlandınız: {display}."
+
+#~ msgid ""
+#~ "Connected to orinks.net as {display}. Your careers now back up to that "
+#~ "account. Turning Profile sharing on."
+#~ msgstr ""
+#~ "orinks.net'e bağlandınız: {display}. Kariyerleriniz artık o hesaba "
+#~ "yedekleniyor. Profil paylaşımı açılıyor."
+
+#~ msgid "Your careers now back up to that account."
+#~ msgstr "Kariyerleriniz artık o hesaba yedekleniyor."
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "

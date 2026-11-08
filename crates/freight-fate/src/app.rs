@@ -554,7 +554,7 @@ impl App {
             ..Default::default()
         });
         let journal = JournalOutbox::new(
-            identity,
+            crate::online_guest::profile_identity(identity, &data_dir),
             settings.online_presence,
             &store.path().with_file_name("online-outbox.json"),
         );
