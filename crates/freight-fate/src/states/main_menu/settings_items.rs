@@ -179,7 +179,7 @@ pub(super) const DRIVING_ASSIST_SPECS: [(&str, &str, &str); 12] = [
     (
         "pedal_latch",
         "Latching brake",
-        "Tap the brake, then press again and hold half a second: a click and a spoken line confirm the brake now holds by itself. One press of {{brake}} releases it; the accelerator releases it instantly. The throttle key never latches. Presets never change this.",
+        "Tap the brake, then press again and hold half a second: the game confirms when the brake holds by itself. One press of {{brake}} releases it; the accelerator releases it instantly. The throttle key never latches. Presets never change this.",
     ),
     (
         "predictive_cruise",
@@ -825,8 +825,7 @@ impl SettingsCategoryState {
                  default: the engine you already hear, moving toward the \
                  side you need and coming back to the middle once you are \
                  through. Tone plays a soft note instead, panned the same \
-                 way, for setups where the engine is hard to place. A held \
-                 note is tiring over a long haul.",
+                 way, for setups where the engine is hard to place.",
             ),
             row(
                 dyn_label(|s| format!("Weather sounds volume: {} percent", pct(s.weather_volume))),

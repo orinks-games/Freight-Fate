@@ -429,8 +429,8 @@ impl ArrivalState {
         if business.uncollected_charges > 0.0 {
             let paid_now = driver_charges - business.uncollected_charges;
             self.summary_parts.push(format!(
-                "This load covered {} dollars of those charges. {} dollars stays owed, paid \
-                 down at a quarter of each settlement at most.",
+                "This load covered {} dollars of those charges. You still owe {} dollars, repaid \
+                 from at most a quarter of each settlement.",
                 fmt_grouped(paid_now, 0),
                 fmt_grouped(business.uncollected_charges, 0)
             ));

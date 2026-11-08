@@ -1067,10 +1067,10 @@ impl Menu for PickupFacilityState {
             )
         } else if self.checked_in {
             let dock_help = if is_owner_operator(&profile(ctx).business_status) {
-                "Past two hours at the dock earns detention pay on this settlement."
+                "Time beyond two hours at the dock earns detention pay on this settlement."
             } else {
-                "Past two hours at the dock is billed as detention on the carrier settlement, \
-                 not to you."
+                "Time beyond two hours at the dock is billed as detention on the carrier settlement, \
+                 not paid to you."
             };
             MenuItem::new("Load cargo at dock", |s: &mut Self, ctx| s.load(ctx)).help(dock_help)
         } else {

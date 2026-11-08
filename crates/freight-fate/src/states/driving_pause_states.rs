@@ -135,14 +135,14 @@ impl PauseMenuState {
                 let state = LearnSoundsState::new();
                 ctx.push_state(state);
             })
-            .help("Every sound the road uses, and what each one means."),
+            .help("Gameplay cues and what each one means."),
             MenuItem::new("Practice keys and buttons", |_s: &mut Self, ctx: &mut GameContext| {
                 ctx.push_state(InputPracticeState::new());
             })
             .help("Names what each key or controller button does while driving."),
             MenuItem::new(mechanic_label(d), |s: &mut Self, ctx| s.mechanic(ctx)).help(
-                "A mobile mechanic patches the truck up enough to drive on. Costs far more than a \
-                 garage, an hour and a half, and billed even into debt.",
+                "A mobile mechanic patches the truck up enough to drive on. Takes an hour and a \
+                 half, costs far more than a garage, and can put you into debt.",
             ),
             MenuItem::new("Settings", |_s: &mut Self, ctx: &mut GameContext| {
                 let state = SettingsState::new();

@@ -18825,13 +18825,14 @@ msgid ""
 "trailer is whatever the yard has."
 msgstr "荷主が積み込み済みのトレーラーをつなぎます。ドックより早いですが、トレーラーはヤードにあるものになります。"
 
-msgid "Past two hours at the dock earns detention pay on this settlement."
-msgstr "ドックで2時間を超えると、この精算で待機料がもらえます。"
+msgid ""
+"Time beyond two hours at the dock earns detention pay on this settlement."
+msgstr ""
 
 msgid ""
-"Past two hours at the dock is billed as detention on the carrier "
-"settlement, not to you."
-msgstr "ドックで2時間を超えると、待機料は自分ではなく運送会社の精算に請求されます。"
+"Time beyond two hours at the dock is billed as detention on the carrier "
+"settlement, not paid to you."
+msgstr ""
 
 msgid "Load cargo at dock"
 msgstr "ドックで積荷を積み込む"
@@ -19195,26 +19196,22 @@ msgid "Restore this backup?"
 msgstr "このバックアップを復元しますか。"
 
 #. placeholders: {summary}
-msgid " It is {summary},"
-msgstr " {summary}で、"
+msgid " It is {summary}."
+msgstr ""
 
 #. placeholders: {save_name}, {backed_up_text}, {summary}
 #. one sentence of a longer line
 msgid ""
-"Restore the backup of {save_name}, {backed_up_text}?{summary} replacing "
-"this computer's save for that career."
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This will "
+"replace this computer's save for that career."
 msgstr ""
-"{save_name}の{backed_up_text}のバックアップを復元しますか。{summary}そのキャリアのこのコンピューターのセーブを置き換"
-"えます。"
 
 #. placeholders: {save_name}, {backed_up_text}, {summary}, {current}
 msgid ""
-"Restore the backup of {save_name}, {backed_up_text}?{summary} replacing "
-"this computer's save for that career. The replaced save is kept as a "
-"fallback file. {current}"
+"Restore the backup of {save_name}, {backed_up_text}?{summary} This will "
+"replace this computer's save for that career. The replaced save is kept as "
+"a fallback file. {current}"
 msgstr ""
-"{save_name}の{backed_up_text}のバックアップを復元しますか。{summary}そのキャリアのこのコンピューターのセーブを置き換"
-"えます。置き換えられたセーブは予備のファイルとして残ります。{current}"
 
 #. one sentence of a longer line
 msgid "The replaced save is kept as a fallback file."
@@ -19802,8 +19799,9 @@ msgid "{control_hint} cancels it."
 msgstr "{control_hint}で取り消します。"
 
 #. placeholders: {control_hint}
-msgid "At air ready, {control_hint} releases the parking brake."
-msgstr "エアの準備ができたら、{control_hint}で駐車ブレーキを解除します。"
+msgid ""
+"When air pressure is ready, {control_hint} releases the parking brake."
+msgstr ""
 
 msgid "Automatic transmission."
 msgstr "オートマチック。"
@@ -19998,10 +19996,8 @@ msgstr "{up} を押し続けて加速、{down} を押し続けてブレーキ。
 
 msgid ""
 "Tap the brake, then press again and hold half a second to latch it "
-"hands-free; a click and a spoken confirmation mark the catch."
+"hands-free. The game confirms when it catches."
 msgstr ""
-"ブレーキを軽く押してから、もう一度押して半秒押し続けると、手を離してもかかったままになります。カチッという音と読み上げの確認で、かかったことが分かります"
-"。"
 
 #. placeholders: {down}
 msgid "{down} once releases it; the accelerator releases it instantly."
@@ -20138,9 +20134,8 @@ msgstr "{favorite} で局をお気に入りに保存、または解除します�
 #. placeholders: {radio_status}, {now_playing}
 msgid ""
 "{radio_status} speaks station, volume, and streamer-safe status; "
-"{now_playing} speaks the song when the station says."
+"{now_playing} reads the song title when the station provides it."
 msgstr ""
-"{radio_status} は局、音量、配信セーフの状態を読み上げます。{now_playing} は局が伝えていれば曲を読み上げます。"
 
 #. placeholders: {status}
 msgid ""
@@ -20226,14 +20221,22 @@ msgstr "{weather}で天気。"
 msgid "{lane} lane position and whether the lane beside you is open."
 msgstr "{lane} 車線内の位置と、隣の車線が空いているか。"
 
+#. one sentence of a longer line
+msgid ""
+"Its directional cue marks your position within the lane when lane keeping "
+"is partial or off."
+msgstr ""
+
+#. placeholders: {lane_locator}
+#. one sentence of a longer line
+msgid "{lane_locator} turns the lane locator on and off."
+msgstr ""
+
 #. placeholders: {lane_locator}
 msgid ""
-"{lane_locator} turns the lane locator on and off: a soft tock once a beat, "
-"panned to where you sit in your lane, on lane keeping partial or off."
+"{lane_locator} turns the lane locator on and off. Its directional cue marks "
+"your position within the lane when lane keeping is partial or off."
 msgstr ""
-"{lane_locator} "
-"でレーンロケーターのオンとオフを切り替えます。拍ごとに柔らかいトック音が、車線内の位置に合わせて左右に鳴ります。レーンキープが一部かオフのときに使います"
-"。"
 
 #. placeholders: {last_announcement}
 msgid "{last_announcement} repeats the last driving announcement."
@@ -21267,18 +21270,16 @@ msgstr "最初の運行です。{control_hint}でエンジンをかけます。"
 
 #. placeholders: {control_hint}, {control_hint2}
 msgid ""
-"At air ready, press {control_hint} to release the parking brake, then hold "
-"{control_hint2} to accelerate."
-msgstr "エアの準備ができたら、{control_hint}で駐車ブレーキを解除し、{control_hint2}を押し続けて加速します。"
+"When air pressure is ready, press {control_hint} to release the parking "
+"brake, then hold {control_hint2} to accelerate."
+msgstr ""
 
 #. placeholders: {control_hint}, {control_hint2}, {control_hint3}
 msgid ""
-"At air ready, press {control_hint} to release the parking brake, then hold "
-"{control_hint2}, select {control_hint3} for first gear, and release the "
-"clutch."
+"When air pressure is ready, press {control_hint} to release the parking "
+"brake, then hold {control_hint2}, select {control_hint3} for first gear, "
+"and release the clutch."
 msgstr ""
-"エアの準備ができたら、{control_hint}で駐車ブレーキを解除し、{control_hint2}を押し続けて、{control_hint3}で1"
-"速を選び、クラッチを離します。"
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -22503,6 +22504,14 @@ msgid ""
 "The freight is {words}. Continue and protect it through the next stop."
 msgstr "積荷は{words}です。次の停車地まで、積荷に気をつけて走ってください。"
 
+#. one sentence of a longer line
+msgid "Avoid hard stops and sharp bends when safe."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Handle the load gently."
+msgstr ""
+
 #. placeholders: {words}, {condition}
 #. one sentence of a longer line
 msgid "I have the freight report as {words}, {condition} percent."
@@ -22510,16 +22519,9 @@ msgstr "積荷の報告を受けました。{words}、{condition}パーセント
 
 #. placeholders: {words}, {condition}
 msgid ""
-"I have the freight report as {words}, {condition} percent. Slow the "
-"handling down and avoid any hard stop or sharp bend you can safely avoid."
+"I have the freight report as {words}, {condition} percent. Handle the load "
+"gently. Avoid hard stops and sharp bends when safe."
 msgstr ""
-"積荷の報告を受けました。{words}、{condition}パーセントですね。運転を穏やかにして、安全に避けられる急停止や急カーブは避けてください。"
-
-#. one sentence of a longer line
-msgid ""
-"Slow the handling down and avoid any hard stop or sharp bend you can safely "
-"avoid."
-msgstr "運転を穏やかにして、安全に避けられる急停止や急カーブは避けてください。"
 
 msgid "roadside inspection"
 msgstr "路上検査"
@@ -25177,17 +25179,16 @@ msgstr "この積荷で、その請求のうち{grouped}ドルを返済しまし
 
 #. placeholders: {grouped}, {grouped2}
 msgid ""
-"This load covered {grouped} dollars of those charges. {grouped2} dollars "
-"stays owed, paid down at a quarter of each settlement at most."
+"This load covered {grouped} dollars of those charges. You still owe "
+"{grouped2} dollars, repaid from at most a quarter of each settlement."
 msgstr ""
-"この積荷で、その請求のうち{grouped}ドルを返済しました。{grouped2}ドルは未払いのまま残り、毎回の精算の最大4分の1ずつ返済されます。"
 
 #. placeholders: {grouped2}
 #. one sentence of a longer line
 msgid ""
-"{grouped2} dollars stays owed, paid down at a quarter of each settlement at "
-"most."
-msgstr "{grouped2}ドルは未払いのまま残り、毎回の精算の最大4分の1ずつ返済されます。"
+"You still owe {grouped2} dollars, repaid from at most a quarter of each "
+"settlement."
+msgstr ""
 
 #. placeholders: {speeding_tickets}, {grouped}
 msgid ""
@@ -26069,8 +26070,8 @@ msgstr "遊び方を、運転キーのページで開きました。左右でペ
 msgid "Learn game sounds"
 msgstr "ゲームの音を覚える"
 
-msgid "Every sound the road uses, and what each one means."
-msgstr "道路で使われるすべての音と、それぞれの意味です。"
+msgid "Gameplay cues and what each one means."
+msgstr ""
 
 msgid "Practice keys and buttons"
 msgstr "キーとボタンの練習"
@@ -26079,9 +26080,9 @@ msgid "Names what each key or controller button does while driving."
 msgstr "運転中に各キーやコントローラーのボタンが何をするかを読み上げます。"
 
 msgid ""
-"A mobile mechanic patches the truck up enough to drive on. Costs far more "
-"than a garage, an hour and a half, and billed even into debt."
-msgstr "出張整備士が、走り続けられる程度にトラックを応急修理します。ガレージよりずっと高く、1時間半かかり、借金になっても請求されます。"
+"A mobile mechanic patches the truck up enough to drive on. Takes an hour "
+"and a half, costs far more than a garage, and can put you into debt."
+msgstr ""
 
 msgid ""
 "Report a delay, hours, road conditions, truck trouble, or load trouble."
@@ -26847,17 +26848,6 @@ msgid "This driver"
 msgstr "このドライバー"
 
 #. one sentence of a longer line
-msgid "Everything you learned still applies."
-msgstr "学んだことはすべて、これからも役に立ちます。"
-
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid ""
-"Nothing is taken away: {name} keeps every dollar, the truck, and the whole "
-"record, and you can open this career any time to look back over it."
-msgstr "何も取り上げられません。{name}はお金、トラック、すべての記録をそのまま持ち続け、このキャリアはいつでも開いて振り返れます。"
-
-#. one sentence of a longer line
 msgid ""
 "Rest, repairs, and the garage still work here, and the dispatch board can "
 "still be read, but there is no driving work and no date this clears."
@@ -26869,30 +26859,31 @@ msgstr "2回目の一発取消違反です。"
 
 #. placeholders: {name}
 msgid ""
-"That is your second major offense. Under federal rules a second major "
-"offense disqualifies a commercial license for life, so this driver will not "
-"drive commercially again. Nothing is taken away: {name} keeps every dollar, "
-"the truck, and the whole record, and you can open this career any time to "
-"look back over it. Rest, repairs, and the garage still work here, and the "
-"dispatch board can still be read, but there is no driving work and no date "
-"this clears. When you want the road again, start a new career from the "
-"title menu. Everything you learned still applies."
+"That is your second major offense. Your CDL is disqualified for life in "
+"this career. {name} keeps every dollar, the truck, and the whole record. "
+"You can open this career any time to look back over it. Rest, repairs, and "
+"the garage still work here, and the dispatch board can still be read, but "
+"there is no driving work and no date this clears. When you want the road "
+"again, start a new career from the title menu."
 msgstr ""
-"2回目の一発取消違反です。連邦の規則では、2回目の一発取消違反で商用免許は永久に失格となるため、このドライバーが商用車を運転することは二度とありません。"
-"何も取り上げられません。{name}はお金、トラック、すべての記録をそのまま持ち続け、このキャリアはいつでも開いて振り返れます。ここでは休息、修理、整備"
-"工場が使え、配車ボードも読めますが、運転の仕事はなく、解除される日もありません。また道に戻りたくなったら、タイトルメニューから新しいキャリアを始めてくだ"
-"さい。学んだことはすべて、これからも役に立ちます。"
-
-#. one sentence of a longer line
-msgid ""
-"Under federal rules a second major offense disqualifies a commercial "
-"license for life, so this driver will not drive commercially again."
-msgstr "連邦の規則では、2回目の一発取消違反で商用免許は永久に失格となるため、このドライバーが商用車を運転することは二度とありません。"
 
 #. one sentence of a longer line
 msgid ""
 "When you want the road again, start a new career from the title menu."
 msgstr "また道に戻りたくなったら、タイトルメニューから新しいキャリアを始めてください。"
+
+#. one sentence of a longer line
+msgid "You can open this career any time to look back over it."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your CDL is disqualified for life in this career."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} keeps every dollar, the truck, and the whole record."
+msgstr ""
 
 #. one sentence of a longer line
 msgid ""
@@ -31123,9 +31114,6 @@ msgstr "遊び方"
 msgid "The controls and the goal of the game."
 msgstr "操作とゲームの目的です。"
 
-msgid "Any sound the road uses, and what it means."
-msgstr "道路で使われる音と、その意味です。"
-
 msgid "Units, transmission mode, volumes, weather, voices, and trip pacing."
 msgstr "単位、変速モード、音量、天気、音声、運行のペースです。"
 
@@ -31708,20 +31696,17 @@ msgstr "プリセットでは変わりません。"
 
 #. one sentence of a longer line
 msgid ""
-"Tap the brake, then press again and hold half a second: a click and a "
-"spoken line confirm the brake now holds by itself."
+"Tap the brake, then press again and hold half a second: the game confirms "
+"when the brake holds by itself."
 msgstr ""
-"ブレーキを軽く押し、もう一度押して0.5秒保持します：クリック音と読み上げで、ブレーキが自動で保持されるようになったことを確認できます。"
 
 #. placeholders: {control_brake}
 msgid ""
-"Tap the brake, then press again and hold half a second: a click and a "
-"spoken line confirm the brake now holds by itself. One press of "
-"{control_brake} releases it; the accelerator releases it instantly. The "
-"throttle key never latches. Presets never change this."
+"Tap the brake, then press again and hold half a second: the game confirms "
+"when the brake holds by itself. One press of {control_brake} releases it; "
+"the accelerator releases it instantly. The throttle key never latches. "
+"Presets never change this."
 msgstr ""
-"ブレーキを軽く押し、もう一度押して0.5秒保持します：クリック音と読み上げで、ブレーキが自動で保持されるようになったことを確認できます。{control"
-"_brake}を一度押すと解除され、アクセルでもすぐに解除されます。アクセルのキーが固定されることはありません。プリセットでは変わりません。"
 
 msgid "Predictive cruise"
 msgstr "予測クルーズ"
@@ -32341,11 +32326,8 @@ msgid ""
 "What leans toward the side to steer. The engine is the default: the engine "
 "you already hear, moving toward the side you need and coming back to the "
 "middle once you are through. Tone plays a soft note instead, panned the "
-"same way, for setups where the engine is hard to place. A held note is "
-"tiring over a long haul."
+"same way, for setups where the engine is hard to place."
 msgstr ""
-"ハンドルを切る側へ何が傾くかです。既定はエンジン音で、いつも聞こえているエンジン音が必要な側へ寄り、抜けると中央に戻ります。トーンでは、代わりに柔らかい"
-"音が同じように左右に寄ります。エンジン音の位置が分かりにくい環境向けです。鳴り続ける音は、長距離では疲れます。"
 
 #. placeholders: {pct}
 msgid "Weather sounds volume: {pct} percent"
@@ -32557,18 +32539,11 @@ msgid ""
 "through bends with a gentle drift and generous help; lane changes and speed "
 "are yours. Off drifts like a real truck; bends are yours unless curve "
 "assistance is on, and every exit needs a signal and the exit lane. On "
-"partial or off, {lean}. Road noise tells you where you sit in the lane, and "
-"the edge tells you when you leave it: a stutter on the edge of the rumble "
-"strip, a buzz fully on it, gravel off the pavement. Steering guide and Lane "
-"guide sound, under Audio, change which way to steer and what leans. "
-"Realistic sets this off, Balanced partial, All assists full."
+"partial or off, {lean}. Road and lane-edge cues mark your position. Try "
+"them in Learn game sounds. Steering guide and Lane guide sound, under "
+"Audio, change which way to steer and what leans. Realistic sets this off, "
+"Balanced partial, All assists full."
 msgstr ""
-"ハンドル操作をトラックがどれだけ受け持つかです。フルは車線を保ち、工事で閉じる車線から移り、目的地の出口も含めて、出口と開いている計量所にウインカーなし"
-"で入ります。{control_steer_left}か{control_steer_right}を軽く押すと車線を変えます。一部は、ゆるやかなずれと手厚"
-"い補助でカーブを曲がります。車線変更と速度は自分で行います。オフは本物のトラックのようにずれていきます。カーブアシストがオンでない限りカーブは自分で曲が"
-"り、どの出口もウインカーと出口車線が必要です。一部かオフでは、{lean}。道路の音で車線のどこにいるかが分かり、端の音で車線から出たことが分かります："
-"ランブルストリップの端ではガタガタ、完全に乗るとブーン、舗装の外では砂利の音です。オーディオの操舵ガイドとレーンガイドの音で、どちらに切るかと何が寄るか"
-"を変えられます。リアルではオフ、バランスでは一部、すべてのアシストではフルになります。"
 
 #. one sentence of a longer line
 msgid ""
@@ -32593,19 +32568,18 @@ msgid "Realistic sets this off, Balanced partial, All assists full."
 msgstr "リアルではオフ、バランスでは一部、すべてのアシストではフルになります。"
 
 #. one sentence of a longer line
-msgid ""
-"Road noise tells you where you sit in the lane, and the edge tells you when "
-"you leave it: a stutter on the edge of the rumble strip, a buzz fully on "
-"it, gravel off the pavement."
+msgid "Road and lane-edge cues mark your position."
 msgstr ""
-"道路の音で車線のどこにいるかが分かり、端の音で車線から出たことが分かります：ランブルストリップの端ではガタガタ、完全に乗るとブーン、舗装の外では砂利の音"
-"です。"
 
 #. one sentence of a longer line
 msgid ""
 "Steering guide and Lane guide sound, under Audio, change which way to steer "
 "and what leans."
 msgstr "オーディオの操舵ガイドとレーンガイドの音で、切る方向と、何が傾くかを変えられます。"
+
+#. one sentence of a longer line
+msgid "Try them in Learn game sounds."
+msgstr ""
 
 #. placeholders: {acc_gap_label}
 msgid "Following gap: {acc_gap_label}"
@@ -34061,10 +34035,10 @@ msgstr "ダッシュボードの速度超過チャイムは、無料の警告で
 
 #. placeholders: {control_take_exit}, {control_rest}
 msgid ""
-"At an open scale, slow into its lane, signal with {control_take_exit}, "
-"stop, then use {control_rest} for inspection check-in."
+"Unless your transponder clears you to bypass an open scale, signal with "
+"{control_take_exit}, slow into its lane, stop, then use {control_rest} for "
+"inspection check-in."
 msgstr ""
-"開いている計量所では、その車線に減速して入り、{control_take_exit}で合図して停まり、{control_rest}で検査の受付をします。"
 
 msgid "Hours, fatigue, and rest stops"
 msgstr "運転時間、疲労、休憩の停車地"
@@ -34735,10 +34709,6 @@ msgstr ""
 "積荷を引き受けられないのはなぜですか？持っていない修了証、免許付記、トレーラーが必要なのかもしれません。積荷の上で F1 "
 "を押すと条件を読み上げ、免許と研修でコースを受けられます。"
 
-#. one sentence of a longer line
-msgid "Open weigh station ahead means every truck must pull in."
-msgstr "「この先の計量所は開いています」は、すべてのトラックが入らなければならないという意味です。"
-
 #. placeholders: {control_take_exit}, {control_rest}
 #. one sentence of a longer line
 msgid ""
@@ -34752,12 +34722,17 @@ msgstr "計量所で違反切符を切られたのはなぜですか？"
 
 #. placeholders: {control_take_exit}, {control_rest}
 msgid ""
-"Why did I get a citation at a weigh station? Open weigh station ahead means "
-"every truck must pull in. Signal with {control_take_exit}, stop at the "
-"scale, then press {control_rest} to check in."
+"Why did I get a citation at a weigh station? You must enter an open scale "
+"unless your transponder clears you to bypass it. Signal with "
+"{control_take_exit}, stop at the scale, then press {control_rest} to check "
+"in."
 msgstr ""
-"計量所で違反切符を切られたのはなぜですか？「この先の計量所は開いています」は、すべてのトラックが入らなければならないという意味です。{control_t"
-"ake_exit}で合図し、計量所で停まってから、{control_rest}を押して受付をします。"
+
+#. one sentence of a longer line
+msgid ""
+"You must enter an open scale unless your transponder clears you to bypass "
+"it."
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Some states hold trucks below the car limit."
@@ -35220,12 +35195,9 @@ msgstr "ドライバーの勤務開始と終了を知らせる：{on_off}"
 
 msgid ""
 "Says when another driver goes on or off duty, like Road Star is on duty, "
-"anywhere in the game. Checks the public drivers list about once a minute, "
-"needs no account, and shares nothing about you."
+"anywhere in the game. Checks the public drivers list about every two "
+"minutes, needs no account, and shares nothing about you."
 msgstr ""
-"他のドライバーが勤務を始めたり終えたりすると、「Road "
-"Starが勤務中です」のように、ゲームのどこにいても知らせます。公開のドライバー一覧をおよそ1分ごとに確認し、アカウントは不要で、自分の情報は何も共有し"
-"ません。"
 
 msgid ""
 "Achievements earned across every career on this installation. The main "
@@ -37663,6 +37635,210 @@ msgstr "営業中。"
 
 msgid "Closed."
 msgstr "閉鎖中。"
+
+#~ msgid "Past two hours at the dock earns detention pay on this settlement."
+#~ msgstr "ドックで2時間を超えると、この精算で待機料がもらえます。"
+
+#~ msgid ""
+#~ "Past two hours at the dock is billed as detention on the carrier "
+#~ "settlement, not to you."
+#~ msgstr "ドックで2時間を超えると、待機料は自分ではなく運送会社の精算に請求されます。"
+
+#~ msgid " It is {summary},"
+#~ msgstr " {summary}で、"
+
+#~ msgid ""
+#~ "Restore the backup of {save_name}, {backed_up_text}?{summary} replacing "
+#~ "this computer's save for that career."
+#~ msgstr ""
+#~ "{save_name}の{backed_up_text}のバックアップを復元しますか。{summary}そのキャリアのこのコンピューターのセーブを置き換"
+#~ "えます。"
+
+#~ msgid ""
+#~ "Restore the backup of {save_name}, {backed_up_text}?{summary} replacing "
+#~ "this computer's save for that career. The replaced save is kept as a "
+#~ "fallback file. {current}"
+#~ msgstr ""
+#~ "{save_name}の{backed_up_text}のバックアップを復元しますか。{summary}そのキャリアのこのコンピューターのセーブを置き換"
+#~ "えます。置き換えられたセーブは予備のファイルとして残ります。{current}"
+
+#~ msgid "At air ready, {control_hint} releases the parking brake."
+#~ msgstr "エアの準備ができたら、{control_hint}で駐車ブレーキを解除します。"
+
+#~ msgid ""
+#~ "Tap the brake, then press again and hold half a second to latch it "
+#~ "hands-free; a click and a spoken confirmation mark the catch."
+#~ msgstr ""
+#~ "ブレーキを軽く押してから、もう一度押して半秒押し続けると、手を離してもかかったままになります。カチッという音と読み上げの確認で、かかったことが分かります"
+#~ "。"
+
+#~ msgid ""
+#~ "{radio_status} speaks station, volume, and streamer-safe status; "
+#~ "{now_playing} speaks the song when the station says."
+#~ msgstr ""
+#~ "{radio_status} は局、音量、配信セーフの状態を読み上げます。{now_playing} は局が伝えていれば曲を読み上げます。"
+
+#~ msgid ""
+#~ "{lane_locator} turns the lane locator on and off: a soft tock once a beat, "
+#~ "panned to where you sit in your lane, on lane keeping partial or off."
+#~ msgstr ""
+#~ "{lane_locator} "
+#~ "でレーンロケーターのオンとオフを切り替えます。拍ごとに柔らかいトック音が、車線内の位置に合わせて左右に鳴ります。レーンキープが一部かオフのときに使います"
+#~ "。"
+
+#~ msgid ""
+#~ "At air ready, press {control_hint} to release the parking brake, then hold "
+#~ "{control_hint2} to accelerate."
+#~ msgstr "エアの準備ができたら、{control_hint}で駐車ブレーキを解除し、{control_hint2}を押し続けて加速します。"
+
+#~ msgid ""
+#~ "At air ready, press {control_hint} to release the parking brake, then hold "
+#~ "{control_hint2}, select {control_hint3} for first gear, and release the "
+#~ "clutch."
+#~ msgstr ""
+#~ "エアの準備ができたら、{control_hint}で駐車ブレーキを解除し、{control_hint2}を押し続けて、{control_hint3}で1"
+#~ "速を選び、クラッチを離します。"
+
+#~ msgid ""
+#~ "I have the freight report as {words}, {condition} percent. Slow the "
+#~ "handling down and avoid any hard stop or sharp bend you can safely avoid."
+#~ msgstr ""
+#~ "積荷の報告を受けました。{words}、{condition}パーセントですね。運転を穏やかにして、安全に避けられる急停止や急カーブは避けてください。"
+
+#~ msgid ""
+#~ "Slow the handling down and avoid any hard stop or sharp bend you can safely "
+#~ "avoid."
+#~ msgstr "運転を穏やかにして、安全に避けられる急停止や急カーブは避けてください。"
+
+#~ msgid ""
+#~ "This load covered {grouped} dollars of those charges. {grouped2} dollars "
+#~ "stays owed, paid down at a quarter of each settlement at most."
+#~ msgstr ""
+#~ "この積荷で、その請求のうち{grouped}ドルを返済しました。{grouped2}ドルは未払いのまま残り、毎回の精算の最大4分の1ずつ返済されます。"
+
+#~ msgid ""
+#~ "{grouped2} dollars stays owed, paid down at a quarter of each settlement at "
+#~ "most."
+#~ msgstr "{grouped2}ドルは未払いのまま残り、毎回の精算の最大4分の1ずつ返済されます。"
+
+#~ msgid "Every sound the road uses, and what each one means."
+#~ msgstr "道路で使われるすべての音と、それぞれの意味です。"
+
+#~ msgid ""
+#~ "A mobile mechanic patches the truck up enough to drive on. Costs far more "
+#~ "than a garage, an hour and a half, and billed even into debt."
+#~ msgstr "出張整備士が、走り続けられる程度にトラックを応急修理します。ガレージよりずっと高く、1時間半かかり、借金になっても請求されます。"
+
+#~ msgid "Everything you learned still applies."
+#~ msgstr "学んだことはすべて、これからも役に立ちます。"
+
+#~ msgid ""
+#~ "Nothing is taken away: {name} keeps every dollar, the truck, and the whole "
+#~ "record, and you can open this career any time to look back over it."
+#~ msgstr "何も取り上げられません。{name}はお金、トラック、すべての記録をそのまま持ち続け、このキャリアはいつでも開いて振り返れます。"
+
+#~ msgid ""
+#~ "That is your second major offense. Under federal rules a second major "
+#~ "offense disqualifies a commercial license for life, so this driver will not "
+#~ "drive commercially again. Nothing is taken away: {name} keeps every dollar, "
+#~ "the truck, and the whole record, and you can open this career any time to "
+#~ "look back over it. Rest, repairs, and the garage still work here, and the "
+#~ "dispatch board can still be read, but there is no driving work and no date "
+#~ "this clears. When you want the road again, start a new career from the "
+#~ "title menu. Everything you learned still applies."
+#~ msgstr ""
+#~ "2回目の一発取消違反です。連邦の規則では、2回目の一発取消違反で商用免許は永久に失格となるため、このドライバーが商用車を運転することは二度とありません。"
+#~ "何も取り上げられません。{name}はお金、トラック、すべての記録をそのまま持ち続け、このキャリアはいつでも開いて振り返れます。ここでは休息、修理、整備"
+#~ "工場が使え、配車ボードも読めますが、運転の仕事はなく、解除される日もありません。また道に戻りたくなったら、タイトルメニューから新しいキャリアを始めてくだ"
+#~ "さい。学んだことはすべて、これからも役に立ちます。"
+
+#~ msgid ""
+#~ "Under federal rules a second major offense disqualifies a commercial "
+#~ "license for life, so this driver will not drive commercially again."
+#~ msgstr "連邦の規則では、2回目の一発取消違反で商用免許は永久に失格となるため、このドライバーが商用車を運転することは二度とありません。"
+
+#~ msgid "Any sound the road uses, and what it means."
+#~ msgstr "道路で使われる音と、その意味です。"
+
+#~ msgid ""
+#~ "Tap the brake, then press again and hold half a second: a click and a "
+#~ "spoken line confirm the brake now holds by itself."
+#~ msgstr ""
+#~ "ブレーキを軽く押し、もう一度押して0.5秒保持します：クリック音と読み上げで、ブレーキが自動で保持されるようになったことを確認できます。"
+
+#~ msgid ""
+#~ "Tap the brake, then press again and hold half a second: a click and a "
+#~ "spoken line confirm the brake now holds by itself. One press of "
+#~ "{control_brake} releases it; the accelerator releases it instantly. The "
+#~ "throttle key never latches. Presets never change this."
+#~ msgstr ""
+#~ "ブレーキを軽く押し、もう一度押して0.5秒保持します：クリック音と読み上げで、ブレーキが自動で保持されるようになったことを確認できます。{control"
+#~ "_brake}を一度押すと解除され、アクセルでもすぐに解除されます。アクセルのキーが固定されることはありません。プリセットでは変わりません。"
+
+#~ msgid ""
+#~ "What leans toward the side to steer. The engine is the default: the engine "
+#~ "you already hear, moving toward the side you need and coming back to the "
+#~ "middle once you are through. Tone plays a soft note instead, panned the "
+#~ "same way, for setups where the engine is hard to place. A held note is "
+#~ "tiring over a long haul."
+#~ msgstr ""
+#~ "ハンドルを切る側へ何が傾くかです。既定はエンジン音で、いつも聞こえているエンジン音が必要な側へ寄り、抜けると中央に戻ります。トーンでは、代わりに柔らかい"
+#~ "音が同じように左右に寄ります。エンジン音の位置が分かりにくい環境向けです。鳴り続ける音は、長距離では疲れます。"
+
+#~ msgid ""
+#~ "How much of the steering the truck does. Full holds the lane, moves out of "
+#~ "a lane a work zone closes, and takes your exits and open weigh stations "
+#~ "without a signal, including the destination exit. A tap of "
+#~ "{control_steer_left} or {control_steer_right} changes lanes. Partial steers "
+#~ "through bends with a gentle drift and generous help; lane changes and speed "
+#~ "are yours. Off drifts like a real truck; bends are yours unless curve "
+#~ "assistance is on, and every exit needs a signal and the exit lane. On "
+#~ "partial or off, {lean}. Road noise tells you where you sit in the lane, and "
+#~ "the edge tells you when you leave it: a stutter on the edge of the rumble "
+#~ "strip, a buzz fully on it, gravel off the pavement. Steering guide and Lane "
+#~ "guide sound, under Audio, change which way to steer and what leans. "
+#~ "Realistic sets this off, Balanced partial, All assists full."
+#~ msgstr ""
+#~ "ハンドル操作をトラックがどれだけ受け持つかです。フルは車線を保ち、工事で閉じる車線から移り、目的地の出口も含めて、出口と開いている計量所にウインカーなし"
+#~ "で入ります。{control_steer_left}か{control_steer_right}を軽く押すと車線を変えます。一部は、ゆるやかなずれと手厚"
+#~ "い補助でカーブを曲がります。車線変更と速度は自分で行います。オフは本物のトラックのようにずれていきます。カーブアシストがオンでない限りカーブは自分で曲が"
+#~ "り、どの出口もウインカーと出口車線が必要です。一部かオフでは、{lean}。道路の音で車線のどこにいるかが分かり、端の音で車線から出たことが分かります："
+#~ "ランブルストリップの端ではガタガタ、完全に乗るとブーン、舗装の外では砂利の音です。オーディオの操舵ガイドとレーンガイドの音で、どちらに切るかと何が寄るか"
+#~ "を変えられます。リアルではオフ、バランスでは一部、すべてのアシストではフルになります。"
+
+#~ msgid ""
+#~ "Road noise tells you where you sit in the lane, and the edge tells you when "
+#~ "you leave it: a stutter on the edge of the rumble strip, a buzz fully on "
+#~ "it, gravel off the pavement."
+#~ msgstr ""
+#~ "道路の音で車線のどこにいるかが分かり、端の音で車線から出たことが分かります：ランブルストリップの端ではガタガタ、完全に乗るとブーン、舗装の外では砂利の音"
+#~ "です。"
+
+#~ msgid ""
+#~ "At an open scale, slow into its lane, signal with {control_take_exit}, "
+#~ "stop, then use {control_rest} for inspection check-in."
+#~ msgstr ""
+#~ "開いている計量所では、その車線に減速して入り、{control_take_exit}で合図して停まり、{control_rest}で検査の受付をします。"
+
+#~ msgid "Open weigh station ahead means every truck must pull in."
+#~ msgstr "「この先の計量所は開いています」は、すべてのトラックが入らなければならないという意味です。"
+
+#~ msgid ""
+#~ "Why did I get a citation at a weigh station? Open weigh station ahead means "
+#~ "every truck must pull in. Signal with {control_take_exit}, stop at the "
+#~ "scale, then press {control_rest} to check in."
+#~ msgstr ""
+#~ "計量所で違反切符を切られたのはなぜですか？「この先の計量所は開いています」は、すべてのトラックが入らなければならないという意味です。{control_t"
+#~ "ake_exit}で合図し、計量所で停まってから、{control_rest}を押して受付をします。"
+
+#~ msgid ""
+#~ "Says when another driver goes on or off duty, like Road Star is on duty, "
+#~ "anywhere in the game. Checks the public drivers list about once a minute, "
+#~ "needs no account, and shares nothing about you."
+#~ msgstr ""
+#~ "他のドライバーが勤務を始めたり終えたりすると、「Road "
+#~ "Starが勤務中です」のように、ゲームのどこにいても知らせます。公開のドライバー一覧をおよそ1分ごとに確認し、アカウントは不要で、自分の情報は何も共有し"
+#~ "ません。"
 
 #~ msgid ""
 #~ "No chrome, no fairings, no nonsense: a base-spec conventional sleeper "

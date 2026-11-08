@@ -120,7 +120,7 @@ impl DrivingState {
             return String::new();
         }
         format!(
-            "At air ready, {} releases the parking brake.",
+            "When air pressure is ready, {} releases the parking brake.",
             ctx.control_hint("parking_brake")
         )
     }

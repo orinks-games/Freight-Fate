@@ -481,8 +481,8 @@ fn load_response(driving: &DrivingState) -> (&'static str, String, JsonObject) {
     (
         "protect_load",
         format!(
-            "I have the freight report as {words}, {condition:.0} percent. Slow the handling down \
-             and avoid any hard stop or sharp bend you can safely avoid."
+            "I have the freight report as {words}, {condition:.0} percent. Handle the load gently. \
+             Avoid hard stops and sharp bends when safe."
         ),
         JsonObject::from_iter([("cargo_exception_recorded".to_string(), json!(true))]),
     )

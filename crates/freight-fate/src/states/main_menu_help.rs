@@ -145,7 +145,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
             "CB chatter is what other drivers say they saw, and it is not always right. It can be stale and never claims the road is clear. {{cb}} repeats it with updated distance.",
             "Citations cost money and affect your record. Serious violations can suspend your CDL and remove driving work; fleeing is a major offense.",
             "The dash overspeed chime is a free warning. Tickets already paid on the road are not charged again at settlement.",
-            "At an open scale, slow into its lane, signal with {{take_exit}}, stop, then use {{rest}} for inspection check-in.",
+            "Unless your transponder clears you to bypass an open scale, signal with {{take_exit}}, slow into its lane, stop, then use {{rest}} for inspection check-in.",
         ],
     ),
     (
@@ -272,7 +272,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
             "Why am I not in the truck my level earns? Low dispatch trust, a suspended CDL, debt, or your driving record can hold equipment back. Career stats names the reason and what brings the truck back.",
             "What is the difference between reputation and dispatch trust? Reputation is a score from your deliveries, lowered by your driving record: Outstanding, Well regarded, Established, Unproven, Shaky, Damaged, or Ruined. New drivers start at 50, Unproven. A trust line shows it as, for example, Dispatch trust: full. Reputation 85 out of 100. Dispatch trust is what the carrier lets you do right now; your CDL, your record, and what you owe count toward it too. Settings, Speech has Score display: both, percentage only, or description only.",
             "Why can I not accept a load? It may need a certificate, endorsement, or trailer you do not have. F1 on the load reads its requirements, and Licenses and training offers the courses.",
-            "Why did I get a citation at a weigh station? Open weigh station ahead means every truck must pull in. Signal with {{take_exit}}, stop at the scale, then press {{rest}} to check in.",
+            "Why did I get a citation at a weigh station? You must enter an open scale unless your transponder clears you to bypass it. Signal with {{take_exit}}, stop at the scale, then press {{rest}} to check in.",
             "Why is the limit 55 on a fast highway? Some states hold trucks below the car limit. {{speed_limit}} names the state when it does.",
             "I missed my exit. What now? Keep driving and follow the turnaround guidance. {{route}} reads the distance left.",
             "The truck will not move. What should I check? Fuel, the engine, air pressure, and the parking brake. Damage, worn parts, or a suspended CDL can also stop you.",

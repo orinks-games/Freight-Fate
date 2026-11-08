@@ -50,6 +50,8 @@
 
 ### Fixed
 
+- **Cloud restore confirmations, detention pay and outstanding charges are clearer.** Help now notes weigh-station bypass clearance and the two-minute driver-notification check.
+
 - **Road lines are no longer lost while other lines speak.** With NVDA 2026.3 or SAPI, the 2-mile and 1-mile exit calls always play, and a line cut off by a readout plays after a Brake warning.
 - **Your planned stop is announced at every driving speech setting, with the key to signal for it.** Pressing X while it is read no longer brings the line back.
 - **The brake warning now names the vehicle ahead.** It said "Slow car" for a semi or a box truck.
@@ -549,7 +551,7 @@ Every change since 1.8.8.1, as each tester snapshot listed it.
 - **Opt-in hours of service planning hints guide T to a comfortable break or sleep stop.** Speech and Alt+D name the last legally reachable fallback.
 - **Hold slash to straighten up.** With lane keeping on partial or off, the truck turns to point down the road and leaves your lane position to you. (Suggested by flight)
 
-- **Bananavision channels are on the dial.** Nine HTTPS Icecast mounts from bananavision.tv — Main, Bananalodeon 80s, Bananalodeon, Bananarang, Educational, Brain, Star Trek Vision, MST3K, and Over the Edge — and they come in anywhere you drive.
+- **Bananavision channels are on the dial.** Nine HTTPS Icecast mounts from bananavision.tv â€” Main, Bananalodeon 80s, Bananalodeon, Bananarang, Educational, Brain, Star Trek Vision, MST3K, and Over the Edge â€” and they come in anywhere you drive.
 
 - **The game lists every screen reader it finds on your computer.** Start it with `--list-speech-backends` and it names the one it would speak through.
 
@@ -4265,7 +4267,7 @@ Every change since 1.8.8.1, as each tester snapshot listed it.
   every build boots on Fedora before it ships. Because the AppImage itself
   is read-only, saves live in `~/.local/share/FreightFate` instead of a
   `saves` folder beside the game. In-game updates work too: the game
-  downloads the new AppImage, swaps the file in place, and restarts — and
+  downloads the new AppImage, swaps the file in place, and restarts â€” and
   if the AppImage sits somewhere your user account cannot write to, the
   game tells you where the downloaded update was saved instead of failing
   quietly.
@@ -5775,7 +5777,7 @@ Every change since 1.8.8.1, as each tester snapshot listed it.
   can show broad game activity -- the main menu, the terminal, driving a route,
   resting, or delivering -- with high-level route and cargo context. Only
   general game status is shared, never save files or personal details. It is on
-  by default and can be switched off in Settings → Gameplay → Discord presence,
+  by default and can be switched off in Settings â†’ Gameplay â†’ Discord presence,
   and the game starts, plays, and exits cleanly whether or not Discord is open.
 - **Bigger freight map.** The playable network grows to 194 cities and
   437 routed legs, adding many more regional hubs, shorter connector lanes,
@@ -6027,7 +6029,7 @@ Every change since 1.8.8.1, as each tester snapshot listed it.
 - **Highway exits.** Rest stops now sit at proper exits. They are
   announced a few miles out ("Press X to take the exit for it"); X
   signals for the exit (and X again cancels), you slow to 45 or less for
-  the ramp — any faster and you blow past it — then half a mile of ramp
+  the ramp â€” any faster and you blow past it â€” then half a mile of ramp
   and brake to a stop, and the rest stop menu opens by itself. The ramp
   is off the highway: hazards and speeding checks pause while you are on
   it. Pressing T while stopped on the highway at a stop still works.
@@ -6044,16 +6046,16 @@ Every change since 1.8.8.1, as each tester snapshot listed it.
   highway driving expectations, and holds it with a slow throttle governor
   through grades.
   K again, any braking, the emergency brake, a stall, or taking an exit
-  cancels it — and a hazard warning hands control straight back to you.
+  cancels it â€” and a hazard warning hands control straight back to you.
   Space reports speed.
 - **Region-flavored road hazards.** The hazard pool now mixes nationwide
   staples with local flavor for the region you are driving through: dust
   devils and tumbleweeds in the Southwest, deer and farm equipment in
   the Midwest, rockfall in the Rockies, elk and standing water in the
   Pacific Northwest, and more.
-- **Separate voice for driving events.** Road events — hazard warnings,
+- **Separate voice for driving events.** Road events â€” hazard warnings,
   collisions, weather changes, rest stop and city announcements, HOS and
-  fatigue warnings, speeding, inspections, speed callouts — now speak
+  fatigue warnings, speeding, inspections, speed callouts â€” now speak
   through a dedicated Windows SAPI voice, so a screen reader reading menus
   or echoing keystrokes can no longer cut off a "Brake now!" mid-sentence.
   A new Settings entry, "Driving event voice" (default: separate SAPI
@@ -6071,14 +6073,14 @@ Every change since 1.8.8.1, as each tester snapshot listed it.
   down to 25 percent damage for a 500-dollar callout plus 110 dollars per
   percent repaired (a steep premium over the garage). The repair takes 90
   in-game minutes against your deadline and duty window, and the bill is
-  due even if it puts you in debt — never a dead end.
+  due even if it puts you in debt â€” never a dead end.
 - **Time and weather in the city.** A new city menu entry speaks the
   clock, the time of day, the day of your career, and current conditions
   in town (live Open-Meteo data when real weather is enabled).
 - **Sleep in any city.** A new city menu entry, "Sleep 10 hours", gives a
   full night at your terminal: fresh hours of service, zero fatigue, and
   the clock advances 10 hours. Previously a spent duty window followed
-  you into the city with no remedy except driving — illegally — to the
+  you into the city with no remedy except driving â€” illegally â€” to the
   first rest stop of the next run.
 
 ### Fixed
@@ -6093,25 +6095,25 @@ Every change since 1.8.8.1, as each tester snapshot listed it.
   systems.
 - **Updater connections on macOS and Linux.** The packaged game's Python
   runtime looks for certificate authorities at paths that only exist on
-  the build machine, so on macOS and Linux every secure connection — the
+  the build machine, so on macOS and Linux every secure connection â€” the
   update check, the download, and the real-weather fetch (which silently
-  fell back to simulated weather) — could fail certificate verification.
+  fell back to simulated weather) â€” could fail certificate verification.
   The game now ships its own certificate bundle (certifi) and uses it
   alongside the system store on every connection.
 - **Update errors now say what went wrong.** "Could not reach the update
   server" covered everything from a dropped connection to a blocked DNS
-  lookup. The check and download now speak the actual reason — "The
+  lookup. The check and download now speak the actual reason â€” "The
   secure connection could not be verified", "The server answered with
   error 403", "The server address could not be found", and so on. The
   packaged game also writes a session log to logs/game.log, so a
   player can share the full error when reporting a problem.
 - **Hazard warnings were unbeatable at highway speed.** The reaction
   window was a fixed 3 to 4.5 seconds, but a full-service stop from 65
-  to the safe 25 miles per hour takes about 5 — even the emergency brake
+  to the safe 25 miles per hour takes about 5 â€” even the emergency brake
   could not make it once you add the time to hear the warning. The
   deadline is now the braking time the truck actually needs from its
   current speed (on the current surface and grade) plus the rolled
-  reaction window, so hitting the brakes promptly always succeeds — in
+  reaction window, so hitting the brakes promptly always succeeds â€” in
   rain or snow you get the longer stop those surfaces really take.
   Drowsiness now eats into the reaction part only instead of the whole
   window, since a tired driver reacts late but the truck stops no
@@ -6185,13 +6187,13 @@ Every change since 1.8.8.1, as each tester snapshot listed it.
   I-35, Tennessee's Highland Rim on I-40, Wisconsin's driftless coulees
   on I-94, the Carolinas' piedmont, Connecticut on I-95, and the desert
   passes on I-10 (San Gorgonio, Texas Canyon) among others. Genuinely
-  flat country — the high plains, the Gulf coast, Florida, and the Illinois
-  prairie — stays flat.
+  flat country â€” the high plains, the Gulf coast, Florida, and the Illinois
+  prairie â€” stays flat.
 - **Realistic deadlines.** Dispatch can no longer ask for the
   impossible. Deadlines are now built from the hours a law-abiding
-  trucker actually needs — driving at an achievable 55 mph average, plus
+  trucker actually needs â€” driving at an achievable 55 mph average, plus
   the 30-minute break every 8 driving hours and a 10-hour sleep for
-  every 11-hour shift the distance demands — with 20 to 50 percent
+  every 11-hour shift the distance demands â€” with 20 to 50 percent
   shipper slack and a flat hour for fuel on top. San Antonio to Dallas
   now quotes a workable 7-to-8-hour window instead of a sprint.
 - **State trooper groundwork.** The next law-enforcement milestone is outlined:
@@ -6202,7 +6204,7 @@ Every change since 1.8.8.1, as each tester snapshot listed it.
   builds) instead of the per-user data directory. Existing saves are migrated
   over automatically on first launch; the originals are left in place.
 
-## 1.5.0 — 2026-06-10
+## 1.5.0 â€” 2026-06-10
 
 "On the Clock": hours of service, fatigue, day and night, and overnight
 parking. Everything runs on the in-game clock (`settings.time_scale`
@@ -6216,13 +6218,13 @@ compresses it as usual), never wall time.
   and at the violation itself. The C key now reports the clock time and
   HOS status alongside the deadline; Tab includes it at normal and chatty
   verbosity. Driving past a limit risks roadside inspections with
-  escalating fines (200 to 2,000 dollars) and reputation hits — never a
+  escalating fines (200 to 2,000 dollars) and reputation hits â€” never a
   game over. A new Settings entry, "Hours of service", picks realistic,
   relaxed (every limit 25 percent longer), or off.
 - **Rest stop menu.** Pressing T at a rest stop now opens a fully spoken
   menu: refuel (as before), take a 30-minute break, or sleep 10 hours.
   Resting advances the in-game clock, so the delivery deadline keeps
-  counting — that is the tension.
+  counting â€” that is the tension.
 - **Fatigue.** Builds with continuous driving (faster at night), eases
   with breaks, and clears with sleep. A drowsy driver yawns, drifts onto
   the rumble strip, hears spoken drowsiness warnings, and reacts late to
@@ -6234,7 +6236,7 @@ compresses it as usual), never wall time.
   and the previously unused "Night Haul" track while driving. V, Tab, and
   C mention the time of day, and arrivals speak the clock ("It is 11 PM").
 - **Overnight truck parking.** Arriving at a rest stop between 8 PM and
-  4 AM, the lot may be full — more likely as the evening wears on,
+  4 AM, the lot may be full â€” more likely as the evening wears on,
   deterministic per trip seed. A spoken menu offers driving on to the next
   stop or shoulder parking: a full HOS reset but poor rest (fatigue floor
   of 30) and a 15 percent chance of a 150-dollar ticket.
@@ -6257,7 +6259,7 @@ compresses it as usual), never wall time.
   snapshots load cleanly, defaulting to a fresh HOS clock and a rested
   driver.
 
-## 1.4.0 — 2026-06-10
+## 1.4.0 â€” 2026-06-10
 
 ### Added
 - **Home terminal picker.** A new career now asks where it should begin:
@@ -6286,12 +6288,12 @@ compresses it as usual), never wall time.
 - All 21 original cities and all 27 original direct legs are preserved
   verbatim, so old profiles and mid-trip snapshots load and resume unchanged.
 
-## 1.2.1 — 2026-06-09
+## 1.2.1 â€” 2026-06-09
 
 ### Added
 - **Mid-trip save and resume.** "Save and quit to main menu" while driving
-  now snapshots the delivery — job, route, position on the route, clock,
-  speeding strikes, and trip damage baseline — into the profile. Continue
+  now snapshots the delivery â€” job, route, position on the route, clock,
+  speeding strikes, and trip damage baseline â€” into the profile. Continue
   (and Load driver) resume the drive right where you left off, parked with
   the engine off, with a spoken recap of cargo, destination, remaining
   miles, and hours used. Construction and traffic zones reappear in the
@@ -6303,21 +6305,21 @@ compresses it as usual), never wall time.
 - "Save and quit to main menu" no longer silently discards the delivery
   (previously Continue always returned to the city with the job gone).
 
-## 1.2.0 — 2026-06-09
+## 1.2.0 â€” 2026-06-09
 
 ### Added
 - **Smoother truck engine audio.** Engine sound now follows RPM more naturally,
   with smoother transitions as you accelerate, shift, and settle into highway
   speed.
-- **Garage upgrades** (Garage → Upgrades), money-gated and saved on the
+- **Garage upgrades** (Garage â†’ Upgrades), money-gated and saved on the
   profile: engine tune (+10% torque per tier, two tiers), aerodynamic kit
-  (−12% drag), long-range tank (+50 gallons), and reinforced brakes (fade
+  (âˆ’12% drag), long-range tank (+50 gallons), and reinforced brakes (fade
   onset pushed 150 degrees hotter). Upgrades feed straight into the driving
   physics.
-- **A second truck**: the heavy hauler (Garage → Trucks) — a quarter more
+- **A second truck**: the heavy hauler (Garage â†’ Trucks) â€” a quarter more
   torque and a 200-gallon tank, but blunter aerodynamics and a thirstier
   engine. Buy it once, then switch between owned trucks at any garage.
-- **Freight market**: every cargo class carries a pay multiplier (0.8–1.3)
+- **Freight market**: every cargo class carries a pay multiplier (0.8â€“1.3)
   that drifts each in-game day on a seeded random walk persisted in the
   profile. Job descriptions call out tight and loose markets,
   and the job board opens with a spoken market watch headline.
@@ -6334,10 +6336,10 @@ compresses it as usual), never wall time.
   [un4seen developments](https://www.un4seen.com/bass.html#license) is
   required. See the README's license section.
 
-## 1.1.0 — 2026-06-09
+## 1.1.0 â€” 2026-06-09
 
 ### Added
-- **Real-world weather** (Settings → Weather source): live current
+- **Real-world weather** (Settings â†’ Weather source): live current
   conditions for each city from the free
   [Open-Meteo](https://open-meteo.com) API (no key required). WMO weather
   codes map onto the game's conditions, including strong-wind promotion.
@@ -6348,7 +6350,7 @@ compresses it as usual), never wall time.
   for the cities along the route, and the V key while driving reports
   "live conditions" for the city you are heading toward.
 
-## 1.0.0 — 2026-06-09
+## 1.0.0 â€” 2026-06-09
 
 First release. Complete rewrite of the prototype.
 

@@ -97,7 +97,7 @@ impl DrivingState {
         if ctx.settings.pedal_latch != "off" {
             lines.push(
                 "Tap the brake, then press again and hold half a second to latch it \
-                 hands-free; a click and a spoken confirmation mark the catch."
+                 hands-free. The game confirms when it catches."
                     .to_string(),
             );
             lines.push(format!(
@@ -181,7 +181,7 @@ impl DrivingState {
         ));
         lines.push(format!(
             "{radio_status} speaks station, volume, and streamer-safe status; \
-             {now_playing} speaks the song when the station says."
+             {now_playing} reads the song title when the station provides it."
         ));
         lines.push(format!(
             "The Driver apps tablet has a Radio app to search the dial, tune by name, \
@@ -229,8 +229,8 @@ impl DrivingState {
             "{lane} lane position and whether the lane beside you is open."
         ));
         lines.push(format!(
-            "{lane_locator} turns the lane locator on and off: a soft tock once a beat, \
-             panned to where you sit in your lane, on lane keeping partial or off."
+            "{lane_locator} turns the lane locator on and off. Its directional cue marks your \
+             position within the lane when lane keeping is partial or off."
         ));
         lines.push(format!(
             "{last_announcement} repeats the last driving announcement."

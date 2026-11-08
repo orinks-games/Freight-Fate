@@ -236,7 +236,7 @@ impl Menu for MainMenuState {
             MenuItem::new("Learn game sounds", |_s: &mut Self, ctx| {
                 ctx.push_state(LearnSoundsState::new())
             })
-            .help("Any sound the road uses, and what it means."),
+            .help("Gameplay cues and what each one means."),
         );
         items.push(
             MenuItem::new("Practice keys and buttons", |_s: &mut Self, ctx| {

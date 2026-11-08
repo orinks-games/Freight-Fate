@@ -601,14 +601,14 @@ impl Instructor for Tutorial {
             self.hinted = false;
             let text = if ctx.settings.automatic_transmission {
                 format!(
-                    "At air ready, press {} to release the parking brake, then hold {} to \
+                    "When air pressure is ready, press {} to release the parking brake, then hold {} to \
                      accelerate.",
                     ctx.control_hint("parking_brake"),
                     ctx.control_hint("accelerate")
                 )
             } else {
                 format!(
-                    "At air ready, press {} to release the parking brake, then hold {}, select \
+                    "When air pressure is ready, press {} to release the parking brake, then hold {}, select \
                      {} for first gear, and release the clutch.",
                     ctx.control_hint("parking_brake"),
                     ctx.control_hint("clutch"),

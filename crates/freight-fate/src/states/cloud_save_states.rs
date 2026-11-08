@@ -516,13 +516,13 @@ impl Menu for ConfirmRestoreState {
 
     fn announce_entry(&mut self, ctx: &mut GameContext) {
         let summary = match summary_of(&self.entry) {
-            Some(summary) => format!(" It is {summary},"),
+            Some(summary) => format!(" It is {summary}."),
             None => String::new(),
         };
         let current = self.current_text(ctx);
         ctx.say(&format!(
             "Restore the backup of {}, \
-             {}?{summary} replacing \
+             {}?{summary} This will replace \
              this computer's save for that career. The replaced save is kept \
              as a fallback file. {current}",
             self.slot.save_name,

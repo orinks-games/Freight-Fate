@@ -312,7 +312,7 @@ impl Menu for OnlineHubState {
             )
             .help(
                 "Says when another driver goes on or off duty, like Road Star is on duty, \
-                 anywhere in the game. Checks the public drivers list about once a minute, \
+                 anywhere in the game. Checks the public drivers list about every two minutes, \
                  needs no account, and shares nothing about you.",
             ),
             MenuItem::new("Account achievements", |s: &mut Self, ctx| {

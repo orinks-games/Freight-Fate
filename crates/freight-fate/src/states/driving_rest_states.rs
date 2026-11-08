@@ -99,14 +99,12 @@ pub fn major_offense_text(ctx: &GameContext, kind: &str, hours: f64) -> String {
     };
     if kind == enforcement::SUSPENSION_LIFETIME {
         return format!(
-            "That is your second major offense. Under federal rules a second major offense \
-             disqualifies a commercial license for life, so this driver will not drive \
-             commercially again. Nothing is taken away: {name} keeps every dollar, the truck, \
-             and the whole record, and you can open this career any time to look back over it. \
+            "That is your second major offense. Your CDL is disqualified for life in this \
+             career. {name} keeps every dollar, the truck, and the whole record. \
+             You can open this career any time to look back over it. \
              Rest, repairs, and the garage still work here, and the dispatch \
              board can still be read, but there is no driving work and no date this clears. When \
-             you want the road again, start a new career from the title menu. Everything you \
-             learned still applies."
+             you want the road again, start a new career from the title menu."
         );
     }
     format!(

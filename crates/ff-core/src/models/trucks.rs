@@ -646,21 +646,24 @@ pub const UPGRADE_CATALOG: &[Upgrade] = &[
     Upgrade {
         key: "engine_tune",
         label: "Engine tune",
-        description: "Adds pulling power for heavy freight, steep climbs, and starting from a stop \
+        description:
+            "Adds pulling power for heavy freight, steep climbs, and starting from a stop \
              with a load.",
         prices: &[12_000.0, 26_000.0],
     },
     Upgrade {
         key: "aero_kit",
         label: "Aerodynamic kit",
-        description: "Cuts fuel use at highway speed, saving diesel money and stretching your range \
+        description:
+            "Cuts fuel use at highway speed, saving diesel money and stretching your range \
              without adding tank capacity.",
         prices: &[9_000.0],
     },
     Upgrade {
         key: "long_range_tank",
         label: "Long-range tank",
-        description: "Adds fifty gallons of fuel capacity for more choice of routes and fuel stops. \
+        description:
+            "Adds fifty gallons of fuel capacity for more choice of routes and fuel stops. \
              Fuel efficiency stays the same.",
         prices: &[7_500.0],
     },

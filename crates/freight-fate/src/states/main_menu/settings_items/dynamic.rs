@@ -88,9 +88,8 @@ impl SettingsCategoryState {
                  speed are yours. Off drifts like a real truck; bends are \
                  yours unless curve assistance is on, and every exit needs a \
                  signal and the exit lane. On partial or off, {lean}. Road \
-                 noise tells you where you sit in the lane, and the edge \
-                 tells you when you leave it: a stutter on the edge of the \
-                 rumble strip, a buzz fully on it, gravel off the pavement. \
+                 and lane-edge cues mark your position. Try them in Learn \
+                 game sounds. \
                  Steering guide and Lane guide sound, under \
                  Audio, change which way to steer and what leans. \
                  Realistic sets this off, Balanced partial, All assists \
