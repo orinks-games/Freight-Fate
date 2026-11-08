@@ -16,6 +16,8 @@
 
 ### Changed
 
+- **Truck-stop service descriptions focus on their effects in the game,** without implying that an oil change repairs existing engine damage.
+
 - **Achievement descriptions and roadside billboards read more naturally.** Song references and achievement requirements are unchanged.
 - **Career descriptions use plainer language.** The lifetime-disqualification notice clearly distinguishes lost driving privileges from the career record you keep.
 - **Truck upgrade help is shorter.** Truck descriptions no longer imply immunity to breakdowns or crosswinds, or a coast-to-coast run without stops.
