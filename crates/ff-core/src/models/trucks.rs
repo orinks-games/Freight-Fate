@@ -253,9 +253,8 @@ pub static TRUCK_CATALOG: Lazy<IndexMap<&'static str, TruckModel>> = Lazy::new(|
             "plain_jane_conventional",
             "plain jane conventional",
             34_000.0,
-            "No chrome, no fairings, no nonsense: a base-spec conventional \
-             sleeper bought by the dozen. Nothing about it is special and \
-             nothing about it breaks.",
+            "A base-spec conventional sleeper bought by the dozen. No chrome or fairings, \
+             just a plain working truck.",
             specs(2_350.0, 155.0, 0.67, base.fuel_burn_factor, 35_900.0),
             CAB_SLEEPER,
             SPEC_STANDARD,
@@ -483,9 +482,8 @@ pub static TRUCK_CATALOG: Lazy<IndexMap<&'static str, TruckModel>> = Lazy::new(|
             "wide_glide_tourer",
             "wide glide tourer",
             136_000.0,
-            "A wide-cab highway tourer built around the seat and the sound \
-             system: quiet at speed, easy over a long day, and no trouble at \
-             all in a crosswind.",
+            "A wide-cab highway tourer built around the seat and the sound system: quiet at \
+             speed and comfortable over a long day.",
             specs(2_800.0, 220.0, 0.58, 0.94, 36_500.0),
             CAB_SLEEPER,
             SPEC_STANDARD,
@@ -575,9 +573,8 @@ pub static TRUCK_CATALOG: Lazy<IndexMap<&'static str, TruckModel>> = Lazy::new(|
             "continental_expedition",
             "continental expedition",
             216_000.0,
-            "Built to cross the continent without a scheduled stop: two \
-             hundred fifty gallons, mountain-grade brakes, and enough torque \
-             to make a loaded pull feel like an errand.",
+            "Built for cross-country work: two hundred fifty gallons, mountain-grade \
+             brakes, and enough torque to make a loaded pull feel like an errand.",
             TruckSpecs {
                 brake_fade_temp_c: 480.0,
                 engine_brake_torque_nm: 2_200.0,
@@ -649,33 +646,29 @@ pub const UPGRADE_CATALOG: &[Upgrade] = &[
     Upgrade {
         key: "engine_tune",
         label: "Engine tune",
-        description: "Gives the truck more pulling power. It helps with heavy freight, \
-                      hill climbs, mountain grades, and starting from a stop with a load. \
-                      Buy it when heavy loads and steep routes feel sluggish.",
+        description: "Adds pulling power for heavy freight, steep climbs, and starting from a stop \
+             with a load.",
         prices: &[12_000.0, 26_000.0],
     },
     Upgrade {
         key: "aero_kit",
         label: "Aerodynamic kit",
-        description: "Makes the truck burn less fuel at highway speed. It does not add \
-                      more fuel capacity; it makes the same tank last longer. Buy it to \
-                      save diesel money over long highway miles.",
+        description: "Cuts fuel use at highway speed, saving diesel money and stretching your range \
+             without adding tank capacity.",
         prices: &[9_000.0],
     },
     Upgrade {
         key: "long_range_tank",
         label: "Long-range tank",
-        description: "Adds fifty gallons of fuel capacity. It does not make the truck more \
-                      efficient; it lets you carry more fuel. Buy it for more distance \
-                      between fuel stops and more route flexibility.",
+        description: "Adds fifty gallons of fuel capacity for more choice of routes and fuel stops. \
+             Fuel efficiency stays the same.",
         prices: &[7_500.0],
     },
     Upgrade {
         key: "reinforced_brakes",
         label: "Reinforced brakes",
-        description: "Keeps braking power strong for longer when the brakes get hot. It \
-                      helps on mountain descents, with heavy freight, and during emergency \
-                      stops. Buy it when downhill control matters more than speed or range.",
+        description: "Helps the brakes hold their power longer as they heat up, useful for heavy \
+             freight, mountain descents, and emergency stops.",
         prices: &[6_500.0],
     },
 ];
