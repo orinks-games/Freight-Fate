@@ -16650,10 +16650,8 @@ msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
 msgid ""
-"Grouped bars cut across the whole lane, not along its edge. Real road "
-"agencies only cut these ahead of a curve that has killed people. Brake as "
-"soon as you hear them; they are placed far enough back that braking still "
-"makes the corner."
+"Strips across the lane warn of a sharp curve ahead. Brake as soon as you "
+"hear them so you can slow before the corner."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
@@ -16919,10 +16917,9 @@ msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
 msgid ""
-"You got past the hazard. This is the success half of the dodge outcome "
-"pair: at Urgent only it is the whole confirmation that you cleared it, and "
-"you can go back to normal speed. Its opposite is the collision below. The "
-"two sound nothing alike, so 'did I make it?' is never in doubt."
+"You cleared the hazard and can return to normal speed. With driving speech "
+"set to Urgent only, this sound confirms the outcome without a spoken "
+"message."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
@@ -16931,10 +16928,8 @@ msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
 msgid ""
-"You hit it. This is the failure half of the dodge outcome pair: where the "
-"hazard-clear chime says you got past, this says you did not, and a spoken "
-"damage figure follows. At Urgent only the sound is the outcome, so it is "
-"worth knowing before you need it."
+"You hit the hazard. A spoken damage report follows, except with driving "
+"speech set to Urgent only, when the sound alone reports the collision."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
@@ -16984,8 +16979,8 @@ msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
 msgid ""
-"The next maneuver is a right. Same rule as a left, and a right in a truck "
-"needs more room than it looks like it should."
+"The next turn is right. Slow to the advised speed before the corner and "
+"allow room for the trailer."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
@@ -17014,9 +17009,8 @@ msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
 msgid ""
-"You are the one making this sound. Fatigue is building, faster at night, "
-"and a tired driver drifts and reacts late. Plan a stop rather than pushing "
-"through it."
+"Fatigue is building, faster at night. A tired driver drifts and reacts "
+"late. Plan a rest stop."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
@@ -17047,12 +17041,9 @@ msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
 msgid ""
-"The marker again, with a vehicle going past a fifth of a second behind it. "
-"You have just passed an enforcement post and a marked car is around it. "
-"This one is news, not a warning: it sounds once you are already by, and it "
-"means an officer was sitting there. The demo plays it on the left, the side "
-"an ordinary post is on, and then on the right, the side a weigh station is "
-"on."
+"You have passed an enforcement post with a marked car nearby. This reports "
+"a post behind you, not an approaching one. The demo plays on the left for "
+"an ordinary post, then on the right for a weigh station."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
@@ -17091,10 +17082,8 @@ msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
 msgid ""
-"An open weigh station is ahead. The full spoken notice, with the distance, "
-"name and exit key, follows right behind it. Its own low thump-then-beep, "
-"not the inspection cue, so the scale is unmistakable before a word is "
-"spoken."
+"An open weigh station is ahead. The spoken notice gives its distance, name, "
+"and exit key."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
@@ -17202,10 +17191,8 @@ msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
 msgid ""
-"The load hitting the side of the tank. It has its own voice, separate from "
-"the fore-and-aft strike, because it means something different: this is the "
-"one that rolls trucks. It arrives after you have already turned or changed "
-"lanes."
+"The load strikes the side of the tank after a turn or lane change. The "
+"sideways force can roll the truck."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
@@ -40728,7 +40715,7 @@ msgstr ""
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
 "With Latching brake on, tap the brake, then press and hold again for half a "
-"second. A click and announcement confirm the latch."
+"second. Wait for confirmation before releasing the key."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
@@ -41271,7 +41258,7 @@ msgstr ""
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
 "The curve call gives direction, distance, and advisory speed. Brake to that "
-"speed before the bend. A tone marks the bend's side."
+"speed before the bend."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
@@ -41282,26 +41269,36 @@ msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
+msgid "It indicates your position within the lane."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
-"The Steering guide setting can reverse which way to steer, and Lane guide "
-"sound can use a soft tone instead of the engine."
+"Steering guide chooses which way to steer, and Lane guide sound chooses "
+"engine or tone."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/main_menu_help.rs
+msgid "Try these cues in Learn game sounds."
 msgstr ""
 
 #. placeholders: {control_lane_locator}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
-"{control_lane_locator} turns the lane locator on or off: a soft tock that "
-"follows your place in the lane, with lane keeping partial or off."
+"{control_lane_locator} turns the lane locator on or off with lane keeping "
+"partial or off."
 msgstr ""
 
 #. placeholders: {control_lane_locator}
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
-"{control_lane_locator} turns the lane locator on or off: a soft tock that "
-"follows your place in the lane, with lane keeping partial or off. The "
-"Steering guide setting can reverse which way to steer, and Lane guide sound "
-"can use a soft tone instead of the engine."
+"{control_lane_locator} turns the lane locator on or off with lane keeping "
+"partial or off. It indicates your position within the lane. Steering guide "
+"chooses which way to steer, and Lane guide sound chooses engine or tone. "
+"Try these cues in Learn game sounds."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
@@ -41384,8 +41381,8 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
-"Every light change is spoken. The sensor tick speeds up near the stop bar. "
-"Cross traffic can hit a truck that runs through."
+"Every light change is spoken. Stop at the stop bar; cross traffic can hit a "
+"truck that runs through."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
@@ -41475,9 +41472,7 @@ msgid ""
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
-msgid ""
-"Mainline traffic stays to your left on an on-ramp. The distant freeway "
-"sound follows traffic activity, so busy and quiet stretches sound different."
+msgid "Mainline traffic stays to your left on an on-ramp."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs

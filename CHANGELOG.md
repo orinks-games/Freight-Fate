@@ -16,6 +16,8 @@
 
 ### Changed
 
+- **Help focuses on driving actions and controls.** Learn game sounds explains cue meanings without sound-design commentary.
+
 - **The manual and README use current cruise and settings names.** The control reference also clarifies stop planning and cruise-speed adjustments.
 
 - **Updates check and install faster.** Unchanged sound packs are no longer copied or checked twice.

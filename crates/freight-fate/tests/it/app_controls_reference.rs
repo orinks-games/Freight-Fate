@@ -12,6 +12,28 @@ use freight_fate::states::driving_pause_states::{mechanic_label, PauseMenuState}
 use freight_fate::states::main_menu::{controls_help_page, help_pages, HelpState, HELP_PAGES};
 
 #[test]
+fn help_keeps_actions_and_points_to_sound_practice() {
+    let page = |name: &str| {
+        HELP_PAGES
+            .iter()
+            .find(|(title, _)| *title == name)
+            .unwrap()
+            .1
+            .join(" ")
+    };
+    let steering = page("Steering and curves");
+    assert!(steering.contains("{{lane_locator}} turns the lane locator on or off"));
+    assert!(steering.contains("Steer toward") || steering.contains("steer toward"));
+    assert!(steering.contains("Brake to that speed before the bend"));
+    assert!(steering.contains("Learn game sounds"));
+    assert!(!steering.contains("soft tock"));
+    let ramps = page("Exits, ramps, and arrival");
+    assert!(ramps.contains("Stop at red"));
+    assert!(ramps.contains("Stop at the stop bar"));
+    assert!(ramps.contains("Cross traffic") || ramps.contains("cross traffic"));
+}
+
+#[test]
 fn test_controls_help_page_points_at_the_driving_keys() {
     let app = TestApp::new();
     let idx = controls_help_page();

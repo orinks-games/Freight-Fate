@@ -245,7 +245,7 @@ A controller can't type. On the driver name, press A without typing and your dri
 
 The terminal is your stop between jobs. Before taking another load, you can review your money, trust, and driving record in Career stats, check the next unlock in Career plan, or read your duty entries in Logbook. Dispatch, rest, training, and service are available here too.
 
-| Choice | What It Does |
+| Choice | What it does |
 | --- | --- |
 | Dispatch board | Browse freight offers from local facilities. |
 | Truck dealer | Owner-operators only. Browse tractors at the local dealer, buy one, or switch between the trucks you own. The intro names a local dealer when one is listed for that area. |
@@ -307,7 +307,7 @@ As a company driver, you're paid wages and bonuses from what the carrier earns. 
 | Poor | Assigned loads whatever your level, a board down to two offers, and the good freight goes to other drivers. |
 | Last chance | One assigned load at a time, no refusals, and the carrier is deciding whether to keep you. |
 
-| Upgrade, Program, Or Trailer | Effect |
+| Upgrade, program, or trailer | Effect |
 | --- | --- |
 | Engine tune | Adds pulling power. |
 | Aerodynamic kit | Improves highway fuel economy. |
@@ -379,7 +379,7 @@ A control marked Driving commands has no controller button. Hold the right bumpe
 | Down arrow, tap then press and hold | Not on the controller | Latch the brake so it stays applied hands-free. A click and a spoken confirmation mark the catch after about half a second of holding. Press Down arrow once to take it back; the accelerator releases it instantly. The throttle key never latches. Turn the gesture off under Settings, Driving assistance, Latching brake. |
 | B, hold | Left trigger, all the way down | Emergency brake. |
 | E | Right bumper plus A | Start the engine. Stop the engine only below 5 miles per hour. |
-| P | Right bumper plus Y | Release or set the parking brake. Set it above a crawl and the spring brakes slam on: a screech, a hard stop, and permanent flat spots ground into the tires, worse the faster you were going. It is not a brake pedal. |
+| P | Right bumper plus Y | Release or set the parking brake. Applying it while moving causes a hard stop and tire damage that increases with speed. Use the brake pedal for normal stops. |
 | K | Y | Start or cancel automatic speed control. It uses cruise on the highway, work zones and heavy traffic included, and low-speed cruise on streets and facility approaches. It pauses through the planned pickup and resumes once the loaded truck is rolling. Braking elsewhere also cancels it. Parked with the parking brake set, K latches a high idle instead. |
 | Shift+K | Driving commands | Resume automatic speed control at the last speed you had set, after braking cancelled it. |
 | Plus / Minus | Right bumper plus D-pad right or left | Raise or lower the cruise speed while automatic speed control is active, snapping outward to the next multiple of 5 mph: from 32 it lands on 35, then 40. The keypad Plus and Minus keys work too. |
@@ -396,9 +396,9 @@ A control marked Driving commands has no controller button. Hold the right bumpe
 | Shift+Z | Not on the controller | Switch the fan between heat and air conditioning. A drive starts on whichever the weather calls for. |
 | Space | B | Report speed, gear, and the active speed-control mode and cruise speed when speed control is on. RPM is added with a manual transmission, and air pressure or the parking brake only when they need attention. With the signal set for an exit, it ends with that exit and how far away it is. Tab has the full air and brake readings. |
 | S | Right bumper plus X | Report the posted speed limit here, the zone if any, and how far over you are. In bend country it adds the bend's advisory speed, since the posted limit and the yellow diamond are different numbers on a real road. On a delivery ramp that ends at a traffic light, S answers with the light and the distance to the stop bar instead, since the light is the law there. |
-| D | Driving commands | Report one safe-speed number for right now. Weather grip, a steep downgrade, and the next bend are already baked into the number. On an exit ramp it is the exit speed. |
+| D | Driving commands | Report the safe speed for current weather, a steep downgrade, and the next bend. On an exit ramp it is the exit speed. |
 | G | Driving commands | Report the grade under the wheels: the slope, how far it runs, and whether the truck is holding, pulling, or losing it, including whether the engine brake has the descent or is about to lose it. G also names the next grade ahead worth planning for, how far off and how long it runs, including one that steepens without flattening out first, and the gentler pull automatic speed control is building speed for when nothing steep is coming. |
-| I | Driving commands | Turn the lane locator on or off: a soft tock, once a beat, panned to where the truck sits inside its lane. It keeps ticking until you turn it off. Needs lane keeping on partial or off. |
+| I | Driving commands | Turn the lane locator on or off. It indicates your position within the lane and stays on until you turn it off. Needs lane keeping on partial or off. Try it in Learn game sounds. |
 | Enter | A | Arrive: accept a facility arrival once you are fully stopped. |
 | Tab | Right bumper plus Start | Open the driving status menu. |
 | F | Right bumper plus B | Report fuel level and estimated range, worked out from this drive's own miles per gallon once it has driven far enough to measure them. |
@@ -543,9 +543,9 @@ Get down to the advisory speed before entering the bend. The call gives you its 
 
 With the default steering guide, steer toward the side the engine leans. If lane keeping and curve assistance are both off, hold toward the called turn to follow the road. Partial lane keeping or curve assistance follows the bend while you correct drift. Full lane keeping does the steering, and arrow taps request lane changes. On a controller, the left stick steers as far as you push it; with full lane keeping, a push left or right requests a lane change instead.
 
-The steering guide tells you which way to correct; road noise tells you where the truck sits. Road noise on the right means you're right of center. You can reverse the steering-guide convention in settings or move it from the engine to a soft tone with Lane guide sound. I adds a continuous lane-position tock with partial lane keeping or lane keeping off.
+The steering guide tells you which way to correct; road noise indicates your position within the lane. You can reverse the steering-guide direction in settings or choose engine or tone under Lane guide sound. I turns on the lane locator with partial lane keeping or lane keeping off. Use Learn game sounds to practice these cues.
 
-Listen for warning-bar thuds before a hairpin. A side marker thump means a tire has crossed the line. Rumble-strip stutter, then buzz, then gravel tells you you're moving farther off the road on that side. Correct gently. Hard braking with the trailer wheels in dirt can make recovery worse.
+Brake before a hairpin and keep the truck within its lane. If you reach the edge or leave the pavement, correct gently. Hard braking with the trailer wheels in dirt can make recovery worse. Learn game sounds lets you practice the curve, lane-crossing, and road-edge cues.
 
 On an undivided road, crossing the centerline puts you into opposing traffic. At the bend's end, the verdict tells you whether you held your line, caught the edge, or entered too fast.
 
@@ -553,14 +553,14 @@ On an undivided road, crossing the centerline puts you into opposing traffic. At
 
 Snow, ice, and freezing rain leave you less grip, particularly on worn tires. Steer and brake gradually. The engine brake needs care too; a strong setting can be more than the tires can hold.
 
-| Equipment | What It Does |
+| Equipment | What it does |
 | --- | --- |
 | Winter tires | A fresh set in a winter compound. Better grip on snow and ice all season, no speed penalty, normal wear. Company drivers ride on whatever the carrier specs. |
 | Snow chains | A set kept in the truck's side box until you hang them. Chains rule ice and packed snow, but demand chain speed, around 30 miles per hour, and they grind apart fast on bare pavement. Snapped chains are replaced at the garage. |
 
 To fit or remove chains, stop and open the pause menu. The work counts on duty, and doing it in darkness takes longer and adds fatigue. Once they're fitted, keep near thirty miles per hour. Take them off when you reach bare pavement, before they break.
 
-Level 1 chain law accepts winter tires or chains. Level 2 requires chains on the drive axles. Ignoring the requirement brings a base citation of 580 dollars before multipliers.
+Chain laws require chains on a truck at every level; winter tires do not normally qualify. At level 1, Colorado and Oregon require them only on single-drive-axle trucks, and Wyoming accepts snow tires. Follow the announced requirement before the chain-up area. Ignoring it brings a base citation of 580 dollars before multipliers.
 
 ## Traffic and sharing the road
 
@@ -811,13 +811,13 @@ ELD brings together your hours summary and route guidance about legal rest. Use 
 
 Escape pauses the drive and opens its menu. On a controller, Start pauses, and Start again resumes. If you're stopped, Call dispatch lets you report a delay or ask about hours, road conditions, equipment, and freight. Dispatch can arrange roadside help if the truck needs it.
 
-| Choice | What It Does |
+| Choice | What it does |
 | --- | --- |
 | Resume driving | Return to the active drive. |
 | Trip status | Review your load, destination, progress, hours used, and air pressure. |
 | Call dispatch | While stopped: report a delay, or ask about hours, the road ahead, truck trouble or the load. Dispatch can send the roadside mechanic. |
 | Controls and help | Open the how-to-play reference at the driving keys, page by page, without leaving the drive. |
-| Learn game sounds | Hear any sound the road uses and what it means. |
+| Learn game sounds | Listen to gameplay cues and learn what they mean. |
 | Call a roadside mechanic | Patch severe truck damage enough to continue, at a high cost. |
 | Install snow chains | While stopped with chains in the side box: hang the chains. Takes real minutes, more in the dark, logged as on-duty work. |
 | Remove snow chains | While stopped with chains mounted: take them off before bare pavement grinds them apart. |
@@ -834,7 +834,7 @@ The game saves at terminals, supported road points, and important trip transitio
 
 Follow the destination exit into the local streets and yard. Stop at the gate and confirm arrival. If you want to review the expected settlement before unloading, choose Check paperwork. Dock and deliver completes the handover.
 
-| Choice | What It Does |
+| Choice | What it does |
 | --- | --- |
 | Dock and deliver | Unload the trailer, sign the paperwork, and open settlement. |
 | Check paperwork | Review facility, cargo, payout, deadline, damage, tolls, approved charges, driver charges, and net pay before settlement. |
@@ -1020,17 +1020,6 @@ Everything in Freight Fate can be played by ear, and everything the game says ca
 - **Captions** show each announcement for a few seconds, so nothing the game says is missed.
 
 The window can be resized or made full screen, and everything scales with it. To turn the drawing off, set Visual display to off under Settings, Gameplay, Controls; the window stays dark and uses less power. The game also stops drawing while its window is minimized or, on a Mac, covered by other windows.
-
-| Category | Examples |
-| --- | --- |
-| UI | Menu movement, selection, warning, cash, pause, unpause, and notification sounds. |
-| Engine | Engine start, shutdown, idle, and RPM-tracking running engine audio. |
-| Vehicle | Horn, gear shift, parking brake, brake air, road noise, road seams, collision, rumble strip, and fuel pump sounds. |
-| Weather | Rain, snow, wind, thunder, and fog sounds. |
-| Route events | Hazards, construction zones, inspections, state crossings, traffic slowing, and toll charges. |
-| Facilities and stops | Facility gates, docks, rest stops, and weigh station lanes. |
-| Music | Menu, facility, day-driving, and night-driving music pools. |
-| In-cab radio | Keyboard-controlled driving music and safe station status. |
 
 ## Radio and playlists
 

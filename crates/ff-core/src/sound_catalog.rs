@@ -250,10 +250,8 @@ const LANE: SoundCategory = SoundCategory {
             // Level rises with road speed at the call site; this is what a
             // hairpin approach sounds like, which is the only place they exist.
             &[Cue::new("vehicle/transverse_strips").volume(0.95)],
-            "Grouped bars cut across the whole lane, not along its edge. Real \
-             road agencies only cut these ahead of a curve that has killed \
-             people. Brake as soon as you hear them; they are placed far \
-             enough back that braking still makes the corner.",
+            "Strips across the lane warn of a sharp curve ahead. Brake as soon as you \
+             hear them so you can slow before the corner.",
         ),
         SoundEntry::new(
             "Mechanical blinker",
@@ -493,19 +491,15 @@ const HAZARDS: SoundCategory = SoundCategory {
         SoundEntry::new(
             "Hazard clear",
             &[Cue::new("events/hazard_clear").volume(0.75)],
-            "You got past the hazard. This is the success half of the \
-             dodge outcome pair: at Urgent only it is the whole confirmation \
-             that you cleared it, and you can go back to normal speed. Its \
-             opposite is the collision below. The two sound nothing alike, \
-             so 'did I make it?' is never in doubt.",
+            "You cleared the hazard and can return to normal speed. With driving \
+             speech set to Urgent only, this sound confirms the outcome without a \
+             spoken message.",
         ),
         SoundEntry::new(
             "Collision",
             &[Cue::new("vehicle/collision").volume(0.9)],
-            "You hit it. This is the failure half of the dodge outcome pair: \
-             where the hazard-clear chime says you got past, this says you did \
-             not, and a spoken damage figure follows. At Urgent only the \
-             sound is the outcome, so it is worth knowing before you need it.",
+            "You hit the hazard. A spoken damage report follows, except with driving \
+             speech set to Urgent only, when the sound alone reports the collision.",
         ),
         SoundEntry::new(
             "Construction zone",
@@ -535,8 +529,8 @@ const HAZARDS: SoundCategory = SoundCategory {
         SoundEntry::new(
             "Turn right",
             &[Cue::new("events/turn_right").pan(0.6)],
-            "The next maneuver is a right. Same rule as a left, and a right \
-             in a truck needs more room than it looks like it should.",
+            "The next turn is right. Slow to the advised speed before the corner and \
+             allow room for the trailer.",
         ),
         SoundEntry::new(
             "State line",
@@ -553,9 +547,8 @@ const HAZARDS: SoundCategory = SoundCategory {
         SoundEntry::new(
             "Yawn",
             &[Cue::new("driver/yawn").volume(0.9)],
-            "You are the one making this sound. Fatigue is building, faster \
-             at night, and a tired driver drifts and reacts late. Plan a \
-             stop rather than pushing through it.",
+            "Fatigue is building, faster at night. A tired driver drifts and reacts \
+             late. Plan a rest stop.",
         ),
     ],
 };
@@ -609,13 +602,9 @@ const ENFORCEMENT: SoundCategory = SoundCategory {
                     .pan(0.55)
                     .delay_s(2.8),
             ],
-            "The marker again, with a vehicle going past a fifth of a second \
-             behind it. You have just passed an enforcement post and a marked \
-             car is around it. This one is news, not a warning: it sounds \
-             once you are already by, and it means an officer was sitting \
-             there. The demo plays it on the left, the \
-             side an ordinary post is on, and then on the right, the side a \
-             weigh station is on.",
+            "You have passed an enforcement post with a marked car nearby. This \
+             reports a post behind you, not an approaching one. The demo plays on the \
+             left for an ordinary post, then on the right for a weigh station.",
         )
         .when(
             "Past a post with an officer in it. An empty post is silent. \
@@ -645,10 +634,8 @@ const ENFORCEMENT: SoundCategory = SoundCategory {
         SoundEntry::new(
             "Scale warning",
             &[Cue::new("events/weigh_station_warning").volume(0.7)],
-            "An open weigh station is ahead. The full spoken notice, with \
-             the distance, name and exit key, follows right behind it. Its \
-             own low thump-then-beep, not the inspection cue, so the scale \
-             is unmistakable before a word is spoken.",
+            "An open weigh station is ahead. The spoken notice gives its distance, \
+             name, and exit key.",
         ),
         SoundEntry::new(
             "Scale green light",
@@ -734,10 +721,8 @@ const LOAD: SoundCategory = SoundCategory {
         SoundEntry::new(
             "Surge strike, sideways",
             &[Cue::new("vehicle/liquid_hit_lateral").volume(0.85)],
-            "The load hitting the side of the tank. It has its own voice, \
-             separate from the fore-and-aft strike, because it means \
-             something different: this is the one that rolls trucks. It \
-             arrives after you have already turned or changed lanes.",
+            "The load strikes the side of the tank after a turn or lane change. The \
+             sideways force can roll the truck.",
         )
         .when("Liquid bulk freight in a tank trailer only."),
     ],

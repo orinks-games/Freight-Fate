@@ -6,6 +6,31 @@ use super::*;
 use std::collections::HashSet;
 
 #[test]
+fn cue_meanings_explain_outcomes_without_production_commentary() {
+    let clear = entry_by_name("Hazard clear").unwrap().meaning;
+    assert!(clear.contains("cleared the hazard"));
+    assert!(clear.contains("Urgent only"));
+    let collision = entry_by_name("Collision").unwrap().meaning;
+    assert!(collision.contains("damage report"));
+    assert!(collision.contains("Urgent only"));
+    let strips = entry_by_name("Transverse strips").unwrap().meaning;
+    assert!(strips.contains("Brake as soon as you hear them"));
+    for entry in catalog_entries() {
+        for phrase in [
+            "outcome pair",
+            "a fifth of a second",
+            "curve that has killed",
+        ] {
+            assert!(!entry.meaning.contains(phrase), "{}: {phrase}", entry.name);
+        }
+        for cue in entry.plays {
+            assert!(!cue.key.starts_with("ambient/"));
+            assert!(!cue.key.starts_with("music/"));
+        }
+    }
+}
+
+#[test]
 fn mechanical_blinker_is_taught_separately_from_the_i_key_locator() {
     let blinker = entry_by_name("Mechanical blinker").unwrap();
     assert!(blinker
