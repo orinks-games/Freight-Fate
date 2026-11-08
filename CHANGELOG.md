@@ -16,6 +16,8 @@
 
 ### Changed
 
+- **Achievement descriptions and roadside billboards read more naturally.** Song references and achievement requirements are unchanged.
+
 - **Help focuses on driving actions and controls.** Learn game sounds explains cue meanings without sound-design commentary.
 
 - **The manual and README use current cruise and settings names.** The control reference also clarifies stop planning and cruise-speed adjustments.

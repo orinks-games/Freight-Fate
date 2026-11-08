@@ -92,7 +92,7 @@ pub const GENERIC_BILLBOARDS: &[&str] = &[
     "Mamma's Diner: home cooking! Because apparently your home doesn't have a kitchen.",
     "The Last Chance Cafe: 37 miles back was The First Chance Cafe.",
     "World's 3rd-best pie: we used to be #2. Then Jerry complained.",
-    "Uncle Josh's Steakhouse: steaks so tender they're legally considered missing.",
+    "Uncle Josh's Steakhouse: steaks so tender the knife is just for show.",
     "Next exit: biggest pancake in the state! Probably. We haven't checked.",
     "Free coffee! With purchase of coffee. Extra refills fifty cents each.",
     "Next exit: homemade jerky and a gift shop that sells the same jerky.",
@@ -196,7 +196,7 @@ pub const REGIONAL_RADIO_BILLBOARDS: &[&str] = &[
 // a few nominative chain names with original parody, never lifted slogans.
 pub const TRAVEL_PLAZA_BILLBOARDS: &[&str] = &[
     // Love's / Pilot: national travel-center chains. Broad Anywhere is honest.
-    "Love's ahead. Diesel, a shower, and a coffee that will keep you legal for one more state.",
+    "Love's ahead. Diesel, a shower, and coffee for the next leg.",
     "Pilot next exit. Parking if you are lucky. Coffee if you are desperate.",
     // Generic travel-center / motel / QSR -- invented, no regional chain.
     "Travel center: showers, diesel, and a gift shop selling hats you already own.",
@@ -345,7 +345,7 @@ pub const TRUCKER_SERVICES_BILLBOARDS: &[&str] = &[
     "Reefer repair. If it is warm, we can tell from here.",
     "The lot has spaces. They are occupied by people who said they would only be a minute.",
     "Fuel desk open all night. The smile closes at ten.",
-    "Need a shower, a stall, and a twenty-minute lie-down. We can do two of those.",
+    "Need a shower, a stall, and a twenty-minute lie-down? We can do two of those.",
     "We buy wrecks, runners, and whatever is smoking behind you. Cash today.",
 ];
 
@@ -514,7 +514,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         approaching("Winslow, Arizona, home of the world-famous corner. The Eagles sang Take It Easy about it, so the town built a park. Statue included.", &["winslow_az_us"]),
         approaching("Memphis, on down the road. Every highway in Tennessee gets there eventually. Tom T. Hall named his route That's How I Got to Memphis.", &["memphis_tn_us"]),
         // Landmark attraction -- Graceland is a ticketed Memphis site.
-        approaching("Memphis ahead. Graceland is a real house with a real ticket line. Elvis lived there. The jumpsuits are in the museum.", &["memphis_tn_us"]),
+        approaching("Memphis ahead. Visit Graceland, where Elvis lived. Expect a line for tickets.", &["memphis_tn_us"]),
         // Casino genre -- Oklahoma City's casino boards belong on its approach.
         approaching("Oklahoma City ahead. Casino billboards outnumber the cattle. You have been warned.", &["oklahoma_city_ok_us"]),
         in_states("Okemah, Oklahoma. Home of Woody Guthrie. This Land Is Your Land. This billboard is somebody else's.", &["OK"]),
@@ -565,7 +565,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         // Casino genre -- the Tulsa approach.
         approaching("Tulsa ahead. Casino lights off the right. Don't bet the load.", &["tulsa_ok_us"]),
         // Paying venue -- Blueberry Hill / Chuck Berry room, Delmar Loop, St. Louis approach on I-44.
-        approaching("Saint Louis ahead. Blueberry Hill on Delmar is a real room; Chuck Berry played its Duck Room for years. The duck walk is not a traffic pattern.", &["st_louis_mo_us"]),
+        approaching("Saint Louis ahead. Chuck Berry played the Duck Room at Blueberry Hill on Delmar for years. The duck walk is not a traffic pattern.", &["st_louis_mo_us"]),
     ]),
     // Song tributes -- the Texas-to-Minnesota main street of country music:
     // San Antonio, Austin, Waco, Abbott, Fort Worth, and Wichita.
@@ -576,14 +576,14 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         approaching("San Antonio, down the road. Western swing was born in Texas and Bob Wills drove it. New San Antonio Rose still blooms.", &["san_antonio_tx_us"]),
         // Tejano genre -- south Texas approaches only, never all of Texas.
         approaching("Laredo ahead. Tejano on the AM and the river just south. Keep the accordion, skip the sightseeing detour.", &["laredo_tx_us"]),
-        approaching("San Antonio ahead. Tejano weekend on the AM. Conjunto is a dance hall and this highway.", &["san_antonio_tx_us"]),
+        approaching("San Antonio ahead. Tejano weekend on the AM. Conjunto for the dance hall and the highway.", &["san_antonio_tx_us"]),
         // Casino genre -- Oklahoma City's casino boards belong on its approach.
         approaching("Oklahoma City ahead. Native casino country. The boards started a hundred miles ago.", &["oklahoma_city_ok_us"]),
         // McAllen is I-2 / I-69C / US-281, not Interstate 35 (I-35 ends at
         // Laredo). The Valley Tejano board was killed rather than moved onto
         // an unmapped shield. Laredo and San Antonio keep the I-35 Tejano lane.
         // Paying venue -- Billy Bob's Texas, Fort Worth.
-        approaching("Fort Worth ahead. Billy Bob's Texas is a real honky-tonk with a zip code. Bob Wills already got the other board.", &["fort_worth_tx_us"]),
+        approaching("Fort Worth ahead. Billy Bob's Texas: a honky-tonk big enough to need its own zip code.", &["fort_worth_tx_us"]),
         // The Longhorn Ballroom, Dallas: Bob Wills opened it in nineteen
         // fifty, the Sex Pistols played it in nineteen seventy-eight, and it
         // reopened restored in twenty twenty-three.
@@ -657,7 +657,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         approaching("Detroit, the Motown assembly line. Marvin Gaye, Stevie Wonder, and no mountain high enough to slow the freight.", &["detroit_mi_us"]),
         approaching("Detroit builds engines, and it built Bob Seger. Night Moves and Turn the Page came off these roads.", &["detroit_mi_us"]),
         in_states("Wisconsin. Cheese, really good cheese, and a dairy billboard that has been up since your last inspection.", &["WI"]),
-        approaching("Milwaukee ahead. The Harley-Davidson Museum is a real building. The bikes inside are not street-legal, and neither is your trailer in the lobby.", &["milwaukee_wi_us"]),
+        approaching("Milwaukee ahead. Visit the Harley-Davidson Museum. Please leave your trailer outside.", &["milwaukee_wi_us"]),
         // Paying attraction -- Mall of America, Bloomington MN, at Interstate
         // 494 and Minnesota 77, just south of Minneapolis. The world has no
         // Bloomington node, so the sign rides the Minneapolis approach.
@@ -683,7 +683,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
     ("I-81", &[
         in_states("Mountain fog ahead, the local specialty. Think Foggy Mountain Breakdown, and use low beams.", &["VA", "TN", "WV"]),
         // Paying museum -- Birthplace of Country Music, Bristol on the state line.
-        in_states("Bristol, on the state line. The Birthplace of Country Music Museum is a real hall. Carter Family country starts here.", &["TN", "VA"]),
+        in_states("Bristol, on the state line. Visit the Birthplace of Country Music Museum. Carter Family country starts here.", &["TN", "VA"]),
     ]),
     // Song tributes -- Kentucky: the bluegrass east (Brit Taylor) and the
     // coalfields (Tennessee Ernie Ford).
@@ -724,7 +724,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
     ]),
     // Space Center Houston tourism on I-45.
     ("I-45", &[
-        approaching("Houston ahead. Space Center Houston is a real room they flew from. The trailer stays on the planet.", &["houston_tx_us"]),
+        approaching("Houston ahead. Visit Space Center Houston. The trailer stays on the planet.", &["houston_tx_us"]),
         // Gilley's, the Urban Cowboy honky-tonk, stood in Pasadena outside
         // Houston until it closed in nineteen eighty-nine and burned the year
         // after; the bull El Toro went to Gilley's Dallas. Past tense on

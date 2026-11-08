@@ -23,7 +23,7 @@ pub const CATALOG_DIGEST: &str = "dbb4c7c4fa714cd9f049fda5ec04886cf63ba9ac54f307
 /// description. Keeps a hidden badge's surprise -- the joke, the calendar
 /// quirk -- intact until the driver actually earns it.
 pub const HIDDEN_NAME: &str = "A Secret the Manifest Is Keeping";
-pub const HIDDEN_HELP: &str = "Some badges stay secret until you earn them. Keep driving.";
+pub const HIDDEN_HELP: &str = "Some badges stay secret until you earn them.";
 
 /// The category browse menu, modeled on the two-level achievements screen
 /// from the owner's other game: pick a category, then arrow through its
@@ -186,7 +186,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "multi_state",
         name: "Been Most Everywhere, Man",
-        description: "Three states on one route. The map had to clear its throat.",
+        description: "Three states on one route. A few more names for the song.",
         category: "road",
         inspiration: "Hank Snow - I've Been Everywhere",
         hidden: false,
@@ -258,7 +258,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "traffic_slowing",
         name: "Bumper-to-Bumper Blues",
-        description: "Heavy traffic, and you kept a sane following distance. You let the jam breathe.",
+        description: "Heavy traffic, and you left room for the driver ahead.",
         category: "working_day",
         inspiration: "Tom Cochrane - Life Is a Highway",
         hidden: false,
@@ -274,7 +274,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "first_rest_stop",
         name: "Sweetheart of the Truck Stop",
-        description: "Your first rest stop. The romance lasted as long as the vending machine's stare.",
+        description: "Your first rest stop. Time to park the truck and stretch your legs.",
         category: "working_day",
         inspiration: "The Willis Brothers - Truck Stop Cutie",
         hidden: false,
@@ -298,7 +298,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "slept_on_route",
         name: "Five-by-Two and Out",
-        description: "Ten hours in the bunk, and you woke up legal. Unglamorous, and heroic.",
+        description: "Ten hours in the bunk, and you woke up legal.",
         category: "working_day",
         inspiration: "Red Simpson - Sleeper, Five-By-Two",
         hidden: false,
@@ -322,7 +322,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "first_upgrade",
         name: "Soup It Up a Little",
-        description: "Your first upgrade, a small taste of souped-up confidence.",
+        description: "Your first upgrade is installed. The truck is starting to feel like yours.",
         category: "career",
         inspiration: "Commander Cody and His Lost Planet Airmen - Hot Rod Lincoln",
         hidden: false,
@@ -850,7 +850,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "hundred_k_miles",
         name: "Leave Me on the Interstate",
-        description: "A hundred thousand miles. The road owns most of you now, but not all of you today.",
+        description: "A hundred thousand miles. You could name a few stretches worth coming back to.",
         category: "career",
         inspiration: "Bob Wayne - Spread My Ashes on the Highway",
         hidden: false,
@@ -1026,7 +1026,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "deep_repair",
         name: "Back from the Bottom of the Ledger",
-        description: "You brought the truck back from 75 percent damage or worse. Only one way to go from there.",
+        description: "You brought the truck back from 75 percent damage or worse. Back on the road instead of in the scrapyard.",
         category: "career",
         inspiration: "Alex Williams - Rock Bottom",
         hidden: false,
@@ -1066,7 +1066,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "level_twenty_five",
         name: "Qualified for Your Own Numbers",
-        description: "Career level 25. You qualify for your own operating authority. In freight, that's arriving.",
+        description: "Career level 25. You qualify for your own operating authority.",
         category: "career",
         inspiration: "Waylon Jennings - Are You Sure Hank Done It This Way",
         hidden: false,
@@ -1122,7 +1122,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "self_paid_course",
         name: "Paid for the Classroom Yourself",
-        description: "You paid for an endorsement course yourself. Ambition has tuition, and you paid cash.",
+        description: "You paid for an endorsement course out of your own pocket.",
         category: "career",
         inspiration: "Aaron Tippin - Working Man's Ph.D.",
         hidden: false,
@@ -1146,7 +1146,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "hundred_fifty_cities",
         name: "Half the Map, Signed For",
-        description: "A hundred fifty cities delivered. The far side of the map is feeling left out.",
+        description: "Freight delivered in a hundred fifty cities. The far side of the map is feeling left out.",
         category: "places",
         inspiration: "Alan Jackson - Drive (For Daddy Gene)",
         hidden: false,
@@ -1162,7 +1162,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "thirty_states",
         name: "Thirty States and Counting",
-        description: "Thirty states delivered. Most folks need a camper and a lifetime to see that much.",
+        description: "Freight delivered in thirty states. Most folks need a camper and a lifetime to see that much.",
         category: "places",
         inspiration: "Johnny Cash - Ride This Train",
         hidden: false,
