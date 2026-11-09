@@ -48,6 +48,7 @@
 
 ### Fixed
 
+- **Towns that no longer exist are no longer named on the road.** Savage, Montana, is no longer also called Knife River, and Lacy Lakeview and Tri City are named once.
 - **A co-driver offered at the shipper stays with you for the whole load.** Driving out yourself and sleeping at a stop no longer drops them, and no co-driver joins on the road.
 - **A street that only changes name ahead is named once, at the join.** "Continue onto" no longer comes twice in a few seconds.
 - **Kenosha and Milwaukee to Chicago now stay on I-94, on the Tri-State through Lake County.** They used to leave it for the signals on US-41.
