@@ -20687,40 +20687,6 @@ msgstr ""
 msgid "Loaded trip is {distance_text} via {join}.{toll_text}"
 msgstr "Поездка с грузом: {distance_text} через {join}.{toll_text}"
 
-msgid "Shut down the engine"
-msgstr "Заглушить двигатель"
-
-msgid "Start the engine"
-msgstr "Завести двигатель"
-
-msgid "No fuel burned and no idle noise while parked."
-msgstr "На стоянке не расходуется топливо и нет шума холостого хода."
-
-msgid "Starts the engine. The parking brake needs 100 psi of air."
-msgstr ""
-"Заводит двигатель. Стояночному тормозу нужно 100 фунтов на квадратный дюйм "
-"давления воздуха."
-
-msgid "Stop before touching the engine."
-msgstr "Остановитесь, прежде чем трогать двигатель."
-
-msgid "Engine off."
-msgstr "Двигатель выключен."
-
-msgid "The engine will not start."
-msgstr "Двигатель не заводится."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Air pressure {f} psi."
-msgstr "Давление воздуха {f} {f:фунт|фунта|фунтов} на квадратный дюйм."
-
-#. placeholders: {f}
-msgid "Engine running. Air pressure {f} psi."
-msgstr ""
-"Двигатель работает. Давление воздуха {f} {f:фунт|фунта|фунтов} на "
-"квадратный дюйм."
-
 msgid "Pickup facility"
 msgstr "Место погрузки"
 
@@ -20959,6 +20925,14 @@ msgstr "Погрузка отменена. Вы вернулись в {name}."
 #. one sentence of a longer line
 msgid "Returned to {name}."
 msgstr "Вы вернулись в {name}."
+
+msgid "No fuel burned and no idle noise while parked."
+msgstr "На стоянке не расходуется топливо и нет шума холостого хода."
+
+msgid "Starts the engine. The parking brake needs 100 psi of air."
+msgstr ""
+"Заводит двигатель. Стояночному тормозу нужно 100 фунтов на квадратный дюйм "
+"давления воздуха."
 
 msgid "Loaded and ready to roll"
 msgstr "Загружено, можно ехать"
@@ -22069,6 +22043,9 @@ msgstr ""
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to start the engine."
 msgstr "Нажмите {control_hint}, чтобы завести двигатель."
+
+msgid "Engine off."
+msgstr "Двигатель выключен."
 
 msgid "Traffic stop"
 msgstr "Остановка полицией"
@@ -23630,6 +23607,9 @@ msgstr "Двигатель работает."
 msgid "Engine running. {instruction}"
 msgstr "Двигатель работает. {instruction}"
 
+msgid "The engine will not start."
+msgstr "Двигатель не заводится."
+
 msgid "Air ready."
 msgstr "Воздух готов."
 
@@ -23903,6 +23883,9 @@ msgstr ""
 "Заводит двигатель. Стояночный тормоз отпускается при 100 фунтах на "
 "квадратный дюйм."
 
+msgid "Stop before touching the engine."
+msgstr "Остановитесь, прежде чем трогать двигатель."
+
 #. placeholders: {psi}
 msgid "Engine running. Air pressure {psi} psi."
 msgstr ""
@@ -23917,6 +23900,12 @@ msgstr "школа"
 
 msgid "lights"
 msgstr "светофоры"
+
+msgid "Shut down the engine"
+msgstr "Заглушить двигатель"
+
+msgid "Start the engine"
+msgstr "Завести двигатель"
 
 msgid "save point"
 msgstr "точка сохранения"
@@ -42159,6 +42148,14 @@ msgstr "Куски шины."
 
 msgid "Debris."
 msgstr "Мусор."
+
+#~ msgid "Air pressure {f} psi."
+#~ msgstr "Давление воздуха {f} {f:фунт|фунта|фунтов} на квадратный дюйм."
+
+#~ msgid "Engine running. Air pressure {f} psi."
+#~ msgstr ""
+#~ "Двигатель работает. Давление воздуха {f} {f:фунт|фунта|фунтов} на "
+#~ "квадратный дюйм."
 
 #~ msgid "{thing} ahead."
 #~ msgstr "Впереди {thing}."

@@ -120,9 +120,9 @@ pub const RUNG_FINAL_SETTLEMENTS: f64 = 2.0;
 
 /// The writes the two endings, the hard cap and the cash payoff make on a
 /// Profile, on top of the reads in [`StandingProfile`].
-// TODO(lead): implement for models::profile::Profile. The three hooks at the
-// end stand in for Profile.active_truck_key(), models::trucks::TRUCK_CATALOG
-// and models::carrier_fleet::assigned_truck_key until those land.
+// Implemented for `Profile` in `profile/traits.rs`, where the three hooks at
+// the end call `Profile::active_truck_key`, `models::trucks` and
+// `models::carrier_fleet::assigned_truck_key`.
 pub trait SolvencyProfile: StandingProfile {
     fn set_money(&mut self, money: f64);
     fn set_fines_owed(&mut self, fines_owed: f64);
@@ -146,15 +146,12 @@ pub trait SolvencyProfile: StandingProfile {
     /// `profile.owned_trailers`.
     fn owned_trailers(&self) -> Vec<String>;
     /// `profile.active_truck_key()`: the tractor being driven right now.
-    // TODO(lead): wire to Profile.active_truck_key.
     fn active_truck_key(&self) -> String;
     /// `TRUCK_CATALOG[key].label`.
-    // TODO(lead): wire to models::trucks::TRUCK_CATALOG.
     fn truck_catalog_label(&self, key: &str) -> String;
     /// `carrier_fleet.assigned_truck_key(profile)` for the profile as it
     /// stands when called (after the repossession has made it a company
     /// driver again).
-    // TODO(lead): wire to models::carrier_fleet::assigned_truck_key.
     fn assigned_truck_key(&self) -> String;
 }
 

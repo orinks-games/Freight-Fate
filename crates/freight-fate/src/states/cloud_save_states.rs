@@ -5,6 +5,7 @@
 //! with the same mailbox-polling pattern as the drivers board menus: the game
 //! loop and speech stay responsive while orinks.net answers.
 
+use crate::states::base::default_enter;
 use std::fs;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -20,9 +21,7 @@ use crate::app::GameContext;
 use crate::cloud_saves::{self, backup_summary, save_slot_name, SavesList, AUTH_HELP};
 use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
-use crate::states::online_states::{
-    load_identity, menu_default_enter, run_worker, wall_time, Mailbox,
-};
+use crate::states::online_states::{load_identity, run_worker, wall_time, Mailbox};
 
 mod slot;
 
@@ -124,7 +123,8 @@ pub fn backed_up_text(created_at_ms: Option<f64>) -> String {
 /// it as `.ffsave.bak` and putting it back if installation fails. A
 /// leftover plain-JSON save for the career is moved aside so only one live
 /// copy remains.
-// TODO(lead): belongs in ff_core::models::profile (beside `Profile::save`).
+// It stays in the game crate because the slot name is
+// `cloud_saves::save_slot_name`.
 pub fn install_restored_profile(profile: &Value) -> Result<PathBuf, String> {
     let Value::Object(map) = profile else {
         return Err("cloud save content is not a profile object".to_string());
@@ -319,7 +319,7 @@ impl Menu for CloudBackupState {
 
     fn enter(&mut self, ctx: &mut GameContext) {
         self.start_fetch(ctx);
-        menu_default_enter(self, ctx);
+        default_enter(self, ctx);
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {

@@ -343,7 +343,7 @@ pub fn pay_plan_for_key(key: Option<&str>) -> CompanyPayPlan {
 /// What `apply_start_option` writes on a freshly created or reset `Profile`.
 /// Each method is one attribute assignment or method call the Python made,
 /// so `Profile` implements this by delegating to its own fields.
-// TODO(lead): implement for models::profile::Profile (wave 2).
+// Implemented for `Profile` in `profile/traits.rs`.
 pub trait StartProfile {
     fn set_carrier_key(&mut self, key: &str);
     fn set_start_mode(&mut self, mode: &str);

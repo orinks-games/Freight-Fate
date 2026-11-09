@@ -20684,38 +20684,6 @@ msgstr " Estimativa de pedágio da transportadora: {grouped} dólares."
 msgid "Loaded trip is {distance_text} via {join}.{toll_text}"
 msgstr "A viagem carregada tem {distance_text} por {join}.{toll_text}"
 
-msgid "Shut down the engine"
-msgstr "Desligar o motor"
-
-msgid "Start the engine"
-msgstr "Ligar o motor"
-
-msgid "No fuel burned and no idle noise while parked."
-msgstr ""
-"Sem queimar combustível e sem barulho de marcha lenta enquanto estacionado."
-
-msgid "Starts the engine. The parking brake needs 100 psi of air."
-msgstr ""
-"Dá a partida no motor. O freio de estacionamento precisa de 100 psi de ar."
-
-msgid "Stop before touching the engine."
-msgstr "Pare antes de mexer no motor."
-
-msgid "Engine off."
-msgstr "Motor desligado."
-
-msgid "The engine will not start."
-msgstr "O motor não pega."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Air pressure {f} psi."
-msgstr "Pressão do ar {f} psi."
-
-#. placeholders: {f}
-msgid "Engine running. Air pressure {f} psi."
-msgstr "Motor ligado. Pressão do ar {f} psi."
-
 msgid "Pickup facility"
 msgstr "Instalação de coleta"
 
@@ -20947,6 +20915,14 @@ msgstr "Coleta cancelada. De volta a {name}."
 #. one sentence of a longer line
 msgid "Returned to {name}."
 msgstr "De volta a {name}."
+
+msgid "No fuel burned and no idle noise while parked."
+msgstr ""
+"Sem queimar combustível e sem barulho de marcha lenta enquanto estacionado."
+
+msgid "Starts the engine. The parking brake needs 100 psi of air."
+msgstr ""
+"Dá a partida no motor. O freio de estacionamento precisa de 100 psi de ar."
 
 msgid "Loaded and ready to roll"
 msgstr "Carregado e pronto para rodar"
@@ -22050,6 +22026,9 @@ msgstr ""
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to start the engine."
 msgstr "Aperte {control_hint} para ligar o motor."
+
+msgid "Engine off."
+msgstr "Motor desligado."
 
 msgid "Traffic stop"
 msgstr "Abordagem policial"
@@ -23566,6 +23545,9 @@ msgstr "Motor ligado."
 msgid "Engine running. {instruction}"
 msgstr "Motor ligado. {instruction}"
 
+msgid "The engine will not start."
+msgstr "O motor não pega."
+
 msgid "Air ready."
 msgstr "Ar pronto."
 
@@ -23821,6 +23803,9 @@ msgstr ""
 msgid "Starts the engine. The parking brake releases at 100 psi."
 msgstr "Dá a partida no motor. O freio de estacionamento solta com 100 psi."
 
+msgid "Stop before touching the engine."
+msgstr "Pare antes de mexer no motor."
+
 #. placeholders: {psi}
 msgid "Engine running. Air pressure {psi} psi."
 msgstr "Motor ligado. Pressão do ar {psi} psi."
@@ -23833,6 +23818,12 @@ msgstr "escolar"
 
 msgid "lights"
 msgstr "semáforos"
+
+msgid "Shut down the engine"
+msgstr "Desligar o motor"
+
+msgid "Start the engine"
+msgstr "Ligar o motor"
 
 msgid "save point"
 msgstr "ponto de salvamento"
@@ -41854,6 +41845,12 @@ msgstr "Pedaços de pneu."
 
 msgid "Debris."
 msgstr "Destroços."
+
+#~ msgid "Air pressure {f} psi."
+#~ msgstr "Pressão do ar {f} psi."
+
+#~ msgid "Engine running. Air pressure {f} psi."
+#~ msgstr "Motor ligado. Pressão do ar {f} psi."
 
 #~ msgid "{thing} ahead."
 #~ msgstr "{thing} à frente."

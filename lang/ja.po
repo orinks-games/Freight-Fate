@@ -18607,36 +18607,6 @@ msgstr " 運送会社の通行料の見込みは{grouped}ドルです。"
 msgid "Loaded trip is {distance_text} via {join}.{toll_text}"
 msgstr "積荷を載せた運行は{join}経由で{distance_text}です。{toll_text}"
 
-msgid "Shut down the engine"
-msgstr "エンジンを止める"
-
-msgid "Start the engine"
-msgstr "エンジンをかける"
-
-msgid "No fuel burned and no idle noise while parked."
-msgstr "駐車中は燃料を使わず、アイドリングの音もしません。"
-
-msgid "Starts the engine. The parking brake needs 100 psi of air."
-msgstr "エンジンをかけます。駐車ブレーキの解除には100 psiのエアが必要です。"
-
-msgid "Stop before touching the engine."
-msgstr "エンジンを操作する前に停車してください。"
-
-msgid "Engine off."
-msgstr "エンジンを止めました。"
-
-msgid "The engine will not start."
-msgstr "エンジンがかかりません。"
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Air pressure {f} psi."
-msgstr "エア圧{f} psi。"
-
-#. placeholders: {f}
-msgid "Engine running. Air pressure {f} psi."
-msgstr "エンジンがかかっています。エア圧{f} psi。"
-
 msgid "Pickup facility"
 msgstr "積み込み施設"
 
@@ -18855,6 +18825,12 @@ msgstr "積み込みを取り消しました。{name}に戻りました。"
 #. one sentence of a longer line
 msgid "Returned to {name}."
 msgstr "{name}に戻りました。"
+
+msgid "No fuel burned and no idle noise while parked."
+msgstr "駐車中は燃料を使わず、アイドリングの音もしません。"
+
+msgid "Starts the engine. The parking brake needs 100 psi of air."
+msgstr "エンジンをかけます。駐車ブレーキの解除には100 psiのエアが必要です。"
 
 msgid "Loaded and ready to roll"
 msgstr "積み込み済みで出発の準備完了"
@@ -19862,6 +19838,9 @@ msgstr "クラウドバックアップはまだ処理中です。結果が出る
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to start the engine."
 msgstr "{control_hint}でエンジンをかけます。"
+
+msgid "Engine off."
+msgstr "エンジンを止めました。"
 
 msgid "Traffic stop"
 msgstr "交通取り締まり"
@@ -21245,6 +21224,9 @@ msgstr "エンジンがかかりました。"
 msgid "Engine running. {instruction}"
 msgstr "エンジンがかかりました。{instruction}"
 
+msgid "The engine will not start."
+msgstr "エンジンがかかりません。"
+
 msgid "Air ready."
 msgstr "エア準備完了。"
 
@@ -21479,6 +21461,9 @@ msgstr "駐車中はエンジンが止まっていて、燃料を使いません
 msgid "Starts the engine. The parking brake releases at 100 psi."
 msgstr "エンジンをかけます。駐車ブレーキは100 psiで解除できます。"
 
+msgid "Stop before touching the engine."
+msgstr "エンジンを操作する前に停車してください。"
+
 #. placeholders: {psi}
 msgid "Engine running. Air pressure {psi} psi."
 msgstr "エンジンがかかっています。エア圧{psi} psi。"
@@ -21491,6 +21476,12 @@ msgstr "スクールゾーン"
 
 msgid "lights"
 msgstr "信号"
+
+msgid "Shut down the engine"
+msgstr "エンジンを止める"
+
+msgid "Start the engine"
+msgstr "エンジンをかける"
 
 msgid "save point"
 msgstr "セーブ地点"
@@ -37854,6 +37845,12 @@ msgstr "タイヤの破片。"
 
 msgid "Debris."
 msgstr "落下物。"
+
+#~ msgid "Air pressure {f} psi."
+#~ msgstr "エア圧{f} psi。"
+
+#~ msgid "Engine running. Air pressure {f} psi."
+#~ msgstr "エンジンがかかっています。エア圧{f} psi。"
 
 #~ msgid "{thing} ahead."
 #~ msgstr "前方に{thing}。"

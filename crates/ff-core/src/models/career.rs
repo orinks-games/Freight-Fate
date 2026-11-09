@@ -136,7 +136,7 @@ pub fn xp_rate_settlement_clause(band: &str) -> String {
 
 /// What `xp_class_multiplier` reads off a `Cargo` (`models::jobs`, wave 2):
 /// `getattr(cargo, "endorsement", None)` and `getattr(cargo, "min_level", 1)`.
-// TODO(lead): implement for models::jobs::Cargo.
+// Implemented for `models::jobs::CargoType` (`jobs/catalog.rs`).
 pub trait XpCargo {
     /// The endorsement this cargo needs, or `None` for plain freight.
     fn endorsement(&self) -> Option<&str>;
@@ -490,10 +490,9 @@ impl Career {
 /// What the career-side modules read off a live `Profile` beyond what
 /// [`StandingProfile`] already exposes. Each method is the `getattr` (or
 /// method call) the Python made, with its default.
-// TODO(lead): implement for models::profile::Profile (wave 2). The three
-// eligibility hooks stand in for `models::business::owner_operator_eligibility`,
-// `authority_readiness_eligibility` and `authority_activation_eligibility`
-// (their `eligible` flag); wire them to those functions when business lands.
+// Implemented for `Profile` in `profile/traits.rs`, where the three
+// eligibility hooks call the `models::business` functions; the defaults
+// below serve the test fakes.
 pub trait CareerProfile: StandingProfile {
     /// `profile.career`.
     fn career(&self) -> &Career;
@@ -502,17 +501,14 @@ pub trait CareerProfile: StandingProfile {
     /// `profile.active_truck_key()`: the tractor the simulation drives.
     fn active_truck_key(&self) -> String;
     /// `business.owner_operator_eligibility(profile)[0]`.
-    // TODO(lead): wire to models::business.
     fn owner_operator_eligible(&self) -> bool {
         false
     }
     /// `business.authority_readiness_eligibility(profile)[0]`.
-    // TODO(lead): wire to models::business.
     fn authority_readiness_eligible(&self) -> bool {
         false
     }
     /// `business.authority_activation_eligibility(profile)[0]`.
-    // TODO(lead): wire to models::business.
     fn authority_activation_eligible(&self) -> bool {
         false
     }
@@ -532,7 +528,7 @@ pub fn carrier_name_of<P: StandingProfile + ?Sized>(profile: &P) -> String {
 /// What the career-side modules read off a `Job` (`models::jobs`, wave 2):
 /// each method is one `getattr(job, ..., default)`. Defaults match the
 /// Python fall-backs (`0.0` / `""`).
-// TODO(lead): implement for models::jobs::Job.
+// Implemented for `models::jobs::Job`.
 pub trait JobView {
     /// `job.distance_mi`.
     fn distance_mi(&self) -> f64;

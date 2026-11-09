@@ -20179,36 +20179,6 @@ msgstr " Taşıyıcı firmanın otoyol ücreti tahmini {grouped} dolar."
 msgid "Loaded trip is {distance_text} via {join}.{toll_text}"
 msgstr "Yüklü sefer {distance_text}, güzergâh: {join}.{toll_text}"
 
-msgid "Shut down the engine"
-msgstr "Motoru kapat"
-
-msgid "Start the engine"
-msgstr "Motoru çalıştır"
-
-msgid "No fuel burned and no idle noise while parked."
-msgstr "Park halindeyken yakıt yanmaz, rölanti sesi olmaz."
-
-msgid "Starts the engine. The parking brake needs 100 psi of air."
-msgstr "Motoru çalıştırır. Park freni için 100 psi hava gerekir."
-
-msgid "Stop before touching the engine."
-msgstr "Motora dokunmadan önce durun."
-
-msgid "Engine off."
-msgstr "Motor kapandı."
-
-msgid "The engine will not start."
-msgstr "Motor çalışmıyor."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Air pressure {f} psi."
-msgstr "Hava basıncı {f} psi."
-
-#. placeholders: {f}
-msgid "Engine running. Air pressure {f} psi."
-msgstr "Motor çalışıyor. Hava basıncı {f} psi."
-
 msgid "Pickup facility"
 msgstr "Yükleme tesisi"
 
@@ -20442,6 +20412,12 @@ msgstr "Yükleme iptal edildi. Dönüş yapıldı: {name}."
 #. one sentence of a longer line
 msgid "Returned to {name}."
 msgstr "Dönüş yapıldı: {name}."
+
+msgid "No fuel burned and no idle noise while parked."
+msgstr "Park halindeyken yakıt yanmaz, rölanti sesi olmaz."
+
+msgid "Starts the engine. The parking brake needs 100 psi of air."
+msgstr "Motoru çalıştırır. Park freni için 100 psi hava gerekir."
 
 msgid "Loaded and ready to roll"
 msgstr "Yüklendi, yola hazır"
@@ -21531,6 +21507,9 @@ msgstr "Bulut yedeği hâlâ çalışıyor. Sonuç için burada kalın."
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to start the engine."
 msgstr "Motoru çalıştırmak için {control_hint} tuşuna basın."
+
+msgid "Engine off."
+msgstr "Motor kapandı."
 
 msgid "Traffic stop"
 msgstr "Trafik kontrolü"
@@ -23034,6 +23013,9 @@ msgstr "Motor çalışıyor."
 msgid "Engine running. {instruction}"
 msgstr "Motor çalışıyor. {instruction}"
 
+msgid "The engine will not start."
+msgstr "Motor çalışmıyor."
+
 msgid "Air ready."
 msgstr "Hava hazır."
 
@@ -23290,6 +23272,9 @@ msgstr ""
 msgid "Starts the engine. The parking brake releases at 100 psi."
 msgstr "Motoru çalıştırır. Park freni 100 psi'de iner."
 
+msgid "Stop before touching the engine."
+msgstr "Motora dokunmadan önce durun."
+
 #. placeholders: {psi}
 msgid "Engine running. Air pressure {psi} psi."
 msgstr "Motor çalışıyor. Hava basıncı {psi} psi."
@@ -23302,6 +23287,12 @@ msgstr "okul"
 
 msgid "lights"
 msgstr "ışıklar"
+
+msgid "Shut down the engine"
+msgstr "Motoru kapat"
+
+msgid "Start the engine"
+msgstr "Motoru çalıştır"
 
 msgid "save point"
 msgstr "kayıt noktası"
@@ -41072,6 +41063,12 @@ msgstr "Lastik parçaları."
 
 msgid "Debris."
 msgstr "Döküntü."
+
+#~ msgid "Air pressure {f} psi."
+#~ msgstr "Hava basıncı {f} psi."
+
+#~ msgid "Engine running. Air pressure {f} psi."
+#~ msgstr "Motor çalışıyor. Hava basıncı {f} psi."
 
 #~ msgid "{thing} ahead."
 #~ msgstr "İleride {thing}."

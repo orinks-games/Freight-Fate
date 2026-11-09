@@ -15,11 +15,12 @@ use crate::app::GameContext;
 use crate::impl_state_for_menu;
 use crate::online_presence::setup_page_url;
 use crate::states::account_achievements::AccountAchievementsState;
+use crate::states::base::default_handle_event;
 use crate::states::base::{InputEvent, Key, Label, Menu, MenuCore, MenuItem};
 use crate::states::cloud_save_states::{CloudBackupConsentState, CloudBackupState};
 use crate::states::online_states::{
-    load_identity, menu_default_handle_event, open_url, DriverDirectoryState, DriverProfileState,
-    DriversOnlineState, OnlineSetupState, ProfileSharingSyncState,
+    load_identity, open_url, DriverDirectoryState, DriverProfileState, DriversOnlineState,
+    OnlineSetupState, ProfileSharingSyncState,
 };
 
 pub struct OnlineHubState {
@@ -454,7 +455,7 @@ impl Menu for OnlineHubState {
         match event.key_down() {
             Some((Key::Right, _, _)) => self.adjust_row(ctx, 1),
             Some((Key::Left, _, _)) => self.adjust_row(ctx, -1),
-            _ => menu_default_handle_event(self, ctx, event),
+            _ => default_handle_event(self, ctx, event),
         }
     }
 
