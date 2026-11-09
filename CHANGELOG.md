@@ -48,6 +48,7 @@
 
 ### Fixed
 
+- **Team loads no longer warn that you need an extra rest.** Your co-driver can take the first shift while you sleep.
 - **A street that only changes name ahead is named once, at the join.** "Continue onto" no longer comes twice in a few seconds.
 - **Kenosha and Milwaukee to Chicago now stay on I-94, on the Tri-State through Lake County.** They used to leave it for the signals on US-41.
 - **Road lines are no longer lost while other lines speak.** With NVDA 2026.3 or SAPI, the 2-mile and 1-mile exit calls always play, and a line cut off by a readout plays after a Brake warning.
