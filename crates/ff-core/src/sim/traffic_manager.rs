@@ -185,12 +185,54 @@ pub const GOVERNED_BANDS: [(&str, (f64, f64)); 2] = [
 /// `tuple(GOVERNED_BANDS)`: the governed classes in the mapping's own order.
 pub const GOVERNED_CLASSES: [&str; 2] = ["semi", "box truck"];
 
-/// `GOVERNED_BANDS.get(vehicle_class)`.
+/// `GOVERNED_BANDS.get(vehicle_class)`, with the tractor-trailer kinds read
+/// as the semi they are.
 pub fn governed_band(vehicle_class: &str) -> Option<(f64, f64)> {
+    let vehicle_class = rig_class(vehicle_class);
     GOVERNED_BANDS
         .iter()
         .find(|(class, _)| *class == vehicle_class)
         .map(|(_, band)| *band)
+}
+
+/// The freeway's vehicle mix, `(class, weight)`, drawn wherever a vehicle
+/// joins the mainline. The shares between light vehicles (5.0), box trucks
+/// (1.4), tractor-trailers (2.0) and service vehicles (0.3) are the four-class
+/// mix this replaced, so the road is as heavy as it was; inside each group the
+/// weight is split the way an interstate count splits it, cars and SUVs
+/// first and a sports car or an RV now and then. Design constants: the
+/// player hears the class in the merging and slow-traffic calls and in its
+/// own sound, and nothing here is a measured share.
+pub const FREEWAY_CLASSES: [(&str, f64); 13] = [
+    ("car", 2.7),
+    ("SUV", 1.2),
+    ("pickup", 0.6),
+    ("minivan", 0.25),
+    ("sports car", 0.08),
+    ("motorcycle", 0.07),
+    ("RV", 0.06),
+    ("bus", 0.04),
+    ("box truck", 1.4),
+    ("semi", 1.55),
+    ("tanker", 0.3),
+    ("car hauler", 0.15),
+    ("service vehicle", 0.3),
+];
+
+/// One draw from [`FREEWAY_CLASSES`].
+pub(crate) fn freeway_class(rng: &mut PyRandom) -> &'static str {
+    let names = FREEWAY_CLASSES.map(|(class, _)| class);
+    let weights = FREEWAY_CLASSES.map(|(_, weight)| weight);
+    choose(rng, &names, &weights)
+}
+
+/// A tanker and a car hauler are tractor-trailers: the same limiter, the
+/// same weight on a grade. Every other class is itself.
+pub fn rig_class(vehicle_class: &str) -> &str {
+    match vehicle_class {
+        "tanker" | "car hauler" => "semi",
+        other => other,
+    }
 }
 
 // What actually separates trucks on a real interstate is the hills. A limiter
@@ -238,6 +280,7 @@ pub const CLIMB_MIN_GRADE_PCT: f64 = 0.5;
 /// (Python memoises this with `lru_cache`; the bisection is sixty float
 /// iterations, so the Rust side simply recomputes it.)
 pub fn climb_speed_mph(vehicle_class: &str, grade_pct: f64) -> f64 {
+    let vehicle_class = rig_class(vehicle_class);
     let model = CLIMB_MODEL
         .iter()
         .find(|(class, _)| *class == vehicle_class)
@@ -514,11 +557,7 @@ impl TrafficManager {
                     weights.push(1.0);
                 }
                 let intent = choose(&mut rng, &options, &weights);
-                let vehicle_class = choose(
-                    &mut rng,
-                    &["car", "box truck", "semi", "service vehicle"],
-                    &[5.0, 1.4, 2.0, 0.3],
-                );
+                let vehicle_class = freeway_class(&mut rng);
                 let (limit_share, governor) =
                     Self::intent_speed_draw(intent, &mut rng, vehicle_class);
                 let speed = self.road_speed_mph(position_mi, limit_share, governor, 0.0);
@@ -1177,11 +1216,7 @@ impl TrafficManager {
                 }
                 choose(&mut rng, &options, &weights)
             };
-            let vehicle_class = choose(
-                &mut rng,
-                &["car", "box truck", "semi", "service vehicle"],
-                &[5.0, 1.4, 2.0, 0.3],
-            );
+            let vehicle_class = freeway_class(&mut rng);
             let (limit_share, governor) = Self::intent_speed_draw(intent, &mut rng, vehicle_class);
             let speed = self.road_speed_mph(mile, limit_share, governor, 0.0);
             let lane = self.intent_lane_at(intent, mile);
@@ -1244,11 +1279,7 @@ impl TrafficManager {
             // warning and remains reviewable in the traffic status.
             "following"
         };
-        let vehicle_class = choose(
-            &mut rng,
-            &["car", "box truck", "semi", "service vehicle"],
-            &[5.0, 1.4, 2.0, 0.3],
-        );
+        let vehicle_class = freeway_class(&mut rng);
         let (mut limit_share, governor) = Self::intent_speed_draw(intent, &mut rng, vehicle_class);
         if !behind_player {
             // This path exists to be perceived, and a vehicle ahead is

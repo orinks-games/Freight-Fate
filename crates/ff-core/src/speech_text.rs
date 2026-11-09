@@ -302,6 +302,19 @@ pub fn passing_hazard_call(body: &str, side: OpenSide) -> Option<SpokenMessage> 
 // the old line ("be ready for 41 miles per hour") read as an instruction to
 // slow down that nothing in the situation asked for.
 
+/// Whether a traffic class takes "an": the ones said letter by letter that
+/// open on a vowel sound ("an SUV", "an RV"), and any that start with a
+/// vowel. Every other class takes "a".
+pub fn vehicle_takes_an(vehicle_class: &str) -> bool {
+    let word = vehicle_class.split_whitespace().next().unwrap_or("");
+    let spelled = word.len() > 1 && word.chars().all(|c| c.is_ascii_uppercase());
+    match word.chars().next() {
+        Some(first) if spelled => "AEFHILMNORSX".contains(first),
+        Some(first) => "aeiouAEIOU".contains(first),
+        None => false,
+    }
+}
+
 pub fn merging_traffic_cue(vehicle_class: &str, gap: &str) -> SpokenMessage {
     SpokenMessage::with_terse(
         format!("Merging {vehicle_class} {gap} ahead."),
@@ -759,6 +772,16 @@ mod tests {
     //! `tests/test_roadside_chatter.py`, `tests/test_instruction_retirement.py`
     //! and `tests/test_driving_speech_ladder.py`.
     use super::*;
+
+    #[test]
+    fn test_a_spelled_out_class_takes_an() {
+        for class in ["SUV", "RV"] {
+            assert!(vehicle_takes_an(class), "{class}");
+        }
+        for class in ["car", "box truck", "semi", "bus", "tanker", "car hauler"] {
+            assert!(!vehicle_takes_an(class), "{class}");
+        }
+    }
 
     #[test]
     fn test_the_city_keeps_a_name_that_carries_its_own_article() {

@@ -13091,6 +13091,21 @@ msgstr "{base} завтра"
 msgid "{base} in {days_ahead} days"
 msgstr "{base} через {days_ahead} {days_ahead:день|дня|дней}"
 
+msgid "minivan"
+msgstr "минивэн"
+
+msgid "sports car"
+msgstr "спорткар"
+
+msgid "tanker"
+msgstr "автоцистерна"
+
+msgid "car hauler"
+msgstr "автовоз"
+
+msgid "service vehicle"
+msgstr "служебная машина"
+
 msgid "cruising"
 msgstr "движется"
 
@@ -13120,9 +13135,6 @@ msgstr "следует за машиной"
 
 msgid "passing"
 msgstr "обгоняет"
-
-msgid "service vehicle"
-msgstr "служебная машина"
 
 msgid "right lane"
 msgstr "правая полоса"
@@ -27537,6 +27549,10 @@ msgid "{name} lane closed for construction."
 msgstr "Полоса {name} закрыта на ремонт."
 
 #. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by an {vehicle}."
+msgstr "Полоса {name} занята: {vehicle}."
+
+#. placeholders: {name}, {vehicle}
 msgid "{name} lane blocked by a {vehicle}."
 msgstr "Полоса {name} занята: {vehicle}."
 
@@ -33505,6 +33521,19 @@ msgstr "Полоса {lane_label} закрыта. Остаёмся в полос
 msgid "Truck damage {damage_pct} percent."
 msgstr ""
 "Повреждения грузовика {damage_pct} {damage_pct:процент|процента|процентов}."
+
+#. placeholders: {vehicle_class}, {lane_name}
+#. one sentence of a longer line
+msgid "You sideswiped an {vehicle_class} in the {lane_name} lane!"
+msgstr "Вы задели бортом {vehicle_class} в полосе {lane_name}!"
+
+#. placeholders: {vehicle_class}, {lane_name}, {damage_pct}
+msgid ""
+"You sideswiped an {vehicle_class} in the {lane_name} lane! Truck damage "
+"{damage_pct} percent."
+msgstr ""
+"Вы задели бортом {vehicle_class} в полосе {lane_name}! Повреждения "
+"грузовика {damage_pct} {damage_pct:процент|процента|процентов}."
 
 #. placeholders: {vehicle_class}, {lane_name}
 #. one sentence of a longer line

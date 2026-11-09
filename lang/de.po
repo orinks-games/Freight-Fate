@@ -13327,6 +13327,21 @@ msgstr "{base} morgen"
 msgid "{base} in {days_ahead} days"
 msgstr "{base} in {days_ahead} Tagen"
 
+msgid "minivan"
+msgstr "Van"
+
+msgid "sports car"
+msgstr "Sportwagen"
+
+msgid "tanker"
+msgstr "Tanklaster"
+
+msgid "car hauler"
+msgstr "Autotransporter"
+
+msgid "service vehicle"
+msgstr "Dienstfahrzeug"
+
 msgid "cruising"
 msgstr "fährt gleichmäßig"
 
@@ -13356,9 +13371,6 @@ msgstr "folgt"
 
 msgid "passing"
 msgstr "überholt"
-
-msgid "service vehicle"
-msgstr "Dienstfahrzeug"
 
 msgid "right lane"
 msgstr "rechte Spur"
@@ -27550,6 +27562,10 @@ msgid "{name} lane closed for construction."
 msgstr "Spur {name} wegen Baustelle gesperrt."
 
 #. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by an {vehicle}."
+msgstr "Spur {name} belegt durch einen {vehicle}."
+
+#. placeholders: {name}, {vehicle}
 msgid "{name} lane blocked by a {vehicle}."
 msgstr "Spur {name} belegt durch einen {vehicle}."
 
@@ -33449,6 +33465,20 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Truck damage {damage_pct} percent."
 msgstr "Schaden am Lkw {damage_pct} Prozent."
+
+#. placeholders: {vehicle_class}, {lane_name}
+#. one sentence of a longer line
+msgid "You sideswiped an {vehicle_class} in the {lane_name} lane!"
+msgstr ""
+"Du hast einen {vehicle_class} auf der Spur {lane_name} seitlich gestreift!"
+
+#. placeholders: {vehicle_class}, {lane_name}, {damage_pct}
+msgid ""
+"You sideswiped an {vehicle_class} in the {lane_name} lane! Truck damage "
+"{damage_pct} percent."
+msgstr ""
+"Du hast einen {vehicle_class} auf der Spur {lane_name} seitlich gestreift! "
+"Schaden am Lkw {damage_pct} Prozent."
 
 #. placeholders: {vehicle_class}, {lane_name}
 #. one sentence of a longer line

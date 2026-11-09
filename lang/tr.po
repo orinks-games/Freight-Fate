@@ -12835,6 +12835,21 @@ msgstr "yarın {base}"
 msgid "{base} in {days_ahead} days"
 msgstr "{days_ahead} gün sonra {base}"
 
+msgid "minivan"
+msgstr "minivan"
+
+msgid "sports car"
+msgstr "spor araba"
+
+msgid "tanker"
+msgstr "tanker"
+
+msgid "car hauler"
+msgstr "oto taşıyıcı"
+
+msgid "service vehicle"
+msgstr "servis aracı"
+
 msgid "cruising"
 msgstr "seyirde"
 
@@ -12864,9 +12879,6 @@ msgstr "takipte"
 
 msgid "passing"
 msgstr "sollama"
-
-msgid "service vehicle"
-msgstr "servis aracı"
 
 msgid "right lane"
 msgstr "sağ şerit"
@@ -26782,6 +26794,10 @@ msgid "{name} lane closed for construction."
 msgstr "{name} şerit yol çalışması nedeniyle kapalı."
 
 #. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by an {vehicle}."
+msgstr "{name} şerit dolu: bir {vehicle} var."
+
+#. placeholders: {name}, {vehicle}
 msgid "{name} lane blocked by a {vehicle}."
 msgstr "{name} şerit dolu: bir {vehicle} var."
 
@@ -32562,6 +32578,20 @@ msgstr "Şerit kapalı: {lane_label}. Şeritte kalınıyor: {lane_name}."
 #. one sentence of a longer line
 msgid "Truck damage {damage_pct} percent."
 msgstr "Tır hasarı yüzde {damage_pct}."
+
+#. placeholders: {vehicle_class}, {lane_name}
+#. one sentence of a longer line
+msgid "You sideswiped an {vehicle_class} in the {lane_name} lane!"
+msgstr ""
+"Yan şeritteki bir araca sürttünüz: {vehicle_class}, {lane_name} şerit!"
+
+#. placeholders: {vehicle_class}, {lane_name}, {damage_pct}
+msgid ""
+"You sideswiped an {vehicle_class} in the {lane_name} lane! Truck damage "
+"{damage_pct} percent."
+msgstr ""
+"Yan şeritteki bir araca sürttünüz: {vehicle_class}, {lane_name} şerit! Tır "
+"hasarı yüzde {damage_pct}."
 
 #. placeholders: {vehicle_class}, {lane_name}
 #. one sentence of a longer line
