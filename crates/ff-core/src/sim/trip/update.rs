@@ -692,7 +692,13 @@ impl Trip {
             } else {
                 2.0
             };
-            let in_advance_window = NAV_LEAD_MIN_MI < ahead && ahead <= lookahead;
+            // A street that only changes name ahead ("Continue onto Columbus
+            // Road") has nothing to prepare for, so it gets the one call at
+            // the join, which carries the distance on it. The lead said the
+            // same street a few seconds earlier (Cleveland agent drive,
+            // 2026-10-25).
+            let straight_on = cue.kind == "local_turn" && cue.direction == "ahead";
+            let in_advance_window = !straight_on && NAV_LEAD_MIN_MI < ahead && ahead <= lookahead;
             let in_near_window = (-0.1..=0.1).contains(&ahead);
             if !in_advance_window && !in_near_window {
                 continue;

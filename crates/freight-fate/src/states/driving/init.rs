@@ -273,7 +273,11 @@ impl DrivingState {
         let air_ready = trip.truck.air_ready();
         let air_low_warning = trip.truck.air_low_warning();
         let spring_brakes_active = trip.truck.spring_brakes_active();
-        let status_text = format!("Press {} to start the engine.", ctx.control_hint("engine"));
+        let status_text = if ctx.settings.driving_hints {
+            format!("Press {} to start the engine.", ctx.control_hint("engine"))
+        } else {
+            "Engine off.".to_string()
+        };
 
         let cab = ff_core::sim::cab::CabState::for_outside(trip.weather.temperature_c());
 

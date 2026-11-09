@@ -51,8 +51,34 @@ impl DrivingState {
         format!("{} from {start} to {end}", leg.highway)
     }
 
-    /// `_instruction_retired(action)` (research doc R7).
+    /// Whether driving lines may name a key (the Driving hints setting).
+    pub fn driving_hints(&self, ctx: &GameContext) -> bool {
+        ctx.settings.driving_hints
+    }
+
+    /// `message` without the sentence `hint` when Driving hints is off: the
+    /// key a long line ends on ("Press E to restart the engine."), dropped
+    /// without a second copy of the line.
+    pub fn without_key_hint(&self, ctx: &GameContext, message: String, hint: &str) -> String {
+        if self.driving_hints(ctx) {
+            return message;
+        }
+        let spaced = format!(" {hint}");
+        if message.contains(&spaced) {
+            return message.replacen(&spaced, "", 1);
+        }
+        match message.strip_prefix(hint) {
+            Some(rest) => rest.trim_start().to_string(),
+            None => message,
+        }
+    }
+
+    /// `_instruction_retired(action)` (research doc R7). Always retired with
+    /// Driving hints off.
     pub fn instruction_retired(&self, ctx: &mut GameContext, action: &str) -> bool {
+        if !self.driving_hints(ctx) {
+            return true;
+        }
         let binding = ctx.control_hint(action);
         let Some(profile) = ctx.profile.as_mut() else {
             return false;

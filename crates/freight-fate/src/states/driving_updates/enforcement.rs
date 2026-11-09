@@ -677,11 +677,17 @@ impl DrivingState {
         if rng.random() >= WEIGH_STATION_BYPASS_CATCH_CHANCE {
             return;
         }
-        let lights_message = format!(
-            "Scale bypass enforcement. Lights and siren behind you. Signal with {} and stop on \
-             the shoulder.",
-            ctx.control_hint("take_exit")
-        );
+        let lights_message = if self.driving_hints(ctx) {
+            format!(
+                "Scale bypass enforcement. Lights and siren behind you. Signal with {} and stop \
+                 on the shoulder.",
+                ctx.control_hint("take_exit")
+            )
+        } else {
+            "Scale bypass enforcement. Lights and siren behind you. Signal and stop on the \
+             shoulder."
+                .to_string()
+        };
         self.begin_enforcement_pull_over(
             ctx,
             "weigh_station_bypass",
@@ -724,11 +730,17 @@ impl DrivingState {
              roadside safety inspection.",
             self.trip.truck.damage_pct
         );
-        let lights_message = format!(
-            "Unsafe equipment stop. Lights and siren behind you. Signal with {} and stop on the \
-             shoulder.",
-            ctx.control_hint("take_exit")
-        );
+        let lights_message = if self.driving_hints(ctx) {
+            format!(
+                "Unsafe equipment stop. Lights and siren behind you. Signal with {} and stop on \
+                 the shoulder.",
+                ctx.control_hint("take_exit")
+            )
+        } else {
+            "Unsafe equipment stop. Lights and siren behind you. Signal and stop on the \
+             shoulder."
+                .to_string()
+        };
         self.begin_enforcement_pull_over(
             ctx,
             "unsafe_damage",

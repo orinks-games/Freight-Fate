@@ -730,10 +730,14 @@ impl DrivingState {
         if self.ramp_terminal_miss_count >= 2 {
             // The identical core line keeps the flow predictable by ear; a
             // repeat miss earns help, not scolding.
-            message.push_str(&format!(
-                " Brake with {} well before it.",
-                ctx.control_hint("brake")
-            ));
+            if self.driving_hints(ctx) {
+                message.push_str(&format!(
+                    " Brake with {} well before it.",
+                    ctx.control_hint("brake")
+                ));
+            } else {
+                message.push_str(" Brake well before it.");
+            }
         }
         ctx.audio.play("ui/warning");
         self.set_status(format!("Drove past {place}. Use the next safe turnaround."));
