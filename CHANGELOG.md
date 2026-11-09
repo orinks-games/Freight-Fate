@@ -29,6 +29,7 @@
 - **Full lane keeping now takes open weigh stations.** It signals for the scale, and the truck stops at it with facility stopping assistance on.
 - **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.
 - **Exit ramps are updated to October's road data.** Most exits know their ramp's length and the light or sign at its end, both ways.
+- **Gary and South Bend to Chicago now use the Chicago Skyway, and Philadelphia, Harrisburg and Baltimore to Pittsburgh the Pennsylvania Turnpike.** Both charge tolls.
 - **Dispatch stops sending you straight back where you came from.** The city you just delivered from is on about one board in three, and it is no longer the load dispatch assigns or the one the cursor opens on while another load is there.
 - **Citations now clear from your record in 30 game days, and serious violations and crashes in 90.** Two serious violations within 180 days, not three years, suspend your CDL.
 - **Duty watch now checks the drivers list every two minutes.** A driver coming on duty can be announced up to a minute later than before.
@@ -42,6 +43,7 @@
 
 ### Fixed
 
+- **Kenosha and Milwaukee to Chicago now stay on I-94, on the Tri-State through Lake County.** They used to leave it for the signals on US-41.
 - **Road lines are no longer lost while other lines speak.** With NVDA 2026.3 or SAPI, the 2-mile and 1-mile exit calls always play, and a line cut off by a readout plays after a Brake warning.
 - **Your planned stop is announced at every driving speech setting, with the key to signal for it.** Pressing X while it is read no longer brings the line back.
 - **The brake warning now names the vehicle ahead.** It said "Slow car" for a semi or a box truck.

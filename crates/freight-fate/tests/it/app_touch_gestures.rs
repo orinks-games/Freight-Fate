@@ -319,6 +319,12 @@ fn single_gestures_run_their_default_commands() {
     // The road ahead: each drive rolls its own ramp controls, so only the
     // readout itself is compared.
     let mut harness = a_drive("Touch Road Ahead");
+    // A few miles short of the first stop, so the road ahead has one.
+    harness.with_drive(|drive, _| {
+        let first = drive.trip.stops.first().map(|stop| stop.at_mi);
+        let first = first.expect("the assigned route carries en-route stops");
+        drive.trip.position_mi = (first - 3.0).max(0.0);
+    });
     let mut input = TouchInput::new();
     touch(&mut harness, &mut input, Gesture::ThreeFingerSwipeDown);
     let said = harness.transcript();
