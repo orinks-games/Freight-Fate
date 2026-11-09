@@ -516,7 +516,10 @@ mod tests {
         // rejected as level because the profile and HPMS both called the
         // ground flat. On 2026-09-19 USGS 3DEP read the same span and
         // measured -0.04. The rescue was right, and the bake no longer needs
-        // it -- a measurement stands where a judgement call used to.
+        // it -- a measurement stands where a judgement call used to. On
+        // 2026-11-05 the leg was re-routed over the Chicago Skyway, and its
+        // grades were read again from Valhalla's DEM along the new road; the
+        // last span still has to be a reading, not the old profile.
         let text = read_data_text("world_data/us/legs/IN.json").expect("IN shard");
         let data: serde_json::Value = serde_json::from_str(&text).unwrap();
         let leg = data["legs"]
@@ -537,7 +540,9 @@ mod tests {
              3DEP reading was lost in a re-bake"
         );
         assert!(
-            last["source"].as_str().unwrap().contains("USGS 3DEP"),
+            ["USGS 3DEP", "Valhalla /height"]
+                .iter()
+                .any(|read| last["source"].as_str().unwrap().contains(read)),
             "the measured slope has to keep saying where it came from"
         );
     }

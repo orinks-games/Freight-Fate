@@ -11476,6 +11476,21 @@ msgstr ""
 msgid "{base} in {days_ahead} days"
 msgstr ""
 
+msgid "minivan"
+msgstr "xe minivan"
+
+msgid "sports car"
+msgstr "xe thể thao"
+
+msgid "tanker"
+msgstr "xe bồn"
+
+msgid "car hauler"
+msgstr "xe chở ô tô"
+
+msgid "service vehicle"
+msgstr ""
+
 msgid "cruising"
 msgstr ""
 
@@ -11504,9 +11519,6 @@ msgid "following"
 msgstr ""
 
 msgid "passing"
-msgstr ""
-
-msgid "service vehicle"
 msgstr ""
 
 msgid "right lane"
@@ -20782,6 +20794,9 @@ msgstr ""
 msgid "Hold {control_hint} to press the clutch first."
 msgstr ""
 
+msgid "Grinding gears! Clutch in first."
+msgstr ""
+
 #. placeholders: {join_phrase}
 msgid "offers {join_phrase}"
 msgstr ""
@@ -21379,11 +21394,6 @@ msgid ""
 "{cleared} {cleared_verb} now 0 percent.{damage} You have {grouped2} dollars."
 msgstr ""
 
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Press {control_hint} to restart the engine."
-msgstr ""
-
 #. placeholders: {work}, {grouped}
 #. one sentence of a longer line
 msgid "Road service {work} for {grouped} dollars."
@@ -21449,6 +21459,10 @@ msgid ""
 "to {damage_pct} percent, still in reduced power. It took "
 "{BREAKDOWN_REPAIR_MIN} hours and it is now {clock_text}. You have "
 "{grouped2} dollars. Press {control_hint} to restart the engine."
+msgstr ""
+
+#. placeholders: {control_hint}
+msgid "Press {control_hint} to restart the engine."
 msgstr ""
 
 #. placeholders: {spare}
@@ -22102,6 +22116,10 @@ msgstr ""
 msgid "Signal with {control_hint} and stop on the shoulder."
 msgstr ""
 
+msgid ""
+"Lights behind you for a routine inspection. Signal and stop on the shoulder."
+msgstr ""
+
 msgid "Roadside inspection"
 msgstr ""
 
@@ -22180,6 +22198,16 @@ msgid ""
 "shoulder."
 msgstr ""
 
+#. placeholders: {reason}, {detail}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {detail} and "
+"wants a look at the truck. Signal and stop on the shoulder."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Signal and stop on the shoulder."
+msgstr ""
+
 #. placeholders: {reason}, {what}
 #. one sentence of a longer line
 msgid "A trooper on this {reason} saw {what}."
@@ -22189,6 +22217,12 @@ msgstr ""
 msgid ""
 "Lights and siren behind you. A trooper on this {reason} saw {what}. Signal "
 "with {control_hint} and stop on the shoulder."
+msgstr ""
+
+#. placeholders: {reason}, {what}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {what}. Signal "
+"and stop on the shoulder."
 msgstr ""
 
 msgid "observed"
@@ -22302,17 +22336,19 @@ msgid ""
 "{engine} to restart the engine."
 msgstr ""
 
-#. placeholders: {engine}
-#. one sentence of a longer line
-msgid "Press {engine} to restart the engine."
-msgstr ""
-
 #. placeholders: {billing}
 #. one sentence of a longer line
 msgid "Roadside rescue brought thirty gallons {billing}."
 msgstr ""
 
+#. placeholders: {engine}
+msgid "Press {engine} to restart the engine."
+msgstr ""
+
 msgid "Destination exit ahead again."
+msgstr ""
+
+msgid "Destination exit ahead again. Signal for it."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -22325,6 +22361,10 @@ msgid "Press {control_hint} to signal."
 msgstr ""
 
 msgid "You turned around, and the destination exit is ahead again."
+msgstr ""
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Signal for it."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -22350,10 +22390,6 @@ msgstr ""
 msgid "Missed the destination exit for {facility}. {reroute_text}"
 msgstr ""
 
-#. one sentence of a longer line
-msgid "Holding at the entrance."
-msgstr ""
-
 #. placeholders: {control_hint}
 msgid "Holding at the entrance. Press {control_hint} to continue."
 msgstr ""
@@ -22361,6 +22397,9 @@ msgstr ""
 #. placeholders: {control_hint}
 #. one sentence of a longer line
 msgid "Press {control_hint} to continue."
+msgstr ""
+
+msgid "Holding at the entrance."
 msgstr ""
 
 #. placeholders: {facility}
@@ -23075,13 +23114,12 @@ msgstr ""
 msgid "Press {control_hint} again to cancel the exit."
 msgstr ""
 
-#. placeholders: {stays}
-#. one sentence of a longer line
-msgid "Signal stays {stays}."
-msgstr ""
-
 #. placeholders: {stays}, {control_hint}
 msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
+msgstr ""
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
 msgstr ""
 
 msgid "Signal canceled."
@@ -23683,13 +23721,12 @@ msgstr ""
 msgid "Press {exit_hint} to signal the trooper stop."
 msgstr ""
 
-#. one sentence of a longer line
-msgid "Resolve the police stop first."
-msgstr ""
-
 #. placeholders: {exit_hint}
 msgid ""
 "Resolve the police stop first. Press {exit_hint} to signal the trooper stop."
+msgstr ""
+
+msgid "Resolve the police stop first."
 msgstr ""
 
 #. placeholders: {name}
@@ -23706,6 +23743,14 @@ msgstr ""
 #. placeholders: {rest_hint}
 #. one sentence of a longer line
 msgid "Stop at the scale, then press {rest_hint} to check in."
+msgstr ""
+
+#. placeholders: {name}
+msgid "On the ramp for {name}. Stop at the scale, then check in."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the scale, then check in."
 msgstr ""
 
 msgid "Emergency shoulder sleep is not available here. Use a route stop."
@@ -23861,6 +23906,11 @@ msgstr ""
 msgid ""
 "Lights and siren behind you for a log check. Signal with {control_hint} and "
 "stop on the shoulder."
+msgstr ""
+
+msgid ""
+"Lights and siren behind you for a log check. Signal and stop on the "
+"shoulder."
 msgstr ""
 
 msgid "Log check"
@@ -24042,6 +24092,9 @@ msgstr ""
 msgid " Brake with {control_hint} well before it."
 msgstr ""
 
+msgid " Brake well before it."
+msgstr ""
+
 #. placeholders: {place}
 msgid "Drove past {place}. Use the next safe turnaround."
 msgstr ""
@@ -24105,6 +24158,9 @@ msgstr ""
 msgid " Brake with {control_hint} well before the gate."
 msgstr ""
 
+msgid " Brake well before the gate."
+msgstr ""
+
 msgid ""
 " Facility stopping assistance in Settings, Gameplay, Driving assistance, "
 "can stop the truck for you."
@@ -24140,6 +24196,10 @@ msgstr ""
 
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
+msgstr ""
+
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by an {vehicle}."
 msgstr ""
 
 #. placeholders: {name}, {vehicle}
@@ -26610,11 +26670,6 @@ msgstr ""
 msgid "Driving and duty clocks reset."
 msgstr ""
 
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "{control_hint} starts the engine."
-msgstr ""
-
 #. placeholders: {engine_off}, {grouped}
 #. one sentence of a longer line
 msgid "{engine_off}Motel, {grouped} dollars, 10 hours."
@@ -26629,6 +26684,10 @@ msgstr ""
 #. placeholders: {grouped2}
 #. one sentence of a longer line
 msgid "{grouped2} dollars."
+msgstr ""
+
+#. placeholders: {control_hint}
+msgid "{control_hint} starts the engine."
 msgstr ""
 
 #. placeholders: {name}
@@ -27777,6 +27836,9 @@ msgstr ""
 msgid ""
 "Shoulder sleep canceled. Back on the road. Parking brake set, {hint} "
 "releases it."
+msgstr ""
+
+msgid "Shoulder sleep canceled. Back on the road. Parking brake set."
 msgstr ""
 
 msgid "Ramp curve"
@@ -29067,10 +29129,6 @@ msgid ""
 "the shoulder."
 msgstr ""
 
-#. one sentence of a longer line
-msgid "Signal and stop on the shoulder."
-msgstr ""
-
 #. placeholders: {speed}, {zone}
 #. one sentence of a longer line
 msgid "{speed} in a {zone} zone."
@@ -29135,6 +29193,11 @@ msgid ""
 "{control_hint} and stop on the shoulder."
 msgstr ""
 
+msgid ""
+"Scale bypass enforcement. Lights and siren behind you. Signal and stop on "
+"the shoulder."
+msgstr ""
+
 msgid "Weigh station bypass stop"
 msgstr ""
 
@@ -29161,6 +29224,11 @@ msgstr ""
 msgid ""
 "Unsafe equipment stop. Lights and siren behind you. Signal with "
 "{control_hint} and stop on the shoulder."
+msgstr ""
+
+msgid ""
+"Unsafe equipment stop. Lights and siren behind you. Signal and stop on the "
+"shoulder."
 msgstr ""
 
 msgid "Unsafe equipment stop"
@@ -29245,8 +29313,17 @@ msgstr ""
 msgid "Transmission changed to {mode}."
 msgstr ""
 
-#. one sentence of a longer line
 msgid "Engine stalled."
+msgstr ""
+
+msgid ""
+"Engine stalled. Hold the clutch, restart, and shift down to first before "
+"letting it out."
+msgstr ""
+
+msgid ""
+"Engine stalled. Shift to neutral and restart, then clutch in and pick first "
+"gear."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -29384,6 +29461,17 @@ msgstr ""
 #. placeholders: {damage_pct}
 #. one sentence of a longer line
 msgid "Truck damage {damage_pct} percent."
+msgstr ""
+
+#. placeholders: {vehicle_class}, {lane_name}
+#. one sentence of a longer line
+msgid "You sideswiped an {vehicle_class} in the {lane_name} lane!"
+msgstr ""
+
+#. placeholders: {vehicle_class}, {lane_name}, {damage_pct}
+msgid ""
+"You sideswiped an {vehicle_class} in the {lane_name} lane! Truck damage "
+"{damage_pct} percent."
 msgstr ""
 
 #. placeholders: {vehicle_class}, {lane_name}
@@ -29712,6 +29800,9 @@ msgstr ""
 msgid ""
 "Failure-to-stop warning. Signal with {control_hint} and stop on the "
 "shoulder."
+msgstr ""
+
+msgid "Failure-to-stop warning. Signal and stop on the shoulder."
 msgstr ""
 
 msgid "Failure-to-stop stop"
@@ -31081,6 +31172,15 @@ msgid ""
 "requiring action. Lines a setting leaves out make no sound and do not "
 "appear in message review. Readout keys always answer. Billboards, place "
 "names, and landmarks have their own switches below."
+msgstr ""
+
+#. placeholders: {on_off}
+msgid "Driving hints: {on_off}"
+msgstr ""
+
+msgid ""
+"On, driving lines name the key for the next step, like Press X to signal "
+"for the exit. Off, they leave the key out. Driving school always names it."
 msgstr ""
 
 #. placeholders: {chatter_summary}

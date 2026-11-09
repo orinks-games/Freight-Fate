@@ -335,10 +335,14 @@ impl DrivingState {
             ));
         } else if result.grind {
             ctx.audio.play("vehicle/gear_grind");
-            ctx.say(&format!(
-                "Grinding gears! Hold {} to press the clutch first.",
-                ctx.control_hint("clutch")
-            ));
+            if self.driving_hints(ctx) {
+                ctx.say(&format!(
+                    "Grinding gears! Hold {} to press the clutch first.",
+                    ctx.control_hint("clutch")
+                ));
+            } else {
+                ctx.say("Grinding gears! Clutch in first.");
+            }
         } else {
             ctx.say(&result.message);
         }

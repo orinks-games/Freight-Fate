@@ -585,6 +585,11 @@ impl SettingsCategoryState {
         self.announce(ctx);
     }
 
+    pub(super) fn toggle_driving_hints(&mut self, ctx: &mut GameContext, _d: i64) {
+        ctx.settings.driving_hints = !ctx.settings.driving_hints;
+        self.announce(ctx);
+    }
+
     pub(super) fn toggle_menu_position(&mut self, ctx: &mut GameContext, _d: i64) {
         ctx.settings.announce_menu_position = !ctx.settings.announce_menu_position;
         self.announce(ctx);

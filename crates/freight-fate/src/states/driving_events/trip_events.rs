@@ -1503,11 +1503,17 @@ impl DrivingState {
             // was is the lights line's, and the scale's "wave you in" said
             // shoulder and weigh station in one breath (owner, 2026-11-04).
             let summary = format!("Out of service {oos_phrase}. Citation: {evidence_text}.");
-            let lights = format!(
-                "Lights and siren behind you for a log check. Signal with {} and stop on the \
-                 shoulder.",
-                ctx.control_hint("take_exit")
-            );
+            let lights = if self.driving_hints(ctx) {
+                format!(
+                    "Lights and siren behind you for a log check. Signal with {} and stop on \
+                     the shoulder.",
+                    ctx.control_hint("take_exit")
+                )
+            } else {
+                "Lights and siren behind you for a log check. Signal and stop on the \
+                 shoulder."
+                    .to_string()
+            };
             self.begin_enforcement_pull_over(
                 ctx,
                 "hos_out_of_service",

@@ -13091,6 +13091,21 @@ msgstr "{base} завтра"
 msgid "{base} in {days_ahead} days"
 msgstr "{base} через {days_ahead} {days_ahead:день|дня|дней}"
 
+msgid "minivan"
+msgstr "минивэн"
+
+msgid "sports car"
+msgstr "спорткар"
+
+msgid "tanker"
+msgstr "автоцистерна"
+
+msgid "car hauler"
+msgstr "автовоз"
+
+msgid "service vehicle"
+msgstr "служебная машина"
+
 msgid "cruising"
 msgstr "движется"
 
@@ -13120,9 +13135,6 @@ msgstr "следует за машиной"
 
 msgid "passing"
 msgstr "обгоняет"
-
-msgid "service vehicle"
-msgstr "служебная машина"
 
 msgid "right lane"
 msgstr "правая полоса"
@@ -23740,6 +23752,9 @@ msgstr ""
 msgid "Hold {control_hint} to press the clutch first."
 msgstr "Сначала удерживайте {control_hint}, чтобы выжать сцепление."
 
+msgid "Grinding gears! Clutch in first."
+msgstr ""
+
 #. placeholders: {join_phrase}
 msgid "offers {join_phrase}"
 msgstr "есть: {join_phrase}"
@@ -24485,11 +24500,6 @@ msgstr ""
 "{cleared}{cleared_verb:||}: теперь 0 процентов.{damage} У вас {grouped2} "
 "{grouped2:доллар|доллара|долларов}."
 
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Press {control_hint} to restart the engine."
-msgstr "Нажмите {control_hint}, чтобы снова завести двигатель."
-
 #. placeholders: {work}, {grouped}
 #. one sentence of a longer line
 msgid "Road service {work} for {grouped} dollars."
@@ -24583,6 +24593,10 @@ msgstr ""
 "заняло {BREAKDOWN_REPAIR_MIN} {BREAKDOWN_REPAIR_MIN:час|часа|часов}, сейчас "
 "{clock_text}. У вас {grouped2} {grouped2:доллар|доллара|долларов}. Нажмите "
 "{control_hint}, чтобы снова завести двигатель."
+
+#. placeholders: {control_hint}
+msgid "Press {control_hint} to restart the engine."
+msgstr "Нажмите {control_hint}, чтобы снова завести двигатель."
 
 #. placeholders: {spare}
 msgid "You are in the {spare}"
@@ -25348,6 +25362,10 @@ msgstr ""
 msgid "Signal with {control_hint} and stop on the shoulder."
 msgstr "Включите сигнал клавишей {control_hint} и остановитесь на обочине."
 
+msgid ""
+"Lights behind you for a routine inspection. Signal and stop on the shoulder."
+msgstr ""
+
 msgid "Roadside inspection"
 msgstr "Проверка на дороге"
 
@@ -25437,6 +25455,16 @@ msgstr ""
 "{detail}, и хочет осмотреть грузовик. Включите сигнал клавишей "
 "{control_hint} и остановитесь на обочине."
 
+#. placeholders: {reason}, {detail}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {detail} and "
+"wants a look at the truck. Signal and stop on the shoulder."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Signal and stop on the shoulder."
+msgstr "Включите сигнал и остановитесь на обочине."
+
 #. placeholders: {reason}, {what}
 #. one sentence of a longer line
 msgid "A trooper on this {reason} saw {what}."
@@ -25449,6 +25477,12 @@ msgid ""
 msgstr ""
 "Сзади мигалки и сирена. Патрульный на этом участке, {reason}, заметил: "
 "{what}. Включите сигнал клавишей {control_hint} и остановитесь на обочине."
+
+#. placeholders: {reason}, {what}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {what}. Signal "
+"and stop on the shoulder."
+msgstr ""
 
 msgid "observed"
 msgstr "observed"
@@ -25577,18 +25611,20 @@ msgstr ""
 "Топливо кончилось. Подвоз топлива доставил тридцать галлонов {billing}. "
 "Нажмите {engine}, чтобы снова завести двигатель."
 
-#. placeholders: {engine}
-#. one sentence of a longer line
-msgid "Press {engine} to restart the engine."
-msgstr "Нажмите {engine}, чтобы снова завести двигатель."
-
 #. placeholders: {billing}
 #. one sentence of a longer line
 msgid "Roadside rescue brought thirty gallons {billing}."
 msgstr "Подвоз топлива доставил тридцать галлонов {billing}."
 
+#. placeholders: {engine}
+msgid "Press {engine} to restart the engine."
+msgstr "Нажмите {engine}, чтобы снова завести двигатель."
+
 msgid "Destination exit ahead again."
 msgstr "Съезд к месту доставки снова впереди."
+
+msgid "Destination exit ahead again. Signal for it."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
@@ -25603,6 +25639,10 @@ msgstr "Нажмите {control_hint}, чтобы включить сигнал.
 
 msgid "You turned around, and the destination exit is ahead again."
 msgstr "Вы развернулись, и съезд к месту доставки снова впереди."
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Signal for it."
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -25631,10 +25671,6 @@ msgstr "Пропущен съезд к месту доставки, {facility}."
 msgid "Missed the destination exit for {facility}. {reroute_text}"
 msgstr "Пропущен съезд к месту доставки, {facility}. {reroute_text}"
 
-#. one sentence of a longer line
-msgid "Holding at the entrance."
-msgstr "Ждём у въезда."
-
 #. placeholders: {control_hint}
 msgid "Holding at the entrance. Press {control_hint} to continue."
 msgstr "Ждём у въезда. Нажмите {control_hint}, чтобы продолжить."
@@ -25643,6 +25679,9 @@ msgstr "Ждём у въезда. Нажмите {control_hint}, чтобы пр
 #. one sentence of a longer line
 msgid "Press {control_hint} to continue."
 msgstr "Нажмите {control_hint}, чтобы продолжить."
+
+msgid "Holding at the entrance."
+msgstr "Ждём у въезда."
 
 #. placeholders: {facility}
 msgid "At {facility}. Stop to dock."
@@ -26398,16 +26437,15 @@ msgstr "Пока нет съезда маршрута, для которого �
 msgid "Press {control_hint} again to cancel the exit."
 msgstr "Нажмите {control_hint} ещё раз, чтобы отменить съезд."
 
-#. placeholders: {stays}
-#. one sentence of a longer line
-msgid "Signal stays {stays}."
-msgstr "Сигнал сохранён: {stays}."
-
 #. placeholders: {stays}, {control_hint}
 msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
 msgstr ""
 "Сигнал сохранён: {stays}. Нажмите {control_hint} ещё раз, чтобы отменить "
 "съезд."
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
+msgstr "Сигнал сохранён: {stays}."
 
 msgid "Signal canceled."
 msgstr "Сигнал отменён."
@@ -27037,16 +27075,15 @@ msgid "Press {exit_hint} to signal the trooper stop."
 msgstr ""
 "Нажмите {exit_hint}, чтобы включить сигнал и остановиться для патрульного."
 
-#. one sentence of a longer line
-msgid "Resolve the police stop first."
-msgstr "Сначала закончите с полицейской остановкой."
-
 #. placeholders: {exit_hint}
 msgid ""
 "Resolve the police stop first. Press {exit_hint} to signal the trooper stop."
 msgstr ""
 "Сначала закончите с полицейской остановкой. Нажмите {exit_hint}, чтобы "
 "включить сигнал и остановиться для патрульного."
+
+msgid "Resolve the police stop first."
+msgstr "Сначала закончите с полицейской остановкой."
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -27065,6 +27102,14 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Stop at the scale, then press {rest_hint} to check in."
 msgstr "Остановитесь у весов, затем нажмите {rest_hint}, чтобы отметиться."
+
+#. placeholders: {name}
+msgid "On the ramp for {name}. Stop at the scale, then check in."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the scale, then check in."
+msgstr ""
 
 msgid "Emergency shoulder sleep is not available here. Use a route stop."
 msgstr ""
@@ -27226,6 +27271,11 @@ msgid ""
 msgstr ""
 "Сзади мигалки и сирена: проверка журнала. Включите сигнал клавишей "
 "{control_hint} и остановитесь на обочине."
+
+msgid ""
+"Lights and siren behind you for a log check. Signal and stop on the "
+"shoulder."
+msgstr ""
 
 msgid "Log check"
 msgstr "Проверка журнала"
@@ -27410,6 +27460,9 @@ msgstr "Он снова впереди."
 msgid " Brake with {control_hint} well before it."
 msgstr " Тормозите клавишей {control_hint} заранее."
 
+msgid " Brake well before it."
+msgstr ""
+
 #. placeholders: {place}
 msgid "Drove past {place}. Use the next safe turnaround."
 msgstr "Проехали {place}. Воспользуйтесь ближайшим безопасным разворотом."
@@ -27477,6 +27530,9 @@ msgstr "Вы развернулись, и ворота снова впереди
 msgid " Brake with {control_hint} well before the gate."
 msgstr " Тормозите клавишей {control_hint} заранее, до ворот."
 
+msgid " Brake well before the gate."
+msgstr ""
+
 msgid ""
 " Facility stopping assistance in Settings, Gameplay, Driving assistance, "
 "can stop the truck for you."
@@ -27515,6 +27571,10 @@ msgstr "Остаёмся в средней полосе."
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "Полоса {name} закрыта на ремонт."
+
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by an {vehicle}."
+msgstr "Полоса {name} занята: {vehicle}."
 
 #. placeholders: {name}, {vehicle}
 msgid "{name} lane blocked by a {vehicle}."
@@ -30312,11 +30372,6 @@ msgstr ""
 msgid "Driving and duty clocks reset."
 msgstr "Часы вождения и смены сброшены."
 
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "{control_hint} starts the engine."
-msgstr "{control_hint} заводит двигатель."
-
 #. placeholders: {engine_off}, {grouped}
 #. one sentence of a longer line
 msgid "{engine_off}Motel, {grouped} dollars, 10 hours."
@@ -30336,6 +30391,10 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{grouped2} dollars."
 msgstr "У вас {grouped2} {grouped2:доллар|доллара|долларов}."
+
+#. placeholders: {control_hint}
+msgid "{control_hint} starts the engine."
+msgstr "{control_hint} заводит двигатель."
 
 #. placeholders: {name}
 msgid "The truck parking at {name} is full tonight."
@@ -31684,6 +31743,9 @@ msgid ""
 msgstr ""
 "Сон на обочине отменён. Снова в пути. Стояночный тормоз включён, {hint} "
 "отпускает его."
+
+msgid "Shoulder sleep canceled. Back on the road. Parking brake set."
+msgstr ""
 
 msgid "Ramp curve"
 msgstr "Поворот съезда"
@@ -33098,10 +33160,6 @@ msgstr ""
 "Сзади мигалки и сирена. {speed} при ограничении {zone}. Включите сигнал и "
 "остановитесь на обочине."
 
-#. one sentence of a longer line
-msgid "Signal and stop on the shoulder."
-msgstr "Включите сигнал и остановитесь на обочине."
-
 #. placeholders: {speed}, {zone}
 #. one sentence of a longer line
 msgid "{speed} in a {zone} zone."
@@ -33175,6 +33233,11 @@ msgstr ""
 "Наказание за объезд весов. Сзади мигалки и сирена. Включите сигнал клавишей "
 "{control_hint} и остановитесь на обочине."
 
+msgid ""
+"Scale bypass enforcement. Lights and siren behind you. Signal and stop on "
+"the shoulder."
+msgstr ""
+
 msgid "Weigh station bypass stop"
 msgstr "Остановка за объезд пункта весового контроля"
 
@@ -33209,6 +33272,11 @@ msgid ""
 msgstr ""
 "Остановка за неисправную технику. Сзади мигалки и сирена. Включите сигнал "
 "клавишей {control_hint} и остановитесь на обочине."
+
+msgid ""
+"Unsafe equipment stop. Lights and siren behind you. Signal and stop on the "
+"shoulder."
+msgstr ""
 
 msgid "Unsafe equipment stop"
 msgstr "Остановка за неисправную технику"
@@ -33302,9 +33370,18 @@ msgstr ""
 msgid "Transmission changed to {mode}."
 msgstr "Коробка передач переключена: {mode}."
 
-#. one sentence of a longer line
 msgid "Engine stalled."
 msgstr "Двигатель заглох."
+
+msgid ""
+"Engine stalled. Hold the clutch, restart, and shift down to first before "
+"letting it out."
+msgstr ""
+
+msgid ""
+"Engine stalled. Shift to neutral and restart, then clutch in and pick first "
+"gear."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Engine stalled. Press {control_hint} to restart."
@@ -33458,6 +33535,19 @@ msgstr "Полоса {lane_label} закрыта. Остаёмся в полос
 msgid "Truck damage {damage_pct} percent."
 msgstr ""
 "Повреждения грузовика {damage_pct} {damage_pct:процент|процента|процентов}."
+
+#. placeholders: {vehicle_class}, {lane_name}
+#. one sentence of a longer line
+msgid "You sideswiped an {vehicle_class} in the {lane_name} lane!"
+msgstr "Вы задели бортом {vehicle_class} в полосе {lane_name}!"
+
+#. placeholders: {vehicle_class}, {lane_name}, {damage_pct}
+msgid ""
+"You sideswiped an {vehicle_class} in the {lane_name} lane! Truck damage "
+"{damage_pct} percent."
+msgstr ""
+"Вы задели бортом {vehicle_class} в полосе {lane_name}! Повреждения "
+"грузовика {damage_pct} {damage_pct:процент|процента|процентов}."
 
 #. placeholders: {vehicle_class}, {lane_name}
 #. one sentence of a longer line
@@ -33814,6 +33904,9 @@ msgid ""
 msgstr ""
 "Предупреждение о неподчинении требованию остановиться. Включите сигнал "
 "клавишей {control_hint} и остановитесь на обочине."
+
+msgid "Failure-to-stop warning. Signal and stop on the shoulder."
+msgstr ""
 
 msgid "Failure-to-stop stop"
 msgstr "Остановка за неподчинение требованию остановиться"
@@ -35421,6 +35514,15 @@ msgstr ""
 "которые настройка отключает, не звучат и не появляются в журнале сообщений. "
 "Клавиши справки отвечают всегда. У рекламных щитов, названий мест и "
 "достопримечательностей свои переключатели ниже."
+
+#. placeholders: {on_off}
+msgid "Driving hints: {on_off}"
+msgstr ""
+
+msgid ""
+"On, driving lines name the key for the next step, like Press X to signal "
+"for the exit. Off, they leave the key out. Driving school always names it."
+msgstr ""
 
 #. placeholders: {chatter_summary}
 msgid "Roadside chatter: {chatter_summary}"

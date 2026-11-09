@@ -62,7 +62,7 @@ fn every_yard_arrival_is_whole_spanish() {
 }
 
 #[test]
-fn the_chicago_start_and_kenosha_drive_are_whole_spanish() {
+fn the_chicago_start_and_first_drive_are_whole_spanish() {
     let es = spanish();
     for first_day_done in [false, true] {
         let mut harness = PlaytestHarness::new();
@@ -76,7 +76,7 @@ fn the_chicago_start_and_kenosha_drive_are_whole_spanish() {
         let lines = harness.app.main_lines();
         let said = lines.join(" ");
         assert!(said.contains("Chicago Company Yard"), "{said}");
-        assert!(said.contains("routed you to Kenosha"), "{said}");
+        assert!(said.contains("Dispatch routed you to "), "{said}");
         assert!(said.contains(" empty to "), "{said}");
         let mut leaks = Vec::new();
         // The board's market and offer rows and the facility phrases
