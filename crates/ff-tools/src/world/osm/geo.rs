@@ -147,7 +147,7 @@ pub fn corridor_cells<'a>(lines: impl Iterator<Item = &'a LegLine>) -> HashSet<C
 
 /// The cells a straight segment passes through, walked in half-cell steps
 /// so a long rural segment costs its length and not its bounding box.
-fn segment_cells(a: (f64, f64), b: (f64, f64)) -> impl Iterator<Item = Cell> {
+pub fn segment_cells(a: (f64, f64), b: (f64, f64)) -> impl Iterator<Item = Cell> {
     let span = ((b.0 - a.0).abs().max((b.1 - a.1).abs()) / (CELL_DEG / 2.0)).ceil();
     let steps = (span as usize).max(1);
     (0..=steps).map(move |s| {
@@ -178,7 +178,7 @@ pub struct WayIndex {
 }
 
 /// Point-to-segment distance in metres on a local flat projection.
-fn seg_dist_m(lat: f64, lon: f64, a: (f64, f64), b: (f64, f64), coslat: f64) -> f64 {
+pub fn seg_dist_m(lat: f64, lon: f64, a: (f64, f64), b: (f64, f64), coslat: f64) -> f64 {
     let proj = |p: (f64, f64)| {
         (
             p.1.to_radians() * EARTH_R_M * coslat,

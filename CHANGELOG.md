@@ -13,6 +13,7 @@
 - **Choose stable, beta, or alpha updates in Settings.** Existing snapshot followers move to beta.
 - **New releases seal career saves against local editing.** Existing careers migrate with a backup; cloud backups retain their verification.
 - **Alt+5 names the county you are driving through.** On city streets it names the city's county.
+- **Driving hints can be turned off.** With it off in Settings, Speech, driving lines stop naming keys, like "Press X to signal for the exit."
 
 ### Changed
 
@@ -30,6 +31,7 @@
 - **Full lane keeping now takes open weigh stations.** It signals for the scale, and the truck stops at it with facility stopping assistance on.
 - **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.
 - **Exit ramps are updated to October's road data.** Most exits know their ramp's length and the light or sign at its end, both ways.
+- **Gary and South Bend to Chicago now use the Chicago Skyway, and Philadelphia, Harrisburg and Baltimore to Pittsburgh the Pennsylvania Turnpike.** Both charge tolls.
 - **Dispatch stops sending you straight back where you came from.** The city you just delivered from is on about one board in three, and it is no longer the load dispatch assigns or the one the cursor opens on while another load is there.
 - **Citations now clear from your record in 30 game days, and serious violations and crashes in 90.** Two serious violations within 180 days, not three years, suspend your CDL.
 - **Duty watch now checks the drivers list every two minutes.** A driver coming on duty can be announced up to a minute later than before.
@@ -43,6 +45,7 @@
 
 ### Fixed
 
+- **A street that only changes name ahead is named once, at the join.** "Continue onto" no longer comes twice in a few seconds.
 - **Kenosha and Milwaukee to Chicago now stay on I-94, on the Tri-State through Lake County.** They used to leave it for the signals on US-41.
 - **Road lines are no longer lost while other lines speak.** With NVDA 2026.3 or SAPI, the 2-mile and 1-mile exit calls always play, and a line cut off by a readout plays after a Brake warning.
 - **Your planned stop is announced at every driving speech setting, with the key to signal for it.** Pressing X while it is read no longer brings the line back.
@@ -51,7 +54,9 @@
 - **Rest areas across a divided highway are no longer announced.** On I-43 north to Green Bay you hear Rest Area #52, not #51 too.
 - **The route readout says you are at the stop once you reach it.** It used to keep saying 50 feet until the truck rolled past.
 - **The copy key copies the message you stepped back to.** It used to copy the newest line instead.
+- **You get the full 10 seconds to switch off the engine brake in a no engine brake zone.** Pressing the throttle or changing gear after the warning used to bring a citation within seconds.
 - **Numbered loads on the dispatch board are read in your language.** The load line after "Job 1 of 7" stayed in English.
+- **Alt+1 and Alt+3 name the destination once you take its exit.** They used to name the city and state you left.
 
 - **Speed limits no longer jump to 70 and back where the map has no posting.** An unmapped stretch keeps the limits on either side, and state truck limits such as California's 55 apply there too.
 - **Cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
@@ -72,6 +77,7 @@
 - **A trooper the radio placed in the median is still in the median when you pass.**
 - **Manual gear shifts now play the same short gear-change sound as automatic shifts.**
 - **Halloween week has more billboards, and they no longer repeat the same two lines.** They come up less often, and some are about the state you are in.
+- **On Windows, an update no longer fails and comes back when a game file is briefly in use.** It waits for the file, and game.log records each install step. Thanks to lightsrage ([issue 575](https://github.com/orinks-games/Freight-Fate/issues/575)).
 - **Automatic update offers start on Remind me later.** Holding a key cannot install an update by accident.
 - **The unused translations folder from mid-October downloads leaves the game folder.** It moves to the saves folder as old-translations, so any edits in it are kept.
 - **The Mac game no longer freezes at launch with VoiceOver on.** It could stop responding for up to two minutes while VoiceOver was starting.

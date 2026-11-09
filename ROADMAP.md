@@ -48,6 +48,14 @@ bookmarks usable.
 - [ ] (Found along the way) Road Ranger Chicago dropped off Kenosha and Milwaukee to Chicago: it is 3.9 miles off the new route into downtown, past the 3-mile rule. Those legs end with no fuel stop near Chicago; find one on the Edens or the Kennedy.
 - [x] More traffic variety (owner, 2026-11-04: "we only have like three or four traffic items"): the freeway drew only car, box truck, semi and service vehicle, each with one loop. It now draws thirteen kinds (`FREEWAY_CLASSES`), adding SUV, pickup, minivan, sports car, motorcycle, RV, bus, tanker and car hauler, with the light, box truck and tractor-trailer shares unchanged, and the car, semi, pickup, SUV and motorcycle have two or three takes each, kept per vehicle. Thirteen new loops rendered with genny 0.2.0 (`sound-test/traffic_variety.json`). A tanker and a car hauler share the semi's governor and climb; the rest are ungoverned, as before. Waiting on the owner's listening pass.
 - [ ] (Found along the way) An RV and a coach bus run at car speed and climb like one: neither has a governor band or climb numbers yet. Give them one with the realistic-traffic speed work.
+- [ ] (Found along the way) Resuming cruise to a remembered 85 on a 12 percent downgrade with the automatic and a 21-ton load peaks 7 rpm past the over-rev line (2,317 against 2,310), and charges the over-rev wear. The resume test was written against a 15.6-ton load, and the new Chicago career's first load grew when the Chicago legs were re-routed (2026-11-09); the test now pins the old load. Check whether the automatic should upshift or the cruise should brake sooner with a heavy trailer.
+- [x] (Found along the way) Gary and South Bend to Chicago left I-90 for Cline Avenue around the Chicago Skyway, and Philadelphia, Harrisburg and Baltimore to Pittsburgh left the Pennsylvania Turnpike for US-30 near Breezewood and Bedford: the old truck router avoided tolls (route audit of 2026-11-05). Re-routed 2026-11-05 onto the toll roads, every layer rebuilt from the planet file of 2026-11-03, and the toll booths re-placed: the Skyway's 5-axle toll is read from its operator's table, and Harrisburg's and Baltimore's Turnpike tolls are pro-rated by miles from Philadelphia's estimate.
+- [ ] (Found along the way) Four legs store a straight line across a stretch of their road: Newark to Trenton (38 miles between miles 8 and 46, where the New Jersey Turnpike is), Portland to Salt Lake City (28 miles near mile 166), Knoxville to Atlanta (17 miles near mile 44) and Springfield to St. Louis (12 miles near mile 49). Curves, limits and exits there are read off a line that is not the road. The truck router puts each back on its interstate (69 to 96% of the miles); re-route them the same way.
+- [ ] (Found along the way) Five legs ride other roads for 5 to 16 miles beside their interstate: Charlotte to Knoxville (US-321 and US-221 Business near Hickory and Marion), Erie to Meadville (PA-98), Rapid City to Sioux Falls (SD-50), Paducah to Clarksville (US-60 and US-62) and Sacramento to Portland (OR-99). The truck router keeps 77 to 97% of each on the interstate. Erie to Meadville reads 0% on I-79 in the router's own report, which needs a look before re-routing it.
+- [ ] (Found along the way) Six Florida legs named I-95 ride Florida's Turnpike for about 13 miles (West Palm Beach, Port St. Lucie, Coral Springs and Jacksonville to Miami and Palm Bay). The route is a reasonable truck choice; the label is what is wrong. Name the road the legs drive, or split the highway name where they change roads.
+- [ ] (Found along the way) A whole-map run of the new layer builders (2026-11-05, dry run) would change most legs: lane counts and landmarks mostly by their source notes, villages by about 160 places, and low clearances from 118 legs to 543, mostly real posted bridges under 16 feet in the Northeast. Decide whether to apply it, and listen to a few of the new clearance calls first.
+- [ ] (Found along the way) The terrain class reads at most 800 HPMS sections per leg, so a long leg is judged on whichever 800 the server returns first: Harrisburg to Pittsburgh across the Alleghenies reads level. Count every section in the leg's own corridor instead.
+- [ ] (Found along the way) Landmarks name some protected areas a driver would not recognise as a place ("Grand Calumet River Area of Concern", "Business and Government Historic District"). OpenStreetMap's protect_class separates nature areas (1 to 6) from cultural and resource ones; filter on it.
 - [x] The event voice reports when it stops (owner, 2026-11-03): NVDA 2026.3 added `nvdaController_isSpeaking`, which Prism 0.18.3 already wraps; SAPI and OneCore answer too. Hearken's speech worker asks it, at most every 100 ms and only while a line could still be playing, and the pacer ends its length-based estimate when the voice reports silence, or holds it open while the voice is still talking. Game sounds stepping back for speech, the controller Back button's "anything speaking" check and the staleness budget all follow. Road lines also wait for it (owner, same day): while the voice reports it is talking, a queued road line is held by the game instead of stacked in the screen reader's queue; when it reports quiet, the most urgent held line still true is spoken, and chatter held past its 3-second budget, or a route line past 8 seconds, is dropped to message review (the owner's PC drive heard a work-zone easing line spoken 12 seconds late after a hazard brake, right before the game said it again). Interrupting lines and receipt-tracked lines never wait, and a queued critical line is never dropped: it goes after 6 seconds even if the voice never falls quiet. The exit countdown is kept the same way (owner's drive into Traverse City, 2026-11-04: the 2-mile and 1-mile calls, exit speed included, were dropped after 8 seconds), and a newer countdown call replaces one still waiting, carrying the exit speed forward. With both voices on the screen reader, the game asks the main voice, keeps asking once it has answered, and counts an info readout (Clock, Route) as speech: a road line raised during a readout waits for it, and the readout's time does not count against the line's budget. Older NVDA and JAWS keep the estimate and get every line at once. Waiting on a listening pass with a fast and a slow NVDA rate.
 - [x] Shorter record windows (owner, 2026-11-04): a citation counts for 30 game days, a serious violation or crash for 90, in reputation, the carrier's review, the insurance surcharge and the scale's screening; the CDL suspension ladder looks back 180. A game day is about one delivery, so the old year was several hundred loads for one ticket.
 - [x] Barrel strikes from before full lane keeping left closed lanes are forgiven once (owner, 2026-11-04): a player was cited when the assist held the truck in a coned-off lane. On the first load of a save written before the repair, each barrel strike the record still explains comes off (its citation, serious violation and entry), its fine is refunded, and a suspension it started is lifted. Saves carry no build stamp, so a strike the driver steered into is forgiven too. A strike older than the 60 kept entries cannot be found and stays.
@@ -778,14 +786,18 @@ Everything found before 2026-09-25 moved to
 - [x] (Found along the way) The chain control cited a truck that facility
       stopping assistance was braking into the chain-up area to chain up
       (issue #502, 2026-10-25). It now leaves that truck alone.
-- [ ] (Found along the way) A Driving hints setting, on by default, that
+- [x] (Found along the way) A Driving hints setting, on by default, that
       drops every "Press X to ..." sentence from driving lines (owner,
       2026-10-25; after 1.9.5). The key hints retire after three presses by
       the player, so with All assists signaling for them they never retire.
-- [ ] (Found along the way) A continue-onto street cue is named twice in
+      Shipped in Settings, Speech (2026-11-08): off retires every hint at
+      once, and the pull-over, stall, repair, missed-exit and air lines
+      drop their key. Driving school and the first run still teach keys.
+- [x] (Found along the way) A continue-onto street cue is named twice in
       a few seconds: "In a quarter mile, continue onto Columbus Road" and
       then "Continue onto Columbus Road, then 1 mile on it" (Cleveland
-      agent drive, 2026-10-25).
+      agent drive, 2026-10-25). A street that only changes name now gets
+      the one call at the join (2026-11-08).
 - [ ] (Found along the way) Quitting from the title menu on Windows takes
       about 2.2 seconds after the last shutdown line, where an agent
       server quit_game takes 0.14 (owner, 2026-10-25). Ending the process
@@ -843,6 +855,11 @@ Everything found before 2026-09-25 moved to
       release has no manifests and its builds do not update themselves.
 - [x] Stable versions are three-part for the engine updater (owner rule
       2026-10-30): a hotfix of 1.9.5 is 1.9.6, not 1.9.5.1.
+- [x] (Found along the way) Windows updates survive a briefly locked file
+      (issue 575): the install script waits for the old program to be
+      free and retries locked files, the next start no longer fails to
+      put a stopped install back, and the script's steps land in game.log
+      (Hearken PR 54).
 - [ ] (Found along the way) Port a deleted Python data tool into `ff-tools`
       when a data refresh needs it (October 22 section).
       [October 22 audit](#october-22-repository-size-and-security-audit)
@@ -3828,12 +3845,16 @@ Rules set that day:
 - [x] (Found along the way) The co-driver kept a cruise speed set under a
       higher limit: 70 into Indiana's 65 for trucks. They now tap it down.
 - [ ] Co-driver damages the truck (issue #492).
+- [x] Engine brake citation seconds after the zone warning (issue #531).
+      Any pause in the bark (throttle, a gear change) cleared the grace
+      window, and the next bark was cited at once. The pause now holds the
+      grace clock; only switching the engine brake off ends it.
 - [ ] Game stops responding when the player switches windows (report
       2026-10-21, answers asked for).
 - [x] Speed limits re-read from October OpenStreetMap (PR #515).
-- [ ] Tier 2: the Driving hints setting; lane keeping moving to the open
-      lane at a closure (issue #496); the doubled continue-onto cue; the
-      Mall of America exit; the Arch Linux PipeWire build (issue #501).
+- [ ] Tier 2: lane keeping moving to the open lane at a closure (issue
+      #496); the Mall of America exit; the Arch Linux PipeWire build
+      (issue #501).
 - [ ] Hygiene: Hearken pinned to main; contributor PRs #512 and #334
       merged or closed with a reason; the owner's listening pass; release
       signing before the tester pool widens.

@@ -99,12 +99,13 @@ fn the_struct_carries_the_persisted_fields_in_python_order() {
     // (2026-10-12) and automatic_jake (2026-10-14) were added on the Rust side;
     // lane_centering_assist was retired for 1.9, and the three Mastodon
     // sharing fields on 2026-10-15; visual_display (2026-10-15) and
-    // radio_cab_speakers (2026-10-18), achievement_sort (2026-10-28).
-    assert_eq!(Settings::FIELD_NAMES.len(), 100);
+    // radio_cab_speakers (2026-10-18), achievement_sort (2026-10-28) and
+    // driving_hints (2026-11-08).
+    assert_eq!(Settings::FIELD_NAMES.len(), 101);
     assert_eq!(Settings::FIELD_NAMES[0], "online_services");
     assert_eq!(Settings::FIELD_NAMES[82], "settings_layout_notice_from");
     let pairs = Settings::default().ordered_values();
-    assert_eq!(pairs.len(), 100);
+    assert_eq!(pairs.len(), 101);
     for ((name, _), field) in pairs.iter().zip(Settings::FIELD_NAMES) {
         assert_eq!(name, field);
     }
@@ -161,14 +162,15 @@ fn the_defaults_match_the_python_dataclass() {
         "touch_still_hold_ms": 500.0, "touch_rotate_degrees": 30.0, "touch_parking_brake_mph": 1.0,
         "steering_guide_inverted": false, "assist_preset_chosen": false,
         "facility_streets": true,
-        "language": "auto", "visual_display": true, "achievement_sort": "earned"
+        "language": "auto", "visual_display": true, "achievement_sort": "earned",
+        "driving_hints": true
     }"#,
     )
     .unwrap();
     let Value::Object(expected) = expected else {
         unreachable!()
     };
-    assert_eq!(expected.len(), 100);
+    assert_eq!(expected.len(), 101);
     for (name, value) in s.ordered_values() {
         assert_eq!(Some(&value), expected.get(name), "{name}");
     }
@@ -203,6 +205,17 @@ fn score_display_defaults_loads_old_files_and_round_trips() {
 }
 
 #[test]
+fn driving_hints_default_on_and_round_trip_as_a_boolean() {
+    assert!(Settings::default().driving_hints);
+    let mut quiet = Settings::default();
+    quiet.driving_hints = false;
+    let stored: Value = serde_json::from_str(&quiet.to_file_text()).unwrap();
+    assert_eq!(stored["driving_hints"], false);
+    assert!(!from_json(stored).driving_hints);
+    assert!(from_json(json!({})).driving_hints);
+}
+
+#[test]
 fn facility_streets_default_on_and_round_trip_as_a_boolean() {
     assert!(Settings::default().facility_streets);
     let mut classic = Settings::default();
@@ -224,7 +237,7 @@ fn the_file_text_is_what_json_dump_wrote() {
          \"touch_deep_swipe_factor\": 3.0,\n  \"touch_still_hold_ms\": 500.0,\n  \
          \"touch_rotate_degrees\": 30.0,\n  \"touch_parking_brake_mph\": 1.0,\n  \
          \"steering_guide_inverted\": false,\n  \"assist_preset_chosen\": false,\n  \"facility_streets\": true,\n  \"language\": \"auto\",\n  \
-         \"visual_display\": true,\n  \"achievement_sort\": \"earned\",\n  \"steering_assist\": \"off\"\n}"
+         \"visual_display\": true,\n  \"achievement_sort\": \"earned\",\n  \"driving_hints\": true,\n  \"steering_assist\": \"off\"\n}"
     ));
     assert!(text.contains("\n  \"time_scale\": 10.0,\n"));
     assert!(text.contains("\n  \"radio_volume\": 0.25,\n"));

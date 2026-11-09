@@ -16,6 +16,7 @@
 
 pub mod counties;
 pub mod index;
+pub mod layers;
 pub mod osm;
 pub mod reroute;
 

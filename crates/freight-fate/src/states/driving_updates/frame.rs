@@ -545,12 +545,26 @@ impl DrivingState {
                 // through neutral, which needs no clutch, then up into first.
                 // The pad has no neutral: it steps down to first on the
                 // clutch instead (2026-09-28).
-                let text = if tr.automatic || tr.in_neutral() {
+                let hints = self.driving_hints(ctx);
+                let pad = ctx.controller.device() == ff_core::input_hints::CONTROLLER;
+                let text = if !hints {
+                    if tr.automatic || tr.in_neutral() {
+                        "Engine stalled.".to_string()
+                    } else if pad {
+                        "Engine stalled. Hold the clutch, restart, and shift down to first \
+                         before letting it out."
+                            .to_string()
+                    } else {
+                        "Engine stalled. Shift to neutral and restart, then clutch in and pick \
+                         first gear."
+                            .to_string()
+                    }
+                } else if tr.automatic || tr.in_neutral() {
                     format!(
                         "Engine stalled. Press {} to restart.",
                         ctx.control_hint("engine")
                     )
-                } else if ctx.controller.device() == ff_core::input_hints::CONTROLLER {
+                } else if pad {
                     format!(
                         "Engine stalled. Hold {}, press {} to restart, and shift down to first \
                          with {} before letting the clutch out.",

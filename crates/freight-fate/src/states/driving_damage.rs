@@ -714,6 +714,11 @@ impl DrivingState {
                 ctx.control_hint("engine")
             )
         };
+        let restart = format!(
+            "Press {} to restart the engine.",
+            ctx.control_hint("engine")
+        );
+        let message = self.without_key_hint(ctx, message, &restart);
         ctx.say_event_with(message, SayEvent::new().category(SpeechCategory::Safety));
     }
 
@@ -834,6 +839,11 @@ impl DrivingState {
                 ctx.control_hint("engine")
             )
         };
+        let restart = format!(
+            "Press {} to restart the engine.",
+            ctx.control_hint("engine")
+        );
+        let message = self.without_key_hint(ctx, message, &restart);
         ctx.say_event_with(message, SayEvent::new().category(SpeechCategory::Safety));
     }
 
