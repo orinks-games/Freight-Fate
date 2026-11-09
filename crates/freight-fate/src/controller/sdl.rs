@@ -122,3 +122,68 @@ pub fn axis_from_sdl(axis: Axis) -> ControllerAxis {
         Axis::TriggerRight => ControllerAxis::TriggerRight,
     }
 }
+
+/// Controller detection that takes this long and finds nothing has stalled
+/// on a device, not set up a pad: a few hundred milliseconds is usual.
+pub const STALLED_DETECTION: std::time::Duration = std::time::Duration::from_secs(5);
+
+/// Whether a detection that took `elapsed` and bound no pad stalled.
+pub fn detection_stalled(elapsed: std::time::Duration, pad_found: bool) -> bool {
+    !pad_found && elapsed >= STALLED_DETECTION
+}
+
+/// Redo a stalled controller detection without DirectInput.
+///
+/// Issue 519: on one player's PC the controller step of start-up took 40
+/// seconds with no controller found, and the game then froze for 40 seconds
+/// at a time whenever a Bluetooth keyboard was turned off or the PC locked:
+/// each device change makes SDL enumerate again, on the game loop.
+/// DirectInput's enumeration is the step known to stall on a paired
+/// Bluetooth device that is switched off. Xbox pads still come through
+/// XInput and PlayStation and Switch pads through HIDAPI; only an older
+/// DirectInput-only pad is lost, on a PC where it cost a 40-second freeze.
+/// Both timings go in the log, so a stall that is not DirectInput shows.
+/// SDL reads the hint on Windows alone; elsewhere the second detection only
+/// adds its timing to the log.
+pub fn redo_a_stalled_detection(
+    manager: &mut crate::controller::ControllerManager,
+    elapsed: std::time::Duration,
+) {
+    if !manager.enabled() || !detection_stalled(elapsed, manager.connected()) {
+        return;
+    }
+    log::warn!(
+        "Controller detection took {:.1} s and found no controller; detecting again without DirectInput",
+        elapsed.as_secs_f64()
+    );
+    manager.set_enabled(false);
+    sdl2::hint::set("SDL_DIRECTINPUT_ENABLED", "0");
+    let again = std::time::Instant::now();
+    manager.set_enabled(true);
+    log::warn!(
+        "Controller detection without DirectInput took {:.1} s",
+        again.elapsed().as_secs_f64()
+    );
+}
+
+#[cfg(test)]
+mod stalled_detection_tests {
+    use super::*;
+    use std::time::Duration;
+
+    #[test]
+    fn only_a_long_detection_that_found_nothing_counts_as_stalled() {
+        assert!(detection_stalled(Duration::from_secs(40), false));
+        assert!(detection_stalled(STALLED_DETECTION, false));
+        assert!(!detection_stalled(Duration::from_millis(300), false));
+        // A pad that took a while to come up is a pad, and keeps DirectInput.
+        assert!(!detection_stalled(Duration::from_secs(40), true));
+    }
+
+    #[test]
+    fn a_quick_detection_is_left_alone() {
+        let mut manager = crate::controller::ControllerManager::detached(true, false);
+        redo_a_stalled_detection(&mut manager, Duration::from_millis(50));
+        assert!(manager.enabled());
+    }
+}
