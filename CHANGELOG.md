@@ -16,6 +16,7 @@
 
 ### Changed
 
+- **Updates check and install faster.** Unchanged sound packs are no longer copied or checked twice.
 - **Spoken lines, help and menus are shorter and use plain words, and some settings have new names.** Cruise has one name, and the dispatch board and delivery list are shorter.
 - **Road announcements now wait for NVDA 2026.3 or SAPI to finish speaking.** The most urgent goes next; stale chatter is skipped.
 - **Lower game sounds during speech works only while NVDA 2026.3 or SAPI is speaking.** Older NVDA versions keep the timing they had.
@@ -42,6 +43,7 @@
 
 ### Fixed
 
+- **Kenosha and Milwaukee to Chicago now stay on I-94, on the Tri-State through Lake County.** They used to leave it for the signals on US-41.
 - **Road lines are no longer lost while other lines speak.** With NVDA 2026.3 or SAPI, the 2-mile and 1-mile exit calls always play, and a line cut off by a readout plays after a Brake warning.
 - **Your planned stop is announced at every driving speech setting, with the key to signal for it.** Pressing X while it is read no longer brings the line back.
 - **The brake warning now names the vehicle ahead.** It said "Slow car" for a semi or a box truck.

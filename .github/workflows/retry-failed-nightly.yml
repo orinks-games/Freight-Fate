@@ -1,12 +1,14 @@
 name: Retry failed nightly
 
 # One workflow to watch since the 1.9 cutover (2026-09-20): build.yml was
-# deleted with the 1.8 line, so "Career 1.9 snapshot" is the nightly and
-# `dev` is the branch it builds.
+# deleted with the 1.8 line, so build-career-1.9.yml is the nightly. Its
+# name is "Freight Fate builds"; workflow_run matches by that name, so a
+# rename there must be copied here (under the old name this never fired).
+# The nightly runs main's copy of the workflow and builds `dev`.
 
 on:
   workflow_run:
-    workflows: [Career 1.9 snapshot]
+    workflows: [Freight Fate builds]
     types: [completed]
 
 permissions:
@@ -18,8 +20,10 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  SNAPSHOT_WORKFLOW: "Career 1.9 snapshot"
-  SNAPSHOT_BRANCH: "dev"
+  SNAPSHOT_WORKFLOW: "Freight Fate builds"
+  # The ref the scheduled nightly runs on. The workflow builds dev from it;
+  # a dispatch from dev instead would run dev's copy of the file.
+  SNAPSHOT_BRANCH: "main"
 
 jobs:
   retry:
