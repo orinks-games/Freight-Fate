@@ -476,10 +476,11 @@ Player-facing changes should add a short bullet under `## Unreleased` in
 `CHANGELOG.md`. Developer snapshots use those curated entries for release
 notes; they do not turn git commit subjects into player-facing copy.
 
-Scheduled snapshots build only when new curated Unreleased entries are present,
-or when a commit message includes `nightly: build` or `[nightly build]` for an
-intentional snapshot refresh. Use `changelog: none` or `[skip changelog]` only
-when every commit in the change set is non-user-facing.
+A tester snapshot is built from each push to `dev` (and once a night as a
+fallback), but only when the commits since the last snapshot add curated
+Unreleased entries, or when a commit message includes `nightly: build` or
+`[nightly build]` for an intentional snapshot refresh. Use `changelog: none` or
+`[skip changelog]` only when every commit in the change set is non-user-facing.
 
 ## License
 

@@ -366,7 +366,7 @@ impl DrivingState {
             truck.velocity_mps = 0.0;
             truck.throttle = 0.0;
             let to_the_wall = (DAMAGE_OUT_OF_SERVICE_PCT - truck.damage_pct).max(0.0);
-            truck.add_damage(to_the_wall, true);
+            truck.add_damage_from(to_the_wall, true, "a rollover");
             truck.add_cargo_damage(100.0);
         }
         // This line names what happened to the load, so the condition cue

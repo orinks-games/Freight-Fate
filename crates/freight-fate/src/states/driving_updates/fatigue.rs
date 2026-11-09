@@ -265,9 +265,11 @@ impl DrivingState {
         self.microsleep_misses += 1;
         self.microsleep_cooldown_gm = MICROSLEEP_COOLDOWN_GM;
         ctx.audio.play_with("vehicle/rumble_strip", 1.0, 0.0);
-        self.trip
-            .truck
-            .add_damage(MICROSLEEP_SHOULDER_DAMAGE_PCT, true);
+        self.trip.truck.add_damage_from(
+            MICROSLEEP_SHOULDER_DAMAGE_PCT,
+            true,
+            "drifting off the road asleep",
+        );
         self.trip.truck.velocity_mps *= 0.8; // wandering onto the shoulder scrubs speed
         let standing = self.record_fatigue_event(ctx);
         if self.microsleep_misses >= MICROSLEEP_FORCE_STOP_MISSES {

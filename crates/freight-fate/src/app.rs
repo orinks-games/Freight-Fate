@@ -595,7 +595,8 @@ impl App {
             settings.controller_enabled,
             std::env::var_os(crate::controller::NO_CONTROLLER_ENV).as_deref(),
         );
-        let controller = match &shell {
+        let detection = Instant::now();
+        let mut controller = match &shell {
             Some(shell) => ControllerManager::new(
                 pads_allowed,
                 settings.haptics_enabled,
@@ -603,6 +604,7 @@ impl App {
             ),
             None => ControllerManager::detached(pads_allowed, settings.haptics_enabled),
         };
+        crate::controller::sdl::redo_a_stalled_detection(&mut controller, detection.elapsed());
         boot_timing::mark("controller");
         let clipboard: Box<dyn Clipboard> = match &shell {
             Some(shell) => Box::new(shell.clipboard()),
