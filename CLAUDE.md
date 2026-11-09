@@ -206,6 +206,16 @@ Everything is Rust: the game, and the tooling around it in `ff-tools`.
   focused tests, the full crate tests, and the adversarial battery as separate
   gates. Do not enable Clippy's restriction group wholesale; justify individual
   stricter lints where they fit this codebase.
+- Make state machines explicit (owner rule, 2026-11-09). When designing or
+  building, find the implicit state machines -- a set of booleans that travel
+  together, a connection that is "sort of open", a key whose meaning depends
+  on history -- and make each one an enum in `ff-core` with one `next(event)`
+  function and a transition test table. Choose the shape that serves the
+  player (one spoken line or sound per transition), the developer (the enum
+  is the only place the state moves) and the agent play tester (the agent
+  server's `status` reports the state, and a scenario can set it) at once,
+  without breaking anything that works. `docs/cb-radio-design.md` has a
+  worked example.
 
 References: [The Rust Programming Language: graceful shutdown and
 cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.html),
