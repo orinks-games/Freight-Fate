@@ -361,6 +361,31 @@ impl PlayerInputFrame<'_> {
     /// terminal on it, whatever screen was up. Scenario staging like
     /// `stage_road_hit`: it swaps the whole screen stack for a fresh
     /// terminal, so the board, garage and clock read the new career.
+    /// The agent server's `hazard` tool: fire a catalog hazard by name on
+    /// the drive under way. The event lands through the normal route-event
+    /// path on the next frame, so the call, the assists and the outcome are
+    /// exactly a drawn hazard's.
+    pub fn stage_hazard(&mut self, name: &str) -> Result<String, String> {
+        let state = self
+            .app
+            .state()
+            .ok_or_else(|| "not at the wheel: no screen is up".to_string())?;
+        let mut state = state.borrow_mut();
+        let drive = state
+            .as_any_mut()
+            .downcast_mut::<crate::states::driving::DrivingState>()
+            .ok_or_else(|| "not at the wheel (a menu or stop screen is up)".to_string())?;
+        if drive.ramp_mi.is_some() {
+            return Err("on a ramp or a facility road, where hazards pass you by".to_string());
+        }
+        let staged = drive.trip.stage_hazard(name)?;
+        Ok(format!(
+            "Staged {staged} at mile {:.2}; it fires on the next rolling frame, so listen \
+             for the call.",
+            drive.trip.position_mi
+        ))
+    }
+
     pub fn stage_scenario(
         &mut self,
         scenario: &crate::playtest::scenario::Scenario,

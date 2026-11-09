@@ -118,6 +118,7 @@ mod states_driving_commands;
 mod states_driving_controls;
 mod states_driving_core;
 mod states_driving_damage;
+mod states_driving_debris;
 mod states_driving_decel_lane;
 mod states_driving_departure_merge;
 mod states_driving_departure_sweep;

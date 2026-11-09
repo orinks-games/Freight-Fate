@@ -13833,11 +13833,11 @@ msgstr "görüşü düşüren toz fırtınası"
 msgid "the dust storm"
 msgstr "toz fırtınası"
 
-msgid "the tumbleweeds"
-msgstr "çalı topları"
-
 msgid "tumbleweeds piling in your lane"
 msgstr "şeridinizde biriken çalı topları"
+
+msgid "the tumbleweeds"
+msgstr "çalı topları"
 
 msgid "rockfall debris on the road"
 msgstr "yolda kaya düşmesi döküntüsü"
@@ -13879,6 +13879,10 @@ msgstr "hemen ileride"
 #. placeholders: {gap_text}
 msgid "{gap_text} ahead"
 msgstr "{gap_text} ileride"
+
+#. placeholders: {name}, {join}
+msgid "no hazard called {name}; the names are {join}"
+msgstr ""
 
 msgid "Brake now!"
 msgstr "Hemen fren!"
@@ -14774,13 +14778,15 @@ msgid "Hazard warning"
 msgstr "Tehlike uyarısı"
 
 msgid ""
-"Something in your path needs a real reaction now: brake below twenty five "
-"miles per hour quickly, or move to a clear lane if the warning says the "
-"object is in your lane."
+"Something in your path needs a real reaction now: move to the lane the call "
+"names, or brake. Debris with no lane open is taken at 30; rockfall or a "
+"stopped car needs a stop. Tire debris gets the road cue tone instead, "
+"because nothing brakes for it."
 msgstr ""
-"Yolunuzdaki bir şey hemen gerçek bir tepki istiyor: çabucak saatte yirmi "
-"beş milin altına fren yapın, ya da uyarı nesnenin sizin şeridinizde "
-"olduğunu söylüyorsa boş bir şeride geçin."
+"Yolunuzdaki bir şey hemen gerçek bir tepki istiyor: uyarının söylediği "
+"şeride geçin ya da fren yapın. Boş şerit yoksa döküntü 30'la geçilir; kaya "
+"düşmesi ya da duran bir araba durmayı gerektirir. Lastik parçaları bunun "
+"yerine yol ipucu tonunu alır, çünkü onlar için hiçbir şey fren yapmaz."
 
 msgid "Hazard clear"
 msgstr "Tehlike geçildi"
@@ -15513,6 +15519,21 @@ msgid ""
 msgstr ""
 "Operatör tuşları kapalı: pencere simge durumunda ve klavye kapıda "
 "bırakılıyor."
+
+msgid "not at the wheel: no screen is up"
+msgstr ""
+
+msgid "not at the wheel (a menu or stop screen is up)"
+msgstr ""
+
+msgid "on a ramp or a facility road, where hazards pass you by"
+msgstr ""
+
+#. placeholders: {staged}, {position_mi}
+msgid ""
+"Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
+"so listen for the call."
+msgstr ""
 
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
@@ -22117,12 +22138,14 @@ msgid "Exits leave from the right lane."
 msgstr "Çıkışlar sağ şeritten ayrılır."
 
 msgid ""
-"Change lanes or brake means a fixed object in your lane: take the open lane "
-"it names, or brake nearly to a stop and ease around."
+"Change lanes or brake means something in your lane: take the open lane it "
+"names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+"Tire debris is driven over; nothing brakes for it."
 msgstr ""
-"Şerit değiştirin ya da fren yapın uyarısı, şeridinizde sabit bir engel "
-"demektir: söylenen boş şeride geçin ya da neredeyse durana kadar fren yapıp "
-"yavaşça etrafından dolaşın."
+"Şerit değiştirin ya da fren yapın uyarısı, şeridinizde bir şey olduğu "
+"anlamına gelir: söylenen boş şeride geçin ya da 30'a inip üzerinden geçin. "
+"Kaya düşmesi ya da duran bir araba durmayı gerektirir. Lastik parçalarının "
+"üzerinden geçilir; onlar için hiçbir şey fren yapmaz."
 
 #. placeholders: {rest}
 msgid ""
@@ -32499,11 +32522,20 @@ msgstr "Korna işe yaradı, {hazard_names_text} yolu açıyor."
 #. placeholders: {struck}
 #. one sentence of a longer line
 msgid "Collision with {struck}."
-msgstr "Çarpışma: {struck}."
+msgstr "{struck} ile çarpışma."
 
 #. placeholders: {struck}, {damage}
 msgid "Collision with {struck}. Damage {damage} percent."
-msgstr "Çarpışma: {struck}. Hasar yüzde {damage}."
+msgstr "{struck} ile çarpışma. Hasar yüzde {damage}."
+
+#. placeholders: {names}
+#. one sentence of a longer line
+msgid "Collision with {names}."
+msgstr "{names} ile çarpışma."
+
+#. placeholders: {names}, {damage}
+msgid "Collision with {names}. Damage {damage} percent."
+msgstr "{names} ile çarpışma. Hasar yüzde {damage}."
 
 #. placeholders: {names}, {names2}
 msgid "{names} and {names2}"
@@ -32519,23 +32551,6 @@ msgstr "Yol açık."
 #. placeholders: {names}
 msgid "Clear of {names}."
 msgstr "Geçildi: {names}."
-
-#. one sentence of a longer line
-msgid "It is still in your lane."
-msgstr "Hâlâ şeridinizde."
-
-#. placeholders: {open_side_spoken}
-msgid ""
-"It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
-msgstr ""
-"Hâlâ şeridinizde. Neredeyse durun ya da şerit değiştirin. {open_side_spoken}"
-
-#. one sentence of a longer line
-msgid "Nearly stop, or change lanes."
-msgstr "Neredeyse durun ya da şerit değiştirin."
-
-msgid "It is still in your lane. Nearly stop."
-msgstr "Hâlâ şeridinizde. Neredeyse durun."
 
 msgid "Automatic braking."
 msgstr "Otomatik frenleme."
@@ -36976,20 +36991,22 @@ msgstr ""
 
 msgid ""
 "When you hear Brake now, slow down right away. Change lanes or brake means "
-"something is stopped in your lane: move to the open lane it names, or brake "
-"almost to a stop."
+"something is in your lane: move to the open lane it names, or slow to 30 "
+"and take it. Rockfall or a stopped car needs a stop."
 msgstr ""
-"Hemen frenle'yi duyduğunuzda hemen yavaşlayın. Şerit değiştir ya da frenle, "
-"şeridinizde duran bir şey olduğu anlamına gelir: söylenen boş şeride geçin "
-"ya da neredeyse durana kadar frenleyin."
+"Hemen fren'i duyduğunuzda hemen yavaşlayın. Şerit değiştirin ya da fren "
+"yapın, şeridinizde bir şey olduğu anlamına gelir: söylenen boş şeride geçin "
+"ya da 30'a inip üzerinden geçin. Kaya düşmesi ya da duran bir araba durmayı "
+"gerektirir."
 
 msgid ""
-"No lane open means brake. Full lane keeping can pass slow vehicles, but "
-"leaves debris avoidance to you and avoids starting a pass near an exit."
+"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"keeping moves over for debris and slow vehicles when a lane is open, and "
+"avoids starting a pass near an exit."
 msgstr ""
-"Şerit boş değil, fren yapın demektir. Tam şerit takibi yavaş araçları "
-"sollayabilir, ama döküntüden kaçınmayı size bırakır ve çıkış yakınında "
-"sollamaya başlamaz."
+"Lastik parçaları söylenir ve üzerinden geçilir; onlar için hiçbir şey fren "
+"yapmaz. Tam şerit takibi, boş şerit varsa döküntü ve yavaş araçlar için "
+"kenara kayar ve çıkış yakınında sollamaya başlamaz."
 
 msgid ""
 "Leave a coned lane when warned. Driving through barrels causes damage, a "
@@ -41048,6 +41065,70 @@ msgstr "Açık."
 
 msgid "Closed."
 msgstr "Kapalı."
+
+#. The small-debris call, built from the catalog noun with "the" dropped.
+msgid "Tire debris."
+msgstr "Lastik parçaları."
+
+msgid "Debris."
+msgstr "Döküntü."
+
+#~ msgid "{thing} ahead."
+#~ msgstr "İleride {thing}."
+
+#~ msgid "Tire debris ahead."
+#~ msgstr "İleride lastik parçaları."
+
+#~ msgid "Debris ahead."
+#~ msgstr "İleride döküntü."
+
+#~ msgid ""
+#~ "Something in your path needs a real reaction now: brake below twenty five "
+#~ "miles per hour quickly, or move to a clear lane if the warning says the "
+#~ "object is in your lane."
+#~ msgstr ""
+#~ "Yolunuzdaki bir şey hemen gerçek bir tepki istiyor: çabucak saatte yirmi "
+#~ "beş milin altına fren yapın, ya da uyarı nesnenin sizin şeridinizde "
+#~ "olduğunu söylüyorsa boş bir şeride geçin."
+
+#~ msgid ""
+#~ "Change lanes or brake means a fixed object in your lane: take the open lane "
+#~ "it names, or brake nearly to a stop and ease around."
+#~ msgstr ""
+#~ "Şerit değiştirin ya da fren yapın uyarısı, şeridinizde sabit bir engel "
+#~ "demektir: söylenen boş şeride geçin ya da neredeyse durana kadar fren yapıp "
+#~ "yavaşça etrafından dolaşın."
+
+#~ msgid "It is still in your lane."
+#~ msgstr "Hâlâ şeridinizde."
+
+#~ msgid ""
+#~ "It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
+#~ msgstr ""
+#~ "Hâlâ şeridinizde. Neredeyse durun ya da şerit değiştirin. {open_side_spoken}"
+
+#~ msgid "Nearly stop, or change lanes."
+#~ msgstr "Neredeyse durun ya da şerit değiştirin."
+
+#~ msgid "It is still in your lane. Nearly stop."
+#~ msgstr "Hâlâ şeridinizde. Neredeyse durun."
+
+#~ msgid ""
+#~ "When you hear Brake now, slow down right away. Change lanes or brake means "
+#~ "something is stopped in your lane: move to the open lane it names, or brake "
+#~ "almost to a stop."
+#~ msgstr ""
+#~ "Hemen frenle'yi duyduğunuzda hemen yavaşlayın. Şerit değiştir ya da frenle, "
+#~ "şeridinizde duran bir şey olduğu anlamına gelir: söylenen boş şeride geçin "
+#~ "ya da neredeyse durana kadar frenleyin."
+
+#~ msgid ""
+#~ "No lane open means brake. Full lane keeping can pass slow vehicles, but "
+#~ "leaves debris avoidance to you and avoids starting a pass near an exit."
+#~ msgstr ""
+#~ "Şerit boş değil, fren yapın demektir. Tam şerit takibi yavaş araçları "
+#~ "sollayabilir, ama döküntüden kaçınmayı size bırakır ve çıkış yakınında "
+#~ "sollamaya başlamaz."
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "

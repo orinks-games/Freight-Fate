@@ -278,6 +278,31 @@ pub fn in_lane_hazard_call_named(body: &str, side: OpenSide, answer: &str) -> Sp
     }
 }
 
+/// The body of a small-debris call: the thing, named and nothing more.
+/// Tread is not braked for, so the line is a heads-up like a merge or a work
+/// zone, not a call to action; the catalog's long text ("Retread debris from
+/// a blown tire") gave way to the noun the clear line already uses, and
+/// "ahead" went with it, since a call is always about what is ahead (owner,
+/// 2026-11-09). `name` is the catalog's short noun phrase ("the tire
+/// debris").
+pub fn small_debris_body(name: &str) -> String {
+    let thing = name.strip_prefix("the ").unwrap_or(name);
+    let mut chars = thing.chars();
+    let mut body: String = match chars.next() {
+        Some(first) => first.to_uppercase().chain(chars).collect(),
+        None => String::new(),
+    };
+    body.push('.');
+    body
+}
+
+/// The small-debris call: the thing and the lane answer, with no
+/// "Change lanes or brake!" and no "Brake!", because neither is asked. The
+/// same words in terse: there is no opener to drop.
+pub fn small_debris_call(body: &str, answer: &str) -> SpokenMessage {
+    SpokenMessage::new(format!("{body} {answer}"))
+}
+
 /// The same call when lane keeping on full answers it by passing: the thing
 /// and where, then what the truck is doing ("Slow car right ahead. Passing
 /// on the left."). No "Change lanes or brake!" -- the truck is the one
@@ -813,6 +838,21 @@ mod tests {
         assert_eq!(
             in_lane_hazard_call("Debris on the road.", OpenSide::Either).normal,
             "Change lanes or brake! Debris on the road. Either lane open."
+        );
+    }
+
+    #[test]
+    fn test_small_debris_is_a_heads_up_with_the_lane_answer_and_no_opener() {
+        // Owner, 2026-11-09: tread is driven over or moved around, never
+        // braked for, so the call asks for nothing and terse is the same.
+        assert_eq!(small_debris_body("the tire debris"), "Tire debris.");
+        assert_eq!(small_debris_body("the debris"), "Debris.");
+        let pair = small_debris_call("Tire debris.", "Left lane open.");
+        assert_eq!(pair.normal, "Tire debris. Left lane open.");
+        assert_eq!(pair.terse, None);
+        assert_eq!(
+            small_debris_call("Tire debris.", "No lane open.").normal,
+            "Tire debris. No lane open."
         );
     }
 

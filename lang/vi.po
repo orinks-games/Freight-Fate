@@ -12465,10 +12465,10 @@ msgstr ""
 msgid "the dust storm"
 msgstr ""
 
-msgid "the tumbleweeds"
+msgid "tumbleweeds piling in your lane"
 msgstr ""
 
-msgid "tumbleweeds piling in your lane"
+msgid "the tumbleweeds"
 msgstr ""
 
 msgid "rockfall debris on the road"
@@ -12510,6 +12510,10 @@ msgstr ""
 
 #. placeholders: {gap_text}
 msgid "{gap_text} ahead"
+msgstr ""
+
+#. placeholders: {name}, {join}
+msgid "no hazard called {name}; the names are {join}"
 msgstr ""
 
 msgid "Brake now!"
@@ -13286,9 +13290,10 @@ msgid "Hazard warning"
 msgstr ""
 
 msgid ""
-"Something in your path needs a real reaction now: brake below twenty five "
-"miles per hour quickly, or move to a clear lane if the warning says the "
-"object is in your lane."
+"Something in your path needs a real reaction now: move to the lane the call "
+"names, or brake. Debris with no lane open is taken at 30; rockfall or a "
+"stopped car needs a stop. Tire debris gets the road cue tone instead, "
+"because nothing brakes for it."
 msgstr ""
 
 msgid "Hazard clear"
@@ -13917,6 +13922,21 @@ msgstr ""
 msgid ""
 "Operator keys are off: the window is minimized and the keyboard is dropped "
 "at the door."
+msgstr ""
+
+msgid "not at the wheel: no screen is up"
+msgstr ""
+
+msgid "not at the wheel (a menu or stop screen is up)"
+msgstr ""
+
+msgid "on a ramp or a facility road, where hazards pass you by"
+msgstr ""
+
+#. placeholders: {staged}, {position_mi}
+msgid ""
+"Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
+"so listen for the call."
 msgstr ""
 
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
@@ -19855,8 +19875,9 @@ msgid "Exits leave from the right lane."
 msgstr ""
 
 msgid ""
-"Change lanes or brake means a fixed object in your lane: take the open lane "
-"it names, or brake nearly to a stop and ease around."
+"Change lanes or brake means something in your lane: take the open lane it "
+"names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+"Tire debris is driven over; nothing brakes for it."
 msgstr ""
 
 #. placeholders: {rest}
@@ -29376,6 +29397,15 @@ msgstr ""
 msgid "Collision with {struck}. Damage {damage} percent."
 msgstr ""
 
+#. placeholders: {names}
+#. one sentence of a longer line
+msgid "Collision with {names}."
+msgstr ""
+
+#. placeholders: {names}, {damage}
+msgid "Collision with {names}. Damage {damage} percent."
+msgstr ""
+
 #. placeholders: {names}, {names2}
 msgid "{names} and {names2}"
 msgstr ""
@@ -29389,22 +29419,6 @@ msgstr ""
 
 #. placeholders: {names}
 msgid "Clear of {names}."
-msgstr ""
-
-#. one sentence of a longer line
-msgid "It is still in your lane."
-msgstr ""
-
-#. placeholders: {open_side_spoken}
-msgid ""
-"It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
-msgstr ""
-
-#. one sentence of a longer line
-msgid "Nearly stop, or change lanes."
-msgstr ""
-
-msgid "It is still in your lane. Nearly stop."
 msgstr ""
 
 msgid "Automatic braking."
@@ -33134,13 +33148,14 @@ msgstr ""
 
 msgid ""
 "When you hear Brake now, slow down right away. Change lanes or brake means "
-"something is stopped in your lane: move to the open lane it names, or brake "
-"almost to a stop."
+"something is in your lane: move to the open lane it names, or slow to 30 "
+"and take it. Rockfall or a stopped car needs a stop."
 msgstr ""
 
 msgid ""
-"No lane open means brake. Full lane keeping can pass slow vehicles, but "
-"leaves debris avoidance to you and avoids starting a pass near an exit."
+"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"keeping moves over for debris and slow vehicles when a lane is open, and "
+"avoids starting a pass near an exit."
 msgstr ""
 
 msgid ""
@@ -36571,6 +36586,13 @@ msgid "Open."
 msgstr ""
 
 msgid "Closed."
+msgstr ""
+
+#. The small-debris call, built from the catalog noun with "the" dropped.
+msgid "Tire debris."
+msgstr ""
+
+msgid "Debris."
 msgstr ""
 
 #~ msgid "Loading"

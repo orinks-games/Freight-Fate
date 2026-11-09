@@ -12620,11 +12620,11 @@ msgstr "一场沙尘暴让能见度骤降"
 msgid "the dust storm"
 msgstr "沙尘暴"
 
-msgid "the tumbleweeds"
-msgstr "风滚草"
-
 msgid "tumbleweeds piling in your lane"
 msgstr "风滚草堆在你的车道上"
+
+msgid "the tumbleweeds"
+msgstr "风滚草"
 
 msgid "rockfall debris on the road"
 msgstr "路上有落石"
@@ -12666,6 +12666,10 @@ msgstr "就在前方"
 #. placeholders: {gap_text}
 msgid "{gap_text} ahead"
 msgstr "前方{gap_text}"
+
+#. placeholders: {name}, {join}
+msgid "no hazard called {name}; the names are {join}"
+msgstr ""
 
 msgid "Brake now!"
 msgstr "马上刹车！"
@@ -13457,10 +13461,13 @@ msgid "Hazard warning"
 msgstr "危险警告"
 
 msgid ""
-"Something in your path needs a real reaction now: brake below twenty five "
-"miles per hour quickly, or move to a clear lane if the warning says the "
-"object is in your lane."
-msgstr "你的路上有东西，需要你现在真正作出反应：迅速把车速刹到每小时二十五英里以下，或者如果警告说物体在你的车道上，就换到畅通的车道。"
+"Something in your path needs a real reaction now: move to the lane the call "
+"names, or brake. Debris with no lane open is taken at 30; rockfall or a "
+"stopped car needs a stop. Tire debris gets the road cue tone instead, "
+"because nothing brakes for it."
+msgstr ""
+"你的路上有东西，需要你现在真正作出反应：并到提示说的车道，或者刹车。没有畅通车道时，杂物以每小时30英里的速度压过去；落石或停着的车需要停下。轮胎碎片改"
+"用路况提示音，因为没有任何东西会为它刹车。"
 
 msgid "Hazard clear"
 msgstr "危险已解除"
@@ -14108,6 +14115,21 @@ msgid ""
 "Operator keys are off: the window is minimized and the keyboard is dropped "
 "at the door."
 msgstr "操作者按键已关闭：窗口已最小化，键盘输入在门口就被丢弃了。"
+
+msgid "not at the wheel: no screen is up"
+msgstr ""
+
+msgid "not at the wheel (a menu or stop screen is up)"
+msgstr ""
+
+msgid "on a ramp or a facility road, where hazards pass you by"
+msgstr ""
+
+#. placeholders: {staged}, {position_mi}
+msgid ""
+"Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
+"so listen for the call."
+msgstr ""
 
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
@@ -20180,9 +20202,11 @@ msgid "Exits leave from the right lane."
 msgstr "出口从右侧车道驶出。"
 
 msgid ""
-"Change lanes or brake means a fixed object in your lane: take the open lane "
-"it names, or brake nearly to a stop and ease around."
-msgstr "变道或刹车表示你的车道上有固定障碍物：驶入提示的空闲车道，或刹到几乎停下再慢慢绕过。"
+"Change lanes or brake means something in your lane: take the open lane it "
+"names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+"Tire debris is driven over; nothing brakes for it."
+msgstr ""
+"变道或刹车表示你的车道上有东西：驶入提示的空闲车道，或减到每小时30英里压过去。落石或停着的车需要停下。轮胎碎片直接压过去；没有任何东西会为它刹车。"
 
 #. placeholders: {rest}
 msgid ""
@@ -29826,11 +29850,20 @@ msgstr "喇叭起作用了，{hazard_names_text}让开了道路。"
 #. placeholders: {struck}
 #. one sentence of a longer line
 msgid "Collision with {struck}."
-msgstr ""
+msgstr "撞上了{struck}。"
 
 #. placeholders: {struck}, {damage}
 msgid "Collision with {struck}. Damage {damage} percent."
-msgstr ""
+msgstr "撞上了{struck}。损坏百分之{damage}。"
+
+#. placeholders: {names}
+#. one sentence of a longer line
+msgid "Collision with {names}."
+msgstr "撞上了{names}。"
+
+#. placeholders: {names}, {damage}
+msgid "Collision with {names}. Damage {damage} percent."
+msgstr "撞上了{names}。损坏百分之{damage}。"
 
 #. placeholders: {names}, {names2}
 msgid "{names} and {names2}"
@@ -29846,22 +29879,6 @@ msgstr "清除。"
 #. placeholders: {names}
 msgid "Clear of {names}."
 msgstr "已驶离{names}。"
-
-#. one sentence of a longer line
-msgid "It is still in your lane."
-msgstr "它还在你的车道上。"
-
-#. placeholders: {open_side_spoken}
-msgid ""
-"It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
-msgstr "它还在你的车道上。几乎停下，或者换道。{open_side_spoken}"
-
-#. one sentence of a longer line
-msgid "Nearly stop, or change lanes."
-msgstr "几乎停下，或者换道。"
-
-msgid "It is still in your lane. Nearly stop."
-msgstr "它还在你的车道上。几乎停下。"
 
 msgid "Automatic braking."
 msgstr "自动刹车。"
@@ -33717,14 +33734,16 @@ msgstr "在入口匝道上，主线车流在你的左边。远处高速公路的
 
 msgid ""
 "When you hear Brake now, slow down right away. Change lanes or brake means "
-"something is stopped in your lane: move to the open lane it names, or brake "
-"almost to a stop."
-msgstr "听到“立即刹车”时，马上减速。“变道或刹车”表示你的车道里有东西停着：并到它说的空闲车道，或者刹车到几乎停下。"
+"something is in your lane: move to the open lane it names, or slow to 30 "
+"and take it. Rockfall or a stopped car needs a stop."
+msgstr ""
+"听到“马上刹车”时，立即减速。“变道或刹车”表示你的车道里有东西：并到它说的空闲车道，或减到每小时30英里压过去。落石或停着的车需要停下。"
 
 msgid ""
-"No lane open means brake. Full lane keeping can pass slow vehicles, but "
-"leaves debris avoidance to you and avoids starting a pass near an exit."
-msgstr "没有畅通的车道就意味着要刹车。车道保持为完全时可以超过慢车，但躲避路上的杂物要靠你自己，而且它不会在出口附近开始超车。"
+"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"keeping moves over for debris and slow vehicles when a lane is open, and "
+"avoids starting a pass near an exit."
+msgstr "轮胎碎片会被报出并直接压过去；没有任何东西会为它刹车。车道保持为完全时，有空闲车道就会避开杂物和慢车，而且不会在出口附近开始超车。"
 
 msgid ""
 "Leave a coned lane when warned. Driving through barrels causes damage, a "
@@ -37269,6 +37288,57 @@ msgstr "开放。"
 
 msgid "Closed."
 msgstr "关闭。"
+
+#. The small-debris call, built from the catalog noun with "the" dropped.
+msgid "Tire debris."
+msgstr "轮胎碎片。"
+
+msgid "Debris."
+msgstr "杂物。"
+
+#~ msgid "{thing} ahead."
+#~ msgstr "前方有{thing}。"
+
+#~ msgid "Tire debris ahead."
+#~ msgstr "前方有轮胎碎片。"
+
+#~ msgid "Debris ahead."
+#~ msgstr "前方有杂物。"
+
+#~ msgid ""
+#~ "Something in your path needs a real reaction now: brake below twenty five "
+#~ "miles per hour quickly, or move to a clear lane if the warning says the "
+#~ "object is in your lane."
+#~ msgstr "你的路上有东西，需要你现在真正作出反应：迅速把车速刹到每小时二十五英里以下，或者如果警告说物体在你的车道上，就换到畅通的车道。"
+
+#~ msgid ""
+#~ "Change lanes or brake means a fixed object in your lane: take the open lane "
+#~ "it names, or brake nearly to a stop and ease around."
+#~ msgstr "变道或刹车表示你的车道上有固定障碍物：驶入提示的空闲车道，或刹到几乎停下再慢慢绕过。"
+
+#~ msgid "It is still in your lane."
+#~ msgstr "它还在你的车道上。"
+
+#~ msgid ""
+#~ "It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
+#~ msgstr "它还在你的车道上。几乎停下，或者换道。{open_side_spoken}"
+
+#~ msgid "Nearly stop, or change lanes."
+#~ msgstr "几乎停下，或者换道。"
+
+#~ msgid "It is still in your lane. Nearly stop."
+#~ msgstr "它还在你的车道上。几乎停下。"
+
+#~ msgid ""
+#~ "When you hear Brake now, slow down right away. Change lanes or brake means "
+#~ "something is stopped in your lane: move to the open lane it names, or brake "
+#~ "almost to a stop."
+#~ msgstr "听到“立即刹车”时，马上减速。“变道或刹车”表示你的车道里有东西停着：并到它说的空闲车道，或者刹车到几乎停下。"
+
+#~ msgid ""
+#~ "No lane open means brake. Full lane keeping can pass slow vehicles, but "
+#~ "leaves debris avoidance to you and avoids starting a pass near an exit."
+#~ msgstr "没有畅通的车道就意味着要刹车。车道保持为完全时可以超过慢车，但躲避路上的杂物要靠你自己，而且它不会在出口附近开始超车。"
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "
