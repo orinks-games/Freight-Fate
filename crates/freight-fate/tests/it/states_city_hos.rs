@@ -304,6 +304,35 @@ fn test_dispatch_warns_before_accepting_job_that_exceeds_current_hos() {
 }
 
 #[test]
+fn test_dispatch_does_not_warn_for_a_team_load_on_spent_hours() {
+    // Issue 590: a team load accepted near the end of a shift was warned
+    // about an extra rest, though the co-driver can take the first shift.
+    let mut app = TestApp::new();
+    app.record_audio();
+    app.ctx.profile = Some(Profile::named_in("HOS Team", "Austin"));
+    app.ctx.settings.hos_mode = "realistic".to_string();
+    let drive_limit = limits("realistic").expect("realistic has limits").0;
+    profile_mut(&mut app).hos.drive(drive_limit - 30.0);
+    let jobs = austin_offers(&app);
+    let mut job = job_with_supported_route(&app, "Austin", 2, &jobs);
+    job.team = true;
+    let mut board = JobBoardState::new(&app.ctx, vec![job]);
+
+    app.clear_speech();
+    board.accept(&mut app.ctx, 0);
+    app.ctx.run_deferred();
+
+    assert!(
+        !app.main_lines()
+            .iter()
+            .any(|line| line.contains("extra rest")),
+        "{:?}",
+        app.main_lines()
+    );
+    assert!(profile(&app).active_trip.is_some());
+}
+
+#[test]
 fn test_dispatch_warns_when_the_load_fits_the_window_only_on_paper() {
     // Chippewa Falls to Duluth, owner, 2026-09-12: a 5-hour job accepted on
     // 4 h 17 m of duty window passed the board's check by a few minutes,
