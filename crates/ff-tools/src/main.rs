@@ -163,6 +163,18 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         "re-read the map's exits and their ramps from an OpenStreetMap extract",
         world::osm::exits::main,
     ),
+    #[cfg(feature = "world")]
+    (
+        "reroute-leg",
+        "put a leg on the road a loaded truck takes, from the Valhalla truck router",
+        world::reroute::leg_main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "reroute-enrich",
+        "rebuild a rerouted leg's curves, grades, state lines, exits and limits",
+        world::reroute::enrich_main,
+    ),
 ];
 
 fn usage() -> String {

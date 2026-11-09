@@ -1041,8 +1041,10 @@ fn test_exit_speed_assist_slows_with_full_lane_keeping() {
     let at = stop.at_mi;
     harness.with_drive(move |d, _| {
         d.trip.position_mi = at - 1.0;
-        d.truck_mut().velocity_mps = 29.0; // ~65 mph, well over ramp speed
-                                           // Out of the right lane.
+        // Well over what the gore accepts, whatever road the stop is on.
+        let over_mph = d.gore_acceptance_mph(Some(&stop)) + 8.0;
+        d.truck_mut().velocity_mps = over_mph / 2.236_936;
+        // Out of the right lane.
         d.lane.lane_count = 2;
         d.lane.lane = 1;
     });
@@ -1092,7 +1094,9 @@ fn test_the_exit_speed_assist_runs_when_lane_keeping_takes_the_exit() {
         d.exit_stop = Some(stop.clone());
         d.exit_signal_on = false; // automated lane keeping IS the commitment
         d.trip.position_mi = at - 1.0;
-        d.truck_mut().velocity_mps = 29.0; // ~65 mph, well over ramp speed
+        // Well over what the gore accepts, whatever road the stop is on.
+        let over_mph = d.gore_acceptance_mph(Some(&stop)) + 8.0;
+        d.truck_mut().velocity_mps = over_mph / 2.236_936;
     });
     harness.clear_speech();
 

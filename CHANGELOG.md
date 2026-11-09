@@ -42,6 +42,7 @@
 
 ### Fixed
 
+- **Kenosha and Milwaukee to Chicago now stay on I-94, on the Tri-State through Lake County.** They used to leave it for the signals on US-41.
 - **Road lines are no longer lost while other lines speak.** With NVDA 2026.3 or SAPI, the 2-mile and 1-mile exit calls always play, and a line cut off by a readout plays after a Brake warning.
 - **Your planned stop is announced at every driving speech setting, with the key to signal for it.** Pressing X while it is read no longer brings the line back.
 - **The brake warning now names the vehicle ahead.** It said "Slow car" for a semi or a box truck.
