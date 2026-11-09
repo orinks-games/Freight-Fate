@@ -48,6 +48,7 @@
 
 ### Fixed
 
+- **In other languages, the dispatch board's pay after costs is read as the right number.** German, Polish and Spanish voices read 6,576 as six point five.
 - **A street that only changes name ahead is named once, at the join.** "Continue onto" no longer comes twice in a few seconds.
 - **Kenosha and Milwaukee to Chicago now stay on I-94, on the Tri-State through Lake County.** They used to leave it for the signals on US-41.
 - **Road lines are no longer lost while other lines speak.** With NVDA 2026.3 or SAPI, the 2-mile and 1-mile exit calls always play, and a line cut off by a readout plays after a Brake warning.
