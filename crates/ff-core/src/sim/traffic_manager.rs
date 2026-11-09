@@ -27,9 +27,11 @@ use crate::sim::weather::{effects, WeatherEffects, WeatherKind};
 use crate::speech_text::{brake_lights_cue, merging_traffic_cue, slow_lead_cue};
 
 mod beside;
+mod platoon;
 mod vehicle;
 mod work_zone;
 
+pub use platoon::{DECIDE_AHEAD_S, MIN_GAP_MI, PASS_WANT_MPH, TRUCK_LENGTH_MI};
 pub use vehicle::{
     braking_cause_line, BrakingZone, TrafficSituation, TrafficVehicle, BRAKING_CAUSE_LINES,
 };
@@ -64,6 +66,24 @@ pub const TRAFFIC_SITUATION_AHEAD_MI: f64 = 2.2;
 /// gains on at a few miles per hour was announced twenty minutes before it
 /// could be heard (owner, 2026-10-09).
 pub const SLOW_LEAD_CALLOUT_MI: f64 = 0.5;
+/// How much faster than the vehicle ahead the truck has to be going for it
+/// to be called slow. A call says "slow" about the truck's own closing, not
+/// about the role the vehicle was born with: the old call named any vehicle
+/// drawn into the slow role, so it went out for a box truck doing 41.5 while
+/// cruise had already eased the truck to 39.9 for a limit drop, about a
+/// vehicle pulling away (owner, US-219, 2026-11-04). Judged by closing when
+/// the call is spoken, so one the traffic spacing held back is judged again,
+/// and dropped if the gap is opening.
+pub const SLOW_LEAD_CLOSING_MPH: f64 = 5.0;
+/// How far the truck can travel after a slow call before cruise's own
+/// "Traffic ahead, slowing" for the same vehicle counts as a second line
+/// about one event. The call comes at half a mile; cruise settles in behind
+/// the vehicle within that, so a mile covers it.
+pub const SLOW_CALL_ECHO_MI: f64 = 1.0;
+/// How far past a vehicle's drawn turn-off mile a freeway interchange is
+/// looked for. Rural interstates have an exit every five to ten miles, so
+/// one is nearly always inside this; where none is, the drawn mile stands.
+pub const TURN_OFF_SEARCH_MI: f64 = 15.0;
 // The mirror check before a lane change: the target lane must be clear this
 // far ahead of the truck and this far behind its drive tires, or the arrival
 // is a sideswipe. Read by the dodge's own arrival check, by the lane-gap cue,
@@ -98,21 +118,42 @@ const MERGE_SAFE_HEADWAY_S: f64 = 4.0;
 pub const EXIT_AFTER_MIN_MI: f64 = 2.5;
 pub const EXIT_AFTER_MAX_MI: f64 = 11.0;
 
-/// What each intent is doing relative to the road's posted limit. Relative
-/// bands hold on a 75 corridor, a 55 two-lane and a 30 mph town street alike
-/// (owner playtest, 2026-08-15).
-pub fn traffic_speed_offsets_mph(intent: &str) -> (f64, f64) {
+/// What each intent is doing, as a share of the road's posted limit.
+///
+/// A share holds on a 75 corridor, a 55 two-lane and a 30 mph town street
+/// alike, where a fixed number of miles per hour did not. The old slow band
+/// ran 3 to 10 under the posting, with a flat rush-hour draw of 4 to 10 more
+/// off every vehicle whether the road was busy or not, and a vehicle kept
+/// that offset into every town: 50 to 63 on a 70, which a right lane does
+/// carry, and 15 to 23 in a 30 zone, which no town street does. The box
+/// truck a driver caught at 48 on the highway was the one holding them at
+/// 20 through town (owner, US-219 Buffalo to Jamestown, 2026-11-04). On a
+/// real road the spread of speeds is a share of the limit, and a town
+/// street carries its traffic at or a little over its 30.
+///
+/// Cruising and following share one band. "Following" was a role drawn for
+/// a third of all traffic ahead and run 3 to 10 under, which is not what
+/// following means; whether a vehicle is slow is a fact about the truck
+/// behind it, and [`TrafficManager::next_situation`] reads it from the
+/// closing speed, whatever the vehicle was born as. The label stays valid
+/// for vehicles a test or the harness places by hand.
+///
+/// Rush hour is busier, not slower: the bubble is already denser then
+/// because density comes from the hour's real volume, and where volume
+/// outruns capacity the congestion zones pace traffic from that ratio.
+pub fn traffic_speed_shares(intent: &str) -> (f64, f64) {
     match intent {
-        "passing" => (3.0, 10.0),
-        "cruising" => (-3.0, 5.0),
-        "following" => (-10.0, -3.0),
-        "merging" => (-18.0, -8.0),
-        "braking" => (-22.0, -10.0),
+        "passing" => (1.05, 1.15),
+        "cruising" | "following" => (0.88, 1.08),
+        "merging" => (0.72, 0.88),
+        "braking" => (0.70, 0.85),
         other => panic!("unknown traffic intent {other:?}"),
     }
 }
-/// The floor is a share of the limit, not one absolute number.
-pub const TRAFFIC_MIN_SPEED_SHARE: f64 = 0.45;
+/// The floor is a share of the limit, not one absolute number: the bottom
+/// of the ordinary band. A braker inside a congestion zone runs at the
+/// zone's own pace, which is set separately and may be lower.
+pub const TRAFFIC_MIN_SPEED_SHARE: f64 = 0.85;
 pub const TRAFFIC_MIN_SPEED_MPH: f64 = 15.0;
 /// A heavy truck out there is governed, like the player's is (ATRI: ~85% of
 /// fleets run limiters, most commonly at 65). 65 is the MODE, not the only
@@ -288,6 +329,10 @@ pub struct TrafficManager {
     pub weather_effects: WeatherEffects,
     pub vehicles: Vec<TrafficVehicle>,
     pub announced_vehicle_keys: HashSet<String>,
+    /// The last vehicle called slow, and the truck's mile when it was: cruise
+    /// reads it to keep from describing the same vehicle twice
+    /// ([`TrafficManager::slow_call_fresh`]).
+    pub last_slow_call: Option<(String, f64)>,
     /// Spawn cells the rolling bubble has already drawn for; used once.
     pub spawned_cells: HashSet<i64>,
     /// Whether `update` tops the window up. Off for a test or tool that
@@ -336,6 +381,7 @@ impl TrafficManager {
             weather_effects,
             vehicles: Vec::new(),
             announced_vehicle_keys: HashSet::new(),
+            last_slow_call: None,
             spawned_cells: HashSet::new(),
             rolling_bubble: true,
             hour: start_hour,
@@ -500,8 +546,8 @@ impl TrafficManager {
                 // which is the invented phantom wave the bubble is supposed
                 // to refuse.
                 let position_mi = start + rng.uniform(low, high);
-                let mut options = vec!["cruising", "following", "passing"];
-                let mut weights = vec![3.0, 1.5, 1.1];
+                let mut options = vec!["cruising", "passing"];
+                let mut weights = vec![4.5, 1.1];
                 if self.merge_plausible_at(position_mi) {
                     options.push("merging");
                     weights.push(1.2);
@@ -512,14 +558,9 @@ impl TrafficManager {
                 }
                 let intent = choose(&mut rng, &options, &weights);
                 let vehicle_class = freeway_class(&mut rng);
-                let (limit_offset, governor) =
+                let (limit_share, governor) =
                     Self::intent_speed_draw(intent, &mut rng, vehicle_class);
-                let rush_slowdown = if self.rush_hour_traffic_bias(leg) != 0.0 {
-                    rng.uniform(4.0, 10.0)
-                } else {
-                    0.0
-                };
-                let speed = self.road_speed_mph(position_mi, limit_offset, governor, rush_slowdown);
+                let speed = self.road_speed_mph(position_mi, limit_share, governor, 0.0);
                 // Passing traffic lives in the left lane where the road has
                 // one; everyone else holds the right lane, where trucks are
                 // supposed to be.
@@ -529,7 +570,8 @@ impl TrafficManager {
                 // opening population was permanent: a slow vehicle placed at
                 // mile 300 was still in front of you at mile 400, and on a
                 // one-lane road it never turned off and never could be passed.
-                let exit_at = position_mi + rng.uniform(EXIT_AFTER_MIN_MI, EXIT_AFTER_MAX_MI);
+                let exit_at = self
+                    .turn_off_mile(position_mi + rng.uniform(EXIT_AFTER_MIN_MI, EXIT_AFTER_MAX_MI));
                 vehicles.push(
                     TrafficVehicle::new(
                         &format!("traffic:{leg_index}:{slot}:{intent}"),
@@ -542,7 +584,7 @@ impl TrafficManager {
                     )
                     .with_lane(lane)
                     .with_exit_at(Some(exit_at))
-                    .with_speed_draw(limit_offset, governor, rush_slowdown),
+                    .with_speed_draw(limit_share, governor, 0.0),
                 );
             }
         }
@@ -919,7 +961,7 @@ impl TrafficManager {
         if let Some(baked) = leg_speed_limit_at(leg, offset) {
             return baked;
         }
-        corridor_speed_limit(&leg.highway, "")
+        crate::sim::limit_gaps::unposted_limit(leg, offset, corridor_speed_limit(&leg.highway, ""))
     }
 
     /// Signed grade at a route mile, positive uphill in the direction of
@@ -966,8 +1008,8 @@ impl TrafficManager {
         rng: &mut PyRandom,
         vehicle_class: &str,
     ) -> f64 {
-        let (offset_mph, governor_mph) = Self::intent_speed_draw(intent, rng, vehicle_class);
-        let speed = limit_mph + offset_mph;
+        let (share, governor_mph) = Self::intent_speed_draw(intent, rng, vehicle_class);
+        let speed = limit_mph * share;
         match governor_mph {
             Some(governor) => speed.min(governor),
             None => speed,
@@ -978,10 +1020,10 @@ impl TrafficManager {
     ///
     /// A speed is not a property of a vehicle -- it is what this driver does
     /// on the road they are on, and the number posted changes under them all
-    /// the way along a leg. What IS a property of the vehicle is how far off
-    /// the posting they run and what limiter their machine carries, so those
-    /// are what the bubble stores; the speed is re-read from the road every
-    /// update (see [`TrafficManager::road_speed_mph`]).
+    /// the way along a leg. What IS a property of the vehicle is the share
+    /// of the posting they run at and what limiter their machine carries, so
+    /// those are what the bubble stores; the speed is re-read from the road
+    /// every update (see [`TrafficManager::road_speed_mph`]).
     ///
     /// Draws in the same order as `intent_speed` always has, so a seeded run
     /// puts the same vehicle in the same place as before.
@@ -990,30 +1032,30 @@ impl TrafficManager {
         rng: &mut PyRandom,
         vehicle_class: &str,
     ) -> (f64, Option<f64>) {
-        let (low, high) = traffic_speed_offsets_mph(intent);
-        let offset_mph = rng.uniform(low, high);
+        let (low, high) = traffic_speed_shares(intent);
+        let share = rng.uniform(low, high);
         let governor_mph = governed_band(vehicle_class).map(|band| rng.uniform(band.0, band.1));
-        (offset_mph, governor_mph)
+        (share, governor_mph)
     }
 
     /// What a driver with this habit would be doing on the road under them.
     ///
-    /// The posting where the vehicle IS, plus the driver's own offset from
+    /// The posting where the vehicle IS, times the driver's own share of
     /// it, under their machine's limiter, with the conditions off the top and
-    /// never below the road's own floor. This is the whole reason the offset
+    /// never below the road's own floor. This is the whole reason the share
     /// is stored rather than the speed: a car drawn on a town's thirty and
     /// kept at thirty used to carry that number out onto a sixty-five, where
     /// it was a wall nothing on the road explained.
     pub fn road_speed_mph(
         &self,
         mile: f64,
-        limit_offset_mph: f64,
+        limit_share: f64,
         governor_mph: Option<f64>,
         slowdown_mph: f64,
     ) -> f64 {
         self.road_speed_from_posted(
             self.posted_limit_at(mile),
-            limit_offset_mph,
+            limit_share,
             governor_mph,
             slowdown_mph,
         )
@@ -1022,11 +1064,11 @@ impl TrafficManager {
     fn road_speed_from_posted(
         &self,
         posted: f64,
-        limit_offset_mph: f64,
+        limit_share: f64,
         governor_mph: Option<f64>,
         slowdown_mph: f64,
     ) -> f64 {
-        let mut speed = posted + limit_offset_mph;
+        let mut speed = posted * limit_share;
         if let Some(governor) = governor_mph {
             speed = speed.min(governor);
         }
@@ -1037,13 +1079,62 @@ impl TrafficManager {
     /// [`TrafficManager::road_speed_mph`] for a vehicle that carries a draw,
     /// or `None` for one that does not.
     pub fn vehicle_road_speed_mph(&self, vehicle: &TrafficVehicle) -> Option<f64> {
-        vehicle.limit_offset_mph.map(|offset| {
+        vehicle.limit_share.map(|share| {
             self.road_speed_mph(
                 vehicle.position_mi,
-                offset,
+                share,
                 vehicle.governor_mph,
                 vehicle.slowdown_mph,
             )
+        })
+    }
+
+    /// Where a vehicle drawn to leave the road at `drawn_mi` actually leaves
+    /// it. On a freeway that is the first interchange at or past the drawn
+    /// mile, within [`TURN_OFF_SEARCH_MI`]: nobody vanishes from a rural
+    /// interstate four miles from the nearest exit. Off a freeway the drawn
+    /// mile stands, because side roads and driveways are real and unmapped.
+    pub fn turn_off_mile(&self, drawn_mi: f64) -> f64 {
+        if self.freeway_presence_at(drawn_mi) <= 0.0 {
+            return drawn_mi;
+        }
+        let Some(first) = self.leg_index_at(drawn_mi) else {
+            return drawn_mi;
+        };
+        let count = self.leg_starts.len().min(self.route.legs.len());
+        let limit = drawn_mi + TURN_OFF_SEARCH_MI;
+        let mut best: Option<f64> = None;
+        for index in first..count {
+            let leg = &self.route.legs[index];
+            let start = self.leg_starts[index];
+            if start > limit {
+                break;
+            }
+            let forward = self.route.cities.get(index).is_some_and(|c| *c == leg.a);
+            for ix in leg.interchanges() {
+                let offset = if forward {
+                    ix.at_mi
+                } else {
+                    leg.miles - ix.at_mi
+                };
+                let route_mi = start + offset;
+                if route_mi + 1e-9 >= drawn_mi
+                    && route_mi <= limit
+                    && best.is_none_or(|b| route_mi < b)
+                {
+                    best = Some(route_mi);
+                }
+            }
+        }
+        best.unwrap_or(drawn_mi)
+    }
+
+    /// Whether `key` was called slow within the last [`SLOW_CALL_ECHO_MI`]
+    /// of the truck's travel, so cruise's own settling-in line can stay
+    /// quiet about a vehicle the driver has just been told about.
+    pub fn slow_call_fresh(&self, key: &str, position_mi: f64) -> bool {
+        self.last_slow_call.as_ref().is_some_and(|(called, at_mi)| {
+            called == key && position_mi - at_mi <= SLOW_CALL_ECHO_MI
         })
     }
 
@@ -1104,8 +1195,8 @@ impl TrafficManager {
                 // exemption is about MERGING into a truck still accelerating,
                 // and letting braking through with it put a phantom wave in
                 // the first three miles of every single run.
-                let mut options = vec!["cruising", "following", "passing"];
-                let mut weights = vec![3.0, 1.5, 0.6];
+                let mut options = vec!["cruising", "passing"];
+                let mut weights = vec![4.5, 0.6];
                 if self.braking_plausible_at(mile) {
                     options.push("braking");
                     weights.push(1.0);
@@ -1113,8 +1204,8 @@ impl TrafficManager {
                 choose(&mut rng, &options, &weights)
             } else {
                 // Merging and braking only where the road gives a reason.
-                let mut options = vec!["cruising", "following", "passing"];
-                let mut weights = vec![3.0, 1.5, 0.6];
+                let mut options = vec!["cruising", "passing"];
+                let mut weights = vec![4.5, 0.6];
                 if self.merge_plausible_at(mile) {
                     options.push("merging");
                     weights.push(1.2);
@@ -1126,15 +1217,11 @@ impl TrafficManager {
                 choose(&mut rng, &options, &weights)
             };
             let vehicle_class = freeway_class(&mut rng);
-            let (limit_offset, governor) = Self::intent_speed_draw(intent, &mut rng, vehicle_class);
-            let rush_slowdown = if self.rush_hour_traffic_bias(leg) != 0.0 {
-                rng.uniform(4.0, 10.0)
-            } else {
-                0.0
-            };
-            let speed = self.road_speed_mph(mile, limit_offset, governor, rush_slowdown);
+            let (limit_share, governor) = Self::intent_speed_draw(intent, &mut rng, vehicle_class);
+            let speed = self.road_speed_mph(mile, limit_share, governor, 0.0);
             let lane = self.intent_lane_at(intent, mile);
-            let exit_at = mile + rng.uniform(EXIT_AFTER_MIN_MI, EXIT_AFTER_MAX_MI);
+            let exit_at =
+                self.turn_off_mile(mile + rng.uniform(EXIT_AFTER_MIN_MI, EXIT_AFTER_MAX_MI));
             self.vehicles.push(
                 TrafficVehicle::new(
                     &format!("bubble:{cell}"),
@@ -1147,7 +1234,7 @@ impl TrafficManager {
                 )
                 .with_lane(lane)
                 .with_exit_at(Some(exit_at))
-                .with_speed_draw(limit_offset, governor, rush_slowdown),
+                .with_speed_draw(limit_share, governor, 0.0),
             );
             for vehicle in self.lanes_beside(cell, density, lane, position_mi, &mut rng) {
                 if self.vehicles.len() >= MAX_BUBBLE_VEHICLES {
@@ -1174,9 +1261,9 @@ impl TrafficManager {
         } else {
             return;
         };
-        let Some(leg) = self.leg_at(mile).cloned() else {
+        if self.leg_at(mile).is_none() {
             return;
-        };
+        }
         let sequence = self.real_time_arrival_seq;
         self.real_time_arrival_seq += 1;
         let mut rng = PyRandom::new_from_sha256_prefix16(&format!(
@@ -1193,13 +1280,20 @@ impl TrafficManager {
             "following"
         };
         let vehicle_class = freeway_class(&mut rng);
-        let (limit_offset, governor) = Self::intent_speed_draw(intent, &mut rng, vehicle_class);
-        let rush_slowdown = if self.rush_hour_traffic_bias(&leg) != 0.0 {
-            rng.uniform(4.0, 10.0)
-        } else {
-            0.0
-        };
-        let speed = self.road_speed_mph(mile, limit_offset, governor, rush_slowdown);
+        let (mut limit_share, governor) = Self::intent_speed_draw(intent, &mut rng, vehicle_class);
+        if !behind_player {
+            // This path exists to be perceived, and a vehicle ahead is
+            // perceived through the slow call, which needs the truck to be
+            // gaining on it: hold its share under the truck's own pace, never
+            // below the road's floor.
+            let posted = self.posted_limit_at(mile);
+            if posted > 0.0 {
+                let under_truck =
+                    (self.truck_speed_mph.abs() - SLOW_LEAD_CLOSING_MPH - 1.0) / posted;
+                limit_share = limit_share.min(under_truck).max(TRAFFIC_MIN_SPEED_SHARE);
+            }
+        }
+        let speed = self.road_speed_mph(mile, limit_share, governor, 0.0);
         // Ahead arrivals enter the player's lane so the established traffic
         // warning/status seam can make them perceivable immediately. A
         // behind arrival keeps the normal passing-lane draw and is heard as
@@ -1209,7 +1303,7 @@ impl TrafficManager {
         } else {
             self.player_lane
         };
-        let exit_at = mile + rng.uniform(EXIT_AFTER_MIN_MI, EXIT_AFTER_MAX_MI);
+        let exit_at = self.turn_off_mile(mile + rng.uniform(EXIT_AFTER_MIN_MI, EXIT_AFTER_MAX_MI));
         self.vehicles.push(
             TrafficVehicle::new(
                 &format!("real-time:{sequence}"),
@@ -1222,7 +1316,7 @@ impl TrafficManager {
             )
             .with_lane(lane)
             .with_exit_at(Some(exit_at))
-            .with_speed_draw(limit_offset, governor, rush_slowdown),
+            .with_speed_draw(limit_share, governor, 0.0),
         );
     }
 
@@ -1271,7 +1365,8 @@ impl TrafficManager {
         let merge_lane = self.merge_room_lane(truck_lanes);
         let mut kept = Vec::new();
         let vehicles = std::mem::take(&mut self.vehicles);
-        for mut vehicle in vehicles {
+        let company = self.road_snapshot(&vehicles, position_mi, time_scale);
+        for (index, mut vehicle) in vehicles.into_iter().enumerate() {
             let gap = vehicle.position_mi - position_mi;
             // Every road question below is asked of the road under the
             // vehicle where this frame found it, so resolve that leg once.
@@ -1334,10 +1429,10 @@ impl TrafficManager {
             // forced the truck to brake was carrying a number from a slower
             // piece of road, and one bubble vehicle in seventy was running
             // slower than any speed its own road could have drawn for it.
-            let road_mph = vehicle.limit_offset_mph.map(|offset| {
+            let road_mph = vehicle.limit_share.map(|share| {
                 self.road_speed_from_posted(
                     posted_here,
-                    offset,
+                    share,
                     vehicle.governor_mph,
                     vehicle.slowdown_mph,
                 )
@@ -1430,10 +1525,19 @@ impl TrafficManager {
             // just as unmodelled -- and an unknown class is not
             // climb-modelled, which is what a car is.
             let climb = climb_speed_mph(&vehicle.vehicle_class, grade_here);
-            let target = vehicle.target_speed_mph.min(climb);
+            // What is ahead in this lane, and whether to go round it or sit
+            // behind it (`platoon.rs`): decided on the road as the frame
+            // found it, before this vehicle moves.
+            let follow = self.see_the_road(&company, index, &mut vehicle, lanes_here);
+            vehicle.relative_lane = self.player_lane - vehicle.lane;
+            let pace = follow.as_ref().map_or(f64::INFINITY, |f| f.pace_mph);
+            let target = vehicle.target_speed_mph.min(climb).min(pace);
             let delta = target - vehicle.speed_mph;
             vehicle.speed_mph += (-6.0 * dt).max((4.0 * dt).min(delta));
             vehicle.position_mi += vehicle.speed_mph.max(0.0) * game_hours;
+            if let Some(follow) = follow {
+                self.hold_behind(&mut vehicle, follow.ahead, game_hours);
+            }
             if makes_room {
                 self.hold_for_merge(&mut vehicle, position_mi, time_scale);
             }
@@ -1495,8 +1599,16 @@ impl TrafficManager {
             return None;
         }
         let vehicle = context.lead.clone();
-        if vehicle.intent == "following" && context.gap_mi > SLOW_LEAD_CALLOUT_MI {
-            return None; // not yet: the call waits until the lead can be heard
+        let ordinary = matches!(vehicle.intent.as_str(), "cruising" | "following");
+        if ordinary
+            && (context.gap_mi > SLOW_LEAD_CALLOUT_MI
+                || context.closing_mph < SLOW_LEAD_CLOSING_MPH)
+        {
+            // Not yet, or not at all: the call waits until the lead can be
+            // heard, and says "slow" only about a vehicle the truck is
+            // actually gaining on. Nothing is marked announced, so a vehicle
+            // the truck catches later is still called then.
+            return None;
         }
         if self.announced_vehicle_keys.contains(&vehicle.key) {
             return None;
@@ -1517,13 +1629,16 @@ impl TrafficManager {
                 let cause = braking_cause_line(&self.braking_reason_at(vehicle.position_mi));
                 (brake_lights_cue(&gap, &speed, &bare, cause), "braking")
             }
-            "following" => (
+            "cruising" | "following" => (
                 slow_lead_cue(&vehicle_class, &gap, &speed, &bare),
                 "following",
             ),
             _ => return None,
         };
         self.announced_vehicle_keys.insert(vehicle.key.clone());
+        if kind == "following" {
+            self.last_slow_call = Some((vehicle.key.clone(), position_mi));
+        }
         // The number in a traffic cue is the lead's own speed, and from the
         // seat there is no way to check it: log what the line was built from.
         log::info!(
@@ -1869,7 +1984,7 @@ mod tests {
     #[test]
     fn test_traffic_vehicle_maps_new_intents_to_legacy_behavior_and_reason() {
         let expected = [
-            ("cruising", "steady_truck", "steady truck traffic"),
+            ("cruising", "steady_truck", "slow car ahead"),
             ("following", "slow_car", "slow car ahead"),
             ("merging", "merging_vehicle", "merging traffic"),
             ("braking", "braking_traffic", "brake lights ahead"),

@@ -354,13 +354,13 @@ fn test_toll_route_delivery_settlement_records_expense() {
     for phrase in [
         "Charges 215: ",
         "tolls 30",
-        "accessorials carrier-authorized unloading service 185 dollars",
+        "extra charges carrier-authorized unloading service 185 dollars",
         "not deducted from driver pay",
         "Fines 0.",
     ] {
         assert!(text.contains(phrase), "{text}");
     }
-    assert!(text.contains("Carrier gross"), "{text}");
+    assert!(text.contains("Pay for the load"), "{text}");
     assert!(text.contains("Net "), "{text}");
 
     assert_eq!(arrival.title(), "Delivery complete");
@@ -373,19 +373,19 @@ fn test_toll_route_delivery_settlement_records_expense() {
     assert!(
         summary_lines
             .iter()
-            .any(|line| line.starts_with("Delivered 18 tons of electronics")),
+            .any(|line| line.starts_with("On time in Philadelphia. Net ")),
         "{summary_lines:#?}"
     );
     assert!(
         summary_lines
             .iter()
-            .any(|line| line.starts_with("Carrier gross:")),
+            .any(|line| line.starts_with("Pay for the load:")),
         "{summary_lines:#?}"
     );
     assert!(
         summary_lines
             .iter()
-            .any(|line| line.contains("Carrier-paid or reimbursed charges")),
+            .any(|line| line.starts_with("Business status:")),
         "{summary_lines:#?}"
     );
     assert!(
@@ -448,10 +448,10 @@ fn manual_run(drove_automatic: bool) -> String {
 
 #[test]
 fn test_the_manual_differential_pays_only_a_run_driven_in_manual() {
-    assert!(manual_run(false).contains("Manual-spec differential"));
+    assert!(manual_run(false).contains("Manual transmission bonus"));
     // Switched to manual for the last stretch: the gate sees manual, the
     // run was automatic.
-    assert!(!manual_run(true).contains("Manual-spec differential"));
+    assert!(!manual_run(true).contains("Manual transmission bonus"));
 }
 
 #[test]

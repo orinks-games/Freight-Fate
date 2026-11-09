@@ -167,6 +167,7 @@ impl DrivingState {
             Action::PlaceRoad => self.speak_current_road(ctx),
             Action::PlaceTown => self.speak_current_town(ctx),
             Action::PlaceDirection => self.speak_current_direction(ctx),
+            Action::PlaceCounty => self.speak_current_county(ctx),
             Action::Neutral | Action::Reverse | Action::TransmissionMode => {}
             Action::Radio => self.toggle_radio(ctx),
             Action::RadioFavorite => self.toggle_radio_favorite(ctx),

@@ -26,7 +26,7 @@ use ff_core::sim::enforcement_observe::{
 };
 use ff_core::sim::enforcement_posts::{
     method_by_kind, post_seed, EnforcementPost, KIND_FIXED_SCALE, KIND_MEDIAN, KIND_SCALE_APRON,
-    PACING_WINDOW_MI, TABLEAU_SIREN_LEAD_MI,
+    PACING_WINDOW_MI,
 };
 use ff_core::sim::traffic_manager::TrafficVehicle;
 use ff_core::sim::trip_models::RoadStop;
@@ -359,159 +359,27 @@ fn a_tableau_post(at_mi: f64) -> EnforcementPost {
 }
 
 #[test]
-fn test_the_tableau_cues_play_once_each() {
-    // The siren leads the spot; the stopped pair plays as you pass it.
+fn test_a_trooper_with_somebody_else_stopped_is_silent() {
+    // Owner, 2026-11-05: the stopped-pair scene confused players, so a
+    // tableau post plays nothing and says nothing.
     let mut app = TestApp::new();
     let mut drive = a_drive(&mut app, "Presence");
     let log = app.record_audio();
+    drive.trip_seed = 1;
     drive.trip.posts = vec![a_tableau_post(6.0)];
+    app.clear_speech();
 
-    drive.enforcement_prev_mi = 6.0 - TABLEAU_SIREN_LEAD_MI - 0.1;
-    drive.trip.position_mi = 6.0 - TABLEAU_SIREN_LEAD_MI + 0.1;
-    drive.update_enforcement_watch(&mut app.ctx, 0.1);
-    drive.service_pending_sounds(&mut app.ctx, 1.0);
-    assert!(played(&log).iter().any(|key| key == "events/police_siren"));
-    assert!(!played(&log).iter().any(|key| key == "traffic/trooper_pass"));
-
-    drive.enforcement_prev_mi = 5.9;
-    drive.trip.position_mi = 6.1;
-    drive.update_enforcement_watch(&mut app.ctx, 0.1);
-    assert!(played(&log).iter().any(|key| key == "traffic/trooper_pass"));
-    assert!(played(&log).iter().any(|key| key == "traffic/car_pass"));
-}
-
-#[test]
-fn test_tableau_audio_defers_while_the_players_own_stop_is_active() {
-    // A tableau siren and the player's own pull-over siren share the same
-    // `events/police_siren` asset, so playing the tableau's while the player
-    // is mid-stop would sound like a second trooper on top of their own. The
-    // missed cue is dropped for good rather than replayed once the stop
-    // clears -- the shoulder pass still fires normally afterward.
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Presence");
-    let log = app.record_audio();
-    drive.trip.posts = vec![a_tableau_post(6.0)];
-
-    drive.trip.position_mi = 6.0 - TABLEAU_SIREN_LEAD_MI - 0.1;
-    drive.enforcement_prev_mi = drive.trip.position_mi;
-    drive.pull_over = Some(PULL_OVER_LIGHTS.to_string()); // the player's own stop
-    drive.trip.position_mi = 6.0 - TABLEAU_SIREN_LEAD_MI + 0.1;
-    drive.update_enforcement_watch(&mut app.ctx, 0.1);
-    drive.service_pending_sounds(&mut app.ctx, 1.0);
-    assert!(!played(&log).iter().any(|key| key == "events/police_siren"));
-
-    drive.pull_over = None;
-    drive.trip.position_mi = 6.1;
-    drive.update_enforcement_watch(&mut app.ctx, 0.1);
-    drive.service_pending_sounds(&mut app.ctx, 1.0);
-    // Dropped, not replayed late.
-    assert!(!played(&log).iter().any(|key| key == "events/police_siren"));
-    assert!(played(&log).iter().any(|key| key == "traffic/trooper_pass"));
-    assert!(played(&log).iter().any(|key| key == "traffic/car_pass"));
-}
-
-#[test]
-fn test_a_post_that_already_caught_the_player_never_also_runs_its_tableau() {
-    // Once this post has had its own look at the player, its tableau story --
-    // "a trooper has somebody stopped" -- no longer makes sense.
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Presence");
-    let log = app.record_audio();
-    let mut post = a_tableau_post(6.0);
-    post.declined = true;
-    drive.trip.posts = vec![post];
-
-    drive.trip.position_mi = 4.0;
     drive.enforcement_prev_mi = 4.0;
-    drive.trip.position_mi = 6.1; // cross both trigger miles in one frame
-    drive.update_enforcement_watch(&mut app.ctx, 0.1);
-    drive.service_pending_sounds(&mut app.ctx, 1.0);
-
+    drive.trip.position_mi = 4.0;
+    for step in 1..=25 {
+        drive.enforcement_prev_mi = drive.trip.position_mi;
+        drive.trip.position_mi = 4.0 + step as f64 * 0.1;
+        drive.update_enforcement_watch(&mut app.ctx, 0.1);
+        drive.service_pending_sounds(&mut app.ctx, 1.0);
+    }
+    assert!(app.event_lines().is_empty(), "{:?}", app.event_lines());
     assert!(!played(&log).iter().any(|key| key == "events/police_siren"));
     assert!(!played(&log).iter().any(|key| key == "traffic/trooper_pass"));
-    assert!(!played(&log).iter().any(|key| key == "traffic/car_pass"));
-}
-
-#[test]
-fn test_the_tableau_intro_line_speaks_once_and_says_it_is_not_the_player() {
-    // The siren cue alone reads like a driver's own stop starting, so it now
-    // reliably introduces itself -- every tableau, not a chance draw like the
-    // CB flavor line -- and only once, on the siren-lead trigger.
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Presence");
-    drive.trip_seed = 1;
-    drive.trip.posts = vec![a_tableau_post(6.0)];
-    app.clear_speech();
-
-    drive.enforcement_prev_mi = 6.0 - TABLEAU_SIREN_LEAD_MI - 0.1;
-    drive.trip.position_mi = 6.0 - TABLEAU_SIREN_LEAD_MI + 0.1;
-    drive.update_enforcement_watch(&mut app.ctx, 0.1);
-
-    let lines = app.event_lines();
-    assert_eq!(lines.len(), 1, "{lines:?}");
-    assert!(lines[0].contains("not you"), "{:?}", lines[0]);
-    assert!(
-        lines[0].to_lowercase().contains("trooper"),
-        "{:?}",
-        lines[0]
-    );
-
-    // The shoulder pass a little later must not repeat the introduction.
-    drive.trip.position_mi = 6.1;
-    drive.update_enforcement_watch(&mut app.ctx, 0.1);
-    assert_eq!(app.event_lines().len(), 1);
-}
-
-#[test]
-fn test_the_tableau_intro_line_stays_silent_while_deferred() {
-    // Same deferral as the tableau audio: never layered on the player's own
-    // stop, and not replayed late once the stop clears.
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Presence");
-    drive.trip_seed = 1;
-    drive.trip.posts = vec![a_tableau_post(6.0)];
-    app.clear_speech();
-
-    drive.trip.position_mi = 6.0 - TABLEAU_SIREN_LEAD_MI - 0.1;
-    drive.enforcement_prev_mi = drive.trip.position_mi;
-    drive.pull_over = Some(PULL_OVER_LIGHTS.to_string());
-    drive.trip.position_mi = 6.0 - TABLEAU_SIREN_LEAD_MI + 0.1;
-    drive.update_enforcement_watch(&mut app.ctx, 0.1);
-    assert!(app.event_lines().is_empty());
-
-    drive.pull_over = None;
-    drive.trip.position_mi = 6.1;
-    drive.update_enforcement_watch(&mut app.ctx, 0.1);
-    assert!(app.event_lines().is_empty()); // dropped with the cue it rides
-}
-
-#[test]
-fn test_the_tableau_intro_terse_form_keeps_the_bare_fact() {
-    // A seeded pinch of why lands on some tableaus and not others, but the
-    // terse rendering never carries it -- only the bare "not you" fact.
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Presence");
-    drive.trip_seed = 7;
-    let mut bare_seen = false;
-    let mut flavored_seen = false;
-    for i in 0..30 {
-        let post = always_observing_post(i as f64, KIND_MEDIAN, 1.0, 1.0);
-        let message = drive.tableau_intro_message(&post);
-        assert_eq!(
-            message.render(true),
-            "A trooper has somebody stopped on the shoulder, not you."
-        );
-        if message.normal == message.render(true) {
-            bare_seen = true;
-        } else {
-            flavored_seen = true;
-            assert!(message
-                .normal
-                .starts_with("A trooper has somebody stopped on the shoulder "));
-            assert!(message.normal.ends_with(", not you."));
-        }
-    }
-    assert!(bare_seen && flavored_seen);
 }
 
 // -- deferral: one demand on the driver at a time -------------------------------------
@@ -957,7 +825,7 @@ fn test_a_gap_the_assist_owns_is_never_the_drivers_disregard() {
     // closing the gap with the throttle open and never touching the brake.
     // That read as the driver's disregard and cost him 2,400 dollars on I-94
     // (2026-08-24), doubled for the construction zone, with the cab
-    // announcing "Speed keeper holding 55 miles per hour" as it happened.
+    // announcing "Cruise holding 55 miles per hour" as it happened.
     //
     // The question is who has the pedal, not what the pedal is doing.
     let mut app = TestApp::new();
@@ -1664,23 +1532,6 @@ fn test_seed_eleven_rolls_over_the_catch_chance_and_gets_away() {
     );
 }
 
-#[test]
-fn test_the_tableau_draw_is_named_and_seeded_per_post() {
-    // The same shape, on this module's own draw: deterministic per tableau,
-    // so a reload never changes whether a given post's line carries a reason.
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Presence");
-    drive.trip_seed = 7;
-    let post = always_observing_post(6.0, KIND_MEDIAN, 1.0, 1.0);
-    let first = drive.tableau_intro_message(&post);
-    let second = drive.tableau_intro_message(&post);
-    assert_eq!(first.normal, second.normal);
-    assert_eq!(
-        post_seed(Some(7), &post.id(), "tableau_intro"),
-        "7:police:post:0:6.0:median_post:tableau_intro"
-    );
-}
-
 // -- the pass trigger --------------------------------------------------------------------
 
 #[test]
@@ -1816,24 +1667,4 @@ fn test_leaving_the_drive_mid_stop_releases_the_siren() {
     State::exit(&mut drive, &mut app.ctx);
 
     assert!(!drive.siren.active);
-}
-
-#[test]
-fn test_a_second_stopped_pair_close_behind_the_first_is_another_trooper() {
-    // Owner's drive across Ohio (2026-10-25): two troopers a minute apart
-    // said the same line word for word, which sounded like a repeat.
-    let mut app = TestApp::new();
-    let mut drive = a_drive(&mut app, "Presence");
-    drive.trip_seed = 1;
-    drive.trip.posts = vec![a_tableau_post(6.0), a_tableau_post(12.0)];
-    app.clear_speech();
-    for at in [6.0, 12.0] {
-        drive.enforcement_prev_mi = at - TABLEAU_SIREN_LEAD_MI - 0.1;
-        drive.trip.position_mi = at - TABLEAU_SIREN_LEAD_MI + 0.1;
-        drive.update_enforcement_watch(&mut app.ctx, 0.1);
-    }
-    let lines = app.event_lines();
-    assert_eq!(lines.len(), 2, "{lines:?}");
-    assert!(lines[0].starts_with("A trooper"), "{lines:?}");
-    assert_eq!(lines[1], "Another trooper has somebody stopped, not you.");
 }

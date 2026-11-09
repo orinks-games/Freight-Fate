@@ -373,8 +373,8 @@ pub const RAMP_ASSIST_APPLY_BAND: f64 = RAMP_ASSIST_RELEASE_BAND;
 pub const ARRIVAL_CREEP_MPH: f64 = 2.0;
 // A facility lane is still road until the final truck-lengths. Hold a modest
 // roll there instead of either coasting to zero short of the entrance or
-// crawling the whole ramp at walking pace. The last 200 feet remain the
-// established two-mile-an-hour gate creep.
+// crawling the whole ramp at walking pace. The last 200 feet keep shedding on
+// the same profile down to the gate walk at the point, never a flat walk.
 pub const FACILITY_LANE_ROLL_MPH: f64 = 12.0;
 pub const ARRIVAL_FINAL_CREEP_MI: f64 = 200.0 / 5280.0;
 // The most pedal the creep may use to hold that walk against the road: enough
@@ -550,6 +550,9 @@ pub const CRUISE_TRIM_LIMIT: f64 = 0.4; // how far trim may pull away from the f
                                         // what the truck can comfortably do, so speed keeps up and the error never grows
                                         // into a governor slam.
 pub const CRUISE_ACCEL_MPH_PER_S: f64 = 2.5;
+// How far over a lower cap the truck must be before cruise says it is easing
+// to it. Under that, the cap only stops a climb, and "easing" would be untrue.
+pub const CRUISE_EASE_SPOKEN_OVER_MPH: f64 = 2.0;
 // Belt and suspenders for the downgrade: even where gravity does the
 // accelerating, cruise must not add throttle as the engine nears the governor.
 // Demand tapers to nothing across this fraction of max RPM below the redline, so

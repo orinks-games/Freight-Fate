@@ -124,7 +124,7 @@ impl Trip {
                     zone.end_mi,
                     "construction_merge",
                     side,
-                    "construction taper traffic".to_string(),
+                    "traffic merging for roadwork".to_string(),
                 );
             }
         }
@@ -334,11 +334,10 @@ impl Trip {
                 // one tap is the whole answer (owner, 2026-09-01).
                 let side = self.open_side_at(None);
                 let dodgeable = side.is_open();
-                let reason = context
-                    .lead
-                    .reason()
+                let full_reason = context.lead.reason();
+                let reason = full_reason
                     .strip_suffix(" ahead")
-                    .unwrap_or(context.lead.reason())
+                    .unwrap_or(&full_reason)
                     .to_string();
                 let where_ = if context.gap_mi < 0.1 {
                     "right ahead".to_string()

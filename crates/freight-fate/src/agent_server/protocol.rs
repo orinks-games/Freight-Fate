@@ -164,11 +164,11 @@ fn tools_list() -> Value {
         ),
         tool(
             "cruise",
-            "Adaptive cruise, the way a player sets it: K to engage if nothing is \
+            "Cruise, the way a player sets it: K to engage if nothing is \
              holding speed, then the dial walked one mile per hour at a time to the \
              target -- a number, \"limit\" for the posted limit enforcement is \
              reading, or \"off\". Replies with what was heard once the dial settles. \
-             In a zone the speed keeper holds instead, and the reply says so.",
+             In a zone the cruise holds instead, and the reply says so.",
             json!({"target": {"description": "a number in miles per hour, \"limit\", or \"off\""}}),
             &["target"],
         ),

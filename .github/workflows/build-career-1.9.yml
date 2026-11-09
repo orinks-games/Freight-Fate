@@ -90,11 +90,16 @@ jobs:
 
   prepare:
     needs: source
-    env:
-      CAREER_BRANCH: ${{ needs.source.outputs.ref }}
     name: Prepare
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    env:
+      CAREER_BRANCH: ${{ needs.source.outputs.ref }}
+      # The same build environment as rust.yml's checks job, so the two
+      # share one `tools-light` cache entry (rust-cache keys on these).
+      CARGO_TERM_COLOR: always
+      RUST_BACKTRACE: "1"
+      CMAKE_POLICY_VERSION_MINIMUM: "3.5"
     outputs:
       should_build: ${{ steps.check.outputs.should_build || 'false' }}
       tag: ${{ steps.check.outputs.tag }}
@@ -103,10 +108,27 @@ jobs:
       channel: ${{ steps.check.outputs.channel }}
       version: ${{ steps.check.outputs.version }}
     steps:
+      # Full history for the release notes, but blobless and sparse: the
+      # tags and commits come down, file contents only for what the tooling
+      # builds from and reads. Cloning every past world-data file took over
+      # a minute. Git fetches an old file on demand when the notes need one.
       - uses: actions/checkout@v6
         with:
           ref: ${{ env.CAREER_BRANCH }}
           fetch-depth: 0
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/*/
+            /.cargo/
+            /.github/
+            /crates/
+            /vendor/
+            /lang/
+            /tools/
+            /data/buffs.json
+            /data/radio_community.json
 
       - name: Refuse to run a stale copy of this workflow
         # GITHUB_WORKFLOW_SHA is the commit the running workflow file came
@@ -144,10 +166,21 @@ jobs:
 
       # The release-notes, community-station, translation-kit and snapshot
       # commands, built without the world feature so the game is not.
+      - name: Install the pinned toolchain
+        if: steps.early.outputs.skip != 'true'
+        run: rustup show
+
+      # Shared with rust.yml's checks job, which builds the tooling the same
+      # way. Without it this step compiled ff-tools from nothing every night.
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
+        if: steps.early.outputs.skip != 'true'
+        with:
+          shared-key: tools-light
+          save-if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' }}
+
       - name: Build the release tooling
         if: steps.early.outputs.skip != 'true'
         run: |
-          rustup show
           cargo build -p ff-tools --no-default-features --locked
           echo "FF_TOOLS=$PWD/target/debug/ff-tools" >> "$GITHUB_ENV"
 
@@ -238,6 +271,15 @@ jobs:
           path: data/radio_community.json
           retention-days: 7
 
+      # Release reuses this build of the tooling rather than compiling it a
+      # second time.
+      - uses: actions/upload-artifact@v7
+        if: steps.check.outputs.should_build == 'true'
+        with:
+          name: ff-tools
+          path: target/debug/ff-tools
+          retention-days: 7
+
   format:
     # Formatting is the same on every platform, so it is checked once, on
     # the cheap Linux runner, instead of on each packaging runner. Release
@@ -248,9 +290,17 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
+      # cargo fmt reads the sources and manifests only, not the world data.
       - uses: actions/checkout@v6
         with:
           ref: ${{ needs.prepare.outputs.commit_sha }}
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/*/
+            /.cargo/
+            /crates/
+            /vendor/
 
       - name: Install the pinned Rust toolchain
         run: rustup show
@@ -259,10 +309,67 @@ jobs:
         run: cargo fmt --all --check
 
   test:
-    # Lint and test each platform, side by side with its packaging job.
-    # clippy runs here on every platform, the schedule included: rust.yml
-    # lints on Linux only, so this is where the `cfg(windows)` and
-    # `cfg(target_os)` code gets linted.
+    # The FULL suite: `slow-tests` turns on the whole-map sweeps and other
+    # long tests that a plain `cargo test` skips. They run here, and only
+    # here. They are headless driving logic, so one platform proves them.
+    # This is the one test job Release waits on.
+    name: Test (${{ matrix.name }})
+    needs: prepare
+    if: needs.prepare.outputs.should_build == 'true'
+    strategy:
+      matrix:
+        include:
+          - name: Linux x86_64
+            os: ubuntu-24.04
+            features: --features freight-fate/slow-tests
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      FREIGHT_FATE_NO_SPEECH: "1"
+      HEARKEN_TEST_NO_SPEECH: "1"
+      SDL_VIDEODRIVER: dummy
+      SDL_AUDIODRIVER: dummy
+      CARGO_TERM_COLOR: always
+      RUST_BACKTRACE: "1"
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      CMAKE_POLICY_VERSION_MINIMUM: "3.5"
+      # Prism's static library is built with gcc link-time optimisation and
+      # ships fat objects (LTO bytecode beside the machine code), so every
+      # test program's link re-optimised all of Prism, seconds per binary.
+      # -fno-lto links the machine code that is already there, and mold
+      # links faster than ld. Test builds only: the Build jobs keep LTO.
+      # These apply only when building for Linux.
+      CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS: "-C link-arg=-fno-lto -C link-arg=-fuse-ld=mold"
+      CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUSTFLAGS: "-C link-arg=-fno-lto -C link-arg=-fuse-ld=mold"
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.prepare.outputs.commit_sha }}
+
+      - name: Set up Rust and the build caches
+        # The one test cache the nightly keeps (Linux x86_64), night to night.
+        uses: ./.github/actions/rust-setup
+        with:
+          cache-key: test
+          linux-packages: mold
+
+      - name: Lint Rust targets
+        run: cargo clippy --all-targets --locked -- -D warnings
+
+      - name: Test Rust workspace
+        run: cargo test -p ff-core -p freight-fate ${{ matrix.features }} --locked
+
+      - name: Test the agent server
+        run: cargo test -p freight-fate --test agent_server --locked
+
+  test_platforms:
+    # Lint and test the other platforms, side by side with their packaging
+    # jobs. These run for the log only: Release does not wait on them, so a
+    # snapshot whose builds are done is not held up by a slow Windows or
+    # macOS runner. clippy runs on macOS and Linux here, so the
+    # `cfg(target_os)` code still gets linted; rust.yml owns Windows clippy
+    # on pull requests and on pushes to the branches it watches, so it is
+    # skipped here.
     name: Test (${{ matrix.name }})
     needs: prepare
     if: needs.prepare.outputs.should_build == 'true'
@@ -276,12 +383,6 @@ jobs:
           - name: macOS
             os: macos-26
             features: ""
-          # The FULL suite: `slow-tests` turns on the whole-map sweeps and
-          # other long tests that a plain `cargo test` skips. They run here, and only here. They are headless
-          # driving logic, so one platform proves them.
-          - name: Linux x86_64
-            os: ubuntu-24.04
-            features: --features freight-fate/slow-tests
           - name: Linux aarch64
             os: ubuntu-24.04-arm
             features: ""
@@ -296,18 +397,33 @@ jobs:
       RUST_BACKTRACE: "1"
       HOMEBREW_NO_AUTO_UPDATE: "1"
       CMAKE_POLICY_VERSION_MINIMUM: "3.5"
+      # Prism's static library is built with gcc link-time optimisation and
+      # ships fat objects (LTO bytecode beside the machine code), so every
+      # test program's link re-optimised all of Prism, seconds per binary.
+      # -fno-lto links the machine code that is already there, and mold
+      # links faster than ld. Test builds only: the Build jobs keep LTO.
+      # These apply only when building for Linux.
+      CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS: "-C link-arg=-fno-lto -C link-arg=-fuse-ld=mold"
+      CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUSTFLAGS: "-C link-arg=-fno-lto -C link-arg=-fuse-ld=mold"
     steps:
       - uses: actions/checkout@v6
         with:
           ref: ${{ needs.prepare.outputs.commit_sha }}
 
       - name: Set up Rust and the build caches
-        # One `test` cache per platform, kept from night to night.
+        # These legs build without a cache of their own. Their three test
+        # caches (3.4 GB) pushed the repository past GitHub's 10 GB cache
+        # budget, and GitHub then dropped the release caches the snapshot
+        # waits on. Release does not wait on these legs, so they are the
+        # ones to build cold.
         uses: ./.github/actions/rust-setup
         with:
           cache-key: test
+          save-cache: "false"
+          linux-packages: mold
 
       - name: Lint Rust targets
+        if: runner.os != 'Windows'
         run: cargo clippy --all-targets --locked -- -D warnings
 
       - name: Test Rust workspace
@@ -334,8 +450,8 @@ jobs:
           ref: ${{ needs.prepare.outputs.commit_sha }}
 
       - name: Set up Rust and the build caches
-        # CMake and ATL for Prism, the pinned toolchain, sccache and
-        # rust-cache: the same setup rust.yml's jobs use.
+        # CMake and ATL for Prism, the pinned toolchain and rust-cache: the
+        # same setup rust.yml's jobs use.
         uses: ./.github/actions/rust-setup
         with:
           cache-key: release
@@ -642,18 +758,33 @@ jobs:
     if: always() && needs.prepare.outputs.should_build == 'true' && needs.format.result == 'success' && needs.test.result == 'success' && needs.build_windows.result == 'success' && needs.build_macos.result == 'success' && needs.build_linux.result == 'success' && needs.smoke_linux.result == 'success'
     runs-on: ubuntu-24.04
     steps:
+      # History for the release notes, plus what the notes, the translation
+      # kit and the version read; blobless and sparse, as in Prepare.
       - uses: actions/checkout@v6
         with:
           ref: ${{ needs.prepare.outputs.commit_sha }}
           fetch-depth: 0
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/*/
+            /.cargo/
+            /crates/
+            /lang/
+            /tools/
 
       # The release-notes, community-station, translation-kit and snapshot
-      # commands, built without the world feature so the game is not.
-      - name: Build the release tooling
+      # commands, built once in Prepare without the world feature.
+      - uses: actions/download-artifact@v7
+        with:
+          name: ff-tools
+          path: ${{ runner.temp }}/ff-tools
+
+      - name: Use the release tooling from Prepare
         run: |
-          rustup show
-          cargo build -p ff-tools --no-default-features --locked
-          echo "FF_TOOLS=$PWD/target/debug/ff-tools" >> "$GITHUB_ENV"
+          chmod +x "$RUNNER_TEMP/ff-tools/ff-tools"
+          echo "FF_TOOLS=$RUNNER_TEMP/ff-tools/ff-tools" >> "$GITHUB_ENV"
 
       - uses: actions/download-artifact@v7
         with:

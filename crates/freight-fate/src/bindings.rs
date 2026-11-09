@@ -93,6 +93,7 @@ pub enum Action {
     PlaceRoad,
     PlaceTown,
     PlaceDirection,
+    PlaceCounty,
     EngineBrake,
     AutoJake,
     JakeStage1,
@@ -213,7 +214,7 @@ const TABLE: &[Row] = &[
     (
         Action::Cruise,
         "cruise",
-        "Automatic speed control",
+        "Cruise",
         &[Chord::plain(Key::K)],
         &[PadChord::plain(Pad::Y)],
     ),
@@ -414,6 +415,13 @@ const TABLE: &[Row] = &[
         "place_direction",
         "The direction",
         &[Chord::alt(Key::Num4), Chord::alt(Key::Kp4)],
+        &[],
+    ),
+    (
+        Action::PlaceCounty,
+        "place_county",
+        "The county",
+        &[Chord::alt(Key::Num5), Chord::alt(Key::Kp5)],
         &[],
     ),
     (

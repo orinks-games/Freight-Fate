@@ -19,6 +19,7 @@
 
 use serde_json::{Map, Value};
 
+use super::counties::parse_county_runs;
 use super::grades::screen_grade_segments;
 use super::world_constants::{LIMIT_ARTIFACT_PLACE_CHECKPOINTS, LIMIT_EXPLAINING_CATEGORIES};
 use super::world_models::{CorridorDetail, DataError};
@@ -187,6 +188,7 @@ pub fn build_leg_corridor(
         leg_from,
         leg_to,
     )?;
+    let counties = parse_county_runs(list_field(corridor, "counties"), miles, leg_from, leg_to)?;
     Ok(CorridorDetail {
         route_points,
         elevation_samples,
@@ -204,5 +206,6 @@ pub fn build_leg_corridor(
         restrictions,
         lane_segments,
         billboard_bans,
+        counties,
     })
 }

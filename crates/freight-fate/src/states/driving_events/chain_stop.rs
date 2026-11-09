@@ -359,7 +359,7 @@ impl DrivingState {
                     Self::say_chain_stop(
                         ctx,
                         format!(
-                            "Chain-up needs about {} minutes and your 14-hour window has {} \
+                            "Chain-up needs about {} minutes and your duty window has {} \
                              left. Find a place to stop.",
                             fmt_f(minutes, 0),
                             fmt_f(left.max(0.0), 0)

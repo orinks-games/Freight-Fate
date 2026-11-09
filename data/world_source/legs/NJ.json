@@ -1501,7 +1501,54 @@
           "name": "level",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Atlantic County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 30.5,
+            "name": "Camden County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 43.8,
+            "name": "Gloucester County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 44.3,
+            "name": "Camden County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 44.5,
+            "name": "Gloucester County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 45.1,
+            "name": "Camden County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 49.6,
+            "name": "Gloucester County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 51.6,
+            "name": "Camden County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 60.7,
+            "name": "Philadelphia County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -3976,7 +4023,54 @@
           "name": "rolling",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Essex County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 5.0,
+            "name": "Union County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 8.8,
+            "name": "Essex County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 9.1,
+            "name": "Union County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 16.6,
+            "name": "Somerset County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 32.5,
+            "name": "Hunterdon County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 52.1,
+            "name": "Warren County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 59.1,
+            "name": "Northampton County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 73.6,
+            "name": "Lehigh County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -5232,7 +5326,44 @@
           "name": "rolling",
           "sections": 189,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Essex County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 1.5,
+            "name": "Hudson County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 14.0,
+            "name": "Bergen County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 14.1,
+            "name": "Hudson County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 14.2,
+            "name": "Bergen County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 24.1,
+            "name": "New York County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 25.8,
+            "name": "Bronx County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -7400,7 +7531,44 @@
           "name": "rolling",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Essex County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 4.1,
+            "name": "Union County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 11.4,
+            "name": "Middlesex County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 38.8,
+            "name": "Mercer County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 50.6,
+            "name": "Burlington County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 74.5,
+            "name": "Camden County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 82.7,
+            "name": "Philadelphia County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -8403,6 +8571,28 @@
             "lanes": 4,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          }
+        ],
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Essex County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 4.2,
+            "name": "Union County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 11.7,
+            "name": "Middlesex County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 38.4,
+            "name": "Mercer County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
         ]
       },
@@ -9480,7 +9670,24 @@
           "name": "level",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Ocean County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 26.7,
+            "name": "Burlington County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 33.4,
+            "name": "Atlantic County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -11128,6 +11335,48 @@
             "state": "New Jersey",
             "miles": 85.0
           }
+        ],
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Ocean County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 11.8,
+            "name": "Monmouth County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 17.6,
+            "name": "Ocean County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 26.5,
+            "name": "Monmouth County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 34.7,
+            "name": "Mercer County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 46.1,
+            "name": "Middlesex County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 73.7,
+            "name": "Union County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 80.8,
+            "name": "Essex County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
         ]
       },
       "stops": [],
@@ -12330,7 +12579,24 @@
           "name": "level",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Mercer County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 3.4,
+            "name": "Burlington County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 35.6,
+            "name": "Atlantic County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -13634,7 +13900,24 @@
           "name": "level",
           "sections": 357,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Mercer County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 2.0,
+            "name": "Bucks County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 21.0,
+            "name": "Philadelphia County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -14451,7 +14734,19 @@
           "name": "level",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Cumberland County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 5.5,
+            "name": "Atlantic County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -15411,7 +15706,34 @@
           "name": "level",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Cumberland County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 8.8,
+            "name": "Salem County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 8.9,
+            "name": "Gloucester County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 31.4,
+            "name": "Camden County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 40.7,
+            "name": "Philadelphia County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {

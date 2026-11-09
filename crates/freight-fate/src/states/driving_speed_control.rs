@@ -182,7 +182,7 @@ impl DrivingState {
     /// remembered set speed.
     pub fn resume_cruise(&mut self, ctx: &mut GameContext) {
         if self.speed_control_armed || self.cruise_mph.is_some() || self.keeper_mph.is_some() {
-            ctx.say("Automatic speed control is already on.");
+            ctx.say("Cruise is already on.");
             return;
         }
         let Some(target) = self.resume_target_mph else {
@@ -196,10 +196,7 @@ impl DrivingState {
         }
         self.restore_speed_control_session(ctx, true, Some(target));
         let spoken = ctx.settings.speed_text(target);
-        ctx.say_with(
-            format!("Resuming automatic speed control at {spoken}."),
-            Say::new(),
-        );
+        ctx.say_with(format!("Resuming cruise at {spoken}."), Say::new());
         // The per-frame resume helper engages cruise or the keeper as soon as
         // the truck is rolling and off the brakes -- pressing resume while
         // still slowing arms it for the moment conditions clear.
@@ -308,7 +305,7 @@ impl DrivingState {
             // throttle (automation-handoff sweep, 2026-08-20, the deferred
             // 2026-08-15 audit).
             ctx.say_event_with(
-                "Automatic speed control canceled.",
+                "Cruise canceled.",
                 SayEvent::queued()
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),
@@ -414,7 +411,7 @@ impl DrivingState {
             // 2026-08-15 audit).
             let held = ctx.settings.speed_text(self.keeper_mph.unwrap_or(0.0));
             let resuming = if zone_reason == "acceleration lane" {
-                format!("Speed keeper building to {held} for the merge.")
+                format!("Cruise building to {held} for the merge.")
             } else {
                 crate::states::driving_events::cruise::keeper_holding_line(&held, &zone_reason)
             };
@@ -453,7 +450,7 @@ impl DrivingState {
             }
             self.engage_keeper(ctx, limit, KEEPER_OPEN_ROAD_BRIDGE, Some(limit), false);
             ctx.say_event_with(
-                "Speed control resuming.",
+                "Cruise resuming.",
                 SayEvent::queued()
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),
@@ -886,12 +883,7 @@ impl DrivingState {
         if capped && !self.chain_cap_said {
             self.chain_cap_said = true;
             let held = ctx.settings.speed_text(CHAIN_SAFE_MPH);
-            let line = if self.cruise_mph.is_some() {
-                format!("Cruise held to {held} for chains.")
-            } else {
-                format!("Speed keeper held to {held} for chains.")
-            };
-            self.say_route_confirmation(ctx, line);
+            self.say_route_confirmation(ctx, format!("Cruise held to {held} for chains."));
         }
     }
 }

@@ -416,7 +416,7 @@ fn summon_line(name: &str, reason: &str) -> String {
         "roadside" => format!("{name} needs you. A trooper has the truck stopped."),
         "parking" => format!("{name} needs you. The lot is full."),
         "chains" => format!(
-            "{name} needs you. The chain checkpoint is holding the truck, and there are no chains aboard."
+            "{name} needs you. The chain control is holding the truck, and there are no chains aboard."
         ),
         "screen" | "stop" => format!("{name} has the truck stopped and needs you to choose what to do."),
         _ => format!("{name} needs you to decide this one."),

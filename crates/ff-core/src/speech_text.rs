@@ -54,7 +54,13 @@ pub fn type_prefix_is_redundant(label: &str, name: &str) -> bool {
         return false;
     }
     let name_words = words(name);
-    label_words.iter().all(|word| name_words.contains(word))
+    // The head noun is enough: "Buffalo Grocery Distribution Center" is
+    // already a distribution center, so "grocery and retail distribution
+    // center Buffalo Grocery Distribution Center" says it twice.
+    let head = label_words
+        .last()
+        .is_some_and(|word| name_words.contains(word));
+    head || label_words.iter().all(|word| name_words.contains(word))
 }
 
 /// A spoken city with a leading "the" for phrases like "the {city} service
@@ -389,6 +395,9 @@ pub struct StopCalloutParts<'a> {
     /// says "No fuel." (terse keeps only the "No fuel." verdict), `None`
     /// says nothing -- a weigh station is not a place anyone fuels.
     pub fuel: Option<bool>,
+    /// A weigh station's sign: `Some(true)` says "Open.", `Some(false)`
+    /// "Closed.", in terse too, since it decides whether to take the exit.
+    pub open: Option<bool>,
 }
 
 impl Default for StopCalloutParts<'_> {
@@ -403,6 +412,7 @@ impl Default for StopCalloutParts<'_> {
             parking_certainty: "",
             exit_hint: "X",
             fuel: None,
+            open: None,
         }
     }
 }
@@ -429,7 +439,13 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
         parking_certainty,
         exit_hint,
         fuel,
+        open,
     } = *parts;
+    let sign = match open {
+        Some(true) => "Open.",
+        Some(false) => "Closed.",
+        None => "",
+    };
     let exit_part = if exit_label.is_empty() {
         String::new()
     } else {
@@ -447,6 +463,9 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
     }
     // Whether there are pumps is the fact a driver exits on: a truck-parking
     // lot named "Truck Stop" sold nothing (issue #272, "The 115 Truck Stop").
+    if !sign.is_empty() {
+        normal_parts.push(sign.to_string());
+    }
     match fuel {
         Some(true) => normal_parts.push("Fuel.".to_string()),
         Some(false) => normal_parts.push("No fuel.".to_string()),
@@ -465,6 +484,9 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
         .unwrap_or_else(|| terse_parking_label("unknown").expect("unknown is in the table"));
     if !parking_terse.is_empty() {
         terse = format!("{terse} {parking_terse}");
+    }
+    if !sign.is_empty() {
+        terse = format!("{terse} {sign}");
     }
     if fuel == Some(false) {
         terse = format!("{terse} No fuel.");
@@ -528,7 +550,7 @@ fn pacenote_terse(pacenote: &SpokenMessage) -> &str {
 /// pacenote carry the moment.)
 pub fn cruise_curve_easing(pacenote: &SpokenMessage, advisory_speed_text: &str) -> SpokenMessage {
     SpokenMessage::with_terse(
-        format!("{pacenote} Adaptive cruise easing to {advisory_speed_text}."),
+        format!("{pacenote} Cruise easing to {advisory_speed_text}."),
         pacenote_terse(pacenote),
     )
 }
@@ -562,7 +584,7 @@ pub fn curve_assist_slowing(pacenote: &SpokenMessage) -> SpokenMessage {
 pub fn cruise_curve_paused_assisted(pacenote: &SpokenMessage) -> SpokenMessage {
     SpokenMessage::with_terse(
         format!(
-            "{pacenote} Adaptive cruise paused for the bend, curve assistance slowing. \
+            "{pacenote} Cruise paused for the bend, curve assistance slowing. \
              Cruise resumes past the bend."
         ),
         format!(
@@ -578,10 +600,10 @@ pub fn cruise_curve_paused_assisted(pacenote: &SpokenMessage) -> SpokenMessage {
 /// back on its own past the bend, once the truck is rolling off the brakes
 /// at road speed (owner ruling, 2026-09-01 -- on the highway a hazard or a
 /// curve pauses cruise and it comes back). The line says so, because the
-/// old "Adaptive cruise off" told the driver to expect a session that had
+/// old "Cruise off" told the driver to expect a session that had
 /// in fact survived.
 ///
-/// Was a bare `message + " Adaptive cruise off; ..."`, and that plus sign is
+/// Was a bare `message + " Cruise off; ..."`, and that plus sign is
 /// why the quiet rung still spoke full curve calls: concatenating a
 /// `SpokenMessage` yields a plain `str`, so the short form was thrown away
 /// before the delivery layer ever looked for it (owner playtest,
@@ -590,7 +612,7 @@ pub fn cruise_curve_paused_assisted(pacenote: &SpokenMessage) -> SpokenMessage {
 /// pacenote's short form.
 pub fn cruise_curve_paused(pacenote: &SpokenMessage) -> SpokenMessage {
     SpokenMessage::with_terse(
-        format!("{pacenote} Adaptive cruise paused for the bend. Resumes past it."),
+        format!("{pacenote} Cruise paused for the bend. Resumes past it."),
         format!("{} Cruise paused.", pacenote_terse(pacenote)),
     )
 }
@@ -1077,6 +1099,7 @@ mod tests {
                 parking_certainty: "confirmed",
                 exit_hint,
                 fuel: None,
+                open: None,
             })
         };
 
@@ -1130,6 +1153,38 @@ mod tests {
     }
 
     #[test]
+    fn test_a_weigh_station_callout_says_open_or_closed() {
+        // The sign decides whether to take the exit; a driver who heard only
+        // "No truck parking" exited for a closed scale (drive, 2026-11-05).
+        let closed = stop_callout(&StopCalloutParts {
+            typed_name: "I-43 Weigh Station",
+            plain_name: "I-43 Weigh Station",
+            distance: "5 miles",
+            parking_certainty: "likely",
+            exit_hint: "",
+            open: Some(false),
+            ..Default::default()
+        });
+        assert_eq!(closed.normal, "I-43 Weigh Station in 5 miles. Closed.");
+        assert_eq!(
+            closed.terse.as_deref(),
+            Some("I-43 Weigh Station, 5 miles. Closed.")
+        );
+        let open = stop_callout(&StopCalloutParts {
+            typed_name: "I-43 Weigh Station",
+            plain_name: "I-43 Weigh Station",
+            distance: "5 miles",
+            parking_certainty: "likely",
+            open: Some(true),
+            ..Default::default()
+        });
+        assert_eq!(
+            open.normal,
+            "I-43 Weigh Station in 5 miles. Open. Press X to signal for the exit."
+        );
+    }
+
+    #[test]
     fn test_a_repeat_mention_still_carries_no_fuel() {
         // After the first mention the proper name stands alone; the fuel
         // verdict must not leave with the stop type.
@@ -1178,7 +1233,7 @@ mod tests {
         assert_eq!(
             pair.normal,
             "Sharp left, half a mile. Advise 35 miles per hour. \
-             Adaptive cruise easing to 35 miles per hour."
+             Cruise easing to 35 miles per hour."
         );
         assert_eq!(
             pair.terse.as_deref(),
@@ -1254,13 +1309,9 @@ mod tests {
             "Change lanes or brake! Slow car ahead.",
             "Change lanes or brake! Slow car ahead.",
         );
-        let grown = pair.plus("Automatic speed control canceled.");
-        assert!(grown
-            .render(false)
-            .ends_with("Automatic speed control canceled."));
-        assert!(grown
-            .render(true)
-            .ends_with("Automatic speed control canceled."));
+        let grown = pair.plus("Cruise canceled.");
+        assert!(grown.render(false).ends_with("Cruise canceled."));
+        assert!(grown.render(true).ends_with("Cruise canceled."));
         assert!(grown.render(true).starts_with("Change lanes or brake!"));
         // A line with no terse form stays that way.
         let plain = SpokenMessage::new("Collision!").plus("Total damage 12 percent.");
@@ -1452,7 +1503,7 @@ mod tests {
         let paused = cruise_curve_paused(&pacenote);
         assert_eq!(
             paused.normal,
-            "Sharp right, half a mile. Advise 35 miles per hour. Adaptive cruise paused for the \
+            "Sharp right, half a mile. Advise 35 miles per hour. Cruise paused for the \
              bend. Resumes past it."
         );
         assert_eq!(

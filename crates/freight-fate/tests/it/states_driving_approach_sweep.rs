@@ -174,6 +174,9 @@ pub struct Arrival {
     /// Feet driven at three miles an hour or less after the assist took
     /// the pedals, with more than 250 feet still to the gate.
     pub crawl_short_ft: f64,
+    /// Seconds the truck took over the final 200 feet to the gate, on the
+    /// clock the truck moves on.
+    pub final_stretch_s: f64,
     /// [`arrive_hands_off`] set its street speed.
     /// Hands-off runs: each street corner's own number and the speed the
     /// truck took it at, in order.
@@ -490,6 +493,7 @@ fn arrive_driven(
     let mut min_creep_gear: Option<i32> = None;
     let mut min_air_psi = f64::INFINITY;
     let mut crawl_short_ft = 0.0f64;
+    let mut final_stretch_s = 0.0f64;
     let mut air_low_warning_psi = 0.0f64;
     let mut brake_applications = 0usize;
     let mut last_brake = 0.0f64;
@@ -560,6 +564,9 @@ fn arrive_driven(
         // creep stretch off: road the truck should have driven, not crawled.
         if handed_off && remaining * 5280.0 > 250.0 && speed <= 3.0 {
             crawl_short_ft += speed * MPS_PER_MPH * DT * 3.28084;
+        }
+        if handed_off && remaining > 0.0 && remaining * 5280.0 <= 200.0 {
+            final_stretch_s += DT;
         }
         if handed_off && remaining > 0.0 && speed <= 2.1 {
             max_creep_hold_throttle = max_creep_hold_throttle.max(hold_throttle);
@@ -721,6 +728,7 @@ fn arrive_driven(
         air_low_warning_psi,
         brake_applications,
         crawl_short_ft,
+        final_stretch_s,
         street_kicked: kicked,
         corner_passes,
         corner_mins,
@@ -737,6 +745,10 @@ pub const PER_KIND: usize = 25;
 /// A tractor-trailer's own length. Stopping AT the gate means stopping within
 /// it, not a city block later.
 pub const TRUCK_LENGTH_FT: f64 = 70.0;
+
+/// The most the final 200 feet may take: twice the comfort-rate stop from the
+/// lane's roll, well under the minute the gate walk spent there.
+pub const FINAL_STRETCH_MAX_S: f64 = 35.0;
 
 /// The whole promise, checked on one arrival: it stopped, it stopped at the
 /// gate, and it said so. `None` when nothing is wrong.
@@ -783,6 +795,13 @@ pub fn what_went_wrong(destination: &Destination, arrival: &Arrival) -> Option<S
     //    opens it.
     if !arrival.docked && !arrival.said("Holding at the entrance. Press Enter to continue.") {
         return fault("stopped without telling the driver how to pull in");
+    }
+    // 6. The last lengths are a stop, not a walk. Shedding at the comfort
+    //    rate they take about fifteen seconds; the old two-mile-an-hour walk
+    //    took over a minute on a delivery ramp's real clock (owner,
+    //    Jamestown, 2026-11-04: "way, way, way too slow").
+    if arrival.final_stretch_s > FINAL_STRETCH_MAX_S {
+        return fault("walked the last 200 feet to the gate");
     }
     if destination.chain {
         // A chain facility's streets are the way in. Stopping at the bottom of
@@ -840,6 +859,24 @@ fn test_the_approach_assist_stops_the_truck_at_every_kind_of_destination() {
     assert!(
         climbed > 0,
         "no destination in the sweep climbs to its gate any more"
+    );
+}
+
+#[test]
+fn test_the_last_lengths_to_a_plain_ramp_gate_are_a_stop_not_a_walk() {
+    let world = get_world();
+    let (_, plain) = destinations(world, 1);
+    let destination = plain
+        .first()
+        .expect("the world has a plain-ramp destination");
+    let arrival = arrive(destination);
+    if let Some(fault) = what_went_wrong(destination, &arrival) {
+        panic!("{fault}");
+    }
+    assert!(
+        arrival.final_stretch_s > 0.0,
+        "never measured the last 200 feet: {}",
+        arrival.report(destination)
     );
 }
 
@@ -1211,8 +1248,8 @@ fn test_great_falls_signal_stop_does_not_become_a_two_mph_destination_crawl() {
         "Braking for the light.",
         "Red light.",
         "Light green.",
-        "Pulling into construction materials yard Great Falls Materials Yard",
-        "At construction materials yard Great Falls Materials Yard in Great Falls.",
+        "Pulling into Great Falls Materials Yard",
+        "Dock and deliver",
     ]);
     // The green release activates the handoff with only the light color;
     // the latch a frame later must not add another announcement.
@@ -1466,7 +1503,7 @@ fn test_the_assist_drives_from_the_clear_sign_to_the_entrance_hold_hands_off() {
     // The keeper takes the street limit in silence: "Speed limit 25" is
     // the line the driver needs (owner, 2026-10-25).
     assert!(
-        !release.said("Speed keeper holding"),
+        !release.said("Cruise holding"),
         "{}",
         release.report(destination)
     );
@@ -1619,7 +1656,10 @@ fn test_shelby_cross_dock_approach_assist_reaches_the_arrival_gate() {
         assert!(
             arrival
                 .min_creep_speed_mph
-                .is_some_and(|speed| (1.9..=2.1).contains(&speed))
+                // Under the walk only in the last lengths now, where the
+                // shed lands on it (2026-11-05); still rolling, never sagging
+                // toward a stop short of the gate.
+                .is_some_and(|speed| (1.0..=2.1).contains(&speed))
                 && arrival.min_creep_gear.is_some()
                 && arrival.max_creep_hold_throttle <= 0.35,
             "level {level}: gate crawl exceeded its throttle authority: {}",
@@ -1642,10 +1682,9 @@ fn test_shelby_cross_dock_approach_assist_reaches_the_arrival_gate() {
         );
         assert!(
             !arrival.said("shelby_mt_us")
-                && arrival.said(
-                    "At freight terminal Shelby Cross-Dock in Shelby, Montana. Drop the loaded \
-                     trailer and hook an empty. 1 of 4."
-                ),
+                && arrival
+                    .said("Pulling into freight terminal Shelby Cross-Dock in Shelby, Montana.")
+                && arrival.said("Drop the loaded trailer and hook an empty. 1 of 4."),
             "level {level}: dock speech was not player-ready and actionable: {}",
             arrival.report(&destination)
         );

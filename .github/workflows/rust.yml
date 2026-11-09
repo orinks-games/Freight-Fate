@@ -1,19 +1,23 @@
 # Rust checks: the quick ones, on every push and PR that can affect them.
 #
-# Tests and clippy run locally or in a cloud session, not here (owner,
-# 2026-11-04). The nightly Career 1.9 snapshot (build-career-1.9.yml) still
-# lints and tests every platform, slow tests included on Linux x86_64,
-# before it packages anything.
+# Windows clippy runs here so PR CI and direct pushes catch `cfg(windows)`
+# lints without waiting on the nightly snapshot. Full tests and clippy on
+# the other platforms stay on the Career 1.9 snapshot
+# (build-career-1.9.yml), slow tests included on Linux x86_64, before it
+# packages anything. Local and cloud sessions can still run the full suite.
 #
 # The changelog gate has its own workflow (changelog.yml) because it must
 # report on every change, and this one is path filtered: a required check
 # that a path filter skips stays "expected -- waiting for status" forever,
 # so nothing here may be made required while the filter stays.
 #
-#   checks   fmt, the translation files, the test-target layout and the
-#            Hearken leaf-type grep. No game build and a sparse checkout:
-#            well under a minute, on GitHub's hosted runners (free for this
-#            public repository).
+#   checks         fmt, the translation files, the test-target layout and the
+#                  Hearken leaf-type grep. No game build and a sparse checkout:
+#                  well under a minute, on GitHub's hosted runners (free for this
+#                  public repository).
+#   clippy_windows cargo clippy on windows-2025 via rust-setup (cache-key
+#                  clippy, with sccache). The snapshot workflow skips
+#                  Windows clippy so Release stays fast.
 
 name: Rust
 
@@ -117,7 +121,9 @@ jobs:
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           shared-key: tools-light
-          save-if: ${{ github.event_name != 'pull_request' }}
+          # Main and dev only: an entry saved anywhere else is seen by no
+          # later run and only crowds the 10 GB cache budget.
+          save-if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' }}
 
       - name: Build the tooling (no world feature)
         run: cargo build -p ff-tools --no-default-features --locked
@@ -142,3 +148,29 @@ jobs:
             echo "::error::Freight Fate uses Hearken's app shell; take the leaf type instead"
             exit 1
           fi
+
+  clippy_windows:
+    # Windows-only clippy for PR CI and the watched push branches. The
+    # snapshot workflow skips Windows clippy so Release is not held up; this
+    # job owns that platform instead. Reuses rust-setup (windows-deps,
+    # Defender exclusions, rust-cache with cache-key clippy) and turns on
+    # sccache, which rechecks an unchanged ff-core from its cache.
+    name: clippy (Windows)
+    runs-on: windows-2025
+    timeout-minutes: 60
+    env:
+      FREIGHT_FATE_NO_SPEECH: "1"
+      HEARKEN_TEST_NO_SPEECH: "1"
+      SDL_VIDEODRIVER: dummy
+      SDL_AUDIODRIVER: dummy
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Rust and the build caches
+        uses: ./.github/actions/rust-setup
+        with:
+          cache-key: clippy
+          sccache: "true"
+
+      - name: Lint Rust targets
+        run: cargo clippy --all-targets --locked -- -D warnings

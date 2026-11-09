@@ -369,3 +369,33 @@ fn test_a_posting_that_holds_long_enough_is_still_spoken() {
     assert!(has(&arrival, "Speed limit reduced to 57."), "{arrival:?}");
     assert!(!trip.in_unannounced_posting());
 }
+
+#[test]
+fn test_a_second_drop_close_behind_says_only_the_lower_limit() {
+    // Owner drive, 2026-11-05: "reduced to 55" and then "drops to 45" a
+    // breath later. With the 45 just ahead, only the 45 is said, and the
+    // 55 in between is never charged.
+    let mut trip = trip(vec![
+        sample(0.0, Some(70.0)),
+        sample(50.0, Some(55.0)),
+        sample(50.6, Some(45.0)),
+    ]);
+    cues(&mut trip, 40.0, 60.0); // seed the announced limit at 70
+    let cues = cues(&mut trip, 50.05, 60.0);
+    assert!(reduced(&cues).is_empty(), "{cues:?}");
+    assert_eq!(drops(&cues).len(), 1, "{cues:?}");
+    assert!(drops(&cues)[0].starts_with("Speed limit drops to 45 in"));
+    assert!(trip.in_unannounced_posting());
+}
+
+#[test]
+fn test_a_drop_with_no_second_drop_near_still_says_reduced() {
+    let mut trip = trip(vec![
+        sample(0.0, Some(70.0)),
+        sample(50.0, Some(55.0)),
+        sample(60.0, Some(45.0)),
+    ]);
+    cues(&mut trip, 40.0, 60.0);
+    let cues = cues(&mut trip, 50.05, 60.0);
+    assert_eq!(reduced(&cues).len(), 1, "{cues:?}");
+}
