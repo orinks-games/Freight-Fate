@@ -11,7 +11,8 @@ use crate::sim::trip_models::*;
 use crate::sim::trip_route_helpers::stop_offset_for_direction;
 use crate::sim::weather::WeatherKind;
 use crate::speech_text::{
-    hazard_call, in_lane_hazard_call_named, passing_hazard_call, toll_charged, SpokenMessage,
+    hazard_call, in_lane_hazard_call_named, passing_hazard_call, small_debris_body,
+    small_debris_call, toll_charged, SpokenMessage,
 };
 
 impl Trip {
@@ -311,6 +312,12 @@ impl Trip {
 
     /// Occasional road hazards that demand braking.
     pub fn check_hazards(&mut self, moved_mi: f64) {
+        if let Some(staged) = self.staged_hazard.take() {
+            // Asked for by name: fired wherever the truck is, facility
+            // road included, because the asker wants to hear it.
+            self.emit_catalog_hazard(staged);
+            return;
+        }
         if self.is_facility_approach_route() {
             // A deadhead crawl down a facility access road is minutes long
             // at yard speeds; a "brake now" ambush there is noise.
@@ -386,54 +393,102 @@ impl Trip {
             let weights: Vec<f64> = choices.iter().map(|(_, w)| *w).collect();
             let idx = self.rng.choices_indices_weighted(&weights, 1)[0];
             let hazard = choices[idx].0;
-            // The same two questions, in the same order, for every hazard:
-            // is the thing confined to one lane, and does the road give you
-            // another one. Only both together mean a lane change answers it.
-            // "Brake now!" is reserved for a hazard no lane change could ever
-            // answer -- fog, ice, a crosswind, a deer that may bolt either
-            // way -- so it never loses its meaning to a road that merely
-            // happens to be narrow here.
-            let in_lane = hazard_is_in_lane(hazard);
-            let side = self.open_side_at(None);
-            let dodgeable = in_lane && side.is_open();
+            self.emit_catalog_hazard(hazard);
+        }
+    }
+
+    /// Ask for a catalog hazard by name or text, on purpose: the agent
+    /// server's `hazard` tool, so each kind can be driven instead of waited
+    /// for (nothing staged a road hazard before 2026-11-09). It fires on the
+    /// next rolling update, through the same call, deadline roll and seeded
+    /// outcome as a drawn one; `update` clears the event list on entry, so
+    /// emitting here directly would be lost.
+    pub fn stage_hazard(&mut self, name: &str) -> Result<&'static str, String> {
+        let hazard = hazard_by_name(name).ok_or_else(|| {
+            format!(
+                "no hazard called {name:?}; the names are {}",
+                HAZARDS
+                    .iter()
+                    .map(|h| h.name.strip_prefix("the ").unwrap_or(h.name))
+                    .collect::<Vec<_>>()
+                    .join(", ")
+            )
+        })?;
+        self.staged_hazard = Some(hazard.text);
+        Ok(hazard.name)
+    }
+
+    /// The hazard event for one catalog row, worded for this road.
+    fn emit_catalog_hazard(&mut self, hazard: &'static str) {
+        // The same two questions, in the same order, for every hazard:
+        // is the thing confined to one lane, and does the road give you
+        // another one. Only both together mean a lane change answers it.
+        // "Brake now!" is reserved for a hazard no lane change could ever
+        // answer -- fog, ice, a crosswind, a deer that may bolt either
+        // way -- so it never loses its meaning to a road that merely
+        // happens to be narrow here.
+        let in_lane = hazard_is_in_lane(hazard);
+        let side = self.open_side_at(None);
+        let dodgeable = in_lane && side.is_open();
+        let debris = hazard_debris(hazard);
+        let name = hazard_name(hazard);
+        let body = if debris == Some(DebrisClass::Small) {
+            // The noun the clear line uses, not the catalog's long text:
+            // "Tire debris." (owner, 2026-11-09).
+            small_debris_body(name)
+        } else {
             let mut chars = hazard.chars();
             let first: String = chars
                 .next()
                 .map(|c| c.to_uppercase().collect())
                 .unwrap_or_default();
-            let body = format!("{first}{}.", chars.as_str());
-            let animal = hazard_is_animal(hazard);
-            let message = if in_lane {
-                in_lane_hazard_call_named(&body, side, &self.open_side_spoken(side))
-            } else if animal {
-                // Only what is on the road: braking hard for a deer at
-                // highway speed does not change what happens (owner,
-                // 2026-10-19), so the call asks for nothing.
-                SpokenMessage::new(body.clone())
-            } else {
-                hazard_call("Brake now!", &body)
-            };
-            let deadline_s = self.rng.uniform(3.0, 4.5) * self.visibility_reaction_factor();
-            self.emit(
-                TripEventKind::Hazard,
-                message,
-                TripEventData {
-                    deadline_s: Some(deadline_s),
-                    dodgeable: Some(dodgeable),
-                    in_lane: Some(in_lane),
-                    open_side: in_lane.then_some(side),
-                    pass_message: if dodgeable {
-                        passing_hazard_call(&body, side)
-                    } else {
-                        None
-                    },
-                    animal: Some(animal),
-                    brake_to_mph: hazard_brake_to_mph(hazard),
-                    name: Some(hazard_name(hazard).to_string()),
-                    ..Default::default()
+            format!("{first}{}.", chars.as_str())
+        };
+        let animal = hazard_is_animal(hazard);
+        let message = if debris == Some(DebrisClass::Small) {
+            // Nothing brakes for tread: a heads-up with the lane answer,
+            // no call to action.
+            small_debris_call(&body, &self.open_side_spoken(side))
+        } else if in_lane {
+            in_lane_hazard_call_named(&body, side, &self.open_side_spoken(side))
+        } else if animal {
+            // Only what is on the road: braking hard for a deer at
+            // highway speed does not change what happens (owner,
+            // 2026-10-19), so the call asks for nothing.
+            SpokenMessage::new(body.clone())
+        } else {
+            hazard_call("Brake now!", &body)
+        };
+        // Small debris is called early enough to move over with room to
+        // spare; everything else gets the reaction slack the stop is
+        // budgeted on top of.
+        let slack = if debris == Some(DebrisClass::Small) {
+            SMALL_DEBRIS_CALL_S
+        } else {
+            self.rng.uniform(3.0, 4.5)
+        };
+        let deadline_s = slack * self.visibility_reaction_factor();
+        self.emit(
+            TripEventKind::Hazard,
+            message,
+            TripEventData {
+                deadline_s: Some(deadline_s),
+                dodgeable: Some(dodgeable),
+                in_lane: Some(in_lane),
+                open_side: in_lane.then_some(side),
+                pass_message: if dodgeable {
+                    passing_hazard_call(&body, side)
+                } else {
+                    None
                 },
-            );
-        }
+                animal: Some(animal),
+                brake_to_mph: hazard_brake_to_mph(hazard),
+                debris,
+                strike_pct: debris.map(|_| hazard_strike_pct(hazard)),
+                name: Some(name.to_string()),
+                ..Default::default()
+            },
+        );
     }
 
     /// Low visibility shortens the normal hazard reaction slack.

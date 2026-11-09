@@ -185,6 +185,11 @@ pub enum Command {
     Listen,
     Menu,
     Observe,
+    /// Fire a catalog hazard on the live drive by name (`Trip::stage_hazard`),
+    /// so each kind can be driven on purpose.
+    Hazard {
+        name: String,
+    },
     /// The hit is discovered on the serve thread (world data only) so the
     /// game loop never blocks on a search; the loop only builds the drive.
     StageHit {
@@ -807,6 +812,9 @@ impl AgentPolicy {
                             "INSPECTOR: not at the wheel (a menu or stop screen is up).".to_string()
                         }
                     }));
+                }
+                Command::Hazard { name } => {
+                    let _ = reply.send(input.stage_hazard(&name));
                 }
                 Command::StageHit {
                     hit,

@@ -161,14 +161,16 @@ impl ParkingFullState {
                 p.active_trip = Some(snapshot);
             }
             let money = profile_of(ctx).money();
-            format!(
+            let text = format!(
                 "{engine_off}Motel, {} dollars, 10 hours. {}. Driving and duty clocks reset. \
                  {} dollars. {} starts the engine.",
                 fmt_grouped(MOTEL_COST, 0),
                 clock_text(d.trip.local_hour()),
                 fmt_grouped(money, 0),
                 ctx.control_hint("engine")
-            )
+            );
+            let starts = format!("{} starts the engine.", ctx.control_hint("engine"));
+            d.without_key_hint(ctx, text, &starts)
         }) else {
             return;
         };

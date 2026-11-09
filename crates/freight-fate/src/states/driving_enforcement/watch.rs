@@ -551,12 +551,19 @@ impl DrivingState {
                  They are pulling you in for a walk-around inspection.",
                 observation.detail
             );
-            let lights_message = format!(
-                "Lights and siren behind you. A trooper on this {reason} saw {} and wants a look \
-                 at the truck. Signal with {} and stop on the shoulder.",
-                observation.detail,
-                ctx.control_hint("take_exit")
-            );
+            let detail = &observation.detail;
+            let lights_message = if self.driving_hints(ctx) {
+                format!(
+                    "Lights and siren behind you. A trooper on this {reason} saw {detail} and \
+                     wants a look at the truck. Signal with {} and stop on the shoulder.",
+                    ctx.control_hint("take_exit")
+                )
+            } else {
+                format!(
+                    "Lights and siren behind you. A trooper on this {reason} saw {detail} and \
+                     wants a look at the truck. Signal and stop on the shoulder."
+                )
+            };
             self.begin_enforcement_pull_over(
                 ctx,
                 "roadside_walkaround",
@@ -570,12 +577,19 @@ impl DrivingState {
             return;
         }
         let (summary, fine, return_message) = self.observed_stop_terms(observation);
-        let lights_message = format!(
-            "Lights and siren behind you. A trooper on this {reason} saw {}. Signal with {} and \
-             stop on the shoulder.",
-            observation.what,
-            ctx.control_hint("take_exit")
-        );
+        let what = &observation.what;
+        let lights_message = if self.driving_hints(ctx) {
+            format!(
+                "Lights and siren behind you. A trooper on this {reason} saw {what}. Signal with \
+                 {} and stop on the shoulder.",
+                ctx.control_hint("take_exit")
+            )
+        } else {
+            format!(
+                "Lights and siren behind you. A trooper on this {reason} saw {what}. Signal and \
+                 stop on the shoulder."
+            )
+        };
         self.begin_enforcement_pull_over(
             ctx,
             "observed",

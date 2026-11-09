@@ -13327,6 +13327,21 @@ msgstr "{base} morgen"
 msgid "{base} in {days_ahead} days"
 msgstr "{base} in {days_ahead} Tagen"
 
+msgid "minivan"
+msgstr "Van"
+
+msgid "sports car"
+msgstr "Sportwagen"
+
+msgid "tanker"
+msgstr "Tanklaster"
+
+msgid "car hauler"
+msgstr "Autotransporter"
+
+msgid "service vehicle"
+msgstr "Dienstfahrzeug"
+
 msgid "cruising"
 msgstr "fährt gleichmäßig"
 
@@ -13356,9 +13371,6 @@ msgstr "folgt"
 
 msgid "passing"
 msgstr "überholt"
-
-msgid "service vehicle"
-msgstr "Dienstfahrzeug"
 
 msgid "right lane"
 msgstr "rechte Spur"
@@ -14313,11 +14325,11 @@ msgstr "ein Staubsturm, der die Sicht nimmt"
 msgid "the dust storm"
 msgstr "der Staubsturm"
 
-msgid "the tumbleweeds"
-msgstr "die Steppenläufer"
-
 msgid "tumbleweeds piling in your lane"
 msgstr "Steppenläufer, die sich auf deiner Spur türmen"
+
+msgid "the tumbleweeds"
+msgstr "die Steppenläufer"
 
 msgid "rockfall debris on the road"
 msgstr "Steinschlag auf der Straße"
@@ -14359,6 +14371,10 @@ msgstr "direkt voraus"
 #. placeholders: {gap_text}
 msgid "{gap_text} ahead"
 msgstr "{gap_text} voraus"
+
+#. placeholders: {name}, {join}
+msgid "no hazard called {name}; the names are {join}"
+msgstr ""
 
 msgid "Brake now!"
 msgstr "Jetzt bremsen!"
@@ -15265,13 +15281,16 @@ msgid "Hazard warning"
 msgstr "Gefahrenwarnung"
 
 msgid ""
-"Something in your path needs a real reaction now: brake below twenty five "
-"miles per hour quickly, or move to a clear lane if the warning says the "
-"object is in your lane."
+"Something in your path needs a real reaction now: move to the lane the call "
+"names, or brake. Debris with no lane open is taken at 30; rockfall or a "
+"stopped car needs a stop. Tire debris gets the road cue tone instead, "
+"because nothing brakes for it."
 msgstr ""
-"Etwas auf deinem Weg verlangt jetzt eine echte Reaktion: Brems schnell "
-"unter fünfundzwanzig Meilen pro Stunde, oder wechsle auf eine freie Spur, "
-"wenn die Warnung sagt, dass das Hindernis auf deiner Spur ist."
+"Etwas auf deinem Weg verlangt jetzt eine echte Reaktion: wechsle auf die "
+"Spur, die der Ruf nennt, oder bremse. Trümmer ohne freie Spur werden mit 30 "
+"genommen; ein Steinschlag oder ein stehendes Auto verlangt einen Halt. "
+"Reifenreste bekommen stattdessen den Straßenhinweiston, weil nichts dafür "
+"bremst."
 
 msgid "Hazard clear"
 msgstr "Gefahr überstanden"
@@ -16025,6 +16044,21 @@ msgid ""
 msgstr ""
 "Bedienertasten sind aus: Das Fenster ist minimiert, und die Tastatur wird "
 "an der Tür abgefangen."
+
+msgid "not at the wheel: no screen is up"
+msgstr ""
+
+msgid "not at the wheel (a menu or stop screen is up)"
+msgstr ""
+
+msgid "on a ramp or a facility road, where hazards pass you by"
+msgstr ""
+
+#. placeholders: {staged}, {position_mi}
+msgid ""
+"Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
+"so listen for the call."
+msgstr ""
 
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
@@ -22801,12 +22835,14 @@ msgid "Exits leave from the right lane."
 msgstr "Ausfahrten gehen von der rechten Spur ab."
 
 msgid ""
-"Change lanes or brake means a fixed object in your lane: take the open lane "
-"it names, or brake nearly to a stop and ease around."
+"Change lanes or brake means something in your lane: take the open lane it "
+"names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+"Tire debris is driven over; nothing brakes for it."
 msgstr ""
-"Spur wechseln oder bremsen bedeutet ein festes Hindernis in deiner Spur: "
-"nimm die genannte freie Spur, oder bremse fast bis zum Stillstand und fahre "
-"vorsichtig herum."
+"Spur wechseln oder bremsen bedeutet etwas in deiner Spur: nimm die genannte "
+"freie Spur, oder geh auf 30 runter und nimm es. Ein Steinschlag oder ein "
+"stehendes Auto verlangt einen Halt. Über Reifenreste wird gefahren; nichts "
+"bremst dafür."
 
 #. placeholders: {rest}
 msgid ""
@@ -23815,6 +23851,9 @@ msgstr ""
 msgid "Hold {control_hint} to press the clutch first."
 msgstr "Halte {control_hint}, um zuerst die Kupplung zu treten."
 
+msgid "Grinding gears! Clutch in first."
+msgstr ""
+
 #. placeholders: {join_phrase}
 msgid "offers {join_phrase}"
 msgstr "bietet {join_phrase}"
@@ -24509,11 +24548,6 @@ msgstr ""
 "{cleared} {cleared_verb} jetzt bei 0 Prozent.{damage} Du hast {grouped2} "
 "Dollar."
 
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Press {control_hint} to restart the engine."
-msgstr "Drück {control_hint}, um den Motor neu zu starten."
-
 #. placeholders: {work}, {grouped}
 #. one sentence of a longer line
 msgid "Road service {work} for {grouped} dollars."
@@ -24601,6 +24635,10 @@ msgstr ""
 "Leistung. Es hat {BREAKDOWN_REPAIR_MIN} Stunden gedauert, und es ist jetzt "
 "{clock_text}. Du hast {grouped2} Dollar. Drück {control_hint}, um den Motor "
 "neu zu starten."
+
+#. placeholders: {control_hint}
+msgid "Press {control_hint} to restart the engine."
+msgstr "Drück {control_hint}, um den Motor neu zu starten."
 
 #. placeholders: {spare}
 msgid "You are in the {spare}"
@@ -25357,6 +25395,10 @@ msgstr ""
 msgid "Signal with {control_hint} and stop on the shoulder."
 msgstr "Blink mit {control_hint} und halt auf dem Seitenstreifen an."
 
+msgid ""
+"Lights behind you for a routine inspection. Signal and stop on the shoulder."
+msgstr ""
+
 msgid "Roadside inspection"
 msgstr "Straßenkontrolle"
 
@@ -25446,6 +25488,16 @@ msgstr ""
 "bemerkt und will sich den Lkw ansehen. Blink mit {control_hint} und halt "
 "auf dem Seitenstreifen an."
 
+#. placeholders: {reason}, {detail}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {detail} and "
+"wants a look at the truck. Signal and stop on the shoulder."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Signal and stop on the shoulder."
+msgstr "Blink und halt auf dem Seitenstreifen an."
+
 #. placeholders: {reason}, {what}
 #. one sentence of a longer line
 msgid "A trooper on this {reason} saw {what}."
@@ -25458,6 +25510,12 @@ msgid ""
 msgstr ""
 "Blaulicht und Sirene hinter dir. Ein Polizist bei der {reason} hat {what} "
 "bemerkt. Blink mit {control_hint} und halt auf dem Seitenstreifen an."
+
+#. placeholders: {reason}, {what}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {what}. Signal "
+"and stop on the shoulder."
+msgstr ""
 
 msgid "observed"
 msgstr "observed"
@@ -25588,18 +25646,20 @@ msgstr ""
 "Kein Kraftstoff mehr. Die Notbetankung hat dreißig Gallonen gebracht, "
 "{billing}. Drück {engine}, um den Motor neu zu starten."
 
-#. placeholders: {engine}
-#. one sentence of a longer line
-msgid "Press {engine} to restart the engine."
-msgstr "Drück {engine}, um den Motor neu zu starten."
-
 #. placeholders: {billing}
 #. one sentence of a longer line
 msgid "Roadside rescue brought thirty gallons {billing}."
 msgstr "Die Notbetankung hat dreißig Gallonen gebracht, {billing}."
 
+#. placeholders: {engine}
+msgid "Press {engine} to restart the engine."
+msgstr "Drück {engine}, um den Motor neu zu starten."
+
 msgid "Destination exit ahead again."
 msgstr "Zielausfahrt liegt wieder vor dir."
+
+msgid "Destination exit ahead again. Signal for it."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
@@ -25613,6 +25673,10 @@ msgstr "Drück {control_hint} zum Blinken."
 
 msgid "You turned around, and the destination exit is ahead again."
 msgstr "Du hast gewendet, und die Zielausfahrt liegt wieder vor dir."
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Signal for it."
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -25639,10 +25703,6 @@ msgstr "Zielausfahrt für {facility} verpasst."
 msgid "Missed the destination exit for {facility}. {reroute_text}"
 msgstr "Zielausfahrt für {facility} verpasst. {reroute_text}"
 
-#. one sentence of a longer line
-msgid "Holding at the entrance."
-msgstr "Du wartest an der Einfahrt."
-
 #. placeholders: {control_hint}
 msgid "Holding at the entrance. Press {control_hint} to continue."
 msgstr ""
@@ -25652,6 +25712,9 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Press {control_hint} to continue."
 msgstr "Drück {control_hint}, um weiterzumachen."
+
+msgid "Holding at the entrance."
+msgstr "Du wartest an der Einfahrt."
 
 #. placeholders: {facility}
 msgid "At {facility}. Stop to dock."
@@ -26397,16 +26460,15 @@ msgstr "Noch keine Ausfahrt der Route, für die du blinken kannst."
 msgid "Press {control_hint} again to cancel the exit."
 msgstr "Drück {control_hint} noch mal, um die Ausfahrt abzubrechen."
 
-#. placeholders: {stays}
-#. one sentence of a longer line
-msgid "Signal stays {stays}."
-msgstr "Blinker bleibt {stays}."
-
 #. placeholders: {stays}, {control_hint}
 msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
 msgstr ""
 "Blinker bleibt {stays}. Drück {control_hint} noch mal, um die Ausfahrt "
 "abzubrechen."
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
+msgstr "Blinker bleibt {stays}."
 
 msgid "Signal canceled."
 msgstr "Blinker aus."
@@ -27030,16 +27092,15 @@ msgstr "Während einer Polizeikontrolle ist keine Pausenplanung möglich."
 msgid "Press {exit_hint} to signal the trooper stop."
 msgstr "Drück {exit_hint}, um für den Polizeistopp zu blinken."
 
-#. one sentence of a longer line
-msgid "Resolve the police stop first."
-msgstr "Kümmer dich zuerst um die Polizeikontrolle."
-
 #. placeholders: {exit_hint}
 msgid ""
 "Resolve the police stop first. Press {exit_hint} to signal the trooper stop."
 msgstr ""
 "Kümmer dich zuerst um die Polizeikontrolle. Drück {exit_hint}, um für den "
 "Polizeistopp zu blinken."
+
+msgid "Resolve the police stop first."
+msgstr "Kümmer dich zuerst um die Polizeikontrolle."
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -27058,6 +27119,14 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Stop at the scale, then press {rest_hint} to check in."
 msgstr "Halt an der Waage an, dann drück {rest_hint}, um dich anzumelden."
+
+#. placeholders: {name}
+msgid "On the ramp for {name}. Stop at the scale, then check in."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the scale, then check in."
+msgstr ""
 
 msgid "Emergency shoulder sleep is not available here. Use a route stop."
 msgstr ""
@@ -27218,6 +27287,11 @@ msgid ""
 msgstr ""
 "Blaulicht und Sirene hinter dir für eine Fahrtenbuchkontrolle. Blink mit "
 "{control_hint} und halt auf dem Seitenstreifen an."
+
+msgid ""
+"Lights and siren behind you for a log check. Signal and stop on the "
+"shoulder."
+msgstr ""
 
 msgid "Log check"
 msgstr "Fahrtenbuchkontrolle"
@@ -27400,6 +27474,9 @@ msgstr "Es liegt wieder vor dir."
 msgid " Brake with {control_hint} well before it."
 msgstr " Brems mit {control_hint} rechtzeitig davor."
 
+msgid " Brake well before it."
+msgstr ""
+
 #. placeholders: {place}
 msgid "Drove past {place}. Use the next safe turnaround."
 msgstr "An {place} vorbeigefahren. Nimm die nächste sichere Wende."
@@ -27466,6 +27543,9 @@ msgstr "Du hast gewendet, und das Tor liegt wieder vor dir."
 msgid " Brake with {control_hint} well before the gate."
 msgstr " Brems mit {control_hint} rechtzeitig vor dem Tor."
 
+msgid " Brake well before the gate."
+msgstr ""
+
 msgid ""
 " Facility stopping assistance in Settings, Gameplay, Driving assistance, "
 "can stop the truck for you."
@@ -27504,6 +27584,10 @@ msgstr "Du bleibst auf der mittleren Spur."
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "Spur {name} wegen Baustelle gesperrt."
+
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by an {vehicle}."
+msgstr "Spur {name} belegt durch einen {vehicle}."
 
 #. placeholders: {name}, {vehicle}
 msgid "{name} lane blocked by a {vehicle}."
@@ -30241,11 +30325,6 @@ msgstr "Ein Motelzimmer kostet {grouped} Dollar, und du hast {grouped2}."
 msgid "Driving and duty clocks reset."
 msgstr "Lenk- und Dienstzeit zurückgesetzt."
 
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "{control_hint} starts the engine."
-msgstr "{control_hint} startet den Motor."
-
 #. placeholders: {engine_off}, {grouped}
 #. one sentence of a longer line
 msgid "{engine_off}Motel, {grouped} dollars, 10 hours."
@@ -30264,6 +30343,10 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{grouped2} dollars."
 msgstr "{grouped2} Dollar."
+
+#. placeholders: {control_hint}
+msgid "{control_hint} starts the engine."
+msgstr "{control_hint} startet den Motor."
 
 #. placeholders: {name}
 msgid "The truck parking at {name} is full tonight."
@@ -31614,6 +31697,9 @@ msgid ""
 msgstr ""
 "Schlafen am Seitenstreifen abgebrochen. Zurück auf der Straße. "
 "Feststellbremse angezogen, {hint} löst sie."
+
+msgid "Shoulder sleep canceled. Back on the road. Parking brake set."
+msgstr ""
 
 msgid "Ramp curve"
 msgstr "Ausfahrtkurve"
@@ -33025,10 +33111,6 @@ msgstr ""
 "Blaulicht und Sirene hinter dir. {speed} in einer {zone}-Zone. Blink und "
 "halt auf dem Seitenstreifen an."
 
-#. one sentence of a longer line
-msgid "Signal and stop on the shoulder."
-msgstr "Blink und halt auf dem Seitenstreifen an."
-
 #. placeholders: {speed}, {zone}
 #. one sentence of a longer line
 msgid "{speed} in a {zone} zone."
@@ -33099,6 +33181,11 @@ msgstr ""
 "Kontrolle wegen umfahrener Waage. Blaulicht und Sirene hinter dir. Blink "
 "mit {control_hint} und halt auf dem Seitenstreifen an."
 
+msgid ""
+"Scale bypass enforcement. Lights and siren behind you. Signal and stop on "
+"the shoulder."
+msgstr ""
+
 msgid "Weigh station bypass stop"
 msgstr "Anhalten wegen umfahrener Wiegestation"
 
@@ -33133,6 +33220,11 @@ msgid ""
 msgstr ""
 "Anhalten wegen unsicherer Ausrüstung. Blaulicht und Sirene hinter dir. "
 "Blink mit {control_hint} und halt auf dem Seitenstreifen an."
+
+msgid ""
+"Unsafe equipment stop. Lights and siren behind you. Signal and stop on the "
+"shoulder."
+msgstr ""
 
 msgid "Unsafe equipment stop"
 msgstr "Anhalten wegen unsicherer Ausrüstung"
@@ -33227,9 +33319,18 @@ msgstr ""
 msgid "Transmission changed to {mode}."
 msgstr "Getriebe auf {mode} umgestellt."
 
-#. one sentence of a longer line
 msgid "Engine stalled."
 msgstr "Motor abgewürgt."
+
+msgid ""
+"Engine stalled. Hold the clutch, restart, and shift down to first before "
+"letting it out."
+msgstr ""
+
+msgid ""
+"Engine stalled. Shift to neutral and restart, then clutch in and pick first "
+"gear."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Engine stalled. Press {control_hint} to restart."
@@ -33307,11 +33408,20 @@ msgstr "Die Hupe wirkt, {hazard_names_text} macht die Straße frei."
 #. placeholders: {struck}
 #. one sentence of a longer line
 msgid "Collision with {struck}."
-msgstr ""
+msgstr "Zusammenstoß mit {struck}."
 
 #. placeholders: {struck}, {damage}
 msgid "Collision with {struck}. Damage {damage} percent."
-msgstr ""
+msgstr "Zusammenstoß mit {struck}. Schaden {damage} Prozent."
+
+#. placeholders: {names}
+#. one sentence of a longer line
+msgid "Collision with {names}."
+msgstr "Zusammenstoß mit {names}."
+
+#. placeholders: {names}, {damage}
+msgid "Collision with {names}. Damage {damage} percent."
+msgstr "Zusammenstoß mit {names}. Schaden {damage} Prozent."
 
 #. placeholders: {names}, {names2}
 msgid "{names} and {names2}"
@@ -33327,24 +33437,6 @@ msgstr "Frei."
 #. placeholders: {names}
 msgid "Clear of {names}."
 msgstr "An {names} vorbei."
-
-#. one sentence of a longer line
-msgid "It is still in your lane."
-msgstr "Es ist immer noch in deiner Spur."
-
-#. placeholders: {open_side_spoken}
-msgid ""
-"It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
-msgstr ""
-"Es ist immer noch in deiner Spur. Halt fast an oder wechsel die Spur. "
-"{open_side_spoken}"
-
-#. one sentence of a longer line
-msgid "Nearly stop, or change lanes."
-msgstr "Halt fast an oder wechsel die Spur."
-
-msgid "It is still in your lane. Nearly stop."
-msgstr "Es ist immer noch in deiner Spur. Halt fast an."
 
 msgid "Automatic braking."
 msgstr "Automatische Bremsung."
@@ -33388,6 +33480,20 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Truck damage {damage_pct} percent."
 msgstr "Schaden am Lkw {damage_pct} Prozent."
+
+#. placeholders: {vehicle_class}, {lane_name}
+#. one sentence of a longer line
+msgid "You sideswiped an {vehicle_class} in the {lane_name} lane!"
+msgstr ""
+"Du hast einen {vehicle_class} auf der Spur {lane_name} seitlich gestreift!"
+
+#. placeholders: {vehicle_class}, {lane_name}, {damage_pct}
+msgid ""
+"You sideswiped an {vehicle_class} in the {lane_name} lane! Truck damage "
+"{damage_pct} percent."
+msgstr ""
+"Du hast einen {vehicle_class} auf der Spur {lane_name} seitlich gestreift! "
+"Schaden am Lkw {damage_pct} Prozent."
 
 #. placeholders: {vehicle_class}, {lane_name}
 #. one sentence of a longer line
@@ -33747,6 +33853,9 @@ msgid ""
 msgstr ""
 "Warnung, nicht angehalten. Blink mit {control_hint} und halt auf dem "
 "Seitenstreifen an."
+
+msgid "Failure-to-stop warning. Signal and stop on the shoulder."
+msgstr ""
 
 msgid "Failure-to-stop stop"
 msgstr "Anhalten wegen Nichtanhaltens"
@@ -35367,6 +35476,15 @@ msgstr ""
 "eine Einstellung weglässt, machen keinen Ton und erscheinen nicht im "
 "Nachrichtenrückblick. Abfragetasten antworten immer. Werbetafeln, Ortsnamen "
 "und Sehenswürdigkeiten haben unten eigene Schalter."
+
+#. placeholders: {on_off}
+msgid "Driving hints: {on_off}"
+msgstr ""
+
+msgid ""
+"On, driving lines name the key for the next step, like Press X to signal "
+"for the exit. Off, they leave the key out. Driving school always names it."
+msgstr ""
 
 #. placeholders: {chatter_summary}
 msgid "Roadside chatter: {chatter_summary}"
@@ -37865,20 +37983,22 @@ msgstr ""
 
 msgid ""
 "When you hear Brake now, slow down right away. Change lanes or brake means "
-"something is stopped in your lane: move to the open lane it names, or brake "
-"almost to a stop."
+"something is in your lane: move to the open lane it names, or slow to 30 "
+"and take it. Rockfall or a stopped car needs a stop."
 msgstr ""
 "Wenn du Jetzt bremsen hörst, sofort langsamer werden. Spur wechseln oder "
-"bremsen heißt, dass etwas in deiner Spur steht: wechsle auf die freie Spur, "
-"die genannt wird, oder brems fast bis zum Stillstand."
+"bremsen heißt, dass etwas in deiner Spur ist: wechsle auf die freie Spur, "
+"die genannt wird, oder geh auf 30 runter und nimm es. Ein Steinschlag oder "
+"ein stehendes Auto verlangt einen Halt."
 
 msgid ""
-"No lane open means brake. Full lane keeping can pass slow vehicles, but "
-"leaves debris avoidance to you and avoids starting a pass near an exit."
+"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"keeping moves over for debris and slow vehicles when a lane is open, and "
+"avoids starting a pass near an exit."
 msgstr ""
-"Keine Spur frei heißt bremsen. Volle Spurhaltung kann langsame Fahrzeuge "
-"überholen, überlässt dir aber das Ausweichen vor Trümmern und beginnt kein "
-"Überholen nahe einer Ausfahrt."
+"Reifenreste werden angesagt und überfahren; nichts bremst dafür. Volle "
+"Spurhaltung weicht Trümmern und langsamen Fahrzeugen aus, wenn eine Spur "
+"frei ist, und beginnt kein Überholen nahe einer Ausfahrt."
 
 msgid ""
 "Leave a coned lane when warned. Driving through barrels causes damage, a "
@@ -42049,6 +42169,71 @@ msgstr "Geöffnet."
 
 msgid "Closed."
 msgstr "Geschlossen."
+
+#. The small-debris call, built from the catalog noun with "the" dropped.
+msgid "Tire debris."
+msgstr "Reifenreste."
+
+msgid "Debris."
+msgstr "Trümmer."
+
+#~ msgid "{thing} ahead."
+#~ msgstr "{thing} voraus."
+
+#~ msgid "Tire debris ahead."
+#~ msgstr "Reifenreste voraus."
+
+#~ msgid "Debris ahead."
+#~ msgstr "Trümmer voraus."
+
+#~ msgid ""
+#~ "Something in your path needs a real reaction now: brake below twenty five "
+#~ "miles per hour quickly, or move to a clear lane if the warning says the "
+#~ "object is in your lane."
+#~ msgstr ""
+#~ "Etwas auf deinem Weg verlangt jetzt eine echte Reaktion: Brems schnell "
+#~ "unter fünfundzwanzig Meilen pro Stunde, oder wechsle auf eine freie Spur, "
+#~ "wenn die Warnung sagt, dass das Hindernis auf deiner Spur ist."
+
+#~ msgid ""
+#~ "Change lanes or brake means a fixed object in your lane: take the open lane "
+#~ "it names, or brake nearly to a stop and ease around."
+#~ msgstr ""
+#~ "Spur wechseln oder bremsen bedeutet ein festes Hindernis in deiner Spur: "
+#~ "nimm die genannte freie Spur, oder bremse fast bis zum Stillstand und fahre "
+#~ "vorsichtig herum."
+
+#~ msgid "It is still in your lane."
+#~ msgstr "Es ist immer noch in deiner Spur."
+
+#~ msgid ""
+#~ "It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
+#~ msgstr ""
+#~ "Es ist immer noch in deiner Spur. Halt fast an oder wechsel die Spur. "
+#~ "{open_side_spoken}"
+
+#~ msgid "Nearly stop, or change lanes."
+#~ msgstr "Halt fast an oder wechsel die Spur."
+
+#~ msgid "It is still in your lane. Nearly stop."
+#~ msgstr "Es ist immer noch in deiner Spur. Halt fast an."
+
+#~ msgid ""
+#~ "When you hear Brake now, slow down right away. Change lanes or brake means "
+#~ "something is stopped in your lane: move to the open lane it names, or brake "
+#~ "almost to a stop."
+#~ msgstr ""
+#~ "Wenn du Jetzt bremsen hörst, sofort langsamer werden. Spur wechseln oder "
+#~ "bremsen heißt, dass etwas in deiner Spur steht: wechsle auf die freie Spur, "
+#~ "die genannt wird, oder brems fast bis zum Stillstand."
+
+#~ msgid ""
+#~ "No lane open means brake. Full lane keeping can pass slow vehicles, but "
+#~ "leaves debris avoidance to you and avoids starting a pass near an exit."
+#~ msgstr ""
+#~ "Keine Spur frei heißt bremsen. Volle Spurhaltung kann langsame Fahrzeuge "
+#~ "überholen, überlässt dir aber das Ausweichen vor Trümmern und beginnt kein "
+#~ "Überholen nahe einer Ausfahrt."
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "

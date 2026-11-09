@@ -112,13 +112,15 @@ impl DrivingState {
             if ahead <= EXIT_CANCEL_GUARD_MI && !self.exit_cancel_armed {
                 self.exit_cancel_armed = true;
                 let stays = if self.exit_blinker_on() { "on" } else { "set" };
-                self.say_plain(
-                    ctx,
+                let message = if self.driving_hints(ctx) {
                     format!(
                         "Signal stays {stays}. Press {} again to cancel the exit.",
                         ctx.control_hint("take_exit")
-                    ),
-                );
+                    )
+                } else {
+                    format!("Signal stays {stays}.")
+                };
+                self.say_plain(ctx, message);
                 return;
             }
             let was_blinking = self.exit_blinker_on();

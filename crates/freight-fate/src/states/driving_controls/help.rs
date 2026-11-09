@@ -279,8 +279,9 @@ impl DrivingState {
         ));
         lines.push("Exits leave from the right lane.".to_string());
         lines.push(
-            "Change lanes or brake means a fixed object in your lane: take the open lane \
-             it names, or brake nearly to a stop and ease around."
+            "Change lanes or brake means something in your lane: take the open lane it \
+             names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. \
+             Tire debris is driven over; nothing brakes for it."
                 .to_string(),
         );
         lines.push(format!(

@@ -154,14 +154,16 @@ impl Menu for ShoulderSleepConfirmationState {
         }
         ctx.audio.play("ui/menu_back");
         ctx.pop_state();
-        let hint = ctx.control_hint("parking_brake");
-        ctx.say_with(
+        let message = if ctx.settings.driving_hints {
+            let hint = ctx.control_hint("parking_brake");
             format!(
                 "Shoulder sleep canceled. Back on the road. Parking brake set, {hint} releases \
                  it."
-            ),
-            Say::new(),
-        );
+            )
+        } else {
+            "Shoulder sleep canceled. Back on the road. Parking brake set.".to_string()
+        };
+        ctx.say_with(message, Say::new());
     }
 }
 

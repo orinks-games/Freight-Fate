@@ -387,6 +387,9 @@ pub struct Trip {
     /// Posts that have already entered the lead window.
     pub heads_up_seen: HashSet<String>,
     pub hazard_check_mi: f64,
+    /// A catalog hazard asked for by name (`stage_hazard`), fired on the
+    /// next rolling update in place of the road's own draw.
+    pub staged_hazard: Option<&'static str>,
     pub inspection_check_mi: f64,
     pub conditions_check_mi: f64,
     pub traffic_warning_mi: f64,
@@ -538,6 +541,7 @@ impl Trip {
             cb_calls_made: 0,
             heads_up_seen: HashSet::new(),
             hazard_check_mi: 5.0,
+            staged_hazard: None,
             inspection_check_mi: 10.0,
             conditions_check_mi: CONDITIONS_CHECK_MI,
             traffic_warning_mi: 1.0,

@@ -486,9 +486,10 @@ const HAZARDS: SoundCategory = SoundCategory {
         SoundEntry::new(
             "Hazard warning",
             &[Cue::new("events/hazard_warning").volume(1.0)],
-            "Something in your path needs a real reaction now: brake below \
-             twenty five miles per hour quickly, or move to a clear lane if \
-             the warning says the object is in your lane.",
+            "Something in your path needs a real reaction now: move to the \
+             lane the call names, or brake. Debris with no lane open is taken \
+             at 30; rockfall or a stopped car needs a stop. Tire debris gets \
+             the road cue tone instead, because nothing brakes for it.",
         ),
         SoundEntry::new(
             "Hazard clear",
@@ -894,6 +895,19 @@ pub const SELF_EXPLANATORY: &[(&str, &str)] = &[
     ("traffic/bus_loop", "As the car loop."),
     ("traffic/tractor_loop", "As the car loop."),
     ("traffic/trooper_loop", "As the car loop."),
+    ("traffic/car_loop_2", "As the car loop."),
+    ("traffic/car_loop_3", "As the car loop."),
+    ("traffic/suv_loop", "As the car loop."),
+    ("traffic/suv_loop_2", "As the car loop."),
+    ("traffic/minivan_loop", "As the car loop."),
+    ("traffic/sports_car_loop", "As the car loop."),
+    ("traffic/pickup_loop_2", "As the car loop."),
+    ("traffic/rv_loop", "As the car loop."),
+    ("traffic/semi_loop_2", "As the car loop."),
+    ("traffic/semi_loop_3", "As the car loop."),
+    ("traffic/tanker_loop", "As the car loop."),
+    ("traffic/car_hauler_loop", "As the car loop."),
+    ("traffic/motorcycle_loop_2", "As the car loop."),
     (
         "traffic/highway_bed",
         "Distant freeway traffic: texture, not a decision.",

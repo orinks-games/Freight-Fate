@@ -622,8 +622,8 @@ fn traffic_views(d: &DrivingState) -> Vec<TrafficView> {
                 return None;
             }
             let kind = match v.vehicle_class.as_str() {
-                "semi" => VehicleKind::Semi,
-                "box truck" => VehicleKind::BoxTruck,
+                "semi" | "tanker" | "car hauler" => VehicleKind::Semi,
+                "box truck" | "RV" | "bus" => VehicleKind::BoxTruck,
                 "service vehicle" => VehicleKind::Service,
                 "state trooper" => VehicleKind::Trooper,
                 _ => VehicleKind::Car,

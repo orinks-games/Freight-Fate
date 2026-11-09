@@ -11722,6 +11722,21 @@ msgstr "明日の{base}"
 msgid "{base} in {days_ahead} days"
 msgstr "{days_ahead}日後の{base}"
 
+msgid "minivan"
+msgstr "ミニバン"
+
+msgid "sports car"
+msgstr "スポーツカー"
+
+msgid "tanker"
+msgstr "タンクローリー"
+
+msgid "car hauler"
+msgstr "車両運搬車"
+
+msgid "service vehicle"
+msgstr "作業車両"
+
 msgid "cruising"
 msgstr "巡航中"
 
@@ -11751,9 +11766,6 @@ msgstr "追従中"
 
 msgid "passing"
 msgstr "追い越し"
-
-msgid "service vehicle"
-msgstr "作業車両"
 
 msgid "right lane"
 msgstr "右車線"
@@ -12699,11 +12711,11 @@ msgstr "視界を奪う砂嵐"
 msgid "the dust storm"
 msgstr "砂嵐"
 
-msgid "the tumbleweeds"
-msgstr "回転草"
-
 msgid "tumbleweeds piling in your lane"
 msgstr "車線に積み重なる回転草"
+
+msgid "the tumbleweeds"
+msgstr "回転草"
 
 msgid "rockfall debris on the road"
 msgstr "路上の落石"
@@ -12745,6 +12757,10 @@ msgstr "すぐ前方"
 #. placeholders: {gap_text}
 msgid "{gap_text} ahead"
 msgstr "{gap_text}前方"
+
+#. placeholders: {name}, {join}
+msgid "no hazard called {name}; the names are {join}"
+msgstr ""
 
 msgid "Brake now!"
 msgstr "今すぐブレーキ！"
@@ -13564,12 +13580,13 @@ msgid "Hazard warning"
 msgstr "危険の警告"
 
 msgid ""
-"Something in your path needs a real reaction now: brake below twenty five "
-"miles per hour quickly, or move to a clear lane if the warning says the "
-"object is in your lane."
+"Something in your path needs a real reaction now: move to the lane the call "
+"names, or brake. Debris with no lane open is taken at 30; rockfall or a "
+"stopped car needs a stop. Tire debris gets the road cue tone instead, "
+"because nothing brakes for it."
 msgstr ""
-"進路上の何かに、今すぐ本当の対応が必要です。すぐに時速25マイル未満まで減速するか、警告が自分の車線に物があると言っているなら、空いている車線に移ってく"
-"ださい。"
+"進路上の何かに、今すぐ本当の対応が必要です。案内された車線に移るか、ブレーキをかけてください。空いている車線がない落下物は時速30マイルで越えます。落石"
+"や止まった車は停止が必要です。タイヤの破片は代わりに道路情報の音になります。何もブレーキをかけないからです。"
 
 msgid "Hazard clear"
 msgstr "危険を回避"
@@ -14238,6 +14255,21 @@ msgid ""
 "Operator keys are off: the window is minimized and the keyboard is dropped "
 "at the door."
 msgstr "オペレーターのキーはオフです。ウィンドウは最小化され、キーボードの入力は入り口で捨てられます。"
+
+msgid "not at the wheel: no screen is up"
+msgstr ""
+
+msgid "not at the wheel (a menu or stop screen is up)"
+msgstr ""
+
+msgid "on a ramp or a facility road, where hazards pass you by"
+msgstr ""
+
+#. placeholders: {staged}, {position_mi}
+msgid ""
+"Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
+"so listen for the call."
+msgstr ""
 
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
@@ -20377,10 +20409,12 @@ msgid "Exits leave from the right lane."
 msgstr "出口は右車線から分かれます。"
 
 msgid ""
-"Change lanes or brake means a fixed object in your lane: take the open lane "
-"it names, or brake nearly to a stop and ease around."
+"Change lanes or brake means something in your lane: take the open lane it "
+"names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+"Tire debris is driven over; nothing brakes for it."
 msgstr ""
-"車線変更かブレーキは、車線上の固定物を意味します。案内された空いている車線に移るか、ほぼ止まるまでブレーキをかけてゆっくり避けてください。"
+"車線変更かブレーキは、車線上に何かがあることを意味します。案内された空いている車線に移るか、時速30マイルまで落として越えてください。落石や止まった車は"
+"停止が必要です。タイヤの破片はそのまま乗り越えます。何もブレーキをかけません。"
 
 #. placeholders: {rest}
 msgid ""
@@ -21313,6 +21347,9 @@ msgstr "ギアが鳴っています！先に{control_hint}を押し続けてク�
 msgid "Hold {control_hint} to press the clutch first."
 msgstr "先に{control_hint}を押し続けてクラッチを踏んでください。"
 
+msgid "Grinding gears! Clutch in first."
+msgstr ""
+
 #. placeholders: {join_phrase}
 msgid "offers {join_phrase}"
 msgstr "{join_phrase}あり"
@@ -21935,11 +21972,6 @@ msgid ""
 "{cleared} {cleared_verb} now 0 percent.{damage} You have {grouped2} dollars."
 msgstr "{cleared}{cleared_verb:}は0パーセントになりました。{damage}所持金は{grouped2}ドルです。"
 
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Press {control_hint} to restart the engine."
-msgstr "{control_hint}でエンジンを再始動してください。"
-
 #. placeholders: {work}, {grouped}
 #. one sentence of a longer line
 msgid "Road service {work} for {grouped} dollars."
@@ -22016,6 +22048,10 @@ msgstr ""
 "出張修理で、{grouped}ドルかけてトラックが動けるようになりました。損傷は{damage_pct}パーセントまで下がりましたが、まだ出力低下の状態"
 "です。{BREAKDOWN_REPAIR_MIN}時間かかり、今は{clock_text}です。所持金は{grouped2}ドルです。{control_"
 "hint}でエンジンを再始動してください。"
+
+#. placeholders: {control_hint}
+msgid "Press {control_hint} to restart the engine."
+msgstr "{control_hint}でエンジンを再始動してください。"
 
 #. placeholders: {spare}
 msgid "You are in the {spare}"
@@ -22689,6 +22725,10 @@ msgstr "後ろでパトカーのライトが点きました。定例の検査で
 msgid "Signal with {control_hint} and stop on the shoulder."
 msgstr "{control_hint}でウインカーを出して、路肩に停まってください。"
 
+msgid ""
+"Lights behind you for a routine inspection. Signal and stop on the shoulder."
+msgstr ""
+
 msgid "Roadside inspection"
 msgstr "路上検査"
 
@@ -22770,6 +22810,16 @@ msgstr ""
 "後ろでパトカーのライトとサイレンです。この{reason}の州警察官が{detail}に気づき、トラックを確認したがっています。{control_hin"
 "t}でウインカーを出して、路肩に停まってください。"
 
+#. placeholders: {reason}, {detail}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {detail} and "
+"wants a look at the truck. Signal and stop on the shoulder."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Signal and stop on the shoulder."
+msgstr "ウインカーを出して、路肩に停まってください。"
+
 #. placeholders: {reason}, {what}
 #. one sentence of a longer line
 msgid "A trooper on this {reason} saw {what}."
@@ -22782,6 +22832,12 @@ msgid ""
 msgstr ""
 "後ろでパトカーのライトとサイレンです。この{reason}の州警察官が{what}を見ました。{control_hint}でウインカーを出して、路肩に停"
 "まってください。"
+
+#. placeholders: {reason}, {what}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {what}. Signal "
+"and stop on the shoulder."
+msgstr ""
 
 msgid "observed"
 msgstr "observed"
@@ -22894,18 +22950,20 @@ msgid ""
 "{engine} to restart the engine."
 msgstr "燃料切れです。{billing}、出張給油が30ガロン届けてくれました。{engine}でエンジンを再始動してください。"
 
-#. placeholders: {engine}
-#. one sentence of a longer line
-msgid "Press {engine} to restart the engine."
-msgstr "{engine}でエンジンを再始動してください。"
-
 #. placeholders: {billing}
 #. one sentence of a longer line
 msgid "Roadside rescue brought thirty gallons {billing}."
 msgstr "{billing}、出張給油が30ガロン届けてくれました。"
 
+#. placeholders: {engine}
+msgid "Press {engine} to restart the engine."
+msgstr "{engine}でエンジンを再始動してください。"
+
 msgid "Destination exit ahead again."
 msgstr "目的地の出口がまた前方にあります。"
+
+msgid "Destination exit ahead again. Signal for it."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
@@ -22918,6 +22976,10 @@ msgstr "{control_hint}でウインカーを出してください。"
 
 msgid "You turned around, and the destination exit is ahead again."
 msgstr "折り返したので、目的地の出口がまた前方にあります。"
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Signal for it."
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -22942,10 +23004,6 @@ msgstr "{facility}への目的地の出口を通り過ぎました。"
 msgid "Missed the destination exit for {facility}. {reroute_text}"
 msgstr "{facility}への目的地の出口を通り過ぎました。{reroute_text}"
 
-#. one sentence of a longer line
-msgid "Holding at the entrance."
-msgstr "入口で待機しています。"
-
 #. placeholders: {control_hint}
 msgid "Holding at the entrance. Press {control_hint} to continue."
 msgstr "入口で待機しています。{control_hint}で進みます。"
@@ -22954,6 +23012,9 @@ msgstr "入口で待機しています。{control_hint}で進みます。"
 #. one sentence of a longer line
 msgid "Press {control_hint} to continue."
 msgstr "{control_hint}で進みます。"
+
+msgid "Holding at the entrance."
+msgstr "入口で待機しています。"
 
 #. placeholders: {facility}
 msgid "At {facility}. Stop to dock."
@@ -23672,14 +23733,13 @@ msgstr "まだウインカーを出すルートの出口はありません。"
 msgid "Press {control_hint} again to cancel the exit."
 msgstr "もう一度{control_hint}を押すと出口を取り消します。"
 
-#. placeholders: {stays}
-#. one sentence of a longer line
-msgid "Signal stays {stays}."
-msgstr "ウインカーは{stays}のままです。"
-
 #. placeholders: {stays}, {control_hint}
 msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
 msgstr "ウインカーは{stays}のままです。もう一度{control_hint}を押すと出口を取り消します。"
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
+msgstr "ウインカーは{stays}のままです。"
 
 msgid "Signal canceled."
 msgstr "ウインカーを取り消しました。"
@@ -24284,14 +24344,13 @@ msgstr "警察の停車中は、休憩の停車地を計画できません。"
 msgid "Press {exit_hint} to signal the trooper stop."
 msgstr "{exit_hint}で警察の停車指示に従ってウインカーを出します。"
 
-#. one sentence of a longer line
-msgid "Resolve the police stop first."
-msgstr "先に警察の停車指示に対応してください。"
-
 #. placeholders: {exit_hint}
 msgid ""
 "Resolve the police stop first. Press {exit_hint} to signal the trooper stop."
 msgstr "先に警察の停車指示に対応してください。{exit_hint}で警察の停車指示に従ってウインカーを出します。"
+
+msgid "Resolve the police stop first."
+msgstr "先に警察の停車指示に対応してください。"
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -24308,6 +24367,14 @@ msgstr "{name}へのランプに入りました。計量所で停まってから
 #. one sentence of a longer line
 msgid "Stop at the scale, then press {rest_hint} to check in."
 msgstr "計量所で停まってから、{rest_hint}で受付をしてください。"
+
+#. placeholders: {name}
+msgid "On the ramp for {name}. Stop at the scale, then check in."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the scale, then check in."
+msgstr ""
 
 msgid "Emergency shoulder sleep is not available here. Use a route stop."
 msgstr "ここでは路肩での緊急の睡眠はできません。ルート上の停車地を使ってください。"
@@ -24463,6 +24530,11 @@ msgid ""
 "Lights and siren behind you for a log check. Signal with {control_hint} and "
 "stop on the shoulder."
 msgstr "運転日誌の確認で、後ろでパトカーのライトとサイレンです。{control_hint}でウインカーを出して、路肩に停まってください。"
+
+msgid ""
+"Lights and siren behind you for a log check. Signal and stop on the "
+"shoulder."
+msgstr ""
 
 msgid "Log check"
 msgstr "運転日誌の確認"
@@ -24643,6 +24715,9 @@ msgstr "また前方にあります。"
 msgid " Brake with {control_hint} well before it."
 msgstr " かなり手前から{control_hint}でブレーキをかけてください。"
 
+msgid " Brake well before it."
+msgstr ""
+
 #. placeholders: {place}
 msgid "Drove past {place}. Use the next safe turnaround."
 msgstr "{place}を通り過ぎました。次の安全な折り返しを使ってください。"
@@ -24708,6 +24783,9 @@ msgstr "折り返したので、ゲートがまた前方にあります。"
 msgid " Brake with {control_hint} well before the gate."
 msgstr " ゲートのかなり手前から{control_hint}でブレーキをかけてください。"
 
+msgid " Brake well before the gate."
+msgstr ""
+
 msgid ""
 " Facility stopping assistance in Settings, Gameplay, Driving assistance, "
 "can stop the truck for you."
@@ -24744,6 +24822,10 @@ msgstr "中央の車線を走り続けます。"
 #. placeholders: {name}
 msgid "{name} lane closed for construction."
 msgstr "{name}の車線は工事で閉鎖されています。"
+
+#. placeholders: {name}, {vehicle}
+msgid "{name} lane blocked by an {vehicle}."
+msgstr "{name}の車線は{vehicle}でふさがっています。"
 
 #. placeholders: {name}, {vehicle}
 msgid "{name} lane blocked by a {vehicle}."
@@ -27263,11 +27345,6 @@ msgstr "モーテルの部屋は{grouped}ドルで、所持金は{grouped2}ド�
 msgid "Driving and duty clocks reset."
 msgstr "運転と勤務の時計がリセットされました。"
 
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "{control_hint} starts the engine."
-msgstr "{control_hint}でエンジンをかけます。"
-
 #. placeholders: {engine_off}, {grouped}
 #. one sentence of a longer line
 msgid "{engine_off}Motel, {grouped} dollars, 10 hours."
@@ -27285,6 +27362,10 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{grouped2} dollars."
 msgstr "手持ちは{grouped2}ドル。"
+
+#. placeholders: {control_hint}
+msgid "{control_hint} starts the engine."
+msgstr "{control_hint}でエンジンをかけます。"
 
 #. placeholders: {name}
 msgid "The truck parking at {name} is full tonight."
@@ -28479,6 +28560,9 @@ msgid ""
 "Shoulder sleep canceled. Back on the road. Parking brake set, {hint} "
 "releases it."
 msgstr "路肩での睡眠を取り消しました。道路に戻りました。駐車ブレーキがかかっています。{hint}で解除します。"
+
+msgid "Shoulder sleep canceled. Back on the road. Parking brake set."
+msgstr ""
 
 msgid "Ramp curve"
 msgstr "ランプのカーブ"
@@ -29796,10 +29880,6 @@ msgid ""
 "the shoulder."
 msgstr "後ろでパトカーのライトとサイレンです。制限{zone}の区間で{speed}。ウインカーを出して、路肩に停まってください。"
 
-#. one sentence of a longer line
-msgid "Signal and stop on the shoulder."
-msgstr "ウインカーを出して、路肩に停まってください。"
-
 #. placeholders: {speed}, {zone}
 #. one sentence of a longer line
 msgid "{speed} in a {zone} zone."
@@ -29866,6 +29946,11 @@ msgid ""
 msgstr ""
 "計量所の素通りの取り締まりです。後ろでパトカーのライトとサイレンです。{control_hint}でウインカーを出して、路肩に停まってください。"
 
+msgid ""
+"Scale bypass enforcement. Lights and siren behind you. Signal and stop on "
+"the shoulder."
+msgstr ""
+
 msgid "Weigh station bypass stop"
 msgstr "計量所の素通りによる停車"
 
@@ -29894,6 +29979,11 @@ msgid ""
 "{control_hint} and stop on the shoulder."
 msgstr ""
 "危険な車両による停車です。後ろでパトカーのライトとサイレンです。{control_hint}でウインカーを出して、路肩に停まってください。"
+
+msgid ""
+"Unsafe equipment stop. Lights and siren behind you. Signal and stop on the "
+"shoulder."
+msgstr ""
 
 msgid "Unsafe equipment stop"
 msgstr "危険な車両による停車"
@@ -29979,9 +30069,18 @@ msgstr ""
 msgid "Transmission changed to {mode}."
 msgstr "変速機を{mode}に変えました。"
 
-#. one sentence of a longer line
 msgid "Engine stalled."
 msgstr "エンストしました。"
+
+msgid ""
+"Engine stalled. Hold the clutch, restart, and shift down to first before "
+"letting it out."
+msgstr ""
+
+msgid ""
+"Engine stalled. Shift to neutral and restart, then clutch in and pick first "
+"gear."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Engine stalled. Press {control_hint} to restart."
@@ -30056,11 +30155,20 @@ msgstr "クラクションが効きました。{hazard_names_text}が道を空�
 #. placeholders: {struck}
 #. one sentence of a longer line
 msgid "Collision with {struck}."
-msgstr ""
+msgstr "{struck}と衝突。"
 
 #. placeholders: {struck}, {damage}
 msgid "Collision with {struck}. Damage {damage} percent."
-msgstr ""
+msgstr "{struck}と衝突。損傷{damage}パーセント。"
+
+#. placeholders: {names}
+#. one sentence of a longer line
+msgid "Collision with {names}."
+msgstr "{names}と衝突。"
+
+#. placeholders: {names}, {damage}
+msgid "Collision with {names}. Damage {damage} percent."
+msgstr "{names}と衝突。損傷{damage}パーセント。"
 
 #. placeholders: {names}, {names2}
 msgid "{names} and {names2}"
@@ -30076,22 +30184,6 @@ msgstr "通過しました。"
 #. placeholders: {names}
 msgid "Clear of {names}."
 msgstr "{names}を通過しました。"
-
-#. one sentence of a longer line
-msgid "It is still in your lane."
-msgstr "まだ車線上にあります。"
-
-#. placeholders: {open_side_spoken}
-msgid ""
-"It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
-msgstr "まだ車線上にあります。ほとんど停まるか、車線を変えてください。{open_side_spoken}"
-
-#. one sentence of a longer line
-msgid "Nearly stop, or change lanes."
-msgstr "ほとんど停まるか、車線を変えてください。"
-
-msgid "It is still in your lane. Nearly stop."
-msgstr "まだ車線上にあります。ほとんど停まってください。"
 
 msgid "Automatic braking."
 msgstr "自動ブレーキ。"
@@ -30134,6 +30226,17 @@ msgstr "{lane_label}の車線は閉鎖されています。{lane_name}の車線�
 #. one sentence of a longer line
 msgid "Truck damage {damage_pct} percent."
 msgstr "トラックの損傷{damage_pct}パーセント。"
+
+#. placeholders: {vehicle_class}, {lane_name}
+#. one sentence of a longer line
+msgid "You sideswiped an {vehicle_class} in the {lane_name} lane!"
+msgstr "{lane_name}の車線の{vehicle_class}に側面から接触しました！"
+
+#. placeholders: {vehicle_class}, {lane_name}, {damage_pct}
+msgid ""
+"You sideswiped an {vehicle_class} in the {lane_name} lane! Truck damage "
+"{damage_pct} percent."
+msgstr "{lane_name}の車線の{vehicle_class}に側面から接触しました！トラックの損傷{damage_pct}パーセント。"
 
 #. placeholders: {vehicle_class}, {lane_name}
 #. one sentence of a longer line
@@ -30464,6 +30567,9 @@ msgid ""
 "Failure-to-stop warning. Signal with {control_hint} and stop on the "
 "shoulder."
 msgstr "停止義務違反の警告です。{control_hint}でウインカーを出して、路肩に停まってください。"
+
+msgid "Failure-to-stop warning. Signal and stop on the shoulder."
+msgstr ""
 
 msgid "Failure-to-stop stop"
 msgstr "停止義務違反による停車"
@@ -31892,6 +31998,15 @@ msgstr ""
 "道路がどれだけ話すかです。標準は、すべての確認、状況の更新、交通の案内と、区間ごとに一つの運転のヒントを読み上げます。控えめは、短い確認、車線が始まる案"
 "内、状況の更新を読み上げますが、周りの交通やヒントは読み上げません。緊急のみは、安全の警告と、操作が必要な案内だけを残します。設定で外れた読み上げは音も"
 "鳴らず、メッセージの履歴にも出ません。読み上げキーはいつでも答えます。看板、地名、名所には、下にそれぞれのスイッチがあります。"
+
+#. placeholders: {on_off}
+msgid "Driving hints: {on_off}"
+msgstr ""
+
+msgid ""
+"On, driving lines name the key for the next step, like Press X to signal "
+"for the exit. Off, they leave the key out. Driving school always names it."
+msgstr ""
 
 #. placeholders: {chatter_summary}
 msgid "Roadside chatter: {chatter_summary}"
@@ -34027,17 +34142,19 @@ msgstr ""
 
 msgid ""
 "When you hear Brake now, slow down right away. Change lanes or brake means "
-"something is stopped in your lane: move to the open lane it names, or brake "
-"almost to a stop."
+"something is in your lane: move to the open lane it names, or slow to 30 "
+"and take it. Rockfall or a stopped car needs a stop."
 msgstr ""
-"「今すぐブレーキ」が聞こえたら、すぐに減速してください。「車線変更かブレーキ」は、車線に何かが止まっているという意味です。案内された空いている車線に移る"
-"か、ほぼ止まるまでブレーキをかけてください。"
+"「今すぐブレーキ」が聞こえたら、すぐに減速してください。「車線変更かブレーキ」は、車線に何かがあるという意味です。案内された空いている車線に移るか、時速"
+"30マイルまで落として越えてください。落石や止まった車は停止が必要です。"
 
 msgid ""
-"No lane open means brake. Full lane keeping can pass slow vehicles, but "
-"leaves debris avoidance to you and avoids starting a pass near an exit."
+"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"keeping moves over for debris and slow vehicles when a lane is open, and "
+"avoids starting a pass near an exit."
 msgstr ""
-"空いている車線がなければ、ブレーキです。レーンキープがフルなら遅い車を追い越せますが、落下物を避けるのは自分で、出口の近くでは追い越しを始めません。"
+"タイヤの破片は読み上げられ、そのまま乗り越えます。何もブレーキをかけません。レーンキープがフルなら、車線が空いていれば落下物や遅い車を避けて移り、出口の"
+"近くでは追い越しを始めません。"
 
 msgid ""
 "Leave a coned lane when warned. Driving through barrels causes damage, a "
@@ -37730,6 +37847,63 @@ msgstr "営業中。"
 
 msgid "Closed."
 msgstr "閉鎖中。"
+
+#. The small-debris call, built from the catalog noun with "the" dropped.
+msgid "Tire debris."
+msgstr "タイヤの破片。"
+
+msgid "Debris."
+msgstr "落下物。"
+
+#~ msgid "{thing} ahead."
+#~ msgstr "前方に{thing}。"
+
+#~ msgid "Tire debris ahead."
+#~ msgstr "前方にタイヤの破片。"
+
+#~ msgid "Debris ahead."
+#~ msgstr "前方に落下物。"
+
+#~ msgid ""
+#~ "Something in your path needs a real reaction now: brake below twenty five "
+#~ "miles per hour quickly, or move to a clear lane if the warning says the "
+#~ "object is in your lane."
+#~ msgstr ""
+#~ "進路上の何かに、今すぐ本当の対応が必要です。すぐに時速25マイル未満まで減速するか、警告が自分の車線に物があると言っているなら、空いている車線に移ってく"
+#~ "ださい。"
+
+#~ msgid ""
+#~ "Change lanes or brake means a fixed object in your lane: take the open lane "
+#~ "it names, or brake nearly to a stop and ease around."
+#~ msgstr ""
+#~ "車線変更かブレーキは、車線上の固定物を意味します。案内された空いている車線に移るか、ほぼ止まるまでブレーキをかけてゆっくり避けてください。"
+
+#~ msgid "It is still in your lane."
+#~ msgstr "まだ車線上にあります。"
+
+#~ msgid ""
+#~ "It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
+#~ msgstr "まだ車線上にあります。ほとんど停まるか、車線を変えてください。{open_side_spoken}"
+
+#~ msgid "Nearly stop, or change lanes."
+#~ msgstr "ほとんど停まるか、車線を変えてください。"
+
+#~ msgid "It is still in your lane. Nearly stop."
+#~ msgstr "まだ車線上にあります。ほとんど停まってください。"
+
+#~ msgid ""
+#~ "When you hear Brake now, slow down right away. Change lanes or brake means "
+#~ "something is stopped in your lane: move to the open lane it names, or brake "
+#~ "almost to a stop."
+#~ msgstr ""
+#~ "「今すぐブレーキ」が聞こえたら、すぐに減速してください。「車線変更かブレーキ」は、車線に何かが止まっているという意味です。案内された空いている車線に移る"
+#~ "か、ほぼ止まるまでブレーキをかけてください。"
+
+#~ msgid ""
+#~ "No lane open means brake. Full lane keeping can pass slow vehicles, but "
+#~ "leaves debris avoidance to you and avoids starting a pass near an exit."
+#~ msgstr ""
+#~ "空いている車線がなければ、ブレーキです。レーンキープがフルなら遅い車を追い越せますが、落下物を避けるのは自分で、出口の近くでは追い越しを始めません。"
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "

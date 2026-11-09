@@ -275,7 +275,7 @@ fn test_non_toll_route_does_not_charge_tolls() {
 fn test_zero_amount_toll_entry_marker_does_not_record_expense() {
     let mut trip = make_trip(world(), "Philadelphia", "Pittsburgh", 2);
 
-    trip.position_mi = 16.1;
+    trip.position_mi = 16.3;
     let advance = trip.update(0.0);
     assert_eq!(
         gps_messages(&advance),
@@ -553,6 +553,145 @@ fn test_debris_speaks_its_kind_and_the_split_keeps_the_old_rate() {
     assert!((debris.iter().map(|h| h.weight).sum::<f64>() - 1.2).abs() < 1e-9);
     let found: Vec<&str> = debris.iter().map(|h| h.name).collect();
     assert!(found.contains(&"the ladder") && found.contains(&"the mattress"));
+}
+
+#[test]
+fn test_the_catalog_says_how_each_thing_in_the_lane_is_taken() {
+    // Owner, 2026-11-09: tread is driven over, a ladder is taken at 30, and
+    // only a hard object still asks for the near stop.
+    use ff_core::sim::trip_models::{
+        hazard_brake_to_mph, hazard_by_name, hazard_debris, hazard_strike_pct, DebrisClass,
+        BIG_DEBRIS_TAKE_MPH,
+    };
+    for small in ["the tire debris", "the debris"] {
+        let row = hazard_by_name(small).expect(small);
+        assert_eq!(row.debris, Some(DebrisClass::Small), "{small}");
+        assert_eq!(row.brake_to_mph, None, "{small}: nothing brakes for it");
+        assert!(row.in_lane);
+    }
+    for big in [
+        "the ladder",
+        "the lumber",
+        "the mattress",
+        "the boxes",
+        "the tarp",
+        "the tumbleweeds",
+    ] {
+        let row = hazard_by_name(big).expect(big);
+        assert_eq!(row.debris, Some(DebrisClass::Big), "{big}");
+        assert_eq!(row.brake_to_mph, Some(BIG_DEBRIS_TAKE_MPH), "{big}");
+        assert!(row.strike_pct > 0.0, "{big}");
+    }
+    assert_eq!(
+        hazard_strike_pct("a ladder fallen from a truck in the lane"),
+        8.0
+    );
+    assert_eq!(hazard_strike_pct("a mattress lying in the lane"), 4.0);
+    for hard in [
+        "the rockfall",
+        "the spun-out car",
+        "the stopped vehicle",
+        "the lane closure",
+        "the stopped traffic",
+        "the deer",
+    ] {
+        let row = hazard_by_name(hard).expect(hard);
+        assert_eq!(row.debris, None, "{hard} is not debris");
+        assert_eq!(hazard_debris(row.text), None);
+    }
+    // The near stop survives only for the hard objects in the lane.
+    assert_eq!(hazard_brake_to_mph("rockfall debris on the road"), None);
+    assert_eq!(
+        hazard_brake_to_mph("a car spun out on the glaze ahead"),
+        None
+    );
+    // Names are forgiving: case, and with or without "the".
+    assert_eq!(
+        hazard_by_name("Tire Debris").map(|h| h.name),
+        Some("the tire debris")
+    );
+    assert_eq!(
+        hazard_by_name("the ladder").map(|h| h.name),
+        Some("the ladder")
+    );
+    assert!(hazard_by_name("a unicorn").is_none());
+}
+
+#[test]
+fn test_a_staged_hazard_fires_on_the_next_rolling_update_with_its_class() {
+    // The agent server's `hazard` tool: the call, the deadline and the data
+    // are a drawn hazard's own. Small debris is a heads-up ("Tire debris.")
+    // about 8 seconds out with no braking in it; a ladder keeps
+    // the hazard call and its 30 mph take-at speed.
+    use ff_core::sim::trip_models::{DebrisClass, SMALL_DEBRIS_CALL_S};
+    let w = world();
+    let route = route_from_cities(w, &["Chicago", "Cleveland"]);
+    let truck = TruckState {
+        velocity_mps: 29.0,
+        ..Default::default()
+    };
+    let weather = weather("great_lakes", 1);
+    let mut trip = Trip::new(route.clone(), truck, weather, TripOptions::seeded(2));
+    trip.position_mi = 40.0;
+    trip.hazard_check_mi = 1e9;
+
+    assert!(trip.stage_hazard("a unicorn").is_err());
+    assert_eq!(trip.stage_hazard("tire debris"), Ok("the tire debris"));
+    let events = trip.update(1.0 / 60.0);
+    let hazard = events
+        .iter()
+        .find(|e| e.kind == TripEventKind::Hazard)
+        .expect("the staged hazard fired");
+    assert!(
+        hazard.text().starts_with("Tire debris. "),
+        "{:?}",
+        hazard.text()
+    );
+    assert!(
+        hazard.text().ends_with("lane open."),
+        "the lane answer ends the call: {:?}",
+        hazard.text()
+    );
+    assert!(!hazard.text().contains("brake"), "{:?}", hazard.text());
+    assert_eq!(hazard.message.terse, None, "terse is the same words");
+    assert_eq!(hazard.data.debris, Some(DebrisClass::Small));
+    assert_eq!(hazard.data.strike_pct, Some(2.0));
+    assert_eq!(hazard.data.brake_to_mph, None);
+    assert_eq!(hazard.data.in_lane, Some(true));
+    assert_eq!(hazard.data.name.as_deref(), Some("the tire debris"));
+    let deadline = hazard.data.deadline_s.expect("a deadline");
+    assert!(
+        (deadline - SMALL_DEBRIS_CALL_S * trip.visibility_reaction_factor()).abs() < 1e-9,
+        "{deadline}"
+    );
+    // Fired once: the next update draws nothing (the road's own check is
+    // parked far ahead).
+    assert!(trip
+        .update(1.0 / 60.0)
+        .iter()
+        .all(|e| e.kind != TripEventKind::Hazard));
+
+    assert_eq!(trip.stage_hazard("the ladder"), Ok("the ladder"));
+    let events = trip.update(1.0 / 60.0);
+    let hazard = events
+        .iter()
+        .find(|e| e.kind == TripEventKind::Hazard)
+        .expect("the staged ladder fired");
+    assert!(
+        hazard
+            .text()
+            .contains("A ladder fallen from a truck in the lane."),
+        "{:?}",
+        hazard.text()
+    );
+    assert!(
+        hazard.text().starts_with("Brake!") || hazard.text().starts_with("Change lanes or brake!"),
+        "{:?}",
+        hazard.text()
+    );
+    assert_eq!(hazard.data.debris, Some(DebrisClass::Big));
+    assert_eq!(hazard.data.brake_to_mph, Some(30.0));
+    assert_eq!(hazard.data.strike_pct, Some(8.0));
 }
 
 #[test]

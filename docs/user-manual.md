@@ -570,7 +570,7 @@ Traffic moves around you throughout the trip. Vehicles can slow, brake, merge, p
 
 L checks your lane and the space beside you; on a controller, choose Lane position in Driving commands. Check it before moving over, then listen for clearance before returning after a pass. Traffic sounds help you notice a vehicle, but they don't replace that lane check. A car may be beside you even while you're concentrating on an exit or a curve.
 
-Adaptive cruise follows traffic and leaves a wider gap in poor weather. It doesn't steer. With full lane keeping, the truck can pass slow traffic and return when there's room; it won't start a pass within two miles of an exit. You still need to respond to hazards and debris. If you missed the clearance announcement, L gives you another check.
+Adaptive cruise follows traffic and leaves a wider gap in poor weather. It doesn't steer. With full lane keeping, the truck can pass slow traffic and return when there's room; it won't start a pass within two miles of an exit. It moves over for debris and a stopped car on the shoulder when a lane is open. If you missed the clearance announcement, L gives you another check.
 
 ### Listening to nearby vehicles
 
@@ -582,7 +582,7 @@ On an on-ramp, mainline traffic stays to your left and grows more distant as the
 
 Open the [Traffic app](#traffic-app) for the current traffic situation, or listen to the GPS announcements as you drive. A report with no slowdown ahead doesn't promise that every lane is clear. Keep checking the road and nearby vehicles.
 
-When the game says Brake now, respond promptly. Some hazards need your speed below twenty-five. A Change lanes or brake call names an available lane; use it if you can, or brake nearly to a stop for an object. If the call says No lane open, brake. The [construction and exits guide](#construction-and-exits) explains lane closures and how to leave the highway.
+When the game says Brake now, respond promptly. Some hazards need your speed below twenty-five. A Change lanes or brake call names an available lane; use it if you can. With no lane open, a ladder, lumber, a mattress or spilled boxes are taken at 30 or under with no damage, and cost damage above that. Rockfall or a car spun out ahead needs a stop. Tire debris is called out with the lane that is open and driven over; nothing brakes for it, and at highway speed it sometimes costs a point or two of damage. The [construction and exits guide](#construction-and-exits) explains lane closures and how to leave the highway.
 
 ## Road events, weather, and rest stops
 

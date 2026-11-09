@@ -265,6 +265,13 @@ impl SettingsCategoryState {
                        landmarks have their own switches below.",
             },
             SpeechSpec {
+                label: dyn_label(|s| format!("Driving hints: {}", on_off(s.driving_hints))),
+                action: adjust(|s, ctx, d| s.toggle_driving_hints(ctx, d)),
+                help: "On, driving lines name the key for the next step, like \
+                       Press X to signal for the exit. Off, they leave the key \
+                       out. Driving school always names it.",
+            },
+            SpeechSpec {
                 label: dyn_label(|s| format!("Roadside chatter: {}", s.chatter_summary())),
                 action: adjust(|s, ctx, d| s.set_all_chatter(ctx, d)),
                 help: "Extra callouts between directions: parks, rivers, mountain \

@@ -588,11 +588,19 @@ impl DrivingState {
                 ctx.audio.play("vehicle/collision");
                 ctx.controller.rumble.impact(SIDESWIPE_DAMAGE);
                 self.trip.truck.apply_collision(SIDESWIPE_DAMAGE, true);
-                let text = format!(
-                    "You sideswiped a {vehicle_class} in the {} lane! Truck damage {:.0} percent.",
-                    self.lane.lane_name(),
-                    self.trip.truck.damage_pct
-                );
+                let text = if ff_core::speech_text::vehicle_takes_an(&vehicle_class) {
+                    format!(
+                        "You sideswiped an {vehicle_class} in the {} lane! Truck damage {:.0} percent.",
+                        self.lane.lane_name(),
+                        self.trip.truck.damage_pct
+                    )
+                } else {
+                    format!(
+                        "You sideswiped a {vehicle_class} in the {} lane! Truck damage {:.0} percent.",
+                        self.lane.lane_name(),
+                        self.trip.truck.damage_pct
+                    )
+                };
                 ctx.say_event_with(text, SayEvent::new().category(SpeechCategory::Safety));
                 return;
             }

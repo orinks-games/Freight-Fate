@@ -229,3 +229,31 @@ fn test_the_bake_marks_the_yard_from_the_chains_driveway() {
         start += leg.miles;
     }
 }
+
+#[test]
+fn test_a_street_that_only_changes_name_is_called_once_at_the_join() {
+    // Cleveland agent drive, 2026-10-25: "In a quarter mile, continue onto
+    // Columbus Road", then "Continue onto Columbus Road, then 1 mile on it"
+    // a few seconds later. A turn keeps its lead.
+    let mut trip = trip_on(chain_legs("abilene_tx_us"), false);
+    trip.traffic_manager.rolling_bubble = false;
+    trip.traffic_manager.vehicles = Vec::new();
+    let mut spoken: Vec<String> = Vec::new();
+    let mut mi = 0.0;
+    while mi < 1.0 {
+        trip.position_mi = mi;
+        for event in trip.update(0.0) {
+            spoken.push(event.text().to_string());
+        }
+        mi += 0.02;
+    }
+    let oak: Vec<&String> = spoken.iter().filter(|t| t.contains("Oak Street")).collect();
+    assert_eq!(oak.len(), 1, "{spoken:?}");
+    assert!(oak[0].starts_with("Continue onto Oak Street"), "{spoken:?}");
+    assert!(
+        spoken
+            .iter()
+            .any(|t| t.starts_with("In ") && t.contains("turn left onto Industrial Parkway")),
+        "{spoken:?}"
+    );
+}

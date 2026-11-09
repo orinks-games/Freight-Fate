@@ -274,6 +274,19 @@ fn tools_list() -> Value {
             &[],
         ),
         tool(
+            "hazard",
+            "Fire a road hazard on the drive right now, by name, instead of waiting for \
+             the road to draw one: tire debris, debris, ladder, lumber, mattress, boxes, \
+             tarp, tumbleweeds, rockfall, stopped vehicle, lane closure, stopped traffic, \
+             deer, elk, dog, and the rest of the catalog. The call, the lane answer, the \
+             assists and the seeded outcome are the drawn hazard's own. Errors when not \
+             at the wheel.",
+            json!({
+                "name": {"type": "string", "description": "the hazard's spoken name, with or without \"the\""},
+            }),
+            &["name"],
+        ),
+        tool(
             "operator_keys",
             "Hand the keyboard to the human at the computer, or take it back. With live \
              true the game window comes up and their keys reach the game, so they can \
@@ -637,6 +650,12 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
         }
         "scenario" => crate::playtest::scenario::Scenario::from_json(args)
             .map(|scenario| Command::Scenario(Box::new(scenario))),
+        "hazard" => match args.get("name").and_then(Value::as_str) {
+            Some(name) if !name.trim().is_empty() => Ok(Command::Hazard {
+                name: name.trim().to_string(),
+            }),
+            _ => Err("hazard needs name: the hazard's spoken name".to_string()),
+        },
         "operator_keys" => match args.get("live").and_then(Value::as_bool) {
             Some(live) => Ok(Command::OperatorKeys { live }),
             None => Err("operator_keys needs live: true or false".to_string()),

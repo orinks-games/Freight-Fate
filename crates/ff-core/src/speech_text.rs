@@ -278,6 +278,31 @@ pub fn in_lane_hazard_call_named(body: &str, side: OpenSide, answer: &str) -> Sp
     }
 }
 
+/// The body of a small-debris call: the thing, named and nothing more.
+/// Tread is not braked for, so the line is a heads-up like a merge or a work
+/// zone, not a call to action; the catalog's long text ("Retread debris from
+/// a blown tire") gave way to the noun the clear line already uses, and
+/// "ahead" went with it, since a call is always about what is ahead (owner,
+/// 2026-11-09). `name` is the catalog's short noun phrase ("the tire
+/// debris").
+pub fn small_debris_body(name: &str) -> String {
+    let thing = name.strip_prefix("the ").unwrap_or(name);
+    let mut chars = thing.chars();
+    let mut body: String = match chars.next() {
+        Some(first) => first.to_uppercase().chain(chars).collect(),
+        None => String::new(),
+    };
+    body.push('.');
+    body
+}
+
+/// The small-debris call: the thing and the lane answer, with no
+/// "Change lanes or brake!" and no "Brake!", because neither is asked. The
+/// same words in terse: there is no opener to drop.
+pub fn small_debris_call(body: &str, answer: &str) -> SpokenMessage {
+    SpokenMessage::new(format!("{body} {answer}"))
+}
+
 /// The same call when lane keeping on full answers it by passing: the thing
 /// and where, then what the truck is doing ("Slow car right ahead. Passing
 /// on the left."). No "Change lanes or brake!" -- the truck is the one
@@ -301,6 +326,19 @@ pub fn passing_hazard_call(body: &str, side: OpenSide) -> Option<SpokenMessage> 
 // change speed for it, so there is no target speed to append. Naming one in
 // the old line ("be ready for 41 miles per hour") read as an instruction to
 // slow down that nothing in the situation asked for.
+
+/// Whether a traffic class takes "an": the ones said letter by letter that
+/// open on a vowel sound ("an SUV", "an RV"), and any that start with a
+/// vowel. Every other class takes "a".
+pub fn vehicle_takes_an(vehicle_class: &str) -> bool {
+    let word = vehicle_class.split_whitespace().next().unwrap_or("");
+    let spelled = word.len() > 1 && word.chars().all(|c| c.is_ascii_uppercase());
+    match word.chars().next() {
+        Some(first) if spelled => "AEFHILMNORSX".contains(first),
+        Some(first) => "aeiouAEIOU".contains(first),
+        None => false,
+    }
+}
 
 pub fn merging_traffic_cue(vehicle_class: &str, gap: &str) -> SpokenMessage {
     SpokenMessage::with_terse(
@@ -761,6 +799,16 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_a_spelled_out_class_takes_an() {
+        for class in ["SUV", "RV"] {
+            assert!(vehicle_takes_an(class), "{class}");
+        }
+        for class in ["car", "box truck", "semi", "bus", "tanker", "car hauler"] {
+            assert!(!vehicle_takes_an(class), "{class}");
+        }
+    }
+
+    #[test]
     fn test_the_city_keeps_a_name_that_carries_its_own_article() {
         assert_eq!(the_city("The Dalles"), "The Dalles");
         assert_eq!(the_city("Chicago"), "the Chicago");
@@ -790,6 +838,21 @@ mod tests {
         assert_eq!(
             in_lane_hazard_call("Debris on the road.", OpenSide::Either).normal,
             "Change lanes or brake! Debris on the road. Either lane open."
+        );
+    }
+
+    #[test]
+    fn test_small_debris_is_a_heads_up_with_the_lane_answer_and_no_opener() {
+        // Owner, 2026-11-09: tread is driven over or moved around, never
+        // braked for, so the call asks for nothing and terse is the same.
+        assert_eq!(small_debris_body("the tire debris"), "Tire debris.");
+        assert_eq!(small_debris_body("the debris"), "Debris.");
+        let pair = small_debris_call("Tire debris.", "Left lane open.");
+        assert_eq!(pair.normal, "Tire debris. Left lane open.");
+        assert_eq!(pair.terse, None);
+        assert_eq!(
+            small_debris_call("Tire debris.", "No lane open.").normal,
+            "Tire debris. No lane open."
         );
     }
 

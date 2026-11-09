@@ -87,7 +87,7 @@ fn nodes_of(block: &PrimitiveBlock, wanted: &[i64]) -> Vec<(i64, f64, f64)> {
 }
 
 /// Run `f` over every data block of `path` in parallel and gather the results.
-fn each_block<T: Send>(
+pub(crate) fn each_block<T: Send>(
     path: &Path,
     f: impl Fn(&PrimitiveBlock) -> Vec<T> + Sync + Send,
 ) -> Result<Vec<T>> {
