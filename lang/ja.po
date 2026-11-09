@@ -12699,11 +12699,11 @@ msgstr "視界を奪う砂嵐"
 msgid "the dust storm"
 msgstr "砂嵐"
 
-msgid "the tumbleweeds"
-msgstr "回転草"
-
 msgid "tumbleweeds piling in your lane"
 msgstr "車線に積み重なる回転草"
+
+msgid "the tumbleweeds"
+msgstr "回転草"
 
 msgid "rockfall debris on the road"
 msgstr "路上の落石"
@@ -12745,6 +12745,10 @@ msgstr "すぐ前方"
 #. placeholders: {gap_text}
 msgid "{gap_text} ahead"
 msgstr "{gap_text}前方"
+
+#. placeholders: {name}, {join}
+msgid "no hazard called {name}; the names are {join}"
+msgstr ""
 
 msgid "Brake now!"
 msgstr "今すぐブレーキ！"
@@ -13564,12 +13568,13 @@ msgid "Hazard warning"
 msgstr "危険の警告"
 
 msgid ""
-"Something in your path needs a real reaction now: brake below twenty five "
-"miles per hour quickly, or move to a clear lane if the warning says the "
-"object is in your lane."
+"Something in your path needs a real reaction now: move to the lane the call "
+"names, or brake. Debris with no lane open is taken at 30; rockfall or a "
+"stopped car needs a stop. Tire debris gets the road cue tone instead, "
+"because nothing brakes for it."
 msgstr ""
-"進路上の何かに、今すぐ本当の対応が必要です。すぐに時速25マイル未満まで減速するか、警告が自分の車線に物があると言っているなら、空いている車線に移ってく"
-"ださい。"
+"進路上の何かに、今すぐ本当の対応が必要です。案内された車線に移るか、ブレーキをかけてください。空いている車線がない落下物は時速30マイルで越えます。落石"
+"や止まった車は停止が必要です。タイヤの破片は代わりに道路情報の音になります。何もブレーキをかけないからです。"
 
 msgid "Hazard clear"
 msgstr "危険を回避"
@@ -13993,6 +13998,10 @@ msgstr "ブレーキ！"
 msgid "Brake! {body} {answer}"
 msgstr "ブレーキ！{body}{answer}"
 
+#. placeholders: {thing}
+msgid "{thing} ahead."
+msgstr "前方に{thing}。"
+
 #. placeholders: {body}, {side}
 msgid "{body} Passing on the {side}."
 msgstr "{body}{side}から追い越します。"
@@ -14238,6 +14247,21 @@ msgid ""
 "Operator keys are off: the window is minimized and the keyboard is dropped "
 "at the door."
 msgstr "オペレーターのキーはオフです。ウィンドウは最小化され、キーボードの入力は入り口で捨てられます。"
+
+msgid "not at the wheel: no screen is up"
+msgstr ""
+
+msgid "not at the wheel (a menu or stop screen is up)"
+msgstr ""
+
+msgid "on a ramp or a facility road, where hazards pass you by"
+msgstr ""
+
+#. placeholders: {staged}, {position_mi}
+msgid ""
+"Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
+"so listen for the call."
+msgstr ""
 
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
@@ -20377,10 +20401,12 @@ msgid "Exits leave from the right lane."
 msgstr "出口は右車線から分かれます。"
 
 msgid ""
-"Change lanes or brake means a fixed object in your lane: take the open lane "
-"it names, or brake nearly to a stop and ease around."
+"Change lanes or brake means something in your lane: take the open lane it "
+"names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+"Tire debris is driven over; nothing brakes for it."
 msgstr ""
-"車線変更かブレーキは、車線上の固定物を意味します。案内された空いている車線に移るか、ほぼ止まるまでブレーキをかけてゆっくり避けてください。"
+"車線変更かブレーキは、車線上に何かがあることを意味します。案内された空いている車線に移るか、時速30マイルまで落として越えてください。落石や止まった車は"
+"停止が必要です。タイヤの破片はそのまま乗り越えます。何もブレーキをかけません。"
 
 #. placeholders: {rest}
 msgid ""
@@ -30056,11 +30082,20 @@ msgstr "クラクションが効きました。{hazard_names_text}が道を空�
 #. placeholders: {struck}
 #. one sentence of a longer line
 msgid "Collision with {struck}."
-msgstr ""
+msgstr "{struck}と衝突。"
 
 #. placeholders: {struck}, {damage}
 msgid "Collision with {struck}. Damage {damage} percent."
-msgstr ""
+msgstr "{struck}と衝突。損傷{damage}パーセント。"
+
+#. placeholders: {names}
+#. one sentence of a longer line
+msgid "Collision with {names}."
+msgstr "{names}と衝突。"
+
+#. placeholders: {names}, {damage}
+msgid "Collision with {names}. Damage {damage} percent."
+msgstr "{names}と衝突。損傷{damage}パーセント。"
 
 #. placeholders: {names}, {names2}
 msgid "{names} and {names2}"
@@ -30076,22 +30111,6 @@ msgstr "通過しました。"
 #. placeholders: {names}
 msgid "Clear of {names}."
 msgstr "{names}を通過しました。"
-
-#. one sentence of a longer line
-msgid "It is still in your lane."
-msgstr "まだ車線上にあります。"
-
-#. placeholders: {open_side_spoken}
-msgid ""
-"It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
-msgstr "まだ車線上にあります。ほとんど停まるか、車線を変えてください。{open_side_spoken}"
-
-#. one sentence of a longer line
-msgid "Nearly stop, or change lanes."
-msgstr "ほとんど停まるか、車線を変えてください。"
-
-msgid "It is still in your lane. Nearly stop."
-msgstr "まだ車線上にあります。ほとんど停まってください。"
 
 msgid "Automatic braking."
 msgstr "自動ブレーキ。"
@@ -34027,17 +34046,19 @@ msgstr ""
 
 msgid ""
 "When you hear Brake now, slow down right away. Change lanes or brake means "
-"something is stopped in your lane: move to the open lane it names, or brake "
-"almost to a stop."
+"something is in your lane: move to the open lane it names, or slow to 30 "
+"and take it. Rockfall or a stopped car needs a stop."
 msgstr ""
-"「今すぐブレーキ」が聞こえたら、すぐに減速してください。「車線変更かブレーキ」は、車線に何かが止まっているという意味です。案内された空いている車線に移る"
-"か、ほぼ止まるまでブレーキをかけてください。"
+"「今すぐブレーキ」が聞こえたら、すぐに減速してください。「車線変更かブレーキ」は、車線に何かがあるという意味です。案内された空いている車線に移るか、時速"
+"30マイルまで落として越えてください。落石や止まった車は停止が必要です。"
 
 msgid ""
-"No lane open means brake. Full lane keeping can pass slow vehicles, but "
-"leaves debris avoidance to you and avoids starting a pass near an exit."
+"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"keeping moves over for debris and slow vehicles when a lane is open, and "
+"avoids starting a pass near an exit."
 msgstr ""
-"空いている車線がなければ、ブレーキです。レーンキープがフルなら遅い車を追い越せますが、落下物を避けるのは自分で、出口の近くでは追い越しを始めません。"
+"タイヤの破片は読み上げられ、そのまま乗り越えます。何もブレーキをかけません。レーンキープがフルなら、車線が空いていれば落下物や遅い車を避けて移り、出口の"
+"近くでは追い越しを始めません。"
 
 msgid ""
 "Leave a coned lane when warned. Driving through barrels causes damage, a "
@@ -37730,6 +37751,54 @@ msgstr "営業中。"
 
 msgid "Closed."
 msgstr "閉鎖中。"
+
+#. The small-debris call, built from the catalog noun with "the" dropped.
+msgid "Tire debris ahead."
+msgstr "前方にタイヤの破片。"
+
+msgid "Debris ahead."
+msgstr "前方に落下物。"
+
+#~ msgid ""
+#~ "Something in your path needs a real reaction now: brake below twenty five "
+#~ "miles per hour quickly, or move to a clear lane if the warning says the "
+#~ "object is in your lane."
+#~ msgstr ""
+#~ "進路上の何かに、今すぐ本当の対応が必要です。すぐに時速25マイル未満まで減速するか、警告が自分の車線に物があると言っているなら、空いている車線に移ってく"
+#~ "ださい。"
+
+#~ msgid ""
+#~ "Change lanes or brake means a fixed object in your lane: take the open lane "
+#~ "it names, or brake nearly to a stop and ease around."
+#~ msgstr ""
+#~ "車線変更かブレーキは、車線上の固定物を意味します。案内された空いている車線に移るか、ほぼ止まるまでブレーキをかけてゆっくり避けてください。"
+
+#~ msgid "It is still in your lane."
+#~ msgstr "まだ車線上にあります。"
+
+#~ msgid ""
+#~ "It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
+#~ msgstr "まだ車線上にあります。ほとんど停まるか、車線を変えてください。{open_side_spoken}"
+
+#~ msgid "Nearly stop, or change lanes."
+#~ msgstr "ほとんど停まるか、車線を変えてください。"
+
+#~ msgid "It is still in your lane. Nearly stop."
+#~ msgstr "まだ車線上にあります。ほとんど停まってください。"
+
+#~ msgid ""
+#~ "When you hear Brake now, slow down right away. Change lanes or brake means "
+#~ "something is stopped in your lane: move to the open lane it names, or brake "
+#~ "almost to a stop."
+#~ msgstr ""
+#~ "「今すぐブレーキ」が聞こえたら、すぐに減速してください。「車線変更かブレーキ」は、車線に何かが止まっているという意味です。案内された空いている車線に移る"
+#~ "か、ほぼ止まるまでブレーキをかけてください。"
+
+#~ msgid ""
+#~ "No lane open means brake. Full lane keeping can pass slow vehicles, but "
+#~ "leaves debris avoidance to you and avoids starting a pass near an exit."
+#~ msgstr ""
+#~ "空いている車線がなければ、ブレーキです。レーンキープがフルなら遅い車を追い越せますが、落下物を避けるのは自分で、出口の近くでは追い越しを始めません。"
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "

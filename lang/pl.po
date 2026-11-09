@@ -14103,11 +14103,11 @@ msgstr "burza pyłowa ograniczająca widoczność"
 msgid "the dust storm"
 msgstr "burza pyłowa"
 
-msgid "the tumbleweeds"
-msgstr "biegacze stepowe"
-
 msgid "tumbleweeds piling in your lane"
 msgstr "biegacze stepowe gromadzące się na twoim pasie"
+
+msgid "the tumbleweeds"
+msgstr "biegacze stepowe"
 
 msgid "rockfall debris on the road"
 msgstr "odłamki skalne na drodze"
@@ -14149,6 +14149,10 @@ msgstr "tuż przed tobą"
 #. placeholders: {gap_text}
 msgid "{gap_text} ahead"
 msgstr "{gap_text} przed tobą"
+
+#. placeholders: {name}, {join}
+msgid "no hazard called {name}; the names are {join}"
+msgstr ""
 
 msgid "Brake now!"
 msgstr "Hamuj!"
@@ -15054,13 +15058,15 @@ msgid "Hazard warning"
 msgstr "Ostrzeżenie o zagrożeniu"
 
 msgid ""
-"Something in your path needs a real reaction now: brake below twenty five "
-"miles per hour quickly, or move to a clear lane if the warning says the "
-"object is in your lane."
+"Something in your path needs a real reaction now: move to the lane the call "
+"names, or brake. Debris with no lane open is taken at 30; rockfall or a "
+"stopped car needs a stop. Tire debris gets the road cue tone instead, "
+"because nothing brakes for it."
 msgstr ""
-"Coś na twojej drodze wymaga teraz prawdziwej reakcji: szybko zahamuj "
-"poniżej dwudziestu pięciu mil na godzinę albo zjedź na wolny pas, jeśli "
-"ostrzeżenie mówi, że przeszkoda jest na twoim pasie."
+"Coś na twojej drodze wymaga teraz prawdziwej reakcji: zjedź na pas, który "
+"wymienia komunikat, albo hamuj. Szczątki bez wolnego pasa bierze się przy "
+"30; obryw skalny albo stojący samochód wymagają zatrzymania. Kawałki opony "
+"dostają zamiast tego ton podpowiedzi drogowej, bo nic na nie nie hamuje."
 
 msgid "Hazard clear"
 msgstr "Zagrożenie ominięte"
@@ -15538,6 +15544,10 @@ msgstr "Hamuj!"
 msgid "Brake! {body} {answer}"
 msgstr "Hamuj! {body} {answer}"
 
+#. placeholders: {thing}
+msgid "{thing} ahead."
+msgstr "{thing} przed tobą."
+
 #. placeholders: {body}, {side}
 msgid "{body} Passing on the {side}."
 msgstr "{body} Wyprzedzanie, {side} pas."
@@ -15801,6 +15811,21 @@ msgid ""
 msgstr ""
 "Klawisze operatora są wyłączone: okno jest zminimalizowane, a klawiatura "
 "zostaje odcięta na wejściu."
+
+msgid "not at the wheel: no screen is up"
+msgstr ""
+
+msgid "not at the wheel (a menu or stop screen is up)"
+msgstr ""
+
+msgid "on a ramp or a facility road, where hazards pass you by"
+msgstr ""
+
+#. placeholders: {staged}, {position_mi}
+msgid ""
+"Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
+"so listen for the call."
+msgstr ""
 
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
@@ -22624,11 +22649,13 @@ msgid "Exits leave from the right lane."
 msgstr "Zjazdy odchodzą z prawego pasa."
 
 msgid ""
-"Change lanes or brake means a fixed object in your lane: take the open lane "
-"it names, or brake nearly to a stop and ease around."
+"Change lanes or brake means something in your lane: take the open lane it "
+"names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+"Tire debris is driven over; nothing brakes for it."
 msgstr ""
-"Zmień pas lub hamuj oznacza nieruchomą przeszkodę na twoim pasie: zajmij "
-"wskazany wolny pas albo zahamuj prawie do zatrzymania i ostrożnie omiń."
+"Zmień pas albo hamuj oznacza coś na twoim pasie: zajmij wskazany wolny pas "
+"albo zwolnij do 30 i przejedź. Obryw skalny albo stojący samochód wymagają "
+"zatrzymania. Po kawałkach opony się przejeżdża; nic na nie nie hamuje."
 
 #. placeholders: {rest}
 msgid ""
@@ -33205,11 +33232,20 @@ msgstr "Klakson zadziałał, {hazard_names_text} zwalnia drogę."
 #. placeholders: {struck}
 #. one sentence of a longer line
 msgid "Collision with {struck}."
-msgstr ""
+msgstr "Zderzenie z {struck}."
 
 #. placeholders: {struck}, {damage}
 msgid "Collision with {struck}. Damage {damage} percent."
-msgstr ""
+msgstr "Zderzenie z {struck}. Uszkodzenia {damage} procent."
+
+#. placeholders: {names}
+#. one sentence of a longer line
+msgid "Collision with {names}."
+msgstr "Zderzenie z {names}."
+
+#. placeholders: {names}, {damage}
+msgid "Collision with {names}. Damage {damage} percent."
+msgstr "Zderzenie z {names}. Uszkodzenia {damage} procent."
 
 #. placeholders: {names}, {names2}
 msgid "{names} and {names2}"
@@ -33225,24 +33261,6 @@ msgstr "Czysto."
 #. placeholders: {names}
 msgid "Clear of {names}."
 msgstr "Minięte: {names}."
-
-#. one sentence of a longer line
-msgid "It is still in your lane."
-msgstr "Wciąż jest na twoim pasie."
-
-#. placeholders: {open_side_spoken}
-msgid ""
-"It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
-msgstr ""
-"Wciąż jest na twoim pasie. Prawie się zatrzymaj albo zmień pas. "
-"{open_side_spoken}"
-
-#. one sentence of a longer line
-msgid "Nearly stop, or change lanes."
-msgstr "Prawie się zatrzymaj albo zmień pas."
-
-msgid "It is still in your lane. Nearly stop."
-msgstr "Wciąż jest na twoim pasie. Prawie się zatrzymaj."
 
 msgid "Automatic braking."
 msgstr "Automatyczne hamowanie."
@@ -37710,20 +37728,21 @@ msgstr ""
 
 msgid ""
 "When you hear Brake now, slow down right away. Change lanes or brake means "
-"something is stopped in your lane: move to the open lane it names, or brake "
-"almost to a stop."
+"something is in your lane: move to the open lane it names, or slow to 30 "
+"and take it. Rockfall or a stopped car needs a stop."
 msgstr ""
-"Gdy usłyszysz „Hamuj teraz”, od razu zwolnij. „Zmień pas albo hamuj” "
-"znaczy, że coś stoi na twoim pasie: przejedź na wskazany wolny pas albo "
-"hamuj prawie do zatrzymania."
+"Gdy usłyszysz „Hamuj”, od razu zwolnij. „Zmień pas albo hamuj” znaczy, że "
+"coś jest na twoim pasie: przejedź na wskazany wolny pas albo zwolnij do 30 "
+"i przejedź. Obryw skalny albo stojący samochód wymagają zatrzymania."
 
 msgid ""
-"No lane open means brake. Full lane keeping can pass slow vehicles, but "
-"leaves debris avoidance to you and avoids starting a pass near an exit."
+"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"keeping moves over for debris and slow vehicles when a lane is open, and "
+"avoids starting a pass near an exit."
 msgstr ""
-"Brak otwartego pasa oznacza hamowanie. Pełne utrzymanie pasa może "
-"wyprzedzać wolne pojazdy, ale omijanie przeszkód na jezdni zostawia tobie i "
-"nie zaczyna wyprzedzania w pobliżu zjazdu."
+"Kawałki opony są zapowiadane i przejeżdżane; nic na nie nie hamuje. Pełne "
+"utrzymanie pasa omija szczątki i wolne pojazdy, gdy jest wolny pas, i nie "
+"zaczyna wyprzedzania w pobliżu zjazdu."
 
 msgid ""
 "Leave a coned lane when warned. Driving through barrels causes damage, a "
@@ -41851,6 +41870,61 @@ msgstr "Otwarta."
 
 msgid "Closed."
 msgstr "Zamknięta."
+
+#. The small-debris call, built from the catalog noun with "the" dropped.
+msgid "Tire debris ahead."
+msgstr "Kawałki opony przed tobą."
+
+msgid "Debris ahead."
+msgstr "Szczątki przed tobą."
+
+#~ msgid ""
+#~ "Something in your path needs a real reaction now: brake below twenty five "
+#~ "miles per hour quickly, or move to a clear lane if the warning says the "
+#~ "object is in your lane."
+#~ msgstr ""
+#~ "Coś na twojej drodze wymaga teraz prawdziwej reakcji: szybko zahamuj "
+#~ "poniżej dwudziestu pięciu mil na godzinę albo zjedź na wolny pas, jeśli "
+#~ "ostrzeżenie mówi, że przeszkoda jest na twoim pasie."
+
+#~ msgid ""
+#~ "Change lanes or brake means a fixed object in your lane: take the open lane "
+#~ "it names, or brake nearly to a stop and ease around."
+#~ msgstr ""
+#~ "Zmień pas lub hamuj oznacza nieruchomą przeszkodę na twoim pasie: zajmij "
+#~ "wskazany wolny pas albo zahamuj prawie do zatrzymania i ostrożnie omiń."
+
+#~ msgid "It is still in your lane."
+#~ msgstr "Wciąż jest na twoim pasie."
+
+#~ msgid ""
+#~ "It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
+#~ msgstr ""
+#~ "Wciąż jest na twoim pasie. Prawie się zatrzymaj albo zmień pas. "
+#~ "{open_side_spoken}"
+
+#~ msgid "Nearly stop, or change lanes."
+#~ msgstr "Prawie się zatrzymaj albo zmień pas."
+
+#~ msgid "It is still in your lane. Nearly stop."
+#~ msgstr "Wciąż jest na twoim pasie. Prawie się zatrzymaj."
+
+#~ msgid ""
+#~ "When you hear Brake now, slow down right away. Change lanes or brake means "
+#~ "something is stopped in your lane: move to the open lane it names, or brake "
+#~ "almost to a stop."
+#~ msgstr ""
+#~ "Gdy usłyszysz „Hamuj teraz”, od razu zwolnij. „Zmień pas albo hamuj” "
+#~ "znaczy, że coś stoi na twoim pasie: przejedź na wskazany wolny pas albo "
+#~ "hamuj prawie do zatrzymania."
+
+#~ msgid ""
+#~ "No lane open means brake. Full lane keeping can pass slow vehicles, but "
+#~ "leaves debris avoidance to you and avoids starting a pass near an exit."
+#~ msgstr ""
+#~ "Brak otwartego pasa oznacza hamowanie. Pełne utrzymanie pasa może "
+#~ "wyprzedzać wolne pojazdy, ale omijanie przeszkód na jezdni zostawia tobie i "
+#~ "nie zaczyna wyprzedzania w pobliżu zjazdu."
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "

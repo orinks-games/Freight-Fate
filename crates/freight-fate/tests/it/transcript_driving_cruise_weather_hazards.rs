@@ -119,9 +119,10 @@ fn test_automatic_emergency_braking_engages_once_and_cancels_cruise() {
 
 #[test]
 fn test_fixed_object_hazard_needs_nearly_a_stop_or_a_swerve() {
-    // You cannot roll over a ladder at 25: a dodgeable hazard resolved by
-    // brake alone takes nearly a stop, with a one-time hint past the old safe
-    // speed so the quiet never reads as an already-cleared hazard.
+    // A hard object (rockfall, a spun-out car; here a bare in-lane event
+    // with no debris class) resolved by brake alone takes nearly a stop.
+    // Nothing is said on the way down: the "still in your lane" hint went
+    // on 2026-11-09, when debris stopped asking for the stop at all.
     let mut harness = bench_drive("Fixed Object", 200.0, 0.0);
     // Python patched `trip.has_open_adjacent_lane_at` to True so there was a
     // lane to swerve into. The bench road really has one; asserted rather than
@@ -139,21 +140,17 @@ fn test_fixed_object_hazard_needs_nearly_a_stop_or_a_swerve() {
     );
     assert!(harness.read_drive(|d| d.hazard_dodgeable));
 
-    // The old moving-hazard speed no longer clears it; the hint speaks once.
+    // The old moving-hazard speed no longer clears it, and nothing is said.
     harness.with_drive(|d, ctx| {
         d.truck_mut().velocity_mps = (HAZARD_SAFE_MPH - 1.0) / MPH_PER_MPS;
         d.update_hazard(ctx, DT);
         d.update_hazard(ctx, DT);
     });
     assert!(harness.read_drive(|d| d.hazard_deadline).is_some());
-    assert_eq!(
+    assert!(
+        !spoken(&harness).iter().any(|s| s.contains("Nearly stop")),
+        "{:?}",
         spoken(&harness)
-            .iter()
-            .filter(|s| {
-                *s == "It is still in your lane. Nearly stop, or change lanes. Left lane open."
-            })
-            .count(),
-        1
     );
 
     // Nearly stopping resolves it, and the outcome is all that is said.

@@ -14313,11 +14313,11 @@ msgstr "ein Staubsturm, der die Sicht nimmt"
 msgid "the dust storm"
 msgstr "der Staubsturm"
 
-msgid "the tumbleweeds"
-msgstr "die Steppenläufer"
-
 msgid "tumbleweeds piling in your lane"
 msgstr "Steppenläufer, die sich auf deiner Spur türmen"
+
+msgid "the tumbleweeds"
+msgstr "die Steppenläufer"
 
 msgid "rockfall debris on the road"
 msgstr "Steinschlag auf der Straße"
@@ -14359,6 +14359,10 @@ msgstr "direkt voraus"
 #. placeholders: {gap_text}
 msgid "{gap_text} ahead"
 msgstr "{gap_text} voraus"
+
+#. placeholders: {name}, {join}
+msgid "no hazard called {name}; the names are {join}"
+msgstr ""
 
 msgid "Brake now!"
 msgstr "Jetzt bremsen!"
@@ -15265,13 +15269,16 @@ msgid "Hazard warning"
 msgstr "Gefahrenwarnung"
 
 msgid ""
-"Something in your path needs a real reaction now: brake below twenty five "
-"miles per hour quickly, or move to a clear lane if the warning says the "
-"object is in your lane."
+"Something in your path needs a real reaction now: move to the lane the call "
+"names, or brake. Debris with no lane open is taken at 30; rockfall or a "
+"stopped car needs a stop. Tire debris gets the road cue tone instead, "
+"because nothing brakes for it."
 msgstr ""
-"Etwas auf deinem Weg verlangt jetzt eine echte Reaktion: Brems schnell "
-"unter fünfundzwanzig Meilen pro Stunde, oder wechsle auf eine freie Spur, "
-"wenn die Warnung sagt, dass das Hindernis auf deiner Spur ist."
+"Etwas auf deinem Weg verlangt jetzt eine echte Reaktion: wechsle auf die "
+"Spur, die der Ruf nennt, oder bremse. Trümmer ohne freie Spur werden mit 30 "
+"genommen; ein Steinschlag oder ein stehendes Auto verlangt einen Halt. "
+"Reifenreste bekommen stattdessen den Straßenhinweiston, weil nichts dafür "
+"bremst."
 
 msgid "Hazard clear"
 msgstr "Gefahr überstanden"
@@ -15763,6 +15770,10 @@ msgstr "Bremsen!"
 msgid "Brake! {body} {answer}"
 msgstr "Bremsen! {body} {answer}"
 
+#. placeholders: {thing}
+msgid "{thing} ahead."
+msgstr "{thing} voraus."
+
 #. placeholders: {body}, {side}
 msgid "{body} Passing on the {side}."
 msgstr "{body} Überholen {side}."
@@ -16025,6 +16036,21 @@ msgid ""
 msgstr ""
 "Bedienertasten sind aus: Das Fenster ist minimiert, und die Tastatur wird "
 "an der Tür abgefangen."
+
+msgid "not at the wheel: no screen is up"
+msgstr ""
+
+msgid "not at the wheel (a menu or stop screen is up)"
+msgstr ""
+
+msgid "on a ramp or a facility road, where hazards pass you by"
+msgstr ""
+
+#. placeholders: {staged}, {position_mi}
+msgid ""
+"Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
+"so listen for the call."
+msgstr ""
 
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
@@ -22801,12 +22827,14 @@ msgid "Exits leave from the right lane."
 msgstr "Ausfahrten gehen von der rechten Spur ab."
 
 msgid ""
-"Change lanes or brake means a fixed object in your lane: take the open lane "
-"it names, or brake nearly to a stop and ease around."
+"Change lanes or brake means something in your lane: take the open lane it "
+"names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+"Tire debris is driven over; nothing brakes for it."
 msgstr ""
-"Spur wechseln oder bremsen bedeutet ein festes Hindernis in deiner Spur: "
-"nimm die genannte freie Spur, oder bremse fast bis zum Stillstand und fahre "
-"vorsichtig herum."
+"Spur wechseln oder bremsen bedeutet etwas in deiner Spur: nimm die genannte "
+"freie Spur, oder geh auf 30 runter und nimm es. Ein Steinschlag oder ein "
+"stehendes Auto verlangt einen Halt. Über Reifenreste wird gefahren; nichts "
+"bremst dafür."
 
 #. placeholders: {rest}
 msgid ""
@@ -33307,11 +33335,20 @@ msgstr "Die Hupe wirkt, {hazard_names_text} macht die Straße frei."
 #. placeholders: {struck}
 #. one sentence of a longer line
 msgid "Collision with {struck}."
-msgstr ""
+msgstr "Zusammenstoß mit {struck}."
 
 #. placeholders: {struck}, {damage}
 msgid "Collision with {struck}. Damage {damage} percent."
-msgstr ""
+msgstr "Zusammenstoß mit {struck}. Schaden {damage} Prozent."
+
+#. placeholders: {names}
+#. one sentence of a longer line
+msgid "Collision with {names}."
+msgstr "Zusammenstoß mit {names}."
+
+#. placeholders: {names}, {damage}
+msgid "Collision with {names}. Damage {damage} percent."
+msgstr "Zusammenstoß mit {names}. Schaden {damage} Prozent."
 
 #. placeholders: {names}, {names2}
 msgid "{names} and {names2}"
@@ -33327,24 +33364,6 @@ msgstr "Frei."
 #. placeholders: {names}
 msgid "Clear of {names}."
 msgstr "An {names} vorbei."
-
-#. one sentence of a longer line
-msgid "It is still in your lane."
-msgstr "Es ist immer noch in deiner Spur."
-
-#. placeholders: {open_side_spoken}
-msgid ""
-"It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
-msgstr ""
-"Es ist immer noch in deiner Spur. Halt fast an oder wechsel die Spur. "
-"{open_side_spoken}"
-
-#. one sentence of a longer line
-msgid "Nearly stop, or change lanes."
-msgstr "Halt fast an oder wechsel die Spur."
-
-msgid "It is still in your lane. Nearly stop."
-msgstr "Es ist immer noch in deiner Spur. Halt fast an."
 
 msgid "Automatic braking."
 msgstr "Automatische Bremsung."
@@ -37865,20 +37884,22 @@ msgstr ""
 
 msgid ""
 "When you hear Brake now, slow down right away. Change lanes or brake means "
-"something is stopped in your lane: move to the open lane it names, or brake "
-"almost to a stop."
+"something is in your lane: move to the open lane it names, or slow to 30 "
+"and take it. Rockfall or a stopped car needs a stop."
 msgstr ""
 "Wenn du Jetzt bremsen hörst, sofort langsamer werden. Spur wechseln oder "
-"bremsen heißt, dass etwas in deiner Spur steht: wechsle auf die freie Spur, "
-"die genannt wird, oder brems fast bis zum Stillstand."
+"bremsen heißt, dass etwas in deiner Spur ist: wechsle auf die freie Spur, "
+"die genannt wird, oder geh auf 30 runter und nimm es. Ein Steinschlag oder "
+"ein stehendes Auto verlangt einen Halt."
 
 msgid ""
-"No lane open means brake. Full lane keeping can pass slow vehicles, but "
-"leaves debris avoidance to you and avoids starting a pass near an exit."
+"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"keeping moves over for debris and slow vehicles when a lane is open, and "
+"avoids starting a pass near an exit."
 msgstr ""
-"Keine Spur frei heißt bremsen. Volle Spurhaltung kann langsame Fahrzeuge "
-"überholen, überlässt dir aber das Ausweichen vor Trümmern und beginnt kein "
-"Überholen nahe einer Ausfahrt."
+"Reifenreste werden angesagt und überfahren; nichts bremst dafür. Volle "
+"Spurhaltung weicht Trümmern und langsamen Fahrzeugen aus, wenn eine Spur "
+"frei ist, und beginnt kein Überholen nahe einer Ausfahrt."
 
 msgid ""
 "Leave a coned lane when warned. Driving through barrels causes damage, a "
@@ -42049,6 +42070,62 @@ msgstr "Geöffnet."
 
 msgid "Closed."
 msgstr "Geschlossen."
+
+#. The small-debris call, built from the catalog noun with "the" dropped.
+msgid "Tire debris ahead."
+msgstr "Reifenreste voraus."
+
+msgid "Debris ahead."
+msgstr "Trümmer voraus."
+
+#~ msgid ""
+#~ "Something in your path needs a real reaction now: brake below twenty five "
+#~ "miles per hour quickly, or move to a clear lane if the warning says the "
+#~ "object is in your lane."
+#~ msgstr ""
+#~ "Etwas auf deinem Weg verlangt jetzt eine echte Reaktion: Brems schnell "
+#~ "unter fünfundzwanzig Meilen pro Stunde, oder wechsle auf eine freie Spur, "
+#~ "wenn die Warnung sagt, dass das Hindernis auf deiner Spur ist."
+
+#~ msgid ""
+#~ "Change lanes or brake means a fixed object in your lane: take the open lane "
+#~ "it names, or brake nearly to a stop and ease around."
+#~ msgstr ""
+#~ "Spur wechseln oder bremsen bedeutet ein festes Hindernis in deiner Spur: "
+#~ "nimm die genannte freie Spur, oder bremse fast bis zum Stillstand und fahre "
+#~ "vorsichtig herum."
+
+#~ msgid "It is still in your lane."
+#~ msgstr "Es ist immer noch in deiner Spur."
+
+#~ msgid ""
+#~ "It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
+#~ msgstr ""
+#~ "Es ist immer noch in deiner Spur. Halt fast an oder wechsel die Spur. "
+#~ "{open_side_spoken}"
+
+#~ msgid "Nearly stop, or change lanes."
+#~ msgstr "Halt fast an oder wechsel die Spur."
+
+#~ msgid "It is still in your lane. Nearly stop."
+#~ msgstr "Es ist immer noch in deiner Spur. Halt fast an."
+
+#~ msgid ""
+#~ "When you hear Brake now, slow down right away. Change lanes or brake means "
+#~ "something is stopped in your lane: move to the open lane it names, or brake "
+#~ "almost to a stop."
+#~ msgstr ""
+#~ "Wenn du Jetzt bremsen hörst, sofort langsamer werden. Spur wechseln oder "
+#~ "bremsen heißt, dass etwas in deiner Spur steht: wechsle auf die freie Spur, "
+#~ "die genannt wird, oder brems fast bis zum Stillstand."
+
+#~ msgid ""
+#~ "No lane open means brake. Full lane keeping can pass slow vehicles, but "
+#~ "leaves debris avoidance to you and avoids starting a pass near an exit."
+#~ msgstr ""
+#~ "Keine Spur frei heißt bremsen. Volle Spurhaltung kann langsame Fahrzeuge "
+#~ "überholen, überlässt dir aber das Ausweichen vor Trümmern und beginnt kein "
+#~ "Überholen nahe einer Ausfahrt."
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "

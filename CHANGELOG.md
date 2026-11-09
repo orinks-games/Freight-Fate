@@ -16,6 +16,9 @@
 
 ### Changed
 
+- **Nothing brakes for tire debris any more.** It is called out ahead with the open lane, full lane keeping moves over, and with no lane open the truck drives over it.
+- **A ladder, lumber, a mattress or spilled boxes with no lane open are taken at 30, not a near stop.** Above 30 they cost damage that grows with speed; the truck keeps rolling.
+- **The "It is still in your lane. Nearly stop." line is gone.** The call already names the lane.
 - **Updates check and install faster.** Unchanged sound packs are no longer copied or checked twice.
 - **Spoken lines, help and menus are shorter and use plain words, and some settings have new names.** Cruise has one name, and the dispatch board and delivery list are shorter.
 - **Road announcements now wait for NVDA 2026.3 or SAPI to finish speaking.** The most urgent goes next; stale chatter is skipped.

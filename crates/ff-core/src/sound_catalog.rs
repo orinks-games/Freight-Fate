@@ -486,9 +486,10 @@ const HAZARDS: SoundCategory = SoundCategory {
         SoundEntry::new(
             "Hazard warning",
             &[Cue::new("events/hazard_warning").volume(1.0)],
-            "Something in your path needs a real reaction now: brake below \
-             twenty five miles per hour quickly, or move to a clear lane if \
-             the warning says the object is in your lane.",
+            "Something in your path needs a real reaction now: move to the \
+             lane the call names, or brake. Debris with no lane open is taken \
+             at 30; rockfall or a stopped car needs a stop. Tire debris gets \
+             the road cue tone instead, because nothing brakes for it.",
         ),
         SoundEntry::new(
             "Hazard clear",

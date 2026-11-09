@@ -14199,11 +14199,11 @@ msgstr "uma tempestade de poeira derrubando a visibilidade"
 msgid "the dust storm"
 msgstr "a tempestade de poeira"
 
-msgid "the tumbleweeds"
-msgstr "as bolas de feno"
-
 msgid "tumbleweeds piling in your lane"
 msgstr "bolas de feno se acumulando na sua faixa"
+
+msgid "the tumbleweeds"
+msgstr "as bolas de feno"
 
 msgid "rockfall debris on the road"
 msgstr "pedras caídas na pista"
@@ -14245,6 +14245,10 @@ msgstr "logo à frente"
 #. placeholders: {gap_text}
 msgid "{gap_text} ahead"
 msgstr "{gap_text} à frente"
+
+#. placeholders: {name}, {join}
+msgid "no hazard called {name}; the names are {join}"
+msgstr ""
 
 msgid "Brake now!"
 msgstr "Freie agora!"
@@ -15154,13 +15158,15 @@ msgid "Hazard warning"
 msgstr "Aviso de perigo"
 
 msgid ""
-"Something in your path needs a real reaction now: brake below twenty five "
-"miles per hour quickly, or move to a clear lane if the warning says the "
-"object is in your lane."
+"Something in your path needs a real reaction now: move to the lane the call "
+"names, or brake. Debris with no lane open is taken at 30; rockfall or a "
+"stopped car needs a stop. Tire debris gets the road cue tone instead, "
+"because nothing brakes for it."
 msgstr ""
-"Algo no seu caminho exige uma reação de verdade agora: freie para menos de "
-"vinte e cinco milhas por hora rápido, ou vá para uma faixa livre se o aviso "
-"disser que o objeto está na sua faixa."
+"Algo no seu caminho exige uma reação de verdade agora: vá para a faixa que "
+"o aviso indica, ou freie. Destroços sem faixa livre são passados a 30; "
+"pedras caídas ou um carro parado exigem parar. Pedaços de pneu recebem no "
+"lugar o tom de aviso da estrada, porque nada freia por eles."
 
 msgid "Hazard clear"
 msgstr "Perigo superado"
@@ -15644,6 +15650,10 @@ msgstr "Freie!"
 msgid "Brake! {body} {answer}"
 msgstr "Freie! {body} {answer}"
 
+#. placeholders: {thing}
+msgid "{thing} ahead."
+msgstr "{thing} à frente."
+
 #. placeholders: {body}, {side}
 msgid "{body} Passing on the {side}."
 msgstr "{body} Ultrapassando pela {side}."
@@ -15910,6 +15920,21 @@ msgid ""
 msgstr ""
 "As teclas do operador estão desligadas: a janela está minimizada e o "
 "teclado é descartado na entrada."
+
+msgid "not at the wheel: no screen is up"
+msgstr ""
+
+msgid "not at the wheel (a menu or stop screen is up)"
+msgstr ""
+
+msgid "on a ramp or a facility road, where hazards pass you by"
+msgstr ""
+
+#. placeholders: {staged}, {position_mi}
+msgid ""
+"Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
+"so listen for the call."
+msgstr ""
 
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
@@ -22630,11 +22655,14 @@ msgid "Exits leave from the right lane."
 msgstr "As saídas partem da faixa da direita."
 
 msgid ""
-"Change lanes or brake means a fixed object in your lane: take the open lane "
-"it names, or brake nearly to a stop and ease around."
+"Change lanes or brake means something in your lane: take the open lane it "
+"names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+"Tire debris is driven over; nothing brakes for it."
 msgstr ""
-"Mude de faixa ou freie indica um objeto fixo na sua faixa: pegue a faixa "
-"livre indicada, ou freie quase até parar e contorne com cuidado."
+"Mude de faixa ou freie indica algo na sua faixa: pegue a faixa livre "
+"indicada, ou reduza para 30 e passe por cima. Pedras caídas ou um carro "
+"parado exigem parar. Pedaços de pneu são passados por cima; nada freia por "
+"eles."
 
 #. placeholders: {rest}
 msgid ""
@@ -33085,11 +33113,20 @@ msgstr "A buzina resolve, {hazard_names_text} libera a pista."
 #. placeholders: {struck}
 #. one sentence of a longer line
 msgid "Collision with {struck}."
-msgstr ""
+msgstr "Colisão com {struck}."
 
 #. placeholders: {struck}, {damage}
 msgid "Collision with {struck}. Damage {damage} percent."
-msgstr ""
+msgstr "Colisão com {struck}. Dano de {damage} por cento."
+
+#. placeholders: {names}
+#. one sentence of a longer line
+msgid "Collision with {names}."
+msgstr "Colisão com {names}."
+
+#. placeholders: {names}, {damage}
+msgid "Collision with {names}. Damage {damage} percent."
+msgstr "Colisão com {names}. Dano de {damage} por cento."
 
 #. placeholders: {names}, {names2}
 msgid "{names} and {names2}"
@@ -33105,23 +33142,6 @@ msgstr "Livre."
 #. placeholders: {names}
 msgid "Clear of {names}."
 msgstr "Passou por {names}."
-
-#. one sentence of a longer line
-msgid "It is still in your lane."
-msgstr "Ainda está na sua faixa."
-
-#. placeholders: {open_side_spoken}
-msgid ""
-"It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
-msgstr ""
-"Ainda está na sua faixa. Quase pare, ou mude de faixa. {open_side_spoken}"
-
-#. one sentence of a longer line
-msgid "Nearly stop, or change lanes."
-msgstr "Quase pare, ou mude de faixa."
-
-msgid "It is still in your lane. Nearly stop."
-msgstr "Ainda está na sua faixa. Quase pare."
 
 msgid "Automatic braking."
 msgstr "Frenagem automática."
@@ -37572,20 +37592,21 @@ msgstr ""
 
 msgid ""
 "When you hear Brake now, slow down right away. Change lanes or brake means "
-"something is stopped in your lane: move to the open lane it names, or brake "
-"almost to a stop."
+"something is in your lane: move to the open lane it names, or slow to 30 "
+"and take it. Rockfall or a stopped car needs a stop."
 msgstr ""
 "Quando ouvir Freie agora, reduza na hora. Mude de faixa ou freie significa "
-"que há algo parado na sua faixa: passe para a faixa livre indicada, ou "
-"freie quase até parar."
+"que há algo na sua faixa: passe para a faixa livre indicada, ou reduza para "
+"30 e passe por cima. Pedras caídas ou um carro parado exigem parar."
 
 msgid ""
-"No lane open means brake. Full lane keeping can pass slow vehicles, but "
-"leaves debris avoidance to you and avoids starting a pass near an exit."
+"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"keeping moves over for debris and slow vehicles when a lane is open, and "
+"avoids starting a pass near an exit."
 msgstr ""
-"Nenhuma faixa livre quer dizer frear. A manutenção de faixa completa pode "
-"ultrapassar veículos lentos, mas deixa com você desviar de destroços e "
-"evita começar uma ultrapassagem perto de uma saída."
+"Pedaços de pneu são anunciados e passados por cima; nada freia por eles. A "
+"manutenção de faixa completa desvia de destroços e veículos lentos quando "
+"há uma faixa livre, e evita começar uma ultrapassagem perto de uma saída."
 
 msgid ""
 "Leave a coned lane when warned. Driving through barrels causes damage, a "
@@ -41728,6 +41749,60 @@ msgstr "Aberta."
 
 msgid "Closed."
 msgstr "Fechada."
+
+#. The small-debris call, built from the catalog noun with "the" dropped.
+msgid "Tire debris ahead."
+msgstr "Pedaços de pneu à frente."
+
+msgid "Debris ahead."
+msgstr "Destroços à frente."
+
+#~ msgid ""
+#~ "Something in your path needs a real reaction now: brake below twenty five "
+#~ "miles per hour quickly, or move to a clear lane if the warning says the "
+#~ "object is in your lane."
+#~ msgstr ""
+#~ "Algo no seu caminho exige uma reação de verdade agora: freie para menos de "
+#~ "vinte e cinco milhas por hora rápido, ou vá para uma faixa livre se o aviso "
+#~ "disser que o objeto está na sua faixa."
+
+#~ msgid ""
+#~ "Change lanes or brake means a fixed object in your lane: take the open lane "
+#~ "it names, or brake nearly to a stop and ease around."
+#~ msgstr ""
+#~ "Mude de faixa ou freie indica um objeto fixo na sua faixa: pegue a faixa "
+#~ "livre indicada, ou freie quase até parar e contorne com cuidado."
+
+#~ msgid "It is still in your lane."
+#~ msgstr "Ainda está na sua faixa."
+
+#~ msgid ""
+#~ "It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
+#~ msgstr ""
+#~ "Ainda está na sua faixa. Quase pare, ou mude de faixa. {open_side_spoken}"
+
+#~ msgid "Nearly stop, or change lanes."
+#~ msgstr "Quase pare, ou mude de faixa."
+
+#~ msgid "It is still in your lane. Nearly stop."
+#~ msgstr "Ainda está na sua faixa. Quase pare."
+
+#~ msgid ""
+#~ "When you hear Brake now, slow down right away. Change lanes or brake means "
+#~ "something is stopped in your lane: move to the open lane it names, or brake "
+#~ "almost to a stop."
+#~ msgstr ""
+#~ "Quando ouvir Freie agora, reduza na hora. Mude de faixa ou freie significa "
+#~ "que há algo parado na sua faixa: passe para a faixa livre indicada, ou "
+#~ "freie quase até parar."
+
+#~ msgid ""
+#~ "No lane open means brake. Full lane keeping can pass slow vehicles, but "
+#~ "leaves debris avoidance to you and avoids starting a pass near an exit."
+#~ msgstr ""
+#~ "Nenhuma faixa livre quer dizer frear. A manutenção de faixa completa pode "
+#~ "ultrapassar veículos lentos, mas deixa com você desviar de destroços e "
+#~ "evita começar uma ultrapassagem perto de uma saída."
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "

@@ -50,7 +50,7 @@ use ff_core::sim::lane::LaneKeeping;
 use ff_core::sim::lane_guidance::LaneGuidance;
 use ff_core::sim::pedal_latch::PedalLatch;
 use ff_core::sim::trip::Trip;
-use ff_core::sim::trip_models::{ExitRampLayout, RoadStop};
+use ff_core::sim::trip_models::{DebrisClass, ExitRampLayout, RoadStop};
 use ff_core::sim::turn_guide::TurnGuide;
 
 use crate::states::driving_core::{
@@ -238,7 +238,6 @@ pub struct DrivingState {
     // the resolution line can name everything that just cleared.
     pub hazard_names: Vec<String>,
     pub horn_scare_tried: bool,
-    pub hazard_slow_hint_said: bool,
     pub automatic_braking_announced: bool,
     pub automatic_braking_escalated: bool,
     // The service application the hazard assist is holding (0.0 = off the
@@ -955,6 +954,12 @@ pub struct DrivingState {
     pub hazard_arm_mi: f64,
     // See HazardShape::brake_to_mph.
     pub hazard_brake_to_mph: Option<f64>,
+    // The live hazard group is debris the truck takes rather than stops
+    // for, and what a strike costs at 65: small debris is driven over with
+    // no braking, big debris is taken at 30 or struck above it. None is a
+    // hard object, or a group with one in it. See `HazardDef::debris`.
+    pub hazard_debris: Option<DebrisClass>,
+    pub hazard_strike_pct: f64,
     // The speed of the VEHICLE this hazard is about, when it is a vehicle.
     // None for debris, animals and anything else that is not going
     // anywhere. See hazard_target_mph.

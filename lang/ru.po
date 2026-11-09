@@ -14083,11 +14083,11 @@ msgstr "пыльная буря снижает видимость"
 msgid "the dust storm"
 msgstr "пыльная буря"
 
-msgid "the tumbleweeds"
-msgstr "перекати-поле"
-
 msgid "tumbleweeds piling in your lane"
 msgstr "перекати-поле скапливается на вашей полосе"
+
+msgid "the tumbleweeds"
+msgstr "перекати-поле"
 
 msgid "rockfall debris on the road"
 msgstr "камнепад на дороге"
@@ -14129,6 +14129,10 @@ msgstr "прямо впереди"
 #. placeholders: {gap_text}
 msgid "{gap_text} ahead"
 msgstr "{gap_text} впереди"
+
+#. placeholders: {name}, {join}
+msgid "no hazard called {name}; the names are {join}"
+msgstr ""
 
 msgid "Brake now!"
 msgstr "Тормозите!"
@@ -15032,13 +15036,16 @@ msgid "Hazard warning"
 msgstr "Предупреждение об опасности"
 
 msgid ""
-"Something in your path needs a real reaction now: brake below twenty five "
-"miles per hour quickly, or move to a clear lane if the warning says the "
-"object is in your lane."
+"Something in your path needs a real reaction now: move to the lane the call "
+"names, or brake. Debris with no lane open is taken at 30; rockfall or a "
+"stopped car needs a stop. Tire debris gets the road cue tone instead, "
+"because nothing brakes for it."
 msgstr ""
-"Что-то на вашем пути требует настоящей реакции прямо сейчас: быстро "
-"сбросьте скорость ниже двадцати пяти миль в час или уйдите на свободную "
-"полосу, если предупреждение говорит, что предмет на вашей полосе."
+"Что-то на вашем пути требует настоящей реакции прямо сейчас: перестройтесь "
+"в полосу, которую называет предупреждение, или тормозите. Мусор без "
+"свободной полосы проходят на 30; камнепад или стоящая машина требуют "
+"остановки. Куски шины вместо этого получают тон дорожной подсказки, потому "
+"что ради них никто не тормозит."
 
 msgid "Hazard clear"
 msgstr "Опасность позади"
@@ -15520,6 +15527,10 @@ msgstr "Тормозите!"
 msgid "Brake! {body} {answer}"
 msgstr "Тормозите! {body} {answer}"
 
+#. placeholders: {thing}
+msgid "{thing} ahead."
+msgstr "Впереди {thing}."
+
 #. placeholders: {body}, {side}
 msgid "{body} Passing on the {side}."
 msgstr "{body} Объезжаем {side}."
@@ -15790,6 +15801,21 @@ msgid ""
 msgstr ""
 "Клавиши оператора выключены: окно свёрнуто, и клавиатура отсекается на "
 "входе."
+
+msgid "not at the wheel: no screen is up"
+msgstr ""
+
+msgid "not at the wheel (a menu or stop screen is up)"
+msgstr ""
+
+msgid "on a ramp or a facility road, where hazards pass you by"
+msgstr ""
+
+#. placeholders: {staged}, {position_mi}
+msgid ""
+"Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
+"so listen for the call."
+msgstr ""
 
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
@@ -22669,12 +22695,14 @@ msgid "Exits leave from the right lane."
 msgstr "Съезды отходят от правой полосы."
 
 msgid ""
-"Change lanes or brake means a fixed object in your lane: take the open lane "
-"it names, or brake nearly to a stop and ease around."
+"Change lanes or brake means something in your lane: take the open lane it "
+"names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+"Tire debris is driven over; nothing brakes for it."
 msgstr ""
-"Смените полосу или тормозите означает неподвижное препятствие в вашей "
-"полосе: займите названную свободную полосу или затормозите почти до "
-"остановки и осторожно объезжайте."
+"«Перестройтесь или тормозите» означает что-то в вашей полосе: займите "
+"названную свободную полосу или сбросьте до 30 и проезжайте. Камнепад или "
+"стоящая машина требуют остановки. Куски шины проезжают сверху; ради них "
+"никто не тормозит."
 
 #. placeholders: {rest}
 msgid ""
@@ -33362,11 +33390,20 @@ msgstr "Гудок сработал, {hazard_names_text} освобождает 
 #. placeholders: {struck}
 #. one sentence of a longer line
 msgid "Collision with {struck}."
-msgstr ""
+msgstr "Столкновение с {struck}."
 
 #. placeholders: {struck}, {damage}
 msgid "Collision with {struck}. Damage {damage} percent."
-msgstr ""
+msgstr "Столкновение с {struck}. Повреждения {damage} процентов."
+
+#. placeholders: {names}
+#. one sentence of a longer line
+msgid "Collision with {names}."
+msgstr "Столкновение с {names}."
+
+#. placeholders: {names}, {damage}
+msgid "Collision with {names}. Damage {damage} percent."
+msgstr "Столкновение с {names}. Повреждения {damage} процентов."
 
 #. placeholders: {names}, {names2}
 msgid "{names} and {names2}"
@@ -33383,24 +33420,6 @@ msgstr "Свободно."
 msgid "Clear of {names}."
 msgstr "Позади: {names}."
 
-#. one sentence of a longer line
-msgid "It is still in your lane."
-msgstr "Оно всё ещё в вашей полосе."
-
-#. placeholders: {open_side_spoken}
-msgid ""
-"It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
-msgstr ""
-"Оно всё ещё в вашей полосе. Почти остановитесь или смените полосу. "
-"{open_side_spoken}"
-
-#. one sentence of a longer line
-msgid "Nearly stop, or change lanes."
-msgstr "Почти остановитесь или смените полосу."
-
-msgid "It is still in your lane. Nearly stop."
-msgstr "Оно всё ещё в вашей полосе. Почти остановитесь."
-
 msgid "Automatic braking."
 msgstr "Автоматическое торможение."
 
@@ -33413,8 +33432,7 @@ msgstr "Столкновение!"
 
 #. placeholders: {damage}
 msgid "Collision! Damage {damage} percent."
-msgstr ""
-"Столкновение! Повреждения {damage} {damage:процент|процента|процентов}."
+msgstr "Столкновение! Повреждения {damage} процентов."
 
 msgid "Slowing for the bend."
 msgstr "Снижаем скорость перед поворотом."
@@ -37889,20 +37907,22 @@ msgstr ""
 
 msgid ""
 "When you hear Brake now, slow down right away. Change lanes or brake means "
-"something is stopped in your lane: move to the open lane it names, or brake "
-"almost to a stop."
+"something is in your lane: move to the open lane it names, or slow to 30 "
+"and take it. Rockfall or a stopped car needs a stop."
 msgstr ""
-"Когда слышите «Тормозите», сразу снижайте скорость. «Смените полосу или "
-"тормозите» значит, что в вашей полосе что-то стоит: перестройтесь в "
-"названную свободную полосу или тормозите почти до остановки."
+"Когда слышите «Тормозите», сразу снижайте скорость. «Перестройтесь или "
+"тормозите» значит, что в вашей полосе что-то есть: перестройтесь в "
+"названную свободную полосу или сбросьте до 30 и проезжайте. Камнепад или "
+"стоящая машина требуют остановки."
 
 msgid ""
-"No lane open means brake. Full lane keeping can pass slow vehicles, but "
-"leaves debris avoidance to you and avoids starting a pass near an exit."
+"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"keeping moves over for debris and slow vehicles when a lane is open, and "
+"avoids starting a pass near an exit."
 msgstr ""
-"Нет свободной полосы, значит тормозите. Полное удержание полосы может "
-"обгонять медленные машины, но объезд обломков оставляет вам и не начинает "
-"обгон возле съезда."
+"Куски шины объявляются и проезжаются сверху; ради них никто не тормозит. "
+"Полное удержание полосы уходит от мусора и медленных машин, когда есть "
+"свободная полоса, и не начинает обгон возле съезда."
 
 msgid ""
 "Leave a coned lane when warned. Driving through barrels causes damage, a "
@@ -42034,6 +42054,62 @@ msgstr "Открыта."
 
 msgid "Closed."
 msgstr "Закрыта."
+
+#. The small-debris call, built from the catalog noun with "the" dropped.
+msgid "Tire debris ahead."
+msgstr "Впереди куски шины."
+
+msgid "Debris ahead."
+msgstr "Впереди мусор."
+
+#~ msgid ""
+#~ "Something in your path needs a real reaction now: brake below twenty five "
+#~ "miles per hour quickly, or move to a clear lane if the warning says the "
+#~ "object is in your lane."
+#~ msgstr ""
+#~ "Что-то на вашем пути требует настоящей реакции прямо сейчас: быстро "
+#~ "сбросьте скорость ниже двадцати пяти миль в час или уйдите на свободную "
+#~ "полосу, если предупреждение говорит, что предмет на вашей полосе."
+
+#~ msgid ""
+#~ "Change lanes or brake means a fixed object in your lane: take the open lane "
+#~ "it names, or brake nearly to a stop and ease around."
+#~ msgstr ""
+#~ "Смените полосу или тормозите означает неподвижное препятствие в вашей "
+#~ "полосе: займите названную свободную полосу или затормозите почти до "
+#~ "остановки и осторожно объезжайте."
+
+#~ msgid "It is still in your lane."
+#~ msgstr "Оно всё ещё в вашей полосе."
+
+#~ msgid ""
+#~ "It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
+#~ msgstr ""
+#~ "Оно всё ещё в вашей полосе. Почти остановитесь или смените полосу. "
+#~ "{open_side_spoken}"
+
+#~ msgid "Nearly stop, or change lanes."
+#~ msgstr "Почти остановитесь или смените полосу."
+
+#~ msgid "It is still in your lane. Nearly stop."
+#~ msgstr "Оно всё ещё в вашей полосе. Почти остановитесь."
+
+#~ msgid ""
+#~ "When you hear Brake now, slow down right away. Change lanes or brake means "
+#~ "something is stopped in your lane: move to the open lane it names, or brake "
+#~ "almost to a stop."
+#~ msgstr ""
+#~ "Когда слышите «Тормозите», сразу снижайте скорость. «Смените полосу или "
+#~ "тормозите» значит, что в вашей полосе что-то стоит: перестройтесь в "
+#~ "названную свободную полосу или тормозите почти до остановки."
+
+#~ msgid ""
+#~ "No lane open means brake. Full lane keeping can pass slow vehicles, but "
+#~ "leaves debris avoidance to you and avoids starting a pass near an exit."
+#~ msgstr ""
+#~ "Нет свободной полосы, значит тормозите. Полное удержание полосы может "
+#~ "обгонять медленные машины, но объезд обломков оставляет вам и не начинает "
+#~ "обгон возле съезда."
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "

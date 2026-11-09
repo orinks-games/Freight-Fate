@@ -14275,11 +14275,11 @@ msgstr "una tempesta di polvere che riduce la visibilità"
 msgid "the dust storm"
 msgstr "la tempesta di polvere"
 
-msgid "the tumbleweeds"
-msgstr "i cespugli rotolanti"
-
 msgid "tumbleweeds piling in your lane"
 msgstr "cespugli rotolanti che si ammucchiano nella tua corsia"
+
+msgid "the tumbleweeds"
+msgstr "i cespugli rotolanti"
 
 msgid "rockfall debris on the road"
 msgstr "detriti di una frana sulla strada"
@@ -14321,6 +14321,10 @@ msgstr "proprio davanti"
 #. placeholders: {gap_text}
 msgid "{gap_text} ahead"
 msgstr "{gap_text} più avanti"
+
+#. placeholders: {name}, {join}
+msgid "no hazard called {name}; the names are {join}"
+msgstr ""
 
 msgid "Brake now!"
 msgstr "Frena subito!"
@@ -15239,13 +15243,16 @@ msgid "Hazard warning"
 msgstr "Avviso di pericolo"
 
 msgid ""
-"Something in your path needs a real reaction now: brake below twenty five "
-"miles per hour quickly, or move to a clear lane if the warning says the "
-"object is in your lane."
+"Something in your path needs a real reaction now: move to the lane the call "
+"names, or brake. Debris with no lane open is taken at 30; rockfall or a "
+"stopped car needs a stop. Tire debris gets the road cue tone instead, "
+"because nothing brakes for it."
 msgstr ""
-"Qualcosa sul tuo percorso richiede subito una vera reazione: frena sotto le "
-"venticinque miglia orarie in fretta, o spostati in una corsia libera se "
-"l'avviso dice che l'oggetto è nella tua corsia."
+"Qualcosa sul tuo percorso richiede subito una vera reazione: spostati nella "
+"corsia indicata dall'avviso, o frena. I detriti senza corsia libera si "
+"passano a 30; una frana o un'auto ferma richiedono di fermarsi. I pezzi di "
+"pneumatico hanno invece il tono delle segnalazioni stradali, perché nulla "
+"frena per loro."
 
 msgid "Hazard clear"
 msgstr "Pericolo superato"
@@ -15732,6 +15739,10 @@ msgstr "Frena!"
 msgid "Brake! {body} {answer}"
 msgstr "Frena! {body} {answer}"
 
+#. placeholders: {thing}
+msgid "{thing} ahead."
+msgstr "{thing} davanti."
+
 #. placeholders: {body}, {side}
 msgid "{body} Passing on the {side}."
 msgstr "{body} Sorpasso a {side}."
@@ -15995,6 +16006,21 @@ msgid ""
 msgstr ""
 "Tasti dell'operatore disattivati: la finestra è ridotta a icona e la "
 "tastiera viene fermata alla porta."
+
+msgid "not at the wheel: no screen is up"
+msgstr ""
+
+msgid "not at the wheel (a menu or stop screen is up)"
+msgstr ""
+
+msgid "on a ramp or a facility road, where hazards pass you by"
+msgstr ""
+
+#. placeholders: {staged}, {position_mi}
+msgid ""
+"Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
+"so listen for the call."
+msgstr ""
 
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
@@ -22765,11 +22791,14 @@ msgid "Exits leave from the right lane."
 msgstr "Le uscite partono dalla corsia di destra."
 
 msgid ""
-"Change lanes or brake means a fixed object in your lane: take the open lane "
-"it names, or brake nearly to a stop and ease around."
+"Change lanes or brake means something in your lane: take the open lane it "
+"names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+"Tire debris is driven over; nothing brakes for it."
 msgstr ""
-"Cambia corsia o frena indica un ostacolo fisso nella tua corsia: prendi la "
-"corsia libera indicata, o frena quasi fino a fermarti e aggiralo con calma."
+"Cambia corsia o frena indica qualcosa nella tua corsia: prendi la corsia "
+"libera indicata, o scendi a 30 e passaci sopra. Una frana o un'auto ferma "
+"richiedono di fermarsi. I pezzi di pneumatico si passano sopra; nulla frena "
+"per loro."
 
 #. placeholders: {rest}
 msgid ""
@@ -33265,11 +33294,20 @@ msgstr "Basta il clacson, {hazard_names_text} libera la strada."
 #. placeholders: {struck}
 #. one sentence of a longer line
 msgid "Collision with {struck}."
-msgstr ""
+msgstr "Collisione con {struck}."
 
 #. placeholders: {struck}, {damage}
 msgid "Collision with {struck}. Damage {damage} percent."
-msgstr ""
+msgstr "Collisione con {struck}. Danni al {damage} percento."
+
+#. placeholders: {names}
+#. one sentence of a longer line
+msgid "Collision with {names}."
+msgstr "Collisione con {names}."
+
+#. placeholders: {names}, {damage}
+msgid "Collision with {names}. Damage {damage} percent."
+msgstr "Collisione con {names}. Danni al {damage} percento."
 
 #. placeholders: {names}, {names2}
 msgid "{names} and {names2}"
@@ -33285,24 +33323,6 @@ msgstr "Libero."
 #. placeholders: {names}
 msgid "Clear of {names}."
 msgstr "Superato {names}."
-
-#. one sentence of a longer line
-msgid "It is still in your lane."
-msgstr "È ancora nella tua corsia."
-
-#. placeholders: {open_side_spoken}
-msgid ""
-"It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
-msgstr ""
-"È ancora nella tua corsia. Fermati quasi del tutto, o cambia corsia. "
-"{open_side_spoken}"
-
-#. one sentence of a longer line
-msgid "Nearly stop, or change lanes."
-msgstr "Fermati quasi del tutto, o cambia corsia."
-
-msgid "It is still in your lane. Nearly stop."
-msgstr "È ancora nella tua corsia. Fermati quasi del tutto."
 
 msgid "Automatic braking."
 msgstr "Frenata automatica."
@@ -37796,20 +37816,23 @@ msgstr ""
 
 msgid ""
 "When you hear Brake now, slow down right away. Change lanes or brake means "
-"something is stopped in your lane: move to the open lane it names, or brake "
-"almost to a stop."
+"something is in your lane: move to the open lane it names, or slow to 30 "
+"and take it. Rockfall or a stopped car needs a stop."
 msgstr ""
-"Quando senti Frena ora, rallenta subito. Cambia corsia o frena significa "
-"che c'è qualcosa fermo nella tua corsia: spostati nella corsia libera "
-"indicata, o frena quasi fino a fermarti."
+"Quando senti Frena subito, rallenta immediatamente. Cambia corsia o frena "
+"significa che c'è qualcosa nella tua corsia: spostati nella corsia libera "
+"indicata, o scendi a 30 e passaci sopra. Una frana o un'auto ferma "
+"richiedono di fermarsi."
 
 msgid ""
-"No lane open means brake. Full lane keeping can pass slow vehicles, but "
-"leaves debris avoidance to you and avoids starting a pass near an exit."
+"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"keeping moves over for debris and slow vehicles when a lane is open, and "
+"avoids starting a pass near an exit."
 msgstr ""
-"Nessuna corsia libera vuol dire frenare. Il mantenimento di corsia completo "
-"può sorpassare i veicoli lenti, ma lascia a te evitare i detriti ed evita "
-"di iniziare un sorpasso vicino a un'uscita."
+"I pezzi di pneumatico vengono annunciati e passati sopra; nulla frena per "
+"loro. Il mantenimento di corsia completo si sposta per detriti e veicoli "
+"lenti quando c'è una corsia libera, ed evita di iniziare un sorpasso vicino "
+"a un'uscita."
 
 msgid ""
 "Leave a coned lane when warned. Driving through barrels causes damage, a "
@@ -41971,6 +41994,61 @@ msgstr "Aperta."
 
 msgid "Closed."
 msgstr "Chiusa."
+
+#. The small-debris call, built from the catalog noun with "the" dropped.
+msgid "Tire debris ahead."
+msgstr "Pezzi di pneumatico davanti."
+
+msgid "Debris ahead."
+msgstr "Detriti davanti."
+
+#~ msgid ""
+#~ "Something in your path needs a real reaction now: brake below twenty five "
+#~ "miles per hour quickly, or move to a clear lane if the warning says the "
+#~ "object is in your lane."
+#~ msgstr ""
+#~ "Qualcosa sul tuo percorso richiede subito una vera reazione: frena sotto le "
+#~ "venticinque miglia orarie in fretta, o spostati in una corsia libera se "
+#~ "l'avviso dice che l'oggetto è nella tua corsia."
+
+#~ msgid ""
+#~ "Change lanes or brake means a fixed object in your lane: take the open lane "
+#~ "it names, or brake nearly to a stop and ease around."
+#~ msgstr ""
+#~ "Cambia corsia o frena indica un ostacolo fisso nella tua corsia: prendi la "
+#~ "corsia libera indicata, o frena quasi fino a fermarti e aggiralo con calma."
+
+#~ msgid "It is still in your lane."
+#~ msgstr "È ancora nella tua corsia."
+
+#~ msgid ""
+#~ "It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
+#~ msgstr ""
+#~ "È ancora nella tua corsia. Fermati quasi del tutto, o cambia corsia. "
+#~ "{open_side_spoken}"
+
+#~ msgid "Nearly stop, or change lanes."
+#~ msgstr "Fermati quasi del tutto, o cambia corsia."
+
+#~ msgid "It is still in your lane. Nearly stop."
+#~ msgstr "È ancora nella tua corsia. Fermati quasi del tutto."
+
+#~ msgid ""
+#~ "When you hear Brake now, slow down right away. Change lanes or brake means "
+#~ "something is stopped in your lane: move to the open lane it names, or brake "
+#~ "almost to a stop."
+#~ msgstr ""
+#~ "Quando senti Frena ora, rallenta subito. Cambia corsia o frena significa "
+#~ "che c'è qualcosa fermo nella tua corsia: spostati nella corsia libera "
+#~ "indicata, o frena quasi fino a fermarti."
+
+#~ msgid ""
+#~ "No lane open means brake. Full lane keeping can pass slow vehicles, but "
+#~ "leaves debris avoidance to you and avoids starting a pass near an exit."
+#~ msgstr ""
+#~ "Nessuna corsia libera vuol dire frenare. Il mantenimento di corsia completo "
+#~ "può sorpassare i veicoli lenti, ma lascia a te evitare i detriti ed evita "
+#~ "di iniziare un sorpasso vicino a un'uscita."
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "

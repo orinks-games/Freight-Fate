@@ -14258,11 +14258,11 @@ msgstr "una tormenta de polvo que reduce la visibilidad"
 msgid "the dust storm"
 msgstr "la tormenta de polvo"
 
-msgid "the tumbleweeds"
-msgstr "las plantas rodadoras"
-
 msgid "tumbleweeds piling in your lane"
 msgstr "plantas rodadoras amontonándose en tu carril"
+
+msgid "the tumbleweeds"
+msgstr "las plantas rodadoras"
 
 msgid "rockfall debris on the road"
 msgstr "rocas desprendidas en la carretera"
@@ -14304,6 +14304,10 @@ msgstr "justo delante"
 #. placeholders: {gap_text}
 msgid "{gap_text} ahead"
 msgstr "{gap_text} por delante"
+
+#. placeholders: {name}, {join}
+msgid "no hazard called {name}; the names are {join}"
+msgstr ""
 
 msgid "Brake now!"
 msgstr "¡Frena ya!"
@@ -15228,13 +15232,15 @@ msgid "Hazard warning"
 msgstr "Aviso de peligro"
 
 msgid ""
-"Something in your path needs a real reaction now: brake below twenty five "
-"miles per hour quickly, or move to a clear lane if the warning says the "
-"object is in your lane."
+"Something in your path needs a real reaction now: move to the lane the call "
+"names, or brake. Debris with no lane open is taken at 30; rockfall or a "
+"stopped car needs a stop. Tire debris gets the road cue tone instead, "
+"because nothing brakes for it."
 msgstr ""
-"Algo en tu camino necesita una reacción real ya: frena rápido por debajo de "
-"veinticinco millas por hora, o cámbiate a un carril libre si el aviso dice "
-"que el objeto está en tu carril."
+"Algo en tu camino necesita una reacción real ya: pásate al carril que "
+"nombra el aviso, o frena. Los escombros sin carril libre se pasan a 30; un "
+"desprendimiento o un coche parado exigen detenerse. Los restos de neumático "
+"llevan en cambio el tono de aviso de carretera, porque nada frena por ellos."
 
 msgid "Hazard clear"
 msgstr "Peligro superado"
@@ -15718,6 +15724,10 @@ msgstr "¡Frena!"
 msgid "Brake! {body} {answer}"
 msgstr "¡Frena! {body} {answer}"
 
+#. placeholders: {thing}
+msgid "{thing} ahead."
+msgstr "{thing} adelante."
+
 #. placeholders: {body}, {side}
 msgid "{body} Passing on the {side}."
 msgstr "{body} Adelantando por la {side}."
@@ -15982,6 +15992,21 @@ msgid ""
 msgstr ""
 "Las teclas del operador están desactivadas: la ventana está minimizada y el "
 "teclado se descarta en la puerta."
+
+msgid "not at the wheel: no screen is up"
+msgstr ""
+
+msgid "not at the wheel (a menu or stop screen is up)"
+msgstr ""
+
+msgid "on a ramp or a facility road, where hazards pass you by"
+msgstr ""
+
+#. placeholders: {staged}, {position_mi}
+msgid ""
+"Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
+"so listen for the call."
+msgstr ""
 
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
@@ -22714,11 +22739,14 @@ msgid "Exits leave from the right lane."
 msgstr "Las salidas parten del carril derecho."
 
 msgid ""
-"Change lanes or brake means a fixed object in your lane: take the open lane "
-"it names, or brake nearly to a stop and ease around."
+"Change lanes or brake means something in your lane: take the open lane it "
+"names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+"Tire debris is driven over; nothing brakes for it."
 msgstr ""
-"Cambia de carril o frena indica un objeto fijo en tu carril: toma el carril "
-"libre que se nombra, o frena casi hasta parar y rodéalo con cuidado."
+"Cambia de carril o frena indica algo en tu carril: toma el carril libre que "
+"se nombra, o baja a 30 y pásalo. Un desprendimiento o un coche parado "
+"exigen detenerse. Los restos de neumático se pasan por encima; nada frena "
+"por ellos."
 
 #. placeholders: {rest}
 msgid ""
@@ -33230,11 +33258,20 @@ msgstr "La bocina funciona: {hazard_names_text} despeja la carretera."
 #. placeholders: {struck}
 #. one sentence of a longer line
 msgid "Collision with {struck}."
-msgstr ""
+msgstr "Choque con {struck}."
 
 #. placeholders: {struck}, {damage}
 msgid "Collision with {struck}. Damage {damage} percent."
-msgstr ""
+msgstr "Choque con {struck}. Daños del {damage} por ciento."
+
+#. placeholders: {names}
+#. one sentence of a longer line
+msgid "Collision with {names}."
+msgstr "Choque con {names}."
+
+#. placeholders: {names}, {damage}
+msgid "Collision with {names}. Damage {damage} percent."
+msgstr "Choque con {names}. Daños del {damage} por ciento."
 
 #. placeholders: {names}, {names2}
 msgid "{names} and {names2}"
@@ -33250,23 +33287,6 @@ msgstr "Despejado."
 #. placeholders: {names}
 msgid "Clear of {names}."
 msgstr "Libre de {names}."
-
-#. one sentence of a longer line
-msgid "It is still in your lane."
-msgstr "Sigue en tu carril."
-
-#. placeholders: {open_side_spoken}
-msgid ""
-"It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
-msgstr ""
-"Sigue en tu carril. Casi para, o cambia de carril. {open_side_spoken}"
-
-#. one sentence of a longer line
-msgid "Nearly stop, or change lanes."
-msgstr "Casi para, o cambia de carril."
-
-msgid "It is still in your lane. Nearly stop."
-msgstr "Sigue en tu carril. Casi para."
 
 msgid "Automatic braking."
 msgstr "Frenado automático."
@@ -37787,20 +37807,23 @@ msgstr ""
 
 msgid ""
 "When you hear Brake now, slow down right away. Change lanes or brake means "
-"something is stopped in your lane: move to the open lane it names, or brake "
-"almost to a stop."
+"something is in your lane: move to the open lane it names, or slow to 30 "
+"and take it. Rockfall or a stopped car needs a stop."
 msgstr ""
 "Cuando oigas Frena ya, reduce la velocidad de inmediato. Cambia de carril o "
-"frena significa que hay algo parado en tu carril: pásate al carril libre "
-"que te dice, o frena casi hasta parar."
+"frena significa que hay algo en tu carril: pásate al carril libre que te "
+"dice, o baja a 30 y pásalo. Un desprendimiento o un coche parado exigen "
+"detenerse."
 
 msgid ""
-"No lane open means brake. Full lane keeping can pass slow vehicles, but "
-"leaves debris avoidance to you and avoids starting a pass near an exit."
+"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"keeping moves over for debris and slow vehicles when a lane is open, and "
+"avoids starting a pass near an exit."
 msgstr ""
-"Ningún carril libre significa frenar. El mantenimiento de carril completo "
-"puede adelantar vehículos lentos, pero te deja a ti esquivar los escombros "
-"y evita empezar un adelantamiento cerca de una salida."
+"Los restos de neumático se anuncian y se pasan por encima; nada frena por "
+"ellos. El mantenimiento de carril completo se aparta de escombros y "
+"vehículos lentos cuando hay un carril libre, y evita empezar un "
+"adelantamiento cerca de una salida."
 
 msgid ""
 "Leave a coned lane when warned. Driving through barrels causes damage, a "
@@ -41954,6 +41977,60 @@ msgstr "Abierta."
 
 msgid "Closed."
 msgstr "Cerrada."
+
+#. The small-debris call, built from the catalog noun with "the" dropped.
+msgid "Tire debris ahead."
+msgstr "Restos de neumático adelante."
+
+msgid "Debris ahead."
+msgstr "Escombros adelante."
+
+#~ msgid ""
+#~ "Something in your path needs a real reaction now: brake below twenty five "
+#~ "miles per hour quickly, or move to a clear lane if the warning says the "
+#~ "object is in your lane."
+#~ msgstr ""
+#~ "Algo en tu camino necesita una reacción real ya: frena rápido por debajo de "
+#~ "veinticinco millas por hora, o cámbiate a un carril libre si el aviso dice "
+#~ "que el objeto está en tu carril."
+
+#~ msgid ""
+#~ "Change lanes or brake means a fixed object in your lane: take the open lane "
+#~ "it names, or brake nearly to a stop and ease around."
+#~ msgstr ""
+#~ "Cambia de carril o frena indica un objeto fijo en tu carril: toma el carril "
+#~ "libre que se nombra, o frena casi hasta parar y rodéalo con cuidado."
+
+#~ msgid "It is still in your lane."
+#~ msgstr "Sigue en tu carril."
+
+#~ msgid ""
+#~ "It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
+#~ msgstr ""
+#~ "Sigue en tu carril. Casi para, o cambia de carril. {open_side_spoken}"
+
+#~ msgid "Nearly stop, or change lanes."
+#~ msgstr "Casi para, o cambia de carril."
+
+#~ msgid "It is still in your lane. Nearly stop."
+#~ msgstr "Sigue en tu carril. Casi para."
+
+#~ msgid ""
+#~ "When you hear Brake now, slow down right away. Change lanes or brake means "
+#~ "something is stopped in your lane: move to the open lane it names, or brake "
+#~ "almost to a stop."
+#~ msgstr ""
+#~ "Cuando oigas Frena ya, reduce la velocidad de inmediato. Cambia de carril o "
+#~ "frena significa que hay algo parado en tu carril: pásate al carril libre "
+#~ "que te dice, o frena casi hasta parar."
+
+#~ msgid ""
+#~ "No lane open means brake. Full lane keeping can pass slow vehicles, but "
+#~ "leaves debris avoidance to you and avoids starting a pass near an exit."
+#~ msgstr ""
+#~ "Ningún carril libre significa frenar. El mantenimiento de carril completo "
+#~ "puede adelantar vehículos lentos, pero te deja a ti esquivar los escombros "
+#~ "y evita empezar un adelantamiento cerca de una salida."
 
 #~ msgid ""
 #~ "{place_state} the state, {place_road} the road, {place_town} the town or "

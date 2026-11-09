@@ -347,24 +347,27 @@ pub(crate) fn drawn_hazard(lanes_your_side: i64, wanted: &str) -> TripEvent {
 #[test]
 fn a_fixed_obstacle_is_dodgeable_where_a_lane_is_open_and_the_call_says_so() {
     // Owner, 2026-08-24: "we should be able to swerve around some fixed
-    // obstacles." Debris beside an open lane is exactly what a driver goes
-    // around rather than stopping dead for, and the rule that decides it is
-    // the same one the vehicle case uses -- is there somewhere to go.
-    let open = drawn_hazard(3, "Debris on the road");
+    // obstacles." A ladder beside an open lane is exactly what a driver goes
+    // around rather than braking for, and the rule that decides it is the
+    // same one the vehicle case uses -- is there somewhere to go.
+    let open = drawn_hazard(3, "A ladder fallen from a truck in the lane");
     assert_eq!(
         open.text(),
-        "Change lanes or brake! Debris on the road. Middle lane open."
+        "Change lanes or brake! A ladder fallen from a truck in the lane. Middle lane open."
     );
     assert_eq!(open.data.dodgeable, Some(true));
     assert_eq!(open.data.in_lane, Some(true));
 
-    // And on a road with one lane it is the near stop, said plainly, with no
+    // And on a road with one lane it is braked for, said plainly, with no
     // lane change offered.
-    let shut = drawn_hazard(1, "Debris on the road");
-    assert_eq!(shut.text(), "Brake! Debris on the road. No lane open.");
+    let shut = drawn_hazard(1, "A ladder fallen from a truck in the lane");
+    assert_eq!(
+        shut.text(),
+        "Brake! A ladder fallen from a truck in the lane. No lane open."
+    );
     assert!(!shut.text().contains("Change lanes"));
     assert_eq!(shut.data.dodgeable, Some(false));
-    // Still in the lane, which is what keeps the near stop.
+    // Still in the lane, which is what keeps the brake-to speed.
     assert_eq!(shut.data.in_lane, Some(true));
 }
 

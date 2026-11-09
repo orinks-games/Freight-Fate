@@ -15870,11 +15870,11 @@ msgid "the dust storm"
 msgstr ""
 
 #: crates/ff-core/src/sim/trip_models/hazards.rs
-msgid "the tumbleweeds"
+msgid "tumbleweeds piling in your lane"
 msgstr ""
 
 #: crates/ff-core/src/sim/trip_models/hazards.rs
-msgid "tumbleweeds piling in your lane"
+msgid "the tumbleweeds"
 msgstr ""
 
 #: crates/ff-core/src/sim/trip_models/hazards.rs
@@ -15928,6 +15928,11 @@ msgstr ""
 #. placeholders: {gap_text}
 #: crates/ff-core/src/sim/trip_road_events.rs
 msgid "{gap_text} ahead"
+msgstr ""
+
+#. placeholders: {name}, {join}
+#: crates/ff-core/src/sim/trip_road_events.rs
+msgid "no hazard called {name}; the names are {join}"
 msgstr ""
 
 #: crates/ff-core/src/sim/trip_road_events.rs crates/ff-core/src/speech_text.rs
@@ -16908,9 +16913,10 @@ msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
 msgid ""
-"Something in your path needs a real reaction now: brake below twenty five "
-"miles per hour quickly, or move to a clear lane if the warning says the "
-"object is in your lane."
+"Something in your path needs a real reaction now: move to the lane the call "
+"names, or brake. Debris with no lane open is taken at 30; rockfall or a "
+"stopped car needs a stop. Tire debris gets the road cue tone instead, "
+"because nothing brakes for it."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
@@ -17398,6 +17404,11 @@ msgstr ""
 msgid "Brake! {body} {answer}"
 msgstr ""
 
+#. placeholders: {thing}
+#: crates/ff-core/src/speech_text.rs
+msgid "{thing} ahead."
+msgstr ""
+
 #. placeholders: {body}, {side}
 #: crates/ff-core/src/speech_text.rs
 msgid "{body} Passing on the {side}."
@@ -17698,6 +17709,25 @@ msgstr ""
 msgid ""
 "Operator keys are off: the window is minimized and the keyboard is dropped "
 "at the door."
+msgstr ""
+
+#: crates/freight-fate/src/app.rs
+msgid "not at the wheel: no screen is up"
+msgstr ""
+
+#: crates/freight-fate/src/app.rs
+msgid "not at the wheel (a menu or stop screen is up)"
+msgstr ""
+
+#: crates/freight-fate/src/app.rs
+msgid "on a ramp or a facility road, where hazards pass you by"
+msgstr ""
+
+#. placeholders: {staged}, {position_mi}
+#: crates/freight-fate/src/app.rs
+msgid ""
+"Staged {staged} at mile {position_mi}; it fires on the next rolling frame, "
+"so listen for the call."
 msgstr ""
 
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
@@ -25151,8 +25181,9 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/help.rs
 msgid ""
-"Change lanes or brake means a fixed object in your lane: take the open lane "
-"it names, or brake nearly to a stop and ease around."
+"Change lanes or brake means something in your lane: take the open lane it "
+"names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+"Tire debris is driven over; nothing brakes for it."
 msgstr ""
 
 #. placeholders: {rest}
@@ -36902,6 +36933,17 @@ msgstr ""
 msgid "Collision with {struck}. Damage {damage} percent."
 msgstr ""
 
+#. placeholders: {names}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/hazards.rs
+msgid "Collision with {names}."
+msgstr ""
+
+#. placeholders: {names}, {damage}
+#: crates/freight-fate/src/states/driving_updates/hazards.rs
+msgid "Collision with {names}. Damage {damage} percent."
+msgstr ""
+
 #. placeholders: {names}, {names2}
 #: crates/freight-fate/src/states/driving_updates/hazards.rs
 msgid "{names} and {names2}"
@@ -36919,26 +36961,6 @@ msgstr ""
 #. placeholders: {names}
 #: crates/freight-fate/src/states/driving_updates/hazards.rs crates/freight-fate/src/states/driving_updates/lanes.rs
 msgid "Clear of {names}."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_updates/hazards.rs
-msgid "It is still in your lane."
-msgstr ""
-
-#. placeholders: {open_side_spoken}
-#: crates/freight-fate/src/states/driving_updates/hazards.rs
-msgid ""
-"It is still in your lane. Nearly stop, or change lanes. {open_side_spoken}"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_updates/hazards.rs
-msgid "Nearly stop, or change lanes."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_updates/hazards.rs
-msgid "It is still in your lane. Nearly stop."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/hazards.rs
@@ -41483,14 +41505,15 @@ msgstr ""
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
 "When you hear Brake now, slow down right away. Change lanes or brake means "
-"something is stopped in your lane: move to the open lane it names, or brake "
-"almost to a stop."
+"something is in your lane: move to the open lane it names, or slow to 30 "
+"and take it. Rockfall or a stopped car needs a stop."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
-"No lane open means brake. Full lane keeping can pass slow vehicles, but "
-"leaves debris avoidance to you and avoids starting a pass near an exit."
+"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"keeping moves over for debris and slow vehicles when a lane is open, and "
+"avoids starting a pass near an exit."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
@@ -45760,4 +45783,13 @@ msgstr ""
 
 #: lang/extra.pot
 msgid "Closed."
+msgstr ""
+
+#. The small-debris call, built from the catalog noun with "the" dropped.
+#: lang/extra.pot
+msgid "Tire debris ahead."
+msgstr ""
+
+#: lang/extra.pot
+msgid "Debris ahead."
 msgstr ""
