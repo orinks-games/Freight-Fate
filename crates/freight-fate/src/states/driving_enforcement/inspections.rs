@@ -280,11 +280,17 @@ impl DrivingState {
             "Routine roadside inspection, Level 3: license, medical card, logbook and the \
              load's paperwork.{blitz}"
         );
-        let lights = format!(
-            "Lights behind you for a routine inspection. Signal with {} and stop on the \
-             shoulder.",
-            ctx.control_hint("take_exit")
-        );
+        let lights = if self.driving_hints(ctx) {
+            format!(
+                "Lights behind you for a routine inspection. Signal with {} and stop on the \
+                 shoulder.",
+                ctx.control_hint("take_exit")
+            )
+        } else {
+            "Lights behind you for a routine inspection. Signal and stop on the \
+             shoulder."
+                .to_string()
+        };
         self.begin_enforcement_pull_over(
             ctx,
             "roadside_inspection",

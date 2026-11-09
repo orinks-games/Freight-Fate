@@ -184,13 +184,13 @@ impl DrivingState {
         let engine = ctx.control_hint("engine");
         let mut opts = SayEvent::queued().priority(EventPriority::Important);
         opts.category = Some(SpeechCategory::Safety);
-        ctx.say_event_with(
-            format!(
-                "Out of fuel. Roadside rescue brought thirty gallons {billing}. Press {engine} \
-                 to restart the engine."
-            ),
-            opts,
+        let message = format!(
+            "Out of fuel. Roadside rescue brought thirty gallons {billing}. Press {engine} to \
+             restart the engine."
         );
+        let restart = format!("Press {engine} to restart the engine.");
+        let message = self.without_key_hint(ctx, message, &restart);
+        ctx.say_event_with(message, opts);
     }
 
     /// `_arrive()`: the pickup or delivery arrival screen.
@@ -245,6 +245,8 @@ impl DrivingState {
             // on them again -- and when it is not, that it is not.
             if automated {
                 "Destination exit ahead again.".to_string()
+            } else if !self.driving_hints(ctx) {
+                "Destination exit ahead again. Signal for it.".to_string()
             } else {
                 format!(
                     "Destination exit ahead again. Press {} to signal.",
@@ -259,6 +261,8 @@ impl DrivingState {
             // to hit X when the truck took the exit" is describing. Never
             // name a control the driver's own settings have taken off them.
             "You turned around, and the destination exit is ahead again.".to_string()
+        } else if !self.driving_hints(ctx) {
+            "You turned around, and the destination exit is ahead again. Signal for it.".to_string()
         } else {
             format!(
                 "You turned around, and the destination exit is ahead again. Press {} to signal \
@@ -338,13 +342,15 @@ impl DrivingState {
             self.refresh_live_facts();
             let mut opts = SayEvent::new().valid(|| !live::arrival_menu_open());
             opts.category = Some(SpeechCategory::Navigation);
-            ctx.say_event_with(
+            let message = if self.driving_hints(ctx) {
                 format!(
                     "Holding at the entrance. Press {} to continue.",
                     ctx.control_hint("confirm")
-                ),
-                opts,
-            );
+                )
+            } else {
+                "Holding at the entrance.".to_string()
+            };
+            ctx.say_event_with(message, opts);
         }
         true
     }

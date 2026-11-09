@@ -13,6 +13,7 @@
 - **Choose stable, beta, or alpha updates in Settings.** Existing snapshot followers move to beta.
 - **New releases seal career saves against local editing.** Existing careers migrate with a backup; cloud backups retain their verification.
 - **Alt+5 names the county you are driving through.** On city streets it names the city's county.
+- **Driving hints can be turned off.** With it off in Settings, Speech, driving lines stop naming keys, like "Press X to signal for the exit."
 
 ### Changed
 
@@ -42,6 +43,7 @@
 
 ### Fixed
 
+- **A street that only changes name ahead is named once, at the join.** "Continue onto" no longer comes twice in a few seconds.
 - **Road lines are no longer lost while other lines speak.** With NVDA 2026.3 or SAPI, the 2-mile and 1-mile exit calls always play, and a line cut off by a readout plays after a Brake warning.
 - **Your planned stop is announced at every driving speech setting, with the key to signal for it.** Pressing X while it is read no longer brings the line back.
 - **The brake warning now names the vehicle ahead.** It said "Slow car" for a semi or a box truck.

@@ -147,6 +147,7 @@ mod states_driving_hazard_dodge;
 mod states_driving_hazard_realism;
 mod states_driving_hazards;
 mod states_driving_help_text;
+mod states_driving_hints;
 mod states_driving_hos;
 mod states_driving_hos_hints;
 mod states_driving_jake_line;

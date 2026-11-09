@@ -21097,6 +21097,9 @@ msgstr "打齿了！先按住{control_hint}踩下离合。"
 msgid "Hold {control_hint} to press the clutch first."
 msgstr "先按住{control_hint}踩下离合。"
 
+msgid "Grinding gears! Clutch in first."
+msgstr ""
+
 #. placeholders: {join_phrase}
 msgid "offers {join_phrase}"
 msgstr "提供{join_phrase}"
@@ -21714,11 +21717,6 @@ msgid ""
 "{cleared} {cleared_verb} now 0 percent.{damage} You have {grouped2} dollars."
 msgstr "{cleared}{cleared_verb:}现在是百分之0。{damage}你有{grouped2}美元。"
 
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Press {control_hint} to restart the engine."
-msgstr "按{control_hint}重新启动发动机。"
-
 #. placeholders: {work}, {grouped}
 #. one sentence of a longer line
 msgid "Road service {work} for {grouped} dollars."
@@ -21791,6 +21789,10 @@ msgid ""
 msgstr ""
 "路边维修花了{grouped}美元让卡车重新上路；损坏降到了百分之{damage_pct}，仍处于动力受限。用了{BREAKDOWN_REPAIR_MI"
 "N}小时，现在是{clock_text}。你有{grouped2}美元。按{control_hint}重新启动发动机。"
+
+#. placeholders: {control_hint}
+msgid "Press {control_hint} to restart the engine."
+msgstr "按{control_hint}重新启动发动机。"
 
 #. placeholders: {spare}
 msgid "You are in the {spare}"
@@ -22453,6 +22455,10 @@ msgstr "后面有警灯，要做例行检查。用{control_hint}打转向灯，�
 msgid "Signal with {control_hint} and stop on the shoulder."
 msgstr "用{control_hint}打转向灯，停到路肩上。"
 
+msgid ""
+"Lights behind you for a routine inspection. Signal and stop on the shoulder."
+msgstr ""
+
 msgid "Roadside inspection"
 msgstr "路检"
 
@@ -22532,6 +22538,16 @@ msgid ""
 msgstr ""
 "后面有警灯和警笛。这段{reason}上的一位州警看到了{detail}，想检查一下卡车。用{control_hint}打转向灯，停到路肩上。"
 
+#. placeholders: {reason}, {detail}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {detail} and "
+"wants a look at the truck. Signal and stop on the shoulder."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Signal and stop on the shoulder."
+msgstr "发出信号并停在路肩上。"
+
 #. placeholders: {reason}, {what}
 #. one sentence of a longer line
 msgid "A trooper on this {reason} saw {what}."
@@ -22542,6 +22558,12 @@ msgid ""
 "Lights and siren behind you. A trooper on this {reason} saw {what}. Signal "
 "with {control_hint} and stop on the shoulder."
 msgstr "后面有警灯和警笛。这段{reason}上的一位州警看到了{what}。用{control_hint}打转向灯，停到路肩上。"
+
+#. placeholders: {reason}, {what}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {what}. Signal "
+"and stop on the shoulder."
+msgstr ""
 
 msgid "observed"
 msgstr "observed"
@@ -22654,18 +22676,20 @@ msgid ""
 "{engine} to restart the engine."
 msgstr "燃油耗尽。路边送油送来了三十加仑，{billing}。按{engine}重新启动发动机。"
 
-#. placeholders: {engine}
-#. one sentence of a longer line
-msgid "Press {engine} to restart the engine."
-msgstr "按{engine}重新启动发动机。"
-
 #. placeholders: {billing}
 #. one sentence of a longer line
 msgid "Roadside rescue brought thirty gallons {billing}."
 msgstr "路边送油送来了三十加仑，{billing}。"
 
+#. placeholders: {engine}
+msgid "Press {engine} to restart the engine."
+msgstr "按{engine}重新启动发动机。"
+
 msgid "Destination exit ahead again."
 msgstr "再次从前面的目的地出口出去。"
+
+msgid "Destination exit ahead again. Signal for it."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
@@ -22678,6 +22702,10 @@ msgstr "按 {control_hint} 发出信号。"
 
 msgid "You turned around, and the destination exit is ahead again."
 msgstr "转身，目的地出口又在前方。"
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Signal for it."
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -22702,10 +22730,6 @@ msgstr "错过了 {facility} 的目的地出口。"
 msgid "Missed the destination exit for {facility}. {reroute_text}"
 msgstr "错过了 {facility} 的目的地出口。{reroute_text}"
 
-#. one sentence of a longer line
-msgid "Holding at the entrance."
-msgstr "守在入口处。"
-
 #. placeholders: {control_hint}
 msgid "Holding at the entrance. Press {control_hint} to continue."
 msgstr "守在入口处。按 {control_hint} 继续。"
@@ -22714,6 +22738,9 @@ msgstr "守在入口处。按 {control_hint} 继续。"
 #. one sentence of a longer line
 msgid "Press {control_hint} to continue."
 msgstr "按 {control_hint} 继续。"
+
+msgid "Holding at the entrance."
+msgstr "守在入口处。"
 
 #. placeholders: {facility}
 msgid "At {facility}. Stop to dock."
@@ -23429,14 +23456,13 @@ msgstr "还没有路线出口可以打转向灯。"
 msgid "Press {control_hint} again to cancel the exit."
 msgstr "再按{control_hint}取消驶出。"
 
-#. placeholders: {stays}
-#. one sentence of a longer line
-msgid "Signal stays {stays}."
-msgstr "转向灯保持{stays}。"
-
 #. placeholders: {stays}, {control_hint}
 msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
 msgstr "转向灯保持{stays}。再按{control_hint}取消驶出。"
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
+msgstr "转向灯保持{stays}。"
 
 msgid "Signal canceled."
 msgstr "转向灯已取消。"
@@ -24040,14 +24066,13 @@ msgstr "警察拦停期间无法规划休息停靠点。"
 msgid "Press {exit_hint} to signal the trooper stop."
 msgstr "按{exit_hint}打转向灯，配合州警拦停。"
 
-#. one sentence of a longer line
-msgid "Resolve the police stop first."
-msgstr "先处理完警察拦停。"
-
 #. placeholders: {exit_hint}
 msgid ""
 "Resolve the police stop first. Press {exit_hint} to signal the trooper stop."
 msgstr "先处理完警察拦停。按{exit_hint}打转向灯，配合州警拦停。"
+
+msgid "Resolve the police stop first."
+msgstr "先处理完警察拦停。"
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -24064,6 +24089,14 @@ msgstr "在去{name}的匝道上。在称重站停车，然后按{rest_hint}报�
 #. one sentence of a longer line
 msgid "Stop at the scale, then press {rest_hint} to check in."
 msgstr "在称重站停车，然后按{rest_hint}报到。"
+
+#. placeholders: {name}
+msgid "On the ramp for {name}. Stop at the scale, then check in."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the scale, then check in."
+msgstr ""
 
 msgid "Emergency shoulder sleep is not available here. Use a route stop."
 msgstr "这里不能紧急路肩睡觉。去路线停靠点。"
@@ -24219,6 +24252,11 @@ msgid ""
 "Lights and siren behind you for a log check. Signal with {control_hint} and "
 "stop on the shoulder."
 msgstr "后面有警灯和警笛，要查工时记录。用{control_hint}打转向灯，停到路肩上。"
+
+msgid ""
+"Lights and siren behind you for a log check. Signal and stop on the "
+"shoulder."
+msgstr ""
 
 msgid "Log check"
 msgstr "工时记录检查"
@@ -24399,6 +24437,9 @@ msgstr "又领先了。"
 msgid " Brake with {control_hint} well before it."
 msgstr " 提前用{control_hint}刹车。"
 
+msgid " Brake well before it."
+msgstr ""
+
 #. placeholders: {place}
 msgid "Drove past {place}. Use the next safe turnaround."
 msgstr "开过了{place}。从下一个安全掉头处绕回来。"
@@ -24461,6 +24502,9 @@ msgstr "你转身，门又在前面。"
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before the gate."
 msgstr " 在大门之前提前用{control_hint}刹车。"
+
+msgid " Brake well before the gate."
+msgstr ""
 
 msgid ""
 " Facility stopping assistance in Settings, Gameplay, Driving assistance, "
@@ -26998,11 +27042,6 @@ msgstr "汽车旅馆房间要{grouped}美元，你只有{grouped2}。"
 msgid "Driving and duty clocks reset."
 msgstr "驾驶和值班时钟重置。"
 
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "{control_hint} starts the engine."
-msgstr "{control_hint}启动发动机。"
-
 #. placeholders: {engine_off}, {grouped}
 #. one sentence of a longer line
 msgid "{engine_off}Motel, {grouped} dollars, 10 hours."
@@ -27020,6 +27059,10 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{grouped2} dollars."
 msgstr "{grouped2} 美元。"
+
+#. placeholders: {control_hint}
+msgid "{control_hint} starts the engine."
+msgstr "{control_hint}启动发动机。"
 
 #. placeholders: {name}
 msgid "The truck parking at {name} is full tonight."
@@ -28192,6 +28235,9 @@ msgid ""
 "Shoulder sleep canceled. Back on the road. Parking brake set, {hint} "
 "releases it."
 msgstr "路肩睡觉已取消。回到路上了。驻车制动已拉上，{hint}松开。"
+
+msgid "Shoulder sleep canceled. Back on the road. Parking brake set."
+msgstr ""
 
 msgid "Ramp curve"
 msgstr "匝道弯"
@@ -29492,10 +29538,6 @@ msgid ""
 "the shoulder."
 msgstr "你身后有灯光和警报器。{speed} 位于 {zone} 区域中。发出信号并停在路肩上。"
 
-#. one sentence of a longer line
-msgid "Signal and stop on the shoulder."
-msgstr "发出信号并停在路肩上。"
-
 #. placeholders: {speed}, {zone}
 #. one sentence of a longer line
 msgid "{speed} in a {zone} zone."
@@ -29562,6 +29604,11 @@ msgid ""
 "{control_hint} and stop on the shoulder."
 msgstr "绕过称重站执法。后面有警灯和警笛。用{control_hint}打转向灯，停到路肩上。"
 
+msgid ""
+"Scale bypass enforcement. Lights and siren behind you. Signal and stop on "
+"the shoulder."
+msgstr ""
+
 msgid "Weigh station bypass stop"
 msgstr "绕过称重站拦停"
 
@@ -29589,6 +29636,11 @@ msgid ""
 "Unsafe equipment stop. Lights and siren behind you. Signal with "
 "{control_hint} and stop on the shoulder."
 msgstr "不安全设备拦停。后面有警灯和警笛。用{control_hint}打转向灯，停到路肩上。"
+
+msgid ""
+"Unsafe equipment stop. Lights and siren behind you. Signal and stop on the "
+"shoulder."
+msgstr ""
 
 msgid "Unsafe equipment stop"
 msgstr "不安全设备拦停"
@@ -29674,9 +29726,18 @@ msgstr ""
 msgid "Transmission changed to {mode}."
 msgstr "变速箱已改为{mode}。"
 
-#. one sentence of a longer line
 msgid "Engine stalled."
 msgstr "发动机熄火了。"
+
+msgid ""
+"Engine stalled. Hold the clutch, restart, and shift down to first before "
+"letting it out."
+msgstr ""
+
+msgid ""
+"Engine stalled. Shift to neutral and restart, then clutch in and pick first "
+"gear."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Engine stalled. Press {control_hint} to restart."
@@ -30155,6 +30216,9 @@ msgid ""
 "Failure-to-stop warning. Signal with {control_hint} and stop on the "
 "shoulder."
 msgstr "拒不停车警告。用{control_hint}打转向灯，停到路肩上。"
+
+msgid "Failure-to-stop warning. Signal and stop on the shoulder."
+msgstr ""
 
 msgid "Failure-to-stop stop"
 msgstr "拒不停车拦停"
@@ -31565,6 +31629,15 @@ msgid ""
 msgstr ""
 "道路对你说多少话。标准会播报每一条确认、状态更新和路况播报，每段路一条驾驶提示。安静会播报简短确认、车道出现和状态更新，但不播报你周围的车流和提示。仅紧"
 "急只保留安全警告和需要操作的指示。被设置排除的语句不出声，也不会出现在消息回顾里。朗读键始终有回应。广告牌、地名和地标在下面有各自的开关。"
+
+#. placeholders: {on_off}
+msgid "Driving hints: {on_off}"
+msgstr ""
+
+msgid ""
+"On, driving lines name the key for the next step, like Press X to signal "
+"for the exit. Off, they leave the key out. Driving school always names it."
+msgstr ""
 
 #. placeholders: {chatter_summary}
 msgid "Roadside chatter: {chatter_summary}"

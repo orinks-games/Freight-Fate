@@ -23109,6 +23109,9 @@ msgstr ""
 msgid "Hold {control_hint} to press the clutch first."
 msgstr "Önce debriyaja basmak için {control_hint} tuşunu basılı tutun."
 
+msgid "Grinding gears! Clutch in first."
+msgstr ""
+
 #. placeholders: {join_phrase}
 msgid "offers {join_phrase}"
 msgstr "sunduğu hizmetler: {join_phrase}"
@@ -23786,11 +23789,6 @@ msgid ""
 "{cleared} {cleared_verb} now 0 percent.{damage} You have {grouped2} dollars."
 msgstr "{cleared} {cleared_verb} yüzde 0.{damage} {grouped2} dolarınız var."
 
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Press {control_hint} to restart the engine."
-msgstr "Motoru yeniden çalıştırmak için {control_hint} tuşuna basın."
-
 #. placeholders: {work}, {grouped}
 #. one sentence of a longer line
 msgid "Road service {work} for {grouped} dollars."
@@ -23869,6 +23867,10 @@ msgstr ""
 "{damage_pct} seviyesine indi, hâlâ düşük güçte. {BREAKDOWN_REPAIR_MIN} saat "
 "sürdü, saat şimdi {clock_text}. {grouped2} dolarınız var. Motoru yeniden "
 "çalıştırmak için {control_hint} tuşuna basın."
+
+#. placeholders: {control_hint}
+msgid "Press {control_hint} to restart the engine."
+msgstr "Motoru yeniden çalıştırmak için {control_hint} tuşuna basın."
 
 #. placeholders: {spare}
 msgid "You are in the {spare}"
@@ -24594,6 +24596,10 @@ msgstr ""
 msgid "Signal with {control_hint} and stop on the shoulder."
 msgstr "{control_hint} ile sinyal verin ve emniyet şeridinde durun."
 
+msgid ""
+"Lights behind you for a routine inspection. Signal and stop on the shoulder."
+msgstr ""
+
 msgid "Roadside inspection"
 msgstr "Yol kenarı denetimi"
 
@@ -24684,6 +24690,16 @@ msgstr ""
 "şunu gördü: {detail}. Tıra bakmak istiyor. {control_hint} ile sinyal verin "
 "ve emniyet şeridinde durun."
 
+#. placeholders: {reason}, {detail}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {detail} and "
+"wants a look at the truck. Signal and stop on the shoulder."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Signal and stop on the shoulder."
+msgstr "Sinyal verip banket üzerinde durun."
+
 #. placeholders: {reason}, {what}
 #. one sentence of a longer line
 msgid "A trooper on this {reason} saw {what}."
@@ -24697,6 +24713,12 @@ msgstr ""
 "Arkanızda ışık ve siren var. Bu {reason} noktasındaki bir trafik polisi "
 "şunu gördü: {what}. {control_hint} ile sinyal verin ve emniyet şeridinde "
 "durun."
+
+#. placeholders: {reason}, {what}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {what}. Signal "
+"and stop on the shoulder."
+msgstr ""
 
 msgid "observed"
 msgstr "gözlendi"
@@ -24825,18 +24847,20 @@ msgstr ""
 "Yakıt bitti. Yakıt yardımı otuz galon getirdi, {billing}. Motoru yeniden "
 "çalıştırmak için {engine} tuşuna basın."
 
-#. placeholders: {engine}
-#. one sentence of a longer line
-msgid "Press {engine} to restart the engine."
-msgstr "Motoru yeniden çalıştırmak için {engine} tuşuna basın."
-
 #. placeholders: {billing}
 #. one sentence of a longer line
 msgid "Roadside rescue brought thirty gallons {billing}."
 msgstr "Yakıt yardımı otuz galon getirdi, {billing}."
 
+#. placeholders: {engine}
+msgid "Press {engine} to restart the engine."
+msgstr "Motoru yeniden çalıştırmak için {engine} tuşuna basın."
+
 msgid "Destination exit ahead again."
 msgstr "Varış çıkışı yeniden ileride."
+
+msgid "Destination exit ahead again. Signal for it."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
@@ -24851,6 +24875,10 @@ msgstr "Sinyal vermek için {control_hint} tuşuna basın."
 
 msgid "You turned around, and the destination exit is ahead again."
 msgstr "Geri döndünüz, varış çıkışı yeniden ileride."
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Signal for it."
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -24877,10 +24905,6 @@ msgstr "Varış çıkışı kaçtı: {facility}."
 msgid "Missed the destination exit for {facility}. {reroute_text}"
 msgstr "Varış çıkışı kaçtı: {facility}. {reroute_text}"
 
-#. one sentence of a longer line
-msgid "Holding at the entrance."
-msgstr "Girişte bekleniyor."
-
 #. placeholders: {control_hint}
 msgid "Holding at the entrance. Press {control_hint} to continue."
 msgstr "Girişte bekleniyor. Devam etmek için {control_hint} tuşuna basın."
@@ -24889,6 +24913,9 @@ msgstr "Girişte bekleniyor. Devam etmek için {control_hint} tuşuna basın."
 #. one sentence of a longer line
 msgid "Press {control_hint} to continue."
 msgstr "Devam etmek için {control_hint} tuşuna basın."
+
+msgid "Holding at the entrance."
+msgstr "Girişte bekleniyor."
 
 #. placeholders: {facility}
 msgid "At {facility}. Stop to dock."
@@ -25630,16 +25657,15 @@ msgstr "Henüz sinyal verilecek bir güzergâh çıkışı yok."
 msgid "Press {control_hint} again to cancel the exit."
 msgstr "Çıkışı iptal etmek için {control_hint} tuşuna yeniden basın."
 
-#. placeholders: {stays}
-#. one sentence of a longer line
-msgid "Signal stays {stays}."
-msgstr "Sinyal {stays} kalıyor."
-
 #. placeholders: {stays}, {control_hint}
 msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
 msgstr ""
 "Sinyal {stays} kalıyor. Çıkışı iptal etmek için {control_hint} tuşuna "
 "yeniden basın."
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
+msgstr "Sinyal {stays} kalıyor."
 
 msgid "Signal canceled."
 msgstr "Sinyal iptal edildi."
@@ -26263,16 +26289,15 @@ msgstr ""
 "Trafik polisi için kenara çekme sinyali vermek üzere {exit_hint} tuşuna "
 "basın."
 
-#. one sentence of a longer line
-msgid "Resolve the police stop first."
-msgstr "Önce polis durdurmasını tamamlayın."
-
 #. placeholders: {exit_hint}
 msgid ""
 "Resolve the police stop first. Press {exit_hint} to signal the trooper stop."
 msgstr ""
 "Önce polis durdurmasını tamamlayın. Trafik polisi için kenara çekme sinyali "
 "vermek üzere {exit_hint} tuşuna basın."
+
+msgid "Resolve the police stop first."
+msgstr "Önce polis durdurmasını tamamlayın."
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -26291,6 +26316,14 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Stop at the scale, then press {rest_hint} to check in."
 msgstr "Kantarda durun, sonra kayıt için {rest_hint} tuşuna basın."
+
+#. placeholders: {name}
+msgid "On the ramp for {name}. Stop at the scale, then check in."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stop at the scale, then check in."
+msgstr ""
 
 msgid "Emergency shoulder sleep is not available here. Use a route stop."
 msgstr ""
@@ -26450,6 +26483,11 @@ msgid ""
 msgstr ""
 "Arkanızda seyir defteri kontrolü için ışık ve siren var. {control_hint} ile "
 "sinyal verin ve emniyet şeridinde durun."
+
+msgid ""
+"Lights and siren behind you for a log check. Signal and stop on the "
+"shoulder."
+msgstr ""
 
 msgid "Log check"
 msgstr "Seyir defteri kontrolü"
@@ -26632,6 +26670,9 @@ msgstr "Yeniden ileride."
 msgid " Brake with {control_hint} well before it."
 msgstr " Ondan epey önce {control_hint} ile fren yapın."
 
+msgid " Brake well before it."
+msgstr ""
+
 #. placeholders: {place}
 msgid "Drove past {place}. Use the next safe turnaround."
 msgstr "Geçip gittiniz: {place}. Bir sonraki güvenli dönüş yerini kullanın."
@@ -26697,6 +26738,9 @@ msgstr "Geri döndünüz, kapı yeniden ileride."
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before the gate."
 msgstr " Kapıdan epey önce {control_hint} ile fren yapın."
+
+msgid " Brake well before the gate."
+msgstr ""
 
 msgid ""
 " Facility stopping assistance in Settings, Gameplay, Driving assistance, "
@@ -29415,11 +29459,6 @@ msgstr "Motel odası {grouped} dolar, sizde {grouped2} var."
 msgid "Driving and duty clocks reset."
 msgstr "Sürüş ve görev saatleri sıfırlandı."
 
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "{control_hint} starts the engine."
-msgstr "{control_hint} motoru çalıştırır."
-
 #. placeholders: {engine_off}, {grouped}
 #. one sentence of a longer line
 msgid "{engine_off}Motel, {grouped} dollars, 10 hours."
@@ -29437,6 +29476,10 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{grouped2} dollars."
 msgstr "{grouped2} dolar."
+
+#. placeholders: {control_hint}
+msgid "{control_hint} starts the engine."
+msgstr "{control_hint} motoru çalıştırır."
 
 #. placeholders: {name}
 msgid "The truck parking at {name} is full tonight."
@@ -30726,6 +30769,9 @@ msgid ""
 msgstr ""
 "Banket uykusu iptal edildi. Yeniden yoldasınız. El freni çekili, {hint} ile "
 "indirirsiniz."
+
+msgid "Shoulder sleep canceled. Back on the road. Parking brake set."
+msgstr ""
 
 msgid "Ramp curve"
 msgstr "Rampa virajı"
@@ -32139,10 +32185,6 @@ msgstr ""
 "Arkanızda ışık ve siren var. {zone} bölgede {speed}. Sinyal verip banket "
 "üzerinde durun."
 
-#. one sentence of a longer line
-msgid "Signal and stop on the shoulder."
-msgstr "Sinyal verip banket üzerinde durun."
-
 #. placeholders: {speed}, {zone}
 #. one sentence of a longer line
 msgid "{speed} in a {zone} zone."
@@ -32214,6 +32256,11 @@ msgstr ""
 "Kantar atlama yaptırımı. Arkanızda ışık ve siren var. {control_hint} ile "
 "sinyal verip banket üzerinde durun."
 
+msgid ""
+"Scale bypass enforcement. Lights and siren behind you. Signal and stop on "
+"the shoulder."
+msgstr ""
+
 msgid "Weigh station bypass stop"
 msgstr "Kantar istasyonunu atlama durdurması"
 
@@ -32247,6 +32294,11 @@ msgid ""
 msgstr ""
 "Güvensiz ekipman durdurması. Arkanızda ışık ve siren var. {control_hint} "
 "ile sinyal verip banket üzerinde durun."
+
+msgid ""
+"Unsafe equipment stop. Lights and siren behind you. Signal and stop on the "
+"shoulder."
+msgstr ""
 
 msgid "Unsafe equipment stop"
 msgstr "Güvensiz ekipman durdurması"
@@ -32340,9 +32392,18 @@ msgstr ""
 msgid "Transmission changed to {mode}."
 msgstr "Şanzıman değişti: {mode}."
 
-#. one sentence of a longer line
 msgid "Engine stalled."
 msgstr "Motor stop etti."
+
+msgid ""
+"Engine stalled. Hold the clutch, restart, and shift down to first before "
+"letting it out."
+msgstr ""
+
+msgid ""
+"Engine stalled. Shift to neutral and restart, then clutch in and pick first "
+"gear."
+msgstr ""
 
 #. placeholders: {control_hint}
 msgid "Engine stalled. Press {control_hint} to restart."
@@ -32852,6 +32913,9 @@ msgid ""
 "shoulder."
 msgstr ""
 "Durmama uyarısı. {control_hint} ile sinyal verip banket üzerinde durun."
+
+msgid "Failure-to-stop warning. Signal and stop on the shoulder."
+msgstr ""
 
 msgid "Failure-to-stop stop"
 msgstr "Durmama durdurması"
@@ -34428,6 +34492,15 @@ msgstr ""
 "bıraktığı satırlar ses çıkarmaz ve mesaj geçmişinde görünmez. Okuma tuşları "
 "her zaman yanıt verir. Reklam panolarının, yer adlarının ve simge yapıların "
 "aşağıda kendi anahtarları var."
+
+#. placeholders: {on_off}
+msgid "Driving hints: {on_off}"
+msgstr ""
+
+msgid ""
+"On, driving lines name the key for the next step, like Press X to signal "
+"for the exit. Off, they leave the key out. Driving school always names it."
+msgstr ""
 
 #. placeholders: {chatter_summary}
 msgid "Roadside chatter: {chatter_summary}"

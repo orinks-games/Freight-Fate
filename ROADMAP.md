@@ -773,14 +773,18 @@ Everything found before 2026-09-25 moved to
 - [x] (Found along the way) The chain control cited a truck that facility
       stopping assistance was braking into the chain-up area to chain up
       (issue #502, 2026-10-25). It now leaves that truck alone.
-- [ ] (Found along the way) A Driving hints setting, on by default, that
+- [x] (Found along the way) A Driving hints setting, on by default, that
       drops every "Press X to ..." sentence from driving lines (owner,
       2026-10-25; after 1.9.5). The key hints retire after three presses by
       the player, so with All assists signaling for them they never retire.
-- [ ] (Found along the way) A continue-onto street cue is named twice in
+      Shipped in Settings, Speech (2026-11-08): off retires every hint at
+      once, and the pull-over, stall, repair, missed-exit and air lines
+      drop their key. Driving school and the first run still teach keys.
+- [x] (Found along the way) A continue-onto street cue is named twice in
       a few seconds: "In a quarter mile, continue onto Columbus Road" and
       then "Continue onto Columbus Road, then 1 mile on it" (Cleveland
-      agent drive, 2026-10-25).
+      agent drive, 2026-10-25). A street that only changes name now gets
+      the one call at the join (2026-11-08).
 - [ ] (Found along the way) Quitting from the title menu on Windows takes
       about 2.2 seconds after the last shutdown line, where an agent
       server quit_game takes 0.14 (owner, 2026-10-25). Ending the process
@@ -3826,9 +3830,9 @@ Rules set that day:
 - [ ] Game stops responding when the player switches windows (report
       2026-10-21, answers asked for).
 - [x] Speed limits re-read from October OpenStreetMap (PR #515).
-- [ ] Tier 2: the Driving hints setting; lane keeping moving to the open
-      lane at a closure (issue #496); the doubled continue-onto cue; the
-      Mall of America exit; the Arch Linux PipeWire build (issue #501).
+- [ ] Tier 2: lane keeping moving to the open lane at a closure (issue
+      #496); the Mall of America exit; the Arch Linux PipeWire build
+      (issue #501).
 - [ ] Hygiene: Hearken pinned to main; contributor PRs #512 and #334
       merged or closed with a reason; the owner's listening pass; release
       signing before the tester pool widens.

@@ -350,10 +350,14 @@ impl DrivingState {
         if self.gate_miss_count >= 2 {
             // The identical core line keeps the flow predictable by ear; a
             // repeat miss earns help, not scolding.
-            message += &format!(
-                " Brake with {} well before the gate.",
-                ctx.control_hint("brake")
-            );
+            if self.driving_hints(ctx) {
+                message += &format!(
+                    " Brake with {} well before the gate.",
+                    ctx.control_hint("brake")
+                );
+            } else {
+                message += " Brake well before the gate.";
+            }
             if !ctx.settings.destination_approach_assist {
                 message +=
                     " Facility stopping assistance in Settings, Gameplay, Driving assistance, \

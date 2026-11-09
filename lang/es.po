@@ -23735,6 +23735,9 @@ msgstr ""
 msgid "Hold {control_hint} to press the clutch first."
 msgstr "Mantén {control_hint} para pisar primero el embrague."
 
+msgid "Grinding gears! Clutch in first."
+msgstr "¡Rascando marchas! Pisa primero el embrague."
+
 #. placeholders: {join_phrase}
 msgid "offers {join_phrase}"
 msgstr "ofrece {join_phrase}"
@@ -24432,11 +24435,6 @@ msgstr ""
 "{cleared} {cleared_verb} ahora en 0 por ciento.{damage} Tienes {grouped2} "
 "dólares."
 
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "Press {control_hint} to restart the engine."
-msgstr "Pulsa {control_hint} para volver a arrancar el motor."
-
 #. placeholders: {work}, {grouped}
 #. one sentence of a longer line
 msgid "Road service {work} for {grouped} dollars."
@@ -24518,6 +24516,10 @@ msgstr ""
 "los daños bajan al {damage_pct} por ciento, todavía con potencia reducida. "
 "Llevó {BREAKDOWN_REPAIR_MIN} horas y ahora son las {clock_text}. Tienes "
 "{grouped2} dólares. Pulsa {control_hint} para volver a arrancar el motor."
+
+#. placeholders: {control_hint}
+msgid "Press {control_hint} to restart the engine."
+msgstr "Pulsa {control_hint} para volver a arrancar el motor."
 
 #. placeholders: {spare}
 msgid "You are in the {spare}"
@@ -25259,6 +25261,12 @@ msgstr ""
 msgid "Signal with {control_hint} and stop on the shoulder."
 msgstr "Pon el intermitente con {control_hint} y para en el arcén."
 
+msgid ""
+"Lights behind you for a routine inspection. Signal and stop on the shoulder."
+msgstr ""
+"Luces detrás de ti para una inspección rutinaria. Pon el intermitente y "
+"para en el arcén."
+
 msgid "Roadside inspection"
 msgstr "Inspección en carretera"
 
@@ -25348,6 +25356,18 @@ msgstr ""
 "quiere echar un vistazo al camión. Pon el intermitente con {control_hint} y "
 "para en el arcén."
 
+#. placeholders: {reason}, {detail}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {detail} and "
+"wants a look at the truck. Signal and stop on the shoulder."
+msgstr ""
+"Luces y sirena detrás de ti. Un policía en este {reason} vio {detail} y "
+"quiere revisar el camión. Pon el intermitente y para en el arcén."
+
+#. one sentence of a longer line
+msgid "Signal and stop on the shoulder."
+msgstr "Pon el intermitente y para en el arcén."
+
 #. placeholders: {reason}, {what}
 #. one sentence of a longer line
 msgid "A trooper on this {reason} saw {what}."
@@ -25360,6 +25380,14 @@ msgid ""
 msgstr ""
 "Luces y sirena detrás de ti. Un policía en este {reason} vio {what}. Pon el "
 "intermitente con {control_hint} y para en el arcén."
+
+#. placeholders: {reason}, {what}
+msgid ""
+"Lights and siren behind you. A trooper on this {reason} saw {what}. Signal "
+"and stop on the shoulder."
+msgstr ""
+"Luces y sirena detrás de ti. Un policía en este {reason} vio {what}. Pon el "
+"intermitente y para en el arcén."
 
 msgid "observed"
 msgstr "observed"
@@ -25486,18 +25514,20 @@ msgstr ""
 "Sin combustible. El rescate en carretera trajo treinta galones {billing}. "
 "Pulsa {engine} para volver a arrancar el motor."
 
-#. placeholders: {engine}
-#. one sentence of a longer line
-msgid "Press {engine} to restart the engine."
-msgstr "Pulsa {engine} para volver a arrancar el motor."
-
 #. placeholders: {billing}
 #. one sentence of a longer line
 msgid "Roadside rescue brought thirty gallons {billing}."
 msgstr "El rescate en carretera trajo treinta galones {billing}."
 
+#. placeholders: {engine}
+msgid "Press {engine} to restart the engine."
+msgstr "Pulsa {engine} para volver a arrancar el motor."
+
 msgid "Destination exit ahead again."
 msgstr "La salida de destino vuelve a estar delante."
+
+msgid "Destination exit ahead again. Signal for it."
+msgstr "La salida de destino vuelve a estar delante. Señalízala."
 
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
@@ -25512,6 +25542,11 @@ msgstr "Pulsa {control_hint} para señalizar."
 
 msgid "You turned around, and the destination exit is ahead again."
 msgstr "Diste la vuelta y la salida de destino vuelve a estar delante."
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Signal for it."
+msgstr ""
+"Diste la vuelta y la salida de destino vuelve a estar delante. Señalízala."
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -25538,10 +25573,6 @@ msgstr "Te pasaste la salida de destino de {facility}."
 msgid "Missed the destination exit for {facility}. {reroute_text}"
 msgstr "Te pasaste la salida de destino de {facility}. {reroute_text}"
 
-#. one sentence of a longer line
-msgid "Holding at the entrance."
-msgstr "Detenido en la entrada."
-
 #. placeholders: {control_hint}
 msgid "Holding at the entrance. Press {control_hint} to continue."
 msgstr "Detenido en la entrada. Pulsa {control_hint} para continuar."
@@ -25550,6 +25581,9 @@ msgstr "Detenido en la entrada. Pulsa {control_hint} para continuar."
 #. one sentence of a longer line
 msgid "Press {control_hint} to continue."
 msgstr "Pulsa {control_hint} para continuar."
+
+msgid "Holding at the entrance."
+msgstr "Detenido en la entrada."
 
 #. placeholders: {facility}
 msgid "At {facility}. Stop to dock."
@@ -26298,16 +26332,15 @@ msgstr "Todavía no hay ninguna salida de la ruta que señalizar."
 msgid "Press {control_hint} again to cancel the exit."
 msgstr "Pulsa {control_hint} otra vez para cancelar la salida."
 
-#. placeholders: {stays}
-#. one sentence of a longer line
-msgid "Signal stays {stays}."
-msgstr "El intermitente sigue {stays}."
-
 #. placeholders: {stays}, {control_hint}
 msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
 msgstr ""
 "El intermitente sigue {stays}. Pulsa {control_hint} otra vez para cancelar "
 "la salida."
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
+msgstr "El intermitente sigue {stays}."
 
 msgid "Signal canceled."
 msgstr "Intermitente cancelado."
@@ -26946,16 +26979,15 @@ msgstr ""
 msgid "Press {exit_hint} to signal the trooper stop."
 msgstr "Pulsa {exit_hint} para señalizar la parada del policía."
 
-#. one sentence of a longer line
-msgid "Resolve the police stop first."
-msgstr "Resuelve primero el control policial."
-
 #. placeholders: {exit_hint}
 msgid ""
 "Resolve the police stop first. Press {exit_hint} to signal the trooper stop."
 msgstr ""
 "Resuelve primero el control policial. Pulsa {exit_hint} para señalizar la "
 "parada del policía."
+
+msgid "Resolve the police stop first."
+msgstr "Resuelve primero el control policial."
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -26974,6 +27006,14 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Stop at the scale, then press {rest_hint} to check in."
 msgstr "Para en la báscula y luego pulsa {rest_hint} para registrarte."
+
+#. placeholders: {name}
+msgid "On the ramp for {name}. Stop at the scale, then check in."
+msgstr "En la rampa de {name}. Para en la báscula y luego regístrate."
+
+#. one sentence of a longer line
+msgid "Stop at the scale, then check in."
+msgstr "Para en la báscula y luego regístrate."
 
 msgid "Emergency shoulder sleep is not available here. Use a route stop."
 msgstr ""
@@ -27134,6 +27174,13 @@ msgid ""
 msgstr ""
 "Luces y sirena detrás de ti para revisar el libro de horas. Pon el "
 "intermitente con {control_hint} y para en el arcén."
+
+msgid ""
+"Lights and siren behind you for a log check. Signal and stop on the "
+"shoulder."
+msgstr ""
+"Luces y sirena detrás de ti para revisar el libro de horas. Pon el "
+"intermitente y para en el arcén."
 
 msgid "Log check"
 msgstr "Revisión del libro de horas"
@@ -27317,6 +27364,9 @@ msgstr "Vuelve a estar delante."
 msgid " Brake with {control_hint} well before it."
 msgstr " Frena con {control_hint} bastante antes."
 
+msgid " Brake well before it."
+msgstr " Frena bastante antes."
+
 #. placeholders: {place}
 msgid "Drove past {place}. Use the next safe turnaround."
 msgstr "Pasaste de largo {place}. Usa el próximo retorno seguro."
@@ -27384,6 +27434,9 @@ msgstr "Diste la vuelta y la entrada vuelve a estar delante."
 #. placeholders: {control_hint}
 msgid " Brake with {control_hint} well before the gate."
 msgstr " Frena con {control_hint} bastante antes de la entrada."
+
+msgid " Brake well before the gate."
+msgstr " Frena bastante antes de la entrada."
 
 msgid ""
 " Facility stopping assistance in Settings, Gameplay, Driving assistance, "
@@ -30176,11 +30229,6 @@ msgstr ""
 msgid "Driving and duty clocks reset."
 msgstr "Relojes de conducción y de servicio reiniciados."
 
-#. placeholders: {control_hint}
-#. one sentence of a longer line
-msgid "{control_hint} starts the engine."
-msgstr "{control_hint} arranca el motor."
-
 #. placeholders: {engine_off}, {grouped}
 #. one sentence of a longer line
 msgid "{engine_off}Motel, {grouped} dollars, 10 hours."
@@ -30199,6 +30247,10 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{grouped2} dollars."
 msgstr "{grouped2} dólares."
+
+#. placeholders: {control_hint}
+msgid "{control_hint} starts the engine."
+msgstr "{control_hint} arranca el motor."
 
 #. placeholders: {name}
 msgid "The truck parking at {name} is full tonight."
@@ -31545,6 +31597,11 @@ msgid ""
 msgstr ""
 "Dormir en el arcén cancelado. De vuelta en la carretera. Freno de "
 "estacionamiento puesto, {hint} lo quita."
+
+msgid "Shoulder sleep canceled. Back on the road. Parking brake set."
+msgstr ""
+"Dormir en el arcén cancelado. De vuelta en la carretera. Freno de "
+"estacionamiento puesto."
 
 msgid "Ramp curve"
 msgstr "Curva de la rampa"
@@ -32949,10 +33006,6 @@ msgstr ""
 "Luces y sirena detrás de ti. {speed} en una zona de {zone}. Pon el "
 "intermitente y para en el arcén."
 
-#. one sentence of a longer line
-msgid "Signal and stop on the shoulder."
-msgstr "Pon el intermitente y para en el arcén."
-
 #. placeholders: {speed}, {zone}
 #. one sentence of a longer line
 msgid "{speed} in a {zone} zone."
@@ -33025,6 +33078,13 @@ msgstr ""
 "Control por saltarse la báscula. Luces y sirena detrás de ti. Pon el "
 "intermitente con {control_hint} y para en el arcén."
 
+msgid ""
+"Scale bypass enforcement. Lights and siren behind you. Signal and stop on "
+"the shoulder."
+msgstr ""
+"Control por saltarse la báscula. Luces y sirena detrás de ti. Pon el "
+"intermitente y para en el arcén."
+
 msgid "Weigh station bypass stop"
 msgstr "Parada por saltarse la estación de pesaje"
 
@@ -33058,6 +33118,13 @@ msgid ""
 msgstr ""
 "Parada por equipo inseguro. Luces y sirena detrás de ti. Pon el "
 "intermitente con {control_hint} y para en el arcén."
+
+msgid ""
+"Unsafe equipment stop. Lights and siren behind you. Signal and stop on the "
+"shoulder."
+msgstr ""
+"Parada por equipo inseguro. Luces y sirena detrás de ti. Pon el "
+"intermitente y para en el arcén."
 
 msgid "Unsafe equipment stop"
 msgstr "Parada por equipo inseguro"
@@ -33152,9 +33219,22 @@ msgstr ""
 msgid "Transmission changed to {mode}."
 msgstr "Transmisión cambiada a {mode}."
 
-#. one sentence of a longer line
 msgid "Engine stalled."
 msgstr "Motor calado."
+
+msgid ""
+"Engine stalled. Hold the clutch, restart, and shift down to first before "
+"letting it out."
+msgstr ""
+"Motor calado. Mantén el embrague, vuelve a arrancar y baja a primera antes "
+"de soltarlo."
+
+msgid ""
+"Engine stalled. Shift to neutral and restart, then clutch in and pick first "
+"gear."
+msgstr ""
+"Motor calado. Pon punto muerto y vuelve a arrancar; luego pisa el embrague "
+"y mete primera."
 
 #. placeholders: {control_hint}
 msgid "Engine stalled. Press {control_hint} to restart."
@@ -33665,6 +33745,9 @@ msgid ""
 msgstr ""
 "Aviso por no detenerse. Pon el intermitente con {control_hint} y para en el "
 "arcén."
+
+msgid "Failure-to-stop warning. Signal and stop on the shoulder."
+msgstr "Aviso por no detenerse. Pon el intermitente y para en el arcén."
 
 msgid "Failure-to-stop stop"
 msgstr "Parada por no detenerse"
@@ -35275,6 +35358,18 @@ msgstr ""
 "repaso de mensajes. Las teclas de lectura siempre responden. Las vallas "
 "publicitarias, los nombres de lugares y los puntos de interés tienen sus "
 "propios interruptores abajo."
+
+#. placeholders: {on_off}
+msgid "Driving hints: {on_off}"
+msgstr "Pistas de conducción: {on_off}"
+
+msgid ""
+"On, driving lines name the key for the next step, like Press X to signal "
+"for the exit. Off, they leave the key out. Driving school always names it."
+msgstr ""
+"Activadas, los avisos de conducción nombran la tecla del siguiente paso, "
+"como Pulsa X para señalizar la salida. Desactivadas, no nombran la tecla. "
+"La autoescuela siempre la nombra."
 
 #. placeholders: {chatter_summary}
 msgid "Roadside chatter: {chatter_summary}"
