@@ -20646,36 +20646,6 @@ msgstr ""
 msgid "Loaded trip is {distance_text} via {join}.{toll_text}"
 msgstr "Kurs z ładunkiem: {distance_text} przez {join}.{toll_text}"
 
-msgid "Shut down the engine"
-msgstr "Wyłącz silnik"
-
-msgid "Start the engine"
-msgstr "Uruchom silnik"
-
-msgid "No fuel burned and no idle noise while parked."
-msgstr "Na postoju bez spalania paliwa i bez hałasu na biegu jałowym."
-
-msgid "Starts the engine. The parking brake needs 100 psi of air."
-msgstr "Uruchamia silnik. Hamulec postojowy potrzebuje 100 psi powietrza."
-
-msgid "Stop before touching the engine."
-msgstr "Zatrzymaj się, zanim zajmiesz się silnikiem."
-
-msgid "Engine off."
-msgstr "Silnik wyłączony."
-
-msgid "The engine will not start."
-msgstr "Silnik nie chce zapalić."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Air pressure {f} psi."
-msgstr "Ciśnienie powietrza {f} psi."
-
-#. placeholders: {f}
-msgid "Engine running. Air pressure {f} psi."
-msgstr "Silnik pracuje. Ciśnienie powietrza {f} psi."
-
 msgid "Pickup facility"
 msgstr "Zakład odbioru"
 
@@ -20910,6 +20880,12 @@ msgstr "Odbiór anulowany. Powrót do {name}."
 #. one sentence of a longer line
 msgid "Returned to {name}."
 msgstr "Powrót do {name}."
+
+msgid "No fuel burned and no idle noise while parked."
+msgstr "Na postoju bez spalania paliwa i bez hałasu na biegu jałowym."
+
+msgid "Starts the engine. The parking brake needs 100 psi of air."
+msgstr "Uruchamia silnik. Hamulec postojowy potrzebuje 100 psi powietrza."
 
 msgid "Loaded and ready to roll"
 msgstr "Załadowany i gotowy do drogi"
@@ -22029,6 +22005,9 @@ msgstr ""
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to start the engine."
 msgstr "Naciśnij {control_hint}, żeby uruchomić silnik."
+
+msgid "Engine off."
+msgstr "Silnik wyłączony."
 
 msgid "Traffic stop"
 msgstr "Kontrola drogowa"
@@ -23560,6 +23539,9 @@ msgstr "Silnik pracuje."
 msgid "Engine running. {instruction}"
 msgstr "Silnik pracuje. {instruction}"
 
+msgid "The engine will not start."
+msgstr "Silnik nie chce zapalić."
+
 msgid "Air ready."
 msgstr "Powietrze gotowe."
 
@@ -23820,6 +23802,9 @@ msgstr ""
 msgid "Starts the engine. The parking brake releases at 100 psi."
 msgstr "Uruchamia silnik. Hamulec postojowy zwalnia się przy 100 psi."
 
+msgid "Stop before touching the engine."
+msgstr "Zatrzymaj się, zanim zajmiesz się silnikiem."
+
 #. placeholders: {psi}
 msgid "Engine running. Air pressure {psi} psi."
 msgstr "Silnik pracuje. Ciśnienie powietrza {psi} psi."
@@ -23832,6 +23817,12 @@ msgstr "szkoła"
 
 msgid "lights"
 msgstr "światła"
+
+msgid "Shut down the engine"
+msgstr "Wyłącz silnik"
+
+msgid "Start the engine"
+msgstr "Uruchom silnik"
 
 msgid "save point"
 msgstr "punkt zapisu"
@@ -41975,6 +41966,12 @@ msgstr "Kawałki opony."
 
 msgid "Debris."
 msgstr "Szczątki."
+
+#~ msgid "Air pressure {f} psi."
+#~ msgstr "Ciśnienie powietrza {f} psi."
+
+#~ msgid "Engine running. Air pressure {f} psi."
+#~ msgstr "Silnik pracuje. Ciśnienie powietrza {f} psi."
 
 #~ msgid "{thing} ahead."
 #~ msgstr "{thing} przed tobą."

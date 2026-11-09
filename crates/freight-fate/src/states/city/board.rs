@@ -1,6 +1,7 @@
 //! The dispatch board and its per-job detail reader (`JobBoardState`,
 //! `JobDetailState`).
 
+use crate::states::base::default_handle_event;
 use std::collections::HashSet;
 
 use serde_json::Value;
@@ -39,9 +40,9 @@ use crate::impl_state_for_menu;
 use crate::meaningful_play::MeaningfulPlayReason;
 use crate::states::base::{InputEvent, Key, Menu, MenuCore, MenuItem};
 use crate::states::city::{
-    base_menu_handle_event, first_dispatch_done, held_load, home_terminal, launch_driving, profile,
-    profile_mut, sleeps_needed, DrivingLaunch, LaunchAnnouncement, DRIVE_PHASE_DELIVERY,
-    DRIVE_PHASE_PICKUP, PICKUP_CHECK_IN_MIN, PICKUP_LOADING_MIN,
+    first_dispatch_done, held_load, home_terminal, launch_driving, profile, profile_mut,
+    sleeps_needed, DrivingLaunch, LaunchAnnouncement, DRIVE_PHASE_DELIVERY, DRIVE_PHASE_PICKUP,
+    PICKUP_CHECK_IN_MIN, PICKUP_LOADING_MIN,
 };
 use crate::states::city_pickup::warm_route_feeds;
 use crate::states::city_pickup::{
@@ -1192,7 +1193,7 @@ impl Menu for JobBoardState {
                 return;
             }
         }
-        base_menu_handle_event(self, ctx, event);
+        default_handle_event(self, ctx, event);
     }
 }
 

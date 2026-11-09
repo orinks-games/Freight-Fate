@@ -23009,45 +23009,6 @@ msgstr ""
 msgid "Loaded trip is {distance_text} via {join}.{toll_text}"
 msgstr ""
 
-#: crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_core/constants.rs
-msgid "Shut down the engine"
-msgstr ""
-
-#: crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_core/constants.rs
-msgid "Start the engine"
-msgstr ""
-
-#: crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
-msgid "No fuel burned and no idle noise while parked."
-msgstr ""
-
-#: crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs crates/freight-fate/src/states/driving_rest_states/parking_full.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Starts the engine. The parking brake needs 100 psi of air."
-msgstr ""
-
-#: crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_core.rs
-msgid "Stop before touching the engine."
-msgstr ""
-
-#: crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving/init.rs crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_controls/vehicle.rs
-msgid "Engine off."
-msgstr ""
-
-#: crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_controls/vehicle.rs crates/freight-fate/src/states/driving_core.rs
-msgid "The engine will not start."
-msgstr ""
-
-#. placeholders: {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_pickup.rs
-msgid "Air pressure {f} psi."
-msgstr ""
-
-#. placeholders: {f}
-#: crates/freight-fate/src/states/city_pickup.rs
-msgid "Engine running. Air pressure {f} psi."
-msgstr ""
-
 #: crates/freight-fate/src/states/city_pickup.rs
 msgid "Pickup facility"
 msgstr ""
@@ -23315,6 +23276,14 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city_pickup.rs
 msgid "Returned to {name}."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
+msgid "No fuel burned and no idle noise while parked."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs crates/freight-fate/src/states/driving_rest_states/parking_full.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "Starts the engine. The parking brake needs 100 psi of air."
 msgstr ""
 
 #: crates/freight-fate/src/states/city_pickup.rs
@@ -24551,6 +24520,10 @@ msgstr ""
 #. placeholders: {control_hint}
 #: crates/freight-fate/src/states/driving/init.rs crates/freight-fate/src/states/driving/lifecycle.rs
 msgid "Press {control_hint} to start the engine."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving/init.rs crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_controls/vehicle.rs crates/freight-fate/src/states/driving_core.rs
+msgid "Engine off."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving/init.rs crates/freight-fate/src/states/driving_rest_states/roadside.rs crates/freight-fate/src/states/driving_updates/enforcement.rs
@@ -26212,6 +26185,10 @@ msgstr ""
 msgid "Engine running. {instruction}"
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_controls/vehicle.rs crates/freight-fate/src/states/driving_core.rs
+msgid "The engine will not start."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_controls/vehicle.rs crates/freight-fate/src/states/driving_updates/air.rs
 msgid "Air ready."
 msgstr ""
@@ -26493,6 +26470,10 @@ msgstr ""
 msgid "Starts the engine. The parking brake releases at 100 psi."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_core.rs
+msgid "Stop before touching the engine."
+msgstr ""
+
 #. placeholders: {psi}
 #: crates/freight-fate/src/states/driving_core.rs
 msgid "Engine running. Air pressure {psi} psi."
@@ -26508,6 +26489,14 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_core/constants.rs
 msgid "lights"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_core/constants.rs
+msgid "Shut down the engine"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_core/constants.rs
+msgid "Start the engine"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_core/constants.rs

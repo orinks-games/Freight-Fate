@@ -7,6 +7,7 @@
 //! user can re-read the one they wanted. Every value is the site's word; the
 //! game computes nothing and shows nothing the page does not.
 
+use crate::states::base::default_enter;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 
@@ -22,7 +23,7 @@ use crate::online_presence::{self, ProfileFetch};
 use crate::states::base::{Menu, MenuCore, MenuItem, SimpleMenuState};
 
 use super::board::updated_text;
-use super::support::{menu_default_enter, online_transport, run_worker, Mailbox};
+use super::support::{online_transport, run_worker, Mailbox};
 
 // -- reading the site's JSON --------------------------------------------------------------
 
@@ -448,7 +449,7 @@ impl Menu for DriverProfileState {
 
     fn enter(&mut self, ctx: &mut GameContext) {
         self.start_fetch();
-        menu_default_enter(self, ctx);
+        default_enter(self, ctx);
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {

@@ -22,9 +22,8 @@ use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving_core::siren::register_enforcement_sounds;
 
-/// The audio facade as the demo sequencer drives it.
-// TODO(lead): belongs in `audio` (an `impl DemoAudio for dyn Audio`, or a
-// `demo_audio()` adapter on the engine); here until that lands.
+/// The audio facade as the demo sequencer drives it. It lives beside its
+/// only user.
 pub struct DemoAudioBridge<'a>(RefCell<&'a mut dyn Audio>);
 
 impl<'a> DemoAudioBridge<'a> {

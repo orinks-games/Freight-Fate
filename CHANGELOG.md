@@ -48,6 +48,7 @@
 
 ### Fixed
 
+- **Holding Home or End on a settings, terminal or online screen no longer reads the row again and again.** It is read once, as on other menus.
 - **A PC where finding controllers stalls no longer freezes each time a Bluetooth device turns off.** Startup still waits the once.
 - **In other languages, the dispatch board's pay after costs is read as the right number.** German, Polish and Spanish voices used to read 6,576 as six point five.
 - **Team loads no longer warn that you need an extra rest.** Your co-driver can take the first shift while you sleep.

@@ -14,6 +14,7 @@
 //! responsive throughout. Every state carries a `threaded` switch so tests
 //! run the same worker inline against a fake transport.
 
+use crate::states::base::{default_enter, default_go_back, default_handle_event};
 use std::sync::Arc;
 use std::thread::JoinHandle;
 use std::time::Instant;
@@ -38,8 +39,7 @@ pub use directory::{
 };
 pub use profile::{profile_rows, DriverProfileState};
 pub use support::{
-    identity_store, load_identity, menu_default_enter, menu_default_go_back,
-    menu_default_handle_event, online_transport, open_url, run_worker, save_identity,
+    identity_store, load_identity, online_transport, open_url, run_worker, save_identity,
     set_identity_store_override, set_online_transport_override, set_open_url_override, wall_time,
     Mailbox,
 };
@@ -509,7 +509,7 @@ impl Menu for OnlineSetupState {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
-        menu_default_enter(self, ctx);
+        default_enter(self, ctx);
         if self.autostart {
             self.start_setup(ctx);
         }
@@ -540,7 +540,7 @@ impl Menu for OnlineSetupState {
             ctx.say(&format!("Back in Freight Fate. {current}"));
             return;
         }
-        menu_default_handle_event(self, ctx, event);
+        default_handle_event(self, ctx, event);
     }
 
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {
@@ -627,7 +627,7 @@ impl Menu for OnlineSetupState {
         if matches!(self.phase, SetupPhase::Starting | SetupPhase::Waiting) {
             ctx.say("Setup canceled. Nothing was saved.");
         }
-        menu_default_go_back(self, ctx);
+        default_go_back(self, ctx);
     }
 
     fn exit(&mut self, _ctx: &mut GameContext) {
@@ -766,7 +766,7 @@ impl Menu for ProfileSharingSyncState {
             ctx.say("Profile sharing is still updating. Stay here for the result.");
             return;
         }
-        menu_default_go_back(self, ctx);
+        default_go_back(self, ctx);
     }
 }
 

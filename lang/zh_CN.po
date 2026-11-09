@@ -18435,36 +18435,6 @@ msgstr " 承运商估计过路费{grouped}美元。"
 msgid "Loaded trip is {distance_text} via {join}.{toll_text}"
 msgstr "载货行程{distance_text}，途经{join}。{toll_text}"
 
-msgid "Shut down the engine"
-msgstr "关闭发动机"
-
-msgid "Start the engine"
-msgstr "启动发动机"
-
-msgid "No fuel burned and no idle noise while parked."
-msgstr "停车时不耗油，也没有怠速噪音。"
-
-msgid "Starts the engine. The parking brake needs 100 psi of air."
-msgstr "启动发动机。松开驻车制动需要100 psi的气压。"
-
-msgid "Stop before touching the engine."
-msgstr "先停车再操作发动机。"
-
-msgid "Engine off."
-msgstr "发动机已关闭。"
-
-msgid "The engine will not start."
-msgstr "发动机无法启动。"
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Air pressure {f} psi."
-msgstr "气压{f} psi。"
-
-#. placeholders: {f}
-msgid "Engine running. Air pressure {f} psi."
-msgstr "发动机运转中。气压{f} psi。"
-
 msgid "Pickup facility"
 msgstr "提货厂区"
 
@@ -18683,6 +18653,12 @@ msgstr "提货已取消。已回到{name}。"
 #. one sentence of a longer line
 msgid "Returned to {name}."
 msgstr "已回到{name}。"
+
+msgid "No fuel burned and no idle noise while parked."
+msgstr "停车时不耗油，也没有怠速噪音。"
+
+msgid "Starts the engine. The parking brake needs 100 psi of air."
+msgstr "启动发动机。松开驻车制动需要100 psi的气压。"
 
 msgid "Loaded and ready to roll"
 msgstr "已装好货，准备出发"
@@ -19671,6 +19647,9 @@ msgstr "云备份还在处理中。留在这里等结果。"
 #. placeholders: {control_hint}
 msgid "Press {control_hint} to start the engine."
 msgstr "按{control_hint}启动发动机。"
+
+msgid "Engine off."
+msgstr "发动机已关闭。"
 
 msgid "Traffic stop"
 msgstr "交通拦停"
@@ -21031,6 +21010,9 @@ msgstr "发动机运转中。"
 msgid "Engine running. {instruction}"
 msgstr "发动机运转中。{instruction}"
 
+msgid "The engine will not start."
+msgstr "发动机无法启动。"
+
 msgid "Air ready."
 msgstr "气压就绪。"
 
@@ -21263,6 +21245,9 @@ msgstr "停车时发动机已关闭，不耗油。开走前要重新启动。"
 msgid "Starts the engine. The parking brake releases at 100 psi."
 msgstr "启动发动机。气压到100 psi时驻车制动可以松开。"
 
+msgid "Stop before touching the engine."
+msgstr "先停车再操作发动机。"
+
 #. placeholders: {psi}
 msgid "Engine running. Air pressure {psi} psi."
 msgstr "发动机运转中。气压{psi} psi。"
@@ -21275,6 +21260,12 @@ msgstr "学校"
 
 msgid "lights"
 msgstr "信号灯"
+
+msgid "Shut down the engine"
+msgstr "关闭发动机"
+
+msgid "Start the engine"
+msgstr "启动发动机"
 
 msgid "save point"
 msgstr "存档点"
@@ -37295,6 +37286,12 @@ msgstr "轮胎碎片。"
 
 msgid "Debris."
 msgstr "杂物。"
+
+#~ msgid "Air pressure {f} psi."
+#~ msgstr "气压{f} psi。"
+
+#~ msgid "Engine running. Air pressure {f} psi."
+#~ msgstr "发动机运转中。气压{f} psi。"
 
 #~ msgid "{thing} ahead."
 #~ msgstr "前方有{thing}。"

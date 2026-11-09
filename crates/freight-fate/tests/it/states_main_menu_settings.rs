@@ -1308,3 +1308,25 @@ fn test_the_assist_help_says_what_chain_work_costs_and_that_nothing_is_bought() 
     assert!(planning.contains("warns about chain laws"), "{planning}");
     assert!(planning.contains("never buys anything"), "{planning}");
 }
+
+#[test]
+fn a_held_end_key_on_a_settings_screen_reads_the_last_row_once() {
+    // The settings screens fell through to their own copy of the menu
+    // keys, which missed the guard against a held key's repeat: holding
+    // End re-read the last row at the keyboard's repeat rate.
+    let mut app = TestApp::new();
+    open_settings_category(&mut app, "Speech");
+    key(&mut app, Key::End);
+    app.clear_speech();
+    let held = freight_fate::states::base::InputEvent::KeyDown {
+        key: Key::End,
+        mods: freight_fate::states::base::Mods::NONE,
+        text: None,
+        repeat: true,
+    };
+    for _ in 0..10 {
+        app.dispatch_to_state(&held);
+    }
+    app.ctx.run_deferred();
+    assert!(app.main_lines().is_empty(), "{:?}", app.main_lines());
+}

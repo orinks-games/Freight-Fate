@@ -4,6 +4,7 @@
 //! are built in `settings_items`; the toggles they drive are in
 //! `settings_actions`.
 
+use crate::states::base::{default_announce_entry, default_handle_event};
 use std::rc::Rc;
 
 use ff_core::settings::{lane_keeping_to_legacy, Settings};
@@ -211,7 +212,7 @@ impl Menu for GameplaySettingsState {
     }
 
     fn announce_entry(&mut self, ctx: &mut GameContext) {
-        base_announce_entry(self, ctx);
+        default_announce_entry(self, ctx);
         let s = &mut ctx.settings;
         if s.settings_layout_notice_from >= 0 {
             // Said once and only to a player whose settings moved under them,
@@ -242,46 +243,6 @@ impl Menu for GameplaySettingsState {
 }
 
 impl_state_for_menu!(GameplaySettingsState);
-
-/// The base `Menu::announce_entry`, for overrides that add to it.
-// TODO(lead): the provided `Menu` methods cannot be called once overridden;
-// a callable default (free fn) on the base would retire these copies.
-pub(super) fn base_announce_entry<S: Menu>(s: &mut S, ctx: &mut GameContext) {
-    let title = crate::states::base::end_sentence(&s.menu().title);
-    ctx.say(&title);
-    let current = s.current_text(ctx);
-    ctx.say_with(current, Say::queued().review(false));
-}
-
-/// The base `Menu::handle_event`, for an override that handles a key or two
-/// and falls through for the rest.
-pub(super) fn base_handle_event<S: Menu>(s: &mut S, ctx: &mut GameContext, event: &InputEvent) {
-    let Some((key, _mods, text)) = event.key_down() else {
-        return;
-    };
-    match key {
-        Key::Down => s.move_by(ctx, 1),
-        Key::Up => s.move_by(ctx, -1),
-        Key::Home => s.jump(ctx, 0),
-        Key::End => {
-            let last = s.menu().items.len().saturating_sub(1);
-            s.jump(ctx, last);
-        }
-        Key::Return | Key::Space | Key::KpEnter => s.activate(ctx),
-        Key::Escape => s.go_back(ctx),
-        Key::F1 => {
-            let help = s.current_help(ctx);
-            ctx.say(&help);
-        }
-        Key::LCtrl | Key::RCtrl => ctx.stop_speech(),
-        _ => {
-            if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
-                let lower: String = ch.to_lowercase().collect();
-                s.first_letter_input(ctx, &lower, event.key_repeat());
-            }
-        }
-    }
-}
 
 /// What Left/Right (or D-pad left/right) does on one settings row.
 pub(super) type Adjust = Rc<dyn Fn(&mut SettingsCategoryState, &mut GameContext, i64)>;
@@ -488,7 +449,7 @@ impl Menu for SettingsCategoryState {
         match event.key_down() {
             Some((Key::Right, _, _)) => self.adjust_by(ctx, 1),
             Some((Key::Left, _, _)) => self.adjust_by(ctx, -1),
-            _ => base_handle_event(self, ctx, event),
+            _ => default_handle_event(self, ctx, event),
         }
     }
 
@@ -505,7 +466,7 @@ impl Menu for SettingsCategoryState {
         // Difficulty and hours of service. Both notices are guarded by their
         // own counter, so running them here costs nothing on a visit that
         // arrows in from elsewhere.
-        base_announce_entry(self, ctx);
+        default_announce_entry(self, ctx);
         self.maybe_say_lane_keeping_rename(ctx);
         self.maybe_say_pace_retired(ctx);
     }
