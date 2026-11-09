@@ -53,6 +53,7 @@
 - **The copy key copies the message you stepped back to.** It used to copy the newest line instead.
 - **You get the full 10 seconds to switch off the engine brake in a no engine brake zone.** Pressing the throttle or changing gear after the warning used to bring a citation within seconds.
 - **Numbered loads on the dispatch board are read in your language.** The load line after "Job 1 of 7" stayed in English.
+- **Alt+1 and Alt+3 name the destination once you take its exit.** They used to name the city and state you left.
 
 - **Speed limits no longer jump to 70 and back where the map has no posting.** An unmapped stretch keeps the limits on either side, and state truck limits such as California's 55 apply there too.
 - **Cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
