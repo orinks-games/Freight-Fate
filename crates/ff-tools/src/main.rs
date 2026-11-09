@@ -163,6 +163,54 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         "re-read the map's exits and their ramps from an OpenStreetMap extract",
         world::osm::exits::main,
     ),
+    #[cfg(feature = "world")]
+    (
+        "osm-lanes",
+        "re-read every leg's lane counts from an OpenStreetMap extract",
+        world::layers::lanes::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "osm-restrictions",
+        "re-read the low bridges and weight limits along every leg from an OpenStreetMap extract",
+        world::layers::restrictions::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "osm-landmarks",
+        "re-place the parks, forests, rivers, passes and museums along every leg",
+        world::layers::landmarks::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "osm-villages",
+        "re-place the towns and villages every leg passes (run after osm-landmarks)",
+        world::layers::villages::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "hpms-traffic",
+        "re-read every leg's traffic volumes and lane count from FHWA HPMS",
+        world::layers::hpms::traffic::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "hpms-terrain",
+        "re-read every leg's terrain class from FHWA HPMS",
+        world::layers::hpms::terrain::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "reroute-leg",
+        "put a leg on the road a loaded truck takes, from the Valhalla truck router",
+        world::reroute::leg_main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "reroute-enrich",
+        "rebuild a rerouted leg's curves, grades, state lines, exits and limits",
+        world::reroute::enrich_main,
+    ),
 ];
 
 fn usage() -> String {

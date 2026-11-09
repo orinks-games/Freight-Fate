@@ -16,7 +16,9 @@
 
 pub mod counties;
 pub mod index;
+pub mod layers;
 pub mod osm;
+pub mod reroute;
 
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};

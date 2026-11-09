@@ -89,11 +89,17 @@ impl DrivingState {
             return;
         };
         if !driver_owns_jake || self.jake_zone_exempt() {
-            self.jake_violation_deadline_s = None;
             if !self.trip.truck.engine_brake() {
                 // The engagement is over; a fresh one can earn a fresh citation.
+                self.jake_violation_deadline_s = None;
                 self.jake_citation_latched = false;
             }
+            // With the switch still on, a pause in the bark -- a touch of the
+            // throttle, a gear change, a stretch of downgrade -- holds the
+            // grace clock rather than ending it. Clearing it here used to spend
+            // the town's one warning on a downshift: the next bark found the
+            // grace used and cited on the spot, seconds after the warning
+            // (issue 531).
             return;
         }
         if self.jake_citation_latched {
