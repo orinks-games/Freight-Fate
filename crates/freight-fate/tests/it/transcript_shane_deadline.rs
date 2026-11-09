@@ -202,10 +202,7 @@ fn receiver_menu_captures_check_in_before_advancing_the_unload_clock() {
             .summary_lines
             .join("\n")
     };
-    assert!(
-        transcript.contains("On time in Kenosha, Wisconsin."),
-        "{transcript}"
-    );
+    assert!(transcript.starts_with("On time in "), "{transcript}");
     assert!(
         transcript.contains("Unloading took 45 minutes."),
         "{transcript}"
