@@ -15246,10 +15246,6 @@ msgstr "Fren!"
 msgid "Brake! {body} {answer}"
 msgstr "Fren! {body} {answer}"
 
-#. placeholders: {thing}
-msgid "{thing} ahead."
-msgstr "İleride {thing}."
-
 #. placeholders: {body}, {side}
 msgid "{body} Passing on the {side}."
 msgstr "{body} {side} taraftan sollama."
@@ -40968,11 +40964,20 @@ msgid "Closed."
 msgstr "Kapalı."
 
 #. The small-debris call, built from the catalog noun with "the" dropped.
-msgid "Tire debris ahead."
-msgstr "İleride lastik parçaları."
+msgid "Tire debris."
+msgstr "Lastik parçaları."
 
-msgid "Debris ahead."
-msgstr "İleride döküntü."
+msgid "Debris."
+msgstr "Döküntü."
+
+#~ msgid "{thing} ahead."
+#~ msgstr "İleride {thing}."
+
+#~ msgid "Tire debris ahead."
+#~ msgstr "İleride lastik parçaları."
+
+#~ msgid "Debris ahead."
+#~ msgstr "İleride döküntü."
 
 #~ msgid ""
 #~ "Something in your path needs a real reaction now: brake below twenty five "

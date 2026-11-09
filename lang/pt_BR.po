@@ -15650,10 +15650,6 @@ msgstr "Freie!"
 msgid "Brake! {body} {answer}"
 msgstr "Freie! {body} {answer}"
 
-#. placeholders: {thing}
-msgid "{thing} ahead."
-msgstr "{thing} à frente."
-
 #. placeholders: {body}, {side}
 msgid "{body} Passing on the {side}."
 msgstr "{body} Ultrapassando pela {side}."
@@ -41751,11 +41747,20 @@ msgid "Closed."
 msgstr "Fechada."
 
 #. The small-debris call, built from the catalog noun with "the" dropped.
-msgid "Tire debris ahead."
-msgstr "Pedaços de pneu à frente."
+msgid "Tire debris."
+msgstr "Pedaços de pneu."
 
-msgid "Debris ahead."
-msgstr "Destroços à frente."
+msgid "Debris."
+msgstr "Destroços."
+
+#~ msgid "{thing} ahead."
+#~ msgstr "{thing} à frente."
+
+#~ msgid "Tire debris ahead."
+#~ msgstr "Pedaços de pneu à frente."
+
+#~ msgid "Debris ahead."
+#~ msgstr "Destroços à frente."
 
 #~ msgid ""
 #~ "Something in your path needs a real reaction now: brake below twenty five "

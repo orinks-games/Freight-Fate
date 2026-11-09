@@ -15724,10 +15724,6 @@ msgstr "¡Frena!"
 msgid "Brake! {body} {answer}"
 msgstr "¡Frena! {body} {answer}"
 
-#. placeholders: {thing}
-msgid "{thing} ahead."
-msgstr "{thing} adelante."
-
 #. placeholders: {body}, {side}
 msgid "{body} Passing on the {side}."
 msgstr "{body} Adelantando por la {side}."
@@ -41979,11 +41975,20 @@ msgid "Closed."
 msgstr "Cerrada."
 
 #. The small-debris call, built from the catalog noun with "the" dropped.
-msgid "Tire debris ahead."
-msgstr "Restos de neumático adelante."
+msgid "Tire debris."
+msgstr "Restos de neumático."
 
-msgid "Debris ahead."
-msgstr "Escombros adelante."
+msgid "Debris."
+msgstr "Escombros."
+
+#~ msgid "{thing} ahead."
+#~ msgstr "{thing} adelante."
+
+#~ msgid "Tire debris ahead."
+#~ msgstr "Restos de neumático adelante."
+
+#~ msgid "Debris ahead."
+#~ msgstr "Escombros adelante."
 
 #~ msgid ""
 #~ "Something in your path needs a real reaction now: brake below twenty five "

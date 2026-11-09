@@ -15527,10 +15527,6 @@ msgstr "Тормозите!"
 msgid "Brake! {body} {answer}"
 msgstr "Тормозите! {body} {answer}"
 
-#. placeholders: {thing}
-msgid "{thing} ahead."
-msgstr "Впереди {thing}."
-
 #. placeholders: {body}, {side}
 msgid "{body} Passing on the {side}."
 msgstr "{body} Объезжаем {side}."
@@ -42056,11 +42052,20 @@ msgid "Closed."
 msgstr "Закрыта."
 
 #. The small-debris call, built from the catalog noun with "the" dropped.
-msgid "Tire debris ahead."
-msgstr "Впереди куски шины."
+msgid "Tire debris."
+msgstr "Куски шины."
 
-msgid "Debris ahead."
-msgstr "Впереди мусор."
+msgid "Debris."
+msgstr "Мусор."
+
+#~ msgid "{thing} ahead."
+#~ msgstr "Впереди {thing}."
+
+#~ msgid "Tire debris ahead."
+#~ msgstr "Впереди куски шины."
+
+#~ msgid "Debris ahead."
+#~ msgstr "Впереди мусор."
 
 #~ msgid ""
 #~ "Something in your path needs a real reaction now: brake below twenty five "

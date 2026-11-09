@@ -13998,10 +13998,6 @@ msgstr "ブレーキ！"
 msgid "Brake! {body} {answer}"
 msgstr "ブレーキ！{body}{answer}"
 
-#. placeholders: {thing}
-msgid "{thing} ahead."
-msgstr "前方に{thing}。"
-
 #. placeholders: {body}, {side}
 msgid "{body} Passing on the {side}."
 msgstr "{body}{side}から追い越します。"
@@ -37753,11 +37749,20 @@ msgid "Closed."
 msgstr "閉鎖中。"
 
 #. The small-debris call, built from the catalog noun with "the" dropped.
-msgid "Tire debris ahead."
-msgstr "前方にタイヤの破片。"
+msgid "Tire debris."
+msgstr "タイヤの破片。"
 
-msgid "Debris ahead."
-msgstr "前方に落下物。"
+msgid "Debris."
+msgstr "落下物。"
+
+#~ msgid "{thing} ahead."
+#~ msgstr "前方に{thing}。"
+
+#~ msgid "Tire debris ahead."
+#~ msgstr "前方にタイヤの破片。"
+
+#~ msgid "Debris ahead."
+#~ msgstr "前方に落下物。"
 
 #~ msgid ""
 #~ "Something in your path needs a real reaction now: brake below twenty five "

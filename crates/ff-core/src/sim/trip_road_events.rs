@@ -11,7 +11,7 @@ use crate::sim::trip_models::*;
 use crate::sim::trip_route_helpers::stop_offset_for_direction;
 use crate::sim::weather::WeatherKind;
 use crate::speech_text::{
-    debris_ahead_body, hazard_call, in_lane_hazard_call_named, passing_hazard_call,
+    hazard_call, in_lane_hazard_call_named, passing_hazard_call, small_debris_body,
     small_debris_call, toll_charged, SpokenMessage,
 };
 
@@ -434,8 +434,8 @@ impl Trip {
         let name = hazard_name(hazard);
         let body = if debris == Some(DebrisClass::Small) {
             // The noun the clear line uses, not the catalog's long text:
-            // "Tire debris ahead." (owner, 2026-11-09).
-            debris_ahead_body(name)
+            // "Tire debris." (owner, 2026-11-09).
+            small_debris_body(name)
         } else {
             let mut chars = hazard.chars();
             let first: String = chars

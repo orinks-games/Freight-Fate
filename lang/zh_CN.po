@@ -13861,10 +13861,6 @@ msgstr "刹车！"
 msgid "Brake! {body} {answer}"
 msgstr "刹车！{body}{answer}"
 
-#. placeholders: {thing}
-msgid "{thing} ahead."
-msgstr "前方有{thing}。"
-
 #. placeholders: {body}, {side}
 msgid "{body} Passing on the {side}."
 msgstr "{body}从{side}侧超车。"
@@ -37194,11 +37190,20 @@ msgid "Closed."
 msgstr "关闭。"
 
 #. The small-debris call, built from the catalog noun with "the" dropped.
-msgid "Tire debris ahead."
-msgstr "前方有轮胎碎片。"
+msgid "Tire debris."
+msgstr "轮胎碎片。"
 
-msgid "Debris ahead."
-msgstr "前方有杂物。"
+msgid "Debris."
+msgstr "杂物。"
+
+#~ msgid "{thing} ahead."
+#~ msgstr "前方有{thing}。"
+
+#~ msgid "Tire debris ahead."
+#~ msgstr "前方有轮胎碎片。"
+
+#~ msgid "Debris ahead."
+#~ msgstr "前方有杂物。"
 
 #~ msgid ""
 #~ "Something in your path needs a real reaction now: brake below twenty five "

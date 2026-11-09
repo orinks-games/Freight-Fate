@@ -620,8 +620,8 @@ fn test_the_catalog_says_how_each_thing_in_the_lane_is_taken() {
 #[test]
 fn test_a_staged_hazard_fires_on_the_next_rolling_update_with_its_class() {
     // The agent server's `hazard` tool: the call, the deadline and the data
-    // are a drawn hazard's own. Small debris is a heads-up ("Tire debris
-    // ahead.") about 8 seconds out with no braking in it; a ladder keeps
+    // are a drawn hazard's own. Small debris is a heads-up ("Tire debris.")
+    // about 8 seconds out with no braking in it; a ladder keeps
     // the hazard call and its 30 mph take-at speed.
     use ff_core::sim::trip_models::{DebrisClass, SMALL_DEBRIS_CALL_S};
     let w = world();
@@ -643,7 +643,7 @@ fn test_a_staged_hazard_fires_on_the_next_rolling_update_with_its_class() {
         .find(|e| e.kind == TripEventKind::Hazard)
         .expect("the staged hazard fired");
     assert!(
-        hazard.text().starts_with("Tire debris ahead. "),
+        hazard.text().starts_with("Tire debris. "),
         "{:?}",
         hazard.text()
     );

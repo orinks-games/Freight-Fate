@@ -15770,10 +15770,6 @@ msgstr "Bremsen!"
 msgid "Brake! {body} {answer}"
 msgstr "Bremsen! {body} {answer}"
 
-#. placeholders: {thing}
-msgid "{thing} ahead."
-msgstr "{thing} voraus."
-
 #. placeholders: {body}, {side}
 msgid "{body} Passing on the {side}."
 msgstr "{body} Überholen {side}."
@@ -42072,11 +42068,20 @@ msgid "Closed."
 msgstr "Geschlossen."
 
 #. The small-debris call, built from the catalog noun with "the" dropped.
-msgid "Tire debris ahead."
-msgstr "Reifenreste voraus."
+msgid "Tire debris."
+msgstr "Reifenreste."
 
-msgid "Debris ahead."
-msgstr "Trümmer voraus."
+msgid "Debris."
+msgstr "Trümmer."
+
+#~ msgid "{thing} ahead."
+#~ msgstr "{thing} voraus."
+
+#~ msgid "Tire debris ahead."
+#~ msgstr "Reifenreste voraus."
+
+#~ msgid "Debris ahead."
+#~ msgstr "Trümmer voraus."
 
 #~ msgid ""
 #~ "Something in your path needs a real reaction now: brake below twenty five "

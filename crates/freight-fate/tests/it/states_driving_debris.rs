@@ -26,7 +26,7 @@ use ff_core::sim::trip_models::{
 };
 use ff_core::sim::weather::WeatherKind;
 use ff_core::speech_text::{
-    debris_ahead_body, in_lane_hazard_call, passing_hazard_call, small_debris_call, SpokenMessage,
+    in_lane_hazard_call, passing_hazard_call, small_debris_body, small_debris_call, SpokenMessage,
 };
 
 use freight_fate::playtest::harness::{PlaytestHarness, StartDelivery};
@@ -64,7 +64,7 @@ fn at_mph(harness: &mut PlaytestHarness, mph: f64) {
 /// Small debris as the emitter words it: the heads-up, the lane answer, and
 /// the pass line lane keeping on full answers it with.
 fn tread(side: OpenSide) -> TripEvent {
-    let body = debris_ahead_body("the tire debris");
+    let body = small_debris_body("the tire debris");
     TripEvent {
         kind: TripEventKind::Hazard,
         message: small_debris_call(&body, side.spoken()),
@@ -153,7 +153,7 @@ fn tread_with_no_lane_open_is_driven_over_and_nothing_brakes_for_it() {
 
     // The call is a heads-up: no brake word, no cruise pause.
     let call = harness.app.event_lines();
-    assert_eq!(call, vec!["Tire debris ahead. No lane open.".to_string()]);
+    assert_eq!(call, vec!["Tire debris. No lane open.".to_string()]);
     assert_eq!(
         harness.read_drive(|d| d.hazard_debris),
         Some(DebrisClass::Small)
@@ -247,7 +247,7 @@ fn tread_with_a_lane_open_is_passed_by_full_lane_keeping() {
     arm(&mut harness, tread(OpenSide::Left));
     assert_eq!(
         harness.app.event_lines(),
-        vec!["Tire debris ahead. Passing on the left.".to_string()]
+        vec!["Tire debris. Passing on the left.".to_string()]
     );
     assert_eq!(harness.read_drive(|d| d.lane_change_target), Some(1));
     assert_eq!(harness.read_drive(|d| d.aeb_brake), 0.0);
@@ -261,7 +261,7 @@ fn tread_with_a_lane_open_asks_the_steering_driver_for_one_tap() {
     arm(&mut harness, tread(OpenSide::Left));
     assert_eq!(
         harness.app.event_lines(),
-        vec!["Tire debris ahead. Left lane open.".to_string()]
+        vec!["Tire debris. Left lane open.".to_string()]
     );
     assert!(harness.read_drive(|d| d.lane_change_target.is_none()));
 }
