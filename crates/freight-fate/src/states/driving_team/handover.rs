@@ -39,7 +39,7 @@ impl DrivingState {
             && !self.co_driver_driving()
             && self.pull_over.is_none()
             && self.hazard_deadline.is_none()
-            && self.team_available(ctx)
+            && self.team_available()
     }
 }
 
