@@ -3,10 +3,21 @@ name: Freight Fate builds
 # Beta snapshots follow dev; alpha builds may follow a feature branch.
 # Explicit version tags remain the stable release path (see CAREER_BRANCH).
 #
-# A scheduled run executes the copy of this file on the DEFAULT branch
-# (main), whatever the checked-out code is, so after changing it here push
-# the same file to main or the nightly quietly keeps the old job list. The
-# Prepare job fails a scheduled run whose file differs from CAREER_BRANCH's.
+# A push to dev is the snapshot's main start (2026-11-09): the run uses dev's
+# own copy of this file and publishes the day's `1.9-tester-YYYYMMDD` once
+# the tests and every platform's package pass, about an hour and a quarter
+# after the merge. Another push while it runs cancels it and starts over on
+# the newer commit; the snapshot a tester sees is always the newest dev that
+# passed. A push whose commits add no curated changelog entry and carry no
+# `nightly: build` marker stops in Prepare, so a docs-only merge costs a few
+# minutes of one Linux runner and nothing more.
+#
+# The schedule is the fallback. A scheduled run executes the copy of this
+# file on the DEFAULT branch (main), whatever the checked-out code is, so
+# after changing it here push the same file to main or the fallback quietly
+# keeps the old job list. The Prepare job fails a scheduled run whose file
+# differs from CAREER_BRANCH's, and a scheduled run skips the night when the
+# newest snapshot already sits on dev's head.
 #
 # Stable releases: push a `v*.*.*` tag. That trigger drops `--prerelease`,
 # takes the version from the tag, and writes notes via
@@ -28,12 +39,24 @@ name: Freight Fate builds
 # job that compiles goes through .github/actions/rust-setup.
 
 on:
+  # The snapshot's main start. Only dev: a feature branch is built by hand
+  # through workflow_dispatch with the alpha channel, never by its pushes.
+  push:
+    branches: [dev]
+    # Stable releases: push a v*.*.* tag on the commit to ship. Do not
+    # invent the tag from a schedule or dispatch -- only an explicit tag
+    # push cuts a stable GitHub release (no --prerelease, notes from the
+    # version block).
+    tags:
+      - "v*.*.*"
+  # The fallback, once a day. GitHub starts a scheduled run hours after its
+  # cron time (the 02:37 start has been landing between 09:00 and 10:30 UTC
+  # through October and November 2026) and sometimes drops one outright
+  # (2026-10-12). With the push start carrying the snapshot, this one has
+  # work only when a push build failed and its retry failed too, or when
+  # dev changed without a push event; it skips the night otherwise.
   schedule:
     - cron: "37 2 * * *"
-    # Backup start. GitHub sometimes drops a scheduled start outright
-    # (2026-10-12: no scheduled workflow in the repo fired). This one builds
-    # only when the day's snapshot does not exist yet; see Prepare.
-    - cron: "37 8 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -53,20 +76,16 @@ on:
         description: "Also publish as the 1.9 release candidate under nightly-YYYYMMDD, where 1.8 developer-snapshot players' updater finds it"
         type: boolean
         default: false
-  # Stable releases: push a v*.*.* tag on the commit to ship. Do not invent
-  # the tag from a schedule or dispatch -- only an explicit tag push cuts a
-  # stable GitHub release (no --prerelease, notes from the version block).
-  push:
-    tags:
-      - "v*.*.*"
-
 permissions:
   contents: write
 
 concurrency:
   group: career-snapshot-${{ inputs.channel || 'beta' }}
-  # A scheduled start queues behind a running build instead of cancelling
-  # it, so the backup start can never kill a late primary run.
+  # A push or a dispatch cancels the build in flight: the newer commit is
+  # the one testers should get, and publishing replaces the day's release
+  # wholesale, so a cancelled run leaves the last published snapshot
+  # standing. A scheduled start queues behind a running build instead, so
+  # the fallback can never kill a late push build.
   cancel-in-progress: ${{ github.event_name != 'schedule' }}
 
 jobs:
@@ -80,6 +99,8 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: ${{ github.workflow_sha }}
+      # A push already names its ref (dev, or the stable tag); the channel
+      # map is for the schedule and for dispatches.
       - uses: ./.github/actions/update-source
         id: branch
         if: github.event_name != 'push'
@@ -132,8 +153,9 @@ jobs:
 
       - name: Refuse to run a stale copy of this workflow
         # GITHUB_WORKFLOW_SHA is the commit the running workflow file came
-        # from: main on a schedule, the dispatched ref otherwise. HEAD is the
-        # career branch. A scheduled run on a stale main file must fail here
+        # from: main on a schedule, the pushed commit on a push, the
+        # dispatched ref otherwise. HEAD is the career branch, so a push to
+        # dev passes trivially. A scheduled run on a stale main file must fail here
         # rather than ship a snapshot missing whole platforms. So must a
         # dispatch that would publish: on 2026-10-19 one from main built every
         # platform for 25 minutes, then its Release job refused the assets
@@ -154,7 +176,8 @@ jobs:
           echo "::warning::$msg"
 
       # A scheduled start with no new commits since the last snapshot stops
-      # here, before the release tooling is built.
+      # here, before the release tooling is built. This is the usual end of
+      # the fallback: the push build already published this commit.
       - name: Skip a night with no new commits
         id: early
         if: github.event_name == 'schedule'
@@ -189,7 +212,6 @@ jobs:
         if: steps.early.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SCHEDULE: ${{ github.event.schedule }}
           UPDATE_CHANNEL: ${{ inputs.channel || 'beta' }}
         run: |
           echo "commit_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
@@ -223,15 +245,11 @@ jobs:
             exit 0
           fi
 
-          # The backup start builds only when the primary start never made
-          # today's snapshot (dropped, or failed past its retry).
-          if [ "$SCHEDULE" = "37 8 * * *" ] \
-            && gh release view "1.9-tester-$(date -u +%Y%m%d)" >/dev/null 2>&1; then
-            echo "Today's snapshot already exists; the backup start has nothing to do."
-            echo "should_build=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
+          # A push to dev and the scheduled fallback both build only when
+          # the commits since the newest snapshot add a curated changelog
+          # entry or ask for a build in a commit message. The newest
+          # snapshot may be today's, cut by an earlier push: then only what
+          # landed since that push counts, and a docs-only merge stops here.
           LAST_TAG=$(git tag --list "1.9-tester-*" --sort=-version:refname | head -1)
           if [ -z "$LAST_TAG" ]; then
             echo "should_build=true" >> "$GITHUB_OUTPUT"
