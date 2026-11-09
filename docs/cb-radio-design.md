@@ -388,15 +388,23 @@ frames through a feed. Voice frames take the same path and are never stored.
   at 48 kilohertz mono in 20 millisecond frames through the libopus already
   in the tree, push-to-talk state, and a jitter buffer that implements
   `Feed`.
-- Asked of Hearken's PR 2 (text chat) before it is built: a persistent
-  channel kind joined by name with no member cap and no expiry, last-N
-  history on join with seven-day retention, a create-or-find route for
-  private channels that shows up in the other driver's room list, an
-  optional screened `tag` field on chat events for the place line, refusal
-  codes the game can speak, members with a stable id and display name,
-  per-kind rate limits, per-pair mute, block and report held server-side,
-  and game-overridable keys. The Hearken thread confirmed none of these
-  conflict with what is merged.
+- Hearken's PR 2 (text chat, Hearken #62, awaiting the owner's review)
+  gives the text CB everything it asked for. A channel is a room kind with
+  seats and no rules, joined by name and made on first ask, never closed;
+  a client that starts watching one reads its last 20 lines, and history is
+  paged by sequence with seven days kept per kind. Private channels are
+  create-or-find direct rooms that seat both drivers, so each sees it in
+  their own list, and either leaving closes it. A chat line can carry a
+  screened tag of up to 64 characters, which is the place line, and the
+  server speaks it as "handle, place: text". Refusals come back as codes
+  the game can speak: too fast (a per-kind limit of lines per minute and a
+  gap between lines), screened with the screen's message, blocked, and
+  signed out. Members and events carry a handle that is stable per account
+  and never the account id. Mutes and blocks are held per account pair on
+  the server, one way for a mute and both ways for a block, which also
+  stops direct rooms; a report sends the reported driver's last 20 lines
+  with the note. Keys are the game's to set: Freight Fate returns no chat
+  keys to Hearken and drives the rooms client itself.
 
 Freight Fate pins the Hearken revision as it does today and vendors nothing
 new. The agent server drive for the game side runs against Hearken's
