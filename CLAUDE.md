@@ -206,6 +206,16 @@ Everything is Rust: the game, and the tooling around it in `ff-tools`.
   focused tests, the full crate tests, and the adversarial battery as separate
   gates. Do not enable Clippy's restriction group wholesale; justify individual
   stricter lints where they fit this codebase.
+- Make state machines explicit (owner rule, 2026-11-09). When designing or
+  building, find the implicit state machines -- a set of booleans that travel
+  together, a connection that is "sort of open", a key whose meaning depends
+  on history -- and make each one an enum in `ff-core` with one `next(event)`
+  function and a transition test table. Choose the shape that serves the
+  player (one spoken line or sound per transition), the developer (the enum
+  is the only place the state moves) and the agent play tester (the agent
+  server's `status` reports the state, and a scenario can set it) at once,
+  without breaking anything that works. `docs/cb-radio-design.md` has a
+  worked example.
 
 References: [The Rust Programming Language: graceful shutdown and
 cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.html),
@@ -341,8 +351,8 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   is one no-build checks job on GitHub's hosted runners (fmt, the
   translation files, `cargo tools test-targets`, the Hearken leaf-type
   grep) that finishes in well under a minute, and `changelog.yml` is the
-  changelog gate. The nightly Career 1.9 snapshot is where CI lints and
-  tests.
+  changelog gate. The Career 1.9 snapshot build (each push to `dev`, and
+  once a night as a fallback) is where CI lints and tests.
   Every compiling job goes through `.github/actions/rust-setup` (the
   platform's build dependencies, the pinned toolchain, sccache and rust-cache). SDL2 is
   vendored for `windows-x86_64` alone. macOS and Linux build from

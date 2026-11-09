@@ -445,7 +445,9 @@ impl DrivingState {
             // leaving the road was free, and the rest of this frame's lane
             // work (a lane change in progress, a merge) was skipped with it
             // (agent drive, 2026-09-24).
-            self.trip.truck.add_damage(1.0, true);
+            self.trip
+                .truck
+                .add_damage_from(1.0, true, "leaving the pavement");
             if ctx.settings.lane_departure_warning {
                 let pan = self.lane_pan();
                 ctx.audio.play_with("vehicle/rumble_strip", 1.0, pan);

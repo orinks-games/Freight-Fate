@@ -733,6 +733,13 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
     // what the summary reads before handing the route over.
     let route_for_line = route.clone();
     let mut driving = DrivingState::new(ctx, job, route, trip_seed, phase, start_hour);
+    // The co-driver the dock offered rides in the sleeper for the whole
+    // load, even when the player leaves at the wheel. Judged again on the
+    // road, a full night's rest made the rest of the load one shift and
+    // they dropped off the pause menu (player report, 2026-11-09).
+    if driving.team_at_departure(ctx) {
+        driving.ensure_team(ctx);
+    }
     if let Some(resume) = &resume {
         // A trailer the driver refused at the shipper must not follow them
         // onto the road: the scale house has to find the box they are

@@ -704,7 +704,7 @@ Away from route points, stop fully and use T or the pause menu for emergency sho
 
 On a load too long for one shift, a co-driver can take the wheel while you rest in the sleeper. Dispatch pairs a company driver with a classmate from Great Lakes Training Transport for one load. An owner-operator keeps the co-driver they have teamed with most.
 
-When the rest of the delivery would need a ten-hour break, the pause menu offers two rows, each naming your co-driver:
+When a load leaves the shipper needing a ten-hour break, the co-driver comes along for the whole delivery, even if you drive out yourself. The pause menu then offers two rows, each naming your co-driver:
 
 - **Hand the wheel to Dan and ride along.** The drive goes on at the normal pace. You hear the truck and the radio, and the road's announcements stay quiet.
 - **Hand the wheel to Dan and sleep.** The co-driver's shift runs ahead without waiting, with the sound off. You wake when they need you, with a summary of how far they drove and where they fueled.

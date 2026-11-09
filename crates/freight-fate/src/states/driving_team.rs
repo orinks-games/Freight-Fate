@@ -232,13 +232,25 @@ impl DrivingState {
         ctx.controller.active() && !self.co_driver_driving()
     }
 
-    /// Whether a team is worth offering for the rest of this trip: the
-    /// delivery leg, and long enough that driving it alone needs a sleep.
-    pub fn team_available(&self, ctx: &GameContext) -> bool {
+    /// Whether this load has a co-driver aboard: a team load, or one the
+    /// dock offered a co-driver for. Dispatch pairs the team before the
+    /// load leaves, so nobody joins or leaves on the road, whatever the
+    /// player's hours do after (owner, 2026-11-09).
+    pub fn team_available(&self) -> bool {
         if self.phase != DRIVE_PHASE_DELIVERY || self.trip.finished {
             return false;
         }
-        if self.team.is_some() || self.job.team {
+        self.team.is_some() || self.job.team
+    }
+
+    /// Whether the loaded departure takes a co-driver along: the dock's own
+    /// test, a team load or one long enough that driving it alone needs a
+    /// sleep.
+    pub fn team_at_departure(&self, ctx: &GameContext) -> bool {
+        if self.phase != DRIVE_PHASE_DELIVERY || self.trip.finished {
+            return false;
+        }
+        if self.job.team {
             return true;
         }
         // The planner's own pace for the road ahead, curves and towns
@@ -259,14 +271,15 @@ impl DrivingState {
         }
     }
 
-    /// Pair a co-driver for this load if there is none yet.
+    /// Pair a co-driver for this load if there is none yet: at the loaded
+    /// departure, or when the dock hands them the wheel.
     pub fn ensure_team(&mut self, ctx: &mut GameContext) {
         if self.team.is_some() {
             return;
         }
         let pairing = self.team_pairing(ctx);
         let mut team = TeamDrive::new(pairing.co_driver, pairing.reason);
-        // A co-driver joining mid-load has been in the bunk, rested.
+        // They start the load rested, from the bunk.
         team.off_wheel_hos.sleep();
         self.team = Some(team);
     }

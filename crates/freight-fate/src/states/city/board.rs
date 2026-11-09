@@ -734,6 +734,12 @@ impl JobBoardState {
     /// budget their own sleeps into the deadline, so a rested driver is
     /// never warned just because the run is long.
     fn job_exceeds_current_hos(&self, ctx: &GameContext, job: &Job) -> bool {
+        // A team load is booked for two drivers: the co-driver can take the
+        // first shift while this driver rests, so hours already spent today
+        // never cost it an extra rest (issue 590).
+        if job.team {
+            return false;
+        }
         let p = profile(ctx);
         let Some((drive_limit, duty_limit, _break_after)) = limits(&ctx.settings.hos_mode) else {
             return false;

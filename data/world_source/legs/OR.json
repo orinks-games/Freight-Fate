@@ -1048,14 +1048,14 @@
             "source": "Real town on US-101 between astoria_or_us and olympia_wa_us; position matched to the nearest point on the real ORS driving-hgv route geometry (1.25 mi off-route at closest approach)."
           },
           {
-            "name": "West Side Highway",
+            "name": "Lexington",
             "at_mi": 58.1,
             "type": "place",
             "state": "Washington",
             "highway": "US-101",
-            "lat": 46.184,
-            "lon": -122.9172,
-            "source": "Real town on US-101 between astoria_or_us and olympia_wa_us; position matched to the nearest point on the real ORS driving-hgv route geometry (0.89 mi off-route at closest approach)."
+            "lat": 46.1894,
+            "lon": -122.9126,
+            "source": "Read 2026-11-09: Lexington CDP, US Census 2024 Gazetteer internal point; at_mi kept from the old checkpoint here, which named West Side Highway, a road through Lexington, as a town."
           }
         ],
         "tollway_detected": false,
@@ -19044,15 +19044,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 150943795, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Passing Riddle"
-          },
-          {
-            "name": "Tri City",
-            "at_mi": 48.5,
-            "off_mi": 0.48,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 150939776, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Entering Tri City"
           },
           {
             "name": "Myrtle Creek",
@@ -60493,15 +60484,6 @@
             "kind": "point",
             "source": "OpenStreetMap place=village node 150958545, projected onto the leg's OpenRouteService driving-hgv route",
             "spoken": "Entering Myrtle Creek"
-          },
-          {
-            "name": "Tri City",
-            "at_mi": 20.6,
-            "off_mi": 0.5,
-            "category": "village",
-            "kind": "point",
-            "source": "OpenStreetMap place=village node 150939776, projected onto the leg's OpenRouteService driving-hgv route",
-            "spoken": "Entering Tri City"
           },
           {
             "name": "Wildlife Safari (northbound)",
