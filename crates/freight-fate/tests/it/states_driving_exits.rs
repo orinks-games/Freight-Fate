@@ -507,10 +507,12 @@ fn test_destination_exit_auto_arms_and_takes_ramp_with_valid_setup() {
         "the ramp starts at its own length, {start}: {ramp:?}"
     );
     assert!(harness.read_drive(|d| d.destination_exit_taken));
+    // The ramp line names the exit it took, whichever load the career drew.
+    let number = stop.exit_label.trim_start_matches("exit ").to_string();
     assert!(
         spoken(&harness)
             .iter()
-            .any(|line| line.contains("Exit 342. A quarter mile of ramp")),
+            .any(|line| line.starts_with(&format!("Exit {number}. ")) && line.contains(" of ramp")),
         "{:?}",
         spoken(&harness)
     );
