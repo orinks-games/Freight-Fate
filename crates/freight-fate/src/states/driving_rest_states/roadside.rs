@@ -694,7 +694,9 @@ impl FelonyStopState {
         self.standing_text = d.log_enforcement(ctx, fine, false, true, "Ran from a traffic stop");
         // add_damage, not a raw assignment: spike damage has to cross the
         // bands so a spiked truck can go out of service like any other wreck.
-        d.trip.truck.add_damage(FAILURE_TO_STOP_DAMAGE_PCT, true);
+        d.trip
+            .truck
+            .add_damage_from(FAILURE_TO_STOP_DAMAGE_PCT, true, "a spike strip");
         d.trip.truck.velocity_mps = 0.0;
         d.trip.truck.throttle = 0.0;
         d.trip.truck.brake = 1.0;
