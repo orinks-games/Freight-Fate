@@ -341,8 +341,8 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   is one no-build checks job on GitHub's hosted runners (fmt, the
   translation files, `cargo tools test-targets`, the Hearken leaf-type
   grep) that finishes in well under a minute, and `changelog.yml` is the
-  changelog gate. The nightly Career 1.9 snapshot is where CI lints and
-  tests.
+  changelog gate. The Career 1.9 snapshot build (each push to `dev`, and
+  once a night as a fallback) is where CI lints and tests.
   Every compiling job goes through `.github/actions/rust-setup` (the
   platform's build dependencies, the pinned toolchain, sccache and rust-cache). SDL2 is
   vendored for `windows-x86_64` alone. macOS and Linux build from
