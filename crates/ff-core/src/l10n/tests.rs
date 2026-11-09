@@ -1127,3 +1127,19 @@ fn shipped_polish_says_a_numbered_job_whole() {
     assert!(out.contains("Zlecenie 1 z 7: "), "{out}");
     assert!(!out.contains(" tons of "), "{out}");
 }
+
+#[test]
+fn shipped_polish_says_the_pay_after_costs_as_a_polish_number() {
+    // "{take_home}" reads as a home city by its name, so "about 6,576 after
+    // costs" kept the English comma: six point five, to a Polish or German
+    // ear, beside a correctly written "7 323" for the gross.
+    let tr = shipped_polish();
+    let out = tr.translate("Pays 7,323 dollars, about 6,576 after costs.");
+    assert!(out.contains("7\u{a0}323"), "{out}");
+    assert!(out.contains("6\u{a0}576"), "{out}");
+    assert!(!out.contains("6,576"), "{out}");
+    let po = include_str!("../../../../lang/de.po");
+    let de = Translator::new(Catalog::from_po("de", po).expect("lang/de.po parses"));
+    let out = de.translate("Pays 7,323 dollars, about 6,576 after costs.");
+    assert!(out.contains("7.323") && out.contains("6.576"), "{out}");
+}

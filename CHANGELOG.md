@@ -48,6 +48,7 @@
 
 ### Fixed
 
+- **In other languages, the dispatch board's pay after costs is read as the right number.** German, Polish and Spanish voices used to read 6,576 as six point five.
 - **Team loads no longer warn that you need an extra rest.** Your co-driver can take the first shift while you sleep.
 - **Towns that no longer exist are no longer named on the road.** Savage, Montana, is no longer also called Knife River, and Lacy Lakeview and Tri City are named once.
 - **A co-driver offered at the shipper stays with you for the whole load.** Driving out yourself and sleeping at a stop no longer drops them, and no co-driver joins on the road.
