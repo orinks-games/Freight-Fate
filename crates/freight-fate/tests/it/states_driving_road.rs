@@ -702,6 +702,37 @@ fn test_switching_off_within_the_grace_avoids_the_fine() {
     assert_eq!(drive.jake_zone_fines, 0);
 }
 
+/// Issue 531: a touch of the throttle or a gear change pauses the bark with
+/// the switch still on. That pause used to clear the grace window, and the
+/// next bark was cited at once because the town's warning was spent.
+#[test]
+fn test_a_pause_in_the_bark_keeps_the_grace_window() {
+    let mut app = TestApp::new();
+    let mut drive = a_drive(&mut app, "Jake");
+    app.seasoned_driver();
+    let mile = a_zone_mile(&drive);
+    roll_with_jake(&mut drive, mile);
+
+    drive.update_engine_brake_zone(&mut app.ctx, 0.1); // warning
+    drive.update_engine_brake_zone(&mut app.ctx, 2.0);
+    drive.trip.truck.throttle = 0.5; // back on the fuel: no bark
+    drive.update_engine_brake_zone(&mut app.ctx, 1.0);
+    drive.trip.truck.throttle = 0.0;
+    drive.trip.truck.transmission.gear = 0; // mid-shift: no bark either
+    drive.update_engine_brake_zone(&mut app.ctx, 0.5);
+    drive.trip.truck.transmission.gear = 7;
+    drive.update_engine_brake_zone(&mut app.ctx, 2.0); // barking again
+
+    assert_eq!(drive.jake_zone_fines, 0, "cited inside the grace window");
+    assert!(drive.jake_violation_deadline_s.is_some());
+
+    // The paused seconds did not count, and the grace still runs out.
+    drive.update_engine_brake_zone(&mut app.ctx, JAKE_ZONE_GRACE_S - 4.5);
+    assert_eq!(drive.jake_zone_fines, 0);
+    drive.update_engine_brake_zone(&mut app.ctx, 1.0);
+    assert_eq!(drive.jake_zone_fines, 1);
+}
+
 #[test]
 fn test_open_road_jake_use_stays_free() {
     let mut app = TestApp::new();
