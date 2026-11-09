@@ -3,7 +3,8 @@
 //!
 //! A port of the deleted `tools/bake_villages.py` and its place extractor
 //! (`tools/extract_osm_places.py`). Named `place=town|village` nodes (never
-//! hamlets: a handful of houses is not somewhere the driver arrives) within
+//! hamlets: a handful of houses is not somewhere the driver arrives, and
+//! never a ghost town or abandoned place, see [`is_gone`]) within
 //! 12 miles of the road are projected onto it, nearest first, at most 30 a
 //! leg. Each keeps its `off_mi`, so the game can name only the ones the road
 //! reaches and still answer "eleven miles ahead" for the rest. Dropped: a
@@ -50,7 +51,7 @@ pub struct Place {
 
 fn norm(name: &str) -> String {
     name.to_lowercase()
-        .replace('.', " ")
+        .replace(['.', '-', '\u{2013}'], " ")
         .split_whitespace()
         .collect::<Vec<_>>()
         .join(" ")
@@ -250,11 +251,48 @@ pub fn bake_leg(
     records
 }
 
+/// Tags that mark a place nobody lives in any more: a ghost town, a site
+/// kept for its history, or a town abandoned or flooded. Mappers often keep
+/// the old `place=village` on such a node, so the rank alone lets them in.
+const GONE_KEYS: &[&str] = &[
+    "abandoned",
+    "abandoned:place",
+    "disused",
+    "disused:place",
+    "historic:place",
+    "was:place",
+    "demolished:place",
+    "destroyed:place",
+    "end_date",
+];
+
+/// `historic=*` values that mean the place itself is gone. Not `district`:
+/// a living New England village is often a historic district too.
+const GONE_HISTORIC: &[&str] = &[
+    "ghost_town",
+    "abandoned",
+    "deserted_village",
+    "ruins",
+    "archaeological_site",
+    "settlement",
+];
+
+/// Whether a place node's tags say it is gone.
+pub fn is_gone(t: &[(&str, &str)]) -> bool {
+    let has = |k: &str| t.iter().find(|(tk, _)| *tk == k).map(|(_, v)| *v);
+    let no = |v: &str| matches!(v, "no" | "0");
+    GONE_KEYS.iter().any(|k| has(k).is_some_and(|v| !no(v)))
+        || has("historic").is_some_and(|v| GONE_HISTORIC.contains(&v))
+        || has("population").is_some_and(|v| v.trim() == "0")
+        || has("name").is_some_and(|n| n.to_lowercase().contains("(historical)"))
+}
+
 pub fn read_places(pbfs: &[std::path::PathBuf]) -> Result<Vec<Place>> {
     let keep = |t: &[(&str, &str)]| {
         let has = |k: &str| t.iter().find(|(tk, _)| *tk == k).map(|(_, v)| *v);
         matches!(has("place"), Some("town" | "village"))
             && has("name").is_some_and(|n| !n.trim().is_empty())
+            && !is_gone(t)
     };
     let found = features::read(
         pbfs,
@@ -376,6 +414,42 @@ mod tests {
         )
         .unwrap();
         assert_eq!(zone_starts(&leg), vec![5.0, 6.0, 12.0]);
+    }
+
+    #[test]
+    fn ghost_towns_are_not_read_as_places() {
+        let live = [
+            ("place", "village"),
+            ("name", "Savage"),
+            ("population", "269"),
+        ];
+        assert!(!is_gone(&live));
+        assert!(!is_gone(&[
+            ("place", "town"),
+            ("name", "Pine"),
+            ("disused", "no")
+        ]));
+        assert!(!is_gone(&[
+            ("place", "village"),
+            ("name", "Bean Hill"),
+            ("historic", "district")
+        ]));
+        for gone in [
+            ("historic", "ghost_town"),
+            ("abandoned", "yes"),
+            ("abandoned:place", "village"),
+            ("end_date", "1958"),
+            ("population", "0"),
+        ] {
+            assert!(
+                is_gone(&[("place", "village"), ("name", "Bodie"), gone]),
+                "{gone:?}"
+            );
+        }
+        assert!(is_gone(&[
+            ("place", "village"),
+            ("name", "Ore'q (historical)")
+        ]));
     }
 
     #[test]
