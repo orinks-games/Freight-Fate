@@ -6331,6 +6331,10 @@ msgid "automotive plant"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
+msgid "beef plant"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
 msgid "chemical and petroleum terminal"
 msgstr ""
 
@@ -6360,6 +6364,10 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
 msgid "farm elevator"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
+msgid "feed yard"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
@@ -6419,6 +6427,10 @@ msgid "retail distribution hub"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
+msgid "sale barn"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
 msgid "mall"
 msgstr ""
 
@@ -6436,6 +6448,10 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
 msgid "assembly plant access road"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
+msgid "plant access road"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
@@ -6471,6 +6487,10 @@ msgid "elevator access road"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
+msgid "feed yard road"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
 msgid "food terminal access road"
 msgstr ""
 
@@ -6492,10 +6512,6 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
 msgid "mill access road"
-msgstr ""
-
-#: crates/ff-core/src/data/world_constants.rs
-msgid "plant access road"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
@@ -6524,6 +6540,10 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
 msgid "retail distribution access road"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
+msgid "sale barn road"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
@@ -6570,16 +6590,20 @@ msgstr ""
 msgid "steel"
 msgstr ""
 
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/jobs/catalog.rs
+msgid "refrigerated"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/settlement.rs
+msgid "livestock"
+msgstr ""
+
 #: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/market.rs
 msgid "bulk"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/market.rs crates/ff-core/src/models/trailers.rs
 msgid "chemicals"
-msgstr ""
-
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/jobs/catalog.rs
-msgid "refrigerated"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/market.rs
@@ -6608,6 +6632,13 @@ msgstr ""
 msgid ""
 "Representative automotive facility; guided by FAF commodity and "
 "metro-market framing."
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
+msgid ""
+"Representative beef plant in a city with a federally inspected cattle "
+"slaughter plant; guided by the CME approved stockyard and slaughter plant "
+"list."
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
@@ -6652,6 +6683,12 @@ msgstr ""
 msgid ""
 "Representative farm elevator or ag terminal; guided by USDA grain truck "
 "indicators and FAF agriculture flows."
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
+msgid ""
+"Representative cattle feed yard in a cattle-feeding region; guided by USDA "
+"NASS cattle on feed reports."
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
@@ -6740,6 +6777,12 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
 msgid ""
+"Representative livestock auction in a city with a USDA AMS market news "
+"auction report."
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
+msgid ""
 "Curated shopping mall that receives store and restaurant freight at its "
 "service dock."
 msgstr ""
@@ -6807,6 +6850,10 @@ msgid "{city} Auto Assembly Supplier Park"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
+msgid "{city} Beef Plant"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
 msgid "{city} Energy Terminal"
 msgstr ""
 
@@ -6843,6 +6890,10 @@ msgid "{city} Grain Elevator"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
+msgid "{city} Feed Yard"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
 msgid "{city} Food Processing Plant"
 msgstr ""
 
@@ -6872,6 +6923,10 @@ msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
 msgid "{city} Port Terminal"
+msgstr ""
+
+#: crates/ff-core/src/data/world_constants.rs
+msgid "{city} Sale Barn"
 msgstr ""
 
 #: crates/ff-core/src/data/world_constants.rs
@@ -7189,7 +7244,7 @@ msgstr ""
 msgid "receiver"
 msgstr ""
 
-#: crates/ff-core/src/data/world_models.rs
+#: crates/ff-core/src/data/world_models.rs crates/freight-fate/src/states/driving_livestock.rs
 msgid "shipper"
 msgstr ""
 
@@ -9512,10 +9567,6 @@ msgstr ""
 msgid "glass"
 msgstr ""
 
-#: crates/ff-core/src/models/cargo_condition.rs
-msgid "livestock"
-msgstr ""
-
 #: crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/models/safety_record.rs
 msgid "clean"
 msgstr ""
@@ -9532,7 +9583,7 @@ msgstr ""
 msgid "rejected"
 msgstr ""
 
-#: crates/ff-core/src/models/cargo_condition.rs
+#: crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/sim/livestock/words.rs
 msgid "lost"
 msgstr ""
 
@@ -9548,8 +9599,12 @@ msgstr ""
 msgid "worked"
 msgstr ""
 
-#: crates/ff-core/src/models/cargo_condition.rs crates/freight-fate/src/states/driving_damage.rs crates/freight-fate/src/states/driving_liquid.rs
+#: crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/sim/livestock/footing.rs crates/freight-fate/src/states/driving_liquid.rs
 msgid "settled"
+msgstr ""
+
+#: crates/ff-core/src/models/cargo_condition.rs
+msgid "riding well"
 msgstr ""
 
 #: crates/ff-core/src/models/cargo_condition.rs
@@ -9568,7 +9623,7 @@ msgstr ""
 msgid "shifted but sound"
 msgstr ""
 
-#: crates/ff-core/src/models/cargo_condition.rs crates/freight-fate/src/states/driving_damage.rs
+#: crates/ff-core/src/models/cargo_condition.rs
 msgid "secure"
 msgstr ""
 
@@ -10160,6 +10215,24 @@ msgid ""
 msgstr ""
 
 #: crates/ff-core/src/models/credentials.rs
+msgid "livestock handling"
+msgstr ""
+
+#: crates/ff-core/src/models/credentials.rs
+msgid "livestock handling certificate"
+msgstr ""
+
+#: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/jobs/catalog.rs
+msgid "live cattle"
+msgstr ""
+
+#: crates/ff-core/src/models/credentials.rs
+msgid ""
+"You earned the livestock handling certificate. Live cattle jobs are now "
+"available."
+msgstr ""
+
+#: crates/ff-core/src/models/credentials.rs
 msgid "doubles"
 msgstr ""
 
@@ -10306,6 +10379,13 @@ msgstr ""
 msgid "Unlocks {unlocks}. "
 msgstr ""
 
+#. placeholders: {level}, {min_level}
+#: crates/ff-core/src/models/credentials.rs
+msgid ""
+"The carrier sponsors it at level {level}, or you can take the free course "
+"yourself from level {min_level}."
+msgstr ""
+
 #. placeholders: {level}, {grouped}, {min_level}
 #: crates/ff-core/src/models/credentials.rs
 msgid ""
@@ -10343,6 +10423,10 @@ msgstr ""
 msgid " Enter books it, or says why you do not qualify."
 msgstr ""
 
+#: crates/ff-core/src/models/credentials.rs
+msgid "free"
+msgstr ""
+
 #. placeholders: {grouped}
 #: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/solvency.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/cat_scale.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "{grouped} dollars"
@@ -10357,6 +10441,17 @@ msgstr ""
 #. one clause of a longer line
 #: crates/ff-core/src/models/credentials.rs
 msgid "background check clears in about {wait_days} days"
+msgstr ""
+
+#. placeholders: {level}
+#: crates/ff-core/src/models/credentials.rs
+msgid ", carrier-sponsored at level {level}"
+msgstr ""
+
+#. placeholders: {level}
+#. one clause of a longer line
+#: crates/ff-core/src/models/credentials.rs
+msgid "carrier-sponsored at level {level}"
 msgstr ""
 
 #. placeholders: {level}
@@ -11353,6 +11448,16 @@ msgstr ""
 msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
 msgstr ""
 
+#. placeholders: {head_text}
+#: crates/ff-core/src/models/jobs.rs
+msgid " {head_text}. They can ride 28 hours."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/ff-core/src/models/jobs.rs
+msgid "They can ride 28 hours."
+msgstr ""
+
 #. placeholders: {highway}, {percent}
 #: crates/ff-core/src/models/jobs.rs
 msgid ""
@@ -11414,10 +11519,10 @@ msgid ""
 "{equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
 msgstr ""
 
-#. placeholders: {prefix}, {load}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {seasonal_weight}, {preview}, {market}, {endorsement}
+#. placeholders: {prefix}, {load}, {cattle}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {seasonal_weight}, {preview}, {market}, {endorsement}
 #: crates/ff-core/src/models/jobs.rs
 msgid ""
-"{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
+"{prefix}{load}{cattle} {distance}. {pay_text} {deadline} Equipment: "
 "{equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
 msgstr ""
 
@@ -11569,6 +11674,10 @@ msgstr ""
 #. placeholders: {endorsement_label}
 #: crates/ff-core/src/models/jobs/catalog.rs
 msgid "the {endorsement_label}"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/catalog.rs
+msgid "cattle"
 msgstr ""
 
 #. placeholders: {f}
@@ -12128,11 +12237,15 @@ msgid "receipt required; billed to the carrier/customer settlement"
 msgstr ""
 
 #: crates/ff-core/src/models/settlement.rs
-msgid "required trailer washout"
+msgid "approved cleaning and disinfecting charge after live cattle"
 msgstr ""
 
 #: crates/ff-core/src/models/settlement.rs
 msgid "approved sanitation charge after food or refrigerated freight"
+msgstr ""
+
+#: crates/ff-core/src/models/settlement.rs
+msgid "required trailer washout"
 msgstr ""
 
 #. placeholders: {money_text}
@@ -12877,6 +12990,19 @@ msgstr ""
 msgid ""
 "Tank trailer program for liquid bulk: fuel, chemicals, and liquid food "
 "products."
+msgstr ""
+
+#: crates/ff-core/src/models/trailers.rs
+msgid "Livestock"
+msgstr ""
+
+#: crates/ff-core/src/models/trailers.rs
+msgid "livestock trailer"
+msgstr ""
+
+#: crates/ff-core/src/models/trailers.rs
+msgid ""
+"Livestock trailer program for live cattle: two decks and a rear compartment."
 msgstr ""
 
 #: crates/ff-core/src/models/trailers.rs
@@ -14129,7 +14255,7 @@ msgstr ""
 msgid "sleeper berth"
 msgstr ""
 
-#: crates/ff-core/src/sim/hos.rs
+#: crates/ff-core/src/sim/hos.rs crates/freight-fate/src/states/driving_livestock.rs
 msgid "1 minute"
 msgstr ""
 
@@ -14139,7 +14265,7 @@ msgid "{text} minutes"
 msgstr ""
 
 #. placeholders: {whole}
-#: crates/ff-core/src/sim/hos.rs
+#: crates/ff-core/src/sim/hos.rs crates/freight-fate/src/states/driving_livestock.rs
 msgid "{whole} hours"
 msgstr ""
 
@@ -14897,7 +15023,7 @@ msgstr ""
 msgid "2 hours"
 msgstr ""
 
-#: crates/ff-core/src/sim/hos/warnings.rs crates/ff-core/src/sim/hos.rs
+#: crates/ff-core/src/sim/hos/warnings.rs crates/ff-core/src/sim/hos.rs crates/freight-fate/src/states/driving_livestock.rs
 msgid "1 hour"
 msgstr ""
 
@@ -14995,6 +15121,173 @@ msgstr ""
 
 #: crates/ff-core/src/sim/lane_guidance.rs crates/freight-fate/src/states/driving_team/pilot.rs crates/freight-fate/src/states/driving_updates/cues.rs
 msgid "shoulder"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/exemption.rs
+msgid "counting"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/footing.rs
+msgid "restless"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/footing.rs
+msgid "scrambling"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/footing.rs
+msgid "Cattle settled"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/footing.rs
+msgid "Cattle restless"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/footing.rs
+msgid "Cattle losing their footing"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/footing.rs
+msgid "One of the cattle is down"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/heat.rs
+msgid "cool"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/limit.rs crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
+msgid "running"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/limit.rs crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid "over"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/limit.rs
+msgid "2 hours left on the 28-hour limit."
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/limit.rs
+msgid "1 hour left on the 28-hour limit."
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/limit.rs
+msgid "30 minutes left on the 28-hour limit."
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/limit.rs
+msgid "The cattle have been aboard 28 hours."
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/phase.rs
+msgid "booked"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/phase.rs crates/ff-core/src/sim/weather.rs crates/freight-fate/src/states/city_pickup.rs
+msgid "loading"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/phase.rs
+msgid "aboard"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/phase.rs
+msgid "unloading"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/phase.rs
+msgid "delivered"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "feeder calves"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "fed cattle"
+msgstr ""
+
+#. placeholders: {head}, {noun}
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "{head} head of {noun}"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "injured"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "bruised"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "The owner refuses to pay for the haul."
+msgstr ""
+
+#. placeholders: {dead}
+#. one sentence of a longer line
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "{dead} dead on arrival."
+msgstr ""
+
+#. placeholders: {dead}
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "{dead} dead on arrival. The owner refuses to pay for the haul."
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "1 could not walk off. The carrier pays a claim."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "The carrier pays a claim."
+msgstr ""
+
+#. placeholders: {hurt}
+#. one sentence of a longer line
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "{hurt} could not walk off."
+msgstr ""
+
+#. placeholders: {hurt}
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "{hurt} could not walk off. The carrier pays a claim."
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "Bruising noted on the bill of lading."
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/words.rs crates/ff-core/src/sim/tunnel.rs crates/freight-fate/src/states/driving_dispatch_call.rs
+msgid "hour"
+msgstr ""
+
+#: crates/ff-core/src/sim/livestock/words.rs crates/freight-fate/src/states/driving_dispatch_call.rs crates/freight-fate/src/states/online_states/directory.rs
+msgid "hours"
+msgstr ""
+
+#. placeholders: {head}
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "{head} head off, 1 helped to its feet"
+msgstr ""
+
+#. placeholders: {head}
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "{head} head off, all walking"
+msgstr ""
+
+#. placeholders: {hours}, {hours_word}, {shrink}
+#. one sentence of a longer line
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid "{hours} {hours_word} aboard, shrink about {shrink} percent."
+msgstr ""
+
+#. placeholders: {walking}, {hours}, {hours_word}, {shrink}
+#: crates/ff-core/src/sim/livestock/words.rs
+msgid ""
+"{walking}. {hours} {hours_word} aboard, shrink about {shrink} percent."
 msgstr ""
 
 #: crates/ff-core/src/sim/pedal_latch.rs
@@ -17445,10 +17738,6 @@ msgstr ""
 msgid "minute"
 msgstr ""
 
-#: crates/ff-core/src/sim/tunnel.rs crates/freight-fate/src/states/driving_dispatch_call.rs
-msgid "hour"
-msgstr ""
-
 #. placeholders: {clock_text}
 #. one sentence of a longer line
 #: crates/ff-core/src/sim/tunnel.rs
@@ -17650,10 +17939,6 @@ msgstr ""
 
 #: crates/ff-core/src/sim/weather.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
 msgid "live"
-msgstr ""
-
-#: crates/ff-core/src/sim/weather.rs crates/freight-fate/src/states/city_pickup.rs
-msgid "loading"
 msgstr ""
 
 #: crates/ff-core/src/sim/weather.rs
@@ -23871,6 +24156,24 @@ msgstr ""
 msgid "credential course"
 msgstr ""
 
+#. placeholders: {gate_label}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business.rs
+msgid "Course complete, and you earned the {gate_label}."
+msgstr ""
+
+#. placeholders: {gate_label}
+#: crates/freight-fate/src/states/city_business.rs
+msgid ""
+"Course complete, and you earned the {gate_label}. Matching freight is "
+"unlocked."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_business.rs
+msgid "Matching freight is unlocked."
+msgstr ""
+
 #. placeholders: {grouped}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city_business.rs
@@ -23904,11 +24207,6 @@ msgstr ""
 msgid ""
 "Course complete: {grouped} dollars, and you earned the {gate_label}. "
 "Matching freight is unlocked. You have {grouped2} dollars left."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city_business.rs
-msgid "Matching freight is unlocked."
 msgstr ""
 
 #: crates/freight-fate/src/states/city_business.rs
@@ -25189,10 +25487,6 @@ msgstr ""
 msgid "Engine: {else}"
 msgstr ""
 
-#: crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
-msgid "running"
-msgstr ""
-
 #. placeholders: {f}, {else}
 #: crates/freight-fate/src/states/city_pickup.rs
 msgid "Air: {f} psi   {else}"
@@ -25313,6 +25607,42 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city_pickup.rs
 msgid "W for weather."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_pickup_cattle.rs
+msgid " Health papers are in the cab."
+msgstr ""
+
+#. placeholders: {destination}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_pickup_cattle.rs
+msgid "Loaded for {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {head_text}, {grouped}, {papers}
+#: crates/freight-fate/src/states/city_pickup_cattle.rs
+msgid ""
+"Loaded for {destination}. {head_text}, about {grouped} pounds.{papers}"
+msgstr ""
+
+#. placeholders: {head_text}, {grouped}, {papers}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city_pickup_cattle.rs
+msgid "{head_text}, about {grouped} pounds.{papers}"
+msgstr ""
+
+#: crates/freight-fate/src/states/city_pickup_cattle.rs
+msgid "Load this evening"
+msgstr ""
+
+#: crates/freight-fate/src/states/city_pickup_cattle.rs
+msgid ""
+"Wait off duty until 8 in the evening, then load. The cattle ride cooler, "
+"and the 28 hours start later."
+msgstr ""
+
+#: crates/freight-fate/src/states/city_pickup_cattle.rs
+msgid "waiting for the evening"
 msgstr ""
 
 #. placeholders: {name}
@@ -29352,10 +29682,6 @@ msgstr ""
 msgid "delay"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_dispatch_call.rs crates/freight-fate/src/states/online_states/directory.rs
-msgid "hours"
-msgstr ""
-
 #: crates/freight-fate/src/states/driving_dispatch_call.rs crates/freight-fate/src/states/driving_pause_states.rs
 msgid "Call dispatch"
 msgstr ""
@@ -32549,6 +32875,120 @@ msgstr ""
 msgid "{behaviour} One surge cycle takes about {period_s} seconds."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "1 down in the rear compartment. You got it back on its feet."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "All standing."
+msgstr ""
+
+#. placeholders: {place_label}
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid ""
+"Your hours of service do not count within 150 air miles of the "
+"{place_label}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid ""
+"That clatter is the cattle losing their footing. Brake and steer more "
+"gently."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "Cattle losing their footing."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "One of the cattle is down."
+msgstr ""
+
+#. placeholders: {place_label}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "150 air miles from the {place_label}."
+msgstr ""
+
+#. placeholders: {place_label}
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid ""
+"150 air miles from the {place_label}. Your hours of service are counting."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "Your hours of service are counting."
+msgstr ""
+
+#. placeholders: {place_label}
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid ""
+"150 air miles from the {place_label}. Your hours of service have stopped "
+"counting."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "Your hours of service have stopped counting."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "The cattle heat up while the truck stands."
+msgstr ""
+
+#. placeholders: {temp_f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "{temp_f} degrees."
+msgstr ""
+
+#. placeholders: {temp_f}
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "{temp_f} degrees. The cattle heat up while the truck stands."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "Past the 28-hour limit."
+msgstr ""
+
+#. placeholders: {hours_text}
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "{hours_text} left on the 28-hour limit."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "past the 28-hour limit"
+msgstr ""
+
+#. placeholders: {hours_text}
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "{hours_text} left"
+msgstr ""
+
+#. placeholders: {aboard_text}, {limit}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "{aboard_text} aboard, {limit}."
+msgstr ""
+
+#. placeholders: {head}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "{head} head."
+msgstr ""
+
+#. placeholders: {spoken}, {head}, {aboard_text}, {limit}
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "{spoken}. {head} head. {aboard_text} aboard, {limit}."
+msgstr ""
+
+#. placeholders: {minutes}
+#: crates/freight-fate/src/states/driving_livestock.rs
+msgid "{minutes} minutes"
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_location.rs
 msgid "You have arrived."
@@ -35357,10 +35797,6 @@ msgid "waves you through"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
-msgid "over"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
 msgid "under"
 msgstr ""
 
@@ -36616,6 +37052,19 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop/cat_scale.rs
 msgid "{ticket} {billing} It is {clock_text}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/cattle.rs
+msgid "Check the cattle"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/cattle.rs
+msgid ""
+"Walk the trailer and count the cattle on their feet. 5 minutes on duty."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/cattle.rs
+msgid "checked the cattle"
 msgstr ""
 
 #. placeholders: {grouped}
@@ -47254,6 +47703,30 @@ msgstr ""
 
 #: lang/extra.pot
 msgid "port terminal {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "beef plant {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "beef plant {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "feed yard {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "feed yard {place_name} near {town} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "sale barn {place_name} in {city}"
+msgstr ""
+
+#: lang/extra.pot
+msgid "sale barn {place_name} near {town} in {city}"
 msgstr ""
 
 #: lang/extra.pot

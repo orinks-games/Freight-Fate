@@ -5083,6 +5083,9 @@ msgstr "航空貨物エリア"
 msgid "automotive plant"
 msgstr "自動車工場"
 
+msgid "beef plant"
+msgstr ""
+
 msgid "chemical and petroleum terminal"
 msgstr "化学品・石油ターミナル"
 
@@ -5106,6 +5109,9 @@ msgstr "ドライ倉庫"
 
 msgid "farm elevator"
 msgstr "穀物エレベーター"
+
+msgid "feed yard"
+msgstr ""
 
 msgid "food terminal"
 msgstr "食品ターミナル"
@@ -5149,6 +5155,9 @@ msgstr "鉄道ヤード"
 msgid "retail distribution hub"
 msgstr "小売物流ハブ"
 
+msgid "sale barn"
+msgstr ""
+
 msgid "mall"
 msgstr ""
 
@@ -5163,6 +5172,9 @@ msgstr "空港の貨物用進入路"
 
 msgid "assembly plant access road"
 msgstr "組立工場の進入路"
+
+msgid "plant access road"
+msgstr "プラントの進入路"
 
 msgid "terminal access road"
 msgstr "ターミナルの進入路"
@@ -5188,6 +5200,9 @@ msgstr "倉庫の進入路"
 msgid "elevator access road"
 msgstr "穀物エレベーターの進入路"
 
+msgid "feed yard road"
+msgstr ""
+
 msgid "food terminal access road"
 msgstr "食品ターミナルの進入路"
 
@@ -5205,9 +5220,6 @@ msgstr "複合一貫輸送ランプの進入路"
 
 msgid "mill access road"
 msgstr "工場の進入路"
-
-msgid "plant access road"
-msgstr "プラントの進入路"
 
 msgid "local freight access road"
 msgstr "地域の貨物用進入路"
@@ -5229,6 +5241,9 @@ msgstr "鉄道ヤードの進入路"
 
 msgid "retail distribution access road"
 msgstr "小売物流の進入路"
+
+msgid "sale barn road"
+msgstr ""
 
 msgid "mall service road"
 msgstr ""
@@ -5263,14 +5278,17 @@ msgstr "危険物"
 msgid "steel"
 msgstr "鋼材"
 
+msgid "refrigerated"
+msgstr "冷凍品"
+
+msgid "livestock"
+msgstr "家畜"
+
 msgid "bulk"
 msgstr "バラ積み"
 
 msgid "chemicals"
 msgstr "化学品"
-
-msgid "refrigerated"
-msgstr "冷凍品"
 
 msgid "retail"
 msgstr "小売品"
@@ -5293,6 +5311,12 @@ msgid ""
 "Representative automotive facility; guided by FAF commodity and "
 "metro-market framing."
 msgstr "代表的な自動車関連施設です。FAFの品目別および都市圏市場の枠組みに基づきます。"
+
+msgid ""
+"Representative beef plant in a city with a federally inspected cattle "
+"slaughter plant; guided by the CME approved stockyard and slaughter plant "
+"list."
+msgstr ""
 
 msgid ""
 "Representative chemical or petroleum terminal; guided by FAF commodity "
@@ -5329,6 +5353,11 @@ msgid ""
 "Representative farm elevator or ag terminal; guided by USDA grain truck "
 "indicators and FAF agriculture flows."
 msgstr "代表的な穀物エレベーターまたは農産物ターミナルです。USDAの穀物トラック指標と、FAFの農業の流れに基づきます。"
+
+msgid ""
+"Representative cattle feed yard in a cattle-feeding region; guided by USDA "
+"NASS cattle on feed reports."
+msgstr ""
 
 msgid "Curated representative food terminal in the metro freight market."
 msgstr "都市圏の貨物市場にある、選定済みの代表的な食品ターミナルです。"
@@ -5399,6 +5428,11 @@ msgid ""
 msgstr "都市圏の貨物市場にある、選定済みの代表的な小売物流施設です。"
 
 msgid ""
+"Representative livestock auction in a city with a USDA AMS market news "
+"auction report."
+msgstr ""
+
+msgid ""
 "Curated shopping mall that receives store and restaurant freight at its "
 "service dock."
 msgstr ""
@@ -5450,6 +5484,9 @@ msgstr "{city}航空貨物センター"
 msgid "{city} Auto Assembly Supplier Park"
 msgstr "{city}自動車組立サプライヤーパーク"
 
+msgid "{city} Beef Plant"
+msgstr ""
+
 msgid "{city} Energy Terminal"
 msgstr "{city}エネルギーターミナル"
 
@@ -5477,6 +5514,9 @@ msgstr "{city}ドライ倉庫"
 msgid "{city} Grain Elevator"
 msgstr "{city}穀物エレベーター"
 
+msgid "{city} Feed Yard"
+msgstr ""
+
 msgid "{city} Food Processing Plant"
 msgstr "{city}食品加工工場"
 
@@ -5500,6 +5540,9 @@ msgstr "{city}宅配便ハブ"
 
 msgid "{city} Port Terminal"
 msgstr "{city}港湾ターミナル"
+
+msgid "{city} Sale Barn"
+msgstr ""
 
 msgid "{city} Steel and Industrial Works"
 msgstr "{city}製鉄・工業所"
@@ -7587,9 +7630,6 @@ msgstr "信頼された運送会社のルート"
 msgid "glass"
 msgstr "ガラス"
 
-msgid "livestock"
-msgstr "家畜"
-
 msgid "clean"
 msgstr "問題なし"
 
@@ -7616,6 +7656,9 @@ msgstr "手直し済み"
 
 msgid "settled"
 msgstr "精算済み"
+
+msgid "riding well"
+msgstr ""
 
 msgid "ruined"
 msgstr "台無し"
@@ -8102,6 +8145,20 @@ msgid ""
 "You earned the high-value certificate. Electronics jobs are now available."
 msgstr "高額貨物の修了証を取得しました。電子機器の依頼が受けられるようになりました。"
 
+msgid "livestock handling"
+msgstr ""
+
+msgid "livestock handling certificate"
+msgstr ""
+
+msgid "live cattle"
+msgstr ""
+
+msgid ""
+"You earned the livestock handling certificate. Live cattle jobs are now "
+"available."
+msgstr ""
+
 msgid "doubles"
 msgstr "ダブルス"
 
@@ -8227,6 +8284,12 @@ msgstr "最近の運転記録がきれいで、最近の重大違反がなく、
 msgid "Unlocks {unlocks}. "
 msgstr "{unlocks}が解禁されます。 "
 
+#. placeholders: {level}, {min_level}
+msgid ""
+"The carrier sponsors it at level {level}, or you can take the free course "
+"yourself from level {min_level}."
+msgstr ""
+
 #. placeholders: {level}, {grouped}, {min_level}
 msgid ""
 "The carrier sponsors it free at level {level}, or you can pay {grouped} "
@@ -8259,6 +8322,9 @@ msgstr " 身元調査には約{wait_days}日かかり、運転している間に
 msgid " Enter books it, or says why you do not qualify."
 msgstr " Enter で予約します。資格がなければ理由を伝えます。"
 
+msgid "free"
+msgstr ""
+
 #. placeholders: {grouped}
 msgid "{grouped} dollars"
 msgstr "{grouped}ドル"
@@ -8271,6 +8337,15 @@ msgstr "、身元調査は約{wait_days}日で通ります"
 #. one clause of a longer line
 msgid "background check clears in about {wait_days} days"
 msgstr "身元調査はおよそ {wait_days} 日で終わります"
+
+#. placeholders: {level}
+msgid ", carrier-sponsored at level {level}"
+msgstr ""
+
+#. placeholders: {level}
+#. one clause of a longer line
+msgid "carrier-sponsored at level {level}"
+msgstr ""
 
 #. placeholders: {level}
 msgid ", carrier-sponsored free at level {level}"
@@ -9072,6 +9147,14 @@ msgstr ""
 msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
 msgstr "{pickup}から{dropoff}への{cargo}{tons}トン。"
 
+#. placeholders: {head_text}
+msgid " {head_text}. They can ride 28 hours."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "They can ride 28 hours."
+msgstr ""
+
 #. placeholders: {highway}, {percent}
 msgid ""
 " Spring weight limits on the {highway}: axle loads held to {percent} "
@@ -9122,9 +9205,9 @@ msgid ""
 "{equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
 msgstr ""
 
-#. placeholders: {prefix}, {load}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {seasonal_weight}, {preview}, {market}, {endorsement}
+#. placeholders: {prefix}, {load}, {cattle}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {seasonal_weight}, {preview}, {market}, {endorsement}
 msgid ""
-"{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
+"{prefix}{load}{cattle} {distance}. {pay_text} {deadline} Equipment: "
 "{equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
 msgstr ""
 
@@ -9241,6 +9324,9 @@ msgstr "標準のCDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "{endorsement_label}"
+
+msgid "cattle"
+msgstr ""
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -9697,11 +9783,14 @@ msgstr "運送会社が認めた荷降ろしサービス"
 msgid "receipt required; billed to the carrier/customer settlement"
 msgstr "領収書が必要。運送会社または顧客の精算に請求"
 
-msgid "required trailer washout"
-msgstr "必須のトレーラー洗浄"
+msgid "approved cleaning and disinfecting charge after live cattle"
+msgstr ""
 
 msgid "approved sanitation charge after food or refrigerated freight"
 msgstr "食品や冷凍貨物の後の、認められた衛生費"
+
+msgid "required trailer washout"
+msgstr "必須のトレーラー洗浄"
 
 #. placeholders: {money_text}
 msgid "No advance while you owe {money_text}."
@@ -10333,6 +10422,16 @@ msgid ""
 "Tank trailer program for liquid bulk: fuel, chemicals, and liquid food "
 "products."
 msgstr "燃料、化学品、液体食品など、液体のバルク向けのタンクトレーラープログラム。"
+
+msgid "Livestock"
+msgstr ""
+
+msgid "livestock trailer"
+msgstr ""
+
+msgid ""
+"Livestock trailer program for live cattle: two decks and a rear compartment."
+msgstr ""
 
 msgid "Twin trailers"
 msgstr "2連トレーラー"
@@ -12026,6 +12125,135 @@ msgstr "対向車線"
 
 msgid "shoulder"
 msgstr "路肩"
+
+msgid "counting"
+msgstr ""
+
+msgid "restless"
+msgstr ""
+
+msgid "scrambling"
+msgstr ""
+
+msgid "Cattle settled"
+msgstr ""
+
+msgid "Cattle restless"
+msgstr ""
+
+msgid "Cattle losing their footing"
+msgstr ""
+
+msgid "One of the cattle is down"
+msgstr ""
+
+msgid "cool"
+msgstr ""
+
+msgid "running"
+msgstr "作動中"
+
+msgid "over"
+msgstr "超過"
+
+msgid "2 hours left on the 28-hour limit."
+msgstr ""
+
+msgid "1 hour left on the 28-hour limit."
+msgstr ""
+
+msgid "30 minutes left on the 28-hour limit."
+msgstr ""
+
+msgid "The cattle have been aboard 28 hours."
+msgstr ""
+
+msgid "booked"
+msgstr ""
+
+msgid "loading"
+msgstr "読み込み中"
+
+msgid "aboard"
+msgstr ""
+
+msgid "unloading"
+msgstr ""
+
+msgid "delivered"
+msgstr ""
+
+msgid "feeder calves"
+msgstr ""
+
+msgid "fed cattle"
+msgstr ""
+
+#. placeholders: {head}, {noun}
+msgid "{head} head of {noun}"
+msgstr ""
+
+msgid "injured"
+msgstr ""
+
+msgid "bruised"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The owner refuses to pay for the haul."
+msgstr ""
+
+#. placeholders: {dead}
+#. one sentence of a longer line
+msgid "{dead} dead on arrival."
+msgstr ""
+
+#. placeholders: {dead}
+msgid "{dead} dead on arrival. The owner refuses to pay for the haul."
+msgstr ""
+
+msgid "1 could not walk off. The carrier pays a claim."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The carrier pays a claim."
+msgstr ""
+
+#. placeholders: {hurt}
+#. one sentence of a longer line
+msgid "{hurt} could not walk off."
+msgstr ""
+
+#. placeholders: {hurt}
+msgid "{hurt} could not walk off. The carrier pays a claim."
+msgstr ""
+
+msgid "Bruising noted on the bill of lading."
+msgstr ""
+
+msgid "hour"
+msgstr ""
+
+msgid "hours"
+msgstr "時間"
+
+#. placeholders: {head}
+msgid "{head} head off, 1 helped to its feet"
+msgstr ""
+
+#. placeholders: {head}
+msgid "{head} head off, all walking"
+msgstr ""
+
+#. placeholders: {hours}, {hours_word}, {shrink}
+#. one sentence of a longer line
+msgid "{hours} {hours_word} aboard, shrink about {shrink} percent."
+msgstr ""
+
+#. placeholders: {walking}, {hours}, {hours_word}, {shrink}
+msgid ""
+"{walking}. {hours} {hours_word} aboard, shrink about {shrink} percent."
+msgstr ""
 
 msgid "latched"
 msgstr "固定"
@@ -13926,9 +14154,6 @@ msgstr "空"
 msgid "minute"
 msgstr "分"
 
-msgid "hour"
-msgstr ""
-
 #. placeholders: {clock_text}
 #. one sentence of a longer line
 msgid "The next opening is at {clock_text}."
@@ -14091,9 +14316,6 @@ msgstr "シミュレーション"
 
 msgid "live"
 msgstr "実際"
-
-msgid "loading"
-msgstr "読み込み中"
 
 msgid "Live weather for your current route position"
 msgstr "ルート上の現在地の実際の天気"
@@ -19277,6 +19499,21 @@ msgstr "{label}の講習は{grouped}ドルで、手持ちは{grouped2}ドルで�
 msgid "credential course"
 msgstr "資格の講習"
 
+#. placeholders: {gate_label}
+#. one sentence of a longer line
+msgid "Course complete, and you earned the {gate_label}."
+msgstr ""
+
+#. placeholders: {gate_label}
+msgid ""
+"Course complete, and you earned the {gate_label}. Matching freight is "
+"unlocked."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Matching freight is unlocked."
+msgstr "合う貨物が解放されました。"
+
 #. placeholders: {grouped}
 #. one sentence of a longer line
 msgid "Course complete, application submitted: {grouped} dollars."
@@ -19309,10 +19546,6 @@ msgid ""
 "Matching freight is unlocked. You have {grouped2} dollars left."
 msgstr ""
 "講習を修了しました：{grouped}ドル、{gate_label}を取得しました。合う貨物が解放されました。残りは{grouped2}ドルです。"
-
-#. one sentence of a longer line
-msgid "Matching freight is unlocked."
-msgstr "合う貨物が解放されました。"
 
 msgid "You're dangerously drowsy after the course. Sleep before you drive."
 msgstr "講習の後で、危険なほど眠くなっています。運転する前に寝てください。"
@@ -20344,9 +20577,6 @@ msgstr "速度：{hud_speed_text}"
 msgid "Engine: {else}"
 msgstr "エンジン：{else}"
 
-msgid "running"
-msgstr "作動中"
-
 #. placeholders: {f}, {else}
 msgid "Air: {f} psi   {else}"
 msgstr "エア：{f} psi   {else}"
@@ -20443,6 +20673,35 @@ msgstr "{join}経由。 W で天気。"
 #. one sentence of a longer line
 msgid "W for weather."
 msgstr "W で天気。"
+
+msgid " Health papers are in the cab."
+msgstr ""
+
+#. placeholders: {destination}
+#. one sentence of a longer line
+msgid "Loaded for {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {head_text}, {grouped}, {papers}
+msgid ""
+"Loaded for {destination}. {head_text}, about {grouped} pounds.{papers}"
+msgstr ""
+
+#. placeholders: {head_text}, {grouped}, {papers}
+#. one sentence of a longer line
+msgid "{head_text}, about {grouped} pounds.{papers}"
+msgstr ""
+
+msgid "Load this evening"
+msgstr ""
+
+msgid ""
+"Wait off duty until 8 in the evening, then load. The cattle ride cooler, "
+"and the 28 hours start later."
+msgstr ""
+
+msgid "waiting for the evening"
+msgstr ""
 
 #. placeholders: {name}
 msgid "Depart with {name} driving, and ride along"
@@ -23823,9 +24082,6 @@ msgstr ""
 msgid "delay"
 msgstr "delay"
 
-msgid "hours"
-msgstr "時間"
-
 msgid "Call dispatch"
 msgstr "配車係に連絡"
 
@@ -26389,6 +26645,98 @@ msgstr "タンクトレーラー、{fill}、{tank}。{behaviour}揺れの1往復
 msgid "{behaviour} One surge cycle takes about {period_s} seconds."
 msgstr "{behaviour}揺れの1往復は約{period_s}秒です。"
 
+msgid "1 down in the rear compartment. You got it back on its feet."
+msgstr ""
+
+msgid "All standing."
+msgstr ""
+
+#. placeholders: {place_label}
+msgid ""
+"Your hours of service do not count within 150 air miles of the "
+"{place_label}."
+msgstr ""
+
+msgid ""
+"That clatter is the cattle losing their footing. Brake and steer more "
+"gently."
+msgstr ""
+
+msgid "Cattle losing their footing."
+msgstr ""
+
+msgid "One of the cattle is down."
+msgstr ""
+
+#. placeholders: {place_label}
+#. one sentence of a longer line
+msgid "150 air miles from the {place_label}."
+msgstr ""
+
+#. placeholders: {place_label}
+msgid ""
+"150 air miles from the {place_label}. Your hours of service are counting."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your hours of service are counting."
+msgstr ""
+
+#. placeholders: {place_label}
+msgid ""
+"150 air miles from the {place_label}. Your hours of service have stopped "
+"counting."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your hours of service have stopped counting."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The cattle heat up while the truck stands."
+msgstr ""
+
+#. placeholders: {temp_f}
+#. one sentence of a longer line
+msgid "{temp_f} degrees."
+msgstr ""
+
+#. placeholders: {temp_f}
+msgid "{temp_f} degrees. The cattle heat up while the truck stands."
+msgstr ""
+
+msgid "Past the 28-hour limit."
+msgstr ""
+
+#. placeholders: {hours_text}
+msgid "{hours_text} left on the 28-hour limit."
+msgstr ""
+
+msgid "past the 28-hour limit"
+msgstr ""
+
+#. placeholders: {hours_text}
+msgid "{hours_text} left"
+msgstr ""
+
+#. placeholders: {aboard_text}, {limit}
+#. one sentence of a longer line
+msgid "{aboard_text} aboard, {limit}."
+msgstr ""
+
+#. placeholders: {head}
+#. one sentence of a longer line
+msgid "{head} head."
+msgstr ""
+
+#. placeholders: {spoken}, {head}, {aboard_text}, {limit}
+msgid "{spoken}. {head} head. {aboard_text} aboard, {limit}."
+msgstr ""
+
+#. placeholders: {minutes}
+msgid "{minutes} minutes"
+msgstr ""
+
 #. one sentence of a longer line
 msgid "You have arrived."
 msgstr "到着しました。"
@@ -28669,9 +29017,6 @@ msgstr ""
 msgid "waves you through"
 msgstr ""
 
-msgid "over"
-msgstr "超過"
-
 msgid "under"
 msgstr "以内"
 
@@ -29726,6 +30071,16 @@ msgstr "CAT Scale の計量票です。{ticket}{billing}今は{clock_text}です
 #. one sentence of a longer line
 msgid "{ticket} {billing} It is {clock_text}."
 msgstr "{ticket}{billing}今は{clock_text}です。"
+
+msgid "Check the cattle"
+msgstr ""
+
+msgid ""
+"Walk the trailer and count the cattle on their feet. 5 minutes on duty."
+msgstr ""
+
+msgid "checked the cattle"
+msgstr ""
 
 #. placeholders: {grouped}
 msgid "Buy snow chains: {grouped} dollars"
@@ -38914,6 +39269,24 @@ msgstr "{city}の港湾ターミナル、{place_name}"
 
 msgid "port terminal {place_name} near {town} in {city}"
 msgstr "{city}、{town}付近の港湾ターミナル、{place_name}"
+
+msgid "beef plant {place_name} in {city}"
+msgstr ""
+
+msgid "beef plant {place_name} near {town} in {city}"
+msgstr ""
+
+msgid "feed yard {place_name} in {city}"
+msgstr ""
+
+msgid "feed yard {place_name} near {town} in {city}"
+msgstr ""
+
+msgid "sale barn {place_name} in {city}"
+msgstr ""
+
+msgid "sale barn {place_name} near {town} in {city}"
+msgstr ""
 
 msgid "rail yard {place_name} in {city}"
 msgstr "{city}の鉄道ヤード、{place_name}"

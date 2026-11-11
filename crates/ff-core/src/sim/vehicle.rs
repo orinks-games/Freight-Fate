@@ -12,6 +12,7 @@
 
 use std::f64::consts::PI;
 
+use crate::sim::livestock::LivestockLoad;
 use crate::sim::surge::LiquidLoad;
 use crate::sim::transmission::Transmission;
 
@@ -648,6 +649,15 @@ pub struct TruckState {
     /// boxes must not be able to tell this code exists.
     pub liquid: Option<LiquidLoad>,
 
+    /// Live cattle aboard, and their five state machines
+    /// (`sim::livestock`). None for every other kind of freight. The
+    /// driving layer builds it from the job and feeds it each frame; the
+    /// vehicle model only records the braking the cattle feel.
+    pub livestock: Option<LivestockLoad>,
+    /// The braking the load felt in the last physics step, in g, engine
+    /// brake included.
+    pub last_decel_g: f64,
+
     /// Reefer TRU running. Burns diesel from the tractor tank (v1 simplification).
     pub reefer_on: bool,
     /// Auxiliary power unit running. Low hotel burn from the tractor tank.
@@ -749,6 +759,8 @@ impl TruckState {
             corner_radius_ft: 0.0,
             corner_bank: 0.0,
             liquid: None,
+            livestock: None,
+            last_decel_g: 0.0,
             reefer_on: false,
             apu_on: false,
             cargo_temp_c: AMBIENT_C,

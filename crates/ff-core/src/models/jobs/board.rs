@@ -28,9 +28,12 @@ use crate::models::start_options::{start_option, DEFAULT_START_KEY};
 use crate::pyfmt::round_py_n;
 use crate::pyrandom::PyRandom;
 use crate::sim::hos::HosClock;
+use crate::sim::livestock::{livestock_lane_ok, LIVESTOCK_CARGO_KEY};
 use crate::sim::vehicle::{
     combination_tare_kg, TrailerSet, TruckSpecs, TruckState, KG_PER_TON, TRAILER_TARE_KG,
 };
+
+mod cattle;
 
 /// `(destination, route miles, route leg count)`.
 pub type Candidate = (String, f64, usize);
@@ -245,6 +248,34 @@ impl<'w> JobBoard<'w> {
             if locked && !(jobs.len() == count - 1 && self.rng.random() < 0.3) {
                 continue;
             }
+            // Cattle run only between a sale barn and a feed yard, or a feed
+            // yard and a beef plant, and only as far as the 28-hour limit
+            // allows: their destination is chosen for them.
+            if cargo.key == LIVESTOCK_CARGO_KEY {
+                let Some((destination, miles, dest_location)) =
+                    self.livestock_destination(&city, location, &candidates, level)
+                else {
+                    continue;
+                };
+                let origin_name = location.name.clone();
+                let location = location.clone();
+                if let Some(job) = self.make_job(
+                    cargo,
+                    &city,
+                    &origin_name,
+                    &destination,
+                    miles,
+                    opts.market,
+                    level,
+                    &location,
+                    &dest_location,
+                    carrier_key,
+                    opts.direct_freight,
+                ) {
+                    jobs.push(job);
+                }
+                continue;
+            }
             let (destination, miles, _legs) = dest_cycle[jobs.len() % dest_cycle.len()].clone();
             // LCV freight only runs where the frozen network reaches: both
             // ends of the lane must sit in states that allow the combination.
@@ -335,6 +366,11 @@ impl<'w> JobBoard<'w> {
             let Some(dest_location) = self.destination_location(&destination, cargo, level) else {
                 continue;
             };
+            if cargo.key == LIVESTOCK_CARGO_KEY
+                && !livestock_lane_ok(&location.facility_type, &dest_location.facility_type)
+            {
+                continue;
+            }
             let dest_location = dest_location.clone();
             let origin_name = location.name.clone();
             let location = location.clone();
@@ -948,7 +984,21 @@ impl<'w> JobBoard<'w> {
         // the load itself, not the board's dice, so every other offer stays
         // what it was.
         let seed = load_seed(origin, destination, cargo.key, job.weight_tons);
-        if fresh_sleeps > 0 && team_load_drawn(&seed) {
+        if cargo.key == LIVESTOCK_CARGO_KEY {
+            // The 28-hour limit plans a cattle run, not the dice: a run a
+            // solo driver could not make without a 10-hour break is a team
+            // load, and one that does not fit is no load at all.
+            if !self.plan_cattle_run(
+                &mut job,
+                route.as_ref(),
+                origin_facility,
+                destination_facility,
+                slack,
+                carrier_key,
+            ) {
+                return None;
+            }
+        } else if fresh_sleeps > 0 && team_load_drawn(&seed) {
             job.team = true;
             job.deadline_covers_rest = false;
             job.pay = round_py_n(job.pay * TEAM_LOAD_PAY_MULT, 2);

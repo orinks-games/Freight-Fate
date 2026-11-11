@@ -41,6 +41,8 @@ list that comes up in almost every screen.
 | fleet | The set of carrier trucks dispatch assigns from. |
 | trailer | What the truck pulls. |
 | tank trailer | The trailer liquid bulk rides in. |
+| livestock trailer | The trailer live cattle ride in. |
+| the 28-hour limit | How long cattle may ride without unloading. |
 | leg | One city-to-city stretch of road. |
 | run | One drive, start to finish. |
 | home terminal | The city a career starts from. |

@@ -309,6 +309,16 @@ impl Job {
                 format!("{tons} tons of {cargo} from {pickup} to {dropoff}.")
             }
         };
+        // Live cattle: how many head, and the law the deadline answers to.
+        let cattle = if self.cargo.key == crate::sim::livestock::LIVESTOCK_CARGO_KEY {
+            let kind = crate::sim::livestock::CattleKind::for_origin(&self.origin_type);
+            format!(
+                " {}. They can ride 28 hours.",
+                crate::sim::livestock::head_text(kind.head_for_tons(self.weight_tons), kind)
+            )
+        } else {
+            String::new()
+        };
         let trailer = if opts.trailer_note.is_empty() {
             String::new()
         } else {
@@ -346,7 +356,7 @@ impl Job {
         };
         let equipment = self.cargo.equipment_text();
         format!(
-            "{prefix}{load} {distance}. {pay_text} {deadline} Equipment: {equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
+            "{prefix}{load}{cattle} {distance}. {pay_text} {deadline} Equipment: {equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
         )
     }
 

@@ -278,10 +278,17 @@ pub fn departure_deadline_hours(
     world: Option<&World>,
     clock: Option<&HosClock>,
 ) -> f64 {
-    if job.team {
+    let hours = if job.team {
         team_deadline_hours(miles, slack, route, world)
     } else {
         dispatch_deadline_hours(miles, slack, route, world, clock)
+    };
+    // Live cattle are due inside the 28-hour limit whatever the driver's
+    // clock says: no receiver books a delivery past it.
+    if job.cargo.key == crate::sim::livestock::LIVESTOCK_CARGO_KEY {
+        hours.min(crate::sim::livestock::LIMIT_HOURS)
+    } else {
+        hours
     }
 }
 

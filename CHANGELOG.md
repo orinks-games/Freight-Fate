@@ -4,6 +4,13 @@
 
 ### Added
 
+- **Live cattle are a new freight class from level 5.** Haul feeder calves from sale barns to feed yards, and fed cattle to beef plants, on a livestock trailer.
+- **Cattle react to hard braking and sharp turns.** Too much and they lose their footing or go down; stop and choose Check the cattle to get one up.
+- **Cattle loads must arrive within the 28-hour limit.** You hear when 2 hours, 1 hour and 30 minutes are left, and the receiver names the shrink.
+- **Your hours of service stop counting within 150 air miles of a cattle load's shipper or receiver.** No 30-minute break is needed while cattle are aboard.
+- **Cattle heat up while the truck stands on a hot day.** On a hot afternoon at a cattle shipper, choose Load this evening to wait for the cool.
+- **The livestock handling certificate is free.** Your carrier sponsors it at level 6, or take the course yourself from level 5.
+
 - **Laredo now has two real border transfer yards for Mexico freight.** Southbound loads name their Mexican consignee and drop at the yard; northbound trailers wait on paperwork first.
 
 - **Explosive and flammable tank loads now avoid the San Francisco-Oakland Bay Bridge.** The Mackinac Bridge toll is charged, and the Chesapeake Bay Bridge-Tunnel toll matches its published rate.

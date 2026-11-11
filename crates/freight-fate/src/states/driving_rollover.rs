@@ -374,8 +374,10 @@ impl DrivingState {
         self.cargo_cue_at = self.cargo_cue_at.max(CARGO_REJECT_PCT);
         // A deadhead or a bobtail has no load and no receiver to name.
         let loaded = self.trip.truck.trailer_attached && self.trip.truck.cargo_kg > 0.0;
-        let liquid = self.trip.truck.liquid.is_some();
-        let words = cargo_condition_text(self.trip.truck.cargo_damage_pct, liquid);
+        let words = cargo_condition_text(
+            self.trip.truck.cargo_damage_pct,
+            self.trip.truck.cargo_vocabulary(),
+        );
         let place = if on_ramp { "ramp curve" } else { "bend" };
         let recorded = self.record_crash(ctx, place);
         let message = if self.terse_speech(ctx) {

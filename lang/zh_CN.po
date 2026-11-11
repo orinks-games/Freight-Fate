@@ -5040,6 +5040,9 @@ msgstr "航空货运区"
 msgid "automotive plant"
 msgstr "汽车制造厂"
 
+msgid "beef plant"
+msgstr ""
+
 msgid "chemical and petroleum terminal"
 msgstr "化工和石油码头"
 
@@ -5063,6 +5066,9 @@ msgstr "干货仓库"
 
 msgid "farm elevator"
 msgstr "农场粮仓"
+
+msgid "feed yard"
+msgstr ""
 
 msgid "food terminal"
 msgstr "食品集散站"
@@ -5106,6 +5112,9 @@ msgstr "铁路货场"
 msgid "retail distribution hub"
 msgstr "零售配送枢纽"
 
+msgid "sale barn"
+msgstr ""
+
 msgid "mall"
 msgstr ""
 
@@ -5120,6 +5129,9 @@ msgstr "机场货运通道"
 
 msgid "assembly plant access road"
 msgstr "装配厂通道"
+
+msgid "plant access road"
+msgstr "厂区通道"
 
 msgid "terminal access road"
 msgstr "货运站通道"
@@ -5145,6 +5157,9 @@ msgstr "仓库通道"
 msgid "elevator access road"
 msgstr "粮仓通道"
 
+msgid "feed yard road"
+msgstr ""
+
 msgid "food terminal access road"
 msgstr "食品集散站通道"
 
@@ -5162,9 +5177,6 @@ msgstr "多式联运坡道通道"
 
 msgid "mill access road"
 msgstr "工厂通道"
-
-msgid "plant access road"
-msgstr "厂区通道"
 
 msgid "local freight access road"
 msgstr "本地货运通道"
@@ -5186,6 +5198,9 @@ msgstr "铁路货场通道"
 
 msgid "retail distribution access road"
 msgstr "零售配送通道"
+
+msgid "sale barn road"
+msgstr ""
 
 msgid "mall service road"
 msgstr ""
@@ -5220,14 +5235,17 @@ msgstr "hazardous"
 msgid "steel"
 msgstr "steel"
 
+msgid "refrigerated"
+msgstr "refrigerated"
+
+msgid "livestock"
+msgstr "牲畜"
+
 msgid "bulk"
 msgstr "bulk"
 
 msgid "chemicals"
 msgstr "chemicals"
-
-msgid "refrigerated"
-msgstr "refrigerated"
 
 msgid "retail"
 msgstr "retail"
@@ -5254,6 +5272,12 @@ msgid ""
 msgstr ""
 "Representative automotive facility; guided by FAF commodity and "
 "metro-market framing."
+
+msgid ""
+"Representative beef plant in a city with a federally inspected cattle "
+"slaughter plant; guided by the CME approved stockyard and slaughter plant "
+"list."
+msgstr ""
 
 msgid ""
 "Representative chemical or petroleum terminal; guided by FAF commodity "
@@ -5302,6 +5326,11 @@ msgid ""
 msgstr ""
 "Representative farm elevator or ag terminal; guided by USDA grain truck "
 "indicators and FAF agriculture flows."
+
+msgid ""
+"Representative cattle feed yard in a cattle-feeding region; guided by USDA "
+"NASS cattle on feed reports."
+msgstr ""
 
 msgid "Curated representative food terminal in the metro freight market."
 msgstr "Curated representative food terminal in the metro freight market."
@@ -5392,6 +5421,11 @@ msgstr ""
 "market."
 
 msgid ""
+"Representative livestock auction in a city with a USDA AMS market news "
+"auction report."
+msgstr ""
+
+msgid ""
 "Curated shopping mall that receives store and restaurant freight at its "
 "service dock."
 msgstr ""
@@ -5446,6 +5480,9 @@ msgstr "{city}航空货运中心"
 msgid "{city} Auto Assembly Supplier Park"
 msgstr "{city}汽车装配供应商园区"
 
+msgid "{city} Beef Plant"
+msgstr ""
+
 msgid "{city} Energy Terminal"
 msgstr "{city}能源码头"
 
@@ -5473,6 +5510,9 @@ msgstr "{city}干货仓库"
 msgid "{city} Grain Elevator"
 msgstr "{city}粮仓"
 
+msgid "{city} Feed Yard"
+msgstr ""
+
 msgid "{city} Food Processing Plant"
 msgstr "{city}食品加工厂"
 
@@ -5496,6 +5536,9 @@ msgstr "{city}包裹转运中心"
 
 msgid "{city} Port Terminal"
 msgstr "{city}港口码头"
+
+msgid "{city} Sale Barn"
+msgstr ""
 
 msgid "{city} Steel and Industrial Works"
 msgstr "{city}钢铁和工业厂"
@@ -7571,9 +7614,6 @@ msgstr "可信赖的承运商线路"
 msgid "glass"
 msgstr "玻璃"
 
-msgid "livestock"
-msgstr "牲畜"
-
 msgid "clean"
 msgstr "干净"
 
@@ -7600,6 +7640,9 @@ msgstr "晃动过"
 
 msgid "settled"
 msgstr "已稳定"
+
+msgid "riding well"
+msgstr ""
 
 msgid "ruined"
 msgstr "毁了"
@@ -8080,6 +8123,20 @@ msgid ""
 "You earned the high-value certificate. Electronics jobs are now available."
 msgstr "你获得了高价值培训证书。电子产品任务现已开放。"
 
+msgid "livestock handling"
+msgstr ""
+
+msgid "livestock handling certificate"
+msgstr ""
+
+msgid "live cattle"
+msgstr ""
+
+msgid ""
+"You earned the livestock handling certificate. Live cattle jobs are now "
+"available."
+msgstr ""
+
 msgid "doubles"
 msgstr "双挂车"
 
@@ -8199,6 +8256,12 @@ msgstr "要求近期驾驶记录干净，近期没有严重违规，也没有正
 msgid "Unlocks {unlocks}. "
 msgstr "解锁{unlocks}。 "
 
+#. placeholders: {level}, {min_level}
+msgid ""
+"The carrier sponsors it at level {level}, or you can take the free course "
+"yourself from level {min_level}."
+msgstr ""
+
 #. placeholders: {level}, {grouped}, {min_level}
 msgid ""
 "The carrier sponsors it free at level {level}, or you can pay {grouped} "
@@ -8229,6 +8292,9 @@ msgstr " 背景调查大约需要{wait_days}天，会在你开车期间完成。
 msgid " Enter books it, or says why you do not qualify."
 msgstr " 按 Enter 预约，或者告诉你为什么不符合条件。"
 
+msgid "free"
+msgstr ""
+
 #. placeholders: {grouped}
 msgid "{grouped} dollars"
 msgstr "{grouped}美元"
@@ -8241,6 +8307,15 @@ msgstr "，背景调查大约{wait_days}天后通过"
 #. one clause of a longer line
 msgid "background check clears in about {wait_days} days"
 msgstr "背景调查大约 {wait_days} 天后完成"
+
+#. placeholders: {level}
+msgid ", carrier-sponsored at level {level}"
+msgstr ""
+
+#. placeholders: {level}
+#. one clause of a longer line
+msgid "carrier-sponsored at level {level}"
+msgstr ""
 
 #. placeholders: {level}
 msgid ", carrier-sponsored free at level {level}"
@@ -9041,6 +9116,14 @@ msgstr ""
 msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
 msgstr "{tons}吨{cargo}从{pickup}到{dropoff}。"
 
+#. placeholders: {head_text}
+msgid " {head_text}. They can ride 28 hours."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "They can ride 28 hours."
+msgstr ""
+
 #. placeholders: {highway}, {percent}
 msgid ""
 " Spring weight limits on the {highway}: axle loads held to {percent} "
@@ -9091,9 +9174,9 @@ msgid ""
 "{equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
 msgstr ""
 
-#. placeholders: {prefix}, {load}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {seasonal_weight}, {preview}, {market}, {endorsement}
+#. placeholders: {prefix}, {load}, {cattle}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {seasonal_weight}, {preview}, {market}, {endorsement}
 msgid ""
-"{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
+"{prefix}{load}{cattle} {distance}. {pay_text} {deadline} Equipment: "
 "{equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
 msgstr ""
 
@@ -9210,6 +9293,9 @@ msgstr "标准CDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "{endorsement_label}"
+
+msgid "cattle"
+msgstr ""
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -9661,11 +9747,14 @@ msgstr "承运商授权的卸货服务"
 msgid "receipt required; billed to the carrier/customer settlement"
 msgstr "需要收据；计入承运商或客户结算"
 
-msgid "required trailer washout"
-msgstr "必需的挂车清洗"
+msgid "approved cleaning and disinfecting charge after live cattle"
+msgstr ""
 
 msgid "approved sanitation charge after food or refrigerated freight"
 msgstr "运送食品或冷藏货物后经批准的卫生清洁费"
+
+msgid "required trailer washout"
+msgstr "必需的挂车清洗"
 
 #. placeholders: {money_text}
 msgid "No advance while you owe {money_text}."
@@ -10285,6 +10374,16 @@ msgid ""
 "Tank trailer program for liquid bulk: fuel, chemicals, and liquid food "
 "products."
 msgstr "罐式挂车计划，用于液体散货：燃油、化学品和液体食品。"
+
+msgid "Livestock"
+msgstr ""
+
+msgid "livestock trailer"
+msgstr ""
+
+msgid ""
+"Livestock trailer program for live cattle: two decks and a rear compartment."
+msgstr ""
 
 msgid "Twin trailers"
 msgstr "双挂车"
@@ -11940,6 +12039,135 @@ msgstr "对向车道"
 
 msgid "shoulder"
 msgstr "路肩"
+
+msgid "counting"
+msgstr ""
+
+msgid "restless"
+msgstr ""
+
+msgid "scrambling"
+msgstr ""
+
+msgid "Cattle settled"
+msgstr ""
+
+msgid "Cattle restless"
+msgstr ""
+
+msgid "Cattle losing their footing"
+msgstr ""
+
+msgid "One of the cattle is down"
+msgstr ""
+
+msgid "cool"
+msgstr ""
+
+msgid "running"
+msgstr "运转中"
+
+msgid "over"
+msgstr "超出"
+
+msgid "2 hours left on the 28-hour limit."
+msgstr ""
+
+msgid "1 hour left on the 28-hour limit."
+msgstr ""
+
+msgid "30 minutes left on the 28-hour limit."
+msgstr ""
+
+msgid "The cattle have been aboard 28 hours."
+msgstr ""
+
+msgid "booked"
+msgstr ""
+
+msgid "loading"
+msgstr "加载中"
+
+msgid "aboard"
+msgstr ""
+
+msgid "unloading"
+msgstr ""
+
+msgid "delivered"
+msgstr ""
+
+msgid "feeder calves"
+msgstr ""
+
+msgid "fed cattle"
+msgstr ""
+
+#. placeholders: {head}, {noun}
+msgid "{head} head of {noun}"
+msgstr ""
+
+msgid "injured"
+msgstr ""
+
+msgid "bruised"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The owner refuses to pay for the haul."
+msgstr ""
+
+#. placeholders: {dead}
+#. one sentence of a longer line
+msgid "{dead} dead on arrival."
+msgstr ""
+
+#. placeholders: {dead}
+msgid "{dead} dead on arrival. The owner refuses to pay for the haul."
+msgstr ""
+
+msgid "1 could not walk off. The carrier pays a claim."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The carrier pays a claim."
+msgstr ""
+
+#. placeholders: {hurt}
+#. one sentence of a longer line
+msgid "{hurt} could not walk off."
+msgstr ""
+
+#. placeholders: {hurt}
+msgid "{hurt} could not walk off. The carrier pays a claim."
+msgstr ""
+
+msgid "Bruising noted on the bill of lading."
+msgstr ""
+
+msgid "hour"
+msgstr ""
+
+msgid "hours"
+msgstr "小时"
+
+#. placeholders: {head}
+msgid "{head} head off, 1 helped to its feet"
+msgstr ""
+
+#. placeholders: {head}
+msgid "{head} head off, all walking"
+msgstr ""
+
+#. placeholders: {hours}, {hours_word}, {shrink}
+#. one sentence of a longer line
+msgid "{hours} {hours_word} aboard, shrink about {shrink} percent."
+msgstr ""
+
+#. placeholders: {walking}, {hours}, {hours_word}, {shrink}
+msgid ""
+"{walking}. {hours} {hours_word} aboard, shrink about {shrink} percent."
+msgstr ""
 
 msgid "latched"
 msgstr "已锁定"
@@ -13838,9 +14066,6 @@ msgstr "empty"
 msgid "minute"
 msgstr "分钟"
 
-msgid "hour"
-msgstr ""
-
 #. placeholders: {clock_text}
 #. one sentence of a longer line
 msgid "The next opening is at {clock_text}."
@@ -14003,9 +14228,6 @@ msgstr "模拟"
 
 msgid "live"
 msgstr "live"
-
-msgid "loading"
-msgstr "加载中"
 
 msgid "Live weather for your current route position"
 msgstr "你当前路线位置的实时天气"
@@ -19105,6 +19327,21 @@ msgstr "{label}课程要{grouped}美元，你有{grouped2}美元。"
 msgid "credential course"
 msgstr "资质课程"
 
+#. placeholders: {gate_label}
+#. one sentence of a longer line
+msgid "Course complete, and you earned the {gate_label}."
+msgstr ""
+
+#. placeholders: {gate_label}
+msgid ""
+"Course complete, and you earned the {gate_label}. Matching freight is "
+"unlocked."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Matching freight is unlocked."
+msgstr "匹配的货物已解锁。"
+
 #. placeholders: {grouped}
 #. one sentence of a longer line
 msgid "Course complete, application submitted: {grouped} dollars."
@@ -19135,10 +19372,6 @@ msgid ""
 "Course complete: {grouped} dollars, and you earned the {gate_label}. "
 "Matching freight is unlocked. You have {grouped2} dollars left."
 msgstr "课程完成：{grouped}美元，你获得了{gate_label}。匹配的货物已解锁。你还剩{grouped2}美元。"
-
-#. one sentence of a longer line
-msgid "Matching freight is unlocked."
-msgstr "匹配的货物已解锁。"
 
 msgid "You're dangerously drowsy after the course. Sleep before you drive."
 msgstr "上完课你已经困得很危险了。开车前先睡一觉。"
@@ -20164,9 +20397,6 @@ msgstr "车速：{hud_speed_text}"
 msgid "Engine: {else}"
 msgstr "发动机：{else}"
 
-msgid "running"
-msgstr "运转中"
-
 #. placeholders: {f}, {else}
 msgid "Air: {f} psi   {else}"
 msgstr "气压：{f} psi，{else}"
@@ -20263,6 +20493,35 @@ msgstr "途经{join}。按W查看天气。"
 #. one sentence of a longer line
 msgid "W for weather."
 msgstr "按W查看天气。"
+
+msgid " Health papers are in the cab."
+msgstr ""
+
+#. placeholders: {destination}
+#. one sentence of a longer line
+msgid "Loaded for {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {head_text}, {grouped}, {papers}
+msgid ""
+"Loaded for {destination}. {head_text}, about {grouped} pounds.{papers}"
+msgstr ""
+
+#. placeholders: {head_text}, {grouped}, {papers}
+#. one sentence of a longer line
+msgid "{head_text}, about {grouped} pounds.{papers}"
+msgstr ""
+
+msgid "Load this evening"
+msgstr ""
+
+msgid ""
+"Wait off duty until 8 in the evening, then load. The cattle ride cooler, "
+"and the 28 hours start later."
+msgstr ""
+
+msgid "waiting for the evening"
+msgstr ""
 
 #. placeholders: {name}
 msgid "Depart with {name} driving, and ride along"
@@ -23588,9 +23847,6 @@ msgstr ""
 msgid "delay"
 msgstr "延误"
 
-msgid "hours"
-msgstr "小时"
-
 msgid "Call dispatch"
 msgstr "呼叫调度"
 
@@ -26138,6 +26394,98 @@ msgstr "罐式挂车，{fill}，{tank}。{behaviour}一次涌动周期大约{per
 msgid "{behaviour} One surge cycle takes about {period_s} seconds."
 msgstr "{behaviour}一次涌动周期大约{period_s}秒。"
 
+msgid "1 down in the rear compartment. You got it back on its feet."
+msgstr ""
+
+msgid "All standing."
+msgstr ""
+
+#. placeholders: {place_label}
+msgid ""
+"Your hours of service do not count within 150 air miles of the "
+"{place_label}."
+msgstr ""
+
+msgid ""
+"That clatter is the cattle losing their footing. Brake and steer more "
+"gently."
+msgstr ""
+
+msgid "Cattle losing their footing."
+msgstr ""
+
+msgid "One of the cattle is down."
+msgstr ""
+
+#. placeholders: {place_label}
+#. one sentence of a longer line
+msgid "150 air miles from the {place_label}."
+msgstr ""
+
+#. placeholders: {place_label}
+msgid ""
+"150 air miles from the {place_label}. Your hours of service are counting."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your hours of service are counting."
+msgstr ""
+
+#. placeholders: {place_label}
+msgid ""
+"150 air miles from the {place_label}. Your hours of service have stopped "
+"counting."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your hours of service have stopped counting."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The cattle heat up while the truck stands."
+msgstr ""
+
+#. placeholders: {temp_f}
+#. one sentence of a longer line
+msgid "{temp_f} degrees."
+msgstr ""
+
+#. placeholders: {temp_f}
+msgid "{temp_f} degrees. The cattle heat up while the truck stands."
+msgstr ""
+
+msgid "Past the 28-hour limit."
+msgstr ""
+
+#. placeholders: {hours_text}
+msgid "{hours_text} left on the 28-hour limit."
+msgstr ""
+
+msgid "past the 28-hour limit"
+msgstr ""
+
+#. placeholders: {hours_text}
+msgid "{hours_text} left"
+msgstr ""
+
+#. placeholders: {aboard_text}, {limit}
+#. one sentence of a longer line
+msgid "{aboard_text} aboard, {limit}."
+msgstr ""
+
+#. placeholders: {head}
+#. one sentence of a longer line
+msgid "{head} head."
+msgstr ""
+
+#. placeholders: {spoken}, {head}, {aboard_text}, {limit}
+msgid "{spoken}. {head} head. {aboard_text} aboard, {limit}."
+msgstr ""
+
+#. placeholders: {minutes}
+msgid "{minutes} minutes"
+msgstr ""
+
 #. one sentence of a longer line
 msgid "You have arrived."
 msgstr "你到了。"
@@ -28402,9 +28750,6 @@ msgstr ""
 msgid "waves you through"
 msgstr ""
 
-msgid "over"
-msgstr "超出"
-
 msgid "under"
 msgstr "低于"
 
@@ -29442,6 +29787,16 @@ msgstr "CAT Scale称重单。{ticket}{billing}现在是{clock_text}。{deadline_
 #. one sentence of a longer line
 msgid "{ticket} {billing} It is {clock_text}."
 msgstr "{ticket}{billing}现在是{clock_text}。"
+
+msgid "Check the cattle"
+msgstr ""
+
+msgid ""
+"Walk the trailer and count the cattle on their feet. 5 minutes on duty."
+msgstr ""
+
+msgid "checked the cattle"
+msgstr ""
 
 #. placeholders: {grouped}
 msgid "Buy snow chains: {grouped} dollars"
@@ -38342,6 +38697,24 @@ msgstr "{city} 中的端口终端 {place_name}"
 
 msgid "port terminal {place_name} near {town} in {city}"
 msgstr "{city} {town} 附近的港口码头 {place_name}"
+
+msgid "beef plant {place_name} in {city}"
+msgstr ""
+
+msgid "beef plant {place_name} near {town} in {city}"
+msgstr ""
+
+msgid "feed yard {place_name} in {city}"
+msgstr ""
+
+msgid "feed yard {place_name} near {town} in {city}"
+msgstr ""
+
+msgid "sale barn {place_name} in {city}"
+msgstr ""
+
+msgid "sale barn {place_name} near {town} in {city}"
+msgstr ""
 
 msgid "rail yard {place_name} in {city}"
 msgstr "{city} 中的铁路站 {place_name}"

@@ -4554,6 +4554,56 @@ the bridge. The yards and every spoken line live in `data/border_yards.json`
       take bulk fuel drops but never originate freight. Non-blocking for the
       carrier and home-terminal slices.
 
+### Live cattle (four slices built, November 11)
+
+Design: the Claude Doc "Live cattle cargo" and
+`/mnt/project-files/livestock-cargo/livestock-cargo-design.md` in the
+project. The rules live in `ff_core::sim::livestock` as five machines (load
+phase, footing, the 28-hour limit, the hours exemption, heat), each one enum
+with one `next(event)` and a transition table test.
+
+- [x] **Slice 1: the class, the certificate, the trailer and the places.**
+      Live cattle from level 5 on a livestock trailer; a free livestock
+      handling certificate, sponsored at level 6. Sale barns, feed yards and
+      beef plants stamped in 24 cattle towns (sources in
+      `world_constants/cattle_markets.rs`), lanes sale barn to feed yard and
+      feed yard to beef plant only. Footing from braking and cornering, with a
+      bed per state behind the cab, a coaching line for the first scramble,
+      and cargo words "riding well, bruised, injured, lost".
+- [x] **Slice 2: the 28-hour limit, shrink and team booking.** The board
+      books only runs that fit inside 28 hours with a 2-hour margin, books a
+      team where one driver could not cover the counted hours, and caps the
+      departure deadline at 28. Marks at 2 hours, 1 hour and 30 minutes; past
+      the limit the load loses condition each hour. The receiver names the
+      head count, hours aboard and shrink (Ohio State table).
+- [x] **Slice 3: the hours exemption.** Inside 150 air miles of the shipper
+      or the receiver the hours of service do not count (49 CFR 395.1(k)),
+      and the 30-minute break never applies with cattle aboard. Said once at
+      departure and once at each circle.
+- [x] **Slice 4: heat, Load this evening, Check the cattle.** The cattle
+      heat up while the truck stands above the THI danger line (about 94
+      degrees at an assumed 50 percent humidity); the first hot stop says
+      so. A hot afternoon at a cattle shipper offers Load this evening (to
+      8 PM, off duty). Check the cattle at any stop gets an animal that is
+      down back up.
+- [ ] (Found along the way) **The cattle recordings.** `livestock/settled_loop`,
+      `restless_loop`, `scramble_loop`, `down_loop` and `gate_hit` are not
+      in the sound pack. Until they are, the two costly footing states fall
+      back to one spoken line each. Generating them costs credits, so it
+      waits on the owner.
+- [ ] (Found along the way) **Exempt time at stops.** On-duty time at a fuel
+      stop, scale or inspection inside the 150-mile circle still counts; only
+      driving, standing in traffic and Check the cattle use the exemption.
+- [ ] (Found along the way) **Facts not checked against a register:** the
+      city-level feed yard picks, the footing thresholds (0.15 g firm,
+      0.28 g scramble, assumed), the $135 washout, the trailer prices, and
+      the 5-minute check. Each is labelled assumed where it is set.
+- [ ] (Found along the way) **orinks.net's profile invariants** need a
+      regen when 2.0 reaches the site, so a public profile names the
+      livestock handling certificate and prices the livestock trailer. The
+      site does not refuse a save that holds either; it only leaves them
+      unnamed.
+
 <a id="reefer-apu-and-fuel-island-hotel-power-20-candidates"></a>
 
 ### Reefer, APU, and fuel-island hotel power (v1 built)

@@ -21,6 +21,7 @@ use ff_core::radio::{
 };
 use ff_core::radio_rotation::initial_airtime_s;
 use ff_core::sim::lane_guidance::{HAIRPIN_ADVISORY_MPH, STRIP_LEAD_MI};
+use ff_core::sim::livestock::{CattleKind, LivestockLoad, LIVESTOCK_CARGO_KEY};
 use ff_core::sim::real_traffic::RealTrafficProvider;
 use ff_core::sim::real_weather::RealWeatherProvider;
 use ff_core::sim::season::real_clock_game_hours;
@@ -234,6 +235,22 @@ impl DrivingState {
             );
             trip.roadside_inspection_scale = scale;
             trip.roadcheck_blitz = blitz;
+        }
+        // Live cattle: the last gate shuts as the truck leaves the shipper,
+        // and the 28-hour limit and the hours-of-service circles start
+        // from that dock. A resumed drive replaces this with its saved load.
+        if phase == DRIVE_PHASE_DELIVERY && job.cargo.key == LIVESTOCK_CARGO_KEY {
+            let pickup = trip.latlon_at(Some(0.0));
+            let delivery = trip.latlon_at(Some(trip.total_miles()));
+            let mut load = LivestockLoad::booked(
+                CattleKind::for_origin(&job.origin_type),
+                job.weight_tons,
+                pickup,
+                delivery,
+                trip_seed,
+            );
+            load.load();
+            trip.truck.livestock = Some(load);
         }
         if ctx.settings.time_scale == 1.0 && start_hour.is_none() {
             let local_hour = profile_of(ctx).calendar_game_hours().rem_euclid(24.0);
@@ -786,6 +803,10 @@ impl DrivingState {
             liquid_surge_said: false,
             liquid_settled_said: false,
             liquid_settle_timer_s: 0.0,
+            livestock_audio_ok: None,
+            livestock_bed: None,
+            livestock_departure_said: false,
+            livestock_hint_said: false,
             entered_once: false,
             team: None,
             pending_team: None,

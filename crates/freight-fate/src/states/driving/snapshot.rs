@@ -224,6 +224,16 @@ impl DrivingState {
             json!(self.trip.truck.cargo_damage_pct),
         );
         out.insert("cargo_cue_at".to_string(), json!(self.cargo_cue_at));
+        // Live cattle: the five machines and their clocks, whole.
+        if let Some(load) = &self.trip.truck.livestock {
+            if let Ok(value) = serde_json::to_value(load) {
+                out.insert("livestock".to_string(), value);
+            }
+            out.insert(
+                "livestock_hint_said".to_string(),
+                json!(self.livestock_hint_said),
+            );
+        }
         out.insert(
             "cargo_coaching_said".to_string(),
             json!(self.cargo_coaching_said),
@@ -486,6 +496,16 @@ impl DrivingState {
         state.trip.truck.cargo_damage_pct = f(data, "cargo_damage_pct", 0.0);
         state.cargo_cue_at = f(data, "cargo_cue_at", 0.0);
         state.cargo_coaching_said = b(data, "cargo_coaching_said", false);
+        // A resumed cattle load keeps its clock and its footing; the
+        // departure line was said when it left the shipper.
+        if let Some(load) = data
+            .get("livestock")
+            .and_then(|value| serde_json::from_value(value.clone()).ok())
+        {
+            state.trip.truck.livestock = Some(load);
+            state.livestock_departure_said = true;
+            state.livestock_hint_said = b(data, "livestock_hint_said", false);
+        }
         // Saves from before the wear meters count deltas from the resume
         // point: the truck just loaded the profile's wear, so the run
         // simply reports a little less instead of failing to load.

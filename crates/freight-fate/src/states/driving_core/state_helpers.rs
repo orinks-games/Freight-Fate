@@ -41,6 +41,8 @@ pub fn advance_rest_clock(
     driving.trip.truck.advance_hotel_power(rest_s, rest_s);
     driving.trip.game_minutes += minutes;
     driving.trip.weather.update(minutes);
+    // The cattle's limit, the heat and an animal down keep running.
+    driving.advance_livestock_parked(ctx, minutes);
     // Whoever is off the wheel rests through the stop too.
     driving.team_menu_minutes(ctx, minutes);
     // While the co-driver works the stop, the player's own log reads the

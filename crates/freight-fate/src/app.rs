@@ -195,6 +195,20 @@ pub struct DrivingObservation {
     pub cruise_set_mph: Option<f64>,
     /// The speed keeper's hold, when it has the zone.
     pub keeper_mph: Option<f64>,
+    /// Live cattle's five machines, on a cattle load.
+    pub livestock: Option<LivestockObservation>,
+}
+
+/// The state of a cattle load, for the agent server's inspector.
+#[derive(Debug, Clone, Copy)]
+pub struct LivestockObservation {
+    pub phase: ff_core::sim::livestock::LoadPhase,
+    pub footing: ff_core::sim::livestock::Footing,
+    pub limit: ff_core::sim::livestock::LimitMark,
+    pub exemption: ff_core::sim::livestock::Exemption,
+    pub heat: ff_core::sim::livestock::Heat,
+    pub head: u32,
+    pub hours_aboard: f64,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -707,6 +721,15 @@ impl App {
             speed_limit_mph: drive.enforced_limit_prev,
             cruise_set_mph: drive.cruise_mph,
             keeper_mph: drive.keeper_mph,
+            livestock: drive.livestock().map(|load| LivestockObservation {
+                phase: load.phase,
+                footing: load.footing,
+                limit: load.limit,
+                exemption: load.exemption,
+                heat: load.heat,
+                head: load.head,
+                hours_aboard: load.hours_aboard(),
+            }),
         })
     }
 

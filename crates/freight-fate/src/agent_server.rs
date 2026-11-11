@@ -781,28 +781,44 @@ impl AgentPolicy {
                 }
                 Command::Observe => {
                     let _ = reply.send(Ok(match input.driving_observation() {
-                        Some(o) => format!(
-                            "INSPECTOR (ground truth, not ears): mile {:.2}. Speed {:.0} mph, \
+                        Some(o) => {
+                            let cattle = o.livestock.map_or(String::new(), |l| {
+                                format!(
+                                    " Cattle: {} head, phase {}, footing {}, limit {}, hours \
+                                     {}, heat {}, {:.1} hours aboard.",
+                                    l.head,
+                                    l.phase.key(),
+                                    l.footing.key(),
+                                    l.limit.key(),
+                                    l.exemption.key(),
+                                    l.heat.key(),
+                                    l.hours_aboard
+                                )
+                            });
+                            format!(
+                                "INSPECTOR (ground truth, not ears): mile {:.2}. Speed {:.0} mph, \
                              limit {}. Air ready: {}. Parking brake: {}. Speed control armed: \
                              {}. Keeper: {}. Cruise: {}. Hazard active: {}. Pull-over active: \
-                             {}. Off pavement: {}. Truck damage: {:.0}%. Cargo damage: {:.0}%.",
-                            o.position_mi,
-                            o.speed_mph,
-                            o.speed_limit_mph
-                                .map_or("not read yet".to_string(), |mph| format!("{mph:.0}")),
-                            o.air_ready,
-                            o.parking_brake,
-                            o.speed_control_armed,
-                            o.keeper_mph
-                                .map_or("off".to_string(), |mph| format!("holding {mph:.0}")),
-                            o.cruise_set_mph
-                                .map_or("off".to_string(), |mph| format!("set {mph:.0}")),
-                            o.hazard_active,
-                            o.pull_over_active,
-                            o.off_pavement,
-                            o.truck_damage_pct,
-                            o.cargo_damage_pct,
-                        ),
+                             {}. Off pavement: {}. Truck damage: {:.0}%. Cargo damage: \
+                             {:.0}%.{cattle}",
+                                o.position_mi,
+                                o.speed_mph,
+                                o.speed_limit_mph
+                                    .map_or("not read yet".to_string(), |mph| format!("{mph:.0}")),
+                                o.air_ready,
+                                o.parking_brake,
+                                o.speed_control_armed,
+                                o.keeper_mph
+                                    .map_or("off".to_string(), |mph| format!("holding {mph:.0}")),
+                                o.cruise_set_mph
+                                    .map_or("off".to_string(), |mph| format!("set {mph:.0}")),
+                                o.hazard_active,
+                                o.pull_over_active,
+                                o.off_pavement,
+                                o.truck_damage_pct,
+                                o.cargo_damage_pct,
+                            )
+                        }
                         None => {
                             "INSPECTOR: not at the wheel (a menu or stop screen is up).".to_string()
                         }

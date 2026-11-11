@@ -201,22 +201,55 @@ pub const LIQUID_CONDITION_TEXT: &[(&str, &str)] = &[
     (CARGO_OUTCOME_EXCEPTION, "off spec"),
 ];
 
+/// Which words a load's condition is spoken in. Boxed freight shifts and
+/// breaks, a tank's product goes off spec, and live cattle are bruised or
+/// injured: the same four rungs, the same thresholds and the same money.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum CargoVocabulary {
+    Solid,
+    Liquid,
+    Live,
+}
+
+impl CargoVocabulary {
+    /// The vocabulary for a load: a tank aboard, or live cattle, or neither.
+    pub fn for_load(liquid: bool, live: bool) -> CargoVocabulary {
+        if live {
+            CargoVocabulary::Live
+        } else if liquid {
+            CargoVocabulary::Liquid
+        } else {
+            CargoVocabulary::Solid
+        }
+    }
+}
+
 /// The spoken state of the load, for status readouts and cues.
 ///
 /// Plain words, not a number alone: "eighteen percent" tells a player
-/// nothing about whether the receiver will sign for it. `liquid` swaps in
-/// the tank vocabulary; the thresholds and the consequences are identical.
-pub fn cargo_condition_text(condition_pct: f64, liquid: bool) -> &'static str {
+/// nothing about whether the receiver will sign for it. The vocabulary
+/// swaps the nouns; the thresholds and the consequences are identical.
+pub fn cargo_condition_text(condition_pct: f64, vocabulary: CargoVocabulary) -> &'static str {
     let outcome = cargo_outcome(condition_pct);
-    if liquid {
-        if let Some((_, text)) = LIQUID_CONDITION_TEXT.iter().find(|(o, _)| *o == outcome) {
-            return text;
+    match vocabulary {
+        CargoVocabulary::Liquid => {
+            if let Some((_, text)) = LIQUID_CONDITION_TEXT.iter().find(|(o, _)| *o == outcome) {
+                return text;
+            }
+            return if condition_pct >= 1.0 {
+                "worked"
+            } else {
+                "settled"
+            };
         }
-        return if condition_pct >= 1.0 {
-            "worked"
-        } else {
-            "settled"
-        };
+        CargoVocabulary::Live => {
+            return crate::sim::livestock::LIVESTOCK_CONDITION_TEXT
+                .iter()
+                .find(|(o, _)| *o == outcome)
+                .map(|(_, text)| *text)
+                .unwrap_or("riding well");
+        }
+        CargoVocabulary::Solid => {}
     }
     match outcome {
         CARGO_OUTCOME_REJECTED => "ruined",
@@ -342,27 +375,60 @@ mod tests {
 
     #[test]
     fn test_the_condition_words_map_one_to_one_onto_the_outcomes() {
-        assert_eq!(cargo_condition_text(0.0, false), "secure");
-        assert_eq!(cargo_condition_text(5.0, false), "shifted but sound");
-        assert_eq!(cargo_condition_text(CARGO_EXCEPTION_PCT, false), "damaged");
+        assert_eq!(cargo_condition_text(0.0, CargoVocabulary::Solid), "secure");
         assert_eq!(
-            cargo_condition_text(CARGO_CLAIM_PCT, false),
+            cargo_condition_text(5.0, CargoVocabulary::Solid),
+            "shifted but sound"
+        );
+        assert_eq!(
+            cargo_condition_text(CARGO_EXCEPTION_PCT, CargoVocabulary::Solid),
+            "damaged"
+        );
+        assert_eq!(
+            cargo_condition_text(CARGO_CLAIM_PCT, CargoVocabulary::Solid),
             "badly damaged"
         );
-        assert_eq!(cargo_condition_text(CARGO_REJECT_PCT, false), "ruined");
+        assert_eq!(
+            cargo_condition_text(CARGO_REJECT_PCT, CargoVocabulary::Solid),
+            "ruined"
+        );
     }
 
     #[test]
     fn test_a_tank_load_is_described_in_words_that_fit_a_tank() {
-        assert_eq!(cargo_condition_text(0.0, true), "settled");
-        assert_eq!(cargo_condition_text(5.0, true), "worked");
-        assert_eq!(cargo_condition_text(20.0, true), "off spec");
-        assert_eq!(cargo_condition_text(40.0, true), "contaminated");
-        assert_eq!(cargo_condition_text(80.0, true), "lost");
+        assert_eq!(
+            cargo_condition_text(0.0, CargoVocabulary::Liquid),
+            "settled"
+        );
+        assert_eq!(cargo_condition_text(5.0, CargoVocabulary::Liquid), "worked");
+        assert_eq!(
+            cargo_condition_text(20.0, CargoVocabulary::Liquid),
+            "off spec"
+        );
+        assert_eq!(
+            cargo_condition_text(40.0, CargoVocabulary::Liquid),
+            "contaminated"
+        );
+        assert_eq!(cargo_condition_text(80.0, CargoVocabulary::Liquid), "lost");
         // And the dry vocabulary is untouched.
-        assert_eq!(cargo_condition_text(0.0, false), "secure");
-        assert_eq!(cargo_condition_text(5.0, false), "shifted but sound");
-        assert_eq!(cargo_condition_text(80.0, false), "ruined");
+        assert_eq!(cargo_condition_text(0.0, CargoVocabulary::Solid), "secure");
+        assert_eq!(
+            cargo_condition_text(5.0, CargoVocabulary::Solid),
+            "shifted but sound"
+        );
+        assert_eq!(cargo_condition_text(80.0, CargoVocabulary::Solid), "ruined");
+        // Live cattle: the same rungs in a bill of lading's words.
+        assert_eq!(
+            cargo_condition_text(0.0, CargoVocabulary::Live),
+            "riding well"
+        );
+        assert_eq!(
+            cargo_condition_text(5.0, CargoVocabulary::Live),
+            "riding well"
+        );
+        assert_eq!(cargo_condition_text(20.0, CargoVocabulary::Live), "bruised");
+        assert_eq!(cargo_condition_text(40.0, CargoVocabulary::Live), "injured");
+        assert_eq!(cargo_condition_text(80.0, CargoVocabulary::Live), "lost");
     }
 
     #[test]

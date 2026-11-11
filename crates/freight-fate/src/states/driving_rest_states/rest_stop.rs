@@ -33,6 +33,7 @@ use crate::states::driving_rest_states::loyalty::LoyaltyRewardsState;
 use crate::states::driving_rest_states::rest_preview::{sleep_preview, SleepChoice};
 
 mod cat_scale;
+mod cattle;
 mod chains;
 
 const REST_STOP_INTRO_HELP: &str =
@@ -437,6 +438,9 @@ impl RestStopState {
                 .help("Nobody is at the scale house. There is nothing to check in at.")
             };
             items.push(item);
+        }
+        if d.livestock().is_some_and(|load| load.aboard()) {
+            items.push(self.check_cattle_item());
         }
         if d.trip.truck.doubles_hooked() {
             // A set of doubles is two trailers and a dolly to walk: the row

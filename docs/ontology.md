@@ -107,6 +107,7 @@ belongs to the truck you own in this game, not to the driver.
 | Driving mode (the setting): relaxed, standard, real time | `time_scale`, `TIME_SCALES` | `settings.py`, `states/main_menu.py` |
 | Pedal latch | `PedalLatch` | `sim/pedal_latch.py` |
 | A tank load and its sloshing wave | `LiquidLoad`, `SloshAxis` | `sim/surge.py` |
+| A live cattle load and its five machines (load phase, footing, 28-hour limit, hours exemption, heat) | `LivestockLoad` | `sim/livestock.rs` |
 | Stop-cue geometry from stopping distance | -- | `states/driving_stops.py` |
 | Planned rest-stop stopping assistance | `selected_stop_assist` | `settings.py`, `states/driving_events.py` |
 | Facility streets (the setting): on drives the streets between the highway and a facility; off is the 1.8 arrival at the ramp's end | `facility_streets`, `DrivingState::facility_streets_on` | `settings.rs`, `states/driving_events/chains.rs` |
@@ -270,6 +271,15 @@ from the words, and synonyms cost them a re-read.
 | A tank with bulkheads that damp fore-aft surge | baffled | compartmented, bulkheaded | `CargoType.baffled` |
 | A tank with nothing inside to damp surge | smooth bore | unbaffled, food-grade tank | `CargoType.baffled` False |
 | How much liquid is in the tank | how full the tank is: "half full", "nearly full" | outage, ullage, headspace, fill level | `LiquidLoad.fill_fraction` |
+| The freight class of cattle hauled alive | live cattle | livestock (fine in a trailer or certificate name), beef, animals | `CARGO_CATALOG["livestock"]` |
+| Calves from a sale barn to a feed yard; fed cattle from a feed yard to a beef plant | feeder calves, fed cattle | steers, heifers, stock | `CattleKind` |
+| The trailer cattle ride in | livestock trailer | pot, pot-belly, cattle hauler (the trade words, never spoken) | `TRAILER_CATALOG["livestock"]` |
+| The places cattle are sold, fed and processed | sale barn, feed yard, beef plant | auction, sale yard, feedlot, packer, slaughterhouse | `LOCATION_TYPE_LABELS` |
+| How the cattle are standing behind the cab | footing: "Cattle settled", "Cattle restless", "Cattle losing their footing", "One of the cattle is down" | balance, stability, load shift | `Footing` |
+| The federal limit on how long cattle may ride without unloading for feed, water and rest | the 28-hour limit | the 28-hour law, the twenty-eight hour rule (say it once with the number) | `LimitMark`, `LIMIT_HOURS` |
+| Driving that hours of service do not count, inside 150 air miles of the shipper or the receiver | "Your hours of service do not count" / "are counting" / "have stopped counting" | ag exemption, farm exemption, 150-mile rule (help may name it once) | `Exemption` |
+| The weight cattle lose aboard, named at delivery | shrink | weight loss, drift | `shrink_pct` |
+| Walking the trailer at a stop | Check the cattle | inspect the livestock, cattle check | `RestStopState::check_cattle_item` |
 | Road the truck needs to stop from here | stopping distance | braking distance, stop room | `TruckState.stopping_distance_m` |
 | The short code a player reads and types into a browser to connect a computer | activation code | user code, device code, pairing code | `Activation.user_code` |
 | The legal driving clock as a whole | hours of service | HOS, the ELD rules, your logbook hours | `HosClock`, `settings.hos_mode` |

@@ -41,6 +41,14 @@ impl TruckState {
         self.transmission.reset_to_neutral();
     }
 
+    /// The words this load's condition is spoken in.
+    pub fn cargo_vocabulary(&self) -> crate::models::cargo_condition::CargoVocabulary {
+        crate::models::cargo_condition::CargoVocabulary::for_load(
+            self.liquid.is_some(),
+            self.livestock.is_some(),
+        )
+    }
+
     /// Move the freight's condition meter; returns what was added.
     pub fn add_cargo_damage(&mut self, pct: f64) -> f64 {
         if !self.trailer_attached || self.cargo_kg <= 0.0 {

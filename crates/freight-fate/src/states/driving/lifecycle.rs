@@ -317,6 +317,7 @@ impl DrivingState {
         // a resolved stop already makes (`end_stop_audio`).
         self.siren.stop(ctx.audio.as_mut());
         self.stop_liquid_cues(ctx);
+        self.stop_livestock_cues(ctx);
         {
             let mut settings = RadioSettingsMut(&mut ctx.settings);
             self.radio.write_settings(&mut settings);

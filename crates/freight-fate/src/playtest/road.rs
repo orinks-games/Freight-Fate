@@ -143,6 +143,16 @@ impl Hit {
     }
 }
 
+/// Where a staged cattle load starts: any machine left None keeps the
+/// state the departure gave it.
+#[derive(Debug, Clone, Default, PartialEq)]
+pub struct CattleStage {
+    pub footing: Option<ff_core::sim::livestock::Footing>,
+    pub exemption: Option<ff_core::sim::livestock::Exemption>,
+    pub heat: Option<ff_core::sim::livestock::Heat>,
+    pub hours_aboard: Option<f64>,
+}
+
 /// The options `tools/playtest_road.py` took on the command line.
 pub struct RoadOptions {
     pub origin: Option<String>,
@@ -172,6 +182,9 @@ pub struct RoadOptions {
     /// The hazardous material that load is, by `HAZMAT_COMMODITIES` key,
     /// instead of the default (gasoline for bulk fuel, none otherwise).
     pub departure_hazmat: Option<String>,
+    /// A cattle load's machines staged on the new drive, when the cargo is
+    /// live cattle.
+    pub cattle: Option<CattleStage>,
     pub level: Option<i64>,
     pub descent: Option<String>,
     pub assists: Option<String>,
@@ -218,6 +231,7 @@ impl Default for RoadOptions {
             cargo_type: "general".to_string(),
             departure_cargo: None,
             departure_hazmat: None,
+            cattle: None,
             level: None,
             descent: None,
             assists: None,
@@ -1379,6 +1393,15 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
         Some(opts.hour.unwrap_or(9.0)),
     );
 
+    if let (Some(stage), Some(load)) = (&opts.cattle, driving.trip.truck.livestock.as_mut()) {
+        load.stage(
+            None,
+            stage.footing,
+            stage.exemption,
+            stage.heat,
+            stage.hours_aboard,
+        );
+    }
     let lead_mi = opts
         .lead
         .unwrap_or_else(|| feature_lead_mi(&driving.trip, hit, opts));

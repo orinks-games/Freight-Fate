@@ -197,6 +197,8 @@ impl DrivingStatusScreenState {
                 // is answerable here, on demand, rather than only at pickup.
                 // Empty for other freight.
                 let tank_line = d.liquid_status_clause();
+                // Live cattle: the footing, the head count and the limit.
+                let cattle_line = d.livestock_status_clause();
                 // The clock and its zone are one reading ("8:02 AM Central
                 // Time"), so a translation finds the zone as a whole.
                 let clock = format!(
@@ -250,6 +252,9 @@ impl DrivingStatusScreenState {
                 lines.push(load_line);
                 if !tank_line.is_empty() {
                     lines.push(format!("Tank: {tank_line}"));
+                }
+                if !cattle_line.is_empty() {
+                    lines.push(cattle_line);
                 }
                 lines.push(format!("Objective: {objective}"));
                 // The band rides with the number: hearing "78 percent"
