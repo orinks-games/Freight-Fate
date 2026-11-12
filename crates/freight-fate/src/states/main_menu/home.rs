@@ -35,7 +35,7 @@ impl Menu for MainMenuState {
         });
         let refs: Vec<&str> = sequence.iter().map(String::as_str).collect();
         ctx.play_music_sequence("menu", &refs);
-        ctx.audio.set_ambient(Some(ambience));
+        self.ambience = Some(ctx.claim_ambient(ambience));
         if ctx.settings.update_channel.is_empty() {
             let build = updater::load_build_info(version());
             let channel = updater::resolve_channel("", build.as_ref());
@@ -57,7 +57,9 @@ impl Menu for MainMenuState {
     }
 
     fn exit(&mut self, ctx: &mut GameContext) {
-        ctx.audio.set_ambient(None);
+        if let Some(claim) = self.ambience.take() {
+            ctx.release_ambient(claim);
+        }
     }
 
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {

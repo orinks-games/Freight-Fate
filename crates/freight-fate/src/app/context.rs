@@ -245,6 +245,10 @@ pub struct GameContext {
     // -- the state stack ----------------------------------------------------------------
     stack: Vec<StackEntry>,
     deferred: Vec<Deferred>,
+
+    // -- the ambient bed (see `app::ambient`) ------------------------------------------
+    pub(super) ambient_bed: ff_core::ambient_bed::AmbientBed,
+    pub(super) ambient_claims: u64,
 }
 
 /// Everything [`GameContext::new`] takes.
@@ -317,6 +321,8 @@ impl GameContext {
             truck_parking: None,
             stack: Vec::new(),
             deferred: Vec::new(),
+            ambient_bed: Default::default(),
+            ambient_claims: 0,
         }
     }
 

@@ -38,6 +38,7 @@ use crate::states::main_menu::{
 };
 use crate::touch::Gesture;
 
+mod ambient;
 pub mod boot_timing;
 mod co_driver;
 pub mod context;

@@ -12,6 +12,7 @@ use std::path::{Path, PathBuf};
 use std::sync::Mutex;
 
 use chrono::{DateTime, Datelike, Local, Timelike};
+use ff_core::ambient_bed::BedClaim;
 use ff_core::models::business::status_label;
 use ff_core::models::jobs::facility_text;
 use ff_core::models::profile::{LegacyCareerError, LoadError, Profile};
@@ -603,12 +604,15 @@ static UPDATE_CHECK: Mutex<(Option<UpdateChecker>, bool)> = Mutex::new((None, fa
 
 pub struct MainMenuState {
     menu: MenuCore<Self>,
+    /// This screen's hold on the ambient bed, while it is the holder's.
+    ambience: Option<BedClaim>,
 }
 
 impl MainMenuState {
     pub fn new() -> Self {
         Self {
             menu: MenuCore::new("Freight Fate"),
+            ambience: None,
         }
     }
 

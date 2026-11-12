@@ -165,8 +165,7 @@ impl RestStopState {
     }
 
     fn announce_over_drive(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
-        ctx.audio
-            .set_ambient(Some(poi_ambient_key(&self.stop, d.trip.local_hour())));
+        ctx.set_ambient(Some(poi_ambient_key(&self.stop, d.trip.local_hour())));
         let mut parts = vec![format!("{}.", self.stop.spoken_name())];
         if self.stop.stop_type == "weigh_station" {
             // An inspection, not hospitality: no parking chatter, no live lot

@@ -361,6 +361,37 @@ fn test_cancelling_the_pickup_returns_to_the_terminal() {
     assert!(profile(&app).dispatch_board_cache.is_none());
 }
 
+#[test]
+fn leaving_the_pickup_keeps_the_bed_of_the_screen_it_opens() {
+    // The pickup's exit runs after its own row's handler returns, so after
+    // the next screen started its bed. It must not stop that bed.
+    let mut app = TestApp::new();
+    career(&mut app, "Quiet Dock", "Chicago");
+    let audio = app.record_audio();
+    push_pickup(
+        &mut app,
+        drop_yard_job("chicago-live-load", 92.0),
+        PickupOptions::default(),
+    );
+    select::<PickupFacilityState>(&mut app, "Cancel pickup and return to terminal");
+    assert!(is::<CityMenuState>(&app));
+    assert_eq!(audio.borrow().ambient.as_deref(), Some("poi/facility_gate"));
+
+    push_pickup(
+        &mut app,
+        drop_yard_job("chicago-live-load", 92.0),
+        PickupOptions::default(),
+    );
+    select::<PickupFacilityState>(&mut app, "Save and quit to main menu");
+    assert!(is::<MainMenuState>(&app));
+    let bed = audio.borrow().ambient.clone();
+    assert!(
+        bed.as_deref()
+            .is_some_and(|key| key.starts_with("ambient/menu_")),
+        "{bed:?}"
+    );
+}
+
 // -- route planning ---------------------------------------------------------------------
 
 #[test]

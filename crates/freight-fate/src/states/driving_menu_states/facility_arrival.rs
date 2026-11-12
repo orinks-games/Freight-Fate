@@ -70,8 +70,7 @@ impl FacilityArrivalState {
     }
 
     fn announce_over_drive(&mut self, ctx: &mut GameContext, driving: &mut DrivingState) {
-        ctx.audio
-            .set_ambient(Some(facility_ambient_key(&driving.job.destination_type)));
+        ctx.set_ambient(Some(facility_ambient_key(&driving.job.destination_type)));
         // "Pulling into X." was the line just before (owner, 2026-11-04);
         // the menu opens on its first row.
         let current = self.current_text(ctx);
@@ -421,8 +420,7 @@ impl Menu for FacilityArrivalState {
             .driving
             .read(|d| d.job.destination_type.clone())
             .unwrap_or_default();
-        ctx.audio
-            .set_ambient(Some(facility_ambient_key(&destination_type)));
+        ctx.set_ambient(Some(facility_ambient_key(&destination_type)));
         let facility = self.facility(ctx);
         let current = self.current_text(ctx);
         ctx.say(&format!("At {facility}. {current}"));
