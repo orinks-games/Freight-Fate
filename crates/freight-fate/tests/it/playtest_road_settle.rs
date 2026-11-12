@@ -48,6 +48,6 @@ fn a_staged_drive_does_not_rehear_the_zone_or_the_bend_it_landed_in() {
     let profile = harness.app.ctx.profile.as_ref().expect("a career");
     assert!(
         !profile.achievements.iter().any(|a| a == "traffic_slowing"),
-        "the staged start awarded Bumper-to-Bumper Blues"
+        "the staged start awarded Traffic Jam"
     );
 }
