@@ -109,7 +109,12 @@ fn left_and_right_step_the_order_say_it_and_save_it() {
 #[test]
 fn a_category_follows_the_screen_until_it_picks_its_own_order() {
     let mut app = categories_screen();
-    let road = achievements_in_category(achievement_by_id("first_delivery").unwrap().category);
+    // Retired badges are not listed for a career that never earned them.
+    let road: Vec<_> =
+        achievements_in_category(achievement_by_id("first_delivery").unwrap().category)
+            .into_iter()
+            .filter(|a| !ff_core::achievements::is_retired(a.id))
+            .collect();
 
     select::<AchievementsState>(&mut app, road_title());
     let rows = labels::<AchievementCategoryState>(&app);

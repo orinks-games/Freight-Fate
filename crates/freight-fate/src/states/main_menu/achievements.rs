@@ -2,8 +2,8 @@
 //! badges (the `Achievement*State` classes of `main_menu.py`).
 
 use ff_core::achievements::{
-    career_order, earned_ids, entry_text, Achievement, AchievementCategory, AchievementProfile,
-    ACHIEVEMENTS,
+    career_order, earned_ids, entry_text, listed_total, Achievement, AchievementCategory,
+    AchievementProfile,
 };
 use ff_core::models::profile::Profile;
 
@@ -29,6 +29,13 @@ pub fn open_career_achievements(ctx: &mut GameContext) {
 
 fn earned_count(profile: &Profile) -> usize {
     earned_ids(profile as &dyn AchievementProfile).len()
+}
+
+/// How many badges this career's menus list: retired ones count only once
+/// earned.
+fn listed_count(profile: &Profile) -> usize {
+    let earned = earned_ids(profile as &dyn AchievementProfile);
+    listed_total(|id| earned.contains(id))
 }
 
 pub struct AchievementCareerState {
@@ -74,7 +81,7 @@ impl Menu for AchievementCareerState {
         let mut items = Vec::new();
         for (_path, profile) in loadable_saves() {
             let earned = earned_count(&profile);
-            let total = ACHIEVEMENTS.len();
+            let total = listed_count(&profile);
             let name = profile.name.clone();
             items.push(
                 MenuItem::new(
@@ -118,7 +125,7 @@ impl AchievementsState {
         format!(
             "Summary: {} of {} earned",
             earned_count(&self.profile),
-            ACHIEVEMENTS.len()
+            listed_count(&self.profile)
         )
     }
 
@@ -127,7 +134,7 @@ impl AchievementsState {
             "{} has earned {} of {} achievements.",
             self.profile.name,
             earned_count(&self.profile),
-            ACHIEVEMENTS.len()
+            listed_count(&self.profile)
         ));
     }
 
@@ -155,7 +162,7 @@ impl Menu for AchievementsState {
             "Achievements for {}. {} of {} earned. {}",
             self.profile.name,
             earned_count(&self.profile),
-            ACHIEVEMENTS.len(),
+            listed_count(&self.profile),
             self.current_text(ctx)
         );
         ctx.say(&text);

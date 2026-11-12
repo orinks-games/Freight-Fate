@@ -130,7 +130,11 @@ fn test_account_achievement_browser_speaks_scope_controls_and_badge_states_witho
         ordered
             .iter()
             .map(|category| {
-                let count = achievements_in_category(category.id).len();
+                // Retired badges are listed only once earned.
+                let count = achievements_in_category(category.id)
+                    .iter()
+                    .filter(|a| ff_core::achievements::is_listed(a.id, |id| id == earned.id))
+                    .count();
                 let done = usize::from(category.id == earned.category);
                 format!("{}. {done} of {count}", category.title)
             })
@@ -168,7 +172,10 @@ fn test_account_achievement_browser_speaks_scope_controls_and_badge_states_witho
 
     let category_state = app.state().unwrap();
     let category_rows = labels::<AccountAchievementCategoryState>(&category_state, &app.ctx);
-    let catalog = achievements_in_category(earned.category);
+    let catalog: Vec<_> = achievements_in_category(earned.category)
+        .into_iter()
+        .filter(|a| ff_core::achievements::is_listed(a.id, |id| id == earned.id))
+        .collect();
     // The Sort row, then the badges, earned first by default, then Back.
     assert_eq!(category_rows.len(), catalog.len() + 2);
     assert_eq!(category_rows[0], "Sort: Earned first");
