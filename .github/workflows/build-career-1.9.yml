@@ -53,8 +53,9 @@ on:
   # cron time (the 02:37 start has been landing between 09:00 and 10:30 UTC
   # through October and November 2026) and sometimes drops one outright
   # (2026-10-12). With the push start carrying the snapshot, this one has
-  # work only when a push build failed and its retry failed too, or when
-  # dev changed without a push event; it skips the night otherwise.
+  # work only when a push build failed and its retry (the Retry job at the
+  # end of this file) failed too, or when dev changed without a push event;
+  # it skips the night otherwise.
   schedule:
     - cron: "37 2 * * *"
   workflow_dispatch:
@@ -1020,3 +1021,77 @@ jobs:
           gh release create "$TAG" "${assets[@]}" --notes-file notes.md \
             --title "Freight Fate $VERSION" \
             --latest --target "$COMMIT_SHA"
+
+  retry:
+    # One retry after a failure, inside the run that failed. This used to
+    # be its own workflow (retry-failed-nightly.yml, on workflow_run), which
+    # GitHub started after EVERY completed build, so the Actions page showed
+    # a "Retry failed nightly" row for each push build, skipped or not, and a
+    # burst of merges on 2026-11-11 left nine of them sleeping 45 minutes
+    # each for builds a newer push had already cancelled. As a job, it exists
+    # only when something in this run failed: a run cancelled by a newer
+    # push cancels it too, and a green run has no row to show.
+    #
+    # Only push builds of dev and the scheduled fallback retry; the retry is
+    # a dispatch, so it is never retried itself. A job that hits its timeout
+    # ends as `cancelled`, not `failure` (2026-10-02: a hung Fedora ARM
+    # boot), so both count.
+    name: Retry once after delay
+    needs: [prepare, format, test, build_windows, build_macos, build_linux, smoke_linux, release]
+    if: >-
+      always() &&
+      needs.prepare.outputs.should_build == 'true' &&
+      ((github.event_name == 'push' && github.ref == 'refs/heads/dev') || github.event_name == 'schedule') &&
+      github.run_attempt == 1 &&
+      (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Dispatch one recovery build if still needed
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.prepare.outputs.tag }}
+          RUN_SHA: ${{ needs.prepare.outputs.commit_sha }}
+        run: |
+          superseded() {
+            # A push build whose commit is no longer dev's head has been
+            # overtaken; that push's own build takes over.
+            [ "$GITHUB_EVENT_NAME" = "push" ] || return 1
+            DEV_SHA=$(gh api "repos/$GITHUB_REPOSITORY/branches/dev" --jq .commit.sha)
+            if [ "$DEV_SHA" != "$RUN_SHA" ]; then
+              echo "dev has moved on to $DEV_SHA since $RUN_SHA; that push's own build takes over."
+              return 0
+            fi
+            return 1
+          }
+          superseded && exit 0
+
+          echo "Waiting 45 minutes for a transient failure to clear."
+          sleep 2700
+
+          superseded && exit 0
+
+          # Today's snapshot may already be up: for a push that counts only
+          # when it is of this commit; for the nightly fallback any snapshot
+          # of the day will do.
+          if TARGET=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json targetCommitish -q .targetCommitish 2>/dev/null); then
+            if [ "$GITHUB_EVENT_NAME" != "push" ] || [ "$TARGET" = "$RUN_SHA" ]; then
+              echo "$TAG already exists; nothing to retry."
+              exit 0
+            fi
+          fi
+
+          ACTIVE=$(gh run list --repo "$GITHUB_REPOSITORY" \
+            --workflow "$GITHUB_WORKFLOW" --limit 20 \
+            --json databaseId,status --jq "[.[] | select((.status == \"queued\" or .status == \"in_progress\") and .databaseId != $GITHUB_RUN_ID)] | length")
+          if [ "$ACTIVE" -gt 0 ]; then
+            echo "Another build is already queued or running; not dispatching a duplicate."
+            exit 0
+          fi
+
+          echo "The snapshot is still missing; dispatching one retry from dev."
+          gh workflow run "$GITHUB_WORKFLOW" --repo "$GITHUB_REPOSITORY" \
+            --ref dev -f dry_run=false
