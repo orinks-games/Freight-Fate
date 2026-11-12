@@ -69,7 +69,7 @@ case "${ID:-}" in
     speech-dispatcher -d
     ;;
   arch)
-    pacman -Sy --noconfirm --quiet dbus alsa-lib gcc-libs speech-dispatcher >/dev/null
+    pacman -Syu --noconfirm --quiet dbus alsa-lib gcc-libs speech-dispatcher >/dev/null
     ;;
   opensuse-tumbleweed|opensuse-leap)
     zypper --quiet --non-interactive install libdbus-1-3 libasound2 libstdc++6 >/dev/null
