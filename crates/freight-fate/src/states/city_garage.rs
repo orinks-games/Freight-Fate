@@ -89,7 +89,7 @@ fn save_equipment_change(ctx: &mut GameContext) {
 fn remaining_balance_text(money: f64) -> String {
     if money < 0.0 {
         return format!(
-            "You have {} dollars; the unpaid balance is debt.",
+            "You have {} dollars. The unpaid balance is debt.",
             fmt_grouped(money, 0)
         );
     }
@@ -965,9 +965,9 @@ impl Menu for GarageState {
                 |s: &mut Self, ctx| s.buy_chains(ctx),
             )
             .help(
-                "A chain set is seven chains: four for the drive tires, one for a trailer \
-                 tire, and two spares, the most any state here asks of a semi, plus two \
-                 repair links. Put chains on from the pause menu once you're stopped in snow \
+                "A chain set is seven chains and two repair links. Four chains go on the drive \
+                 tires and one on a trailer tire, the most any state here asks of a semi. \
+                 The other two are spares. Put chains on from the pause menu once you're stopped in snow \
                  or ice. They wear out fast on bare pavement. Company drivers bill the \
                  carrier.",
             ),

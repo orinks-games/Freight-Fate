@@ -1,14 +1,11 @@
 # Contributing to Freight Fate
 
-Thanks for helping make Freight Fate better. This project is audio-first and
-accessibility-first, so contributions should keep blind and low-vision players
-at the center of every change.
+Thanks for helping make Freight Fate better.
 
 ## Contributions by release line
 
-Freight Fate 1.9 is in development on `feat/career-1.9`, with preview
-snapshots available for testing. The 1.8 line is in maintenance and accepts
-bug fixes only.
+Work lands on `dev`, and tester snapshots are built from it. Stable releases
+come from `main`. The 1.8 line gets no further releases.
 
 For a new feature, open an issue first so maintainers can agree on its scope
 and release line. Check [the roadmap](ROADMAP.md) for the work planned for

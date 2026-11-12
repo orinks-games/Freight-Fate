@@ -658,7 +658,7 @@ pub const UPGRADE_CATALOG: &[Upgrade] = &[
         key: "aero_kit",
         label: "Aerodynamic kit",
         description: "Makes the truck burn less fuel at highway speed. It does not add \
-                      more fuel capacity; it makes the same tank last longer. Buy it to \
+                      more fuel capacity. It makes the same tank last longer. Buy it to \
                       save diesel money over long highway miles.",
         prices: &[9_000.0],
     },
@@ -666,7 +666,7 @@ pub const UPGRADE_CATALOG: &[Upgrade] = &[
         key: "long_range_tank",
         label: "Long-range tank",
         description: "Adds fifty gallons of fuel capacity. It does not make the truck more \
-                      efficient; it lets you carry more fuel. Buy it for more distance \
+                      efficient. It carries more fuel. Buy it for more distance \
                       between fuel stops and more route flexibility.",
         prices: &[7_500.0],
     },

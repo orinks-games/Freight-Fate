@@ -194,7 +194,7 @@ impl Menu for DrivingRecordNoticeState {
         let text = format!(
             "Freight Fate now keeps a driving record for your career: \
              citations, serious violations, and whether your CDL is clear. \
-             Two serious violations in 180 days suspend it; running from a \
+             Two serious violations in 180 days suspend it. Running from a \
              police stop is a major offense that disqualifies it for a year. \
              Reputation also decides how much freight dispatch shows you and \
              how much choice you get. Nothing was reset or taken. {standing} \
@@ -260,7 +260,7 @@ impl Menu for SaveMigrationNoticeState {
             "Save file updated. This career was converted from an older \
              version: every truck you own now keeps its own fuel, damage, tire \
              wear, and road grime. The truck you were driving keeps its \
-             condition; your other trucks start fueled and fresh. The updated \
+             condition. Your other trucks start fueled and fresh. The updated \
              save no longer opens in older versions of the game. {}",
             self.current_text(ctx)
         );
