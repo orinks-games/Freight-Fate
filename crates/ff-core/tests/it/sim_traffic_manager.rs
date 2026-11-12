@@ -1257,7 +1257,7 @@ fn a_slow_call_needs_the_truck_to_be_closing() {
         situation
             .message
             .normal
-            .starts_with("Slow box truck 0.4 miles ahead"),
+            .starts_with("Slow box truck, 0.4 miles,"),
         "{}",
         situation.message.normal
     );

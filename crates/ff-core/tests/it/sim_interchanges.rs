@@ -546,7 +546,7 @@ fn test_rest_stop_cue_names_exit_when_linked() {
         .iter()
         .find(|c| c.kind == "rest_stop" && c.key.contains(&target.name))
         .expect("a rest-stop cue for the curated stop");
-    assert!(cue.text.contains("at exit 21"), "{}", cue.text);
+    assert!(cue.text.contains("off exit 21"), "{}", cue.text);
     assert_eq!(cue.near_text, "");
 }
 
