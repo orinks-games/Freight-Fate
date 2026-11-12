@@ -28,6 +28,7 @@ use ff_core::music::{select_menu_music_sequence, MenuMusicProfile};
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_n};
 use ff_core::settings::Settings;
 use ff_core::sim::hos::{limits, HosClock};
+use ff_core::sim::livestock::LIVESTOCK_CARGO_KEY;
 use ff_core::sim::real_weather_alerts::{route_option_weather_note, warm_route_alerts};
 use ff_core::sim::route_roadwork::{
     choose_dispatch_route, dispatch_route_line, route_option_note, route_planning_note,
@@ -1060,7 +1061,9 @@ impl PickupFacilityState {
 
     /// `_status`: the pickup status line.
     pub fn status(&mut self, ctx: &mut GameContext) {
-        let state = if self.loaded {
+        let state = if self.loaded && self.job.cargo.key == LIVESTOCK_CARGO_KEY {
+            "loaded"
+        } else if self.loaded {
             "loaded and sealed"
         } else if self.checked_in {
             "checked in, waiting to load"
@@ -1183,7 +1186,9 @@ impl Menu for PickupFacilityState {
         let plan = self.pickup_plan(ctx);
         let facility = self.facility();
         let lead = if self.loaded {
-            let mut lead = format!("Loaded and sealed for {}.", self.job.spoken_destination());
+            let mut lead = self.cattle_loaded_line().unwrap_or_else(|| {
+                format!("Loaded and sealed for {}.", self.job.spoken_destination())
+            });
             if self.just_loaded {
                 let verb = if plan.is_drop_hook() {
                     "Dropping and hooking"
@@ -1293,6 +1298,7 @@ impl Menu for PickupFacilityState {
             .help("Gets the dock assignment.")
         };
         let mut items = vec![primary];
+        items.extend(self.evening_load_row(ctx));
         items.extend(self.team_departure_rows(ctx));
         if self.loaded && plan.trailer.is_some() {
             items.push(

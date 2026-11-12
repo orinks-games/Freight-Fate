@@ -2252,6 +2252,11 @@
       "label": "LCV",
       "tier": "specialist"
     },
+    "livestock_handling": {
+      "label": "livestock handling",
+      "level": 6,
+      "tier": "certificate"
+    },
     "manual_transmission": {
       "label": "manual transmission",
       "tier": "training"
@@ -2413,6 +2418,10 @@
     "flatbed": {
       "label": "Flatbed",
       "purchasePrice": 48000
+    },
+    "livestock": {
+      "label": "Livestock",
+      "purchasePrice": 88000
     },
     "reefer": {
       "label": "Reefer",

@@ -186,6 +186,28 @@ pub const CREDENTIALS: &[Credential] = &[
         announcement: "You earned the high-value certificate. Electronics jobs are now \
              available.",
     },
+    // Live cattle. No CDL endorsement covers animals (49 CFR 383.93); the
+    // major beef packers have required the Beef Quality Assurance
+    // Transportation certificate from every cattle hauler since January 1,
+    // 2020. The real course is free and takes two to four hours, so this
+    // one costs nothing and takes three. Sponsored at level 6, after the
+    // assigned loads have taught smooth driving.
+    Credential {
+        key: "livestock_handling",
+        tier: CredentialTier::Certificate,
+        label: "livestock handling",
+        gate_label: "livestock handling certificate",
+        grant_level: Some(6),
+        min_level: 5,
+        course_cost: 0.0,
+        course_hours: 3.0,
+        prereqs: &[],
+        wait_days: 0.0,
+        needs_clean_record: false,
+        unlocks: "live cattle",
+        announcement: "You earned the livestock handling certificate. \
+             Live cattle jobs are now available.",
+    },
     // -- Endorsements: the CDL letters -------------------------------------
     Credential {
         key: "doubles_triples",
@@ -364,6 +386,13 @@ pub fn course_eligibility(
 pub fn course_help_text(cred: &Credential) -> String {
     let mut text = format!("Unlocks {}. ", cred.unlocks);
     match cred.grant_level {
+        // The real cattle haulers' course is free, and so is this one: the
+        // only reason to book it is to start a level early.
+        Some(level) if cred.course_cost <= 0.0 => text.push_str(&format!(
+            "The carrier sponsors it at level {level}, or you can take the free course \
+             yourself from level {}.",
+            cred.min_level
+        )),
         Some(level) => text.push_str(&format!(
             "The carrier sponsors it free at level {level}, or you can pay {} dollars for it \
              yourself from level {}.",
@@ -401,7 +430,11 @@ pub fn course_help_text(cred: &Credential) -> String {
 
 /// The one-line menu row for a course: cost, and what makes it activate.
 pub fn course_offer_text(cred: &Credential) -> String {
-    let mut text = format!("{} dollars", fmt_grouped(cred.course_cost, 0));
+    let mut text = if cred.course_cost <= 0.0 {
+        "free".to_string()
+    } else {
+        format!("{} dollars", fmt_grouped(cred.course_cost, 0))
+    };
     if cred.wait_days > 0.0 {
         text.push_str(&format!(
             ", background check clears in about {} days",
@@ -409,7 +442,11 @@ pub fn course_offer_text(cred: &Credential) -> String {
         ));
     }
     if let Some(level) = cred.grant_level {
-        text.push_str(&format!(", carrier-sponsored free at level {level}"));
+        if cred.course_cost <= 0.0 {
+            text.push_str(&format!(", carrier-sponsored at level {level}"));
+        } else {
+            text.push_str(&format!(", carrier-sponsored free at level {level}"));
+        }
     }
     text
 }
@@ -435,6 +472,24 @@ mod tests {
             assert!(!cred.announcement.is_empty());
             assert!(!cred.gate_label.is_empty());
         }
+    }
+
+    #[test]
+    fn a_free_course_says_free_and_never_zero_dollars() {
+        let cred = credential("livestock_handling").unwrap();
+        assert_eq!(
+            course_offer_text(cred),
+            "free, carrier-sponsored at level 6"
+        );
+        let help = course_help_text(cred);
+        assert!(
+            help.starts_with(
+                "Unlocks live cattle. The carrier sponsors it at level 6, or you can take the \
+                 free course yourself from level 5."
+            ),
+            "{help}"
+        );
+        assert!(!help.contains("0 dollars"));
     }
 
     #[test]

@@ -15,7 +15,9 @@ pub const LUMPER_DESTINATION_TYPES: &[&str] = &[
     "retail_distribution",
 ];
 
-pub const WASHOUT_CARGO: &[&str] = &["food", "refrigerated", "grain"];
+/// A livestock trailer is cleaned and disinfected before the next group of
+/// cattle goes on (BQA Transportation manual), so cattle carry the charge too.
+pub const WASHOUT_CARGO: &[&str] = &["food", "refrigerated", "grain", "livestock"];
 
 /// A charge shown on the settlement ledger.
 #[derive(Debug, Clone, PartialEq)]
@@ -76,12 +78,25 @@ pub fn carrier_accessorial_charges<P: TrailerOwner + ?Sized>(
         ));
     }
     if WASHOUT_CARGO.contains(&job.cargo.key) {
+        // A livestock trailer washout takes a crew, a pressure washer and
+        // disinfectant through two decks: assumed at three times a van's.
+        let (amount, note) = if job.cargo.key == "livestock" {
+            (
+                135.0,
+                "approved cleaning and disinfecting charge after live cattle",
+            )
+        } else {
+            (
+                45.0,
+                "approved sanitation charge after food or refrigerated freight",
+            )
+        };
         charges.push(SettlementCharge::new(
             "trailer_washout",
             "required trailer washout",
-            45.0,
+            amount,
             CARRIER_PAID,
-            "approved sanitation charge after food or refrigerated freight",
+            note,
         ));
     }
     charges

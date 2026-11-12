@@ -674,6 +674,8 @@ impl DrivingState {
         // After the cargo pass, so the bend's advisory is already on the truck
         // for the lateral wave. Returns immediately on any non-tank load.
         self.update_liquid_cues(ctx, dt);
+        // The cattle feel the same forces; returns at once on any other load.
+        self.update_livestock(ctx, dt);
         self.update_overrev(ctx, dt);
         // The watch runs first on purpose. If an officer opens a pull-over
         // this frame, update_speeding returns early on the live stop, so one

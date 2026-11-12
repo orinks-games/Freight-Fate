@@ -66,6 +66,12 @@ impl TruckState {
             0.0
         };
         self.update_cargo(dt, decel_g);
+        // Cattle feel every g of a stop, the engine brake's share included.
+        self.last_decel_g = if old_v > 0.0 {
+            (-accel / G).max(0.0)
+        } else {
+            0.0
+        };
         self.update_rpm(dt);
         self.update_fuel(dt);
         // Hotel burns use the same game-second scale as update_fuel.

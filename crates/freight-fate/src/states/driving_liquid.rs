@@ -34,7 +34,7 @@
 //! this layer plays the *surface* of the liquid -- the wash and the slap against
 //! the head, up where nothing else lives.
 
-use ff_core::models::cargo_condition::cargo_condition_text;
+use ff_core::models::cargo_condition::{cargo_condition_text, CargoVocabulary};
 use ff_core::sim::surge::LiquidLoad;
 use ff_core::speech_pacing::SpeechCategory;
 
@@ -244,7 +244,7 @@ impl DrivingState {
         }
         format!(
             "{}, {condition:.0} percent",
-            cargo_condition_text(condition, true)
+            cargo_condition_text(condition, CargoVocabulary::Liquid)
         )
     }
 

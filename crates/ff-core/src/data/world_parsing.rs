@@ -12,14 +12,15 @@ use serde_json::{Map, Value};
 
 use super::legacy_aliases::legacy_city_slug;
 use super::world_constants::{
-    facility_cargo_roles, is_curated_complete_market, is_stand_in_market, lookup, set_contains,
-    template_facility_city_gate, BASE_MARKET_FACILITY_TYPES, CITY_MARKET_TAGS, DEFAULT_POI_ACTIONS,
-    DEFAULT_VEHICLE_ACCESS, FACILITY_LEVEL_UNLOCKS, FACILITY_NAME_TEMPLATES, FACILITY_SOURCE_NOTES,
-    FREIGHT_LOCATION_TYPES, MARKET_TAG_FACILITY_TYPES, PARKING_CERTAINTY_LABELS, POI_ACTIONS,
-    POI_DENSITY_MEDIUM_LEG_MILES, POI_DENSITY_SHORT_LEG_MILES, RAW_FACILITY_TEXT_MARKERS,
-    RAW_POI_TEXT_MARKERS, REGION_MARKET_TAGS, SOURCE_BACKED_POI_ACTIONS,
-    STAND_IN_MARKET_FACILITY_TYPE, STATE_MARKET_TAGS, STOP_CURATION_LEVELS, STOP_DIRECTIONS,
-    STOP_TYPE_LABELS, VEHICLE_ACCESS_LEVELS,
+    cattle_facility_types, facility_cargo_roles, is_curated_complete_market, is_stand_in_market,
+    lookup, set_contains, template_facility_city_gate, BASE_MARKET_FACILITY_TYPES,
+    CITY_MARKET_TAGS, DEFAULT_POI_ACTIONS, DEFAULT_VEHICLE_ACCESS, FACILITY_LEVEL_UNLOCKS,
+    FACILITY_NAME_TEMPLATES, FACILITY_SOURCE_NOTES, FREIGHT_LOCATION_TYPES,
+    MARKET_TAG_FACILITY_TYPES, PARKING_CERTAINTY_LABELS, POI_ACTIONS, POI_DENSITY_MEDIUM_LEG_MILES,
+    POI_DENSITY_SHORT_LEG_MILES, RAW_FACILITY_TEXT_MARKERS, RAW_POI_TEXT_MARKERS,
+    REGION_MARKET_TAGS, SOURCE_BACKED_POI_ACTIONS, STAND_IN_MARKET_FACILITY_TYPE,
+    STATE_MARKET_TAGS, STOP_CURATION_LEVELS, STOP_DIRECTIONS, STOP_TYPE_LABELS,
+    VEHICLE_ACCESS_LEVELS,
 };
 use super::world_loader::{RawCity, RawLeg, WorldData};
 use super::world_models::{DataError, Location, Stop};
@@ -190,6 +191,46 @@ pub fn parse_location(
 }
 
 pub fn expand_market_locations(
+    city_key: &str,
+    spoken_city: &str,
+    lat: f64,
+    lon: f64,
+    explicit_locations: &[Location],
+    market_tags: &[String],
+) -> Vec<Location> {
+    let mut locations = expand_market_templates(
+        city_key,
+        spoken_city,
+        lat,
+        lon,
+        explicit_locations,
+        market_tags,
+    );
+    // Cattle towns get their sale barn, feed yard or beef plant whatever
+    // else the market holds, stand-in or not: the auction, the yards or the
+    // plant is what the town is known for. A curated-complete market keeps
+    // only its authored freight.
+    if is_curated_complete_market(city_key) && !explicit_locations.is_empty() {
+        return locations;
+    }
+    for facility_type in cattle_facility_types(city_key) {
+        if locations.iter().any(|l| l.facility_type == *facility_type) {
+            continue;
+        }
+        locations.push(template_location(
+            city_key,
+            spoken_city,
+            lat,
+            lon,
+            facility_type,
+            market_tags,
+            "",
+        ));
+    }
+    locations
+}
+
+fn expand_market_templates(
     city_key: &str,
     spoken_city: &str,
     lat: f64,

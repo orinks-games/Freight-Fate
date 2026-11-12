@@ -153,6 +153,7 @@ mod states_driving_jake_line;
 mod states_driving_jake_sweep;
 mod states_driving_lane_guidance;
 mod states_driving_lanes;
+mod states_driving_livestock;
 mod states_driving_menus;
 mod states_driving_menus_rest;
 mod states_driving_menus_roadside;

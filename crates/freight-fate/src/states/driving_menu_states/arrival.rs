@@ -12,7 +12,9 @@ use ff_core::models::border_freight::yard_drop_line;
 use ff_core::models::business::{display_rank_for, uses_company_career_ranks_for, SettlementTerms};
 use ff_core::models::career::{standing_xp_rate, xp_rate_settlement_clause};
 use ff_core::models::career_ladder::relabel_level_up_announcements;
-use ff_core::models::cargo_condition::{cargo_condition_text, settle_cargo, CargoSettlement};
+use ff_core::models::cargo_condition::{
+    cargo_condition_text, settle_cargo, CargoSettlement, CargoVocabulary,
+};
 use ff_core::models::carrier_fleet::{
     assigned_truck_key, equipment_held_back, fleet_tier_for_level, fleet_upgrade_announcement,
     withheld_promotion_text, WITHHELD_UNLOCK_TAIL,
@@ -270,7 +272,7 @@ impl ArrivalState {
         ctx: &mut GameContext,
         d: &DrivingState,
         cargo: &CargoSettlement,
-        liquid: bool,
+        vocabulary: CargoVocabulary,
     ) -> String {
         let owner_op = is_owner_operator(&profile_of(ctx).business_status);
         let claim_holder = if owner_op {
@@ -291,7 +293,7 @@ impl ArrivalState {
             };
             return format!(
                 "{head} Load {}, {} percent. Pay down {} dollars.{claim}",
-                cargo_condition_text(cargo.condition_pct, liquid),
+                cargo_condition_text(cargo.condition_pct, vocabulary),
                 fmt_f(cargo.condition_pct, 0),
                 fmt_grouped(cargo.pay_loss, 0)
             );
@@ -300,7 +302,7 @@ impl ArrivalState {
             return format!(
                 "Receiver refused the load, {} at {} percent. No pay, {} dollars gone, claim \
                  about {}. {claim_holder}.",
-                cargo_condition_text(cargo.condition_pct, liquid),
+                cargo_condition_text(cargo.condition_pct, vocabulary),
                 fmt_f(cargo.condition_pct, 0),
                 fmt_grouped(cargo.pay_loss, 0),
                 fmt_grouped(cargo.claim_value, 0)
@@ -310,7 +312,7 @@ impl ArrivalState {
             return format!(
                 "Receiver took the load with an exception, {} at {} percent. Claim about {} \
                  dollars, {} off this settlement. {claim_holder}.",
-                cargo_condition_text(cargo.condition_pct, liquid),
+                cargo_condition_text(cargo.condition_pct, vocabulary),
                 fmt_f(cargo.condition_pct, 0),
                 fmt_grouped(cargo.claim_value, 0),
                 fmt_grouped(cargo.pay_loss, 0)
@@ -319,7 +321,7 @@ impl ArrivalState {
         format!(
             "Exception on the bill of lading, load arrived {} at {} percent. {} dollars held \
              back.",
-            cargo_condition_text(cargo.condition_pct, liquid),
+            cargo_condition_text(cargo.condition_pct, vocabulary),
             fmt_f(cargo.condition_pct, 0),
             fmt_grouped(cargo.pay_loss, 0)
         )
@@ -366,7 +368,7 @@ impl ArrivalState {
         // refuse a bad load outright -- which is why this is the largest
         // consequence in the game and comes off the top of the haul.
         let cargo = settle_cargo(d.trip.truck.cargo_damage_pct, gross_base);
-        let liquid = d.trip.truck.liquid.is_some();
+        let vocabulary = d.trip.truck.cargo_vocabulary();
         driver_charges += cargo.pay_loss;
 
         let owned_trailers: Vec<String> = profile_of(ctx).owned_trailers.clone();
@@ -427,8 +429,22 @@ impl ArrivalState {
         // The carried balance from earlier loads is added back after
         // collection below, so it is never taken twice.
         profile_mut_of(ctx).fines_owed = business.uncollected_charges;
+        // Live cattle come off first: the count, the hours aboard and what
+        // the receiver found, before any money is named.
+        if let Some(load) = d.trip.truck.livestock.as_mut() {
+            let one_down = load.footing == ff_core::sim::livestock::Footing::OneDown;
+            load.start_unloading();
+            load.delivered();
+            self.summary_parts
+                .push(ff_core::sim::livestock::receiver_ruling_line(
+                    cargo.condition_pct,
+                    load.head,
+                    load.hours_aboard(),
+                    one_down,
+                ));
+        }
         if !cargo.clean() {
-            let line = self.cargo_settlement_line(ctx, d, &cargo, liquid);
+            let line = self.cargo_settlement_line(ctx, d, &cargo, vocabulary);
             self.summary_parts.push(line);
             let p = profile_mut_of(ctx);
             p.career.reputation = (p.career.reputation - cargo.reputation_hit).max(0.0);

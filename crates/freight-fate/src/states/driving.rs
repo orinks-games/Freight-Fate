@@ -1070,6 +1070,15 @@ pub struct DrivingState {
     pub liquid_settled_said: bool,
     pub liquid_settle_timer_s: f64,
 
+    // ---- driving_livestock.rs -------------------------------------------------------------
+    /// Whether the cattle recordings are in this build, checked once.
+    pub livestock_audio_ok: Option<bool>,
+    /// The bed playing behind the cab, by sound key.
+    pub livestock_bed: Option<&'static str>,
+    pub livestock_departure_said: bool,
+    /// The first scramble's sound has been explained on this load.
+    pub livestock_hint_said: bool,
+
     // ---- driving.py: lifecycle -----------------------------------------------------------
     pub entered_once: bool,
     /// The co-driver for this load, once one has been paired.

@@ -498,7 +498,7 @@ fn truck_response(driving: &DrivingState, ctx: &GameContext) -> (&'static str, S
 
 fn load_response(driving: &DrivingState) -> (&'static str, String, JsonObject) {
     let damage = driving.trip.truck.cargo_damage_pct;
-    let words = cargo_condition_text(damage, driving.trip.truck.liquid.is_some());
+    let words = cargo_condition_text(damage, driving.trip.truck.cargo_vocabulary());
     if damage < 1.0 {
         return (
             "continue",

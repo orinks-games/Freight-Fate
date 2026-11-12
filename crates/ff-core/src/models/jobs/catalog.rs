@@ -266,6 +266,22 @@ pub static CARGO_CATALOG: Lazy<IndexMap<&'static str, CargoType>> = Lazy::new(||
         )
         .min_level(8)
         .national_network(),
+        // Live cattle, in a livestock trailer. No CDL endorsement covers
+        // animals (49 CFR 383.93); what the packers ask for is the free Beef
+        // Quality Assurance Transportation certificate, so the credential is
+        // a carrier certificate. The weight is what a pot carries under
+        // 80,000 pounds: about 49,000 pounds of cattle, 22.2 tonnes. The
+        // rate is assumed (no current per-mile figure was found), set
+        // between refrigerated goods and electronics. Fragility comes from
+        // `CARGO_FRAGILITY`; the cattle's own footing is `sim::livestock`.
+        CargoType::plain(
+            "livestock",
+            "live cattle",
+            3.10,
+            (18.0, 22.2),
+            &["livestock_handling"],
+        )
+        .min_level(5),
         // Placarded loads: the freight the H endorsement exists for. The
         // catalog's plain "chemicals" class stays non-placarded packaged
         // goods; this is the tanker-adjacent dry side -- drums, cylinders,
@@ -409,6 +425,10 @@ pub const MARKET_TAG_CARGO_BONUS: &[(&str, &[&str])] = &[
         &["automotive", "steel", "machinery", "electronics"],
     ),
     ("border", &["retail", "container", "general", "parcel"]),
+    (
+        "cattle",
+        &["livestock", "grain", "farm_inputs", "refrigerated"],
+    ),
     ("chemical", &["chemicals", "bulk", "fuel_bulk", "hazardous"]),
     ("cold_chain", &["food", "refrigerated"]),
     (
@@ -467,6 +487,9 @@ pub const FACILITY_SELECTION_WEIGHTS: &[(&str, f64)] = &[
     ("farm_elevator", 1.15),
     ("food_processor", 1.0),
     ("cold_storage", 1.0),
+    ("sale_barn", 1.1),
+    ("feed_yard", 1.1),
+    ("beef_plant", 1.0),
     ("automotive_plant", 0.95),
     ("chemical_petroleum_terminal", 0.85),
     ("steel_industrial", 0.95),

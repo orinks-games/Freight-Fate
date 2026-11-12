@@ -272,6 +272,7 @@ The terminal is your stop between jobs. Before taking another load, you can revi
 | Flatbed securement certificate | Steel products, and lumber and paper products. | Free from the carrier at level 2, or 450 dollars from level 1. |
 | Heavy-haul certificate | Heavy machinery. | Free from the carrier at level 3, or 1,600 dollars from level 2. |
 | High-value certificate | Electronics and packaged industrial chemicals. | Free from the carrier at level 4, or 1,300 dollars from level 3. |
+| Livestock handling certificate | Live cattle. | Free from the carrier at level 6, or a free course from level 5. |
 | Doubles endorsement | Twin-trailer parcel freight. | Course only, 60 dollars from level 8. |
 | Hazmat endorsement | Placarded hazardous materials, and bulk fuel once the tank vehicle endorsement joins it. | Course only, 185 dollars from level 10, then a background check of about 30 days. |
 | Tank vehicle endorsement | Liquid food products from level 21, and bulk fuel once the hazmat endorsement joins it. | Free from the carrier at level 16, or 2,400 dollars from level 15. |
@@ -363,6 +364,18 @@ A staged trailer takes about 25 minutes to hook. Before taking it, use Walk arou
 Waiting at a facility can earn detention after two hours; the job details give the rate. At a receiver drop yard, exchanging trailers takes about 20 minutes, compared with roughly 45 at a dock. An owned trailer stays with you, so you'll use the dock.
 
 Once loading is finished, a company driver takes dispatch's route. As an owner, you'll compare the alternatives yourself. Look at distance and highways, but also check legal rest, fuel and sleep stops, tolls, terrain, and parking confidence. W reads weather along a route. During the drive, live conditions follow the truck; simulated weather uses the forecast.
+
+### Live cattle
+
+Live cattle ride on a livestock trailer: feeder calves from a sale barn to a feed yard, and fed cattle from a feed yard to a beef plant. Job details give the head count.
+
+Cattle may ride 28 hours by federal law, and dispatch books only runs that fit. You hear when 2 hours, 1 hour and 30 minutes are left. Past the limit, the load loses condition every hour.
+
+Hard braking and sharp turns throw the cattle. Too much and they lose their footing, then one may go down; an animal that is down keeps losing condition until you stop and choose Check the cattle. The load status names how the cattle are standing and the hours left.
+
+Within 150 air miles of the shipper or the receiver, your hours of service do not count. You hear when the truck leaves that circle and when it enters the receiver's. No 30-minute break is needed while cattle are aboard.
+
+On a hot day, cattle heat up while the truck stands. On a hot afternoon at the shipper, Load this evening waits off duty until 8 PM before loading. At delivery the receiver counts the cattle off and names the shrink, the weight they lost aboard.
 
 ## Driving controls
 

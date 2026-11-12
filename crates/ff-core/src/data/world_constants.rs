@@ -395,6 +395,7 @@ pub const SOURCE_BACKED_POI_ACTIONS: &[&str] = &["repair", "roadside_assistance"
 pub const FREIGHT_LOCATION_TYPES: &[&str] = &[
     "air_cargo",
     "automotive_plant",
+    "beef_plant",
     "chemical_petroleum_terminal",
     "cold_storage",
     "company_yard",
@@ -403,6 +404,7 @@ pub const FREIGHT_LOCATION_TYPES: &[&str] = &[
     "distribution",
     "dry_warehouse",
     "farm_elevator",
+    "feed_yard",
     "food_processor",
     "food_terminal",
     "grocery_retail_dc",
@@ -419,6 +421,7 @@ pub const FREIGHT_LOCATION_TYPES: &[&str] = &[
     "port_terminal",
     "rail",
     "retail_distribution",
+    "sale_barn",
     "shopping_mall",
     "steel_industrial",
     "terminal",
@@ -430,6 +433,7 @@ pub const FREIGHT_LOCATION_TYPES: &[&str] = &[
 pub const LOCATION_TYPE_LABELS: &[(&str, &str)] = &[
     ("air_cargo", "air cargo area"),
     ("automotive_plant", "automotive plant"),
+    ("beef_plant", "beef plant"),
     (
         "chemical_petroleum_terminal",
         "chemical and petroleum terminal",
@@ -441,6 +445,7 @@ pub const LOCATION_TYPE_LABELS: &[(&str, &str)] = &[
     ("distribution", "distribution center"),
     ("dry_warehouse", "dry warehouse"),
     ("farm_elevator", "farm elevator"),
+    ("feed_yard", "feed yard"),
     ("food_terminal", "food terminal"),
     ("food_processor", "food processor"),
     (
@@ -460,6 +465,7 @@ pub const LOCATION_TYPE_LABELS: &[(&str, &str)] = &[
     ("port_terminal", "port terminal"),
     ("rail", "rail yard"),
     ("retail_distribution", "retail distribution hub"),
+    ("sale_barn", "sale barn"),
     ("shopping_mall", "mall"),
     ("steel_industrial", "steel and industrial plant"),
     ("terminal", "freight terminal"),
@@ -471,6 +477,7 @@ pub const LOCATION_TYPE_LABELS: &[(&str, &str)] = &[
 pub const FACILITY_APPROACH_MILES: &[(&str, f64)] = &[
     ("air_cargo", 7.0),
     ("automotive_plant", 4.5),
+    ("beef_plant", 4.5),
     ("chemical_petroleum_terminal", 6.0),
     ("cold_storage", 4.0),
     ("company_yard", 2.5),
@@ -479,6 +486,7 @@ pub const FACILITY_APPROACH_MILES: &[(&str, f64)] = &[
     ("distribution", 4.0),
     ("dry_warehouse", 3.5),
     ("farm_elevator", 5.0),
+    ("feed_yard", 6.0),
     ("food_terminal", 3.5),
     ("food_processor", 4.5),
     ("grocery_retail_dc", 4.0),
@@ -495,6 +503,7 @@ pub const FACILITY_APPROACH_MILES: &[(&str, f64)] = &[
     ("port_terminal", 8.0),
     ("rail", 5.5),
     ("retail_distribution", 4.0),
+    ("sale_barn", 3.0),
     ("shopping_mall", 2.0),
     ("steel_industrial", 5.5),
     ("terminal", 3.0),
@@ -515,6 +524,7 @@ pub const FACILITY_APPROACH_TRUSTED_MAX_MI: f64 = 2.5;
 pub const FACILITY_APPROACH_ROADS: &[(&str, &str)] = &[
     ("air_cargo", "airport cargo access road"),
     ("automotive_plant", "assembly plant access road"),
+    ("beef_plant", "plant access road"),
     ("chemical_petroleum_terminal", "terminal access road"),
     ("cold_storage", "cold storage access road"),
     ("company_yard", "company yard access road"),
@@ -523,6 +533,7 @@ pub const FACILITY_APPROACH_ROADS: &[(&str, &str)] = &[
     ("distribution", "distribution center access road"),
     ("dry_warehouse", "warehouse access road"),
     ("farm_elevator", "elevator access road"),
+    ("feed_yard", "feed yard road"),
     ("food_terminal", "food terminal access road"),
     ("food_processor", "food plant access road"),
     ("grocery_retail_dc", "distribution center access road"),
@@ -539,6 +550,7 @@ pub const FACILITY_APPROACH_ROADS: &[(&str, &str)] = &[
     ("port_terminal", "port terminal access road"),
     ("rail", "rail yard access road"),
     ("retail_distribution", "retail distribution access road"),
+    ("sale_barn", "sale barn road"),
     ("shopping_mall", "mall service road"),
     ("steel_industrial", "industrial plant access road"),
     ("terminal", "terminal access road"),
@@ -565,6 +577,15 @@ pub const FACILITY_CARGO_ROLES: &[(&str, &[&str], &[&str])] = &[
         "automotive_plant",
         &["automotive", "machinery"],
         &["steel", "machinery", "electronics", "general", "hazardous"],
+    ),
+    // Cattle (2026-11-11): calves bought at a sale barn go to a feed yard,
+    // and fed cattle go from the yard to a beef plant, which ships boxed
+    // beef out under refrigeration. A feed yard takes in its feed: grain
+    // and farm inputs.
+    (
+        "beef_plant",
+        &["refrigerated", "food"],
+        &["livestock", "general", "farm_inputs"],
     ),
     (
         "chemical_petroleum_terminal",
@@ -619,6 +640,11 @@ pub const FACILITY_CARGO_ROLES: &[(&str, &[&str], &[&str])] = &[
         "farm_elevator",
         &["grain", "bulk", "hazardous"],
         &["farm_inputs", "general", "fuel_bulk", "hazardous"],
+    ),
+    (
+        "feed_yard",
+        &["livestock"],
+        &["livestock", "grain", "farm_inputs", "fuel_bulk"],
     ),
     (
         "food_terminal",
@@ -763,6 +789,9 @@ pub const FACILITY_CARGO_ROLES: &[(&str, &[&str], &[&str])] = &[
         &["general", "retail", "parcel"],
         &["general", "retail", "parcel"],
     ),
+    // A sale barn ships the calves it auctions. The cattle it sells came in
+    // off ranch trailers, which are not the game's freight.
+    ("sale_barn", &["livestock"], &[]),
     // A mall is a receiver only: its stores, restaurants and attractions take
     // freight in through the service dock and ship none out.
     (
@@ -814,6 +843,7 @@ pub fn facility_cargo_roles(
 pub const FACILITY_SOURCE_NOTES: &[(&str, &str)] = &[
     ("air_cargo", "Representative air-cargo facility; guided by FAF modal and commodity framing."),
     ("automotive_plant", "Representative automotive facility; guided by FAF commodity and metro-market framing."),
+    ("beef_plant", "Representative beef plant in a city with a federally inspected cattle slaughter plant; guided by the CME approved stockyard and slaughter plant list."),
     ("chemical_petroleum_terminal", "Representative chemical or petroleum terminal; guided by FAF commodity framing."),
     ("cold_storage", "Representative cold-storage facility; guided by FAF food flows and USDA refrigerated transport context."),
     ("company_yard", "Representative company terminal or yard for the metro service area."),
@@ -822,6 +852,7 @@ pub const FACILITY_SOURCE_NOTES: &[(&str, &str)] = &[
     ("distribution", "Curated representative distribution facility in the metro freight market."),
     ("dry_warehouse", "Representative dry warehouse; guided by FAF metro-market freight flows."),
     ("farm_elevator", "Representative farm elevator or ag terminal; guided by USDA grain truck indicators and FAF agriculture flows."),
+    ("feed_yard", "Representative cattle feed yard in a cattle-feeding region; guided by USDA NASS cattle on feed reports."),
     ("food_terminal", "Curated representative food terminal in the metro freight market."),
     ("food_processor", "Representative food processor; guided by FAF food flows and USDA agricultural transport context."),
     ("grocery_retail_dc", "Representative grocery and retail DC; guided by FAF commodity and metro-market framing."),
@@ -838,6 +869,7 @@ pub const FACILITY_SOURCE_NOTES: &[(&str, &str)] = &[
     ("port_terminal", "Representative port terminal; guided by MARAD and BTS port performance datasets."),
     ("rail", "Curated representative rail facility in the metro freight market."),
     ("retail_distribution", "Curated representative retail distribution facility in the metro freight market."),
+    ("sale_barn", "Representative livestock auction in a city with a USDA AMS market news auction report."),
     ("shopping_mall", "Curated shopping mall that receives store and restaurant freight at its service dock."),
     ("steel_industrial", "Representative steel or industrial facility; guided by FAF commodity framing."),
     ("terminal", "Curated representative freight terminal in the metro freight market."),
@@ -848,9 +880,11 @@ pub const FACILITY_SOURCE_NOTES: &[(&str, &str)] = &[
 
 pub const FACILITY_LEVEL_UNLOCKS: &[(&str, i64)] = &[
     ("automotive_plant", 2),
+    ("beef_plant", 2),
     ("chemical_petroleum_terminal", 4),
     ("cold_storage", 2),
     ("food_processor", 2),
+    ("sale_barn", 5),
     ("lumber_paper", 2),
     ("manufacturing_plant", 2),
     ("mine_quarry", 3),
@@ -1032,6 +1066,9 @@ pub const MARKET_TAG_FACILITY_TYPES: &[(&str, &[&str])] = &[
 mod stand_in_markets;
 pub use stand_in_markets::STAND_IN_MARKET_CITY_KEYS;
 
+mod cattle_markets;
+pub use cattle_markets::{cattle_facility_types, CATTLE_FACILITY_CITIES};
+
 mod template_gates;
 pub use template_gates::*;
 
@@ -1039,6 +1076,7 @@ pub use template_gates::*;
 pub const FACILITY_NAME_TEMPLATES: &[(&str, &str)] = &[
     ("air_cargo", "{city} Air Cargo Center"),
     ("automotive_plant", "{city} Auto Assembly Supplier Park"),
+    ("beef_plant", "{city} Beef Plant"),
     ("chemical_petroleum_terminal", "{city} Energy Terminal"),
     ("cold_storage", "{city} Cold Storage"),
     ("company_yard", "{city} Company Yard"),
@@ -1048,6 +1086,7 @@ pub const FACILITY_NAME_TEMPLATES: &[(&str, &str)] = &[
     ("cross_dock", "{city} Cross-Dock"),
     ("dry_warehouse", "{city} Dry Warehouse"),
     ("farm_elevator", "{city} Grain Elevator"),
+    ("feed_yard", "{city} Feed Yard"),
     ("food_processor", "{city} Food Processing Plant"),
     ("grocery_retail_dc", "{city} Grocery Distribution Center"),
     ("intermodal_ramp", "{city} Intermodal Ramp"),
@@ -1056,6 +1095,7 @@ pub const FACILITY_NAME_TEMPLATES: &[(&str, &str)] = &[
     ("mine_quarry", "{city} Quarry"),
     ("parcel_hub", "{city} Parcel Hub"),
     ("port_terminal", "{city} Port Terminal"),
+    ("sale_barn", "{city} Sale Barn"),
     ("steel_industrial", "{city} Steel and Industrial Works"),
 ];
 

@@ -57,10 +57,21 @@ impl DrivingState {
 
         // Traveling to find work is commercial repositioning, including
         // self-serve bobtail runs. Stopped time remains on duty.
-        if moving {
+        // Live cattle bend two rules: inside 150 air miles of the shipper or
+        // the receiver the hours do not count at all, and the 30-minute
+        // break never applies while the cattle are aboard.
+        let (cattle_exempt, cattle_aboard) = self
+            .livestock()
+            .map_or((false, false), |load| (load.hours_exempt(), load.aboard()));
+        if cattle_exempt {
+            hos_mut_of(ctx).exempt(gm);
+        } else if moving {
             hos_mut_of(ctx).drive(gm);
         } else {
             hos_mut_of(ctx).on_duty(gm); // the 14-hour window runs even while parked
+        }
+        if cattle_aboard {
+            hos_mut_of(ctx).waive_break();
         }
         if !hos::HOS_NON_ENFORCED_MODES.contains(&mode.as_str()) && self.hazard_deadline.is_none() {
             let marks = tuning_for_time_scale(self.trip.time_scale).hos_warning_marks_min;

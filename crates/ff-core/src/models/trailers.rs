@@ -104,6 +104,22 @@ pub const TRAILER_CATALOG: &[TrailerType] = &[
         combination_length_ft: 0.0,
         owned_per_mile_reserve: 0.13,
     },
+    // A livestock trailer: the trade calls it a pot. Two decks and a small
+    // rear compartment, aluminium, with ramps between decks; washed out
+    // after every load. The prices are assumed, near a reefer's.
+    TrailerType {
+        key: "livestock",
+        label: "Livestock",
+        equipment_text: "livestock trailer",
+        description: "Livestock trailer program for live cattle: two decks and a rear compartment.",
+        lease_deposit: 10_000.0,
+        per_mile_reserve: 0.22,
+        purchase_price: 88_000.0,
+        length_ft: 0.0,
+        unit_count: 1,
+        combination_length_ft: 0.0,
+        owned_per_mile_reserve: 0.11,
+    },
     // Two 28-foot pups and a converter dolly: the parcel networks' linehaul
     // set. Twice the hookups, twice the walk-around, and the price of two
     // boxes -- but it is the equipment the doubles endorsement exists for.
@@ -183,6 +199,7 @@ pub const CARGO_TRAILER_COMPATIBILITY: &[(&str, &[&str])] = &[
     ("liquid_food", &["tank"]),
     ("port_container", &["flatbed"]),
     ("turnpike_doubles", &["turnpike_double"]),
+    ("livestock", &["livestock"]),
 ];
 
 pub fn trailer_keys_for_cargo(cargo_key: &str) -> &'static [&'static str] {
@@ -399,6 +416,7 @@ mod tests {
                 "flatbed",
                 "bulk",
                 "tank",
+                "livestock",
                 "double_van",
                 "turnpike_double"
             ]

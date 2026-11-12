@@ -160,13 +160,13 @@ pub fn preventable_damage_charge(driving: &DrivingState) -> (f64, f64, String) {
 pub fn cargo_status_clause(truck: &TruckState) -> String {
     let condition = truck.cargo_damage_pct;
     // A tank load gets the tank vocabulary. Diesel does not "shift but sound".
-    let liquid = truck.liquid.is_some();
+    let vocabulary = truck.cargo_vocabulary();
     if condition < 1.0 {
-        return if liquid { "settled" } else { "secure" }.to_string();
+        return cargo_condition_text(condition, vocabulary).to_string();
     }
     format!(
         "{}, {condition:.0} percent",
-        cargo_condition_text(condition, liquid)
+        cargo_condition_text(condition, vocabulary)
     )
 }
 
@@ -254,9 +254,8 @@ impl DrivingState {
 
     pub fn announce_cargo_condition(&mut self, ctx: &mut GameContext) {
         let cargo_damage_pct = self.trip.truck.cargo_damage_pct;
-        let liquid = self.trip.truck.liquid.is_some();
         let outcome = cargo_outcome(cargo_damage_pct);
-        let words = cargo_condition_text(cargo_damage_pct, liquid);
+        let words = cargo_condition_text(cargo_damage_pct, self.trip.truck.cargo_vocabulary());
         ctx.audio.play("ui/warning");
         let message = if self.terse_speech(ctx) {
             let consequence = match outcome {
@@ -977,6 +976,7 @@ impl DrivingState {
         truck.cargo_damage_pct = old.cargo_damage_pct;
         truck.cargo_fragility = old.cargo_fragility;
         truck.liquid = old.liquid;
+        truck.livestock = old.livestock;
         truck.preventable_damage_pct = old.preventable_damage_pct;
         profile_of(ctx).load_truck_condition(&mut self.trip.truck);
         let damage_pct = self.trip.truck.damage_pct;

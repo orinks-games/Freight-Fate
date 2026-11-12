@@ -1198,8 +1198,14 @@ impl EndorsementCourseState {
             p.money()
         };
         ctx.save_profile();
-        ctx.audio.play("ui/cash");
-        let mut complete = if cred.wait_days > 0.0 {
+        let free = cred.course_cost <= 0.0;
+        ctx.audio.play(if free { "ui/notify" } else { "ui/cash" });
+        let mut complete = if free {
+            format!(
+                "Course complete, and you earned the {}. Matching freight is unlocked.",
+                cred.gate_label
+            )
+        } else if cred.wait_days > 0.0 {
             format!(
                 "Course complete, application submitted: {} dollars. The background check \
                  takes about {} days and clears while you drive. You have {} dollars left.",

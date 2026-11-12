@@ -382,6 +382,25 @@ impl HosClock {
         self.advance_cycle(minutes, true);
     }
 
+    /// Time the hours-of-service rules do not count: driving livestock
+    /// within 150 air miles of where they were loaded or where they go
+    /// (49 CFR 395.1(k)). The calendar moves on, so the 8-day window keeps
+    /// sliding, but no limit is spent and no rest is earned.
+    pub fn exempt(&mut self, minutes: f64) {
+        let minutes = positive_minutes(minutes);
+        self.cycle_clock_min += minutes;
+        self.cycle_entries
+            .retain(|e| e.end_min > self.cycle_clock_min - CYCLE_WINDOW_MIN);
+    }
+
+    /// The 30-minute break does not apply while livestock are aboard
+    /// (49 CFR 395.3(a)(3)(ii), as the FAST Act amended it): the clock that
+    /// would call for one is held at zero.
+    pub fn waive_break(&mut self) {
+        self.since_break_min = 0.0;
+        self.warned.retain(|w| !w.starts_with("break:"));
+    }
+
     /// Off-duty time. Short breaks do not extend the 14-hour window.
     pub fn off_duty(&mut self, minutes: f64) {
         let minutes = positive_minutes(minutes);

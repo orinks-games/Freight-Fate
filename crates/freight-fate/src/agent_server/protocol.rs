@@ -231,6 +231,7 @@ fn tools_list() -> Value {
                 "cargo_tons": {"type": "number", "description": "tons aboard, default 20"},
                 "hazmat": {"type": "string", "description": "hazardous material key, e.g. paint, chlorine_cylinders, consumer_fireworks, blasting_explosives, gasoline; sets cargo_type to match when it is not given"},
                 "hour": {"type": "number", "description": "career clock at the start, Eastern hours from day 0 (a Wednesday), default 9"},
+                "cattle": {"type": "object", "description": "with cargo_type livestock: stage the load. Fields: hours_aboard (number), footing (settled, restless, scrambling, one_down), exemption (not_in_force, near_pickup, counting, near_delivery), heat (cool, hot_moving, hot_standing)"},
             }),
             &["feature"],
         ),
@@ -685,6 +686,9 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
             if hour.is_some() {
                 opts.hour = hour;
             }
+            if let Some(cattle) = args.get("cattle") {
+                opts.cattle = Some(cattle_stage(cattle)?);
+            }
             Ok(Command::StageHit {
                 hit: Box::new(hit),
                 found,
@@ -810,6 +814,41 @@ pub(super) fn discover(
     let hit = hits[index].clone();
     let found = hits.len();
     Ok((hit, opts, found, index + 1))
+}
+
+/// The `cattle` object of `start_at`, read strictly.
+fn cattle_stage(value: &Value) -> Result<crate::playtest::road::CattleStage, String> {
+    use ff_core::sim::livestock::{Exemption, Footing, Heat};
+    let Some(map) = value.as_object() else {
+        return Err("cattle must be an object".to_string());
+    };
+    let word = |key: &str| map.get(key).and_then(Value::as_str).map(str::to_string);
+    let footing = match word("footing") {
+        None => None,
+        Some(w) => Some(Footing::from_key(&w).ok_or_else(|| format!("unknown footing {w}"))?),
+    };
+    let exemption = match word("exemption") {
+        None => None,
+        Some(w) => Some(Exemption::from_key(&w).ok_or_else(|| format!("unknown exemption {w}"))?),
+    };
+    let heat = match word("heat") {
+        None => None,
+        Some(w) => Some(Heat::from_key(&w).ok_or_else(|| format!("unknown heat {w}"))?),
+    };
+    let hours_aboard = match map.get("hours_aboard") {
+        None => None,
+        Some(v) => Some(
+            v.as_f64()
+                .filter(|h| (0.0..=48.0).contains(h))
+                .ok_or("hours_aboard must be a number from 0 to 48")?,
+        ),
+    };
+    Ok(crate::playtest::road::CattleStage {
+        footing,
+        exemption,
+        heat,
+        hours_aboard,
+    })
 }
 
 #[cfg(test)]

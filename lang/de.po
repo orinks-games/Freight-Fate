@@ -6044,6 +6044,9 @@ msgstr "Luftfrachtbereich"
 msgid "automotive plant"
 msgstr "Autowerk"
 
+msgid "beef plant"
+msgstr ""
+
 msgid "chemical and petroleum terminal"
 msgstr "Chemie- und Erdölterminal"
 
@@ -6067,6 +6070,9 @@ msgstr "Trockenlager"
 
 msgid "farm elevator"
 msgstr "Getreidesilo"
+
+msgid "feed yard"
+msgstr ""
 
 msgid "food terminal"
 msgstr "Lebensmittelterminal"
@@ -6110,6 +6116,9 @@ msgstr "Rangierbahnhof"
 msgid "retail distribution hub"
 msgstr "Verteilzentrum für den Einzelhandel"
 
+msgid "sale barn"
+msgstr ""
+
 msgid "mall"
 msgstr ""
 
@@ -6124,6 +6133,9 @@ msgstr "Zufahrt zum Luftfrachtbereich"
 
 msgid "assembly plant access road"
 msgstr "Zufahrt zum Montagewerk"
+
+msgid "plant access road"
+msgstr "Zufahrt zum Werk"
 
 msgid "terminal access road"
 msgstr "Zufahrt zum Terminal"
@@ -6149,6 +6161,9 @@ msgstr "Zufahrt zum Lager"
 msgid "elevator access road"
 msgstr "Zufahrt zum Silo"
 
+msgid "feed yard road"
+msgstr ""
+
 msgid "food terminal access road"
 msgstr "Zufahrt zum Lebensmittelterminal"
 
@@ -6166,9 +6181,6 @@ msgstr "Zufahrt zur Verladerampe"
 
 msgid "mill access road"
 msgstr "Zufahrt zum Sägewerk"
-
-msgid "plant access road"
-msgstr "Zufahrt zum Werk"
 
 msgid "local freight access road"
 msgstr "örtliche Frachtzufahrt"
@@ -6190,6 +6202,9 @@ msgstr "Zufahrt zum Rangierbahnhof"
 
 msgid "retail distribution access road"
 msgstr "Zufahrt zur Einzelhandelsverteilung"
+
+msgid "sale barn road"
+msgstr ""
 
 msgid "mall service road"
 msgstr ""
@@ -6224,14 +6239,17 @@ msgstr "hazardous"
 msgid "steel"
 msgstr "steel"
 
+msgid "refrigerated"
+msgstr "refrigerated"
+
+msgid "livestock"
+msgstr "Vieh"
+
 msgid "bulk"
 msgstr "bulk"
 
 msgid "chemicals"
 msgstr "chemicals"
-
-msgid "refrigerated"
-msgstr "refrigerated"
 
 msgid "retail"
 msgstr "retail"
@@ -6258,6 +6276,12 @@ msgid ""
 msgstr ""
 "Repräsentativer Automobilstandort; orientiert an der Waren- und "
 "Regionalmarktgliederung des FAF."
+
+msgid ""
+"Representative beef plant in a city with a federally inspected cattle "
+"slaughter plant; guided by the CME approved stockyard and slaughter plant "
+"list."
+msgstr ""
 
 msgid ""
 "Representative chemical or petroleum terminal; guided by FAF commodity "
@@ -6309,6 +6333,11 @@ msgid ""
 msgstr ""
 "Repräsentatives Getreidesilo oder Agrarterminal; orientiert an den "
 "Getreide-Lkw-Indikatoren des USDA und den Agrarströmen des FAF."
+
+msgid ""
+"Representative cattle feed yard in a cattle-feeding region; guided by USDA "
+"NASS cattle on feed reports."
+msgstr ""
 
 msgid "Curated representative food terminal in the metro freight market."
 msgstr ""
@@ -6405,6 +6434,11 @@ msgstr ""
 "Frachtmarkt."
 
 msgid ""
+"Representative livestock auction in a city with a USDA AMS market news "
+"auction report."
+msgstr ""
+
+msgid ""
 "Curated shopping mall that receives store and restaurant freight at its "
 "service dock."
 msgstr ""
@@ -6459,6 +6493,9 @@ msgstr "Luftfrachtzentrum {city}"
 msgid "{city} Auto Assembly Supplier Park"
 msgstr "Zulieferpark Automontage {city}"
 
+msgid "{city} Beef Plant"
+msgstr ""
+
 msgid "{city} Energy Terminal"
 msgstr "Energieterminal {city}"
 
@@ -6486,6 +6523,9 @@ msgstr "Trockenlager {city}"
 msgid "{city} Grain Elevator"
 msgstr "Getreidesilo {city}"
 
+msgid "{city} Feed Yard"
+msgstr ""
+
 msgid "{city} Food Processing Plant"
 msgstr "Lebensmittelwerk {city}"
 
@@ -6509,6 +6549,9 @@ msgstr "Paketzentrum {city}"
 
 msgid "{city} Port Terminal"
 msgstr "Hafenterminal {city}"
+
+msgid "{city} Sale Barn"
+msgstr ""
 
 msgid "{city} Steel and Industrial Works"
 msgstr "Stahl- und Industriewerk {city}"
@@ -8836,9 +8879,6 @@ msgstr "vertrauenswürdige Strecke der Spedition"
 msgid "glass"
 msgstr "Glas"
 
-msgid "livestock"
-msgstr "Vieh"
-
 msgid "clean"
 msgstr "sauber"
 
@@ -8865,6 +8905,9 @@ msgstr "durchgerüttelt"
 
 msgid "settled"
 msgstr "gesetzt"
+
+msgid "riding well"
+msgstr ""
 
 msgid "ruined"
 msgstr "ruiniert"
@@ -9397,6 +9440,20 @@ msgstr ""
 "Du hast das Zertifikat für hochwertige Fracht erworben. Aufträge mit "
 "Elektronik sind jetzt verfügbar."
 
+msgid "livestock handling"
+msgstr ""
+
+msgid "livestock handling certificate"
+msgstr ""
+
+msgid "live cattle"
+msgstr ""
+
+msgid ""
+"You earned the livestock handling certificate. Live cattle jobs are now "
+"available."
+msgstr ""
+
 msgid "doubles"
 msgstr "Doppelauflieger"
 
@@ -9542,6 +9599,12 @@ msgstr ""
 msgid "Unlocks {unlocks}. "
 msgstr "Schaltet {unlocks} frei. "
 
+#. placeholders: {level}, {min_level}
+msgid ""
+"The carrier sponsors it at level {level}, or you can take the free course "
+"yourself from level {min_level}."
+msgstr ""
+
 #. placeholders: {level}, {grouped}, {min_level}
 msgid ""
 "The carrier sponsors it free at level {level}, or you can pay {grouped} "
@@ -9576,6 +9639,9 @@ msgstr ""
 msgid " Enter books it, or says why you do not qualify."
 msgstr " Enter bucht es oder sagt dir, warum du nicht berechtigt bist."
 
+msgid "free"
+msgstr ""
+
 #. placeholders: {grouped}
 msgid "{grouped} dollars"
 msgstr "{grouped} Dollar"
@@ -9588,6 +9654,15 @@ msgstr ", Hintergrundprüfung in etwa {wait_days} Tagen durch"
 #. one clause of a longer line
 msgid "background check clears in about {wait_days} days"
 msgstr "die Zuverlässigkeitsprüfung ist in etwa {wait_days} Tagen durch"
+
+#. placeholders: {level}
+msgid ", carrier-sponsored at level {level}"
+msgstr ""
+
+#. placeholders: {level}
+#. one clause of a longer line
+msgid "carrier-sponsored at level {level}"
+msgstr ""
 
 #. placeholders: {level}
 msgid ", carrier-sponsored free at level {level}"
@@ -10451,6 +10526,14 @@ msgstr ""
 msgid "{tons} tons of {cargo} from {pickup} to {dropoff}."
 msgstr "{tons} Tonnen {cargo} von {pickup} nach {dropoff}."
 
+#. placeholders: {head_text}
+msgid " {head_text}. They can ride 28 hours."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "They can ride 28 hours."
+msgstr ""
+
 #. placeholders: {highway}, {percent}
 msgid ""
 " Spring weight limits on the {highway}: axle loads held to {percent} "
@@ -10504,9 +10587,9 @@ msgid ""
 "{equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
 msgstr ""
 
-#. placeholders: {prefix}, {load}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {seasonal_weight}, {preview}, {market}, {endorsement}
+#. placeholders: {prefix}, {load}, {cattle}, {distance}, {pay_text}, {deadline}, {equipment}, {trailer}, {seasonal_weight}, {preview}, {market}, {endorsement}
 msgid ""
-"{prefix}{load} {distance}. {pay_text} {deadline} Equipment: "
+"{prefix}{load}{cattle} {distance}. {pay_text} {deadline} Equipment: "
 "{equipment}.{trailer}{seasonal_weight}{preview}{market}{endorsement}"
 msgstr ""
 
@@ -10623,6 +10706,9 @@ msgstr "Standard-CDL"
 #. placeholders: {endorsement_label}
 msgid "the {endorsement_label}"
 msgstr "die {endorsement_label}"
+
+msgid "cattle"
+msgstr ""
 
 #. placeholders: {f}
 msgid "{f} driving hours"
@@ -11112,11 +11198,14 @@ msgstr ""
 "Beleg erforderlich, wird über die Abrechnung von Spedition oder Kunde "
 "verrechnet"
 
-msgid "required trailer washout"
-msgstr "vorgeschriebene Aufliegerreinigung"
+msgid "approved cleaning and disinfecting charge after live cattle"
+msgstr ""
 
 msgid "approved sanitation charge after food or refrigerated freight"
 msgstr "genehmigte Reinigungsgebühr nach Lebensmittel- oder Kühlfracht"
+
+msgid "required trailer washout"
+msgstr "vorgeschriebene Aufliegerreinigung"
 
 #. placeholders: {money_text}
 msgid "No advance while you owe {money_text}."
@@ -11831,6 +11920,16 @@ msgid ""
 msgstr ""
 "Programm für Tankauflieger für flüssiges Massengut: Kraftstoff, Chemikalien "
 "und flüssige Lebensmittel."
+
+msgid "Livestock"
+msgstr ""
+
+msgid "livestock trailer"
+msgstr ""
+
+msgid ""
+"Livestock trailer program for live cattle: two decks and a rear compartment."
+msgstr ""
 
 msgid "Twin trailers"
 msgstr "Doppelauflieger"
@@ -13626,6 +13725,135 @@ msgstr "Gegenverkehr"
 
 msgid "shoulder"
 msgstr "Seitenstreifen"
+
+msgid "counting"
+msgstr ""
+
+msgid "restless"
+msgstr ""
+
+msgid "scrambling"
+msgstr ""
+
+msgid "Cattle settled"
+msgstr ""
+
+msgid "Cattle restless"
+msgstr ""
+
+msgid "Cattle losing their footing"
+msgstr ""
+
+msgid "One of the cattle is down"
+msgstr ""
+
+msgid "cool"
+msgstr ""
+
+msgid "running"
+msgstr "läuft"
+
+msgid "over"
+msgstr "über"
+
+msgid "2 hours left on the 28-hour limit."
+msgstr ""
+
+msgid "1 hour left on the 28-hour limit."
+msgstr ""
+
+msgid "30 minutes left on the 28-hour limit."
+msgstr ""
+
+msgid "The cattle have been aboard 28 hours."
+msgstr ""
+
+msgid "booked"
+msgstr ""
+
+msgid "loading"
+msgstr "lädt"
+
+msgid "aboard"
+msgstr ""
+
+msgid "unloading"
+msgstr ""
+
+msgid "delivered"
+msgstr ""
+
+msgid "feeder calves"
+msgstr ""
+
+msgid "fed cattle"
+msgstr ""
+
+#. placeholders: {head}, {noun}
+msgid "{head} head of {noun}"
+msgstr ""
+
+msgid "injured"
+msgstr ""
+
+msgid "bruised"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The owner refuses to pay for the haul."
+msgstr ""
+
+#. placeholders: {dead}
+#. one sentence of a longer line
+msgid "{dead} dead on arrival."
+msgstr ""
+
+#. placeholders: {dead}
+msgid "{dead} dead on arrival. The owner refuses to pay for the haul."
+msgstr ""
+
+msgid "1 could not walk off. The carrier pays a claim."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The carrier pays a claim."
+msgstr ""
+
+#. placeholders: {hurt}
+#. one sentence of a longer line
+msgid "{hurt} could not walk off."
+msgstr ""
+
+#. placeholders: {hurt}
+msgid "{hurt} could not walk off. The carrier pays a claim."
+msgstr ""
+
+msgid "Bruising noted on the bill of lading."
+msgstr ""
+
+msgid "hour"
+msgstr ""
+
+msgid "hours"
+msgstr "Stunden"
+
+#. placeholders: {head}
+msgid "{head} head off, 1 helped to its feet"
+msgstr ""
+
+#. placeholders: {head}
+msgid "{head} head off, all walking"
+msgstr ""
+
+#. placeholders: {hours}, {hours_word}, {shrink}
+#. one sentence of a longer line
+msgid "{hours} {hours_word} aboard, shrink about {shrink} percent."
+msgstr ""
+
+#. placeholders: {walking}, {hours}, {hours_word}, {shrink}
+msgid ""
+"{walking}. {hours} {hours_word} aboard, shrink about {shrink} percent."
+msgstr ""
 
 msgid "latched"
 msgstr "eingerastet"
@@ -15556,9 +15784,6 @@ msgstr "leer"
 msgid "minute"
 msgstr "Minute"
 
-msgid "hour"
-msgstr ""
-
 #. placeholders: {clock_text}
 #. one sentence of a longer line
 msgid "The next opening is at {clock_text}."
@@ -15722,9 +15947,6 @@ msgstr "simuliert"
 
 msgid "live"
 msgstr "live"
-
-msgid "loading"
-msgstr "lädt"
 
 msgid "Live weather for your current route position"
 msgstr "Live-Wetter für deine aktuelle Position auf der Route"
@@ -21414,6 +21636,21 @@ msgstr "Der Kurs {label} kostet {grouped} Dollar, und du hast {grouped2}."
 msgid "credential course"
 msgstr "Qualifikationskurs"
 
+#. placeholders: {gate_label}
+#. one sentence of a longer line
+msgid "Course complete, and you earned the {gate_label}."
+msgstr ""
+
+#. placeholders: {gate_label}
+msgid ""
+"Course complete, and you earned the {gate_label}. Matching freight is "
+"unlocked."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Matching freight is unlocked."
+msgstr "Passende Fracht ist freigeschaltet."
+
 #. placeholders: {grouped}
 #. one sentence of a longer line
 msgid "Course complete, application submitted: {grouped} dollars."
@@ -21451,10 +21688,6 @@ msgid ""
 msgstr ""
 "Kurs abgeschlossen: {grouped} Dollar, und du hast {gate_label} erworben. "
 "Passende Fracht ist freigeschaltet. Du hast noch {grouped2} Dollar."
-
-#. one sentence of a longer line
-msgid "Matching freight is unlocked."
-msgstr "Passende Fracht ist freigeschaltet."
 
 msgid "You're dangerously drowsy after the course. Sleep before you drive."
 msgstr "Du bist nach dem Kurs gefährlich müde. Schlaf, bevor du fährst."
@@ -22575,9 +22808,6 @@ msgstr "Geschwindigkeit: {hud_speed_text}"
 msgid "Engine: {else}"
 msgstr "Motor: {else}"
 
-msgid "running"
-msgstr "läuft"
-
 #. placeholders: {f}, {else}
 msgid "Air: {f} psi   {else}"
 msgstr "Luft: {f} psi   {else}"
@@ -22678,6 +22908,35 @@ msgstr "Über {join}. W für das Wetter."
 #. one sentence of a longer line
 msgid "W for weather."
 msgstr "W für das Wetter."
+
+msgid " Health papers are in the cab."
+msgstr ""
+
+#. placeholders: {destination}
+#. one sentence of a longer line
+msgid "Loaded for {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {head_text}, {grouped}, {papers}
+msgid ""
+"Loaded for {destination}. {head_text}, about {grouped} pounds.{papers}"
+msgstr ""
+
+#. placeholders: {head_text}, {grouped}, {papers}
+#. one sentence of a longer line
+msgid "{head_text}, about {grouped} pounds.{papers}"
+msgstr ""
+
+msgid "Load this evening"
+msgstr ""
+
+msgid ""
+"Wait off duty until 8 in the evening, then load. The cattle ride cooler, "
+"and the 28 hours start later."
+msgstr ""
+
+msgid "waiting for the evening"
+msgstr ""
 
 #. placeholders: {name}
 msgid "Depart with {name} driving, and ride along"
@@ -26468,9 +26727,6 @@ msgstr ""
 msgid "delay"
 msgstr "delay"
 
-msgid "hours"
-msgstr "Stunden"
-
 msgid "Call dispatch"
 msgstr "Disposition anrufen"
 
@@ -29190,6 +29446,98 @@ msgstr ""
 msgid "{behaviour} One surge cycle takes about {period_s} seconds."
 msgstr "{behaviour} Ein Schwappzyklus dauert etwa {period_s} Sekunden."
 
+msgid "1 down in the rear compartment. You got it back on its feet."
+msgstr ""
+
+msgid "All standing."
+msgstr ""
+
+#. placeholders: {place_label}
+msgid ""
+"Your hours of service do not count within 150 air miles of the "
+"{place_label}."
+msgstr ""
+
+msgid ""
+"That clatter is the cattle losing their footing. Brake and steer more "
+"gently."
+msgstr ""
+
+msgid "Cattle losing their footing."
+msgstr ""
+
+msgid "One of the cattle is down."
+msgstr ""
+
+#. placeholders: {place_label}
+#. one sentence of a longer line
+msgid "150 air miles from the {place_label}."
+msgstr ""
+
+#. placeholders: {place_label}
+msgid ""
+"150 air miles from the {place_label}. Your hours of service are counting."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your hours of service are counting."
+msgstr ""
+
+#. placeholders: {place_label}
+msgid ""
+"150 air miles from the {place_label}. Your hours of service have stopped "
+"counting."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your hours of service have stopped counting."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The cattle heat up while the truck stands."
+msgstr ""
+
+#. placeholders: {temp_f}
+#. one sentence of a longer line
+msgid "{temp_f} degrees."
+msgstr ""
+
+#. placeholders: {temp_f}
+msgid "{temp_f} degrees. The cattle heat up while the truck stands."
+msgstr ""
+
+msgid "Past the 28-hour limit."
+msgstr ""
+
+#. placeholders: {hours_text}
+msgid "{hours_text} left on the 28-hour limit."
+msgstr ""
+
+msgid "past the 28-hour limit"
+msgstr ""
+
+#. placeholders: {hours_text}
+msgid "{hours_text} left"
+msgstr ""
+
+#. placeholders: {aboard_text}, {limit}
+#. one sentence of a longer line
+msgid "{aboard_text} aboard, {limit}."
+msgstr ""
+
+#. placeholders: {head}
+#. one sentence of a longer line
+msgid "{head} head."
+msgstr ""
+
+#. placeholders: {spoken}, {head}, {aboard_text}, {limit}
+msgid "{spoken}. {head} head. {aboard_text} aboard, {limit}."
+msgstr ""
+
+#. placeholders: {minutes}
+msgid "{minutes} minutes"
+msgstr ""
+
 #. one sentence of a longer line
 msgid "You have arrived."
 msgstr "Du bist angekommen."
@@ -31671,9 +32019,6 @@ msgstr ""
 msgid "waves you through"
 msgstr ""
 
-msgid "over"
-msgstr "über"
-
 msgid "under"
 msgstr "unter"
 
@@ -32850,6 +33195,16 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{ticket} {billing} It is {clock_text}."
 msgstr "{ticket} {billing} Es ist {clock_text}."
+
+msgid "Check the cattle"
+msgstr ""
+
+msgid ""
+"Walk the trailer and count the cattle on their feet. 5 minutes on duty."
+msgstr ""
+
+msgid "checked the cattle"
+msgstr ""
 
 #. placeholders: {grouped}
 msgid "Buy snow chains: {grouped} dollars"
@@ -43207,6 +43562,24 @@ msgstr "Hafenterminal {place_name} in {city}"
 
 msgid "port terminal {place_name} near {town} in {city}"
 msgstr "Hafenterminal {place_name} bei {town} in {city}"
+
+msgid "beef plant {place_name} in {city}"
+msgstr ""
+
+msgid "beef plant {place_name} near {town} in {city}"
+msgstr ""
+
+msgid "feed yard {place_name} in {city}"
+msgstr ""
+
+msgid "feed yard {place_name} near {town} in {city}"
+msgstr ""
+
+msgid "sale barn {place_name} in {city}"
+msgstr ""
+
+msgid "sale barn {place_name} near {town} in {city}"
+msgstr ""
 
 msgid "rail yard {place_name} in {city}"
 msgstr "Rangierbahnhof {place_name} in {city}"

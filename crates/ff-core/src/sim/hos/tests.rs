@@ -2339,3 +2339,40 @@ fn test_no_countdown_for_a_limit_the_trip_ends_inside() {
         .check_warnings_with("realistic", &[120.0], |_| false)
         .is_empty());
 }
+
+#[test]
+fn exempt_livestock_time_spends_no_limit() {
+    let mut c = HosClock::new();
+    c.drive(60.0);
+    let before = (
+        c.driving_min,
+        c.duty_min,
+        c.since_break_min,
+        c.cycle_used_min(),
+    );
+    c.exempt(180.0);
+    assert_eq!(
+        (
+            c.driving_min,
+            c.duty_min,
+            c.since_break_min,
+            c.cycle_used_min()
+        ),
+        before
+    );
+    // The calendar still moved: the 8-day window slid by the same time.
+    assert_eq!(c.cycle_clock_min, 240.0);
+    assert_eq!(c.restart_off_min, 0.0);
+}
+
+#[test]
+fn the_break_is_waived_while_livestock_are_aboard() {
+    let mut c = HosClock::new();
+    c.drive(7.0 * 60.0 + 50.0);
+    c.drive(15.0);
+    c.waive_break();
+    assert_eq!(c.since_break_min, 0.0);
+    assert!(!c.warned.iter().any(|w| w.starts_with("break:")));
+    // The driving limit is unchanged.
+    assert_eq!(c.driving_min, 8.0 * 60.0 + 5.0);
+}

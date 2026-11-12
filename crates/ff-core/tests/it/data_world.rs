@@ -457,6 +457,14 @@ fn test_each_metro_expands_to_representative_facilities() {
                         .collect::<Vec<_>>()
                 );
             } else if !curated {
+                // A cattle town keeps its sale barn, feed yard or beef
+                // plant even as a stand-in: the trade is why it is on the map.
+                let cattle = ff_core::data::world_constants::cattle_facility_types(&city.key);
+                let templates: Vec<&str> = templates
+                    .iter()
+                    .copied()
+                    .filter(|kind| !cattle.contains(kind))
+                    .collect();
                 assert!(
                     templates.len() <= 1,
                     "{}: a stand-in market gets one yard, not {:?}",
