@@ -187,10 +187,10 @@ impl Menu for HomeTerminalState {
             let place = region_menu_name(region);
             let count = self.cities_by_region[region].len();
             let (label, help) = if count == 1 {
-                (format!("{place} (1 city)"), format!("{place}, 1 city."))
+                (format!("{place}, 1 city"), format!("{place}, 1 city."))
             } else {
                 (
-                    format!("{place} ({count} cities)"),
+                    format!("{place}, {count} cities"),
                     format!("{place}, {count} cities."),
                 )
             };

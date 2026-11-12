@@ -791,8 +791,8 @@ fn shipped_chinese_translates_dynamic_online_driver_rows() {
 fn shipped_chinese_translates_dynamic_region_and_training_rows() {
     let tr = shipped_chinese();
     assert_eq!(
-        tr.translate("California (44 cities). 3 of 16."),
-        "California（44个城市）。第 3 项，共 16 项。"
+        tr.translate("California, 44 cities. 3 of 16."),
+        "California，44个城市。第 3 项，共 16 项。"
     );
     assert_eq!(
         tr.translate(
@@ -945,7 +945,7 @@ fn shipped_spanish_says_places_board_rows_and_regions_whole() {
             "Down to two lanes your side. Road widens to three lanes your side.",
             "Se reduce a dos carriles en tu sentido. La carretera se ensancha a tres carriles en tu sentido.",
         ),
-        ("Great Lakes (29 cities). 8 of 16.", "Great Lakes (29 ciudades). 8 de 16."),
+        ("Great Lakes, 29 cities. 8 of 16.", "Great Lakes, 29 ciudades. 8 de 16."),
         ("Current grade 2.0 percent downhill, terrain hills.", "Pendiente actual 2,0 por ciento de bajada, terreno de colinas."),
         ("You have 5,000 dollars. First-day objective: open the dispatch board and accept your assigned trainer-recommended load.", "Tienes 5.000 dólares. Objetivo del primer día: abre el tablón de trabajos y acepta la carga asignada que recomienda el instructor."),
     ] {

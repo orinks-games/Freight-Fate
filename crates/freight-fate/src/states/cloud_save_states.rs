@@ -56,8 +56,8 @@ pub const CLOUD_DISCLOSURE: &str =
     "Your full career is stored privately in your orinks.net account. orinks.net \
 validates and signs accepted backups before they can be restored. If \
 Profile sharing is also on, approved facts from your public career's \
-latest accepted backup may appear in your public profile; you choose \
-your public career here, and every other career stays a private cloud \
+latest accepted backup may appear in your public profile. You choose \
+your public career here. Every other career stays a private cloud \
 backup. The backup itself is never public. The last ten accepted \
 backups of each career are kept.";
 
@@ -544,7 +544,7 @@ impl Menu for ConfirmRestoreState {
                 |s: &mut Self, ctx| s.go_back(ctx),
             )
             .help(
-                "Goes back without downloading, this computer's save left as it is. To send \
+                "Goes back without downloading. This computer's save stays as it is. To send \
                  this computer's save up instead, choose Keep this computer's save and back \
                  it up.",
             ),
@@ -795,7 +795,7 @@ impl Menu for ConfirmKeepMineState {
                 |s: &mut Self, ctx| s.go_back(ctx),
             )
             .help(
-                "Goes back without uploading. The career stays unbacked up until you choose \
+                "Goes back without uploading. This career is not backed up until you choose \
                  which copy to keep.",
             ),
             MenuItem::new(

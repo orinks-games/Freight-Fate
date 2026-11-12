@@ -75,18 +75,17 @@ impl Default for PollSchedule {
 pub const DISCLOSURE: &str =
     "Connecting an orinks.net account turns Profile sharing on and starts backing your \
 careers up to that account, so your driver profile has career statistics on it from \
-the first delivery. Either one is a single item away in the Online menu whenever you \
-want it off. When Profile sharing is on, orinks.net can \
-publicly show your driver name and broad on-duty board activity; eligible profile \
-details; official achievements you earn; and automatic road-journal posts \
-generated from gameplay. Public updates can also appear in the Freight Fate updates \
+the first delivery. Each has its own item on the Online menu to turn it off. When \
+Profile sharing is on, orinks.net can publicly show your driver name, broad on-duty \
+board activity, eligible profile details, official achievements you earn, and \
+automatic road-journal posts generated from gameplay. Public updates can also appear in the Freight Fate updates \
 feed. Each post also tells orinks.net which game version you are running, used only \
 for moderation and troubleshooting and never shown publicly. Freight Fate does not \
 publish your real name, full save, coordinates, active cargo details, or precise \
 real-world location. Detailed career statistics come only from your public career's \
 latest accepted private backup, which you choose on the Cloud backup menu. They \
 include lifetime career earnings, the running total your career \
-has ever earned; the money you currently have is never published. The backups \
+has ever earned. The money you currently have is never published. The backups \
 themselves stay private to your account and never appear as public downloads. \
 Turning Profile sharing off hides public details but does not turn cloud backup off.";
 
@@ -286,7 +285,7 @@ impl OnlineSetupState {
             // failed, so it is worth naming them here.
             ctx.say(&format!(
                 "The browser could not be opened. Your activation code is {code}. In any \
-                 browser, go to {} and enter it. Say my activation code again spells it, Copy \
+                 browser, go to {} and enter it. Say my activation code again spells it. Copy \
                  my activation code puts it on the clipboard.",
                 activation.verification_uri
             ));
@@ -400,8 +399,8 @@ impl OnlineSetupState {
             }
             ctx.apply_online_presence();
             ctx.say(
-                "Profile sharing is on. Your driver profile fills in as you drive. Both this \
-                 and cloud backup are single items on the Online menu.",
+                "Profile sharing is on. Your driver profile fills in as you drive. Profile \
+                 sharing and cloud backup each have their own item on the Online menu.",
             );
         } else {
             ctx.say(
