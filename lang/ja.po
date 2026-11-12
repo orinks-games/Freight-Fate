@@ -6635,8 +6635,8 @@ msgstr "オーナードライバーの準備"
 msgid "Every owner-operator buy-in requirement appears in full."
 msgstr "オーナードライバーの買い取りの条件がすべて表示されます。"
 
-msgid "Finalizing delivery, reputation, and cash readiness."
-msgstr "配達、評判、資金の準備を仕上げています。"
+msgid "Finishing the delivery, reputation, and cash requirements."
+msgstr "配達、評判、資金の条件を満たしつつあります。"
 
 msgid "Tractor Buy-In Candidate"
 msgstr "トラクター買い取り候補"
@@ -6979,9 +6979,8 @@ msgid "Grow a freight business"
 msgstr "貨物事業を育てる"
 
 msgid ""
-"Use direct customer trust, trailer fit, and cash reserves to shape the "
-"freight you want."
-msgstr "直接取引の顧客の信頼、トレーラーの適合、手元資金を生かして、運びたい貨物を形にしてください。"
+"Your reputation and your trailers decide which direct freight you see."
+msgstr "どの直接取引の貨物が表示されるかは、あなたの評判とトレーラーで決まります。"
 
 msgid "direct freight with margin"
 msgstr "利益の出る直接取引の貨物"
@@ -6990,9 +6989,9 @@ msgid "Prove independent authority"
 msgstr "独立した運送許可を証明する"
 
 msgid ""
-"Use authority carefully while direct-freight reputation and reserves are "
-"still forming."
-msgstr "直接取引の評判と積立がまだ固まらないうちは、運送許可を慎重に使ってください。"
+"Go carefully with own authority while your direct-freight reputation and "
+"reserves are still building."
+msgstr "直接取引の評判と積立金がまだ育っている間は、独自の運送許可を慎重に使ってください。"
 
 msgid "authority-building freight"
 msgstr "運送許可を育てる貨物"
@@ -7001,8 +7000,8 @@ msgid "Top of the leased-on ladder"
 msgstr "業務委託のはしごの頂点"
 
 msgid ""
-"You reached level 30 as a leased-on owner-operator; own authority remains "
-"the one step left."
+"You reached level 30 as a leased-on owner-operator. Own authority is the "
+"one step left."
 msgstr "運送会社と業務委託のオーナードライバーとしてレベル30に到達しました。残る一歩は独自の運送許可だけです。"
 
 msgid "proven owner-operator lane"
@@ -7012,9 +7011,9 @@ msgid "Build authority readiness"
 msgstr "運送許可の準備を整える"
 
 msgid ""
-"Keep working capital, trailer strategy, and direct-freight readiness in "
-"view."
-msgstr "運転資金、トレーラー戦略、直接取引の準備を常に意識してください。"
+"Watch your working capital, your trailer plan, and what direct freight "
+"requires."
+msgstr "運転資金、トレーラーの計画、直接取引に必要な条件に気を配ってください。"
 
 msgid "authority-readiness lane"
 msgstr "運送許可準備のルート"
@@ -7032,7 +7031,7 @@ msgid "Company driver by choice"
 msgstr "自ら選んだ社員ドライバー"
 
 msgid ""
-"You chose to stay on carrier equipment; the buy-in stays open under "
+"You chose to stay on carrier equipment. The buy-in stays open under "
 "Business status if you ever want it."
 msgstr "会社の装備に残ることを選びました。買い取りは、望めばいつでも事業状況から選べます。"
 
@@ -7049,17 +7048,17 @@ msgid "Plan the next business step"
 msgstr "事業の次の一歩を計画する"
 
 msgid ""
-"You have senior company experience; use it to compare buy-in, lease, and "
-"authority timing."
-msgstr "上級社員としての経験があります。それを生かして、買い取り、リース、運送許可の時期を比べてください。"
+"You have senior company experience. Use it to weigh when to buy in, lease "
+"on, or take own authority."
+msgstr "上級社員としての経験があります。それを生かして、いつ買い取るか、業務委託になるか、独自の運送許可を取るかを考えてください。"
 
 msgid "business-decision lane"
 msgstr "事業判断のルート"
 
 msgid ""
-"Keep savings, trailer knowledge, and direct-freight readiness in view "
-"before authority is real."
-msgstr "運送許可が現実になる前に、貯金、トレーラーの知識、直接取引の準備を常に意識してください。"
+"Build savings and trailer knowledge, and learn what direct freight "
+"requires, before you take own authority."
+msgstr "独自の運送許可を取る前に、貯金とトレーラーの知識を積み、直接取引に必要な条件を確かめてください。"
 
 msgid "Protect owner-operator readiness"
 msgstr "オーナードライバーの準備を守る"
@@ -7114,7 +7113,7 @@ msgid "Choose your own freight"
 msgstr "自分で貨物を選ぶ"
 
 msgid ""
-"Dispatch now trusts you to pick loads from the board; routing stays "
+"Dispatch now trusts you to pick loads from the board. Routing stays "
 "assigned until you run your own truck."
 msgstr "配車係はボードから積荷を選ばせてくれるようになりました。ルートは、自分のトラックで走るようになるまで割り当てのままです。"
 
@@ -8141,14 +8140,26 @@ msgstr "保険の割増：{percent}パーセント。"
 msgid "Insurance surcharge: {percent} percent until {until}."
 msgstr "保険の割増：{until}まで{percent}パーセント。"
 
+#. one sentence of a longer line
+msgid "The carrier's insurer will not carry a record like that."
+msgstr "会社の保険会社はこのような記録を引き受けません。"
+
 #. placeholders: {LAST_CHANCE_CARRIER_NAME}, {record_clears_text}
 msgid ""
-"The carrier's insurer will not carry a record like that; "
+"The carrier's insurer will not carry a record like that. "
 "{LAST_CHANCE_CARRIER_NAME} keeps you on, on probation, until "
 "{record_clears_text}."
 msgstr ""
 "会社の保険会社はこのような記録を引き受けません。{LAST_CHANCE_CARRIER_NAME}は{record_clears_text}まで、試用"
 "期間付きであなたを雇い続けます。"
+
+#. placeholders: {LAST_CHANCE_CARRIER_NAME}, {record_clears_text}
+#. one sentence of a longer line
+msgid ""
+"{LAST_CHANCE_CARRIER_NAME} keeps you on, on probation, until "
+"{record_clears_text}."
+msgstr ""
+"{LAST_CHANCE_CARRIER_NAME}は{record_clears_text}まで、試用期間付きであなたを雇い続けます。"
 
 msgid ""
 "The carrier's insurer will not carry that record. The carrier ends your "
@@ -8219,12 +8230,15 @@ msgid ""
 "Your CDL is suspended, so the yard holds your seat until it clears {clears}."
 msgstr "CDLが停止中のため、{clears}に解除されるまでヤードが席を預かっています。"
 
+#. one sentence of a longer line
+msgid "Keep the record clean until then."
+msgstr "それまで記録をきれいに保ってください。"
+
 #. placeholders: {record_review_clears_text}
 #. one sentence of a longer line
 msgid ""
-"The carrier's review keeps it there until {record_review_clears_text}; keep "
-"the record clean until then."
-msgstr "運送会社の審査で{record_review_clears_text}までそのままです。それまで記録をきれいに保ってください。"
+"The carrier's review keeps it there until {record_review_clears_text}."
+msgstr "運送会社の審査で{record_review_clears_text}までそのままです。"
 
 #. placeholders: {record_window_phrase}
 #. one sentence of a longer line
@@ -8234,7 +8248,7 @@ msgstr "止めているのは運転記録です：{record_window_phrase}。"
 #. placeholders: {record_window_phrase}, {record_review_clears_text}
 msgid ""
 "Your driving record is what is holding it: {record_window_phrase}. The "
-"carrier's review keeps it there until {record_review_clears_text}; keep the "
+"carrier's review keeps it there until {record_review_clears_text}. Keep the "
 "record clean until then."
 msgstr ""
 "止めているのは運転記録です：{record_window_phrase}。運送会社の審査で{record_review_clears_text}までその"
@@ -8886,6 +8900,10 @@ msgstr "この停車地でも時間に余裕が残ります。"
 msgid "No earlier stop leaves 30 minutes to spare."
 msgstr "30分の余裕を残せる、もっと手前の停車地はありません。"
 
+#. one sentence of a longer line
+msgid "A shoulder rest can draw a ticket."
+msgstr "路肩で休むと違反切符を切られることがあります。"
+
 #. placeholders: {action}, {minutes}
 #. one sentence of a longer line
 msgid ""
@@ -8895,14 +8913,14 @@ msgstr "運転時間の上限までに{action}の停車地はもうありませ�
 #. placeholders: {action}, {minutes}
 msgid ""
 "No {action} stop left before your hours limit, {minutes} minutes remaining. "
-"Stop soon; a shoulder rest can draw a ticket."
+"Stop soon. A shoulder rest can draw a ticket."
 msgstr ""
 "運転時間の上限までに{action}の停車地はもうありません。残りは{minutes}分です。早めに停まってください。路肩で休むと違反切符を切られること"
 "があります。"
 
 #. one sentence of a longer line
-msgid "Stop soon; a shoulder rest can draw a ticket."
-msgstr "早めに停まってください。路肩で休むと違反切符を切られることがあります。"
+msgid "Stop soon."
+msgstr "早めに停まってください。"
 
 #. placeholders: {action}, {name}, {distance}
 #. one sentence of a longer line
@@ -9230,14 +9248,26 @@ msgstr ""
 msgid "termination"
 msgstr "解雇"
 
+#. one sentence of a longer line
+msgid ""
+"The truck no longer covers the loan, so the lender has taken it back."
+msgstr "トラックの価値でローンをまかなえなくなったため、貸し手が引き揚げました。"
+
+#. placeholders: {money_text}, {label}, {money_text2}
+#. one sentence of a longer line
+msgid ""
+"You owed {money_text} against a {label} that would sell for about "
+"{money_text2}."
+msgstr "借りている額は{money_text}でしたが、{label}は売っても約{money_text2}にしかなりません。"
+
 #. placeholders: {money_text}, {label}, {money_text2}
 msgid ""
-"You owed {money_text} against a {label} that would bring about "
-"{money_text2} at sale, so the loan is no longer covered by the truck behind "
-"it, and the lender has taken it back."
+"You owed {money_text} against a {label} that would sell for about "
+"{money_text2}. The truck no longer covers the loan, so the lender has taken "
+"it back."
 msgstr ""
-"借りている額は{money_text}でしたが、{label}を売っても約{money_text2}にしかならないため、ローンがトラックの価値でまかなえ"
-"なくなり、貸し手が引き揚げました。"
+"借りている額は{money_text}でしたが、{label}は売っても約{money_text2}にしかなりません。トラックの価値でローンをまかなえな"
+"くなったため、貸し手が引き揚げました。"
 
 msgid ""
 "The sale closes the loan. What you owed is settled and your cash is back to "
@@ -9304,8 +9334,12 @@ msgstr ""
 "これからの精算はドライバーの給料とボーナスです。オーナードライバーの買い取りは事業状況から引き続き選べます。条件はすでに満たしています。"
 
 #. one sentence of a longer line
-msgid "Held there; a quarter of each settlement pays it down."
-msgstr "そこで止められています。各精算の4分の1が返済に回ります。"
+msgid "A quarter of each settlement pays it down."
+msgstr "各精算の4分の1が返済に回ります。"
+
+#. one sentence of a longer line
+msgid "Held there."
+msgstr "そこで止められています。"
 
 #. placeholders: {owed}
 #. one sentence of a longer line
@@ -9313,7 +9347,7 @@ msgid "Owed {owed}."
 msgstr "借りている額は{owed}。"
 
 #. placeholders: {owed}
-msgid "Owed {owed}. Held there; a quarter of each settlement pays it down."
+msgid "Owed {owed}. Held there. A quarter of each settlement pays it down."
 msgstr "借りている額は{owed}。そこで止められています。各精算の4分の1が返済に回ります。"
 
 #. one sentence of a longer line
@@ -9492,10 +9526,9 @@ msgstr "安定した給料、標準的な研修サポート、運送会社の割
 
 msgid ""
 "A balanced company-driver path. The carrier assigns and maintains the "
-"tractor, pays fuel and routine repairs, and offers steady wage math without "
-"a sharp specialty."
-msgstr ""
-"バランス型の社員ドライバーの道です。運送会社がトラクターを割り当てて整備し、燃料と日常の修理を払い、尖った特色はないものの安定した給料体系です。"
+"tractor, pays fuel and routine repairs, and pays steady wages with no "
+"specialty."
+msgstr "バランス型の社員ドライバーの道です。運送会社がトラクターを割り当てて整備し、燃料と日常の修理を払い、特色のない安定した給料を払います。"
 
 msgid "Great Lakes Training Transport: trainer-friendly company driver"
 msgstr "Great Lakes Training Transport：研修に手厚い社員ドライバー"
@@ -9548,7 +9581,7 @@ msgstr "Summit Value Logistics"
 
 msgid ""
 "Higher percentage and on-time bonus for careful freight, with a smaller "
-"wage floor and more long-haul/high-value lanes."
+"wage floor and more long-haul and high-value lanes."
 msgstr "丁寧な貨物には取り分と期限内ボーナスが高い一方、最低給は小さく、長距離や高額貨物のルートが多め。"
 
 msgid ""
@@ -10070,7 +10103,7 @@ msgstr "エアロキット"
 
 msgid ""
 "Makes the truck burn less fuel at highway speed. It does not add more fuel "
-"capacity; it makes the same tank last longer. Buy it to save diesel money "
+"capacity. It makes the same tank last longer. Buy it to save diesel money "
 "over long highway miles."
 msgstr ""
 "高速道路の速度での燃料消費を減らします。燃料の容量は増えません。同じタンクが長持ちするようになります。長い高速道路の距離で燃料代を節約したいときに買って"
@@ -10081,11 +10114,11 @@ msgstr "大容量タンク"
 
 msgid ""
 "Adds fifty gallons of fuel capacity. It does not make the truck more "
-"efficient; it lets you carry more fuel. Buy it for more distance between "
-"fuel stops and more route flexibility."
+"efficient. It carries more fuel. Buy it for more distance between fuel "
+"stops and more route flexibility."
 msgstr ""
-"燃料の容量が50ガロン増えます。トラックの燃費は良くなりません。より多くの燃料を積めるだけです。給油の間隔を延ばし、ルートの自由度を上げたいときに買って"
-"ください。"
+"燃料の容量が50ガロン増えます。トラックの燃費は良くなりません。より多くの燃料を積めます。給油の間隔を延ばし、ルートの自由度を上げたいときに買ってくださ"
+"い。"
 
 msgid "Reinforced brakes"
 msgstr "強化ブレーキ"
@@ -16339,9 +16372,9 @@ msgid ""
 msgstr "表示の報酬は貨物の満額の運賃です。トレーラープログラムで必要なものは各仕事に表示されます。"
 
 msgid ""
-"Listed pay is what the carrier earns; you are paid wages from it. Routing "
+"Listed pay is what the carrier earns. You are paid wages from it. Routing "
 "is assigned until you run your own truck."
-msgstr "表示の報酬は会社の取り分で、あなたにはそこから給料が払われます。自分のトラックで走るまでは、ルートは割り当てです。"
+msgstr "表示の報酬は会社の取り分です。あなたにはそこから給料が払われます。自分のトラックで走るまでは、ルートは割り当てです。"
 
 #. placeholders: {take_home}
 msgid "about {take_home} after costs"
@@ -16420,7 +16453,7 @@ msgid "Decline and request another load: {remaining} decline{s_ending} left"
 msgstr "断って別の積荷を頼む：あと{remaining}回"
 
 msgid ""
-"Dispatch picks another load. Costs reputation and one decline; declines "
+"Dispatch picks another load. Costs reputation and one decline. Declines "
 "refill at your next promotion."
 msgstr "配車係が別の貨物を選びます。評判が下がり、断れる回数を1回使います。断れる回数は次の昇進で戻ります。"
 
@@ -16880,16 +16913,26 @@ msgstr "何も変えずにターミナルに戻ります。"
 msgid "Every cloud backup of it was removed from your orinks.net account."
 msgstr "そのクラウドのバックアップは、orinks.netのアカウントからすべて削除されました。"
 
+#. one sentence of a longer line
+msgid ""
+"The Cloud saves menu can remove them once this computer is signed in again."
+msgstr "このコンピューターでもう一度サインインすれば、クラウドセーブのメニューから削除できます。"
+
+#. placeholders: {AUTH_HELP}
+#. one sentence of a longer line
+msgid "{AUTH_HELP} The cloud backups were not removed."
+msgstr "{AUTH_HELP}クラウドのバックアップは削除されていません。"
+
 #. placeholders: {AUTH_HELP}
 msgid ""
-"{AUTH_HELP} The cloud backups were not removed; the Cloud saves menu can "
+"{AUTH_HELP} The cloud backups were not removed. The Cloud saves menu can "
 "remove them once this computer is signed in again."
 msgstr ""
 "{AUTH_HELP}クラウドのバックアップは削除されていません。このコンピューターでもう一度サインインすれば、クラウドセーブのメニューから削除できます"
 "。"
 
 msgid ""
-"The site could not be reached, so the cloud backups are still there; the "
+"The site could not be reached, so the cloud backups are still there. The "
 "Cloud saves menu can remove them later."
 msgstr "サイトに接続できなかったので、クラウドのバックアップは残っています。後でクラウドセーブのメニューから削除できます。"
 
@@ -17619,9 +17662,9 @@ msgid "Stay a company driver"
 msgstr "社員ドライバーを続ける"
 
 msgid ""
-"Keep the carrier's tractor and wages. The reminders about the buy-in stop; "
-"the buy-in itself stays open here."
-msgstr "運送会社のトラクターと賃金のままです。買い取りのお知らせは止まりますが、買い取り自体はここでいつでも選べます。"
+"Keep the carrier's tractor and wages. The reminders about the buy-in stop. "
+"The buy-in itself stays open here."
+msgstr "運送会社のトラクターと賃金のままです。買い取りのお知らせは止まります。買い取り自体はここでいつでも選べます。"
 
 msgid "Owner-operator path locked"
 msgstr "オーナードライバーへの道はロックされています"
@@ -18154,8 +18197,12 @@ msgid ""
 " The carrier shop repaired {f} percent damage first, {f2} minutes on duty."
 msgstr "先に運送会社の整備工場が損傷{f}パーセントを修理しました。勤務時間{f2}分です。"
 
+#. one sentence of a longer line
+msgid "The unpaid balance is debt."
+msgstr "未払いの残高は借金になります。"
+
 #. placeholders: {grouped}
-msgid "You have {grouped} dollars; the unpaid balance is debt."
+msgid "You have {grouped} dollars. The unpaid balance is debt."
 msgstr "手持ちは{grouped}ドルです。未払いの残高は借金になります。"
 
 #. placeholders: {grouped}
@@ -18530,15 +18577,15 @@ msgid ""
 msgstr "冬用タイヤは雪や氷の上でよく効き、摩耗が早く、暖かく乾いた路面ではグリップが少し落ちます。"
 
 msgid ""
-"A chain set is seven chains: four for the drive tires, one for a trailer "
-"tire, and two spares, the most any state here asks of a semi, plus two "
-"repair links. Put chains on from the pause menu once you're stopped in snow "
-"or ice. They wear out fast on bare pavement. Company drivers bill the "
-"carrier."
+"A chain set is seven chains and two repair links. Four chains go on the "
+"drive tires and one on a trailer tire, the most any state here asks of a "
+"semi. The other two are spares. Put chains on from the pause menu once "
+"you're stopped in snow or ice. They wear out fast on bare pavement. Company "
+"drivers bill the carrier."
 msgstr ""
-"チェーンのセットは7本です。駆動輪に4本、トレーラーのタイヤに1本、予備が2本で、ここのどの州がセミトレーラーに求める本数も満たします。ほかに修理用リン"
-"クが2つ付きます。雪や氷の上で停まったら、一時停止メニューからチェーンを装着してください。乾いた舗装の上ではすぐにすり減ります。社員ドライバーは運送会社"
-"に請求します。"
+"チェーンのセットは7本のチェーンと修理用リンク2つです。駆動輪に4本、トレーラーのタイヤに1本で、ここのどの州がセミトレーラーに求める本数も満たします。"
+"残りの2本は予備です。雪や氷の上で停まったら、一時停止メニューからチェーンを装着してください。乾いた舗装の上ではすぐにすり減ります。社員ドライバーは運送"
+"会社に請求します。"
 
 msgid ""
 "Worn shoes pull weaker and fade sooner. The engine brake costs them "
@@ -30741,8 +30788,12 @@ msgstr ""
 "耗、トレーラー、積立は手持ちのお金から払います。次は配車ボードです。"
 
 #. one sentence of a longer line
-msgid "Assigned loads; a refusal goes on your record."
-msgstr "積荷は割り当て制です。断ると記録に残ります。"
+msgid "A refusal goes on your record."
+msgstr "断ると記録に残ります。"
+
+#. one sentence of a longer line
+msgid "Assigned loads."
+msgstr "積荷は割り当て制です。"
 
 #. one sentence of a longer line
 msgid "Carrier covers fuel, repairs, insurance, and trailers."
@@ -30767,13 +30818,13 @@ msgstr "{prefix}初日の説明：{carrier_name}。"
 msgid ""
 "{prefix}First-day briefing: {carrier_name}. Truck at {location}. Carrier "
 "covers fuel, repairs, insurance, and trailers. Dispatch: {summary}. "
-"Assigned loads; a refusal goes on your record. Next: dispatch board."
+"Assigned loads. A refusal goes on your record. Next: dispatch board."
 msgstr ""
 "{prefix}初日の説明：{carrier_name}。トラックは{location}にあります。燃料、修理、保険、トレーラーは運送会社が負担します。"
 "配車係：{summary}。積荷は割り当て制です。断ると記録に残ります。次は配車ボードです。"
 
 msgid ""
-"Local service drives were retired in this update; you are parked at the "
+"Local service drives were retired in this update. You are parked at the "
 "terminal."
 msgstr "地域内の配送はこのアップデートで廃止されました。ターミナルに駐車しています。"
 
@@ -30997,7 +31048,7 @@ msgstr "{name}：Freight Fateの以前のバージョンのキャリア"
 
 msgid ""
 "This career cannot continue in version 1.9. Enter explains and offers a new "
-"career; the save is not touched."
+"career. The save is not touched."
 msgstr "このキャリアはバージョン1.9では続けられません。Enter で理由の説明と新しいキャリアの案内を聞けます。セーブには手を加えません。"
 
 msgid "Manage careers"
@@ -31007,6 +31058,10 @@ msgid ""
 "Up and Down pick a career, Enter opens reset and delete, Escape goes back."
 msgstr "上下でキャリアを選び、Enter でリセットと削除を開き、Escape で戻ります。"
 
+#. one sentence of a longer line
+msgid "Delete removes the save."
+msgstr "削除はセーブを消します。"
+
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "Manage {name}."
@@ -31014,12 +31069,12 @@ msgstr "{name}の管理。"
 
 #. placeholders: {name}
 msgid ""
-"Manage {name}. Reset starts the career over; delete removes the save."
-msgstr "{name}の管理。リセットはキャリアを最初からやり直し、削除はセーブを消します。"
+"Manage {name}. Reset starts the career over. Delete removes the save."
+msgstr "{name}の管理。リセットはキャリアを最初からやり直します。削除はセーブを消します。"
 
 #. one sentence of a longer line
-msgid "Reset starts the career over; delete removes the save."
-msgstr "リセットはキャリアを最初からやり直し、削除はセーブを消します。"
+msgid "Reset starts the career over."
+msgstr "リセットはキャリアを最初からやり直します。"
 
 msgid ""
 "Enter offers to delete this save. It still works in Freight Fate 1.8."
@@ -31128,9 +31183,9 @@ msgstr "リセットすると、{city}で新しいトラック、初期の所持
 
 msgid ""
 "Delete removes this saved career from this computer for good. It also has "
-"cloud backups on your orinks.net account; choose whether they go too."
+"cloud backups on your orinks.net account. Choose whether they go too."
 msgstr ""
-"削除すると、この保存したキャリアをこのコンピューターから完全に消します。orinks.netのアカウントにクラウドバックアップもあるので、そちらも消すか"
+"削除すると、この保存したキャリアをこのコンピューターから完全に消します。orinks.netのアカウントにクラウドバックアップもあります。そちらも消すか"
 "選んでください。"
 
 msgid "Delete removes this saved career for good."
@@ -31180,16 +31235,22 @@ msgstr "確定して、この保存したキャリアを削除します。"
 msgid "Back, nothing changed."
 msgstr "戻ります。何も変わっていません。"
 
+#. one sentence of a longer line
+msgid ""
+"Cloud backup on the Online menu can remove them once this computer is "
+"signed in again."
+msgstr "このコンピューターでもう一度サインインすれば、オンラインメニューのクラウドバックアップから削除できます。"
+
 #. placeholders: {AUTH_HELP}
 msgid ""
-"{AUTH_HELP} The cloud backups were not removed; Cloud backup on the Online "
+"{AUTH_HELP} The cloud backups were not removed. Cloud backup on the Online "
 "menu can remove them once this computer is signed in again."
 msgstr ""
-"{AUTH_HELP}クラウドバックアップは削除されていません。このコンピューターでもう一度サインインすれば、オンラインメニューのクラウドバックアップか"
-"ら削除できます。"
+"{AUTH_HELP}クラウドのバックアップは削除されていません。このコンピューターでもう一度サインインすれば、オンラインメニューのクラウドバックアップ"
+"から削除できます。"
 
 msgid ""
-"The site could not be reached, so the cloud backups are still there; Cloud "
+"The site could not be reached, so the cloud backups are still there. Cloud "
 "backup on the Online menu can remove them later."
 msgstr "サイトにつながらなかったため、クラウドバックアップはまだ残っています。後でオンラインメニューのクラウドバックアップから削除できます。"
 
@@ -31241,7 +31302,7 @@ msgstr ""
 "ん。許可のダイアログがまだ開いていたら、Freight Fate を許可して再起動してください。 "
 
 msgid ""
-"Your saved careers are from an earlier version of Freight Fate; they are "
+"Your saved careers are from an earlier version of Freight Fate. They are "
 "listed under Choose career. "
 msgstr "保存されたキャリアは以前のバージョンの Freight Fate のものです。「キャリアを選ぶ」に載っています。 "
 
@@ -33109,13 +33170,13 @@ msgid "Career start"
 msgstr "キャリアの始め方"
 
 msgid ""
-"Company starts use assigned carrier equipment; the carrier pays fuel, "
+"Company starts use assigned carrier equipment. The carrier pays fuel, "
 "repairs, insurance, and trailer support. The owner-operator start is higher "
 "risk: you own a brand-new truck and pay business costs from day one. Enter "
 "selects, Escape goes back."
 msgstr ""
-"社員ドライバーでの開始では、運送会社の割り当て装備を使い、燃料、修理、保険、トレーラーの支援は運送会社が払います。オーナードライバーでの開始はリスクが高"
-"く、新品のトラックを所有し、初日から事業の費用を払います。Enter で選び、Escape で戻ります。"
+"社員ドライバーでの開始では、運送会社の割り当て装備を使います。燃料、修理、保険、トレーラーの支援は運送会社が払います。オーナードライバーでの開始はリスク"
+"が高く、新品のトラックを所有し、初日から事業の費用を払います。Enter で選び、Escape で戻ります。"
 
 msgid "Career start."
 msgstr "キャリアの始め方。"
@@ -36283,11 +36344,15 @@ msgstr "Freight Fateでは、キャリアごとに運転記録をつけるよう
 msgid ""
 "Freight Fate now keeps a driving record for your career: citations, serious "
 "violations, and whether your CDL is clear. Two serious violations in 180 "
-"days suspend it; running from a police stop is a major offense that "
+"days suspend it. Running from a police stop is a major offense that "
 "disqualifies it for a year. Reputation also decides how much freight "
 "dispatch shows you and how much choice you get. Nothing was reset or taken. "
 "{standing} {trust} {current_text}"
 msgstr ""
+"Freight "
+"Fateでは、キャリアごとに運転記録をつけるようになりました。違反切符、重大違反、CDLに問題がないかどうかです。180日以内に重大違反が2回あると停止"
+"になります。警察の停止命令から逃げるのは重大な違反で、1年間失格になります。評判によって、配車係が見せてくれる貨物の量と、選べる幅も決まります。何もリセ"
+"ットされたり取り上げられたりはしていません。{standing}{trust}{current_text}"
 
 #. one sentence of a longer line
 msgid "Nothing was reset or taken."
@@ -36301,9 +36366,13 @@ msgstr "評判によって、配車係が見せてくれる貨物の量と、選
 
 #. one sentence of a longer line
 msgid ""
-"Two serious violations in 180 days suspend it; running from a police stop "
-"is a major offense that disqualifies it for a year."
-msgstr ""
+"Running from a police stop is a major offense that disqualifies it for a "
+"year."
+msgstr "警察の停止命令から逃げるのは重大な違反で、1年間失格になります。"
+
+#. one sentence of a longer line
+msgid "Two serious violations in 180 days suspend it."
+msgstr "180日以内に重大違反が2回あると停止になります。"
 
 msgid "Save file updated"
 msgstr "セーブファイルを更新しました"
@@ -36316,19 +36385,17 @@ msgstr "セーブファイルを更新しました。"
 msgid ""
 "Save file updated. This career was converted from an older version: every "
 "truck you own now keeps its own fuel, damage, tire wear, and road grime. "
-"The truck you were driving keeps its condition; your other trucks start "
+"The truck you were driving keeps its condition. Your other trucks start "
 "fueled and fresh. The updated save no longer opens in older versions of the "
 "game. {current_text}"
 msgstr ""
 "セーブファイルを更新しました。このキャリアは古いバージョンから変換されました。所有するトラックはそれぞれ、燃料、損傷、タイヤの摩耗、道路の汚れを個別に持"
-"つようになりました。運転していたトラックは状態をそのまま保ち、他のトラックは満タンできれいな状態から始まります。更新したセーブは、古いバージョンのゲーム"
-"では開けなくなります。{current_text}"
+"つようになりました。運転していたトラックは状態をそのまま保ちます。他のトラックは満タンできれいな状態から始まります。更新したセーブは、古いバージョンのゲ"
+"ームでは開けなくなります。{current_text}"
 
 #. one sentence of a longer line
-msgid ""
-"The truck you were driving keeps its condition; your other trucks start "
-"fueled and fresh."
-msgstr "運転していたトラックは状態をそのまま保ち、他のトラックは満タンできれいな状態から始まります。"
+msgid "The truck you were driving keeps its condition."
+msgstr "運転していたトラックは状態をそのまま保ちます。"
 
 #. one sentence of a longer line
 msgid "The updated save no longer opens in older versions of the game."
@@ -36340,6 +36407,10 @@ msgid ""
 "keeps its own fuel, damage, tire wear, and road grime."
 msgstr ""
 "このキャリアは古いバージョンから変換されました。所有するトラックはそれぞれ、燃料、損傷、タイヤの摩耗、道路の汚れを個別に持つようになりました。"
+
+#. one sentence of a longer line
+msgid "Your other trucks start fueled and fresh."
+msgstr "他のトラックは満タンできれいな状態から始まります。"
 
 msgid ""
 "Type with the on-screen keyboard, then double tap. Flick left or right to "
@@ -37845,6 +37916,269 @@ msgstr "タイヤの破片。"
 
 msgid "Debris."
 msgstr "落下物。"
+
+#~ msgid ""
+#~ "Use direct customer trust, trailer fit, and cash reserves to shape the "
+#~ "freight you want."
+#~ msgstr "直接取引の顧客の信頼、トレーラーの適合、手元資金を生かして、運びたい貨物を形にしてください。"
+
+#~ msgid ""
+#~ "Use authority carefully while direct-freight reputation and reserves are "
+#~ "still forming."
+#~ msgstr "直接取引の評判と積立がまだ固まらないうちは、運送許可を慎重に使ってください。"
+
+#~ msgid ""
+#~ "You have senior company experience. Use it to compare buy-in, lease, and "
+#~ "authority timing."
+#~ msgstr "上級社員としての経験があります。それを生かして、買い取り、リース、運送許可の時期を比べてください。"
+
+#~ msgid ""
+#~ "You owed {money_text} against a {label} that would bring about "
+#~ "{money_text2} at sale."
+#~ msgstr "借りている額は{money_text}でしたが、{label}を売っても約{money_text2}にしかなりません。"
+
+#~ msgid ""
+#~ "You owed {money_text} against a {label} that would bring about "
+#~ "{money_text2} at sale. The truck no longer covers the loan, so the lender "
+#~ "has taken it back."
+#~ msgstr ""
+#~ "借りている額は{money_text}でしたが、{label}を売っても約{money_text2}にしかなりません。トラックの価値でローンをまかなえな"
+#~ "くなったため、貸し手が引き揚げました。"
+
+#~ msgid ""
+#~ "A chain set is seven chains and two repair links. Four chains go on the "
+#~ "drive tires, one on a trailer tire, and two are spares, the most any state "
+#~ "here asks of a semi. Put chains on from the pause menu once you're stopped "
+#~ "in snow or ice. They wear out fast on bare pavement. Company drivers bill "
+#~ "the carrier."
+#~ msgstr ""
+#~ "チェーンのセットは7本のチェーンと修理用リンク2つです。駆動輪に4本、トレーラーのタイヤに1本、予備が2本で、ここのどの州がセミトレーラーに求める本数も"
+#~ "満たします。雪や氷の上で停まったら、一時停止メニューからチェーンを装着してください。乾いた舗装の上ではすぐにすり減ります。社員ドライバーは運送会社に請求"
+#~ "します。"
+
+#~ msgid "Finalizing delivery, reputation, and cash readiness."
+#~ msgstr "配達、評判、資金の準備を仕上げています。"
+
+#~ msgid ""
+#~ "You reached level 30 as a leased-on owner-operator; own authority remains "
+#~ "the one step left."
+#~ msgstr "運送会社と業務委託のオーナードライバーとしてレベル30に到達しました。残る一歩は独自の運送許可だけです。"
+
+#~ msgid ""
+#~ "Keep working capital, trailer strategy, and direct-freight readiness in "
+#~ "view."
+#~ msgstr "運転資金、トレーラー戦略、直接取引の準備を常に意識してください。"
+
+#~ msgid ""
+#~ "You chose to stay on carrier equipment; the buy-in stays open under "
+#~ "Business status if you ever want it."
+#~ msgstr "会社の装備に残ることを選びました。買い取りは、望めばいつでも事業状況から選べます。"
+
+#~ msgid ""
+#~ "You have senior company experience; use it to compare buy-in, lease, and "
+#~ "authority timing."
+#~ msgstr "上級社員としての経験があります。それを生かして、買い取り、リース、運送許可の時期を比べてください。"
+
+#~ msgid ""
+#~ "Keep savings, trailer knowledge, and direct-freight readiness in view "
+#~ "before authority is real."
+#~ msgstr "運送許可が現実になる前に、貯金、トレーラーの知識、直接取引の準備を常に意識してください。"
+
+#~ msgid ""
+#~ "Dispatch now trusts you to pick loads from the board; routing stays "
+#~ "assigned until you run your own truck."
+#~ msgstr "配車係はボードから積荷を選ばせてくれるようになりました。ルートは、自分のトラックで走るようになるまで割り当てのままです。"
+
+#~ msgid ""
+#~ "The carrier's insurer will not carry a record like that; "
+#~ "{LAST_CHANCE_CARRIER_NAME} keeps you on, on probation, until "
+#~ "{record_clears_text}."
+#~ msgstr ""
+#~ "会社の保険会社はこのような記録を引き受けません。{LAST_CHANCE_CARRIER_NAME}は{record_clears_text}まで、試用"
+#~ "期間付きであなたを雇い続けます。"
+
+#~ msgid ""
+#~ "The carrier's review keeps it there until {record_review_clears_text}; keep "
+#~ "the record clean until then."
+#~ msgstr "運送会社の審査で{record_review_clears_text}までそのままです。それまで記録をきれいに保ってください。"
+
+#~ msgid ""
+#~ "Your driving record is what is holding it: {record_window_phrase}. The "
+#~ "carrier's review keeps it there until {record_review_clears_text}; keep the "
+#~ "record clean until then."
+#~ msgstr ""
+#~ "止めているのは運転記録です：{record_window_phrase}。運送会社の審査で{record_review_clears_text}までその"
+#~ "ままです。それまで記録をきれいに保ってください。"
+
+#~ msgid ""
+#~ "No {action} stop left before your hours limit, {minutes} minutes remaining. "
+#~ "Stop soon; a shoulder rest can draw a ticket."
+#~ msgstr ""
+#~ "運転時間の上限までに{action}の停車地はもうありません。残りは{minutes}分です。早めに停まってください。路肩で休むと違反切符を切られること"
+#~ "があります。"
+
+#~ msgid "Stop soon; a shoulder rest can draw a ticket."
+#~ msgstr "早めに停まってください。路肩で休むと違反切符を切られることがあります。"
+
+#~ msgid ""
+#~ "You owed {money_text} against a {label} that would bring about "
+#~ "{money_text2} at sale, so the loan is no longer covered by the truck behind "
+#~ "it, and the lender has taken it back."
+#~ msgstr ""
+#~ "借りている額は{money_text}でしたが、{label}を売っても約{money_text2}にしかならないため、ローンがトラックの価値でまかなえ"
+#~ "なくなり、貸し手が引き揚げました。"
+
+#~ msgid "Held there; a quarter of each settlement pays it down."
+#~ msgstr "そこで止められています。各精算の4分の1が返済に回ります。"
+
+#~ msgid "Owed {owed}. Held there; a quarter of each settlement pays it down."
+#~ msgstr "借りている額は{owed}。そこで止められています。各精算の4分の1が返済に回ります。"
+
+#~ msgid ""
+#~ "A balanced company-driver path. The carrier assigns and maintains the "
+#~ "tractor, pays fuel and routine repairs, and offers steady wage math without "
+#~ "a sharp specialty."
+#~ msgstr ""
+#~ "バランス型の社員ドライバーの道です。運送会社がトラクターを割り当てて整備し、燃料と日常の修理を払い、尖った特色はないものの安定した給料体系です。"
+
+#~ msgid ""
+#~ "Higher percentage and on-time bonus for careful freight, with a smaller "
+#~ "wage floor and more long-haul/high-value lanes."
+#~ msgstr "丁寧な貨物には取り分と期限内ボーナスが高い一方、最低給は小さく、長距離や高額貨物のルートが多め。"
+
+#~ msgid ""
+#~ "Makes the truck burn less fuel at highway speed. It does not add more fuel "
+#~ "capacity; it makes the same tank last longer. Buy it to save diesel money "
+#~ "over long highway miles."
+#~ msgstr ""
+#~ "高速道路の速度での燃料消費を減らします。燃料の容量は増えません。同じタンクが長持ちするようになります。長い高速道路の距離で燃料代を節約したいときに買って"
+#~ "ください。"
+
+#~ msgid ""
+#~ "Adds fifty gallons of fuel capacity. It does not make the truck more "
+#~ "efficient; it lets you carry more fuel. Buy it for more distance between "
+#~ "fuel stops and more route flexibility."
+#~ msgstr ""
+#~ "燃料の容量が50ガロン増えます。トラックの燃費は良くなりません。より多くの燃料を積めるだけです。給油の間隔を延ばし、ルートの自由度を上げたいときに買って"
+#~ "ください。"
+
+#~ msgid ""
+#~ "Listed pay is what the carrier earns; you are paid wages from it. Routing "
+#~ "is assigned until you run your own truck."
+#~ msgstr "表示の報酬は会社の取り分で、あなたにはそこから給料が払われます。自分のトラックで走るまでは、ルートは割り当てです。"
+
+#~ msgid ""
+#~ "Dispatch picks another load. Costs reputation and one decline; declines "
+#~ "refill at your next promotion."
+#~ msgstr "配車係が別の貨物を選びます。評判が下がり、断れる回数を1回使います。断れる回数は次の昇進で戻ります。"
+
+#~ msgid ""
+#~ "{AUTH_HELP} The cloud backups were not removed; the Cloud saves menu can "
+#~ "remove them once this computer is signed in again."
+#~ msgstr ""
+#~ "{AUTH_HELP}クラウドのバックアップは削除されていません。このコンピューターでもう一度サインインすれば、クラウドセーブのメニューから削除できます"
+#~ "。"
+
+#~ msgid ""
+#~ "The site could not be reached, so the cloud backups are still there; the "
+#~ "Cloud saves menu can remove them later."
+#~ msgstr "サイトに接続できなかったので、クラウドのバックアップは残っています。後でクラウドセーブのメニューから削除できます。"
+
+#~ msgid ""
+#~ "Keep the carrier's tractor and wages. The reminders about the buy-in stop; "
+#~ "the buy-in itself stays open here."
+#~ msgstr "運送会社のトラクターと賃金のままです。買い取りのお知らせは止まりますが、買い取り自体はここでいつでも選べます。"
+
+#~ msgid "You have {grouped} dollars; the unpaid balance is debt."
+#~ msgstr "手持ちは{grouped}ドルです。未払いの残高は借金になります。"
+
+#~ msgid ""
+#~ "A chain set is seven chains: four for the drive tires, one for a trailer "
+#~ "tire, and two spares, the most any state here asks of a semi, plus two "
+#~ "repair links. Put chains on from the pause menu once you're stopped in snow "
+#~ "or ice. They wear out fast on bare pavement. Company drivers bill the "
+#~ "carrier."
+#~ msgstr ""
+#~ "チェーンのセットは7本です。駆動輪に4本、トレーラーのタイヤに1本、予備が2本で、ここのどの州がセミトレーラーに求める本数も満たします。ほかに修理用リン"
+#~ "クが2つ付きます。雪や氷の上で停まったら、一時停止メニューからチェーンを装着してください。乾いた舗装の上ではすぐにすり減ります。社員ドライバーは運送会社"
+#~ "に請求します。"
+
+#~ msgid "Assigned loads; a refusal goes on your record."
+#~ msgstr "積荷は割り当て制です。断ると記録に残ります。"
+
+#~ msgid ""
+#~ "{prefix}First-day briefing: {carrier_name}. Truck at {location}. Carrier "
+#~ "covers fuel, repairs, insurance, and trailers. Dispatch: {summary}. "
+#~ "Assigned loads; a refusal goes on your record. Next: dispatch board."
+#~ msgstr ""
+#~ "{prefix}初日の説明：{carrier_name}。トラックは{location}にあります。燃料、修理、保険、トレーラーは運送会社が負担します。"
+#~ "配車係：{summary}。積荷は割り当て制です。断ると記録に残ります。次は配車ボードです。"
+
+#~ msgid ""
+#~ "Local service drives were retired in this update; you are parked at the "
+#~ "terminal."
+#~ msgstr "地域内の配送はこのアップデートで廃止されました。ターミナルに駐車しています。"
+
+#~ msgid ""
+#~ "This career cannot continue in version 1.9. Enter explains and offers a new "
+#~ "career; the save is not touched."
+#~ msgstr "このキャリアはバージョン1.9では続けられません。Enter で理由の説明と新しいキャリアの案内を聞けます。セーブには手を加えません。"
+
+#~ msgid ""
+#~ "Manage {name}. Reset starts the career over; delete removes the save."
+#~ msgstr "{name}の管理。リセットはキャリアを最初からやり直し、削除はセーブを消します。"
+
+#~ msgid "Reset starts the career over; delete removes the save."
+#~ msgstr "リセットはキャリアを最初からやり直し、削除はセーブを消します。"
+
+#~ msgid ""
+#~ "Delete removes this saved career from this computer for good. It also has "
+#~ "cloud backups on your orinks.net account; choose whether they go too."
+#~ msgstr ""
+#~ "削除すると、この保存したキャリアをこのコンピューターから完全に消します。orinks.netのアカウントにクラウドバックアップもあるので、そちらも消すか"
+#~ "選んでください。"
+
+#~ msgid ""
+#~ "{AUTH_HELP} The cloud backups were not removed; Cloud backup on the Online "
+#~ "menu can remove them once this computer is signed in again."
+#~ msgstr ""
+#~ "{AUTH_HELP}クラウドバックアップは削除されていません。このコンピューターでもう一度サインインすれば、オンラインメニューのクラウドバックアップか"
+#~ "ら削除できます。"
+
+#~ msgid ""
+#~ "The site could not be reached, so the cloud backups are still there; Cloud "
+#~ "backup on the Online menu can remove them later."
+#~ msgstr "サイトにつながらなかったため、クラウドバックアップはまだ残っています。後でオンラインメニューのクラウドバックアップから削除できます。"
+
+#~ msgid ""
+#~ "Your saved careers are from an earlier version of Freight Fate; they are "
+#~ "listed under Choose career. "
+#~ msgstr "保存されたキャリアは以前のバージョンの Freight Fate のものです。「キャリアを選ぶ」に載っています。 "
+
+#~ msgid ""
+#~ "Company starts use assigned carrier equipment; the carrier pays fuel, "
+#~ "repairs, insurance, and trailer support. The owner-operator start is higher "
+#~ "risk: you own a brand-new truck and pay business costs from day one. Enter "
+#~ "selects, Escape goes back."
+#~ msgstr ""
+#~ "社員ドライバーでの開始では、運送会社の割り当て装備を使い、燃料、修理、保険、トレーラーの支援は運送会社が払います。オーナードライバーでの開始はリスクが高"
+#~ "く、新品のトラックを所有し、初日から事業の費用を払います。Enter で選び、Escape で戻ります。"
+
+#~ msgid ""
+#~ "Save file updated. This career was converted from an older version: every "
+#~ "truck you own now keeps its own fuel, damage, tire wear, and road grime. "
+#~ "The truck you were driving keeps its condition; your other trucks start "
+#~ "fueled and fresh. The updated save no longer opens in older versions of the "
+#~ "game. {current_text}"
+#~ msgstr ""
+#~ "セーブファイルを更新しました。このキャリアは古いバージョンから変換されました。所有するトラックはそれぞれ、燃料、損傷、タイヤの摩耗、道路の汚れを個別に持"
+#~ "つようになりました。運転していたトラックは状態をそのまま保ち、他のトラックは満タンできれいな状態から始まります。更新したセーブは、古いバージョンのゲーム"
+#~ "では開けなくなります。{current_text}"
+
+#~ msgid ""
+#~ "The truck you were driving keeps its condition; your other trucks start "
+#~ "fueled and fresh."
+#~ msgstr "運転していたトラックは状態をそのまま保ち、他のトラックは満タンできれいな状態から始まります。"
 
 #~ msgid "Air pressure {f} psi."
 #~ msgstr "エア圧{f} psi。"

@@ -353,7 +353,7 @@ impl Menu for BusinessStatusState {
                         })
                         .help(
                             "Keep the carrier's tractor and wages. The reminders about the \
-                             buy-in stop; the buy-in itself stays open here.",
+                             buy-in stop. The buy-in itself stays open here.",
                         ),
                     );
                 }

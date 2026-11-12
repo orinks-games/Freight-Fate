@@ -123,7 +123,7 @@ impl HosStopAdvice {
                 },
             ),
             None => format!(
-                "No {action} stop left before your hours limit, {minutes:.0} minutes remaining. Stop soon; a shoulder rest can draw a ticket.",
+                "No {action} stop left before your hours limit, {minutes:.0} minutes remaining. Stop soon. A shoulder rest can draw a ticket.",
                 action = self.action, minutes = self.remaining_min.max(0.0),
             ),
         }
