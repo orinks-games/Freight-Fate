@@ -15539,25 +15539,25 @@ msgstr ""
 msgid "Account achievements"
 msgstr "账户成就"
 
-#. placeholders: {ids}, {ACHIEVEMENTS}
-msgid "Summary: {ids} of {ACHIEVEMENTS} earned across every career"
-msgstr "汇总：所有职业生涯共获得{ids}个成就，共{ACHIEVEMENTS}个"
+#. placeholders: {ids}, {listed_count}
+msgid "Summary: {ids} of {listed_count} earned across every career"
+msgstr "汇总：所有职业生涯共获得{ids}个成就，共{listed_count}个"
 
 #. one sentence of a longer line
 msgid "Account achievements."
 msgstr "账户成就。"
 
-#. placeholders: {earned}, {ACHIEVEMENTS}, {current_text}
+#. placeholders: {earned}, {listed_count}, {current_text}
 msgid ""
-"Account achievements. {earned} of {ACHIEVEMENTS} earned across every career "
+"Account achievements. {earned} of {listed_count} earned across every career "
 "on this installation. {current_text}"
-msgstr "账户成就。这次安装中的所有职业生涯共获得{earned}个成就，共{ACHIEVEMENTS}个。{current_text}"
+msgstr "账户成就。这次安装中的所有职业生涯共获得{earned}个成就，共{listed_count}个。{current_text}"
 
-#. placeholders: {earned}, {ACHIEVEMENTS}
+#. placeholders: {earned}, {listed_count}
 #. one sentence of a longer line
 msgid ""
-"{earned} of {ACHIEVEMENTS} earned across every career on this installation."
-msgstr "这次安装中的所有职业生涯共获得{earned}个成就，共{ACHIEVEMENTS}个。"
+"{earned} of {listed_count} earned across every career on this installation."
+msgstr "这次安装中的所有职业生涯共获得{earned}个成就，共{listed_count}个。"
 
 #. placeholders: {title}, {done}, {achievements}
 msgid "{title}. {done} of {achievements}"
@@ -30557,24 +30557,24 @@ msgstr "{name}的成就"
 msgid "Up and Down pick a category, Enter opens it, Escape goes back."
 msgstr "Up和Down选择类别，Enter打开，Escape返回。"
 
-#. placeholders: {earned_count}, {ACHIEVEMENTS}
-msgid "Summary: {earned_count} of {ACHIEVEMENTS} earned"
-msgstr "汇总：已获得{earned_count}个，共{ACHIEVEMENTS}个"
+#. placeholders: {earned_count}, {listed_count}
+msgid "Summary: {earned_count} of {listed_count} earned"
+msgstr "汇总：已获得{earned_count}个，共{listed_count}个"
 
-#. placeholders: {name}, {earned_count}, {ACHIEVEMENTS}
-msgid "{name} has earned {earned_count} of {ACHIEVEMENTS} achievements."
-msgstr "{name}已获得{earned_count}个成就，共{ACHIEVEMENTS}个。"
+#. placeholders: {name}, {earned_count}, {listed_count}
+msgid "{name} has earned {earned_count} of {listed_count} achievements."
+msgstr "{name}已获得{earned_count}个成就，共{listed_count}个。"
 
-#. placeholders: {name}, {earned_count}, {ACHIEVEMENTS}, {current_text}
+#. placeholders: {name}, {earned_count}, {listed_count}, {current_text}
 msgid ""
-"Achievements for {name}. {earned_count} of {ACHIEVEMENTS} earned. "
+"Achievements for {name}. {earned_count} of {listed_count} earned. "
 "{current_text}"
-msgstr "{name}的成就。已获得{earned_count}个，共{ACHIEVEMENTS}个。{current_text}"
+msgstr "{name}的成就。已获得{earned_count}个，共{listed_count}个。{current_text}"
 
-#. placeholders: {earned_count}, {ACHIEVEMENTS}
+#. placeholders: {earned_count}, {listed_count}
 #. one sentence of a longer line
-msgid "{earned_count} of {ACHIEVEMENTS} earned."
-msgstr "已获得{earned_count}个，共{ACHIEVEMENTS}个。"
+msgid "{earned_count} of {listed_count} earned."
+msgstr "已获得{earned_count}个，共{listed_count}个。"
 
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
@@ -37291,6 +37291,32 @@ msgstr "轮胎碎片。"
 
 msgid "Debris."
 msgstr "杂物。"
+
+#~ msgid "Summary: {ids} of {ACHIEVEMENTS} earned across every career"
+#~ msgstr "汇总：所有职业生涯共获得{ids}个成就，共{ACHIEVEMENTS}个"
+
+#~ msgid ""
+#~ "Account achievements. {earned} of {ACHIEVEMENTS} earned across every career "
+#~ "on this installation. {current_text}"
+#~ msgstr "账户成就。这次安装中的所有职业生涯共获得{earned}个成就，共{ACHIEVEMENTS}个。{current_text}"
+
+#~ msgid ""
+#~ "{earned} of {ACHIEVEMENTS} earned across every career on this installation."
+#~ msgstr "这次安装中的所有职业生涯共获得{earned}个成就，共{ACHIEVEMENTS}个。"
+
+#~ msgid "Summary: {earned_count} of {ACHIEVEMENTS} earned"
+#~ msgstr "汇总：已获得{earned_count}个，共{ACHIEVEMENTS}个"
+
+#~ msgid "{name} has earned {earned_count} of {ACHIEVEMENTS} achievements."
+#~ msgstr "{name}已获得{earned_count}个成就，共{ACHIEVEMENTS}个。"
+
+#~ msgid ""
+#~ "Achievements for {name}. {earned_count} of {ACHIEVEMENTS} earned. "
+#~ "{current_text}"
+#~ msgstr "{name}的成就。已获得{earned_count}个，共{ACHIEVEMENTS}个。{current_text}"
+
+#~ msgid "{earned_count} of {ACHIEVEMENTS} earned."
+#~ msgstr "已获得{earned_count}个，共{ACHIEVEMENTS}个。"
 
 #~ msgid ""
 #~ "Levels, money, and trucks -- the long climb from hire to owner-operator."

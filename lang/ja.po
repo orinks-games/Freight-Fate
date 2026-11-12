@@ -15680,26 +15680,26 @@ msgstr ""
 msgid "Account achievements"
 msgstr "アカウントの実績"
 
-#. placeholders: {ids}, {ACHIEVEMENTS}
-msgid "Summary: {ids} of {ACHIEVEMENTS} earned across every career"
-msgstr "概要：すべてのキャリアで{ACHIEVEMENTS}件中{ids}件を獲得"
+#. placeholders: {ids}, {listed_count}
+msgid "Summary: {ids} of {listed_count} earned across every career"
+msgstr "概要：すべてのキャリアで{listed_count}件中{ids}件を獲得"
 
 #. one sentence of a longer line
 msgid "Account achievements."
 msgstr "アカウントの実績。"
 
-#. placeholders: {earned}, {ACHIEVEMENTS}, {current_text}
+#. placeholders: {earned}, {listed_count}, {current_text}
 msgid ""
-"Account achievements. {earned} of {ACHIEVEMENTS} earned across every career "
+"Account achievements. {earned} of {listed_count} earned across every career "
 "on this installation. {current_text}"
 msgstr ""
-"アカウントの実績。このインストールのすべてのキャリアで{ACHIEVEMENTS}件中{earned}件を獲得しています。{current_text}"
+"アカウントの実績。このインストールのすべてのキャリアで{listed_count}件中{earned}件を獲得しています。{current_text}"
 
-#. placeholders: {earned}, {ACHIEVEMENTS}
+#. placeholders: {earned}, {listed_count}
 #. one sentence of a longer line
 msgid ""
-"{earned} of {ACHIEVEMENTS} earned across every career on this installation."
-msgstr "このインストールのすべてのキャリアで{ACHIEVEMENTS}件中{earned}件を獲得しています。"
+"{earned} of {listed_count} earned across every career on this installation."
+msgstr "このインストールのすべてのキャリアで{listed_count}件中{earned}件を獲得しています。"
 
 #. placeholders: {title}, {done}, {achievements}
 msgid "{title}. {done} of {achievements}"
@@ -30857,24 +30857,24 @@ msgstr "{name}の実績"
 msgid "Up and Down pick a category, Enter opens it, Escape goes back."
 msgstr "上下の矢印キーでカテゴリーを選び、Enter で開きます。Escape で戻ります。"
 
-#. placeholders: {earned_count}, {ACHIEVEMENTS}
-msgid "Summary: {earned_count} of {ACHIEVEMENTS} earned"
-msgstr "概要：{ACHIEVEMENTS}件中{earned_count}件獲得"
+#. placeholders: {earned_count}, {listed_count}
+msgid "Summary: {earned_count} of {listed_count} earned"
+msgstr "概要：{listed_count}件中{earned_count}件獲得"
 
-#. placeholders: {name}, {earned_count}, {ACHIEVEMENTS}
-msgid "{name} has earned {earned_count} of {ACHIEVEMENTS} achievements."
-msgstr "{name}は{ACHIEVEMENTS}件の実績のうち{earned_count}件を獲得しています。"
+#. placeholders: {name}, {earned_count}, {listed_count}
+msgid "{name} has earned {earned_count} of {listed_count} achievements."
+msgstr "{name}は{listed_count}件の実績のうち{earned_count}件を獲得しています。"
 
-#. placeholders: {name}, {earned_count}, {ACHIEVEMENTS}, {current_text}
+#. placeholders: {name}, {earned_count}, {listed_count}, {current_text}
 msgid ""
-"Achievements for {name}. {earned_count} of {ACHIEVEMENTS} earned. "
+"Achievements for {name}. {earned_count} of {listed_count} earned. "
 "{current_text}"
-msgstr "{name}の実績。{ACHIEVEMENTS}件中{earned_count}件獲得。{current_text}"
+msgstr "{name}の実績。{listed_count}件中{earned_count}件獲得。{current_text}"
 
-#. placeholders: {earned_count}, {ACHIEVEMENTS}
+#. placeholders: {earned_count}, {listed_count}
 #. one sentence of a longer line
-msgid "{earned_count} of {ACHIEVEMENTS} earned."
-msgstr "{ACHIEVEMENTS}件中{earned_count}件獲得。"
+msgid "{earned_count} of {listed_count} earned."
+msgstr "{listed_count}件中{earned_count}件獲得。"
 
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
@@ -37838,6 +37838,33 @@ msgstr "タイヤの破片。"
 
 msgid "Debris."
 msgstr "落下物。"
+
+#~ msgid "Summary: {ids} of {ACHIEVEMENTS} earned across every career"
+#~ msgstr "概要：すべてのキャリアで{ACHIEVEMENTS}件中{ids}件を獲得"
+
+#~ msgid ""
+#~ "Account achievements. {earned} of {ACHIEVEMENTS} earned across every career "
+#~ "on this installation. {current_text}"
+#~ msgstr ""
+#~ "アカウントの実績。このインストールのすべてのキャリアで{ACHIEVEMENTS}件中{earned}件を獲得しています。{current_text}"
+
+#~ msgid ""
+#~ "{earned} of {ACHIEVEMENTS} earned across every career on this installation."
+#~ msgstr "このインストールのすべてのキャリアで{ACHIEVEMENTS}件中{earned}件を獲得しています。"
+
+#~ msgid "Summary: {earned_count} of {ACHIEVEMENTS} earned"
+#~ msgstr "概要：{ACHIEVEMENTS}件中{earned_count}件獲得"
+
+#~ msgid "{name} has earned {earned_count} of {ACHIEVEMENTS} achievements."
+#~ msgstr "{name}は{ACHIEVEMENTS}件の実績のうち{earned_count}件を獲得しています。"
+
+#~ msgid ""
+#~ "Achievements for {name}. {earned_count} of {ACHIEVEMENTS} earned. "
+#~ "{current_text}"
+#~ msgstr "{name}の実績。{ACHIEVEMENTS}件中{earned_count}件獲得。{current_text}"
+
+#~ msgid "{earned_count} of {ACHIEVEMENTS} earned."
+#~ msgstr "{ACHIEVEMENTS}件中{earned_count}件獲得。"
 
 #~ msgid ""
 #~ "Levels, money, and trucks -- the long climb from hire to owner-operator."
