@@ -9,7 +9,7 @@
 - **Achievements can be sorted.** A new Sort row puts earned ones first by default, or newest, locked first, A to Z, or the original order.
 - **Achievements open from the terminal and the pause menu,** showing the career you are playing.
 - **A menu letter can now choose its item at once.** Turn on Letters run menu items in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).
-- **Translators can put a corrected language file in a lang folder next to the game.**
+- **Translators can put a corrected language file in a lang folder next to the game.** The saves folder still works too.
 - **Choose stable, beta, or alpha updates in Settings.** Existing snapshot followers move to beta.
 - **New releases seal career saves against local editing.** Existing careers migrate with a backup, and cloud backups keep their verification.
 - **Alt+5 names the county you are driving through.** On city streets it names the city's county.

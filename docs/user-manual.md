@@ -517,7 +517,7 @@ Service the truck before wear stops the trip. Worn tires lose grip, worn brakes 
 | Past 85 percent | A spoken last call that names the out-of-service threshold before you reach it. |
 | Past 90 percent | **Out of service.** The truck may not be driven. It can still crawl clear of a live lane, because leaving a stricken truck stopped in traffic is worse, but the run does not continue under its own power. |
 
-The damage readout names a band as well as a percentage. An out-of-service truck needs roadside help before the trip can continue.
+The damage readout names a band as well as a percentage. An out-of-service truck can still crawl clear of traffic, but it needs roadside help before the trip can continue.
 
 Owners pay for roadside repairs and lose several hours; they still need further garage repair afterward. Company drivers get carrier-paid service and a yard spare. Preventable equipment trouble can also affect their record and dispatch trust.
 
@@ -1140,7 +1140,7 @@ Fuel, the engine, air pressure, and the parking brake. Damage, worn parts, or a 
 
 ### How do I reverse?
 
-In an automatic, stop fully, release the brake, then press and hold the brake again. To go forward again, stop, then press and hold the accelerator the same way. [Driving controls](#driving-controls) has the details.
+In an automatic, stop fully, release the brake, then press and hold the brake again. While reversing, the accelerator stops the truck. To go forward again, stop with the accelerator, release it, then press and hold it again. [Driving controls](#driving-controls) has the details.
 
 ### How do I know when a hill ends?
 
