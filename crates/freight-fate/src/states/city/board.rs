@@ -204,7 +204,7 @@ pub(super) fn pay_basis_note(status: &str) -> &'static str {
         "Listed pay is the full rate for the load. Trailer program needs are listed on \
          each job."
     } else {
-        "Listed pay is what the carrier earns; you are paid wages from it. Routing is \
+        "Listed pay is what the carrier earns. You are paid wages from it. Routing is \
          assigned until you run your own truck."
     }
 }
@@ -429,7 +429,7 @@ impl JobBoardState {
                     |s: &mut Self, ctx| s.decline_assignment(ctx),
                 )
                 .help(
-                    "Dispatch picks another load. Costs reputation and one decline; declines \
+                    "Dispatch picks another load. Costs reputation and one decline. Declines \
                      refill at your next promotion.",
                 ),
             );

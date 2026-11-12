@@ -6507,7 +6507,7 @@ msgstr ""
 msgid "Every owner-operator buy-in requirement appears in full."
 msgstr ""
 
-msgid "Finalizing delivery, reputation, and cash readiness."
+msgid "Finishing the delivery, reputation, and cash requirements."
 msgstr ""
 
 msgid "Tractor Buy-In Candidate"
@@ -6871,8 +6871,8 @@ msgid "Top of the leased-on ladder"
 msgstr ""
 
 msgid ""
-"You reached level 30 as a leased-on owner-operator; own authority remains "
-"the one step left."
+"You reached level 30 as a leased-on owner-operator. Own authority is the "
+"one step left."
 msgstr ""
 
 msgid "proven owner-operator lane"
@@ -6882,8 +6882,8 @@ msgid "Build authority readiness"
 msgstr ""
 
 msgid ""
-"Keep working capital, trailer strategy, and direct-freight readiness in "
-"view."
+"Watch your working capital, your trailer plan, and what direct freight "
+"requires."
 msgstr ""
 
 msgid "authority-readiness lane"
@@ -6902,7 +6902,7 @@ msgid "Company driver by choice"
 msgstr ""
 
 msgid ""
-"You chose to stay on carrier equipment; the buy-in stays open under "
+"You chose to stay on carrier equipment. The buy-in stays open under "
 "Business status if you ever want it."
 msgstr ""
 
@@ -6919,7 +6919,7 @@ msgid "Plan the next business step"
 msgstr ""
 
 msgid ""
-"You have senior company experience; use it to compare buy-in, lease, and "
+"You have senior company experience. Use it to compare buy-in, lease, and "
 "authority timing."
 msgstr ""
 
@@ -6927,8 +6927,8 @@ msgid "business-decision lane"
 msgstr ""
 
 msgid ""
-"Keep savings, trailer knowledge, and direct-freight readiness in view "
-"before authority is real."
+"Build savings and trailer knowledge, and learn what direct freight "
+"requires, before you take own authority."
 msgstr ""
 
 msgid "Protect owner-operator readiness"
@@ -6983,7 +6983,7 @@ msgid "Choose your own freight"
 msgstr ""
 
 msgid ""
-"Dispatch now trusts you to pick loads from the board; routing stays "
+"Dispatch now trusts you to pick loads from the board. Routing stays "
 "assigned until you run your own truck."
 msgstr ""
 
@@ -7990,9 +7990,20 @@ msgstr ""
 msgid "Insurance surcharge: {percent} percent until {until}."
 msgstr ""
 
+#. one sentence of a longer line
+msgid "The carrier's insurer will not carry a record like that."
+msgstr ""
+
 #. placeholders: {LAST_CHANCE_CARRIER_NAME}, {record_clears_text}
 msgid ""
-"The carrier's insurer will not carry a record like that; "
+"The carrier's insurer will not carry a record like that. "
+"{LAST_CHANCE_CARRIER_NAME} keeps you on, on probation, until "
+"{record_clears_text}."
+msgstr ""
+
+#. placeholders: {LAST_CHANCE_CARRIER_NAME}, {record_clears_text}
+#. one sentence of a longer line
+msgid ""
 "{LAST_CHANCE_CARRIER_NAME} keeps you on, on probation, until "
 "{record_clears_text}."
 msgstr ""
@@ -8063,11 +8074,14 @@ msgid ""
 "Your CDL is suspended, so the yard holds your seat until it clears {clears}."
 msgstr ""
 
+#. one sentence of a longer line
+msgid "Keep the record clean until then."
+msgstr ""
+
 #. placeholders: {record_review_clears_text}
 #. one sentence of a longer line
 msgid ""
-"The carrier's review keeps it there until {record_review_clears_text}; keep "
-"the record clean until then."
+"The carrier's review keeps it there until {record_review_clears_text}."
 msgstr ""
 
 #. placeholders: {record_window_phrase}
@@ -8078,7 +8092,7 @@ msgstr ""
 #. placeholders: {record_window_phrase}, {record_review_clears_text}
 msgid ""
 "Your driving record is what is holding it: {record_window_phrase}. The "
-"carrier's review keeps it there until {record_review_clears_text}; keep the "
+"carrier's review keeps it there until {record_review_clears_text}. Keep the "
 "record clean until then."
 msgstr ""
 
@@ -8720,6 +8734,10 @@ msgstr ""
 msgid "No earlier stop leaves 30 minutes to spare."
 msgstr ""
 
+#. one sentence of a longer line
+msgid "A shoulder rest can draw a ticket."
+msgstr ""
+
 #. placeholders: {action}, {minutes}
 #. one sentence of a longer line
 msgid ""
@@ -8729,11 +8747,11 @@ msgstr ""
 #. placeholders: {action}, {minutes}
 msgid ""
 "No {action} stop left before your hours limit, {minutes} minutes remaining. "
-"Stop soon; a shoulder rest can draw a ticket."
+"Stop soon. A shoulder rest can draw a ticket."
 msgstr ""
 
 #. one sentence of a longer line
-msgid "Stop soon; a shoulder rest can draw a ticket."
+msgid "Stop soon."
 msgstr ""
 
 #. placeholders: {action}, {name}, {distance}
@@ -9054,11 +9072,23 @@ msgstr ""
 msgid "termination"
 msgstr ""
 
+#. one sentence of a longer line
+msgid ""
+"The truck no longer covers the loan, so the lender has taken it back."
+msgstr ""
+
+#. placeholders: {money_text}, {label}, {money_text2}
+#. one sentence of a longer line
+msgid ""
+"You owed {money_text} against a {label} that would bring about "
+"{money_text2} at sale."
+msgstr ""
+
 #. placeholders: {money_text}, {label}, {money_text2}
 msgid ""
 "You owed {money_text} against a {label} that would bring about "
-"{money_text2} at sale, so the loan is no longer covered by the truck behind "
-"it, and the lender has taken it back."
+"{money_text2} at sale. The truck no longer covers the loan, so the lender "
+"has taken it back."
 msgstr ""
 
 msgid ""
@@ -9121,7 +9151,11 @@ msgid ""
 msgstr ""
 
 #. one sentence of a longer line
-msgid "Held there; a quarter of each settlement pays it down."
+msgid "A quarter of each settlement pays it down."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Held there."
 msgstr ""
 
 #. placeholders: {owed}
@@ -9130,7 +9164,7 @@ msgid "Owed {owed}."
 msgstr ""
 
 #. placeholders: {owed}
-msgid "Owed {owed}. Held there; a quarter of each settlement pays it down."
+msgid "Owed {owed}. Held there. A quarter of each settlement pays it down."
 msgstr ""
 
 #. one sentence of a longer line
@@ -9303,8 +9337,8 @@ msgstr ""
 
 msgid ""
 "A balanced company-driver path. The carrier assigns and maintains the "
-"tractor, pays fuel and routine repairs, and offers steady wage math without "
-"a sharp specialty."
+"tractor, pays fuel and routine repairs, and pays steady wages with no "
+"specialty."
 msgstr ""
 
 msgid "Great Lakes Training Transport: trainer-friendly company driver"
@@ -9354,7 +9388,7 @@ msgstr ""
 
 msgid ""
 "Higher percentage and on-time bonus for careful freight, with a smaller "
-"wage floor and more long-haul/high-value lanes."
+"wage floor and more long-haul and high-value lanes."
 msgstr ""
 
 msgid ""
@@ -9838,7 +9872,7 @@ msgstr ""
 
 msgid ""
 "Makes the truck burn less fuel at highway speed. It does not add more fuel "
-"capacity; it makes the same tank last longer. Buy it to save diesel money "
+"capacity. It makes the same tank last longer. Buy it to save diesel money "
 "over long highway miles."
 msgstr ""
 
@@ -9847,8 +9881,8 @@ msgstr ""
 
 msgid ""
 "Adds fifty gallons of fuel capacity. It does not make the truck more "
-"efficient; it lets you carry more fuel. Buy it for more distance between "
-"fuel stops and more route flexibility."
+"efficient. It carries more fuel. Buy it for more distance between fuel "
+"stops and more route flexibility."
 msgstr ""
 
 msgid "Reinforced brakes"
@@ -15911,7 +15945,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Listed pay is what the carrier earns; you are paid wages from it. Routing "
+"Listed pay is what the carrier earns. You are paid wages from it. Routing "
 "is assigned until you run your own truck."
 msgstr ""
 
@@ -15987,7 +16021,7 @@ msgid "Decline and request another load: {remaining} decline{s_ending} left"
 msgstr ""
 
 msgid ""
-"Dispatch picks another load. Costs reputation and one decline; declines "
+"Dispatch picks another load. Costs reputation and one decline. Declines "
 "refill at your next promotion."
 msgstr ""
 
@@ -16441,14 +16475,24 @@ msgstr ""
 msgid "Every cloud backup of it was removed from your orinks.net account."
 msgstr ""
 
+#. one sentence of a longer line
+msgid ""
+"The Cloud saves menu can remove them once this computer is signed in again."
+msgstr ""
+
+#. placeholders: {AUTH_HELP}
+#. one sentence of a longer line
+msgid "{AUTH_HELP} The cloud backups were not removed."
+msgstr ""
+
 #. placeholders: {AUTH_HELP}
 msgid ""
-"{AUTH_HELP} The cloud backups were not removed; the Cloud saves menu can "
+"{AUTH_HELP} The cloud backups were not removed. The Cloud saves menu can "
 "remove them once this computer is signed in again."
 msgstr ""
 
 msgid ""
-"The site could not be reached, so the cloud backups are still there; the "
+"The site could not be reached, so the cloud backups are still there. The "
 "Cloud saves menu can remove them later."
 msgstr ""
 
@@ -17161,8 +17205,8 @@ msgid "Stay a company driver"
 msgstr ""
 
 msgid ""
-"Keep the carrier's tractor and wages. The reminders about the buy-in stop; "
-"the buy-in itself stays open here."
+"Keep the carrier's tractor and wages. The reminders about the buy-in stop. "
+"The buy-in itself stays open here."
 msgstr ""
 
 msgid "Owner-operator path locked"
@@ -17687,8 +17731,12 @@ msgid ""
 " The carrier shop repaired {f} percent damage first, {f2} minutes on duty."
 msgstr ""
 
+#. one sentence of a longer line
+msgid "The unpaid balance is debt."
+msgstr ""
+
 #. placeholders: {grouped}
-msgid "You have {grouped} dollars; the unpaid balance is debt."
+msgid "You have {grouped} dollars. The unpaid balance is debt."
 msgstr ""
 
 #. placeholders: {grouped}
@@ -18063,11 +18111,11 @@ msgid ""
 msgstr ""
 
 msgid ""
-"A chain set is seven chains: four for the drive tires, one for a trailer "
-"tire, and two spares, the most any state here asks of a semi, plus two "
-"repair links. Put chains on from the pause menu once you're stopped in snow "
-"or ice. They wear out fast on bare pavement. Company drivers bill the "
-"carrier."
+"A chain set is seven chains and two repair links. Four chains go on the "
+"drive tires, one on a trailer tire, and two are spares, the most any state "
+"here asks of a semi. Put chains on from the pause menu once you're stopped "
+"in snow or ice. They wear out fast on bare pavement. Company drivers bill "
+"the carrier."
 msgstr ""
 
 msgid ""
@@ -29965,7 +30013,11 @@ msgid ""
 msgstr ""
 
 #. one sentence of a longer line
-msgid "Assigned loads; a refusal goes on your record."
+msgid "A refusal goes on your record."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Assigned loads."
 msgstr ""
 
 #. one sentence of a longer line
@@ -29991,11 +30043,11 @@ msgstr ""
 msgid ""
 "{prefix}First-day briefing: {carrier_name}. Truck at {location}. Carrier "
 "covers fuel, repairs, insurance, and trailers. Dispatch: {summary}. "
-"Assigned loads; a refusal goes on your record. Next: dispatch board."
+"Assigned loads. A refusal goes on your record. Next: dispatch board."
 msgstr ""
 
 msgid ""
-"Local service drives were retired in this update; you are parked at the "
+"Local service drives were retired in this update. You are parked at the "
 "terminal."
 msgstr ""
 
@@ -30218,7 +30270,7 @@ msgstr ""
 
 msgid ""
 "This career cannot continue in version 1.9. Enter explains and offers a new "
-"career; the save is not touched."
+"career. The save is not touched."
 msgstr ""
 
 msgid "Manage careers"
@@ -30228,6 +30280,10 @@ msgid ""
 "Up and Down pick a career, Enter opens reset and delete, Escape goes back."
 msgstr ""
 
+#. one sentence of a longer line
+msgid "Delete removes the save."
+msgstr ""
+
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "Manage {name}."
@@ -30235,11 +30291,11 @@ msgstr ""
 
 #. placeholders: {name}
 msgid ""
-"Manage {name}. Reset starts the career over; delete removes the save."
+"Manage {name}. Reset starts the career over. Delete removes the save."
 msgstr ""
 
 #. one sentence of a longer line
-msgid "Reset starts the career over; delete removes the save."
+msgid "Reset starts the career over."
 msgstr ""
 
 msgid ""
@@ -30349,7 +30405,7 @@ msgstr ""
 
 msgid ""
 "Delete removes this saved career from this computer for good. It also has "
-"cloud backups on your orinks.net account; choose whether they go too."
+"cloud backups on your orinks.net account. Choose whether they go too."
 msgstr ""
 
 msgid "Delete removes this saved career for good."
@@ -30399,14 +30455,20 @@ msgstr ""
 msgid "Back, nothing changed."
 msgstr ""
 
+#. one sentence of a longer line
+msgid ""
+"Cloud backup on the Online menu can remove them once this computer is "
+"signed in again."
+msgstr ""
+
 #. placeholders: {AUTH_HELP}
 msgid ""
-"{AUTH_HELP} The cloud backups were not removed; Cloud backup on the Online "
+"{AUTH_HELP} The cloud backups were not removed. Cloud backup on the Online "
 "menu can remove them once this computer is signed in again."
 msgstr ""
 
 msgid ""
-"The site could not be reached, so the cloud backups are still there; Cloud "
+"The site could not be reached, so the cloud backups are still there. Cloud "
 "backup on the Online menu can remove them later."
 msgstr ""
 
@@ -30449,7 +30511,7 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Your saved careers are from an earlier version of Freight Fate; they are "
+"Your saved careers are from an earlier version of Freight Fate. They are "
 "listed under Choose career. "
 msgstr ""
 
@@ -32211,7 +32273,7 @@ msgid "Career start"
 msgstr ""
 
 msgid ""
-"Company starts use assigned carrier equipment; the carrier pays fuel, "
+"Company starts use assigned carrier equipment. The carrier pays fuel, "
 "repairs, insurance, and trailer support. The owner-operator start is higher "
 "risk: you own a brand-new truck and pay business costs from day one. Enter "
 "selects, Escape goes back."
@@ -35060,7 +35122,7 @@ msgstr ""
 msgid ""
 "Freight Fate now keeps a driving record for your career: citations, serious "
 "violations, and whether your CDL is clear. Two serious violations in 180 "
-"days suspend it; running from a police stop is a major offense that "
+"days suspend it. Running from a police stop is a major offense that "
 "disqualifies it for a year. Reputation also decides how much freight "
 "dispatch shows you and how much choice you get. Nothing was reset or taken. "
 "{standing} {trust} {current_text}"
@@ -35078,8 +35140,12 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid ""
-"Two serious violations in 180 days suspend it; running from a police stop "
-"is a major offense that disqualifies it for a year."
+"Running from a police stop is a major offense that disqualifies it for a "
+"year."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Two serious violations in 180 days suspend it."
 msgstr ""
 
 msgid "Save file updated"
@@ -35093,15 +35159,13 @@ msgstr "Đã cập nhật tệp lưu."
 msgid ""
 "Save file updated. This career was converted from an older version: every "
 "truck you own now keeps its own fuel, damage, tire wear, and road grime. "
-"The truck you were driving keeps its condition; your other trucks start "
+"The truck you were driving keeps its condition. Your other trucks start "
 "fueled and fresh. The updated save no longer opens in older versions of the "
 "game. {current_text}"
 msgstr ""
 
 #. one sentence of a longer line
-msgid ""
-"The truck you were driving keeps its condition; your other trucks start "
-"fueled and fresh."
+msgid "The truck you were driving keeps its condition."
 msgstr ""
 
 #. one sentence of a longer line
@@ -35112,6 +35176,10 @@ msgstr ""
 msgid ""
 "This career was converted from an older version: every truck you own now "
 "keeps its own fuel, damage, tire wear, and road grime."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your other trucks start fueled and fresh."
 msgstr ""
 
 msgid ""

@@ -242,7 +242,7 @@ pub fn first_day_orientation_message(ctx: &GameContext, prefix: &str) -> String 
     }
     format!(
         "{prefix}First-day briefing: {}. Truck at {location}. Carrier covers fuel, repairs, \
-         insurance, and trailers. Dispatch: {}. Assigned loads; a refusal goes on your record. \
+         insurance, and trailers. Dispatch: {}. Assigned loads. A refusal goes on your record. \
          Next: dispatch board.",
         option.carrier_name,
         option.dispatch.summary()
@@ -297,7 +297,7 @@ pub fn world_entry_state(ctx: &mut GameContext, queue_entry_announcement: bool) 
             }
             ctx.save_profile();
             ctx.say(
-                "Local service drives were retired in this update; you are parked at the terminal.",
+                "Local service drives were retired in this update. You are parked at the terminal.",
             );
             return share(CityMenuState::new(ctx, true));
         }

@@ -68,7 +68,7 @@ pub fn career_level_guidance<P: CareerProfile + ?Sized>(profile: &P) -> CareerLe
     if is_owner_operator(status) && level >= 30 {
         return CareerLevelGuidance::new(
             "Top of the leased-on ladder",
-            "You reached level 30 as a leased-on owner-operator; own authority remains the one step left.",
+            "You reached level 30 as a leased-on owner-operator. Own authority is the one step left.",
             "proven owner-operator lane",
             "",
         );
@@ -76,7 +76,7 @@ pub fn career_level_guidance<P: CareerProfile + ?Sized>(profile: &P) -> CareerLe
     if is_owner_operator(status) && level >= 21 {
         return CareerLevelGuidance::new(
             "Build authority readiness",
-            "Keep working capital, trailer strategy, and direct-freight readiness in view.",
+            "Watch your working capital, your trailer plan, and what direct freight requires.",
             "authority-readiness lane",
             "",
         );
@@ -92,7 +92,7 @@ pub fn career_level_guidance<P: CareerProfile + ?Sized>(profile: &P) -> CareerLe
     if level >= OWNER_OPERATOR_LEVEL && profile.owner_operator_declined() {
         return CareerLevelGuidance::new(
             "Company driver by choice",
-            "You chose to stay on carrier equipment; the buy-in stays open under Business \
+            "You chose to stay on carrier equipment. The buy-in stays open under Business \
              status if you ever want it.",
             "top-seniority company lane",
             "",
@@ -109,7 +109,7 @@ pub fn career_level_guidance<P: CareerProfile + ?Sized>(profile: &P) -> CareerLe
     if level >= 25 {
         return CareerLevelGuidance::new(
             "Plan the next business step",
-            "You have senior company experience; use it to compare buy-in, lease, and authority timing.",
+            "You have senior company experience. Use it to compare buy-in, lease, and authority timing.",
             "business-decision lane",
             "",
         );
@@ -117,7 +117,7 @@ pub fn career_level_guidance<P: CareerProfile + ?Sized>(profile: &P) -> CareerLe
     if level >= 21 {
         return CareerLevelGuidance::new(
             "Build authority readiness",
-            "Keep savings, trailer knowledge, and direct-freight readiness in view before authority is real.",
+            "Build savings and trailer knowledge, and learn what direct freight requires, before you take own authority.",
             "authority-readiness lane",
             "",
         );
@@ -160,7 +160,7 @@ pub fn career_level_guidance<P: CareerProfile + ?Sized>(profile: &P) -> CareerLe
     if level >= SENIOR_LOAD_CHOICE_LEVEL {
         return CareerLevelGuidance::new(
             "Choose your own freight",
-            "Dispatch now trusts you to pick loads from the board; routing \
+            "Dispatch now trusts you to pick loads from the board. Routing \
              stays assigned until you run your own truck.",
             "self-picked reliable lane",
             "",
