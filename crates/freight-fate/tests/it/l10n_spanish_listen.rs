@@ -115,7 +115,7 @@ fn the_keyboard_help_is_whole_spanish() {
     harness.clear_speech();
     harness.with_drive(|drive, ctx| drive.speak_keyboard_help(ctx));
     let lines = harness.app.main_lines();
-    assert!(lines.join(" ").contains("tuning keys"), "{lines:?}");
+    assert!(lines.join(" ").contains("tuning key"), "{lines:?}");
     for line in &lines {
         assert_eq!(english_left(&es, line), Vec::<String>::new());
     }

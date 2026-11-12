@@ -58,7 +58,7 @@ fn test_driving_help_explains_automatic_direction_changes() {
     let said = last_help(&harness);
     assert!(!said.contains("direction changes"), "{said}");
     assert!(said.contains("press and hold it again"), "{said}");
-    assert!(said.contains("holds the truck"), "{said}");
+    assert!(said.contains("keeps the truck stopped"), "{said}");
     assert!(
         said.contains("R progress, distance left, and where you are"),
         "{said}"
@@ -85,7 +85,7 @@ fn test_driving_help_explains_automatic_direction_changes() {
         "{said}"
     );
     assert!(
-        said.contains("plans a stop for fuel, a break, sleep or food while rolling"),
+        said.contains("plans a stop for fuel, a break, sleep or food"),
         "{said}"
     );
     assert!(
@@ -144,7 +144,7 @@ fn test_how_to_play_documents_new_gameplay_systems() {
         "owner-operators choose a route after loading",
         "a nearby stop always comes first",
         "thirty minutes in a row without driving",
-        "both hours modes use these limits",
+        "realistic and relaxed hours use the same limits",
         "eleven driving hours",
         "fourteen-hour duty window",
         "three quarters as take-home",
@@ -160,7 +160,7 @@ fn test_how_to_play_documents_new_gameplay_systems() {
         "the deadline keeps running",
         "full lane keeping",
         "follow the safe turnaround",
-        "posted-limit drops",
+        "sharp drop in the posted limit",
         "cb chatter",
         "next multiple of five",
         "computer clock",

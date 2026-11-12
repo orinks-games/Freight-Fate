@@ -20108,14 +20108,15 @@ msgstr "{up} を押し続けて加速、{down} を押し続けてブレーキ。
 
 msgid ""
 "Tap the brake, then press again and hold half a second to latch it "
-"hands-free; a click and a spoken confirmation mark the catch."
-msgstr ""
-"ブレーキを軽く押してから、もう一度押して半秒押し続けると、手を離してもかかったままになります。カチッという音と読み上げの確認で、かかったことが分かります"
-"。"
+"hands-free."
+msgstr "ブレーキを軽く押してから、もう一度押して半秒押し続けると、手を離してもかかったままになります。"
+
+msgid "A click means it is latched."
+msgstr "カチッという音で、かかったことが分かります。"
 
 #. placeholders: {down}
-msgid "{down} once releases it; the accelerator releases it instantly."
-msgstr "{down}を1回押すと解除され、アクセルを踏むとすぐに解除されます。"
+msgid "{down} once releases it, and so does the accelerator."
+msgstr "{down}を1回押すと解除され、アクセルでも解除されます。"
 
 msgid "The throttle key never latches."
 msgstr "アクセルのキーは固定されません。"
@@ -20130,8 +20131,8 @@ msgid ""
 "While reversing, stop with {up}, release, then hold it again for forward."
 msgstr "バック中は{up}で停車して離し、もう一度押し続けると前進します。"
 
-msgid "A brake held through a stop just holds the truck."
-msgstr "停車までブレーキを押し続けたときは、トラックを止めておくだけです。"
+msgid "A brake held through a stop keeps the truck stopped."
+msgstr "停車までブレーキを押し続けると、トラックは止まったままです。"
 
 #. placeholders: {emergency_brake}
 msgid ""
@@ -20165,16 +20166,17 @@ msgstr "クルーズは標識の制限速度が大きく下がる手前と、低
 msgid "Braking cancels it."
 msgstr "ブレーキで解除されます。"
 
-msgid "At the planned pickup it pauses and resumes once you depart."
-msgstr "予定の集荷地点で一時停止し、出発すると再開します。"
+msgid "Cruise pauses at the planned pickup and resumes once you leave."
+msgstr "クルーズは予定の集荷地点で一時停止し、出発すると再開します。"
 
 msgid ""
-"Plus and minus, including the keypad keys, change the cruise speed by five; "
-"it never holds more than five over the posted limit."
-msgstr ""
-"プラスとマイナス、テンキーのものも含めて、一般道路の目標速度を 5 ずつ変えます。標識の制限速度を 5 より多く超えることはありません。"
+"Plus and minus, including the keypad keys, change the cruise speed by five."
+msgstr "プラスとマイナス、テンキーのものも含めて、クルーズの速度を 5 ずつ変えます。"
 
-msgid "Control with plus or minus, by one."
+msgid "Cruise never holds more than five over the posted limit."
+msgstr "クルーズは標識の制限速度を 5 より多く超えることはありません。"
+
+msgid "Control with plus or minus changes it by one."
 msgstr "Control とプラスまたはマイナスで 1 ずつ変えます。"
 
 #. placeholders: {cruise_resume}
@@ -20183,11 +20185,13 @@ msgstr "{cruise_resume} で前回のクルーズ速度に戻ります。"
 
 #. placeholders: {cruise}
 msgid ""
-"Parked with the parking brake set, {cruise} runs the engine at a fast idle; "
-"plus and minus adjust it, and releasing the parking brake drops it."
-msgstr ""
-"パーキングブレーキをかけて停車中は、{cruise}でエンジンを高めのアイドリングにします。プラスとマイナスで調整し、パーキングブレーキを解除すると止ま"
-"ります。"
+"Parked with the parking brake set, {cruise} runs the engine at a fast idle."
+msgstr "パーキングブレーキをかけて停車中は、{cruise}でエンジンを高めのアイドリングにします。"
+
+msgid ""
+"Plus and minus adjust the fast idle, and releasing the parking brake drops "
+"it."
+msgstr "プラスとマイナスで高めのアイドリングを調整し、パーキングブレーキを解除すると止まります。"
 
 #. placeholders: {exit}
 msgid ""
@@ -20201,9 +20205,9 @@ msgid ""
 msgstr "レーンキープがフルでなければ、右車線に移り、出口車線が始まるところで右に切って入ってください。"
 
 msgid ""
-"Keep road speed to there, then brake to the exit speed before the ramp "
-"curve."
-msgstr "そこまでは道路の速度を保ち、ランプのカーブの手前で出口速度までブレーキをかけます。"
+"Keep road speed until the exit lane, then brake to the exit speed before "
+"the ramp curve."
+msgstr "出口車線までは道路の速度を保ち、ランプのカーブの手前で出口速度までブレーキをかけます。"
 
 msgid ""
 "Ramps usually end at a traffic light or stop sign, called out on the way "
@@ -20212,11 +20216,12 @@ msgstr "ランプはたいてい信号か一時停止標識で終わり、下る
 
 #. placeholders: {exit}
 msgid ""
-"{exit} also signals a pull-over when a trooper signals you to pull over for "
-"speeding, a scale bypass, or unsafe equipment: signal, then brake to a stop."
-msgstr ""
-"スピード違反、計量所の素通り、整備不良で警官に停車を命じられたときも、{exit}で路肩に寄ることを合図します。ウインカーを出してから、止まるまでブレー"
-"キをかけてください。"
+"When a trooper signals you to pull over for speeding, a scale bypass, or "
+"unsafe equipment, {exit} signals the pull-over."
+msgstr "スピード違反、計量所の素通り、整備不良で警官に停車を命じられたときは、{exit}で路肩に寄ることを合図します。"
+
+msgid "Then brake to a stop."
+msgstr "そのあと、止まるまでブレーキをかけます。"
 
 msgid ""
 "Ignoring the lights brings failure-to-stop warnings, then a stop that "
@@ -20228,38 +20233,42 @@ msgid "{clock} also speaks the date and season."
 msgstr "{clock} は日付と季節も読み上げます。"
 
 #. placeholders: {radio}
-msgid "{radio} toggles the in-cab radio."
-msgstr "{radio} で車内ラジオのオンとオフを切り替えます。"
+msgid "{radio} turns the radio on or off."
+msgstr "{radio} でラジオのオンとオフを切り替えます。"
 
 msgid ""
-"Page Down tunes to the next station, Page Up to the previous; semicolon and "
-"apostrophe do the same."
-msgstr "Page Down で次の局、Page Up で前の局に合わせます。セミコロンとアポストロフィも同じです。"
+"Page Down or apostrophe tunes to the next station, Page Up or semicolon to "
+"the previous one."
+msgstr "Page Down かアポストロフィーで次の局に、Page Up かセミコロンで前の局に合わせます。"
+
+msgid "Control with a tuning key jumps a category."
+msgstr "Control と選局キーでカテゴリーを移動します。"
 
 msgid ""
-"Control with the tuning keys jumps a category; Shift changes the radio "
-"volume in 10 percent steps, on or off."
-msgstr "Control と選局キーでカテゴリーを移動します。Shift でラジオ音量を 10 パーセントずつ変え、オンとオフも切り替えます。"
+"Shift with a tuning key changes the radio volume in 10 percent steps, with "
+"the radio on or off."
+msgstr "Shift と選局キーでラジオ音量を 10 パーセントずつ変えます。ラジオがオンでもオフでも使えます。"
 
 #. placeholders: {favorite}
-msgid "{favorite} saves or unsaves the station as a favorite."
+msgid "{favorite} saves the station as a favorite or removes it."
 msgstr "{favorite} で局をお気に入りに保存、または解除します。"
 
-#. placeholders: {radio_status}, {now_playing}
-msgid ""
-"{radio_status} speaks station, volume, and streamer-safe status; "
-"{now_playing} speaks the song when the station says."
-msgstr ""
-"{radio_status} は局、音量、配信セーフの状態を読み上げます。{now_playing} は局が伝えていれば曲を読み上げます。"
+#. placeholders: {radio_status}
+msgid "{radio_status} speaks station, volume, and streamer-safe status."
+msgstr "{radio_status} は局、音量、配信セーフの状態を読み上げます。"
 
-#. placeholders: {status}
+#. placeholders: {now_playing}
+msgid "{now_playing} speaks the song when the station sends it."
+msgstr "{now_playing} は局が伝えていれば曲を読み上げます。"
+
 msgid ""
 "The Driver apps tablet has a Radio app to search the dial, tune by name, "
-"and keep favorites; the {status} status menu has a radio screen of "
-"receivable stations."
-msgstr ""
-"ドライバーアプリのタブレットにはラジオアプリがあり、ダイヤルの検索、名前での選局、お気に入りの保存ができます。{status} "
-"のステータスメニューには受信できる局のラジオ画面があります。"
+"and keep favorites."
+msgstr "ドライバーアプリのタブレットにはラジオアプリがあり、ダイヤルの検索、名前での選局、お気に入りの保存ができます。"
+
+#. placeholders: {status}
+msgid "The {status} status menu has a radio screen of receivable stations."
+msgstr "{status} のステータスメニューには受信できる局のラジオ画面があります。"
 
 #. placeholders: {engine}
 msgid ""
@@ -20304,14 +20313,18 @@ msgstr "{fuel}で燃料。"
 msgid "{clock} clock, deadline, and the hours limit that comes first."
 msgstr "{clock} 時刻、期限、最初に来る時間の上限。"
 
-#. placeholders: {hos_wheel}, {hos_break}, {hos_drive}
+#. placeholders: {hos_wheel}
+msgid "{hos_wheel} time at the wheel so far."
+msgstr "{hos_wheel} これまでの運転時間。"
+
+#. placeholders: {hos_break}
+msgid "{hos_break} when your 30 minute break is due."
+msgstr "{hos_break} 30 分休憩の期限。"
+
+#. placeholders: {hos_drive}
 msgid ""
-"{hos_wheel} time at the wheel so far, {hos_break} when your 30 minute break "
-"is due, {hos_drive} what ends this shift and where you can legally stop "
-"before it."
-msgstr ""
-"{hos_wheel} これまでの運転時間、{hos_break} 30 分休憩の期限、{hos_drive} "
-"このシフトを終わらせるものと、その前に合法的に停まれる場所。"
+"{hos_drive} what ends this shift and where you can legally stop before it."
+msgstr "{hos_drive} このシフトを終わらせるものと、その前に合法的に停まれる場所。"
 
 #. placeholders: {route}
 msgid "{route} progress, distance left, and where you are."
@@ -20354,7 +20367,7 @@ msgid "{cb} repeats the last CB chatter, with the distance as it is now."
 msgstr "{cb} で最後の CB 無線の会話を、今の距離で繰り返します。"
 
 msgid ""
-"Comma repeats what was just said and keeps stepping back; Period moves "
+"Comma repeats what was just said and keeps stepping back. Period moves "
 "forward again."
 msgstr "カンマで今の発言を繰り返し、さらにさかのぼります。ピリオドで先に進みます。"
 
@@ -20381,14 +20394,14 @@ msgid ""
 msgstr ""
 "{upcoming}でこの先のことを読み上げます：合図を出した出口、ランプの先の信号か一時停止、次に下がる制限速度、次の停車地、減速が必要な次のカーブ。"
 
-#. placeholders: {safe_speed}
 msgid ""
-"Bends that demand slowing are called before they arrive, like Sharp left, "
-"half a mile, advise 35; {safe_speed} gives one safe-speed number with the "
-"bend in it."
-msgstr ""
-"減速が必要なカーブは手前で案内されます。たとえば、左急カーブ、半マイル、推奨 35 のように。{safe_speed} はカーブを含めた安全速度を 1 "
-"つだけ伝えます。"
+"Bends you need to slow for are called before they arrive, for example Sharp "
+"left, half a mile, advise 35."
+msgstr "減速が必要なカーブは手前で案内されます。たとえば、左急カーブ、半マイル、推奨 35 のように。"
+
+#. placeholders: {safe_speed}
+msgid "{safe_speed} gives one safe speed that includes the bend."
+msgstr "{safe_speed} はカーブを含めた安全速度を 1 つだけ伝えます。"
 
 #. placeholders: {status}
 msgid ""
@@ -20401,20 +20414,22 @@ msgid "Left or Right Control stops the driving event voice."
 msgstr "左または右の Control で運転イベントの音声を止めます。"
 
 #. placeholders: {left}, {right}
-msgid ""
-"{left} and {right} steer unless lane keeping is on full; steer across the "
-"lane line to change lanes."
-msgstr "レーンキープがフルでなければ {left} と {right} でハンドルを切ります。車線の線を越えると車線変更です。"
+msgid "{left} and {right} steer unless lane keeping is on full."
+msgstr "レーンキープがフルでなければ {left} と {right} でハンドルを切ります。"
+
+msgid "Steer across the lane line to change lanes."
+msgstr "車線の線を越えると車線変更です。"
 
 #. placeholders: {left}, {right}
 msgid "On full, tap {left} or {right}."
 msgstr "フルのときは、{left}か{right}を軽く押します。"
 
 #. placeholders: {straighten}
-msgid ""
-"Hold {straighten} to point the truck straight down the road; where it sits "
-"in the lane stays yours to fix."
-msgstr "{straighten} を押し続けるとトラックを道路の向きにまっすぐ合わせます。車線内の位置は自分で直します。"
+msgid "Hold {straighten} to point the truck straight down the road."
+msgstr "{straighten} を押し続けるとトラックを道路の向きにまっすぐ合わせます。"
+
+msgid "Your place in the lane stays yours to correct."
+msgstr "車線内の位置は自分で直します。"
 
 msgid "Exits leave from the right lane."
 msgstr "出口は右車線から分かれます。"
@@ -20422,7 +20437,7 @@ msgstr "出口は右車線から分かれます。"
 msgid ""
 "Change lanes or brake means something in your lane: take the open lane it "
 "names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
-"Tire debris is driven over; nothing brakes for it."
+"Tire debris is driven over. Nothing brakes for it."
 msgstr ""
 "車線変更かブレーキは、車線上に何かがあることを意味します。案内された空いている車線に移るか、時速30マイルまで落として越えてください。落石や止まった車は"
 "停止が必要です。タイヤの破片はそのまま乗り越えます。何もブレーキをかけません。"
@@ -20460,13 +20475,15 @@ msgid ""
 "switches heat and air conditioning."
 msgstr "{window}で運転席の窓を開け閉め、{fan}でファンの強さを切り替え、{climate}で暖房と冷房を切り替えます。"
 
-#. placeholders: {engine_brake}, {jake1}, {jake2}, {jake3}
+#. placeholders: {engine_brake}
+msgid "{engine_brake} engine brake."
+msgstr "{engine_brake} エンジンブレーキ。"
+
+#. placeholders: {jake1}, {jake2}, {jake3}
 msgid ""
-"{engine_brake} engine brake; on an automatic it manages its own stage, and "
-"{jake1}, {jake2}, {jake3} take manual control."
-msgstr ""
-"{engine_brake} エンジンブレーキ。オートマでは段階を自分で調整し、{jake1}、{jake2}、{jake3} "
-"で手動操作に切り替わります。"
+"On an automatic it manages its own stage, and {jake1}, {jake2}, {jake3} "
+"take manual control."
+msgstr "オートマでは段階を自分で調整し、{jake1}、{jake2}、{jake3} で手動操作に切り替わります。"
 
 #. placeholders: {auto_jake}, {engine_brake}
 msgid "{auto_jake} chooses whether {engine_brake} runs the automatic mode."
@@ -20487,10 +20504,10 @@ msgstr "Shift F1 で各キーの役割を読み上げます。"
 
 #. placeholders: {shift_up}, {shift_down}, {reverse}, {neutral}
 msgid ""
-"Hold Left Shift for clutch, then {shift_up} to shift up or {shift_down} to "
-"shift down, {reverse} for reverse, {neutral} for neutral."
+"Hold either Shift key for the clutch, then {shift_up} to shift up or "
+"{shift_down} to shift down, {reverse} for reverse, {neutral} for neutral."
 msgstr ""
-"左 Shift を押し続けてクラッチにし、{shift_up} でシフトアップ、{shift_down} でシフトダウン、{reverse} "
+"どちらかの Shift を押し続けてクラッチにし、{shift_up} でシフトアップ、{shift_down} でシフトダウン、{reverse} "
 "でリバース、{neutral} でニュートラルです。"
 
 msgid ""
@@ -20498,21 +20515,25 @@ msgid ""
 "shortcuts."
 msgstr "これらのキーはすべて、設定のゲームプレイ、操作、ショートカットキーで変えられます。"
 
-msgid ""
-"Right trigger is the gas, left trigger the brake; the left trigger fully in "
-"is the hardest stop."
-msgstr "右トリガーがアクセル、左トリガーがブレーキです。左トリガーを奥まで引くと最も強い停止です。"
+msgid "Right trigger is the gas, left trigger the brake."
+msgstr "右トリガーがアクセル、左トリガーがブレーキです。"
+
+msgid "The left trigger fully in is the hardest stop."
+msgstr "左トリガーを奥まで引くと最も強い停止です。"
+
+msgid "The left stick steers."
+msgstr "左スティックでハンドルを切ります。"
 
 msgid ""
-"The left stick steers; with lane keeping on full, pushing it left or right "
-"changes one lane."
-msgstr "Left stick でハンドルを切ります。レーンキープがフルのときは、左右に倒すと1車線変更します。"
+"With lane keeping on full, pushing it left or right changes one lane."
+msgstr "レーンキープがフルのときは、左右に倒すと1車線変更します。"
 
-#. placeholders: {shift_up}, {shift_down}
-msgid ""
-"Hold the left bumper for the clutch; {shift_up} shifts up a gear, "
-"{shift_down} shifts down."
-msgstr "左バンパーを押し続けてクラッチにします。{shift_up} で 1 段シフトアップ、{shift_down} でシフトダウンです。"
+msgid "Hold the left bumper for the clutch."
+msgstr "左バンパーを押し続けてクラッチにします。"
+
+#. placeholders: {shift_up_cap}, {shift_down}
+msgid "{shift_up_cap} shifts up a gear, {shift_down} shifts down."
+msgstr "{shift_up_cap} で 1 段シフトアップ、{shift_down} でシフトダウンです。"
 
 msgid ""
 "In automatic, stop, let the left trigger return to neutral, then press and "
@@ -20544,11 +20565,6 @@ msgid ""
 "rolling."
 msgstr "予定の集荷の間は一時停止し、積載したトラックが走り出すと再開します。"
 
-#. placeholders: {cruise}
-msgid ""
-"Parked with the parking brake set, {cruise} runs the engine at a fast idle."
-msgstr "パーキングブレーキをかけて停車中は、{cruise}でエンジンを高めのアイドリングにします。"
-
 #. placeholders: {take_exit}
 msgid ""
 "{take_exit} signals for the next announced exit, or a pull-over when a "
@@ -20569,13 +20585,25 @@ msgstr "{speed} で速度を読み上げます。"
 msgid "{horn} sounds the horn, {engine_brake} the engine brake."
 msgstr "{horn} でホーン、{engine_brake} でエンジンブレーキです。"
 
-#. placeholders: {engine}, {fuel}, {speed_limit}, {parking_brake}, {rest}
+#. placeholders: {engine}, {fuel}
+msgid "{engine} starts or stops the engine, and {fuel} reads fuel."
+msgstr "{engine} でエンジンをかけたり止めたりし、{fuel} で燃料を読み上げます。"
+
+#. placeholders: {speed_limit_cap}
 msgid ""
-"{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads "
-"the posted speed limit here and how far over you are, {parking_brake} sets "
-"or releases the parking brake, {rest} plans a stop for fuel, a break, sleep "
-"or food while rolling; stopped at a stop, it opens its actions."
-msgstr ""
+"{speed_limit_cap} reads the posted speed limit and how far over you are."
+msgstr "{speed_limit_cap} で、表示された制限速度とどれだけ超えているかを読み上げます。"
+
+#. placeholders: {parking_brake_cap}
+msgid "{parking_brake_cap} sets or releases the parking brake."
+msgstr "{parking_brake_cap} で駐車ブレーキをかけたり解除したりします。"
+
+#. placeholders: {rest}
+msgid "While rolling, {rest} plans a stop for fuel, a break, sleep or food."
+msgstr "走行中は、{rest} で給油、休憩、睡眠、食事のための停車を予定します。"
+
+msgid "Stopped at a stop, it opens that stop's actions."
+msgstr "停車地で停まっているときは、その停車地の操作を開きます。"
 
 msgid ""
 "Away from route points while fully stopped, it opens emergency shoulder "
@@ -20615,7 +20643,7 @@ msgid "Start pauses and unpauses."
 msgstr "Start でポーズと再開。"
 
 msgid ""
-"The Back button stops the driving voice while it is speaking; when nothing "
+"The Back button stops the driving voice while it is speaking. When nothing "
 "is being said, it repeats this help."
 msgstr "Back ボタンは運転音声が話している間はそれを止めます。何も話していないときは、このヘルプを繰り返します。"
 
@@ -20626,15 +20654,15 @@ msgstr "これらのボタンはすべて、設定のゲームプレイ、操作
 
 msgid ""
 "A flick is one step. A swipe and hold is continuous. Everything works "
-"anywhere on the screen. Swipe up and hold for gas; lift to coast. Swipe "
+"anywhere on the screen. Swipe up and hold for gas. Lift to coast. Swipe "
 "down and hold to brake. Swipe down three times as deep for the emergency "
-"brake; stopped, that sets the parking brake, and gas releases it. "
+"brake. Stopped, that sets the parking brake, and gas releases it. "
 msgstr ""
 "フリックは1段階です。スワイプして長押しすると続けて効きます。どれも画面のどこでも使えます。上にスワイプして長押しでアクセル、指を離すと惰性で走ります。"
-"下にスワイプして長押しでブレーキです。3倍深く下にスワイプすると非常ブレーキで、停まっているときは駐車ブレーキをかけ、アクセルで解除します。 "
+"下にスワイプして長押しでブレーキです。3倍深く下にスワイプすると非常ブレーキです。停まっているときは駐車ブレーキがかかり、アクセルで解除されます。 "
 
 msgid ""
-"Flick left or right to change lanes; with lane keeping on full, flicks are "
+"Flick left or right to change lanes. With lane keeping on full, flicks are "
 "the only lane control. "
 msgstr "左右にフリックすると車線を変えます。レーンキープがフルのときは、フリックだけが車線の操作です。 "
 
@@ -20647,13 +20675,13 @@ msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
 "cruise off, flick up to resume the last speed and flick down to set the "
 "current speed. Turn two fingers right like a key to start the engine, left "
-"to stop it. Hold two fingers for the horn; turning them cancels it. While "
+"to stop it. Hold two fingers for the horn. Turning them cancels it. While "
 "holding a pedal, a second finger's flicks and holds work the same way, and "
 "in automatic its shift flicks say the gear. "
 msgstr ""
 "1本の指を半秒動かさずに押さえると、ハンドルをまっすぐに戻します。クルーズがオフのときは、上にフリックで前回の速度に戻し、下にフリックで今の速度を設定し"
-"ます。2本の指をキーのように右に回すとエンジンがかかり、左に回すと止まります。2本の指で押さえるとクラクションで、回すと取り消します。ペダルを押さえてい"
-"る間は、2本目の指のフリックと長押しが同じように働き、自動変速ではシフトのフリックでギアを伝えます。 "
+"ます。2本の指をキーのように右に回すとエンジンがかかり、左に回すと止まります。2本の指で押さえるとクラクションです。指を回すと取り消します。ペダルを押さ"
+"えている間は、2本目の指のフリックと長押しも同じように働き、オートマではシフトのフリックでギアを読み上げます。 "
 
 msgid ""
 "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
@@ -33264,46 +33292,39 @@ msgid "Main menu"
 msgstr "メインメニュー"
 
 msgid ""
-"Welcome to Freight Fate. Start a trucking career, learn the road sounds, "
-"and choose the work you want to haul."
-msgstr "Freight Fateへようこそ。トラック運転手のキャリアを始め、道路の音を覚え、運びたい仕事を選びましょう。"
+"Welcome to Freight Fate. Start a trucking career and learn the road sounds."
+msgstr "Freight Fateへようこそ。トラック運転手のキャリアを始め、道路の音を覚えましょう。"
+
+msgid "Choose New career to create a driver."
+msgstr "新しいキャリアを選ぶとドライバーを作れます。"
+
+msgid "Learn game sounds plays each road cue and explains it."
+msgstr "ゲームの音を覚えるでは、道路の合図を一つずつ鳴らし、説明します。"
 
 msgid ""
-"Choose New career to create a driver. Before starting, you can explore the "
-"help, sounds, and settings."
-msgstr "新しいキャリアを選ぶとドライバーを作れます。始める前に、ヘルプ、音、設定を見ておくこともできます。"
-
-msgid ""
-"How to play is this guide. Learn game sounds lets you hear a road cue and "
-"learn what it means."
-msgstr "遊び方は、このガイドです。ゲームの音を覚えるでは、道路の合図を聞いて、その意味を覚えられます。"
-
-msgid ""
-"Settings lets you change driving assistance, sound, speech, and controls. "
-"Report a problem opens the bug-report page in your browser. Quit closes the "
-"game."
+"Settings changes driving assistance, sound, speech, and controls. Report a "
+"problem opens the bug-report page in your browser. Quit closes the game."
 msgstr ""
 "設定では、運転アシスト、音、読み上げ、操作を変えられます。問題を報告は、ブラウザーでバグ報告のページを開きます。終了はゲームを閉じます。"
 
 msgid ""
-"Achievements lets you review a saved driver's earned and locked "
-"achievements. With no saved careers, there is no record to review yet."
-msgstr "実績では、保存したドライバーの獲得済みと未獲得の実績を確認できます。保存したキャリアがなければ、まだ確認する記録はありません。"
+"Achievements lists a saved driver's earned and locked achievements. It "
+"needs a saved career."
+msgstr "実績では、保存したドライバーの獲得済みと未獲得の実績を一覧にします。保存したキャリアが必要です。"
 
 msgid ""
-"Online brings together driver profiles, account achievements, sharing, and "
-"private cloud backups."
-msgstr "オンラインには、ドライバープロフィール、アカウントの実績、共有、非公開のクラウドバックアップがまとまっています。"
+"Online has driver profiles, account achievements, sharing, and private "
+"cloud backups."
+msgstr "オンラインには、ドライバープロフィール、アカウントの実績、共有、非公開のクラウドバックアップがあります。"
 
 msgid ""
 "Once you have a saved career, Continue returns to your newest saved trip. "
-"Choose career lets you select another driver."
-msgstr "保存したキャリアがあれば、続けるで一番新しい保存した運行に戻ります。キャリアを選ぶで、別のドライバーを選べます。"
+"Choose career switches to another driver."
+msgstr "保存したキャリアがあれば、続けるで一番新しい保存した運行に戻ります。キャリアを選ぶで、別のドライバーに切り替えます。"
 
 msgid ""
-"Manage careers offers reset and deletion. The game asks you to confirm "
-"before either happens."
-msgstr "キャリアの管理では、リセットと削除ができます。どちらも実行する前に確認があります。"
+"Manage careers resets or deletes a career. Both ask you to confirm first."
+msgstr "キャリアの管理では、キャリアをリセットまたは削除します。どちらも先に確認があります。"
 
 msgid "Your first delivery"
 msgstr "最初の配達"
@@ -33343,18 +33364,18 @@ msgid ""
 msgstr "精算を読んでから、目的地のターミナルから続けます。経験を積むにつれて、キャリアプランが次の一歩を説明します。"
 
 msgid ""
-"For a first drive, All assists handles steering while you learn the sounds. "
+"For a first drive, All assists steers for you while you learn the sounds. "
 "Change it under Settings, Gameplay, Driving assistance."
-msgstr "最初の運転では、すべてのアシストが操舵を受け持つので、その間に音を覚えられます。設定のゲームプレイ、運転アシストで変えられます。"
+msgstr "最初の運転では、すべてのアシストが代わりに操舵するので、その間に音を覚えられます。設定のゲームプレイ、運転アシストで変えられます。"
 
 msgid "Menus and message review"
 msgstr "メニューとメッセージの振り返り"
 
 msgid ""
-"Up and Down choose an option. Enter or Space selects it; Escape returns. "
+"Up and Down choose an option. Enter or Space selects it. Escape goes back. "
 "Home and End jump to the first or last option."
 msgstr ""
-"上下で項目を選びます。Enter か Space で決定し、Escape で戻ります。Home と End で最初と最後の項目に移ります。"
+"上下で項目を選びます。Enter か Space で決定します。Escape で戻ります。Home と End で最初と最後の項目に移ります。"
 
 msgid ""
 "Type a letter to find an option starting with it. F1 explains the selected "
@@ -33378,10 +33399,10 @@ msgstr ""
 
 msgid ""
 "In How to play, Left and Right or the Page keys change pages. Up and Down "
-"let you read a little at a time. Enter or Space reads the page; either "
+"read one line at a time. Enter or Space reads the whole page. Either "
 "Control key or F1 stops speech."
 msgstr ""
-"遊び方では、左右か Page キーでページを変えます。上下で少しずつ読めます。Enter か Space でページを読み、左右どちらかの "
+"遊び方では、左右か Page キーでページを変えます。上下で1行ずつ読みます。Enter か Space でページ全体を読みます。左右どちらかの "
 "Control か F1 で読み上げを止めます。"
 
 msgid ""
@@ -33391,20 +33412,20 @@ msgstr "ゲームの音を覚えるでは、道路の合図を鳴らして意味
 
 msgid ""
 "Practice keys and buttons names what each key or controller button does "
-"while driving, without moving the truck. Shift F1 opens it from any screen, "
-"as does holding Back and pressing Start on a controller. It is also on the "
-"main and pause menus. Press Escape or Start twice to leave."
+"while driving, without moving the truck. Shift F1 opens it from any screen. "
+"On a controller, hold Back and press Start. It is also on the main and "
+"pause menus. Press Escape or Start twice to leave."
 msgstr ""
 "キーとボタンの練習では、トラックを動かさずに、運転中に各キーやコントローラーのボタンが何をするかを読み上げます。どの画面でも Shift F1 "
-"で開け、コントローラーで Back を押したまま Start を押しても開けます。メインメニューと一時停止メニューにもあります。Escape か "
-"Start を2回押すと終了します。"
+"で開けます。コントローラーでは Back を押したまま Start を押します。メインメニューと一時停止メニューにもあります。Escape か "
+"Start を2回押すと終わります。"
 
 msgid "Starting and stopping the truck"
 msgstr "トラックの発進と停止"
 
 #. one sentence of a longer line
-msgid "To shut it down, slow below five miles per hour."
-msgstr "エンジンを止めるには、時速5マイル未満に減速してください。"
+msgid "It stops the engine only below five miles per hour."
+msgstr "エンジンを止めるのは時速5マイル未満のときだけです。"
 
 #. placeholders: {control_engine}
 #. one sentence of a longer line
@@ -33413,9 +33434,9 @@ msgstr "{control_engine}でエンジンをかけます。"
 
 #. placeholders: {control_engine}
 msgid ""
-"{control_engine} starts the engine. To shut it down, slow below five miles "
-"per hour."
-msgstr "{control_engine}でエンジンをかけます。エンジンを止めるには、時速5マイル未満に減速してください。"
+"{control_engine} starts the engine. It stops the engine only below five "
+"miles per hour."
+msgstr "{control_engine}でエンジンをかけます。エンジンを止めるのは時速5マイル未満のときだけです。"
 
 #. one sentence of a longer line
 msgid "Repeated hard braking uses air."
@@ -33424,14 +33445,14 @@ msgstr "強いブレーキを繰り返すとエアを使います。"
 #. placeholders: {control_parking_brake}
 #. one sentence of a longer line
 msgid ""
-"Wait for air pressure to reach 100 psi, then use {control_parking_brake} to "
-"release the parking brake."
+"Wait for air pressure to reach 100 psi, then {control_parking_brake} "
+"releases the parking brake."
 msgstr "エア圧が100 psiになるのを待ってから、{control_parking_brake}で駐車ブレーキを解除します。"
 
 #. placeholders: {control_parking_brake}
 msgid ""
-"Wait for air pressure to reach 100 psi, then use {control_parking_brake} to "
-"release the parking brake. Repeated hard braking uses air."
+"Wait for air pressure to reach 100 psi, then {control_parking_brake} "
+"releases the parking brake. Repeated hard braking uses air."
 msgstr ""
 "エア圧が100 "
 "psiになるのを待ってから、{control_parking_brake}で駐車ブレーキを解除します。強いブレーキを繰り返すとエアを使います。"
@@ -33563,10 +33584,12 @@ msgid "Cruise and hills"
 msgstr "クルーズと坂道"
 
 #. one sentence of a longer line
-msgid ""
-"On open roads it follows traffic; on low-speed roads it follows local "
-"limits, queues and corners."
-msgstr "開けた道路では交通に合わせ、低速の道では地域の制限、渋滞、カーブに合わせます。"
+msgid "On low-speed roads it follows local limits, queues and corners."
+msgstr "低速の道では地域の制限、渋滞、カーブに合わせます。"
+
+#. one sentence of a longer line
+msgid "On open roads it follows traffic."
+msgstr "開けた道路では交通に合わせます。"
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
@@ -33575,15 +33598,15 @@ msgstr "{control_cruise}でクルーズをオンにします。"
 
 #. placeholders: {control_cruise}
 msgid ""
-"{control_cruise} turns cruise on. On open roads it follows traffic; on "
+"{control_cruise} turns cruise on. On open roads it follows traffic. On "
 "low-speed roads it follows local limits, queues and corners."
 msgstr ""
-"{control_cruise}でクルーズをオンにします。開けた道路では交通に合わせ、低速の道では地域の制限、渋滞、カーブに合わせます。"
+"{control_cruise}でクルーズをオンにします。開けた道路では交通に合わせます。低速の道では地域の制限、渋滞、カーブに合わせます。"
 
 msgid ""
-"Cruise follows traffic. Its normal three second clear-weather gap increases "
-"in poor weather. It does not steer."
-msgstr "クルーズは前の車に合わせて走ります。晴天時の通常3秒の車間は、天気が悪いと広がります。操舵はしません。"
+"Cruise follows traffic. Its normal gap is three seconds in clear weather "
+"and longer in poor weather. It does not steer."
+msgstr "クルーズは交通に合わせて走ります。通常の車間は晴天時に3秒で、天気が悪いと長くなります。操舵はしません。"
 
 msgid ""
 "Plus and Minus, including keypad keys, move the cruise speed to the next "
@@ -33592,18 +33615,18 @@ msgstr "プラスとマイナスのキーは、テンキーも含め、一般道
 
 #. one sentence of a longer line
 msgid ""
-"Cruise prepares for sharp posted-limit drops and holds no more than five "
-"over the posted limit."
-msgstr "クルーズは、表示された制限速度が大きく下がる前に備え、制限速度プラス5までしか出しません。"
+"Cruise slows early for a sharp drop in the posted limit, and never holds "
+"more than five over it."
+msgstr "表示された制限速度が大きく下がるときはクルーズが早めに減速し、制限速度を 5 より多く超えることはありません。"
 
 #. placeholders: {control_speed}
 msgid ""
-"Cruise prepares for sharp posted-limit drops and holds no more than five "
-"over the posted limit. {control_speed} reads the active speed-control mode "
+"Cruise slows early for a sharp drop in the posted limit, and never holds "
+"more than five over it. {control_speed} reads the active speed-control mode "
 "and cruise speed."
 msgstr ""
-"クルーズは、表示された制限速度が大きく下がる前に備え、制限速度プラス5までしか出しません。{control_speed}で、作動中の速度制御のモードと一"
-"般道路での目標を読み上げます。"
+"表示された制限速度が大きく下がるときはクルーズが早めに減速し、制限速度を 5 "
+"より多く超えることはありません。{control_speed}で、作動中の速度制御のモードとクルーズの速度を読み上げます。"
 
 #. placeholders: {control_speed}
 #. one sentence of a longer line
@@ -33641,11 +33664,11 @@ msgid "{control_cruise_resume} resumes the previous target."
 msgstr "{control_cruise_resume}で前の目標に戻ります。"
 
 msgid ""
-"Before a descent, reduce speed and choose a lower gear. Use the engine "
-"brake for steady control and short brake applications with cooling time "
-"between them."
+"Before a descent, reduce speed and choose a lower gear. Hold speed with the "
+"engine brake. Use the brakes in short presses, with time to cool between "
+"them."
 msgstr ""
-"下り坂の前には減速し、低いギアを選んでください。安定した制御にはエンジンブレーキを使い、ブレーキは短くかけて、その間に冷ます時間を取ってください。"
+"下り坂の前には減速し、低いギアを選んでください。エンジンブレーキで速度を保ってください。ブレーキは短くかけ、その間に冷ます時間を取ってください。"
 
 #. placeholders: {control_jake_stage_1}, {control_jake_stage_2}, {control_jake_stage_3}
 #. one sentence of a longer line
@@ -33658,8 +33681,8 @@ msgstr ""
 
 #. placeholders: {control_auto_jake}
 #. one sentence of a longer line
-msgid "{control_auto_jake} selects automatic or manual stage management."
-msgstr "{control_auto_jake}で段階を自動で管理するか手動で管理するかを選びます。"
+msgid "{control_auto_jake} switches between automatic and manual stages."
+msgstr "{control_auto_jake}で段階の自動と手動を切り替えます。"
 
 #. placeholders: {control_engine_brake}
 #. one sentence of a longer line
@@ -33670,12 +33693,12 @@ msgstr "{control_engine_brake}でエンジンブレーキを有効にします�
 msgid ""
 "{control_engine_brake} enables the engine brake. While enabled, "
 "{control_jake_stage_1}, {control_jake_stage_2}, and {control_jake_stage_3} "
-"choose its stage. {control_auto_jake} selects automatic or manual stage "
-"management."
+"choose its stage. {control_auto_jake} switches between automatic and manual "
+"stages."
 msgstr ""
 "{control_engine_brake}でエンジンブレーキを有効にします。有効な間は、{control_jake_stage_1}、{control"
-"_jake_stage_2}、{control_jake_stage_3}で段階を選びます。{control_auto_jake}で段階を自動で管理する"
-"か手動で管理するかを選びます。"
+"_jake_stage_2}、{control_jake_stage_3}で段階を選びます。{control_auto_jake}で段階の自動と手動を切"
+"り替えます。"
 
 #. one sentence of a longer line
 msgid "Hot brakes lose stopping power."
@@ -33702,18 +33725,22 @@ msgid ""
 msgstr "{control_safe_speed}で、積荷、勾配、天気、カーブに合った安全速度を伝えます。"
 
 msgid ""
-"Noise-restricted towns warn before fining engine braking. Downhill grades "
-"and emergencies have exceptions."
-msgstr "騒音規制のある町では、エンジンブレーキに罰金を科す前に警告があります。下り勾配と緊急時は例外です。"
+"Towns that restrict engine braking warn you before they fine it. Downhill "
+"grades and emergencies are exempt."
+msgstr "エンジンブレーキを規制する町では、罰金を科す前に警告があります。下り勾配と緊急時は例外です。"
 
 msgid "Driving information keys"
 msgstr "運転情報のキー"
 
 #. one sentence of a longer line
 msgid ""
-"It adds RPM with a manual transmission, air or brakes when they need "
-"attention, and the distance to an exit you signaled for."
-msgstr "マニュアルでは回転数、注意が必要なときはエア圧やブレーキ、ウインカーを出した出口までの距離も加わります。"
+"It also adds air or brakes when they need attention, and the distance to an "
+"exit you signaled for."
+msgstr "注意が必要なときはエア圧やブレーキ、ウインカーを出した出口までの距離も加わります。"
+
+#. one sentence of a longer line
+msgid "With a manual transmission it adds RPM."
+msgstr "マニュアルでは回転数も加わります。"
 
 #. placeholders: {control_speed}
 #. one sentence of a longer line
@@ -33722,20 +33749,22 @@ msgstr "{control_speed}で、速度、ギア、速度制御のモードを読み
 
 #. placeholders: {control_speed}
 msgid ""
-"{control_speed} speaks your speed, gear, and speed-control mode. It adds "
-"RPM with a manual transmission, air or brakes when they need attention, and "
-"the distance to an exit you signaled for."
+"{control_speed} speaks your speed, gear, and speed-control mode. With a "
+"manual transmission it adds RPM. It also adds air or brakes when they need "
+"attention, and the distance to an exit you signaled for."
 msgstr ""
-"{control_speed}で、速度、ギア、速度制御のモードを読み上げます。マニュアルでは回転数、注意が必要なときはエア圧やブレーキ、ウインカーを出し"
-"た出口までの距離も加わります。"
+"{control_speed}で、速度、ギア、速度制御のモードを読み上げます。マニュアルでは回転数も加わります。注意が必要なときはエア圧やブレーキ、ウイ"
+"ンカーを出した出口までの距離も加わります。"
 
-#. placeholders: {control_safe_speed}, {control_grade}
+#. placeholders: {control_grade}
 #. one sentence of a longer line
-msgid ""
-"{control_safe_speed} gives the current safe speed; {control_grade} reads "
-"the current and next relevant grade."
-msgstr ""
-"{control_safe_speed}で今の安全速度を伝え、{control_grade}で今の勾配と次の関係する勾配を読み上げます。"
+msgid "{control_grade} reads the current and next relevant grade."
+msgstr "{control_grade}で今の勾配と次の関係する勾配を読み上げます。"
+
+#. placeholders: {control_safe_speed}
+#. one sentence of a longer line
+msgid "{control_safe_speed} gives the current safe speed."
+msgstr "{control_safe_speed}で今の安全速度を伝えます。"
 
 #. placeholders: {control_speed_limit}
 #. one sentence of a longer line
@@ -33747,11 +33776,11 @@ msgstr "{control_speed_limit}で、表示された制限速度、区間、どれ
 #. placeholders: {control_speed_limit}, {control_safe_speed}, {control_grade}
 msgid ""
 "{control_speed_limit} speaks the posted speed limit, zone, and how far over "
-"you are. {control_safe_speed} gives the current safe speed; {control_grade} "
+"you are. {control_safe_speed} gives the current safe speed. {control_grade} "
 "reads the current and next relevant grade."
 msgstr ""
 "{control_speed_limit}で、表示された制限速度、区間、どれだけ超えているかを読み上げます。{control_safe_speed}で今"
-"の安全速度を伝え、{control_grade}で今の勾配と次の関係する勾配を読み上げます。"
+"の安全速度を伝えます。{control_grade}で今の勾配と次の関係する勾配を読み上げます。"
 
 #. placeholders: {control_clock}
 #. one sentence of a longer line
@@ -33905,31 +33934,18 @@ msgstr ""
 "{control_last_announcement}で、直前の運転中の案内を繰り返します。{control_cb}で、直前のCB無線の会話を今の距離で"
 "繰り返します。"
 
-#. one sentence of a longer line
-msgid "Use the reports for trip details or open an app for a specific task."
-msgstr "運行の詳細はレポートで確認し、特定の作業にはアプリを開いてください。"
-
 #. placeholders: {control_status}
-#. one sentence of a longer line
 msgid ""
 "{control_status} opens Route, Driver, Map, and Radio reports, plus Driver "
 "apps."
 msgstr "{control_status}で、ルート、ドライバー、マップ、ラジオのレポートと、ドライバーアプリを開きます。"
 
-#. placeholders: {control_status}
-msgid ""
-"{control_status} opens Route, Driver, Map, and Radio reports, plus Driver "
-"apps. Use the reports for trip details or open an app for a specific task."
-msgstr ""
-"{control_status}で、ルート、ドライバー、マップ、ラジオのレポートと、ドライバーアプリを開きます。運行の詳細はレポートで確認し、特定の作業"
-"にはアプリを開いてください。"
-
 msgid ""
 "Left or Right Control stops the driving event voice. Escape pauses. F2 "
-"lists driving commands by name; Enter runs the selected command."
+"lists driving commands by name. Enter runs the selected command."
 msgstr ""
-"左右どちらかの Control で、運転中の出来事の読み上げを止めます。Escape で一時停止します。F2 で運転の操作を名前で一覧にし、Enter "
-"で選んだ操作を実行します。"
+"左右どちらかの Control で、運転中の出来事の読み上げを止めます。Escape で一時停止します。F2 "
+"で運転の操作を名前で一覧にします。Enter で選んだ操作を実行します。"
 
 msgid ""
 "Most driving keys can be changed under Settings, Gameplay, Controls, then "
@@ -34109,14 +34125,13 @@ msgstr ""
 "す。"
 
 msgid ""
-"Every light change is spoken. The sensor tick speeds up near the stop bar. "
-"Cross traffic can hit a truck that runs through."
-msgstr ""
-"信号が変わるたびに読み上げます。停止線に近づくとセンサーのカチカチという音が速くなります。信号を無視して進むと、交差する車にぶつけられることがあります。"
+"The sensor tick speeds up near the stop bar. Cross traffic can hit a truck "
+"that runs the light."
+msgstr "停止線に近づくとセンサーのカチカチという音が速くなります。信号を無視して進むと、交差する車にぶつけられることがあります。"
 
 msgid ""
 "When clear, pull ahead as instructed. Facility stopping assistance can take "
-"the pedals to the gate; your brake releases it."
+"the pedals to the gate. Pressing the brake ends it."
 msgstr "安全なら、指示どおりに前に進みます。施設停車アシストは、ゲートまでペダルを操作できます。ブレーキを踏むと解除されます。"
 
 msgid ""
@@ -34159,10 +34174,11 @@ msgstr "周囲の車、天気、取り締まり"
 
 msgid ""
 "GPS announces state lines, towns, route changes, traffic, work zones, and "
-"useful stops. Grades and terrain come from the route; weather and traffic "
+"useful stops. Grades and terrain come from the route. Weather and traffic "
 "vary by place and time."
 msgstr ""
-"GPSは、州境、町、ルートの変化、周囲の車、工事区間、役に立つ停車地を案内します。勾配と地形はルートから、天気と周囲の車は場所と時間によって変わります。"
+"GPSは、州境、町、ルートの変化、周囲の車、工事区間、役に立つ停車地を案内します。勾配と地形はルートから決まります。天気と周囲の車は場所と時間によって変"
+"わります。"
 
 #. one sentence of a longer line
 msgid "Check before changing lanes or returning after a pass."
@@ -34206,7 +34222,7 @@ msgstr ""
 "30マイルまで落として越えてください。落石や止まった車は停止が必要です。"
 
 msgid ""
-"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"Tire debris is called out and driven over. Nothing brakes for it. Full lane "
 "keeping moves over for debris and slow vehicles when a lane is open, and "
 "avoids starting a pass near an exit."
 msgstr ""
@@ -34292,8 +34308,8 @@ msgstr "{control_cb}で、距離を更新して繰り返します。"
 
 msgid ""
 "Citations cost money and affect your record. Serious violations can suspend "
-"your CDL and remove driving work; fleeing is a major offense."
-msgstr "違反切符はお金がかかり、記録にも影響します。重大違反ではCDLが停止され、運転の仕事がなくなることがあります。逃走は一発取消違反です。"
+"your CDL and remove driving work. Fleeing is a major offense."
+msgstr "違反切符はお金がかかり、記録にも影響します。重大違反ではCDLが停止され、運転の仕事がなくなることがあります。逃走は重大な違反です。"
 
 msgid ""
 "The dash overspeed chime is a free warning. Tickets already paid on the "
@@ -34322,14 +34338,14 @@ msgid ""
 msgstr "運転しない時間が連続30分あれば、荷積みや検査も含めて、その休憩になります。それで勤務枠がリセットされるとは限りません。"
 
 msgid ""
-"Both hours modes use these limits. Relaxed changes enforcement pressure. "
-"One warning comes before each limit: one hour left in the Relaxed driving "
-"mode, two hours in Standard, and two hours, one hour and thirty minutes in "
-"Real time. No warning comes for a limit you will not reach before the trip "
-"ends."
+"Realistic and Relaxed hours use the same limits. Relaxed brings lighter "
+"fines, fewer inspections, and rare road hazards. A warning comes before "
+"each limit: at one hour left on Relaxed pacing and two hours on Standard. "
+"Real time warns at two hours, one hour and thirty minutes. No warning comes "
+"for a limit you will not reach before the trip ends."
 msgstr ""
-"どちらの運転時間モードでもこの上限を使います。のんびりは取り締まりのきびしさを変えます。各上限の前に警告が一度あります：運転モードがのんびりなら1時間前"
-"、標準なら2時間前、実時間なら2時間前、1時間前、30分前です。運行が終わるまでに届かない上限には警告はありません。"
+"リアルとゆったりの運転時間は同じ上限を使います。ゆったりでは罰金が軽く、検査が少なく、道路の危険もまれです。各上限の前に警告があります：運転モードがのん"
+"びりなら1時間前、標準なら2時間前です。実時間では2時間前、1時間前、30分前に警告します。運行が終わるまでに届かない上限には警告はありません。"
 
 #. one sentence of a longer line
 msgid "Check again as traffic or weather changes."
@@ -34356,10 +34372,10 @@ msgstr ""
 msgid ""
 "Ten-hour sleep is the simplest reset. Sleeper parking also offers 2, 3, 7 "
 "or 8 hours. Pair 8 with 2, or 7 with 3, for a split rest. The long part "
-"pauses the duty window; the short part does not, until the pair is done."
+"pauses the duty window. The short part does not, until the pair is done."
 msgstr ""
 "10時間の睡眠がいちばん簡単なリセットです。寝台付きの駐車場では2、3、7、8時間も選べます。8と2、または7と3を組み合わせると分割休息になります。長"
-"いほうは勤務枠を止めますが、短いほうは組み合わせが完了するまで止めません。"
+"いほうは勤務枠を止めます。短いほうは組み合わせが完了するまで止めません。"
 
 msgid "A nap that is not part of a split leaves the duty window running."
 msgstr "分割休息の一部でない仮眠では、勤務枠は進み続けます。"
@@ -34372,7 +34388,7 @@ msgstr ""
 
 msgid ""
 "Meals and coffee help temporarily. A half-hour meal counts as a break. "
-"Proper sleep clears fatigue; a legal reset with poor rest can leave you "
+"Proper sleep clears fatigue. A legal reset with poor rest can leave you "
 "tired."
 msgstr ""
 "食事とコーヒーは一時的に効きます。30分の食事は休憩になります。疲労をなくすにはきちんと眠ることです。休息の質が悪いと、法的にはリセットされても疲れが残"
@@ -34390,36 +34406,49 @@ msgid ""
 msgstr "駐車場で10時間眠っても休息は不十分です。寝台付きの駐車場で10時間眠ると、すっかり休めます。"
 
 #. placeholders: {control_rest}
+#. one sentence of a longer line
 msgid ""
 "Away from route points and fully stopped, {control_rest} or the pause menu "
-"offers emergency shoulder sleep: ten hours pass, with poor rest and "
-"possible parking ticket or minor damage."
+"offers emergency sleep on the shoulder."
+msgstr "ルート上の地点から離れて完全に停まっているときは、{control_rest}か一時停止メニューで、路肩での緊急の睡眠を選べます。"
+
+#. placeholders: {control_rest}
+msgid ""
+"Away from route points and fully stopped, {control_rest} or the pause menu "
+"offers emergency sleep on the shoulder. Ten hours pass with poor rest, and "
+"you may get a parking ticket or minor damage."
 msgstr ""
 "ルート上の地点から離れて完全に停まっているときは、{control_rest}か一時停止メニューで、路肩での緊急の睡眠を選べます。10時間がたち、休息の"
 "質は悪く、駐車違反の切符や軽い損傷のおそれがあります。"
 
+#. one sentence of a longer line
+msgid ""
+"Ten hours pass with poor rest, and you may get a parking ticket or minor "
+"damage."
+msgstr "10時間がたち、休息の質は悪く、駐車違反の切符や軽い損傷のおそれがあります。"
+
 msgid ""
 "The deadline keeps running during all rest. Logbook at the terminal and the "
-"ELD app let you review duty and limits."
-msgstr "休息している間も、期限は進み続けます。ターミナルの運転日誌とELDアプリで、勤務と上限を確認できます。"
+"ELD app show your duty time and limits."
+msgstr "休息している間も、期限は進み続けます。ターミナルの運転日誌とELDアプリに、勤務時間と上限が表示されます。"
 
 msgid "Career, equipment, and money"
 msgstr "キャリア、装備、お金"
 
 msgid ""
 "New company hires get an assigned load. Load choice opens at level eight. "
-"Declining costs reputation; low dispatch trust can remove load choice again."
+"Declining costs reputation. Low dispatch trust can remove load choice again."
 msgstr ""
 "新人の会社ドライバーには割り当ての貨物が来ます。貨物を選べるのはレベル8からです。断ると評判が下がります。配車係の信頼が低いと、貨物を選べなくなることが"
 "あります。"
 
 msgid ""
 "Jobs name cargo, weight, pay, deadline, facilities, and equipment "
-"requirements. F1 reads the details. Fuel adds weight; check before filling "
-"a marginal load."
+"requirements. F1 reads the details. Fuel adds weight, so check the weight "
+"before filling up on a load near the limit."
 msgstr ""
 "依頼には、積荷、重量、報酬、期限、施設、装備の条件が書かれています。F1 "
-"で詳細を読み上げます。燃料も重量になるので、ぎりぎりの積荷では給油の前に確認してください。"
+"で詳細を読み上げます。燃料も重量になるので、上限に近い積荷では給油の前に重量を確認してください。"
 
 msgid ""
 "Walk around a dropped trailer before leaving. A defect can be refused at "
@@ -34443,12 +34472,10 @@ msgid ""
 msgstr "払えなかった費用は未払い残高になります。その後の精算では、4分の1を借金と前払いの返済にまとめて充て、4分の3が手取りになります。"
 
 msgid ""
-"Debt warnings say the most you can owe and what happens when you reach it. "
-"At that limit, a company driver changes carrier or an owner loses tractors "
-"and returns to company driving."
+"There is a limit to how much you can owe. At that limit, a company driver "
+"changes carrier or an owner loses tractors and returns to company driving."
 msgstr ""
-"借金の警告では、借りられる上限と、そこに達したらどうなるかを伝えます。その上限に達すると、会社ドライバーは会社を変わり、オーナーはトラクターを失って会社"
-"のドライバーに戻ります。"
+"借りられる額には上限があります。その上限に達すると、会社ドライバーは会社を変わり、オーナーはトラクターを失って会社のドライバーに戻ります。"
 
 msgid ""
 "You keep career level, experience, endorsements, and record. Career stats "
@@ -34457,7 +34484,7 @@ msgstr "キャリアのレベル、経験、免許付記、記録は残ります
 
 msgid ""
 "The garage refuels, repairs, replaces tires, and services brakes and "
-"engines. Company routine costs use the carrier account; owners can buy "
+"engines. Company routine costs use the carrier account. Owners can buy "
 "partial service when cash is short."
 msgstr ""
 "ガレージでは、給油、修理、タイヤ交換、ブレーキとエンジンの整備ができます。社員ドライバーの日常の費用は運送会社の口座から払われます。オーナードライバーは"
@@ -34480,8 +34507,8 @@ msgstr ""
 
 msgid ""
 "Licenses and training opens refrigerated, heavy-haul, high-value, liquid "
-"bulk, doubles, hazardous, port, and long-combination freight as "
-"requirements clear."
+"bulk, doubles, hazardous, port, and long-combination freight as you meet "
+"the requirements."
 msgstr "免許と研修では、条件を満たすにつれて、冷凍、重量物、高額、液体バルク、ダブルス、危険物、港湾、長大連結車の貨物が開きます。"
 
 msgid "The garage and freight markets"
@@ -34497,7 +34524,7 @@ msgstr ""
 
 msgid ""
 "Facilities determine local cargo. Dispatch routes include stops for fuel "
-"and legal rest; F1 reads the load's requirements before you accept it."
+"and legal rest. F1 reads the load's requirements before you accept it."
 msgstr ""
 "施設によって地域の積荷が決まります。配車のルートには給油と法定の休息のための停車地が含まれます。引き受ける前に、F1 で積荷の条件を読み上げます。"
 
@@ -34508,11 +34535,11 @@ msgstr "オーナードライバーは、冷凍車、平台、バルクのプロ
 
 msgid ""
 "An engine tune adds pulling power. An aerodynamic kit reduces highway fuel "
-"burn. A long-range tank adds fifty gallons; reinforced brakes resist fade "
+"burn. A long-range tank adds fifty gallons. Reinforced brakes resist fade "
 "longer."
 msgstr ""
-"エンジンのチューニングで牽引力が上がります。空力キットで高速道路での燃料消費が減ります。長距離タンクで50ガロン増え、強化ブレーキはフェードに長く耐えま"
-"す。"
+"エンジンのチューニングで牽引力が上がります。空力キットで高速道路での燃料消費が減ります。長距離タンクで50ガロン増えます。強化ブレーキはフェードに長く耐"
+"えます。"
 
 msgid ""
 "Company equipment improves with seniority. Low trust can hold it back until "
@@ -34526,11 +34553,11 @@ msgstr ""
 "ターミナルのガレージでは、修理、タイヤ、ブレーキ、エンジンの整備、洗車ができます。道路沿いの停車地では、その場所に載っているサービスしか使えません。"
 
 msgid ""
-"Damage above fifty percent reduces power; above seventy-five brings limp "
+"Damage above fifty percent reduces power. Above seventy-five brings limp "
 "mode and a forty-five mile per hour cap. Above ninety puts the truck out of "
 "service."
 msgstr ""
-"損傷が50パーセントを超えると出力低下になり、75を超えるとリンプモードで時速45マイルに制限されます。90を超えるとトラックは走行禁止になります。"
+"損傷が50パーセントを超えると出力が下がります。75を超えるとリンプモードで時速45マイルに制限されます。90を超えるとトラックは走行禁止になります。"
 
 msgid ""
 "A roadside mechanic can help during a trip. Stop safely and use the pause "
@@ -34541,18 +34568,19 @@ msgid "Winter equipment"
 msgstr "冬の装備"
 
 msgid ""
-"Winter tires improve snow and ice grip. Chains are carried until you "
-"install them while stopped through the pause menu."
-msgstr "冬用タイヤは雪と氷でのグリップを高めます。チェーンは、停まっている間に一時停止メニューから付けるまで積んだままです。"
+"Winter tires improve snow and ice grip. Chains are carried in the truck. To "
+"put them on, stop and use the pause menu."
+msgstr ""
+"冬用タイヤは雪と氷でのグリップを高めます。チェーンはトラックに積んであります。付けるには、停まってから一時停止メニューを使ってください。"
 
 msgid ""
-"Chain laws require chains on a truck at every level. Winter tires don't "
-"count for a semi. The exceptions are level one in Colorado and Oregon, "
-"which chain only single-drive-axle trucks, and in Wyoming, which accepts "
+"Chain laws require chains on a truck at every chain-law level. Winter tires "
+"don't count for a semi. There are two exceptions at level one. Colorado and "
+"Oregon require chains only on single-drive-axle trucks, and Wyoming accepts "
 "snow tires. Signs announce the requirement before the chain-up area."
 msgstr ""
-"チェーン規制では、どのレベルでもトラックにチェーンが必要です。セミトレーラーでは冬用タイヤは数えられません。例外は、駆動軸が1本のトラックだけにチェーン"
-"を求めるColoradoとOregonのレベル1、そして冬用タイヤを認めるWyomingです。チェーン装着場の前に、標識で規制が知らされます。"
+"チェーン規制では、どのレベルでもトラックにチェーンが必要です。セミトレーラーでは冬用タイヤは数えられません。レベル1には例外が2つあります。Colora"
+"doとOregonは駆動軸が1本のトラックだけにチェーンを求め、Wyomingは冬用タイヤを認めます。チェーン装着場の前に、標識で規制が知らされます。"
 
 msgid ""
 "Chain work uses on-duty time and adds fatigue, especially at night. Keep "
@@ -34569,6 +34597,10 @@ msgstr ""
 "すり減ったタイヤと強いエンジンブレーキは、滑りやすい道路での制御を難しくします。必要なら休息か、状況が良くなるのを待つために停まってください。"
 
 #. one sentence of a longer line
+msgid "Enter opens it."
+msgstr "Enter で開きます。"
+
+#. one sentence of a longer line
 msgid "Escape returns."
 msgstr "Escape で戻ります。"
 
@@ -34580,14 +34612,14 @@ msgstr "{control_status}で運転のステータスを開き、ドライバー�
 #. placeholders: {control_status}
 msgid ""
 "Open driving status with {control_status}, then choose Driver apps. Up and "
-"Down choose an app; Enter opens it. Escape returns."
+"Down choose an app. Enter opens it. Escape returns."
 msgstr ""
-"{control_status}で運転のステータスを開き、ドライバーアプリを選びます。上下でアプリを選び、Enter で開きます。Escape "
+"{control_status}で運転のステータスを開き、ドライバーアプリを選びます。上下でアプリを選びます。Enter で開きます。Escape "
 "で戻ります。"
 
 #. one sentence of a longer line
-msgid "Up and Down choose an app; Enter opens it."
-msgstr "上下でアプリを選び、Enter で開きます。"
+msgid "Up and Down choose an app."
+msgstr "上下でアプリを選びます。"
 
 msgid ""
 "In a report, Up and Down move through the information and Enter repeats "
@@ -34596,27 +34628,26 @@ msgstr ""
 "レポートでは、上下で情報を移動し、Enter で選んだものを繰り返します。Escape でドライバーアプリに、さらに運転のステータスに戻ります。"
 
 msgid ""
-"Radio lets you switch the radio on or off, tune, manage favorites, and "
-"suggest a station. Search by part of a name, call sign, or format, then "
-"choose a result. Out-of-range stations cannot be tuned here."
+"The Radio app turns the radio on or off, tunes, and keeps favorites. You "
+"can also suggest a station there. Search by part of a name, call sign, or "
+"format, then choose a result. Out-of-range stations cannot be tuned here."
 msgstr ""
-"ラジオでは、ラジオのオンとオフ、選局、お気に入りの管理、局の提案ができます。名前、コールサイン、フォーマットの一部で検索し、結果を選びます。電波の届かな"
-"い局はここでは選べません。"
+"ラジオアプリでは、ラジオのオンとオフ、選局、お気に入りの保存ができます。局の提案もそこでできます。名前、コールサイン、フォーマットの一部で検索し、結果を"
+"選びます。電波の届かない局はここでは選べません。"
 
 msgid ""
-"Navigation reviews your next guidance, progress, and next listed exit. Map "
+"Navigation reads your next guidance, progress, and next listed exit. Map "
 "under driving status gives a broader view of the route and stops."
 msgstr ""
-"ナビゲーションでは、次の案内、進み具合、次に載っている出口を確認できます。運転のステータスのマップでは、ルートと停車地をもっと広く見渡せます。"
+"ナビゲーションでは、次の案内、進み具合、次に載っている出口を読み上げます。運転のステータスのマップでは、ルートと停車地をもっと広く見渡せます。"
 
 msgid ""
 "Weather gives conditions, suggested safe speed, how old the report is, and "
-"any active live weather alerts. Simulated weather includes a forecast; a "
-"live report may not. The app tells you if a live check is updating or has "
-"failed."
+"any active live weather alerts. Simulated weather includes a forecast. A "
+"live report may not."
 msgstr ""
-"天気では、状況、推奨の安全速度、情報の古さ、発令中の実際の気象警報を伝えます。シミュレーションの天気には予報がありますが、実際の天気の情報にはないことが"
-"あります。実際の天気の確認が更新中か失敗したかも、アプリが伝えます。"
+"天気では、状況、推奨の安全速度、情報の古さ、発令中の実際の気象警報を伝えます。シミュレーションの天気には予報があります。実際の天気の情報にはないことがあ"
+"ります。"
 
 msgid ""
 "Traffic reports traffic ahead, including a reported vehicle's distance and "
@@ -34664,9 +34695,12 @@ msgid "Radio and playlists"
 msgstr "ラジオとプレイリスト"
 
 #. one sentence of a longer line
-msgid ""
-"Page Down or apostrophe tunes forward; Page Up or semicolon tunes backward."
-msgstr "Page Down かアポストロフィーで次の局に、Page Up かセミコロンで前の局に合わせます。"
+msgid "Page Down or apostrophe tunes forward."
+msgstr "Page Down かアポストロフィーで次の局に合わせます。"
+
+#. one sentence of a longer line
+msgid "Page Up or semicolon tunes backward."
+msgstr "Page Up かセミコロンで前の局に合わせます。"
 
 #. placeholders: {control_radio}
 #. one sentence of a longer line
@@ -34677,10 +34711,10 @@ msgstr "エンジンがかかっているとき、{control_radio}でラジオの
 #. placeholders: {control_radio}
 msgid ""
 "With the engine running, {control_radio} switches the radio on or off. Page "
-"Down or apostrophe tunes forward; Page Up or semicolon tunes backward."
+"Down or apostrophe tunes forward. Page Up or semicolon tunes backward."
 msgstr ""
 "エンジンがかかっているとき、{control_radio}でラジオのオンとオフを切り替えます。Page Down "
-"かアポストロフィーで次の局に、Page Up かセミコロンで前の局に合わせます。"
+"かアポストロフィーで次の局に合わせます。Page Up かセミコロンで前の局に合わせます。"
 
 msgid ""
 "Hold Control with a tune key to jump between categories, including route "
@@ -34739,12 +34773,12 @@ msgstr ""
 
 msgid ""
 "Put M3U, M3U8, or PLS playlists in the Playlists folder inside your saves "
-"folder. Radio status tells you the folder location and reloads it when "
-"opened. Entries can be audio files, network paths, or stream addresses."
+"folder. Radio status gives the folder location and reloads the playlists "
+"when opened. Entries can be audio files, network paths, or stream addresses."
 msgstr ""
 "M3U、M3U8、PLS のプレイリストを、セーブフォルダーの中の Playlists "
-"フォルダーに入れてください。ラジオの状態でフォルダーの場所を伝え、開いたときに読み込み直します。項目には、音声ファイル、ネットワークのパス、ストリームの"
-"アドレスを使えます。"
+"フォルダーに入れてください。ラジオの状態でフォルダーの場所を伝え、開いたときにプレイリストを読み込み直します。項目には、音声ファイル、ネットワークのパス"
+"、ストリームのアドレスを使えます。"
 
 msgid ""
 "Personal playlists normally play in order and resume where you left them. "
@@ -34823,9 +34857,10 @@ msgstr ""
 "コンピューターの時計に合わせて実際の速さで進みます。"
 
 msgid ""
-"Change pacing mid-drive from pause; it begins when the truck next stops. "
-"Legal hours and time remaining on a deadline stay intact."
-msgstr "ペースは運転中でも一時停止から変えられ、次にトラックが停まったときから始まります。法定の運転時間と期限までの残り時間はそのままです。"
+"Change pacing mid-drive from the pause menu. It begins when the truck next "
+"stops. Legal hours and time remaining on a deadline stay intact."
+msgstr ""
+"ペースは運転中でも一時停止メニューから変えられます。次にトラックが停まったときから始まります。法定の運転時間と期限までの残り時間はそのままです。"
 
 msgid ""
 "Choose simulated or available live weather, traffic, and parking separately "
@@ -34852,11 +34887,11 @@ msgstr ""
 
 msgid ""
 "Speech and braille sends messages to both. Braille only requires NVDA or "
-"JAWS; speech returns if the screen reader closes. You can also choose a "
+"JAWS. Speech returns if the screen reader closes. You can also choose a "
 "separate driving event voice."
 msgstr ""
 "読み上げと点字では、メッセージを両方に送ります。点字のみには NVDA か JAWS "
-"が必要で、スクリーンリーダーが閉じると読み上げに戻ります。運転中の出来事用に、別の声を選ぶこともできます。"
+"が必要です。スクリーンリーダーが閉じると読み上げに戻ります。運転中の出来事用に、別の声を選ぶこともできます。"
 
 msgid ""
 "For a problem report, use Where the game log is saved to find the session "
@@ -34870,9 +34905,9 @@ msgid "Online sharing and backups"
 msgstr "オンラインの共有とバックアップ"
 
 msgid ""
-"Online lets you browse driver profiles and account achievements, connect an "
-"account, choose sharing, and manage private backups. Viewing drivers shares "
-"nothing about you."
+"In Online you can browse driver profiles and account achievements, connect "
+"an account, choose what you share, and manage private backups. Viewing "
+"drivers shares nothing about you."
 msgstr ""
 "オンラインでは、ドライバープロフィールとアカウントの実績を見たり、アカウントをつないだり、共有を選んだり、非公開のバックアップを管理したりできます。ドラ"
 "イバーを見ても、自分の情報は何も共有されません。"
@@ -34923,7 +34958,7 @@ msgstr "よくある質問"
 msgid ""
 "Do I have to buy a truck? No. The carrier assigns company drivers a truck "
 "and pays its fuel, repairs, and insurance. Buying trucks opens with the "
-"owner-operator buy-in from level 18; Business status lists what else it "
+"owner-operator buy-in from level 18. Business status lists what else it "
 "needs."
 msgstr ""
 "トラックを買う必要はありますか？いいえ。社員ドライバーには運送会社がトラックを割り当て、燃料、修理、保険を払います。トラックの購入は、レベル18からのオ"
@@ -34960,13 +34995,13 @@ msgid ""
 "Well regarded, Established, Unproven, Shaky, Damaged, or Ruined. New "
 "drivers start at 50, Unproven. A trust line shows it as, for example, "
 "Dispatch trust: full. Reputation 85 out of 100. Dispatch trust is what the "
-"carrier lets you do right now; your CDL, your record, and what you owe "
+"carrier lets you do right now. Your CDL, your record, and what you owe "
 "count toward it too. Settings, Speech has Score display: both, percentage "
 "only, or description only."
 msgstr ""
 "評判と配車係の信頼の違いは何ですか？評判は、配達から決まるスコアで、運転記録で下がります。段階は、抜群、好評、定着、未知数、不安定、損なわれた、失墜です"
-"。新しいドライバーは50、未知数から始まります。信頼の読み上げは、たとえば、配車係の信頼：フル。評判は100中85。のようになります。配車係の信頼は、運"
-"送会社が今何をさせてくれるかで、CDL、記録、借りている額も影響します。設定の読み上げにスコアの表示があり、両方、パーセントのみ、説明のみから選べます。"
+"。新しいドライバーは50、未知数から始まります。信頼の読み上げは、たとえば、配車係の信頼：フル。評判は100中85。配車係の信頼は、運送会社が今あなたに"
+"任せられることです。CDL、記録、借金もこれに入ります。設定の読み上げに、スコアの表示があります：両方、パーセントのみ、説明のみ。"
 
 msgid ""
 "Why can I not accept a load? It may need a certificate, endorsement, or "
@@ -34976,10 +35011,6 @@ msgstr ""
 "積荷を引き受けられないのはなぜですか？持っていない修了証、免許付記、トレーラーが必要なのかもしれません。積荷の上で F1 "
 "を押すと条件を読み上げ、免許と研修でコースを受けられます。"
 
-#. one sentence of a longer line
-msgid "Open weigh station ahead means every truck must pull in."
-msgstr "「この先の計量所は開いています」は、すべてのトラックが入らなければならないという意味です。"
-
 #. placeholders: {control_take_exit}, {control_rest}
 #. one sentence of a longer line
 msgid ""
@@ -34988,17 +35019,21 @@ msgid ""
 msgstr "{control_take_exit}で合図し、計量所で停まってから、{control_rest}を押して受付をします。"
 
 #. one sentence of a longer line
+msgid "When an open weigh station is called, every truck must pull in."
+msgstr "開いている計量所が案内されたら、すべてのトラックが入らなければなりません。"
+
+#. one sentence of a longer line
 msgid "Why did I get a citation at a weigh station?"
 msgstr "計量所で違反切符を切られたのはなぜですか？"
 
 #. placeholders: {control_take_exit}, {control_rest}
 msgid ""
-"Why did I get a citation at a weigh station? Open weigh station ahead means "
-"every truck must pull in. Signal with {control_take_exit}, stop at the "
-"scale, then press {control_rest} to check in."
+"Why did I get a citation at a weigh station? When an open weigh station is "
+"called, every truck must pull in. Signal with {control_take_exit}, stop at "
+"the scale, then press {control_rest} to check in."
 msgstr ""
-"計量所で違反切符を切られたのはなぜですか？「この先の計量所は開いています」は、すべてのトラックが入らなければならないという意味です。{control_t"
-"ake_exit}で合図し、計量所で停まってから、{control_rest}を押して受付をします。"
+"計量所で違反切符を切られたのはなぜですか？開いている計量所が案内されたら、すべてのトラックが入らなければなりません。{control_take_exit"
+"}で合図し、計量所で停まってから、{control_rest}を押して受付をします。"
 
 #. one sentence of a longer line
 msgid "Some states hold trucks below the car limit."
@@ -35078,18 +35113,20 @@ msgstr "局を変えたり、自分の音楽を流したりするにはどうす
 msgid ""
 "How do I change stations or play my own music? With the engine running, "
 "{control_radio} switches the radio on, and Page Up or Page Down tunes. Put "
-"playlist files in the Playlists folder inside your saves folder; Radio "
-"status says where it is."
+"playlist files in the Playlists folder inside your saves folder. Radio "
+"status gives its location."
 msgstr ""
 "局を変えたり、自分の音楽を流したりするにはどうすればいいですか？エンジンがかかっているとき、{control_radio}でラジオをオンにし、Page "
 "Up か Page Down で選局します。プレイリストのファイルは、セーブフォルダーの中の Playlists "
 "フォルダーに入れてください。場所はラジオの状態で分かります。"
 
 #. one sentence of a longer line
-msgid ""
-"Put playlist files in the Playlists folder inside your saves folder; Radio "
-"status says where it is."
-msgstr "プレイリストのファイルは、セーブフォルダーの中の Playlists フォルダーに入れてください。場所はラジオの状態で分かります。"
+msgid "Put playlist files in the Playlists folder inside your saves folder."
+msgstr "プレイリストのファイルは、セーブフォルダーの中の Playlists フォルダーに入れてください。"
+
+#. one sentence of a longer line
+msgid "Radio status gives its location."
+msgstr "場所はラジオの状態で分かります。"
 
 #. placeholders: {control_radio}
 #. one sentence of a longer line
@@ -35121,9 +35158,9 @@ msgstr "コントローラー"
 
 msgid ""
 "Controllers work alongside the keyboard. Button names use the Xbox layout. "
-"Settings, Gameplay, Controls lets you change eligible assignments."
+"Change button assignments under Settings, Gameplay, Controls."
 msgstr ""
-"コントローラーはキーボードと一緒に使えます。ボタンの名前はXboxの配置です。設定のゲームプレイ、操作で、変更できる割り当てを変えられます。"
+"コントローラーはキーボードと一緒に使えます。ボタンの名前はXboxの配置です。ボタンの割り当ては、設定のゲームプレイ、操作で変えられます。"
 
 msgid ""
 "On newer Xbox controllers, Back is the View button, left of the Xbox "
@@ -35135,18 +35172,18 @@ msgstr ""
 
 msgid ""
 "In menus, D-pad moves, A confirms, B returns, and Back reads help. During "
-"driving speech, Back stops the voice; otherwise it reads help. Start pauses."
+"driving speech, Back stops the voice. Otherwise it reads help. Start pauses."
 msgstr ""
 "メニューでは、D-pad で移動、A で決定、B で戻り、Back でヘルプを読みます。運転中の読み上げの最中は Back "
-"で声を止め、それ以外ではヘルプを読みます。Start で一時停止します。"
+"で声を止めます。それ以外ではヘルプを読みます。Start で一時停止します。"
 
 msgid ""
 "Right trigger accelerates, left trigger brakes, and fully pressing the left "
-"trigger gives emergency braking. The left stick steers; with lane keeping "
+"trigger gives emergency braking. The left stick steers. With lane keeping "
 "on full, push it left or right to change one lane."
 msgstr ""
-"Right trigger でアクセル、Left trigger でブレーキ、Left trigger を奥まで押すと非常ブレーキです。Left "
-"stick でハンドルを切ります。レーンキープがフルのときは、左右に倒すと1車線変更します。"
+"右トリガーでアクセル、左トリガーでブレーキ、左トリガーを奥まで押すと非常ブレーキです。左スティックでハンドルを切ります。レーンキープがフルのときは、左右"
+"に倒すと1車線変更します。"
 
 msgid ""
 "To reverse in automatic, stop, release the left trigger, then press and "
@@ -35163,16 +35200,16 @@ msgstr "マニュアルのクラッチは left bumper を押し続けます。"
 msgid ""
 "Hold left bumper for manual clutch. {pad_shift_up} shifts up and "
 "{pad_shift_down} down, past first into neutral and then reverse. "
-"{pad_cruise} starts speed control; {pad_speed} reads speed."
+"{pad_cruise} starts speed control. {pad_speed} reads speed."
 msgstr ""
-"left bumper を押したままでマニュアルのクラッチです。{pad_shift_up} でシフトアップ、{pad_shift_down} "
-"でシフトダウンし、1速より下はニュートラル、次にリバースです。{pad_cruise} で速度制御を開始し、{pad_speed} "
+"左バンパーを押したままでマニュアルのクラッチです。{pad_shift_up} でシフトアップ、{pad_shift_down} "
+"でシフトダウンし、1速より下はニュートラル、次にリバースです。{pad_cruise} で速度制御を開始します。{pad_speed} "
 "で速度を読み上げます。"
 
-#. placeholders: {pad_cruise}, {pad_speed}
+#. placeholders: {pad_cruise}
 #. one sentence of a longer line
-msgid "{pad_cruise} starts speed control; {pad_speed} reads speed."
-msgstr "{pad_cruise}で速度制御を始め、{pad_speed}で速度を読み上げます。"
+msgid "{pad_cruise} starts speed control."
+msgstr "{pad_cruise}で速度制御を始めます。"
 
 #. placeholders: {pad_shift_up}, {pad_shift_down}
 #. one sentence of a longer line
@@ -35182,20 +35219,29 @@ msgid ""
 msgstr ""
 "{pad_shift_up} でシフトアップ、{pad_shift_down} でシフトダウンし、1速より下はニュートラル、次にリバースです。"
 
-#. placeholders: {pad_horn}, {pad_engine_brake}
+#. placeholders: {pad_speed}
 #. one sentence of a longer line
-msgid ""
-"{pad_horn} sounds the horn; {pad_engine_brake} enables the engine brake."
-msgstr "{pad_horn}でクラクションを鳴らし、{pad_engine_brake}でエンジンブレーキを有効にします。"
+msgid "{pad_speed} reads speed."
+msgstr "{pad_speed}で速度を読み上げます。"
+
+#. placeholders: {pad_engine_brake}
+#. one sentence of a longer line
+msgid "{pad_engine_brake} enables the engine brake."
+msgstr "{pad_engine_brake}でエンジンブレーキを有効にします。"
+
+#. placeholders: {pad_horn}
+#. one sentence of a longer line
+msgid "{pad_horn} sounds the horn."
+msgstr "{pad_horn}でクラクションを鳴らします。"
 
 #. placeholders: {pad_horn}, {pad_engine_brake}, {pad_route}, {pad_weather}, {pad_clock}
 msgid ""
-"{pad_horn} sounds the horn; {pad_engine_brake} enables the engine brake. "
+"{pad_horn} sounds the horn. {pad_engine_brake} enables the engine brake. "
 "{pad_route} reads location, {pad_weather} weather, and {pad_clock} clock "
 "and hours."
 msgstr ""
-"{pad_horn}でクラクションを鳴らし、{pad_engine_brake}でエンジンブレーキを有効にします。{pad_route}で現在地、{pa"
-"d_weather}で天気、{pad_clock}で時刻と運転時間を読み上げます。"
+"{pad_horn}でクラクションを鳴らします。{pad_engine_brake}でエンジンブレーキを有効にします。{pad_route}で現在地、{"
+"pad_weather}で天気、{pad_clock}で時刻と運転時間を読み上げます。"
 
 #. placeholders: {pad_route}, {pad_weather}, {pad_clock}
 #. one sentence of a longer line
@@ -35205,16 +35251,16 @@ msgid ""
 msgstr "{pad_route}で現在地、{pad_weather}で天気、{pad_clock}で時刻と運転時間を読み上げます。"
 
 #. one sentence of a longer line
-msgid "Right bumper accesses the second layer."
-msgstr "right bumper で2段目を使えます。"
+msgid "Hold the right bumper for a second layer of buttons."
+msgstr "右バンパーを押したままにすると、ボタンの2段目を使えます。"
 
 #. placeholders: {pad_engine}, {pad_fuel}, {pad_speed_limit}
 msgid ""
-"Right bumper accesses the second layer. {pad_engine} controls the engine, "
-"{pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
+"Hold the right bumper for a second layer of buttons. {pad_engine} controls "
+"the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
-"right bumper "
-"で2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料、{pad_speed_limit}で制限速度を読み上げます。"
+"右バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料、{pad_speed_"
+"limit}で制限速度を読み上げます。"
 
 #. placeholders: {pad_engine}, {pad_fuel}, {pad_speed_limit}
 #. one sentence of a longer line
@@ -35231,20 +35277,23 @@ msgstr "{pad_parking_brake}で駐車ブレーキを操作します。"
 #. placeholders: {pad_parking_brake}, {pad_take_exit}, {pad_rest}
 msgid ""
 "{pad_parking_brake} controls the parking brake. {pad_take_exit} signals for "
-"an exit; {pad_rest} opens route-stop actions or emergency shoulder sleep "
+"an exit. {pad_rest} opens route-stop actions or emergency shoulder sleep "
 "when fully stopped."
 msgstr ""
-"{pad_parking_brake}で駐車ブレーキを操作します。{pad_take_exit}で出口への合図を出し、{pad_rest}で、完全に停ま"
-"っているときにルート上の停車地の操作か、路肩での緊急の睡眠を開きます。"
+"{pad_parking_brake}で駐車ブレーキを操作します。{pad_take_exit}で出口への合図を出します。{pad_rest}で、完全に"
+"停まっているときにルート上の停車地の操作か、路肩での緊急の睡眠を開きます。"
 
-#. placeholders: {pad_take_exit}, {pad_rest}
+#. placeholders: {pad_rest}
 #. one sentence of a longer line
 msgid ""
-"{pad_take_exit} signals for an exit; {pad_rest} opens route-stop actions or "
-"emergency shoulder sleep when fully stopped."
-msgstr ""
-"{pad_take_exit}で出口への合図を出し、{pad_rest}で、完全に停まっているときにルート上の停車地の操作か、路肩での緊急の睡眠を開きま"
-"す。"
+"{pad_rest} opens route-stop actions or emergency shoulder sleep when fully "
+"stopped."
+msgstr "{pad_rest}で、完全に停まっているときにルート上の停車地の操作か、路肩での緊急の睡眠を開きます。"
+
+#. placeholders: {pad_take_exit}
+#. one sentence of a longer line
+msgid "{pad_take_exit} signals for an exit."
+msgstr "{pad_take_exit}で出口への合図を出します。"
 
 #. placeholders: {pad_cruise_down}, {pad_cruise_up}
 #. one sentence of a longer line
@@ -35314,16 +35363,16 @@ msgid "Page {page} of {HELP_PAGES}: {title}."
 msgstr "{HELP_PAGES}ページ中{page}ページ目：{title}。"
 
 msgid ""
-"D-pad Left and Right change pages, Up and Down let you read a little at a "
-"time. A reads the whole page, Back stops speech, and B goes back."
-msgstr "D-pad の左右でページを変え、上下で少しずつ読めます。A でページ全体を読み、Back で読み上げを止め、B で戻ります。"
+"D-pad Left and Right change pages, Up and Down read one line at a time. A "
+"reads the whole page, Back stops speech, and B goes back."
+msgstr "D-pad の左右でページを変え、上下で1行ずつ読みます。A でページ全体を読み、Back で読み上げを止め、B で戻ります。"
 
 msgid ""
 "Left and Right arrows or Page Up and Page Down change pages. Up and Down "
-"let you read a little at a time. Enter or Space reads the whole page, "
-"either Control or F1 stops speech, and Escape goes back."
+"read one line at a time. Enter or Space reads the whole page, either "
+"Control or F1 stops speech, and Escape goes back."
 msgstr ""
-"左右の矢印キーか Page Up と Page Down でページを変えます。上下で少しずつ読めます。Enter か Space "
+"左右の矢印キーか Page Up と Page Down でページを変えます。上下で1行ずつ読みます。Enter か Space "
 "でページ全体を読み、左右どちらかの Control か F1 で読み上げを止め、Escape で戻ります。"
 
 #. one sentence of a longer line
@@ -37922,6 +37971,9 @@ msgstr "タイヤの破片。"
 msgid "Debris."
 msgstr "落下物。"
 
+#~ msgid "Finalizing delivery, reputation, and cash readiness."
+#~ msgstr "配達、評判、資金の準備を仕上げています。"
+
 #~ msgid ""
 #~ "Every bend and street corner, in every lane keeping mode. It also leans to "
 #~ "correct drift when lane keeping is partial or off and lane departure "
@@ -38441,38 +38493,6 @@ msgstr "落下物。"
 #~ msgstr "直接取引の評判と積立がまだ固まらないうちは、運送許可を慎重に使ってください。"
 
 #~ msgid ""
-#~ "You have senior company experience. Use it to compare buy-in, lease, and "
-#~ "authority timing."
-#~ msgstr "上級社員としての経験があります。それを生かして、買い取り、リース、運送許可の時期を比べてください。"
-
-#~ msgid ""
-#~ "You owed {money_text} against a {label} that would bring about "
-#~ "{money_text2} at sale."
-#~ msgstr "借りている額は{money_text}でしたが、{label}を売っても約{money_text2}にしかなりません。"
-
-#~ msgid ""
-#~ "You owed {money_text} against a {label} that would bring about "
-#~ "{money_text2} at sale. The truck no longer covers the loan, so the lender "
-#~ "has taken it back."
-#~ msgstr ""
-#~ "借りている額は{money_text}でしたが、{label}を売っても約{money_text2}にしかなりません。トラックの価値でローンをまかなえな"
-#~ "くなったため、貸し手が引き揚げました。"
-
-#~ msgid ""
-#~ "A chain set is seven chains and two repair links. Four chains go on the "
-#~ "drive tires, one on a trailer tire, and two are spares, the most any state "
-#~ "here asks of a semi. Put chains on from the pause menu once you're stopped "
-#~ "in snow or ice. They wear out fast on bare pavement. Company drivers bill "
-#~ "the carrier."
-#~ msgstr ""
-#~ "チェーンのセットは7本のチェーンと修理用リンク2つです。駆動輪に4本、トレーラーのタイヤに1本、予備が2本で、ここのどの州がセミトレーラーに求める本数も"
-#~ "満たします。雪や氷の上で停まったら、一時停止メニューからチェーンを装着してください。乾いた舗装の上ではすぐにすり減ります。社員ドライバーは運送会社に請求"
-#~ "します。"
-
-#~ msgid "Finalizing delivery, reputation, and cash readiness."
-#~ msgstr "配達、評判、資金の準備を仕上げています。"
-
-#~ msgid ""
 #~ "You reached level 30 as a leased-on owner-operator; own authority remains "
 #~ "the one step left."
 #~ msgstr "運送会社と業務委託のオーナードライバーとしてレベル30に到達しました。残る一歩は独自の運送許可だけです。"
@@ -38692,6 +38712,796 @@ msgstr "落下物。"
 #~ "The truck you were driving keeps its condition; your other trucks start "
 #~ "fueled and fresh."
 #~ msgstr "運転していたトラックは状態をそのまま保ち、他のトラックは満タンできれいな状態から始まります。"
+
+#~ msgid "A click and a spoken confirmation mark the latch."
+#~ msgstr "カチッという音と読み上げの確認で、かかったことが分かります。"
+
+#~ msgid "The accelerator releases it at once."
+#~ msgstr "アクセルを踏むとすぐに解除されます。"
+
+#~ msgid "{down} once releases it."
+#~ msgstr "{down}を1回押すと解除されます。"
+
+#~ msgid "{down} once releases it. The accelerator releases it at once."
+#~ msgstr "{down}を1回押すと解除されます。アクセルを踏むとすぐに解除されます。"
+
+#~ msgid "{favorite} saves or removes the station as a favorite."
+#~ msgstr "{favorite} で局をお気に入りに保存、または解除します。"
+
+#~ msgid "Learn game sounds plays each road cue with its meaning."
+#~ msgstr "ゲームの音を覚えるでは、道路の合図を一つずつ鳴らし、その意味を伝えます。"
+
+#~ msgid ""
+#~ "Online holds driver profiles, account achievements, sharing, and private "
+#~ "cloud backups."
+#~ msgstr "オンラインには、ドライバープロフィール、アカウントの実績、共有、非公開のクラウドバックアップがあります。"
+
+#~ msgid ""
+#~ "Once you have a saved career, Continue returns to your newest saved trip. "
+#~ "Choose career picks another driver."
+#~ msgstr "保存したキャリアがあれば、続けるで一番新しい保存した運行に戻ります。キャリアを選ぶで、別のドライバーを選べます。"
+
+#~ msgid "Manage careers resets or deletes a career after you confirm."
+#~ msgstr "キャリアの管理では、確認のあとでキャリアをリセットまたは削除します。"
+
+#~ msgid ""
+#~ "{control_engine} starts the engine, and stops it below five miles per hour."
+#~ msgstr "{control_engine}でエンジンをかけ、時速5マイル未満ではエンジンを止めます。"
+
+#~ msgid ""
+#~ "At the normal setting, cruise keeps a three second gap in clear weather, "
+#~ "wider in poor weather. It does not steer."
+#~ msgstr "通常の設定では、クルーズは晴天時に3秒の車間を保ち、天気が悪いと広げます。操舵はしません。"
+
+#~ msgid ""
+#~ "Realistic and Relaxed hours use the same limits. Relaxed brings lighter "
+#~ "fines, fewer inspections, and rare road hazards. Warnings come before each "
+#~ "limit: at one hour left with Relaxed pacing, two hours with Standard, and "
+#~ "two hours, one hour and thirty minutes with Real time. No warning comes for "
+#~ "a limit you will not reach before the trip ends."
+#~ msgstr ""
+#~ "リアルとゆったりの運転時間は同じ上限を使います。ゆったりでは罰金が軽く、検査が少なく、道路の危険もまれです。各上限の前に警告があります：運転モードがのん"
+#~ "びりなら1時間前、標準なら2時間前、実時間なら2時間前、1時間前、30分前です。運行が終わるまでに届かない上限には警告はありません。"
+
+#~ msgid ""
+#~ "Jobs name cargo, weight, pay, deadline, facilities, and equipment "
+#~ "requirements. F1 reads the details. Fuel adds weight, so check it before "
+#~ "filling a load near the weight limit."
+#~ msgstr ""
+#~ "依頼には、積荷、重量、報酬、期限、施設、装備の条件が書かれています。F1 "
+#~ "で詳細を読み上げます。燃料も重量になるので、重量の上限に近い積荷では給油の前に確認してください。"
+
+#~ msgid ""
+#~ "Winter tires improve snow and ice grip. Chains ride in the truck until you "
+#~ "fit them. Stop, then fit them from the pause menu."
+#~ msgstr ""
+#~ "冬用タイヤは雪と氷でのグリップを高めます。チェーンは付けるまでトラックに積んだままです。停まってから、一時停止メニューで付けてください。"
+
+#~ msgid ""
+#~ "Chain laws require chains on a truck at every chain-law level. Winter tires "
+#~ "don't count for a semi. The exceptions are level one in Colorado and "
+#~ "Oregon, which chains only single-drive-axle trucks, and level one in "
+#~ "Wyoming, which accepts snow tires. Signs announce the requirement before "
+#~ "the chain-up area."
+#~ msgstr ""
+#~ "チェーン規制では、どのレベルでもトラックにチェーンが必要です。セミトレーラーでは冬用タイヤは数えられません。例外は、駆動軸が1本のトラックだけにチェーン"
+#~ "を求めるColoradoとOregonのレベル1、そして冬用タイヤを認めるWyomingのレベル1です。チェーン装着場の前に、標識で規制が知らされます。"
+
+#~ msgid ""
+#~ "Change pacing mid-drive from pause. It begins when the truck next stops. "
+#~ "Legal hours and time remaining on a deadline stay intact."
+#~ msgstr ""
+#~ "ペースは運転中でも一時停止から変えられます。次にトラックが停まったときから始まります。法定の運転時間と期限までの残り時間はそのままです。"
+
+#~ msgid ""
+#~ "Tap the brake, then press again and hold half a second to latch it "
+#~ "hands-free; a click and a spoken confirmation mark the catch."
+#~ msgstr ""
+#~ "ブレーキを軽く押してから、もう一度押して半秒押し続けると、手を離してもかかったままになります。カチッという音と読み上げの確認で、かかったことが分かります"
+#~ "。"
+
+#~ msgid "{down} once releases it; the accelerator releases it instantly."
+#~ msgstr "{down}を1回押すと解除され、アクセルを踏むとすぐに解除されます。"
+
+#~ msgid "A brake held through a stop just holds the truck."
+#~ msgstr "停車までブレーキを押し続けたときは、トラックを止めておくだけです。"
+
+#~ msgid "At the planned pickup it pauses and resumes once you depart."
+#~ msgstr "予定の集荷地点で一時停止し、出発すると再開します。"
+
+#~ msgid ""
+#~ "Plus and minus, including the keypad keys, change the cruise speed by five; "
+#~ "it never holds more than five over the posted limit."
+#~ msgstr ""
+#~ "プラスとマイナス、テンキーのものも含めて、一般道路の目標速度を 5 ずつ変えます。標識の制限速度を 5 より多く超えることはありません。"
+
+#~ msgid "Control with plus or minus, by one."
+#~ msgstr "Control とプラスまたはマイナスで 1 ずつ変えます。"
+
+#~ msgid ""
+#~ "Parked with the parking brake set, {cruise} runs the engine at a fast idle; "
+#~ "plus and minus adjust it, and releasing the parking brake drops it."
+#~ msgstr ""
+#~ "パーキングブレーキをかけて停車中は、{cruise}でエンジンを高めのアイドリングにします。プラスとマイナスで調整し、パーキングブレーキを解除すると止ま"
+#~ "ります。"
+
+#~ msgid ""
+#~ "Keep road speed to there, then brake to the exit speed before the ramp "
+#~ "curve."
+#~ msgstr "そこまでは道路の速度を保ち、ランプのカーブの手前で出口速度までブレーキをかけます。"
+
+#~ msgid ""
+#~ "{exit} also signals a pull-over when a trooper signals you to pull over for "
+#~ "speeding, a scale bypass, or unsafe equipment: signal, then brake to a stop."
+#~ msgstr ""
+#~ "スピード違反、計量所の素通り、整備不良で警官に停車を命じられたときも、{exit}で路肩に寄ることを合図します。ウインカーを出してから、止まるまでブレー"
+#~ "キをかけてください。"
+
+#~ msgid "{radio} toggles the in-cab radio."
+#~ msgstr "{radio} で車内ラジオのオンとオフを切り替えます。"
+
+#~ msgid ""
+#~ "Page Down tunes to the next station, Page Up to the previous; semicolon and "
+#~ "apostrophe do the same."
+#~ msgstr "Page Down で次の局、Page Up で前の局に合わせます。セミコロンとアポストロフィも同じです。"
+
+#~ msgid ""
+#~ "Control with the tuning keys jumps a category; Shift changes the radio "
+#~ "volume in 10 percent steps, on or off."
+#~ msgstr "Control と選局キーでカテゴリーを移動します。Shift でラジオ音量を 10 パーセントずつ変え、オンとオフも切り替えます。"
+
+#~ msgid "{favorite} saves or unsaves the station as a favorite."
+#~ msgstr "{favorite} で局をお気に入りに保存、または解除します。"
+
+#~ msgid ""
+#~ "{radio_status} speaks station, volume, and streamer-safe status; "
+#~ "{now_playing} speaks the song when the station says."
+#~ msgstr ""
+#~ "{radio_status} は局、音量、配信セーフの状態を読み上げます。{now_playing} は局が伝えていれば曲を読み上げます。"
+
+#~ msgid ""
+#~ "The Driver apps tablet has a Radio app to search the dial, tune by name, "
+#~ "and keep favorites; the {status} status menu has a radio screen of "
+#~ "receivable stations."
+#~ msgstr ""
+#~ "ドライバーアプリのタブレットにはラジオアプリがあり、ダイヤルの検索、名前での選局、お気に入りの保存ができます。{status} "
+#~ "のステータスメニューには受信できる局のラジオ画面があります。"
+
+#~ msgid ""
+#~ "{hos_wheel} time at the wheel so far, {hos_break} when your 30 minute break "
+#~ "is due, {hos_drive} what ends this shift and where you can legally stop "
+#~ "before it."
+#~ msgstr ""
+#~ "{hos_wheel} これまでの運転時間、{hos_break} 30 分休憩の期限、{hos_drive} "
+#~ "このシフトを終わらせるものと、その前に合法的に停まれる場所。"
+
+#~ msgid ""
+#~ "Comma repeats what was just said and keeps stepping back; Period moves "
+#~ "forward again."
+#~ msgstr "カンマで今の発言を繰り返し、さらにさかのぼります。ピリオドで先に進みます。"
+
+#~ msgid ""
+#~ "Bends that demand slowing are called before they arrive, like Sharp left, "
+#~ "half a mile, advise 35; {safe_speed} gives one safe-speed number with the "
+#~ "bend in it."
+#~ msgstr ""
+#~ "減速が必要なカーブは手前で案内されます。たとえば、左急カーブ、半マイル、推奨 35 のように。{safe_speed} はカーブを含めた安全速度を 1 "
+#~ "つだけ伝えます。"
+
+#~ msgid ""
+#~ "{left} and {right} steer unless lane keeping is on full; steer across the "
+#~ "lane line to change lanes."
+#~ msgstr "レーンキープがフルでなければ {left} と {right} でハンドルを切ります。車線の線を越えると車線変更です。"
+
+#~ msgid ""
+#~ "Hold {straighten} to point the truck straight down the road; where it sits "
+#~ "in the lane stays yours to fix."
+#~ msgstr "{straighten} を押し続けるとトラックを道路の向きにまっすぐ合わせます。車線内の位置は自分で直します。"
+
+#~ msgid ""
+#~ "Change lanes or brake means something in your lane: take the open lane it "
+#~ "names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+#~ "Tire debris is driven over; nothing brakes for it."
+#~ msgstr ""
+#~ "車線変更かブレーキは、車線上に何かがあることを意味します。案内された空いている車線に移るか、時速30マイルまで落として越えてください。落石や止まった車は"
+#~ "停止が必要です。タイヤの破片はそのまま乗り越えます。何もブレーキをかけません。"
+
+#~ msgid ""
+#~ "{engine_brake} engine brake; on an automatic it manages its own stage, and "
+#~ "{jake1}, {jake2}, {jake3} take manual control."
+#~ msgstr ""
+#~ "{engine_brake} エンジンブレーキ。オートマでは段階を自分で調整し、{jake1}、{jake2}、{jake3} "
+#~ "で手動操作に切り替わります。"
+
+#~ msgid ""
+#~ "Hold Left Shift for clutch, then {shift_up} to shift up or {shift_down} to "
+#~ "shift down, {reverse} for reverse, {neutral} for neutral."
+#~ msgstr ""
+#~ "左 Shift を押し続けてクラッチにし、{shift_up} でシフトアップ、{shift_down} でシフトダウン、{reverse} "
+#~ "でリバース、{neutral} でニュートラルです。"
+
+#~ msgid ""
+#~ "Right trigger is the gas, left trigger the brake; the left trigger fully in "
+#~ "is the hardest stop."
+#~ msgstr "右トリガーがアクセル、左トリガーがブレーキです。左トリガーを奥まで引くと最も強い停止です。"
+
+#~ msgid ""
+#~ "The left stick steers; with lane keeping on full, pushing it left or right "
+#~ "changes one lane."
+#~ msgstr "Left stick でハンドルを切ります。レーンキープがフルのときは、左右に倒すと1車線変更します。"
+
+#~ msgid ""
+#~ "Hold the left bumper for the clutch; {shift_up} shifts up a gear, "
+#~ "{shift_down} shifts down."
+#~ msgstr "左バンパーを押し続けてクラッチにします。{shift_up} で 1 段シフトアップ、{shift_down} でシフトダウンです。"
+
+#~ msgid ""
+#~ "The Back button stops the driving voice while it is speaking; when nothing "
+#~ "is being said, it repeats this help."
+#~ msgstr "Back ボタンは運転音声が話している間はそれを止めます。何も話していないときは、このヘルプを繰り返します。"
+
+#~ msgid ""
+#~ "A flick is one step. A swipe and hold is continuous. Everything works "
+#~ "anywhere on the screen. Swipe up and hold for gas; lift to coast. Swipe "
+#~ "down and hold to brake. Swipe down three times as deep for the emergency "
+#~ "brake; stopped, that sets the parking brake, and gas releases it. "
+#~ msgstr ""
+#~ "フリックは1段階です。スワイプして長押しすると続けて効きます。どれも画面のどこでも使えます。上にスワイプして長押しでアクセル、指を離すと惰性で走ります。"
+#~ "下にスワイプして長押しでブレーキです。3倍深く下にスワイプすると非常ブレーキで、停まっているときは駐車ブレーキをかけ、アクセルで解除します。 "
+
+#~ msgid ""
+#~ "Flick left or right to change lanes; with lane keeping on full, flicks are "
+#~ "the only lane control. "
+#~ msgstr "左右にフリックすると車線を変えます。レーンキープがフルのときは、フリックだけが車線の操作です。 "
+
+#~ msgid ""
+#~ "Hold one finger still for half a second to straighten the wheel. With "
+#~ "cruise off, flick up to resume the last speed and flick down to set the "
+#~ "current speed. Turn two fingers right like a key to start the engine, left "
+#~ "to stop it. Hold two fingers for the horn; turning them cancels it. While "
+#~ "holding a pedal, a second finger's flicks and holds work the same way, and "
+#~ "in automatic its shift flicks say the gear. "
+#~ msgstr ""
+#~ "1本の指を半秒動かさずに押さえると、ハンドルをまっすぐに戻します。クルーズがオフのときは、上にフリックで前回の速度に戻し、下にフリックで今の速度を設定し"
+#~ "ます。2本の指をキーのように右に回すとエンジンがかかり、左に回すと止まります。2本の指で押さえるとクラクションで、回すと取り消します。ペダルを押さえてい"
+#~ "る間は、2本目の指のフリックと長押しが同じように働き、自動変速ではシフトのフリックでギアを伝えます。 "
+
+#~ msgid ""
+#~ "Welcome to Freight Fate. Start a trucking career, learn the road sounds, "
+#~ "and choose the work you want to haul."
+#~ msgstr "Freight Fateへようこそ。トラック運転手のキャリアを始め、道路の音を覚え、運びたい仕事を選びましょう。"
+
+#~ msgid ""
+#~ "Choose New career to create a driver. Before starting, you can explore the "
+#~ "help, sounds, and settings."
+#~ msgstr "新しいキャリアを選ぶとドライバーを作れます。始める前に、ヘルプ、音、設定を見ておくこともできます。"
+
+#~ msgid ""
+#~ "How to play is this guide. Learn game sounds lets you hear a road cue and "
+#~ "learn what it means."
+#~ msgstr "遊び方は、このガイドです。ゲームの音を覚えるでは、道路の合図を聞いて、その意味を覚えられます。"
+
+#~ msgid ""
+#~ "Settings lets you change driving assistance, sound, speech, and controls. "
+#~ "Report a problem opens the bug-report page in your browser. Quit closes the "
+#~ "game."
+#~ msgstr ""
+#~ "設定では、運転アシスト、音、読み上げ、操作を変えられます。問題を報告は、ブラウザーでバグ報告のページを開きます。終了はゲームを閉じます。"
+
+#~ msgid ""
+#~ "Achievements lets you review a saved driver's earned and locked "
+#~ "achievements. With no saved careers, there is no record to review yet."
+#~ msgstr "実績では、保存したドライバーの獲得済みと未獲得の実績を確認できます。保存したキャリアがなければ、まだ確認する記録はありません。"
+
+#~ msgid ""
+#~ "Online brings together driver profiles, account achievements, sharing, and "
+#~ "private cloud backups."
+#~ msgstr "オンラインには、ドライバープロフィール、アカウントの実績、共有、非公開のクラウドバックアップがまとまっています。"
+
+#~ msgid ""
+#~ "Once you have a saved career, Continue returns to your newest saved trip. "
+#~ "Choose career lets you select another driver."
+#~ msgstr "保存したキャリアがあれば、続けるで一番新しい保存した運行に戻ります。キャリアを選ぶで、別のドライバーを選べます。"
+
+#~ msgid ""
+#~ "Manage careers offers reset and deletion. The game asks you to confirm "
+#~ "before either happens."
+#~ msgstr "キャリアの管理では、リセットと削除ができます。どちらも実行する前に確認があります。"
+
+#~ msgid ""
+#~ "For a first drive, All assists handles steering while you learn the sounds. "
+#~ "Change it under Settings, Gameplay, Driving assistance."
+#~ msgstr "最初の運転では、すべてのアシストが操舵を受け持つので、その間に音を覚えられます。設定のゲームプレイ、運転アシストで変えられます。"
+
+#~ msgid ""
+#~ "Up and Down choose an option. Enter or Space selects it; Escape returns. "
+#~ "Home and End jump to the first or last option."
+#~ msgstr ""
+#~ "上下で項目を選びます。Enter か Space で決定し、Escape で戻ります。Home と End で最初と最後の項目に移ります。"
+
+#~ msgid ""
+#~ "In How to play, Left and Right or the Page keys change pages. Up and Down "
+#~ "let you read a little at a time. Enter or Space reads the page; either "
+#~ "Control key or F1 stops speech."
+#~ msgstr ""
+#~ "遊び方では、左右か Page キーでページを変えます。上下で少しずつ読めます。Enter か Space でページを読み、左右どちらかの "
+#~ "Control か F1 で読み上げを止めます。"
+
+#~ msgid ""
+#~ "Practice keys and buttons names what each key or controller button does "
+#~ "while driving, without moving the truck. Shift F1 opens it from any screen, "
+#~ "as does holding Back and pressing Start on a controller. It is also on the "
+#~ "main and pause menus. Press Escape or Start twice to leave."
+#~ msgstr ""
+#~ "キーとボタンの練習では、トラックを動かさずに、運転中に各キーやコントローラーのボタンが何をするかを読み上げます。どの画面でも Shift F1 "
+#~ "で開け、コントローラーで Back を押したまま Start を押しても開けます。メインメニューと一時停止メニューにもあります。Escape か "
+#~ "Start を2回押すと終了します。"
+
+#~ msgid "To shut it down, slow below five miles per hour."
+#~ msgstr "エンジンを止めるには、時速5マイル未満に減速してください。"
+
+#~ msgid ""
+#~ "{control_engine} starts the engine. To shut it down, slow below five miles "
+#~ "per hour."
+#~ msgstr "{control_engine}でエンジンをかけます。エンジンを止めるには、時速5マイル未満に減速してください。"
+
+#~ msgid ""
+#~ "Wait for air pressure to reach 100 psi, then use {control_parking_brake} to "
+#~ "release the parking brake."
+#~ msgstr "エア圧が100 psiになるのを待ってから、{control_parking_brake}で駐車ブレーキを解除します。"
+
+#~ msgid ""
+#~ "Wait for air pressure to reach 100 psi, then use {control_parking_brake} to "
+#~ "release the parking brake. Repeated hard braking uses air."
+#~ msgstr ""
+#~ "エア圧が100 "
+#~ "psiになるのを待ってから、{control_parking_brake}で駐車ブレーキを解除します。強いブレーキを繰り返すとエアを使います。"
+
+#~ msgid ""
+#~ "On open roads it follows traffic; on low-speed roads it follows local "
+#~ "limits, queues and corners."
+#~ msgstr "開けた道路では交通に合わせ、低速の道では地域の制限、渋滞、カーブに合わせます。"
+
+#~ msgid ""
+#~ "{control_cruise} turns cruise on. On open roads it follows traffic; on "
+#~ "low-speed roads it follows local limits, queues and corners."
+#~ msgstr ""
+#~ "{control_cruise}でクルーズをオンにします。開けた道路では交通に合わせ、低速の道では地域の制限、渋滞、カーブに合わせます。"
+
+#~ msgid ""
+#~ "Cruise follows traffic. Its normal three second clear-weather gap increases "
+#~ "in poor weather. It does not steer."
+#~ msgstr "クルーズは前の車に合わせて走ります。晴天時の通常3秒の車間は、天気が悪いと広がります。操舵はしません。"
+
+#~ msgid ""
+#~ "Cruise prepares for sharp posted-limit drops and holds no more than five "
+#~ "over the posted limit."
+#~ msgstr "クルーズは、表示された制限速度が大きく下がる前に備え、制限速度プラス5までしか出しません。"
+
+#~ msgid ""
+#~ "Cruise prepares for sharp posted-limit drops and holds no more than five "
+#~ "over the posted limit. {control_speed} reads the active speed-control mode "
+#~ "and cruise speed."
+#~ msgstr ""
+#~ "クルーズは、表示された制限速度が大きく下がる前に備え、制限速度プラス5までしか出しません。{control_speed}で、作動中の速度制御のモードと一"
+#~ "般道路での目標を読み上げます。"
+
+#~ msgid ""
+#~ "Before a descent, reduce speed and choose a lower gear. Use the engine "
+#~ "brake for steady control and short brake applications with cooling time "
+#~ "between them."
+#~ msgstr ""
+#~ "下り坂の前には減速し、低いギアを選んでください。安定した制御にはエンジンブレーキを使い、ブレーキは短くかけて、その間に冷ます時間を取ってください。"
+
+#~ msgid "{control_auto_jake} selects automatic or manual stage management."
+#~ msgstr "{control_auto_jake}で段階を自動で管理するか手動で管理するかを選びます。"
+
+#~ msgid ""
+#~ "{control_engine_brake} enables the engine brake. While enabled, "
+#~ "{control_jake_stage_1}, {control_jake_stage_2}, and {control_jake_stage_3} "
+#~ "choose its stage. {control_auto_jake} selects automatic or manual stage "
+#~ "management."
+#~ msgstr ""
+#~ "{control_engine_brake}でエンジンブレーキを有効にします。有効な間は、{control_jake_stage_1}、{control"
+#~ "_jake_stage_2}、{control_jake_stage_3}で段階を選びます。{control_auto_jake}で段階を自動で管理する"
+#~ "か手動で管理するかを選びます。"
+
+#~ msgid ""
+#~ "Noise-restricted towns warn before fining engine braking. Downhill grades "
+#~ "and emergencies have exceptions."
+#~ msgstr "騒音規制のある町では、エンジンブレーキに罰金を科す前に警告があります。下り勾配と緊急時は例外です。"
+
+#~ msgid ""
+#~ "It adds RPM with a manual transmission, air or brakes when they need "
+#~ "attention, and the distance to an exit you signaled for."
+#~ msgstr "マニュアルでは回転数、注意が必要なときはエア圧やブレーキ、ウインカーを出した出口までの距離も加わります。"
+
+#~ msgid ""
+#~ "{control_speed} speaks your speed, gear, and speed-control mode. It adds "
+#~ "RPM with a manual transmission, air or brakes when they need attention, and "
+#~ "the distance to an exit you signaled for."
+#~ msgstr ""
+#~ "{control_speed}で、速度、ギア、速度制御のモードを読み上げます。マニュアルでは回転数、注意が必要なときはエア圧やブレーキ、ウインカーを出し"
+#~ "た出口までの距離も加わります。"
+
+#~ msgid ""
+#~ "{control_safe_speed} gives the current safe speed; {control_grade} reads "
+#~ "the current and next relevant grade."
+#~ msgstr ""
+#~ "{control_safe_speed}で今の安全速度を伝え、{control_grade}で今の勾配と次の関係する勾配を読み上げます。"
+
+#~ msgid ""
+#~ "{control_speed_limit} speaks the posted speed limit, zone, and how far over "
+#~ "you are. {control_safe_speed} gives the current safe speed; {control_grade} "
+#~ "reads the current and next relevant grade."
+#~ msgstr ""
+#~ "{control_speed_limit}で、表示された制限速度、区間、どれだけ超えているかを読み上げます。{control_safe_speed}で今"
+#~ "の安全速度を伝え、{control_grade}で今の勾配と次の関係する勾配を読み上げます。"
+
+#~ msgid "Use the reports for trip details or open an app for a specific task."
+#~ msgstr "運行の詳細はレポートで確認し、特定の作業にはアプリを開いてください。"
+
+#~ msgid ""
+#~ "{control_status} opens Route, Driver, Map, and Radio reports, plus Driver "
+#~ "apps. Use the reports for trip details or open an app for a specific task."
+#~ msgstr ""
+#~ "{control_status}で、ルート、ドライバー、マップ、ラジオのレポートと、ドライバーアプリを開きます。運行の詳細はレポートで確認し、特定の作業"
+#~ "にはアプリを開いてください。"
+
+#~ msgid ""
+#~ "Left or Right Control stops the driving event voice. Escape pauses. F2 "
+#~ "lists driving commands by name; Enter runs the selected command."
+#~ msgstr ""
+#~ "左右どちらかの Control で、運転中の出来事の読み上げを止めます。Escape で一時停止します。F2 で運転の操作を名前で一覧にし、Enter "
+#~ "で選んだ操作を実行します。"
+
+#~ msgid ""
+#~ "Every light change is spoken. The sensor tick speeds up near the stop bar. "
+#~ "Cross traffic can hit a truck that runs through."
+#~ msgstr ""
+#~ "信号が変わるたびに読み上げます。停止線に近づくとセンサーのカチカチという音が速くなります。信号を無視して進むと、交差する車にぶつけられることがあります。"
+
+#~ msgid ""
+#~ "When clear, pull ahead as instructed. Facility stopping assistance can take "
+#~ "the pedals to the gate; your brake releases it."
+#~ msgstr "安全なら、指示どおりに前に進みます。施設停車アシストは、ゲートまでペダルを操作できます。ブレーキを踏むと解除されます。"
+
+#~ msgid ""
+#~ "GPS announces state lines, towns, route changes, traffic, work zones, and "
+#~ "useful stops. Grades and terrain come from the route; weather and traffic "
+#~ "vary by place and time."
+#~ msgstr ""
+#~ "GPSは、州境、町、ルートの変化、周囲の車、工事区間、役に立つ停車地を案内します。勾配と地形はルートから、天気と周囲の車は場所と時間によって変わります。"
+
+#~ msgid ""
+#~ "Tire debris is called out and driven over; nothing brakes for it. Full lane "
+#~ "keeping moves over for debris and slow vehicles when a lane is open, and "
+#~ "avoids starting a pass near an exit."
+#~ msgstr ""
+#~ "タイヤの破片は読み上げられ、そのまま乗り越えます。何もブレーキをかけません。レーンキープがフルなら、車線が空いていれば落下物や遅い車を避けて移り、出口の"
+#~ "近くでは追い越しを始めません。"
+
+#~ msgid ""
+#~ "Citations cost money and affect your record. Serious violations can suspend "
+#~ "your CDL and remove driving work; fleeing is a major offense."
+#~ msgstr "違反切符はお金がかかり、記録にも影響します。重大違反ではCDLが停止され、運転の仕事がなくなることがあります。逃走は一発取消違反です。"
+
+#~ msgid ""
+#~ "Both hours modes use these limits. Relaxed changes enforcement pressure. "
+#~ "One warning comes before each limit: one hour left in the Relaxed driving "
+#~ "mode, two hours in Standard, and two hours, one hour and thirty minutes in "
+#~ "Real time. No warning comes for a limit you will not reach before the trip "
+#~ "ends."
+#~ msgstr ""
+#~ "どちらの運転時間モードでもこの上限を使います。のんびりは取り締まりのきびしさを変えます。各上限の前に警告が一度あります：運転モードがのんびりなら1時間前"
+#~ "、標準なら2時間前、実時間なら2時間前、1時間前、30分前です。運行が終わるまでに届かない上限には警告はありません。"
+
+#~ msgid ""
+#~ "Ten-hour sleep is the simplest reset. Sleeper parking also offers 2, 3, 7 "
+#~ "or 8 hours. Pair 8 with 2, or 7 with 3, for a split rest. The long part "
+#~ "pauses the duty window; the short part does not, until the pair is done."
+#~ msgstr ""
+#~ "10時間の睡眠がいちばん簡単なリセットです。寝台付きの駐車場では2、3、7、8時間も選べます。8と2、または7と3を組み合わせると分割休息になります。長"
+#~ "いほうは勤務枠を止めますが、短いほうは組み合わせが完了するまで止めません。"
+
+#~ msgid ""
+#~ "Meals and coffee help temporarily. A half-hour meal counts as a break. "
+#~ "Proper sleep clears fatigue; a legal reset with poor rest can leave you "
+#~ "tired."
+#~ msgstr ""
+#~ "食事とコーヒーは一時的に効きます。30分の食事は休憩になります。疲労をなくすにはきちんと眠ることです。休息の質が悪いと、法的にはリセットされても疲れが残"
+#~ "ることがあります。"
+
+#~ msgid ""
+#~ "Away from route points and fully stopped, {control_rest} or the pause menu "
+#~ "offers emergency shoulder sleep: ten hours pass, with poor rest and "
+#~ "possible parking ticket or minor damage."
+#~ msgstr ""
+#~ "ルート上の地点から離れて完全に停まっているときは、{control_rest}か一時停止メニューで、路肩での緊急の睡眠を選べます。10時間がたち、休息の"
+#~ "質は悪く、駐車違反の切符や軽い損傷のおそれがあります。"
+
+#~ msgid ""
+#~ "The deadline keeps running during all rest. Logbook at the terminal and the "
+#~ "ELD app let you review duty and limits."
+#~ msgstr "休息している間も、期限は進み続けます。ターミナルの運転日誌とELDアプリで、勤務と上限を確認できます。"
+
+#~ msgid ""
+#~ "New company hires get an assigned load. Load choice opens at level eight. "
+#~ "Declining costs reputation; low dispatch trust can remove load choice again."
+#~ msgstr ""
+#~ "新人の会社ドライバーには割り当ての貨物が来ます。貨物を選べるのはレベル8からです。断ると評判が下がります。配車係の信頼が低いと、貨物を選べなくなることが"
+#~ "あります。"
+
+#~ msgid ""
+#~ "Jobs name cargo, weight, pay, deadline, facilities, and equipment "
+#~ "requirements. F1 reads the details. Fuel adds weight; check before filling "
+#~ "a marginal load."
+#~ msgstr ""
+#~ "依頼には、積荷、重量、報酬、期限、施設、装備の条件が書かれています。F1 "
+#~ "で詳細を読み上げます。燃料も重量になるので、ぎりぎりの積荷では給油の前に確認してください。"
+
+#~ msgid ""
+#~ "Debt warnings say the most you can owe and what happens when you reach it. "
+#~ "At that limit, a company driver changes carrier or an owner loses tractors "
+#~ "and returns to company driving."
+#~ msgstr ""
+#~ "借金の警告では、借りられる上限と、そこに達したらどうなるかを伝えます。その上限に達すると、会社ドライバーは会社を変わり、オーナーはトラクターを失って会社"
+#~ "のドライバーに戻ります。"
+
+#~ msgid ""
+#~ "The garage refuels, repairs, replaces tires, and services brakes and "
+#~ "engines. Company routine costs use the carrier account; owners can buy "
+#~ "partial service when cash is short."
+#~ msgstr ""
+#~ "ガレージでは、給油、修理、タイヤ交換、ブレーキとエンジンの整備ができます。社員ドライバーの日常の費用は運送会社の口座から払われます。オーナードライバーは"
+#~ "、お金が足りないときは一部だけの整備を買えます。"
+
+#~ msgid ""
+#~ "Licenses and training opens refrigerated, heavy-haul, high-value, liquid "
+#~ "bulk, doubles, hazardous, port, and long-combination freight as "
+#~ "requirements clear."
+#~ msgstr "免許と研修では、条件を満たすにつれて、冷凍、重量物、高額、液体バルク、ダブルス、危険物、港湾、長大連結車の貨物が開きます。"
+
+#~ msgid ""
+#~ "Facilities determine local cargo. Dispatch routes include stops for fuel "
+#~ "and legal rest; F1 reads the load's requirements before you accept it."
+#~ msgstr ""
+#~ "施設によって地域の積荷が決まります。配車のルートには給油と法定の休息のための停車地が含まれます。引き受ける前に、F1 で積荷の条件を読み上げます。"
+
+#~ msgid ""
+#~ "An engine tune adds pulling power. An aerodynamic kit reduces highway fuel "
+#~ "burn. A long-range tank adds fifty gallons; reinforced brakes resist fade "
+#~ "longer."
+#~ msgstr ""
+#~ "エンジンのチューニングで牽引力が上がります。空力キットで高速道路での燃料消費が減ります。長距離タンクで50ガロン増え、強化ブレーキはフェードに長く耐えま"
+#~ "す。"
+
+#~ msgid ""
+#~ "Damage above fifty percent reduces power; above seventy-five brings limp "
+#~ "mode and a forty-five mile per hour cap. Above ninety puts the truck out of "
+#~ "service."
+#~ msgstr ""
+#~ "損傷が50パーセントを超えると出力低下になり、75を超えるとリンプモードで時速45マイルに制限されます。90を超えるとトラックは走行禁止になります。"
+
+#~ msgid ""
+#~ "Winter tires improve snow and ice grip. Chains are carried until you "
+#~ "install them while stopped through the pause menu."
+#~ msgstr "冬用タイヤは雪と氷でのグリップを高めます。チェーンは、停まっている間に一時停止メニューから付けるまで積んだままです。"
+
+#~ msgid ""
+#~ "Chain laws require chains on a truck at every level. Winter tires don't "
+#~ "count for a semi. The exceptions are level one in Colorado and Oregon, "
+#~ "which chain only single-drive-axle trucks, and in Wyoming, which accepts "
+#~ "snow tires. Signs announce the requirement before the chain-up area."
+#~ msgstr ""
+#~ "チェーン規制では、どのレベルでもトラックにチェーンが必要です。セミトレーラーでは冬用タイヤは数えられません。例外は、駆動軸が1本のトラックだけにチェーン"
+#~ "を求めるColoradoとOregonのレベル1、そして冬用タイヤを認めるWyomingです。チェーン装着場の前に、標識で規制が知らされます。"
+
+#~ msgid ""
+#~ "Open driving status with {control_status}, then choose Driver apps. Up and "
+#~ "Down choose an app; Enter opens it. Escape returns."
+#~ msgstr ""
+#~ "{control_status}で運転のステータスを開き、ドライバーアプリを選びます。上下でアプリを選び、Enter で開きます。Escape "
+#~ "で戻ります。"
+
+#~ msgid "Up and Down choose an app; Enter opens it."
+#~ msgstr "上下でアプリを選び、Enter で開きます。"
+
+#~ msgid ""
+#~ "Radio lets you switch the radio on or off, tune, manage favorites, and "
+#~ "suggest a station. Search by part of a name, call sign, or format, then "
+#~ "choose a result. Out-of-range stations cannot be tuned here."
+#~ msgstr ""
+#~ "ラジオでは、ラジオのオンとオフ、選局、お気に入りの管理、局の提案ができます。名前、コールサイン、フォーマットの一部で検索し、結果を選びます。電波の届かな"
+#~ "い局はここでは選べません。"
+
+#~ msgid ""
+#~ "Navigation reviews your next guidance, progress, and next listed exit. Map "
+#~ "under driving status gives a broader view of the route and stops."
+#~ msgstr ""
+#~ "ナビゲーションでは、次の案内、進み具合、次に載っている出口を確認できます。運転のステータスのマップでは、ルートと停車地をもっと広く見渡せます。"
+
+#~ msgid ""
+#~ "Weather gives conditions, suggested safe speed, how old the report is, and "
+#~ "any active live weather alerts. Simulated weather includes a forecast; a "
+#~ "live report may not. The app tells you if a live check is updating or has "
+#~ "failed."
+#~ msgstr ""
+#~ "天気では、状況、推奨の安全速度、情報の古さ、発令中の実際の気象警報を伝えます。シミュレーションの天気には予報がありますが、実際の天気の情報にはないことが"
+#~ "あります。実際の天気の確認が更新中か失敗したかも、アプリが伝えます。"
+
+#~ msgid ""
+#~ "Page Down or apostrophe tunes forward; Page Up or semicolon tunes backward."
+#~ msgstr "Page Down かアポストロフィーで次の局に、Page Up かセミコロンで前の局に合わせます。"
+
+#~ msgid ""
+#~ "With the engine running, {control_radio} switches the radio on or off. Page "
+#~ "Down or apostrophe tunes forward; Page Up or semicolon tunes backward."
+#~ msgstr ""
+#~ "エンジンがかかっているとき、{control_radio}でラジオのオンとオフを切り替えます。Page Down "
+#~ "かアポストロフィーで次の局に、Page Up かセミコロンで前の局に合わせます。"
+
+#~ msgid ""
+#~ "Put M3U, M3U8, or PLS playlists in the Playlists folder inside your saves "
+#~ "folder. Radio status tells you the folder location and reloads it when "
+#~ "opened. Entries can be audio files, network paths, or stream addresses."
+#~ msgstr ""
+#~ "M3U、M3U8、PLS のプレイリストを、セーブフォルダーの中の Playlists "
+#~ "フォルダーに入れてください。ラジオの状態でフォルダーの場所を伝え、開いたときに読み込み直します。項目には、音声ファイル、ネットワークのパス、ストリームの"
+#~ "アドレスを使えます。"
+
+#~ msgid ""
+#~ "Change pacing mid-drive from pause; it begins when the truck next stops. "
+#~ "Legal hours and time remaining on a deadline stay intact."
+#~ msgstr "ペースは運転中でも一時停止から変えられ、次にトラックが停まったときから始まります。法定の運転時間と期限までの残り時間はそのままです。"
+
+#~ msgid ""
+#~ "Speech and braille sends messages to both. Braille only requires NVDA or "
+#~ "JAWS; speech returns if the screen reader closes. You can also choose a "
+#~ "separate driving event voice."
+#~ msgstr ""
+#~ "読み上げと点字では、メッセージを両方に送ります。点字のみには NVDA か JAWS "
+#~ "が必要で、スクリーンリーダーが閉じると読み上げに戻ります。運転中の出来事用に、別の声を選ぶこともできます。"
+
+#~ msgid ""
+#~ "Online lets you browse driver profiles and account achievements, connect an "
+#~ "account, choose sharing, and manage private backups. Viewing drivers shares "
+#~ "nothing about you."
+#~ msgstr ""
+#~ "オンラインでは、ドライバープロフィールとアカウントの実績を見たり、アカウントをつないだり、共有を選んだり、非公開のバックアップを管理したりできます。ドラ"
+#~ "イバーを見ても、自分の情報は何も共有されません。"
+
+#~ msgid ""
+#~ "Do I have to buy a truck? No. The carrier assigns company drivers a truck "
+#~ "and pays its fuel, repairs, and insurance. Buying trucks opens with the "
+#~ "owner-operator buy-in from level 18; Business status lists what else it "
+#~ "needs."
+#~ msgstr ""
+#~ "トラックを買う必要はありますか？いいえ。社員ドライバーには運送会社がトラックを割り当て、燃料、修理、保険を払います。トラックの購入は、レベル18からのオ"
+#~ "ーナードライバーへの買い取りで開きます。他に何が必要かは事業状況に載っています。"
+
+#~ msgid ""
+#~ "What is the difference between reputation and dispatch trust? Reputation is "
+#~ "a score from your deliveries, lowered by your driving record: Outstanding, "
+#~ "Well regarded, Established, Unproven, Shaky, Damaged, or Ruined. New "
+#~ "drivers start at 50, Unproven. A trust line shows it as, for example, "
+#~ "Dispatch trust: full. Reputation 85 out of 100. Dispatch trust is what the "
+#~ "carrier lets you do right now; your CDL, your record, and what you owe "
+#~ "count toward it too. Settings, Speech has Score display: both, percentage "
+#~ "only, or description only."
+#~ msgstr ""
+#~ "評判と配車係の信頼の違いは何ですか？評判は、配達から決まるスコアで、運転記録で下がります。段階は、抜群、好評、定着、未知数、不安定、損なわれた、失墜です"
+#~ "。新しいドライバーは50、未知数から始まります。信頼の読み上げは、たとえば、配車係の信頼：フル。評判は100中85。のようになります。配車係の信頼は、運"
+#~ "送会社が今何をさせてくれるかで、CDL、記録、借りている額も影響します。設定の読み上げにスコアの表示があり、両方、パーセントのみ、説明のみから選べます。"
+
+#~ msgid "Open weigh station ahead means every truck must pull in."
+#~ msgstr "「この先の計量所は開いています」は、すべてのトラックが入らなければならないという意味です。"
+
+#~ msgid ""
+#~ "Why did I get a citation at a weigh station? Open weigh station ahead means "
+#~ "every truck must pull in. Signal with {control_take_exit}, stop at the "
+#~ "scale, then press {control_rest} to check in."
+#~ msgstr ""
+#~ "計量所で違反切符を切られたのはなぜですか？「この先の計量所は開いています」は、すべてのトラックが入らなければならないという意味です。{control_t"
+#~ "ake_exit}で合図し、計量所で停まってから、{control_rest}を押して受付をします。"
+
+#~ msgid ""
+#~ "How do I change stations or play my own music? With the engine running, "
+#~ "{control_radio} switches the radio on, and Page Up or Page Down tunes. Put "
+#~ "playlist files in the Playlists folder inside your saves folder; Radio "
+#~ "status says where it is."
+#~ msgstr ""
+#~ "局を変えたり、自分の音楽を流したりするにはどうすればいいですか？エンジンがかかっているとき、{control_radio}でラジオをオンにし、Page "
+#~ "Up か Page Down で選局します。プレイリストのファイルは、セーブフォルダーの中の Playlists "
+#~ "フォルダーに入れてください。場所はラジオの状態で分かります。"
+
+#~ msgid ""
+#~ "Put playlist files in the Playlists folder inside your saves folder; Radio "
+#~ "status says where it is."
+#~ msgstr "プレイリストのファイルは、セーブフォルダーの中の Playlists フォルダーに入れてください。場所はラジオの状態で分かります。"
+
+#~ msgid ""
+#~ "Controllers work alongside the keyboard. Button names use the Xbox layout. "
+#~ "Settings, Gameplay, Controls lets you change eligible assignments."
+#~ msgstr ""
+#~ "コントローラーはキーボードと一緒に使えます。ボタンの名前はXboxの配置です。設定のゲームプレイ、操作で、変更できる割り当てを変えられます。"
+
+#~ msgid ""
+#~ "In menus, D-pad moves, A confirms, B returns, and Back reads help. During "
+#~ "driving speech, Back stops the voice; otherwise it reads help. Start pauses."
+#~ msgstr ""
+#~ "メニューでは、D-pad で移動、A で決定、B で戻り、Back でヘルプを読みます。運転中の読み上げの最中は Back "
+#~ "で声を止め、それ以外ではヘルプを読みます。Start で一時停止します。"
+
+#~ msgid ""
+#~ "Right trigger accelerates, left trigger brakes, and fully pressing the left "
+#~ "trigger gives emergency braking. The left stick steers; with lane keeping "
+#~ "on full, push it left or right to change one lane."
+#~ msgstr ""
+#~ "Right trigger でアクセル、Left trigger でブレーキ、Left trigger を奥まで押すと非常ブレーキです。Left "
+#~ "stick でハンドルを切ります。レーンキープがフルのときは、左右に倒すと1車線変更します。"
+
+#~ msgid ""
+#~ "Hold left bumper for manual clutch. {pad_shift_up} shifts up and "
+#~ "{pad_shift_down} down, past first into neutral and then reverse. "
+#~ "{pad_cruise} starts speed control; {pad_speed} reads speed."
+#~ msgstr ""
+#~ "left bumper を押したままでマニュアルのクラッチです。{pad_shift_up} でシフトアップ、{pad_shift_down} "
+#~ "でシフトダウンし、1速より下はニュートラル、次にリバースです。{pad_cruise} で速度制御を開始し、{pad_speed} "
+#~ "で速度を読み上げます。"
+
+#~ msgid "{pad_cruise} starts speed control; {pad_speed} reads speed."
+#~ msgstr "{pad_cruise}で速度制御を始め、{pad_speed}で速度を読み上げます。"
+
+#~ msgid ""
+#~ "{pad_horn} sounds the horn; {pad_engine_brake} enables the engine brake."
+#~ msgstr "{pad_horn}でクラクションを鳴らし、{pad_engine_brake}でエンジンブレーキを有効にします。"
+
+#~ msgid ""
+#~ "{pad_horn} sounds the horn; {pad_engine_brake} enables the engine brake. "
+#~ "{pad_route} reads location, {pad_weather} weather, and {pad_clock} clock "
+#~ "and hours."
+#~ msgstr ""
+#~ "{pad_horn}でクラクションを鳴らし、{pad_engine_brake}でエンジンブレーキを有効にします。{pad_route}で現在地、{pa"
+#~ "d_weather}で天気、{pad_clock}で時刻と運転時間を読み上げます。"
+
+#~ msgid "Right bumper accesses the second layer."
+#~ msgstr "right bumper で2段目を使えます。"
+
+#~ msgid ""
+#~ "Right bumper accesses the second layer. {pad_engine} controls the engine, "
+#~ "{pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
+#~ msgstr ""
+#~ "right bumper "
+#~ "で2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料、{pad_speed_limit}で制限速度を読み上げます。"
+
+#~ msgid ""
+#~ "{pad_parking_brake} controls the parking brake. {pad_take_exit} signals for "
+#~ "an exit; {pad_rest} opens route-stop actions or emergency shoulder sleep "
+#~ "when fully stopped."
+#~ msgstr ""
+#~ "{pad_parking_brake}で駐車ブレーキを操作します。{pad_take_exit}で出口への合図を出し、{pad_rest}で、完全に停ま"
+#~ "っているときにルート上の停車地の操作か、路肩での緊急の睡眠を開きます。"
+
+#~ msgid ""
+#~ "{pad_take_exit} signals for an exit; {pad_rest} opens route-stop actions or "
+#~ "emergency shoulder sleep when fully stopped."
+#~ msgstr ""
+#~ "{pad_take_exit}で出口への合図を出し、{pad_rest}で、完全に停まっているときにルート上の停車地の操作か、路肩での緊急の睡眠を開きま"
+#~ "す。"
+
+#~ msgid ""
+#~ "D-pad Left and Right change pages, Up and Down let you read a little at a "
+#~ "time. A reads the whole page, Back stops speech, and B goes back."
+#~ msgstr "D-pad の左右でページを変え、上下で少しずつ読めます。A でページ全体を読み、Back で読み上げを止め、B で戻ります。"
+
+#~ msgid ""
+#~ "Left and Right arrows or Page Up and Page Down change pages. Up and Down "
+#~ "let you read a little at a time. Enter or Space reads the whole page, "
+#~ "either Control or F1 stops speech, and Escape goes back."
+#~ msgstr ""
+#~ "左右の矢印キーか Page Up と Page Down でページを変えます。上下で少しずつ読めます。Enter か Space "
+#~ "でページ全体を読み、左右どちらかの Control か F1 で読み上げを止め、Escape で戻ります。"
 
 #~ msgid "Air pressure {f} psi."
 #~ msgstr "エア圧{f} psi。"
