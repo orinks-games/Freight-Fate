@@ -548,12 +548,13 @@ pub fn apply_repossession<P: SolvencyProfile + ?Sized>(profile: &mut P) -> Vec<S
     profile.clear_dispatch_board_cache();
     let lines = vec![
         format!(
-            "You owed {} against a {label} that would bring about {} at sale, so the loan is no longer \
-             covered by the truck behind it, and the lender has taken it back.",
+            "You owed {} against a {label} that would sell for about {}. The truck no longer \
+             covers the loan, so the lender has taken it back.",
             money_text(settled),
             money_text(proceeds)
         ),
-        "The sale closes the loan. What you owed is settled and your cash is back to zero.".to_string(),
+        "The sale closes the loan. What you owed is settled and your cash is back to zero."
+            .to_string(),
         KEPT_LINE.to_string(),
         format!(
             "You are a company driver again, on the payroll at {hiring} and in a \
@@ -665,7 +666,7 @@ pub fn debt_warning_line<P: StandingProfile + ?Sized>(profile: &P, terse: bool) 
     let owed = money_text(debt_owed(profile));
     if hard_capped(profile) {
         if terse {
-            return format!("Owed {owed}. Held there; a quarter of each settlement pays it down.");
+            return format!("Owed {owed}. Held there. A quarter of each settlement pays it down.");
         }
         return format!(
             "You owe {owed}. Your carrier holds it there and writes off anything \

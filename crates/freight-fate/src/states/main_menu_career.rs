@@ -36,7 +36,7 @@ impl CareerStartState {
     pub fn new(driver_name: &str) -> Self {
         Self {
             menu: MenuCore::new("Career start").with_intro_help(
-                "Company starts use assigned carrier equipment; the carrier pays \
+                "Company starts use assigned carrier equipment. The carrier pays \
                  fuel, repairs, insurance, and trailer support. The owner-operator \
                  start is higher risk: you own a brand-new truck and pay business \
                  costs from day one. Enter selects, Escape goes back.",

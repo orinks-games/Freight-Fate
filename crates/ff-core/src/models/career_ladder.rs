@@ -151,7 +151,7 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         "Leased-On Applicant",
         "Owner-operator preparation",
         "Every owner-operator buy-in requirement appears in full.",
-        "Finalizing delivery, reputation, and cash readiness.",
+        "Finishing the delivery, reputation, and cash requirements.",
     ),
     rank(
         17,

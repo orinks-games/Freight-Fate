@@ -6622,8 +6622,8 @@ msgstr "车主司机准备"
 msgid "Every owner-operator buy-in requirement appears in full."
 msgstr "车主司机买断的所有要求都完整列出。"
 
-msgid "Finalizing delivery, reputation, and cash readiness."
-msgstr "正在完成送货、声誉和资金方面的最后准备。"
+msgid "Finishing the delivery, reputation, and cash requirements."
+msgstr "正在完成送货、声誉和资金方面的要求。"
 
 msgid "Tractor Buy-In Candidate"
 msgstr "牵引车买断候选人"
@@ -6964,9 +6964,8 @@ msgid "Grow a freight business"
 msgstr "发展货运生意"
 
 msgid ""
-"Use direct customer trust, trailer fit, and cash reserves to shape the "
-"freight you want."
-msgstr "利用直接客户的信任、挂车匹配和现金储备，打造你想要的货源。"
+"Your reputation and your trailers decide which direct freight you see."
+msgstr "你的声誉和挂车决定你能看到哪些直接货源。"
 
 msgid "direct freight with margin"
 msgstr "有利润的直接货源"
@@ -6975,9 +6974,9 @@ msgid "Prove independent authority"
 msgstr "证明独立运营资质"
 
 msgid ""
-"Use authority carefully while direct-freight reputation and reserves are "
-"still forming."
-msgstr "在直接货源声誉和储备尚在形成时，谨慎使用运营资质。"
+"Go carefully with own authority while your direct-freight reputation and "
+"reserves are still building."
+msgstr "在你的直接货源声誉和储备金还在积累时，谨慎使用自有运营资质。"
 
 msgid "authority-building freight"
 msgstr "积累资质的货物"
@@ -6986,9 +6985,9 @@ msgid "Top of the leased-on ladder"
 msgstr "挂靠阶梯的顶端"
 
 msgid ""
-"You reached level 30 as a leased-on owner-operator; own authority remains "
-"the one step left."
-msgstr "你以挂靠承运商的车主司机身份达到了30级；只剩自有运营资质这最后一步。"
+"You reached level 30 as a leased-on owner-operator. Own authority is the "
+"one step left."
+msgstr "你以挂靠承运商的车主司机身份达到了30级。只剩自有运营资质这最后一步。"
 
 msgid "proven owner-operator lane"
 msgstr "久经考验的车主司机线路"
@@ -6997,9 +6996,9 @@ msgid "Build authority readiness"
 msgstr "做好运营资质准备"
 
 msgid ""
-"Keep working capital, trailer strategy, and direct-freight readiness in "
-"view."
-msgstr "时刻关注周转资金、挂车策略和直接货源准备情况。"
+"Watch your working capital, your trailer plan, and what direct freight "
+"requires."
+msgstr "留意你的周转资金、挂车计划，以及直接货源需要什么条件。"
 
 msgid "authority-readiness lane"
 msgstr "资质准备线路"
@@ -7017,9 +7016,9 @@ msgid "Company driver by choice"
 msgstr "自愿当公司司机"
 
 msgid ""
-"You chose to stay on carrier equipment; the buy-in stays open under "
+"You chose to stay on carrier equipment. The buy-in stays open under "
 "Business status if you ever want it."
-msgstr "你选择继续开承运商的设备；如果哪天想要，买断一直在经营状况里开放。"
+msgstr "你选择继续开承运商的设备。如果哪天想要，买断一直在经营状况里开放。"
 
 msgid "top-seniority company lane"
 msgstr "最高资历公司线路"
@@ -7034,17 +7033,17 @@ msgid "Plan the next business step"
 msgstr "规划下一步经营"
 
 msgid ""
-"You have senior company experience; use it to compare buy-in, lease, and "
-"authority timing."
-msgstr "你有资深公司经验；用它来比较买断、租赁和运营资质的时机。"
+"You have senior company experience. Use it to weigh when to buy in, lease "
+"on, or take own authority."
+msgstr "你有资深公司经验。用它来权衡何时买断、何时挂靠、何时取得自有运营资质。"
 
 msgid "business-decision lane"
 msgstr "经营决策线路"
 
 msgid ""
-"Keep savings, trailer knowledge, and direct-freight readiness in view "
-"before authority is real."
-msgstr "在运营资质真正到手之前，时刻关注积蓄、挂车知识和直接货源准备情况。"
+"Build savings and trailer knowledge, and learn what direct freight "
+"requires, before you take own authority."
+msgstr "在拿下自有运营资质之前，攒好积蓄和挂车知识，并弄清直接货源需要什么条件。"
 
 msgid "Protect owner-operator readiness"
 msgstr "保持车主司机准备"
@@ -7098,9 +7097,9 @@ msgid "Choose your own freight"
 msgstr "自己挑选货物"
 
 msgid ""
-"Dispatch now trusts you to pick loads from the board; routing stays "
+"Dispatch now trusts you to pick loads from the board. Routing stays "
 "assigned until you run your own truck."
-msgstr "调度现在放心让你从调度板上挑货；在你开上自己的卡车之前，路线仍然由调度安排。"
+msgstr "调度现在放心让你从调度板上挑货。在你开上自己的卡车之前，路线仍然由调度安排。"
 
 msgid "self-picked reliable lane"
 msgstr "自选的可靠线路"
@@ -8108,13 +8107,24 @@ msgstr "保险附加费：{percent}%。"
 msgid "Insurance surcharge: {percent} percent until {until}."
 msgstr "保险附加费：{percent}%直至{until}。"
 
+#. one sentence of a longer line
+msgid "The carrier's insurer will not carry a record like that."
+msgstr "公司的保险公司不承保这样的记录。"
+
 #. placeholders: {LAST_CHANCE_CARRIER_NAME}, {record_clears_text}
 msgid ""
-"The carrier's insurer will not carry a record like that; "
+"The carrier's insurer will not carry a record like that. "
 "{LAST_CHANCE_CARRIER_NAME} keeps you on, on probation, until "
 "{record_clears_text}."
 msgstr ""
-"公司的保险公司不承保这样的记录；{LAST_CHANCE_CARRIER_NAME}留用你，试用期到{record_clears_text}。"
+"公司的保险公司不承保这样的记录。{LAST_CHANCE_CARRIER_NAME}留用你，试用期到{record_clears_text}。"
+
+#. placeholders: {LAST_CHANCE_CARRIER_NAME}, {record_clears_text}
+#. one sentence of a longer line
+msgid ""
+"{LAST_CHANCE_CARRIER_NAME} keeps you on, on probation, until "
+"{record_clears_text}."
+msgstr "{LAST_CHANCE_CARRIER_NAME}留用你，试用期到{record_clears_text}。"
 
 msgid ""
 "The carrier's insurer will not carry that record. The carrier ends your "
@@ -8184,12 +8194,15 @@ msgid ""
 "Your CDL is suspended, so the yard holds your seat until it clears {clears}."
 msgstr "你的CDL被暂扣，所以车场会为你保留位置，直到{clears}解除。"
 
+#. one sentence of a longer line
+msgid "Keep the record clean until then."
+msgstr "在那之前保持记录干净。"
+
 #. placeholders: {record_review_clears_text}
 #. one sentence of a longer line
 msgid ""
-"The carrier's review keeps it there until {record_review_clears_text}; keep "
-"the record clean until then."
-msgstr "承运商的审查会让它一直这样，直到{record_review_clears_text}；在那之前保持记录干净。"
+"The carrier's review keeps it there until {record_review_clears_text}."
+msgstr "承运商的审查会让它一直这样，直到{record_review_clears_text}。"
 
 #. placeholders: {record_window_phrase}
 #. one sentence of a longer line
@@ -8199,11 +8212,11 @@ msgstr "卡住它的是你的驾驶记录：{record_window_phrase}。"
 #. placeholders: {record_window_phrase}, {record_review_clears_text}
 msgid ""
 "Your driving record is what is holding it: {record_window_phrase}. The "
-"carrier's review keeps it there until {record_review_clears_text}; keep the "
+"carrier's review keeps it there until {record_review_clears_text}. Keep the "
 "record clean until then."
 msgstr ""
 "卡住它的是你的驾驶记录：{record_window_phrase}。承运商的审查会让它一直这样，直到{record_review_clears_tex"
-"t}；在那之前保持记录干净。"
+"t}。在那之前保持记录干净。"
 
 #. placeholders: {money_text}
 msgid "You owe {money_text}, and that is what is holding it."
@@ -8850,6 +8863,10 @@ msgstr "这个停靠点也能留出余量。"
 msgid "No earlier stop leaves 30 minutes to spare."
 msgstr "没有更早的停靠点能留出 30 分钟余量。"
 
+#. one sentence of a longer line
+msgid "A shoulder rest can draw a ticket."
+msgstr "在路肩休息可能收到罚单。"
+
 #. placeholders: {action}, {minutes}
 #. one sentence of a longer line
 msgid ""
@@ -8859,12 +8876,12 @@ msgstr "在你的小时限制之前，没有 {action} 停靠站，还剩 {minute
 #. placeholders: {action}, {minutes}
 msgid ""
 "No {action} stop left before your hours limit, {minutes} minutes remaining. "
-"Stop soon; a shoulder rest can draw a ticket."
-msgstr "到达工时上限前已没有可{action}的停靠点，只剩{minutes}分钟。尽快停车；在路肩休息可能收到罚单。"
+"Stop soon. A shoulder rest can draw a ticket."
+msgstr "到达工时上限前已没有可{action}的停靠点，只剩{minutes}分钟。尽快停车。在路肩休息可能收到罚单。"
 
 #. one sentence of a longer line
-msgid "Stop soon; a shoulder rest can draw a ticket."
-msgstr "尽快停车；在路肩休息可能收到罚单。"
+msgid "Stop soon."
+msgstr "尽快停车。"
 
 #. placeholders: {action}, {name}, {distance}
 #. one sentence of a longer line
@@ -9190,13 +9207,25 @@ msgstr ""
 msgid "termination"
 msgstr "解约"
 
+#. one sentence of a longer line
+msgid ""
+"The truck no longer covers the loan, so the lender has taken it back."
+msgstr "这辆卡车已经抵不上贷款，所以贷款方已经把它收回。"
+
+#. placeholders: {money_text}, {label}, {money_text2}
+#. one sentence of a longer line
+msgid ""
+"You owed {money_text} against a {label} that would sell for about "
+"{money_text2}."
+msgstr "你欠了{money_text}，而你的{label}大约只能卖{money_text2}。"
+
 #. placeholders: {money_text}, {label}, {money_text2}
 msgid ""
-"You owed {money_text} against a {label} that would bring about "
-"{money_text2} at sale, so the loan is no longer covered by the truck behind "
-"it, and the lender has taken it back."
+"You owed {money_text} against a {label} that would sell for about "
+"{money_text2}. The truck no longer covers the loan, so the lender has taken "
+"it back."
 msgstr ""
-"你欠了{money_text}，而你的{label}卖掉大约只值{money_text2}，这辆卡车已经抵不上贷款，贷款方已经把它收回。"
+"你欠了{money_text}，而你的{label}大约只能卖{money_text2}。这辆卡车已经抵不上贷款，所以贷款方已经把它收回。"
 
 msgid ""
 "The sale closes the loan. What you owed is settled and your cash is back to "
@@ -9259,8 +9288,12 @@ msgid ""
 msgstr "从现在起，结算就是司机工资和奖金。车主司机买入仍可在“经营状况”中进行，条件你已经满足了。"
 
 #. one sentence of a longer line
-msgid "Held there; a quarter of each settlement pays it down."
-msgstr "就停在这个数；每次结算拿出四分之一来偿还。"
+msgid "A quarter of each settlement pays it down."
+msgstr "每次结算拿出四分之一来偿还。"
+
+#. one sentence of a longer line
+msgid "Held there."
+msgstr "就停在这个数。"
 
 #. placeholders: {owed}
 #. one sentence of a longer line
@@ -9268,8 +9301,8 @@ msgid "Owed {owed}."
 msgstr "欠款{owed}。"
 
 #. placeholders: {owed}
-msgid "Owed {owed}. Held there; a quarter of each settlement pays it down."
-msgstr "欠款{owed}。就停在这个数；每次结算拿出四分之一来偿还。"
+msgid "Owed {owed}. Held there. A quarter of each settlement pays it down."
+msgstr "欠款{owed}。就停在这个数。每次结算拿出四分之一来偿还。"
 
 #. one sentence of a longer line
 msgid "A quarter of each settlement goes to it."
@@ -9445,9 +9478,9 @@ msgstr "均衡的公司司机起步：工资稳定，培训支持正常，由承
 
 msgid ""
 "A balanced company-driver path. The carrier assigns and maintains the "
-"tractor, pays fuel and routine repairs, and offers steady wage math without "
-"a sharp specialty."
-msgstr "一条均衡的公司司机路线。承运商分配并保养牵引车，支付燃油和日常维修，工资算法稳定，没有特别突出的专长。"
+"tractor, pays fuel and routine repairs, and pays steady wages with no "
+"specialty."
+msgstr "一条均衡的公司司机路线。承运商分配并保养牵引车，支付燃油和日常维修，发放稳定的工资，没有专长方向。"
 
 msgid "Great Lakes Training Transport: trainer-friendly company driver"
 msgstr "Great Lakes Training Transport：重视培训的公司司机"
@@ -9500,7 +9533,7 @@ msgstr "Summit Value Logistics"
 
 msgid ""
 "Higher percentage and on-time bonus for careful freight, with a smaller "
-"wage floor and more long-haul/high-value lanes."
+"wage floor and more long-haul and high-value lanes."
 msgstr "对细心运送的货物给出更高的分成比例和准时奖金，工资保底较低，长途和高价值线路更多。"
 
 msgid ""
@@ -9986,18 +10019,18 @@ msgstr "空气动力学套件"
 
 msgid ""
 "Makes the truck burn less fuel at highway speed. It does not add more fuel "
-"capacity; it makes the same tank last longer. Buy it to save diesel money "
+"capacity. It makes the same tank last longer. Buy it to save diesel money "
 "over long highway miles."
-msgstr "让卡车在高速行驶时更省油。它不会增加油箱容量；它让同一箱油用得更久。想在漫长的高速里程上省柴油钱就买它。"
+msgstr "让卡车在高速行驶时更省油。它不会增加油箱容量。它让同一箱油用得更久。想在漫长的高速里程上省柴油钱就买它。"
 
 msgid "Long-range tank"
 msgstr "长续航油箱"
 
 msgid ""
 "Adds fifty gallons of fuel capacity. It does not make the truck more "
-"efficient; it lets you carry more fuel. Buy it for more distance between "
-"fuel stops and more route flexibility."
-msgstr "增加五十加仑的油箱容量。它不会让卡车更省油；它让你能带更多燃油。想拉长两次加油之间的距离、让路线更灵活就买它。"
+"efficient. It carries more fuel. Buy it for more distance between fuel "
+"stops and more route flexibility."
+msgstr "增加五十加仑的油箱容量。它不会让卡车更省油。它能装更多燃油。想拉长两次加油之间的距离、让路线更灵活就买它。"
 
 msgid "Reinforced brakes"
 msgstr "强化刹车"
@@ -16198,9 +16231,9 @@ msgid ""
 msgstr "标价是这批货的全额运费。挂车计划的要求列在每个任务上。"
 
 msgid ""
-"Listed pay is what the carrier earns; you are paid wages from it. Routing "
+"Listed pay is what the carrier earns. You are paid wages from it. Routing "
 "is assigned until you run your own truck."
-msgstr "标价是公司的收入；你的工资从中支付。在你开自己的卡车之前，路线由公司指派。"
+msgstr "标价是公司的收入。你的工资从中支付。在你开自己的卡车之前，路线由公司指派。"
 
 #. placeholders: {take_home}
 msgid "about {take_home} after costs"
@@ -16274,9 +16307,9 @@ msgid "Decline and request another load: {remaining} decline{s_ending} left"
 msgstr "拒绝并申请另一单货物：还能拒绝{remaining}次"
 
 msgid ""
-"Dispatch picks another load. Costs reputation and one decline; declines "
+"Dispatch picks another load. Costs reputation and one decline. Declines "
 "refill at your next promotion."
-msgstr "调度会另选一批货。会损失声誉和一次拒绝机会；拒绝机会在下次晋升时恢复。"
+msgstr "调度会另选一批货。会损失声誉和一次拒绝机会。拒绝机会在下次晋升时恢复。"
 
 msgid "Review the rest of today's board"
 msgstr "查看今天调度板上的其余货物"
@@ -16732,16 +16765,26 @@ msgstr "回到场站，什么都没改变。"
 msgid "Every cloud backup of it was removed from your orinks.net account."
 msgstr "它在你orinks.net账户中的所有云备份都已删除。"
 
+#. one sentence of a longer line
+msgid ""
+"The Cloud saves menu can remove them once this computer is signed in again."
+msgstr "等这台电脑重新登录后，可以在“云存档”菜单里删除它们。"
+
+#. placeholders: {AUTH_HELP}
+#. one sentence of a longer line
+msgid "{AUTH_HELP} The cloud backups were not removed."
+msgstr "{AUTH_HELP}云备份没有被删除。"
+
 #. placeholders: {AUTH_HELP}
 msgid ""
-"{AUTH_HELP} The cloud backups were not removed; the Cloud saves menu can "
+"{AUTH_HELP} The cloud backups were not removed. The Cloud saves menu can "
 "remove them once this computer is signed in again."
-msgstr "{AUTH_HELP}云备份没有被删除；等这台电脑重新登录后，可以在“云存档”菜单里删除它们。"
+msgstr "{AUTH_HELP}云备份没有被删除。等这台电脑重新登录后，可以在“云存档”菜单里删除它们。"
 
 msgid ""
-"The site could not be reached, so the cloud backups are still there; the "
+"The site could not be reached, so the cloud backups are still there. The "
 "Cloud saves menu can remove them later."
-msgstr "无法连接网站，所以云备份还在；以后可以在“云存档”菜单里删除它们。"
+msgstr "无法连接网站，所以云备份还在。以后可以在“云存档”菜单里删除它们。"
 
 msgid "Drive to a nearby city without a trailer"
 msgstr "不带挂车开往附近的城市"
@@ -17461,9 +17504,9 @@ msgid "Stay a company driver"
 msgstr "继续当公司司机"
 
 msgid ""
-"Keep the carrier's tractor and wages. The reminders about the buy-in stop; "
-"the buy-in itself stays open here."
-msgstr "保留承运商的牵引车和工资。关于买断的提醒会停止；买断本身仍在这里开放。"
+"Keep the carrier's tractor and wages. The reminders about the buy-in stop. "
+"The buy-in itself stays open here."
+msgstr "保留承运商的牵引车和工资。关于买断的提醒会停止。买断本身仍在这里开放。"
 
 msgid "Owner-operator path locked"
 msgstr "车主司机路线未解锁"
@@ -17988,9 +18031,13 @@ msgid ""
 " The carrier shop repaired {f} percent damage first, {f2} minutes on duty."
 msgstr "承运商维修厂先修好了百分之{f}的损伤，在岗{f2}分钟。"
 
+#. one sentence of a longer line
+msgid "The unpaid balance is debt."
+msgstr "没付清的余额算作债务。"
+
 #. placeholders: {grouped}
-msgid "You have {grouped} dollars; the unpaid balance is debt."
-msgstr "你有{grouped}美元；没付清的余额算作债务。"
+msgid "You have {grouped} dollars. The unpaid balance is debt."
+msgstr "你有{grouped}美元。没付清的余额算作债务。"
 
 #. placeholders: {grouped}
 msgid "You have {grouped} dollars left."
@@ -18364,14 +18411,14 @@ msgid ""
 msgstr "冬季胎在冰雪路面抓地更牢，磨损更快，在温暖干燥的路面上抓地力稍差一点。"
 
 msgid ""
-"A chain set is seven chains: four for the drive tires, one for a trailer "
-"tire, and two spares, the most any state here asks of a semi, plus two "
-"repair links. Put chains on from the pause menu once you're stopped in snow "
-"or ice. They wear out fast on bare pavement. Company drivers bill the "
-"carrier."
+"A chain set is seven chains and two repair links. Four chains go on the "
+"drive tires and one on a trailer tire, the most any state here asks of a "
+"semi. The other two are spares. Put chains on from the pause menu once "
+"you're stopped in snow or ice. They wear out fast on bare pavement. Company "
+"drivers bill the carrier."
 msgstr ""
-"一套链条由七根链条组成：四根用于驱动轮胎，一根用于拖车轮胎，还有两个备用链，这里大多数州都要求半挂链，再加上两个维修链节。一旦你在雪或冰中停下来，请从暂"
-"停菜单中安装防滑链。它们在无冰雪路面上磨损得很快。公司司机向承运人收取费用。"
+"一套防滑链有七根链条和两个维修链节。四根装在驱动轮胎上，一根装在挂车轮胎上，这是这里任何州对半挂车要求的最多数量。另外两根备用。在冰雪路面停稳后，从暂停"
+"菜单装上防滑链。在没有冰雪的路面上它们磨损很快。公司司机由承运商付费。"
 
 msgid ""
 "Worn shoes pull weaker and fade sooner. The engine brake costs them "
@@ -30474,8 +30521,12 @@ msgstr ""
 "美元流动资金。燃料、维修、磨损、拖车和储备都来自你的现金。下一个：调度板。"
 
 #. one sentence of a longer line
-msgid "Assigned loads; a refusal goes on your record."
-msgstr "任务由调度分配；拒绝任务会记入记录。"
+msgid "A refusal goes on your record."
+msgstr "拒绝任务会记入记录。"
+
+#. one sentence of a longer line
+msgid "Assigned loads."
+msgstr "任务由调度分配。"
 
 #. one sentence of a longer line
 msgid "Carrier covers fuel, repairs, insurance, and trailers."
@@ -30500,15 +30551,15 @@ msgstr "{prefix}第一天简报：{carrier_name}。"
 msgid ""
 "{prefix}First-day briefing: {carrier_name}. Truck at {location}. Carrier "
 "covers fuel, repairs, insurance, and trailers. Dispatch: {summary}. "
-"Assigned loads; a refusal goes on your record. Next: dispatch board."
+"Assigned loads. A refusal goes on your record. Next: dispatch board."
 msgstr ""
 "{prefix}首日简报：{carrier_name}。卡车位于{location}。承运商承担燃油、维修、保险和挂车费用。调度：{summary}。任"
-"务由调度分配；拒绝任务会记入记录。下一步：调度板。"
+"务由调度分配。拒绝任务会记入记录。下一步：调度板。"
 
 msgid ""
-"Local service drives were retired in this update; you are parked at the "
+"Local service drives were retired in this update. You are parked at the "
 "terminal."
-msgstr "本地服务驾驶在这次更新中已取消；你停在场站。"
+msgstr "本地服务驾驶在这次更新中已取消。你停在场站。"
 
 msgid ""
 "Your saved run cannot go on: dispatch cancels it, and a relief driver "
@@ -30729,8 +30780,8 @@ msgstr "{name}：来自Freight Fate早期版本的职业生涯"
 
 msgid ""
 "This career cannot continue in version 1.9. Enter explains and offers a new "
-"career; the save is not touched."
-msgstr "这段职业生涯无法在1.9版本中继续。按Enter听说明并开始新的职业生涯；存档不会被改动。"
+"career. The save is not touched."
+msgstr "这段职业生涯无法在1.9版本中继续。按Enter听说明并开始新的职业生涯。存档不会被改动。"
 
 msgid "Manage careers"
 msgstr "管理职业生涯"
@@ -30739,6 +30790,10 @@ msgid ""
 "Up and Down pick a career, Enter opens reset and delete, Escape goes back."
 msgstr "Up和Down选择职业生涯，Enter打开重置和删除，Escape返回。"
 
+#. one sentence of a longer line
+msgid "Delete removes the save."
+msgstr "删除会移除存档。"
+
 #. placeholders: {name}
 #. one sentence of a longer line
 msgid "Manage {name}."
@@ -30746,12 +30801,12 @@ msgstr "管理{name}。"
 
 #. placeholders: {name}
 msgid ""
-"Manage {name}. Reset starts the career over; delete removes the save."
-msgstr "管理{name}。重置会让这段职业生涯从头开始；删除会移除存档。"
+"Manage {name}. Reset starts the career over. Delete removes the save."
+msgstr "管理{name}。重置会让这段职业生涯从头开始。删除会移除存档。"
 
 #. one sentence of a longer line
-msgid "Reset starts the career over; delete removes the save."
-msgstr "重置会让这段职业生涯从头开始；删除会移除存档。"
+msgid "Reset starts the career over."
+msgstr "重置会让这段职业生涯从头开始。"
 
 msgid ""
 "Enter offers to delete this save. It still works in Freight Fate 1.8."
@@ -30860,8 +30915,8 @@ msgstr "重置会在{city}从头开始：全新的卡车、起步资金、没有
 
 msgid ""
 "Delete removes this saved career from this computer for good. It also has "
-"cloud backups on your orinks.net account; choose whether they go too."
-msgstr "删除会把这段已保存的职业生涯从这台电脑上永久移除。它在你的orinks.net账户里还有云备份；请选择是否一起删除。"
+"cloud backups on your orinks.net account. Choose whether they go too."
+msgstr "删除会把这段已保存的职业生涯从这台电脑上永久移除。它在你的orinks.net账户里还有云备份。请选择是否一起删除。"
 
 msgid "Delete removes this saved career for good."
 msgstr "删除会永久移除这段已保存的职业生涯。"
@@ -30910,16 +30965,22 @@ msgstr "确认并删除这段已保存的职业生涯。"
 msgid "Back, nothing changed."
 msgstr "返回，没有任何更改。"
 
+#. one sentence of a longer line
+msgid ""
+"Cloud backup on the Online menu can remove them once this computer is "
+"signed in again."
+msgstr "等这台电脑重新登录后，可以用“在线”菜单上的“云备份”删除它们。"
+
 #. placeholders: {AUTH_HELP}
 msgid ""
-"{AUTH_HELP} The cloud backups were not removed; Cloud backup on the Online "
+"{AUTH_HELP} The cloud backups were not removed. Cloud backup on the Online "
 "menu can remove them once this computer is signed in again."
-msgstr "{AUTH_HELP}云备份没有删除；等这台电脑重新登录后，可以用“在线”菜单上的“云备份”删除它们。"
+msgstr "{AUTH_HELP}云备份没有被删除。等这台电脑重新登录后，可以用“在线”菜单上的“云备份”删除它们。"
 
 msgid ""
-"The site could not be reached, so the cloud backups are still there; Cloud "
+"The site could not be reached, so the cloud backups are still there. Cloud "
 "backup on the Online menu can remove them later."
-msgstr "无法连接网站，所以云备份还在；以后可以用“在线”菜单上的“云备份”删除它们。"
+msgstr "无法连接网站，所以云备份还在。以后可以用“在线”菜单上的“云备份”删除它们。"
 
 msgid ""
 "Game sounds could not start on this computer: the voice, but no engine, "
@@ -30964,9 +31025,9 @@ msgstr ""
 "系统密码存储没有及时响应，所以在线功能可能需要你在“在线”里重新关联账户。如果还有权限对话框开着，请允许Freight Fate并重新启动。 "
 
 msgid ""
-"Your saved careers are from an earlier version of Freight Fate; they are "
+"Your saved careers are from an earlier version of Freight Fate. They are "
 "listed under Choose career. "
-msgstr "你保存的职业生涯来自更早版本的Freight Fate；它们列在“选择职业生涯”下。 "
+msgstr "你保存的职业生涯来自更早版本的Freight Fate。它们列在“选择职业生涯”下。 "
 
 #. placeholders: {version}
 #. one sentence of a longer line
@@ -32796,12 +32857,12 @@ msgid "Career start"
 msgstr "职业生涯起步"
 
 msgid ""
-"Company starts use assigned carrier equipment; the carrier pays fuel, "
+"Company starts use assigned carrier equipment. The carrier pays fuel, "
 "repairs, insurance, and trailer support. The owner-operator start is higher "
 "risk: you own a brand-new truck and pay business costs from day one. Enter "
 "selects, Escape goes back."
 msgstr ""
-"公司司机起步使用承运商分配的设备；承运商负责燃油、维修、保险和挂车支持。车主司机起步风险更高：你拥有一辆全新的卡车，从第一天起就要支付经营成本。Ente"
+"公司司机起步使用承运商分配的设备。承运商负责燃油、维修、保险和挂车支持。车主司机起步风险更高：你拥有一辆全新的卡车，从第一天起就要支付经营成本。Ente"
 "r选择，Escape返回。"
 
 msgid "Career start."
@@ -35812,11 +35873,14 @@ msgstr "Freight Fate现在会为你的职业生涯保存驾驶记录：罚单、
 msgid ""
 "Freight Fate now keeps a driving record for your career: citations, serious "
 "violations, and whether your CDL is clear. Two serious violations in 180 "
-"days suspend it; running from a police stop is a major offense that "
+"days suspend it. Running from a police stop is a major offense that "
 "disqualifies it for a year. Reputation also decides how much freight "
 "dispatch shows you and how much choice you get. Nothing was reset or taken. "
 "{standing} {trust} {current_text}"
 msgstr ""
+"Freight "
+"Fate现在会为你的职业生涯保存驾驶记录：罚单、严重违规，以及你的CDL是否正常。180天内两次严重违规会让它被暂扣。逃避警察拦停属于重大违法，会让它被"
+"吊销一年。声誉还决定调度给你看多少货物，以及你有多少选择。什么都没有被重置或拿走。{standing}{trust}{current_text}"
 
 #. one sentence of a longer line
 msgid "Nothing was reset or taken."
@@ -35830,9 +35894,13 @@ msgstr "声誉还决定调度给你看多少货物，以及你有多少选择。
 
 #. one sentence of a longer line
 msgid ""
-"Two serious violations in 180 days suspend it; running from a police stop "
-"is a major offense that disqualifies it for a year."
-msgstr ""
+"Running from a police stop is a major offense that disqualifies it for a "
+"year."
+msgstr "逃避警察拦停属于重大违法，会让它被吊销一年。"
+
+#. one sentence of a longer line
+msgid "Two serious violations in 180 days suspend it."
+msgstr "180天内两次严重违规会让它被暂扣。"
 
 msgid "Save file updated"
 msgstr "存档文件已更新"
@@ -35845,18 +35913,16 @@ msgstr "存档文件已更新。"
 msgid ""
 "Save file updated. This career was converted from an older version: every "
 "truck you own now keeps its own fuel, damage, tire wear, and road grime. "
-"The truck you were driving keeps its condition; your other trucks start "
+"The truck you were driving keeps its condition. Your other trucks start "
 "fueled and fresh. The updated save no longer opens in older versions of the "
 "game. {current_text}"
 msgstr ""
-"存档文件已更新。这段职业生涯是从旧版本转换来的：你拥有的每辆卡车现在都有各自的燃油、损坏、轮胎磨损和路面污垢。你正在开的卡车保留它的车况；你的其他卡车加"
+"存档文件已更新。这段职业生涯是从旧版本转换来的：你拥有的每辆卡车现在都有各自的燃油、损坏、轮胎磨损和路面污垢。你正在开的卡车保留它的车况。你的其他卡车加"
 "满了油，状态全新。更新后的存档无法再用旧版本的游戏打开。{current_text}"
 
 #. one sentence of a longer line
-msgid ""
-"The truck you were driving keeps its condition; your other trucks start "
-"fueled and fresh."
-msgstr "你正在开的卡车保留它的车况；你的其他卡车加满了油，状态全新。"
+msgid "The truck you were driving keeps its condition."
+msgstr "你正在开的卡车保留它的车况。"
 
 #. one sentence of a longer line
 msgid "The updated save no longer opens in older versions of the game."
@@ -35867,6 +35933,10 @@ msgid ""
 "This career was converted from an older version: every truck you own now "
 "keeps its own fuel, damage, tire wear, and road grime."
 msgstr "这段职业生涯是从旧版本转换来的：你拥有的每辆卡车现在都有各自的燃油、损坏、轮胎磨损和路面污垢。"
+
+#. one sentence of a longer line
+msgid "Your other trucks start fueled and fresh."
+msgstr "你的其他卡车加满了油，状态全新。"
 
 msgid ""
 "Type with the on-screen keyboard, then double tap. Flick left or right to "
@@ -37351,6 +37421,223 @@ msgstr "轮胎碎片。"
 
 msgid "Debris."
 msgstr "杂物。"
+
+#~ msgid "Finalizing delivery, reputation, and cash readiness."
+#~ msgstr "正在完成送货、声誉和资金方面的最后准备。"
+
+#~ msgid ""
+#~ "Use direct customer trust, trailer fit, and cash reserves to shape the "
+#~ "freight you want."
+#~ msgstr "利用直接客户的信任、挂车匹配和现金储备，打造你想要的货源。"
+
+#~ msgid ""
+#~ "Use authority carefully while direct-freight reputation and reserves are "
+#~ "still forming."
+#~ msgstr "在直接货源声誉和储备尚在形成时，谨慎使用运营资质。"
+
+#~ msgid ""
+#~ "You reached level 30 as a leased-on owner-operator; own authority remains "
+#~ "the one step left."
+#~ msgstr "你以挂靠承运商的车主司机身份达到了30级；只剩自有运营资质这最后一步。"
+
+#~ msgid ""
+#~ "Keep working capital, trailer strategy, and direct-freight readiness in "
+#~ "view."
+#~ msgstr "时刻关注周转资金、挂车策略和直接货源准备情况。"
+
+#~ msgid ""
+#~ "You chose to stay on carrier equipment; the buy-in stays open under "
+#~ "Business status if you ever want it."
+#~ msgstr "你选择继续开承运商的设备；如果哪天想要，买断一直在经营状况里开放。"
+
+#~ msgid ""
+#~ "You have senior company experience; use it to compare buy-in, lease, and "
+#~ "authority timing."
+#~ msgstr "你有资深公司经验；用它来比较买断、租赁和运营资质的时机。"
+
+#~ msgid ""
+#~ "Keep savings, trailer knowledge, and direct-freight readiness in view "
+#~ "before authority is real."
+#~ msgstr "在运营资质真正到手之前，时刻关注积蓄、挂车知识和直接货源准备情况。"
+
+#~ msgid ""
+#~ "Dispatch now trusts you to pick loads from the board; routing stays "
+#~ "assigned until you run your own truck."
+#~ msgstr "调度现在放心让你从调度板上挑货；在你开上自己的卡车之前，路线仍然由调度安排。"
+
+#~ msgid ""
+#~ "The carrier's insurer will not carry a record like that; "
+#~ "{LAST_CHANCE_CARRIER_NAME} keeps you on, on probation, until "
+#~ "{record_clears_text}."
+#~ msgstr ""
+#~ "公司的保险公司不承保这样的记录；{LAST_CHANCE_CARRIER_NAME}留用你，试用期到{record_clears_text}。"
+
+#~ msgid ""
+#~ "The carrier's review keeps it there until {record_review_clears_text}; keep "
+#~ "the record clean until then."
+#~ msgstr "承运商的审查会让它一直这样，直到{record_review_clears_text}；在那之前保持记录干净。"
+
+#~ msgid ""
+#~ "Your driving record is what is holding it: {record_window_phrase}. The "
+#~ "carrier's review keeps it there until {record_review_clears_text}; keep the "
+#~ "record clean until then."
+#~ msgstr ""
+#~ "卡住它的是你的驾驶记录：{record_window_phrase}。承运商的审查会让它一直这样，直到{record_review_clears_tex"
+#~ "t}；在那之前保持记录干净。"
+
+#~ msgid ""
+#~ "No {action} stop left before your hours limit, {minutes} minutes remaining. "
+#~ "Stop soon; a shoulder rest can draw a ticket."
+#~ msgstr "到达工时上限前已没有可{action}的停靠点，只剩{minutes}分钟。尽快停车；在路肩休息可能收到罚单。"
+
+#~ msgid "Stop soon; a shoulder rest can draw a ticket."
+#~ msgstr "尽快停车；在路肩休息可能收到罚单。"
+
+#~ msgid ""
+#~ "You owed {money_text} against a {label} that would bring about "
+#~ "{money_text2} at sale, so the loan is no longer covered by the truck behind "
+#~ "it, and the lender has taken it back."
+#~ msgstr ""
+#~ "你欠了{money_text}，而你的{label}卖掉大约只值{money_text2}，这辆卡车已经抵不上贷款，贷款方已经把它收回。"
+
+#~ msgid "Held there; a quarter of each settlement pays it down."
+#~ msgstr "就停在这个数；每次结算拿出四分之一来偿还。"
+
+#~ msgid "Owed {owed}. Held there; a quarter of each settlement pays it down."
+#~ msgstr "欠款{owed}。就停在这个数；每次结算拿出四分之一来偿还。"
+
+#~ msgid ""
+#~ "A balanced company-driver path. The carrier assigns and maintains the "
+#~ "tractor, pays fuel and routine repairs, and offers steady wage math without "
+#~ "a sharp specialty."
+#~ msgstr "一条均衡的公司司机路线。承运商分配并保养牵引车，支付燃油和日常维修，工资算法稳定，没有特别突出的专长。"
+
+#~ msgid ""
+#~ "Higher percentage and on-time bonus for careful freight, with a smaller "
+#~ "wage floor and more long-haul/high-value lanes."
+#~ msgstr "对细心运送的货物给出更高的分成比例和准时奖金，工资保底较低，长途和高价值线路更多。"
+
+#~ msgid ""
+#~ "Makes the truck burn less fuel at highway speed. It does not add more fuel "
+#~ "capacity; it makes the same tank last longer. Buy it to save diesel money "
+#~ "over long highway miles."
+#~ msgstr "让卡车在高速行驶时更省油。它不会增加油箱容量；它让同一箱油用得更久。想在漫长的高速里程上省柴油钱就买它。"
+
+#~ msgid ""
+#~ "Adds fifty gallons of fuel capacity. It does not make the truck more "
+#~ "efficient; it lets you carry more fuel. Buy it for more distance between "
+#~ "fuel stops and more route flexibility."
+#~ msgstr "增加五十加仑的油箱容量。它不会让卡车更省油；它让你能带更多燃油。想拉长两次加油之间的距离、让路线更灵活就买它。"
+
+#~ msgid ""
+#~ "Listed pay is what the carrier earns; you are paid wages from it. Routing "
+#~ "is assigned until you run your own truck."
+#~ msgstr "标价是公司的收入；你的工资从中支付。在你开自己的卡车之前，路线由公司指派。"
+
+#~ msgid ""
+#~ "Dispatch picks another load. Costs reputation and one decline; declines "
+#~ "refill at your next promotion."
+#~ msgstr "调度会另选一批货。会损失声誉和一次拒绝机会；拒绝机会在下次晋升时恢复。"
+
+#~ msgid ""
+#~ "{AUTH_HELP} The cloud backups were not removed; the Cloud saves menu can "
+#~ "remove them once this computer is signed in again."
+#~ msgstr "{AUTH_HELP}云备份没有被删除；等这台电脑重新登录后，可以在“云存档”菜单里删除它们。"
+
+#~ msgid ""
+#~ "The site could not be reached, so the cloud backups are still there; the "
+#~ "Cloud saves menu can remove them later."
+#~ msgstr "无法连接网站，所以云备份还在；以后可以在“云存档”菜单里删除它们。"
+
+#~ msgid ""
+#~ "Keep the carrier's tractor and wages. The reminders about the buy-in stop; "
+#~ "the buy-in itself stays open here."
+#~ msgstr "保留承运商的牵引车和工资。关于买断的提醒会停止；买断本身仍在这里开放。"
+
+#~ msgid "You have {grouped} dollars; the unpaid balance is debt."
+#~ msgstr "你有{grouped}美元；没付清的余额算作债务。"
+
+#~ msgid ""
+#~ "A chain set is seven chains: four for the drive tires, one for a trailer "
+#~ "tire, and two spares, the most any state here asks of a semi, plus two "
+#~ "repair links. Put chains on from the pause menu once you're stopped in snow "
+#~ "or ice. They wear out fast on bare pavement. Company drivers bill the "
+#~ "carrier."
+#~ msgstr ""
+#~ "一套链条由七根链条组成：四根用于驱动轮胎，一根用于拖车轮胎，还有两个备用链，这里大多数州都要求半挂链，再加上两个维修链节。一旦你在雪或冰中停下来，请从暂"
+#~ "停菜单中安装防滑链。它们在无冰雪路面上磨损得很快。公司司机向承运人收取费用。"
+
+#~ msgid "Assigned loads; a refusal goes on your record."
+#~ msgstr "任务由调度分配；拒绝任务会记入记录。"
+
+#~ msgid ""
+#~ "{prefix}First-day briefing: {carrier_name}. Truck at {location}. Carrier "
+#~ "covers fuel, repairs, insurance, and trailers. Dispatch: {summary}. "
+#~ "Assigned loads; a refusal goes on your record. Next: dispatch board."
+#~ msgstr ""
+#~ "{prefix}首日简报：{carrier_name}。卡车位于{location}。承运商承担燃油、维修、保险和挂车费用。调度：{summary}。任"
+#~ "务由调度分配；拒绝任务会记入记录。下一步：调度板。"
+
+#~ msgid ""
+#~ "Local service drives were retired in this update; you are parked at the "
+#~ "terminal."
+#~ msgstr "本地服务驾驶在这次更新中已取消；你停在场站。"
+
+#~ msgid ""
+#~ "This career cannot continue in version 1.9. Enter explains and offers a new "
+#~ "career; the save is not touched."
+#~ msgstr "这段职业生涯无法在1.9版本中继续。按Enter听说明并开始新的职业生涯；存档不会被改动。"
+
+#~ msgid ""
+#~ "Manage {name}. Reset starts the career over; delete removes the save."
+#~ msgstr "管理{name}。重置会让这段职业生涯从头开始；删除会移除存档。"
+
+#~ msgid "Reset starts the career over; delete removes the save."
+#~ msgstr "重置会让这段职业生涯从头开始；删除会移除存档。"
+
+#~ msgid ""
+#~ "Delete removes this saved career from this computer for good. It also has "
+#~ "cloud backups on your orinks.net account; choose whether they go too."
+#~ msgstr "删除会把这段已保存的职业生涯从这台电脑上永久移除。它在你的orinks.net账户里还有云备份；请选择是否一起删除。"
+
+#~ msgid ""
+#~ "{AUTH_HELP} The cloud backups were not removed; Cloud backup on the Online "
+#~ "menu can remove them once this computer is signed in again."
+#~ msgstr "{AUTH_HELP}云备份没有删除；等这台电脑重新登录后，可以用“在线”菜单上的“云备份”删除它们。"
+
+#~ msgid ""
+#~ "The site could not be reached, so the cloud backups are still there; Cloud "
+#~ "backup on the Online menu can remove them later."
+#~ msgstr "无法连接网站，所以云备份还在；以后可以用“在线”菜单上的“云备份”删除它们。"
+
+#~ msgid ""
+#~ "Your saved careers are from an earlier version of Freight Fate; they are "
+#~ "listed under Choose career. "
+#~ msgstr "你保存的职业生涯来自更早版本的Freight Fate；它们列在“选择职业生涯”下。 "
+
+#~ msgid ""
+#~ "Company starts use assigned carrier equipment; the carrier pays fuel, "
+#~ "repairs, insurance, and trailer support. The owner-operator start is higher "
+#~ "risk: you own a brand-new truck and pay business costs from day one. Enter "
+#~ "selects, Escape goes back."
+#~ msgstr ""
+#~ "公司司机起步使用承运商分配的设备；承运商负责燃油、维修、保险和挂车支持。车主司机起步风险更高：你拥有一辆全新的卡车，从第一天起就要支付经营成本。Ente"
+#~ "r选择，Escape返回。"
+
+#~ msgid ""
+#~ "Save file updated. This career was converted from an older version: every "
+#~ "truck you own now keeps its own fuel, damage, tire wear, and road grime. "
+#~ "The truck you were driving keeps its condition; your other trucks start "
+#~ "fueled and fresh. The updated save no longer opens in older versions of the "
+#~ "game. {current_text}"
+#~ msgstr ""
+#~ "存档文件已更新。这段职业生涯是从旧版本转换来的：你拥有的每辆卡车现在都有各自的燃油、损坏、轮胎磨损和路面污垢。你正在开的卡车保留它的车况；你的其他卡车加"
+#~ "满了油，状态全新。更新后的存档无法再用旧版本的游戏打开。{current_text}"
+
+#~ msgid ""
+#~ "The truck you were driving keeps its condition; your other trucks start "
+#~ "fueled and fresh."
+#~ msgstr "你正在开的卡车保留它的车况；你的其他卡车加满了油，状态全新。"
 
 #~ msgid "A click and a spoken confirmation mark the latch."
 #~ msgstr "一声咔哒和一句语音确认表示已经锁住。"

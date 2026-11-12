@@ -59,7 +59,7 @@ fn test_owner_operator_guidance_tracks_margin_authority_and_independence() {
 
     let authority_prep = career_level_guidance(&profile(22, LEASED_OWNER_OPERATOR));
     assert_eq!(authority_prep.title, "Build authority readiness");
-    assert!(authority_prep.terminal_text.contains("trailer strategy"));
+    assert!(authority_prep.terminal_text.contains("trailer plan"));
     assert_eq!(authority_prep.recommendation, "authority-readiness lane");
 
     let independent = career_level_guidance(&profile(27, INDEPENDENT_AUTHORITY));
@@ -78,7 +78,7 @@ fn test_high_level_company_bands_do_not_overstate_business_status() {
     assert_eq!(authority_ready.title, "Build authority readiness");
     assert!(authority_ready
         .terminal_text
-        .contains("before authority is real"));
+        .contains("before you take own authority"));
     assert_eq!(authority_ready.recommendation, "authority-readiness lane");
 
     let high_level_company = career_level_guidance(&company(25));
