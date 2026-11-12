@@ -60,7 +60,7 @@ pub fn career_level_guidance<P: CareerProfile + ?Sized>(profile: &P) -> CareerLe
         }
         return CareerLevelGuidance::new(
             "Prove independent authority",
-            "Use authority carefully while direct-freight reputation and reserves are still forming.",
+            "Go carefully with own authority while your direct-freight reputation and reserves are still building.",
             "authority-building freight",
             "",
         );
@@ -109,7 +109,7 @@ pub fn career_level_guidance<P: CareerProfile + ?Sized>(profile: &P) -> CareerLe
     if level >= 25 {
         return CareerLevelGuidance::new(
             "Plan the next business step",
-            "You have senior company experience. Use it to compare buy-in, lease, and authority timing.",
+            "You have senior company experience. Use it to weigh when to buy in, lease on, or take own authority.",
             "business-decision lane",
             "",
         );

@@ -966,8 +966,8 @@ impl Menu for GarageState {
             )
             .help(
                 "A chain set is seven chains and two repair links. Four chains go on the drive \
-                 tires, one on a trailer tire, and two are spares, the most any state here \
-                 asks of a semi. Put chains on from the pause menu once you're stopped in snow \
+                 tires and one on a trailer tire, the most any state here asks of a semi. \
+                 The other two are spares. Put chains on from the pause menu once you're stopped in snow \
                  or ice. They wear out fast on bare pavement. Company drivers bill the \
                  carrier.",
             ),

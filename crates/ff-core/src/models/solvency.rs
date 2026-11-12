@@ -548,7 +548,7 @@ pub fn apply_repossession<P: SolvencyProfile + ?Sized>(profile: &mut P) -> Vec<S
     profile.clear_dispatch_board_cache();
     let lines = vec![
         format!(
-            "You owed {} against a {label} that would bring about {} at sale. The truck no longer \
+            "You owed {} against a {label} that would sell for about {}. The truck no longer \
              covers the loan, so the lender has taken it back.",
             money_text(settled),
             money_text(proceeds)
