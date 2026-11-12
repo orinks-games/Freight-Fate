@@ -160,7 +160,7 @@ fn test_a_steep_downgrade_is_called_out_before_the_truck_is_on_it() {
     assert!(
         spoken
             .iter()
-            .any(|l| l.contains("6.0 percent downhill grade ahead")),
+            .any(|l| l.contains("6.0 percent downhill grade")),
         "{spoken:#?}"
     );
     assert!(spoken.iter().any(|l| l.contains("at least")), "{spoken:#?}");
@@ -214,7 +214,7 @@ fn test_a_short_dip_is_not_announced_as_a_grade() {
     assert!(
         spoken
             .iter()
-            .any(|l| l.contains("4.0 percent downhill grade ahead")),
+            .any(|l| l.contains("4.0 percent downhill grade")),
         "{spoken:#?}"
     );
 }
@@ -272,7 +272,7 @@ fn test_an_upgrade_is_called_out_too() {
     assert!(
         spoken
             .iter()
-            .any(|l| l.contains("4.5 percent uphill grade ahead")),
+            .any(|l| l.contains("4.5 percent uphill grade")),
         "{spoken:#?}"
     );
     // Losing speed on a climb is expected; the line no longer says so.

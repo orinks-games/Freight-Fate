@@ -330,7 +330,7 @@ impl DrivingState {
             let closing = closure.is_some_and(|zone| zone.reason != "construction");
             ctx.audio.play("ui/error");
             if closing {
-                ctx.say(&format!("The {name} lane closes at the work zone ahead."));
+                ctx.say(&format!("The {name} lane closes at the work zone."));
             } else {
                 ctx.say(&format!("The {name} lane is closed here."));
             }

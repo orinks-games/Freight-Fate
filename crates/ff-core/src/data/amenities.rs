@@ -215,7 +215,7 @@ pub fn spoken_amenities(name: &str, _stop_type: &str) -> String {
             brand.spoken, phrase
         );
         if brand.bans_big_rigs {
-            clause.push_str("; no big rigs allowed, so you can only stop here without a trailer");
+            clause.push_str(". No big rigs allowed, so you can stop here only without a trailer");
         }
         return clause;
     }

@@ -1122,7 +1122,7 @@ It may need a certificate, endorsement, or trailer you do not have. Press F1 on 
 
 ### Why did I get a citation at a weigh station?
 
-When you hear "Open weigh station ahead", every truck must pull in. Press X to signal for the scale exit, stop at the scale, then press T to check in. With full lane keeping, the truck signals for the scale itself, and with facility stopping assistance on it also stops there for you. A closed scale is not announced, and you can drive past it.
+When you hear "Open weigh station", every truck must pull in. Press X to signal for the scale exit, stop at the scale, then press T to check in. With full lane keeping, the truck signals for the scale itself, and with facility stopping assistance on it also stops there for you. A closed scale is not announced, and you can drive past it.
 
 ### Why is the speed limit 55 on a fast highway?
 

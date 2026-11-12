@@ -1299,7 +1299,7 @@ fn nobody_is_on_the_brakes_where_the_road_gives_no_reason() {
     // happens in congestion placed from real volumes" -- and both spawners
     // used to hand the braking intent out anywhere. A vehicle on the brakes
     // with nothing behind it has no cause line to offer either, so the
-    // warning came out as a bare "Brake lights right ahead." and stopped
+    // warning came out as a bare "Brake lights, close." and stopped
     // there, which is exactly the invented phantom wave the bubble refuses
     // to place.
     let (events, census, _, _) = bounded_sweep();

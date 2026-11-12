@@ -132,7 +132,7 @@ pub fn maintenance_status_line(component: MaintenanceComponent, wear: f64) -> St
     }
     if wear >= COMPONENT_SERVICE_WARNING_PCT {
         return format!(
-            "{}: {wear:.0} percent worn. Service soon; service is required at {:.0} percent. {}.",
+            "{}: {wear:.0} percent worn. Service soon. Service is required at {:.0} percent. {}.",
             component.label(),
             COMPONENT_SERVICE_LIMIT_PCT,
             component.garage_action()

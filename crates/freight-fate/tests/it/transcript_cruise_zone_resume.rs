@@ -48,7 +48,7 @@ fn test_cruise_does_not_repeat_the_zone_easing_after_a_hazard_stop() {
             ctx,
             &TripEvent {
                 kind: TripEventKind::Hazard,
-                message: "Brake! Slow car right ahead.".into(),
+                message: "Brake! Slow car, close.".into(),
                 data: TripEventData {
                     deadline_s: Some(4.0),
                     ..Default::default()

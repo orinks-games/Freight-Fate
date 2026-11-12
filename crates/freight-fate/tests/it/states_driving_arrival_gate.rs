@@ -101,7 +101,7 @@ fn test_delivery_requires_parking_at_destination() {
     // Looked up rather than assumed last: whatever the posted limit is on the
     // route dispatch drew, sixty may be over it, and the speeding warning
     // that earns lands in the same frame.
-    let said = an_event_containing(&harness, "Destination ahead");
+    let said = an_event_containing(&harness, "Destination");
     assert!(said.to_lowercase().contains("stop at the gate"), "{said}");
     let hud = harness.with_drive(|d, ctx| d.lines(ctx));
     assert!(
@@ -178,7 +178,7 @@ fn test_arrival_gate_repeats_after_overshoot() {
 
     frame(&mut harness);
     assert!(harness.state_is::<DrivingState>());
-    an_event_containing(&harness, "Destination ahead");
+    an_event_containing(&harness, "Destination");
     let announced = harness.app.event_lines().len();
 
     // Inside the reminder interval the gate stays quiet.

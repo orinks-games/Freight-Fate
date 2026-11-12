@@ -219,7 +219,7 @@ pub const HAZARD_DODGE_CALL: &str = "Change lanes or brake!";
 // uses it ONLY where the hazard is dodgeable but no lane is open, so it is
 // the one call that answers a question the driver is actively asking --
 // can I go around this? Dropped, quiet left a noun phrase with no verb
-// ("Brake lights right ahead.") and the owner reached for a lane change
+// ("Brake lights, close.") and the owner reached for a lane change
 // three times in one drive on a one-lane stretch of US-285, getting "there
 // is no lane to your left here" each time. "Brake now!" stays implied: it
 // marks a hazard that cannot be dodged at all, so there is no choice for
@@ -304,7 +304,7 @@ pub fn small_debris_call(body: &str, answer: &str) -> SpokenMessage {
 }
 
 /// The same call when lane keeping on full answers it by passing: the thing
-/// and where, then what the truck is doing ("Slow car right ahead. Passing
+/// and where, then what the truck is doing ("Slow car, close. Passing
 /// on the left."). No "Change lanes or brake!" -- the truck is the one
 /// changing lanes -- and terse is the same line. None where no lane is open.
 pub fn passing_hazard_call(body: &str, side: OpenSide) -> Option<SpokenMessage> {
@@ -342,7 +342,7 @@ pub fn vehicle_takes_an(vehicle_class: &str) -> bool {
 
 pub fn merging_traffic_cue(vehicle_class: &str, gap: &str) -> SpokenMessage {
     SpokenMessage::with_terse(
-        format!("Merging {vehicle_class} {gap} ahead."),
+        format!("Merging {vehicle_class}, {gap}."),
         format!("Merging {vehicle_class}, {gap}."),
     )
 }
@@ -363,7 +363,7 @@ pub fn brake_lights_cue(
         format!(" {cause}")
     };
     SpokenMessage::with_terse(
-        format!("Brake lights {gap} ahead.{cause_clause} Traffic at {speed_text}."),
+        format!("Brake lights, {gap}.{cause_clause} Traffic at {speed_text}."),
         format!("Brake lights, {gap}, {speed_value}."),
     )
 }
@@ -375,7 +375,7 @@ pub fn slow_lead_cue(
     speed_value: &str,
 ) -> SpokenMessage {
     SpokenMessage::with_terse(
-        format!("Slow {vehicle_class} {gap} ahead, at {speed_text}."),
+        format!("Slow {vehicle_class}, {gap}, at {speed_text}."),
         format!("Slow {vehicle_class}, {gap}, {speed_value}."),
     )
 }
@@ -613,7 +613,7 @@ pub fn cruise_curve_paused_assisted(pacenote: &SpokenMessage) -> SpokenMessage {
              Cruise resumes past the bend."
         ),
         format!(
-            "{} Cruise paused; assistance slowing.",
+            "{} Cruise paused. Assistance slowing.",
             pacenote_terse(pacenote)
         ),
     )
@@ -822,14 +822,14 @@ mod tests {
         // Owner, 2026-09-01: the call ends with the side a tap can go, in the
         // L key's own words. Terse drops the opener -- the named lane says
         // everything it did -- and is never a synonym for it.
-        let pair = in_lane_hazard_call("Slow car right ahead.", OpenSide::Left);
+        let pair = in_lane_hazard_call("Slow car, close.", OpenSide::Left);
         assert_eq!(
             pair.normal,
-            "Change lanes or brake! Slow car right ahead. Left lane open."
+            "Change lanes or brake! Slow car, close. Left lane open."
         );
         assert_eq!(
             pair.terse.as_deref(),
-            Some("Slow car right ahead. Left lane open.")
+            Some("Slow car, close. Left lane open.")
         );
         assert_eq!(
             in_lane_hazard_call("Debris on the road.", OpenSide::Right).normal,
@@ -881,8 +881,8 @@ mod tests {
     fn test_with_no_lane_open_the_call_is_brake_and_says_so_in_both_modes() {
         // Nowhere to go: the "Brake!" family, and the driver is told not to
         // reach for a lane change. "Brake!" survives terse, as it always has.
-        let pair = in_lane_hazard_call("Slow car right ahead.", OpenSide::Neither);
-        assert_eq!(pair.normal, "Brake! Slow car right ahead. No lane open.");
+        let pair = in_lane_hazard_call("Slow car, close.", OpenSide::Neither);
+        assert_eq!(pair.normal, "Brake! Slow car, close. No lane open.");
         assert_eq!(pair.terse.as_deref(), Some(pair.normal.as_str()));
         assert!(!pair.normal.contains("Change lanes"));
     }
@@ -891,8 +891,8 @@ mod tests {
     /// port; the phrase itself is pinned here.
     #[test]
     fn test_the_passing_call_names_the_side_the_truck_takes() {
-        let left = passing_hazard_call("Slow car right ahead.", OpenSide::Either).unwrap();
-        assert_eq!(left.normal, "Slow car right ahead. Passing on the left.");
+        let left = passing_hazard_call("Slow car, close.", OpenSide::Either).unwrap();
+        assert_eq!(left.normal, "Slow car, close. Passing on the left.");
         assert_eq!(left.terse, None);
         let right = passing_hazard_call("Slow semi ahead.", OpenSide::Right).unwrap();
         assert_eq!(right.normal, "Slow semi ahead. Passing on the right.");
@@ -998,11 +998,11 @@ mod tests {
     fn test_hazard_family_cues_keep_their_normal_coaching() {
         assert_eq!(
             brake_lights_cue("2.1 miles", "38 miles per hour", "38", "").normal,
-            "Brake lights 2.1 miles ahead. Traffic at 38 miles per hour."
+            "Brake lights, 2.1 miles. Traffic at 38 miles per hour."
         );
         assert_eq!(
             slow_lead_cue("car", "1.2 miles", "40 miles per hour", "40").normal,
-            "Slow car 1.2 miles ahead, at 40 miles per hour."
+            "Slow car, 1.2 miles, at 40 miles per hour."
         );
     }
 
@@ -1011,7 +1011,7 @@ mod tests {
         let pair = brake_lights_cue("2.1 miles", "38 miles per hour", "38", "Merge ahead.");
         assert_eq!(
             pair.normal,
-            "Brake lights 2.1 miles ahead. Merge ahead. Traffic at 38 miles per hour."
+            "Brake lights, 2.1 miles. Merge ahead. Traffic at 38 miles per hour."
         );
         assert_eq!(pair.terse.as_deref(), Some("Brake lights, 2.1 miles, 38."));
     }
@@ -1024,7 +1024,7 @@ mod tests {
     fn test_merging_cue_drops_the_speed_advisory() {
         let pair = merging_traffic_cue("box truck", "0.4 miles");
         assert_eq!(pair.terse.as_deref(), Some("Merging box truck, 0.4 miles."));
-        assert_eq!(pair.normal, "Merging box truck 0.4 miles ahead.");
+        assert_eq!(pair.normal, "Merging box truck, 0.4 miles.");
         assert!(!pair.normal.contains("be ready for"));
         assert!(!pair.terse.as_deref().unwrap().contains("be ready for"));
     }
@@ -1564,7 +1564,7 @@ mod tests {
     /// there is no choice for the word to inform.
     #[test]
     fn test_a_dodgeable_hazard_with_nowhere_to_go_keeps_the_word_brake() {
-        let no_lane = hazard_call("Brake!", "Brake lights right ahead.");
+        let no_lane = hazard_call("Brake!", "Brake lights, close.");
         assert!(
             no_lane.render(true).starts_with("Brake!"),
             "{}",

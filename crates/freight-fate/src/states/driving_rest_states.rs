@@ -67,7 +67,7 @@ pub fn suspension_text(ctx: &GameContext, hours: f64, verb: &str) -> String {
     let left = enforcement::days_text(profile.driving_record.days_left(hours));
     format!(
         "Your CDL is {verb} for {left}. Driving jobs are off the dispatch board until it clears, \
-         {}. Your money and your truck are safe; rest, repairs, and the garage are still open.",
+         {}. Your money and your truck are safe. Rest, repairs, and the garage are still open.",
         enforcement::clears_text(profile)
     )
 }

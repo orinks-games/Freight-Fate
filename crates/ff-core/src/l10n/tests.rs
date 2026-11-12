@@ -827,9 +827,9 @@ fn shipped_chinese_translates_dispatch_pickup_and_driving_lines() {
     );
     assert_eq!(
         tr.translate(
-            "On I-10 toward Indio, California. Next stop in 1 mile: travel center ahead at exit 239. Automatic transmission."
+            "On I-10 toward Indio, California. Next stop in 1 mile: travel center off exit 239. Automatic transmission."
         ),
-        "在 I-10 上朝向 Indio, California。前方1英里是下一个停靠点：前方239号出口处的卡车服务区。自动变速箱。"
+        "在 I-10 上朝向 Indio, California。前方1英里是下一个停靠点：239号出口处的卡车服务区。自动变速箱。"
     );
 }
 
@@ -900,10 +900,10 @@ fn shipped_spanish_says_a_yard_once_and_joins_de_el() {
     );
     assert_eq!(
         tr.translate(
-            "On I-94 toward Kenosha, Wisconsin. Next stop in 1 mile: travel center ahead at exit 50B."
+            "On I-94 toward Kenosha, Wisconsin. Next stop in 1 mile: travel center off exit 50B."
         ),
-        "En I-94 hacia Kenosha, Wisconsin. Próxima parada en 1 milla: área de servicio más \
-         adelante en la salida 50B."
+        "En I-94 hacia Kenosha, Wisconsin. Próxima parada en 1 milla: área de servicio en la \
+         salida 50B."
     );
 }
 

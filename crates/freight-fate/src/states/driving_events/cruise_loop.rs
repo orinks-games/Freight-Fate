@@ -634,8 +634,8 @@ impl DrivingState {
                 // The cause only where the speed limit cue does not already
                 // carry it: a plain posted drop is its own announcement.
                 let reason = match limit_reason.as_deref() {
-                    Some("construction") => Some("Construction zone ahead"),
-                    Some("heavy traffic") => Some("Heavy traffic ahead"),
+                    Some("construction") => Some("Construction zone"),
+                    Some("heavy traffic") => Some("Heavy traffic"),
                     _ => None,
                 };
                 // ROUTE, not the ambient default. An assist saying it is
@@ -751,7 +751,7 @@ impl DrivingState {
                 // cruise is still holding the gap.
                 let mut opts = SayEvent::queued().priority(EventPriority::Important);
                 opts.category = Some(SpeechCategory::Safety);
-                ctx.say_event_with("Stopped traffic ahead; cruise canceled.", opts);
+                ctx.say_event_with("Stopped traffic. Cruise canceled.", opts);
                 return;
             }
             // Approach control: a slower lead constrains the target only once the
@@ -787,7 +787,7 @@ impl DrivingState {
                     .slow_call_fresh(&c.lead.key, self.trip.position_mi)
             });
             if !just_called {
-                self.say_route_line(ctx, "Traffic ahead, slowing.", SpeechCategory::Traffic);
+                self.say_route_line(ctx, "Traffic slowing.", SpeechCategory::Traffic);
             }
         }
         self.acc_following = following;
@@ -806,7 +806,7 @@ impl DrivingState {
         // from a key press would re-run look-aheads that latch state.
         self.cruise_held_mph = Some(target_mph);
         self.cruise_held_reason = if following {
-            "for the traffic ahead".to_string()
+            "for the traffic".to_string()
         } else if exit_capped {
             "for the exit".to_string()
         } else if curve_capped {

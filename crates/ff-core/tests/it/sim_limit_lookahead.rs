@@ -239,7 +239,7 @@ fn test_lowered_limit_names_a_weigh_station_ahead() {
     let cues = cues(&mut trip, 50.05, 30.0);
     assert_eq!(
         reduced(&cues),
-        vec!["Speed limit reduced to 30 for the weigh station ahead."]
+        vec!["Speed limit reduced to 30 for the weigh station."]
     );
 }
 

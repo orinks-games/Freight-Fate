@@ -274,7 +274,7 @@ impl DrivingState {
             // otherwise bump it stale (automation-handoff sweep, 2026-08-20,
             // the deferred 2026-08-15 audit).
             ctx.say_event_with(
-                "Exit approach canceled; plan it again after the stop.",
+                "Exit approach canceled. Plan it again after the stop.",
                 SayEvent::queued()
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),
@@ -406,7 +406,7 @@ impl DrivingState {
                     // needed it -- taking the scale's exit is what counts --
                     // and the ramp glide owns the slowing.
                     format!(
-                        "Open weigh station ahead in {announced}, {}. {instruction}",
+                        "Open weigh station in {announced}, {}. {instruction}",
                         stop.name
                     ),
                     SayEvent::queued()

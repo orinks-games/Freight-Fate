@@ -356,14 +356,14 @@ impl DrivingState {
                     0.8,
                     0.0,
                 );
-                format!("Traffic light ahead. Light {phase}.")
+                format!("Traffic light. Light {phase}.")
             }
             kind => {
                 ctx.audio.play_with("ui/notify", 0.7, 0.0);
                 match kind {
-                    "all_way_stop" => "All-way stop ahead.",
-                    "give_way" => "Yield sign ahead.",
-                    _ => "Stop sign ahead.",
+                    "all_way_stop" => "All-way stop.",
+                    "give_way" => "Yield sign.",
+                    _ => "Stop sign.",
                 }
                 .to_string()
             }
@@ -402,7 +402,7 @@ impl DrivingState {
             return format!("{lead}{clear}");
         }
         if clear {
-            format!("{lead} Clear; pull ahead.")
+            format!("{lead} Clear. Pull ahead.")
         } else {
             lead.to_string()
         }

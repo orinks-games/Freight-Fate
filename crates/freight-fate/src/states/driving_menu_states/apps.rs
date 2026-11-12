@@ -253,7 +253,7 @@ impl DriverAppScreenState {
                     .map(|stop| {
                         let ahead = (stop.at_mi - d.trip.position_mi).max(0.0);
                         format!(
-                            "Truck stops: {} in {}; {}.",
+                            "Truck stops: {} in {}, {}.",
                             stop.spoken_name(),
                             ctx.settings.distance_text(ahead, false),
                             crate::states::driving_core::poi_offers_text(&stop)

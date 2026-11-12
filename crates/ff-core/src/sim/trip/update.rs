@@ -632,7 +632,7 @@ impl Trip {
                         None => String::new(),
                     };
                     let message = format!(
-                        "Traffic slowing ahead in {}; {}{speed}.",
+                        "Traffic slowing in {}, {}{speed}.",
                         self.ahead_text(ahead),
                         cue.text
                     );

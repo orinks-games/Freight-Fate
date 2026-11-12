@@ -86,7 +86,7 @@ fn slow_car_call(at_mi: f64) -> TripEvent {
     .with_lane(0);
     TripEvent {
         kind: TripEventKind::Hazard,
-        message: in_lane_hazard_call("Slow car right ahead.", OpenSide::Left),
+        message: in_lane_hazard_call("Slow car, close.", OpenSide::Left),
         data: TripEventData {
             deadline_s: Some(2.5),
             traffic: Some(TrafficContext {
@@ -97,7 +97,7 @@ fn slow_car_call(at_mi: f64) -> TripEvent {
             dodgeable: Some(true),
             in_lane: Some(true),
             open_side: Some(OpenSide::Left),
-            pass_message: passing_hazard_call("Slow car right ahead.", OpenSide::Left),
+            pass_message: passing_hazard_call("Slow car, close.", OpenSide::Left),
             name: Some("the slow car".to_string()),
             ..Default::default()
         },
@@ -125,16 +125,13 @@ fn lining_up_for_an_exit_the_call_stays_the_drivers() {
     raise(&mut harness, Some(1.5));
     assert_eq!(
         the_call(&harness),
-        "Change lanes or brake! Slow car right ahead. Left lane open."
+        "Change lanes or brake! Slow car, close. Left lane open."
     );
     assert!(harness.read_drive(|d| d.lane_change_target).is_none());
 
     // The same call with the exit still five miles off is passed.
     raise(&mut harness, Some(5.0));
-    assert_eq!(
-        the_call(&harness),
-        "Slow car right ahead. Passing on the left."
-    );
+    assert_eq!(the_call(&harness), "Slow car, close. Passing on the left.");
     assert_eq!(harness.read_drive(|d| d.lane_change_target), Some(1));
 }
 

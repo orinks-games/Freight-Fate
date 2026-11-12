@@ -856,10 +856,7 @@ fn test_a_zone_past_the_destination_exit_is_never_announced() {
             ..Default::default()
         },
     };
-    let cue = gate_cue(
-        gate.clone(),
-        "In 2 miles, facility gate ahead. Speed limit 15.",
-    );
+    let cue = gate_cue(gate.clone(), "In 2 miles, facility gate. Speed limit 15.");
     harness.with_drive(move |drive, ctx| drive.handle_trip_event(ctx, &cue));
     assert!(events(&harness).is_empty(), "{:#?}", events(&harness));
 
@@ -868,7 +865,7 @@ fn test_a_zone_past_the_destination_exit_is_never_announced() {
     // replayed on the street chain, so reachability is tested with a
     // highway-side reason.)
     let reachable = Zone::new(exit_at - 2.0, exit_at - 1.0, 35.0, "construction");
-    let cue = gate_cue(reachable, "In 2 miles, construction ahead. Speed limit 35.");
+    let cue = gate_cue(reachable, "In 2 miles, construction. Speed limit 35.");
     harness.with_drive(move |drive, ctx| drive.handle_trip_event(ctx, &cue));
     assert!(
         last_event(&harness).starts_with("In 2 miles, construction"),
@@ -883,7 +880,7 @@ fn test_a_zone_past_the_destination_exit_is_never_announced() {
     harness.advance_clock(10.0);
     harness.with_drive(|drive, _| drive.phase = "pickup");
     harness.clear_speech();
-    let cue = gate_cue(gate, "In 2 miles, facility gate ahead. Speed limit 15.");
+    let cue = gate_cue(gate, "In 2 miles, facility gate. Speed limit 15.");
     harness.with_drive(move |drive, ctx| drive.handle_trip_event(ctx, &cue));
     assert!(
         last_event(&harness).starts_with("In 2 miles, facility gate"),
@@ -901,9 +898,7 @@ fn test_missed_destination_exit_suppresses_facility_zone_cues() {
             ctx,
             &TripEvent {
                 kind: TripEventKind::GpsCue,
-                message: SpokenMessage::new(
-                    "In 1 miles, destination approach ahead. Speed limit 35.",
-                ),
+                message: SpokenMessage::new("In 1 miles, destination approach. Speed limit 35."),
                 data: TripEventData {
                     zone: Some(Zone::new(99.0, 100.0, 35.0, "destination approach")),
                     ..Default::default()

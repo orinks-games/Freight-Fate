@@ -1958,7 +1958,7 @@ fn test_facility_gate_warns_before_final_low_speed_zone() {
     assert!(
         warnings
             .iter()
-            .any(|w| w == "In 2 miles, facility gate ahead. Speed limit 15."),
+            .any(|w| w == "In 2 miles, facility gate. Speed limit 15."),
         "{warnings:?}"
     );
 }
@@ -1992,7 +1992,7 @@ fn test_zone_entry_is_worded_apart_from_its_advance_warning() {
         .next()
         .expect("the gate warning");
     // Two miles out: a heads-up, and the gate limit is not in force yet.
-    assert_eq!(warning, "In 2 miles, facility gate ahead. Speed limit 15.");
+    assert_eq!(warning, "In 2 miles, facility gate. Speed limit 15.");
     let pos = trip.position_mi;
     assert_ne!(trip.speed_limit_at(pos).0, 15.0);
 
@@ -2520,7 +2520,7 @@ fn test_npc_traffic_cue_and_status_are_reviewable() {
         .collect();
     assert_eq!(npc_cues.len(), 1);
     assert!(npc_cues[0].text().contains("Merging vehicle"));
-    assert!(npc_cues[0].text().contains("ahead."));
+    assert!(npc_cues[0].text().ends_with("miles."));
     let status = trip.npc_traffic_status();
     assert_eq!(
         status,
@@ -2559,7 +2559,7 @@ fn test_metric_toggle_updates_npc_traffic_cue_units() {
         })
         .expect("the merge cue");
     assert!(
-        npc_cue.text().contains("1.3 kilometers ahead"),
+        npc_cue.text().contains("1.3 kilometers."),
         "{}",
         npc_cue.text()
     );
@@ -3011,7 +3011,7 @@ fn test_gps_traffic_cue_deduplicates() {
     let second = trip.update(0.0);
     assert_eq!(
         gps_messages(&first),
-        vec!["Traffic slowing ahead in 2 miles; traffic queue ahead at 45 miles per hour."]
+        vec!["Traffic slowing in 2 miles, traffic queue ahead at 45 miles per hour."]
     );
     assert!(gps_events(&second).is_empty());
 }
@@ -3048,7 +3048,7 @@ fn test_toll_cues_and_charges_deduplicate() {
     let repeat = trip.update(0.0);
     assert_eq!(
         gps_messages(&advance),
-        vec!["ticket system toll point ahead, New Jersey Turnpike ticket entry. Toll about 18 dollars."]
+        vec!["ticket system toll point, New Jersey Turnpike ticket entry. Toll about 18 dollars."]
     );
     assert!(gps_events(&repeat).is_empty());
 
@@ -3082,7 +3082,7 @@ fn test_zero_amount_toll_entry_marker_does_not_record_expense() {
     trip.position_mi = 16.3;
     assert_eq!(
         gps_messages(&trip.update(0.0)),
-        vec!["ticket system toll point ahead, Pennsylvania Turnpike eastern ticket entry."]
+        vec!["ticket system toll point, Pennsylvania Turnpike eastern ticket entry."]
     );
     trip.position_mi = 18.2;
     let entry = trip.update(0.0);

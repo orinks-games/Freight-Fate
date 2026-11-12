@@ -323,7 +323,7 @@ fn test_adaptive_cruise_follows_npc_traffic() {
     assert!(harness.read_drive(|d| d.acc_following));
     assert!(harness.read_drive(|d| d.truck().throttle) < 0.9);
     assert!(harness.read_drive(|d| d.truck().brake) > 0.0);
-    assert!(said_any(&harness, "Traffic ahead, slowing."));
+    assert!(said_any(&harness, "Traffic slowing."));
 }
 
 #[test]
@@ -482,7 +482,7 @@ fn test_adaptive_cruise_follows_the_lane_being_entered_mid_change() {
 
     assert_eq!(harness.read_drive(|d| d.lane_change_target), Some(1)); // still underway
     assert!(harness.read_drive(|d| d.acc_following));
-    assert!(said_any(&harness, "Traffic ahead, slowing."));
+    assert!(said_any(&harness, "Traffic slowing."));
 }
 
 #[test]
@@ -520,7 +520,7 @@ fn test_adaptive_cruise_reverts_to_origin_lane_when_a_change_is_aborted() {
 
     assert_eq!(harness.read_drive(|d| d.lane.lane), 0); // still in the origin lane
     assert!(harness.read_drive(|d| d.acc_following)); // following the origin lead again
-    assert!(said_any(&harness, "Traffic ahead, slowing."));
+    assert!(said_any(&harness, "Traffic slowing."));
 }
 
 #[test]
@@ -548,7 +548,7 @@ fn test_adaptive_cruise_ignores_distant_slower_traffic() {
 
     assert!(!harness.read_drive(|d| d.acc_following));
     assert!(approx(harness.read_drive(|d| d.truck().brake), 0.0));
-    assert!(!said_any(&harness, "Traffic ahead, slowing."));
+    assert!(!said_any(&harness, "Traffic slowing."));
 }
 
 #[test]
@@ -587,7 +587,7 @@ fn test_adaptive_cruise_follow_cue_does_not_repeat_within_the_cooldown() {
     let cue_count = |harness: &PlaytestHarness| {
         spoken(harness)
             .iter()
-            .filter(|e| *e == "Traffic ahead, slowing.")
+            .filter(|e| *e == "Traffic slowing.")
             .count()
     };
 
@@ -634,7 +634,7 @@ fn test_adaptive_cruise_follow_cue_stays_quiet_after_the_slow_call() {
     frame(&mut harness, DT);
     assert!(harness.read_drive(|d| d.acc_following));
     assert!(
-        !said_any(&harness, "Traffic ahead, slowing."),
+        !said_any(&harness, "Traffic slowing."),
         "{:#?}",
         spoken(&harness)
     );
@@ -881,7 +881,7 @@ fn test_adaptive_cruise_stays_armed_before_restricted_zone() {
             ctx,
             &TripEvent {
                 kind: TripEventKind::GpsCue,
-                message: "In 2 miles, construction ahead. Speed limit 45.".into(),
+                message: "In 2 miles, construction. Speed limit 45.".into(),
                 data: TripEventData {
                     zone: Some(Zone::new(10.0, 15.0, 45.0, "construction")),
                     ..Default::default()
@@ -891,10 +891,7 @@ fn test_adaptive_cruise_stays_armed_before_restricted_zone() {
     });
 
     assert!(harness.read_drive(|d| d.cruise_mph).is_some());
-    assert_eq!(
-        last(&harness),
-        "In 2 miles, construction ahead. Speed limit 45."
-    );
+    assert_eq!(last(&harness), "In 2 miles, construction. Speed limit 45.");
 }
 
 #[test]
@@ -1216,7 +1213,7 @@ fn test_a_hazard_that_leaves_the_truck_below_cruise_speed_still_resumes() {
         d.handle_trip_event(
             ctx,
             &hazard_event(
-                "Brake! Slow car right ahead.",
+                "Brake! Slow car, close.",
                 TripEventData {
                     deadline_s: Some(4.0),
                     ..Default::default()

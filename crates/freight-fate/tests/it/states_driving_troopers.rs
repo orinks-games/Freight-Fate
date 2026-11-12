@@ -705,7 +705,7 @@ fn test_weigh_station_warning_is_spoken_before_bypass() {
 
     let notices: Vec<String> = spoken(&app)
         .into_iter()
-        .filter(|line| line.contains("Open weigh station ahead"))
+        .filter(|line| line.contains("Open weigh station in"))
         .collect();
     assert_eq!(notices.len(), 1, "{notices:#?}");
     // The notice names no key: "Press T" at speed plans a sleep stop, which

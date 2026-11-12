@@ -675,7 +675,7 @@ impl DrivingState {
                     let what = self.crossing_description();
                     self.say_terminal_hold(
                         ctx,
-                        &format!("Stopped at the sign. {what}; wait for your gap."),
+                        &format!("Stopped at the sign. {what}. Wait for your gap."),
                         SpeechCategory::Navigation,
                     );
                 }
@@ -843,7 +843,7 @@ impl DrivingState {
                     let what = self.crossing_description();
                     self.say_terminal_hold(
                         ctx,
-                        &format!("At the {noun}. {what}; wait for your gap."),
+                        &format!("At the {noun}. {what}. Wait for your gap."),
                         SpeechCategory::Navigation,
                     );
                 }
@@ -955,7 +955,7 @@ impl DrivingState {
             return format!("{lead}{clear}");
         }
         if clear {
-            format!("{lead} Clear; pull ahead {whither}.")
+            format!("{lead} Clear. Pull ahead {whither}.")
         } else {
             format!("{lead} Pull ahead {whither}.")
         }

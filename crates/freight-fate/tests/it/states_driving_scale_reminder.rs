@@ -130,7 +130,7 @@ fn an_open_scale_behind_a_closed_one_at_ten_times_gets_real_seconds_after_a_paus
         rig.drive.trip.position_mi > CLOSED_MI + 3.5
     });
     assert_eq!(
-        rig.said("Open weigh station ahead"),
+        rig.said("Open weigh station in"),
         1,
         "{:?}",
         rig.transcript()
@@ -310,7 +310,7 @@ fn crawling_up_to_the_scale_then_crossing_at_speed_is_still_judged() {
         rig.drive.trip.position_mi >= open.at_mi - 0.9
     });
     assert_eq!(
-        rig.said("Open weigh station ahead"),
+        rig.said("Open weigh station in"),
         1,
         "{:?}",
         rig.transcript()
@@ -499,7 +499,7 @@ fn a_notice_first_heard_inside_the_reminder_window_still_excuses_a_quick_crossin
     hold_for(&mut rig, 61.0, open.at_mi + 0.3, |_| false);
 
     assert_eq!(
-        rig.said("Open weigh station ahead"),
+        rig.said("Open weigh station in"),
         1,
         "{:?}",
         rig.transcript()
@@ -799,7 +799,7 @@ fn a_pause_with_no_open_scale_announced_adds_nothing() {
     assert!(rig.drive.scale_reannounce.is_none());
     rig.step(2, DT, None);
     assert_eq!(
-        rig.said("Open weigh station ahead"),
+        rig.said("Open weigh station in"),
         1,
         "{:?}",
         rig.transcript()

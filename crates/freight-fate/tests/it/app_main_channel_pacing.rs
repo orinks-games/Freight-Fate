@@ -98,7 +98,7 @@ fn test_queued_reply_no_longer_purges_the_shared_event_channel() {
     app.ctx.settings.sapi_events = false; // events ride the main voice
     app.push_state(Wheel);
 
-    let scale = "Open weigh station ahead in two miles. All trucks must pull in.";
+    let scale = "Open weigh station in two miles. All trucks must pull in.";
     app.ctx
         .say_event_with(scale, SayEvent::queued().priority(EventPriority::Important));
     app.ctx.say("Fifty five miles per hour."); // info reply, default interrupt

@@ -611,17 +611,17 @@ fn test_realistic_speed_control_transitions_do_not_issue_speeding_fines() {
         .expect("the work zone was entered");
     assert!(entry <= 47.5, "{entry}");
     assert_eq!(
-        text.matches("Construction zone ahead, cruise easing to 45.")
+        text.matches("Construction zone, cruise easing to 45.")
             .count(),
         1
     );
     // Two stages, in the order the warning promised them: the taper's 55
     // first, the work zone's 45 at the barrels.
     let to_55 = text
-        .find("Construction zone ahead, cruise easing to 55.")
+        .find("Construction zone, cruise easing to 55.")
         .unwrap_or_else(|| panic!("no easing to 55: {text}"));
     let to_45 = text
-        .find("Construction zone ahead, cruise easing to 45.")
+        .find("Construction zone, cruise easing to 45.")
         .expect("checked above");
     assert!(to_55 < to_45, "{text}");
 }

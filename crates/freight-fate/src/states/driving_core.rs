@@ -662,7 +662,7 @@ impl Instructor for Tutorial {
             self.stage = 3;
             let text = format!(
                 "Rolling. {} for your speed, {} for a full report, {} for all the controls. Brake \
-                 hard at a hazard warning; {} stops fast.",
+                 hard at a hazard warning. {} stops fast.",
                 ctx.control_hint("speed"),
                 ctx.control_hint("status_menu"),
                 ctx.control_hint("help"),
@@ -773,8 +773,8 @@ impl RadioPlaybackBackend for DrivingRadioBackend<'_> {
     fn refusal_note(&self, station: &RadioStation) -> Option<String> {
         youtube::needs_yt_dlp(&station.playlist_entries).then(|| {
             format!(
-                "{} needs yt-dlp for its YouTube links, and it is not installed; \
-                 it is off the dial for the rest of this session.",
+                "{} needs yt-dlp for its YouTube links, and it is not installed. \
+                 It is off the dial for the rest of this session.",
                 station.display_name()
             )
         })
