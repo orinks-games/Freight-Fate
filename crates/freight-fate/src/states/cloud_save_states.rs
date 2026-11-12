@@ -795,7 +795,7 @@ impl Menu for ConfirmKeepMineState {
                 |s: &mut Self, ctx| s.go_back(ctx),
             )
             .help(
-                "Goes back without uploading. This career does not back up until you choose \
+                "Goes back without uploading. This career is not backed up until you choose \
                  which copy to keep.",
             ),
             MenuItem::new(

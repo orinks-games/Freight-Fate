@@ -17,7 +17,7 @@ use super::{Achievement, AchievementCategory};
 /// sha256 over every category and achievement field, as the generator
 /// computed it from the Python catalog (see `catalog_digest` in the
 /// tests for the exact framing).
-pub const CATALOG_DIGEST: &str = "2ae03ec21aac4acefdfac23b38db8087d0de1a2a42a9055550fa6f19dd84dd2b";
+pub const CATALOG_DIGEST: &str = "dbb4c7c4fa714cd9f049fda5ec04886cf63ba9ac54f307780a0067357361bd00";
 
 /// What a locked, hidden achievement speaks in place of its real name and
 /// description. Keeps a hidden badge's surprise -- the joke, the calendar
@@ -44,7 +44,7 @@ pub const CATEGORIES: [AchievementCategory; 7] = [
     AchievementCategory {
         id: "career",
         title: "Career and Rank",
-        description: "Levels, money, and trucks: the long climb from hire to owner-operator.",
+        description: "Levels, money, and trucks -- the long climb from hire to owner-operator.",
     },
     AchievementCategory {
         id: "radio_songs",
@@ -394,7 +394,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "wichita_arrival",
         name: "Wichita on the Line",
-        description: "A load signed for in Wichita. A lineman waved. You were watching the wind.",
+        description: "A load signed for in Wichita. A lineman waved; you were watching the wind.",
         category: "places",
         inspiration: "Glen Campbell - Wichita Lineman",
         hidden: false,
@@ -578,7 +578,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "kentucky_delivery",
         name: "Bluegrass on the Bill of Lading",
-        description: "A load signed for in Kentucky. The grass is blue. The money was green.",
+        description: "A load signed for in Kentucky. The grass is blue; the money was green.",
         category: "places",
         inspiration: "Brit Taylor - Kentucky Blue",
         hidden: false,
@@ -650,7 +650,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "el_paso_arrival",
         name: "A Ballad Out West",
-        description: "Freight into El Paso. The old ballads end in heartbreak. Yours ended with a signature.",
+        description: "Freight into El Paso. The old ballads end in heartbreak; yours ended with a signature.",
         category: "places",
         inspiration: "Marty Robbins - El Paso City",
         hidden: false,
@@ -730,7 +730,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "reefer_load",
         name: "Cold Freight, Warm Heart",
-        description: "Your first reefer load, temperature steady. The trailer ran cold. Your mood didn't.",
+        description: "Your first reefer load, temperature steady. The trailer ran cold; your mood didn't.",
         category: "road",
         inspiration: "Hank Williams - Cold, Cold Heart",
         hidden: false,
@@ -770,7 +770,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "doubles_load",
         name: "Two Boxes, One Driver",
-        description: "Your first set of doubles, delivered whole. The rear trailer wandered. The mirrors told the truth.",
+        description: "Your first set of doubles, delivered whole. The rear trailer wandered; the mirrors told the truth.",
         category: "road",
         inspiration: "Red Sovine - Giddy-Up Go",
         hidden: false,
@@ -874,7 +874,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "home_return",
         name: "The Porch Light Was Still On",
-        description: "With 10 deliveries behind you, you brought a load home. The streets shrank. The welcome didn't.",
+        description: "With 10 deliveries behind you, you brought a load home. The streets shrank; the welcome didn't.",
         category: "career",
         inspiration: "Arlo McKinley - Back Home",
         hidden: false,
@@ -922,7 +922,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "weather_collector",
         name: "Every Sky in the Logbook",
-        description: "You've driven under every sky in the forecast. None of it lasted. You did.",
+        description: "You've driven under every sky in the forecast. None of it lasted; you did.",
         category: "weather_seasons",
         inspiration: "Waylon Jennings & Jessi Colter - Storms Never Last",
         hidden: false,
@@ -994,7 +994,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "second_ticket",
         name: "Twice in One Trip, Really",
-        description: "Two speeding tickets in one run. The first was a lesson. The second was a choice.",
+        description: "Two speeding tickets in one run. The first was a lesson; the second was a choice.",
         category: "working_day",
         inspiration: "Erin Viancourt - Should've Known Better",
         hidden: false,
@@ -1226,7 +1226,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "fort_worth_arrival",
         name: "Cowtown Crossed Your Mind",
-        description: "A load into Fort Worth. The stockyards went showbiz. The freight stayed honest.",
+        description: "A load into Fort Worth. The stockyards went showbiz; the freight stayed honest.",
         category: "radio_songs",
         inspiration: "George Strait - Does Fort Worth Ever Cross Your Mind",
         hidden: false,
@@ -1234,7 +1234,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "san_antonio_arrival",
         name: "Backing Down to San Antone",
-        description: "Freight in San Antonio. The river walks. Your trailer rolled.",
+        description: "Freight in San Antonio. The river walks; your trailer rolled.",
         category: "radio_songs",
         inspiration: "Bob Wills & His Texas Playboys - New San Antonio Rose",
         hidden: false,
@@ -1386,7 +1386,7 @@ pub const ACHIEVEMENTS: [Achievement; 184] = [
     Achievement {
         id: "new_year_run",
         name: "Working Through the Countdown",
-        description: "Midnight on New Year's, between two towns. They counted down. You counted mile markers.",
+        description: "Midnight on New Year's, between two towns. They counted down; you counted mile markers.",
         category: "hidden",
         inspiration: "U2 - New Year's Day",
         hidden: true,

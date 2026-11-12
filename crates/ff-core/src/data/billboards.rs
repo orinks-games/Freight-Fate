@@ -570,7 +570,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
     // Song tributes -- the Texas-to-Minnesota main street of country music:
     // San Antonio, Austin, Waco, Abbott, Fort Worth, and Wichita.
     ("I-35", &[
-        in_states("Abbott, Texas, Willie Nelson's hometown. He's on the road again.", &["TX"]),
+        in_states("Abbott, Texas: Willie Nelson's hometown. He's on the road again.", &["TX"]),
         approaching("Waco ahead. Croy and the Boys wrote Don't Let Me Die in Waco. The city would like everyone to relax.", &["waco_tx_us"]),
         approaching("Austin ahead. Dale Watson territory: honky-tonk for people who read weigh station signs.", &["austin_tx_us"]),
         approaching("San Antonio, down the road. Western swing was born in Texas and Bob Wills drove it. New San Antonio Rose still blooms.", &["san_antonio_tx_us"]),
@@ -626,14 +626,14 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
     ]),
     // Song tribute -- Fort Payne, Alabama, hometown of the band Alabama.
     ("I-59", &[
-        in_states("Fort Payne, Alabama, hometown of the band Alabama. They sang Roll On for every eighteen wheeler on this road.", &["AL"]),
+        in_states("Fort Payne, Alabama: hometown of the band Alabama. They sang Roll On for every eighteen wheeler on this road.", &["AL"]),
     ]),
     // Song tributes -- the long north-south haul: Saginaw and Detroit at the
     // top, Macon, Georgia at the bottom.
     ("I-75", &[
         approaching("Detroit City ahead. Bobby Bare sang it for every homesick southerner on the assembly lines up here.", &["detroit_mi_us"]),
         approaching("Saginaw, Michigan, up the interstate. Lefty Frizzell made a fishing town famous. The bay is cold.", &["saginaw_mi_us"]),
-        approaching("Macon, Georgia, the Allman Brothers' town. Southbound never sounded better than it does on this stretch.", &["macon_ga_us"]),
+        approaching("Macon, Georgia: the Allman Brothers' town. Southbound never sounded better than it does on this stretch.", &["macon_ga_us"]),
         // Produce stands -- not See Rock City.
         in_states("Georgia peaches, next few exits. The stands are real. The claims about whose are best are advertising.", &["GA"]),
         in_states("Florida citrus, next few exits. The bags are heavy. The claims about fresh are mostly true.", &["FL"]),

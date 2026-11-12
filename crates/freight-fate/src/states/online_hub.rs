@@ -38,8 +38,8 @@ impl Default for OnlineHubState {
 impl OnlineHubState {
     pub const TITLE: &'static str = "Online";
     pub const INTRO_HELP: &'static str =
-        "Enter opens an item or changes a setting forward. Right also changes it forward, \
-         Left backward. Escape goes back. Drivers on duty, the Driver directory, the duty \
+        "Enter opens an item or changes a setting to its next value. Right also moves it \
+         forward, Left backward. Escape goes back. Drivers on duty, the Driver directory, the duty \
          notices, and Account achievements work without connecting. The rest needs an \
          orinks.net account. Everything you share can be turned off again.";
 
@@ -312,9 +312,9 @@ impl Menu for OnlineHubState {
                 |s: &mut Self, ctx| s.toggle_duty_notifications(ctx, 1),
             )
             .help(
-                "Example: Road Star is on duty. Works anywhere in the game, checks the public \
-                 drivers list about once a minute, needs no account, and shares nothing \
-                 about you.",
+                "A line like Road Star is on duty, heard anywhere in the game. It checks the \
+                 public drivers list about once a minute, needs no account, and shares \
+                 nothing about you.",
             ),
             MenuItem::new("Account achievements", |s: &mut Self, ctx| {
                 s.account_achievements(ctx)

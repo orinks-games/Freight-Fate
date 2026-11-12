@@ -73,7 +73,7 @@ pub const CROWD_REFUSALS: &[&str] = &[
     "It is a summer Saturday and the lot is packed to the beaver's whiskers. Come back when it is calmer.",
     "Three motor homes, a car club, and a wedding party in the parking lot. No room even for a bobtail today.",
     "They are restocking the jerky wall and half the pumps are coned off. Swing back later.",
-    "The famous restrooms have a line out the door. Trust us, come back.",
+    "The famous restrooms have a line out the door. Trust us. Come back.",
 ];
 
 /// The reward: you dropped your trailer and slipped in bobtail. Welcome
