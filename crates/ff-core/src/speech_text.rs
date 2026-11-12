@@ -827,10 +827,7 @@ mod tests {
             pair.normal,
             "Change lanes or brake! Slow car. Left lane open."
         );
-        assert_eq!(
-            pair.terse.as_deref(),
-            Some("Slow car. Left lane open.")
-        );
+        assert_eq!(pair.terse.as_deref(), Some("Slow car. Left lane open."));
         assert_eq!(
             in_lane_hazard_call("Debris on the road.", OpenSide::Right).normal,
             "Change lanes or brake! Debris on the road. Right lane open."

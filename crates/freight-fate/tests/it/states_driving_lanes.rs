@@ -1102,10 +1102,7 @@ fn test_traffic_pressure_hazard_says_brake_only_with_no_lane_to_swerve_into() {
         .filter(|e| e.kind == TripEventKind::Hazard)
         .collect();
     assert!(!events.is_empty());
-    assert_eq!(
-        events[0].text(),
-        "Brake! Brake lights. No lane open."
-    );
+    assert_eq!(events[0].text(), "Brake! Brake lights. No lane open.");
     assert!(!events[0].text().contains("change lanes"));
     // And the physics is told the same thing the words were: there is
     // nowhere to go, so no lane-change allowance is added to the driver's
