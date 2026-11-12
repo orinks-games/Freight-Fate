@@ -13,8 +13,8 @@ use crate::states::achievement_sort::{
 use crate::states::base::{Key, Label, Menu, MenuCore, MenuItem};
 
 const CONTROLS: &str = "Enter opens a category. Inside one, Enter repeats the achievement \
-and Escape returns to the categories. From the categories, Escape returns to Online. This \
-read-only collection combines every career on this installation.";
+and Escape returns to the categories. From the categories, Escape returns to Online. The \
+count covers every career on this installation.";
 
 /// The account's earned badges, ranked by when they were first earned. A
 /// badge the ledger has no trustworthy time for counts as the oldest.

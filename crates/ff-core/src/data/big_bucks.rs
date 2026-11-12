@@ -45,7 +45,7 @@ pub const NO_BIG_RIGS_SIGNAGE: &[&str] = &[
 /// STRUCTURAL -- said exactly once, the first time you are turned away, so a
 /// new player learns the rule (and the bobtail-versus-deadhead distinction).
 pub const FIRST_OFFENSE_HINT: &str =
-    "You will never fit a trailer in that car lot. Drop your trailer somewhere and roll back in bobtail -- just the tractor, no trailer -- and the beaver will let you slip in.";
+    "You will never fit a trailer in that car lot. Drop your trailer somewhere and roll back in bobtail, just the tractor with no trailer, and the beaver will let you slip in.";
 
 /// STRUCTURAL -- escalating flavor for repeat trailered attempts after the
 /// hint. Indexed by how many times you have already been turned away since
@@ -59,7 +59,7 @@ pub const MENACE_LINES: &[&str] = &[
 /// STRUCTURAL -- the ban lands, with a reputation ding handled by the
 /// interaction.
 pub const BAN_NOTICE: &str =
-    "That does it. The beaver has had enough. You are banned from Big Buck's for a while, and word gets around -- your reputation takes a hit.";
+    "That does it. The beaver has had enough. You are banned from Big Buck's for a while, and word gets around. Your reputation takes a hit.";
 
 /// STRUCTURAL -- arriving while the ban is still in effect.
 pub const STILL_BANNED: &str =
@@ -73,7 +73,7 @@ pub const CROWD_REFUSALS: &[&str] = &[
     "It is a summer Saturday and the lot is packed to the beaver's whiskers. Come back when it is calmer.",
     "Three motor homes, a car club, and a wedding party in the parking lot. No room even for a bobtail today.",
     "They are restocking the jerky wall and half the pumps are coned off. Swing back later.",
-    "The famous restrooms have a line out the door. Trust us -- come back.",
+    "The famous restrooms have a line out the door. Trust us, come back.",
 ];
 
 /// The reward: you dropped your trailer and slipped in bobtail. Welcome
@@ -93,11 +93,11 @@ pub const ARRIVAL_GREETING: &[&str] = &[
 /// never the legal Hours-of-Service clock.
 pub const MENU: &[&str] = &[
     "a brisket sandwich the size of a hubcap",
-    "Beaver Bites -- glazed corn-nut things that are dangerously good",
+    "Beaver Bites, glazed corn-nut things that are dangerously good",
     "a slab of homemade fudge from the fudge counter",
     "a foot of house-smoked jerky off the jerky wall",
-    "the Bladder Buster -- a sixty-four-ounce soda cup you could bathe a puppy in",
-    "the Iron Bladder -- premium road briefs for the driver who refuses to stop, priced like they know you have no choice",
+    "the Bladder Buster, a sixty-four-ounce soda cup you could bathe a puppy in",
+    "the Iron Bladder, premium road briefs for the driver who refuses to stop, priced like they know you have no choice",
     "a souvenir tee that says I Survived Big Buck's",
 ];
 

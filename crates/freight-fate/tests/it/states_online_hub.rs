@@ -566,9 +566,9 @@ fn test_the_restore_row_says_when_a_career_is_waiting_on_a_choice() {
     assert!(text.contains("which copy to keep"));
     // The reason to open a row named "Restore" when you mean to keep your
     // own save has to reach the player, or the name wins the argument.
-    assert!(help.contains("not backing up at all until you pick"));
+    assert!(help.contains("not backing up until you pick"));
     assert!(help.contains("keeps what you have played"));
-    assert!(help.contains("nothing is overwritten until you choose"));
+    assert!(help.contains("Nothing is overwritten until you choose"));
 }
 
 /// The warning is only worth anything if it is absent the rest of the

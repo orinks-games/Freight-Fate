@@ -451,7 +451,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         in_states("Wyoming, Land of the Buffalo. Chancey Williams sings it from right up the road. Buffalo cross wherever they please.", &["WY"]),
         in_states("Idaho panhandle country. Colby Acuff and the Western White Pines both grew up here.", &["ID"]),
         // Paying attraction -- World's Only Corn Palace, Mitchell SD on I-90.
-        in_states("Mitchell, South Dakota -- the Corn Palace is a real building they redecorate with corn. You may look. The pigeons already did.", &["SD"]),
+        in_states("Mitchell, South Dakota. The Corn Palace is a real building they redecorate with corn. You may look. The pigeons already did.", &["SD"]),
         // Paying attraction -- Spam Museum, Austin MN on I-90.
         in_states("Minnesota. The Spam Museum is a real place they built for a canned lunch. Samples included. The trailer is not.", &["MN"]),
     ]),
@@ -467,7 +467,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         // Song tributes -- the Jersey Turnpike (Elle King) and Jacksonville
         // (Lynyrd Skynyrd). Haynesville Woods was radio memory, not a paid board.
         in_states("New Jersey: more state than it gets credit for. Elle King sings one called Jersey Giant.", &["NJ"]),
-        approaching("Jacksonville ahead, hometown of Lynyrd Skynyrd. Down here even the breeze plays guitar -- listen to their Call Me the Breeze.", &["jacksonville_fl_us"]),
+        approaching("Jacksonville ahead, hometown of Lynyrd Skynyrd. Down here even the breeze plays guitar. Listen to their Call Me the Breeze.", &["jacksonville_fl_us"]),
         // Peanut-stand genre -- southside Virginia I-95, not a New England board.
         in_states("Virginia peanuts, next exit. Cooked in the shell. Your cab will smell like a ballpark for a week.", &["VA"]),
     ]),
@@ -490,7 +490,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         approaching("Baton Rouge ahead. Kris Kristofferson set Me and Bobby McGee hitchhiking out of here. Pick up the song, not the hitchhikers.", &["baton_rouge_la_us"]),
         in_states("Biloxi by two? Only if you keep it moving. Ellis Bullard makes it sound easy.", &["MS"]),
         approaching("El Paso, out past the haze. Marty Robbins sang El Paso City and the Streets of Laredo. West Texas gave him the material.", &["el_paso_tx_us"]),
-        approaching("The Big Thicket, off to the north -- deep pines and deeper voices. George Jones grew up in there. Welcome to Possum country.", &["beaumont_tx_us", "houston_tx_us"]),
+        approaching("The Big Thicket, off to the north. Deep pines and deeper voices. George Jones grew up in there. Welcome to Possum country.", &["beaumont_tx_us", "houston_tx_us"]),
         // Tejano genre -- south Texas approaches only, not a statewide claim.
         approaching("San Antonio ahead. Fiesta in the spring, Tejano all year. The Alamo does not take eighteen-wheelers.", &["san_antonio_tx_us"]),
         // Landmark attraction -- a ticketed New Orleans jazz venue.
@@ -565,14 +565,14 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         // Casino genre -- the Tulsa approach.
         approaching("Tulsa ahead. Casino lights off the right. Don't bet the load.", &["tulsa_ok_us"]),
         // Paying venue -- Blueberry Hill / Chuck Berry room, Delmar Loop, St. Louis approach on I-44.
-        approaching("Saint Louis ahead. Blueberry Hill on Delmar is a real room; Chuck Berry played its Duck Room for years. The duck walk is not a traffic pattern.", &["st_louis_mo_us"]),
+        approaching("Saint Louis ahead. Blueberry Hill on Delmar is a real room. Chuck Berry played its Duck Room for years. The duck walk is not a traffic pattern.", &["st_louis_mo_us"]),
     ]),
     // Song tributes -- the Texas-to-Minnesota main street of country music:
     // San Antonio, Austin, Waco, Abbott, Fort Worth, and Wichita.
     ("I-35", &[
-        in_states("Abbott, Texas -- Willie Nelson's hometown. He's on the road again.", &["TX"]),
+        in_states("Abbott, Texas, Willie Nelson's hometown. He's on the road again.", &["TX"]),
         approaching("Waco ahead. Croy and the Boys wrote Don't Let Me Die in Waco. The city would like everyone to relax.", &["waco_tx_us"]),
-        approaching("Austin ahead. Dale Watson territory -- honky-tonk for people who read weigh station signs.", &["austin_tx_us"]),
+        approaching("Austin ahead. Dale Watson territory: honky-tonk for people who read weigh station signs.", &["austin_tx_us"]),
         approaching("San Antonio, down the road. Western swing was born in Texas and Bob Wills drove it. New San Antonio Rose still blooms.", &["san_antonio_tx_us"]),
         // Tejano genre -- south Texas approaches only, never all of Texas.
         approaching("Laredo ahead. Tejano on the AM and the river just south. Keep the accordion, skip the sightseeing detour.", &["laredo_tx_us"]),
@@ -605,7 +605,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         // this run and nowhere else.
         in_states("Redwood country, far off this road: trees taller than your rig is long. Andrew Gabbard wrote one called Redwood.", &["CA", "OR"]),
         // Landmark attraction -- Seattle's ticketed music museum.
-        approaching("Seattle ahead. The museum of pop culture is the colorful blob by the Needle. Jimi Hendrix is inside; the rain is not.", &["seattle_wa_us"]),
+        approaching("Seattle ahead. The museum of pop culture is the colorful blob by the Needle. Jimi Hendrix is inside. The rain is not.", &["seattle_wa_us"]),
         // Paying venue -- Buck Owens' Crystal Palace, Bakersfield.
         in_states("Bakersfield. The Bakersfield Sound still plays. The freight just passes through.", &["CA"]),
     ]),
@@ -618,7 +618,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
     // Song tributes -- Alabama into Tennessee: Hank Williams's home state,
     // Birmingham (Andrea and Mud), and Nashville (Curtis Grimes).
     ("I-65", &[
-        in_states("Alabama, Hank Williams's home state. Move It On Over -- he meant the dog, but the left lane applies.", &["AL"]),
+        in_states("Alabama, Hank Williams's home state. Move It On Over. He meant the dog, but the left lane applies.", &["AL"]),
         approaching("Birmingham by eight thirty in the morning? It's been done. Andrea and Mud wrote a song about it.", &["birmingham_al_us"]),
         approaching("Nashville ahead, where a songwriter waits ten years for one hit. Curtis Grimes wrote Ten Year Town about the wait.", &["nashville_tn_us"]),
         // Ticketed Nashville tourism -- Ryman Auditorium.
@@ -626,14 +626,14 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
     ]),
     // Song tribute -- Fort Payne, Alabama, hometown of the band Alabama.
     ("I-59", &[
-        in_states("Fort Payne, Alabama -- hometown of the band Alabama. They sang Roll On for every eighteen wheeler on this road.", &["AL"]),
+        in_states("Fort Payne, Alabama, hometown of the band Alabama. They sang Roll On for every eighteen wheeler on this road.", &["AL"]),
     ]),
     // Song tributes -- the long north-south haul: Saginaw and Detroit at the
     // top, Macon, Georgia at the bottom.
     ("I-75", &[
         approaching("Detroit City ahead. Bobby Bare sang it for every homesick southerner on the assembly lines up here.", &["detroit_mi_us"]),
         approaching("Saginaw, Michigan, up the interstate. Lefty Frizzell made a fishing town famous. The bay is cold.", &["saginaw_mi_us"]),
-        approaching("Macon, Georgia -- the Allman Brothers' town. Southbound never sounded better than it does on this stretch.", &["macon_ga_us"]),
+        approaching("Macon, Georgia, the Allman Brothers' town. Southbound never sounded better than it does on this stretch.", &["macon_ga_us"]),
         // Produce stands -- not See Rock City.
         in_states("Georgia peaches, next few exits. The stands are real. The claims about whose are best are advertising.", &["GA"]),
         in_states("Florida citrus, next few exits. The bags are heavy. The claims about fresh are mostly true.", &["FL"]),
@@ -642,7 +642,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
     // Song tributes -- Atlanta owns this corridor: Jerry Reed, Alan Jackson,
     // and Gladys Knight all call it home.
     ("I-85", &[
-        approaching("Atlanta ahead, Jerry Reed's town. He made hauling freight in a hurry flat-out famous -- East Bound and Down.", &["atlanta_ga_us"]),
+        approaching("Atlanta ahead, Jerry Reed's town. He made hauling freight in a hurry flat-out famous with East Bound and Down.", &["atlanta_ga_us"]),
         in_states("Newnan, Georgia raised Alan Jackson. He learned to drive on the back roads out here and wrote Drive about it.", &["GA"]),
         approaching("Atlanta ahead. Gladys Knight caught the Midnight Train home to it.", &["atlanta_ga_us"]),
     ]),
@@ -676,7 +676,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         // 2026-08-20 after a tester was honestly befuddled by the old
         // three-fragment form -- spoken text gets one pass at the ear, so it
         // has to carry its own context.
-        in_states("Hollers ahead: a porch, a banjo, somebody picking. Dirty Grass Soul sang Back to the Holler. Leave the trailer; a holler road can't turn a rig.", &["WV", "VA", "KY", "NC"]),
+        in_states("Hollers ahead: a porch, a banjo, somebody picking. Dirty Grass Soul sang Back to the Holler. Leave the trailer. A holler road can't turn a rig.", &["WV", "VA", "KY", "NC"]),
     ]),
     // Song tribute -- Smoky Mountain fog (Flatt and Scruggs). Russell County
     // / Forty-Nine Winchester was radio memory, not a paid board.
@@ -711,7 +711,7 @@ pub const CORRIDOR_BILLBOARDS: &[(&str, &[CorridorSign])] = &[
         // for songs whose whole point is being from everywhere at once, and
         // these two name a place. On the loose pool they played in Maine
         // (owner). I-20 is the West Texas run they are actually about.
-        in_states("West Texas cotton flats made Waylon Jennings. One question -- Are You Sure Hank Done It This Way -- and outlaw country was born.", &["TX"]),
+        in_states("West Texas cotton flats made Waylon Jennings. One question, Are You Sure Hank Done It This Way, and outlaw country was born.", &["TX"]),
         in_states("Somewhere out there is Lubbock, Texas. Mac Davis kept it in his rear view mirror until he missed it.", &["TX"]),
         approaching("Abilene ahead. George Hamilton the Fourth made the town sound gentle as a Sunday. Watch for crosswinds.", &["abilene_tx_us"]),
         // Gilley's Dallas, open since two thousand three with the original
