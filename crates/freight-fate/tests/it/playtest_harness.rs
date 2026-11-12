@@ -200,7 +200,7 @@ fn test_playtest_harness_can_exercise_npc_traffic() {
 
     let text = harness.transcript_text();
     assert!(text.contains("[event] Merging vehicle"), "{text}");
-    assert!(text.contains("ahead."), "{text}");
+    assert!(text.contains("Merging vehicle, 0.8 miles."), "{text}");
 }
 
 #[test]

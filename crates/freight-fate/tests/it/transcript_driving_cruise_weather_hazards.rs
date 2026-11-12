@@ -887,7 +887,7 @@ pub(crate) fn meet_a_slow_car(
     release_keys(&mut harness);
     for _ in 0..120 {
         frame(&mut harness, DT);
-        if said_any(&harness, "Slow car right ahead") {
+        if said_any(&harness, "Slow car.") {
             return harness;
         }
     }
@@ -898,7 +898,7 @@ pub(crate) fn meet_a_slow_car(
 pub(crate) fn the_call(harness: &PlaytestHarness) -> String {
     spoken(harness)
         .into_iter()
-        .find(|line| line.contains("Slow car right ahead"))
+        .find(|line| line.contains("Slow car."))
         .expect("a lead warning")
 }
 
