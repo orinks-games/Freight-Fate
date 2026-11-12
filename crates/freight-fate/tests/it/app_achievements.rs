@@ -173,7 +173,7 @@ fn test_ledger_write_failure_keeps_career_award_but_suppresses_public_event() {
     assert!(earned(&app, "first_delivery"));
     assert_eq!(
         app.main_lines(),
-        vec![achievement_announced("Signed, Sealed, Hauled").normal]
+        vec![achievement_announced("Truck Driving Man").normal]
     );
     assert_eq!(audio.borrow().played.len(), 1);
     assert!(app.ctx.services.journal.items().is_empty());
@@ -366,7 +366,7 @@ fn test_delivery_settlement_awards_only_first_delivery_on_a_first_run() {
     // flavor paragraphs -- the story stays in the log. The announce keeps the
     // exclamation style (owner preference), singular or plural.
     let summary = arrival.summary_parts.join(" ");
-    assert!(summary.contains("Signed, Sealed, Hauled"), "{summary}");
+    assert!(summary.contains("Truck Driving Man"), "{summary}");
     assert!(summary.contains("New achievement"), "{summary}");
     assert!(summary.contains('!'), "{summary}");
     assert!(!summary.contains("No fanfare needed"), "{summary}");
@@ -556,7 +556,7 @@ fn test_state_crossing_keeps_gameplay_prompt_before_achievement() {
     // Live, only the name (R9); the flavor waits in the log and menu.
     assert_eq!(
         app.main_lines().first().cloned().unwrap_or_default(),
-        "New achievement! Kept It Between the Lines."
+        "New achievement! Promised Land."
     );
 }
 
@@ -839,7 +839,7 @@ fn test_main_menu_achievement_path_is_keyboard_accessible() {
         labels::<AchievementsState>(&app)
     );
 
-    // first_delivery ("Signed, Sealed, Hauled") lives in "Out on the Road";
+    // first_delivery ("Truck Driving Man") lives in "Out on the Road";
     // the still-locked first_dispatch ("Breaker, Breaker") lives in "Career
     // and Rank" -- reaching both proves categories actually route to
     // different badges, not just a relabelled flat list.
@@ -851,15 +851,15 @@ fn test_main_menu_achievement_path_is_keyboard_accessible() {
     );
     let rows = labels::<AchievementCategoryState>(&app);
     assert!(
-        rows.iter().any(|r| r.starts_with("Earned: Signed")),
+        rows.iter().any(|r| r.starts_with("Earned: Truck Driving")),
         "{rows:?}"
     );
     app.clear_speech();
-    select::<AchievementCategoryState>(&mut app, "Earned: Signed");
+    select::<AchievementCategoryState>(&mut app, "Earned: Truck Driving");
     assert!(
         app.main_lines()
             .last()
-            .is_some_and(|l| l.starts_with("Earned: Signed")),
+            .is_some_and(|l| l.starts_with("Earned: Truck Driving")),
         "{:?}",
         app.main_lines()
     );

@@ -1080,14 +1080,17 @@ fn test_f1_help_names_non_speed_enforcement_pullovers() {
         .last()
         .unwrap_or_else(|| panic!("F1 said nothing at all"));
     assert!(
-        last.contains("X also signals a pull-over when a trooper signals you to pull over"),
+        last.contains("When a trooper signals you to pull over for speeding"),
         "{last}"
     );
     assert!(
         last.contains("a scale bypass, or unsafe equipment"),
         "{last}"
     );
-    assert!(last.contains("signal, then brake to a stop"), "{last}");
+    assert!(
+        last.contains("X signals the pull-over. Then brake to a stop."),
+        "{last}"
+    );
 }
 
 // -- the compliance tracker -------------------------------------------------------------

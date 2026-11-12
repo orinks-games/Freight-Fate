@@ -48,14 +48,11 @@ fn test_main_speech_queues_while_at_the_wheel() {
     let mut app = TestApp::new();
     app.push_state(Wheel);
 
-    app.ctx.say("New achievement! Bumper-to-Bumper Blues.");
+    app.ctx.say("New achievement! Traffic Jam.");
 
     assert_eq!(
         calls(&app),
-        vec![(
-            "New achievement! Bumper-to-Bumper Blues.".to_string(),
-            false
-        )]
+        vec![("New achievement! Traffic Jam.".to_string(), false)]
     );
     app.shutdown();
 }
@@ -146,14 +143,11 @@ fn test_the_asked_for_exemption_does_not_leak_past_the_press() {
 
     app.ctx
         .player_asked(|ctx| ctx.say("Speed limit 65 miles per hour."));
-    app.ctx.say("New achievement! Bumper-to-Bumper Blues.");
+    app.ctx.say("New achievement! Traffic Jam.");
 
     assert_eq!(
         calls(&app).last().unwrap(),
-        &(
-            "New achievement! Bumper-to-Bumper Blues.".to_string(),
-            false
-        )
+        &("New achievement! Traffic Jam.".to_string(), false)
     );
     app.shutdown();
 }
@@ -205,13 +199,10 @@ fn test_pressing_an_info_key_at_the_wheel_cuts_the_line_in_progress() {
     );
 
     // And the drive's own chatter still queues behind whatever is playing.
-    app.ctx.say("New achievement! Bumper-to-Bumper Blues.");
+    app.ctx.say("New achievement! Traffic Jam.");
     assert_eq!(
         calls(&app).last().cloned(),
-        Some((
-            "New achievement! Bumper-to-Bumper Blues.".to_string(),
-            false
-        ))
+        Some(("New achievement! Traffic Jam.".to_string(), false))
     );
 }
 

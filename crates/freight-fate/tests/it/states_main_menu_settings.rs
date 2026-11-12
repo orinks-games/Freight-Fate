@@ -91,7 +91,7 @@ fn hos_planning_hints_row_explains_and_persists_the_opt_in() {
         .find(|(label, _)| label.starts_with("Hours of service planning hints"))
         .map(|(_, help)| help)
         .unwrap();
-    assert!(help.contains("Quiet and Urgent only"), "{help}");
+    assert!(help.contains("Quiet or Urgent only"), "{help}");
     // The ontology's noun is "hours of service"; a screen reader spells
     // "HOS" out letter by letter.
     assert!(!help.contains("HOS"), "{help}");
@@ -871,7 +871,7 @@ fn driving_assistance_names_moved_keys() {
     assert!(help("Latching brake").contains("One press of F7 releases it"));
     assert!(help("Curve callouts").contains("Press F8 to list the next few"));
     assert!(help("Low-speed cruise").contains("F9 holds your current speed"));
-    assert!(help("Lane keeping").contains("A tap of F10 or F11 changes lanes"));
+    assert!(help("Lane keeping").contains("a tap of F10 or F11 changes lanes"));
 
     open_settings_category(&mut app, "Driving assistance");
     app.ctx.settings.apply_driving_assistance_preset("balanced");

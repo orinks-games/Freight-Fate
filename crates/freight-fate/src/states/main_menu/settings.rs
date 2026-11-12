@@ -95,8 +95,8 @@ impl Menu for SettingsState {
         items.insert(
             3,
             MenuItem::new("Online", |s: &mut Self, ctx| s.open_online_hub(ctx)).help(
-                "Online options have moved to the Online menu on the \
-                 main menu; this opens it.",
+                "Online options are now in the Online menu on the main menu. This row \
+                 opens it.",
             ),
         );
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)));
@@ -145,14 +145,13 @@ pub const SETTINGS_LAYOUT_NOTICES: [(i64, &str); 3] = [
     ),
     (
         3,
-        "Speech verbosity is now Driving speech, in the Speech category, with \
-         two more steps. Normal is now standard and terse is now quiet; your \
-         choice came with you. Both still speak every safety call, route \
-         instruction, and money consequence. Quiet keeps short confirmations \
-         and status updates, including lane openings. Urgent only speaks \
-         safety warnings and directions requiring action; road heads-ups and \
-         confirmations become sounds, while routine costs and status are silent. \
-         Events silenced by your setting stay out of message review.",
+        "Speech verbosity is now Driving speech, in the Speech category, with two more \
+         steps. Normal is now standard and terse is now quiet. Your choice came with you. \
+         Both still speak every safety call, route instruction, and money consequence. \
+         Quiet keeps short confirmations and status updates, including lane openings. \
+         Urgent only speaks safety warnings and directions you must act on. Road heads-ups \
+         and confirmations become sounds, and routine costs and status are silent. Lines \
+         your setting leaves out stay out of message review.",
     ),
 ];
 
@@ -396,7 +395,7 @@ impl SettingsCategoryState {
     pub fn log_location_lines(&self) -> Vec<String> {
         let Some(path) = active_log_path() else {
             return vec!["This copy is not writing a log file. Packaged downloads \
-                 always write one; a copy run from source prints to its console \
+                 always write one. A copy run from source prints to its console \
                  instead."
                 .to_string()];
         };
@@ -422,7 +421,7 @@ impl SettingsCategoryState {
             ));
         }
         out.push(
-            "Both files stay on this computer; the game never sends them anywhere.".to_string(),
+            "Both files stay on this computer. The game never sends them anywhere.".to_string(),
         );
         out
     }

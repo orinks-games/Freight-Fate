@@ -959,7 +959,7 @@ pub fn record_consequence_text<P: StandingProfile + ?Sized>(profile: &P) -> Stri
     if record_past_termination_floor(record, game_hours) {
         if profile.carrier_key() == LAST_CHANCE_CARRIER_KEY {
             return format!(
-                "The carrier's insurer will not carry a record like that; {} keeps you on, on \
+                "The carrier's insurer will not carry a record like that. {} keeps you on, on \
                  probation, until {}.",
                 LAST_CHANCE_CARRIER_NAME,
                 record_clears_text(profile, |citations, serious| {
@@ -1070,7 +1070,7 @@ pub fn standing_way_back<P: StandingProfile + ?Sized>(profile: &P) -> String {
         let record = record_of(profile);
         return format!(
             "Your driving record is what is holding it: {}. The carrier's review keeps it \
-             there until {}; keep the record clean until then.",
+             there until {}. Keep the record clean until then.",
             record_window_phrase(record, profile.game_hours()),
             record_review_clears_text(profile)
         );

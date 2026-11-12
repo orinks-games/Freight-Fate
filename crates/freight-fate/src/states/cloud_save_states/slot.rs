@@ -174,7 +174,7 @@ impl CloudSlotState {
         if let Some(summary) = summary {
             bits.push(format!("The cloud copy is {summary}."));
         }
-        bits.push("The choices below pick which copy to keep.".to_string());
+        bits.push("Choose which copy to keep.".to_string());
         bits.join(" ")
     }
 
@@ -502,7 +502,7 @@ impl CloudSlotState {
                     "The cloud copy changed on another computer. Nothing was changed.".to_string();
                 ctx.say(
                     "The cloud copy changed on another computer, so nothing was \
-                     changed. Choose which copy to keep from the rows below.",
+                     changed. Choose which copy to keep.",
                 );
             }
             "auth" => {
@@ -788,8 +788,8 @@ impl Menu for CloudSlotState {
                             s.start_backup_now(ctx)
                         })
                         .help(
-                            "Sends this computer's save to your orinks.net account now and \
-                             says the result. Nothing on this computer changes.",
+                            "Sends this computer's save to your orinks.net account now. \
+                             Nothing on this computer changes.",
                         ),
                     );
                 }

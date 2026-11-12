@@ -10,7 +10,7 @@
     "actions": [
       "fuel"
     ],
-    "help": "A cold energy drink from the cooler. A small instant lift, and for the next two hours the miles tire you more slowly. A new drink or meal replaces the old one; they do not stack.",
+    "help": "A cold energy drink from the cooler. A small instant lift, and for the next two hours the miles tire you more slowly. A new drink or meal replaces the old one. They do not stack.",
     "purchased": "You down the energy drink. You feel a little sharper, and the next couple of hours on the road will tire you more slowly.",
     "worn_off": "The energy drink has worn off."
   },
@@ -27,7 +27,7 @@
     ],
     "help": "A proper hot meal. Takes half an hour, eases fatigue right away, and for the next four hours the driving tires you more slowly. Counts as your 30-minute break.",
     "purchased": "You sit down to a hot meal and push the plate away satisfied. The next four hours of driving will tire you more slowly.",
-    "worn_off": "That meal has worn off; the road is starting to drag again."
+    "worn_off": "That meal has worn off. The road is starting to drag again."
   },
   "iron_skillet_dinner": {
     "label": "Iron Skillet dinner",
@@ -57,7 +57,7 @@
       "flying_j"
     ],
     "free_with_fuel": true,
-    "help": "Pilot and Flying J are known for their showers -- and a fuel purchase here makes it free, just like real life. You come out fresh: an instant lift and three hours of slower fatigue.",
+    "help": "Pilot and Flying J are known for their showers, and a fuel purchase here makes it free, just like real life. You come out fresh: an instant lift and three hours of slower fatigue.",
     "purchased": "A hot shower and a clean shirt. You feel fresh, and the next few hours of driving will tire you more slowly.",
     "worn_off": "That fresh-from-the-shower feeling has faded."
   },
@@ -87,7 +87,7 @@
     "brands": [
       "wall_drug"
     ],
-    "help": "Wall Drug's famous five-cent coffee. A small instant lift, and for the next hour and a half the miles tire you a little more slowly. Weaker than an energy drink; a meal does more. A new drink or meal replaces the old one; they do not stack.",
+    "help": "Wall Drug's famous five-cent coffee. A small instant lift, and for the next hour and a half the miles tire you a little more slowly. Weaker than an energy drink. A meal does more. A new drink or meal replaces the old one. They do not stack.",
     "purchased": "You drink the five-cent coffee. You feel a little more awake, and the next hour and a half on the road will tire you a little more slowly.",
     "worn_off": "The five-cent coffee has worn off."
   },

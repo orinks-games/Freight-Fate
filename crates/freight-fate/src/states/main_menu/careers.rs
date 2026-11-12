@@ -88,7 +88,7 @@ impl Menu for LoadDriverState {
                 )
                 .help(
                     "This career cannot continue in version 1.9. Enter \
-                     explains and offers a new career; the save is not touched.",
+                     explains and offers a new career. The save is not touched.",
                 ),
             );
         }
@@ -133,7 +133,7 @@ impl Menu for ManageCareersState {
         for (path, profile) in loadable_saves() {
             let label = career_summary(ctx, &path, &profile, true);
             let help = format!(
-                "Manage {}. Reset starts the career over; delete removes the save.",
+                "Manage {}. Reset starts the career over. Delete removes the save.",
                 profile.name
             );
             items.push(
@@ -410,7 +410,7 @@ impl Menu for ConfirmCareerActionState {
             ),
             _ if self.has_cloud_backups(ctx) => {
                 "Delete removes this saved career from this computer for good. It also has \
-                 cloud backups on your orinks.net account; choose whether they go too."
+                 cloud backups on your orinks.net account. Choose whether they go too."
                     .to_string()
             }
             _ => "Delete removes this saved career for good.".to_string(),
@@ -484,10 +484,10 @@ impl Menu for ConfirmCareerActionState {
                 "Every cloud backup of it was removed from your orinks.net account.".to_string()
             }
             "delete_auth_failed" => format!(
-                "{AUTH_HELP} The cloud backups were not removed; Cloud backup on the Online \
+                "{AUTH_HELP} The cloud backups were not removed. Cloud backup on the Online \
                  menu can remove them once this computer is signed in again."
             ),
-            _ => "The site could not be reached, so the cloud backups are still there; Cloud \
+            _ => "The site could not be reached, so the cloud backups are still there. Cloud \
                   backup on the Online menu can remove them later."
                 .to_string(),
         };

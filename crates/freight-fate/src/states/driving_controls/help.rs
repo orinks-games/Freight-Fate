@@ -97,11 +97,12 @@ impl DrivingState {
         if ctx.settings.pedal_latch != "off" {
             lines.push(
                 "Tap the brake, then press again and hold half a second to latch it \
-                 hands-free; a click and a spoken confirmation mark the catch."
+                 hands-free."
                     .to_string(),
             );
+            lines.push("A click means it is latched.".to_string());
             lines.push(format!(
-                "{down} once releases it; the accelerator releases it instantly."
+                "{down} once releases it, and so does the accelerator."
             ));
             lines.push("The throttle key never latches.".to_string());
         }
@@ -111,7 +112,7 @@ impl DrivingState {
         lines.push(format!(
             "While reversing, stop with {up}, release, then hold it again for forward."
         ));
-        lines.push("A brake held through a stop just holds the truck.".to_string());
+        lines.push("A brake held through a stop keeps the truck stopped.".to_string());
         lines.push(format!(
             "Hold {emergency_brake} for the emergency brake, the hardest possible stop."
         ));
@@ -126,18 +127,21 @@ impl DrivingState {
                 .to_string(),
         );
         lines.push("Braking cancels it.".to_string());
-        lines.push("At the planned pickup it pauses and resumes once you depart.".to_string());
+        lines.push("Cruise pauses at the planned pickup and resumes once you leave.".to_string());
         lines.push(
-            "Plus and minus, including the keypad keys, change the cruise speed by \
-             five; it never holds more than five over the posted limit."
+            "Plus and minus, including the keypad keys, change the cruise speed by five."
                 .to_string(),
         );
-        lines.push("Control with plus or minus, by one.".to_string());
+        lines.push("Cruise never holds more than five over the posted limit.".to_string());
+        lines.push("Control with plus or minus changes it by one.".to_string());
         lines.push(format!("{cruise_resume} resumes the last cruise speed."));
         lines.push(format!(
-            "Parked with the parking brake set, {cruise} runs the engine at a fast \
-             idle; plus and minus adjust it, and releasing the parking brake drops it."
+            "Parked with the parking brake set, {cruise} runs the engine at a fast idle."
         ));
+        lines.push(
+            "Plus and minus adjust the fast idle, and releasing the parking brake drops it."
+                .to_string(),
+        );
         lines.push(format!(
             "{exit} signals for the next announced route exit, by number when known, \
              or cancels that signal."
@@ -148,7 +152,7 @@ impl DrivingState {
                 .to_string(),
         );
         lines.push(
-            "Keep road speed to there, then brake to the exit speed before the ramp curve."
+            "Keep road speed until the exit lane, then brake to the exit speed before the ramp curve."
                 .to_string(),
         );
         lines.push(
@@ -156,37 +160,44 @@ impl DrivingState {
                 .to_string(),
         );
         lines.push(format!(
-            "{exit} also signals a pull-over when a trooper signals you to pull over for speeding, \
-             a scale bypass, or unsafe equipment: signal, then brake to a stop."
+            "When a trooper signals you to pull over for speeding, a scale bypass, or \
+             unsafe equipment, {exit} signals the pull-over."
         ));
+        lines.push("Then brake to a stop.".to_string());
         lines.push(
             "Ignoring the lights brings failure-to-stop warnings, then a stop that \
              cancels the load: a major offense."
                 .to_string(),
         );
         lines.push(format!("{clock} also speaks the date and season."));
-        lines.push(format!("{radio} toggles the in-cab radio."));
+        lines.push(format!("{radio} turns the radio on or off."));
         lines.push(
-            "Page Down tunes to the next station, Page Up to the previous; semicolon \
-             and apostrophe do the same."
+            "Page Down or apostrophe tunes to the next station, Page Up or semicolon to \
+             the previous one."
                 .to_string(),
         );
+        lines.push("Control with a tuning key jumps a category.".to_string());
         lines.push(
-            "Control with the tuning keys jumps a category; Shift changes the radio \
-             volume in 10 percent steps, on or off."
+            "Shift with a tuning key changes the radio volume in 10 percent steps, with \
+             the radio on or off."
                 .to_string(),
         );
         lines.push(format!(
-            "{favorite} saves or unsaves the station as a favorite."
+            "{favorite} saves the station as a favorite or removes it."
         ));
         lines.push(format!(
-            "{radio_status} speaks station, volume, and streamer-safe status; \
-             {now_playing} speaks the song when the station says."
+            "{radio_status} speaks station, volume, and streamer-safe status."
         ));
         lines.push(format!(
+            "{now_playing} speaks the song when the station sends it."
+        ));
+        lines.push(
             "The Driver apps tablet has a Radio app to search the dial, tune by name, \
-             and keep favorites; the {status} status menu has a radio screen of \
-             receivable stations."
+             and keep favorites."
+                .to_string(),
+        );
+        lines.push(format!(
+            "The {status} status menu has a radio screen of receivable stations."
         ));
         lines.push(format!(
             "{engine} starts the engine, and stops it only below 5 miles per hour."
@@ -211,10 +222,10 @@ impl DrivingState {
         lines.push(format!(
             "{clock} clock, deadline, and the hours limit that comes first."
         ));
+        lines.push(format!("{hos_wheel} time at the wheel so far."));
+        lines.push(format!("{hos_break} when your 30 minute break is due."));
         lines.push(format!(
-            "{hos_wheel} time at the wheel so far, {hos_break} when your 30 minute \
-             break is due, {hos_drive} what ends this shift and where you can legally \
-             stop before it."
+            "{hos_drive} what ends this shift and where you can legally stop before it."
         ));
         lines.push(format!(
             "{route} progress, distance left, and where you are."
@@ -239,7 +250,7 @@ impl DrivingState {
             "{cb} repeats the last CB chatter, with the distance as it is now."
         ));
         lines.push(
-            "Comma repeats what was just said and keeps stepping back; Period moves \
+            "Comma repeats what was just said and keeps stepping back. Period moves \
              forward again."
                 .to_string(),
         );
@@ -258,10 +269,13 @@ impl DrivingState {
              sign at the end of the ramp, the next lower speed limit, the next stop, and \
              the next bend you need to slow for."
         ));
+        lines.push(
+            "Bends you need to slow for are called before they arrive, for example Sharp \
+             left, half a mile, advise 35."
+                .to_string(),
+        );
         lines.push(format!(
-            "Bends that demand slowing are called before they arrive, like Sharp left, \
-             half a mile, advise 35; {safe_speed} gives one safe-speed number with the \
-             bend in it."
+            "{safe_speed} gives one safe speed that includes the bend."
         ));
         lines.push(format!(
             "The {status} status menu includes a Driver apps tablet for navigation, \
@@ -269,19 +283,19 @@ impl DrivingState {
         ));
         lines.push("Left or Right Control stops the driving event voice.".to_string());
         lines.push(format!(
-            "{left} and {right} steer unless lane keeping is on full; steer across the \
-             lane line to change lanes."
+            "{left} and {right} steer unless lane keeping is on full."
         ));
+        lines.push("Steer across the lane line to change lanes.".to_string());
         lines.push(format!("On full, tap {left} or {right}."));
         lines.push(format!(
-            "Hold {straighten} to point the truck straight down the road; where it sits \
-             in the lane stays yours to fix."
+            "Hold {straighten} to point the truck straight down the road."
         ));
+        lines.push("Your place in the lane stays yours to correct.".to_string());
         lines.push("Exits leave from the right lane.".to_string());
         lines.push(
             "Change lanes or brake means something in your lane: take the open lane it \
              names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. \
-             Tire debris is driven over; nothing brakes for it."
+             Tire debris is driven over. Nothing brakes for it."
                 .to_string(),
         );
         lines.push(format!(
@@ -302,9 +316,10 @@ impl DrivingState {
             "{window} lowers or raises the driver window, {fan} steps the fan, \
              {climate} switches heat and air conditioning."
         ));
+        lines.push(format!("{engine_brake} engine brake."));
         lines.push(format!(
-            "{engine_brake} engine brake; on an automatic it manages its own stage, and \
-             {jake1}, {jake2}, {jake3} take manual control."
+            "On an automatic it manages its own stage, and {jake1}, {jake2}, {jake3} take \
+             manual control."
         ));
         lines.push(format!(
             "{auto_jake} chooses whether {engine_brake} runs the automatic mode."
@@ -321,7 +336,7 @@ impl DrivingState {
             let reverse = n(Action::Reverse);
             let neutral = n(Action::Neutral);
             lines.push(format!(
-                "Hold Left Shift for clutch, then {shift_up} to shift up or {shift_down} \
+                "Hold either Shift key for the clutch, then {shift_up} to shift up or {shift_down} \
                  to shift down, {reverse} for reverse, {neutral} for neutral."
             ));
         }
@@ -342,17 +357,17 @@ impl DrivingState {
         // Each spoken sentence is one whole literal, so a catalog can
         // translate it as a unit. Sentences are joined with a space.
         let mut lines: Vec<String> = vec![
-            "Right trigger is the gas, left trigger the brake; the left trigger fully in \
-             is the hardest stop."
-                .to_string(),
-            "The left stick steers; with lane keeping on full, pushing it left or right changes one lane.".to_string(),
+            "Right trigger is the gas, left trigger the brake.".to_string(),
+            "The left trigger fully in is the hardest stop.".to_string(),
+            "The left stick steers.".to_string(),
+            "With lane keeping on full, pushing it left or right changes one lane.".to_string(),
         ];
         if manual {
-            let shift_up = n(Action::ShiftUp);
             let shift_down = n(Action::ShiftDown);
+            let shift_up_cap = c(Action::ShiftUp);
+            lines.push("Hold the left bumper for the clutch.".to_string());
             lines.push(format!(
-                "Hold the left bumper for the clutch; {shift_up} shifts up a gear, \
-                 {shift_down} shifts down."
+                "{shift_up_cap} shifts up a gear, {shift_down} shifts down."
             ));
         } else {
             lines.push(
@@ -365,7 +380,7 @@ impl DrivingState {
                  again for forward."
                     .to_string(),
             );
-            lines.push("A brake held through a stop just holds the truck.".to_string());
+            lines.push("A brake held through a stop keeps the truck stopped.".to_string());
         }
         let cruise = n(Action::Cruise);
         let cruise_cap = c(Action::Cruise);
@@ -380,8 +395,8 @@ impl DrivingState {
         let engine_brake = n(Action::EngineBrake);
         let engine = c(Action::Engine);
         let fuel = n(Action::Fuel);
-        let speed_limit = n(Action::SpeedLimit);
-        let parking_brake = n(Action::ParkingBrake);
+        let speed_limit_cap = c(Action::SpeedLimit);
+        let parking_brake_cap = c(Action::ParkingBrake);
         let rest = n(Action::Rest);
         let status = c(Action::Status);
         let tune_prev = c(Action::RadioTunePrev);
@@ -422,11 +437,18 @@ impl DrivingState {
             "{horn} sounds the horn, {engine_brake} the engine brake."
         ));
         lines.push(format!(
-            "{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads \
-             the posted speed limit here and how far over you are, {parking_brake} sets \
-             or releases the parking brake, {rest} plans a stop for fuel, a break, sleep or \
-             food while rolling; stopped at a stop, it opens its actions."
+            "{engine} starts or stops the engine, and {fuel} reads fuel."
         ));
+        lines.push(format!(
+            "{speed_limit_cap} reads the posted speed limit and how far over you are."
+        ));
+        lines.push(format!(
+            "{parking_brake_cap} sets or releases the parking brake."
+        ));
+        lines.push(format!(
+            "While rolling, {rest} plans a stop for fuel, a break, sleep or food."
+        ));
+        lines.push("Stopped at a stop, it opens that stop's actions.".to_string());
         lines.push(
             "Away from route points while fully stopped, it opens emergency shoulder sleep."
                 .to_string(),
@@ -450,7 +472,7 @@ impl DrivingState {
         ));
         lines.push("Start pauses and unpauses.".to_string());
         lines.push(
-            "The Back button stops the driving voice while it is speaking; when nothing \
+            "The Back button stops the driving voice while it is speaking. When nothing \
              is being said, it repeats this help."
                 .to_string(),
         );
@@ -470,12 +492,12 @@ impl DrivingState {
         // The core rule comes first; everything after it is an example.
         let mut text = String::from(
             "A flick is one step. A swipe and hold is continuous. Everything works anywhere \
-             on the screen. Swipe up and hold for gas; lift to coast. Swipe down and hold to \
-             brake. Swipe down three times as deep for the emergency brake; stopped, that \
+             on the screen. Swipe up and hold for gas. Lift to coast. Swipe down and hold to \
+             brake. Swipe down three times as deep for the emergency brake. Stopped, that \
              sets the parking brake, and gas releases it. ",
         );
         text.push_str(if ctx.settings.lane_is_automated() {
-            "Flick left or right to change lanes; with lane keeping on full, flicks are the \
+            "Flick left or right to change lanes. With lane keeping on full, flicks are the \
              only lane control. "
         } else {
             "Flick left or right to change lanes, or swipe left or right and hold to steer. "
@@ -484,7 +506,7 @@ impl DrivingState {
             "Hold one finger still for half a second to straighten the wheel. With cruise \
              off, flick up to resume the last speed and flick down to set the current speed. \
              Turn two fingers right like a key to start the engine, left to stop it. Hold two \
-             fingers for the horn; turning them cancels it. While holding a pedal, a second \
+             fingers for the horn. Turning them cancels it. While holding a pedal, a second \
              finger's flicks and holds work the same way, and in automatic its shift flicks \
              say the gear. ",
         );

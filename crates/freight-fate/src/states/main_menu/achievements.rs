@@ -325,7 +325,7 @@ impl Menu for AchievementCategoryState {
             let unlocked = earned.contains_key(achievement.id);
             let (name, description) = entry_text(achievement, unlocked);
             let (label, help_text) = if unlocked {
-                (format!("Earned: {name} - {description}"), description)
+                (format!("Earned: {name}. {description}"), description)
             } else if achievement.hidden {
                 (format!("Locked: {name}"), description)
             } else {

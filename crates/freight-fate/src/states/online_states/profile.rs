@@ -426,8 +426,8 @@ impl DriverProfileState {
     fn outcome_line(&self, fetch: &ProfileFetch) -> String {
         match (fetch, self.own) {
             (ProfileFetch::NotPublic, true) => {
-                "Your profile is not public. Turn Profile sharing on, on the Online menu, \
-                 to share it"
+                "Your profile is not public. To share it, turn Profile sharing on in the \
+                 Online menu"
                     .to_string()
             }
             (ProfileFetch::NotPublic, false) => "This driver has no public profile".to_string(),
