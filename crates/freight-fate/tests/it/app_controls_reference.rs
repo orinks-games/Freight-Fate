@@ -21,7 +21,7 @@ fn test_controls_help_page_points_at_the_driving_keys() {
     let joined = lines.join(" ");
     assert!(joined.contains("Space speaks your speed"));
     assert!(joined.contains("speed-control mode"));
-    assert!(joined.contains("RPM with a manual transmission"));
+    assert!(joined.contains("With a manual transmission it adds RPM"));
     assert!(joined.contains("S speaks the posted speed limit"));
     assert!(joined.contains("R speaks how far along you are"));
     assert!(joined.contains("A repeats the last driving announcement"));
@@ -64,7 +64,7 @@ fn test_help_pages_explain_t_roadside_sleep_and_poi_priority() {
         .join(" ");
     assert!(joined.contains("T offers emergency sleep on the shoulder"));
     assert!(joined.contains("A nearby stop always comes first"));
-    assert!(joined.contains("T or the pause menu offers emergency shoulder sleep"));
+    assert!(joined.contains("T or the pause menu offers emergency sleep on the shoulder"));
     assert!(joined.contains(
         "right bumper plus D-pad down opens route-stop actions or emergency shoulder sleep"
     ));

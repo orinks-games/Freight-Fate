@@ -19885,12 +19885,15 @@ msgstr "按住 {up} 加速，按住 {down} 刹车。"
 
 msgid ""
 "Tap the brake, then press again and hold half a second to latch it "
-"hands-free; a click and a spoken confirmation mark the catch."
-msgstr "轻按一下刹车，然后再按住半秒，就能把它锁定，不用一直按着；一声咔哒和一句语音确认表示已经锁住。"
+"hands-free."
+msgstr "轻按一下刹车，然后再按住半秒，就能把它锁定，不用一直按着。"
+
+msgid "A click means it is latched."
+msgstr "一声咔哒表示已经锁住。"
 
 #. placeholders: {down}
-msgid "{down} once releases it; the accelerator releases it instantly."
-msgstr "按一下{down}就会松开；踩油门会立刻松开。"
+msgid "{down} once releases it, and so does the accelerator."
+msgstr "按一下{down}就会松开，踩油门也会松开。"
 
 msgid "The throttle key never latches."
 msgstr "油门键永远不会锁定。"
@@ -19905,8 +19908,8 @@ msgid ""
 "While reversing, stop with {up}, release, then hold it again for forward."
 msgstr "倒车时，用{up}停车，松开，然后再按住就是前进。"
 
-msgid "A brake held through a stop just holds the truck."
-msgstr "停车时一直踩着刹车，只会让卡车保持不动。"
+msgid "A brake held through a stop keeps the truck stopped."
+msgstr "停车时一直踩着刹车，会让卡车保持停住。"
 
 #. placeholders: {emergency_brake}
 msgid ""
@@ -19940,15 +19943,17 @@ msgstr "遇到标志限速大幅下降时，以及在低速区遇到下一个转
 msgid "Braking cancels it."
 msgstr "踩刹车会取消。"
 
-msgid "At the planned pickup it pauses and resumes once you depart."
-msgstr "到达计划的提货点时它会暂停，你出发后恢复。"
+msgid "Cruise pauses at the planned pickup and resumes once you leave."
+msgstr "巡航到达计划的提货点时会暂停，你出发后恢复。"
 
 msgid ""
-"Plus and minus, including the keypad keys, change the cruise speed by five; "
-"it never holds more than five over the posted limit."
-msgstr "加号和减号，包括小键盘上的，以五为单位调整开阔道路的目标速度；它绝不会超过标示限速五以上。"
+"Plus and minus, including the keypad keys, change the cruise speed by five."
+msgstr "加号和减号，包括小键盘上的，以五为单位调整巡航速度。"
 
-msgid "Control with plus or minus, by one."
+msgid "Cruise never holds more than five over the posted limit."
+msgstr "巡航最多只比标示限速高五。"
+
+msgid "Control with plus or minus changes it by one."
 msgstr "Control 加上加号或减号，以一为单位调整。"
 
 #. placeholders: {cruise_resume}
@@ -19957,9 +19962,13 @@ msgstr "{cruise_resume} 恢复上次的巡航速度。"
 
 #. placeholders: {cruise}
 msgid ""
-"Parked with the parking brake set, {cruise} runs the engine at a fast idle; "
-"plus and minus adjust it, and releasing the parking brake drops it."
-msgstr "拉着驻车制动停车时，{cruise}让发动机高怠速运转；加号和减号调节，松开驻车制动就会停止。"
+"Parked with the parking brake set, {cruise} runs the engine at a fast idle."
+msgstr "拉着驻车制动停车时，{cruise}让发动机高怠速运转。"
+
+msgid ""
+"Plus and minus adjust the fast idle, and releasing the parking brake drops "
+"it."
+msgstr "加号和减号调节高怠速，松开驻车制动就会停止。"
 
 #. placeholders: {exit}
 msgid ""
@@ -19973,9 +19982,9 @@ msgid ""
 msgstr "除非车道保持为完全，先并到右侧车道，然后在出口车道出现的地方向右转进去。"
 
 msgid ""
-"Keep road speed to there, then brake to the exit speed before the ramp "
-"curve."
-msgstr "到那里之前保持道路车速，然后在匝道弯道前刹到出口车速。"
+"Keep road speed until the exit lane, then brake to the exit speed before "
+"the ramp curve."
+msgstr "保持道路车速直到出口车道，然后在匝道弯道前刹到出口车速。"
 
 msgid ""
 "Ramps usually end at a traffic light or stop sign, called out on the way "
@@ -19984,9 +19993,12 @@ msgstr "匝道通常止于红绿灯或停车标志，下匝道时会播报。"
 
 #. placeholders: {exit}
 msgid ""
-"{exit} also signals a pull-over when a trooper signals you to pull over for "
-"speeding, a scale bypass, or unsafe equipment: signal, then brake to a stop."
-msgstr "当警察因超速、绕过地磅或设备不安全示意你靠边停车时，{exit}也会发出靠边信号：打转向灯，然后刹车直到停下。"
+"When a trooper signals you to pull over for speeding, a scale bypass, or "
+"unsafe equipment, {exit} signals the pull-over."
+msgstr "当警察因超速、绕过地磅或设备不安全示意你靠边停车时，{exit}会发出靠边信号。"
+
+msgid "Then brake to a stop."
+msgstr "然后刹车直到停下。"
 
 msgid ""
 "Ignoring the lights brings failure-to-stop warnings, then a stop that "
@@ -19998,35 +20010,42 @@ msgid "{clock} also speaks the date and season."
 msgstr "{clock} 也会说出日期和季节。"
 
 #. placeholders: {radio}
-msgid "{radio} toggles the in-cab radio."
-msgstr "{radio} 打开或关闭驾驶室收音机。"
+msgid "{radio} turns the radio on or off."
+msgstr "{radio} 打开或关闭收音机。"
 
 msgid ""
-"Page Down tunes to the next station, Page Up to the previous; semicolon and "
-"apostrophe do the same."
-msgstr "Page Down 调到下一个电台，Page Up 调到上一个；分号和撇号作用相同。"
+"Page Down or apostrophe tunes to the next station, Page Up or semicolon to "
+"the previous one."
+msgstr "Page Down或单引号调到下一个电台，Page Up或分号调到上一个。"
+
+msgid "Control with a tuning key jumps a category."
+msgstr "Control 加上调台键会跳到另一个分类。"
 
 msgid ""
-"Control with the tuning keys jumps a category; Shift changes the radio "
-"volume in 10 percent steps, on or off."
-msgstr "Control 加上调台键会跳到另一个分类；Shift 以 10% 为单位调整收音机音量，或开关收音机。"
+"Shift with a tuning key changes the radio volume in 10 percent steps, with "
+"the radio on or off."
+msgstr "Shift 加上调台键以 10% 为单位调整收音机音量，收音机开着或关着都可以。"
 
 #. placeholders: {favorite}
-msgid "{favorite} saves or unsaves the station as a favorite."
-msgstr "{favorite} 将电台加入或移出收藏。"
+msgid "{favorite} saves the station as a favorite or removes it."
+msgstr "{favorite} 将电台加入收藏或移出收藏。"
 
-#. placeholders: {radio_status}, {now_playing}
-msgid ""
-"{radio_status} speaks station, volume, and streamer-safe status; "
-"{now_playing} speaks the song when the station says."
-msgstr "{radio_status} 说出电台、音量和直播安全状态；{now_playing} 在电台提供时说出歌曲。"
+#. placeholders: {radio_status}
+msgid "{radio_status} speaks station, volume, and streamer-safe status."
+msgstr "{radio_status} 说出电台、音量和直播安全状态。"
 
-#. placeholders: {status}
+#. placeholders: {now_playing}
+msgid "{now_playing} speaks the song when the station sends it."
+msgstr "{now_playing} 在电台提供时说出歌曲。"
+
 msgid ""
 "The Driver apps tablet has a Radio app to search the dial, tune by name, "
-"and keep favorites; the {status} status menu has a radio screen of "
-"receivable stations."
-msgstr "司机应用平板上有收音机应用，可以搜索频段、按名称调台和保存收藏；{status} 状态菜单有一个可接收电台的收音机界面。"
+"and keep favorites."
+msgstr "司机应用平板上有收音机应用，可以搜索频段、按名称调台和保存收藏。"
+
+#. placeholders: {status}
+msgid "The {status} status menu has a radio screen of receivable stations."
+msgstr "{status} 状态菜单有一个可接收电台的收音机界面。"
 
 #. placeholders: {engine}
 msgid ""
@@ -20071,14 +20090,18 @@ msgstr "{fuel} 燃油。"
 msgid "{clock} clock, deadline, and the hours limit that comes first."
 msgstr "{clock} 时间、期限，以及最先到达的工时限制。"
 
-#. placeholders: {hos_wheel}, {hos_break}, {hos_drive}
+#. placeholders: {hos_wheel}
+msgid "{hos_wheel} time at the wheel so far."
+msgstr "{hos_wheel} 目前为止的驾驶时间。"
+
+#. placeholders: {hos_break}
+msgid "{hos_break} when your 30 minute break is due."
+msgstr "{hos_break} 30 分钟休息何时到期。"
+
+#. placeholders: {hos_drive}
 msgid ""
-"{hos_wheel} time at the wheel so far, {hos_break} when your 30 minute break "
-"is due, {hos_drive} what ends this shift and where you can legally stop "
-"before it."
-msgstr ""
-"{hos_wheel} 目前为止的驾驶时间，{hos_break} 30 分钟休息何时到期，{hos_drive} "
-"什么会结束本班次以及之前在哪里可以合法停车。"
+"{hos_drive} what ends this shift and where you can legally stop before it."
+msgstr "{hos_drive} 什么会结束本班次，以及之前在哪里可以合法停车。"
 
 #. placeholders: {route}
 msgid "{route} progress, distance left, and where you are."
@@ -20118,9 +20141,9 @@ msgid "{cb} repeats the last CB chatter, with the distance as it is now."
 msgstr "{cb} 重复上一条 CB 对讲，并给出当前距离。"
 
 msgid ""
-"Comma repeats what was just said and keeps stepping back; Period moves "
+"Comma repeats what was just said and keeps stepping back. Period moves "
 "forward again."
-msgstr "逗号重复刚才说的话并继续往回翻；句号再往前翻。"
+msgstr "逗号重复刚才说的话并继续往回翻。句号再往前翻。"
 
 msgid "Control with Comma or Period jumps to the oldest or newest message."
 msgstr "Control 加上逗号或句号跳到最早或最新的消息。"
@@ -20145,12 +20168,14 @@ msgid ""
 msgstr ""
 "{upcoming}朗读前方的情况：你打了信号的出口、匝道尽头的红绿灯或停车标志、下一个更低的限速、下一个停靠点，以及需要减速的下一个弯道。"
 
-#. placeholders: {safe_speed}
 msgid ""
-"Bends that demand slowing are called before they arrive, like Sharp left, "
-"half a mile, advise 35; {safe_speed} gives one safe-speed number with the "
-"bend in it."
-msgstr "需要减速的弯道会提前播报，比如：左急弯，半英里，建议 35；{safe_speed} 给出一个已考虑弯道的安全车速。"
+"Bends you need to slow for are called before they arrive, for example Sharp "
+"left, half a mile, advise 35."
+msgstr "需要减速的弯道会提前播报，比如：左急弯，半英里，建议 35。"
+
+#. placeholders: {safe_speed}
+msgid "{safe_speed} gives one safe speed that includes the bend."
+msgstr "{safe_speed} 给出一个已考虑弯道的安全车速。"
 
 #. placeholders: {status}
 msgid ""
@@ -20162,20 +20187,22 @@ msgid "Left or Right Control stops the driving event voice."
 msgstr "左或右 Control 键停止驾驶事件语音。"
 
 #. placeholders: {left}, {right}
-msgid ""
-"{left} and {right} steer unless lane keeping is on full; steer across the "
-"lane line to change lanes."
-msgstr "除非车道保持为完全，{left} 和 {right} 用于转向；越过车道线即可变道。"
+msgid "{left} and {right} steer unless lane keeping is on full."
+msgstr "除非车道保持为完全，{left} 和 {right} 用于转向。"
+
+msgid "Steer across the lane line to change lanes."
+msgstr "越过车道线即可变道。"
 
 #. placeholders: {left}, {right}
 msgid "On full, tap {left} or {right}."
 msgstr "车道保持为完全时，轻按{left}或{right}。"
 
 #. placeholders: {straighten}
-msgid ""
-"Hold {straighten} to point the truck straight down the road; where it sits "
-"in the lane stays yours to fix."
-msgstr "按住 {straighten} 让卡车对准道路方向；在车道里的位置仍需你自己调整。"
+msgid "Hold {straighten} to point the truck straight down the road."
+msgstr "按住 {straighten} 让卡车对准道路方向。"
+
+msgid "Your place in the lane stays yours to correct."
+msgstr "在车道里的位置仍需你自己调整。"
 
 msgid "Exits leave from the right lane."
 msgstr "出口从右侧车道驶出。"
@@ -20183,9 +20210,9 @@ msgstr "出口从右侧车道驶出。"
 msgid ""
 "Change lanes or brake means something in your lane: take the open lane it "
 "names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
-"Tire debris is driven over; nothing brakes for it."
+"Tire debris is driven over. Nothing brakes for it."
 msgstr ""
-"变道或刹车表示你的车道上有东西：驶入提示的空闲车道，或减到每小时30英里压过去。落石或停着的车需要停下。轮胎碎片直接压过去；没有任何东西会为它刹车。"
+"变道或刹车表示你的车道上有东西：驶入提示的空闲车道，或减到每小时30英里压过去。落石或停着的车需要停下。轮胎碎片直接压过去。没有任何东西会为它刹车。"
 
 #. placeholders: {rest}
 msgid ""
@@ -20219,11 +20246,15 @@ msgid ""
 "switches heat and air conditioning."
 msgstr ""
 
-#. placeholders: {engine_brake}, {jake1}, {jake2}, {jake3}
+#. placeholders: {engine_brake}
+msgid "{engine_brake} engine brake."
+msgstr "{engine_brake} 发动机制动。"
+
+#. placeholders: {jake1}, {jake2}, {jake3}
 msgid ""
-"{engine_brake} engine brake; on an automatic it manages its own stage, and "
-"{jake1}, {jake2}, {jake3} take manual control."
-msgstr "{engine_brake} 发动机制动；自动模式下它自行管理档位，{jake1}、{jake2}、{jake3} 切换为手动控制。"
+"On an automatic it manages its own stage, and {jake1}, {jake2}, {jake3} "
+"take manual control."
+msgstr "自动模式下它自行管理档位，{jake1}、{jake2}、{jake3} 切换为手动控制。"
 
 #. placeholders: {auto_jake}, {engine_brake}
 msgid "{auto_jake} chooses whether {engine_brake} runs the automatic mode."
@@ -20244,32 +20275,36 @@ msgstr "Shift F1 说出每个键的作用。"
 
 #. placeholders: {shift_up}, {shift_down}, {reverse}, {neutral}
 msgid ""
-"Hold Left Shift for clutch, then {shift_up} to shift up or {shift_down} to "
-"shift down, {reverse} for reverse, {neutral} for neutral."
+"Hold either Shift key for the clutch, then {shift_up} to shift up or "
+"{shift_down} to shift down, {reverse} for reverse, {neutral} for neutral."
 msgstr ""
-"按住左 Shift 作为离合器，然后按 {shift_up} 升挡或 {shift_down} 降挡，{reverse} 倒挡，{neutral} "
-"空挡。"
+"按住任意一个 Shift 键作为离合器，然后按 {shift_up} 升挡或 {shift_down} 降挡，{reverse} "
+"倒挡，{neutral} 空挡。"
 
 msgid ""
 "Any of these keys can be moved under Settings, Gameplay, Controls, Keyboard "
 "shortcuts."
 msgstr "这些键都可以在设置、游戏玩法、操作、快捷键里更改。"
 
-msgid ""
-"Right trigger is the gas, left trigger the brake; the left trigger fully in "
-"is the hardest stop."
-msgstr "右扳机是油门，左扳机是刹车；左扳机按到底是最猛的停车。"
+msgid "Right trigger is the gas, left trigger the brake."
+msgstr "右扳机是油门，左扳机是刹车。"
+
+msgid "The left trigger fully in is the hardest stop."
+msgstr "左扳机按到底是最猛的停车。"
+
+msgid "The left stick steers."
+msgstr "左摇杆控制转向。"
 
 msgid ""
-"The left stick steers; with lane keeping on full, pushing it left or right "
-"changes one lane."
-msgstr "Left stick 控制转向；车道保持为完全时，向左或向右推一下会变换一条车道。"
+"With lane keeping on full, pushing it left or right changes one lane."
+msgstr "车道保持为完全时，向左或向右推一下会变换一条车道。"
 
-#. placeholders: {shift_up}, {shift_down}
-msgid ""
-"Hold the left bumper for the clutch; {shift_up} shifts up a gear, "
-"{shift_down} shifts down."
-msgstr "按住左肩键作为离合器；{shift_up} 升一挡，{shift_down} 降一挡。"
+msgid "Hold the left bumper for the clutch."
+msgstr "按住左肩键作为离合器。"
+
+#. placeholders: {shift_up_cap}, {shift_down}
+msgid "{shift_up_cap} shifts up a gear, {shift_down} shifts down."
+msgstr "{shift_up_cap} 升一挡，{shift_down} 降一挡。"
 
 msgid ""
 "In automatic, stop, let the left trigger return to neutral, then press and "
@@ -20301,11 +20336,6 @@ msgid ""
 "rolling."
 msgstr "计划提货期间它会暂停，满载的卡车开动后恢复。"
 
-#. placeholders: {cruise}
-msgid ""
-"Parked with the parking brake set, {cruise} runs the engine at a fast idle."
-msgstr "拉着驻车制动停车时，{cruise}让发动机高怠速运转。"
-
 #. placeholders: {take_exit}
 msgid ""
 "{take_exit} signals for the next announced exit, or a pull-over when a "
@@ -20326,13 +20356,25 @@ msgstr "{speed} 说出你的车速。"
 msgid "{horn} sounds the horn, {engine_brake} the engine brake."
 msgstr "{horn} 鸣喇叭，{engine_brake} 发动机制动。"
 
-#. placeholders: {engine}, {fuel}, {speed_limit}, {parking_brake}, {rest}
+#. placeholders: {engine}, {fuel}
+msgid "{engine} starts or stops the engine, and {fuel} reads fuel."
+msgstr "{engine} 启动或关闭发动机，{fuel} 读出燃油。"
+
+#. placeholders: {speed_limit_cap}
 msgid ""
-"{engine} starts or stops the engine, {fuel} reads fuel, {speed_limit} reads "
-"the posted speed limit here and how far over you are, {parking_brake} sets "
-"or releases the parking brake, {rest} plans a stop for fuel, a break, sleep "
-"or food while rolling; stopped at a stop, it opens its actions."
-msgstr ""
+"{speed_limit_cap} reads the posted speed limit and how far over you are."
+msgstr "{speed_limit_cap} 读出标示的限速，以及你超速多少。"
+
+#. placeholders: {parking_brake_cap}
+msgid "{parking_brake_cap} sets or releases the parking brake."
+msgstr "{parking_brake_cap} 拉上或松开驻车制动。"
+
+#. placeholders: {rest}
+msgid "While rolling, {rest} plans a stop for fuel, a break, sleep or food."
+msgstr "行驶中，{rest} 规划一个加油、休息、睡觉或吃饭的停靠点。"
+
+msgid "Stopped at a stop, it opens that stop's actions."
+msgstr "在停靠点停下时，它会打开该停靠点的操作。"
 
 msgid ""
 "Away from route points while fully stopped, it opens emergency shoulder "
@@ -20372,9 +20414,9 @@ msgid "Start pauses and unpauses."
 msgstr "Start 暂停和继续。"
 
 msgid ""
-"The Back button stops the driving voice while it is speaking; when nothing "
+"The Back button stops the driving voice while it is speaking. When nothing "
 "is being said, it repeats this help."
-msgstr "Back 键在驾驶语音说话时将其停止；没有在说话时，它会重复这段帮助。"
+msgstr "Back 键在驾驶语音说话时将其停止。没有在说话时，它会重复这段帮助。"
 
 msgid ""
 "Any of these buttons can be moved under Settings, Gameplay, Controls, "
@@ -20383,17 +20425,17 @@ msgstr "这些按键都可以在设置、游戏玩法、操作、手柄按键里
 
 msgid ""
 "A flick is one step. A swipe and hold is continuous. Everything works "
-"anywhere on the screen. Swipe up and hold for gas; lift to coast. Swipe "
+"anywhere on the screen. Swipe up and hold for gas. Lift to coast. Swipe "
 "down and hold to brake. Swipe down three times as deep for the emergency "
-"brake; stopped, that sets the parking brake, and gas releases it. "
+"brake. Stopped, that sets the parking brake, and gas releases it. "
 msgstr ""
-"轻扫一下是一步。滑动并按住是持续的。在屏幕任何地方都有效。上滑并按住是油门；抬起手指就滑行。下滑并按住是刹车。下滑到三倍深度是紧急制动；停下后，它会拉上"
+"轻扫一下是一步。滑动并按住是持续的。在屏幕任何地方都有效。上滑并按住是油门。抬起手指就滑行。下滑并按住是刹车。下滑到三倍深度是紧急制动。停下后，它会拉上"
 "驻车制动，踩油门则会松开。 "
 
 msgid ""
-"Flick left or right to change lanes; with lane keeping on full, flicks are "
+"Flick left or right to change lanes. With lane keeping on full, flicks are "
 "the only lane control. "
-msgstr "向左或向右轻扫来换道；车道保持为完全时，轻扫是唯一的换道操作。 "
+msgstr "向左或向右轻扫来换道。车道保持为完全时，轻扫是唯一的换道操作。 "
 
 msgid ""
 "Flick left or right to change lanes, or swipe left or right and hold to "
@@ -20404,12 +20446,12 @@ msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
 "cruise off, flick up to resume the last speed and flick down to set the "
 "current speed. Turn two fingers right like a key to start the engine, left "
-"to stop it. Hold two fingers for the horn; turning them cancels it. While "
+"to stop it. Hold two fingers for the horn. Turning them cancels it. While "
 "holding a pedal, a second finger's flicks and holds work the same way, and "
 "in automatic its shift flicks say the gear. "
 msgstr ""
 "一根手指静止按住半秒，方向盘回正。巡航关闭时，向上轻扫恢复上次的速度，向下轻扫把当前速度设为巡航速度。两根手指像拧钥匙一样向右转是启动发动机，向左转是关"
-"闭。两根手指按住是喇叭；转动它们会取消。按住踏板时，另一根手指的轻扫和按住效果相同，在自动档下，它的换档轻扫会说出档位。 "
+"闭。两根手指按住是喇叭。转动它们会取消。按住踏板时，另一根手指的轻扫和按住效果相同，在自动档下，它的换档轻扫会说出档位。 "
 
 msgid ""
 "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
@@ -32842,45 +32884,38 @@ msgid "Main menu"
 msgstr "主菜单"
 
 msgid ""
-"Welcome to Freight Fate. Start a trucking career, learn the road sounds, "
-"and choose the work you want to haul."
-msgstr "欢迎来到Freight Fate。开始一段卡车职业生涯，学习道路声音，选择你想拉的活儿。"
+"Welcome to Freight Fate. Start a trucking career and learn the road sounds."
+msgstr "欢迎来到Freight Fate。开始一段卡车职业生涯，学习道路声音。"
+
+msgid "Choose New career to create a driver."
+msgstr "选择“新的职业生涯”来创建司机。"
+
+msgid "Learn game sounds plays each road cue and explains it."
+msgstr "“学习游戏声音”逐个播放道路提示音并加以说明。"
 
 msgid ""
-"Choose New career to create a driver. Before starting, you can explore the "
-"help, sounds, and settings."
-msgstr "选择“新的职业生涯”来创建司机。开始之前，你可以先看看帮助、声音和设置。"
-
-msgid ""
-"How to play is this guide. Learn game sounds lets you hear a road cue and "
-"learn what it means."
-msgstr "“玩法说明”就是这份指南。“学习游戏声音”让你听一个道路提示音并了解它的含义。"
-
-msgid ""
-"Settings lets you change driving assistance, sound, speech, and controls. "
-"Report a problem opens the bug-report page in your browser. Quit closes the "
-"game."
+"Settings changes driving assistance, sound, speech, and controls. Report a "
+"problem opens the bug-report page in your browser. Quit closes the game."
 msgstr "“设置”可以更改驾驶辅助、声音、语音和操作。“报告问题”会在浏览器中打开错误报告页面。“退出”会关闭游戏。"
 
 msgid ""
-"Achievements lets you review a saved driver's earned and locked "
-"achievements. With no saved careers, there is no record to review yet."
-msgstr "“成就”可以查看某个已保存司机已获得和未解锁的成就。如果还没有保存的职业生涯，就还没有记录可看。"
+"Achievements lists a saved driver's earned and locked achievements. It "
+"needs a saved career."
+msgstr "“成就”列出某个已保存司机已获得和未解锁的成就。需要有已保存的职业生涯。"
 
 msgid ""
-"Online brings together driver profiles, account achievements, sharing, and "
-"private cloud backups."
-msgstr "“在线”汇集了司机主页、账户成就、分享和私人云备份。"
+"Online has driver profiles, account achievements, sharing, and private "
+"cloud backups."
+msgstr "“在线”有司机主页、账户成就、分享和私人云备份。"
 
 msgid ""
 "Once you have a saved career, Continue returns to your newest saved trip. "
-"Choose career lets you select another driver."
-msgstr "有了已保存的职业生涯后，“继续”会回到你最新保存的行程。“选择职业生涯”可以选择另一位司机。"
+"Choose career switches to another driver."
+msgstr "有了已保存的职业生涯后，“继续”会回到你最新保存的行程。“选择职业生涯”可以切换到另一位司机。"
 
 msgid ""
-"Manage careers offers reset and deletion. The game asks you to confirm "
-"before either happens."
-msgstr "“管理职业生涯”提供重置和删除。两者执行之前，游戏都会请你确认。"
+"Manage careers resets or deletes a career. Both ask you to confirm first."
+msgstr "“管理职业生涯”可以重置或删除一个职业生涯。两者都会先请你确认。"
 
 msgid "Your first delivery"
 msgstr "你的第一次送货"
@@ -32920,17 +32955,17 @@ msgid ""
 msgstr "阅读结算，然后从目的地的场站继续。随着你积累经验，“职业规划”会说明下一步。"
 
 msgid ""
-"For a first drive, All assists handles steering while you learn the sounds. "
+"For a first drive, All assists steers for you while you learn the sounds. "
 "Change it under Settings, Gameplay, Driving assistance."
-msgstr "第一次驾驶时，全部辅助会负责转向，让你专心学习声音。可以在设置、游戏玩法、驾驶辅助里更改。"
+msgstr "第一次驾驶时，全部辅助会替你转向，让你专心学习声音。可以在设置、游戏玩法、驾驶辅助里更改。"
 
 msgid "Menus and message review"
 msgstr "菜单和消息回顾"
 
 msgid ""
-"Up and Down choose an option. Enter or Space selects it; Escape returns. "
+"Up and Down choose an option. Enter or Space selects it. Escape goes back. "
 "Home and End jump to the first or last option."
-msgstr "Up和Down选择选项。Enter或Space选中；Escape返回。Home和End跳到第一个或最后一个选项。"
+msgstr "Up和Down选择选项。Enter或Space选中。Escape返回。Home和End跳到第一个或最后一个选项。"
 
 msgid ""
 "Type a letter to find an option starting with it. F1 explains the selected "
@@ -32952,11 +32987,11 @@ msgstr ""
 
 msgid ""
 "In How to play, Left and Right or the Page keys change pages. Up and Down "
-"let you read a little at a time. Enter or Space reads the page; either "
+"read one line at a time. Enter or Space reads the whole page. Either "
 "Control key or F1 stops speech."
 msgstr ""
-"在“玩法说明”里，Left和Right或Page键翻页。Up和Down让你一次读一小段。Enter或Space朗读整页；任意一个Control键或F1停"
-"止朗读。"
+"在“玩法说明”里，Left和Right或Page键翻页。Up和Down一次读一行。Enter或Space朗读整页。任意一个Control键或F1停止朗读"
+"。"
 
 msgid ""
 "Learn game sounds plays road cues and explains their meaning. It is "
@@ -32965,19 +33000,19 @@ msgstr "“学习游戏声音”播放道路提示音并解释它们的含义。
 
 msgid ""
 "Practice keys and buttons names what each key or controller button does "
-"while driving, without moving the truck. Shift F1 opens it from any screen, "
-"as does holding Back and pressing Start on a controller. It is also on the "
-"main and pause menus. Press Escape or Start twice to leave."
+"while driving, without moving the truck. Shift F1 opens it from any screen. "
+"On a controller, hold Back and press Start. It is also on the main and "
+"pause menus. Press Escape or Start twice to leave."
 msgstr ""
-"练习按键和按钮会说出驾驶时每个按键或手柄按钮的作用，而不会移动卡车。在任何界面按 Shift F1 即可打开，在手柄上按住 Back 再按 Start "
-"也可以。主菜单和暂停菜单中也有此项。按两次 Escape 或 Start 退出。"
+"练习按键和按钮会说出驾驶时每个按键或手柄按钮的作用，而不会移动卡车。在任何界面按 Shift F1 即可打开。在手柄上按住 Back 再按 "
+"Start。主菜单和暂停菜单中也有此项。按两次 Escape 或 Start 退出。"
 
 msgid "Starting and stopping the truck"
 msgstr "启动和停下卡车"
 
 #. one sentence of a longer line
-msgid "To shut it down, slow below five miles per hour."
-msgstr "要熄火，先把车速降到每小时5英里以下。"
+msgid "It stops the engine only below five miles per hour."
+msgstr "只有车速低于每小时5英里时才会关闭发动机。"
 
 #. placeholders: {control_engine}
 #. one sentence of a longer line
@@ -32986,9 +33021,9 @@ msgstr "{control_engine}启动发动机。"
 
 #. placeholders: {control_engine}
 msgid ""
-"{control_engine} starts the engine. To shut it down, slow below five miles "
-"per hour."
-msgstr "{control_engine}启动发动机。要熄火，先把车速降到每小时5英里以下。"
+"{control_engine} starts the engine. It stops the engine only below five "
+"miles per hour."
+msgstr "{control_engine}启动发动机。只有车速低于每小时5英里时才会关闭发动机。"
 
 #. one sentence of a longer line
 msgid "Repeated hard braking uses air."
@@ -32997,14 +33032,14 @@ msgstr "反复急刹车会消耗气压。"
 #. placeholders: {control_parking_brake}
 #. one sentence of a longer line
 msgid ""
-"Wait for air pressure to reach 100 psi, then use {control_parking_brake} to "
-"release the parking brake."
+"Wait for air pressure to reach 100 psi, then {control_parking_brake} "
+"releases the parking brake."
 msgstr "等气压达到100 psi，然后用{control_parking_brake}松开驻车制动。"
 
 #. placeholders: {control_parking_brake}
 msgid ""
-"Wait for air pressure to reach 100 psi, then use {control_parking_brake} to "
-"release the parking brake. Repeated hard braking uses air."
+"Wait for air pressure to reach 100 psi, then {control_parking_brake} "
+"releases the parking brake. Repeated hard braking uses air."
 msgstr "等气压达到100 psi，然后用{control_parking_brake}松开驻车制动。反复急刹车会消耗气压。"
 
 #. placeholders: {control_accelerate}, {control_brake}
@@ -33128,10 +33163,12 @@ msgid "Cruise and hills"
 msgstr "巡航与坡道"
 
 #. one sentence of a longer line
-msgid ""
-"On open roads it follows traffic; on low-speed roads it follows local "
-"limits, queues and corners."
-msgstr "开阔道路上跟随车流；低速道路上遵循当地限速、排队和弯道。"
+msgid "On low-speed roads it follows local limits, queues and corners."
+msgstr "低速道路上它遵循当地限速、排队和弯道。"
+
+#. one sentence of a longer line
+msgid "On open roads it follows traffic."
+msgstr "开阔道路上它跟随车流。"
 
 #. placeholders: {control_cruise}
 #. one sentence of a longer line
@@ -33140,14 +33177,14 @@ msgstr "{control_cruise}开启巡航。"
 
 #. placeholders: {control_cruise}
 msgid ""
-"{control_cruise} turns cruise on. On open roads it follows traffic; on "
+"{control_cruise} turns cruise on. On open roads it follows traffic. On "
 "low-speed roads it follows local limits, queues and corners."
-msgstr "{control_cruise}开启巡航。开阔道路上跟随车流；低速道路上遵循当地限速、排队和弯道。"
+msgstr "{control_cruise}开启巡航。开阔道路上它跟随车流。低速道路上它遵循当地限速、排队和弯道。"
 
 msgid ""
-"Cruise follows traffic. Its normal three second clear-weather gap increases "
-"in poor weather. It does not steer."
-msgstr "巡航会跟随车流。晴天时正常的3秒间隔，在恶劣天气中会加大。它不会转向。"
+"Cruise follows traffic. Its normal gap is three seconds in clear weather "
+"and longer in poor weather. It does not steer."
+msgstr "巡航会跟随车流。晴天时正常间隔为3秒，恶劣天气中更长。它不会转向。"
 
 msgid ""
 "Plus and Minus, including keypad keys, move the cruise speed to the next "
@@ -33156,16 +33193,16 @@ msgstr "加号和减号，包括小键盘上的，会把开阔道路目标速度
 
 #. one sentence of a longer line
 msgid ""
-"Cruise prepares for sharp posted-limit drops and holds no more than five "
-"over the posted limit."
-msgstr "巡航会为限速的大幅下降提前做准备，并且最多只比限速高5。"
+"Cruise slows early for a sharp drop in the posted limit, and never holds "
+"more than five over it."
+msgstr "标示限速大幅下降时，巡航会提前减速，并且最多只比限速高五。"
 
 #. placeholders: {control_speed}
 msgid ""
-"Cruise prepares for sharp posted-limit drops and holds no more than five "
-"over the posted limit. {control_speed} reads the active speed-control mode "
+"Cruise slows early for a sharp drop in the posted limit, and never holds "
+"more than five over it. {control_speed} reads the active speed-control mode "
 "and cruise speed."
-msgstr "巡航会为限速的大幅下降提前做准备，并且最多只比限速高5。{control_speed}读出当前的速度控制模式和开阔道路目标速度。"
+msgstr "标示限速大幅下降时，巡航会提前减速，并且最多只比限速高五。{control_speed}读出当前的速度控制模式和巡航速度。"
 
 #. placeholders: {control_speed}
 #. one sentence of a longer line
@@ -33203,10 +33240,10 @@ msgid "{control_cruise_resume} resumes the previous target."
 msgstr "{control_cruise_resume}恢复之前的目标速度。"
 
 msgid ""
-"Before a descent, reduce speed and choose a lower gear. Use the engine "
-"brake for steady control and short brake applications with cooling time "
-"between them."
-msgstr "下坡之前，先减速并换到低挡。用发动机制动稳定控制车速，刹车要短促，中间留出冷却时间。"
+"Before a descent, reduce speed and choose a lower gear. Hold speed with the "
+"engine brake. Use the brakes in short presses, with time to cool between "
+"them."
+msgstr "下坡之前，先减速并换到低挡。用发动机制动保持车速。刹车要短促，中间留出冷却时间。"
 
 #. placeholders: {control_jake_stage_1}, {control_jake_stage_2}, {control_jake_stage_3}
 #. one sentence of a longer line
@@ -33219,8 +33256,8 @@ msgstr ""
 
 #. placeholders: {control_auto_jake}
 #. one sentence of a longer line
-msgid "{control_auto_jake} selects automatic or manual stage management."
-msgstr "{control_auto_jake}选择自动或手动管理档位。"
+msgid "{control_auto_jake} switches between automatic and manual stages."
+msgstr "{control_auto_jake}在自动和手动档位之间切换。"
 
 #. placeholders: {control_engine_brake}
 #. one sentence of a longer line
@@ -33231,11 +33268,11 @@ msgstr "{control_engine_brake}开启发动机制动。"
 msgid ""
 "{control_engine_brake} enables the engine brake. While enabled, "
 "{control_jake_stage_1}, {control_jake_stage_2}, and {control_jake_stage_3} "
-"choose its stage. {control_auto_jake} selects automatic or manual stage "
-"management."
+"choose its stage. {control_auto_jake} switches between automatic and manual "
+"stages."
 msgstr ""
 "{control_engine_brake}开启发动机制动。开启后，{control_jake_stage_1}、{control_jake_stage"
-"_2}和{control_jake_stage_3}选择它的档位。{control_auto_jake}选择自动或手动管理档位。"
+"_2}和{control_jake_stage_3}选择它的档位。{control_auto_jake}在自动和手动档位之间切换。"
 
 #. one sentence of a longer line
 msgid "Hot brakes lose stopping power."
@@ -33261,18 +33298,22 @@ msgid ""
 msgstr "{control_safe_speed}给出适合当前货物、坡道、天气和弯道的安全车速。"
 
 msgid ""
-"Noise-restricted towns warn before fining engine braking. Downhill grades "
-"and emergencies have exceptions."
-msgstr "有噪音限制的城镇会在对发动机制动罚款前先发出警告。下坡和紧急情况有例外。"
+"Towns that restrict engine braking warn you before they fine it. Downhill "
+"grades and emergencies are exempt."
+msgstr "限制发动机制动的城镇会在罚款前先发出警告。下坡和紧急情况有例外。"
 
 msgid "Driving information keys"
 msgstr "驾驶信息键"
 
 #. one sentence of a longer line
 msgid ""
-"It adds RPM with a manual transmission, air or brakes when they need "
-"attention, and the distance to an exit you signaled for."
-msgstr "它增加了手动变速箱的转速，需要注意时的空气或刹车，以及到你发出信号的出口的距离。"
+"It also adds air or brakes when they need attention, and the distance to an "
+"exit you signaled for."
+msgstr "需要注意时它还会加上气压或刹车，以及到你打了转向灯的出口的距离。"
+
+#. one sentence of a longer line
+msgid "With a manual transmission it adds RPM."
+msgstr "手动变速箱时它会加上转速。"
 
 #. placeholders: {control_speed}
 #. one sentence of a longer line
@@ -33281,18 +33322,22 @@ msgstr "{control_speed} 表示你的速度、档位和速度控制模式。"
 
 #. placeholders: {control_speed}
 msgid ""
-"{control_speed} speaks your speed, gear, and speed-control mode. It adds "
-"RPM with a manual transmission, air or brakes when they need attention, and "
-"the distance to an exit you signaled for."
+"{control_speed} speaks your speed, gear, and speed-control mode. With a "
+"manual transmission it adds RPM. It also adds air or brakes when they need "
+"attention, and the distance to an exit you signaled for."
 msgstr ""
-"{control_speed} 表示你的速度、档位和速度控制模式。它增加了手动变速箱的转速，需要注意时的空气或刹车，以及到你发出信号的出口的距离。"
+"{control_speed} "
+"说出你的速度、档位和速度控制模式。手动变速箱时它会加上转速。需要注意时它还会加上气压或刹车，以及到你打了转向灯的出口的距离。"
 
-#. placeholders: {control_safe_speed}, {control_grade}
+#. placeholders: {control_grade}
 #. one sentence of a longer line
-msgid ""
-"{control_safe_speed} gives the current safe speed; {control_grade} reads "
-"the current and next relevant grade."
-msgstr "{control_safe_speed}给出当前的安全车速；{control_grade}读出当前和下一个相关的坡道。"
+msgid "{control_grade} reads the current and next relevant grade."
+msgstr "{control_grade}读出当前和下一个相关的坡道。"
+
+#. placeholders: {control_safe_speed}
+#. one sentence of a longer line
+msgid "{control_safe_speed} gives the current safe speed."
+msgstr "{control_safe_speed}给出当前的安全车速。"
 
 #. placeholders: {control_speed_limit}
 #. one sentence of a longer line
@@ -33304,10 +33349,10 @@ msgstr "{control_speed_limit}说出标示的限速、区域，以及你超速多
 #. placeholders: {control_speed_limit}, {control_safe_speed}, {control_grade}
 msgid ""
 "{control_speed_limit} speaks the posted speed limit, zone, and how far over "
-"you are. {control_safe_speed} gives the current safe speed; {control_grade} "
+"you are. {control_safe_speed} gives the current safe speed. {control_grade} "
 "reads the current and next relevant grade."
 msgstr ""
-"{control_speed_limit}说出标示的限速、区域，以及你超速多少。{control_safe_speed}给出当前的安全车速；{contr"
+"{control_speed_limit}说出标示的限速、区域，以及你超速多少。{control_safe_speed}给出当前的安全车速。{contr"
 "ol_grade}读出当前和下一个相关的坡道。"
 
 #. placeholders: {control_clock}
@@ -33456,27 +33501,16 @@ msgid ""
 msgstr ""
 "{control_last_announcement}重复最近一条驾驶播报。{control_cb}重复最近一条CB闲聊，并说出它现在的距离。"
 
-#. one sentence of a longer line
-msgid "Use the reports for trip details or open an app for a specific task."
-msgstr "用报告查看行程详情，或打开一个应用来做具体的事。"
-
 #. placeholders: {control_status}
-#. one sentence of a longer line
 msgid ""
 "{control_status} opens Route, Driver, Map, and Radio reports, plus Driver "
 "apps."
 msgstr "{control_status}打开路线、司机、地图和电台报告，以及司机应用。"
 
-#. placeholders: {control_status}
-msgid ""
-"{control_status} opens Route, Driver, Map, and Radio reports, plus Driver "
-"apps. Use the reports for trip details or open an app for a specific task."
-msgstr "{control_status}打开路线、司机、地图和电台报告，以及司机应用。用报告查看行程详情，或打开一个应用来做具体的事。"
-
 msgid ""
 "Left or Right Control stops the driving event voice. Escape pauses. F2 "
-"lists driving commands by name; Enter runs the selected command."
-msgstr "左右任意一个Control键停止驾驶事件语音。Escape暂停。F2按名称列出驾驶命令；Enter执行选中的命令。"
+"lists driving commands by name. Enter runs the selected command."
+msgstr "左右任意一个Control键停止驾驶事件语音。Escape暂停。F2按名称列出驾驶命令。Enter执行选中的命令。"
 
 msgid ""
 "Most driving keys can be changed under Settings, Gameplay, Controls, then "
@@ -33640,14 +33674,14 @@ msgid ""
 msgstr "大多数匝道的尽头是红绿灯或停车标志。红灯要停；黄灯时如果能安全停下就停。在停车标志处，停稳后等出现足够的空当再走。"
 
 msgid ""
-"Every light change is spoken. The sensor tick speeds up near the stop bar. "
-"Cross traffic can hit a truck that runs through."
-msgstr "每次信号灯变化都会播报。靠近停止线时，传感器的滴答声会变快。闯过去的卡车可能会被横向车流撞上。"
+"The sensor tick speeds up near the stop bar. Cross traffic can hit a truck "
+"that runs the light."
+msgstr "靠近停止线时，传感器的滴答声会变快。闯红灯的卡车可能会被横向车流撞上。"
 
 msgid ""
 "When clear, pull ahead as instructed. Facility stopping assistance can take "
-"the pedals to the gate; your brake releases it."
-msgstr "安全时按指示往前开。厂区停车辅助可以接管踏板一直开到大门；你一踩刹车它就解除。"
+"the pedals to the gate. Pressing the brake ends it."
+msgstr "安全时按指示往前开。厂区停车辅助可以接管踏板一直开到大门。一踩刹车它就解除。"
 
 msgid ""
 "Follow the local street and yard guidance, stop at the gate, then confirm "
@@ -33689,9 +33723,9 @@ msgstr "车流、天气和执法"
 
 msgid ""
 "GPS announces state lines, towns, route changes, traffic, work zones, and "
-"useful stops. Grades and terrain come from the route; weather and traffic "
+"useful stops. Grades and terrain come from the route. Weather and traffic "
 "vary by place and time."
-msgstr "GPS会播报州界、城镇、路线变化、车流、施工区和有用的停靠点。坡道和地形来自路线；天气和车流随地点和时间变化。"
+msgstr "GPS会播报州界、城镇、路线变化、车流、施工区和有用的停靠点。坡道和地形来自路线。天气和车流随地点和时间变化。"
 
 #. one sentence of a longer line
 msgid "Check before changing lanes or returning after a pass."
@@ -33731,10 +33765,10 @@ msgstr ""
 "听到“马上刹车”时，立即减速。“变道或刹车”表示你的车道里有东西：并到它说的空闲车道，或减到每小时30英里压过去。落石或停着的车需要停下。"
 
 msgid ""
-"Tire debris is called out and driven over; nothing brakes for it. Full lane "
+"Tire debris is called out and driven over. Nothing brakes for it. Full lane "
 "keeping moves over for debris and slow vehicles when a lane is open, and "
 "avoids starting a pass near an exit."
-msgstr "轮胎碎片会被报出并直接压过去；没有任何东西会为它刹车。车道保持为完全时，有空闲车道就会避开杂物和慢车，而且不会在出口附近开始超车。"
+msgstr "轮胎碎片会被报出并直接压过去。没有任何东西会为它刹车。车道保持为完全时，有空闲车道就会避开杂物和慢车，而且不会在出口附近开始超车。"
 
 msgid ""
 "Leave a coned lane when warned. Driving through barrels causes damage, a "
@@ -33810,8 +33844,8 @@ msgstr "{control_cb}会重复它，并更新距离。"
 
 msgid ""
 "Citations cost money and affect your record. Serious violations can suspend "
-"your CDL and remove driving work; fleeing is a major offense."
-msgstr "罚单要花钱，还会影响你的记录。严重违规可能导致你的CDL被暂扣，失去驾驶工作；逃跑属于重大违法。"
+"your CDL and remove driving work. Fleeing is a major offense."
+msgstr "罚单要花钱，还会影响你的记录。严重违规可能导致你的CDL被暂扣，失去驾驶工作。逃跑属于重大违法。"
 
 msgid ""
 "The dash overspeed chime is a free warning. Tickets already paid on the "
@@ -33840,14 +33874,14 @@ msgid ""
 msgstr "任何连续三十分钟不驾驶，包括装货或检查，都算作这次休息。它不一定会重置当班时段。"
 
 msgid ""
-"Both hours modes use these limits. Relaxed changes enforcement pressure. "
-"One warning comes before each limit: one hour left in the Relaxed driving "
-"mode, two hours in Standard, and two hours, one hour and thirty minutes in "
-"Real time. No warning comes for a limit you will not reach before the trip "
-"ends."
+"Realistic and Relaxed hours use the same limits. Relaxed brings lighter "
+"fines, fewer inspections, and rare road hazards. A warning comes before "
+"each limit: at one hour left on Relaxed pacing and two hours on Standard. "
+"Real time warns at two hours, one hour and thirty minutes. No warning comes "
+"for a limit you will not reach before the trip ends."
 msgstr ""
-"两种工时模式都使用这些上限。轻松会改变执法压力。每个上限前会有一次警告：轻松驾驶模式下提前一小时，标准下提前两小时，真实时间下提前两小时、一小时和三十分"
-"钟。行程结束前到不了的上限不会警告。"
+"真实和轻松工时使用相同的上限。轻松带来更轻的罚款、更少的检查和少见的道路危险。每个上限前都会有警告：轻松驾驶模式下提前一小时，标准下提前两小时。真实时间"
+"会在提前两小时、一小时和三十分钟时警告。行程结束前到不了的上限不会警告。"
 
 #. one sentence of a longer line
 msgid "Check again as traffic or weather changes."
@@ -33874,10 +33908,10 @@ msgstr ""
 msgid ""
 "Ten-hour sleep is the simplest reset. Sleeper parking also offers 2, 3, 7 "
 "or 8 hours. Pair 8 with 2, or 7 with 3, for a split rest. The long part "
-"pauses the duty window; the short part does not, until the pair is done."
+"pauses the duty window. The short part does not, until the pair is done."
 msgstr ""
 "睡十小时是最简单的重置。带卧铺的停车场还提供 2、3、7 或 8 小时。8 配 2，或 7 配 "
-"3，构成分段休息。较长的部分会暂停当班时段；较短的部分不会，直到配对完成。"
+"3，构成分段休息。较长的部分会暂停当班时段。较短的部分不会，直到配对完成。"
 
 msgid "A nap that is not part of a split leaves the duty window running."
 msgstr "不属于分段休息的小睡会让当班时段继续计时。"
@@ -33889,9 +33923,9 @@ msgstr "夜里疲劳上升得更快，并会降低反应速度。收到打瞌睡
 
 msgid ""
 "Meals and coffee help temporarily. A half-hour meal counts as a break. "
-"Proper sleep clears fatigue; a legal reset with poor rest can leave you "
+"Proper sleep clears fatigue. A legal reset with poor rest can leave you "
 "tired."
-msgstr "吃饭和咖啡只能暂时帮忙。半小时的用餐算作一次中途休息。好好睡一觉才能消除疲劳；合法重置但休息不好，你可能仍然疲惫。"
+msgstr "吃饭和咖啡只能暂时帮忙。半小时的用餐算作一次中途休息。好好睡一觉才能消除疲劳。合法重置但休息不好，你可能仍然疲惫。"
 
 msgid ""
 "A stop offers only its listed services. A full parking lot can still sell "
@@ -33904,31 +33938,44 @@ msgid ""
 msgstr "在停车场睡 10 小时休息不好。在带卧铺的停车场睡十小时能完全休息好。"
 
 #. placeholders: {control_rest}
+#. one sentence of a longer line
 msgid ""
 "Away from route points and fully stopped, {control_rest} or the pause menu "
-"offers emergency shoulder sleep: ten hours pass, with poor rest and "
-"possible parking ticket or minor damage."
+"offers emergency sleep on the shoulder."
+msgstr "远离路线地点并完全停下时，{control_rest}或暂停菜单提供紧急路肩睡觉。"
+
+#. placeholders: {control_rest}
+msgid ""
+"Away from route points and fully stopped, {control_rest} or the pause menu "
+"offers emergency sleep on the shoulder. Ten hours pass with poor rest, and "
+"you may get a parking ticket or minor damage."
 msgstr ""
-"远离路线地点并完全停下时，{control_rest}或暂停菜单提供紧急路肩睡觉：过去10小时，休息效果差，还可能吃停车罚单或受到轻微损坏。"
+"远离路线地点并完全停下时，{control_rest}或暂停菜单提供紧急路肩睡觉。会过去10小时，休息效果差，还可能吃停车罚单或受到轻微损坏。"
+
+#. one sentence of a longer line
+msgid ""
+"Ten hours pass with poor rest, and you may get a parking ticket or minor "
+"damage."
+msgstr "会过去10小时，休息效果差，还可能吃停车罚单或受到轻微损坏。"
 
 msgid ""
 "The deadline keeps running during all rest. Logbook at the terminal and the "
-"ELD app let you review duty and limits."
-msgstr "截止时间在所有休息期间都会继续走。场站的“驾驶日志”和ELD应用可以让你查看当班情况和各项限制。"
+"ELD app show your duty time and limits."
+msgstr "截止时间在所有休息期间都会继续走。场站的“驾驶日志”和ELD应用显示你的当班时间和各项限制。"
 
 msgid "Career, equipment, and money"
 msgstr "职业生涯、设备和钱"
 
 msgid ""
 "New company hires get an assigned load. Load choice opens at level eight. "
-"Declining costs reputation; low dispatch trust can remove load choice again."
-msgstr "新入职的公司司机会拿到指派的货物。等级八开放自选货物。拒绝会损失声誉；调度信任度低时，可能再次失去自选货物的资格。"
+"Declining costs reputation. Low dispatch trust can remove load choice again."
+msgstr "新入职的公司司机会拿到指派的货物。等级八开放自选货物。拒绝会损失声誉。调度信任度低时，可能再次失去自选货物的资格。"
 
 msgid ""
 "Jobs name cargo, weight, pay, deadline, facilities, and equipment "
-"requirements. F1 reads the details. Fuel adds weight; check before filling "
-"a marginal load."
-msgstr "任务会说明货物、重量、报酬、截止时间、厂区和设备要求。F1读出详情。燃油也会增加重量；如果货物重量接近上限，加满油之前先检查一下。"
+"requirements. F1 reads the details. Fuel adds weight, so check the weight "
+"before filling up on a load near the limit."
+msgstr "任务会说明货物、重量、报酬、截止时间、厂区和设备要求。F1读出详情。燃油也会增加重量，所以如果货物接近上限，加油之前先检查重量。"
 
 msgid ""
 "Walk around a dropped trailer before leaving. A defect can be refused at "
@@ -33951,10 +33998,9 @@ msgid ""
 msgstr "未付的费用会变成未结欠款。之后的结算会拿出四分之一同时偿还债务和预支款，剩下四分之三归你。"
 
 msgid ""
-"Debt warnings say the most you can owe and what happens when you reach it. "
-"At that limit, a company driver changes carrier or an owner loses tractors "
-"and returns to company driving."
-msgstr "债务警告会说明你最多能欠多少，以及达到时会发生什么。到了这个上限，公司司机会换一家公司，车主则会失去牵引车，回去当公司司机。"
+"There is a limit to how much you can owe. At that limit, a company driver "
+"changes carrier or an owner loses tractors and returns to company driving."
+msgstr "你能欠的钱有一个上限。到了这个上限，公司司机会换一家公司，车主则会失去牵引车，回去当公司司机。"
 
 msgid ""
 "You keep career level, experience, endorsements, and record. Career stats "
@@ -33963,9 +34009,9 @@ msgstr "你会保留职业等级、经验、驾照签注和记录。“职业统
 
 msgid ""
 "The garage refuels, repairs, replaces tires, and services brakes and "
-"engines. Company routine costs use the carrier account; owners can buy "
+"engines. Company routine costs use the carrier account. Owners can buy "
 "partial service when cash is short."
-msgstr "修理厂可以加油、维修、换轮胎，以及保养刹车和发动机。公司的日常费用走承运商账户；车主司机现金不够时可以只买部分服务。"
+msgstr "修理厂可以加油、维修、换轮胎，以及保养刹车和发动机。公司的日常费用走承运商账户。车主司机现金不够时可以只买部分服务。"
 
 msgid ""
 "At eighty percent component wear, arrange service. At one hundred, that "
@@ -33980,8 +34026,8 @@ msgstr "车主司机可以购买牵引车、升级和挂车项目。每辆卡车
 
 msgid ""
 "Licenses and training opens refrigerated, heavy-haul, high-value, liquid "
-"bulk, doubles, hazardous, port, and long-combination freight as "
-"requirements clear."
+"bulk, doubles, hazardous, port, and long-combination freight as you meet "
+"the requirements."
 msgstr "随着条件满足，“驾照与培训”会开放冷藏、重型、高价值、液体散装、双挂、危险品、港口和长组合货物。"
 
 msgid "The garage and freight markets"
@@ -33995,8 +34041,8 @@ msgstr "每个大都市代表一个更大的货运区域，有许多发货方：
 
 msgid ""
 "Facilities determine local cargo. Dispatch routes include stops for fuel "
-"and legal rest; F1 reads the load's requirements before you accept it."
-msgstr "设施决定当地的货物。调度的路线包含加油和合法休息的停靠点；接受之前，F1会读出这批货物的要求。"
+"and legal rest. F1 reads the load's requirements before you accept it."
+msgstr "设施决定当地的货物。调度的路线包含加油和合法休息的停靠点。接受之前，F1会读出这批货物的要求。"
 
 msgid ""
 "Owners can add reefer, flatbed, and bulk programs. Company trailers cover "
@@ -34005,9 +34051,9 @@ msgstr "车主司机可以加入冷藏、平板和散装挂车项目。公司的
 
 msgid ""
 "An engine tune adds pulling power. An aerodynamic kit reduces highway fuel "
-"burn. A long-range tank adds fifty gallons; reinforced brakes resist fade "
+"burn. A long-range tank adds fifty gallons. Reinforced brakes resist fade "
 "longer."
-msgstr "发动机调校增加牵引力。空气动力套件降低公路油耗。长续航油箱多装50加仑；加强刹车能更久地抵抗热衰退。"
+msgstr "发动机调校增加牵引力。空气动力套件降低公路油耗。长续航油箱多装50加仑。加强刹车能更久地抵抗热衰退。"
 
 msgid ""
 "Company equipment improves with seniority. Low trust can hold it back until "
@@ -34020,10 +34066,10 @@ msgid ""
 msgstr "场站的修理厂提供维修、轮胎、刹车、发动机保养和洗车。路上的停靠点只提供那个地点列出的服务。"
 
 msgid ""
-"Damage above fifty percent reduces power; above seventy-five brings limp "
+"Damage above fifty percent reduces power. Above seventy-five brings limp "
 "mode and a forty-five mile per hour cap. Above ninety puts the truck out of "
 "service."
-msgstr "损坏超过百分之50时动力下降；超过百分之75进入跛行模式，车速限制在每小时45英里。超过百分之90卡车就会停驶。"
+msgstr "损坏超过百分之50时动力下降。超过百分之75进入跛行模式，车速限制在每小时45英里。超过百分之90卡车就会停驶。"
 
 msgid ""
 "A roadside mechanic can help during a trip. Stop safely and use the pause "
@@ -34034,18 +34080,18 @@ msgid "Winter equipment"
 msgstr "冬季装备"
 
 msgid ""
-"Winter tires improve snow and ice grip. Chains are carried until you "
-"install them while stopped through the pause menu."
-msgstr "冬季轮胎能提高雪地和冰面上的抓地力。防滑链会一直带在车上，直到你停车后通过暂停菜单装上。"
+"Winter tires improve snow and ice grip. Chains are carried in the truck. To "
+"put them on, stop and use the pause menu."
+msgstr "冬季轮胎能提高雪地和冰面上的抓地力。防滑链随车携带。要装上防滑链，先停车，然后使用暂停菜单。"
 
 msgid ""
-"Chain laws require chains on a truck at every level. Winter tires don't "
-"count for a semi. The exceptions are level one in Colorado and Oregon, "
-"which chain only single-drive-axle trucks, and in Wyoming, which accepts "
+"Chain laws require chains on a truck at every chain-law level. Winter tires "
+"don't count for a semi. There are two exceptions at level one. Colorado and "
+"Oregon require chains only on single-drive-axle trucks, and Wyoming accepts "
 "snow tires. Signs announce the requirement before the chain-up area."
 msgstr ""
-"各级防滑链规定都可能要求卡车安装防滑链，半挂卡车不能仅凭冬季轮胎满足要求。例外情况是Colorado和Oregon的1级规定，仅要求单驱动轴卡车安装；W"
-"yoming则接受雪地轮胎。安装区前会有标志说明要求。"
+"在每一级防滑链规定下，卡车都必须安装防滑链。半挂卡车不能用冬季轮胎代替。1级规定有两个例外。Colorado和Oregon仅要求单驱动轴卡车安装防滑链，"
+"Wyoming接受雪地轮胎。安装区前会有标志说明要求。"
 
 msgid ""
 "Chain work uses on-duty time and adds fatigue, especially at night. Keep "
@@ -34060,6 +34106,10 @@ msgid ""
 msgstr "磨损的轮胎和强力的发动机制动会让湿滑路面更难控制。必要时停下来休息，或等路况更安全再走。"
 
 #. one sentence of a longer line
+msgid "Enter opens it."
+msgstr "Enter打开。"
+
+#. one sentence of a longer line
 msgid "Escape returns."
 msgstr "Escape返回。"
 
@@ -34071,12 +34121,12 @@ msgstr "用{control_status}打开驾驶状态，然后选择“司机应用”�
 #. placeholders: {control_status}
 msgid ""
 "Open driving status with {control_status}, then choose Driver apps. Up and "
-"Down choose an app; Enter opens it. Escape returns."
-msgstr "用{control_status}打开驾驶状态，然后选择“司机应用”。Up和Down选择一个应用；Enter打开。Escape返回。"
+"Down choose an app. Enter opens it. Escape returns."
+msgstr "用{control_status}打开驾驶状态，然后选择“司机应用”。Up和Down选择一个应用。Enter打开。Escape返回。"
 
 #. one sentence of a longer line
-msgid "Up and Down choose an app; Enter opens it."
-msgstr "Up和Down选择一个应用；Enter打开。"
+msgid "Up and Down choose an app."
+msgstr "Up和Down选择一个应用。"
 
 msgid ""
 "In a report, Up and Down move through the information and Enter repeats "
@@ -34084,25 +34134,23 @@ msgid ""
 msgstr "在报告里，Up和Down浏览信息，Enter重复你选中的内容。Escape返回“司机应用”，再按返回驾驶状态。"
 
 msgid ""
-"Radio lets you switch the radio on or off, tune, manage favorites, and "
-"suggest a station. Search by part of a name, call sign, or format, then "
-"choose a result. Out-of-range stations cannot be tuned here."
+"The Radio app turns the radio on or off, tunes, and keeps favorites. You "
+"can also suggest a station there. Search by part of a name, call sign, or "
+"format, then choose a result. Out-of-range stations cannot be tuned here."
 msgstr ""
-"“电台”让你打开或关闭收音机、调台、管理收藏，以及推荐电台。可以按名称的一部分、呼号或节目类型搜索，然后选择一个结果。超出范围的电台在这里无法调到。"
+"“电台”可以打开或关闭收音机、调台和管理收藏。你还可以在那里推荐电台。可以按名称的一部分、呼号或节目类型搜索，然后选择一个结果。超出范围的电台在这里无法"
+"调到。"
 
 msgid ""
-"Navigation reviews your next guidance, progress, and next listed exit. Map "
+"Navigation reads your next guidance, progress, and next listed exit. Map "
 "under driving status gives a broader view of the route and stops."
-msgstr "“导航”可以查看你的下一条引导、进度和下一个列出的出口。驾驶状态里的“地图”能更全面地查看路线和停靠点。"
+msgstr "“导航”读出你的下一条引导、进度和下一个列出的出口。驾驶状态里的“地图”能更全面地查看路线和停靠点。"
 
 msgid ""
 "Weather gives conditions, suggested safe speed, how old the report is, and "
-"any active live weather alerts. Simulated weather includes a forecast; a "
-"live report may not. The app tells you if a live check is updating or has "
-"failed."
-msgstr ""
-"“天气”给出路况天气、建议的安全车速、报告是多久以前的，以及当前所有实时天气警报。模拟天气包含预报；实时报告可能没有。如果实时查询正在更新或失败了，应用"
-"会告诉你。"
+"any active live weather alerts. Simulated weather includes a forecast. A "
+"live report may not."
+msgstr "“天气”给出路况天气、建议的安全车速、报告是多久以前的，以及当前所有实时天气警报。模拟天气包含预报。实时报告可能没有。"
 
 msgid ""
 "Traffic reports traffic ahead, including a reported vehicle's distance and "
@@ -34145,9 +34193,12 @@ msgid "Radio and playlists"
 msgstr "电台和播放列表"
 
 #. one sentence of a longer line
-msgid ""
-"Page Down or apostrophe tunes forward; Page Up or semicolon tunes backward."
-msgstr "Page Down或单引号向前调台；Page Up或分号向后调台。"
+msgid "Page Down or apostrophe tunes forward."
+msgstr "Page Down或单引号向前调台。"
+
+#. one sentence of a longer line
+msgid "Page Up or semicolon tunes backward."
+msgstr "Page Up或分号向后调台。"
 
 #. placeholders: {control_radio}
 #. one sentence of a longer line
@@ -34158,8 +34209,8 @@ msgstr "发动机运转时，{control_radio}打开或关闭收音机。"
 #. placeholders: {control_radio}
 msgid ""
 "With the engine running, {control_radio} switches the radio on or off. Page "
-"Down or apostrophe tunes forward; Page Up or semicolon tunes backward."
-msgstr "发动机运转时，{control_radio}打开或关闭收音机。Page Down或单引号向前调台；Page Up或分号向后调台。"
+"Down or apostrophe tunes forward. Page Up or semicolon tunes backward."
+msgstr "发动机运转时，{control_radio}打开或关闭收音机。Page Down或单引号向前调台。Page Up或分号向后调台。"
 
 msgid ""
 "Hold Control with a tune key to jump between categories, including route "
@@ -34214,11 +34265,11 @@ msgstr ""
 
 msgid ""
 "Put M3U, M3U8, or PLS playlists in the Playlists folder inside your saves "
-"folder. Radio status tells you the folder location and reloads it when "
-"opened. Entries can be audio files, network paths, or stream addresses."
+"folder. Radio status gives the folder location and reloads the playlists "
+"when opened. Entries can be audio files, network paths, or stream addresses."
 msgstr ""
-"把M3U、M3U8或PLS播放列表放进存档文件夹里的Playlists文件夹。电台状态会告诉你这个文件夹的位置，并在打开时重新载入。条目可以是音频文件、"
-"网络路径或流地址。"
+"把M3U、M3U8或PLS播放列表放进存档文件夹里的Playlists文件夹。电台状态会告诉你这个文件夹的位置，并在打开时重新载入播放列表。条目可以是音"
+"频文件、网络路径或流地址。"
 
 msgid ""
 "Personal playlists normally play in order and resume where you left them. "
@@ -34291,9 +34342,9 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Change pacing mid-drive from pause; it begins when the truck next stops. "
-"Legal hours and time remaining on a deadline stay intact."
-msgstr "驾驶中可以从暂停菜单更改节奏；它在卡车下一次停下时开始生效。法定工时和截止时间前的剩余时间都不受影响。"
+"Change pacing mid-drive from the pause menu. It begins when the truck next "
+"stops. Legal hours and time remaining on a deadline stay intact."
+msgstr "驾驶中可以从暂停菜单更改节奏。它在卡车下一次停下时开始生效。法定工时和截止时间前的剩余时间都不受影响。"
 
 msgid ""
 "Choose simulated or available live weather, traffic, and parking separately "
@@ -34318,9 +34369,9 @@ msgstr "驾驶播报可以选择标准、安静或仅紧急。你主动查询时
 
 msgid ""
 "Speech and braille sends messages to both. Braille only requires NVDA or "
-"JAWS; speech returns if the screen reader closes. You can also choose a "
+"JAWS. Speech returns if the screen reader closes. You can also choose a "
 "separate driving event voice."
-msgstr "“语音和盲文”把消息同时发送到两者。“仅盲文”需要NVDA或JAWS；屏幕阅读器关闭时会恢复语音。你还可以选择单独的驾驶事件语音。"
+msgstr "“语音和盲文”把消息同时发送到两者。“仅盲文”需要NVDA或JAWS。屏幕阅读器关闭时会恢复语音。你还可以选择单独的驾驶事件语音。"
 
 msgid ""
 "For a problem report, use Where the game log is saved to find the session "
@@ -34332,10 +34383,10 @@ msgid "Online sharing and backups"
 msgstr "在线分享和备份"
 
 msgid ""
-"Online lets you browse driver profiles and account achievements, connect an "
-"account, choose sharing, and manage private backups. Viewing drivers shares "
-"nothing about you."
-msgstr "“在线”让你浏览司机主页和账户成就、连接账户、选择分享内容，以及管理私人备份。查看其他司机不会分享你的任何信息。"
+"In Online you can browse driver profiles and account achievements, connect "
+"an account, choose what you share, and manage private backups. Viewing "
+"drivers shares nothing about you."
+msgstr "在“在线”里，你可以浏览司机主页和账户成就、连接账户、选择分享内容，以及管理私人备份。查看其他司机不会分享你的任何信息。"
 
 msgid ""
 "Drivers on duty refreshes about once a minute. Enter opens a driver's "
@@ -34376,10 +34427,10 @@ msgstr "常见问题"
 msgid ""
 "Do I have to buy a truck? No. The carrier assigns company drivers a truck "
 "and pays its fuel, repairs, and insurance. Buying trucks opens with the "
-"owner-operator buy-in from level 18; Business status lists what else it "
+"owner-operator buy-in from level 18. Business status lists what else it "
 "needs."
 msgstr ""
-"我必须买卡车吗？不用。承运商会给公司司机分配卡车，并支付它的燃油、维修和保险。买卡车从18级的车主司机买断开始；“经营状况”会列出还需要什么。"
+"我必须买卡车吗？不用。承运商会给公司司机分配卡车，并支付它的燃油、维修和保险。买卡车从18级的车主司机买断开始。“经营状况”会列出还需要什么。"
 
 msgid ""
 "What are the fleets on Career stats? Each is a set of carrier trucks that "
@@ -34410,12 +34461,12 @@ msgid ""
 "Well regarded, Established, Unproven, Shaky, Damaged, or Ruined. New "
 "drivers start at 50, Unproven. A trust line shows it as, for example, "
 "Dispatch trust: full. Reputation 85 out of 100. Dispatch trust is what the "
-"carrier lets you do right now; your CDL, your record, and what you owe "
+"carrier lets you do right now. Your CDL, your record, and what you owe "
 "count toward it too. Settings, Speech has Score display: both, percentage "
 "only, or description only."
 msgstr ""
 "声誉和调度信任度有什么区别？声誉是根据你的送货情况得出的分数，会因你的驾驶记录而降低：出色、口碑良好、稳固、有待证明、不稳、受损或败坏。新司机从50开始"
-"，也就是有待证明。信任度播报会这样读，例如：调度信任度：完全。声誉85，满分100。调度信任度是承运商现在允许你做什么；你的CDL、你的记录和你欠的钱也"
+"，也就是有待证明。信任度播报会这样读，例如：调度信任度：完全。声誉85，满分100。调度信任度是承运商现在允许你做什么。你的CDL、你的记录和你欠的钱也"
 "都算在内。设置、语音里有分数显示：两者、仅百分比或仅描述。"
 
 msgid ""
@@ -34423,10 +34474,6 @@ msgid ""
 "trailer you do not have. F1 on the load reads its requirements, and "
 "Licenses and training offers the courses."
 msgstr "为什么我不能接受某单货物？它可能需要你还没有的培训证书、驾照签注或挂车。在货物上按F1会读出它的要求，“驾照与培训”提供相应的课程。"
-
-#. one sentence of a longer line
-msgid "Open weigh station ahead means every truck must pull in."
-msgstr "前方称重站开放，意味着每辆卡车都必须驶入。"
 
 #. placeholders: {control_take_exit}, {control_rest}
 #. one sentence of a longer line
@@ -34436,17 +34483,21 @@ msgid ""
 msgstr "用{control_take_exit}打转向灯，在称重站停下，然后按{control_rest}登记。"
 
 #. one sentence of a longer line
+msgid "When an open weigh station is called, every truck must pull in."
+msgstr "播报称重站开放时，每辆卡车都必须驶入。"
+
+#. one sentence of a longer line
 msgid "Why did I get a citation at a weigh station?"
 msgstr "为什么我在称重站吃了罚单？"
 
 #. placeholders: {control_take_exit}, {control_rest}
 msgid ""
-"Why did I get a citation at a weigh station? Open weigh station ahead means "
-"every truck must pull in. Signal with {control_take_exit}, stop at the "
-"scale, then press {control_rest} to check in."
+"Why did I get a citation at a weigh station? When an open weigh station is "
+"called, every truck must pull in. Signal with {control_take_exit}, stop at "
+"the scale, then press {control_rest} to check in."
 msgstr ""
-"为什么我在称重站吃了罚单？前方称重站开放，意味着每辆卡车都必须驶入。用{control_take_exit}打转向灯，在称重站停下，然后按{contro"
-"l_rest}登记。"
+"为什么我在称重站吃了罚单？播报称重站开放时，每辆卡车都必须驶入。用{control_take_exit}打转向灯，在称重站停下，然后按{control_"
+"rest}登记。"
 
 #. one sentence of a longer line
 msgid "Some states hold trucks below the car limit."
@@ -34521,17 +34572,19 @@ msgstr "怎么换电台或播放我自己的音乐？"
 msgid ""
 "How do I change stations or play my own music? With the engine running, "
 "{control_radio} switches the radio on, and Page Up or Page Down tunes. Put "
-"playlist files in the Playlists folder inside your saves folder; Radio "
-"status says where it is."
+"playlist files in the Playlists folder inside your saves folder. Radio "
+"status gives its location."
 msgstr ""
 "怎么换电台或播放我自己的音乐？发动机运转时，{control_radio}打开收音机，Page Up或Page "
-"Down调台。把播放列表文件放进存档文件夹里的Playlists文件夹；电台状态会说出它在哪里。"
+"Down调台。把播放列表文件放进存档文件夹里的Playlists文件夹。电台状态会说出它的位置。"
 
 #. one sentence of a longer line
-msgid ""
-"Put playlist files in the Playlists folder inside your saves folder; Radio "
-"status says where it is."
-msgstr "把播放列表文件放进存档文件夹里的Playlists文件夹；电台状态会说出它在哪里。"
+msgid "Put playlist files in the Playlists folder inside your saves folder."
+msgstr "把播放列表文件放进存档文件夹里的Playlists文件夹。"
+
+#. one sentence of a longer line
+msgid "Radio status gives its location."
+msgstr "电台状态会说出它的位置。"
 
 #. placeholders: {control_radio}
 #. one sentence of a longer line
@@ -34561,8 +34614,8 @@ msgstr "手柄"
 
 msgid ""
 "Controllers work alongside the keyboard. Button names use the Xbox layout. "
-"Settings, Gameplay, Controls lets you change eligible assignments."
-msgstr "手柄和键盘可以一起用。按键名称采用Xbox布局。在设置、游戏玩法、操作里可以更改可调整的按键分配。"
+"Change button assignments under Settings, Gameplay, Controls."
+msgstr "手柄和键盘可以一起用。按键名称采用Xbox布局。在设置、游戏玩法、操作里可以更改按键分配。"
 
 msgid ""
 "On newer Xbox controllers, Back is the View button, left of the Xbox "
@@ -34574,16 +34627,14 @@ msgstr ""
 
 msgid ""
 "In menus, D-pad moves, A confirms, B returns, and Back reads help. During "
-"driving speech, Back stops the voice; otherwise it reads help. Start pauses."
-msgstr "在菜单中，D-pad移动，A确认，B返回，Back读出帮助。驾驶播报说话时，Back停止语音；其他时候它读出帮助。Start暂停。"
+"driving speech, Back stops the voice. Otherwise it reads help. Start pauses."
+msgstr "在菜单中，D-pad移动，A确认，B返回，Back读出帮助。驾驶播报说话时，Back停止语音。其他时候它读出帮助。Start暂停。"
 
 msgid ""
 "Right trigger accelerates, left trigger brakes, and fully pressing the left "
-"trigger gives emergency braking. The left stick steers; with lane keeping "
+"trigger gives emergency braking. The left stick steers. With lane keeping "
 "on full, push it left or right to change one lane."
-msgstr ""
-"Right trigger 加速，Left trigger 刹车，将 Left trigger 按到底则紧急制动。Left stick "
-"控制转向；车道保持为完全时，向左或向右推一下即可变换一条车道。"
+msgstr "右扳机加速，左扳机刹车，将左扳机按到底则紧急制动。左摇杆控制转向。车道保持为完全时，向左或向右推一下即可变换一条车道。"
 
 msgid ""
 "To reverse in automatic, stop, release the left trigger, then press and "
@@ -34598,15 +34649,15 @@ msgstr "按住left bumper使用手动离合。"
 msgid ""
 "Hold left bumper for manual clutch. {pad_shift_up} shifts up and "
 "{pad_shift_down} down, past first into neutral and then reverse. "
-"{pad_cruise} starts speed control; {pad_speed} reads speed."
+"{pad_cruise} starts speed control. {pad_speed} reads speed."
 msgstr ""
-"按住 left bumper 作为手动离合器。{pad_shift_up} 升挡，{pad_shift_down} "
-"降挡，降过一挡进入空挡，再到倒挡。{pad_cruise} 启动速度控制；{pad_speed} 报出车速。"
+"按住左肩键作为手动离合器。{pad_shift_up} 升挡，{pad_shift_down} "
+"降挡，降过一挡进入空挡，再到倒挡。{pad_cruise} 启动速度控制。{pad_speed} 读出车速。"
 
-#. placeholders: {pad_cruise}, {pad_speed}
+#. placeholders: {pad_cruise}
 #. one sentence of a longer line
-msgid "{pad_cruise} starts speed control; {pad_speed} reads speed."
-msgstr "{pad_cruise}启动速度控制；{pad_speed}读出车速。"
+msgid "{pad_cruise} starts speed control."
+msgstr "{pad_cruise}启动速度控制。"
 
 #. placeholders: {pad_shift_up}, {pad_shift_down}
 #. one sentence of a longer line
@@ -34615,19 +34666,28 @@ msgid ""
 "and then reverse."
 msgstr "{pad_shift_up} 升挡，{pad_shift_down} 降挡，降过一挡进入空挡，再到倒挡。"
 
-#. placeholders: {pad_horn}, {pad_engine_brake}
+#. placeholders: {pad_speed}
 #. one sentence of a longer line
-msgid ""
-"{pad_horn} sounds the horn; {pad_engine_brake} enables the engine brake."
-msgstr "{pad_horn}鸣喇叭；{pad_engine_brake}开启发动机制动。"
+msgid "{pad_speed} reads speed."
+msgstr "{pad_speed}读出车速。"
+
+#. placeholders: {pad_engine_brake}
+#. one sentence of a longer line
+msgid "{pad_engine_brake} enables the engine brake."
+msgstr "{pad_engine_brake}开启发动机制动。"
+
+#. placeholders: {pad_horn}
+#. one sentence of a longer line
+msgid "{pad_horn} sounds the horn."
+msgstr "{pad_horn}鸣喇叭。"
 
 #. placeholders: {pad_horn}, {pad_engine_brake}, {pad_route}, {pad_weather}, {pad_clock}
 msgid ""
-"{pad_horn} sounds the horn; {pad_engine_brake} enables the engine brake. "
+"{pad_horn} sounds the horn. {pad_engine_brake} enables the engine brake. "
 "{pad_route} reads location, {pad_weather} weather, and {pad_clock} clock "
 "and hours."
 msgstr ""
-"{pad_horn}鸣喇叭；{pad_engine_brake}开启发动机制动。{pad_route}读出位置，{pad_weather}读出天气，{p"
+"{pad_horn}鸣喇叭。{pad_engine_brake}开启发动机制动。{pad_route}读出位置，{pad_weather}读出天气，{p"
 "ad_clock}读出时钟和工时。"
 
 #. placeholders: {pad_route}, {pad_weather}, {pad_clock}
@@ -34638,15 +34698,15 @@ msgid ""
 msgstr "{pad_route}读出位置，{pad_weather}读出天气，{pad_clock}读出时钟和工时。"
 
 #. one sentence of a longer line
-msgid "Right bumper accesses the second layer."
-msgstr "right bumper进入第二层。"
+msgid "Hold the right bumper for a second layer of buttons."
+msgstr "按住右肩键使用第二层按键。"
 
 #. placeholders: {pad_engine}, {pad_fuel}, {pad_speed_limit}
 msgid ""
-"Right bumper accesses the second layer. {pad_engine} controls the engine, "
-"{pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
+"Hold the right bumper for a second layer of buttons. {pad_engine} controls "
+"the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
-"right bumper进入第二层。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+"按住右肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
 
 #. placeholders: {pad_engine}, {pad_fuel}, {pad_speed_limit}
 #. one sentence of a longer line
@@ -34663,18 +34723,23 @@ msgstr "{pad_parking_brake}控制驻车制动。"
 #. placeholders: {pad_parking_brake}, {pad_take_exit}, {pad_rest}
 msgid ""
 "{pad_parking_brake} controls the parking brake. {pad_take_exit} signals for "
-"an exit; {pad_rest} opens route-stop actions or emergency shoulder sleep "
+"an exit. {pad_rest} opens route-stop actions or emergency shoulder sleep "
 "when fully stopped."
 msgstr ""
-"{pad_parking_brake}控制驻车制动。{pad_take_exit}为出口打转向灯；完全停下时，{pad_rest}打开路线停靠点的操作或"
+"{pad_parking_brake}控制驻车制动。{pad_take_exit}为出口打转向灯。完全停下时，{pad_rest}打开路线停靠点的操作或"
 "紧急路肩睡觉。"
 
-#. placeholders: {pad_take_exit}, {pad_rest}
+#. placeholders: {pad_rest}
 #. one sentence of a longer line
 msgid ""
-"{pad_take_exit} signals for an exit; {pad_rest} opens route-stop actions or "
-"emergency shoulder sleep when fully stopped."
-msgstr "{pad_take_exit}为出口打转向灯；完全停下时，{pad_rest}打开路线停靠点的操作或紧急路肩睡觉。"
+"{pad_rest} opens route-stop actions or emergency shoulder sleep when fully "
+"stopped."
+msgstr "完全停下时，{pad_rest}打开路线停靠点的操作或紧急路肩睡觉。"
+
+#. placeholders: {pad_take_exit}
+#. one sentence of a longer line
+msgid "{pad_take_exit} signals for an exit."
+msgstr "{pad_take_exit}为出口打转向灯。"
 
 #. placeholders: {pad_cruise_down}, {pad_cruise_up}
 #. one sentence of a longer line
@@ -34742,17 +34807,17 @@ msgid "Page {page} of {HELP_PAGES}: {title}."
 msgstr "第{page}页，共{HELP_PAGES}页：{title}。"
 
 msgid ""
-"D-pad Left and Right change pages, Up and Down let you read a little at a "
-"time. A reads the whole page, Back stops speech, and B goes back."
-msgstr "D-pad的Left和Right翻页，Up和Down让你一次读一小段。A朗读整页，Back停止朗读，B返回。"
+"D-pad Left and Right change pages, Up and Down read one line at a time. A "
+"reads the whole page, Back stops speech, and B goes back."
+msgstr "D-pad的Left和Right翻页，Up和Down一次读一行。A朗读整页，Back停止朗读，B返回。"
 
 msgid ""
 "Left and Right arrows or Page Up and Page Down change pages. Up and Down "
-"let you read a little at a time. Enter or Space reads the whole page, "
-"either Control or F1 stops speech, and Escape goes back."
+"read one line at a time. Enter or Space reads the whole page, either "
+"Control or F1 stops speech, and Escape goes back."
 msgstr ""
 "Left和Right方向键或Page Up和Page "
-"Down翻页。Up和Down让你一次读一小段。Enter或Space朗读整页，任意一个Control键或F1停止朗读，Escape返回。"
+"Down翻页。Up和Down一次读一行。Enter或Space朗读整页，任意一个Control键或F1停止朗读，Escape返回。"
 
 #. one sentence of a longer line
 msgid "How to play."
@@ -37286,6 +37351,721 @@ msgstr "轮胎碎片。"
 
 msgid "Debris."
 msgstr "杂物。"
+
+#~ msgid "A click and a spoken confirmation mark the latch."
+#~ msgstr "一声咔哒和一句语音确认表示已经锁住。"
+
+#~ msgid "The accelerator releases it at once."
+#~ msgstr "踩油门会立刻松开。"
+
+#~ msgid "{down} once releases it."
+#~ msgstr "按一下{down}就会松开。"
+
+#~ msgid "{down} once releases it. The accelerator releases it at once."
+#~ msgstr "按一下{down}就会松开。踩油门会立刻松开。"
+
+#~ msgid "{favorite} saves or removes the station as a favorite."
+#~ msgstr "{favorite} 将电台加入或移出收藏。"
+
+#~ msgid "Learn game sounds plays each road cue with its meaning."
+#~ msgstr "“学习游戏声音”逐个播放道路提示音并说明含义。"
+
+#~ msgid ""
+#~ "Online holds driver profiles, account achievements, sharing, and private "
+#~ "cloud backups."
+#~ msgstr "“在线”包含司机主页、账户成就、分享和私人云备份。"
+
+#~ msgid ""
+#~ "Once you have a saved career, Continue returns to your newest saved trip. "
+#~ "Choose career picks another driver."
+#~ msgstr "有了已保存的职业生涯后，“继续”会回到你最新保存的行程。“选择职业生涯”可以选择另一位司机。"
+
+#~ msgid "Manage careers resets or deletes a career after you confirm."
+#~ msgstr "“管理职业生涯”会在你确认后重置或删除一个职业生涯。"
+
+#~ msgid ""
+#~ "{control_engine} starts the engine, and stops it below five miles per hour."
+#~ msgstr "{control_engine}启动发动机，车速低于每小时5英里时关闭发动机。"
+
+#~ msgid ""
+#~ "At the normal setting, cruise keeps a three second gap in clear weather, "
+#~ "wider in poor weather. It does not steer."
+#~ msgstr "在正常设置下，巡航在晴天保持3秒间隔，恶劣天气中更大。它不会转向。"
+
+#~ msgid ""
+#~ "Realistic and Relaxed hours use the same limits. Relaxed brings lighter "
+#~ "fines, fewer inspections, and rare road hazards. Warnings come before each "
+#~ "limit: at one hour left with Relaxed pacing, two hours with Standard, and "
+#~ "two hours, one hour and thirty minutes with Real time. No warning comes for "
+#~ "a limit you will not reach before the trip ends."
+#~ msgstr ""
+#~ "真实和轻松工时使用相同的上限。轻松带来更轻的罚款、更少的检查和少见的道路危险。每个上限前都会有警告：轻松驾驶模式下提前一小时，标准下提前两小时，真实时间"
+#~ "下提前两小时、一小时和三十分钟。行程结束前到不了的上限不会警告。"
+
+#~ msgid ""
+#~ "Jobs name cargo, weight, pay, deadline, facilities, and equipment "
+#~ "requirements. F1 reads the details. Fuel adds weight, so check it before "
+#~ "filling a load near the weight limit."
+#~ msgstr "任务会说明货物、重量、报酬、截止时间、厂区和设备要求。F1读出详情。燃油也会增加重量，所以如果货物重量接近上限，加油之前先检查一下。"
+
+#~ msgid ""
+#~ "Winter tires improve snow and ice grip. Chains ride in the truck until you "
+#~ "fit them. Stop, then fit them from the pause menu."
+#~ msgstr "冬季轮胎能提高雪地和冰面上的抓地力。防滑链会一直带在车上，直到你装上。先停车，然后通过暂停菜单装上。"
+
+#~ msgid ""
+#~ "Chain laws require chains on a truck at every chain-law level. Winter tires "
+#~ "don't count for a semi. The exceptions are level one in Colorado and "
+#~ "Oregon, which chains only single-drive-axle trucks, and level one in "
+#~ "Wyoming, which accepts snow tires. Signs announce the requirement before "
+#~ "the chain-up area."
+#~ msgstr ""
+#~ "在每一级防滑链规定下，卡车都必须安装防滑链。半挂卡车不能用冬季轮胎代替。例外情况是Colorado和Oregon的1级规定，仅要求单驱动轴卡车安装，以及"
+#~ "Wyoming的1级规定，接受雪地轮胎。安装区前会有标志说明要求。"
+
+#~ msgid ""
+#~ "Change pacing mid-drive from pause. It begins when the truck next stops. "
+#~ "Legal hours and time remaining on a deadline stay intact."
+#~ msgstr "驾驶中可以从暂停菜单更改节奏。它在卡车下一次停下时开始生效。法定工时和截止时间前的剩余时间都不受影响。"
+
+#~ msgid ""
+#~ "Tap the brake, then press again and hold half a second to latch it "
+#~ "hands-free; a click and a spoken confirmation mark the catch."
+#~ msgstr "轻按一下刹车，然后再按住半秒，就能把它锁定，不用一直按着；一声咔哒和一句语音确认表示已经锁住。"
+
+#~ msgid "{down} once releases it; the accelerator releases it instantly."
+#~ msgstr "按一下{down}就会松开；踩油门会立刻松开。"
+
+#~ msgid "A brake held through a stop just holds the truck."
+#~ msgstr "停车时一直踩着刹车，只会让卡车保持不动。"
+
+#~ msgid "At the planned pickup it pauses and resumes once you depart."
+#~ msgstr "到达计划的提货点时它会暂停，你出发后恢复。"
+
+#~ msgid ""
+#~ "Plus and minus, including the keypad keys, change the cruise speed by five; "
+#~ "it never holds more than five over the posted limit."
+#~ msgstr "加号和减号，包括小键盘上的，以五为单位调整开阔道路的目标速度；它绝不会超过标示限速五以上。"
+
+#~ msgid "Control with plus or minus, by one."
+#~ msgstr "Control 加上加号或减号，以一为单位调整。"
+
+#~ msgid ""
+#~ "Parked with the parking brake set, {cruise} runs the engine at a fast idle; "
+#~ "plus and minus adjust it, and releasing the parking brake drops it."
+#~ msgstr "拉着驻车制动停车时，{cruise}让发动机高怠速运转；加号和减号调节，松开驻车制动就会停止。"
+
+#~ msgid ""
+#~ "Keep road speed to there, then brake to the exit speed before the ramp "
+#~ "curve."
+#~ msgstr "到那里之前保持道路车速，然后在匝道弯道前刹到出口车速。"
+
+#~ msgid ""
+#~ "{exit} also signals a pull-over when a trooper signals you to pull over for "
+#~ "speeding, a scale bypass, or unsafe equipment: signal, then brake to a stop."
+#~ msgstr "当警察因超速、绕过地磅或设备不安全示意你靠边停车时，{exit}也会发出靠边信号：打转向灯，然后刹车直到停下。"
+
+#~ msgid "{radio} toggles the in-cab radio."
+#~ msgstr "{radio} 打开或关闭驾驶室收音机。"
+
+#~ msgid ""
+#~ "Page Down tunes to the next station, Page Up to the previous; semicolon and "
+#~ "apostrophe do the same."
+#~ msgstr "Page Down 调到下一个电台，Page Up 调到上一个；分号和撇号作用相同。"
+
+#~ msgid ""
+#~ "Control with the tuning keys jumps a category; Shift changes the radio "
+#~ "volume in 10 percent steps, on or off."
+#~ msgstr "Control 加上调台键会跳到另一个分类；Shift 以 10% 为单位调整收音机音量，或开关收音机。"
+
+#~ msgid "{favorite} saves or unsaves the station as a favorite."
+#~ msgstr "{favorite} 将电台加入或移出收藏。"
+
+#~ msgid ""
+#~ "{radio_status} speaks station, volume, and streamer-safe status; "
+#~ "{now_playing} speaks the song when the station says."
+#~ msgstr "{radio_status} 说出电台、音量和直播安全状态；{now_playing} 在电台提供时说出歌曲。"
+
+#~ msgid ""
+#~ "The Driver apps tablet has a Radio app to search the dial, tune by name, "
+#~ "and keep favorites; the {status} status menu has a radio screen of "
+#~ "receivable stations."
+#~ msgstr "司机应用平板上有收音机应用，可以搜索频段、按名称调台和保存收藏；{status} 状态菜单有一个可接收电台的收音机界面。"
+
+#~ msgid ""
+#~ "{hos_wheel} time at the wheel so far, {hos_break} when your 30 minute break "
+#~ "is due, {hos_drive} what ends this shift and where you can legally stop "
+#~ "before it."
+#~ msgstr ""
+#~ "{hos_wheel} 目前为止的驾驶时间，{hos_break} 30 分钟休息何时到期，{hos_drive} "
+#~ "什么会结束本班次以及之前在哪里可以合法停车。"
+
+#~ msgid ""
+#~ "Comma repeats what was just said and keeps stepping back; Period moves "
+#~ "forward again."
+#~ msgstr "逗号重复刚才说的话并继续往回翻；句号再往前翻。"
+
+#~ msgid ""
+#~ "Bends that demand slowing are called before they arrive, like Sharp left, "
+#~ "half a mile, advise 35; {safe_speed} gives one safe-speed number with the "
+#~ "bend in it."
+#~ msgstr "需要减速的弯道会提前播报，比如：左急弯，半英里，建议 35；{safe_speed} 给出一个已考虑弯道的安全车速。"
+
+#~ msgid ""
+#~ "{left} and {right} steer unless lane keeping is on full; steer across the "
+#~ "lane line to change lanes."
+#~ msgstr "除非车道保持为完全，{left} 和 {right} 用于转向；越过车道线即可变道。"
+
+#~ msgid ""
+#~ "Hold {straighten} to point the truck straight down the road; where it sits "
+#~ "in the lane stays yours to fix."
+#~ msgstr "按住 {straighten} 让卡车对准道路方向；在车道里的位置仍需你自己调整。"
+
+#~ msgid ""
+#~ "Change lanes or brake means something in your lane: take the open lane it "
+#~ "names, or slow to 30 and take it. Rockfall or a stopped car needs a stop. "
+#~ "Tire debris is driven over; nothing brakes for it."
+#~ msgstr ""
+#~ "变道或刹车表示你的车道上有东西：驶入提示的空闲车道，或减到每小时30英里压过去。落石或停着的车需要停下。轮胎碎片直接压过去；没有任何东西会为它刹车。"
+
+#~ msgid ""
+#~ "{engine_brake} engine brake; on an automatic it manages its own stage, and "
+#~ "{jake1}, {jake2}, {jake3} take manual control."
+#~ msgstr "{engine_brake} 发动机制动；自动模式下它自行管理档位，{jake1}、{jake2}、{jake3} 切换为手动控制。"
+
+#~ msgid ""
+#~ "Hold Left Shift for clutch, then {shift_up} to shift up or {shift_down} to "
+#~ "shift down, {reverse} for reverse, {neutral} for neutral."
+#~ msgstr ""
+#~ "按住左 Shift 作为离合器，然后按 {shift_up} 升挡或 {shift_down} 降挡，{reverse} 倒挡，{neutral} "
+#~ "空挡。"
+
+#~ msgid ""
+#~ "Right trigger is the gas, left trigger the brake; the left trigger fully in "
+#~ "is the hardest stop."
+#~ msgstr "右扳机是油门，左扳机是刹车；左扳机按到底是最猛的停车。"
+
+#~ msgid ""
+#~ "The left stick steers; with lane keeping on full, pushing it left or right "
+#~ "changes one lane."
+#~ msgstr "Left stick 控制转向；车道保持为完全时，向左或向右推一下会变换一条车道。"
+
+#~ msgid ""
+#~ "Hold the left bumper for the clutch; {shift_up} shifts up a gear, "
+#~ "{shift_down} shifts down."
+#~ msgstr "按住左肩键作为离合器；{shift_up} 升一挡，{shift_down} 降一挡。"
+
+#~ msgid ""
+#~ "The Back button stops the driving voice while it is speaking; when nothing "
+#~ "is being said, it repeats this help."
+#~ msgstr "Back 键在驾驶语音说话时将其停止；没有在说话时，它会重复这段帮助。"
+
+#~ msgid ""
+#~ "A flick is one step. A swipe and hold is continuous. Everything works "
+#~ "anywhere on the screen. Swipe up and hold for gas; lift to coast. Swipe "
+#~ "down and hold to brake. Swipe down three times as deep for the emergency "
+#~ "brake; stopped, that sets the parking brake, and gas releases it. "
+#~ msgstr ""
+#~ "轻扫一下是一步。滑动并按住是持续的。在屏幕任何地方都有效。上滑并按住是油门；抬起手指就滑行。下滑并按住是刹车。下滑到三倍深度是紧急制动；停下后，它会拉上"
+#~ "驻车制动，踩油门则会松开。 "
+
+#~ msgid ""
+#~ "Flick left or right to change lanes; with lane keeping on full, flicks are "
+#~ "the only lane control. "
+#~ msgstr "向左或向右轻扫来换道；车道保持为完全时，轻扫是唯一的换道操作。 "
+
+#~ msgid ""
+#~ "Hold one finger still for half a second to straighten the wheel. With "
+#~ "cruise off, flick up to resume the last speed and flick down to set the "
+#~ "current speed. Turn two fingers right like a key to start the engine, left "
+#~ "to stop it. Hold two fingers for the horn; turning them cancels it. While "
+#~ "holding a pedal, a second finger's flicks and holds work the same way, and "
+#~ "in automatic its shift flicks say the gear. "
+#~ msgstr ""
+#~ "一根手指静止按住半秒，方向盘回正。巡航关闭时，向上轻扫恢复上次的速度，向下轻扫把当前速度设为巡航速度。两根手指像拧钥匙一样向右转是启动发动机，向左转是关"
+#~ "闭。两根手指按住是喇叭；转动它们会取消。按住踏板时，另一根手指的轻扫和按住效果相同，在自动档下，它的换档轻扫会说出档位。 "
+
+#~ msgid ""
+#~ "Welcome to Freight Fate. Start a trucking career, learn the road sounds, "
+#~ "and choose the work you want to haul."
+#~ msgstr "欢迎来到Freight Fate。开始一段卡车职业生涯，学习道路声音，选择你想拉的活儿。"
+
+#~ msgid ""
+#~ "Choose New career to create a driver. Before starting, you can explore the "
+#~ "help, sounds, and settings."
+#~ msgstr "选择“新的职业生涯”来创建司机。开始之前，你可以先看看帮助、声音和设置。"
+
+#~ msgid ""
+#~ "How to play is this guide. Learn game sounds lets you hear a road cue and "
+#~ "learn what it means."
+#~ msgstr "“玩法说明”就是这份指南。“学习游戏声音”让你听一个道路提示音并了解它的含义。"
+
+#~ msgid ""
+#~ "Settings lets you change driving assistance, sound, speech, and controls. "
+#~ "Report a problem opens the bug-report page in your browser. Quit closes the "
+#~ "game."
+#~ msgstr "“设置”可以更改驾驶辅助、声音、语音和操作。“报告问题”会在浏览器中打开错误报告页面。“退出”会关闭游戏。"
+
+#~ msgid ""
+#~ "Achievements lets you review a saved driver's earned and locked "
+#~ "achievements. With no saved careers, there is no record to review yet."
+#~ msgstr "“成就”可以查看某个已保存司机已获得和未解锁的成就。如果还没有保存的职业生涯，就还没有记录可看。"
+
+#~ msgid ""
+#~ "Online brings together driver profiles, account achievements, sharing, and "
+#~ "private cloud backups."
+#~ msgstr "“在线”汇集了司机主页、账户成就、分享和私人云备份。"
+
+#~ msgid ""
+#~ "Once you have a saved career, Continue returns to your newest saved trip. "
+#~ "Choose career lets you select another driver."
+#~ msgstr "有了已保存的职业生涯后，“继续”会回到你最新保存的行程。“选择职业生涯”可以选择另一位司机。"
+
+#~ msgid ""
+#~ "Manage careers offers reset and deletion. The game asks you to confirm "
+#~ "before either happens."
+#~ msgstr "“管理职业生涯”提供重置和删除。两者执行之前，游戏都会请你确认。"
+
+#~ msgid ""
+#~ "For a first drive, All assists handles steering while you learn the sounds. "
+#~ "Change it under Settings, Gameplay, Driving assistance."
+#~ msgstr "第一次驾驶时，全部辅助会负责转向，让你专心学习声音。可以在设置、游戏玩法、驾驶辅助里更改。"
+
+#~ msgid ""
+#~ "Up and Down choose an option. Enter or Space selects it; Escape returns. "
+#~ "Home and End jump to the first or last option."
+#~ msgstr "Up和Down选择选项。Enter或Space选中；Escape返回。Home和End跳到第一个或最后一个选项。"
+
+#~ msgid ""
+#~ "In How to play, Left and Right or the Page keys change pages. Up and Down "
+#~ "let you read a little at a time. Enter or Space reads the page; either "
+#~ "Control key or F1 stops speech."
+#~ msgstr ""
+#~ "在“玩法说明”里，Left和Right或Page键翻页。Up和Down让你一次读一小段。Enter或Space朗读整页；任意一个Control键或F1停"
+#~ "止朗读。"
+
+#~ msgid ""
+#~ "Practice keys and buttons names what each key or controller button does "
+#~ "while driving, without moving the truck. Shift F1 opens it from any screen, "
+#~ "as does holding Back and pressing Start on a controller. It is also on the "
+#~ "main and pause menus. Press Escape or Start twice to leave."
+#~ msgstr ""
+#~ "练习按键和按钮会说出驾驶时每个按键或手柄按钮的作用，而不会移动卡车。在任何界面按 Shift F1 即可打开，在手柄上按住 Back 再按 Start "
+#~ "也可以。主菜单和暂停菜单中也有此项。按两次 Escape 或 Start 退出。"
+
+#~ msgid "To shut it down, slow below five miles per hour."
+#~ msgstr "要熄火，先把车速降到每小时5英里以下。"
+
+#~ msgid ""
+#~ "{control_engine} starts the engine. To shut it down, slow below five miles "
+#~ "per hour."
+#~ msgstr "{control_engine}启动发动机。要熄火，先把车速降到每小时5英里以下。"
+
+#~ msgid ""
+#~ "Wait for air pressure to reach 100 psi, then use {control_parking_brake} to "
+#~ "release the parking brake."
+#~ msgstr "等气压达到100 psi，然后用{control_parking_brake}松开驻车制动。"
+
+#~ msgid ""
+#~ "Wait for air pressure to reach 100 psi, then use {control_parking_brake} to "
+#~ "release the parking brake. Repeated hard braking uses air."
+#~ msgstr "等气压达到100 psi，然后用{control_parking_brake}松开驻车制动。反复急刹车会消耗气压。"
+
+#~ msgid ""
+#~ "On open roads it follows traffic; on low-speed roads it follows local "
+#~ "limits, queues and corners."
+#~ msgstr "开阔道路上跟随车流；低速道路上遵循当地限速、排队和弯道。"
+
+#~ msgid ""
+#~ "{control_cruise} turns cruise on. On open roads it follows traffic; on "
+#~ "low-speed roads it follows local limits, queues and corners."
+#~ msgstr "{control_cruise}开启巡航。开阔道路上跟随车流；低速道路上遵循当地限速、排队和弯道。"
+
+#~ msgid ""
+#~ "Cruise follows traffic. Its normal three second clear-weather gap increases "
+#~ "in poor weather. It does not steer."
+#~ msgstr "巡航会跟随车流。晴天时正常的3秒间隔，在恶劣天气中会加大。它不会转向。"
+
+#~ msgid ""
+#~ "Cruise prepares for sharp posted-limit drops and holds no more than five "
+#~ "over the posted limit."
+#~ msgstr "巡航会为限速的大幅下降提前做准备，并且最多只比限速高5。"
+
+#~ msgid ""
+#~ "Cruise prepares for sharp posted-limit drops and holds no more than five "
+#~ "over the posted limit. {control_speed} reads the active speed-control mode "
+#~ "and cruise speed."
+#~ msgstr "巡航会为限速的大幅下降提前做准备，并且最多只比限速高5。{control_speed}读出当前的速度控制模式和开阔道路目标速度。"
+
+#~ msgid ""
+#~ "Before a descent, reduce speed and choose a lower gear. Use the engine "
+#~ "brake for steady control and short brake applications with cooling time "
+#~ "between them."
+#~ msgstr "下坡之前，先减速并换到低挡。用发动机制动稳定控制车速，刹车要短促，中间留出冷却时间。"
+
+#~ msgid "{control_auto_jake} selects automatic or manual stage management."
+#~ msgstr "{control_auto_jake}选择自动或手动管理档位。"
+
+#~ msgid ""
+#~ "{control_engine_brake} enables the engine brake. While enabled, "
+#~ "{control_jake_stage_1}, {control_jake_stage_2}, and {control_jake_stage_3} "
+#~ "choose its stage. {control_auto_jake} selects automatic or manual stage "
+#~ "management."
+#~ msgstr ""
+#~ "{control_engine_brake}开启发动机制动。开启后，{control_jake_stage_1}、{control_jake_stage"
+#~ "_2}和{control_jake_stage_3}选择它的档位。{control_auto_jake}选择自动或手动管理档位。"
+
+#~ msgid ""
+#~ "Noise-restricted towns warn before fining engine braking. Downhill grades "
+#~ "and emergencies have exceptions."
+#~ msgstr "有噪音限制的城镇会在对发动机制动罚款前先发出警告。下坡和紧急情况有例外。"
+
+#~ msgid ""
+#~ "It adds RPM with a manual transmission, air or brakes when they need "
+#~ "attention, and the distance to an exit you signaled for."
+#~ msgstr "它增加了手动变速箱的转速，需要注意时的空气或刹车，以及到你发出信号的出口的距离。"
+
+#~ msgid ""
+#~ "{control_speed} speaks your speed, gear, and speed-control mode. It adds "
+#~ "RPM with a manual transmission, air or brakes when they need attention, and "
+#~ "the distance to an exit you signaled for."
+#~ msgstr ""
+#~ "{control_speed} 表示你的速度、档位和速度控制模式。它增加了手动变速箱的转速，需要注意时的空气或刹车，以及到你发出信号的出口的距离。"
+
+#~ msgid ""
+#~ "{control_safe_speed} gives the current safe speed; {control_grade} reads "
+#~ "the current and next relevant grade."
+#~ msgstr "{control_safe_speed}给出当前的安全车速；{control_grade}读出当前和下一个相关的坡道。"
+
+#~ msgid ""
+#~ "{control_speed_limit} speaks the posted speed limit, zone, and how far over "
+#~ "you are. {control_safe_speed} gives the current safe speed; {control_grade} "
+#~ "reads the current and next relevant grade."
+#~ msgstr ""
+#~ "{control_speed_limit}说出标示的限速、区域，以及你超速多少。{control_safe_speed}给出当前的安全车速；{contr"
+#~ "ol_grade}读出当前和下一个相关的坡道。"
+
+#~ msgid "Use the reports for trip details or open an app for a specific task."
+#~ msgstr "用报告查看行程详情，或打开一个应用来做具体的事。"
+
+#~ msgid ""
+#~ "{control_status} opens Route, Driver, Map, and Radio reports, plus Driver "
+#~ "apps. Use the reports for trip details or open an app for a specific task."
+#~ msgstr "{control_status}打开路线、司机、地图和电台报告，以及司机应用。用报告查看行程详情，或打开一个应用来做具体的事。"
+
+#~ msgid ""
+#~ "Left or Right Control stops the driving event voice. Escape pauses. F2 "
+#~ "lists driving commands by name; Enter runs the selected command."
+#~ msgstr "左右任意一个Control键停止驾驶事件语音。Escape暂停。F2按名称列出驾驶命令；Enter执行选中的命令。"
+
+#~ msgid ""
+#~ "Every light change is spoken. The sensor tick speeds up near the stop bar. "
+#~ "Cross traffic can hit a truck that runs through."
+#~ msgstr "每次信号灯变化都会播报。靠近停止线时，传感器的滴答声会变快。闯过去的卡车可能会被横向车流撞上。"
+
+#~ msgid ""
+#~ "When clear, pull ahead as instructed. Facility stopping assistance can take "
+#~ "the pedals to the gate; your brake releases it."
+#~ msgstr "安全时按指示往前开。厂区停车辅助可以接管踏板一直开到大门；你一踩刹车它就解除。"
+
+#~ msgid ""
+#~ "GPS announces state lines, towns, route changes, traffic, work zones, and "
+#~ "useful stops. Grades and terrain come from the route; weather and traffic "
+#~ "vary by place and time."
+#~ msgstr "GPS会播报州界、城镇、路线变化、车流、施工区和有用的停靠点。坡道和地形来自路线；天气和车流随地点和时间变化。"
+
+#~ msgid ""
+#~ "Tire debris is called out and driven over; nothing brakes for it. Full lane "
+#~ "keeping moves over for debris and slow vehicles when a lane is open, and "
+#~ "avoids starting a pass near an exit."
+#~ msgstr "轮胎碎片会被报出并直接压过去；没有任何东西会为它刹车。车道保持为完全时，有空闲车道就会避开杂物和慢车，而且不会在出口附近开始超车。"
+
+#~ msgid ""
+#~ "Citations cost money and affect your record. Serious violations can suspend "
+#~ "your CDL and remove driving work; fleeing is a major offense."
+#~ msgstr "罚单要花钱，还会影响你的记录。严重违规可能导致你的CDL被暂扣，失去驾驶工作；逃跑属于重大违法。"
+
+#~ msgid ""
+#~ "Both hours modes use these limits. Relaxed changes enforcement pressure. "
+#~ "One warning comes before each limit: one hour left in the Relaxed driving "
+#~ "mode, two hours in Standard, and two hours, one hour and thirty minutes in "
+#~ "Real time. No warning comes for a limit you will not reach before the trip "
+#~ "ends."
+#~ msgstr ""
+#~ "两种工时模式都使用这些上限。轻松会改变执法压力。每个上限前会有一次警告：轻松驾驶模式下提前一小时，标准下提前两小时，真实时间下提前两小时、一小时和三十分"
+#~ "钟。行程结束前到不了的上限不会警告。"
+
+#~ msgid ""
+#~ "Ten-hour sleep is the simplest reset. Sleeper parking also offers 2, 3, 7 "
+#~ "or 8 hours. Pair 8 with 2, or 7 with 3, for a split rest. The long part "
+#~ "pauses the duty window; the short part does not, until the pair is done."
+#~ msgstr ""
+#~ "睡十小时是最简单的重置。带卧铺的停车场还提供 2、3、7 或 8 小时。8 配 2，或 7 配 "
+#~ "3，构成分段休息。较长的部分会暂停当班时段；较短的部分不会，直到配对完成。"
+
+#~ msgid ""
+#~ "Meals and coffee help temporarily. A half-hour meal counts as a break. "
+#~ "Proper sleep clears fatigue; a legal reset with poor rest can leave you "
+#~ "tired."
+#~ msgstr "吃饭和咖啡只能暂时帮忙。半小时的用餐算作一次中途休息。好好睡一觉才能消除疲劳；合法重置但休息不好，你可能仍然疲惫。"
+
+#~ msgid ""
+#~ "Away from route points and fully stopped, {control_rest} or the pause menu "
+#~ "offers emergency shoulder sleep: ten hours pass, with poor rest and "
+#~ "possible parking ticket or minor damage."
+#~ msgstr ""
+#~ "远离路线地点并完全停下时，{control_rest}或暂停菜单提供紧急路肩睡觉：过去10小时，休息效果差，还可能吃停车罚单或受到轻微损坏。"
+
+#~ msgid ""
+#~ "The deadline keeps running during all rest. Logbook at the terminal and the "
+#~ "ELD app let you review duty and limits."
+#~ msgstr "截止时间在所有休息期间都会继续走。场站的“驾驶日志”和ELD应用可以让你查看当班情况和各项限制。"
+
+#~ msgid ""
+#~ "New company hires get an assigned load. Load choice opens at level eight. "
+#~ "Declining costs reputation; low dispatch trust can remove load choice again."
+#~ msgstr "新入职的公司司机会拿到指派的货物。等级八开放自选货物。拒绝会损失声誉；调度信任度低时，可能再次失去自选货物的资格。"
+
+#~ msgid ""
+#~ "Jobs name cargo, weight, pay, deadline, facilities, and equipment "
+#~ "requirements. F1 reads the details. Fuel adds weight; check before filling "
+#~ "a marginal load."
+#~ msgstr "任务会说明货物、重量、报酬、截止时间、厂区和设备要求。F1读出详情。燃油也会增加重量；如果货物重量接近上限，加满油之前先检查一下。"
+
+#~ msgid ""
+#~ "Debt warnings say the most you can owe and what happens when you reach it. "
+#~ "At that limit, a company driver changes carrier or an owner loses tractors "
+#~ "and returns to company driving."
+#~ msgstr "债务警告会说明你最多能欠多少，以及达到时会发生什么。到了这个上限，公司司机会换一家公司，车主则会失去牵引车，回去当公司司机。"
+
+#~ msgid ""
+#~ "The garage refuels, repairs, replaces tires, and services brakes and "
+#~ "engines. Company routine costs use the carrier account; owners can buy "
+#~ "partial service when cash is short."
+#~ msgstr "修理厂可以加油、维修、换轮胎，以及保养刹车和发动机。公司的日常费用走承运商账户；车主司机现金不够时可以只买部分服务。"
+
+#~ msgid ""
+#~ "Licenses and training opens refrigerated, heavy-haul, high-value, liquid "
+#~ "bulk, doubles, hazardous, port, and long-combination freight as "
+#~ "requirements clear."
+#~ msgstr "随着条件满足，“驾照与培训”会开放冷藏、重型、高价值、液体散装、双挂、危险品、港口和长组合货物。"
+
+#~ msgid ""
+#~ "Facilities determine local cargo. Dispatch routes include stops for fuel "
+#~ "and legal rest; F1 reads the load's requirements before you accept it."
+#~ msgstr "设施决定当地的货物。调度的路线包含加油和合法休息的停靠点；接受之前，F1会读出这批货物的要求。"
+
+#~ msgid ""
+#~ "An engine tune adds pulling power. An aerodynamic kit reduces highway fuel "
+#~ "burn. A long-range tank adds fifty gallons; reinforced brakes resist fade "
+#~ "longer."
+#~ msgstr "发动机调校增加牵引力。空气动力套件降低公路油耗。长续航油箱多装50加仑；加强刹车能更久地抵抗热衰退。"
+
+#~ msgid ""
+#~ "Damage above fifty percent reduces power; above seventy-five brings limp "
+#~ "mode and a forty-five mile per hour cap. Above ninety puts the truck out of "
+#~ "service."
+#~ msgstr "损坏超过百分之50时动力下降；超过百分之75进入跛行模式，车速限制在每小时45英里。超过百分之90卡车就会停驶。"
+
+#~ msgid ""
+#~ "Winter tires improve snow and ice grip. Chains are carried until you "
+#~ "install them while stopped through the pause menu."
+#~ msgstr "冬季轮胎能提高雪地和冰面上的抓地力。防滑链会一直带在车上，直到你停车后通过暂停菜单装上。"
+
+#~ msgid ""
+#~ "Chain laws require chains on a truck at every level. Winter tires don't "
+#~ "count for a semi. The exceptions are level one in Colorado and Oregon, "
+#~ "which chain only single-drive-axle trucks, and in Wyoming, which accepts "
+#~ "snow tires. Signs announce the requirement before the chain-up area."
+#~ msgstr ""
+#~ "各级防滑链规定都可能要求卡车安装防滑链，半挂卡车不能仅凭冬季轮胎满足要求。例外情况是Colorado和Oregon的1级规定，仅要求单驱动轴卡车安装；W"
+#~ "yoming则接受雪地轮胎。安装区前会有标志说明要求。"
+
+#~ msgid ""
+#~ "Open driving status with {control_status}, then choose Driver apps. Up and "
+#~ "Down choose an app; Enter opens it. Escape returns."
+#~ msgstr "用{control_status}打开驾驶状态，然后选择“司机应用”。Up和Down选择一个应用；Enter打开。Escape返回。"
+
+#~ msgid "Up and Down choose an app; Enter opens it."
+#~ msgstr "Up和Down选择一个应用；Enter打开。"
+
+#~ msgid ""
+#~ "Radio lets you switch the radio on or off, tune, manage favorites, and "
+#~ "suggest a station. Search by part of a name, call sign, or format, then "
+#~ "choose a result. Out-of-range stations cannot be tuned here."
+#~ msgstr ""
+#~ "“电台”让你打开或关闭收音机、调台、管理收藏，以及推荐电台。可以按名称的一部分、呼号或节目类型搜索，然后选择一个结果。超出范围的电台在这里无法调到。"
+
+#~ msgid ""
+#~ "Navigation reviews your next guidance, progress, and next listed exit. Map "
+#~ "under driving status gives a broader view of the route and stops."
+#~ msgstr "“导航”可以查看你的下一条引导、进度和下一个列出的出口。驾驶状态里的“地图”能更全面地查看路线和停靠点。"
+
+#~ msgid ""
+#~ "Weather gives conditions, suggested safe speed, how old the report is, and "
+#~ "any active live weather alerts. Simulated weather includes a forecast; a "
+#~ "live report may not. The app tells you if a live check is updating or has "
+#~ "failed."
+#~ msgstr ""
+#~ "“天气”给出路况天气、建议的安全车速、报告是多久以前的，以及当前所有实时天气警报。模拟天气包含预报；实时报告可能没有。如果实时查询正在更新或失败了，应用"
+#~ "会告诉你。"
+
+#~ msgid ""
+#~ "Page Down or apostrophe tunes forward; Page Up or semicolon tunes backward."
+#~ msgstr "Page Down或单引号向前调台；Page Up或分号向后调台。"
+
+#~ msgid ""
+#~ "With the engine running, {control_radio} switches the radio on or off. Page "
+#~ "Down or apostrophe tunes forward; Page Up or semicolon tunes backward."
+#~ msgstr "发动机运转时，{control_radio}打开或关闭收音机。Page Down或单引号向前调台；Page Up或分号向后调台。"
+
+#~ msgid ""
+#~ "Put M3U, M3U8, or PLS playlists in the Playlists folder inside your saves "
+#~ "folder. Radio status tells you the folder location and reloads it when "
+#~ "opened. Entries can be audio files, network paths, or stream addresses."
+#~ msgstr ""
+#~ "把M3U、M3U8或PLS播放列表放进存档文件夹里的Playlists文件夹。电台状态会告诉你这个文件夹的位置，并在打开时重新载入。条目可以是音频文件、"
+#~ "网络路径或流地址。"
+
+#~ msgid ""
+#~ "Change pacing mid-drive from pause; it begins when the truck next stops. "
+#~ "Legal hours and time remaining on a deadline stay intact."
+#~ msgstr "驾驶中可以从暂停菜单更改节奏；它在卡车下一次停下时开始生效。法定工时和截止时间前的剩余时间都不受影响。"
+
+#~ msgid ""
+#~ "Speech and braille sends messages to both. Braille only requires NVDA or "
+#~ "JAWS; speech returns if the screen reader closes. You can also choose a "
+#~ "separate driving event voice."
+#~ msgstr "“语音和盲文”把消息同时发送到两者。“仅盲文”需要NVDA或JAWS；屏幕阅读器关闭时会恢复语音。你还可以选择单独的驾驶事件语音。"
+
+#~ msgid ""
+#~ "Online lets you browse driver profiles and account achievements, connect an "
+#~ "account, choose sharing, and manage private backups. Viewing drivers shares "
+#~ "nothing about you."
+#~ msgstr "“在线”让你浏览司机主页和账户成就、连接账户、选择分享内容，以及管理私人备份。查看其他司机不会分享你的任何信息。"
+
+#~ msgid ""
+#~ "Do I have to buy a truck? No. The carrier assigns company drivers a truck "
+#~ "and pays its fuel, repairs, and insurance. Buying trucks opens with the "
+#~ "owner-operator buy-in from level 18; Business status lists what else it "
+#~ "needs."
+#~ msgstr ""
+#~ "我必须买卡车吗？不用。承运商会给公司司机分配卡车，并支付它的燃油、维修和保险。买卡车从18级的车主司机买断开始；“经营状况”会列出还需要什么。"
+
+#~ msgid ""
+#~ "What is the difference between reputation and dispatch trust? Reputation is "
+#~ "a score from your deliveries, lowered by your driving record: Outstanding, "
+#~ "Well regarded, Established, Unproven, Shaky, Damaged, or Ruined. New "
+#~ "drivers start at 50, Unproven. A trust line shows it as, for example, "
+#~ "Dispatch trust: full. Reputation 85 out of 100. Dispatch trust is what the "
+#~ "carrier lets you do right now; your CDL, your record, and what you owe "
+#~ "count toward it too. Settings, Speech has Score display: both, percentage "
+#~ "only, or description only."
+#~ msgstr ""
+#~ "声誉和调度信任度有什么区别？声誉是根据你的送货情况得出的分数，会因你的驾驶记录而降低：出色、口碑良好、稳固、有待证明、不稳、受损或败坏。新司机从50开始"
+#~ "，也就是有待证明。信任度播报会这样读，例如：调度信任度：完全。声誉85，满分100。调度信任度是承运商现在允许你做什么；你的CDL、你的记录和你欠的钱也"
+#~ "都算在内。设置、语音里有分数显示：两者、仅百分比或仅描述。"
+
+#~ msgid "Open weigh station ahead means every truck must pull in."
+#~ msgstr "前方称重站开放，意味着每辆卡车都必须驶入。"
+
+#~ msgid ""
+#~ "Why did I get a citation at a weigh station? Open weigh station ahead means "
+#~ "every truck must pull in. Signal with {control_take_exit}, stop at the "
+#~ "scale, then press {control_rest} to check in."
+#~ msgstr ""
+#~ "为什么我在称重站吃了罚单？前方称重站开放，意味着每辆卡车都必须驶入。用{control_take_exit}打转向灯，在称重站停下，然后按{contro"
+#~ "l_rest}登记。"
+
+#~ msgid ""
+#~ "How do I change stations or play my own music? With the engine running, "
+#~ "{control_radio} switches the radio on, and Page Up or Page Down tunes. Put "
+#~ "playlist files in the Playlists folder inside your saves folder; Radio "
+#~ "status says where it is."
+#~ msgstr ""
+#~ "怎么换电台或播放我自己的音乐？发动机运转时，{control_radio}打开收音机，Page Up或Page "
+#~ "Down调台。把播放列表文件放进存档文件夹里的Playlists文件夹；电台状态会说出它在哪里。"
+
+#~ msgid ""
+#~ "Put playlist files in the Playlists folder inside your saves folder; Radio "
+#~ "status says where it is."
+#~ msgstr "把播放列表文件放进存档文件夹里的Playlists文件夹；电台状态会说出它在哪里。"
+
+#~ msgid ""
+#~ "Controllers work alongside the keyboard. Button names use the Xbox layout. "
+#~ "Settings, Gameplay, Controls lets you change eligible assignments."
+#~ msgstr "手柄和键盘可以一起用。按键名称采用Xbox布局。在设置、游戏玩法、操作里可以更改可调整的按键分配。"
+
+#~ msgid ""
+#~ "In menus, D-pad moves, A confirms, B returns, and Back reads help. During "
+#~ "driving speech, Back stops the voice; otherwise it reads help. Start pauses."
+#~ msgstr "在菜单中，D-pad移动，A确认，B返回，Back读出帮助。驾驶播报说话时，Back停止语音；其他时候它读出帮助。Start暂停。"
+
+#~ msgid ""
+#~ "Right trigger accelerates, left trigger brakes, and fully pressing the left "
+#~ "trigger gives emergency braking. The left stick steers; with lane keeping "
+#~ "on full, push it left or right to change one lane."
+#~ msgstr ""
+#~ "Right trigger 加速，Left trigger 刹车，将 Left trigger 按到底则紧急制动。Left stick "
+#~ "控制转向；车道保持为完全时，向左或向右推一下即可变换一条车道。"
+
+#~ msgid ""
+#~ "Hold left bumper for manual clutch. {pad_shift_up} shifts up and "
+#~ "{pad_shift_down} down, past first into neutral and then reverse. "
+#~ "{pad_cruise} starts speed control; {pad_speed} reads speed."
+#~ msgstr ""
+#~ "按住 left bumper 作为手动离合器。{pad_shift_up} 升挡，{pad_shift_down} "
+#~ "降挡，降过一挡进入空挡，再到倒挡。{pad_cruise} 启动速度控制；{pad_speed} 报出车速。"
+
+#~ msgid "{pad_cruise} starts speed control; {pad_speed} reads speed."
+#~ msgstr "{pad_cruise}启动速度控制；{pad_speed}读出车速。"
+
+#~ msgid ""
+#~ "{pad_horn} sounds the horn; {pad_engine_brake} enables the engine brake."
+#~ msgstr "{pad_horn}鸣喇叭；{pad_engine_brake}开启发动机制动。"
+
+#~ msgid ""
+#~ "{pad_horn} sounds the horn; {pad_engine_brake} enables the engine brake. "
+#~ "{pad_route} reads location, {pad_weather} weather, and {pad_clock} clock "
+#~ "and hours."
+#~ msgstr ""
+#~ "{pad_horn}鸣喇叭；{pad_engine_brake}开启发动机制动。{pad_route}读出位置，{pad_weather}读出天气，{p"
+#~ "ad_clock}读出时钟和工时。"
+
+#~ msgid "Right bumper accesses the second layer."
+#~ msgstr "right bumper进入第二层。"
+
+#~ msgid ""
+#~ "Right bumper accesses the second layer. {pad_engine} controls the engine, "
+#~ "{pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
+#~ msgstr ""
+#~ "right bumper进入第二层。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid ""
+#~ "{pad_parking_brake} controls the parking brake. {pad_take_exit} signals for "
+#~ "an exit; {pad_rest} opens route-stop actions or emergency shoulder sleep "
+#~ "when fully stopped."
+#~ msgstr ""
+#~ "{pad_parking_brake}控制驻车制动。{pad_take_exit}为出口打转向灯；完全停下时，{pad_rest}打开路线停靠点的操作或"
+#~ "紧急路肩睡觉。"
+
+#~ msgid ""
+#~ "{pad_take_exit} signals for an exit; {pad_rest} opens route-stop actions or "
+#~ "emergency shoulder sleep when fully stopped."
+#~ msgstr "{pad_take_exit}为出口打转向灯；完全停下时，{pad_rest}打开路线停靠点的操作或紧急路肩睡觉。"
+
+#~ msgid ""
+#~ "D-pad Left and Right change pages, Up and Down let you read a little at a "
+#~ "time. A reads the whole page, Back stops speech, and B goes back."
+#~ msgstr "D-pad的Left和Right翻页，Up和Down让你一次读一小段。A朗读整页，Back停止朗读，B返回。"
+
+#~ msgid ""
+#~ "Left and Right arrows or Page Up and Page Down change pages. Up and Down "
+#~ "let you read a little at a time. Enter or Space reads the whole page, "
+#~ "either Control or F1 stops speech, and Escape goes back."
+#~ msgstr ""
+#~ "Left和Right方向键或Page Up和Page "
+#~ "Down翻页。Up和Down让你一次读一小段。Enter或Space朗读整页，任意一个Control键或F1停止朗读，Escape返回。"
 
 #~ msgid "Air pressure {f} psi."
 #~ msgstr "气压{f} psi。"
