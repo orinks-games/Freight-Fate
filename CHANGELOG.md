@@ -51,6 +51,7 @@
 
 ### Fixed
 
+- **The main menu's background sound plays again after you leave the terminal or a shipper's dock.** Escape or Quit to main menu used to bring the menu back silent.
 - **The achievements menus no longer list three badges nobody can earn.** Careers that earned them before still see them.
 - **Holding Home or End on a settings, terminal or online screen no longer reads the row again and again.** It is read once, as on other menus.
 - **A PC where finding controllers stalls no longer freezes each time a Bluetooth device turns off.**

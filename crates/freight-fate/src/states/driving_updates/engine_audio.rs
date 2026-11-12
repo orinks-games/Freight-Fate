@@ -450,9 +450,9 @@ impl DrivingState {
         }
         let night = is_night(self.trip.local_hour());
         if night {
-            ctx.audio.set_ambient(Some("ambient/night"));
+            ctx.set_ambient(Some("ambient/night"));
         } else {
-            ctx.audio.set_ambient(None);
+            ctx.set_ambient(None);
         }
         // Before the dial check: the stations are on the air whether or not
         // this cab is listening, which is what lets a re-tune pick a station
