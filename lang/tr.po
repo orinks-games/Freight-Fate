@@ -16812,28 +16812,28 @@ msgstr ""
 msgid "Account achievements"
 msgstr "Hesap başarımları"
 
-#. placeholders: {ids}, {ACHIEVEMENTS}
-msgid "Summary: {ids} of {ACHIEVEMENTS} earned across every career"
-msgstr "Özet: bütün kariyerlerde {ACHIEVEMENTS} başarımdan {ids} kazanıldı"
+#. placeholders: {ids}, {listed_count}
+msgid "Summary: {ids} of {listed_count} earned across every career"
+msgstr "Özet: bütün kariyerlerde {listed_count} başarımdan {ids} kazanıldı"
 
 #. one sentence of a longer line
 msgid "Account achievements."
 msgstr "Hesap başarımları."
 
-#. placeholders: {earned}, {ACHIEVEMENTS}, {current_text}
+#. placeholders: {earned}, {listed_count}, {current_text}
 msgid ""
-"Account achievements. {earned} of {ACHIEVEMENTS} earned across every career "
+"Account achievements. {earned} of {listed_count} earned across every career "
 "on this installation. {current_text}"
 msgstr ""
-"Hesap başarımları. Bu kurulumdaki bütün kariyerlerde {ACHIEVEMENTS} "
+"Hesap başarımları. Bu kurulumdaki bütün kariyerlerde {listed_count} "
 "başarımdan {earned} kazanıldı. {current_text}"
 
-#. placeholders: {earned}, {ACHIEVEMENTS}
+#. placeholders: {earned}, {listed_count}
 #. one sentence of a longer line
 msgid ""
-"{earned} of {ACHIEVEMENTS} earned across every career on this installation."
+"{earned} of {listed_count} earned across every career on this installation."
 msgstr ""
-"Bu kurulumdaki bütün kariyerlerde {ACHIEVEMENTS} başarımdan {earned} "
+"Bu kurulumdaki bütün kariyerlerde {listed_count} başarımdan {earned} "
 "kazanıldı."
 
 #. placeholders: {title}, {done}, {achievements}
@@ -33125,26 +33125,26 @@ msgstr "Başarımlar: {name}"
 msgid "Up and Down pick a category, Enter opens it, Escape goes back."
 msgstr "Yukarı ve Aşağı kategori seçer, Enter açar, Escape geri döner."
 
-#. placeholders: {earned_count}, {ACHIEVEMENTS}
-msgid "Summary: {earned_count} of {ACHIEVEMENTS} earned"
-msgstr "Özet: {ACHIEVEMENTS} başarımdan {earned_count} kazanıldı"
+#. placeholders: {earned_count}, {listed_count}
+msgid "Summary: {earned_count} of {listed_count} earned"
+msgstr "Özet: {listed_count} başarımdan {earned_count} kazanıldı"
 
-#. placeholders: {name}, {earned_count}, {ACHIEVEMENTS}
-msgid "{name} has earned {earned_count} of {ACHIEVEMENTS} achievements."
-msgstr "{name}, {ACHIEVEMENTS} başarımdan {earned_count} tanesini kazandı."
+#. placeholders: {name}, {earned_count}, {listed_count}
+msgid "{name} has earned {earned_count} of {listed_count} achievements."
+msgstr "{name}, {listed_count} başarımdan {earned_count} tanesini kazandı."
 
-#. placeholders: {name}, {earned_count}, {ACHIEVEMENTS}, {current_text}
+#. placeholders: {name}, {earned_count}, {listed_count}, {current_text}
 msgid ""
-"Achievements for {name}. {earned_count} of {ACHIEVEMENTS} earned. "
+"Achievements for {name}. {earned_count} of {listed_count} earned. "
 "{current_text}"
 msgstr ""
-"Başarımlar: {name}. {ACHIEVEMENTS} başarımdan {earned_count} kazanıldı. "
+"Başarımlar: {name}. {listed_count} başarımdan {earned_count} kazanıldı. "
 "{current_text}"
 
-#. placeholders: {earned_count}, {ACHIEVEMENTS}
+#. placeholders: {earned_count}, {listed_count}
 #. one sentence of a longer line
-msgid "{earned_count} of {ACHIEVEMENTS} earned."
-msgstr "{ACHIEVEMENTS} başarımdan {earned_count} kazanıldı."
+msgid "{earned_count} of {listed_count} earned."
+msgstr "{listed_count} başarımdan {earned_count} kazanıldı."
 
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
@@ -40916,6 +40916,38 @@ msgstr "Döküntü."
 
 #~ msgid "Traffic slowing."
 #~ msgstr "Trafik yavaşlıyor."
+
+#~ msgid "Summary: {ids} of {ACHIEVEMENTS} earned across every career"
+#~ msgstr "Özet: bütün kariyerlerde {ACHIEVEMENTS} başarımdan {ids} kazanıldı"
+
+#~ msgid ""
+#~ "Account achievements. {earned} of {ACHIEVEMENTS} earned across every career "
+#~ "on this installation. {current_text}"
+#~ msgstr ""
+#~ "Hesap başarımları. Bu kurulumdaki bütün kariyerlerde {ACHIEVEMENTS} "
+#~ "başarımdan {earned} kazanıldı. {current_text}"
+
+#~ msgid ""
+#~ "{earned} of {ACHIEVEMENTS} earned across every career on this installation."
+#~ msgstr ""
+#~ "Bu kurulumdaki bütün kariyerlerde {ACHIEVEMENTS} başarımdan {earned} "
+#~ "kazanıldı."
+
+#~ msgid "Summary: {earned_count} of {ACHIEVEMENTS} earned"
+#~ msgstr "Özet: {ACHIEVEMENTS} başarımdan {earned_count} kazanıldı"
+
+#~ msgid "{name} has earned {earned_count} of {ACHIEVEMENTS} achievements."
+#~ msgstr "{name}, {ACHIEVEMENTS} başarımdan {earned_count} tanesini kazandı."
+
+#~ msgid ""
+#~ "Achievements for {name}. {earned_count} of {ACHIEVEMENTS} earned. "
+#~ "{current_text}"
+#~ msgstr ""
+#~ "Başarımlar: {name}. {ACHIEVEMENTS} başarımdan {earned_count} kazanıldı. "
+#~ "{current_text}"
+
+#~ msgid "{earned_count} of {ACHIEVEMENTS} earned."
+#~ msgstr "{ACHIEVEMENTS} başarımdan {earned_count} kazanıldı."
 
 #~ msgid ""
 #~ "Levels, money, and trucks -- the long climb from hire to owner-operator."

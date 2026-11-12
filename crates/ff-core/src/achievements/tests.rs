@@ -380,3 +380,19 @@ fn test_live_announce_is_name_only_in_both_modes() {
 // `ff-core` does not depend on the game crate, so the eighteen cases that used
 // to sit below as `#[ignore]`d stubs were placeholders that could never have
 // been filled in this file.
+
+#[test]
+fn test_retired_badges_are_listed_only_once_earned() {
+    use crate::achievements::{is_listed, listed_total, RETIRED};
+    for id in RETIRED {
+        assert!(
+            achievement_by_id(id).is_some(),
+            "{id} keeps its catalog entry"
+        );
+        assert!(!is_listed(id, |_| false), "{id}");
+        assert!(is_listed(id, |earned| earned == id), "{id}");
+    }
+    assert!(is_listed("first_day", |_| false));
+    assert_eq!(listed_total(|_| false), ACHIEVEMENTS.len() - RETIRED.len());
+    assert_eq!(listed_total(|_| true), ACHIEVEMENTS.len());
+}

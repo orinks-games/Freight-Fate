@@ -1,7 +1,7 @@
 //! Read-only category browser for achievements earned across this installation.
 
 use ff_core::achievements::{
-    entry_text, Achievement, AchievementCategory, EarnedOrder, ACHIEVEMENTS,
+    entry_text, listed_total, Achievement, AchievementCategory, EarnedOrder,
 };
 
 use crate::app::GameContext;
@@ -38,6 +38,13 @@ pub struct AccountAchievementsState {
 /// The sort row is the first row of both screens, above the list it sorts.
 const SORT_ROW: usize = 0;
 
+/// How many badges the account menus list: retired ones count only where a
+/// career on this installation already earned them.
+fn listed_count(ctx: &GameContext) -> usize {
+    let earned = ctx.account_achievements.ids();
+    listed_total(|id| earned.iter().any(|e| e == id))
+}
+
 impl AccountAchievementsState {
     pub fn new() -> Self {
         Self {
@@ -63,7 +70,7 @@ impl AccountAchievementsState {
         format!(
             "Summary: {} of {} earned across every career",
             ctx.account_achievements.ids().len(),
-            ACHIEVEMENTS.len()
+            listed_count(ctx)
         )
     }
 }
@@ -87,7 +94,7 @@ impl Menu for AccountAchievementsState {
         let earned = ctx.account_achievements.ids().len();
         ctx.say(&format!(
             "Account achievements. {earned} of {} earned across every career on this installation. {}",
-            ACHIEVEMENTS.len(),
+            listed_count(ctx),
             self.current_text(ctx)
         ));
     }
