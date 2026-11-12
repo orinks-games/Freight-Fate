@@ -301,7 +301,10 @@ fn test_the_assists_stop_for_a_red_street_light_hold_it_and_drive_on_at_green() 
     let heard = harness.transcript_text();
     assert!(stopped, "never held at the red\n{heard}");
     // Named in whatever phase it was in; pinned red from the next frame on.
-    assert!(heard.contains("Traffic light. Light"), "{heard}");
+    assert!(
+        heard.contains("Light red.") || heard.contains("Light green."),
+        "{heard}"
+    );
     assert!(heard.contains("Braking for the light."), "{heard}");
     assert!(heard.contains("Red light."), "{heard}");
     let at = harness.read_drive(|d| d.trip.position_mi);
@@ -357,7 +360,7 @@ fn test_a_green_street_light_is_driven_at_the_streets_own_speed() {
         }
     }
     let heard = harness.transcript_text();
-    assert!(heard.contains("Traffic light."), "{heard}");
+    assert!(heard.contains("Light green."), "{heard}");
     assert!(
         slowest > 25.0,
         "slowed to {slowest:.1} for a green\n{heard}"

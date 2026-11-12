@@ -19,6 +19,8 @@
 
 use ff_core::pyrandom::PyRandom;
 use ff_core::sim::cross_traffic::{CROSSROAD_WIDTH_FT, YIELD_LINE_TO_CROSSROAD_FT};
+use ff_core::speech_pacing::SpeechCategory;
+use ff_core::speech_text::SpokenMessage;
 
 use crate::app::GameContext;
 use crate::states::driving::DrivingState;
@@ -343,7 +345,7 @@ impl DrivingState {
     /// The call for a street control, on the route channel like the ramp's.
     fn announce_street_control(&mut self, ctx: &mut GameContext) {
         self.ramp_light_announced = true;
-        let message = match self.street_control_kind.as_str() {
+        let message: SpokenMessage = match self.street_control_kind.as_str() {
             "signal" => {
                 let phase = self.ramp_light_phase();
                 self.ramp_light_last_phase = phase.to_string();
@@ -356,7 +358,10 @@ impl DrivingState {
                     0.8,
                     0.0,
                 );
-                format!("Traffic light. Light {phase}.")
+                // The red or green tone is the call; standard speech adds
+                // the phase in two words, the quiet rungs leave it to the
+                // tone (owner, 2026-11-12).
+                SpokenMessage::with_terse(format!("Light {phase}."), "")
             }
             kind => {
                 ctx.audio.play_with("ui/notify", 0.7, 0.0);
@@ -365,10 +370,10 @@ impl DrivingState {
                     "give_way" => "Yield sign.",
                     _ => "Stop sign.",
                 }
-                .to_string()
+                .into()
             }
         };
-        self.say_route_navigation(ctx, &message);
+        self.say_route_line(ctx, message, SpeechCategory::Navigation);
         // A countdown mark already behind the truck when the call lands is
         // not a distance that is true (the ramp's rule).
         if let Some(gap_mi) = self.terminal_gap_mi() {

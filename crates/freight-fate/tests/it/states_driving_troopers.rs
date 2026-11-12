@@ -731,6 +731,39 @@ fn test_weigh_station_warning_is_spoken_before_bypass() {
 }
 
 #[test]
+fn test_quiet_speech_leaves_the_weigh_station_notice_to_its_earcon() {
+    // Owner, 2026-11-12: a call with its own sound is the sound alone on
+    // the quiet rungs. The reminder nearer the scale still names it.
+    for rung in ["quiet", "urgent_only"] {
+        let mut app = TestApp::new();
+        app.ctx.settings.driving_speech = rung.to_string();
+        let mut drive = a_drive(&mut app, None);
+        let log = app.record_audio();
+        let stop = a_scale(10.0);
+        drive.trip.stops = vec![stop.clone()];
+        drive.trip.posts.push(open_scale_post(&stop));
+        drive.trip.position_mi = 8.2;
+        drive.trip.truck.velocity_mps = mph_to_mps(45.0);
+        app.clear_speech();
+
+        drive.check_weigh_station_enforcement(&mut app.ctx, 8.0);
+        drive.check_weigh_station_enforcement(&mut app.ctx, 8.1);
+
+        let said = spoken(&app);
+        assert!(
+            !said.iter().any(|line| line.contains("Open weigh station")),
+            "{rung}: {said:#?}"
+        );
+        assert!(
+            played(&log)
+                .iter()
+                .any(|key| key == "events/weigh_station_warning"),
+            "{rung}"
+        );
+    }
+}
+
+#[test]
 fn test_debug_off_mode_bypasses_scale_blow_past() {
     let mut app = TestApp::new();
     let mut drive = a_drive(&mut app, None);

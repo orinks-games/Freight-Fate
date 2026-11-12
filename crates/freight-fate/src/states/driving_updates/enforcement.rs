@@ -9,7 +9,7 @@ use ff_core::pyrandom::PyRandom;
 use ff_core::settings::short_distance_text_for;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::speech_pacing::SpeechCategory;
-use ff_core::speech_text::overspeed_nag;
+use ff_core::speech_text::{overspeed_nag, SpokenMessage};
 
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
@@ -405,9 +405,17 @@ impl DrivingState {
                     // (playtest, 2026-08-20). The bypass judgment never
                     // needed it -- taking the scale's exit is what counts --
                     // and the ramp glide owns the slowing.
-                    format!(
-                        "Open weigh station in {announced}, {}. {instruction}",
-                        stop.name
+                    // The weigh station earcon is the notice; standard speech
+                    // adds the distance, the name and the instruction, and
+                    // the quiet rungs leave it to the earcon (owner,
+                    // 2026-11-12). The reminder nearer the scale names it
+                    // and the exit at every rung.
+                    SpokenMessage::with_terse(
+                        format!(
+                            "Open weigh station in {announced}, {}. {instruction}",
+                            stop.name
+                        ),
+                        "",
                     ),
                     SayEvent::queued()
                         .priority(EventPriority::Important)

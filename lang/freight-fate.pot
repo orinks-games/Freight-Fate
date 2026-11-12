@@ -29752,7 +29752,7 @@ msgid ""
 msgstr ""
 
 #. placeholders: {phase}
-#: crates/freight-fate/src/states/driving_events/ramp_terminal.rs
+#: crates/freight-fate/src/states/driving_events/ramp_terminal.rs crates/freight-fate/src/states/driving_events/street_controls.rs
 msgid "Light {phase}."
 msgstr ""
 
@@ -30111,16 +30111,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/street_controls.rs
 msgid " at the ramp end"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_events/street_controls.rs
-msgid "Traffic light."
-msgstr ""
-
-#. placeholders: {phase}
-#: crates/freight-fate/src/states/driving_events/street_controls.rs
-msgid "Traffic light. Light {phase}."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/street_controls.rs

@@ -636,9 +636,11 @@ impl Trip {
                         self.ahead_text(ahead),
                         cue.text
                     );
+                    // The traffic slowing earcon carries the cue on the
+                    // quiet rungs (owner, 2026-11-12).
                     self.emit(
                         TripEventKind::GpsCue,
-                        SpokenMessage::new(message),
+                        terse_silent(message),
                         TripEventData {
                             cue: Some(cue.clone()),
                             ..Default::default()
