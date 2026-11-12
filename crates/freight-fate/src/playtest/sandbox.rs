@@ -49,6 +49,21 @@ pub fn staging_sandbox() -> PathBuf {
 /// invented career under their own driver.
 pub const STAGING_URL: &str = "https://orinks-net-git-dev-orinks-projects.vercel.app";
 
+/// Where every Orinks call from a plain sandbox goes: nowhere. The `.invalid`
+/// top-level domain is reserved never to resolve (RFC 6761), so activation,
+/// backups, presence, the boards and station suggestions all fail at once,
+/// the way they would with no network. Leaving the identity behind was not
+/// enough on its own: Set up this computer with orinks.net needs no identity,
+/// and a 2026-11-12 agent drive got a real production activation code from it.
+pub const OFFLINE_URL: &str = "https://sandbox-offline.invalid";
+
+/// Point this process's Orinks calls at `site`, and drop any separate
+/// presence backend inherited from the shell, so nothing goes around it.
+fn point_online_at(site: &str) {
+    std::env::set_var(crate::online_presence::ONLINE_URL_ENV, site);
+    std::env::remove_var(crate::online_presence::ONLINE_API_URL_ENV);
+}
+
 /// The settings a staging session turns on: the master switch and cloud
 /// backup, the one path it exists to exercise. Presence stays off -- an
 /// agent session is not the owner on duty.
@@ -211,7 +226,8 @@ pub fn seed_careers(sandbox: &Path, source: &Path) -> usize {
 
 /// Build the sandbox and point this process's game at it.
 ///
-/// Sets `FREIGHT_FATE_DATA_DIR`, which has to happen before the game reads a
+/// Sets `FREIGHT_FATE_DATA_DIR`, and points every Orinks call at
+/// [`OFFLINE_URL`]. The data directory has to be set before the game reads a
 /// save path -- the override is consulted on every `data_dir()` call, but a
 /// caller that has already resolved and cached a path keeps the old one.
 pub fn prepare(sandbox: &Path, reset: bool, careers: bool, source: &Path) -> std::io::Result<()> {
@@ -227,6 +243,7 @@ pub fn prepare(sandbox: &Path, reset: bool, careers: bool, source: &Path) -> std
     if careers && !sandbox.join("profiles").exists() {
         seed_careers(sandbox, source);
     }
+    point_online_at(OFFLINE_URL);
     std::env::set_var(DATA_DIR_ENV, sandbox);
     Ok(())
 }
@@ -247,7 +264,7 @@ pub fn prepare_staging(dir: &Path, reset: bool, source: &Path) -> Result<(), Str
         std::fs::remove_dir_all(dir).map_err(|e| e.to_string())?;
     }
     std::fs::create_dir_all(dir).map_err(|e| e.to_string())?;
-    std::env::set_var(crate::online_presence::ONLINE_URL_ENV, STAGING_URL);
+    point_online_at(STAGING_URL);
     if !dir.join("settings.json").exists() {
         seed_settings(dir, source);
     }
