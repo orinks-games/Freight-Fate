@@ -870,16 +870,17 @@ fn shipped_spanish_keeps_a_template_hole_to_one_sentence() {
     let tr = shipped_spanish();
     assert_eq!(
         tr.translate(
-            "Page Down tunes to the next station, Page Up to the previous; semicolon and \
-             apostrophe do the same. Control with the tuning keys jumps a category; Shift \
-             changes the radio volume in 10 percent steps, on or off. S posted speed limit. \
+            "Page Down or apostrophe tunes to the next station, Page Up or semicolon to the \
+             previous one. Control with a tuning key jumps a category. Shift with a tuning \
+             key changes the radio volume in 10 percent steps, with the radio on or off. \
+             S posted speed limit. \
              G the grade under the wheels, whether the truck is holding it, and the next \
              grade ahead. Tab status menu."
         ),
-        "Page Down sintoniza la emisora siguiente y Page Up la anterior; punto y coma y \
-         apóstrofo hacen lo mismo. Control con las teclas de sintonía salta de categoría; \
-         Mayúsculas cambia el volumen de la radio de 10 en 10 por ciento, o la enciende o \
-         apaga. S el límite de velocidad señalizado. G la pendiente bajo las ruedas, si el \
+        "Page Down o el apóstrofo sintonizan la emisora siguiente, Page Up o el punto y \
+         coma la anterior. Control con una tecla de sintonía salta de categoría. Mayúsculas \
+         con una tecla de sintonía cambia el volumen de la radio de 10 en 10 por ciento, con \
+         la radio encendida o apagada. S el límite de velocidad señalizado. G la pendiente bajo las ruedas, si el \
          camión la está aguantando, y la próxima pendiente. Tab el menú de estado."
     );
 }

@@ -1054,7 +1054,10 @@ fn test_f1_help_names_non_speed_enforcement_pullovers() {
         last.contains("a scale bypass, or unsafe equipment"),
         "{last}"
     );
-    assert!(last.contains("X signals the pull-over. Then brake to a stop."), "{last}");
+    assert!(
+        last.contains("X signals the pull-over. Then brake to a stop."),
+        "{last}"
+    );
 }
 
 // -- the compliance tracker -------------------------------------------------------------
