@@ -1108,10 +1108,10 @@ fn test_pickup_facility_waits_for_full_stop() {
     let last = lines
         .iter()
         .rev()
-        .find(|line| line.contains("Pickup ahead"))
+        .find(|line| line.contains("Pickup: "))
         .cloned()
         .unwrap_or_default();
-    assert!(last.contains("Pickup ahead"), "{lines:?}");
+    assert!(last.contains("Pickup: "), "{lines:?}");
     assert!(last.to_lowercase().contains("stop at the gate"), "{last}");
 
     // Inside the creep band (DELIVERY_PARK_MPH) but not stopped. The creep

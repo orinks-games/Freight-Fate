@@ -1,6 +1,7 @@
 //! The live drivers board (the second half of
 //! `freight_fate/states/online_states.py`, split out for length).
 
+use crate::states::base::default_enter;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 
@@ -13,7 +14,7 @@ use crate::online_presence;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 
 use super::profile::DriverProfileState;
-use super::support::{menu_default_enter, online_transport, run_worker, wall_time, Mailbox};
+use super::support::{online_transport, run_worker, wall_time, Mailbox};
 
 /// A speakable freshness phrase from a server epoch-milliseconds stamp.
 pub fn updated_text(updated_at_ms: f64) -> String {
@@ -308,7 +309,7 @@ impl Menu for DriversOnlineState {
 
     fn enter(&mut self, ctx: &mut GameContext) {
         self.start_fetch();
-        menu_default_enter(self, ctx);
+        default_enter(self, ctx);
     }
 
     fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {

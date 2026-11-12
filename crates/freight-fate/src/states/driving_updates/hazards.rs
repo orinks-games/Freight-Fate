@@ -468,12 +468,9 @@ impl DrivingState {
             String::new()
         };
         ctx.say_event_with(
-            format!(
-                "{:.1} percent {direction} ahead{length}. {advice}",
-                pct.abs()
-            )
-            .trim_end()
-            .to_string(),
+            format!("{:.1} percent {direction}{length}. {advice}", pct.abs())
+                .trim_end()
+                .to_string(),
             SayEvent::queued()
                 .priority(EventPriority::Important)
                 .category(SpeechCategory::Navigation),
@@ -577,7 +574,7 @@ impl DrivingState {
         self.release_hazard_brake();
         ctx.audio.play_with("vehicle/collision", 0.6, 0.0);
         ctx.controller.rumble.impact(0.3);
-        self.trip.truck.add_damage(pct, false);
+        self.trip.truck.add_damage_from(pct, false, &struck);
         let damage = self.trip.truck.damage_pct;
         let message = format!("Collision with {struck}. Damage {damage:.0} percent.");
         self.last_event_message = message.clone();
@@ -659,7 +656,9 @@ impl DrivingState {
         }
         // Preventable when a lane was open and not taken; driving over
         // tread with nowhere to go is the right call.
-        self.trip.truck.add_damage(pct, dodgeable);
+        self.trip
+            .truck
+            .add_damage_from(pct, dodgeable, "road debris");
         let damage = self.trip.truck.damage_pct;
         let message = format!("Collision with {names}. Damage {damage:.0} percent.");
         self.last_event_message = message.clone();

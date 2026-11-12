@@ -14,7 +14,7 @@ use std::sync::Mutex;
 use chrono::{DateTime, Datelike, Local, Timelike};
 use ff_core::models::business::status_label;
 use ff_core::models::jobs::facility_text;
-use ff_core::models::profile::{data_dir, LegacyCareerError, LoadError, Profile};
+use ff_core::models::profile::{LegacyCareerError, LoadError, Profile};
 use ff_core::models::start_options::option_for_profile;
 use ff_core::music::{select_menu_ambience, select_menu_music_sequence, MenuMusicProfile};
 use ff_core::playtest_levers::apply_continue_levers;
@@ -23,13 +23,13 @@ use ff_core::pyfmt::{fmt_f, fmt_grouped};
 use crate::app::{share, version, GameContext, Say, SharedState};
 use crate::browser::open_url;
 use crate::discord_presence::PresenceState;
-use crate::online_presence::IdentityStore;
 use crate::states::base::{Menu, MenuCore, MenuItem, SimpleMenuState};
 use crate::states::city::CityMenuState;
 use crate::states::city_pickup::PickupFacilityState;
 use crate::states::driving::{DrivingState, ACTIVE_TRIP_DEADLINE_MODEL};
 use crate::states::learn_sounds::LearnSoundsState;
 use crate::states::online_hub::OnlineHubState;
+use crate::states::online_offer::should_offer_online;
 use crate::states::online_offer::OnlineOfferState;
 use crate::states::save_notice::{
     DrivingRecordNoticeState, SaveMigrationNoticeState, SaveModifiedNoticeState,
@@ -213,19 +213,9 @@ pub fn pending_notice_state(ctx: &GameContext) -> Option<SharedState> {
     None
 }
 
-/// Whether a first-run player should hear the orinks.net offer at all.
-// TODO(lead): belongs in `states::online_offer` (`should_offer_online`);
-// reproduced here until that module lands.
-pub fn should_offer_online(ctx: &GameContext) -> bool {
-    if ctx.settings.online_offer_seen {
-        return false;
-    }
-    IdentityStore::platform(&data_dir()).load().is_none()
-}
-
-/// The first-day welcome spoken at career creation.
-// TODO(lead): belongs in `states::city` (`first_day_orientation_message`);
-// reproduced here, word for word, until that module lands.
+/// The first-day welcome spoken at career creation: the short form. The
+/// terminal's First-day briefing screen reads the longer
+/// [`crate::states::city::first_day_orientation_lines`], one row each.
 pub fn first_day_orientation_message(ctx: &GameContext, prefix: &str) -> String {
     let Some(p) = ctx.profile.as_ref() else {
         return String::new();
@@ -252,7 +242,7 @@ pub fn first_day_orientation_message(ctx: &GameContext, prefix: &str) -> String 
     }
     format!(
         "{prefix}First-day briefing: {}. Truck at {location}. Carrier covers fuel, repairs, \
-         insurance, and trailers. Dispatch: {}. Assigned loads; a refusal goes on your record. \
+         insurance, and trailers. Dispatch: {}. Assigned loads. A refusal goes on your record. \
          Next: dispatch board.",
         option.carrier_name,
         option.dispatch.summary()
@@ -307,7 +297,7 @@ pub fn world_entry_state(ctx: &mut GameContext, queue_entry_announcement: bool) 
             }
             ctx.save_profile();
             ctx.say(
-                "Local service drives were retired in this update; you are parked at the terminal.",
+                "Local service drives were retired in this update. You are parked at the terminal.",
             );
             return share(CityMenuState::new(ctx, true));
         }

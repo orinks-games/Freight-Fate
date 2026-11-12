@@ -161,7 +161,7 @@ impl Menu for MainMenuState {
             // labels in Choose career carry the explanation instead.
             warning.push_str(
                 "Your saved careers are from an earlier version of Freight \
-                 Fate; they are listed under Choose career. ",
+                 Fate. They are listed under Choose career. ",
             );
         }
         let text = format!(

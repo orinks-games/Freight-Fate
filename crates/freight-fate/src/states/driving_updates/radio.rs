@@ -1106,7 +1106,7 @@ impl DrivingState {
         }
         if !ctx.audio.music_playing() {
             return format!(
-                "{} is still connecting; nothing is playing yet.",
+                "{} is still connecting. Nothing is playing yet.",
                 station.display_name()
             );
         }

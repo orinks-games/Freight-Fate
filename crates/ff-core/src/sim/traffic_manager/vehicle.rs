@@ -265,7 +265,7 @@ pub fn braking_cause_line(reason: &str) -> &'static str {
 pub static BRAKING_CAUSE_LINES: &[(&str, &str)] = &[
     ("construction", "Road work is the cause."),
     ("construction merge", "Road work is the cause."),
-    ("heavy traffic", "Traffic is backing up ahead."),
+    ("heavy traffic", "Traffic is backing up."),
 ];
 
 /// A (start, end, reason, pace) span where traffic has a reason to be on the

@@ -217,7 +217,7 @@ fn test_gps_traffic_cue_deduplicates() {
 
     assert_eq!(
         gps_messages(&first),
-        vec!["Traffic slowing ahead in 2 miles; traffic queue ahead at 45 miles per hour."]
+        vec!["Traffic slowing in 2 miles, traffic queue ahead at 45 miles per hour."]
     );
     assert!(gps_events(&second).is_empty());
 }
@@ -239,7 +239,7 @@ fn test_toll_cues_and_charges_deduplicate() {
     assert_eq!(
         gps_messages(&advance),
         vec![
-            "ticket system toll point ahead, New Jersey Turnpike ticket entry. \
+            "ticket system toll point, New Jersey Turnpike ticket entry. \
              Toll about 18 dollars."
         ]
     );
@@ -279,7 +279,7 @@ fn test_zero_amount_toll_entry_marker_does_not_record_expense() {
     let advance = trip.update(0.0);
     assert_eq!(
         gps_messages(&advance),
-        vec!["ticket system toll point ahead, Pennsylvania Turnpike eastern ticket entry."]
+        vec!["ticket system toll point, Pennsylvania Turnpike eastern ticket entry."]
     );
 
     trip.position_mi = 18.0;
@@ -348,7 +348,7 @@ fn test_traffic_context_and_warning_are_grounded_in_lead_vehicle() {
     // the call names it the way the L key does.
     assert_eq!(
         hazards[0].text(),
-        "Change lanes or brake! Brake lights right ahead. Middle lane open."
+        "Change lanes or brake! Brake lights. Middle lane open."
     );
     assert_eq!(hazards[0].data.dodgeable, Some(true));
     assert!(hazards[0].data.traffic.is_some());
@@ -601,10 +601,7 @@ fn test_the_catalog_says_how_each_thing_in_the_lane_is_taken() {
     }
     // The near stop survives only for the hard objects in the lane.
     assert_eq!(hazard_brake_to_mph("rockfall debris on the road"), None);
-    assert_eq!(
-        hazard_brake_to_mph("a car spun out on the glaze ahead"),
-        None
-    );
+    assert_eq!(hazard_brake_to_mph("a car spun out on the glaze"), None);
     // Names are forgiving: case, and with or without "the".
     assert_eq!(
         hazard_by_name("Tire Debris").map(|h| h.name),

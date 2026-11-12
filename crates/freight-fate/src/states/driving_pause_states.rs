@@ -308,7 +308,7 @@ impl PauseMenuState {
             items.insert(
                 settings_index,
                 MenuItem::new(
-                    "Sleep at the chain control (10 hours)",
+                    "Sleep at the chain control, 10 hours",
                     |s: &mut Self, ctx| s.sleep_at_chain_checkpoint(ctx),
                 )
                 .help(
@@ -809,9 +809,8 @@ impl Menu for PauseMenuState {
                 return;
             }
         }
-        // A trait default cannot be called from its own override, so the
-        // fall-through is spelled out (`city::base_menu_handle_event` exists
-        // for the key half for the same reason).
+        // The controller half of the fall-through, spelled out:
+        // `states::base::default_handle_event` covers only keys.
         match ctx.controller.menu_action(event) {
             Some(ControllerAction::MenuDown) => self.move_by(ctx, 1),
             Some(ControllerAction::MenuUp) => self.move_by(ctx, -1),

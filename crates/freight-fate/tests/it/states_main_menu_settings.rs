@@ -91,7 +91,7 @@ fn hos_planning_hints_row_explains_and_persists_the_opt_in() {
         .find(|(label, _)| label.starts_with("Hours of service planning hints"))
         .map(|(_, help)| help)
         .unwrap();
-    assert!(help.contains("Quiet and Urgent only"), "{help}");
+    assert!(help.contains("Quiet or Urgent only"), "{help}");
     // The ontology's noun is "hours of service"; a screen reader spells
     // "HOS" out letter by letter.
     assert!(!help.contains("HOS"), "{help}");
@@ -871,7 +871,7 @@ fn driving_assistance_names_moved_keys() {
     assert!(help("Latching brake").contains("One press of F7 releases it"));
     assert!(help("Curve callouts").contains("Press F8 to list the next few"));
     assert!(help("Low-speed cruise").contains("F9 holds your current speed"));
-    assert!(help("Lane keeping").contains("A tap of F10 or F11 changes lanes"));
+    assert!(help("Lane keeping").contains("a tap of F10 or F11 changes lanes"));
 
     open_settings_category(&mut app, "Driving assistance");
     app.ctx.settings.apply_driving_assistance_preset("balanced");
@@ -1307,4 +1307,26 @@ fn test_the_assist_help_says_what_chain_work_costs_and_that_nothing_is_bought() 
         .expect("a stop planning row");
     assert!(planning.contains("warns about chain laws"), "{planning}");
     assert!(planning.contains("never buys anything"), "{planning}");
+}
+
+#[test]
+fn a_held_end_key_on_a_settings_screen_reads_the_last_row_once() {
+    // The settings screens fell through to their own copy of the menu
+    // keys, which missed the guard against a held key's repeat: holding
+    // End re-read the last row at the keyboard's repeat rate.
+    let mut app = TestApp::new();
+    open_settings_category(&mut app, "Speech");
+    key(&mut app, Key::End);
+    app.clear_speech();
+    let held = freight_fate::states::base::InputEvent::KeyDown {
+        key: Key::End,
+        mods: freight_fate::states::base::Mods::NONE,
+        text: None,
+        repeat: true,
+    };
+    for _ in 0..10 {
+        app.dispatch_to_state(&held);
+    }
+    app.ctx.run_deferred();
+    assert!(app.main_lines().is_empty(), "{:?}", app.main_lines());
 }

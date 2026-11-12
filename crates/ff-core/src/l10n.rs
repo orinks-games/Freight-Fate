@@ -985,6 +985,14 @@ impl Pass<'_, '_> {
                 Part::Lit(text) => out.push_str(text),
                 Part::Hole(name) => {
                     let raw = captures.get(name.as_str()).copied().unwrap_or_default();
+                    // A number is said the language's way whatever its hole
+                    // is called: "{take_home}" reads as a home city by its
+                    // name, and kept "6,576" as is, which German and Polish
+                    // hear as six point five.
+                    if let Some(number) = plural::localize_number(&self.catalog.language, raw) {
+                        out.push_str(&number);
+                        continue;
+                    }
                     if is_proper_name_hole(name) && depth < MAX_DEPTH {
                         // A name hole can hold a place phrase around names:
                         // "retail distribution hub {place_name} in {city}"
@@ -1003,10 +1011,6 @@ impl Pass<'_, '_> {
                             .then(|| raw.strip_prefix("the ").or(raw.strip_prefix("The ")))
                             .flatten();
                         out.push_str(bare.unwrap_or(raw));
-                    } else if let Some(number) =
-                        plural::localize_number(&self.catalog.language, raw)
-                    {
-                        out.push_str(&number);
                     } else {
                         // A capture is often a phrase the catalog knows
                         // ("heavy traffic"); an unknown one (a number, a

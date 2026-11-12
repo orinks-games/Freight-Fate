@@ -542,7 +542,7 @@ fn test_the_speed_readout_names_the_slow_car_setting_the_keepers_number() {
     harness.with_drive(|drive, ctx| drive.speak_speed(ctx));
     let said = last_main(&harness);
     assert!(
-        said.contains("Cruise holding 51 for the traffic ahead, set 58"),
+        said.contains("Cruise holding 51 for the traffic, set 58"),
         "{said}"
     );
     assert!(!said.contains("holding 58,"), "{said}");
@@ -556,5 +556,5 @@ fn test_the_speed_readout_names_the_slow_car_setting_the_keepers_number() {
     harness.with_drive(|drive, ctx| drive.speak_speed(ctx));
     let said = last_main(&harness);
     assert!(said.contains("Cruise holding 58."), "{said}");
-    assert!(!said.contains("for the traffic ahead"), "{said}");
+    assert!(!said.contains("for the traffic"), "{said}");
 }

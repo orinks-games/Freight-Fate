@@ -1043,12 +1043,12 @@ impl RadioState {
     fn refusal_clause(station: &RadioStation) -> String {
         if station.source_type == PERSONAL_PLAYLIST_SOURCE_TYPE {
             return format!(
-                "None of the tracks in {} would open; it is off the dial for the rest of this session.",
+                "None of the tracks in {} would open. It is off the dial for the rest of this session.",
                 station.display_name()
             );
         }
         format!(
-            "{} is off the air; it is off the dial for the rest of this session.",
+            "{} is off the air. It is off the dial for the rest of this session.",
             station.display_name()
         )
     }

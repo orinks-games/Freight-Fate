@@ -11,35 +11,37 @@
 - **A menu letter can now choose its item at once.** Turn on Letters run menu items in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).
 - **Translators can put a corrected language file in a lang folder next to the game.** The saves folder still works too.
 - **Choose stable, beta, or alpha updates in Settings.** Existing snapshot followers move to beta.
-- **New releases seal career saves against local editing.** Existing careers migrate with a backup; cloud backups retain their verification.
+- **New releases seal career saves against local editing.** Existing careers migrate with a backup, and cloud backups keep their verification.
 - **Alt+5 names the county you are driving through.** On city streets it names the city's county.
 - **Driving hints can be turned off.** With it off in Settings, Speech, driving lines stop naming keys, like "Press X to signal for the exit."
 
 ### Changed
 
+- **Achievements have new names and plainer descriptions.** Each description now says what earns it, and the songs behind the names cover more artists and genres.
 - **Nothing brakes for tire debris any more.** It is called out with the open lane, full lane keeping moves over, and with no lane open the truck drives over it.
 - **A ladder, lumber, a mattress or spilled boxes with no lane open are taken at 30, not a near stop.** Above 30 they cost damage that grows with speed; the truck keeps rolling.
 - **The "It is still in your lane. Nearly stop." line is gone.** The call already names the lane.
 - **Freeway traffic has more kinds of vehicle,** each with its own sound: SUVs, pickups, minivans, sports cars, motorcycles, RVs, buses, tankers and car haulers. Cars and semis no longer all sound alike.
 - **Updates check and install faster.** Unchanged sound packs are no longer copied or checked twice.
-- **Spoken lines, help and menus are shorter and use plain words, and some settings have new names.** Cruise has one name, and the dispatch board and delivery list are shorter.
+- **Spoken lines, help, menus and the manual are shorter and use plain words, and some settings have new names.** Cruise has one name, and the dispatch board and delivery list are shorter.
+- **With Quiet or Urgent only speech, a traffic light, an open weigh station or slowing traffic plays its sound alone.** Standard speech keeps a short line, like "Light red."
 - **Road announcements now wait for NVDA 2026.3 or SAPI to finish speaking.** The most urgent goes next; stale chatter is skipped.
 - **Lower game sounds during speech works only while NVDA 2026.3 or SAPI is speaking.** Older NVDA versions keep the timing they had.
 - **Live road reports now cover only your road, in your direction, within 10 miles.** Each says how far ahead it is.
 - **Traffic now runs near the posted limit, in towns as on the highway.** Rush hour brings more vehicles, not slower ones.
 - **Vehicles now pass each other or drop in behind.** A faster vehicle moves over where there is a lane, and queues two seconds back where there is not; nothing moves into your lane beside you.
 - **Freeway traffic now leaves at an interchange** instead of disappearing between exits.
-- **A slow vehicle ahead is called only while you are gaining on it.** Cruise no longer adds "Traffic ahead, slowing" for the same vehicle.
+- **A slow vehicle ahead is called only while you are gaining on it.** Cruise no longer adds "Slowing for traffic" for the same vehicle.
 - **Cruise now holds highway work zones and heavy traffic at their limit.** Low-speed cruise takes over only on streets and facility approaches.
 - **Full lane keeping now takes open weigh stations.** It signals for the scale, and the truck stops at it with facility stopping assistance on.
 - **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.
 - **Exit ramps are updated to October's road data.** Most exits know their ramp's length and the light or sign at its end, both ways.
 - **Gary and South Bend to Chicago now use the Chicago Skyway, and Philadelphia, Harrisburg and Baltimore to Pittsburgh the Pennsylvania Turnpike.** Both charge tolls.
-- **Dispatch stops sending you straight back where you came from.** The city you just delivered from is on about one board in three, and it is no longer the load dispatch assigns or the one the cursor opens on while another load is there.
+- **Dispatch stops sending you straight back where you came from.** The city you just left is on about one board in three, and dispatch assigns it only when nothing else is on the board.
 - **Citations now clear from your record in 30 game days, and serious violations and crashes in 90.** Two serious violations within 180 days, not three years, suspend your CDL.
 - **Duty watch now checks the drivers list every two minutes.** A driver coming on duty can be announced up to a minute later than before.
-- **Updates are signed, and only what changed is downloaded.** The game checks every update against Freight Fate's own signature, and skips any large file you already have. An update stopped part-way, by a power cut for instance, is put back at the next start.
-- **Daily development releases are now labeled Beta.** Stable releases remain the default download.
+- **Updates are signed, and only what changed is downloaded.** An update stopped part-way, by a power cut for instance, is put back at the next start.
+- **Tester snapshots are now labeled Beta.**
 
 ### Removed
 
@@ -48,6 +50,13 @@
 
 ### Fixed
 
+- **The achievements menus no longer list three badges nobody can earn.** Careers that earned them before still see them.
+- **Holding Home or End on a settings, terminal or online screen no longer reads the row again and again.** It is read once, as on other menus.
+- **A PC where finding controllers stalls no longer freezes each time a Bluetooth device turns off.**
+- **In other languages, the dispatch board's pay after costs is read as the right number.** German, Polish and Spanish voices used to read 6,576 as six point five.
+- **Team loads no longer warn that you need an extra rest.** Your co-driver can take the first shift while you sleep.
+- **Towns that no longer exist are no longer named on the road.** Savage, Montana, is no longer also called Knife River, and Lacy Lakeview and Tri City are named once.
+- **A co-driver offered at the shipper stays with you for the whole load.** Driving out yourself and sleeping at a stop no longer drops them, and no co-driver joins on the road.
 - **A street that only changes name ahead is named once, at the join.** "Continue onto" no longer comes twice in a few seconds.
 - **Kenosha and Milwaukee to Chicago now stay on I-94, on the Tri-State through Lake County.** They used to leave it for the signals on US-41.
 - **Road lines are no longer lost while other lines speak.** With NVDA 2026.3 or SAPI, the 2-mile and 1-mile exit calls always play, and a line cut off by a readout plays after a Brake warning.
@@ -60,7 +69,6 @@
 - **You get the full 10 seconds to switch off the engine brake in a no engine brake zone.** Pressing the throttle or changing gear after the warning used to bring a citation within seconds.
 - **Numbered loads on the dispatch board are read in your language.** The load line after "Job 1 of 7" stayed in English.
 - **Alt+1 and Alt+3 name the destination once you take its exit.** They used to name the city and state you left.
-
 - **Speed limits no longer jump to 70 and back where the map has no posting.** An unmapped stretch keeps the limits on either side, and state truck limits such as California's 55 apply there too.
 - **Cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
 - **Cruise no longer crawls toward an exit for a lower limit miles ahead.** It keeps the road's limit until it needs to slow for the drop.
@@ -68,7 +76,6 @@
 - **Cruise no longer says it is easing while the truck speeds up.** Pulling away under a lower limit, it read out two speeds a second apart.
 - **Cruise no longer repeats a work zone's slowdown after a stop.** Braking for a hazard or turning cruise off in the approach used to bring the line back.
 - **The last mile before a signaled exit passes faster when you are already slow enough for it.** Only the final half mile now runs in real time.
-
 - **Full lane keeping now leaves a lane that a work zone closes.** It moves over when the signs come up, so All assists no longer drives into the barrels.
 - **Barrel citations from before that fix come off your record.** The fine is refunded the first time you load the career.
 - **Facility stopping assistance brakes smoothly all the way to the gate.** It no longer walks the last 200 feet at 2 miles per hour.
@@ -76,7 +83,6 @@
 - **A co-driver now lowers the cruise speed when the limit drops.** Entering a state with a lower truck limit, they kept the old speed.
 - **A co-driver no longer crawls at 20 miles per hour after a downhill work zone.** They kept braking for the hill and ran out of hours.
 - **On ice, a co-driver now plans a stop they can reach at icy speeds.** They used to plan one their hours could not reach.
-
 - **A trooper the radio placed in the median is still in the median when you pass.**
 - **Manual gear shifts now play the same short gear-change sound as automatic shifts.**
 - **Halloween week has more billboards, and they no longer repeat the same two lines.** They come up less often, and some are about the state you are in.

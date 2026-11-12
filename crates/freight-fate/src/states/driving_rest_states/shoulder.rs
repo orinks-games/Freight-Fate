@@ -108,7 +108,7 @@ impl Menu for ShoulderSleepConfirmationState {
                     s.sleep(ctx)
                 })
                 .help(
-                    "Poor rest at the chain control. Resets hours of service; the deadline \
+                    "Poor rest at the chain control. Resets hours of service. The deadline \
                      keeps running.",
                 ),
             ];
@@ -142,7 +142,7 @@ impl Menu for ShoulderSleepConfirmationState {
         }
         ctx.say(&format!(
             "{title}. {reason} Emergency shoulder sleep: 10 hours of poor rest, hours of \
-             service reset if enforced. Ticket and light damage possible; the deadline keeps running. {current}"
+             service reset if enforced. Ticket and light damage possible. The deadline keeps running. {current}"
         ));
     }
 

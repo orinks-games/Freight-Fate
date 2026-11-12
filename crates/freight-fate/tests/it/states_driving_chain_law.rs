@@ -1153,7 +1153,7 @@ fn test_a_held_truck_out_of_hours_can_always_sleep_at_the_checkpoint() {
     assert!(
         labels
             .iter()
-            .any(|l| l == "Sleep at the chain control (10 hours)"),
+            .any(|l| l == "Sleep at the chain control, 10 hours"),
         "{labels:?}"
     );
     let (money_before, damage_before) =

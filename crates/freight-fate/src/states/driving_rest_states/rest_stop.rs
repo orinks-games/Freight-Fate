@@ -36,7 +36,7 @@ mod cat_scale;
 mod chains;
 
 const REST_STOP_INTRO_HELP: &str =
-    "Select a choice. Sleep reads a preview; select again to sleep. Breaks and sleep move the clock and the deadline.";
+    "Select a choice. Sleep reads a preview. Select again to sleep. Breaks and sleep move the clock and the deadline.";
 
 /// One-time menu focus when the driver arrives at a selected rest stop.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -573,7 +573,7 @@ impl RestStopState {
                 p.fatigue = hos::rest_coffee_break(p.fatigue);
             }
             format!(
-                "Coffee break. {}. Eases fatigue; does not count as your 30-minute break. {}",
+                "Coffee break. {}. Eases fatigue. Does not count as your 30-minute break. {}",
                 clock_text(d.trip.local_hour()),
                 deadline_text(d, ctx)
             )
@@ -786,7 +786,7 @@ impl RestStopState {
                 p.fatigue = hos::rest_shoulder(p.fatigue);
             }
             format!(
-                "{engine_off}Slept 10 hours in the lot. {}. Driving and duty clocks reset; rest was poor. \
+                "{engine_off}Slept 10 hours in the lot. {}. Driving and duty clocks reset. Rest was poor. \
                  {}{}",
                 clock_text(d.trip.local_hour()),
                 deadline_text(d, ctx),

@@ -506,8 +506,8 @@ impl DrivingState {
                 if !matches!(ahead_reason.as_str(), "turn" | "curve") && fresh {
                     self.keeper_ease_said = Some(*ahead_mph);
                     let reason = match ahead_reason.as_str() {
-                        "construction" => "Construction zone ahead",
-                        "heavy traffic" => "Heavy traffic ahead",
+                        "construction" => "Construction zone",
+                        "heavy traffic" => "Heavy traffic",
                         _ => "Posted limit lower",
                     };
                     // ROUTE, not the ambient default: same family as the adaptive
@@ -520,7 +520,7 @@ impl DrivingState {
                     self.say_route_confirmation(
                         ctx,
                         SpokenMessage::with_terse(
-                            format!("{reason}; cruise easing to {eased}."),
+                            format!("{reason}, cruise easing to {eased}."),
                             format!("Cruise easing to {}.", ctx.settings.speed_value(*ahead_mph)),
                         ),
                     );
@@ -566,7 +566,7 @@ impl DrivingState {
             .as_ref()
             .is_some_and(|c| (target_mph - c.lead.speed_mph).abs() < 0.01)
         {
-            "for the traffic ahead".to_string()
+            "for the traffic".to_string()
         } else {
             String::new()
         };

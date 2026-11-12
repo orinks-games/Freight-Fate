@@ -5,6 +5,7 @@
 //! with the same mailbox-polling pattern as the drivers board menus: the game
 //! loop and speech stay responsive while orinks.net answers.
 
+use crate::states::base::default_enter;
 use std::fs;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -20,9 +21,7 @@ use crate::app::GameContext;
 use crate::cloud_saves::{self, backup_summary, save_slot_name, SavesList, AUTH_HELP};
 use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
-use crate::states::online_states::{
-    load_identity, menu_default_enter, run_worker, wall_time, Mailbox,
-};
+use crate::states::online_states::{load_identity, run_worker, wall_time, Mailbox};
 
 mod slot;
 
@@ -57,8 +56,8 @@ pub const CLOUD_DISCLOSURE: &str =
     "Your full career is stored privately in your orinks.net account. orinks.net \
 validates and signs accepted backups before they can be restored. If \
 Profile sharing is also on, approved facts from your public career's \
-latest accepted backup may appear in your public profile; you choose \
-your public career here, and every other career stays a private cloud \
+latest accepted backup may appear in your public profile. You choose \
+your public career here. Every other career stays a private cloud \
 backup. The backup itself is never public. The last ten accepted \
 backups of each career are kept.";
 
@@ -124,7 +123,8 @@ pub fn backed_up_text(created_at_ms: Option<f64>) -> String {
 /// it as `.ffsave.bak` and putting it back if installation fails. A
 /// leftover plain-JSON save for the career is moved aside so only one live
 /// copy remains.
-// TODO(lead): belongs in ff_core::models::profile (beside `Profile::save`).
+// It stays in the game crate because the slot name is
+// `cloud_saves::save_slot_name`.
 pub fn install_restored_profile(profile: &Value) -> Result<PathBuf, String> {
     let Value::Object(map) = profile else {
         return Err("cloud save content is not a profile object".to_string());
@@ -319,7 +319,7 @@ impl Menu for CloudBackupState {
 
     fn enter(&mut self, ctx: &mut GameContext) {
         self.start_fetch(ctx);
-        menu_default_enter(self, ctx);
+        default_enter(self, ctx);
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
@@ -544,7 +544,7 @@ impl Menu for ConfirmRestoreState {
                 |s: &mut Self, ctx| s.go_back(ctx),
             )
             .help(
-                "Goes back without downloading, this computer's save left as it is. To send \
+                "Goes back without downloading. This computer's save stays as it is. To send \
                  this computer's save up instead, choose Keep this computer's save and back \
                  it up.",
             ),
@@ -795,7 +795,7 @@ impl Menu for ConfirmKeepMineState {
                 |s: &mut Self, ctx| s.go_back(ctx),
             )
             .help(
-                "Goes back without uploading. The career stays unbacked up until you choose \
+                "Goes back without uploading. This career is not backed up until you choose \
                  which copy to keep.",
             ),
             MenuItem::new(

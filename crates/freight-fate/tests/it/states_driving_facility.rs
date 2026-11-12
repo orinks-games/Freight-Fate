@@ -291,7 +291,7 @@ fn test_the_speed_keeper_hands_off_at_the_gate_instead_of_missing_it() {
     assert_eq!(d.gate_miss_count, 0);
     assert!(d.keeper_mph.is_none(), "the gate hands the pedals back");
     assert!(d.gate_grace_s > 0.0, "with a reaction window of its own");
-    let line = last_with(&app, "Destination ahead");
+    let line = last_with(&app, "Destination");
     assert!(line.contains("Cruise off"), "{line}");
     // Inside that window the next frame is still an arrival.
     d.handle_arrival_gate(&mut app.ctx);
@@ -325,7 +325,7 @@ fn test_slowing_on_the_warning_earns_a_fresh_window_at_the_gate() {
     assert!(d.trip.finished, "first contact is never a miss");
     assert_eq!(d.gate_miss_count, 0);
     assert!(d.gate_grace_s > 0.0);
-    assert!(!lines_with(&app, "Destination ahead").is_empty());
+    assert!(!lines_with(&app, "Destination").is_empty());
 }
 
 #[test]
@@ -409,7 +409,7 @@ fn test_slow_crossing_arrives_normally() {
     d.handle_arrival_gate(&mut app.ctx);
     assert!(d.trip.finished);
     assert_eq!(d.gate_miss_count, 0);
-    assert!(!lines_with(&app, "Destination ahead").is_empty());
+    assert!(!lines_with(&app, "Destination").is_empty());
     d.trip.truck.velocity_mps = 0.3 / 2.23694;
     d.handle_arrival_gate(&mut app.ctx);
     assert!(d.arrival_menu_open);
@@ -478,7 +478,7 @@ fn test_no_instant_miss_inside_the_reaction_window() {
     d.handle_arrival_gate(&mut app.ctx);
     assert!(d.trip.finished); // still inside the reaction window
     assert_eq!(d.gate_miss_count, 0);
-    assert!(!lines_with(&app, "Destination ahead").is_empty());
+    assert!(!lines_with(&app, "Destination").is_empty());
     d.check_gate_approach_warning(&mut app.ctx, grace + 1.0); // the window expires
     d.handle_arrival_gate(&mut app.ctx);
     assert!(!d.trip.finished);
@@ -496,7 +496,7 @@ fn test_first_gate_contact_without_a_warning_still_gets_a_window() {
     d.handle_arrival_gate(&mut app.ctx);
     assert!(d.trip.finished);
     assert_eq!(d.gate_miss_count, 0);
-    assert!(!lines_with(&app, "Destination ahead").is_empty());
+    assert!(!lines_with(&app, "Destination").is_empty());
     assert!(d.gate_speed_warned);
     assert!(d.gate_grace_s > 0.0);
 }
@@ -1190,7 +1190,7 @@ fn test_the_pickup_gate_asks_for_a_complete_stop_then_a_check_in() {
     d.trip.truck.engine_on = true;
     d.trip.truck.velocity_mps = 20.0 / 2.23694;
     d.handle_pickup_gate(&mut app.ctx);
-    let said = last_with(&app, "Pickup ahead: ");
+    let said = last_with(&app, "Pickup: ");
     assert!(said.contains("Stop at the gate"));
     assert!(d.arrival_stop_said);
 

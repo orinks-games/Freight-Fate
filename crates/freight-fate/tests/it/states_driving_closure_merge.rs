@@ -198,7 +198,7 @@ fn balanced_still_leaves_the_merge_to_the_driver() {
         harness
             .transcript()
             .iter()
-            .any(|line| line.contains("closes at the work zone ahead. Move to the")),
+            .any(|line| line.contains("closes at the work zone. Move to the")),
         "the driver was never told to move:\n{}",
         harness.transcript_text()
     );

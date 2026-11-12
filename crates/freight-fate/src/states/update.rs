@@ -131,7 +131,7 @@ impl State for UpdateCheckState {
             return;
         }
         if self.checker.is_none() {
-            ctx.say("Checking for updates...");
+            ctx.say("Checking for updates.");
             self.checker = Some(UpdateChecker::new(&ctx.settings));
         }
     }
@@ -170,7 +170,7 @@ impl State for UpdateCheckState {
 
     fn lines(&self, _ctx: &GameContext) -> Vec<String> {
         let status = if self.message.is_empty() {
-            "Checking for updates...".to_string()
+            "Checking for updates.".to_string()
         } else {
             self.message.clone()
         };
@@ -351,7 +351,7 @@ impl State for WhatsNewState {
     }
 
     fn lines(&self, _ctx: &GameContext) -> Vec<String> {
-        let mut out = vec![format!("What's new - {}", self.info.title), String::new()];
+        let mut out = vec![format!("What's new in {}", self.info.title), String::new()];
         for (i, text) in self.notes.iter().take(14).enumerate() {
             let marker = if i as i64 == self.line { "> " } else { "  " };
             out.push(format!("{marker}{text}"));

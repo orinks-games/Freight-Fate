@@ -358,7 +358,7 @@ impl DrivingState {
                     format!("Reduced power. Damage {damage:.0} percent.")
                 } else {
                     format!(
-                        "Reduced power. Damage is past {DAMAGE_DERATE_PCT:.0} percent; the engine \
+                        "Reduced power. Damage is past {DAMAGE_DERATE_PCT:.0} percent. The engine \
                          is holding back and burning more fuel."
                     )
                 };
@@ -367,7 +367,7 @@ impl DrivingState {
                     format!("Limp mode. Capped at {cap}.")
                 } else {
                     format!(
-                        "Limp mode. Damage is past {DAMAGE_LIMP_PCT:.0} percent; the engine is \
+                        "Limp mode. Damage is past {DAMAGE_LIMP_PCT:.0} percent. The engine is \
                          winding down to a {cap} cap."
                     )
                 };
@@ -399,14 +399,14 @@ impl DrivingState {
                 message = if terse {
                     format!("Damage {damage:.0} percent. Full power.")
                 } else {
-                    format!("Repair complete. Damage {damage:.0} percent; full power restored.")
+                    format!("Repair complete. Damage {damage:.0} percent. Full power restored.")
                 };
             } else if band == DAMAGE_BAND_REDUCED {
                 message = if terse {
                     format!("Reduced power. Damage {damage:.0} percent.")
                 } else {
                     format!(
-                        "Damage {damage:.0} percent. Limp mode is off; the truck is still in \
+                        "Damage {damage:.0} percent. Limp mode is off. The truck is still in \
                          reduced power."
                     )
                 };
@@ -480,7 +480,7 @@ impl DrivingState {
             );
         }
         format!(
-            "Out of service. Damage is past {DAMAGE_OUT_OF_SERVICE_PCT:.0} percent; the truck may \
+            "Out of service. Damage is past {DAMAGE_OUT_OF_SERVICE_PCT:.0} percent. The truck may \
              not be driven. {creep} to clear the lane, then stop on the shoulder for road \
              service. {}.",
             self.recovery_cost_text(ctx)
@@ -704,7 +704,7 @@ impl DrivingState {
             )
         } else {
             format!(
-                "Roadside repair got the truck moving for {} dollars; damage is down to \
+                "Roadside repair got the truck moving for {} dollars. Damage is down to \
                  {damage_pct:.0} percent, still in reduced power. It took {:.0} hours and it is \
                  now {}. You have {} dollars. Press {} to restart the engine.",
                 fmt_grouped(cost, 0),
@@ -832,7 +832,7 @@ impl DrivingState {
                 "Dispatch has taken the {grounded} out of service. The carrier covers the bill. \
                  {handover}. That cost {:.0} hours and it is now {}. Damage on the truck you are \
                  in is {damage_pct:.0} percent. Dispatch logged preventable equipment damage \
-                 against your record; repeated damage can cost you your job. Press {} to restart the \
+                 against your record. Repeated damage can cost you your job. Press {} to restart the \
                  engine.",
                 GROUNDED_SWAP_MIN / 60.0,
                 clock_text(self.trip.local_hour()),

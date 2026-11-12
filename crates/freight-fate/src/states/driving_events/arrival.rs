@@ -397,11 +397,11 @@ impl DrivingState {
         let keeper_held = self.keeper_mph.is_some();
         self.cancel_cruise(ctx, false);
         ctx.audio.play("ui/warning");
-        self.set_status("Destination ahead. Stop at the gate.");
+        self.set_status("Destination. Stop at the gate.");
         let mut message = if self.terse_speech(ctx) {
-            format!("Destination ahead: {facility}.")
+            format!("Destination: {facility}.")
         } else {
-            format!("Destination ahead, {facility}. Stop at the gate.")
+            format!("Destination: {facility}. Stop at the gate.")
         };
         if keeper_held {
             message.push_str(" Cruise off.");

@@ -1169,7 +1169,7 @@ fn test_a_repair_speaks_the_downward_edge_too() {
 
     assert_eq!(drive.damage_band, DAMAGE_BAND_NONE);
     let spoken = app.event_lines().join(" ");
-    assert!(spoken.contains("full power restored"), "{spoken}");
+    assert!(spoken.contains("Full power restored"), "{spoken}");
     assert!(drive.limp_cap_mph.is_none());
     assert!(drive.trip.truck.speed_cap_mph.is_none());
 }

@@ -13,9 +13,10 @@ use crate::app::GameContext;
 use crate::bindings::{Action, Chord, PadChord, Rebind};
 use crate::controller::{ControllerAction, ControllerButton};
 use crate::impl_state_for_menu;
+use crate::states::base::default_handle_event;
 use crate::states::base::{InputEvent, Key, Label, Menu, MenuCore, MenuItem, Mods};
 
-use super::settings::{base_handle_event, save_settings};
+use super::settings::save_settings;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ShortcutDevice {
@@ -217,7 +218,7 @@ impl Menu for ShortcutsState {
 
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
         let Some(action) = self.capturing else {
-            return base_handle_event(self, ctx, event);
+            return default_handle_event(self, ctx, event);
         };
         if let Some((key, mods, _)) = event.key_down() {
             self.capture_key(ctx, action, key, mods);

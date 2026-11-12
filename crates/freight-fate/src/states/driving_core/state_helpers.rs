@@ -139,7 +139,7 @@ pub fn deadline_text(driving: &DrivingState, ctx: &GameContext) -> String {
         // The appointment reads in the receiver's local time, the way a real
         // dispatcher quotes it -- the zone name keeps it unambiguous mid-route.
         return format!(
-            "{remaining:.1} hours left to deliver; that is {}.",
+            "{remaining:.1} hours left to deliver, by {}.",
             deadline_appointment(driving, ctx)
         );
     }
@@ -224,10 +224,11 @@ pub fn shoulder_risks(
         ));
     }
     if hos::shoulder_damage_due(driving.trip_seed, anchor_mi) {
-        driving
-            .trip
-            .truck
-            .add_damage(hos::SHOULDER_DAMAGE_PCT, true);
+        driving.trip.truck.add_damage_from(
+            hos::SHOULDER_DAMAGE_PCT,
+            true,
+            "stopping on the shoulder",
+        );
         parts.push(format!(
             "Roadside debris and wake turbulence added {:.0} percent truck damage.",
             hos::SHOULDER_DAMAGE_PCT

@@ -41,7 +41,7 @@ use ff_core::pyfmt::{fmt_f, fmt_grouped, py_int, round_py_n};
 use ff_core::sim::hos::limits;
 
 use crate::app::{GameContext, Say};
-use crate::states::base::{InputEvent, Key, Menu, MenuItem, SimpleMenuState};
+use crate::states::base::{Menu, MenuItem, SimpleMenuState};
 use crate::states::driving::DrivingState;
 use crate::states::main_menu::TouchPracticeOfferState;
 
@@ -176,12 +176,9 @@ pub fn first_day_guidance_active(profile: &Profile) -> bool {
     !first_dispatch_done(profile) && deliveries <= 0
 }
 
-pub fn first_day_orientation_message(ctx: &GameContext, prefix: &str) -> String {
-    first_day_orientation_lines(ctx, prefix).join(" ")
-}
-
 /// The briefing one sentence per line, for the terminal's re-readable
-/// screen; `first_day_orientation_message` is these joined.
+/// screen. Career creation speaks a shorter form,
+/// [`crate::states::main_menu::first_day_orientation_message`].
 pub fn first_day_orientation_lines(ctx: &GameContext, prefix: &str) -> Vec<String> {
     let p = profile(ctx);
     let terminal = home_terminal(ctx);
@@ -733,6 +730,13 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
     // what the summary reads before handing the route over.
     let route_for_line = route.clone();
     let mut driving = DrivingState::new(ctx, job, route, trip_seed, phase, start_hour);
+    // The co-driver the dock offered rides in the sleeper for the whole
+    // load, even when the player leaves at the wheel. Judged again on the
+    // road, a full night's rest made the rest of the load one shift and
+    // they dropped off the pause menu (player report, 2026-11-09).
+    if driving.team_at_departure(ctx) {
+        driving.ensure_team(ctx);
+    }
     if let Some(resume) = &resume {
         // A trailer the driver refused at the shipper must not follow them
         // onto the road: the scale house has to find the box they are
@@ -796,44 +800,6 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
 }
 
 // -- menu plumbing --------------------------------------------------------------------
-
-/// The base `MenuState.handle_event`, for screens that take a key of their
-/// own first (F1 on the dispatch board, W on route planning) and hand the
-/// rest back. A trait default cannot be called from its own override, so the
-/// fall-through lives here.
-// TODO(lead): belongs in states::base::menu as a free function the Menu
-// default delegates to, so an override can fall through without a copy.
-pub(crate) fn base_menu_handle_event<S: Menu>(
-    menu: &mut S,
-    ctx: &mut GameContext,
-    event: &InputEvent,
-) {
-    let Some((key, _mods, text)) = event.key_down() else {
-        return;
-    };
-    match key {
-        Key::Down => menu.move_by(ctx, 1),
-        Key::Up => menu.move_by(ctx, -1),
-        Key::Home => menu.jump(ctx, 0),
-        Key::End => {
-            let last = menu.menu().items.len().saturating_sub(1);
-            menu.jump(ctx, last);
-        }
-        Key::Return | Key::Space | Key::KpEnter => menu.activate(ctx),
-        Key::Escape => menu.go_back(ctx),
-        Key::F1 => {
-            let help = menu.current_help(ctx);
-            ctx.say(&help);
-        }
-        Key::LCtrl | Key::RCtrl => ctx.stop_speech(),
-        _ => {
-            if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
-                let lower: String = ch.to_lowercase().collect();
-                menu.first_letter_input(ctx, &lower, event.key_repeat());
-            }
-        }
-    }
-}
 
 /// The base `MenuState.enter`: rebuild the rows keeping the cursor, play
 /// the open sound, announce. For screens whose `enter` does work first.

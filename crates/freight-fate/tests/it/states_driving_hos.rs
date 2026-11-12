@@ -395,7 +395,7 @@ fn test_food_and_coffee_break_boosts_alertness_without_resetting_break_rule() {
     let said = last(&harness);
     assert!(said.contains("Eases fatigue"), "{said}");
     assert!(
-        said.contains("does not count as your 30-minute break"),
+        said.contains("Does not count as your 30-minute break"),
         "{said}"
     );
 }

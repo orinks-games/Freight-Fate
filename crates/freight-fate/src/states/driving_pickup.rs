@@ -47,12 +47,12 @@ impl DrivingState {
         self.gate_reminder_s = GATE_REMINDER_INTERVAL_S;
         let speed_control_paused = self.pause_speed_control(ctx, false);
         ctx.audio.play("ui/warning");
-        self.set_status("Pickup ahead: stop at the gate.");
+        self.set_status("Pickup. Stop at the gate.");
         let facility = self.pickup_facility_text(ctx);
         let message = if self.terse_speech(ctx) {
-            format!("Pickup ahead: {facility}.")
+            format!("Pickup: {facility}.")
         } else {
-            format!("Pickup ahead: {facility}. Stop at the gate.")
+            format!("Pickup: {facility}. Stop at the gate.")
         };
         // Rescued only until the gate's own stop line has landed: cut by
         // "At <facility>. Stop completely...", it came back behind it and
