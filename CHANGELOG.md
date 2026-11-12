@@ -17,6 +17,7 @@
 
 ### Changed
 
+- **Achievements have new names and plainer descriptions.** Each description now says what earns it, and the songs behind the names cover more artists and genres.
 - **Nothing brakes for tire debris any more.** It is called out with the open lane, full lane keeping moves over, and with no lane open the truck drives over it.
 - **A ladder, lumber, a mattress or spilled boxes with no lane open are taken at 30, not a near stop.** Above 30 they cost damage that grows with speed; the truck keeps rolling.
 - **The "It is still in your lane. Nearly stop." line is gone.** The call already names the lane.

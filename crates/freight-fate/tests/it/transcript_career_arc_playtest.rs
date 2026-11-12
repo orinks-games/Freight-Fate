@@ -134,7 +134,7 @@ fn test_tier_promotion_speaks_level_up_then_new_tractor() {
         "Dispatch upgraded your assigned tractor",
         // Achievement flavor left the live announce (R9); the settlement now
         // names the run's badges in one batched "N new achievements:" row.
-        "Newer Iron from the Yard",
+        "Newer Iron",
     ]);
     result.assert_screen_reader_friendly();
 }
