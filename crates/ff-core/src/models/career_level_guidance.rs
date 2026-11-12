@@ -53,7 +53,7 @@ pub fn career_level_guidance<P: CareerProfile + ?Sized>(profile: &P) -> CareerLe
         if level >= 25 {
             return CareerLevelGuidance::new(
                 "Grow a freight business",
-                "Use direct customer trust, trailer fit, and cash reserves to shape the freight you want.",
+                "Your reputation and your trailers decide which direct freight you see.",
                 "direct freight with margin",
                 "",
             );
