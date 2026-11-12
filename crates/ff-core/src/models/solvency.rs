@@ -553,7 +553,8 @@ pub fn apply_repossession<P: SolvencyProfile + ?Sized>(profile: &mut P) -> Vec<S
             money_text(settled),
             money_text(proceeds)
         ),
-        "The sale closes the loan. What you owed is settled and your cash is back to zero.".to_string(),
+        "The sale closes the loan. What you owed is settled and your cash is back to zero."
+            .to_string(),
         KEPT_LINE.to_string(),
         format!(
             "You are a company driver again, on the payroll at {hiring} and in a \
