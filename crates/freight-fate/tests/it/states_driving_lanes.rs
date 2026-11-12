@@ -1104,7 +1104,7 @@ fn test_traffic_pressure_hazard_says_brake_only_with_no_lane_to_swerve_into() {
     assert!(!events.is_empty());
     assert_eq!(
         events[0].text(),
-        "Brake! Brake lights, close. No lane open."
+        "Brake! Brake lights. No lane open."
     );
     assert!(!events[0].text().contains("change lanes"));
     // And the physics is told the same thing the words were: there is
@@ -1137,7 +1137,7 @@ fn test_traffic_pressure_hazard_keeps_the_lane_offer_when_one_exists() {
     assert!(!events.is_empty());
     assert_eq!(
         events[0].text(),
-        "Change lanes or brake! Brake lights, close. Left lane open."
+        "Change lanes or brake! Brake lights. Left lane open."
     );
 }
 

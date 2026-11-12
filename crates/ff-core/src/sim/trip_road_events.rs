@@ -346,14 +346,19 @@ impl Trip {
                     .strip_suffix(" ahead")
                     .unwrap_or(&full_reason)
                     .to_string();
-                let where_ = if context.gap_mi < 0.1 {
-                    "close".to_string()
+                // Under a tenth of a mile the call names the thing alone: the
+                // opener already says it is close.
+                let body = if context.gap_mi < 0.1 {
+                    format!("{}.", py_capitalize(&reason))
                 } else {
-                    self.gap_text(context.gap_mi)
+                    format!(
+                        "{}, {}.",
+                        py_capitalize(&reason),
+                        self.gap_text(context.gap_mi)
+                    )
                 };
                 // "Or change lanes" is only true advice where there is
                 // somewhere to send it (playtest report, US-285, 2026-08-12).
-                let body = format!("{}, {where_}.", py_capitalize(&reason));
                 let message = in_lane_hazard_call_named(&body, side, &self.open_side_spoken(side));
                 self.emit(
                     TripEventKind::Hazard,

@@ -219,7 +219,7 @@ pub const HAZARD_DODGE_CALL: &str = "Change lanes or brake!";
 // uses it ONLY where the hazard is dodgeable but no lane is open, so it is
 // the one call that answers a question the driver is actively asking --
 // can I go around this? Dropped, quiet left a noun phrase with no verb
-// ("Brake lights, close.") and the owner reached for a lane change
+// ("Brake lights.") and the owner reached for a lane change
 // three times in one drive on a one-lane stretch of US-285, getting "there
 // is no lane to your left here" each time. "Brake now!" stays implied: it
 // marks a hazard that cannot be dodged at all, so there is no choice for
@@ -304,7 +304,7 @@ pub fn small_debris_call(body: &str, answer: &str) -> SpokenMessage {
 }
 
 /// The same call when lane keeping on full answers it by passing: the thing
-/// and where, then what the truck is doing ("Slow car, close. Passing
+/// and where, then what the truck is doing ("Slow car. Passing
 /// on the left."). No "Change lanes or brake!" -- the truck is the one
 /// changing lanes -- and terse is the same line. None where no lane is open.
 pub fn passing_hazard_call(body: &str, side: OpenSide) -> Option<SpokenMessage> {
@@ -822,14 +822,14 @@ mod tests {
         // Owner, 2026-09-01: the call ends with the side a tap can go, in the
         // L key's own words. Terse drops the opener -- the named lane says
         // everything it did -- and is never a synonym for it.
-        let pair = in_lane_hazard_call("Slow car, close.", OpenSide::Left);
+        let pair = in_lane_hazard_call("Slow car.", OpenSide::Left);
         assert_eq!(
             pair.normal,
-            "Change lanes or brake! Slow car, close. Left lane open."
+            "Change lanes or brake! Slow car. Left lane open."
         );
         assert_eq!(
             pair.terse.as_deref(),
-            Some("Slow car, close. Left lane open.")
+            Some("Slow car. Left lane open.")
         );
         assert_eq!(
             in_lane_hazard_call("Debris on the road.", OpenSide::Right).normal,
@@ -881,8 +881,8 @@ mod tests {
     fn test_with_no_lane_open_the_call_is_brake_and_says_so_in_both_modes() {
         // Nowhere to go: the "Brake!" family, and the driver is told not to
         // reach for a lane change. "Brake!" survives terse, as it always has.
-        let pair = in_lane_hazard_call("Slow car, close.", OpenSide::Neither);
-        assert_eq!(pair.normal, "Brake! Slow car, close. No lane open.");
+        let pair = in_lane_hazard_call("Slow car.", OpenSide::Neither);
+        assert_eq!(pair.normal, "Brake! Slow car. No lane open.");
         assert_eq!(pair.terse.as_deref(), Some(pair.normal.as_str()));
         assert!(!pair.normal.contains("Change lanes"));
     }
@@ -891,8 +891,8 @@ mod tests {
     /// port; the phrase itself is pinned here.
     #[test]
     fn test_the_passing_call_names_the_side_the_truck_takes() {
-        let left = passing_hazard_call("Slow car, close.", OpenSide::Either).unwrap();
-        assert_eq!(left.normal, "Slow car, close. Passing on the left.");
+        let left = passing_hazard_call("Slow car.", OpenSide::Either).unwrap();
+        assert_eq!(left.normal, "Slow car. Passing on the left.");
         assert_eq!(left.terse, None);
         let right = passing_hazard_call("Slow semi ahead.", OpenSide::Right).unwrap();
         assert_eq!(right.normal, "Slow semi ahead. Passing on the right.");
@@ -1564,7 +1564,7 @@ mod tests {
     /// there is no choice for the word to inform.
     #[test]
     fn test_a_dodgeable_hazard_with_nowhere_to_go_keeps_the_word_brake() {
-        let no_lane = hazard_call("Brake!", "Brake lights, close.");
+        let no_lane = hazard_call("Brake!", "Brake lights.");
         assert!(
             no_lane.render(true).starts_with("Brake!"),
             "{}",

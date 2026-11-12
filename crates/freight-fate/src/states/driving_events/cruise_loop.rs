@@ -787,7 +787,7 @@ impl DrivingState {
                     .slow_call_fresh(&c.lead.key, self.trip.position_mi)
             });
             if !just_called {
-                self.say_route_line(ctx, "Traffic slowing.", SpeechCategory::Traffic);
+                self.say_route_line(ctx, "Slowing for traffic.", SpeechCategory::Traffic);
             }
         }
         self.acc_following = following;
