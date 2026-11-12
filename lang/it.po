@@ -17294,29 +17294,29 @@ msgstr ""
 msgid "Account achievements"
 msgstr "Obiettivi dell'account"
 
-#. placeholders: {ids}, {ACHIEVEMENTS}
-msgid "Summary: {ids} of {ACHIEVEMENTS} earned across every career"
+#. placeholders: {ids}, {listed_count}
+msgid "Summary: {ids} of {listed_count} earned across every career"
 msgstr ""
-"Riepilogo: {ids} obiettivi ottenuti su {ACHIEVEMENTS} in tutte le carriere"
+"Riepilogo: {ids} obiettivi ottenuti su {listed_count} in tutte le carriere"
 
 #. one sentence of a longer line
 msgid "Account achievements."
 msgstr "Obiettivi dell'account."
 
-#. placeholders: {earned}, {ACHIEVEMENTS}, {current_text}
+#. placeholders: {earned}, {listed_count}, {current_text}
 msgid ""
-"Account achievements. {earned} of {ACHIEVEMENTS} earned across every career "
+"Account achievements. {earned} of {listed_count} earned across every career "
 "on this installation. {current_text}"
 msgstr ""
-"Obiettivi dell'account. {earned} obiettivi ottenuti su {ACHIEVEMENTS} in "
+"Obiettivi dell'account. {earned} obiettivi ottenuti su {listed_count} in "
 "tutte le carriere di questa installazione. {current_text}"
 
-#. placeholders: {earned}, {ACHIEVEMENTS}
+#. placeholders: {earned}, {listed_count}
 #. one sentence of a longer line
 msgid ""
-"{earned} of {ACHIEVEMENTS} earned across every career on this installation."
+"{earned} of {listed_count} earned across every career on this installation."
 msgstr ""
-"{earned} obiettivi ottenuti su {ACHIEVEMENTS} in tutte le carriere di "
+"{earned} obiettivi ottenuti su {listed_count} in tutte le carriere di "
 "questa installazione."
 
 #. placeholders: {title}, {done}, {achievements}
@@ -33889,26 +33889,26 @@ msgid "Up and Down pick a category, Enter opens it, Escape goes back."
 msgstr ""
 "Su e Giù scelgono una categoria, Enter la apre, Escape torna indietro."
 
-#. placeholders: {earned_count}, {ACHIEVEMENTS}
-msgid "Summary: {earned_count} of {ACHIEVEMENTS} earned"
-msgstr "Riepilogo: {earned_count} su {ACHIEVEMENTS} ottenuti"
+#. placeholders: {earned_count}, {listed_count}
+msgid "Summary: {earned_count} of {listed_count} earned"
+msgstr "Riepilogo: {earned_count} su {listed_count} ottenuti"
 
-#. placeholders: {name}, {earned_count}, {ACHIEVEMENTS}
-msgid "{name} has earned {earned_count} of {ACHIEVEMENTS} achievements."
-msgstr "{name} ha ottenuto {earned_count} obiettivi su {ACHIEVEMENTS}."
+#. placeholders: {name}, {earned_count}, {listed_count}
+msgid "{name} has earned {earned_count} of {listed_count} achievements."
+msgstr "{name} ha ottenuto {earned_count} obiettivi su {listed_count}."
 
-#. placeholders: {name}, {earned_count}, {ACHIEVEMENTS}, {current_text}
+#. placeholders: {name}, {earned_count}, {listed_count}, {current_text}
 msgid ""
-"Achievements for {name}. {earned_count} of {ACHIEVEMENTS} earned. "
+"Achievements for {name}. {earned_count} of {listed_count} earned. "
 "{current_text}"
 msgstr ""
-"Obiettivi di {name}. {earned_count} su {ACHIEVEMENTS} ottenuti. "
+"Obiettivi di {name}. {earned_count} su {listed_count} ottenuti. "
 "{current_text}"
 
-#. placeholders: {earned_count}, {ACHIEVEMENTS}
+#. placeholders: {earned_count}, {listed_count}
 #. one sentence of a longer line
-msgid "{earned_count} of {ACHIEVEMENTS} earned."
-msgstr "{earned_count} su {ACHIEVEMENTS} ottenuti."
+msgid "{earned_count} of {listed_count} earned."
+msgstr "{earned_count} su {listed_count} ottenuti."
 
 #. placeholders: {title}, {done}, {achs}
 msgid "{title}. {done} of {achs}"
@@ -41830,6 +41830,39 @@ msgstr "Pezzi di pneumatico."
 
 msgid "Debris."
 msgstr "Detriti."
+
+#~ msgid "Summary: {ids} of {ACHIEVEMENTS} earned across every career"
+#~ msgstr ""
+#~ "Riepilogo: {ids} obiettivi ottenuti su {ACHIEVEMENTS} in tutte le carriere"
+
+#~ msgid ""
+#~ "Account achievements. {earned} of {ACHIEVEMENTS} earned across every career "
+#~ "on this installation. {current_text}"
+#~ msgstr ""
+#~ "Obiettivi dell'account. {earned} obiettivi ottenuti su {ACHIEVEMENTS} in "
+#~ "tutte le carriere di questa installazione. {current_text}"
+
+#~ msgid ""
+#~ "{earned} of {ACHIEVEMENTS} earned across every career on this installation."
+#~ msgstr ""
+#~ "{earned} obiettivi ottenuti su {ACHIEVEMENTS} in tutte le carriere di "
+#~ "questa installazione."
+
+#~ msgid "Summary: {earned_count} of {ACHIEVEMENTS} earned"
+#~ msgstr "Riepilogo: {earned_count} su {ACHIEVEMENTS} ottenuti"
+
+#~ msgid "{name} has earned {earned_count} of {ACHIEVEMENTS} achievements."
+#~ msgstr "{name} ha ottenuto {earned_count} obiettivi su {ACHIEVEMENTS}."
+
+#~ msgid ""
+#~ "Achievements for {name}. {earned_count} of {ACHIEVEMENTS} earned. "
+#~ "{current_text}"
+#~ msgstr ""
+#~ "Obiettivi di {name}. {earned_count} su {ACHIEVEMENTS} ottenuti. "
+#~ "{current_text}"
+
+#~ msgid "{earned_count} of {ACHIEVEMENTS} earned."
+#~ msgstr "{earned_count} su {ACHIEVEMENTS} ottenuti."
 
 #~ msgid ""
 #~ "Levels, money, and trucks -- the long climb from hire to owner-operator."

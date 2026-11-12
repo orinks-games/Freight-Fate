@@ -19493,9 +19493,9 @@ msgstr ""
 msgid "Account achievements"
 msgstr ""
 
-#. placeholders: {ids}, {ACHIEVEMENTS}
+#. placeholders: {ids}, {listed_count}
 #: crates/freight-fate/src/states/account_achievements.rs
-msgid "Summary: {ids} of {ACHIEVEMENTS} earned across every career"
+msgid "Summary: {ids} of {listed_count} earned across every career"
 msgstr ""
 
 #. one sentence of a longer line
@@ -19503,18 +19503,18 @@ msgstr ""
 msgid "Account achievements."
 msgstr ""
 
-#. placeholders: {earned}, {ACHIEVEMENTS}, {current_text}
+#. placeholders: {earned}, {listed_count}, {current_text}
 #: crates/freight-fate/src/states/account_achievements.rs
 msgid ""
-"Account achievements. {earned} of {ACHIEVEMENTS} earned across every career "
+"Account achievements. {earned} of {listed_count} earned across every career "
 "on this installation. {current_text}"
 msgstr ""
 
-#. placeholders: {earned}, {ACHIEVEMENTS}
+#. placeholders: {earned}, {listed_count}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/account_achievements.rs
 msgid ""
-"{earned} of {ACHIEVEMENTS} earned across every career on this installation."
+"{earned} of {listed_count} earned across every career on this installation."
 msgstr ""
 
 #. placeholders: {title}, {done}, {achievements}
@@ -37962,27 +37962,27 @@ msgstr ""
 msgid "Up and Down pick a category, Enter opens it, Escape goes back."
 msgstr ""
 
-#. placeholders: {earned_count}, {ACHIEVEMENTS}
+#. placeholders: {earned_count}, {listed_count}
 #: crates/freight-fate/src/states/main_menu/achievements.rs
-msgid "Summary: {earned_count} of {ACHIEVEMENTS} earned"
+msgid "Summary: {earned_count} of {listed_count} earned"
 msgstr ""
 
-#. placeholders: {name}, {earned_count}, {ACHIEVEMENTS}
+#. placeholders: {name}, {earned_count}, {listed_count}
 #: crates/freight-fate/src/states/main_menu/achievements.rs
-msgid "{name} has earned {earned_count} of {ACHIEVEMENTS} achievements."
+msgid "{name} has earned {earned_count} of {listed_count} achievements."
 msgstr ""
 
-#. placeholders: {name}, {earned_count}, {ACHIEVEMENTS}, {current_text}
+#. placeholders: {name}, {earned_count}, {listed_count}, {current_text}
 #: crates/freight-fate/src/states/main_menu/achievements.rs
 msgid ""
-"Achievements for {name}. {earned_count} of {ACHIEVEMENTS} earned. "
+"Achievements for {name}. {earned_count} of {listed_count} earned. "
 "{current_text}"
 msgstr ""
 
-#. placeholders: {earned_count}, {ACHIEVEMENTS}
+#. placeholders: {earned_count}, {listed_count}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/main_menu/achievements.rs
-msgid "{earned_count} of {ACHIEVEMENTS} earned."
+msgid "{earned_count} of {listed_count} earned."
 msgstr ""
 
 #. placeholders: {title}, {done}, {achs}
