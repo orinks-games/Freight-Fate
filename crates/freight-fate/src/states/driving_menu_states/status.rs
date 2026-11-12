@@ -333,7 +333,7 @@ impl DrivingStatusScreenState {
                     for stop in upcoming {
                         let ahead = (stop.at_mi - d.trip.position_mi).max(0.0);
                         let label = format!(
-                            "Stop in {}: {}{}; {}.",
+                            "Stop in {}: {}{}, {}.",
                             settings.distance_text(ahead, false),
                             d.trip.planned_prefix(&stop),
                             stop.spoken_name(),

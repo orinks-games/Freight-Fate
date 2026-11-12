@@ -262,10 +262,7 @@ fn a_lead_vehicle_with_nowhere_to_go_is_not_dodgeable_and_the_call_agrees() {
     // that the physics is handed the same answer, so no lane-change allowance
     // is added to a window on a road that offers no lane change.
     let event = lead_vehicle_hazard(1);
-    assert_eq!(
-        event.text(),
-        "Brake! Brake lights right ahead. No lane open."
-    );
+    assert_eq!(event.text(), "Brake! Brake lights. No lane open.");
     assert!(!event.text().contains("Change lanes"));
     assert_eq!(event.data.dodgeable, Some(false));
     assert_eq!(event.data.in_lane, Some(true));
@@ -278,7 +275,7 @@ fn a_lead_vehicle_with_a_lane_open_keeps_both_its_offer_and_its_allowance() {
     let event = lead_vehicle_hazard(3);
     assert_eq!(
         event.text(),
-        "Change lanes or brake! Brake lights right ahead. Middle lane open."
+        "Change lanes or brake! Brake lights. Middle lane open."
     );
     assert_eq!(event.data.dodgeable, Some(true));
     assert_eq!(event.data.in_lane, Some(true));

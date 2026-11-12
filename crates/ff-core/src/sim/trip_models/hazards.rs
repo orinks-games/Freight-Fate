@@ -301,7 +301,7 @@ pub static HAZARDS: &[HazardDef] = &[
     // 2026-08-20): a slow vehicle in the flow is the traffic bubble's job.
     HazardDef {
         in_lane: true,
-        ..hz("a sudden lane closure ahead", 0.8, "the lane closure")
+        ..hz("a sudden lane closure", 0.8, "the lane closure")
     },
     hz(
         "stopped traffic around a fender bender",
@@ -401,7 +401,7 @@ pub static HAZARDS: &[HazardDef] = &[
     HazardDef {
         weather: Some(&[WeatherKind::Ice]),
         in_lane: true,
-        ..hz("a car spun out on the glaze ahead", 1.1, "the spun-out car")
+        ..hz("a car spun out on the glaze", 1.1, "the spun-out car")
     },
     // Dense fog only.
     HazardDef {
@@ -451,11 +451,7 @@ pub static HAZARDS: &[HazardDef] = &[
     HazardDef {
         terrain: Some(&["mountain"]),
         brake_to_mph: Some(40.0),
-        ..hz(
-            "a runaway truck on the grade ahead",
-            0.8,
-            "the runaway truck",
-        )
+        ..hz("a runaway truck on the grade", 0.8, "the runaway truck")
     },
 ];
 

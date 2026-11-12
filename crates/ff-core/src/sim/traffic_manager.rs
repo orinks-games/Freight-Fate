@@ -542,7 +542,7 @@ impl TrafficManager {
                 // route. A vehicle on the brakes where nothing on the road
                 // explains it has no cause line to give the driver either --
                 // `braking_cause_line` answers with silence -- so the warning
-                // came out as "Brake lights right ahead." and stopped there,
+                // came out as "Brake lights, close." and stopped there,
                 // which is the invented phantom wave the bubble is supposed
                 // to refuse.
                 let position_mi = start + rng.uniform(low, high);

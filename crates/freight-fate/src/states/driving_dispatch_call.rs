@@ -262,7 +262,7 @@ fn delay_response(driving: &DrivingState) -> (&'static str, String, JsonObject) 
             "late_update",
             format!(
                 "The appointment is already late. I am marking the delay. Keep it safe and send \
-                 another update at the next stop; {} remain.",
+                 another update at the next stop. {} remain.",
                 driving.trip.gap_text(driving.trip.remaining_miles())
             ),
             JsonObject::from_iter([("late_update_recorded".to_string(), json!(true))]),
@@ -344,7 +344,7 @@ fn road_response(driving: &DrivingState) -> (&'static str, String, JsonObject) {
     (
         "caution",
         format!(
-            "The active warning is {alerts}. Stay with the planned route unless the road closes; \
+            "The active warning is {alerts}. Stay with the planned route unless the road closes. \
              {remaining} remain."
         ),
         JsonObject::from_iter([("weather_alerts".to_string(), json!(alerts))]),

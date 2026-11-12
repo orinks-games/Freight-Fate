@@ -258,7 +258,7 @@ fn test_the_driver_always_gets_a_real_window_before_the_assist_takes_over() {
         // The tightest slack the road emits: the traffic-pressure warning.
         raise_hazard(
             &mut harness,
-            hazard("Change lanes or brake! Slow truck right ahead.", 2.5, true),
+            hazard("Change lanes or brake! Slow truck.", 2.5, true),
         );
         let window = harness.read_drive(|d| {
             d.hazard_deadline.expect("a deadline") - d.aeb_engage_s(d.hazard_target_mph(None))
@@ -348,7 +348,7 @@ fn test_the_assist_stands_on_everything_when_service_braking_is_losing() {
     let damage_before = harness.read_drive(|d| d.truck().damage_pct);
     raise_hazard(
         &mut harness,
-        hazard("Change lanes or brake! Slow truck right ahead.", 2.5, true),
+        hazard("Change lanes or brake! Slow truck.", 2.5, true),
     );
     let mut stood_on_it = false;
     let mut elapsed = 0.0;
@@ -395,7 +395,7 @@ fn test_a_stop_service_braking_can_make_stays_on_the_service_brakes() {
     });
     raise_hazard(
         &mut harness,
-        hazard("Change lanes or brake! Slow truck right ahead.", 2.5, true),
+        hazard("Change lanes or brake! Slow truck.", 2.5, true),
     );
     let mut elapsed = 0.0;
     while harness.read_drive(|d| d.hazard_deadline).is_some() && elapsed < 120.0 {
@@ -887,7 +887,7 @@ pub(crate) fn meet_a_slow_car(
     release_keys(&mut harness);
     for _ in 0..120 {
         frame(&mut harness, DT);
-        if said_any(&harness, "Slow car right ahead") {
+        if said_any(&harness, "Slow car.") {
             return harness;
         }
     }
@@ -898,7 +898,7 @@ pub(crate) fn meet_a_slow_car(
 pub(crate) fn the_call(harness: &PlaytestHarness) -> String {
     spoken(harness)
         .into_iter()
-        .find(|line| line.contains("Slow car right ahead"))
+        .find(|line| line.contains("Slow car."))
         .expect("a lead warning")
 }
 
@@ -909,7 +909,7 @@ fn test_the_hazard_call_names_the_left_lane_when_that_is_the_open_one() {
     let harness = meet_a_slow_car("Left Open", "partial", 2, 0, &[], false);
     assert_eq!(
         the_call(&harness),
-        "Change lanes or brake! Slow car right ahead. Left lane open."
+        "Change lanes or brake! Slow car. Left lane open."
     );
     assert!(harness.read_drive(|d| d.hazard_dodgeable));
     // On partial the lane change is the driver's to make.
@@ -924,7 +924,7 @@ fn test_the_hazard_call_names_the_right_lane_when_that_is_the_open_one() {
     let harness = meet_a_slow_car("Right Open", "partial", 2, 1, &[], false);
     assert_eq!(
         the_call(&harness),
-        "Change lanes or brake! Slow car right ahead. Right lane open."
+        "Change lanes or brake! Slow car. Right lane open."
     );
     assert!(harness.read_drive(|d| d.hazard_dodgeable));
 }
@@ -934,14 +934,14 @@ fn test_the_hazard_call_offers_either_side_from_the_middle_of_three() {
     let harness = meet_a_slow_car("Either Open", "partial", 3, 1, &[], false);
     assert_eq!(
         the_call(&harness),
-        "Change lanes or brake! Slow car right ahead. Either lane open."
+        "Change lanes or brake! Slow car. Either lane open."
     );
     // A semi riding alongside on the left leaves only the right.
     drop(harness);
     let harness = meet_a_slow_car("Left Held", "partial", 3, 1, &[2], false);
     assert_eq!(
         the_call(&harness),
-        "Change lanes or brake! Slow car right ahead. Right lane open."
+        "Change lanes or brake! Slow car. Right lane open."
     );
 }
 
@@ -954,7 +954,7 @@ fn test_with_no_lane_open_the_call_is_brake_and_says_so() {
     let harness = meet_a_slow_car("Nowhere", "full", 2, 0, &[1], false);
     assert_eq!(
         the_call(&harness),
-        "Brake! Slow car right ahead. No lane open. Cruise paused."
+        "Brake! Slow car. No lane open. Cruise paused."
     );
     assert!(!harness.read_drive(|d| d.hazard_dodgeable));
     assert!(harness.read_drive(|d| d.cruise_mph).is_none());
@@ -966,7 +966,7 @@ fn test_the_terse_rung_keeps_the_thing_and_the_open_side() {
     // Quiet drops the opener -- the named lane says everything it did -- and
     // the one-tap answer survives in full.
     let harness = meet_a_slow_car("Terse Left", "partial", 2, 0, &[], true);
-    assert_eq!(the_call(&harness), "Slow car right ahead. Left lane open.");
+    assert_eq!(the_call(&harness), "Slow car. Left lane open.");
 }
 
 #[test]
@@ -976,10 +976,7 @@ fn test_lane_keeping_on_full_passes_on_the_named_side_with_cruise_still_armed() 
     // the call says so. Adaptive cruise rides through the pass rather than
     // being cancelled by it (the 2026-09-01 decision for the driver's dodge).
     let mut harness = meet_a_slow_car("Full Pass", "full", 2, 0, &[], false);
-    assert_eq!(
-        the_call(&harness),
-        "Slow car right ahead. Passing on the left."
-    );
+    assert_eq!(the_call(&harness), "Slow car. Passing on the left.");
     assert_eq!(harness.read_drive(|d| d.lane_change_target), Some(1));
 
     let mut elapsed = 0.0;

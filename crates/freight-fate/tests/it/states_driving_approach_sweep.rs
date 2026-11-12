@@ -1561,7 +1561,7 @@ fn test_with_the_assist_off_the_clear_sign_still_hands_the_last_stretch_to_the_d
     let release = arrive_from_the_sign(destination, false, false);
     assert!(release.stopped_at_sign, "{}", release.report(destination));
     assert!(
-        release.said("Stopped at the sign. Clear; pull ahead onto the streets."),
+        release.said("Stopped at the sign. Clear. Pull ahead onto the streets."),
         "{}",
         release.report(destination)
     );

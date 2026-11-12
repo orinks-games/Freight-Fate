@@ -372,7 +372,7 @@ impl DrivingState {
                 Self::say_chain_stop(
                     ctx,
                     format!(
-                        "Chain-up area ahead. Stopping to put chains on, about {} minutes on \
+                        "Chain-up area. Stopping to put chains on, about {} minutes on \
                          duty.",
                         fmt_f(minutes, 0)
                     ),

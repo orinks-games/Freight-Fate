@@ -496,7 +496,7 @@ impl DrivingState {
                         } else {
                             "shift down or brake in short bursts"
                         };
-                        parts.push(format!("Jake stage {stage} is not holding it; {losing}."));
+                        parts.push(format!("Jake stage {stage} is not holding it, {losing}."));
                     } else if truck.throttle <= 0.05 {
                         parts.push("Speed building. Set the jake.".to_string());
                     }

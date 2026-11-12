@@ -24,13 +24,14 @@
 - **Freeway traffic has more kinds of vehicle,** each with its own sound: SUVs, pickups, minivans, sports cars, motorcycles, RVs, buses, tankers and car haulers. Cars and semis no longer all sound alike.
 - **Updates check and install faster.** Unchanged sound packs are no longer copied or checked twice.
 - **Spoken lines, help, menus and the manual are shorter and use plain words, and some settings have new names.** Cruise has one name, and the dispatch board and delivery list are shorter.
+- **With Quiet or Urgent only speech, a traffic light, an open weigh station or slowing traffic plays its sound alone.** Standard speech keeps a short line, like "Light red."
 - **Road announcements now wait for NVDA 2026.3 or SAPI to finish speaking.** The most urgent goes next; stale chatter is skipped.
 - **Lower game sounds during speech works only while NVDA 2026.3 or SAPI is speaking.** Older NVDA versions keep the timing they had.
 - **Live road reports now cover only your road, in your direction, within 10 miles.** Each says how far ahead it is.
 - **Traffic now runs near the posted limit, in towns as on the highway.** Rush hour brings more vehicles, not slower ones.
 - **Vehicles now pass each other or drop in behind.** A faster vehicle moves over where there is a lane, and queues two seconds back where there is not; nothing moves into your lane beside you.
 - **Freeway traffic now leaves at an interchange** instead of disappearing between exits.
-- **A slow vehicle ahead is called only while you are gaining on it.** Cruise no longer adds "Traffic ahead, slowing" for the same vehicle.
+- **A slow vehicle ahead is called only while you are gaining on it.** Cruise no longer adds "Slowing for traffic" for the same vehicle.
 - **Cruise now holds highway work zones and heavy traffic at their limit.** Low-speed cruise takes over only on streets and facility approaches.
 - **Full lane keeping now takes open weigh stations.** It signals for the scale, and the truck stops at it with facility stopping assistance on.
 - **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.

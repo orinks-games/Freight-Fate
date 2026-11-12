@@ -874,7 +874,7 @@ fn test_the_taper_warns_a_truck_in_the_lane_that_is_closing() {
     let said = logged(&app)[log_from..].to_vec();
     assert!(said
         .first()
-        .is_some_and(|s| s.contains("closes at the work zone ahead")));
+        .is_some_and(|s| s.contains("closes at the work zone")));
     assert_eq!(
         said.iter()
             .filter(|s| s.contains("closes at the work zone"))
@@ -901,7 +901,7 @@ fn test_the_taper_refuses_a_move_into_the_lane_that_is_closing() {
     assert_eq!(d.lane.lane, 0);
     assert_eq!(
         app.main_lines(),
-        vec!["The left lane closes at the work zone ahead."]
+        vec!["The left lane closes at the work zone."]
     );
 }
 
@@ -1102,10 +1102,7 @@ fn test_traffic_pressure_hazard_says_brake_only_with_no_lane_to_swerve_into() {
         .filter(|e| e.kind == TripEventKind::Hazard)
         .collect();
     assert!(!events.is_empty());
-    assert_eq!(
-        events[0].text(),
-        "Brake! Brake lights right ahead. No lane open."
-    );
+    assert_eq!(events[0].text(), "Brake! Brake lights. No lane open.");
     assert!(!events[0].text().contains("change lanes"));
     // And the physics is told the same thing the words were: there is
     // nowhere to go, so no lane-change allowance is added to the driver's
@@ -1137,7 +1134,7 @@ fn test_traffic_pressure_hazard_keeps_the_lane_offer_when_one_exists() {
     assert!(!events.is_empty());
     assert_eq!(
         events[0].text(),
-        "Change lanes or brake! Brake lights right ahead. Left lane open."
+        "Change lanes or brake! Brake lights. Left lane open."
     );
 }
 

@@ -68,7 +68,7 @@ impl DrivingState {
             let stage = 1.max(self.trip.truck.engine_brake_stage);
             self.jake_selected_stage = stage;
             ctx.say(&format!(
-                "Automatic jake off; holding stage {}.",
+                "Automatic jake off. Holding stage {}.",
                 jake_stage_word(stage)
             ));
             return;

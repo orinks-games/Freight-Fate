@@ -74,7 +74,7 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
             "This finishes a split rest, and both parts count."
         }
         SleepChoice::Sleeper(7 | 8) => {
-            "Your legal driving window pauses while you sleep. This rest alone does not restore driving time; pairing the split can."
+            "Your legal driving window pauses while you sleep. This rest alone does not restore driving time. Pairing the split can."
         }
         SleepChoice::Sleeper(_) => {
             "This sleep alone does not restore driving time. Your legal driving window keeps counting until the split is paired."
@@ -93,7 +93,7 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
             } else {
                 let cutoff = clock_text((wake_hour + duty_left) % 24.0);
                 format!(
-                    "Afterward, driving allowance is {} hours; your legal driving window closes in {} hours at {cutoff}.",
+                    "Afterward, driving allowance is {} hours. Your legal driving window closes in {} hours at {cutoff}.",
                     fmt_f(drive_left, 1),
                     fmt_f(duty_left, 1)
                 )

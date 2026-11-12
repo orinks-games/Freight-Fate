@@ -101,7 +101,7 @@ pub const LIMIT_REASON_LOOKAHEAD_MI: f64 = 1.5;
 /// The only RoadStop types that actually cause a lower posting.
 pub fn limit_reason_by_stop_type(stop_type: &str) -> Option<&'static str> {
     match stop_type {
-        "weigh_station" => Some(" for the weigh station ahead"),
+        "weigh_station" => Some(" for the weigh station"),
         _ => None,
     }
 }

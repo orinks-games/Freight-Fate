@@ -468,12 +468,9 @@ impl DrivingState {
             String::new()
         };
         ctx.say_event_with(
-            format!(
-                "{:.1} percent {direction} ahead{length}. {advice}",
-                pct.abs()
-            )
-            .trim_end()
-            .to_string(),
+            format!("{:.1} percent {direction}{length}. {advice}", pct.abs())
+                .trim_end()
+                .to_string(),
             SayEvent::queued()
                 .priority(EventPriority::Important)
                 .category(SpeechCategory::Navigation),

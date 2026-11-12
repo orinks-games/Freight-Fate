@@ -308,7 +308,7 @@ impl PauseMenuState {
             items.insert(
                 settings_index,
                 MenuItem::new(
-                    "Sleep at the chain control (10 hours)",
+                    "Sleep at the chain control, 10 hours",
                     |s: &mut Self, ctx| s.sleep_at_chain_checkpoint(ctx),
                 )
                 .help(

@@ -139,7 +139,7 @@ pub fn deadline_text(driving: &DrivingState, ctx: &GameContext) -> String {
         // The appointment reads in the receiver's local time, the way a real
         // dispatcher quotes it -- the zone name keeps it unambiguous mid-route.
         return format!(
-            "{remaining:.1} hours left to deliver; that is {}.",
+            "{remaining:.1} hours left to deliver, by {}.",
             deadline_appointment(driving, ctx)
         );
     }

@@ -787,12 +787,12 @@ impl DrivingState {
                     let closed_name = lane_label(closed, self.lane.lane_count);
                     let text = if ctx.settings.lane_is_automated() {
                         format!(
-                            "The {closed_name} lane closes at the work zone ahead. Waiting for a \
+                            "The {closed_name} lane closes at the work zone. Waiting for a \
                              gap in the {open_name} lane."
                         )
                     } else {
                         format!(
-                            "The {closed_name} lane closes at the work zone ahead. Move to the \
+                            "The {closed_name} lane closes at the work zone. Move to the \
                              {open_name} lane."
                         )
                     };

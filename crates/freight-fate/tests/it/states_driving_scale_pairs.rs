@@ -55,7 +55,7 @@ fn ten_times_rig() -> Rig {
 fn notices_for(rig: &Rig, name: &str) -> usize {
     rig.transcript()
         .iter()
-        .filter(|line| line.contains("Open weigh station ahead") && line.contains(name))
+        .filter(|line| line.contains("Open weigh station in") && line.contains(name))
         .count()
 }
 
@@ -377,7 +377,7 @@ fn st_louis_to_little_rock_at_ten_times_names_the_west_memphis_scale_and_gives_r
         "{:?}",
         rig.transcript()
     );
-    assert_eq!(rig.said("Open weigh station ahead"), 1);
+    assert_eq!(rig.said("Open weigh station in"), 1);
     assert_eq!(rig.said(reminder), 1, "{:?}", rig.transcript());
     let lead = lead.unwrap_or_else(|| panic!("no reminder: {:?}", rig.transcript()));
     assert!(lead >= SCALE_REMINDER_REAL_LEAD_S, "{lead} real s");

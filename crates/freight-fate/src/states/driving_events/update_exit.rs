@@ -341,7 +341,7 @@ impl DrivingState {
             format!("{} for {}", stop.exit_label, stop.spoken_name())
         };
         let mut line = if self.terse_speech(ctx) {
-            format!("Drove past {}; you never stopped.", stop.spoken_name())
+            format!("Drove past {} without stopping.", stop.spoken_name())
         } else {
             format!("Drove past {exit_ref} without stopping.")
         };
