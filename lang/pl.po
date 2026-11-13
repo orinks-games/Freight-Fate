@@ -4341,6 +4341,10 @@ msgstr "fatigue"
 msgid "tire"
 msgstr "tire"
 
+#. placeholders: {label}
+msgid "The {label} has worn off."
+msgstr "{label}: efekt minął."
+
 #. placeholders: {buff_id}, {py_repr_str}
 msgid "buff {buff_id}: unknown group {py_repr_str}"
 msgstr "wzmocnienie {buff_id}: nieznana grupa {py_repr_str}"
@@ -4364,6 +4368,10 @@ msgstr ""
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: no availability (brands or actions)"
 msgstr "wzmocnienie {buff_id}: brak dostępności (marki lub akcje)"
+
+#. placeholders: {buff_id}
+msgid "buff {buff_id}: only fatigue buffs can be stimulants"
+msgstr ""
 
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: help and purchased speech are required"
@@ -11844,6 +11852,13 @@ msgstr "zmierzch"
 msgid "night"
 msgstr "noc"
 
+msgid "About 1 hour of night driving."
+msgstr ""
+
+#. placeholders: {n}
+msgid "About {n} hours of night driving."
+msgstr ""
+
 msgid "status"
 msgstr "status"
 
@@ -12782,6 +12797,15 @@ msgstr "{f} {f:stopień|stopnie|stopni} Fahrenheita"
 #. placeholders: {f}
 msgid "{f} degrees Celsius"
 msgstr "{f} {f:stopień|stopnie|stopni} Celsjusza"
+
+msgid "The coffee has worn off."
+msgstr ""
+
+msgid "amount"
+msgstr "amount"
+
+msgid "group"
+msgstr "group"
 
 msgid "baffled"
 msgstr "z przegrodami"
@@ -18777,8 +18801,10 @@ msgstr "Ostatnie wpisy w ewidencji czasu pracy."
 msgid "Sleep 10 hours"
 msgstr "Śpij 10 godzin"
 
-msgid "Fresh hours of service and zero fatigue. Clock advances 10 hours."
-msgstr "Świeży czas pracy i zero zmęczenia. Zegar przesuwa się o 10 godzin."
+msgid ""
+"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+"advances 10 hours."
+msgstr ""
 
 msgid "Save game"
 msgstr "Zapisz grę"
@@ -21869,9 +21895,6 @@ msgstr "Za kierownicą. Jest {now}. {engine}"
 #. one sentence of a longer line
 msgid "It is {now}."
 msgstr "Jest {now}."
-
-msgid "amount"
-msgstr "amount"
 
 msgid "alertness"
 msgstr ""
@@ -29958,11 +29981,9 @@ msgid "Motel room: sleep 10 hours for {f} dollars"
 msgstr "Pokój w motelu: 10 godzin snu za {f} {f:dolara|dolary|dolarów}"
 
 msgid ""
-"A motel near the exit, paid from your own pocket. Legal 10-hour reset, you "
-"wake fresh."
+"A motel near the exit, paid from your own pocket. Legal 10-hour reset, and "
+"sleep takes off 8 points of fatigue an hour."
 msgstr ""
-"Motel przy zjeździe, płacisz z własnej kieszeni. Legalne 10-godzinne "
-"zerowanie, budzisz się z pełnymi siłami."
 
 msgid "Park on the shoulder and sleep"
 msgstr "Zaparkuj na poboczu i śpij"
@@ -30166,11 +30187,10 @@ msgstr ""
 "musi być wyłączony."
 
 msgid ""
-"Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
+"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
+"off in two hours, and a second coffee before then adds nothing. Does not "
 "satisfy the 30-minute break rule."
 msgstr ""
-"Piętnaście minut poza służbą. Kawa trochę zmniejsza zmęczenie, ale nie "
-"spełnia wymogu 30-minutowej przerwy."
 
 msgid ""
 "Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
@@ -30188,35 +30208,27 @@ msgid "Sleep {duration_text} more to finish a 10-hour reset"
 msgstr "Śpij jeszcze {duration_text}, żeby dokończyć 10-godzinne zerowanie"
 
 msgid ""
-"Your rest since you parked counts. Full reset, fresh hours of service and "
-"zero fatigue."
+"Your rest since you parked counts. Full reset and fresh hours of service. "
+"Sleep takes off 8 points of fatigue an hour."
 msgstr ""
-"Twój odpoczynek od zaparkowania się liczy. Pełne zerowanie, świeży czas "
-"pracy kierowcy i zero zmęczenia."
 
 msgid ""
-"Full reset, fresh hours of service and zero fatigue. Clock and deadline "
-"advance 10 hours."
+"Full reset and fresh hours of service. Sleep takes off 8 points of fatigue "
+"an hour. Clock and deadline advance 10 hours."
 msgstr ""
-"Pełne zerowanie, świeży czas pracy kierowcy i zero zmęczenia. Zegar i "
-"termin przesuwają się o 10 godzin."
 
 msgid "Sleep 10 hours in the lot"
 msgstr "Śpij 10 godzin na parkingu"
 
 msgid ""
-"A legal 10-hour reset with poor rest, you wake still tired. Clock and "
-"deadline advance 10 hours."
+"A legal 10-hour reset with poor rest: 5 points of fatigue off an hour, "
+"never below 30. Clock and deadline advance 10 hours."
 msgstr ""
-"Legalne 10-godzinne zerowanie przy kiepskim odpoczynku, po przebudzeniu "
-"nadal czujesz zmęczenie. Zegar i termin przesuwają się o 10 godzin."
 
 msgid ""
-"A real bed, paid from your own pocket. Legal reset, you wake fresh. Clock "
-"and deadline advance 10 hours."
+"A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 "
+"points of fatigue an hour. Clock and deadline advance 10 hours."
 msgstr ""
-"Prawdziwe łóżko, płacisz z własnej kieszeni. Legalne zerowanie, budzisz się "
-"z pełnymi siłami. Zegar i termin przesuwają się o 10 godzin."
 
 msgid "Use repair service"
 msgstr "Skorzystaj z serwisu naprawczego"
@@ -30376,6 +30388,16 @@ msgstr "Nie liczy się jako 30-minutowa przerwa."
 msgid "Eases fatigue."
 msgstr "Zmniejsza zmęczenie."
 
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
+"count as your 30-minute break. {deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "No lift while the last coffee lasts."
+msgstr ""
+
 msgid "Driving and duty clocks reset. "
 msgstr "Czas jazdy i okno służby wyzerowane. "
 
@@ -30481,8 +30503,17 @@ msgstr ""
 "Jeszcze {duration_text} snu, 10 godzin odpoczynku z rzędu i pobudka z "
 "pełnymi siłami."
 
+#. placeholders: {duration_text}
+msgid ""
+"You slept {duration_text} more, 10 hours of rest in a row, and woke still "
+"tired."
+msgstr ""
+
 msgid "You slept 10 hours and woke rested."
 msgstr "10 godzin snu i pobudka z pełnymi siłami."
+
+msgid "You slept 10 hours and woke still tired."
+msgstr ""
 
 #. placeholders: {engine_off}, {slept}, {clock_text}
 #. one sentence of a longer line
@@ -30703,9 +30734,6 @@ msgstr ""
 
 msgid "label"
 msgstr "label"
-
-msgid "group"
-msgstr "group"
 
 msgid "rate"
 msgstr "rate"
@@ -31159,18 +31187,15 @@ msgstr ""
 #. placeholders: {wake_air_instruction}
 #. one sentence of a longer line
 msgid ""
-"You are rested, and the delivery deadline kept "
+"The order is served, and the delivery deadline kept "
 "counting.{wake_air_instruction}"
 msgstr ""
-"Jesteś wypoczęty, a termin dostawy dalej biegł.{wake_air_instruction}"
 
 #. placeholders: {why}, {clock_text}, {wake_air_instruction}
 msgid ""
-"{why} It is {clock_text}. You are rested, and the delivery deadline kept "
-"counting.{wake_air_instruction}"
+"{why} It is {clock_text}. The order is served, and the delivery deadline "
+"kept counting.{wake_air_instruction}"
 msgstr ""
-"{why} Jest {clock_text}. Jesteś wypoczęty, a termin dostawy dalej "
-"biegł.{wake_air_instruction}"
 
 msgid "weigh station bypass inspection"
 msgstr "kontrola za ominięcie stacji ważenia"
@@ -32919,10 +32944,6 @@ msgstr "Zjazd na pobocze."
 
 msgid "buff"
 msgstr "buff"
-
-#. placeholders: {label}
-msgid "The {label} has worn off."
-msgstr "{label}: efekt minął."
 
 msgid "Getting drowsy."
 msgstr "Robi się sennie."
@@ -37827,21 +37848,24 @@ msgstr ""
 "służby biegnące."
 
 msgid ""
-"Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
-"warnings by steering or braking. Repeated misses can force you off the road."
+"Fatigue rises faster at night and reduces reaction time. On-duty time at a "
+"stop, such as fueling, a dock or an inspection, builds it at a third of the "
+"driving rate. Respond to nod-off warnings by steering or braking. Repeated "
+"misses can force you off the road."
 msgstr ""
-"Zmęczenie rośnie szybciej nocą i wydłuża czas reakcji. Na ostrzeżenia o "
-"zasypianiu odpowiadaj kierowaniem lub hamowaniem. Powtarzane przeoczenia "
-"mogą zmusić cię do zjazdu z drogi."
 
 msgid ""
-"Meals and coffee help temporarily. A half-hour meal counts as a break. "
-"Proper sleep clears fatigue. A legal reset with poor rest can leave you "
+"Job details and the departure line say how many hours of a run fall at "
+"night, between 9 PM and 5 AM."
+msgstr ""
+
+msgid ""
+"Meals ease fatigue, and a half-hour meal counts as a break. The lift from "
+"coffee or an energy drink comes back when it wears off, and a second one "
+"before then adds no lift. Proper sleep takes off 8 points of fatigue an "
+"hour, so ten hours clears 80. A legal reset with poor rest can leave you "
 "tired."
 msgstr ""
-"Posiłki i kawa pomagają na chwilę. Półgodzinny posiłek liczy się jako "
-"przerwa. Porządny sen usuwa zmęczenie. Legalne wyzerowanie przy słabym "
-"odpoczynku może zostawić cię zmęczonym."
 
 msgid ""
 "A stop offers only its listed services. A full parking lot can still sell "
@@ -37851,11 +37875,9 @@ msgstr ""
 "kupić olej napędowy. Motel może zapewnić pełny odpoczynek na twój koszt."
 
 msgid ""
-"Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
-"leaves you fully rested."
+"Sleeping 10 hours in the lot gives poor rest: 5 points an hour, never below "
+"30. Ten hours in sleeper parking is proper sleep."
 msgstr ""
-"10 godzin snu na placu daje słaby odpoczynek. Dziesięć godzin na parkingu z "
-"kabiną sypialną daje pełny wypoczynek."
 
 #. placeholders: {control_rest}
 #. one sentence of a longer line
@@ -40902,13 +40924,10 @@ msgid "Energy drink"
 msgstr "Napój energetyczny"
 
 msgid ""
-"A cold energy drink from the cooler. A small instant lift, and for the next "
-"two hours the miles tire you more slowly. A new drink or meal replaces the "
-"old one. They do not stack."
+"A cold energy drink from the cooler. A small lift, and the miles tire you "
+"more slowly for two hours. The lift wears off with it, and a second coffee "
+"or drink before then adds none. A new drink or meal replaces the old one."
 msgstr ""
-"Zimny napój energetyczny z lodówki. Mały natychmiastowy zastrzyk energii, a "
-"przez następne dwie godziny mile męczą cię wolniej. Nowy napój lub posiłek "
-"zastępuje poprzedni. Działanie się nie sumuje."
 
 msgid ""
 "You down the energy drink. You feel a little sharper, and the next couple "
@@ -41013,15 +41032,11 @@ msgid "Five-cent coffee"
 msgstr "Kawa za pięć centów"
 
 msgid ""
-"Wall Drug's famous five-cent coffee. A small instant lift, and for the next "
-"hour and a half the miles tire you a little more slowly. Weaker than an "
-"energy drink. A meal does more. A new drink or meal replaces the old one. "
-"They do not stack."
+"Wall Drug's famous five-cent coffee. A small lift, and the miles tire you a "
+"little more slowly for an hour and a half. The lift wears off with it, and "
+"a second coffee or drink before then adds none. Weaker than an energy "
+"drink. A meal does more."
 msgstr ""
-"Słynna kawa za pięć centów z Wall Drug. Mały natychmiastowy zastrzyk "
-"energii, a przez następne półtorej godziny mile męczą cię nieco wolniej. "
-"Słabsza niż napój energetyczny. Posiłek daje więcej. Nowy napój lub posiłek "
-"zastępuje poprzedni. Działanie się nie sumuje."
 
 msgid ""
 "You drink the five-cent coffee. You feel a little more awake, and the next "
@@ -41948,6 +41963,108 @@ msgstr "Szczątki."
 #~ msgstr ""
 #~ "Ustawienia zmieniają asystentów jazdy, dźwięk, mowę i sterowanie. Zgłoś "
 #~ "problem otwiera w przeglądarce stronę zgłaszania błędów. Wyjście zamyka grę."
+
+#~ msgid "Fresh hours of service and zero fatigue. Clock advances 10 hours."
+#~ msgstr "Świeży czas pracy i zero zmęczenia. Zegar przesuwa się o 10 godzin."
+
+#~ msgid ""
+#~ "A motel near the exit, paid from your own pocket. Legal 10-hour reset, you "
+#~ "wake fresh."
+#~ msgstr ""
+#~ "Motel przy zjeździe, płacisz z własnej kieszeni. Legalne 10-godzinne "
+#~ "zerowanie, budzisz się z pełnymi siłami."
+
+#~ msgid ""
+#~ "Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
+#~ "satisfy the 30-minute break rule."
+#~ msgstr ""
+#~ "Piętnaście minut poza służbą. Kawa trochę zmniejsza zmęczenie, ale nie "
+#~ "spełnia wymogu 30-minutowej przerwy."
+
+#~ msgid ""
+#~ "Your rest since you parked counts. Full reset, fresh hours of service and "
+#~ "zero fatigue."
+#~ msgstr ""
+#~ "Twój odpoczynek od zaparkowania się liczy. Pełne zerowanie, świeży czas "
+#~ "pracy kierowcy i zero zmęczenia."
+
+#~ msgid ""
+#~ "Full reset, fresh hours of service and zero fatigue. Clock and deadline "
+#~ "advance 10 hours."
+#~ msgstr ""
+#~ "Pełne zerowanie, świeży czas pracy kierowcy i zero zmęczenia. Zegar i "
+#~ "termin przesuwają się o 10 godzin."
+
+#~ msgid ""
+#~ "A legal 10-hour reset with poor rest, you wake still tired. Clock and "
+#~ "deadline advance 10 hours."
+#~ msgstr ""
+#~ "Legalne 10-godzinne zerowanie przy kiepskim odpoczynku, po przebudzeniu "
+#~ "nadal czujesz zmęczenie. Zegar i termin przesuwają się o 10 godzin."
+
+#~ msgid ""
+#~ "A real bed, paid from your own pocket. Legal reset, you wake fresh. Clock "
+#~ "and deadline advance 10 hours."
+#~ msgstr ""
+#~ "Prawdziwe łóżko, płacisz z własnej kieszeni. Legalne zerowanie, budzisz się "
+#~ "z pełnymi siłami. Zegar i termin przesuwają się o 10 godzin."
+
+#~ msgid ""
+#~ "You are rested, and the delivery deadline kept "
+#~ "counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "Jesteś wypoczęty, a termin dostawy dalej biegł.{wake_air_instruction}"
+
+#~ msgid ""
+#~ "{why} It is {clock_text}. You are rested, and the delivery deadline kept "
+#~ "counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "{why} Jest {clock_text}. Jesteś wypoczęty, a termin dostawy dalej "
+#~ "biegł.{wake_air_instruction}"
+
+#~ msgid ""
+#~ "Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
+#~ "warnings by steering or braking. Repeated misses can force you off the road."
+#~ msgstr ""
+#~ "Zmęczenie rośnie szybciej nocą i wydłuża czas reakcji. Na ostrzeżenia o "
+#~ "zasypianiu odpowiadaj kierowaniem lub hamowaniem. Powtarzane przeoczenia "
+#~ "mogą zmusić cię do zjazdu z drogi."
+
+#~ msgid ""
+#~ "Meals and coffee help temporarily. A half-hour meal counts as a break. "
+#~ "Proper sleep clears fatigue. A legal reset with poor rest can leave you "
+#~ "tired."
+#~ msgstr ""
+#~ "Posiłki i kawa pomagają na chwilę. Półgodzinny posiłek liczy się jako "
+#~ "przerwa. Porządny sen usuwa zmęczenie. Legalne wyzerowanie przy słabym "
+#~ "odpoczynku może zostawić cię zmęczonym."
+
+#~ msgid ""
+#~ "Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
+#~ "leaves you fully rested."
+#~ msgstr ""
+#~ "10 godzin snu na placu daje słaby odpoczynek. Dziesięć godzin na parkingu z "
+#~ "kabiną sypialną daje pełny wypoczynek."
+
+#~ msgid ""
+#~ "A cold energy drink from the cooler. A small instant lift, and for the next "
+#~ "two hours the miles tire you more slowly. A new drink or meal replaces the "
+#~ "old one. They do not stack."
+#~ msgstr ""
+#~ "Zimny napój energetyczny z lodówki. Mały natychmiastowy zastrzyk energii, a "
+#~ "przez następne dwie godziny mile męczą cię wolniej. Nowy napój lub posiłek "
+#~ "zastępuje poprzedni. Działanie się nie sumuje."
+
+#~ msgid ""
+#~ "Wall Drug's famous five-cent coffee. A small instant lift, and for the next "
+#~ "hour and a half the miles tire you a little more slowly. Weaker than an "
+#~ "energy drink. A meal does more. A new drink or meal replaces the old one. "
+#~ "They do not stack."
+#~ msgstr ""
+#~ "Słynna kawa za pięć centów z Wall Drug. Mały natychmiastowy zastrzyk "
+#~ "energii, a przez następne półtorej godziny mile męczą cię nieco wolniej. "
+#~ "Słabsza niż napój energetyczny. Posiłek daje więcej. Nowy napój lub posiłek "
+#~ "zastępuje poprzedni. Działanie się nie sumuje."
 
 #~ msgid "Fatigue: {fatigue} percent"
 #~ msgstr "Zmęczenie: {fatigue} procent"

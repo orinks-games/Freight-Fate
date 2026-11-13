@@ -12,7 +12,7 @@ use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
     advance_rest_clock, clock_text, hos_mut_of, poi_ambient_key, profile_mut_of, profile_of,
-    shut_down_engine, FacilityEngine, MOTEL_COST,
+    settle_lift_before_sleep, shut_down_engine, FacilityEngine, MOTEL_COST,
 };
 use crate::states::driving_menu_states::{keep_rows, DriveRef};
 use crate::states::driving_rest_states::back_on_the_road_line;
@@ -105,8 +105,8 @@ impl ParkingFullState {
                 |s: &mut Self, ctx| s.motel(ctx),
             )
             .help(
-                "A motel near the exit, paid from your own pocket. Legal 10-hour reset, you \
-                 wake fresh.",
+                "A motel near the exit, paid from your own pocket. Legal 10-hour reset, and \
+                 sleep takes off 8 points of fatigue an hour.",
             ),
         );
         items.push(
@@ -151,8 +151,12 @@ impl ParkingFullState {
             // sleeper.
             let engine_off = shut_down_engine(d, ctx);
             advance_rest_clock(d, ctx, hos::SLEEP_MIN, None, "");
+            settle_lift_before_sleep(d, ctx);
             hos_mut_of(ctx).sleep();
-            profile_mut_of(ctx).fatigue = 0.0;
+            {
+                let p = profile_mut_of(ctx);
+                p.fatigue = hos::rest_sleep(p.fatigue, hos::SLEEP_MIN);
+            }
             let snapshot = d.snapshot(ctx);
             {
                 let p = profile_mut_of(ctx);

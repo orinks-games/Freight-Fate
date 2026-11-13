@@ -684,7 +684,7 @@ Your legal hours are the same in both hours modes: eleven driving hours after te
 
 Any thirty consecutive minutes without driving can meet the driving-break requirement. Loading and inspections can count, but they won't reset the duty window. Moving the truck for work counts even when you're driving without a trailer.
 
-Check your hours before choosing how far to continue. Alt+A reads time used, Alt+S tells you when the break is due, and Alt+D reads both shift limits with reachable legal rest. C gives the clock, deadline, and nearest limit. On a controller, D-pad right reads the clock with all of these limits in one report. Before each limit you'll hear one warning: with one hour left in the Relaxed driving mode, two hours in Standard, and two hours, one hour and thirty minutes in Real time. A limit the trip ends inside gets no warning. When you leave with a load, the departure line says your driving time left, your fuel, and whether the run needs a break or a sleep.
+Check your hours before choosing how far to continue. Alt+A reads time used, Alt+S tells you when the break is due, and Alt+D reads both shift limits with reachable legal rest. C gives the clock, deadline, and nearest limit. On a controller, D-pad right reads the clock with all of these limits in one report. Before each limit you'll hear one warning: with one hour left in the Relaxed driving mode, two hours in Standard, and two hours, one hour and thirty minutes in Real time. A limit the trip ends inside gets no warning. When you leave with a load, the departure line says your driving time left, your fuel, and whether the run needs a break or a sleep. It and the job details on the dispatch board also say how much of the drive falls at night, between 9 PM and 5 AM, if you leave now and drive straight through: "About 4 hours of night driving." A daytime run says nothing about night.
 
 A half-hour break won't solve a shift that's ending. Check reachability again if traffic or weather slows you down.
 
@@ -694,11 +694,11 @@ Open Logbook to review your current duty, limits, daily totals, and earlier entr
 
 Fatigue comes in four bands: rested, worn from 40 percent, drowsy from 60 and severe from 80. A quiet yawn marks worn, and a yawn and "Getting drowsy." mark drowsy. From worn up the Tab status screens name the band with the number, as in "Fatigue: 64 percent, drowsy." A band is left only once fatigue falls 5 points below where it began.
 
-Night driving builds fatigue faster and leaves you less reaction time. When a nod-off warning sounds, respond by steering or braking. The left stick and left trigger answer it too. Miss it and the truck heads onto the shoulder; three successive misses force a stop. The first asleep departure is a preventable incident, and later ones become serious fatigued-driving violations.
+Night driving builds fatigue faster and leaves you less reaction time. On-duty time that isn't driving builds it at a third of the driving rate: fueling, the walk-around, docks, scales, inspections, repairs you wait out, chain work, and sitting stopped at the wheel. Off-duty and sleeper time builds none. When a nod-off warning sounds, respond by steering or braking. The left stick and left trigger answer it too. Miss it and the truck heads onto the shoulder; three successive misses force a stop. The first asleep departure is a preventable incident, and later ones become serious fatigued-driving violations.
 
-Coffee only buys temporary relief. A break helps more, and full sleep clears fatigue.
+A thirty-minute break takes off 35 points and a meal eases fatigue for real. Coffee and energy drinks only lend a lift: when one wears off, two hours after a coffee break, the lift comes back, and a second one before then adds no lift. "The coffee has worn off." or the drink's own line tells you when.
 
-If a lot is full, it may offer a motel at your own expense. Sleep 10 hours in the lot gives poor rest; proper sleeper parking gives full rest.
+Proper sleep, in sleeper parking, a motel or the terminal bunk room, takes off 8 points of fatigue an hour, so ten hours clears 80. Go to bed at 95 and you wake at 15; the sleep row reads the number before you choose. If a lot is full, it may offer a motel at your own expense. Sleep 10 hours in the lot gives poor rest: 5 points an hour, and never below 30.
 
 Away from route points, stop fully and use T or the pause menu for emergency shoulder sleep. On a controller, that's the right bumper with D-pad down, or Start for the pause menu. A nearby stop takes priority. Shoulder sleep secures the truck and resets legal hours after ten hours, but fatigue remains. You also risk a ticket or damage, and the delivery deadline keeps advancing.
 
@@ -733,7 +733,7 @@ To drive again sooner, pause and choose Take the wheel back.
 
 **What it costs.** On a company job, miles the co-driver drives pay you half. An owner-operator pays their co-driver 30 percent of the settlement for those miles, and still pays fuel, tolls and upkeep. Those miles earn half the career experience. The settlement names the co-driver's miles and share. Badges for how a haul was driven, such as a long run with no tolls, are not earned on a team load, and the road journal notes who drove.
 
-**Your hours.** Time while the co-driver drives counts as sleeper-berth time, whether you ride along or sleep. Ten hours of it resets your legal hours and clears your fatigue. The co-driver keeps a logbook of their own. The Driver status screen says who is driving. It, C and the Take the wheel back row all say how much of your ten hours you have rested and when the co-driver hands back, for example "Rest: 3.5 hours of 10 hours. Dan hands back in about 6.5 hours." The ELD app reads both logbooks. If you were already rested when you handed over, the co-driver drives until their own hours run out.
+**Your hours.** Time while the co-driver drives counts as sleeper-berth time, whether you ride along or sleep. Ten hours of it resets your legal hours, and the bunk takes off 8 points of fatigue an hour, the same as sleep parked. The co-driver keeps a logbook of their own. The Driver status screen says who is driving. It, C and the Take the wheel back row all say how much of your ten hours you have rested and when the co-driver hands back, for example "Rest: 3.5 hours of 10 hours. Dan hands back in about 6.5 hours." The ELD app reads both logbooks. If you were already rested when you handed over, the co-driver drives until their own hours run out.
 
 ## Status screens
 

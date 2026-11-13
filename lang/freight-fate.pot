@@ -4833,6 +4833,11 @@ msgstr ""
 msgid "tire"
 msgstr ""
 
+#. placeholders: {label}
+#: crates/ff-core/src/data/buffs.rs crates/freight-fate/src/states/driving_updates/fatigue.rs
+msgid "The {label} has worn off."
+msgstr ""
+
 #. placeholders: {buff_id}, {py_repr_str}
 #: crates/ff-core/src/data/buffs.rs
 msgid "buff {buff_id}: unknown group {py_repr_str}"
@@ -4856,6 +4861,11 @@ msgstr ""
 #. placeholders: {buff_id}
 #: crates/ff-core/src/data/buffs.rs
 msgid "buff {buff_id}: no availability (brands or actions)"
+msgstr ""
+
+#. placeholders: {buff_id}
+#: crates/ff-core/src/data/buffs.rs
+msgid "buff {buff_id}: only fatigue buffs can be stimulants"
 msgstr ""
 
 #. placeholders: {buff_id}
@@ -13311,6 +13321,15 @@ msgstr ""
 msgid "night"
 msgstr ""
 
+#: crates/ff-core/src/sim/hos.rs
+msgid "About 1 hour of night driving."
+msgstr ""
+
+#. placeholders: {n}
+#: crates/ff-core/src/sim/hos.rs
+msgid "About {n} hours of night driving."
+msgstr ""
+
 #: crates/ff-core/src/sim/hos/clock.rs crates/ff-core/src/sim/hos/duty_log.rs crates/ff-core/src/speech_pacing.rs crates/freight-fate/src/bindings.rs
 msgid "status"
 msgstr ""
@@ -14495,6 +14514,18 @@ msgstr ""
 #. placeholders: {f}
 #: crates/ff-core/src/sim/season.rs crates/ff-core/src/sim/weather.rs crates/freight-fate/src/states/city/weather.rs
 msgid "{f} degrees Celsius"
+msgstr ""
+
+#: crates/ff-core/src/sim/stimulant.rs
+msgid "The coffee has worn off."
+msgstr ""
+
+#: crates/ff-core/src/sim/stimulant.rs crates/freight-fate/src/states/driving/snapshot.rs
+msgid "amount"
+msgstr ""
+
+#: crates/ff-core/src/sim/stimulant.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "group"
 msgstr ""
 
 #: crates/ff-core/src/sim/surge.rs
@@ -21334,7 +21365,9 @@ msgid "Sleep 10 hours"
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs
-msgid "Fresh hours of service and zero fatigue. Clock advances 10 hours."
+msgid ""
+"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+"advances 10 hours."
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs
@@ -24650,10 +24683,6 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving/lifecycle.rs
 msgid "It is {now}."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving/snapshot.rs
-msgid "amount"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving/snapshot.rs
@@ -33725,8 +33754,8 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/parking_full.rs
 msgid ""
-"A motel near the exit, paid from your own pocket. Legal 10-hour reset, you "
-"wake fresh."
+"A motel near the exit, paid from your own pocket. Legal 10-hour reset, and "
+"sleep takes off 8 points of fatigue an hour."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/parking_full.rs
@@ -33945,7 +33974,8 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid ""
-"Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
+"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
+"off in two hours, and a second coffee before then adds nothing. Does not "
 "satisfy the 30-minute break rule."
 msgstr ""
 
@@ -33967,14 +33997,14 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid ""
-"Your rest since you parked counts. Full reset, fresh hours of service and "
-"zero fatigue."
+"Your rest since you parked counts. Full reset and fresh hours of service. "
+"Sleep takes off 8 points of fatigue an hour."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid ""
-"Full reset, fresh hours of service and zero fatigue. Clock and deadline "
-"advance 10 hours."
+"Full reset and fresh hours of service. Sleep takes off 8 points of fatigue "
+"an hour. Clock and deadline advance 10 hours."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
@@ -33983,14 +34013,14 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid ""
-"A legal 10-hour reset with poor rest, you wake still tired. Clock and "
-"deadline advance 10 hours."
+"A legal 10-hour reset with poor rest: 5 points of fatigue off an hour, "
+"never below 30. Clock and deadline advance 10 hours."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid ""
-"A real bed, paid from your own pocket. Legal reset, you wake fresh. Clock "
-"and deadline advance 10 hours."
+"A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 "
+"points of fatigue an hour. Clock and deadline advance 10 hours."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
@@ -34162,6 +34192,18 @@ msgstr ""
 msgid "Eases fatigue."
 msgstr ""
 
+#. placeholders: {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid ""
+"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
+"count as your 30-minute break. {deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "No lift while the last coffee lasts."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "Driving and duty clocks reset. "
 msgstr ""
@@ -34266,8 +34308,19 @@ msgid ""
 "You slept {duration_text} more, 10 hours of rest in a row, and woke rested."
 msgstr ""
 
+#. placeholders: {duration_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid ""
+"You slept {duration_text} more, 10 hours of rest in a row, and woke still "
+"tired."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "You slept 10 hours and woke rested."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "You slept 10 hours and woke still tired."
 msgstr ""
 
 #. placeholders: {engine_off}, {slept}, {clock_text}
@@ -34495,10 +34548,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs crates/freight-fate/src/states/online_states/profile.rs
 msgid "label"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "group"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
@@ -34982,15 +35031,15 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/roadside.rs
 msgid ""
-"You are rested, and the delivery deadline kept "
+"The order is served, and the delivery deadline kept "
 "counting.{wake_air_instruction}"
 msgstr ""
 
 #. placeholders: {why}, {clock_text}, {wake_air_instruction}
 #: crates/freight-fate/src/states/driving_rest_states/roadside.rs
 msgid ""
-"{why} It is {clock_text}. You are rested, and the delivery deadline kept "
-"counting.{wake_air_instruction}"
+"{why} It is {clock_text}. The order is served, and the delivery deadline "
+"kept counting.{wake_air_instruction}"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/roadside.rs
@@ -36932,11 +36981,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs
 msgid "buff"
-msgstr ""
-
-#. placeholders: {label}
-#: crates/freight-fate/src/states/driving_updates/fatigue.rs
-msgid "The {label} has worn off."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs
@@ -41935,14 +41979,24 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
-"Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
-"warnings by steering or braking. Repeated misses can force you off the road."
+"Fatigue rises faster at night and reduces reaction time. On-duty time at a "
+"stop, such as fueling, a dock or an inspection, builds it at a third of the "
+"driving rate. Respond to nod-off warnings by steering or braking. Repeated "
+"misses can force you off the road."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
-"Meals and coffee help temporarily. A half-hour meal counts as a break. "
-"Proper sleep clears fatigue. A legal reset with poor rest can leave you "
+"Job details and the departure line say how many hours of a run fall at "
+"night, between 9 PM and 5 AM."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help.rs
+msgid ""
+"Meals ease fatigue, and a half-hour meal counts as a break. The lift from "
+"coffee or an energy drink comes back when it wears off, and a second one "
+"before then adds no lift. Proper sleep takes off 8 points of fatigue an "
+"hour, so ten hours clears 80. A legal reset with poor rest can leave you "
 "tired."
 msgstr ""
 
@@ -41954,8 +42008,8 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
-"Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
-"leaves you fully rested."
+"Sleeping 10 hours in the lot gives poor rest: 5 points an hour, never below "
+"30. Ten hours in sleeper parking is proper sleep."
 msgstr ""
 
 #. placeholders: {control_rest}
@@ -44996,9 +45050,9 @@ msgstr ""
 
 #: data/buffs.json
 msgid ""
-"A cold energy drink from the cooler. A small instant lift, and for the next "
-"two hours the miles tire you more slowly. A new drink or meal replaces the "
-"old one. They do not stack."
+"A cold energy drink from the cooler. A small lift, and the miles tire you "
+"more slowly for two hours. The lift wears off with it, and a second coffee "
+"or drink before then adds none. A new drink or meal replaces the old one."
 msgstr ""
 
 #: data/buffs.json
@@ -45101,10 +45155,10 @@ msgstr ""
 
 #: data/buffs.json
 msgid ""
-"Wall Drug's famous five-cent coffee. A small instant lift, and for the next "
-"hour and a half the miles tire you a little more slowly. Weaker than an "
-"energy drink. A meal does more. A new drink or meal replaces the old one. "
-"They do not stack."
+"Wall Drug's famous five-cent coffee. A small lift, and the miles tire you a "
+"little more slowly for an hour and a half. The lift wears off with it, and "
+"a second coffee or drink before then adds none. Weaker than an energy "
+"drink. A meal does more."
 msgstr ""
 
 #: data/buffs.json

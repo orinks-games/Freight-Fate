@@ -631,3 +631,38 @@ fn test_a_load_staged_at_the_home_yard_opens_the_pickup_without_a_deadhead() {
     assert!(said.contains("The load is here in the yard."), "{said}");
     assert!(!said.contains("Deadhead"), "{said}");
 }
+
+/// What `start_loaded_drive` says leaving Austin at local hour `hour`, and
+/// the night-hours line the run should carry.
+fn austin_departure_at(hour: f64) -> (String, Option<String>) {
+    let mut app = TestApp::new();
+    app.ctx.profile = Some(Profile::named_in("Night Departure", "Austin"));
+    app.ctx.settings.hos_mode = "realistic".to_string();
+    let job = job_with_supported_route(&app, "Austin", 2, &austin_offers(&app));
+    let route = app
+        .ctx
+        .world
+        .supported_route(&job.origin, &job.destination, None)
+        .unwrap()
+        .unwrap();
+    // Austin keeps Central time, an hour behind the reference clock.
+    app.ctx.profile.as_mut().unwrap().game_hours = 48.0 + hour + 1.0;
+    let drive_h = plan_hos(route.miles(), Some(&route), Some(app.ctx.world), None).drive_h;
+    let expected = ff_core::sim::hos::night_driving_line(hour, drive_h);
+    start_loaded_drive(&mut app.ctx, job, route, LoadedDriveOptions::default());
+    (app.main_lines().join(" "), expected)
+}
+
+#[test]
+fn the_departure_line_says_how_much_of_the_run_falls_at_night() {
+    let (said, expected) = austin_departure_at(23.0);
+    let expected = expected.expect("a run leaving at 11 PM drives at night");
+    assert!(said.contains(&expected), "{expected:?} missing from {said}");
+}
+
+#[test]
+fn the_departure_line_says_nothing_of_night_on_a_daytime_run() {
+    let (said, expected) = austin_departure_at(8.0);
+    assert_eq!(expected, None);
+    assert!(!said.contains("night driving"), "{said}");
+}

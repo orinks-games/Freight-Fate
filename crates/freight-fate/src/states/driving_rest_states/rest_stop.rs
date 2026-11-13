@@ -9,6 +9,7 @@ use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_int, round_py_n};
 use ff_core::sim::alertness::Alertness;
 use ff_core::sim::hos;
 use ff_core::sim::roadside_inspection::InspectionLevel;
+use ff_core::sim::stimulant;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::sim::vehicle::TruckState;
 use serde_json::json;
@@ -20,11 +21,12 @@ use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::city::PayDebtState;
 use crate::states::driving::{DrivingState, StopVisit};
 use crate::states::driving_core::{
-    advance_rest_clock, clock_text, deadline_text, hos_mut_of, hos_of, pay_advance_grant,
-    pay_advance_unavailable_reason, player_pays_operating_costs, poi_ambient_key, profile_mut_of,
-    profile_of, record_inspection, road_repair_cost, shut_down_engine, wake_air_instruction,
-    FacilityEngine, RigBuff, FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN,
-    MOTEL_COST, ROAD_BRAKE_COST_PER_PCT, ROAD_BRAKE_MIN, ROAD_TIRE_COST_PER_PCT, ROAD_TIRE_MIN,
+    advance_on_duty_clock, advance_rest_clock, clock_text, deadline_text, hos_mut_of, hos_of,
+    pay_advance_grant, pay_advance_unavailable_reason, player_pays_operating_costs,
+    poi_ambient_key, profile_mut_of, profile_of, record_inspection, road_repair_cost,
+    settle_lift_before_sleep, shut_down_engine, wake_air_instruction, FacilityEngine, RigBuff,
+    FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN, MOTEL_COST,
+    ROAD_BRAKE_COST_PER_PCT, ROAD_BRAKE_MIN, ROAD_TIRE_COST_PER_PCT, ROAD_TIRE_MIN,
     ROAD_TIRE_SPECIALIST_COST_PER_PCT, ROAD_TIRE_SPECIALIST_MIN, WALK_AROUND_MIN, WAVE_THROUGH_MIN,
 };
 use crate::states::driving_menu_states::{keep_rows, DriveRef};
@@ -259,8 +261,9 @@ impl RestStopState {
                     s.food_break(ctx)
                 })
                 .help(
-                    "Fifteen minutes off duty. Coffee eases fatigue a little, but does not \
-                     satisfy the 30-minute break rule.",
+                    "Fifteen minutes off duty. Coffee eases fatigue a little, but the lift \
+                     wears off in two hours, and a second coffee before then adds nothing. Does \
+                     not satisfy the 30-minute break rule.",
                 ),
             );
         }
@@ -293,13 +296,13 @@ impl RestStopState {
                         "Sleep {} more to finish a 10-hour reset",
                         hos::duration_text(left / 60.0)
                     ),
-                    "Your rest since you parked counts. Full reset, fresh hours of service and \
-                     zero fatigue.",
+                    "Your rest since you parked counts. Full reset and fresh hours of service. \
+                     Sleep takes off 8 points of fatigue an hour.",
                 ),
                 None => (
                     "Sleep 10 hours".to_string(),
-                    "Full reset, fresh hours of service and zero fatigue. Clock and deadline \
-                     advance 10 hours.",
+                    "Full reset and fresh hours of service. Sleep takes off 8 points of fatigue \
+                     an hour. Clock and deadline advance 10 hours.",
                 ),
             };
             items.push(MenuItem::new(label, |s: &mut Self, ctx| s.sleep(ctx)).help(help));
@@ -315,8 +318,8 @@ impl RestStopState {
                     s.emergency_lot_sleep(ctx)
                 })
                 .help(
-                    "A legal 10-hour reset with poor rest, you wake still tired. Clock and \
-                     deadline advance 10 hours.",
+                    "A legal 10-hour reset with poor rest: 5 points of fatigue off an hour, \
+                     never below 30. Clock and deadline advance 10 hours.",
                 ),
             );
             items.push(
@@ -328,8 +331,8 @@ impl RestStopState {
                     |s: &mut Self, ctx| s.motel_sleep(ctx),
                 )
                 .help(
-                    "A real bed, paid from your own pocket. Legal reset, you wake fresh. Clock \
-                     and deadline advance 10 hours.",
+                    "A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 \
+                     points of fatigue an hour. Clock and deadline advance 10 hours.",
                 ),
             );
         }
@@ -568,15 +571,29 @@ impl RestStopState {
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
             advance_rest_clock(d, ctx, 15.0, Some("off_duty"), "food and coffee");
             hos_mut_of(ctx).take_break(15.0);
-            {
-                let p = profile_mut_of(ctx);
-                p.fatigue = hos::rest_coffee_break(p.fatigue);
+            // The lift is a loan, paid back when the coffee wears off; a
+            // second cup before then lifts nothing.
+            let now_h = d.absolute_game_hour(ctx, None);
+            let lifted = profile_mut_of(ctx).take_stimulant(
+                hos::FATIGUE_COFFEE_RELIEF,
+                now_h,
+                stimulant::COFFEE_BREAK_LOAN_H,
+                stimulant::COFFEE_WORN_OFF,
+            );
+            if lifted > 0.0 {
+                format!(
+                    "Coffee break. {}. Eases fatigue. Does not count as your 30-minute break. {}",
+                    clock_text(d.trip.local_hour()),
+                    deadline_text(d, ctx)
+                )
+            } else {
+                format!(
+                    "Coffee break. {}. No lift while the last coffee lasts. Does not count as \
+                     your 30-minute break. {}",
+                    clock_text(d.trip.local_hour()),
+                    deadline_text(d, ctx)
+                )
             }
-            format!(
-                "Coffee break. {}. Eases fatigue. Does not count as your 30-minute break. {}",
-                clock_text(d.trip.local_hour()),
-                deadline_text(d, ctx)
-            )
         }) else {
             return;
         };
@@ -594,6 +611,7 @@ impl RestStopState {
             let minutes = (hours * 60) as f64;
             let engine_off = shut_down_engine(d, ctx);
             advance_rest_clock(d, ctx, minutes, None, "");
+            settle_lift_before_sleep(d, ctx);
             let completed = hos_mut_of(ctx).sleeper_split_rest(minutes);
             let full_reset = hos_of(ctx)
                 .history
@@ -602,7 +620,7 @@ impl RestStopState {
             {
                 let p = profile_mut_of(ctx);
                 p.fatigue = if full_reset {
-                    hos::rest_sleep(p.fatigue)
+                    hos::rest_sleep(p.fatigue, minutes)
                 } else {
                     hos::rest_sleeper_split(p.fatigue, minutes, completed)
                 };
@@ -688,18 +706,28 @@ impl RestStopState {
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
             let engine_off = shut_down_engine(d, ctx);
             let owed = hos_of(ctx).reset_minutes_left();
-            advance_rest_clock(d, ctx, owed.unwrap_or(hos::SLEEP_MIN), None, "");
+            let minutes = owed.unwrap_or(hos::SLEEP_MIN);
+            advance_rest_clock(d, ctx, minutes, None, "");
+            settle_lift_before_sleep(d, ctx);
             hos_mut_of(ctx).sleep();
-            {
+            // Sleep takes fatigue off by the hour, so a driver who went to
+            // bed exhausted can wake with some left.
+            let rested = {
                 let p = profile_mut_of(ctx);
-                p.fatigue = hos::rest_sleep(p.fatigue);
-            }
-            let slept = match owed {
-                Some(left) => format!(
+                p.fatigue = hos::rest_sleep(p.fatigue, minutes);
+                Alertness::from_fatigue(p.fatigue) == Alertness::Rested
+            };
+            let slept = match (owed, rested) {
+                (Some(left), true) => format!(
                     "You slept {} more, 10 hours of rest in a row, and woke rested.",
                     hos::duration_text(left / 60.0)
                 ),
-                None => "You slept 10 hours and woke rested.".to_string(),
+                (Some(left), false) => format!(
+                    "You slept {} more, 10 hours of rest in a row, and woke still tired.",
+                    hos::duration_text(left / 60.0)
+                ),
+                (None, true) => "You slept 10 hours and woke rested.".to_string(),
+                (None, false) => "You slept 10 hours and woke still tired.".to_string(),
             };
             format!(
                 "{engine_off}{slept} It is {}. Driving and duty clocks reset. {}{}",
@@ -746,8 +774,12 @@ impl RestStopState {
             // that skipped it while still sending the driver off to bed.
             let engine_off = shut_down_engine(d, ctx);
             advance_rest_clock(d, ctx, hos::SLEEP_MIN, None, "");
+            settle_lift_before_sleep(d, ctx);
             hos_mut_of(ctx).sleep();
-            profile_mut_of(ctx).fatigue = 0.0;
+            {
+                let p = profile_mut_of(ctx);
+                p.fatigue = hos::rest_sleep(p.fatigue, hos::SLEEP_MIN);
+            }
             let money = profile_of(ctx).money();
             format!(
                 "{engine_off}Motel, {} dollars, 10 hours. {}. Driving and duty clocks reset. \
@@ -780,10 +812,11 @@ impl RestStopState {
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
             let engine_off = shut_down_engine(d, ctx);
             advance_rest_clock(d, ctx, hos::SLEEP_MIN, None, "");
+            settle_lift_before_sleep(d, ctx);
             hos_mut_of(ctx).sleep();
             {
                 let p = profile_mut_of(ctx);
-                p.fatigue = hos::rest_shoulder(p.fatigue);
+                p.fatigue = hos::rest_poor_sleep(p.fatigue, hos::SLEEP_MIN);
             }
             format!(
                 "{engine_off}Slept 10 hours in the lot. {}. Driving and duty clocks reset. Rest was poor. \
@@ -824,8 +857,7 @@ impl RestStopState {
             profile_mut_of(ctx).spend(cost);
             let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
                 d.trip.truck.damage_pct = 0.0;
-                advance_rest_clock(d, ctx, 60.0, None, "");
-                hos_mut_of(ctx).on_duty(60.0);
+                advance_on_duty_clock(d, ctx, 60.0, None, "");
                 let money = profile_of(ctx).money();
                 format!(
                     "Truck repaired for {} dollars. It is {}. You have {} dollars. {}",
@@ -843,8 +875,7 @@ impl RestStopState {
         } else {
             let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
                 d.trip.truck.damage_pct = 0.0;
-                advance_rest_clock(d, ctx, 60.0, None, "");
-                hos_mut_of(ctx).on_duty(60.0);
+                advance_on_duty_clock(d, ctx, 60.0, None, "");
                 format!(
                     "Shop repaired {} percent damage on the carrier account. It is {}. {}",
                     fmt_f(damage, 0),
@@ -900,8 +931,7 @@ impl RestStopState {
         }
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
             d.trip.truck.damage_pct = damage.min(FIELD_REPAIR_DAMAGE_PCT);
-            advance_rest_clock(d, ctx, MECHANIC_WAIT_MIN, None, "");
-            hos_mut_of(ctx).on_duty(MECHANIC_WAIT_MIN);
+            advance_on_duty_clock(d, ctx, MECHANIC_WAIT_MIN, None, "");
             let billing = if carrier_paid {
                 "on the carrier breakdown account".to_string()
             } else {
@@ -1041,8 +1071,7 @@ impl RestStopState {
                 WearMeter::Tire => d.trip.truck.tire_wear_pct = 0.0,
                 WearMeter::Brake => d.trip.truck.brake_wear_pct = 0.0,
             }
-            advance_rest_clock(d, ctx, minutes, Some("on_duty_not_driving"), &duty_note);
-            hos_mut_of(ctx).on_duty(minutes);
+            advance_on_duty_clock(d, ctx, minutes, Some("on_duty_not_driving"), &duty_note);
             if carrier {
                 format!(
                     "The shop {carrier_done} at {} percent wear on the carrier account. It is \
@@ -1149,20 +1178,29 @@ impl RestStopState {
                         rate: buff.rate,
                     },
                 );
-                advance_rest_clock(
+                advance_on_duty_clock(
                     d,
                     ctx,
                     buff.stop_minutes,
                     Some("on_duty_not_driving"),
                     &buff.label.to_lowercase(),
                 );
-                hos_mut_of(ctx).on_duty(buff.stop_minutes);
             } else {
-                if buff.fatigue_instant > 0.0 {
+                let now_h = d.absolute_game_hour(ctx, None);
+                let expires_h = now_h + buff.duration_game_h;
+                if buff.stimulant {
+                    // The lift is a loan due as the drink wears off; its
+                    // own worn-off line marks the payback.
+                    profile_mut_of(ctx).take_stimulant(
+                        buff.fatigue_instant,
+                        now_h,
+                        buff.duration_game_h,
+                        &buff.worn_off_line(),
+                    );
+                } else if buff.fatigue_instant > 0.0 {
                     let p = profile_mut_of(ctx);
                     p.fatigue = (p.fatigue - buff.fatigue_instant).max(0.0);
                 }
-                let expires_h = d.absolute_game_hour(ctx, None) + buff.duration_game_h;
                 profile_mut_of(ctx).add_timed_buff(json!({
                     "id": buff.id,
                     "label": buff.label,
@@ -1269,8 +1307,7 @@ impl RestStopState {
             // A valid decal is waved through on sight (CVSA Operational
             // Policy 5), unless the record is targeted.
             if d.decal_waves_through(ctx) {
-                advance_rest_clock(d, ctx, WAVE_THROUGH_MIN, None, "");
-                hos_mut_of(ctx).on_duty(WAVE_THROUGH_MIN);
+                advance_on_duty_clock(d, ctx, WAVE_THROUGH_MIN, None, "");
                 return (
                     format!(
                         "Inspection check-in complete at {}. The inspection decal on the \
@@ -1287,8 +1324,7 @@ impl RestStopState {
             // every time; a career carrying citations, out-of-service history
             // and a beaten-up truck is pulled in at every open scale.
             if !d.scale_selects_driver(ctx, &stop) {
-                advance_rest_clock(d, ctx, WAVE_THROUGH_MIN, None, "");
-                hos_mut_of(ctx).on_duty(WAVE_THROUGH_MIN);
+                advance_on_duty_clock(d, ctx, WAVE_THROUGH_MIN, None, "");
                 return (
                     format!(
                         "Inspection check-in complete at {}. Officers wave you straight back \
@@ -1328,14 +1364,13 @@ impl RestStopState {
     fn walk_around(&mut self, ctx: &mut GameContext) {
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
             let lines = d.walk_around_lines(ctx);
-            advance_rest_clock(
+            advance_on_duty_clock(
                 d,
                 ctx,
                 WALK_AROUND_MIN,
                 Some("on_duty_not_driving"),
                 "pre-trip walk-around",
             );
-            hos_mut_of(ctx).on_duty(WALK_AROUND_MIN);
             let body = if lines.is_empty() {
                 "Nothing to write up: tires, brakes, lights and the trailer would all pass."
                     .to_string()

@@ -1362,9 +1362,9 @@ fn test_rest_helpers() {
     assert!(60.0 < daytime_boost_min && daytime_boost_min < daytime_break_min);
     assert!(approx(rest_break(50.0), 15.0));
     assert_eq!(rest_break(10.0), 0.0);
-    assert_eq!(rest_sleep(99.0), 0.0);
-    assert_eq!(rest_shoulder(90.0), 30.0); // poor rest floor
-    assert_eq!(rest_shoulder(10.0), 10.0); // never adds fatigue
+    assert_eq!(rest_sleep(99.0, SLEEP_MIN), 19.0);
+    assert_eq!(rest_poor_sleep(90.0, SLEEP_MIN), 40.0);
+    assert_eq!(rest_poor_sleep(10.0, SLEEP_MIN), 10.0); // never adds fatigue
 }
 
 #[test]

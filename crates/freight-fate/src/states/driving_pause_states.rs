@@ -15,11 +15,11 @@ use crate::states::base::{
 use crate::states::city::CityMenuState;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, clock_text, deadline_text, hos_mut_of, is_night,
-    player_pays_operating_costs, profile_mut_of, profile_of, road_repair_cost,
-    secure_truck_for_stopped_menu, CHAIN_INSTALL_MIN, CHAIN_INSTALL_NIGHT_MULT, CHAIN_REMOVE_MIN,
-    CHAIN_REPAIR_MIN, CHAIN_SAFE_MPH, CHAIN_SLAP_WARN_PCT, CHAIN_TIGHTEN_MIN, DRIVE_PHASE_PICKUP,
-    FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN,
+    advance_on_duty_clock, clock_text, deadline_text, is_night, player_pays_operating_costs,
+    profile_mut_of, profile_of, road_repair_cost, secure_truck_for_stopped_menu, CHAIN_INSTALL_MIN,
+    CHAIN_INSTALL_NIGHT_MULT, CHAIN_REMOVE_MIN, CHAIN_REPAIR_MIN, CHAIN_SAFE_MPH,
+    CHAIN_SLAP_WARN_PCT, CHAIN_TIGHTEN_MIN, DRIVE_PHASE_PICKUP, FIELD_REPAIR_DAMAGE_PCT,
+    MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN,
 };
 use crate::states::driving_dispatch_call::DispatchCallState;
 use crate::states::driving_menu_states::{keep_rows, push_over_drive, DriveRef};
@@ -651,8 +651,7 @@ pub fn perform_roadside_mechanic(d: &mut DrivingState, ctx: &mut GameContext) ->
     }
     let money = profile_of(ctx).money();
     d.trip.truck.damage_pct = FIELD_REPAIR_DAMAGE_PCT;
-    advance_rest_clock(d, ctx, MECHANIC_WAIT_MIN, None, "");
-    hos_mut_of(ctx).on_duty(MECHANIC_WAIT_MIN);
+    advance_on_duty_clock(d, ctx, MECHANIC_WAIT_MIN, None, "");
     ctx.audio.play("ui/notify");
     let billing = if carrier_paid {
         "on the carrier breakdown account".to_string()

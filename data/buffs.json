@@ -10,7 +10,8 @@
     "actions": [
       "fuel"
     ],
-    "help": "A cold energy drink from the cooler. A small instant lift, and for the next two hours the miles tire you more slowly. A new drink or meal replaces the old one. They do not stack.",
+    "stimulant": true,
+    "help": "A cold energy drink from the cooler. A small lift, and the miles tire you more slowly for two hours. The lift wears off with it, and a second coffee or drink before then adds none. A new drink or meal replaces the old one.",
     "purchased": "You down the energy drink. You feel a little sharper, and the next couple of hours on the road will tire you more slowly.",
     "worn_off": "The energy drink has worn off."
   },
@@ -87,7 +88,8 @@
     "brands": [
       "wall_drug"
     ],
-    "help": "Wall Drug's famous five-cent coffee. A small instant lift, and for the next hour and a half the miles tire you a little more slowly. Weaker than an energy drink. A meal does more. A new drink or meal replaces the old one. They do not stack.",
+    "stimulant": true,
+    "help": "Wall Drug's famous five-cent coffee. A small lift, and the miles tire you a little more slowly for an hour and a half. The lift wears off with it, and a second coffee or drink before then adds none. Weaker than an energy drink. A meal does more.",
     "purchased": "You drink the five-cent coffee. You feel a little more awake, and the next hour and a half on the road will tire you a little more slowly.",
     "worn_off": "The five-cent coffee has worn off."
   },

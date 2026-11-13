@@ -141,6 +141,7 @@ impl DrivingState {
             },
         );
         let trip_minutes = self.trip.game_minutes;
+        crate::states::driving_core::accrue_on_duty_fatigue(self, ctx, STOP_PULL_IN_MIN);
         {
             let p = profile_mut_of(ctx);
             // A relayed load's deadhead ended in the shipper's city: the

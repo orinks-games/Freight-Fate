@@ -164,7 +164,9 @@ fn test_how_to_play_documents_new_gameplay_systems() {
         "cb chatter",
         "next multiple of five",
         "computer clock",
-        "leaves you fully rested",
+        "8 points of fatigue an hour",
+        "comes back when it wears off",
+        "hours of a run fall at night",
     ] {
         assert!(
             help_text.contains(phrase),

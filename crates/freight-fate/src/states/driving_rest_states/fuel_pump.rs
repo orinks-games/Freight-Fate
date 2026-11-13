@@ -18,8 +18,7 @@ use crate::app::GameContext;
 use crate::states::base::Menu;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, hos_mut_of, player_pays_operating_costs, profile_mut_of, profile_of,
-    FUEL_STOP_MIN,
+    advance_on_duty_clock, player_pays_operating_costs, profile_mut_of, profile_of, FUEL_STOP_MIN,
 };
 use crate::states::driving_menu_states::DriveRef;
 
@@ -108,8 +107,7 @@ pub trait FuelPump: Menu {
             d.trip.truck.refuel(Some(need));
             // free showers with fuel
             d.stop_visit(&stop).fueled = true;
-            advance_rest_clock(d, ctx, FUEL_STOP_MIN, None, "");
-            hos_mut_of(ctx).on_duty(FUEL_STOP_MIN);
+            advance_on_duty_clock(d, ctx, FUEL_STOP_MIN, None, "");
             d.trip.truck.gross_weight_margin_kg()
         });
         let margin = Self::weight_margin_text("Gross weight", margin_kg.unwrap_or(0.0));

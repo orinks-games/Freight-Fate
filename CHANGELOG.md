@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+### Added
+
+- **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
+
+### Changed
+
+- **On-duty time now tires you a little.** Fueling, docks, inspections and waiting at the wheel build it at a third of the driving rate.
+- **Sleep now takes off 8 points of fatigue an hour.** Ten hours clears 80, so going to bed exhausted leaves some.
+- **Coffee and energy drinks now wear off and take their lift back.** A second one before then adds no lift.
+
 ## 1.9.6 - 2026-11-13
 
 ### Compatibility

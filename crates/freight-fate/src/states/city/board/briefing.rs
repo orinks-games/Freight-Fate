@@ -5,22 +5,23 @@
 use ff_core::data::world_models::Route;
 use ff_core::models::jobs::{plan_hos, Job};
 use ff_core::pyfmt::fmt_f;
-use ff_core::sim::hos::limits;
+use ff_core::sim::hos::{limits, night_driving_line};
+use ff_core::sim::timezones::to_local;
 
 use crate::app::GameContext;
-use crate::states::city::profile;
+use crate::states::city::{city_local_zone, profile};
 use crate::states::city_pickup::{PICKUP_CHECK_IN_MIN, PICKUP_LOADING_MIN};
 use crate::states::driving_core::ASSUMED_RANGE_MPG;
 
 use super::pickup_drive_hours;
 
 /// "Trip hours: about 14 driving hours, with a 10-hour sleep." then the
-/// driver's own driving time left. Empty with hours of service off.
+/// driver's own driving time left.
+///
+/// "About 4 hours of night driving." follows the trip line, and stands alone
+/// with hours of service off, where it is the planning line left.
 pub(super) fn hours_lines(ctx: &GameContext, job: &Job) -> Vec<String> {
     let mode = &ctx.settings.hos_mode;
-    if limits(mode).is_none() {
-        return Vec::new();
-    }
     let p = profile(ctx);
     // The clock as the loaded truck leaves the shipper: the drive to the
     // pickup and the check-in and loading come off the shift first.
@@ -41,6 +42,10 @@ pub(super) fn hours_lines(ctx: &GameContext, job: &Job) -> Vec<String> {
         Some(ctx.world),
         Some(&clock),
     );
+    let night = night_line(ctx, pickup_h + plan.drive_h);
+    if limits(mode).is_none() {
+        return night.into_iter().collect();
+    }
     // Whole lines, so a translation matches each one as it is spoken.
     let hours = fmt_f(pickup_h + plan.drive_h, 1);
     let sleeps = plan.sleeps;
@@ -57,7 +62,9 @@ pub(super) fn hours_lines(ctx: &GameContext, job: &Job) -> Vec<String> {
         (1, _) => format!("Trip hours: about {hours} driving hours, with a 10-hour sleep."),
         _ => format!("Trip hours: about {hours} driving hours, with {sleeps} 10-hour sleeps."),
     };
-    let mut lines = vec![trip, p.hos.drive_time_summary(mode, false)];
+    let mut lines = vec![trip];
+    lines.extend(night);
+    lines.push(p.hos.drive_time_summary(mode, false));
     // Where the co-driver is offered, before the rows turn up there: the
     // dock's own test, on the clock the loaded truck leaves with. A team
     // load says so in its deadline already.
@@ -69,6 +76,14 @@ pub(super) fn hours_lines(ctx: &GameContext, job: &Job) -> Vec<String> {
         );
     }
     lines
+}
+
+/// "About 4 hours of night driving.": how much of `drive_h` hours of
+/// driving, leaving now and driving straight through, falls between 9 PM and
+/// 5 AM on the clock where the driver stands.
+fn night_line(ctx: &GameContext, drive_h: f64) -> Option<String> {
+    let start_local = to_local(profile(ctx).game_hours, city_local_zone(ctx));
+    night_driving_line(start_local, drive_h)
 }
 
 /// "Fuel: 60 percent, about 900 miles of range.", and "short of this trip"
@@ -102,7 +117,7 @@ pub(super) fn fuel_line(ctx: &GameContext, job: &Job) -> String {
 /// The departure briefing, spoken once as the loaded truck leaves: the
 /// driver's hours and tank, then the one stop this run will need, if any.
 /// "Driving time left: 7 hours, duty window 9 hours. Fuel: 60 percent. This
-/// run needs a 10-hour sleep."
+/// run needs a 10-hour sleep. About 4 hours of night driving."
 ///
 /// With the co-driver taking the wheel (`team`), the stop line is left out:
 /// the team changes drivers instead of stopping for the solo driver's sleep.
@@ -138,5 +153,7 @@ pub(crate) fn departure_briefing(ctx: &GameContext, route: &Route, team: bool) -
         ));
     }
     parts.extend(needs);
+    let drive_h = plan_hos(route.miles(), Some(route), Some(ctx.world), None).drive_h;
+    parts.extend(night_line(ctx, drive_h));
     parts.join(" ")
 }

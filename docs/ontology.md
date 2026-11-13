@@ -377,6 +377,8 @@ from the words, and synonyms cost them a re-read.
 | The fatigue band from 40 to 60, entered with one quiet yawn | Worn ("Fatigue: 45 percent, worn" in the readouts) | tired, weary, sleepy | `Alertness::Worn` |
 | The fatigue band from 60 to 80, entered with "Getting drowsy." | Drowsy | sleepy, tired, fatigued | `Alertness::Drowsy` |
 | The fatigue band from 80 up, where the nod-offs begin | Severe | exhausted, dangerously tired, critical | `Alertness::Severe` |
+| The hours of a run that fall between 9 PM and 5 AM local, leaving now and driving straight through | night driving ("About 4 hours of night driving.") | night hours, overnight time, dark hours | `hos::night_driving_line` |
+| What a coffee or energy drink takes off fatigue at once, owed back when it wears off | lift | boost, loan, credit | `sim::stimulant::Loan` |
 | Running off the road asleep | fatigue event | microsleep (that is the warning, not the event), nod-off | `DrivingRecord.record_fatigue_event` |
 | How far dispatch will work with you right now | dispatch trust | standing, rep level, tier | `enforcement.standing_band` |
 | Everything the driver is behind by, cash and balance together | debt; "what you owe" in a sentence | negative balance, in the red, in the hole, arrears | `solvency.debt_owed` |

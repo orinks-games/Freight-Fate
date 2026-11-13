@@ -12,8 +12,8 @@ use ff_core::speech_pacing::SpeechCategory;
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, clock_text, deadline_text, hos_mut_of, hos_of, is_night, profile_mut_of,
-    profile_of, CHAIN_INSTALL_FATIGUE, CHAIN_INSTALL_MIN, CHAIN_INSTALL_NIGHT_FATIGUE,
+    advance_on_duty_clock, clock_text, deadline_text, hos_of, is_night, profile_mut_of, profile_of,
+    CHAIN_INSTALL_FATIGUE, CHAIN_INSTALL_MIN, CHAIN_INSTALL_NIGHT_FATIGUE,
     CHAIN_INSTALL_NIGHT_MULT, CHAIN_REMOVE_FATIGUE, CHAIN_REMOVE_MIN, CHAIN_REPAIR_MIN,
     CHAIN_REPAIR_WEAR_RESTORE, CHAIN_SAFE_MPH, CHAIN_TIGHTEN_MIN, CHAIN_TIGHTEN_WEAR_RESTORE,
 };
@@ -95,8 +95,7 @@ impl DrivingState {
         } else {
             CHAIN_INSTALL_FATIGUE
         };
-        advance_rest_clock(self, ctx, minutes, Some("on_duty_not_driving"), "chain up");
-        hos_mut_of(ctx).on_duty(minutes);
+        advance_on_duty_clock(self, ctx, minutes, Some("on_duty_not_driving"), "chain up");
         {
             let p = profile_mut_of(ctx);
             p.fatigue = (p.fatigue + fatigue).min(100.0);
@@ -139,14 +138,13 @@ impl DrivingState {
             ctx.audio.play("ui/error");
             return Some("No repair links left. The chain stays off.".to_string());
         }
-        advance_rest_clock(
+        advance_on_duty_clock(
             self,
             ctx,
             CHAIN_REPAIR_MIN,
             Some("on_duty_not_driving"),
             "repair chain",
         );
-        hos_mut_of(ctx).on_duty(CHAIN_REPAIR_MIN);
         profile_mut_of(ctx).set_chain_repair_links(links - 1);
         self.trip.truck.chain_wear_pct = 100.0 - CHAIN_REPAIR_WEAR_RESTORE;
         self.trip.truck.chains_on = true;
@@ -171,14 +169,13 @@ impl DrivingState {
             ctx.say("Come to a complete stop first.");
             return None;
         }
-        advance_rest_clock(
+        advance_on_duty_clock(
             self,
             ctx,
             CHAIN_TIGHTEN_MIN,
             Some("on_duty_not_driving"),
             "tighten chains",
         );
-        hos_mut_of(ctx).on_duty(CHAIN_TIGHTEN_MIN);
         self.trip.truck.chain_wear_pct =
             (self.trip.truck.chain_wear_pct - CHAIN_TIGHTEN_WEAR_RESTORE).max(0.0);
         self.chain_tightened = true;
@@ -198,14 +195,13 @@ impl DrivingState {
             ctx.say("Come to a complete stop first.");
             return None;
         }
-        advance_rest_clock(
+        advance_on_duty_clock(
             self,
             ctx,
             CHAIN_REMOVE_MIN,
             Some("on_duty_not_driving"),
             "remove chains",
         );
-        hos_mut_of(ctx).on_duty(CHAIN_REMOVE_MIN);
         {
             let p = profile_mut_of(ctx);
             p.fatigue = (p.fatigue + CHAIN_REMOVE_FATIGUE).min(100.0);

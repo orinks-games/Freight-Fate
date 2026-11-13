@@ -12,8 +12,8 @@ use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, clock_text, hos_mut_of, hos_of, player_pays_operating_costs,
-    profile_mut_of, profile_of, FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN,
+    advance_on_duty_clock, clock_text, hos_of, player_pays_operating_costs, profile_mut_of,
+    profile_of, FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN,
     ROAD_CHAIN_SET_COST,
 };
 use crate::states::driving_menu_states::DriveRef;
@@ -376,14 +376,13 @@ fn repair_trailer_on_the_road(driving: &mut DrivingState, ctx: &mut GameContext)
         profile_mut_of(ctx).spend(MECHANIC_CALLOUT_FEE);
     }
     driving.trailer_repaired = true;
-    advance_rest_clock(
+    advance_on_duty_clock(
         driving,
         ctx,
         MECHANIC_WAIT_MIN,
         Some("on_duty_not_driving"),
         "trailer repair",
     );
-    hos_mut_of(ctx).on_duty(MECHANIC_WAIT_MIN);
     let billing = if carrier_paid {
         "on the carrier breakdown account".to_string()
     } else {
@@ -405,14 +404,13 @@ fn bring_chains_on_the_road(driving: &mut DrivingState, ctx: &mut GameContext) -
         profile_mut_of(ctx).spend(cost);
     }
     driving.stow_new_chain_set(ctx);
-    advance_rest_clock(
+    advance_on_duty_clock(
         driving,
         ctx,
         MECHANIC_WAIT_MIN,
         Some("on_duty_not_driving"),
         "chain delivery",
     );
-    hos_mut_of(ctx).on_duty(MECHANIC_WAIT_MIN);
     let billing = if carrier_paid {
         "on the carrier breakdown account".to_string()
     } else {

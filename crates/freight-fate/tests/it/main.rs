@@ -143,6 +143,7 @@ mod states_driving_exit_windows;
 mod states_driving_exits;
 mod states_driving_facility;
 mod states_driving_facility_approaches;
+mod states_driving_fatigue_costs;
 mod states_driving_fuel_warning;
 mod states_driving_gate_ramp_speech;
 mod states_driving_grades;

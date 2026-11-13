@@ -78,16 +78,25 @@ impl DrivingState {
 
         let night = is_night(self.trip.local_hour());
         let now_h = self.absolute_game_hour(ctx, None);
-        if moving && !co_driver {
+        if !co_driver {
             // Pressure-mode tuning scales how fast the day wears on you, and
             // an active food/drink buff slows accrual (data/buffs.py); neither
-            // touches the HOS duty clock above.
+            // touches the HOS duty clock above. Sitting at the wheel stopped
+            // is on duty too, and builds a third of the rate.
             let fatigue_mult = tuning_for_time_scale(self.trip.time_scale).fatigue_rate;
+            let duty_mult = if moving {
+                1.0
+            } else {
+                hos::ON_DUTY_FATIGUE_FACTOR
+            };
             let p = profile_mut_of(ctx);
             let buff_rate = p.fatigue_buff_rate(now_h);
-            p.fatigue = 100.0f64
-                .min(p.fatigue + hos::fatigue_rate_per_min(night) * gm * fatigue_mult * buff_rate);
+            p.fatigue = 100.0f64.min(
+                p.fatigue
+                    + hos::fatigue_rate_per_min(night) * gm * fatigue_mult * buff_rate * duty_mult,
+            );
         }
+        let mut worn_lines: Vec<(String, bool)> = Vec::new();
         for worn in profile_mut_of(ctx).expire_buffs(now_h) {
             let text = worn
                 .get("worn_off")
@@ -102,7 +111,31 @@ impl DrivingState {
                         .to_lowercase();
                     format!("The {label} has worn off.")
                 });
-            ctx.say_event_with(text, SayEvent::queued().category(SpeechCategory::Status));
+            worn_lines.push((text, false));
+        }
+        // A stimulant's lift comes back as it wears off, here and nowhere
+        // else short of a sleep, so a stop, a loop-back or an on-duty block
+        // that crossed the due time is paid back on the first frame at the
+        // wheel. A drink's own worn-off line above marks it; the coffee
+        // break's has its own. That one line explains a jump in fatigue, so
+        // it is never dropped for waiting on a busy voice, and it is spoken
+        // ahead of any band cue the jump brings (agent playtest, 2026-11-13:
+        // a loop-back line held it, "Getting drowsy." went first, and the
+        // worn-off line timed out unheard).
+        if let Some(line) = profile_mut_of(ctx).repay_stimulant_loan(now_h) {
+            match worn_lines.iter_mut().find(|(text, _)| *text == line) {
+                Some(found) => found.1 = true,
+                None if !line.is_empty() => worn_lines.push((line, true)),
+                None => {}
+            }
+        }
+        for (text, lift) in worn_lines {
+            let opts = if lift {
+                SayEvent::queued().priority(EventPriority::Important).keep()
+            } else {
+                SayEvent::queued()
+            };
+            ctx.say_event_with(text, opts.category(SpeechCategory::Status));
         }
         self.trip.truck.engine_wear_buff_mult = self
             .rig_buffs

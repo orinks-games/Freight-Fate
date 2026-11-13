@@ -3842,6 +3842,10 @@ msgstr "疲労"
 msgid "tire"
 msgstr "タイヤ"
 
+#. placeholders: {label}
+msgid "The {label} has worn off."
+msgstr "{label}の効果が切れました。"
+
 #. placeholders: {buff_id}, {py_repr_str}
 msgid "buff {buff_id}: unknown group {py_repr_str}"
 msgstr "バフ{buff_id}：不明なグループ{py_repr_str}"
@@ -3861,6 +3865,10 @@ msgstr "バフ{buff_id}：車両のバフはtrip_scopedでなければなりま�
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: no availability (brands or actions)"
 msgstr "バフ{buff_id}：利用条件（ブランドまたはアクション）がありません"
+
+#. placeholders: {buff_id}
+msgid "buff {buff_id}: only fatigue buffs can be stimulants"
+msgstr ""
 
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: help and purchased speech are required"
@@ -10659,6 +10667,13 @@ msgstr "夕暮れ"
 msgid "night"
 msgstr "夜"
 
+msgid "About 1 hour of night driving."
+msgstr ""
+
+#. placeholders: {n}
+msgid "About {n} hours of night driving."
+msgstr ""
+
 msgid "status"
 msgstr "status"
 
@@ -11579,6 +11594,15 @@ msgstr "華氏{f}度"
 #. placeholders: {f}
 msgid "{f} degrees Celsius"
 msgstr "摂氏{f}度"
+
+msgid "The coffee has worn off."
+msgstr ""
+
+msgid "amount"
+msgstr "amount"
+
+msgid "group"
+msgstr "group"
 
 msgid "baffled"
 msgstr "仕切り板付き"
@@ -17173,8 +17197,10 @@ msgstr "最近の勤務状況記録。"
 msgid "Sleep 10 hours"
 msgstr "10時間眠る"
 
-msgid "Fresh hours of service and zero fatigue. Clock advances 10 hours."
-msgstr "運転時間がリセットされ、疲労がゼロになります。時計が10時間進みます。"
+msgid ""
+"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+"advances 10 hours."
+msgstr ""
 
 msgid "Save game"
 msgstr "ゲームを保存"
@@ -19890,9 +19916,6 @@ msgstr "運転席です。現在{now}。{engine}"
 #. one sentence of a longer line
 msgid "It is {now}."
 msgstr "{now}です。"
-
-msgid "amount"
-msgstr "amount"
 
 msgid "alertness"
 msgstr ""
@@ -27307,9 +27330,9 @@ msgid "Motel room: sleep 10 hours for {f} dollars"
 msgstr "モーテルの部屋：{f}ドルで10時間睡眠"
 
 msgid ""
-"A motel near the exit, paid from your own pocket. Legal 10-hour reset, you "
-"wake fresh."
-msgstr "出口近くのモーテルで、自腹で払います。法的な10時間のリセットで、すっきり目覚めます。"
+"A motel near the exit, paid from your own pocket. Legal 10-hour reset, and "
+"sleep takes off 8 points of fatigue an hour."
+msgstr ""
 
 msgid "Park on the shoulder and sleep"
 msgstr "路肩に停めて寝る"
@@ -27491,9 +27514,10 @@ msgstr ""
 "。"
 
 msgid ""
-"Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
+"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
+"off in two hours, and a second coffee before then adds nothing. Does not "
 "satisfy the 30-minute break rule."
-msgstr "15分の非勤務です。コーヒーで疲れが少し和らぎますが、30分休憩の規則は満たしません。"
+msgstr ""
 
 msgid ""
 "Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
@@ -27509,27 +27533,27 @@ msgid "Sleep {duration_text} more to finish a 10-hour reset"
 msgstr "あと{duration_text}眠って10時間のリセットを完了する"
 
 msgid ""
-"Your rest since you parked counts. Full reset, fresh hours of service and "
-"zero fatigue."
-msgstr "駐車してからの休息が計上されます。完全リセットで、運転時間規制はまっさらになり、疲労はゼロです。"
+"Your rest since you parked counts. Full reset and fresh hours of service. "
+"Sleep takes off 8 points of fatigue an hour."
+msgstr ""
 
 msgid ""
-"Full reset, fresh hours of service and zero fatigue. Clock and deadline "
-"advance 10 hours."
-msgstr "完全リセットで、運転時間規制はまっさらになり、疲労はゼロです。時刻と期限が10時間進みます。"
+"Full reset and fresh hours of service. Sleep takes off 8 points of fatigue "
+"an hour. Clock and deadline advance 10 hours."
+msgstr ""
 
 msgid "Sleep 10 hours in the lot"
 msgstr "駐車場で10時間眠る"
 
 msgid ""
-"A legal 10-hour reset with poor rest, you wake still tired. Clock and "
-"deadline advance 10 hours."
-msgstr "法的な10時間のリセットですが、休息は浅く、目覚めても疲れが残ります。時刻と期限が10時間進みます。"
+"A legal 10-hour reset with poor rest: 5 points of fatigue off an hour, "
+"never below 30. Clock and deadline advance 10 hours."
+msgstr ""
 
 msgid ""
-"A real bed, paid from your own pocket. Legal reset, you wake fresh. Clock "
-"and deadline advance 10 hours."
-msgstr "本物のベッドで、自腹で払います。法的なリセットで、すっきり目覚めます。時刻と期限が10時間進みます。"
+"A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 "
+"points of fatigue an hour. Clock and deadline advance 10 hours."
+msgstr ""
 
 msgid "Use repair service"
 msgstr "修理サービスを使う"
@@ -27674,6 +27698,16 @@ msgstr "30分の休憩には数えられません。"
 msgid "Eases fatigue."
 msgstr "疲れが和らぎます。"
 
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
+"count as your 30-minute break. {deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "No lift while the last coffee lasts."
+msgstr ""
+
 msgid "Driving and duty clocks reset. "
 msgstr "運転と勤務の時計がリセットされました。"
 
@@ -27762,8 +27796,17 @@ msgid ""
 "You slept {duration_text} more, 10 hours of rest in a row, and woke rested."
 msgstr "さらに{duration_text}眠り、連続10時間の休息で、すっきり目覚めました。"
 
+#. placeholders: {duration_text}
+msgid ""
+"You slept {duration_text} more, 10 hours of rest in a row, and woke still "
+"tired."
+msgstr ""
+
 msgid "You slept 10 hours and woke rested."
 msgstr "10時間眠って、すっきり目覚めました。"
+
+msgid "You slept 10 hours and woke still tired."
+msgstr ""
 
 #. placeholders: {engine_off}, {slept}, {clock_text}
 #. one sentence of a longer line
@@ -27960,9 +28003,6 @@ msgstr "{label}は{buff_price_amount}で、所持金は{grouped}ドルです。"
 
 msgid "label"
 msgstr "label"
-
-msgid "group"
-msgstr "group"
 
 msgid "rate"
 msgstr "rate"
@@ -28370,15 +28410,15 @@ msgstr "{why} 現在{clock_text}。30分休憩は済み、配達期限は進み�
 #. placeholders: {wake_air_instruction}
 #. one sentence of a longer line
 msgid ""
-"You are rested, and the delivery deadline kept "
+"The order is served, and the delivery deadline kept "
 "counting.{wake_air_instruction}"
-msgstr "休息は取れ、配達期限は進み続けました。{wake_air_instruction}"
+msgstr ""
 
 #. placeholders: {why}, {clock_text}, {wake_air_instruction}
 msgid ""
-"{why} It is {clock_text}. You are rested, and the delivery deadline kept "
-"counting.{wake_air_instruction}"
-msgstr "{why} 現在{clock_text}。休息は取れ、配達期限は進み続けました。{wake_air_instruction}"
+"{why} It is {clock_text}. The order is served, and the delivery deadline "
+"kept counting.{wake_air_instruction}"
+msgstr ""
 
 msgid "weigh station bypass inspection"
 msgstr "計量所を素通りしたことによる検査"
@@ -29989,10 +30029,6 @@ msgstr "路肩に寄せています。"
 
 msgid "buff"
 msgstr "buff"
-
-#. placeholders: {label}
-msgid "The {label} has worn off."
-msgstr "{label}の効果が切れました。"
 
 msgid "Getting drowsy."
 msgstr "眠くなってきました。"
@@ -34323,18 +34359,24 @@ msgid "A nap that is not part of a split leaves the duty window running."
 msgstr "分割休息の一部でない仮眠では、勤務枠は進み続けます。"
 
 msgid ""
-"Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
-"warnings by steering or braking. Repeated misses can force you off the road."
+"Fatigue rises faster at night and reduces reaction time. On-duty time at a "
+"stop, such as fueling, a dock or an inspection, builds it at a third of the "
+"driving rate. Respond to nod-off warnings by steering or braking. Repeated "
+"misses can force you off the road."
 msgstr ""
-"疲労は夜の方が早く増え、反応時間が遅くなります。居眠りの警告には、操舵かブレーキで応えてください。何度も応えないと、道路から降ろされることがあります。"
 
 msgid ""
-"Meals and coffee help temporarily. A half-hour meal counts as a break. "
-"Proper sleep clears fatigue. A legal reset with poor rest can leave you "
+"Job details and the departure line say how many hours of a run fall at "
+"night, between 9 PM and 5 AM."
+msgstr ""
+
+msgid ""
+"Meals ease fatigue, and a half-hour meal counts as a break. The lift from "
+"coffee or an energy drink comes back when it wears off, and a second one "
+"before then adds no lift. Proper sleep takes off 8 points of fatigue an "
+"hour, so ten hours clears 80. A legal reset with poor rest can leave you "
 "tired."
 msgstr ""
-"食事とコーヒーは一時的に効きます。30分の食事は休憩になります。疲労をなくすにはきちんと眠ることです。休息の質が悪いと、法的にはリセットされても疲れが残"
-"ることがあります。"
 
 msgid ""
 "A stop offers only its listed services. A full parking lot can still sell "
@@ -34343,9 +34385,9 @@ msgstr ""
 "停車地では、載っているサービスしか使えません。駐車場が満車でも、ディーゼルは買えることがあります。モーテルでは、自費でしっかり休めることがあります。"
 
 msgid ""
-"Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
-"leaves you fully rested."
-msgstr "駐車場で10時間眠っても休息は不十分です。寝台付きの駐車場で10時間眠ると、すっかり休めます。"
+"Sleeping 10 hours in the lot gives poor rest: 5 points an hour, never below "
+"30. Ten hours in sleeper parking is proper sleep."
+msgstr ""
 
 #. placeholders: {control_rest}
 #. one sentence of a longer line
@@ -37046,12 +37088,10 @@ msgid "Energy drink"
 msgstr "エナジードリンク"
 
 msgid ""
-"A cold energy drink from the cooler. A small instant lift, and for the next "
-"two hours the miles tire you more slowly. A new drink or meal replaces the "
-"old one. They do not stack."
+"A cold energy drink from the cooler. A small lift, and the miles tire you "
+"more slowly for two hours. The lift wears off with it, and a second coffee "
+"or drink before then adds none. A new drink or meal replaces the old one."
 msgstr ""
-"クーラーから冷たいエナジードリンク。すぐに少し元気が出て、この先2時間は道のりで疲れにくくなります。新しい飲み物や食事は前のものと入れ替わり、重ねがけは"
-"できません。"
 
 msgid ""
 "You down the energy drink. You feel a little sharper, and the next couple "
@@ -37140,14 +37180,11 @@ msgid "Five-cent coffee"
 msgstr "5セントのコーヒー"
 
 msgid ""
-"Wall Drug's famous five-cent coffee. A small instant lift, and for the next "
-"hour and a half the miles tire you a little more slowly. Weaker than an "
-"energy drink. A meal does more. A new drink or meal replaces the old one. "
-"They do not stack."
+"Wall Drug's famous five-cent coffee. A small lift, and the miles tire you a "
+"little more slowly for an hour and a half. The lift wears off with it, and "
+"a second coffee or drink before then adds none. Weaker than an energy "
+"drink. A meal does more."
 msgstr ""
-"Wall Drug "
-"の有名な5セントのコーヒー。すぐに少し元気が出て、この先1時間半は道のりで少しだけ疲れにくくなります。エナジードリンクより弱く、食事の方が効きます。新し"
-"い飲み物や食事は前のものと入れ替わり、重ねがけはできません。"
 
 msgid ""
 "You drink the five-cent coffee. You feel a little more awake, and the next "
@@ -38037,6 +38074,86 @@ msgstr "落下物。"
 #~ "problem opens the bug-report page in your browser. Quit closes the game."
 #~ msgstr ""
 #~ "設定では、運転アシスト、音、読み上げ、操作を変えられます。問題を報告は、ブラウザーでバグ報告のページを開きます。終了はゲームを閉じます。"
+
+#~ msgid "Fresh hours of service and zero fatigue. Clock advances 10 hours."
+#~ msgstr "運転時間がリセットされ、疲労がゼロになります。時計が10時間進みます。"
+
+#~ msgid ""
+#~ "A motel near the exit, paid from your own pocket. Legal 10-hour reset, you "
+#~ "wake fresh."
+#~ msgstr "出口近くのモーテルで、自腹で払います。法的な10時間のリセットで、すっきり目覚めます。"
+
+#~ msgid ""
+#~ "Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
+#~ "satisfy the 30-minute break rule."
+#~ msgstr "15分の非勤務です。コーヒーで疲れが少し和らぎますが、30分休憩の規則は満たしません。"
+
+#~ msgid ""
+#~ "Your rest since you parked counts. Full reset, fresh hours of service and "
+#~ "zero fatigue."
+#~ msgstr "駐車してからの休息が計上されます。完全リセットで、運転時間規制はまっさらになり、疲労はゼロです。"
+
+#~ msgid ""
+#~ "Full reset, fresh hours of service and zero fatigue. Clock and deadline "
+#~ "advance 10 hours."
+#~ msgstr "完全リセットで、運転時間規制はまっさらになり、疲労はゼロです。時刻と期限が10時間進みます。"
+
+#~ msgid ""
+#~ "A legal 10-hour reset with poor rest, you wake still tired. Clock and "
+#~ "deadline advance 10 hours."
+#~ msgstr "法的な10時間のリセットですが、休息は浅く、目覚めても疲れが残ります。時刻と期限が10時間進みます。"
+
+#~ msgid ""
+#~ "A real bed, paid from your own pocket. Legal reset, you wake fresh. Clock "
+#~ "and deadline advance 10 hours."
+#~ msgstr "本物のベッドで、自腹で払います。法的なリセットで、すっきり目覚めます。時刻と期限が10時間進みます。"
+
+#~ msgid ""
+#~ "You are rested, and the delivery deadline kept "
+#~ "counting.{wake_air_instruction}"
+#~ msgstr "休息は取れ、配達期限は進み続けました。{wake_air_instruction}"
+
+#~ msgid ""
+#~ "{why} It is {clock_text}. You are rested, and the delivery deadline kept "
+#~ "counting.{wake_air_instruction}"
+#~ msgstr "{why} 現在{clock_text}。休息は取れ、配達期限は進み続けました。{wake_air_instruction}"
+
+#~ msgid ""
+#~ "Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
+#~ "warnings by steering or braking. Repeated misses can force you off the road."
+#~ msgstr ""
+#~ "疲労は夜の方が早く増え、反応時間が遅くなります。居眠りの警告には、操舵かブレーキで応えてください。何度も応えないと、道路から降ろされることがあります。"
+
+#~ msgid ""
+#~ "Meals and coffee help temporarily. A half-hour meal counts as a break. "
+#~ "Proper sleep clears fatigue. A legal reset with poor rest can leave you "
+#~ "tired."
+#~ msgstr ""
+#~ "食事とコーヒーは一時的に効きます。30分の食事は休憩になります。疲労をなくすにはきちんと眠ることです。休息の質が悪いと、法的にはリセットされても疲れが残"
+#~ "ることがあります。"
+
+#~ msgid ""
+#~ "Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
+#~ "leaves you fully rested."
+#~ msgstr "駐車場で10時間眠っても休息は不十分です。寝台付きの駐車場で10時間眠ると、すっかり休めます。"
+
+#~ msgid ""
+#~ "A cold energy drink from the cooler. A small instant lift, and for the next "
+#~ "two hours the miles tire you more slowly. A new drink or meal replaces the "
+#~ "old one. They do not stack."
+#~ msgstr ""
+#~ "クーラーから冷たいエナジードリンク。すぐに少し元気が出て、この先2時間は道のりで疲れにくくなります。新しい飲み物や食事は前のものと入れ替わり、重ねがけは"
+#~ "できません。"
+
+#~ msgid ""
+#~ "Wall Drug's famous five-cent coffee. A small instant lift, and for the next "
+#~ "hour and a half the miles tire you a little more slowly. Weaker than an "
+#~ "energy drink. A meal does more. A new drink or meal replaces the old one. "
+#~ "They do not stack."
+#~ msgstr ""
+#~ "Wall Drug "
+#~ "の有名な5セントのコーヒー。すぐに少し元気が出て、この先1時間半は道のりで少しだけ疲れにくくなります。エナジードリンクより弱く、食事の方が効きます。新し"
+#~ "い飲み物や食事は前のものと入れ替わり、重ねがけはできません。"
 
 #~ msgid "Fatigue: {fatigue} percent"
 #~ msgstr "疲労：{fatigue}パーセント"

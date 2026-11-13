@@ -14,7 +14,7 @@ use ff_core::models::solvency;
 use ff_core::music::{select_menu_music_sequence, MenuMusicProfile};
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_n};
 use ff_core::sim::alertness::Alertness;
-use ff_core::sim::hos::{clock_text, time_of_day};
+use ff_core::sim::hos::{self, clock_text, time_of_day};
 use ff_core::sim::roadside_inspection::walk_around;
 use ff_core::sim::timezones::{city_zone, to_local, TimeZone, EASTERN};
 
@@ -344,7 +344,7 @@ impl CityMenuState {
         {
             let p = profile_mut(ctx);
             p.hos.sleep();
-            p.fatigue = 0.0;
+            p.fatigue = hos::rest_sleep(p.fatigue, hos::SLEEP_MIN);
             let day = p.market_day();
             p.market.advance_to(day);
         }
@@ -390,7 +390,7 @@ impl CityMenuState {
             let now = p.game_hours;
             p.driving_record.serve_until(now);
             p.hos.sleep();
-            p.fatigue = 0.0;
+            p.fatigue = hos::rest_sleep(p.fatigue, hours * 60.0);
             let day = p.market_day();
             p.market.advance_to(day);
         }
@@ -867,8 +867,10 @@ impl Menu for CityMenuState {
                 .help("Recent logbook entries."),
         );
         items.push(
-            MenuItem::new("Sleep 10 hours", |s: &mut Self, ctx| s.sleep(ctx))
-                .help("Fresh hours of service and zero fatigue. Clock advances 10 hours."),
+            MenuItem::new("Sleep 10 hours", |s: &mut Self, ctx| s.sleep(ctx)).help(
+                "Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock \
+                 advances 10 hours.",
+            ),
         );
         items.push(
             MenuItem::new("Save game", |s: &mut Self, ctx| s.save(ctx)).help("Saves the career."),

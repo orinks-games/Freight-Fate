@@ -17,10 +17,10 @@ use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::city::CityMenuState;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, career_citations, citation_fine, clock_text, construction_zone_fine_clause,
-    hos_mut_of, hos_of, profile_mut_of, profile_of, shut_down_engine, wake_air_instruction,
-    DRIVE_PHASE_DELIVERY, FAILURE_TO_STOP_DAMAGE_PCT, FAILURE_TO_STOP_PROCESSING_MIN,
-    INSPECTION_MIN, PULL_OVER_CLEAN_STOP_WARN_CHANCE,
+    advance_on_duty_clock, career_citations, citation_fine, clock_text,
+    construction_zone_fine_clause, hos_of, profile_mut_of, profile_of, shut_down_engine,
+    wake_air_instruction, DRIVE_PHASE_DELIVERY, FAILURE_TO_STOP_DAMAGE_PCT,
+    FAILURE_TO_STOP_PROCESSING_MIN, INSPECTION_MIN, PULL_OVER_CLEAN_STOP_WARN_CHANCE,
 };
 use crate::states::driving_menu_states::DriveRef;
 use crate::states::driving_updates::pending::EnforcementStopParams;
@@ -469,7 +469,7 @@ impl EnforcementStopState {
                 )
             } else {
                 format!(
-                    "{why} It is {}. You are rested, and the delivery deadline kept \
+                    "{why} It is {}. The order is served, and the delivery deadline kept \
                      counting.{}",
                     clock_text(d.trip.local_hour()),
                     wake_air_instruction(d)
@@ -480,14 +480,13 @@ impl EnforcementStopState {
         if self.inspection_on_stop {
             // Reuses the same check-in cost the scale itself would have
             // charged -- the driver dodged the lane, not the inspection.
-            advance_rest_clock(
+            advance_on_duty_clock(
                 d,
                 ctx,
                 INSPECTION_MIN,
                 Some("on_duty_not_driving"),
                 "weigh station bypass inspection",
             );
-            hos_mut_of(ctx).on_duty(INSPECTION_MIN);
             self.outcome_text.push_str(&format!(
                 " The skipped scale's full inspection runs here on the shoulder: {} minutes.",
                 fmt_f(INSPECTION_MIN, 0)
@@ -701,14 +700,13 @@ impl FelonyStopState {
         d.trip.truck.throttle = 0.0;
         d.trip.truck.brake = 1.0;
         d.trip.truck.set_parking_brake();
-        advance_rest_clock(
+        advance_on_duty_clock(
             d,
             ctx,
             FAILURE_TO_STOP_PROCESSING_MIN,
             Some("on_duty_not_driving"),
             "felony failure-to-stop enforcement",
         );
-        hos_mut_of(ctx).on_duty(FAILURE_TO_STOP_PROCESSING_MIN);
         profile_mut_of(ctx).store_truck_condition(&d.trip.truck);
         let hours = d.trip.game_minutes / 60.0;
         let market_day = {

@@ -316,7 +316,7 @@ fn test_an_out_of_service_order_passes_the_ten_hours_on_the_shoulder() {
     assert!(
         state
             .outcome_text()
-            .contains("You are rested, and the delivery deadline kept counting."),
+            .contains("The order is served, and the delivery deadline kept counting."),
         "{}",
         state.outcome_text()
     );

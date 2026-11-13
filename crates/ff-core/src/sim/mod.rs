@@ -20,6 +20,7 @@ pub mod road_event_pacing;
 pub mod roadside_inspection;
 pub mod route_roadwork;
 pub mod season;
+pub mod stimulant;
 pub mod surge;
 pub mod timezones;
 pub mod traffic_manager;
