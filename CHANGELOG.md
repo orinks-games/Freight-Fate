@@ -14,6 +14,7 @@
 - **New releases seal career saves against local editing.** Existing careers migrate with a backup, and cloud backups keep their verification.
 - **Alt+5 names the county you are driving through.** On city streets it names the city's county.
 - **Driving hints can be turned off.** With it off in Settings, Speech, driving lines stop naming keys, like "Press X to signal for the exit."
+- **Report a problem opens a form on orinks.net with your game log already attached.** After a crash, the main menu offers to report it.
 
 ### Changed
 

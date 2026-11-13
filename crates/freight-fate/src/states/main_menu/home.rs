@@ -64,6 +64,15 @@ impl Menu for MainMenuState {
 
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {
         ctx.update_music_rotation(dt);
+        // The last run never quit: ask once, before the update prompt can
+        // land on top of the question.
+        if ctx.crash_offer_pending {
+            ctx.crash_offer_pending = false;
+            if ctx.settings.crash_report_offer {
+                ctx.push_state(CrashReportOfferState::new());
+                return;
+            }
+        }
         // The sound device now opens on a worker thread, so its verdict can
         // land a beat AFTER this menu's greeting already asked. Same rule
         // as at entry: silence with no word is never allowed.
@@ -258,8 +267,10 @@ impl Menu for MainMenuState {
             }),
         );
         items.push(
-            MenuItem::new("Report a problem", |s: &mut Self, ctx| s.report_issue(ctx))
-                .help("The bug report page on GitHub, in your web browser."),
+            MenuItem::new("Report a problem", |s: &mut Self, ctx| s.report_issue(ctx)).help(
+                "The report form on orinks.net, in your web browser, with your game log \
+                 attached.",
+            ),
         );
         // An iPhone app is never quit from inside; the system closes it.
         if !cfg!(target_os = "ios") {

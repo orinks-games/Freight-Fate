@@ -19505,6 +19505,27 @@ msgstr ""
 msgid "level"
 msgstr ""
 
+#: crates/freight-fate/src/problem_reports.rs crates/freight-fate/src/states/main_menu.rs crates/freight-fate/src/visuals/screens.rs
+msgid "Freight Fate"
+msgstr ""
+
+#: crates/freight-fate/src/problem_reports.rs
+msgid "game"
+msgstr ""
+
+#. placeholders: {e}
+#: crates/freight-fate/src/problem_reports.rs
+msgid "The report could not be packed: {e}."
+msgstr ""
+
+#: crates/freight-fate/src/problem_reports.rs
+msgid "Content-Encoding"
+msgstr ""
+
+#: crates/freight-fate/src/problem_reports.rs
+msgid "gzip"
+msgstr ""
+
 #: crates/freight-fate/src/states/account_achievements.rs
 msgid ""
 "Enter opens a category. Inside one, Enter repeats the achievement and "
@@ -37949,29 +37970,8 @@ msgstr ""
 msgid "{deliveries} deliveries"
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu.rs crates/freight-fate/src/visuals/screens.rs
-msgid "Freight Fate"
-msgstr ""
-
 #: crates/freight-fate/src/states/main_menu.rs
 msgid "No saved careers found."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/main_menu.rs
-msgid "Could not open a web browser."
-msgstr ""
-
-#. placeholders: {REPO}
-#: crates/freight-fate/src/states/main_menu.rs
-msgid ""
-"Could not open a web browser. Report problems at github.com/{REPO}/issues."
-msgstr ""
-
-#. placeholders: {REPO}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/main_menu.rs
-msgid "Report problems at github.com/{REPO}/issues."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu.rs
@@ -38502,12 +38502,14 @@ msgid ""
 "trip pacing."
 msgstr ""
 
-#: crates/freight-fate/src/states/main_menu/home.rs
+#: crates/freight-fate/src/states/main_menu/home.rs crates/freight-fate/src/states/problem_report.rs
 msgid "Report a problem"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/home.rs
-msgid "The bug report page on GitHub, in your web browser."
+msgid ""
+"The report form on orinks.net, in your web browser, with your game log "
+"attached."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/home.rs
@@ -38858,7 +38860,7 @@ msgstr ""
 #: crates/freight-fate/src/states/main_menu/settings.rs
 msgid ""
 "It records this session, including everything the game said out loud. "
-"Attach it to a bug report."
+"Report a problem attaches it for you."
 msgstr ""
 
 #. placeholders: {previous_name}
@@ -38868,7 +38870,8 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings.rs
 msgid ""
-"Both files stay on this computer. The game never sends them anywhere."
+"Both files stay on this computer unless you choose Report a problem, which "
+"attaches them."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_actions.rs
@@ -39833,14 +39836,25 @@ msgid ""
 "bumper held."
 msgstr ""
 
+#. placeholders: {on_off}
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid "Ask to report a problem after a crash: {on_off}"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items.rs
+msgid ""
+"On, the main menu offers to send a report when the game closed without "
+"quitting the last time, with that run's log attached."
+msgstr ""
+
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid "Where the game log is saved"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid ""
-"The session log records everything the game said out loud. Send it with a "
-"bug report."
+"The session log records everything the game said out loud. Report a problem "
+"attaches it for you."
 msgstr ""
 
 #. placeholders: {pct}
@@ -40771,7 +40785,8 @@ msgstr ""
 #: crates/freight-fate/src/states/main_menu_help.rs
 msgid ""
 "Settings changes driving assistance, sound, speech, and controls. Report a "
-"problem opens the bug-report page in your browser. Quit closes the game."
+"problem opens the report form in your browser, with your game log attached. "
+"Quit closes the game."
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help.rs
@@ -43242,7 +43257,7 @@ msgid ""
 "You can turn either of those off afterwards from Online on the main menu."
 msgstr ""
 
-#: crates/freight-fate/src/states/online_offer.rs
+#: crates/freight-fate/src/states/online_offer.rs crates/freight-fate/src/states/problem_report.rs
 msgid "Not now"
 msgstr ""
 
@@ -44019,6 +44034,125 @@ msgstr ""
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid ""
 "Open the list of states this driver has delivered to, each with its cities."
+msgstr ""
+
+#: crates/freight-fate/src/states/problem_report.rs
+msgid "Preparing the report."
+msgstr ""
+
+#: crates/freight-fate/src/states/problem_report.rs
+msgid ""
+"The report opened in your browser. The game log is already attached; finish "
+"it there."
+msgstr ""
+
+#. placeholders: {REPO}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/problem_report.rs
+msgid "Report problems at github.com/{REPO}/issues."
+msgstr ""
+
+#. placeholders: {why}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/problem_report.rs
+msgid "{why} Could not open a web browser either."
+msgstr ""
+
+#. placeholders: {why}, {REPO}
+#: crates/freight-fate/src/states/problem_report.rs
+msgid ""
+"{why} Could not open a web browser either. Report problems at "
+"github.com/{REPO}/issues."
+msgstr ""
+
+#: crates/freight-fate/src/states/problem_report.rs
+msgid "Too many reports have been sent today."
+msgstr ""
+
+#: crates/freight-fate/src/states/problem_report.rs
+msgid "orinks.net did not accept the report."
+msgstr ""
+
+#: crates/freight-fate/src/states/problem_report.rs
+msgid "The report could not be prepared."
+msgstr ""
+
+#: crates/freight-fate/src/states/problem_report.rs
+msgid "problem-report"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/problem_report.rs
+msgid "Could not open a web browser."
+msgstr ""
+
+#. placeholders: {REPO}
+#: crates/freight-fate/src/states/problem_report.rs
+msgid ""
+"Could not open a web browser. Report problems at github.com/{REPO}/issues."
+msgstr ""
+
+#. placeholders: {reason}
+#: crates/freight-fate/src/states/problem_report.rs
+msgid "The report form could not be opened: {reason}"
+msgstr ""
+
+#: crates/freight-fate/src/states/problem_report.rs
+msgid "Report the last crash?"
+msgstr ""
+
+#: crates/freight-fate/src/states/problem_report.rs
+msgid ""
+"Report it opens the report form in your web browser with the previous run's "
+"log attached. Not now closes this. Stop asking turns the question off; "
+"Settings, Problem reports turns it back on."
+msgstr ""
+
+#: crates/freight-fate/src/states/problem_report.rs
+msgid ""
+"Freight Fate will not ask again after a crash. Report a problem on the main "
+"menu still works, and Settings, Problem reports turns the question back on."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/problem_report.rs
+msgid "Freight Fate closed unexpectedly the last time it ran."
+msgstr ""
+
+#. placeholders: {current_text}
+#: crates/freight-fate/src/states/problem_report.rs
+msgid ""
+"Freight Fate closed unexpectedly the last time it ran. Report the problem? "
+"{current_text}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/problem_report.rs
+msgid "Report the problem?"
+msgstr ""
+
+#: crates/freight-fate/src/states/problem_report.rs
+msgid "Report it"
+msgstr ""
+
+#: crates/freight-fate/src/states/problem_report.rs
+msgid ""
+"The report form opens in your web browser with the previous run's log "
+"attached. Say what you were doing when it closed."
+msgstr ""
+
+#: crates/freight-fate/src/states/problem_report.rs
+msgid ""
+"Back to the main menu. Report a problem is there whenever you want it."
+msgstr ""
+
+#: crates/freight-fate/src/states/problem_report.rs
+msgid "Stop asking after crashes"
+msgstr ""
+
+#: crates/freight-fate/src/states/problem_report.rs
+msgid ""
+"Never ask again after a crash. Settings, Problem reports turns it back on."
 msgstr ""
 
 #: crates/freight-fate/src/states/save_notice.rs
