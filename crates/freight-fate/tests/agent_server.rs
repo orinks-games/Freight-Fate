@@ -297,6 +297,17 @@ fn a_tap_lands_as_a_finger_tap_not_a_screen_reader_hold() {
 // late; four loop-backs at one gate).
 
 /// The first tool call of a session, served to a policy over a live app.
+#[test]
+fn a_nod_off_the_road_is_refused_not_hung() {
+    let mut app = TestApp::new();
+    let (tx, server, mut agent) = wake(call(1, "nod", "{}"));
+    app.run_with_player_input(Some(3), |input, _dt| agent.step(input, FRAME));
+    drop(tx);
+    let answered = results(&server.join().unwrap());
+    assert_eq!(answered[0]["result"]["isError"], true, "{answered:?}");
+    assert!(reply_text(&answered).contains("not at the wheel"));
+}
+
 fn wake(
     script: String,
 ) -> (
@@ -591,6 +602,7 @@ fn the_tool_list_carries_the_driving_tools() {
         "select",
         "cruise",
         "status",
+        "nod",
         "operator_keys",
         "lockstep",
         "key_probe",

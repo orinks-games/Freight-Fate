@@ -164,6 +164,7 @@ time is a view, via `Trip.local_hour`.
 | States | `State` and subclasses | `states/` |
 | Playtest levers | -- | `playtest_levers.py` |
 | Keyboard shortcuts and controller buttons | `Action`, `Chord`, `PadChord`, `KeyBindings` | `bindings.rs` (game crate) |
+| Problem report (spoken "report"; the row is "Report a problem", the file is "the game log") | `Report`, `Session` (Hearken's `hearken-report`) | `problem_reports.rs`, `states/problem_report.rs` (game crate) |
 
 ### Roadside colour
 
@@ -372,6 +373,10 @@ from the words, and synonyms cost them a re-read.
 | What a lifetime disqualification does to the career: the driving stops, the save stays readable | the career is over; "Career ended" on the public profile | game over, permadeath, deleted, wiped | `enforcement.career_ended`, `careerEnded` |
 | The player's own removal of an ended career's save and cloud backups | close out this career | delete career (that is the title-menu action for any career), wipe, purge | `CloseOutCareerState` |
 | An offense heavy enough to disqualify a CDL outright | major offense | felony (as the game's own noun), big one | `DrivingRecord.record_major_offense` |
+| The fatigue band below 40: nothing to hear | Rested | fresh, awake, alert | `Alertness::Rested` |
+| The fatigue band from 40 to 60, entered with one quiet yawn | Worn ("Fatigue: 45 percent, worn" in the readouts) | tired, weary, sleepy | `Alertness::Worn` |
+| The fatigue band from 60 to 80, entered with "Getting drowsy." | Drowsy | sleepy, tired, fatigued | `Alertness::Drowsy` |
+| The fatigue band from 80 up, where the nod-offs begin | Severe | exhausted, dangerously tired, critical | `Alertness::Severe` |
 | Running off the road asleep | fatigue event | microsleep (that is the warning, not the event), nod-off | `DrivingRecord.record_fatigue_event` |
 | How far dispatch will work with you right now | dispatch trust | standing, rep level, tier | `enforcement.standing_band` |
 | Everything the driver is behind by, cash and balance together | debt; "what you owe" in a sentence | negative balance, in the red, in the hole, arrears | `solvency.debt_owed` |

@@ -57,8 +57,7 @@ impl ParkingFullState {
     }
 
     fn announce_over_drive(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
-        ctx.audio
-            .set_ambient(Some(poi_ambient_key(&self.stop, d.trip.local_hour())));
+        ctx.set_ambient(Some(poi_ambient_key(&self.stop, d.trip.local_hour())));
         // The lot and the island are separate facilities, and a driver who
         // cannot park here can still fuel here. Saying so up front is what
         // stops a full lot from reading as a closed truck stop.

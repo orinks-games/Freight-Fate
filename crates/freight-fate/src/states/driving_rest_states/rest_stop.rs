@@ -6,6 +6,7 @@ use ff_core::data::amenities::{classify_brand, spoken_amenities};
 use ff_core::data::buffs::{buffs_for_stop, Buff};
 use ff_core::models::solvency;
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_int, round_py_n};
+use ff_core::sim::alertness::Alertness;
 use ff_core::sim::hos;
 use ff_core::sim::roadside_inspection::InspectionLevel;
 use ff_core::sim::trip_models::RoadStop;
@@ -165,8 +166,7 @@ impl RestStopState {
     }
 
     fn announce_over_drive(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
-        ctx.audio
-            .set_ambient(Some(poi_ambient_key(&self.stop, d.trip.local_hour())));
+        ctx.set_ambient(Some(poi_ambient_key(&self.stop, d.trip.local_hour())));
         let mut parts = vec![format!("{}.", self.stop.spoken_name())];
         if self.stop.stop_type == "weigh_station" {
             // An inspection, not hospitality: no parking chatter, no live lot
@@ -714,7 +714,7 @@ impl RestStopState {
         ctx.audio.play("ui/notify");
         ctx.say(&text);
         ctx.award_achievement("slept_on_route");
-        if before_fatigue < hos::FATIGUE_SEVERE {
+        if Alertness::from_fatigue(before_fatigue) < Alertness::Severe {
             ctx.award_achievement("sleep_before_exhaustion");
         }
         self.refresh(ctx, true);

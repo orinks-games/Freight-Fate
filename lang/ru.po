@@ -11562,6 +11562,39 @@ msgstr "{distance} в час"
 msgid "kilometer"
 msgstr "километр"
 
+msgid "rested"
+msgstr ""
+
+msgid "worn"
+msgstr "изношенное"
+
+msgid "drowsy"
+msgstr ""
+
+msgid "severe"
+msgstr ""
+
+msgid "awake"
+msgstr ""
+
+msgid "nodding"
+msgstr ""
+
+msgid "recovering"
+msgstr ""
+
+msgid "game minutes counted"
+msgstr ""
+
+msgid "seconds left"
+msgstr ""
+
+msgid "game minutes left"
+msgstr ""
+
+msgid "misses"
+msgstr ""
+
 msgid "Driver window down."
 msgstr "Окно водителя опущено."
 
@@ -15471,6 +15504,15 @@ msgid ""
 "so listen for the call."
 msgstr ""
 
+msgid "the co-driver has the wheel"
+msgstr ""
+
+#. placeholders: {position_mi}, {misses}
+msgid ""
+"Staged a nod at mile {position_mi}, {misses} missed in a row so far; it "
+"opens on the next rolling frame, so listen for the warning."
+msgstr ""
+
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
 "Scenario staged: {name} at {the_city} terminal, level {level}, {deliveries} "
@@ -17079,6 +17121,22 @@ msgstr "achievement"
 
 msgid "level"
 msgstr "level"
+
+msgid "Freight Fate"
+msgstr "Freight Fate"
+
+msgid "game"
+msgstr ""
+
+#. placeholders: {e}
+msgid "The report could not be packed: {e}."
+msgstr ""
+
+msgid "Content-Encoding"
+msgstr ""
+
+msgid "gzip"
+msgstr ""
 
 msgid ""
 "Enter opens a category. Inside one, Enter repeats the achievement and "
@@ -18780,9 +18838,6 @@ msgstr "отличное"
 
 msgid "good"
 msgstr "хорошее"
-
-msgid "worn"
-msgstr "изношенное"
 
 msgid "all-season"
 msgstr "всесезонная"
@@ -21845,6 +21900,12 @@ msgstr "Сейчас {now}."
 msgid "amount"
 msgstr "amount"
 
+msgid "alertness"
+msgstr ""
+
+msgid "nod"
+msgstr ""
+
 msgid "local game time"
 msgstr "местное игровое время"
 
@@ -23169,9 +23230,9 @@ msgstr "Бонус"
 msgid "{label}: good for the rest of the trip"
 msgstr "{label}: действует до конца поездки"
 
-#. placeholders: {fatigue}
-msgid "Fatigue: {fatigue} percent"
-msgstr "Усталость: {fatigue} {fatigue:процент|процента|процентов}"
+#. placeholders: {fatigue}, {band}
+msgid "Fatigue: {fatigue} percent, {band}"
+msgstr ""
 
 #. placeholders: {context}
 msgid "HOS route: {context}"
@@ -28541,6 +28602,10 @@ msgstr ""
 msgid "Transmission: {else}, {gear}"
 msgstr "Коробка передач: {else}, {gear}"
 
+#. placeholders: {f}, {band}
+msgid "Fatigue: {f} percent, {band}"
+msgstr ""
+
 #. placeholders: {f}
 msgid "Fatigue: {f} percent"
 msgstr "Усталость: {f} {f:процент|процента|процентов}"
@@ -32193,9 +32258,6 @@ msgid ""
 "{name} drove on after a collision with {animal}. Damage {damage} percent."
 msgstr ""
 
-msgid "rested"
-msgstr ""
-
 msgid "Refuel"
 msgstr "Refuel"
 
@@ -33005,11 +33067,11 @@ msgstr "buff"
 msgid "The {label} has worn off."
 msgstr "Действие закончилось: {label}."
 
-msgid "Dangerously drowsy and drifting out of your lane."
-msgstr "Опасно клонит в сон, вас сносит с полосы."
-
 msgid "Getting drowsy."
 msgstr "Клонит в сон."
+
+msgid "Dangerously drowsy and drifting out of your lane."
+msgstr "Опасно клонит в сон, вас сносит с полосы."
 
 msgid "Nodding off. Steer or brake now!"
 msgstr "Засыпаете. Рулите или тормозите сейчас!"
@@ -33941,27 +34003,8 @@ msgstr "1 доставка"
 msgid "{deliveries} deliveries"
 msgstr "{deliveries} {deliveries:доставка|доставки|доставок}"
 
-msgid "Freight Fate"
-msgstr "Freight Fate"
-
 msgid "No saved careers found."
 msgstr "Сохранённых карьер не найдено."
-
-#. one sentence of a longer line
-msgid "Could not open a web browser."
-msgstr "Не удалось открыть браузер."
-
-#. placeholders: {REPO}
-msgid ""
-"Could not open a web browser. Report problems at github.com/{REPO}/issues."
-msgstr ""
-"Не удалось открыть браузер. Сообщайте о проблемах на "
-"github.com/{REPO}/issues."
-
-#. placeholders: {REPO}
-#. one sentence of a longer line
-msgid "Report problems at github.com/{REPO}/issues."
-msgstr "Сообщайте о проблемах на github.com/{REPO}/issues."
 
 msgid "Quit Freight Fate?"
 msgstr "Выйти из Freight Fate?"
@@ -34460,8 +34503,10 @@ msgstr ""
 msgid "Report a problem"
 msgstr "Сообщить о проблеме"
 
-msgid "The bug report page on GitHub, in your web browser."
-msgstr "Страница сообщений об ошибках на GitHub, в вашем браузере."
+msgid ""
+"The report form on orinks.net, in your web browser, with your game log "
+"attached."
+msgstr ""
 
 msgid "Exit the game."
 msgstr "Выйти из игры."
@@ -34772,19 +34817,17 @@ msgstr "Журнал игры сохраняется как {path}."
 
 msgid ""
 "It records this session, including everything the game said out loud. "
-"Attach it to a bug report."
+"Report a problem attaches it for you."
 msgstr ""
-"В нём записан этот сеанс, включая всё, что игра произнесла вслух. Приложите "
-"его к сообщению об ошибке."
 
 #. placeholders: {previous_name}
 msgid "The session before this one is kept beside it as {previous_name}."
 msgstr "Предыдущий сеанс хранится рядом с ним как {previous_name}."
 
 msgid ""
-"Both files stay on this computer. The game never sends them anywhere."
+"Both files stay on this computer unless you choose Report a problem, which "
+"attaches them."
 msgstr ""
-"Оба файла остаются на этом компьютере. Игра никуда их не отправляет."
 
 msgid "English"
 msgstr "English"
@@ -35758,15 +35801,22 @@ msgstr ""
 "Переназначьте любое действие вождения на другую кнопку геймпада, отдельно "
 "или с удержанием right bumper."
 
+#. placeholders: {on_off}
+msgid "Ask to report a problem after a crash: {on_off}"
+msgstr ""
+
+msgid ""
+"On, the main menu offers to send a report when the game closed without "
+"quitting the last time, with that run's log attached."
+msgstr ""
+
 msgid "Where the game log is saved"
 msgstr "Где сохраняется журнал игры"
 
 msgid ""
-"The session log records everything the game said out loud. Send it with a "
-"bug report."
+"The session log records everything the game said out loud. Report a problem "
+"attaches it for you."
 msgstr ""
-"Журнал сеанса записывает всё, что игра произнесла вслух. Отправьте его "
-"вместе с сообщением об ошибке."
 
 #. placeholders: {pct}
 msgid "Master volume: {pct} percent"
@@ -36646,11 +36696,9 @@ msgstr ""
 
 msgid ""
 "Settings changes driving assistance, sound, speech, and controls. Report a "
-"problem opens the bug-report page in your browser. Quit closes the game."
+"problem opens the report form in your browser, with your game log attached. "
+"Quit closes the game."
 msgstr ""
-"«Настройки» меняют помощь в вождении, звук, речь и управление. «Сообщить о "
-"проблеме» открывает страницу отчёта об ошибке в браузере. «Выход» закрывает "
-"игру."
 
 msgid ""
 "Achievements lists a saved driver's earned and locked achievements. It "
@@ -40163,6 +40211,104 @@ msgstr ""
 "Открыть список штатов, куда этот водитель доставлял грузы, с городами "
 "каждого."
 
+msgid "Preparing the report."
+msgstr ""
+
+msgid ""
+"The report opened in your browser. The game log is already attached; finish "
+"it there."
+msgstr ""
+
+#. placeholders: {REPO}
+#. one sentence of a longer line
+msgid "Report problems at github.com/{REPO}/issues."
+msgstr "Сообщайте о проблемах на github.com/{REPO}/issues."
+
+#. placeholders: {why}
+#. one sentence of a longer line
+msgid "{why} Could not open a web browser either."
+msgstr ""
+
+#. placeholders: {why}, {REPO}
+msgid ""
+"{why} Could not open a web browser either. Report problems at "
+"github.com/{REPO}/issues."
+msgstr ""
+
+msgid "Too many reports have been sent today."
+msgstr ""
+
+msgid "orinks.net did not accept the report."
+msgstr ""
+
+msgid "The report could not be prepared."
+msgstr ""
+
+msgid "problem-report"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Could not open a web browser."
+msgstr "Не удалось открыть браузер."
+
+#. placeholders: {REPO}
+msgid ""
+"Could not open a web browser. Report problems at github.com/{REPO}/issues."
+msgstr ""
+"Не удалось открыть браузер. Сообщайте о проблемах на "
+"github.com/{REPO}/issues."
+
+#. placeholders: {reason}
+msgid "The report form could not be opened: {reason}"
+msgstr ""
+
+msgid "Report the last crash?"
+msgstr ""
+
+msgid ""
+"Report it opens the report form in your web browser with the previous run's "
+"log attached. Not now closes this. Stop asking turns the question off; "
+"Settings, Problem reports turns it back on."
+msgstr ""
+
+msgid ""
+"Freight Fate will not ask again after a crash. Report a problem on the main "
+"menu still works, and Settings, Problem reports turns the question back on."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Freight Fate closed unexpectedly the last time it ran."
+msgstr ""
+
+#. placeholders: {current_text}
+msgid ""
+"Freight Fate closed unexpectedly the last time it ran. Report the problem? "
+"{current_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Report the problem?"
+msgstr ""
+
+msgid "Report it"
+msgstr ""
+
+msgid ""
+"The report form opens in your web browser with the previous run's log "
+"attached. Say what you were doing when it closed."
+msgstr ""
+
+msgid ""
+"Back to the main menu. Report a problem is there whenever you want it."
+msgstr ""
+
+msgid "Stop asking after crashes"
+msgstr ""
+
+msgid ""
+"Never ask again after a crash. Settings, Problem reports turns it back on."
+msgstr ""
+
 msgid "Save file changed outside the game"
 msgstr "Файл сохранения изменён вне игры"
 
@@ -41941,6 +42087,39 @@ msgstr "Куски шины."
 
 msgid "Debris."
 msgstr "Мусор."
+
+#~ msgid "The bug report page on GitHub, in your web browser."
+#~ msgstr "Страница сообщений об ошибках на GitHub, в вашем браузере."
+
+#~ msgid ""
+#~ "It records this session, including everything the game said out loud. "
+#~ "Attach it to a bug report."
+#~ msgstr ""
+#~ "В нём записан этот сеанс, включая всё, что игра произнесла вслух. Приложите "
+#~ "его к сообщению об ошибке."
+
+#~ msgid ""
+#~ "Both files stay on this computer. The game never sends them anywhere."
+#~ msgstr ""
+#~ "Оба файла остаются на этом компьютере. Игра никуда их не отправляет."
+
+#~ msgid ""
+#~ "The session log records everything the game said out loud. Send it with a "
+#~ "bug report."
+#~ msgstr ""
+#~ "Журнал сеанса записывает всё, что игра произнесла вслух. Отправьте его "
+#~ "вместе с сообщением об ошибке."
+
+#~ msgid ""
+#~ "Settings changes driving assistance, sound, speech, and controls. Report a "
+#~ "problem opens the bug-report page in your browser. Quit closes the game."
+#~ msgstr ""
+#~ "«Настройки» меняют помощь в вождении, звук, речь и управление. «Сообщить о "
+#~ "проблеме» открывает страницу отчёта об ошибке в браузере. «Выход» закрывает "
+#~ "игру."
+
+#~ msgid "Fatigue: {fatigue} percent"
+#~ msgstr "Усталость: {fatigue} {fatigue:процент|процента|процентов}"
 
 #~ msgid "Open weigh station means every truck must pull in."
 #~ msgstr ""

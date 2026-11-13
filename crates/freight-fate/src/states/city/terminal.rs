@@ -1,6 +1,7 @@
 //! The hub screen while parked at a company terminal or yard
 //! (`CityMenuState`).
 
+use ff_core::ambient_bed::BedClaim;
 use ff_core::models::business::{is_owner_operator, COMPANY_DRIVER};
 use ff_core::models::career_objectives::career_objective;
 use ff_core::models::career_training::{
@@ -12,6 +13,7 @@ use ff_core::models::enforcement;
 use ff_core::models::solvency;
 use ff_core::music::{select_menu_music_sequence, MenuMusicProfile};
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_n};
+use ff_core::sim::alertness::Alertness;
 use ff_core::sim::hos::{clock_text, time_of_day};
 use ff_core::sim::roadside_inspection::walk_around;
 use ff_core::sim::timezones::{city_zone, to_local, TimeZone, EASTERN};
@@ -62,6 +64,8 @@ pub struct CityMenuState {
     /// state: the briefing already said where the truck is parked (and, for
     /// an owner-operator, the cash), so the first entry line does not repeat it.
     after_briefing: bool,
+    /// This screen's hold on the gate bed, while it is the holder's.
+    ambience: Option<BedClaim>,
 }
 
 /// The wall-clock zone of the city the driver is standing in.
@@ -81,6 +85,7 @@ impl CityMenuState {
             queue_entry_announcement,
             backup_watch: None,
             after_briefing: false,
+            ambience: None,
         }
     }
 
@@ -352,7 +357,9 @@ impl CityMenuState {
             clock_text(hour),
             time_of_day(hour)
         ));
-        if before_fatigue < 70.0 {
+        // The same judgement as a rest stop's: asleep before the band
+        // where the nods begin.
+        if Alertness::from_fatigue(before_fatigue) < Alertness::Severe {
             ctx.award_achievement("sleep_before_exhaustion");
         }
     }
@@ -620,7 +627,7 @@ impl Menu for CityMenuState {
             select_menu_music_sequence(ctx.profile.as_ref().map(|p| p as &dyn MenuMusicProfile));
         let refs: Vec<&str> = sequence.iter().map(String::as_str).collect();
         ctx.play_music_sequence("menu", &refs);
-        ctx.audio.set_ambient(Some("poi/facility_gate"));
+        self.ambience = Some(ctx.claim_ambient("poi/facility_gate"));
         // Parked at the terminal the truck's location is known: warm the live
         // weather now so the next drive starts on real conditions, not
         // "loading" (the provider shares observations per station).
@@ -658,7 +665,9 @@ impl Menu for CityMenuState {
 
     fn exit(&mut self, ctx: &mut GameContext) {
         self.backup_watch = None;
-        ctx.audio.set_ambient(None);
+        if let Some(claim) = self.ambience.take() {
+            ctx.release_ambient(claim);
+        }
     }
 
     fn presence(&self, ctx: &GameContext) -> Option<PresenceState> {

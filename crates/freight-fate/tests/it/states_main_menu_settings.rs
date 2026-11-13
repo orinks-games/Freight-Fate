@@ -951,12 +951,26 @@ fn test_problem_reports_is_honest_when_no_log_is_being_written() {
     );
     assert_eq!(
         labels::<Cat>(&app),
-        vec!["Where the game log is saved", "Back"]
+        vec![
+            "Ask to report a problem after a crash: on",
+            "Where the game log is saved",
+            "Back"
+        ]
     );
     let said = with_state::<Cat, _>(&app, |c, _| c.log_location_lines().join(" "));
     assert!(said.contains("not writing a log file"));
     assert!(said.contains("Packaged downloads always write one"));
-    // Left and right are for stepping values; this row has none to step.
+    // The crash question is a switch; left and right flip it.
+    key(&mut app, Key::Right);
+    assert_eq!(
+        current_label::<Cat>(&app),
+        "Ask to report a problem after a crash: off"
+    );
+    assert!(!app.ctx.settings.crash_report_offer);
+    key(&mut app, Key::Left);
+    assert!(app.ctx.settings.crash_report_offer);
+    // Left and right are for stepping values; the log row has none to step.
+    move_to::<Cat>(&mut app, "Where the game log is saved");
     key(&mut app, Key::Right);
     key(&mut app, Key::Left);
     assert_eq!(current_label::<Cat>(&app), "Where the game log is saved");

@@ -73,7 +73,9 @@ Settings has Gameplay, Audio, Speech, Updates and Problem reports. Driving assis
 
 ### Report a problem
 
-Report a problem opens the bug-report page in your web browser. Use it to report something that went wrong while playing.
+Report a problem opens the report form on orinks.net in your web browser, with your game log already attached. Say what happened, add your email address if you want a reply, and send it. If orinks.net cannot be reached, the bug-report page on GitHub opens instead, and the game says where to find the log to attach by hand.
+
+If the game closed without quitting the last time it ran, the main menu asks once whether to report it. Report it opens the same form with the previous run's log attached.
 
 ### Quit
 
@@ -690,6 +692,8 @@ Ten hours of sleep resets your legal hours. At supported parking, you can also u
 
 Open Logbook to review your current duty, limits, daily totals, and earlier entries with their place and reason. While driving, the ELD app gives your hours and reachable stops. If an inspection finds you over hours, it orders a ten-hour hold and explains what that does to the deadline.
 
+Fatigue comes in four bands: rested, worn from 40 percent, drowsy from 60 and severe from 80. A quiet yawn marks worn, and a yawn and "Getting drowsy." mark drowsy. From worn up the Tab status screens name the band with the number, as in "Fatigue: 64 percent, drowsy." A band is left only once fatigue falls 5 points below where it began.
+
 Night driving builds fatigue faster and leaves you less reaction time. When a nod-off warning sounds, respond by steering or braking. The left stick and left trigger answer it too. Miss it and the truck heads onto the shoulder; three successive misses force a stop. The first asleep departure is a preventable incident, and later ones become serious fatigued-driving violations.
 
 Coffee only buys temporary relief. A break helps more, and full sleep clears fatigue.
@@ -993,11 +997,12 @@ You can browse public driver information without sharing your own. Connect an ac
 
 ### Problem reports
 
-Problem reports shows where the game log is saved. It includes the spoken output from your session and stays on your computer unless you share it.
+Problem reports holds the crash question and shows where the game log is saved. The log includes the spoken output from your session and stays on your computer unless you send a report.
 
 | Setting | Purpose |
 | --- | --- |
-| Where the game log is saved | Find the log for your current session, including what the game said. The previous session's log is kept too, so restarting won't immediately lose it. You can attach the log to a report; the game doesn't send it automatically. |
+| Ask to report a problem after a crash | On, the main menu offers to send a report when the game closed without quitting the last time, with that run's log attached. Off, the question never comes up; Report a problem on the main menu still works. |
+| Where the game log is saved | Find the log for your current session, including what the game said. The previous session's log is kept too, so restarting won't immediately lose it. Report a problem attaches both for you; nothing is sent until you choose it. |
 
 ## Audio, speech, and accessibility
 

@@ -10325,6 +10325,39 @@ msgstr "每小时{distance}"
 msgid "kilometer"
 msgstr "公里"
 
+msgid "rested"
+msgstr ""
+
+msgid "worn"
+msgstr "磨损"
+
+msgid "drowsy"
+msgstr ""
+
+msgid "severe"
+msgstr ""
+
+msgid "awake"
+msgstr ""
+
+msgid "nodding"
+msgstr ""
+
+msgid "recovering"
+msgstr ""
+
+msgid "game minutes counted"
+msgstr ""
+
+msgid "seconds left"
+msgstr ""
+
+msgid "game minutes left"
+msgstr ""
+
+msgid "misses"
+msgstr ""
+
 msgid "Driver window down."
 msgstr ""
 
@@ -13981,6 +14014,15 @@ msgid ""
 "so listen for the call."
 msgstr ""
 
+msgid "the co-driver has the wheel"
+msgstr ""
+
+#. placeholders: {position_mi}, {misses}
+msgid ""
+"Staged a nod at mile {position_mi}, {misses} missed in a row so far; it "
+"opens on the next rolling frame, so listen for the warning."
+msgstr ""
+
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
 "Scenario staged: {name} at {the_city} terminal, level {level}, {deliveries} "
@@ -15502,6 +15544,22 @@ msgstr "achievement"
 msgid "level"
 msgstr "level"
 
+msgid "Freight Fate"
+msgstr "Freight Fate"
+
+msgid "game"
+msgstr ""
+
+#. placeholders: {e}
+msgid "The report could not be packed: {e}."
+msgstr ""
+
+msgid "Content-Encoding"
+msgstr ""
+
+msgid "gzip"
+msgstr ""
+
 msgid ""
 "Enter opens a category. Inside one, Enter repeats the achievement and "
 "Escape returns to the categories. From the categories, Escape returns to "
@@ -17020,9 +17078,6 @@ msgstr "极好"
 
 msgid "good"
 msgstr "良好"
-
-msgid "worn"
-msgstr "磨损"
 
 msgid "all-season"
 msgstr "四季通用"
@@ -19644,6 +19699,12 @@ msgstr "现在是{now}。"
 msgid "amount"
 msgstr "amount"
 
+msgid "alertness"
+msgstr ""
+
+msgid "nod"
+msgstr ""
+
 msgid "local game time"
 msgstr "当地游戏时间"
 
@@ -20800,9 +20861,9 @@ msgstr "增益"
 msgid "{label}: good for the rest of the trip"
 msgstr "{label}：本次行程剩余时间都有效"
 
-#. placeholders: {fatigue}
-msgid "Fatigue: {fatigue} percent"
-msgstr "疲劳度：百分之{fatigue}"
+#. placeholders: {fatigue}, {band}
+msgid "Fatigue: {fatigue} percent, {band}"
+msgstr ""
 
 #. placeholders: {context}
 msgid "HOS route: {context}"
@@ -25651,6 +25712,10 @@ msgstr "卡车：燃油百分之{f}，损坏百分之{f2}{damage_band_suffix}"
 msgid "Transmission: {else}, {gear}"
 msgstr "变速箱：{else}，{gear}"
 
+#. placeholders: {f}, {band}
+msgid "Fatigue: {f} percent, {band}"
+msgstr ""
+
 #. placeholders: {f}
 msgid "Fatigue: {f} percent"
 msgstr "疲劳：百分之{f}"
@@ -28911,9 +28976,6 @@ msgid ""
 "{name} drove on after a collision with {animal}. Damage {damage} percent."
 msgstr ""
 
-msgid "rested"
-msgstr ""
-
 msgid "Refuel"
 msgstr ""
 
@@ -29641,11 +29703,11 @@ msgstr "buff"
 msgid "The {label} has worn off."
 msgstr "{label}的效果已经消退了。"
 
-msgid "Dangerously drowsy and drifting out of your lane."
-msgstr "困得危险，正在偏出车道。"
-
 msgid "Getting drowsy."
 msgstr "开始犯困了。"
+
+msgid "Dangerously drowsy and drifting out of your lane."
+msgstr "困得危险，正在偏出车道。"
 
 msgid "Nodding off. Steer or brake now!"
 msgstr "在打瞌睡。马上转向或刹车！"
@@ -30498,25 +30560,8 @@ msgstr "1次送达"
 msgid "{deliveries} deliveries"
 msgstr "送货{deliveries}次"
 
-msgid "Freight Fate"
-msgstr "Freight Fate"
-
 msgid "No saved careers found."
 msgstr "没有找到保存的职业生涯。"
-
-#. one sentence of a longer line
-msgid "Could not open a web browser."
-msgstr "无法打开网页浏览器。"
-
-#. placeholders: {REPO}
-msgid ""
-"Could not open a web browser. Report problems at github.com/{REPO}/issues."
-msgstr "无法打开网页浏览器。请到github.com/{REPO}/issues报告问题。"
-
-#. placeholders: {REPO}
-#. one sentence of a longer line
-msgid "Report problems at github.com/{REPO}/issues."
-msgstr "请到github.com/{REPO}/issues报告问题。"
 
 msgid "Quit Freight Fate?"
 msgstr "退出Freight Fate？"
@@ -30948,8 +30993,10 @@ msgstr "单位、变速箱模式、音量、天气、语音、更新渠道和行
 msgid "Report a problem"
 msgstr "报告问题"
 
-msgid "The bug report page on GitHub, in your web browser."
-msgstr "在你的网页浏览器里打开GitHub上的错误报告页面。"
+msgid ""
+"The report form on orinks.net, in your web browser, with your game log "
+"attached."
+msgstr ""
 
 msgid "Exit the game."
 msgstr "退出游戏。"
@@ -31231,16 +31278,17 @@ msgstr "游戏日志保存在{path}。"
 
 msgid ""
 "It records this session, including everything the game said out loud. "
-"Attach it to a bug report."
-msgstr "它记录了这次游戏，包括游戏说出的每一句话。请把它附在错误报告里。"
+"Report a problem attaches it for you."
+msgstr ""
 
 #. placeholders: {previous_name}
 msgid "The session before this one is kept beside it as {previous_name}."
 msgstr "上一次的日志保存在旁边，名为{previous_name}。"
 
 msgid ""
-"Both files stay on this computer. The game never sends them anywhere."
-msgstr "两个文件都留在这台电脑上。游戏从不把它们发送到任何地方。"
+"Both files stay on this computer unless you choose Report a problem, which "
+"attaches them."
+msgstr ""
 
 msgid "English"
 msgstr "English"
@@ -32069,13 +32117,22 @@ msgid ""
 "bumper held."
 msgstr "把任何驾驶控制移到另一个手柄按键，可以单按，也可以在按住right bumper时按。"
 
+#. placeholders: {on_off}
+msgid "Ask to report a problem after a crash: {on_off}"
+msgstr ""
+
+msgid ""
+"On, the main menu offers to send a report when the game closed without "
+"quitting the last time, with that run's log attached."
+msgstr ""
+
 msgid "Where the game log is saved"
 msgstr "游戏日志保存位置"
 
 msgid ""
-"The session log records everything the game said out loud. Send it with a "
-"bug report."
-msgstr "这次游戏的日志记录了游戏说出的每一句话。请把它和错误报告一起发送。"
+"The session log records everything the game said out loud. Report a problem "
+"attaches it for you."
+msgstr ""
 
 #. placeholders: {pct}
 msgid "Master volume: {pct} percent"
@@ -32846,8 +32903,9 @@ msgstr "“学习游戏声音”逐个播放道路提示音并加以说明。"
 
 msgid ""
 "Settings changes driving assistance, sound, speech, and controls. Report a "
-"problem opens the bug-report page in your browser. Quit closes the game."
-msgstr "“设置”可以更改驾驶辅助、声音、语音和操作。“报告问题”会在浏览器中打开错误报告页面。“退出”会关闭游戏。"
+"problem opens the report form in your browser, with your game log attached. "
+"Quit closes the game."
+msgstr ""
 
 msgid ""
 "Achievements lists a saved driver's earned and locked achievements. It "
@@ -35677,6 +35735,102 @@ msgid ""
 "Open the list of states this driver has delivered to, each with its cities."
 msgstr "打开该司机已送货到的州列表，每个州都有其城市。"
 
+msgid "Preparing the report."
+msgstr ""
+
+msgid ""
+"The report opened in your browser. The game log is already attached; finish "
+"it there."
+msgstr ""
+
+#. placeholders: {REPO}
+#. one sentence of a longer line
+msgid "Report problems at github.com/{REPO}/issues."
+msgstr "请到github.com/{REPO}/issues报告问题。"
+
+#. placeholders: {why}
+#. one sentence of a longer line
+msgid "{why} Could not open a web browser either."
+msgstr ""
+
+#. placeholders: {why}, {REPO}
+msgid ""
+"{why} Could not open a web browser either. Report problems at "
+"github.com/{REPO}/issues."
+msgstr ""
+
+msgid "Too many reports have been sent today."
+msgstr ""
+
+msgid "orinks.net did not accept the report."
+msgstr ""
+
+msgid "The report could not be prepared."
+msgstr ""
+
+msgid "problem-report"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Could not open a web browser."
+msgstr "无法打开网页浏览器。"
+
+#. placeholders: {REPO}
+msgid ""
+"Could not open a web browser. Report problems at github.com/{REPO}/issues."
+msgstr "无法打开网页浏览器。请到github.com/{REPO}/issues报告问题。"
+
+#. placeholders: {reason}
+msgid "The report form could not be opened: {reason}"
+msgstr ""
+
+msgid "Report the last crash?"
+msgstr ""
+
+msgid ""
+"Report it opens the report form in your web browser with the previous run's "
+"log attached. Not now closes this. Stop asking turns the question off; "
+"Settings, Problem reports turns it back on."
+msgstr ""
+
+msgid ""
+"Freight Fate will not ask again after a crash. Report a problem on the main "
+"menu still works, and Settings, Problem reports turns the question back on."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Freight Fate closed unexpectedly the last time it ran."
+msgstr ""
+
+#. placeholders: {current_text}
+msgid ""
+"Freight Fate closed unexpectedly the last time it ran. Report the problem? "
+"{current_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Report the problem?"
+msgstr ""
+
+msgid "Report it"
+msgstr ""
+
+msgid ""
+"The report form opens in your web browser with the previous run's log "
+"attached. Say what you were doing when it closed."
+msgstr ""
+
+msgid ""
+"Back to the main menu. Report a problem is there whenever you want it."
+msgstr ""
+
+msgid "Stop asking after crashes"
+msgstr ""
+
+msgid ""
+"Never ask again after a crash. Settings, Problem reports turns it back on."
+msgstr ""
+
 msgid "Save file changed outside the game"
 msgstr "存档文件在游戏外被改动"
 
@@ -37316,6 +37470,31 @@ msgstr "轮胎碎片。"
 
 msgid "Debris."
 msgstr "杂物。"
+
+#~ msgid "The bug report page on GitHub, in your web browser."
+#~ msgstr "在你的网页浏览器里打开GitHub上的错误报告页面。"
+
+#~ msgid ""
+#~ "It records this session, including everything the game said out loud. "
+#~ "Attach it to a bug report."
+#~ msgstr "它记录了这次游戏，包括游戏说出的每一句话。请把它附在错误报告里。"
+
+#~ msgid ""
+#~ "Both files stay on this computer. The game never sends them anywhere."
+#~ msgstr "两个文件都留在这台电脑上。游戏从不把它们发送到任何地方。"
+
+#~ msgid ""
+#~ "The session log records everything the game said out loud. Send it with a "
+#~ "bug report."
+#~ msgstr "这次游戏的日志记录了游戏说出的每一句话。请把它和错误报告一起发送。"
+
+#~ msgid ""
+#~ "Settings changes driving assistance, sound, speech, and controls. Report a "
+#~ "problem opens the bug-report page in your browser. Quit closes the game."
+#~ msgstr "“设置”可以更改驾驶辅助、声音、语音和操作。“报告问题”会在浏览器中打开错误报告页面。“退出”会关闭游戏。"
+
+#~ msgid "Fatigue: {fatigue} percent"
+#~ msgstr "疲劳度：百分之{fatigue}"
 
 #~ msgid "Open weigh station means every truck must pull in."
 #~ msgstr "称重站开放，意味着每辆卡车都必须驶入。"

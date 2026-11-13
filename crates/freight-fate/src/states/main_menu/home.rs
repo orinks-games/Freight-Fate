@@ -35,7 +35,7 @@ impl Menu for MainMenuState {
         });
         let refs: Vec<&str> = sequence.iter().map(String::as_str).collect();
         ctx.play_music_sequence("menu", &refs);
-        ctx.audio.set_ambient(Some(ambience));
+        self.ambience = Some(ctx.claim_ambient(ambience));
         if ctx.settings.update_channel.is_empty() {
             let build = updater::load_build_info(version());
             let channel = updater::resolve_channel("", build.as_ref());
@@ -57,11 +57,22 @@ impl Menu for MainMenuState {
     }
 
     fn exit(&mut self, ctx: &mut GameContext) {
-        ctx.audio.set_ambient(None);
+        if let Some(claim) = self.ambience.take() {
+            ctx.release_ambient(claim);
+        }
     }
 
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {
         ctx.update_music_rotation(dt);
+        // The last run never quit: ask once, before the update prompt can
+        // land on top of the question.
+        if ctx.crash_offer_pending {
+            ctx.crash_offer_pending = false;
+            if ctx.settings.crash_report_offer {
+                ctx.push_state(CrashReportOfferState::new());
+                return;
+            }
+        }
         // The sound device now opens on a worker thread, so its verdict can
         // land a beat AFTER this menu's greeting already asked. Same rule
         // as at entry: silence with no word is never allowed.
@@ -256,8 +267,10 @@ impl Menu for MainMenuState {
             }),
         );
         items.push(
-            MenuItem::new("Report a problem", |s: &mut Self, ctx| s.report_issue(ctx))
-                .help("The bug report page on GitHub, in your web browser."),
+            MenuItem::new("Report a problem", |s: &mut Self, ctx| s.report_issue(ctx)).help(
+                "The report form on orinks.net, in your web browser, with your game log \
+                 attached.",
+            ),
         );
         // An iPhone app is never quit from inside; the system closes it.
         if !cfg!(target_os = "ios") {

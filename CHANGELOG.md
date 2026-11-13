@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+## 1.9.6 - 2026-11-13
+
+### Compatibility
+
+- **Careers saved by 1.9.6 cannot be opened by 1.9.5 or earlier.** A copy of each career from before the update stays in the saves folder.
+
+### Highlights
+
+- **A built-in voice speaks when no screen reader or system voice is running.**
+- **Report a problem opens a form on orinks.net with your game log already attached.**
+- **Freeway traffic has more kinds of vehicle, each with its own sound.** Vehicles pass each other, run near the posted limit and leave at interchanges.
+- **Nothing brakes for tire debris any more.** A ladder or a mattress with no lane open is taken at 30, not a near stop.
+- **Spoken lines, help, menus and the manual are shorter and use plain words.** Achievements and some settings have new names.
+- **Road announcements wait for NVDA 2026.3 or SAPI to finish speaking,** so the 2-mile and 1-mile exit calls always play.
+- **Cruise slows for a lower speed limit in time and holds work zones at their limit.** Full lane keeping leaves a lane that a work zone closes.
+- **Speed limits and exit ramps are updated to October's road data.**
+- **Updates are signed and download only what changed.** Settings chooses stable, beta or alpha.
+- **Your playlists can play YouTube links, livestreams included.**
+
 ### Added
 
 - **A built-in voice speaks when no screen reader or system voice is running.** It can also be chosen as the driving event voice.
@@ -14,9 +33,11 @@
 - **New releases seal career saves against local editing.** Existing careers migrate with a backup, and cloud backups keep their verification.
 - **Alt+5 names the county you are driving through.** On city streets it names the city's county.
 - **Driving hints can be turned off.** With it off in Settings, Speech, driving lines stop naming keys, like "Press X to signal for the exit."
+- **Report a problem opens a form on orinks.net with your game log already attached.** After a crash, the main menu offers to report it.
 
 ### Changed
 
+- **A quiet yawn now warns you earlier, when fatigue reaches 40 percent.** The Tab status screens also name how tired you are, as in "Fatigue: 64 percent, drowsy."
 - **The Vietnamese translation is rewritten and covers the whole game.** Thanks to Đào Đức Trung ([PR 617](https://github.com/orinks-games/Freight-Fate/pull/617)).
 - **Achievements have new names and plainer descriptions.** Each description now says what earns it, and the songs behind the names cover more artists and genres.
 - **Nothing brakes for tire debris any more.** It is called out with the open lane, full lane keeping moves over, and with no lane open the truck drives over it.
@@ -51,6 +72,10 @@
 
 ### Fixed
 
+- **A career that 1.9.5 or earlier set aside as unreadable comes back the next time you start this version.**
+- **Saving and resuming a drive no longer resets the nod-off timer and miss count.**
+- **"Getting drowsy." no longer repeats after a coffee or snack eases fatigue a few points.**
+- **The main menu's background sound plays again after you leave the terminal or a shipper's dock.** Escape or Quit to main menu used to bring the menu back silent.
 - **The achievements menus no longer list three badges nobody can earn.** Careers that earned them before still see them.
 - **Holding Home or End on a settings, terminal or online screen no longer reads the row again and again.** It is read once, as on other menus.
 - **A PC where finding controllers stalls no longer freezes each time a Bluetooth device turns off.**

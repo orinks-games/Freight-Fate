@@ -8,6 +8,7 @@ use crate::states::driving_core::{
 use serde_json::{json, Map, Value};
 use std::collections::HashSet;
 
+use ff_core::ambient_bed::BedClaim;
 use ff_core::data::world::World;
 use ff_core::data::world_models::Route;
 use ff_core::models::business_constants::is_owner_operator;
@@ -300,6 +301,8 @@ pub struct PickupFacilityState {
     pub speed_control_target_mph: Option<f64>,
     /// Set by a team row just before departing; the plain row clears it.
     pub(crate) team_departure: Option<TeamMode>,
+    /// This screen's hold on the dock bed, while it is the holder's.
+    ambience: Option<BedClaim>,
 }
 
 impl PickupFacilityState {
@@ -340,6 +343,7 @@ impl PickupFacilityState {
             speed_control_armed: opts.speed_control_armed,
             speed_control_target_mph: opts.speed_control_target_mph,
             team_departure: None,
+            ambience: None,
         }
     }
 
@@ -907,8 +911,7 @@ impl Menu for PickupFacilityState {
     }
 
     fn announce_entry(&mut self, ctx: &mut GameContext) {
-        ctx.audio
-            .set_ambient(Some(facility_ambient_key(&self.job.origin_type)));
+        self.ambience = Some(ctx.claim_ambient(facility_ambient_key(&self.job.origin_type)));
         // Loading takes a while; by departure the live answers are usually in.
         warm_route_feeds(ctx, &self.job.origin, &self.job.destination);
         let plan = self.pickup_plan(ctx);
@@ -980,7 +983,9 @@ impl Menu for PickupFacilityState {
     }
 
     fn exit(&mut self, ctx: &mut GameContext) {
-        ctx.audio.set_ambient(None);
+        if let Some(claim) = self.ambience.take() {
+            ctx.release_ambient(claim);
+        }
         // Save and quit, or cancel: the idle must not follow the driver to
         // the title or the terminal. A departing drive brings its own back.
         ctx.audio.engine_stop_with(false);

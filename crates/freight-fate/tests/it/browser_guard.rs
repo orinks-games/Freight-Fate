@@ -124,21 +124,21 @@ fn test_the_activation_page_is_never_opened_for_real() {
 
 /// Report a problem used to call `webbrowser::open` directly, with no seam
 /// on it at all: nothing could have stood between a test that pressed the
-/// row and the live bug-report form.
+/// row and the live bug-report form. It now opens the report page on
+/// orinks.net, and that page goes through the same door.
 #[test]
 fn test_report_a_problem_goes_through_the_same_door() {
     let mut app = TestApp::new();
     let seam = install_browser(true);
+    let (_relay, _guard) = crate::problem_reports::opening_relay();
     app.push_state(freight_fate::states::main_menu::MainMenuState::new());
     menus::select::<freight_fate::states::main_menu::MainMenuState>(&mut app, "Report a problem");
+    crate::problem_reports::finish_send(&mut app);
 
     let opened = seam.opened();
-    assert_eq!(opened.len(), 1, "{opened:?}");
-    assert!(opened[0].contains("/issues/new"), "{opened:?}");
-    // The spoken half is unchanged: the player is told where it went and
-    // which log to attach.
+    assert_eq!(opened, vec![crate::problem_reports::page_url()]);
     let said = app.main_lines().join(" ");
-    assert!(said.contains("Opening the bug report page"), "{said}");
+    assert!(said.contains("The report opened in your browser"), "{said}");
 }
 
 /// A seam installed and then taken away leaves the thread refusing, not

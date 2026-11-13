@@ -41,6 +41,7 @@ bookmarks usable.
 
 ## 1.9 in flight (`feat/career-1.9`)
 
+- [x] Report a problem sends the game log ahead to orinks.net and opens the report form in the browser (owner, 2026-11-12: the in-game text box was "not great for entering text", and players asked to attach the log by hand rarely did). The row on the main menu posts `game.log` and `game.prev.log` to the site, which answers with a one-time page where the player writes what happened, adds an email address for a reply and unticks a log they would rather keep; the site emails the report. A run that never quit (a crash, a kill, a power cut) leaves a marker, and the next main menu asks once: Report it, Not now, or Stop asking after crashes (Settings, Problem reports has the switch). When orinks.net cannot be reached, or the browser will not open, the GitHub bug-report page opens as before with the line saying where the log is. Built on Hearken's problem-report crate; Wicket's gets the same through Hearken's own screens.
 - [x] Debris is taken, not stopped for (owner, 2026-11-09, after automatic braking took the truck from 65 to a near stop on I-43 for a strip of tire tread with the left lane held: "should I or the assists even brake for them?"). The catalog now says how each thing in the lane is taken. Small debris (tire debris, loose debris) is a heads-up with the road cue tone, "Tire debris. Left lane open.", about 8 seconds out: full lane keeping moves over, nothing brakes, cruise stays on, and with no lane open the truck drives over it with a thump and, at 55 or more, a 1 in 4 seeded roll for 1 to 2 percent damage. Big debris (ladder, lumber, mattress, boxes, tarp, tumbleweeds) keeps the hazard call; with no lane open automatic braking eases to 30 and the thing is taken for free at 30 or under, or struck above it for damage growing to the catalog's figure at 65 (8 for the ladder and lumber, 4 for the soft things), with the truck still rolling and cruise still armed. Rockfall, a spun-out car, the stopped vehicle, closures, traffic and crash scenes are unchanged. "It is still in your lane. Nearly stop." is gone in every case. Every debris strike speaks its damage (issue 533 reported damage with no line saying why). The agent server's new `hazard` tool fires any catalog hazard by name on the live drive, so each class can be driven instead of waited for.
 - [x] (Found along the way) Speed limits flip-flopped where the map has no posting (owner's Kenosha to Traverse City drive, 2026-11-04: 60, 70, 55 on the Tri-State in Lake County inside two minutes). An untagged stretch longer than four miles fell back to the open-road number, and 263 of them sat between two lower postings. Fixed 2026-11-05: a gap takes at most the higher posting around it when both are 55 or more, or both are 45 or more and the gap is at most 10 miles. Calibrated on the October profile itself: on tagged road between two postings of 55 or more, the stretch between was posted higher than both for most of its length 0.1% of the time over 5 miles and 1.9% over 40; with a 45 or 50 at one end, 5.1% over 10 miles and 13.4% over 40. A gap leaving a town limit under 45 still reads the open-road number. The state truck caps (California 55, Oregon 55, Arizona 65 and the rest) now bind in gaps and on legs with no profile; they used to apply to postings only.
 - [x] (Found along the way) Kenosha and Milwaukee to Chicago leave I-94 just past the state line and run about 25 miles down US-41 (Skokie Highway, with signals) to Lake Cook Road, while the game still calls the road I-94; checked against OpenStreetMap 2026-11-05. The 55, 45, 55 and 50 heard there are US-41's real limits. Re-route both legs onto the Tri-State and re-read their limits, then check which other legs leave their named interstate the same way (the limit-artifact screen's off-route verdicts are a start). Fixed 2026-11-05: both legs re-routed with `cargo tools reroute-leg` and rebuilt with `reroute-enrich` and the layer builders, from the OpenStreetMap planet of 2026-10-26; they now ride I-94 (the Tri-State, then the Edens and the Kennedy) into Chicago. The other legs that leave their named road are listed in the route audit of 2026-11-05.
@@ -774,6 +775,15 @@ into the release gate. Details stay in the linked dated sections, marked
 Everything found before 2026-09-25 moved to
 [2.0](#found-along-the-way-in-19-moved-to-20) that day.
 
+- [x] (Found along the way) Fatigue bands and the nod-off are state
+      machines saved with the trip: a quiet first yawn at 40, the band in
+      the readouts, no repeated drowsy line after a small lift
+      ([fatigue redesign](#november-13-fatigue-bands-and-the-nod-off-found-along-the-way),
+      PR 1 of `docs/fatigue-design.md`).
+- [ ] (Found along the way) Fatigue redesign, the rest: the night-hours
+      line, on-duty fatigue, rest by the hour and stimulants as a loan, slow
+      work, the inspection rule, the dispatch rest call
+      (`docs/fatigue-design.md` parts 2 to 7).
 - [x] (Found along the way) Traffic runs at a share of the posted limit,
       towns included; a slow call means the truck is gaining on the vehicle;
       freeway traffic turns off at interchanges (owner, 2026-11-04), and
@@ -3777,6 +3787,40 @@ and the ramp lights were already the truck's.
       through the cruise. Rare on All assists, where the speed keeper arms
       the cruise.
 
+### November 13 fatigue bands and the nod-off (Found along the way)
+
+PR 1 of the fatigue redesign (`docs/fatigue-design.md`, approved by the
+owner 2026-11-11). No new costs; the rest of the design is open below.
+
+- [x] (Found along the way) **Four fatigue bands.** Rested, worn, drowsy
+      and severe, entered at 40, 60 and 80 and left only 5 points under
+      the entry. Entering worn plays one quiet yawn and says nothing;
+      drowsy and severe keep their sound and line. A jump over several
+      bands gives only the cue of the band landed in. The Tab status
+      screens name the band with the number from worn up.
+- [x] (Found along the way) **The nod-off is one machine** (awake,
+      nodding, recovering, and the misses toward the forced stop), and
+      every other demand on the driver waits on it in one place. It and
+      the band are saved with the trip, so a resume no longer resets the
+      count and the misses or replays a band cue. The agent server's
+      `status` reports `alertness`, `nod` and `nod_misses`; `scenario`
+      takes `fatigue`, and a `nod` tool opens a nod on the live drive.
+- [x] (Found along the way) The city terminal judged "slept before it got
+      bad" at 70 and a rest stop at 80, for the same achievement. Both
+      now use the severe band.
+- [ ] (Found along the way) The night-hours line on the job details and
+      the departure line (design part 3).
+- [ ] (Found along the way) On-duty time that is not driving builds
+      fatigue at a third of the driving rate (part 2).
+- [ ] (Found along the way) Rest by the hour, and stimulants as a loan
+      that comes back when it wears off (part 5).
+- [ ] (Found along the way) Tired work is slow work: fueling, the
+      walk-around and chain work take longer by band (part 4).
+- [ ] (Found along the way) A traffic stop or inspection at severe ends
+      in the fatigue out-of-service order (part 6).
+- [ ] (Found along the way) The dispatch call for rest while drowsy or
+      severe on a load (part 7).
+
 ### October 26 the road to the 2.0 nightlies (Found along the way)
 
 The plan from 1.9.5 to the first 2.0 nightly, agreed by the owner on
@@ -4497,4 +4541,7 @@ a public build leaks.
 - [x] Add stable, beta and alpha subscriptions and configurable branch builds for alpha.
 - [x] Default automatic update offers to Remind me later and suppress held activation.
 - [x] Provision and back up the persistent sealing key; enable sealed careers in future release builds.
-- [ ] Verify packaged migration and production cloud round trips before release. See [release integration](docs/updater-and-sealed-saves.md).
+- [x] Verify packaged migration before release. Checked 2026-11-13 on the Linux x64 packages: a career made in the 1.9.5 release opened in the beta snapshot of 2026-11-12, was sealed, saved and reopened, and its backup matched the 1.9.5 file byte for byte.
+- [ ] Verify a production cloud backup and restore from a sealed release build. See [release integration](docs/updater-and-sealed-saves.md).
+- [x] Careers an older release set aside come back. 1.9.5 cannot read a sealed career and renames it on its save scan, so one start of 1.9.5 on a 1.9.6 saves folder left 1.9.6 with no careers to list (found in the packaged check of 2026-11-13). The save listing now puts a set-aside sealed career back under its own name when no career holds that name and the file opens there.
+- [ ] A career made by 1.9.5 or earlier in a saves folder that a sealed release has already used is refused as unverified, because it cannot be told from a hand-edited file. A cloud restore is the way back; decide whether the message should say why.

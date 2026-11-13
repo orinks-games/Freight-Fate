@@ -446,7 +446,7 @@ impl DrivingState {
     /// never read as a miss.
     pub fn turn_miss_suspended(&self) -> bool {
         self.hazard_deadline.is_some()
-            || self.microsleep_deadline.is_some()
+            || self.nod.demands_driver()
             || self.pull_over.is_some()
             || self.arrival_menu_open
     }
