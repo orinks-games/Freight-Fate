@@ -520,7 +520,10 @@ impl SettingsCategoryState {
             }
             // Reading the log's location is an action, not a value to
             // step through, so left/right does nothing on that row.
-            "reports" => vec![adjust(|_s, _ctx, _d| {})],
+            "reports" => vec![
+                adjust(|s, ctx, d| s.toggle_crash_report_offer(ctx, d)),
+                adjust(|_s, _ctx, _d| {}),
+            ],
             _ => Vec::new(),
         }
     }
@@ -776,13 +779,24 @@ impl SettingsCategoryState {
                 items
             }
             "reports" => vec![
+                row(
+                    dyn_label(|s| {
+                        format!(
+                            "Ask to report a problem after a crash: {}",
+                            on_off(s.crash_report_offer)
+                        )
+                    }),
+                    adjust(|s, ctx, d| s.toggle_crash_report_offer(ctx, d)),
+                    "On, the main menu offers to send a report when the game closed \
+                     without quitting the last time, with that run's log attached.",
+                ),
                 MenuItem::new(
                     "Where the game log is saved",
                     |s: &mut SettingsCategoryState, ctx| s.say_log_location(ctx),
                 )
                 .help(
                     "The session log records everything the game said out \
-                     loud. Send it with a bug report.",
+                     loud. Report a problem attaches it for you.",
                 ),
                 back_row(),
             ],

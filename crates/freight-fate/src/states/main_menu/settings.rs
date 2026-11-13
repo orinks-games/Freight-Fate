@@ -402,7 +402,7 @@ impl SettingsCategoryState {
         let mut out = vec![
             format!("The game log is saved as {}.", path.display()),
             "It records this session, including everything the game said out loud. \
-             Attach it to a bug report."
+             Report a problem attaches it for you."
                 .to_string(),
         ];
         let stem = path
@@ -421,7 +421,9 @@ impl SettingsCategoryState {
             ));
         }
         out.push(
-            "Both files stay on this computer. The game never sends them anywhere.".to_string(),
+            "Both files stay on this computer unless you choose Report a problem, which \
+             attaches them."
+                .to_string(),
         );
         out
     }

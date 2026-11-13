@@ -590,6 +590,11 @@ impl SettingsCategoryState {
         self.announce(ctx);
     }
 
+    pub(super) fn toggle_crash_report_offer(&mut self, ctx: &mut GameContext, _d: i64) {
+        ctx.settings.crash_report_offer = !ctx.settings.crash_report_offer;
+        self.announce(ctx);
+    }
+
     pub(super) fn toggle_menu_position(&mut self, ctx: &mut GameContext, _d: i64) {
         ctx.settings.announce_menu_position = !ctx.settings.announce_menu_position;
         self.announce(ctx);

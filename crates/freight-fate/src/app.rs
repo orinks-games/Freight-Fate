@@ -1641,7 +1641,11 @@ pub fn main_with(options: CliOptions) -> i32 {
     // Before anything is read from the game folder: an update stopped
     // part-way is put back first (the main menu says so).
     crate::updater::note_interrupted_update();
+    // The crash marker: set now, cleared on the way out, so a run that
+    // ends any other way is offered as a report next time.
+    crate::problem_reports::begin_session(&ff_core::settings::data_dir());
     let code = run_game(&options);
+    crate::problem_reports::end_session();
     guard.release();
     boot_timing::mark("quit: done");
     code

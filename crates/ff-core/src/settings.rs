@@ -750,6 +750,9 @@ settings_fields! {
     /// sentences everywhere on the road, not only once a hint has retired
     /// (owner, 2026-10-25). Driving school and the first run still teach.
     driving_hints: bool = true => bool_strict,
+    /// Whether the main menu offers to send a problem report after a run
+    /// that ended without quitting (a crash, a kill, a power cut).
+    crash_report_offer: bool = true => bool_strict,
 }
 
 impl Settings {

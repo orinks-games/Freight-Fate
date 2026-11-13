@@ -164,6 +164,7 @@ time is a view, via `Trip.local_hour`.
 | States | `State` and subclasses | `states/` |
 | Playtest levers | -- | `playtest_levers.py` |
 | Keyboard shortcuts and controller buttons | `Action`, `Chord`, `PadChord`, `KeyBindings` | `bindings.rs` (game crate) |
+| Problem report (spoken "report"; the row is "Report a problem", the file is "the game log") | `Report`, `Session` (Hearken's `hearken-report`) | `problem_reports.rs`, `states/problem_report.rs` (game crate) |
 
 ### Roadside colour
 

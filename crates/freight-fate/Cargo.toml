@@ -65,6 +65,8 @@ ff-core = { path = "../ff-core" }
 hearken.workspace = true
 # The self-updater (see src/updater.rs).
 hearken-update = { workspace = true, features = ["http"] }
+# Problem reports (see src/problem_reports.rs).
+hearken-report.workspace = true
 log.workspace = true
 env_logger.workspace = true
 serde.workspace = true

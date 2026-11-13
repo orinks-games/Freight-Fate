@@ -20,7 +20,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
             "Welcome to Freight Fate. Start a trucking career and learn the road sounds.",
             "Choose New career to create a driver.",
             "Learn game sounds plays each road cue and explains it.",
-            "Settings changes driving assistance, sound, speech, and controls. Report a problem opens the bug-report page in your browser. Quit closes the game.",
+            "Settings changes driving assistance, sound, speech, and controls. Report a problem opens the report form in your browser, with your game log attached. Quit closes the game.",
             "Achievements lists a saved driver's earned and locked achievements. It needs a saved career.",
             "Online has driver profiles, account achievements, sharing, and private cloud backups.",
             "Once you have a saved career, Continue returns to your newest saved trip. Choose career switches to another driver.",

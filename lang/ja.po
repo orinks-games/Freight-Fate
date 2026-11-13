@@ -15685,6 +15685,22 @@ msgstr "achievement"
 msgid "level"
 msgstr "level"
 
+msgid "Freight Fate"
+msgstr "Freight Fate"
+
+msgid "game"
+msgstr ""
+
+#. placeholders: {e}
+msgid "The report could not be packed: {e}."
+msgstr ""
+
+msgid "Content-Encoding"
+msgstr ""
+
+msgid "gzip"
+msgstr ""
+
 msgid ""
 "Enter opens a category. Inside one, Enter repeats the achievement and "
 "Escape returns to the categories. From the categories, Escape returns to "
@@ -30841,25 +30857,8 @@ msgstr "配達1件"
 msgid "{deliveries} deliveries"
 msgstr "{deliveries}回配達"
 
-msgid "Freight Fate"
-msgstr "Freight Fate"
-
 msgid "No saved careers found."
 msgstr "保存されたキャリアはありません。"
-
-#. one sentence of a longer line
-msgid "Could not open a web browser."
-msgstr "ウェブブラウザーを開けませんでした。"
-
-#. placeholders: {REPO}
-msgid ""
-"Could not open a web browser. Report problems at github.com/{REPO}/issues."
-msgstr "ウェブブラウザーを開けませんでした。問題は github.com/{REPO}/issues で報告してください。"
-
-#. placeholders: {REPO}
-#. one sentence of a longer line
-msgid "Report problems at github.com/{REPO}/issues."
-msgstr "問題は github.com/{REPO}/issues で報告してください。"
 
 msgid "Quit Freight Fate?"
 msgstr "Freight Fate を終了しますか？"
@@ -31301,8 +31300,10 @@ msgstr "単位、変速モード、音量、天気、音声、アップデート
 msgid "Report a problem"
 msgstr "問題を報告"
 
-msgid "The bug report page on GitHub, in your web browser."
-msgstr "GitHub のバグ報告ページを、ウェブブラウザーで開きます。"
+msgid ""
+"The report form on orinks.net, in your web browser, with your game log "
+"attached."
+msgstr ""
 
 msgid "Exit the game."
 msgstr "ゲームを終了します。"
@@ -31587,16 +31588,17 @@ msgstr "ゲームのログは{path}に保存されています。"
 
 msgid ""
 "It records this session, including everything the game said out loud. "
-"Attach it to a bug report."
-msgstr "このセッションを、ゲームが読み上げた内容も含めて記録します。バグ報告に添付してください。"
+"Report a problem attaches it for you."
+msgstr ""
 
 #. placeholders: {previous_name}
 msgid "The session before this one is kept beside it as {previous_name}."
 msgstr "一つ前のセッションのログは、{previous_name}として隣に保存されています。"
 
 msgid ""
-"Both files stay on this computer. The game never sends them anywhere."
-msgstr "どちらのファイルもこのコンピューターに残ります。ゲームがどこかへ送ることはありません。"
+"Both files stay on this computer unless you choose Report a problem, which "
+"attaches them."
+msgstr ""
 
 msgid "English"
 msgstr "English"
@@ -32441,13 +32443,22 @@ msgid ""
 "bumper held."
 msgstr "運転の操作を、別のボタン単体か、right bumper を押さえながらのボタンに変えます。"
 
+#. placeholders: {on_off}
+msgid "Ask to report a problem after a crash: {on_off}"
+msgstr ""
+
+msgid ""
+"On, the main menu offers to send a report when the game closed without "
+"quitting the last time, with that run's log attached."
+msgstr ""
+
 msgid "Where the game log is saved"
 msgstr "ゲームのログの保存場所"
 
 msgid ""
-"The session log records everything the game said out loud. Send it with a "
-"bug report."
-msgstr "セッションのログには、ゲームが読み上げた内容がすべて記録されます。バグ報告と一緒に送ってください。"
+"The session log records everything the game said out loud. Report a problem "
+"attaches it for you."
+msgstr ""
 
 #. placeholders: {pct}
 msgid "Master volume: {pct} percent"
@@ -33234,9 +33245,9 @@ msgstr "ゲームの音を覚えるでは、道路の合図を一つずつ鳴ら
 
 msgid ""
 "Settings changes driving assistance, sound, speech, and controls. Report a "
-"problem opens the bug-report page in your browser. Quit closes the game."
+"problem opens the report form in your browser, with your game log attached. "
+"Quit closes the game."
 msgstr ""
-"設定では、運転アシスト、音、読み上げ、操作を変えられます。問題を報告は、ブラウザーでバグ報告のページを開きます。終了はゲームを閉じます。"
 
 msgid ""
 "Achievements lists a saved driver's earned and locked achievements. It "
@@ -36243,6 +36254,102 @@ msgid ""
 "Open the list of states this driver has delivered to, each with its cities."
 msgstr "このドライバーが配達した州の一覧を開きます。州ごとに都市も聞けます。"
 
+msgid "Preparing the report."
+msgstr ""
+
+msgid ""
+"The report opened in your browser. The game log is already attached; finish "
+"it there."
+msgstr ""
+
+#. placeholders: {REPO}
+#. one sentence of a longer line
+msgid "Report problems at github.com/{REPO}/issues."
+msgstr "問題は github.com/{REPO}/issues で報告してください。"
+
+#. placeholders: {why}
+#. one sentence of a longer line
+msgid "{why} Could not open a web browser either."
+msgstr ""
+
+#. placeholders: {why}, {REPO}
+msgid ""
+"{why} Could not open a web browser either. Report problems at "
+"github.com/{REPO}/issues."
+msgstr ""
+
+msgid "Too many reports have been sent today."
+msgstr ""
+
+msgid "orinks.net did not accept the report."
+msgstr ""
+
+msgid "The report could not be prepared."
+msgstr ""
+
+msgid "problem-report"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Could not open a web browser."
+msgstr "ウェブブラウザーを開けませんでした。"
+
+#. placeholders: {REPO}
+msgid ""
+"Could not open a web browser. Report problems at github.com/{REPO}/issues."
+msgstr "ウェブブラウザーを開けませんでした。問題は github.com/{REPO}/issues で報告してください。"
+
+#. placeholders: {reason}
+msgid "The report form could not be opened: {reason}"
+msgstr ""
+
+msgid "Report the last crash?"
+msgstr ""
+
+msgid ""
+"Report it opens the report form in your web browser with the previous run's "
+"log attached. Not now closes this. Stop asking turns the question off; "
+"Settings, Problem reports turns it back on."
+msgstr ""
+
+msgid ""
+"Freight Fate will not ask again after a crash. Report a problem on the main "
+"menu still works, and Settings, Problem reports turns the question back on."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Freight Fate closed unexpectedly the last time it ran."
+msgstr ""
+
+#. placeholders: {current_text}
+msgid ""
+"Freight Fate closed unexpectedly the last time it ran. Report the problem? "
+"{current_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Report the problem?"
+msgstr ""
+
+msgid "Report it"
+msgstr ""
+
+msgid ""
+"The report form opens in your web browser with the previous run's log "
+"attached. Say what you were doing when it closed."
+msgstr ""
+
+msgid ""
+"Back to the main menu. Report a problem is there whenever you want it."
+msgstr ""
+
+msgid "Stop asking after crashes"
+msgstr ""
+
+msgid ""
+"Never ask again after a crash. Settings, Problem reports turns it back on."
+msgstr ""
+
 msgid "Save file changed outside the game"
 msgstr "セーブファイルがゲームの外で変更されました"
 
@@ -37907,6 +38014,29 @@ msgstr "タイヤの破片。"
 
 msgid "Debris."
 msgstr "落下物。"
+
+#~ msgid "The bug report page on GitHub, in your web browser."
+#~ msgstr "GitHub のバグ報告ページを、ウェブブラウザーで開きます。"
+
+#~ msgid ""
+#~ "It records this session, including everything the game said out loud. "
+#~ "Attach it to a bug report."
+#~ msgstr "このセッションを、ゲームが読み上げた内容も含めて記録します。バグ報告に添付してください。"
+
+#~ msgid ""
+#~ "Both files stay on this computer. The game never sends them anywhere."
+#~ msgstr "どちらのファイルもこのコンピューターに残ります。ゲームがどこかへ送ることはありません。"
+
+#~ msgid ""
+#~ "The session log records everything the game said out loud. Send it with a "
+#~ "bug report."
+#~ msgstr "セッションのログには、ゲームが読み上げた内容がすべて記録されます。バグ報告と一緒に送ってください。"
+
+#~ msgid ""
+#~ "Settings changes driving assistance, sound, speech, and controls. Report a "
+#~ "problem opens the bug-report page in your browser. Quit closes the game."
+#~ msgstr ""
+#~ "設定では、運転アシスト、音、読み上げ、操作を変えられます。問題を報告は、ブラウザーでバグ報告のページを開きます。終了はゲームを閉じます。"
 
 #~ msgid "Fatigue: {fatigue} percent"
 #~ msgstr "疲労：{fatigue}パーセント"

@@ -152,6 +152,11 @@ pub struct GameContext {
     /// True while a playtest-lever scenario runs unsaved (see
     /// `playtest_levers::apply_continue_levers`); `save_profile` honors it.
     pub playtest_sandbox: bool,
+    /// The last run ended without quitting and the main menu has not asked
+    /// about it yet (`problem_reports::take_crash_offer`, read once when the
+    /// app is built). The menu clears it when it asks, or when the player
+    /// turned the question off.
+    pub crash_offer_pending: bool,
     /// Seed for the next dispatch board; `None` in the shipped game, where
     /// the board rolls from OS entropy. The test app sets it so that which
     /// load dispatch assigns -- and whether it is staged in the home yard,
@@ -286,6 +291,7 @@ impl GameContext {
             achievement_notice: String::new(),
             achievement_notice_timer: 0.0,
             playtest_sandbox: false,
+            crash_offer_pending: crate::problem_reports::take_crash_offer(),
             dispatch_board_seed: None,
             school_sandbox: false,
             school_real_profile: None,

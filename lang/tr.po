@@ -16842,6 +16842,22 @@ msgstr ""
 msgid "level"
 msgstr ""
 
+msgid "Freight Fate"
+msgstr ""
+
+msgid "game"
+msgstr ""
+
+#. placeholders: {e}
+msgid "The report could not be packed: {e}."
+msgstr ""
+
+msgid "Content-Encoding"
+msgstr ""
+
+msgid "gzip"
+msgstr ""
+
 msgid ""
 "Enter opens a category. Inside one, Enter repeats the achievement and "
 "Escape returns to the categories. From the categories, Escape returns to "
@@ -33081,27 +33097,8 @@ msgstr "1 teslimat"
 msgid "{deliveries} deliveries"
 msgstr "{deliveries} teslimat"
 
-msgid "Freight Fate"
-msgstr ""
-
 msgid "No saved careers found."
 msgstr "Kayıtlı kariyer bulunamadı."
-
-#. one sentence of a longer line
-msgid "Could not open a web browser."
-msgstr "Web tarayıcısı açılamadı."
-
-#. placeholders: {REPO}
-msgid ""
-"Could not open a web browser. Report problems at github.com/{REPO}/issues."
-msgstr ""
-"Web tarayıcısı açılamadı. Sorunları github.com/{REPO}/issues adresine "
-"bildirin."
-
-#. placeholders: {REPO}
-#. one sentence of a longer line
-msgid "Report problems at github.com/{REPO}/issues."
-msgstr "Sorunları github.com/{REPO}/issues adresine bildirin."
 
 msgid "Quit Freight Fate?"
 msgstr "Freight Fate kapatılsın mı?"
@@ -33588,8 +33585,10 @@ msgstr ""
 msgid "Report a problem"
 msgstr "Sorun bildir"
 
-msgid "The bug report page on GitHub, in your web browser."
-msgstr "GitHub'daki hata bildirim sayfası, web tarayıcınızda."
+msgid ""
+"The report form on orinks.net, in your web browser, with your game log "
+"attached."
+msgstr ""
 
 msgid "Exit the game."
 msgstr "Oyundan çıkın."
@@ -33896,19 +33895,17 @@ msgstr "Oyun günlüğü şu adla kaydedildi: {path}."
 
 msgid ""
 "It records this session, including everything the game said out loud. "
-"Attach it to a bug report."
+"Report a problem attaches it for you."
 msgstr ""
-"Bu oturumu, oyunun yüksek sesle söylediği her şey dahil kaydeder. Bir hata "
-"bildirimine ekleyin."
 
 #. placeholders: {previous_name}
 msgid "The session before this one is kept beside it as {previous_name}."
 msgstr "Bir önceki oturum yanında şu adla saklanır: {previous_name}."
 
 msgid ""
-"Both files stay on this computer. The game never sends them anywhere."
+"Both files stay on this computer unless you choose Report a problem, which "
+"attaches them."
 msgstr ""
-"İki dosya da bu bilgisayarda kalır. Oyun onları hiçbir yere göndermez."
 
 msgid "English"
 msgstr ""
@@ -34873,15 +34870,22 @@ msgstr ""
 "Herhangi bir sürüş kontrolünü kumandada başka bir düğmeye taşıyın, tek "
 "başına ya da sağ omuz tuşu basılıyken."
 
+#. placeholders: {on_off}
+msgid "Ask to report a problem after a crash: {on_off}"
+msgstr ""
+
+msgid ""
+"On, the main menu offers to send a report when the game closed without "
+"quitting the last time, with that run's log attached."
+msgstr ""
+
 msgid "Where the game log is saved"
 msgstr "Oyun günlüğünün kaydedildiği yer"
 
 msgid ""
-"The session log records everything the game said out loud. Send it with a "
-"bug report."
+"The session log records everything the game said out loud. Report a problem "
+"attaches it for you."
 msgstr ""
-"Oturum günlüğü oyunun yüksek sesle söylediği her şeyi kaydeder. Bir hata "
-"bildirimiyle gönderin."
 
 #. placeholders: {pct}
 msgid "Master volume: {pct} percent"
@@ -35753,10 +35757,9 @@ msgstr "Oyun seslerini öğren, her yol işaretini çalar ve açıklar."
 
 msgid ""
 "Settings changes driving assistance, sound, speech, and controls. Report a "
-"problem opens the bug-report page in your browser. Quit closes the game."
+"problem opens the report form in your browser, with your game log attached. "
+"Quit closes the game."
 msgstr ""
-"Ayarlar sürüş yardımını, sesi, konuşmayı ve kontrolleri değiştirir. Sorun "
-"bildir, tarayıcınızda hata bildirim sayfasını açar. Çık oyunu kapatır."
 
 msgid ""
 "Achievements lists a saved driver's earned and locked achievements. It "
@@ -39194,6 +39197,104 @@ msgstr ""
 "Bu şoförün teslimat yaptığı eyaletlerin listesini, her birinin şehirleriyle "
 "açın."
 
+msgid "Preparing the report."
+msgstr ""
+
+msgid ""
+"The report opened in your browser. The game log is already attached; finish "
+"it there."
+msgstr ""
+
+#. placeholders: {REPO}
+#. one sentence of a longer line
+msgid "Report problems at github.com/{REPO}/issues."
+msgstr "Sorunları github.com/{REPO}/issues adresine bildirin."
+
+#. placeholders: {why}
+#. one sentence of a longer line
+msgid "{why} Could not open a web browser either."
+msgstr ""
+
+#. placeholders: {why}, {REPO}
+msgid ""
+"{why} Could not open a web browser either. Report problems at "
+"github.com/{REPO}/issues."
+msgstr ""
+
+msgid "Too many reports have been sent today."
+msgstr ""
+
+msgid "orinks.net did not accept the report."
+msgstr ""
+
+msgid "The report could not be prepared."
+msgstr ""
+
+msgid "problem-report"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Could not open a web browser."
+msgstr "Web tarayıcısı açılamadı."
+
+#. placeholders: {REPO}
+msgid ""
+"Could not open a web browser. Report problems at github.com/{REPO}/issues."
+msgstr ""
+"Web tarayıcısı açılamadı. Sorunları github.com/{REPO}/issues adresine "
+"bildirin."
+
+#. placeholders: {reason}
+msgid "The report form could not be opened: {reason}"
+msgstr ""
+
+msgid "Report the last crash?"
+msgstr ""
+
+msgid ""
+"Report it opens the report form in your web browser with the previous run's "
+"log attached. Not now closes this. Stop asking turns the question off; "
+"Settings, Problem reports turns it back on."
+msgstr ""
+
+msgid ""
+"Freight Fate will not ask again after a crash. Report a problem on the main "
+"menu still works, and Settings, Problem reports turns the question back on."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Freight Fate closed unexpectedly the last time it ran."
+msgstr ""
+
+#. placeholders: {current_text}
+msgid ""
+"Freight Fate closed unexpectedly the last time it ran. Report the problem? "
+"{current_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Report the problem?"
+msgstr ""
+
+msgid "Report it"
+msgstr ""
+
+msgid ""
+"The report form opens in your web browser with the previous run's log "
+"attached. Say what you were doing when it closed."
+msgstr ""
+
+msgid ""
+"Back to the main menu. Report a problem is there whenever you want it."
+msgstr ""
+
+msgid "Stop asking after crashes"
+msgstr ""
+
+msgid ""
+"Never ask again after a crash. Settings, Problem reports turns it back on."
+msgstr ""
+
 msgid "Save file changed outside the game"
 msgstr "Kayıt dosyası oyun dışında değiştirildi"
 
@@ -40946,6 +41047,35 @@ msgstr "Lastik parçaları."
 
 msgid "Debris."
 msgstr "Döküntü."
+
+#~ msgid "The bug report page on GitHub, in your web browser."
+#~ msgstr "GitHub'daki hata bildirim sayfası, web tarayıcınızda."
+
+#~ msgid ""
+#~ "It records this session, including everything the game said out loud. "
+#~ "Attach it to a bug report."
+#~ msgstr ""
+#~ "Bu oturumu, oyunun yüksek sesle söylediği her şey dahil kaydeder. Bir hata "
+#~ "bildirimine ekleyin."
+
+#~ msgid ""
+#~ "Both files stay on this computer. The game never sends them anywhere."
+#~ msgstr ""
+#~ "İki dosya da bu bilgisayarda kalır. Oyun onları hiçbir yere göndermez."
+
+#~ msgid ""
+#~ "The session log records everything the game said out loud. Send it with a "
+#~ "bug report."
+#~ msgstr ""
+#~ "Oturum günlüğü oyunun yüksek sesle söylediği her şeyi kaydeder. Bir hata "
+#~ "bildirimiyle gönderin."
+
+#~ msgid ""
+#~ "Settings changes driving assistance, sound, speech, and controls. Report a "
+#~ "problem opens the bug-report page in your browser. Quit closes the game."
+#~ msgstr ""
+#~ "Ayarlar sürüş yardımını, sesi, konuşmayı ve kontrolleri değiştirir. Sorun "
+#~ "bildir, tarayıcınızda hata bildirim sayfasını açar. Çık oyunu kapatır."
 
 #~ msgid "Fatigue: {fatigue} percent"
 #~ msgstr "Yorgunluk: yüzde {fatigue}"

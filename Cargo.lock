@@ -1033,6 +1033,7 @@ dependencies = [
  "ff-core",
  "flate2",
  "hearken",
+ "hearken-report",
  "hearken-update",
  "hex",
  "keyring",
@@ -1335,6 +1336,16 @@ dependencies = [
  "serde",
  "serde_json",
  "sha2 0.11.1",
+]
+
+[[package]]
+name = "hearken-report"
+version = "0.1.0"
+source = "git+https://github.com/orinks-games/hearken?rev=b6e52003ad29737a23e51bf3cee68e1f7e197656#b6e52003ad29737a23e51bf3cee68e1f7e197656"
+dependencies = [
+ "log",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
