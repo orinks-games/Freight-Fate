@@ -18,7 +18,7 @@ msgstr ""
 "nhé."
 
 msgid "road"
-msgstr ""
+msgstr "đường bộ"
 
 msgid "Out on the Road"
 msgstr "Ngoài xa lộ"
@@ -38,7 +38,7 @@ msgstr ""
 "luật."
 
 msgid "career"
-msgstr ""
+msgstr "sự nghiệp"
 
 msgid "Career and Rank"
 msgstr "Sự nghiệp và cấp bậc"
@@ -64,7 +64,7 @@ msgstr ""
 "Mưa gió, tuyết rơi, sương mù và vòng xoay bốn mùa qua ô kính chắn gió."
 
 msgid "places"
-msgstr ""
+msgstr "địa điểm"
 
 msgid "Places on the Map"
 msgstr "Những vùng đất đã qua"
@@ -73,7 +73,7 @@ msgid "Cities, states, and regions you hauled into."
 msgstr "Những thành phố, bang và vùng miền bạn từng đưa hàng tới."
 
 msgid "hidden"
-msgstr ""
+msgstr "ẩn"
 
 msgid "Deep Cuts"
 msgstr "Góc khuất nghề tài"
@@ -309,7 +309,7 @@ msgid "James Taylor - Traffic Jam"
 msgstr "James Taylor - Traffic Jam"
 
 msgid "inspection"
-msgstr ""
+msgstr "kiểm tra"
 
 msgid "Smokey at the Scale"
 msgstr "Cảnh sát ở trạm cân"
@@ -1980,16 +1980,16 @@ msgid "wav"
 msgstr ""
 
 msgid "day"
-msgstr ""
+msgstr "ban ngày"
 
 msgid "prime"
 msgstr ""
 
 msgid "late"
-msgstr ""
+msgstr "muộn giờ"
 
 msgid "overnight"
-msgstr ""
+msgstr "qua đêm"
 
 #. placeholders: {schema}
 msgid "schema is {schema}, expected 1"
@@ -2057,7 +2057,7 @@ msgid "tire care and quick lube"
 msgstr "chăm sóc lốp và thay nhớt nhanh"
 
 msgid "tires"
-msgstr ""
+msgstr "lốp xe"
 
 msgid "showers"
 msgstr "phòng tắm"
@@ -2072,22 +2072,22 @@ msgid "a sit-down restaurant"
 msgstr "nhà hàng phục vụ tại bàn"
 
 msgid "restaurant"
-msgstr ""
+msgstr "nhà hàng"
 
 msgid "barbecue"
-msgstr ""
+msgstr "thịt nướng BBQ"
 
 msgid "smoked barbecue and brisket"
 msgstr "thịt nướng xông khói và ức bò nướng"
 
 msgid "souvenirs"
-msgstr ""
+msgstr "quà lưu niệm"
 
 msgid "souvenirs and road snacks"
 msgstr "quà lưu niệm và đồ ăn vặt đường dài"
 
 msgid "coffee"
-msgstr ""
+msgstr "cà phê"
 
 msgid "five-cent coffee"
 msgstr "cà phê năm xu"
@@ -2099,7 +2099,7 @@ msgid "a CAT Scale"
 msgstr "trạm cân CAT Scale"
 
 msgid "laundry"
-msgstr ""
+msgstr "giặt là"
 
 msgid "public laundry facilities"
 msgstr "khu giặt ủi công cộng"
@@ -2111,7 +2111,7 @@ msgid "a barber shop"
 msgstr "tiệm cắt tóc"
 
 msgid "barber"
-msgstr ""
+msgstr "tiệm cắt tóc"
 
 msgid "premium wifi"
 msgstr "Wi-Fi cao cấp"
@@ -2120,7 +2120,7 @@ msgid "check cashing services"
 msgstr "dịch vụ đổi séc lấy tiền mặt"
 
 msgid "def"
-msgstr ""
+msgstr "dung dịch khí thải DEF"
 
 msgid "diesel exhaust fluid lanes"
 msgstr "làn bơm dung dịch xử lý khí thải diesel"
@@ -2129,7 +2129,7 @@ msgid "ATM services"
 msgstr "dịch vụ ATM"
 
 msgid "atm"
-msgstr ""
+msgstr "cây ATM"
 
 msgid "speedco"
 msgstr ""
@@ -2238,16 +2238,16 @@ msgid "json"
 msgstr ""
 
 msgid "cities"
-msgstr ""
+msgstr "các thành phố"
 
 msgid "legs"
-msgstr ""
+msgstr "các chặng"
 
 msgid "corridors"
-msgstr ""
+msgstr "các hành lang giao thông"
 
 msgid "curves"
-msgstr ""
+msgstr "các khúc cua"
 
 #. placeholders: {e}
 msgid "baked encode: {e}"
@@ -2320,7 +2320,7 @@ msgid "baked data has no corridor section"
 msgstr ""
 
 msgid "corridor"
-msgstr ""
+msgstr "hành lang giao thông"
 
 msgid ""
 "Original parody of a well-known Texas travel-center chain that bans big "
@@ -4507,7 +4507,7 @@ msgstr ""
 "giao ngay từ hôm qua."
 
 msgid "service area"
-msgstr ""
+msgstr "khu vực dịch vụ"
 
 msgid "service plaza"
 msgstr "trạm dịch vụ cao tốc"
@@ -4516,22 +4516,22 @@ msgid "travel center"
 msgstr "trung tâm dịch vụ đường bộ"
 
 msgid "travel centre"
-msgstr ""
+msgstr "trung tâm dịch vụ đường bộ"
 
 msgid "travel stop"
-msgstr ""
+msgstr "trạm dừng xe"
 
 msgid "truck"
-msgstr ""
+msgstr "xe tải"
 
 msgid "engine"
-msgstr ""
+msgstr "động cơ"
 
 msgid "fatigue"
-msgstr ""
+msgstr "mệt mỏi"
 
 msgid "tire"
-msgstr ""
+msgstr "lốp xe"
 
 #. placeholders: {label}
 msgid "The {label} has worn off."
@@ -4560,13 +4560,14 @@ msgstr ""
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: only fatigue buffs can be stimulants"
 msgstr ""
+"hiệu ứng {buff_id}: chỉ hiệu ứng mệt mỏi mới có thể là chất kích thích"
 
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: help and purchased speech are required"
 msgstr ""
 
 msgid "left"
-msgstr ""
+msgstr "trái"
 
 #. placeholders: {from_city}, {to_city}
 msgid "{from_city} to {to_city} county run must be an object"
@@ -4622,10 +4623,10 @@ msgid "Contents"
 msgstr ""
 
 msgid "interstate"
-msgstr ""
+msgstr "xa lộ liên bang"
 
 msgid "state"
-msgstr ""
+msgstr "quốc lộ tiểu bang"
 
 msgid "us"
 msgstr ""
@@ -4634,10 +4635,10 @@ msgid "flat"
 msgstr "bằng phẳng"
 
 msgid "hills"
-msgstr ""
+msgstr "đồi dốc"
 
 msgid "mountain"
-msgstr ""
+msgstr "núi cao"
 
 #. placeholders: {signed}, {signed2}, {f}, {road_class}, {terrain}
 msgid ""
@@ -5250,7 +5251,7 @@ msgid "travel"
 msgstr ""
 
 msgid "center"
-msgstr ""
+msgstr "giữa"
 
 msgid "centre"
 msgstr ""
@@ -5265,7 +5266,7 @@ msgid "stop"
 msgstr ""
 
 msgid "stopping"
-msgstr ""
+msgstr "đang dừng"
 
 msgid "plaza"
 msgstr ""
@@ -5304,7 +5305,7 @@ msgid "express"
 msgstr ""
 
 msgid "fuel"
-msgstr ""
+msgstr "nhiên liệu"
 
 msgid "shopping"
 msgstr ""
@@ -5474,10 +5475,10 @@ msgid "both"
 msgstr ""
 
 msgid "forward"
-msgstr ""
+msgstr "tiến lên"
 
 msgid "reverse"
-msgstr ""
+msgstr "lùi lại"
 
 msgid "ta "
 msgstr ""
@@ -5534,28 +5535,28 @@ msgid "hamlet"
 msgstr ""
 
 msgid "place"
-msgstr ""
+msgstr "địa điểm"
 
 msgid "town"
-msgstr ""
+msgstr "thị trấn"
 
 msgid "break"
-msgstr ""
+msgstr "nghỉ ngơi"
 
 msgid "food"
-msgstr ""
+msgstr "thực phẩm"
 
 msgid "inspect"
-msgstr ""
+msgstr "kiểm tra"
 
 msgid "park"
-msgstr ""
+msgstr "đỗ xe"
 
 msgid "save"
-msgstr ""
+msgstr "lưu"
 
 msgid "sleep"
-msgstr ""
+msgstr "ngủ"
 
 msgid "towing"
 msgstr "kéo xe"
@@ -5786,46 +5787,46 @@ msgid "industrial plant access road"
 msgstr "đường dẫn nhà máy công nghiệp"
 
 msgid "electronics"
-msgstr ""
+msgstr "thiết bị điện tử"
 
 msgid "general"
-msgstr ""
+msgstr "thông thường"
 
 msgid "parcel"
-msgstr ""
+msgstr "bưu kiện"
 
 msgid "automotive"
-msgstr ""
+msgstr "phụ tùng ô tô"
 
 msgid "machinery"
-msgstr ""
+msgstr "máy móc"
 
 msgid "hazardous"
 msgstr ""
 
 msgid "steel"
-msgstr ""
+msgstr "thép"
 
 msgid "bulk"
-msgstr ""
+msgstr "hàng rời"
 
 msgid "chemicals"
-msgstr ""
+msgstr "hóa chất"
 
 msgid "refrigerated"
-msgstr ""
+msgstr "đông lạnh"
 
 msgid "retail"
-msgstr ""
+msgstr "bán lẻ"
 
 msgid "construction"
-msgstr ""
+msgstr "xây dựng"
 
 msgid "container"
-msgstr ""
+msgstr "thùng công-ten-nơ"
 
 msgid "grain"
-msgstr ""
+msgstr "ngũ cốc"
 
 msgid ""
 "Representative air-cargo facility; guided by FAF modal and commodity "
@@ -6135,7 +6136,7 @@ msgid "assumed"
 msgstr ""
 
 msgid "read"
-msgstr ""
+msgstr "đã đọc"
 
 msgid "statutory"
 msgstr ""
@@ -6144,7 +6145,7 @@ msgid "rural"
 msgstr ""
 
 msgid "signal"
-msgstr ""
+msgstr "đèn tín hiệu"
 
 msgid "has invalid segment"
 msgstr ""
@@ -6404,10 +6405,10 @@ msgid "a side street"
 msgstr "một con đường nhánh"
 
 msgid "ahead"
-msgstr ""
+msgstr "phía trước"
 
 msgid "right"
-msgstr ""
+msgstr "phải"
 
 #. placeholders: {highway}
 msgid "Start on {highway}."
@@ -6473,13 +6474,13 @@ msgid "a swipe up"
 msgstr "vuốt lên"
 
 msgid "accelerate"
-msgstr ""
+msgstr "tăng tốc"
 
 msgid "a swipe down and hold"
 msgstr "vuốt xuống và giữ"
 
 msgid "brake"
-msgstr ""
+msgstr "phanh"
 
 msgid "a deep swipe down"
 msgstr "vuốt mạnh xuống"
@@ -6497,19 +6498,19 @@ msgid "a double tap"
 msgstr "chạm đúp"
 
 msgid "confirm"
-msgstr ""
+msgstr "xác nhận"
 
 msgid "a two-finger swipe down"
 msgstr "vuốt hai ngón xuống"
 
 msgid "pause"
-msgstr ""
+msgstr "tạm dừng"
 
 msgid "a two-finger swipe up"
 msgstr "vuốt hai ngón lên"
 
 msgid "help"
-msgstr ""
+msgstr "trợ giúp"
 
 msgid "the Up arrow"
 msgstr "phím mũi tên Lên"
@@ -6530,7 +6531,7 @@ msgid "Left Shift"
 msgstr "Shift trái"
 
 msgid "clutch"
-msgstr ""
+msgstr "côn"
 
 msgid "the left bumper"
 msgstr "nút vai trái"
@@ -6572,7 +6573,7 @@ msgid "D-pad down"
 msgstr "D-pad xuống"
 
 msgid "rest"
-msgstr ""
+msgstr "nghỉ ngơi"
 
 msgid "right bumper plus D-pad down"
 msgstr "nút vai phải cộng D-pad xuống"
@@ -6590,7 +6591,7 @@ msgid "Space"
 msgstr "Space"
 
 msgid "speed"
-msgstr ""
+msgstr "tốc độ"
 
 msgid "the B button"
 msgstr "nút B"
@@ -6614,16 +6615,16 @@ msgid "D-pad up"
 msgstr "D-pad lên"
 
 msgid "route"
-msgstr ""
+msgstr "lộ trình"
 
 msgid "D-pad left"
 msgstr "D-pad trái"
 
 msgid "weather"
-msgstr ""
+msgstr "thời tiết"
 
 msgid "lane"
-msgstr ""
+msgstr "làn đường"
 
 msgid "the left stick"
 msgstr "cần gạt trái"
@@ -7042,16 +7043,16 @@ msgid "insurance reserve"
 msgstr "quỹ dự phòng bảo hiểm"
 
 msgid "full"
-msgstr ""
+msgstr "đầy đủ"
 
 msgid "guarded"
-msgstr ""
+msgstr "thận trọng"
 
 msgid "poor"
-msgstr ""
+msgstr "kém"
 
 msgid "last chance"
-msgstr ""
+msgstr "cơ hội cuối cùng"
 
 msgid "While dispatch trust is guarded, experience comes slower."
 msgstr ""
@@ -7147,7 +7148,7 @@ msgid "{grouped} lifetime miles, {grouped2} dollars earned."
 msgstr "Tổng cộng {grouped} dặm, thu nhập {grouped2} đô la."
 
 msgid "rig"
-msgstr ""
+msgstr "xe đầu kéo"
 
 msgid "Northstar Freight Lines"
 msgstr "Northstar Freight Lines"
@@ -8120,22 +8121,22 @@ msgid "trusted carrier lane"
 msgstr "tuyến tin cậy của hãng"
 
 msgid "glass"
-msgstr ""
+msgstr "hàng dễ vỡ"
 
 msgid "livestock"
-msgstr ""
+msgstr "gia súc"
 
 msgid "clean"
-msgstr ""
+msgstr "hồ sơ sạch"
 
 msgid "exception"
-msgstr ""
+msgstr "bất thường"
 
 msgid "claim"
-msgstr ""
+msgstr "khiếu nại bồi thường"
 
 msgid "rejected"
-msgstr ""
+msgstr "bị từ chối"
 
 msgid "lost"
 msgstr "thất thoát hoàn toàn"
@@ -8175,7 +8176,7 @@ msgstr ""
 "mọi tài xế mới tuyển đều bắt đầu trên cùng mẫu xe đầu kéo tập sự tiêu chuẩn"
 
 msgid "regional"
-msgstr ""
+msgstr "khu vực"
 
 msgid "regional fleet"
 msgstr "đội xe nội vùng"
@@ -8190,7 +8191,7 @@ msgid "a long-haul sleeper with real interstate range"
 msgstr "một xe đầu kéo giường nằm đường dài chạy xuyên bang đúng nghĩa"
 
 msgid "premium"
-msgstr ""
+msgstr "cao cấp"
 
 msgid "premium fleet"
 msgstr "đội xe cao cấp"
@@ -8270,7 +8271,7 @@ msgstr ""
 "không phải {label2} như cấp bậc của bạn."
 
 msgid "Driver"
-msgstr ""
+msgstr "Tài xế"
 
 #. placeholders: {label}
 msgid "Truck for this run: {label}."
@@ -8575,16 +8576,16 @@ msgid "{name}, your old trainer, along for one load."
 msgstr "{name}, thầy dạy lái cũ của bạn, đi cùng một lô hàng."
 
 msgid "training"
-msgstr ""
+msgstr "đào tạo"
 
 msgid "certificate"
-msgstr ""
+msgstr "chứng chỉ"
 
 msgid "endorsement"
-msgstr ""
+msgstr "chứng chỉ bổ sung"
 
 msgid "specialist"
-msgstr ""
+msgstr "chuyên gia"
 
 msgid "manual transmission"
 msgstr "số sàn"
@@ -8684,7 +8685,7 @@ msgstr ""
 "đuôi."
 
 msgid "tank"
-msgstr ""
+msgstr "xe bồn"
 
 msgid "tank vehicle"
 msgstr "xe bồn"
@@ -8738,7 +8739,7 @@ msgid "TWIC port card"
 msgstr "thẻ ra vào cảng TWIC"
 
 msgid "port containers"
-msgstr "container cảng biển"
+msgstr "thùng công-ten-nơ cảng"
 
 msgid ""
 "Your TWIC enrollment cleared. Container freight out of the port terminals "
@@ -8886,7 +8887,7 @@ msgid "Pay-advance limit reached. Deliver a load to pay it down."
 msgstr "Đã chạm hạn mức tạm ứng lương. Hãy giao một lô hàng để trả bớt."
 
 msgid "lifetime"
-msgstr ""
+msgstr "trọn đời"
 
 msgid "Drove through the barrels in a work zone"
 msgstr "Lái xe tông vào cọc tiêu trong khu vực thi công"
@@ -9015,13 +9016,13 @@ msgid "Dispatch trust: last chance."
 msgstr "Tín nhiệm điều phối: cơ hội cuối."
 
 msgid "licence"
-msgstr ""
+msgstr "bằng lái"
 
 msgid "debt"
-msgstr ""
+msgstr "nợ nần"
 
 msgid "record"
-msgstr ""
+msgstr "hồ sơ"
 
 msgid "citations"
 msgstr "biên bản phạt"
@@ -9417,10 +9418,10 @@ msgid "citation"
 msgstr "biên bản phạt"
 
 msgid "serious"
-msgstr ""
+msgstr "nghiêm trọng"
 
 msgid "major"
-msgstr ""
+msgstr "đặc biệt nghiêm trọng"
 
 msgid "crash"
 msgstr "tai nạn"
@@ -9436,7 +9437,7 @@ msgid "xp"
 msgstr ""
 
 msgid "reputation"
-msgstr ""
+msgstr "danh tiếng"
 
 #. placeholders: {label}
 msgid "invalid {label}"
@@ -9511,7 +9512,7 @@ msgid "{label} kind"
 msgstr ""
 
 msgid "contract"
-msgstr ""
+msgstr "hợp đồng"
 
 msgid "pending"
 msgstr ""
@@ -9614,22 +9615,22 @@ msgid "Requires {required_program_text} trailer program."
 msgstr "Yêu cầu gói rơ-moóc {required_program_text}."
 
 msgid "cargo"
-msgstr ""
+msgstr "hàng hóa"
 
 msgid "origin"
-msgstr ""
+msgstr "nơi đi"
 
 msgid "destination"
-msgstr ""
+msgstr "nơi đến"
 
 msgid "pay"
-msgstr ""
+msgstr "tiền cước"
 
 msgid "bobtail"
-msgstr ""
+msgstr "chạy xe không thùng"
 
 msgid "assigned"
-msgstr ""
+msgstr "đã giao"
 
 msgid "team"
 msgstr ""
@@ -9643,10 +9644,10 @@ msgid "{name} yard"
 msgstr "bãi xe {name}"
 
 msgid "ships"
-msgstr ""
+msgstr "nơi gửi"
 
 msgid "receives"
-msgstr ""
+msgstr "nơi nhận"
 
 msgid "general freight"
 msgstr "hàng hóa thông thường"
@@ -9658,7 +9659,7 @@ msgid "parcel freight"
 msgstr "hàng bưu kiện"
 
 msgid "shipping containers"
-msgstr "container vận chuyển"
+msgstr "thùng công-ten-nơ"
 
 msgid "bulk materials"
 msgstr "vật liệu rời"
@@ -9940,7 +9941,7 @@ msgid "generic"
 msgstr ""
 
 msgid "shower"
-msgstr ""
+msgstr "phòng tắm"
 
 msgid "parking"
 msgstr "đỗ xe"
@@ -10012,7 +10013,7 @@ msgid "Market watch: {join}."
 msgstr "Tình hình thị trường: {join}."
 
 msgid "balance"
-msgstr ""
+msgstr "số dư"
 
 msgid "diverged"
 msgstr ""
@@ -10073,25 +10074,25 @@ msgid "version"
 msgstr ""
 
 msgid "money"
-msgstr ""
+msgstr "tiền mặt"
 
 msgid "upgrades"
-msgstr ""
+msgstr "nâng cấp"
 
 msgid "standing"
-msgstr ""
+msgstr "uy tín"
 
 msgid "market"
-msgstr ""
+msgstr "thị trường"
 
 msgid "hos"
 msgstr ""
 
 msgid "loyalty"
-msgstr ""
+msgstr "điểm thân thiết"
 
 msgid "achievements"
-msgstr ""
+msgstr "thành tích"
 
 msgid "null"
 msgstr ""
@@ -10118,7 +10119,7 @@ msgid "Chicago"
 msgstr "Chicago"
 
 msgid "deliveries"
-msgstr ""
+msgstr "chuyến giao"
 
 msgid "seed"
 msgstr ""
@@ -10136,28 +10137,28 @@ msgid "note"
 msgstr ""
 
 msgid "odometer"
-msgstr ""
+msgstr "công-tơ-mét"
 
 msgid "tiny"
-msgstr ""
+msgstr "rất nhỏ"
 
 msgid "big"
-msgstr ""
+msgstr "lớn"
 
 msgid "whole"
-msgstr ""
+msgstr "toàn bộ"
 
 msgid "grade"
-msgstr ""
+msgstr "độ dốc"
 
 msgid "id"
 msgstr ""
 
 msgid "watched"
-msgstr ""
+msgstr "bị giám sát"
 
 msgid "targeted"
-msgstr ""
+msgstr "trong tầm ngắm"
 
 msgid "Safety record: clean. Inspectors have no reason to pull you in."
 msgstr ""
@@ -10198,7 +10199,7 @@ msgid "half"
 msgstr ""
 
 msgid "cushion"
-msgstr ""
+msgstr "khoản dự phòng"
 
 msgid ""
 "the tractor is worth less than the loan on it and the lender takes it back"
@@ -10271,7 +10272,7 @@ msgstr ""
 "cũng tương xứng."
 
 msgid "termination"
-msgstr ""
+msgstr "chấm dứt hợp đồng"
 
 #. one sentence of a longer line
 msgid ""
@@ -10726,10 +10727,10 @@ msgid " Walking around it you find a {defect}."
 msgstr " Đi kiểm tra quanh xe phát hiện {defect}."
 
 msgid "dropyard"
-msgstr ""
+msgstr "bãi cắt móc"
 
 msgid "trailer"
-msgstr ""
+msgstr "rơ-moóc"
 
 msgid "it is your own trailer, so this one loads at the dock"
 msgstr "đây là rơ-moóc riêng của bạn nên sẽ bốc hàng tại bến"
@@ -10738,7 +10739,7 @@ msgid "the yard has your load already on a trailer"
 msgstr "bãi xe đã chất sẵn lô hàng của bạn lên rơ-moóc"
 
 msgid "detention"
-msgstr ""
+msgstr "phí chờ bốc dỡ"
 
 msgid "the shipper is loading you at the dock, and they are running behind"
 msgstr "chủ hàng đang bốc hàng lên xe tại bến và họ đang bị chậm tiến độ"
@@ -10747,7 +10748,7 @@ msgid "the shipper is loading you at the dock"
 msgstr "chủ hàng đang bốc hàng lên xe tại bến"
 
 msgid "swap"
-msgstr ""
+msgstr "đổi rơ-moóc"
 
 msgid "it is your own trailer, so they unload you at the dock"
 msgstr "đây là rơ-moóc riêng của bạn nên họ sẽ dỡ hàng tại bến"
@@ -10854,16 +10855,16 @@ msgid "carrier trailer"
 msgstr "rơ-moóc của hãng"
 
 msgid "sleeper"
-msgstr ""
+msgstr "buồng nằm"
 
 msgid "light"
-msgstr ""
+msgstr "nhẹ"
 
 msgid "standard"
 msgstr "tiêu chuẩn"
 
 msgid "heavy"
-msgstr ""
+msgstr "nặng"
 
 msgid ""
 "The dependable tractor you started with: better fuel economy and a calmer "
@@ -11638,7 +11639,7 @@ msgid "museum"
 msgstr ""
 
 msgid "billboard"
-msgstr ""
+msgstr "biển quảng cáo"
 
 msgid "sparse"
 msgstr "chọn lọc"
@@ -11674,16 +11675,16 @@ msgid "normal"
 msgstr "bình thường"
 
 msgid "prominent"
-msgstr ""
+msgstr "nổi bật"
 
 msgid "subtle"
-msgstr ""
+msgstr "tinh tế"
 
 msgid "balanced"
-msgstr ""
+msgstr "cân bằng"
 
 msgid "interactive"
-msgstr ""
+msgstr "tương tác"
 
 msgid "alpha"
 msgstr "alpha"
@@ -11727,25 +11728,25 @@ msgid "kilometer"
 msgstr "kilômét"
 
 msgid "rested"
-msgstr ""
+msgstr "tỉnh táo"
 
 msgid "worn"
-msgstr "đã mòn"
+msgstr "mệt mỏi"
 
 msgid "drowsy"
-msgstr ""
+msgstr "buồn ngủ"
 
 msgid "severe"
-msgstr ""
+msgstr "kiệt sức"
 
 msgid "awake"
-msgstr ""
+msgstr "tỉnh táo"
 
 msgid "nodding"
-msgstr ""
+msgstr "ngủ gật"
 
 msgid "recovering"
-msgstr ""
+msgstr "đang hồi sức"
 
 msgid "game minutes counted"
 msgstr ""
@@ -11760,7 +11761,7 @@ msgid "misses"
 msgstr ""
 
 msgid "Driver window down."
-msgstr "Hạ kính cửa lái."
+msgstr "Hạ kính cửa sổ tài xế."
 
 msgid "Driver window up."
 msgstr "Nâng kính cửa lái."
@@ -11907,16 +11908,16 @@ msgid "pacing"
 msgstr ""
 
 msgid "visual"
-msgstr ""
+msgstr "quan sát trực tiếp"
 
 msgid "commercial vehicle enforcement"
 msgstr "đội kiểm tra xe thương mại"
 
 msgid "city police"
-msgstr ""
+msgstr "cảnh sát thành phố"
 
 msgid "state police"
-msgstr ""
+msgstr "cảnh sát tiểu bang"
 
 msgid "highway enforcement"
 msgstr "tuyến tuần tra cao tốc"
@@ -11934,7 +11935,7 @@ msgid "chain control"
 msgstr "chốt kiểm tra xích chống trượt"
 
 msgid "staffed"
-msgstr ""
+msgstr "có nhân viên trực"
 
 msgid "tableau"
 msgstr ""
@@ -11951,7 +11952,7 @@ msgid "used"
 msgstr ""
 
 msgid "on duty, not driving"
-msgstr "đang trực, không lái xe"
+msgstr "đang làm việc, không lái xe"
 
 msgid "off duty"
 msgstr "nghỉ ca"
@@ -11984,14 +11985,14 @@ msgid "night"
 msgstr "ban đêm"
 
 msgid "About 1 hour of night driving."
-msgstr ""
+msgstr "Khoảng 1 giờ lái xe ban đêm."
 
 #. placeholders: {n}
 msgid "About {n} hours of night driving."
-msgstr ""
+msgstr "Khoảng {n} giờ lái xe ban đêm."
 
 msgid "status"
-msgstr ""
+msgstr "trạng thái"
 
 msgid "minutes"
 msgstr "phút"
@@ -12092,10 +12093,10 @@ msgid "Duty window closes in {duration_text}."
 msgstr "Khung giờ làm việc kết thúc sau {duration_text}."
 
 msgid "drive"
-msgstr ""
+msgstr "lái xe"
 
 msgid "duty"
-msgstr ""
+msgstr "làm việc"
 
 msgid "At the wheel: no driving yet"
 msgstr "Đã cầm lái: chưa lái"
@@ -12258,13 +12259,13 @@ msgstr ""
 "Đã bắt đầu chia ca nghỉ: nghỉ thêm 8 giờ trong khoang ngủ để hoàn tất."
 
 msgid "warned"
-msgstr ""
+msgstr "bị nhắc nhở"
 
 msgid "history"
 msgstr ""
 
 msgid "location"
-msgstr ""
+msgstr "vị trí"
 
 msgid "unknown location"
 msgstr "vị trí không xác định"
@@ -12346,19 +12347,19 @@ msgid "{lane_part}, crossing the {side} lane line."
 msgstr "{lane_part}, đang đè vạch làn bên {side}."
 
 msgid "median"
-msgstr ""
+msgstr "dải phân cách"
 
 msgid "oncoming"
-msgstr ""
+msgstr "xe ngược chiều"
 
 msgid "shoulder"
-msgstr ""
+msgstr "lề đường"
 
 msgid "latched"
-msgstr ""
+msgstr "đã khóa chốt"
 
 msgid "released"
-msgstr ""
+msgstr "đã nhả"
 
 msgid "diesel-price"
 msgstr ""
@@ -12370,31 +12371,31 @@ msgid "User-Agent"
 msgstr ""
 
 msgid "squall"
-msgstr ""
+msgstr "giông tố"
 
 msgid "thunder"
-msgstr ""
+msgstr "sấm sét"
 
 msgid "tstorm"
 msgstr ""
 
 msgid "freezing"
-msgstr ""
+msgstr "đóng băng"
 
 msgid "glaze"
-msgstr ""
+msgstr "lớp băng mỏng"
 
 msgid "ice"
-msgstr ""
+msgstr "băng"
 
 msgid "icy"
-msgstr ""
+msgstr "đóng băng"
 
 msgid "sleet"
-msgstr ""
+msgstr "mưa tuyết"
 
 msgid "blizzard"
-msgstr ""
+msgstr "bão tuyết"
 
 msgid "flurr"
 msgstr ""
@@ -12406,43 +12407,43 @@ msgid "snow"
 msgstr "tuyết rơi"
 
 msgid "wintry"
-msgstr ""
+msgstr "giá lạnh"
 
 msgid "heavy rain"
 msgstr "mưa to"
 
 msgid "heavy shower"
-msgstr ""
+msgstr "mưa rào nặng hạt"
 
 msgid "drizzle"
-msgstr ""
+msgstr "mưa phùn"
 
 msgid "rain"
 msgstr "mưa"
 
 msgid "spray"
-msgstr ""
+msgstr "bụi nước"
 
 msgid "ash"
-msgstr ""
+msgstr "tro bụi"
 
 msgid "dust"
-msgstr ""
+msgstr "bụi"
 
 msgid "fog"
 msgstr "sương mù"
 
 msgid "haze"
-msgstr ""
+msgstr "mù sương"
 
 msgid "mist"
-msgstr ""
+msgstr "sương mù nhẹ"
 
 msgid "sand"
 msgstr ""
 
 msgid "smoke"
-msgstr ""
+msgstr "khói"
 
 msgid "blust"
 msgstr ""
@@ -12451,28 +12452,28 @@ msgid "breez"
 msgstr ""
 
 msgid "gale"
-msgstr ""
+msgstr "gió bão"
 
 msgid "wind"
 msgstr ""
 
 msgid "cloud"
-msgstr ""
+msgstr "mây"
 
 msgid "overcast"
-msgstr ""
+msgstr "u ám"
 
 msgid "clear"
 msgstr "trời quang"
 
 msgid "fair"
-msgstr ""
+msgstr "trời quang"
 
 msgid "sun"
-msgstr ""
+msgstr "nắng"
 
 msgid "sunny"
-msgstr ""
+msgstr "có nắng"
 
 #. placeholders: {raw}
 msgid "could not convert {raw} to float"
@@ -12525,7 +12526,7 @@ msgid "{event}, gusts to {gust} miles per hour"
 msgstr "{event}, gió giật tới {gust} dặm/giờ"
 
 msgid "marine"
-msgstr ""
+msgstr "thời tiết biển"
 
 msgid "small craft"
 msgstr ""
@@ -12540,115 +12541,115 @@ msgid "beach"
 msgstr ""
 
 msgid "heat"
-msgstr ""
+msgstr "nắng nóng gay gắt"
 
 msgid "red flag"
-msgstr ""
+msgstr "nguy cơ cháy rừng cao"
 
 msgid "fire weather"
-msgstr ""
+msgstr "thời tiết dễ phát hỏa"
 
 msgid "air quality"
-msgstr ""
+msgstr "chất lượng không khí"
 
 msgid "freeze warning"
-msgstr ""
+msgstr "cảnh báo đóng băng"
 
 msgid "freeze watch"
-msgstr ""
+msgstr "theo dõi đóng băng"
 
 msgid "hard freeze"
-msgstr ""
+msgstr "băng giá nghiêm trọng"
 
 msgid "coastal flood"
-msgstr ""
+msgstr "ngập lụt ven biển"
 
 msgid "lakeshore"
-msgstr ""
+msgstr "ven hồ"
 
 msgid "tornado warning"
-msgstr ""
+msgstr "cảnh báo lốc xoáy"
 
 msgid "hurricane"
-msgstr ""
+msgstr "bão cuồng phong"
 
 msgid "ice storm"
-msgstr ""
+msgstr "bão băng"
 
 msgid "extreme wind"
-msgstr ""
+msgstr "gió cực mạnh"
 
 msgid "typhoon"
-msgstr ""
+msgstr "bão nhiệt đới"
 
 msgid "freezing fog"
-msgstr ""
+msgstr "sương mù đóng băng"
 
 msgid "freezing rain"
 msgstr "mưa đóng băng"
 
 msgid "winter storm warning"
-msgstr ""
+msgstr "cảnh báo bão mùa đông"
 
 msgid "winter weather"
-msgstr ""
+msgstr "thời tiết mùa đông"
 
 msgid "lake effect"
-msgstr ""
+msgstr "tuyết do hiệu ứng hồ"
 
 msgid "winter storm"
-msgstr ""
+msgstr "bão mùa đông"
 
 msgid "flash flood warning"
-msgstr ""
+msgstr "cảnh báo lũ quét"
 
 msgid "flood advisory"
-msgstr ""
+msgstr "thông báo lũ lụt"
 
 msgid "flood warning"
-msgstr ""
+msgstr "cảnh báo ngập lụt"
 
 msgid "high wind"
-msgstr ""
+msgstr "gió giật mạnh"
 
 msgid "wind advisory"
-msgstr ""
+msgstr "thông báo gió mạnh"
 
 msgid "wind warning"
-msgstr ""
+msgstr "cảnh báo gió bão"
 
 msgid "blowing dust"
-msgstr ""
+msgstr "bụi cuốn mù mịt"
 
 msgid "dense fog"
-msgstr ""
+msgstr "sương mù dày đặc"
 
 msgid "dense smoke"
-msgstr ""
+msgstr "khói dày đặc"
 
 msgid "dust storm"
-msgstr ""
+msgstr "bão bụi"
 
 msgid "thunderstorm"
 msgstr "giông bão"
 
 msgid "tornado watch"
-msgstr ""
+msgstr "theo dõi lốc xoáy"
 
 msgid "flood watch"
-msgstr ""
+msgstr "theo dõi lũ lụt"
 
 msgid "tropical storm"
-msgstr ""
+msgstr "bão nhiệt đới"
 
 msgid "special weather"
-msgstr ""
+msgstr "thời tiết đặc biệt"
 
 msgid "wind chill"
-msgstr ""
+msgstr "gió buốt giá"
 
 msgid "extreme cold"
-msgstr ""
+msgstr "rét đậm cực đoan"
 
 msgid "severity"
 msgstr ""
@@ -12723,7 +12724,7 @@ msgid "{what}: an inspector would write this up."
 msgstr "{what}: thanh tra sẽ lập biên bản lỗi này."
 
 msgid "full closure"
-msgstr ""
+msgstr "đóng toàn bộ đường"
 
 msgid "the road closed"
 msgstr "đoạn đường bị đóng"
@@ -12732,7 +12733,7 @@ msgid "one lane closed"
 msgstr "đóng một làn"
 
 msgid "single lane"
-msgstr ""
+msgstr "làn đơn"
 
 msgid "alternating one-way traffic"
 msgstr "đi luân phiên một chiều"
@@ -12926,13 +12927,13 @@ msgid "{f} degrees Celsius"
 msgstr "{f} độ C"
 
 msgid "The coffee has worn off."
-msgstr ""
+msgstr "Tác dụng của cà phê đã hết."
 
 msgid "amount"
-msgstr ""
+msgstr "số lượng"
 
 msgid "group"
-msgstr ""
+msgstr "nhóm"
 
 msgid "baffled"
 msgstr "có vách ngăn"
@@ -13021,16 +13022,16 @@ msgid "service vehicle"
 msgstr "xe dịch vụ"
 
 msgid "cruising"
-msgstr ""
+msgstr "đang chạy đều tốc"
 
 msgid "merging"
-msgstr ""
+msgstr "đang nhập làn"
 
 msgid "braking"
-msgstr ""
+msgstr "đang phanh"
 
 msgid "patrolling"
-msgstr ""
+msgstr "đang tuần tra"
 
 #. placeholders: {f}
 msgid "{f} kilometers"
@@ -13045,10 +13046,10 @@ msgid "{f} kilometers per hour"
 msgstr "{f} km/h"
 
 msgid "following"
-msgstr ""
+msgstr "đang bám đuôi"
 
 msgid "passing"
-msgstr ""
+msgstr "đang vượt"
 
 msgid "right lane"
 msgstr "làn phải"
@@ -13300,10 +13301,10 @@ msgid "Entering {reason} zone. Speed limit {speed_value}."
 msgstr "Vào khu vực {reason}. Giới hạn tốc độ {speed_value}."
 
 msgid "zone"
-msgstr ""
+msgstr "khu vực"
 
 msgid "limit"
-msgstr ""
+msgstr "giới hạn"
 
 #. placeholders: {reason}
 #. one sentence of a longer line
@@ -13486,7 +13487,7 @@ msgid "Continue onto {highway}"
 msgstr "Đi tiếp vào {highway}"
 
 msgid "onramp"
-msgstr ""
+msgstr "đoạn dốc nhập làn"
 
 #. placeholders: {shield}, {toward}
 msgid "merge onto {shield} toward {toward}"
@@ -13497,7 +13498,7 @@ msgid "Merge onto {shield} toward {toward}{on_it_tail}."
 msgstr "Nhập vào {shield} hướng về {toward}{on_it_tail}."
 
 msgid "continue"
-msgstr ""
+msgstr "tiếp tục"
 
 #. placeholders: {highway}, {distance_text}, {toward}
 msgid "Continue on {highway} for {distance_text} toward {toward}."
@@ -13523,7 +13524,7 @@ msgid "Keep right for {shield} toward {toward}."
 msgstr "Giữ làn phải để đi {shield} hướng về {toward}."
 
 msgid "maneuver"
-msgstr ""
+msgstr "chuyển hướng"
 
 #. placeholders: {shield}
 msgid "keep right for {shield}"
@@ -13538,7 +13539,7 @@ msgid "Crossing into {into_state} near {place}."
 msgstr "Đang vào địa phận {into_state} gần {place}."
 
 msgid "checkpoint"
-msgstr ""
+msgstr "trạm kiểm soát"
 
 #. placeholders: {place}, {state}, {highway}
 msgid "{place}{state} on {highway}"
@@ -13557,17 +13558,17 @@ msgid " Toll {amount} dollars."
 msgstr " Phí cầu đường {amount} đô la."
 
 msgid "toll"
-msgstr ""
+msgstr "trạm thu phí"
 
 #. placeholders: {method_label}, {name}, {toll_text}
 msgid "{method_label} toll point, {name}.{toll_text}"
 msgstr "Trạm thu phí {method_label}, {name}.{toll_text}"
 
 msgid "restriction"
-msgstr ""
+msgstr "hạn chế"
 
 msgid "interchange"
-msgstr ""
+msgstr "nút giao khác mức"
 
 #. placeholders: {label}, {interchange}
 msgid "{label} off {interchange}"
@@ -13784,13 +13785,13 @@ msgid "level 1: chains required on trucks"
 msgstr "cấp 1: bắt buộc lắp xích cho xe tải"
 
 msgid "hazard"
-msgstr ""
+msgstr "chướng ngại vật"
 
 msgid "curve"
-msgstr ""
+msgstr "khúc cua"
 
 msgid "arrived"
-msgstr ""
+msgstr "đã đến"
 
 #. placeholders: {text}, {parking_spaces}
 msgid "{text}, {parking_spaces} spaces"
@@ -14078,13 +14079,13 @@ msgid "traffic"
 msgstr "xe cộ"
 
 msgid "strong"
-msgstr ""
+msgstr "mạnh"
 
 msgid "ordinary"
-msgstr ""
+msgstr "bình thường"
 
 msgid "thin"
-msgstr ""
+msgstr "thưa thớt"
 
 msgid "in the median"
 msgstr "ở dải phân cách giữa"
@@ -14243,7 +14244,7 @@ msgid "Yes"
 msgstr ""
 
 msgid "unknown state"
-msgstr ""
+msgstr "tiểu bang không xác định"
 
 msgid "draw"
 msgstr ""
@@ -14267,7 +14268,7 @@ msgid "unsupported"
 msgstr ""
 
 msgid "empty"
-msgstr ""
+msgstr "rỗng"
 
 msgid "schema"
 msgstr ""
@@ -14315,7 +14316,7 @@ msgid "simulated"
 msgstr "mô phỏng"
 
 msgid "live"
-msgstr ""
+msgstr "trực tiếp"
 
 msgid "loading"
 msgstr "đang bốc hàng"
@@ -15372,7 +15373,7 @@ msgid "safety"
 msgstr ""
 
 msgid "navigation"
-msgstr ""
+msgstr "điều hướng"
 
 msgid "coaching"
 msgstr ""
@@ -15669,7 +15670,7 @@ msgid ""
 msgstr ""
 
 msgid "the co-driver has the wheel"
-msgstr ""
+msgstr "tài phụ đang cầm lái"
 
 #. placeholders: {position_mi}, {misses}
 msgid ""
@@ -15811,7 +15812,7 @@ msgid "smoke checks"
 msgstr ""
 
 msgid "screen"
-msgstr ""
+msgstr "màn hình"
 
 msgid "system"
 msgstr ""
@@ -16231,7 +16232,7 @@ msgid "Automatic or manual shifting"
 msgstr "Chuyển số tự động hoặc số sàn"
 
 msgid "radio"
-msgstr ""
+msgstr "đài phát thanh"
 
 msgid "Radio on or off"
 msgstr "Bật hoặc tắt radio"
@@ -17184,7 +17185,7 @@ msgid "items"
 msgstr ""
 
 msgid "delivery"
-msgstr ""
+msgstr "giao hàng"
 
 msgid "Delivered without new truck damage"
 msgstr "Giao hàng không làm hư hỏng thêm xe"
@@ -17206,7 +17207,7 @@ msgstr ""
 
 #. placeholders: {e}
 msgid "The report could not be packed: {e}."
-msgstr ""
+msgstr "Không thể đóng gói báo cáo: {e}."
 
 msgid "Content-Encoding"
 msgstr ""
@@ -18366,7 +18367,7 @@ msgid "close-out-career"
 msgstr ""
 
 msgid "deleted"
-msgstr ""
+msgstr "đã xóa"
 
 #. one sentence of a longer line
 msgid "The save is gone from this computer."
@@ -18639,7 +18640,7 @@ msgstr "Kiểm tra quanh xe xong, mất {f} phút."
 
 #. placeholders: {f}, {join}
 msgid "Walk-around done, {f} minutes. {join}"
-msgstr ""
+msgstr "Kiểm tra quanh xe xong, mất {f} phút. {join}"
 
 msgid "Already rested. Enter again to sleep anyway."
 msgstr "Bạn đã nghỉ đủ giấc rồi. Nhấn Enter lần nữa nếu vẫn muốn ngủ."
@@ -18723,7 +18724,7 @@ msgid "Progress saved."
 msgstr "Đã lưu tiến trình."
 
 msgid "menu"
-msgstr ""
+msgstr "trình đơn"
 
 #. placeholders: {city}
 msgid "{city} service area"
@@ -20336,7 +20337,7 @@ msgstr ""
 "mua đứt rơ-moóc."
 
 msgid "loaded"
-msgstr ""
+msgstr "có hàng"
 
 #. placeholders: {sleep_stops}
 msgid " Sleep stops: {sleep_stops}."
@@ -21271,7 +21272,7 @@ msgid "cloud-saves-restore"
 msgstr ""
 
 msgid "restored"
-msgstr ""
+msgstr "đã khôi phục"
 
 msgid "Telling orinks.net."
 msgstr "Đang gửi thông tin lên orinks.net."
@@ -21716,11 +21717,11 @@ msgstr "tuyến nội thành tới {pickup_facility_text}"
 
 #. placeholders: {highway}, {destination}
 msgid "{highway} in {destination}"
-msgstr "{highway} đoạn qua {destination}"
+msgstr "{highway} tại {destination}"
 
 #. placeholders: {highway}, {origin}
 msgid "{highway} in {origin}"
-msgstr "{highway} đoạn qua {origin}"
+msgstr "{highway} tại {origin}"
 
 #. placeholders: {highway}, {start}, {end}
 msgid "{highway} from {start} to {end}"
@@ -21804,9 +21805,6 @@ msgid ""
 "{progress} {hours_used} of {deadline_game_h} hours. {now}. {transmission} "
 "{report_lead}. {speed_control}{engine} {brake}"
 msgstr ""
-"Tiếp tục {drive_name}: {weight_tons} tấn {label} đến {destination}. "
-"{progress} {hours_used} trên {deadline_game_h} giờ. {now}. {transmission} "
-"{report_lead}. {speed_control}{engine} {brake}"
 
 #. placeholders: {progress}, {hours_used}, {deadline_game_h}
 #. one sentence of a longer line
@@ -21827,10 +21825,10 @@ msgid "It is {now}."
 msgstr "Bây giờ là {now}."
 
 msgid "alertness"
-msgstr ""
+msgstr "độ tỉnh táo"
 
 msgid "nod"
-msgstr ""
+msgstr "gật gù"
 
 msgid "local game time"
 msgstr "giờ trong trò chơi"
@@ -23131,7 +23129,7 @@ msgstr "{label}: có hiệu lực hết chuyến chạy"
 
 #. placeholders: {fatigue}, {band}
 msgid "Fatigue: {fatigue} percent, {band}"
-msgstr ""
+msgstr "Mệt mỏi: {fatigue} phần trăm, {band}"
 
 #. placeholders: {context}
 msgid "HOS route: {context}"
@@ -23530,13 +23528,13 @@ msgid "Engine running. Air pressure {psi} psi."
 msgstr "Động cơ đang nổ. Áp suất khí {psi} PSI."
 
 msgid "open road"
-msgstr ""
+msgstr "đường trường"
 
 msgid "school"
-msgstr ""
+msgstr "trường học"
 
 msgid "lights"
-msgstr ""
+msgstr "đèn giao thông"
 
 msgid "Shut down the engine"
 msgstr "Tắt máy"
@@ -23575,7 +23573,7 @@ msgid "CAT Scale"
 msgstr "CAT Scale"
 
 msgid "scale"
-msgstr ""
+msgstr "trạm cân"
 
 msgid "You shut down the engine. "
 msgstr "Bạn đã tắt máy. "
@@ -24425,7 +24423,7 @@ msgstr ""
 "{COMPONENT_SERVICE_LIMIT_PCT} phần trăm."
 
 msgid "delay"
-msgstr ""
+msgstr "hoãn chuyến"
 
 msgid "hours"
 msgstr "giờ"
@@ -24442,19 +24440,19 @@ msgstr "Điều phối: {message}"
 
 #. placeholders: {answer}
 msgid "Dispatch: {answer}"
-msgstr ""
+msgstr "Điều độ: {answer}"
 
 #. one sentence of a longer line
 msgid "Park and sleep."
-msgstr ""
+msgstr "Đỗ xe và đi ngủ."
 
 #. one sentence of a longer line
 msgid "This load pays base rate, with no on-time bonus."
-msgstr ""
+msgstr "Chuyến hàng này chỉ trả cước cơ bản, không có thưởng đúng giờ."
 
 #. one sentence of a longer line
 msgid "Understood."
-msgstr ""
+msgstr "Đã hiểu."
 
 #. placeholders: {deadline_appointment}
 msgid ""
@@ -24465,7 +24463,7 @@ msgstr ""
 #. placeholders: {deadline_appointment}
 #. one sentence of a longer line
 msgid "Your appointment moves to {deadline_appointment}."
-msgstr ""
+msgstr "Giờ hẹn của bạn được dời sang {deadline_appointment}."
 
 #. placeholders: {count_word}
 msgid ""
@@ -24475,15 +24473,15 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid "Plan your sleep before you take the load."
-msgstr ""
+msgstr "Hãy tính toán giấc ngủ trước khi nhận chuyến."
 
 #. placeholders: {count_word}
 #. one sentence of a longer line
 msgid "That is {count_word} rest calls this week."
-msgstr ""
+msgstr "Đó là lần xin nghỉ thứ {count_word} trong tuần này."
 
 msgid "Report a delay"
-msgstr "Báo trễ giờ"
+msgstr "Báo hoãn chuyến"
 
 msgid "Ask dispatch whether the load still has time or needs a late update."
 msgstr ""
@@ -24518,7 +24516,7 @@ msgid "Report the freight's current condition and ask how to proceed."
 msgstr "Báo tình trạng hiện tại của hàng hóa và hỏi hướng xử lý tiếp theo."
 
 msgid "Too tired to drive safely"
-msgstr ""
+msgstr "Quá mệt không thể lái xe an toàn"
 
 msgid ""
 "Dispatch moves the appointment so you can sleep, once per load. The load "
@@ -24530,7 +24528,7 @@ msgid "leg"
 msgstr ""
 
 msgid "acknowledged"
-msgstr ""
+msgstr "đã ghi nhận"
 
 msgid ""
 "I have the update. Continue safely and call again if the situation changes."
@@ -24595,7 +24593,7 @@ msgid "{gap_text} remain."
 msgstr "Còn {gap_text} nữa."
 
 msgid "watch"
-msgstr ""
+msgstr "quan sát"
 
 #. one sentence of a longer line
 msgid "Do not trade safety or legal hours for it."
@@ -24640,7 +24638,7 @@ msgstr ""
 "chạy an toàn và gọi lại nếu quỹ thời gian dự phòng thay đổi."
 
 msgid "information"
-msgstr ""
+msgstr "thông tin"
 
 msgid ""
 "Hours enforcement is off in this driving mode. Plan the rest you need for "
@@ -24688,7 +24686,7 @@ msgid "{remaining} remain on this route."
 msgstr "Tuyến này còn {remaining} nữa."
 
 msgid "caution"
-msgstr ""
+msgstr "chú ý"
 
 #. one sentence of a longer line
 msgid "Stay with the planned route unless the road closes."
@@ -24806,7 +24804,7 @@ msgstr ""
 "định bắt buộc lắp xích. Tôi đang cử cứu hộ mang một bộ xích mới ra cho bạn."
 
 msgid "monitor"
-msgstr ""
+msgstr "giám sát"
 
 #. placeholders: {damage}
 #. one sentence of a longer line
@@ -24994,7 +24992,7 @@ msgid "Back on the highway."
 msgstr "Trở lại đường cao tốc."
 
 msgid "green"
-msgstr ""
+msgstr "đèn xanh"
 
 #. one sentence of a longer line
 msgid "Signal for the scale exit."
@@ -25032,7 +25030,7 @@ msgstr ""
 "dừng kiểm tra."
 
 msgid "select"
-msgstr ""
+msgstr "chọn"
 
 #. placeholders: {reason}, {detail}
 #. one sentence of a longer line
@@ -25109,7 +25107,7 @@ msgstr ""
 "hiện {what}. Bật xi-nhan rồi dừng hẳn xe ở lề đường."
 
 msgid "observed"
-msgstr ""
+msgstr "đã ghi nhận"
 
 msgid "Roadside pull-over"
 msgstr "Cảnh sát ra hiệu dừng xe"
@@ -25363,7 +25361,7 @@ msgid "Stop and set the parking brake."
 msgstr "Dừng hẳn xe và kéo phanh đỗ."
 
 msgid "gate"
-msgstr ""
+msgstr "cổng"
 
 msgid "Pulling into destination. Dock menu opening."
 msgstr "Đang tiến vào điểm giao. Đang mở menu bến dỡ hàng."
@@ -25716,13 +25714,13 @@ msgid "{street}. {distance} to the {merge_highway} on-ramp."
 msgstr "{street}. Còn {distance} tới nhánh nhập cao tốc {merge_highway}."
 
 msgid "advance"
-msgstr ""
+msgstr "tiến tới"
 
 msgid "near"
-msgstr ""
+msgstr "gần"
 
 msgid "acceleration lane"
-msgstr ""
+msgstr "làn tăng tốc"
 
 #. placeholders: {merge_highway}
 #. one sentence of a longer line
@@ -25740,7 +25738,7 @@ msgid "{lane_text} of acceleration lane."
 msgstr "Làn tăng tốc dài {lane_text}."
 
 msgid "merge speed reached"
-msgstr ""
+msgstr "đã đạt tốc độ nhập làn"
 
 #. placeholders: {speed_text}, {speed_text2}
 #. one sentence of a longer line
@@ -25779,10 +25777,10 @@ msgid "Cruise needs the engine running and at least {minimum}."
 msgstr "Ga tự động chỉ bật được khi máy đang nổ và đạt ít nhất {minimum}."
 
 msgid "Open road"
-msgstr ""
+msgstr "Đường trường"
 
 msgid "Acceleration lane"
-msgstr ""
+msgstr "Làn tăng tốc"
 
 msgid " for the exit"
 msgstr " để ra lối rẽ"
@@ -25989,13 +25987,13 @@ msgid "Descent control holding {spoken} for this grade."
 msgstr "Kiểm soát đổ đèo đang giữ {spoken} cho con dốc này."
 
 msgid "gear"
-msgstr ""
+msgstr "số"
 
 msgid "Descent control needs a lower gear."
 msgstr "Kiểm soát đổ đèo cần số thấp hơn."
 
 msgid "traction"
-msgstr ""
+msgstr "độ bám đường"
 
 msgid "Low traction limits descent control."
 msgstr "Độ bám đường thấp đang hạn chế kiểm soát đổ đèo."
@@ -26004,7 +26002,7 @@ msgid "Descent control can't hold this grade. Brake."
 msgstr "Kiểm soát đổ đèo không giữ nổi con dốc này. Đạp phanh."
 
 msgid "deliver"
-msgstr ""
+msgstr "giao hàng"
 
 #. placeholders: {exit_label}, {name}
 msgid "{exit_label} for {name}"
@@ -26349,10 +26347,10 @@ msgid "At the {noun}. {what}. Wait for your gap."
 msgstr "Tại {noun}. {what}. Chờ khoảng trống rồi đi."
 
 msgid "cross traffic clipped"
-msgstr ""
+msgstr "va quẹt xe cắt ngang"
 
 msgid "it clipped"
-msgstr ""
+msgstr "xe đã va quẹt"
 
 #. placeholders: {noun}, {hit}
 #. one sentence of a longer line
@@ -26903,25 +26901,25 @@ msgstr ""
 "của bạn bị giảm."
 
 msgid "departure acceleration lane"
-msgstr ""
+msgstr "làn tăng tốc xuất bãi"
 
 msgid "departure merge recovery"
-msgstr ""
+msgstr "xử lý nhập làn sau xuất bãi"
 
 msgid "exit lane open"
-msgstr ""
+msgstr "làn ra thông thoáng"
 
 msgid "exit ramp"
-msgstr ""
+msgstr "nhánh dốc lối ra"
 
 msgid "street control"
-msgstr ""
+msgstr "kiểm soát đường phố"
 
 msgid "weigh station ramp"
-msgstr ""
+msgstr "nhánh rẽ vào trạm cân"
 
 msgid "ramp terminal"
-msgstr ""
+msgstr "cuối nhánh dốc"
 
 #. placeholders: {name}
 msgid "At {name}."
@@ -28056,13 +28054,13 @@ msgid "Continue to {name}"
 msgstr "Tiếp tục tới {name}"
 
 msgid "April 1"
-msgstr ""
+msgstr "Ngày 1 tháng 4"
 
 msgid "December 25"
-msgstr ""
+msgstr "Ngày 25 tháng 12"
 
 msgid "January 1"
-msgstr ""
+msgstr "Ngày 1 tháng 1"
 
 msgid ""
 "Up and down pick a command, Enter runs it and returns to driving, Escape "
@@ -28126,7 +28124,7 @@ msgid "with"
 msgstr ""
 
 msgid "call"
-msgstr ""
+msgstr "gọi"
 
 msgid "Arrows navigate, Enter selects. Dock and deliver completes the job."
 msgstr ""
@@ -28307,16 +28305,16 @@ msgid "Route"
 msgstr "Tuyến đường"
 
 msgid "driver"
-msgstr ""
+msgstr "tài xế"
 
 msgid "Map"
 msgstr "Bản đồ"
 
 msgid "map"
-msgstr ""
+msgstr "bản đồ"
 
 msgid "apps"
-msgstr ""
+msgstr "ứng dụng"
 
 msgid ""
 "Up and down pick a screen, Enter opens it, Escape returns to driving."
@@ -28397,7 +28395,7 @@ msgstr "Hộp số: {else}, {gear}"
 
 #. placeholders: {f}, {band}
 msgid "Fatigue: {f} percent, {band}"
-msgstr ""
+msgstr "Mệt mỏi: {f} phần trăm, {band}"
 
 #. placeholders: {f}
 msgid "Fatigue: {f} percent"
@@ -28578,7 +28576,7 @@ msgid "Favorites saved:"
 msgstr "Đài yêu thích đã lưu:"
 
 msgid "favorites"
-msgstr ""
+msgstr "mục yêu thích"
 
 msgid "Your saved stations. Enter on one tunes it."
 msgstr "Các đài bạn đã lưu. Nhấn Enter vào một đài để mở nghe."
@@ -29158,7 +29156,7 @@ msgid "Stations in range: {in_range}"
 msgstr "Đài trong vùng phủ sóng: {in_range}"
 
 msgid "range"
-msgstr ""
+msgstr "phạm vi"
 
 msgid "Every station that comes in here. Enter on one tunes it."
 msgstr "Mọi đài bắt được sóng tại đây. Nhấn Enter vào một đài để nghe."
@@ -29187,7 +29185,7 @@ msgid "Stations matching {query}"
 msgstr "Các đài khớp với {query}"
 
 msgid "search"
-msgstr ""
+msgstr "tìm kiếm"
 
 #. placeholders: {start}, {end}, {total}
 msgid "Results {start} to {end} of {total}."
@@ -29663,7 +29661,7 @@ msgstr ""
 "tính lỗi vào bằng lái và trừ {f} điểm uy tín. {serious_violation_text}"
 
 msgid "roadside"
-msgstr ""
+msgstr "ven đường"
 
 #. placeholders: {name}
 #. one sentence of a longer line
@@ -29734,11 +29732,11 @@ msgstr "Đổ {f} gallon dầu với giá {grouped} đô la. {margin}"
 
 #. one sentence of a longer line
 msgid "Buys what you can afford if cash is short."
-msgstr ""
+msgstr "Mua trong khả năng chi trả nếu bạn thiếu tiền mặt."
 
 #. one sentence of a longer line
 msgid "Engine must be off."
-msgstr ""
+msgstr "Phải tắt máy."
 
 #. one sentence of a longer line
 msgid ""
@@ -30296,9 +30294,10 @@ msgstr ""
 #. one sentence of a longer line
 msgid "No lift while the last coffee lasts."
 msgstr ""
+"Cà phê trước vẫn còn tác dụng, uống thêm lúc này không có thêm hiệu quả."
 
 msgid "Driving and duty clocks reset. "
-msgstr "Đồng hồ giờ lái và khung giờ làm việc đã được đặt lại. "
+msgstr "Đồng hồ lái xe và làm việc đã được đặt lại. "
 
 #. one sentence of a longer line
 msgid "Sleeper split credited."
@@ -30404,10 +30403,10 @@ msgid ""
 msgstr ""
 
 msgid "You slept 10 hours and woke rested."
-msgstr "Bạn đã ngủ đủ 10 giờ và thức dậy tỉnh táo."
+msgstr "Bạn đã ngủ đủ 10 tiếng và thức dậy tỉnh táo."
 
 msgid "You slept 10 hours and woke still tired."
-msgstr ""
+msgstr "Bạn đã ngủ đủ 10 tiếng nhưng thức dậy vẫn thấy mệt."
 
 #. placeholders: {engine_off}, {slept}, {clock_text}
 #. one sentence of a longer line
@@ -30618,10 +30617,10 @@ msgid ""
 msgstr "{label} giá {buff_price_amount} mà bạn chỉ có {grouped} đô la."
 
 msgid "label"
-msgstr ""
+msgstr "nhãn"
 
 msgid "rate"
-msgstr ""
+msgstr "tỷ lệ"
 
 msgid "Free with your loyalty reward."
 msgstr "Miễn phí bằng điểm thưởng."
@@ -30950,7 +30949,7 @@ msgstr "Nhấn Enter hoặc Escape để nhập làn trở lại đường cao t
 
 #. one sentence of a longer line
 msgid "The trooper lets it go with a warning."
-msgstr ""
+msgstr "Cảnh sát tuần tra tha cho bạn và chỉ nhắc nhở."
 
 #. placeholders: {over_text}, {limit_text}
 #. one sentence of a longer line
@@ -31026,10 +31025,10 @@ msgid "Pulled over"
 msgstr "Đang bị cảnh sát dừng xe"
 
 msgid "The officer lets it go with a warning."
-msgstr ""
+msgstr "Cảnh sát tha cho bạn và chỉ nhắc nhở."
 
 msgid "The officer lets you go with a warning."
-msgstr "Cảnh sát cho bạn đi và chỉ nhắc nhở."
+msgstr "Cảnh sát tha cho bạn và chỉ nhắc nhở."
 
 #. placeholders: {grouped}, {construction_zone_fine_clause}
 msgid ""
@@ -31527,7 +31526,7 @@ msgid "Cruise resuming."
 msgstr "Đang khôi phục ga tự động."
 
 msgid "turn"
-msgstr ""
+msgstr "chuyển hướng"
 
 #. placeholders: {held}
 msgid "Cruise held to {held} for chains."
@@ -31662,7 +31661,7 @@ msgstr ""
 "{target}, còn {ahead} phía trước không? {current}"
 
 msgid "reason"
-msgstr ""
+msgstr "lý do"
 
 msgid "classmate"
 msgstr ""
@@ -31674,7 +31673,7 @@ msgid "meridian"
 msgstr ""
 
 msgid "trainer"
-msgstr ""
+msgstr "người hướng dẫn"
 
 #. placeholders: {name}
 msgid "{name} has the truck at the receiver's gate."
@@ -32027,19 +32026,19 @@ msgid "Refuel"
 msgstr "Đổ dầu"
 
 msgid "last lot"
-msgstr ""
+msgstr "lô đất cuối"
 
 msgid "shift"
-msgstr ""
+msgstr "ca làm việc"
 
 msgid "stalled"
-msgstr ""
+msgstr "chết máy"
 
 msgid "damage"
-msgstr ""
+msgstr "hư hại"
 
 msgid "off the road"
-msgstr ""
+msgstr "chệch khỏi đường"
 
 #. placeholders: {name}, {duration_text}
 msgid "{name} needs you back in {duration_text}."
@@ -32188,7 +32187,7 @@ msgid "{name} was pulled in for an inspection at {place}. {outcome}"
 msgstr "{name} bị gọi vào kiểm tra an toàn tại {place}. {outcome}"
 
 msgid "advice"
-msgstr ""
+msgstr "lời khuyên"
 
 msgid "the next street"
 msgstr "con đường tiếp theo"
@@ -32689,16 +32688,16 @@ msgid "Curve assistance released."
 msgstr "Hỗ trợ vào cua đã nhả."
 
 msgid "disarmed"
-msgstr ""
+msgstr "đã tắt kích hoạt"
 
 msgid "chime"
-msgstr ""
+msgstr "chuông báo"
 
 msgid "armed"
-msgstr ""
+msgstr "đã kích hoạt"
 
 msgid "no zone"
-msgstr ""
+msgstr "không thuộc khu vực nào"
 
 #. placeholders: {speed}, {zone}
 msgid ""
@@ -32746,7 +32745,7 @@ msgid ""
 msgstr ""
 
 msgid "never announced"
-msgstr ""
+msgstr "chưa từng thông báo"
 
 #. placeholders: {name}, {name2}
 msgid "The transponder cleared {name} past {name2}."
@@ -33251,16 +33250,16 @@ msgid " after waiting {waited} s for the stop"
 msgstr ""
 
 msgid "trip finished"
-msgstr ""
+msgstr "chuyến đi kết thúc"
 
 msgid "left the highway"
-msgstr ""
+msgstr "đã rời cao tốc"
 
 msgid "distance bound"
-msgstr ""
+msgstr "theo khoảng cách"
 
 msgid "time bound"
-msgstr ""
+msgstr "theo thời gian"
 
 #. placeholders: {display_name2}
 #. one sentence of a longer line
@@ -33292,10 +33291,10 @@ msgstr ""
 "{display_name2}."
 
 msgid "playlist is empty"
-msgstr ""
+msgstr "danh sách phát trống"
 
 msgid "no playable entry in this playlist"
-msgstr ""
+msgstr "không có mục nào phát được trong danh sách phát này"
 
 #. one sentence of a longer line
 msgid "Its YouTube links need yt-dlp, which is not installed."
@@ -34421,7 +34420,7 @@ msgid "Gameplay"
 msgstr "Lối chơi"
 
 msgid "gameplay"
-msgstr ""
+msgstr "lối chơi"
 
 msgid "Audio"
 msgstr "Âm thanh"
@@ -34433,13 +34432,13 @@ msgid "Updates"
 msgstr "Cập nhật"
 
 msgid "updates"
-msgstr ""
+msgstr "cập nhật"
 
 msgid "Problem reports"
 msgstr "Báo lỗi"
 
 msgid "reports"
-msgstr ""
+msgstr "báo cáo"
 
 #. placeholders: {label}
 msgid "Open {label} settings."
@@ -34501,13 +34500,13 @@ msgstr ""
 "mục xem lại tin nhắn."
 
 msgid "assistance"
-msgstr ""
+msgstr "hỗ trợ"
 
 msgid "Difficulty and hours of service"
 msgstr "Độ khó và giờ lái quy định"
 
 msgid "difficulty"
-msgstr ""
+msgstr "độ khó"
 
 msgid "World and traffic"
 msgstr "Thế giới và giao thông"
@@ -34516,7 +34515,7 @@ msgid "Controls"
 msgstr "Điều khiển"
 
 msgid "controls"
-msgstr ""
+msgstr "điều khiển"
 
 msgid ""
 "Four screens. Up and Down pick one, Enter opens it, Escape goes back."
@@ -35569,7 +35568,7 @@ msgstr ""
 
 #. placeholders: {on_off}
 msgid "Ask to report a problem after a crash: {on_off}"
-msgstr ""
+msgstr "Hỏi gửi báo cáo sự cố sau khi văng game: {on_off}"
 
 msgid ""
 "On, the main menu offers to send a report when the game closed without "
@@ -35577,7 +35576,7 @@ msgid ""
 msgstr ""
 
 msgid "Where the game log is saved"
-msgstr "Nơi lưu nhật ký game"
+msgstr "Nơi lưu nhật ký trò chơi"
 
 msgid ""
 "The session log records everything the game said out loud. Report a problem "
@@ -38956,7 +38955,7 @@ msgstr ""
 "nhấn B để đóng lại."
 
 msgid "pad"
-msgstr ""
+msgstr "tay cầm"
 
 #. placeholders: {page}, {HELP_PAGES}, {title}
 msgid "Page {page} of {HELP_PAGES}: {title}."
@@ -39694,10 +39693,10 @@ msgid "No drivers are on duty right now"
 msgstr "Hiện không có tài xế nào đang chạy"
 
 msgid "activity"
-msgstr ""
+msgstr "hoạt động"
 
 msgid "detail"
-msgstr ""
+msgstr "chi tiết"
 
 msgid "went off duty"
 msgstr "đã nghỉ ca"
@@ -40000,7 +39999,7 @@ msgstr ""
 "Mở danh sách các bang và từng thành phố mà tài xế này đã giao hàng tới."
 
 msgid "Preparing the report."
-msgstr ""
+msgstr "Đang chuẩn bị báo cáo."
 
 msgid ""
 "The report opened in your browser. The game log is already attached; finish "
@@ -40015,7 +40014,7 @@ msgstr "Hãy báo lỗi tại github.com/{REPO}/issues."
 #. placeholders: {why}
 #. one sentence of a longer line
 msgid "{why} Could not open a web browser either."
-msgstr ""
+msgstr "{why} Cũng không thể mở trình duyệt web."
 
 #. placeholders: {why}, {REPO}
 msgid ""
@@ -40024,13 +40023,13 @@ msgid ""
 msgstr ""
 
 msgid "Too many reports have been sent today."
-msgstr ""
+msgstr "Hôm nay đã gửi quá nhiều báo cáo."
 
 msgid "orinks.net did not accept the report."
-msgstr ""
+msgstr "orinks.net không tiếp nhận báo cáo."
 
 msgid "The report could not be prepared."
-msgstr ""
+msgstr "Không thể chuẩn bị báo cáo."
 
 msgid "problem-report"
 msgstr ""
@@ -40047,10 +40046,10 @@ msgstr ""
 
 #. placeholders: {reason}
 msgid "The report form could not be opened: {reason}"
-msgstr ""
+msgstr "Không thể mở biểu mẫu báo cáo: {reason}"
 
 msgid "Report the last crash?"
-msgstr ""
+msgstr "Báo cáo sự cố lần văng game vừa rồi?"
 
 msgid ""
 "Report it opens the report form in your web browser with the previous run's "
@@ -40065,7 +40064,7 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid "Freight Fate closed unexpectedly the last time it ran."
-msgstr ""
+msgstr "Freight Fate bị đóng bất ngờ trong lần chạy gần nhất."
 
 #. placeholders: {current_text}
 msgid ""
@@ -40075,10 +40074,10 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid "Report the problem?"
-msgstr ""
+msgstr "Gửi báo cáo sự cố?"
 
 msgid "Report it"
-msgstr ""
+msgstr "Gửi báo cáo"
 
 msgid ""
 "The report form opens in your web browser with the previous run's log "
@@ -40090,7 +40089,7 @@ msgid ""
 msgstr ""
 
 msgid "Stop asking after crashes"
-msgstr ""
+msgstr "Không hỏi lại sau khi văng game"
 
 msgid ""
 "Never ask again after a crash. Settings, Problem reports turns it back on."
@@ -41125,6 +41124,55 @@ msgstr "Rẽ phải vào {street}"
 msgid "Continue onto {street}"
 msgstr "Đi thẳng tiếp vào {street}"
 
+msgid "Turn right onto {street}, then {distance} on it."
+msgstr "Rẽ phải vào {street}, sau đó chạy {distance} trên tuyến đó."
+
+msgid "Turn left onto {street}, then {distance} on it."
+msgstr "Rẽ trái vào {street}, sau đó chạy {distance} trên tuyến đó."
+
+msgid "Turn onto {street}, then {distance} on it."
+msgstr "Rẽ vào {street}, sau đó chạy {distance} trên tuyến đó."
+
+msgid "Continue onto {street}, then {distance} on it."
+msgstr "Đi tiếp vào {street}, sau đó chạy {distance} trên tuyến đó."
+
+msgid "Start on {street}, then {distance} on it."
+msgstr "Bắt đầu trên {street}, sau đó chạy {distance} trên tuyến đó."
+
+msgid "Keep right onto {street}, then {distance} on it."
+msgstr "Đi nép phải vào {street}, sau đó chạy {distance} trên tuyến đó."
+
+msgid "Keep left onto {street}, then {distance} on it."
+msgstr "Đi nép trái vào {street}, sau đó chạy {distance} trên tuyến đó."
+
+msgid ""
+"Speed limit {verb} to {speed_value} approaching {city} for {short_miles}."
+msgstr ""
+"Giới hạn tốc độ {verb} {speed_value} khi vào gần {city} trong {short_miles}."
+
+msgid ""
+"Speed limit {verb} to {speed_value} leaving {city} for {short_miles}."
+msgstr ""
+"Giới hạn tốc độ {verb} {speed_value} khi ra khỏi {city} trong {short_miles}."
+
+msgid "Speed limit {verb} to {speed_value} approaching {city}."
+msgstr "Giới hạn tốc độ {verb} {speed_value} khi vào gần {city}."
+
+msgid "Speed limit {verb} to {speed_value} leaving {city}."
+msgstr "Giới hạn tốc độ {verb} {speed_value} khi ra khỏi {city}."
+
+msgid "Speed limit {verb} to {speed_value} for the weigh station."
+msgstr "Giới hạn tốc độ {verb} {speed_value} trước trạm cân."
+
+msgid "Speed limit {verb} to {speed_value} for the downhill grade."
+msgstr "Giới hạn tốc độ {verb} {speed_value} trước đoạn dốc xuống."
+
+msgid "Speed limit {verb} to {speed_value} for {short_miles}."
+msgstr "Giới hạn tốc độ {verb} {speed_value} trong {short_miles}."
+
+msgid "the yard"
+msgstr "bãi xe"
+
 msgid "a service road"
 msgstr "một đường gom nội bộ"
 
@@ -41849,6 +41897,33 @@ msgstr "Mảnh lốp vỡ."
 
 msgid "Debris."
 msgstr "Mảnh vỡ trên đường."
+
+#~ msgid "Turn right onto {street}{surface_tail}."
+#~ msgstr "Rẽ phải vào {street}{surface_tail}."
+
+#~ msgid "Turn left onto {street}{surface_tail}."
+#~ msgstr "Rẽ trái vào {street}{surface_tail}."
+
+#~ msgid "Continue onto {street}{surface_tail}."
+#~ msgstr "Đi tiếp vào {street}{surface_tail}."
+
+#~ msgid "Start on {street}{surface_tail}."
+#~ msgstr "Bắt đầu trên {street}{surface_tail}."
+
+#~ msgid " approaching {city}"
+#~ msgstr " khi tới gần {city}"
+
+#~ msgid "approaching {city}"
+#~ msgstr "khi tới gần {city}"
+
+#~ msgid " leaving {city}"
+#~ msgstr " khi rời {city}"
+
+#~ msgid "leaving {city}"
+#~ msgstr "khi rời {city}"
+
+#~ msgid "for {short_miles}"
+#~ msgstr "trong {short_miles}"
 
 #~ msgid "Walk-around done, 15 minutes."
 #~ msgstr "Kiểm tra quanh xe xong, mất 15 phút."

@@ -31,6 +31,8 @@ Dùng tiếng Việt phổ thông, tự nhiên như người Việt nói chuyệ
 | fleet | đội xe | Dàn xe thuộc hãng vận tải. |
 | trailer | rơ-moóc | Phần moóc kéo sau đầu kéo. |
 | dry van | rơ-moóc thùng kín | Moóc thùng khô tiêu chuẩn. |
+| container chassis / container | rơ-moóc chở công-ten-nơ / thùng công-ten-nơ | Khung moóc chở vỏ công-ten-nơ hoặc thùng công-ten-nơ (tránh dịch máy thành "container vận chuyển"). |
+| shipping containers | thùng công-ten-nơ | Loại hàng công-ten-nơ đóng thùng tiêu chuẩn. |
 | reefer | rơ-moóc lạnh | Moóc thùng đông lạnh có điều hòa nhiệt độ. |
 | flatbed | rơ-moóc sàn phẳng | Moóc sàn hở chở thép, máy móc, gỗ, vật liệu. |
 | bulk / hopper trailer | rơ-moóc hàng rời | Moóc thùng phễu chở ngũ cốc, nông sản, vật liệu rời. |
@@ -66,6 +68,7 @@ Dùng tiếng Việt phổ thông, tự nhiên như người Việt nói chuyệ
 | driving time left | giờ lái còn lại | Thời gian còn lại của giới hạn 11 giờ lái (bắt đầu bằng *Giờ lái còn lại*). |
 | duty window | khung giờ làm việc | Giới hạn 14 giờ tính từ lúc vào ca (bắt đầu bằng *Khung giờ làm việc*). |
 | break | giờ nghỉ 30 phút | Thời gian nghỉ bắt buộc giữa ca. |
+| fatigue bands | các dải mệt mỏi | Trạng thái tỉnh táo của tài xế: `tỉnh táo` (rested / awake), `mệt mỏi` (worn), `buồn ngủ` (drowsy), `kiệt sức` (severe), `ngủ gật` (nodding), `đang hồi sức` (recovering). |
 | clock | đồng hồ / giờ hiện tại | Thời gian trong trò chơi. |
 | lane keeping | giữ làn | Hỗ trợ giữ xe trong làn (`tắt`, `một phần`, `toàn phần`). |
 | curve assistance | hỗ trợ vào cua | Hỗ trợ tự giảm tốc và đánh lái qua khúc cua. |
