@@ -80,9 +80,10 @@ fn a_traffic_stop_at_severe_gives_its_result_then_the_fatigue_order() {
     let before = with_drive(&drive, |d| d.trip.game_minutes);
     let outcome = traffic_stop(&mut app, &drive);
     assert!(
-        index_of(&outcome, "lets you off with a warning") < index_of(&outcome, ORDER),
+        index_of(&outcome, "lets it go with a warning") < index_of(&outcome, ORDER),
         "{outcome}"
     );
+    assert!(!outcome.contains("lets you off"), "{outcome}");
     assert!(
         outcome.contains("the delivery deadline kept counting."),
         "{outcome}"
@@ -125,6 +126,7 @@ fn relaxed_pacing_warns_the_first_time_then_orders() {
     with_drive(&drive, |d| d.trip.time_scale = RELAXED);
     let first = traffic_stop(&mut app, &drive);
     assert!(first.ends_with(OFFICER_FATIGUE_WARNING), "{first}");
+    assert!(first.contains("lets you off with a warning"), "{first}");
     assert!(!first.contains(ORDER), "{first}");
     assert_eq!(with_drive(&drive, |d| d.out_of_service_count), 0);
 

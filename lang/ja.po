@@ -28398,13 +28398,23 @@ msgid "Enter or Escape pulls back onto the highway."
 msgstr "Enter か Escape で高速道路に戻ります。"
 
 #. one sentence of a longer line
-msgid "The trooper lets you off with a warning."
-msgstr "州警察官は警告だけで済ませてくれました。"
+msgid "The trooper lets it go with a warning."
+msgstr ""
 
 #. placeholders: {over_text}, {limit_text}
 #. one sentence of a longer line
 msgid "{over_text} over the {limit_text} limit."
 msgstr "制限速度{limit_text}を{over_text}超過。"
+
+#. placeholders: {over_text}, {limit_text}
+msgid ""
+"{over_text} over the {limit_text} limit. The trooper lets it go with a "
+"warning."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The trooper lets you off with a warning."
+msgstr "州警察官は警告だけで済ませてくれました。"
 
 #. placeholders: {over_text}, {limit_text}
 msgid ""
@@ -28456,6 +28466,9 @@ msgstr "免許と運行記録の確認。{outcome} {current}"
 
 msgid "Pulled over"
 msgstr "停車させられました"
+
+msgid "The officer lets it go with a warning."
+msgstr ""
 
 msgid "The officer lets you go with a warning."
 msgstr "警官は警告だけで行かせてくれました。"

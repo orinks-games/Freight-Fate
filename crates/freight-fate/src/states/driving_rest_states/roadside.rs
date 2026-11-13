@@ -236,10 +236,18 @@ impl TrafficStopState {
         let over_text = ctx.settings.speed_text(self.over);
         let limit_text = ctx.settings.speed_text(self.limit);
         if warning {
-            self.outcome_text = format!(
-                "{over_text} over the {limit_text} limit. The trooper lets you off with a \
-                 warning."
-            );
+            // "Lets you off" cannot lead into an order to stay parked.
+            self.outcome_text = if d.fatigue_order_due(ctx) {
+                format!(
+                    "{over_text} over the {limit_text} limit. The trooper lets it go with a \
+                     warning."
+                )
+            } else {
+                format!(
+                    "{over_text} over the {limit_text} limit. The trooper lets you off with a \
+                     warning."
+                )
+            };
             return;
         }
         // A prompt, fully-compliant stop earns a small chance the trooper lets
@@ -455,7 +463,11 @@ impl EnforcementStopState {
             && !self.inspection_on_stop
         {
             self.fine = 0.0;
-            self.outcome_text = "The officer lets you go with a warning.".to_string();
+            self.outcome_text = if d.fatigue_order_due(ctx) {
+                "The officer lets it go with a warning.".to_string()
+            } else {
+                "The officer lets you go with a warning.".to_string()
+            };
             return;
         }
         d.ticket_fines_paid += self.fine;

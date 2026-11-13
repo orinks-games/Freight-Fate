@@ -35023,13 +35023,25 @@ msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/roadside.rs
-msgid "The trooper lets you off with a warning."
+msgid "The trooper lets it go with a warning."
 msgstr ""
 
 #. placeholders: {over_text}, {limit_text}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/roadside.rs
 msgid "{over_text} over the {limit_text} limit."
+msgstr ""
+
+#. placeholders: {over_text}, {limit_text}
+#: crates/freight-fate/src/states/driving_rest_states/roadside.rs
+msgid ""
+"{over_text} over the {limit_text} limit. The trooper lets it go with a "
+"warning."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/roadside.rs
+msgid "The trooper lets you off with a warning."
 msgstr ""
 
 #. placeholders: {over_text}, {limit_text}
@@ -35088,6 +35100,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/roadside.rs
 msgid "Pulled over"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/roadside.rs
+msgid "The officer lets it go with a warning."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/roadside.rs

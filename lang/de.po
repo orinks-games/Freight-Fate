@@ -31212,13 +31212,23 @@ msgid "Enter or Escape pulls back onto the highway."
 msgstr "Enter oder Escape fährt zurück auf den Highway."
 
 #. one sentence of a longer line
-msgid "The trooper lets you off with a warning."
-msgstr "Der Polizist lässt dich mit einer Verwarnung davonkommen."
+msgid "The trooper lets it go with a warning."
+msgstr ""
 
 #. placeholders: {over_text}, {limit_text}
 #. one sentence of a longer line
 msgid "{over_text} over the {limit_text} limit."
 msgstr "{over_text} über dem Limit von {limit_text}."
+
+#. placeholders: {over_text}, {limit_text}
+msgid ""
+"{over_text} over the {limit_text} limit. The trooper lets it go with a "
+"warning."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The trooper lets you off with a warning."
+msgstr "Der Polizist lässt dich mit einer Verwarnung davonkommen."
 
 #. placeholders: {over_text}, {limit_text}
 msgid ""
@@ -31278,6 +31288,9 @@ msgstr "Führerschein- und Fahrtenbuchkontrolle. {outcome} {current}"
 
 msgid "Pulled over"
 msgstr "Angehalten"
+
+msgid "The officer lets it go with a warning."
+msgstr ""
 
 msgid "The officer lets you go with a warning."
 msgstr "Der Beamte lässt dich mit einer Verwarnung fahren."

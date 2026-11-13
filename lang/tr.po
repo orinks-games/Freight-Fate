@@ -30423,13 +30423,23 @@ msgid "Enter or Escape pulls back onto the highway."
 msgstr "Enter ya da Escape ile otoyola geri çıkarsınız."
 
 #. one sentence of a longer line
-msgid "The trooper lets you off with a warning."
-msgstr "Polis sizi uyarıyla bırakıyor."
+msgid "The trooper lets it go with a warning."
+msgstr ""
 
 #. placeholders: {over_text}, {limit_text}
 #. one sentence of a longer line
 msgid "{over_text} over the {limit_text} limit."
 msgstr "{limit_text} sınırın {over_text} üstünde."
+
+#. placeholders: {over_text}, {limit_text}
+msgid ""
+"{over_text} over the {limit_text} limit. The trooper lets it go with a "
+"warning."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The trooper lets you off with a warning."
+msgstr "Polis sizi uyarıyla bırakıyor."
 
 #. placeholders: {over_text}, {limit_text}
 msgid ""
@@ -30485,6 +30495,9 @@ msgstr "Ehliyet ve seyir defteri kontrolü. {outcome} {current}"
 
 msgid "Pulled over"
 msgstr "Kenara çekildi"
+
+msgid "The officer lets it go with a warning."
+msgstr ""
 
 msgid "The officer lets you go with a warning."
 msgstr "Memur sizi uyarıyla bırakıyor."

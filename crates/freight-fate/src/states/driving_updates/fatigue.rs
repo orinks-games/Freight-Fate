@@ -390,6 +390,21 @@ impl DrivingState {
             .hand_work_min(base_min, self.relaxed_pacing())
     }
 
+    /// Whether a stop that lets the driver off will still end in the fatigue
+    /// order, so its own result is worded to lead into one.
+    pub fn fatigue_order_due(&self, ctx: &GameContext) -> bool {
+        if ctx.profile.is_none() || self.co_driver_driving() {
+            return false;
+        }
+        fatigue_stop_outcome(
+            self.current_band(ctx),
+            self.relaxed_pacing(),
+            officer_warned(&profile_of(ctx).achievement_stats),
+            self.enforcement_bypassed(ctx),
+            false,
+        ) == FatigueStopOutcome::OutOfService
+    }
+
     /// What an officer does about the driver's fatigue, once a stop's own
     /// result is settled: the line that follows the stop's result, empty for
     /// nothing. `out_of_service_before` is [`Self::out_of_service_count`] as

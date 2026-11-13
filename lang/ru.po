@@ -31306,13 +31306,23 @@ msgid "Enter or Escape pulls back onto the highway."
 msgstr "Enter или Escape возвращают на трассу."
 
 #. one sentence of a longer line
-msgid "The trooper lets you off with a warning."
-msgstr "Патрульный отпускает вас с предупреждением."
+msgid "The trooper lets it go with a warning."
+msgstr ""
 
 #. placeholders: {over_text}, {limit_text}
 #. one sentence of a longer line
 msgid "{over_text} over the {limit_text} limit."
 msgstr "На {over_text} больше ограничения {limit_text}."
+
+#. placeholders: {over_text}, {limit_text}
+msgid ""
+"{over_text} over the {limit_text} limit. The trooper lets it go with a "
+"warning."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The trooper lets you off with a warning."
+msgstr "Патрульный отпускает вас с предупреждением."
 
 #. placeholders: {over_text}, {limit_text}
 msgid ""
@@ -31371,6 +31381,9 @@ msgstr "Проверка прав и журнала. {outcome} {current}"
 
 msgid "Pulled over"
 msgstr "Остановлен полицией"
+
+msgid "The officer lets it go with a warning."
+msgstr ""
 
 msgid "The officer lets you go with a warning."
 msgstr "Инспектор отпускает вас с предупреждением."
