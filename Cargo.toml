@@ -68,14 +68,14 @@ sdl2 = "0.38"
 #   [patch."https://github.com/orinks-games/hearken"]
 #   hearken = { path = "../hearken/crates/hearken" }
 # to a cargo config (never commit it).
-hearken = { git = "https://github.com/orinks-games/hearken", rev = "34fb7bf60589c484e447ca6ea51961e64c42d2ec", default-features = false, features = ["kira", "radio"] }
+hearken = { git = "https://github.com/orinks-games/hearken", rev = "33606499feeba14bd4eb918451ff2b0bea034da4", default-features = false, features = ["kira", "radio"] }
 # The engine's signed self-updater, on its own: Freight Fate keeps its own
 # update screens and release tooling, and uses the engine's checks,
 # downloads (only the files that changed, when it can) and swap. The game
 # uses its HTTPS client; ff-tools signs the manifests and writes the file
 # indexes with it.
-hearken-update = { git = "https://github.com/orinks-games/hearken", rev = "34fb7bf60589c484e447ca6ea51961e64c42d2ec", default-features = false }
-hearken-seal = { git = "https://github.com/orinks-games/hearken", rev = "34fb7bf60589c484e447ca6ea51961e64c42d2ec", default-features = false }
+hearken-update = { git = "https://github.com/orinks-games/hearken", rev = "33606499feeba14bd4eb918451ff2b0bea034da4", default-features = false }
+hearken-seal = { git = "https://github.com/orinks-games/hearken", rev = "33606499feeba14bd4eb918451ff2b0bea034da4", default-features = false }
 # Problem reports (the report type, its limits and the crash marker), from a
 # later Hearken commit than the engine pin: the crate stands alone, so it is
 # taken on its own rather than moving the engine before a stable release.
