@@ -4,6 +4,10 @@ use crate::speech::EventPriority;
 use ff_core::models::enforcement;
 use ff_core::models::jobs::hos_stops::STOP_MARGIN_MIN as HOS_STOP_MARGIN_MIN;
 use ff_core::sim::alertness;
+use ff_core::sim::fatigue_costs::{
+    fatigue_stop_outcome, mark_officer_warned, officer_warned, FatigueStopOutcome,
+    OFFICER_FATIGUE_WARNING,
+};
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
@@ -78,16 +82,25 @@ impl DrivingState {
 
         let night = is_night(self.trip.local_hour());
         let now_h = self.absolute_game_hour(ctx, None);
-        if moving && !co_driver {
+        if !co_driver {
             // Pressure-mode tuning scales how fast the day wears on you, and
             // an active food/drink buff slows accrual (data/buffs.py); neither
-            // touches the HOS duty clock above.
+            // touches the HOS duty clock above. Sitting at the wheel stopped
+            // is on duty too, and builds a third of the rate.
             let fatigue_mult = tuning_for_time_scale(self.trip.time_scale).fatigue_rate;
+            let duty_mult = if moving {
+                1.0
+            } else {
+                hos::ON_DUTY_FATIGUE_FACTOR
+            };
             let p = profile_mut_of(ctx);
             let buff_rate = p.fatigue_buff_rate(now_h);
-            p.fatigue = 100.0f64
-                .min(p.fatigue + hos::fatigue_rate_per_min(night) * gm * fatigue_mult * buff_rate);
+            p.fatigue = 100.0f64.min(
+                p.fatigue
+                    + hos::fatigue_rate_per_min(night) * gm * fatigue_mult * buff_rate * duty_mult,
+            );
         }
+        let mut worn_lines: Vec<(String, bool)> = Vec::new();
         for worn in profile_mut_of(ctx).expire_buffs(now_h) {
             let text = worn
                 .get("worn_off")
@@ -102,7 +115,31 @@ impl DrivingState {
                         .to_lowercase();
                     format!("The {label} has worn off.")
                 });
-            ctx.say_event_with(text, SayEvent::queued().category(SpeechCategory::Status));
+            worn_lines.push((text, false));
+        }
+        // A stimulant's lift comes back as it wears off, here and nowhere
+        // else short of a sleep, so a stop, a loop-back or an on-duty block
+        // that crossed the due time is paid back on the first frame at the
+        // wheel. A drink's own worn-off line above marks it; the coffee
+        // break's has its own. That one line explains a jump in fatigue, so
+        // it is never dropped for waiting on a busy voice, and it is spoken
+        // ahead of any band cue the jump brings (agent playtest, 2026-11-13:
+        // a loop-back line held it, "Getting drowsy." went first, and the
+        // worn-off line timed out unheard).
+        if let Some(line) = profile_mut_of(ctx).repay_stimulant_loan(now_h) {
+            match worn_lines.iter_mut().find(|(text, _)| *text == line) {
+                Some(found) => found.1 = true,
+                None if !line.is_empty() => worn_lines.push((line, true)),
+                None => {}
+            }
+        }
+        for (text, lift) in worn_lines {
+            let opts = if lift {
+                SayEvent::queued().priority(EventPriority::Important).keep()
+            } else {
+                SayEvent::queued()
+            };
+            ctx.say_event_with(text, opts.category(SpeechCategory::Status));
         }
         self.trip.truck.engine_wear_buff_mult = self
             .rig_buffs
@@ -327,6 +364,82 @@ impl DrivingState {
             p.career.reputation = 0.0f64.max(p.career.reputation - hit);
         }
         self.log_fatigue_event(ctx)
+    }
+
+    // -- what fatigue costs off the wheel -------------------------------------------
+
+    /// Relaxed pacing, which halves slow work and lets the first officer
+    /// warn instead of order (`docs/fatigue-design.md`, "Modes").
+    pub fn relaxed_pacing(&self) -> bool {
+        tuning_for_time_scale(self.trip.time_scale).name == "relaxed"
+    }
+
+    /// The band right now, for the costs that read it at a stop: the road's
+    /// band moved on, silently, by whatever fatigue did since the last frame
+    /// at the wheel (a break, a meal, the work itself).
+    pub fn current_band(&self, ctx: &GameContext) -> Alertness {
+        let fatigue = ctx.profile.as_ref().map_or(0.0, |p| p.fatigue);
+        self.alertness.next(fatigue).0
+    }
+
+    /// The minutes work the driver does by hand takes now: `base_min` in the
+    /// current band (`Alertness::hand_work_min`). Every row, help line and
+    /// result line that reads such a task's minutes reads this figure.
+    pub fn hand_work_min(&self, ctx: &GameContext, base_min: f64) -> f64 {
+        self.current_band(ctx)
+            .hand_work_min(base_min, self.relaxed_pacing())
+    }
+
+    /// Whether a stop that lets the driver off will still end in the fatigue
+    /// order, so its own result is worded to lead into one.
+    pub fn fatigue_order_due(&self, ctx: &GameContext) -> bool {
+        if ctx.profile.is_none() || self.co_driver_driving() {
+            return false;
+        }
+        fatigue_stop_outcome(
+            self.current_band(ctx),
+            self.relaxed_pacing(),
+            officer_warned(&profile_of(ctx).achievement_stats),
+            self.enforcement_bypassed(ctx),
+            false,
+        ) == FatigueStopOutcome::OutOfService
+    }
+
+    /// What an officer does about the driver's fatigue, once a stop's own
+    /// result is settled: the line that follows the stop's result, empty for
+    /// nothing. `out_of_service_before` is [`Self::out_of_service_count`] as
+    /// the stop began, so a stop that already put the driver out of service
+    /// adds no second order. The co-driver at the wheel is the one the
+    /// officer talks to, so the player's fatigue is not in it.
+    pub fn officer_sees_fatigue(
+        &mut self,
+        ctx: &mut GameContext,
+        out_of_service_before: i64,
+    ) -> String {
+        if ctx.profile.is_none() || self.co_driver_driving() {
+            return String::new();
+        }
+        let outcome = fatigue_stop_outcome(
+            self.current_band(ctx),
+            self.relaxed_pacing(),
+            officer_warned(&profile_of(ctx).achievement_stats),
+            self.enforcement_bypassed(ctx),
+            self.out_of_service_count > out_of_service_before,
+        );
+        match outcome {
+            FatigueStopOutcome::None => String::new(),
+            FatigueStopOutcome::Warning => {
+                mark_officer_warned(&mut profile_mut_of(ctx).achievement_stats);
+                OFFICER_FATIGUE_WARNING.to_string()
+            }
+            FatigueStopOutcome::OutOfService => {
+                // Ten hours parked is an overnight: the engine does not idle
+                // through it, the same as the roadside hours order.
+                shut_down_engine(self, ctx);
+                let order = self.fatigue_out_of_service(ctx);
+                format!("{order}{}", wake_air_instruction(self))
+            }
+        }
     }
 
     /// The third miss in a row is the fatigue out-of-service order.

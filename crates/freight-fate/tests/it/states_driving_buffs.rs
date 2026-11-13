@@ -10,6 +10,7 @@
 
 use crate::states_driving_menus_support::*;
 use ff_core::models::business::{COMPANY_DRIVER, LEASED_OWNER_OPERATOR};
+use ff_core::sim::stimulant::Loan;
 use ff_core::sim::trip_models::RoadStop;
 use freight_fate::app::testing::TestApp;
 use freight_fate::app::{GameContext, SharedState};
@@ -67,6 +68,15 @@ fn money(app: &TestApp) -> f64 {
     app.ctx.profile.as_ref().expect("a career").money()
 }
 
+/// The timed buffs, without the stimulant loan an energy drink or coffee
+/// keeps beside them.
+fn timed_buffs(p: &ff_core::models::profile::Profile) -> Vec<&serde_json::Value> {
+    p.active_buffs
+        .iter()
+        .filter(|entry| !Loan::is_entry(entry))
+        .collect()
+}
+
 fn approx(a: f64, b: f64) {
     assert!((a - b).abs() < 0.01, "{a} != {b}");
 }
@@ -89,8 +99,9 @@ fn test_energy_drink_lifts_fatigue_and_starts_a_timed_buff() {
     let p = app.ctx.profile.as_ref().expect("a career");
     approx(p.money(), 994.0);
     approx(p.fatigue, 47.0);
-    assert_eq!(p.active_buffs.len(), 1);
-    let entry = &p.active_buffs[0];
+    let buffs = timed_buffs(p);
+    assert_eq!(buffs.len(), 1);
+    let entry = buffs[0];
     assert_eq!(entry["id"], "energy_drink");
     approx(entry["rate"].as_f64().unwrap_or(0.0), 0.85);
     approx(
@@ -349,7 +360,9 @@ fn test_wall_drug_park_only_sells_five_cent_coffee_and_free_ice_water() {
     let p = app.ctx.profile.as_ref().expect("a career");
     approx(p.money(), 10.0);
     approx(p.fatigue, 39.0);
-    assert_eq!(p.active_buffs[0]["id"], "wall_drug_free_ice_water");
+    assert_eq!(timed_buffs(p)[0]["id"], "wall_drug_free_ice_water");
+    // Water is real relief, not a stimulant.
+    assert!(!p.stimulant_loan().is_open());
     let said = app.main_lines();
     assert!(
         said.last().is_some_and(|line| {
@@ -363,7 +376,8 @@ fn test_wall_drug_park_only_sells_five_cent_coffee_and_free_ice_water() {
     let p = app.ctx.profile.as_ref().expect("a career");
     approx(p.money(), 9.95);
     approx(p.fatigue, 37.0); // 39 - 2
-    assert_eq!(p.active_buffs[0]["id"], "wall_drug_five_cent_coffee");
+    assert_eq!(timed_buffs(p)[0]["id"], "wall_drug_five_cent_coffee");
+    assert!(p.stimulant_loan().is_open());
     let said = app.main_lines();
     assert!(
         said.last().is_some_and(|line| {

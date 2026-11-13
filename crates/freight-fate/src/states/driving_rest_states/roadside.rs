@@ -17,10 +17,10 @@ use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::city::CityMenuState;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, career_citations, citation_fine, clock_text, construction_zone_fine_clause,
-    hos_mut_of, hos_of, profile_mut_of, profile_of, shut_down_engine, wake_air_instruction,
-    DRIVE_PHASE_DELIVERY, FAILURE_TO_STOP_DAMAGE_PCT, FAILURE_TO_STOP_PROCESSING_MIN,
-    INSPECTION_MIN, PULL_OVER_CLEAN_STOP_WARN_CHANCE,
+    advance_on_duty_clock, career_citations, citation_fine, clock_text,
+    construction_zone_fine_clause, hos_of, profile_mut_of, profile_of, shut_down_engine,
+    wake_air_instruction, DRIVE_PHASE_DELIVERY, FAILURE_TO_STOP_DAMAGE_PCT,
+    FAILURE_TO_STOP_PROCESSING_MIN, INSPECTION_MIN, PULL_OVER_CLEAN_STOP_WARN_CHANCE,
 };
 use crate::states::driving_menu_states::DriveRef;
 use crate::states::driving_updates::pending::EnforcementStopParams;
@@ -128,6 +128,26 @@ pub trait RoadsideExit: Menu {
     }
 }
 
+/// The stop's result is settled; a severely tired driver now hears what
+/// the officer does about it, after that result. Nothing on a stop that
+/// pulled the license, which ends the run here.
+fn append_fatigue_order(
+    outcome: &mut String,
+    licence_pulled: bool,
+    ctx: &mut GameContext,
+    d: &mut DrivingState,
+    out_of_service_before: i64,
+) {
+    if licence_pulled {
+        return;
+    }
+    let line = d.officer_sees_fatigue(ctx, out_of_service_before);
+    if !line.is_empty() {
+        outcome.push(' ');
+        outcome.push_str(&line);
+    }
+}
+
 // -- TrafficStopState ---------------------------------------------------------------------
 
 const TRAFFIC_STOP_INTRO_HELP: &str = "Enter or Escape pulls back onto the highway.";
@@ -187,8 +207,22 @@ impl TrafficStopState {
         &self.outcome_text
     }
 
-    /// Decide the outcome and apply any ticket immediately.
+    /// Decide the outcome and apply any ticket immediately, then what the
+    /// trooper does about a severely tired driver.
     fn resolve(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
+        let out_of_service_before = d.out_of_service_count;
+        self.resolve_ticket(ctx, d);
+        let pulled = self.licence_pulled(ctx);
+        append_fatigue_order(
+            &mut self.outcome_text,
+            pulled,
+            ctx,
+            d,
+            out_of_service_before,
+        );
+    }
+
+    fn resolve_ticket(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
         let rep = profile_of(ctx).standing();
         let first = d.speeding_tickets == 0;
         // A warning for a first, marginal stop, or for a well-regarded driver
@@ -202,10 +236,18 @@ impl TrafficStopState {
         let over_text = ctx.settings.speed_text(self.over);
         let limit_text = ctx.settings.speed_text(self.limit);
         if warning {
-            self.outcome_text = format!(
-                "{over_text} over the {limit_text} limit. The trooper lets you off with a \
-                 warning."
-            );
+            // "Lets you off" cannot lead into an order to stay parked.
+            self.outcome_text = if d.fatigue_order_due(ctx) {
+                format!(
+                    "{over_text} over the {limit_text} limit. The trooper lets it go with a \
+                     warning."
+                )
+            } else {
+                format!(
+                    "{over_text} over the {limit_text} limit. The trooper lets you off with a \
+                     warning."
+                )
+            };
             return;
         }
         // A prompt, fully-compliant stop earns a small chance the trooper lets
@@ -387,7 +429,22 @@ impl EnforcementStopState {
         &self.outcome_text
     }
 
+    /// Settle the stop, then what the officer does about a severely tired
+    /// driver.
     fn resolve(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
+        let out_of_service_before = d.out_of_service_count;
+        self.resolve_stop(ctx, d);
+        let pulled = self.licence_pulled(ctx);
+        append_fatigue_order(
+            &mut self.outcome_text,
+            pulled,
+            ctx,
+            d,
+            out_of_service_before,
+        );
+    }
+
+    fn resolve_stop(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
         if let Some(level) = self.inspection_level {
             // The stop is the inspection: what it costs comes off the
             // report, and a clean one costs the minutes and nothing else.
@@ -406,7 +463,11 @@ impl EnforcementStopState {
             && !self.inspection_on_stop
         {
             self.fine = 0.0;
-            self.outcome_text = "The officer lets you go with a warning.".to_string();
+            self.outcome_text = if d.fatigue_order_due(ctx) {
+                "The officer lets it go with a warning.".to_string()
+            } else {
+                "The officer lets you go with a warning.".to_string()
+            };
             return;
         }
         d.ticket_fines_paid += self.fine;
@@ -469,7 +530,7 @@ impl EnforcementStopState {
                 )
             } else {
                 format!(
-                    "{why} It is {}. You are rested, and the delivery deadline kept \
+                    "{why} It is {}. The order is served, and the delivery deadline kept \
                      counting.{}",
                     clock_text(d.trip.local_hour()),
                     wake_air_instruction(d)
@@ -480,14 +541,13 @@ impl EnforcementStopState {
         if self.inspection_on_stop {
             // Reuses the same check-in cost the scale itself would have
             // charged -- the driver dodged the lane, not the inspection.
-            advance_rest_clock(
+            advance_on_duty_clock(
                 d,
                 ctx,
                 INSPECTION_MIN,
                 Some("on_duty_not_driving"),
                 "weigh station bypass inspection",
             );
-            hos_mut_of(ctx).on_duty(INSPECTION_MIN);
             self.outcome_text.push_str(&format!(
                 " The skipped scale's full inspection runs here on the shoulder: {} minutes.",
                 fmt_f(INSPECTION_MIN, 0)
@@ -701,14 +761,13 @@ impl FelonyStopState {
         d.trip.truck.throttle = 0.0;
         d.trip.truck.brake = 1.0;
         d.trip.truck.set_parking_brake();
-        advance_rest_clock(
+        advance_on_duty_clock(
             d,
             ctx,
             FAILURE_TO_STOP_PROCESSING_MIN,
             Some("on_duty_not_driving"),
             "felony failure-to-stop enforcement",
         );
-        hos_mut_of(ctx).on_duty(FAILURE_TO_STOP_PROCESSING_MIN);
         profile_mut_of(ctx).store_truck_condition(&d.trip.truck);
         let hours = d.trip.game_minutes / 60.0;
         let market_day = {

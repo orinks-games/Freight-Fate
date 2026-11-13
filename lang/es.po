@@ -4410,6 +4410,10 @@ msgstr "fatigue"
 msgid "tire"
 msgstr "tire"
 
+#. placeholders: {label}
+msgid "The {label} has worn off."
+msgstr "El efecto de {label} se ha pasado."
+
 #. placeholders: {buff_id}, {py_repr_str}
 msgid "buff {buff_id}: unknown group {py_repr_str}"
 msgstr "mejora {buff_id}: grupo desconocido {py_repr_str}"
@@ -4431,6 +4435,10 @@ msgstr "mejora {buff_id}: las mejoras del camión deben ser trip_scoped"
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: no availability (brands or actions)"
 msgstr "mejora {buff_id}: sin disponibilidad (marcas o acciones)"
+
+#. placeholders: {buff_id}
+msgid "buff {buff_id}: only fatigue buffs can be stimulants"
+msgstr ""
 
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: help and purchased speech are required"
@@ -11933,6 +11941,17 @@ msgstr "staffed"
 msgid "tableau"
 msgstr "tableau"
 
+msgid ""
+"The officer warns you about driving this tired. Next time it is an "
+"out-of-service order."
+msgstr ""
+
+msgid "available"
+msgstr "available"
+
+msgid "used"
+msgstr ""
+
 msgid "on duty, not driving"
 msgstr "en servicio, sin conducir"
 
@@ -11965,6 +11984,13 @@ msgstr "atardecer"
 
 msgid "night"
 msgstr "noche"
+
+msgid "About 1 hour of night driving."
+msgstr ""
+
+#. placeholders: {n}
+msgid "About {n} hours of night driving."
+msgstr ""
 
 msgid "status"
 msgstr "status"
@@ -12902,6 +12928,15 @@ msgstr "{f} grados Fahrenheit"
 #. placeholders: {f}
 msgid "{f} degrees Celsius"
 msgstr "{f} grados Celsius"
+
+msgid "The coffee has worn off."
+msgstr ""
+
+msgid "amount"
+msgstr "amount"
+
+msgid "group"
+msgstr "group"
 
 msgid "baffled"
 msgstr "con deflectores"
@@ -14187,9 +14222,6 @@ msgstr "wisconsin"
 
 msgid "Wisconsin 511WI TPIMS"
 msgstr "Wisconsin 511WI TPIMS"
-
-msgid "available"
-msgstr "available"
 
 msgid "address"
 msgstr "address"
@@ -18706,13 +18738,14 @@ msgstr "revisión a pie antes del viaje"
 msgid "Walk-around clean."
 msgstr "Revisión a pie sin problemas."
 
+#. placeholders: {f}
 #. one sentence of a longer line
-msgid "Walk-around done, 15 minutes."
-msgstr "Revisión a pie hecha, 15 minutos."
+msgid "Walk-around done, {f} minutes."
+msgstr "Revisión a pie hecha, {f} minutos."
 
-#. placeholders: {join}
-msgid "Walk-around done, 15 minutes. {join}"
-msgstr "Revisión a pie hecha, 15 minutos. {join}"
+#. placeholders: {f}, {join}
+msgid "Walk-around done, {f} minutes. {join}"
+msgstr ""
 
 msgid "Already rested. Enter again to sleep anyway."
 msgstr "Ya has descansado. Pulsa Enter otra vez para dormir igualmente."
@@ -18901,12 +18934,21 @@ msgstr ""
 msgid "Walk around the truck"
 msgstr "Revisar el camión a pie"
 
+#. one sentence of a longer line
+msgid ""
+"A pre-trip walk-around: what a roadside inspector would find on the tractor."
+msgstr ""
+
+#. placeholders: {f}
 msgid ""
 "A pre-trip walk-around: what a roadside inspector would find on the "
-"tractor. Fifteen minutes on duty."
+"tractor. {f} minutes on duty."
 msgstr ""
-"Una revisión a pie antes del viaje: lo que un inspector en carretera "
-"encontraría en la cabeza tractora. Quince minutos de servicio."
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "{f} minutes on duty."
+msgstr "{f} minutos de servicio."
 
 msgid "Clock, career day, and the conditions outside."
 msgstr "Reloj, día de carrera y las condiciones de fuera."
@@ -18920,8 +18962,10 @@ msgstr "Últimas entradas del registro de horas de servicio."
 msgid "Sleep 10 hours"
 msgstr "Dormir 10 horas"
 
-msgid "Fresh hours of service and zero fatigue. Clock advances 10 hours."
-msgstr "Horas de servicio nuevas y fatiga a cero. El reloj avanza 10 horas."
+msgid ""
+"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+"advances 10 hours."
+msgstr ""
 
 msgid "Save game"
 msgstr "Guardar partida"
@@ -21936,9 +21980,6 @@ msgstr "Al volante. Son las {now}. {engine}"
 msgid "It is {now}."
 msgstr "Son las {now}."
 
-msgid "amount"
-msgstr "amount"
-
 msgid "alertness"
 msgstr ""
 
@@ -24575,6 +24616,48 @@ msgstr "Elige qué quieres informar. Escape cuelga."
 msgid "Dispatch: {message}"
 msgstr "Despacho: {message}"
 
+#. placeholders: {answer}
+msgid "Dispatch: {answer}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Park and sleep."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "This load pays base rate, with no on-time bonus."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Understood."
+msgstr ""
+
+#. placeholders: {deadline_appointment}
+msgid ""
+"Understood. Your appointment moves to {deadline_appointment}. Park and "
+"sleep. This load pays base rate, with no on-time bonus."
+msgstr ""
+
+#. placeholders: {deadline_appointment}
+#. one sentence of a longer line
+msgid "Your appointment moves to {deadline_appointment}."
+msgstr ""
+
+#. placeholders: {count_word}
+msgid ""
+" That is {count_word} rest calls this week. Plan your sleep before you take "
+"the load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Plan your sleep before you take the load."
+msgstr ""
+
+#. placeholders: {count_word}
+#. one sentence of a longer line
+msgid "That is {count_word} rest calls this week."
+msgstr ""
+
 msgid "Report a delay"
 msgstr "Informar de un retraso"
 
@@ -24611,6 +24694,15 @@ msgstr "Informar de un problema con la carga"
 
 msgid "Report the freight's current condition and ask how to proceed."
 msgstr "Informa del estado actual de la carga y pregunta cómo seguir."
+
+msgid "Too tired to drive safely"
+msgstr ""
+
+msgid ""
+"Dispatch moves the appointment so you can sleep, once per load. The load "
+"pays its base rate, with no on-time bonus. A third call inside a week costs "
+"dispatch trust."
+msgstr ""
 
 msgid "leg"
 msgstr "leg"
@@ -29838,6 +29930,26 @@ msgstr "Repostar {f} galones por {grouped} dólares."
 msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
 msgstr "Repostar {f} galones por {grouped} dólares. {margin}"
 
+#. one sentence of a longer line
+msgid "Buys what you can afford if cash is short."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Engine must be off."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Fills the tank at the posted diesel price plus a 35 dollar service fee."
+msgstr ""
+
+#. placeholders: {f}
+msgid ""
+"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+"Buys what you can afford if cash is short. Engine must be off. {f} minutes "
+"on duty."
+msgstr ""
+
 msgid "Shut the engine off before you fuel."
 msgstr "Apaga el motor antes de repostar."
 
@@ -29973,13 +30085,6 @@ msgstr ""
 "El aparcamiento de camiones de {name} está lleno esta noche.{pumps} Son las "
 "{hour}. {current}"
 
-msgid ""
-"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
-"Engine must be off."
-msgstr ""
-"Llena el depósito al precio del diésel anunciado más una tarifa de servicio "
-"de 35 dólares. El motor debe estar apagado."
-
 msgid "Drive on to the next stop"
 msgstr "Seguir hasta la próxima parada"
 
@@ -29991,11 +30096,9 @@ msgid "Motel room: sleep 10 hours for {f} dollars"
 msgstr "Habitación de motel: dormir 10 horas por {f} dólares"
 
 msgid ""
-"A motel near the exit, paid from your own pocket. Legal 10-hour reset, you "
-"wake fresh."
+"A motel near the exit, paid from your own pocket. Legal 10-hour reset, and "
+"sleep takes off 8 points of fatigue an hour."
 msgstr ""
-"Un motel cerca de la salida, pagado de tu bolsillo. Reinicio legal de 10 "
-"horas; te despiertas descansado."
 
 msgid "Park on the shoulder and sleep"
 msgstr "Aparcar en el arcén y dormir"
@@ -30190,19 +30293,10 @@ msgid "Loyalty points, shower credits, and rewards."
 msgstr "Puntos de fidelidad, créditos de ducha y recompensas."
 
 msgid ""
-"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
-"Buys what you can afford if cash is short. Engine must be off."
-msgstr ""
-"Llena el depósito al precio del diésel anunciado más una tarifa de servicio "
-"de 35 dólares. Si vas corto de dinero, compra lo que puedas pagar. El motor "
-"debe estar apagado."
-
-msgid ""
-"Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
+"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
+"off in two hours, and a second coffee before then adds nothing. Does not "
 "satisfy the 30-minute break rule."
 msgstr ""
-"Quince minutos fuera de servicio. El café alivia un poco el cansancio, pero "
-"no cumple la norma de la pausa de 30 minutos."
 
 msgid ""
 "Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
@@ -30220,35 +30314,27 @@ msgid "Sleep {duration_text} more to finish a 10-hour reset"
 msgstr "Dormir {duration_text} más para completar un reinicio de 10 horas"
 
 msgid ""
-"Your rest since you parked counts. Full reset, fresh hours of service and "
-"zero fatigue."
+"Your rest since you parked counts. Full reset and fresh hours of service. "
+"Sleep takes off 8 points of fatigue an hour."
 msgstr ""
-"Cuenta lo que has descansado desde que aparcaste. Reinicio completo, horas "
-"de servicio nuevas y cero cansancio."
 
 msgid ""
-"Full reset, fresh hours of service and zero fatigue. Clock and deadline "
-"advance 10 hours."
+"Full reset and fresh hours of service. Sleep takes off 8 points of fatigue "
+"an hour. Clock and deadline advance 10 hours."
 msgstr ""
-"Reinicio completo, horas de servicio nuevas y cero cansancio. El reloj y el "
-"plazo de entrega avanzan 10 horas."
 
 msgid "Sleep 10 hours in the lot"
 msgstr "Dormir 10 horas en el aparcamiento"
 
 msgid ""
-"A legal 10-hour reset with poor rest, you wake still tired. Clock and "
-"deadline advance 10 hours."
+"A legal 10-hour reset with poor rest: 5 points of fatigue off an hour, "
+"never below 30. Clock and deadline advance 10 hours."
 msgstr ""
-"Un reinicio legal de 10 horas con mal descanso; te despiertas todavía "
-"cansado. El reloj y el plazo de entrega avanzan 10 horas."
 
 msgid ""
-"A real bed, paid from your own pocket. Legal reset, you wake fresh. Clock "
-"and deadline advance 10 hours."
+"A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 "
+"points of fatigue an hour. Clock and deadline advance 10 hours."
 msgstr ""
-"Una cama de verdad, pagada de tu bolsillo. Reinicio legal; te despiertas "
-"descansado. El reloj y el plazo de entrega avanzan 10 horas."
 
 msgid "Use repair service"
 msgstr "Usar el servicio de reparación"
@@ -30335,12 +30421,17 @@ msgstr "{name} está cerrada"
 msgid "The weigh station is closed."
 msgstr "La estación de pesaje está cerrada."
 
+#. one sentence of a longer line
 msgid ""
 "A pre-trip walk-around: what an inspector would find on the tractor and the "
-"trailer. Fifteen minutes on duty."
+"trailer."
 msgstr ""
-"Una revisión a pie antes del viaje: lo que un inspector encontraría en la "
-"cabeza tractora y el remolque. Quince minutos de servicio."
+
+#. placeholders: {f}
+msgid ""
+"A pre-trip walk-around: what an inspector would find on the tractor and the "
+"trailer. {f} minutes on duty."
+msgstr ""
 
 msgid "Save at this stop"
 msgstr "Guardar en esta parada"
@@ -30409,6 +30500,16 @@ msgstr "No cuenta como tu pausa de 30 minutos."
 #. one sentence of a longer line
 msgid "Eases fatigue."
 msgstr "Alivia la fatiga."
+
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
+"count as your 30-minute break. {deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "No lift while the last coffee lasts."
+msgstr ""
 
 msgid "Driving and duty clocks reset. "
 msgstr "Relojes de conducción y de servicio reiniciados. "
@@ -30511,8 +30612,17 @@ msgstr ""
 "Dormiste {duration_text} más, 10 horas seguidas de descanso, y te "
 "despertaste descansado."
 
+#. placeholders: {duration_text}
+msgid ""
+"You slept {duration_text} more, 10 hours of rest in a row, and woke still "
+"tired."
+msgstr ""
+
 msgid "You slept 10 hours and woke rested."
 msgstr "Dormiste 10 horas y te despertaste descansado."
+
+msgid "You slept 10 hours and woke still tired."
+msgstr ""
 
 #. placeholders: {engine_off}, {slept}, {clock_text}
 #. one sentence of a longer line
@@ -30733,9 +30843,6 @@ msgstr "{label} cuesta {buff_price_amount} y tienes {grouped} dólares."
 msgid "label"
 msgstr "label"
 
-msgid "group"
-msgstr "group"
-
 msgid "rate"
 msgstr "rate"
 
@@ -30840,11 +30947,6 @@ msgstr ""
 "Nada que anotar: los neumáticos, los frenos, las luces y el remolque "
 "pasarían."
 
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Walk-around done, {f} minutes."
-msgstr "Revisión a pie hecha, {f} minutos."
-
 #. placeholders: {f}, {body}, {clock_text}, {deadline_text}
 msgid ""
 "Walk-around done, {f} minutes. {body} It is {clock_text}. {deadline_text}"
@@ -30933,11 +31035,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Reweigh within 24 hours is {dollars_and_cents}."
 msgstr "Volver a pesar en 24 horas cuesta {dollars_and_cents}."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "{f} minutes on duty."
-msgstr "{f} minutos de servicio."
 
 #. placeholders: {dollars_and_cents}, {grouped}
 msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
@@ -31085,13 +31182,23 @@ msgid "Enter or Escape pulls back onto the highway."
 msgstr "Enter o Escape te devuelve a la autopista."
 
 #. one sentence of a longer line
-msgid "The trooper lets you off with a warning."
-msgstr "El policía te deja ir con una advertencia."
+msgid "The trooper lets it go with a warning."
+msgstr ""
 
 #. placeholders: {over_text}, {limit_text}
 #. one sentence of a longer line
 msgid "{over_text} over the {limit_text} limit."
 msgstr "{over_text} por encima del límite de {limit_text}."
+
+#. placeholders: {over_text}, {limit_text}
+msgid ""
+"{over_text} over the {limit_text} limit. The trooper lets it go with a "
+"warning."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The trooper lets you off with a warning."
+msgstr "El policía te deja ir con una advertencia."
 
 #. placeholders: {over_text}, {limit_text}
 msgid ""
@@ -31151,6 +31258,9 @@ msgstr "Control de licencia y libro de horas. {outcome} {current}"
 msgid "Pulled over"
 msgstr "Parado por la policía"
 
+msgid "The officer lets it go with a warning."
+msgstr ""
+
 msgid "The officer lets you go with a warning."
 msgstr "El agente te deja ir con una advertencia."
 
@@ -31186,19 +31296,15 @@ msgstr ""
 #. placeholders: {wake_air_instruction}
 #. one sentence of a longer line
 msgid ""
-"You are rested, and the delivery deadline kept "
+"The order is served, and the delivery deadline kept "
 "counting.{wake_air_instruction}"
 msgstr ""
-"Estás descansado, y el plazo de entrega siguió "
-"corriendo.{wake_air_instruction}"
 
 #. placeholders: {why}, {clock_text}, {wake_air_instruction}
 msgid ""
-"{why} It is {clock_text}. You are rested, and the delivery deadline kept "
-"counting.{wake_air_instruction}"
+"{why} It is {clock_text}. The order is served, and the delivery deadline "
+"kept counting.{wake_air_instruction}"
 msgstr ""
-"{why} Son las {clock_text}. Estás descansado, y el plazo de entrega siguió "
-"corriendo.{wake_air_instruction}"
 
 msgid "weigh station bypass inspection"
 msgstr "weigh station bypass inspection"
@@ -32932,10 +33038,6 @@ msgstr "Apartándote al arcén."
 
 msgid "buff"
 msgstr "estímulo"
-
-#. placeholders: {label}
-msgid "The {label} has worn off."
-msgstr "El efecto de {label} se ha pasado."
 
 msgid "Getting drowsy."
 msgstr "Te está entrando sueño."
@@ -37899,21 +38001,42 @@ msgstr ""
 "servicio en marcha."
 
 msgid ""
-"Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
-"warnings by steering or braking. Repeated misses can force you off the road."
+"Fatigue rises faster at night and reduces reaction time. On-duty time at a "
+"stop, such as fueling, a dock or an inspection, builds it at a third of the "
+"driving rate. Respond to nod-off warnings by steering or braking. Repeated "
+"misses can force you off the road."
 msgstr ""
-"La fatiga sube más rápido de noche y alarga el tiempo de reacción. Responde "
-"a los avisos de que te estás quedando dormido girando o frenando. Si los "
-"ignoras varias veces, pueden obligarte a salir de la carretera."
 
 msgid ""
-"Meals and coffee help temporarily. A half-hour meal counts as a break. "
-"Proper sleep clears fatigue. A legal reset with poor rest can leave you "
+"Job details and the departure line say how many hours of a run fall at "
+"night, between 9 PM and 5 AM."
+msgstr ""
+
+msgid ""
+"Fatigue slows work by hand. Fueling, the walk-around, chain work and "
+"pulling into a stop take longer from worn up, and the menus read the longer "
+"minutes."
+msgstr ""
+
+msgid ""
+"An inspection or traffic stop while you are severe ends in a ten-hour "
+"fatigue out-of-service order. On Relaxed pacing the first one is a warning."
+msgstr ""
+
+msgid ""
+"Drowsy or severe on a load, Call dispatch offers Too tired to drive safely "
+"once per load. The appointment moves for a night's sleep and the load pays "
+"its base rate, with no on-time bonus. A third call in a week costs dispatch "
+"trust."
+msgstr ""
+
+msgid ""
+"Meals ease fatigue, and a half-hour meal counts as a break. The lift from "
+"coffee or an energy drink comes back when it wears off, and a second one "
+"before then adds no lift. Proper sleep takes off 8 points of fatigue an "
+"hour, so ten hours clears 80. A legal reset with poor rest can leave you "
 "tired."
 msgstr ""
-"Las comidas y el café ayudan un rato. Una comida de media hora cuenta como "
-"pausa. Dormir bien quita la fatiga. Un reinicio legal con mal descanso "
-"puede dejarte cansado."
 
 msgid ""
 "A stop offers only its listed services. A full parking lot can still sell "
@@ -37924,11 +38047,9 @@ msgstr ""
 "completo pagándolo tú."
 
 msgid ""
-"Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
-"leaves you fully rested."
+"Sleeping 10 hours in the lot gives poor rest: 5 points an hour, never below "
+"30. Ten hours in sleeper parking is proper sleep."
 msgstr ""
-"Dormir 10 horas en el aparcamiento da un descanso pobre. Diez horas en un "
-"estacionamiento con litera te dejan totalmente descansado."
 
 #. placeholders: {control_rest}
 #. one sentence of a longer line
@@ -40994,13 +41115,10 @@ msgid "Energy drink"
 msgstr "Bebida energética"
 
 msgid ""
-"A cold energy drink from the cooler. A small instant lift, and for the next "
-"two hours the miles tire you more slowly. A new drink or meal replaces the "
-"old one. They do not stack."
+"A cold energy drink from the cooler. A small lift, and the miles tire you "
+"more slowly for two hours. The lift wears off with it, and a second coffee "
+"or drink before then adds none. A new drink or meal replaces the old one."
 msgstr ""
-"Una bebida energética fría de la nevera. Un pequeño empujón al instante, y "
-"durante las próximas dos horas las millas te cansan más despacio. Una "
-"bebida o comida nueva sustituye a la anterior. No se acumulan."
 
 msgid ""
 "You down the energy drink. You feel a little sharper, and the next couple "
@@ -41108,15 +41226,11 @@ msgid "Five-cent coffee"
 msgstr "Café de cinco centavos"
 
 msgid ""
-"Wall Drug's famous five-cent coffee. A small instant lift, and for the next "
-"hour and a half the miles tire you a little more slowly. Weaker than an "
-"energy drink. A meal does more. A new drink or meal replaces the old one. "
-"They do not stack."
+"Wall Drug's famous five-cent coffee. A small lift, and the miles tire you a "
+"little more slowly for an hour and a half. The lift wears off with it, and "
+"a second coffee or drink before then adds none. Weaker than an energy "
+"drink. A meal does more."
 msgstr ""
-"El famoso café de cinco centavos de Wall Drug. Un pequeño empujón al "
-"instante, y durante la próxima hora y media las millas te cansan un poco "
-"más despacio. Más flojo que una bebida energética. Una comida hace más. Una "
-"bebida o comida nueva sustituye a la anterior. No se acumulan."
 
 msgid ""
 "You drink the five-cent coffee. You feel a little more awake, and the next "
@@ -42012,6 +42126,41 @@ msgstr "Restos de neumático."
 msgid "Debris."
 msgstr "Escombros."
 
+#~ msgid "Walk-around done, 15 minutes."
+#~ msgstr "Revisión a pie hecha, 15 minutos."
+
+#~ msgid "Walk-around done, 15 minutes. {join}"
+#~ msgstr "Revisión a pie hecha, 15 minutos. {join}"
+
+#~ msgid ""
+#~ "A pre-trip walk-around: what a roadside inspector would find on the "
+#~ "tractor. Fifteen minutes on duty."
+#~ msgstr ""
+#~ "Una revisión a pie antes del viaje: lo que un inspector en carretera "
+#~ "encontraría en la cabeza tractora. Quince minutos de servicio."
+
+#~ msgid ""
+#~ "Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+#~ "Engine must be off."
+#~ msgstr ""
+#~ "Llena el depósito al precio del diésel anunciado más una tarifa de servicio "
+#~ "de 35 dólares. El motor debe estar apagado."
+
+#~ msgid ""
+#~ "Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+#~ "Buys what you can afford if cash is short. Engine must be off."
+#~ msgstr ""
+#~ "Llena el depósito al precio del diésel anunciado más una tarifa de servicio "
+#~ "de 35 dólares. Si vas corto de dinero, compra lo que puedas pagar. El motor "
+#~ "debe estar apagado."
+
+#~ msgid ""
+#~ "A pre-trip walk-around: what an inspector would find on the tractor and the "
+#~ "trailer. Fifteen minutes on duty."
+#~ msgstr ""
+#~ "Una revisión a pie antes del viaje: lo que un inspector encontraría en la "
+#~ "cabeza tractora y el remolque. Quince minutos de servicio."
+
 #~ msgid "The bug report page on GitHub, in your web browser."
 #~ msgstr "La página de informes de errores en GitHub, en tu navegador web."
 
@@ -42042,6 +42191,109 @@ msgstr "Escombros."
 #~ "Ajustes cambia la asistencia a la conducción, el sonido, la voz y los "
 #~ "controles. Informar de un problema abre la página de informes de errores en "
 #~ "tu navegador. Salir cierra el juego."
+
+#~ msgid "Fresh hours of service and zero fatigue. Clock advances 10 hours."
+#~ msgstr "Horas de servicio nuevas y fatiga a cero. El reloj avanza 10 horas."
+
+#~ msgid ""
+#~ "A motel near the exit, paid from your own pocket. Legal 10-hour reset, you "
+#~ "wake fresh."
+#~ msgstr ""
+#~ "Un motel cerca de la salida, pagado de tu bolsillo. Reinicio legal de 10 "
+#~ "horas; te despiertas descansado."
+
+#~ msgid ""
+#~ "Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
+#~ "satisfy the 30-minute break rule."
+#~ msgstr ""
+#~ "Quince minutos fuera de servicio. El café alivia un poco el cansancio, pero "
+#~ "no cumple la norma de la pausa de 30 minutos."
+
+#~ msgid ""
+#~ "Your rest since you parked counts. Full reset, fresh hours of service and "
+#~ "zero fatigue."
+#~ msgstr ""
+#~ "Cuenta lo que has descansado desde que aparcaste. Reinicio completo, horas "
+#~ "de servicio nuevas y cero cansancio."
+
+#~ msgid ""
+#~ "Full reset, fresh hours of service and zero fatigue. Clock and deadline "
+#~ "advance 10 hours."
+#~ msgstr ""
+#~ "Reinicio completo, horas de servicio nuevas y cero cansancio. El reloj y el "
+#~ "plazo de entrega avanzan 10 horas."
+
+#~ msgid ""
+#~ "A legal 10-hour reset with poor rest, you wake still tired. Clock and "
+#~ "deadline advance 10 hours."
+#~ msgstr ""
+#~ "Un reinicio legal de 10 horas con mal descanso; te despiertas todavía "
+#~ "cansado. El reloj y el plazo de entrega avanzan 10 horas."
+
+#~ msgid ""
+#~ "A real bed, paid from your own pocket. Legal reset, you wake fresh. Clock "
+#~ "and deadline advance 10 hours."
+#~ msgstr ""
+#~ "Una cama de verdad, pagada de tu bolsillo. Reinicio legal; te despiertas "
+#~ "descansado. El reloj y el plazo de entrega avanzan 10 horas."
+
+#~ msgid ""
+#~ "You are rested, and the delivery deadline kept "
+#~ "counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "Estás descansado, y el plazo de entrega siguió "
+#~ "corriendo.{wake_air_instruction}"
+
+#~ msgid ""
+#~ "{why} It is {clock_text}. You are rested, and the delivery deadline kept "
+#~ "counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "{why} Son las {clock_text}. Estás descansado, y el plazo de entrega siguió "
+#~ "corriendo.{wake_air_instruction}"
+
+#~ msgid ""
+#~ "Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
+#~ "warnings by steering or braking. Repeated misses can force you off the road."
+#~ msgstr ""
+#~ "La fatiga sube más rápido de noche y alarga el tiempo de reacción. Responde "
+#~ "a los avisos de que te estás quedando dormido girando o frenando. Si los "
+#~ "ignoras varias veces, pueden obligarte a salir de la carretera."
+
+#~ msgid ""
+#~ "Meals and coffee help temporarily. A half-hour meal counts as a break. "
+#~ "Proper sleep clears fatigue. A legal reset with poor rest can leave you "
+#~ "tired."
+#~ msgstr ""
+#~ "Las comidas y el café ayudan un rato. Una comida de media hora cuenta como "
+#~ "pausa. Dormir bien quita la fatiga. Un reinicio legal con mal descanso "
+#~ "puede dejarte cansado."
+
+#~ msgid ""
+#~ "Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
+#~ "leaves you fully rested."
+#~ msgstr ""
+#~ "Dormir 10 horas en el aparcamiento da un descanso pobre. Diez horas en un "
+#~ "estacionamiento con litera te dejan totalmente descansado."
+
+#~ msgid ""
+#~ "A cold energy drink from the cooler. A small instant lift, and for the next "
+#~ "two hours the miles tire you more slowly. A new drink or meal replaces the "
+#~ "old one. They do not stack."
+#~ msgstr ""
+#~ "Una bebida energética fría de la nevera. Un pequeño empujón al instante, y "
+#~ "durante las próximas dos horas las millas te cansan más despacio. Una "
+#~ "bebida o comida nueva sustituye a la anterior. No se acumulan."
+
+#~ msgid ""
+#~ "Wall Drug's famous five-cent coffee. A small instant lift, and for the next "
+#~ "hour and a half the miles tire you a little more slowly. Weaker than an "
+#~ "energy drink. A meal does more. A new drink or meal replaces the old one. "
+#~ "They do not stack."
+#~ msgstr ""
+#~ "El famoso café de cinco centavos de Wall Drug. Un pequeño empujón al "
+#~ "instante, y durante la próxima hora y media las millas te cansan un poco "
+#~ "más despacio. Más flojo que una bebida energética. Una comida hace más. Una "
+#~ "bebida o comida nueva sustituye a la anterior. No se acumulan."
 
 #~ msgid "Fatigue: {fatigue} percent"
 #~ msgstr "Fatiga: {fatigue} por ciento"

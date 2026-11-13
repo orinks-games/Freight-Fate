@@ -141,6 +141,8 @@ impl DrivingState {
             },
         );
         let trip_minutes = self.trip.game_minutes;
+        let pull_in = self.hand_work_min(ctx, STOP_PULL_IN_MIN);
+        crate::states::driving_core::accrue_on_duty_fatigue(self, ctx, pull_in);
         {
             let p = profile_mut_of(ctx);
             // A relayed load's deadhead ended in the shipper's city: the
@@ -153,8 +155,8 @@ impl DrivingState {
             // accrues brake and engine wear, which the flat names do not carry.
             p.store_truck_condition(&self.trip.truck);
             // Rolling to the check-in lane takes time and is on-duty time.
-            p.game_hours += (trip_minutes + STOP_PULL_IN_MIN) / 60.0;
-            p.hos.on_duty(STOP_PULL_IN_MIN);
+            p.game_hours += (trip_minutes + pull_in) / 60.0;
+            p.hos.on_duty(pull_in);
             let day = p.market_day();
             p.market.advance_to(day);
             p.active_trip = Some(Value::Object(snapshot));

@@ -353,6 +353,7 @@ impl DrivingState {
             fatigue_cue_gm: 0.0,
             nod: NodState::default(),
             nod_staged: false,
+            rest_call: RestCall::Available,
             hazard_deadline: None,
             hazard_names: Vec::new(),
             horn_scare_tried: false,

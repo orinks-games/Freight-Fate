@@ -780,10 +780,14 @@ Everything found before 2026-09-25 moved to
       the readouts, no repeated drowsy line after a small lift
       ([fatigue redesign](#november-13-fatigue-bands-and-the-nod-off-found-along-the-way),
       PR 1 of `docs/fatigue-design.md`).
-- [ ] (Found along the way) Fatigue redesign, the rest: the night-hours
-      line, on-duty fatigue, rest by the hour and stimulants as a loan, slow
-      work, the inspection rule, the dispatch rest call
-      (`docs/fatigue-design.md` parts 2 to 7).
+- [x] (Found along the way) On-duty time builds fatigue, sleep clears it
+      by the hour, coffee and energy drinks lend a lift they take back, and
+      the job details and departure line say how much of a run falls at
+      night (PR 2 of `docs/fatigue-design.md`, parts 2, 3 and 5).
+- [x] (Found along the way) Tired work is slow work, an officer orders a
+      severely fatigued driver out of service, and a drowsy driver can call
+      dispatch to move the appointment (PR 3 of `docs/fatigue-design.md`,
+      parts 4, 6 and 7).
 - [x] (Found along the way) Traffic runs at a share of the posted limit,
       towns included; a slow call means the truck is gaining on the vehicle;
       freeway traffic turns off at interchanges (owner, 2026-11-04), and
@@ -3790,7 +3794,9 @@ and the ramp lights were already the truck's.
 ### November 13 fatigue bands and the nod-off (Found along the way)
 
 PR 1 of the fatigue redesign (`docs/fatigue-design.md`, approved by the
-owner 2026-11-11). No new costs; the rest of the design is open below.
+owner 2026-11-11) built the bands and the nod-off with no new costs. PR 2
+(2026-11-13) added parts 2, 3 and 5, and PR 3 (2026-11-13) parts 4, 6
+and 7.
 
 - [x] (Found along the way) **Four fatigue bands.** Rested, worn, drowsy
       and severe, entered at 40, 60 and 80 and left only 5 points under
@@ -3808,18 +3814,67 @@ owner 2026-11-11). No new costs; the rest of the design is open below.
 - [x] (Found along the way) The city terminal judged "slept before it got
       bad" at 70 and a rest stop at 80, for the same achievement. Both
       now use the severe band.
-- [ ] (Found along the way) The night-hours line on the job details and
-      the departure line (design part 3).
-- [ ] (Found along the way) On-duty time that is not driving builds
-      fatigue at a third of the driving rate (part 2).
-- [ ] (Found along the way) Rest by the hour, and stimulants as a loan
-      that comes back when it wears off (part 5).
-- [ ] (Found along the way) Tired work is slow work: fueling, the
-      walk-around and chain work take longer by band (part 4).
-- [ ] (Found along the way) A traffic stop or inspection at severe ends
-      in the fatigue out-of-service order (part 6).
-- [ ] (Found along the way) The dispatch call for rest while drowsy or
-      severe on a load (part 7).
+- [x] (Found along the way) The night-hours line on the job details and
+      the departure line (design part 3): "About 4 hours of night
+      driving.", leaving now and driving straight through on the local
+      clock, nothing for a daytime run. Job details carry it with hours of
+      service off too, where it is the one planning line left.
+- [x] (Found along the way) On-duty time that is not driving builds
+      fatigue at a third of the driving rate (part 2): stopped at the
+      wheel, and every on-duty block at a stop, a dock, a scale, an
+      inspection, a repair or chain work, on the road and in town. The
+      third is assumed tuning.
+- [x] (Found along the way) Rest by the hour, and stimulants as a loan
+      that comes back when it wears off (part 5). Proper sleep and the
+      co-driver's bunk take 8 points an hour, poor sleep 5 down to 30. The
+      coffee break and the energy drink and five-cent coffee lend their
+      lift for two hours (the drinks, their buff's time); a second one
+      before then lifts nothing. The loan rides in the save's buff list,
+      so cloud backups need no new field. Both rates are assumed tuning.
+      A lift that wears off during a sleep comes back silently, since the
+      rest result reads the fatigue; one that wears off in any other stop,
+      or in the loop back after driving past the receiver, comes back on
+      the first moment at the wheel with its line, which waits out a busy
+      voice and is heard before the band cue it causes (agent playtest,
+      2026-11-13).
+- [ ] (Found along the way) Tune the on-duty rate and the sleep rates
+      against real careers after the owner's listening pass (design
+      "Tradeoffs").
+- [x] (Found along the way) Tired work is slow work (part 4): fueling,
+      the walk-around (on the road and at the terminal), chain install,
+      removal, repair and tightening, and pulling into a stop, a pickup or
+      a dock take 10, 25 or 50 percent longer at worn, drowsy and severe
+      (5, 12 and 25 with relaxed pacing), rounded to the minute. Every row,
+      help line and result line that reads those minutes reads the longer
+      figure; the fuel row's help now reads its minutes. Docks, mechanics,
+      shops, officers, scale wave-throughs and buying a chain set keep
+      their times.
+- [x] (Found along the way) An officer can see it (part 6): the scale's
+      inspection lane, a roadside inspection or log check, and a traffic
+      stop at severe end in the fatigue out-of-service order after the
+      stop's own result, never on top of an order the stop already gave,
+      and not with enforcement bypassed. With relaxed pacing the first one
+      in a career is a warning, kept in the career's stats map so cloud
+      backups need no new field.
+- [x] (Found along the way) The dispatch rest call (part 7): "Too tired to
+      drive safely" while drowsy or severe on a load, once per load and
+      not on a team load whose co-driver has hours. The appointment moves
+      by ten hours plus the drive to the nearest stop with parking (10.5
+      hours when none is known), and the load pays its base rate. The
+      third call inside seven days, and each after, costs the same trust
+      as declining a load. The calls are kept in the career's stats map;
+      the spent call rides in the trip save, and the agent server's
+      `status` reports `rest_call`.
+- [ ] (Found along the way) Tune the slow-work percentages, the rest
+      call's fallback 10.5 hours and its two free calls a week against
+      real careers; all are assumed.
+- [ ] (Found along the way) Chain controls and the felony stop do not
+      apply the severe-fatigue order: a chain control speaks on the road
+      without a stop screen, and the felony stop ends the run. Decide
+      whether a chain-control officer should.
+- [ ] (Found along the way) Lane wander for manual steering at drowsy and
+      severe, pending the owner's listening pass of the rest of the
+      redesign (design "Considered and left out").
 
 ### October 26 the road to the 2.0 nightlies (Found along the way)
 

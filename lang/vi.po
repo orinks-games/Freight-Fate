@@ -4533,6 +4533,10 @@ msgstr ""
 msgid "tire"
 msgstr ""
 
+#. placeholders: {label}
+msgid "The {label} has worn off."
+msgstr "Tác dụng của {label} đã hết."
+
 #. placeholders: {buff_id}, {py_repr_str}
 msgid "buff {buff_id}: unknown group {py_repr_str}"
 msgstr ""
@@ -4551,6 +4555,10 @@ msgstr ""
 
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: no availability (brands or actions)"
+msgstr ""
+
+#. placeholders: {buff_id}
+msgid "buff {buff_id}: only fatigue buffs can be stimulants"
 msgstr ""
 
 #. placeholders: {buff_id}
@@ -11931,6 +11939,17 @@ msgstr ""
 msgid "tableau"
 msgstr ""
 
+msgid ""
+"The officer warns you about driving this tired. Next time it is an "
+"out-of-service order."
+msgstr ""
+
+msgid "available"
+msgstr ""
+
+msgid "used"
+msgstr ""
+
 msgid "on duty, not driving"
 msgstr "đang trực, không lái xe"
 
@@ -11963,6 +11982,13 @@ msgstr "chạng vạng"
 
 msgid "night"
 msgstr "ban đêm"
+
+msgid "About 1 hour of night driving."
+msgstr ""
+
+#. placeholders: {n}
+msgid "About {n} hours of night driving."
+msgstr ""
 
 msgid "status"
 msgstr ""
@@ -12898,6 +12924,15 @@ msgstr "{f} độ F"
 #. placeholders: {f}
 msgid "{f} degrees Celsius"
 msgstr "{f} độ C"
+
+msgid "The coffee has worn off."
+msgstr ""
+
+msgid "amount"
+msgstr ""
+
+msgid "group"
+msgstr ""
 
 msgid "baffled"
 msgstr "có vách ngăn"
@@ -14184,9 +14219,6 @@ msgid "wisconsin"
 msgstr ""
 
 msgid "Wisconsin 511WI TPIMS"
-msgstr ""
-
-msgid "available"
 msgstr ""
 
 msgid "address"
@@ -18600,13 +18632,14 @@ msgstr "kiểm tra quanh xe trước chuyến"
 msgid "Walk-around clean."
 msgstr "Kiểm tra quanh xe không có vấn đề gì."
 
+#. placeholders: {f}
 #. one sentence of a longer line
-msgid "Walk-around done, 15 minutes."
-msgstr "Kiểm tra quanh xe xong, mất 15 phút."
+msgid "Walk-around done, {f} minutes."
+msgstr "Kiểm tra quanh xe xong, mất {f} phút."
 
-#. placeholders: {join}
-msgid "Walk-around done, 15 minutes. {join}"
-msgstr "Kiểm tra quanh xe xong, mất 15 phút. {join}"
+#. placeholders: {f}, {join}
+msgid "Walk-around done, {f} minutes. {join}"
+msgstr ""
 
 msgid "Already rested. Enter again to sleep anyway."
 msgstr "Bạn đã nghỉ đủ giấc rồi. Nhấn Enter lần nữa nếu vẫn muốn ngủ."
@@ -18795,12 +18828,21 @@ msgstr ""
 msgid "Walk around the truck"
 msgstr "Kiểm tra quanh xe"
 
+#. one sentence of a longer line
+msgid ""
+"A pre-trip walk-around: what a roadside inspector would find on the tractor."
+msgstr ""
+
+#. placeholders: {f}
 msgid ""
 "A pre-trip walk-around: what a roadside inspector would find on the "
-"tractor. Fifteen minutes on duty."
+"tractor. {f} minutes on duty."
 msgstr ""
-"Kiểm tra quanh xe trước chuyến: xem những gì thanh tra an toàn lưu động có "
-"thể phát hiện trên xe đầu kéo. Mất 15 phút trực ca."
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "{f} minutes on duty."
+msgstr "Mất {f} phút làm việc."
 
 msgid "Clock, career day, and the conditions outside."
 msgstr "Giờ hiện tại, ngày sự nghiệp và thời tiết bên ngoài."
@@ -18814,10 +18856,10 @@ msgstr "Các mục nhật ký hành trình gần đây."
 msgid "Sleep 10 hours"
 msgstr "Ngủ 10 giờ"
 
-msgid "Fresh hours of service and zero fatigue. Clock advances 10 hours."
+msgid ""
+"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+"advances 10 hours."
 msgstr ""
-"Phục hồi hoàn toàn giờ lái quy định và xóa sạch mệt mỏi. Đồng hồ tua nhanh "
-"10 giờ."
 
 msgid "Save game"
 msgstr "Lưu game"
@@ -21784,9 +21826,6 @@ msgstr "Đã ngồi vào ghế lái. Bây giờ là {now}. {engine}"
 msgid "It is {now}."
 msgstr "Bây giờ là {now}."
 
-msgid "amount"
-msgstr ""
-
 msgid "alertness"
 msgstr ""
 
@@ -24401,6 +24440,48 @@ msgstr "Chọn nội dung cần báo cáo. Nhấn Escape để gác máy."
 msgid "Dispatch: {message}"
 msgstr "Điều phối: {message}"
 
+#. placeholders: {answer}
+msgid "Dispatch: {answer}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Park and sleep."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "This load pays base rate, with no on-time bonus."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Understood."
+msgstr ""
+
+#. placeholders: {deadline_appointment}
+msgid ""
+"Understood. Your appointment moves to {deadline_appointment}. Park and "
+"sleep. This load pays base rate, with no on-time bonus."
+msgstr ""
+
+#. placeholders: {deadline_appointment}
+#. one sentence of a longer line
+msgid "Your appointment moves to {deadline_appointment}."
+msgstr ""
+
+#. placeholders: {count_word}
+msgid ""
+" That is {count_word} rest calls this week. Plan your sleep before you take "
+"the load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Plan your sleep before you take the load."
+msgstr ""
+
+#. placeholders: {count_word}
+#. one sentence of a longer line
+msgid "That is {count_word} rest calls this week."
+msgstr ""
+
 msgid "Report a delay"
 msgstr "Báo trễ giờ"
 
@@ -24435,6 +24516,15 @@ msgstr "Báo sự cố hàng hóa"
 
 msgid "Report the freight's current condition and ask how to proceed."
 msgstr "Báo tình trạng hiện tại của hàng hóa và hỏi hướng xử lý tiếp theo."
+
+msgid "Too tired to drive safely"
+msgstr ""
+
+msgid ""
+"Dispatch moves the appointment so you can sleep, once per load. The load "
+"pays its base rate, with no on-time bonus. A third call inside a week costs "
+"dispatch trust."
+msgstr ""
 
 msgid "leg"
 msgstr ""
@@ -29642,6 +29732,26 @@ msgstr "Đổ {f} gallon dầu với giá {grouped} đô la."
 msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
 msgstr "Đổ {f} gallon dầu với giá {grouped} đô la. {margin}"
 
+#. one sentence of a longer line
+msgid "Buys what you can afford if cash is short."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Engine must be off."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Fills the tank at the posted diesel price plus a 35 dollar service fee."
+msgstr ""
+
+#. placeholders: {f}
+msgid ""
+"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+"Buys what you can afford if cash is short. Engine must be off. {f} minutes "
+"on duty."
+msgstr ""
+
 msgid "Shut the engine off before you fuel."
 msgstr "Hãy tắt máy trước khi đổ dầu."
 
@@ -29774,13 +29884,6 @@ msgstr ""
 "Bãi đỗ xe tải tại {name} tối nay đã kín chỗ.{pumps} Bây giờ là {hour}. "
 "{current}"
 
-msgid ""
-"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
-"Engine must be off."
-msgstr ""
-"Đổ đầy bình theo giá dầu niêm yết cộng phí dịch vụ 35 đô la. Phải tắt máy "
-"trước."
-
 msgid "Drive on to the next stop"
 msgstr "Chạy tiếp tới điểm dừng sau"
 
@@ -29792,11 +29895,9 @@ msgid "Motel room: sleep 10 hours for {f} dollars"
 msgstr "Phòng nhà nghỉ: ngủ 10 giờ với giá {f} đô la"
 
 msgid ""
-"A motel near the exit, paid from your own pocket. Legal 10-hour reset, you "
-"wake fresh."
+"A motel near the exit, paid from your own pocket. Legal 10-hour reset, and "
+"sleep takes off 8 points of fatigue an hour."
 msgstr ""
-"Nhà nghỉ gần lối ra, tự trả bằng tiền túi. Nghỉ đủ 10 giờ hợp lệ, tỉnh táo "
-"khi thức dậy."
 
 msgid "Park on the shoulder and sleep"
 msgstr "Đỗ lề đường ngủ tạm"
@@ -29985,18 +30086,10 @@ msgid "Loyalty points, shower credits, and rewards."
 msgstr "Điểm tích lũy, lượt tắm miễn phí và ưu đãi."
 
 msgid ""
-"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
-"Buys what you can afford if cash is short. Engine must be off."
-msgstr ""
-"Đổ đầy bình theo giá dầu niêm yết cộng phí dịch vụ 35 đô la. Nếu thiếu tiền "
-"sẽ đổ tối đa theo số tiền hiện có. Phải tắt máy trước."
-
-msgid ""
-"Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
+"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
+"off in two hours, and a second coffee before then adds nothing. Does not "
 "satisfy the 30-minute break rule."
 msgstr ""
-"Nghỉ ngoài ca 15 phút. Uống cà phê giúp đỡ mệt chút ít, nhưng không tính là "
-"giờ nghỉ 30 phút bắt buộc."
 
 msgid ""
 "Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
@@ -30014,35 +30107,27 @@ msgid "Sleep {duration_text} more to finish a 10-hour reset"
 msgstr "Ngủ thêm {duration_text} để hoàn tất kỳ nghỉ 10 giờ"
 
 msgid ""
-"Your rest since you parked counts. Full reset, fresh hours of service and "
-"zero fatigue."
+"Your rest since you parked counts. Full reset and fresh hours of service. "
+"Sleep takes off 8 points of fatigue an hour."
 msgstr ""
-"Thời gian nghỉ từ lúc bạn đỗ xe vẫn được tính. Đặt lại toàn bộ giờ lái quy "
-"định và hết sạch mệt mỏi."
 
 msgid ""
-"Full reset, fresh hours of service and zero fatigue. Clock and deadline "
-"advance 10 hours."
+"Full reset and fresh hours of service. Sleep takes off 8 points of fatigue "
+"an hour. Clock and deadline advance 10 hours."
 msgstr ""
-"Đặt lại toàn bộ giờ lái quy định và hết sạch mệt mỏi. Đồng hồ và hạn giao "
-"hàng tăng thêm 10 giờ."
 
 msgid "Sleep 10 hours in the lot"
 msgstr "Ngủ 10 giờ ngoài bãi xe"
 
 msgid ""
-"A legal 10-hour reset with poor rest, you wake still tired. Clock and "
-"deadline advance 10 hours."
+"A legal 10-hour reset with poor rest: 5 points of fatigue off an hour, "
+"never below 30. Clock and deadline advance 10 hours."
 msgstr ""
-"Đặt lại hợp lệ 10 giờ nhưng ngủ không ngon giấc, dậy vẫn hơi mệt. Đồng hồ "
-"và hạn giao hàng tăng thêm 10 giờ."
 
 msgid ""
-"A real bed, paid from your own pocket. Legal reset, you wake fresh. Clock "
-"and deadline advance 10 hours."
+"A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 "
+"points of fatigue an hour. Clock and deadline advance 10 hours."
 msgstr ""
-"Giường êm thực sự, tự trả bằng tiền túi. Đặt lại hợp lệ, tỉnh táo khi dậy. "
-"Đồng hồ và hạn giao hàng tăng thêm 10 giờ."
 
 msgid "Use repair service"
 msgstr "Dùng dịch vụ sửa chữa"
@@ -30123,12 +30208,17 @@ msgstr "{name} đang đóng cửa"
 msgid "The weigh station is closed."
 msgstr "Trạm cân đang đóng cửa."
 
+#. one sentence of a longer line
 msgid ""
 "A pre-trip walk-around: what an inspector would find on the tractor and the "
-"trailer. Fifteen minutes on duty."
+"trailer."
 msgstr ""
-"Kiểm tra quanh xe trước chuyến: xem thanh tra có thể bắt lỗi gì ở đầu kéo "
-"và rơ-moóc. Mất 15 phút làm việc."
+
+#. placeholders: {f}
+msgid ""
+"A pre-trip walk-around: what an inspector would find on the tractor and the "
+"trailer. {f} minutes on duty."
+msgstr ""
 
 msgid "Save at this stop"
 msgstr "Lưu hành trình tại điểm dừng này"
@@ -30196,6 +30286,16 @@ msgstr "Không tính vào giờ nghỉ 30 phút."
 #. one sentence of a longer line
 msgid "Eases fatigue."
 msgstr "Giúp giảm mệt mỏi."
+
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
+"count as your 30-minute break. {deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "No lift while the last coffee lasts."
+msgstr ""
 
 msgid "Driving and duty clocks reset. "
 msgstr "Đồng hồ giờ lái và khung giờ làm việc đã được đặt lại. "
@@ -30297,8 +30397,17 @@ msgstr ""
 "Bạn đã ngủ thêm {duration_text}, đủ 10 giờ nghỉ liên tục, và thức dậy tỉnh "
 "táo."
 
+#. placeholders: {duration_text}
+msgid ""
+"You slept {duration_text} more, 10 hours of rest in a row, and woke still "
+"tired."
+msgstr ""
+
 msgid "You slept 10 hours and woke rested."
 msgstr "Bạn đã ngủ đủ 10 giờ và thức dậy tỉnh táo."
+
+msgid "You slept 10 hours and woke still tired."
+msgstr ""
 
 #. placeholders: {engine_off}, {slept}, {clock_text}
 #. one sentence of a longer line
@@ -30511,9 +30620,6 @@ msgstr "{label} giá {buff_price_amount} mà bạn chỉ có {grouped} đô la."
 msgid "label"
 msgstr ""
 
-msgid "group"
-msgstr ""
-
 msgid "rate"
 msgstr ""
 
@@ -30616,11 +30722,6 @@ msgid ""
 "Nothing to write up: tires, brakes, lights and the trailer would all pass."
 msgstr "Không có lỗi gì phải ghi: lốp, phanh, đèn và rơ-moóc đều đạt chuẩn."
 
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Walk-around done, {f} minutes."
-msgstr "Kiểm tra quanh xe xong, mất {f} phút."
-
 #. placeholders: {f}, {body}, {clock_text}, {deadline_text}
 msgid ""
 "Walk-around done, {f} minutes. {body} It is {clock_text}. {deadline_text}"
@@ -30705,11 +30806,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Reweigh within 24 hours is {dollars_and_cents}."
 msgstr "Cân lại trong vòng 24 giờ chỉ hết {dollars_and_cents}."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "{f} minutes on duty."
-msgstr "Mất {f} phút làm việc."
 
 #. placeholders: {dollars_and_cents}, {grouped}
 msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
@@ -30853,13 +30949,23 @@ msgid "Enter or Escape pulls back onto the highway."
 msgstr "Nhấn Enter hoặc Escape để nhập làn trở lại đường cao tốc."
 
 #. one sentence of a longer line
-msgid "The trooper lets you off with a warning."
-msgstr "Cảnh sát tuần tra tha cho bạn và chỉ nhắc nhở."
+msgid "The trooper lets it go with a warning."
+msgstr ""
 
 #. placeholders: {over_text}, {limit_text}
 #. one sentence of a longer line
 msgid "{over_text} over the {limit_text} limit."
 msgstr "Vượt {over_text} so với giới hạn {limit_text}."
+
+#. placeholders: {over_text}, {limit_text}
+msgid ""
+"{over_text} over the {limit_text} limit. The trooper lets it go with a "
+"warning."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The trooper lets you off with a warning."
+msgstr "Cảnh sát tuần tra tha cho bạn và chỉ nhắc nhở."
 
 #. placeholders: {over_text}, {limit_text}
 msgid ""
@@ -30919,6 +31025,9 @@ msgstr "Kiểm tra bằng lái và nhật ký lái xe. {outcome} {current}"
 msgid "Pulled over"
 msgstr "Đang bị cảnh sát dừng xe"
 
+msgid "The officer lets it go with a warning."
+msgstr ""
+
 msgid "The officer lets you go with a warning."
 msgstr "Cảnh sát cho bạn đi và chỉ nhắc nhở."
 
@@ -30953,19 +31062,15 @@ msgstr ""
 #. placeholders: {wake_air_instruction}
 #. one sentence of a longer line
 msgid ""
-"You are rested, and the delivery deadline kept "
+"The order is served, and the delivery deadline kept "
 "counting.{wake_air_instruction}"
 msgstr ""
-"Bạn đã nghỉ đủ sức, và hạn giao hàng vẫn tiếp tục "
-"trôi.{wake_air_instruction}"
 
 #. placeholders: {why}, {clock_text}, {wake_air_instruction}
 msgid ""
-"{why} It is {clock_text}. You are rested, and the delivery deadline kept "
-"counting.{wake_air_instruction}"
+"{why} It is {clock_text}. The order is served, and the delivery deadline "
+"kept counting.{wake_air_instruction}"
 msgstr ""
-"{why} Bây giờ là {clock_text}. Bạn đã nghỉ đủ sức, và hạn giao hàng vẫn "
-"tiếp tục trôi.{wake_air_instruction}"
 
 msgid "weigh station bypass inspection"
 msgstr "kiểm tra do vượt trạm cân"
@@ -32730,10 +32835,6 @@ msgstr "Đang tấp vào lề đường."
 
 msgid "buff"
 msgstr "tăng lực"
-
-#. placeholders: {label}
-msgid "The {label} has worn off."
-msgstr "Tác dụng của {label} đã hết."
 
 msgid "Getting drowsy."
 msgstr "Bắt đầu buồn ngủ."
@@ -37669,21 +37770,42 @@ msgstr ""
 "tiếp tục trôi."
 
 msgid ""
-"Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
-"warnings by steering or braking. Repeated misses can force you off the road."
+"Fatigue rises faster at night and reduces reaction time. On-duty time at a "
+"stop, such as fueling, a dock or an inspection, builds it at a third of the "
+"driving rate. Respond to nod-off warnings by steering or braking. Repeated "
+"misses can force you off the road."
 msgstr ""
-"Cơn buồn ngủ tăng nhanh hơn vào ban đêm và làm chậm phản xạ. Khi có cảnh "
-"báo gật gù, hãy đánh lái hoặc rà phanh để phản hồi. Bỏ qua nhiều lần xe có "
-"thể mất kiểm soát lao khỏi đường."
 
 msgid ""
-"Meals and coffee help temporarily. A half-hour meal counts as a break. "
-"Proper sleep clears fatigue. A legal reset with poor rest can leave you "
+"Job details and the departure line say how many hours of a run fall at "
+"night, between 9 PM and 5 AM."
+msgstr ""
+
+msgid ""
+"Fatigue slows work by hand. Fueling, the walk-around, chain work and "
+"pulling into a stop take longer from worn up, and the menus read the longer "
+"minutes."
+msgstr ""
+
+msgid ""
+"An inspection or traffic stop while you are severe ends in a ten-hour "
+"fatigue out-of-service order. On Relaxed pacing the first one is a warning."
+msgstr ""
+
+msgid ""
+"Drowsy or severe on a load, Call dispatch offers Too tired to drive safely "
+"once per load. The appointment moves for a night's sleep and the load pays "
+"its base rate, with no on-time bonus. A third call in a week costs dispatch "
+"trust."
+msgstr ""
+
+msgid ""
+"Meals ease fatigue, and a half-hour meal counts as a break. The lift from "
+"coffee or an energy drink comes back when it wears off, and a second one "
+"before then adds no lift. Proper sleep takes off 8 points of fatigue an "
+"hour, so ten hours clears 80. A legal reset with poor rest can leave you "
 "tired."
 msgstr ""
-"Ăn uống và uống cà phê chỉ giúp tỉnh táo tạm thời. Bữa ăn nửa tiếng được "
-"tính vào giờ nghỉ 30 phút. Ngủ đàng hoàng mới hết mệt hẳn. Đặt lại giờ hợp "
-"lệ nhưng ngủ không sâu vẫn có thể khiến bạn uể oải."
 
 msgid ""
 "A stop offers only its listed services. A full parking lot can still sell "
@@ -37694,11 +37816,9 @@ msgstr ""
 "vẹn bằng tiền túi của bạn."
 
 msgid ""
-"Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
-"leaves you fully rested."
+"Sleeping 10 hours in the lot gives poor rest: 5 points an hour, never below "
+"30. Ten hours in sleeper parking is proper sleep."
 msgstr ""
-"Ngủ 10 giờ ngoài bãi chung chỉ cho giấc ngủ chập chờn. Mười giờ trong bãi "
-"đỗ giường ngủ giúp bạn phục hồi hoàn toàn."
 
 #. placeholders: {control_rest}
 #. one sentence of a longer line
@@ -40729,13 +40849,10 @@ msgid "Energy drink"
 msgstr "Nước tăng lực"
 
 msgid ""
-"A cold energy drink from the cooler. A small instant lift, and for the next "
-"two hours the miles tire you more slowly. A new drink or meal replaces the "
-"old one. They do not stack."
+"A cold energy drink from the cooler. A small lift, and the miles tire you "
+"more slowly for two hours. The lift wears off with it, and a second coffee "
+"or drink before then adds none. A new drink or meal replaces the old one."
 msgstr ""
-"Lon nước tăng lực ướp lạnh từ tủ mát. Giúp tỉnh táo tức thì một chút, và "
-"trong hai giờ tới đường dài sẽ bớt làm bạn mệt mỏi. Đồ uống hoặc bữa ăn mới "
-"sẽ thay thế món cũ. Chúng không cộng dồn."
 
 msgid ""
 "You down the energy drink. You feel a little sharper, and the next couple "
@@ -40838,15 +40955,11 @@ msgid "Five-cent coffee"
 msgstr "Cà phê giá 5 xu"
 
 msgid ""
-"Wall Drug's famous five-cent coffee. A small instant lift, and for the next "
-"hour and a half the miles tire you a little more slowly. Weaker than an "
-"energy drink. A meal does more. A new drink or meal replaces the old one. "
-"They do not stack."
+"Wall Drug's famous five-cent coffee. A small lift, and the miles tire you a "
+"little more slowly for an hour and a half. The lift wears off with it, and "
+"a second coffee or drink before then adds none. Weaker than an energy "
+"drink. A meal does more."
 msgstr ""
-"Món cà phê 5 xu trứ danh của Wall Drug. Giúp tỉnh táo nhẹ ngay lập tức và "
-"đỡ mệt đôi chút trong một tiếng rưỡi tiếp theo. Tác dụng nhẹ hơn nước tăng "
-"lực. Ăn một bữa sẽ hiệu quả hơn. Đồ uống hoặc bữa ăn mới sẽ thay thế món "
-"cũ. Chúng không cộng dồn."
 
 msgid ""
 "You drink the five-cent coffee. You feel a little more awake, and the next "
@@ -41737,6 +41850,40 @@ msgstr "Mảnh lốp vỡ."
 msgid "Debris."
 msgstr "Mảnh vỡ trên đường."
 
+#~ msgid "Walk-around done, 15 minutes."
+#~ msgstr "Kiểm tra quanh xe xong, mất 15 phút."
+
+#~ msgid "Walk-around done, 15 minutes. {join}"
+#~ msgstr "Kiểm tra quanh xe xong, mất 15 phút. {join}"
+
+#~ msgid ""
+#~ "A pre-trip walk-around: what a roadside inspector would find on the "
+#~ "tractor. Fifteen minutes on duty."
+#~ msgstr ""
+#~ "Kiểm tra quanh xe trước chuyến: xem những gì thanh tra an toàn lưu động có "
+#~ "thể phát hiện trên xe đầu kéo. Mất 15 phút trực ca."
+
+#~ msgid ""
+#~ "Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+#~ "Engine must be off."
+#~ msgstr ""
+#~ "Đổ đầy bình theo giá dầu niêm yết cộng phí dịch vụ 35 đô la. Phải tắt máy "
+#~ "trước."
+
+#~ msgid ""
+#~ "Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+#~ "Buys what you can afford if cash is short. Engine must be off."
+#~ msgstr ""
+#~ "Đổ đầy bình theo giá dầu niêm yết cộng phí dịch vụ 35 đô la. Nếu thiếu tiền "
+#~ "sẽ đổ tối đa theo số tiền hiện có. Phải tắt máy trước."
+
+#~ msgid ""
+#~ "A pre-trip walk-around: what an inspector would find on the tractor and the "
+#~ "trailer. Fifteen minutes on duty."
+#~ msgstr ""
+#~ "Kiểm tra quanh xe trước chuyến: xem thanh tra có thể bắt lỗi gì ở đầu kéo "
+#~ "và rơ-moóc. Mất 15 phút làm việc."
+
 #~ msgid "The bug report page on GitHub, in your web browser."
 #~ msgstr "Mở trang báo lỗi trên GitHub trong trình duyệt web."
 
@@ -41765,6 +41912,111 @@ msgstr "Mảnh vỡ trên đường."
 #~ msgstr ""
 #~ "Cài đặt chỉnh hỗ trợ lái xe, âm thanh, giọng đọc và điều khiển. Báo lỗi mở "
 #~ "trang báo lỗi trên trình duyệt. Thoát sẽ đóng trò chơi."
+
+#~ msgid "Fresh hours of service and zero fatigue. Clock advances 10 hours."
+#~ msgstr ""
+#~ "Phục hồi hoàn toàn giờ lái quy định và xóa sạch mệt mỏi. Đồng hồ tua nhanh "
+#~ "10 giờ."
+
+#~ msgid ""
+#~ "A motel near the exit, paid from your own pocket. Legal 10-hour reset, you "
+#~ "wake fresh."
+#~ msgstr ""
+#~ "Nhà nghỉ gần lối ra, tự trả bằng tiền túi. Nghỉ đủ 10 giờ hợp lệ, tỉnh táo "
+#~ "khi thức dậy."
+
+#~ msgid ""
+#~ "Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
+#~ "satisfy the 30-minute break rule."
+#~ msgstr ""
+#~ "Nghỉ ngoài ca 15 phút. Uống cà phê giúp đỡ mệt chút ít, nhưng không tính là "
+#~ "giờ nghỉ 30 phút bắt buộc."
+
+#~ msgid ""
+#~ "Your rest since you parked counts. Full reset, fresh hours of service and "
+#~ "zero fatigue."
+#~ msgstr ""
+#~ "Thời gian nghỉ từ lúc bạn đỗ xe vẫn được tính. Đặt lại toàn bộ giờ lái quy "
+#~ "định và hết sạch mệt mỏi."
+
+#~ msgid ""
+#~ "Full reset, fresh hours of service and zero fatigue. Clock and deadline "
+#~ "advance 10 hours."
+#~ msgstr ""
+#~ "Đặt lại toàn bộ giờ lái quy định và hết sạch mệt mỏi. Đồng hồ và hạn giao "
+#~ "hàng tăng thêm 10 giờ."
+
+#~ msgid ""
+#~ "A legal 10-hour reset with poor rest, you wake still tired. Clock and "
+#~ "deadline advance 10 hours."
+#~ msgstr ""
+#~ "Đặt lại hợp lệ 10 giờ nhưng ngủ không ngon giấc, dậy vẫn hơi mệt. Đồng hồ "
+#~ "và hạn giao hàng tăng thêm 10 giờ."
+
+#~ msgid ""
+#~ "A real bed, paid from your own pocket. Legal reset, you wake fresh. Clock "
+#~ "and deadline advance 10 hours."
+#~ msgstr ""
+#~ "Giường êm thực sự, tự trả bằng tiền túi. Đặt lại hợp lệ, tỉnh táo khi dậy. "
+#~ "Đồng hồ và hạn giao hàng tăng thêm 10 giờ."
+
+#~ msgid ""
+#~ "You are rested, and the delivery deadline kept "
+#~ "counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "Bạn đã nghỉ đủ sức, và hạn giao hàng vẫn tiếp tục "
+#~ "trôi.{wake_air_instruction}"
+
+#~ msgid ""
+#~ "{why} It is {clock_text}. You are rested, and the delivery deadline kept "
+#~ "counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "{why} Bây giờ là {clock_text}. Bạn đã nghỉ đủ sức, và hạn giao hàng vẫn "
+#~ "tiếp tục trôi.{wake_air_instruction}"
+
+#~ msgid ""
+#~ "Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
+#~ "warnings by steering or braking. Repeated misses can force you off the road."
+#~ msgstr ""
+#~ "Cơn buồn ngủ tăng nhanh hơn vào ban đêm và làm chậm phản xạ. Khi có cảnh "
+#~ "báo gật gù, hãy đánh lái hoặc rà phanh để phản hồi. Bỏ qua nhiều lần xe có "
+#~ "thể mất kiểm soát lao khỏi đường."
+
+#~ msgid ""
+#~ "Meals and coffee help temporarily. A half-hour meal counts as a break. "
+#~ "Proper sleep clears fatigue. A legal reset with poor rest can leave you "
+#~ "tired."
+#~ msgstr ""
+#~ "Ăn uống và uống cà phê chỉ giúp tỉnh táo tạm thời. Bữa ăn nửa tiếng được "
+#~ "tính vào giờ nghỉ 30 phút. Ngủ đàng hoàng mới hết mệt hẳn. Đặt lại giờ hợp "
+#~ "lệ nhưng ngủ không sâu vẫn có thể khiến bạn uể oải."
+
+#~ msgid ""
+#~ "Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
+#~ "leaves you fully rested."
+#~ msgstr ""
+#~ "Ngủ 10 giờ ngoài bãi chung chỉ cho giấc ngủ chập chờn. Mười giờ trong bãi "
+#~ "đỗ giường ngủ giúp bạn phục hồi hoàn toàn."
+
+#~ msgid ""
+#~ "A cold energy drink from the cooler. A small instant lift, and for the next "
+#~ "two hours the miles tire you more slowly. A new drink or meal replaces the "
+#~ "old one. They do not stack."
+#~ msgstr ""
+#~ "Lon nước tăng lực ướp lạnh từ tủ mát. Giúp tỉnh táo tức thì một chút, và "
+#~ "trong hai giờ tới đường dài sẽ bớt làm bạn mệt mỏi. Đồ uống hoặc bữa ăn mới "
+#~ "sẽ thay thế món cũ. Chúng không cộng dồn."
+
+#~ msgid ""
+#~ "Wall Drug's famous five-cent coffee. A small instant lift, and for the next "
+#~ "hour and a half the miles tire you a little more slowly. Weaker than an "
+#~ "energy drink. A meal does more. A new drink or meal replaces the old one. "
+#~ "They do not stack."
+#~ msgstr ""
+#~ "Món cà phê 5 xu trứ danh của Wall Drug. Giúp tỉnh táo nhẹ ngay lập tức và "
+#~ "đỡ mệt đôi chút trong một tiếng rưỡi tiếp theo. Tác dụng nhẹ hơn nước tăng "
+#~ "lực. Ăn một bữa sẽ hiệu quả hơn. Đồ uống hoặc bữa ăn mới sẽ thay thế món "
+#~ "cũ. Chúng không cộng dồn."
 
 #~ msgid "Fatigue: {fatigue} percent"
 #~ msgstr "Mệt mỏi: {fatigue} phần trăm"

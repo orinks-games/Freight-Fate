@@ -3796,6 +3796,10 @@ msgstr "fatigue"
 msgid "tire"
 msgstr "tire"
 
+#. placeholders: {label}
+msgid "The {label} has worn off."
+msgstr "{label}的效果已经消退了。"
+
 #. placeholders: {buff_id}, {py_repr_str}
 msgid "buff {buff_id}: unknown group {py_repr_str}"
 msgstr "增益{buff_id}：未知分组{py_repr_str}"
@@ -3815,6 +3819,10 @@ msgstr "增益{buff_id}：车辆类增益必须是trip_scoped"
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: no availability (brands or actions)"
 msgstr "增益{buff_id}：没有可用来源（品牌或行动）"
+
+#. placeholders: {buff_id}
+msgid "buff {buff_id}: only fatigue buffs can be stimulants"
+msgstr ""
 
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: help and purchased speech are required"
@@ -10538,6 +10546,17 @@ msgstr "staffed"
 msgid "tableau"
 msgstr "tableau"
 
+msgid ""
+"The officer warns you about driving this tired. Next time it is an "
+"out-of-service order."
+msgstr ""
+
+msgid "available"
+msgstr "available"
+
+msgid "used"
+msgstr ""
+
 msgid "on duty, not driving"
 msgstr "当班，未驾驶"
 
@@ -10570,6 +10589,13 @@ msgstr "黄昏"
 
 msgid "night"
 msgstr "夜间"
+
+msgid "About 1 hour of night driving."
+msgstr ""
+
+#. placeholders: {n}
+msgid "About {n} hours of night driving."
+msgstr ""
 
 msgid "status"
 msgstr "status"
@@ -11489,6 +11515,15 @@ msgstr "华氏{f}度"
 #. placeholders: {f}
 msgid "{f} degrees Celsius"
 msgstr "摄氏{f}度"
+
+msgid "The coffee has worn off."
+msgstr ""
+
+msgid "amount"
+msgstr "amount"
+
+msgid "group"
+msgstr "group"
 
 msgid "baffled"
 msgstr "带防波板"
@@ -12750,9 +12785,6 @@ msgstr "wisconsin"
 
 msgid "Wisconsin 511WI TPIMS"
 msgstr "Wisconsin 511WI TPIMS"
-
-msgid "available"
-msgstr "available"
 
 msgid "address"
 msgstr "address"
@@ -16829,13 +16861,14 @@ msgstr "出车前绕车检查"
 msgid "Walk-around clean."
 msgstr "绕车检查未发现问题。"
 
+#. placeholders: {f}
 #. one sentence of a longer line
-msgid "Walk-around done, 15 minutes."
-msgstr "绕车检查完成，用时15分钟。"
+msgid "Walk-around done, {f} minutes."
+msgstr "绕车检查完成，{f}分钟。"
 
-#. placeholders: {join}
-msgid "Walk-around done, 15 minutes. {join}"
-msgstr "绕车检查完成，用时15分钟。{join}"
+#. placeholders: {f}, {join}
+msgid "Walk-around done, {f} minutes. {join}"
+msgstr ""
 
 msgid "Already rested. Enter again to sleep anyway."
 msgstr "已经休息过。仍要睡觉，请再次按Enter。"
@@ -16999,10 +17032,21 @@ msgstr "指派情况、资格、燃油、车况、磨损、污垢和防滑链。
 msgid "Walk around the truck"
 msgstr "绕车检查"
 
+#. one sentence of a longer line
+msgid ""
+"A pre-trip walk-around: what a roadside inspector would find on the tractor."
+msgstr ""
+
+#. placeholders: {f}
 msgid ""
 "A pre-trip walk-around: what a roadside inspector would find on the "
-"tractor. Fifteen minutes on duty."
-msgstr "出车前绕车检查：看看路检警官会在牵引车上发现什么。值班十五分钟。"
+"tractor. {f} minutes on duty."
+msgstr ""
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "{f} minutes on duty."
+msgstr "值班{f}分钟。"
 
 msgid "Clock, career day, and the conditions outside."
 msgstr "时钟、职业天数和外面的天气状况。"
@@ -17016,8 +17060,10 @@ msgstr "最近的值班状态记录条目。"
 msgid "Sleep 10 hours"
 msgstr "睡10小时"
 
-msgid "Fresh hours of service and zero fatigue. Clock advances 10 hours."
-msgstr "驾驶工时恢复满额，疲劳归零。时钟前进10小时。"
+msgid ""
+"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+"advances 10 hours."
+msgstr ""
 
 msgid "Save game"
 msgstr "保存游戏"
@@ -19696,9 +19742,6 @@ msgstr "在驾驶座上。现在是{now}。{engine}"
 msgid "It is {now}."
 msgstr "现在是{now}。"
 
-msgid "amount"
-msgstr "amount"
-
 msgid "alertness"
 msgstr ""
 
@@ -22065,6 +22108,48 @@ msgstr "选择你要报告的情况。Escape挂断。"
 msgid "Dispatch: {message}"
 msgstr "调度：{message}"
 
+#. placeholders: {answer}
+msgid "Dispatch: {answer}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Park and sleep."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "This load pays base rate, with no on-time bonus."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Understood."
+msgstr ""
+
+#. placeholders: {deadline_appointment}
+msgid ""
+"Understood. Your appointment moves to {deadline_appointment}. Park and "
+"sleep. This load pays base rate, with no on-time bonus."
+msgstr ""
+
+#. placeholders: {deadline_appointment}
+#. one sentence of a longer line
+msgid "Your appointment moves to {deadline_appointment}."
+msgstr ""
+
+#. placeholders: {count_word}
+msgid ""
+" That is {count_word} rest calls this week. Plan your sleep before you take "
+"the load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Plan your sleep before you take the load."
+msgstr ""
+
+#. placeholders: {count_word}
+#. one sentence of a longer line
+msgid "That is {count_word} rest calls this week."
+msgstr ""
+
 msgid "Report a delay"
 msgstr "报告延误"
 
@@ -22096,6 +22181,15 @@ msgstr "报告货物问题"
 
 msgid "Report the freight's current condition and ask how to proceed."
 msgstr "报告货物当前的状况，询问接下来怎么办。"
+
+msgid "Too tired to drive safely"
+msgstr ""
+
+msgid ""
+"Dispatch moves the appointment so you can sleep, once per load. The load "
+"pays its base rate, with no on-time bonus. A third call inside a week costs "
+"dispatch trust."
+msgstr ""
 
 msgid "leg"
 msgstr "leg"
@@ -26916,6 +27010,26 @@ msgstr "加{f}加仑，{grouped}美元。"
 msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
 msgstr "加{f}加仑，{grouped}美元。{margin}"
 
+#. one sentence of a longer line
+msgid "Buys what you can afford if cash is short."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Engine must be off."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Fills the tank at the posted diesel price plus a 35 dollar service fee."
+msgstr ""
+
+#. placeholders: {f}
+msgid ""
+"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+"Buys what you can afford if cash is short. Engine must be off. {f} minutes "
+"on duty."
+msgstr ""
+
 msgid "Shut the engine off before you fuel."
 msgstr "加油前先关掉发动机。"
 
@@ -27040,11 +27154,6 @@ msgid ""
 "The truck parking at {name} is full tonight.{pumps} It is {hour}. {current}"
 msgstr "{name}的卡车停车位今晚满了。{pumps}现在是{hour}。{current}"
 
-msgid ""
-"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
-"Engine must be off."
-msgstr "按照公布的柴油价格加 35 美元的服务费。发动机必须关闭。"
-
 msgid "Drive on to the next stop"
 msgstr "继续开往下一个停靠点"
 
@@ -27056,9 +27165,9 @@ msgid "Motel room: sleep 10 hours for {f} dollars"
 msgstr "汽车旅馆房间：睡10小时，{f}美元"
 
 msgid ""
-"A motel near the exit, paid from your own pocket. Legal 10-hour reset, you "
-"wake fresh."
-msgstr "出口附近的一家汽车旅馆，自己掏钱。合法的10小时重置，醒来精神饱满。"
+"A motel near the exit, paid from your own pocket. Legal 10-hour reset, and "
+"sleep takes off 8 points of fatigue an hour."
+msgstr ""
 
 msgid "Park on the shoulder and sleep"
 msgstr "停在路肩上睡觉"
@@ -27233,14 +27342,10 @@ msgid "Loyalty points, shower credits, and rewards."
 msgstr "会员积分、淋浴券和奖励。"
 
 msgid ""
-"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
-"Buys what you can afford if cash is short. Engine must be off."
-msgstr "按照公布的柴油价格加 35 美元的服务费。如果现金短缺，就买你能买得起的东西。发动机必须关闭。"
-
-msgid ""
-"Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
+"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
+"off in two hours, and a second coffee before then adds nothing. Does not "
 "satisfy the 30-minute break rule."
-msgstr "下班十五分钟。咖啡能稍微缓解疲劳，但不满足30分钟中途休息规定。"
+msgstr ""
 
 msgid ""
 "Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
@@ -27256,27 +27361,27 @@ msgid "Sleep {duration_text} more to finish a 10-hour reset"
 msgstr "再睡{duration_text}，完成10小时重置"
 
 msgid ""
-"Your rest since you parked counts. Full reset, fresh hours of service and "
-"zero fatigue."
-msgstr "你停车以来的休息都算数。完全重置，驾驶工时全新，疲劳归零。"
+"Your rest since you parked counts. Full reset and fresh hours of service. "
+"Sleep takes off 8 points of fatigue an hour."
+msgstr ""
 
 msgid ""
-"Full reset, fresh hours of service and zero fatigue. Clock and deadline "
-"advance 10 hours."
-msgstr "完全重置，驾驶工时全新，疲劳归零。时钟和截止时间前进10小时。"
+"Full reset and fresh hours of service. Sleep takes off 8 points of fatigue "
+"an hour. Clock and deadline advance 10 hours."
+msgstr ""
 
 msgid "Sleep 10 hours in the lot"
 msgstr "在停车场睡10小时"
 
 msgid ""
-"A legal 10-hour reset with poor rest, you wake still tired. Clock and "
-"deadline advance 10 hours."
-msgstr "合法的10小时重置，但休息不好，醒来还是累。时钟和截止时间前进10小时。"
+"A legal 10-hour reset with poor rest: 5 points of fatigue off an hour, "
+"never below 30. Clock and deadline advance 10 hours."
+msgstr ""
 
 msgid ""
-"A real bed, paid from your own pocket. Legal reset, you wake fresh. Clock "
-"and deadline advance 10 hours."
-msgstr "一张真正的床，自己掏钱。合法重置，醒来精神饱满。时钟和截止时间前进10小时。"
+"A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 "
+"points of fatigue an hour. Clock and deadline advance 10 hours."
+msgstr ""
 
 msgid "Use repair service"
 msgstr "使用维修服务"
@@ -27350,10 +27455,17 @@ msgstr "{name}已关闭"
 msgid "The weigh station is closed."
 msgstr "称重站关闭了。"
 
+#. one sentence of a longer line
 msgid ""
 "A pre-trip walk-around: what an inspector would find on the tractor and the "
-"trailer. Fifteen minutes on duty."
-msgstr "出车前绕车检查：看看检查员会在牵引车和挂车上发现什么。值班十五分钟。"
+"trailer."
+msgstr ""
+
+#. placeholders: {f}
+msgid ""
+"A pre-trip walk-around: what an inspector would find on the tractor and the "
+"trailer. {f} minutes on duty."
+msgstr ""
 
 msgid "Save at this stop"
 msgstr "在这个停靠点存档"
@@ -27413,6 +27525,16 @@ msgstr "不计入你的 30 分钟休息时间。"
 #. one sentence of a longer line
 msgid "Eases fatigue."
 msgstr "缓解疲劳。"
+
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
+"count as your 30-minute break. {deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "No lift while the last coffee lasts."
+msgstr ""
 
 msgid "Driving and duty clocks reset. "
 msgstr "驾驶和值班时钟重置。"
@@ -27502,8 +27624,17 @@ msgid ""
 "You slept {duration_text} more, 10 hours of rest in a row, and woke rested."
 msgstr "你又睡了{duration_text}，连续休息了10小时，醒来精神饱满。"
 
+#. placeholders: {duration_text}
+msgid ""
+"You slept {duration_text} more, 10 hours of rest in a row, and woke still "
+"tired."
+msgstr ""
+
 msgid "You slept 10 hours and woke rested."
 msgstr "你睡了10小时，醒来精神饱满。"
+
+msgid "You slept 10 hours and woke still tired."
+msgstr ""
 
 #. placeholders: {engine_off}, {slept}, {clock_text}
 #. one sentence of a longer line
@@ -27698,9 +27829,6 @@ msgstr "{label}要{buff_price_amount}，你有{grouped}美元。"
 msgid "label"
 msgstr "label"
 
-msgid "group"
-msgstr "group"
-
 msgid "rate"
 msgstr "rate"
 
@@ -27795,11 +27923,6 @@ msgid ""
 "Nothing to write up: tires, brakes, lights and the trailer would all pass."
 msgstr "没有要记录的问题：轮胎、刹车、车灯和挂车都能过关。"
 
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Walk-around done, {f} minutes."
-msgstr "绕车检查完成，{f}分钟。"
-
 #. placeholders: {f}, {body}, {clock_text}, {deadline_text}
 msgid ""
 "Walk-around done, {f} minutes. {body} It is {clock_text}. {deadline_text}"
@@ -27878,11 +28001,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Reweigh within 24 hours is {dollars_and_cents}."
 msgstr "24小时内重新称重为{dollars_and_cents}。"
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "{f} minutes on duty."
-msgstr "值班{f}分钟。"
 
 #. placeholders: {dollars_and_cents}, {grouped}
 msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
@@ -28012,13 +28130,23 @@ msgid "Enter or Escape pulls back onto the highway."
 msgstr "Enter或Escape开回公路上。"
 
 #. one sentence of a longer line
-msgid "The trooper lets you off with a warning."
-msgstr "州警给了你一个警告就放你走了。"
+msgid "The trooper lets it go with a warning."
+msgstr ""
 
 #. placeholders: {over_text}, {limit_text}
 #. one sentence of a longer line
 msgid "{over_text} over the {limit_text} limit."
 msgstr "超过{limit_text}限速{over_text}。"
+
+#. placeholders: {over_text}, {limit_text}
+msgid ""
+"{over_text} over the {limit_text} limit. The trooper lets it go with a "
+"warning."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The trooper lets you off with a warning."
+msgstr "州警给了你一个警告就放你走了。"
 
 #. placeholders: {over_text}, {limit_text}
 msgid ""
@@ -28070,6 +28198,9 @@ msgstr "驾照和行车日志检查。{outcome} {current}"
 msgid "Pulled over"
 msgstr "被拦停"
 
+msgid "The officer lets it go with a warning."
+msgstr ""
+
 msgid "The officer lets you go with a warning."
 msgstr "警员给了你一个警告就放你走了。"
 
@@ -28099,15 +28230,15 @@ msgstr "{why} 现在是{clock_text}。30分钟休息已完成，送货期限仍�
 #. placeholders: {wake_air_instruction}
 #. one sentence of a longer line
 msgid ""
-"You are rested, and the delivery deadline kept "
+"The order is served, and the delivery deadline kept "
 "counting.{wake_air_instruction}"
-msgstr "你已休息好，送货期限仍在计时。{wake_air_instruction}"
+msgstr ""
 
 #. placeholders: {why}, {clock_text}, {wake_air_instruction}
 msgid ""
-"{why} It is {clock_text}. You are rested, and the delivery deadline kept "
-"counting.{wake_air_instruction}"
-msgstr "{why} 现在是{clock_text}。你已休息好，送货期限仍在计时。{wake_air_instruction}"
+"{why} It is {clock_text}. The order is served, and the delivery deadline "
+"kept counting.{wake_air_instruction}"
+msgstr ""
 
 msgid "weigh station bypass inspection"
 msgstr "绕过称重站的检查"
@@ -29698,10 +29829,6 @@ msgstr "正靠边停到路肩上。"
 
 msgid "buff"
 msgstr "buff"
-
-#. placeholders: {label}
-msgid "The {label} has worn off."
-msgstr "{label}的效果已经消退了。"
 
 msgid "Getting drowsy."
 msgstr "开始犯困了。"
@@ -33926,15 +34053,42 @@ msgid "A nap that is not part of a split leaves the duty window running."
 msgstr "不属于分段休息的小睡会让当班时段继续计时。"
 
 msgid ""
-"Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
-"warnings by steering or braking. Repeated misses can force you off the road."
-msgstr "夜里疲劳上升得更快，并会降低反应速度。收到打瞌睡警告时，要转向或刹车回应。反复错过可能会让你被迫离开道路。"
+"Fatigue rises faster at night and reduces reaction time. On-duty time at a "
+"stop, such as fueling, a dock or an inspection, builds it at a third of the "
+"driving rate. Respond to nod-off warnings by steering or braking. Repeated "
+"misses can force you off the road."
+msgstr ""
 
 msgid ""
-"Meals and coffee help temporarily. A half-hour meal counts as a break. "
-"Proper sleep clears fatigue. A legal reset with poor rest can leave you "
+"Job details and the departure line say how many hours of a run fall at "
+"night, between 9 PM and 5 AM."
+msgstr ""
+
+msgid ""
+"Fatigue slows work by hand. Fueling, the walk-around, chain work and "
+"pulling into a stop take longer from worn up, and the menus read the longer "
+"minutes."
+msgstr ""
+
+msgid ""
+"An inspection or traffic stop while you are severe ends in a ten-hour "
+"fatigue out-of-service order. On Relaxed pacing the first one is a warning."
+msgstr ""
+
+msgid ""
+"Drowsy or severe on a load, Call dispatch offers Too tired to drive safely "
+"once per load. The appointment moves for a night's sleep and the load pays "
+"its base rate, with no on-time bonus. A third call in a week costs dispatch "
+"trust."
+msgstr ""
+
+msgid ""
+"Meals ease fatigue, and a half-hour meal counts as a break. The lift from "
+"coffee or an energy drink comes back when it wears off, and a second one "
+"before then adds no lift. Proper sleep takes off 8 points of fatigue an "
+"hour, so ten hours clears 80. A legal reset with poor rest can leave you "
 "tired."
-msgstr "吃饭和咖啡只能暂时帮忙。半小时的用餐算作一次中途休息。好好睡一觉才能消除疲劳。合法重置但休息不好，你可能仍然疲惫。"
+msgstr ""
 
 msgid ""
 "A stop offers only its listed services. A full parking lot can still sell "
@@ -33942,9 +34096,9 @@ msgid ""
 msgstr "停靠点只提供列出的服务。停车场满了也可能还在卖柴油。汽车旅馆可能提供完整休息，但要你自己付钱。"
 
 msgid ""
-"Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
-"leaves you fully rested."
-msgstr "在停车场睡 10 小时休息不好。在带卧铺的停车场睡十小时能完全休息好。"
+"Sleeping 10 hours in the lot gives poor rest: 5 points an hour, never below "
+"30. Ten hours in sleeper parking is proper sleep."
+msgstr ""
 
 #. placeholders: {control_rest}
 #. one sentence of a longer line
@@ -36515,10 +36669,10 @@ msgid "Energy drink"
 msgstr "能量饮料"
 
 msgid ""
-"A cold energy drink from the cooler. A small instant lift, and for the next "
-"two hours the miles tire you more slowly. A new drink or meal replaces the "
-"old one. They do not stack."
-msgstr "冷柜里拿的一罐冰镇能量饮料。立刻提一点神，接下来两小时里，开车没那么容易累。新的饮料或餐食会替换掉之前的效果。它们不能叠加。"
+"A cold energy drink from the cooler. A small lift, and the miles tire you "
+"more slowly for two hours. The lift wears off with it, and a second coffee "
+"or drink before then adds none. A new drink or meal replaces the old one."
+msgstr ""
 
 msgid ""
 "You down the energy drink. You feel a little sharper, and the next couple "
@@ -36601,14 +36755,11 @@ msgid "Five-cent coffee"
 msgstr "五分钱咖啡"
 
 msgid ""
-"Wall Drug's famous five-cent coffee. A small instant lift, and for the next "
-"hour and a half the miles tire you a little more slowly. Weaker than an "
-"energy drink. A meal does more. A new drink or meal replaces the old one. "
-"They do not stack."
+"Wall Drug's famous five-cent coffee. A small lift, and the miles tire you a "
+"little more slowly for an hour and a half. The lift wears off with it, and "
+"a second coffee or drink before then adds none. Weaker than an energy "
+"drink. A meal does more."
 msgstr ""
-"Wall "
-"Drug有名的五分钱咖啡。立刻提一点神，接下来一个半小时里，开车稍微没那么容易累。效果比能量饮料弱。一顿饭效果更好。新的饮料或餐食会替换掉之前的效果。它"
-"们不能叠加。"
 
 msgid ""
 "You drink the five-cent coffee. You feel a little more awake, and the next "
@@ -37471,6 +37622,32 @@ msgstr "轮胎碎片。"
 msgid "Debris."
 msgstr "杂物。"
 
+#~ msgid "Walk-around done, 15 minutes."
+#~ msgstr "绕车检查完成，用时15分钟。"
+
+#~ msgid "Walk-around done, 15 minutes. {join}"
+#~ msgstr "绕车检查完成，用时15分钟。{join}"
+
+#~ msgid ""
+#~ "A pre-trip walk-around: what a roadside inspector would find on the "
+#~ "tractor. Fifteen minutes on duty."
+#~ msgstr "出车前绕车检查：看看路检警官会在牵引车上发现什么。值班十五分钟。"
+
+#~ msgid ""
+#~ "Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+#~ "Engine must be off."
+#~ msgstr "按照公布的柴油价格加 35 美元的服务费。发动机必须关闭。"
+
+#~ msgid ""
+#~ "Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+#~ "Buys what you can afford if cash is short. Engine must be off."
+#~ msgstr "按照公布的柴油价格加 35 美元的服务费。如果现金短缺，就买你能买得起的东西。发动机必须关闭。"
+
+#~ msgid ""
+#~ "A pre-trip walk-around: what an inspector would find on the tractor and the "
+#~ "trailer. Fifteen minutes on duty."
+#~ msgstr "出车前绕车检查：看看检查员会在牵引车和挂车上发现什么。值班十五分钟。"
+
 #~ msgid "The bug report page on GitHub, in your web browser."
 #~ msgstr "在你的网页浏览器里打开GitHub上的错误报告页面。"
 
@@ -37492,6 +37669,81 @@ msgstr "杂物。"
 #~ "Settings changes driving assistance, sound, speech, and controls. Report a "
 #~ "problem opens the bug-report page in your browser. Quit closes the game."
 #~ msgstr "“设置”可以更改驾驶辅助、声音、语音和操作。“报告问题”会在浏览器中打开错误报告页面。“退出”会关闭游戏。"
+
+#~ msgid "Fresh hours of service and zero fatigue. Clock advances 10 hours."
+#~ msgstr "驾驶工时恢复满额，疲劳归零。时钟前进10小时。"
+
+#~ msgid ""
+#~ "A motel near the exit, paid from your own pocket. Legal 10-hour reset, you "
+#~ "wake fresh."
+#~ msgstr "出口附近的一家汽车旅馆，自己掏钱。合法的10小时重置，醒来精神饱满。"
+
+#~ msgid ""
+#~ "Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
+#~ "satisfy the 30-minute break rule."
+#~ msgstr "下班十五分钟。咖啡能稍微缓解疲劳，但不满足30分钟中途休息规定。"
+
+#~ msgid ""
+#~ "Your rest since you parked counts. Full reset, fresh hours of service and "
+#~ "zero fatigue."
+#~ msgstr "你停车以来的休息都算数。完全重置，驾驶工时全新，疲劳归零。"
+
+#~ msgid ""
+#~ "Full reset, fresh hours of service and zero fatigue. Clock and deadline "
+#~ "advance 10 hours."
+#~ msgstr "完全重置，驾驶工时全新，疲劳归零。时钟和截止时间前进10小时。"
+
+#~ msgid ""
+#~ "A legal 10-hour reset with poor rest, you wake still tired. Clock and "
+#~ "deadline advance 10 hours."
+#~ msgstr "合法的10小时重置，但休息不好，醒来还是累。时钟和截止时间前进10小时。"
+
+#~ msgid ""
+#~ "A real bed, paid from your own pocket. Legal reset, you wake fresh. Clock "
+#~ "and deadline advance 10 hours."
+#~ msgstr "一张真正的床，自己掏钱。合法重置，醒来精神饱满。时钟和截止时间前进10小时。"
+
+#~ msgid ""
+#~ "You are rested, and the delivery deadline kept "
+#~ "counting.{wake_air_instruction}"
+#~ msgstr "你已休息好，送货期限仍在计时。{wake_air_instruction}"
+
+#~ msgid ""
+#~ "{why} It is {clock_text}. You are rested, and the delivery deadline kept "
+#~ "counting.{wake_air_instruction}"
+#~ msgstr "{why} 现在是{clock_text}。你已休息好，送货期限仍在计时。{wake_air_instruction}"
+
+#~ msgid ""
+#~ "Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
+#~ "warnings by steering or braking. Repeated misses can force you off the road."
+#~ msgstr "夜里疲劳上升得更快，并会降低反应速度。收到打瞌睡警告时，要转向或刹车回应。反复错过可能会让你被迫离开道路。"
+
+#~ msgid ""
+#~ "Meals and coffee help temporarily. A half-hour meal counts as a break. "
+#~ "Proper sleep clears fatigue. A legal reset with poor rest can leave you "
+#~ "tired."
+#~ msgstr "吃饭和咖啡只能暂时帮忙。半小时的用餐算作一次中途休息。好好睡一觉才能消除疲劳。合法重置但休息不好，你可能仍然疲惫。"
+
+#~ msgid ""
+#~ "Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
+#~ "leaves you fully rested."
+#~ msgstr "在停车场睡 10 小时休息不好。在带卧铺的停车场睡十小时能完全休息好。"
+
+#~ msgid ""
+#~ "A cold energy drink from the cooler. A small instant lift, and for the next "
+#~ "two hours the miles tire you more slowly. A new drink or meal replaces the "
+#~ "old one. They do not stack."
+#~ msgstr "冷柜里拿的一罐冰镇能量饮料。立刻提一点神，接下来两小时里，开车没那么容易累。新的饮料或餐食会替换掉之前的效果。它们不能叠加。"
+
+#~ msgid ""
+#~ "Wall Drug's famous five-cent coffee. A small instant lift, and for the next "
+#~ "hour and a half the miles tire you a little more slowly. Weaker than an "
+#~ "energy drink. A meal does more. A new drink or meal replaces the old one. "
+#~ "They do not stack."
+#~ msgstr ""
+#~ "Wall "
+#~ "Drug有名的五分钱咖啡。立刻提一点神，接下来一个半小时里，开车稍微没那么容易累。效果比能量饮料弱。一顿饭效果更好。新的饮料或餐食会替换掉之前的效果。它"
+#~ "们不能叠加。"
 
 #~ msgid "Fatigue: {fatigue} percent"
 #~ msgstr "疲劳度：百分之{fatigue}"

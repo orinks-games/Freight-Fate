@@ -242,6 +242,10 @@ pub struct DrivingObservation {
     pub alertness: ff_core::sim::alertness::Alertness,
     /// The nod-off machine: where it stands, its timer and the misses.
     pub nod: ff_core::sim::alertness::NodState,
+    /// A coffee or drink's lift owed back, and the game hours until it is.
+    pub lift_owed: Option<(f64, f64)>,
+    /// This load's rest call to dispatch; `None` with no load on.
+    pub rest_call: Option<ff_core::sim::fatigue_costs::RestCall>,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -810,6 +814,17 @@ impl App {
             keeper_mph: drive.keeper_mph,
             alertness: drive.alertness,
             nod: drive.nod,
+            lift_owed: self
+                .ctx
+                .profile
+                .as_ref()
+                .and_then(|p| match p.stimulant_loan() {
+                    ff_core::sim::stimulant::Loan::Open { amount, due_h, .. } => {
+                        Some((amount, due_h - drive.absolute_game_hour(&self.ctx, None)))
+                    }
+                    ff_core::sim::stimulant::Loan::Clear => None,
+                }),
+            rest_call: drive.rest_call_state(),
         })
     }
 

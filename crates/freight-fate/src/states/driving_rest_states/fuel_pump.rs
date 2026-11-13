@@ -18,8 +18,7 @@ use crate::app::GameContext;
 use crate::states::base::Menu;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, hos_mut_of, player_pays_operating_costs, profile_mut_of, profile_of,
-    FUEL_STOP_MIN,
+    advance_on_duty_clock, player_pays_operating_costs, profile_mut_of, profile_of, FUEL_STOP_MIN,
 };
 use crate::states::driving_menu_states::DriveRef;
 
@@ -65,6 +64,15 @@ pub trait FuelPump: Menu {
         )
     }
 
+    /// The fuel row's help: what it costs, and the minutes it takes now.
+    fn fuel_help(&self, ctx: &GameContext, d: &DrivingState) -> String {
+        format!(
+            "Fills the tank at the posted diesel price plus a 35 dollar service fee. Buys what \
+             you can afford if cash is short. Engine must be off. {} minutes on duty.",
+            fmt_f(d.hand_work_min(ctx, FUEL_STOP_MIN), 0)
+        )
+    }
+
     fn refuel(&mut self, ctx: &mut GameContext) {
         let Some((mut need, region, engine_on)) = self.drive().with(ctx, |d, _| {
             (
@@ -104,15 +112,17 @@ pub trait FuelPump: Menu {
             }
             profile_mut_of(ctx).spend(cost);
         }
-        let margin_kg = self.drive().clone().with(ctx, |d, ctx| {
+        let done = self.drive().clone().with(ctx, |d, ctx| {
             d.trip.truck.refuel(Some(need));
             // free showers with fuel
             d.stop_visit(&stop).fueled = true;
-            advance_rest_clock(d, ctx, FUEL_STOP_MIN, None, "");
-            hos_mut_of(ctx).on_duty(FUEL_STOP_MIN);
-            d.trip.truck.gross_weight_margin_kg()
+            // Tired hands are slow ones: the band as the work starts.
+            let minutes = d.hand_work_min(ctx, FUEL_STOP_MIN);
+            advance_on_duty_clock(d, ctx, minutes, None, "");
+            (d.trip.truck.gross_weight_margin_kg(), minutes)
         });
-        let margin = Self::weight_margin_text("Gross weight", margin_kg.unwrap_or(0.0));
+        let (margin_kg, minutes) = done.unwrap_or((0.0, FUEL_STOP_MIN));
+        let margin = Self::weight_margin_text("Gross weight", margin_kg);
         ctx.audio.play("vehicle/fuel_pump");
 
         // Award loyalty points for fueling, then save: saved first, the
@@ -131,7 +141,7 @@ pub trait FuelPump: Menu {
                 "Refueled {} gallons on the carrier fuel card. Fueling took {} minutes. \
                  {margin}. {loyalty_text}",
                 fmt_f(need, 0),
-                fmt_f(FUEL_STOP_MIN, 0)
+                fmt_f(minutes, 0)
             ));
         } else {
             let money = profile_of(ctx).money();
@@ -141,7 +151,7 @@ pub trait FuelPump: Menu {
                 fmt_f(need, 0),
                 fmt_grouped(cost, 0),
                 fmt_grouped(money, 0),
-                fmt_f(FUEL_STOP_MIN, 0)
+                fmt_f(minutes, 0)
             ));
         }
         ctx.award_achievement("route_refuel");

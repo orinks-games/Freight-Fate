@@ -650,6 +650,7 @@ impl DrivingState {
         for component in &failures {
             component.clear(&mut self.trip.truck);
         }
+        accrue_on_duty_fatigue(self, ctx, BREAKDOWN_REPAIR_MIN);
         self.trip.game_minutes += BREAKDOWN_REPAIR_MIN;
         hos_mut_of(ctx).on_duty(BREAKDOWN_REPAIR_MIN);
         ctx.audio.play("ui/error");
@@ -739,6 +740,7 @@ impl DrivingState {
         self.record_equipment_event(ctx);
         let grounded = self.tractor_label(ctx);
         let spare = self.draw_yard_spare(ctx);
+        accrue_on_duty_fatigue(self, ctx, GROUNDED_SWAP_MIN);
         self.trip.game_minutes += GROUNDED_SWAP_MIN;
         hos_mut_of(ctx).on_duty(GROUNDED_SWAP_MIN);
         ctx.audio.play("ui/error");

@@ -892,14 +892,13 @@ impl DrivingState {
                     ff_core::sim::hos::duration_text(waited / 60.0)
                 ));
             }
-            advance_rest_clock(
+            advance_on_duty_clock(
                 self,
                 ctx,
                 CHAIN_WAIT_STEP_MIN,
                 Some("on_duty_not_driving"),
                 "chain control",
             );
-            hos_mut_of(ctx).on_duty(CHAIN_WAIT_STEP_MIN);
             waited += CHAIN_WAIT_STEP_MIN;
             // The sky is re-polled by `advance_rest_clock` (live weather
             // included); the warnings need asking again here, since they are

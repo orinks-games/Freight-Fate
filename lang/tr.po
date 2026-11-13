@@ -4232,6 +4232,10 @@ msgstr "yorgunluk"
 msgid "tire"
 msgstr "tire"
 
+#. placeholders: {label}
+msgid "The {label} has worn off."
+msgstr "{label} etkisi geçti."
+
 #. placeholders: {buff_id}, {py_repr_str}
 msgid "buff {buff_id}: unknown group {py_repr_str}"
 msgstr "takviye {buff_id}: bilinmeyen grup {py_repr_str}"
@@ -4252,6 +4256,10 @@ msgstr "takviye {buff_id}: tır takviyeleri trip_scoped olmalı"
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: no availability (brands or actions)"
 msgstr "takviye {buff_id}: kullanılabilirlik yok (markalar ya da eylemler)"
+
+#. placeholders: {buff_id}
+msgid "buff {buff_id}: only fatigue buffs can be stimulants"
+msgstr ""
 
 #. placeholders: {buff_id}
 msgid "buff {buff_id}: help and purchased speech are required"
@@ -11557,6 +11565,17 @@ msgstr "görevli var"
 msgid "tableau"
 msgstr ""
 
+msgid ""
+"The officer warns you about driving this tired. Next time it is an "
+"out-of-service order."
+msgstr ""
+
+msgid "available"
+msgstr ""
+
+msgid "used"
+msgstr ""
+
 msgid "on duty, not driving"
 msgstr "görevde, sürmüyor"
 
@@ -11589,6 +11608,13 @@ msgstr "alacakaranlık"
 
 msgid "night"
 msgstr "gece"
+
+msgid "About 1 hour of night driving."
+msgstr ""
+
+#. placeholders: {n}
+msgid "About {n} hours of night driving."
+msgstr ""
 
 msgid "status"
 msgstr ""
@@ -12525,6 +12551,15 @@ msgstr "{f} derece Fahrenheit"
 #. placeholders: {f}
 msgid "{f} degrees Celsius"
 msgstr "{f} derece Celsius"
+
+msgid "The coffee has worn off."
+msgstr ""
+
+msgid "amount"
+msgstr "miktar"
+
+msgid "group"
+msgstr ""
 
 msgid "baffled"
 msgstr "bölmeli"
@@ -13804,9 +13839,6 @@ msgid "wisconsin"
 msgstr ""
 
 msgid "Wisconsin 511WI TPIMS"
-msgstr ""
-
-msgid "available"
 msgstr ""
 
 msgid "address"
@@ -18246,13 +18278,14 @@ msgstr "yola çıkış öncesi araç kontrolü"
 msgid "Walk-around clean."
 msgstr "Araç kontrolü temiz."
 
+#. placeholders: {f}
 #. one sentence of a longer line
-msgid "Walk-around done, 15 minutes."
-msgstr "Araç kontrolü bitti, 15 dakika."
+msgid "Walk-around done, {f} minutes."
+msgstr "Tur bitti, {f} dakika."
 
-#. placeholders: {join}
-msgid "Walk-around done, 15 minutes. {join}"
-msgstr "Araç kontrolü bitti, 15 dakika. {join}"
+#. placeholders: {f}, {join}
+msgid "Walk-around done, {f} minutes. {join}"
+msgstr ""
 
 msgid "Already rested. Enter again to sleep anyway."
 msgstr "Zaten dinlenmişsiniz. Yine de uyumak için yeniden Enter'a basın."
@@ -18435,12 +18468,21 @@ msgstr "Atama, uygunluk, yakıt, durum, aşınma, kir ve kar zincirleri."
 msgid "Walk around the truck"
 msgstr "Tırın çevresini dolaş"
 
+#. one sentence of a longer line
+msgid ""
+"A pre-trip walk-around: what a roadside inspector would find on the tractor."
+msgstr ""
+
+#. placeholders: {f}
 msgid ""
 "A pre-trip walk-around: what a roadside inspector would find on the "
-"tractor. Fifteen minutes on duty."
+"tractor. {f} minutes on duty."
 msgstr ""
-"Yola çıkış öncesi araç kontrolü: bir yol kenarı denetçisinin çekicide "
-"bulacakları. Görevde on beş dakika."
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "{f} minutes on duty."
+msgstr "Görevde {f} dakika."
 
 msgid "Clock, career day, and the conditions outside."
 msgstr "Saat, kariyer günü ve dışarıdaki koşullar."
@@ -18454,10 +18496,10 @@ msgstr "Son görev durumu kayıtları."
 msgid "Sleep 10 hours"
 msgstr "10 saat uyu"
 
-msgid "Fresh hours of service and zero fatigue. Clock advances 10 hours."
+msgid ""
+"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+"advances 10 hours."
 msgstr ""
-"Çalışma ve dinlenme süreleri sıfırlanır, yorgunluk biter. Saat 10 saat "
-"ilerler."
 
 msgid "Save game"
 msgstr "Oyunu kaydet"
@@ -21391,9 +21433,6 @@ msgstr "Direksiyonda. Saat {now}. {engine}"
 msgid "It is {now}."
 msgstr "Saat {now}."
 
-msgid "amount"
-msgstr "miktar"
-
 msgid "alertness"
 msgstr ""
 
@@ -23978,6 +24017,48 @@ msgstr "Ne bildireceğinizi seçin. Escape telefonu kapatır."
 msgid "Dispatch: {message}"
 msgstr "Sevkiyat: {message}"
 
+#. placeholders: {answer}
+msgid "Dispatch: {answer}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Park and sleep."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "This load pays base rate, with no on-time bonus."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Understood."
+msgstr ""
+
+#. placeholders: {deadline_appointment}
+msgid ""
+"Understood. Your appointment moves to {deadline_appointment}. Park and "
+"sleep. This load pays base rate, with no on-time bonus."
+msgstr ""
+
+#. placeholders: {deadline_appointment}
+#. one sentence of a longer line
+msgid "Your appointment moves to {deadline_appointment}."
+msgstr ""
+
+#. placeholders: {count_word}
+msgid ""
+" That is {count_word} rest calls this week. Plan your sleep before you take "
+"the load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Plan your sleep before you take the load."
+msgstr ""
+
+#. placeholders: {count_word}
+#. one sentence of a longer line
+msgid "That is {count_word} rest calls this week."
+msgstr ""
+
 msgid "Report a delay"
 msgstr "Gecikme bildir"
 
@@ -24014,6 +24095,15 @@ msgstr "Yük sorunu bildir"
 
 msgid "Report the freight's current condition and ask how to proceed."
 msgstr "Yükün şu anki durumunu bildirin ve nasıl devam edeceğinizi sorun."
+
+msgid "Too tired to drive safely"
+msgstr ""
+
+msgid ""
+"Dispatch moves the appointment so you can sleep, once per load. The load "
+"pays its base rate, with no on-time bonus. A third call inside a week costs "
+"dispatch trust."
+msgstr ""
 
 msgid "leg"
 msgstr "etap"
@@ -29137,6 +29227,26 @@ msgstr "{grouped} dolara {f} galon yakıt al."
 msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
 msgstr "{grouped} dolara {f} galon yakıt al. {margin}"
 
+#. one sentence of a longer line
+msgid "Buys what you can afford if cash is short."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Engine must be off."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Fills the tank at the posted diesel price plus a 35 dollar service fee."
+msgstr ""
+
+#. placeholders: {f}
+msgid ""
+"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+"Buys what you can afford if cash is short. Engine must be off. {f} minutes "
+"on duty."
+msgstr ""
+
 msgid "Shut the engine off before you fuel."
 msgstr "Yakıt almadan önce motoru kapatın."
 
@@ -29265,13 +29375,6 @@ msgid ""
 "The truck parking at {name} is full tonight.{pumps} It is {hour}. {current}"
 msgstr "{name} tır otoparkı bu gece dolu.{pumps} Saat {hour}. {current}"
 
-msgid ""
-"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
-"Engine must be off."
-msgstr ""
-"Depoyu ilan edilen mazot fiyatına 35 dolar hizmet ücreti ekleyerek "
-"doldurur. Motor kapalı olmalı."
-
 msgid "Drive on to the next stop"
 msgstr "Sonraki mola yerine devam et"
 
@@ -29283,11 +29386,9 @@ msgid "Motel room: sleep 10 hours for {f} dollars"
 msgstr "Motel odası: {f} dolara 10 saat uyku"
 
 msgid ""
-"A motel near the exit, paid from your own pocket. Legal 10-hour reset, you "
-"wake fresh."
+"A motel near the exit, paid from your own pocket. Legal 10-hour reset, and "
+"sleep takes off 8 points of fatigue an hour."
 msgstr ""
-"Çıkışın yakınında bir motel, parası cebinizden. Yasal 10 saatlik dinlenme, "
-"dinç uyanırsınız."
 
 msgid "Park on the shoulder and sleep"
 msgstr "Banket üzerine park edip uyu"
@@ -29477,18 +29578,10 @@ msgid "Loyalty points, shower credits, and rewards."
 msgstr "Sadakat puanları, duş kredileri ve ödüller."
 
 msgid ""
-"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
-"Buys what you can afford if cash is short. Engine must be off."
-msgstr ""
-"Depoyu ilan edilen mazot fiyatına 35 dolar hizmet ücreti ekleyerek "
-"doldurur. Para azsa gücünüzün yettiği kadarını alır. Motor kapalı olmalı."
-
-msgid ""
-"Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
+"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
+"off in two hours, and a second coffee before then adds nothing. Does not "
 "satisfy the 30-minute break rule."
 msgstr ""
-"On beş dakika görev dışı. Kahve yorgunluğu biraz azaltır ama 30 dakikalık "
-"mola kuralını karşılamaz."
 
 msgid ""
 "Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
@@ -29506,35 +29599,27 @@ msgid "Sleep {duration_text} more to finish a 10-hour reset"
 msgstr "10 saatlik dinlenmeyi tamamlamak için {duration_text} daha uyu"
 
 msgid ""
-"Your rest since you parked counts. Full reset, fresh hours of service and "
-"zero fatigue."
+"Your rest since you parked counts. Full reset and fresh hours of service. "
+"Sleep takes off 8 points of fatigue an hour."
 msgstr ""
-"Park ettiğinizden beri dinlendiğiniz süre sayılır. Tam sıfırlama, yeni "
-"çalışma ve dinlenme süreleri, sıfır yorgunluk."
 
 msgid ""
-"Full reset, fresh hours of service and zero fatigue. Clock and deadline "
-"advance 10 hours."
+"Full reset and fresh hours of service. Sleep takes off 8 points of fatigue "
+"an hour. Clock and deadline advance 10 hours."
 msgstr ""
-"Tam sıfırlama, yeni çalışma ve dinlenme süreleri, sıfır yorgunluk. Saat ve "
-"teslim süresi 10 saat ilerler."
 
 msgid "Sleep 10 hours in the lot"
 msgstr "Otoparkta 10 saat uyu"
 
 msgid ""
-"A legal 10-hour reset with poor rest, you wake still tired. Clock and "
-"deadline advance 10 hours."
+"A legal 10-hour reset with poor rest: 5 points of fatigue off an hour, "
+"never below 30. Clock and deadline advance 10 hours."
 msgstr ""
-"Yasal 10 saatlik dinlenme ama kötü uyku, hâlâ yorgun uyanırsınız. Saat ve "
-"teslim süresi 10 saat ilerler."
 
 msgid ""
-"A real bed, paid from your own pocket. Legal reset, you wake fresh. Clock "
-"and deadline advance 10 hours."
+"A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 "
+"points of fatigue an hour. Clock and deadline advance 10 hours."
 msgstr ""
-"Gerçek bir yatak, parası cebinizden. Yasal dinlenme, dinç uyanırsınız. Saat "
-"ve teslim süresi 10 saat ilerler."
 
 msgid "Use repair service"
 msgstr "Tamir hizmetini kullan"
@@ -29617,12 +29702,17 @@ msgstr "{name} kapalı"
 msgid "The weigh station is closed."
 msgstr "Kantar istasyonu kapalı."
 
+#. one sentence of a longer line
 msgid ""
 "A pre-trip walk-around: what an inspector would find on the tractor and the "
-"trailer. Fifteen minutes on duty."
+"trailer."
 msgstr ""
-"Yola çıkış öncesi tur: bir denetçinin çekicide ve dorsede bulacakları. "
-"Görevde on beş dakika."
+
+#. placeholders: {f}
+msgid ""
+"A pre-trip walk-around: what an inspector would find on the tractor and the "
+"trailer. {f} minutes on duty."
+msgstr ""
 
 msgid "Save at this stop"
 msgstr "Bu mola yerinde kaydet"
@@ -29690,6 +29780,16 @@ msgstr "30 dakikalık molanız sayılmaz."
 #. one sentence of a longer line
 msgid "Eases fatigue."
 msgstr "Yorgunluğu azaltır."
+
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
+"count as your 30-minute break. {deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "No lift while the last coffee lasts."
+msgstr ""
 
 msgid "Driving and duty clocks reset. "
 msgstr "Sürüş ve görev saatleri sıfırlandı. "
@@ -29789,8 +29889,17 @@ msgid ""
 msgstr ""
 "{duration_text} daha uyudunuz, art arda 10 saat dinlenip dinç uyandınız."
 
+#. placeholders: {duration_text}
+msgid ""
+"You slept {duration_text} more, 10 hours of rest in a row, and woke still "
+"tired."
+msgstr ""
+
 msgid "You slept 10 hours and woke rested."
 msgstr "10 saat uyuyup dinç uyandınız."
+
+msgid "You slept 10 hours and woke still tired."
+msgstr ""
 
 #. placeholders: {engine_off}, {slept}, {clock_text}
 #. one sentence of a longer line
@@ -29997,9 +30106,6 @@ msgstr "{label} {buff_price_amount}, sizde {grouped} dolar var."
 msgid "label"
 msgstr ""
 
-msgid "group"
-msgstr ""
-
 msgid "rate"
 msgstr ""
 
@@ -30100,11 +30206,6 @@ msgid ""
 msgstr ""
 "Yazılacak bir şey yok: lastikler, frenler, lambalar ve dorse sorunsuz geçer."
 
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Walk-around done, {f} minutes."
-msgstr "Tur bitti, {f} dakika."
-
 #. placeholders: {f}, {body}, {clock_text}, {deadline_text}
 msgid ""
 "Walk-around done, {f} minutes. {body} It is {clock_text}. {deadline_text}"
@@ -30186,11 +30287,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Reweigh within 24 hours is {dollars_and_cents}."
 msgstr "24 saat içinde yeniden tartım {dollars_and_cents}."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "{f} minutes on duty."
-msgstr "Görevde {f} dakika."
 
 #. placeholders: {dollars_and_cents}, {grouped}
 msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
@@ -30327,13 +30423,23 @@ msgid "Enter or Escape pulls back onto the highway."
 msgstr "Enter ya da Escape ile otoyola geri çıkarsınız."
 
 #. one sentence of a longer line
-msgid "The trooper lets you off with a warning."
-msgstr "Polis sizi uyarıyla bırakıyor."
+msgid "The trooper lets it go with a warning."
+msgstr ""
 
 #. placeholders: {over_text}, {limit_text}
 #. one sentence of a longer line
 msgid "{over_text} over the {limit_text} limit."
 msgstr "{limit_text} sınırın {over_text} üstünde."
+
+#. placeholders: {over_text}, {limit_text}
+msgid ""
+"{over_text} over the {limit_text} limit. The trooper lets it go with a "
+"warning."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The trooper lets you off with a warning."
+msgstr "Polis sizi uyarıyla bırakıyor."
 
 #. placeholders: {over_text}, {limit_text}
 msgid ""
@@ -30390,6 +30496,9 @@ msgstr "Ehliyet ve seyir defteri kontrolü. {outcome} {current}"
 msgid "Pulled over"
 msgstr "Kenara çekildi"
 
+msgid "The officer lets it go with a warning."
+msgstr ""
+
 msgid "The officer lets you go with a warning."
 msgstr "Memur sizi uyarıyla bırakıyor."
 
@@ -30424,18 +30533,15 @@ msgstr ""
 #. placeholders: {wake_air_instruction}
 #. one sentence of a longer line
 msgid ""
-"You are rested, and the delivery deadline kept "
+"The order is served, and the delivery deadline kept "
 "counting.{wake_air_instruction}"
 msgstr ""
-"Dinlendiniz, teslim süresi işlemeye devam etti.{wake_air_instruction}"
 
 #. placeholders: {why}, {clock_text}, {wake_air_instruction}
 msgid ""
-"{why} It is {clock_text}. You are rested, and the delivery deadline kept "
-"counting.{wake_air_instruction}"
+"{why} It is {clock_text}. The order is served, and the delivery deadline "
+"kept counting.{wake_air_instruction}"
 msgstr ""
-"{why} Saat {clock_text}. Dinlendiniz, teslim süresi işlemeye devam "
-"etti.{wake_air_instruction}"
 
 msgid "weigh station bypass inspection"
 msgstr "kantar istasyonunu atlama denetimi"
@@ -32167,10 +32273,6 @@ msgstr "Bankete çekiliyor."
 
 msgid "buff"
 msgstr "destek"
-
-#. placeholders: {label}
-msgid "The {label} has worn off."
-msgstr "{label} etkisi geçti."
 
 msgid "Getting drowsy."
 msgstr "Uykunuz geliyor."
@@ -37020,21 +37122,42 @@ msgstr ""
 "işlemeye bırakır."
 
 msgid ""
-"Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
-"warnings by steering or braking. Repeated misses can force you off the road."
+"Fatigue rises faster at night and reduces reaction time. On-duty time at a "
+"stop, such as fueling, a dock or an inspection, builds it at a third of the "
+"driving rate. Respond to nod-off warnings by steering or braking. Repeated "
+"misses can force you off the road."
 msgstr ""
-"Yorgunluk gece daha hızlı artar ve tepki süresini düşürür. Uyuklama "
-"uyarılarına direksiyon ya da frenle yanıt verin. Tekrarlanan kaçırmalar "
-"sizi yoldan çıkmaya zorlayabilir."
 
 msgid ""
-"Meals and coffee help temporarily. A half-hour meal counts as a break. "
-"Proper sleep clears fatigue. A legal reset with poor rest can leave you "
+"Job details and the departure line say how many hours of a run fall at "
+"night, between 9 PM and 5 AM."
+msgstr ""
+
+msgid ""
+"Fatigue slows work by hand. Fueling, the walk-around, chain work and "
+"pulling into a stop take longer from worn up, and the menus read the longer "
+"minutes."
+msgstr ""
+
+msgid ""
+"An inspection or traffic stop while you are severe ends in a ten-hour "
+"fatigue out-of-service order. On Relaxed pacing the first one is a warning."
+msgstr ""
+
+msgid ""
+"Drowsy or severe on a load, Call dispatch offers Too tired to drive safely "
+"once per load. The appointment moves for a night's sleep and the load pays "
+"its base rate, with no on-time bonus. A third call in a week costs dispatch "
+"trust."
+msgstr ""
+
+msgid ""
+"Meals ease fatigue, and a half-hour meal counts as a break. The lift from "
+"coffee or an energy drink comes back when it wears off, and a second one "
+"before then adds no lift. Proper sleep takes off 8 points of fatigue an "
+"hour, so ten hours clears 80. A legal reset with poor rest can leave you "
 "tired."
 msgstr ""
-"Yemek ve kahve geçici olarak yardımcı olur. Yarım saatlik yemek mola "
-"sayılır. Düzgün uyku yorgunluğu giderir. Kötü dinlenmeli yasal bir "
-"sıfırlama sizi yorgun bırakabilir."
 
 msgid ""
 "A stop offers only its listed services. A full parking lot can still sell "
@@ -37045,11 +37168,9 @@ msgstr ""
 "sunabilir."
 
 msgid ""
-"Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
-"leaves you fully rested."
+"Sleeping 10 hours in the lot gives poor rest: 5 points an hour, never below "
+"30. Ten hours in sleeper parking is proper sleep."
 msgstr ""
-"Sahada 10 saat uyumak kötü dinlendirir. Yataklı park yerinde on saat sizi "
-"tamamen dinlenmiş bırakır."
 
 #. placeholders: {control_rest}
 #. one sentence of a longer line
@@ -40036,13 +40157,10 @@ msgid "Energy drink"
 msgstr "Enerji içeceği"
 
 msgid ""
-"A cold energy drink from the cooler. A small instant lift, and for the next "
-"two hours the miles tire you more slowly. A new drink or meal replaces the "
-"old one. They do not stack."
+"A cold energy drink from the cooler. A small lift, and the miles tire you "
+"more slowly for two hours. The lift wears off with it, and a second coffee "
+"or drink before then adds none. A new drink or meal replaces the old one."
 msgstr ""
-"Soğutucudan soğuk bir enerji içeceği. Anında küçük bir canlanma, sonraki "
-"iki saat boyunca da yol sizi daha yavaş yorar. Yeni bir içecek ya da yemek "
-"öncekinin yerini alır. Birikmezler."
 
 msgid ""
 "You down the energy drink. You feel a little sharper, and the next couple "
@@ -40147,15 +40265,11 @@ msgid "Five-cent coffee"
 msgstr "Beş sentlik kahve"
 
 msgid ""
-"Wall Drug's famous five-cent coffee. A small instant lift, and for the next "
-"hour and a half the miles tire you a little more slowly. Weaker than an "
-"energy drink. A meal does more. A new drink or meal replaces the old one. "
-"They do not stack."
+"Wall Drug's famous five-cent coffee. A small lift, and the miles tire you a "
+"little more slowly for an hour and a half. The lift wears off with it, and "
+"a second coffee or drink before then adds none. Weaker than an energy "
+"drink. A meal does more."
 msgstr ""
-"Wall Drug'ın ünlü beş sentlik kahvesi. Anında küçük bir canlanma, sonraki "
-"bir buçuk saat boyunca da yol sizi biraz daha yavaş yorar. Enerji "
-"içeceğinden zayıftır. Yemek daha fazlasını yapar. Yeni bir içecek ya da "
-"yemek öncekinin yerini alır. Birikmezler."
 
 msgid ""
 "You drink the five-cent coffee. You feel a little more awake, and the next "
@@ -41048,6 +41162,40 @@ msgstr "Lastik parçaları."
 msgid "Debris."
 msgstr "Döküntü."
 
+#~ msgid "Walk-around done, 15 minutes."
+#~ msgstr "Araç kontrolü bitti, 15 dakika."
+
+#~ msgid "Walk-around done, 15 minutes. {join}"
+#~ msgstr "Araç kontrolü bitti, 15 dakika. {join}"
+
+#~ msgid ""
+#~ "A pre-trip walk-around: what a roadside inspector would find on the "
+#~ "tractor. Fifteen minutes on duty."
+#~ msgstr ""
+#~ "Yola çıkış öncesi araç kontrolü: bir yol kenarı denetçisinin çekicide "
+#~ "bulacakları. Görevde on beş dakika."
+
+#~ msgid ""
+#~ "Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+#~ "Engine must be off."
+#~ msgstr ""
+#~ "Depoyu ilan edilen mazot fiyatına 35 dolar hizmet ücreti ekleyerek "
+#~ "doldurur. Motor kapalı olmalı."
+
+#~ msgid ""
+#~ "Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+#~ "Buys what you can afford if cash is short. Engine must be off."
+#~ msgstr ""
+#~ "Depoyu ilan edilen mazot fiyatına 35 dolar hizmet ücreti ekleyerek "
+#~ "doldurur. Para azsa gücünüzün yettiği kadarını alır. Motor kapalı olmalı."
+
+#~ msgid ""
+#~ "A pre-trip walk-around: what an inspector would find on the tractor and the "
+#~ "trailer. Fifteen minutes on duty."
+#~ msgstr ""
+#~ "Yola çıkış öncesi tur: bir denetçinin çekicide ve dorsede bulacakları. "
+#~ "Görevde on beş dakika."
+
 #~ msgid "The bug report page on GitHub, in your web browser."
 #~ msgstr "GitHub'daki hata bildirim sayfası, web tarayıcınızda."
 
@@ -41076,6 +41224,110 @@ msgstr "Döküntü."
 #~ msgstr ""
 #~ "Ayarlar sürüş yardımını, sesi, konuşmayı ve kontrolleri değiştirir. Sorun "
 #~ "bildir, tarayıcınızda hata bildirim sayfasını açar. Çık oyunu kapatır."
+
+#~ msgid "Fresh hours of service and zero fatigue. Clock advances 10 hours."
+#~ msgstr ""
+#~ "Çalışma ve dinlenme süreleri sıfırlanır, yorgunluk biter. Saat 10 saat "
+#~ "ilerler."
+
+#~ msgid ""
+#~ "A motel near the exit, paid from your own pocket. Legal 10-hour reset, you "
+#~ "wake fresh."
+#~ msgstr ""
+#~ "Çıkışın yakınında bir motel, parası cebinizden. Yasal 10 saatlik dinlenme, "
+#~ "dinç uyanırsınız."
+
+#~ msgid ""
+#~ "Fifteen minutes off duty. Coffee eases fatigue a little, but does not "
+#~ "satisfy the 30-minute break rule."
+#~ msgstr ""
+#~ "On beş dakika görev dışı. Kahve yorgunluğu biraz azaltır ama 30 dakikalık "
+#~ "mola kuralını karşılamaz."
+
+#~ msgid ""
+#~ "Your rest since you parked counts. Full reset, fresh hours of service and "
+#~ "zero fatigue."
+#~ msgstr ""
+#~ "Park ettiğinizden beri dinlendiğiniz süre sayılır. Tam sıfırlama, yeni "
+#~ "çalışma ve dinlenme süreleri, sıfır yorgunluk."
+
+#~ msgid ""
+#~ "Full reset, fresh hours of service and zero fatigue. Clock and deadline "
+#~ "advance 10 hours."
+#~ msgstr ""
+#~ "Tam sıfırlama, yeni çalışma ve dinlenme süreleri, sıfır yorgunluk. Saat ve "
+#~ "teslim süresi 10 saat ilerler."
+
+#~ msgid ""
+#~ "A legal 10-hour reset with poor rest, you wake still tired. Clock and "
+#~ "deadline advance 10 hours."
+#~ msgstr ""
+#~ "Yasal 10 saatlik dinlenme ama kötü uyku, hâlâ yorgun uyanırsınız. Saat ve "
+#~ "teslim süresi 10 saat ilerler."
+
+#~ msgid ""
+#~ "A real bed, paid from your own pocket. Legal reset, you wake fresh. Clock "
+#~ "and deadline advance 10 hours."
+#~ msgstr ""
+#~ "Gerçek bir yatak, parası cebinizden. Yasal dinlenme, dinç uyanırsınız. Saat "
+#~ "ve teslim süresi 10 saat ilerler."
+
+#~ msgid ""
+#~ "You are rested, and the delivery deadline kept "
+#~ "counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "Dinlendiniz, teslim süresi işlemeye devam etti.{wake_air_instruction}"
+
+#~ msgid ""
+#~ "{why} It is {clock_text}. You are rested, and the delivery deadline kept "
+#~ "counting.{wake_air_instruction}"
+#~ msgstr ""
+#~ "{why} Saat {clock_text}. Dinlendiniz, teslim süresi işlemeye devam "
+#~ "etti.{wake_air_instruction}"
+
+#~ msgid ""
+#~ "Fatigue rises faster at night and reduces reaction time. Respond to nod-off "
+#~ "warnings by steering or braking. Repeated misses can force you off the road."
+#~ msgstr ""
+#~ "Yorgunluk gece daha hızlı artar ve tepki süresini düşürür. Uyuklama "
+#~ "uyarılarına direksiyon ya da frenle yanıt verin. Tekrarlanan kaçırmalar "
+#~ "sizi yoldan çıkmaya zorlayabilir."
+
+#~ msgid ""
+#~ "Meals and coffee help temporarily. A half-hour meal counts as a break. "
+#~ "Proper sleep clears fatigue. A legal reset with poor rest can leave you "
+#~ "tired."
+#~ msgstr ""
+#~ "Yemek ve kahve geçici olarak yardımcı olur. Yarım saatlik yemek mola "
+#~ "sayılır. Düzgün uyku yorgunluğu giderir. Kötü dinlenmeli yasal bir "
+#~ "sıfırlama sizi yorgun bırakabilir."
+
+#~ msgid ""
+#~ "Sleeping 10 hours in the lot gives poor rest. Ten hours in sleeper parking "
+#~ "leaves you fully rested."
+#~ msgstr ""
+#~ "Sahada 10 saat uyumak kötü dinlendirir. Yataklı park yerinde on saat sizi "
+#~ "tamamen dinlenmiş bırakır."
+
+#~ msgid ""
+#~ "A cold energy drink from the cooler. A small instant lift, and for the next "
+#~ "two hours the miles tire you more slowly. A new drink or meal replaces the "
+#~ "old one. They do not stack."
+#~ msgstr ""
+#~ "Soğutucudan soğuk bir enerji içeceği. Anında küçük bir canlanma, sonraki "
+#~ "iki saat boyunca da yol sizi daha yavaş yorar. Yeni bir içecek ya da yemek "
+#~ "öncekinin yerini alır. Birikmezler."
+
+#~ msgid ""
+#~ "Wall Drug's famous five-cent coffee. A small instant lift, and for the next "
+#~ "hour and a half the miles tire you a little more slowly. Weaker than an "
+#~ "energy drink. A meal does more. A new drink or meal replaces the old one. "
+#~ "They do not stack."
+#~ msgstr ""
+#~ "Wall Drug'ın ünlü beş sentlik kahvesi. Anında küçük bir canlanma, sonraki "
+#~ "bir buçuk saat boyunca da yol sizi biraz daha yavaş yorar. Enerji "
+#~ "içeceğinden zayıftır. Yemek daha fazlasını yapar. Yeni bir içecek ya da "
+#~ "yemek öncekinin yerini alır. Birikmezler."
 
 #~ msgid "Fatigue: {fatigue} percent"
 #~ msgstr "Yorgunluk: yüzde {fatigue}"

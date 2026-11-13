@@ -376,13 +376,6 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             p.fatigue = 0.0;
             notes.push("Fully rested; hours of service reset.".to_string());
         }
-        if let Some(fatigue) = scenario.fatigue {
-            p.fatigue = fatigue;
-            notes.push(format!(
-                "Fatigue {fatigue:.0} percent, {}.",
-                Alertness::from_fatigue(fatigue).key()
-            ));
-        }
         if let Some(minutes) = scenario.hos_driving_min {
             p.hos.driving_min = minutes;
             notes.push(format!("HOS driving counter: {minutes:.0} minutes."));
@@ -412,6 +405,17 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
     }
     if let Some(hour) = scenario.hour {
         notes.extend(apply_clock(ctx, hour));
+    }
+    // After the clock: a jump past ten hours rests the driver, and the
+    // fatigue asked for must be the one the scenario ends with.
+    if let Some(fatigue) = scenario.fatigue {
+        if let Some(p) = ctx.profile.as_mut() {
+            p.fatigue = fatigue;
+            notes.push(format!(
+                "Fatigue {fatigue:.0} percent, {}.",
+                Alertness::from_fatigue(fatigue).key()
+            ));
+        }
     }
     if let Some(seed) = scenario.board_seed {
         ctx.dispatch_board_seed = Some(seed);

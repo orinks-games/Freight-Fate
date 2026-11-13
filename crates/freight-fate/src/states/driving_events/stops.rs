@@ -405,8 +405,8 @@ impl DrivingState {
             // takes over, so without this the engine audio froze at
             // whatever rev the approach left it at for the whole stop.
             self.settle_engine_to_idle(ctx);
-            advance_rest_clock(self, ctx, STOP_PULL_IN_MIN, None, "");
-            hos_mut_of(ctx).on_duty(STOP_PULL_IN_MIN);
+            let pull_in = self.hand_work_min(ctx, STOP_PULL_IN_MIN);
+            advance_on_duty_clock(self, ctx, pull_in, None, "");
             let snapshot = self.snapshot(ctx);
             profile_mut_of(ctx).active_trip = Some(snapshot);
             ctx.save_profile();

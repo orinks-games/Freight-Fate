@@ -15,9 +15,8 @@ use crate::states::base::{
 use crate::states::city::CityMenuState;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, clock_text, deadline_text, hos_mut_of, is_night,
-    player_pays_operating_costs, profile_mut_of, profile_of, road_repair_cost,
-    secure_truck_for_stopped_menu, CHAIN_INSTALL_MIN, CHAIN_INSTALL_NIGHT_MULT, CHAIN_REMOVE_MIN,
+    advance_on_duty_clock, clock_text, deadline_text, is_night, player_pays_operating_costs,
+    profile_mut_of, profile_of, road_repair_cost, secure_truck_for_stopped_menu, CHAIN_REMOVE_MIN,
     CHAIN_REPAIR_MIN, CHAIN_SAFE_MPH, CHAIN_SLAP_WARN_PCT, CHAIN_TIGHTEN_MIN, DRIVE_PHASE_PICKUP,
     FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN,
 };
@@ -178,7 +177,7 @@ impl PauseMenuState {
                 MenuItem::new(
                     format!(
                         "Tighten chains: about {} minutes",
-                        fmt_f(CHAIN_TIGHTEN_MIN, 0)
+                        fmt_f(d.hand_work_min(ctx, CHAIN_TIGHTEN_MIN), 0)
                     ),
                     |s: &mut Self, ctx| s.tighten_chains(ctx),
                 )
@@ -194,7 +193,7 @@ impl PauseMenuState {
                 MenuItem::new(
                     format!(
                         "Repair the broken chain: about {} minutes",
-                        fmt_f(CHAIN_REPAIR_MIN, 0)
+                        fmt_f(d.hand_work_min(ctx, CHAIN_REPAIR_MIN), 0)
                     ),
                     |s: &mut Self, ctx| s.repair_chain(ctx),
                 )
@@ -209,7 +208,7 @@ impl PauseMenuState {
                 MenuItem::new(
                     format!(
                         "Remove snow chains: about {} minutes",
-                        fmt_f(CHAIN_REMOVE_MIN, 0)
+                        fmt_f(d.hand_work_min(ctx, CHAIN_REMOVE_MIN), 0)
                     ),
                     |s: &mut Self, ctx| s.remove_chains(ctx),
                 )
@@ -230,7 +229,7 @@ impl PauseMenuState {
                 || d.trip.chain_law_level() > 0)
         {
             items.push(
-                MenuItem::new(install_chains_label(d), |s: &mut Self, ctx| {
+                MenuItem::new(install_chains_label(d, ctx), |s: &mut Self, ctx| {
                     s.install_chains(ctx)
                 })
                 .help(Label::dynamic(|_s: &Self, ctx| {
@@ -651,8 +650,7 @@ pub fn perform_roadside_mechanic(d: &mut DrivingState, ctx: &mut GameContext) ->
     }
     let money = profile_of(ctx).money();
     d.trip.truck.damage_pct = FIELD_REPAIR_DAMAGE_PCT;
-    advance_rest_clock(d, ctx, MECHANIC_WAIT_MIN, None, "");
-    hos_mut_of(ctx).on_duty(MECHANIC_WAIT_MIN);
+    advance_on_duty_clock(d, ctx, MECHANIC_WAIT_MIN, None, "");
     ctx.audio.play("ui/notify");
     let billing = if carrier_paid {
         "on the carrier breakdown account".to_string()
@@ -681,9 +679,9 @@ pub fn mechanic_label(d: &DrivingState) -> String {
     format!("Call a roadside mechanic: {} dollars", fmt_grouped(cost, 0))
 }
 
-fn install_chains_label(d: &DrivingState) -> String {
+fn install_chains_label(d: &DrivingState, ctx: &GameContext) -> String {
     let night = is_night(d.trip.local_hour());
-    let minutes = CHAIN_INSTALL_MIN * if night { CHAIN_INSTALL_NIGHT_MULT } else { 1.0 };
+    let minutes = d.chain_install_min(ctx);
     let when = if night { " in the dark" } else { "" };
     format!(
         "Install snow chains{when}: about {} minutes",

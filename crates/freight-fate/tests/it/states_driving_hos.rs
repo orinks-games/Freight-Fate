@@ -371,7 +371,13 @@ fn test_food_and_coffee_break_boosts_alertness_without_resetting_break_rule() {
     });
     assert!(help.contains("Coffee eases fatigue a little"), "{help}");
     assert!(
-        help.contains("does not satisfy the 30-minute break rule"),
+        help.contains(
+            "the lift wears off in two hours, and a second coffee before then adds nothing"
+        ),
+        "{help}"
+    );
+    assert!(
+        help.contains("Does not satisfy the 30-minute break rule"),
         "{help}"
     );
 
@@ -786,7 +792,9 @@ fn test_full_parking_offers_drive_on_and_shoulder() {
     {
         let p = harness.app.ctx.profile.as_ref().expect("a career");
         assert_eq!(p.hos.driving_min, 0.0);
-        assert_eq!(p.fatigue, hos::FATIGUE_SHOULDER_FLOOR);
+        // Poor sleep: 5 points an hour off 95.
+        assert_eq!(p.fatigue, hos::rest_poor_sleep(95.0, hos::SLEEP_MIN));
+        assert_eq!(p.fatigue, 45.0);
         // A clean career parked clear of roadwork pays the base amount; the
         // helper is asked so a rebalance moves one number, not this test.
         let expected = enforcement::citation_fine(hos::SHOULDER_FINE, 0, construction, None);

@@ -55,13 +55,15 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
         .history
         .last()
         .is_some_and(|event| event.source == "full_reset");
+    // A coffee or drink that wears off during the sleep is paid back first,
+    // as the sleep itself does it.
+    let wake_h = d.absolute_game_hour(ctx, None) + minutes / 60.0;
+    let lying_down = (profile.fatigue + profile.stimulant_loan().owed_by(wake_h)).min(100.0);
     let fatigue_after = match choice {
-        SleepChoice::Sleeper(_) if full_reset => hos::rest_sleep(profile.fatigue),
-        SleepChoice::Motel => hos::rest_sleep(profile.fatigue),
-        SleepChoice::Lot => hos::rest_shoulder(profile.fatigue),
-        SleepChoice::Sleeper(_) => {
-            hos::rest_sleeper_split(profile.fatigue, minutes, completed_split)
-        }
+        SleepChoice::Sleeper(_) if full_reset => hos::rest_sleep(lying_down, minutes),
+        SleepChoice::Motel => hos::rest_sleep(lying_down, minutes),
+        SleepChoice::Lot => hos::rest_poor_sleep(lying_down, minutes),
+        SleepChoice::Sleeper(_) => hos::rest_sleeper_split(lying_down, minutes, completed_split),
     };
     let effect = match choice {
         SleepChoice::Lot | SleepChoice::Motel => {

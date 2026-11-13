@@ -550,8 +550,8 @@ impl DrivingState {
         // at whatever rev the approach left it at, all the way through the
         // stop.
         self.settle_engine_to_idle(ctx);
-        advance_rest_clock(self, ctx, STOP_PULL_IN_MIN, None, "");
-        hos_mut_of(ctx).on_duty(STOP_PULL_IN_MIN);
+        let pull_in = self.hand_work_min(ctx, STOP_PULL_IN_MIN);
+        advance_on_duty_clock(self, ctx, pull_in, None, "");
         self.set_status("Pulling into destination. Dock menu opening.");
 
         let facility = self.destination_facility_text(ctx);
