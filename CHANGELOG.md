@@ -15,6 +15,11 @@
 - **Work at stops takes longer as fatigue rises.** Fueling, the walk-around, chain work and pulling in run slower from worn up.
 - **An inspection or traffic stop at severe fatigue ends in a ten-hour out-of-service order.**
 
+### Fixed
+
+- **Game sound comes back when a Bluetooth headset drops out or the sound device stops responding.** It returns within a few seconds, without a restart.
+- **The built-in voice keeps speaking after a Bluetooth headset connects or disconnects.** In 1.9.6 it could go silent until a restart.
+
 ## 1.9.6 - 2026-11-13
 
 ### Compatibility
