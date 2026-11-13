@@ -8,7 +8,7 @@ members = [
 ]
 
 [workspace.package]
-version = "1.9.6"
+version = "1.9.7"
 edition = "2021"
 rust-version = "1.95"
 license = "PolyForm-Noncommercial-1.0.0"
@@ -21,7 +21,7 @@ authors = ["Joshua Tubbs (Orinks)"]
 [workspace.metadata.release]
 # Persistent save-sealing identity; the private key is backed up separately.
 seal-id = "k1:d371c108f7f1437a"
-package-version = "1.9.6.dev0"
+package-version = "1.9.7.dev0"
 # The public half of the game's update key: the in-game updater trusts only
 # manifests signed with it. Empty until `cargo tools update-key --new` makes
 # the key; until then release builds do not update themselves.
