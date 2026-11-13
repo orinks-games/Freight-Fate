@@ -97,6 +97,7 @@ pub use ff_core::radio::{
 };
 pub use ff_core::radio_content::{content_duration_s, plan_break};
 pub use ff_core::settings::{acc_gap_seconds, ACC_GAP_CHOICES, ACC_GAP_DEFAULT};
+pub use ff_core::sim::alertness::{Alertness, BandCue, Nod, NodEvent, NodOutcome, NodState};
 pub use ff_core::sim::driving_modes::tuning_for_time_scale;
 pub use ff_core::sim::enforcement_observe::OBSERVE_LEEWAY_MPH;
 pub use ff_core::sim::hos::{clock_text, is_night, time_of_day};

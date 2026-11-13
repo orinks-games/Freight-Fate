@@ -178,7 +178,7 @@ impl DrivingState {
         self.pull_over.is_some()
             || self.ramp_mi.is_some()
             || self.hazard_deadline.is_some()
-            || self.microsleep_deadline.is_some()
+            || self.nod.demands_driver()
             || self.arrival_menu_open
     }
 

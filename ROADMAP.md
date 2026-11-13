@@ -774,6 +774,15 @@ into the release gate. Details stay in the linked dated sections, marked
 Everything found before 2026-09-25 moved to
 [2.0](#found-along-the-way-in-19-moved-to-20) that day.
 
+- [x] (Found along the way) Fatigue bands and the nod-off are state
+      machines saved with the trip: a quiet first yawn at 40, the band in
+      the readouts, no repeated drowsy line after a small lift
+      ([fatigue redesign](#november-13-fatigue-bands-and-the-nod-off-found-along-the-way),
+      PR 1 of `docs/fatigue-design.md`).
+- [ ] (Found along the way) Fatigue redesign, the rest: the night-hours
+      line, on-duty fatigue, rest by the hour and stimulants as a loan, slow
+      work, the inspection rule, the dispatch rest call
+      (`docs/fatigue-design.md` parts 2 to 7).
 - [x] (Found along the way) Traffic runs at a share of the posted limit,
       towns included; a slow call means the truck is gaining on the vehicle;
       freeway traffic turns off at interchanges (owner, 2026-11-04), and
@@ -3776,6 +3785,40 @@ and the ramp lights were already the truck's.
       closure merge cannot drop back behind traffic: the ease only works
       through the cruise. Rare on All assists, where the speed keeper arms
       the cruise.
+
+### November 13 fatigue bands and the nod-off (Found along the way)
+
+PR 1 of the fatigue redesign (`docs/fatigue-design.md`, approved by the
+owner 2026-11-11). No new costs; the rest of the design is open below.
+
+- [x] (Found along the way) **Four fatigue bands.** Rested, worn, drowsy
+      and severe, entered at 40, 60 and 80 and left only 5 points under
+      the entry. Entering worn plays one quiet yawn and says nothing;
+      drowsy and severe keep their sound and line. A jump over several
+      bands gives only the cue of the band landed in. The Tab status
+      screens name the band with the number from worn up.
+- [x] (Found along the way) **The nod-off is one machine** (awake,
+      nodding, recovering, and the misses toward the forced stop), and
+      every other demand on the driver waits on it in one place. It and
+      the band are saved with the trip, so a resume no longer resets the
+      count and the misses or replays a band cue. The agent server's
+      `status` reports `alertness`, `nod` and `nod_misses`; `scenario`
+      takes `fatigue`, and a `nod` tool opens a nod on the live drive.
+- [x] (Found along the way) The city terminal judged "slept before it got
+      bad" at 70 and a rest stop at 80, for the same achievement. Both
+      now use the severe band.
+- [ ] (Found along the way) The night-hours line on the job details and
+      the departure line (design part 3).
+- [ ] (Found along the way) On-duty time that is not driving builds
+      fatigue at a third of the driving rate (part 2).
+- [ ] (Found along the way) Rest by the hour, and stimulants as a loan
+      that comes back when it wears off (part 5).
+- [ ] (Found along the way) Tired work is slow work: fueling, the
+      walk-around and chain work take longer by band (part 4).
+- [ ] (Found along the way) A traffic stop or inspection at severe ends
+      in the fatigue out-of-service order (part 6).
+- [ ] (Found along the way) The dispatch call for rest while drowsy or
+      severe on a load (part 7).
 
 ### October 26 the road to the 2.0 nightlies (Found along the way)
 

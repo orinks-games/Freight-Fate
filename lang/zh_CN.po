@@ -10325,6 +10325,39 @@ msgstr "每小时{distance}"
 msgid "kilometer"
 msgstr "公里"
 
+msgid "rested"
+msgstr ""
+
+msgid "worn"
+msgstr "磨损"
+
+msgid "drowsy"
+msgstr ""
+
+msgid "severe"
+msgstr ""
+
+msgid "awake"
+msgstr ""
+
+msgid "nodding"
+msgstr ""
+
+msgid "recovering"
+msgstr ""
+
+msgid "game minutes counted"
+msgstr ""
+
+msgid "seconds left"
+msgstr ""
+
+msgid "game minutes left"
+msgstr ""
+
+msgid "misses"
+msgstr ""
+
 msgid "Driver window down."
 msgstr ""
 
@@ -13981,6 +14014,15 @@ msgid ""
 "so listen for the call."
 msgstr ""
 
+msgid "the co-driver has the wheel"
+msgstr ""
+
+#. placeholders: {position_mi}, {misses}
+msgid ""
+"Staged a nod at mile {position_mi}, {misses} missed in a row so far; it "
+"opens on the next rolling frame, so listen for the warning."
+msgstr ""
+
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
 "Scenario staged: {name} at {the_city} terminal, level {level}, {deliveries} "
@@ -17021,9 +17063,6 @@ msgstr "极好"
 msgid "good"
 msgstr "良好"
 
-msgid "worn"
-msgstr "磨损"
-
 msgid "all-season"
 msgstr "四季通用"
 
@@ -19644,6 +19683,12 @@ msgstr "现在是{now}。"
 msgid "amount"
 msgstr "amount"
 
+msgid "alertness"
+msgstr ""
+
+msgid "nod"
+msgstr ""
+
 msgid "local game time"
 msgstr "当地游戏时间"
 
@@ -20800,9 +20845,9 @@ msgstr "增益"
 msgid "{label}: good for the rest of the trip"
 msgstr "{label}：本次行程剩余时间都有效"
 
-#. placeholders: {fatigue}
-msgid "Fatigue: {fatigue} percent"
-msgstr "疲劳度：百分之{fatigue}"
+#. placeholders: {fatigue}, {band}
+msgid "Fatigue: {fatigue} percent, {band}"
+msgstr ""
 
 #. placeholders: {context}
 msgid "HOS route: {context}"
@@ -25651,6 +25696,10 @@ msgstr "卡车：燃油百分之{f}，损坏百分之{f2}{damage_band_suffix}"
 msgid "Transmission: {else}, {gear}"
 msgstr "变速箱：{else}，{gear}"
 
+#. placeholders: {f}, {band}
+msgid "Fatigue: {f} percent, {band}"
+msgstr ""
+
 #. placeholders: {f}
 msgid "Fatigue: {f} percent"
 msgstr "疲劳：百分之{f}"
@@ -28911,9 +28960,6 @@ msgid ""
 "{name} drove on after a collision with {animal}. Damage {damage} percent."
 msgstr ""
 
-msgid "rested"
-msgstr ""
-
 msgid "Refuel"
 msgstr ""
 
@@ -29641,11 +29687,11 @@ msgstr "buff"
 msgid "The {label} has worn off."
 msgstr "{label}的效果已经消退了。"
 
-msgid "Dangerously drowsy and drifting out of your lane."
-msgstr "困得危险，正在偏出车道。"
-
 msgid "Getting drowsy."
 msgstr "开始犯困了。"
+
+msgid "Dangerously drowsy and drifting out of your lane."
+msgstr "困得危险，正在偏出车道。"
 
 msgid "Nodding off. Steer or brake now!"
 msgstr "在打瞌睡。马上转向或刹车！"
@@ -37316,6 +37362,9 @@ msgstr "轮胎碎片。"
 
 msgid "Debris."
 msgstr "杂物。"
+
+#~ msgid "Fatigue: {fatigue} percent"
+#~ msgstr "疲劳度：百分之{fatigue}"
 
 #~ msgid "Open weigh station means every truck must pull in."
 #~ msgstr "称重站开放，意味着每辆卡车都必须驶入。"

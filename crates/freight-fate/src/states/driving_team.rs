@@ -336,7 +336,7 @@ impl DrivingState {
         }
         // Nothing the player was holding carries over to the co-driver.
         self.brake_latch = Default::default();
-        self.microsleep_deadline = None;
+        self.nod.next(NodEvent::WheelHandedOver);
         log::info!(
             target: TRANSCRIPT_TARGET,
             "[co-driver] {} takes the wheel ({mode:?})",

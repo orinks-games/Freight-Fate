@@ -738,12 +738,12 @@ pub const DRIVE_PHASE_SCHOOL: &str = "school"; // sandbox practice drive, never 
 // Microsleeps: once fatigue is severe, the driver involuntarily nods off and
 // must respond (steer or brake) within a short window or drift off the road.
 // They come faster the more exhausted you are, and escalate to a forced stop.
-pub const MICROSLEEP_REACTION_S: f64 = 2.2; // real seconds to respond before drifting off
-pub const MICROSLEEP_BASE_GM: f64 = 9.0; // game-minutes between nods at the severe threshold
-pub const MICROSLEEP_MIN_GM: f64 = 3.0; // ...shrinking to this nearer total exhaustion
-pub const MICROSLEEP_COOLDOWN_GM: f64 = 4.0; // quiet period after one resolves
+// The timing lives beside the nod-off machine in `ff_core::sim::alertness`.
+pub use ff_core::sim::alertness::{
+    MICROSLEEP_BASE_GM, MICROSLEEP_COOLDOWN_GM, MICROSLEEP_FORCE_STOP_MISSES, MICROSLEEP_MIN_GM,
+    MICROSLEEP_REACTION_S,
+};
 pub const MICROSLEEP_SHOULDER_DAMAGE_PCT: f64 = 6.0;
-pub const MICROSLEEP_FORCE_STOP_MISSES: i64 = 3; // consecutive misses that force a stop
 
 // Turn earcons come from the side of the maneuver, the same convention as
 // the lane-guidance beeps: hear it on the side you are about to steer toward.

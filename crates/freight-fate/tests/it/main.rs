@@ -102,6 +102,7 @@ mod states_driver_directory;
 mod states_driver_profile;
 mod states_drivers_board;
 mod states_driving_air_brakes;
+mod states_driving_alertness;
 mod states_driving_approach_sweep;
 mod states_driving_armed_exit_readout;
 mod states_driving_arrival_gate;

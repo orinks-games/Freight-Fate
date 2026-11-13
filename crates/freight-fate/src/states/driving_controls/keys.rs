@@ -289,7 +289,7 @@ impl DrivingState {
     /// -1 moves right. With steering assist on, the held wheel does this
     /// instead, so the tap handler never runs there.
     pub fn tap_lane_change(&mut self, ctx: &mut GameContext, direction: i64) {
-        if self.microsleep_deadline.is_some() {
+        if self.nod.demands_driver() {
             return; // the held-key wake-up check owns the arrows right now
         }
         if self.ramp_mi.is_some() {

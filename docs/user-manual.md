@@ -690,6 +690,8 @@ Ten hours of sleep resets your legal hours. At supported parking, you can also u
 
 Open Logbook to review your current duty, limits, daily totals, and earlier entries with their place and reason. While driving, the ELD app gives your hours and reachable stops. If an inspection finds you over hours, it orders a ten-hour hold and explains what that does to the deadline.
 
+Fatigue comes in four bands: rested, worn from 40 percent, drowsy from 60 and severe from 80. A quiet yawn marks worn, and a yawn and "Getting drowsy." mark drowsy. From worn up the Tab status screens name the band with the number, as in "Fatigue: 64 percent, drowsy." A band is left only once fatigue falls 5 points below where it began.
+
 Night driving builds fatigue faster and leaves you less reaction time. When a nod-off warning sounds, respond by steering or braking. The left stick and left trigger answer it too. Miss it and the truck heads onto the shoulder; three successive misses force a stop. The first asleep departure is a preventable incident, and later ones become serious fatigued-driving violations.
 
 Coffee only buys temporary relief. A break helps more, and full sleep clears fatigue.

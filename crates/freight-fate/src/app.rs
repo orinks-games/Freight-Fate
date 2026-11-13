@@ -238,6 +238,10 @@ pub struct DrivingObservation {
     pub cruise_set_mph: Option<f64>,
     /// The speed keeper's hold, when it has the zone.
     pub keeper_mph: Option<f64>,
+    /// The fatigue band the road last cued.
+    pub alertness: ff_core::sim::alertness::Alertness,
+    /// The nod-off machine: where it stands, its timer and the misses.
+    pub nod: ff_core::sim::alertness::NodState,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -384,6 +388,30 @@ impl PlayerInputFrame<'_> {
             "Staged {staged} at mile {:.2}; it fires on the next rolling frame, so listen \
              for the call.",
             drive.trip.position_mi
+        ))
+    }
+
+    /// The agent server's `nod` tool: open a nod-off's reaction window on
+    /// the drive under way, on its next rolling frame, with the warning,
+    /// the reaction check and the outcome a counted nod has.
+    pub fn stage_nod(&mut self) -> Result<String, String> {
+        let state = self
+            .app
+            .state()
+            .ok_or_else(|| "not at the wheel: no screen is up".to_string())?;
+        let mut state = state.borrow_mut();
+        let drive = state
+            .as_any_mut()
+            .downcast_mut::<crate::states::driving::DrivingState>()
+            .ok_or_else(|| "not at the wheel (a menu or stop screen is up)".to_string())?;
+        if drive.co_driver_driving() {
+            return Err("the co-driver has the wheel".to_string());
+        }
+        drive.nod_staged = true;
+        Ok(format!(
+            "Staged a nod at mile {:.2}, {} missed in a row so far; it opens on the next \
+             rolling frame, so listen for the warning.",
+            drive.trip.position_mi, drive.nod.misses
         ))
     }
 
@@ -780,6 +808,8 @@ impl App {
             speed_limit_mph: drive.enforced_limit_prev,
             cruise_set_mph: drive.cruise_mph,
             keeper_mph: drive.keeper_mph,
+            alertness: drive.alertness,
+            nod: drive.nod,
         })
     }
 

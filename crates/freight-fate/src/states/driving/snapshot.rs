@@ -300,6 +300,8 @@ impl DrivingState {
             json!(self.record_events.clone()),
         );
         out.insert("fatigue_events".to_string(), json!(self.fatigue_events));
+        out.insert("alertness".to_string(), json!(self.alertness.key()));
+        out.insert("nod".to_string(), self.nod.to_json());
         out.insert(
             "jake_zone_grace_used".to_string(),
             json!(jake_zone_grace_used),
@@ -640,6 +642,26 @@ impl DrivingState {
         state.failure_to_stop_count = i(data, "failure_to_stop_count", 0);
         state.record_events = strings(data, "record_events");
         state.fatigue_events = i(data, "fatigue_events", 0);
+        // The band as the road last cued it, so a resume does not replay a
+        // cue; a save from before the band was kept rebuilds it from the
+        // number, silently.
+        let fatigue = profile_of(ctx).fatigue;
+        state.alertness = data
+            .get("alertness")
+            .and_then(Value::as_str)
+            .and_then(Alertness::from_key)
+            .unwrap_or_else(|| Alertness::from_fatigue(fatigue));
+        // The nod-off's count and misses carry over. A trip saved with a
+        // nod's window open comes back awake with that nod staged, so it
+        // opens again with its warning instead of a window already run down.
+        state.nod = data
+            .get("nod")
+            .and_then(NodState::from_json)
+            .unwrap_or_default();
+        if state.nod.demands_driver() {
+            state.nod.nod = Nod::default();
+            state.nod_staged = true;
+        }
         state.jake_zone_grace_used = strings(data, "jake_zone_grace_used").into_iter().collect();
         state.restore_pull_over(data.get("pull_over"));
         state.jake_zone_fines = i(data, "jake_zone_fines", 0);

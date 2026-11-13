@@ -11648,6 +11648,39 @@ msgstr "{distance} por hora"
 msgid "kilometer"
 msgstr "quilômetro"
 
+msgid "rested"
+msgstr ""
+
+msgid "worn"
+msgstr "gasto"
+
+msgid "drowsy"
+msgstr ""
+
+msgid "severe"
+msgstr ""
+
+msgid "awake"
+msgstr ""
+
+msgid "nodding"
+msgstr ""
+
+msgid "recovering"
+msgstr ""
+
+msgid "game minutes counted"
+msgstr ""
+
+msgid "seconds left"
+msgstr ""
+
+msgid "game minutes left"
+msgstr ""
+
+msgid "misses"
+msgstr ""
+
 msgid "Driver window down."
 msgstr "Janela do motorista aberta."
 
@@ -15569,6 +15602,15 @@ msgid ""
 "so listen for the call."
 msgstr ""
 
+msgid "the co-driver has the wheel"
+msgstr ""
+
+#. placeholders: {position_mi}, {misses}
+msgid ""
+"Staged a nod at mile {position_mi}, {misses} missed in a row so far; it "
+"opens on the next rolling frame, so listen for the warning."
+msgstr ""
+
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
 "Scenario staged: {name} at {the_city} terminal, level {level}, {deliveries} "
@@ -18865,9 +18907,6 @@ msgstr "excelente"
 msgid "good"
 msgstr "bom"
 
-msgid "worn"
-msgstr "gasto"
-
 msgid "all-season"
 msgstr "para todas as estações"
 
@@ -21799,6 +21838,12 @@ msgstr "São {now}."
 msgid "amount"
 msgstr "amount"
 
+msgid "alertness"
+msgstr ""
+
+msgid "nod"
+msgstr ""
+
 msgid "local game time"
 msgstr "hora local do jogo"
 
@@ -23102,9 +23147,9 @@ msgstr "Bônus"
 msgid "{label}: good for the rest of the trip"
 msgstr "{label}: vale pelo resto da viagem"
 
-#. placeholders: {fatigue}
-msgid "Fatigue: {fatigue} percent"
-msgstr "Cansaço: {fatigue} por cento"
+#. placeholders: {fatigue}, {band}
+msgid "Fatigue: {fatigue} percent, {band}"
+msgstr ""
 
 #. placeholders: {context}
 msgid "HOS route: {context}"
@@ -28303,6 +28348,10 @@ msgstr ""
 msgid "Transmission: {else}, {gear}"
 msgstr "Transmissão: {else}, {gear}"
 
+#. placeholders: {f}, {band}
+msgid "Fatigue: {f} percent, {band}"
+msgstr ""
+
 #. placeholders: {f}
 msgid "Fatigue: {f} percent"
 msgstr "Cansaço: {f} por cento"
@@ -31905,9 +31954,6 @@ msgid ""
 "{name} drove on after a collision with {animal}. Damage {damage} percent."
 msgstr ""
 
-msgid "rested"
-msgstr ""
-
 msgid "Refuel"
 msgstr "Abastecer"
 
@@ -32712,11 +32758,11 @@ msgstr "bônus"
 msgid "The {label} has worn off."
 msgstr "O efeito de {label} passou."
 
-msgid "Dangerously drowsy and drifting out of your lane."
-msgstr "Perigosamente sonolento e saindo da faixa."
-
 msgid "Getting drowsy."
 msgstr "Ficando sonolento."
+
+msgid "Dangerously drowsy and drifting out of your lane."
+msgstr "Perigosamente sonolento e saindo da faixa."
 
 msgid "Nodding off. Steer or brake now!"
 msgstr "Cochilando. Vire o volante ou freie agora!"
@@ -41622,6 +41668,9 @@ msgstr "Pedaços de pneu."
 
 msgid "Debris."
 msgstr "Destroços."
+
+#~ msgid "Fatigue: {fatigue} percent"
+#~ msgstr "Cansaço: {fatigue} por cento"
 
 #~ msgid "Open weigh station means every truck must pull in."
 #~ msgstr ""

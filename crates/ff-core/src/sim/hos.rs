@@ -145,6 +145,8 @@ pub fn duration_text(hours: f64) -> String {
 // Fatigue
 // ---------------------------------------------------------------------------
 
+/// one quiet yawn, the first sign of the day wearing on the driver
+pub const FATIGUE_WORN: f64 = 40.0;
 /// yawns and a spoken warning
 pub const FATIGUE_DROWSY: f64 = 60.0;
 /// rumble strip drift, urgent warning

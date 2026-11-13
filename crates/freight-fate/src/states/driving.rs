@@ -44,6 +44,7 @@ use ff_core::data::world_models::Route;
 use ff_core::models::jobs::Job;
 use ff_core::pyrandom::PyRandom;
 use ff_core::radio::RadioState;
+use ff_core::sim::alertness::{Alertness, NodState};
 use ff_core::sim::cross_traffic::CrossTraffic;
 use ff_core::sim::enforcement_observe::Observation;
 use ff_core::sim::lane::LaneKeeping;
@@ -224,13 +225,14 @@ pub struct DrivingState {
     pub hos_plan_hint_pending: Option<String>,
     pub enforcement_events: HashSet<String>,
     pub out_of_service_count: i64,
-    pub drowsy_said: bool,
-    pub severe_said: bool,
+    /// The fatigue band the road last cued (`ff_core::sim::alertness`).
+    pub alertness: Alertness,
     pub fatigue_cue_gm: f64, // game minutes since the last drowsy cue
-    pub microsleep_deadline: Option<f64>, // reaction window, real seconds
-    pub microsleep_gm: f64,  // game minutes since the last nod
-    pub microsleep_cooldown_gm: f64,
-    pub microsleep_misses: i64, // consecutive nods drifted off the road
+    /// The nod-off severe fatigue brings on: its count, window and misses.
+    pub nod: NodState,
+    /// A nod a play tester asked for (or a trip saved mid-nod), opened on
+    /// the next rolling frame.
+    pub nod_staged: bool,
     pub hazard_deadline: Option<f64>,
     // What is actually pending, in the order it armed. A second hazard
     // arming while one is still live folds its name in here instead of

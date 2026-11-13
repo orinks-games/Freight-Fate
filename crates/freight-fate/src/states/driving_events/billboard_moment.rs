@@ -9,7 +9,7 @@
 use ff_core::data::billboards_dynamic::{
     dynamic_billboard, holiday_on, BillboardMoment, Incident, SMALL_HOURS,
 };
-use ff_core::sim::hos::FATIGUE_DROWSY;
+use ff_core::sim::alertness::Alertness;
 use ff_core::sim::season::calendar_date;
 use ff_core::speech_text::SpokenMessage;
 
@@ -75,7 +75,8 @@ impl DrivingState {
         let state = self.trip.state_code_at(self.trip.position_mi);
         let moment = BillboardMoment {
             incident: now.incident_since(self.billboard_watch),
-            tired: profile.fatigue >= FATIGUE_DROWSY || SMALL_HOURS.contains(&local_hour),
+            tired: Alertness::from_fatigue(profile.fatigue) >= Alertness::Drowsy
+                || SMALL_HOURS.contains(&local_hour),
             holiday: holiday_on(date.month(), date.day()),
             nth: self.pool_billboards_heard,
             offset: self.billboard_offset,

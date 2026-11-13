@@ -620,7 +620,7 @@ impl DrivingState {
     fn lane_keeping_may_change_lanes(&self) -> bool {
         self.lane_change_target.is_none()
             && self.ramp_mi.is_none()
-            && self.microsleep_deadline.is_none()
+            && !self.nod.demands_driver()
             && self.trip.truck.engine_on
             && self.trip.truck.speed_mph() >= LANE_MIN_MPH
     }

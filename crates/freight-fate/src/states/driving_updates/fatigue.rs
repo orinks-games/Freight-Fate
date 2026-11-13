@@ -3,6 +3,7 @@
 use crate::speech::EventPriority;
 use ff_core::models::enforcement;
 use ff_core::models::jobs::hos_stops::STOP_MARGIN_MIN as HOS_STOP_MARGIN_MIN;
+use ff_core::sim::alertness;
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
@@ -114,33 +115,17 @@ impl DrivingState {
             .map(|buff| buff.rate)
             .unwrap_or(1.0);
         let fatigue = profile_of(ctx).fatigue;
+        // A band cue waits while a hazard is on the driver or the co-driver
+        // has the wheel, and the band does not move past a cue nobody heard:
+        // it is spoken once the road is clear. Dropping a band is silent, so
+        // that may happen at any time.
         let alerts_clear = self.hazard_deadline.is_none() && !co_driver;
-        if fatigue >= hos::FATIGUE_SEVERE && !self.severe_said && alerts_clear {
-            self.severe_said = true;
-            self.fatigue_cue_gm = 0.0;
-            ctx.audio.play_with("vehicle/rumble_strip", 0.8, 0.0);
-            ctx.say_event_with(
-                "Dangerously drowsy and drifting out of your lane.",
-                SayEvent::new().category(SpeechCategory::Safety),
-            );
-        } else if fatigue >= hos::FATIGUE_DROWSY && !self.drowsy_said && alerts_clear {
-            self.drowsy_said = true;
-            self.fatigue_cue_gm = 0.0;
-            ctx.audio.play_with("driver/yawn", 0.9, 0.0);
-            // An instruction to act, not roadside colour: ROUTE keeps it out
-            // from behind chatter and brings it back if it gets talked over.
-            ctx.say_event_with(
-                "Getting drowsy.",
-                SayEvent::queued()
-                    .priority(EventPriority::Important)
-                    .category(SpeechCategory::Safety),
-            );
-        }
-        if fatigue < hos::FATIGUE_DROWSY {
-            self.drowsy_said = false;
-        }
-        if fatigue < hos::FATIGUE_SEVERE {
-            self.severe_said = false;
+        let (band, cue) = self.alertness.next(fatigue);
+        if cue.is_none() || alerts_clear {
+            self.alertness = band;
+            if let Some(cue) = cue {
+                self.play_band_cue(ctx, cue);
+            }
         }
         // periodic audio cues while drowsiness persists
         if moving && !co_driver && fatigue >= hos::FATIGUE_DROWSY {
@@ -159,14 +144,42 @@ impl DrivingState {
         }
     }
 
+    /// The one sound, and for the higher bands the one line, for entering a
+    /// fatigue band.
+    fn play_band_cue(&mut self, ctx: &mut GameContext, cue: BandCue) {
+        match cue {
+            // The first sign of the day wearing on: a quiet yawn, no words.
+            BandCue::Worn => ctx.audio.play_with("driver/yawn", 0.7, 0.0),
+            BandCue::Drowsy => {
+                self.fatigue_cue_gm = 0.0;
+                ctx.audio.play_with("driver/yawn", 0.9, 0.0);
+                // An instruction to act, not roadside colour: ROUTE keeps it
+                // out from behind chatter and brings it back if it gets
+                // talked over.
+                ctx.say_event_with(
+                    "Getting drowsy.",
+                    SayEvent::queued()
+                        .priority(EventPriority::Important)
+                        .category(SpeechCategory::Safety),
+                );
+            }
+            BandCue::Severe => {
+                self.fatigue_cue_gm = 0.0;
+                ctx.audio.play_with("vehicle/rumble_strip", 0.8, 0.0);
+                ctx.say_event_with(
+                    "Dangerously drowsy and drifting out of your lane.",
+                    SayEvent::new().category(SpeechCategory::Safety),
+                );
+            }
+        }
+    }
+
     // -- microsleeps (severe fatigue) ----------------------------------------------
 
     /// Game-minutes between nods; shrinks from base toward the floor as
     /// exhaustion deepens past the severe threshold.
     pub fn microsleep_interval_gm(&self, fatigue: f64) -> f64 {
-        let span = 1.0f64.max(100.0 - hos::FATIGUE_SEVERE);
-        let t = ((fatigue - hos::FATIGUE_SEVERE) / span).clamp(0.0, 1.0);
-        MICROSLEEP_BASE_GM + (MICROSLEEP_MIN_GM - MICROSLEEP_BASE_GM) * t
+        alertness::microsleep_interval_gm(fatigue)
     }
 
     /// Build toward the next involuntary nod-off while severely fatigued.
@@ -177,93 +190,91 @@ impl DrivingState {
         moving: bool,
         fatigue: f64,
     ) {
-        if self.microsleep_cooldown_gm > 0.0 {
-            self.microsleep_cooldown_gm = (self.microsleep_cooldown_gm - gm).max(0.0);
-        }
-        if !moving || fatigue < hos::FATIGUE_SEVERE {
-            self.microsleep_gm = 0.0;
+        // A staged nod (the agent server, or a trip saved mid-nod) opens on
+        // the first rolling frame, with its warning.
+        if self.nod_staged && moving && self.hazard_deadline.is_none() {
+            self.nod_staged = false;
+            let outcome = self.nod.next(NodEvent::Staged);
+            self.apply_nod_outcome(ctx, outcome);
             return;
         }
-        // One demand on the driver at a time, and not right after the last nod.
-        if self.microsleep_deadline.is_some()
-            || self.hazard_deadline.is_some()
-            || self.microsleep_cooldown_gm > 0.0
-        {
-            return;
-        }
-        self.microsleep_gm += gm;
-        if self.microsleep_gm >= self.microsleep_interval_gm(fatigue) {
-            self.microsleep_gm = 0.0;
-            self.begin_microsleep(ctx);
-        }
+        let outcome = self.nod.next(NodEvent::Tick {
+            gm,
+            fatigue,
+            moving,
+            busy: self.hazard_deadline.is_some(),
+        });
+        self.apply_nod_outcome(ctx, outcome);
     }
 
+    /// Open a nod's reaction window now, warning and all.
     pub fn begin_microsleep(&mut self, ctx: &mut GameContext) {
-        self.cancel_cruise(ctx, false); // the nod takes your hands off the wheel
-        self.microsleep_deadline = Some(MICROSLEEP_REACTION_S);
-        ctx.audio.play_with("vehicle/rumble_strip", 1.0, 0.0);
-        ctx.controller.rumble.alert();
-        ctx.say_event_with(
-            "Nodding off. Steer or brake now!",
-            SayEvent::new().category(SpeechCategory::Safety),
-        );
+        let outcome = self.nod.next(NodEvent::Staged);
+        self.apply_nod_outcome(ctx, outcome);
     }
 
     pub fn update_microsleep(&mut self, ctx: &mut GameContext, dt: f64) {
-        let Some(deadline) = self.microsleep_deadline else {
-            return;
-        };
-        // Already crawling: the nod passes without leaving the road.
-        if self.trip.truck.speed_mph() <= HAZARD_SAFE_MPH {
-            self.resolve_microsleep(ctx, true);
+        if !self.nod.demands_driver() {
             return;
         }
+        // Already crawling: the nod passes without leaving the road.
+        let crawling = self.trip.truck.speed_mph() <= HAZARD_SAFE_MPH;
         // The line the truck just spoke is "Steer or brake now to stay awake",
         // and on a pad both of those are the stick and the left trigger --
         // neither of which is a key. A controller-only driver could not wake
         // up at all and drifted off the road every time (owner, 2026-08-16).
         // Parity with the keyboard is the bar: a held Down arrow already
         // counts as a reaction, so a held trigger does too.
-        let pad_reacted = ctx.controller.active()
-            && (ctx.controller.steering().abs() > 0.0 || ctx.controller.brake() > 0.05);
-        let reacted = ctx.bindings.pressed(&ctx.input, Action::SteerLeft)
-            || ctx.bindings.pressed(&ctx.input, Action::SteerRight)
-            || ctx.bindings.pressed(&ctx.input, Action::Brake)
-            || ctx.bindings.pressed(&ctx.input, Action::EmergencyBrake)
-            || pad_reacted;
-        if reacted {
-            self.resolve_microsleep(ctx, false);
-            return;
-        }
-        let left = deadline - dt;
-        self.microsleep_deadline = Some(left);
-        if left <= 0.0 {
-            self.microsleep_deadline = None;
-            self.microsleep_drift_off_road(ctx);
+        let reacted = !crawling && {
+            let pad_reacted = ctx.controller.active()
+                && (ctx.controller.steering().abs() > 0.0 || ctx.controller.brake() > 0.05);
+            ctx.bindings.pressed(&ctx.input, Action::SteerLeft)
+                || ctx.bindings.pressed(&ctx.input, Action::SteerRight)
+                || ctx.bindings.pressed(&ctx.input, Action::Brake)
+                || ctx.bindings.pressed(&ctx.input, Action::EmergencyBrake)
+                || pad_reacted
+        };
+        let outcome = if reacted {
+            self.nod.next(NodEvent::Reacted)
+        } else {
+            self.nod.next(NodEvent::Window { dt_s: dt, crawling })
+        };
+        self.apply_nod_outcome(ctx, outcome);
+    }
+
+    /// Every side effect of the nod-off, one per outcome.
+    fn apply_nod_outcome(&mut self, ctx: &mut GameContext, outcome: NodOutcome) {
+        match outcome {
+            NodOutcome::None | NodOutcome::CaughtSilent => {}
+            NodOutcome::Began => {
+                self.cancel_cruise(ctx, false); // the nod takes your hands off the wheel
+                ctx.audio.play_with("vehicle/rumble_strip", 1.0, 0.0);
+                ctx.controller.rumble.alert();
+                ctx.say_event_with(
+                    "Nodding off. Steer or brake now!",
+                    SayEvent::new().category(SpeechCategory::Safety),
+                );
+            }
+            NodOutcome::Caught => {
+                // ROUTE, not the ambient default: the outcome of a driver's
+                // own reaction to an urgent warning, same class as the
+                // hazard-clear precedent (automation-handoff sweep,
+                // 2026-08-20, the deferred 2026-08-15 audit).
+                ctx.say_event_with(
+                    "You caught it.",
+                    SayEvent::queued()
+                        .priority(EventPriority::Important)
+                        .category(SpeechCategory::Confirmation),
+                );
+            }
+            NodOutcome::DriftedOff => self.microsleep_drift_off_road(ctx, false),
+            NodOutcome::ForcedStop => self.microsleep_drift_off_road(ctx, true),
         }
     }
 
-    pub fn resolve_microsleep(&mut self, ctx: &mut GameContext, silent: bool) {
-        self.microsleep_deadline = None;
-        self.microsleep_cooldown_gm = MICROSLEEP_COOLDOWN_GM;
-        self.microsleep_misses = 0;
-        if !silent {
-            // ROUTE, not the ambient default: the outcome of a driver's own
-            // reaction to an urgent warning, same class as the hazard-clear
-            // precedent (automation-handoff sweep, 2026-08-20, the deferred
-            // 2026-08-15 audit).
-            ctx.say_event_with(
-                "You caught it.",
-                SayEvent::queued()
-                    .priority(EventPriority::Important)
-                    .category(SpeechCategory::Confirmation),
-            );
-        }
-    }
-
-    pub fn microsleep_drift_off_road(&mut self, ctx: &mut GameContext) {
-        self.microsleep_misses += 1;
-        self.microsleep_cooldown_gm = MICROSLEEP_COOLDOWN_GM;
+    /// The window ran out: the truck wanders onto the shoulder. `forced` is
+    /// the third miss in a row, which ends in the forced stop.
+    pub fn microsleep_drift_off_road(&mut self, ctx: &mut GameContext, forced: bool) {
         ctx.audio.play_with("vehicle/rumble_strip", 1.0, 0.0);
         self.trip.truck.add_damage_from(
             MICROSLEEP_SHOULDER_DAMAGE_PCT,
@@ -272,8 +283,7 @@ impl DrivingState {
         );
         self.trip.truck.velocity_mps *= 0.8; // wandering onto the shoulder scrubs speed
         let standing = self.record_fatigue_event(ctx);
-        if self.microsleep_misses >= MICROSLEEP_FORCE_STOP_MISSES {
-            self.microsleep_misses = 0;
+        if forced {
             self.trip.truck.throttle = 0.0;
             self.trip.truck.brake = 1.0;
             ctx.audio.play_with("vehicle/tire_screech", 0.9, 0.0);
