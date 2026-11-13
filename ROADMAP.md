@@ -4540,4 +4540,7 @@ a public build leaks.
 - [x] Add stable, beta and alpha subscriptions and configurable branch builds for alpha.
 - [x] Default automatic update offers to Remind me later and suppress held activation.
 - [x] Provision and back up the persistent sealing key; enable sealed careers in future release builds.
-- [ ] Verify packaged migration and production cloud round trips before release. See [release integration](docs/updater-and-sealed-saves.md).
+- [x] Verify packaged migration before release. Checked 2026-11-13 on the Linux x64 packages: a career made in the 1.9.5 release opened in the beta snapshot of 2026-11-12, was sealed, saved and reopened, and its backup matched the 1.9.5 file byte for byte.
+- [ ] Verify a production cloud backup and restore from a sealed release build. See [release integration](docs/updater-and-sealed-saves.md).
+- [x] Careers an older release set aside come back. 1.9.5 cannot read a sealed career and renames it on its save scan, so one start of 1.9.5 on a 1.9.6 saves folder left 1.9.6 with no careers to list (found in the packaged check of 2026-11-13). The save listing now puts a set-aside sealed career back under its own name when no career holds that name and the file opens there.
+- [ ] A career made by 1.9.5 or earlier in a saves folder that a sealed release has already used is refused as unverified, because it cannot be told from a hand-edited file. A cloud restore is the way back; decide whether the message should say why.

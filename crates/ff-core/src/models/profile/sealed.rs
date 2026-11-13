@@ -1,8 +1,10 @@
 //! Local encryption surrounds the existing signed save container. Cloud payloads
 //! stay portable JSON and retain their independent server verification.
 use hearken_seal::{Opened, Vault};
+use std::collections::HashMap;
 use std::io;
-use std::path::Path;
+use std::path::{Path, PathBuf};
+use std::time::SystemTime;
 
 fn name(path: &Path) -> io::Result<&str> {
     path.file_name().and_then(|n| n.to_str()).ok_or_else(|| {
@@ -66,6 +68,83 @@ pub fn remove(path: &Path) -> io::Result<()> {
 /// builds permission to overwrite a release's sealed career.
 pub fn write(path: &Path, bytes: &[u8]) -> io::Result<()> {
     vault(path).write(name(path)?, bytes)
+}
+
+/// What a save scan renames a career it cannot decode to: `X.ffsave.invalid`,
+/// then `.invalid1`, `.invalid2` ([`super::signing::quarantine`]).
+const SET_ASIDE: &str = ".invalid";
+/// The first bytes of every sealed file.
+const SEALED_MAGIC: &[u8; 4] = b"HKSL";
+
+fn starts_sealed(path: &Path) -> bool {
+    use std::io::Read;
+    let mut head = [0u8; 4];
+    std::fs::File::open(path)
+        .and_then(|mut file| file.read_exact(&mut head))
+        .is_ok()
+        && &head == SEALED_MAGIC
+}
+
+/// Bring back sealed careers that an older release set aside.
+///
+/// A release from before sealing (1.9.5 and earlier) cannot decode a sealed
+/// career, so its save scan renames the file to `X.ffsave.invalid`. One start
+/// of such a release on this saves folder would leave this build with no
+/// careers to list. A set-aside sealed file goes back under its own name when
+/// no career holds that name and the file opens there; anything else stays
+/// exactly where it is. Returns how many came back.
+pub fn restore_set_aside(dir: &Path) -> usize {
+    if !vault(&dir.join("career")).is_sealing() {
+        // A build without the key could not open one, so it moves nothing.
+        return 0;
+    }
+    let Ok(entries) = std::fs::read_dir(dir) else {
+        return 0;
+    };
+    // The newest set-aside copy of each career file name.
+    let mut newest: HashMap<String, (SystemTime, PathBuf)> = HashMap::new();
+    for aside in entries.flatten().map(|entry| entry.path()) {
+        let Some(file_name) = aside.file_name().and_then(|n| n.to_str()) else {
+            continue;
+        };
+        let Some((career, counter)) = file_name.rsplit_once(SET_ASIDE) else {
+            continue;
+        };
+        if !career.ends_with(super::SAVE_SUFFIX)
+            || !counter.bytes().all(|b| b.is_ascii_digit())
+            || dir.join(career).exists()
+            || !starts_sealed(&aside)
+        {
+            continue;
+        }
+        let modified = aside
+            .metadata()
+            .and_then(|m| m.modified())
+            .unwrap_or(SystemTime::UNIX_EPOCH);
+        if newest.get(career).is_none_or(|(seen, _)| modified > *seen) {
+            newest.insert(career.to_string(), (modified, aside));
+        }
+    }
+    let mut restored = 0;
+    for (career, (_, aside)) in newest {
+        let home = dir.join(&career);
+        if let Err(e) = std::fs::rename(&aside, &home) {
+            log::warn!("Could not bring back {}: {e}", aside.display());
+            continue;
+        }
+        // The seal covers the file's name, so it can only be judged in place.
+        let opens = read(&home).is_ok_and(|(bytes, _)| super::decode_save_bytes(&bytes).is_ok());
+        if opens {
+            log::info!(
+                "Brought back {career}, which an older version had set aside as {}",
+                aside.display()
+            );
+            restored += 1;
+        } else if let Err(e) = std::fs::rename(&home, &aside) {
+            log::warn!("Could not put {} back aside: {e}", home.display());
+        }
+    }
+    restored
 }
 
 #[cfg(test)]
@@ -150,6 +229,95 @@ mod tests {
             std::fs::write(&path, &bad).unwrap();
             assert!(Profile::load_with(&path, true).is_err());
             assert_eq!(std::fs::read(&path).unwrap(), bad);
+        });
+    }
+    /// What 1.9.5's save scan does to a career it cannot decode.
+    fn set_aside_like_an_older_release(path: &Path) -> PathBuf {
+        crate::models::profile::signing::quarantine(path).unwrap()
+    }
+    #[test]
+    fn a_sealed_career_an_older_release_set_aside_comes_back() {
+        crate::models::profile::tests::with_data_dir(|_| {
+            let _key = sealing();
+            let path = Profile::new().save().unwrap();
+            let sealed = std::fs::read(&path).unwrap();
+            let aside = set_aside_like_an_older_release(&path);
+            assert!(!path.exists());
+            assert_eq!(Profile::list_saves(), vec![path.clone()]);
+            assert!(!aside.exists());
+            assert_eq!(std::fs::read(&path).unwrap(), sealed);
+            assert!(!Profile::load_with(&path, true).unwrap().integrity_modified);
+        });
+    }
+    #[test]
+    fn the_newest_set_aside_copy_is_the_one_that_comes_back() {
+        crate::models::profile::tests::with_data_dir(|_| {
+            let _key = sealing();
+            let mut p = Profile::new();
+            let path = p.save().unwrap();
+            let older = set_aside_like_an_older_release(&path);
+            p.spend(250.0);
+            p.save().unwrap();
+            let newer = set_aside_like_an_older_release(&path);
+            let later = std::time::SystemTime::now() + std::time::Duration::from_secs(60);
+            std::fs::File::options()
+                .write(true)
+                .open(&newer)
+                .unwrap()
+                .set_modified(later)
+                .unwrap();
+            assert_eq!(restore_set_aside(path.parent().unwrap()), 1);
+            assert!(older.exists());
+            assert!(!newer.exists());
+            assert_eq!(Profile::load_with(&path, true).unwrap().money(), p.money());
+        });
+    }
+    #[test]
+    fn a_set_aside_file_that_would_not_open_stays_aside() {
+        crate::models::profile::tests::with_data_dir(|_| {
+            let _key = sealing();
+            let path = Profile::new().save().unwrap();
+            let dir = path.parent().unwrap().to_path_buf();
+            // A sealed file damaged on disk.
+            let mut bad = std::fs::read(&path).unwrap();
+            let last = bad.len() - 1;
+            bad[last] ^= 1;
+            std::fs::write(&path, &bad).unwrap();
+            let aside = set_aside_like_an_older_release(&path);
+            // A plain file this build set aside itself.
+            let plain = dir.join("Other.ffsave.invalid");
+            std::fs::write(&plain, b"FFSAVE1\0not a career").unwrap();
+            assert_eq!(restore_set_aside(&dir), 0);
+            assert!(Profile::list_saves().is_empty());
+            assert_eq!(std::fs::read(&aside).unwrap(), bad);
+            assert!(plain.exists());
+            assert!(!path.exists());
+        });
+    }
+    #[test]
+    fn a_set_aside_copy_never_replaces_a_career_that_is_there() {
+        crate::models::profile::tests::with_data_dir(|_| {
+            let _key = sealing();
+            let mut p = Profile::new();
+            let path = p.save().unwrap();
+            let aside = set_aside_like_an_older_release(&path);
+            p.spend(250.0);
+            p.save().unwrap();
+            let current = std::fs::read(&path).unwrap();
+            assert_eq!(restore_set_aside(path.parent().unwrap()), 0);
+            assert!(aside.exists());
+            assert_eq!(std::fs::read(&path).unwrap(), current);
+        });
+    }
+    #[test]
+    fn a_build_without_the_key_leaves_set_aside_careers_alone() {
+        crate::models::profile::tests::with_data_dir(|_| {
+            let key = sealing();
+            let path = Profile::new().save().unwrap();
+            let aside = set_aside_like_an_older_release(&path);
+            drop(key);
+            assert!(Profile::list_saves().is_empty());
+            assert!(aside.exists());
         });
     }
     #[test]

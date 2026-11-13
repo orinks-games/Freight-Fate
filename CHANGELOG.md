@@ -52,6 +52,7 @@
 
 ### Fixed
 
+- **A career that 1.9.5 or earlier set aside as unreadable comes back the next time you start this version.**
 - **Saving and resuming a drive no longer resets the nod-off timer and miss count.**
 - **"Getting drowsy." no longer repeats after a coffee or snack eases fatigue a few points.**
 - **The main menu's background sound plays again after you leave the terminal or a shipper's dock.** Escape or Quit to main menu used to bring the menu back silent.
