@@ -180,8 +180,9 @@ fn tools_list() -> Value {
              it ends with one STATE line, not spoken: alertness (the fatigue band: \
              rested, worn, drowsy or severe), nod (awake, nodding or recovering, \
              with its timer), nod_misses (missed nods in a row toward the forced \
-             stop) and lift_owed (fatigue a coffee or energy drink will take back, \
-             and when).",
+             stop), lift_owed (fatigue a coffee or energy drink will take back, \
+             and when) and rest_call (this load's call to dispatch for rest: \
+             available, used, or none with no load on).",
             json!({}),
             &[],
         ),

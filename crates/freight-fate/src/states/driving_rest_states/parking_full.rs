@@ -84,10 +84,8 @@ impl ParkingFullState {
             // at 2 AM needs the tank before the choice of where to sleep.
             let label = self.fuel_label(ctx, d);
             items.push(
-                MenuItem::new(label, |s: &mut Self, ctx| s.refuel(ctx)).help(
-                    "Fills the tank at the posted diesel price plus a 35 dollar service fee. Engine \
-                     must be off.",
-                ),
+                MenuItem::new(label, |s: &mut Self, ctx| s.refuel(ctx))
+                    .help(self.fuel_help(ctx, d)),
             );
         }
         items.push(

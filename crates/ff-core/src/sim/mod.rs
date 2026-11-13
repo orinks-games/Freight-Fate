@@ -5,6 +5,7 @@ pub mod cross_traffic;
 pub mod driving_modes;
 pub mod enforcement_observe;
 pub mod enforcement_posts;
+pub mod fatigue_costs;
 pub mod hos;
 pub mod lane;
 pub mod lane_guidance;

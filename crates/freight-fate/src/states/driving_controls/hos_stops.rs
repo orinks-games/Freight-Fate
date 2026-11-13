@@ -4,7 +4,9 @@ use crate::app::{GameContext, SayEvent};
 use crate::speech::{DeliveryStatus, EventPriority};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{hos_mut_of, hos_of};
-use ff_core::models::jobs::hos_stops::{plan_hos_stop, HosStopAdvice, StopPlanningRoute};
+use ff_core::models::jobs::hos_stops::{
+    nearest_sleep_stop_travel_min, plan_hos_stop, HosStopAdvice, StopPlanningRoute,
+};
 use ff_core::models::jobs::route_drive_hours;
 use ff_core::speech_pacing::SpeechCategory;
 
@@ -169,6 +171,22 @@ impl DrivingState {
     }
 
     pub fn hos_stop_advice(&self, ctx: &GameContext) -> Option<HosStopAdvice> {
+        plan_hos_stop(
+            &self.stop_planning_route(ctx)?,
+            hos_of(ctx),
+            &ctx.settings.hos_mode,
+        )
+    }
+
+    /// Minutes to the nearest stop ahead with parking to sleep at, by the
+    /// same estimate as [`Self::hos_stop_advice`]; `None` when none is known.
+    pub fn nearest_sleep_stop_travel_min(&self, ctx: &GameContext) -> Option<f64> {
+        nearest_sleep_stop_travel_min(&self.stop_planning_route(ctx)?)
+    }
+
+    /// The highway the stop estimates walk: on the departure streets, the
+    /// highway trip with the streets' remaining time in front of it.
+    fn stop_planning_route<'a>(&'a self, ctx: &'a GameContext) -> Option<StopPlanningRoute<'a>> {
         let (trip, local_drive_min) = if self.departure_chain {
             let highway = self.highway_trip.as_ref()?;
             (
@@ -182,18 +200,14 @@ impl DrivingState {
         } else {
             (&self.trip, 0.0)
         };
-        plan_hos_stop(
-            &StopPlanningRoute {
-                route: &trip.route,
-                stops: &trip.stops,
-                position_mi: trip.position_mi,
-                bobtail: trip.bobtail,
-                local_drive_min,
-                world: Some(ctx.world),
-            },
-            hos_of(ctx),
-            &ctx.settings.hos_mode,
-        )
+        Some(StopPlanningRoute {
+            route: &trip.route,
+            stops: &trip.stops,
+            position_mi: trip.position_mi,
+            bobtail: trip.bobtail,
+            local_drive_min,
+            world: Some(ctx.world),
+        })
     }
 
     pub fn warn_last_hos_stop(&mut self, ctx: &mut GameContext) {

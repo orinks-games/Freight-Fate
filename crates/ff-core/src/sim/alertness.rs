@@ -150,6 +150,32 @@ impl Alertness {
             .find(|band| band.key() == key.trim().to_ascii_lowercase())
     }
 
+    /// How much longer work the driver does by hand takes in this band
+    /// (`docs/fatigue-design.md`, part 4): fueling, the walk-around, chain
+    /// work, pulling into a stop. Time someone else controls (a dock, a
+    /// mechanic, an officer) never takes this.
+    ///
+    /// ASSUMED tuning, with no measured source: 10, 25 and 50 percent extra
+    /// for Worn, Drowsy and Severe, and half that extra (5, 12 and 25
+    /// percent) with relaxed pacing.
+    pub fn work_time_mult(self, relaxed: bool) -> f64 {
+        match (self, relaxed) {
+            (Alertness::Rested, _) => 1.0,
+            (Alertness::Worn, false) => 1.10,
+            (Alertness::Drowsy, false) => 1.25,
+            (Alertness::Severe, false) => 1.50,
+            (Alertness::Worn, true) => 1.05,
+            (Alertness::Drowsy, true) => 1.12,
+            (Alertness::Severe, true) => 1.25,
+        }
+    }
+
+    /// The minutes a hand task of `base_min` takes in this band, rounded to
+    /// the nearest whole minute (a half rounds up: 37.5 is 38).
+    pub fn hand_work_min(self, base_min: f64, relaxed: bool) -> f64 {
+        (base_min * self.work_time_mult(relaxed)).round()
+    }
+
     /// The word the status readout puts after the number, from Worn up.
     /// Rested is not news, so it has none.
     pub fn readout_word(self) -> Option<&'static str> {

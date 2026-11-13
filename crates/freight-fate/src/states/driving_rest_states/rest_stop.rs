@@ -243,10 +243,8 @@ impl RestStopState {
             items.push(self.facility_engine_item_for(d.trip.truck.engine_on));
             let label = self.fuel_label(ctx, d);
             items.push(
-                MenuItem::new(label, |s: &mut Self, ctx| s.refuel(ctx)).help(
-                    "Fills the tank at the posted diesel price plus a 35 dollar service fee. Buys \
-                     what you can afford if cash is short. Engine must be off.",
-                ),
+                MenuItem::new(label, |s: &mut Self, ctx| s.refuel(ctx))
+                    .help(self.fuel_help(ctx, d)),
             );
         }
         if self.has_cat_scale() {
@@ -447,10 +445,11 @@ impl RestStopState {
             MenuItem::new("Walk around the truck", |s: &mut Self, ctx| {
                 s.walk_around(ctx)
             })
-            .help(
+            .help(format!(
                 "A pre-trip walk-around: what an inspector would find on the tractor and the \
-                 trailer. Fifteen minutes on duty.",
-            ),
+                 trailer. {} minutes on duty.",
+                fmt_f(d.hand_work_min(ctx, WALK_AROUND_MIN), 0)
+            )),
         );
         if has("save") {
             items.push(
@@ -1339,8 +1338,16 @@ impl RestStopState {
             }
             // The lane is a real Level 1: driver, paperwork, walk-around and
             // under the truck, settled where it stands.
+            let out_of_service_before = d.out_of_service_count;
             let report = d.inspection_report(ctx, InspectionLevel::Full);
-            let outcome = d.settle_inspection(ctx, &report);
+            let mut outcome = d.settle_inspection(ctx, &report);
+            // The lane's own result first, then what the officer does about
+            // a severely tired driver.
+            let fatigue = d.officer_sees_fatigue(ctx, out_of_service_before);
+            if !fatigue.is_empty() {
+                outcome.push(' ');
+                outcome.push_str(&fatigue);
+            }
             (
                 format!(
                     "Inspection check-in complete at {}. Officers pull you into the inspection \
@@ -1364,10 +1371,11 @@ impl RestStopState {
     fn walk_around(&mut self, ctx: &mut GameContext) {
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
             let lines = d.walk_around_lines(ctx);
+            let minutes = d.hand_work_min(ctx, WALK_AROUND_MIN);
             advance_on_duty_clock(
                 d,
                 ctx,
-                WALK_AROUND_MIN,
+                minutes,
                 Some("on_duty_not_driving"),
                 "pre-trip walk-around",
             );
@@ -1379,7 +1387,7 @@ impl RestStopState {
             };
             format!(
                 "Walk-around done, {} minutes. {body} It is {}. {}",
-                fmt_f(WALK_AROUND_MIN, 0),
+                fmt_f(minutes, 0),
                 clock_text(d.trip.local_hour()),
                 deadline_text(d, ctx)
             )

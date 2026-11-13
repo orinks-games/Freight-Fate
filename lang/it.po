@@ -11944,6 +11944,17 @@ msgstr "staffed"
 msgid "tableau"
 msgstr "tableau"
 
+msgid ""
+"The officer warns you about driving this tired. Next time it is an "
+"out-of-service order."
+msgstr ""
+
+msgid "available"
+msgstr "available"
+
+msgid "used"
+msgstr ""
+
 msgid "on duty, not driving"
 msgstr "in servizio, non alla guida"
 
@@ -14214,9 +14225,6 @@ msgstr "wisconsin"
 
 msgid "Wisconsin 511WI TPIMS"
 msgstr "Wisconsin 511WI TPIMS"
-
-msgid "available"
-msgstr "available"
 
 msgid "address"
 msgstr "address"
@@ -18752,13 +18760,14 @@ msgstr "giro di controllo prima della partenza"
 msgid "Walk-around clean."
 msgstr "Giro di controllo senza problemi."
 
+#. placeholders: {f}
 #. one sentence of a longer line
-msgid "Walk-around done, 15 minutes."
-msgstr "Giro di controllo fatto, 15 minuti."
+msgid "Walk-around done, {f} minutes."
+msgstr "Giro di controllo fatto, {f} minuti."
 
-#. placeholders: {join}
-msgid "Walk-around done, 15 minutes. {join}"
-msgstr "Giro di controllo fatto, 15 minuti. {join}"
+#. placeholders: {f}, {join}
+msgid "Walk-around done, {f} minutes. {join}"
+msgstr ""
 
 msgid "Already rested. Enter again to sleep anyway."
 msgstr "Sei già riposato. Premi di nuovo Enter per dormire comunque."
@@ -18948,12 +18957,21 @@ msgstr ""
 msgid "Walk around the truck"
 msgstr "Fai il giro del camion"
 
+#. one sentence of a longer line
+msgid ""
+"A pre-trip walk-around: what a roadside inspector would find on the tractor."
+msgstr ""
+
+#. placeholders: {f}
 msgid ""
 "A pre-trip walk-around: what a roadside inspector would find on the "
-"tractor. Fifteen minutes on duty."
+"tractor. {f} minutes on duty."
 msgstr ""
-"Un giro di controllo prima della partenza: quello che un ispettore su "
-"strada troverebbe sulla motrice. Quindici minuti in servizio."
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "{f} minutes on duty."
+msgstr "{f} minuti in servizio."
 
 msgid "Clock, career day, and the conditions outside."
 msgstr "Orologio, giorno di carriera e condizioni esterne."
@@ -24625,6 +24643,48 @@ msgstr "Scegli cosa devi segnalare. Escape riaggancia."
 msgid "Dispatch: {message}"
 msgstr "Centrale: {message}"
 
+#. placeholders: {answer}
+msgid "Dispatch: {answer}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Park and sleep."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "This load pays base rate, with no on-time bonus."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Understood."
+msgstr ""
+
+#. placeholders: {deadline_appointment}
+msgid ""
+"Understood. Your appointment moves to {deadline_appointment}. Park and "
+"sleep. This load pays base rate, with no on-time bonus."
+msgstr ""
+
+#. placeholders: {deadline_appointment}
+#. one sentence of a longer line
+msgid "Your appointment moves to {deadline_appointment}."
+msgstr ""
+
+#. placeholders: {count_word}
+msgid ""
+" That is {count_word} rest calls this week. Plan your sleep before you take "
+"the load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Plan your sleep before you take the load."
+msgstr ""
+
+#. placeholders: {count_word}
+#. one sentence of a longer line
+msgid "That is {count_word} rest calls this week."
+msgstr ""
+
 msgid "Report a delay"
 msgstr "Segnala un ritardo"
 
@@ -24660,6 +24720,15 @@ msgstr "Segnala un problema al carico"
 
 msgid "Report the freight's current condition and ask how to proceed."
 msgstr "Segnala lo stato attuale della merce e chiedi come procedere."
+
+msgid "Too tired to drive safely"
+msgstr ""
+
+msgid ""
+"Dispatch moves the appointment so you can sleep, once per load. The load "
+"pays its base rate, with no on-time bonus. A third call inside a week costs "
+"dispatch trust."
+msgstr ""
 
 msgid "leg"
 msgstr "leg"
@@ -29873,6 +29942,26 @@ msgstr "Rifornisci {f} galloni per {grouped} dollari."
 msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
 msgstr "Rifornisci {f} galloni per {grouped} dollari. {margin}"
 
+#. one sentence of a longer line
+msgid "Buys what you can afford if cash is short."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Engine must be off."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"Fills the tank at the posted diesel price plus a 35 dollar service fee."
+msgstr ""
+
+#. placeholders: {f}
+msgid ""
+"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+"Buys what you can afford if cash is short. Engine must be off. {f} minutes "
+"on duty."
+msgstr ""
+
 msgid "Shut the engine off before you fuel."
 msgstr "Spegni il motore prima di fare rifornimento."
 
@@ -30005,13 +30094,6 @@ msgid ""
 msgstr ""
 "Il parcheggio per camion di {name} stanotte è pieno.{pumps} Sono le {hour}. "
 "{current}"
-
-msgid ""
-"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
-"Engine must be off."
-msgstr ""
-"Fa il pieno al prezzo del diesel esposto più 35 dollari di servizio. Il "
-"motore deve essere spento."
 
 msgid "Drive on to the next stop"
 msgstr "Prosegui fino alla prossima sosta"
@@ -30220,14 +30302,6 @@ msgid "Loyalty points, shower credits, and rewards."
 msgstr "Punti fedeltà, crediti doccia e premi."
 
 msgid ""
-"Fills the tank at the posted diesel price plus a 35 dollar service fee. "
-"Buys what you can afford if cash is short. Engine must be off."
-msgstr ""
-"Fa il pieno al prezzo del diesel esposto più 35 dollari di servizio. Se sei "
-"a corto di soldi, compra quello che puoi permetterti. Il motore deve essere "
-"spento."
-
-msgid ""
 "Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
 "off in two hours, and a second coffee before then adds nothing. Does not "
 "satisfy the 30-minute break rule."
@@ -30355,12 +30429,17 @@ msgstr "{name} è chiusa"
 msgid "The weigh station is closed."
 msgstr "La stazione di pesatura è chiusa."
 
+#. one sentence of a longer line
 msgid ""
 "A pre-trip walk-around: what an inspector would find on the tractor and the "
-"trailer. Fifteen minutes on duty."
+"trailer."
 msgstr ""
-"Un giro di controllo prima della partenza: quello che un ispettore "
-"troverebbe sulla motrice e sul rimorchio. Quindici minuti in servizio."
+
+#. placeholders: {f}
+msgid ""
+"A pre-trip walk-around: what an inspector would find on the tractor and the "
+"trailer. {f} minutes on duty."
+msgstr ""
 
 msgid "Save at this stop"
 msgstr "Salva a questa sosta"
@@ -30869,11 +30948,6 @@ msgid ""
 msgstr ""
 "Niente da segnalare: pneumatici, freni, luci e rimorchio passerebbero tutti."
 
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Walk-around done, {f} minutes."
-msgstr "Giro di controllo fatto, {f} minuti."
-
 #. placeholders: {f}, {body}, {clock_text}, {deadline_text}
 msgid ""
 "Walk-around done, {f} minutes. {body} It is {clock_text}. {deadline_text}"
@@ -30958,11 +31032,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Reweigh within 24 hours is {dollars_and_cents}."
 msgstr "Una ripesata entro 24 ore costa {dollars_and_cents}."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "{f} minutes on duty."
-msgstr "{f} minuti in servizio."
 
 #. placeholders: {dollars_and_cents}, {grouped}
 msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
@@ -37886,6 +37955,24 @@ msgid ""
 msgstr ""
 
 msgid ""
+"Fatigue slows work by hand. Fueling, the walk-around, chain work and "
+"pulling into a stop take longer from worn up, and the menus read the longer "
+"minutes."
+msgstr ""
+
+msgid ""
+"An inspection or traffic stop while you are severe ends in a ten-hour "
+"fatigue out-of-service order. On Relaxed pacing the first one is a warning."
+msgstr ""
+
+msgid ""
+"Drowsy or severe on a load, Call dispatch offers Too tired to drive safely "
+"once per load. The appointment moves for a night's sleep and the load pays "
+"its base rate, with no on-time bonus. A third call in a week costs dispatch "
+"trust."
+msgstr ""
+
+msgid ""
 "Meals ease fatigue, and a half-hour meal counts as a break. The lift from "
 "coffee or an energy drink comes back when it wears off, and a second one "
 "before then adds no lift. Proper sleep takes off 8 points of fatigue an "
@@ -41991,6 +42078,41 @@ msgstr "Pezzi di pneumatico."
 
 msgid "Debris."
 msgstr "Detriti."
+
+#~ msgid "Walk-around done, 15 minutes."
+#~ msgstr "Giro di controllo fatto, 15 minuti."
+
+#~ msgid "Walk-around done, 15 minutes. {join}"
+#~ msgstr "Giro di controllo fatto, 15 minuti. {join}"
+
+#~ msgid ""
+#~ "A pre-trip walk-around: what a roadside inspector would find on the "
+#~ "tractor. Fifteen minutes on duty."
+#~ msgstr ""
+#~ "Un giro di controllo prima della partenza: quello che un ispettore su "
+#~ "strada troverebbe sulla motrice. Quindici minuti in servizio."
+
+#~ msgid ""
+#~ "Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+#~ "Engine must be off."
+#~ msgstr ""
+#~ "Fa il pieno al prezzo del diesel esposto più 35 dollari di servizio. Il "
+#~ "motore deve essere spento."
+
+#~ msgid ""
+#~ "Fills the tank at the posted diesel price plus a 35 dollar service fee. "
+#~ "Buys what you can afford if cash is short. Engine must be off."
+#~ msgstr ""
+#~ "Fa il pieno al prezzo del diesel esposto più 35 dollari di servizio. Se sei "
+#~ "a corto di soldi, compra quello che puoi permetterti. Il motore deve essere "
+#~ "spento."
+
+#~ msgid ""
+#~ "A pre-trip walk-around: what an inspector would find on the tractor and the "
+#~ "trailer. Fifteen minutes on duty."
+#~ msgstr ""
+#~ "Un giro di controllo prima della partenza: quello che un ispettore "
+#~ "troverebbe sulla motrice e sul rimorchio. Quindici minuti in servizio."
 
 #~ msgid "The bug report page on GitHub, in your web browser."
 #~ msgstr "La pagina per segnalare i bug su GitHub, nel tuo browser web."

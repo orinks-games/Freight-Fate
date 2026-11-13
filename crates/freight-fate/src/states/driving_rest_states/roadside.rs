@@ -128,6 +128,26 @@ pub trait RoadsideExit: Menu {
     }
 }
 
+/// The stop's result is settled; a severely tired driver now hears what
+/// the officer does about it, after that result. Nothing on a stop that
+/// pulled the license, which ends the run here.
+fn append_fatigue_order(
+    outcome: &mut String,
+    licence_pulled: bool,
+    ctx: &mut GameContext,
+    d: &mut DrivingState,
+    out_of_service_before: i64,
+) {
+    if licence_pulled {
+        return;
+    }
+    let line = d.officer_sees_fatigue(ctx, out_of_service_before);
+    if !line.is_empty() {
+        outcome.push(' ');
+        outcome.push_str(&line);
+    }
+}
+
 // -- TrafficStopState ---------------------------------------------------------------------
 
 const TRAFFIC_STOP_INTRO_HELP: &str = "Enter or Escape pulls back onto the highway.";
@@ -187,8 +207,22 @@ impl TrafficStopState {
         &self.outcome_text
     }
 
-    /// Decide the outcome and apply any ticket immediately.
+    /// Decide the outcome and apply any ticket immediately, then what the
+    /// trooper does about a severely tired driver.
     fn resolve(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
+        let out_of_service_before = d.out_of_service_count;
+        self.resolve_ticket(ctx, d);
+        let pulled = self.licence_pulled(ctx);
+        append_fatigue_order(
+            &mut self.outcome_text,
+            pulled,
+            ctx,
+            d,
+            out_of_service_before,
+        );
+    }
+
+    fn resolve_ticket(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
         let rep = profile_of(ctx).standing();
         let first = d.speeding_tickets == 0;
         // A warning for a first, marginal stop, or for a well-regarded driver
@@ -387,7 +421,22 @@ impl EnforcementStopState {
         &self.outcome_text
     }
 
+    /// Settle the stop, then what the officer does about a severely tired
+    /// driver.
     fn resolve(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
+        let out_of_service_before = d.out_of_service_count;
+        self.resolve_stop(ctx, d);
+        let pulled = self.licence_pulled(ctx);
+        append_fatigue_order(
+            &mut self.outcome_text,
+            pulled,
+            ctx,
+            d,
+            out_of_service_before,
+        );
+    }
+
+    fn resolve_stop(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
         if let Some(level) = self.inspection_level {
             // The stop is the inspection: what it costs comes off the
             // report, and a clean one costs the minutes and nothing else.

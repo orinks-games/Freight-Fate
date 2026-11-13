@@ -104,6 +104,15 @@ pub fn accrue_on_duty_fatigue(driving: &DrivingState, ctx: &mut GameContext, min
     p.fatigue = (p.fatigue + gain).min(100.0);
 }
 
+/// The minutes hand work of `base_min` takes in town, where no drive
+/// tracks the band: the band the fatigue number falls in, read the way
+/// [`DrivingState::hand_work_min`] reads it on the road.
+pub fn town_hand_work_min(ctx: &GameContext, base_min: f64) -> f64 {
+    let fatigue = ctx.profile.as_ref().map_or(0.0, |p| p.fatigue);
+    let relaxed = tuning_for_time_scale(ctx.settings.time_scale).name == "relaxed";
+    ff_core::sim::alertness::Alertness::from_fatigue(fatigue).hand_work_min(base_min, relaxed)
+}
+
 /// Atomically secure a slow truck before a menu freezes driving physics.
 /// (`max_mph` defaults to `DOCKING_MAX_MPH`; see [`secure_truck_for_stopped_menu`].)
 pub fn secure_truck_for_stopped_menu_at(

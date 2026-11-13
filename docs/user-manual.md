@@ -696,6 +696,12 @@ Fatigue comes in four bands: rested, worn from 40 percent, drowsy from 60 and se
 
 Night driving builds fatigue faster and leaves you less reaction time. On-duty time that isn't driving builds it at a third of the driving rate: fueling, the walk-around, docks, scales, inspections, repairs you wait out, chain work, and sitting stopped at the wheel. Off-duty and sleeper time builds none. When a nod-off warning sounds, respond by steering or braking. The left stick and left trigger answer it too. Miss it and the truck heads onto the shoulder; three successive misses force a stop. The first asleep departure is a preventable incident, and later ones become serious fatigued-driving violations.
 
+Fatigue slows work by hand. Fueling, the walk-around, chain work and pulling into a stop take 10 percent longer worn, 25 percent drowsy and 50 percent severe; relaxed pacing halves the extra. The menus read the longer minutes. Work someone else does, such as a dock, a mechanic or an officer, keeps its time.
+
+An officer can see it. An inspection, a log check or a traffic stop while you are severe ends, after the stop's own result, in a fatigue out-of-service order: ten hours off duty where you stand. With relaxed pacing the first one in a career is a warning instead.
+
+Drowsy or severe on a load, Call dispatch offers Too tired to drive safely, once per load. Dispatch moves the appointment by a ten-hour rest plus the drive to the nearest stop with parking, and the load pays its base rate, with no on-time bonus. The third call inside seven days costs dispatch trust, as declining a load does. On a team load whose co-driver has hours, hand over the wheel instead.
+
 A thirty-minute break takes off 35 points and a meal eases fatigue for real. Coffee and energy drinks only lend a lift: when one wears off, two hours after a coffee break, the lift comes back, and a second one before then adds no lift. "The coffee has worn off." or the drink's own line tells you when.
 
 Proper sleep, in sleeper parking, a motel or the terminal bunk room, takes off 8 points of fatigue an hour, so ten hours clears 80. Go to bed at 95 and you wake at 15; the sleep row reads the number before you choose. If a lot is full, it may offer a motel at your own expense. Sleep 10 hours in the lot gives poor rest: 5 points an hour, and never below 30.

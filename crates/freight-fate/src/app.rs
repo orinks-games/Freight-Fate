@@ -244,6 +244,8 @@ pub struct DrivingObservation {
     pub nod: ff_core::sim::alertness::NodState,
     /// A coffee or drink's lift owed back, and the game hours until it is.
     pub lift_owed: Option<(f64, f64)>,
+    /// This load's rest call to dispatch; `None` with no load on.
+    pub rest_call: Option<ff_core::sim::fatigue_costs::RestCall>,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -822,6 +824,7 @@ impl App {
                     }
                     ff_core::sim::stimulant::Loan::Clear => None,
                 }),
+            rest_call: drive.rest_call_state(),
         })
     }
 

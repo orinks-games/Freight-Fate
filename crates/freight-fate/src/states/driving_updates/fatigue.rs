@@ -4,6 +4,10 @@ use crate::speech::EventPriority;
 use ff_core::models::enforcement;
 use ff_core::models::jobs::hos_stops::STOP_MARGIN_MIN as HOS_STOP_MARGIN_MIN;
 use ff_core::sim::alertness;
+use ff_core::sim::fatigue_costs::{
+    fatigue_stop_outcome, mark_officer_warned, officer_warned, FatigueStopOutcome,
+    OFFICER_FATIGUE_WARNING,
+};
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
@@ -360,6 +364,67 @@ impl DrivingState {
             p.career.reputation = 0.0f64.max(p.career.reputation - hit);
         }
         self.log_fatigue_event(ctx)
+    }
+
+    // -- what fatigue costs off the wheel -------------------------------------------
+
+    /// Relaxed pacing, which halves slow work and lets the first officer
+    /// warn instead of order (`docs/fatigue-design.md`, "Modes").
+    pub fn relaxed_pacing(&self) -> bool {
+        tuning_for_time_scale(self.trip.time_scale).name == "relaxed"
+    }
+
+    /// The band right now, for the costs that read it at a stop: the road's
+    /// band moved on, silently, by whatever fatigue did since the last frame
+    /// at the wheel (a break, a meal, the work itself).
+    pub fn current_band(&self, ctx: &GameContext) -> Alertness {
+        let fatigue = ctx.profile.as_ref().map_or(0.0, |p| p.fatigue);
+        self.alertness.next(fatigue).0
+    }
+
+    /// The minutes work the driver does by hand takes now: `base_min` in the
+    /// current band (`Alertness::hand_work_min`). Every row, help line and
+    /// result line that reads such a task's minutes reads this figure.
+    pub fn hand_work_min(&self, ctx: &GameContext, base_min: f64) -> f64 {
+        self.current_band(ctx)
+            .hand_work_min(base_min, self.relaxed_pacing())
+    }
+
+    /// What an officer does about the driver's fatigue, once a stop's own
+    /// result is settled: the line that follows the stop's result, empty for
+    /// nothing. `out_of_service_before` is [`Self::out_of_service_count`] as
+    /// the stop began, so a stop that already put the driver out of service
+    /// adds no second order. The co-driver at the wheel is the one the
+    /// officer talks to, so the player's fatigue is not in it.
+    pub fn officer_sees_fatigue(
+        &mut self,
+        ctx: &mut GameContext,
+        out_of_service_before: i64,
+    ) -> String {
+        if ctx.profile.is_none() || self.co_driver_driving() {
+            return String::new();
+        }
+        let outcome = fatigue_stop_outcome(
+            self.current_band(ctx),
+            self.relaxed_pacing(),
+            officer_warned(&profile_of(ctx).achievement_stats),
+            self.enforcement_bypassed(ctx),
+            self.out_of_service_count > out_of_service_before,
+        );
+        match outcome {
+            FatigueStopOutcome::None => String::new(),
+            FatigueStopOutcome::Warning => {
+                mark_officer_warned(&mut profile_mut_of(ctx).achievement_stats);
+                OFFICER_FATIGUE_WARNING.to_string()
+            }
+            FatigueStopOutcome::OutOfService => {
+                // Ten hours parked is an overnight: the engine does not idle
+                // through it, the same as the roadside hours order.
+                shut_down_engine(self, ctx);
+                let order = self.fatigue_out_of_service(ctx);
+                format!("{order}{}", wake_air_instruction(self))
+            }
+        }
     }
 
     /// The third miss in a row is the fatigue out-of-service order.

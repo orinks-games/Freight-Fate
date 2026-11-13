@@ -302,6 +302,7 @@ impl DrivingState {
         out.insert("fatigue_events".to_string(), json!(self.fatigue_events));
         out.insert("alertness".to_string(), json!(self.alertness.key()));
         out.insert("nod".to_string(), self.nod.to_json());
+        out.insert("rest_call".to_string(), json!(self.rest_call.key()));
         out.insert(
             "jake_zone_grace_used".to_string(),
             json!(jake_zone_grace_used),
@@ -662,6 +663,12 @@ impl DrivingState {
             state.nod.nod = Nod::default();
             state.nod_staged = true;
         }
+        // A load whose rest call is spent stays at its base rate on resume.
+        state.rest_call = data
+            .get("rest_call")
+            .and_then(Value::as_str)
+            .and_then(RestCall::from_key)
+            .unwrap_or_default();
         state.jake_zone_grace_used = strings(data, "jake_zone_grace_used").into_iter().collect();
         state.restore_pull_over(data.get("pull_over"));
         state.jake_zone_fines = i(data, "jake_zone_fines", 0);

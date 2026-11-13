@@ -47,6 +47,7 @@ use ff_core::radio::RadioState;
 use ff_core::sim::alertness::{Alertness, NodState};
 use ff_core::sim::cross_traffic::CrossTraffic;
 use ff_core::sim::enforcement_observe::Observation;
+use ff_core::sim::fatigue_costs::RestCall;
 use ff_core::sim::lane::LaneKeeping;
 use ff_core::sim::lane_guidance::LaneGuidance;
 use ff_core::sim::pedal_latch::PedalLatch;
@@ -233,6 +234,10 @@ pub struct DrivingState {
     /// A nod a play tester asked for (or a trip saved mid-nod), opened on
     /// the next rolling frame.
     pub nod_staged: bool,
+    /// Whether this load's rest call to dispatch is spent
+    /// (`ff_core::sim::fatigue_costs`): once used, the load pays its base
+    /// rate against the moved appointment.
+    pub rest_call: RestCall,
     pub hazard_deadline: Option<f64>,
     // What is actually pending, in the order it armed. A second hazard
     // arming while one is still live folds its name in here instead of

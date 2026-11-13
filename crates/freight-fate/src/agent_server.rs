@@ -247,8 +247,10 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation) -> String {
         Some((amount, due_in_h)) => format!("{amount:.1} due in {due_in_h:.2} h"),
         None => "none".to_string(),
     };
+    let rest_call = o.rest_call.map_or("none", |state| state.key());
     format!(
-        "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}.",
+        "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
+         rest_call {rest_call}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses

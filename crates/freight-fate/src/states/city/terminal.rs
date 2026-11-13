@@ -36,6 +36,7 @@ use crate::states::city::{
     GarageState, PayDebtState, TruckShopState, BACKUP_RESULT_WAIT_S, BOBTAIL_RANGE_MI,
     DRIVING_SCHOOL_ENABLED,
 };
+use crate::states::driving_core::{town_hand_work_min, WALK_AROUND_MIN};
 use crate::states::driving_school::DrivingSchoolState;
 use crate::states::logbook::LogbookState;
 use crate::states::main_menu::{
@@ -301,10 +302,11 @@ impl CityMenuState {
                 ),
             )
         };
+        let minutes = town_hand_work_min(ctx, WALK_AROUND_MIN);
         let end = {
             let p = profile_mut(ctx);
-            p.game_hours += crate::states::driving_core::WALK_AROUND_MIN / 60.0;
-            p.hos.on_duty(crate::states::driving_core::WALK_AROUND_MIN);
+            p.game_hours += minutes / 60.0;
+            p.hos.on_duty(minutes);
             p.game_hours
         };
         record_city_duty(
@@ -318,7 +320,11 @@ impl CityMenuState {
         let line = if lines.is_empty() {
             "Walk-around clean.".to_string()
         } else {
-            format!("Walk-around done, 15 minutes. {}", lines.join(" "))
+            format!(
+                "Walk-around done, {} minutes. {}",
+                ff_core::pyfmt::fmt_f(minutes, 0),
+                lines.join(" ")
+            )
         };
         ctx.audio.play("ui/notify");
         ctx.say(&line);
@@ -853,10 +859,11 @@ impl Menu for CityMenuState {
             MenuItem::new("Walk around the truck", |s: &mut Self, ctx| {
                 s.walk_around(ctx)
             })
-            .help(
+            .help(format!(
                 "A pre-trip walk-around: what a roadside inspector would find on the tractor. \
-                 Fifteen minutes on duty.",
-            ),
+                 {} minutes on duty.",
+                ff_core::pyfmt::fmt_f(town_hand_work_min(ctx, WALK_AROUND_MIN), 0)
+            )),
         );
         items.push(
             MenuItem::new("Time and weather", |s: &mut Self, ctx| s.time_weather(ctx))

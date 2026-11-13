@@ -346,9 +346,12 @@ fn a_coffee_due_while_fueling_is_heard_back_at_the_wheel() {
     });
     harness.clear_speech();
     at_a_stop(&mut harness);
-    let gain = harness.read_drive(|d| {
+    // Still worn at 42, so the fueling runs at the worn band's pace.
+    let gain = harness.with_drive(|d, ctx| {
         let mode = tuning_for_time_scale(d.trip.time_scale).fatigue_rate;
-        hos::on_duty_fatigue_gain(d.trip.local_hour(), FUEL_STOP_MIN, |_| mode)
+        let minutes = d.hand_work_min(ctx, FUEL_STOP_MIN);
+        assert!(minutes > FUEL_STOP_MIN, "{minutes}");
+        hos::on_duty_fatigue_gain(d.trip.local_hour(), minutes, |_| mode)
     });
     harness.select_menu_item_starting("Refuel");
     // Still owed: the stop's own line says nothing about the coffee.

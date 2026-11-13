@@ -381,6 +381,8 @@ from the words, and synonyms cost them a re-read.
 | What a coffee or energy drink takes off fatigue at once, owed back when it wears off | lift | boost, loan, credit | `sim::stimulant::Loan` |
 | Running off the road asleep | fatigue event | microsleep (that is the warning, not the event), nod-off | `DrivingRecord.record_fatigue_event` |
 | How far dispatch will work with you right now | dispatch trust | standing, rep level, tier | `enforcement.standing_band` |
+| Calling dispatch while drowsy or severe on a load to move the appointment for a night's sleep, once per load, at the price of the on-time bonus | rest call (the dispatch call's row reads "Too tired to drive safely") | sleep call, fatigue call, tired call, extension | `sim::fatigue_costs::RestCall` |
+| What a load pays with no on-time bonus, after a rest call | base rate | flat rate, reduced pay, no-bonus rate | `sim::fatigue_costs::RestCall::Used` |
 | Everything the driver is behind by, cash and balance together | debt; "what you owe" in a sentence | negative balance, in the red, in the hole, arrears | `solvency.debt_owed` |
 | Charges a settlement could not cover, carried to the next one | balance owed | tab, IOU, outstanding fines, arrears | `Profile.fines_owed` |
 | The figure debt is not allowed to pass | ceiling | limit, cap, threshold, max | `solvency.debt_ceiling` |

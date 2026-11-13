@@ -23,6 +23,7 @@ use ff_core::models::jobs::{lane_key, Job};
 use ff_core::models::solvency::{self, deductions_from_settlement};
 use ff_core::models::trucks::truck_model;
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_n};
+use ff_core::sim::fatigue_costs::RestCall;
 use ff_core::sim::timezones::to_local;
 
 use crate::app::{GameContext, Say};
@@ -313,9 +314,20 @@ impl ArrivalState {
         // The post-check-in clock still advances below so unloading remains
         // real calendar, market, HOS, idle-fuel, and player-visible time.
         let hours = arrival_hours;
-        let gross_base = job.payout_default(hours, trip_damage);
-        let toll_expense = d.trip.toll_expense();
         let on_time = hours <= job.deadline_game_h;
+        // A rest call traded the bonus for the moved appointment: the load
+        // pays its base rate, with no on-time bonus, and no late penalty for
+        // the hours the call moved it by. Past the moved appointment it is
+        // late like any other load.
+        let base_rate = d.rest_call == RestCall::Used;
+        let gross_base = if base_rate {
+            job.payout(hours, trip_damage, 0.0)
+        } else {
+            job.payout_default(hours, trip_damage)
+        };
+        // Whether the pay plan's on-time share is paid.
+        let pay_on_time = on_time && !base_rate;
+        let toll_expense = d.trip.toll_expense();
         let accessorials = carrier_accessorial_charges(&job, Some(profile_of(ctx)));
         let carrier_charges = toll_expense + charge_total(&accessorials);
         // What a previous load could not cover is no longer piled onto this
@@ -363,7 +375,7 @@ impl ArrivalState {
             &business_status,
             &job,
             gross_base,
-            on_time,
+            pay_on_time,
             driver_charges,
             &terms,
         );
@@ -371,7 +383,7 @@ impl ArrivalState {
             &business_status,
             &job,
             job.payout(hours, trip_damage, 0.0),
-            on_time,
+            pay_on_time,
             driver_charges,
             &terms,
         );
