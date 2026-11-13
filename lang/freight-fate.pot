@@ -4940,7 +4940,7 @@ msgstr ""
 msgid "interstate"
 msgstr ""
 
-#: crates/ff-core/src/data/grades.rs crates/ff-core/src/sim/truck_parking.rs crates/freight-fate/src/community_stations.rs crates/freight-fate/src/states/online_states/profile.rs
+#: crates/ff-core/src/data/grades.rs crates/ff-core/src/sim/alertness.rs crates/ff-core/src/sim/truck_parking.rs crates/freight-fate/src/community_stations.rs
 msgid "state"
 msgstr ""
 
@@ -12985,6 +12985,50 @@ msgstr ""
 msgid "kilometer"
 msgstr ""
 
+#: crates/ff-core/src/sim/alertness.rs crates/freight-fate/src/states/driving_team/overlay.rs crates/freight-fate/src/states/driving_team/stop_work.rs
+msgid "rested"
+msgstr ""
+
+#: crates/ff-core/src/sim/alertness.rs crates/freight-fate/src/states/city/truck_status.rs
+msgid "worn"
+msgstr ""
+
+#: crates/ff-core/src/sim/alertness.rs
+msgid "drowsy"
+msgstr ""
+
+#: crates/ff-core/src/sim/alertness.rs
+msgid "severe"
+msgstr ""
+
+#: crates/ff-core/src/sim/alertness.rs
+msgid "awake"
+msgstr ""
+
+#: crates/ff-core/src/sim/alertness.rs
+msgid "nodding"
+msgstr ""
+
+#: crates/ff-core/src/sim/alertness.rs
+msgid "recovering"
+msgstr ""
+
+#: crates/ff-core/src/sim/alertness.rs
+msgid "game minutes counted"
+msgstr ""
+
+#: crates/ff-core/src/sim/alertness.rs
+msgid "seconds left"
+msgstr ""
+
+#: crates/ff-core/src/sim/alertness.rs
+msgid "game minutes left"
+msgstr ""
+
+#: crates/ff-core/src/sim/alertness.rs
+msgid "misses"
+msgstr ""
+
 #: crates/ff-core/src/sim/cab.rs
 msgid "Driver window down."
 msgstr ""
@@ -17627,6 +17671,17 @@ msgid ""
 "so listen for the call."
 msgstr ""
 
+#: crates/freight-fate/src/app.rs
+msgid "the co-driver has the wheel"
+msgstr ""
+
+#. placeholders: {position_mi}, {misses}
+#: crates/freight-fate/src/app.rs
+msgid ""
+"Staged a nod at mile {position_mi}, {misses} missed in a row so far; it "
+"opens on the next rolling frame, so listen for the warning."
+msgstr ""
+
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 #: crates/freight-fate/src/app.rs
 msgid ""
@@ -21335,10 +21390,6 @@ msgstr ""
 msgid "good"
 msgstr ""
 
-#: crates/freight-fate/src/states/city/truck_status.rs
-msgid "worn"
-msgstr ""
-
 #: crates/freight-fate/src/states/city/truck_status.rs crates/freight-fate/src/states/city_garage.rs
 msgid "all-season"
 msgstr ""
@@ -24584,6 +24635,14 @@ msgstr ""
 msgid "amount"
 msgstr ""
 
+#: crates/freight-fate/src/states/driving/snapshot.rs
+msgid "alertness"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving/snapshot.rs
+msgid "nod"
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_controls/clock.rs
 msgid "local game time"
 msgstr ""
@@ -26005,9 +26064,9 @@ msgstr ""
 msgid "{label}: good for the rest of the trip"
 msgstr ""
 
-#. placeholders: {fatigue}
+#. placeholders: {fatigue}, {band}
 #: crates/freight-fate/src/states/driving_controls/status.rs
-msgid "Fatigue: {fatigue} percent"
+msgid "Fatigue: {fatigue} percent, {band}"
 msgstr ""
 
 #. placeholders: {context}
@@ -31986,6 +32045,11 @@ msgstr ""
 msgid "Transmission: {else}, {gear}"
 msgstr ""
 
+#. placeholders: {f}, {band}
+#: crates/freight-fate/src/states/driving_menu_states/status.rs
+msgid "Fatigue: {f} percent, {band}"
+msgstr ""
+
 #. placeholders: {f}
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid "Fatigue: {f} percent"
@@ -35965,10 +36029,6 @@ msgid ""
 "{name} drove on after a collision with {animal}. Damage {damage} percent."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_team/overlay.rs crates/freight-fate/src/states/driving_team/stop_work.rs
-msgid "rested"
-msgstr ""
-
 #: crates/freight-fate/src/states/driving_team/overlay.rs
 msgid "Refuel"
 msgstr ""
@@ -36859,11 +36919,11 @@ msgid "The {label} has worn off."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs
-msgid "Dangerously drowsy and drifting out of your lane."
+msgid "Getting drowsy."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs
-msgid "Getting drowsy."
+msgid "Dangerously drowsy and drifting out of your lane."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs

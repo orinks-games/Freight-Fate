@@ -334,7 +334,7 @@ impl DrivingState {
         if self.trip.nearest_stop_within(1.5).is_some() {
             return None; // a POI is right here; use its rest menu instead
         }
-        if profile_of(ctx).fatigue >= hos::FATIGUE_SEVERE {
+        if Alertness::from_fatigue(profile_of(ctx).fatigue) == Alertness::Severe {
             return Some("Fatigue is severe, and no route stop is nearby.".to_string());
         }
         let mode = &ctx.settings.hos_mode;

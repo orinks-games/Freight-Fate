@@ -11718,6 +11718,39 @@ msgstr "{distance}/giờ"
 msgid "kilometer"
 msgstr "kilômét"
 
+msgid "rested"
+msgstr ""
+
+msgid "worn"
+msgstr "đã mòn"
+
+msgid "drowsy"
+msgstr ""
+
+msgid "severe"
+msgstr ""
+
+msgid "awake"
+msgstr ""
+
+msgid "nodding"
+msgstr ""
+
+msgid "recovering"
+msgstr ""
+
+msgid "game minutes counted"
+msgstr ""
+
+msgid "seconds left"
+msgstr ""
+
+msgid "game minutes left"
+msgstr ""
+
+msgid "misses"
+msgstr ""
+
 msgid "Driver window down."
 msgstr "Hạ kính cửa lái."
 
@@ -15603,6 +15636,15 @@ msgid ""
 "so listen for the call."
 msgstr ""
 
+msgid "the co-driver has the wheel"
+msgstr ""
+
+#. placeholders: {position_mi}, {misses}
+msgid ""
+"Staged a nod at mile {position_mi}, {misses} missed in a row so far; it "
+"opens on the next rolling frame, so listen for the warning."
+msgstr ""
+
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
 "Scenario staged: {name} at {the_city} terminal, level {level}, {deliveries} "
@@ -18833,9 +18875,6 @@ msgstr "rất tốt"
 msgid "good"
 msgstr "tốt"
 
-msgid "worn"
-msgstr "đã mòn"
-
 msgid "all-season"
 msgstr "bốn mùa"
 
@@ -21732,6 +21771,12 @@ msgstr "Bây giờ là {now}."
 msgid "amount"
 msgstr ""
 
+msgid "alertness"
+msgstr ""
+
+msgid "nod"
+msgstr ""
+
 msgid "local game time"
 msgstr "giờ trong trò chơi"
 
@@ -23029,9 +23074,9 @@ msgstr "Hỗ trợ"
 msgid "{label}: good for the rest of the trip"
 msgstr "{label}: có hiệu lực hết chuyến chạy"
 
-#. placeholders: {fatigue}
-msgid "Fatigue: {fatigue} percent"
-msgstr "Mệt mỏi: {fatigue} phần trăm"
+#. placeholders: {fatigue}, {band}
+msgid "Fatigue: {fatigue} percent, {band}"
+msgstr ""
 
 #. placeholders: {context}
 msgid "HOS route: {context}"
@@ -28244,6 +28289,10 @@ msgstr ""
 msgid "Transmission: {else}, {gear}"
 msgstr "Hộp số: {else}, {gear}"
 
+#. placeholders: {f}, {band}
+msgid "Fatigue: {f} percent, {band}"
+msgstr ""
+
 #. placeholders: {f}
 msgid "Fatigue: {f} percent"
 msgstr "Độ mệt mỏi: {f} phần trăm"
@@ -31853,9 +31902,6 @@ msgstr ""
 "{name} tiếp tục chạy sau khi va phải {animal}. Xe hư hỏng {damage} phần "
 "trăm."
 
-msgid "rested"
-msgstr ""
-
 msgid "Refuel"
 msgstr "Đổ dầu"
 
@@ -32673,11 +32719,11 @@ msgstr "tăng lực"
 msgid "The {label} has worn off."
 msgstr "Tác dụng của {label} đã hết."
 
-msgid "Dangerously drowsy and drifting out of your lane."
-msgstr "Buồn ngủ nguy hiểm và xe đang lạng ra khỏi làn."
-
 msgid "Getting drowsy."
 msgstr "Bắt đầu buồn ngủ."
+
+msgid "Dangerously drowsy and drifting out of your lane."
+msgstr "Buồn ngủ nguy hiểm và xe đang lạng ra khỏi làn."
 
 msgid "Nodding off. Steer or brake now!"
 msgstr "Đang ngủ gật. Đánh lái hoặc đạp phanh ngay!"
@@ -41589,3 +41635,6 @@ msgstr "Mảnh lốp vỡ."
 
 msgid "Debris."
 msgstr "Mảnh vỡ trên đường."
+
+#~ msgid "Fatigue: {fatigue} percent"
+#~ msgstr "Mệt mỏi: {fatigue} phần trăm"

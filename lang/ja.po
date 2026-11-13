@@ -10413,6 +10413,39 @@ msgstr "時速{distance}"
 msgid "kilometer"
 msgstr "キロメートル"
 
+msgid "rested"
+msgstr ""
+
+msgid "worn"
+msgstr "摩耗"
+
+msgid "drowsy"
+msgstr ""
+
+msgid "severe"
+msgstr ""
+
+msgid "awake"
+msgstr ""
+
+msgid "nodding"
+msgstr ""
+
+msgid "recovering"
+msgstr ""
+
+msgid "game minutes counted"
+msgstr ""
+
+msgid "seconds left"
+msgstr ""
+
+msgid "game minutes left"
+msgstr ""
+
+msgid "misses"
+msgstr ""
+
 msgid "Driver window down."
 msgstr "運転席の窓を開けました。"
 
@@ -14126,6 +14159,15 @@ msgid ""
 "so listen for the call."
 msgstr ""
 
+msgid "the co-driver has the wheel"
+msgstr ""
+
+#. placeholders: {position_mi}, {misses}
+msgid ""
+"Staged a nod at mile {position_mi}, {misses} missed in a row so far; it "
+"opens on the next rolling frame, so listen for the warning."
+msgstr ""
+
 #. placeholders: {name}, {the_city}, {level}, {deliveries}, {grouped}, {business_status}
 msgid ""
 "Scenario staged: {name} at {the_city} terminal, level {level}, {deliveries} "
@@ -17178,9 +17220,6 @@ msgstr "とても良い"
 msgid "good"
 msgstr "良い"
 
-msgid "worn"
-msgstr "摩耗"
-
 msgid "all-season"
 msgstr "オールシーズン"
 
@@ -19839,6 +19878,12 @@ msgstr "{now}です。"
 msgid "amount"
 msgstr "amount"
 
+msgid "alertness"
+msgstr ""
+
+msgid "nod"
+msgstr ""
+
 msgid "local game time"
 msgstr "現地のゲーム内時刻"
 
@@ -21004,9 +21049,9 @@ msgstr "バフ"
 msgid "{label}: good for the rest of the trip"
 msgstr "{label}：運行の終わりまで有効"
 
-#. placeholders: {fatigue}
-msgid "Fatigue: {fatigue} percent"
-msgstr "疲労：{fatigue}パーセント"
+#. placeholders: {fatigue}, {band}
+msgid "Fatigue: {fatigue} percent, {band}"
+msgstr ""
 
 #. placeholders: {context}
 msgid "HOS route: {context}"
@@ -25890,6 +25935,10 @@ msgstr "トラック：燃料{f}パーセント、損傷{f2}パーセント{dama
 msgid "Transmission: {else}, {gear}"
 msgstr "変速機：{else}、{gear}"
 
+#. placeholders: {f}, {band}
+msgid "Fatigue: {f} percent, {band}"
+msgstr ""
+
 #. placeholders: {f}
 msgid "Fatigue: {f} percent"
 msgstr "疲労：{f}パーセント"
@@ -29191,9 +29240,6 @@ msgid ""
 "{name} drove on after a collision with {animal}. Damage {damage} percent."
 msgstr ""
 
-msgid "rested"
-msgstr ""
-
 msgid "Refuel"
 msgstr "給油"
 
@@ -29932,11 +29978,11 @@ msgstr "buff"
 msgid "The {label} has worn off."
 msgstr "{label}の効果が切れました。"
 
-msgid "Dangerously drowsy and drifting out of your lane."
-msgstr "ひどい眠気で、車線からはみ出しています。"
-
 msgid "Getting drowsy."
 msgstr "眠くなってきました。"
+
+msgid "Dangerously drowsy and drifting out of your lane."
+msgstr "ひどい眠気で、車線からはみ出しています。"
 
 msgid "Nodding off. Steer or brake now!"
 msgstr "居眠りしかけています。ハンドルを切るか、今すぐブレーキを！"
@@ -37861,6 +37907,9 @@ msgstr "タイヤの破片。"
 
 msgid "Debris."
 msgstr "落下物。"
+
+#~ msgid "Fatigue: {fatigue} percent"
+#~ msgstr "疲労：{fatigue}パーセント"
 
 #~ msgid "Open weigh station means every truck must pull in."
 #~ msgstr "「開いている計量所」は、すべてのトラックが入らなければならないという意味です。"

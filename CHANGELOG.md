@@ -17,6 +17,7 @@
 
 ### Changed
 
+- **A quiet yawn now warns you earlier, when fatigue reaches 40 percent.** The Tab status screens also name how tired you are, as in "Fatigue: 64 percent, drowsy."
 - **The Vietnamese translation is rewritten and covers the whole game.** Thanks to Đào Đức Trung ([PR 617](https://github.com/orinks-games/Freight-Fate/pull/617)).
 - **Achievements have new names and plainer descriptions.** Each description now says what earns it, and the songs behind the names cover more artists and genres.
 - **Nothing brakes for tire debris any more.** It is called out with the open lane, full lane keeping moves over, and with no lane open the truck drives over it.
@@ -51,6 +52,8 @@
 
 ### Fixed
 
+- **Saving and resuming a drive no longer resets the nod-off timer and miss count.**
+- **"Getting drowsy." no longer repeats after a coffee or snack eases fatigue a few points.**
 - **The main menu's background sound plays again after you leave the terminal or a shipper's dock.** Escape or Quit to main menu used to bring the menu back silent.
 - **The achievements menus no longer list three badges nobody can earn.** Careers that earned them before still see them.
 - **Holding Home or End on a settings, terminal or online screen no longer reads the row again and again.** It is read once, as on other menus.

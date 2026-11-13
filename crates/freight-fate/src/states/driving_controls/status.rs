@@ -161,8 +161,9 @@ impl DrivingState {
         }
         if !ctx.settings.renders_terse() {
             let fatigue = profile_of(ctx).fatigue;
-            if fatigue >= hos::FATIGUE_DROWSY {
-                lines.push(format!("Fatigue: {fatigue:.0} percent"));
+            // From Worn up the band rides with the number.
+            if let Some(band) = self.alertness.readout_word() {
+                lines.push(format!("Fatigue: {fatigue:.0} percent, {band}"));
             }
             let mode = ctx.settings.hos_mode.clone();
             let summary = hos_of(ctx).summary(&mode);
