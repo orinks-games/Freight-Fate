@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+## 1.9.6 - 2026-11-13
+
+### Compatibility
+
+- **Careers saved by 1.9.6 cannot be opened by 1.9.5 or earlier.** A copy of each career from before the update stays in the saves folder.
+
+### Highlights
+
+- **A built-in voice speaks when no screen reader or system voice is running.**
+- **Report a problem opens a form on orinks.net with your game log already attached.**
+- **Freeway traffic has more kinds of vehicle, each with its own sound.** Vehicles pass each other, run near the posted limit and leave at interchanges.
+- **Nothing brakes for tire debris any more.** A ladder or a mattress with no lane open is taken at 30, not a near stop.
+- **Spoken lines, help, menus and the manual are shorter and use plain words.** Achievements and some settings have new names.
+- **Road announcements wait for NVDA 2026.3 or SAPI to finish speaking,** so the 2-mile and 1-mile exit calls always play.
+- **Cruise slows for a lower speed limit in time and holds work zones at their limit.** Full lane keeping leaves a lane that a work zone closes.
+- **Speed limits and exit ramps are updated to October's road data.**
+- **Updates are signed and download only what changed.** Settings chooses stable, beta or alpha.
+- **Your playlists can play YouTube links, livestreams included.**
+
 ### Added
 
 - **A built-in voice speaks when no screen reader or system voice is running.** It can also be chosen as the driving event voice.
