@@ -79,7 +79,11 @@ impl DrivingState {
                 "Progress: {} percent there",
                 self.journey_progress_percent()
             ),
-            format!("Route: {progress}"),
+            // At the gate the route is over: the row says so, as R does.
+            match self.arrival_gate_query_text(ctx) {
+                Some(gate) => format!("Route: You have arrived. {gate}"),
+                None => format!("Route: {progress}"),
+            },
             self.career_status_line(ctx),
             format!(
                 "Fuel: {:.0} percent",

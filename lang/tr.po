@@ -11385,6 +11385,21 @@ msgstr ""
 msgid "misses"
 msgstr ""
 
+msgid "arriving"
+msgstr ""
+
+msgid "rolling"
+msgstr ""
+
+msgid "creeping"
+msgstr ""
+
+msgid "stopped"
+msgstr ""
+
+msgid "holding"
+msgstr ""
+
 msgid "Driver window down."
 msgstr "Şoför camı açık."
 
@@ -22660,6 +22675,14 @@ msgstr "Sınır: {speed_text}{zone}"
 msgid "Progress: {journey_progress_percent} percent there"
 msgstr "İlerleme: yüzde {journey_progress_percent} tamamlandı"
 
+#. one sentence of a longer line
+msgid "Route: You have arrived."
+msgstr ""
+
+#. placeholders: {gate}
+msgid "Route: You have arrived. {gate}"
+msgstr ""
+
 #. placeholders: {progress}
 msgid "Route: {progress}"
 msgstr "Güzergâh: {progress}"
@@ -24897,12 +24920,20 @@ msgid " Cruise off."
 msgstr " Hız sabitleyici kapalı."
 
 #. placeholders: {pickup_facility_text}
+msgid "At {pickup_facility_text}. Set the parking brake to check in."
+msgstr ""
+
+#. placeholders: {pickup_facility_text}
 msgid "At {pickup_facility_text}. Stop to check in."
 msgstr "Konum: {pickup_facility_text}. Kayıt için durun."
 
 #. one sentence of a longer line
 msgid "Stop to check in."
 msgstr "Kayıt için durun."
+
+#. placeholders: {destination_facility_text}
+msgid "At {destination_facility_text}. Set the parking brake to dock."
+msgstr ""
 
 #. placeholders: {destination_facility_text}
 msgid "At {destination_facility_text}. Stop to dock."
@@ -25466,9 +25497,6 @@ msgstr "Görüş düşük, takip mesafesi uzun."
 msgid "easing"
 msgstr ""
 
-msgid "holding"
-msgstr ""
-
 msgid "easing-capped"
 msgstr ""
 
@@ -25668,6 +25696,25 @@ msgstr "Onun için sinyal verin."
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal."
 msgstr "Sinyal için {exit_hint} tuşuna basın."
+
+msgid "Set the parking brake to check in."
+msgstr ""
+
+msgid "Set the parking brake to dock."
+msgstr ""
+
+#. placeholders: {key}
+#. one sentence of a longer line
+msgid "Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to check in. Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to dock. Press {key}."
+msgstr ""
 
 msgid "the green light"
 msgstr "yeşil ışık"

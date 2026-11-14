@@ -10454,6 +10454,21 @@ msgstr ""
 msgid "misses"
 msgstr ""
 
+msgid "arriving"
+msgstr ""
+
+msgid "rolling"
+msgstr ""
+
+msgid "creeping"
+msgstr ""
+
+msgid "stopped"
+msgstr ""
+
+msgid "holding"
+msgstr "holding"
+
 msgid "Driver window down."
 msgstr "運転席の窓を開けました。"
 
@@ -21041,6 +21056,14 @@ msgstr "制限：{speed_text}{zone}"
 msgid "Progress: {journey_progress_percent} percent there"
 msgstr "進み具合：{journey_progress_percent}パーセント"
 
+#. one sentence of a longer line
+msgid "Route: You have arrived."
+msgstr ""
+
+#. placeholders: {gate}
+msgid "Route: You have arrived. {gate}"
+msgstr ""
+
 #. placeholders: {progress}
 msgid "Route: {progress}"
 msgstr "ルート：{progress}"
@@ -23138,12 +23161,20 @@ msgid " Cruise off."
 msgstr "クルーズ、オフ。"
 
 #. placeholders: {pickup_facility_text}
+msgid "At {pickup_facility_text}. Set the parking brake to check in."
+msgstr ""
+
+#. placeholders: {pickup_facility_text}
 msgid "At {pickup_facility_text}. Stop to check in."
 msgstr "{pickup_facility_text}に着きました。停車して受付をしてください。"
 
 #. one sentence of a longer line
 msgid "Stop to check in."
 msgstr "停車して受付をしてください。"
+
+#. placeholders: {destination_facility_text}
+msgid "At {destination_facility_text}. Set the parking brake to dock."
+msgstr ""
 
 #. placeholders: {destination_facility_text}
 msgid "At {destination_facility_text}. Stop to dock."
@@ -23684,9 +23715,6 @@ msgstr "視界不良。車間を広げます。"
 msgid "easing"
 msgstr "easing"
 
-msgid "holding"
-msgstr "holding"
-
 msgid "easing-capped"
 msgstr "easing-capped"
 
@@ -23884,6 +23912,25 @@ msgstr "ウインカーを出してください。"
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal."
 msgstr "{exit_hint}でウインカーを出します。"
+
+msgid "Set the parking brake to check in."
+msgstr ""
+
+msgid "Set the parking brake to dock."
+msgstr ""
+
+#. placeholders: {key}
+#. one sentence of a longer line
+msgid "Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to check in. Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to dock. Press {key}."
+msgstr ""
 
 msgid "the green light"
 msgstr "青信号"

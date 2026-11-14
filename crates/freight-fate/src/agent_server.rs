@@ -248,9 +248,13 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation) -> String {
         None => "none".to_string(),
     };
     let rest_call = o.rest_call.map_or("none", |state| state.key());
+    // The facility gate's stop, only while the trip has ended at a gate.
+    let gate = o
+        .gate
+        .map_or(String::new(), |gate| format!("; gate {}", gate.key()));
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
-         rest_call {rest_call}.",
+         rest_call {rest_call}{gate}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses

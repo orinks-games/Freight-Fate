@@ -11759,6 +11759,21 @@ msgstr ""
 msgid "misses"
 msgstr ""
 
+msgid "arriving"
+msgstr ""
+
+msgid "rolling"
+msgstr ""
+
+msgid "creeping"
+msgstr ""
+
+msgid "stopped"
+msgstr ""
+
+msgid "holding"
+msgstr ""
+
 msgid "Driver window down."
 msgstr "Hạ kính cửa lái."
 
@@ -23062,6 +23077,14 @@ msgstr "Giới hạn: {speed_text}{zone}"
 msgid "Progress: {journey_progress_percent} percent there"
 msgstr "Tiến độ: đã đi được {journey_progress_percent} phần trăm"
 
+#. one sentence of a longer line
+msgid "Route: You have arrived."
+msgstr ""
+
+#. placeholders: {gate}
+msgid "Route: You have arrived. {gate}"
+msgstr ""
+
 #. placeholders: {progress}
 msgid "Route: {progress}"
 msgstr "Tuyến đường: {progress}"
@@ -25342,6 +25365,10 @@ msgid " Cruise off."
 msgstr " Ga tự động tắt."
 
 #. placeholders: {pickup_facility_text}
+msgid "At {pickup_facility_text}. Set the parking brake to check in."
+msgstr ""
+
+#. placeholders: {pickup_facility_text}
 msgid "At {pickup_facility_text}. Stop to check in."
 msgstr ""
 "Đã tới {pickup_facility_text}. Dừng hẳn xe để làm thủ tục nhận hàng."
@@ -25349,6 +25376,10 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Stop to check in."
 msgstr "Dừng hẳn xe để làm thủ tục nhận hàng."
+
+#. placeholders: {destination_facility_text}
+msgid "At {destination_facility_text}. Set the parking brake to dock."
+msgstr ""
 
 #. placeholders: {destination_facility_text}
 msgid "At {destination_facility_text}. Stop to dock."
@@ -25917,9 +25948,6 @@ msgstr "Tầm nhìn thấp, tăng giãn cách theo xe."
 msgid "easing"
 msgstr ""
 
-msgid "holding"
-msgstr ""
-
 msgid "easing-capped"
 msgstr ""
 
@@ -26118,6 +26146,25 @@ msgstr "Hãy bật xi-nhan."
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal."
 msgstr "Nhấn {exit_hint} để bật xi-nhan."
+
+msgid "Set the parking brake to check in."
+msgstr ""
+
+msgid "Set the parking brake to dock."
+msgstr ""
+
+#. placeholders: {key}
+#. one sentence of a longer line
+msgid "Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to check in. Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to dock. Press {key}."
+msgstr ""
 
 msgid "the green light"
 msgstr "đèn xanh"

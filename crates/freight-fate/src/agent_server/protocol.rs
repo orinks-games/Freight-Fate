@@ -181,8 +181,11 @@ fn tools_list() -> Value {
              rested, worn, drowsy or severe), nod (awake, nodding or recovering, \
              with its timer), nod_misses (missed nods in a row toward the forced \
              stop), lift_owed (fatigue a coffee or energy drink will take back, \
-             and when) and rest_call (this load's call to dispatch for rest: \
-             available, used, or none with no load on).",
+             and when), rest_call (this load's call to dispatch for rest: \
+             available, used, or none with no load on) and, while the trip has \
+             ended at a facility gate, gate (arriving, rolling, \
+             rolling_after_creep, creeping, stopped, stopped_told, holding or \
+             open).",
             json!({}),
             &[],
         ),
