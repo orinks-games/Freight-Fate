@@ -9,6 +9,7 @@
 
 ### Changed
 
+- **The Five-by-Two badge no longer says your hours are reset.** It now reads "Ten hours in the sleeper, and you're good for another eleven."
 - **On-duty time now tires you a little.** Fueling, docks, inspections and waiting at the wheel build it at a third of the driving rate.
 - **Sleep now takes off 8 points of fatigue an hour.** Ten hours clears 80, so going to bed exhausted leaves some.
 - **Coffee and energy drinks now wear off and take their lift back.** A second one before then adds no lift.
