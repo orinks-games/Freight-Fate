@@ -3,11 +3,11 @@
 use super::*;
 use GateStop::*;
 
-fn reading(speed_mph: f64, parking_brake: bool, dt_s: f64) -> GateEvent {
+fn reading(speed_mph: f64, parking_brake: bool, quiet_s: f64) -> GateEvent {
     GateEvent::Reading {
         speed_mph,
         parking_brake,
-        dt_s,
+        quiet_s,
     }
 }
 
@@ -292,6 +292,27 @@ fn the_brake_line_waits_the_whole_rest_delay() {
     }
     // The first reading at rest counts its own frame.
     assert!(rested >= GATE_BRAKE_PROMPT_S - 1e-9, "{rested}");
+}
+
+#[test]
+fn only_quiet_seconds_count_toward_the_brake_line() {
+    // At rest under a spoken line for a minute: the delay has not started.
+    let spoken = std::iter::repeat_n(reading(REST, false, 0.0), 3600);
+    let mut events = vec![reading(CREEP, false, 0.0)];
+    events.extend(spoken);
+    let (gate, cues) = run(Arriving, &events);
+    assert_eq!(gate, Stopped { rest_s: 0.0 });
+    assert_eq!(cues, vec![GateCue::Creep]);
+    // The voice goes quiet: the whole delay from there.
+    let frame = 0.1;
+    let short = (GATE_BRAKE_PROMPT_S / frame) as usize - 1;
+    let quiet: Vec<GateEvent> = std::iter::repeat_n(reading(REST, false, frame), short).collect();
+    let (gate, cues) = run(gate, &quiet);
+    assert!(matches!(gate, Stopped { .. }), "{gate:?}");
+    assert!(cues.is_empty(), "{cues:?}");
+    let (gate, cues) = run(gate, &[reading(REST, false, frame); 2]);
+    assert_eq!(gate, StoppedTold);
+    assert_eq!(cues, vec![GateCue::SetBrake]);
 }
 
 #[test]

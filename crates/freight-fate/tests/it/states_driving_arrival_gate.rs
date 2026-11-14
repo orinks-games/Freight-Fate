@@ -249,6 +249,18 @@ fn hold_at(harness: &mut PlaytestHarness, mph: f64, seconds: f64) {
     }
 }
 
+/// Frames at rest until the driving voice has finished what it was saying;
+/// the seconds that took.
+fn hold_until_quiet(harness: &mut PlaytestHarness) -> f64 {
+    let mut seconds = 0.0;
+    while harness.app.ctx.event_voice_busy() {
+        hold_at(harness, 0.0, DT);
+        seconds += DT;
+        assert!(seconds < 60.0, "the driving voice never went quiet");
+    }
+    seconds
+}
+
 fn said_count(harness: &PlaytestHarness, needle: &str) -> usize {
     harness
         .app
@@ -295,6 +307,14 @@ fn test_stopped_without_the_brake_hears_what_is_missing_once() {
         let action = if pickup { "check in" } else { "dock" };
         let expected = format!("Set the parking brake to {action}. Press {key}.");
 
+        // The truck is at rest under the stop line, which outlasts the
+        // delay. The delay is quiet seconds, so it has not started: counted
+        // under the line, the brake was named twice back to back (recorded
+        // drive, 2026-11-14).
+        frame(&mut harness);
+        let stop_line_s = hold_until_quiet(&mut harness);
+        assert!(stop_line_s > GATE_BRAKE_PROMPT_S, "{stop_line_s}");
+        assert_eq!(said_count(&harness, "Set the parking brake"), 0);
         // Inside the delay: nothing about the brake yet.
         hold_at(&mut harness, 0.0, GATE_BRAKE_PROMPT_S - 0.5);
         assert_eq!(said_count(&harness, "Set the parking brake"), 0);
@@ -317,6 +337,7 @@ fn test_stopped_without_the_brake_hears_what_is_missing_once() {
 
         // Rolled off above the park speed and stopped again: once more.
         hold_at(&mut harness, 8.0, 0.5);
+        hold_until_quiet(&mut harness);
         hold_at(&mut harness, 0.0, GATE_BRAKE_PROMPT_S + 0.5);
         assert_eq!(said_count(&harness, "Set the parking brake"), 2);
     }
@@ -326,6 +347,8 @@ fn test_stopped_without_the_brake_hears_what_is_missing_once() {
 fn test_the_brake_line_drops_the_key_with_driving_hints_off() {
     let mut harness = stopped_at_gate("Brake Line No Hints", false);
     harness.app.ctx.settings.driving_hints = false;
+    frame(&mut harness);
+    hold_until_quiet(&mut harness);
     hold_at(&mut harness, 0.0, GATE_BRAKE_PROMPT_S + 0.5);
     let lines: Vec<String> = harness
         .app
