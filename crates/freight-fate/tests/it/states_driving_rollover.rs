@@ -366,10 +366,10 @@ fn test_leaving_the_pavement_costs_the_truck_and_says_so_with_the_warning_off() 
     let damage = harness.read_drive(|d| d.truck().damage_pct);
     assert!(damage > damage_before, "the shoulder cost nothing");
     let text = harness.transcript_text();
-    assert!(
-        text.contains(&format!(
-            "Off the road on the right! Damage {damage:.0} percent."
-        )),
+    // One line at the edge, then the rumble alone for the charges after it.
+    assert_eq!(
+        text.matches("Off the road on the right! Damage ").count(),
+        1,
         "{text}"
     );
 }

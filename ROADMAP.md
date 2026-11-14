@@ -4027,8 +4027,8 @@ On dev since 1.9.6:
       names the parking brake (PRs 627 and 628).
 - [x] Five-by-Two takes a full 10 hours asleep (PR 630).
 - [x] No damage goes unspoken (issue 533): leaving the pavement always
-      plays the rumble strip and says the damage, whatever the
-      lane-departure warning; the chain snap and the forced stop asleep
+      plays the rumble strip and says the damage on the way off and, if it
+      rose, on the way back, whatever the lane-departure warning; the chain snap and the forced stop asleep
       say it too; runaway damage starts above 90, clear of cruise's top
       set point of 85, and a runaway speaks when it starts and ends.
 

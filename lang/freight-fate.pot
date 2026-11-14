@@ -36987,6 +36987,15 @@ msgstr ""
 msgid "{place} Damage {damage} percent."
 msgstr ""
 
+#. placeholders: {damage}
+#: crates/freight-fate/src/states/driving_updates/cues.rs
+msgid "Back on the pavement. Damage {damage} percent."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_updates/cues.rs
+msgid "Back on the pavement."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_updates/cues.rs
 msgid "Caught the edge."
 msgstr ""
@@ -37405,10 +37414,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/lanes.rs
 msgid "Ramp assistance released."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_updates/lanes.rs
-msgid "Back on the pavement."
 msgstr ""
 
 #. placeholders: {lane_name}

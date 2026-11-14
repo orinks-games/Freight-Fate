@@ -451,17 +451,10 @@ impl DrivingState {
             let pan = self.lane_pan();
             ctx.audio.play_with("vehicle/rumble_strip", 1.0, pan);
             self.announce_off_pavement(ctx);
-        } else if self.off_pavement_said && !self.off_pavement() {
+        } else if self.off_pavement_said.is_some() && !self.off_pavement() {
             // Back on the pavement: the standing condition ended, so its one
             // transition line speaks (research doc R12).
-            self.off_pavement_said = false;
-            // Quiet speaks the recovery; Urgent only omits routine status.
-            ctx.say_event_with(
-                "Back on the pavement.",
-                SayEvent::queued()
-                    .review(true)
-                    .category(SpeechCategory::Status),
-            );
+            self.announce_back_on_pavement(ctx);
         }
         self.cross_repeat_s = (self.cross_repeat_s - dt).max(0.0);
         self.sideswipe_cooldown_s = (self.sideswipe_cooldown_s - dt).max(0.0);

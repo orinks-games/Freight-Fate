@@ -260,7 +260,7 @@ fn drift_off_the_pavement(harness: &mut PlaytestHarness) {
             drive.truck_mut().velocity_mps = 20.0;
             drive.lane.offset = MAX_OFFSET;
             drive.update_lane(ctx, DT);
-            drive.off_pavement_said
+            drive.off_pavement_said.is_some()
         });
         if fired {
             return;

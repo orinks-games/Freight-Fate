@@ -450,7 +450,8 @@ fn test_back_on_the_pavement_still_stays_quiet_at_urgent_only() {
     let mut drive = a_drive(&mut app);
     drive.lane.lane = 0;
     drive.lane.offset = 0.0;
-    drive.off_pavement_said = true; // was off, and the charge spoke
+    // Was off, and the entry line spoke with the damage the truck still has.
+    drive.off_pavement_said = Some(("Off the road on the right!".to_string(), 0.0));
     app.clear_speech();
 
     drive.update_lane(&mut app.ctx, DT);

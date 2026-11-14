@@ -41,14 +41,15 @@ impl DrivingState {
         self.lane.edge_excursion() >= OFF_ROAD
     }
 
-    /// Speak a charge for leaving the pavement: where the truck is, then its
-    /// damage. Called once per charge, which the lane model spaces a few
-    /// seconds apart while the truck stays off; between charges the panned
-    /// edge-rumble loop carries where the truck is (research doc R12).
+    /// Speak a charge for leaving the pavement, at its edges only.
+    ///
+    /// The first charge of a departure says where the truck is and its
+    /// damage. Later charges while it stays off are the rumble strip alone:
+    /// the place is already known and "Back on the pavement." carries the
+    /// damage they added. A move to a different place (the shoulder to the
+    /// centerline side) is news, so it speaks once, with the damage
+    /// (research doc R12, issue 533).
     pub fn announce_off_pavement(&mut self, ctx: &mut GameContext) {
-        // Every call is a damage charge, so every call speaks, the way a
-        // collision does: the place, then what the truck is at now.
-        self.off_pavement_said = true;
         let boundary = self.edge_boundary();
         let place = if boundary == "oncoming" {
             // Past an undivided centerline is not a shoulder: say the
@@ -59,12 +60,44 @@ impl DrivingState {
         } else {
             self.lane.describe()
         };
+        if self
+            .off_pavement_said
+            .as_ref()
+            .is_some_and(|(said, _)| *said == place)
+        {
+            return;
+        }
         let damage = self.trip.truck.damage_pct;
         // The transition itself is the warning, so the line is SAFETY.
         ctx.say_event_with(
             format!("{place} Damage {damage:.0} percent."),
             SayEvent::new().category(SpeechCategory::Safety),
         );
+        self.off_pavement_said = Some((place, damage));
+    }
+
+    /// Speak the truck's return to the pavement. Damage the rumble-only
+    /// charges added is said here, as SAFETY so no verbosity loses it; with
+    /// nothing added since the entry line it is the plain STATUS line.
+    pub fn announce_back_on_pavement(&mut self, ctx: &mut GameContext) {
+        let Some((_, said)) = self.off_pavement_said.take() else {
+            return;
+        };
+        let damage = self.trip.truck.damage_pct;
+        if damage.round() > said.round() {
+            ctx.say_event_with(
+                format!("Back on the pavement. Damage {damage:.0} percent."),
+                SayEvent::queued().category(SpeechCategory::Safety).keep(),
+            );
+        } else {
+            // Quiet speaks the recovery; Urgent only omits routine status.
+            ctx.say_event_with(
+                "Back on the pavement.",
+                SayEvent::queued()
+                    .review(true)
+                    .category(SpeechCategory::Status),
+            );
+        }
     }
 
     /// What lies past the road edge the truck is drifting toward.

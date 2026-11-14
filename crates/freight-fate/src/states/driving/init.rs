@@ -722,7 +722,7 @@ impl DrivingState {
             curve_run: None,
             cross_repeat_s: 0.0,
             sideswipe_cooldown_s: 0.0,
-            off_pavement_said: false,
+            off_pavement_said: None,
             reverse_cue_active: false,
             air_cue_active: false,
             jake_cue_key: None,
