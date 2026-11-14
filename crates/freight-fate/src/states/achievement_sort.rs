@@ -11,8 +11,8 @@ use std::collections::HashMap;
 use std::rc::Rc;
 
 use ff_core::achievements::{
-    achievements_in_category, categories, Achievement, AchievementCategory, AchievementSort,
-    EarnedOrder,
+    achievements_in_category, categories, is_listed, Achievement, AchievementCategory,
+    AchievementSort, EarnedOrder,
 };
 
 use crate::app::GameContext;
@@ -91,7 +91,11 @@ pub fn sorted_categories(sort: AchievementSort, earned: &EarnedOrder) -> Vec<Cat
     let mut rows: Vec<CategoryRow> = categories()
         .iter()
         .map(|category| {
-            let achievements = achievements_in_category(category.id);
+            // A retired badge is listed only where it was already earned.
+            let achievements: Vec<&'static Achievement> = achievements_in_category(category.id)
+                .into_iter()
+                .filter(|a| is_listed(a.id, |id| earned.contains_key(id)))
+                .collect();
             let done = achievements
                 .iter()
                 .filter(|a| earned.contains_key(a.id))

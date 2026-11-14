@@ -1,12 +1,23 @@
-name: Career 1.9 snapshot
+name: Freight Fate builds
 
-# The nightly (and the stable release path) for the 1.9 line, which since
-# the 2026-09-20 cutover is `dev` (see CAREER_BRANCH below).
+# Beta snapshots follow dev; alpha builds may follow a feature branch.
+# Explicit version tags remain the stable release path (see CAREER_BRANCH).
 #
-# A scheduled run executes the copy of this file on the DEFAULT branch
-# (main), whatever the checked-out code is, so after changing it here push
-# the same file to main or the nightly quietly keeps the old job list. The
-# Prepare job fails a scheduled run whose file differs from CAREER_BRANCH's.
+# A push to dev is the snapshot's main start (2026-11-09): the run uses dev's
+# own copy of this file and publishes the day's `1.9-tester-YYYYMMDD` once
+# the tests and every platform's package pass, about an hour and a quarter
+# after the merge. Another push while it runs cancels it and starts over on
+# the newer commit; the snapshot a tester sees is always the newest dev that
+# passed. A push whose commits add no curated changelog entry and carry no
+# `nightly: build` marker stops in Prepare, so a docs-only merge costs a few
+# minutes of one Linux runner and nothing more.
+#
+# The schedule is the fallback. A scheduled run executes the copy of this
+# file on the DEFAULT branch (main), whatever the checked-out code is, so
+# after changing it here push the same file to main or the fallback quietly
+# keeps the old job list. The Prepare job fails a scheduled run whose file
+# differs from CAREER_BRANCH's, and a scheduled run skips the night when the
+# newest snapshot already sits on dev's head.
 #
 # Stable releases: push a `v*.*.*` tag. That trigger drops `--prerelease`,
 # takes the version from the tag, and writes notes via
@@ -28,12 +39,25 @@ name: Career 1.9 snapshot
 # job that compiles goes through .github/actions/rust-setup.
 
 on:
+  # The snapshot's main start. Only dev: a feature branch is built by hand
+  # through workflow_dispatch with the alpha channel, never by its pushes.
+  push:
+    branches: [dev]
+    # Stable releases: push a v*.*.* tag on the commit to ship. Do not
+    # invent the tag from a schedule or dispatch -- only an explicit tag
+    # push cuts a stable GitHub release (no --prerelease, notes from the
+    # version block).
+    tags:
+      - "v*.*.*"
+  # The fallback, once a day. GitHub starts a scheduled run hours after its
+  # cron time (the 02:37 start has been landing between 09:00 and 10:30 UTC
+  # through October and November 2026) and sometimes drops one outright
+  # (2026-10-12). With the push start carrying the snapshot, this one has
+  # work only when a push build failed and its retry (the Retry job at the
+  # end of this file) failed too, or when dev changed without a push event;
+  # it skips the night otherwise.
   schedule:
     - cron: "37 2 * * *"
-    # Backup start. GitHub sometimes drops a scheduled start outright
-    # (2026-10-12: no scheduled workflow in the repo fired). This one builds
-    # only when the day's snapshot does not exist yet; see Prepare.
-    - cron: "37 8 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -41,69 +65,98 @@ on:
         type: boolean
         default: false
       branch:
-        description: "Branch to build (a dry run is the way to try one)"
+        description: "Optional branch override; beta uses dev, alpha uses feat/career-2.0"
         type: string
-        default: dev
+        default: ""
+      channel:
+        description: "Update channel for this branch build"
+        type: choice
+        options: [beta, alpha]
+        default: beta
       release_candidate:
         description: "Also publish as the 1.9 release candidate under nightly-YYYYMMDD, where 1.8 developer-snapshot players' updater finds it"
         type: boolean
         default: false
-  # Stable releases: push a v*.*.* tag on the commit to ship. Do not invent
-  # the tag from a schedule or dispatch -- only an explicit tag push cuts a
-  # stable GitHub release (no --prerelease, notes from the version block).
-  push:
-    tags:
-      - "v*.*.*"
-
 permissions:
   contents: write
 
 concurrency:
-  group: career-19-snapshot
-  # A scheduled start queues behind a running build instead of cancelling
-  # it, so the backup start can never kill a late primary run.
+  group: career-snapshot-${{ inputs.channel || 'beta' }}
+  # A push or a dispatch cancels the build in flight: the newer commit is
+  # the one testers should get, and publishing replaces the day's release
+  # wholesale, so a cancelled run leaves the last published snapshot
+  # standing. A scheduled start queues behind a running build instead, so
+  # the fallback can never kill a late push build.
   cancel-in-progress: ${{ github.event_name != 'schedule' }}
 
-env:
-  # `dev` since the 1.9 cutover (2026-09-20). This built feat/career-1.9
-  # while 1.9 was a side line; dev IS the 1.9 line now, and this is the
-  # only workflow that knows how to build the Rust game, so it is the
-  # nightly -- and now the only one that builds the game at all. build.yml
-  # ran the Python/Nuitka path and was deleted with the 1.8 line: dev has
-  # no Python gameplay left to feed it, and the owner ruled on 2026-09-20
-  # that 1.8 gets no further releases, so it had no job on either trigger.
-  #
-  # The `1.9-tester-*` tag scheme deliberately does NOT change. The
-  # in-game updater's developer-snapshot channel finds builds by that
-  # name, so renaming it would strand everyone already on one.
-  # A manual run may name another branch to try; the schedule always
-  # builds dev.
-  # Tag pushes build the tagged commit. Schedule/dispatch still build
-  # `dev` (or the dispatch branch). A tag that only exists on another
-  # tip must not silently rebuild today's dev.
-  CAREER_BRANCH: ${{ github.event_name == 'push' && github.ref || inputs.branch || 'dev' }}
-
 jobs:
+  source:
+    name: Resolve source branch
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      ref: ${{ github.event_name == 'push' && github.ref || format('refs/heads/{0}', steps.branch.outputs.branch) }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.workflow_sha }}
+      # A push already names its ref (dev, or the stable tag); the channel
+      # map is for the schedule and for dispatches.
+      - uses: ./.github/actions/update-source
+        id: branch
+        if: github.event_name != 'push'
+        with:
+          channel: ${{ inputs.channel || 'beta' }}
+          channel-branches: '{"beta":"dev","alpha":"feat/career-2.0"}'
+          branch: ${{ inputs.branch }}
+
   prepare:
+    needs: source
     name: Prepare
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    env:
+      CAREER_BRANCH: ${{ needs.source.outputs.ref }}
+      # The same build environment as rust.yml's checks job, so the two
+      # share one `tools-light` cache entry (rust-cache keys on these).
+      CARGO_TERM_COLOR: always
+      RUST_BACKTRACE: "1"
+      CMAKE_POLICY_VERSION_MINIMUM: "3.5"
     outputs:
-      should_build: ${{ steps.check.outputs.should_build }}
+      should_build: ${{ steps.check.outputs.should_build || 'false' }}
       tag: ${{ steps.check.outputs.tag }}
       commit_sha: ${{ steps.check.outputs.commit_sha }}
       is_prerelease: ${{ steps.check.outputs.is_prerelease }}
+      channel: ${{ steps.check.outputs.channel }}
       version: ${{ steps.check.outputs.version }}
     steps:
+      # Full history for the release notes, but blobless and sparse: the
+      # tags and commits come down, file contents only for what the tooling
+      # builds from and reads. Cloning every past world-data file took over
+      # a minute. Git fetches an old file on demand when the notes need one.
       - uses: actions/checkout@v6
         with:
           ref: ${{ env.CAREER_BRANCH }}
           fetch-depth: 0
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/*/
+            /.cargo/
+            /.github/
+            /crates/
+            /vendor/
+            /lang/
+            /tools/
+            /data/buffs.json
+            /data/radio_community.json
 
       - name: Refuse to run a stale copy of this workflow
         # GITHUB_WORKFLOW_SHA is the commit the running workflow file came
-        # from: main on a schedule, the dispatched ref otherwise. HEAD is the
-        # career branch. A scheduled run on a stale main file must fail here
+        # from: main on a schedule, the pushed commit on a push, the
+        # dispatched ref otherwise. HEAD is the career branch, so a push to
+        # dev passes trivially. A scheduled run on a stale main file must fail here
         # rather than ship a snapshot missing whole platforms. So must a
         # dispatch that would publish: on 2026-10-19 one from main built every
         # platform for 25 minutes, then its Release job refused the assets
@@ -123,19 +176,44 @@ jobs:
           fi
           echo "::warning::$msg"
 
+      # A scheduled start with no new commits since the last snapshot stops
+      # here, before the release tooling is built. This is the usual end of
+      # the fallback: the push build already published this commit.
+      - name: Skip a night with no new commits
+        id: early
+        if: github.event_name == 'schedule'
+        run: |
+          if [ -n "$(git tag --points-at HEAD --list '1.9-tester-*')" ]; then
+            echo "The last snapshot already built $(git rev-parse --short HEAD); nothing new."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
       # The release-notes, community-station, translation-kit and snapshot
       # commands, built without the world feature so the game is not.
+      - name: Install the pinned toolchain
+        if: steps.early.outputs.skip != 'true'
+        run: rustup show
+
+      # Shared with rust.yml's checks job, which builds the tooling the same
+      # way. Without it this step compiled ff-tools from nothing every night.
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
+        if: steps.early.outputs.skip != 'true'
+        with:
+          shared-key: tools-light
+          save-if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' }}
+
       - name: Build the release tooling
+        if: steps.early.outputs.skip != 'true'
         run: |
-          rustup show
           cargo build -p ff-tools --no-default-features --locked
           echo "FF_TOOLS=$PWD/target/debug/ff-tools" >> "$GITHUB_ENV"
 
       - name: Check snapshot conditions
         id: check
+        if: steps.early.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SCHEDULE: ${{ github.event.schedule }}
+          UPDATE_CHANNEL: ${{ inputs.channel || 'beta' }}
         run: |
           echo "commit_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
@@ -149,28 +227,30 @@ jobs:
             echo "tag=$TAG" >> "$GITHUB_OUTPUT"
             echo "version=$VERSION" >> "$GITHUB_OUTPUT"
             echo "is_prerelease=false" >> "$GITHUB_OUTPUT"
+            echo "channel=stable" >> "$GITHUB_OUTPUT"
             echo "should_build=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          echo "tag=1.9-tester-$(date -u +%Y%m%d)" >> "$GITHUB_OUTPUT"
+          if [ "$UPDATE_CHANNEL" = "alpha" ]; then
+            echo "tag=alpha-$(date -u +%Y%m%d%H%M%S)" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=1.9-tester-$(date -u +%Y%m%d)" >> "$GITHUB_OUTPUT"
+          fi
           echo "version=" >> "$GITHUB_OUTPUT"
           echo "is_prerelease=true" >> "$GITHUB_OUTPUT"
+          echo "channel=$UPDATE_CHANNEL" >> "$GITHUB_OUTPUT"
 
           if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
             echo "should_build=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          # The backup start builds only when the primary start never made
-          # today's snapshot (dropped, or failed past its retry).
-          if [ "$SCHEDULE" = "37 8 * * *" ] \
-            && gh release view "1.9-tester-$(date -u +%Y%m%d)" >/dev/null 2>&1; then
-            echo "Today's snapshot already exists; the backup start has nothing to do."
-            echo "should_build=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
+          # A push to dev and the scheduled fallback both build only when
+          # the commits since the newest snapshot add a curated changelog
+          # entry or ask for a build in a commit message. The newest
+          # snapshot may be today's, cut by an earlier push: then only what
+          # landed since that push counts, and a docs-only merge stops here.
           LAST_TAG=$(git tag --list "1.9-tester-*" --sort=-version:refname | head -1)
           if [ -z "$LAST_TAG" ]; then
             echo "should_build=true" >> "$GITHUB_OUTPUT"
@@ -210,6 +290,15 @@ jobs:
           path: data/radio_community.json
           retention-days: 7
 
+      # Release reuses this build of the tooling rather than compiling it a
+      # second time.
+      - uses: actions/upload-artifact@v7
+        if: steps.check.outputs.should_build == 'true'
+        with:
+          name: ff-tools
+          path: target/debug/ff-tools
+          retention-days: 7
+
   format:
     # Formatting is the same on every platform, so it is checked once, on
     # the cheap Linux runner, instead of on each packaging runner. Release
@@ -220,9 +309,17 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
+      # cargo fmt reads the sources and manifests only, not the world data.
       - uses: actions/checkout@v6
         with:
           ref: ${{ needs.prepare.outputs.commit_sha }}
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/*/
+            /.cargo/
+            /crates/
+            /vendor/
 
       - name: Install the pinned Rust toolchain
         run: rustup show
@@ -231,32 +328,19 @@ jobs:
         run: cargo fmt --all --check
 
   test:
-    # Lint and test each platform, side by side with its packaging job.
-    # clippy runs here on every platform, the schedule included: rust.yml
-    # lints on Linux only, so this is where the `cfg(windows)` and
-    # `cfg(target_os)` code gets linted.
+    # The FULL suite: `slow-tests` turns on the whole-map sweeps and other
+    # long tests that a plain `cargo test` skips. They run here, and only
+    # here. They are headless driving logic, so one platform proves them.
+    # This is the one test job Release waits on.
     name: Test (${{ matrix.name }})
     needs: prepare
     if: needs.prepare.outputs.should_build == 'true'
     strategy:
-      fail-fast: false
       matrix:
         include:
-          - name: Windows
-            os: windows-2025
-            rustflags: --cfg ci_quick
-          - name: macOS
-            os: macos-26
-            rustflags: --cfg ci_quick
-          # The FULL suite: no `--cfg ci_quick`, so the whole-map sweeps the
-          # per-push workflow (rust.yml) leaves out run here, and only here.
-          # They are headless driving logic, so one platform proves them.
           - name: Linux x86_64
             os: ubuntu-24.04
-            rustflags: ""
-          - name: Linux aarch64
-            os: ubuntu-24.04-arm
-            rustflags: --cfg ci_quick
+            features: --features freight-fate/slow-tests
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     env:
@@ -268,26 +352,101 @@ jobs:
       RUST_BACKTRACE: "1"
       HOMEBREW_NO_AUTO_UPDATE: "1"
       CMAKE_POLICY_VERSION_MINIMUM: "3.5"
-      # clippy and the tests on the same RUSTFLAGS, so both share one debug
-      # build of the native dependencies (SDL2, Prism).
-      RUSTFLAGS: ${{ matrix.rustflags }}
+      # Prism's static library is built with gcc link-time optimisation and
+      # ships fat objects (LTO bytecode beside the machine code), so every
+      # test program's link re-optimised all of Prism, seconds per binary.
+      # -fno-lto links the machine code that is already there, and mold
+      # links faster than ld. Test builds only: the Build jobs keep LTO.
+      # These apply only when building for Linux.
+      CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS: "-C link-arg=-fno-lto -C link-arg=-fuse-ld=mold"
+      CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUSTFLAGS: "-C link-arg=-fno-lto -C link-arg=-fuse-ld=mold"
     steps:
       - uses: actions/checkout@v6
         with:
           ref: ${{ needs.prepare.outputs.commit_sha }}
 
       - name: Set up Rust and the build caches
-        # The same `test` cache rust.yml's test jobs keep, so a night after
-        # a day of pushes starts warm.
+        # The one test cache the nightly keeps (Linux x86_64), night to night.
         uses: ./.github/actions/rust-setup
         with:
           cache-key: test
+          linux-packages: mold
 
       - name: Lint Rust targets
         run: cargo clippy --all-targets --locked -- -D warnings
 
       - name: Test Rust workspace
-        run: cargo test -p ff-core -p freight-fate --locked
+        run: cargo test -p ff-core -p freight-fate ${{ matrix.features }} --locked
+
+      - name: Test the agent server
+        run: cargo test -p freight-fate --test agent_server --locked
+
+  test_platforms:
+    # Lint and test the other platforms, side by side with their packaging
+    # jobs. These run for the log only: Release does not wait on them, so a
+    # snapshot whose builds are done is not held up by a slow Windows or
+    # macOS runner. clippy runs on macOS and Linux here, so the
+    # `cfg(target_os)` code still gets linted; rust.yml owns Windows clippy
+    # on pull requests and on pushes to the branches it watches, so it is
+    # skipped here.
+    name: Test (${{ matrix.name }})
+    needs: prepare
+    if: needs.prepare.outputs.should_build == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows
+            os: windows-2025
+            features: ""
+          - name: macOS
+            os: macos-26
+            features: ""
+          - name: Linux aarch64
+            os: ubuntu-24.04-arm
+            features: ""
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      FREIGHT_FATE_NO_SPEECH: "1"
+      HEARKEN_TEST_NO_SPEECH: "1"
+      SDL_VIDEODRIVER: dummy
+      SDL_AUDIODRIVER: dummy
+      CARGO_TERM_COLOR: always
+      RUST_BACKTRACE: "1"
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      CMAKE_POLICY_VERSION_MINIMUM: "3.5"
+      # Prism's static library is built with gcc link-time optimisation and
+      # ships fat objects (LTO bytecode beside the machine code), so every
+      # test program's link re-optimised all of Prism, seconds per binary.
+      # -fno-lto links the machine code that is already there, and mold
+      # links faster than ld. Test builds only: the Build jobs keep LTO.
+      # These apply only when building for Linux.
+      CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS: "-C link-arg=-fno-lto -C link-arg=-fuse-ld=mold"
+      CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUSTFLAGS: "-C link-arg=-fno-lto -C link-arg=-fuse-ld=mold"
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.prepare.outputs.commit_sha }}
+
+      - name: Set up Rust and the build caches
+        # These legs build without a cache of their own. Their three test
+        # caches (3.4 GB) pushed the repository past GitHub's 10 GB cache
+        # budget, and GitHub then dropped the release caches the snapshot
+        # waits on. Release does not wait on these legs, so they are the
+        # ones to build cold.
+        uses: ./.github/actions/rust-setup
+        with:
+          cache-key: test
+          save-cache: "false"
+          linux-packages: mold
+
+      - name: Lint Rust targets
+        if: runner.os != 'Windows'
+        run: cargo clippy --all-targets --locked -- -D warnings
+
+      - name: Test Rust workspace
+        run: cargo test -p ff-core -p freight-fate ${{ matrix.features }} --locked
 
       - name: Test the agent server
         run: cargo test -p freight-fate --test agent_server --locked
@@ -310,8 +469,8 @@ jobs:
           ref: ${{ needs.prepare.outputs.commit_sha }}
 
       - name: Set up Rust and the build caches
-        # CMake and ATL for Prism, the pinned toolchain, sccache and
-        # rust-cache: the same setup rust.yml's jobs use.
+        # CMake and ATL for Prism, the pinned toolchain and rust-cache: the
+        # same setup rust.yml's jobs use.
         uses: ./.github/actions/rust-setup
         with:
           cache-key: release
@@ -323,6 +482,8 @@ jobs:
           path: data
 
       - name: Build the portable release
+        env:
+          HEARKEN_SEAL_KEY: ${{ secrets.HEARKEN_SEAL_KEY }}
         run: ./build-release.ps1 --tag "${{ needs.prepare.outputs.tag }}"
 
       - name: Check Prism registered its backends
@@ -442,6 +603,8 @@ jobs:
         # probes (speech, audio device) that 2026-08-30 moved onto worker
         # threads; with them gone the launch proof is back. Bounded at 120 s
         # inside the builder, which dumps the game log on failure.
+        env:
+          HEARKEN_SEAL_KEY: ${{ secrets.HEARKEN_SEAL_KEY }}
         run: cargo tools build-release --smoke --tag "${{ needs.prepare.outputs.tag }}"
 
       - name: Check Prism registered its backends
@@ -536,6 +699,8 @@ jobs:
         # --smoke boots the staged tarball payload for five frames with dummy
         # drivers, the same proof the Mac job gets. Staging refuses an
         # executable that links SDL2 dynamically.
+        env:
+          HEARKEN_SEAL_KEY: ${{ secrets.HEARKEN_SEAL_KEY }}
         run: cargo tools build-release --smoke --tag "${{ needs.prepare.outputs.tag }}"
 
       - name: Check Prism registered its backends
@@ -612,18 +777,33 @@ jobs:
     if: always() && needs.prepare.outputs.should_build == 'true' && needs.format.result == 'success' && needs.test.result == 'success' && needs.build_windows.result == 'success' && needs.build_macos.result == 'success' && needs.build_linux.result == 'success' && needs.smoke_linux.result == 'success'
     runs-on: ubuntu-24.04
     steps:
+      # History for the release notes, plus what the notes, the translation
+      # kit and the version read; blobless and sparse, as in Prepare.
       - uses: actions/checkout@v6
         with:
           ref: ${{ needs.prepare.outputs.commit_sha }}
           fetch-depth: 0
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/*/
+            /.cargo/
+            /crates/
+            /lang/
+            /tools/
 
       # The release-notes, community-station, translation-kit and snapshot
-      # commands, built without the world feature so the game is not.
-      - name: Build the release tooling
+      # commands, built once in Prepare without the world feature.
+      - uses: actions/download-artifact@v7
+        with:
+          name: ff-tools
+          path: ${{ runner.temp }}/ff-tools
+
+      - name: Use the release tooling from Prepare
         run: |
-          rustup show
-          cargo build -p ff-tools --no-default-features --locked
-          echo "FF_TOOLS=$PWD/target/debug/ff-tools" >> "$GITHUB_ENV"
+          chmod +x "$RUNNER_TEMP/ff-tools/ff-tools"
+          echo "FF_TOOLS=$RUNNER_TEMP/ff-tools/ff-tools" >> "$GITHUB_ENV"
 
       - uses: actions/download-artifact@v7
         with:
@@ -715,11 +895,24 @@ jobs:
           "$FF_TOOLS" release-notes check-size --input notes.md --max-characters 120000
           test -s release-assets/checksums.txt
 
-      - name: Create prerelease
+      # The in-game updater's files: for each archive, a manifest signed
+      # with the game's update key (update-<channel>-<platform>.json) and,
+      # for a zip, a signed file index, so a player downloads only the
+      # files that changed. The secret is given to this step only. Before
+      # Cargo.toml has an update-key this writes nothing.
+      - name: Sign the update manifests
+        env:
+          HEARKEN_UPDATE_SECRET: ${{ secrets.HEARKEN_UPDATE_SECRET }}
+          TAG: ${{ needs.prepare.outputs.tag }}
+        run: |
+          "$FF_TOOLS" update-manifests --dir release-assets --tag "$TAG" --notes notes.md
+
+      - name: Publish beta or alpha release
         if: ${{ inputs.dry_run != true && needs.prepare.outputs.is_prerelease == 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ needs.prepare.outputs.tag }}
+          UPDATE_CHANNEL: ${{ needs.prepare.outputs.channel }}
           COMMIT_SHA: ${{ needs.prepare.outputs.commit_sha }}
         run: |
           if gh release view "$TAG" >/dev/null 2>&1; then
@@ -727,15 +920,17 @@ jobs:
           elif git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
             git push origin ":refs/tags/$TAG"
           fi
+          LABEL="Beta"
+          if [ "$UPDATE_CHANNEL" = "alpha" ]; then LABEL="Alpha"; fi
           gh release create "$TAG" release-assets/* --notes-file notes.md \
-            --title "Freight Fate 1.9 tester snapshot $(date -u +%Y-%m-%d)" \
-            --prerelease --target "$COMMIT_SHA"
+            --title "Freight Fate $LABEL $(date -u +%Y-%m-%d)" \
+            --prerelease --latest=false --target "$COMMIT_SHA"
 
       # Keep the release page to the last week of tester snapshots; testers
       # can still roll back that far. Tags stay (the notes step reads the
       # previous one). A failed prune never fails the release.
-      - name: Prune old tester snapshots
-        if: ${{ inputs.dry_run != true && needs.prepare.outputs.is_prerelease == 'true' }}
+      - name: Prune old beta snapshots
+        if: ${{ inputs.dry_run != true && needs.prepare.outputs.channel == 'beta' }}
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -751,7 +946,7 @@ jobs:
       # archives keep their own build_info.json, so once installed the game
       # follows `1.9-tester-*` like any tester build.
       - name: Publish the release candidate for 1.8 developer snapshots
-        if: ${{ inputs.dry_run != true && inputs.release_candidate && needs.prepare.outputs.is_prerelease == 'true' }}
+        if: ${{ inputs.dry_run != true && inputs.release_candidate && inputs.channel != 'alpha' && needs.prepare.outputs.is_prerelease == 'true' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ needs.prepare.outputs.tag }}
@@ -791,7 +986,7 @@ jobs:
           done
           gh release create "$BRIDGE" "${assets[@]}" --notes-file bridge-notes.md \
             --title "Freight Fate 1.9 release candidate $(date -u +%Y-%m-%d)" \
-            --prerelease --target "$COMMIT_SHA"
+            --prerelease --latest=false --target "$COMMIT_SHA"
 
       - name: Create stable release
         if: ${{ inputs.dry_run != true && needs.prepare.outputs.is_prerelease == 'false' }}
@@ -825,4 +1020,78 @@ jobs:
           done
           gh release create "$TAG" "${assets[@]}" --notes-file notes.md \
             --title "Freight Fate $VERSION" \
-            --target "$COMMIT_SHA"
+            --latest --target "$COMMIT_SHA"
+
+  retry:
+    # One retry after a failure, inside the run that failed. This used to
+    # be its own workflow (retry-failed-nightly.yml, on workflow_run), which
+    # GitHub started after EVERY completed build, so the Actions page showed
+    # a "Retry failed nightly" row for each push build, skipped or not, and a
+    # burst of merges on 2026-11-11 left nine of them sleeping 45 minutes
+    # each for builds a newer push had already cancelled. As a job, it exists
+    # only when something in this run failed: a run cancelled by a newer
+    # push cancels it too, and a green run has no row to show.
+    #
+    # Only push builds of dev and the scheduled fallback retry; the retry is
+    # a dispatch, so it is never retried itself. A job that hits its timeout
+    # ends as `cancelled`, not `failure` (2026-10-02: a hung Fedora ARM
+    # boot), so both count.
+    name: Retry once after delay
+    needs: [prepare, format, test, build_windows, build_macos, build_linux, smoke_linux, release]
+    if: >-
+      always() &&
+      needs.prepare.outputs.should_build == 'true' &&
+      ((github.event_name == 'push' && github.ref == 'refs/heads/dev') || github.event_name == 'schedule') &&
+      github.run_attempt == 1 &&
+      (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Dispatch one recovery build if still needed
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.prepare.outputs.tag }}
+          RUN_SHA: ${{ needs.prepare.outputs.commit_sha }}
+        run: |
+          superseded() {
+            # A push build whose commit is no longer dev's head has been
+            # overtaken; that push's own build takes over.
+            [ "$GITHUB_EVENT_NAME" = "push" ] || return 1
+            DEV_SHA=$(gh api "repos/$GITHUB_REPOSITORY/branches/dev" --jq .commit.sha)
+            if [ "$DEV_SHA" != "$RUN_SHA" ]; then
+              echo "dev has moved on to $DEV_SHA since $RUN_SHA; that push's own build takes over."
+              return 0
+            fi
+            return 1
+          }
+          superseded && exit 0
+
+          echo "Waiting 45 minutes for a transient failure to clear."
+          sleep 2700
+
+          superseded && exit 0
+
+          # Today's snapshot may already be up: for a push that counts only
+          # when it is of this commit; for the nightly fallback any snapshot
+          # of the day will do.
+          if TARGET=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json targetCommitish -q .targetCommitish 2>/dev/null); then
+            if [ "$GITHUB_EVENT_NAME" != "push" ] || [ "$TARGET" = "$RUN_SHA" ]; then
+              echo "$TAG already exists; nothing to retry."
+              exit 0
+            fi
+          fi
+
+          ACTIVE=$(gh run list --repo "$GITHUB_REPOSITORY" \
+            --workflow "$GITHUB_WORKFLOW" --limit 20 \
+            --json databaseId,status --jq "[.[] | select((.status == \"queued\" or .status == \"in_progress\") and .databaseId != $GITHUB_RUN_ID)] | length")
+          if [ "$ACTIVE" -gt 0 ]; then
+            echo "Another build is already queued or running; not dispatching a duplicate."
+            exit 0
+          fi
+
+          echo "The snapshot is still missing; dispatching one retry from dev."
+          gh workflow run "$GITHUB_WORKFLOW" --repo "$GITHUB_REPOSITORY" \
+            --ref dev -f dry_run=false

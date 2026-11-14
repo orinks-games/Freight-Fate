@@ -39,7 +39,7 @@ fn truck_status_is_a_reviewable_menu_with_every_fact_on_its_own_row() {
         .any(|line| line == "Tractor condition: worn, 32 percent damage."));
     assert!(rows
         .iter()
-        .any(|line| line == "Tire wear: 12 percent, all-season compound."));
+        .any(|line| line == "Tire wear: 12 percent, all-season tires."));
     assert!(rows.iter().any(|line| line == "Brake wear: 23 percent."));
     assert!(rows.iter().any(|line| line == "Engine wear: 34 percent."));
     assert!(rows.iter().any(|line| line == "Road grime: 45 percent."));

@@ -402,7 +402,10 @@ fn test_a_named_city_is_always_still_ahead_when_its_sign_is_read() {
 }
 
 #[test]
-#[cfg_attr(ci_quick, ignore = "sweep: 288 seeded billboard runs")]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: 288 seeded billboard runs"
+)]
 fn test_no_billboard_names_a_place_the_truck_is_not_near() {
     let (shown, built) = sweep();
     assert!(built >= 200, "only {built} seeded runs built");
@@ -583,6 +586,10 @@ fn test_wall_drug_still_reads_in_south_dakota() {
 /// Appalachian states the placement table gives it: a key that no longer
 /// matches the board's text would let its placement go unchecked.
 #[test]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: seeded billboard runs over Appalachia"
+)]
 fn test_the_hollers_board_still_reads_in_appalachia() {
     let honest = PLACE_CLAIMS
         .iter()
@@ -689,6 +696,10 @@ fn test_dock_of_the_bay_never_reads_in_nevada() {
 /// Maine and Vermont ban commercial billboards. Pool jokes and corridor ads
 /// must stay silent while the truck is in those states (Scenic America / FHWA).
 #[test]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: seeded billboard runs over two states"
+)]
 fn test_maine_and_vermont_carry_no_commercial_pool_boards() {
     let world = world();
     let mut codes = HashMap::new();

@@ -217,18 +217,25 @@ impl PyRandom {
     /// to be unpredictable, which is all `audio.py`'s wobble and
     /// `sim/weather.py`'s scratch generator ask of it.
     pub fn new_unseeded() -> Self {
-        let mut key = Vec::with_capacity(N);
         let nanos = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
             .map(|d| d.as_nanos())
             .unwrap_or(0);
-        for i in 0..(N / 2) as u64 {
-            let mut h = std::collections::hash_map::RandomState::new().build_hasher();
-            h.write_u64(i);
-            h.write_u128(nanos);
-            let v = h.finish();
-            key.push(v as u32);
-            key.push((v >> 32) as u32);
+        // One OS-seeded hash, then splitmix64 for the 624 words. Hashing
+        // every word on its own cost more than the generator it seeds, and
+        // traffic makes one of these per vehicle.
+        let mut h = std::collections::hash_map::RandomState::new().build_hasher();
+        h.write_u128(nanos);
+        let mut state = h.finish();
+        let mut key = Vec::with_capacity(N);
+        for _ in 0..N / 2 {
+            state = state.wrapping_add(0x9E37_79B9_7F4A_7C15);
+            let mut z = state;
+            z = (z ^ (z >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
+            z = (z ^ (z >> 27)).wrapping_mul(0x94D0_49BB_1331_11EB);
+            z ^= z >> 31;
+            key.push(z as u32);
+            key.push((z >> 32) as u32);
         }
         init_by_array(&key)
     }

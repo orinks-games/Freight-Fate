@@ -44,13 +44,15 @@ use ff_core::data::world_models::Route;
 use ff_core::models::jobs::Job;
 use ff_core::pyrandom::PyRandom;
 use ff_core::radio::RadioState;
+use ff_core::sim::alertness::{Alertness, NodState};
 use ff_core::sim::cross_traffic::CrossTraffic;
 use ff_core::sim::enforcement_observe::Observation;
+use ff_core::sim::fatigue_costs::RestCall;
 use ff_core::sim::lane::LaneKeeping;
 use ff_core::sim::lane_guidance::LaneGuidance;
 use ff_core::sim::pedal_latch::PedalLatch;
 use ff_core::sim::trip::Trip;
-use ff_core::sim::trip_models::{BorderBooth, ExitRampLayout, RoadStop};
+use ff_core::sim::trip_models::{BorderBooth, DebrisClass, ExitRampLayout, RoadStop};
 use ff_core::sim::turn_guide::TurnGuide;
 
 use crate::states::driving_core::{
@@ -226,13 +228,18 @@ pub struct DrivingState {
     pub enforcement_events: HashSet<String>,
     pub pending_border_clearance: Option<BorderBooth>,
     pub out_of_service_count: i64,
-    pub drowsy_said: bool,
-    pub severe_said: bool,
+    /// The fatigue band the road last cued (`ff_core::sim::alertness`).
+    pub alertness: Alertness,
     pub fatigue_cue_gm: f64, // game minutes since the last drowsy cue
-    pub microsleep_deadline: Option<f64>, // reaction window, real seconds
-    pub microsleep_gm: f64,  // game minutes since the last nod
-    pub microsleep_cooldown_gm: f64,
-    pub microsleep_misses: i64, // consecutive nods drifted off the road
+    /// The nod-off severe fatigue brings on: its count, window and misses.
+    pub nod: NodState,
+    /// A nod a play tester asked for (or a trip saved mid-nod), opened on
+    /// the next rolling frame.
+    pub nod_staged: bool,
+    /// Whether this load's rest call to dispatch is spent
+    /// (`ff_core::sim::fatigue_costs`): once used, the load pays its base
+    /// rate against the moved appointment.
+    pub rest_call: RestCall,
     pub hazard_deadline: Option<f64>,
     // What is actually pending, in the order it armed. A second hazard
     // arming while one is still live folds its name in here instead of
@@ -240,7 +247,6 @@ pub struct DrivingState {
     // the resolution line can name everything that just cleared.
     pub hazard_names: Vec<String>,
     pub horn_scare_tried: bool,
-    pub hazard_slow_hint_said: bool,
     pub automatic_braking_announced: bool,
     pub automatic_braking_escalated: bool,
     // The service application the hazard assist is holding (0.0 = off the
@@ -444,10 +450,6 @@ pub struct DrivingState {
     pub enforcement_prev_mi: f64,
     pub passed_post_ids: HashSet<String>,
     pub marked_post_ids: HashSet<String>,
-    // A tableau's two cues, each fired once: the siren some seconds
-    // before the spot, and the stopped pair as you go by it.
-    pub tableau_siren_ids: HashSet<String>,
-    pub tableau_pass_ids: HashSet<String>,
     pub scale_bed_key: String,
     pub scale_bed_volume: f64,
     pub radio_cue_duck: f64,
@@ -816,8 +818,9 @@ pub struct DrivingState {
     pub keeper_overrun_said: bool,
 
     // ---- driving_events.py / driving_pickup.py / driving_facility_gate.py: arrival ----
-    pub arrival_stop_said: bool,
-    pub arrival_full_stop_said: bool,
+    /// The stop at a facility gate (`ff_core::sim::arrival_gate`); moved
+    /// only through [`DrivingState::step_gate`].
+    pub gate: ff_core::sim::arrival_gate::GateStop,
     pub arrival_menu_open: bool,
     pub gate_reminder_s: f64,
     // Facility gate misses (driving_facility_gate.py): the pre-gate speed
@@ -967,6 +970,12 @@ pub struct DrivingState {
     pub hazard_arm_mi: f64,
     // See HazardShape::brake_to_mph.
     pub hazard_brake_to_mph: Option<f64>,
+    // The live hazard group is debris the truck takes rather than stops
+    // for, and what a strike costs at 65: small debris is driven over with
+    // no braking, big debris is taken at 30 or struck above it. None is a
+    // hard object, or a group with one in it. See `HazardDef::debris`.
+    pub hazard_debris: Option<DebrisClass>,
+    pub hazard_strike_pct: f64,
     // The speed of the VEHICLE this hazard is about, when it is a vehicle.
     // None for debris, animals and anything else that is not going
     // anywhere. See hazard_target_mph.
@@ -1086,6 +1095,9 @@ pub struct DrivingState {
     /// A team departure chosen at the shipper: the co-driver takes the
     /// wheel on the drive's first frame.
     pub pending_team: Option<crate::states::driving_team::TeamMode>,
+    /// The state whose truck limit the speed readout last explained, so
+    /// "Michigan holds trucks to this" is said once per state.
+    pub truck_limit_state_named: Option<String>,
 }
 
 // The accessors onto the trip, the trip swap and the `State` facade live in

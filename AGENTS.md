@@ -18,4 +18,6 @@ engineering practices**. In particular: keep `unsafe` narrowly wrapped and
 documented; never perform unbounded I/O, IPC, joins, or window-manager work in
 `Drop` or the game loop; use explicit idempotent shutdown with cancellation and
 measured bounds; treat external systems as fallible; and run the pinned format,
-Clippy, test, and adversarial gates before shipping Rust gameplay changes.
+Clippy, test, and adversarial gates before shipping Rust gameplay changes; and make every
+implicit state machine an explicit enum that serves the player, the
+developer and the agent play tester at once, without breaking anything.

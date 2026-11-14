@@ -352,7 +352,7 @@ impl TruckState {
                 self.chains_on = false;
                 self.chains_just_snapped = true;
                 // Grinding a set to destruction on bare pavement is a choice.
-                self.add_damage(CHAIN_SNAP_DAMAGE_PCT, true);
+                self.add_damage_from(CHAIN_SNAP_DAMAGE_PCT, true, "chains worn through");
             }
         }
 
@@ -374,7 +374,7 @@ impl TruckState {
         // threshold the truck has gone.
         if self.speed_mph() > RUNAWAY_SPEED_MPH {
             let over = (self.speed_mph() - RUNAWAY_SPEED_MPH) / 10.0;
-            self.add_damage(RUNAWAY_DAMAGE_PCT_PER_S * over * dt, true);
+            self.add_damage_from(RUNAWAY_DAMAGE_PCT_PER_S * over * dt, true, "a runaway");
         }
 
         if self.engine_on {

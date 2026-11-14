@@ -128,7 +128,9 @@ pub const MAGIC: &[u8; 8] = b"FFDATA\0\0";
 ///
 /// 14: a crossing names the classes it allows only in small amounts
 /// (`limited_classes`, `limited_text`).
-pub const FORMAT_VERSION: u32 = 14;
+///
+/// 15: a corridor carries the county each stretch runs through (`counties`).
+pub const FORMAT_VERSION: u32 = 15;
 
 const HEADER_LEN: usize = 32;
 

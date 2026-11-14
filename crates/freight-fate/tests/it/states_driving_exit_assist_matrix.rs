@@ -612,7 +612,7 @@ fn drive(preset: Preset, kind: Kind) -> Run {
             break;
         }
         if harness
-            .read_drive(|d| d.arrival_full_stop_said && d.truck().speed_mph() <= DOCKING_MAX_MPH)
+            .read_drive(|d| d.gate.stop_prompted() && d.truck().speed_mph() <= DOCKING_MAX_MPH)
         {
             run.arrived = true;
             break;
@@ -893,17 +893,14 @@ fn faults(preset: Preset, kind: Kind, run: &Run) -> Vec<String> {
     preset.apply(&mut settings);
     let named = [
         ("Exit speed assistance", settings.exit_speed_assist),
-        (
-            "Route-transition assistance",
-            settings.route_transition_assist,
-        ),
+        ("Ramp assistance", settings.route_transition_assist),
         ("Curve assistance", settings.curve_speed_assist),
         (
             "Facility stopping assistance",
             settings.destination_approach_assist,
         ),
-        ("Adaptive cruise", preset.cruise()),
-        ("Automatic speed control", preset.cruise()),
+        ("Cruise", preset.cruise()),
+        ("Cruise", preset.cruise()),
     ];
     for (name, on) in named {
         if !on && heard.contains(name) {
@@ -945,7 +942,10 @@ fn faults(preset: Preset, kind: Kind, run: &Run) -> Vec<String> {
 }
 
 #[test]
-#[cfg_attr(ci_quick, ignore = "sweep: every assist over every kind of exit")]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: every assist over every kind of exit"
+)]
 fn test_every_assist_follows_the_exit_rules_on_every_kind_of_exit() {
     let mut failures = Vec::new();
     let mut passed = 0;

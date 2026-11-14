@@ -1807,7 +1807,24 @@
           "name": "mountainous",
           "sections": 387,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Raleigh County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 10.7,
+            "name": "Fayette County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 25.5,
+            "name": "Kanawha County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -4544,7 +4561,59 @@
           "name": "rolling",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Raleigh County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 17.4,
+            "name": "Mercer County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 47.1,
+            "name": "Giles County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 74.8,
+            "name": "Montgomery County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 104.4,
+            "name": "Roanoke County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 109.9,
+            "name": "Salem City",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 111.1,
+            "name": "Roanoke County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 112.7,
+            "name": "Salem City",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 115.4,
+            "name": "Roanoke County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 118.6,
+            "name": "Roanoke City",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -9449,6 +9518,73 @@
             "lanes": 2,
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          }
+        ],
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Kanawha County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 24.7,
+            "name": "Roane County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 39.3,
+            "name": "Clay County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 47.7,
+            "name": "Braxton County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 86.1,
+            "name": "Gilmer County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 86.3,
+            "name": "Braxton County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 86.5,
+            "name": "Lewis County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 109.3,
+            "name": "Harrison County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 131.9,
+            "name": "Marion County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 145.0,
+            "name": "Monongalia County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 163.1,
+            "name": "Greene County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 185.0,
+            "name": "Washington County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 212.6,
+            "name": "Allegheny County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
           }
         ]
       },
@@ -15941,6 +16077,133 @@
             "source": "West Virginia Parkways class 8, non-West Virginia E-ZPass 13 and cash 15 per barrier, Pax milepost 56, accessed 2026-10-11: https://turnpike.wv.gov/toll-rates",
             "amount_plate": 15.0
           }
+        ],
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Kanawha County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 33.8,
+            "name": "Fayette County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 48.2,
+            "name": "Raleigh County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 79.4,
+            "name": "Summers County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 89.0,
+            "name": "Greenbrier County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 125.2,
+            "name": "Alleghany County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 139.9,
+            "name": "Covington City",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 141.3,
+            "name": "Alleghany County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 166.2,
+            "name": "Rockbridge County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 196.3,
+            "name": "Augusta County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 219.6,
+            "name": "Waynesboro City",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 222.2,
+            "name": "Augusta County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 225.1,
+            "name": "Nelson County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 226.4,
+            "name": "Albemarle County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 247.1,
+            "name": "Charlottesville City",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 247.3,
+            "name": "Albemarle County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 256.1,
+            "name": "Fluvanna County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 257.7,
+            "name": "Louisa County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 272.1,
+            "name": "Goochland County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 283.3,
+            "name": "Louisa County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 286.8,
+            "name": "Goochland County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 286.9,
+            "name": "Louisa County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 287.4,
+            "name": "Goochland County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 300.5,
+            "name": "Henrico County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 311.5,
+            "name": "Richmond City",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
         ]
       },
       "stops": [
@@ -20285,7 +20548,69 @@
           "name": "rolling",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Kanawha County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 33.9,
+            "name": "Fayette County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 48.2,
+            "name": "Raleigh County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 73.7,
+            "name": "Mercer County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 103.6,
+            "name": "Giles County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 131.5,
+            "name": "Montgomery County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 161.3,
+            "name": "Roanoke County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 166.8,
+            "name": "Salem City",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 168.0,
+            "name": "Roanoke County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 169.7,
+            "name": "Salem City",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 172.3,
+            "name": "Roanoke County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 175.6,
+            "name": "Roanoke City",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -22035,7 +22360,24 @@
           "name": "mountainous",
           "sections": 49,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Cabell County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 26.0,
+            "name": "Putnam County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 39.5,
+            "name": "Kanawha County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -23451,7 +23793,34 @@
           "name": "rolling",
           "sections": 478,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Cabell County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 3.8,
+            "name": "Wayne County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 9.6,
+            "name": "Boyd County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 21.1,
+            "name": "Lawrence County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 50.1,
+            "name": "Johnson County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -26463,7 +26832,59 @@
           "name": "mountainous",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Monongalia County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 12.7,
+            "name": "Marion County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 25.7,
+            "name": "Harrison County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 48.2,
+            "name": "Lewis County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 70.7,
+            "name": "Braxton County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 70.9,
+            "name": "Gilmer County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 71.1,
+            "name": "Braxton County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 103.8,
+            "name": "Nicholas County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 135.3,
+            "name": "Fayette County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 161.2,
+            "name": "Raleigh County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -30099,7 +30520,59 @@
           "name": "level",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Monongalia County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 12.7,
+            "name": "Marion County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 25.7,
+            "name": "Harrison County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 48.2,
+            "name": "Lewis County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 70.7,
+            "name": "Braxton County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 70.9,
+            "name": "Gilmer County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 71.1,
+            "name": "Braxton County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 109.0,
+            "name": "Clay County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 117.3,
+            "name": "Roane County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 131.9,
+            "name": "Kanawha County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -32114,7 +32587,29 @@
           "name": "mountainous",
           "sections": 330,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Monongalia County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 13.4,
+            "name": "Preston County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 30.4,
+            "name": "Garrett County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 60.5,
+            "name": "Allegany County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -34330,6 +34825,28 @@
             "oneway": true,
             "source": "OpenStreetMap lanes tags on the corridor highway ways (Overpass), development-time; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
           }
+        ],
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Monongalia County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 10.2,
+            "name": "Greene County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 32.0,
+            "name": "Washington County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 59.6,
+            "name": "Allegheny County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
         ]
       },
       "stops": [
@@ -36323,7 +36840,24 @@
           "name": "rolling",
           "sections": 722,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Wood County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 22.5,
+            "name": "Jackson County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 60.2,
+            "name": "Kanawha County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -38566,7 +39100,39 @@
           "name": "mountainous",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Wood County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 18.6,
+            "name": "Ritchie County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 39.9,
+            "name": "Doddridge County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 58.9,
+            "name": "Harrison County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 87.9,
+            "name": "Marion County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 101.2,
+            "name": "Monongalia County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -40385,7 +40951,24 @@
           "name": "level",
           "sections": 800,
           "source": "FHWA Highway Performance Monitoring System (HPMS) Terrain_Type, read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view). The class is HPMS's own; DERIVED here only in that one value stands for a whole leg -- the modal class over the HPMS sections intersecting the leg's bounding box, since HPMS classifies sections and a leg crosses many. Accessed 2026-08-19: https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Ohio County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 13.7,
+            "name": "Washington County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 42.9,
+            "name": "Allegheny County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {

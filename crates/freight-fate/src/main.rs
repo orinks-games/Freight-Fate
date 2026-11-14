@@ -807,7 +807,7 @@ fn road_session(opts: &road::RoadOptions, headless: f64, args: &[String]) -> i32
         println!("\n  AI observer is using the normal frame/input path. Player-facing speech streams below.");
         println!("  It exits at the discovered feature, a keeper-to-cruise handoff, or a named safety boundary.");
     } else {
-        println!("\n  G grade, J engine brake, K automatic speed control, Down arrow brakes (hands it back).");
+        println!("\n  G grade, J engine brake, K cruise, Down arrow brakes (hands it back).");
         println!("  To leave: Escape pauses; quit to the main menu, then Exit as usual.");
     }
     println!("  Transcript: {}\n", log_path.display());

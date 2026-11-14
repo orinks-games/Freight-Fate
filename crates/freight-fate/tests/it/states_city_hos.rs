@@ -293,11 +293,42 @@ fn test_dispatch_warns_before_accepting_job_that_exceeds_current_hos() {
         "{:?}",
         app.main_lines()
     );
+    // The warning is about hours; the ELD status sentence was noise there.
+    assert!(!app.main_lines().last().unwrap().contains("ELD status"));
     assert!(profile(&app).active_trip.is_none());
 
     board.accept(&mut app.ctx, 0);
     app.ctx.run_deferred();
 
+    assert!(profile(&app).active_trip.is_some());
+}
+
+#[test]
+fn test_dispatch_does_not_warn_for_a_team_load_on_spent_hours() {
+    // Issue 590: a team load accepted near the end of a shift was warned
+    // about an extra rest, though the co-driver can take the first shift.
+    let mut app = TestApp::new();
+    app.record_audio();
+    app.ctx.profile = Some(Profile::named_in("HOS Team", "Austin"));
+    app.ctx.settings.hos_mode = "realistic".to_string();
+    let drive_limit = limits("realistic").expect("realistic has limits").0;
+    profile_mut(&mut app).hos.drive(drive_limit - 30.0);
+    let jobs = austin_offers(&app);
+    let mut job = job_with_supported_route(&app, "Austin", 2, &jobs);
+    job.team = true;
+    let mut board = JobBoardState::new(&app.ctx, vec![job]);
+
+    app.clear_speech();
+    board.accept(&mut app.ctx, 0);
+    app.ctx.run_deferred();
+
+    assert!(
+        !app.main_lines()
+            .iter()
+            .any(|line| line.contains("extra rest")),
+        "{:?}",
+        app.main_lines()
+    );
     assert!(profile(&app).active_trip.is_some());
 }
 
@@ -604,4 +635,39 @@ fn test_a_load_staged_at_the_home_yard_opens_the_pickup_without_a_deadhead() {
     let said = app.main_lines().join(" ");
     assert!(said.contains("The load is here in the yard."), "{said}");
     assert!(!said.contains("Deadhead"), "{said}");
+}
+
+/// What `start_loaded_drive` says leaving Austin at local hour `hour`, and
+/// the night-hours line the run should carry.
+fn austin_departure_at(hour: f64) -> (String, Option<String>) {
+    let mut app = TestApp::new();
+    app.ctx.profile = Some(Profile::named_in("Night Departure", "Austin"));
+    app.ctx.settings.hos_mode = "realistic".to_string();
+    let job = job_with_supported_route(&app, "Austin", 2, &austin_offers(&app));
+    let route = app
+        .ctx
+        .world
+        .supported_route(&job.origin, &job.destination, None)
+        .unwrap()
+        .unwrap();
+    // Austin keeps Central time, an hour behind the reference clock.
+    app.ctx.profile.as_mut().unwrap().game_hours = 48.0 + hour + 1.0;
+    let drive_h = plan_hos(route.miles(), Some(&route), Some(app.ctx.world), None).drive_h;
+    let expected = ff_core::sim::hos::night_driving_line(hour, drive_h);
+    start_loaded_drive(&mut app.ctx, job, route, LoadedDriveOptions::default());
+    (app.main_lines().join(" "), expected)
+}
+
+#[test]
+fn the_departure_line_says_how_much_of_the_run_falls_at_night() {
+    let (said, expected) = austin_departure_at(23.0);
+    let expected = expected.expect("a run leaving at 11 PM drives at night");
+    assert!(said.contains(&expected), "{expected:?} missing from {said}");
+}
+
+#[test]
+fn the_departure_line_says_nothing_of_night_on_a_daytime_run() {
+    let (said, expected) = austin_departure_at(8.0);
+    assert_eq!(expected, None);
+    assert!(!said.contains("night driving"), "{said}");
 }

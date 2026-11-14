@@ -16,7 +16,7 @@ use crate::states::driving_menu_states::DriveRef;
 pub const FALLBACK_MPH: f64 = 55.0;
 
 const STOP_DETAIL_INTRO_HELP: &str =
-    "Up and down arrows review each line; Home and End jump to the first and last. Enter repeats \
+    "Up and down arrows review each line. Home and End jump to the first and last. Enter repeats \
      a line or activates a button. Escape returns to the map.";
 
 /// Full details for one upcoming route stop, opened from the Map screen.
@@ -182,7 +182,7 @@ impl Menu for StopDetailState {
             );
         } else {
             let move_note = if planned.is_some() {
-                " A planned stop already exists; you confirm moving it here."
+                " Your current planned stop moves here after you confirm."
             } else {
                 ""
             };
@@ -191,9 +191,7 @@ impl Menu for StopDetailState {
                     format!("Plan to stop at {}", self.stop.name),
                     |s: &mut Self, ctx| s.plan(ctx),
                 )
-                .help(format!(
-                    "Plans this stop; announcements call it your planned stop.{move_note}"
-                ))
+                .help(format!("Makes this your planned stop.{move_note}"))
                 // `plan` (or the move confirmation) plays its own chime.
                 .select_sound(None),
             );

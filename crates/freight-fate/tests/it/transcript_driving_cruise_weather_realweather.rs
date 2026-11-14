@@ -662,7 +662,7 @@ fn test_v_distinguishes_loading_last_known_and_fallback() {
         heads,
         [
             "Weather source",
-            "Observation age",
+            "Report age",
             "Conditions",
             "Safe speed guidance",
             "Forecast ahead",
@@ -670,7 +670,7 @@ fn test_v_distinguishes_loading_last_known_and_fallback() {
     );
     assert!(rows[0]
         .starts_with("Weather source: Last-known live weather for your current route position"));
-    assert_eq!(rows[1], "Observation age: 12 minutes old.");
+    assert_eq!(rows[1], "Report age: 12 minutes old.");
     let selected = harness.focused_label().expect("a focused row");
     assert!(selected.starts_with("Weather source: Last-known live weather"));
 
@@ -761,7 +761,7 @@ fn test_old_but_freshly_fetched_weather_is_live_across_v_status_and_tablet() {
 
     let rows = open_weather_tablet(&mut harness);
     assert!(rows[0].starts_with("Weather source: Live weather for your current route position"));
-    assert_eq!(rows[1], "Observation age: 12 minutes old.");
+    assert_eq!(rows[1], "Report age: 12 minutes old.");
     assert!(!rows.join(" ").to_lowercase().contains("updating"));
 }
 

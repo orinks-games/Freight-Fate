@@ -161,8 +161,10 @@ fn test_arriving_at_a_travel_center_says_nothing_about_missing_fuel() {
 fn test_arriving_at_a_weigh_station_is_left_alone() {
     let mut scale = RoadStop::new("Test Scale", 0.0, "weigh_station");
     scale.actions = vec!["inspect".to_string()];
+    // No post on this trip, so the scale is closed and says only that.
     let joined = arrive_at(scale).join(" ");
-    assert!(joined.contains("Inspection station."), "{joined}");
+    assert!(joined.contains("Test Scale is closed."), "{joined}");
+    assert!(!joined.contains("Inspection station."), "{joined}");
     assert!(!joined.contains("fuel"), "{joined}");
 }
 

@@ -62,7 +62,7 @@ fn accept_assigned_freight_with_deadhead(app: &mut TestApp) {
         assert!(is::<JobBoardState>(app));
     }
     key(app, Key::Home);
-    assert!(labels::<JobBoardState>(app)[0].starts_with("Accept assigned dispatch:"));
+    assert!(labels::<JobBoardState>(app)[0].starts_with("Assigned load:"));
     key(app, Key::Return);
     assert!(
         is::<DrivingState>(app),
@@ -245,11 +245,9 @@ fn test_full_game_flow_headless() {
         .find(|text| text.contains("Dispatch routed you to"))
         .expect("a departure line");
     assert!(departure.contains("Loaded trip is"), "{departure}");
-    // This flow never started the engine, and the departure line says so
-    // rather than claiming a departure the truck cannot make -- it names the
-    // very key the drive below presses next.
+    // This flow never started the engine, so the departure line claims no
+    // departure the truck cannot make; At the wheel names the start key.
     assert!(!departure.contains("Departing now"), "{departure}");
-    assert!(departure.contains("Engine off."), "{departure}");
     assert!(!departure.contains("Break stops:"), "{departure}");
     assert!(!departure.contains("Fuel stops:"), "{departure}");
 
@@ -381,9 +379,7 @@ fn test_full_game_flow_headless() {
         .chain(app.event_lines())
         .collect();
     assert!(
-        spoken
-            .iter()
-            .any(|l| l.contains("Pickup dispatch: deadhead to ")),
+        spoken.iter().any(|l| l.starts_with("At the wheel. It is ")),
         "{spoken:?}"
     );
     for line in &spoken {
@@ -666,7 +662,7 @@ fn test_an_empty_reposition_out_of_the_impound_lot_then_abandoned_is_not_impound
     profile_mut(&mut app).parked_facility = IMPOUND_LOT_FACILITY.to_string();
     assert!(hub_parked_line(&mut app).contains("impound lot"));
 
-    select::<CityMenuState>(&mut app, "Bobtail to a nearby city");
+    select::<CityMenuState>(&mut app, "Drive to a nearby city without a trailer");
     assert!(is::<BobtailDestState>(&app));
     key(&mut app, Key::Return);
     assert!(is::<DrivingState>(&app));

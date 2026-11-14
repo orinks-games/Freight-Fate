@@ -222,7 +222,7 @@ impl DrivingState {
         let tank = liquid.describe_tank();
         let fill = liquid.describe_fill();
         let behaviour = if liquid.baffled {
-            "Baffles will damp the wave in a couple of cycles."
+            "The baffles calm the surge after a couple of swings."
         } else {
             "Smooth bore: nothing inside to slow the wave down."
         };

@@ -363,7 +363,7 @@ fn test_setting_the_parking_brake_at_speed_dynamites_the_brakes() {
     assert!(harness.read_drive(|d| d.truck().tire_wear_pct) > wear_before + 1.0);
     assert!(!harness.read_drive(|d| d.trip.waiting));
     let last = main_lines(&harness).last().cloned().unwrap_or_default();
-    assert!(last.contains("dynamited"), "{last}");
+    assert!(last.contains("pulled the parking brake"), "{last}");
 
     // Release, stop, set again: the calm path, no extra tread cost.
     harness.with_drive(|drive, _| {

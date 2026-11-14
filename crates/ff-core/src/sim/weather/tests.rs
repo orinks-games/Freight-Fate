@@ -442,9 +442,7 @@ fn test_weather_system_falls_back_when_offline() {
     assert!(!ws.live);
     assert!(changes.iter().any(|c| c.is_some())); // simulated weather still evolves
     assert_eq!(ws.source_status(), "fallback");
-    assert!(ws
-        .report_lead(true)
-        .starts_with("Simulated fallback weather: "));
+    assert!(ws.report_lead(true).starts_with("Simulated weather: "));
     assert_eq!(ws.observation_age_value(), "not applicable");
 }
 
@@ -515,7 +513,7 @@ fn test_observation_age_text_rounds_down_to_whole_minutes() {
     ws.set_city("Chicago", 41.88, -87.63);
     assert_eq!(
         ws.observation_age_text().as_deref(),
-        Some("The observation is less than a minute old")
+        Some("The report is less than a minute old")
     );
     assert_eq!(ws.observation_age_value(), "less than a minute old");
 
@@ -530,7 +528,7 @@ fn test_observation_age_text_rounds_down_to_whole_minutes() {
     ws.set_city("Chicago", 41.88, -87.63);
     assert_eq!(
         ws.observation_age_text().as_deref(),
-        Some("The observation is 1 minute old")
+        Some("The report is 1 minute old")
     );
     assert_eq!(
         ws.last_known_notice(),
@@ -547,10 +545,7 @@ fn test_observation_age_text_rounds_down_to_whole_minutes() {
     );
     assert_eq!(ws.observation_age_text(), None);
     assert_eq!(ws.last_known_notice(), "");
-    assert_eq!(
-        ws.live_observation_notice(),
-        "Observation age is unavailable"
-    );
+    assert_eq!(ws.live_observation_notice(), "Report age is unavailable");
     assert_eq!(ws.observation_age_value(), "unavailable");
     assert!(ws.live_weather_loading());
     assert_eq!(ws.source_status(), "loading");
@@ -558,7 +553,7 @@ fn test_observation_age_text_rounds_down_to_whole_minutes() {
     assert_eq!(
         ws.report_lead(true),
         "Live weather is loading for your current route position. \
-         Temporary neutral driving conditions in use"
+         Mild conditions until live weather loads"
     );
 }
 
@@ -903,7 +898,7 @@ fn test_live_change_omits_modeled_temperature_and_does_not_hide_later_stale_stat
         "{}",
         delayed[0]
     );
-    assert!(delayed[0].contains("Last-known conditions in use"));
+    assert!(delayed[0].contains("Using the last known conditions"));
     assert!(!delayed[0].to_lowercase().contains("updat"));
 }
 
@@ -1282,6 +1277,9 @@ fn real_time_empty_bubble_arrival_reaches_the_player_traffic_status() {
     {
         trip.position_mi = arrival.position_mi - 0.3;
     }
+    // At road speed: a slow call is about the truck gaining on the vehicle,
+    // and a truck at rest gains on nothing.
+    trip.truck.velocity_mps = 65.0 / crate::sim::vehicle::MPS_TO_MPH;
     trip.check_npc_traffic_cues();
     assert!(
         trip.events
@@ -2040,7 +2038,7 @@ fn test_facility_gate_warns_before_final_low_speed_zone() {
     assert!(
         warnings
             .iter()
-            .any(|w| w == "In 2 miles, facility gate ahead. Speed limit 15."),
+            .any(|w| w == "In 2 miles, facility gate. Speed limit 15."),
         "{warnings:?}"
     );
 }
@@ -2074,7 +2072,7 @@ fn test_zone_entry_is_worded_apart_from_its_advance_warning() {
         .next()
         .expect("the gate warning");
     // Two miles out: a heads-up, and the gate limit is not in force yet.
-    assert_eq!(warning, "In 2 miles, facility gate ahead. Speed limit 15.");
+    assert_eq!(warning, "In 2 miles, facility gate. Speed limit 15.");
     let pos = trip.position_mi;
     assert_ne!(trip.speed_limit_at(pos).0, 15.0);
 
@@ -2520,7 +2518,7 @@ fn test_merge_traffic_pressures_drop_the_speed_advisory() {
     );
     assert_eq!(
         construction_merge_msg.normal,
-        format!("Taper squeezing, {distance}. Merge left.")
+        format!("Lane ending, {distance}. Merge left.")
     );
     assert!(!route_merge_msg.normal.contains("35"));
     assert!(!construction_merge_msg.normal.contains("35"));
@@ -2602,7 +2600,7 @@ fn test_npc_traffic_cue_and_status_are_reviewable() {
         .collect();
     assert_eq!(npc_cues.len(), 1);
     assert!(npc_cues[0].text().contains("Merging vehicle"));
-    assert!(npc_cues[0].text().contains("ahead."));
+    assert!(npc_cues[0].text().ends_with("miles."));
     let status = trip.npc_traffic_status();
     assert_eq!(
         status,
@@ -2641,7 +2639,7 @@ fn test_metric_toggle_updates_npc_traffic_cue_units() {
         })
         .expect("the merge cue");
     assert!(
-        npc_cue.text().contains("1.3 kilometers ahead"),
+        npc_cue.text().contains("1.3 kilometers."),
         "{}",
         npc_cue.text()
     );
@@ -3093,7 +3091,7 @@ fn test_gps_traffic_cue_deduplicates() {
     let second = trip.update(0.0);
     assert_eq!(
         gps_messages(&first),
-        vec!["Traffic slowing ahead in 2 miles; traffic queue ahead at 45 miles per hour."]
+        vec!["Traffic slowing in 2 miles, traffic queue ahead at 45 miles per hour."]
     );
     assert!(gps_events(&second).is_empty());
 }
@@ -3130,7 +3128,7 @@ fn test_toll_cues_and_charges_deduplicate() {
     let repeat = trip.update(0.0);
     assert_eq!(
         gps_messages(&advance),
-        vec!["E-ZPass toll point ahead, New Jersey Turnpike settlement. Toll 63 dollars."]
+        vec!["E-ZPass toll point, New Jersey Turnpike settlement. Toll 63 dollars."]
     );
     assert!(gps_events(&repeat).is_empty());
 
@@ -3161,12 +3159,12 @@ fn test_zero_amount_toll_entry_marker_does_not_record_expense() {
     use crate::sim::trip_models::TripEventKind;
 
     let mut trip = make_trip_on("Philadelphia", "Pittsburgh", seeded(2));
-    trip.position_mi = 16.1;
+    trip.position_mi = 16.3;
     assert_eq!(
         gps_messages(&trip.update(0.0)),
-        vec!["ticket system toll point ahead, Pennsylvania Turnpike eastern ticket entry."]
+        vec!["ticket system toll point, Pennsylvania Turnpike eastern ticket entry."]
     );
-    trip.position_mi = 18.0;
+    trip.position_mi = 18.2;
     let entry = trip.update(0.0);
     // Nothing is charged at a ticket entry, and the cue ahead named it.
     assert!(
@@ -3379,17 +3377,9 @@ fn test_trip_requests_first_cell_weather_at_construction() {
     assert!(*lat != 0.0 || *lon != 0.0);
 }
 
-#[test]
-#[ignore = "wrong crate: ff-core cannot see the game crate, so this case belongs in crates/freight-fate/tests/ -- needs App and states::city"]
-fn test_city_menu_warms_the_weather_provider() {
-    // TODO(port): port once the Rust App and states::city is available.
-}
-
-#[test]
-#[ignore = "wrong crate: ff-core cannot see the game crate, so this case belongs in crates/freight-fate/tests/ -- needs App"]
-fn test_live_data_providers_ignore_the_online_services_master_switch() {
-    // TODO(port): port once the Rust App is available.
-}
+// The terminal warming the provider and the providers ignoring the online
+// services switch need the game's context; they live in the game crate's
+// tests/it/states_readouts.rs.
 
 #[test]
 fn test_weather_is_asked_again_at_a_state_line() {

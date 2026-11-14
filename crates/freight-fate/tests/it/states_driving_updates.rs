@@ -18,6 +18,7 @@ use ff_core::data::curves::RouteCurve;
 use ff_core::data::world::get_world;
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
+use ff_core::sim::alertness::Nod;
 use ff_core::sim::enforcement_observe::OBSERVE_HOLD_MI;
 use ff_core::sim::hos;
 use ff_core::sim::lane::LANE_WIDTH;
@@ -341,16 +342,16 @@ fn test_microsleeps_only_strike_when_severely_fatigued_and_moving() {
     for _ in 0..200 {
         d.accrue_microsleep(&mut app.ctx, 1.0, true, 30.0);
     }
-    assert!(d.microsleep_deadline.is_none());
+    assert!(!d.nod.demands_driver());
     for _ in 0..200 {
         d.accrue_microsleep(&mut app.ctx, 1.0, false, 95.0);
     }
-    assert!(d.microsleep_deadline.is_none());
+    assert!(!d.nod.demands_driver());
     // Severely fatigued and rolling: a nod eventually comes.
     let mut fired = false;
     for _ in 0..200 {
         d.accrue_microsleep(&mut app.ctx, 1.0, true, 90.0);
-        if d.microsleep_deadline.is_some() {
+        if d.nod.demands_driver() {
             fired = true;
             break;
         }
@@ -365,12 +366,12 @@ fn test_reacting_to_a_microsleep_avoids_damage() {
     d.trip.truck.velocity_mps = 30.0;
     let before = d.trip.truck.damage_pct;
     d.begin_microsleep(&mut app.ctx);
-    assert!(d.microsleep_deadline.is_some());
+    assert!(d.nod.demands_driver());
     app.ctx.input.press(Key::Down, Mods::NONE); // brake = staying awake
     d.update_microsleep(&mut app.ctx, 0.1);
-    assert!(d.microsleep_deadline.is_none());
+    assert!(!d.nod.demands_driver());
     assert_eq!(d.trip.truck.damage_pct, before);
-    assert!(d.microsleep_cooldown_gm > 0.0);
+    assert!(matches!(d.nod.nod, Nod::Recovering { left_gm } if left_gm > 0.0));
 }
 
 #[test]
@@ -383,14 +384,14 @@ fn test_ignoring_a_microsleep_drifts_off_the_road() {
     d.begin_microsleep(&mut app.ctx);
     for _ in 0..60 {
         d.update_microsleep(&mut app.ctx, 0.1);
-        if d.microsleep_deadline.is_none() {
+        if !d.nod.demands_driver() {
             break;
         }
     }
     assert!(d.trip.truck.damage_pct > before);
     // scrubbed wandering onto the shoulder
     assert!(d.trip.truck.speed_mph() < speed_before);
-    assert_eq!(d.microsleep_misses, 1);
+    assert_eq!(d.nod.misses, 1);
 }
 
 #[test]
@@ -399,11 +400,11 @@ fn test_three_missed_microsleeps_force_a_stop() {
     let mut d = a_drive(&mut app);
     for _ in 0..3 {
         d.trip.truck.velocity_mps = 30.0;
-        d.microsleep_cooldown_gm = 0.0;
+        d.nod.nod = Nod::default();
         d.begin_microsleep(&mut app.ctx);
         for _ in 0..60 {
             d.update_microsleep(&mut app.ctx, 0.1);
-            if d.microsleep_deadline.is_none() {
+            if !d.nod.demands_driver() {
                 break;
             }
         }
@@ -442,12 +443,9 @@ fn test_a_controller_driver_can_wake_from_a_microsleep() {
         pad_at(&mut app, axis, value);
         let before = d.trip.truck.damage_pct;
         d.begin_microsleep(&mut app.ctx);
-        assert!(d.microsleep_deadline.is_some());
+        assert!(d.nod.demands_driver());
         d.update_microsleep(&mut app.ctx, 0.1);
-        assert!(
-            d.microsleep_deadline.is_none(),
-            "the pad reaction must count"
-        );
+        assert!(!d.nod.demands_driver(), "the pad reaction must count");
         assert_eq!(d.trip.truck.damage_pct, before);
     }
 }
@@ -462,11 +460,11 @@ fn test_an_idle_pad_is_not_a_microsleep_reaction() {
     d.begin_microsleep(&mut app.ctx);
     for _ in 0..60 {
         d.update_microsleep(&mut app.ctx, 0.1);
-        if d.microsleep_deadline.is_none() {
+        if !d.nod.demands_driver() {
             break;
         }
     }
-    assert_eq!(d.microsleep_misses, 1);
+    assert_eq!(d.nod.misses, 1);
 }
 
 // -- off pavement (test_off_pavement_transitions.py) ----------------------------------

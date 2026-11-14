@@ -178,7 +178,7 @@ fn owner_operator_buyin_lands_on_the_buy_in() {
     }
     app.push_state(BusinessStatusState::new());
     assert!(!earned(&app, "owner_operator_buyin"));
-    select::<BusinessStatusState>(&mut app, "Buy into leased-on owner-operator");
+    select::<BusinessStatusState>(&mut app, "Owner-operator buy-in");
     assert_eq!(profile_mut(&mut app).business_status, LEASED_OWNER_OPERATOR);
     assert!(earned(&app, "owner_operator_buyin"));
 }

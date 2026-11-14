@@ -723,7 +723,7 @@ fn faults(setup: Setup, run: &Run) -> Vec<String> {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
+    not(feature = "slow-tests"),
     ignore = "sweep: every assist setup and load over twelve bendy roads"
 )]
 fn test_the_assists_hold_every_mapped_bend_without_rolling_the_truck() {

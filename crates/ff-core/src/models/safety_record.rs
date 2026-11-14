@@ -20,18 +20,21 @@
 //!
 //! The real score weighs the last 24 months, so a bad stretch fades. Here the
 //! citations, serious violations, out-of-service orders and fatigue events
-//! count inside [`SAFETY_RECORD_WINDOW_DAYS`], the one game year reputation
-//! and the carrier's review already use. Clean inspections stay a lifetime
-//! credit.
+//! count inside [`SAFETY_RECORD_WINDOW_DAYS`] (serious violations and crashes
+//! inside [`SAFETY_RECORD_SERIOUS_WINDOW_DAYS`]), the windows reputation and
+//! the carrier's review already use. Clean inspections stay a lifetime credit.
 
-use crate::models::enforcement::REVIEW_WINDOW_DAYS;
+use crate::models::enforcement::{REVIEW_WINDOW_DAYS, SERIOUS_REVIEW_WINDOW_DAYS};
 use crate::pyfmt::round_py_n;
 
 /// How far back the scale's screening looks. The real carrier score is
-/// time-weighted over 24 months; this is the game's one-year window for the
+/// time-weighted over 24 months; this is the game's review window for the
 /// same reason `REVIEW_WINDOW_DAYS` gives: the clock only moves on the road,
 /// so a longer window is a lifetime mark by another name (owner, 2026-09-14).
 pub const SAFETY_RECORD_WINDOW_DAYS: i64 = REVIEW_WINDOW_DAYS;
+/// Serious violations and crashes count three times as long, as they do in
+/// the carrier's review.
+pub const SAFETY_RECORD_SERIOUS_WINDOW_DAYS: i64 = SERIOUS_REVIEW_WINDOW_DAYS;
 
 pub const SAFETY_RECORD_MIN: f64 = 0.0;
 pub const SAFETY_RECORD_MAX: f64 = 100.0;

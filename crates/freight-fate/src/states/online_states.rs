@@ -14,6 +14,7 @@
 //! responsive throughout. Every state carries a `threaded` switch so tests
 //! run the same worker inline against a fake transport.
 
+use crate::states::base::{default_enter, default_go_back, default_handle_event};
 use std::sync::Arc;
 use std::thread::JoinHandle;
 use std::time::Instant;
@@ -38,8 +39,7 @@ pub use directory::{
 };
 pub use profile::{profile_rows, DriverProfileState};
 pub use support::{
-    identity_store, load_identity, menu_default_enter, menu_default_go_back,
-    menu_default_handle_event, online_transport, open_url, run_worker, save_identity,
+    identity_store, load_identity, online_transport, open_url, run_worker, save_identity,
     set_identity_store_override, set_online_transport_override, set_open_url_override, wall_time,
     Mailbox,
 };
@@ -75,18 +75,17 @@ impl Default for PollSchedule {
 pub const DISCLOSURE: &str =
     "Connecting an orinks.net account turns Profile sharing on and starts backing your \
 careers up to that account, so your driver profile has career statistics on it from \
-the first delivery. Either one is a single item away in the Online menu whenever you \
-want it off. When Profile sharing is on, orinks.net can \
-publicly show your driver name and broad on-duty board activity; eligible profile \
-details; official achievements you earn; and automatic road-journal posts \
-generated from gameplay. Public updates can also appear in the Freight Fate updates \
+the first delivery. Each has its own item on the Online menu to turn it off. When \
+Profile sharing is on, orinks.net can publicly show your driver name, broad on-duty \
+board activity, eligible profile details, official achievements you earn, and \
+automatic road-journal posts generated from gameplay. Public updates can also appear in the Freight Fate updates \
 feed. Each post also tells orinks.net which game version you are running, used only \
 for moderation and troubleshooting and never shown publicly. Freight Fate does not \
 publish your real name, full save, coordinates, active cargo details, or precise \
 real-world location. Detailed career statistics come only from your public career's \
 latest accepted private backup, which you choose on the Cloud backup menu. They \
 include lifetime career earnings, the running total your career \
-has ever earned; the money you currently have is never published. The backups \
+has ever earned. The money you currently have is never published. The backups \
 themselves stay private to your account and never appear as public downloads. \
 Turning Profile sharing off hides public details but does not turn cloud backup off.";
 
@@ -286,7 +285,7 @@ impl OnlineSetupState {
             // failed, so it is worth naming them here.
             ctx.say(&format!(
                 "The browser could not be opened. Your activation code is {code}. In any \
-                 browser, go to {} and enter it. Say my activation code again spells it, Copy \
+                 browser, go to {} and enter it. Say my activation code again spells it. Copy \
                  my activation code puts it on the clipboard.",
                 activation.verification_uri
             ));
@@ -400,8 +399,8 @@ impl OnlineSetupState {
             }
             ctx.apply_online_presence();
             ctx.say(
-                "Profile sharing is on. Your driver profile fills in as you drive. Both this \
-                 and cloud backup are single items on the Online menu.",
+                "Profile sharing is on. Your driver profile fills in as you drive. Profile \
+                 sharing and cloud backup each have their own item on the Online menu.",
             );
         } else {
             ctx.say(
@@ -509,7 +508,7 @@ impl Menu for OnlineSetupState {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
-        menu_default_enter(self, ctx);
+        default_enter(self, ctx);
         if self.autostart {
             self.start_setup(ctx);
         }
@@ -540,7 +539,7 @@ impl Menu for OnlineSetupState {
             ctx.say(&format!("Back in Freight Fate. {current}"));
             return;
         }
-        menu_default_handle_event(self, ctx, event);
+        default_handle_event(self, ctx, event);
     }
 
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {
@@ -627,7 +626,7 @@ impl Menu for OnlineSetupState {
         if matches!(self.phase, SetupPhase::Starting | SetupPhase::Waiting) {
             ctx.say("Setup canceled. Nothing was saved.");
         }
-        menu_default_go_back(self, ctx);
+        default_go_back(self, ctx);
     }
 
     fn exit(&mut self, _ctx: &mut GameContext) {
@@ -766,7 +765,7 @@ impl Menu for ProfileSharingSyncState {
             ctx.say("Profile sharing is still updating. Stay here for the result.");
             return;
         }
-        menu_default_go_back(self, ctx);
+        default_go_back(self, ctx);
     }
 }
 

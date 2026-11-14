@@ -14,6 +14,7 @@ use ff_core::data::world_models::{CorridorDetail, Landmark, Leg, Route, RouteChe
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
 use ff_core::settings::Settings;
+use ff_core::sim::alertness::Nod;
 use ff_core::sim::trip::{Trip, TripOptions};
 use ff_core::sim::trip_models::TripEventKind;
 use ff_core::sim::weather::{WeatherKind, WeatherSystem};
@@ -295,7 +296,7 @@ fn test_a_turn_the_truck_is_already_slow_for_is_still_called_with_its_speed() {
 
 #[test]
 fn test_the_approach_call_under_the_speed_keeper_is_just_the_corner_and_its_speed() {
-    // Owner, 2026-10-25: "Speed keeper easing." on every corner made the
+    // Owner, 2026-10-25: "Cruise easing." on every corner made the
     // street transition too wordy. The advise speed already tells the
     // driver the truck will slow, so the call ends there.
     let mut app = TestApp::new();
@@ -750,7 +751,7 @@ fn test_a_microsleep_never_reads_as_a_missed_turn() {
     let mut app = TestApp::new();
     let mut d = a_drive(&mut app);
     a_street_chain(&mut d);
-    d.microsleep_deadline = Some(3.0);
+    d.nod.nod = Nod::Nodding { left_s: 3.0 };
     at_turn(&mut d, &mut app, 0.6, 45.0);
     assert_eq!(d.turn_miss_count, 0);
 }
@@ -1571,13 +1572,11 @@ fn test_a_bend_under_cruises_floor_pauses_the_session_instead_of_dropping_it() {
 
     assert!(!spoken.is_empty(), "a 15 mph bend at 60 demands a call");
     assert!(
-        spoken[0].contains("Adaptive cruise paused for the bend"),
+        spoken[0].contains("Cruise paused for the bend"),
         "{spoken:#?}"
     );
     assert!(
-        !spoken
-            .iter()
-            .any(|line| line.contains("Adaptive cruise off")),
+        !spoken.iter().any(|line| line.contains("Cruise off")),
         "{spoken:#?}"
     );
     // Cruise is off the pedal for the bend, the session is not over, and the
@@ -1663,7 +1662,7 @@ fn test_a_manual_k_during_the_curve_pause_disarms_and_forgets_the_resume_mile() 
         .speech()
         .lines()
         .iter()
-        .any(|line| line.contains("Automatic speed control off.")));
+        .any(|line| line.contains("Cruise off.")));
 
     // And with the session gone, the road past the bend brings nothing back.
     d.trip.position_mi = tight.end_mi + TURN_COMMIT_TAIL_MI + 0.01;
@@ -1961,7 +1960,7 @@ fn test_route_status_leads_with_progress_then_places_the_truck() {
     let said = app.main_lines().last().expect("a route status").clone();
     assert!(said.contains(" percent there, "));
     assert!(said.contains(" On "));
-    assert!(said.contains(", toward "));
+    assert!(said.contains(" toward "));
 }
 
 #[test]
@@ -2150,7 +2149,7 @@ fn test_cruise_into_a_hot_bend_arrives_at_the_advisory() {
     assert!(
         run.lines
             .iter()
-            .any(|line| line.contains("Adaptive cruise easing to 35 miles per hour.")),
+            .any(|line| line.contains("Cruise easing to 35 miles per hour.")),
         "{:#?}",
         run.lines
     );
@@ -2241,7 +2240,7 @@ fn test_a_bend_under_cruises_floor_is_braked_down_and_cruise_comes_back() {
     let call = run
         .lines
         .iter()
-        .find(|line| line.contains("Adaptive cruise paused for the bend"))
+        .find(|line| line.contains("Cruise paused for the bend"))
         .expect("the pause line");
     assert!(
         call.contains("curve assistance slowing. Cruise resumes past the bend"),

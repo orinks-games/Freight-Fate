@@ -130,7 +130,7 @@ fn an_open_scale_behind_a_closed_one_at_ten_times_gets_real_seconds_after_a_paus
         rig.drive.trip.position_mi > CLOSED_MI + 3.5
     });
     assert_eq!(
-        rig.said("Open weigh station ahead"),
+        rig.said("Open weigh station in"),
         1,
         "{:?}",
         rig.transcript()
@@ -310,7 +310,7 @@ fn crawling_up_to_the_scale_then_crossing_at_speed_is_still_judged() {
         rig.drive.trip.position_mi >= open.at_mi - 0.9
     });
     assert_eq!(
-        rig.said("Open weigh station ahead"),
+        rig.said("Open weigh station in"),
         1,
         "{:?}",
         rig.transcript()
@@ -499,7 +499,7 @@ fn a_notice_first_heard_inside_the_reminder_window_still_excuses_a_quick_crossin
     hold_for(&mut rig, 61.0, open.at_mi + 0.3, |_| false);
 
     assert_eq!(
-        rig.said("Open weigh station ahead"),
+        rig.said("Open weigh station in"),
         1,
         "{:?}",
         rig.transcript()
@@ -718,13 +718,13 @@ fn checking_in_at_a_closed_scale_says_closed_and_names_the_open_one_still_ahead(
             rig.menu_labels()
         );
         let closed_row = format!("{CLOSED_NAME} is closed");
-        // The arrival says the scale's name once: the closed row already
-        // carries it (QA, 2026-10-07: "I-40 Weigh Station. Inspection
-        // station. ... I-40 Weigh Station is closed.").
+        // The arrival is the closed row alone, so the name is said once
+        // (QA, 2026-10-07: "I-40 Weigh Station. Inspection station. ...
+        // I-40 Weigh Station is closed.").
         let arrival: Vec<String> = rig
             .transcript()
             .into_iter()
-            .filter(|line| line.contains("Inspection station."))
+            .filter(|line| line.contains(&closed_row))
             .collect();
         assert_eq!(arrival.len(), 1, "{:?}", rig.transcript());
         assert_eq!(
@@ -799,7 +799,7 @@ fn a_pause_with_no_open_scale_announced_adds_nothing() {
     assert!(rig.drive.scale_reannounce.is_none());
     rig.step(2, DT, None);
     assert_eq!(
-        rig.said("Open weigh station ahead"),
+        rig.said("Open weigh station in"),
         1,
         "{:?}",
         rig.transcript()
@@ -930,7 +930,7 @@ fn a_held_brake_key_does_not_read_the_stop_screen_row_over_and_over() {
         app.speech().transcript_lines()
     );
     assert_eq!(
-        count(&app, "Fine: "),
+        count(&app, "Fined "),
         1,
         "{:?}",
         app.speech().transcript_lines()

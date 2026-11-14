@@ -3,6 +3,7 @@
 
 use std::sync::Arc;
 
+use ff_core::data::counties::county_at;
 use ff_core::data::world_models::Leg;
 use ff_core::sim::trip::spoken_short_miles;
 use ff_core::sim::trip_models::leg_state_at;
@@ -191,7 +192,15 @@ impl DrivingState {
                 self.closing_text(self.trip.remaining_miles())
             ),
         };
-        ctx.say(&format!("{lead} On {road} in {state}, toward {toward}."));
+        // The state once: a city in the state the truck is already in needs
+        // no state of its own (owner's drive, 2026-11-04: "On US-219 South in
+        // New York, toward Jamestown, New York").
+        if city_state(ctx, &toward_city) == state {
+            let toward = ctx.world.spoken_city(&toward_city, Some(false));
+            ctx.say(&format!("{lead} On {road} toward {toward}."));
+        } else {
+            ctx.say(&format!("{lead} On {road} in {state}, toward {toward}."));
+        }
     }
 
     // --- One fact per key (Tim K., 2026-08-16) -------------------------
@@ -206,8 +215,21 @@ impl DrivingState {
 
     /// `_local_route_city()`: the city a street route runs inside, or the
     /// run's destination.
+    ///
+    /// A street chain's route lists its own city at every stop, so either end
+    /// answers. Off the destination exit it does not: the highway trip stays
+    /// live on the ramp, and for the whole approach when facility streets are
+    /// off, and its first city is where the run began. Alt+1 and Alt+3 named
+    /// the city the driver had left, a few hundred feet from the gate (issue
+    /// 552).
     pub fn local_route_city(&self) -> String {
-        self.trip.route.cities.first().cloned().unwrap_or_default()
+        let cities = &self.trip.route.cities;
+        let city = if self.destination_exit_taken {
+            cities.last()
+        } else {
+            cities.first()
+        };
+        city.cloned().unwrap_or_default()
     }
 
     /// `_on_local_streets()`: whether the truck is on a street chain rather
@@ -474,6 +496,26 @@ impl DrivingState {
         }
     }
 
+    /// Alt+5, the county the truck is in.
+    ///
+    /// On a highway leg it is the county under the wheels, from the runs
+    /// the map carries along each leg. On city streets it is the county of
+    /// the city the streets belong to.
+    pub fn speak_current_county(&mut self, ctx: &mut GameContext) {
+        let county = match self.highway_frame() {
+            Some(frame) => county_at(frame.leg.counties(), frame.native_offset).to_string(),
+            None => {
+                let city = self.local_route_city();
+                city_county(ctx, &city)
+            }
+        };
+        if county.is_empty() {
+            ctx.say("No county known here.");
+        } else {
+            ctx.say(&format!("In {county}."));
+        }
+    }
+
     /// `_say_local_status(target, where=None)`: one route report for a local
     /// street route -- where the truck is, what it is actually driving at, and
     /// the next maneuver if one is left. Sentences that come up empty are
@@ -501,19 +543,28 @@ impl DrivingState {
         // readout kept it, and that inconsistency is the bug.
         let where_text = match where_ {
             Some(where_) => where_.to_string(),
-            None => self.local_where_text(ctx),
+            None => self.local_where_text(),
         };
         let distance = distance_mi.unwrap_or_else(|| self.trip.remaining_miles());
         // The distance opens a sentence of its own ("Half a mile to the
         // gate"), so it starts like one; "half a mile" after the full stop
         // read as a run-on (agent playtest, 2026-09-02).
+        // At the point or rolled past it, the countdown has nothing left to
+        // count: the closing ladder never says zero, so it read "50 feet to
+        // the market" for the whole half minute a truck took to roll past
+        // (owner, Jamestown, 2026-11-04).
+        let closing = if distance <= 0.0 {
+            format!("At {target}.")
+        } else {
+            format!(
+                "{} to {target}.",
+                crate::states::city::py_capitalize(&self.closing_text(distance))
+            )
+        };
         let parts = [
             // Only the opening letter: the rest names streets and cities.
             format!("{}.", crate::states::city::upper_first(&where_text)),
-            format!(
-                "{} to {target}.",
-                crate::states::city::py_capitalize(&self.closing_text(distance.max(0.0)))
-            ),
+            closing,
         ];
         let line = parts
             .iter()
@@ -587,15 +638,14 @@ impl DrivingState {
 
     /// `_local_where_text()`: where the truck is on a local street route,
     /// spoken.
-    pub fn local_where_text(&self, ctx: &GameContext) -> String {
-        let city = ctx
-            .world
-            .spoken_city(&self.trip.route.cities[0], Some(true));
+    pub fn local_where_text(&self) -> String {
+        // No city: the place the readout counts down to names it, and
+        // saying it twice was a long line (owner's drive, 2026-11-04).
         let street = self.street_under_the_wheels();
         if !street.is_empty() {
-            return format!("on city streets, {street}, in {city}");
+            return format!("on city streets, {street}");
         }
-        format!("on the facility approach in {city}")
+        "on the facility approach".to_string()
     }
 
     /// `_departure_ramp_text()`: what the departure chain is actually driving
@@ -624,6 +674,39 @@ impl DrivingState {
 }
 
 /// `world.cities[key].state`, empty where the key is not a world city.
+/// The county a city sits in: the one most of its legs start or end in.
+/// Each leg's road begins wherever the route left the city, so a city on a
+/// county line can answer from either side; the majority is its centre.
+fn city_county(ctx: &GameContext, city: &str) -> String {
+    let key = ctx.world.resolve_city_key(city);
+    let mut votes: Vec<(String, usize)> = Vec::new();
+    for leg in ctx.world.neighbors(&key) {
+        let offset = if leg.a == key {
+            0.0
+        } else if leg.b == key {
+            leg.miles
+        } else {
+            continue;
+        };
+        let county = county_at(leg.counties(), offset);
+        if county.is_empty() {
+            continue;
+        }
+        match votes.iter_mut().find(|(name, _)| name == county) {
+            Some((_, count)) => *count += 1,
+            None => votes.push((county.to_string(), 1)),
+        }
+    }
+    // The first county to reach the top count wins a tie, so the answer
+    // follows the map's leg order and never changes between presses.
+    let top = votes.iter().map(|(_, count)| *count).max().unwrap_or(0);
+    votes
+        .into_iter()
+        .find(|(_, count)| *count == top)
+        .map(|(name, _)| name)
+        .unwrap_or_default()
+}
+
 fn city_state(ctx: &GameContext, city: &str) -> String {
     let key = ctx.world.resolve_city_key(city);
     ctx.world

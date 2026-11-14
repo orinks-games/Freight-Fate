@@ -251,7 +251,7 @@ fn test_the_welcome_is_heard_in_full_and_then_the_offer() {
     // "in the chicago_il_us service area" reached a driver's ears before
     // the first agent-driven playtest caught it (2026-08-30).
     assert!(
-        !lines[0].contains("_us") && lines[0].contains(" service area"),
+        !lines[0].contains("_us") && lines[0].contains(" Chicago terminal. "),
         "{lines:?}"
     );
     assert!(lines[1].starts_with("Before you set off."), "{lines:?}");

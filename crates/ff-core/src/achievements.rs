@@ -71,6 +71,31 @@ pub fn categories() -> &'static [AchievementCategory] {
     &CATEGORIES
 }
 
+/// Badges no longer awarded: `first_dispatch`, `first_pickup` and
+/// `air_ready` were folded into `first_day` at the pickup. They keep their
+/// catalog entries so saves and the cloud validator's allow-list still
+/// accept careers that earned them, but nobody can earn one now.
+pub const RETIRED: [&str; 3] = ["first_dispatch", "first_pickup", "air_ready"];
+
+/// Whether `achievement_id` is one of the [`RETIRED`] badges.
+pub fn is_retired(achievement_id: &str) -> bool {
+    RETIRED.contains(&achievement_id)
+}
+
+/// Whether the achievements menus list this badge: every badge that can
+/// still be earned, and a retired one only for a career that already holds it.
+pub fn is_listed(achievement_id: &str, earned: impl Fn(&str) -> bool) -> bool {
+    !is_retired(achievement_id) || earned(achievement_id)
+}
+
+/// How many badges the menus list, for the "N of M earned" totals.
+pub fn listed_total(earned: impl Fn(&str) -> bool) -> usize {
+    ACHIEVEMENTS
+        .iter()
+        .filter(|achievement| is_listed(achievement.id, &earned))
+        .count()
+}
+
 /// `CATEGORY_BY_ID[category_id]`.
 pub fn category_by_id(category_id: &str) -> Option<&'static AchievementCategory> {
     CATEGORIES

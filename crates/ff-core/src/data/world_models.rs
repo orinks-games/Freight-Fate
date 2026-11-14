@@ -297,7 +297,7 @@ impl HomeTerminal {
         if self.kind == "carrier_terminal" {
             return self.name.clone();
         }
-        format!("{}: {}", self.label(), self.name)
+        crate::speech_text::typed_name(self.label(), &self.name, ": ")
     }
 
     pub fn service_area(&self) -> String {

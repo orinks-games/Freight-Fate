@@ -14,7 +14,9 @@ use crate::models::career::{Career, CareerProfile};
 use crate::models::carrier_fleet::{assigned_truck_key, equipment_hold_clause};
 use crate::models::enforcement::{DrivingRecord, StandingProfile};
 use crate::models::jobs::Job;
-use crate::models::safety_record::{SafetyRecordProfile, SAFETY_RECORD_WINDOW_DAYS};
+use crate::models::safety_record::{
+    SafetyRecordProfile, SAFETY_RECORD_SERIOUS_WINDOW_DAYS, SAFETY_RECORD_WINDOW_DAYS,
+};
 use crate::models::save_migration::json_i64;
 use crate::models::solvency::SolvencyProfile;
 use crate::models::start_options::StartProfile;
@@ -160,7 +162,7 @@ impl SafetyRecordProfile for Profile {
     }
     fn record_serious_violation_count(&self) -> i64 {
         self.driving_record
-            .serious_within(self.game_hours, SAFETY_RECORD_WINDOW_DAYS)
+            .serious_within(self.game_hours, SAFETY_RECORD_SERIOUS_WINDOW_DAYS)
     }
     fn out_of_service_events(&self) -> i64 {
         self.driving_record
@@ -172,7 +174,7 @@ impl SafetyRecordProfile for Profile {
     }
     fn record_crashes(&self) -> i64 {
         self.driving_record
-            .crashes_within(self.game_hours, SAFETY_RECORD_WINDOW_DAYS)
+            .crashes_within(self.game_hours, SAFETY_RECORD_SERIOUS_WINDOW_DAYS)
     }
     fn inspections_passed(&self) -> i64 {
         json_i64(self.achievement_stats.get("inspections_passed"), 0)

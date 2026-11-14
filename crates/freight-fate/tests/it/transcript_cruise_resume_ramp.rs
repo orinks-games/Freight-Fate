@@ -246,7 +246,10 @@ fn test_resume_at_road_speed_never_redlines_or_wears() {
             grade,
             speed_mph,
             gear,
-            cargo_kg: None,
+            // The 15.6 t this case was written against (the new career's old
+            // first load). At 21 t the automatic on -12% peaks 7 rpm over;
+            // that is on the roadmap, not hidden here.
+            cargo_kg: Some(15_583.5),
         });
         let wear_before = harness.read_drive(|d| d.truck().engine_wear_pct);
         let mut max_crpm: f64 = 0.0;
@@ -712,16 +715,30 @@ fn test_set_at_current_speed_cruise_is_unchanged() {
 }
 
 #[test]
-fn ramp_assist_full_approach_window_uses_real_time() {
+fn ramp_assist_approach_window_uses_real_time() {
+    // A truck at road speed is under what the gore accepts, so only the road
+    // it needs to shed for the ramp, and the last half mile, run on the real
+    // clock. Over what the gore accepts, the exit speed assist's whole mile
+    // and a half does (owner's drive into Jamestown, 2026-11-04: the whole
+    // window real crawled a truck already near ramp speed to its exit).
     for scale in [1.0, 4.0, 20.0, 40.0] {
         let (mut harness, stop) = armed_exit_at(4.5, scale, "off");
-        harness.with_drive(move |d, ctx| {
-            d.trip.position_mi = stop.at_mi - 1.49;
-            d.update_exit(ctx, 0.0, 0.0);
-        });
+        let pacing_at = |harness: &mut PlaytestHarness, ahead: f64, mph: f64| {
+            harness.with_drive(move |d, ctx| {
+                d.truck_mut().velocity_mps = mph * MPS_PER_MPH;
+                d.trip.position_mi = stop.at_mi - ahead;
+                d.update_exit(ctx, 0.0, 0.0);
+            });
+            harness.read_drive(|d| d.trip.effective_time_scale())
+        };
+        let near = pacing_at(&mut harness, 0.45, 65.0);
+        assert!(approx(near, 1.0), "pacing {scale}: {near} at 0.45 miles");
+        let over = pacing_at(&mut harness, 1.49, 80.0);
+        assert!(approx(over, 1.0), "pacing {scale}: {over} at 80 mph");
+        let far = pacing_at(&mut harness, 1.49, 65.0);
         assert!(
-            approx(harness.read_drive(|d| d.trip.effective_time_scale()), 1.0),
-            "pacing {scale}"
+            scale <= 1.0 || far > 1.0,
+            "pacing {scale}: {far} at road speed 1.49 miles out"
         );
     }
 }

@@ -93,8 +93,8 @@ pub use hearken::speech::capture::{
 pub use hearken::speech::live::{Speech, SpeechConfig};
 pub use hearken::speech::threaded::ThreadedSpeech;
 pub use hearken::speech::{
-    PreviewFeature, SpeechEnv, SpeechSink, EVENT_BACKEND, PREVIEW_FEATURES, REFRESH_INTERVAL_S,
-    UIA_LAST_RESORT_PRIORITY,
+    PreviewFeature, SpeechEnv, SpeechSink, VoiceReport, BUILTIN_BACKEND, EVENT_BACKEND,
+    PREVIEW_FEATURES, REFRESH_INTERVAL_S, UIA_LAST_RESORT_PRIORITY,
 };
 
 /// Environment variable that disables speech entirely (no Prism is loaded).

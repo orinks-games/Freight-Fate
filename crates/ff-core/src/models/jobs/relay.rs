@@ -413,6 +413,10 @@ mod tests {
     }
 
     #[test]
+    #[cfg_attr(
+        not(feature = "slow-tests"),
+        ignore = "sweep: a relay from every North Carolina town"
+    )]
     fn test_a_level_1_relay_from_north_carolina_stays_close() {
         let world = get_world();
         let endorsements: [&str; 0] = [];

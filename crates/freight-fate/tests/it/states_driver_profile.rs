@@ -296,7 +296,7 @@ fn test_your_own_hidden_profile_says_what_to_change() {
     let spoken = said(&app);
     assert!(spoken.contains("Your profile"), "{spoken}");
     assert!(
-        spoken.contains("Your profile is not public. Turn Profile sharing on"),
+        spoken.contains("Your profile is not public. To share it, turn Profile sharing on"),
         "{spoken}"
     );
     assert!(rows(&app, &shared)

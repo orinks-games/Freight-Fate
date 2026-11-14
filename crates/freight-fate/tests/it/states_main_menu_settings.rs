@@ -91,7 +91,7 @@ fn hos_planning_hints_row_explains_and_persists_the_opt_in() {
         .find(|(label, _)| label.starts_with("Hours of service planning hints"))
         .map(|(_, help)| help)
         .unwrap();
-    assert!(help.contains("Quiet and Urgent only"), "{help}");
+    assert!(help.contains("Quiet or Urgent only"), "{help}");
     // The ontology's noun is "hours of service"; a screen reader spells
     // "HOS" out letter by letter.
     assert!(!help.contains("HOS"), "{help}");
@@ -232,11 +232,11 @@ fn gameplay_subcategory_rows(category: &str) -> &'static [&'static str] {
             "Exit speed assistance",
             "Facility stopping assistance",
             "Curve assistance",
-            "Route-transition assistance",
+            "Ramp assistance",
             "Latching brake",
             "Predictive cruise",
             "Curve callouts",
-            "Speed keeper",
+            "Low-speed cruise",
             "Lane keeping",
             "Following gap",
             "Back",
@@ -259,12 +259,11 @@ fn gameplay_subcategory_rows(category: &str) -> &'static [&'static str] {
         "controls" => &[
             "Units",
             "Transmission",
-            "Automatic direction changes",
             "Controller",
             "Haptics",
             #[cfg(feature = "visuals")]
             "Visual display",
-            "Menu accelerator keys",
+            "Letters run menu items",
             "Keyboard shortcuts",
             "Controller buttons",
             "Back",
@@ -345,7 +344,7 @@ fn test_exactly_one_speed_keeper_row_in_the_whole_tree() {
     let rows = all_settings_rows(&mut app);
     let speed_keeper_rows: Vec<_> = rows
         .iter()
-        .filter(|(_, label, _)| label.starts_with("Speed keeper"))
+        .filter(|(_, label, _)| label.starts_with("Low-speed cruise"))
         .collect();
     assert_eq!(speed_keeper_rows.len(), 1, "{speed_keeper_rows:?}");
     assert_eq!(speed_keeper_rows[0].0, "assistance");
@@ -448,7 +447,6 @@ fn test_every_gameplay_setting_stays_reachable_after_the_split() {
     // Moved out of flat Gameplay.
     assert!(reachable("controls", "Units"));
     assert!(reachable("controls", "Transmission"));
-    assert!(reachable("controls", "Automatic direction changes"));
     assert!(reachable("controls", "Controller"));
     assert!(reachable("controls", "Haptics"));
     // Only a build with the visual display has a row to turn it off.
@@ -456,8 +454,8 @@ fn test_every_gameplay_setting_stays_reachable_after_the_split() {
         reachable("controls", "Visual display"),
         cfg!(feature = "visuals")
     );
-    assert!(reachable("assistance", "Speed keeper"));
-    assert!(!reachable("controls", "Speed keeper"));
+    assert!(reachable("assistance", "Low-speed cruise"));
+    assert!(!reachable("controls", "Low-speed cruise"));
     assert!(reachable("difficulty", "Driving mode"));
     assert!(reachable("difficulty", "Hours of service"));
     assert!(reachable("difficulty", "Hours of service planning hints"));
@@ -483,31 +481,11 @@ fn test_settings_menu_toggles_speed_keeper() {
     let mut app = TestApp::new();
     assert!(app.ctx.settings.speed_keeper);
     open_settings_category(&mut app, "Driving assistance");
-    move_to::<Cat>(&mut app, "Speed keeper");
+    move_to::<Cat>(&mut app, "Low-speed cruise");
     key(&mut app, Key::Return);
     assert!(!app.ctx.settings.speed_keeper);
     key(&mut app, Key::Left);
     assert!(app.ctx.settings.speed_keeper);
-}
-
-#[test]
-fn test_settings_menu_cycles_automatic_direction_changes() {
-    let mut app = TestApp::new();
-    assert_eq!(app.ctx.settings.automatic_direction_changes, "simple");
-    open_settings_category(&mut app, "Controls");
-    move_to::<Cat>(&mut app, "Automatic direction changes");
-    assert!(
-        current_help::<Cat>(&app).starts_with("Both styles change direction with a fresh press")
-    );
-    key(&mut app, Key::Return);
-    assert_eq!(app.ctx.settings.automatic_direction_changes, "deliberate");
-    assert_eq!(Settings::load().automatic_direction_changes, "deliberate");
-    assert_eq!(
-        current_label::<Cat>(&app),
-        "Automatic direction changes: deliberate"
-    );
-    key(&mut app, Key::Left);
-    assert_eq!(app.ctx.settings.automatic_direction_changes, "simple");
 }
 
 #[test]
@@ -892,8 +870,8 @@ fn driving_assistance_names_moved_keys() {
     };
     assert!(help("Latching brake").contains("One press of F7 releases it"));
     assert!(help("Curve callouts").contains("Press F8 to list the next few"));
-    assert!(help("Speed keeper").contains("F9 holds your current speed"));
-    assert!(help("Lane keeping").contains("turns F10 and F11 into tap lane changes"));
+    assert!(help("Low-speed cruise").contains("F9 holds your current speed"));
+    assert!(help("Lane keeping").contains("a tap of F10 or F11 changes lanes"));
 
     open_settings_category(&mut app, "Driving assistance");
     app.ctx.settings.apply_driving_assistance_preset("balanced");
@@ -973,12 +951,26 @@ fn test_problem_reports_is_honest_when_no_log_is_being_written() {
     );
     assert_eq!(
         labels::<Cat>(&app),
-        vec!["Where the game log is saved", "Back"]
+        vec![
+            "Ask to report a problem after a crash: on",
+            "Where the game log is saved",
+            "Back"
+        ]
     );
     let said = with_state::<Cat, _>(&app, |c, _| c.log_location_lines().join(" "));
     assert!(said.contains("not writing a log file"));
     assert!(said.contains("Packaged downloads always write one"));
-    // Left and right are for stepping values; this row has none to step.
+    // The crash question is a switch; left and right flip it.
+    key(&mut app, Key::Right);
+    assert_eq!(
+        current_label::<Cat>(&app),
+        "Ask to report a problem after a crash: off"
+    );
+    assert!(!app.ctx.settings.crash_report_offer);
+    key(&mut app, Key::Left);
+    assert!(app.ctx.settings.crash_report_offer);
+    // Left and right are for stepping values; the log row has none to step.
+    move_to::<Cat>(&mut app, "Where the game log is saved");
     key(&mut app, Key::Right);
     key(&mut app, Key::Left);
     assert_eq!(current_label::<Cat>(&app), "Where the game log is saved");
@@ -1011,14 +1003,14 @@ fn test_gameplay_reorg_notice_fires_once_for_a_pre_reorg_settings_file() {
         .any(|line| line.contains("Nothing about your settings changed")));
     assert!(spoken
         .iter()
-        .any(|line| line.contains("Speed keeper is now in Driving assistance")));
+        .any(|line| line.contains("Low-speed cruise is now in Driving assistance")));
     let first = spoken
         .iter()
         .position(|s| s.contains("Gameplay is now a category"))
         .unwrap();
     let second = spoken
         .iter()
-        .position(|s| s.contains("Speed keeper is now in"))
+        .position(|s| s.contains("Low-speed cruise is now in"))
         .unwrap();
     assert!(first < second, "{spoken:?}");
     // Cleared, and persisted so a restart does not replay it.
@@ -1052,7 +1044,7 @@ fn test_a_player_one_layout_behind_hears_only_the_newer_notice() {
     let spoken = app.main_lines();
     assert!(spoken
         .iter()
-        .any(|line| line.contains("Speed keeper is now in Driving assistance")));
+        .any(|line| line.contains("Low-speed cruise is now in Driving assistance")));
     assert!(!spoken
         .iter()
         .any(|line| line.contains("Gameplay is now a category")));
@@ -1076,7 +1068,7 @@ fn test_a_player_two_layouts_behind_hears_the_driving_speech_notice() {
         .any(|line| line.contains("Gameplay is now a category")));
     assert!(!spoken
         .iter()
-        .any(|line| line.contains("Speed keeper is now in")));
+        .any(|line| line.contains("Low-speed cruise is now in")));
 }
 
 #[test]
@@ -1318,10 +1310,7 @@ fn test_the_assist_help_says_what_chain_work_costs_and_that_nothing_is_bought() 
         .find(|(label, _)| label.starts_with("Facility stopping assistance"))
         .map(|(_, help)| help)
         .expect("a facility stopping row");
-    assert!(
-        facility.contains("may spend on-duty minutes on chains"),
-        "{facility}"
-    );
+    assert!(facility.contains("about 30 minutes on duty"), "{facility}");
     assert!(facility.contains("It never buys chains."), "{facility}");
     assert!(!facility.contains("money"), "{facility}");
     open_settings_category(&mut app, "Difficulty and hours of service");
@@ -1330,9 +1319,28 @@ fn test_the_assist_help_says_what_chain_work_costs_and_that_nothing_is_bought() 
         .find(|(label, _)| label.starts_with("Hours of service planning hints"))
         .map(|(_, help)| help)
         .expect("a stop planning row");
-    assert!(
-        planning.contains("reminds you before a chain-law road"),
-        "{planning}"
-    );
+    assert!(planning.contains("warns about chain laws"), "{planning}");
     assert!(planning.contains("never buys anything"), "{planning}");
+}
+
+#[test]
+fn a_held_end_key_on_a_settings_screen_reads_the_last_row_once() {
+    // The settings screens fell through to their own copy of the menu
+    // keys, which missed the guard against a held key's repeat: holding
+    // End re-read the last row at the keyboard's repeat rate.
+    let mut app = TestApp::new();
+    open_settings_category(&mut app, "Speech");
+    key(&mut app, Key::End);
+    app.clear_speech();
+    let held = freight_fate::states::base::InputEvent::KeyDown {
+        key: Key::End,
+        mods: freight_fate::states::base::Mods::NONE,
+        text: None,
+        repeat: true,
+    };
+    for _ in 0..10 {
+        app.dispatch_to_state(&held);
+    }
+    app.ctx.run_deferred();
+    assert!(app.main_lines().is_empty(), "{:?}", app.main_lines());
 }

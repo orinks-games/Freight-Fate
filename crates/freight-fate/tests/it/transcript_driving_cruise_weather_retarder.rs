@@ -476,7 +476,7 @@ fn test_speed_keeper_says_when_it_cannot_hold_the_speed() {
     }
     let said = spoken(&harness)
         .iter()
-        .filter(|e| *e == "Speed keeper can't hold 15 miles per hour on this grade. Brake.")
+        .filter(|e| *e == "Cruise can't hold 15 miles per hour on this grade. Brake.")
         .count();
     assert_eq!(said, 1, "{:#?}", spoken(&harness));
 }

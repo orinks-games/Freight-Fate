@@ -280,6 +280,7 @@ pub mod live {
         static ON_RAMP: Cell<bool> = const { Cell::new(false) };
         static POSTED_LIMIT_MPH: Cell<f64> = const { Cell::new(0.0) };
         static RAMP_HOLDING: Cell<bool> = const { Cell::new(false) };
+        static EXIT_SIGNAL_ON: Cell<bool> = const { Cell::new(false) };
         static MOVE_LOCKOUT: Cell<u8> = const { Cell::new(0) };
     }
 
@@ -341,6 +342,16 @@ pub mod live {
 
     pub fn ramp_holding() -> bool {
         RAMP_HOLDING.with(|cell| cell.get())
+    }
+
+    /// Whether X has signaled for an exit. A cut line that asks for the
+    /// signal is not handed back once it is set: pressing X again cancels it.
+    pub fn set_exit_signal_on(value: bool) {
+        EXIT_SIGNAL_ON.with(|cell| cell.set(value));
+    }
+
+    pub fn exit_signal_on() -> bool {
+        EXIT_SIGNAL_ON.with(|cell| cell.get())
     }
 
     pub fn set_overspeed_active(value: bool) {

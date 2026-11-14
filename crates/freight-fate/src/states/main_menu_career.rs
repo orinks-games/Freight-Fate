@@ -52,7 +52,11 @@ impl CareerStartState {
         let options = start_options_for_home_city(ctx.world, &home_city);
         Self {
             menu: MenuCore::new("Career start").with_intro_help(
-                "Only carriers that hire in your home city are listed. Each one says where your truck starts: that carrier's nearest terminal. Company starts use assigned carrier equipment; the carrier pays fuel, repairs, insurance, and trailer support. The owner-operator start is higher risk: you own a brand-new truck and pay business costs from day one. Enter selects, Escape goes back.",
+                "Only carriers that hire in your home city are listed. Each one says where your \
+                 truck starts: that carrier's nearest terminal. Company starts use assigned \
+                 carrier equipment. The carrier pays fuel, repairs, insurance, and trailer \
+                 support. The owner-operator start is higher risk: you own a brand-new truck and \
+                 pay business costs from day one. Enter selects, Escape goes back.",
             ),
             driver_name: driver_name.to_string(),
             home_city,
@@ -267,12 +271,12 @@ impl Menu for HomeTerminalState {
             let count = self.cities_by_region[region].len();
             let (label, help) = if count == 1 {
                 (
-                    format!("{place} (1 city)"),
+                    format!("{place}, 1 city"),
                     format!("{place}, 1 home city where a carrier is hiring."),
                 )
             } else {
                 (
-                    format!("{place} ({count} cities)"),
+                    format!("{place}, {count} cities"),
                     format!("{place}, {count} home cities where a carrier is hiring."),
                 )
             };

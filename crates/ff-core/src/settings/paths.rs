@@ -350,6 +350,12 @@ pub fn game_root() -> PathBuf {
     executable_dir().unwrap_or_else(|| PathBuf::from("."))
 }
 
+/// The game's folder in a packaged build, as [`game_root`] finds it; `None`
+/// when running from source, where the repository root stands in for it.
+pub fn packaged_game_root() -> Option<PathBuf> {
+    packaged_exe_dir().map(|_| game_root())
+}
+
 /// Where settings and profiles live: this thread's pinned directory,
 /// `FREIGHT_FATE_DATA_DIR` when set (and not empty), else [`save_root`].
 ///

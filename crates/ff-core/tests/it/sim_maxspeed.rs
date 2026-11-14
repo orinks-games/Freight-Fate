@@ -4,8 +4,9 @@
 
 use crate::sim_support::*;
 use ff_core::data::world_models::{CorridorDetail, Leg, Route, SpeedLimitSample, StateMileage};
+use ff_core::sim::limit_gaps::gap_ceiling_mph;
 use ff_core::sim::trip::{Trip, TripOptions};
-use ff_core::sim::trip_models::{corridor_speed_limit, leg_speed_limit_at};
+use ff_core::sim::trip_models::{corridor_speed_limit, leg_speed_limit_at, statutory_truck_caps};
 use ff_core::sim::vehicle::TruckState;
 
 fn sample(at_mi: f64, mph: Option<f64>) -> SpeedLimitSample {
@@ -219,7 +220,12 @@ fn test_runtime_falls_back_to_heuristic_without_a_profile() {
     let trip = trip_for(route.clone(), "great_lakes");
     let mile = open_road_mile(&trip);
     let (leg_i, _) = trip.leg_at_mile(mile);
-    let expected = corridor_speed_limit(&route.legs[leg_i].highway, &trip.region_at(mile));
+    let leg = &route.legs[leg_i];
+    let mut expected = corridor_speed_limit(&leg.highway, &trip.region_at(mile));
+    // The state's truck cap binds the heuristic as it binds a posting.
+    if let Some((cap, _)) = statutory_truck_caps(&trip.state_at(Some(mile)), &leg.highway) {
+        expected = expected.min(cap);
+    }
     assert_eq!(trip.corridor_limit_at(mile), expected);
 }
 
@@ -298,4 +304,126 @@ fn test_local_truck_posting_is_a_truck_limit_without_crediting_the_state() {
         split_limit_trip("Texas", 45.0, true, "I-80").truck_limit_at(50.0),
         (true, None)
     );
+}
+
+// --- what a coverage gap is worth -------------------------------------------
+
+#[test]
+fn test_gap_between_highway_postings_holds_the_higher_of_them() {
+    // The Tri-State in Lake County, Illinois (Kenosha to Chicago): 60, six
+    // untagged miles, 55. The gap used to read 70, so the limit went 60, 70,
+    // 55 inside two minutes.
+    let leg = state_leg(
+        "I-94",
+        "Illinois",
+        vec![
+            sample(0.0, Some(60.0)),
+            sample(15.5, None),
+            sample(21.6, Some(55.0)),
+        ],
+    );
+    assert_eq!(gap_ceiling_mph(&leg, 18.0), Some(60.0));
+    let trip = trip_for(ab(leg), "great_lakes");
+    assert_eq!(trip.corridor_limit_at(18.0), 60.0);
+    // A long gap between highway postings is held the same way.
+    let long = state_leg(
+        "US-45",
+        "Mississippi",
+        vec![
+            sample(0.0, Some(55.0)),
+            sample(10.0, None),
+            sample(60.0, Some(55.0)),
+        ],
+    );
+    assert_eq!(gap_ceiling_mph(&long, 30.0), Some(55.0));
+}
+
+#[test]
+fn test_gap_never_raises_the_heuristic() {
+    let leg = state_leg(
+        "US-45",
+        "Mississippi",
+        vec![
+            sample(0.0, Some(70.0)),
+            sample(10.0, None),
+            sample(30.0, Some(70.0)),
+        ],
+    );
+    let trip = trip_for(ab(leg), "mid_south");
+    assert_eq!(trip.corridor_limit_at(20.0), 65.0);
+}
+
+#[test]
+fn test_short_gap_between_city_freeway_postings_is_held_a_long_one_is_not() {
+    let gap = |length: f64| {
+        state_leg(
+            "I-90",
+            "New York",
+            vec![
+                sample(0.0, Some(45.0)),
+                sample(10.0, None),
+                sample(10.0 + length, Some(45.0)),
+            ],
+        )
+    };
+    assert_eq!(gap_ceiling_mph(&gap(4.8), 12.0), Some(45.0));
+    assert_eq!(gap_ceiling_mph(&gap(36.0), 20.0), None);
+}
+
+#[test]
+fn test_gap_leaving_a_town_still_reads_the_heuristic() {
+    // The NY-12 lesson stands: a village 30 does not rule the miles after it.
+    let leg = state_leg(
+        "NY-12",
+        "New York",
+        vec![
+            sample(0.0, Some(30.0)),
+            sample(1.2, None),
+            sample(6.0, Some(55.0)),
+        ],
+    );
+    assert_eq!(gap_ceiling_mph(&leg, 3.0), None);
+    // Nor does a trailing gap with no posting after it.
+    let trailing = state_leg(
+        "I-94",
+        "Illinois",
+        vec![sample(0.0, Some(55.0)), sample(10.0, None)],
+    );
+    assert_eq!(gap_ceiling_mph(&trailing, 50.0), None);
+}
+
+#[test]
+fn test_state_truck_cap_binds_inside_a_gap() {
+    // A California rig is 55 everywhere, posted or not: the gap used to hand
+    // it the 65 a car would get.
+    let leg = state_leg(
+        "I-5",
+        "California",
+        vec![
+            sample(0.0, Some(40.0)),
+            sample(1.0, None),
+            sample(50.0, Some(40.0)),
+        ],
+    );
+    let mut trip = trip_for(ab(leg), "california");
+    assert_eq!(trip.corridor_limit_at(30.0), 55.0);
+    assert_eq!(
+        trip.truck_limit_at(30.0),
+        (true, Some("California".to_string()))
+    );
+}
+
+#[test]
+fn test_unposted_limit_in_a_state_without_a_split_is_not_a_truck_limit() {
+    let leg = state_leg(
+        "I-94",
+        "Illinois",
+        vec![
+            sample(0.0, Some(30.0)),
+            sample(1.0, None),
+            sample(50.0, Some(30.0)),
+        ],
+    );
+    let mut trip = trip_for(ab(leg), "great_lakes");
+    assert_eq!(trip.truck_limit_at(30.0), (false, None));
 }

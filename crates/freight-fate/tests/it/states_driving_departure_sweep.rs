@@ -616,7 +616,7 @@ pub fn arrive_corners(destination: &Destination, bench: Bench) -> (Vec<Corner>, 
                 release_keys(&mut harness);
             }
         }
-        if harness.read_drive(|d| d.arrival_full_stop_said && d.truck().speed_mph() <= 2.0) {
+        if harness.read_drive(|d| d.gate.stop_prompted() && d.truck().speed_mph() <= 2.0) {
             break;
         }
         frame(&mut harness, DT);
@@ -655,8 +655,8 @@ fn lane_ending_mph(heard: &[String]) -> Option<f64> {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: driven out of every facility exit on the map -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: driven out of every facility exit on the map"
 )]
 fn test_the_acceleration_lane_out_of_a_yard_is_not_outrun_by_the_clock() {
     let mut failures: Vec<String> = Vec::new();
@@ -740,8 +740,8 @@ fn test_the_acceleration_lane_out_of_a_yard_is_not_outrun_by_the_clock() {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: driven out of every facility exit on the map -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: driven out of every facility exit on the map"
 )]
 fn test_the_arrival_assist_never_takes_the_pedals_leaving_a_yard() {
     let mut failures: Vec<String> = Vec::new();
@@ -777,8 +777,8 @@ fn test_the_arrival_assist_never_takes_the_pedals_leaving_a_yard() {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: driven out of every facility exit on the map -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: driven out of every facility exit on the map"
 )]
 fn test_a_departure_corner_is_never_approached_at_compressed_pace() {
     // THE VERDICT this file was written to reach, pinned so that it stays

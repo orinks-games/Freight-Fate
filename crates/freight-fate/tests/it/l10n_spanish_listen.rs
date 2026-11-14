@@ -49,7 +49,12 @@ fn every_yard_arrival_is_whole_spanish() {
             let said = lines.join(" ");
             assert!(said.contains(" dollars."), "{said}");
             for line in &lines {
-                assert_eq!(english_left(&es, line), Vec::<String>::new(), "{line}");
+                // A carrier's own terminal is a proper name, said as is.
+                let left: Vec<String> = english_left(&es, line)
+                    .into_iter()
+                    .filter(|s| !s.ends_with(" terminal"))
+                    .collect();
+                assert_eq!(left, Vec::<String>::new(), "{line}");
                 let spanish = es.translate(line);
                 assert!(
                     !spanish.contains("patio de la empresa patio de la empresa")
@@ -62,7 +67,7 @@ fn every_yard_arrival_is_whole_spanish() {
 }
 
 #[test]
-fn the_chicago_start_and_kenosha_drive_are_whole_spanish() {
+fn the_chicago_start_and_first_drive_are_whole_spanish() {
     let es = spanish();
     for first_day_done in [false, true] {
         let mut harness = PlaytestHarness::new();
@@ -79,8 +84,8 @@ fn the_chicago_start_and_kenosha_drive_are_whole_spanish() {
             said.contains("Northstar Freight Lines Chicago terminal"),
             "{said}"
         );
-        assert!(said.contains("toward Kenosha"), "{said}");
-        assert!(said.contains("to pickup at"), "{said}");
+        assert!(said.contains("Dispatch routed you to "), "{said}");
+        assert!(said.contains(" empty to "), "{said}");
         let mut leaks = Vec::new();
         // The board's market and offer rows and the facility phrases
         // ("retail distribution hub ... in Kenosha") included.
@@ -118,7 +123,7 @@ fn the_keyboard_help_is_whole_spanish() {
     harness.clear_speech();
     harness.with_drive(|drive, ctx| drive.speak_keyboard_help(ctx));
     let lines = harness.app.main_lines();
-    assert!(lines.join(" ").contains("tuning keys"), "{lines:?}");
+    assert!(lines.join(" ").contains("tuning key"), "{lines:?}");
     for line in &lines {
         assert_eq!(english_left(&es, line), Vec::<String>::new());
     }

@@ -9,6 +9,7 @@ use crate::app::GameContext;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 
+use super::info::capitalize_first;
 use super::WEAR_STATUS_PCT;
 
 impl DrivingState {
@@ -78,7 +79,11 @@ impl DrivingState {
                 "Progress: {} percent there",
                 self.journey_progress_percent()
             ),
-            format!("Route: {progress}"),
+            // At the gate the route is over: the row says so, as R does.
+            match self.arrival_gate_query_text(ctx) {
+                Some(gate) => format!("Route: You have arrived. {gate}"),
+                None => format!("Route: {progress}"),
+            },
             self.career_status_line(ctx),
             format!(
                 "Fuel: {:.0} percent",
@@ -115,25 +120,13 @@ impl DrivingState {
             // The same live-then-set shape the keeper's row below uses: when
             // anything holds cruise under its set speed, the status screen has
             // to say which of the two numbers is real.
-            lines.insert(1, format!("Cruise: {}", self.cruise_holding_text(ctx)));
+            lines.insert(1, capitalize_first(&self.cruise_holding_text(ctx, false)));
         } else if self.keeper_mph.is_some() {
-            lines.insert(
-                1,
-                format!("Speed control: {}", self.keeper_holding_text(ctx)),
-            );
-            lines.insert(
-                2,
-                format!("Open-road target: {}", self.open_road_target(ctx)),
-            );
+            lines.insert(1, capitalize_first(&self.keeper_holding_text(ctx, false)));
+            lines.insert(2, format!("Cruise speed: {}", self.open_road_target(ctx)));
         } else if self.speed_control_armed {
-            lines.insert(
-                1,
-                "Speed control: paused; resumes when the truck is rolling".to_string(),
-            );
-            lines.insert(
-                2,
-                format!("Open-road target: {}", self.open_road_target(ctx)),
-            );
+            lines.insert(1, "Cruise paused until the truck is rolling".to_string());
+            lines.insert(2, format!("Cruise speed: {}", self.open_road_target(ctx)));
         }
         let truck = &self.trip.truck;
         if truck.damage_pct - self.start_damage > 1.0 {
@@ -188,8 +181,9 @@ impl DrivingState {
         }
         if !ctx.settings.renders_terse() {
             let fatigue = profile_of(ctx).fatigue;
-            if fatigue >= hos::FATIGUE_DROWSY {
-                lines.push(format!("Fatigue: {fatigue:.0} percent"));
+            // From Worn up the band rides with the number.
+            if let Some(band) = self.alertness.readout_word() {
+                lines.push(format!("Fatigue: {fatigue:.0} percent, {band}"));
             }
             let mode = ctx.settings.hos_mode.clone();
             let summary = hos_of(ctx).summary(&mode);
@@ -202,7 +196,7 @@ impl DrivingState {
         lines
     }
 
-    /// The open-road target the keeper's two status rows both print.
+    /// The cruise speed the keeper's two status rows both print.
     fn open_road_target(&self, ctx: &GameContext) -> String {
         match self.speed_control_target_mph {
             Some(mph) => ctx.settings.speed_text(mph),

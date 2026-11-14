@@ -1,11 +1,10 @@
 # The changelog gate, in its own workflow so it runs on EVERY change.
 #
-# ci.yml (the tools) and rust.yml (the game) are path filtered, so a
-# docs-only push skips both.
+# rust.yml (the quick checks) is path filtered, so a docs-only push skips
+# it.
 # The gate cannot be filtered that way: it is what catches a user-facing
 # change that landed without a CHANGELOG.md bullet, whatever it touched. It
-# used to be a job in both of those workflows; it lives here once instead,
-# on the union of their branches.
+# used to be a job in the old test workflows; it lives here once instead.
 #
 # The gate also runs locally as a pre-push hook, which not every clone has
 # installed. Same tool and skip markers (`cargo tools release-notes check`;

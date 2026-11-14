@@ -32,6 +32,10 @@ fn write_overlay(dir: &tempfile::TempDir, overlay: &serde_json::Value) -> std::p
 }
 
 #[test]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "slow: loads the whole world twice"
+)]
 fn test_load_without_overlay_matches_base() {
     let base = load(None);
     let missing = load(Some(Path::new("definitely-not-a-real-overlay.json")));
@@ -68,6 +72,10 @@ fn test_overlay_adds_new_city_and_leg() {
 }
 
 #[test]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "slow: loads the whole world again"
+)]
 fn test_overlay_cannot_override_base_city() {
     let base = load(None);
     let overlay = json!({
@@ -93,6 +101,10 @@ fn test_overlay_cannot_override_base_city() {
 }
 
 #[test]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "slow: loads the whole world again"
+)]
 fn test_overlay_does_not_duplicate_an_existing_leg() {
     let base = load(None);
     let leg = &base.legs[0];

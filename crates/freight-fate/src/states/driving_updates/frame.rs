@@ -545,12 +545,26 @@ impl DrivingState {
                 // through neutral, which needs no clutch, then up into first.
                 // The pad has no neutral: it steps down to first on the
                 // clutch instead (2026-09-28).
-                let text = if tr.automatic || tr.in_neutral() {
+                let hints = self.driving_hints(ctx);
+                let pad = ctx.controller.device() == ff_core::input_hints::CONTROLLER;
+                let text = if !hints {
+                    if tr.automatic || tr.in_neutral() {
+                        "Engine stalled.".to_string()
+                    } else if pad {
+                        "Engine stalled. Hold the clutch, restart, and shift down to first \
+                         before letting it out."
+                            .to_string()
+                    } else {
+                        "Engine stalled. Shift to neutral and restart, then clutch in and pick \
+                         first gear."
+                            .to_string()
+                    }
+                } else if tr.automatic || tr.in_neutral() {
                     format!(
                         "Engine stalled. Press {} to restart.",
                         ctx.control_hint("engine")
                     )
-                } else if ctx.controller.device() == ff_core::input_hints::CONTROLLER {
+                } else if pad {
                     format!(
                         "Engine stalled. Hold {}, press {} to restart, and shift down to first \
                          with {} before letting the clutch out.",
@@ -706,14 +720,14 @@ impl DrivingState {
                 // At a road stop's lot, off its own streets.
                 self.handle_stop_chain_end(ctx);
             } else if self.phase == DRIVE_PHASE_PICKUP {
-                self.handle_pickup_gate(ctx);
+                self.update_pickup_gate(ctx, dt);
             } else if self.ramp_mi.is_some() {
                 // The ramp watch owns the arrival, so a trip that finishes
                 // under the truck here is not the gate (Python `return`).
             } else if !self.destination_exit_taken {
                 self.handle_missed_destination_exit(ctx);
             } else {
-                self.handle_arrival_gate(ctx);
+                self.update_arrival_gate(ctx, dt);
             }
         }
     }
@@ -725,6 +739,7 @@ impl DrivingState {
     /// the frame that would otherwise have carried the reading across.
     pub fn refresh_live_facts(&self) {
         live::set_overspeed_active(self.overspeed_active);
+        live::set_exit_signal_on(self.exit_signal_on);
         live::set_pull_over_active(self.trip.pull_over_active);
         live::set_damage_pct(self.trip.truck.damage_pct);
         live::set_position_mi(self.trip.position_mi);
@@ -740,7 +755,7 @@ impl DrivingState {
             0
         });
         live::set_arrival_menu_open(self.arrival_menu_open);
-        live::set_gate_stop_prompted(self.arrival_full_stop_said);
+        live::set_gate_stop_prompted(self.gate.stop_prompted());
         live::set_on_ramp(self.ramp_mi.is_some());
         live::set_posted_limit_mph(match self.trip.entered_zone.as_ref() {
             Some(zone) => zone.limit_mph,

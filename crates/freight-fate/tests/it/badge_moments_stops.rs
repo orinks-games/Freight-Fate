@@ -136,6 +136,54 @@ fn sleep_before_exhaustion_lands_on_a_sleep_taken_before_severe_fatigue() {
     assert!(holds(&harness, "sleep_before_exhaustion"));
 }
 
+/// Five-by-Two is a full ten hours asleep in the lot. Finishing a reset that
+/// a break already started, or sleeping a split, is less than that.
+#[test]
+fn five_by_two_needs_the_full_ten_hours_asleep() {
+    let mut harness = a_drive("Bunk Badge");
+    tired(&mut harness, FATIGUE_SEVERE - 20.0);
+    let mut stop = stop_here(&mut harness, &["park", "break", "sleep"]);
+
+    activate(&mut stop, &mut harness, "Sleep 8 hours in sleeper berth");
+    activate(&mut stop, &mut harness, "Sleep 8 hours in sleeper berth");
+    assert!(
+        !holds(&harness, "slept_on_route"),
+        "a split is not the night"
+    );
+
+    tired(&mut harness, FATIGUE_SEVERE - 20.0);
+    harness
+        .app
+        .ctx
+        .profile
+        .as_mut()
+        .expect("a career")
+        .hos
+        .drive(30.0);
+    let mut stop = stop_here(&mut harness, &["park", "break", "sleep"]);
+    activate(&mut stop, &mut harness, "Take a 30-minute break");
+    activate(&mut stop, &mut harness, "Sleep 9.5 hours more");
+    activate(&mut stop, &mut harness, "Sleep 9.5 hours more");
+    assert!(
+        !holds(&harness, "slept_on_route"),
+        "nine and a half hours after a break is not ten in the bunk"
+    );
+
+    tired(&mut harness, FATIGUE_SEVERE - 20.0);
+    harness
+        .app
+        .ctx
+        .profile
+        .as_mut()
+        .expect("a career")
+        .hos
+        .drive(30.0);
+    let mut stop = stop_here(&mut harness, &["park", "sleep"]);
+    activate(&mut stop, &mut harness, "Sleep 10 hours");
+    activate(&mut stop, &mut harness, "Sleep 10 hours");
+    assert!(holds(&harness, "slept_on_route"));
+}
+
 // -- repairs and fuel ------------------------------------------------------------------
 
 fn damage(harness: &mut PlaytestHarness, pct: f64) {

@@ -5,8 +5,9 @@
 use crate::data::curves::RouteCurve;
 use crate::data::regions::classify_region;
 use crate::data::street_limits::load_street_limits;
-use crate::data::world_models::{lane_word, py_capitalize, Interchange, Stop};
+use crate::data::world_models::{lane_word, py_capitalize, Interchange, Leg, Stop};
 use crate::pyfmt::{fmt_f, round_py_int};
+use crate::sim::limit_gaps::{is_unposted, unposted_limit, unposted_truck_cap};
 use crate::sim::traffic_manager::{
     TrafficVehicle, DODGE_CLEARANCE_AHEAD_MI, DODGE_CLEARANCE_BEHIND_MI, LANE_GAP_ACT_REAL_S,
     LANE_GAP_MARGIN_MI,
@@ -278,6 +279,16 @@ impl Trip {
         } else {
             leg.miles - route_offset
         };
+        if is_unposted(leg, leg_offset) {
+            // No posting here: the state's cap is the truck limit wherever it
+            // holds the rig under the number a car would be given.
+            if let Some((cap, state)) = unposted_truck_cap(leg, leg_offset) {
+                if cap < self.unposted_heuristic_at(mile, leg, leg_offset) {
+                    return (true, Some(state));
+                }
+            }
+            return (false, None);
+        }
         truck_limit_at(leg, leg_offset)
     }
 
@@ -372,7 +383,19 @@ impl Trip {
         if let Some(baked) = truck_capped_speed_limit(leg, leg_offset) {
             return baked;
         }
+        let limit = self.unposted_heuristic_at(mile, leg, leg_offset);
+        match unposted_truck_cap(leg, leg_offset) {
+            Some((cap, _)) => limit.min(cap),
+            None => limit,
+        }
+    }
+
+    /// The limit a car would be given where the leg has no posting: the
+    /// highway/region heuristic, held to the postings around a coverage gap
+    /// and to the urban limit near a city. No truck cap.
+    fn unposted_heuristic_at(&self, mile: f64, leg: &Leg, leg_offset: f64) -> f64 {
         let base = corridor_speed_limit(&leg.highway, &self.region_at(mile));
+        let base = unposted_limit(leg, leg_offset, base);
         if self.near_city(mile) {
             return base.min(URBAN_LIMIT_MPH);
         }

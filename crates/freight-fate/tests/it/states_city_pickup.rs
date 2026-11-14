@@ -182,12 +182,13 @@ fn test_drop_and_hook_gets_the_truck_out_in_a_fraction_of_the_time() {
         hours_before + DROP_HOOK_MIN / 60.0
     );
     assert!(profile(&app).hos.duty_min > 0.0);
-    // The driver is told which trailer they are pulling and what shape it
-    // is in -- the whole risk of hooking somebody else's box.
-    let lines = app.main_lines();
-    let readout = lines[lines.len().saturating_sub(3)..].join(" ");
-    assert!(readout.contains(&plan.trailer.as_ref().unwrap().number));
-    assert!(readout.to_lowercase().contains("hooked to"));
+    // The driver is told which trailer they are pulling (at check-in);
+    // its shape only when it is worn or defective.
+    let lines = app.main_lines().join(" ");
+    assert!(
+        lines.contains(&plan.trailer.as_ref().unwrap().number),
+        "{lines}"
+    );
 }
 
 // -- the walk-around, and refusing a trailer ---------------------------------------
@@ -223,7 +224,7 @@ fn test_walking_a_bad_trailer_finds_it_and_offers_the_refusal() {
     let lines = app.main_lines();
     let found = lines
         .iter()
-        .position(|line| line.contains("Take it and the write-up"))
+        .position(|line| line.contains("Take it, and an inspector can write you up"))
         .unwrap_or_else(|| panic!("no walk-around line: {lines:?}"));
     assert!(lines[found].contains(defect), "{lines:?}");
     assert!(lines[found].contains(&unit.number));
@@ -330,14 +331,14 @@ fn test_pickup_save_and_departure_keep_speed_control_session() {
     assert!(app
         .main_lines()
         .iter()
-        .any(|line| line.contains("Speed control paused, target 47 miles per hour.")));
+        .any(|line| line.contains("Cruise paused, set 47 miles per hour.")));
 
     with_state_mut::<PickupFacilityState, _>(&mut app, |p, ctx| p.status(ctx));
     assert!(app
         .main_lines()
         .last()
         .unwrap()
-        .contains("target 47 miles per hour"));
+        .contains("set 47 miles per hour"));
 
     key(&mut app, Key::Return); // check in
     let snapshot = profile(&app).active_trip.clone().unwrap();
@@ -360,6 +361,37 @@ fn test_cancelling_the_pickup_returns_to_the_terminal() {
     assert!(is::<CityMenuState>(&app));
     assert!(profile(&app).active_trip.is_none());
     assert!(profile(&app).dispatch_board_cache.is_none());
+}
+
+#[test]
+fn leaving_the_pickup_keeps_the_bed_of_the_screen_it_opens() {
+    // The pickup's exit runs after its own row's handler returns, so after
+    // the next screen started its bed. It must not stop that bed.
+    let mut app = TestApp::new();
+    career(&mut app, "Quiet Dock", "Chicago");
+    let audio = app.record_audio();
+    push_pickup(
+        &mut app,
+        drop_yard_job("chicago-live-load", 92.0),
+        PickupOptions::default(),
+    );
+    select::<PickupFacilityState>(&mut app, "Cancel pickup and return to terminal");
+    assert!(is::<CityMenuState>(&app));
+    assert_eq!(audio.borrow().ambient.as_deref(), Some("poi/facility_gate"));
+
+    push_pickup(
+        &mut app,
+        drop_yard_job("chicago-live-load", 92.0),
+        PickupOptions::default(),
+    );
+    select::<PickupFacilityState>(&mut app, "Save and quit to main menu");
+    assert!(is::<MainMenuState>(&app));
+    let bed = audio.borrow().ambient.clone();
+    assert!(
+        bed.as_deref()
+            .is_some_and(|key| key.starts_with("ambient/menu_")),
+        "{bed:?}"
+    );
 }
 
 // -- route planning ---------------------------------------------------------------------
@@ -583,7 +615,7 @@ fn test_quit_during_pickup_drive_resumes_from_the_last_stop() {
     );
     select::<PauseMenuState>(&mut app, "Quit to main menu");
 
-    select::<MainMenuState>(&mut app, "Continue latest career");
+    select::<MainMenuState>(&mut app, "Continue ");
 
     assert!(is::<DrivingState>(&app));
     let (phase, position) =
@@ -939,7 +971,7 @@ fn test_engine_off_at_the_pickup_survives_save_and_quit() {
     );
 
     select::<PickupFacilityState>(&mut app, "Save and quit to main menu");
-    select::<MainMenuState>(&mut app, "Continue latest career");
+    select::<MainMenuState>(&mut app, "Continue ");
 
     assert!(is::<PickupFacilityState>(&app));
     assert!(!with_state::<PickupFacilityState, _>(&app, |p, _| p
@@ -989,13 +1021,16 @@ fn test_idling_through_the_load_burns_fuel_and_shutting_down_does_not() {
 }
 
 #[test]
-fn test_the_load_report_names_the_fuel_burned_idling() {
+fn test_pickup_status_names_the_fuel_burned_idling() {
     let mut app = TestApp::new();
     pickup_running(&mut app);
     load_out(&mut app);
     let loaded_line = app.main_lines().last().unwrap().to_lowercase();
-    assert!(loaded_line.contains("idling"), "{loaded_line}");
-    assert!(loaded_line.contains("gallon"), "{loaded_line}");
+    assert!(!loaded_line.contains("idling"), "{loaded_line}");
+    with_state_mut::<PickupFacilityState, _>(&mut app, |p, ctx| p.status(ctx));
+    let status = app.main_lines().last().unwrap().to_lowercase();
+    assert!(status.contains("idling here burned"), "{status}");
+    assert!(status.contains("gallon"), "{status}");
 }
 
 #[test]
@@ -1026,11 +1061,10 @@ fn test_shutting_down_after_check_in_stops_the_idle_before_the_load() {
         with_state::<PickupFacilityState, _>(&app, |p, _| (p.truck.engine_on, p.truck.fuel_gal));
     assert!(!engine_on);
     assert_eq!(after_load, before_load);
-    let loaded_line = app.main_lines().last().unwrap().to_lowercase();
-    assert!(
-        loaded_line.contains("burned idling before you shut down"),
-        "{loaded_line}"
-    );
+    with_state_mut::<PickupFacilityState, _>(&mut app, |p, ctx| p.status(ctx));
+    let status = app.main_lines().last().unwrap().to_lowercase();
+    assert!(status.contains("engine off"), "{status}");
+    assert!(status.contains("idling here burned"), "{status}");
 }
 
 #[test]
@@ -1055,10 +1089,12 @@ fn test_departing_with_the_engine_off_names_the_start_control() {
     // Never "Departing now" over a dead engine, and the key named is the one
     // this driver's settings actually bind.
     assert!(!departure.contains("Departing now"), "{departure}");
-    assert!(
-        departure.contains(&app.ctx.control_hint("engine")),
-        "{departure}"
-    );
+    // The At the wheel line right after names the start key.
+    let wheel = lines
+        .iter()
+        .find(|line| line.starts_with("At the wheel."))
+        .expect("the At the wheel line");
+    assert!(wheel.contains(&app.ctx.control_hint("engine")), "{wheel}");
 }
 
 #[test]
@@ -1182,14 +1218,17 @@ fn test_accepting_job_starts_drivable_pickup_leg() {
     }
     assert_eq!(total, miles);
     assert_eq!(remaining, miles);
-    assert!(first_line.contains("Deadheading to pickup"), "{first_line}");
+    assert!(
+        first_line.contains("Driving empty to pickup"),
+        "{first_line}"
+    );
     let dispatch: Vec<String> = app
         .main_lines()
         .into_iter()
         .filter(|text| text.starts_with("Accepted."))
         .collect();
     assert!(!dispatch.is_empty());
-    assert!(dispatch.last().unwrap().contains("Deadhead"));
+    assert!(dispatch.last().unwrap().contains(" empty to "));
 }
 
 #[test]
@@ -1210,10 +1249,10 @@ fn test_pickup_facility_waits_for_full_stop() {
     let last = lines
         .iter()
         .rev()
-        .find(|line| line.contains("Pickup ahead"))
+        .find(|line| line.contains("Pickup: "))
         .cloned()
         .unwrap_or_default();
-    assert!(last.contains("Pickup ahead"), "{lines:?}");
+    assert!(last.contains("Pickup: "), "{lines:?}");
     assert!(last.to_lowercase().contains("stop at the gate"), "{last}");
 
     // Inside the creep band (DELIVERY_PARK_MPH) but not stopped. The creep

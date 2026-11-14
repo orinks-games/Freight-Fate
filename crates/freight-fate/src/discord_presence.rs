@@ -152,9 +152,9 @@ pub fn driving_presence(
     let pct = if clamped < 1.0 { pct.min(95) } else { pct };
     if phase == "pickup" {
         let activity = if origin.is_empty() {
-            "Deadheading to a pickup".to_string()
+            "Driving empty to a pickup".to_string()
         } else {
-            format!("Deadheading to a pickup in {origin}")
+            format!("Driving empty to a pickup in {origin}")
         };
         // The deadhead line carries progress too: the drivers board treats a
         // long-unchanged snapshot as an idle (parked, player away) truck, so

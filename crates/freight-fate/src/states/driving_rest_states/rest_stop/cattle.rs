@@ -4,7 +4,7 @@
 use super::RestStopState;
 use crate::app::{GameContext, Say};
 use crate::states::base::{Menu, MenuItem};
-use crate::states::driving_core::{advance_rest_clock, hos_mut_of};
+use crate::states::driving_core::{accrue_on_duty_fatigue, advance_rest_clock, hos_mut_of};
 
 /// Climb the side, count the cattle on their feet, prod one up. ASSUMED:
 /// no rule or trade source gives a time; the trade guides say to check
@@ -20,6 +20,7 @@ impl RestStopState {
     fn check_cattle(&mut self, ctx: &mut GameContext) {
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
             let exempt = d.livestock().is_some_and(|load| load.hours_exempt());
+            accrue_on_duty_fatigue(d, ctx, CHECK_CATTLE_MIN);
             advance_rest_clock(
                 d,
                 ctx,

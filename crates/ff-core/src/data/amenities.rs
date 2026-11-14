@@ -215,7 +215,7 @@ pub fn spoken_amenities(name: &str, _stop_type: &str) -> String {
             brand.spoken, phrase
         );
         if brand.bans_big_rigs {
-            clause.push_str("; no big rigs allowed, so you can only stop here running bobtail");
+            clause.push_str(". No big rigs allowed, so you can stop here only without a trailer");
         }
         return clause;
     }
@@ -284,7 +284,7 @@ mod tests {
         assert_eq!(brand.tier, "landmark");
         assert!(brand.bans_big_rigs);
         assert!(text.contains("landmark"));
-        assert!(text.contains("big rigs") && text.contains("bobtail"));
+        assert!(text.contains("big rigs") && text.contains("without a trailer"));
     }
 
     #[test]

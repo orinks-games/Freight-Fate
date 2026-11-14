@@ -166,9 +166,7 @@ impl AutonomousObserver {
             }
             Phase::DepartureWatch => {
                 if !drive.departure_chain && drive.cruise_active {
-                    self.complete(
-                        "the facility departure handed from the speed keeper to adaptive cruise",
-                    );
+                    self.complete("the facility departure handed from the cruise to cruise");
                 }
             }
             Phase::NeutralizeReleaseControls

@@ -154,3 +154,23 @@ fn without_a_closure_the_left_lane_still_passes() {
     }
     assert!(trip.traffic_manager.vehicles[0].position_mi > trip.position_mi);
 }
+
+/// The taper call names the open lane, not always the left one: with the
+/// left lane coned off it said "Merge left" into the barrels (agent drive,
+/// 2026-11-04, WI-29).
+#[test]
+fn the_taper_call_merges_away_from_the_closed_lane() {
+    for (closed, merge) in [("left", "right"), ("right", "left")] {
+        let mut trip = two_lane_road();
+        trip.hazard_scale = 1.0;
+        trip.zones = vec![
+            Zone::new(110.0, 111.0, 55.0, "construction merge").with_closed_side(Some(closed))
+        ];
+        let pressures = trip.place_traffic_pressures();
+        let taper = pressures
+            .iter()
+            .find(|p| p.kind == "construction_merge")
+            .expect("a taper pressure");
+        assert_eq!(taper.direction, merge, "{closed} lane closed");
+    }
+}

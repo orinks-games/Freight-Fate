@@ -260,6 +260,9 @@ fn cargo_build(target: Target, release: bool) -> Result<PathBuf> {
         .args(["--features", "visuals", "--target", target.triple]);
     if release {
         cmd.arg("--release");
+        super::seal::configure(&mut cmd)?;
+    } else {
+        cmd.env_remove("HEARKEN_SEAL_KEY");
     }
     cmd.current_dir(&root)
         .env("IPHONEOS_DEPLOYMENT_TARGET", MINIMUM_IOS);

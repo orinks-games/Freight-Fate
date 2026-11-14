@@ -17,9 +17,9 @@
 // "orinks.net account: connected", not "Set up orinks.net account".
 pub const AUTH_HELP: &str = "orinks.net no longer accepts this computer's sign-in. Usually this \
 computer was signed out from the computer list on your driver setup page. To connect it \
-again, open the Online menu, choose orinks.net account, then Set up this computer with \
-orinks.net, and enter the activation code in your browser. If your driver is not on that \
-page at all, the account itself is gone. Make a new account and connect it the same way.";
+again, open the Online menu and choose orinks.net account. Then choose Set up this computer \
+with orinks.net and enter the activation code in your browser. If your driver is not on \
+that page, the account is gone. Make a new account and connect it the same way.";
 
 // -- upload failure classification ---------------------------------------------
 //
@@ -143,23 +143,23 @@ up to your orinks.net account. Your local career is safe."
             "{name}: backup not accepted. The numbers in this save do not \
 look like possible play, so the server declined it and flagged \
 it for review. Your local career is safe and nothing public \
-changed. If you think this is wrong, say so in the tester \
-document."
+changed. If you think this is wrong, use Report a problem \
+on the main menu."
         );
     }
     if SCHEMA_REJECTION_REASONS.contains(&reason) {
         return format!(
-            "{name}: backup not accepted. Your game and the server \
-disagree about this save's shape, usually a build mismatch, \
-not something you did. Your local career is safe."
+            "{name}: backup not accepted. Your game and orinks.net read \
+this save differently, usually because one of them needs an \
+update. It is not something you did. Your local career is safe."
         );
     }
     if CATALOG_REJECTION_REASONS.contains(&reason) {
         return format!(
             "{name}: backup not accepted. The server does not recognize the \
-town this career is parked in, which usually means it has not \
-caught up with this build yet. Your local career is safe, and \
-backups start working again on their own once it has."
+town this career is parked in. Usually the server has not caught \
+up with this version of the game yet. Your local career is safe, \
+and backups start working again on their own once it has."
         );
     }
     if SLOTS_FULL_REJECTION_REASONS.contains(&reason) {
@@ -173,8 +173,7 @@ Your local career is safe."
     if SERVER_FAULT_REJECTION_REASONS.contains(&reason) {
         return format!(
             "{name}: backup not accepted. The server could not finish signing \
-this backup, which is a problem at our end and not anything about \
-your career. Your local career is safe, and backups start working \
+this backup. The problem is at our end, not with your career. Your local career is safe, and backups start working \
 again on their own once it is fixed."
         );
     }

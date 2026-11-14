@@ -44,6 +44,17 @@ fn cruising(name: &str, lane_keeping: &str) -> PlaytestHarness {
         d.trip.weather.current = WeatherKind::Clear;
         d.trip.set_patrols(Vec::new());
         d.trip.posts.clear();
+        // Start where the road keeps two lanes or more for the next 8 miles,
+        // so a closure always has a lane to merge into, whatever load the
+        // new career draws.
+        let multi_lane = |d: &DrivingState, at: f64| {
+            (0..=80).all(|step| d.trip.lane_count_at(Some(at + f64::from(step) * 0.1)) >= 2)
+        };
+        let mut at = d.trip.position_mi;
+        while at < 100.0 && !multi_lane(d, at) {
+            at += 0.5;
+        }
+        d.trip.position_mi = at;
     });
     harness.prepare_for_driving(55.0);
     harness.with_drive(|d, ctx| d.engage_cruise(ctx, 60.0, false));
@@ -187,7 +198,7 @@ fn balanced_still_leaves_the_merge_to_the_driver() {
         harness
             .transcript()
             .iter()
-            .any(|line| line.contains("closes at the work zone ahead. Move to the")),
+            .any(|line| line.contains("closes at the work zone. Move to the")),
         "the driver was never told to move:\n{}",
         harness.transcript_text()
     );

@@ -294,7 +294,7 @@ fn maintenance_warning_is_repeatable_from_the_in_drive_status_screen() {
     key(&mut harness.app, Key::Return);
     assert!(harness.app.main_lines().iter().any(|line| {
         line.contains("Brakes: 80 percent worn")
-            && line.contains("service is required at 100 percent")
+            && line.contains("Service is required at 100 percent")
             && line.contains("garage")
     }));
 }

@@ -73,6 +73,9 @@ pub const PACENOTE_LINK_GAP_MI: f64 = 0.3;
 /// the road the truck genuinely needs to reach ramp speed, widened so the
 /// clock is already real by the time anything has to start shedding.
 pub const EXIT_APPROACH_DECOMPRESS_SLACK: f64 = 1.5;
+/// With nothing to shed before the gore, the clock goes real only for this
+/// last stretch: the half-mile call and the exit lane.
+pub const EXIT_FINAL_REAL_MI: f64 = 0.5;
 /// And pacing climbs back over this many real seconds afterwards.
 pub const EXIT_APPROACH_RELEASE_S: f64 = 3.0;
 
@@ -98,7 +101,7 @@ pub const LIMIT_REASON_LOOKAHEAD_MI: f64 = 1.5;
 /// The only RoadStop types that actually cause a lower posting.
 pub fn limit_reason_by_stop_type(stop_type: &str) -> Option<&'static str> {
     match stop_type {
-        "weigh_station" => Some(" for the weigh station ahead"),
+        "weigh_station" => Some(" for the weigh station"),
         _ => None,
     }
 }
@@ -396,6 +399,9 @@ pub struct Trip {
     /// Posts that have already entered the lead window.
     pub heads_up_seen: HashSet<String>,
     pub hazard_check_mi: f64,
+    /// A catalog hazard asked for by name (`stage_hazard`), fired on the
+    /// next rolling update in place of the road's own draw.
+    pub staged_hazard: Option<&'static str>,
     pub inspection_check_mi: f64,
     pub conditions_check_mi: f64,
     pub traffic_warning_mi: f64,
@@ -552,6 +558,7 @@ impl Trip {
             cb_calls_made: 0,
             heads_up_seen: HashSet::new(),
             hazard_check_mi: 5.0,
+            staged_hazard: None,
             inspection_check_mi: 10.0,
             conditions_check_mi: CONDITIONS_CHECK_MI,
             traffic_warning_mi: 1.0,

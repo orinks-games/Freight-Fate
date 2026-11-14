@@ -112,7 +112,7 @@ impl Menu for LoyaltyRewardsState {
         if offer_shower && shower_credits > 0 {
             items.push(
                 MenuItem::new(
-                    format!("Use shower credit ({shower_credits} available)"),
+                    format!("Use shower credit, {shower_credits} available"),
                     |s: &mut Self, ctx| s.use_shower_credit(ctx),
                 )
                 .help("A shower credit from fueling 50 gallons or more."),

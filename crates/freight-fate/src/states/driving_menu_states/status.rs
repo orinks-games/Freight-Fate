@@ -278,7 +278,13 @@ impl DrivingStatusScreenState {
                 if let Some(cab) = d.cab.status_line() {
                     lines.push(cab.to_string());
                 }
-                lines.push(format!("Fatigue: {} percent", fmt_f(profile.fatigue, 0)));
+                // From Worn up the band rides with the number.
+                lines.push(match d.alertness.readout_word() {
+                    Some(band) => {
+                        format!("Fatigue: {} percent, {band}", fmt_f(profile.fatigue, 0))
+                    }
+                    None => format!("Fatigue: {} percent", fmt_f(profile.fatigue, 0)),
+                });
                 // Where the driver stands is spoken when it changes and
                 // whenever it is asked for, never on a timer.
                 lines.push(enforcement::standing_text(profile));
@@ -338,7 +344,7 @@ impl DrivingStatusScreenState {
                     for stop in upcoming {
                         let ahead = (stop.at_mi - d.trip.position_mi).max(0.0);
                         let label = format!(
-                            "Stop in {}: {}{}; {}.",
+                            "Stop in {}: {}{}, {}.",
                             settings.distance_text(ahead, false),
                             d.trip.planned_prefix(&stop),
                             stop.spoken_name(),

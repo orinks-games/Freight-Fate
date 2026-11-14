@@ -133,6 +133,11 @@ pub fn new_community_stations(
     dial: &[RadioStation],
     community: Vec<RadioStation>,
 ) -> Vec<RadioStation> {
+    // Nothing to filter: skip indexing the whole dial, which every drive
+    // with no community list (most of them) paid for nothing.
+    if community.is_empty() {
+        return Vec::new();
+    }
     let mut ids: HashSet<String> = dial.iter().map(|s| s.id.clone()).collect();
     let mut streams: HashSet<String> = dial.iter().map(station_identity).collect();
     let mut call_signs: HashSet<String> = dial

@@ -15,6 +15,7 @@
 
 use serde::{Deserialize, Serialize};
 
+use crate::data::counties::CountyRun;
 use crate::data::curves::CurveRecord;
 use crate::data::world_local_data::CityServiceEntry;
 use crate::data::world_models::{
@@ -119,6 +120,8 @@ mirror!(BakedRouteRestriction => RouteRestriction {
     at_mi: f64, kind: String, feet: f64, tons: f64, source: String,
 });
 
+mirror!(BakedCountyRun => CountyRun { at_mi: f64, name: String, source: String });
+
 mirror!(BakedBillboardBan => BillboardBan {
     from_mi: f64, to_mi: f64, name: String, source: String,
 });
@@ -151,6 +154,8 @@ pub struct BakedCorridor {
     pub billboard_bans: Vec<BakedBillboardBan>,
     #[serde(default)]
     pub speed_limits_folded: u32,
+    #[serde(default)]
+    pub counties: Vec<BakedCountyRun>,
 }
 
 impl From<&CorridorDetail> for BakedCorridor {
@@ -173,6 +178,7 @@ impl From<&CorridorDetail> for BakedCorridor {
             tunnel: detail.tunnel.clone(),
             billboard_bans: to_mirror(&detail.billboard_bans),
             speed_limits_folded: u32::try_from(detail.speed_limits_folded).unwrap_or(u32::MAX),
+            counties: to_mirror(&detail.counties),
         }
     }
 }
@@ -197,6 +203,7 @@ impl From<BakedCorridor> for CorridorDetail {
             tunnel: baked.tunnel,
             billboard_bans: from_mirror(baked.billboard_bans),
             speed_limits_folded: baked.speed_limits_folded as usize,
+            counties: from_mirror(baked.counties),
         }
     }
 }

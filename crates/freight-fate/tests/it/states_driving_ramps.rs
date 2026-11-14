@@ -465,6 +465,11 @@ fn test_blowing_the_stop_sign_is_dice_not_a_guaranteed_clip() {
         } else {
             clean += 1;
         }
+        // Both outcomes seen is the whole claim; the rest of the seeds add
+        // nothing but time.
+        if clipped > 0 && clean > 0 {
+            break;
+        }
     }
     assert!(clipped > 0, "no seed ever met cross traffic");
     assert!(clean > 0, "every seed clipped: the certainty is back");
@@ -481,6 +486,11 @@ fn test_running_the_red_light_is_dice_not_a_guaranteed_clip() {
             clipped += 1;
         } else {
             clean += 1;
+        }
+        // Both outcomes seen is the whole claim; the rest of the seeds add
+        // nothing but time.
+        if clipped > 0 && clean > 0 {
+            break;
         }
     }
     assert!(clipped > 0, "no seed ever met cross traffic");
@@ -1136,7 +1146,7 @@ fn a_car_in_the_crossroad() -> CrossTraffic {
 }
 
 /// Agent drive, yield at exit 255 (2026-09-24): the hold line was replayed
-/// 0.35 s before "Gap in traffic. Clear; pull ahead" -- the gap had come,
+/// 0.35 s before "Gap in traffic. Clear. Pull ahead" -- the gap had come,
 /// and the hold line said the opposite.
 #[test]
 fn test_the_hold_line_is_not_replayed_once_the_gap_comes() {
@@ -1447,7 +1457,7 @@ fn test_the_ramp_coaching_outranks_chatter() {
     d.ramp_light_last_phase = "green".to_string();
     for _ in 0..5 {
         app.ctx.event_pacer.note_queued(
-            "Brake lights right ahead.",
+            "Brake lights.",
             EventPriority::Critical,
             hearken::speech::Protect::Yes,
             None,
@@ -1490,7 +1500,7 @@ fn test_being_stranded_short_of_the_bar_is_never_dropped_as_chatter() {
     // Back the channel up the way a busy ramp approach does.
     for _ in 0..5 {
         app.ctx.event_pacer.note_queued(
-            "Brake lights right ahead.",
+            "Brake lights.",
             EventPriority::Critical,
             hearken::speech::Protect::Yes,
             None,
@@ -1522,7 +1532,7 @@ fn test_the_stranded_prompts_ask_for_route_priority() {
     d.ramp_mi = Some(RAMP_ACCESS_MI + 0.15);
     for _ in 0..5 {
         app.ctx.event_pacer.note_queued(
-            "Brake lights right ahead.",
+            "Brake lights.",
             EventPriority::Critical,
             hearken::speech::Protect::Yes,
             None,
@@ -1714,7 +1724,7 @@ fn test_ramp_terminal_hands_the_speed_keeper_back_after_the_stop_bar() {
 
     assert_eq!(d.keeper_mph, Some(ACCESS_ZONE_MPH));
     assert!(!d.speed_control_paused_at_stop);
-    assert_eq!(said_count(&app, "Speed keeper holding"), 1);
+    assert_eq!(said_count(&app, "Cruise holding"), 1);
 }
 
 #[test]
@@ -2029,7 +2039,7 @@ fn test_route_transition_assistance_stops_at_the_sign_on_the_air_it_has() {
     assert!(
         spoken(&harness.app)
             .iter()
-            .any(|line| line == "Stopped at the sign. Clear; pull ahead to the entrance."),
+            .any(|line| line == "Stopped at the sign. Clear. Pull ahead to the entrance."),
         "{:?}",
         spoken(&harness.app)
     );
@@ -2112,9 +2122,7 @@ fn test_route_transition_assistance_brakes_to_the_sign_without_slamming() {
         "the stop peaked at {hardest_mps2:.2} m/s2: {lines:?}"
     );
     assert!(
-        !lines
-            .iter()
-            .any(|line| line == "Route-transition assistance released."),
+        !lines.iter().any(|line| line == "Ramp assistance released."),
         "released while still braking for the sign: {lines:?}"
     );
 }
@@ -2196,7 +2204,7 @@ fn test_route_transition_assistance_does_not_chatter_at_the_ramp_cap() {
     );
     let released = spoken(&harness.app)
         .iter()
-        .filter(|line| *line == "Route-transition assistance released.")
+        .filter(|line| *line == "Ramp assistance released.")
         .count();
     assert!(released <= 1, "{:?}", spoken(&harness.app));
 }

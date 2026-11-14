@@ -16,7 +16,7 @@ const DT: f64 = 1.0 / 60.0;
 /// at the pedals.
 #[test]
 #[cfg_attr(
-    ci_quick,
+    not(feature = "slow-tests"),
     ignore = "sweep: drives the last 12 miles of a 345-mile load"
 )]
 fn a_gate_ramp_on_every_assist_is_said_once() {

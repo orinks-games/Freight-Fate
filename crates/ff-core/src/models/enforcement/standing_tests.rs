@@ -47,17 +47,17 @@ fn citations_and_serious_violations_come_off_the_number_everyone_reads() {
 }
 
 #[test]
-fn the_record_lifts_off_reputation_after_a_game_year_though_the_review_still_sees_it() {
+fn the_record_lifts_off_reputation_after_its_window_though_the_licence_ladder_still_sees_it() {
     let mut p = a_driver_at(90.0);
     let booked = p.game_hours;
     p.driving_record.record_serious_violation(booked);
     assert_eq!(p.standing(), 80.0);
-    // Most of a year on: still weighing.
-    p.game_hours = booked + 300.0 * HOURS_PER_DAY;
+    // Most of the window on: still weighing.
+    p.game_hours = booked + (SERIOUS_REVIEW_WINDOW_DAYS as f64 - 5.0) * HOURS_PER_DAY;
     assert_eq!(p.standing(), 80.0);
-    // A year and a day: the points are back, and the carrier's review has
-    // let it go too, while the license ladder still counts it for three.
-    p.game_hours = booked + (REPUTATION_WINDOW_DAYS as f64 + 1.0) * HOURS_PER_DAY;
+    // The window and a day: the points are back, and the carrier's review
+    // has let it go too, while the license ladder still counts it.
+    p.game_hours = booked + (SERIOUS_REVIEW_WINDOW_DAYS as f64 + 1.0) * HOURS_PER_DAY;
     assert_eq!(p.standing(), 90.0);
     assert_eq!(p.driving_record.serious_in_review_window(p.game_hours), 0);
     assert_eq!(p.driving_record.serious_in_window(p.game_hours), 1);
@@ -99,7 +99,7 @@ fn the_save_carries_the_standing_for_the_public_profile() {
 fn a_crash_counts_as_a_serious_event_and_ages_out_like_one() {
     // Owner ruling 2026-09-24: a rollover goes on the record as a crash (the
     // 49 CFR 390.15 accident register), weighing as a serious event does.
-    use crate::models::safety_record::{score_for_profile, SAFETY_RECORD_WINDOW_DAYS};
+    use crate::models::safety_record::{score_for_profile, SAFETY_RECORD_SERIOUS_WINDOW_DAYS};
     let mut p = a_driver_at(98.0);
     let before = score_for_profile(&p, 0.0);
     let now = p.game_hours;
@@ -124,9 +124,10 @@ fn a_crash_counts_as_a_serious_event_and_ages_out_like_one() {
     // Not a citation, and not a serious violation on the license ladder.
     assert_eq!(p.driving_record.unexplained_citations(), 0);
     assert!(p.driving_record.serious_violations.is_empty());
-    // A year on, it has aged out of both windows.
-    p.game_hours =
-        now + (SAFETY_RECORD_WINDOW_DAYS.max(REPUTATION_WINDOW_DAYS) as f64 + 1.0) * HOURS_PER_DAY;
+    // Past the serious window, it has aged out of both.
+    p.game_hours = now
+        + (SAFETY_RECORD_SERIOUS_WINDOW_DAYS.max(SERIOUS_REVIEW_WINDOW_DAYS) as f64 + 1.0)
+            * HOURS_PER_DAY;
     assert_eq!(p.standing(), 98.0);
     assert_eq!(p.driving_record.crashes, 1, "the lifetime count stays");
     // And it rides the save inside the driving record, not as a new
@@ -146,13 +147,14 @@ fn the_record_line_names_a_safety_incident_and_a_crash() {
     p.driving_record.record_fatigue_event(now - HOURS_PER_DAY);
     assert_eq!(
         standing_text(&p),
-        "Record: one safety incident in the last year."
+        "Record: one safety incident in the last 30 days."
     );
     p.driving_record.record_citation_at(150.0, now);
     p.driving_record.record_crash(now);
     assert!(
         standing_text(&p).starts_with(
-            "Record: one citation, one safety incident and one crash in the last year."
+            "Record: one citation and one safety incident in the last 30 days, one crash in \
+             the last 90 days."
         ),
         "{}",
         standing_text(&p)
@@ -165,11 +167,18 @@ fn the_record_line_names_a_safety_incident_and_a_crash() {
     q.driving_record.record_fatigue_event(now - HOURS_PER_DAY);
     assert!(
         standing_text(&q)
-            .starts_with("Record: one safety incident in the last year, one serious violation."),
+            .starts_with("Record: one safety incident in the last 30 days, one serious violation."),
         "{}",
         standing_text(&q)
     );
-    // A year on, the incident has aged out like a citation does.
+    // Past the citation window the incident has aged out like a citation
+    // does; past the serious window, the crash has too.
     p.game_hours = now + (REVIEW_WINDOW_DAYS as f64 + 2.0) * HOURS_PER_DAY;
+    assert!(
+        standing_text(&p).starts_with("Record: one crash in the last 90 days."),
+        "{}",
+        standing_text(&p)
+    );
+    p.game_hours = now + (SERIOUS_REVIEW_WINDOW_DAYS as f64 + 2.0) * HOURS_PER_DAY;
     assert_eq!(standing_text(&p), "Record: clean.");
 }

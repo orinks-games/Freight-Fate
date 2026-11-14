@@ -12,6 +12,7 @@ use super::{
     LaneSegment, RouteCheckpoint, RoutePoint, RouteRestriction, SpeedLimitSample, StateCrossing,
     StateMileage, Stop, StreetControl, StreetLimit, TollEvent, TrafficVolumeSample, TunnelData,
 };
+use crate::data::counties::CountyRun;
 use crate::data::world::World;
 use crate::data::world_corridor::build_leg_corridor;
 use crate::data::world_parsing::FlaggedLimit;
@@ -50,6 +51,7 @@ pub struct CorridorDetail {
     pub lane_segments: Vec<LaneSegment>,
     pub tunnel: Option<TunnelData>,
     pub billboard_bans: Vec<BillboardBan>,
+    pub counties: Vec<CountyRun>,
 }
 
 /// The raw corridor JSON plus its parse context, held by a lazy leg until the
@@ -408,6 +410,10 @@ impl Leg {
 
     pub fn billboard_bans(&self) -> &[BillboardBan] {
         &self.corridor().billboard_bans
+    }
+
+    pub fn counties(&self) -> &[CountyRun] {
+        &self.corridor().counties
     }
 
     pub fn restrictions(&self) -> &[RouteRestriction] {

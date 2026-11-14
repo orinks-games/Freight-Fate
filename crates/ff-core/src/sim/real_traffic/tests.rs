@@ -414,9 +414,11 @@ fn test_trip_announces_nearby_real_incident() {
             "Jackknifed truck on I-71 southbound",
             "Franklin",
         ),
-        39.95,
-        -83.0,
+        // On the leg's line, about 3 miles out of Columbus.
+        39.9396,
+        -83.0314,
     );
+    incident.road_name = "I-71".to_string();
     incident.lanes_affected = Some("2 right lanes".to_string());
     seed_ohio_cache(&provider, vec![incident]);
     let mut trip = incident_trip(provider);

@@ -70,14 +70,14 @@ impl Trip {
         }
         if zone.reason == "heavy traffic" && zone.aadt.is_some() {
             return format!(
-                "In {}, {} ahead. Traffic slowing to {}.",
+                "In {}, {}. Traffic slowing to {}.",
                 self.ahead_text(ahead),
                 self.congestion_phrase(),
                 self.speed_value(zone.limit_mph)
             );
         }
         format!(
-            "In {}, {} ahead. Speed limit {}.",
+            "In {}, {}. Speed limit {}.",
             self.ahead_text(ahead),
             zone.reason,
             self.speed_value(zone.limit_mph)
@@ -145,7 +145,7 @@ impl Trip {
             ("construction merge", Some(keep)) => {
                 Some(format!("Reduced speed. Merge {keep}. Limit {limit}."))
             }
-            ("construction merge", None) => Some(format!("Flagger ahead. Limit {limit}.")),
+            ("construction merge", None) => Some(format!("Flagger. Limit {limit}.")),
             ("construction", Some(keep)) => Some(format!("Work zone. Keep {keep}. Limit {limit}.")),
             ("construction", None) => Some(format!("Work zone. Limit {limit}.")),
             _ => None,
@@ -488,6 +488,16 @@ impl Trip {
                 self.announced_speed_limit = Some(limit);
                 return;
             }
+            // A second drop close behind this one: say only the lower number
+            // ahead. "Reduced to 55" and then "drops to 45" a breath later
+            // was two numbers for one slowdown (owner drive, 2026-11-05).
+            if let Some(boundary) = self.further_drop_to_warn() {
+                self.announced_speed_limit = Some(limit);
+                self.unannounced_limit_end_mi = Some(boundary);
+                self.event_breather.spoke("limit");
+                self.check_limit_drop_ahead();
+                return;
+            }
         }
         let length = self.limit_zone_length(limit);
         let message = self.limit_arrival_message(limit, lowered, length);
@@ -678,6 +688,22 @@ impl Trip {
             prev = mi;
         }
         None
+    }
+
+    /// The boundary of a further drop below the limit just entered, when its
+    /// "drops to" pacenote is due now or was already spoken.
+    fn further_drop_to_warn(&self) -> Option<f64> {
+        if self.is_facility_approach_route() {
+            return None;
+        }
+        let (boundary_mi, limit) = self.next_limit_drop()?;
+        if self.warned_limit_drops.contains(&boundary_mi) {
+            return Some(boundary_mi);
+        }
+        let speed = self.truck.speed_mph();
+        let due = speed > limit + PACENOTE_MARGIN_MPH
+            && boundary_mi - self.position_mi <= self.limit_drop_warning_lead_mi(speed);
+        due.then_some(boundary_mi)
     }
 
     /// Warn before a big posted-limit drop, like a curve pacenote.

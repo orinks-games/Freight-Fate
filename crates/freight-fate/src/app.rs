@@ -38,6 +38,7 @@ use crate::states::main_menu::{
 };
 use crate::touch::Gesture;
 
+mod ambient;
 pub mod boot_timing;
 mod co_driver;
 pub mod context;
@@ -112,13 +113,55 @@ impl FrameClock {
             let frame = Duration::from_secs_f64(1.0 / fps as f64);
             let elapsed = self.last.elapsed();
             if elapsed < frame {
-                std::thread::sleep(frame - elapsed);
+                wait_out_frame(frame - elapsed);
             }
         }
         let now = Instant::now();
         let dt = now.duration_since(self.last).as_secs_f64();
         self.last = now;
         dt
+    }
+}
+
+/// The rest of the frame, asleep.
+#[cfg(not(target_os = "ios"))]
+fn wait_out_frame(rest: Duration) {
+    std::thread::sleep(rest);
+}
+
+/// The rest of the frame, inside the main run loop rather than asleep.
+/// With VoiceOver on, VoiceOver asks the app about its touch surface on
+/// every touch and waits for the answer, which UIKit gives only while the
+/// main run loop runs. Sleeping made each of those questions wait for the
+/// next event pump, and a swipe's beep and line came about a quarter of a
+/// second late. Speech handed to the main thread waits on it the same way.
+#[cfg(target_os = "ios")]
+fn wait_out_frame(rest: Duration) {
+    use std::ffi::c_void;
+
+    #[link(name = "CoreFoundation", kind = "framework")]
+    extern "C" {
+        static kCFRunLoopDefaultMode: *const c_void;
+        fn CFRunLoopRunInMode(mode: *const c_void, seconds: f64, return_after_source: u8) -> i32;
+    }
+    /// `kCFRunLoopRunFinished`: the mode has nothing in it to wait on.
+    const RUN_FINISHED: i32 = 1;
+
+    let until = Instant::now() + rest;
+    loop {
+        let left = until.saturating_duration_since(Instant::now());
+        if left.is_zero() {
+            return;
+        }
+        // SAFETY: the game loop runs on the main thread, whose run loop this
+        // is, and the mode is CoreFoundation's own constant. Events handled
+        // here queue up for the next `SdlShell::poll`, as they would in SDL's
+        // own pump.
+        let result = unsafe { CFRunLoopRunInMode(kCFRunLoopDefaultMode, left.as_secs_f64(), 0) };
+        if result == RUN_FINISHED {
+            std::thread::sleep(left);
+            return;
+        }
     }
 }
 
@@ -197,6 +240,16 @@ pub struct DrivingObservation {
     pub keeper_mph: Option<f64>,
     /// Live cattle's five machines, on a cattle load.
     pub livestock: Option<LivestockObservation>,
+    /// The fatigue band the road last cued.
+    pub alertness: ff_core::sim::alertness::Alertness,
+    /// The nod-off machine: where it stands, its timer and the misses.
+    pub nod: ff_core::sim::alertness::NodState,
+    /// A coffee or drink's lift owed back, and the game hours until it is.
+    pub lift_owed: Option<(f64, f64)>,
+    /// This load's rest call to dispatch; `None` with no load on.
+    pub rest_call: Option<ff_core::sim::fatigue_costs::RestCall>,
+    /// The stop at the facility gate, while the trip has ended at one.
+    pub gate: Option<ff_core::sim::arrival_gate::GateStop>,
 }
 
 /// The state of a cattle load, for the agent server's inspector.
@@ -333,6 +386,55 @@ impl PlayerInputFrame<'_> {
     /// terminal on it, whatever screen was up. Scenario staging like
     /// `stage_road_hit`: it swaps the whole screen stack for a fresh
     /// terminal, so the board, garage and clock read the new career.
+    /// The agent server's `hazard` tool: fire a catalog hazard by name on
+    /// the drive under way. The event lands through the normal route-event
+    /// path on the next frame, so the call, the assists and the outcome are
+    /// exactly a drawn hazard's.
+    pub fn stage_hazard(&mut self, name: &str) -> Result<String, String> {
+        let state = self
+            .app
+            .state()
+            .ok_or_else(|| "not at the wheel: no screen is up".to_string())?;
+        let mut state = state.borrow_mut();
+        let drive = state
+            .as_any_mut()
+            .downcast_mut::<crate::states::driving::DrivingState>()
+            .ok_or_else(|| "not at the wheel (a menu or stop screen is up)".to_string())?;
+        if drive.ramp_mi.is_some() {
+            return Err("on a ramp or a facility road, where hazards pass you by".to_string());
+        }
+        let staged = drive.trip.stage_hazard(name)?;
+        Ok(format!(
+            "Staged {staged} at mile {:.2}; it fires on the next rolling frame, so listen \
+             for the call.",
+            drive.trip.position_mi
+        ))
+    }
+
+    /// The agent server's `nod` tool: open a nod-off's reaction window on
+    /// the drive under way, on its next rolling frame, with the warning,
+    /// the reaction check and the outcome a counted nod has.
+    pub fn stage_nod(&mut self) -> Result<String, String> {
+        let state = self
+            .app
+            .state()
+            .ok_or_else(|| "not at the wheel: no screen is up".to_string())?;
+        let mut state = state.borrow_mut();
+        let drive = state
+            .as_any_mut()
+            .downcast_mut::<crate::states::driving::DrivingState>()
+            .ok_or_else(|| "not at the wheel (a menu or stop screen is up)".to_string())?;
+        if drive.co_driver_driving() {
+            return Err("the co-driver has the wheel".to_string());
+        }
+        drive.nod_staged = true;
+        Ok(format!(
+            "Staged a nod at mile {:.2}, {} missed in a row so far; it opens on the next \
+             rolling frame, so listen for the warning.",
+            drive.trip.position_mi, drive.nod.misses
+        ))
+    }
+
     pub fn stage_scenario(
         &mut self,
         scenario: &crate::playtest::scenario::Scenario,
@@ -542,7 +644,8 @@ impl App {
             settings.controller_enabled,
             std::env::var_os(crate::controller::NO_CONTROLLER_ENV).as_deref(),
         );
-        let controller = match &shell {
+        let detection = Instant::now();
+        let mut controller = match &shell {
             Some(shell) => ControllerManager::new(
                 pads_allowed,
                 settings.haptics_enabled,
@@ -550,6 +653,7 @@ impl App {
             ),
             None => ControllerManager::detached(pads_allowed, settings.haptics_enabled),
         };
+        crate::controller::sdl::redo_a_stalled_detection(&mut controller, detection.elapsed());
         boot_timing::mark("controller");
         let clipboard: Box<dyn Clipboard> = match &shell {
             Some(shell) => Box::new(shell.clipboard()),
@@ -578,6 +682,9 @@ impl App {
         // tests, the harness, the tools) stay English unless a language is
         // forced for the run, so a developer's own locale never changes a
         // transcript a test reads.
+        if shell.is_some() {
+            language::retire_old_translation_kit();
+        }
         if shell.is_some() || std::env::var_os(language::LANG_ENV).is_some() {
             ctx.apply_language();
         }
@@ -730,6 +837,20 @@ impl App {
                 head: load.head,
                 hours_aboard: load.hours_aboard(),
             }),
+            alertness: drive.alertness,
+            nod: drive.nod,
+            lift_owed: self
+                .ctx
+                .profile
+                .as_ref()
+                .and_then(|p| match p.stimulant_loan() {
+                    ff_core::sim::stimulant::Loan::Open { amount, due_h, .. } => {
+                        Some((amount, due_h - drive.absolute_game_hour(&self.ctx, None)))
+                    }
+                    ff_core::sim::stimulant::Loan::Clear => None,
+                }),
+            rest_call: drive.rest_call_state(),
+            gate: drive.arrival_gate_query_text(&self.ctx).map(|_| drive.gate),
         })
     }
 
@@ -1134,6 +1255,7 @@ impl App {
             self.ctx.say_with(line, Say::queued());
         }
         self.ctx.audio.update(dt); // advance time-based audio fades
+        self.ctx.update_event_voice_report();
         self.ctx.update_speech_duck(); // restore the mix after speech
 
         // Which calendar the player hears, for every date the career speaks.
@@ -1557,7 +1679,14 @@ pub fn main_with(options: CliOptions) -> i32 {
         return 0;
     }
     boot_timing::mark("single instance check");
+    // Before anything is read from the game folder: an update stopped
+    // part-way is put back first (the main menu says so).
+    crate::updater::note_interrupted_update();
+    // The crash marker: set now, cleared on the way out, so a run that
+    // ends any other way is offered as a report next time.
+    crate::problem_reports::begin_session(&ff_core::settings::data_dir());
     let code = run_game(&options);
+    crate::problem_reports::end_session();
     guard.release();
     boot_timing::mark("quit: done");
     code

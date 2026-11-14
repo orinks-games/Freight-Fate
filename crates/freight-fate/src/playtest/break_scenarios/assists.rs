@@ -331,7 +331,7 @@ pub fn ramp_speed_control_handback() -> Outcome {
     // 2. The ramp takes the pedals, never the session.
     if !rig.drive.speed_control_armed {
         findings.push(
-            "taking the exit disarmed automatic speed control outright, so nothing can bring \
+            "taking the exit disarmed cruise outright, so nothing can bring \
              it back but the resume key"
                 .to_string(),
         );
@@ -361,7 +361,7 @@ pub fn ramp_speed_control_handback() -> Outcome {
         findings.push("the ramp terminal never resolved".to_string());
     }
     if rig.drive.cruise_mph.is_some() || rig.drive.keeper_mph.is_some() {
-        findings.push("automatic speed control re-engaged while still on the ramp".to_string());
+        findings.push("cruise re-engaged while still on the ramp".to_string());
     }
 
     // 4. Drive on from the bar -- past the plaza rather than into it, which is
@@ -378,7 +378,7 @@ pub fn ramp_speed_control_handback() -> Outcome {
     rig.release(Key::Up);
     if rig.drive.cruise_mph.is_none() && rig.drive.keeper_mph.is_none() {
         findings.push(
-            "past the stop bar and back up to road speed with automatic speed control still \
+            "past the stop bar and back up to road speed with cruise still \
              dead: the driver has to switch it on by hand"
                 .to_string(),
         );
@@ -391,14 +391,14 @@ pub fn ramp_speed_control_handback() -> Outcome {
     //    same frame as the return and cuts it, and the pacer finishes the cut
     //    line. That is one announcement, heard once, and the rig's transcript
     //    shows it twice.
-    if rig.announced("Automatic speed control paused") > 1 {
+    if rig.announced("Cruise paused") > 1 {
         findings.push("the ramp pause announced itself more than once".to_string());
     }
     if rig.announced("resuming") > 1 {
-        findings.push("automatic speed control announced its return more than once".to_string());
+        findings.push("cruise announced its return more than once".to_string());
     }
     // A line handed back again and again is still a chant at the ear.
-    for phrase in ["Automatic speed control paused", "resuming"] {
+    for phrase in ["Cruise paused", "resuming"] {
         let heard = rig.said(phrase);
         if heard > 2 * rig.announced(phrase).max(1) {
             findings.push(format!(

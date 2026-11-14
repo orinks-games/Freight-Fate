@@ -9,7 +9,7 @@ use ff_core::models::safety_record::{
 };
 use ff_core::pyrandom::PyRandom;
 use ff_core::settings::short_distance_text_for;
-use ff_core::sim::enforcement_posts::{post_seed, KIND_FIXED_SCALE};
+use ff_core::sim::enforcement_posts::post_seed;
 use ff_core::sim::trip_models::{RoadStop, ENFORCEMENT_WARNING_MAX_MI, SCALE_WARNING_REAL_S};
 use ff_core::speech_pacing::SpeechCategory;
 
@@ -29,13 +29,7 @@ impl DrivingState {
     /// Settled once when the trip was built, from a named seeded draw over the
     /// stop's own key, so a reload cannot reopen a dark scale.
     pub fn scale_is_open(&self, stop: &RoadStop) -> bool {
-        let key = stop.key();
-        for post in &self.trip.posts {
-            if post.anchor == key {
-                return post.kind == KIND_FIXED_SCALE;
-            }
-        }
-        false
+        self.trip.scale_open(stop)
     }
 
     /// Lead distance for the open-scale call, sized in real seconds.

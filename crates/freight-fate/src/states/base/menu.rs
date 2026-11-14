@@ -213,14 +213,7 @@ pub trait Menu: Sized + 'static {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
-        let items = self.build_items(ctx);
-        let core = self.menu_mut();
-        core.items = items;
-        core.clamp_index();
-        if let Some(key) = self.menu().open_sound_key.clone() {
-            ctx.audio.play(&key);
-        }
-        self.announce_entry(ctx);
+        default_enter(self, ctx)
     }
 
     fn exit(&mut self, _ctx: &mut GameContext) {}
@@ -271,37 +264,7 @@ pub trait Menu: Sized + 'static {
     }
 
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
-        let Some((key, _mods, text)) = event.key_down() else {
-            return;
-        };
-        if event.key_repeat() && self.held_key_moves_nothing(key) {
-            return;
-        }
-        if self.handle_extra_key(ctx, key) {
-            return;
-        }
-        match key {
-            Key::Down => self.move_by(ctx, 1),
-            Key::Up => self.move_by(ctx, -1),
-            Key::Home => self.jump(ctx, 0),
-            Key::End => {
-                let last = self.menu().items.len().saturating_sub(1);
-                self.jump(ctx, last);
-            }
-            Key::Return | Key::Space | Key::KpEnter => self.activate(ctx),
-            Key::Escape => self.go_back(ctx),
-            Key::F1 => {
-                let help = self.current_help(ctx);
-                ctx.say(&help);
-            }
-            Key::LCtrl | Key::RCtrl => ctx.stop_speech(),
-            _ => {
-                if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
-                    let lower: String = ch.to_lowercase().collect();
-                    self.first_letter_input(ctx, &lower, event.key_repeat());
-                }
-            }
-        }
+        default_handle_event(self, ctx, event)
     }
 
     fn handle_controller(&mut self, ctx: &mut GameContext, event: &InputEvent) {
@@ -343,10 +306,7 @@ pub trait Menu: Sized + 'static {
     }
 
     fn announce_entry(&mut self, ctx: &mut GameContext) {
-        let title = end_sentence(&self.menu().title);
-        ctx.say(&title);
-        let current = self.current_text(ctx);
-        ctx.say_with(current, Say::queued().review(false));
+        default_announce_entry(self, ctx)
     }
 
     fn refresh(&mut self, ctx: &mut GameContext, keep_index: bool) {
@@ -451,8 +411,7 @@ pub trait Menu: Sized + 'static {
     }
 
     fn go_back(&mut self, ctx: &mut GameContext) {
-        ctx.audio.play("ui/menu_back");
-        ctx.pop_state();
+        default_go_back(self, ctx)
     }
 
     /// Change the current option (D-pad left/right). No-op unless the menu
@@ -634,3 +593,68 @@ impl Menu for SimpleMenuState {
 }
 
 impl_state_for_menu!(SimpleMenuState);
+
+/// The provided [`Menu::enter`]: build the rows, keep the cursor in range,
+/// play the open sound and announce. An overriding screen calls this to
+/// fall through.
+pub fn default_enter<S: Menu>(menu: &mut S, ctx: &mut GameContext) {
+    let items = menu.build_items(ctx);
+    let core = menu.menu_mut();
+    core.items = items;
+    core.clamp_index();
+    if let Some(key) = menu.menu().open_sound_key.clone() {
+        ctx.audio.play(&key);
+    }
+    menu.announce_entry(ctx);
+}
+
+/// The provided [`Menu::handle_event`], for an override that handles a key
+/// or two and falls through for the rest. Screens used to keep their own
+/// copies, which missed the held-key guard and [`Menu::handle_extra_key`].
+pub fn default_handle_event<S: Menu>(menu: &mut S, ctx: &mut GameContext, event: &InputEvent) {
+    let Some((key, _mods, text)) = event.key_down() else {
+        return;
+    };
+    if event.key_repeat() && menu.held_key_moves_nothing(key) {
+        return;
+    }
+    if menu.handle_extra_key(ctx, key) {
+        return;
+    }
+    match key {
+        Key::Down => menu.move_by(ctx, 1),
+        Key::Up => menu.move_by(ctx, -1),
+        Key::Home => menu.jump(ctx, 0),
+        Key::End => {
+            let last = menu.menu().items.len().saturating_sub(1);
+            menu.jump(ctx, last);
+        }
+        Key::Return | Key::Space | Key::KpEnter => menu.activate(ctx),
+        Key::Escape => menu.go_back(ctx),
+        Key::F1 => {
+            let help = menu.current_help(ctx);
+            ctx.say(&help);
+        }
+        Key::LCtrl | Key::RCtrl => ctx.stop_speech(),
+        _ => {
+            if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
+                let lower: String = ch.to_lowercase().collect();
+                menu.first_letter_input(ctx, &lower, event.key_repeat());
+            }
+        }
+    }
+}
+
+/// The provided [`Menu::announce_entry`]: the title, then the current row.
+pub fn default_announce_entry<S: Menu>(menu: &mut S, ctx: &mut GameContext) {
+    let title = end_sentence(&menu.menu().title);
+    ctx.say(&title);
+    let current = menu.current_text(ctx);
+    ctx.say_with(current, Say::queued().review(false));
+}
+
+/// The provided [`Menu::go_back`]: the back sound, and pop the screen.
+pub fn default_go_back<S: Menu>(_menu: &mut S, ctx: &mut GameContext) {
+    ctx.audio.play("ui/menu_back");
+    ctx.pop_state();
+}

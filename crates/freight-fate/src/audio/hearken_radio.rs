@@ -18,6 +18,10 @@
 //! * **Titles go through the game's own parsers**, over the metadata exactly
 //!   as the station sent it, so the encoder's ad fields are stripped and a
 //!   Latin-1 title reads as it always has.
+//! * **A YouTube link is resolved first.** The player's own yt-dlp turns it
+//!   into a stream address on a thread of its own ([`super::youtube`]); the
+//!   station counts as connecting, under its YouTube link, until the stream
+//!   it named plays or fails.
 
 use std::time::{Duration, Instant};
 
@@ -25,6 +29,7 @@ use hearken::audio::{Bus, Sound};
 use hearken::radio::{RawTitle, Stream, StreamOptions, StreamState};
 
 use super::hearken_backend::HearkenBackend;
+use super::youtube::{self, Resolve};
 use super::{
     parse_hls_stream_title, parse_icy_stream_title, parse_ogg_stream_title, AudioError,
     RADIO_CONNECT_TIMEOUT_MS, RADIO_NET_BUFFER_MS, RADIO_NET_PREBUF_PERCENT, RADIO_READ_TIMEOUT_MS,
@@ -57,9 +62,17 @@ pub fn radio_stream_options() -> StreamOptions {
 /// A station still connecting: not yet on the music channel.
 pub(super) struct RadioConnect {
     url: String,
-    stream: Stream,
+    pending: Pending,
     fade_ms: u32,
     requested_at: Instant,
+}
+
+/// Where a connecting station has got to.
+enum Pending {
+    /// yt-dlp is still turning the YouTube link into a stream address.
+    Resolving(Resolve),
+    /// The stream is connecting.
+    Opening(Stream),
 }
 
 /// The station on the music channel, beside its feed's sound (its URL is
@@ -88,27 +101,79 @@ impl HearkenBackend {
             self.radio_failed_url = None;
             return Err(AudioError::new("radio stream unavailable"));
         }
+        let pending = if youtube::is_youtube_url(url) {
+            match self.youtube.get(url) {
+                Some(address) => {
+                    Pending::Opening(Stream::open_with(&address, radio_stream_options()))
+                }
+                None => match youtube::resolve(url) {
+                    Ok(resolve) => Pending::Resolving(resolve),
+                    Err(reason) => {
+                        log::warn!("Radio stream unavailable: {url} ({reason})");
+                        return Err(AudioError::new("radio stream unavailable"));
+                    }
+                },
+            }
+        } else {
+            Pending::Opening(Stream::open_with(url, radio_stream_options()))
+        };
         self.cancel_radio_connect();
         self.fade_out_music();
         self.radio_connect = Some(RadioConnect {
             url: url.to_string(),
-            stream: Stream::open_with(url, radio_stream_options()),
+            pending,
             fade_ms,
             requested_at: Instant::now(),
         });
         Ok(())
     }
 
+    /// Open the stream a YouTube link resolved to, or note that it did not
+    /// resolve. True while yt-dlp is still running.
+    fn advance_resolve(&mut self) -> bool {
+        let Some(connect) = self.radio_connect.as_mut() else {
+            return false;
+        };
+        let Pending::Resolving(resolve) = &connect.pending else {
+            return false;
+        };
+        match resolve.poll() {
+            None => true,
+            Some(Ok(address)) => {
+                log::info!("YouTube link resolved: {}", connect.url);
+                connect.pending =
+                    Pending::Opening(Stream::open_with(&address, radio_stream_options()));
+                self.youtube.insert(&connect.url, address);
+                false
+            }
+            Some(Err(reason)) => {
+                log::info!("Radio stream unavailable: {} ({reason})", connect.url);
+                self.radio_failed_url = Some(connect.url.clone());
+                self.radio_connect = None;
+                true
+            }
+        }
+    }
+
     /// Put a station that has started playing on the music channel, or note
     /// one that failed; game thread only, from `update`.
     pub fn collect_radio_stream(&mut self) {
+        if self.advance_resolve() {
+            return;
+        }
         let Some(connect) = self.radio_connect.as_ref() else {
             return;
         };
-        match connect.stream.state() {
+        let Pending::Opening(stream) = &connect.pending else {
+            return;
+        };
+        match stream.state() {
             StreamState::Connecting => return,
             StreamState::Failed(reason) => {
                 log::info!("Radio stream unavailable: {} ({reason})", connect.url);
+                // A stale address is the likeliest reason; the next tune
+                // asks yt-dlp again.
+                self.youtube.forget(&connect.url);
                 self.radio_failed_url = Some(connect.url.clone());
                 self.radio_connect = None;
                 return;
@@ -125,10 +190,13 @@ impl HearkenBackend {
         }
         let RadioConnect {
             url,
-            stream,
+            pending,
             fade_ms,
             requested_at,
         } = connect;
+        let Pending::Opening(stream) = pending else {
+            return;
+        };
         // From silence, now that it is audible.
         let sound = self
             .audio

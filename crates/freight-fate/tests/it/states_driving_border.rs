@@ -141,9 +141,7 @@ fn beaver_creek_approach_and_clearance_charge_ten_on_duty_minutes() {
     harness.drive_frames(1);
     let approach = harness.transcript_text();
     assert!(
-        approach.contains(
-            "Beaver Creek Port of Entry ahead in 2.0 miles, Canada Border Services Agency"
-        ),
+        approach.contains("Beaver Creek Port of Entry in 2.0 miles, Canada Border Services Agency"),
         "{approach}"
     );
 
@@ -336,7 +334,7 @@ fn northbound_blaine_trucks_stop_at_the_canadian_pacific_highway_port() {
     harness.drive_frames(1);
     let approach = harness.transcript_text();
     assert!(
-        approach.contains("Pacific Highway Port of Entry ahead in 2.0 miles"),
+        approach.contains("Pacific Highway Port of Entry in 2.0 miles"),
         "{approach}"
     );
     assert!(

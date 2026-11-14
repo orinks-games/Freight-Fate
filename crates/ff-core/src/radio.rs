@@ -280,6 +280,10 @@ pub trait RadioPlaybackBackend {
         self.play_station(&reception.station, volume)
     }
     fn stop_radio(&mut self);
+    /// A fixable cause, known to the backend, for a station leaving the dial.
+    fn refusal_note(&self, _station: &RadioStation) -> Option<String> {
+        None
+    }
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -558,24 +562,57 @@ pub fn canonical_stream_url(url: &str) -> String {
 /// (built-in, no real_stream) is never grouped -- its id already is one.
 pub fn station_identity(station: &RadioStation) -> String {
     if !station.stream_url.is_empty() {
+        // Only once the shipped catalog has loaded: loading it asks for
+        // identities too, and the table is built from it.
+        if Lazy::get(&DEFAULT_CATALOG).is_some() {
+            if let Some(identity) = SHIPPED_IDENTITIES.get(station.stream_url.as_str()) {
+                return identity.clone();
+            }
+        }
         return normalize_stream_url(&station.stream_url);
     }
     format!("id:{}", station.id)
 }
 
+/// [`normalize_stream_url`] for every shipped station, worked out once.
+/// Every drive builds its dial from the shipped catalog and looks up each
+/// station's identity; running the URL rules for thousands of stations on
+/// every drive was a large share of what starting one cost.
+static SHIPPED_IDENTITIES: Lazy<HashMap<&'static str, String>> = Lazy::new(|| {
+    DEFAULT_CATALOG
+        .iter()
+        .filter(|station| !station.stream_url.is_empty())
+        .map(|station| {
+            (
+                station.stream_url.as_str(),
+                normalize_stream_url(&station.stream_url),
+            )
+        })
+        .collect()
+});
+
 /// Every station sharing a dial identity with at least one other, keyed
 /// by that identity. Solo stations (the overwhelming majority) are left out
 /// entirely so every lookup against this map is a cheap membership check.
 pub(crate) fn identity_siblings(catalog: &[RadioStation]) -> HashMap<String, Vec<RadioStation>> {
-    let mut groups: HashMap<String, Vec<RadioStation>> = HashMap::new();
-    for station in catalog {
+    // Group by index first and clone only the multi-site groups: nearly
+    // every station stands alone, so cloning each one only to drop it again
+    // cost a copy of the whole catalog on every drive.
+    let mut groups: HashMap<String, Vec<usize>> = HashMap::new();
+    for (index, station) in catalog.iter().enumerate() {
         groups
             .entry(station_identity(station))
             .or_default()
-            .push(station.clone());
+            .push(index);
     }
-    groups.retain(|_, stations| stations.len() > 1);
     groups
+        .into_iter()
+        .filter(|(_, indexes)| indexes.len() > 1)
+        .map(|(identity, indexes)| {
+            let stations = indexes.into_iter().map(|i| catalog[i].clone()).collect();
+            (identity, stations)
+        })
+        .collect()
 }
 
 /// The automated tier under the curated catalog, if this build carries one.

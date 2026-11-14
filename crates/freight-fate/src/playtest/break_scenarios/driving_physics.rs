@@ -206,7 +206,7 @@ pub fn dynamite_parking_brake_at_60() -> Outcome {
     let speed = rig.drive.truck().speed_mph();
     rig.drive.toggle_parking_brake(&mut rig.app.ctx);
     rig.app.ctx.run_deferred();
-    if rig.said("dynamited") == 0 {
+    if rig.said("pulled the parking brake") == 0 {
         findings
             .push("no spoken dynamiting consequence for a parking brake pull at 60".to_string());
     }

@@ -41,6 +41,7 @@ mod hearken_engine;
 mod hearken_music;
 mod hearken_radio;
 mod null;
+pub mod youtube;
 
 pub use assets::{
     asset_bytes, asset_bytes_from, asset_length_s, asset_path, asset_path_in, asset_roots,

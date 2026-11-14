@@ -345,9 +345,9 @@ pub fn appointment_text(now_game_hours: f64, hours_from_now: f64, zone: TimeZone
 
 #[cfg(test)]
 mod tests {
-    //! Ported from `tests/test_timezones.py`. The trip-crossing, world-data
-    //! and dispatch-board cases need `sim::trip`, `data::world` and the app
-    //! shell and are ignored until those land.
+    //! Ported from `tests/test_timezones.py`. The two cases that need the
+    //! game's states live in the game crate's tests, as noted where they
+    //! would have been.
     use super::*;
 
     // --- zone derivation ----------------------------------------------------------
@@ -661,11 +661,8 @@ mod tests {
         assert_eq!(events[0], "Crossing into Eastern Time. It is now 12 PM.");
     }
 
-    #[test]
-    #[ignore = "wrong crate: ff-core cannot see the game crate, so this case belongs in crates/freight-fate/tests/ -- states::driving_core::timezone_crossing_message"]
-    fn test_terse_speech_says_only_the_zone() {
-        // TODO(port): terse crossing message is "Central Time."
-    }
+    // test_terse_speech_says_only_the_zone lives in the game crate's
+    // tests/it/states_driving_core.rs, beside timezone_crossing_message.
 
     #[test]
     fn test_local_hour_follows_the_truck_across_the_boundary() {
@@ -761,9 +758,8 @@ mod tests {
         assert!(keys.contains(&("eastern", "central")));
     }
 
-    #[test]
-    #[ignore = "wrong crate: ff-core cannot see the game crate, so this case belongs in crates/freight-fate/tests/ -- JobBoardState detail lines"]
-    fn test_dispatch_detail_quotes_the_local_appointment() {
-        // TODO(port): the F1 detail says "deliver by about" and names a zone.
-    }
+    // test_dispatch_detail_quotes_the_local_appointment is covered in the
+    // game crate by tests/it/dispatch_relay.rs
+    // (test_a_relayed_loads_appointment_counts_from_the_loaded_departure),
+    // which reads the F1 deadline line and its zone-named appointment.
 }

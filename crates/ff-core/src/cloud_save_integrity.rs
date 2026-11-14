@@ -253,7 +253,7 @@ pub fn verify_cloud_revision_with(
     {
         return Err(CloudSaveIntegrityError::new(
             "unverified",
-            "The backup is not server-verified.",
+            "orinks.net has not confirmed this backup.",
         ));
     }
     let built_in;
@@ -485,7 +485,7 @@ mod tests {
         unsigned.as_object_mut().unwrap().remove("sig");
         let missing = verify_cloud_revision(&payload, &unsigned, Some(&keys)).unwrap_err();
         assert_eq!(missing.code, "unverified");
-        assert_eq!(missing.message, "The backup is not server-verified.");
+        assert_eq!(missing.message, "orinks.net has not confirmed this backup.");
 
         let mut future = signed_envelope(&payload, "test-key");
         future["validatorVersion"] = json!(2);

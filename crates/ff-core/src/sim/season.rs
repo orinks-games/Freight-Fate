@@ -755,29 +755,8 @@ mod tests {
         assert!(temperature_text("florida", hours, false).ends_with("Celsius"));
     }
 
-    #[test]
-    #[ignore = "wrong crate: ff-core cannot see the game crate, so this case belongs in crates/freight-fate/tests/ -- needs App, models::profile and states::city"]
-    fn test_terminal_sleep_uses_independent_calendar_with_live_weather() {
-        // TODO(port): CityMenuState._time_weather / _sleep readout regression.
-    }
-
-    #[test]
-    #[ignore = "wrong crate: ff-core cannot see the game crate, so this case belongs in crates/freight-fate/tests/ -- needs App, models::profile and states::city"]
-    fn test_terminal_does_not_present_modeled_temperature_while_live_weather_loads() {
-        // TODO(port): CityMenuState "Time and weather" menu transcript.
-    }
-
-    #[test]
-    #[ignore = "wrong crate: ff-core cannot see the game crate, so this case belongs in crates/freight-fate/tests/ -- needs App, models::profile and states::city"]
-    fn test_terminal_weather_source_ignores_the_online_services_master() {
-        // TODO(port): CityMenuState._time_weather with online_services off.
-    }
-
-    #[test]
-    #[ignore = "wrong crate: ff-core cannot see the game crate, so this case belongs in crates/freight-fate/tests/ -- needs App, models::profile and states::city"]
-    fn test_terminal_reports_old_fresh_observation_as_live_without_updating() {
-        // TODO(port): CityMenuState "Time and weather" with a fresh-old provider.
-    }
+    // The terminal's Time and weather cases from test_season.py need the
+    // game's states; they live in the game crate's tests/it/states_readouts.rs.
 
     /// A date badge must fire on the date the player was told it is.
     ///

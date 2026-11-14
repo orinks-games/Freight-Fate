@@ -372,8 +372,8 @@ mod tests {
         for (jh, jc) in jobs_tight.iter().zip(&jobs_loose) {
             assert_eq!(jh.cargo.key, jc.cargo.key);
             assert!((jh.pay / jc.pay - 1.3 / 0.8).abs() < 0.01);
-            assert!(jh.describe_plain().contains("Market tight."));
-            assert!(jc.describe_plain().contains("Market loose."));
+            assert_eq!(market_condition(jh.market_mult), "tight");
+            assert_eq!(market_condition(jc.market_mult), "loose");
         }
     }
 

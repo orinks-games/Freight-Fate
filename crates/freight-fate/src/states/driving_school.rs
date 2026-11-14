@@ -171,9 +171,9 @@ impl Instructor for RollingBasicsLesson {
         self.say(ctx, text);
     }
 
-    fn on_parking_brake_released(&mut self, ctx: &mut GameContext) {
+    fn on_parking_brake_released(&mut self, ctx: &mut GameContext) -> bool {
         if self.stage != 1 {
-            return;
+            return false;
         }
         if ctx.settings.automatic_transmission {
             self.advance(2);
@@ -189,6 +189,7 @@ impl Instructor for RollingBasicsLesson {
                 "Parking brake released. Shift into first gear.".to_string(),
             );
         }
+        true
     }
 
     fn on_gear_engaged(&mut self, ctx: &mut GameContext) {

@@ -382,8 +382,8 @@ pub const RAMP_ASSIST_APPLY_BAND: f64 = RAMP_ASSIST_RELEASE_BAND;
 pub const ARRIVAL_CREEP_MPH: f64 = 2.0;
 // A facility lane is still road until the final truck-lengths. Hold a modest
 // roll there instead of either coasting to zero short of the entrance or
-// crawling the whole ramp at walking pace. The last 200 feet remain the
-// established two-mile-an-hour gate creep.
+// crawling the whole ramp at walking pace. The last 200 feet keep shedding on
+// the same profile down to the gate walk at the point, never a flat walk.
 pub const FACILITY_LANE_ROLL_MPH: f64 = 12.0;
 pub const ARRIVAL_FINAL_CREEP_MI: f64 = 200.0 / 5280.0;
 // The most pedal the creep may use to hold that walk against the road: enough
@@ -559,6 +559,9 @@ pub const CRUISE_TRIM_LIMIT: f64 = 0.4; // how far trim may pull away from the f
                                         // what the truck can comfortably do, so speed keeps up and the error never grows
                                         // into a governor slam.
 pub const CRUISE_ACCEL_MPH_PER_S: f64 = 2.5;
+// How far over a lower cap the truck must be before cruise says it is easing
+// to it. Under that, the cap only stops a climb, and "easing" would be untrue.
+pub const CRUISE_EASE_SPOKEN_OVER_MPH: f64 = 2.0;
 // Belt and suspenders for the downgrade: even where gravity does the
 // accelerating, cruise must not add throttle as the engine nears the governor.
 // Demand tapers to nothing across this fraction of max RPM below the redline, so
@@ -721,18 +724,14 @@ pub const ACC_FOLLOW_DECEL_MPS2: f64 = 0.35; // gentle planned deceleration whil
 pub const ACC_FOLLOW_CUE_COOLDOWN_S: f64 = 30.0; // minimum quiet time between "Traffic ahead" cues
 pub const ACC_STOPPED_CANCEL_S: f64 = 20.0; // hand control back this many seconds before stopped traffic
 pub const ENGINE_SHUTDOWN_SAFE_MPH: f64 = 5.0; // prevent accidental kill-switch use at speed
-pub const DELIVERY_PARK_MPH: f64 = 3.0; // within this, the gate prompts you to stop
-pub const DOCKING_MAX_MPH: f64 = 0.5; // dock/settle/rest actions need a complete stop
+                                               // The gate's speeds and cadence live beside the gate's state machine.
+pub use ff_core::sim::arrival_gate::{
+    DELIVERY_PARK_MPH, DOCKING_MAX_MPH, GATE_BRAKE_PROMPT_S, GATE_REMINDER_INTERVAL_S,
+};
 pub const PARKING_BRAKE_SETTLE_MAX_MPH: f64 = 3.0; // spring brakes finish a walking-pace stop immediately
-                                                   // How often a facility gate re-speaks its stop instruction while the truck is
-                                                   // still rolling past it. The one-shot warnings latch, so without a cadence a
-                                                   // player who overshot the gate at speed heard them once, minutes ago, and got
-                                                   // silence for the rest of the drive (playtest 2026-07-22: six minutes and the
-                                                   // on-time bonus lost three miles past a delivery entrance).
-pub const GATE_REMINDER_INTERVAL_S: f64 = 10.0;
-// Minimum quiet time between curve-assist spoken cues. The assist state can
-// legitimately cycle when cruise fights the curve brake; the cues must not
-// (playtest 2026-07-22: 23 slowing/released flips in four seconds).
+                                                   // Minimum quiet time between curve-assist spoken cues. The assist state can
+                                                   // legitimately cycle when cruise fights the curve brake; the cues must not
+                                                   // (playtest 2026-07-22: 23 slowing/released flips in four seconds).
 pub const CURVE_ASSIST_CUE_COOLDOWN_S: f64 = 15.0;
 
 /// The three drive phases (`DRIVE_PHASE_*`): plain strings in Python, kept
@@ -744,12 +743,12 @@ pub const DRIVE_PHASE_SCHOOL: &str = "school"; // sandbox practice drive, never 
 // Microsleeps: once fatigue is severe, the driver involuntarily nods off and
 // must respond (steer or brake) within a short window or drift off the road.
 // They come faster the more exhausted you are, and escalate to a forced stop.
-pub const MICROSLEEP_REACTION_S: f64 = 2.2; // real seconds to respond before drifting off
-pub const MICROSLEEP_BASE_GM: f64 = 9.0; // game-minutes between nods at the severe threshold
-pub const MICROSLEEP_MIN_GM: f64 = 3.0; // ...shrinking to this nearer total exhaustion
-pub const MICROSLEEP_COOLDOWN_GM: f64 = 4.0; // quiet period after one resolves
+// The timing lives beside the nod-off machine in `ff_core::sim::alertness`.
+pub use ff_core::sim::alertness::{
+    MICROSLEEP_BASE_GM, MICROSLEEP_COOLDOWN_GM, MICROSLEEP_FORCE_STOP_MISSES, MICROSLEEP_MIN_GM,
+    MICROSLEEP_REACTION_S,
+};
 pub const MICROSLEEP_SHOULDER_DAMAGE_PCT: f64 = 6.0;
-pub const MICROSLEEP_FORCE_STOP_MISSES: i64 = 3; // consecutive misses that force a stop
 
 // Turn earcons come from the side of the maneuver, the same convention as
 // the lane-guidance beeps: hear it on the side you are about to steer toward.

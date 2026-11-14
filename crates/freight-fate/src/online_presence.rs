@@ -128,6 +128,36 @@ pub fn base_url() -> String {
         .to_string()
 }
 
+// The site's backend, answering the game's presence calls itself. The
+// heartbeat, the drivers board and the driver directory go here rather than
+// through orinks.net: every call through the site was a request against its
+// hosting plan's monthly allowance, and a game left open makes them all day.
+// The paths are the same as the site's without the leading /api, and the
+// answers are identical -- the site's routes and these share their code
+// (convex/http.ts and convex/freightFatePublicReads.ts in orinks-net).
+// orinks.net keeps answering on its own paths for older builds.
+pub const PRODUCTION_PRESENCE_API_URL: &str = "https://capable-rabbit-984.convex.site";
+
+/// Overrides the presence backend root, for development and staging.
+pub const ONLINE_API_URL_ENV: &str = "FREIGHT_FATE_ONLINE_API_URL";
+
+/// Where one of the presence endpoints (`presence`, `directory`) lives.
+///
+/// [`ONLINE_API_URL_ENV`] names a backend directly. Without it, a build
+/// pointed at another site with [`ONLINE_URL_ENV`] (a developer's machine,
+/// the staging sandbox, the tests) keeps talking to that site's own routes,
+/// since its backend is not this one; everything else talks to production's
+/// backend.
+pub fn presence_api_url(endpoint: &str) -> String {
+    if let Ok(api) = std::env::var(ONLINE_API_URL_ENV) {
+        return format!("{}/freight-fate/{endpoint}", api.trim_end_matches('/'));
+    }
+    if std::env::var_os(ONLINE_URL_ENV).is_some() {
+        return format!("{}/api/freight-fate/{endpoint}", base_url());
+    }
+    format!("{PRODUCTION_PRESENCE_API_URL}/freight-fate/{endpoint}")
+}
+
 /// The player's driver setup page on whichever Orinks site this build
 /// talks to.
 ///
@@ -259,7 +289,7 @@ pub use identity::{
 /// learned).
 pub fn verify_identity(identity: &OnlineIdentity, transport: &dyn Transport) -> &'static str {
     let reply = transport.call(
-        &format!("{}/api/freight-fate/presence", base_url()),
+        &presence_api_url("presence"),
         Some(&json!({"driverId": identity.driver_id, "activity": "", "detail": ""})),
         &identity.auth_headers(),
         None,
@@ -341,12 +371,7 @@ pub fn set_profile_sharing(
 /// "Drivers on duty" view; never called on the game loop.
 pub fn fetch_board(transport: &dyn Transport) -> Option<Vec<Value>> {
     let reply = transport
-        .call(
-            &format!("{}/api/freight-fate/presence", base_url()),
-            None,
-            &[],
-            None,
-        )
+        .call(&presence_api_url("presence"), None, &[], None)
         .map_err(|e| log::debug!("Online presence board fetch failed: {e}"))
         .ok()?;
     match reply.get("drivers") {
@@ -360,12 +385,7 @@ pub fn fetch_board(transport: &dyn Transport) -> Option<Vec<Value>> {
 /// when the site could not be reached.
 pub fn fetch_directory(transport: &dyn Transport) -> Option<Vec<Value>> {
     let reply = transport
-        .call(
-            &format!("{}/api/freight-fate/directory", base_url()),
-            None,
-            &[],
-            None,
-        )
+        .call(&presence_api_url("directory"), None, &[], None)
         .map_err(|e| log::debug!("Driver directory fetch failed: {e}"))
         .ok()?;
     match reply.get("drivers") {
@@ -830,7 +850,7 @@ impl Inner {
             None => return false,
         };
         let reply = self.transport.call(
-            &format!("{}/api/freight-fate/presence", base_url()),
+            &presence_api_url("presence"),
             Some(&json!({
                 "driverId": identity.driver_id,
                 "activity": activity,

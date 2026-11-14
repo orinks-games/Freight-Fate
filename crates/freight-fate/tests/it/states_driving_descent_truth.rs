@@ -388,8 +388,8 @@ fn a_dip_the_drums_hold_says_nothing() {
 /// "has it". They read one grade and one net-force verdict between them.
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: the readout against the descent control over every bench dip -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: the readout against the descent control over every bench dip"
 )]
 fn the_readout_and_the_descent_control_agree_about_the_road() {
     let mut checked = 0usize;

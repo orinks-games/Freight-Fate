@@ -18,6 +18,7 @@ use ff_core::models::solvency::{apply_return_to_company_driving, company_return_
 use ff_core::models::trailers::{TrailerType, DEFAULT_TRAILER_PROGRAMS, TRAILER_CATALOG};
 use ff_core::models::trucks::{TruckModel, Upgrade, TRUCK_CATALOG, UPGRADE_CATALOG};
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
+use ff_core::sim::alertness::Alertness;
 use ff_core::sim::driving_modes::tuning_for_time_scale;
 use ff_core::sim::hos;
 use ff_core::sim::timezones::to_local;
@@ -236,8 +237,8 @@ impl BusinessStatusState {
         ctx.audio.play("ui/cash");
         ctx.say(&format!(
             "Authority prep reserve set aside: {} dollars. You have {} dollars left. Own \
-             authority unlocks after the delivery, reputation, trailer program, and cash \
-             gates.",
+             authority unlocks after you meet the delivery, reputation, trailer program and \
+             cash requirements.",
             fmt_grouped(AUTHORITY_READY_RESERVE, 0),
             fmt_grouped(money, 0)
         ));
@@ -292,8 +293,8 @@ impl BusinessStatusState {
             "Own authority active. Startup cost \
              {} dollars. You have \
              {} dollars left. Dispatch now lists direct freight. \
-             Settlement includes insurance, compliance, trailer, truck, and \
-             factoring costs.",
+             Settlement includes insurance, compliance, trailer, truck and \
+             billing fees.",
             fmt_grouped(AUTHORITY_ACTIVATION_COST, 0),
             fmt_grouped(money, 0)
         ));
@@ -338,7 +339,7 @@ impl Menu for BusinessStatusState {
                 items.push(
                     MenuItem::new(
                         format!(
-                            "Buy into leased-on owner-operator: {} dollars",
+                            "Owner-operator buy-in: {} dollars",
                             fmt_grouped(OWNER_OPERATOR_BUY_IN, 0)
                         ),
                         |s: &mut Self, ctx| s.become_owner_operator(ctx),
@@ -359,7 +360,7 @@ impl Menu for BusinessStatusState {
                         })
                         .help(
                             "Keep the carrier's tractor and wages. The reminders about the \
-                             buy-in stop; the buy-in itself stays open here.",
+                             buy-in stop. The buy-in itself stays open here.",
                         ),
                     );
                 }
@@ -393,7 +394,7 @@ impl Menu for BusinessStatusState {
                 items.push(
                     MenuItem::new("Own authority active", |s: &mut Self, ctx| s.summary(ctx)).help(
                         "Direct freight is available. Settlement includes \
-                             insurance, compliance, and factoring costs.",
+                             insurance, compliance and billing fees.",
                     ),
                 );
             } else if has_authority_readiness(p) {
@@ -413,7 +414,7 @@ impl Menu for BusinessStatusState {
                             ),
                             |s: &mut Self, ctx| s.activate_authority(ctx),
                         )
-                        .help("Direct freight, higher gross revenue, more business overhead."),
+                        .help("Direct freight, more pay per load, more business costs."),
                     );
                 } else {
                     items.push(
@@ -452,8 +453,8 @@ impl Menu for BusinessStatusState {
                         |s: &mut Self, ctx| s.summary(ctx),
                     )
                     .help(
-                        "Open scales run a weigh-in-motion check on this \
-                         truck instead of demanding every truck pull in.",
+                        "Open weigh stations check this truck as it rolls \
+                         past, so it often does not have to pull in.",
                     ),
                 );
             } else {
@@ -470,8 +471,8 @@ impl Menu for BusinessStatusState {
                         )
                         .help(
                             "A clean truck can be waved past most open scales \
-                             instead of pulling in. Adds a small per-mile \
-                             settlement reserve once active.",
+                             instead of pulling in. Once active, a small \
+                             amount per mile comes out of each settlement.",
                         ),
                     );
                 } else {
@@ -518,8 +519,8 @@ impl UpgradeShopState {
     pub fn new() -> Self {
         UpgradeShopState {
             menu: MenuCore::new("Upgrades").with_intro_help(
-                "Upgrades apply to every tractor you own. Enter buys the next tier, F1 says \
-                 what it does. Escape returns to the garage.",
+                "Upgrades apply to every tractor you own. Enter buys the next tier, F1 is \
+                 details. Escape returns to the garage.",
             ),
         }
     }
@@ -1018,8 +1019,8 @@ impl TrailerProgramState {
         ctx.say(&format!(
             "{} trailer purchased for \
              {} dollars. You have \
-             {} dollars left. Matching direct freight now uses \
-             an owned-trailer reserve at settlement.",
+             {} dollars left. Direct loads for this trailer now \
+             set aside money for its upkeep at settlement.",
             trailer.label,
             fmt_grouped(trailer.purchase_price, 0),
             fmt_grouped(money, 0)
@@ -1090,7 +1091,7 @@ impl EndorsementCourseState {
     pub fn new() -> Self {
         EndorsementCourseState {
             menu: MenuCore::new("Licenses and training").with_intro_help(
-                "Enter books a course, or says why you do not qualify. Courses take game \
+                "Enter books a course. Courses take game \
                  time, and a background check runs while you drive. Escape returns to the \
                  terminal.",
             ),
@@ -1240,12 +1241,12 @@ impl EndorsementCourseState {
 /// no speech category of its own: it is appended to the course completion
 /// line, so it is heard wherever that line is.
 pub fn course_fatigue_cue(fatigue: f64) -> Option<&'static str> {
-    if fatigue >= hos::FATIGUE_SEVERE {
-        Some("You're dangerously drowsy after the course. Sleep before you drive.")
-    } else if fatigue >= hos::FATIGUE_DROWSY {
-        Some("You're drowsy after the course. Sleep before you drive.")
-    } else {
-        None
+    match Alertness::from_fatigue(fatigue) {
+        Alertness::Severe => {
+            Some("You're dangerously drowsy after the course. Sleep before you drive.")
+        }
+        Alertness::Drowsy => Some("You're drowsy after the course. Sleep before you drive."),
+        Alertness::Rested | Alertness::Worn => None,
     }
 }
 

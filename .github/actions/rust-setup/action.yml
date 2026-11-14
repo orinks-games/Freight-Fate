@@ -4,9 +4,8 @@ inputs:
   cache-key:
     description: >-
       The build cache this job shares: `clippy`, `test` or `release`. Jobs
-      that build the same way share one entry across workflows (the
-      nightly's test legs reuse the per-push tests' cache), and jobs that
-      build differently keep apart, since one entry holds one kind of
+      that build the same way share one entry across workflows, and jobs
+      that build differently keep apart, since one entry holds one kind of
       build. rust-cache adds the OS, Cargo.lock and RUSTFLAGS to the key.
     required: true
   linux-packages:
@@ -15,14 +14,25 @@ inputs:
     default: ""
   save-cache:
     description: >-
-      Whether this run saves the rust-cache entry. The default saves from
-      pushes, the nightly and manual runs, not from pull requests: a PR
-      restores its base branch's entry, and saving one per PR would push
-      dev's out of the repository's 10 GB cache budget. sccache still
-      records a PR's own crates, so a second push to the PR is warm where
-      it matters.
+      Whether this run saves the rust-cache entry. The default saves only
+      from main and dev, never from pull requests, tags or other branches.
+      A cache is visible to its own branch, to PRs into it and (for main) to
+      everyone, so an entry saved anywhere else helps no later run and only
+      pushes main's and dev's entries out of the repository's 10 GB cache
+      budget. Over budget GitHub drops the least recently used entries:
+      until 2026-11-08 the nightly's release caches were being dropped
+      within a day and the next build started cold.
     required: false
-    default: ${{ github.event_name != 'pull_request' }}
+    default: ${{ github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') }}
+  sccache:
+    description: >-
+      Also wrap rustc in sccache. Only clippy turns this on: clippy writes
+      small metadata files, and with them sccache rechecks an unchanged
+      ff-core in seconds. Test and release builds leave it off: their hit
+      rate was 0 to 25 percent (2026-11-08) and every miss saved a large
+      library into the same 10 GB budget the rust-cache entries need.
+    required: false
+    default: "false"
 runs:
   using: composite
   steps:
@@ -55,12 +65,14 @@ runs:
         # macOS has no nproc; it reports cores through sysctl.
         echo "CARGO_BUILD_JOBS=$(nproc 2>/dev/null || sysctl -n hw.ncpu)" >> "$GITHUB_ENV"
     # sccache caches compiled crates by content, so a commit that leaves
-    # ff-core alone does not rebuild it although its files are new.
+    # ff-core alone does not recheck it although its files are new.
     # rust-cache keeps the dependencies' artefacts in the target directory,
     # which also holds the C builds (SDL2, Prism) sccache cannot see. It
     # turns incremental compilation off, which sccache needs.
     - uses: mozilla-actions/sccache-action@7d986dd989559c6ecdb630a3fd2557667be217ad # v0.0.9
-    - shell: bash
+      if: inputs.sccache == 'true'
+    - if: inputs.sccache == 'true'
+      shell: bash
       run: |
         echo "RUSTC_WRAPPER=sccache" >> "$GITHUB_ENV"
         echo "SCCACHE_GHA_ENABLED=true" >> "$GITHUB_ENV"

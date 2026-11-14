@@ -69,7 +69,7 @@ fn menu_accelerator_setting_persists_from_controls() {
         .iter()
         .position(|item| {
             item.text(&menu, &app.ctx)
-                .starts_with("Menu accelerator keys:")
+                .starts_with("Letters run menu items:")
         })
         .unwrap();
     menu.menu_mut().index = index;

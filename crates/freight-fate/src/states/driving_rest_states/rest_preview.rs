@@ -55,13 +55,15 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
         .history
         .last()
         .is_some_and(|event| event.source == "full_reset");
+    // A coffee or drink that wears off during the sleep is paid back first,
+    // as the sleep itself does it.
+    let wake_h = d.absolute_game_hour(ctx, None) + minutes / 60.0;
+    let lying_down = (profile.fatigue + profile.stimulant_loan().owed_by(wake_h)).min(100.0);
     let fatigue_after = match choice {
-        SleepChoice::Sleeper(_) if full_reset => hos::rest_sleep(profile.fatigue),
-        SleepChoice::Motel => hos::rest_sleep(profile.fatigue),
-        SleepChoice::Lot => hos::rest_shoulder(profile.fatigue),
-        SleepChoice::Sleeper(_) => {
-            hos::rest_sleeper_split(profile.fatigue, minutes, completed_split)
-        }
+        SleepChoice::Sleeper(_) if full_reset => hos::rest_sleep(lying_down, minutes),
+        SleepChoice::Motel => hos::rest_sleep(lying_down, minutes),
+        SleepChoice::Lot => hos::rest_poor_sleep(lying_down, minutes),
+        SleepChoice::Sleeper(_) => hos::rest_sleeper_split(lying_down, minutes, completed_split),
     };
     let effect = match choice {
         SleepChoice::Lot | SleepChoice::Motel => {
@@ -71,10 +73,10 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
             "A full 10-hour sleep resets your driving hours and legal driving window."
         }
         SleepChoice::Sleeper(_) if completed_split => {
-            "This completes a sleeper split and credits the paired rests."
+            "This finishes a split rest, and both parts count."
         }
         SleepChoice::Sleeper(7 | 8) => {
-            "Your legal driving window pauses while you sleep. This rest alone does not restore driving time; pairing the split can."
+            "Your legal driving window pauses while you sleep. This rest alone does not restore driving time. Pairing the split can."
         }
         SleepChoice::Sleeper(_) => {
             "This sleep alone does not restore driving time. Your legal driving window keeps counting until the split is paired."
@@ -93,7 +95,7 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
             } else {
                 let cutoff = clock_text((wake_hour + duty_left) % 24.0);
                 format!(
-                    "Afterward, driving allowance is {} hours; your legal driving window closes in {} hours at {cutoff}.",
+                    "Afterward, driving allowance is {} hours. Your legal driving window closes in {} hours at {cutoff}.",
                     fmt_f(drive_left, 1),
                     fmt_f(duty_left, 1)
                 )
@@ -125,7 +127,7 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
         String::new()
     };
     format!(
-        "Sleep {span}{more} at {}. {effect} {legal} Fatigue {} to {}. Clock +{span}. \
+        "Sleep {span}{more} at {}. {effect} {legal} Fatigue {} to {}. Clock moves ahead {span}. \
          {deadline}{pending}{cost} Select again to sleep.",
         choice.name(),
         fmt_f(profile.fatigue, 0),

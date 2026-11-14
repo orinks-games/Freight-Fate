@@ -304,8 +304,8 @@ const HOLD_SECONDS: f64 = 900.0;
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: a grid of grades and speeds held on the drums -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: a grid of grades and speeds held on the drums"
 )]
 fn test_the_retarder_line_is_where_the_drums_stop_holding() {
     let held: Vec<Held> = [1.0, 2.0, 3.0, 4.0, 4.5, 5.0, 6.0]

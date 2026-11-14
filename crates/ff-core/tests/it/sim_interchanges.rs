@@ -382,14 +382,14 @@ fn test_next_navigation_context_prioritizes_actionable_stop_over_exit() {
             "rest_stop:0:50:pilot",
             "rest_stop",
             50.0,
-            "travel center ahead at exit 26",
+            "travel center off exit 26",
             "",
         ),
     ];
     trip.position_mi = 30.0;
     assert_eq!(
         trip.next_navigation_context(true),
-        "Next stop in 20 miles: travel center ahead at exit 26."
+        "Next stop in 20 miles: travel center off exit 26."
     );
     assert_eq!(
         trip.next_exit_context(),
@@ -546,7 +546,7 @@ fn test_rest_stop_cue_names_exit_when_linked() {
         .iter()
         .find(|c| c.kind == "rest_stop" && c.key.contains(&target.name))
         .expect("a rest-stop cue for the curated stop");
-    assert!(cue.text.contains("at exit 21"), "{}", cue.text);
+    assert!(cue.text.contains("off exit 21"), "{}", cue.text);
     assert_eq!(cue.near_text, "");
 }
 

@@ -47,8 +47,7 @@ impl DrivingState {
         }
         self.trip.truck.refuel(Some(need));
         self.stop_visit(stop).fueled = true;
-        advance_rest_clock(self, ctx, FUEL_STOP_MIN, None, "");
-        hos_mut_of(ctx).on_duty(FUEL_STOP_MIN);
+        advance_on_duty_clock(self, ctx, FUEL_STOP_MIN, None, "");
         ctx.audio.play("vehicle/fuel_pump");
         let result = profile_mut_of(ctx)
             .loyalty
@@ -116,8 +115,7 @@ impl DrivingState {
         }
         let making_for = wheel.pilot.making_for.clone();
         let purpose = making_for.as_ref().map(|(_, purpose)| *purpose);
-        advance_rest_clock(self, ctx, STOP_PULL_IN_MIN, None, "");
-        hos_mut_of(ctx).on_duty(STOP_PULL_IN_MIN);
+        advance_on_duty_clock(self, ctx, STOP_PULL_IN_MIN, None, "");
         let sells_fuel = stop.actions.iter().any(|action| action == "fuel");
         let fuel = self.trip.truck.fuel_fraction();
         let wants_fuel =
@@ -163,6 +161,7 @@ impl DrivingState {
     fn co_driver_parks_for_rest(&mut self, ctx: &mut GameContext, stop: &RoadStop, left: f64) {
         shut_down_engine(self, ctx);
         advance_rest_clock(self, ctx, left, Some("sleeper_berth"), "");
+        settle_lift_before_sleep(self, ctx);
         hos_mut_of(ctx).sleeper(left);
         if let Some(team) = self.team.as_mut() {
             // The sleeper minutes above complete the ten hours; this only
@@ -172,7 +171,7 @@ impl DrivingState {
             }
         }
         let profile = profile_mut_of(ctx);
-        profile.fatigue = hos::rest_sleep(profile.fatigue);
+        profile.fatigue = hos::rest_sleep(profile.fatigue, left);
         log::info!(
             target: TRANSCRIPT_TARGET,
             "[co-driver] parks at {} and the driver sleeps {left:.0} more minutes",
@@ -214,16 +213,14 @@ impl DrivingState {
         }
         self.stop_visit(stop).inspected = true;
         let (line, weight) = if self.decal_waves_through(ctx) {
-            advance_rest_clock(self, ctx, WAVE_THROUGH_MIN, None, "");
-            hos_mut_of(ctx).on_duty(WAVE_THROUGH_MIN);
+            advance_on_duty_clock(self, ctx, WAVE_THROUGH_MIN, None, "");
             record_inspection(ctx);
             (
                 format!("{name} checked in at {place}. The inspection decal got the truck waved through."),
                 NoteWeight::Passing,
             )
         } else if !self.scale_selects_driver(ctx, stop) {
-            advance_rest_clock(self, ctx, WAVE_THROUGH_MIN, None, "");
-            hos_mut_of(ctx).on_duty(WAVE_THROUGH_MIN);
+            advance_on_duty_clock(self, ctx, WAVE_THROUGH_MIN, None, "");
             record_inspection(ctx);
             (
                 format!("{name} checked in at {place} and was waved through."),

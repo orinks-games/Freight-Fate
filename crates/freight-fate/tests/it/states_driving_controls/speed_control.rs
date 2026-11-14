@@ -247,7 +247,7 @@ fn test_shift_k_resumes_the_remembered_speed() {
     assert_eq!(d.speed_control_target_mph, Some(60.0));
     assert_eq!(
         last(&app),
-        "Resuming automatic speed control at 60 miles per hour."
+        "Resuming cruise at 60 miles per hour."
     );
 }
 
@@ -267,7 +267,7 @@ fn test_resume_refuses_without_a_remembered_speed_or_an_engine() {
     d.speed_control_armed = true;
     app.clear_speech();
     d.handle_key_event(&mut app.ctx, &InputEvent::key_mods(Key::K, Mods::SHIFT));
-    assert_eq!(last(&app), "Automatic speed control is already on.");
+    assert_eq!(last(&app), "Cruise is already on.");
 }
 
 #[test]
@@ -444,8 +444,8 @@ fn throttle_latch_speech(app: &TestApp) -> Vec<String> {
             let lower = l.to_lowercase();
             lower.contains("throttle latched")
                 || l == "Throttle released."
-                || lower.contains("adaptive cruise holds the speed")
-                || lower.contains("speed keeper holds the speed")
+                || lower.contains("cruise holds the speed")
+                || lower.contains("cruise holds the speed")
         })
         .collect()
 }

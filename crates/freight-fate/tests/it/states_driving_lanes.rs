@@ -874,7 +874,7 @@ fn test_the_taper_warns_a_truck_in_the_lane_that_is_closing() {
     let said = logged(&app)[log_from..].to_vec();
     assert!(said
         .first()
-        .is_some_and(|s| s.contains("closes at the work zone ahead")));
+        .is_some_and(|s| s.contains("closes at the work zone")));
     assert_eq!(
         said.iter()
             .filter(|s| s.contains("closes at the work zone"))
@@ -901,7 +901,7 @@ fn test_the_taper_refuses_a_move_into_the_lane_that_is_closing() {
     assert_eq!(d.lane.lane, 0);
     assert_eq!(
         app.main_lines(),
-        vec!["The left lane closes at the work zone ahead."]
+        vec!["The left lane closes at the work zone."]
     );
 }
 
@@ -1102,10 +1102,7 @@ fn test_traffic_pressure_hazard_says_brake_only_with_no_lane_to_swerve_into() {
         .filter(|e| e.kind == TripEventKind::Hazard)
         .collect();
     assert!(!events.is_empty());
-    assert_eq!(
-        events[0].text(),
-        "Brake! Brake lights right ahead. No lane open."
-    );
+    assert_eq!(events[0].text(), "Brake! Brake lights. No lane open.");
     assert!(!events[0].text().contains("change lanes"));
     // And the physics is told the same thing the words were: there is
     // nowhere to go, so no lane-change allowance is added to the driver's
@@ -1137,7 +1134,7 @@ fn test_traffic_pressure_hazard_keeps_the_lane_offer_when_one_exists() {
     assert!(!events.is_empty());
     assert_eq!(
         events[0].text(),
-        "Change lanes or brake! Brake lights right ahead. Left lane open."
+        "Change lanes or brake! Brake lights. Left lane open."
     );
 }
 
@@ -1173,18 +1170,24 @@ fn test_random_dodgeable_hazard_says_brake_only_with_no_lane_to_swerve_into() {
         let Some(event) = trip.events.iter().find(|e| e.kind == TripEventKind::Hazard) else {
             continue;
         };
-        if !event.text().contains("Debris on the road") {
+        if !event
+            .text()
+            .contains("A ladder fallen from a truck in the lane")
+        {
             continue;
         }
-        assert_eq!(event.text(), "Brake! Debris on the road. No lane open.");
+        assert_eq!(
+            event.text(),
+            "Brake! A ladder fallen from a truck in the lane. No lane open."
+        );
         // Same rule for an object as for a vehicle: no lane, no dodge. The
-        // debris is still in our lane, so brake alone still owes the near
-        // stop -- that is `in_lane`, not `dodgeable`.
+        // ladder is still in our lane, so brake alone still owes its
+        // brake-to speed -- that is `in_lane`, not `dodgeable`.
         assert_eq!(event.data.dodgeable, Some(false));
         assert_eq!(event.data.in_lane, Some(true));
         return;
     }
-    panic!("no seed in 0..400 drew debris on the road");
+    panic!("no seed in 0..400 drew the ladder");
 }
 
 /// One lane your side: the lingering hint must not offer a lane change, and a
@@ -1203,27 +1206,22 @@ fn test_hazard_hint_and_clearing_need_no_lane_when_there_is_none() {
     rolling(&mut d, 65.0);
     d.hazard_deadline = Some(5.0);
     // One lane our side: an object in it is not dodgeable, and the emitter
-    // says so now. It is still in the lane, which is what the hint and the
-    // near stop both key on.
+    // says so now. It is still in the lane, which is what the near stop
+    // keys on (a hard object: no debris class).
     d.hazard_dodgeable = false;
     d.hazard_in_lane = true;
     d.hazard_lane = d.lane.lane;
-    d.hazard_slow_hint_said = false;
     d.automatic_braking_announced = false;
     app.clear_speech();
     let log_from = app.ctx.message_log.messages.len();
 
-    // Slow past the old moving-hazard speed: the hint fires once, and never
-    // names a lane change.
+    // Slow past the old moving-hazard speed: nothing is said. The "It is
+    // still in your lane. Nearly stop." hint went on 2026-11-09; the call
+    // and the tone already carried it (owner).
     d.trip.truck.velocity_mps = (HAZARD_SAFE_MPH - 1.0) / MPH_PER_MPS;
     d.update_hazard(&mut app.ctx, 1.0 / 60.0);
     let said = logged(&app)[log_from..].to_vec();
-    assert_eq!(
-        said.iter()
-            .filter(|s| s.as_str() == "It is still in your lane. Nearly stop.")
-            .count(),
-        1
-    );
+    assert!(!said.iter().any(|s| s.contains("Nearly stop")), "{said:?}");
     assert!(!said.iter().any(|s| s.contains("change lanes")));
 
     // Never changed lanes: nearly stopping alone still clears it.

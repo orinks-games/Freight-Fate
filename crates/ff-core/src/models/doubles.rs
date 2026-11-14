@@ -104,18 +104,16 @@ pub const TURNPIKE_DOUBLE_REARWARD_AMPLIFICATION: f64 = 1.3589;
 pub const REAR_TRAILER_FREIGHT_SHARE: f64 = 0.5;
 
 /// Spoken and shown when reverse is refused with doubles hooked.
-pub const DOUBLES_NO_REVERSE_TEXT: &str = "Reverse refused. You don't back a set of \
-     doubles: the converter dolly is a second pivot and the rear trailer jackknifes within \
-     a few feet. Pull forward and go around instead.";
+pub const DOUBLES_NO_REVERSE_TEXT: &str = "Reverse refused. Backing a set of doubles \
+     jackknifes the rear trailer within a few feet. Pull forward and go around instead.";
 
 /// Spoken and shown when a quick steer swings the rear trailer hard.
 pub const REAR_TRAILER_WHIP_TEXT: &str = "The rear trailer whipped on that steer and \
-     shifted its freight. On doubles the back trailer swings harder than the tractor, so ease \
-     into lane changes.";
+     shifted its freight. Ease into lane changes with doubles.";
 
 /// The whip line for an empty set, which has no freight to shift.
-pub const REAR_TRAILER_WHIP_EMPTY_TEXT: &str = "The rear trailer whipped on that steer. On \
-     doubles the back trailer swings harder than the tractor, so ease into lane changes.";
+pub const REAR_TRAILER_WHIP_EMPTY_TEXT: &str = "The rear trailer whipped on that steer. Ease \
+     into lane changes with doubles.";
 
 /// The whip line, spoken and shown, for a set with or without freight.
 pub fn rear_trailer_whip_text(loaded: bool) -> &'static str {
@@ -279,11 +277,8 @@ pub fn doubles_hook_text(cargo_key: &str) -> String {
         return String::new();
     }
     format!(
-        "A set of doubles is two hook-ups, about {} minutes more, and a walk-around of \
-         both trailers and the converter dolly, about {} minutes more: {} extra minutes \
-         on duty.",
-        DOUBLES_SECOND_HOOK_MIN as i64,
-        DOUBLES_WALK_AROUND_EXTRA_MIN as i64,
+        "A set of doubles adds {} minutes on duty: a second hook-up and a walk-around of \
+         both trailers and the converter dolly.",
         doubles_hook_extra_min(cargo_key) as i64
     )
 }
@@ -295,8 +290,8 @@ pub fn doubles_break_text(cargo_key: &str) -> String {
         return String::new();
     }
     format!(
-        "Breaking a set of doubles is dropping the rear trailer, unhooking and parking \
-         the converter dolly, then dropping the lead trailer: about {} extra minutes on duty.",
+        "Breaking the set adds about {} minutes on duty: drop the rear trailer, park the \
+         converter dolly, then drop the lead trailer.",
         doubles_break_extra_min(cargo_key) as i64
     )
 }
@@ -342,8 +337,8 @@ mod tests {
         assert_eq!(walk_around_extra_min(2), 10.0);
         assert_eq!(walk_around_extra_min(1), 0.0);
         let text = doubles_hook_text("parcel_doubles");
-        assert!(text.contains("two hook-ups"), "{text}");
-        assert!(text.contains("25 extra minutes"), "{text}");
+        assert!(text.contains("a second hook-up"), "{text}");
+        assert!(text.contains("adds 25 minutes on duty"), "{text}");
         assert!(doubles_hook_text("general").is_empty());
     }
 
@@ -372,9 +367,8 @@ mod tests {
     fn the_refused_reverse_reads_exactly() {
         assert_eq!(
             DOUBLES_NO_REVERSE_TEXT,
-            "Reverse refused. You don't back a set of doubles: the converter dolly is a \
-             second pivot and the rear trailer jackknifes within a few feet. Pull forward and \
-             go around instead."
+            "Reverse refused. Backing a set of doubles jackknifes the rear trailer within a \
+             few feet. Pull forward and go around instead."
         );
     }
 

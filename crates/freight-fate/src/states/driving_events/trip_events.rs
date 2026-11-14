@@ -8,7 +8,7 @@ use ff_core::models::trailer_yard::pickup_plan;
 use ff_core::pyrandom::PyRandom;
 use ff_core::sim::driving_modes::tuning_for_time_scale;
 use ff_core::sim::trip::is_highway_zone_reason;
-use ff_core::sim::trip_models::{TripEvent, TripEventKind};
+use ff_core::sim::trip_models::{DebrisClass, TripEvent, TripEventKind};
 use ff_core::speech_pacing::SpeechCategory;
 use ff_core::speech_text::{
     cruise_curve_easing, cruise_curve_paused, cruise_curve_paused_assisted, curve_assist_slowing,
@@ -298,21 +298,46 @@ impl DrivingState {
         if self.ramp_mi.is_some() {
             return; // off the highway: the hazard passes you by
         }
-        // The queue is NOT discarded here any more. A hazard blocks the
-        // drain while it is live and the waiting lines age out on their
-        // own if it runs long; a short one no longer costs the driver the
-        // state line they were crossing when it fired.
-        ctx.audio.play(sound.unwrap_or("ui/warning"));
-        ctx.controller.rumble.hazard(); // 750 ms right->left sweep
-                                        // The deadline is the moment the assist has to act plus the time
-                                        // that is the driver's own. The rolled window covers hearing the
-                                        // warning and getting on the pedal, and fatigue eats into that
-                                        // part only -- a drowsy driver reacts late, but the truck stops
-                                        // no slower, and no driver reacts below the human floor.
-                                        // A dodgeable hazard sits in the lane you are in *now*; ending up
-                                        // in any other lane before the deadline clears it, if that lane
-                                        // is actually open (see _finish_lane_change). By brake alone it
-                                        // takes nearly a stop, so its deadline budgets the longer stop.
+        let debris = event.data.debris;
+        let small_debris = debris == Some(DebrisClass::Small);
+        // Small debris asks for nothing of the brakes, so its call is a
+        // heads-up, not a hazard: the road cue tone, a short buzz, and the
+        // hazard tone keeps meaning "act now" (owner, 2026-11-09). Spoken
+        // as traffic, except where the driver steers and a lane is open --
+        // the one case the line asks for a tap, so it keeps its words at
+        // quiet. The event's own category was judged SAFETY by the caller,
+        // which is why the tone is re-judged here.
+        let small_debris_category =
+            if ctx.settings.lane_is_automated() || !event.data.dodgeable.unwrap_or(false) {
+                SpeechCategory::Traffic
+            } else {
+                SpeechCategory::NavigationAdvisory
+            };
+        let small_debris_speaks = small_debris && ctx.event_speaks(Some(small_debris_category));
+        if small_debris {
+            if small_debris_speaks {
+                ctx.audio.play("ui/notify");
+            }
+            ctx.controller
+                .rumble
+                .alert_with(0.3, ff_core::rumble::ALERT_DURATION_MS);
+        } else {
+            // The queue is NOT discarded here any more. A hazard blocks the
+            // drain while it is live and the waiting lines age out on their
+            // own if it runs long; a short one no longer costs the driver the
+            // state line they were crossing when it fired.
+            ctx.audio.play(sound.unwrap_or("ui/warning"));
+            ctx.controller.rumble.hazard(); // 750 ms right->left sweep
+        }
+        // The deadline is the moment the assist has to act plus the time
+        // that is the driver's own. The rolled window covers hearing the
+        // warning and getting on the pedal, and fatigue eats into that
+        // part only -- a drowsy driver reacts late, but the truck stops
+        // no slower, and no driver reacts below the human floor.
+        // A dodgeable hazard sits in the lane you are in *now*; ending up
+        // in any other lane before the deadline clears it, if that lane
+        // is actually open (see _finish_lane_change). By brake alone it
+        // takes nearly a stop, so its deadline budgets the longer stop.
         let name = event
             .data
             .name
@@ -341,10 +366,15 @@ impl DrivingState {
         // of itself, not of the combined wording the fold branch below
         // settles on.
         let fatigue = profile_of(ctx).fatigue;
-        let new_deadline = self.hazard_deadline_for(
-            slack * reaction * hos::reaction_window_mult(fatigue),
-            Some(shape),
-        );
+        let window = slack * reaction * hos::reaction_window_mult(fatigue);
+        let new_deadline = if small_debris {
+            // Nothing brakes for it, so there is no stop to budget: the
+            // call's own lead, plus the lane change it may be answered with.
+            window.max(HAZARD_MIN_REACTION_S) + if dodgeable { LANE_TAP_CHANGE_S } else { 0.0 }
+        } else {
+            self.hazard_deadline_for(window, Some(shape))
+        };
+        let strike_pct = event.data.strike_pct.unwrap_or(0.0);
         if self.hazard_deadline.is_none() {
             // A fresh hazard starts the assist from an open pedal, with
             // nothing measured yet from the last one.
@@ -354,6 +384,8 @@ impl DrivingState {
             self.hazard_in_lane = in_lane;
             self.hazard_animal = animal;
             self.hazard_brake_to_mph = brake_to_mph;
+            self.hazard_debris = debris;
+            self.hazard_strike_pct = strike_pct;
             self.hazard_lead_mph = lead_mph;
             self.hazard_deadline = Some(new_deadline);
             self.hazard_lane = self.lane.lane;
@@ -371,6 +403,8 @@ impl DrivingState {
             self.hazard_in_lane = in_lane;
             self.hazard_animal = animal;
             self.hazard_brake_to_mph = brake_to_mph;
+            self.hazard_debris = debris;
+            self.hazard_strike_pct = strike_pct;
             self.hazard_lead_mph = lead_mph;
             self.hazard_deadline = Some(new_deadline);
             self.hazard_lane = self.lane.lane;
@@ -388,9 +422,12 @@ impl DrivingState {
             // the ladder asks, and a deer folding into a lane change does
             // not call the change off. Only an all-animal group is left to
             // the outcome at the deadline.
-            if animal {
-                // The group's answer stands.
-            } else if self.hazard_animal {
+            if animal || debris == Some(DebrisClass::Small) {
+                // The group's answer stands: tread is driven over, so it
+                // adds nothing to how the group is braked for either.
+            } else if self.hazard_animal || self.hazard_debris == Some(DebrisClass::Small) {
+                // A tread-only group, like an all-animal one, has no
+                // braking answer of its own, so the newcomer's is the one.
                 self.hazard_in_lane = in_lane;
                 self.hazard_dodgeable = dodgeable;
                 self.hazard_brake_to_mph = brake_to_mph;
@@ -423,6 +460,20 @@ impl DrivingState {
                 self.hazard_dodgeable = self.hazard_dodgeable && dodgeable;
             }
             self.hazard_animal = self.hazard_animal && animal;
+            // The group is taken the way its hardest member asks: tread
+            // folding into a ladder is a ladder, and anything folding in
+            // with a hard object (or an animal, which keeps the group's
+            // answer) is braked for as that object asks.
+            if !animal {
+                self.hazard_debris = match (self.hazard_debris, debris) {
+                    (Some(DebrisClass::Small), Some(DebrisClass::Small)) => {
+                        Some(DebrisClass::Small)
+                    }
+                    (Some(_), Some(_)) => Some(DebrisClass::Big),
+                    _ => None,
+                };
+                self.hazard_strike_pct = self.hazard_strike_pct.max(strike_pct);
+            }
             self.hazard_deadline = self.hazard_deadline.map(|live| live.min(new_deadline));
         }
         // _hazard_lane is stamped by the two FRESH branches above and by
@@ -433,10 +484,13 @@ impl DrivingState {
         // happened every time I was changing lanes until the two-three
         // repeats are done" -- Shane, 2026-08-21, and that is the loop.
         // The lane belongs to the hazard, not to the truck.
-        self.hazard_slow_hint_said = false;
         // Lane keeping on full answers a slow vehicle by passing it, and the
         // call says so instead of asking the driver to change lanes.
-        let mut category = Self::event_category(event);
+        let mut category = if small_debris {
+            Some(small_debris_category)
+        } else {
+            Self::event_category(event)
+        };
         let message = match event.data.pass_message.clone() {
             Some(pass) if self.hazard_dodgeable && self.pass_for_hazard(ctx, event) => {
                 // Lane keeping is answering it, so nothing is asked of the
@@ -461,8 +515,10 @@ impl DrivingState {
         // An animal leaves it alone at the call: the call names the animal
         // and asks nothing more (owner, 2026-10-19). If the automatic brake
         // takes the truck for it, that pauses the cruise as it always does.
+        // Small debris pauses nothing: the truck drives over it at speed.
         let speed_control_was_active = !self.hazard_dodgeable
             && !self.hazard_animal
+            && self.hazard_debris != Some(DebrisClass::Small)
             && (self.speed_control_armed || self.cruise_mph.is_some() || self.keeper_mph.is_some());
         if speed_control_was_active {
             // Hands back on the wheel to brake -- but the session stays
@@ -477,14 +533,19 @@ impl DrivingState {
         // The normal/terse pair rides the event from the sim layer; the
         // delivery layer picks the rendering (R5), so no rewriting here.
         let message = if speed_control_was_active {
-            message.plus("Automatic speed control paused.")
+            message.plus("Cruise paused.")
         } else {
             message
         };
         self.last_event_message = message.normal.clone();
         if self.co_driver_driving() {
             let line = message.normal.clone();
-            self.co_driver_hazard_call(ctx, sound.unwrap_or("ui/warning"), &line);
+            let cue = if small_debris {
+                "ui/notify"
+            } else {
+                sound.unwrap_or("ui/warning")
+            };
+            self.co_driver_hazard_call(ctx, cue, &line);
         }
         // A hazard call may only come back while the hazard is still
         // live. An interrupting line hands back what it cut so the cut
@@ -504,7 +565,13 @@ impl DrivingState {
         // question Python asks is whether a hazard is armed at all, not how
         // much of its window is nominally left.
         self.refresh_live_facts();
-        let mut opts = SayEvent::new().valid(live::hazard_active);
+        // A heads-up queues behind what is being said; a hazard cuts in.
+        let mut opts = if small_debris {
+            SayEvent::queued().priority(EventPriority::Important)
+        } else {
+            SayEvent::new()
+        }
+        .valid(live::hazard_active);
         opts.category = category;
         ctx.say_event_with(message, opts);
     }
@@ -802,14 +869,21 @@ impl DrivingState {
                             if ahead <= 0.0 {
                                 return None;
                             }
+                            let scale = stop.stop_type == "weigh_station";
+                            let open = scale.then(|| drive.trip.scale_open(&stop));
+                            let parking_normal = if scale {
+                                String::new()
+                            } else {
+                                stop.parking_text()
+                            };
                             let parts = StopCalloutParts {
                                 planned_prefix: drive.trip.planned_prefix(&stop),
                                 typed_name: &typed_name,
                                 plain_name: &stop.name,
                                 exit_label: &stop.exit_label,
                                 distance: &drive.trip.ahead_text(ahead),
-                                parking_normal: &stop.parking_text(),
-                                parking_certainty: &stop.parking,
+                                parking_normal: &parking_normal,
+                                parking_certainty: if scale { "likely" } else { &stop.parking },
                                 // Already signaled: "Press X to signal for the
                                 // exit" with the signal on asks for a press
                                 // that would cancel it, or move it off the
@@ -818,14 +892,15 @@ impl DrivingState {
                                 // on full signals for itself.
                                 exit_hint: if drive.exit_signal_on
                                     || drive.exit_is_armed_for(&stop)
-                                    || (stop.stop_type == "weigh_station"
-                                        && ctx.settings.lane_is_automated())
+                                    || open == Some(false)
+                                    || (scale && ctx.settings.lane_is_automated())
                                 {
                                     ""
                                 } else {
                                     &exit_hint
                                 },
                                 fuel: stop.fuel_callout(),
+                                open,
                             };
                             // The rung's rendering, as the line had when it
                             // queued: re-rendered as the normal form, quiet
@@ -857,6 +932,7 @@ impl DrivingState {
             );
             return;
         }
+        let message = self.without_signal_request_once_armed(event, message);
         if let Some(sound) = sound {
             // A turn earcon belongs to the words that name the turn. The
             // maneuver lead is NAVIGATION_ADVISORY, which the quiet rungs
@@ -901,6 +977,20 @@ impl DrivingState {
             self.refresh_live_facts();
             let named = event.data.limit_mph;
             opts = opts.valid(move || live::limit_line_holds(named));
+        }
+        if kind == TripEventKind::StopAhead {
+            // A planned stop's call cut mid-sentence comes back only while
+            // the exit is still ahead, and, when it asks for the signal,
+            // only while the signal is off: the X that cut it set the signal,
+            // and "Press X to signal" handed back after that asked for a
+            // press that cancels it (agent drive, I-40, 2026-11-04).
+            if let Some(stop_at) = event.data.stop.as_ref().map(|stop| stop.at_mi) {
+                let asks_for_signal = message.normal.contains("to signal");
+                self.refresh_live_facts();
+                opts = opts.valid(move || {
+                    live::position_mi() < stop_at && !(asks_for_signal && live::exit_signal_on())
+                });
+            }
         }
         ctx.say_event_with(message, opts);
         // Any spoken route line pushes spaced ambient chatter back, so
@@ -1094,6 +1184,14 @@ impl DrivingState {
     /// quiet, a tone at urgent_only, which is what makes those two rungs
     /// different settings.
     pub fn event_category(event: &TripEvent) -> Option<SpeechCategory> {
+        if event.kind == TripEventKind::StopAhead && event.data.planned.unwrap_or(false) {
+            // The stop the player planned is where they mean to exit, and
+            // this call is when to signal for it. As a heads-up it went
+            // silent at urgent only, and a driver who planned a rest stop
+            // heard nothing until "Past your planned stop" (Orinks,
+            // 2026-11-04).
+            return Some(SpeechCategory::Navigation);
+        }
         if event.kind == TripEventKind::GpsCue && event.data.limit_change.unwrap_or(false) {
             // "Speed limit raised to 55" is the road's state; S answers it on
             // demand. The other GPS cues -- merge onto this highway, take that
@@ -1310,7 +1408,7 @@ impl DrivingState {
             );
             ctx.play_event_cue(category, "ui/notify", 1.0, 0.0);
             let keeper = ctx.settings.speed_text(self.keeper_mph.unwrap_or(0.0));
-            let message = message.plus(&format!("Speed keeper holding {keeper}."));
+            let message = message.plus(&format!("Cruise holding {keeper}."));
             let mut opts = SayEvent::queued().priority(EventPriority::Important);
             opts.category = category;
             ctx.say_event_with(message, opts);
@@ -1406,7 +1504,7 @@ impl DrivingState {
             }
         }
         if evidence.is_empty() {
-            evidence = vec!["HOS/ELD violation".to_string()];
+            evidence = vec!["hours-of-service violation".to_string()];
         }
         let evidence_text = evidence.join(", ");
         ctx.audio.play("ui/error");
@@ -1430,22 +1528,27 @@ impl DrivingState {
                 "ten hours"
             };
             let return_message = if break_only {
-                "Back on the highway after the 30-minute break. Keep the logbook clean."
+                "Back on the highway after the 30-minute break."
             } else if oos_minutes >= hos::RESTART_MIN {
-                "Back on the highway with a fresh cycle. Keep the logbook clean."
+                "Back on the highway with a fresh cycle."
             } else {
-                "Back on the highway with a reset clock. Keep the logbook clean."
+                "Back on the highway with a reset clock."
             };
-            let summary = format!(
-                "{} Evidence: {evidence_text}. The officer writes the order: out of service, \
-                 {oos_phrase}, right here.",
-                event.text()
-            );
-            let lights = format!(
-                "Lights and siren behind you for a log check. Signal with {} and stop on the \
-                 shoulder.",
-                ctx.control_hint("take_exit")
-            );
+            // What happened and the citation, nothing else: where the stop
+            // was is the lights line's, and the scale's "wave you in" said
+            // shoulder and weigh station in one breath (owner, 2026-11-04).
+            let summary = format!("Out of service {oos_phrase}. Citation: {evidence_text}.");
+            let lights = if self.driving_hints(ctx) {
+                format!(
+                    "Lights and siren behind you for a log check. Signal with {} and stop on \
+                     the shoulder.",
+                    ctx.control_hint("take_exit")
+                )
+            } else {
+                "Lights and siren behind you for a log check. Signal and stop on the \
+                 shoulder."
+                    .to_string()
+            };
             self.begin_enforcement_pull_over(
                 ctx,
                 "hos_out_of_service",
@@ -1467,7 +1570,7 @@ impl DrivingState {
                 0.0f64.max(profile.career.reputation - hos::HOS_REPUTATION_HIT);
         }
         let message = format!(
-            "{} Evidence: {evidence_text}. Fined {} dollars, and your reputation took a hit.",
+            "{} Citation: {evidence_text}. Fined {} dollars, and your reputation took a hit.",
             event.text(),
             ff_core::pyfmt::fmt_grouped(fine, 0)
         );
@@ -1484,7 +1587,8 @@ impl DrivingState {
         self.place_out_of_service_minutes(ctx, OUT_OF_SERVICE_MIN);
     }
 
-    /// Park for `minutes`. A full 10-hour order resets the clock and fatigue;
+    /// Park for `minutes`. A full 10-hour order resets the clock and sleeps
+    /// fatigue off by the hour;
     /// a 30-minute break order only takes the missed break.
     pub fn place_out_of_service_minutes(&mut self, ctx: &mut GameContext, minutes: f64) {
         // Written now, served in full below before this returns: the truck is
@@ -1493,13 +1597,15 @@ impl DrivingState {
         let written_h = crate::states::driving_rest_states::record_hours(ctx, self);
         advance_rest_clock(self, ctx, minutes, None, "");
         if minutes >= hos::RESTART_MIN {
+            settle_lift_before_sleep(self, ctx);
             hos_mut_of(ctx).restart();
             let profile = profile_mut_of(ctx);
-            profile.fatigue = hos::rest_sleep(profile.fatigue);
+            profile.fatigue = hos::rest_sleep(profile.fatigue, minutes);
         } else if minutes >= hos::SLEEP_MIN {
+            settle_lift_before_sleep(self, ctx);
             hos_mut_of(ctx).sleep();
             let profile = profile_mut_of(ctx);
-            profile.fatigue = hos::rest_sleep(profile.fatigue);
+            profile.fatigue = hos::rest_sleep(profile.fatigue, minutes);
         } else {
             hos_mut_of(ctx).take_break(minutes);
             let profile = profile_mut_of(ctx);

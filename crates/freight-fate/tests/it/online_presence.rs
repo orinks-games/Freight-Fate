@@ -16,11 +16,12 @@ use freight_fate::discord_presence::PresenceState;
 use freight_fate::net::testing::{FakeTransport, ManualClock};
 use freight_fate::net::{header, NetError, SharedTransport};
 use freight_fate::online_presence::{
-    base_url, client_version, client_version_for, fetch_board, request_headers,
+    base_url, client_version, client_version_for, fetch_board, presence_api_url, request_headers,
     set_profile_sharing, take_secret_store_timeout_notice, verify_identity, IdentityStore,
     MemoryStore, OnlineIdentity, OnlinePresence, OnlinePresenceOptions, RefusingStore, SecretStore,
-    HEARTBEAT_INTERVAL_S, IDLE_SIGNOFF_S, MIN_CHANGE_INTERVAL_S, OFF_DUTY_GRACE_S, PACKAGE_VERSION,
-    PAUSED_ACTIVITY, RADIO_CLAUSE, TOKEN_SERVICE,
+    HEARTBEAT_INTERVAL_S, IDLE_SIGNOFF_S, MIN_CHANGE_INTERVAL_S, OFF_DUTY_GRACE_S,
+    ONLINE_API_URL_ENV, PACKAGE_VERSION, PAUSED_ACTIVITY, PRODUCTION_PRESENCE_API_URL,
+    RADIO_CLAUSE, TOKEN_SERVICE,
 };
 use freight_fate::updater::BuildInfo;
 
@@ -144,9 +145,12 @@ fn test_first_update_posts_immediately_with_credentials() {
     service.update(Some(driving()));
 
     let request = &transport.requests()[0];
-    assert_eq!(
-        request.url,
-        format!("{}/api/freight-fate/presence", base_url())
+    // Production's backend or, under an override, a site's own route; both
+    // end the same way (presence_api_url is checked on its own below).
+    assert!(
+        request.url.ends_with("/freight-fate/presence"),
+        "{}",
+        request.url
     );
     assert_eq!(
         request.payload,
@@ -894,6 +898,41 @@ fn test_base_url_env_override() {
 }
 
 #[test]
+fn test_presence_calls_go_to_the_backend_and_overrides_keep_their_own_site() {
+    // One lock for every writer of these process-global names.
+    let _env = freight_fate::app::testing::env_lock();
+    std::env::remove_var("FREIGHT_FATE_ONLINE_URL");
+    std::env::remove_var(ONLINE_API_URL_ENV);
+
+    // A player's build: straight to production's backend, no /api prefix.
+    let production = (presence_api_url("presence"), presence_api_url("directory"));
+
+    // A build pointed at another site keeps that site's own routes.
+    std::env::set_var("FREIGHT_FATE_ONLINE_URL", "https://staging.example/");
+    let staged = presence_api_url("directory");
+
+    // Naming a backend outright wins over both.
+    std::env::set_var(ONLINE_API_URL_ENV, "https://example-123.convex.site/");
+    let named = presence_api_url("presence");
+
+    std::env::remove_var(ONLINE_API_URL_ENV);
+    std::env::remove_var("FREIGHT_FATE_ONLINE_URL");
+
+    assert_eq!(
+        production,
+        (
+            format!("{PRODUCTION_PRESENCE_API_URL}/freight-fate/presence"),
+            format!("{PRODUCTION_PRESENCE_API_URL}/freight-fate/directory"),
+        )
+    );
+    assert_eq!(staged, "https://staging.example/api/freight-fate/directory");
+    assert_eq!(
+        named,
+        "https://example-123.convex.site/freight-fate/presence"
+    );
+}
+
+#[test]
 fn test_bypass_header_absent_without_the_env_var() {
     let headers = request_headers(&[], None);
     assert!(header(&headers, "x-vercel-protection-bypass").is_none());
@@ -914,7 +953,7 @@ fn test_verify_identity_ok_posts_an_off_duty_signoff() {
     let transport = FakeTransport::replying(json!({"ok": true, "cleared": true}));
     assert_eq!(verify_identity(&identity(), transport.as_ref()), "ok");
     let request = &transport.requests()[0];
-    assert!(request.url.ends_with("/api/freight-fate/presence"));
+    assert!(request.url.ends_with("/freight-fate/presence"));
     // Empty activity means "off duty": validating never puts us on the board.
     assert_eq!(
         request.payload,

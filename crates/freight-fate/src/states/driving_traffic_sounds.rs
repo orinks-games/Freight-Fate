@@ -84,18 +84,53 @@ pub struct HeardVehicle {
     pub rate: f64,
 }
 
-/// The loop for a traffic class, falling back to the car.
+/// The loop for a traffic class, falling back to the car: the first take of
+/// the class, which every crossing and test that names a class gets.
 pub fn traffic_sound_key(vehicle_class: &str) -> &'static str {
+    traffic_sound_takes(vehicle_class)[0]
+}
+
+/// Every take of a class's loop. The commonest classes have more than one,
+/// so a string of cars is a string of different cars (owner, 2026-11-04:
+/// "we only have like three or four traffic items").
+pub fn traffic_sound_takes(vehicle_class: &str) -> &'static [&'static str] {
     match vehicle_class.trim().to_lowercase().as_str() {
-        "semi" => "traffic/semi_loop",
-        "box truck" | "service vehicle" => "traffic/box_truck_loop",
-        "pickup" => "traffic/pickup_loop",
-        "motorcycle" => "traffic/motorcycle_loop",
-        "bus" => "traffic/bus_loop",
-        "tractor" => "traffic/tractor_loop",
-        "state trooper" => "traffic/trooper_loop",
-        _ => "traffic/car_loop",
+        "semi" => &[
+            "traffic/semi_loop",
+            "traffic/semi_loop_2",
+            "traffic/semi_loop_3",
+        ],
+        "tanker" => &["traffic/tanker_loop"],
+        "car hauler" => &["traffic/car_hauler_loop"],
+        "box truck" | "service vehicle" => &["traffic/box_truck_loop"],
+        "pickup" => &["traffic/pickup_loop", "traffic/pickup_loop_2"],
+        "suv" => &["traffic/suv_loop", "traffic/suv_loop_2"],
+        "minivan" => &["traffic/minivan_loop"],
+        "sports car" => &["traffic/sports_car_loop"],
+        "rv" => &["traffic/rv_loop"],
+        "motorcycle" => &["traffic/motorcycle_loop", "traffic/motorcycle_loop_2"],
+        "bus" => &["traffic/bus_loop"],
+        "tractor" => &["traffic/tractor_loop"],
+        "state trooper" => &["traffic/trooper_loop"],
+        _ => &[
+            "traffic/car_loop",
+            "traffic/car_loop_2",
+            "traffic/car_loop_3",
+        ],
     }
+}
+
+/// The take one vehicle keeps for as long as it exists, picked from its
+/// stable id so it never changes voice mid-pass.
+pub fn traffic_sound_key_for(vehicle_class: &str, vehicle_id: &str) -> &'static str {
+    let takes = traffic_sound_takes(vehicle_class);
+    // FNV-1a: stable across runs and platforms.
+    let mut hash: u32 = 0x811c_9dc5;
+    for byte in vehicle_id.bytes() {
+        hash ^= u32::from(byte);
+        hash = hash.wrapping_mul(0x0100_0193);
+    }
+    takes[hash as usize % takes.len()]
 }
 
 /// Level for a vehicle `distance_ft` away: falling as one over the square
@@ -232,7 +267,7 @@ impl DrivingState {
             let approach = -closing_mph * along_share;
             heard.push(HeardVehicle {
                 id: format!("main:{}", vehicle.key),
-                key: traffic_sound_key(&vehicle.vehicle_class),
+                key: traffic_sound_key_for(&vehicle.vehicle_class, &vehicle.key),
                 distance_ft: distance,
                 volume: traffic_sound_volume_within(distance, hear_ft)
                     * diverged
@@ -263,7 +298,7 @@ impl DrivingState {
                 let approach = -vehicle.speed_mph * toward * across_share;
                 heard.push(HeardVehicle {
                     id: format!("cross:{}", vehicle.id),
-                    key: traffic_sound_key(vehicle.vehicle_class),
+                    key: traffic_sound_key_for(vehicle.vehicle_class, &vehicle.id.to_string()),
                     distance_ft: distance,
                     volume: traffic_sound_volume(distance) * rolling_share(vehicle.speed_mph),
                     pan: traffic_sound_pan(across, setback),

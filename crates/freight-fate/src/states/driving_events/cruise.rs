@@ -50,7 +50,7 @@ impl DrivingState {
         }
         if self.speed_control_armed || self.keeper_mph.is_some() || self.cruise_mph.is_some() {
             self.disarm_speed_control(ctx);
-            self.say_plain(ctx, "Automatic speed control off.");
+            self.say_plain(ctx, "Cruise off.");
             return;
         }
         let position = self.trip.position_mi;
@@ -68,7 +68,7 @@ impl DrivingState {
             let minimum = ctx.settings.speed_text(CRUISE_MIN_MPH);
             self.say_plain(
                 ctx,
-                format!("Adaptive cruise needs the engine running and at least {minimum}."),
+                format!("Cruise needs the engine running and at least {minimum}."),
             );
             return;
         }
@@ -133,8 +133,6 @@ impl DrivingState {
         self.acc_following = false;
         self.acc_weather_gap_said = false;
         self.acc_limit_capped = false;
-        self.acc_limit_cap_said = None;
-        self.acc_limit_hold = None;
         self.acc_weather_cap_said = None;
         let mut effective_mph = match self.cruise_exit_mph {
             Some(exit) => set.min(exit),
@@ -164,6 +162,15 @@ impl DrivingState {
             posted + ACC_LIMIT_OFFSET_MPH
         };
         if cap_mph < effective_mph {
+            // The line below names this cap, so the loop must not announce
+            // it again as news.
+            self.acc_limit_cap_said = Some(
+                self.acc_limit_cap_said
+                    .map_or(cap_mph, |said| said.min(cap_mph)),
+            );
+            if !restricted {
+                self.trip.note_limit_preannounced(cap_mph);
+            }
             effective_mph = cap_mph;
             exit_note = match limit_reason.as_deref() {
                 Some("construction" | "construction merge") => {
@@ -178,6 +185,9 @@ impl DrivingState {
                 }
                 _ => format!(" for the {} limit", ctx.settings.speed_value(posted)),
             };
+        } else if self.acc_limit_hold.is_none() && self.construction_slowdown.is_none() {
+            // Nothing ahead is being slowed for: the next drop is news.
+            self.acc_limit_cap_said = None;
         }
         let effects = self.trip.weather.effects();
         if effects.is_adverse() && effects.safe_speed_mph < effective_mph {
@@ -195,7 +205,7 @@ impl DrivingState {
             ctx.audio.play_with("ui/notify", 0.5, 0.0);
         }
         let message = format!(
-            "Adaptive cruise {} at {}{exit_note}.",
+            "Cruise {} at {}{exit_note}.",
             if transition_label.is_some() {
                 "resuming"
             } else {
@@ -245,7 +255,7 @@ impl DrivingState {
         // below. Telling a paused driver to press K sent them to the key that
         // switches it off (2026-09-28).
         if self.cruise_mph.is_none() && self.keeper_mph.is_none() && !self.speed_control_armed {
-            self.say_plain(ctx, "Adaptive cruise off.");
+            self.say_plain(ctx, "Cruise off.");
             return;
         }
         let base = match self.speed_control_target_mph {
@@ -264,7 +274,7 @@ impl DrivingState {
                 let ramp_target = target.min(exit);
                 let message = SpokenMessage::with_terse(
                     format!(
-                        "Open-road cruise target {}. Ramp approach target {}.",
+                        "Cruise speed {}. Ramp approach {}.",
                         ctx.settings.speed_text(target),
                         ctx.settings.speed_text(ramp_target)
                     ),
@@ -281,17 +291,14 @@ impl DrivingState {
                 // control they are holding, so a sentence per press is the
                 // unit repeated, not information (owner, 2026-08-17).
                 let message = SpokenMessage::with_terse(
-                    format!("Adaptive cruise {}.", ctx.settings.speed_text(target)),
+                    format!("Cruise {}.", ctx.settings.speed_text(target)),
                     format!("{}.", self.speed_number(ctx, target)),
                 );
                 ctx.say_with(message, Say::new().category(SpeechCategory::Confirmation));
             }
         } else {
             let message = SpokenMessage::with_terse(
-                format!(
-                    "Open-road cruise target {}.",
-                    ctx.settings.speed_text(target)
-                ),
+                format!("Cruise speed {}.", ctx.settings.speed_text(target)),
                 format!("{}.", self.speed_number(ctx, target)),
             );
             ctx.say_with(message, Say::new().category(SpeechCategory::Confirmation));
@@ -342,7 +349,7 @@ impl DrivingState {
         if !self.trip.truck.engine_on || (target_mph.is_none() && speed < KEEPER_MIN_MPH) {
             self.say_plain(
                 ctx,
-                "The speed keeper needs the engine running and the truck rolling.",
+                "Cruise needs the engine running and the truck rolling.",
             );
             return;
         }
@@ -382,7 +389,7 @@ impl DrivingState {
             // throttle, and a driver who assumed it still held speed needs to
             // hear that (automation-handoff sweep, 2026-08-20, the deferred
             // 2026-08-15 audit).
-            self.say_route_confirmation(ctx, "Speed keeper off.");
+            self.say_route_confirmation(ctx, "Cruise off.");
             return;
         }
         let position = self.trip.position_mi;
@@ -484,7 +491,7 @@ impl DrivingState {
                 target_mph = KEEPER_MIN_MPH.max(*ahead_mph - KEEPER_EASE_UNDERSHOOT_MPH);
                 // "Easing" is a line about slowing down. A truck already
                 // under the number, building speed from a stop, is not being
-                // eased: it heard "speed keeper easing to 15" while climbing
+                // eased: it heard "cruise easing to 15" while climbing
                 // from 9 (agent drive A, 2026-09-24). Nor is one inside the
                 // keeper's own ripple over it, which the snub threshold
                 // polices. Left unmarked, so the line still comes if the
@@ -499,8 +506,8 @@ impl DrivingState {
                 if !matches!(ahead_reason.as_str(), "turn" | "curve") && fresh {
                     self.keeper_ease_said = Some(*ahead_mph);
                     let reason = match ahead_reason.as_str() {
-                        "construction" => "Construction zone ahead",
-                        "heavy traffic" => "Heavy traffic ahead",
+                        "construction" => "Construction zone",
+                        "heavy traffic" => "Heavy traffic",
                         _ => "Posted limit lower",
                     };
                     // ROUTE, not the ambient default: same family as the adaptive
@@ -513,11 +520,8 @@ impl DrivingState {
                     self.say_route_confirmation(
                         ctx,
                         SpokenMessage::with_terse(
-                            format!("{reason}; speed keeper easing to {eased}."),
-                            format!(
-                                "Speed keeper easing to {}.",
-                                ctx.settings.speed_value(*ahead_mph)
-                            ),
+                            format!("{reason}, cruise easing to {eased}."),
+                            format!("Cruise easing to {}.", ctx.settings.speed_value(*ahead_mph)),
                         ),
                     );
                     // This line already named the number for a plain posted-limit
@@ -554,7 +558,7 @@ impl DrivingState {
         }
         // Publish what the keeper is really holding and why, for the status
         // keys, the way the cruise loop does. A slow car held the truck at 51
-        // through twenty miles of a 58 zone while Space answered "speed keeper
+        // through twenty miles of a 58 zone while Space answered "cruise
         // holding 58" every time, with no reason: the number was the set one
         // and nothing named the car (agent drive, I-35, 2026-09-11).
         self.keeper_held_mph = Some(target_mph);
@@ -562,7 +566,7 @@ impl DrivingState {
             .as_ref()
             .is_some_and(|c| (target_mph - c.lead.speed_mph).abs() < 0.01)
         {
-            "for the traffic ahead".to_string()
+            "for the traffic".to_string()
         } else {
             String::new()
         };
@@ -760,7 +764,7 @@ impl DrivingState {
         let held = ctx.settings.speed_text(self.trip.truck.speed_mph());
         let mut opts = SayEvent::queued();
         opts.category = Some(SpeechCategory::Status);
-        ctx.say_event_with(format!("Speed keeper down to {held} on this grade."), opts);
+        ctx.say_event_with(format!("Cruise down to {held} on this grade."), opts);
     }
 
     /// Hand the keeper back up to street speed when the street changes.
@@ -805,9 +809,9 @@ impl DrivingState {
         // handoff sweep, 2026-08-20, the deferred 2026-08-15 audit).
         let held = ctx.settings.speed_text(limit);
         let spoken = if zone_reason == "acceleration lane" {
-            format!("Speed keeper building to {held} for the merge.")
+            format!("Cruise building to {held} for the merge.")
         } else if zone_reason == KEEPER_OPEN_ROAD_BRIDGE {
-            format!("Speed keeper building to {held}.")
+            format!("Cruise building to {held}.")
         } else {
             keeper_holding_line(&held, zone_reason)
         };
@@ -891,10 +895,7 @@ impl DrivingState {
                 ""
             };
             let held = ctx.settings.speed_text(target_mph);
-            self.say_safety_interrupt(
-                ctx,
-                &format!("Speed keeper can't hold {held}{because}. Brake."),
-            );
+            self.say_safety_interrupt(ctx, &format!("Cruise can't hold {held}{because}. Brake."));
         }
     }
 
@@ -933,11 +934,11 @@ impl DrivingState {
     }
 }
 
-/// "Speed keeper holding 30 miles per hour through the work zone", or no
+/// "Cruise holding 30 miles per hour through the work zone", or no
 /// zone at all on a street, which is just a street (`spoken_zone`).
 pub(crate) fn keeper_holding_line(held: &str, zone_reason: &str) -> String {
     match ff_core::sim::trip::spoken_zone(zone_reason) {
-        Some(zone) => format!("Speed keeper holding {held} through {zone}."),
-        None => format!("Speed keeper holding {held}."),
+        Some(zone) => format!("Cruise holding {held} through {zone}."),
+        None => format!("Cruise holding {held}."),
     }
 }

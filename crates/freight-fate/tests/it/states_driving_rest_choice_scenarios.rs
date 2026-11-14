@@ -67,7 +67,7 @@ fn break_then_three_hours_preserves_the_short_rest_cost() {
     );
     assert_eq!(with_drive(&drive, |d| d.trip.game_minutes), 210.0);
     let woke = app.main_lines().join(" ");
-    assert!(woke.contains("did NOT reset your hours"), "{woke}");
+    assert!(woke.contains("did not reset your hours"), "{woke}");
     assert!(woke.contains("8.5 hours left to deliver"), "{woke}");
 }
 
@@ -98,7 +98,7 @@ fn both_orders_of_seven_three_credit_only_after_the_pair() {
         app.clear_speech();
         activate(&mut state, &mut app.ctx, &second_row);
         let preview = app.main_lines().join(" ");
-        assert!(preview.contains("completes a sleeper split"), "{preview}");
+        assert!(preview.contains("finishes a split rest"), "{preview}");
         assert!(
             preview.contains("driving allowance is 10.0 hours"),
             "{preview}"

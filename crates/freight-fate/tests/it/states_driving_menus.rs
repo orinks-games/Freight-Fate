@@ -499,11 +499,8 @@ fn test_damage_and_low_fuel_still_speak_when_they_matter() {
 fn test_settlement_pays_the_driver_and_parks_them_at_the_terminal() {
     let mut app = TestApp::new();
     let joined = settle(&mut app, 0.0, 1.0).summary_lines.join(" ");
-    assert!(
-        joined.contains("Delivered 18 tons of electronics"),
-        "{joined}"
-    );
-    assert!(joined.contains("Net driver pay:"), "{joined}");
+    assert!(joined.contains("Load: 18 tons of electronics."), "{joined}");
+    assert!(joined.contains(". Net 1,150 dollars."), "{joined}");
     assert!(joined.contains("Money after settlement:"), "{joined}");
     // "Parked at {place} in the {city} service area", or just "Parked in
     // the {city} service area" when nothing honest names a place.

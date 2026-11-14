@@ -468,7 +468,7 @@ fn test_facility_stopping_chains_up_before_a_colorado_level_2_area() {
         assist(&mut app, &drive, false);
         assert_eq!(pending(&drive), Some(ChainStopKind::Install));
         let cue = format!(
-            "Chain-up area ahead. Stopping to put chains on, about {} minutes on duty.",
+            "Chain-up area. Stopping to put chains on, about {} minutes on duty.",
             want as i64
         );
         assert!(lines(&app).contains(&cue), "{:?}", lines(&app));
@@ -670,7 +670,7 @@ fn test_no_chain_up_without_time_in_the_14_hour_window() {
     assert!(pending(&drive).is_none());
     assert!(
         lines(&app).contains(
-            &"Chain-up needs about 30 minutes and your 14-hour window has 20 left. Find a place \
+            &"Chain-up needs about 30 minutes and your duty window has 20 left. Find a place \
               to stop."
                 .to_string()
         ),

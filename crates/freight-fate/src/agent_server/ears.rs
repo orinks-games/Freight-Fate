@@ -172,6 +172,12 @@ impl SpeechSink for TeeSpeech {
     fn is_speaking(&self) -> bool {
         self.inner.is_speaking()
     }
+    fn event_voice_report(&mut self) -> Option<crate::speech::VoiceReport> {
+        self.inner.event_voice_report()
+    }
+    fn main_voice_report(&mut self) -> Option<crate::speech::VoiceReport> {
+        self.inner.main_voice_report()
+    }
     fn startup_hold(&self) -> std::time::Duration {
         self.inner.startup_hold()
     }

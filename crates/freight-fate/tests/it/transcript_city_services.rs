@@ -128,7 +128,7 @@ fn test_city_service_snapshot_drops_to_terminal() {
     assert_eq!(profile.money(), 4_321.0);
     assert_eq!(profile.game_hours, 88.0);
     assert!(app.main_lines().iter().any(|line| line
-        == "Local service drives were retired in this update; you are parked at the terminal."));
+        == "Local service drives were retired in this update. You are parked at the terminal."));
 
     // The clear must reach disk, not just the in-memory profile, so the
     // notice does not replay on every future load of this save.

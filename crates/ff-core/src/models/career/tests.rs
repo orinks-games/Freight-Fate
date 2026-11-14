@@ -467,6 +467,6 @@ fn test_summary_spells_money_and_miles_with_thousands_separators() {
         text.starts_with("Level 3, Solo Company Driver. 2500 experience. 2,000 more to level 4. ")
     );
     assert!(text.contains(
-        "3 deliveries, 67 percent on time. 12,346 lifetime miles, 98,765 dollars earned."
+        "Deliveries 3, 67 percent on time. 12,346 lifetime miles, 98,765 dollars earned."
     ));
 }

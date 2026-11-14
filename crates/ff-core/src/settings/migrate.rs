@@ -521,6 +521,9 @@ impl Settings {
             // lands on the setting they were already hearing.
             s.driving_speech = DEFAULT_DRIVING_SPEECH.to_string();
         }
+        if s.update_channel == "dev" {
+            s.update_channel = "beta".to_string();
+        }
         if !UPDATE_CHANNELS.contains(&s.update_channel.as_str()) {
             s.update_channel = String::new();
         }

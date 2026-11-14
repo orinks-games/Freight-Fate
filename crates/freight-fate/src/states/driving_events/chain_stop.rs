@@ -12,8 +12,8 @@ use ff_core::speech_pacing::SpeechCategory;
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, clock_text, deadline_text, hos_mut_of, hos_of, is_night, profile_mut_of,
-    profile_of, CHAIN_INSTALL_FATIGUE, CHAIN_INSTALL_MIN, CHAIN_INSTALL_NIGHT_FATIGUE,
+    advance_on_duty_clock, clock_text, deadline_text, hos_of, is_night, profile_mut_of, profile_of,
+    CHAIN_INSTALL_FATIGUE, CHAIN_INSTALL_MIN, CHAIN_INSTALL_NIGHT_FATIGUE,
     CHAIN_INSTALL_NIGHT_MULT, CHAIN_REMOVE_FATIGUE, CHAIN_REMOVE_MIN, CHAIN_REPAIR_MIN,
     CHAIN_REPAIR_WEAR_RESTORE, CHAIN_SAFE_MPH, CHAIN_TIGHTEN_MIN, CHAIN_TIGHTEN_WEAR_RESTORE,
 };
@@ -81,6 +81,14 @@ impl DrivingState {
         self.trip.truck.chain_wear_pct = 0.0;
     }
 
+    /// The minutes a chain-up takes now: longer in the dark, and longer
+    /// for a tired driver.
+    pub fn chain_install_min(&self, ctx: &GameContext) -> f64 {
+        let night = is_night(self.trip.local_hour());
+        let base = CHAIN_INSTALL_MIN * if night { CHAIN_INSTALL_NIGHT_MULT } else { 1.0 };
+        self.hand_work_min(ctx, base)
+    }
+
     /// Put the chains on at a stop (on duty), or None after "Come to a complete stop first."
     /// Shared by the pause menu and facility stopping assistance.
     pub fn do_install_chains(&mut self, ctx: &mut GameContext) -> Option<String> {
@@ -89,14 +97,13 @@ impl DrivingState {
             return None;
         }
         let night = is_night(self.trip.local_hour());
-        let minutes = CHAIN_INSTALL_MIN * if night { CHAIN_INSTALL_NIGHT_MULT } else { 1.0 };
+        let minutes = self.chain_install_min(ctx);
         let fatigue = if night {
             CHAIN_INSTALL_NIGHT_FATIGUE
         } else {
             CHAIN_INSTALL_FATIGUE
         };
-        advance_rest_clock(self, ctx, minutes, Some("on_duty_not_driving"), "chain up");
-        hos_mut_of(ctx).on_duty(minutes);
+        advance_on_duty_clock(self, ctx, minutes, Some("on_duty_not_driving"), "chain up");
         {
             let p = profile_mut_of(ctx);
             p.fatigue = (p.fatigue + fatigue).min(100.0);
@@ -139,14 +146,14 @@ impl DrivingState {
             ctx.audio.play("ui/error");
             return Some("No repair links left. The chain stays off.".to_string());
         }
-        advance_rest_clock(
+        let minutes = self.hand_work_min(ctx, CHAIN_REPAIR_MIN);
+        advance_on_duty_clock(
             self,
             ctx,
-            CHAIN_REPAIR_MIN,
+            minutes,
             Some("on_duty_not_driving"),
             "repair chain",
         );
-        hos_mut_of(ctx).on_duty(CHAIN_REPAIR_MIN);
         profile_mut_of(ctx).set_chain_repair_links(links - 1);
         self.trip.truck.chain_wear_pct = 100.0 - CHAIN_REPAIR_WEAR_RESTORE;
         self.trip.truck.chains_on = true;
@@ -158,7 +165,7 @@ impl DrivingState {
         Some(format!(
             "Chain repaired with a spare link. Back on in {} minutes. Check it again soon. \
              It is {}. {}",
-            fmt_f(CHAIN_REPAIR_MIN, 0),
+            fmt_f(minutes, 0),
             clock_text(self.trip.local_hour()),
             deadline_text(self, ctx)
         ))
@@ -171,21 +178,21 @@ impl DrivingState {
             ctx.say("Come to a complete stop first.");
             return None;
         }
-        advance_rest_clock(
+        let minutes = self.hand_work_min(ctx, CHAIN_TIGHTEN_MIN);
+        advance_on_duty_clock(
             self,
             ctx,
-            CHAIN_TIGHTEN_MIN,
+            minutes,
             Some("on_duty_not_driving"),
             "tighten chains",
         );
-        hos_mut_of(ctx).on_duty(CHAIN_TIGHTEN_MIN);
         self.trip.truck.chain_wear_pct =
             (self.trip.truck.chain_wear_pct - CHAIN_TIGHTEN_WEAR_RESTORE).max(0.0);
         self.chain_tightened = true;
         ctx.audio.play("ui/notify");
         Some(format!(
             "Chains tightened in {} minutes. It is {}. {}",
-            fmt_f(CHAIN_TIGHTEN_MIN, 0),
+            fmt_f(minutes, 0),
             clock_text(self.trip.local_hour()),
             deadline_text(self, ctx)
         ))
@@ -198,14 +205,14 @@ impl DrivingState {
             ctx.say("Come to a complete stop first.");
             return None;
         }
-        advance_rest_clock(
+        let minutes = self.hand_work_min(ctx, CHAIN_REMOVE_MIN);
+        advance_on_duty_clock(
             self,
             ctx,
-            CHAIN_REMOVE_MIN,
+            minutes,
             Some("on_duty_not_driving"),
             "remove chains",
         );
-        hos_mut_of(ctx).on_duty(CHAIN_REMOVE_MIN);
         {
             let p = profile_mut_of(ctx);
             p.fatigue = (p.fatigue + CHAIN_REMOVE_FATIGUE).min(100.0);
@@ -222,7 +229,7 @@ impl DrivingState {
         };
         let text = format!(
             "Chains off in {} minutes. {state_word} It is {}. {}",
-            fmt_f(CHAIN_REMOVE_MIN, 0),
+            fmt_f(minutes, 0),
             clock_text(self.trip.local_hour()),
             deadline_text(self, ctx)
         );
@@ -297,7 +304,7 @@ impl DrivingState {
                     format!(
                         "Chain broke. Pulling over to fix it with a spare link, about {} \
                          minutes on duty.",
-                        fmt_f(CHAIN_REPAIR_MIN, 0)
+                        fmt_f(self.hand_work_min(ctx, CHAIN_REPAIR_MIN), 0)
                     ),
                 );
                 return;
@@ -318,7 +325,7 @@ impl DrivingState {
                 ctx,
                 format!(
                     "Chain slapping. Pulling over to tighten, about {} minutes on duty.",
-                    fmt_f(CHAIN_TIGHTEN_MIN, 0)
+                    fmt_f(self.hand_work_min(ctx, CHAIN_TIGHTEN_MIN), 0)
                 ),
             );
             return;
@@ -345,12 +352,7 @@ impl DrivingState {
                     );
                     return;
                 }
-                let minutes = CHAIN_INSTALL_MIN
-                    * if is_night(self.trip.local_hour()) {
-                        CHAIN_INSTALL_NIGHT_MULT
-                    } else {
-                        1.0
-                    };
+                let minutes = self.chain_install_min(ctx);
                 let window = limits(&ctx.settings.hos_mode)
                     .map(|(_, duty_limit, _)| duty_limit - hos_of(ctx).duty_min);
                 if let Some(left) =
@@ -359,7 +361,7 @@ impl DrivingState {
                     Self::say_chain_stop(
                         ctx,
                         format!(
-                            "Chain-up needs about {} minutes and your 14-hour window has {} \
+                            "Chain-up needs about {} minutes and your duty window has {} \
                              left. Find a place to stop.",
                             fmt_f(minutes, 0),
                             fmt_f(left.max(0.0), 0)
@@ -372,7 +374,7 @@ impl DrivingState {
                 Self::say_chain_stop(
                     ctx,
                     format!(
-                        "Chain-up area ahead. Stopping to put chains on, about {} minutes on \
+                        "Chain-up area. Stopping to put chains on, about {} minutes on \
                          duty.",
                         fmt_f(minutes, 0)
                     ),
@@ -428,7 +430,7 @@ impl DrivingState {
             ctx,
             format!(
                 "Chain-off area. Taking chains off, about {} minutes on duty.",
-                fmt_f(CHAIN_REMOVE_MIN, 0)
+                fmt_f(self.hand_work_min(ctx, CHAIN_REMOVE_MIN), 0)
             ),
         );
     }

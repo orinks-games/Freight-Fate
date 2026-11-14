@@ -282,7 +282,7 @@ fn keeper_says_so_when_the_grade_beats_it() {
     );
     let heard = harness.transcript_text();
     assert!(
-        heard.contains("Speed keeper down to ") && heard.contains(" on this grade."),
+        heard.contains("Cruise down to ") && heard.contains(" on this grade."),
         "the keeper never owned up to losing the grade:\n{heard}"
     );
 }
@@ -298,7 +298,7 @@ fn keeper_droop_warning_is_said_once() {
     let said = harness
         .transcript()
         .iter()
-        .filter(|line| line.contains("Speed keeper down to"))
+        .filter(|line| line.contains("Cruise down to"))
         .count();
     assert_eq!(said, 1, "{}", harness.transcript_text());
 }
@@ -315,7 +315,7 @@ fn keeper_says_nothing_on_a_grade_it_can_hold() {
         "the bench has to be a grade the keeper CAN hold"
     );
     assert!(
-        !harness.transcript_text().contains("Speed keeper down to"),
+        !harness.transcript_text().contains("Cruise down to"),
         "{}",
         harness.transcript_text()
     );
@@ -428,7 +428,7 @@ fn take_the_corner(street_mph: f64) -> CornerRun {
         // whether that number is under the one it is holding, and the readout
         // is where a driver hears the difference.
         let (turn_ease, speed) = harness.with_drive(|d, ctx| {
-            let ease = d.keeper_holding_text(ctx).contains("for the corner");
+            let ease = d.keeper_holding_text(ctx, false).contains("for the corner");
             (ease, d.truck().speed_mph())
         });
         eased |= turn_ease;

@@ -36,7 +36,7 @@ fn live_calendar(ctx: &GameContext, d: &DrivingState) -> bool {
 /// from that ceiling rather than a fixed tonnage the board can never offer.
 pub const MAX_GROSS_MARGIN_TONS: f64 = 1.0;
 
-/// The cargo weight a load needs for "Grossed Out at the Scale House".
+/// The cargo weight a load needs for "Roll On, Big Mama" (max_gross_load).
 pub fn max_gross_badge_tons() -> f64 {
     max_legal_cargo_tons(combination_tare_kg(&TruckSpecs::default())) - MAX_GROSS_MARGIN_TONS
 }

@@ -66,7 +66,10 @@ fn transcript_tail(harness: &PlaytestHarness) -> String {
 }
 
 #[test]
-#[cfg_attr(ci_quick, ignore = "sweep: drives the last miles of a load asleep")]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: drives the last miles of a load asleep"
+)]
 fn a_slept_shift_runs_ahead_to_the_receivers_gate_and_wakes_the_driver() {
     let mut harness = quiet_drive("Team Run");
     harness.with_drive(|d, ctx| {
@@ -113,10 +116,12 @@ fn a_slept_shift_runs_ahead_to_the_receivers_gate_and_wakes_the_driver() {
         harness.with_state::<ArrivalState, _>(|arrival, _| arrival.summary_parts.join(" "));
     assert!(summary.contains("Lou drove"), "{summary}");
     // The share is a row of its own on the settlement menu, read just
-    // before the net pay it explains.
+    // before the money it left you; the net pay is in the first row.
     let rows = harness.with_state::<ArrivalState, _>(|arrival, _| arrival.summary_lines.clone());
     let share = rows.iter().position(|l| l.starts_with("Lou drove"));
-    let net = rows.iter().position(|l| l.starts_with("Net driver pay"));
+    let net = rows
+        .iter()
+        .position(|l| l.starts_with("Money after settlement"));
     assert!(share.is_some() && share.map(|i| i + 1) == net, "{rows:?}");
     let note = harness.with_state::<ArrivalState, _>(|arrival, _| arrival.team_note.clone());
     assert!(
@@ -138,7 +143,10 @@ fn a_slept_shift_runs_ahead_to_the_receivers_gate_and_wakes_the_driver() {
 }
 
 #[test]
-#[cfg_attr(ci_quick, ignore = "sweep: drives through a fuel stop")]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: drives through a fuel stop"
+)]
 fn the_co_driver_fuels_at_a_stop_and_gets_back_on_the_road() {
     let mut harness = quiet_drive("Team Fuel");
     let found = harness.with_drive(|d, ctx| {
@@ -204,7 +212,7 @@ fn team_ready() -> PlaytestHarness {
 }
 
 #[test]
-fn the_pause_menu_offers_a_co_driver_only_when_the_load_needs_a_sleep() {
+fn the_pause_menu_offers_a_co_driver_only_on_a_load_that_left_with_one() {
     let mut harness = team_ready();
     harness.press_key(Key::Escape, None);
     let fresh = harness.menu_labels();
@@ -213,7 +221,8 @@ fn the_pause_menu_offers_a_co_driver_only_when_the_load_needs_a_sleep() {
         "a load one shift covers offers no co-driver: {fresh:?}"
     );
     harness.key(InputEvent::key(Key::Escape));
-    // Most of a shift already driven: the rest of the load needs a sleep.
+    // Most of a shift already driven: the rest of the load needs a sleep,
+    // but nobody joins the truck on the road.
     harness
         .app
         .ctx
@@ -222,6 +231,15 @@ fn the_pause_menu_offers_a_co_driver_only_when_the_load_needs_a_sleep() {
         .expect("a career")
         .hos
         .drive(600.0);
+    harness.press_key(Key::Escape, None);
+    let rows = harness.menu_labels();
+    assert!(
+        !rows.iter().any(|row| row.starts_with("Hand the wheel")),
+        "a co-driver joined on the road: {rows:?}"
+    );
+    harness.key(InputEvent::key(Key::Escape));
+    // A co-driver who left the dock with the load is offered.
+    harness.with_drive(|d, ctx| d.ensure_team(ctx));
     harness.press_key(Key::Escape, None);
     let rows = harness.menu_labels();
     assert!(

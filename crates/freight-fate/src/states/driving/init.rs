@@ -322,7 +322,11 @@ impl DrivingState {
         let air_ready = trip.truck.air_ready();
         let air_low_warning = trip.truck.air_low_warning();
         let spring_brakes_active = trip.truck.spring_brakes_active();
-        let status_text = format!("Press {} to start the engine.", ctx.control_hint("engine"));
+        let status_text = if ctx.settings.driving_hints {
+            format!("Press {} to start the engine.", ctx.control_hint("engine"))
+        } else {
+            "Engine off.".to_string()
+        };
 
         let cab = ff_core::sim::cab::CabState::for_outside(trip.weather.temperature_c());
 
@@ -396,17 +400,14 @@ impl DrivingState {
             enforcement_events: HashSet::new(),
             pending_border_clearance: None,
             out_of_service_count: 0,
-            drowsy_said: false,
-            severe_said: false,
+            alertness: Alertness::Rested,
             fatigue_cue_gm: 0.0,
-            microsleep_deadline: None,
-            microsleep_gm: 0.0,
-            microsleep_cooldown_gm: 0.0,
-            microsleep_misses: 0,
+            nod: NodState::default(),
+            nod_staged: false,
+            rest_call: RestCall::Available,
             hazard_deadline: None,
             hazard_names: Vec::new(),
             horn_scare_tried: false,
-            hazard_slow_hint_said: false,
             automatic_braking_announced: false,
             automatic_braking_escalated: false,
             aeb_brake: 0.0,
@@ -505,8 +506,6 @@ impl DrivingState {
             enforcement_prev_mi: 0.0,
             passed_post_ids: HashSet::new(),
             marked_post_ids: HashSet::new(),
-            tableau_siren_ids: HashSet::new(),
-            tableau_pass_ids: HashSet::new(),
             scale_bed_key: String::new(),
             scale_bed_volume: 0.0,
             radio_cue_duck: 1.0,
@@ -683,8 +682,7 @@ impl DrivingState {
             keeper_droop_cue_s: 0.0,
             keeper_overrun_s: 0.0,
             keeper_overrun_said: false,
-            arrival_stop_said: false,
-            arrival_full_stop_said: false,
+            gate: Default::default(),
             arrival_menu_open: false,
             gate_reminder_s: 0.0,
             gate_speed_warned: false,
@@ -746,6 +744,8 @@ impl DrivingState {
             hazard_animal: false,
             hazard_arm_mi: 0.0,
             hazard_brake_to_mph: None,
+            hazard_debris: None,
+            hazard_strike_pct: 0.0,
             hazard_lead_mph: None,
             hazard_lane: 0,
             left_lane_s: 0.0,
@@ -810,6 +810,7 @@ impl DrivingState {
             entered_once: false,
             team: None,
             pending_team: None,
+            truck_limit_state_named: None,
         }
     }
 }

@@ -93,7 +93,7 @@ pub const CARGO_OUTCOME_REJECTED: &str = "rejected";
 
 /// What `cargo_fragility` reads off a cargo class: its catalogue key and the
 /// `fragile` flag.
-// TODO(lead): implement for models::jobs::CargoType.
+// Implemented for `models::jobs::CargoType` (`jobs/catalog.rs`).
 pub trait CargoFragility {
     fn key(&self) -> &str;
     fn fragile(&self) -> bool;

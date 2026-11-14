@@ -10,7 +10,7 @@ use freight_fate::states::main_menu::{AchievementCategoryState, AchievementsStat
 
 use crate::states_main_menu_support::*;
 
-/// A career holding one badge, "Signed, Sealed, Hauled", in Out on the Road.
+/// A career holding one badge, "Truck Driving Man", in Out on the Road.
 fn categories_screen() -> TestApp {
     let mut app = TestApp::new();
     let mut profile = Profile::named("Sorted Driver");
@@ -109,7 +109,12 @@ fn left_and_right_step_the_order_say_it_and_save_it() {
 #[test]
 fn a_category_follows_the_screen_until_it_picks_its_own_order() {
     let mut app = categories_screen();
-    let road = achievements_in_category(achievement_by_id("first_delivery").unwrap().category);
+    // Retired badges are not listed for a career that never earned them.
+    let road: Vec<_> =
+        achievements_in_category(achievement_by_id("first_delivery").unwrap().category)
+            .into_iter()
+            .filter(|a| !ff_core::achievements::is_retired(a.id))
+            .collect();
 
     select::<AchievementsState>(&mut app, road_title());
     let rows = labels::<AchievementCategoryState>(&app);
@@ -118,7 +123,7 @@ fn a_category_follows_the_screen_until_it_picks_its_own_order() {
         current_label::<AchievementCategoryState>(&app),
         "Sort: Earned first"
     );
-    assert!(rows[1].starts_with("Earned: Signed"), "{rows:?}");
+    assert!(rows[1].starts_with("Earned: Truck Driving"), "{rows:?}");
     assert_eq!(rows[road.len() + 1], "Back to the categories");
 
     // Locked first, for this category only.
@@ -128,7 +133,10 @@ fn a_category_follows_the_screen_until_it_picks_its_own_order() {
     key(&mut app, Key::Right);
     assert_eq!(app.main_lines().last().unwrap(), "Locked first.");
     let rows = labels::<AchievementCategoryState>(&app);
-    assert!(rows[road.len()].starts_with("Earned: Signed"), "{rows:?}");
+    assert!(
+        rows[road.len()].starts_with("Earned: Truck Driving"),
+        "{rows:?}"
+    );
     assert_eq!(app.ctx.settings.achievement_sort, "earned");
 
     // Leaving and coming back keeps the category's pick.

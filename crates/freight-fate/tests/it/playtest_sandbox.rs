@@ -14,35 +14,47 @@ use std::path::{Path, PathBuf};
 use serde_json::{json, Value};
 
 use freight_fate::app::testing::{env_lock, EnvGuard, TempDir};
-use freight_fate::online_presence::IdentityStore;
+use freight_fate::online_presence::{self, IdentityStore};
 use freight_fate::playtest::sandbox;
 
-/// The environment lock, plus putting `FREIGHT_FATE_DATA_DIR` back.
+/// The environment lock, plus putting back the variables `prepare` sets.
 ///
 /// `sandbox::prepare` points the whole process at the sandbox, which is the
 /// job -- for the game. In a test binary it outlived the lock: the guard
 /// dropped, the temporary sandbox was deleted, and the variable went on
 /// naming that deleted directory for every test that ran afterwards. Anything
 /// that then asked where saves live got an answer belonging to a case that
-/// had already finished.
+/// had already finished. The site roots it now sets are restored the same way.
 struct SandboxEnv {
     _lock: EnvGuard,
-    previous: Option<std::ffi::OsString>,
+    previous: Vec<(&'static str, Option<std::ffi::OsString>)>,
 }
+
+const RESTORED: [&str; 3] = [
+    "FREIGHT_FATE_DATA_DIR",
+    online_presence::ONLINE_URL_ENV,
+    online_presence::ONLINE_API_URL_ENV,
+];
 
 impl Drop for SandboxEnv {
     fn drop(&mut self) {
-        match self.previous.take() {
-            Some(old) => std::env::set_var("FREIGHT_FATE_DATA_DIR", old),
-            None => std::env::remove_var("FREIGHT_FATE_DATA_DIR"),
+        for (name, value) in self.previous.drain(..) {
+            match value {
+                Some(old) => std::env::set_var(name, old),
+                None => std::env::remove_var(name),
+            }
         }
     }
 }
 
 fn sandbox_env() -> SandboxEnv {
+    let lock = env_lock();
     SandboxEnv {
-        _lock: env_lock(),
-        previous: std::env::var_os("FREIGHT_FATE_DATA_DIR"),
+        _lock: lock,
+        previous: RESTORED
+            .iter()
+            .map(|name| (*name, std::env::var_os(name)))
+            .collect(),
     }
 }
 
@@ -110,17 +122,12 @@ fn test_seeding_carries_careers_but_never_the_identity() {
 #[test]
 fn test_the_staging_session_takes_no_identity_and_talks_only_to_staging() {
     let _guard = sandbox_env();
-    let previous_url = std::env::var_os("FREIGHT_FATE_ONLINE_URL");
     let root = TempDir::new("ff-sandbox");
     let source = fake_real_saves(root.path());
     let staging = root.path().join("staging");
 
     sandbox::prepare_staging(&staging, false, &source).unwrap();
-    let url = freight_fate::online_presence::base_url();
-    match previous_url {
-        Some(old) => std::env::set_var("FREIGHT_FATE_ONLINE_URL", old),
-        None => std::env::remove_var("FREIGHT_FATE_ONLINE_URL"),
-    }
+    let url = online_presence::base_url();
 
     assert_eq!(url, sandbox::STAGING_URL);
     assert!(!staging.join("online.json").exists());
@@ -131,6 +138,46 @@ fn test_the_staging_session_takes_no_identity_and_talks_only_to_staging() {
         read_settings(&staging.join("settings.json"))["cloud_saves"],
         true
     );
+}
+
+/// A plain sandbox reaches no Orinks site at all. Leaving the identity out
+/// stopped backups and heartbeats, but Set up this computer with orinks.net
+/// needs no identity: an agent drive on 2026-11-12 asked production for an
+/// activation code and got one. Every Orinks address the game builds now
+/// names the reserved, unresolvable `.invalid` host instead, even when the
+/// shell carried a site or a presence backend of its own.
+#[test]
+fn test_the_plain_sandbox_cannot_reach_any_orinks_site() {
+    let _guard = sandbox_env();
+    std::env::set_var(
+        online_presence::ONLINE_URL_ENV,
+        online_presence::PRODUCTION_BASE_URL,
+    );
+    std::env::set_var(
+        online_presence::ONLINE_API_URL_ENV,
+        online_presence::PRODUCTION_PRESENCE_API_URL,
+    );
+    let root = TempDir::new("ff-sandbox");
+    let source = fake_real_saves(root.path());
+    let sandbox = root.path().join("sandbox");
+
+    sandbox::prepare(&sandbox, false, true, &source).unwrap();
+
+    let addresses = [
+        online_presence::base_url(),
+        online_presence::presence_api_url("presence"),
+        online_presence::presence_api_url("directory"),
+        online_presence::setup_page_url(),
+    ];
+    for address in &addresses {
+        assert!(
+            address.starts_with(sandbox::OFFLINE_URL),
+            "{address} leaves the sandbox"
+        );
+        assert!(!address.contains("orinks.net"), "{address}");
+        assert!(!address.contains("convex"), "{address}");
+    }
+    assert!(sandbox::OFFLINE_URL.ends_with(".invalid"));
 }
 
 #[test]

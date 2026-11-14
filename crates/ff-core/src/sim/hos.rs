@@ -20,6 +20,8 @@ mod duty_log;
 mod pyjson;
 #[cfg(test)]
 mod tests;
+#[cfg(test)]
+mod tests_rest;
 mod warnings;
 
 pub use clock::{CycleEntry, HosClock, HosEvent, HosLimit};
@@ -275,6 +277,8 @@ pub fn duration_text(hours: f64) -> String {
 // Fatigue
 // ---------------------------------------------------------------------------
 
+/// one quiet yawn, the first sign of the day wearing on the driver
+pub const FATIGUE_WORN: f64 = 40.0;
 /// yawns and a spoken warning
 pub const FATIGUE_DROWSY: f64 = 60.0;
 /// rumble strip drift, urgent warning
@@ -368,6 +372,30 @@ fn finite_minutes(minutes: f64) -> f64 {
     }
 }
 
+/// Share of the continuous-driving fatigue rate that on-duty time spent not
+/// driving costs: fueling, the walk-around, dock time, inspections, repairs
+/// waited out at the truck, and sitting stopped at the wheel.
+///
+/// ASSUMED tuning, not a measured figure: the August realism audit's
+/// suggestion (item A4), carried into `docs/fatigue-design.md` part 2. Work
+/// at the truck carries less of the vigilance load the road does; a third
+/// of the rate makes a four-hour daytime dock wait cost about 9 points.
+pub const ON_DUTY_FATIGUE_FACTOR: f64 = 1.0 / 3.0;
+
+/// Fatigue gained over `minutes` on duty not driving from local hour
+/// `start_local_hours`, by day and night like driving.
+/// `scale(hours_since_start)` carries the driving mode's fatigue setting
+/// and any food or drink buff, as it does for driving.
+pub fn on_duty_fatigue_gain(
+    start_local_hours: f64,
+    minutes: f64,
+    scale: impl Fn(f64) -> f64,
+) -> f64 {
+    awake_fatigue_gain_scaled(start_local_hours, minutes, |h| {
+        ON_DUTY_FATIGUE_FACTOR * scale(h)
+    })
+}
+
 /// Share of the continuous-driving fatigue rate a classroom day costs.
 ///
 /// ASSUMED tuning, not a measured figure. [`fatigue_rate_per_min`] is the
@@ -458,14 +486,34 @@ pub fn rest_coffee_break(fatigue: f64) -> f64 {
     pyjson::py_max(0.0, fatigue - FATIGUE_COFFEE_RELIEF)
 }
 
-/// Fatigue after a proper 10-hour sleep.
-pub fn rest_sleep(_fatigue: f64) -> f64 {
-    0.0
+/// Fatigue points a proper sleep takes off per hour: sleeper parking, a
+/// motel, the terminal bunk room, an out-of-service rest, and the bunk while
+/// a co-driver drives.
+///
+/// ASSUMED tuning, not a measured figure (`docs/fatigue-design.md` part 5):
+/// ten hours clears 80, so a driver who beds down past 80 wakes with some
+/// left.
+pub const SLEEP_RELIEF_PER_HOUR: f64 = 8.0;
+
+/// Fatigue points poor sleep takes off per hour: the lot, the shoulder, a
+/// chain control. ASSUMED tuning, like [`SLEEP_RELIEF_PER_HOUR`]; poor sleep
+/// also never goes below [`FATIGUE_SHOULDER_FLOOR`].
+pub const POOR_SLEEP_RELIEF_PER_HOUR: f64 = 5.0;
+
+/// Fatigue after `minutes` of proper sleep.
+pub fn rest_sleep(fatigue: f64, minutes: f64) -> f64 {
+    let relief = SLEEP_RELIEF_PER_HOUR * finite_minutes(minutes) / 60.0;
+    pyjson::py_max(0.0, fatigue - relief)
 }
 
-/// Shoulder parking is poor rest: fatigue never drops below 30.
-pub fn rest_shoulder(fatigue: f64) -> f64 {
-    pyjson::py_min(fatigue, FATIGUE_SHOULDER_FLOOR)
+/// Fatigue after `minutes` of poor sleep: never below 30, and never more
+/// than the driver lay down with.
+pub fn rest_poor_sleep(fatigue: f64, minutes: f64) -> f64 {
+    if fatigue <= FATIGUE_SHOULDER_FLOOR {
+        return fatigue;
+    }
+    let relief = POOR_SLEEP_RELIEF_PER_HOUR * finite_minutes(minutes) / 60.0;
+    pyjson::py_max(FATIGUE_SHOULDER_FLOOR, fatigue - relief)
 }
 
 pub fn rest_sleeper_split(fatigue: f64, minutes: f64, completed: bool) -> f64 {
@@ -507,6 +555,39 @@ pub fn time_of_day(game_hours: f64) -> &'static str {
 
 pub fn is_night(game_hours: f64) -> bool {
     time_of_day(game_hours) == "night"
+}
+
+/// Hours of a continuous drive of `drive_h` hours, leaving at local hour
+/// `start_local_hours`, that fall at night by [`is_night`] (9 PM to 5 AM).
+///
+/// Pass a local hour (`timezones::to_local`), as the clock the driver
+/// leaves by; the zone is held for the whole drive.
+pub fn night_driving_hours(start_local_hours: f64, drive_h: f64) -> f64 {
+    if !start_local_hours.is_finite() || !drive_h.is_finite() || drive_h <= 0.0 {
+        return 0.0;
+    }
+    let end = start_local_hours + drive_h;
+    // Night k runs from 9 PM on day k to 5 AM the next morning.
+    let night_len = 24.0 - NIGHT_START + DAWN_START;
+    let first = ((start_local_hours - NIGHT_START - night_len) / 24.0).floor() as i64;
+    let last = ((end - NIGHT_START) / 24.0).ceil() as i64;
+    (first..=last)
+        .map(|day| {
+            let from = day as f64 * 24.0 + NIGHT_START;
+            let to = from + night_len;
+            (to.min(end) - from.max(start_local_hours)).max(0.0)
+        })
+        .sum()
+}
+
+/// "About 4 hours of night driving." for a drive of `drive_h` hours leaving
+/// at local hour `start_local_hours`; `None` when it rounds to no hours.
+pub fn night_driving_line(start_local_hours: f64, drive_h: f64) -> Option<String> {
+    match night_driving_hours(start_local_hours, drive_h).round() as i64 {
+        n if n <= 0 => None,
+        1 => Some("About 1 hour of night driving.".to_string()),
+        n => Some(format!("About {n} hours of night driving.")),
+    }
 }
 
 /// Spoken 12-hour clock: '6 AM', '11:24 PM'.

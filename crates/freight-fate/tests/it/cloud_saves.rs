@@ -1470,7 +1470,7 @@ fn test_upload_rejected_for_impossible_money_names_the_career_and_offers_appeal(
     let status = status_after_rejection("Road Star", "impossible_money");
     assert!(status.starts_with("Road Star: backup not accepted."));
     assert!(status.contains("flagged it for review"));
-    assert!(status.contains("tester document"));
+    assert!(status.contains("Report a problem"));
 }
 
 #[test]
@@ -1484,13 +1484,13 @@ fn test_upload_rejected_for_impossible_xp_speaks_the_same_arithmetic_story() {
 fn test_upload_rejected_for_invalid_schema_blames_the_build_not_the_player() {
     let status = status_after_rejection("Road Star", "invalid_schema");
     assert!(status.starts_with("Road Star: backup not accepted."));
-    assert!(status.contains("build mismatch"));
+    assert!(status.contains("needs an update"));
     assert!(!status.contains("flagged"));
 }
 
 #[test]
 fn test_upload_rejected_for_unsupported_version_speaks_the_same_schema_story() {
-    assert!(status_after_rejection("Road Star", "unsupported_version").contains("build mismatch"));
+    assert!(status_after_rejection("Road Star", "unsupported_version").contains("needs an update"));
 }
 
 #[test]
@@ -1742,14 +1742,14 @@ fn test_keep_mine_retry_speaks_the_real_cause() {
             // false-flagged by this exact wording on 2026-08-14).
             "impossible_money",
             rejected_error("impossible_money"),
-            &["road star", "flagged it for review", "tester document"],
+            &["road star", "flagged it for review", "report a problem"],
         ),
         (
             // Schema/version refusal: named career, blames a build mismatch,
             // never "flagged".
             "invalid_schema",
             rejected_error("invalid_schema"),
-            &["road star", "build mismatch", "not something you did"],
+            &["road star", "needs an update", "not something you did"],
         ),
         (
             // A rejected code with no specific family: named career, the
@@ -2200,7 +2200,7 @@ fn test_background_refusal_speaks_again_when_the_cause_changes() {
 
     service.queue_backup("Road Star", profile("Road Star", 5000.0));
     drain(&service, &clock);
-    assert!(service.take_announcements()[0].contains("build mismatch"));
+    assert!(service.take_announcements()[0].contains("needs an update"));
 
     transport.set_error(Some(rejected_error("impossible_money")));
     service.queue_backup("Road Star", profile("Road Star", 5001.0));

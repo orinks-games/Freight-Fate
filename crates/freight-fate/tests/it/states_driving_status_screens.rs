@@ -471,17 +471,13 @@ fn test_the_speed_readout_says_what_the_keeper_is_holding_not_just_what_is_set()
     harness.with_drive(|drive, ctx| drive.speak_speed(ctx));
     let said = last_main(&harness);
     assert!(
-        said.contains(
-            "Speed keeper holding 15 miles per hour for the corner, set 25 miles per hour"
-        ),
+        said.contains("Cruise holding 15 for the corner, set 25."),
         "{said}"
     );
-    assert!(!said.contains("holding 25 miles per hour,"), "{said}");
+    assert!(!said.contains("holding 25,"), "{said}");
     let status = harness.with_drive(|d, ctx| d.status_lines(ctx)).join("\n");
     assert!(
-        status.contains(
-            "Speed control: speed keeper holding 15 miles per hour for the corner, set 25"
-        ),
+        status.contains("Cruise holding 15 miles per hour for the corner, set 25"),
         "{status}"
     );
 
@@ -490,10 +486,7 @@ fn test_the_speed_readout_says_what_the_keeper_is_holding_not_just_what_is_set()
     harness.clear_speech();
     harness.with_drive(|drive, ctx| drive.speak_speed(ctx));
     let said = last_main(&harness);
-    assert!(
-        said.contains("Speed keeper holding 25 miles per hour"),
-        "{said}"
-    );
+    assert!(said.contains("Cruise holding 25."), "{said}");
     assert!(!said.contains("set 25"), "{said}");
 
     // The eased point already behind the truck is no longer what it holds.
@@ -504,17 +497,14 @@ fn test_the_speed_readout_says_what_the_keeper_is_holding_not_just_what_is_set()
     harness.clear_speech();
     harness.with_drive(|drive, ctx| drive.speak_speed(ctx));
     let said = last_main(&harness);
-    assert!(
-        said.contains("Speed keeper holding 25 miles per hour"),
-        "{said}"
-    );
+    assert!(said.contains("Cruise holding 25."), "{said}");
     assert!(!said.contains("for the corner"), "{said}");
 }
 
 #[test]
 fn test_the_speed_readout_names_the_slow_car_setting_the_keepers_number() {
     // Agent drive, I-35, 2026-09-11: a car doing 51 held the truck at 51
-    // through twenty miles of a 58 zone, and Space answered "speed keeper
+    // through twenty miles of a 58 zone, and Space answered "cruise
     // holding 58" every time -- the SET number, with nothing naming the car.
     // The loop publishes what it held and why, as cruise does.
     let mut harness = a_drive("Keeper Follows");
@@ -552,10 +542,10 @@ fn test_the_speed_readout_names_the_slow_car_setting_the_keepers_number() {
     harness.with_drive(|drive, ctx| drive.speak_speed(ctx));
     let said = last_main(&harness);
     assert!(
-        said.contains("Speed keeper holding 51 miles per hour for the traffic ahead, set 58"),
+        said.contains("Cruise holding 51 for the traffic, set 58"),
         "{said}"
     );
-    assert!(!said.contains("holding 58 miles per hour,"), "{said}");
+    assert!(!said.contains("holding 58,"), "{said}");
 
     // The car gone: one number again, and no stale reason.
     harness.with_drive(|drive, ctx| {
@@ -565,9 +555,6 @@ fn test_the_speed_readout_names_the_slow_car_setting_the_keepers_number() {
     harness.clear_speech();
     harness.with_drive(|drive, ctx| drive.speak_speed(ctx));
     let said = last_main(&harness);
-    assert!(
-        said.contains("Speed keeper holding 58 miles per hour"),
-        "{said}"
-    );
-    assert!(!said.contains("for the traffic ahead"), "{said}");
+    assert!(said.contains("Cruise holding 58."), "{said}");
+    assert!(!said.contains("for the traffic"), "{said}");
 }

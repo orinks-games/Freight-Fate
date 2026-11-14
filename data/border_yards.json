@@ -56,9 +56,9 @@
     "note": "Story text only. The game never times, charges or crosses the bridge. The Saturday evening pilot hours are left out on purpose.",
     "source": "https://www.cbp.gov/newsroom/local-media-release/laredo-port-entry-announces-extended-saturday-operational-hours-world",
     "commercial_hours": {
-      "weekday": {"open_hour": 7, "close_hour": 24, "spoken": "it normally takes commercial traffic 7 AM to midnight on weekdays"},
-      "saturday": {"open_hour": 8, "close_hour": 16, "spoken": "it opens to commercial traffic at 8 AM and normally closes at 4 PM on Saturdays"},
-      "sunday": {"open_hour": 8, "close_hour": 16, "spoken": "it normally takes commercial traffic 8 AM to 4 PM on Sundays"}
+      "weekday": {"open_hour": 7, "close_hour": 24, "spoken": "It normally takes commercial traffic 7 AM to midnight on weekdays"},
+      "saturday": {"open_hour": 8, "close_hour": 16, "spoken": "It opens to commercial traffic at 8 AM and normally closes at 4 PM on Saturdays"},
+      "sunday": {"open_hour": 8, "close_hour": 16, "spoken": "It normally takes commercial traffic 8 AM to 4 PM on Sundays"}
     }
   },
   "paperwork_wait_minutes": {
@@ -67,10 +67,10 @@
     "note": "Assumed: a plausible gameplay range for a northbound trailer's paperwork at the yard, drawn from the job's own seed. Not a measured border or yard wait."
   },
   "text": {
-    "load_card": "for consignee {consignee}, delivered to {yard} in {city} for a transfer carrier to take across",
+    "load_card": "to {yard} in {city}, for a transfer carrier to take on to {consignee}",
     "yard_drop": "Trailer dropped at {yard}. A transfer carrier takes it across from here to {consignee}.",
     "northbound_wait": "The northbound trailer at {yard} is still on paperwork. About {minutes} minutes before it is released, logged on duty, not driving.",
-    "northbound_wait_after_hours": "The World Trade Bridge is closed to trucks right now; {hours}. This trailer came across before it closed. About {minutes} minutes of paperwork before it is released, logged on duty, not driving.",
+    "northbound_wait_after_hours": "The World Trade Bridge is closed to trucks right now. {hours}. This trailer came across before it closed. About {minutes} minutes of paperwork before it is released, logged on duty, not driving.",
     "no_load_ready": "No northbound trailer is ready at the Laredo yards right now. The trailer missed the last crossing and will be ready in the morning."
   }
 }

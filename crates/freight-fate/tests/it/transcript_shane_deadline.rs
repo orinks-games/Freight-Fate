@@ -138,12 +138,9 @@ fn shane_payson_on_schedule_check_in_stays_on_time_after_live_unload() {
     assert!((drive.trip.game_minutes / 60.0 - 41.55).abs() < 1e-9);
     let arrival = ArrivalState::new_at(&mut app.ctx, &mut drive, check_in_hours);
     let transcript = arrival.summary_lines.join("\n");
+    assert!(transcript.contains("On time in Payson."), "{transcript}");
     assert!(
-        transcript.contains("Trip time: 40.8 hours, on time."),
-        "{transcript}"
-    );
-    assert!(
-        transcript.contains("Receiver service after check-in: 0.8 hours."),
+        transcript.contains("Unloading took 45 minutes."),
         "{transcript}"
     );
     assert!(transcript.contains("It is 6:04 PM."), "{transcript}");
@@ -166,10 +163,7 @@ fn shane_payson_check_in_after_the_appointment_remains_late() {
 
     let arrival = ArrivalState::new_at(&mut app.ctx, &mut drive, check_in_hours);
     let transcript = arrival.summary_lines.join("\n");
-    assert!(
-        transcript.contains("Trip time: 41.1 hours, late."),
-        "{transcript}"
-    );
+    assert!(transcript.contains("Late in Payson."), "{transcript}");
     assert!(
         !transcript.contains("On-time delivery bonus:"),
         "{transcript}"
@@ -208,12 +202,9 @@ fn receiver_menu_captures_check_in_before_advancing_the_unload_clock() {
             .summary_lines
             .join("\n")
     };
+    assert!(transcript.starts_with("On time in "), "{transcript}");
     assert!(
-        transcript.contains("Trip time: 40.9 hours, on time."),
-        "{transcript}"
-    );
-    assert!(
-        transcript.contains("Receiver service after check-in: 0.8 hours."),
+        transcript.contains("Unloading took 45 minutes."),
         "{transcript}"
     );
     assert!(

@@ -6,8 +6,9 @@ use serde_json::{Map, Value};
 
 use super::{
     FATIGUE_EVENTS_BEFORE_SERIOUS, HOURS_PER_DAY, MAJOR_FIRST_DISQUALIFICATION_DAYS,
-    REVIEW_WINDOW_DAYS, SERIOUS_SECOND_SUSPENSION_DAYS, SERIOUS_THIRD_SUSPENSION_DAYS,
-    SERIOUS_WINDOW_DAYS, SUSPENSION_LIFETIME, SUSPENSION_MAJOR, SUSPENSION_SERIOUS,
+    REVIEW_WINDOW_DAYS, SERIOUS_REVIEW_WINDOW_DAYS, SERIOUS_SECOND_SUSPENSION_DAYS,
+    SERIOUS_THIRD_SUSPENSION_DAYS, SERIOUS_WINDOW_DAYS, SUSPENSION_LIFETIME, SUSPENSION_MAJOR,
+    SUSPENSION_SERIOUS,
 };
 use crate::models::save_migration::{json_f64, json_i64};
 
@@ -121,16 +122,24 @@ pub struct DrivingRecord {
     pub decal_until_h: f64,
     /// The explained entries, oldest first (see [`RecordEntry`]).
     pub entries: Vec<RecordEntry>,
+    /// Whether this record has been through the one-time barrel-strike
+    /// repair (see `record_repair.rs`). A new career starts with it done; a
+    /// save written before the repair existed reads `false` and is repaired
+    /// on load.
+    pub barrel_strikes_repaired: bool,
 }
 
 impl DrivingRecord {
     pub fn new() -> Self {
-        Self::default()
+        Self {
+            barrel_strikes_repaired: true,
+            ..Self::default()
+        }
     }
 
     // -- reads --------------------------------------------------------------
 
-    /// Serious violations still inside the three-year counting window.
+    /// Serious violations still inside the license ladder's counting window.
     pub fn serious_in_window(&self, game_hours: f64) -> i64 {
         let cutoff = game_hours - SERIOUS_WINDOW_DAYS as f64 * HOURS_PER_DAY;
         self.serious_violations
@@ -141,12 +150,6 @@ impl DrivingRecord {
 
     pub fn major_count(&self) -> i64 {
         self.major_offenses.len() as i64
-    }
-
-    /// The start of the carrier's review window: a game year back, or the
-    /// hour the review began for this career, whichever is later.
-    fn review_cutoff(&self, game_hours: f64) -> f64 {
-        self.cutoff_days_back(game_hours, REVIEW_WINDOW_DAYS)
     }
 
     /// `days` back from now, floored at the hour the review began, so a
@@ -204,30 +207,38 @@ impl DrivingRecord {
     /// Serious violations the carrier's review and the insurer count: inside
     /// the review window AND since the review began. Distinct from
     /// [`Self::serious_in_window`], which is the 383.51 license ladder, looks
-    /// back three years and counts every one.
+    /// back further and counts every one.
     pub fn serious_in_review_window(&self, game_hours: f64) -> i64 {
-        self.serious_within(game_hours, REVIEW_WINDOW_DAYS)
+        self.serious_within(game_hours, SERIOUS_REVIEW_WINDOW_DAYS)
     }
 
     /// The career hour at which the window stops meeting `holds(citations,
     /// serious)`, with nothing new added, or `None` when it already does not.
-    /// Each event leaves the window a year after it, so walk the expiries in
-    /// order. This is the date a record-based hold can honestly promise: the
-    /// oldest event leaving is not it when the rest still meet the floor.
+    /// A citation leaves the window [`REVIEW_WINDOW_DAYS`] after it and a
+    /// serious violation [`SERIOUS_REVIEW_WINDOW_DAYS`] after it, so walk the
+    /// expiries in order. This is the date a record-based hold can honestly
+    /// promise: the first event leaving is not it when the rest still meet
+    /// the floor.
     pub fn window_clears_at(
         &self,
         game_hours: f64,
         holds: impl Fn(i64, i64) -> bool,
     ) -> Option<f64> {
-        let window = REVIEW_WINDOW_DAYS as f64 * HOURS_PER_DAY;
-        let cutoff = self.review_cutoff(game_hours);
-        let mut events: Vec<(f64, bool)> = self
-            .citation_times
-            .iter()
-            .map(|&at| (at, false))
-            .chain(self.serious_violations.iter().map(|&at| (at, true)))
-            .filter(|&(at, _)| at >= cutoff)
-            .collect();
+        let expiries = |times: &[f64], days: i64, is_serious: bool| {
+            let cutoff = self.cutoff_days_back(game_hours, days);
+            let window = days as f64 * HOURS_PER_DAY;
+            times
+                .iter()
+                .filter(move |&&at| at >= cutoff)
+                .map(move |&at| (at + window, is_serious))
+                .collect::<Vec<_>>()
+        };
+        let mut events = expiries(&self.citation_times, REVIEW_WINDOW_DAYS, false);
+        events.extend(expiries(
+            &self.serious_violations,
+            SERIOUS_REVIEW_WINDOW_DAYS,
+            true,
+        ));
         events.sort_by(|a, b| a.0.total_cmp(&b.0));
         let mut citations = events.iter().filter(|e| !e.1).count() as i64;
         let mut serious = events.len() as i64 - citations;
@@ -241,7 +252,7 @@ impl DrivingRecord {
                 citations -= 1;
             }
             if !holds(citations, serious) {
-                return Some(at + window);
+                return Some(at);
             }
         }
         None

@@ -120,8 +120,8 @@ fn assert_state_line_is_authoritative(
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: a whole 500-mile delivery, 10-40 s -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: a whole 500-mile delivery, 10-40 s"
 )]
 fn test_mapped_state_lines_are_authoritative_northbound_to_atlanta() {
     assert_state_line_is_authoritative(
@@ -134,8 +134,8 @@ fn test_mapped_state_lines_are_authoritative_northbound_to_atlanta() {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: a whole 500-mile delivery, 10-40 s -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: a whole 500-mile delivery, 10-40 s"
 )]
 fn test_mapped_state_lines_are_authoritative_southbound_to_indianapolis() {
     assert_state_line_is_authoritative(
@@ -148,8 +148,8 @@ fn test_mapped_state_lines_are_authoritative_southbound_to_indianapolis() {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: a whole 500-mile delivery, 10-40 s -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: a whole 500-mile delivery, 10-40 s"
 )]
 fn test_mapped_state_lines_are_authoritative_westbound_to_albuquerque() {
     assert_state_line_is_authoritative(
@@ -164,8 +164,8 @@ fn test_mapped_state_lines_are_authoritative_westbound_to_albuquerque() {
 /// the only announcement either way.
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: a whole 500-mile delivery, 10-40 s -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: a whole 500-mile delivery, 10-40 s"
 )]
 fn test_mapped_state_lines_are_authoritative_within_one_state() {
     assert_state_line_is_authoritative(

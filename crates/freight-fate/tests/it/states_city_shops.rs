@@ -52,12 +52,10 @@ fn test_business_status_menu_unlocks_owner_operator_when_qualified() {
 
     app.push_state(BusinessStatusState::new());
     let rows = labels::<BusinessStatusState>(&app);
-    assert!(rows
-        .iter()
-        .any(|t| t.contains("Buy into leased-on owner-operator")));
+    assert!(rows.iter().any(|t| t.contains("Owner-operator buy-in")));
     assert!(rows.iter().any(|t| t.contains("Carrier and rank")));
     assert!(rows.iter().any(|t| t.contains("Next business unlock")));
-    select::<BusinessStatusState>(&mut app, "Buy into leased-on owner-operator");
+    select::<BusinessStatusState>(&mut app, "Owner-operator buy-in");
 
     assert_eq!(profile(&app).business_status, LEASED_OWNER_OPERATOR);
     approx(
@@ -80,7 +78,7 @@ fn test_owner_operator_buy_in_records_first_owned_tractor() {
     }
 
     app.push_state(BusinessStatusState::new());
-    select::<BusinessStatusState>(&mut app, "Buy into leased-on owner-operator");
+    select::<BusinessStatusState>(&mut app, "Owner-operator buy-in");
 
     assert_eq!(profile(&app).business_status, LEASED_OWNER_OPERATOR);
     // The buy-in takes over the tractor dispatch had you in: at the
@@ -662,7 +660,7 @@ fn test_upgrade_f1_help_explains_player_benefits() {
     assert!(aero.contains("same tank last longer"));
     let tank = &help_by_label["long-range tank"];
     assert!(tank.contains("fifty gallons"));
-    assert!(tank.contains("carry more fuel"));
+    assert!(tank.contains("carries more fuel"));
     assert!(tank.contains("more distance between fuel stops"));
     let brakes = &help_by_label["reinforced brakes"];
     assert!(brakes.contains("emergency stops"));
@@ -1209,8 +1207,7 @@ fn test_business_status_lets_a_qualified_driver_stay_a_company_driver() {
     );
     let rows = labels::<BusinessStatusState>(&app);
     assert!(
-        rows.iter()
-            .any(|t| t.contains("Buy into leased-on owner-operator")),
+        rows.iter().any(|t| t.contains("Owner-operator buy-in")),
         "the buy-in row must stay: {rows:?}"
     );
     assert!(
@@ -1232,7 +1229,7 @@ fn test_business_status_lets_a_qualified_driver_stay_a_company_driver() {
 
     // And buying in after all clears the choice with the status.
     select::<BusinessStatusState>(&mut app, "Stay a company driver");
-    select::<BusinessStatusState>(&mut app, "Buy into leased-on owner-operator");
+    select::<BusinessStatusState>(&mut app, "Owner-operator buy-in");
     assert_eq!(profile(&app).business_status, LEASED_OWNER_OPERATOR);
     assert!(!profile(&app).owner_operator_declined);
 }
@@ -1249,7 +1246,7 @@ fn test_business_status_lets_an_owner_operator_go_back_to_company_driving() {
         p.set_money(OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL);
     }
     app.push_state(BusinessStatusState::new());
-    select::<BusinessStatusState>(&mut app, "Buy into leased-on owner-operator");
+    select::<BusinessStatusState>(&mut app, "Owner-operator buy-in");
     assert_eq!(profile(&app).business_status, LEASED_OWNER_OPERATOR);
     let owned = profile(&app).owned_trucks.clone();
     assert_eq!(owned.len(), 1);
@@ -1293,8 +1290,7 @@ fn test_business_status_lets_an_owner_operator_go_back_to_company_driving() {
         "{rows:?}"
     );
     assert!(
-        rows.iter()
-            .any(|t| t.contains("Buy into leased-on owner-operator")),
+        rows.iter().any(|t| t.contains("Owner-operator buy-in")),
         "{rows:?}"
     );
 }
