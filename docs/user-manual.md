@@ -521,6 +521,8 @@ Service the truck before wear stops the trip. Worn tires lose grip, worn brakes 
 
 The damage readout names a band as well as a percentage. An out-of-service truck can still crawl clear of traffic, but it needs roadside help before the trip can continue.
 
+When something damages the truck on the road, a spoken line says what happened and the damage, as in "Off the road on the right! Damage 3 percent." Above 90 miles per hour the truck is in a runaway and takes damage every second. You hear "Runaway! The truck is taking damage." when it starts, and "Back under control." with the damage once you are a few miles per hour under 90.
+
 Owners pay for roadside repairs and lose several hours; they still need further garage repair afterward. Company drivers get carrier-paid service and a yard spare. Preventable equipment trouble can also affect their record and dispatch trust.
 
 Preventable damage can cost a safety bonus and add a deductible. Repairing it on the road doesn't erase that consequence: settlement uses the deepest damage band reached during the trip. Correct reactions to hazards don't count as preventable damage. Unsafe equipment that's visible on the road can attract an inspection. A company driver's tractor at 40 percent damage or more goes through the carrier shop when the next load is accepted, at no charge and an hour on duty.

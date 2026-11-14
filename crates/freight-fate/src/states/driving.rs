@@ -231,6 +231,8 @@ pub struct DrivingState {
     pub fatigue_cue_gm: f64, // game minutes since the last drowsy cue
     /// The nod-off severe fatigue brings on: its count, window and misses.
     pub nod: NodState,
+    /// Past the runaway speed or not, and the two lines its edges speak.
+    pub runaway: ff_core::sim::runaway::Runaway,
     /// A nod a play tester asked for (or a trip saved mid-nod), opened on
     /// the next rolling frame.
     pub nod_staged: bool,
@@ -1028,10 +1030,10 @@ pub struct DrivingState {
     pub cross_repeat_s: f64,   // rapid re-crossings keep only the quiet thump
     pub sideswipe_cooldown_s: f64, // one contact, however many crossings
     // Off-pavement is a standing condition: the panned edge-rumble loop
-    // carries "where am I right now", and speech fires only at transitions
-    // -- left the pavement, worse, back on it (research doc R12). None means
-    // on the pavement; otherwise the last-spoken severity band.
-    pub road_position_band: Option<i32>,
+    // carries "where am I right now", each damage charge speaks, and "Back
+    // on the pavement." closes it (research doc R12). True from the first
+    // charge until the truck is back on.
+    pub off_pavement_said: bool,
     pub reverse_cue_active: bool,
     pub air_cue_active: bool, // compressor fill loop below governor release
     pub jake_cue_key: Option<String>, // jake growl loop currently playing

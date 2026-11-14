@@ -470,41 +470,40 @@ fn test_an_idle_pad_is_not_a_microsleep_reaction() {
 // -- off pavement (test_off_pavement_transitions.py) ----------------------------------
 
 #[test]
-fn test_off_pavement_speaks_on_entry_worsening_and_recovery() {
+fn test_every_off_pavement_charge_speaks_with_the_damage() {
+    // Each call is one damage charge, which the lane model spaces three
+    // seconds apart while the truck stays off. Each one says where the truck
+    // is and what its damage is now, the way a collision does, so no charge
+    // is silent (issue 533). The pacer's repeat guard is stepped past so what
+    // is asserted is the rule, not the guard.
     let mut app = TestApp::new();
     let mut d = a_drive(&mut app);
-    // Python stubbed `say_event` outright; here the real pacer would treat
-    // the second, identical "Off the road" line as a repeat inside its own
-    // window. Step the clock between lines so what is asserted is the
-    // TRANSITION rule rather than the pacer's repeat guard.
     app.ctx.event_pacer = hearken::speech::EventSpeechPacer::with_clock(
         freight_fate::app::FF_PACER,
         stepping_clock(30.0),
     );
     d.lane.lane = 0;
-    d.trip.truck.velocity_mps = 13.0; // ~29 mph, below the "fast" band
+    d.trip.truck.velocity_mps = 13.0;
     app.clear_speech();
 
-    // Entry: the truck goes off the pavement.
     d.lane.offset = 1.35;
-    d.announce_off_pavement(&mut app.ctx);
-    assert_eq!(app.event_lines().len(), 1);
+    for expected in 1..=3 {
+        d.trip
+            .truck
+            .add_damage_from(1.0, true, "leaving the pavement");
+        d.announce_off_pavement(&mut app.ctx);
+        let lines = app.event_lines();
+        assert_eq!(lines.len(), expected as usize, "{lines:?}");
+        assert_eq!(
+            lines.last().map(String::as_str),
+            Some(format!("Off the road on the right! Damage {expected} percent.").as_str())
+        );
+    }
+    assert!(d.off_pavement_said);
 
-    // Steady, no worse: the continuous cue carries it, speech stays silent.
-    d.announce_off_pavement(&mut app.ctx);
-    d.announce_off_pavement(&mut app.ctx);
-    assert_eq!(app.event_lines().len(), 1);
-
-    // Worse: deeper off the road speaks again.
-    d.lane.offset = 1.48;
-    d.announce_off_pavement(&mut app.ctx);
-    assert_eq!(app.event_lines().len(), 2);
-
-    // Back on the pavement is a transition too, spoken once.
+    // Back on the pavement: the update path speaks the recovery once, off
+    // this flag, when the truck is back between the lines.
     d.lane.offset = 0.0;
-    d.road_position_band = Some(1);
-    // The recovery line lives in the update path; assert the condition the
-    // else-if turns on so the transition fires exactly when the truck is back.
     assert!(!d.off_pavement());
 }
 

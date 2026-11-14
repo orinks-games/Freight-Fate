@@ -22,6 +22,7 @@ pub mod real_weather_alerts;
 pub mod road_event_pacing;
 pub mod roadside_inspection;
 pub mod route_roadwork;
+pub mod runaway;
 pub mod season;
 pub mod stimulant;
 pub mod surge;

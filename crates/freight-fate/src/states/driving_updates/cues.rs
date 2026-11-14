@@ -41,39 +41,16 @@ impl DrivingState {
         self.lane.edge_excursion() >= OFF_ROAD
     }
 
-    /// A severity band that rises as the truck goes deeper off and faster,
-    /// so the transition speech fires again when the condition worsens
-    /// (research doc R12). Zero to two.
-    pub fn off_pavement_band(&self) -> i32 {
-        let depth = if self.lane.edge_excursion() < 1.4 {
-            0
-        } else {
-            1
-        };
-        let fast = if self.trip.truck.speed_mph() >= 45.0 {
-            1
-        } else {
-            0
-        };
-        depth + fast
-    }
-
-    /// Speak the off-pavement condition at its transitions only: on entry,
-    /// and again when it worsens. A steady or easing band stays silent -- the
-    /// panned edge-rumble loop carries where the truck is (research doc R12).
+    /// Speak a charge for leaving the pavement: where the truck is, then its
+    /// damage. Called once per charge, which the lane model spaces a few
+    /// seconds apart while the truck stays off; between charges the panned
+    /// edge-rumble loop carries where the truck is (research doc R12).
     pub fn announce_off_pavement(&mut self, ctx: &mut GameContext) {
-        let band = self.off_pavement_band();
-        if let Some(previous) = self.road_position_band {
-            if band <= previous {
-                // Still off, no worse: track the band so a later worsening speaks,
-                // but say nothing now.
-                self.road_position_band = Some(band);
-                return;
-            }
-        }
-        self.road_position_band = Some(band);
+        // Every call is a damage charge, so every call speaks, the way a
+        // collision does: the place, then what the truck is at now.
+        self.off_pavement_said = true;
         let boundary = self.edge_boundary();
-        let message = if boundary == "oncoming" {
+        let place = if boundary == "oncoming" {
             // Past an undivided centerline is not a shoulder: say the
             // real danger, on the side it lives.
             "Across the centerline, in the oncoming lane!".to_string()
@@ -82,10 +59,12 @@ impl DrivingState {
         } else {
             self.lane.describe()
         };
-        // Position (the standing off-pavement condition) is STATUS; this
-        // function only ever speaks on entry or worsening -- the transition
-        // itself is the warning, so every line it emits is SAFETY.
-        ctx.say_event_with(message, SayEvent::new().category(SpeechCategory::Safety));
+        let damage = self.trip.truck.damage_pct;
+        // The transition itself is the warning, so the line is SAFETY.
+        ctx.say_event_with(
+            format!("{place} Damage {damage:.0} percent."),
+            SayEvent::new().category(SpeechCategory::Safety),
+        );
     }
 
     /// What lies past the road edge the truck is drifting toward.
