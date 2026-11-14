@@ -19,9 +19,6 @@
 ### Fixed
 
 - **Enter accepts a facility arrival from a full stop with Facility stopping assistance off.** A stopped truck is told to set the parking brake.
-
-### Fixed
-
 - **Game sound comes back when a Bluetooth headset drops out or the sound device stops responding.** It returns within a few seconds, without a restart.
 - **The built-in voice keeps speaking after a Bluetooth headset connects or disconnects.** In 1.9.6 it could go silent until a restart.
 

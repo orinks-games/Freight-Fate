@@ -4026,10 +4026,12 @@ On dev since 1.9.6:
 
 Release gate for 1.9.7:
 
-- [ ] Sound comes back after the sound device drops (Hearken PR 69, then
-      game PR 626). A player reported 1.9.6 going silent with a Bluetooth
-      headset. Driven in the cloud with the sound service killed twice;
-      the check with a real headset on Windows is the owner's.
+- [x] Sound comes back after the sound device drops (Hearken PR 69, then
+      game PR 626, both merged 2026-11-14). A player reported 1.9.6 going
+      silent with a Bluetooth headset. Driven in the cloud with the sound
+      service killed twice. No one has run it with a real headset on
+      Windows; the owner has none to test with and merged it for players
+      to confirm.
 - [ ] The Windows Defender detection a player reported on 2026-11-14.
       The Windows build is not code signed. Before the tag, the release
       candidate's Windows files are scanned and come back clean, or the
