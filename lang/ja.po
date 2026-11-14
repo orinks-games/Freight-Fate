@@ -333,8 +333,8 @@ msgstr ""
 msgid "Five-by-Two"
 msgstr "ファイブ・バイ・ツー"
 
-msgid "Ten hours in the sleeper, and your hours are reset."
-msgstr "スリーパーで10時間休み、勤務時間がリセットされました。"
+msgid "Ten hours in the sleeper, and you're good for another eleven."
+msgstr "スリーパーで10時間、これでまた11時間走れる。"
 
 msgid "Red Simpson - Sleeper, Five-By-Two"
 msgstr "Red Simpson - Sleeper, Five-By-Two"
@@ -10453,6 +10453,21 @@ msgstr ""
 
 msgid "misses"
 msgstr ""
+
+msgid "arriving"
+msgstr ""
+
+msgid "rolling"
+msgstr ""
+
+msgid "creeping"
+msgstr ""
+
+msgid "stopped"
+msgstr ""
+
+msgid "holding"
+msgstr "holding"
 
 msgid "Driver window down."
 msgstr "運転席の窓を開けました。"
@@ -21041,6 +21056,14 @@ msgstr "制限：{speed_text}{zone}"
 msgid "Progress: {journey_progress_percent} percent there"
 msgstr "進み具合：{journey_progress_percent}パーセント"
 
+#. one sentence of a longer line
+msgid "Route: You have arrived."
+msgstr ""
+
+#. placeholders: {gate}
+msgid "Route: You have arrived. {gate}"
+msgstr ""
+
 #. placeholders: {progress}
 msgid "Route: {progress}"
 msgstr "ルート：{progress}"
@@ -23138,12 +23161,20 @@ msgid " Cruise off."
 msgstr "クルーズ、オフ。"
 
 #. placeholders: {pickup_facility_text}
+msgid "At {pickup_facility_text}. Set the parking brake to check in."
+msgstr ""
+
+#. placeholders: {pickup_facility_text}
 msgid "At {pickup_facility_text}. Stop to check in."
 msgstr "{pickup_facility_text}に着きました。停車して受付をしてください。"
 
 #. one sentence of a longer line
 msgid "Stop to check in."
 msgstr "停車して受付をしてください。"
+
+#. placeholders: {destination_facility_text}
+msgid "At {destination_facility_text}. Set the parking brake to dock."
+msgstr ""
 
 #. placeholders: {destination_facility_text}
 msgid "At {destination_facility_text}. Stop to dock."
@@ -23684,9 +23715,6 @@ msgstr "視界不良。車間を広げます。"
 msgid "easing"
 msgstr "easing"
 
-msgid "holding"
-msgstr "holding"
-
 msgid "easing-capped"
 msgstr "easing-capped"
 
@@ -23884,6 +23912,25 @@ msgstr "ウインカーを出してください。"
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal."
 msgstr "{exit_hint}でウインカーを出します。"
+
+msgid "Set the parking brake to check in."
+msgstr ""
+
+msgid "Set the parking brake to dock."
+msgstr ""
+
+#. placeholders: {key}
+#. one sentence of a longer line
+msgid "Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to check in. Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to dock. Press {key}."
+msgstr ""
 
 msgid "the green light"
 msgstr "青信号"
@@ -37442,6 +37489,53 @@ msgstr "右折して{street}に入ります"
 msgid "Continue onto {street}"
 msgstr "{street}に進みます"
 
+msgid "Turn right onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Turn left onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Turn onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Continue onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Start on {street}, then {distance} on it."
+msgstr ""
+
+msgid "Keep right onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Keep left onto {street}, then {distance} on it."
+msgstr ""
+
+msgid ""
+"Speed limit {verb} to {speed_value} approaching {city} for {short_miles}."
+msgstr ""
+
+msgid ""
+"Speed limit {verb} to {speed_value} leaving {city} for {short_miles}."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} approaching {city}."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} leaving {city}."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} for the weigh station."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} for the downhill grade."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} for {short_miles}."
+msgstr ""
+
+msgid "the yard"
+msgstr ""
+
 msgid "a service road"
 msgstr "側道"
 
@@ -38158,6 +38252,9 @@ msgstr "タイヤの破片。"
 
 msgid "Debris."
 msgstr "落下物。"
+
+#~ msgid "Ten hours in the sleeper, and your hours are reset."
+#~ msgstr "スリーパーで10時間休み、勤務時間がリセットされました。"
 
 #~ msgid "Walk-around done, 15 minutes."
 #~ msgstr "点検完了、15分。"

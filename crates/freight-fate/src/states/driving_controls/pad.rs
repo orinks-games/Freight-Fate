@@ -78,10 +78,9 @@ impl DrivingState {
                     return;
                 }
                 ControllerButton::A
-                    if self.assisted_facility_confirmation_ready(ctx)
-                        && !self.co_driver_driving() =>
+                    if self.facility_confirmation_ready(ctx) && !self.co_driver_driving() =>
                 {
-                    self.open_ready_facility_arrival(ctx);
+                    self.confirm_facility_arrival(ctx);
                     return;
                 }
                 _ => {}
@@ -127,7 +126,7 @@ impl DrivingState {
             Action::Clock => self.speak_clock(ctx, true),
             Action::Rest => {
                 if self.manual_facility_arrival_ready(ctx) {
-                    self.open_ready_facility_arrival(ctx);
+                    self.confirm_facility_arrival(ctx);
                 } else {
                     self.try_rest_stop(ctx);
                 }

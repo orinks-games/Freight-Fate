@@ -693,6 +693,9 @@ fn install_chains_label(d: &DrivingState, ctx: &GameContext) -> String {
 /// how far along, the hours, and the air.
 pub fn trip_status_lines(d: &DrivingState, ctx: &GameContext) -> Vec<String> {
     let hours_used = d.trip.game_minutes / 60.0;
+    // Ended at a gate, the progress row says what the gate is waiting for.
+    let gate = d.arrival_gate_query_text(ctx);
+    let arrived = gate.map(|gate| format!("You have arrived. {gate}"));
     if d.phase == DRIVE_PHASE_PICKUP {
         return vec![
             format!("Driving to pickup at {}.", d.pickup_facility_text(ctx)),
@@ -702,7 +705,7 @@ pub fn trip_status_lines(d: &DrivingState, ctx: &GameContext) -> Vec<String> {
                 d.job.cargo.label,
                 d.job.spoken_destination()
             ),
-            d.pickup_progress_summary(ctx),
+            arrived.unwrap_or_else(|| d.pickup_progress_summary(ctx)),
             format!("{} used.", duration_text(hours_used)),
             format!("{}.", d.air_status_text(false)),
         ];
@@ -714,7 +717,7 @@ pub fn trip_status_lines(d: &DrivingState, ctx: &GameContext) -> Vec<String> {
             d.job.cargo.label,
             d.job.spoken_destination()
         ),
-        d.trip.progress_summary(ctx.settings.imperial_units),
+        arrived.unwrap_or_else(|| d.trip.progress_summary(ctx.settings.imperial_units)),
         format!(
             "{} used of {}.",
             duration_text(hours_used),

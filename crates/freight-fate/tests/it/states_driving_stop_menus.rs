@@ -354,16 +354,19 @@ fn test_t_does_not_open_an_assist_off_facility_while_rolling() {
 }
 
 #[test]
-fn test_enter_and_controller_a_cannot_bypass_manual_facility_parking() {
+fn test_enter_and_controller_a_cannot_bypass_manual_facility_stop() {
+    // Rolling at a walk is not stopped: the keys open the facility only at
+    // rest (where they open it brake or no brake; see the arrival gate's
+    // own tests), and a key that does nothing says nothing.
     for controller in [false, true] {
         let mut harness = a_drive("Manual Facility Confirm");
         harness.app.ctx.settings.destination_approach_assist = false;
         harness.with_drive(|drive, _| {
             mark_destination_exit_taken(drive);
-            drive.arrival_full_stop_said = true;
-            drive.truck_mut().velocity_mps = 0.0;
+            drive.truck_mut().velocity_mps = 2.0 / 2.23694;
             drive.truck_mut().parking_brake = false;
         });
+        harness.clear_speech();
 
         if controller {
             press_pad(&mut harness, ControllerButton::A);
@@ -373,6 +376,7 @@ fn test_enter_and_controller_a_cannot_bypass_manual_facility_parking() {
 
         assert!(!harness.read_drive(|d| d.arrival_menu_open));
         assert!(!harness.read_drive(|d| d.truck().parking_brake));
+        assert!(harness.app.event_lines().is_empty());
     }
 }
 

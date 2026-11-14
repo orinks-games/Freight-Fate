@@ -333,8 +333,8 @@ msgstr ""
 msgid "Five-by-Two"
 msgstr "五乘二"
 
-msgid "Ten hours in the sleeper, and your hours are reset."
-msgstr "在卧铺里休息十小时，你的工时已重置。"
+msgid "Ten hours in the sleeper, and you're good for another eleven."
+msgstr "在卧铺里睡满十小时，又能再跑十一个小时。"
 
 msgid "Red Simpson - Sleeper, Five-By-Two"
 msgstr "Red Simpson - Sleeper, Five-By-Two"
@@ -10365,6 +10365,21 @@ msgstr ""
 
 msgid "misses"
 msgstr ""
+
+msgid "arriving"
+msgstr ""
+
+msgid "rolling"
+msgstr ""
+
+msgid "creeping"
+msgstr ""
+
+msgid "stopped"
+msgstr ""
+
+msgid "holding"
+msgstr "holding"
 
 msgid "Driver window down."
 msgstr ""
@@ -20837,6 +20852,14 @@ msgstr "限速：{speed_text}{zone}"
 msgid "Progress: {journey_progress_percent} percent there"
 msgstr "进度：已完成百分之{journey_progress_percent}"
 
+#. one sentence of a longer line
+msgid "Route: You have arrived."
+msgstr ""
+
+#. placeholders: {gate}
+msgid "Route: You have arrived. {gate}"
+msgstr ""
+
 #. placeholders: {progress}
 msgid "Route: {progress}"
 msgstr "路线：{progress}"
@@ -22912,12 +22935,20 @@ msgid " Cruise off."
 msgstr "巡航关闭。"
 
 #. placeholders: {pickup_facility_text}
+msgid "At {pickup_facility_text}. Set the parking brake to check in."
+msgstr ""
+
+#. placeholders: {pickup_facility_text}
 msgid "At {pickup_facility_text}. Stop to check in."
 msgstr "到了{pickup_facility_text}。停车报到。"
 
 #. one sentence of a longer line
 msgid "Stop to check in."
 msgstr "停车报到。"
+
+#. placeholders: {destination_facility_text}
+msgid "At {destination_facility_text}. Set the parking brake to dock."
+msgstr ""
 
 #. placeholders: {destination_facility_text}
 msgid "At {destination_facility_text}. Stop to dock."
@@ -23455,9 +23486,6 @@ msgstr "能见度低，间隔加大。"
 msgid "easing"
 msgstr "easing"
 
-msgid "holding"
-msgstr "holding"
-
 msgid "easing-capped"
 msgstr "easing-capped"
 
@@ -23655,6 +23683,25 @@ msgstr "为它打转向灯。"
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal."
 msgstr "按{exit_hint}打转向灯。"
+
+msgid "Set the parking brake to check in."
+msgstr ""
+
+msgid "Set the parking brake to dock."
+msgstr ""
+
+#. placeholders: {key}
+#. one sentence of a longer line
+msgid "Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to check in. Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to dock. Press {key}."
+msgstr ""
 
 msgid "the green light"
 msgstr "绿灯"
@@ -36906,6 +36953,53 @@ msgstr "右转驶入{street}"
 msgid "Continue onto {street}"
 msgstr "继续驶入{street}"
 
+msgid "Turn right onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Turn left onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Turn onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Continue onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Start on {street}, then {distance} on it."
+msgstr ""
+
+msgid "Keep right onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Keep left onto {street}, then {distance} on it."
+msgstr ""
+
+msgid ""
+"Speed limit {verb} to {speed_value} approaching {city} for {short_miles}."
+msgstr ""
+
+msgid ""
+"Speed limit {verb} to {speed_value} leaving {city} for {short_miles}."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} approaching {city}."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} leaving {city}."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} for the weigh station."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} for the downhill grade."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} for {short_miles}."
+msgstr ""
+
+msgid "the yard"
+msgstr ""
+
 msgid "a service road"
 msgstr "一条辅路"
 
@@ -37621,6 +37715,9 @@ msgstr "轮胎碎片。"
 
 msgid "Debris."
 msgstr "杂物。"
+
+#~ msgid "Ten hours in the sleeper, and your hours are reset."
+#~ msgstr "在卧铺里休息十小时，你的工时已重置。"
 
 #~ msgid "Walk-around done, 15 minutes."
 #~ msgstr "绕车检查完成，用时15分钟。"

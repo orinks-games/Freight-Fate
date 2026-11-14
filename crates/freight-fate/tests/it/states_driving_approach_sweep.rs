@@ -592,7 +592,7 @@ fn arrive_driven(
         // Stopped at the gate with the hold prompt spoken IS the arrival: the
         // assist holds there and waits for the driver to pull in.
         if harness
-            .read_drive(|d| d.arrival_full_stop_said && d.truck().speed_mph() <= DOCKING_MAX_MPH)
+            .read_drive(|d| d.gate.stop_prompted() && d.truck().speed_mph() <= DOCKING_MAX_MPH)
         {
             ready = true;
             break;
@@ -1410,7 +1410,7 @@ fn arrive_from_the_sign(
                 d.ramp_terminal_done,
                 d.truck().speed_mph(),
                 d.surface_chain,
-                d.arrival_full_stop_said,
+                d.gate.stop_prompted(),
             )
         });
         on_chain |= chain;

@@ -715,18 +715,14 @@ pub const ACC_FOLLOW_DECEL_MPS2: f64 = 0.35; // gentle planned deceleration whil
 pub const ACC_FOLLOW_CUE_COOLDOWN_S: f64 = 30.0; // minimum quiet time between "Traffic ahead" cues
 pub const ACC_STOPPED_CANCEL_S: f64 = 20.0; // hand control back this many seconds before stopped traffic
 pub const ENGINE_SHUTDOWN_SAFE_MPH: f64 = 5.0; // prevent accidental kill-switch use at speed
-pub const DELIVERY_PARK_MPH: f64 = 3.0; // within this, the gate prompts you to stop
-pub const DOCKING_MAX_MPH: f64 = 0.5; // dock/settle/rest actions need a complete stop
+                                               // The gate's speeds and cadence live beside the gate's state machine.
+pub use ff_core::sim::arrival_gate::{
+    DELIVERY_PARK_MPH, DOCKING_MAX_MPH, GATE_BRAKE_PROMPT_S, GATE_REMINDER_INTERVAL_S,
+};
 pub const PARKING_BRAKE_SETTLE_MAX_MPH: f64 = 3.0; // spring brakes finish a walking-pace stop immediately
-                                                   // How often a facility gate re-speaks its stop instruction while the truck is
-                                                   // still rolling past it. The one-shot warnings latch, so without a cadence a
-                                                   // player who overshot the gate at speed heard them once, minutes ago, and got
-                                                   // silence for the rest of the drive (playtest 2026-07-22: six minutes and the
-                                                   // on-time bonus lost three miles past a delivery entrance).
-pub const GATE_REMINDER_INTERVAL_S: f64 = 10.0;
-// Minimum quiet time between curve-assist spoken cues. The assist state can
-// legitimately cycle when cruise fights the curve brake; the cues must not
-// (playtest 2026-07-22: 23 slowing/released flips in four seconds).
+                                                   // Minimum quiet time between curve-assist spoken cues. The assist state can
+                                                   // legitimately cycle when cruise fights the curve brake; the cues must not
+                                                   // (playtest 2026-07-22: 23 slowing/released flips in four seconds).
 pub const CURVE_ASSIST_CUE_COOLDOWN_S: f64 = 15.0;
 
 /// The three drive phases (`DRIVE_PHASE_*`): plain strings in Python, kept

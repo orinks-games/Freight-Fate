@@ -616,7 +616,7 @@ pub fn arrive_corners(destination: &Destination, bench: Bench) -> (Vec<Corner>, 
                 release_keys(&mut harness);
             }
         }
-        if harness.read_drive(|d| d.arrival_full_stop_said && d.truck().speed_mph() <= 2.0) {
+        if harness.read_drive(|d| d.gate.stop_prompted() && d.truck().speed_mph() <= 2.0) {
             break;
         }
         frame(&mut harness, DT);

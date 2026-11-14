@@ -339,8 +339,8 @@ msgstr ""
 msgid "Five-by-Two"
 msgstr "Beşe iki"
 
-msgid "Ten hours in the sleeper, and your hours are reset."
-msgstr "Yatakta on saat, ve çalışma saatlerin sıfırlandı."
+msgid "Ten hours in the sleeper, and you're good for another eleven."
+msgstr "Yatakta on saat, ve on bir saat daha yola hazırsın."
 
 msgid "Red Simpson - Sleeper, Five-By-Two"
 msgstr "Red Simpson - Sleeper, Five-By-Two"
@@ -11383,6 +11383,21 @@ msgid "game minutes left"
 msgstr ""
 
 msgid "misses"
+msgstr ""
+
+msgid "arriving"
+msgstr ""
+
+msgid "rolling"
+msgstr ""
+
+msgid "creeping"
+msgstr ""
+
+msgid "stopped"
+msgstr ""
+
+msgid "holding"
 msgstr ""
 
 msgid "Driver window down."
@@ -22660,6 +22675,14 @@ msgstr "Sınır: {speed_text}{zone}"
 msgid "Progress: {journey_progress_percent} percent there"
 msgstr "İlerleme: yüzde {journey_progress_percent} tamamlandı"
 
+#. one sentence of a longer line
+msgid "Route: You have arrived."
+msgstr ""
+
+#. placeholders: {gate}
+msgid "Route: You have arrived. {gate}"
+msgstr ""
+
 #. placeholders: {progress}
 msgid "Route: {progress}"
 msgstr "Güzergâh: {progress}"
@@ -24897,12 +24920,20 @@ msgid " Cruise off."
 msgstr " Hız sabitleyici kapalı."
 
 #. placeholders: {pickup_facility_text}
+msgid "At {pickup_facility_text}. Set the parking brake to check in."
+msgstr ""
+
+#. placeholders: {pickup_facility_text}
 msgid "At {pickup_facility_text}. Stop to check in."
 msgstr "Konum: {pickup_facility_text}. Kayıt için durun."
 
 #. one sentence of a longer line
 msgid "Stop to check in."
 msgstr "Kayıt için durun."
+
+#. placeholders: {destination_facility_text}
+msgid "At {destination_facility_text}. Set the parking brake to dock."
+msgstr ""
 
 #. placeholders: {destination_facility_text}
 msgid "At {destination_facility_text}. Stop to dock."
@@ -25466,9 +25497,6 @@ msgstr "Görüş düşük, takip mesafesi uzun."
 msgid "easing"
 msgstr ""
 
-msgid "holding"
-msgstr ""
-
 msgid "easing-capped"
 msgstr ""
 
@@ -25668,6 +25696,25 @@ msgstr "Onun için sinyal verin."
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal."
 msgstr "Sinyal için {exit_hint} tuşuna basın."
+
+msgid "Set the parking brake to check in."
+msgstr ""
+
+msgid "Set the parking brake to dock."
+msgstr ""
+
+#. placeholders: {key}
+#. one sentence of a longer line
+msgid "Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to check in. Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to dock. Press {key}."
+msgstr ""
 
 msgid "the green light"
 msgstr "yeşil ışık"
@@ -40436,6 +40483,53 @@ msgstr "{street} yönüne sağa dönün"
 msgid "Continue onto {street}"
 msgstr "{street} yönünde devam edin"
 
+msgid "Turn right onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Turn left onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Turn onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Continue onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Start on {street}, then {distance} on it."
+msgstr ""
+
+msgid "Keep right onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Keep left onto {street}, then {distance} on it."
+msgstr ""
+
+msgid ""
+"Speed limit {verb} to {speed_value} approaching {city} for {short_miles}."
+msgstr ""
+
+msgid ""
+"Speed limit {verb} to {speed_value} leaving {city} for {short_miles}."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} approaching {city}."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} leaving {city}."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} for the weigh station."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} for the downhill grade."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} for {short_miles}."
+msgstr ""
+
+msgid "the yard"
+msgstr ""
+
 msgid "a service road"
 msgstr "bir servis yolu"
 
@@ -41161,6 +41255,9 @@ msgstr "Lastik parçaları."
 
 msgid "Debris."
 msgstr "Döküntü."
+
+#~ msgid "Ten hours in the sleeper, and your hours are reset."
+#~ msgstr "Yatakta on saat, ve çalışma saatlerin sıfırlandı."
 
 #~ msgid "Walk-around done, 15 minutes."
 #~ msgstr "Araç kontrolü bitti, 15 dakika."

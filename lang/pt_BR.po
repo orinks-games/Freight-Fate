@@ -347,8 +347,8 @@ msgstr ""
 msgid "Five-by-Two"
 msgstr "Cinco por dois"
 
-msgid "Ten hours in the sleeper, and your hours are reset."
-msgstr "Dez horas no leito, e suas horas foram zeradas."
+msgid "Ten hours in the sleeper, and you're good for another eleven."
+msgstr "Dez horas no leito, e você está pronto para mais onze."
 
 msgid "Red Simpson - Sleeper, Five-By-Two"
 msgstr "Red Simpson - Sleeper, Five-By-Two"
@@ -11688,6 +11688,21 @@ msgstr ""
 
 msgid "misses"
 msgstr ""
+
+msgid "arriving"
+msgstr ""
+
+msgid "rolling"
+msgstr ""
+
+msgid "creeping"
+msgstr ""
+
+msgid "stopped"
+msgstr ""
+
+msgid "holding"
+msgstr "holding"
 
 msgid "Driver window down."
 msgstr "Janela do motorista aberta."
@@ -23136,6 +23151,14 @@ msgstr "Limite: {speed_text}{zone}"
 msgid "Progress: {journey_progress_percent} percent there"
 msgstr "Progresso: {journey_progress_percent} por cento do caminho"
 
+#. one sentence of a longer line
+msgid "Route: You have arrived."
+msgstr ""
+
+#. placeholders: {gate}
+msgid "Route: You have arrived. {gate}"
+msgstr ""
+
 #. placeholders: {progress}
 msgid "Route: {progress}"
 msgstr "Rota: {progress}"
@@ -25396,12 +25419,20 @@ msgid " Cruise off."
 msgstr " Piloto automático desligado."
 
 #. placeholders: {pickup_facility_text}
+msgid "At {pickup_facility_text}. Set the parking brake to check in."
+msgstr ""
+
+#. placeholders: {pickup_facility_text}
 msgid "At {pickup_facility_text}. Stop to check in."
 msgstr "Em {pickup_facility_text}. Pare para se apresentar."
 
 #. one sentence of a longer line
 msgid "Stop to check in."
 msgstr "Pare para se apresentar."
+
+#. placeholders: {destination_facility_text}
+msgid "At {destination_facility_text}. Set the parking brake to dock."
+msgstr ""
 
 #. placeholders: {destination_facility_text}
 msgid "At {destination_facility_text}. Stop to dock."
@@ -25971,9 +26002,6 @@ msgstr "Pouca visibilidade, distância maior."
 msgid "easing"
 msgstr "easing"
 
-msgid "holding"
-msgstr "holding"
-
 msgid "easing-capped"
 msgstr "easing-capped"
 
@@ -26173,6 +26201,25 @@ msgstr "Dê seta para ela."
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal."
 msgstr "Pressione {exit_hint} para dar seta."
+
+msgid "Set the parking brake to check in."
+msgstr ""
+
+msgid "Set the parking brake to dock."
+msgstr ""
+
+#. placeholders: {key}
+#. one sentence of a longer line
+msgid "Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to check in. Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to dock. Press {key}."
+msgstr ""
 
 msgid "the green light"
 msgstr "o sinal verde"
@@ -41147,6 +41194,53 @@ msgstr "Vire à direita na {street}"
 msgid "Continue onto {street}"
 msgstr "Siga pela {street}"
 
+msgid "Turn right onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Turn left onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Turn onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Continue onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Start on {street}, then {distance} on it."
+msgstr ""
+
+msgid "Keep right onto {street}, then {distance} on it."
+msgstr ""
+
+msgid "Keep left onto {street}, then {distance} on it."
+msgstr ""
+
+msgid ""
+"Speed limit {verb} to {speed_value} approaching {city} for {short_miles}."
+msgstr ""
+
+msgid ""
+"Speed limit {verb} to {speed_value} leaving {city} for {short_miles}."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} approaching {city}."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} leaving {city}."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} for the weigh station."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} for the downhill grade."
+msgstr ""
+
+msgid "Speed limit {verb} to {speed_value} for {short_miles}."
+msgstr ""
+
+msgid "the yard"
+msgstr ""
+
 msgid "a service road"
 msgstr "uma via de serviço"
 
@@ -41880,6 +41974,9 @@ msgstr "Pedaços de pneu."
 
 msgid "Debris."
 msgstr "Destroços."
+
+#~ msgid "Ten hours in the sleeper, and your hours are reset."
+#~ msgstr "Dez horas no leito, e suas horas foram zeradas."
 
 #~ msgid "Walk-around done, 15 minutes."
 #~ msgstr "Inspeção em volta do caminhão feita, 15 minutos."
