@@ -17365,72 +17365,50 @@ msgstr ""
 msgid "{prefix}You have no carrier right now. {NO_CARRIER_OBJECTIVE}"
 msgstr ""
 
-#. placeholders: {name}, {area}
-#. one sentence of a longer line
-msgid ""
-"Lease orientation is at {name} in {area}, where your truck is parked."
+#. placeholders: {name}
+msgid "Lease orientation and your truck are at {name}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Orientation and your truck are at {name}."
+msgstr ""
+
+#. placeholders: {first_day_parked_location}
+msgid "Truck parked {first_day_parked_location}."
 msgstr ""
 
 #. placeholders: {prefix}, {carrier_name}
-#. one sentence of a longer line
 msgid "{prefix}First-day briefing: leased to {carrier_name}."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {name}, {area}
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}. Lease orientation is "
-"at {name} in {area}, where your truck is parked."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {location}
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}, parked {location}."
 msgstr ""
 
 #. placeholders: {grouped}
 msgid ""
-"You own a new truck with a full tank and {grouped} dollars of working "
-"capital."
-msgstr "你拥有一辆加满油的新卡车，还有{grouped}美元周转资金。"
+"New truck with a full tank, and {grouped} dollars of working capital."
+msgstr ""
 
-msgid ""
-"Fuel, repairs, truck wear, trailer programs, and business reserves come out "
-"of your cash."
-msgstr "燃油、维修、卡车磨损、挂车计划和经营准备金都从你的现金里出。"
+msgid "Fuel, repairs, wear, trailers, and reserves come out of your cash."
+msgstr ""
 
 msgid "Next: the dispatch board."
 msgstr "下一个：调度板。"
 
 #. placeholders: {prefix}, {carrier_name}
-msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
-msgstr "{prefix}第一天简报：欢迎加入{carrier_name}。"
-
-#. placeholders: {name}, {area}
-msgid ""
-"Orientation and truck assignment are at {name} in {area}, where your "
-"assigned truck is parked."
-msgstr ""
-
-#. placeholders: {location}
-msgid "Your assigned truck is parked {location}."
-msgstr ""
+msgid "{prefix}First-day briefing: {carrier_name}."
+msgstr "{prefix}第一天简报：{carrier_name}。"
 
 #. placeholders: {home}
-msgid ""
-"The carrier covered your travel from {home} and a hotel for orientation."
+msgid "The carrier paid your travel from {home} and a hotel."
 msgstr ""
 
-msgid "The carrier covers fuel, repairs, insurance, and trailer support."
-msgstr "承运商承担燃油、维修、保险和挂车支持。"
+msgid "Carrier covers fuel, repairs, insurance, and trailers."
+msgstr "承运人承担燃油、维修、保险和拖车费用。"
 
 #. placeholders: {summary}
 msgid "Dispatch style: {summary}."
 msgstr "调度风格：{summary}。"
 
-msgid ""
-"As a new hire, dispatch assigns your load and route, and refusing an "
-"assignment goes on your service record."
-msgstr "作为新员工，调度会给你指派货物和路线，拒绝指派会记入你的服务记录。"
+msgid "Dispatch assigns your loads. A refusal goes on your record."
+msgstr ""
 
 msgid "endorsements"
 msgstr "endorsements"
@@ -39707,6 +39685,27 @@ msgstr "轮胎碎片。"
 msgid "Debris."
 msgstr "杂物。"
 
+#~ msgid ""
+#~ "You own a new truck with a full tank and {grouped} dollars of working "
+#~ "capital."
+#~ msgstr "你拥有一辆加满油的新卡车，还有{grouped}美元周转资金。"
+
+#~ msgid ""
+#~ "Fuel, repairs, truck wear, trailer programs, and business reserves come out "
+#~ "of your cash."
+#~ msgstr "燃油、维修、卡车磨损、挂车计划和经营准备金都从你的现金里出。"
+
+#~ msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
+#~ msgstr "{prefix}第一天简报：欢迎加入{carrier_name}。"
+
+#~ msgid "The carrier covers fuel, repairs, insurance, and trailer support."
+#~ msgstr "承运商承担燃油、维修、保险和挂车支持。"
+
+#~ msgid ""
+#~ "As a new hire, dispatch assigns your load and route, and refusing an "
+#~ "assignment goes on your service record."
+#~ msgstr "作为新员工，调度会给你指派货物和路线，拒绝指派会记入你的服务记录。"
+
 #~ msgid "Fuel, repairs, wear, trailers, and reserves come from your cash."
 #~ msgstr "燃料、维修、磨损、拖车和储备都来自你的现金。"
 
@@ -39722,14 +39721,8 @@ msgstr "杂物。"
 #~ msgid "Assigned loads."
 #~ msgstr "任务由调度分配。"
 
-#~ msgid "Carrier covers fuel, repairs, insurance, and trailers."
-#~ msgstr "承运人承担燃油、维修、保险和拖车费用。"
-
 #~ msgid "Dispatch: {summary}."
 #~ msgstr "调度：{summary}。"
-
-#~ msgid "{prefix}First-day briefing: {carrier_name}."
-#~ msgstr "{prefix}第一天简报：{carrier_name}。"
 
 #~ msgid ""
 #~ "The carrier's insurer will not carry a record like that. "

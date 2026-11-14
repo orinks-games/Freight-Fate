@@ -18964,78 +18964,50 @@ msgstr ""
 msgid "{prefix}You have no carrier right now. {NO_CARRIER_OBJECTIVE}"
 msgstr ""
 
-#. placeholders: {name}, {area}
-#. one sentence of a longer line
-msgid ""
-"Lease orientation is at {name} in {area}, where your truck is parked."
+#. placeholders: {name}
+msgid "Lease orientation and your truck are at {name}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Orientation and your truck are at {name}."
+msgstr ""
+
+#. placeholders: {first_day_parked_location}
+msgid "Truck parked {first_day_parked_location}."
 msgstr ""
 
 #. placeholders: {prefix}, {carrier_name}
-#. one sentence of a longer line
 msgid "{prefix}First-day briefing: leased to {carrier_name}."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {name}, {area}
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}. Lease orientation is "
-"at {name} in {area}, where your truck is parked."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {location}
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}, parked {location}."
 msgstr ""
 
 #. placeholders: {grouped}
 msgid ""
-"You own a new truck with a full tank and {grouped} dollars of working "
-"capital."
+"New truck with a full tank, and {grouped} dollars of working capital."
 msgstr ""
-"У вас новый грузовик с полным баком и {grouped} "
-"{grouped:доллар|доллара|долларов} оборотных средств."
 
-msgid ""
-"Fuel, repairs, truck wear, trailer programs, and business reserves come out "
-"of your cash."
+msgid "Fuel, repairs, wear, trailers, and reserves come out of your cash."
 msgstr ""
-"Топливо, ремонт, износ грузовика, программы прицепов и резервы бизнеса "
-"оплачиваются из ваших денег."
 
 msgid "Next: the dispatch board."
 msgstr "Дальше: доска заказов."
 
 #. placeholders: {prefix}, {carrier_name}
-msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
-msgstr "{prefix}Инструктаж первого дня: добро пожаловать в {carrier_name}."
-
-#. placeholders: {name}, {area}
-msgid ""
-"Orientation and truck assignment are at {name} in {area}, where your "
-"assigned truck is parked."
-msgstr ""
-
-#. placeholders: {location}
-msgid "Your assigned truck is parked {location}."
-msgstr ""
+msgid "{prefix}First-day briefing: {carrier_name}."
+msgstr "{prefix}Инструктаж первого дня: {carrier_name}."
 
 #. placeholders: {home}
-msgid ""
-"The carrier covered your travel from {home} and a hotel for orientation."
+msgid "The carrier paid your travel from {home} and a hotel."
 msgstr ""
 
-msgid "The carrier covers fuel, repairs, insurance, and trailer support."
+msgid "Carrier covers fuel, repairs, insurance, and trailers."
 msgstr "Перевозчик оплачивает топливо, ремонт, страховку и прицепы."
 
 #. placeholders: {summary}
 msgid "Dispatch style: {summary}."
 msgstr "Стиль диспетчера: {summary}."
 
-msgid ""
-"As a new hire, dispatch assigns your load and route, and refusing an "
-"assignment goes on your service record."
+msgid "Dispatch assigns your loads. A refusal goes on your record."
 msgstr ""
-"Новичку диспетчер сам назначает груз и маршрут, а отказ от назначения "
-"записывается в историю работы."
 
 msgid "endorsements"
 msgstr "endorsements"
@@ -44203,6 +44175,33 @@ msgstr "Куски шины."
 msgid "Debris."
 msgstr "Мусор."
 
+#~ msgid ""
+#~ "You own a new truck with a full tank and {grouped} dollars of working "
+#~ "capital."
+#~ msgstr ""
+#~ "У вас новый грузовик с полным баком и {grouped} "
+#~ "{grouped:доллар|доллара|долларов} оборотных средств."
+
+#~ msgid ""
+#~ "Fuel, repairs, truck wear, trailer programs, and business reserves come out "
+#~ "of your cash."
+#~ msgstr ""
+#~ "Топливо, ремонт, износ грузовика, программы прицепов и резервы бизнеса "
+#~ "оплачиваются из ваших денег."
+
+#~ msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
+#~ msgstr "{prefix}Инструктаж первого дня: добро пожаловать в {carrier_name}."
+
+#~ msgid "The carrier covers fuel, repairs, insurance, and trailer support."
+#~ msgstr "Перевозчик оплачивает топливо, ремонт, страховку и прицепы."
+
+#~ msgid ""
+#~ "As a new hire, dispatch assigns your load and route, and refusing an "
+#~ "assignment goes on your service record."
+#~ msgstr ""
+#~ "Новичку диспетчер сам назначает груз и маршрут, а отказ от назначения "
+#~ "записывается в историю работы."
+
 #~ msgid "Fuel, repairs, wear, trailers, and reserves come from your cash."
 #~ msgstr ""
 #~ "Топливо, ремонт, износ, прицепы и резервы оплачиваются из ваших денег."
@@ -44221,14 +44220,8 @@ msgstr "Мусор."
 #~ msgid "Assigned loads."
 #~ msgstr "Грузы назначают."
 
-#~ msgid "Carrier covers fuel, repairs, insurance, and trailers."
-#~ msgstr "Перевозчик оплачивает топливо, ремонт, страховку и прицепы."
-
 #~ msgid "Dispatch: {summary}."
 #~ msgstr "Диспетчер: {summary}."
-
-#~ msgid "{prefix}First-day briefing: {carrier_name}."
-#~ msgstr "{prefix}Инструктаж первого дня: {carrier_name}."
 
 #~ msgid ""
 #~ "The carrier's insurer will not carry a record like that. "

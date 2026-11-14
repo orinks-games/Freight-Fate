@@ -19050,79 +19050,50 @@ msgstr ""
 msgid "{prefix}You have no carrier right now. {NO_CARRIER_OBJECTIVE}"
 msgstr ""
 
-#. placeholders: {name}, {area}
-#. one sentence of a longer line
-msgid ""
-"Lease orientation is at {name} in {area}, where your truck is parked."
+#. placeholders: {name}
+msgid "Lease orientation and your truck are at {name}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Orientation and your truck are at {name}."
+msgstr ""
+
+#. placeholders: {first_day_parked_location}
+msgid "Truck parked {first_day_parked_location}."
 msgstr ""
 
 #. placeholders: {prefix}, {carrier_name}
-#. one sentence of a longer line
 msgid "{prefix}First-day briefing: leased to {carrier_name}."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {name}, {area}
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}. Lease orientation is "
-"at {name} in {area}, where your truck is parked."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {location}
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}, parked {location}."
 msgstr ""
 
 #. placeholders: {grouped}
 msgid ""
-"You own a new truck with a full tank and {grouped} dollars of working "
-"capital."
+"New truck with a full tank, and {grouped} dollars of working capital."
 msgstr ""
-"Você tem um caminhão novo com o tanque cheio e {grouped} dólares de capital "
-"de giro."
 
-msgid ""
-"Fuel, repairs, truck wear, trailer programs, and business reserves come out "
-"of your cash."
+msgid "Fuel, repairs, wear, trailers, and reserves come out of your cash."
 msgstr ""
-"Combustível, consertos, desgaste do caminhão, programas de reboque e "
-"reservas do negócio saem do seu dinheiro."
 
 msgid "Next: the dispatch board."
 msgstr "Próximo: o quadro de fretes."
 
 #. placeholders: {prefix}, {carrier_name}
-msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
-msgstr "{prefix}Orientação do primeiro dia: bem-vindo à {carrier_name}."
-
-#. placeholders: {name}, {area}
-msgid ""
-"Orientation and truck assignment are at {name} in {area}, where your "
-"assigned truck is parked."
-msgstr ""
-
-#. placeholders: {location}
-msgid "Your assigned truck is parked {location}."
-msgstr ""
+msgid "{prefix}First-day briefing: {carrier_name}."
+msgstr "{prefix}Instruções do primeiro dia: {carrier_name}."
 
 #. placeholders: {home}
-msgid ""
-"The carrier covered your travel from {home} and a hotel for orientation."
+msgid "The carrier paid your travel from {home} and a hotel."
 msgstr ""
 
-msgid "The carrier covers fuel, repairs, insurance, and trailer support."
-msgstr ""
-"A transportadora cobre combustível, consertos, seguro e apoio de reboque."
+msgid "Carrier covers fuel, repairs, insurance, and trailers."
+msgstr "A transportadora cobre diesel, consertos, seguro e reboques."
 
 #. placeholders: {summary}
 msgid "Dispatch style: {summary}."
 msgstr "Estilo da central: {summary}."
 
-msgid ""
-"As a new hire, dispatch assigns your load and route, and refusing an "
-"assignment goes on your service record."
+msgid "Dispatch assigns your loads. A refusal goes on your record."
 msgstr ""
-"Como contratado novo, a central designa sua carga e sua rota, e recusar uma "
-"designação vai para o seu histórico de serviço."
 
 msgid "endorsements"
 msgstr "endossos"
@@ -43889,6 +43860,34 @@ msgstr "Pedaços de pneu."
 msgid "Debris."
 msgstr "Destroços."
 
+#~ msgid ""
+#~ "You own a new truck with a full tank and {grouped} dollars of working "
+#~ "capital."
+#~ msgstr ""
+#~ "Você tem um caminhão novo com o tanque cheio e {grouped} dólares de capital "
+#~ "de giro."
+
+#~ msgid ""
+#~ "Fuel, repairs, truck wear, trailer programs, and business reserves come out "
+#~ "of your cash."
+#~ msgstr ""
+#~ "Combustível, consertos, desgaste do caminhão, programas de reboque e "
+#~ "reservas do negócio saem do seu dinheiro."
+
+#~ msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
+#~ msgstr "{prefix}Orientação do primeiro dia: bem-vindo à {carrier_name}."
+
+#~ msgid "The carrier covers fuel, repairs, insurance, and trailer support."
+#~ msgstr ""
+#~ "A transportadora cobre combustível, consertos, seguro e apoio de reboque."
+
+#~ msgid ""
+#~ "As a new hire, dispatch assigns your load and route, and refusing an "
+#~ "assignment goes on your service record."
+#~ msgstr ""
+#~ "Como contratado novo, a central designa sua carga e sua rota, e recusar uma "
+#~ "designação vai para o seu histórico de serviço."
+
 #~ msgid "Fuel, repairs, wear, trailers, and reserves come from your cash."
 #~ msgstr ""
 #~ "Diesel, consertos, desgaste, reboques e reservas saem do seu dinheiro."
@@ -43905,14 +43904,8 @@ msgstr "Destroços."
 #~ msgid "Assigned loads."
 #~ msgstr "Cargas designadas."
 
-#~ msgid "Carrier covers fuel, repairs, insurance, and trailers."
-#~ msgstr "A transportadora cobre diesel, consertos, seguro e reboques."
-
 #~ msgid "Dispatch: {summary}."
 #~ msgstr "Central: {summary}."
-
-#~ msgid "{prefix}First-day briefing: {carrier_name}."
-#~ msgstr "{prefix}Instruções do primeiro dia: {carrier_name}."
 
 #~ msgid ""
 #~ "The carrier's insurer will not carry a record like that. "

@@ -18680,79 +18680,50 @@ msgstr ""
 msgid "{prefix}You have no carrier right now. {NO_CARRIER_OBJECTIVE}"
 msgstr ""
 
-#. placeholders: {name}, {area}
-#. one sentence of a longer line
-msgid ""
-"Lease orientation is at {name} in {area}, where your truck is parked."
+#. placeholders: {name}
+msgid "Lease orientation and your truck are at {name}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Orientation and your truck are at {name}."
+msgstr ""
+
+#. placeholders: {first_day_parked_location}
+msgid "Truck parked {first_day_parked_location}."
 msgstr ""
 
 #. placeholders: {prefix}, {carrier_name}
-#. one sentence of a longer line
 msgid "{prefix}First-day briefing: leased to {carrier_name}."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {name}, {area}
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}. Lease orientation is "
-"at {name} in {area}, where your truck is parked."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {location}
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}, parked {location}."
 msgstr ""
 
 #. placeholders: {grouped}
 msgid ""
-"You own a new truck with a full tank and {grouped} dollars of working "
-"capital."
+"New truck with a full tank, and {grouped} dollars of working capital."
 msgstr ""
-"Depo dolu yeni bir tırınız ve {grouped} dolar işletme sermayeniz var."
 
-msgid ""
-"Fuel, repairs, truck wear, trailer programs, and business reserves come out "
-"of your cash."
+msgid "Fuel, repairs, wear, trailers, and reserves come out of your cash."
 msgstr ""
-"Yakıt, onarım, tır aşınması, dorse programları ve işletme yedek fonu "
-"nakitinizden çıkar."
 
 msgid "Next: the dispatch board."
 msgstr "Sıradaki: iş panosu."
 
 #. placeholders: {prefix}, {carrier_name}
-msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
-msgstr ""
-"{prefix}İlk gün bilgilendirmesi: {carrier_name} ailesine hoş geldiniz."
-
-#. placeholders: {name}, {area}
-msgid ""
-"Orientation and truck assignment are at {name} in {area}, where your "
-"assigned truck is parked."
-msgstr ""
-
-#. placeholders: {location}
-msgid "Your assigned truck is parked {location}."
-msgstr ""
+msgid "{prefix}First-day briefing: {carrier_name}."
+msgstr "{prefix}İlk gün bilgilendirmesi: {carrier_name}."
 
 #. placeholders: {home}
-msgid ""
-"The carrier covered your travel from {home} and a hotel for orientation."
+msgid "The carrier paid your travel from {home} and a hotel."
 msgstr ""
 
-msgid "The carrier covers fuel, repairs, insurance, and trailer support."
-msgstr ""
-"Taşıyıcı firma yakıtı, onarımları, sigortayı ve dorse desteğini karşılar."
+msgid "Carrier covers fuel, repairs, insurance, and trailers."
+msgstr "Yakıt, onarım, sigorta ve dorseleri taşıyıcı firma karşılar."
 
 #. placeholders: {summary}
 msgid "Dispatch style: {summary}."
 msgstr "Sevkiyat tarzı: {summary}."
 
-msgid ""
-"As a new hire, dispatch assigns your load and route, and refusing an "
-"assignment goes on your service record."
+msgid "Dispatch assigns your loads. A refusal goes on your record."
 msgstr ""
-"Yeni şoför olarak yükünüzü ve rotanızı sevkiyat belirler; bir görevi "
-"reddetmek hizmet sicilinize işlenir."
 
 msgid "endorsements"
 msgstr ""
@@ -43181,6 +43152,34 @@ msgstr "Lastik parçaları."
 msgid "Debris."
 msgstr "Döküntü."
 
+#~ msgid ""
+#~ "You own a new truck with a full tank and {grouped} dollars of working "
+#~ "capital."
+#~ msgstr ""
+#~ "Depo dolu yeni bir tırınız ve {grouped} dolar işletme sermayeniz var."
+
+#~ msgid ""
+#~ "Fuel, repairs, truck wear, trailer programs, and business reserves come out "
+#~ "of your cash."
+#~ msgstr ""
+#~ "Yakıt, onarım, tır aşınması, dorse programları ve işletme yedek fonu "
+#~ "nakitinizden çıkar."
+
+#~ msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
+#~ msgstr ""
+#~ "{prefix}İlk gün bilgilendirmesi: {carrier_name} ailesine hoş geldiniz."
+
+#~ msgid "The carrier covers fuel, repairs, insurance, and trailer support."
+#~ msgstr ""
+#~ "Taşıyıcı firma yakıtı, onarımları, sigortayı ve dorse desteğini karşılar."
+
+#~ msgid ""
+#~ "As a new hire, dispatch assigns your load and route, and refusing an "
+#~ "assignment goes on your service record."
+#~ msgstr ""
+#~ "Yeni şoför olarak yükünüzü ve rotanızı sevkiyat belirler; bir görevi "
+#~ "reddetmek hizmet sicilinize işlenir."
+
 #~ msgid "Fuel, repairs, wear, trailers, and reserves come from your cash."
 #~ msgstr ""
 #~ "Yakıt, onarım, aşınma, dorseler ve yedek akçe sizin paranızdan çıkar."
@@ -43197,14 +43196,8 @@ msgstr "Döküntü."
 #~ msgid "Assigned loads."
 #~ msgstr "Yükler size atanır."
 
-#~ msgid "Carrier covers fuel, repairs, insurance, and trailers."
-#~ msgstr "Yakıt, onarım, sigorta ve dorseleri taşıyıcı firma karşılar."
-
 #~ msgid "Dispatch: {summary}."
 #~ msgstr "Sevkiyat: {summary}."
-
-#~ msgid "{prefix}First-day briefing: {carrier_name}."
-#~ msgstr "{prefix}İlk gün bilgilendirmesi: {carrier_name}."
 
 #~ msgid ""
 #~ "The carrier's insurer will not carry a record like that. "

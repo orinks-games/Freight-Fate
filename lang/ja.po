@@ -17504,72 +17504,50 @@ msgstr ""
 msgid "{prefix}You have no carrier right now. {NO_CARRIER_OBJECTIVE}"
 msgstr ""
 
-#. placeholders: {name}, {area}
-#. one sentence of a longer line
-msgid ""
-"Lease orientation is at {name} in {area}, where your truck is parked."
+#. placeholders: {name}
+msgid "Lease orientation and your truck are at {name}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Orientation and your truck are at {name}."
+msgstr ""
+
+#. placeholders: {first_day_parked_location}
+msgid "Truck parked {first_day_parked_location}."
 msgstr ""
 
 #. placeholders: {prefix}, {carrier_name}
-#. one sentence of a longer line
 msgid "{prefix}First-day briefing: leased to {carrier_name}."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {name}, {area}
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}. Lease orientation is "
-"at {name} in {area}, where your truck is parked."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {location}
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}, parked {location}."
 msgstr ""
 
 #. placeholders: {grouped}
 msgid ""
-"You own a new truck with a full tank and {grouped} dollars of working "
-"capital."
-msgstr "燃料満タンの新しいトラックと、運転資金{grouped}ドルを持っています。"
+"New truck with a full tank, and {grouped} dollars of working capital."
+msgstr ""
 
-msgid ""
-"Fuel, repairs, truck wear, trailer programs, and business reserves come out "
-"of your cash."
-msgstr "燃料、修理、トラックの摩耗、トレーラープログラム、事業の積立は手持ちのお金から出ていきます。"
+msgid "Fuel, repairs, wear, trailers, and reserves come out of your cash."
+msgstr ""
 
 msgid "Next: the dispatch board."
 msgstr "次は配車ボードです。"
 
 #. placeholders: {prefix}, {carrier_name}
-msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
-msgstr "{prefix}初日の説明：{carrier_name}へようこそ。"
-
-#. placeholders: {name}, {area}
-msgid ""
-"Orientation and truck assignment are at {name} in {area}, where your "
-"assigned truck is parked."
-msgstr ""
-
-#. placeholders: {location}
-msgid "Your assigned truck is parked {location}."
-msgstr ""
+msgid "{prefix}First-day briefing: {carrier_name}."
+msgstr "{prefix}初日の説明：{carrier_name}。"
 
 #. placeholders: {home}
-msgid ""
-"The carrier covered your travel from {home} and a hotel for orientation."
+msgid "The carrier paid your travel from {home} and a hotel."
 msgstr ""
 
-msgid "The carrier covers fuel, repairs, insurance, and trailer support."
-msgstr "燃料、修理、保険、トレーラーの支援は運送会社が負担します。"
+msgid "Carrier covers fuel, repairs, insurance, and trailers."
+msgstr "燃料、修理、保険、トレーラーは運送会社が負担します。"
 
 #. placeholders: {summary}
 msgid "Dispatch style: {summary}."
 msgstr "配車のスタイル：{summary}。"
 
-msgid ""
-"As a new hire, dispatch assigns your load and route, and refusing an "
-"assignment goes on your service record."
-msgstr "新人のうちは配車係が積荷とルートを割り当て、割り当てを断ると仕事の記録に残ります。"
+msgid "Dispatch assigns your loads. A refusal goes on your record."
+msgstr ""
 
 msgid "endorsements"
 msgstr "endorsements"
@@ -40228,6 +40206,27 @@ msgstr "タイヤの破片。"
 msgid "Debris."
 msgstr "落下物。"
 
+#~ msgid ""
+#~ "You own a new truck with a full tank and {grouped} dollars of working "
+#~ "capital."
+#~ msgstr "燃料満タンの新しいトラックと、運転資金{grouped}ドルを持っています。"
+
+#~ msgid ""
+#~ "Fuel, repairs, truck wear, trailer programs, and business reserves come out "
+#~ "of your cash."
+#~ msgstr "燃料、修理、トラックの摩耗、トレーラープログラム、事業の積立は手持ちのお金から出ていきます。"
+
+#~ msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
+#~ msgstr "{prefix}初日の説明：{carrier_name}へようこそ。"
+
+#~ msgid "The carrier covers fuel, repairs, insurance, and trailer support."
+#~ msgstr "燃料、修理、保険、トレーラーの支援は運送会社が負担します。"
+
+#~ msgid ""
+#~ "As a new hire, dispatch assigns your load and route, and refusing an "
+#~ "assignment goes on your service record."
+#~ msgstr "新人のうちは配車係が積荷とルートを割り当て、割り当てを断ると仕事の記録に残ります。"
+
 #~ msgid "Fuel, repairs, wear, trailers, and reserves come from your cash."
 #~ msgstr "燃料、修理、摩耗、トレーラー、積立は手持ちのお金から払います。"
 
@@ -40243,14 +40242,8 @@ msgstr "落下物。"
 #~ msgid "Assigned loads."
 #~ msgstr "積荷は割り当て制です。"
 
-#~ msgid "Carrier covers fuel, repairs, insurance, and trailers."
-#~ msgstr "燃料、修理、保険、トレーラーは運送会社が負担します。"
-
 #~ msgid "Dispatch: {summary}."
 #~ msgstr "配車係：{summary}。"
-
-#~ msgid "{prefix}First-day briefing: {carrier_name}."
-#~ msgstr "{prefix}初日の説明：{carrier_name}。"
 
 #~ msgid ""
 #~ "The carrier's insurer will not carry a record like that. "

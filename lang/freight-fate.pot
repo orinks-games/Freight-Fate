@@ -21816,43 +21816,34 @@ msgstr ""
 msgid "{prefix}You have no carrier right now. {NO_CARRIER_OBJECTIVE}"
 msgstr ""
 
-#. placeholders: {name}, {area}
-#. one sentence of a longer line
+#. placeholders: {name}
 #: crates/freight-fate/src/states/city.rs
-msgid ""
-"Lease orientation is at {name} in {area}, where your truck is parked."
+msgid "Lease orientation and your truck are at {name}."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/city.rs
+msgid "Orientation and your truck are at {name}."
+msgstr ""
+
+#. placeholders: {first_day_parked_location}
+#: crates/freight-fate/src/states/city.rs
+msgid "Truck parked {first_day_parked_location}."
 msgstr ""
 
 #. placeholders: {prefix}, {carrier_name}
-#. one sentence of a longer line
 #: crates/freight-fate/src/states/city.rs
 msgid "{prefix}First-day briefing: leased to {carrier_name}."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {name}, {area}
-#: crates/freight-fate/src/states/city.rs
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}. Lease orientation is "
-"at {name} in {area}, where your truck is parked."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {location}
-#: crates/freight-fate/src/states/city.rs
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}, parked {location}."
 msgstr ""
 
 #. placeholders: {grouped}
 #: crates/freight-fate/src/states/city.rs
 msgid ""
-"You own a new truck with a full tank and {grouped} dollars of working "
-"capital."
+"New truck with a full tank, and {grouped} dollars of working capital."
 msgstr ""
 
 #: crates/freight-fate/src/states/city.rs
-msgid ""
-"Fuel, repairs, truck wear, trailer programs, and business reserves come out "
-"of your cash."
+msgid "Fuel, repairs, wear, trailers, and reserves come out of your cash."
 msgstr ""
 
 #: crates/freight-fate/src/states/city.rs
@@ -21861,29 +21852,16 @@ msgstr ""
 
 #. placeholders: {prefix}, {carrier_name}
 #: crates/freight-fate/src/states/city.rs
-msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
-msgstr ""
-
-#. placeholders: {name}, {area}
-#: crates/freight-fate/src/states/city.rs
-msgid ""
-"Orientation and truck assignment are at {name} in {area}, where your "
-"assigned truck is parked."
-msgstr ""
-
-#. placeholders: {location}
-#: crates/freight-fate/src/states/city.rs
-msgid "Your assigned truck is parked {location}."
+msgid "{prefix}First-day briefing: {carrier_name}."
 msgstr ""
 
 #. placeholders: {home}
 #: crates/freight-fate/src/states/city.rs
-msgid ""
-"The carrier covered your travel from {home} and a hotel for orientation."
+msgid "The carrier paid your travel from {home} and a hotel."
 msgstr ""
 
 #: crates/freight-fate/src/states/city.rs
-msgid "The carrier covers fuel, repairs, insurance, and trailer support."
+msgid "Carrier covers fuel, repairs, insurance, and trailers."
 msgstr ""
 
 #. placeholders: {summary}
@@ -21892,9 +21870,7 @@ msgid "Dispatch style: {summary}."
 msgstr ""
 
 #: crates/freight-fate/src/states/city.rs
-msgid ""
-"As a new hire, dispatch assigns your load and route, and refusing an "
-"assignment goes on your service record."
+msgid "Dispatch assigns your loads. A refusal goes on your record."
 msgstr ""
 
 #: crates/freight-fate/src/states/city.rs

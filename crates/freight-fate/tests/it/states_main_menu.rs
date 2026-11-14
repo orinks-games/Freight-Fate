@@ -808,7 +808,7 @@ fn test_milwaukee_pick_with_northstar_starts_at_the_chicago_terminal() {
         .expect("the briefing was spoken");
     assert!(
         briefing.contains(
-            "Orientation and truck assignment are at Northstar Freight Lines Chicago terminal"
+            "Orientation and your truck are at Northstar Freight Lines Chicago terminal."
         ),
         "{briefing}"
     );
@@ -865,8 +865,11 @@ fn test_owner_operator_briefing_names_the_lease_terminal() {
         .iter()
         .find(|line| line.contains("First-day briefing"))
         .expect("the briefing was spoken");
-    assert!(briefing.contains("Lease orientation is at "), "{briefing}");
-    assert!(briefing.contains(" terminal in the "), "{briefing}");
+    assert!(
+        briefing.contains("Lease orientation and your truck are at "),
+        "{briefing}"
+    );
+    assert!(briefing.contains(" terminal. "), "{briefing}");
 }
 
 #[test]
@@ -918,11 +921,11 @@ fn test_a_hire_away_from_the_terminal_hears_the_carrier_covered_travel() {
         "Northstar Freight Lines",
     );
     assert!(
-        briefing.contains("The carrier covered your travel from Milwaukee"),
+        briefing.contains("The carrier paid your travel from Milwaukee"),
         "{briefing}"
     );
     assert!(
-        briefing.contains("and a hotel for orientation."),
+        briefing.contains("from Milwaukee and a hotel."),
         "{briefing}"
     );
     let profile = app.ctx.profile.clone().expect("a career");
@@ -939,7 +942,7 @@ fn test_a_hire_in_the_terminal_city_hears_no_travel_line() {
         "chicago_il_us",
         "Northstar Freight Lines",
     );
-    assert!(!briefing.contains("covered your travel"), "{briefing}");
+    assert!(!briefing.contains("paid your travel"), "{briefing}");
     assert_eq!(app.ctx.profile.as_ref().unwrap().home_city, "chicago_il_us");
 }
 
@@ -952,8 +955,11 @@ fn test_an_owner_operator_hears_no_travel_line() {
         "milwaukee_wi_us",
         "Owner-operator start",
     );
-    assert!(briefing.contains("Lease orientation is at "), "{briefing}");
-    assert!(!briefing.contains("covered your travel"), "{briefing}");
+    assert!(
+        briefing.contains("Lease orientation and your truck are at "),
+        "{briefing}"
+    );
+    assert!(!briefing.contains("paid your travel"), "{briefing}");
 }
 
 #[test]

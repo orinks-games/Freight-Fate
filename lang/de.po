@@ -19158,79 +19158,51 @@ msgstr ""
 msgid "{prefix}You have no carrier right now. {NO_CARRIER_OBJECTIVE}"
 msgstr ""
 
-#. placeholders: {name}, {area}
-#. one sentence of a longer line
-msgid ""
-"Lease orientation is at {name} in {area}, where your truck is parked."
+#. placeholders: {name}
+msgid "Lease orientation and your truck are at {name}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "Orientation and your truck are at {name}."
+msgstr ""
+
+#. placeholders: {first_day_parked_location}
+msgid "Truck parked {first_day_parked_location}."
 msgstr ""
 
 #. placeholders: {prefix}, {carrier_name}
-#. one sentence of a longer line
 msgid "{prefix}First-day briefing: leased to {carrier_name}."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {name}, {area}
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}. Lease orientation is "
-"at {name} in {area}, where your truck is parked."
-msgstr ""
-
-#. placeholders: {prefix}, {carrier_name}, {location}
-msgid ""
-"{prefix}First-day briefing: leased to {carrier_name}, parked {location}."
 msgstr ""
 
 #. placeholders: {grouped}
 msgid ""
-"You own a new truck with a full tank and {grouped} dollars of working "
-"capital."
+"New truck with a full tank, and {grouped} dollars of working capital."
 msgstr ""
-"Dir gehört ein neuer Lkw mit vollem Tank und {grouped} Dollar "
-"Betriebskapital."
 
-msgid ""
-"Fuel, repairs, truck wear, trailer programs, and business reserves come out "
-"of your cash."
+msgid "Fuel, repairs, wear, trailers, and reserves come out of your cash."
 msgstr ""
-"Kraftstoff, Reparaturen, Lkw-Verschleiß, Aufliegerprogramme und "
-"Geschäftsrücklagen gehen von deinem Geld ab."
 
 msgid "Next: the dispatch board."
 msgstr "Als Nächstes: die Auftragsbörse."
 
 #. placeholders: {prefix}, {carrier_name}
-msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
-msgstr "{prefix}Einweisung am ersten Tag: Willkommen bei {carrier_name}."
-
-#. placeholders: {name}, {area}
-msgid ""
-"Orientation and truck assignment are at {name} in {area}, where your "
-"assigned truck is parked."
-msgstr ""
-
-#. placeholders: {location}
-msgid "Your assigned truck is parked {location}."
-msgstr ""
+msgid "{prefix}First-day briefing: {carrier_name}."
+msgstr "{prefix}Einweisung am ersten Tag: {carrier_name}."
 
 #. placeholders: {home}
-msgid ""
-"The carrier covered your travel from {home} and a hotel for orientation."
+msgid "The carrier paid your travel from {home} and a hotel."
 msgstr ""
 
-msgid "The carrier covers fuel, repairs, insurance, and trailer support."
+msgid "Carrier covers fuel, repairs, insurance, and trailers."
 msgstr ""
-"Die Spedition übernimmt Kraftstoff, Reparaturen, Versicherung und Auflieger."
+"Die Spedition zahlt Kraftstoff, Reparaturen, Versicherung und Auflieger."
 
 #. placeholders: {summary}
 msgid "Dispatch style: {summary}."
 msgstr "Stil der Disposition: {summary}."
 
-msgid ""
-"As a new hire, dispatch assigns your load and route, and refusing an "
-"assignment goes on your service record."
+msgid "Dispatch assigns your loads. A refusal goes on your record."
 msgstr ""
-"Als Neuling bekommst du Ladung und Route von der Disposition zugewiesen, "
-"und das Ablehnen einer Zuweisung kommt in deine Servicebilanz."
 
 msgid "endorsements"
 msgstr "endorsements"
@@ -44178,6 +44150,34 @@ msgstr "Reifenreste."
 msgid "Debris."
 msgstr "Trümmer."
 
+#~ msgid ""
+#~ "You own a new truck with a full tank and {grouped} dollars of working "
+#~ "capital."
+#~ msgstr ""
+#~ "Dir gehört ein neuer Lkw mit vollem Tank und {grouped} Dollar "
+#~ "Betriebskapital."
+
+#~ msgid ""
+#~ "Fuel, repairs, truck wear, trailer programs, and business reserves come out "
+#~ "of your cash."
+#~ msgstr ""
+#~ "Kraftstoff, Reparaturen, Lkw-Verschleiß, Aufliegerprogramme und "
+#~ "Geschäftsrücklagen gehen von deinem Geld ab."
+
+#~ msgid "{prefix}First-day briefing: welcome aboard {carrier_name}."
+#~ msgstr "{prefix}Einweisung am ersten Tag: Willkommen bei {carrier_name}."
+
+#~ msgid "The carrier covers fuel, repairs, insurance, and trailer support."
+#~ msgstr ""
+#~ "Die Spedition übernimmt Kraftstoff, Reparaturen, Versicherung und Auflieger."
+
+#~ msgid ""
+#~ "As a new hire, dispatch assigns your load and route, and refusing an "
+#~ "assignment goes on your service record."
+#~ msgstr ""
+#~ "Als Neuling bekommst du Ladung und Route von der Disposition zugewiesen, "
+#~ "und das Ablehnen einer Zuweisung kommt in deine Servicebilanz."
+
 #~ msgid "Fuel, repairs, wear, trailers, and reserves come from your cash."
 #~ msgstr ""
 #~ "Kraftstoff, Reparaturen, Verschleiß, Auflieger und Rücklagen zahlst du aus "
@@ -44195,15 +44195,8 @@ msgstr "Trümmer."
 #~ msgid "Assigned loads."
 #~ msgstr "Zugewiesene Aufträge."
 
-#~ msgid "Carrier covers fuel, repairs, insurance, and trailers."
-#~ msgstr ""
-#~ "Die Spedition zahlt Kraftstoff, Reparaturen, Versicherung und Auflieger."
-
 #~ msgid "Dispatch: {summary}."
 #~ msgstr "Disposition: {summary}."
-
-#~ msgid "{prefix}First-day briefing: {carrier_name}."
-#~ msgstr "{prefix}Einweisung am ersten Tag: {carrier_name}."
 
 #~ msgid ""
 #~ "The carrier's insurer will not carry a record like that. "

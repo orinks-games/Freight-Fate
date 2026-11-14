@@ -54,12 +54,9 @@ fn test_first_day_briefing_is_a_screen_of_lines() {
     select::<CityMenuState>(&mut app, "First-day briefing");
     assert!(is::<SimpleMenuState>(&app));
     let rows = labels::<SimpleMenuState>(&app);
+    assert!(rows[0].starts_with("First-day briefing: "), "{rows:?}");
     assert!(
-        rows[0].starts_with("First-day briefing: welcome aboard "),
-        "{rows:?}"
-    );
-    assert!(
-        rows[1].starts_with("Orientation and truck assignment are at Northstar Freight Lines "),
+        rows[1].starts_with("Orientation and your truck are at Northstar Freight Lines "),
         "{rows:?}"
     );
     assert!(
