@@ -1,5 +1,6 @@
 //! Driving simulation (port of `freight_fate/sim/`).
 pub mod alertness;
+pub mod arrival_gate;
 pub mod cab;
 pub mod cross_traffic;
 pub mod driving_modes;

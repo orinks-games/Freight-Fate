@@ -47,6 +47,7 @@ pub mod decel_lane;
 pub mod descent_control;
 pub mod destination_exit;
 pub mod exits;
+pub mod gate_stop;
 pub mod pending;
 pub mod ramp_crossing;
 pub mod ramp_terminal;

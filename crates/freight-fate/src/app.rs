@@ -246,6 +246,8 @@ pub struct DrivingObservation {
     pub lift_owed: Option<(f64, f64)>,
     /// This load's rest call to dispatch; `None` with no load on.
     pub rest_call: Option<ff_core::sim::fatigue_costs::RestCall>,
+    /// The stop at the facility gate, while the trip has ended at one.
+    pub gate: Option<ff_core::sim::arrival_gate::GateStop>,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -825,6 +827,7 @@ impl App {
                     ff_core::sim::stimulant::Loan::Clear => None,
                 }),
             rest_call: drive.rest_call_state(),
+            gate: drive.arrival_gate_query_text(&self.ctx).map(|_| drive.gate),
         })
     }
 

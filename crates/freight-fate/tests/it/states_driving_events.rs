@@ -1663,14 +1663,20 @@ fn test_the_gate_query_answers_only_at_a_finished_trip() {
 fn test_the_creep_line_names_the_place_once() {
     let mut app = TestApp::new();
     let mut d = a_real_drive(&mut app);
+    d.trip.finished = true;
+    d.destination_exit_taken = true;
+    d.trip.truck.engine_on = true;
+    d.trip.truck.parking_brake = false;
+    d.trip.truck.velocity_mps = 2.0 / 2.23694;
     app.clear_speech();
 
-    d.handle_arrival_creep(&mut app.ctx);
-    assert!(d.arrival_full_stop_said);
+    d.handle_arrival_gate(&mut app.ctx);
+    assert!(d.gate.stop_prompted());
     let first = app.event_lines().len();
+    assert!(first > 0, "the creep line");
 
     app.clear_speech();
-    d.handle_arrival_creep(&mut app.ctx);
+    d.handle_arrival_gate(&mut app.ctx);
     assert!(app.event_lines().is_empty(), "said once ({first} before)");
 }
 

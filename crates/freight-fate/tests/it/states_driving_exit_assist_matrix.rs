@@ -612,7 +612,7 @@ fn drive(preset: Preset, kind: Kind) -> Run {
             break;
         }
         if harness
-            .read_drive(|d| d.arrival_full_stop_said && d.truck().speed_mph() <= DOCKING_MAX_MPH)
+            .read_drive(|d| d.gate.stop_prompted() && d.truck().speed_mph() <= DOCKING_MAX_MPH)
         {
             run.arrived = true;
             break;

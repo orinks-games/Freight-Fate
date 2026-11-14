@@ -15,6 +15,10 @@
 - **Work at stops takes longer as fatigue rises.** Fueling, the walk-around, chain work and pulling in run slower from worn up.
 - **An inspection or traffic stop at severe fatigue ends in a ten-hour out-of-service order.**
 
+### Fixed
+
+- **Enter accepts a facility arrival from a full stop with Facility stopping assistance off.** A stopped truck is told to set the parking brake.
+
 ## 1.9.6 - 2026-11-13
 
 ### Compatibility

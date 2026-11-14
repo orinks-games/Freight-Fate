@@ -10566,7 +10566,7 @@ msgstr ""
 msgid "failed"
 msgstr ""
 
-#: crates/ff-core/src/models/exchange.rs crates/ff-core/src/sim/truck_parking.rs
+#: crates/ff-core/src/models/exchange.rs crates/ff-core/src/sim/arrival_gate.rs crates/ff-core/src/sim/truck_parking.rs
 msgid "open"
 msgstr ""
 
@@ -13037,6 +13037,26 @@ msgstr ""
 
 #: crates/ff-core/src/sim/alertness.rs
 msgid "misses"
+msgstr ""
+
+#: crates/ff-core/src/sim/arrival_gate.rs
+msgid "arriving"
+msgstr ""
+
+#: crates/ff-core/src/sim/arrival_gate.rs
+msgid "rolling"
+msgstr ""
+
+#: crates/ff-core/src/sim/arrival_gate.rs
+msgid "creeping"
+msgstr ""
+
+#: crates/ff-core/src/sim/arrival_gate.rs
+msgid "stopped"
+msgstr ""
+
+#: crates/ff-core/src/sim/arrival_gate.rs crates/freight-fate/src/states/driving_events/cruise_loop.rs
+msgid "holding"
 msgstr ""
 
 #: crates/ff-core/src/sim/cab.rs
@@ -26053,6 +26073,16 @@ msgstr ""
 msgid "Progress: {journey_progress_percent} percent there"
 msgstr ""
 
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_controls/status.rs
+msgid "Route: You have arrived."
+msgstr ""
+
+#. placeholders: {gate}
+#: crates/freight-fate/src/states/driving_controls/status.rs
+msgid "Route: You have arrived. {gate}"
+msgstr ""
+
 #. placeholders: {progress}
 #: crates/freight-fate/src/states/driving_controls/status.rs
 msgid "Route: {progress}"
@@ -28563,12 +28593,22 @@ msgstr ""
 
 #. placeholders: {pickup_facility_text}
 #: crates/freight-fate/src/states/driving_events/arrival.rs
+msgid "At {pickup_facility_text}. Set the parking brake to check in."
+msgstr ""
+
+#. placeholders: {pickup_facility_text}
+#: crates/freight-fate/src/states/driving_events/arrival.rs
 msgid "At {pickup_facility_text}. Stop to check in."
 msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_events/arrival.rs
 msgid "Stop to check in."
+msgstr ""
+
+#. placeholders: {destination_facility_text}
+#: crates/freight-fate/src/states/driving_events/arrival.rs
+msgid "At {destination_facility_text}. Set the parking brake to dock."
 msgstr ""
 
 #. placeholders: {destination_facility_text}
@@ -29243,10 +29283,6 @@ msgid "easing"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/cruise_loop.rs
-msgid "holding"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_events/cruise_loop.rs
 msgid "easing-capped"
 msgstr ""
 
@@ -29498,6 +29534,30 @@ msgstr ""
 #. placeholders: {exit_hint}
 #: crates/freight-fate/src/states/driving_events/exits.rs
 msgid "Press {exit_hint} to signal."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/gate_stop.rs
+msgid "Set the parking brake to check in."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_events/gate_stop.rs
+msgid "Set the parking brake to dock."
+msgstr ""
+
+#. placeholders: {key}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_events/gate_stop.rs
+msgid "Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+#: crates/freight-fate/src/states/driving_events/gate_stop.rs
+msgid "Set the parking brake to check in. Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+#: crates/freight-fate/src/states/driving_events/gate_stop.rs
+msgid "Set the parking brake to dock. Press {key}."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/ramp_crossing.rs
@@ -30825,7 +30885,7 @@ msgid "You have arrived."
 msgstr ""
 
 #. placeholders: {gate}
-#: crates/freight-fate/src/states/driving_location.rs
+#: crates/freight-fate/src/states/driving_location.rs crates/freight-fate/src/states/driving_pause_states.rs
 msgid "You have arrived. {gate}"
 msgstr ""
 

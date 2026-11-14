@@ -810,8 +810,9 @@ pub struct DrivingState {
     pub keeper_overrun_said: bool,
 
     // ---- driving_events.py / driving_pickup.py / driving_facility_gate.py: arrival ----
-    pub arrival_stop_said: bool,
-    pub arrival_full_stop_said: bool,
+    /// The stop at a facility gate (`ff_core::sim::arrival_gate`); moved
+    /// only through [`DrivingState::step_gate`].
+    pub gate: ff_core::sim::arrival_gate::GateStop,
     pub arrival_menu_open: bool,
     pub gate_reminder_s: f64,
     // Facility gate misses (driving_facility_gate.py): the pre-gate speed

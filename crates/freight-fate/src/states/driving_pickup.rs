@@ -16,34 +16,43 @@ use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 use crate::states::driving_menu_states::DriveRef;
 use crate::states::driving_updates::live;
+use ff_core::sim::arrival_gate::GateCue;
 
 impl DrivingState {
-    /// `_handle_pickup_gate()`.
+    /// `_handle_pickup_gate()` with no time passing: for callers that move
+    /// the truck by hand. The frame loop calls [`Self::update_pickup_gate`].
     pub fn handle_pickup_gate(&mut self, ctx: &mut GameContext) {
+        self.update_pickup_gate(ctx, 0.0);
+    }
+
+    /// One frame at the pickup gate, `dt` real seconds long.
+    pub fn update_pickup_gate(&mut self, ctx: &mut GameContext, dt: f64) {
         // The assist stops the truck here, exactly as it does at a dock, and
         // holds for the driver's key; see `hold_at_facility_entrance`.
         if self.hold_at_facility_entrance(ctx) {
             return;
         }
-        if self.trip.truck.speed_mph() <= DOCKING_MAX_MPH && self.trip.truck.parking_brake {
-            self.open_pickup_arrival(ctx);
-            return;
+        match self.read_gate(dt) {
+            Some(GateCue::Open) => self.open_pickup_arrival(ctx),
+            Some(GateCue::Creep) => self.handle_pickup_creep(ctx),
+            Some(GateCue::SetBrake) => self.say_gate_brake_line(ctx, true),
+            Some(GateCue::StopAtGate) => self.announce_pickup_gate(ctx),
+            Some(GateCue::Hold) => {}
+            None if self.gate.is_rolling() => {
+                let facility = self.pickup_facility_text(ctx);
+                self.remind_arrival_gate(
+                    ctx,
+                    "Pickup gate: stop to check in.",
+                    &format!("Still at {facility}. Stop to check in."),
+                    true,
+                );
+            }
+            None => {}
         }
-        if self.trip.truck.speed_mph() <= DELIVERY_PARK_MPH {
-            self.handle_pickup_creep(ctx);
-            return;
-        }
-        if self.arrival_stop_said {
-            let facility = self.pickup_facility_text(ctx);
-            self.remind_arrival_gate(
-                ctx,
-                "Pickup gate: stop to check in.",
-                &format!("Still at {facility}. Stop to check in."),
-                true,
-            );
-            return;
-        }
-        self.arrival_stop_said = true;
+    }
+
+    /// The pickup gate's first line: "Pickup: X. Stop at the gate."
+    fn announce_pickup_gate(&mut self, ctx: &mut GameContext) {
         self.gate_reminder_s = GATE_REMINDER_INTERVAL_S;
         let speed_control_paused = self.pause_speed_control(ctx, false);
         ctx.audio.play("ui/warning");
@@ -70,13 +79,10 @@ impl DrivingState {
         }
     }
 
-    /// `_handle_pickup_creep()`.
+    /// `_handle_pickup_creep()`: the creep line, once the gate has moved to
+    /// creeping. Like the dock's, it restarts the reminder's cadence.
     pub fn handle_pickup_creep(&mut self, ctx: &mut GameContext) {
-        if self.arrival_full_stop_said {
-            return;
-        }
-        self.arrival_full_stop_said = true;
-        live::set_gate_stop_prompted(true);
+        self.gate_reminder_s = GATE_REMINDER_INTERVAL_S;
         let speed_control_paused = self.pause_speed_control(ctx, false);
         ctx.audio.play_with("ui/notify", 0.7, 0.0);
         self.set_status("Pickup gate: stop to check in.");
@@ -90,7 +96,8 @@ impl DrivingState {
             message,
             SayEvent::queued()
                 .priority(EventPriority::Important)
-                .category(SpeechCategory::Navigation),
+                .category(SpeechCategory::Navigation)
+                .valid(|| !live::arrival_menu_open()),
         );
         if speed_control_paused {
             self.announce_pickup_speed_control_pause(ctx);

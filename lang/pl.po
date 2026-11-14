@@ -11639,6 +11639,21 @@ msgstr ""
 msgid "misses"
 msgstr ""
 
+msgid "arriving"
+msgstr ""
+
+msgid "rolling"
+msgstr ""
+
+msgid "creeping"
+msgstr ""
+
+msgid "stopped"
+msgstr ""
+
+msgid "holding"
+msgstr "holding"
+
 msgid "Driver window down."
 msgstr "Szyba kierowcy opuszczona."
 
@@ -23157,6 +23172,14 @@ msgstr "Ograniczenie: {speed_text}{zone}"
 msgid "Progress: {journey_progress_percent} percent there"
 msgstr "Postęp: {journey_progress_percent} procent drogi"
 
+#. one sentence of a longer line
+msgid "Route: You have arrived."
+msgstr ""
+
+#. placeholders: {gate}
+msgid "Route: You have arrived. {gate}"
+msgstr ""
+
 #. placeholders: {progress}
 msgid "Route: {progress}"
 msgstr "Trasa: {progress}"
@@ -25465,6 +25488,10 @@ msgid " Cruise off."
 msgstr " Tempomat wyłączony."
 
 #. placeholders: {pickup_facility_text}
+msgid "At {pickup_facility_text}. Set the parking brake to check in."
+msgstr ""
+
+#. placeholders: {pickup_facility_text}
 msgid "At {pickup_facility_text}. Stop to check in."
 msgstr ""
 "Jesteś przy {pickup_facility_text}. Zatrzymaj się, żeby się zgłosić."
@@ -25472,6 +25499,10 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Stop to check in."
 msgstr "Zatrzymaj się, żeby się zgłosić."
+
+#. placeholders: {destination_facility_text}
+msgid "At {destination_facility_text}. Set the parking brake to dock."
+msgstr ""
 
 #. placeholders: {destination_facility_text}
 msgid "At {destination_facility_text}. Stop to dock."
@@ -26045,9 +26076,6 @@ msgstr "Słaba widoczność, dłuższy odstęp."
 msgid "easing"
 msgstr "easing"
 
-msgid "holding"
-msgstr "holding"
-
 msgid "easing-capped"
 msgstr "easing-capped"
 
@@ -26248,6 +26276,25 @@ msgstr "Włącz na niego kierunkowskaz."
 #. placeholders: {exit_hint}
 msgid "Press {exit_hint} to signal."
 msgstr "Naciśnij {exit_hint}, żeby włączyć kierunkowskaz."
+
+msgid "Set the parking brake to check in."
+msgstr ""
+
+msgid "Set the parking brake to dock."
+msgstr ""
+
+#. placeholders: {key}
+#. one sentence of a longer line
+msgid "Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to check in. Press {key}."
+msgstr ""
+
+#. placeholders: {key}
+msgid "Set the parking brake to dock. Press {key}."
+msgstr ""
 
 msgid "the green light"
 msgstr "zielone światło"

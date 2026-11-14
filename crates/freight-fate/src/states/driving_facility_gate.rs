@@ -29,7 +29,6 @@ use ff_core::speech_pacing::SpeechCategory;
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
-use crate::states::driving_updates::live;
 
 /// Game minutes one loop through the safe turnaround costs -- the same charge
 /// as the missed-destination-exit loop, which is the same maneuver a road up.
@@ -329,9 +328,7 @@ impl DrivingState {
         // at route end. The next approach warns and speaks fresh, and the
         // "still at the gate" reminder is unreachable until the trip ends
         // at the gate again.
-        self.arrival_stop_said = false;
-        self.arrival_full_stop_said = false;
-        live::set_gate_stop_prompted(false);
+        self.step_gate(ff_core::sim::arrival_gate::GateEvent::Reset);
         self.gate_reminder_s = 0.0;
         self.gate_speed_warned = false;
         self.gate_warning_spoken = false;

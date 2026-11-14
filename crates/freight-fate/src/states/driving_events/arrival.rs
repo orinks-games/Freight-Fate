@@ -17,6 +17,7 @@ use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 use crate::states::driving_menu_states::{replace_drive_with, DriveRef, FacilityArrivalState};
 use crate::states::driving_updates::live;
+use ff_core::sim::arrival_gate::{GateCue, GateEvent};
 
 impl DrivingState {
     /// Once-per-threshold low-fuel cue at about 15 percent remaining, naming
@@ -322,8 +323,8 @@ impl DrivingState {
         }
         self.trip.truck.throttle = 0.0;
         self.trip.truck.brake = 1.0;
-        if self.trip.truck.speed_mph() <= 0.5 && !self.arrival_full_stop_said {
-            self.arrival_full_stop_said = true;
+        let speed_mph = self.trip.truck.speed_mph();
+        if self.step_gate(GateEvent::AssistReading { speed_mph }) == Some(GateCue::Hold) {
             self.trip.truck.set_parking_brake();
             // Only while the key still does something. A cut line is
             // handed back so it finishes, and this one asks for a
@@ -355,17 +356,15 @@ impl DrivingState {
         true
     }
 
-    /// `_handle_arrival_gate()`.
+    /// `_handle_arrival_gate()` with no time passing: for callers that move
+    /// the truck by hand. The frame loop calls [`Self::update_arrival_gate`].
     pub fn handle_arrival_gate(&mut self, ctx: &mut GameContext) {
+        self.update_arrival_gate(ctx, 0.0);
+    }
+
+    /// One frame at the delivery gate, `dt` real seconds long.
+    pub fn update_arrival_gate(&mut self, ctx: &mut GameContext, dt: f64) {
         if self.hold_at_facility_entrance(ctx) {
-            return;
-        }
-        if self.trip.truck.speed_mph() <= DOCKING_MAX_MPH && self.trip.truck.parking_brake {
-            self.open_facility_arrival(ctx);
-            return;
-        }
-        if self.trip.truck.speed_mph() <= DELIVERY_PARK_MPH {
-            self.handle_arrival_creep(ctx);
             return;
         }
         // Above the gate zone's posted limit with the warning heard and the
@@ -376,17 +375,28 @@ impl DrivingState {
             self.handle_missed_facility_gate(ctx);
             return;
         }
-        let facility = self.destination_facility_text(ctx);
-        if self.arrival_stop_said {
-            let message = if self.terse_speech(ctx) {
-                format!("At {facility}. Stop to dock.")
-            } else {
-                format!("Still at {facility}. Stop to dock.")
-            };
-            self.remind_arrival_gate(ctx, "Destination gate: stop to dock.", &message, false);
-            return;
+        match self.read_gate(dt) {
+            Some(GateCue::Open) => self.open_facility_arrival(ctx),
+            Some(GateCue::Creep) => self.handle_arrival_creep(ctx),
+            Some(GateCue::SetBrake) => self.say_gate_brake_line(ctx, false),
+            Some(GateCue::StopAtGate) => self.announce_arrival_gate(ctx),
+            Some(GateCue::Hold) => {}
+            None if self.gate.is_rolling() => {
+                let facility = self.destination_facility_text(ctx);
+                let message = if self.terse_speech(ctx) {
+                    format!("At {facility}. Stop to dock.")
+                } else {
+                    format!("Still at {facility}. Stop to dock.")
+                };
+                self.remind_arrival_gate(ctx, "Destination gate: stop to dock.", &message, false);
+            }
+            None => {}
         }
-        self.arrival_stop_said = true;
+    }
+
+    /// The delivery gate's first line: "Destination: X. Stop at the gate."
+    fn announce_arrival_gate(&mut self, ctx: &mut GameContext) {
+        let facility = self.destination_facility_text(ctx);
         self.gate_reminder_s = GATE_REMINDER_INTERVAL_S;
         // The speed keeper holds a facility gate zone's own 15 right up to
         // the gate, and the gate is a stop: it hands the pedals back here,
@@ -435,7 +445,7 @@ impl DrivingState {
     /// Whether Enter or controller A may finish an assisted stop.
     pub fn assisted_facility_confirmation_ready(&self, ctx: &GameContext) -> bool {
         ctx.settings.destination_approach_assist
-            && self.arrival_full_stop_said
+            && self.gate.is_holding()
             && self.trip.truck.speed_mph() <= DOCKING_MAX_MPH
             && self.trip.truck.parking_brake
             && self.arrival_gate_query_text(ctx).is_some()
@@ -476,7 +486,11 @@ impl DrivingState {
         }
         ctx.audio.play("ui/warning");
         self.set_status(status);
-        let mut opts = SayEvent::new();
+        // Only while the gate is still waiting. Cut by the dock opening and
+        // handed back, it told a docked truck to stop to dock (agent drive,
+        // 2026-11-14: Enter a second after the reminder).
+        self.refresh_live_facts();
+        let mut opts = SayEvent::new().valid(|| !live::arrival_menu_open());
         opts.category = Some(SpeechCategory::Navigation);
         ctx.say_event_with(message.to_string(), opts);
     }
@@ -493,28 +507,39 @@ impl DrivingState {
         {
             return None;
         }
+        // Stopped with the brake off, "stop to dock" is not what the gate is
+        // waiting for: the brake is (first player report, 1.9.6).
+        let brake_missing = self.at_rest_without_parking_brake(ctx);
         if self.phase == DRIVE_PHASE_PICKUP {
-            return Some(format!(
-                "At {}. Stop to check in.",
-                self.pickup_facility_text(ctx)
-            ));
+            // The facility is named inline so the lines keep the
+            // placeholder names their translations were written against.
+            return Some(if brake_missing {
+                format!(
+                    "At {}. Set the parking brake to check in.",
+                    self.pickup_facility_text(ctx)
+                )
+            } else {
+                format!("At {}. Stop to check in.", self.pickup_facility_text(ctx))
+            });
         }
         if self.ramp_mi.is_some() || !self.destination_exit_taken {
             return None;
         }
-        Some(format!(
-            "At {}. Stop to dock.",
-            self.destination_facility_text(ctx)
-        ))
+        Some(if brake_missing {
+            format!(
+                "At {}. Set the parking brake to dock.",
+                self.destination_facility_text(ctx)
+            )
+        } else {
+            format!("At {}. Stop to dock.", self.destination_facility_text(ctx))
+        })
     }
 
-    /// `_handle_arrival_creep()`.
+    /// `_handle_arrival_creep()`: the creep line, once the gate has moved
+    /// to creeping. It restarts the rolling reminder's cadence, so a
+    /// reminder cannot land on top of the only line that names the brake.
     pub fn handle_arrival_creep(&mut self, ctx: &mut GameContext) {
-        if self.arrival_full_stop_said {
-            return;
-        }
-        self.arrival_full_stop_said = true;
-        live::set_gate_stop_prompted(true);
+        self.gate_reminder_s = GATE_REMINDER_INTERVAL_S;
         self.cancel_cruise(ctx, false);
         ctx.audio.play_with("ui/notify", 0.7, 0.0);
         self.set_status("Destination gate: stop to dock.");
@@ -524,7 +549,15 @@ impl DrivingState {
         } else {
             format!("At {facility}. Stop and set the parking brake.")
         };
-        self.say_route_navigation(ctx, &message);
+        // Like the reminder, never handed back once the dock has opened.
+        self.refresh_live_facts();
+        ctx.say_event_with(
+            message,
+            SayEvent::queued()
+                .priority(EventPriority::Important)
+                .category(SpeechCategory::Navigation)
+                .valid(|| !live::arrival_menu_open()),
+        );
     }
 
     /// `_open_facility_arrival()`.
