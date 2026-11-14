@@ -693,7 +693,8 @@ impl RestStopState {
         self.save_here(ctx, true);
         ctx.audio.play("ui/notify");
         ctx.say(&text);
-        ctx.award_achievement("slept_on_route");
+        // No Five-by-Two here: the badge is a full ten hours asleep in the
+        // lot, and a split rest is the night broken in two.
         self.refresh(ctx, true);
     }
 
@@ -702,6 +703,9 @@ impl RestStopState {
             return;
         }
         let before_fatigue = profile_of(ctx).fatigue;
+        // Finishing a reset already under way sleeps only what is left of it,
+        // which is not the full ten hours the badge asks for.
+        let full_night = hos_of(ctx).reset_minutes_left().is_none();
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
             let engine_off = shut_down_engine(d, ctx);
             let owed = hos_of(ctx).reset_minutes_left();
@@ -740,7 +744,9 @@ impl RestStopState {
         self.save_here(ctx, true);
         ctx.audio.play("ui/notify");
         ctx.say(&text);
-        ctx.award_achievement("slept_on_route");
+        if full_night {
+            ctx.award_achievement("slept_on_route");
+        }
         if Alertness::from_fatigue(before_fatigue) < Alertness::Severe {
             ctx.award_achievement("sleep_before_exhaustion");
         }
