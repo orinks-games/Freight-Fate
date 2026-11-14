@@ -4098,7 +4098,7 @@ What stands between the 1.9.7 tag and 2.0 on the beta channel, on top of
       after it. The November text rewrite (PRs 607 to 614) has to reach
       the lines only 2.0 has. **In progress** (2026-11-14): dev merged
       into a branch cut from `feat/career-2.0`, the rewrite carried to the
-      2.0 lines, in a PR against the branch. Left over from it:
+      2.0 lines, in PR 632 against the branch. Left over from it:
   - [ ] About 1,070 spoken lines per language have no translation on the
         merged branch: nearly all are 2.0's own lines (Alaska, Canada,
         cattle, the home terminal), which were never translated, and 52
