@@ -375,7 +375,7 @@ impl DrivingState {
             self.handle_missed_facility_gate(ctx);
             return;
         }
-        match self.read_gate(dt) {
+        match self.read_gate(ctx, dt) {
             Some(GateCue::Open) => self.open_facility_arrival(ctx),
             Some(GateCue::Creep) => self.handle_arrival_creep(ctx),
             Some(GateCue::SetBrake) => self.say_gate_brake_line(ctx, false),

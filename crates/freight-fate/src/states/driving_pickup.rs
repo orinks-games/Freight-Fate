@@ -32,7 +32,7 @@ impl DrivingState {
         if self.hold_at_facility_entrance(ctx) {
             return;
         }
-        match self.read_gate(dt) {
+        match self.read_gate(ctx, dt) {
             Some(GateCue::Open) => self.open_pickup_arrival(ctx),
             Some(GateCue::Creep) => self.handle_pickup_creep(ctx),
             Some(GateCue::SetBrake) => self.say_gate_brake_line(ctx, true),

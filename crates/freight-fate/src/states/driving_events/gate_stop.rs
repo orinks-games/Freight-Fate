@@ -23,12 +23,18 @@ impl DrivingState {
     }
 
     /// One frame's reading at the gate with the driver stopping the truck.
-    pub(crate) fn read_gate(&mut self, dt: f64) -> Option<GateCue> {
+    ///
+    /// The frame counts toward the brake line only while the driving voice
+    /// is silent, so the delay starts where the stop line ends: a truck
+    /// already at rest under "Stop and set the parking brake." gets its
+    /// quiet seconds to do that before the brake is named again.
+    pub(crate) fn read_gate(&mut self, ctx: &mut GameContext, dt: f64) -> Option<GateCue> {
+        let quiet_s = if ctx.event_voice_busy() { 0.0 } else { dt };
         let truck = &self.trip.truck;
         let event = GateEvent::Reading {
             speed_mph: truck.speed_mph(),
             parking_brake: truck.parking_brake,
-            dt_s: dt,
+            quiet_s,
         };
         self.step_gate(event)
     }

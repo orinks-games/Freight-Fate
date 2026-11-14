@@ -9,10 +9,10 @@
 //! Without the destination approach assist the driver stops the truck. It
 //! opens on its own at rest with the parking brake set, and the confirm key
 //! opens it at rest with or without the brake. At rest with the brake off
-//! for [`GATE_BRAKE_PROMPT_S`], the gate says once what is missing; that line
-//! re-arms only after the truck rolls above [`DELIVERY_PARK_MPH`] and comes
-//! to rest again. With the assist on, the assist stops the truck, sets the
-//! brake and holds for the confirm key.
+//! for [`GATE_BRAKE_PROMPT_S`] of quiet, the gate says once what is missing;
+//! that line re-arms only after the truck rolls above [`DELIVERY_PARK_MPH`]
+//! and comes to rest again. With the assist on, the assist stops the truck,
+//! sets the brake and holds for the confirm key.
 //!
 //! The rolling reminder's cadence ([`GATE_REMINDER_INTERVAL_S`]) is a timer
 //! the driving state counts down; the machine says when the truck is rolling.
@@ -27,11 +27,15 @@ pub const DOCKING_MAX_MPH: f64 = 0.5;
 /// ago, and got silence for the rest of the drive (playtest 2026-07-22: six
 /// minutes and the on-time bonus lost three miles past a delivery entrance).
 pub const GATE_REMINDER_INTERVAL_S: f64 = 10.0;
-/// Real seconds at rest with the parking brake off before the gate names
-/// the brake. Long enough that a driver who stops and reaches for the brake
-/// or the confirm key hears nothing; short enough that one who stopped and
-/// waits for the dock is not left in silence (first player report, 1.9.6:
-/// stopped at the gate, brake off, a minute of nothing).
+/// Real seconds at rest with the parking brake off, and with the driving
+/// voice quiet, before the gate names the brake. Long enough that a driver
+/// who stops and reaches for the brake or the confirm key hears nothing;
+/// short enough that one who stopped and waits for the dock is not left in
+/// silence (first player report, 1.9.6: stopped at the gate, brake off, a
+/// minute of nothing). Quiet seconds, because a truck that stops while "Stop
+/// and set the parking brake." is still being spoken used up the delay under
+/// that line and heard the brake named twice back to back (recorded drive,
+/// 2026-11-14).
 pub const GATE_BRAKE_PROMPT_S: f64 = 3.0;
 
 /// Where the stop at the gate stands.
@@ -45,7 +49,8 @@ pub enum GateStop {
     Rolling { crept: bool },
     /// At or under the park speed, told to stop and set the parking brake.
     Creeping,
-    /// At rest with the parking brake off, counting toward the brake line.
+    /// At rest with the parking brake off, counting quiet seconds toward
+    /// the brake line.
     Stopped { rest_s: f64 },
     /// At rest with the parking brake off, told to set it.
     StoppedTold,
@@ -58,11 +63,13 @@ pub enum GateStop {
 /// What happened at the gate this time round.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum GateEvent {
-    /// One frame at the gate with the driver stopping the truck.
+    /// One frame at the gate with the driver stopping the truck. `quiet_s`
+    /// is how much of the frame the driving voice was silent for: the whole
+    /// frame, or nothing while a line is being spoken.
     Reading {
         speed_mph: f64,
         parking_brake: bool,
-        dt_s: f64,
+        quiet_s: f64,
     },
     /// One frame at the gate with the approach assist braking the truck.
     AssistReading { speed_mph: f64 },
@@ -126,12 +133,17 @@ impl GateStop {
             GateEvent::Reading {
                 speed_mph,
                 parking_brake,
-                dt_s,
-            } => self.read(speed_mph, parking_brake, dt_s),
+                quiet_s,
+            } => self.read(speed_mph, parking_brake, quiet_s),
         }
     }
 
-    fn read(self, speed_mph: f64, parking_brake: bool, dt_s: f64) -> (GateStop, Option<GateCue>) {
+    fn read(
+        self,
+        speed_mph: f64,
+        parking_brake: bool,
+        quiet_s: f64,
+    ) -> (GateStop, Option<GateCue>) {
         use GateStop::*;
         let at_rest = speed_mph <= DOCKING_MAX_MPH;
         if at_rest && parking_brake {
@@ -153,14 +165,14 @@ impl GateStop {
             // The assist's hold survives a reading; its key still opens.
             Holding => (Holding, None),
             Stopped { rest_s } if at_rest => {
-                let rest_s = rest_s + dt_s;
+                let rest_s = rest_s + quiet_s;
                 if rest_s >= GATE_BRAKE_PROMPT_S {
                     (StoppedTold, Some(GateCue::SetBrake))
                 } else {
                     (Stopped { rest_s }, None)
                 }
             }
-            Rolling { crept: true } | Creeping if at_rest => (Stopped { rest_s: dt_s }, None),
+            Rolling { crept: true } | Creeping if at_rest => (Stopped { rest_s: quiet_s }, None),
             // Creeping, or a stop that rolled again before the line was due.
             _ => (Creeping, None),
         }
