@@ -416,7 +416,7 @@ mod tests {
         assert_eq!(p.city_key, "chicago_il_us");
         assert_eq!(
             p.phrase(world),
-            "at Northstar Freight Lines Chicago terminal in Chicago"
+            "at Northstar Freight Lines Chicago terminal"
         );
     }
 

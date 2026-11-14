@@ -8,6 +8,7 @@ use crate::states::driving_core::{
 use serde_json::{json, Map, Value};
 use std::collections::HashSet;
 
+use ff_core::ambient_bed::BedClaim;
 use ff_core::data::lcv_turnpikes::{
     cargo_requires_lcv_turnpike, filter_lcv_turnpike_routes, LCV_TURNPIKE_REROUTE_NOTE,
     LCV_TURNPIKE_ROUTE_REFUSAL,
@@ -18,7 +19,6 @@ use ff_core::data::national_network::{
     STAA_DOUBLES_REROUTE_NOTE, STAA_DOUBLES_ROUTE_REFUSAL,
 };
 use ff_core::data::seasonal_weight::{seasonal_gvw_cap_kg, strictest_on_route};
-use ff_core::ambient_bed::BedClaim;
 use ff_core::data::world::World;
 use ff_core::data::world_models::Route;
 use ff_core::models::border_freight::paperwork_wait_line;
@@ -52,8 +52,8 @@ use crate::impl_state_for_menu;
 use crate::meaningful_play::MeaningfulPlayReason;
 use crate::states::base::{InputEvent, Key, Menu, MenuCore, MenuItem, TimedMessageState};
 use crate::states::city::{
-    base_menu_enter, dispatch_calendar_hours, launch_driving, profile, profile_mut,
-    CityMenuState, DrivingLaunch, LaunchAnnouncement, LoadedDepartureResume, DRIVE_PHASE_DELIVERY,
+    base_menu_enter, dispatch_calendar_hours, launch_driving, profile, profile_mut, CityMenuState,
+    DrivingLaunch, LaunchAnnouncement, LoadedDepartureResume, DRIVE_PHASE_DELIVERY,
 };
 use crate::states::driving_team::TeamMode;
 use crate::states::main_menu::MainMenuState;

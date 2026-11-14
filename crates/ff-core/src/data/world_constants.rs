@@ -874,7 +874,7 @@ pub const FACILITY_SOURCE_NOTES: &[(&str, &str)] = &[
     ("steel_industrial", "Representative steel or industrial facility; guided by FAF commodity framing."),
     ("terminal", "Curated representative freight terminal in the metro freight market."),
     ("travel_center", "Public travel center or commercial diesel stop with tractor parking."),
-    ("truck_parking", "Public truck parking lot (may lack full travel-center amenities)."),
+    ("truck_parking", "Public truck parking lot, with fewer services than a travel center."),
     ("warehouse", "Curated representative warehouse in the metro freight market."),
 ];
 

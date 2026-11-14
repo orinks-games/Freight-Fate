@@ -3,12 +3,12 @@
 use crate::speech::EventPriority;
 use ff_core::models::enforcement;
 use ff_core::models::jobs::hos_stops::STOP_MARGIN_MIN as HOS_STOP_MARGIN_MIN;
-use ff_core::sim::hos::HosRules;
 use ff_core::sim::alertness;
 use ff_core::sim::fatigue_costs::{
     fatigue_stop_outcome, mark_officer_warned, officer_warned, FatigueStopOutcome,
     OFFICER_FATIGUE_WARNING,
 };
+use ff_core::sim::hos::HosRules;
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
@@ -41,14 +41,14 @@ impl DrivingState {
                      after 10 hours off, with no 30-minute break."
                 }
                 HosRules::CanadaSouth60 => {
-                    "Canadian hours rules now apply: up to 13 hours of driving and 14 on duty \
-                     after 8 hours off, and no driving once 16 hours have passed since that \
+                    "Canadian hours rules now apply. Up to 13 hours of driving and 14 on duty \
+                     after 8 hours off. No driving once 16 hours have passed since that \
                      break."
                 }
                 HosRules::CanadaNorth60 => {
-                    "Canadian north-of-60 hours rules now apply: up to 15 hours of driving and \
-                     18 on duty after 8 hours off, and no driving once 20 hours have passed \
-                     since that break."
+                    "Canadian north-of-60 hours rules now apply. Up to 15 hours of driving and \
+                     18 on duty after 8 hours off. No driving once 20 hours have passed since \
+                     that break."
                 }
             };
             ctx.say_event_with(

@@ -284,8 +284,8 @@ fn hos_north_of_60_notice_names_the_federal_canadian_rules() {
     );
     assert_eq!(
         spoken,
-        "Canadian north-of-60 hours rules now apply: up to 15 hours of driving and 18 on duty \
-         after 8 hours off, and no driving once 20 hours have passed since that break."
+        "Canadian north-of-60 hours rules now apply. Up to 15 hours of driving and 18 on duty \
+         after 8 hours off. No driving once 20 hours have passed since that break."
     );
     assert!(!spoken.contains("Yukon"), "{spoken}");
 }
@@ -305,8 +305,8 @@ fn hos_south_of_60_notice_counts_sixteen_hours_from_the_break() {
     let spoken = switch_announcement(harness, HosRules::Us, HosRules::CanadaSouth60);
     assert_eq!(
         spoken,
-        "Canadian hours rules now apply: up to 13 hours of driving and 14 on duty after 8 hours \
-         off, and no driving once 16 hours have passed since that break."
+        "Canadian hours rules now apply. Up to 13 hours of driving and 14 on duty after 8 hours \
+         off. No driving once 16 hours have passed since that break."
     );
 }
 

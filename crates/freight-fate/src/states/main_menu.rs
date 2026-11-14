@@ -16,7 +16,6 @@ use ff_core::ambient_bed::BedClaim;
 use ff_core::models::business::status_label;
 use ff_core::models::jobs::facility_text;
 use ff_core::models::profile::{LegacyCareerError, LoadError, Profile};
-use ff_core::models::start_options::option_for_profile;
 use ff_core::music::{select_menu_ambience, select_menu_music_sequence, MenuMusicProfile};
 use ff_core::playtest_levers::apply_continue_levers;
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
@@ -218,34 +217,16 @@ pub fn pending_notice_state(ctx: &GameContext) -> Option<SharedState> {
     None
 }
 
-/// The first-day welcome spoken at career creation: the short form. The
-/// terminal's First-day briefing screen reads the longer
-/// [`crate::states::city::first_day_orientation_lines`], one row each.
+/// The first-day welcome spoken at career creation. On 2.0 it is the
+/// terminal's briefing joined, because only that form says where
+/// orientation is and who paid the travel to the home terminal; the
+/// First-day briefing screen reads the same lines one row each
+/// ([`crate::states::city::first_day_orientation_lines`]).
 pub fn first_day_orientation_message(ctx: &GameContext, prefix: &str) -> String {
-    let Some(p) = ctx.profile.as_ref() else {
+    if ctx.profile.is_none() {
         return String::new();
-    };
-    if p.is_unassigned_company_driver() {
-        return crate::states::city::first_day_orientation_lines(ctx, prefix).join(" ");
     }
-    let option = option_for_profile(p);
-    let location = crate::states::city::first_day_parked_location(ctx);
-    if option.is_owner_operator() {
-        return format!(
-            "{prefix}First-day briefing: leased to {}, parked {location}. New truck, {} dollars \
-             working capital. Fuel, repairs, wear, trailers, and reserves come from your cash. \
-             Next: dispatch board.",
-            option.carrier_name,
-            fmt_grouped(p.money(), 0)
-        );
-    }
-    format!(
-        "{prefix}First-day briefing: {}. Truck parked {location}. Carrier covers fuel, repairs, \
-         insurance, and trailers. Dispatch: {}. Assigned loads. A refusal goes on your record. \
-         Next: dispatch board.",
-        option.carrier_name,
-        option.dispatch_profile().summary()
-    )
+    crate::states::city::first_day_orientation_message(ctx, prefix)
 }
 
 /// The city menu, or the one-time orinks.net offer ahead of it.

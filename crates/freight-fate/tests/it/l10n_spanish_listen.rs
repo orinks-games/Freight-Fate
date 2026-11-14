@@ -49,7 +49,12 @@ fn every_yard_arrival_is_whole_spanish() {
             let said = lines.join(" ");
             assert!(said.contains(" dollars."), "{said}");
             for line in &lines {
-                assert_eq!(english_left(&es, line), Vec::<String>::new(), "{line}");
+                // A carrier's own terminal is a proper name, said as is.
+                let left: Vec<String> = english_left(&es, line)
+                    .into_iter()
+                    .filter(|s| !s.ends_with(" terminal"))
+                    .collect();
+                assert_eq!(left, Vec::<String>::new(), "{line}");
                 let spanish = es.translate(line);
                 assert!(
                     !spanish.contains("patio de la empresa patio de la empresa")

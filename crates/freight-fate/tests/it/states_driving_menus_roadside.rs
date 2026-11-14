@@ -219,7 +219,7 @@ fn test_a_suspended_exit_says_where_the_driver_waits_it_out() {
     assert!(
         text.contains(&format!(
             "a relief driver takes the truck back to {city}. You wait out the suspension \
-             there; it ends {ends}."
+             there. It ends {ends}."
         )),
         "{text}"
     );
@@ -539,7 +539,7 @@ fn test_a_run_off_that_suspends_the_cdl_ends_the_drive() {
     assert!(
         text.contains(&format!(
             "a relief driver takes the truck back to {city}. You wait out the suspension \
-             there; it ends {ends}."
+             there. It ends {ends}."
         )),
         "{text}"
     );

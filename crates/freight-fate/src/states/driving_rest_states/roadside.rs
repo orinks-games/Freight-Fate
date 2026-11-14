@@ -22,8 +22,8 @@ use crate::states::city::CityMenuState;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
     advance_on_duty_clock, advance_rest_clock, career_citations, citation_fine, clock_text,
-    construction_zone_fine_clause, hos_mut_of, hos_of, profile_mut_of, profile_of, shut_down_engine,
-    wake_air_instruction, DRIVE_PHASE_DELIVERY, FAILURE_TO_STOP_DAMAGE_PCT,
+    construction_zone_fine_clause, hos_mut_of, hos_of, profile_mut_of, profile_of,
+    shut_down_engine, wake_air_instruction, DRIVE_PHASE_DELIVERY, FAILURE_TO_STOP_DAMAGE_PCT,
     FAILURE_TO_STOP_PROCESSING_MIN, INSPECTION_MIN, PULL_OVER_CLEAN_STOP_WARN_CHANCE,
 };
 use crate::states::driving_menu_states::DriveRef;
@@ -102,7 +102,7 @@ pub trait RoadsideExit: Menu {
         format!(
             " The license is pulled as of now, so you cannot drive the truck another mile. \
              {load}, and a relief driver takes the truck back to {city}. You wait out the {} \
-             there; it ends {}.",
+             there. It ends {}.",
             enforcement::status_noun(record),
             enforcement::clears_text(profile)
         )
@@ -872,9 +872,8 @@ impl FelonyStopState {
         };
         self.summary = format!(
             "Troopers laid spike strips across the lane after you kept driving with lights and \
-             siren behind you. Bond: {} dollars, posted to get out, with a major \
-             reputation hit.{} Spike strips added {} percent truck damage{booking}. \
-             {load_text} You are released after booking. The truck was towed to {towed_to}.",
+             siren behind you. Bond: {} dollars, and a major reputation hit.{} Spike strips \
+             added {} percent truck damage{booking}. {load_text} You are released after booking. The truck was towed to {towed_to}.",
             fmt_grouped(fine, 0),
             construction_zone_fine_clause(zone),
             fmt_f(FAILURE_TO_STOP_DAMAGE_PCT, 0),

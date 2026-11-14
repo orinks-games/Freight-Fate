@@ -47,8 +47,8 @@ pub fn southbound_consignee<J: JobView + ?Sized>(job: &J) -> Option<&'static Con
 }
 
 /// The load card's destination phrase for a southbound load:
-/// "for consignee Saltillo, Coahuila, delivered to SCI Cross Dock in Laredo
-/// ...". None for any other load.
+/// "to SCI Cross Dock in Laredo, for a transfer carrier to take on to
+/// Saltillo, Coahuila". None for any other load.
 pub fn load_card_line<J: JobView + ?Sized>(job: &J, city: &str) -> Option<String> {
     let (data, yard) = border_yard(job.destination_facility_id())?;
     let consignee = data.consignee_for(&consignee_key(job))?;

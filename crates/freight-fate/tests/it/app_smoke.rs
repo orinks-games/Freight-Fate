@@ -379,9 +379,7 @@ fn test_full_game_flow_headless() {
         .chain(app.event_lines())
         .collect();
     assert!(
-        spoken
-            .iter()
-            .any(|l| l.contains("Pickup dispatch: deadhead to ")),
+        spoken.iter().any(|l| l.starts_with("At the wheel. It is ")),
         "{spoken:?}"
     );
     for line in &spoken {
@@ -664,7 +662,7 @@ fn test_an_empty_reposition_out_of_the_impound_lot_then_abandoned_is_not_impound
     profile_mut(&mut app).parked_facility = IMPOUND_LOT_FACILITY.to_string();
     assert!(hub_parked_line(&mut app).contains("impound lot"));
 
-    select::<CityMenuState>(&mut app, "Bobtail to a nearby city");
+    select::<CityMenuState>(&mut app, "Drive to a nearby city without a trailer");
     assert!(is::<BobtailDestState>(&app));
     key(&mut app, Key::Return);
     assert!(is::<DrivingState>(&app));

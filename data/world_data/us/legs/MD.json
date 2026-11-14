@@ -13980,6 +13980,33 @@
             "source": "Delaware Department of Transportation I-95 Newark toll plaza rates, 5 axle, cash and E-ZPass, accessed 2026-10-11: https://deldot.gov/public.ejs?command=PublicTollRateI95",
             "amount_plate": 10.0
           }
+        ],
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Baltimore City",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 7.0,
+            "name": "Baltimore County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 30.1,
+            "name": "Harford County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 48.4,
+            "name": "Cecil County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 66.9,
+            "name": "New Castle County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
         ]
       },
       "stops": [],

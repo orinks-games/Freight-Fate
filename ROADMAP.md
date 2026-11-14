@@ -4096,7 +4096,28 @@ What stands between the 1.9.7 tag and 2.0 on the beta channel, on top of
       every language file, the manual and the changelog. This is the long
       job and can start before the 1.9.7 tag, with a small second sync
       after it. The November text rewrite (PRs 607 to 614) has to reach
-      the lines only 2.0 has.
+      the lines only 2.0 has. **In progress** (2026-11-14): dev merged
+      into a branch cut from `feat/career-2.0`, the rewrite carried to the
+      2.0 lines, in a PR against the branch. Left over from it:
+  - [ ] About 1,070 spoken lines per language have no translation on the
+        merged branch: nearly all are 2.0's own lines (Alaska, Canada,
+        cattle, the home terminal), which were never translated, and 52
+        are new from the sync. Translate before the beta.
+  - [ ] 58 of 1,349 legs carry no county lines: the Alaska, British
+        Columbia and Yukon legs, and Bellingham to Blaine both ways. The
+        county layer reads only the archived U.S. route shapes, which these
+        2.0 legs do not have (the Alaska legs keep their route points in
+        the corridor instead), and Canada needs its census divisions. The
+        sync filled the six 2.0 legs that do have an archived route.
+  - [ ] Four toll legs keep 2.0's researched fares with dev's re-placed
+        toll points (Indiana Toll Road legs 8 and 25, Pennsylvania
+        Turnpike legs 13 and 19). Check the Pennsylvania entry plaza 2.0
+        cited (Carlisle, exit 226) still fits dev's re-routed leg 13.
+  - [ ] Branch protection on `feat/career-2.0` still requires the
+        `test (ubuntu-latest)` and `test (windows-latest)` checks from
+        `ci.yml`, which dev deleted on 2026-11-04 and the sync deletes
+        too. The owner changes the required checks in the repository
+        settings.
 - [ ] Sealed saves, which the October save plan predates: 2.0 opens a
       sealed 1.9.7 career and copies it forward, and 1.9.7 refuses a 2.0
       career, local or cloud, without setting it aside for good.

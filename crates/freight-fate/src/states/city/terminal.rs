@@ -867,7 +867,10 @@ impl Menu for CityMenuState {
                         } else {
                             format!("{} in {city_name}", parked.name)
                         };
-                        format!("{place}. {} dollars.{cdl}{record}", fmt_grouped(p.money(), 0))
+                        format!(
+                            "{place}. {} dollars.{cdl}{record}",
+                            fmt_grouped(p.money(), 0)
+                        )
                     }
                 }
             }
@@ -1053,8 +1056,8 @@ impl Menu for CityMenuState {
                     s.wait_out_suspension(ctx)
                 })
                 .help(format!(
-                    "Sits out the {} in one go. The clock jumps to the day it ends, money, \
-                     truck, and record untouched.",
+                    "Waits out the {} in one go. The clock jumps to the day it ends. Your \
+                     money, truck and record stay as they are.",
                     enforcement::status_noun(record)
                 )),
             );

@@ -1118,22 +1118,14 @@ fn a_long_line_of_commas_is_matched_without_retrying_every_cut() {
 fn shipped_spanish_says_a_whole_dispatch_board_row() {
     // The board's announcement is a frame of holes side by side, and a cut
     // at a comma inside "Kenosha, Wisconsin" left the rest of the row in
-    // English: the gross, the deadline and the pay.
+    // English: the deadline and the pay.
     let tr = shipped_spanish();
-    let line = "Dispatch board. 3 declines left before your next promotion. Market watch: \
-                lumber paper tight, general tight. Accept assigned dispatch: 16 tons of \
-                general freight from Chicago Parcel Hub in Chicago, Illinois to Amazon \
-                Fulfillment Center KRB1 in Kenosha, Wisconsin. 62 miles. Carrier gross 328 \
-                dollars. Deadline 2 hours. Equipment: dry van trailer. Your pay about 239 \
-                dollars. Market tight. 1 of 4.";
+    let line = "Dispatch board. Assigned load: 16 tons of general freight from Chicago \
+                Parcel Hub in Chicago, Illinois to Amazon Fulfillment Center KRB1 in Kenosha, \
+                Wisconsin. 62 miles, deadline 2 hours. Pays 328 dollars, about 239 to you. \
+                1 of 4.";
     let spanish = tr.translate(line);
-    for english in [
-        "Carrier gross",
-        "Deadline",
-        "Your pay about",
-        "Equipment:",
-        " in ",
-    ] {
+    for english in ["deadline", "Pays", "to you", "miles", " in "] {
         assert!(!spanish.contains(english), "{english}: {spanish}");
     }
 }

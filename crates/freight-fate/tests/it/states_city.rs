@@ -2397,7 +2397,8 @@ fn test_hub_parks_at_the_carrier_terminal_in_the_home_terminal_city() {
     assert_eq!(profile(&app).home_terminal_city, "chicago_il_us");
     let line = hub_entry(&mut app);
     assert!(
-        line.starts_with("Northstar Freight Lines Chicago terminal in Chicago."),
+        // The name already says Chicago, so the city is not said again.
+        line.starts_with("Northstar Freight Lines Chicago terminal. "),
         "{line}"
     );
     assert_eq!(
@@ -2420,7 +2421,8 @@ fn test_hub_parks_at_the_delivered_facility_away_from_home() {
     profile_mut(&mut app).parked_facility = facility.clone();
     let line = hub_entry(&mut app);
     assert!(
-        line.starts_with(&format!("{facility} in Milwaukee.")),
+        line.starts_with(&format!("{facility}. "))
+            || line.starts_with(&format!("{facility} in Milwaukee.")),
         "{line}"
     );
     assert!(!line.contains("Chicago"), "{line}");
@@ -2567,14 +2569,14 @@ fn test_a_disqualified_owner_operator_cannot_bobtail() {
     }
     hub_entry(&mut app);
     app.clear_speech();
-    select::<CityMenuState>(&mut app, "Bobtail to a nearby city");
+    select::<CityMenuState>(&mut app, "Drive to a nearby city without a trailer");
     assert!(is::<CityMenuState>(&app), "the bobtail menu opened");
     let expected = enforcement::suspension_drive_refusal_line(profile(&app));
     let ends = enforcement::clears_text(profile(&app));
     assert_eq!(
         expected,
         format!(
-            "You cannot drive, not even bobtail, while your CDL is disqualified. The \
+            "You cannot drive, not even without a trailer, while your CDL is disqualified. The \
              disqualification ends {ends}. Wait out the CDL disqualification is on the \
              terminal menu."
         )
@@ -2872,7 +2874,7 @@ fn test_a_suspended_or_lifetime_driver_hears_the_matching_bobtail_refusal() {
     assert_eq!(
         line,
         format!(
-            "You cannot drive, not even bobtail, while your CDL is suspended. The suspension \
+            "You cannot drive, not even without a trailer, while your CDL is suspended. The suspension \
              ends {ends}. Wait out the CDL suspension is on the terminal menu."
         )
     );
@@ -2886,7 +2888,7 @@ fn test_a_suspended_or_lifetime_driver_hears_the_matching_bobtail_refusal() {
     let line = enforcement::suspension_drive_refusal_line(profile(&app));
     assert_eq!(
         line,
-        "You cannot drive with a lifetime CDL disqualification, not even bobtail."
+        "You cannot drive with a lifetime CDL disqualification, not even without a trailer."
     );
     assert!(
         !line.contains("empty") && !line.contains("clears"),

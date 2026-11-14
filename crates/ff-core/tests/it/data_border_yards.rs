@@ -156,8 +156,8 @@ fn southbound_loads_are_delivered_to_a_yard_and_name_the_mexican_consignee() {
     let card = job.describe_plain();
     assert!(
         card.contains(&format!(
-            "for consignee {}, delivered to {} in Laredo",
-            consignee.spoken, yard.spoken
+            "to {} in Laredo, Texas, for a transfer carrier to take on to {}",
+            yard.spoken, consignee.spoken
         )),
         "{card}"
     );

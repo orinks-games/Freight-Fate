@@ -213,9 +213,13 @@ pub fn first_day_guidance_active(profile: &Profile) -> bool {
     !first_dispatch_done(profile) && deliveries <= 0
 }
 
+/// The briefing as one spoken line, as career creation says it.
+pub fn first_day_orientation_message(ctx: &GameContext, prefix: &str) -> String {
+    first_day_orientation_lines(ctx, prefix).join(" ")
+}
+
 /// The briefing one sentence per line, for the terminal's re-readable
-/// screen. Career creation speaks a shorter form,
-/// [`crate::states::main_menu::first_day_orientation_message`].
+/// screen.
 pub fn first_day_orientation_lines(ctx: &GameContext, prefix: &str) -> Vec<String> {
     let p = profile(ctx);
     if p.is_unassigned_company_driver() {

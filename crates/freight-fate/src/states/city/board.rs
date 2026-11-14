@@ -40,8 +40,8 @@ use crate::impl_state_for_menu;
 use crate::meaningful_play::MeaningfulPlayReason;
 use crate::states::base::{InputEvent, Key, Menu, MenuCore, MenuItem};
 use crate::states::city::{
-    first_dispatch_done, held_load, launch_driving, parked_at, profile, profile_mut,
-    sleeps_needed, DrivingLaunch, LaunchAnnouncement, DRIVE_PHASE_DELIVERY, DRIVE_PHASE_PICKUP,
+    first_dispatch_done, held_load, launch_driving, parked_at, profile, profile_mut, sleeps_needed,
+    DrivingLaunch, LaunchAnnouncement, DRIVE_PHASE_DELIVERY, DRIVE_PHASE_PICKUP,
     PICKUP_CHECK_IN_MIN, PICKUP_LOADING_MIN,
 };
 use crate::states::city_pickup::warm_route_feeds;

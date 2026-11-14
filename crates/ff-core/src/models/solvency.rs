@@ -490,9 +490,8 @@ pub const KEPT_LINE: &str = "You keep your career level, your experience, your e
 /// `SolvencyProfile::let_go_near_phrase`) can take a driver on.
 pub fn no_seat_line(near: &str) -> String {
     format!(
-        "No carrier that hires near {near} can take you on right now, so you have \
-         no carrier. At the terminal, choose Apply to a carrier to take a seat when \
-         you are ready."
+        "No carrier that hires near {near} can take you on right now. At the \
+         terminal, choose Apply to a carrier when you are ready."
     )
 }
 

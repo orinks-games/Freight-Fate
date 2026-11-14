@@ -1110,8 +1110,8 @@ pub fn record_consequence_text<P: StandingProfile + ?Sized>(profile: &P) -> Stri
             );
         }
         return format!(
-            "{keeper} keeps you on sufferance whatever the record says; the oldest entry \
-             ages out {ages_out}."
+            "{keeper} keeps you on, on probation, whatever the record says. The oldest \
+             entry ages out {ages_out}."
         );
     }
     if record_past_termination_floor(record, game_hours) {

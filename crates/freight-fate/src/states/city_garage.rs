@@ -978,7 +978,7 @@ impl Menu for GarageState {
                 |s: &mut Self, ctx| s.refuel(ctx),
             )
             .help(
-                "Company drivers bill the carrier, owner-operators pay the regional \
+                "Company drivers bill the carrier. Owner-operators pay the regional \
                  diesel price. Shut the engine off first.",
             ),
         );

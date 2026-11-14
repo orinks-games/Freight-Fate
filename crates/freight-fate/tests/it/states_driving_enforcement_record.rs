@@ -488,7 +488,10 @@ fn test_a_felony_stop_books_twelve_hours_off_duty_and_posts_bond() {
     }
     let summary = felony_summary(&mut app, &mut drive);
     assert!(summary.contains("Bond: "), "{summary}");
-    assert!(summary.contains(" dollars, posted to get out"), "{summary}");
+    assert!(
+        summary.contains(" dollars, and a major reputation hit."),
+        "{summary}"
+    );
     assert!(!summary.contains("fine"), "{summary}");
     assert!(
         summary.contains("and booking and bond took 12 hours."),

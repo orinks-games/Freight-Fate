@@ -451,7 +451,9 @@ impl RestStopState {
             // shows the longer time so it is on screen as well as spoken.
             items.push(
                 MenuItem::new(
-                    format!("Walk around the truck, both trailers and the dolly, {walk_min} minutes"),
+                    format!(
+                        "Walk around the truck, both trailers and the dolly, {walk_min} minutes"
+                    ),
                     |s: &mut Self, ctx| s.walk_around(ctx),
                 )
                 .help(

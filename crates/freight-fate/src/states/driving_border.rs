@@ -43,8 +43,7 @@ impl DrivingState {
                 ctx.audio
                     .play_with("events/weigh_station_warning", 0.7, 0.0);
                 let text = format!(
-                    "{} ahead in {}, {}. Every truck stops at the customs booth. Come to a full \
-                     stop before it.",
+                    "{} in {}, {}. Every truck stops at the customs booth.",
                     booth.name,
                     ctx.settings.short_distance_text(ahead),
                     booth.agency
