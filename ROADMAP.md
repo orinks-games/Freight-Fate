@@ -27,6 +27,11 @@
 > follows at release. Keep this file current: when a feature lands on the 1.9
 > line, check it off here in the same change.
 
+> Current stable: **1.9.6** (2026-11-13). Next release: **1.9.7**, a fix
+> release from dev; `feat/career-2.0` merges into dev after its tag and
+> becomes the beta channel. The gate for both is under
+> [November 14](#november-14-the-road-to-197-and-the-20-beta-found-along-the-way).
+
 ## Reading this roadmap
 
 Start with the [1.9 release gate](#release-gate-190), the fixed list of
@@ -1509,6 +1514,8 @@ Everything found before 2026-09-25 moved to
 - [ ] (Found along the way) From 1.9.5 to the 2.0 nightlies: the 1.9.6
       list, the switch rule and the one-channel rule, agreed by the owner
       2026-10-26 ([October 26](#october-26-the-road-to-the-20-nightlies-found-along-the-way)).
+      The 1.9.7 gate and what stands before the 2.0 beta, 2026-11-14
+      ([November 14](#november-14-the-road-to-197-and-the-20-beta-found-along-the-way)).
 - [ ] (Found along the way) The speed keeper trails a posted drop on a
       street: 38 in a 30 on North Arnold Boulevard before "easing to 30"
       (Abilene departure drive, 2026-10-26).
@@ -3898,6 +3905,8 @@ Rules set that day:
   is older than a week, and the 2.0 branch has taken a dev sync that
   passes CI as a PR against dev. Then the branch merges into dev. A 1.9
   fix after that lands on main and ships as 1.9.7 from a tag on main.
+  Amended 2026-11-14: 1.9.7 ships from dev first, then the switch; see
+  [November 14](#november-14-the-road-to-197-and-the-20-beta-found-along-the-way).
 - **PR #515 stays on dev** for 1.9.6: rebase after #514, an agent-server
   drive, merge. The same `osm-speed-limits` command runs again on 2.0
   with Canada in the bounding box.
@@ -3984,6 +3993,105 @@ with everything off):
   departure cannot be staged through `start_at` today.
 - Three "Found along the way" items above: the keeper trailing a posted
   drop, silent damage, the rural 70 posted on a boulevard.
+
+### November 14 the road to 1.9.7 and the 2.0 beta (Found along the way)
+
+The owner asked on 2026-11-14 for a clear path to 1.9.7, with
+`feat/career-2.0` going to the beta channel once it is out. That changes
+the switch rule of October 26: 1.9.7 is cut from dev the way 1.9.6 was,
+and the 2.0 branch merges into dev only after the 1.9.7 tag. A 1.9 fix
+after the merge lands on main and ships as 1.9.8 from a tag on main.
+
+Rules on dev until the 1.9.7 tag:
+
+- **Fixes and translations only.** No new feature starts on dev.
+- **No map data edits.** A trial merge of dev into `feat/career-2.0` on
+  2026-11-14 conflicts in 81 files, 26 of them map shards, so a leg
+  edited on dev now is edited again in the sync. The open map items
+  above (the straight-line legs, the legs beside their interstate, the
+  Tri-State tolls, the Chicago fuel stop, the whole-map layer run) wait
+  for 2.0.
+
+On dev since 1.9.6:
+
+- [x] Fatigue redesign parts 2 to 7 (PR 624): on-duty time, sleep by the
+      hour, stimulants as a loan, the night-hours line, slow work, the
+      officer's order and the dispatch rest call.
+- [x] Enter accepts a facility arrival from a full stop, and the gate
+      names the parking brake (PRs 627 and 628).
+- [x] Five-by-Two takes a full 10 hours asleep (PR 630).
+
+Release gate for 1.9.7:
+
+- [ ] Sound comes back after the sound device drops (Hearken PR 69, then
+      game PR 626). A player reported 1.9.6 going silent with a Bluetooth
+      headset. Driven in the cloud with the sound service killed twice;
+      the check with a real headset on Windows is the owner's.
+- [ ] The Windows Defender detection a player reported on 2026-11-14.
+      The Windows build is not code signed. Before the tag, the release
+      candidate's Windows files are scanned and come back clean, or the
+      detection is reported to Microsoft as a false positive and the
+      downloads page says so. A code-signing certificate costs money and
+      is the owner's decision.
+- [ ] Cloud backup and restore of a sealed career. 1.9.6 was the first
+      stable to seal saves, and nobody has restored one from the cloud
+      since. An agent checks it on the staging backend, then the owner
+      once on their own account.
+- [ ] A week of tester play on the fatigue changes, which reached the
+      snapshot on 2026-11-13: tag no earlier than 2026-11-20 unless the
+      owner's listening pass (the yawn at worn, whether the numbers feel
+      fair) clears them sooner. A tier-1 report against them restarts the
+      week.
+- [ ] Vietnamese fixes for English leaking into turn, speed limit and
+      resume lines (PR 625, Đào Đức Trung): review, merge, credit in the
+      notes.
+- [ ] Pin the dispatch test that failed the scheduled snapshot of
+      2026-11-09 (bullet under "1.9 in flight"). The release build runs
+      the tests, so a test that fails one run in some can fail the tag.
+- [ ] Release steps as for 1.9.6: the `## 1.9.7` notes with Highlights,
+      dev synced to main by PR, the final dev snapshot as the release
+      candidate, the packaged save check from 1.9.6, orinks-net dev
+      merged to main (it carries the reworded Five-by-Two badge), and the
+      tag pushed from the owner's PC on the owner's word.
+
+In 1.9.7 if they are ready, never holding it:
+
+- [ ] PR 603 (prismer 0.1.5, a build script change with the same speech
+      sources): merge after a green dry run, or leave it for 2.0.
+- [ ] The cruise dial speaking every step while held (bullet under "1.9
+      in flight").
+- [ ] Issue upkeep: close 590, 496 and 501 (fixed in 1.9.6) and 605
+      (fixed on the site); close PR 629, which PR 630 replaced; ask the
+      reporters of 519 and 492 to try 1.9.6, which redid controller
+      detection and logs the cause of every damage.
+
+Not in 1.9.7: guest drivers (PR 577, a draft waiting on the site), the
+ramp-end dock moving onto the gate's state enum, lane wander at drowsy,
+the fatigue tuning passes (after testers have played a few weeks), the
+over-rev on a heavy cruise resume, the SAPI crash of issues 513, 516 and
+517 (waiting on the tester and on Prism's SAPI rewrite), and every map
+item.
+
+What stands between the 1.9.7 tag and 2.0 on the beta channel, on top of
+[The first 2.0 nightly](#the-first-20-nightly):
+
+- [ ] Sync dev into `feat/career-2.0` through a PR against the branch.
+      The branch last took dev on 2026-10-28 and is 243 commits behind.
+      The trial merge conflicts in 33 Rust source files, 26 map shards,
+      every language file, the manual and the changelog. This is the long
+      job and can start before the 1.9.7 tag, with a small second sync
+      after it. The November text rewrite (PRs 607 to 614) has to reach
+      the lines only 2.0 has.
+- [ ] Sealed saves, which the October save plan predates: 2.0 opens a
+      sealed 1.9.7 career and copies it forward, and 1.9.7 refuses a 2.0
+      career, local or cloud, without setting it aside for good.
+- [ ] One alpha build from the synced branch before the merge. The
+      snapshot workflow already builds `feat/career-2.0` on the alpha
+      channel by hand, and no alpha has been published yet, so nobody
+      outside an agent drive has played 2.0. The owner plays it first;
+      the merge into dev follows.
+- [ ] Live cattle ships to beta with its sounds unrecorded; recording
+      them spends ElevenLabs credits and waits for the owner's approval.
 
 ### November 4 traffic at the road's own pace (Found along the way)
 
