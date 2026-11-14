@@ -21,8 +21,10 @@ use crate::speech_text::{typed_name, SpokenMessage};
 mod hazards;
 mod ramps;
 pub use hazards::{
-    eligible_hazards, hazard_brake_to_mph, hazard_is_animal, hazard_is_in_lane, hazard_name,
-    HazardDef, OpenSide, ANIMAL_BRAKE_TO_MPH, HAZARDS,
+    eligible_hazards, hazard_brake_to_mph, hazard_by_name, hazard_debris, hazard_is_animal,
+    hazard_is_in_lane, hazard_name, hazard_strike_pct, DebrisClass, HazardDef, OpenSide,
+    ANIMAL_BRAKE_TO_MPH, BIG_DEBRIS_TAKE_MPH, HAZARDS, SMALL_DEBRIS_CALL_S,
+    SMALL_DEBRIS_STRIKE_MIN_MPH, SMALL_DEBRIS_STRIKE_ODDS,
 };
 pub use ramps::{
     acceleration_lane_capability_mph, acceleration_lane_mi, deceleration_lane_mi, exit_ramp_layout,
@@ -787,6 +789,11 @@ pub struct TripEventData {
     /// What braking alone has to reach for this hazard, when less than a
     /// near stop: see `HazardDef::brake_to_mph`.
     pub brake_to_mph: Option<f64>,
+    /// Debris the truck takes rather than stops for, and what striking it
+    /// costs at 65 mph: see `HazardDef::debris` and `strike_pct`. `None`
+    /// is a hard object.
+    pub debris: Option<DebrisClass>,
+    pub strike_pct: Option<f64>,
     pub name: Option<String>,
     pub weather: Option<WeatherKind>,
     pub curve: Option<RouteCurve>,

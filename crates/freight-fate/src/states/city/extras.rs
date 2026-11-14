@@ -24,7 +24,7 @@ pub struct BobtailDestState {
 impl BobtailDestState {
     pub fn new(cities: Vec<String>) -> Self {
         BobtailDestState {
-            menu: MenuCore::new("Bobtail to a nearby city").with_intro_help(
+            menu: MenuCore::new("Drive to a nearby city without a trailer").with_intro_help(
                 "Drive empty to a nearby city for its dispatch board. No load and no pay, costs \
                  fuel and hours of service. Escape returns to the terminal.",
             ),
@@ -57,7 +57,7 @@ impl BobtailDestState {
         profile_mut(ctx).dispatch_board_cache = None;
         let spoken_dest = job.spoken_destination().to_string();
         let line = format!(
-            "Bobtail to {spoken_dest}, {} on {}. No pay.",
+            "Drive without a trailer to {spoken_dest}, {} on {}. No pay.",
             ctx.settings.distance_text(route.miles(), false),
             route.highways().first().cloned().unwrap_or_default()
         );

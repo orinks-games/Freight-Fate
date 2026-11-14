@@ -26,6 +26,7 @@ use ff_core::models::jobs::{lane_key, Job};
 use ff_core::models::solvency::{self, deductions_from_settlement};
 use ff_core::models::trucks::truck_model;
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_n};
+use ff_core::sim::fatigue_costs::RestCall;
 use ff_core::sim::timezones::to_local;
 
 use crate::app::{GameContext, Say};
@@ -204,7 +205,7 @@ impl ArrivalState {
             let promotion = self.handle_fleet_promotion(ctx, previous_level, &mut announcements);
             announcements.extend(promotion);
             format!(
-                "Reposition pay at the empty-mile rate: {} dollars. You now have {} dollars. ",
+                "Pay for driving empty: {} dollars. You now have {} dollars. ",
                 fmt_grouped(job.pay, 0),
                 fmt_grouped(money, 0)
             )
@@ -238,7 +239,7 @@ impl ArrivalState {
         self.summary_parts.insert(
             0,
             format!(
-                "Bobtailed empty to {} in {} hours. It is {}. {pay_clause}Parked {}. \
+                "Drove without a trailer to {} in {} hours. It is {}. {pay_clause}Parked {}. \
                  {} dispatch board available. Fuel {} percent.",
                 job.spoken_destination(),
                 fmt_f(hours, 1),
@@ -276,7 +277,7 @@ impl ArrivalState {
     ) -> String {
         let owner_op = is_owner_operator(&profile_of(ctx).business_status);
         let claim_holder = if owner_op {
-            "Claim against your own authority"
+            "Claim against your own business"
         } else {
             "Carrier carries the claim, on your record"
         };
@@ -310,7 +311,7 @@ impl ArrivalState {
         }
         if cargo.outcome == "claim" {
             return format!(
-                "Receiver took the load with an exception, {} at {} percent. Claim about {} \
+                "Receiver took the load but noted damage, {} at {} percent. Claim about {} \
                  dollars, {} off this settlement. {claim_holder}.",
                 cargo_condition_text(cargo.condition_pct, vocabulary),
                 fmt_f(cargo.condition_pct, 0),
@@ -319,7 +320,7 @@ impl ArrivalState {
             );
         }
         format!(
-            "Exception on the bill of lading, load arrived {} at {} percent. {} dollars held \
+            "The receiver noted damage on the paperwork: load arrived {} at {} percent. {} dollars held \
              back.",
             cargo_condition_text(cargo.condition_pct, vocabulary),
             fmt_f(cargo.condition_pct, 0),
@@ -339,9 +340,20 @@ impl ArrivalState {
         // The post-check-in clock still advances below so unloading remains
         // real calendar, market, HOS, idle-fuel, and player-visible time.
         let hours = arrival_hours;
-        let gross_base = job.payout_default(hours, trip_damage);
-        let toll_expense = d.trip.toll_expense();
         let on_time = hours <= job.deadline_game_h;
+        // A rest call traded the bonus for the moved appointment: the load
+        // pays its base rate, with no on-time bonus, and no late penalty for
+        // the hours the call moved it by. Past the moved appointment it is
+        // late like any other load.
+        let base_rate = d.rest_call == RestCall::Used;
+        let gross_base = if base_rate {
+            job.payout(hours, trip_damage, 0.0)
+        } else {
+            job.payout_default(hours, trip_damage)
+        };
+        // Whether the pay plan's on-time share is paid.
+        let pay_on_time = on_time && !base_rate;
+        let toll_expense = d.trip.toll_expense();
         let accessorials = carrier_accessorial_charges(&job, Some(profile_of(ctx)));
         let carrier_charges = toll_expense + charge_total(&accessorials);
         // What a previous load could not cover is no longer piled onto this
@@ -389,7 +401,7 @@ impl ArrivalState {
             &business_status,
             &job,
             gross_base,
-            on_time,
+            pay_on_time,
             driver_charges,
             &terms,
         );
@@ -397,7 +409,7 @@ impl ArrivalState {
             &business_status,
             &job,
             job.payout(hours, trip_damage, 0.0),
-            on_time,
+            pay_on_time,
             driver_charges,
             &terms,
         );
@@ -531,7 +543,7 @@ impl ArrivalState {
             if manual_bonus >= 1.0 {
                 net_pay = round_py_n(net_pay + manual_bonus, 2);
                 self.summary_parts.push(format!(
-                    "Manual-spec differential: {} dollars.",
+                    "Manual transmission bonus: {} dollars.",
                     fmt_grouped(manual_bonus, 0)
                 ));
             }
@@ -760,8 +772,8 @@ impl ArrivalState {
         self.summary_parts.insert(
             0,
             format!(
-                "Delivered {} tons of {} to {} in {} hours, {}.{yard_drop}{receiver_service_clause} {}. {} {} dollars. \
-                 Charges {}: tolls {}, accessorials {}. {accessorial_clause} Business status: {}. Costs {}. \
+                "Delivered {} tons of {} to {} in {} hours, {}.{yard_drop}{receiver_service_clause} {}. {}: {} dollars. \
+                 Charges {}: tolls {}, extra charges {}. {accessorial_clause} Business status: {}. Costs {}. \
                  Fines {}. Net {}, you have {}. Parked {}.",
                 fmt_f(job.weight_tons, 0),
                 job.spoken_cargo_label(),
@@ -845,7 +857,6 @@ impl ArrivalState {
         if let Some(line) = achievement_summary.clone() {
             self.summary_parts.push(line);
         }
-        let timing = if on_time { "On time" } else { "Late" };
         let mut bonus_lines: Vec<String> = Vec::new();
         if on_time_bonus_paid >= 1.0 {
             bonus_lines.push(format!(
@@ -928,9 +939,6 @@ impl ArrivalState {
                 fmt_grouped(profile_of(ctx).fines_owed, 0)
             ));
         }
-        if charge_lines.is_empty() {
-            charge_lines.push("No driver-responsibility charges and no balance owed.".to_string());
-        }
         let business_cost_lines: Vec<String> = if business.business_charges.is_empty() {
             Vec::new()
         } else {
@@ -945,25 +953,38 @@ impl ArrivalState {
                 ),
             ]
         };
+        // Bare names: the route reads as one chain, and a state on only the
+        // one city whose name is shared elsewhere sounded like a mistake.
         let cities: Vec<String> = unique_consecutive(
             &d.route
                 .cities
                 .iter()
-                .map(|c| ctx.world.spoken_city(c, None))
+                .map(|c| ctx.world.spoken_city(c, Some(false)))
                 .collect::<Vec<_>>(),
         );
         let mut lines = vec![
+            // The first row is the one read on arrival: where, whether on
+            // time, and what it paid. The rows below itemize it.
+            // The screen's title already says "Delivery complete".
+            if on_time {
+                format!(
+                    "On time in {}. Net {} dollars.",
+                    job.spoken_destination(),
+                    fmt_grouped(net_pay, 0)
+                )
+            } else {
+                format!(
+                    "Late in {}. Net {} dollars.",
+                    job.spoken_destination(),
+                    fmt_grouped(net_pay, 0)
+                )
+            },
             format!(
-                "Delivered {} tons of {} to {}.",
+                "Load: {} tons of {}.",
                 fmt_f(job.weight_tons, 0),
-                job.spoken_cargo_label(),
-                job.spoken_destination()
+                job.spoken_cargo_label()
             ),
-            format!(
-                "Trip time: {} hours, {}.",
-                fmt_f(hours, 1),
-                timing.to_lowercase()
-            ),
+            format!("Trip time: {} hours.", fmt_f(hours, 1)),
             format!(
                 "It is {}.",
                 clock_text(to_local(game_hours, destination_timezone))
@@ -974,21 +995,36 @@ impl ArrivalState {
                 pay_label(&business_status),
                 fmt_grouped(gross_pay, 0)
             ),
-            format!(
-                "Carrier-paid or reimbursed charges: {} dollars, including tolls {} and \
-                 accessorials {}.",
-                fmt_grouped(carrier_charges, 0),
-                fmt_grouped(toll_expense, 0),
-                charge_summary(&accessorials)
-            ),
             format!("Business status: {}.", business.status_label),
         ];
+        // Each carrier-ledger item on its own row, by what it is: detention
+        // is money paid for waiting, not a negative charge, and a zero toll
+        // is nothing to read.
+        let mut ledger_lines: Vec<String> = Vec::new();
+        if toll_expense >= 1.0 {
+            ledger_lines.push(format!("Tolls: {} dollars.", fmt_grouped(toll_expense, 0)));
+        }
+        for charge in &accessorials {
+            if charge.amount.abs() >= 1.0 {
+                let mut label = charge.label.chars();
+                let label = label
+                    .next()
+                    .map(|c| c.to_uppercase().chain(label).collect::<String>())
+                    .unwrap_or_default();
+                ledger_lines.push(format!(
+                    "{label}: {} dollars.",
+                    fmt_grouped(charge.amount.abs(), 0)
+                ));
+            }
+        }
+        let status_row = lines.len() - 1;
+        lines.splice(status_row..status_row, ledger_lines);
         if receiver_service_hours >= 0.05 {
             lines.insert(
                 2,
                 format!(
-                    "Receiver service after check-in: {} hours.",
-                    fmt_f(receiver_service_hours, 1)
+                    "Unloading took {} minutes.",
+                    fmt_f(receiver_service_hours * 60.0, 0)
                 ),
             );
         }
@@ -999,10 +1035,6 @@ impl ArrivalState {
         lines.extend(charge_lines);
         lines.extend(advance_lines);
         lines.extend(self.team_line.clone());
-        lines.push(format!(
-            "Net driver pay: {} dollars.",
-            fmt_grouped(net_pay, 0)
-        ));
         lines.push(format!(
             "Money after settlement: {} dollars.",
             fmt_grouped(profile_of(ctx).money(), 0)

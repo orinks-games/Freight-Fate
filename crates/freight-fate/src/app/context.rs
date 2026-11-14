@@ -152,6 +152,11 @@ pub struct GameContext {
     /// True while a playtest-lever scenario runs unsaved (see
     /// `playtest_levers::apply_continue_levers`); `save_profile` honors it.
     pub playtest_sandbox: bool,
+    /// The last run ended without quitting and the main menu has not asked
+    /// about it yet (`problem_reports::take_crash_offer`, read once when the
+    /// app is built). The menu clears it when it asks, or when the player
+    /// turned the question off.
+    pub crash_offer_pending: bool,
     /// Seed for the next dispatch board; `None` in the shipped game, where
     /// the board rolls from OS entropy. The test app sets it so that which
     /// load dispatch assigns -- and whether it is staged in the home yard,
@@ -213,6 +218,12 @@ pub struct GameContext {
     /// from what the VOICE received has to be able to tell the two apart; the
     /// playtest rig reads this. Bounded: only the recent ones are kept.
     pub(crate) handed_back: VecDeque<String>,
+    /// Road lines waiting for the event voice to fall quiet (see
+    /// `speech_delivery::hold`).
+    pub(crate) held_events: VecDeque<super::speech_delivery::HeldEvent>,
+    /// What the road voice has said about itself (see
+    /// `speech_delivery::hold`).
+    pub(crate) voice_watch: super::speech_delivery::VoiceWatch,
 
     // -- music rotation ----------------------------------------------------------------
     pub(crate) music_pool_positions: HashMap<(String, Vec<String>), usize>,
@@ -239,6 +250,10 @@ pub struct GameContext {
     // -- the state stack ----------------------------------------------------------------
     stack: Vec<StackEntry>,
     deferred: Vec<Deferred>,
+
+    // -- the ambient bed (see `app::ambient`) ------------------------------------------
+    pub(super) ambient_bed: ff_core::ambient_bed::AmbientBed,
+    pub(super) ambient_claims: u64,
 }
 
 /// Everything [`GameContext::new`] takes.
@@ -276,6 +291,7 @@ impl GameContext {
             achievement_notice: String::new(),
             achievement_notice_timer: 0.0,
             playtest_sandbox: false,
+            crash_offer_pending: crate::problem_reports::take_crash_offer(),
             dispatch_board_seed: None,
             school_sandbox: false,
             school_real_profile: None,
@@ -294,6 +310,8 @@ impl GameContext {
             ladder_said: HashSet::new(),
             ladder_last: HashMap::new(),
             handed_back: VecDeque::new(),
+            held_events: VecDeque::new(),
+            voice_watch: Default::default(),
             music_pool_positions: HashMap::new(),
             music_pool_last: HashMap::new(),
             music_rotation_pool: None,
@@ -309,6 +327,8 @@ impl GameContext {
             truck_parking: None,
             stack: Vec::new(),
             deferred: Vec::new(),
+            ambient_bed: Default::default(),
+            ambient_claims: 0,
         }
     }
 

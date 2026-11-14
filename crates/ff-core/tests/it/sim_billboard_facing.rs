@@ -166,7 +166,7 @@ fn test_moved_pool_lines_are_heard_at_their_place_both_ways() {
 /// direction it faces unless its leg-mile falls inside a statutory scenic ban.
 #[test]
 #[cfg_attr(
-    ci_quick,
+    not(feature = "slow-tests"),
     ignore = "sweep: every placed billboard on every leg, both ways"
 )]
 fn test_every_placed_billboard_is_heard_on_its_own_leg() {

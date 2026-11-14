@@ -57,10 +57,13 @@ impl DrivingState {
                 opts(live::LOCKOUT_AIR),
             );
         } else if self.trip.truck.parking_brake {
-            let brake_hint = ctx.control_hint("parking_brake");
-            self.set_status(format!(
-                "Parking brake set. Press {brake_hint} to release it."
-            ));
+            let status = if self.driving_hints(ctx) {
+                let brake_hint = ctx.control_hint("parking_brake");
+                format!("Parking brake set. Press {brake_hint} to release it.")
+            } else {
+                "Parking brake set.".to_string()
+            };
+            self.set_status(status);
             ctx.say_event_with("Parking brake set.", opts(live::LOCKOUT_PARKING_BRAKE));
         }
     }
@@ -145,10 +148,13 @@ impl DrivingState {
             // re-announce it.
             self.air_ready_said = true;
             ctx.audio.play_with("vehicle/air_dryer_purge", 0.65, 0.0);
-            let brake_hint = ctx.control_hint("parking_brake");
-            self.set_status(format!(
-                "Air ready. Press {brake_hint} to release the parking brake."
-            ));
+            let status = if self.driving_hints(ctx) {
+                let brake_hint = ctx.control_hint("parking_brake");
+                format!("Air ready. Press {brake_hint} to release the parking brake.")
+            } else {
+                "Air ready.".to_string()
+            };
+            self.set_status(status);
             let message = "Air ready.";
             // ROUTE, not the ambient default: same reasoning as the lockout
             // lines below -- this is the reason the truck can now move, a
@@ -225,7 +231,7 @@ impl DrivingState {
                 self.direction_hold_s = 0.0;
                 self.trip.truck.transmission.shift_timer = 0.0;
                 ctx.audio
-                    .play_bank_with("vehicle/shift_manual", "vehicle/gear_shift", 0.55, 0.0);
+                    .play_bank_with("vehicle/shift_auto", "vehicle/gear_shift", 0.55, 0.0);
                 if want == "forward" {
                     self.trip.truck.transmission.gear = 1;
                     self.set_status("Forward gear selected.");

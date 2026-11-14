@@ -662,8 +662,8 @@ fn test_shoulder_sleep_advances_ten_hours_and_resets_the_clock() {
     );
     let profile = app.ctx.profile.as_ref().expect("a career");
     assert_eq!(profile.hos.driving_min, 0.0);
-    // Poor rest: the shoulder floor, never fully fresh.
-    assert_eq!(profile.fatigue, hos::FATIGUE_SHOULDER_FLOOR);
+    // Poor rest: 5 points an hour off 90, never below the shoulder floor.
+    assert_eq!(profile.fatigue, 40.0);
     assert!(
         last(&app).contains("You sleep poorly on the shoulder"),
         "{}",

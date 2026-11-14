@@ -39,6 +39,7 @@ impl DrivingState {
         secure_truck_for_stopped_menu(self, ctx);
         shut_down_engine(self, ctx);
         advance_rest_clock(self, ctx, left, Some("sleeper_berth"), "");
+        settle_lift_before_sleep(self, ctx);
         hos_mut_of(ctx).sleeper(left);
         if let Some(team) = self.team.as_mut() {
             // The sleeper minutes above complete the ten hours; this only
@@ -48,7 +49,7 @@ impl DrivingState {
             }
         }
         let profile = profile_mut_of(ctx);
-        profile.fatigue = hos::rest_shoulder(profile.fatigue);
+        profile.fatigue = hos::rest_poor_sleep(profile.fatigue, left);
         log::info!(
             target: TRANSCRIPT_TARGET,
             "[co-driver] stops on the shoulder at mile {anchor:.1} and the driver sleeps {left:.0} more minutes"

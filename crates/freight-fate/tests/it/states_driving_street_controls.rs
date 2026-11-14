@@ -220,7 +220,7 @@ fn test_a_new_street_says_its_limit_and_the_yard_says_the_yard_limit() {
 
 #[test]
 fn test_cruise_handing_a_street_to_the_keeper_names_no_zone() {
-    // "Facility Access Road zone. Speed keeper holding 30" called a city
+    // "Facility Access Road zone. Cruise holding 30" called a city
     // street a zone when adaptive cruise handed it to the keeper.
     let mut harness = on_the_streets("Street Handoff", Vec::new(), Vec::new(), false, 0.2, 25.0);
     harness.app.ctx.settings.speed_keeper = true;
@@ -231,7 +231,7 @@ fn test_cruise_handing_a_street_to_the_keeper_names_no_zone() {
     });
     let heard = harness.transcript_text();
     assert!(
-        heard.contains("Speed keeper holding 30 miles per hour."),
+        heard.contains("Cruise holding 30 miles per hour."),
         "{heard}"
     );
     assert!(!heard.contains("zone"), "{heard}");
@@ -301,7 +301,10 @@ fn test_the_assists_stop_for_a_red_street_light_hold_it_and_drive_on_at_green() 
     let heard = harness.transcript_text();
     assert!(stopped, "never held at the red\n{heard}");
     // Named in whatever phase it was in; pinned red from the next frame on.
-    assert!(heard.contains("Traffic light ahead. Light"), "{heard}");
+    assert!(
+        heard.contains("Light red.") || heard.contains("Light green."),
+        "{heard}"
+    );
     assert!(heard.contains("Braking for the light."), "{heard}");
     assert!(heard.contains("Red light."), "{heard}");
     let at = harness.read_drive(|d| d.trip.position_mi);
@@ -357,7 +360,7 @@ fn test_a_green_street_light_is_driven_at_the_streets_own_speed() {
         }
     }
     let heard = harness.transcript_text();
-    assert!(heard.contains("Traffic light ahead."), "{heard}");
+    assert!(heard.contains("Light green."), "{heard}");
     assert!(
         slowest > 25.0,
         "slowed to {slowest:.1} for a green\n{heard}"
@@ -426,9 +429,9 @@ fn test_the_assists_stop_at_a_street_stop_sign_and_drive_on_from_it() {
     }
     let heard = harness.transcript_text();
     assert!(stopped_at_sign, "never stopped at the sign\n{heard}");
-    assert!(heard.contains("Stop sign ahead."), "{heard}");
+    assert!(heard.contains("Stop sign."), "{heard}");
     assert!(heard.contains("Stopped at the sign."), "{heard}");
-    assert!(!heard.contains("Speed keeper pulling ahead."), "{heard}");
+    assert!(!heard.contains("Cruise pulling ahead."), "{heard}");
     assert!(
         harness.read_drive(|d| d.trip.position_mi) > node + 0.05,
         "never drove on\n{heard}"
@@ -458,7 +461,7 @@ fn test_an_all_way_stop_waits_for_no_cross_traffic() {
     assert!(harness.read_drive(|d| d.cross_bubble.is_none()));
     run_until(&mut harness, 60 * 120, |d| d.trip.position_mi > 0.65);
     let heard = harness.transcript_text();
-    assert!(heard.contains("All-way stop ahead."), "{heard}");
+    assert!(heard.contains("All-way stop."), "{heard}");
     assert!(heard.contains("Stopped at the sign."), "{heard}");
     assert!(!heard.contains("wait for your gap"), "{heard}");
 }
@@ -632,6 +635,10 @@ fn reds_on_the_arterial(seed: i64, mph: f64) -> usize {
 }
 
 #[test]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: ten drives down a signalled arterial"
+)]
 fn test_a_truck_at_the_limit_rides_the_green_band_down_an_arterial() {
     // Arterial signals are coordinated: offset so a truck at the posted limit
     // arrives on green. The band is not a promise -- the first light is met

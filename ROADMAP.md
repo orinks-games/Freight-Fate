@@ -28,6 +28,11 @@
 > follows at release. Keep this file current: when a feature lands on the 1.9
 > line, check it off here in the same change.
 
+> Current stable: **1.9.6** (2026-11-13). Next release: **1.9.7**, a fix
+> release from dev; `feat/career-2.0` merges into dev after its tag and
+> becomes the beta channel. The gate for both is under
+> [November 14](#november-14-the-road-to-197-and-the-20-beta-found-along-the-way).
+
 ## Reading this roadmap
 
 Start with the [1.9 release gate](#release-gate-190), the fixed list of
@@ -41,6 +46,47 @@ record and full pending backlog. Section links below keep existing roadmap
 bookmarks usable.
 
 ## 1.9 in flight (ships from `dev` and `main`)
+
+- [x] Report a problem sends the game log ahead to orinks.net and opens the report form in the browser (owner, 2026-11-12: the in-game text box was "not great for entering text", and players asked to attach the log by hand rarely did). The row on the main menu posts `game.log` and `game.prev.log` to the site, which answers with a one-time page where the player writes what happened, adds an email address for a reply and unticks a log they would rather keep; the site emails the report. A run that never quit (a crash, a kill, a power cut) leaves a marker, and the next main menu asks once: Report it, Not now, or Stop asking after crashes (Settings, Problem reports has the switch). When orinks.net cannot be reached, or the browser will not open, the GitHub bug-report page opens as before with the line saying where the log is. Built on Hearken's problem-report crate; Wicket's gets the same through Hearken's own screens.
+- [x] Debris is taken, not stopped for (owner, 2026-11-09, after automatic braking took the truck from 65 to a near stop on I-43 for a strip of tire tread with the left lane held: "should I or the assists even brake for them?"). The catalog now says how each thing in the lane is taken. Small debris (tire debris, loose debris) is a heads-up with the road cue tone, "Tire debris. Left lane open.", about 8 seconds out: full lane keeping moves over, nothing brakes, cruise stays on, and with no lane open the truck drives over it with a thump and, at 55 or more, a 1 in 4 seeded roll for 1 to 2 percent damage. Big debris (ladder, lumber, mattress, boxes, tarp, tumbleweeds) keeps the hazard call; with no lane open automatic braking eases to 30 and the thing is taken for free at 30 or under, or struck above it for damage growing to the catalog's figure at 65 (8 for the ladder and lumber, 4 for the soft things), with the truck still rolling and cruise still armed. Rockfall, a spun-out car, the stopped vehicle, closures, traffic and crash scenes are unchanged. "It is still in your lane. Nearly stop." is gone in every case. Every debris strike speaks its damage (issue 533 reported damage with no line saying why). The agent server's new `hazard` tool fires any catalog hazard by name on the live drive, so each class can be driven instead of waited for.
+- [x] (Found along the way) A truck stopped at a facility gate could not dock with Facility stopping assistance off unless the parking brake was set (first player problem report, 2026-11-13, Fort Worth Cross-Dock: "I arrived at my destination, pressed enter but could not dock"). Enter did nothing there, though the manual says it accepts the arrival; the one line that names the parking brake was cut 4.5 seconds later by the "Still at" reminder; and a stopped truck heard nothing more. Fixed 2026-11-14: Enter or controller A accepts the arrival from a full stop at a delivery or pickup gate, a truck at rest with the brake off hears "Set the parking brake to dock" once per stop after 3 seconds of quiet (counted from the end of the stop line since the recorded drive of 2026-11-14, where a truck that stopped under that line heard the brake named twice back to back), the reminder waits its 10 seconds after the line that names the brake, and the speed limit key, the route key, the status screen and the pause menu's Trip status say what the gate is waiting for. The gate's stop is one state enum (`ff_core::sim::arrival_gate`), and the agent server's `status` reports it.
+- [ ] (Found along the way) The dock at the end of an exit ramp, with Facility streets off, still opens on a full stop without going through the gate's state enum. Move it onto the enum so both arrivals share one rule.
+- [x] (Found along the way) Speed limits flip-flopped where the map has no posting (owner's Kenosha to Traverse City drive, 2026-11-04: 60, 70, 55 on the Tri-State in Lake County inside two minutes). An untagged stretch longer than four miles fell back to the open-road number, and 263 of them sat between two lower postings. Fixed 2026-11-05: a gap takes at most the higher posting around it when both are 55 or more, or both are 45 or more and the gap is at most 10 miles. Calibrated on the October profile itself: on tagged road between two postings of 55 or more, the stretch between was posted higher than both for most of its length 0.1% of the time over 5 miles and 1.9% over 40; with a 45 or 50 at one end, 5.1% over 10 miles and 13.4% over 40. A gap leaving a town limit under 45 still reads the open-road number. The state truck caps (California 55, Oregon 55, Arizona 65 and the rest) now bind in gaps and on legs with no profile; they used to apply to postings only.
+- [x] (Found along the way) Kenosha and Milwaukee to Chicago leave I-94 just past the state line and run about 25 miles down US-41 (Skokie Highway, with signals) to Lake Cook Road, while the game still calls the road I-94; checked against OpenStreetMap 2026-11-05. The 55, 45, 55 and 50 heard there are US-41's real limits. Re-route both legs onto the Tri-State and re-read their limits, then check which other legs leave their named interstate the same way (the limit-artifact screen's off-route verdicts are a start). Fixed 2026-11-05: both legs re-routed with `cargo tools reroute-leg` and rebuilt with `reroute-enrich` and the layer builders, from the OpenStreetMap planet of 2026-10-26; they now ride I-94 (the Tri-State, then the Edens and the Kennedy) into Chicago. The other legs that leave their named road are listed in the route audit of 2026-11-05.
+- [ ] (Found along the way) Toll events on the Tri-State: Kenosha and Milwaukee to Chicago now ride the Illinois Tollway and carry no toll events. Curate the plazas and truck rates.
+- [ ] (Found along the way) Dispatch detours around work zones, as a dispatcher would (owner, 2026-11-05). The router has no work-zone data and the game's zones are made during the drive, so this belongs at dispatch, against the game's own zone list.
+- [ ] (Found along the way) Road Ranger Chicago dropped off Kenosha and Milwaukee to Chicago: it is 3.9 miles off the new route into downtown, past the 3-mile rule. Those legs end with no fuel stop near Chicago; find one on the Edens or the Kennedy.
+- [x] More traffic variety (owner, 2026-11-04: "we only have like three or four traffic items"): the freeway drew only car, box truck, semi and service vehicle, each with one loop. It now draws thirteen kinds (`FREEWAY_CLASSES`), adding SUV, pickup, minivan, sports car, motorcycle, RV, bus, tanker and car hauler, with the light, box truck and tractor-trailer shares unchanged, and the car, semi, pickup, SUV and motorcycle have two or three takes each, kept per vehicle. Thirteen new loops rendered with genny 0.2.0 (`sound-test/traffic_variety.json`). A tanker and a car hauler share the semi's governor and climb; the rest are ungoverned, as before. Waiting on the owner's listening pass.
+- [ ] (Found along the way) An RV and a coach bus run at car speed and climb like one: neither has a governor band or climb numbers yet. Give them one with the realistic-traffic speed work.
+- [ ] (Found along the way) Resuming cruise to a remembered 85 on a 12 percent downgrade with the automatic and a 21-ton load peaks 7 rpm past the over-rev line (2,317 against 2,310), and charges the over-rev wear. The resume test was written against a 15.6-ton load, and the new Chicago career's first load grew when the Chicago legs were re-routed (2026-11-09); the test now pins the old load. Check whether the automatic should upshift or the cruise should brake sooner with a heavy trailer.
+- [x] (Found along the way) Gary and South Bend to Chicago left I-90 for Cline Avenue around the Chicago Skyway, and Philadelphia, Harrisburg and Baltimore to Pittsburgh left the Pennsylvania Turnpike for US-30 near Breezewood and Bedford: the old truck router avoided tolls (route audit of 2026-11-05). Re-routed 2026-11-05 onto the toll roads, every layer rebuilt from the planet file of 2026-11-03, and the toll booths re-placed: the Skyway's 5-axle toll is read from its operator's table, and Harrisburg's and Baltimore's Turnpike tolls are pro-rated by miles from Philadelphia's estimate.
+- [ ] (Found along the way) Four legs store a straight line across a stretch of their road: Newark to Trenton (38 miles between miles 8 and 46, where the New Jersey Turnpike is), Portland to Salt Lake City (28 miles near mile 166), Knoxville to Atlanta (17 miles near mile 44) and Springfield to St. Louis (12 miles near mile 49). Curves, limits and exits there are read off a line that is not the road. The truck router puts each back on its interstate (69 to 96% of the miles); re-route them the same way.
+- [ ] (Found along the way) Five legs ride other roads for 5 to 16 miles beside their interstate: Charlotte to Knoxville (US-321 and US-221 Business near Hickory and Marion), Erie to Meadville (PA-98), Rapid City to Sioux Falls (SD-50), Paducah to Clarksville (US-60 and US-62) and Sacramento to Portland (OR-99). The truck router keeps 77 to 97% of each on the interstate. Erie to Meadville reads 0% on I-79 in the router's own report, which needs a look before re-routing it.
+- [ ] (Found along the way) Six Florida legs named I-95 ride Florida's Turnpike for about 13 miles (West Palm Beach, Port St. Lucie, Coral Springs and Jacksonville to Miami and Palm Bay). The route is a reasonable truck choice; the label is what is wrong. Name the road the legs drive, or split the highway name where they change roads.
+- [ ] (Found along the way) A whole-map run of the new layer builders (2026-11-05, dry run) would change most legs: lane counts and landmarks mostly by their source notes, villages by about 160 places, and low clearances from 118 legs to 543, mostly real posted bridges under 16 feet in the Northeast. Decide whether to apply it, and listen to a few of the new clearance calls first.
+- [ ] (Found along the way) The terrain class reads at most 800 HPMS sections per leg, so a long leg is judged on whichever 800 the server returns first: Harrisburg to Pittsburgh across the Alleghenies reads level. Count every section in the leg's own corridor instead.
+- [x] (Found along the way) Towns that no longer exist (owner, 2026-11-09: "Knife River, Montana"). The town checkpoints were named from the USGS place list, which keeps retired census names at the spot of the town that replaced them: Knife River was the 2010 census name for Savage, and the drive said both at mile 65.6 of Williston to Glendive. Fixed 2026-11-09: all 3,002 town checkpoints were checked against the 2024 Census place list and the USGS list, and the 12,017 village nodes against current OpenStreetMap. Knife River and Ore'q (a former Yurok village at Orick) are gone, West Side Highway (a road) is Lexington, Washington, Picnic Point-North Lynnwood (split for 2020) is North Lynnwood, Lysander New Community (deleted from OpenStreetMap) is gone, and three doubled Lacy Lakeview calls and four doubled Tri City calls are one each. `osm-villages` now refuses nodes tagged abandoned, disused, a ghost town or population 0, and treats a hyphen as a space when it checks a name is already spoken.
+- [ ] (Found along the way) Village landmarks still name places that are not towns: about 150 civil townships ("Brownstown Charter Township", "Pennsauken Township"), golf and retirement communities ("Herons Glen Golf and Country Club", "Shell Point Retirement Community") and planned-community neighbourhoods in The Woodlands. Decide whether a township is spoken, and drop the clubs.
+- [ ] (Found along the way) Landmarks name some protected areas a driver would not recognise as a place ("Grand Calumet River Area of Concern", "Business and Government Historic District"). OpenStreetMap's protect_class separates nature areas (1 to 6) from cultural and resource ones; filter on it.
+- [x] The event voice reports when it stops (owner, 2026-11-03): NVDA 2026.3 added `nvdaController_isSpeaking`, which Prism 0.18.3 already wraps; SAPI and OneCore answer too. Hearken's speech worker asks it, at most every 100 ms and only while a line could still be playing, and the pacer ends its length-based estimate when the voice reports silence, or holds it open while the voice is still talking. Game sounds stepping back for speech, the controller Back button's "anything speaking" check and the staleness budget all follow. Road lines also wait for it (owner, same day): while the voice reports it is talking, a queued road line is held by the game instead of stacked in the screen reader's queue; when it reports quiet, the most urgent held line still true is spoken, and chatter held past its 3-second budget, or a route line past 8 seconds, is dropped to message review (the owner's PC drive heard a work-zone easing line spoken 12 seconds late after a hazard brake, right before the game said it again). Interrupting lines and receipt-tracked lines never wait, and a queued critical line is never dropped: it goes after 6 seconds even if the voice never falls quiet. The exit countdown is kept the same way (owner's drive into Traverse City, 2026-11-04: the 2-mile and 1-mile calls, exit speed included, were dropped after 8 seconds), and a newer countdown call replaces one still waiting, carrying the exit speed forward. With both voices on the screen reader, the game asks the main voice, keeps asking once it has answered, and counts an info readout (Clock, Route) as speech: a road line raised during a readout waits for it, and the readout's time does not count against the line's budget. Older NVDA and JAWS keep the estimate and get every line at once. Waiting on a listening pass with a fast and a slow NVDA rate.
+- [x] Shorter record windows (owner, 2026-11-04): a citation counts for 30 game days, a serious violation or crash for 90, in reputation, the carrier's review, the insurance surcharge and the scale's screening; the CDL suspension ladder looks back 180. A game day is about one delivery, so the old year was several hundred loads for one ticket.
+- [x] Barrel strikes from before full lane keeping left closed lanes are forgiven once (owner, 2026-11-04): a player was cited when the assist held the truck in a coned-off lane. On the first load of a save written before the repair, each barrel strike the record still explains comes off (its citation, serious violation and entry), its fine is refunded, and a suspension it started is lifted. Saves carry no build stamp, so a strike the driver steered into is forgiven too. A strike older than the 60 kept entries cannot be found and stays.
+- [x] Alt+5 names the county (owner, 2026-11-05): a fifth one-fact location key after state, road, town and direction. The counties come from the Census Bureau's TIGER/Line 2021 county lines (the last vintage with Connecticut's counties rather than its planning regions) sampled every tenth of a mile along each leg's archived road, by `cargo tools census-counties`; every leg has them. On city streets the key names the county most of the city's legs start in.
+- [x] Live road reports are local (owner, 2026-11-05): a drive past Gary heard thirteen reports in ninety seconds, nearly all for ramps on other roads, because the game read every incident within 50 miles. A report is now spoken only when it is on the truck's road (the feed's road name must match the leg's highway, or a report with no road name must sit within a quarter mile of the road line), not signed for the other direction (Indiana's titles now give theirs), and within 10 miles ahead, nearest first, with its distance. A CARS title drops its road and mile-point range on the truck's own road. Replayed against Indiana's live feed for Chicago to Cleveland on 2026-11-05: three of the dozen reports along I-80 and I-94 near Gary were spoken.
+- [x] Tester snapshots build on each push to dev (owner, 2026-11-09, after the scheduled start kept landing seven hours late and the way msfs-blind-assist rebuilds its preview on every merge). A merge with a changelog entry publishes the day's snapshot about an hour and a quarter later; a second merge the same day replaces it, and the schedule stays as a once-a-night fallback that skips when the newest snapshot is already dev's head. The failed-run retry now rebuilds from dev's copy of the workflow.
+- [x] Snapshot notes are the change list alone (owner, 2026-11-09): the Summary of each entry's lead sentence, added 2026-10-25, read every change twice once a busy day put twelve entries in one snapshot. Stable releases keep their hand-written Highlights.
+- [x] The snapshot retry is a job inside the build run (owner, 2026-11-12: "why is the retry nightly run skipping every hour?"). As its own workflow it started after every completed build, so each push build left a skipped Retry row, and a burst of nine merges on the night of 2026-11-11 left nine retries sleeping 45 minutes for builds a newer push had already cancelled. Now it exists only when a job in the run failed or timed out; the separate workflow is deleted.
+- [ ] (Found along the way) The scheduled snapshot of 2026-11-09 failed on a dispatch test ("one of the small towns relays a load off an empty board"); the retry an hour later passed on the same commit. The test is order- or seed-dependent; pin it.
+- [ ] (Found along the way) Live road reports for the whole route in route planning, so a closure 80 miles out can be weighed before the load is taken.
+- [ ] (Found along the way) Live road reports place a report on the leg's route points, about 25 miles apart, so a named report can be matched up to 2 miles off the line and its distance is off by about as much. Loading the fine road line (`world_data/us/geometry`, about 200 points a leg, today read only by the map tools) would tighten both, and let a report that names no road be matched.
+- [x] (Found along the way) After a hazard stop in a work-zone approach, cruise coming back said "Construction zone ahead, cruise easing to 55" and "to 45" a second time for the same zone (owner's NVDA drives, 2026-11-03, I-84 and WI-29), about 9 to 12 seconds after "Cruise resuming", once cruise's target climbed back past the zone's numbers. Fixed 2026-11-04: the zone cruise is slowing for, and what it said about it, outlast a stopped cruise session, and the resume line counts as saying the cap. The agent drive on WI-29 found the same repeat after braking cruise off and setting it again at a crawl; that is fixed too. A zone is news again once the truck is past it.
+- [x] (Found along the way) A road line cut by an info key is requeued, but a Brake line arriving next dropped it as "mostly heard" though only its first 1.3 seconds were spoken ("Construction, 6 miles. Merge right", owner's NVDA drives, 2026-11-03). Fixed 2026-11-04 for voices that report when they stop: the cut line is held until the readout ends instead of queued behind it, so a Brake line no longer purges it, and it plays once the voice is quiet. Waiting on a listening pass with NVDA 2026.3.
+- [x] (Found along the way) Rest areas listed once per carriageway were offered to drivers on both sides (owner's drive, 2026-11-04, I-43 north from Sheboygan: "Rest Area #52 in 5 miles", then "Rest Area #51 in 4 miles", the southbound one). The truck-parking inventory names each one's bound; the import stored them as serving both directions. Fixed 2026-11-04 at load: a rest area whose record names its bound serves the direction the leg runs on that bound, read from the route line near the stop and over the whole leg. 88 of the 92 such records now serve one side.
+- [ ] (Found along the way) Four rest areas named for one bound still serve both directions because the route line near them and the leg disagree: Big Cypress on I-75, Thompson Hill and Culkin on I-35 out of Duluth, and Nash County on I-95. A denser route line, or the inventory's own coordinates, would settle them.
+- [ ] (Found along the way) With a voice that cannot report (NVDA before 2026.3, JAWS), a road line cut by a readout still queues behind it, and the pacer counts the readout's time as the line playing, so a Brake line soon after can still drop it as mostly heard. The fix needs the readout's length in Hearken's pacer.
+- [ ] (Found along the way) The cruise dial speaks every step while held ("cruise target 57, 58, 59, 60") several times a second (owner's NVDA drive, 2026-11-03).
+
+- [x] YouTube links in personal playlists (owner, 2026-10-30): a playlist entry that is a YouTube page, livestream or video, plays through a yt-dlp the player installs (Playlists folder first, then the PATH; Homebrew's folders on a Mac). Not shipped with the game: size, upkeep and YouTube's terms. The shared station list and the site's suggestion form still take only real streams. Each fresh tune asks yt-dlp for the address, kept until ten minutes before its own expiry. A playlist that will not play because yt-dlp is missing says so.
 
 - [x] Optional menu accelerator keys (owner, 2026-10-24): Gameplay, Controls offers immediate activation for unique initials; duplicate initials retain selection-only cycling. Off by default.
 
@@ -296,16 +342,18 @@ bookmarks usable.
       met slower traffic: two vehicles heard through the I-65 rush zone.
       The vehicle ahead in the truck's lane, the one callouts name, is heard
       to half a mile and always takes a sound first.
-- [ ] (Found along the way) Callouts name a slow vehicle up to 2.2 miles
-      ahead, beyond any hearing; whether the warning should wait until it is
-      audible is a design call for the owner.
+- [x] (Found along the way) Callouts name a slow vehicle up to 2.2 miles
+      ahead, beyond any hearing. Called at half a mile since 2026-10-09, and
+      since 2026-11-04 only while the truck is gaining on it (see
+      [November 4](#november-4-traffic-at-the-roads-own-pace-found-along-the-way)).
 - [ ] (Found along the way) A second owner listening pass on traffic after
       the denser freeways: per-class loudness, `TRAFFIC_BED_PEAK`, and
       whether the right lane needs company too (it is left empty because a
       vehicle there is a slowdown the driver must answer).
-- [ ] (Found along the way) Bubble vehicles in one lane pass through each
-      other: there is no NPC-to-NPC following, which more vehicles per mile
-      make more likely to be heard as two sounds in one place.
+- [x] (Found along the way) Bubble vehicles in one lane passed through each
+      other: since 2026-11-05 a faster vehicle passes where there is a lane
+      and drops in two seconds behind where there is not (see
+      [November 4](#november-4-traffic-at-the-roads-own-pace-found-along-the-way)).
 - [x] Lane keeping no longer passes into an oncoming passing lane (player
       report relayed by the owner, 2026-10-13: "the cruise control swerves
       you right into oncoming cars", three damaged loads). The lane bake
@@ -743,6 +791,24 @@ into the release gate. Details stay in the linked dated sections, marked
 Everything found before 2026-09-25 moved to
 [2.0](#found-along-the-way-in-19-moved-to-20) that day.
 
+- [x] (Found along the way) Fatigue bands and the nod-off are state
+      machines saved with the trip: a quiet first yawn at 40, the band in
+      the readouts, no repeated drowsy line after a small lift
+      ([fatigue redesign](#november-13-fatigue-bands-and-the-nod-off-found-along-the-way),
+      PR 1 of `docs/fatigue-design.md`).
+- [x] (Found along the way) On-duty time builds fatigue, sleep clears it
+      by the hour, coffee and energy drinks lend a lift they take back, and
+      the job details and departure line say how much of a run falls at
+      night (PR 2 of `docs/fatigue-design.md`, parts 2, 3 and 5).
+- [x] (Found along the way) Tired work is slow work, an officer orders a
+      severely fatigued driver out of service, and a drowsy driver can call
+      dispatch to move the appointment (PR 3 of `docs/fatigue-design.md`,
+      parts 4, 6 and 7).
+- [x] (Found along the way) Traffic runs at a share of the posted limit,
+      towns included; a slow call means the truck is gaining on the vehicle;
+      freeway traffic turns off at interchanges (owner, 2026-11-04), and
+      vehicles pass each other where there is a lane or queue two seconds
+      behind where there is not (2026-11-05).
 - [x] (Found along the way) Full lane keeping leaves a lane a work zone
       closes and takes open weigh stations (owner, 2026-10-27).
 - [ ] (Found along the way) The closure merge cannot drop back behind
@@ -757,14 +823,18 @@ Everything found before 2026-09-25 moved to
 - [x] (Found along the way) The chain control cited a truck that facility
       stopping assistance was braking into the chain-up area to chain up
       (issue #502, 2026-10-25). It now leaves that truck alone.
-- [ ] (Found along the way) A Driving hints setting, on by default, that
+- [x] (Found along the way) A Driving hints setting, on by default, that
       drops every "Press X to ..." sentence from driving lines (owner,
       2026-10-25; after 1.9.5). The key hints retire after three presses by
       the player, so with All assists signaling for them they never retire.
-- [ ] (Found along the way) A continue-onto street cue is named twice in
+      Shipped in Settings, Speech (2026-11-08): off retires every hint at
+      once, and the pull-over, stall, repair, missed-exit and air lines
+      drop their key. Driving school and the first run still teach keys.
+- [x] (Found along the way) A continue-onto street cue is named twice in
       a few seconds: "In a quarter mile, continue onto Columbus Road" and
       then "Continue onto Columbus Road, then 1 mile on it" (Cleveland
-      agent drive, 2026-10-25).
+      agent drive, 2026-10-25). A street that only changes name now gets
+      the one call at the join (2026-11-08).
 - [ ] (Found along the way) Quitting from the title menu on Windows takes
       about 2.2 seconds after the last shutdown line, where an agent
       server quit_game takes 0.14 (owner, 2026-10-25). Ending the process
@@ -809,9 +879,24 @@ Everything found before 2026-09-25 moved to
       with a 25 inside it, where the 2026-10-17 sample called the 35 at
       mile 16.0 a side street; the run is longer than the ramp-dip screen
       reaches, so nothing folds it.
-- [ ] (Found along the way) Sign release archives so the updater can
-      check them against a key built into the game, not only against the
-      checksum GitHub lists next to the file.
+- [x] Sign release archives so the updater can check them against a key
+      built into the game (owner go-ahead 2026-10-30). The game now uses
+      Hearken's engine updater (`hearken-update`): each release carries a
+      signed manifest per platform and a signed file index, and an update
+      downloads only the files over 64 KiB that changed, Linux tarballs
+      and AppImages included. `cargo tools update-manifests` signs them in
+      the release job; a build with no key baked in never updates.
+- [ ] (Found along the way) Make the update key once (`cargo tools
+      update-key --new`), commit its public half in the root `Cargo.toml`,
+      and set the `HEARKEN_UPDATE_SECRET` repository secret. Until then a
+      release has no manifests and its builds do not update themselves.
+- [x] Stable versions are three-part for the engine updater (owner rule
+      2026-10-30): a hotfix of 1.9.5 is 1.9.6, not 1.9.5.1.
+- [x] (Found along the way) Windows updates survive a briefly locked file
+      (issue 575): the install script waits for the old program to be
+      free and retries locked files, the next start no longer fails to
+      put a stopped install back, and the script's steps land in game.log
+      (Hearken PR 54).
 - [ ] (Found along the way) Port a deleted Python data tool into `ff-tools`
       when a data refresh needs it (October 22 section).
       [October 22 audit](#october-22-repository-size-and-security-audit)
@@ -1103,6 +1188,8 @@ Everything found before 2026-09-25 moved to
       gets the player's packs copied in before the swap. Linux tarballs and
       AppImages still download in full. The first update to carry this is
       itself full size.
+      Superseded 2026-10-30 by the engine updater's file index, which
+      covers every large file rather than the two packs.
 - [x] Configurable GitHub update mirror (issue #449, owner go-ahead
       2026-10-22): Settings, Updates can route both release discovery and
       archive downloads through a player-supplied HTTPS prefix. It is off
@@ -1394,6 +1481,11 @@ Everything found before 2026-09-25 moved to
       windows on its window scene, since iOS 27 stops an app built with its
       SDK at launch without one (2026-10-22). Moving to SDL3, which has
       scene support of its own, would retire the shim.
+- [x] iOS VoiceOver responsiveness: the game loop waits out each frame in
+      the main run loop instead of asleep, so VoiceOver's questions about the
+      touch surface are answered at once and a menu swipe no longer beeps
+      and speaks about 250 ms late (verified on an iPhone 18 Pro, iOS 27.2,
+      2026-10-30).
 - [x] iOS sideload packaging: `cargo tools build-ios --sideload` builds a device
       IPA without an Apple certificate or provisioning profile, ready for
       re-signing in a sideloading tool; the signed `--device --ipa` path is
@@ -1437,6 +1529,8 @@ Everything found before 2026-09-25 moved to
 - [ ] (Found along the way) From 1.9.5 to the 2.0 nightlies: the 1.9.6
       list, the switch rule and the one-channel rule, agreed by the owner
       2026-10-26 ([October 26](#october-26-the-road-to-the-20-nightlies-found-along-the-way)).
+      The 1.9.7 gate and what stands before the 2.0 beta, 2026-11-14
+      ([November 14](#november-14-the-road-to-197-and-the-20-beta-found-along-the-way)).
 - [ ] (Found along the way) The speed keeper trails a posted drop on a
       street: 38 in a 30 on North Arnold Boulevard before "easing to 30"
       (Abilene departure drive, 2026-10-26).
@@ -3721,6 +3815,91 @@ and the ramp lights were already the truck's.
       through the cruise. Rare on All assists, where the speed keeper arms
       the cruise.
 
+### November 13 fatigue bands and the nod-off (Found along the way)
+
+PR 1 of the fatigue redesign (`docs/fatigue-design.md`, approved by the
+owner 2026-11-11) built the bands and the nod-off with no new costs. PR 2
+(2026-11-13) added parts 2, 3 and 5, and PR 3 (2026-11-13) parts 4, 6
+and 7.
+
+- [x] (Found along the way) **Four fatigue bands.** Rested, worn, drowsy
+      and severe, entered at 40, 60 and 80 and left only 5 points under
+      the entry. Entering worn plays one quiet yawn and says nothing;
+      drowsy and severe keep their sound and line. A jump over several
+      bands gives only the cue of the band landed in. The Tab status
+      screens name the band with the number from worn up.
+- [x] (Found along the way) **The nod-off is one machine** (awake,
+      nodding, recovering, and the misses toward the forced stop), and
+      every other demand on the driver waits on it in one place. It and
+      the band are saved with the trip, so a resume no longer resets the
+      count and the misses or replays a band cue. The agent server's
+      `status` reports `alertness`, `nod` and `nod_misses`; `scenario`
+      takes `fatigue`, and a `nod` tool opens a nod on the live drive.
+- [x] (Found along the way) The city terminal judged "slept before it got
+      bad" at 70 and a rest stop at 80, for the same achievement. Both
+      now use the severe band.
+- [x] (Found along the way) The night-hours line on the job details and
+      the departure line (design part 3): "About 4 hours of night
+      driving.", leaving now and driving straight through on the local
+      clock, nothing for a daytime run. Job details carry it with hours of
+      service off too, where it is the one planning line left.
+- [x] (Found along the way) On-duty time that is not driving builds
+      fatigue at a third of the driving rate (part 2): stopped at the
+      wheel, and every on-duty block at a stop, a dock, a scale, an
+      inspection, a repair or chain work, on the road and in town. The
+      third is assumed tuning.
+- [x] (Found along the way) Rest by the hour, and stimulants as a loan
+      that comes back when it wears off (part 5). Proper sleep and the
+      co-driver's bunk take 8 points an hour, poor sleep 5 down to 30. The
+      coffee break and the energy drink and five-cent coffee lend their
+      lift for two hours (the drinks, their buff's time); a second one
+      before then lifts nothing. The loan rides in the save's buff list,
+      so cloud backups need no new field. Both rates are assumed tuning.
+      A lift that wears off during a sleep comes back silently, since the
+      rest result reads the fatigue; one that wears off in any other stop,
+      or in the loop back after driving past the receiver, comes back on
+      the first moment at the wheel with its line, which waits out a busy
+      voice and is heard before the band cue it causes (agent playtest,
+      2026-11-13).
+- [ ] (Found along the way) Tune the on-duty rate and the sleep rates
+      against real careers after the owner's listening pass (design
+      "Tradeoffs").
+- [x] (Found along the way) Tired work is slow work (part 4): fueling,
+      the walk-around (on the road and at the terminal), chain install,
+      removal, repair and tightening, and pulling into a stop, a pickup or
+      a dock take 10, 25 or 50 percent longer at worn, drowsy and severe
+      (5, 12 and 25 with relaxed pacing), rounded to the minute. Every row,
+      help line and result line that reads those minutes reads the longer
+      figure; the fuel row's help now reads its minutes. Docks, mechanics,
+      shops, officers, scale wave-throughs and buying a chain set keep
+      their times.
+- [x] (Found along the way) An officer can see it (part 6): the scale's
+      inspection lane, a roadside inspection or log check, and a traffic
+      stop at severe end in the fatigue out-of-service order after the
+      stop's own result, never on top of an order the stop already gave,
+      and not with enforcement bypassed. With relaxed pacing the first one
+      in a career is a warning, kept in the career's stats map so cloud
+      backups need no new field.
+- [x] (Found along the way) The dispatch rest call (part 7): "Too tired to
+      drive safely" while drowsy or severe on a load, once per load and
+      not on a team load whose co-driver has hours. The appointment moves
+      by ten hours plus the drive to the nearest stop with parking (10.5
+      hours when none is known), and the load pays its base rate. The
+      third call inside seven days, and each after, costs the same trust
+      as declining a load. The calls are kept in the career's stats map;
+      the spent call rides in the trip save, and the agent server's
+      `status` reports `rest_call`.
+- [ ] (Found along the way) Tune the slow-work percentages, the rest
+      call's fallback 10.5 hours and its two free calls a week against
+      real careers; all are assumed.
+- [ ] (Found along the way) Chain controls and the felony stop do not
+      apply the severe-fatigue order: a chain control speaks on the road
+      without a stop screen, and the felony stop ends the run. Decide
+      whether a chain-control officer should.
+- [ ] (Found along the way) Lane wander for manual steering at drowsy and
+      severe, pending the owner's listening pass of the rest of the
+      redesign (design "Considered and left out").
+
 ### October 26 the road to the 2.0 nightlies (Found along the way)
 
 The plan from 1.9.5 to the first 2.0 nightly, agreed by the owner on
@@ -3741,6 +3920,8 @@ Rules set that day:
   is older than a week, and the 2.0 branch has taken a dev sync that
   passes CI as a PR against dev. Then the branch merges into dev. A 1.9
   fix after that lands on main and ships as 1.9.7 from a tag on main.
+  Amended 2026-11-14: 1.9.7 ships from dev first, then the switch; see
+  [November 14](#november-14-the-road-to-197-and-the-20-beta-found-along-the-way).
 - **PR #515 stays on dev** for 1.9.6: rebase after #514, an agent-server
   drive, merge. The same `osm-speed-limits` command runs again on 2.0
   with Canada in the bounding box.
@@ -3786,13 +3967,26 @@ Rules set that day:
       (2026-10-27) that the speed keeper is for streets and facility
       approaches only: cruise now holds highway work zones and heavy
       traffic at their limit, so that handoff no longer happens at all.
+- [x] (Found along the way, #518) On ice the co-driver judged a stop's
+      reach at 50 while the weather held the truck at 20, so a far lot could
+      be planned and never reached. Reach now follows the weather's pace,
+      and a plan the weather puts out of reach is dropped for a nearer lot.
+- [ ] (Found along the way) A slept shift is passed at the posted pace
+      whatever the weather, so on ice the truck covers miles in the jump
+      that it could not drive live.
+- [x] (Found along the way) The co-driver kept a cruise speed set under a
+      higher limit: 70 into Indiana's 65 for trucks. They now tap it down.
 - [ ] Co-driver damages the truck (issue #492).
+- [x] Engine brake citation seconds after the zone warning (issue #531).
+      Any pause in the bark (throttle, a gear change) cleared the grace
+      window, and the next bark was cited at once. The pause now holds the
+      grace clock; only switching the engine brake off ends it.
 - [ ] Game stops responding when the player switches windows (report
       2026-10-21, answers asked for).
 - [x] Speed limits re-read from October OpenStreetMap (PR #515).
-- [ ] Tier 2: the Driving hints setting; lane keeping moving to the open
-      lane at a closure (issue #496); the doubled continue-onto cue; the
-      Mall of America exit; the Arch Linux PipeWire build (issue #501).
+- [ ] Tier 2: lane keeping moving to the open lane at a closure (issue
+      #496); the Mall of America exit; the Arch Linux PipeWire build
+      (issue #501).
 - [ ] Hygiene: Hearken pinned to main; contributor PRs #512 and #334
       merged or closed with a reason; the owner's listening pass; release
       signing before the tester pool widens.
@@ -3814,6 +4008,157 @@ with everything off):
   departure cannot be staged through `start_at` today.
 - Three "Found along the way" items above: the keeper trailing a posted
   drop, silent damage, the rural 70 posted on a boulevard.
+
+### November 14 the road to 1.9.7 and the 2.0 beta (Found along the way)
+
+The owner asked on 2026-11-14 for a clear path to 1.9.7, with
+`feat/career-2.0` going to the beta channel once it is out. That changes
+the switch rule of October 26: 1.9.7 is cut from dev the way 1.9.6 was,
+and the 2.0 branch merges into dev only after the 1.9.7 tag. A 1.9 fix
+after the merge lands on main and ships as 1.9.8 from a tag on main.
+
+Rules on dev until the 1.9.7 tag:
+
+- **Fixes and translations only.** No new feature starts on dev.
+- **No map data edits.** A trial merge of dev into `feat/career-2.0` on
+  2026-11-14 conflicts in 81 files, 26 of them map shards, so a leg
+  edited on dev now is edited again in the sync. The open map items
+  above (the straight-line legs, the legs beside their interstate, the
+  Tri-State tolls, the Chicago fuel stop, the whole-map layer run) wait
+  for 2.0.
+
+On dev since 1.9.6:
+
+- [x] Fatigue redesign parts 2 to 7 (PR 624): on-duty time, sleep by the
+      hour, stimulants as a loan, the night-hours line, slow work, the
+      officer's order and the dispatch rest call.
+- [x] Enter accepts a facility arrival from a full stop, and the gate
+      names the parking brake (PRs 627 and 628).
+- [x] Five-by-Two takes a full 10 hours asleep (PR 630).
+
+Release gate for 1.9.7:
+
+- [ ] Sound comes back after the sound device drops (Hearken PR 69, then
+      game PR 626). A player reported 1.9.6 going silent with a Bluetooth
+      headset. Driven in the cloud with the sound service killed twice;
+      the check with a real headset on Windows is the owner's.
+- [ ] The Windows Defender detection a player reported on 2026-11-14.
+      The Windows build is not code signed. Before the tag, the release
+      candidate's Windows files are scanned and come back clean, or the
+      detection is reported to Microsoft as a false positive and the
+      downloads page says so. A code-signing certificate costs money and
+      is the owner's decision.
+- [ ] Cloud backup and restore of a sealed career. 1.9.6 was the first
+      stable to seal saves, and nobody has restored one from the cloud
+      since. An agent checks it on the staging backend, then the owner
+      once on their own account.
+- [ ] A week of tester play on the fatigue changes, which reached the
+      snapshot on 2026-11-13: tag no earlier than 2026-11-20 unless the
+      owner's listening pass (the yawn at worn, whether the numbers feel
+      fair) clears them sooner. A tier-1 report against them restarts the
+      week.
+- [ ] Vietnamese fixes for English leaking into turn, speed limit and
+      resume lines (PR 625, Đào Đức Trung): review, merge, credit in the
+      notes.
+- [ ] Pin the dispatch test that failed the scheduled snapshot of
+      2026-11-09 (bullet under "1.9 in flight"). The release build runs
+      the tests, so a test that fails one run in some can fail the tag.
+- [ ] Release steps as for 1.9.6: the `## 1.9.7` notes with Highlights,
+      dev synced to main by PR, the final dev snapshot as the release
+      candidate, the packaged save check from 1.9.6, orinks-net dev
+      merged to main (it carries the reworded Five-by-Two badge), and the
+      tag pushed from the owner's PC on the owner's word.
+
+In 1.9.7 if they are ready, never holding it:
+
+- [ ] PR 603 (prismer 0.1.5, a build script change with the same speech
+      sources): merge after a green dry run, or leave it for 2.0.
+- [ ] The cruise dial speaking every step while held (bullet under "1.9
+      in flight").
+- [ ] Issue upkeep: close 590, 496 and 501 (fixed in 1.9.6) and 605
+      (fixed on the site); close PR 629, which PR 630 replaced; ask the
+      reporters of 519 and 492 to try 1.9.6, which redid controller
+      detection and logs the cause of every damage.
+
+Not in 1.9.7: guest drivers (PR 577, a draft waiting on the site), the
+ramp-end dock moving onto the gate's state enum, lane wander at drowsy,
+the fatigue tuning passes (after testers have played a few weeks), the
+over-rev on a heavy cruise resume, the SAPI crash of issues 513, 516 and
+517 (waiting on the tester and on Prism's SAPI rewrite), and every map
+item.
+
+What stands between the 1.9.7 tag and 2.0 on the beta channel, on top of
+[The first 2.0 nightly](#the-first-20-nightly):
+
+- [ ] Sync dev into `feat/career-2.0` through a PR against the branch.
+      The branch last took dev on 2026-10-28 and is 243 commits behind.
+      The trial merge conflicts in 33 Rust source files, 26 map shards,
+      every language file, the manual and the changelog. This is the long
+      job and can start before the 1.9.7 tag, with a small second sync
+      after it. The November text rewrite (PRs 607 to 614) has to reach
+      the lines only 2.0 has.
+- [ ] Sealed saves, which the October save plan predates: 2.0 opens a
+      sealed 1.9.7 career and copies it forward, and 1.9.7 refuses a 2.0
+      career, local or cloud, without setting it aside for good.
+- [ ] One alpha build from the synced branch before the merge. The
+      snapshot workflow already builds `feat/career-2.0` on the alpha
+      channel by hand, and no alpha has been published yet, so nobody
+      outside an agent drive has played 2.0. The owner plays it first;
+      the merge into dev follows.
+- [ ] Live cattle ships to beta with its sounds unrecorded; recording
+      them spends ElevenLabs credits and waits for the owner's approval.
+
+### November 4 traffic at the road's own pace (Found along the way)
+
+The owner's US-219 drive, Buffalo to Jamestown (2026-11-04): "Slow box
+truck 0.5 miles ahead, at 48" and, forty seconds later, "Slow box truck
+0.4 miles ahead, at 42" while they crawled to the exit. The log showed the
+second call going out with the truck already slower than the box truck
+(39.9 against 41.5, cruise easing for a limit drop), and the crawl itself
+was the 30 limit. Underneath: a third of all traffic ahead was born into a
+"slow" role that ran 3 to 10 under the posting, with a flat 4 to 10 more
+off every vehicle born in rush hour, as fixed miles per hour kept into
+every town -- 15 to 23 in a 30 zone. The census sweep
+(`states_driving_traffic_rate.rs`, 2,082 miles, 5,670 sightings) measured
+15 percent of traffic under 80 percent of its limit, and seven of the eight
+times traffic forced the truck to brake were that role, four of them in a
+town at 15 to 23 mph. Design: the doc "Realistic traffic pass: design"
+(project thread, 2026-11-04).
+
+- [x] Speeds are a share of the posting: 88 to 108 percent for ordinary
+      traffic, 105 to 115 for passers, re-read under the wheels as before;
+      governors and the climb model unchanged. The slow role is no longer
+      drawn, the flat rush draw is gone (rush hour is denser, not slower;
+      jams pace from their zone), and the floor is 85 percent of the limit.
+- [x] A slow call means the truck is gaining on the vehicle by 5 mph or
+      more, judged when the call is spoken, whatever the vehicle was born
+      as; a cruising semi at 62 caught at 70 is called like any other. A
+      vehicle not called is not marked announced.
+- [x] Cruise's "Traffic ahead, slowing" stays quiet for a vehicle the slow
+      call named within the last mile; the notify tone still plays.
+- [x] Freeway turn-offs move to the first interchange at or past the drawn
+      mile (within 15 miles); off a freeway the drawn mile stands.
+- [x] The hazard call names the vehicle's class ("Slow semi right ahead");
+      it said "Slow car" for every slow vehicle and "Steady truck traffic"
+      for every cruiser, whatever they were.
+- [x] Census sweep after the first three slices (same 2,082 miles, 5,546
+      sightings): traffic under 80 percent of its limit fell from 15
+      percent to 2 percent, forced brakes from 8 to 2 (both a car at 88
+      percent of a 25 zone with the sweep's truck still at 58), with the
+      bubble as full as before (0.56 against 0.58 vehicles per mile).
+- [x] Slice 4, vehicles that see each other (`platoon.rs`): a faster vehicle
+      moves over to pass a slower one where the road has a lane with room
+      in it, by the same clearance the L key reads, and comes back once
+      clear; where there is no lane, or no room, it drops in two seconds
+      behind and holds that gap, so a platoon forms behind a slow truck on
+      a two-lane road and a freeway pass is heard. The truck is an occupant
+      like any other: traffic behind it passes it or waits, and nothing
+      moves into its lane inside the sideswipe window.
+- [x] Census sweep after slice 4 (same miles, 5,605 sightings): forced
+      brakes still 2, the bubble as full (0.57 vehicles per mile), 5 percent
+      of sightings out of their lane passing something slower and 16 percent
+      holding a gap behind what is ahead; traffic under 80 percent of its
+      limit 3 percent (vehicles queued behind a slower one count here now).
 
 <a id="20-planned-featcareer-20----the-working-week-and-home"></a>
 
@@ -5246,3 +5591,13 @@ a public build leaks.
 ### Platforms and community
 
 [Read this section in the detailed roadmap](docs/roadmap-details.md#platforms-and-community).
+
+## Updater and local save protection
+
+- [x] Add stable, beta and alpha subscriptions and configurable branch builds for alpha.
+- [x] Default automatic update offers to Remind me later and suppress held activation.
+- [x] Provision and back up the persistent sealing key; enable sealed careers in future release builds.
+- [x] Verify packaged migration before release. Checked 2026-11-13 on the Linux x64 packages: a career made in the 1.9.5 release opened in the beta snapshot of 2026-11-12, was sealed, saved and reopened, and its backup matched the 1.9.5 file byte for byte.
+- [ ] Verify a production cloud backup and restore from a sealed release build. See [release integration](docs/updater-and-sealed-saves.md).
+- [x] Careers an older release set aside come back. 1.9.5 cannot read a sealed career and renames it on its save scan, so one start of 1.9.5 on a 1.9.6 saves folder left 1.9.6 with no careers to list (found in the packaged check of 2026-11-13). The save listing now puts a set-aside sealed career back under its own name when no career holds that name and the file opens there.
+- [ ] A career made by 1.9.5 or earlier in a saves folder that a sealed release has already used is refused as unverified, because it cannot be told from a hand-edited file. A cloud restore is the way back; decide whether the message should say why.

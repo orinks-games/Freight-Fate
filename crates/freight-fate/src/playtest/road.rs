@@ -1532,8 +1532,7 @@ pub fn print_setup(ctx: &mut GameContext, hit: &Hit, start_mi: f64, opts: &RoadO
             "cruise"
         },
         if hit.origin_location.is_some() {
-            "armed: speed keeper takes the streets and ramp, then adaptive cruise resumes"
-                .to_string()
+            "armed: cruise takes the streets and ramp, then cruise resumes".to_string()
         } else if opts.cruise > 0.0 {
             format!("set {:.0} mph", opts.cruise)
         } else {
@@ -1559,7 +1558,7 @@ pub fn print_setup(ctx: &mut GameContext, hit: &Hit, start_mi: f64, opts: &RoadO
         }
     );
     println!(
-        "    speed keeper    : {}",
+        "    cruise    : {}",
         if s.speed_keeper { "on" } else { "off" }
     );
     println!("    descent control : {}", s.descent_speed_control);
@@ -1587,7 +1586,7 @@ pub fn print_setup(ctx: &mut GameContext, hit: &Hit, start_mi: f64, opts: &RoadO
             .as_deref()
             .unwrap_or("the selected facility");
         println!(
-            "  departure         : loaded at {facility}; accelerate until automatic speed control takes over, then listen for the speed keeper to hand off to adaptive cruise on the acceleration lane before you merge"
+            "  departure         : loaded at {facility}; accelerate until cruise takes over, then listen for the cruise to hand off to cruise on the acceleration lane before you merge"
         );
     }
 }

@@ -39,12 +39,14 @@ impl DrivingState {
         let exit_hint = ctx.control_hint("take_exit");
         if self.pull_over.is_some() {
             self.set_status("Rest-stop planning unavailable during a police stop.");
-            self.say_plain(
-                ctx,
+            let message = if self.driving_hints(ctx) {
                 format!(
                     "Resolve the police stop first. Press {exit_hint} to signal the trooper stop."
-                ),
-            );
+                )
+            } else {
+                "Resolve the police stop first.".to_string()
+            };
+            self.say_plain(ctx, message);
             return;
         }
         // An open scale ahead is not optional, so the rest key must not plan
@@ -73,13 +75,15 @@ impl DrivingState {
                 .as_ref()
                 .expect("checked above")
                 .spoken_name();
-            self.say_plain(
-                ctx,
+            let message = if self.driving_hints(ctx) {
                 format!(
                     "On the ramp for {name}. Stop at the scale, then press {rest_hint} to check \
                      in."
-                ),
-            );
+                )
+            } else {
+                format!("On the ramp for {name}. Stop at the scale, then check in.")
+            };
+            self.say_plain(ctx, message);
             return;
         }
         let stop = self.trip.nearest_stop_within(1.5).cloned();
@@ -401,8 +405,8 @@ impl DrivingState {
             // takes over, so without this the engine audio froze at
             // whatever rev the approach left it at for the whole stop.
             self.settle_engine_to_idle(ctx);
-            advance_rest_clock(self, ctx, STOP_PULL_IN_MIN, None, "");
-            hos_mut_of(ctx).on_duty(STOP_PULL_IN_MIN);
+            let pull_in = self.hand_work_min(ctx, STOP_PULL_IN_MIN);
+            advance_on_duty_clock(self, ctx, pull_in, None, "");
             let snapshot = self.snapshot(ctx);
             profile_mut_of(ctx).active_trip = Some(snapshot);
             ctx.save_profile();

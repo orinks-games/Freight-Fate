@@ -186,8 +186,8 @@ fn only_the_surprise_pairings_carry_a_badge() {
 }
 
 #[test]
-fn ten_hours_in_the_sleeper_clears_fatigue() {
-    assert!((sleeper_fatigue_relief(hos::SLEEP_MIN) - 100.0).abs() < 1e-9);
+fn ten_hours_in_the_sleeper_takes_off_eighty_points() {
+    assert!((sleeper_fatigue_relief(hos::SLEEP_MIN) - 80.0).abs() < 1e-9);
 }
 
 #[test]

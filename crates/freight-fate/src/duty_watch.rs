@@ -29,10 +29,13 @@ use crate::net::{wait_seconds, Event, SharedTransport};
 use crate::online_presence::{self, default_transport, join_with_timeout, OnlineIdentity};
 use ff_core::sim::real_traffic::{wall_clock, Clock};
 
-/// Seconds between reads of the drivers list. The site answers from a
-/// sixty-second cache, so asking faster only gets the same answer back;
-/// the on-duty screen polls on the same clock for the same reason.
-pub const POLL_INTERVAL_S: f64 = 60.0;
+/// Seconds between reads of the drivers list. The backend answers from a
+/// sixty-second snapshot, and a "came on duty" call two minutes late tells
+/// the player the same thing as one a minute late -- while the watch runs
+/// all session, so halving its reads halves the biggest share of the game's
+/// online traffic. The open on-duty screen still checks every minute: a
+/// player is looking at it, and it only polls while it is open.
+pub const POLL_INTERVAL_S: f64 = 120.0;
 
 /// Everything [`DutyWatch::new`] takes; `Default` is the disabled,
 /// real-network, threaded service the app builds.

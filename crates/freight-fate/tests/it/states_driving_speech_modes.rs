@@ -324,7 +324,7 @@ fn test_work_zone_short_forms() {
     assert_eq!(
         trip.zone_entry_terse(&a_zone("construction merge", None))
             .as_deref(),
-        Some("Flagger ahead. Limit 45.")
+        Some("Flagger. Limit 45.")
     );
     assert_eq!(trip.zone_entry_terse(&a_zone("heavy traffic", None)), None);
     let warning = trip

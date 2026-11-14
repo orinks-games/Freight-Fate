@@ -988,6 +988,9 @@ impl RadioState {
             // and the radio hands over to the next station on the same band
             // rather than dropping the player to the silent fallback.
             let original = reception;
+            let refusal = backend
+                .refusal_note(&original.station)
+                .unwrap_or_else(|| Self::refusal_clause(&original.station));
             self.mark_unplayable(&original.station.id.clone());
             let replacement = self
                 .same_band_replacement(&original.station)
@@ -1002,11 +1005,7 @@ impl RadioState {
                 "Radio handover."
             };
             return RadioAction {
-                message: Self::play_message(
-                    prefix,
-                    &replacement,
-                    &Self::refusal_clause(&original.station),
-                ),
+                message: Self::play_message(prefix, &replacement, &refusal),
                 station: replacement.station.clone(),
                 enabled: true,
                 reception: replacement,
@@ -1044,12 +1043,12 @@ impl RadioState {
     fn refusal_clause(station: &RadioStation) -> String {
         if station.source_type == PERSONAL_PLAYLIST_SOURCE_TYPE {
             return format!(
-                "None of the tracks in {} would open; it is off the dial for the rest of this session.",
+                "None of the tracks in {} would open. It is off the dial for the rest of this session.",
                 station.display_name()
             );
         }
         format!(
-            "{} is off the air; it is off the dial for the rest of this session.",
+            "{} is off the air. It is off the dial for the rest of this session.",
             station.display_name()
         )
     }

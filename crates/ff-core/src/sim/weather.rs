@@ -579,7 +579,7 @@ impl WeatherSystem {
             "live" => "Live weather for your current route position",
             "loading" => "Live weather is loading for your current route position",
             "last_known" => "Last-known live weather for your current route position",
-            "fallback" => "Simulated fallback weather; live weather is unavailable",
+            "fallback" => "Simulated weather; live weather is unavailable",
             _ => "Simulated weather",
         }
     }
@@ -613,10 +613,10 @@ impl WeatherSystem {
         let age_s = provider.observation_age_s(city)?;
         let minutes = ((age_s / 60.0).floor() as i64).max(0);
         if minutes < 1 {
-            return Some("The observation is less than a minute old".to_string());
+            return Some("The report is less than a minute old".to_string());
         }
         let unit = if minutes == 1 { "minute" } else { "minutes" };
-        Some(format!("The observation is {minutes} {unit} old"))
+        Some(format!("The report is {minutes} {unit} old"))
     }
 
     /// Honest last-known status for announcements and source reports: an
@@ -643,7 +643,7 @@ impl WeatherSystem {
         let Some(age) = self.observation_age_text() else {
             return "unavailable".to_string();
         };
-        age.strip_prefix("The observation is ")
+        age.strip_prefix("The report is ")
             .unwrap_or(&age)
             .to_string()
     }
@@ -652,7 +652,7 @@ impl WeatherSystem {
     pub fn live_observation_notice(&mut self) -> String {
         match self.observation_age_text() {
             Some(age) if !age.is_empty() => age,
-            _ => "Observation age is unavailable".to_string(),
+            _ => "Report age is unavailable".to_string(),
         }
     }
 
@@ -661,7 +661,7 @@ impl WeatherSystem {
         let conditions = self.source_conditions(imperial);
         match status {
             "loading" => format!(
-                "{}. Temporary neutral driving conditions in use",
+                "{}. Mild conditions until live weather loads",
                 self.source_label()
             ),
             "live" => format!("Live weather: {conditions}"),
@@ -674,7 +674,7 @@ impl WeatherSystem {
                 }
             }
             "fallback" => {
-                format!("Simulated fallback weather: {conditions}. Live weather is unavailable")
+                format!("Simulated weather: {conditions}. Live weather is unavailable")
             }
             _ => format!("Simulated weather: {conditions}"),
         }
@@ -685,7 +685,7 @@ impl WeatherSystem {
             "live" => "Live weather",
             "loading" => "Live weather",
             "last_known" => "Last-known live weather",
-            "fallback" => "Live weather is unavailable. Simulated fallback weather",
+            "fallback" => "Live weather is unavailable. Simulated weather",
             _ => "Simulated weather",
         }
     }
@@ -695,7 +695,7 @@ impl WeatherSystem {
             "live" => "Live conditions",
             "loading" => "Temporary conditions while live weather loads",
             "last_known" => "Last-known conditions",
-            "fallback" => "Simulated fallback conditions",
+            "fallback" => "Simulated conditions",
             _ => "Simulated conditions",
         }
     }

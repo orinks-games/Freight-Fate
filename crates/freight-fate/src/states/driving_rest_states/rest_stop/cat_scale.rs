@@ -11,8 +11,8 @@ use crate::app::GameContext;
 use crate::states::base::{Menu, MenuItem};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, clock_text, deadline_text, hos_mut_of, player_pays_operating_costs,
-    profile_mut_of, profile_of,
+    advance_on_duty_clock, clock_text, deadline_text, player_pays_operating_costs, profile_mut_of,
+    profile_of,
 };
 use crate::states::driving_rest_states::fuel_pump::FuelPump;
 
@@ -100,14 +100,13 @@ impl RestStopState {
                 d.stop_visit(&stop).full_weigh_h = Some(now);
             }
             let ticket = d.trip.truck.scale_ticket_text();
-            advance_rest_clock(
+            advance_on_duty_clock(
                 d,
                 ctx,
                 WEIGH_MIN,
                 Some("on_duty_not_driving"),
                 "CAT Scale weigh",
             );
-            hos_mut_of(ctx).on_duty(WEIGH_MIN);
             let billing = if carrier {
                 "Billed to the carrier.".to_string()
             } else {

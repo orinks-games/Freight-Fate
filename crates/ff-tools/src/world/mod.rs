@@ -14,8 +14,11 @@
 //! files and the leg order inside them are sorted, so the same data always
 //! produces the same bytes.
 
+pub mod counties;
 pub mod index;
+pub mod layers;
 pub mod osm;
+pub mod reroute;
 
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};

@@ -72,12 +72,26 @@ impl DrivingState {
     /// conversion the "drops to X" pacenote uses
     /// (`Trip::limit_drop_warning_lead_mi`).
     pub fn acc_limit_lookahead_mi(&self, speed_mph: f64, target_mph: f64) -> f64 {
+        self.acc_limit_lookahead_at_scale_mi(
+            speed_mph,
+            target_mph,
+            self.trip.effective_time_scale(),
+        )
+    }
+
+    /// [`Self::acc_limit_lookahead_mi`] under a given clock compression.
+    pub fn acc_limit_lookahead_at_scale_mi(
+        &self,
+        speed_mph: f64,
+        target_mph: f64,
+        scale: f64,
+    ) -> f64 {
         let speed_mps = 0.0f64.max(speed_mph * 0.44704);
         let target_mps = 0.0f64.max(target_mph * 0.44704);
         if target_mps >= speed_mps {
             return ACC_LIMIT_LOOKAHEAD_MIN_MI;
         }
-        let scale = self.trip.effective_time_scale().max(1.0);
+        let scale = scale.max(1.0);
         let braking_m = (speed_mps * speed_mps - target_mps * target_mps)
             / (2.0 * ACC_LIMIT_COMFORT_DECEL_MPS2);
         let braking_mi = 0.0f64.max(braking_m / 1609.344) * scale;
@@ -85,10 +99,8 @@ impl DrivingState {
         let mean_mph = (speed_mph + target_mph) / 2.0;
         let ramp_mi = ramp_real_s * mean_mph * scale / 3600.0;
         let margin_mi = ACC_LIMIT_LOOKAHEAD_MIN_MI * scale;
-        ACC_LIMIT_LOOKAHEAD_MIN_MI.max(
-            self.acc_limit_lookahead_max_mi()
-                .min(braking_mi.max(ramp_mi) + margin_mi),
-        )
+        let max_mi = LIMIT_WARNING_MAX_LEAD_MI.min(ACC_LIMIT_LOOKAHEAD_MAX_MI * scale);
+        ACC_LIMIT_LOOKAHEAD_MIN_MI.max(max_mi.min(braking_mi.max(ramp_mi) + margin_mi))
     }
 
     /// How far ahead the posted-limit scan looks.
@@ -115,9 +127,37 @@ impl DrivingState {
         // retracts as cruise slows: without this the drop fell back out of
         // sight, the cap lifted, and cruise wound the truck up again --
         // then found the drop again a moment later (see `acc_limit_hold`).
+        //
+        // Held only while the drop is still inside the window this road
+        // calls for, priced where the truck's own slowing cannot shrink it:
+        // at the open-road speed and the trip's full compression. A drop
+        // caught five miles out at full pace stayed held after a signaled
+        // exit put the clock on real time, and cruise crawled the real miles
+        // to it at the lower number (owner's drive into Jamestown,
+        // 2026-11-04).
         let mut lowest_at = start;
+        let road_mph = under_wheels + ACC_LIMIT_OFFSET_MPH;
+        let open_mph = self
+            .trip
+            .truck
+            .speed_mph()
+            .max(self.cruise_mph.map_or(road_mph, |set| set.min(road_mph)));
+        let window_scale = if self.trip.real_time_override().is_some() {
+            self.trip.effective_time_scale()
+        } else {
+            self.trip.time_scale
+        };
         match self.acc_limit_hold.clone() {
-            Some((at_mi, limit, reason)) if start < at_mi && limit < lowest_limit => {
+            Some((at_mi, limit, reason))
+                if start < at_mi
+                    && limit < lowest_limit
+                    && at_mi - start
+                        <= self.acc_limit_lookahead_at_scale_mi(
+                            open_mph,
+                            limit + ACC_LIMIT_OFFSET_MPH,
+                            window_scale,
+                        ) + ACC_LIMIT_LOOKAHEAD_STEP_MI =>
+            {
                 lowest_limit = limit;
                 lowest_reason = reason;
                 lowest_at = at_mi;
@@ -125,7 +165,15 @@ impl DrivingState {
             Some(_) => self.acc_limit_hold = None,
             None => {}
         }
-        let speed = self.trip.truck.speed_mph();
+        // Priced at the speed cruise is climbing to (what it held last frame,
+        // after every cap) as well as the speed it is doing: a truck pulling
+        // up from 44 toward 80 found a drop to 40 a quarter mile ahead only once it was already past 47, and then had
+        // to ease back for it (owner's drive out of Buffalo, 2026-11-04).
+        let speed = self
+            .trip
+            .truck
+            .speed_mph()
+            .max(self.cruise_held_mph.unwrap_or(0.0));
         let mut probe = start + ACC_LIMIT_LOOKAHEAD_STEP_MI;
         while probe <= end + 1e-6 {
             let (limit, reason) = self.trip.speed_limit_at(probe);
@@ -389,14 +437,13 @@ impl DrivingState {
                 // (`spoken_zone`): "Facility Access Road zone" named a city
                 // street (live drive into Abilene, 2026-09-24).
                 let message = match ff_core::sim::trip::spoken_zone(&zone_reason) {
-                    Some(zone) if zone.ends_with(" zone") => format!(
-                        "{} zone. Speed keeper holding {held}.",
-                        title_case(&zone_reason)
-                    ),
+                    Some(zone) if zone.ends_with(" zone") => {
+                        format!("{} zone. Cruise holding {held}.", title_case(&zone_reason))
+                    }
                     _ => super::cruise::keeper_holding_line(&held, &zone_reason),
                 };
                 let terse = format!(
-                    "Speed keeper holding {}.",
+                    "Cruise holding {}.",
                     ctx.settings.speed_value(self.keeper_mph.unwrap_or(0.0))
                 );
                 self.say_route_confirmation(ctx, SpokenMessage::with_terse(message, terse));
@@ -560,16 +607,34 @@ impl DrivingState {
             // a work zone the zone slips out of the window and back in, and a
             // plain on/off latch recited the same easing line all the way to
             // the barrels.
-            if self
-                .acc_limit_cap_said
-                .is_none_or(|said| cap_mph < said - 0.5)
+            //
+            // Spoken only when the cap really slows the truck. Climbing out
+            // of a town at 44 with the set speed at 80, a 60 cap and then a
+            // 45 cap each said "Cruise easing to" a second apart, though the
+            // truck was under both and never eased at all (owner's drive out
+            // of Buffalo, 2026-11-04). A cap the truck is under stays
+            // unlatched, so it speaks if a hill later carries the truck over.
+            let slowing = self.trip.truck.speed_mph() > cap_mph + CRUISE_EASE_SPOKEN_OVER_MPH;
+            // Nor when the exit's own number, already spoken, is at or under
+            // this one: "set at 30 for the exit" and then "easing to 35" in
+            // the next breath read as cruise speeding up past the exit
+            // (agent drive, Jamestown, 2026-11-04). The truck is on its way
+            // down to the exit's number through this cap anyway.
+            let exit_named = self
+                .cruise_exit_mph
+                .is_some_and(|exit| exit <= cap_mph + 0.5);
+            if slowing
+                && !exit_named
+                && self
+                    .acc_limit_cap_said
+                    .is_none_or(|said| cap_mph < said - 0.5)
             {
                 self.acc_limit_cap_said = Some(cap_mph);
                 // The cause only where the speed limit cue does not already
                 // carry it: a plain posted drop is its own announcement.
                 let reason = match limit_reason.as_deref() {
-                    Some("construction") => Some("Construction zone ahead"),
-                    Some("heavy traffic") => Some("Heavy traffic ahead"),
+                    Some("construction") => Some("Construction zone"),
+                    Some("heavy traffic") => Some("Heavy traffic"),
                     _ => None,
                 };
                 // ROUTE, not the ambient default. An assist saying it is
@@ -578,7 +643,7 @@ impl DrivingState {
                 // the toll charge off the ambient channel. As AMBIENT this
                 // was droppable as stale chatter, and it WAS dropped:
                 // tester Darren's I-75 log, 2026-08-18, "[pacer] stale
-                // ambient dropped: Construction zone ahead; adaptive cruise
+                // ambient dropped: Construction zone ahead; cruise
                 // easing to 45 miles per hour" -- seventeen seconds before
                 // a trooper stopped him over the gap the easing was
                 // closing. The truck slowed itself and never said why.
@@ -596,9 +661,15 @@ impl DrivingState {
                     self.trip.note_limit_preannounced(cap_mph);
                 }
             }
-        } else if cap_mph >= set_mph {
+        } else if cap_mph >= set_mph
+            && self.acc_limit_hold.is_none()
+            && self.construction_slowdown.is_none()
+        {
             // Back out on the open road at the set speed: the next drop is
-            // news again.
+            // news again. A set speed under the cap of a zone still ahead is
+            // not open road: cruise set low there and dialled back up said
+            // the zone's easing line a second time (agent drive, WI-29,
+            // 2026-11-04).
             self.acc_limit_cap_said = None;
         }
         self.acc_limit_capped = limit_capped;
@@ -620,9 +691,12 @@ impl DrivingState {
         let safe_mph = effects.safe_speed_mph;
         if adverse && safe_mph < target_mph {
             target_mph = safe_mph;
-            if self
-                .acc_weather_cap_said
-                .is_none_or(|said| safe_mph < said - 0.5)
+            // The same rule as the limit's line: only a truck the weather is
+            // actually slowing hears that it is easing.
+            if self.trip.truck.speed_mph() > safe_mph + CRUISE_EASE_SPOKEN_OVER_MPH
+                && self
+                    .acc_weather_cap_said
+                    .is_none_or(|said| safe_mph < said - 0.5)
             {
                 self.acc_weather_cap_said = Some(safe_mph);
                 let kind = self.trip.weather.current.value();
@@ -676,7 +750,7 @@ impl DrivingState {
                 // cruise is still holding the gap.
                 let mut opts = SayEvent::queued().priority(EventPriority::Important);
                 opts.category = Some(SpeechCategory::Safety);
-                ctx.say_event_with("Stopped traffic ahead; adaptive cruise canceled.", opts);
+                ctx.say_event_with("Stopped traffic. Cruise canceled.", opts);
                 return;
             }
             // Approach control: a slower lead constrains the target only once the
@@ -701,8 +775,19 @@ impl DrivingState {
             self.acc_follow_cue_s = ACC_FOLLOW_CUE_COOLDOWN_S;
             ctx.play_event_cue(Some(SpeechCategory::Traffic), "ui/notify", 0.55, 0.0);
             // Settling in behind a slower vehicle is the assist doing its
-            // job, and the notify tone marks it: words at standard only.
-            self.say_route_line(ctx, "Traffic ahead, slowing.", SpeechCategory::Traffic);
+            // job, and the notify tone marks it: words at standard only, and
+            // none when the slow call has just named this very vehicle.
+            // "Slow semi 0.5 miles ahead, at 49" and three seconds later
+            // "Traffic ahead, slowing" were one semi twice (owner, US-219,
+            // 2026-11-04).
+            let just_called = context.as_ref().is_some_and(|c| {
+                self.trip
+                    .traffic_manager
+                    .slow_call_fresh(&c.lead.key, self.trip.position_mi)
+            });
+            if !just_called {
+                self.say_route_line(ctx, "Slowing for traffic.", SpeechCategory::Traffic);
+            }
         }
         self.acc_following = following;
         // Publish what cruise is really holding, for the status keys. The
@@ -710,8 +795,8 @@ impl DrivingState {
         // since 2026-08-20 (Brandon: cruise said "resuming at 70" and held 23
         // through a zone); Space and the status screen still read out the set
         // speed. Owner's own session log, New York, 2026-08-23, one second
-        // apart: "Adaptive cruise resuming at 33 miles per hour for the ramp"
-        // and then "44 miles per hour, ... adaptive cruise set at 80 miles per
+        // apart: "Cruise resuming at 33 miles per hour for the ramp"
+        // and then "44 miles per hour, ... cruise set at 80 miles per
         // hour". A driver checking mid-ramp was answered with a number nothing
         // on the road was going to allow.
         //
@@ -720,7 +805,7 @@ impl DrivingState {
         // from a key press would re-run look-aheads that latch state.
         self.cruise_held_mph = Some(target_mph);
         self.cruise_held_reason = if following {
-            "for the traffic ahead".to_string()
+            "for the traffic".to_string()
         } else if exit_capped {
             "for the exit".to_string()
         } else if curve_capped {

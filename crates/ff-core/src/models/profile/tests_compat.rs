@@ -167,3 +167,65 @@ fn from_dict_coerces_malformed_scalars_and_keeps_unknown_records() {
     assert_eq!(profile.driving_record.citations, 0);
     assert!(!profile.needs_migration_resave);
 }
+
+/// A save written before the barrel-strike repair: one strike on the record,
+/// its fine already paid, and no repair flag in the record.
+fn save_with_a_pre_repair_barrel_strike() -> (Profile, Map<String, Value>) {
+    use crate::models::enforcement::{
+        RECORD_SERIOUS, WORK_ZONE_BARRELS_FINE, WORK_ZONE_BARRELS_REASON,
+    };
+    let mut profile = Profile::new();
+    profile.game_hours = 200.0;
+    let record = &mut profile.driving_record;
+    record.record_citation_at(WORK_ZONE_BARRELS_FINE, 150.0);
+    record.note(
+        RECORD_SERIOUS,
+        WORK_ZONE_BARRELS_REASON,
+        WORK_ZONE_BARRELS_FINE,
+        150.0,
+        "I-70",
+    );
+    record.record_serious_violation(150.0);
+    let mut data = profile.to_dict();
+    if let Some(Value::Object(record)) = data.get_mut("driving_record") {
+        record.remove("barrel_strikes_repaired");
+    }
+    (profile, data)
+}
+
+#[test]
+fn a_pre_repair_barrel_strike_is_forgiven_and_refunded_on_load() {
+    super::tests::with_data_dir(|_| {
+        let (before, data) = save_with_a_pre_repair_barrel_strike();
+
+        let loaded = Profile::from_dict(&data);
+
+        assert_eq!(loaded.money, before.money + 1_000.0);
+        assert_eq!(loaded.driving_record.citations, 0);
+        assert!(loaded.driving_record.serious_violations.is_empty());
+        assert!(loaded.driving_record.entries.is_empty());
+        assert!(loaded.driving_record.barrel_strikes_repaired);
+        assert!(loaded.needs_migration_resave);
+
+        // Saved again, it loads as it is: the repair never runs twice.
+        let again = Profile::from_dict(&loaded.to_dict());
+        assert_eq!(again.money, loaded.money);
+        assert!(!again.needs_migration_resave);
+    });
+}
+
+#[test]
+fn a_barrel_strike_on_a_repaired_record_stays() {
+    super::tests::with_data_dir(|_| {
+        let (before, mut data) = save_with_a_pre_repair_barrel_strike();
+        if let Some(Value::Object(record)) = data.get_mut("driving_record") {
+            record.insert("barrel_strikes_repaired".into(), Value::Bool(true));
+        }
+
+        let loaded = Profile::from_dict(&data);
+
+        assert_eq!(loaded.money, before.money);
+        assert_eq!(loaded.driving_record.serious_violations, vec![150.0]);
+        assert!(!loaded.needs_migration_resave);
+    });
+}

@@ -182,6 +182,9 @@ pub const DAMAGE_LAST_CALL_PCT: f64 = 85.0;
 pub const DAMAGE_OUT_OF_SERVICE_PCT: f64 = 90.0;
 /// The top of the meter, for the derate ramp's anchor.
 pub const DAMAGE_MAX_PCT: f64 = 100.0;
+/// Damage below this per hit is logged only at each whole percent: a runaway
+/// adds a sliver every frame, and a line per frame would bury the rest.
+pub const DAMAGE_LOG_MIN_PCT: f64 = 0.05;
 // Torque lost to the derate, ramped across each band so no crossing is a
 // cliff: nothing at the bottom of reduced power, a quarter of the engine by
 // limp mode, and near half at the top of the meter.

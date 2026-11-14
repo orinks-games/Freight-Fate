@@ -304,7 +304,13 @@ impl Profile {
 
         // Read once so the money guard is seeded with the balance the load
         // gate already vouched for.
-        let money = f("money", defaults.money);
+        let mut money = f("money", defaults.money);
+        // A record saved before the barrel-strike repair gives back the
+        // strikes full lane keeping drove it into, and their fines.
+        if !driving_record.barrel_strikes_repaired {
+            money += driving_record.repair_barrel_strikes(f("game_hours", defaults.game_hours));
+            migrated = true;
+        }
 
         let saved_home = s("home_terminal_city", "");
         let home_terminal_city = migrate_home_terminal_city(

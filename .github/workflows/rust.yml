@@ -1,61 +1,23 @@
-# Rust CI: the game and ff-core, on every push and PR that can affect them.
+# Rust checks: the quick ones, on every push and PR that can affect them.
 #
-# The Python suite has its own workflow (ci.yml), and the changelog gate its
-# own (changelog.yml), because both must report on every change, and this one
-# is path filtered. Keep it apart for the same reason: a required check that
-# a path filter skips stays "expected -- waiting for status" forever, so
-# nothing here may be made required while the filter stays.
+# Windows clippy runs here so PR CI and direct pushes catch `cfg(windows)`
+# lints without waiting on the nightly snapshot. Full tests and clippy on
+# the other platforms stay on the Career 1.9 snapshot
+# (build-career-1.9.yml), slow tests included on Linux x86_64, before it
+# packages anything. Local and cloud sessions can still run the full suite.
 #
-# The game is built on the Hearken engine (crates from the public
-# orinks-games/hearken repository, a git dependency pinned by Cargo.lock),
-# which Cargo fetches anonymously.
+# The changelog gate has its own workflow (changelog.yml) because it must
+# report on every change, and this one is path filtered: a required check
+# that a path filter skips stays "expected -- waiting for status" forever,
+# so nothing here may be made required while the filter stays.
 #
-# Runners (2026-10-17): GitHub's hosted runners. Freight Fate is public, so
-# they cost nothing; the paid Blacksmith minutes are kept for the private
-# repositories. Every job starts at once, and the slowest, the Windows
-# tests, sets the wall time.
-#
-#   checks   fmt, the translation files, the test-target layout. No build
-#            and a sparse checkout: well under a minute.
-#   clippy   once, on Linux, with warnings denied. The Windows-only code is
-#            linted by the nightly's Windows test leg, every night.
-#   test     the game on Windows and Linux in parallel; ff-core on Linux
-#            only. ff-core is headless, so the Linux runner proves it as
-#            well as Windows does, and its test binaries stay off the slow
-#            Windows compile.
-#   test-macos  the game and ff-core on macOS, for a manual run and a `v*`
-#            tag only, not per push or PR (Hearken's CI does the same). It
-#            proves the Mac link (Prism's frameworks, the clang runtime) and
-#            the Kira/CoreAudio build before a release; the nightly's Mac
-#            job tests it every night as well.
-#
-# Caches: rust-cache entries are shared by kind of build (`clippy`, `test`),
-# and the nightly's test legs use the same `test` entries. rust-cache folds
-# the OS (the rustc host), Cargo.lock and RUSTFLAGS into the key, so Windows
-# and Linux never collide, and a manual full run never overwrites the quick
-# set's entry. Clippy does not share the tests' entry on purpose: it builds
-# check-only metadata and no test binaries, so one shared key would hold
-# whichever job saved first and leave the other cold. sccache, keyed by
-# content, is shared by all of them. Everything lives in the repository's
-# 10 GB of GitHub cache, and only pushes save (see rust-setup).
-#
-# The runner is plain `cargo test`, not nextest. nextest runs every test in
-# a process of its own, and each game test process loads the world data
-# once (ff_core::data::world's OnceCell), so ~3,300 game-crate tests would
-# each pay that load; `frame_time` also needs the machine to itself.
-#
-# Pushes and PRs pass `--cfg ci_quick`, which turns every
-# `#[cfg_attr(ci_quick, ignore = "sweep: ...")]` test into an ignored one.
-# Those are the whole-map sweeps -- a 500-mile delivery per state line, every
-# facility exit, every kind of destination, ~96 job origins -- and they cost
-# as much as the other 2,400 game-crate tests together. They run in full on
-# the nightly (build-career-1.9.yml's Linux x86_64 test leg), on a manual
-# `workflow_dispatch` of this workflow, and in any local `cargo test`.
-#
-# Each crate builds its integration tests as one binary, `it`, plus a few
-# that need a process of their own (`cargo tools test-targets` lists them
-# and the checks job enforces it), because every test binary is another link
-# of the whole dependency graph.
+#   checks         fmt, the translation files, the test-target layout and the
+#                  Hearken leaf-type grep. No game build and a sparse checkout:
+#                  well under a minute, on GitHub's hosted runners (free for this
+#                  public repository).
+#   clippy_windows cargo clippy on windows-2025 via rust-setup (cache-key
+#                  clippy, with sccache). The snapshot workflow skips
+#                  Windows clippy so Release stays fast.
 
 name: Rust
 
@@ -107,7 +69,6 @@ on:
       - "tests/fixtures/**"
       - "tools/jaws/**"
       - "lang/**"
-  # A manual run is the FULL suite: no `--cfg ci_quick`, sweeps included.
   workflow_dispatch:
 
 # A newer push to the same branch or PR supersedes the run in flight.
@@ -142,7 +103,9 @@ jobs:
             /*
             !/*/
             /.cargo/
+            /.github/actions/update-source/
             /crates/
+            /vendor/
             /lang/
             /data/buffs.json
 
@@ -152,10 +115,15 @@ jobs:
       - name: cargo fmt --check
         run: cargo fmt --all --check
 
+      - name: Check shared channel source resolver
+        run: node --test .github/actions/update-source/resolve.test.cjs
+
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           shared-key: tools-light
-          save-if: ${{ github.event_name != 'pull_request' }}
+          # Main and dev only: an entry saved anywhere else is seen by no
+          # later run and only crowds the 10 GB cache budget.
+          save-if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' }}
 
       - name: Build the tooling (no world feature)
         run: cargo build -p ff-tools --no-default-features --locked
@@ -181,139 +149,28 @@ jobs:
             exit 1
           fi
 
-  clippy:
-    # Workspace-wide and every target, so test and bench code is linted
-    # too; warnings are errors. `--locked`: Cargo.lock is committed (it also
-    # pins the Hearken commit), so a dependency change that was not locked
-    # in fails here loudly instead of resolving to something no developer
-    # has run.
-    runs-on: ubuntu-24.04
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v6
-
-      - uses: ./.github/actions/rust-setup
-        with:
-          cache-key: clippy
-
-      - name: cargo clippy
-        run: cargo clippy --workspace --all-targets --locked -- -D warnings
-
-      - name: cargo clippy (without the visual display)
-        # Every build names the visual display, so nothing else compiles the
-        # game without it; this keeps that build working for a target that
-        # leaves the display out.
-        run: cargo clippy -p freight-fate --all-targets --no-default-features --features agent-server --locked -- -D warnings
-
-  test:
-    name: test (${{ matrix.name }})
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: Windows
-            os: windows-2025
-            packages: -p freight-fate
-          - name: Linux
-            os: ubuntu-24.04
-            packages: -p ff-core -p freight-fate
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 45
-    env:
-      # No speech synthesiser, window or audio device on a runner.
-      FREIGHT_FATE_NO_SPEECH: "1"
-      HEARKEN_TEST_NO_SPEECH: "1"
-      SDL_VIDEODRIVER: dummy
-      SDL_AUDIODRIVER: dummy
-      # Pushes and PRs run the quick set (see the header); a manual dispatch
-      # runs everything. (`cond && a || b` is the Actions conditional; it is
-      # safe here because the flag is never empty.)
-      RUSTFLAGS: ${{ (github.event_name == 'push' || github.event_name == 'pull_request') && '--cfg ci_quick' || '' }}
-    steps:
-      # A plain checkout: sounds.pak is an ordinary blob, not an LFS object,
-      # so the audio tests have the real pack.
-      - uses: actions/checkout@v6
-
-      - uses: ./.github/actions/rust-setup
-        with:
-          cache-key: test
-
-      - name: Build the test binaries
-        # The build on its own, so a compile failure reads as one and the
-        # timing report covers exactly the compile.
-        run: cargo test ${{ matrix.packages }} --no-run --locked --timings
-
-      - name: The game starts on a clean Windows
-        # The snapshot's payload DLL check, on the executable the step above
-        # already built: an import neither Windows nor the payload provides
-        # (mfplat.dll, from a decoder linked at load time) fails this PR
-        # instead of the next snapshot. A few seconds; no release build.
-        if: matrix.name == 'Windows'
-        run: cargo run -q -p ff-tools --no-default-features --locked -- windows-imports target/debug
-
-      - name: cargo test
-        run: cargo test ${{ matrix.packages }} --locked
-
-      - name: cargo test (agent server)
-        # Agent tooling, not the game: `test = false` keeps it out of the run
-        # above and out of a plain local `cargo test`, so it runs by name.
-        run: cargo test -p freight-fate --test agent_server --locked
-
-      - name: Compiler cache statistics
-        if: always()
-        run: sccache --show-stats
-
-      - name: Upload the build timing report
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: cargo-timing-${{ matrix.name }}
-          path: target/cargo-timings/cargo-timing.html
-          if-no-files-found: ignore
-
-  test-macos:
-    # A manual run or a release tag only: Mac runners are the slowest and
-    # the fewest at once, and nothing per push touches Mac-only code that
-    # the nightly's Mac job would not catch by morning. GitHub's hosted
-    # macos-26, as the nightly and the iOS jobs use.
-    name: test (macOS)
-    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v')
-    runs-on: macos-26
+  clippy_windows:
+    # Windows-only clippy for PR CI and the watched push branches. The
+    # snapshot workflow skips Windows clippy so Release is not held up; this
+    # job owns that platform instead. Reuses rust-setup (windows-deps,
+    # Defender exclusions, rust-cache with cache-key clippy) and turns on
+    # sccache, which rechecks an unchanged ff-core from its cache.
+    name: clippy (Windows)
+    runs-on: windows-2025
     timeout-minutes: 60
     env:
       FREIGHT_FATE_NO_SPEECH: "1"
       HEARKEN_TEST_NO_SPEECH: "1"
       SDL_VIDEODRIVER: dummy
       SDL_AUDIODRIVER: dummy
-      HOMEBREW_NO_AUTO_UPDATE: "1"
-      # A tag runs the quick set, as a push does; a manual run, everything.
-      RUSTFLAGS: ${{ github.event_name == 'push' && '--cfg ci_quick' || '' }}
     steps:
       - uses: actions/checkout@v6
 
-      # No brewed SDL: Homebrew's sdl2 is sdl2-compat, which loads SDL3 at
-      # run time. SDL2 is compiled in from source with the runner's cmake.
-      - uses: ./.github/actions/rust-setup
+      - name: Set up Rust and the build caches
+        uses: ./.github/actions/rust-setup
         with:
-          cache-key: test
+          cache-key: clippy
+          sccache: "true"
 
-      - name: Build the test binaries
-        run: cargo test -p ff-core -p freight-fate --no-run --locked --timings
-
-      - name: cargo test
-        run: cargo test -p ff-core -p freight-fate --locked
-
-      - name: cargo test (agent server)
-        run: cargo test -p freight-fate --test agent_server --locked
-
-      - name: Compiler cache statistics
-        if: always()
-        run: sccache --show-stats
-
-      - name: Upload the build timing report
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: cargo-timing-macOS
-          path: target/cargo-timings/cargo-timing.html
-          if-no-files-found: ignore
+      - name: Lint Rust targets
+        run: cargo clippy --all-targets --locked -- -D warnings

@@ -515,7 +515,13 @@ fn test_food_and_coffee_break_boosts_alertness_without_resetting_break_rule() {
     });
     assert!(help.contains("Coffee eases fatigue a little"), "{help}");
     assert!(
-        help.contains("does not satisfy the 30-minute break rule"),
+        help.contains(
+            "the lift wears off in two hours, and a second coffee before then adds nothing"
+        ),
+        "{help}"
+    );
+    assert!(
+        help.contains("Does not satisfy the 30-minute break rule"),
         "{help}"
     );
 
@@ -539,7 +545,7 @@ fn test_food_and_coffee_break_boosts_alertness_without_resetting_break_rule() {
     let said = last(&harness);
     assert!(said.contains("Eases fatigue"), "{said}");
     assert!(
-        said.contains("does not count as your 30-minute break"),
+        said.contains("Does not count as your 30-minute break"),
         "{said}"
     );
 }
@@ -601,21 +607,17 @@ fn test_split_sleeper_rest_action_advances_clock_and_speaks_status() {
             .status,
         "sleeper_berth"
     );
-    // Python watched a monkeypatched `award_achievement` to pin that the badge
-    // lands AFTER the status line. There is no such seam here, so the same
-    // order is read off what the player hears: the split status first, the
-    // badge announcement after it.
+    // A split rest is not the full ten hours, so Five-by-Two stays locked.
     let lines = spoken(&harness);
-    let status_at = lines
-        .iter()
-        .position(|line| line.contains("Sleeper split open"))
-        .unwrap_or_else(|| panic!("no pending-split status line: {lines:#?}"));
-    let badge_at = lines
-        .iter()
-        .position(|line| line.contains("New achievement!"))
-        .unwrap_or_else(|| panic!("the sleep badge was never announced: {lines:#?}"));
-    assert!(badge_at > status_at, "{lines:#?}");
-    assert!(harness
+    assert!(
+        lines.iter().any(|line| line.contains("Split rest started")),
+        "no pending-split status line: {lines:#?}"
+    );
+    assert!(
+        !lines.iter().any(|line| line.contains("New achievement!")),
+        "{lines:#?}"
+    );
+    assert!(!harness
         .app
         .ctx
         .profile
@@ -647,7 +649,7 @@ fn test_split_sleeper_rest_action_advances_clock_and_speaks_status() {
             )
         });
     assert!(completed.contains("of driving left"), "{completed}");
-    assert!(completed.contains("14-hour window"), "{completed}");
+    assert!(completed.contains("duty window"), "{completed}");
 }
 
 /// The long half of a split stops the duty window while it runs. A tester
@@ -714,7 +716,7 @@ fn test_long_sleeper_period_pauses_duty_window_and_says_so() {
         )),
         "{woke}"
     );
-    assert!(woke.contains("Sleeper split open"), "{woke}");
+    assert!(woke.contains("Split rest started"), "{woke}");
 }
 
 #[test]
@@ -930,7 +932,9 @@ fn test_full_parking_offers_drive_on_and_shoulder() {
     {
         let p = harness.app.ctx.profile.as_ref().expect("a career");
         assert_eq!(p.hos.driving_min, 0.0);
-        assert_eq!(p.fatigue, hos::FATIGUE_SHOULDER_FLOOR);
+        // Poor sleep: 5 points an hour off 95.
+        assert_eq!(p.fatigue, hos::rest_poor_sleep(95.0, hos::SLEEP_MIN));
+        assert_eq!(p.fatigue, 45.0);
         // A clean career parked clear of roadwork pays the base amount; the
         // helper is asked so a rebalance moves one number, not this test.
         let expected = enforcement::citation_fine(hos::SHOULDER_FINE, 0, construction, None);
@@ -1009,7 +1013,7 @@ fn test_emergency_shoulder_sleep_pause_menu_constraints() {
         .find(|line| line.contains("Emergency shoulder sleep:"))
         .unwrap_or_default();
     assert!(
-        said.contains("HOS reset if enforced"),
+        said.contains("hours of service reset if enforced"),
         "{:?}",
         spoken(&harness)
     );
@@ -1266,7 +1270,10 @@ fn test_hos_off_still_allows_fatigue_emergency_shoulder_sleep() {
     assert!(harness.state_is::<ShoulderSleepConfirmationState>());
     let said = last(&harness);
     assert!(said.contains("poor rest"), "{said}");
-    assert!(said.contains("HOS reset if enforced"), "{said}");
+    assert!(
+        said.contains("hours of service reset if enforced"),
+        "{said}"
+    );
 
     let minutes_before = harness.read_drive(|d| d.trip.game_minutes);
     harness.key(InputEvent::key(Key::Return)); // the focused Cancel row
@@ -1351,7 +1358,7 @@ fn test_serious_hos_inspection_orders_out_of_service_reset() {
         message: "Inspection station open.".into(),
         data: TripEventData {
             key: Some("scale:1".to_string()),
-            evidence: Some(vec!["HOS/ELD violation".to_string()]),
+            evidence: Some(vec!["hours-of-service violation".to_string()]),
             ..Default::default()
         },
     };
@@ -1449,7 +1456,7 @@ fn test_drive_limit_inspection_still_orders_ten_hours() {
         message: "Inspection station open.".into(),
         data: TripEventData {
             key: Some("scale:drive".to_string()),
-            evidence: Some(vec!["HOS/ELD violation".to_string()]),
+            evidence: Some(vec!["hours-of-service violation".to_string()]),
             ..Default::default()
         },
     };
@@ -1509,7 +1516,7 @@ fn test_the_truck_never_rolls_under_an_out_of_service_order() {
         message: "Inspection station open.".into(),
         data: TripEventData {
             key: Some("scale:served".to_string()),
-            evidence: Some(vec!["HOS/ELD violation".to_string()]),
+            evidence: Some(vec!["hours-of-service violation".to_string()]),
             ..Default::default()
         },
     };

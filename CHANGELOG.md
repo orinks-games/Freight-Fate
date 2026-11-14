@@ -5,128 +5,188 @@
 ### Added
 
 - **Live cattle are a new freight class from level 5.** Haul feeder calves from sale barns to feed yards, and fed cattle to beef plants, on a livestock trailer.
-- **Cattle react to hard braking and sharp turns.** Too much and they lose their footing or go down; stop and choose Check the cattle to get one up.
+- **Cattle react to hard braking and sharp turns.** Too much and they lose their footing or go down. Stop and choose Check the cattle to get one up.
 - **Cattle loads must arrive within the 28-hour limit.** You hear when 2 hours, 1 hour and 30 minutes are left, and the receiver names the shrink.
 - **Your hours of service stop counting within 150 air miles of a cattle load's shipper or receiver.** No 30-minute break is needed while cattle are aboard.
 - **Cattle heat up while the truck stands on a hot day.** On a hot afternoon at a cattle shipper, choose Load this evening to wait for the cool.
 - **The livestock handling certificate is free.** Your carrier sponsors it at level 6, or take the course yourself from level 5.
-
-- **Laredo now has two real border transfer yards for Mexico freight.** Southbound loads name their Mexican consignee and drop at the yard; northbound trailers wait on paperwork first.
-
+- **Laredo now has two real border transfer yards for Mexico freight.** Southbound loads name their Mexican consignee and drop at the yard. Northbound trailers wait on paperwork first.
 - **Explosive and flammable tank loads now avoid the San Francisco-Oakland Bay Bridge.** The Mackinac Bridge toll is charged, and the Chesapeake Bay Bridge-Tunnel toll matches its published rate.
 - **Tolls now match each toll road's published truck rate.** The Maryland Bay Bridge now charges eastbound, and one-way tolls charge only one way.
 - **High winds now close the Chesapeake Bay Bridge-Tunnel and Mackinac Bridge to trucks.** Your truck waits on duty at the bridge until the wind drops.
 - **Hazardous and heavy loads now wait for an escort across the Mackinac Bridge.** The 20-minute wait counts as on duty.
 - **Tunnels and bridges now refuse only the hazardous loads they actually ban.** Explosives wait out weekday rush hours at the Golden Gate Bridge.
-- **Job details now name a hazardous load's material.** For example: Gasoline, UN1203, Class 3.
+- **Job details now name a hazardous load's material,** for example Gasoline, UN1203, Class 3.
 - **Simulated high winds now vary and ease off over a few hours.** Live weather reads the wind at the bridge itself.
 - **Toll roads you could drive for free now charge.** These include the New York Thruway and the George Washington, Bay and Golden Gate bridges.
-
-- **Dispatch now routes hazardous and tank loads around real tunnels that ban them.** They take the legal road instead, such as Loveland Pass or the Baltimore Beltway.
-
-- **Whittier is now reached through the Anton Anderson Memorial Tunnel.** Its one-lane gate and Bear Valley toll make the crossing a planned part of the drive.
-
-- **Drivers can call dispatch while stopped for trip-specific help.** Report delays, hours, road conditions, truck trouble or load trouble.
-
-- **Trucks now stop for customs at the border on the Alaska Highway and both ways at Blaine.** Driving past the booth brings a penalty, which a company driver's carrier pays. The Pacific Highway booths sit at the truck crossing just north of Blaine, not at Peace Arch.
-
+- **Dispatch now routes hazardous and tank loads around real tunnels that ban them,** such as by Loveland Pass or the Baltimore Beltway.
+- **Whittier is now reached through the Anton Anderson Memorial Tunnel,** with its one-lane gate and toll.
+- **You can call dispatch while stopped about the trip.** Report a delay, your hours, road conditions, truck trouble or load trouble.
+- **Trucks now stop for customs on the Alaska Highway and both ways at Blaine.** Driving past the booth brings a penalty, which a company driver's carrier pays.
 - **Alaska's spring weight limits now apply.** From April to mid-June, loads on thawing Alaska highways are lighter, and offers name the road setting the limit.
-
-- **Diesel in British Columbia and the Yukon now costs what it does there.** Canadian pumps also tell you the price in Canadian dollars a liter. British Columbia diesel is 1.616 Canadian dollars a liter, the Vancouver price without its regional fuel tax.
-
-- **Heavy trucks in British Columbia are now speed-limited to 105 kilometers per hour, as the law requires.**
-
-- **Alaska roads now reach the Kenai Peninsula, Valdez, and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
-
+- **Diesel in British Columbia and the Yukon now costs what it does there,** and Canadian pumps also say the price in Canadian dollars a liter.
+- **Heavy trucks in British Columbia are now held to 105 kilometers per hour, as the law requires.**
+- **The map now reaches Alaska and northern Canada along the Alaska Highway,** from Blaine and Bellingham through Prince George, Dawson Creek and Whitehorse to Tok and Fairbanks.
+- **Alaska roads now reach the Kenai Peninsula, Valdez and Deadhorse.** Seward, Valdez and Kenai offer only their real freight sites, and Deadhorse sells diesel.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
-
-- **Twenty new carriers hire across the map, including Alaska.** Sixteen regional carriers join Prairie Link, so every lower-48 city has a regional that hires there, and each dispatches loads of up to 600 miles. Three local carriers, Des Plaines River Cartage around Chicago, Basin Harbor Drayage in the Los Angeles basin, and Knik Arm Cartage around Anchorage, hire within 50 miles and dispatch loads of up to 150 miles. Chatanika Freight Lines hires across Alaska out of Anchorage and Fairbanks, so an Alaska home city can now start a career; British Columbia and Yukon stay closed. If a carrier ends your employment, a carrier that hires near your home takes you on knowing your record, never the one that let you go and never one outside Alaska for an Alaska home. If none can, you have no carrier: the terminal names no carrier, your objective is to apply to one, Garage, Truck status, and Walk around the truck are gone because the company tractor went back to the yard, career stats say you have no truck, the truck dealer says the owner-operator buy-in needs a carrier to lease to, and Apply to a carrier takes the place of the dispatch board until you pick one. Resetting a career with no carrier starts it with the nearest carrier that hires in your home city, so an Alaska career stays in Alaska. An older save with no home city on file keeps it blank, and the message says near your terminal instead of near your home.
-
-- **Fairbanks has real freight pins for Alaska job boards.** Costco and Fred Meyer receive grocery and retail (including refrigerated), Spenard Builders Supply receives construction materials, and Carlile's Aurora Drive terminal cross-docks general freight with thin outbound so inbound stays heavier. Sourdough Fuel remains the travel center.
-
-- **Twin-trailer parcel loads stay on the National Network.** Dispatch only offers and routes `parcel_doubles` on Interstate corridors plus short terminal approaches (up to one mile). A lane that leaves the network is dropped, and if none remain you hear that dispatch can't clear twin trailers on that run. Twins are not run on ALCAN, Canada, or Alaska lanes.
-
-- **Reefer and APU hotel power.** Turn the trailer reefer and the APU on or off; a cold pickup starts the reefer at 2 degrees, cargo warms slowly when it is off, and the tractor must be shut down before fueling at a stop or the terminal garage.
-
-- **Turnpike doubles pull 48-foot vans on listed turnpike corridors.** `turnpike_doubles` uses 48-foot turnpike doubles (about 102 feet of cargo length, 117 feet overall) on an explicit allowlist of Thruway, Mass Pike, Ohio Turnpike, Indiana Toll Road, and Kansas Turnpike legs, separate from the 28-foot parcel pups. Dispatch only clears them on the turnpike, and those jobs need the doubles endorsement as well as the LCV certificate.
-
-- **Double van lessees hear once that turnpike doubles need their own program.** Your double van program still covers parcel doubles; trips under way finish as before.
-
-- **A set of doubles weighs both trailers and the converter dolly.** Twin 28-foot parcel pups and 48-foot turnpike doubles now count both trailers and the dolly in gross weight. Parcel pups stay under 80,000 pounds; turnpike doubles use the turnpike limit for the route: 127,400 pounds in Ohio, Indiana and Massachusetts, 143,000 in New York and 120,000 in Kansas. Dispatch sizes the load to fit, the load weight line on the job board names the limit on the lanes offered, and the CAT Scale ticket reads the gross against it. Turnpike doubles are never offered or routed on a lane through a state without a recorded turnpike limit. A turnpike doubles trip already under way on such a lane from an older save finishes clean, held to the lowest recorded limit along its route, or 80,000 pounds if none, with no overweight red light or fine.
-
-- **Hooking a set of doubles takes longer.** A second hook-up and a walk-around of both trailers and the converter dolly add 25 minutes on duty at the shipper. You hear it at check-in and loading, and the pickup screen shows it. With doubles hooked, the walk-around at a stop covers both trailers and the dolly and takes 25 minutes instead of 15. Breaking the set at the receiver (dropping the rear trailer, parking the converter dolly, then dropping the lead) adds 15 minutes on duty; you hear it on arrival and when the work starts, and the receiver's screen shows it.
-
-- **The rear trailer of a set of doubles swings harder than the tractor.** At 40 miles per hour and up, a hard swerve (full lock held, or one way and then the other) or a sharp snap back from partial lane keeping can whip the rear trailer and shift its freight. Every whip is spoken and shown the moment it starts, so freight never shifts without a warning. A tap of the steering keys or an ordinary keyboard lane change does not whip loaded pups, and turnpike doubles swing less still. Only your own steering whips the set: a curve taken at its advisory speed never does, and taking one too fast is the rollover and curve warnings' job. Gusts sway the rear trailer too, and a light or empty set sways harder (up to twice as hard when empty) and whips at least as easily as a loaded one. The same set with the same load sways the same on every turnpike, whatever its weight limit. The tractor itself drifts in the wind just as it does with a single trailer. Full lane keeping changes lanes gently and never whips the set. Reverse is refused with doubles hooked, and you hear why.
-
-- Phase A ALCAN north: `fort_nelson_bc_ca`, `watson_lake_yt_ca`, and `whitehorse_yt_ca` pass-throughs with bidirectional Alaska Highway legs (239 / 319 / 273 mi) from public Valhalla truck costing on `feat/career-2.0`.
-- Phase A ALCAN AK terminus: `tok_ak_us` + `fairbanks_ak_us` with bidirectional Alaska Highway legs (387 / 202 mi) from public Valhalla truck costing; `border_crossing` id `alcan_beaver_creek` (through_freight, cabotage forbidden) both ways on Whitehorse↔Tok; no Anchorage.
-- Phase A ALCAN inland: `prince_george_bc_ca`, `dawson_creek_bc_ca` (Mile 0), and `fort_st_john_bc_ca` pass-throughs with bidirectional Hwy 1/97 / John Hart / Alaska Highway legs (465 / 254 / 45 mi) from public Valhalla truck costing on `feat/career-2.0`.
-- Phase A ALCAN tip: Blaine Pacific Highway entry nodes and legs (`bellingham_wa_us` → `blaine_wa_us` → `surrey_bc_ca`) with honest public-OSRM mileages on `feat/career-2.0`.
-- Phase A ALCAN FIX 1–3: southbound reverse edges (`surrey_bc_ca`→`blaine_wa_us`→`bellingham_wa_us`) with matching border metadata; Surrey City truck parking and TA Express Blaine as curated stand-in yards; Hwy 15 / Pacific Highway labeling preferred for this POE.
-
+- **Twenty new carriers hire across the map, including Alaska.** Every lower-48 city now has a regional carrier, and three local carriers run short loads around Chicago, Los Angeles and Anchorage.
+- **Fairbanks job boards now use real freight sites,** such as Costco, Fred Meyer and Spenard Builders Supply.
+- **Twin parcel trailers now stay on the Interstates.** Dispatch drops a lane that leaves them, and says so when no lane is left.
+- **The reefer and the APU now have their own keys,** Alt+R and Alt+U. Cold freight warms slowly with the reefer off, and the engine must be off to fuel.
+- **Turnpike doubles pull two 48-foot vans on the Thruway, Mass Pike and the Ohio, Indiana and Kansas turnpikes.** They need the doubles endorsement and the long combination vehicle certificate.
+- **A set of doubles now counts both trailers and the converter dolly in its gross weight,** and turnpike doubles use each turnpike's own weight limit.
+- **Hooking or breaking a set of doubles adds time on duty,** and the walk-around takes 25 minutes instead of 15.
+- **The rear trailer of a set of doubles can whip on a hard swerve at 40 miles per hour and up.** You hear it when it starts. Reverse is refused with doubles hooked.
 - **The ELD now tracks your 70-hour, 8-day work cycle.** When a day of cycle hours is left the status line says so, and a 34-hour rest starts a fresh week.
-
-- **A menu letter can now choose its item at once.** Turn on Menu accelerator keys in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).
-- **Achievements can be sorted.** A new Sort row puts earned ones first by default, or newest, locked first, A to Z, or the original order.
-- **Achievements open from the terminal and the pause menu,** showing the career you are playing.
+- **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
+- **A drowsy driver can call dispatch to move the appointment,** giving up the on-time bonus. The row is Too tired to drive safely.
 
 ### Changed
 
-- **Full lane keeping now takes open weigh stations.** It signals for the scale, and the truck stops at it with facility stopping assistance on.
-- **Exit ramps are updated to October's road data.** Most exits know their ramp's length and the light or sign at its end, both ways.
-- **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.
-- **Adaptive cruise now holds highway work zones and heavy traffic at their limit.** The speed keeper takes over only on streets and facility approaches.
-- **Dispatch stops sending you straight back where you came from.** The city you just delivered from is on about one board in three, and it is no longer the load dispatch assigns or the one the cursor opens on while another load is there.
-
 - **Alaska, Yukon and British Columbia roads now use October's posted speed limits too.** Towns along the Alaska Highway slow you down, and the Glenn Highway runs at 65.
-
-- **A CDL pulled at speed now ends the run.** A second run off the road asleep, or driving through work-zone barrels, on top of a serious violation already on the record, used to suspend the CDL while the drive carried on. Now the truck stops on the shoulder and the run closes out the way a roadside stop does. A loaded departure and a saved trip on a pulled CDL are refused as well; the saved trip closes out instead of resuming. When a roadside stop pulls the CDL, it no longer says you are released to your home terminal. It says a relief driver takes the truck back to the city the run left from, where you wait out the suspension, and when it ends. The row is now "Hand the truck to the relief driver".
-- **Dispatch trust no longer says the carrier is deciding whether to keep a driver whose CDL is pulled.** A lifetime disqualification now hears "Dispatch trust: none. With a lifetime CDL disqualification there is no dispatch." A timed disqualification hears that there are no loads at all while the CDL is disqualified, and that the yard holds the seat until the disqualification ends. The carrier only weighs the seat when the record or the service really puts it at risk, and then the line still says so.
-- With no carrier, choosing Stay a company driver on the Business status screen now says "Staying on the company-driver path." instead of "Staying a company driver.", since there is no seat to stay in.
-- **A debt firing or repossession is said before the terminal, not after.** Walking into the terminal with the balance past the ceiling used to read the old hub line and the Dispatch board row first, for the seat or truck that was about to go. The notice now speaks first, and leaving it reads the rebuilt hub.
-- **A suspended or disqualified CDL is no longer sent to the dispatch board.** The terminal's objective now says to wait out the suspension or disqualification, with the days remaining, and to choose the terminal row that skips ahead, instead of telling you to accept a load the board refuses; a lifetime disqualification gets no driving objective. That row is named for your status: Wait out the CDL disqualification, or Wait out the CDL suspension. An owner-operator's Bobtail to a nearby city is refused, not even bobtail, with the day the disqualification or suspension ends and where to wait it out.
-- Career carriers load from `data/carriers.json` with tiers: Northstar, Great Lakes Training, and Summit Value are national; Prairie Link is the Plains regional (Kansas City, Omaha, Wichita terminals).
-- **Your home terminal is your carrier's own yard.** It is named for the carrier and the city, like Northstar Freight Lines Chicago terminal, and it is the carrier terminal nearest your home base. A city's freight yards are pickup and delivery points only, never a home.
-- The home-base rule is defined: national carriers hire anywhere in the lower 48, and a regional carrier hires only within its hiring radius, so it never homes a driver at a terminal out of range. A home base is offerable only where some carrier hires, which leaves out British Columbia and Yukon for now. The new-career picker enforces this rule: it lists only home cities where some carrier hires, then only the carriers that hire in the city you pick.
-- **The terminal says where your truck really is.** In your home terminal city it is parked at the carrier terminal. Anywhere else it is at the facility where you last delivered or dropped, or at the city's travel center or truck parking, or the terminal just names the city. It never names a yard in another city or a bare "Terminal".
-- **A new career starts at your carrier's terminal.** Pick a region, then a home city, then one of the carriers hiring there; each carrier row says where your truck starts. The truck starts at that carrier's nearest terminal, and the first-day briefing says orientation and truck assignment are there, for example at Northstar Freight Lines Chicago terminal for a Milwaukee home. When that terminal is in another city, a company hire hears that the carrier covered the travel from the home city and a hotel for orientation. Your picked home city is saved as your home; the terminal city does not replace it.
-- Resetting a career starts over from your home city, or from your old terminal city on careers from before the home city was saved; on those, the terminal city is not recorded as your home. Prairie Link appears only within 250 air miles of its Kansas City, Omaha, and Wichita terminals.
-- **After a felony roadside stop the truck is towed, not left at your home terminal.** You post bond and are released after booking, which takes 12 hours of game time logged off duty, so it counts as a 10-hour reset, and the truck is towed to an impound lot in the city where you were stopped, for example "The truck was towed to an impound lot in Buffalo, New York." The terminal then says the truck is at an impound lot in that city, even in your home terminal city, until it next drives out. Company drivers and leased owner-operators hear that their carrier recovered the load; own-authority drivers hear that the load is theirs to sort out with the shipper.
-- Careers saved before this update get the home terminal of their carrier's nearest terminal city (within the hiring radius for a regional). The truck stays where it was parked.
-- A company-yard load in your home terminal city now deadheads from the carrier terminal instead of starting staged there, since the carrier terminal is its own yard.
-
-- `travel_center` and `truck_parking` city lots are fuel, parking, and rest only (no freight cargo roles); the default freight facility picks only `company_yard` or `terminal`.
-
-- City facilities may be typed `travel_center` or `truck_parking` for public tractor lots; ALCAN corridor public stops retyped off `company_yard`.
-- Phase A ALCAN: Tok and Fairbanks resolve to Alaska Time on the shipped-city timezone gate (CONUS-only check widened for the AK terminus).
-- Phase A ALCAN: US job boards stay same-country (no Canadian destinations on the through-freight corridor tip).
-- Phase A ALCAN FIX: I-5 Bellingham↔Blaine uses public Valhalla truck costing and Washington RCW 46.61.410 60 mph HGV speed context; Hwy 15 Blaine↔Surrey keeps paid miles with Valhalla auto densify (FOSSGIS truck costing rejected as dishonest at this port of entry).
+- **A CDL pulled at speed now ends the run.** The truck stops on the shoulder, and a relief driver takes it back to the city the run left from.
+- **Dispatch trust no longer says the carrier may let you go while your CDL is pulled.** It says the seat is held until the suspension or disqualification ends.
+- **A debt firing or repossession is now said as you enter the terminal,** before the terminal menu.
+- **A suspended or disqualified CDL no longer sends you to the dispatch board.** The terminal menu offers Wait out the CDL suspension, or Wait out the CDL disqualification, instead.
+- **Your home terminal is your carrier's own terminal,** named for the carrier and the city, such as Northstar Freight Lines Chicago terminal.
+- **A new career starts at your carrier's terminal.** Pick a region, a home city, then a carrier hiring there. Each carrier row says where your truck starts.
+- **The terminal says where your truck really is:** at your carrier's terminal, at the facility where you last delivered, at a truck stop, or just the city.
+- **If a carrier lets you go, a carrier that hires near your home takes you on.** If none can, choose Apply to a carrier at the terminal.
+- **After a felony roadside stop the truck is towed to an impound lot in that city.** You post bond and are released after 12 hours of booking, logged off duty.
+- **Travel centers and truck parking lots are now for fuel, parking and rest only.** They never ship or receive freight.
+- **Job boards in the United States no longer offer loads into Canada.**
+- **On-duty time now tires you a little.** Fueling, docks, inspections and waiting at the wheel build it at a third of the driving rate.
+- **Sleep now takes off 8 points of fatigue an hour.** Ten hours clears 80, so going to bed exhausted leaves some.
+- **Coffee and energy drinks now wear off and take their lift back.** A second one before then adds no lift.
+- **Work at stops takes longer as fatigue rises.** Fueling, the walk-around, chain work and pulling in run slower from worn up.
+- **An inspection or traffic stop at severe fatigue ends in a ten-hour out-of-service order.**
+- **Five-by-Two now takes a full 10 hours asleep at a stop.** A split rest, or finishing a reset that a break started, no longer earns it.
 
 ### Fixed
 
-- **Moving up from the training fleet now only offers carriers that hire where you live.** The move puts you at the new carrier's terminal, with your truck waiting there.
+- **Moving up from the training fleet now only offers carriers that hire where you live.** Your truck waits at the new carrier's terminal.
+- **A translated game no longer leaves half a line in English** on the dispatch board or in any line naming a carrier's terminal.
+- **Dispatch calls now read cargo damage, hours and distance cleanly,** and no longer call a sound load damaged.
+- **The Alaska Highway border crossing now has its real name, the Alcan port.** Heading into Canada, you pass the Beaver Creek border post.
+- **Save notices now show their text on screen,** not only their title and OK.
+- **Training classes now leave you tired, at about half the rate of driving.**
+- **Enter accepts a facility arrival from a full stop with Facility stopping assistance off.** A stopped truck is told to set the parking brake.
 
-- **A translated game no longer leaves half a line in English.** The dispatch board read the gross, the deadline and your pay in English, and so did any line naming a carrier's own terminal.
+## 1.9.6 - 2026-11-13
 
-- **Dispatch calls read cargo damage, hours and distance cleanly.** The load call says the damage once, as "with 12 percent cargo damage", and no longer calls a sound load damaged. Whole hours drop the ".0", and the distance left follows your metric setting.
+### Compatibility
 
-- **The Alaska Highway border crossing now has its real name, the Alcan port.** Heading into Canada, you pass the Beaver Creek border post instead.
-- **Yukon and northern British Columbia roads now follow their posted speed limits.**
+- **Careers saved by 1.9.6 cannot be opened by 1.9.5 or earlier.** A copy of each career from before the update stays in the saves folder.
 
-- **Save notices show their text on screen.** The driving record, save conversion, and turnpike program notices were spoken but showed only their title and OK.
+### Highlights
 
-- Job board distance uses the tighter of the level cap and the carrier run-band max; the run-band minimum is not applied on the board yet (saved for later lane-area work).
+- **A built-in voice speaks when no screen reader or system voice is running.**
+- **Report a problem opens a form on orinks.net with your game log already attached.**
+- **Freeway traffic has more kinds of vehicle, each with its own sound.** Vehicles pass each other, run near the posted limit and leave at interchanges.
+- **Nothing brakes for tire debris any more.** A ladder or a mattress with no lane open is taken at 30, not a near stop.
+- **Spoken lines, help, menus and the manual are shorter and use plain words.** Achievements and some settings have new names.
+- **Road announcements wait for NVDA 2026.3 or SAPI to finish speaking,** so the 2-mile and 1-mile exit calls always play.
+- **Cruise slows for a lower speed limit in time and holds work zones at their limit.** Full lane keeping leaves a lane that a work zone closes.
+- **Speed limits and exit ramps are updated to October's road data.**
+- **Updates are signed and download only what changed.** Settings chooses stable, beta or alpha.
+- **Your playlists can play YouTube links, livestreams included.**
 
-- Phase A ALCAN: BC↔YT `state_crossings` on Fort Nelson–Watson Lake Alaska Highway legs (corridor metadata completeness).
+### Added
 
-- **Sitting through a training course now tires you, about half as fast as driving.** A multi-day course counts only its last daytime class day.
+- **A built-in voice speaks when no screen reader or system voice is running.** It can also be chosen as the driving event voice.
+- **Your playlists can play YouTube links, livestreams included.** This needs yt-dlp, which you install yourself; the manual says where it goes.
+- **Achievements can be sorted.** A new Sort row puts earned ones first by default, or newest, locked first, A to Z, or the original order.
+- **Achievements open from the terminal and the pause menu,** showing the career you are playing.
+- **A menu letter can now choose its item at once.** Turn on Letters run menu items in Settings, Gameplay, Controls; a letter two items share still only moves the selection. Thanks to trssharp ([PR 512](https://github.com/orinks-games/Freight-Fate/pull/512)).
+- **Translators can put a corrected language file in a lang folder next to the game.** The saves folder still works too.
+- **Choose stable, beta, or alpha updates in Settings.** Existing snapshot followers move to beta.
+- **New releases seal career saves against local editing.** Existing careers migrate with a backup, and cloud backups keep their verification.
+- **Alt+5 names the county you are driving through.** On city streets it names the city's county.
+- **Driving hints can be turned off.** With it off in Settings, Speech, driving lines stop naming keys, like "Press X to signal for the exit."
+- **Report a problem opens a form on orinks.net with your game log already attached.** After a crash, the main menu offers to report it.
 
-- **Halloween week has more billboards, and they no longer repeat the same two lines.** They come up less often, and some are about the state you are in.
-- **Adaptive cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
+### Changed
+
+- **A quiet yawn now warns you earlier, when fatigue reaches 40 percent.** The Tab status screens also name how tired you are, as in "Fatigue: 64 percent, drowsy."
+- **The Vietnamese translation is rewritten and covers the whole game.** Thanks to Đào Đức Trung ([PR 617](https://github.com/orinks-games/Freight-Fate/pull/617)).
+- **Achievements have new names and plainer descriptions.** Each description now says what earns it, and the songs behind the names cover more artists and genres.
+- **Nothing brakes for tire debris any more.** It is called out with the open lane, full lane keeping moves over, and with no lane open the truck drives over it.
+- **A ladder, lumber, a mattress or spilled boxes with no lane open are taken at 30, not a near stop.** Above 30 they cost damage that grows with speed; the truck keeps rolling.
+- **The "It is still in your lane. Nearly stop." line is gone.** The call already names the lane.
+- **Freeway traffic has more kinds of vehicle,** each with its own sound: SUVs, pickups, minivans, sports cars, motorcycles, RVs, buses, tankers and car haulers. Cars and semis no longer all sound alike.
+- **Updates check and install faster.** Unchanged sound packs are no longer copied or checked twice.
+- **Spoken lines, help, menus and the manual are shorter and use plain words, and some settings have new names.** Cruise has one name, and the dispatch board and delivery list are shorter.
+- **With Quiet or Urgent only speech, a traffic light, an open weigh station or slowing traffic plays its sound alone.** Standard speech keeps a short line, like "Light red."
+- **Road announcements now wait for NVDA 2026.3 or SAPI to finish speaking.** The most urgent goes next; stale chatter is skipped.
+- **Lower game sounds during speech works only while NVDA 2026.3 or SAPI is speaking.** Older NVDA versions keep the timing they had.
+- **Live road reports now cover only your road, in your direction, within 10 miles.** Each says how far ahead it is.
+- **Traffic now runs near the posted limit, in towns as on the highway.** Rush hour brings more vehicles, not slower ones.
+- **Vehicles now pass each other or drop in behind.** A faster vehicle moves over where there is a lane, and queues two seconds back where there is not; nothing moves into your lane beside you.
+- **Freeway traffic now leaves at an interchange** instead of disappearing between exits.
+- **A slow vehicle ahead is called only while you are gaining on it.** Cruise no longer adds "Slowing for traffic" for the same vehicle.
+- **Cruise now holds highway work zones and heavy traffic at their limit.** Low-speed cruise takes over only on streets and facility approaches.
+- **Full lane keeping now takes open weigh stations.** It signals for the scale, and the truck stops at it with facility stopping assistance on.
+- **Speed limits across the map are updated to October's road data.** Trucks on Idaho's rural interstates now get 80, as Idaho law allows since July.
+- **Exit ramps are updated to October's road data.** Most exits know their ramp's length and the light or sign at its end, both ways.
+- **Gary and South Bend to Chicago now use the Chicago Skyway, and Philadelphia, Harrisburg and Baltimore to Pittsburgh the Pennsylvania Turnpike.** Both charge tolls.
+- **Dispatch stops sending you straight back where you came from.** The city you just left is on about one board in three, and dispatch assigns it only when nothing else is on the board.
+- **Citations now clear from your record in 30 game days, and serious violations and crashes in 90.** Two serious violations within 180 days, not three years, suspend your CDL.
+- **Duty watch now checks the drivers list every two minutes.** A driver coming on duty can be announced up to a minute later than before.
+- **Updates are signed, and only what changed is downloaded.** An update stopped part-way, by a power cut for instance, is put back at the next start.
+- **Tester snapshots are now labeled Beta.**
+
+### Removed
+
+- **Troopers working someone else's stop are gone,** with their siren, their pass sound and the CB reports about them.
+- **The Automatic direction changes setting is gone.** Both of its choices already drove the same way.
+
+### Fixed
+
+- **A career that 1.9.5 or earlier set aside as unreadable comes back the next time you start this version.**
+- **Saving and resuming a drive no longer resets the nod-off timer and miss count.**
+- **"Getting drowsy." no longer repeats after a coffee or snack eases fatigue a few points.**
+- **The main menu's background sound plays again after you leave the terminal or a shipper's dock.** Escape or Quit to main menu used to bring the menu back silent.
+- **The achievements menus no longer list three badges nobody can earn.** Careers that earned them before still see them.
+- **Holding Home or End on a settings, terminal or online screen no longer reads the row again and again.** It is read once, as on other menus.
+- **A PC where finding controllers stalls no longer freezes each time a Bluetooth device turns off.**
+- **In other languages, the dispatch board's pay after costs is read as the right number.** German, Polish and Spanish voices used to read 6,576 as six point five.
+- **Team loads no longer warn that you need an extra rest.** Your co-driver can take the first shift while you sleep.
+- **Towns that no longer exist are no longer named on the road.** Savage, Montana, is no longer also called Knife River, and Lacy Lakeview and Tri City are named once.
+- **A co-driver offered at the shipper stays with you for the whole load.** Driving out yourself and sleeping at a stop no longer drops them, and no co-driver joins on the road.
+- **A street that only changes name ahead is named once, at the join.** "Continue onto" no longer comes twice in a few seconds.
+- **Kenosha and Milwaukee to Chicago now stay on I-94, on the Tri-State through Lake County.** They used to leave it for the signals on US-41.
+- **Road lines are no longer lost while other lines speak.** With NVDA 2026.3 or SAPI, the 2-mile and 1-mile exit calls always play, and a line cut off by a readout plays after a Brake warning.
+- **Your planned stop is announced at every driving speech setting, with the key to signal for it.** Pressing X while it is read no longer brings the line back.
+- **The brake warning now names the vehicle ahead.** It said "Slow car" for a semi or a box truck.
+- **The lane ending warning before a lane closure now names the open lane.** With the left lane closed it used to say merge left.
+- **Rest areas across a divided highway are no longer announced.** On I-43 north to Green Bay you hear Rest Area #52, not #51 too.
+- **The route readout says you are at the stop once you reach it.** It used to keep saying 50 feet until the truck rolled past.
+- **The copy key copies the message you stepped back to.** It used to copy the newest line instead.
+- **You get the full 10 seconds to switch off the engine brake in a no engine brake zone.** Pressing the throttle or changing gear after the warning used to bring a citation within seconds.
+- **Numbered loads on the dispatch board are read in your language.** The load line after "Job 1 of 7" stayed in English.
+- **Alt+1 and Alt+3 name the destination once you take its exit.** They used to name the city and state you left.
+- **Speed limits no longer jump to 70 and back where the map has no posting.** An unmapped stretch keeps the limits on either side, and state truck limits such as California's 55 apply there too.
+- **Cruise now slows for a lower speed limit in time.** On the relaxed and standard pace it reached the sign still over the limit.
+- **Cruise no longer crawls toward an exit for a lower limit miles ahead.** It keeps the road's limit until it needs to slow for the drop.
+- **Cruise no longer says it is easing to the limit right after you set a lower speed for the exit.**
+- **Cruise no longer says it is easing while the truck speeds up.** Pulling away under a lower limit, it read out two speeds a second apart.
+- **Cruise no longer repeats a work zone's slowdown after a stop.** Braking for a hazard or turning cruise off in the approach used to bring the line back.
+- **The last mile before a signaled exit passes faster when you are already slow enough for it.** Only the final half mile now runs in real time.
 - **Full lane keeping now leaves a lane that a work zone closes.** It moves over when the signs come up, so All assists no longer drives into the barrels.
+- **Barrel citations from before that fix come off your record.** The fine is refunded the first time you load the career.
+- **Facility stopping assistance brakes smoothly all the way to the gate.** It no longer walks the last 200 feet at 2 miles per hour.
 - **Facility stopping assistance no longer gets you fined at a chain control.** A truck pulling into the chain-up area to put chains on is not cited.
-- **A crash on Windows now writes its cause into game.log,** so a bug report with the log shows what went wrong.
+- **A co-driver now lowers the cruise speed when the limit drops.** Entering a state with a lower truck limit, they kept the old speed.
 - **A co-driver no longer crawls at 20 miles per hour after a downhill work zone.** They kept braking for the hill and ran out of hours.
+- **On ice, a co-driver now plans a stop they can reach at icy speeds.** They used to plan one their hours could not reach.
+- **A trooper the radio placed in the median is still in the median when you pass.**
+- **Manual gear shifts now play the same short gear-change sound as automatic shifts.**
+- **Halloween week has more billboards, and they no longer repeat the same two lines.** They come up less often, and some are about the state you are in.
+- **On Windows, an update no longer fails and comes back when a game file is briefly in use.** It waits for the file, and game.log records each install step. Thanks to lightsrage ([issue 575](https://github.com/orinks-games/Freight-Fate/issues/575)).
+- **Automatic update offers start on Remind me later.** Holding a key cannot install an update by accident.
+- **The unused translations folder from mid-October downloads leaves the game folder.** It moves to the saves folder as old-translations, so any edits in it are kept.
+- **The Mac game no longer freezes at launch with VoiceOver on.** It could stop responding for up to two minutes while VoiceOver was starting.
+- **A crash on Windows now writes its cause into game.log,** so a bug report with the log shows what went wrong.
 
 ## 1.9.5 - 2026-10-25
 

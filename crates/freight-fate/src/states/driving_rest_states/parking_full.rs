@@ -12,7 +12,7 @@ use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
     advance_rest_clock, clock_text, hos_mut_of, poi_ambient_key, profile_mut_of, profile_of,
-    shut_down_engine, FacilityEngine, MOTEL_COST,
+    settle_lift_before_sleep, shut_down_engine, FacilityEngine, MOTEL_COST,
 };
 use crate::states::driving_menu_states::{keep_rows, DriveRef};
 use crate::states::driving_rest_states::back_on_the_road_line;
@@ -57,8 +57,7 @@ impl ParkingFullState {
     }
 
     fn announce_over_drive(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
-        ctx.audio
-            .set_ambient(Some(poi_ambient_key(&self.stop, d.trip.local_hour())));
+        ctx.set_ambient(Some(poi_ambient_key(&self.stop, d.trip.local_hour())));
         // The lot and the island are separate facilities, and a driver who
         // cannot park here can still fuel here. Saying so up front is what
         // stops a full lot from reading as a closed truck stop.
@@ -85,10 +84,8 @@ impl ParkingFullState {
             // at 2 AM needs the tank before the choice of where to sleep.
             let label = self.fuel_label(ctx, d);
             items.push(
-                MenuItem::new(label, |s: &mut Self, ctx| s.refuel(ctx)).help(
-                    "Fills the tank at the posted diesel price plus a 35 dollar service fee. Engine \
-                     must be off.",
-                ),
+                MenuItem::new(label, |s: &mut Self, ctx| s.refuel(ctx))
+                    .help(self.fuel_help(ctx, d)),
             );
         }
         items.push(
@@ -106,8 +103,8 @@ impl ParkingFullState {
                 |s: &mut Self, ctx| s.motel(ctx),
             )
             .help(
-                "A motel near the exit, paid from your own pocket. Legal 10-hour reset, you \
-                 wake fresh.",
+                "A motel near the exit, paid from your own pocket. Legal 10-hour reset, and \
+                 sleep takes off 8 points of fatigue an hour.",
             ),
         );
         items.push(
@@ -152,8 +149,12 @@ impl ParkingFullState {
             // sleeper.
             let engine_off = shut_down_engine(d, ctx);
             advance_rest_clock(d, ctx, hos::SLEEP_MIN, None, "");
+            settle_lift_before_sleep(d, ctx);
             hos_mut_of(ctx).sleep();
-            profile_mut_of(ctx).fatigue = 0.0;
+            {
+                let p = profile_mut_of(ctx);
+                p.fatigue = hos::rest_sleep(p.fatigue, hos::SLEEP_MIN);
+            }
             let snapshot = d.snapshot(ctx);
             {
                 let p = profile_mut_of(ctx);
@@ -161,14 +162,16 @@ impl ParkingFullState {
                 p.active_trip = Some(snapshot);
             }
             let money = profile_of(ctx).money();
-            format!(
+            let text = format!(
                 "{engine_off}Motel, {} dollars, 10 hours. {}. Driving and duty clocks reset. \
                  {} dollars. {} starts the engine.",
                 fmt_grouped(MOTEL_COST, 0),
                 clock_text(d.trip.local_hour()),
                 fmt_grouped(money, 0),
                 ctx.control_hint("engine")
-            )
+            );
+            let starts = format!("{} starts the engine.", ctx.control_hint("engine"));
+            d.without_key_hint(ctx, text, &starts)
         }) else {
             return;
         };

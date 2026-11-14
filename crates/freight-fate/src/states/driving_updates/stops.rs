@@ -146,11 +146,13 @@ impl DrivingState {
             format!("Final warning. Slow down now or you are running from the police. {cost}")
         } else if self.pull_over_signaled {
             "Signaled, but still moving with lights behind you. Stop on the shoulder.".to_string()
-        } else {
+        } else if self.driving_hints(ctx) {
             format!(
                 "Failure-to-stop warning. Signal with {} and stop on the shoulder.",
                 ctx.control_hint("take_exit")
             )
+        } else {
+            "Failure-to-stop warning. Signal and stop on the shoulder.".to_string()
         };
         ctx.audio.play("ui/warning");
         self.refresh_live_facts();

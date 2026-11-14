@@ -57,6 +57,11 @@ pub enum Tier {
     /// answers, which the ten seconds of [`Tier::Orinks`] cannot hold. The
     /// player chose to send it and is waiting on the answer.
     StationSuggestion,
+    /// A problem report's logs going to orinks.net: up to a couple of
+    /// megabytes, gzipped, on whatever line the player has, with the
+    /// player waiting on the answer. Hearken's own sender gives it a
+    /// minute; so does this.
+    ProblemReport,
 }
 
 impl Tier {
@@ -68,6 +73,7 @@ impl Tier {
             Tier::GitHub => 15.0,
             Tier::Feeds => 20.0,
             Tier::StationSuggestion => 45.0,
+            Tier::ProblemReport => 60.0,
         }
     }
 }
@@ -93,6 +99,8 @@ static GITHUB_AGENT: Lazy<Agent> = Lazy::new(|| build_agent(Tier::GitHub.timeout
 static FEEDS_AGENT: Lazy<Agent> = Lazy::new(|| build_agent(Tier::Feeds.timeout_s()));
 static STATION_SUGGESTION_AGENT: Lazy<Agent> =
     Lazy::new(|| build_agent(Tier::StationSuggestion.timeout_s()));
+static PROBLEM_REPORT_AGENT: Lazy<Agent> =
+    Lazy::new(|| build_agent(Tier::ProblemReport.timeout_s()));
 
 /// The update-download client: same TLS and status policy as the GitHub
 /// tier, its 15 seconds kept on CONNECTING -- and no other deadline at
@@ -132,14 +140,15 @@ pub fn download_agent() -> &'static Agent {
 /// Holding an agent sends nothing -- it is a TLS config and an idle
 /// connection pool -- so this is not where the network capability below is
 /// checked. Every path that actually SENDS checks it: [`request`], and
-/// `updater::apply::download`, which streams its body off this agent and so
-/// calls [`require_real_network`] itself.
+/// the updater's fetch (`updater::MirrorFetch`), which sends through the
+/// engine's own client and so calls [`require_real_network`] itself.
 pub fn agent(tier: Tier) -> &'static Agent {
     match tier {
         Tier::Orinks => &ORINKS_AGENT,
         Tier::GitHub => &GITHUB_AGENT,
         Tier::Feeds => &FEEDS_AGENT,
         Tier::StationSuggestion => &STATION_SUGGESTION_AGENT,
+        Tier::ProblemReport => &PROBLEM_REPORT_AGENT,
     }
 }
 
@@ -546,7 +555,10 @@ pub fn request(
         }
     };
     let status = response.status().as_u16();
-    if matches!(tier, Tier::Orinks | Tier::StationSuggestion) {
+    if matches!(
+        tier,
+        Tier::Orinks | Tier::StationSuggestion | Tier::ProblemReport
+    ) {
         if let Some(date) = response.headers().get("date") {
             note_server_date(date.to_str().unwrap_or_default());
         }

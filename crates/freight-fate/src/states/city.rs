@@ -43,7 +43,7 @@ use ff_core::sim::hos::limits;
 use ff_core::sim::season::player_calendar_hours;
 
 use crate::app::{GameContext, Say};
-use crate::states::base::{InputEvent, Key, Menu, MenuItem, SimpleMenuState};
+use crate::states::base::{Menu, MenuItem, SimpleMenuState};
 use crate::states::driving::DrivingState;
 use crate::states::main_menu::TouchPracticeOfferState;
 
@@ -140,6 +140,33 @@ pub(crate) fn record_city_duty(
     profile_mut(ctx)
         .duty_log
         .record(status, start_hour, end_hour, &place, note);
+    if status == "on_duty_not_driving" {
+        city_on_duty_fatigue(ctx, start_hour, end_hour);
+    } else {
+        // A sleep, a course or a suspension served: a lift that wore off
+        // in it is paid back silently, as a sleep on the road does.
+        profile_mut(ctx).repay_stimulant_loan(end_hour);
+    }
+}
+
+/// The fatigue on-duty time in town builds, from `start_hour` to
+/// `end_hour` on the career clock: a third of the driving rate for the hour
+/// of day where the driver stands, the same as on duty at a road stop. A
+/// coffee or drink that wore off in that time is left for the road, where
+/// its line is spoken once the driver is back at the wheel.
+pub(crate) fn city_on_duty_fatigue(ctx: &mut GameContext, start_hour: f64, end_hour: f64) {
+    if ctx.profile.is_none() {
+        return;
+    }
+    let start_local = ff_core::sim::timezones::to_local(start_hour, terminal::local_zone(ctx));
+    let mode_rate =
+        ff_core::sim::driving_modes::tuning_for_time_scale(ctx.settings.time_scale).fatigue_rate;
+    let p = profile_mut(ctx);
+    let minutes = (end_hour - start_hour) * 60.0;
+    let gain = ff_core::sim::hos::on_duty_fatigue_gain(start_local, minutes, |h| {
+        mode_rate * p.fatigue_buff_rate(start_hour + h)
+    });
+    p.fatigue = (p.fatigue + gain).min(100.0);
 }
 
 /// 10-hour sleeps required to cover `drive_h`, given the driving hours left
@@ -186,12 +213,9 @@ pub fn first_day_guidance_active(profile: &Profile) -> bool {
     !first_dispatch_done(profile) && deliveries <= 0
 }
 
-pub fn first_day_orientation_message(ctx: &GameContext, prefix: &str) -> String {
-    first_day_orientation_lines(ctx, prefix).join(" ")
-}
-
 /// The briefing one sentence per line, for the terminal's re-readable
-/// screen; `first_day_orientation_message` is these joined.
+/// screen. Career creation speaks a shorter form,
+/// [`crate::states::main_menu::first_day_orientation_message`].
 pub fn first_day_orientation_lines(ctx: &GameContext, prefix: &str) -> Vec<String> {
     let p = profile(ctx);
     if p.is_unassigned_company_driver() {
@@ -731,27 +755,21 @@ pub fn loaded_departure_line(
     lead: &str,
     route: &Route,
     engine_on: bool,
-    next_context: &str,
 ) -> String {
     // Never "Departing now" over a dead engine: a driver who shut down at the
     // shipper leaves on a real start-up, and the line has to say so or the
     // truck simply sits there in silence.
-    let tail = if engine_on {
-        "Departing now.".to_string()
-    } else {
-        format!(
-            "Engine off. {} starts it, {} releases the parking brake once air is up.",
-            ctx.control_hint("engine"),
-            ctx.control_hint("parking_brake")
-        )
-    };
-    // The hours and tank before the road, so the driver can plan the stops
-    // instead of meeting them as a countdown (player report, 2026-10-17).
-    format!(
-        "{lead}{} {} {next_context} {tail}",
+    // A dead engine is the At the wheel line's to explain; it follows at
+    // once with the key that starts it.
+    let tail = if engine_on { " Departing now." } else { "" };
+    // The stop this run needs before the road, so the driver can plan it
+    // instead of meeting it as a countdown (player report, 2026-10-17).
+    let line = format!(
+        "{lead}{} {}{tail}",
         crate::states::city_pickup::route_departure_summary(route, &ctx.settings),
         board::briefing::departure_briefing(ctx, route, false)
-    )
+    );
+    line.split_whitespace().collect::<Vec<_>>().join(" ")
 }
 
 /// Hand the wheel to the driving state.
@@ -812,6 +830,13 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
     // what the summary reads before handing the route over.
     let route_for_line = route.clone();
     let mut driving = DrivingState::new(ctx, job, route, trip_seed, phase, start_hour);
+    // The co-driver the dock offered rides in the sleeper for the whole
+    // load, even when the player leaves at the wheel. Judged again on the
+    // road, a full night's rest made the rest of the load one shift and
+    // they dropped off the pause menu (player report, 2026-11-09).
+    if driving.team_at_departure(ctx) {
+        driving.ensure_team(ctx);
+    }
     if let Some(resume) = &resume {
         // A trailer the driver refused at the shipper must not follow them
         // onto the road: the scale house has to find the box they are
@@ -844,9 +869,6 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
         LaunchAnnouncement::Line(line) => line,
         LaunchAnnouncement::LoadedDeparture { lead } => {
             let engine_on = resume.as_ref().is_some_and(|r| r.engine_on);
-            let next_context = driving
-                .trip
-                .next_navigation_context(ctx.settings.imperial_units);
             match resume.as_ref().and_then(|r| r.team) {
                 // The co-driver starts the truck; the player hears who it is.
                 Some(_) => {
@@ -855,8 +877,8 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
                     let carrier = ff_core::models::career::carrier_name_of(profile(ctx));
                     // Your own hours and the tank, as on a solo departure,
                     // without the solo driver's sleep plan.
-                    format!(
-                        "{} {lead}{} {} {next_context} {} takes the wheel.",
+                    let line = format!(
+                        "{} {lead}{} {} {} takes the wheel.",
                         ff_core::models::co_driver::pairing_line(&pairing, &carrier),
                         crate::states::city_pickup::route_departure_summary(
                             &route_for_line,
@@ -864,16 +886,12 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
                         ),
                         board::briefing::departure_briefing(ctx, &route_for_line, true),
                         pairing.co_driver.name
-                    )
+                    );
+                    // An empty briefing leaves a double space behind.
+                    line.split_whitespace().collect::<Vec<_>>().join(" ")
                 }
                 None => {
-                    let mut line = loaded_departure_line(
-                        ctx,
-                        &lead,
-                        &route_for_line,
-                        engine_on,
-                        &next_context,
-                    );
+                    let mut line = loaded_departure_line(ctx, &lead, &route_for_line, engine_on);
                     if driving.trip.truck.reefer_on && driving.trip.truck.cargo_needs_reefer() {
                         line.push(' ');
                         line.push_str(
@@ -900,44 +918,6 @@ pub fn launch_driving(ctx: &mut GameContext, launch: DrivingLaunch) {
 }
 
 // -- menu plumbing --------------------------------------------------------------------
-
-/// The base `MenuState.handle_event`, for screens that take a key of their
-/// own first (F1 on the dispatch board, W on route planning) and hand the
-/// rest back. A trait default cannot be called from its own override, so the
-/// fall-through lives here.
-// TODO(lead): belongs in states::base::menu as a free function the Menu
-// default delegates to, so an override can fall through without a copy.
-pub(crate) fn base_menu_handle_event<S: Menu>(
-    menu: &mut S,
-    ctx: &mut GameContext,
-    event: &InputEvent,
-) {
-    let Some((key, _mods, text)) = event.key_down() else {
-        return;
-    };
-    match key {
-        Key::Down => menu.move_by(ctx, 1),
-        Key::Up => menu.move_by(ctx, -1),
-        Key::Home => menu.jump(ctx, 0),
-        Key::End => {
-            let last = menu.menu().items.len().saturating_sub(1);
-            menu.jump(ctx, last);
-        }
-        Key::Return | Key::Space | Key::KpEnter => menu.activate(ctx),
-        Key::Escape => menu.go_back(ctx),
-        Key::F1 => {
-            let help = menu.current_help(ctx);
-            ctx.say(&help);
-        }
-        Key::LCtrl | Key::RCtrl => ctx.stop_speech(),
-        _ => {
-            if let Some(ch) = text.filter(|ch| ch.is_alphanumeric()) {
-                let lower: String = ch.to_lowercase().collect();
-                menu.first_letter_input(ctx, &lower, event.key_repeat());
-            }
-        }
-    }
-}
 
 /// The base `MenuState.enter`: rebuild the rows keeping the cursor, play
 /// the open sound, announce. For screens whose `enter` does work first.

@@ -5,6 +5,7 @@ use ff_core::sim::hos;
 use ff_core::sim::trip_models::RoadStop;
 
 use crate::app::{GameContext, Say};
+use crate::bindings::Action;
 use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving_menu_states::DriveRef;
@@ -180,10 +181,7 @@ impl DriverAppScreenState {
                 }
                 let mut lines = vec![
                     format!("Weather source: {source}."),
-                    format!(
-                        "Observation age: {}.",
-                        d.trip.weather.observation_age_value()
-                    ),
+                    format!("Report age: {}.", d.trip.weather.observation_age_value()),
                     format!(
                         "Conditions: {}.",
                         d.trip.weather.source_conditions(imperial)
@@ -232,7 +230,7 @@ impl DriverAppScreenState {
                 }
                 vec![next.unwrap_or_else(|| {
                     format!(
-                        "Traffic: no reported pinch in the next {}.",
+                        "Traffic: no slowdowns reported in the next {}.",
                         ctx.settings.distance_text(20.0, false)
                     )
                 })]
@@ -255,7 +253,7 @@ impl DriverAppScreenState {
                     .map(|stop| {
                         let ahead = (stop.at_mi - d.trip.position_mi).max(0.0);
                         format!(
-                            "Truck stops: {} in {}; {}.",
+                            "Truck stops: {} in {}, {}.",
                             stop.spoken_name(),
                             ctx.settings.distance_text(ahead, false),
                             crate::states::driving_core::poi_offers_text(&stop)
@@ -286,11 +284,13 @@ impl DriverAppScreenState {
                 } else {
                     lines.push(format!("ELD route note: {context}"));
                 }
-                lines.push(
-                    "ELD keys: Alt A time at the wheel, Alt S when the break is due, \
-                     Alt D what ends this shift."
-                        .to_string(),
-                );
+                lines.push(format!(
+                    "ELD keys: {} time at the wheel, {} when the break is due, \
+                     {} what ends this shift.",
+                    ctx.control_name(Action::HosWheel),
+                    ctx.control_name(Action::HosBreak),
+                    ctx.control_name(Action::HosDrive),
+                ));
                 lines
             })
             .unwrap_or_default()

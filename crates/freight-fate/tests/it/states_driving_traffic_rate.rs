@@ -270,6 +270,10 @@ pub struct Census {
     /// Posted limit in the cell the rolling bubble drew it in, or `None` for
     /// a vehicle that did not come from the rolling bubble.
     pub spawn_mph: Option<f64>,
+    /// Out of its lane to get round something slower (`platoon.rs`).
+    pub passing_on_its_own: bool,
+    /// Holding its following gap behind what is ahead, this count.
+    pub holding_a_gap: bool,
 }
 
 impl Census {
@@ -479,6 +483,8 @@ pub fn drive_corridor(corridor: &Corridor, seed: i64, hour: f64, max_miles: f64)
                         lanes_here: manager.lane_count_at(v.position_mi),
                         here_mph: manager.posted_limit_at(v.position_mi),
                         spawn_mph: spawn_cell_mi(&v.key).map(|mile| manager.posted_limit_at(mile)),
+                        passing_on_its_own: v.home_lane.is_some(),
+                        holding_a_gap: v.holding_behind.is_some(),
                     })
                     .collect::<Vec<_>>()
             }));
@@ -750,6 +756,16 @@ fn traffic_forced_slow_rate_sweep() {
     println!(
         "  ... of those, drawn where the road was slower: {carried} ({:.1}% of all)",
         per_hundred(carried, census.len() as f64)
+    );
+    let passing = census.iter().filter(|c| c.passing_on_its_own).count();
+    let holding = census.iter().filter(|c| c.holding_a_gap).count();
+    println!(
+        "  out of their lane passing something slower : {passing} ({:.1}%)",
+        per_hundred(passing, census.len() as f64)
+    );
+    println!(
+        "  holding a gap behind what is ahead         : {holding} ({:.1}%)",
+        per_hundred(holding, census.len() as f64)
     );
     let mut share_bands: BTreeMap<i64, usize> = BTreeMap::new();
     for c in &census {
@@ -1127,7 +1143,7 @@ pub fn bench_lead(lanes_your_side: i64, lead_mph: f64) -> BenchRun {
             if let Some(lead) = d.trip.traffic_manager.vehicles.first_mut() {
                 lead.speed_mph = lead_mph;
                 lead.target_speed_mph = lead_mph;
-                lead.limit_offset_mph = None;
+                lead.limit_share = None;
             }
         });
     }
@@ -1239,8 +1255,8 @@ fn bounded_sweep() -> (Vec<Forced>, Vec<Census>, f64, usize) {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: seeded deliveries over a spread of real corridors -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: seeded deliveries over a spread of real corridors"
 )]
 fn traffic_drives_the_road_it_is_on_not_the_road_it_was_drawn_on() {
     // The defect this file was written for. A bubble vehicle's speed used to
@@ -1275,15 +1291,15 @@ fn traffic_drives_the_road_it_is_on_not_the_road_it_was_drawn_on() {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: seeded deliveries over a spread of real corridors -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: seeded deliveries over a spread of real corridors"
 )]
 fn nobody_is_on_the_brakes_where_the_road_gives_no_reason() {
     // "Merging is POSITIONAL: it happens at interchanges, and hard braking
     // happens in congestion placed from real volumes" -- and both spawners
     // used to hand the braking intent out anywhere. A vehicle on the brakes
     // with nothing behind it has no cause line to offer either, so the
-    // warning came out as a bare "Brake lights right ahead." and stopped
+    // warning came out as a bare "Brake lights." and stopped
     // there, which is exactly the invented phantom wave the bubble refuses
     // to place.
     let (events, census, _, _) = bounded_sweep();
@@ -1304,8 +1320,8 @@ fn nobody_is_on_the_brakes_where_the_road_gives_no_reason() {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: seeded deliveries over a spread of real corridors -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: seeded deliveries over a spread of real corridors"
 )]
 fn the_road_still_has_traffic_on_it() {
     // The guard on every change in this file. The complaint that started it
@@ -1334,8 +1350,8 @@ fn the_road_still_has_traffic_on_it() {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: seeded deliveries over a spread of real corridors -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: seeded deliveries over a spread of real corridors"
 )]
 fn every_forced_slow_down_is_one_the_road_explains() {
     // What the whole sweep is for, as an assertion: the truck may only be
@@ -1501,7 +1517,7 @@ fn met_a_slow_lead(name: &str, lanes_your_side: i64, lead_mph: f64) -> (Vec<Stri
             if let Some(lead) = d.trip.traffic_manager.vehicles.first_mut() {
                 lead.speed_mph = lead_mph;
                 lead.target_speed_mph = lead_mph;
-                lead.limit_offset_mph = None;
+                lead.limit_share = None;
             }
         });
     }
@@ -1575,8 +1591,8 @@ fn with_a_lane_open_the_call_offers_it() {
 
 #[test]
 #[cfg_attr(
-    ci_quick,
-    ignore = "sweep: seeded deliveries over a spread of real corridors -- left to the nightly by --cfg ci_quick"
+    not(feature = "slow-tests"),
+    ignore = "sweep: seeded deliveries over a spread of real corridors"
 )]
 fn nobody_is_placed_in_a_lane_the_road_does_not_have() {
     // "Passing traffic lives in the left lane" was applied to every road,

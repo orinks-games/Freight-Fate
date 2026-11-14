@@ -289,6 +289,11 @@ impl TestApp {
         self.capture.borrow()
     }
 
+    /// The capture behind `ctx.speech`, to script how it answers.
+    pub fn speech_mut(&self) -> std::cell::RefMut<'_, CaptureSpeech> {
+        self.capture.borrow_mut()
+    }
+
     /// Raise the loaded career past the new-driver warnings, so a test of
     /// what a citation costs sees one.
     pub fn seasoned_driver(&mut self) {
@@ -434,6 +439,8 @@ pub struct AudioCalls {
     pub outside_lift: Option<f64>,
     /// Every `set_radio_voicing`, in order.
     pub radio_voicing: Vec<Option<crate::audio::RadioVoicing>>,
+    /// The ambient bed sounding now, or `None` once it was stopped.
+    pub ambient: Option<String>,
 }
 
 /// One running loop as [`RecordingAudio`] last left it.
@@ -590,7 +597,9 @@ impl Audio for RecordingAudio {
     fn set_road_noise(&mut self, _speed_mps: f64) {}
     fn set_weather_with(&mut self, _key: Option<&str>, _intensity: f64) {}
     fn set_wind(&mut self, _intensity: f64) {}
-    fn set_ambient_with(&mut self, _key: Option<&str>, _volume: f64) {}
+    fn set_ambient_with(&mut self, key: Option<&str>, volume: f64) {
+        self.log.borrow_mut().ambient = key.filter(|_| volume > 0.0).map(str::to_string);
+    }
     fn horn_start(&mut self) {
         self.log.borrow_mut().horn.push("start");
     }
@@ -599,7 +608,9 @@ impl Audio for RecordingAudio {
     }
     fn reverse_start(&mut self) {}
     fn reverse_stop(&mut self) {}
-    fn stop_world(&mut self) {}
+    fn stop_world(&mut self) {
+        self.log.borrow_mut().ambient = None;
+    }
     fn play_music_with(&mut self, track: &str, fade_ms: u32) {
         self.play_music_at(track, fade_ms, 0.0);
     }

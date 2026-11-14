@@ -1,14 +1,11 @@
 # Contributing to Freight Fate
 
-Thanks for helping make Freight Fate better. This project is audio-first and
-accessibility-first, so contributions should keep blind and low-vision players
-at the center of every change.
+Thanks for helping make Freight Fate better.
 
 ## Contributions by release line
 
-Freight Fate 1.9 is in development on `feat/career-1.9`, with preview
-snapshots available for testing. The 1.8 line is in maintenance and accepts
-bug fixes only.
+Work lands on `dev`, and tester snapshots are built from it. Stable releases
+come from `main`. The 1.8 line gets no further releases.
 
 For a new feature, open an issue first so maintainers can agree on its scope
 and release line. Check [the roadmap](ROADMAP.md) for the work planned for
@@ -37,8 +34,10 @@ untracked `[patch]` recipe in [CLAUDE.md](CLAUDE.md#rust-engineering-practices).
   files into cohesive modules instead of adding more to an oversized file.
 - Gameplay is Rust on Career 1.9: run `cargo test -p ff-core` and
   `cargo test -p freight-fate` for anything the player can hear or do. That
-  local run is the full suite; the per-push CI skips the whole-map sweeps
-  (`#[cfg_attr(ci_quick, ignore = ...)]`) and the nightly snapshot runs them.
+  run skips the whole-map sweeps and other long tests (marked
+  `#[cfg_attr(not(feature = "slow-tests"), ignore = ...)]`); `cargo test-all`
+  runs them too, and so does the nightly snapshot. Run it before pushing a
+  change to driving, traffic, the assists or world data.
 - Changes to the build, release, translation or data tools: run
   `cargo test -p ff-tools`.
 - For user-facing changes, include how you checked the spoken text, keyboard

@@ -23,6 +23,7 @@ mod pyjson;
 mod radio;
 mod release;
 mod release_notes;
+mod release_notes_reword;
 mod translation_kit;
 mod util;
 mod windows_runtime;
@@ -37,6 +38,11 @@ type Command = fn(&[String]) -> util::Result<i32>;
 
 /// Every command: its name, what it does, and its entry point.
 const COMMANDS: &[(&str, &str, Command)] = &[
+    (
+        "seal-key",
+        "prepare and check the local career sealing key",
+        release::seal::main,
+    ),
     (
         "build-release",
         "build, verify and archive the player release for this platform",
@@ -56,6 +62,16 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         "ios-signing",
         "find the TestFlight signing profile and manage uploads (App Store Connect)",
         release::ios_signing::main,
+    ),
+    (
+        "update-manifests",
+        "sign the release's update manifests and write its file indexes",
+        release::updates::manifests_main,
+    ),
+    (
+        "update-key",
+        "show the game's update key (--new makes it, --print shows the CI secret)",
+        release::updates::key_main,
     ),
     (
         "windows-imports",
@@ -137,9 +153,63 @@ const COMMANDS: &[(&str, &str, Command)] = &[
     ),
     #[cfg(feature = "world")]
     (
+        "census-counties",
+        "write the county each stretch of every leg runs through, from Census county lines",
+        world::counties::main,
+    ),
+    #[cfg(feature = "world")]
+    (
         "osm-exits",
         "re-read the map's exits and their ramps from an OpenStreetMap extract",
         world::osm::exits::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "osm-lanes",
+        "re-read every leg's lane counts from an OpenStreetMap extract",
+        world::layers::lanes::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "osm-restrictions",
+        "re-read the low bridges and weight limits along every leg from an OpenStreetMap extract",
+        world::layers::restrictions::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "osm-landmarks",
+        "re-place the parks, forests, rivers, passes and museums along every leg",
+        world::layers::landmarks::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "osm-villages",
+        "re-place the towns and villages every leg passes (run after osm-landmarks)",
+        world::layers::villages::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "hpms-traffic",
+        "re-read every leg's traffic volumes and lane count from FHWA HPMS",
+        world::layers::hpms::traffic::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "hpms-terrain",
+        "re-read every leg's terrain class from FHWA HPMS",
+        world::layers::hpms::terrain::main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "reroute-leg",
+        "put a leg on the road a loaded truck takes, from the Valhalla truck router",
+        world::reroute::leg_main,
+    ),
+    #[cfg(feature = "world")]
+    (
+        "reroute-enrich",
+        "rebuild a rerouted leg's curves, grades, state lines, exits and limits",
+        world::reroute::enrich_main,
     ),
 ];
 

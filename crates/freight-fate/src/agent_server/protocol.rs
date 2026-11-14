@@ -164,11 +164,11 @@ fn tools_list() -> Value {
         ),
         tool(
             "cruise",
-            "Adaptive cruise, the way a player sets it: K to engage if nothing is \
+            "Cruise, the way a player sets it: K to engage if nothing is \
              holding speed, then the dial walked one mile per hour at a time to the \
              target -- a number, \"limit\" for the posted limit enforcement is \
              reading, or \"off\". Replies with what was heard once the dial settles. \
-             In a zone the speed keeper holds instead, and the reply says so.",
+             In a zone the cruise holds instead, and the reply says so.",
             json!({"target": {"description": "a number in miles per hour, \"limit\", or \"off\""}}),
             &["target"],
         ),
@@ -176,7 +176,16 @@ fn tools_list() -> Value {
             "status",
             "The wheel's readouts in one call -- speed, speed limit, grade, what is \
              coming up, route status, the clock, fuel -- pressed as a player would \
-             and returned together with anything else heard meanwhile.",
+             and returned together with anything else heard meanwhile. At the wheel \
+             it ends with one STATE line, not spoken: alertness (the fatigue band: \
+             rested, worn, drowsy or severe), nod (awake, nodding or recovering, \
+             with its timer), nod_misses (missed nods in a row toward the forced \
+             stop), lift_owed (fatigue a coffee or energy drink will take back, \
+             and when), rest_call (this load's call to dispatch for rest: \
+             available, used, or none with no load on) and, while the trip has \
+             ended at a facility gate, gate (arriving, rolling, \
+             rolling_after_creep, creeping, stopped, stopped_told, holding or \
+             open).",
             json!({}),
             &[],
         ),
@@ -246,7 +255,8 @@ fn tools_list() -> Value {
              brake_wear_pct (0 to 100, what a roadside inspection reads), citations and \
              out_of_service_events (counts on the record, dated now; with damage they set the \
              safety band that decides who is pulled into the inspection lane), \
-             rested (true takes a full sleep), hos_driving_min, hos_duty_min and \
+             rested (true takes a full sleep), fatigue (0 to 100, set after rested; \
+             the next drive starts in that band and gives its cue), hos_driving_min, hos_duty_min and \
              hos_since_break_min (sandbox HOS counters in game minutes), clear_load (true drops a load in \
              progress first), market_seed and board_seed (the dispatch board rolls \
              from them), came_from (the city the truck delivered from to get here, \
@@ -272,6 +282,7 @@ fn tools_list() -> Value {
                 "citations": {"type": "integer"},
                 "out_of_service_events": {"type": "integer"},
                 "rested": {"type": "boolean"},
+                "fatigue": {"type": "number", "description": "0 to 100; 40 worn, 60 drowsy, 80 severe"},
                 "hos_driving_min": {"type": "number"},
                 "hos_duty_min": {"type": "number"},
                 "hos_since_break_min": {"type": "number"},
@@ -281,6 +292,29 @@ fn tools_list() -> Value {
                 "came_from": {"type": "string"},
                 "settings": {"type": "object"},
             }),
+            &[],
+        ),
+        tool(
+            "hazard",
+            "Fire a road hazard on the drive right now, by name, instead of waiting for \
+             the road to draw one: tire debris, debris, ladder, lumber, mattress, boxes, \
+             tarp, tumbleweeds, rockfall, stopped vehicle, lane closure, stopped traffic, \
+             deer, elk, dog, and the rest of the catalog. The call, the lane answer, the \
+             assists and the seeded outcome are the drawn hazard's own. Errors when not \
+             at the wheel.",
+            json!({
+                "name": {"type": "string", "description": "the hazard's spoken name, with or without \"the\""},
+            }),
+            &["name"],
+        ),
+        tool(
+            "nod",
+            "Make the driver nod off on the drive right now instead of waiting for \
+             severe fatigue to count one down: the reaction window opens on the next \
+             rolling frame with its warning, and steering or braking inside it catches \
+             it, exactly as a counted nod. A miss counts toward the forced stop. \
+             Errors when not at the wheel or while the co-driver drives.",
+            json!({}),
             &[],
         ),
         tool(
@@ -698,6 +732,13 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
         }
         "scenario" => crate::playtest::scenario::Scenario::from_json(args)
             .map(|scenario| Command::Scenario(Box::new(scenario))),
+        "hazard" => match args.get("name").and_then(Value::as_str) {
+            Some(name) if !name.trim().is_empty() => Ok(Command::Hazard {
+                name: name.trim().to_string(),
+            }),
+            _ => Err("hazard needs name: the hazard's spoken name".to_string()),
+        },
+        "nod" => Ok(Command::Nod),
         "operator_keys" => match args.get("live").and_then(Value::as_bool) {
             Some(live) => Ok(Command::OperatorKeys { live }),
             None => Err("operator_keys needs live: true or false".to_string()),

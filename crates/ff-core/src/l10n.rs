@@ -747,6 +747,45 @@ impl Pass<'_, '_> {
                 return Some(wrap(out));
             }
         }
+        self.lead_in(core, depth).map(wrap)
+    }
+
+    /// "Job 2 of 7: 19 tons of general freight from ... in Pendleton,
+    /// Oregon to ..." is a lead-in the catalog has ("Job {index} of
+    /// {total}: ") before a sentence it has. The clause split breaks that
+    /// sentence at the commas inside its place names, so the lead-in and
+    /// the rest are each tried whole: both translate, or neither does.
+    fn lead_in(&mut self, core: &str, depth: usize) -> Option<String> {
+        for (at, _) in core.match_indices(": ") {
+            let (head, rest) = (&core[..at + 2], &core[at + 2..]);
+            if rest.trim().is_empty() || !has_words(rest) {
+                continue;
+            }
+            let mut missed = Vec::new();
+            let mut inner = Pass {
+                catalog: self.catalog,
+                missed: &mut missed,
+                memo: &mut *self.memo,
+            };
+            let Some(head_out) = inner.piece(head, depth + 1, false) else {
+                continue;
+            };
+            let Some(rest_out) = inner.piece(rest, depth + 1, has_sentence_break(rest)) else {
+                continue;
+            };
+            self.missed.extend(missed);
+            let rest_out = if starts_lowercase(rest) {
+                rest_out
+            } else {
+                capitalize_first_letter(&rest_out)
+            };
+            let sep = if head_out.ends_with(char::is_whitespace) || ends_full_width(&head_out) {
+                ""
+            } else {
+                " "
+            };
+            return Some(format!("{head_out}{sep}{rest_out}"));
+        }
         None
     }
 
@@ -946,6 +985,14 @@ impl Pass<'_, '_> {
                 Part::Lit(text) => out.push_str(text),
                 Part::Hole(name) => {
                     let raw = captures.get(name.as_str()).copied().unwrap_or_default();
+                    // A number is said the language's way whatever its hole
+                    // is called: "{take_home}" reads as a home city by its
+                    // name, and kept "6,576" as is, which German and Polish
+                    // hear as six point five.
+                    if let Some(number) = plural::localize_number(&self.catalog.language, raw) {
+                        out.push_str(&number);
+                        continue;
+                    }
                     if is_proper_name_hole(name) && depth < MAX_DEPTH {
                         // A name hole can hold a place phrase around names:
                         // "retail distribution hub {place_name} in {city}"
@@ -964,10 +1011,6 @@ impl Pass<'_, '_> {
                             .then(|| raw.strip_prefix("the ").or(raw.strip_prefix("The ")))
                             .flatten();
                         out.push_str(bare.unwrap_or(raw));
-                    } else if let Some(number) =
-                        plural::localize_number(&self.catalog.language, raw)
-                    {
-                        out.push_str(&number);
                     } else {
                         // A capture is often a phrase the catalog knows
                         // ("heavy traffic"); an unknown one (a number, a

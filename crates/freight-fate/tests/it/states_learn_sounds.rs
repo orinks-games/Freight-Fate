@@ -403,7 +403,7 @@ fn test_an_unplayable_cue_is_spoken_about_rather_than_silent() {
     assert!(app
         .main_lines()
         .iter()
-        .any(|line| line.contains("Missing cue") && line.contains("not available")));
+        .any(|line| line.contains("Missing cue") && line.contains("not in this copy")));
     assert!(!demo_running(&app));
 }
 

@@ -185,6 +185,14 @@ pub enum Command {
     Listen,
     Menu,
     Observe,
+    /// Fire a catalog hazard on the live drive by name (`Trip::stage_hazard`),
+    /// so each kind can be driven on purpose.
+    Hazard {
+        name: String,
+    },
+    /// Open a nod-off's reaction window on the live drive
+    /// (`PlayerInputFrame::stage_nod`).
+    Nod,
     /// The hit is discovered on the serve thread (world data only) so the
     /// game loop never blocks on a search; the loop only builds the drive.
     StageHit {
@@ -227,7 +235,30 @@ struct Waiting {
     /// wait_for drove past "Exit lane opening. Steer right into it." and
     /// missed the exit (agent drive, Dallas, 2026-09-25).
     reports_timeout: bool,
+    /// True for `status`: the reply ends with the fatigue machines' state.
+    fatigue_state: bool,
     reply: Reply,
+}
+
+/// The fatigue machines as `status` reports them, by their field names.
+fn fatigue_state_line(o: &crate::app::DrivingObservation) -> String {
+    let (timer, unit) = o.nod.timer();
+    let lift = match o.lift_owed {
+        Some((amount, due_in_h)) => format!("{amount:.1} due in {due_in_h:.2} h"),
+        None => "none".to_string(),
+    };
+    let rest_call = o.rest_call.map_or("none", |state| state.key());
+    // The facility gate's stop, only while the trip has ended at a gate.
+    let gate = o
+        .gate
+        .map_or(String::new(), |gate| format!("; gate {}", gate.key()));
+    format!(
+        "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
+         rest_call {rest_call}{gate}.",
+        o.alertness.key(),
+        o.nod.key(),
+        o.nod.misses
+    )
 }
 
 enum CruiseStage {
@@ -372,6 +403,7 @@ impl AgentPolicy {
             until,
             scanned: 0,
             reports_timeout,
+            fatigue_state: false,
             reply,
         });
     }
@@ -413,13 +445,13 @@ impl AgentPolicy {
                 let Some(set) = observed.cruise_set_mph else {
                     let _ = plan.reply.send(Ok(if observed.keeper_mph.is_some() {
                         format!(
-                            "The speed keeper has this zone, so adaptive cruise is not \
+                            "Low-speed cruise has this zone, so open-road cruise is not \
                              available here; the dial is not walked.\n{}",
                             drain_ears(&self.ears)
                         )
                     } else {
                         format!(
-                            "Adaptive cruise did not engage; listen for why (engine, air, \
+                            "Cruise did not engage; listen for why (engine, air, \
                              speed, or the zone).\n{}",
                             drain_ears(&self.ears)
                         )
@@ -567,6 +599,12 @@ impl AgentPolicy {
                 } else {
                     "\n(the clock ran out before that arrived)"
                 });
+            }
+            if waiting.fatigue_state {
+                if let Some(o) = input.driving_observation() {
+                    text.push('\n');
+                    text.push_str(&fatigue_state_line(&o));
+                }
             }
             let _ = waiting.reply.send(Ok(text));
         }
@@ -758,6 +796,9 @@ impl AgentPolicy {
                         self.tap(key, text, Mods::NONE);
                     }
                     self.wait_until(STATUS_SETTLE_SECONDS, Until::Elapsed, false, reply);
+                    if let Some(waiting) = self.waiting.as_mut() {
+                        waiting.fatigue_state = true;
+                    }
                     break;
                 }
                 Command::Listen => {
@@ -800,7 +841,7 @@ impl AgentPolicy {
                              limit {}. Air ready: {}. Parking brake: {}. Speed control armed: \
                              {}. Keeper: {}. Cruise: {}. Hazard active: {}. Pull-over active: \
                              {}. Off pavement: {}. Truck damage: {:.0}%. Cargo damage: \
-                             {:.0}%.{cattle}",
+                             {:.0}%. {}{cattle}",
                                 o.position_mi,
                                 o.speed_mph,
                                 o.speed_limit_mph
@@ -817,12 +858,19 @@ impl AgentPolicy {
                                 o.off_pavement,
                                 o.truck_damage_pct,
                                 o.cargo_damage_pct,
+                                fatigue_state_line(&o),
                             )
                         }
                         None => {
                             "INSPECTOR: not at the wheel (a menu or stop screen is up).".to_string()
                         }
                     }));
+                }
+                Command::Hazard { name } => {
+                    let _ = reply.send(input.stage_hazard(&name));
+                }
+                Command::Nod => {
+                    let _ = reply.send(input.stage_nod());
                 }
                 Command::StageHit {
                     hit,

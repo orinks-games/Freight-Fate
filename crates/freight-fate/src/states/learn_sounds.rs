@@ -22,9 +22,8 @@ use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving_core::siren::register_enforcement_sounds;
 
-/// The audio facade as the demo sequencer drives it.
-// TODO(lead): belongs in `audio` (an `impl DemoAudio for dyn Audio`, or a
-// `demo_audio()` adapter on the engine); here until that lands.
+/// The audio facade as the demo sequencer drives it. It lives beside its
+/// only user.
 pub struct DemoAudioBridge<'a>(RefCell<&'a mut dyn Audio>);
 
 impl<'a> DemoAudioBridge<'a> {
@@ -64,8 +63,8 @@ impl LearnSoundsState {
     pub fn new() -> Self {
         Self {
             menu: MenuCore::new("Learn game sounds").with_intro_help(
-                "Choose a group of sounds. Inside a group, Enter plays the sound and \
-                 F1 says what it means. Up and down arrows move, Escape goes back.",
+                "Up and Down choose a group of sounds, Enter opens it, Escape goes back. \
+                 Inside a group, Enter plays a sound and F1 explains it.",
             ),
         }
     }
@@ -134,11 +133,9 @@ impl LearnSoundCategoryState {
     pub fn new(category: SoundCategory) -> Self {
         Self {
             menu: MenuCore::new(category.name).with_intro_help(
-                "Enter plays the sound, and Enter again plays it once it has \
-                 finished. F1 says what it means and when you hear it. Up and down \
-                 arrows move. Escape goes back, and both moving away and going back \
-                 stop a sound that would otherwise keep running; a short sound \
-                 already playing finishes on its own.",
+                "Up and Down choose a sound, Enter plays it, and F1 explains it and when \
+                 you hear it. Escape goes back. Moving to another sound or going back \
+                 stops a sound that keeps running. A short sound finishes on its own.",
             ),
             category,
             demo: SoundDemo::new(asset_length_s),
@@ -160,8 +157,7 @@ impl LearnSoundCategoryState {
         };
         if !playable {
             ctx.say(&format!(
-                "{} is not available in this copy of the game, \
-                 so there is nothing to play. F1 still says what it means.",
+                "{} is not in this copy of the game. F1 still explains it.",
                 entry.name
             ));
             return;

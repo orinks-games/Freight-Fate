@@ -155,13 +155,13 @@ impl Menu for CloseOutCareerState {
                 return self.finish(
                     ctx,
                     &format!(
-                        "{AUTH_HELP} The cloud backups were not removed; the Cloud saves menu \
+                        "{AUTH_HELP} The cloud backups were not removed. The Cloud saves menu \
                          can remove them once this computer is signed in again."
                     ),
                 );
             }
             _ => {
-                "The site could not be reached, so the cloud backups are still there; the \
+                "The site could not be reached, so the cloud backups are still there. The \
                   Cloud saves menu can remove them later."
             }
         };

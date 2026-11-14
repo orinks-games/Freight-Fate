@@ -43,6 +43,8 @@ const SKIP_CALLS: &[&str] = &[
     "args", "header", "query", "pointer", "target",
     // SDL hints (sdl2::hint::set) are configuration values, never spoken.
     "set",
+    // A damage hit's cause goes to the log only.
+    "add_damage_from",
 ];
 
 const FORMAT_MACROS: &[&str] = &["format", "write", "writeln", "format_args"];
@@ -63,7 +65,9 @@ const SKIP_PATH_PARTS: &[&str] = &[
     "profile_integrity_invariants", "profile_invariants", "cloud_save_integrity",
     "/cloud_saves/api", "/settings/migrate", "/settings/paths", "/net.rs", "/net/",
     "/updater", "/online_presence", "discord_presence", "single_instance", "/app/logging",
-    "/app/boot_timing", "/app/loop_watch",
+    "/app/boot_timing", "/app/loop_watch", "/audio/youtube",
+    // Load-time map screens: record fields and patterns, never spoken.
+    "/data/stop_bounds",
 ];
 
 /// The hole an English plural ending ("s", "es") fills; a translation may

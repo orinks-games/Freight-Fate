@@ -43,11 +43,12 @@ impl ShoulderSleepConfirmationState {
     pub fn at_chain_checkpoint(driving: DriveRef, anchor_mi: f64) -> Self {
         let mut state = Self::new(
             driving,
-            "Held at the chain checkpoint.",
+            "Held at the chain control.",
             Some(anchor_mi),
             false,
         );
-        state.menu = MenuCore::new("Sleep at the checkpoint").with_intro_help(SHOULDER_INTRO_HELP);
+        state.menu =
+            MenuCore::new("Sleep at the chain control").with_intro_help(SHOULDER_INTRO_HELP);
         state.at_chain_checkpoint = true;
         state
     }
@@ -103,8 +104,11 @@ impl Menu for ShoulderSleepConfirmationState {
             return vec![
                 MenuItem::new("Cancel", |s: &mut Self, ctx| s.go_back(ctx))
                     .help("Back without sleeping."),
-                MenuItem::new("Sleep at the checkpoint", |s: &mut Self, ctx| s.sleep(ctx)).help(
-                    "Poor rest on the checkpoint apron. Resets hours of service; the deadline \
+                MenuItem::new("Sleep at the chain control", |s: &mut Self, ctx| {
+                    s.sleep(ctx)
+                })
+                .help(
+                    "Poor rest at the chain control. Resets hours of service. The deadline \
                      keeps running.",
                 ),
             ];
@@ -131,14 +135,14 @@ impl Menu for ShoulderSleepConfirmationState {
         let current = self.current_text(ctx);
         if self.at_chain_checkpoint {
             ctx.say(&format!(
-                "{title}. {reason} 10 hours of poor rest, HOS reset if enforced. The deadline \
+                "{title}. {reason} 10 hours of poor rest, hours of service reset if enforced. The deadline \
                  keeps running. {current}"
             ));
             return;
         }
         ctx.say(&format!(
-            "{title}. {reason} Emergency shoulder sleep: 10 hours of poor rest, HOS reset if \
-             enforced. Ticket and light damage possible; the deadline keeps running. {current}"
+            "{title}. {reason} Emergency shoulder sleep: 10 hours of poor rest, hours of \
+             service reset if enforced. Ticket and light damage possible. The deadline keeps running. {current}"
         ));
     }
 
@@ -150,14 +154,16 @@ impl Menu for ShoulderSleepConfirmationState {
         }
         ctx.audio.play("ui/menu_back");
         ctx.pop_state();
-        let hint = ctx.control_hint("parking_brake");
-        ctx.say_with(
+        let message = if ctx.settings.driving_hints {
+            let hint = ctx.control_hint("parking_brake");
             format!(
                 "Shoulder sleep canceled. Back on the road. Parking brake set, {hint} releases \
                  it."
-            ),
-            Say::new(),
-        );
+            )
+        } else {
+            "Shoulder sleep canceled. Back on the road. Parking brake set.".to_string()
+        };
+        ctx.say_with(message, Say::new());
     }
 }
 

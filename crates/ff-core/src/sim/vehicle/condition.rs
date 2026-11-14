@@ -2,8 +2,8 @@
 //! refuelling, roadside repair, and the driveline guards on a manual shift.
 
 use super::{
-    TruckState, CARGO_ADVISORY_LAT_G, CARGO_COLLISION_PCT, DAMAGE_MAX_PCT, G, MPS_TO_MPH, M_PER_FT,
-    REVERSE_CRASH_DAMAGE_PCT, REVERSE_ENGAGE_MAX_MPH,
+    TruckState, CARGO_ADVISORY_LAT_G, CARGO_COLLISION_PCT, DAMAGE_LOG_MIN_PCT, DAMAGE_MAX_PCT, G,
+    MPS_TO_MPH, M_PER_FT, REVERSE_CRASH_DAMAGE_PCT, REVERSE_ENGAGE_MAX_MPH,
 };
 use crate::sim::transmission::{ShiftResult, REVERSE};
 
@@ -86,10 +86,28 @@ impl TruckState {
     /// default because nearly everything that damages a truck is somebody's
     /// decision; the exceptions have to say so.
     pub fn add_damage(&mut self, pct: f64, preventable: bool) -> f64 {
+        self.add_damage_from(pct, preventable, "unnamed")
+    }
+
+    /// [`Self::add_damage`], naming the cause in the log.
+    ///
+    /// A player who hears nothing about damage reads it off the drive
+    /// summary afterwards with no reason given (issues 533 and 492), and
+    /// their log has to say what did it. A per-frame trickle under
+    /// [`DAMAGE_LOG_MIN_PCT`] (a runaway's) is logged only as it crosses
+    /// each whole percent, so it still shows without a line per frame.
+    pub fn add_damage_from(&mut self, pct: f64, preventable: bool, cause: &str) -> f64 {
+        let before = self.damage_pct;
         let added = (self.damage_pct + pct.max(0.0)).min(DAMAGE_MAX_PCT) - self.damage_pct;
         self.damage_pct += added;
         if preventable {
             self.preventable_damage_pct += added;
+        }
+        if added >= DAMAGE_LOG_MIN_PCT || self.damage_pct.floor() > before.floor() {
+            log::info!(
+                "truck damage from {cause}: {added:.2} percent added, {:.1} percent now",
+                self.damage_pct
+            );
         }
         added
     }
@@ -120,7 +138,11 @@ impl TruckState {
             && !self.transmission.automatic
             && self.speed_mph() > REVERSE_ENGAGE_MAX_MPH
         {
-            self.add_damage(REVERSE_CRASH_DAMAGE_PCT, true);
+            self.add_damage_from(
+                REVERSE_CRASH_DAMAGE_PCT,
+                true,
+                "reverse forced in while rolling",
+            );
             return ShiftResult {
                 ok: false,
                 message: "Reverse will not go in at this speed. Stop the truck first.".to_string(),
@@ -133,7 +155,7 @@ impl TruckState {
     /// severity 0..1; slows the truck and adds damage.
     pub fn apply_collision(&mut self, severity: f64, preventable: bool) {
         self.velocity_mps *= (1.0 - severity).max(0.2);
-        self.add_damage(severity * 18.0, preventable);
+        self.add_damage_from(severity * 18.0, preventable, "a collision");
         // Whatever hit the tractor went through the freight as well.
         self.add_cargo_damage(severity * CARGO_COLLISION_PCT * self.cargo_fragility);
     }

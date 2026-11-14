@@ -1,9 +1,32 @@
 # Agent Contributor Guide
 
-Freight Fate is an audio-first, accessibility-first trucking simulation for
-blind and low-vision players. Full contributor policy lives in
+Freight Fate is a trucking simulation. Full contributor policy lives in
 `CONTRIBUTING.md`; this file is the short version a coding agent needs at
 authoring time.
+
+## Writing rule: no accessibility or audio marketing talk
+
+This applies to everything you write: READMEs, store and site descriptions,
+release notes, changelogs, forum posts (audiogames.net and similar), commit
+messages, PR text, and docs.
+
+- Never describe a game or app as audio-first, blind-first, accessibility-first,
+  truly accessible, designed with accessibility at the forefront, crafted for
+  keyboard and screen reader use, specifically optimized for screen reader
+  users, or anything that means the same thing.
+- Exception for games: a game may say once, plainly, that it is an audio game
+  for blind and visually impaired players (for example "An audio trucking game
+  for blind and visually impaired players."). Say it one time, in the opening
+  description, and nothing beyond that.
+- Skip audio puffery too: "rich and immersive soundscapes", "a game designed to
+  be heard", "sounds like you're really there", "your eyes don't matter, only
+  your ears do", and the like.
+- Why: the audience already takes accessibility and audio for granted. Saying
+  so is filler. Describe what the thing actually does instead: its features,
+  content, controls, and what changed.
+- Facts are fine when they are specific and useful, for example "works with
+  NVDA and JAWS" in a requirements list or a note about which keys open a menu.
+
 
 **Career 1.9 is a native Rust game.** The Cargo workspace under `crates/`
 (`ff-core`, `freight-fate`) is the shipping
@@ -183,6 +206,16 @@ Everything is Rust: the game, and the tooling around it in `ff-tools`.
   focused tests, the full crate tests, and the adversarial battery as separate
   gates. Do not enable Clippy's restriction group wholesale; justify individual
   stricter lints where they fit this codebase.
+- Make state machines explicit (owner rule, 2026-11-09). When designing or
+  building, find the implicit state machines -- a set of booleans that travel
+  together, a connection that is "sort of open", a key whose meaning depends
+  on history -- and make each one an enum in `ff-core` with one `next(event)`
+  function and a transition test table. Choose the shape that serves the
+  player (one spoken line or sound per transition), the developer (the enum
+  is the only place the state moves) and the agent play tester (the agent
+  server's `status` reports the state, and a scenario can set it) at once,
+  without breaking anything that works. `docs/cb-radio-design.md` has a
+  worked example.
 
 References: [The Rust Programming Language: graceful shutdown and
 cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.html),
@@ -246,16 +279,18 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   full pair at the end, exactly once, because that is where the surprises
   live: a change to spoken text can strand an assertion in a file three
   directories from anything obviously related.
-- **The per-push CI runs a quick set; your local run is the full one.**
-  `rust.yml` passes `--cfg ci_quick`, and every test marked
-  `#[cfg_attr(ci_quick, ignore = "sweep: ...")]` -- the whole-map sweeps: a
-  500-mile delivery per state line, every facility exit, every kind of
-  destination, ~96 job origins -- is skipped there. They cost as much as
-  the other 2,400 game-crate tests together. The nightly Career 1.9
-  snapshot, a manual dispatch of `rust.yml`, and any plain local
-  `cargo test` run them all, so a sweep failure surfaces within a day. A
-  new test that drives more than a few seconds of the map should carry
-  that attribute; one that pins a single behaviour should not.
+- **A plain `cargo test` skips the slow tests; `cargo test-all` runs them.**
+  Every test marked `#[cfg_attr(not(feature = "slow-tests"), ignore =
+  "...")]` -- the whole-map sweeps: a 500-mile delivery per state line,
+  every facility exit, every kind of destination, ~96 job origins, plus a
+  few other multi-second drives -- is skipped by a plain run, local or CI.
+  They cost several times the rest of the suite together. `cargo test-all`
+  (an alias for `cargo test -p ff-core -p freight-fate --features
+  freight-fate/slow-tests`) and the nightly Career 1.9 snapshot run them,
+  so a sweep failure surfaces within a day. Run `cargo test-all` before pushing a change to driving, traffic,
+  the assists or world data. A new test that drives more than a second or
+  two of the map should carry that attribute; one that pins a single
+  behaviour should not.
 - Adversarial battery: `cargo run -p freight-fate --bin freightfate --
   --break-battery`. Every registered scenario, deliberately unreasonable play
   against the real driving state. `--list-break-scenarios` names them,
@@ -311,14 +346,13 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   services. Codex's restricted shell can block initialization even when the
   same check passes with normal Windows access. Use the authorized elevated
   tool path for that verification; keep the game's save sandbox enabled.
-- Rust CI (`.github/workflows/rust.yml`) runs on GitHub's hosted runners
-  (free for this public repository; owner rule 2026-10-17: Blacksmith's paid
-  minutes are for the private repositories) in Hearken's and Echo Parlor's
-  shape: a no-build checks job (fmt, the
+- CI runs no tests per push (owner rule 2026-11-04: test locally or in a
+  cloud session; no paid CI for these games). `.github/workflows/rust.yml`
+  is one no-build checks job on GitHub's hosted runners (fmt, the
   translation files, `cargo tools test-targets`, the Hearken leaf-type
-  grep) that finishes in well under a minute, clippy once on Linux, and the
-  game's tests on Windows and Linux in parallel (ff-core, which is headless,
-  on Linux only). A manual dispatch or a `v*` tag adds the tests on macOS.
+  grep) that finishes in well under a minute, and `changelog.yml` is the
+  changelog gate. The Career 1.9 snapshot build (each push to `dev`, and
+  once a night as a fallback) is where CI lints and tests.
   Every compiling job goes through `.github/actions/rust-setup` (the
   platform's build dependencies, the pinned toolchain, sccache and rust-cache). SDL2 is
   vendored for `windows-x86_64` alone. macOS and Linux build from
@@ -342,8 +376,7 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   (release notes, the changelog gate, translations, the test-target check)
   build without the game: `cargo run -p ff-tools --no-default-features --
   <command>`.
-- Tests: `cargo test -p ff-tools`. CI runs them on Windows and Linux under
-  the required `test (windows-latest)` and `test (ubuntu-latest)` checks.
+- Tests: `cargo test -p ff-tools`, locally; no CI runs them.
 - Git hooks: `git config core.hooksPath .githooks` once per clone (cargo fmt
   and the world index check on commit, the changelog gate on push).
 

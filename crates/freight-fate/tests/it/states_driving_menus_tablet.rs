@@ -323,7 +323,7 @@ fn test_school_lesson_is_a_sandbox_and_restores_the_real_profile() {
         lesson.on_engine_started(&mut app.ctx)
     });
     lesson_step(&mut app, |lesson, app| {
-        lesson.on_parking_brake_released(&mut app.ctx)
+        lesson.on_parking_brake_released(&mut app.ctx);
     });
     // Sandbox spending stays on the copy.
     app.ctx.profile.as_mut().expect("a career").spend(500.0);

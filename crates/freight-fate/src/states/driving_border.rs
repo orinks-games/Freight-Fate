@@ -16,7 +16,7 @@ use crate::speech::EventPriority;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, hos_mut_of, profile_mut_of, BORDER_PRIMARY_MIN, BORDER_SECONDARY_EXTRA_MIN,
+    advance_on_duty_clock, profile_mut_of, BORDER_PRIMARY_MIN, BORDER_SECONDARY_EXTRA_MIN,
     BORDER_SECONDARY_REFERRAL_CHANCE, WEIGH_STATION_BYPASS_MPH,
 };
 use crate::states::driving_menu_states::{push_over_drive, DriveRef};
@@ -273,14 +273,13 @@ impl BorderClearanceState {
         };
         let minutes = BORDER_PRIMARY_MIN + extra_minutes;
         let drive = self.driving.clone().with(ctx, |driving, ctx| {
-            advance_rest_clock(
+            advance_on_duty_clock(
                 driving,
                 ctx,
                 minutes,
                 Some("on_duty_not_driving"),
                 "customs clearance",
             );
-            hos_mut_of(ctx).on_duty(minutes);
             driving.trip.truck.velocity_mps = 0.0;
             driving.trip.truck.throttle = 0.0;
             driving.trip.truck.brake = 1.0;

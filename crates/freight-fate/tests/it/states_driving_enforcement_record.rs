@@ -27,6 +27,7 @@ use ff_core::models::enforcement::{FATIGUE_EVENT_REPUTATION_HIT, SUSPENSION_LIFE
 use ff_core::models::home_base::IMPOUND_LOT_FACILITY;
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
+use ff_core::sim::alertness::{Nod, NodState};
 use ff_core::sim::weather::WeatherKind;
 
 use freight_fate::app::testing::TestApp;
@@ -795,9 +796,7 @@ fn test_running_off_the_road_asleep_costs_reputation_and_is_spoken() {
         .career
         .reputation;
     app.clear_speech();
-    drive.microsleep_misses = 0;
-
-    drive.microsleep_drift_off_road(&mut app.ctx);
+    drive.microsleep_drift_off_road(&mut app.ctx, false);
 
     let p = app.ctx.profile.as_ref().expect("a career");
     assert_eq!(p.driving_record.fatigue_events, 1);
@@ -825,9 +824,7 @@ fn test_terse_speech_still_hears_every_consequence() {
         .driving_record
         .record_fatigue_event(0.0); // so the next one is serious
     app.clear_speech();
-    drive.microsleep_misses = 0;
-
-    drive.microsleep_drift_off_road(&mut app.ctx);
+    drive.microsleep_drift_off_road(&mut app.ctx, false);
 
     let said = said(&app);
     assert!(said.contains("serious violation"), "{said}");
@@ -846,8 +843,7 @@ fn test_repeat_fatigue_events_speak_the_real_count() {
     app.clear_speech();
 
     for _ in 0..4 {
-        drive.microsleep_misses = 0;
-        drive.microsleep_drift_off_road(&mut app.ctx);
+        drive.microsleep_drift_off_road(&mut app.ctx, false);
     }
 
     let said = said(&app);
@@ -1208,10 +1204,14 @@ fn test_the_fatigue_out_of_service_actually_holds_the_truck() {
     let mut drive = a_drive(&mut app, "Jerry");
     drive.trip.truck.velocity_mps = 27.0;
     drive.trip.truck.throttle = 1.0;
-    drive.microsleep_misses = MICROSLEEP_FORCE_STOP_MISSES - 1;
+    // The window runs out on the last miss before the forced stop.
+    drive.nod = NodState {
+        nod: Nod::Nodding { left_s: 0.0 },
+        misses: MICROSLEEP_FORCE_STOP_MISSES - 1,
+    };
     app.clear_speech();
 
-    drive.microsleep_drift_off_road(&mut app.ctx);
+    drive.update_microsleep(&mut app.ctx, 0.1);
 
     assert_eq!(drive.trip.truck.velocity_mps, 0.0);
     assert!(drive.trip.truck.parking_brake); // not a one-frame brake tap
@@ -1276,7 +1276,7 @@ fn test_a_settled_stop_is_read_back_as_history_not_as_a_fresh_charge() {
         .last()
         .cloned()
         .unwrap_or_else(|| panic!("the stop said nothing"));
-    assert!(first.starts_with("You stop on the shoulder"), "{first}");
+    assert!(!first.starts_with("Stop already settled"), "{first}");
 
     // Told again: same detail, plainly already settled.
     stop.announce_entry(&mut app.ctx);

@@ -791,8 +791,8 @@ fn shipped_chinese_translates_dynamic_online_driver_rows() {
 fn shipped_chinese_translates_dynamic_region_and_training_rows() {
     let tr = shipped_chinese();
     assert_eq!(
-        tr.translate("California (44 cities). 3 of 16."),
-        "California（44个城市）。第 3 项，共 16 项。"
+        tr.translate("California, 44 cities. 3 of 16."),
+        "California，44个城市。第 3 项，共 16 项。"
     );
     assert_eq!(
         tr.translate(
@@ -813,9 +813,9 @@ fn shipped_chinese_translates_dispatch_pickup_and_driving_lines() {
     let tr = shipped_chinese();
     assert_eq!(
         tr.translate(
-            "Needs an extra rest on this shift's hours. ELD status off duty. Hours of service: 11 hours of driving left, 5.2 hours left in the 14-hour window. Sleeper split open: 7 more hours in the sleeper to pair it. Enter again to accept."
+            "Needs an extra rest on this shift's hours. Hours of service: 11 hours of driving left, 5.2 hours left in the duty window. Split rest started: 7 more hours in the sleeper finish it. Enter again to accept."
         ),
-        "按本次轮班的工时计算，需要额外休息。ELD 状态：下班。驾驶工时：剩余驾驶时间11小时，14小时当班时段剩余5.2小时。卧铺分段休息尚未配对：还需在卧铺休息7小时。再次按Enter接受。"
+        "按本次轮班的工时计算，需要额外休息。驾驶工时：剩余驾驶时间11小时，14小时当班时段剩余5.2小时。卧铺分段休息尚未配对：还需在卧铺休息7小时。再次按Enter接受。"
     );
     assert_eq!(
         tr.translate("Loaded and sealed for Valencia, California."),
@@ -827,9 +827,9 @@ fn shipped_chinese_translates_dispatch_pickup_and_driving_lines() {
     );
     assert_eq!(
         tr.translate(
-            "On I-10 toward Indio, California. Next stop in 1 mile: travel center ahead at exit 239. Automatic transmission."
+            "On I-10 toward Indio, California. Next stop in 1 mile: travel center off exit 239. Automatic transmission."
         ),
-        "在 I-10 上朝向 Indio, California。前方1英里是下一个停靠点：前方239号出口处的卡车服务区。自动变速箱。"
+        "在 I-10 上朝向 Indio, California。前方1英里是下一个停靠点：239号出口处的卡车服务区。自动变速箱。"
     );
 }
 
@@ -841,7 +841,7 @@ fn shipped_spanish_says_every_eld_status_whole() {
     // "ELD status en duty not de conducción".
     let tr = shipped_spanish();
     let hours = "Hours of service: 11 hours of driving left, 30-minute break due in 8 hours, \
-                 14 hours left in the 14-hour window";
+                 14 hours left in the duty window";
     let spanish_hours = "Horas de servicio: quedan 11 horas de conducción, la pausa de 30 minutos \
                          toca en 8 horas y quedan 14 horas de la ventana de 14 horas";
     for (status, spoken) in [
@@ -870,16 +870,17 @@ fn shipped_spanish_keeps_a_template_hole_to_one_sentence() {
     let tr = shipped_spanish();
     assert_eq!(
         tr.translate(
-            "Page Down tunes to the next station, Page Up to the previous; semicolon and \
-             apostrophe do the same. Control with the tuning keys jumps a category; Shift \
-             changes the radio volume in 10 percent steps, on or off. S posted speed limit. \
+            "Page Down or apostrophe tunes to the next station, Page Up or semicolon to the \
+             previous one. Control with a tuning key jumps a category. Shift with a tuning \
+             key changes the radio volume in 10 percent steps, with the radio on or off. \
+             S posted speed limit. \
              G the grade under the wheels, whether the truck is holding it, and the next \
              grade ahead. Tab status menu."
         ),
-        "Page Down sintoniza la emisora siguiente y Page Up la anterior; punto y coma y \
-         apóstrofo hacen lo mismo. Control con las teclas de sintonía salta de categoría; \
-         Mayúsculas cambia el volumen de la radio de 10 en 10 por ciento, o la enciende o \
-         apaga. S el límite de velocidad señalizado. G la pendiente bajo las ruedas, si el \
+        "Page Down o el apóstrofo sintonizan la emisora siguiente, Page Up o el punto y \
+         coma la anterior. Control con una tecla de sintonía salta de categoría. Mayúsculas \
+         con una tecla de sintonía cambia el volumen de la radio de 10 en 10 por ciento, con \
+         la radio encendida o apagada. S el límite de velocidad señalizado. G la pendiente bajo las ruedas, si el \
          camión la está aguantando, y la próxima pendiente. Tab el menú de estado."
     );
 }
@@ -912,10 +913,10 @@ fn shipped_spanish_says_a_yard_once_and_joins_de_el() {
     );
     assert_eq!(
         tr.translate(
-            "On I-94 toward Kenosha, Wisconsin. Next stop in 1 mile: travel center ahead at exit 50B."
+            "On I-94 toward Kenosha, Wisconsin. Next stop in 1 mile: travel center off exit 50B."
         ),
-        "En I-94 hacia Kenosha, Wisconsin. Próxima parada en 1 milla: área de servicio más \
-         adelante en la salida 50B."
+        "En I-94 hacia Kenosha, Wisconsin. Próxima parada en 1 milla: área de servicio en la \
+         salida 50B."
     );
 }
 
@@ -928,13 +929,13 @@ fn shipped_spanish_says_places_board_rows_and_regions_whole() {
     for (english, spanish) in [
         ("Pulling into freight terminal Bemidji Company Yard in Bemidji.", "Entrando en terminal de carga Bemidji Company Yard en Bemidji."),
         ("Loaded for freight terminal Macon Terminal in Macon.", "Cargado para terminal de carga Macon Terminal en Macon."),
-        ("Dispatch routed you to retail distribution hub Amazon Fulfillment Center KRB1 in Kenosha, Wisconsin.", "Despacho te ha enviado a centro de distribución comercial Amazon Fulfillment Center KRB1 en Kenosha, Wisconsin."),
+        ("Dispatch routed you to Kenosha, Wisconsin.", "Despacho te envió a Kenosha, Wisconsin."),
         ("Market watch: automotive tight, farm inputs tight, lumber paper loose, steel loose.", "Vistazo al mercado: automoción al alza, insumos agrícolas al alza, madera y papel a la baja, acero a la baja."),
-        ("16 tons of general freight from Chicago Parcel Hub in Chicago, Illinois to the Fargo metro freight market. 62 miles. Carrier gross 332 dollars. Deadline 3 hours. Equipment: dry van trailer.", "16 toneladas de carga general desde Chicago Parcel Hub en Chicago, Illinois hasta el mercado de carga metropolitano de Fargo. 62 millas. Ingreso bruto de la empresa de transporte: 332 dólares. Plazo de entrega: 3 horas. Equipo: remolque de furgón seco."),
-        ("16 tons of general freight from Chicago Parcel Hub in Chicago, Illinois to Amazon Fulfillment Center KRB1 in Kenosha, Wisconsin. 62 miles. Gross revenue 332 dollars. Deadline 12 hours, includes a 10-hour rest. Equipment: dry van trailer.", "16 toneladas de carga general desde Chicago Parcel Hub en Chicago, Illinois hasta Amazon Fulfillment Center KRB1 en Kenosha, Wisconsin. 62 millas. Ingresos brutos: 332 dólares. Plazo de entrega: 12 horas, incluye un descanso de 10 horas. Equipo: remolque de furgón seco."),
+        ("16 tons of general freight from Chicago, Illinois to Fargo, North Dakota. 62 miles, deadline 3 hours. Pays 332 dollars.", "16 toneladas de carga general de Chicago, Illinois a Fargo, North Dakota. 62 millas, plazo 3 horas. Paga 332 dólares."),
+        ("16 tons of general freight from Chicago, Illinois to Kenosha, Wisconsin. 62 miles, deadline 12 hours with a 10-hour rest. Pays 332 dollars.", "16 toneladas de carga general de Chicago, Illinois a Kenosha, Wisconsin. 62 millas, plazo 12 horas con un descanso de 10 horas. Paga 332 dólares."),
         (
-            "Accepted. Deadhead 1.1 miles on South Canal Street to pickup at Chicago Parcel Hub in Chicago, Illinois.",
-            "Aceptado. Trayecto en vacío de 1,1 millas por South Canal Street hasta la recogida en Chicago Parcel Hub en Chicago, Illinois.",
+            "Accepted. 1.1 miles empty to Chicago Parcel Hub.",
+            "Aceptada. 1,1 millas en vacío hasta Chicago Parcel Hub.",
         ),
         (
             "Pulling into port Port of Tacoma in Tacoma, Washington.",
@@ -956,7 +957,7 @@ fn shipped_spanish_says_places_board_rows_and_regions_whole() {
             "Down to two lanes your side. Road widens to three lanes your side.",
             "Se reduce a dos carriles en tu sentido. La carretera se ensancha a tres carriles en tu sentido.",
         ),
-        ("Great Lakes (29 cities). 8 of 16.", "Great Lakes (29 ciudades). 8 de 16."),
+        ("Great Lakes, 29 cities. 8 of 16.", "Great Lakes, 29 ciudades. 8 de 16."),
         ("Current grade 2.0 percent downhill, terrain hills.", "Pendiente actual 2,0 por ciento de bajada, terreno de colinas."),
         ("You have 5,000 dollars. First-day objective: open the dispatch board and accept your assigned trainer-recommended load.", "Tienes 5.000 dólares. Objetivo del primer día: abre el tablón de trabajos y acepta la carga asignada que recomienda el instructor."),
     ] {
@@ -1135,4 +1136,47 @@ fn shipped_spanish_says_a_whole_dispatch_board_row() {
     ] {
         assert!(!spanish.contains(english), "{english}: {spanish}");
     }
+}
+
+/// The shipped Polish catalog, as a player gets it.
+fn shipped_polish() -> Translator {
+    let po = include_str!("../../../../lang/pl.po");
+    Translator::new(Catalog::from_po("pl", po).expect("lang/pl.po parses"))
+}
+
+#[test]
+fn shipped_polish_says_a_numbered_job_whole() {
+    // "Job 2 of 7: " leads into the load sentence; the clause split broke
+    // that sentence at the commas inside its place names, so the whole
+    // sentence stayed English (issue 549).
+    let tr = shipped_polish();
+    let out = tr.translate(
+        "Job 2 of 7: 19 tons of general freight from Pendleton, Oregon to Boise, Idaho. 364 miles, \
+         deadline 6 hours. Pays 1,204 dollars.",
+    );
+    assert!(out.starts_with("Zlecenie 2 z 7: "), "{out}");
+    assert!(!out.contains(" tons of "), "{out}");
+    let out = tr.translate(
+        "Recommended dispatch, senior company lane: Job 1 of 7: 13 tons of refrigerated goods from \
+         Pendleton, Oregon to Spokane, Washington. 332 miles, deadline 6 hours. Pays 1,090 \
+         dollars.",
+    );
+    assert!(out.contains("Zlecenie 1 z 7: "), "{out}");
+    assert!(!out.contains(" tons of "), "{out}");
+}
+
+#[test]
+fn shipped_polish_says_the_pay_after_costs_as_a_polish_number() {
+    // "{take_home}" reads as a home city by its name, so "about 6,576 after
+    // costs" kept the English comma: six point five, to a Polish or German
+    // ear, beside a correctly written "7 323" for the gross.
+    let tr = shipped_polish();
+    let out = tr.translate("Pays 7,323 dollars, about 6,576 after costs.");
+    assert!(out.contains("7\u{a0}323"), "{out}");
+    assert!(out.contains("6\u{a0}576"), "{out}");
+    assert!(!out.contains("6,576"), "{out}");
+    let po = include_str!("../../../../lang/de.po");
+    let de = Translator::new(Catalog::from_po("de", po).expect("lang/de.po parses"));
+    let out = de.translate("Pays 7,323 dollars, about 6,576 after costs.");
+    assert!(out.contains("7.323") && out.contains("6.576"), "{out}");
 }

@@ -39,14 +39,7 @@ pub const TERMINAL_CHAINS_MIN: f64 = 10.0;
 pub const CHAIN_REPAIR_LINKS_COST: f64 = 25.0;
 
 fn record_terminal_duty(ctx: &mut GameContext, start_hour: f64, end_hour: f64, note: &str) {
-    let terminal = crate::states::city::parked_at(ctx);
-    profile_mut(ctx).duty_log.record(
-        "on_duty_not_driving",
-        start_hour,
-        end_hour,
-        &terminal.name,
-        note,
-    );
+    crate::states::city::record_city_duty(ctx, "on_duty_not_driving", start_hour, end_hour, note);
 }
 
 /// Damage at which the carrier's shop takes a company tractor before a load:
@@ -92,7 +85,7 @@ fn save_equipment_change(ctx: &mut GameContext) {
 fn remaining_balance_text(money: f64) -> String {
     if money < 0.0 {
         return format!(
-            "You have {} dollars; the unpaid balance is debt.",
+            "You have {} dollars. The unpaid balance is debt.",
             fmt_grouped(money, 0)
         );
     }
@@ -241,12 +234,15 @@ impl GarageState {
             return;
         }
         if !player_pays_operating_costs(&profile(ctx).business_status) {
-            {
+            let (start, end) = {
                 let p = profile_mut(ctx);
                 p.set_truck_fuel_gal(tank);
+                let start = p.game_hours;
                 p.game_hours += TERMINAL_FUEL_MIN / 60.0;
                 p.hos.on_duty(TERMINAL_FUEL_MIN);
-            }
+                (start, p.game_hours)
+            };
+            crate::states::city::city_on_duty_fatigue(ctx, start, end);
             ctx.save_profile();
             ctx.audio.play("vehicle/fuel_pump");
             ctx.say(&format!(
@@ -334,12 +330,15 @@ impl GarageState {
         let deep_damage = damage >= 75.0;
         if !player_pays_operating_costs(&profile(ctx).business_status) {
             let fixed = damage;
-            {
+            let (start, end) = {
                 let p = profile_mut(ctx);
                 p.set_truck_damage_pct(0.0);
+                let start = p.game_hours;
                 p.game_hours += TERMINAL_REPAIR_MIN / 60.0;
                 p.hos.on_duty(TERMINAL_REPAIR_MIN);
-            }
+                (start, p.game_hours)
+            };
+            crate::states::city::city_on_duty_fatigue(ctx, start, end);
             save_equipment_change(ctx);
             ctx.audio.play("ui/notify");
             ctx.say(&format!(
@@ -592,7 +591,7 @@ impl GarageState {
     fn tire_swap_label(ctx: &GameContext) -> String {
         let p = profile(ctx);
         if !player_pays_operating_costs(&p.business_status) {
-            return "Tire compound: the carrier specs its own rubber".to_string();
+            return "Tire type: the carrier chooses its own tires".to_string();
         }
         if p.tire_type() == "winter" {
             let cost = round_py_n(100.0 * TIRE_SERVICE_COST_PER_PCT, 2);
@@ -1020,9 +1019,9 @@ impl Menu for GarageState {
                 |s: &mut Self, ctx| s.buy_chains(ctx),
             )
             .help(
-                "A chain set is seven chains: four for the drive tires, one for a trailer \
-                 tire, and two spares, the most any state here asks of a semi, plus two \
-                 repair links. Put chains on from the pause menu once you're stopped in snow \
+                "A chain set is seven chains and two repair links. Four chains go on the drive \
+                 tires and one on a trailer tire, the most any state here asks of a semi. \
+                 The other two are spares. Put chains on from the pause menu once you're stopped in snow \
                  or ice. They wear out fast on bare pavement. Company drivers bill the \
                  carrier.",
             ),

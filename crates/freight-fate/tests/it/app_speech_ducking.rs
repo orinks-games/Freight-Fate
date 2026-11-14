@@ -4,8 +4,9 @@
 //! A warning must survive a loud cab -- engine, weather, and the radio --
 //! without the voice itself getting louder. The duck engages the moment a
 //! line reaches the event channel and restores on the pacer's own
-//! projection of when the voice falls silent: no polling of the speech
-//! backend, which cannot be asked. (The backend half -- which channels the
+//! projection of when the voice falls silent, corrected by the voice's own
+//! report where it can give one (NVDA 2026.3 and later, SAPI, OneCore).
+//! (The backend half -- which channels the
 //! duck scales -- is `tests/audio_speech_ducking.rs`.)
 
 use ff_core::settings::Settings;
@@ -39,7 +40,7 @@ fn test_event_speech_ducks_the_mix_and_the_frame_after_silence_restores_it() {
     let (audio, clock) = rig(&mut app);
 
     app.ctx
-        .say_event_with("Open weigh station ahead in two miles.", SayEvent::queued());
+        .say_event_with("Open weigh station in two miles.", SayEvent::queued());
     assert_eq!(audio.borrow().ducks, vec![SPEECH_DUCK_LEVEL]);
 
     // Voice still speaking: the per-frame check leaves the duck alone.
@@ -64,7 +65,7 @@ fn test_the_setting_turns_the_duck_off() {
     app.ctx.settings.duck_audio_for_speech = false;
 
     app.ctx
-        .say_event_with("Open weigh station ahead in two miles.", SayEvent::queued());
+        .say_event_with("Open weigh station in two miles.", SayEvent::queued());
 
     assert!(audio.borrow().ducks.is_empty());
     app.shutdown();
@@ -98,7 +99,7 @@ fn test_a_line_the_rung_silences_leaves_the_mix_alone() {
         app.ctx.settings.driving_speech = rung.to_string();
 
         app.ctx.say_event_with(
-            "Traffic ahead, slowing.",
+            "Traffic slowing.",
             SayEvent::queued().category(SpeechCategory::Traffic),
         );
 
@@ -153,5 +154,53 @@ fn test_with_ducking_off_a_say_path_earcon_leaves_the_mix_alone() {
         audio.borrow().ducks
     );
     assert!(!app.ctx.speech_ducked());
+    app.shutdown();
+}
+
+#[test]
+fn test_a_voice_that_reports_silence_restores_the_mix_before_the_estimate() {
+    // A fast NVDA rate finishes the line well before the length-based
+    // estimate; the mix comes back when the voice says so.
+    let mut app = TestApp::new();
+    let (audio, clock) = rig(&mut app);
+    app.ctx.say_event_with(
+        "Open weigh station in two miles. Have your paperwork ready.",
+        SayEvent::queued(),
+    );
+    clock.advance(1.0);
+    app.speech_mut().set_voice_speaking(Some(false));
+    app.ctx.update_event_voice_report();
+    app.ctx.update_speech_duck();
+    assert_eq!(audio.borrow().ducks, vec![SPEECH_DUCK_LEVEL, 1.0]);
+    app.shutdown();
+}
+
+#[test]
+fn test_a_voice_still_speaking_keeps_the_mix_down_past_the_estimate() {
+    // A slow voice is still on the line after the estimate ran out.
+    let mut app = TestApp::new();
+    let (audio, clock) = rig(&mut app);
+    app.ctx
+        .say_event_with("Weigh station open.", SayEvent::queued());
+    clock.advance(2.0);
+    app.speech_mut().set_voice_speaking(Some(true));
+    app.ctx.update_event_voice_report();
+    app.ctx.update_speech_duck();
+    assert_eq!(audio.borrow().ducks, vec![SPEECH_DUCK_LEVEL]);
+
+    clock.advance(0.1);
+    app.speech_mut().set_voice_speaking(Some(false));
+    app.ctx.update_event_voice_report();
+    app.ctx.update_speech_duck();
+    assert_eq!(audio.borrow().ducks, vec![SPEECH_DUCK_LEVEL, 1.0]);
+    app.shutdown();
+}
+
+#[test]
+fn test_the_voice_is_not_asked_while_nothing_was_said() {
+    let mut app = TestApp::new();
+    let (_audio, _clock) = rig(&mut app);
+    app.ctx.update_event_voice_report();
+    assert_eq!(app.speech().voice_reports(), 0);
     app.shutdown();
 }

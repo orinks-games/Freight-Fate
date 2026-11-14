@@ -235,8 +235,8 @@ macro_rules! sweep_shard_tests {
         $(
             #[test]
             #[cfg_attr(
-                ci_quick,
-                ignore = "sweep: about 96 origins across the whole network -- left to the nightly by --cfg ci_quick"
+                not(feature = "slow-tests"),
+                ignore = "sweep: about 96 origins across the whole network"
             )]
             fn $name() {
                 $check($shard);
@@ -1126,9 +1126,9 @@ fn test_jobs_match_shipper_and_receiver_roles() {
                     .unwrap();
                 assert!(origin.ships.iter().any(|k| k == job.cargo.key));
                 assert!(destination.receives.iter().any(|k| k == job.cargo.key));
-                let text = job.describe_plain();
-                assert!(text.contains(&origin.name));
-                assert!(text.contains(&destination.name));
+                // The names are on the job details, not the board line.
+                assert!(job.origin_facility_text().contains(&origin.name));
+                assert!(job.destination_facility_text().contains(&destination.name));
             }
         }
     }
@@ -1198,14 +1198,17 @@ fn test_jobs_carry_destination_facility_metadata() {
             .locations
             .iter()
             .any(|loc| loc.name == job.destination_location));
-        let text = job.describe_plain();
-        assert!(text.contains(&job.origin_location));
-        assert!(text.contains(&job.destination_location));
+        assert!(job.origin_facility_text().contains(&job.origin_location));
+        assert!(job
+            .destination_facility_text()
+            .contains(&job.destination_location));
     }
 }
 
 #[test]
 fn test_job_offer_avoids_repeating_facility_type_in_generated_names() {
+    // "grocery and retail distribution center" over a name that ends in
+    // Distribution Center was heard twice in one line (2026-11-04).
     let mut job = Job::new(
         general(),
         12.0,
@@ -1220,10 +1223,14 @@ fn test_job_offer_avoids_repeating_facility_type_in_generated_names() {
     job.destination_location = "Fort Wayne Dry Warehouse".to_string();
     job.destination_type = "dry_warehouse".to_string();
 
-    let text = job.describe_numbered(1, 5);
+    let text = format!(
+        "{} {}",
+        job.origin_facility_text(),
+        job.destination_facility_text()
+    );
 
-    assert!(text.contains("from South Bend Grocery Distribution Center in South Bend"));
-    assert!(text.contains("to Fort Wayne Dry Warehouse in Fort Wayne"));
+    assert!(text.contains("South Bend Grocery Distribution Center in South Bend"));
+    assert!(text.contains("Fort Wayne Dry Warehouse in Fort Wayne"));
     assert!(!text.contains("grocery and retail distribution center South Bend"));
     assert!(!text.contains("dry warehouse Fort Wayne Dry Warehouse"));
 }
@@ -1670,6 +1677,10 @@ fn share(mix: &(usize, std::collections::BTreeMap<&'static str, usize>), key: &s
 }
 
 #[test]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: thousands of boards across the whole network"
+)]
 fn hazmat_and_tank_holders_see_placarded_and_fuel_freight_map_wide() {
     // 2026-09-16: nobody on staging had ever hauled a placarded or bulk fuel
     // load, because the board offered a hazmat holder 1.2 percent placarded
@@ -1983,4 +1994,28 @@ fn every_offered_turnpike_doubles_lane_has_a_cap_in_every_state() {
         }
     }
     assert!(checked > 0, "no seeded board offered turnpike doubles");
+}
+
+#[test]
+fn test_board_line_names_the_shared_state_once() {
+    let mut job = Job::new(
+        general(),
+        12.0,
+        "South Bend",
+        "South Bend Grocery Distribution Center",
+        "Fort Wayne",
+        85.0,
+        833.0,
+        4.0,
+    );
+    job.origin_spoken = "South Bend, Indiana".to_string();
+    job.destination_spoken = "Fort Wayne, Indiana".to_string();
+    let text = job.describe_plain();
+    assert!(text.contains(" from South Bend to Fort Wayne, Indiana. 85 miles, deadline 4 hours."));
+    assert!(text.ends_with("Pays 833 dollars."));
+    assert!(!text.contains("Distribution Center"));
+    assert_eq!(
+        route_origin("Chicago, Illinois", "Kenosha, Wisconsin"),
+        "Chicago, Illinois"
+    );
 }

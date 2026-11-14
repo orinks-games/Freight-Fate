@@ -507,10 +507,12 @@ fn test_destination_exit_auto_arms_and_takes_ramp_with_valid_setup() {
         "the ramp starts at its own length, {start}: {ramp:?}"
     );
     assert!(harness.read_drive(|d| d.destination_exit_taken));
+    // The ramp line names the exit it took, whichever load the career drew.
+    let number = stop.exit_label.trim_start_matches("exit ").to_string();
     assert!(
         spoken(&harness)
             .iter()
-            .any(|line| line.contains("Exit 342. A quarter mile of ramp")),
+            .any(|line| line.starts_with(&format!("Exit {number}. ")) && line.contains(" of ramp")),
         "{:?}",
         spoken(&harness)
     );
@@ -921,7 +923,7 @@ fn test_exit_traffic_pressure_changes_missed_lane_recovery() {
 
     assert!(harness.read_drive(|d| d.ramp_mi.is_none()));
     assert!(
-        said_any(&harness, "Boxed out of the exit lane"),
+        said_any(&harness, "Traffic blocked the exit lane"),
         "{:?}",
         spoken(&harness)
     );
@@ -997,7 +999,7 @@ fn test_merging_and_construction_pressures_still_speak_unsignalled() {
     let at = harness.read_drive(|d| d.trip.position_mi) + 1.6;
     for (kind, direction, phrase) in [
         ("route_merge", "right", "Merging traffic,"),
-        ("construction_merge", "left", "Taper squeezing,"),
+        ("construction_merge", "left", "Lane ending,"),
         ("traffic_pack", "right", "Traffic pack,"),
     ] {
         // Real time between the three cues: these are AMBIENT lines, and
@@ -1041,8 +1043,10 @@ fn test_exit_speed_assist_slows_with_full_lane_keeping() {
     let at = stop.at_mi;
     harness.with_drive(move |d, _| {
         d.trip.position_mi = at - 1.0;
-        d.truck_mut().velocity_mps = 29.0; // ~65 mph, well over ramp speed
-                                           // Out of the right lane.
+        // Well over what the gore accepts, whatever road the stop is on.
+        let over_mph = d.gore_acceptance_mph(Some(&stop)) + 8.0;
+        d.truck_mut().velocity_mps = over_mph / 2.236_936;
+        // Out of the right lane.
         d.lane.lane_count = 2;
         d.lane.lane = 1;
     });
@@ -1092,7 +1096,9 @@ fn test_the_exit_speed_assist_runs_when_lane_keeping_takes_the_exit() {
         d.exit_stop = Some(stop.clone());
         d.exit_signal_on = false; // automated lane keeping IS the commitment
         d.trip.position_mi = at - 1.0;
-        d.truck_mut().velocity_mps = 29.0; // ~65 mph, well over ramp speed
+        // Well over what the gore accepts, whatever road the stop is on.
+        let over_mph = d.gore_acceptance_mph(Some(&stop)) + 8.0;
+        d.truck_mut().velocity_mps = over_mph / 2.236_936;
     });
     harness.clear_speech();
 
@@ -1114,7 +1120,7 @@ fn test_a_fresh_cruise_session_inherits_an_armed_exit_s_ramp_cap() {
     // Cancelling cruise clears the exit cap. On the Denver run the descent
     // cancelled it about a mile from the ramp, the driver re-engaged at 53,
     // and the new session had forgotten the exit -- its own line said
-    // "adaptive cruise set at 53 miles per hour" with no "for the ramp" note,
+    // "cruise set at 53 miles per hour" with no "for the ramp" note,
     // which is the tell. The cap belongs to the road ahead, not to whichever
     // cruise session happened to be running when the exit was announced.
     //
@@ -1150,7 +1156,7 @@ fn test_a_fresh_cruise_session_inherits_an_armed_exit_s_ramp_cap() {
 
 #[test]
 fn test_the_ramp_cap_holds_road_speed_until_the_exit() {
-    // Owner playtest, 2026-08-21: heard "adaptive cruise will ease to 40 for
+    // Owner playtest, 2026-08-21: heard "cruise will ease to 40 for
     // the ramp" five miles from the exit and reported the truck slowing early.
     // It was not slowing: the cap holds road speed until about half a mile
     // out and only then sheds. The line is gone (owner, 2026-10-14); the
@@ -1178,7 +1184,7 @@ fn test_the_ramp_cap_holds_road_speed_until_the_exit() {
 #[test]
 fn test_the_exit_assist_leaves_cruise_alone_while_it_has_nothing_to_shed() {
     // Owner, Spokane, twice (2026-08-21 and -22): on the run-in to the
-    // destination exit the status said "automatic speed control paused" and
+    // destination exit the status said "cruise paused" and
     // the truck ran from 60 to 69 down a 3.7 percent grade.
     //
     // The exit speed assist paused speed control the moment the exit came

@@ -658,7 +658,7 @@ fn test_destination_exit_keeps_cruise_and_eases_for_ramp() {
     assert!(message.to_lowercase().contains("signal"), "{message}");
     assert!(!message.contains("X takes"), "{message}");
     // How cruise takes the ramp is not narrated (owner, 2026-10-14).
-    assert!(!message.contains("Adaptive cruise"), "{message}");
+    assert!(!message.contains("Cruise"), "{message}");
 
     // The ramp approach target is this exit's own, so read it rather than
     // spelling a number that now depends on the road (owner, 2026-08-21).
@@ -666,9 +666,7 @@ fn test_destination_exit_keeps_cruise_and_eases_for_ramp() {
     drive.adjust_cruise(&mut app.ctx, -1, false);
     assert_eq!(
         app.main_lines().last().cloned().unwrap_or_default(),
-        format!(
-            "Open-road cruise target 55 miles per hour. Ramp approach target {ramp_mph:.0} miles per hour."
-        )
+        format!("Cruise speed 55 miles per hour. Ramp approach {ramp_mph:.0} miles per hour.")
     );
     for _ in 0..3 {
         drive.adjust_cruise(&mut app.ctx, -1, false);
@@ -682,9 +680,7 @@ fn test_destination_exit_keeps_cruise_and_eases_for_ramp() {
         .min(drive.cruise_exit_mph.unwrap_or(f64::INFINITY));
     let said = app.main_lines().last().cloned().unwrap_or_default();
     assert!(
-        said.ends_with(&format!(
-            "Ramp approach target {spoken_target:.0} miles per hour."
-        )),
+        said.ends_with(&format!("Ramp approach {spoken_target:.0} miles per hour.")),
         "{said}"
     );
 }
@@ -713,7 +709,7 @@ fn test_taking_the_announced_exit_does_not_repeat_the_ramp_cap() {
     let set = harness.read_drive(|d| d.cruise_mph).expect("cruise");
     assert!(ramp_mph < set - 1.0, "{ramp_mph} under {set}");
     assert!(
-        !last_said(&harness).contains("Adaptive cruise"),
+        !last_said(&harness).contains("Cruise"),
         "{}",
         last_said(&harness)
     );
@@ -728,7 +724,7 @@ fn test_taking_the_announced_exit_does_not_repeat_the_ramp_cap() {
     let confirmation = last_said(&harness);
     assert!(confirmation.contains("Signal set for"), "{confirmation}");
     // Already said, and already capped.
-    assert!(!confirmation.contains("Adaptive cruise"), "{confirmation}");
+    assert!(!confirmation.contains("Cruise"), "{confirmation}");
     assert_eq!(harness.read_drive(|d| d.cruise_exit_mph), Some(ramp_mph));
 }
 
@@ -783,7 +779,7 @@ fn test_signaling_for_an_exit_eases_cruise_at_most_ten_under_road_speed() {
     );
     assert_eq!(harness.read_drive(|d| d.cruise_exit_mph), Some(ramp_mph));
     assert!(
-        !last_said(&harness).contains("Adaptive cruise"),
+        !last_said(&harness).contains("Cruise"),
         "{}",
         last_said(&harness)
     );
@@ -860,10 +856,7 @@ fn test_a_zone_past_the_destination_exit_is_never_announced() {
             ..Default::default()
         },
     };
-    let cue = gate_cue(
-        gate.clone(),
-        "In 2 miles, facility gate ahead. Speed limit 15.",
-    );
+    let cue = gate_cue(gate.clone(), "In 2 miles, facility gate. Speed limit 15.");
     harness.with_drive(move |drive, ctx| drive.handle_trip_event(ctx, &cue));
     assert!(events(&harness).is_empty(), "{:#?}", events(&harness));
 
@@ -872,7 +865,7 @@ fn test_a_zone_past_the_destination_exit_is_never_announced() {
     // replayed on the street chain, so reachability is tested with a
     // highway-side reason.)
     let reachable = Zone::new(exit_at - 2.0, exit_at - 1.0, 35.0, "construction");
-    let cue = gate_cue(reachable, "In 2 miles, construction ahead. Speed limit 35.");
+    let cue = gate_cue(reachable, "In 2 miles, construction. Speed limit 35.");
     harness.with_drive(move |drive, ctx| drive.handle_trip_event(ctx, &cue));
     assert!(
         last_event(&harness).starts_with("In 2 miles, construction"),
@@ -887,7 +880,7 @@ fn test_a_zone_past_the_destination_exit_is_never_announced() {
     harness.advance_clock(10.0);
     harness.with_drive(|drive, _| drive.phase = "pickup");
     harness.clear_speech();
-    let cue = gate_cue(gate, "In 2 miles, facility gate ahead. Speed limit 15.");
+    let cue = gate_cue(gate, "In 2 miles, facility gate. Speed limit 15.");
     harness.with_drive(move |drive, ctx| drive.handle_trip_event(ctx, &cue));
     assert!(
         last_event(&harness).starts_with("In 2 miles, facility gate"),
@@ -905,9 +898,7 @@ fn test_missed_destination_exit_suppresses_facility_zone_cues() {
             ctx,
             &TripEvent {
                 kind: TripEventKind::GpsCue,
-                message: SpokenMessage::new(
-                    "In 1 miles, destination approach ahead. Speed limit 35.",
-                ),
+                message: SpokenMessage::new("In 1 miles, destination approach. Speed limit 35."),
                 data: TripEventData {
                     zone: Some(Zone::new(99.0, 100.0, 35.0, "destination approach")),
                     ..Default::default()

@@ -232,13 +232,25 @@ impl DrivingState {
         ctx.controller.active() && !self.co_driver_driving()
     }
 
-    /// Whether a team is worth offering for the rest of this trip: the
-    /// delivery leg, and long enough that driving it alone needs a sleep.
-    pub fn team_available(&self, ctx: &GameContext) -> bool {
+    /// Whether this load has a co-driver aboard: a team load, or one the
+    /// dock offered a co-driver for. Dispatch pairs the team before the
+    /// load leaves, so nobody joins or leaves on the road, whatever the
+    /// player's hours do after (owner, 2026-11-09).
+    pub fn team_available(&self) -> bool {
         if self.phase != DRIVE_PHASE_DELIVERY || self.trip.finished {
             return false;
         }
-        if self.team.is_some() || self.job.team {
+        self.team.is_some() || self.job.team
+    }
+
+    /// Whether the loaded departure takes a co-driver along: the dock's own
+    /// test, a team load or one long enough that driving it alone needs a
+    /// sleep.
+    pub fn team_at_departure(&self, ctx: &GameContext) -> bool {
+        if self.phase != DRIVE_PHASE_DELIVERY || self.trip.finished {
+            return false;
+        }
+        if self.job.team {
             return true;
         }
         // The planner's own pace for the road ahead, curves and towns
@@ -259,14 +271,15 @@ impl DrivingState {
         }
     }
 
-    /// Pair a co-driver for this load if there is none yet.
+    /// Pair a co-driver for this load if there is none yet: at the loaded
+    /// departure, or when the dock hands them the wheel.
     pub fn ensure_team(&mut self, ctx: &mut GameContext) {
         if self.team.is_some() {
             return;
         }
         let pairing = self.team_pairing(ctx);
         let mut team = TeamDrive::new(pairing.co_driver, pairing.reason);
-        // A co-driver joining mid-load has been in the bunk, rested.
+        // They start the load rested, from the bunk.
         team.off_wheel_hos.sleep();
         self.team = Some(team);
     }
@@ -323,7 +336,7 @@ impl DrivingState {
         }
         // Nothing the player was holding carries over to the co-driver.
         self.brake_latch = Default::default();
-        self.microsleep_deadline = None;
+        self.nod.next(NodEvent::WheelHandedOver);
         log::info!(
             target: TRANSCRIPT_TARGET,
             "[co-driver] {} takes the wheel ({mode:?})",
@@ -416,7 +429,7 @@ fn summon_line(name: &str, reason: &str) -> String {
         "roadside" => format!("{name} needs you. A trooper has the truck stopped."),
         "parking" => format!("{name} needs you. The lot is full."),
         "chains" => format!(
-            "{name} needs you. The chain checkpoint is holding the truck, and there are no chains aboard."
+            "{name} needs you. The chain control is holding the truck, and there are no chains aboard."
         ),
         "screen" | "stop" => format!("{name} has the truck stopped and needs you to choose what to do."),
         _ => format!("{name} needs you to decide this one."),

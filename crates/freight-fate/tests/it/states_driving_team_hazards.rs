@@ -161,7 +161,7 @@ fn from_the_left_lane_the_co_driver_leaves_a_left_closure() {
 /// to one. Then, recorded, the same ramp took minutes at the crawl its bend
 /// is signed for (owner, 2026-10-24).
 #[test]
-#[cfg_attr(ci_quick, ignore = "sweep: drives a 345-mile load")]
+#[cfg_attr(not(feature = "slow-tests"), ignore = "sweep: drives a 345-mile load")]
 fn the_co_driver_drives_up_to_a_ramp_light_the_assist_stopped_short_of() {
     let mut harness = PlaytestHarness::new();
     harness.start_route(
@@ -414,7 +414,7 @@ fn a_work_zone_on_a_downgrade_stays_on_cruise_with_the_co_driver() {
         })
     });
     assert!(past, "never got past the zone");
-    assert!(!keeper, "the speed keeper took a highway work zone");
+    assert!(!keeper, "the cruise took a highway work zone");
     assert!(in_zone_max <= 47.5, "{in_zone_max:.0} in the 45 work zone");
     assert!(!crawled, "crawled past the zone");
     let speed = harness.read_drive(|d| d.truck().speed_mph());

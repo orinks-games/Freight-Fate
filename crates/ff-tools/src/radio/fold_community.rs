@@ -32,7 +32,7 @@ use crate::http;
 use crate::pyjson::{self, Object, Options, Value};
 use crate::util::{self, Result};
 
-const STATIONS_URL: &str = "https://orinks.net/api/freight-fate/stations";
+const STATIONS_URL: &str = "https://www.orinks.net/api/freight-fate/stations";
 const USER_AGENT: &str = "FreightFate/1.9 (catalog build)";
 const ID_PREFIX: &str = "community-";
 /// The game's ceiling on one list (MAX_COMMUNITY_STATIONS).

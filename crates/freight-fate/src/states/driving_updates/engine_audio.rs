@@ -291,7 +291,7 @@ impl DrivingState {
                 self.manual_engage_clunk_pending = false;
             } else if !tr.shifting() && tr.clutch <= 0.5 {
                 ctx.audio.play_bank_with(
-                    "vehicle/shift_manual",
+                    "vehicle/shift_auto",
                     "vehicle/gear_shift",
                     SHIFT_END_CLUNK_VOLUME,
                     0.0,
@@ -450,9 +450,9 @@ impl DrivingState {
         }
         let night = is_night(self.trip.local_hour());
         if night {
-            ctx.audio.set_ambient(Some("ambient/night"));
+            ctx.set_ambient(Some("ambient/night"));
         } else {
-            ctx.audio.set_ambient(None);
+            ctx.set_ambient(None);
         }
         // Before the dial check: the stations are on the air whether or not
         // this cab is listening, which is what lets a re-tune pick a station

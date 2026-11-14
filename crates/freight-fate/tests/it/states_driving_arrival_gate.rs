@@ -1,6 +1,7 @@
 //! Arriving: the gate that will not open until the truck stops, the reminder
-//! that keeps talking after an overshoot, what the trailer weighs on each leg
-//! of a run, and the settlement a tolled route records.
+//! that keeps talking after an overshoot, the stopped truck that has not set
+//! its parking brake, what the trailer weighs on each leg of a run, and the
+//! settlement a tolled route records.
 //!
 //! Ported from `tests/test_driving_features.py`:
 //! `test_delivery_requires_parking_at_destination`,
@@ -16,10 +17,13 @@ use ff_core::sim::vehicle::KG_PER_TON;
 use ff_core::sim::weather::WeatherKind;
 
 use freight_fate::app::testing::TestApp;
+use freight_fate::controller::ControllerButton;
 use freight_fate::playtest::harness::{key_event, PlaytestHarness, StartDelivery};
-use freight_fate::states::base::{Key, Menu, State};
+use freight_fate::states::base::{InputEvent, Key, Menu, State};
 use freight_fate::states::driving::DrivingState;
-use freight_fate::states::driving_core::{DRIVE_PHASE_DELIVERY, DRIVE_PHASE_PICKUP};
+use freight_fate::states::driving_core::{
+    DRIVE_PHASE_DELIVERY, DRIVE_PHASE_PICKUP, GATE_BRAKE_PROMPT_S, GATE_REMINDER_INTERVAL_S,
+};
 use freight_fate::states::driving_menu_states::{
     settlement_hours, ArrivalState, FacilityArrivalState,
 };
@@ -101,7 +105,7 @@ fn test_delivery_requires_parking_at_destination() {
     // Looked up rather than assumed last: whatever the posted limit is on the
     // route dispatch drew, sixty may be over it, and the speeding warning
     // that earns lands in the same frame.
-    let said = an_event_containing(&harness, "Destination ahead");
+    let said = an_event_containing(&harness, "Destination");
     assert!(said.to_lowercase().contains("stop at the gate"), "{said}");
     let hud = harness.with_drive(|d, ctx| d.lines(ctx));
     assert!(
@@ -178,7 +182,7 @@ fn test_arrival_gate_repeats_after_overshoot() {
 
     frame(&mut harness);
     assert!(harness.state_is::<DrivingState>());
-    an_event_containing(&harness, "Destination ahead");
+    an_event_containing(&harness, "Destination");
     let announced = harness.app.event_lines().len();
 
     // Inside the reminder interval the gate stays quiet.
@@ -213,6 +217,236 @@ fn test_arrival_gate_repeats_after_overshoot() {
     assert!(said.to_lowercase().contains("you have arrived"), "{said}");
     assert!(said.contains("Stop to dock"), "{said}");
     assert!(!said.contains("remaining"), "{said}");
+}
+
+// -- stopped at the gate with the parking brake off (first player report, 1.9.6) -----------
+
+/// At the gate, at rest, brake released with the tanks charged, assist off.
+fn stopped_at_gate(name: &str, pickup: bool) -> PlaytestHarness {
+    let mut harness = a_drive(name);
+    harness.app.ctx.settings.destination_approach_assist = false;
+    harness.with_drive(|drive, _| {
+        if pickup {
+            drive.phase = DRIVE_PHASE_PICKUP;
+        }
+        mark_destination_exit_taken(drive);
+        drive.truck_mut().engine_on = true;
+        drive.truck_mut().set_air_ready(false);
+        drive.truck_mut().velocity_mps = 0.0;
+    });
+    harness.clear_speech();
+    harness
+}
+
+/// `seconds` of frames with the truck held at `mph`.
+fn hold_at(harness: &mut PlaytestHarness, mph: f64, seconds: f64) {
+    for _ in 0..(seconds / DT).round() as usize {
+        if !harness.has_drive() || harness.read_drive(|d| d.arrival_menu_open) {
+            return;
+        }
+        harness.with_drive(|drive, _| drive.truck_mut().velocity_mps = mph / 2.23694);
+        frame(harness);
+    }
+}
+
+/// Frames at rest until the driving voice has finished what it was saying;
+/// the seconds that took.
+fn hold_until_quiet(harness: &mut PlaytestHarness) -> f64 {
+    let mut seconds = 0.0;
+    while harness.app.ctx.event_voice_busy() {
+        hold_at(harness, 0.0, DT);
+        seconds += DT;
+        assert!(seconds < 60.0, "the driving voice never went quiet");
+    }
+    seconds
+}
+
+fn said_count(harness: &PlaytestHarness, needle: &str) -> usize {
+    harness
+        .app
+        .event_lines()
+        .iter()
+        .filter(|line| line.contains(needle))
+        .count()
+}
+
+#[test]
+fn test_enter_or_a_at_rest_opens_the_gate_without_the_parking_brake() {
+    // "I arrived at my destination, pressed enter but could not dock."
+    // Stopped, brake off, assist off: Enter did nothing and said nothing.
+    for pickup in [false, true] {
+        for controller in [false, true] {
+            let mut harness = stopped_at_gate("Enter Opens The Gate", pickup);
+            frame(&mut harness);
+            assert!(!harness.read_drive(|d| d.arrival_menu_open));
+            harness.with_drive(|drive, ctx| {
+                if controller {
+                    drive.handle_controller_event(ctx, &InputEvent::button(ControllerButton::A));
+                } else {
+                    drive.handle_key_event(ctx, &key_event(Key::Return, None));
+                }
+            });
+            assert!(
+                harness.read_drive(|d| d.arrival_menu_open),
+                "pickup {pickup}, controller {controller}"
+            );
+            assert!(harness.read_drive(|d| d.truck().parking_brake));
+            if !pickup {
+                harness.finish_timed_state();
+                assert!(harness.state_is::<FacilityArrivalState>());
+            }
+        }
+    }
+}
+
+#[test]
+fn test_stopped_without_the_brake_hears_what_is_missing_once() {
+    for pickup in [false, true] {
+        let mut harness = stopped_at_gate("Brake Line Once", pickup);
+        let key = harness.app.ctx.control_hint("parking_brake");
+        let action = if pickup { "check in" } else { "dock" };
+        let expected = format!("Set the parking brake to {action}. Press {key}.");
+
+        // The truck is at rest under the stop line, which outlasts the
+        // delay. The delay is quiet seconds, so it has not started: counted
+        // under the line, the brake was named twice back to back (recorded
+        // drive, 2026-11-14).
+        frame(&mut harness);
+        let stop_line_s = hold_until_quiet(&mut harness);
+        assert!(stop_line_s > GATE_BRAKE_PROMPT_S, "{stop_line_s}");
+        assert_eq!(said_count(&harness, "Set the parking brake"), 0);
+        // Inside the delay: nothing about the brake yet.
+        hold_at(&mut harness, 0.0, GATE_BRAKE_PROMPT_S - 0.5);
+        assert_eq!(said_count(&harness, "Set the parking brake"), 0);
+        hold_at(&mut harness, 0.0, 1.0);
+        assert_eq!(
+            harness
+                .app
+                .event_lines()
+                .iter()
+                .filter(|line| **line == expected)
+                .count(),
+            1,
+            "{:#?}",
+            harness.app.event_lines()
+        );
+        // Ten more seconds at rest: still once.
+        hold_at(&mut harness, 0.0, 10.0);
+        assert_eq!(said_count(&harness, "Set the parking brake"), 1);
+        assert!(!harness.read_drive(|d| d.arrival_menu_open));
+
+        // Rolled off above the park speed and stopped again: once more.
+        hold_at(&mut harness, 8.0, 0.5);
+        hold_until_quiet(&mut harness);
+        hold_at(&mut harness, 0.0, GATE_BRAKE_PROMPT_S + 0.5);
+        assert_eq!(said_count(&harness, "Set the parking brake"), 2);
+    }
+}
+
+#[test]
+fn test_the_brake_line_drops_the_key_with_driving_hints_off() {
+    let mut harness = stopped_at_gate("Brake Line No Hints", false);
+    harness.app.ctx.settings.driving_hints = false;
+    frame(&mut harness);
+    hold_until_quiet(&mut harness);
+    hold_at(&mut harness, 0.0, GATE_BRAKE_PROMPT_S + 0.5);
+    let lines: Vec<String> = harness
+        .app
+        .event_lines()
+        .into_iter()
+        .filter(|line| line.contains("Set the parking brake"))
+        .collect();
+    assert_eq!(lines, vec!["Set the parking brake to dock.".to_string()]);
+}
+
+#[test]
+fn test_brake_or_enter_inside_the_delay_never_hears_the_brake_line() {
+    for enter in [false, true] {
+        let mut harness = stopped_at_gate("Quick Hands", false);
+        hold_at(&mut harness, 0.0, 1.0);
+        harness.with_drive(|drive, ctx| {
+            if enter {
+                drive.handle_key_event(ctx, &key_event(Key::Return, None));
+            } else {
+                drive.truck_mut().set_parking_brake();
+            }
+        });
+        frame(&mut harness);
+        harness.finish_timed_state();
+        assert!(harness.state_is::<FacilityArrivalState>(), "enter {enter}");
+        assert_eq!(said_count(&harness, "Set the parking brake to"), 0);
+    }
+}
+
+#[test]
+fn test_the_creep_line_restarts_the_reminder() {
+    // The reminder landed 4.5 seconds after the creep line and cut the only
+    // line that names the parking brake.
+    let mut harness = stopped_at_gate("Creep Then Roll", false);
+    hold_at(&mut harness, 20.0, 4.5);
+    an_event_containing(&harness, "Destination");
+    hold_at(&mut harness, 2.0, 0.1);
+    an_event_containing(&harness, "Stop and set the parking brake.");
+    // Back above the park speed: quiet until the interval has run from the
+    // creep line, not from the first line.
+    hold_at(&mut harness, 8.0, GATE_REMINDER_INTERVAL_S - 1.0);
+    assert_eq!(said_count(&harness, "Still at"), 0);
+    hold_at(&mut harness, 8.0, 1.5);
+    assert_eq!(said_count(&harness, "Still at"), 1);
+}
+
+#[test]
+fn test_the_readouts_at_rest_name_the_parking_brake() {
+    let mut harness = stopped_at_gate("Readouts At Rest", false);
+    frame(&mut harness);
+    harness.with_drive(|drive, ctx| drive.speak_speed_limit(ctx));
+    let said = last_main(&harness);
+    assert!(said.ends_with(". Set the parking brake to dock."), "{said}");
+    harness.with_drive(|drive, ctx| drive.speak_route_status(ctx));
+    let said = last_main(&harness);
+    assert!(said.starts_with("You have arrived. At "), "{said}");
+    assert!(said.ends_with("Set the parking brake to dock."), "{said}");
+    // The Tab status screen says the same, not "0 miles remaining".
+    let lines = harness.with_drive(|drive, ctx| drive.status_lines(ctx));
+    let route = lines
+        .iter()
+        .find(|line| line.starts_with("Route: "))
+        .expect("a route row");
+    assert!(route.starts_with("Route: You have arrived. At "), "{route}");
+    assert!(!route.contains("remaining"), "{route}");
+    // And the pause menu's Trip status, where the reporter went looking.
+    let trip = harness.with_drive(|drive, ctx| {
+        freight_fate::states::driving_pause_states::trip_status_lines(drive, ctx)
+    });
+    assert!(
+        trip.iter()
+            .any(|line| line.ends_with("Set the parking brake to dock.")),
+        "{trip:#?}"
+    );
+    assert!(
+        !trip.iter().any(|line| line.contains("remaining")),
+        "{trip:#?}"
+    );
+    // Brake set (still on the gate frame's way to the dock): the old text.
+    harness.with_drive(|drive, ctx| {
+        drive.truck_mut().set_parking_brake();
+        drive.speak_speed_limit(ctx);
+    });
+    assert!(last_main(&harness).ends_with(". Stop to dock."));
+}
+
+#[test]
+fn test_with_the_assist_enter_waits_for_the_hold() {
+    let mut harness = stopped_at_gate("Assist Enter", false);
+    harness.app.ctx.settings.destination_approach_assist = true;
+    // At rest before the assist's frame has held the truck.
+    harness.with_drive(|drive, ctx| drive.handle_key_event(ctx, &key_event(Key::Return, None)));
+    assert!(!harness.read_drive(|d| d.arrival_menu_open));
+    assert!(harness.app.event_lines().is_empty());
+    frame(&mut harness);
+    assert!(harness.read_drive(|d| d.gate.is_holding()));
+    harness.with_drive(|drive, ctx| drive.handle_key_event(ctx, &key_event(Key::Return, None)));
+    assert!(harness.read_drive(|d| d.arrival_menu_open));
 }
 
 // -- what the trailer weighs ---------------------------------------------------------------
@@ -354,13 +588,13 @@ fn test_toll_route_delivery_settlement_records_expense() {
     for phrase in [
         "Charges 260: ",
         "tolls 75",
-        "accessorials carrier-authorized unloading service 185 dollars",
+        "extra charges carrier-authorized unloading service 185 dollars",
         "not deducted from driver pay",
         "Fines 0.",
     ] {
         assert!(text.contains(phrase), "{text}");
     }
-    assert!(text.contains("Carrier gross"), "{text}");
+    assert!(text.contains("Pay for the load"), "{text}");
     assert!(text.contains("Net "), "{text}");
 
     assert_eq!(arrival.title(), "Delivery complete");
@@ -373,19 +607,19 @@ fn test_toll_route_delivery_settlement_records_expense() {
     assert!(
         summary_lines
             .iter()
-            .any(|line| line.starts_with("Delivered 18 tons of electronics")),
+            .any(|line| line.starts_with("On time in Philadelphia. Net ")),
         "{summary_lines:#?}"
     );
     assert!(
         summary_lines
             .iter()
-            .any(|line| line.starts_with("Carrier gross:")),
+            .any(|line| line.starts_with("Pay for the load:")),
         "{summary_lines:#?}"
     );
     assert!(
         summary_lines
             .iter()
-            .any(|line| line.contains("Carrier-paid or reimbursed charges")),
+            .any(|line| line.starts_with("Business status:")),
         "{summary_lines:#?}"
     );
     assert!(
@@ -448,10 +682,10 @@ fn manual_run(drove_automatic: bool) -> String {
 
 #[test]
 fn test_the_manual_differential_pays_only_a_run_driven_in_manual() {
-    assert!(manual_run(false).contains("Manual-spec differential"));
+    assert!(manual_run(false).contains("Manual transmission bonus"));
     // Switched to manual for the last stretch: the gate sees manual, the
     // run was automatic.
-    assert!(!manual_run(true).contains("Manual-spec differential"));
+    assert!(!manual_run(true).contains("Manual transmission bonus"));
 }
 
 #[test]

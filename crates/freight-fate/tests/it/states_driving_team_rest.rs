@@ -338,20 +338,13 @@ fn slept_shift_with_no_lot(name: &str) -> PlaytestHarness {
 fn the_first_offer_of_a_co_driver_explains_it_once() {
     let mut harness = PlaytestHarness::new();
     harness.start_delivery(StartDelivery::named("Team Intro"));
-    harness
-        .app
-        .ctx
-        .profile
-        .as_mut()
-        .expect("a career")
-        .hos
-        .drive(600.0);
+    // Dan left the shipper with the load.
+    harness.with_drive(|d, ctx| d.ensure_team(ctx));
     harness.press_key(Key::Escape, None);
     let said = harness.transcript().join("\n");
     assert!(
         said.contains(&format!(
-            "{INTRO} Dan can take the wheel from this menu while you rest in the sleeper. Dan \
-             hands the wheel back once you have had your 10-hour rest."
+            "{INTRO} Dan can take the wheel from this menu while you rest in the sleeper."
         )),
         "{said}"
     );
@@ -371,18 +364,11 @@ fn an_offer_that_turns_up_on_a_refresh_keeps_the_introduction_for_later() {
     use freight_fate::states::driving_pause_states::PauseMenuState;
     let mut harness = PlaytestHarness::new();
     harness.start_delivery(StartDelivery::named("Team Intro Later"));
-    // Paused with a load one shift covers: no co-driver yet.
+    // Paused with no co-driver to offer yet.
     harness.press_key(Key::Escape, None);
-    // Now the hours make it worth sharing, and the menu rebuilds its rows
-    // without announcing itself again.
-    harness
-        .app
-        .ctx
-        .profile
-        .as_mut()
-        .expect("a career")
-        .hos
-        .drive(600.0);
+    // Now there is one, and the menu rebuilds its rows without announcing
+    // itself again.
+    harness.with_drive(|d, ctx| d.ensure_team(ctx));
     harness.with_state::<PauseMenuState, _>(|menu, ctx| menu.refresh(ctx, true));
     let stats = &harness
         .app

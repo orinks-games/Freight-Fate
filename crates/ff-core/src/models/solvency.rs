@@ -120,9 +120,9 @@ pub const RUNG_FINAL_SETTLEMENTS: f64 = 2.0;
 
 /// The writes the two endings, the hard cap and the cash payoff make on a
 /// Profile, on top of the reads in [`StandingProfile`].
-// TODO(lead): implement for models::profile::Profile. The three hooks at the
-// end stand in for Profile.active_truck_key(), models::trucks::TRUCK_CATALOG
-// and models::carrier_fleet::assigned_truck_key until those land.
+// Implemented for `Profile` in `profile/traits.rs`, where the three hooks at
+// the end call `Profile::active_truck_key`, `models::trucks` and
+// `models::carrier_fleet::assigned_truck_key`.
 pub trait SolvencyProfile: StandingProfile {
     fn set_money(&mut self, money: f64);
     fn set_fines_owed(&mut self, fines_owed: f64);
@@ -154,15 +154,12 @@ pub trait SolvencyProfile: StandingProfile {
     /// `profile.owned_trailers`.
     fn owned_trailers(&self) -> Vec<String>;
     /// `profile.active_truck_key()`: the tractor being driven right now.
-    // TODO(lead): wire to Profile.active_truck_key.
     fn active_truck_key(&self) -> String;
     /// `TRUCK_CATALOG[key].label`.
-    // TODO(lead): wire to models::trucks::TRUCK_CATALOG.
     fn truck_catalog_label(&self, key: &str) -> String;
     /// `carrier_fleet.assigned_truck_key(profile)` for the profile as it
     /// stands when called (after the repossession has made it a company
     /// driver again).
-    // TODO(lead): wire to models::carrier_fleet::assigned_truck_key.
     fn assigned_truck_key(&self) -> String;
 }
 
@@ -590,12 +587,13 @@ pub fn apply_repossession<P: SolvencyProfile + ?Sized>(profile: &mut P) -> Vec<S
     profile.clear_dispatch_board_cache();
     let mut lines = vec![
         format!(
-            "You owed {} against a {label} that would bring about {} at sale, so the loan is no longer \
-             covered by the truck behind it, and the lender has taken it back.",
+            "You owed {} against a {label} that would sell for about {}. The truck no longer \
+             covers the loan, so the lender has taken it back.",
             money_text(settled),
             money_text(proceeds)
         ),
-        "The sale closes the loan. What you owed is settled and your cash is back to zero.".to_string(),
+        "The sale closes the loan. What you owed is settled and your cash is back to zero."
+            .to_string(),
         KEPT_LINE.to_string(),
     ];
     if hiring.is_empty() {
@@ -609,7 +607,7 @@ pub fn apply_repossession<P: SolvencyProfile + ?Sized>(profile: &mut P) -> Vec<S
         lines.push(format!(
             "You are a company driver again, on the payroll at {hiring} and in a \
              carrier tractor. The owner-operator path is still open to you, and \
-             the buy-in gates are the same ones you cleared to get here."
+             the buy-in requirements are the same ones you met to get here."
         ));
     }
     let record = profile.driving_record_mut();
@@ -684,7 +682,7 @@ pub fn apply_return_to_company_driving<P: SolvencyProfile + ?Sized>(
             money_text(buy_back)
         ),
         "Settlements are driver wages and bonuses from here. The owner-operator buy-in \
-         stays open under Business status, and the gates are the ones you already cleared."
+         stays open under Business status, and the requirements are the ones you already met."
             .to_string(),
     ]
 }
@@ -723,7 +721,7 @@ pub fn debt_warning_line<P: StandingProfile + ?Sized>(profile: &P, terse: bool) 
     let owed = money_text(debt_owed(profile));
     if hard_capped(profile) {
         if terse {
-            return format!("Owed {owed}. Held there; a quarter of each settlement pays it down.");
+            return format!("Owed {owed}. Held there. A quarter of each settlement pays it down.");
         }
         return format!(
             "You owe {owed}. Your carrier holds it there and writes off anything \

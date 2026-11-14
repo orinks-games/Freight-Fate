@@ -82,10 +82,10 @@ fn the_co_driver_drives_out_of_the_shipper_and_the_terms_are_read_first() {
     );
     let said = harness.transcript().join("\n");
     assert!(said.contains("takes the wheel."), "{said}");
-    assert!(!said.contains("Engine off."), "{said}");
-    // The hours and tank are read as on a solo departure, without a sleep
-    // plan the team will not need.
-    assert!(said.contains("Fuel: "), "{said}");
+    // The player is not at the wheel, so no engine line after the handover.
+    let after = said.split("takes the wheel.").last().unwrap_or_default();
+    assert!(!after.contains("Engine off."), "{said}");
+    // No sleep plan the team will not need.
     assert!(!said.contains("This run needs"), "{said}");
     // The first frame on the road hands the wheel over.
     harness.advance_frame_clock();
@@ -109,4 +109,45 @@ fn the_co_driver_drives_out_of_the_shipper_and_the_terms_are_read_first() {
         }
     }
     assert!(moving, "the co-driver never got the truck rolling");
+}
+
+#[test]
+fn a_co_driver_offered_at_the_dock_stays_aboard_after_the_player_sleeps() {
+    let mut harness = loaded_at_shipper("Dock Solo", 600.0);
+    let labels = harness.menu_labels();
+    let ride = team_row(&labels, "driving, and ride along")
+        .unwrap_or_else(|| panic!("no team row: {labels:?}"));
+    let name = ride
+        .trim_start_matches("Depart with ")
+        .trim_end_matches(" driving, and ride along")
+        .to_string();
+    // The player takes the wheel themselves.
+    harness.select_menu_item("Depart for destination");
+    if harness.state_is::<RouteSelectState>() {
+        harness.key(InputEvent::key(Key::Return));
+    }
+    assert!(
+        harness.state_is::<DrivingState>(),
+        "departure did not drive"
+    );
+    // A full night's rest at a stop: alone, the rest of the load now fits
+    // in one shift, but the co-driver is still in the sleeper.
+    harness
+        .app
+        .ctx
+        .profile
+        .as_mut()
+        .expect("a career")
+        .hos
+        .sleep();
+    harness.key(InputEvent::key(Key::Escape));
+    let rows = harness.menu_labels();
+    assert!(
+        rows.contains(&format!("Hand the wheel to {name} and ride along")),
+        "{rows:?}"
+    );
+    assert!(
+        rows.contains(&format!("Hand the wheel to {name} and sleep")),
+        "{rows:?}"
+    );
 }

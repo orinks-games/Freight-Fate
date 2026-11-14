@@ -13,6 +13,9 @@ use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 use crate::states::driving_updates::live;
 
+/// The exit countdown's anchors share one place in the held-line queue.
+const EXIT_COUNTDOWN_GROUP: &str = "exit_countdown";
+
 impl DrivingState {
     /// A posted-limit change on the mainline the truck is leaving: on the
     /// ramp, or at the gore of an exit it is taking this frame.
@@ -109,13 +112,15 @@ impl DrivingState {
             if ahead <= EXIT_CANCEL_GUARD_MI && !self.exit_cancel_armed {
                 self.exit_cancel_armed = true;
                 let stays = if self.exit_blinker_on() { "on" } else { "set" };
-                self.say_plain(
-                    ctx,
+                let message = if self.driving_hints(ctx) {
                     format!(
                         "Signal stays {stays}. Press {} again to cancel the exit.",
                         ctx.control_hint("take_exit")
-                    ),
-                );
+                    )
+                } else {
+                    format!("Signal stays {stays}.")
+                };
+                self.say_plain(ctx, message);
                 return;
             }
             let was_blinking = self.exit_blinker_on();
@@ -148,6 +153,7 @@ impl DrivingState {
             return;
         }
         self.exit_signal_on = true;
+        self.refresh_live_facts();
         self.canceled_exit_key = None;
         self.exit_cancel_armed = false;
         self.exit_signal_canceled = false;
@@ -574,8 +580,12 @@ impl DrivingState {
         // other way to know (player report, 2026-10-20). The same number the
         // ramp line speaks, so the two never disagree. Checked against every
         // anchor crossed this frame: a compressed frame that jumps from two
-        // miles to half a mile still says it.
-        if crossed.contains(&1.0) {
+        // miles to half a mile still says it. So does the next anchor when
+        // the mile's line is still waiting for a busy voice, because this
+        // line replaces it there.
+        let mile_still_held =
+            self.exit_countdown_said.contains(&1.0) && ctx.holds_group(EXIT_COUNTDOWN_GROUP);
+        if crossed.contains(&1.0) || mile_still_held {
             let mph = self.spoken_exit_mph(self.armed_ramp_mph(Some(stop)));
             owed.push_str(&format!(" Exit speed {}.", ctx.settings.speed_value(mph)));
         }
@@ -595,7 +605,14 @@ impl DrivingState {
             }
         }
         ctx.audio.play_with("ui/notify", 0.6, 0.0);
-        let mut opts = SayEvent::queued().priority(EventPriority::Important);
+        // Kept: the pacer used to drop a route line after eight seconds
+        // behind a busy voice, and the two- and one-mile calls into
+        // Traverse City went that way, exit speed and all (owner's drive,
+        // 2026-11-04). A newer anchor replaces one still waiting.
+        let mut opts = SayEvent::queued()
+            .priority(EventPriority::Important)
+            .keep()
+            .group(EXIT_COUNTDOWN_GROUP);
         opts.category = Some(SpeechCategory::Navigation);
         ctx.say_event_with(format!("{name} in {distance}.{owed}"), opts);
     }
@@ -628,7 +645,7 @@ impl DrivingState {
         // keeping automated they never press it, because the game itself says
         // "lane keeping will take this exit". Gating the speed assist on the
         // signal therefore switched it off for exactly the preset that
-        // promises the most help: the announcement said "adaptive cruise will
+        // promises the most help: the announcement said "cruise will
         // ease to 40 for the ramp", nothing eased, and the truck went through
         // the gore at 53 and missed the exit (owner playtest, Denver->
         // Silverthorne, 2026-08-19). Automated lane keeping IS the commitment.
@@ -729,7 +746,7 @@ impl DrivingState {
                 // truck at road speed was over it, wrong now that the gore
                 // accepts road speed. Paused with nothing to do, the assist
                 // coasted; on a 3.7 percent downgrade the truck ran from 60 to
-                // 69 with "automatic speed control paused" the only thing the
+                // 69 with "cruise paused" the only thing the
                 // status said (owner, Spokane, twice, 2026-08-21/22). Cruise
                 // holds the grade and its own glide eases to its exit floor
                 // at the gore, which is what the callout promised.

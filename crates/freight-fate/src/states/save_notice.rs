@@ -175,7 +175,7 @@ pub fn driving_record_notice(ctx: &GameContext) -> String {
     format!(
         "Freight Fate now keeps a driving record for your career: \
          citations, serious violations, and whether your CDL is clear. \
-         Two serious violations in three years suspend it; running from a \
+         Two serious violations in 180 days suspend it. Running from a \
          police stop is a major offense that disqualifies it for a year. \
          Reputation also decides how much freight dispatch shows you and \
          how much choice you get. Nothing was reset or taken. {standing} \
@@ -246,8 +246,8 @@ impl_state_for_menu!(DrivingRecordNoticeState);
 /// The save conversion notice body.
 pub const SAVE_MIGRATION_NOTICE: &str = "Save file updated. This career was converted from an \
      older version: every truck you own now keeps its own fuel, damage, tire \
-     wear, and road grime. The truck you were driving keeps its condition; \
-     your other trucks start fueled and fresh. The updated save no longer \
+     wear, and road grime. The truck you were driving keeps its condition. \
+     Your other trucks start fueled and fresh. The updated save no longer \
      opens in older versions of the game.";
 
 pub struct SaveMigrationNoticeState {

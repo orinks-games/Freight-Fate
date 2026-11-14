@@ -52,6 +52,7 @@ pub mod main_menu_help;
 pub mod online_hub;
 pub mod online_offer;
 pub mod online_states;
+pub mod problem_report;
 pub mod save_notice;
 pub mod text_entry;
 pub mod update;

@@ -1328,7 +1328,7 @@ fn test_the_dial_with_cruise_off_says_it_is_off() {
     d.adjust_cruise(&mut app.ctx, 1, false);
 
     let spoken = app.main_lines().join(" ");
-    assert_eq!(spoken, "Adaptive cruise off.");
+    assert_eq!(spoken, "Cruise off.");
 }
 
 #[test]
@@ -1430,7 +1430,7 @@ fn test_the_keeper_owns_up_when_it_cannot_hold_the_number() {
 
     assert!(d.keeper_overrun_said);
     let spoken = app.event_lines().join(" ");
-    assert!(spoken.contains("Speed keeper can't hold"), "{spoken}");
+    assert!(spoken.contains("Cruise can't hold"), "{spoken}");
     assert!(spoken.contains("on this grade"), "{spoken}");
 }
 
@@ -1463,7 +1463,7 @@ fn test_the_limit_lookahead_grows_with_the_speed_to_shed() {
 
 /// The working setpoint walks down in REAL seconds, so under time
 /// compression the truck covers more road while cruise eases than the
-/// physics alone says (roadmap, "Adaptive cruise's own limit lookahead
+/// physics alone says (roadmap, "Cruise's own limit lookahead
 /// ignores time compression").
 #[test]
 fn test_the_limit_lookahead_opens_up_with_time_compression() {
@@ -1663,14 +1663,20 @@ fn test_the_gate_query_answers_only_at_a_finished_trip() {
 fn test_the_creep_line_names_the_place_once() {
     let mut app = TestApp::new();
     let mut d = a_real_drive(&mut app);
+    d.trip.finished = true;
+    d.destination_exit_taken = true;
+    d.trip.truck.engine_on = true;
+    d.trip.truck.parking_brake = false;
+    d.trip.truck.velocity_mps = 2.0 / 2.23694;
     app.clear_speech();
 
-    d.handle_arrival_creep(&mut app.ctx);
-    assert!(d.arrival_full_stop_said);
+    d.handle_arrival_gate(&mut app.ctx);
+    assert!(d.gate.stop_prompted());
     let first = app.event_lines().len();
+    assert!(first > 0, "the creep line");
 
     app.clear_speech();
-    d.handle_arrival_creep(&mut app.ctx);
+    d.handle_arrival_gate(&mut app.ctx);
     assert!(app.event_lines().is_empty(), "said once ({first} before)");
 }
 

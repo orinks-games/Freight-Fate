@@ -387,7 +387,7 @@ impl DrivingState {
             // the pedals for a ramp that ends at the gate: it is still
             // driving the truck in (owner, 2026-10-25, Facility streets off).
             ctx.say_event_with(
-                "Route-transition assistance released.",
+                "Ramp assistance released.",
                 SayEvent::queued()
                     .priority(EventPriority::Important)
                     .category(SpeechCategory::Confirmation),
@@ -450,7 +450,9 @@ impl DrivingState {
             // leaving the road was free, and the rest of this frame's lane
             // work (a lane change in progress, a merge) was skipped with it
             // (agent drive, 2026-09-24).
-            self.trip.truck.add_damage(1.0, true);
+            self.trip
+                .truck
+                .add_damage_from(1.0, true, "leaving the pavement");
             if ctx.settings.lane_departure_warning {
                 let pan = self.lane_pan();
                 ctx.audio.play_with("vehicle/rumble_strip", 1.0, pan);
@@ -593,11 +595,19 @@ impl DrivingState {
                 ctx.audio.play("vehicle/collision");
                 ctx.controller.rumble.impact(SIDESWIPE_DAMAGE);
                 self.trip.truck.apply_collision(SIDESWIPE_DAMAGE, true);
-                let text = format!(
-                    "You sideswiped a {vehicle_class} in the {} lane! Truck damage {:.0} percent.",
-                    self.lane.lane_name(),
-                    self.trip.truck.damage_pct
-                );
+                let text = if ff_core::speech_text::vehicle_takes_an(&vehicle_class) {
+                    format!(
+                        "You sideswiped an {vehicle_class} in the {} lane! Truck damage {:.0} percent.",
+                        self.lane.lane_name(),
+                        self.trip.truck.damage_pct
+                    )
+                } else {
+                    format!(
+                        "You sideswiped a {vehicle_class} in the {} lane! Truck damage {:.0} percent.",
+                        self.lane.lane_name(),
+                        self.trip.truck.damage_pct
+                    )
+                };
                 ctx.say_event_with(text, SayEvent::new().category(SpeechCategory::Safety));
                 return;
             }
@@ -782,12 +792,12 @@ impl DrivingState {
                     let closed_name = lane_label(closed, self.lane.lane_count);
                     let text = if ctx.settings.lane_is_automated() {
                         format!(
-                            "The {closed_name} lane closes at the work zone ahead. Waiting for a \
+                            "The {closed_name} lane closes at the work zone. Waiting for a \
                              gap in the {open_name} lane."
                         )
                     } else {
                         format!(
-                            "The {closed_name} lane closes at the work zone ahead. Move to the \
+                            "The {closed_name} lane closes at the work zone. Move to the \
                              {open_name} lane."
                         )
                     };
@@ -896,7 +906,7 @@ impl DrivingState {
             fine,
             true,
             false,
-            "Drove through the barrels in a work zone",
+            ff_core::models::enforcement::WORK_ZONE_BARRELS_REASON,
         );
         ctx.audio.play("ui/error");
         let tail = if ladder.is_empty() {

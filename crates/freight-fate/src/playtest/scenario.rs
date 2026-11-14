@@ -22,6 +22,7 @@ use ff_core::models::credentials::credential_keys;
 use ff_core::models::profile::Profile;
 use ff_core::playtest_levers::{apply_city, apply_clock, resolve_city_forgiving};
 use ff_core::pyfmt::fmt_grouped;
+use ff_core::sim::alertness::Alertness;
 use ff_core::sim::vehicle::TruckState;
 
 use crate::app::GameContext;
@@ -55,6 +56,8 @@ pub struct Scenario {
     pub out_of_service_events: Option<i64>,
     /// A full sleep taken: hours of service and fatigue reset.
     pub rested: bool,
+    /// The fatigue number, 0 to 100, set after `rested`.
+    pub fatigue: Option<f64>,
     /// Sandbox HOS counters for a near-limit road start. These are staged
     /// before `start_at`, which carries the clock into the new drive.
     pub hos_driving_min: Option<f64>,
@@ -150,7 +153,13 @@ impl Scenario {
                 return Err(format!("level must be from 1 to {MAX_CAREER_LEVEL}"));
             }
         }
-        for key in ["fuel_pct", "damage_pct", "tire_wear_pct", "brake_wear_pct"] {
+        for key in [
+            "fuel_pct",
+            "damage_pct",
+            "tire_wear_pct",
+            "brake_wear_pct",
+            "fatigue",
+        ] {
             if let Some(pct) = number(args, key)? {
                 if !(0.0..=100.0).contains(&pct) {
                     return Err(format!("{key} must be from 0 to 100"));
@@ -203,6 +212,7 @@ impl Scenario {
             citations: integer(args, "citations")?,
             out_of_service_events: integer(args, "out_of_service_events")?,
             rested: args.get("rested").and_then(Value::as_bool).unwrap_or(false),
+            fatigue: number(args, "fatigue")?,
             hos_driving_min: number(args, "hos_driving_min")?,
             hos_duty_min: number(args, "hos_duty_min")?,
             hos_since_break_min: number(args, "hos_since_break_min")?,
@@ -396,6 +406,17 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
     if let Some(hour) = scenario.hour {
         notes.extend(apply_clock(ctx, hour));
     }
+    // After the clock: a jump past ten hours rests the driver, and the
+    // fatigue asked for must be the one the scenario ends with.
+    if let Some(fatigue) = scenario.fatigue {
+        if let Some(p) = ctx.profile.as_mut() {
+            p.fatigue = fatigue;
+            notes.push(format!(
+                "Fatigue {fatigue:.0} percent, {}.",
+                Alertness::from_fatigue(fatigue).key()
+            ));
+        }
+    }
     if let Some(seed) = scenario.board_seed {
         ctx.dispatch_board_seed = Some(seed);
         notes.push(format!("Dispatch board seed {seed}."));
@@ -425,13 +446,15 @@ mod tests {
         assert!(bad(r#"{"hour": 24}"#).contains("hour"));
         assert!(bad(r#"{"level": 0}"#).contains("level"));
         assert!(bad(r#"{"fuel_pct": 120}"#).contains("fuel_pct"));
+        assert!(bad(r#"{"fatigue": -1}"#).contains("fatigue"));
         assert!(bad(r#"{"hos_since_break_min": -1}"#).contains("hos_since_break_min"));
         assert!(bad(r#"{"business": "owner"}"#).contains("business"));
         assert!(bad(r#"{"endorsements": ["rocket"]}"#).contains("unknown endorsement"));
         assert!(bad(r#"{"settings": 3}"#).contains("settings"));
         let args: Map<String, Value> = serde_json::from_str(
             r#"{"city": "Tonopah", "level": 5, "business": "leased", "endorsements": ["hazmat"],
-                "hour": 6.5, "fuel_pct": 25, "rested": true, "settings": {"real_traffic": true}}"#,
+                "hour": 6.5, "fuel_pct": 25, "rested": true, "fatigue": 64,
+                "settings": {"real_traffic": true}}"#,
         )
         .unwrap();
         let scenario = Scenario::from_json(&args).unwrap();
@@ -440,6 +463,7 @@ mod tests {
         assert_eq!(scenario.business.as_deref(), Some(LEASED_OWNER_OPERATOR));
         assert_eq!(scenario.endorsements, Some(vec!["hazmat".to_string()]));
         assert!(scenario.rested);
+        assert_eq!(scenario.fatigue, Some(64.0));
         assert_eq!(
             scenario.settings.get("real_traffic"),
             Some(&Value::Bool(true))

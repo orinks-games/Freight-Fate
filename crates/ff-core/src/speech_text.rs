@@ -54,7 +54,13 @@ pub fn type_prefix_is_redundant(label: &str, name: &str) -> bool {
         return false;
     }
     let name_words = words(name);
-    label_words.iter().all(|word| name_words.contains(word))
+    // The head noun is enough: "Buffalo Grocery Distribution Center" is
+    // already a distribution center, so "grocery and retail distribution
+    // center Buffalo Grocery Distribution Center" says it twice.
+    let head = label_words
+        .last()
+        .is_some_and(|word| name_words.contains(word));
+    head || label_words.iter().all(|word| name_words.contains(word))
 }
 
 /// A spoken city with a leading "the" for phrases like "the {city} service
@@ -213,7 +219,7 @@ pub const HAZARD_DODGE_CALL: &str = "Change lanes or brake!";
 // uses it ONLY where the hazard is dodgeable but no lane is open, so it is
 // the one call that answers a question the driver is actively asking --
 // can I go around this? Dropped, quiet left a noun phrase with no verb
-// ("Brake lights right ahead.") and the owner reached for a lane change
+// ("Brake lights.") and the owner reached for a lane change
 // three times in one drive on a one-lane stretch of US-285, getting "there
 // is no lane to your left here" each time. "Brake now!" stays implied: it
 // marks a hazard that cannot be dodged at all, so there is no choice for
@@ -272,8 +278,33 @@ pub fn in_lane_hazard_call_named(body: &str, side: OpenSide, answer: &str) -> Sp
     }
 }
 
+/// The body of a small-debris call: the thing, named and nothing more.
+/// Tread is not braked for, so the line is a heads-up like a merge or a work
+/// zone, not a call to action; the catalog's long text ("Retread debris from
+/// a blown tire") gave way to the noun the clear line already uses, and
+/// "ahead" went with it, since a call is always about what is ahead (owner,
+/// 2026-11-09). `name` is the catalog's short noun phrase ("the tire
+/// debris").
+pub fn small_debris_body(name: &str) -> String {
+    let thing = name.strip_prefix("the ").unwrap_or(name);
+    let mut chars = thing.chars();
+    let mut body: String = match chars.next() {
+        Some(first) => first.to_uppercase().chain(chars).collect(),
+        None => String::new(),
+    };
+    body.push('.');
+    body
+}
+
+/// The small-debris call: the thing and the lane answer, with no
+/// "Change lanes or brake!" and no "Brake!", because neither is asked. The
+/// same words in terse: there is no opener to drop.
+pub fn small_debris_call(body: &str, answer: &str) -> SpokenMessage {
+    SpokenMessage::new(format!("{body} {answer}"))
+}
+
 /// The same call when lane keeping on full answers it by passing: the thing
-/// and where, then what the truck is doing ("Slow car right ahead. Passing
+/// and where, then what the truck is doing ("Slow car. Passing
 /// on the left."). No "Change lanes or brake!" -- the truck is the one
 /// changing lanes -- and terse is the same line. None where no lane is open.
 pub fn passing_hazard_call(body: &str, side: OpenSide) -> Option<SpokenMessage> {
@@ -296,9 +327,22 @@ pub fn passing_hazard_call(body: &str, side: OpenSide) -> Option<SpokenMessage> 
 // the old line ("be ready for 41 miles per hour") read as an instruction to
 // slow down that nothing in the situation asked for.
 
+/// Whether a traffic class takes "an": the ones said letter by letter that
+/// open on a vowel sound ("an SUV", "an RV"), and any that start with a
+/// vowel. Every other class takes "a".
+pub fn vehicle_takes_an(vehicle_class: &str) -> bool {
+    let word = vehicle_class.split_whitespace().next().unwrap_or("");
+    let spelled = word.len() > 1 && word.chars().all(|c| c.is_ascii_uppercase());
+    match word.chars().next() {
+        Some(first) if spelled => "AEFHILMNORSX".contains(first),
+        Some(first) => "aeiouAEIOU".contains(first),
+        None => false,
+    }
+}
+
 pub fn merging_traffic_cue(vehicle_class: &str, gap: &str) -> SpokenMessage {
     SpokenMessage::with_terse(
-        format!("Merging {vehicle_class} {gap} ahead."),
+        format!("Merging {vehicle_class}, {gap}."),
         format!("Merging {vehicle_class}, {gap}."),
     )
 }
@@ -319,7 +363,7 @@ pub fn brake_lights_cue(
         format!(" {cause}")
     };
     SpokenMessage::with_terse(
-        format!("Brake lights {gap} ahead.{cause_clause} Traffic at {speed_text}."),
+        format!("Brake lights, {gap}.{cause_clause} Traffic at {speed_text}."),
         format!("Brake lights, {gap}, {speed_value}."),
     )
 }
@@ -331,7 +375,7 @@ pub fn slow_lead_cue(
     speed_value: &str,
 ) -> SpokenMessage {
     SpokenMessage::with_terse(
-        format!("Slow {vehicle_class} {gap} ahead, at {speed_text}."),
+        format!("Slow {vehicle_class}, {gap}, at {speed_text}."),
         format!("Slow {vehicle_class}, {gap}, {speed_value}."),
     )
 }
@@ -376,6 +420,9 @@ pub struct StopCalloutParts<'a> {
     /// says "No fuel." (terse keeps only the "No fuel." verdict), `None`
     /// says nothing -- a weigh station is not a place anyone fuels.
     pub fuel: Option<bool>,
+    /// A weigh station's sign: `Some(true)` says "Open.", `Some(false)`
+    /// "Closed.", in terse too, since it decides whether to take the exit.
+    pub open: Option<bool>,
 }
 
 impl Default for StopCalloutParts<'_> {
@@ -390,6 +437,7 @@ impl Default for StopCalloutParts<'_> {
             parking_certainty: "",
             exit_hint: "X",
             fuel: None,
+            open: None,
         }
     }
 }
@@ -398,7 +446,8 @@ impl Default for StopCalloutParts<'_> {
 ///
 /// Terse drops the stop-type prefix (the proper name mostly repeats it),
 /// the "in"/"at" scaffolding, and the key instruction -- and keeps the
-/// parking qualifier, because that is the fact the plan turns on.
+/// parking qualifier, because that is the fact the plan turns on. A planned
+/// stop keeps a short key instruction: it is the exit the driver means to take.
 ///
 /// `exit_hint` names the control that signals for the exit; the driving
 /// layer sets it to the device-correct hint, or to "" once the player has
@@ -415,7 +464,13 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
         parking_certainty,
         exit_hint,
         fuel,
+        open,
     } = *parts;
+    let sign = match open {
+        Some(true) => "Open.",
+        Some(false) => "Closed.",
+        None => "",
+    };
     let exit_part = if exit_label.is_empty() {
         String::new()
     } else {
@@ -433,6 +488,9 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
     }
     // Whether there are pumps is the fact a driver exits on: a truck-parking
     // lot named "Truck Stop" sold nothing (issue #272, "The 115 Truck Stop").
+    if !sign.is_empty() {
+        normal_parts.push(sign.to_string());
+    }
     match fuel {
         Some(true) => normal_parts.push("Fuel.".to_string()),
         Some(false) => normal_parts.push("No fuel.".to_string()),
@@ -452,8 +510,17 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
     if !parking_terse.is_empty() {
         terse = format!("{terse} {parking_terse}");
     }
+    if !sign.is_empty() {
+        terse = format!("{terse} {sign}");
+    }
     if fuel == Some(false) {
         terse = format!("{terse} No fuel.");
+    }
+    // The planned stop keeps its key in terse: it is the exit the driver
+    // chose, and on quiet this line was the only word about it before the
+    // exit went by with no signal set.
+    if !planned_prefix.is_empty() && !exit_hint.is_empty() {
+        terse = format!("{terse} Press {exit_hint} to signal.");
     }
     SpokenMessage::with_terse(normal_parts.join(" "), terse)
 }
@@ -508,7 +575,7 @@ fn pacenote_terse(pacenote: &SpokenMessage) -> &str {
 /// pacenote carry the moment.)
 pub fn cruise_curve_easing(pacenote: &SpokenMessage, advisory_speed_text: &str) -> SpokenMessage {
     SpokenMessage::with_terse(
-        format!("{pacenote} Adaptive cruise easing to {advisory_speed_text}."),
+        format!("{pacenote} Cruise easing to {advisory_speed_text}."),
         pacenote_terse(pacenote),
     )
 }
@@ -542,11 +609,11 @@ pub fn curve_assist_slowing(pacenote: &SpokenMessage) -> SpokenMessage {
 pub fn cruise_curve_paused_assisted(pacenote: &SpokenMessage) -> SpokenMessage {
     SpokenMessage::with_terse(
         format!(
-            "{pacenote} Adaptive cruise paused for the bend, curve assistance slowing. \
+            "{pacenote} Cruise paused for the bend, curve assistance slowing. \
              Cruise resumes past the bend."
         ),
         format!(
-            "{} Cruise paused; assistance slowing.",
+            "{} Cruise paused. Assistance slowing.",
             pacenote_terse(pacenote)
         ),
     )
@@ -558,10 +625,10 @@ pub fn cruise_curve_paused_assisted(pacenote: &SpokenMessage) -> SpokenMessage {
 /// back on its own past the bend, once the truck is rolling off the brakes
 /// at road speed (owner ruling, 2026-09-01 -- on the highway a hazard or a
 /// curve pauses cruise and it comes back). The line says so, because the
-/// old "Adaptive cruise off" told the driver to expect a session that had
+/// old "Cruise off" told the driver to expect a session that had
 /// in fact survived.
 ///
-/// Was a bare `message + " Adaptive cruise off; ..."`, and that plus sign is
+/// Was a bare `message + " Cruise off; ..."`, and that plus sign is
 /// why the quiet rung still spoke full curve calls: concatenating a
 /// `SpokenMessage` yields a plain `str`, so the short form was thrown away
 /// before the delivery layer ever looked for it (owner playtest,
@@ -570,7 +637,7 @@ pub fn cruise_curve_paused_assisted(pacenote: &SpokenMessage) -> SpokenMessage {
 /// pacenote's short form.
 pub fn cruise_curve_paused(pacenote: &SpokenMessage) -> SpokenMessage {
     SpokenMessage::with_terse(
-        format!("{pacenote} Adaptive cruise paused for the bend. Resumes past it."),
+        format!("{pacenote} Cruise paused for the bend. Resumes past it."),
         format!("{} Cruise paused.", pacenote_terse(pacenote)),
     )
 }
@@ -732,6 +799,16 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_a_spelled_out_class_takes_an() {
+        for class in ["SUV", "RV"] {
+            assert!(vehicle_takes_an(class), "{class}");
+        }
+        for class in ["car", "box truck", "semi", "bus", "tanker", "car hauler"] {
+            assert!(!vehicle_takes_an(class), "{class}");
+        }
+    }
+
+    #[test]
     fn test_the_city_keeps_a_name_that_carries_its_own_article() {
         assert_eq!(the_city("The Dalles"), "The Dalles");
         assert_eq!(the_city("Chicago"), "the Chicago");
@@ -745,15 +822,12 @@ mod tests {
         // Owner, 2026-09-01: the call ends with the side a tap can go, in the
         // L key's own words. Terse drops the opener -- the named lane says
         // everything it did -- and is never a synonym for it.
-        let pair = in_lane_hazard_call("Slow car right ahead.", OpenSide::Left);
+        let pair = in_lane_hazard_call("Slow car.", OpenSide::Left);
         assert_eq!(
             pair.normal,
-            "Change lanes or brake! Slow car right ahead. Left lane open."
+            "Change lanes or brake! Slow car. Left lane open."
         );
-        assert_eq!(
-            pair.terse.as_deref(),
-            Some("Slow car right ahead. Left lane open.")
-        );
+        assert_eq!(pair.terse.as_deref(), Some("Slow car. Left lane open."));
         assert_eq!(
             in_lane_hazard_call("Debris on the road.", OpenSide::Right).normal,
             "Change lanes or brake! Debris on the road. Right lane open."
@@ -761,6 +835,21 @@ mod tests {
         assert_eq!(
             in_lane_hazard_call("Debris on the road.", OpenSide::Either).normal,
             "Change lanes or brake! Debris on the road. Either lane open."
+        );
+    }
+
+    #[test]
+    fn test_small_debris_is_a_heads_up_with_the_lane_answer_and_no_opener() {
+        // Owner, 2026-11-09: tread is driven over or moved around, never
+        // braked for, so the call asks for nothing and terse is the same.
+        assert_eq!(small_debris_body("the tire debris"), "Tire debris.");
+        assert_eq!(small_debris_body("the debris"), "Debris.");
+        let pair = small_debris_call("Tire debris.", "Left lane open.");
+        assert_eq!(pair.normal, "Tire debris. Left lane open.");
+        assert_eq!(pair.terse, None);
+        assert_eq!(
+            small_debris_call("Tire debris.", "No lane open.").normal,
+            "Tire debris. No lane open."
         );
     }
 
@@ -789,8 +878,8 @@ mod tests {
     fn test_with_no_lane_open_the_call_is_brake_and_says_so_in_both_modes() {
         // Nowhere to go: the "Brake!" family, and the driver is told not to
         // reach for a lane change. "Brake!" survives terse, as it always has.
-        let pair = in_lane_hazard_call("Slow car right ahead.", OpenSide::Neither);
-        assert_eq!(pair.normal, "Brake! Slow car right ahead. No lane open.");
+        let pair = in_lane_hazard_call("Slow car.", OpenSide::Neither);
+        assert_eq!(pair.normal, "Brake! Slow car. No lane open.");
         assert_eq!(pair.terse.as_deref(), Some(pair.normal.as_str()));
         assert!(!pair.normal.contains("Change lanes"));
     }
@@ -799,8 +888,8 @@ mod tests {
     /// port; the phrase itself is pinned here.
     #[test]
     fn test_the_passing_call_names_the_side_the_truck_takes() {
-        let left = passing_hazard_call("Slow car right ahead.", OpenSide::Either).unwrap();
-        assert_eq!(left.normal, "Slow car right ahead. Passing on the left.");
+        let left = passing_hazard_call("Slow car.", OpenSide::Either).unwrap();
+        assert_eq!(left.normal, "Slow car. Passing on the left.");
         assert_eq!(left.terse, None);
         let right = passing_hazard_call("Slow semi ahead.", OpenSide::Right).unwrap();
         assert_eq!(right.normal, "Slow semi ahead. Passing on the right.");
@@ -906,11 +995,11 @@ mod tests {
     fn test_hazard_family_cues_keep_their_normal_coaching() {
         assert_eq!(
             brake_lights_cue("2.1 miles", "38 miles per hour", "38", "").normal,
-            "Brake lights 2.1 miles ahead. Traffic at 38 miles per hour."
+            "Brake lights, 2.1 miles. Traffic at 38 miles per hour."
         );
         assert_eq!(
             slow_lead_cue("car", "1.2 miles", "40 miles per hour", "40").normal,
-            "Slow car 1.2 miles ahead, at 40 miles per hour."
+            "Slow car, 1.2 miles, at 40 miles per hour."
         );
     }
 
@@ -919,7 +1008,7 @@ mod tests {
         let pair = brake_lights_cue("2.1 miles", "38 miles per hour", "38", "Merge ahead.");
         assert_eq!(
             pair.normal,
-            "Brake lights 2.1 miles ahead. Merge ahead. Traffic at 38 miles per hour."
+            "Brake lights, 2.1 miles. Merge ahead. Traffic at 38 miles per hour."
         );
         assert_eq!(pair.terse.as_deref(), Some("Brake lights, 2.1 miles, 38."));
     }
@@ -932,7 +1021,7 @@ mod tests {
     fn test_merging_cue_drops_the_speed_advisory() {
         let pair = merging_traffic_cue("box truck", "0.4 miles");
         assert_eq!(pair.terse.as_deref(), Some("Merging box truck, 0.4 miles."));
-        assert_eq!(pair.normal, "Merging box truck 0.4 miles ahead.");
+        assert_eq!(pair.normal, "Merging box truck, 0.4 miles.");
         assert!(!pair.normal.contains("be ready for"));
         assert!(!pair.terse.as_deref().unwrap().contains("be ready for"));
     }
@@ -974,9 +1063,32 @@ mod tests {
         });
         assert_eq!(
             pair.terse.as_deref(),
-            Some("Planned stop, Sweetwater Rest Area, 3 miles.")
+            Some("Planned stop, Sweetwater Rest Area, 3 miles. Press X to signal.")
         );
         assert!(pair.normal.contains("Press X"));
+    }
+
+    #[test]
+    fn test_terse_keeps_the_key_only_for_the_planned_stop() {
+        let parts = StopCalloutParts {
+            typed_name: "public rest area: Sweetwater Rest Area",
+            plain_name: "Sweetwater Rest Area",
+            distance: "3 miles",
+            parking_certainty: "likely",
+            ..Default::default()
+        };
+        let ambient = stop_callout(&parts);
+        assert!(!ambient.terse.as_deref().unwrap_or("").contains("Press"));
+        // Retired once the player has signaled enough exits, planned or not.
+        let retired = stop_callout(&StopCalloutParts {
+            planned_prefix: "Planned stop, ",
+            exit_hint: "",
+            ..parts
+        });
+        assert_eq!(
+            retired.terse.as_deref(),
+            Some("Planned stop, Sweetwater Rest Area, 3 miles.")
+        );
     }
 
     #[test]
@@ -1024,6 +1136,7 @@ mod tests {
                 parking_certainty: "confirmed",
                 exit_hint,
                 fuel: None,
+                open: None,
             })
         };
 
@@ -1077,6 +1190,38 @@ mod tests {
     }
 
     #[test]
+    fn test_a_weigh_station_callout_says_open_or_closed() {
+        // The sign decides whether to take the exit; a driver who heard only
+        // "No truck parking" exited for a closed scale (drive, 2026-11-05).
+        let closed = stop_callout(&StopCalloutParts {
+            typed_name: "I-43 Weigh Station",
+            plain_name: "I-43 Weigh Station",
+            distance: "5 miles",
+            parking_certainty: "likely",
+            exit_hint: "",
+            open: Some(false),
+            ..Default::default()
+        });
+        assert_eq!(closed.normal, "I-43 Weigh Station in 5 miles. Closed.");
+        assert_eq!(
+            closed.terse.as_deref(),
+            Some("I-43 Weigh Station, 5 miles. Closed.")
+        );
+        let open = stop_callout(&StopCalloutParts {
+            typed_name: "I-43 Weigh Station",
+            plain_name: "I-43 Weigh Station",
+            distance: "5 miles",
+            parking_certainty: "likely",
+            open: Some(true),
+            ..Default::default()
+        });
+        assert_eq!(
+            open.normal,
+            "I-43 Weigh Station in 5 miles. Open. Press X to signal for the exit."
+        );
+    }
+
+    #[test]
     fn test_a_repeat_mention_still_carries_no_fuel() {
         // After the first mention the proper name stands alone; the fuel
         // verdict must not leave with the stop type.
@@ -1125,7 +1270,7 @@ mod tests {
         assert_eq!(
             pair.normal,
             "Sharp left, half a mile. Advise 35 miles per hour. \
-             Adaptive cruise easing to 35 miles per hour."
+             Cruise easing to 35 miles per hour."
         );
         assert_eq!(
             pair.terse.as_deref(),
@@ -1201,13 +1346,9 @@ mod tests {
             "Change lanes or brake! Slow car ahead.",
             "Change lanes or brake! Slow car ahead.",
         );
-        let grown = pair.plus("Automatic speed control canceled.");
-        assert!(grown
-            .render(false)
-            .ends_with("Automatic speed control canceled."));
-        assert!(grown
-            .render(true)
-            .ends_with("Automatic speed control canceled."));
+        let grown = pair.plus("Cruise canceled.");
+        assert!(grown.render(false).ends_with("Cruise canceled."));
+        assert!(grown.render(true).ends_with("Cruise canceled."));
         assert!(grown.render(true).starts_with("Change lanes or brake!"));
         // A line with no terse form stays that way.
         let plain = SpokenMessage::new("Collision!").plus("Total damage 12 percent.");
@@ -1399,7 +1540,7 @@ mod tests {
         let paused = cruise_curve_paused(&pacenote);
         assert_eq!(
             paused.normal,
-            "Sharp right, half a mile. Advise 35 miles per hour. Adaptive cruise paused for the \
+            "Sharp right, half a mile. Advise 35 miles per hour. Cruise paused for the \
              bend. Resumes past it."
         );
         assert_eq!(
@@ -1420,7 +1561,7 @@ mod tests {
     /// there is no choice for the word to inform.
     #[test]
     fn test_a_dodgeable_hazard_with_nowhere_to_go_keeps_the_word_brake() {
-        let no_lane = hazard_call("Brake!", "Brake lights right ahead.");
+        let no_lane = hazard_call("Brake!", "Brake lights.");
         assert!(
             no_lane.render(true).starts_with("Brake!"),
             "{}",

@@ -196,6 +196,8 @@ pub struct HearkenBackend {
     /// A station still connecting.
     pub(super) radio_connect: Option<RadioConnect>,
     pub(super) radio_failed_url: Option<String>,
+    /// Stream addresses YouTube links resolved to, while they last.
+    pub(super) youtube: super::youtube::Resolved,
     /// The device is still opening behind the silent stand-in.
     pub(super) opening: bool,
     /// A deferred open failed and the facade has not been told.
@@ -306,6 +308,7 @@ impl HearkenBackend {
             radio: None,
             radio_connect: None,
             radio_failed_url: None,
+            youtube: Default::default(),
             opening: false,
             device_notice: false,
             engine_pan: 0.0,

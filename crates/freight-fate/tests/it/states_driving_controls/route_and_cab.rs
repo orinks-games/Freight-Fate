@@ -19,8 +19,7 @@ fn test_route_key_reports_progress_then_road_state_and_destination() {
     assert_eq!(
         last(&app),
         format!(
-            "{pct} percent there, 34 miles left. On I-90 East in New York, toward Rochester, \
-             New York."
+            "{pct} percent there, 34 miles left. On I-90 East toward Rochester."
         )
     );
 }
@@ -52,7 +51,7 @@ fn test_route_key_counts_down_to_a_planned_stop_instead_of_the_destination() {
     );
     assert!(!report.contains("left."), "{report}");
     assert!(
-        report.contains("On I-90 East in New York, toward Rochester, New York."),
+        report.contains("On I-90 East toward Rochester."),
         "{report}"
     );
 }
@@ -87,7 +86,7 @@ fn test_route_key_reports_reverse_route_direction() {
     d.handle_key_event(&mut app.ctx, &key(Key::R));
 
     assert!(
-        last(&app).contains("On I-90 West in New York, toward Buffalo, New York"),
+        last(&app).contains("On I-90 West toward Buffalo."),
         "{}",
         last(&app)
     );
@@ -246,16 +245,12 @@ fn test_route_key_names_the_street_under_the_wheels() {
     assert!(legs.len() >= 2);
     // Street and city read as written: capitalising the line's first word
     // once lowercased the rest, and "US 83" was read as the word "us".
-    let city = app
-        .ctx
-        .world
-        .spoken_city(&d.trip.route.cities[0], Some(true));
     app.clear_speech();
 
     d.trip.position_mi = legs[0].0 * 0.5;
     d.handle_key_event(&mut app.ctx, &key(Key::R));
     assert!(
-        last(&app).contains(&format!("On city streets, {}, in {city}.", legs[0].1)),
+        last(&app).contains(&format!("On city streets, {}.", legs[0].1)),
         "{}",
         last(&app)
     );
@@ -263,7 +258,7 @@ fn test_route_key_names_the_street_under_the_wheels() {
     d.trip.position_mi = legs[0].0 + legs[1].0 * 0.5;
     d.handle_key_event(&mut app.ctx, &key(Key::R));
     assert!(
-        last(&app).contains(&format!("On city streets, {}, in {city}.", legs[1].1)),
+        last(&app).contains(&format!("On city streets, {}.", legs[1].1)),
         "{}",
         last(&app)
     );

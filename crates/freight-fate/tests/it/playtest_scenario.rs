@@ -100,6 +100,24 @@ fn test_a_scenario_creates_a_bench_career_and_sets_every_part_asked_for() {
     );
 }
 
+/// The clock lever rests a driver who waits ten hours or more, so the
+/// fatigue asked for is applied after it and is what the scenario ends
+/// with (agent playtest, 2026-11-13: 95 was announced, then the terminal
+/// said "Already rested").
+#[test]
+fn fatigue_asked_for_with_an_hour_sticks() {
+    let mut app = TestApp::new();
+    apply(&mut app.ctx, &scenario(json!({"city": "Omaha"}))).expect("a career");
+    let notes = apply(&mut app.ctx, &scenario(json!({"hour": 2.0, "fatigue": 95})))
+        .expect("the scenario applies");
+    assert_eq!(app.ctx.profile.as_ref().expect("a career").fatigue, 95.0);
+    assert_eq!(
+        notes.last().map(String::as_str),
+        Some("Fatigue 95 percent, severe."),
+        "{notes:?}"
+    );
+}
+
 #[test]
 fn test_a_move_with_a_load_in_progress_needs_clear_load() {
     let mut app = TestApp::new();

@@ -102,9 +102,7 @@ impl DrivingState {
                 self.adjust_cruise(ctx, -1, mods.ctrl);
             }
         } else if matches!(key, Key::Return | Key::KpEnter) {
-            if self.assisted_facility_confirmation_ready(ctx) {
-                self.open_ready_facility_arrival(ctx);
-            }
+            self.confirm_facility_arrival(ctx);
         } else if matches!(key, Key::PageUp | Key::Semicolon) {
             // Page Down walks to the next station, Page Up to the previous,
             // matching the help browser's Page Up and Page Down paging; with
@@ -158,7 +156,7 @@ impl DrivingState {
                 let result = self.trip.truck.transmission.request_gear(0);
                 if result.ok {
                     ctx.audio
-                        .play_bank("vehicle/shift_manual", "vehicle/gear_shift");
+                        .play_bank("vehicle/shift_auto", "vehicle/gear_shift");
                     ctx.say("Neutral.");
                 }
             }
@@ -192,6 +190,7 @@ impl DrivingState {
             Action::PlaceRoad => self.speak_current_road(ctx),
             Action::PlaceTown => self.speak_current_town(ctx),
             Action::PlaceDirection => self.speak_current_direction(ctx),
+            Action::PlaceCounty => self.speak_current_county(ctx),
             Action::JakeStage1 => self.select_jake_stage(ctx, 1),
             Action::JakeStage2 => self.select_jake_stage(ctx, 2),
             Action::JakeStage3 => self.select_jake_stage(ctx, 3),
@@ -212,7 +211,7 @@ impl DrivingState {
             }
             Action::Rest => {
                 if self.manual_facility_arrival_ready(ctx) {
-                    self.open_ready_facility_arrival(ctx);
+                    self.confirm_facility_arrival(ctx);
                 } else {
                     self.try_rest_stop(ctx);
                 }
@@ -290,7 +289,7 @@ impl DrivingState {
     /// -1 moves right. With steering assist on, the held wheel does this
     /// instead, so the tap handler never runs there.
     pub fn tap_lane_change(&mut self, ctx: &mut GameContext, direction: i64) {
-        if self.microsleep_deadline.is_some() {
+        if self.nod.demands_driver() {
             return; // the held-key wake-up check owns the arrows right now
         }
         if self.ramp_mi.is_some() {
@@ -301,11 +300,14 @@ impl DrivingState {
             ctx.say("Still changing lanes.");
             return;
         }
-        if !self.trip.truck.engine_on || self.trip.truck.speed_mph() < LANE_MIN_MPH {
+        // Parked or engine off: the arrows do nothing and say nothing
+        // (owner, 2026-11-05). Rolling too slowly is worth a word.
+        if !self.trip.truck.engine_on || self.trip.truck.speed_mph() < 0.5 {
+            return;
+        }
+        if self.trip.truck.speed_mph() < LANE_MIN_MPH {
             let minimum = ctx.settings.speed_text(LANE_MIN_MPH);
-            ctx.say(&format!(
-                "Lane changes need the engine running and at least {minimum}."
-            ));
+            ctx.say(&format!("Lane changes need at least {minimum}."));
             return;
         }
         let lane_count = self.lane.lane_count;
@@ -328,7 +330,7 @@ impl DrivingState {
             let closing = closure.is_some_and(|zone| zone.reason != "construction");
             ctx.audio.play("ui/error");
             if closing {
-                ctx.say(&format!("The {name} lane closes at the work zone ahead."));
+                ctx.say(&format!("The {name} lane closes at the work zone."));
             } else {
                 ctx.say(&format!("The {name} lane is closed here."));
             }

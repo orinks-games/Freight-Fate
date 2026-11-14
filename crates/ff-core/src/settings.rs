@@ -47,7 +47,8 @@ mod tests;
 
 pub use migrate::{parse_settings_text, py_json_dump_flat, SETTINGS_FILE_NAME};
 pub use paths::{
-    data_dir, game_root, save_root, set_thread_data_dir, thread_data_dir, DATA_DIR_ENV,
+    data_dir, game_root, packaged_game_root, save_root, set_thread_data_dir, thread_data_dir,
+    DATA_DIR_ENV,
 };
 
 // Driving-mode pacing, as a game-clock multiplier: at 20x, one real minute
@@ -192,7 +193,7 @@ pub const ACC_GAP_DEFAULT: &str = "normal";
 pub const LANE_CUE_LOUDNESS_MODES: [&str; 3] = ["subtle", "standard", "prominent"];
 pub const DESCENT_SPEED_CONTROL_MODES: [&str; 4] = ["off", "realistic", "balanced", "interactive"];
 pub const PEDAL_LATCH_MODES: [&str; 2] = ["on", "off"];
-pub const UPDATE_CHANNELS: [&str; 3] = ["", "stable", "dev"];
+pub const UPDATE_CHANNELS: [&str; 4] = ["", "stable", "beta", "alpha"];
 
 /// One preset field's value: the assist switches are bools, descent speed
 /// control and lane keeping are modes.
@@ -744,6 +745,14 @@ settings_fields! {
     /// The order the achievements screens list categories and badges in
     /// (`AchievementSort::key`); anything unknown reads as earned first.
     achievement_sort: String = "earned" => str_plain,
+    /// Whether driving lines name the key for the next step ("Press X to
+    /// signal for the exit", "Press E to restart"). Off drops those
+    /// sentences everywhere on the road, not only once a hint has retired
+    /// (owner, 2026-10-25). Driving school and the first run still teach.
+    driving_hints: bool = true => bool_strict,
+    /// Whether the main menu offers to send a problem report after a run
+    /// that ended without quitting (a crash, a kill, a power cut).
+    crash_report_offer: bool = true => bool_strict,
 }
 
 impl Settings {

@@ -110,10 +110,7 @@ fn test_online_menu_row_opens_the_directory_and_asks_the_site_once() {
 
     let asked: Vec<String> = transport.requests().iter().map(|r| r.url.clone()).collect();
     assert_eq!(asked.len(), 1, "{asked:?}");
-    assert!(
-        asked[0].ends_with("/api/freight-fate/directory"),
-        "{asked:?}"
-    );
+    assert!(asked[0].ends_with("/freight-fate/directory"), "{asked:?}");
     let spoken = said(&app);
     assert!(
         spoken.contains("3 drivers have a public profile, 1 on duty."),
@@ -233,7 +230,7 @@ fn test_an_empty_directory_and_an_unreachable_site_say_so_in_the_players_terms()
         transport
             .requests()
             .iter()
-            .filter(|r| r.url.ends_with("/api/freight-fate/directory"))
+            .filter(|r| r.url.ends_with("/freight-fate/directory"))
             .count(),
         2
     );

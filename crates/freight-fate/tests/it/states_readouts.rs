@@ -6,12 +6,14 @@ use crate::states_city_support::*;
 use crate::states_driving_menus_support::{a_drive, with_drive};
 use ff_core::models::profile::Profile;
 use ff_core::sim::hos::DutySegment;
+use ff_core::sim::real_weather::{Observation, RealWeatherProvider};
 use freight_fate::app::testing::TestApp;
 use freight_fate::states::base::SimpleMenuState;
 use freight_fate::states::city::CityMenuState;
 use freight_fate::states::driving_menu_states::DriveRef;
 use freight_fate::states::driving_pause_states::{trip_status_lines, PauseMenuState};
 use freight_fate::states::logbook::{logbook_lines, LogbookState};
+use std::sync::{mpsc, Arc, Mutex};
 
 fn at_terminal(app: &mut TestApp, name: &str) {
     career(app, name, "Chicago");
@@ -168,4 +170,175 @@ fn test_empty_logbook_says_so_once() {
     assert_eq!(lines[0], "Off duty. No logbook entries yet.");
     assert!(lines.iter().any(|l| l.starts_with("Today: ")), "{lines:?}");
     let _ = DutySegment::new("driving", 0.0, 1.0, "", "");
+}
+
+// -- live weather on Time and weather -----------------------------------------------
+//
+// Ported from `test_season.py` and `test_weather.py`: each provider runs
+// inline over a stub fetch, so no case reaches the network.
+
+/// A wall clock that never moves, so an observation's age is exact.
+const WALL_NOW: f64 = 2_000_000_000.0;
+
+/// A provider whose every station reports `text` at `temperature_c`,
+/// observed `age_s` before [`WALL_NOW`].
+fn reporting(text: &'static str, temperature_c: f64, age_s: f64) -> RealWeatherProvider {
+    RealWeatherProvider::new(Arc::new(move |_lat, _lon| {
+        Ok(Observation::new(text, 5.0, Some(temperature_c), Some(10.0))
+            .observed_at(WALL_NOW - age_s))
+    }))
+    .with_wall_clock(Arc::new(|| WALL_NOW))
+    .with_threaded(false)
+}
+
+/// The Time and weather rows, read off a fresh terminal.
+fn weather_rows(app: &mut TestApp) -> Vec<String> {
+    let city = CityMenuState::new(&app.ctx, false);
+    app.push_state(city);
+    select::<CityMenuState>(app, "Time and weather");
+    labels::<SimpleMenuState>(app)
+}
+
+#[test]
+fn test_terminal_sleep_uses_independent_calendar_with_live_weather() {
+    // The calendar toggle off: live skies, but the date is the career's own
+    // and moves with career time.
+    let mut app = TestApp::new();
+    career(&mut app, "Calendar Driver", "Chicago");
+    app.ctx.settings.live_weather_controls_calendar = false;
+    app.ctx.settings.real_weather = false;
+    let simulated = weather_rows(&mut app);
+
+    app.ctx.settings.real_weather = true;
+    app.ctx
+        .set_real_weather_provider(Arc::new(reporting("Clear", 25.0, 0.0)));
+    let live = weather_rows(&mut app);
+    assert_eq!(
+        live[1], simulated[1],
+        "the date follows the career: {live:?}"
+    );
+    assert!(live[3].starts_with("Live weather in Chicago: "), "{live:?}");
+    assert!(live[3].contains("77 degrees"), "{live:?}");
+
+    profile_mut(&mut app).game_hours += 24.0;
+    app.ctx.settings.real_weather = false;
+    let next_day_simulated = weather_rows(&mut app);
+    app.ctx.settings.real_weather = true;
+    let next_day = weather_rows(&mut app);
+    assert_ne!(next_day[1], live[1], "a day of career time moves the date");
+    assert_eq!(next_day[1], next_day_simulated[1], "{next_day:?}");
+    assert!(next_day[3].contains("77 degrees"), "{next_day:?}");
+}
+
+#[test]
+fn test_terminal_does_not_present_modeled_temperature_while_live_weather_loads() {
+    let mut app = TestApp::new();
+    career(&mut app, "Loading Weather Driver", "Chicago");
+    app.ctx.settings.real_weather = true;
+    app.ctx.settings.live_weather_controls_calendar = false;
+    // The fetch waits on a channel nobody sends on, so the first request
+    // stays in flight until the test drops the sender.
+    let (hold, wait) = mpsc::channel::<()>();
+    let wait = Mutex::new(wait);
+    let provider = Arc::new(RealWeatherProvider::new(Arc::new(move |_lat, _lon| {
+        let _ = wait.lock().map(|rx| rx.recv());
+        Err("released".to_string())
+    })));
+    app.ctx.set_real_weather_provider(Arc::clone(&provider));
+
+    let rows = weather_rows(&mut app);
+    drop(hold);
+    provider.join_background();
+    assert_eq!(
+        rows[3], "Live weather loading in Chicago: still loading.",
+        "{rows:?}"
+    );
+    assert!(!rows.iter().any(|row| row.contains("degrees")), "{rows:?}");
+}
+
+#[test]
+fn test_terminal_weather_source_ignores_the_online_services_master() {
+    // Owner ruling 2026-08-08: live weather is its own switch, and turning
+    // online services off does not take it away.
+    let mut app = TestApp::new();
+    career(&mut app, "Offline Weather Driver", "Chicago");
+    app.ctx.settings.real_weather = true;
+    app.ctx.settings.online_services = false;
+    app.ctx
+        .set_real_weather_provider(Arc::new(reporting("Light Rain", 18.0, 0.0)));
+    let rows = weather_rows(&mut app);
+    assert!(rows[3].starts_with("Live weather in Chicago: "), "{rows:?}");
+}
+
+#[test]
+fn test_terminal_reports_old_fresh_observation_as_live_without_updating() {
+    let mut app = TestApp::new();
+    career(&mut app, "Fresh Old Weather Driver", "Chicago");
+    app.ctx.settings.real_weather = true;
+    app.ctx
+        .set_real_weather_provider(Arc::new(reporting("Light Rain", 18.0, 12.0 * 60.0)));
+    let rows = weather_rows(&mut app);
+    assert!(rows[3].starts_with("Live weather in Chicago: "), "{rows:?}");
+    assert!(
+        !rows.iter().any(|row| row.contains("Last-known")),
+        "{rows:?}"
+    );
+    assert!(
+        rows.iter()
+            .any(|row| row == "The report is 12 minutes old."),
+        "{rows:?}"
+    );
+    assert!(
+        !rows
+            .iter()
+            .any(|row| row.to_lowercase().contains("updating")),
+        "{rows:?}"
+    );
+}
+
+#[test]
+fn test_city_menu_warms_the_weather_provider() {
+    // Parked at the terminal, the truck's city is fetched before any drive
+    // asks, so the drive starts on real conditions instead of "loading".
+    let mut app = TestApp::new();
+    career(&mut app, "Warm Weather Driver", "Chicago");
+    app.ctx.settings.real_weather = true;
+    let asked = Arc::new(Mutex::new(Vec::new()));
+    let log = Arc::clone(&asked);
+    app.ctx.set_real_weather_provider(Arc::new(
+        RealWeatherProvider::new(Arc::new(move |lat, lon| {
+            log.lock().unwrap().push((lat, lon));
+            Err("offline bench".to_string())
+        }))
+        .with_threaded(false),
+    ));
+    let city = CityMenuState::new(&app.ctx, false);
+    app.push_state(city);
+    let chicago = app.ctx.world.city("Chicago").expect("Chicago is a city");
+    let station = RealWeatherProvider::station_identity(chicago.lat, chicago.lon);
+    let asked = asked.lock().unwrap();
+    assert!(
+        asked
+            .iter()
+            .any(|&(lat, lon)| RealWeatherProvider::station_identity(lat, lon) == station),
+        "{asked:?}"
+    );
+}
+
+#[test]
+fn test_live_data_providers_ignore_the_online_services_master_switch() {
+    // Owner ruling 2026-08-08: live weather and live traffic each have their
+    // own switch; the online services master does not reach them.
+    let mut app = TestApp::new();
+    app.ctx.settings.online_services = false;
+    app.ctx.settings.real_weather = true;
+    app.ctx.settings.real_traffic = true;
+    app.ctx
+        .set_real_weather_provider(Arc::new(reporting("Clear", 20.0, 0.0)));
+    assert!(app.ctx.real_weather_provider().is_some());
+    assert!(app.ctx.real_traffic_provider().is_some());
+    app.ctx.settings.real_weather = false;
+    app.ctx.settings.real_traffic = false;
+    assert!(app.ctx.real_weather_provider().is_none());
+    assert!(app.ctx.real_traffic_provider().is_none());
 }

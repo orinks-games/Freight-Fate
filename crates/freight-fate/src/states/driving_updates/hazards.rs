@@ -5,8 +5,12 @@
 use crate::speech::EventPriority;
 use ff_core::pyrandom::PyRandom;
 use ff_core::sim::driving_modes::tuning_for_time_scale;
-use ff_core::sim::trip_models::HAZARDS;
+use ff_core::sim::trip_models::{
+    DebrisClass, BIG_DEBRIS_TAKE_MPH, HAZARDS, SMALL_DEBRIS_STRIKE_MIN_MPH,
+    SMALL_DEBRIS_STRIKE_ODDS,
+};
 use ff_core::sim::vehicle::BrakeApplication;
+use ff_core::sim::vehicle::CARGO_COLLISION_PCT;
 use ff_core::speech_pacing::SpeechCategory;
 use ff_core::speech_text::terse_silent;
 
@@ -14,6 +18,10 @@ use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 use crate::states::driving_updates::live;
+
+/// How far the truck's speed may drift from a speed callout before the
+/// callout is no longer worth saying.
+const SPEED_CALLOUT_TRUE_MPH: f64 = 3.0;
 
 impl DrivingState {
     pub fn update_announcements(&mut self, ctx: &mut GameContext, dt: f64) {
@@ -27,9 +35,17 @@ impl DrivingState {
             let mph = self.trip.truck.speed_mph();
             if (mph - self.last_announced_mph).abs() >= 5.0 && mph > 1.0 {
                 self.last_announced_mph = mph;
+                // True only while the truck is still near that speed. A
+                // callout held behind a readout was spoken 7.7 seconds late,
+                // mid-brake, as "59" with the truck at 41 (owner's NVDA
+                // drive, 2026-11-03). The key lets a newer callout replace
+                // one still waiting.
                 ctx.say_event_with(
                     ctx.settings.speed_text(mph),
-                    SayEvent::queued().category(SpeechCategory::Status),
+                    SayEvent::queued()
+                        .category(SpeechCategory::Status)
+                        .key("speed_callout")
+                        .valid(move || (live::speed_mph() - mph).abs() < SPEED_CALLOUT_TRUE_MPH),
                 );
             }
         }
@@ -452,12 +468,9 @@ impl DrivingState {
             String::new()
         };
         ctx.say_event_with(
-            format!(
-                "{:.1} percent {direction} ahead{length}. {advice}",
-                pct.abs()
-            )
-            .trim_end()
-            .to_string(),
+            format!("{:.1} percent {direction}{length}. {advice}", pct.abs())
+                .trim_end()
+                .to_string(),
             SayEvent::queued()
                 .priority(EventPriority::Important)
                 .category(SpeechCategory::Navigation),
@@ -554,16 +567,104 @@ impl DrivingState {
         self.hazard_in_lane = false;
         self.hazard_animal = false;
         self.hazard_brake_to_mph = None;
+        self.hazard_debris = None;
+        self.hazard_strike_pct = 0.0;
         self.hazard_names.clear();
         self.refresh_live_facts(); // same reason as `finish_hazard_clear`
         self.release_hazard_brake();
         ctx.audio.play_with("vehicle/collision", 0.6, 0.0);
         ctx.controller.rumble.impact(0.3);
-        self.trip.truck.add_damage(pct, false);
+        self.trip.truck.add_damage_from(pct, false, &struck);
         let damage = self.trip.truck.damage_pct;
         let message = format!("Collision with {struck}. Damage {damage:.0} percent.");
         self.last_event_message = message.clone();
         self.co_driver_animal_strike(ctx, &struck);
+        let spoken_pct = damage;
+        ctx.say_event_with(
+            message,
+            SayEvent::new()
+                .category(SpeechCategory::Safety)
+                .valid(move || (live::damage_pct() - spoken_pct).abs() < 0.5),
+        );
+    }
+
+    /// Debris the truck reached without going around it (owner, 2026-11-09:
+    /// a truck driver drives over tire tread and eases off for a ladder;
+    /// nothing in the lane except a hard object is worth a near stop).
+    ///
+    /// Small debris is driven over at whatever speed: a thump under the
+    /// wheels, and at highway speed a seeded roll for minor damage, the
+    /// road gator that tears an air line. Big debris was braked for down to
+    /// its take-at speed, or the deadline would not have arrived with it
+    /// still armed: the strike grows with the speed over that, up to the
+    /// catalog's figure at 65, and through the freight only when fast and
+    /// fragile. Neither is the wreck a hard object is: the truck keeps
+    /// rolling and cruise stays armed. Damage is always spoken (issue 533:
+    /// damage with no line saying why).
+    pub fn debris_outcome(&mut self, ctx: &mut GameContext) {
+        let names = self.hazard_names_text();
+        let class = self.hazard_debris;
+        let strike_pct = self.hazard_strike_pct;
+        let dodgeable = self.hazard_dodgeable;
+        let mph = self.trip.truck.speed_mph();
+        let co_driver_news = self.co_driver_driving();
+        self.hazard_deadline = None;
+        self.hazard_lead_mph = None;
+        self.hazard_in_lane = false;
+        self.hazard_animal = false;
+        self.hazard_brake_to_mph = None;
+        self.hazard_debris = None;
+        self.hazard_strike_pct = 0.0;
+        self.hazard_names.clear();
+        self.refresh_live_facts(); // same reason as `finish_hazard_clear`
+        self.release_hazard_brake();
+        let pct = match class {
+            Some(DebrisClass::Small) => {
+                ctx.audio.play_with("vehicle/road_joint", 1.0, 0.0);
+                ctx.controller.rumble.impact(0.2);
+                if mph < SMALL_DEBRIS_STRIKE_MIN_MPH {
+                    0.0
+                } else {
+                    // Seeded on the hazard, so a reload hears the same roll.
+                    let mut rng = PyRandom::new_from_i64(
+                        (self.trip_seed << 9) ^ (self.hazard_arm_mi * 50.0) as i64 ^ 0x7ead,
+                    );
+                    if rng.random() < SMALL_DEBRIS_STRIKE_ODDS {
+                        (1.0 + rng.random() * (strike_pct - 1.0).max(0.0)).round()
+                    } else {
+                        0.0
+                    }
+                }
+            }
+            _ => {
+                ctx.audio.play_with("vehicle/collision", 0.6, 0.0);
+                let over =
+                    ((mph - BIG_DEBRIS_TAKE_MPH) / (65.0 - BIG_DEBRIS_TAKE_MPH)).clamp(0.0, 1.3);
+                ctx.controller.rumble.impact(0.3 + 0.3 * over.min(1.0));
+                self.trip.truck.velocity_mps *= 0.9;
+                if mph > 50.0 {
+                    self.trip.truck.add_cargo_damage(
+                        over * CARGO_COLLISION_PCT * self.trip.truck.cargo_fragility * 0.5,
+                    );
+                }
+                (strike_pct * over).round().max(1.0)
+            }
+        };
+        if pct <= 0.0 {
+            // The thump is the whole story: nothing broke, nothing to say.
+            return;
+        }
+        // Preventable when a lane was open and not taken; driving over
+        // tread with nowhere to go is the right call.
+        self.trip
+            .truck
+            .add_damage_from(pct, dodgeable, "road debris");
+        let damage = self.trip.truck.damage_pct;
+        let message = format!("Collision with {names}. Damage {damage:.0} percent.");
+        self.last_event_message = message.clone();
+        if co_driver_news {
+            self.co_driver_note_hazard(ctx, &names, false, &message);
+        }
         let spoken_pct = damage;
         ctx.say_event_with(
             message,
@@ -622,6 +723,8 @@ impl DrivingState {
         self.hazard_in_lane = false;
         self.hazard_animal = false;
         self.hazard_brake_to_mph = None;
+        self.hazard_debris = None;
+        self.hazard_strike_pct = 0.0;
         // Everything below here can offer the hazard call its rescue -- the
         // clear line's own flush, or any urgent line that lands before the
         // next tick. That gate asks whether a hazard is still armed, so the
@@ -630,7 +733,6 @@ impl DrivingState {
         // brake!" for a hazard that has just been dodged.
         self.refresh_live_facts();
         self.release_hazard_brake();
-        self.hazard_slow_hint_said = false;
         ctx.audio.play_with("events/hazard_clear", 0.75, 0.0);
         ctx.controller
             .rumble
@@ -681,49 +783,6 @@ impl DrivingState {
             self.clear_hazard(ctx);
             return;
         }
-        // Old instinct says 25 clears everything; for a fixed object it no
-        // longer does. Braking past the moving-hazard speed with the object
-        // still in the lane earns the how-to once, so the quiet is never
-        // read as an already-cleared hazard.
-        // "It is still in your lane. Nearly stop." belongs to a THING sitting
-        // in the lane, which is the case whose target really is the near
-        // stop. A vehicle is cleared by matching it, so telling the driver to
-        // nearly stop for one would be an instruction the assist is not
-        // following.
-        if self.hazard_in_lane
-            && self.hazard_lead_mph.is_none()
-            && self.hazard_brake_to_mph.is_none()
-            && !self.hazard_slow_hint_said
-            && self.trip.truck.speed_mph() <= HAZARD_SAFE_MPH
-        {
-            self.hazard_slow_hint_said = true;
-            // "Or change lanes" only names a maneuver this road offers, and
-            // names the side it is open on -- the same reading as the call
-            // itself (owner, 2026-09-01). A one-lane stretch, a two-lane one
-            // with the other lane coned off, or both neighbours held by
-            // traffic, gets nearly-stop as the whole answer.
-            let side = self.trip.open_side_at(None);
-            let hint = if side.is_open() {
-                format!(
-                    "It is still in your lane. Nearly stop, or change lanes. {}",
-                    self.trip.open_side_spoken(side)
-                )
-            } else {
-                "It is still in your lane. Nearly stop.".to_string()
-            };
-            // ROUTE: not interrupting (it follows the hazard call rather
-            // than cutting it) but never droppable. A live hazard still in
-            // your lane telling you to nearly stop is the last line in the
-            // game that may be binned as stale chatter -- and the stale-drop
-            // branch tests PRIORITY, never category, so SAFETY at the ambient
-            // default was droppable in exactly the busy moment it matters.
-            ctx.say_event_with(
-                hint,
-                SayEvent::queued()
-                    .priority(EventPriority::Important)
-                    .category(SpeechCategory::Safety),
-            );
-        }
         let deadline = self.hazard_deadline.unwrap_or(0.0) - dt;
         self.hazard_deadline = Some(deadline);
         self.track_assisted_deceleration(dt);
@@ -731,8 +790,11 @@ impl DrivingState {
         // catalog row asks for, and never with the emergency application:
         // a loaded truck stood on its brakes for a deer is how a following
         // car ends up in the trailer (owner, 2026-10-19).
-        let assist_may_act =
-            ctx.settings.automatic_emergency_braking && !self.dodge_still_beats_the_hazard();
+        // Nothing brakes for small debris: the truck drives over it, or
+        // lane keeping on full has already moved over (owner, 2026-11-09).
+        let assist_may_act = ctx.settings.automatic_emergency_braking
+            && self.hazard_debris != Some(DebrisClass::Small)
+            && !self.dodge_still_beats_the_hazard();
         if !assist_may_act {
             // A driver mid-drift has answered the warning, and an assist the
             // driver has switched off has no truck to take.
@@ -801,6 +863,10 @@ impl DrivingState {
         }
         if self.hazard_deadline.unwrap_or(0.0) <= 0.0 && self.hazard_animal {
             self.animal_outcome(ctx);
+            return;
+        }
+        if self.hazard_deadline.unwrap_or(0.0) <= 0.0 && self.hazard_debris.is_some() {
+            self.debris_outcome(ctx);
             return;
         }
         if self.hazard_deadline.unwrap_or(0.0) <= 0.0 {

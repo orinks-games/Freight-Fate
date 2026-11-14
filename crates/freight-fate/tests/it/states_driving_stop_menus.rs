@@ -231,12 +231,9 @@ fn test_facility_menu_waits_for_full_stop() {
     let paperwork = last_main(&harness);
     for phrase in [
         "Paperwork, ",
-        "gross ",
-        "Charges ",
-        "Those charges do not reduce driver pay",
-        "Net about ",
+        ": about ",
+        " dollars to you, ",
         "hours to the deadline",
-        "Cargo condition",
         "Dock and deliver to settle",
     ] {
         assert!(paperwork.contains(phrase), "{paperwork}");
@@ -244,8 +241,8 @@ fn test_facility_menu_waits_for_full_stop() {
     // A company driver's estimate is wages, not the carrier's gross: the
     // board quoted 224 dollars for a load this line then called 330 of
     // "net driver pay" (agent playtest, 2026-09-02).
-    let gross = dollars_after(&paperwork, ", gross ");
-    let net = dollars_after(&paperwork, "Net about ");
+    let gross = harness.read_drive(|d| d.job.pay);
+    let net = dollars_after(&paperwork, ": about ");
     assert!(net > 0.0 && net < gross, "{paperwork}");
 
     let minutes_before_unloading = harness.read_drive(|d| d.trip.game_minutes);
@@ -357,16 +354,19 @@ fn test_t_does_not_open_an_assist_off_facility_while_rolling() {
 }
 
 #[test]
-fn test_enter_and_controller_a_cannot_bypass_manual_facility_parking() {
+fn test_enter_and_controller_a_cannot_bypass_manual_facility_stop() {
+    // Rolling at a walk is not stopped: the keys open the facility only at
+    // rest (where they open it brake or no brake; see the arrival gate's
+    // own tests), and a key that does nothing says nothing.
     for controller in [false, true] {
         let mut harness = a_drive("Manual Facility Confirm");
         harness.app.ctx.settings.destination_approach_assist = false;
         harness.with_drive(|drive, _| {
             mark_destination_exit_taken(drive);
-            drive.arrival_full_stop_said = true;
-            drive.truck_mut().velocity_mps = 0.0;
+            drive.truck_mut().velocity_mps = 2.0 / 2.23694;
             drive.truck_mut().parking_brake = false;
         });
+        harness.clear_speech();
 
         if controller {
             press_pad(&mut harness, ControllerButton::A);
@@ -376,6 +376,7 @@ fn test_enter_and_controller_a_cannot_bypass_manual_facility_parking() {
 
         assert!(!harness.read_drive(|d| d.arrival_menu_open));
         assert!(!harness.read_drive(|d| d.truck().parking_brake));
+        assert!(harness.app.event_lines().is_empty());
     }
 }
 

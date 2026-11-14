@@ -82,10 +82,15 @@ const CLOSURE_MERGE_PROBE_MI: f64 = 0.1;
 /// headway reads the vehicle at its own size instead.
 fn real_length_mi(vehicle_class: &str) -> f64 {
     let feet = match vehicle_class {
-        "car" => 15.0,
-        "state trooper" => 17.0,
+        "motorcycle" => 8.0,
+        "car" | "sports car" => 15.0,
+        "SUV" => 16.0,
+        "state trooper" | "minivan" => 17.0,
         "box truck" => 26.0,
-        "semi" => 72.0,
+        "RV" => 36.0,
+        "bus" => 45.0,
+        "semi" | "tanker" => 72.0,
+        "car hauler" => 75.0,
         _ => 20.0,
     };
     feet / 5280.0
@@ -615,7 +620,7 @@ impl DrivingState {
     fn lane_keeping_may_change_lanes(&self) -> bool {
         self.lane_change_target.is_none()
             && self.ramp_mi.is_none()
-            && self.microsleep_deadline.is_none()
+            && !self.nod.demands_driver()
             && self.trip.truck.engine_on
             && self.trip.truck.speed_mph() >= LANE_MIN_MPH
     }
@@ -667,7 +672,11 @@ impl DrivingState {
         } else {
             blocker.vehicle_class
         };
-        Some(format!("{name} lane blocked by a {vehicle}."))
+        if ff_core::speech_text::vehicle_takes_an(&vehicle) {
+            Some(format!("{name} lane blocked by an {vehicle}."))
+        } else {
+            Some(format!("{name} lane blocked by a {vehicle}."))
+        }
     }
 }
 

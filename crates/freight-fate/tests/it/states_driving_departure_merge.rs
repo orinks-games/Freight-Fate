@@ -346,7 +346,7 @@ fn a_light_standard_rig_hands_off_at_the_traffic_relative_target() {
     assert!(light.engine_wear_gained < 0.05, "{light:#?}");
 }
 
-/// Brandon, Waco onto TX-31, 2026-09-01: "speed keeper didn't build up to
+/// Brandon, Waco onto TX-31, 2026-09-01: "cruise didn't build up to
 /// traffic speed to hand off to cruise control". His log has the keeper
 /// "holding 20 miles per hour for the corner" from the top of the ramp to
 /// the end of the 350-foot lane, and the truck merging at 19 into 40 mph

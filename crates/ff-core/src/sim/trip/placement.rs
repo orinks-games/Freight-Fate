@@ -9,6 +9,7 @@ use crate::data::national_network::city_key_state_country;
 use crate::data::world_models::{Leg, RouteCheckpoint};
 use crate::pyfmt::{fmt_f, py_str_float};
 use crate::pyrandom::PyRandom;
+use crate::sim::enforcement_observe::OBSERVE_LEEWAY_MPH;
 use crate::sim::road_event_pacing::CHATTER_GAP_REAL_S;
 use crate::sim::trip_models::*;
 use crate::sim::trip_route_helpers::{
@@ -18,7 +19,7 @@ use crate::speech_text::SpokenMessage;
 use crate::units::spoken_distance;
 
 use super::{
-    cue_direction, Trip, EXIT_APPROACH_DECOMPRESS_SLACK, LIMIT_SCAN_STRIDE_MI,
+    cue_direction, Trip, EXIT_APPROACH_DECOMPRESS_SLACK, EXIT_FINAL_REAL_MI, LIMIT_SCAN_STRIDE_MI,
     PACENOTE_BRAKE_MPH_PER_S, PACENOTE_GENTLE_MARGIN_MPH, PACENOTE_LEAD_FLOOR_S,
     PACENOTE_LINK_GAP_MI, PACENOTE_MARGIN_MPH, PACENOTE_MAX_LEAD_MI, PACENOTE_MIN_LEAD_MI,
     PACENOTE_REACTION_S,
@@ -259,7 +260,10 @@ impl Trip {
                         on_it_tail(&self.distance_text(segment_miles))
                     ),
                 ));
-            } else if segment_miles >= 40.0 {
+            }
+            let maneuver = i > 0 && self.route.legs[i - 1].highway != leg.highway;
+            let long = segment_miles >= 40.0;
+            if i > 0 && long && !maneuver {
                 cues.push(NavigationCue::new(
                     &format!("continue:{i}"),
                     "continue",
@@ -272,13 +276,24 @@ impl Trip {
                     "",
                 ));
             }
-            if i > 0 && self.route.legs[i - 1].highway != leg.highway {
+            if maneuver {
+                // One call ahead and one at the split; the split's call
+                // carries the miles, so no Continue on line repeats the
+                // destination a second later (owner drive, 2026-11-05).
+                let near = if long {
+                    format!(
+                        "Keep right for {shield}. {} toward {toward}.",
+                        self.distance_text(segment_miles)
+                    )
+                } else {
+                    format!("Keep right for {shield} toward {toward}.")
+                };
                 cues.push(NavigationCue::new(
                     &format!("maneuver:{i}"),
                     "maneuver",
                     start,
-                    &format!("keep right for {shield} toward {toward}"),
-                    &format!("Keep right for {shield} toward {toward}."),
+                    &format!("keep right for {shield}"),
+                    &near,
                 ));
             }
             for crossing in leg.state_crossings() {
@@ -349,9 +364,9 @@ impl Trip {
                     &format!("toll:{i}:{}:{}", py_str_float(toll.at_mi), toll.name),
                     "toll",
                     start + offset,
-                    &format!("toll road ahead: {}", toll.road),
+                    &toll.road,
                     &format!(
-                        "{} toll point ahead, {}.{toll_text}",
+                        "{} toll point, {}.{toll_text}",
                         toll.method_label(),
                         toll.name
                     ),
@@ -397,14 +412,14 @@ impl Trip {
                 }
                 let offset = stop_offset_for_direction(stop.at_mi, leg.miles, forward);
                 // Whole phrases, so a catalog has the exit with its words
-                // ("travel center ahead at exit 50B"); the exit is words to
+                // ("travel center off exit 50B"); the exit is words to
                 // translate ("exit 50B"), not a name.
                 let interchange = stop_exit_label(leg, stop, 2.0);
                 let label = stop.label();
                 let text = if interchange.is_empty() {
-                    format!("{label} ahead")
+                    label.to_string()
                 } else {
-                    format!("{label} ahead at {interchange}")
+                    format!("{label} off {interchange}")
                 };
                 cues.push(NavigationCue::new(
                     &format!("rest_stop:{i}:{}:{}", py_str_float(stop.at_mi), stop.name),
@@ -927,11 +942,36 @@ impl Trip {
         if speed <= ramp_mph {
             return false; // already slow enough for the gore: nothing to shed
         }
-        // Keep the whole assist window on the real clock, while retaining
-        // a longer physics-based shed for the exit's own advisory speed.
-        let window = EXIT_SPEED_ASSIST_START_MI
-            .max(approach_shed_mi(speed, ramp_mph) * EXIT_APPROACH_DECOMPRESS_SLACK);
-        ahead <= window
+        // The road the truck needs to reach the ramp's own speed, on the
+        // real clock, with slack.
+        let shed_mi = approach_shed_mi(speed, ramp_mph) * EXIT_APPROACH_DECOMPRESS_SLACK;
+        // Over what the gore accepts, the exit speed assist has mainline
+        // work to do, so its whole window stays real. At or under it there
+        // is nothing to shed before the gore, and only the last stretch, the
+        // half-mile call and the exit lane, needs real seconds. Holding the
+        // whole mile and a half real for that crawled a truck at 35 to a 30
+        // mph exit for two and a half minutes (owner's drive into
+        // Jamestown, 2026-11-04).
+        let floor_mi = if speed <= self.gore_accepts_mph(self.position_mi + ahead) {
+            EXIT_FINAL_REAL_MI
+        } else {
+            EXIT_SPEED_ASSIST_START_MI
+        };
+        ahead <= floor_mi.max(shed_mi)
+    }
+
+    /// The fastest a truck may reach an exit's gore: road speed there plus
+    /// the posts' leeway, never under the old flat ramp acceptance. Any
+    /// work zone covering the gore counts, active or not, so the answer
+    /// can only err low.
+    pub fn gore_accepts_mph(&self, gore_mi: f64) -> f64 {
+        let road = self
+            .zones
+            .iter()
+            .filter(|zone| zone.start_mi <= gore_mi && gore_mi <= zone.end_mi)
+            .map(|zone| zone.limit_mph)
+            .fold(self.corridor_limit_at(gore_mi), f64::min);
+        RAMP_MAX_MPH.max(road + OBSERVE_LEEWAY_MPH)
     }
 
     pub fn curve_pacenote_lead_mi(speed_mph: f64, advisory_mph: f64) -> f64 {

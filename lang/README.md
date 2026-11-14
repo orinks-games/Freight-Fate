@@ -51,11 +51,23 @@ the `dev` branch, or attach the file to a translation correction issue.
 
 ### Hear your change before sending it
 
-Put your edited file in a folder named `lang` inside the game's `saves`
-folder (on a Mac, in `~/Library/Application Support/FreightFate`), so the
-path ends in `saves/lang/es.po`, then restart the game. A file there
-replaces the built-in translation for that language. Delete it to go back
-to the built-in one.
+Put your edited file in a folder named `lang` next to the game's program
+(`FreightFate.exe` on Windows), so the path ends in `FreightFate/lang/es.po`,
+then restart the game. The download has no `lang` folder, so make one. A
+file there replaces the built-in translation for that language. Delete it
+to go back to the built-in one.
+
+On a Mac, put the file in `~/Library/Application Support/FreightFate/lang/`
+instead. That saves-folder spot also works on Windows and Linux, as
+`saves/lang/es.po`; when both folders have a file for the same language,
+the one next to the program wins.
+
+Downloads from October 13 to 17, 2026 had a `translations` folder next to
+the program. The game never read it; it now moves it into the saves folder
+as `old-translations`, so copy anything you changed there into `lang`.
+
+The game's log, `game.log`, has a line starting with `Using the translation
+file` and the path whenever it loads your file.
 
 To list every line the game spoke in English because no translation
 matched, set the environment variable `FREIGHT_FATE_L10N_MISSES` to a file

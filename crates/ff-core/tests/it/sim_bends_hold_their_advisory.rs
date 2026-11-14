@@ -50,7 +50,10 @@ fn offset_through(record: &CurveRecord, mph: f64) -> f64 {
 }
 
 #[test]
-#[cfg_attr(ci_quick, ignore = "sweep: every mainline curve in the bake")]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "sweep: every mainline curve in the bake"
+)]
 fn test_every_signed_bend_is_holdable_at_its_own_advisory() {
     let mut checked = 0usize;
     let mut worst_of_all = 0.0f64;

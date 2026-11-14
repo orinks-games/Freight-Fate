@@ -1,6 +1,7 @@
 //! The hub screen while parked at a company terminal or yard
 //! (`CityMenuState`).
 
+use ff_core::ambient_bed::BedClaim;
 use ff_core::models::business::{is_owner_operator, COMPANY_DRIVER};
 use ff_core::models::career_objectives::career_objective;
 use ff_core::models::career_training::{
@@ -14,7 +15,8 @@ use ff_core::models::enforcement;
 use ff_core::models::solvency;
 use ff_core::music::{select_menu_music_sequence, MenuMusicProfile};
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_n};
-use ff_core::sim::hos::{clock_text, time_of_day};
+use ff_core::sim::alertness::Alertness;
+use ff_core::sim::hos::{self, clock_text, time_of_day};
 use ff_core::sim::roadside_inspection::walk_around;
 use ff_core::sim::timezones::{city_zone, to_local, TimeZone, EASTERN};
 
@@ -36,6 +38,7 @@ use crate::states::city::{
     GarageState, PayDebtState, TruckShopState, BACKUP_RESULT_WAIT_S, BOBTAIL_RANGE_MI,
     DRIVING_SCHOOL_ENABLED,
 };
+use crate::states::driving_core::{town_hand_work_min, WALK_AROUND_MIN};
 use crate::states::driving_school::DrivingSchoolState;
 use crate::states::logbook::LogbookState;
 use crate::states::main_menu::{
@@ -64,6 +67,8 @@ pub struct CityMenuState {
     /// state: the briefing already said where the truck is parked (and, for
     /// an owner-operator, the cash), so the first entry line does not repeat it.
     after_briefing: bool,
+    /// This screen's hold on the gate bed, while it is the holder's.
+    ambience: Option<BedClaim>,
 }
 
 /// Where a driver with no carrier is: the city, with no truck parked
@@ -93,6 +98,7 @@ impl CityMenuState {
             queue_entry_announcement,
             backup_watch: None,
             after_briefing: false,
+            ambience: None,
         }
     }
 
@@ -328,10 +334,11 @@ impl CityMenuState {
                 ),
             )
         };
+        let minutes = town_hand_work_min(ctx, WALK_AROUND_MIN);
         let end = {
             let p = profile_mut(ctx);
-            p.game_hours += crate::states::driving_core::WALK_AROUND_MIN / 60.0;
-            p.hos.on_duty(crate::states::driving_core::WALK_AROUND_MIN);
+            p.game_hours += minutes / 60.0;
+            p.hos.on_duty(minutes);
             p.game_hours
         };
         record_city_duty(
@@ -345,7 +352,11 @@ impl CityMenuState {
         let line = if lines.is_empty() {
             "Walk-around clean.".to_string()
         } else {
-            format!("Walk-around done, 15 minutes. {}", lines.join(" "))
+            format!(
+                "Walk-around done, {} minutes. {}",
+                ff_core::pyfmt::fmt_f(minutes, 0),
+                lines.join(" ")
+            )
         };
         ctx.audio.play("ui/notify");
         ctx.say(&line);
@@ -371,7 +382,7 @@ impl CityMenuState {
         {
             let p = profile_mut(ctx);
             p.hos.sleep();
-            p.fatigue = 0.0;
+            p.fatigue = hos::rest_sleep(p.fatigue, hos::SLEEP_MIN);
             let day = p.market_day();
             p.market.advance_to(day);
         }
@@ -384,7 +395,9 @@ impl CityMenuState {
             clock_text(hour),
             time_of_day(hour)
         ));
-        if before_fatigue < 70.0 {
+        // The same judgement as a rest stop's: asleep before the band
+        // where the nods begin.
+        if Alertness::from_fatigue(before_fatigue) < Alertness::Severe {
             ctx.award_achievement("sleep_before_exhaustion");
         }
     }
@@ -419,7 +432,7 @@ impl CityMenuState {
             let now = p.game_hours;
             p.driving_record.serve_until(now);
             p.hos.sleep();
-            p.fatigue = 0.0;
+            p.fatigue = hos::rest_sleep(p.fatigue, hours * 60.0);
             let day = p.market_day();
             p.market.advance_to(day);
         }
@@ -690,7 +703,7 @@ impl Menu for CityMenuState {
             select_menu_music_sequence(ctx.profile.as_ref().map(|p| p as &dyn MenuMusicProfile));
         let refs: Vec<&str> = sequence.iter().map(String::as_str).collect();
         ctx.play_music_sequence("menu", &refs);
-        ctx.audio.set_ambient(Some("poi/facility_gate"));
+        self.ambience = Some(ctx.claim_ambient("poi/facility_gate"));
         // Parked at the terminal the truck's location is known: warm the live
         // weather now so the next drive starts on real conditions, not
         // "loading" (the provider shares observations per station).
@@ -728,7 +741,9 @@ impl Menu for CityMenuState {
 
     fn exit(&mut self, ctx: &mut GameContext) {
         self.backup_watch = None;
-        ctx.audio.set_ambient(None);
+        if let Some(claim) = self.ambience.take() {
+            ctx.release_ambient(claim);
+        }
     }
 
     fn presence(&self, ctx: &GameContext) -> Option<PresenceState> {
@@ -844,11 +859,16 @@ impl Menu for CityMenuState {
                         "{city_name}. {} dollars.{cdl}{record}",
                         fmt_grouped(p.money(), 0)
                     ),
-                    _ => format!(
-                        "{} in {city_name}. {} dollars.{cdl}{record}",
-                        parked.name,
-                        fmt_grouped(p.money(), 0)
-                    ),
+                    _ => {
+                        // "Sheboygan Company Yard in Sheboygan" says the city twice.
+                        let short_city = city_name.split(',').next().unwrap_or(&city_name).trim();
+                        let place = if parked.name.contains(short_city) {
+                            parked.name.clone()
+                        } else {
+                            format!("{} in {city_name}", parked.name)
+                        };
+                        format!("{place}. {} dollars.{cdl}{record}", fmt_grouped(p.money(), 0))
+                    }
                 }
             }
         };
@@ -905,9 +925,10 @@ impl Menu for CityMenuState {
         // dispatch instead (ROADMAP).
         if is_owner_operator(status) {
             items.push(
-                MenuItem::new("Bobtail to a nearby city", |s: &mut Self, ctx| {
-                    s.bobtail(ctx)
-                })
+                MenuItem::new(
+                    "Drive to a nearby city without a trailer",
+                    |s: &mut Self, ctx| s.bobtail(ctx),
+                )
                 .help(
                     "Drive empty to a nearby city for its dispatch board. Costs fuel and hours \
                      of service, no load, no pay.",
@@ -975,10 +996,11 @@ impl Menu for CityMenuState {
                 MenuItem::new("Walk around the truck", |s: &mut Self, ctx| {
                     s.walk_around(ctx)
                 })
-                .help(
+                .help(format!(
                     "A pre-trip walk-around: what a roadside inspector would find on the \
-                     tractor. Fifteen minutes on duty.",
-                ),
+                     tractor. {} minutes on duty.",
+                    ff_core::pyfmt::fmt_f(town_hand_work_min(ctx, WALK_AROUND_MIN), 0)
+                )),
             );
         }
         items.push(
@@ -987,11 +1009,13 @@ impl Menu for CityMenuState {
         );
         items.push(
             MenuItem::new("Logbook", |s: &mut Self, ctx| s.logbook(ctx))
-                .help("Recent Record of Duty Status entries."),
+                .help("Recent logbook entries."),
         );
         items.push(
-            MenuItem::new("Sleep 10 hours", |s: &mut Self, ctx| s.sleep(ctx))
-                .help("Fresh hours of service and zero fatigue. Clock advances 10 hours."),
+            MenuItem::new("Sleep 10 hours", |s: &mut Self, ctx| s.sleep(ctx)).help(
+                "Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock \
+                 advances 10 hours.",
+            ),
         );
         items.push(
             MenuItem::new("Save game", |s: &mut Self, ctx| s.save(ctx)).help("Saves the career."),

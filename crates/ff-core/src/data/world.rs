@@ -21,6 +21,7 @@ use super::border_yards::border_yards_at;
 use super::branded_plazas::screen_branded_plazas;
 use super::data_resources::{baked_at, data_root, read_text_at};
 use super::legacy_aliases::LEGACY_CITY_SLUGS;
+use super::stop_bounds::screen_stop_bounds;
 use super::stop_twins::screen_twin_stops;
 use super::world_constants::{
     ALTERNATE_ROUTE_EXTRA_RATIO, ALTERNATE_ROUTE_MAX_EXTRA_MILES, ALTERNATE_ROUTE_MIN_EXTRA_MILES,
@@ -228,6 +229,9 @@ impl World {
                 .iter()
                 .map(|s| parse_stop(s, miles, &leg_from, &leg_to))
                 .collect::<Result<Vec<_>, _>>()?;
+            // A rest area signed for one bound serves one direction
+            // (`stop_bounds`). Before the twin screen, which reads directions.
+            let stops = screen_stop_bounds(stops, &leg.corridor);
             // One chain truck stop listed twice is one stop (`stop_twins`).
             let stops = screen_twin_stops(stops);
             // A chain truck stop typed as a toll road's service plaza is a

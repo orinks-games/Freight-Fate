@@ -58,6 +58,8 @@ impl ParkedAt {
         match self.kind {
             ParkedKind::City => format!("in {city}"),
             ParkedKind::Impound => format!("at an impound lot in {city}"),
+            // "Sheboygan Company Yard in Sheboygan" says the city twice.
+            _ if names_its_city(&self.name, &city) => format!("at {}", self.name),
             _ => format!("at {} in {city}", self.name),
         }
     }
@@ -71,6 +73,9 @@ impl ParkedAt {
             ParkedKind::City => format!("in {area}"),
             // An impound lot is in the city, never a "service area".
             ParkedKind::Impound => format!("at an impound lot in {}", self.city_text(world)),
+            _ if names_its_city(&self.name, &world.spoken_city(&self.city_key, None)) => {
+                format!("at {}", self.name)
+            }
             _ => format!("at {} in {area}", self.name),
         }
     }
@@ -87,6 +92,13 @@ impl ParkedAt {
     pub fn place(&self) -> &str {
         &self.name
     }
+}
+
+/// Whether a place's name already says its town ("Sheboygan Company Yard"
+/// in "Sheboygan, Wisconsin"), so a phrase need not name the city again.
+fn names_its_city(name: &str, city: &str) -> bool {
+    let town = city.split(", ").next().unwrap_or(city).trim();
+    !town.is_empty() && name.contains(town)
 }
 
 /// "the {city} service area", dropping the article when the spoken city

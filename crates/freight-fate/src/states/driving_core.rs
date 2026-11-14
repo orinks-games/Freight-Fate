@@ -49,7 +49,7 @@ use ff_core::sim::vehicle::TruckState;
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, Say};
-use crate::audio::RADIO_TUNE_FADE_MS;
+use crate::audio::{youtube, RADIO_TUNE_FADE_MS};
 use crate::states::base::{Menu, MenuItem};
 use crate::states::driving::DrivingState;
 
@@ -97,8 +97,10 @@ pub use ff_core::radio::{
 };
 pub use ff_core::radio_content::{content_duration_s, plan_break};
 pub use ff_core::settings::{acc_gap_seconds, ACC_GAP_CHOICES, ACC_GAP_DEFAULT};
+pub use ff_core::sim::alertness::{Alertness, BandCue, Nod, NodEvent, NodOutcome, NodState};
 pub use ff_core::sim::driving_modes::tuning_for_time_scale;
 pub use ff_core::sim::enforcement_observe::OBSERVE_LEEWAY_MPH;
+pub use ff_core::sim::fatigue_costs::RestCall;
 pub use ff_core::sim::hos::{clock_text, is_night, time_of_day};
 pub use ff_core::sim::lane::{lane_label, lane_phrase, LaneKeeping};
 pub use ff_core::sim::lane_guidance::LaneGuidance;
@@ -555,7 +557,9 @@ pub type PendingSound = (f64, String, f64, f64);
 pub trait Instructor {
     fn begin(&mut self, ctx: &mut GameContext);
     fn on_engine_started(&mut self, ctx: &mut GameContext);
-    fn on_parking_brake_released(&mut self, ctx: &mut GameContext);
+    /// True when the instructor spoke its own release line, which then
+    /// stands in for the plain confirmation.
+    fn on_parking_brake_released(&mut self, ctx: &mut GameContext) -> bool;
     fn on_gear_engaged(&mut self, ctx: &mut GameContext);
     fn update(&mut self, ctx: &mut GameContext, dt: f64, truck: &TruckState);
 }
@@ -617,7 +621,7 @@ impl Instructor for Tutorial {
         }
     }
 
-    fn on_parking_brake_released(&mut self, ctx: &mut GameContext) {
+    fn on_parking_brake_released(&mut self, ctx: &mut GameContext) -> bool {
         if self.stage == 1 && ctx.settings.automatic_transmission {
             self.stage = 2;
             self.timer = 0.0;
@@ -627,6 +631,7 @@ impl Instructor for Tutorial {
                 ctx.control_hint("accelerate")
             );
             ctx.say_with(text, Say::queued());
+            true
         } else if self.stage == 1 {
             self.timer = 0.0;
             self.hinted = false;
@@ -634,6 +639,9 @@ impl Instructor for Tutorial {
                 "Parking brake released. Shift into first gear.",
                 Say::queued(),
             );
+            true
+        } else {
+            false
         }
     }
 
@@ -656,7 +664,7 @@ impl Instructor for Tutorial {
             self.stage = 3;
             let text = format!(
                 "Rolling. {} for your speed, {} for a full report, {} for all the controls. Brake \
-                 hard at a hazard warning; {} stops fast.",
+                 hard at a hazard warning. {} stops fast.",
                 ctx.control_hint("speed"),
                 ctx.control_hint("status_menu"),
                 ctx.control_hint("help"),
@@ -762,6 +770,16 @@ impl RadioPlaybackBackend for DrivingRadioBackend<'_> {
 
     fn stop_radio(&mut self) {
         self.ctx.audio.stop_music_with(600);
+    }
+
+    fn refusal_note(&self, station: &RadioStation) -> Option<String> {
+        youtube::needs_yt_dlp(&station.playlist_entries).then(|| {
+            format!(
+                "{} needs yt-dlp for its YouTube links, and it is not installed. \
+                 It is off the dial for the rest of this session.",
+                station.display_name()
+            )
+        })
     }
 }
 
