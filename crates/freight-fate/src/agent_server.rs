@@ -254,10 +254,11 @@ fn fatigue_state_line(o: &crate::app::DrivingObservation) -> String {
         .map_or(String::new(), |gate| format!("; gate {}", gate.key()));
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
-         rest_call {rest_call}{gate}.",
+         rest_call {rest_call}; cruise_dial {}{gate}.",
         o.alertness.key(),
         o.nod.key(),
-        o.nod.misses
+        o.nod.misses,
+        o.dial.key()
     )
 }
 

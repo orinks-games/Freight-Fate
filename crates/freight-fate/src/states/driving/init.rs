@@ -562,6 +562,8 @@ impl DrivingState {
             cruise_jake_cooldown_s: 0.0,
             cruise_jake_reverse_s: 0.0,
             cruise_jake_last_step: 0,
+            dial: Default::default(),
+            dial_line: None,
             cruise_snubbing: false,
             pcc_phase: String::new(),
             climb_cue_said: false,

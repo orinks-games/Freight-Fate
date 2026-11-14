@@ -131,6 +131,8 @@ impl DrivingState {
         }
         // A pace change from the pause menu waits for the truck to stop.
         self.update_pace_change(ctx, dt);
+        // A dial walked step by step speaks where it landed once it is still.
+        self.settle_dial(ctx, dt);
         let tuning = tuning_for_time_scale(self.trip.time_scale);
         self.trip.hazard_scale =
             hos::hazard_scale(&ctx.settings.hos_mode) * tuning.hazard_frequency;

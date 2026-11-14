@@ -49,6 +49,43 @@ fn test_plus_key_snaps_an_off_grid_cruise_target() {
     assert_eq!(d.cruise_mph, Some(40.0));
 }
 
+/// Walked step by step (Ctrl+Plus held, its presses arriving about every
+/// 250 ms), the dial speaks its first step and, once still, where it
+/// landed: not every number on the way (owner's NVDA drive, 2026-11-03:
+/// "57, 58, 59, 60").
+#[test]
+fn test_a_dial_walked_step_by_step_speaks_the_first_step_and_where_it_landed() {
+    let mut app = TestApp::new();
+    let mut d = a_drive(&mut app);
+    d.trip.truck.set_air_ready(false);
+    cruise_at(&mut d, &mut app, 56.0);
+    d.settle_dial(&mut app.ctx, 1.0);
+    app.clear_speech();
+
+    for step in 0..4 {
+        d.handle_key_event(&mut app.ctx, &InputEvent::key_mods(Key::Equals, Mods::CTRL));
+        if step == 0 {
+            d.settle_dial(&mut app.ctx, 0.512);
+        } else {
+            d.settle_dial(&mut app.ctx, 0.25);
+        }
+    }
+    assert_eq!(d.cruise_mph, Some(60.0));
+    assert_eq!(app.main_lines(), vec!["Cruise 57 miles per hour."]);
+
+    d.settle_dial(&mut app.ctx, 0.5);
+    assert_eq!(
+        app.main_lines(),
+        vec!["Cruise 57 miles per hour.", "Cruise 60 miles per hour."]
+    );
+    // Settled, the next press answers at once again.
+    d.handle_key_event(&mut app.ctx, &InputEvent::key_mods(Key::Minus, Mods::CTRL));
+    assert_eq!(
+        app.main_lines().last().map(String::as_str),
+        Some("Cruise 59 miles per hour.")
+    );
+}
+
 #[test]
 fn test_ctrl_plus_and_minus_step_by_one() {
     let mut app = TestApp::new();

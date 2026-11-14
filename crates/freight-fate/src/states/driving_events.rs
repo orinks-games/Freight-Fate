@@ -42,6 +42,7 @@ pub mod billboard_moment;
 pub mod chain_stop;
 pub mod chains;
 pub mod cruise;
+pub mod cruise_dial;
 pub mod cruise_loop;
 pub mod decel_lane;
 pub mod descent_control;

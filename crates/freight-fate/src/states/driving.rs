@@ -661,11 +661,16 @@ pub struct DrivingState {
     pub cruise_jake_cooldown_s: f64, // quiet time between those stage steps
     pub cruise_jake_reverse_s: f64, // ...and the longer one before a step back
     pub cruise_jake_last_step: i32, // +1 raised, -1 lowered, 0 released
-    pub cruise_snubbing: bool,  // a service-brake snub is in progress
-    pub pcc_phase: String,      // what the grade preview is doing, for the cue
-    pub climb_cue_said: bool,   // cruise has already owned up to this pull
-    pub climb_cue_s: f64,       // quiet time between hand-back cues
-    pub climb_beaten_s: f64,    // how long the grade has genuinely been winning
+    /// What the cruise dial says while it is turned
+    /// (`ff_core::sim::cruise_dial`); moved only through `step_dial`.
+    pub dial: ff_core::sim::cruise_dial::CruiseDial,
+    /// The dial's newest line, held while the dial is still turning.
+    pub dial_line: Option<(ff_core::speech_text::SpokenMessage, crate::app::Say)>,
+    pub cruise_snubbing: bool, // a service-brake snub is in progress
+    pub pcc_phase: String,     // what the grade preview is doing, for the cue
+    pub climb_cue_said: bool,  // cruise has already owned up to this pull
+    pub climb_cue_s: f64,      // quiet time between hand-back cues
+    pub climb_beaten_s: f64,   // how long the grade has genuinely been winning
     pub descent_said_mph: Option<f64>, // the descent-control number last spoken
     // The safe descent speed of the hill under and just ahead of the truck
     // (`refresh_descent_safe`), and the grade it was worked out for.

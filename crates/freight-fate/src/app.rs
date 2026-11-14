@@ -248,6 +248,9 @@ pub struct DrivingObservation {
     pub rest_call: Option<ff_core::sim::fatigue_costs::RestCall>,
     /// The stop at the facility gate, while the trip has ended at one.
     pub gate: Option<ff_core::sim::arrival_gate::GateStop>,
+    /// What the cruise dial's speech is doing: still, or turning with or
+    /// without a line held for when it settles.
+    pub dial: ff_core::sim::cruise_dial::CruiseDial,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -828,6 +831,7 @@ impl App {
                 }),
             rest_call: drive.rest_call_state(),
             gate: drive.arrival_gate_query_text(&self.ctx).map(|_| drive.gate),
+            dial: drive.dial,
         })
     }
 

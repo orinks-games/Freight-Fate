@@ -9,6 +9,7 @@
 
 ### Changed
 
+- **Holding a cruise key speaks the first step and where the cruise speed landed,** not every number in between.
 - **On-duty time now tires you a little.** Fueling, docks, inspections and waiting at the wheel build it at a third of the driving rate.
 - **Sleep now takes off 8 points of fatigue an hour.** Ten hours clears 80, so going to bed exhausted leaves some.
 - **Coffee and energy drinks now wear off and take their lift back.** A second one before then adds no lift.

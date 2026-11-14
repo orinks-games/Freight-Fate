@@ -3,6 +3,7 @@ pub mod alertness;
 pub mod arrival_gate;
 pub mod cab;
 pub mod cross_traffic;
+pub mod cruise_dial;
 pub mod driving_modes;
 pub mod enforcement_observe;
 pub mod enforcement_posts;

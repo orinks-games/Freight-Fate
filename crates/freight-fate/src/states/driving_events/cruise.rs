@@ -236,7 +236,9 @@ impl DrivingState {
     /// the first press); Ctrl taps move by exactly one mile per hour. While
     /// the speed keeper is handling a restricted zone, the same buttons
     /// adjust the open-road target that adaptive cruise will resume. Parked
-    /// with high idle latched, they step the idle setpoint instead.
+    /// with high idle latched, they step the idle setpoint instead. Every
+    /// answer goes through the dial (`say_dial`), so a dial walked step by
+    /// step speaks its first step and where it landed.
     pub fn adjust_cruise(&mut self, ctx: &mut GameContext, direction: i32, fine: bool) {
         if let Some(rpm) = self.trip.truck.high_idle_rpm {
             if self.trip.truck.high_idle_allowed() {
@@ -247,7 +249,7 @@ impl DrivingState {
                 };
                 let rpm = (rpm + step).clamp(HIGH_IDLE_MIN_RPM, HIGH_IDLE_MAX_RPM);
                 self.trip.truck.high_idle_rpm = Some(rpm);
-                self.say_plain(ctx, format!("High idle {rpm:.0} RPM."));
+                self.say_dial(ctx, format!("High idle {rpm:.0} RPM.").into(), Say::new());
                 return;
             }
         }
@@ -255,7 +257,7 @@ impl DrivingState {
         // below. Telling a paused driver to press K sent them to the key that
         // switches it off (2026-09-28).
         if self.cruise_mph.is_none() && self.keeper_mph.is_none() && !self.speed_control_armed {
-            self.say_plain(ctx, "Cruise off.");
+            self.say_dial(ctx, "Cruise off.".into(), Say::new());
             return;
         }
         let base = match self.speed_control_target_mph {
@@ -284,7 +286,11 @@ impl DrivingState {
                         self.speed_number(ctx, ramp_target)
                     ),
                 );
-                ctx.say_with(message, Say::new().category(SpeechCategory::Confirmation));
+                self.say_dial(
+                    ctx,
+                    message,
+                    Say::new().category(SpeechCategory::Confirmation),
+                );
             } else {
                 // Terse is the number alone. Walking the dial is a rapid
                 // sequence of presses and the player already knows which
@@ -294,14 +300,22 @@ impl DrivingState {
                     format!("Cruise {}.", ctx.settings.speed_text(target)),
                     format!("{}.", self.speed_number(ctx, target)),
                 );
-                ctx.say_with(message, Say::new().category(SpeechCategory::Confirmation));
+                self.say_dial(
+                    ctx,
+                    message,
+                    Say::new().category(SpeechCategory::Confirmation),
+                );
             }
         } else {
             let message = SpokenMessage::with_terse(
                 format!("Cruise speed {}.", ctx.settings.speed_text(target)),
                 format!("{}.", self.speed_number(ctx, target)),
             );
-            ctx.say_with(message, Say::new().category(SpeechCategory::Confirmation));
+            self.say_dial(
+                ctx,
+                message,
+                Say::new().category(SpeechCategory::Confirmation),
+            );
         }
     }
 

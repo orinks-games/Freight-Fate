@@ -671,6 +671,8 @@ fn test_destination_exit_keeps_cruise_and_eases_for_ramp() {
     for _ in 0..3 {
         drive.adjust_cruise(&mut app.ctx, -1, false);
     }
+    // Pressed in quick succession, the dial answers once it is still.
+    drive.settle_dial(&mut app.ctx, 1.0);
     // Wound below the ramp's own number, the driver's setting wins: the spoken
     // approach target is never ABOVE what they asked the truck to do, even
     // though the ramp's own figure is what got stored.
