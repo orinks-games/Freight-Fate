@@ -13744,6 +13744,10 @@ msgstr ""
 msgid "Hours of service: {phrase} until {due}."
 msgstr ""
 
+#: crates/ff-core/src/sim/jake_zone.rs
+msgid "untold"
+msgstr ""
+
 #: crates/ff-core/src/sim/lane.rs
 msgid "single"
 msgstr ""
@@ -28391,6 +28395,10 @@ msgid "No engine brake zone in {distance}, coming into {spoken}."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_engine_brake.rs
+msgid "End of no engine brake zone."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_engine_brake.rs
 msgid "No engine brake zone. Switch it off."
 msgstr ""
 
@@ -36206,6 +36214,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_team/handover.rs
 msgid "Wakes you and gives you the wheel."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_team/handover.rs
+msgid " Your 10-hour rest starts over."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_team/handover.rs

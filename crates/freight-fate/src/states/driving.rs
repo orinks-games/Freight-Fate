@@ -353,8 +353,9 @@ pub struct DrivingState {
     // Zones whose one warning has already been spent this trip; a second
     // engagement in the same town is cited without a fresh grace window.
     pub jake_zone_grace_used: HashSet<String>,
-    pub jake_zone_warned_key: Option<String>, // approach callout latch
-    pub assist_zone_cue_key: Option<String>,  // once-per-zone assist-release cue
+    /// What the driver has been told about the no engine brake zone ahead
+    /// or under the truck on this pass.
+    pub jake_zone_notice: ff_core::sim::jake_zone::ZoneNotice,
     /// `None` | `PULL_OVER_LIGHTS` | `PULL_OVER_STOPPING`.
     pub pull_over: Option<String>,
     pub pull_over_start_mi: f64,
@@ -690,7 +691,10 @@ pub struct DrivingState {
     pub written_up: HashSet<String>,
     pub nice_speed_mi: f64,    // distance held at a very particular speed
     pub double_nickel_mi: f64, // and at the limit Congress retired in 1995
-    pub jake_descent_mi: f64,  // downgrade held on the engine alone
+    /// The drums were below fade with the player driving, so crossing into
+    /// fade now is the player's own doing and earns the brake smoke badge.
+    pub brake_smoke_armed: bool,
+    pub jake_descent_mi: f64,         // downgrade held on the engine alone
     pub radio_states_station: String, // station the state tally belongs to
     pub radio_states_held: HashSet<String>,
     pub cruise_descent_mph: Option<f64>, // interactive descent ceiling, while it lasts
