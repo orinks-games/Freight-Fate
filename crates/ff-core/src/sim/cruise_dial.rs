@@ -149,12 +149,12 @@ mod tests {
         // about every 250 ms (the owner's JAWS log, 2026-08-24).
         let mut dial = Still;
         let mut spoken = 0;
-        let mut step = |dial: &mut CruiseDial, spoken: &mut i32| {
+        let step = |dial: &mut CruiseDial, spoken: &mut i32| {
             let (next, cue) = dial.next(DialEvent::Step);
             *dial = next;
             *spoken += i32::from(cue.is_some());
         };
-        let mut wait = |dial: &mut CruiseDial, spoken: &mut i32, s: f64| {
+        let wait = |dial: &mut CruiseDial, spoken: &mut i32, s: f64| {
             let mut left = s;
             while left > 0.0 {
                 let dt = left.min(1.0 / 60.0);
