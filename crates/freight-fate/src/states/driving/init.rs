@@ -623,6 +623,7 @@ impl DrivingState {
             keeper_held_reason: String::new(),
             keeper_snub: 0.0,
             keeper_corner_braking: false,
+            keeper_follow: Default::default(),
             keeper_snub_target_mph: 0.0,
             keeper_droop_s: 0.0,
             keeper_droop_said: false,

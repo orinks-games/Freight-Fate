@@ -789,6 +789,10 @@ pub struct DrivingState {
     // number; None until the loop has run.
     pub keeper_held_mph: Option<f64>,
     pub keeper_held_reason: String,
+    /// Whether the keeper is matching a slower vehicle ahead; the ease
+    /// window starts it and only the lead itself ends it
+    /// (`ff_core::sim::keeper_follow`).
+    pub keeper_follow: ff_core::sim::keeper_follow::KeeperFollow,
     // The service-brake snub the keeper is holding (0.0 = off the pedal),
     // and how long it has been out of authority with the truck still over
     // the number -- past which it owns up rather than riding it out.

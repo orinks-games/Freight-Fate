@@ -8,6 +8,7 @@ pub mod enforcement_observe;
 pub mod enforcement_posts;
 pub mod fatigue_costs;
 pub mod hos;
+pub mod keeper_follow;
 pub mod lane;
 pub mod lane_guidance;
 pub mod limit_gaps;
