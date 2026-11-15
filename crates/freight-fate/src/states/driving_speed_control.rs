@@ -132,6 +132,7 @@ impl DrivingState {
         self.keeper_held_reason = String::new();
         self.keeper_snub = 0.0;
         self.keeper_corner_braking = false;
+        self.keeper_follow = Default::default();
         self.keeper_droop_s = 0.0;
         self.keeper_droop_said = false;
         self.keeper_overrun_s = 0.0;
