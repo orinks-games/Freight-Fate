@@ -650,6 +650,77 @@ fn test_job_details_leave_hours_out_with_hours_of_service_off() {
     assert!(rows.iter().any(|r| r.starts_with("Fuel: ")), "{rows:?}");
 }
 
+/// The longest Buffalo offer, alone on the board, read at local hour
+/// `hour` (Buffalo keeps Eastern time, the reference clock).
+fn longest_job_details_at(app: &mut TestApp, hour: f64) -> Vec<String> {
+    career(app, "Night Detail", "Buffalo");
+    profile_mut(app).career.xp = *LEVEL_XP.last().unwrap();
+    profile_mut(app).game_hours = 48.0 + hour;
+    let job = JobBoard::seeded(app.ctx.world, 7)
+        .offers(
+            "Buffalo",
+            &["refrigerated", "heavy_haul", "high_value"],
+            OfferOptions::level(5),
+        )
+        .into_iter()
+        .max_by(|a, b| a.distance_mi.total_cmp(&b.distance_mi))
+        .expect("an offer");
+    assert!(job.distance_mi > 700.0, "{} miles", job.distance_mi);
+    push_board(app, vec![job]);
+    key(app, Key::F1);
+    labels::<JobDetailState>(app)
+}
+
+#[test]
+fn test_job_details_say_how_much_of_the_run_falls_at_night() {
+    let mut app = TestApp::new();
+    let rows = longest_job_details_at(&mut app, 20.0);
+    let trip = rows
+        .iter()
+        .position(|r| r.starts_with("Trip hours: about "))
+        .expect("a trip line");
+    let night = &rows[trip + 1];
+    assert!(
+        night.starts_with("About ") && night.ends_with(" hours of night driving."),
+        "{rows:?}"
+    );
+}
+
+#[test]
+fn test_job_details_say_nothing_of_night_on_a_daytime_run() {
+    let mut app = TestApp::new();
+    career(&mut app, "Day Detail", "Buffalo");
+    profile_mut(&mut app).game_hours = 48.0 + 6.0;
+    let job = JobBoard::seeded(app.ctx.world, 7)
+        .offers("Buffalo", &[] as &[&str], OfferOptions::level(1))
+        .into_iter()
+        .min_by(|a, b| a.distance_mi.total_cmp(&b.distance_mi))
+        .expect("an offer");
+    assert!(job.distance_mi < 500.0, "{} miles", job.distance_mi);
+    push_board(&mut app, vec![job]);
+    key(&mut app, Key::F1);
+    let rows = labels::<JobDetailState>(&app);
+    assert!(
+        rows.iter().any(|r| r.starts_with("Trip hours: about ")),
+        "{rows:?}"
+    );
+    assert!(
+        !rows.iter().any(|r| r.contains("night driving")),
+        "{rows:?}"
+    );
+}
+
+#[test]
+fn test_job_details_keep_the_night_line_with_hours_of_service_off() {
+    let mut app = TestApp::new();
+    app.ctx.settings.hos_mode = "off".to_string();
+    let rows = longest_job_details_at(&mut app, 20.0);
+    assert!(
+        rows.iter().any(|r| r.ends_with(" hours of night driving.")),
+        "{rows:?}"
+    );
+}
+
 #[test]
 fn test_tab_repeats_only_the_market_watch() {
     let mut app = TestApp::new();

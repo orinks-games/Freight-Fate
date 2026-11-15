@@ -11,8 +11,8 @@ use crate::app::GameContext;
 use crate::states::base::{Menu, MenuItem};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, clock_text, hos_mut_of, player_pays_operating_costs, profile_mut_of,
-    profile_of, ROAD_CHAIN_BUY_MIN, ROAD_CHAIN_SET_COST,
+    advance_on_duty_clock, clock_text, player_pays_operating_costs, profile_mut_of, profile_of,
+    ROAD_CHAIN_BUY_MIN, ROAD_CHAIN_SET_COST,
 };
 use crate::states::driving_rest_states::fuel_pump::FuelPump;
 
@@ -59,14 +59,13 @@ impl RestStopState {
                 profile_mut_of(ctx).spend(ROAD_CHAIN_SET_COST);
             }
             d.stow_new_chain_set(ctx);
-            advance_rest_clock(
+            advance_on_duty_clock(
                 d,
                 ctx,
                 ROAD_CHAIN_BUY_MIN,
                 Some("on_duty_not_driving"),
                 "chain set",
             );
-            hos_mut_of(ctx).on_duty(ROAD_CHAIN_BUY_MIN);
             let billing = if carrier {
                 "Billed to the carrier.".to_string()
             } else {

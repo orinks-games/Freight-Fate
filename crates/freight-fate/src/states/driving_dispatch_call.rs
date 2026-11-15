@@ -2,8 +2,14 @@
 
 use chrono::Utc;
 use ff_core::models::cargo_condition::cargo_condition_text;
+use ff_core::models::dispatch_policy::DECLINE_REPUTATION_PENALTY;
+use ff_core::models::enforcement::count_word;
 use ff_core::models::exchange::{stable_id, DispatchCallRequest, DispatchCallResponse, JsonObject};
 use ff_core::pyfmt::fmt_grouped;
+use ff_core::sim::fatigue_costs::{
+    record_rest_call, rest_call_costs_trust, rest_call_delay_h, rest_call_offered, RestCall,
+    RestCallEvent,
+};
 use ff_core::sim::hos::duration_text;
 use serde_json::{json, Value};
 
@@ -12,9 +18,9 @@ use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, clock_text, hos_mut_of, hos_of, player_pays_operating_costs,
-    profile_mut_of, profile_of, FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN,
-    ROAD_CHAIN_SET_COST,
+    advance_on_duty_clock, clock_text, deadline_appointment, hos_of, player_pays_operating_costs,
+    profile_mut_of, profile_of, DRIVE_PHASE_DELIVERY, FIELD_REPAIR_DAMAGE_PCT,
+    MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN, ROAD_CHAIN_SET_COST,
 };
 use crate::states::driving_menu_states::DriveRef;
 use crate::states::driving_pause_states::perform_roadside_mechanic;
@@ -69,6 +75,82 @@ impl DispatchCallState {
     }
 }
 
+impl DispatchCallState {
+    /// "Too tired to drive safely": dispatch moves the appointment for a
+    /// night's sleep, once per load. Answered here, offline and the same
+    /// every time; it never waits on a server.
+    fn rest_call(&mut self, ctx: &mut GameContext) {
+        let answer = self
+            .driving
+            .clone()
+            .with(ctx, |driving, ctx| driving.take_rest_call(ctx))
+            .flatten();
+        if let Some(answer) = answer {
+            ctx.audio.play("ui/notify");
+            ctx.say(&format!("Dispatch: {answer}"));
+            // The row is spent: it leaves the menu without a word.
+            self.refresh(ctx, true);
+        }
+    }
+}
+
+impl DrivingState {
+    /// Whether the dispatch call offers the rest call right now.
+    pub fn rest_call_offered(&self, ctx: &GameContext) -> bool {
+        let on_load = self.phase == DRIVE_PHASE_DELIVERY && !self.job.bobtail;
+        // A co-driver with hours to give takes the wheel instead.
+        let team_with_hours = self.handover_offered(ctx);
+        rest_call_offered(
+            self.current_band(ctx),
+            on_load,
+            self.rest_call,
+            team_with_hours,
+        )
+    }
+
+    /// Spend this load's rest call: the appointment moves by a ten-hour rest
+    /// plus the drive to the nearest stop with parking, the load drops to
+    /// its base rate, and the third call inside a week costs dispatch trust
+    /// the way declining a load does. Returns dispatch's reply, or `None`
+    /// when the call was already spent.
+    pub fn take_rest_call(&mut self, ctx: &mut GameContext) -> Option<String> {
+        let (state, granted) = self.rest_call.next(RestCallEvent::Called);
+        if !granted {
+            return None;
+        }
+        self.rest_call = state;
+        let delay_h = rest_call_delay_h(self.nearest_sleep_stop_travel_min(ctx));
+        self.job.deadline_game_h += delay_h;
+        let now_h = self.absolute_game_hour(ctx, None);
+        let calls = record_rest_call(&mut profile_mut_of(ctx).achievement_stats, now_h);
+        let mut answer = format!(
+            "Understood. Your appointment moves to {}. Park and sleep. This load pays base rate, \
+             with no on-time bonus.",
+            deadline_appointment(self, ctx)
+        );
+        if rest_call_costs_trust(calls) {
+            let p = profile_mut_of(ctx);
+            p.career.reputation = (p.career.reputation - DECLINE_REPUTATION_PENALTY).max(0.0);
+            answer.push_str(&format!(
+                " That is {} rest calls this week. Plan your sleep before you take the load.",
+                count_word(calls as i64)
+            ));
+        }
+        // The moved appointment and the spent call are on disk before a
+        // quit could take them back.
+        let snapshot = self.snapshot(ctx);
+        profile_mut_of(ctx).active_trip = Some(snapshot);
+        ctx.save_profile();
+        Some(answer)
+    }
+
+    /// What `status` reports: the rest call on this load, `None` with no
+    /// load on.
+    pub fn rest_call_state(&self) -> Option<RestCall> {
+        (self.phase == DRIVE_PHASE_DELIVERY && !self.job.bobtail).then_some(self.rest_call)
+    }
+}
+
 impl Menu for DispatchCallState {
     fn menu(&self) -> &MenuCore<Self> {
         &self.menu
@@ -78,8 +160,13 @@ impl Menu for DispatchCallState {
         &mut self.menu
     }
 
-    fn build_items(&mut self, _ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
-        vec![
+    fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
+        let rest_call = self
+            .driving
+            .clone()
+            .with(ctx, |driving, ctx| driving.rest_call_offered(ctx))
+            .unwrap_or(false);
+        let mut items = vec![
             MenuItem::new("Report a delay", |s: &mut Self, ctx| {
                 s.answer(ctx, CALL_DELAY)
             })
@@ -100,7 +187,20 @@ impl Menu for DispatchCallState {
                 s.answer(ctx, CALL_LOAD)
             })
             .help("Report the freight's current condition and ask how to proceed."),
-        ]
+        ];
+        if rest_call {
+            items.push(
+                MenuItem::new("Too tired to drive safely", |s: &mut Self, ctx| {
+                    s.rest_call(ctx)
+                })
+                .help(
+                    "Dispatch moves the appointment so you can sleep, once per load. The load \
+                     pays its base rate, with no on-time bonus. A third call inside a week costs \
+                     dispatch trust.",
+                ),
+            );
+        }
+        items
     }
 }
 
@@ -376,14 +476,13 @@ fn repair_trailer_on_the_road(driving: &mut DrivingState, ctx: &mut GameContext)
         profile_mut_of(ctx).spend(MECHANIC_CALLOUT_FEE);
     }
     driving.trailer_repaired = true;
-    advance_rest_clock(
+    advance_on_duty_clock(
         driving,
         ctx,
         MECHANIC_WAIT_MIN,
         Some("on_duty_not_driving"),
         "trailer repair",
     );
-    hos_mut_of(ctx).on_duty(MECHANIC_WAIT_MIN);
     let billing = if carrier_paid {
         "on the carrier breakdown account".to_string()
     } else {
@@ -405,14 +504,13 @@ fn bring_chains_on_the_road(driving: &mut DrivingState, ctx: &mut GameContext) -
         profile_mut_of(ctx).spend(cost);
     }
     driving.stow_new_chain_set(ctx);
-    advance_rest_clock(
+    advance_on_duty_clock(
         driving,
         ctx,
         MECHANIC_WAIT_MIN,
         Some("on_duty_not_driving"),
         "chain delivery",
     );
-    hos_mut_of(ctx).on_duty(MECHANIC_WAIT_MIN);
     let billing = if carrier_paid {
         "on the carrier breakdown account".to_string()
     } else {

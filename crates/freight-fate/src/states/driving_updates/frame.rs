@@ -714,14 +714,14 @@ impl DrivingState {
                 // At a road stop's lot, off its own streets.
                 self.handle_stop_chain_end(ctx);
             } else if self.phase == DRIVE_PHASE_PICKUP {
-                self.handle_pickup_gate(ctx);
+                self.update_pickup_gate(ctx, dt);
             } else if self.ramp_mi.is_some() {
                 // The ramp watch owns the arrival, so a trip that finishes
                 // under the truck here is not the gate (Python `return`).
             } else if !self.destination_exit_taken {
                 self.handle_missed_destination_exit(ctx);
             } else {
-                self.handle_arrival_gate(ctx);
+                self.update_arrival_gate(ctx, dt);
             }
         }
     }
@@ -749,7 +749,7 @@ impl DrivingState {
             0
         });
         live::set_arrival_menu_open(self.arrival_menu_open);
-        live::set_gate_stop_prompted(self.arrival_full_stop_said);
+        live::set_gate_stop_prompted(self.gate.stop_prompted());
         live::set_on_ramp(self.ramp_mi.is_some());
         live::set_posted_limit_mph(match self.trip.entered_zone.as_ref() {
             Some(zone) => zone.limit_mph,

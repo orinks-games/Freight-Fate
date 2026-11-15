@@ -483,7 +483,7 @@ impl PickupFacilityState {
 
     pub fn refuse_trailer(&mut self, ctx: &mut GameContext) {
         let facility = self.facility();
-        {
+        let (start, end) = {
             let p = profile_mut(ctx);
             let start = p.game_hours;
             p.game_hours += TRAILER_SWAP_MIN / 60.0;
@@ -491,7 +491,9 @@ impl PickupFacilityState {
             p.duty_log
                 .record("on_duty_not_driving", start, end, &facility, "trailer swap");
             p.hos.on_duty(TRAILER_SWAP_MIN);
-        }
+            (start, end)
+        };
+        crate::states::city::city_on_duty_fatigue(ctx, start, end);
         self.charge_facility_idle(TRAILER_SWAP_MIN);
         self.trailer_refused = true;
         self.offer_refusal = false;
@@ -544,7 +546,7 @@ impl PickupFacilityState {
 
     pub fn check_in(&mut self, ctx: &mut GameContext) {
         let facility = self.facility();
-        {
+        let (start, end) = {
             let p = profile_mut(ctx);
             let start = p.game_hours;
             p.game_hours += PICKUP_CHECK_IN_MIN / 60.0;
@@ -557,7 +559,9 @@ impl PickupFacilityState {
                 "shipper check-in",
             );
             p.hos.on_duty(PICKUP_CHECK_IN_MIN);
-        }
+            (start, end)
+        };
+        crate::states::city::city_on_duty_fatigue(ctx, start, end);
         self.charge_facility_idle(PICKUP_CHECK_IN_MIN);
         self.checked_in = true;
         self.save_state(ctx);
@@ -650,7 +654,7 @@ impl PickupFacilityState {
     fn finish_load(&mut self, ctx: &mut GameContext) {
         let plan = self.pickup_plan(ctx);
         let facility = self.facility();
-        {
+        let (start, end) = {
             let p = profile_mut(ctx);
             let start = p.game_hours;
             p.game_hours += plan.minutes / 60.0;
@@ -663,7 +667,9 @@ impl PickupFacilityState {
             p.duty_log
                 .record("on_duty_not_driving", start, end, &facility, activity);
             p.hos.on_duty(plan.minutes);
-        }
+            (start, end)
+        };
+        crate::states::city::city_on_duty_fatigue(ctx, start, end);
         self.charge_facility_idle(plan.minutes);
         self.loaded = true;
         self.just_loaded = true;

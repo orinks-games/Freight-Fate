@@ -9,6 +9,7 @@ use ff_core::models::enforcement::{
     career_citations, citation_fine, construction_zone_fine_clause,
 };
 use ff_core::pyfmt::fmt_grouped;
+use ff_core::sim::driving_modes::tuning_for_time_scale;
 use ff_core::sim::hos::{self, clock_text};
 use ff_core::sim::timezones::city_zone;
 
@@ -49,13 +50,67 @@ pub fn advance_rest_clock(
             status
         }
     });
+    let end_hour = driving.absolute_game_hour(ctx, None);
     if let Some(status) = duty_status {
-        let end_hour = driving.absolute_game_hour(ctx, None);
         let location = driving.logbook_location(ctx);
         profile_mut_of(ctx)
             .duty_log
             .record(status, start_hour, end_hour, &location, note);
     }
+}
+
+/// A coffee or energy drink's lift that wore off during a sleep is paid
+/// back before the sleep's relief is worked out, and silently: the rest
+/// preview already read the figure. Call it after the sleep's
+/// [`advance_rest_clock`]. Every other block leaves the loan for the road,
+/// where its one line is spoken once the driver is back at the wheel.
+pub fn settle_lift_before_sleep(driving: &DrivingState, ctx: &mut GameContext) {
+    let now_h = driving.absolute_game_hour(ctx, None);
+    profile_mut_of(ctx).repay_stimulant_loan(now_h);
+}
+
+/// Time on duty not driving at a stop: fueling, the walk-around, a scale,
+/// an inspection, dock work, chain work, a repair waited out at the truck.
+/// The same as [`advance_rest_clock`], plus the duty clock and the fatigue
+/// the work builds ([`accrue_on_duty_fatigue`]).
+pub fn advance_on_duty_clock(
+    driving: &mut DrivingState,
+    ctx: &mut GameContext,
+    minutes: f64,
+    duty_status: Option<&str>,
+    note: &str,
+) {
+    accrue_on_duty_fatigue(driving, ctx, minutes);
+    advance_rest_clock(driving, ctx, minutes, duty_status, note);
+    hos_mut_of(ctx).on_duty(minutes);
+}
+
+/// Fatigue for `minutes` on duty not driving, starting now: a third of the
+/// driving rate for the hour of day (`hos::on_duty_fatigue_gain`), scaled by
+/// the driving mode and any food or drink buff the way driving is. Call it
+/// before the clock moves. Nothing while the co-driver has the wheel: the
+/// player is in the bunk then.
+pub fn accrue_on_duty_fatigue(driving: &DrivingState, ctx: &mut GameContext, minutes: f64) {
+    if driving.co_driver_driving() {
+        return;
+    }
+    let start_local = driving.trip.local_hour();
+    let now_h = driving.absolute_game_hour(ctx, None);
+    let mode_rate = tuning_for_time_scale(driving.trip.time_scale).fatigue_rate;
+    let p = profile_mut_of(ctx);
+    let gain = hos::on_duty_fatigue_gain(start_local, minutes, |h| {
+        mode_rate * p.fatigue_buff_rate(now_h + h)
+    });
+    p.fatigue = (p.fatigue + gain).min(100.0);
+}
+
+/// The minutes hand work of `base_min` takes in town, where no drive
+/// tracks the band: the band the fatigue number falls in, read the way
+/// [`DrivingState::hand_work_min`] reads it on the road.
+pub fn town_hand_work_min(ctx: &GameContext, base_min: f64) -> f64 {
+    let fatigue = ctx.profile.as_ref().map_or(0.0, |p| p.fatigue);
+    let relaxed = tuning_for_time_scale(ctx.settings.time_scale).name == "relaxed";
+    ff_core::sim::alertness::Alertness::from_fatigue(fatigue).hand_work_min(base_min, relaxed)
 }
 
 /// Atomically secure a slow truck before a menu freezes driving physics.
@@ -155,10 +210,11 @@ pub fn perform_shoulder_sleep(
 ) -> String {
     let engine_off = shut_down_engine(driving, ctx);
     advance_rest_clock(driving, ctx, hos::SLEEP_MIN, None, "");
+    settle_lift_before_sleep(driving, ctx);
     hos_mut_of(ctx).sleep();
     {
         let p = profile_mut_of(ctx);
-        p.fatigue = hos::rest_shoulder(p.fatigue);
+        p.fatigue = hos::rest_poor_sleep(p.fatigue, hos::SLEEP_MIN);
     }
     let mut parts = vec![if at_chain_checkpoint {
         format!(

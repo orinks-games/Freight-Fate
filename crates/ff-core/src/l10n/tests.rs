@@ -1144,3 +1144,50 @@ fn shipped_polish_says_the_pay_after_costs_as_a_polish_number() {
     let out = de.translate("Pays 7,323 dollars, about 6,576 after costs.");
     assert!(out.contains("7.323") && out.contains("6.576"), "{out}");
 }
+
+fn shipped_vietnamese() -> Translator {
+    let po = include_str!("../../../../lang/vi.po");
+    Translator::new(Catalog::from_po("vi", po).expect("lang/vi.po parses"))
+}
+
+#[test]
+fn shipped_vietnamese_translates_reported_turn_and_limit_issues() {
+    let tr = shipped_vietnamese();
+
+    // 1. Resume line splits cleanly and translates engine prompt
+    let resume = "Resuming pickup drive: 19 tons of shipping containers to Visalia Intermodal Ramp in Visalia, California. 3.3 kilometers remaining of 3.3 to pickup at Visalia Intermodal Ramp in Visalia, California. 0.0 of 2 hours. 5:01 PM. Automatic transmission. Simulated weather: fog, 15 C, visibility 0.482803 kilometers. Press E to start the engine.";
+    let s2 = tr.translate(resume);
+    assert!(s2.contains("Nhấn E để đề nổ máy."), "{s2}");
+    assert!(s2.contains("Tiếp tục chuyến chạy đi nhận hàng"), "{s2}");
+    assert!(s2.contains("Hộp số tự động"), "{s2}");
+
+    // 2. Turn navigation cues with distance tail
+    let turn = "Turn right onto South Bridge Street, then 1 kilometer on it. Advise 18 km/h.";
+    let s3 = tr.translate(turn);
+    assert!(
+        s3.contains("Rẽ phải vào South Bridge Street, sau đó chạy 1 kilômét trên tuyến đó."),
+        "{s3}"
+    );
+    assert!(s3.contains("Khuyến nghị 18 km/h."), "{s3}");
+
+    // 3. Speed limit variations
+    let spd = tr.translate("Speed limit 40 km/h.");
+    assert_eq!(spd, "Giới hạn tốc độ 40 km/h.");
+    let reduced = tr.translate("Speed limit reduced to 40 km/h.");
+    assert_eq!(reduced, "Giới hạn tốc độ giảm xuống 40 km/h.");
+    let raised = tr.translate("Speed limit raised to 55 km/h.");
+    assert_eq!(raised, "Giới hạn tốc độ tăng lên 55 km/h.");
+    let approaching =
+        tr.translate("Speed limit reduced to 40 km/h approaching Visalia for 1 kilometer.");
+    assert_eq!(
+        approaching,
+        "Giới hạn tốc độ giảm xuống 40 km/h khi vào gần Visalia trong 1 kilômét."
+    );
+    let weigh = tr.translate("Speed limit reduced to 40 km/h for the weigh station.");
+    assert_eq!(weigh, "Giới hạn tốc độ giảm xuống 40 km/h trước trạm cân.");
+    let grade = tr.translate("Speed limit reduced to 40 km/h for the downhill grade.");
+    assert_eq!(
+        grade,
+        "Giới hạn tốc độ giảm xuống 40 km/h trước đoạn dốc xuống."
+    );
+}

@@ -2,6 +2,27 @@
 
 ## Unreleased
 
+### Added
+
+- **Job details and the departure line say how much night driving a run has,** as in "About 4 hours of night driving."
+- **A drowsy driver can call dispatch to move the appointment,** giving up the on-time bonus. The row is Too tired to drive safely.
+
+### Changed
+
+- **On-duty time now tires you a little.** Fueling, docks, inspections and waiting at the wheel build it at a third of the driving rate.
+- **Sleep now takes off 8 points of fatigue an hour.** Ten hours clears 80, so going to bed exhausted leaves some.
+- **Coffee and energy drinks now wear off and take their lift back.** A second one before then adds no lift.
+- **Work at stops takes longer as fatigue rises.** Fueling, the walk-around, chain work and pulling in run slower from worn up.
+- **An inspection or traffic stop at severe fatigue ends in a ten-hour out-of-service order.**
+- **Five-by-Two now takes a full 10 hours asleep at a stop.** A split rest, or finishing a reset that a break started, no longer earns it.
+
+### Fixed
+
+- **Cruise no longer pumps the brakes behind a slower car on streets and approaches.** It slows once and follows, so low air no longer sets the spring brakes.
+- **Enter accepts a facility arrival from a full stop with Facility stopping assistance off.** A stopped truck is told to set the parking brake.
+- **Game sound comes back when a Bluetooth headset drops out or the sound device stops responding.** It returns within a few seconds, without a restart.
+- **The built-in voice keeps speaking after a Bluetooth headset connects or disconnects.** In 1.9.6 it could go silent until a restart.
+
 ## 1.9.6 - 2026-11-13
 
 ### Compatibility

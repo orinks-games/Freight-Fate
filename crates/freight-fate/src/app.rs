@@ -238,10 +238,18 @@ pub struct DrivingObservation {
     pub cruise_set_mph: Option<f64>,
     /// The speed keeper's hold, when it has the zone.
     pub keeper_mph: Option<f64>,
+    /// Whether the keeper is matching a slower vehicle ahead.
+    pub keeper_following: bool,
     /// The fatigue band the road last cued.
     pub alertness: ff_core::sim::alertness::Alertness,
     /// The nod-off machine: where it stands, its timer and the misses.
     pub nod: ff_core::sim::alertness::NodState,
+    /// A coffee or drink's lift owed back, and the game hours until it is.
+    pub lift_owed: Option<(f64, f64)>,
+    /// This load's rest call to dispatch; `None` with no load on.
+    pub rest_call: Option<ff_core::sim::fatigue_costs::RestCall>,
+    /// The stop at the facility gate, while the trip has ended at one.
+    pub gate: Option<ff_core::sim::arrival_gate::GateStop>,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -808,8 +816,21 @@ impl App {
             speed_limit_mph: drive.enforced_limit_prev,
             cruise_set_mph: drive.cruise_mph,
             keeper_mph: drive.keeper_mph,
+            keeper_following: drive.keeper_follow.following(),
             alertness: drive.alertness,
             nod: drive.nod,
+            lift_owed: self
+                .ctx
+                .profile
+                .as_ref()
+                .and_then(|p| match p.stimulant_loan() {
+                    ff_core::sim::stimulant::Loan::Open { amount, due_h, .. } => {
+                        Some((amount, due_h - drive.absolute_game_hour(&self.ctx, None)))
+                    }
+                    ff_core::sim::stimulant::Loan::Clear => None,
+                }),
+            rest_call: drive.rest_call_state(),
+            gate: drive.arrival_gate_query_text(&self.ctx).map(|_| drive.gate),
         })
     }
 

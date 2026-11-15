@@ -1552,7 +1552,8 @@ impl DrivingState {
         self.place_out_of_service_minutes(ctx, OUT_OF_SERVICE_MIN);
     }
 
-    /// Park for `minutes`. A full 10-hour order resets the clock and fatigue;
+    /// Park for `minutes`. A full 10-hour order resets the clock and sleeps
+    /// fatigue off by the hour;
     /// a 30-minute break order only takes the missed break.
     pub fn place_out_of_service_minutes(&mut self, ctx: &mut GameContext, minutes: f64) {
         // Written now, served in full below before this returns: the truck is
@@ -1561,9 +1562,10 @@ impl DrivingState {
         let written_h = crate::states::driving_rest_states::record_hours(ctx, self);
         advance_rest_clock(self, ctx, minutes, None, "");
         if minutes >= hos::SLEEP_MIN {
+            settle_lift_before_sleep(self, ctx);
             hos_mut_of(ctx).sleep();
             let profile = profile_mut_of(ctx);
-            profile.fatigue = hos::rest_sleep(profile.fatigue);
+            profile.fatigue = hos::rest_sleep(profile.fatigue, minutes);
         } else {
             hos_mut_of(ctx).take_break(minutes);
             let profile = profile_mut_of(ctx);

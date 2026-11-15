@@ -243,8 +243,18 @@ struct Waiting {
 /// The fatigue machines as `status` reports them, by their field names.
 fn fatigue_state_line(o: &crate::app::DrivingObservation) -> String {
     let (timer, unit) = o.nod.timer();
+    let lift = match o.lift_owed {
+        Some((amount, due_in_h)) => format!("{amount:.1} due in {due_in_h:.2} h"),
+        None => "none".to_string(),
+    };
+    let rest_call = o.rest_call.map_or("none", |state| state.key());
+    // The facility gate's stop, only while the trip has ended at a gate.
+    let gate = o
+        .gate
+        .map_or(String::new(), |gate| format!("; gate {}", gate.key()));
     format!(
-        "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}.",
+        "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
+         rest_call {rest_call}{gate}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses
@@ -824,8 +834,10 @@ impl AgentPolicy {
                             o.air_ready,
                             o.parking_brake,
                             o.speed_control_armed,
-                            o.keeper_mph
-                                .map_or("off".to_string(), |mph| format!("holding {mph:.0}")),
+                            o.keeper_mph.map_or("off".to_string(), |mph| format!(
+                                "holding {mph:.0}, following traffic: {}",
+                                o.keeper_following
+                            )),
                             o.cruise_set_mph
                                 .map_or("off".to_string(), |mph| format!("set {mph:.0}")),
                             o.hazard_active,

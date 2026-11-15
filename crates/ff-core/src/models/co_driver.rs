@@ -546,7 +546,7 @@ pub fn pairing_badge(co_driver_key: &str) -> Option<&'static str> {
 }
 
 /// How far to step the player's fatigue down for `minutes` in the sleeper:
-/// a full 10 hours clears it.
+/// the same 8 points an hour as a proper sleep parked.
 pub fn sleeper_fatigue_relief(minutes: f64) -> f64 {
-    100.0 * minutes / hos::SLEEP_MIN
+    hos::SLEEP_RELIEF_PER_HOUR * minutes / 60.0
 }

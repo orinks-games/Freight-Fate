@@ -36,14 +36,7 @@ pub const TERMINAL_CHAINS_MIN: f64 = 10.0;
 pub const CHAIN_REPAIR_LINKS_COST: f64 = 25.0;
 
 fn record_terminal_duty(ctx: &mut GameContext, start_hour: f64, end_hour: f64, note: &str) {
-    let terminal = crate::states::city::home_terminal(ctx);
-    profile_mut(ctx).duty_log.record(
-        "on_duty_not_driving",
-        start_hour,
-        end_hour,
-        &terminal.name,
-        note,
-    );
+    crate::states::city::record_city_duty(ctx, "on_duty_not_driving", start_hour, end_hour, note);
 }
 
 /// Damage at which the carrier's shop takes a company tractor before a load:
@@ -200,12 +193,15 @@ impl GarageState {
             return;
         }
         if !player_pays_operating_costs(&profile(ctx).business_status) {
-            {
+            let (start, end) = {
                 let p = profile_mut(ctx);
                 p.set_truck_fuel_gal(tank);
+                let start = p.game_hours;
                 p.game_hours += TERMINAL_FUEL_MIN / 60.0;
                 p.hos.on_duty(TERMINAL_FUEL_MIN);
-            }
+                (start, p.game_hours)
+            };
+            crate::states::city::city_on_duty_fatigue(ctx, start, end);
             ctx.save_profile();
             ctx.audio.play("vehicle/fuel_pump");
             ctx.say(&format!(
@@ -290,12 +286,15 @@ impl GarageState {
         let deep_damage = damage >= 75.0;
         if !player_pays_operating_costs(&profile(ctx).business_status) {
             let fixed = damage;
-            {
+            let (start, end) = {
                 let p = profile_mut(ctx);
                 p.set_truck_damage_pct(0.0);
+                let start = p.game_hours;
                 p.game_hours += TERMINAL_REPAIR_MIN / 60.0;
                 p.hos.on_duty(TERMINAL_REPAIR_MIN);
-            }
+                (start, p.game_hours)
+            };
+            crate::states::city::city_on_duty_fatigue(ctx, start, end);
             save_equipment_change(ctx);
             ctx.audio.play("ui/notify");
             ctx.say(&format!(

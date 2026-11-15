@@ -27,6 +27,11 @@
 > follows at release. Keep this file current: when a feature lands on the 1.9
 > line, check it off here in the same change.
 
+> Current stable: **1.9.6** (2026-11-13). Next release: **1.9.7**, a fix
+> release from dev; `feat/career-2.0` merges into dev after its tag and
+> becomes the beta channel. The gate for both is under
+> [November 14](#november-14-the-road-to-197-and-the-20-beta-found-along-the-way).
+
 ## Reading this roadmap
 
 Start with the [1.9 release gate](#release-gate-190), the fixed list of
@@ -41,8 +46,16 @@ bookmarks usable.
 
 ## 1.9 in flight (`feat/career-1.9`)
 
+- [x] (Found along the way) Cruise in a low-speed zone pumped the brakes behind a slower car and ran the air down to the spring brakes (issue 520, a 1.9.5 log: twice in two minutes in a Waco work zone, behind a car doing 21 with the zone held at 30). The low-speed half matched the car only while the gap was inside a window priced from the truck's speed now, so its own brake shrank the window back past the car, it let go, throttled up and braked again: 34 applications and 125 psi to 40 in fifteen seconds on a bench. Highway work zones moved to adaptive cruise in 1.9.6, which follows the same car on one application, so that zone no longer does it; streets, facility approaches and merge lanes still did. Fixed 2026-11-15: once it starts following a slower vehicle it keeps following it until that vehicle speeds up past the zone's number or stops being the lead (`ff_core::sim::keeper_follow`; the agent server's `observe` reports it as "following traffic"). Bench: one application, 124 psi held.
+- [ ] (Found along the way) The low-speed half of cruise still re-presses about six times in two minutes following a car at 21 down a 3 percent grade (air stays near 100 psi); adaptive cruise on the same bench re-presses twice.
+
+- [x] (Found along the way) Sound or the built-in voice stays off after a Bluetooth headset connects, disconnects or drops out (a player said on 2026-11-13 that issue 483 was back in 1.9.6; the report had no log). The device code was the same in 1.9.5 and 1.9.6, so the October fix had gaps, and 1.9.6 added one more. Game sound: the device was only reopened when it said it was gone, so a stream that ended on any other error, or stopped asking for sound with no error, stayed silent until restart. Built-in voice (new in 1.9.6): it has its own stream and only came back on a device at the same sample rate, so a headset at 44,100 Hz beside speakers at 48,000 muted it. Fixed 2026-11-13 in Hearken (orinks-games/hearken PR 69, pinned here): both streams count their own callbacks and reopen the default device after a lost-device error, after another error followed by half a second of silence, or after 2 seconds of silence, waiting 4, 8, then 16 seconds between tries on a device that stays silent; the voice follows the new device's rate. Staged on Linux by killing and restarting the sound service: silent before, back within half a second after. Not yet run on Windows with a headset.
+- [ ] (Found along the way) A Bluetooth check by ear on Windows, owed since the October fix for issue 483: with a headset connecting, disconnecting and walking out of range during a drive, game sound and the built-in voice both come back, and `game.log` shows the `audio:` and `Built-in voice:` lines for each change.
+- [ ] (Found along the way) A game started with no sound device stays silent for the session, and the built-in voice with it, even after a device appears: the first open is the only one that is not retried.
 - [x] Report a problem sends the game log ahead to orinks.net and opens the report form in the browser (owner, 2026-11-12: the in-game text box was "not great for entering text", and players asked to attach the log by hand rarely did). The row on the main menu posts `game.log` and `game.prev.log` to the site, which answers with a one-time page where the player writes what happened, adds an email address for a reply and unticks a log they would rather keep; the site emails the report. A run that never quit (a crash, a kill, a power cut) leaves a marker, and the next main menu asks once: Report it, Not now, or Stop asking after crashes (Settings, Problem reports has the switch). When orinks.net cannot be reached, or the browser will not open, the GitHub bug-report page opens as before with the line saying where the log is. Built on Hearken's problem-report crate; Wicket's gets the same through Hearken's own screens.
 - [x] Debris is taken, not stopped for (owner, 2026-11-09, after automatic braking took the truck from 65 to a near stop on I-43 for a strip of tire tread with the left lane held: "should I or the assists even brake for them?"). The catalog now says how each thing in the lane is taken. Small debris (tire debris, loose debris) is a heads-up with the road cue tone, "Tire debris. Left lane open.", about 8 seconds out: full lane keeping moves over, nothing brakes, cruise stays on, and with no lane open the truck drives over it with a thump and, at 55 or more, a 1 in 4 seeded roll for 1 to 2 percent damage. Big debris (ladder, lumber, mattress, boxes, tarp, tumbleweeds) keeps the hazard call; with no lane open automatic braking eases to 30 and the thing is taken for free at 30 or under, or struck above it for damage growing to the catalog's figure at 65 (8 for the ladder and lumber, 4 for the soft things), with the truck still rolling and cruise still armed. Rockfall, a spun-out car, the stopped vehicle, closures, traffic and crash scenes are unchanged. "It is still in your lane. Nearly stop." is gone in every case. Every debris strike speaks its damage (issue 533 reported damage with no line saying why). The agent server's new `hazard` tool fires any catalog hazard by name on the live drive, so each class can be driven instead of waited for.
+- [x] (Found along the way) A truck stopped at a facility gate could not dock with Facility stopping assistance off unless the parking brake was set (first player problem report, 2026-11-13, Fort Worth Cross-Dock: "I arrived at my destination, pressed enter but could not dock"). Enter did nothing there, though the manual says it accepts the arrival; the one line that names the parking brake was cut 4.5 seconds later by the "Still at" reminder; and a stopped truck heard nothing more. Fixed 2026-11-14: Enter or controller A accepts the arrival from a full stop at a delivery or pickup gate, a truck at rest with the brake off hears "Set the parking brake to dock" once per stop after 3 seconds of quiet (counted from the end of the stop line since the recorded drive of 2026-11-14, where a truck that stopped under that line heard the brake named twice back to back), the reminder waits its 10 seconds after the line that names the brake, and the speed limit key, the route key, the status screen and the pause menu's Trip status say what the gate is waiting for. The gate's stop is one state enum (`ff_core::sim::arrival_gate`), and the agent server's `status` reports it.
+- [ ] (Found along the way) The dock at the end of an exit ramp, with Facility streets off, still opens on a full stop without going through the gate's state enum. Move it onto the enum so both arrivals share one rule.
 - [x] (Found along the way) Speed limits flip-flopped where the map has no posting (owner's Kenosha to Traverse City drive, 2026-11-04: 60, 70, 55 on the Tri-State in Lake County inside two minutes). An untagged stretch longer than four miles fell back to the open-road number, and 263 of them sat between two lower postings. Fixed 2026-11-05: a gap takes at most the higher posting around it when both are 55 or more, or both are 45 or more and the gap is at most 10 miles. Calibrated on the October profile itself: on tagged road between two postings of 55 or more, the stretch between was posted higher than both for most of its length 0.1% of the time over 5 miles and 1.9% over 40; with a 45 or 50 at one end, 5.1% over 10 miles and 13.4% over 40. A gap leaving a town limit under 45 still reads the open-road number. The state truck caps (California 55, Oregon 55, Arizona 65 and the rest) now bind in gaps and on legs with no profile; they used to apply to postings only.
 - [x] (Found along the way) Kenosha and Milwaukee to Chicago leave I-94 just past the state line and run about 25 miles down US-41 (Skokie Highway, with signals) to Lake Cook Road, while the game still calls the road I-94; checked against OpenStreetMap 2026-11-05. The 55, 45, 55 and 50 heard there are US-41's real limits. Re-route both legs onto the Tri-State and re-read their limits, then check which other legs leave their named interstate the same way (the limit-artifact screen's off-route verdicts are a start). Fixed 2026-11-05: both legs re-routed with `cargo tools reroute-leg` and rebuilt with `reroute-enrich` and the layer builders, from the OpenStreetMap planet of 2026-10-26; they now ride I-94 (the Tri-State, then the Edens and the Kennedy) into Chicago. The other legs that leave their named road are listed in the route audit of 2026-11-05.
 - [ ] (Found along the way) Toll events on the Tri-State: Kenosha and Milwaukee to Chicago now ride the Illinois Tollway and carry no toll events. Curate the plazas and truck rates.
@@ -68,7 +81,7 @@ bookmarks usable.
 - [x] Tester snapshots build on each push to dev (owner, 2026-11-09, after the scheduled start kept landing seven hours late and the way msfs-blind-assist rebuilds its preview on every merge). A merge with a changelog entry publishes the day's snapshot about an hour and a quarter later; a second merge the same day replaces it, and the schedule stays as a once-a-night fallback that skips when the newest snapshot is already dev's head. The failed-run retry now rebuilds from dev's copy of the workflow.
 - [x] Snapshot notes are the change list alone (owner, 2026-11-09): the Summary of each entry's lead sentence, added 2026-10-25, read every change twice once a busy day put twelve entries in one snapshot. Stable releases keep their hand-written Highlights.
 - [x] The snapshot retry is a job inside the build run (owner, 2026-11-12: "why is the retry nightly run skipping every hour?"). As its own workflow it started after every completed build, so each push build left a skipped Retry row, and a burst of nine merges on the night of 2026-11-11 left nine retries sleeping 45 minutes for builds a newer push had already cancelled. Now it exists only when a job in the run failed or timed out; the separate workflow is deleted.
-- [ ] (Found along the way) The scheduled snapshot of 2026-11-09 failed on a dispatch test ("one of the small towns relays a load off an empty board"); the retry an hour later passed on the same commit. The test is order- or seed-dependent; pin it.
+- [x] (Found along the way) The scheduled snapshot of 2026-11-09 failed on a dispatch test ("one of the small towns relays a load off an empty board"); the retry an hour later passed on the same commit. Pinned 2026-11-14: a new career's freight market is seeded at random, and about one seed in two thousand (3 of 6,000 scanned) leaves none of the five towns a relay that fits a rookie's deadhead rule. The tests now run on a fixed market from Sherman.
 - [ ] (Found along the way) Live road reports for the whole route in route planning, so a closure 80 miles out can be weighed before the load is taken.
 - [ ] (Found along the way) Live road reports place a report on the leg's route points, about 25 miles apart, so a named report can be matched up to 2 miles off the line and its distance is off by about as much. Loading the fine road line (`world_data/us/geometry`, about 200 points a leg, today read only by the map tools) would tighten both, and let a report that names no road be matched.
 - [x] (Found along the way) After a hazard stop in a work-zone approach, cruise coming back said "Construction zone ahead, cruise easing to 55" and "to 45" a second time for the same zone (owner's NVDA drives, 2026-11-03, I-84 and WI-29), about 9 to 12 seconds after "Cruise resuming", once cruise's target climbed back past the zone's numbers. Fixed 2026-11-04: the zone cruise is slowing for, and what it said about it, outlast a stopped cruise session, and the resume line counts as saying the cap. The agent drive on WI-29 found the same repeat after braking cruise off and setting it again at a crawl; that is fixed too. A zone is news again once the truck is past it.
@@ -76,7 +89,7 @@ bookmarks usable.
 - [x] (Found along the way) Rest areas listed once per carriageway were offered to drivers on both sides (owner's drive, 2026-11-04, I-43 north from Sheboygan: "Rest Area #52 in 5 miles", then "Rest Area #51 in 4 miles", the southbound one). The truck-parking inventory names each one's bound; the import stored them as serving both directions. Fixed 2026-11-04 at load: a rest area whose record names its bound serves the direction the leg runs on that bound, read from the route line near the stop and over the whole leg. 88 of the 92 such records now serve one side.
 - [ ] (Found along the way) Four rest areas named for one bound still serve both directions because the route line near them and the leg disagree: Big Cypress on I-75, Thompson Hill and Culkin on I-35 out of Duluth, and Nash County on I-95. A denser route line, or the inventory's own coordinates, would settle them.
 - [ ] (Found along the way) With a voice that cannot report (NVDA before 2026.3, JAWS), a road line cut by a readout still queues behind it, and the pacer counts the readout's time as the line playing, so a Brake line soon after can still drop it as mostly heard. The fix needs the readout's length in Hearken's pacer.
-- [ ] (Found along the way) The cruise dial speaks every step while held ("cruise target 57, 58, 59, 60") several times a second (owner's NVDA drive, 2026-11-03).
+- [x] (Found along the way) The cruise dial speaks every step while held ("cruise target 57, 58, 59, 60") several times a second (owner's NVDA drive, 2026-11-03). Won't do (owner, 2026-11-14): each press answering as it lands, cutting the last, is how the dial should sound.
 
 - [x] YouTube links in personal playlists (owner, 2026-10-30): a playlist entry that is a YouTube page, livestream or video, plays through a yt-dlp the player installs (Playlists folder first, then the PATH; Homebrew's folders on a Mac). Not shipped with the game: size, upkeep and YouTube's terms. The shared station list and the site's suggestion form still take only real streams. Each fresh tune asks yt-dlp for the address, kept until ten minutes before its own expiry. A playlist that will not play because yt-dlp is missing says so.
 
@@ -780,10 +793,14 @@ Everything found before 2026-09-25 moved to
       the readouts, no repeated drowsy line after a small lift
       ([fatigue redesign](#november-13-fatigue-bands-and-the-nod-off-found-along-the-way),
       PR 1 of `docs/fatigue-design.md`).
-- [ ] (Found along the way) Fatigue redesign, the rest: the night-hours
-      line, on-duty fatigue, rest by the hour and stimulants as a loan, slow
-      work, the inspection rule, the dispatch rest call
-      (`docs/fatigue-design.md` parts 2 to 7).
+- [x] (Found along the way) On-duty time builds fatigue, sleep clears it
+      by the hour, coffee and energy drinks lend a lift they take back, and
+      the job details and departure line say how much of a run falls at
+      night (PR 2 of `docs/fatigue-design.md`, parts 2, 3 and 5).
+- [x] (Found along the way) Tired work is slow work, an officer orders a
+      severely fatigued driver out of service, and a drowsy driver can call
+      dispatch to move the appointment (PR 3 of `docs/fatigue-design.md`,
+      parts 4, 6 and 7).
 - [x] (Found along the way) Traffic runs at a share of the posted limit,
       towns included; a slow call means the truck is gaining on the vehicle;
       freeway traffic turns off at interchanges (owner, 2026-11-04), and
@@ -1503,6 +1520,8 @@ Everything found before 2026-09-25 moved to
 - [ ] (Found along the way) From 1.9.5 to the 2.0 nightlies: the 1.9.6
       list, the switch rule and the one-channel rule, agreed by the owner
       2026-10-26 ([October 26](#october-26-the-road-to-the-20-nightlies-found-along-the-way)).
+      The 1.9.7 gate and what stands before the 2.0 beta, 2026-11-14
+      ([November 14](#november-14-the-road-to-197-and-the-20-beta-found-along-the-way)).
 - [ ] (Found along the way) The speed keeper trails a posted drop on a
       street: 38 in a 30 on North Arnold Boulevard before "easing to 30"
       (Abilene departure drive, 2026-10-26).
@@ -3790,7 +3809,9 @@ and the ramp lights were already the truck's.
 ### November 13 fatigue bands and the nod-off (Found along the way)
 
 PR 1 of the fatigue redesign (`docs/fatigue-design.md`, approved by the
-owner 2026-11-11). No new costs; the rest of the design is open below.
+owner 2026-11-11) built the bands and the nod-off with no new costs. PR 2
+(2026-11-13) added parts 2, 3 and 5, and PR 3 (2026-11-13) parts 4, 6
+and 7.
 
 - [x] (Found along the way) **Four fatigue bands.** Rested, worn, drowsy
       and severe, entered at 40, 60 and 80 and left only 5 points under
@@ -3808,18 +3829,67 @@ owner 2026-11-11). No new costs; the rest of the design is open below.
 - [x] (Found along the way) The city terminal judged "slept before it got
       bad" at 70 and a rest stop at 80, for the same achievement. Both
       now use the severe band.
-- [ ] (Found along the way) The night-hours line on the job details and
-      the departure line (design part 3).
-- [ ] (Found along the way) On-duty time that is not driving builds
-      fatigue at a third of the driving rate (part 2).
-- [ ] (Found along the way) Rest by the hour, and stimulants as a loan
-      that comes back when it wears off (part 5).
-- [ ] (Found along the way) Tired work is slow work: fueling, the
-      walk-around and chain work take longer by band (part 4).
-- [ ] (Found along the way) A traffic stop or inspection at severe ends
-      in the fatigue out-of-service order (part 6).
-- [ ] (Found along the way) The dispatch call for rest while drowsy or
-      severe on a load (part 7).
+- [x] (Found along the way) The night-hours line on the job details and
+      the departure line (design part 3): "About 4 hours of night
+      driving.", leaving now and driving straight through on the local
+      clock, nothing for a daytime run. Job details carry it with hours of
+      service off too, where it is the one planning line left.
+- [x] (Found along the way) On-duty time that is not driving builds
+      fatigue at a third of the driving rate (part 2): stopped at the
+      wheel, and every on-duty block at a stop, a dock, a scale, an
+      inspection, a repair or chain work, on the road and in town. The
+      third is assumed tuning.
+- [x] (Found along the way) Rest by the hour, and stimulants as a loan
+      that comes back when it wears off (part 5). Proper sleep and the
+      co-driver's bunk take 8 points an hour, poor sleep 5 down to 30. The
+      coffee break and the energy drink and five-cent coffee lend their
+      lift for two hours (the drinks, their buff's time); a second one
+      before then lifts nothing. The loan rides in the save's buff list,
+      so cloud backups need no new field. Both rates are assumed tuning.
+      A lift that wears off during a sleep comes back silently, since the
+      rest result reads the fatigue; one that wears off in any other stop,
+      or in the loop back after driving past the receiver, comes back on
+      the first moment at the wheel with its line, which waits out a busy
+      voice and is heard before the band cue it causes (agent playtest,
+      2026-11-13).
+- [ ] (Found along the way) Tune the on-duty rate and the sleep rates
+      against real careers after the owner's listening pass (design
+      "Tradeoffs").
+- [x] (Found along the way) Tired work is slow work (part 4): fueling,
+      the walk-around (on the road and at the terminal), chain install,
+      removal, repair and tightening, and pulling into a stop, a pickup or
+      a dock take 10, 25 or 50 percent longer at worn, drowsy and severe
+      (5, 12 and 25 with relaxed pacing), rounded to the minute. Every row,
+      help line and result line that reads those minutes reads the longer
+      figure; the fuel row's help now reads its minutes. Docks, mechanics,
+      shops, officers, scale wave-throughs and buying a chain set keep
+      their times.
+- [x] (Found along the way) An officer can see it (part 6): the scale's
+      inspection lane, a roadside inspection or log check, and a traffic
+      stop at severe end in the fatigue out-of-service order after the
+      stop's own result, never on top of an order the stop already gave,
+      and not with enforcement bypassed. With relaxed pacing the first one
+      in a career is a warning, kept in the career's stats map so cloud
+      backups need no new field.
+- [x] (Found along the way) The dispatch rest call (part 7): "Too tired to
+      drive safely" while drowsy or severe on a load, once per load and
+      not on a team load whose co-driver has hours. The appointment moves
+      by ten hours plus the drive to the nearest stop with parking (10.5
+      hours when none is known), and the load pays its base rate. The
+      third call inside seven days, and each after, costs the same trust
+      as declining a load. The calls are kept in the career's stats map;
+      the spent call rides in the trip save, and the agent server's
+      `status` reports `rest_call`.
+- [ ] (Found along the way) Tune the slow-work percentages, the rest
+      call's fallback 10.5 hours and its two free calls a week against
+      real careers; all are assumed.
+- [ ] (Found along the way) Chain controls and the felony stop do not
+      apply the severe-fatigue order: a chain control speaks on the road
+      without a stop screen, and the felony stop ends the run. Decide
+      whether a chain-control officer should.
+- [ ] (Found along the way) Lane wander for manual steering at drowsy and
+      severe, pending the owner's listening pass of the rest of the
+      redesign (design "Considered and left out").
 
 ### October 26 the road to the 2.0 nightlies (Found along the way)
 
@@ -3841,6 +3911,8 @@ Rules set that day:
   is older than a week, and the 2.0 branch has taken a dev sync that
   passes CI as a PR against dev. Then the branch merges into dev. A 1.9
   fix after that lands on main and ships as 1.9.7 from a tag on main.
+  Amended 2026-11-14: 1.9.7 ships from dev first, then the switch; see
+  [November 14](#november-14-the-road-to-197-and-the-20-beta-found-along-the-way).
 - **PR #515 stays on dev** for 1.9.6: rebase after #514, an agent-server
   drive, merge. The same `osm-speed-limits` command runs again on 2.0
   with Canada in the bounding box.
@@ -3927,6 +3999,107 @@ with everything off):
   departure cannot be staged through `start_at` today.
 - Three "Found along the way" items above: the keeper trailing a posted
   drop, silent damage, the rural 70 posted on a boulevard.
+
+### November 14 the road to 1.9.7 and the 2.0 beta (Found along the way)
+
+The owner asked on 2026-11-14 for a clear path to 1.9.7, with
+`feat/career-2.0` going to the beta channel once it is out. That changes
+the switch rule of October 26: 1.9.7 is cut from dev the way 1.9.6 was,
+and the 2.0 branch merges into dev only after the 1.9.7 tag. A 1.9 fix
+after the merge lands on main and ships as 1.9.8 from a tag on main.
+
+Rules on dev until the 1.9.7 tag:
+
+- **Fixes and translations only.** No new feature starts on dev.
+- **No map data edits.** A trial merge of dev into `feat/career-2.0` on
+  2026-11-14 conflicts in 81 files, 26 of them map shards, so a leg
+  edited on dev now is edited again in the sync. The open map items
+  above (the straight-line legs, the legs beside their interstate, the
+  Tri-State tolls, the Chicago fuel stop, the whole-map layer run) wait
+  for 2.0.
+
+On dev since 1.9.6:
+
+- [x] Fatigue redesign parts 2 to 7 (PR 624): on-duty time, sleep by the
+      hour, stimulants as a loan, the night-hours line, slow work, the
+      officer's order and the dispatch rest call.
+- [x] Enter accepts a facility arrival from a full stop, and the gate
+      names the parking brake (PRs 627 and 628).
+- [x] Five-by-Two takes a full 10 hours asleep (PR 630).
+
+Release gate for 1.9.7:
+
+- [x] Sound comes back after the sound device drops (Hearken PR 69, then
+      game PR 626, both merged 2026-11-14). A player reported 1.9.6 going
+      silent with a Bluetooth headset. Driven in the cloud with the sound
+      service killed twice. No one has run it with a real headset on
+      Windows; the owner has none to test with and merged it for players
+      to confirm.
+- [ ] The Windows Defender detection a player reported on 2026-11-14.
+      The Windows build is not code signed. Before the tag, the release
+      candidate's Windows files are scanned and come back clean, or the
+      detection is reported to Microsoft as a false positive and the
+      downloads page says so. A code-signing certificate costs money and
+      is the owner's decision.
+- [ ] Cloud backup and restore of a sealed career. 1.9.6 was the first
+      stable to seal saves, and nobody has restored one from the cloud
+      since. An agent checks it on the staging backend, then the owner
+      once on their own account.
+- [ ] A week of tester play on the fatigue changes, which reached the
+      snapshot on 2026-11-13: tag no earlier than 2026-11-20 unless the
+      owner's listening pass (the yawn at worn, whether the numbers feel
+      fair) clears them sooner. A tier-1 report against them restarts the
+      week.
+- [ ] Vietnamese fixes for English leaking into turn, speed limit and
+      resume lines (PR 625, Đào Đức Trung): review, merge, credit in the
+      notes.
+- [ ] Pin the dispatch test that failed the scheduled snapshot of
+      2026-11-09 (bullet under "1.9 in flight"). The release build runs
+      the tests, so a test that fails one run in some can fail the tag.
+- [ ] Release steps as for 1.9.6: the `## 1.9.7` notes with Highlights,
+      dev synced to main by PR, the final dev snapshot as the release
+      candidate, the packaged save check from 1.9.6, orinks-net dev
+      merged to main (it carries the reworded Five-by-Two badge), and the
+      tag pushed from the owner's PC on the owner's word.
+
+In 1.9.7 if they are ready, never holding it:
+
+- [ ] PR 603 (prismer 0.1.5, a build script change with the same speech
+      sources): merge after a green dry run, or leave it for 2.0.
+- [x] The cruise dial speaking every step while held (bullet under "1.9
+      in flight"): won't do, the dial stays as it is (owner, 2026-11-14).
+- [ ] Issue upkeep: close 590, 496 and 501 (fixed in 1.9.6) and 605
+      (fixed on the site); close PR 629, which PR 630 replaced; ask the
+      reporters of 519 and 492 to try 1.9.6, which redid controller
+      detection and logs the cause of every damage.
+
+Not in 1.9.7: guest drivers (PR 577, a draft waiting on the site), the
+ramp-end dock moving onto the gate's state enum, lane wander at drowsy,
+the fatigue tuning passes (after testers have played a few weeks), the
+over-rev on a heavy cruise resume, the SAPI crash of issues 513, 516 and
+517 (waiting on the tester and on Prism's SAPI rewrite), and every map
+item.
+
+What stands between the 1.9.7 tag and 2.0 on the beta channel, on top of
+[The first 2.0 nightly](#the-first-20-nightly):
+
+- [ ] Sync dev into `feat/career-2.0` through a PR against the branch.
+      The branch last took dev on 2026-10-28 and is 243 commits behind.
+      The trial merge conflicts in 33 Rust source files, 26 map shards,
+      every language file, the manual and the changelog. This is the long
+      job and can start before the 1.9.7 tag, with a small second sync
+      after it. The November text rewrite (PRs 607 to 614) has to reach
+      the lines only 2.0 has.
+- [ ] Sealed saves, which the October save plan predates: 2.0 opens a
+      sealed 1.9.7 career and copies it forward, and 1.9.7 refuses a 2.0
+      career, local or cloud, without setting it aside for good.
+- [ ] One alpha build from the synced branch before the merge. The
+      snapshot workflow already builds `feat/career-2.0` on the alpha
+      channel by hand, and no alpha has been published yet, so nobody
+      outside an agent drive has played 2.0. The owner plays it first;
+      the merge into dev follows.
+- [ ] Live cattle ships to beta with its sounds unrecorded; recording
+      them spends ElevenLabs credits and waits for the owner's approval.
 
 ### November 4 traffic at the road's own pace (Found along the way)
 

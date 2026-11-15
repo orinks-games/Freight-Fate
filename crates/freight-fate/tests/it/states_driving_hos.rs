@@ -371,7 +371,13 @@ fn test_food_and_coffee_break_boosts_alertness_without_resetting_break_rule() {
     });
     assert!(help.contains("Coffee eases fatigue a little"), "{help}");
     assert!(
-        help.contains("does not satisfy the 30-minute break rule"),
+        help.contains(
+            "the lift wears off in two hours, and a second coffee before then adds nothing"
+        ),
+        "{help}"
+    );
+    assert!(
+        help.contains("Does not satisfy the 30-minute break rule"),
         "{help}"
     );
 
@@ -457,21 +463,17 @@ fn test_split_sleeper_rest_action_advances_clock_and_speaks_status() {
             .status,
         "sleeper_berth"
     );
-    // Python watched a monkeypatched `award_achievement` to pin that the badge
-    // lands AFTER the status line. There is no such seam here, so the same
-    // order is read off what the player hears: the split status first, the
-    // badge announcement after it.
+    // A split rest is not the full ten hours, so Five-by-Two stays locked.
     let lines = spoken(&harness);
-    let status_at = lines
-        .iter()
-        .position(|line| line.contains("Split rest started"))
-        .unwrap_or_else(|| panic!("no pending-split status line: {lines:#?}"));
-    let badge_at = lines
-        .iter()
-        .position(|line| line.contains("New achievement!"))
-        .unwrap_or_else(|| panic!("the sleep badge was never announced: {lines:#?}"));
-    assert!(badge_at > status_at, "{lines:#?}");
-    assert!(harness
+    assert!(
+        lines.iter().any(|line| line.contains("Split rest started")),
+        "no pending-split status line: {lines:#?}"
+    );
+    assert!(
+        !lines.iter().any(|line| line.contains("New achievement!")),
+        "{lines:#?}"
+    );
+    assert!(!harness
         .app
         .ctx
         .profile
@@ -786,7 +788,9 @@ fn test_full_parking_offers_drive_on_and_shoulder() {
     {
         let p = harness.app.ctx.profile.as_ref().expect("a career");
         assert_eq!(p.hos.driving_min, 0.0);
-        assert_eq!(p.fatigue, hos::FATIGUE_SHOULDER_FLOOR);
+        // Poor sleep: 5 points an hour off 95.
+        assert_eq!(p.fatigue, hos::rest_poor_sleep(95.0, hos::SLEEP_MIN));
+        assert_eq!(p.fatigue, 45.0);
         // A clean career parked clear of roadwork pays the base amount; the
         // helper is asked so a rebalance moves one number, not this test.
         let expected = enforcement::citation_fine(hos::SHOULDER_FINE, 0, construction, None);

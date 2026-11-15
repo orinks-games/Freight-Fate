@@ -91,14 +91,13 @@ impl DrivingState {
     ) -> String {
         let level = report.level.spoken();
         let minutes = report.minutes();
-        advance_rest_clock(
+        advance_on_duty_clock(
             self,
             ctx,
             minutes,
             Some("on_duty_not_driving"),
             "roadside inspection",
         );
-        hos_mut_of(ctx).on_duty(minutes);
         let mut text = String::new();
         if report.clean() && !self.written_up.is_empty() {
             // Only the faults already on this drive's paperwork: nothing new
@@ -237,14 +236,13 @@ impl DrivingState {
         if !carrier_paid {
             profile_mut_of(ctx).spend(cost);
         }
-        advance_rest_clock(
+        advance_on_duty_clock(
             self,
             ctx,
             MECHANIC_WAIT_MIN,
             Some("on_duty_not_driving"),
             "out-of-service repair",
         );
-        hos_mut_of(ctx).on_duty(MECHANIC_WAIT_MIN);
         let billing = if carrier_paid {
             "on the carrier breakdown account".to_string()
         } else {

@@ -47,6 +47,7 @@ use ff_core::radio::RadioState;
 use ff_core::sim::alertness::{Alertness, NodState};
 use ff_core::sim::cross_traffic::CrossTraffic;
 use ff_core::sim::enforcement_observe::Observation;
+use ff_core::sim::fatigue_costs::RestCall;
 use ff_core::sim::lane::LaneKeeping;
 use ff_core::sim::lane_guidance::LaneGuidance;
 use ff_core::sim::pedal_latch::PedalLatch;
@@ -233,6 +234,10 @@ pub struct DrivingState {
     /// A nod a play tester asked for (or a trip saved mid-nod), opened on
     /// the next rolling frame.
     pub nod_staged: bool,
+    /// Whether this load's rest call to dispatch is spent
+    /// (`ff_core::sim::fatigue_costs`): once used, the load pays its base
+    /// rate against the moved appointment.
+    pub rest_call: RestCall,
     pub hazard_deadline: Option<f64>,
     // What is actually pending, in the order it armed. A second hazard
     // arming while one is still live folds its name in here instead of
@@ -784,6 +789,10 @@ pub struct DrivingState {
     // number; None until the loop has run.
     pub keeper_held_mph: Option<f64>,
     pub keeper_held_reason: String,
+    /// Whether the keeper is matching a slower vehicle ahead; the ease
+    /// window starts it and only the lead itself ends it
+    /// (`ff_core::sim::keeper_follow`).
+    pub keeper_follow: ff_core::sim::keeper_follow::KeeperFollow,
     // The service-brake snub the keeper is holding (0.0 = off the pedal),
     // and how long it has been out of authority with the truck still over
     // the number -- past which it owns up rather than riding it out.
@@ -805,8 +814,9 @@ pub struct DrivingState {
     pub keeper_overrun_said: bool,
 
     // ---- driving_events.py / driving_pickup.py / driving_facility_gate.py: arrival ----
-    pub arrival_stop_said: bool,
-    pub arrival_full_stop_said: bool,
+    /// The stop at a facility gate (`ff_core::sim::arrival_gate`); moved
+    /// only through [`DrivingState::step_gate`].
+    pub gate: ff_core::sim::arrival_gate::GateStop,
     pub arrival_menu_open: bool,
     pub gate_reminder_s: f64,
     // Facility gate misses (driving_facility_gate.py): the pre-gate speed

@@ -102,9 +102,7 @@ impl DrivingState {
                 self.adjust_cruise(ctx, -1, mods.ctrl);
             }
         } else if matches!(key, Key::Return | Key::KpEnter) {
-            if self.assisted_facility_confirmation_ready(ctx) {
-                self.open_ready_facility_arrival(ctx);
-            }
+            self.confirm_facility_arrival(ctx);
         } else if matches!(key, Key::PageUp | Key::Semicolon) {
             // Page Down walks to the next station, Page Up to the previous,
             // matching the help browser's Page Up and Page Down paging; with
@@ -211,7 +209,7 @@ impl DrivingState {
             }
             Action::Rest => {
                 if self.manual_facility_arrival_ready(ctx) {
-                    self.open_ready_facility_arrival(ctx);
+                    self.confirm_facility_arrival(ctx);
                 } else {
                     self.try_rest_stop(ctx);
                 }

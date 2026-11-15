@@ -130,6 +130,33 @@ pub(crate) fn record_city_duty(
     profile_mut(ctx)
         .duty_log
         .record(status, start_hour, end_hour, &terminal.name, note);
+    if status == "on_duty_not_driving" {
+        city_on_duty_fatigue(ctx, start_hour, end_hour);
+    } else {
+        // A sleep, a course or a suspension served: a lift that wore off
+        // in it is paid back silently, as a sleep on the road does.
+        profile_mut(ctx).repay_stimulant_loan(end_hour);
+    }
+}
+
+/// The fatigue on-duty time in town builds, from `start_hour` to
+/// `end_hour` on the career clock: a third of the driving rate for the hour
+/// of day where the driver stands, the same as on duty at a road stop. A
+/// coffee or drink that wore off in that time is left for the road, where
+/// its line is spoken once the driver is back at the wheel.
+pub(crate) fn city_on_duty_fatigue(ctx: &mut GameContext, start_hour: f64, end_hour: f64) {
+    if ctx.profile.is_none() {
+        return;
+    }
+    let start_local = ff_core::sim::timezones::to_local(start_hour, terminal::local_zone(ctx));
+    let mode_rate =
+        ff_core::sim::driving_modes::tuning_for_time_scale(ctx.settings.time_scale).fatigue_rate;
+    let p = profile_mut(ctx);
+    let minutes = (end_hour - start_hour) * 60.0;
+    let gain = ff_core::sim::hos::on_duty_fatigue_gain(start_local, minutes, |h| {
+        mode_rate * p.fatigue_buff_rate(start_hour + h)
+    });
+    p.fatigue = (p.fatigue + gain).min(100.0);
 }
 
 /// 10-hour sleeps required to cover `drive_h`, given the driving hours left

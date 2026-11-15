@@ -1,6 +1,6 @@
 # Fatigue redesign
 
-Design for Freight Fate, written 2026-11-11 from the code on `dev` (be2fdbbd) and approved by Orinks. PR 1 (2026-11-13) built part 1 (the four bands, the band word in the readouts, the hysteresis), part 8 (the nod-off as a state machine saved with the trip), "The state machines" in `ff_core::sim::alertness`, and the play tester's `status`, `scenario` `fatigue` and `nod` tool. Parts 2 to 7 are not built yet. Numbers marked "assumed" are starting points for tuning, with no measured source behind them.
+Design for Freight Fate, written 2026-11-11 from the code on `dev` (be2fdbbd) and approved by Orinks. PR 1 (2026-11-13) built part 1 (the four bands, the band word in the readouts, the hysteresis), part 8 (the nod-off as a state machine saved with the trip), "The state machines" in `ff_core::sim::alertness`, and the play tester's `status`, `scenario` `fatigue` and `nod` tool. PR 2 (2026-11-13) built part 2 (on-duty build), part 3 (the night-hours line) and part 5 (rest by the hour, and stimulants as a loan in `ff_core::sim::stimulant`). PR 3 (2026-11-13) built part 4 (slow work, `Alertness::work_time_mult`), part 6 (the officer, `ff_core::sim::fatigue_costs::fatigue_stop_outcome`) and part 7 (the rest call, `RestCall` in the same module), so all of parts 1 to 8 are built. Lane wander, under "Considered and left out", waits on Orinks's listening pass. Numbers marked "assumed" are starting points for tuning, with no measured source behind them.
 
 ## Summary
 
