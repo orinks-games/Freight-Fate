@@ -15,6 +15,7 @@
 - **Work at stops takes longer as fatigue rises.** Fueling, the walk-around, chain work and pulling in run slower from worn up.
 - **An inspection or traffic stop at severe fatigue ends in a ten-hour out-of-service order.**
 - **Five-by-Two now takes a full 10 hours asleep at a stop.** A split rest, or finishing a reset that a break started, no longer earns it.
+- **German now covers the lines added since October.** Co-driver, fatigue, stop planning and problem report lines no longer switch to English.
 
 ### Fixed
 
