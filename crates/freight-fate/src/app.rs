@@ -244,12 +244,17 @@ pub struct DrivingObservation {
     pub alertness: ff_core::sim::alertness::Alertness,
     /// The nod-off machine: where it stands, its timer and the misses.
     pub nod: ff_core::sim::alertness::NodState,
+    /// In a runaway or not.
+    pub runaway: ff_core::sim::runaway::Runaway,
     /// A coffee or drink's lift owed back, and the game hours until it is.
     pub lift_owed: Option<(f64, f64)>,
     /// This load's rest call to dispatch; `None` with no load on.
     pub rest_call: Option<ff_core::sim::fatigue_costs::RestCall>,
     /// The stop at the facility gate, while the trip has ended at one.
     pub gate: Option<ff_core::sim::arrival_gate::GateStop>,
+    /// What the driver has been told about the no engine brake zone ahead
+    /// or under the truck.
+    pub jake_zone: &'static str,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -819,6 +824,7 @@ impl App {
             keeper_following: drive.keeper_follow.following(),
             alertness: drive.alertness,
             nod: drive.nod,
+            runaway: drive.runaway,
             lift_owed: self
                 .ctx
                 .profile
@@ -831,6 +837,7 @@ impl App {
                 }),
             rest_call: drive.rest_call_state(),
             gate: drive.arrival_gate_query_text(&self.ctx).map(|_| drive.gate),
+            jake_zone: drive.jake_zone_notice.key(),
         })
     }
 

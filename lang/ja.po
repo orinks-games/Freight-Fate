@@ -10999,6 +10999,9 @@ msgstr "運転時間規制の違反：{due}。このまま運転すると、検�
 msgid "Hours of service: {phrase} until {due}."
 msgstr "運転時間規制：{due}まで、{phrase}。"
 
+msgid "untold"
+msgstr ""
+
 msgid "single"
 msgstr "1本だけの"
 
@@ -11546,6 +11549,9 @@ msgstr "ルート1は{reason}を避け、{minutes_words}短縮になります。
 #. placeholders: {spots_text}
 msgid "Construction: {spots_text}."
 msgstr "工事：{spots_text}。"
+
+msgid "running"
+msgstr "作動中"
 
 msgid "Monday"
 msgstr "月曜日"
@@ -18982,9 +18988,6 @@ msgstr "速度：{hud_speed_text}"
 msgid "Engine: {else}"
 msgstr "エンジン：{else}"
 
-msgid "running"
-msgstr "作動中"
-
 #. placeholders: {f}, {else}
 msgid "Air: {f} psi   {else}"
 msgstr "エア：{f} psi   {else}"
@@ -22998,6 +23001,9 @@ msgstr "エンジンブレーキ禁止区間、{spoken}。"
 #. placeholders: {distance}, {spoken}
 msgid "No engine brake zone in {distance}, coming into {spoken}."
 msgstr "{distance}先、{spoken}に入るとエンジンブレーキ禁止区間です。"
+
+msgid "End of no engine brake zone."
+msgstr ""
 
 msgid "No engine brake zone. Switch it off."
 msgstr "エンジンブレーキ禁止区間です。切ってください。"
@@ -29384,6 +29390,9 @@ msgstr ""
 msgid "Wakes you and gives you the wheel."
 msgstr "目を覚まして、ハンドルを握ります。"
 
+msgid " Your 10-hour rest starts over."
+msgstr ""
+
 msgid "Take the wheel back"
 msgstr "運転を代わる"
 
@@ -29733,6 +29742,10 @@ msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
 msgstr "タイヤチェーンが切れて暴れています。減速して路肩に寄せ、点検してください。"
 
+#. placeholders: {snapped}, {damage}
+msgid "{snapped} Damage {damage} percent."
+msgstr ""
+
 msgid "A chain is slapping the fender. Stop soon and tighten it."
 msgstr "チェーンがフェンダーをたたいています。早めに停まって締め直してください。"
 
@@ -30022,6 +30035,17 @@ msgstr "センターラインを越えて、対向車線に入っています！
 msgid "Off the pavement, into the median on the left!"
 msgstr "路面を外れて、左の中央分離帯に入っています！"
 
+#. placeholders: {place}, {damage}
+msgid "{place} Damage {damage} percent."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back on the pavement. Damage {damage} percent."
+msgstr ""
+
+msgid "Back on the pavement."
+msgstr "路面に戻りました。"
+
 msgid "Caught the edge."
 msgstr "端に触れました。"
 
@@ -30177,6 +30201,10 @@ msgstr "居眠りしかけています。ハンドルを切るか、今すぐブ
 
 msgid "You caught it."
 msgstr "持ち直しました。"
+
+#. placeholders: {damage}, {standing}
+msgid "Damage {damage} percent. {standing}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "You cannot stay awake."
@@ -30369,9 +30397,6 @@ msgstr "カーブに向けて減速します。"
 
 msgid "Ramp assistance released."
 msgstr "ランプアシストを解除しました。"
-
-msgid "Back on the pavement."
-msgstr "路面に戻りました。"
 
 #. placeholders: {lane_name}
 #. one sentence of a longer line
@@ -30704,6 +30729,17 @@ msgstr "{name}を再生中。"
 #. placeholders: {name}, {title}, {stop}
 msgid "Now playing on {name}: {title}{stop}"
 msgstr "{name}を再生中：{title}{stop}"
+
+msgid "Runaway! The truck is taking damage."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Back under control."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back under control. Damage {damage} percent."
+msgstr ""
 
 msgid ""
 "A second major offense disqualifies your CDL for life, and this career will "

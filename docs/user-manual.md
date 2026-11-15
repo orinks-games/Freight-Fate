@@ -505,7 +505,7 @@ On open road at twenty miles per hour or above, K starts adaptive cruise. On str
 
 Plus and Minus move the cruise target outward to the next multiple of five: from 32, Plus selects 35, then 40. On a controller, hold the right bumper and press D-pad right or left. Hold Control to adjust one mile per hour at a time. Space tells you which mode is active, its target, and whether conditions are holding you below it. Braking cancels the control; Shift+K resumes. A pickup pauses the session through loading and saving, then resumes it after departure.
 
-J switches on the engine brake, and 1, 2, or 3 selects two, four, or six cylinders while it's enabled. On a controller, the right stick click switches it on, and the right bumper with the right stick click steps to the next stage. A lower gear and higher RPM give it more braking effect. Alt+J chooses automatic stage management or manual selection. Listen for town noise restrictions: the game warns before fining you for using it, with exceptions for downhill grades and emergencies.
+J switches on the engine brake, and 1, 2, or 3 selects two, four, or six cylinders while it's enabled. On a controller, the right stick click switches it on, and the right bumper with the right stick click steps to the next stage. A lower gear and higher RPM give it more braking effect. Alt+J chooses automatic stage management or manual selection. Listen for town noise restrictions: the game warns before fining you for using it, with exceptions for downhill grades and emergencies. If you heard about a zone, "End of no engine brake zone." tells you when the engine brake is legal again.
 
 ## Truck damage and being out of service
 
@@ -520,6 +520,8 @@ Service the truck before wear stops the trip. Worn tires lose grip, worn brakes 
 | Past 90 percent | **Out of service.** The truck may not be driven. It can still crawl clear of a live lane, because leaving a stricken truck stopped in traffic is worse, but the run does not continue under its own power. |
 
 The damage readout names a band as well as a percentage. An out-of-service truck can still crawl clear of traffic, but it needs roadside help before the trip can continue.
+
+When something damages the truck on the road, a spoken line says what happened and the damage, as in "Off the road on the right! Damage 1 percent." Off the pavement, each further hit is the rumble strip alone, and "Back on the pavement. Damage 3 percent." gives the total once you are back. Above 90 miles per hour the truck is in a runaway and takes damage every second. You hear "Runaway! The truck is taking damage." when it starts, and "Back under control." with the damage once you are a few miles per hour under 90.
 
 Owners pay for roadside repairs and lose several hours; they still need further garage repair afterward. Company drivers get carrier-paid service and a yard spare. Preventable equipment trouble can also affect their record and dispatch trust.
 
@@ -733,7 +735,7 @@ The co-driver uses every assist, fuels when the tank runs low, crosses the open 
 - at the receiver's gate, so you can dock and deliver;
 - when the truck takes damage, or something else needs your decision.
 
-To drive again sooner, pause and choose Take the wheel back.
+To drive again sooner, pause and choose Take the wheel back. Your ten hours must be unbroken, so driving before they are in starts your rest over.
 
 **Who they are.** Once you have run a team load, Career stats has a Co-drivers list: everyone you have teamed with, how many loads you ran together, and a line or two about them. The Driver status screen reads the same story for the co-driver on your current load. Nothing reads it to you unless you open it.
 

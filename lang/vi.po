@@ -12316,6 +12316,9 @@ msgstr ""
 msgid "Hours of service: {phrase} until {due}."
 msgstr "Giờ lái quy định: còn {phrase} nữa là {due}."
 
+msgid "untold"
+msgstr ""
+
 msgid "single"
 msgstr "đơn"
 
@@ -12866,6 +12869,9 @@ msgstr "Tuyến 1 tránh được {reason} và tiết kiệm {minutes_words}."
 #. placeholders: {spots_text}
 msgid "Construction: {spots_text}."
 msgstr "Công trường: {spots_text}."
+
+msgid "running"
+msgstr "đang nổ máy"
 
 msgid "Monday"
 msgstr "Thứ Hai"
@@ -20791,9 +20797,6 @@ msgstr "Tốc độ: {hud_speed_text}"
 msgid "Engine: {else}"
 msgstr "Động cơ: {else}"
 
-msgid "running"
-msgstr "đang nổ máy"
-
 #. placeholders: {f}, {else}
 msgid "Air: {f} psi   {else}"
 msgstr "Khí nén: {f} PSI   {else}"
@@ -25188,6 +25191,9 @@ msgstr "Khu vực cấm phanh động cơ, {spoken}."
 #. placeholders: {distance}, {spoken}
 msgid "No engine brake zone in {distance}, coming into {spoken}."
 msgstr "Còn {distance} nữa vào khu vực cấm phanh động cơ khi tới {spoken}."
+
+msgid "End of no engine brake zone."
+msgstr ""
 
 msgid "No engine brake zone. Switch it off."
 msgstr "Khu vực cấm phanh động cơ. Hãy tắt phanh động cơ."
@@ -32019,6 +32025,9 @@ msgstr "{status} Đánh thức bạn dậy và giao lại tay lái."
 msgid "Wakes you and gives you the wheel."
 msgstr "Đánh thức bạn dậy và giao lại tay lái."
 
+msgid " Your 10-hour rest starts over."
+msgstr ""
+
 msgid "Take the wheel back"
 msgstr "Nhận lại tay lái"
 
@@ -32388,6 +32397,10 @@ msgstr ""
 "Một dây xích lốp bị đứt và đang quất lung tung. Giảm tốc và tấp vào lề kiểm "
 "tra ngay."
 
+#. placeholders: {snapped}, {damage}
+msgid "{snapped} Damage {damage} percent."
+msgstr ""
+
 msgid "A chain is slapping the fender. Stop soon and tighten it."
 msgstr "Xích lốp đang đập vào chắn bùn. Dừng xe sớm để siết lại."
 
@@ -32725,6 +32738,17 @@ msgstr "Đã lấn qua vạch tim đường, sang làn ngược chiều!"
 msgid "Off the pavement, into the median on the left!"
 msgstr "Trượt khỏi mặt đường nhựa, lao xuống dải phân cách bên trái!"
 
+#. placeholders: {place}, {damage}
+msgid "{place} Damage {damage} percent."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back on the pavement. Damage {damage} percent."
+msgstr ""
+
+msgid "Back on the pavement."
+msgstr "Đã trở lại mặt đường nhựa."
+
 msgid "Caught the edge."
 msgstr "Bánh xe sượt mép đường."
 
@@ -32893,6 +32917,10 @@ msgstr "Đang ngủ gật. Đánh lái hoặc đạp phanh ngay!"
 
 msgid "You caught it."
 msgstr "Bạn đã kịp tỉnh táo xử lý."
+
+#. placeholders: {damage}, {standing}
+msgid "Damage {damage} percent. {standing}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "You cannot stay awake."
@@ -33095,9 +33123,6 @@ msgstr "Đang giảm tốc vào khúc cua."
 
 msgid "Ramp assistance released."
 msgstr "Hỗ trợ đường dẫn đã nhả."
-
-msgid "Back on the pavement."
-msgstr "Đã trở lại mặt đường nhựa."
 
 #. placeholders: {lane_name}
 #. one sentence of a longer line
@@ -33456,6 +33481,17 @@ msgstr "Đang phát trên {name}."
 #. placeholders: {name}, {title}, {stop}
 msgid "Now playing on {name}: {title}{stop}"
 msgstr "Đang phát trên {name}: {title}{stop}"
+
+msgid "Runaway! The truck is taking damage."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Back under control."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back under control. Damage {damage} percent."
+msgstr ""
 
 msgid ""
 "A second major offense disqualifies your CDL for life, and this career will "
