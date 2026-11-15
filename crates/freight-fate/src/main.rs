@@ -487,7 +487,6 @@ fn list_speech_backends() -> i32 {
             return 1;
         }
     };
-    let chosen = freight_fate::speech::pick_backend(&registry, None).map(|backend| backend.name());
     println!(
         "{:<20} {:>8}  {:<10} NOTE",
         "BACKEND", "PRIORITY", "CAN SPEAK"
@@ -497,12 +496,15 @@ fn list_speech_backends() -> i32 {
             continue;
         };
         let name = registry.name_of(id).unwrap_or_else(|| id.to_string());
+        // The name goes out before the backend is opened, so a backend that
+        // takes the process down with it is named on the last line.
+        print!("{name:<20}");
+        let _ = std::io::Write::flush(&mut std::io::stdout());
         // UIA exists on every modern Windows but only Narrator reads it, so
         // it is answered before the acquire that would fail confusingly.
         if name == "UIA" && !narrator_running() {
             println!(
-                "{:<20} {:>8}  {:<10} Narrator is not running",
-                name,
+                " {:>8}  {:<10} Narrator is not running",
                 registry.priority_of(id),
                 "no"
             );
@@ -511,9 +513,7 @@ fn list_speech_backends() -> i32 {
         let (speaks, note) = match registry.acquire(id) {
             Ok(backend) => {
                 let features = backend.features();
-                let note = if Some(name.clone()) == chosen {
-                    "chosen"
-                } else if !features.is_supported_at_runtime {
+                let note = if !features.is_supported_at_runtime {
                     "not running here"
                 } else {
                     ""
@@ -527,13 +527,13 @@ fn list_speech_backends() -> i32 {
             Err(err) => (false, err.to_string()),
         };
         println!(
-            "{:<20} {:>8}  {:<10} {}",
-            name,
+            " {:>8}  {:<10} {}",
             registry.priority_of(id),
             if speaks { "yes" } else { "no" },
             note
         );
     }
+    let chosen = freight_fate::speech::pick_backend(&registry, None).map(|backend| backend.name());
     match chosen {
         Some(name) => println!(
             "
