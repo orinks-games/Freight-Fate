@@ -244,6 +244,8 @@ pub struct DrivingObservation {
     pub alertness: ff_core::sim::alertness::Alertness,
     /// The nod-off machine: where it stands, its timer and the misses.
     pub nod: ff_core::sim::alertness::NodState,
+    /// In a runaway or not.
+    pub runaway: ff_core::sim::runaway::Runaway,
     /// A coffee or drink's lift owed back, and the game hours until it is.
     pub lift_owed: Option<(f64, f64)>,
     /// This load's rest call to dispatch; `None` with no load on.
@@ -819,6 +821,7 @@ impl App {
             keeper_following: drive.keeper_follow.following(),
             alertness: drive.alertness,
             nod: drive.nod,
+            runaway: drive.runaway,
             lift_owed: self
                 .ctx
                 .profile

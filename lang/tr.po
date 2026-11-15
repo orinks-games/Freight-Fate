@@ -12493,6 +12493,9 @@ msgstr "Rota 1 şunu atlatıyor: {reason}. {minutes_words} kazandırır."
 msgid "Construction: {spots_text}."
 msgstr "Yol çalışması: {spots_text}."
 
+msgid "running"
+msgstr "çalışıyor"
+
 msgid "Monday"
 msgstr "Pazartesi"
 
@@ -20402,9 +20405,6 @@ msgstr "Hız: {hud_speed_text}"
 #. placeholders: {else}
 msgid "Engine: {else}"
 msgstr "Motor: {else}"
-
-msgid "running"
-msgstr "çalışıyor"
 
 #. placeholders: {f}, {else}
 msgid "Air: {f} psi   {else}"
@@ -31837,6 +31837,10 @@ msgstr ""
 "Bir lastik zinciri koptu ve savruluyor. Yavaşlayın ve kontrol için kenara "
 "çekin."
 
+#. placeholders: {snapped}, {damage}
+msgid "{snapped} Damage {damage} percent."
+msgstr ""
+
 msgid "A chain is slapping the fender. Stop soon and tighten it."
 msgstr "Bir zincir çamurluğa çarpıyor. Yakında durup sıkılaştırın."
 
@@ -32166,6 +32170,17 @@ msgstr "Orta çizgiyi geçtiniz, karşı şeritte!"
 msgid "Off the pavement, into the median on the left!"
 msgstr "Asfalttan çıktınız, soldaki orta refüje!"
 
+#. placeholders: {place}, {damage}
+msgid "{place} Damage {damage} percent."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back on the pavement. Damage {damage} percent."
+msgstr ""
+
+msgid "Back on the pavement."
+msgstr "Yeniden asfalttasınız."
+
 msgid "Caught the edge."
 msgstr "Kenara takıldınız."
 
@@ -32332,6 +32347,10 @@ msgstr "Uyukluyorsunuz. Hemen direksiyon çevirin ya da frene basın!"
 
 msgid "You caught it."
 msgstr "Toparladınız."
+
+#. placeholders: {damage}, {standing}
+msgid "Damage {damage} percent. {standing}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "You cannot stay awake."
@@ -32537,9 +32556,6 @@ msgstr "Viraj için yavaşlanıyor."
 
 msgid "Ramp assistance released."
 msgstr "Rampa yardımı bırakıldı."
-
-msgid "Back on the pavement."
-msgstr "Yeniden asfalttasınız."
 
 #. placeholders: {lane_name}
 #. one sentence of a longer line
@@ -32888,6 +32904,17 @@ msgstr "Çalıyor: {name}."
 #. placeholders: {name}, {title}, {stop}
 msgid "Now playing on {name}: {title}{stop}"
 msgstr "{name} istasyonunda çalan: {title}{stop}"
+
+msgid "Runaway! The truck is taking damage."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Back under control."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back under control. Damage {damage} percent."
+msgstr ""
 
 msgid ""
 "A second major offense disqualifies your CDL for life, and this career will "

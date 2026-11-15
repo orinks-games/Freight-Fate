@@ -13958,7 +13958,7 @@ msgstr ""
 msgid "overcast"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/weather/tables.rs
+#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/runaway.rs crates/ff-core/src/sim/weather/tables.rs
 msgid "clear"
 msgstr ""
 
@@ -14450,6 +14450,10 @@ msgstr ""
 #. placeholders: {spots_text}
 #: crates/ff-core/src/sim/route_roadwork.rs
 msgid "Construction: {spots_text}."
+msgstr ""
+
+#: crates/ff-core/src/sim/runaway.rs crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
+msgid "running"
 msgstr ""
 
 #: crates/ff-core/src/sim/season.rs
@@ -23547,10 +23551,6 @@ msgstr ""
 #. placeholders: {else}
 #: crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
 msgid "Engine: {else}"
-msgstr ""
-
-#: crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
-msgid "running"
 msgstr ""
 
 #. placeholders: {f}, {else}
@@ -36647,6 +36647,11 @@ msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
 msgstr ""
 
+#. placeholders: {snapped}, {damage}
+#: crates/freight-fate/src/states/driving_updates/conditions.rs
+msgid "{snapped} Damage {damage} percent."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_updates/conditions.rs
 msgid "A chain is slapping the fender. Stop soon and tighten it."
 msgstr ""
@@ -36977,6 +36982,20 @@ msgstr ""
 msgid "Off the pavement, into the median on the left!"
 msgstr ""
 
+#. placeholders: {place}, {damage}
+#: crates/freight-fate/src/states/driving_updates/cues.rs
+msgid "{place} Damage {damage} percent."
+msgstr ""
+
+#. placeholders: {damage}
+#: crates/freight-fate/src/states/driving_updates/cues.rs
+msgid "Back on the pavement. Damage {damage} percent."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_updates/cues.rs
+msgid "Back on the pavement."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_updates/cues.rs
 msgid "Caught the edge."
 msgstr ""
@@ -37167,6 +37186,11 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/fatigue.rs
 msgid "You caught it."
+msgstr ""
+
+#. placeholders: {damage}, {standing}
+#: crates/freight-fate/src/states/driving_updates/fatigue.rs
+msgid "Damage {damage} percent. {standing}"
 msgstr ""
 
 #. one sentence of a longer line
@@ -37390,10 +37414,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/lanes.rs
 msgid "Ramp assistance released."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_updates/lanes.rs
-msgid "Back on the pavement."
 msgstr ""
 
 #. placeholders: {lane_name}
@@ -37798,6 +37818,20 @@ msgstr ""
 #. placeholders: {name}, {title}, {stop}
 #: crates/freight-fate/src/states/driving_updates/radio_channel3000.rs
 msgid "Now playing on {name}: {title}{stop}"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_updates/runaway.rs
+msgid "Runaway! The truck is taking damage."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/runaway.rs
+msgid "Back under control."
+msgstr ""
+
+#. placeholders: {damage}
+#: crates/freight-fate/src/states/driving_updates/runaway.rs
+msgid "Back under control. Damage {damage} percent."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_updates/stops.rs
