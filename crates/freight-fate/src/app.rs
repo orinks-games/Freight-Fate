@@ -239,7 +239,7 @@ pub struct DrivingObservation {
     /// The speed keeper's hold, when it has the zone.
     pub keeper_mph: Option<f64>,
     /// Whether the keeper is matching a slower vehicle ahead.
-    pub keeper_follow: &'static str,
+    pub keeper_following: bool,
     /// The fatigue band the road last cued.
     pub alertness: ff_core::sim::alertness::Alertness,
     /// The nod-off machine: where it stands, its timer and the misses.
@@ -816,7 +816,7 @@ impl App {
             speed_limit_mph: drive.enforced_limit_prev,
             cruise_set_mph: drive.cruise_mph,
             keeper_mph: drive.keeper_mph,
-            keeper_follow: drive.keeper_follow.label(),
+            keeper_following: drive.keeper_follow.following(),
             alertness: drive.alertness,
             nod: drive.nod,
             lift_owed: self

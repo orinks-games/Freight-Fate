@@ -835,8 +835,8 @@ impl AgentPolicy {
                             o.parking_brake,
                             o.speed_control_armed,
                             o.keeper_mph.map_or("off".to_string(), |mph| format!(
-                                "holding {mph:.0}, traffic {}",
-                                o.keeper_follow
+                                "holding {mph:.0}, following traffic: {}",
+                                o.keeper_following
                             )),
                             o.cruise_set_mph
                                 .map_or("off".to_string(), |mph| format!("set {mph:.0}")),

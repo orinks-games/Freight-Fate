@@ -61,14 +61,6 @@ impl KeeperFollow {
     pub fn following(&self) -> bool {
         matches!(self, KeeperFollow::Following { .. })
     }
-
-    /// For the agent server's status and observe readouts.
-    pub fn label(&self) -> &'static str {
-        match self {
-            KeeperFollow::Free => "free",
-            KeeperFollow::Following { .. } => "following",
-        }
-    }
 }
 
 #[cfg(test)]
