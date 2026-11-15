@@ -252,6 +252,9 @@ pub struct DrivingObservation {
     pub rest_call: Option<ff_core::sim::fatigue_costs::RestCall>,
     /// The stop at the facility gate, while the trip has ended at one.
     pub gate: Option<ff_core::sim::arrival_gate::GateStop>,
+    /// What the driver has been told about the no engine brake zone ahead
+    /// or under the truck.
+    pub jake_zone: &'static str,
 }
 
 /// The only capability a windowed input policy receives for one frame.
@@ -834,6 +837,7 @@ impl App {
                 }),
             rest_call: drive.rest_call_state(),
             gate: drive.arrival_gate_query_text(&self.ctx).map(|_| drive.gate),
+            jake_zone: drive.jake_zone_notice.key(),
         })
     }
 

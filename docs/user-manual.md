@@ -505,7 +505,7 @@ On open road at twenty miles per hour or above, K starts adaptive cruise. On str
 
 Plus and Minus move the cruise target outward to the next multiple of five: from 32, Plus selects 35, then 40. On a controller, hold the right bumper and press D-pad right or left. Hold Control to adjust one mile per hour at a time. Space tells you which mode is active, its target, and whether conditions are holding you below it. Braking cancels the control; Shift+K resumes. A pickup pauses the session through loading and saving, then resumes it after departure.
 
-J switches on the engine brake, and 1, 2, or 3 selects two, four, or six cylinders while it's enabled. On a controller, the right stick click switches it on, and the right bumper with the right stick click steps to the next stage. A lower gear and higher RPM give it more braking effect. Alt+J chooses automatic stage management or manual selection. Listen for town noise restrictions: the game warns before fining you for using it, with exceptions for downhill grades and emergencies.
+J switches on the engine brake, and 1, 2, or 3 selects two, four, or six cylinders while it's enabled. On a controller, the right stick click switches it on, and the right bumper with the right stick click steps to the next stage. A lower gear and higher RPM give it more braking effect. Alt+J chooses automatic stage management or manual selection. Listen for town noise restrictions: the game warns before fining you for using it, with exceptions for downhill grades and emergencies. If you heard about a zone, "End of no engine brake zone." tells you when the engine brake is legal again.
 
 ## Truck damage and being out of service
 
@@ -735,7 +735,7 @@ The co-driver uses every assist, fuels when the tank runs low, crosses the open 
 - at the receiver's gate, so you can dock and deliver;
 - when the truck takes damage, or something else needs your decision.
 
-To drive again sooner, pause and choose Take the wheel back.
+To drive again sooner, pause and choose Take the wheel back. Your ten hours must be unbroken, so driving before they are in starts your rest over.
 
 **Who they are.** Once you have run a team load, Career stats has a Co-drivers list: everyone you have teamed with, how many loads you ran together, and a line or two about them. The Driver status screen reads the same story for the co-driver on your current load. Nothing reads it to you unless you open it.
 

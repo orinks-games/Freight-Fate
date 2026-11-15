@@ -185,7 +185,9 @@ fn tools_list() -> Value {
              available, used, or none with no load on) and, while the trip has \
              ended at a facility gate, gate (arriving, rolling, \
              rolling_after_creep, creeping, stopped, stopped_told, holding or \
-             open).",
+             open), and jake_zone (what the driver has heard about the no \
+             engine brake zone ahead or under the truck: untold, heads_up, \
+             inside_untold or inside_told).",
             json!({}),
             &[],
         ),
