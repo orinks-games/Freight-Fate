@@ -2388,18 +2388,19 @@ dependencies = [
 
 [[package]]
 name = "prism-sys"
-version = "0.1.4"
+version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9056b582fac161198bd0ce7dd84424e5c287495ab3cbfb1dc106553bcd2ea4c9"
+checksum = "fb7205352adf3f71f6873ea93d0e5d315cf8118c534a4db6343d32a3847d7cfe"
 dependencies = [
  "cmake",
+ "pkg-config",
 ]
 
 [[package]]
 name = "prismer"
-version = "0.1.4"
+version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0fab1f6ae95403371691d7ea661c98a4811613cdc3cbb45a35b774386a6ffa78"
+checksum = "23252e8edaba03f8a24e833e7383f49b653e5389f7b8546c0ada445097aec2e3"
 dependencies = [
  "prism-sys",
 ]

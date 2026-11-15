@@ -22,6 +22,7 @@
 - **Enter accepts a facility arrival from a full stop with Facility stopping assistance off.** A stopped truck is told to set the parking brake.
 - **Game sound comes back when a Bluetooth headset drops out or the sound device stops responding.** It returns within a few seconds, without a restart.
 - **The built-in voice keeps speaking after a Bluetooth headset connects or disconnects.** In 1.9.6 it could go silent until a restart.
+- **The game no longer closes while the Windows SAPI voice is reading driving events.** SAPI now hands its speech to the game to play.
 
 ## 1.9.6 - 2026-11-13
 

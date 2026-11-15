@@ -3929,7 +3929,7 @@ Rules set that day:
 
 1.9.6, ship when the tier-1 list is empty:
 
-- [ ] Crashes on facility streets with assists on (issues #513, #516,
+- [x] Crashes on facility streets with assists on (issues #513, #516,
       #517; one tester, 1.9.5, Lynchburg and Staunton, Virginia). The
       2026-10-25 snapshot writes the native crash into the log, and #517's
       names it: an access violation inside Windows' own speech library
@@ -3946,7 +3946,12 @@ Rules set that day:
       Prism's SAPI rewrite (master e7097c7, 2026-10-26, unreleased:
       synthesis on its own thread, played through XAudio2) avoids that
       path; it needs a prismer release or a patched fork, then a Hearken
-      bump.
+      bump. Done 2026-11-15: prismer and prism-sys 0.1.6 (crates.io,
+      2026-11-10) carry the rewrite, and the game moved to them with a
+      lockfile change only. SAPI now renders each line into memory on its
+      own worker and Prism plays it, so SAPI's own audio output, where the
+      crash was, is no longer used. Not reproduced (one tester's machine),
+      and the tester has not confirmed it; the issues are closed.
 - [x] Co-driver crawls at 20 after planning a handover stop, then hands
       over out of hours (issue #518). The tester's log (not icy) showed
       the stop plan was sound: a work zone on a 5.8 percent downgrade
@@ -4076,9 +4081,7 @@ In 1.9.7 if they are ready, never holding it:
 Not in 1.9.7: guest drivers (PR 577, a draft waiting on the site), the
 ramp-end dock moving onto the gate's state enum, lane wander at drowsy,
 the fatigue tuning passes (after testers have played a few weeks), the
-over-rev on a heavy cruise resume, the SAPI crash of issues 513, 516 and
-517 (waiting on the tester and on Prism's SAPI rewrite), and every map
-item.
+over-rev on a heavy cruise resume, and every map item.
 
 What stands between the 1.9.7 tag and 2.0 on the beta channel, on top of
 [The first 2.0 nightly](#the-first-20-nightly):
