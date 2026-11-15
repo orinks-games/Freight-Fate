@@ -11943,6 +11943,9 @@ msgstr ""
 msgid "Hours of service: {phrase} until {due}."
 msgstr "Çalışma ve dinlenme süreleri: {phrase} sonra {due}."
 
+msgid "untold"
+msgstr ""
+
 msgid "single"
 msgstr "tek"
 
@@ -12492,6 +12495,9 @@ msgstr "Rota 1 şunu atlatıyor: {reason}. {minutes_words} kazandırır."
 #. placeholders: {spots_text}
 msgid "Construction: {spots_text}."
 msgstr "Yol çalışması: {spots_text}."
+
+msgid "running"
+msgstr "çalışıyor"
 
 msgid "Monday"
 msgstr "Pazartesi"
@@ -20403,9 +20409,6 @@ msgstr "Hız: {hud_speed_text}"
 msgid "Engine: {else}"
 msgstr "Motor: {else}"
 
-msgid "running"
-msgstr "çalışıyor"
-
 #. placeholders: {f}, {else}
 msgid "Air: {f} psi   {else}"
 msgstr "Hava: {f} psi   {else}"
@@ -24747,6 +24750,9 @@ msgstr "Motor freni yasak bölge, {spoken}."
 #. placeholders: {distance}, {spoken}
 msgid "No engine brake zone in {distance}, coming into {spoken}."
 msgstr "{distance} sonra motor freni yasak bölge, giriş: {spoken}."
+
+msgid "End of no engine brake zone."
+msgstr ""
 
 msgid "No engine brake zone. Switch it off."
 msgstr "Motor freni yasak bölge. Kapatın."
@@ -31469,6 +31475,9 @@ msgstr "{status} Sizi uyandırır ve direksiyonu verir."
 msgid "Wakes you and gives you the wheel."
 msgstr "Sizi uyandırır ve direksiyonu verir."
 
+msgid " Your 10-hour rest starts over."
+msgstr ""
+
 msgid "Take the wheel back"
 msgstr "Direksiyonu geri al"
 
@@ -31837,6 +31846,10 @@ msgstr ""
 "Bir lastik zinciri koptu ve savruluyor. Yavaşlayın ve kontrol için kenara "
 "çekin."
 
+#. placeholders: {snapped}, {damage}
+msgid "{snapped} Damage {damage} percent."
+msgstr ""
+
 msgid "A chain is slapping the fender. Stop soon and tighten it."
 msgstr "Bir zincir çamurluğa çarpıyor. Yakında durup sıkılaştırın."
 
@@ -32166,6 +32179,17 @@ msgstr "Orta çizgiyi geçtiniz, karşı şeritte!"
 msgid "Off the pavement, into the median on the left!"
 msgstr "Asfalttan çıktınız, soldaki orta refüje!"
 
+#. placeholders: {place}, {damage}
+msgid "{place} Damage {damage} percent."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back on the pavement. Damage {damage} percent."
+msgstr ""
+
+msgid "Back on the pavement."
+msgstr "Yeniden asfalttasınız."
+
 msgid "Caught the edge."
 msgstr "Kenara takıldınız."
 
@@ -32332,6 +32356,10 @@ msgstr "Uyukluyorsunuz. Hemen direksiyon çevirin ya da frene basın!"
 
 msgid "You caught it."
 msgstr "Toparladınız."
+
+#. placeholders: {damage}, {standing}
+msgid "Damage {damage} percent. {standing}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "You cannot stay awake."
@@ -32537,9 +32565,6 @@ msgstr "Viraj için yavaşlanıyor."
 
 msgid "Ramp assistance released."
 msgstr "Rampa yardımı bırakıldı."
-
-msgid "Back on the pavement."
-msgstr "Yeniden asfalttasınız."
 
 #. placeholders: {lane_name}
 #. one sentence of a longer line
@@ -32888,6 +32913,17 @@ msgstr "Çalıyor: {name}."
 #. placeholders: {name}, {title}, {stop}
 msgid "Now playing on {name}: {title}{stop}"
 msgstr "{name} istasyonunda çalan: {title}{stop}"
+
+msgid "Runaway! The truck is taking damage."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Back under control."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back under control. Damage {damage} percent."
+msgstr ""
 
 msgid ""
 "A second major offense disqualifies your CDL for life, and this career will "

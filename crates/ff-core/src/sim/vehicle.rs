@@ -262,7 +262,12 @@ pub const CARGO_COLLISION_PCT: f64 = 40.0;
 // rated speed, driveline whipping, the trailer steering the tractor -- so it
 // takes real damage for every second it stays there, hard enough that a full
 // runaway ends the run rather than merely sounding an alarm.
-pub const RUNAWAY_SPEED_MPH: f64 = 85.0;
+//
+// It sits clear of the highest cruise set point (85) plus the overshoot
+// cruise allows on a downgrade before it brakes (2.5). At 85 it was the
+// cruise ceiling itself, so a truck held at a set point the game offers
+// took damage down every grade with nothing said (issue 533).
+pub const RUNAWAY_SPEED_MPH: f64 = 90.0;
 /// Per 10 mph past the threshold, per real second.
 pub const RUNAWAY_DAMAGE_PCT_PER_S: f64 = 1.0;
 

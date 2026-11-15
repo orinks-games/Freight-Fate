@@ -12200,6 +12200,9 @@ msgstr ""
 msgid "Hours of service: {phrase} until {due}."
 msgstr "Czas pracy: za {phrase} {due}."
 
+msgid "untold"
+msgstr ""
+
 msgid "single"
 msgstr "jedyny"
 
@@ -12749,6 +12752,9 @@ msgstr "Trasa 1 omija: {reason}, i oszczędza {minutes_words}."
 #. placeholders: {spots_text}
 msgid "Construction: {spots_text}."
 msgstr "Roboty drogowe: {spots_text}."
+
+msgid "running"
+msgstr "pracuje"
 
 msgid "Monday"
 msgstr "poniedziałek"
@@ -20852,9 +20858,6 @@ msgstr "Prędkość: {hud_speed_text}"
 msgid "Engine: {else}"
 msgstr "Silnik: {else}"
 
-msgid "running"
-msgstr "pracuje"
-
 #. placeholders: {f}, {else}
 msgid "Air: {f} psi   {else}"
 msgstr "Powietrze: {f} psi   {else}"
@@ -25311,6 +25314,9 @@ msgstr "Strefa zakazu hamulca silnikowego: {spoken}."
 #. placeholders: {distance}, {spoken}
 msgid "No engine brake zone in {distance}, coming into {spoken}."
 msgstr "Za {distance} strefa zakazu hamulca silnikowego, wjazd do {spoken}."
+
+msgid "End of no engine brake zone."
+msgstr ""
 
 msgid "No engine brake zone. Switch it off."
 msgstr "Strefa zakazu hamulca silnikowego. Wyłącz go."
@@ -32217,6 +32223,9 @@ msgstr ""
 msgid "Wakes you and gives you the wheel."
 msgstr "Budzi cię i oddaje ci kierownicę."
 
+msgid " Your 10-hour rest starts over."
+msgstr ""
+
 msgid "Take the wheel back"
 msgstr "Przejmij kierownicę"
 
@@ -32575,6 +32584,10 @@ msgid ""
 msgstr ""
 "Łańcuch na kole pękł i lata. Zwolnij i zjedź na pobocze, żeby go sprawdzić."
 
+#. placeholders: {snapped}, {damage}
+msgid "{snapped} Damage {damage} percent."
+msgstr ""
+
 msgid "A chain is slapping the fender. Stop soon and tighten it."
 msgstr "Łańcuch obija błotnik. Wkrótce się zatrzymaj i go dociągnij."
 
@@ -32918,6 +32931,17 @@ msgstr "Przez linię środkową, na pasie przeciwnym!"
 msgid "Off the pavement, into the median on the left!"
 msgstr "Poza jezdnią, w pasie rozdziału po lewej!"
 
+#. placeholders: {place}, {damage}
+msgid "{place} Damage {damage} percent."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back on the pavement. Damage {damage} percent."
+msgstr ""
+
+msgid "Back on the pavement."
+msgstr "Z powrotem na nawierzchni."
+
 msgid "Caught the edge."
 msgstr "Zahaczenie o krawędź."
 
@@ -33085,6 +33109,10 @@ msgstr "Przysypiasz. Skręcaj albo hamuj, teraz!"
 
 msgid "You caught it."
 msgstr "Udało się."
+
+#. placeholders: {damage}, {standing}
+msgid "Damage {damage} percent. {standing}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "You cannot stay awake."
@@ -33289,9 +33317,6 @@ msgstr "Zwalniam przed zakrętem."
 
 msgid "Ramp assistance released."
 msgstr "Asystent łącznic zwolniony."
-
-msgid "Back on the pavement."
-msgstr "Z powrotem na nawierzchni."
 
 #. placeholders: {lane_name}
 #. one sentence of a longer line
@@ -33640,6 +33665,17 @@ msgstr "Teraz gra na {name}."
 #. placeholders: {name}, {title}, {stop}
 msgid "Now playing on {name}: {title}{stop}"
 msgstr "Teraz gra na {name}: {title}{stop}"
+
+msgid "Runaway! The truck is taking damage."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Back under control."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back under control. Damage {damage} percent."
+msgstr ""
 
 msgid ""
 "A second major offense disqualifies your CDL for life, and this career will "

@@ -10911,6 +10911,9 @@ msgstr "驾驶工时违规：{due}。继续开车，检查时可能被罚款。"
 msgid "Hours of service: {phrase} until {due}."
 msgstr "驾驶工时：再过{phrase}，{due}。"
 
+msgid "untold"
+msgstr ""
+
 msgid "single"
 msgstr "唯一"
 
@@ -11456,6 +11459,9 @@ msgstr "路线1避开{reason}，能省{minutes_words}。"
 #. placeholders: {spots_text}
 msgid "Construction: {spots_text}."
 msgstr ""
+
+msgid "running"
+msgstr "运转中"
 
 msgid "Monday"
 msgstr "星期一"
@@ -18806,9 +18812,6 @@ msgstr "车速：{hud_speed_text}"
 msgid "Engine: {else}"
 msgstr "发动机：{else}"
 
-msgid "running"
-msgstr "运转中"
-
 #. placeholders: {f}, {else}
 msgid "Air: {f} psi   {else}"
 msgstr "气压：{f} psi，{else}"
@@ -22772,6 +22775,9 @@ msgstr "无发动机制动区，{spoken}。"
 #. placeholders: {distance}, {spoken}
 msgid "No engine brake zone in {distance}, coming into {spoken}."
 msgstr "{distance}后是禁用发动机制动区，即将进入{spoken}。"
+
+msgid "End of no engine brake zone."
+msgstr ""
 
 msgid "No engine brake zone. Switch it off."
 msgstr "禁用发动机制动区。把它关掉。"
@@ -29106,6 +29112,9 @@ msgstr ""
 msgid "Wakes you and gives you the wheel."
 msgstr ""
 
+msgid " Your 10-hour rest starts over."
+msgstr ""
+
 msgid "Take the wheel back"
 msgstr ""
 
@@ -29455,6 +29464,10 @@ msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
 msgstr "一条轮胎防滑链断裂并在甩动。减速靠边停车检查。"
 
+#. placeholders: {snapped}, {damage}
+msgid "{snapped} Damage {damage} percent."
+msgstr ""
+
 msgid "A chain is slapping the fender. Stop soon and tighten it."
 msgstr "一条防滑链正在拍打挡泥板。尽快停车并将它收紧。"
 
@@ -29734,6 +29747,17 @@ msgstr "越过中心线，开进对向车道了！"
 msgid "Off the pavement, into the median on the left!"
 msgstr "冲出路面，开进左边的中央隔离带了！"
 
+#. placeholders: {place}, {damage}
+msgid "{place} Damage {damage} percent."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back on the pavement. Damage {damage} percent."
+msgstr ""
+
+msgid "Back on the pavement."
+msgstr "回到路面上了。"
+
 msgid "Caught the edge."
 msgstr "抓住了边缘。"
 
@@ -29888,6 +29912,10 @@ msgstr "在打瞌睡。马上转向或刹车！"
 
 msgid "You caught it."
 msgstr "你稳住了。"
+
+#. placeholders: {damage}, {standing}
+msgid "Damage {damage} percent. {standing}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "You cannot stay awake."
@@ -30078,9 +30106,6 @@ msgstr "转弯时减速。"
 
 msgid "Ramp assistance released."
 msgstr "匝道辅助已释放。"
-
-msgid "Back on the pavement."
-msgstr "回到路面上了。"
 
 #. placeholders: {lane_name}
 #. one sentence of a longer line
@@ -30411,6 +30436,17 @@ msgstr "正在{name}上播放。"
 #. placeholders: {name}, {title}, {stop}
 msgid "Now playing on {name}: {title}{stop}"
 msgstr "{name}正在播放：{title}{stop}"
+
+msgid "Runaway! The truck is taking damage."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Back under control."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back under control. Damage {damage} percent."
+msgstr ""
 
 msgid ""
 "A second major offense disqualifies your CDL for life, and this career will "

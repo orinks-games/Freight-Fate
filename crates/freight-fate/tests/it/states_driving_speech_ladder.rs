@@ -450,7 +450,8 @@ fn test_back_on_the_pavement_still_stays_quiet_at_urgent_only() {
     let mut drive = a_drive(&mut app);
     drive.lane.lane = 0;
     drive.lane.offset = 0.0;
-    drive.road_position_band = Some(1); // was off, band tracked from before
+    // Was off, and the entry line spoke with the damage the truck still has.
+    drive.off_pavement_said = Some(("Off the road on the right!".to_string(), 0.0));
     app.clear_speech();
 
     drive.update_lane(&mut app.ctx, DT);
@@ -780,6 +781,7 @@ fn test_a_tire_chain_release_speaks_at_urgent_only_as_safety() {
     let mut app = an_urgent_only_app();
     let mut drive = a_drive(&mut app);
     drive.trip.truck.chains_just_snapped = true;
+    drive.trip.truck.damage_pct = 7.0;
     app.clear_speech();
 
     drive.update_traction_cues(&mut app.ctx);
@@ -788,9 +790,63 @@ fn test_a_tire_chain_release_speaks_at_urgent_only_as_safety() {
     let last = lines
         .last()
         .unwrap_or_else(|| panic!("the chain let go in silence"));
+    // The snap is a damage charge, so it says what the truck is at now
+    // (issue 533).
     assert_eq!(
         last,
-        "A tire chain broke and is flailing. Slow down and pull over to check it."
+        "A tire chain broke and is flailing. Slow down and pull over to check it. \
+         Damage 7 percent."
+    );
+    app.shutdown();
+}
+
+#[test]
+fn test_a_runaway_speaks_both_edges_at_urgent_only() {
+    // Runaway damage used to accrue with nothing said (issue 533). Both
+    // edges are safety lines, so they survive the quietest rung. The clock
+    // steps past the first line so the queued second one is not waiting on it.
+    let mut app = an_urgent_only_app();
+    let mut drive = a_drive(&mut app);
+    app.ctx.event_pacer = hearken::speech::EventSpeechPacer::with_clock(
+        freight_fate::app::FF_PACER,
+        freight_fate::app::testing::stepping_clock(30.0),
+    );
+    app.clear_speech();
+
+    drive.trip.truck.velocity_mps = 95.0 / 2.23694;
+    drive.update_runaway(&mut app.ctx);
+    drive.trip.truck.damage_pct = 4.0;
+    drive.update_runaway(&mut app.ctx);
+    drive.trip.truck.velocity_mps = 80.0 / 2.23694;
+    drive.update_runaway(&mut app.ctx);
+    drive.update_runaway(&mut app.ctx);
+
+    assert_eq!(
+        app.event_lines(),
+        vec![
+            "Runaway! The truck is taking damage.".to_string(),
+            "Back under control. Damage 4 percent.".to_string(),
+        ]
+    );
+    app.shutdown();
+}
+
+#[test]
+fn test_a_runaway_that_wrecks_the_truck_does_not_say_back_under_control() {
+    // The wreck has its own line; "back under control" would be untrue.
+    let mut app = an_urgent_only_app();
+    let mut drive = a_drive(&mut app);
+    app.clear_speech();
+
+    drive.trip.truck.velocity_mps = 95.0 / 2.23694;
+    drive.update_runaway(&mut app.ctx);
+    drive.trip.truck.damage_pct = 100.0;
+    drive.trip.truck.velocity_mps = 0.0;
+    drive.update_runaway(&mut app.ctx);
+
+    assert_eq!(
+        app.event_lines(),
+        vec!["Runaway! The truck is taking damage.".to_string()]
     );
     app.shutdown();
 }

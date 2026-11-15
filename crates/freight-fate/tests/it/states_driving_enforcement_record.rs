@@ -448,6 +448,26 @@ fn test_running_off_the_road_asleep_costs_reputation_and_is_spoken() {
 }
 
 #[test]
+fn test_the_forced_stop_asleep_says_the_damage() {
+    // The shoulder costs the truck on the third miss as on the others, and
+    // the line says what it is at now, as the nod-off line does (issue 533).
+    let mut app = TestApp::new();
+    let mut drive = a_drive(&mut app, "Jerry");
+    app.clear_speech();
+    drive.microsleep_drift_off_road(&mut app.ctx, true);
+
+    let damage = drive.trip.truck.damage_pct;
+    assert!(damage > 0.0);
+    let said = said(&app);
+    assert!(
+        said.contains(&format!(
+            "jolt awake on the brakes. Damage {damage:.0} percent."
+        )),
+        "{said}"
+    );
+}
+
+#[test]
 fn test_terse_speech_still_hears_every_consequence() {
     // Terse drops description, never anything with money or standing on it.
     let mut app = TestApp::new();

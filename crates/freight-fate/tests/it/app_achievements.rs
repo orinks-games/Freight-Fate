@@ -708,6 +708,40 @@ fn test_cooking_the_drums_is_its_own_badge() {
     assert!(earned(&app, "brake_smoke"));
 }
 
+#[test]
+fn test_drums_a_co_driver_cooked_earn_the_player_nothing() {
+    // Issue 520: the badge went to the player 26 ms after they took the
+    // wheel back on drums the co-driver had heated.
+    let mut app = TestApp::new();
+    let mut d = a_drive_for_badges(&mut app);
+    let fade = d.trip.truck.brake_fade_onset_c();
+
+    app.ctx.co_driver_away = true;
+    d.trip.truck.brake_temp_c = fade - 50.0;
+    d.track_driving_badges(&mut app.ctx, 1.0 / 60.0);
+    d.trip.truck.brake_temp_c = fade + 10.0;
+    d.track_driving_badges(&mut app.ctx, 1.0 / 60.0);
+
+    app.ctx.co_driver_away = false; // the player takes the wheel on hot drums
+    d.track_driving_badges(&mut app.ctx, 1.0 / 60.0);
+    assert!(!earned(&app, "brake_smoke"));
+
+    d.trip.truck.brake_temp_c = fade - 50.0; // they cool under the player
+    d.track_driving_badges(&mut app.ctx, 1.0 / 60.0);
+    d.trip.truck.brake_temp_c = fade + 10.0; // and fade again
+    d.track_driving_badges(&mut app.ctx, 1.0 / 60.0);
+    assert!(earned(&app, "brake_smoke"));
+}
+
+#[test]
+fn test_drums_already_at_fade_on_a_resumed_drive_earn_nothing() {
+    let mut app = TestApp::new();
+    let mut d = a_drive_for_badges(&mut app);
+    d.trip.truck.brake_temp_c = d.trip.truck.brake_fade_onset_c() + 10.0;
+    d.track_driving_badges(&mut app.ctx, 1.0 / 60.0);
+    assert!(!earned(&app, "brake_smoke"));
+}
+
 /// A station the reception tests can hold, with the reach the fringe rule
 /// measures against.
 fn a_test_station(id: &str, range_miles: f64) -> RadioStation {

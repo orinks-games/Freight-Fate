@@ -12161,6 +12161,9 @@ msgstr ""
 msgid "Hours of service: {phrase} until {due}."
 msgstr "Режим труда и отдыха: через {phrase} {due}."
 
+msgid "untold"
+msgstr ""
+
 msgid "single"
 msgstr "единственная"
 
@@ -12710,6 +12713,9 @@ msgstr "Маршрут 1 объезжает {reason} и экономит {minute
 #. placeholders: {spots_text}
 msgid "Construction: {spots_text}."
 msgstr "Ремонт дороги: {spots_text}."
+
+msgid "running"
+msgstr "работает"
 
 msgid "Monday"
 msgstr "понедельник"
@@ -20882,9 +20888,6 @@ msgstr "Скорость: {hud_speed_text}"
 msgid "Engine: {else}"
 msgstr "Двигатель: {else}"
 
-msgid "running"
-msgstr "работает"
-
 #. placeholders: {f}, {else}
 msgid "Air: {f} psi   {else}"
 msgstr "Воздух: {f} {f:фунт|фунта|фунтов} на квадратный дюйм   {else}"
@@ -25432,6 +25435,9 @@ msgstr "Зона запрета моторного тормоза, {spoken}."
 msgid "No engine brake zone in {distance}, coming into {spoken}."
 msgstr ""
 "Зона запрета моторного тормоза через {distance}, на въезде в {spoken}."
+
+msgid "End of no engine brake zone."
+msgstr ""
 
 msgid "No engine brake zone. Switch it off."
 msgstr "Зона запрета моторного тормоза. Выключите его."
@@ -32363,6 +32369,9 @@ msgstr ""
 msgid "Wakes you and gives you the wheel."
 msgstr "Будит вас и отдаёт вам руль."
 
+msgid " Your 10-hour rest starts over."
+msgstr ""
+
 msgid "Take the wheel back"
 msgstr "Снова сесть за руль"
 
@@ -32728,6 +32737,10 @@ msgstr ""
 "Цепь противоскольжения порвалась и болтается. Снизьте скорость и встаньте "
 "на обочину, чтобы её проверить."
 
+#. placeholders: {snapped}, {damage}
+msgid "{snapped} Damage {damage} percent."
+msgstr ""
+
 msgid "A chain is slapping the fender. Stop soon and tighten it."
 msgstr "Цепь бьёт по крылу. Скоро остановитесь и подтяните её."
 
@@ -33059,6 +33072,17 @@ msgstr "Через осевую, на встречной полосе!"
 msgid "Off the pavement, into the median on the left!"
 msgstr "С асфальта, на разделительную полосу слева!"
 
+#. placeholders: {place}, {damage}
+msgid "{place} Damage {damage} percent."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back on the pavement. Damage {damage} percent."
+msgstr ""
+
+msgid "Back on the pavement."
+msgstr "Снова на асфальте."
+
 msgid "Caught the edge."
 msgstr "Зацепили край."
 
@@ -33227,6 +33251,10 @@ msgstr "Засыпаете. Рулите или тормозите сейчас!
 
 msgid "You caught it."
 msgstr "Вы удержали машину."
+
+#. placeholders: {damage}, {standing}
+msgid "Damage {damage} percent. {standing}"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "You cannot stay awake."
@@ -33432,9 +33460,6 @@ msgstr "Снижаем скорость перед поворотом."
 
 msgid "Ramp assistance released."
 msgstr "Помощь на съездах отпустила."
-
-msgid "Back on the pavement."
-msgstr "Снова на асфальте."
 
 #. placeholders: {lane_name}
 #. one sentence of a longer line
@@ -33787,6 +33812,17 @@ msgstr "Сейчас играет {name}."
 #. placeholders: {name}, {title}, {stop}
 msgid "Now playing on {name}: {title}{stop}"
 msgstr "Сейчас играет {name}: {title}{stop}"
+
+msgid "Runaway! The truck is taking damage."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Back under control."
+msgstr ""
+
+#. placeholders: {damage}
+msgid "Back under control. Damage {damage} percent."
+msgstr ""
 
 msgid ""
 "A second major offense disqualifies your CDL for life, and this career will "

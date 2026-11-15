@@ -28,6 +28,7 @@
 //!   the session-log trace of the clock's real-time pins.
 //! * [`conditions`] -- hot brakes, the destination approach assist, traction
 //!   states and the chain law.
+//! * [`runaway`] -- the two lines at the edges of a runaway.
 //!
 //! [`pending`] is this task's TEMPORARY stub surface: every method
 //! `driving_updates.py` called on a mixin that has not been ported yet. Each
@@ -51,6 +52,7 @@ pub mod pending;
 pub mod radio;
 pub mod radio_channel3000;
 pub mod radio_synth;
+pub mod runaway;
 pub mod stops;
 
 use std::cell::Cell;
