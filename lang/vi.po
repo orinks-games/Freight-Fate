@@ -6500,6 +6500,9 @@ msgstr "chạm đúp"
 msgid "confirm"
 msgstr "xác nhận"
 
+msgid "a two-finger tap"
+msgstr "chạm hai ngón"
+
 msgid "a two-finger swipe down"
 msgstr "vuốt hai ngón xuống"
 
@@ -15465,6 +15468,20 @@ msgstr "Chỗ đỗ chưa xác minh."
 msgid "No truck parking."
 msgstr "Không có chỗ đỗ xe tải."
 
+msgid "Double tap to signal for the exit."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal for the exit."
+msgstr "Nhấn {exit_hint} để bật xi-nhan lối ra."
+
+msgid "Double tap to signal."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal."
+msgstr "Nhấn {exit_hint} để bật xi-nhan."
+
 #. placeholders: {exit_label}
 msgid " at {exit_label}"
 msgstr " tại {exit_label}"
@@ -15479,13 +15496,13 @@ msgstr "Có dầu."
 msgid "No fuel."
 msgstr "Không có dầu."
 
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal for the exit."
-msgstr "Nhấn {exit_hint} để bật xi-nhan lối ra."
-
 #. placeholders: {terse}
 msgid "{terse} No fuel."
 msgstr "{terse} Không có dầu."
+
+#. placeholders: {terse}
+msgid "{terse} Double tap to signal."
+msgstr ""
 
 #. placeholders: {terse}, {exit_hint}
 msgid "{terse} Press {exit_hint} to signal."
@@ -15603,6 +15620,21 @@ msgstr "Đang vào "
 
 msgid "Passing "
 msgstr "Đang đi qua "
+
+msgid "menu"
+msgstr "trình đơn"
+
+msgid "field"
+msgstr ""
+
+msgid "wheel"
+msgstr ""
+
+msgid "practice"
+msgstr ""
+
+msgid "arrival"
+msgstr ""
 
 msgid "miles"
 msgstr "dặm"
@@ -16355,9 +16387,6 @@ msgstr "Vuốt nhanh lên"
 msgid "Flick down"
 msgstr "Vuốt nhanh xuống"
 
-msgid "Two-finger tap"
-msgstr "Chạm hai ngón"
-
 msgid "Two-finger double tap"
 msgstr "Chạm đúp hai ngón"
 
@@ -16416,9 +16445,6 @@ msgstr "vuốt nhanh lên"
 msgid "a flick down"
 msgstr "vuốt nhanh xuống"
 
-msgid "a two-finger tap"
-msgstr "chạm hai ngón"
-
 msgid "a two-finger double tap"
 msgstr "chạm đúp hai ngón"
 
@@ -16458,8 +16484,8 @@ msgstr "vuốt nhanh sang phải"
 msgid "a still hold for half a second"
 msgstr "giữ yên trong nửa giây"
 
-msgid "the exit command from the three-finger tap list"
-msgstr "lệnh lối ra trong danh sách chạm ba ngón"
+msgid "a three-finger tap then a double tap"
+msgstr ""
 
 #. placeholders: {label}
 msgid "{label} from the three-finger tap list"
@@ -18743,9 +18769,6 @@ msgstr "Quá trình sao lưu sẽ tiếp tục thử lại ở chế độ nền
 
 msgid "Progress saved."
 msgstr "Đã lưu tiến trình."
-
-msgid "menu"
-msgstr "trình đơn"
 
 #. placeholders: {city}
 msgid "{city} service area"
@@ -22639,30 +22662,19 @@ msgstr ""
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
-"cruise off, flick up to resume the last speed and flick down to set the "
-"current speed. Turn two fingers right like a key to start the engine, left "
-"to stop it. Hold two fingers for the horn. Turning them cancels it. While "
-"holding a pedal, a second finger's flicks and holds work the same way, and "
-"in automatic its shift flicks say the gear. "
+"cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
+"or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
+"fingers right like a key to start the engine, and left to stop it once the "
+"truck has stopped. Hold two fingers for the horn. While holding a pedal, a "
+"second finger's flicks and holds work the same way. "
 msgstr ""
-"Giữ yên một ngón tay trong nửa giây để trả thẳng lái. Khi ga tự động đang "
-"tắt, gạt lên để khôi phục tốc độ trước đó và gạt xuống để đặt tốc độ hiện "
-"tại. Xoay hai ngón tay sang phải như vặn chìa khóa để đề nổ máy, xoay trái "
-"để tắt máy. Chạm giữ hai ngón tay để bấm còi. Xoay tay để ngắt còi. Khi "
-"đang giữ chân ga hoặc phanh, các thao tác gạt và giữ của ngón thứ hai vẫn "
-"hoạt động như thường, và ở số tự động thao tác gạt chuyển số sẽ đọc tên số "
-"đang chạy. "
 
 msgid ""
 "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
 "swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command: swipe "
-"to one and double tap to run it. "
+"right tune the radio. A three-finger tap lists every driving command, "
+"Status menu first. Flick to one and double tap to run it. "
 msgstr ""
-"Vuốt hai ngón xuống để tạm dừng, vuốt hai ngón lên để mở hướng dẫn này, "
-"vuốt hai ngón sang trái hoặc phải để xem lại tin nhắn, và vuốt ba ngón sang "
-"trái hoặc phải để dò đài radio. Chạm ba ngón để liệt kê mọi lệnh lái xe: "
-"vuốt tới lệnh cần dùng rồi chạm đúp để chạy. "
 
 msgid ""
 "Gestures can be moved in Settings, Gameplay, Controls, Touch gestures."
@@ -23213,10 +23225,6 @@ msgstr "Động cơ đang nổ sẵn rồi."
 
 msgid "Engine already off."
 msgstr "Động cơ đã tắt sẵn rồi."
-
-#. placeholders: {gear}
-msgid "{gear}, automatic."
-msgstr "{gear}, số tự động."
 
 msgid "Release the accelerator before turning the jake on."
 msgstr "Nhả chân ga trước khi bật phanh động cơ."
@@ -25275,6 +25283,9 @@ msgstr "Lối ra điểm giao lại ở phía trước."
 msgid "Destination exit ahead again. Signal for it."
 msgstr "Lối ra điểm giao lại ở phía trước. Hãy bật xi-nhan."
 
+msgid "Destination exit ahead again. Double tap to signal."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
 msgstr ""
@@ -25292,6 +25303,11 @@ msgid ""
 "You turned around, and the destination exit is ahead again. Signal for it."
 msgstr ""
 "Bạn đã quay đầu xe, và lối ra điểm giao lại ở phía trước. Hãy bật xi-nhan."
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Double tap to "
+"signal for it."
+msgstr ""
 
 #. placeholders: {control_hint}
 #. one sentence of a longer line
@@ -26063,6 +26079,18 @@ msgstr "Đã ở trên đường dẫn ra."
 msgid "No route exit to signal for yet."
 msgstr "Chưa có lối ra nào trên tuyến để bật xi-nhan."
 
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
+msgstr "Xi-nhan vẫn đang {stays}."
+
+#. one sentence of a longer line
+msgid "Double tap again to cancel the exit."
+msgstr ""
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}. Double tap again to cancel the exit."
+msgstr ""
+
 #. placeholders: {control_hint}
 #. one sentence of a longer line
 msgid "Press {control_hint} again to cancel the exit."
@@ -26072,10 +26100,6 @@ msgstr "Nhấn {control_hint} lần nữa để hủy lối ra."
 msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
 msgstr ""
 "Xi-nhan vẫn đang {stays}. Nhấn {control_hint} lần nữa để hủy lối ra."
-
-#. placeholders: {stays}
-msgid "Signal stays {stays}."
-msgstr "Xi-nhan vẫn đang {stays}."
 
 msgid "Signal canceled."
 msgstr "Đã hủy xi-nhan."
@@ -26146,10 +26170,6 @@ msgstr "Đang giảm tốc.{lane_text}"
 
 msgid "Signal for it."
 msgstr "Hãy bật xi-nhan."
-
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal."
-msgstr "Nhấn {exit_hint} để bật xi-nhan."
 
 msgid "Set the parking brake to check in."
 msgstr ""
@@ -26713,16 +26733,12 @@ msgstr "Phía trước cũng có {name2}."
 msgid "Fuel range only {range_text}."
 msgstr "Tầm chạy còn lại chỉ {range_text}."
 
-#. placeholders: {hint}
-msgid " Press {hint} to signal for the exit."
-msgstr " Nhấn {hint} để bật xi-nhan lối ra."
-
-#. placeholders: {hint}
-msgid " Press {hint} to signal."
-msgstr " Nhấn {hint} để bật xi-nhan."
-
 msgid "Rest-stop planning unavailable during a police stop."
 msgstr "Không thể lên lịch điểm dừng khi đang bị cảnh sát yêu cầu dừng xe."
+
+msgid ""
+"Resolve the police stop first. Double tap to signal the trooper stop."
+msgstr ""
 
 #. placeholders: {exit_hint}
 #. one sentence of a longer line
@@ -36295,8 +36311,8 @@ msgstr "Chạm giữ hai ngón: bấm còi."
 msgid "Two-finger turn right: start the engine."
 msgstr "Xoay hai ngón sang phải: đề máy."
 
-msgid "Two-finger turn left: stop the engine."
-msgstr "Xoay hai ngón sang trái: tắt máy."
+msgid "Two-finger turn left: stop the engine when the truck is stopped."
+msgstr ""
 
 msgid "Second finger, hold left: steer left."
 msgstr "Ngón thứ hai, giữ bên trái: đánh lái sang trái."
@@ -36385,6 +36401,9 @@ msgstr "Hất sang trái"
 msgid "Flick right"
 msgstr "Hất sang phải"
 
+msgid "Two-finger tap"
+msgstr "Chạm hai ngón"
+
 msgid "Magic tap"
 msgstr "Chạm hai ngón hai lần (Magic tap)"
 
@@ -36406,8 +36425,11 @@ msgstr "Vuốt trái bằng ba ngón"
 msgid "Three-finger swipe right"
 msgstr "Vuốt phải bằng ba ngón"
 
-msgid "Confirm"
-msgstr "Xác nhận"
+msgid "Take an exit, pull over or confirm arrival"
+msgstr ""
+
+msgid "Stop speech"
+msgstr ""
 
 msgid "Change lanes left"
 msgstr "Chuyển làn sang trái"
@@ -40741,6 +40763,9 @@ msgstr "Đang tải {title}"
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape để hủy, Tab để nghe tiến độ."
 
+msgid "lift"
+msgstr ""
+
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"
 msgstr "Làn giữa  ·  giữ làn {lane_assist}"
@@ -41997,6 +42022,51 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid " Press {hint} to signal for the exit."
+#~ msgstr " Nhấn {hint} để bật xi-nhan lối ra."
+
+#~ msgid " Press {hint} to signal."
+#~ msgstr " Nhấn {hint} để bật xi-nhan."
+
+#~ msgid "the exit command from the three-finger tap list"
+#~ msgstr "lệnh lối ra trong danh sách chạm ba ngón"
+
+#~ msgid ""
+#~ "Hold one finger still for half a second to straighten the wheel. With "
+#~ "cruise off, flick up to resume the last speed and flick down to set the "
+#~ "current speed. Turn two fingers right like a key to start the engine, left "
+#~ "to stop it. Hold two fingers for the horn. Turning them cancels it. While "
+#~ "holding a pedal, a second finger's flicks and holds work the same way, and "
+#~ "in automatic its shift flicks say the gear. "
+#~ msgstr ""
+#~ "Giữ yên một ngón tay trong nửa giây để trả thẳng lái. Khi ga tự động đang "
+#~ "tắt, gạt lên để khôi phục tốc độ trước đó và gạt xuống để đặt tốc độ hiện "
+#~ "tại. Xoay hai ngón tay sang phải như vặn chìa khóa để đề nổ máy, xoay trái "
+#~ "để tắt máy. Chạm giữ hai ngón tay để bấm còi. Xoay tay để ngắt còi. Khi "
+#~ "đang giữ chân ga hoặc phanh, các thao tác gạt và giữ của ngón thứ hai vẫn "
+#~ "hoạt động như thường, và ở số tự động thao tác gạt chuyển số sẽ đọc tên số "
+#~ "đang chạy. "
+
+#~ msgid ""
+#~ "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
+#~ "swipes left and right review messages, and three-finger swipes left and "
+#~ "right tune the radio. A three-finger tap lists every driving command: swipe "
+#~ "to one and double tap to run it. "
+#~ msgstr ""
+#~ "Vuốt hai ngón xuống để tạm dừng, vuốt hai ngón lên để mở hướng dẫn này, "
+#~ "vuốt hai ngón sang trái hoặc phải để xem lại tin nhắn, và vuốt ba ngón sang "
+#~ "trái hoặc phải để dò đài radio. Chạm ba ngón để liệt kê mọi lệnh lái xe: "
+#~ "vuốt tới lệnh cần dùng rồi chạm đúp để chạy. "
+
+#~ msgid "{gear}, automatic."
+#~ msgstr "{gear}, số tự động."
+
+#~ msgid "Two-finger turn left: stop the engine."
+#~ msgstr "Xoay hai ngón sang trái: tắt máy."
+
+#~ msgid "Confirm"
+#~ msgstr "Xác nhận"
 
 #~ msgid "Ten hours in the sleeper, and your hours are reset."
 #~ msgstr ""

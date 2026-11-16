@@ -111,6 +111,11 @@ impl DrivingState {
         // no-op here and stays only because every `State::update` owes it.
         ctx.update_music_rotation(dt);
         self.refresh_live_facts();
+        // A keyboard or controller picked up, or put down, mid-drive: the
+        // exit prompts name the control in hand now.
+        if self.exit_hint_device != ctx.controller.device() {
+            self.refresh_exit_hint(ctx);
+        }
         self.trace_engine_brake();
         // The curve call prices a bend by who holds the lane in it.
         self.trip.lane_steers = Self::lane_steers(ctx);

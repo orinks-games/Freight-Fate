@@ -848,7 +848,6 @@ impl DrivingState {
                     // name is resolved here (`name_facility` records the
                     // mention) rather than at delivery.
                     let typed_name = self.trip.name_facility(&stop.name, &stop.spoken_name());
-                    let exit_hint = self.trip.exit_hint.clone();
                     render = Some(std::rc::Rc::new(
                         move |drive: &DrivingState, ctx: &GameContext| {
                             let ahead = stop.at_mi - drive.trip.position_mi;
@@ -883,7 +882,9 @@ impl DrivingState {
                                 {
                                     ""
                                 } else {
-                                    &exit_hint
+                                    // The control in hand when the line is
+                                    // spoken, not when it queued.
+                                    &drive.trip.exit_hint
                                 },
                                 fuel: stop.fuel_callout(),
                                 open,

@@ -16,6 +16,10 @@
 - **An inspection or traffic stop at severe fatigue ends in a ten-hour out-of-service order.**
 - **Five-by-Two now takes a full 10 hours asleep at a stop.** A split rest, or finishing a reset that a break started, no longer earns it.
 - **German now covers the lines added since October.** Co-driver, fatigue, stop planning and problem report lines no longer switch to English.
+- **On iPhone, double tap takes an exit, pulls over for a trooper, or confirms arrival at a gate.**
+- **On iPhone, a two-finger tap stops speech on every screen.** The Status menu is now the first row of the three-finger tap list.
+- **On iPhone, a flick up turns cruise on, and a flick down with cruise off does nothing.** A short brake swipe can no longer set cruise.
+- **On iPhone, a two-finger turn left stops the engine only when the truck is stopped.**
 
 ### Fixed
 

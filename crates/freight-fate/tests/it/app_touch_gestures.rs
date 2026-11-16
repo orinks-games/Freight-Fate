@@ -306,7 +306,6 @@ fn gas_hold_swipe_left_changes_lanes_with_full_lane_keeping() {
 fn single_gestures_run_their_default_commands() {
     for (gesture, action) in [
         (Gesture::Tap, Action::Speed),
-        (Gesture::TwoFingerTap, Action::Status),
         (Gesture::ThreeFingerSwipeUp, Action::Route),
     ] {
         let (expected, _) = by_key("Touch Single Key", |h| rolling(h, 30.0), action, |_| ());
@@ -562,7 +561,7 @@ fn a_still_hold_straightens_the_wheel_until_it_lifts() {
 }
 
 #[test]
-fn a_second_finger_shift_flick_in_automatic_says_the_gear() {
+fn a_second_finger_shift_flick_in_automatic_does_nothing_and_says_nothing() {
     let mut harness = a_drive("Touch Automatic Gear");
     rolling(&mut harness, 30.0);
     harness.with_drive(|drive, _| drive.trip.truck.transmission.automatic = true);
@@ -570,18 +569,15 @@ fn a_second_finger_shift_flick_in_automatic_says_the_gear() {
     let mut input = TouchInput::new();
     touch(&mut harness, &mut input, Gesture::HoldUpperBegan);
     harness.clear_speech();
-    touch(&mut harness, &mut input, Gesture::UpperHoldSwipeUp);
-    assert!(said(&harness, "automatic"), "{:?}", harness.transcript());
+    for gesture in [Gesture::UpperHoldSwipeUp, Gesture::UpperHoldSwipeDown] {
+        touch(&mut harness, &mut input, gesture);
+    }
+    assert!(
+        harness.transcript().is_empty(),
+        "{:?}",
+        harness.transcript()
+    );
     assert_eq!(harness.with_drive(|drive, _| drive.gear_text()), before);
-}
-
-#[test]
-fn cruise_flicks_resume_and_set_with_cruise_off() {
-    let mut harness = a_drive("Touch Cruise Flicks");
-    rolling(&mut harness, 45.0);
-    assert!(!speed_control_on(&mut harness));
-    harness.app.dispatch_gesture(Gesture::SwipeDown);
-    assert!(speed_control_on(&mut harness), "{:?}", harness.transcript());
 }
 
 #[test]

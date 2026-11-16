@@ -7,7 +7,7 @@
 //! advice recommends, as T did before it asked.
 
 use ff_core::sim::trip_models::{RoadStop, TripEvent, TripEventKind};
-use ff_core::speech_text::SpokenMessage;
+use ff_core::speech_text::{signal_for_the_exit_sentence, signal_sentence, SpokenMessage};
 
 use crate::app::GameContext;
 use crate::states::driving::DrivingState;
@@ -329,11 +329,11 @@ impl DrivingState {
             return message;
         }
         let hint = &self.trip.exit_hint;
-        let normal_tail = format!(" Press {hint} to signal for the exit.");
+        let normal_tail = format!(" {}", signal_for_the_exit_sentence(hint));
         if let Some(rest) = message.normal.strip_suffix(&normal_tail) {
             message.normal = rest.to_string();
         }
-        let terse_tail = format!(" Press {hint} to signal.");
+        let terse_tail = format!(" {}", signal_sentence(hint));
         if let Some(rest) = message
             .terse
             .as_deref()

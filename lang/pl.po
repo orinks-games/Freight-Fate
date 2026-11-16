@@ -6398,6 +6398,9 @@ msgstr "dwukrotne stuknięcie"
 msgid "confirm"
 msgstr "potwierdź"
 
+msgid "a two-finger tap"
+msgstr "stuknięcie dwoma palcami"
+
 msgid "a two-finger swipe down"
 msgstr "przesunięcie dwoma palcami w dół"
 
@@ -15339,6 +15342,20 @@ msgstr "Parking niepotwierdzony."
 msgid "No truck parking."
 msgstr "Brak parkingu dla ciężarówek."
 
+msgid "Double tap to signal for the exit."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal for the exit."
+msgstr "Naciśnij {exit_hint}, aby włączyć kierunkowskaz na zjazd."
+
+msgid "Double tap to signal."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal."
+msgstr "Naciśnij {exit_hint}, żeby włączyć kierunkowskaz."
+
 #. placeholders: {exit_label}
 msgid " at {exit_label}"
 msgstr " przy {exit_label}"
@@ -15353,12 +15370,12 @@ msgstr ""
 msgid "No fuel."
 msgstr ""
 
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal for the exit."
-msgstr "Naciśnij {exit_hint}, aby włączyć kierunkowskaz na zjazd."
-
 #. placeholders: {terse}
 msgid "{terse} No fuel."
+msgstr ""
+
+#. placeholders: {terse}
+msgid "{terse} Double tap to signal."
 msgstr ""
 
 #. placeholders: {terse}, {exit_hint}
@@ -15478,6 +15495,21 @@ msgstr "Wjeżdżasz do "
 
 msgid "Passing "
 msgstr "Mijasz "
+
+msgid "menu"
+msgstr "menu"
+
+msgid "field"
+msgstr ""
+
+msgid "wheel"
+msgstr ""
+
+msgid "practice"
+msgstr ""
+
+msgid "arrival"
+msgstr ""
 
 msgid "miles"
 msgstr "mil"
@@ -16252,9 +16284,6 @@ msgstr "Muśnięcie w górę"
 msgid "Flick down"
 msgstr "Muśnięcie w dół"
 
-msgid "Two-finger tap"
-msgstr "Stuknięcie dwoma palcami"
-
 msgid "Two-finger double tap"
 msgstr "Dwukrotne stuknięcie dwoma palcami"
 
@@ -16313,9 +16342,6 @@ msgstr "muśnięcie w górę"
 msgid "a flick down"
 msgstr "muśnięcie w dół"
 
-msgid "a two-finger tap"
-msgstr "stuknięcie dwoma palcami"
-
 msgid "a two-finger double tap"
 msgstr "dwukrotne stuknięcie dwoma palcami"
 
@@ -16355,8 +16381,8 @@ msgstr "muśnięcie w prawo"
 msgid "a still hold for half a second"
 msgstr "nieruchome przytrzymanie przez pół sekundy"
 
-msgid "the exit command from the three-finger tap list"
-msgstr "polecenie wyjścia z listy stuknięcia trzema palcami"
+msgid "a three-finger tap then a double tap"
+msgstr ""
 
 #. placeholders: {label}
 msgid "{label} from the three-finger tap list"
@@ -18706,9 +18732,6 @@ msgstr "Kopia zapasowa będzie ponawiana w tle."
 
 msgid "Progress saved."
 msgstr "Postęp zapisany."
-
-msgid "menu"
-msgstr "menu"
 
 #. placeholders: {city}
 msgid "{city} service area"
@@ -22736,31 +22759,19 @@ msgstr ""
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
-"cruise off, flick up to resume the last speed and flick down to set the "
-"current speed. Turn two fingers right like a key to start the engine, left "
-"to stop it. Hold two fingers for the horn. Turning them cancels it. While "
-"holding a pedal, a second finger's flicks and holds work the same way, and "
-"in automatic its shift flicks say the gear. "
+"cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
+"or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
+"fingers right like a key to start the engine, and left to stop it once the "
+"truck has stopped. Hold two fingers for the horn. While holding a pedal, a "
+"second finger's flicks and holds work the same way. "
 msgstr ""
-"Przytrzymaj jeden palec nieruchomo przez pół sekundy, żeby wyprostować "
-"kierownicę. Przy wyłączonym tempomacie muśnij w górę, żeby wrócić do "
-"ostatniej prędkości, a w dół, żeby ustawić bieżącą prędkość. Obróć dwa "
-"palce w prawo jak kluczyk, żeby uruchomić silnik, w lewo, żeby go wyłączyć. "
-"Przytrzymaj dwa palce, żeby użyć klaksonu. Obrót je anuluje. Gdy trzymasz "
-"pedał, muśnięcia i przytrzymania drugim palcem działają tak samo, a w "
-"automacie jego muśnięcia zmiany biegu podają bieg. "
 
 msgid ""
 "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
 "swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command: swipe "
-"to one and double tap to run it. "
+"right tune the radio. A three-finger tap lists every driving command, "
+"Status menu first. Flick to one and double tap to run it. "
 msgstr ""
-"Przesunięcie dwoma palcami w dół włącza pauzę, przesunięcie dwoma palcami w "
-"górę to ta pomoc, przesunięcia dwoma palcami w lewo i w prawo przeglądają "
-"komunikaty, a przesunięcia trzema palcami w lewo i w prawo stroją radio. "
-"Stuknięcie trzema palcami wymienia każde polecenie jazdy: przesuń do "
-"jednego i stuknij dwukrotnie, żeby je wykonać. "
 
 msgid ""
 "Gestures can be moved in Settings, Gameplay, Controls, Touch gestures."
@@ -23311,10 +23322,6 @@ msgstr "Silnik już pracuje."
 
 msgid "Engine already off."
 msgstr "Silnik jest już wyłączony."
-
-#. placeholders: {gear}
-msgid "{gear}, automatic."
-msgstr "{gear}, automat."
 
 msgid "Release the accelerator before turning the jake on."
 msgstr "Puść gaz, zanim włączysz hamulec silnikowy."
@@ -25397,6 +25404,9 @@ msgstr "Zjazd docelowy znowu przed tobą."
 msgid "Destination exit ahead again. Signal for it."
 msgstr ""
 
+msgid "Destination exit ahead again. Double tap to signal."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
 msgstr ""
@@ -25413,6 +25423,11 @@ msgstr "Zawracasz, a zjazd docelowy jest znowu przed tobą."
 
 msgid ""
 "You turned around, and the destination exit is ahead again. Signal for it."
+msgstr ""
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Double tap to "
+"signal for it."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -26194,6 +26209,18 @@ msgid "No route exit to signal for yet."
 msgstr ""
 "Na trasie nie ma jeszcze zjazdu, na który można włączyć kierunkowskaz."
 
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
+msgstr "Kierunkowskaz zostaje {stays}."
+
+#. one sentence of a longer line
+msgid "Double tap again to cancel the exit."
+msgstr ""
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}. Double tap again to cancel the exit."
+msgstr ""
+
 #. placeholders: {control_hint}
 #. one sentence of a longer line
 msgid "Press {control_hint} again to cancel the exit."
@@ -26204,10 +26231,6 @@ msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
 msgstr ""
 "Kierunkowskaz zostaje {stays}. Naciśnij {control_hint} jeszcze raz, żeby "
 "anulować zjazd."
-
-#. placeholders: {stays}
-msgid "Signal stays {stays}."
-msgstr "Kierunkowskaz zostaje {stays}."
 
 msgid "Signal canceled."
 msgstr "Kierunkowskaz wyłączony."
@@ -26278,10 +26301,6 @@ msgstr "Zwalniam.{lane_text}"
 
 msgid "Signal for it."
 msgstr "Włącz na niego kierunkowskaz."
-
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal."
-msgstr "Naciśnij {exit_hint}, żeby włączyć kierunkowskaz."
 
 msgid "Set the parking brake to check in."
 msgstr ""
@@ -26841,18 +26860,14 @@ msgstr "{name2} też jest przed tobą."
 msgid "Fuel range only {range_text}."
 msgstr ""
 
-#. placeholders: {hint}
-msgid " Press {hint} to signal for the exit."
-msgstr ""
-
-#. placeholders: {hint}
-msgid " Press {hint} to signal."
-msgstr ""
-
 msgid "Rest-stop planning unavailable during a police stop."
 msgstr ""
 "Planowanie postoju na odpoczynek jest niedostępne podczas zatrzymania przez "
 "policję."
+
+msgid ""
+"Resolve the police stop first. Double tap to signal the trooper stop."
+msgstr ""
 
 #. placeholders: {exit_hint}
 #. one sentence of a longer line
@@ -36466,8 +36481,8 @@ msgstr "Przytrzymanie dwoma palcami: klakson."
 msgid "Two-finger turn right: start the engine."
 msgstr "Obrót dwoma palcami w prawo: uruchom silnik."
 
-msgid "Two-finger turn left: stop the engine."
-msgstr "Obrót dwoma palcami w lewo: wyłącz silnik."
+msgid "Two-finger turn left: stop the engine when the truck is stopped."
+msgstr ""
 
 msgid "Second finger, hold left: steer left."
 msgstr "Drugi palec, przytrzymaj po lewej: skręt w lewo."
@@ -36555,6 +36570,9 @@ msgstr "Muśnięcie w lewo"
 msgid "Flick right"
 msgstr "Muśnięcie w prawo"
 
+msgid "Two-finger tap"
+msgstr "Stuknięcie dwoma palcami"
+
 msgid "Magic tap"
 msgstr "Magiczne stuknięcie"
 
@@ -36576,8 +36594,11 @@ msgstr "Przesunięcie trzema palcami w lewo"
 msgid "Three-finger swipe right"
 msgstr "Przesunięcie trzema palcami w prawo"
 
-msgid "Confirm"
-msgstr "Potwierdź"
+msgid "Take an exit, pull over or confirm arrival"
+msgstr ""
+
+msgid "Stop speech"
+msgstr ""
 
 msgid "Change lanes left"
 msgstr "Zmień pas w lewo"
@@ -40917,6 +40938,9 @@ msgstr "Pobieranie: {title}"
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape anuluje, Tab odczytuje postęp."
 
+msgid "lift"
+msgstr ""
+
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"
 msgstr "Środkowy pas  ·  utrzymanie pasa {lane_assist}"
@@ -42181,6 +42205,46 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid "the exit command from the three-finger tap list"
+#~ msgstr "polecenie wyjścia z listy stuknięcia trzema palcami"
+
+#~ msgid ""
+#~ "Hold one finger still for half a second to straighten the wheel. With "
+#~ "cruise off, flick up to resume the last speed and flick down to set the "
+#~ "current speed. Turn two fingers right like a key to start the engine, left "
+#~ "to stop it. Hold two fingers for the horn. Turning them cancels it. While "
+#~ "holding a pedal, a second finger's flicks and holds work the same way, and "
+#~ "in automatic its shift flicks say the gear. "
+#~ msgstr ""
+#~ "Przytrzymaj jeden palec nieruchomo przez pół sekundy, żeby wyprostować "
+#~ "kierownicę. Przy wyłączonym tempomacie muśnij w górę, żeby wrócić do "
+#~ "ostatniej prędkości, a w dół, żeby ustawić bieżącą prędkość. Obróć dwa "
+#~ "palce w prawo jak kluczyk, żeby uruchomić silnik, w lewo, żeby go wyłączyć. "
+#~ "Przytrzymaj dwa palce, żeby użyć klaksonu. Obrót je anuluje. Gdy trzymasz "
+#~ "pedał, muśnięcia i przytrzymania drugim palcem działają tak samo, a w "
+#~ "automacie jego muśnięcia zmiany biegu podają bieg. "
+
+#~ msgid ""
+#~ "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
+#~ "swipes left and right review messages, and three-finger swipes left and "
+#~ "right tune the radio. A three-finger tap lists every driving command: swipe "
+#~ "to one and double tap to run it. "
+#~ msgstr ""
+#~ "Przesunięcie dwoma palcami w dół włącza pauzę, przesunięcie dwoma palcami w "
+#~ "górę to ta pomoc, przesunięcia dwoma palcami w lewo i w prawo przeglądają "
+#~ "komunikaty, a przesunięcia trzema palcami w lewo i w prawo stroją radio. "
+#~ "Stuknięcie trzema palcami wymienia każde polecenie jazdy: przesuń do "
+#~ "jednego i stuknij dwukrotnie, żeby je wykonać. "
+
+#~ msgid "{gear}, automatic."
+#~ msgstr "{gear}, automat."
+
+#~ msgid "Two-finger turn left: stop the engine."
+#~ msgstr "Obrót dwoma palcami w lewo: wyłącz silnik."
+
+#~ msgid "Confirm"
+#~ msgstr "Potwierdź"
 
 #~ msgid "Ten hours in the sleeper, and your hours are reset."
 #~ msgstr ""

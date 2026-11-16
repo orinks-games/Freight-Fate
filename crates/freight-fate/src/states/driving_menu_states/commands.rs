@@ -123,8 +123,12 @@ impl Menu for DrivingCommandsState {
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
-        let mut items: Vec<MenuItem<Self>> = Action::all()
-            .filter(|action| offers(*action))
+        // The Status menu leads, so a three-finger tap and a double tap
+        // open it.
+        let actions = std::iter::once(Action::Status)
+            .chain(Action::all().filter(|action| *action != Action::Status))
+            .filter(|action| offers(*action));
+        let mut items: Vec<MenuItem<Self>> = actions
             .map(|action| {
                 let mut help = format!("On the keyboard: {}.", ctx.bindings.spoken(action));
                 if action.on_pad() {

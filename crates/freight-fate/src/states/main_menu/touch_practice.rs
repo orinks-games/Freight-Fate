@@ -30,7 +30,9 @@ impl TouchPracticeState {
             Gesture::EmergencyBrakeHoldBegan => "Emergency brake.".to_string(),
             Gesture::HornHoldBegan => "Two-finger hold: horn.".to_string(),
             Gesture::RotateRight => "Two-finger turn right: start the engine.".to_string(),
-            Gesture::RotateLeft => "Two-finger turn left: stop the engine.".to_string(),
+            Gesture::RotateLeft => {
+                "Two-finger turn left: stop the engine when the truck is stopped.".to_string()
+            }
             Gesture::SecondSteerLeftBegan => "Second finger, hold left: steer left.".to_string(),
             Gesture::SecondSteerRightBegan => "Second finger, hold right: steer right.".to_string(),
             Gesture::HoldEnded
@@ -133,6 +135,10 @@ impl State for TouchPracticeState {
         }
     }
 
+    fn touch_mode(&self) -> crate::touch::TouchMode {
+        crate::touch::TouchMode::Practice
+    }
+
     fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
         if matches!(gesture, Gesture::Escape | Gesture::TwoFingerSwipeDown) {
             let now = Instant::now();
@@ -192,7 +198,8 @@ fn fixed_binding(ctx: &GameContext, gesture: Gesture) -> String {
 /// What a gesture that cannot be moved does, in the touch help's words.
 fn fixed_command(gesture: Gesture) -> &'static str {
     match gesture {
-        Gesture::DoubleTap | Gesture::Activate => "Confirm",
+        Gesture::DoubleTap | Gesture::Activate => "Take an exit, pull over or confirm arrival",
+        Gesture::TwoFingerTap => "Stop speech",
         Gesture::SwipeLeft => "Change lanes left",
         Gesture::SwipeRight => "Change lanes right",
         Gesture::Increment => "Move up",

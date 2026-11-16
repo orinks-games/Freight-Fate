@@ -5714,6 +5714,9 @@ msgstr "ダブルタップ"
 msgid "confirm"
 msgstr "決定"
 
+msgid "a two-finger tap"
+msgstr "2本指でタップ"
+
 msgid "a two-finger swipe down"
 msgstr "2本指で下にスワイプ"
 
@@ -13987,6 +13990,20 @@ msgstr "駐車場は未確認です。"
 msgid "No truck parking."
 msgstr "トラックの駐車場はありません。"
 
+msgid "Double tap to signal for the exit."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal for the exit."
+msgstr "{exit_hint}を押すと、出口へのウインカーを出します。"
+
+msgid "Double tap to signal."
+msgstr ""
+
+#. placeholders: {exit_hint}
+msgid "Press {exit_hint} to signal."
+msgstr "{exit_hint}でウインカーを出します。"
+
 #. placeholders: {exit_label}
 msgid " at {exit_label}"
 msgstr " 、{exit_label}"
@@ -14001,12 +14018,12 @@ msgstr ""
 msgid "No fuel."
 msgstr ""
 
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal for the exit."
-msgstr "{exit_hint}を押すと、出口へのウインカーを出します。"
-
 #. placeholders: {terse}
 msgid "{terse} No fuel."
+msgstr ""
+
+#. placeholders: {terse}
+msgid "{terse} Double tap to signal."
 msgstr ""
 
 #. placeholders: {terse}, {exit_hint}
@@ -14120,6 +14137,21 @@ msgstr "進入中： "
 
 msgid "Passing "
 msgstr "通過中： "
+
+msgid "menu"
+msgstr "menu"
+
+msgid "field"
+msgstr ""
+
+msgid "wheel"
+msgstr ""
+
+msgid "practice"
+msgstr ""
+
+msgid "arrival"
+msgstr ""
 
 msgid "miles"
 msgstr "マイル"
@@ -14864,9 +14896,6 @@ msgstr "上にフリック"
 msgid "Flick down"
 msgstr "下にフリック"
 
-msgid "Two-finger tap"
-msgstr "2本指でタップ"
-
 msgid "Two-finger double tap"
 msgstr "2本指でダブルタップ"
 
@@ -14925,9 +14954,6 @@ msgstr "上にフリック"
 msgid "a flick down"
 msgstr "下にフリック"
 
-msgid "a two-finger tap"
-msgstr "2本指でタップ"
-
 msgid "a two-finger double tap"
 msgstr "2本指でダブルタップ"
 
@@ -14967,8 +14993,8 @@ msgstr "右にフリック"
 msgid "a still hold for half a second"
 msgstr "動かさずに半秒長押し"
 
-msgid "the exit command from the three-finger tap list"
-msgstr "3本指タップの一覧にある終了コマンド"
+msgid "a three-finger tap then a double tap"
+msgstr ""
 
 #. placeholders: {label}
 msgid "{label} from the three-finger tap list"
@@ -17120,9 +17146,6 @@ msgstr "バックアップはバックグラウンドで再試行を続けます
 
 msgid "Progress saved."
 msgstr "進行状況を保存しました。"
-
-msgid "menu"
-msgstr "menu"
 
 #. placeholders: {city}
 msgid "{city} service area"
@@ -20635,24 +20658,19 @@ msgstr "左右にフリックすると車線を変え、左右にスワイプし
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
-"cruise off, flick up to resume the last speed and flick down to set the "
-"current speed. Turn two fingers right like a key to start the engine, left "
-"to stop it. Hold two fingers for the horn. Turning them cancels it. While "
-"holding a pedal, a second finger's flicks and holds work the same way, and "
-"in automatic its shift flicks say the gear. "
+"cruise off, flick up to turn it on. Double tap to take an exit, pull over, "
+"or confirm arrival at a gate. Tap with two fingers to stop speech. Turn two "
+"fingers right like a key to start the engine, and left to stop it once the "
+"truck has stopped. Hold two fingers for the horn. While holding a pedal, a "
+"second finger's flicks and holds work the same way. "
 msgstr ""
-"1本の指を半秒動かさずに押さえると、ハンドルをまっすぐに戻します。クルーズがオフのときは、上にフリックで前回の速度に戻し、下にフリックで今の速度を設定し"
-"ます。2本の指をキーのように右に回すとエンジンがかかり、左に回すと止まります。2本の指で押さえるとクラクションです。指を回すと取り消します。ペダルを押さ"
-"えている間は、2本目の指のフリックと長押しも同じように働き、オートマではシフトのフリックでギアを読み上げます。 "
 
 msgid ""
 "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
 "swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command: swipe "
-"to one and double tap to run it. "
+"right tune the radio. A three-finger tap lists every driving command, "
+"Status menu first. Flick to one and double tap to run it. "
 msgstr ""
-"2本指で下にスワイプで一時停止、2本指で上にスワイプでこのヘルプ、2本指で左右にスワイプでメッセージの振り返り、3本指で左右にスワイプでラジオの選局です"
-"。3本指でタップするとすべての運転の操作を一覧にします。スワイプで選んでダブルタップで実行します。 "
 
 msgid ""
 "Gestures can be moved in Settings, Gameplay, Controls, Touch gestures."
@@ -21194,10 +21212,6 @@ msgstr "エンジンはもうかかっています。"
 
 msgid "Engine already off."
 msgstr "エンジンはもう止まっています。"
-
-#. placeholders: {gear}
-msgid "{gear}, automatic."
-msgstr "{gear}、自動。"
 
 msgid "Release the accelerator before turning the jake on."
 msgstr "エンジンブレーキをオンにする前に、アクセルを離してください。"
@@ -23077,6 +23091,9 @@ msgstr "目的地の出口がまた前方にあります。"
 msgid "Destination exit ahead again. Signal for it."
 msgstr ""
 
+msgid "Destination exit ahead again. Double tap to signal."
+msgstr ""
+
 #. placeholders: {control_hint}
 msgid "Destination exit ahead again. Press {control_hint} to signal."
 msgstr "目的地の出口がまた前方にあります。{control_hint}でウインカーを出してください。"
@@ -23091,6 +23108,11 @@ msgstr "折り返したので、目的地の出口がまた前方にあります
 
 msgid ""
 "You turned around, and the destination exit is ahead again. Signal for it."
+msgstr ""
+
+msgid ""
+"You turned around, and the destination exit is ahead again. Double tap to "
+"signal for it."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -23832,6 +23854,18 @@ msgstr "もう出口ランプにいます。"
 msgid "No route exit to signal for yet."
 msgstr "まだウインカーを出すルートの出口はありません。"
 
+#. placeholders: {stays}
+msgid "Signal stays {stays}."
+msgstr "ウインカーは{stays}のままです。"
+
+#. one sentence of a longer line
+msgid "Double tap again to cancel the exit."
+msgstr ""
+
+#. placeholders: {stays}
+msgid "Signal stays {stays}. Double tap again to cancel the exit."
+msgstr ""
+
 #. placeholders: {control_hint}
 #. one sentence of a longer line
 msgid "Press {control_hint} again to cancel the exit."
@@ -23840,10 +23874,6 @@ msgstr "もう一度{control_hint}を押すと出口を取り消します。"
 #. placeholders: {stays}, {control_hint}
 msgid "Signal stays {stays}. Press {control_hint} again to cancel the exit."
 msgstr "ウインカーは{stays}のままです。もう一度{control_hint}を押すと出口を取り消します。"
-
-#. placeholders: {stays}
-msgid "Signal stays {stays}."
-msgstr "ウインカーは{stays}のままです。"
 
 msgid "Signal canceled."
 msgstr "ウインカーを取り消しました。"
@@ -23914,10 +23944,6 @@ msgstr "減速します。{lane_text}"
 
 msgid "Signal for it."
 msgstr "ウインカーを出してください。"
-
-#. placeholders: {exit_hint}
-msgid "Press {exit_hint} to signal."
-msgstr "{exit_hint}でウインカーを出します。"
 
 msgid "Set the parking brake to check in."
 msgstr ""
@@ -24455,16 +24481,12 @@ msgstr "{name2}もこの先にあります。"
 msgid "Fuel range only {range_text}."
 msgstr ""
 
-#. placeholders: {hint}
-msgid " Press {hint} to signal for the exit."
-msgstr ""
-
-#. placeholders: {hint}
-msgid " Press {hint} to signal."
-msgstr ""
-
 msgid "Rest-stop planning unavailable during a police stop."
 msgstr "警察の停車中は、休憩の停車地を計画できません。"
+
+msgid ""
+"Resolve the police stop first. Double tap to signal the trooper stop."
+msgstr ""
 
 #. placeholders: {exit_hint}
 #. one sentence of a longer line
@@ -33212,8 +33234,8 @@ msgstr "2本指で長押し：クラクション。"
 msgid "Two-finger turn right: start the engine."
 msgstr "2本指で右に回す：エンジンをかけます。"
 
-msgid "Two-finger turn left: stop the engine."
-msgstr "2本指で左に回す：エンジンを止めます。"
+msgid "Two-finger turn left: stop the engine when the truck is stopped."
+msgstr ""
 
 msgid "Second finger, hold left: steer left."
 msgstr "2本目の指で左を長押し：左へ操舵。"
@@ -33298,6 +33320,9 @@ msgstr "左にフリック"
 msgid "Flick right"
 msgstr "右にフリック"
 
+msgid "Two-finger tap"
+msgstr "2本指でタップ"
+
 msgid "Magic tap"
 msgstr "マジックタップ"
 
@@ -33319,8 +33344,11 @@ msgstr "3本指で左にスワイプ"
 msgid "Three-finger swipe right"
 msgstr "3本指で右にスワイプ"
 
-msgid "Confirm"
-msgstr "確定"
+msgid "Take an exit, pull over or confirm arrival"
+msgstr ""
+
+msgid "Stop speech"
+msgstr ""
 
 msgid "Change lanes left"
 msgstr "左に車線変更"
@@ -37088,6 +37116,9 @@ msgstr "{title}をダウンロード中"
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape で取り消し、Tab で進み具合を読み上げます。"
 
+msgid "lift"
+msgstr ""
+
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"
 msgstr "中央車線  ·  レーンキープ {lane_assist}"
@@ -38305,6 +38336,39 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid "the exit command from the three-finger tap list"
+#~ msgstr "3本指タップの一覧にある終了コマンド"
+
+#~ msgid ""
+#~ "Hold one finger still for half a second to straighten the wheel. With "
+#~ "cruise off, flick up to resume the last speed and flick down to set the "
+#~ "current speed. Turn two fingers right like a key to start the engine, left "
+#~ "to stop it. Hold two fingers for the horn. Turning them cancels it. While "
+#~ "holding a pedal, a second finger's flicks and holds work the same way, and "
+#~ "in automatic its shift flicks say the gear. "
+#~ msgstr ""
+#~ "1本の指を半秒動かさずに押さえると、ハンドルをまっすぐに戻します。クルーズがオフのときは、上にフリックで前回の速度に戻し、下にフリックで今の速度を設定し"
+#~ "ます。2本の指をキーのように右に回すとエンジンがかかり、左に回すと止まります。2本の指で押さえるとクラクションです。指を回すと取り消します。ペダルを押さ"
+#~ "えている間は、2本目の指のフリックと長押しも同じように働き、オートマではシフトのフリックでギアを読み上げます。 "
+
+#~ msgid ""
+#~ "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
+#~ "swipes left and right review messages, and three-finger swipes left and "
+#~ "right tune the radio. A three-finger tap lists every driving command: swipe "
+#~ "to one and double tap to run it. "
+#~ msgstr ""
+#~ "2本指で下にスワイプで一時停止、2本指で上にスワイプでこのヘルプ、2本指で左右にスワイプでメッセージの振り返り、3本指で左右にスワイプでラジオの選局です"
+#~ "。3本指でタップするとすべての運転の操作を一覧にします。スワイプで選んでダブルタップで実行します。 "
+
+#~ msgid "{gear}, automatic."
+#~ msgstr "{gear}、自動。"
+
+#~ msgid "Two-finger turn left: stop the engine."
+#~ msgstr "2本指で左に回す：エンジンを止めます。"
+
+#~ msgid "Confirm"
+#~ msgstr "確定"
 
 #~ msgid "Ten hours in the sleeper, and your hours are reset."
 #~ msgstr "スリーパーで10時間休み、勤務時間がリセットされました。"

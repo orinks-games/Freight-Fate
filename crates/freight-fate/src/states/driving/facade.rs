@@ -58,6 +58,10 @@ impl DrivingState {
         // (review finding, 2026-09-19).
         self.curve_servo = None;
         self.trip.curve_shed_active = false;
+        // The exit hint names the control in hand, which a new road does
+        // not change; a fresh trip would say the keyboard's X.
+        let mut trip = trip;
+        trip.exit_hint = self.trip.exit_hint.clone();
         std::mem::replace(&mut self.trip, trip)
     }
 }
@@ -88,6 +92,10 @@ impl State for DrivingState {
 
     fn handle_event(&mut self, ctx: &mut GameContext, event: &InputEvent) {
         self.handle_key_event(ctx, event);
+    }
+
+    fn touch_mode(&self) -> crate::touch::TouchMode {
+        crate::touch::TouchMode::Wheel
     }
 
     fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {

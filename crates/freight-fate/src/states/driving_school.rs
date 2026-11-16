@@ -325,6 +325,10 @@ impl State for SchoolDrivingState {
         self.drive.handle_event(ctx, event);
     }
 
+    fn touch_mode(&self) -> crate::touch::TouchMode {
+        self.drive.touch_mode()
+    }
+
     fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
         self.drive.handle_gesture(ctx, gesture)
     }
