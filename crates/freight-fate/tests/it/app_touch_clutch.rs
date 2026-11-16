@@ -187,3 +187,39 @@ fn the_touch_stall_line_names_the_turn_and_the_flick() {
         "{said}"
     );
 }
+
+/// The 2026-09-28 rule on touch: braking to a stop in a tall gear holds
+/// idle, and the engine stalls only once the brake lets go.
+#[test]
+fn a_touch_brake_to_a_stop_in_fifth_holds_idle_until_the_lift() {
+    let mut harness = a_manual_truck("Touch Clutch Brake Stop", true);
+    harness.with_drive(|drive, _| {
+        drive.trip.truck.parking_brake = false;
+        drive.trip.truck.transmission.gear = 5;
+        drive.trip.truck.velocity_mps = 15.0 / 2.236_936_292_054_402;
+    });
+    let mut input = freight_fate::touch::TouchInput::new();
+    let mut touch = |harness: &mut PlaytestHarness, gesture| {
+        for event in input.handle(gesture).events {
+            harness.app.handle_event(&event);
+        }
+    };
+    touch(&mut harness, Gesture::HoldLowerBegan);
+    let mut stopped_for = 0.0;
+    for _ in 0..60 * 60 {
+        frames(&mut harness, 1.0 / 60.0);
+        let (on, mph) =
+            harness.read_drive(|drive| (drive.trip.truck.engine_on, drive.trip.truck.speed_mph()));
+        assert!(on, "stalled with the brake held at {mph:.1} mph");
+        if mph < 0.1 {
+            stopped_for += 1.0 / 60.0;
+            if stopped_for >= 5.0 {
+                break;
+            }
+        }
+    }
+    assert!(stopped_for >= 5.0, "never came to a stop");
+    touch(&mut harness, Gesture::HoldEnded);
+    frames(&mut harness, 2.0);
+    assert!(harness.read_drive(|drive| drive.trip.truck.stalled));
+}

@@ -344,9 +344,11 @@ fn action_item(ctx: &GameContext, action: Action) -> MenuItem<DrivingCommandsSta
             ctx.bindings.pad_spoken(action)
         ));
     }
+    // The Status menu's gesture is this list, so its row has no help here.
     let touch = ctx
         .bindings
         .touch_gesture_for(action)
+        .filter(|_| action != Action::Status)
         .map_or(String::new(), |noun| format!("At the wheel: {noun}."));
     MenuItem::new(
         action.label(),
@@ -400,7 +402,7 @@ fn value_item(ctx: &GameContext, value: Value) -> MenuItem<DrivingCommandsState>
         s.speak_current(ctx)
     })
     .help(help)
-    .touch_help("")
+    .touch_help("Flick up or down to change it.")
     .select_sound(None)
 }
 

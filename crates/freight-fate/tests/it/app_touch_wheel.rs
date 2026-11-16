@@ -400,6 +400,12 @@ fn on_touch_a_row_names_its_gesture_or_has_no_help_of_its_own() {
     let mut harness = a_drive("Touch List Help");
     harness.app.dispatch_gesture(Gesture::KeyboardDisconnected);
     harness.app.dispatch_gesture(Gesture::ThreeFingerTap);
+    harness.clear_speech();
+    harness.app.dispatch_gesture(Gesture::TwoFingerSwipeUp);
+    assert_eq!(
+        harness.transcript().last().map(String::as_str),
+        Some("Status menu.")
+    );
     while harness.focused_label().as_deref() != Some("Speed and cruise") {
         harness.app.dispatch_gesture(Gesture::SwipeRight);
     }
