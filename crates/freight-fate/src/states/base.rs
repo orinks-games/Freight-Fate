@@ -38,8 +38,9 @@ use crate::touch::Gesture;
 mod menu;
 
 pub use menu::{
-    default_announce_entry, default_enter, default_go_back, default_handle_event, DynamicLabel,
-    Label, Menu, MenuAction, MenuCore, MenuItem, SimpleMenuState, DEFAULT_INTRO_HELP,
+    default_announce_entry, default_enter, default_go_back, default_handle_event,
+    default_handle_gesture, DynamicLabel, Label, Menu, MenuAction, MenuCore, MenuItem,
+    SimpleMenuState, DEFAULT_INTRO_HELP, TOUCH_INTRO_HELP,
 };
 
 // -- spoken helpers ---------------------------------------------------------------
@@ -638,6 +639,15 @@ impl State for TimedMessageState {
         ) {
             ctx.say(&self.status);
         }
+    }
+
+    /// A tap reads the status again, as Enter does.
+    fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
+        if gesture != Gesture::Tap {
+            return false;
+        }
+        ctx.say(&self.status);
+        true
     }
 
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {

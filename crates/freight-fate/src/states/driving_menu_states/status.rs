@@ -389,6 +389,9 @@ impl DrivingStatusScreenState {
                         s.open_stop(ctx, &stop)
                     })
                     .help("Enter opens details, distance, estimated arrival, and stop planning.")
+                    .touch_help(
+                        "Double tap opens details, distance, estimated arrival, and stop planning.",
+                    )
                 }
             })
             .collect();
@@ -558,6 +561,7 @@ impl Menu for DrivingStatusScreenState {
                             ctx.push_state(state);
                         })
                         .help("Your saved stations. Enter on one tunes it.")
+                        .touch_help("Your saved stations. Double tap one to tune it.")
                     } else {
                         say_item(line)
                     }

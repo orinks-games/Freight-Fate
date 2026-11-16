@@ -1498,11 +1498,31 @@ Everything found before 2026-09-25 moved to
       the device mid-drive. The agent server's
       `gesture` tool sends gestures by name, and `status` reports the touch
       mode and road offer. Nothing was tried on a phone.
-- [ ] (Found along the way) iPhone gesture plan steps 2 to 4: menus that
-      move like VoiceOver (the axis swap, tap reads the row, the scrub, magic
-      tap, three-finger tap), the driving menu regrouped and a manual clutch
-      gesture, and the stroke recogniser moved into `ff-core` with the deep
-      swipe threshold measured on a phone.
+- [x] iOS menus like VoiceOver, step 2 of the iPhone gesture plan
+      (2026-11-16): in a menu, flick right and left move and flick up and
+      down change a value (VoiceOver's adjustable swipes still move, for
+      direct touch off); a tap reads the focused row again; the two-finger
+      double tap resumes from the pause menu and does nothing in other menus
+      or name fields; a tap, magic tap and the message flicks no longer type
+      into a name field; a three-finger tap reads the route picker's weather;
+      the three-finger hold is gone; the touch surface recognises the
+      two-finger scrub itself, and the message flicks wait for it to fail.
+      Menu help, row help and prompts that named keys have touch sentences
+      (`MenuCore::with_touch_help`, `MenuItem::touch_help`), picked when
+      spoken. The scrub and the message flicks after it are untested on a
+      phone.
+- [ ] (Found along the way) iPhone gesture plan steps 3 and 4: the driving
+      menu regrouped and a manual clutch gesture, and the stroke recogniser
+      moved into `ff-core` with the deep swipe threshold measured on a phone.
+- [ ] (Found along the way) Cleanup: menu intro help is spoken only when a
+      menu has no rows, and on job and stop details, which lead with it. The
+      help key and gesture keep reading the row's own help. The keyboard
+      intro strings that are never spoken can be deleted; touch ones were
+      added only where they are heard.
+- [ ] (Found along the way) Keys on menu screens no gesture reaches: the
+      message category jumps ([ and ]), the first and last message (Control
+      Comma and Period), copying the message in review (Control C), and
+      first-letter jumps.
 - [ ] (Found along the way) Touch prompt rewrite: the parking brake prompts
       name the brake-hold tap, though gas already releases the brake and a
       deep swipe at a stop sets it. Once the prompts say so, the brake-hold

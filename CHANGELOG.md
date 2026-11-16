@@ -20,6 +20,12 @@
 - **On iPhone, a two-finger tap stops speech on every screen.** The Status menu is now the first row of the three-finger tap list.
 - **On iPhone, a flick up turns cruise on, and a flick down with cruise off does nothing.** A short brake swipe can no longer set cruise.
 - **On iPhone, a two-finger turn left stops the engine only when the truck is stopped.**
+- **On iPhone, menus move the way VoiceOver does.** Flick right or left for the next or previous row, and flick up or down to change a value.
+- **On iPhone, a tap reads the current row again, and a two-finger scrub goes back.**
+- **On iPhone, a two-finger double tap no longer chooses a menu row.** It pauses the drive and resumes it from the pause menu.
+- **On iPhone, help and prompts in menus name gestures in place of keys.**
+- **On iPhone, the horn is the two-finger hold only.** The three-finger hold is gone.
+- **The route picker reads the weather along a route with Tab,** or a three-finger tap on iPhone.
 
 ### Fixed
 
@@ -35,6 +41,7 @@
 - **A no engine brake zone you were told about now says when it ends.** You hear "End of no engine brake zone." on the way out ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
 - **Take the wheel back now warns that your rest will start over.** Your ten hours must be unbroken ([issue 520](https://github.com/orinks-games/Freight-Fate/issues/520)).
 - **Work zones no longer close the right lane at an exit.** Near a truck stop, rest area or scale, roadwork closes the left lane.
+- **On iPhone, a tap or a two-finger flick in a name field no longer types a comma, space or period.**
 - **Stop notices are no longer lost when the voice is busy.** A truck stop's 5-mile call waits its turn behind billboards and roadwork calls.
 
 ## 1.9.6 - 2026-11-13

@@ -842,7 +842,7 @@ pub(crate) fn base_menu_enter<S: Menu>(menu: &mut S, ctx: &mut GameContext) {
 pub(crate) fn base_menu_current_help<S: Menu>(menu: &S, ctx: &GameContext) -> String {
     let core = menu.menu();
     if core.items.is_empty() {
-        return core.intro_help.clone();
+        return core.intro(ctx);
     }
     let item = &core.items[core.index];
     let help = item.help_text(menu, ctx);

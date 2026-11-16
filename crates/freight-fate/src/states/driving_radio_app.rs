@@ -167,7 +167,8 @@ impl Menu for RadioAppState {
             MenuItem::new(now_playing, move |_s: &mut Self, ctx: &mut GameContext| {
                 ctx.say(&repeat)
             })
-            .help("Now playing on the tuned station. Enter asks again."),
+            .help("Now playing on the tuned station. Enter asks again.")
+            .touch_help("Now playing on the tuned station. Double tap asks again."),
             MenuItem::new(
                 format!(
                     "Radio: {}, tuned to {tuned}",
@@ -175,14 +176,16 @@ impl Menu for RadioAppState {
                 ),
                 |s: &mut Self, ctx| s.toggle_power(ctx),
             )
-            .help("Enter switches the radio on or off."),
+            .help("Enter switches the radio on or off.")
+            .touch_help("Double tap switches the radio on or off."),
             MenuItem::new(favorite_label, |s: &mut Self, ctx| s.toggle_favorite(ctx))
                 .help("Saves or removes the tuned station in favorites."),
             MenuItem::new(
                 format!("Favorites: {favorites} saved"),
                 |s: &mut Self, ctx| s.open_list(ctx, "favorites"),
             )
-            .help("Your saved stations. Enter on one tunes it."),
+            .help("Your saved stations. Enter on one tunes it.")
+            .touch_help("Your saved stations. Double tap one to tune it."),
             MenuItem::new("Search stations", |s: &mut Self, ctx| {
                 if Self::dial_locked(ctx) {
                     return;
@@ -206,7 +209,8 @@ impl Menu for RadioAppState {
                 format!("Stations in range: {in_range}"),
                 |s: &mut Self, ctx| s.open_list(ctx, "range"),
             )
-            .help("Every station that comes in here. Enter on one tunes it."),
+            .help("Every station that comes in here. Enter on one tunes it.")
+            .touch_help("Every station that comes in here. Double tap one to tune it."),
             MenuItem::new("Suggest a station", |_s: &mut Self, ctx| {
                 crate::states::driving_radio_suggest::open_station_suggestion(ctx)
             })
@@ -416,6 +420,7 @@ impl Menu for RadioStationListState {
                     s.tune(ctx, &station, reception.as_ref())
                 })
                 .help("Enter tunes this station.")
+                .touch_help("Double tap tunes this station.")
                 .select_sound(None)
             })
             .collect();
@@ -626,7 +631,8 @@ impl Menu for RadioCategoryState {
                     format!("{name}: {count}"),
                     move |s: &mut Self, ctx: &mut GameContext| s.open(ctx, Some(group), name),
                 )
-                .help("Enter lists this category. Stations in range list first."),
+                .help("Enter lists this category. Stations in range list first.")
+                .touch_help("Double tap lists this category. Stations in range list first."),
             );
         }
         items.push(MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)).help("Go back."));

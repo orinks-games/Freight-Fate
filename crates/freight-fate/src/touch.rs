@@ -8,10 +8,10 @@
 //! held key (gas, brake, steering) until it lifts. Every other gesture
 //! arrives as [`InputEvent::Gesture`], and [`route`] says what the app does
 //! with it on the kind of screen on top ([`TouchMode`]): at the wheel the
-//! drive runs the command the player's touch bindings give it, and every
-//! other screen, or a gesture with no binding, gets the key a keyboard
-//! player would press. Nothing here touches UIKit, so the whole mapping is
-//! tested on every platform.
+//! drive runs the command the player's touch bindings give it, menus move
+//! the way VoiceOver does, and every other screen, or a gesture with no
+//! binding, gets the key a keyboard player would press. Nothing here touches
+//! UIKit, so the whole mapping is tested on every platform.
 
 use crate::bindings::Action;
 use crate::states::base::{InputEvent, Key, Mods};
@@ -42,7 +42,8 @@ pub enum Gesture {
     /// A swipe down and hold anywhere on the screen (brake).
     HoldLowerBegan,
     HoldEnded,
-    /// VoiceOver's two-finger scrub.
+    /// The two-finger scrub: the touch surface's own recogniser, or
+    /// VoiceOver's escape action with direct touch off.
     Escape,
     /// VoiceOver's two-finger double tap.
     MagicTap,
@@ -69,7 +70,7 @@ pub enum Gesture {
     /// The old two-finger emergency brake hold; the native side no longer
     /// sends it, and the deep swipe took its place.
     EmergencyBrakeHoldBegan,
-    /// Two or three fingers held anywhere (horn).
+    /// Two fingers held anywhere (horn).
     HornHoldBegan,
     /// A swipe left and hold (steer left).
     HoldLeftBegan,
@@ -151,9 +152,10 @@ impl Gesture {
         })
     }
 
-    /// The key a single press of this gesture stands for in a menu, if it
-    /// is a press. A second finger during a hold is a driving command and
-    /// nothing else. [`route`] has the keys that differ by screen.
+    /// The key a single press of this gesture stands for, if it is a press.
+    /// A second finger during a hold is a driving command and nothing else.
+    /// [`route`] has the keys that differ by screen: menus move on the other
+    /// axis, the way VoiceOver does.
     pub fn key(self) -> Option<Key> {
         Some(match self {
             Gesture::Tap => Key::Comma,
@@ -358,6 +360,14 @@ pub fn route(mode: TouchMode, gesture: Gesture) -> Route {
         G::KeyboardConnected | G::KeyboardDisconnected => Route::Keyboard,
         _ if mode == TouchMode::Practice => Route::Practice,
         G::HoldEnded => Route::Lift,
+        _ if mode == TouchMode::Menu => menu_route(gesture),
+        // A tap, a magic tap and the message flicks would type a comma, a
+        // space or a period into the name.
+        G::Tap | G::MagicTap | G::TwoFingerSwipeLeft | G::TwoFingerSwipeRight
+            if mode == TouchMode::Field =>
+        {
+            Route::Nothing
+        }
         G::TwoFingerTap if wheel => Route::Key(Key::LCtrl),
         G::TwoFingerTap => Route::StopSpeech,
         G::HoldUpperBegan if wheel => Route::DriveThenHoldKey(Key::Up),
@@ -372,6 +382,29 @@ pub fn route(mode: TouchMode, gesture: Gesture) -> Route {
             Some(key) => Route::HoldKey(key),
             None => Route::Screen(held.key()),
         },
+    }
+}
+
+/// A menu, the way VoiceOver moves: flick right and left step through the
+/// rows, flick up and down change the value on the row. A swipe and hold,
+/// and the deep swipe, are the flick in their direction, pressed once.
+/// VoiceOver's own swipes on the adjustable element (with direct touch off)
+/// stay on Up and Down, since they are then the only way through a list.
+/// Tap reads the focused row again and the two-finger double tap pauses, so
+/// both go to the screen and press nothing it does not take.
+fn menu_route(gesture: Gesture) -> Route {
+    use Gesture as G;
+    match gesture {
+        G::SwipeRight | G::HoldRightBegan | G::SecondSteerRightBegan => {
+            Route::Screen(Some(Key::Down))
+        }
+        G::SwipeLeft | G::HoldLeftBegan | G::SecondSteerLeftBegan => Route::Screen(Some(Key::Up)),
+        G::SwipeUp | G::HoldUpperBegan => Route::Screen(Some(Key::Right)),
+        G::SwipeDown | G::HoldLowerBegan | G::DeepSwipeDownBegan => Route::Screen(Some(Key::Left)),
+        G::Tap | G::MagicTap => Route::Screen(None),
+        G::TwoFingerTap => Route::StopSpeech,
+        G::StillHoldBegan | G::HornHoldBegan | G::EmergencyBrakeHoldBegan => Route::Nothing,
+        other => Route::Screen(other.key()),
     }
 }
 

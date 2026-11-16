@@ -10,7 +10,8 @@ use crate::discord_presence::PresenceState;
 use crate::impl_state_for_menu;
 use crate::online_presence::PAUSED_ACTIVITY;
 use crate::states::base::{
-    end_sentence, InputEvent, Label, Menu, MenuCore, MenuItem, SimpleMenuState,
+    default_handle_gesture, end_sentence, InputEvent, Label, Menu, MenuCore, MenuItem,
+    SimpleMenuState,
 };
 use crate::states::city::CityMenuState;
 use crate::states::driving::DrivingState;
@@ -29,6 +30,7 @@ use crate::states::main_menu::{
     SettingsState, CAREER_ACHIEVEMENTS_HELP,
 };
 use crate::states::online_states::DriversOnlineState;
+use crate::touch::Gesture;
 
 /// Discard unsaved driver state before returning to the title.
 ///
@@ -829,6 +831,15 @@ impl Menu for PauseMenuState {
 
     fn go_back(&mut self, ctx: &mut GameContext) {
         self.resume(ctx);
+    }
+
+    /// The two-finger double tap pauses and resumes, as Start does.
+    fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
+        if gesture == Gesture::MagicTap {
+            self.resume(ctx);
+            return true;
+        }
+        default_handle_gesture(self, ctx, gesture)
     }
 }
 

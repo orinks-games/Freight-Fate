@@ -30,8 +30,8 @@ fn every_gesture_has_a_route_on_every_screen() {
     let table: &[(Gesture, Route, Route, Route)] = &[
         (
             Gesture::Tap,
-            R::Screen(Some(Key::Comma)),
-            R::Screen(Some(Key::Comma)),
+            R::Screen(None),
+            R::Nothing,
             R::Screen(Some(Key::Comma)),
         ),
         (
@@ -42,25 +42,25 @@ fn every_gesture_has_a_route_on_every_screen() {
         ),
         (
             Gesture::SwipeUp,
-            R::Screen(Some(Key::Up)),
+            R::Screen(Some(Key::Right)),
             R::Screen(Some(Key::Up)),
             R::Screen(Some(Key::Up)),
         ),
         (
             Gesture::SwipeDown,
-            R::Screen(Some(Key::Down)),
+            R::Screen(Some(Key::Left)),
             R::Screen(Some(Key::Down)),
             R::Screen(Some(Key::Down)),
         ),
         (
             Gesture::SwipeLeft,
-            R::Screen(Some(Key::Left)),
+            R::Screen(Some(Key::Up)),
             R::Screen(Some(Key::Left)),
             R::Screen(Some(Key::Left)),
         ),
         (
             Gesture::SwipeRight,
-            R::Screen(Some(Key::Right)),
+            R::Screen(Some(Key::Down)),
             R::Screen(Some(Key::Right)),
             R::Screen(Some(Key::Right)),
         ),
@@ -85,13 +85,13 @@ fn every_gesture_has_a_route_on_every_screen() {
         (
             Gesture::TwoFingerSwipeLeft,
             R::Screen(Some(Key::Comma)),
-            R::Screen(Some(Key::Comma)),
+            R::Nothing,
             R::Screen(Some(Key::Comma)),
         ),
         (
             Gesture::TwoFingerSwipeRight,
             R::Screen(Some(Key::Period)),
-            R::Screen(Some(Key::Period)),
+            R::Nothing,
             R::Screen(Some(Key::Period)),
         ),
         (
@@ -126,13 +126,13 @@ fn every_gesture_has_a_route_on_every_screen() {
         ),
         (
             Gesture::HoldUpperBegan,
-            R::HoldKey(Key::Up),
+            R::Screen(Some(Key::Right)),
             R::HoldKey(Key::Up),
             R::DriveThenHoldKey(Key::Up),
         ),
         (
             Gesture::HoldLowerBegan,
-            R::HoldKey(Key::Down),
+            R::Screen(Some(Key::Left)),
             R::HoldKey(Key::Down),
             R::HoldKey(Key::Down),
         ),
@@ -145,8 +145,8 @@ fn every_gesture_has_a_route_on_every_screen() {
         ),
         (
             Gesture::MagicTap,
-            R::Screen(Some(Key::Space)),
-            R::Screen(Some(Key::Space)),
+            R::Screen(None),
+            R::Nothing,
             R::Screen(Some(Key::Space)),
         ),
         (
@@ -253,19 +253,19 @@ fn every_gesture_has_a_route_on_every_screen() {
         ),
         (
             Gesture::HoldLeftBegan,
-            R::HoldKey(Key::Left),
+            R::Screen(Some(Key::Up)),
             R::HoldKey(Key::Left),
             R::Steer(Key::Left),
         ),
         (
             Gesture::HoldRightBegan,
-            R::HoldKey(Key::Right),
+            R::Screen(Some(Key::Down)),
             R::HoldKey(Key::Right),
             R::Steer(Key::Right),
         ),
         (
             Gesture::DeepSwipeDownBegan,
-            R::Screen(Some(Key::Down)),
+            R::Screen(Some(Key::Left)),
             R::Screen(Some(Key::Down)),
             R::DriveThenBoundHold(e),
         ),
@@ -277,13 +277,13 @@ fn every_gesture_has_a_route_on_every_screen() {
         ),
         (
             Gesture::SecondSteerLeftBegan,
-            R::HoldKey(Key::Left),
+            R::Screen(Some(Key::Up)),
             R::HoldKey(Key::Left),
             R::Steer(Key::Left),
         ),
         (
             Gesture::SecondSteerRightBegan,
-            R::HoldKey(Key::Right),
+            R::Screen(Some(Key::Down)),
             R::HoldKey(Key::Right),
             R::Steer(Key::Right),
         ),

@@ -27,6 +27,14 @@ pub const CATEGORIES_SORT_HELP: &str =
 
 pub const CATEGORY_SORT_HELP: &str = "Left and Right change the order of this category only.";
 
+/// [`CATEGORIES_SORT_HELP`] on a touch screen.
+pub const CATEGORIES_SORT_TOUCH_HELP: &str =
+    "Flick up or down to change the order of the categories and the achievements in each one.";
+
+/// [`CATEGORY_SORT_HELP`] on a touch screen.
+pub const CATEGORY_SORT_TOUCH_HELP: &str =
+    "Flick up or down to change the order of this category only.";
+
 /// The order the categories screen uses, from settings.
 pub fn chosen_sort(ctx: &GameContext) -> AchievementSort {
     AchievementSort::from_key(&ctx.settings.achievement_sort)
