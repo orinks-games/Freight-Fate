@@ -6542,6 +6542,9 @@ msgstr "un double tap"
 msgid "confirm"
 msgstr "valider"
 
+msgid "a two-finger tap"
+msgstr "un toucher à deux doigts"
+
 msgid "a two-finger swipe down"
 msgstr "un balayage à deux doigts vers le bas"
 
@@ -15760,6 +15763,21 @@ msgstr "Vous entrez dans "
 msgid "Passing "
 msgstr "Vous passez "
 
+msgid "menu"
+msgstr "menu"
+
+msgid "field"
+msgstr ""
+
+msgid "wheel"
+msgstr ""
+
+msgid "practice"
+msgstr ""
+
+msgid "arrival"
+msgstr ""
+
 msgid "miles"
 msgstr "miles"
 
@@ -16542,9 +16560,6 @@ msgstr "Coup vers le haut"
 msgid "Flick down"
 msgstr "Coup vers le bas"
 
-msgid "Two-finger tap"
-msgstr "Toucher à deux doigts"
-
 msgid "Two-finger double tap"
 msgstr "Double toucher à deux doigts"
 
@@ -16603,9 +16618,6 @@ msgstr "un coup vers le haut"
 msgid "a flick down"
 msgstr "un coup vers le bas"
 
-msgid "a two-finger tap"
-msgstr "un toucher à deux doigts"
-
 msgid "a two-finger double tap"
 msgstr "un double toucher à deux doigts"
 
@@ -16645,8 +16657,8 @@ msgstr "un coup vers la droite"
 msgid "a still hold for half a second"
 msgstr "un maintien immobile d'une demi-seconde"
 
-msgid "the exit command from the three-finger tap list"
-msgstr "la commande de sortie de la liste du toucher à trois doigts"
+msgid "the first row of the three-finger tap list"
+msgstr ""
 
 #. placeholders: {label}
 msgid "{label} from the three-finger tap list"
@@ -19041,9 +19053,6 @@ msgstr "La sauvegarde continuera de réessayer en arrière-plan."
 
 msgid "Progress saved."
 msgstr "Progression enregistrée."
-
-msgid "menu"
-msgstr "menu"
 
 #. placeholders: {city}
 msgid "{city} service area"
@@ -23035,33 +23044,21 @@ msgstr ""
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
-"cruise off, flick up to resume the last speed and flick down to set the "
-"current speed. Turn two fingers right like a key to start the engine, left "
-"to stop it. Hold two fingers for the horn. Turning them cancels it. While "
-"holding a pedal, a second finger's flicks and holds work the same way, and "
-"in automatic its shift flicks say the gear. "
+"cruise off, flick up to turn it on at the last speed you set, or at this "
+"speed the first time. Double tap takes an exit or pulls over when the road "
+"calls for one, and confirms arrival at the gate. Two-finger tap stops "
+"speech. Turn two fingers right like a key to start the engine, and left to "
+"stop it once the truck is stopped. Hold two fingers for the horn. Turning "
+"them cancels it. While holding a pedal, a second finger's flicks and holds "
+"work the same way. "
 msgstr ""
-"Maintenez un doigt immobile une demi-seconde pour redresser le volant. "
-"Régulateur coupé, un coup vers le haut reprend la dernière vitesse et un "
-"coup vers le bas fixe la vitesse actuelle. Tournez deux doigts vers la "
-"droite comme une clé pour démarrer le moteur, vers la gauche pour "
-"l'arrêter. Maintenez deux doigts pour le klaxon. Les tourner l'annule. "
-"Pendant que vous maintenez une pédale, les coups et maintiens d'un deuxième "
-"doigt fonctionnent de la même façon, et en boîte automatique ses coups de "
-"changement de vitesse annoncent le rapport. "
 
 msgid ""
 "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
 "swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command: swipe "
-"to one and double tap to run it. "
+"right tune the radio. A three-finger tap lists every driving command, with "
+"Status first: swipe to one and double tap to run it. "
 msgstr ""
-"Un balayage à deux doigts vers le bas met en pause, un balayage à deux "
-"doigts vers le haut ouvre cette aide, les balayages à deux doigts vers la "
-"gauche et la droite parcourent les messages, et les balayages à trois "
-"doigts vers la gauche et la droite règlent la radio. Un toucher à trois "
-"doigts liste toutes les commandes de conduite : balayez jusqu'à l'une "
-"d'elles et touchez deux fois pour l'exécuter. "
 
 msgid ""
 "Gestures can be moved in Settings, Gameplay, Controls, Touch gestures."
@@ -23613,10 +23610,6 @@ msgstr "Moteur déjà en marche."
 
 msgid "Engine already off."
 msgstr "Moteur déjà éteint."
-
-#. placeholders: {gear}
-msgid "{gear}, automatic."
-msgstr "{gear}, automatique."
 
 msgid "Release the accelerator before turning the jake on."
 msgstr "Relâchez l'accélérateur avant d'activer le frein moteur."
@@ -36799,8 +36792,8 @@ msgstr "Maintien à deux doigts : klaxon."
 msgid "Two-finger turn right: start the engine."
 msgstr "Rotation à deux doigts vers la droite : démarrer le moteur."
 
-msgid "Two-finger turn left: stop the engine."
-msgstr "Rotation à deux doigts vers la gauche : arrêter le moteur."
+msgid "Two-finger turn left: stop the engine, once the truck is stopped."
+msgstr ""
 
 msgid "Second finger, hold left: steer left."
 msgstr "Deuxième doigt, maintien à gauche : tourner à gauche."
@@ -36893,6 +36886,9 @@ msgstr "Coup vers la gauche"
 msgid "Flick right"
 msgstr "Coup vers la droite"
 
+msgid "Two-finger tap"
+msgstr "Toucher à deux doigts"
+
 msgid "Magic tap"
 msgstr "Toucher magique"
 
@@ -36914,8 +36910,11 @@ msgstr "Balayage à trois doigts vers la gauche"
 msgid "Three-finger swipe right"
 msgstr "Balayage à trois doigts vers la droite"
 
-msgid "Confirm"
-msgstr "Valider"
+msgid "Take an exit, pull over or confirm arrival"
+msgstr ""
+
+msgid "Stop speech"
+msgstr ""
 
 msgid "Change lanes left"
 msgstr "Changer de voie à gauche"
@@ -41331,6 +41330,9 @@ msgstr "Téléchargement de {title}"
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape annule, Tab lit la progression."
 
+msgid "lift"
+msgstr ""
+
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"
 msgstr "Voie du milieu  ·  maintien de voie {lane_assist}"
@@ -42599,6 +42601,48 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid "the exit command from the three-finger tap list"
+#~ msgstr "la commande de sortie de la liste du toucher à trois doigts"
+
+#~ msgid ""
+#~ "Hold one finger still for half a second to straighten the wheel. With "
+#~ "cruise off, flick up to resume the last speed and flick down to set the "
+#~ "current speed. Turn two fingers right like a key to start the engine, left "
+#~ "to stop it. Hold two fingers for the horn. Turning them cancels it. While "
+#~ "holding a pedal, a second finger's flicks and holds work the same way, and "
+#~ "in automatic its shift flicks say the gear. "
+#~ msgstr ""
+#~ "Maintenez un doigt immobile une demi-seconde pour redresser le volant. "
+#~ "Régulateur coupé, un coup vers le haut reprend la dernière vitesse et un "
+#~ "coup vers le bas fixe la vitesse actuelle. Tournez deux doigts vers la "
+#~ "droite comme une clé pour démarrer le moteur, vers la gauche pour "
+#~ "l'arrêter. Maintenez deux doigts pour le klaxon. Les tourner l'annule. "
+#~ "Pendant que vous maintenez une pédale, les coups et maintiens d'un deuxième "
+#~ "doigt fonctionnent de la même façon, et en boîte automatique ses coups de "
+#~ "changement de vitesse annoncent le rapport. "
+
+#~ msgid ""
+#~ "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
+#~ "swipes left and right review messages, and three-finger swipes left and "
+#~ "right tune the radio. A three-finger tap lists every driving command: swipe "
+#~ "to one and double tap to run it. "
+#~ msgstr ""
+#~ "Un balayage à deux doigts vers le bas met en pause, un balayage à deux "
+#~ "doigts vers le haut ouvre cette aide, les balayages à deux doigts vers la "
+#~ "gauche et la droite parcourent les messages, et les balayages à trois "
+#~ "doigts vers la gauche et la droite règlent la radio. Un toucher à trois "
+#~ "doigts liste toutes les commandes de conduite : balayez jusqu'à l'une "
+#~ "d'elles et touchez deux fois pour l'exécuter. "
+
+#~ msgid "{gear}, automatic."
+#~ msgstr "{gear}, automatique."
+
+#~ msgid "Two-finger turn left: stop the engine."
+#~ msgstr "Rotation à deux doigts vers la gauche : arrêter le moteur."
+
+#~ msgid "Confirm"
+#~ msgstr "Valider"
 
 #~ msgid "Ten hours in the sleeper, and your hours are reset."
 #~ msgstr "Dix heures dans la couchette, et tes heures sont remises à zéro."

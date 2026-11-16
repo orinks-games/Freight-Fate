@@ -137,6 +137,28 @@ fn tools_list() -> Value {
             &["key", "seconds"],
         ),
         tool(
+            "gesture",
+            "Send an iPhone touch gesture by name, through the same translator and \
+             dispatch the touch screen uses, then reply with what was heard. Names: tap, \
+             double_tap, flick_up/down/left/right, two_finger_tap, two_finger_double_tap, \
+             two_finger_scrub, two_finger_flick_up/down/left/right, two_finger_hold, \
+             two_finger_turn_right/left, three_finger_tap, three_finger_flick_up/down/\
+             left/right, gas_hold, brake_hold, steer_left_hold, steer_right_hold, \
+             deep_swipe, still_hold, lift, gas_hold_tap, gas_hold_double_tap, \
+             gas_hold_flick_up/down/left/right, the same six for brake_hold_, \
+             second_finger_steer_left/right, second_finger_lift, and keyboard_disconnected \
+             (spoken hints then name gestures, as on a phone) or keyboard_connected. A \
+             hold stays down until \
+             lift, or give seconds and the game lifts it, as pedal does. A deep swipe \
+             grows out of a brake hold, so send brake_hold first, then deep_swipe. \
+             status reports the touch mode and, at the wheel, what a double tap answers.",
+            json!({
+                "name": {"type": "string"},
+                "seconds": {"type": "number", "description": "for a hold: real seconds before the game lifts it, 0.05 to 30"},
+            }),
+            &["name"],
+        ),
+        tool(
             "wait_for",
             "Let the game run until something arrives: a spoken line or sound whose \
              text contains `text` (case-insensitive), or a menu on screen when `menu` \
@@ -187,7 +209,10 @@ fn tools_list() -> Value {
              rolling_after_creep, creeping, stopped, stopped_told, holding or \
              open), and jake_zone (what the driver has heard about the no \
              engine brake zone ahead or under the truck: untold, heads_up, \
-             inside_untold or inside_told).",
+             inside_untold or inside_told), touch_mode (menu, field, wheel or \
+             practice: how a gesture is read on this screen) and road_offer (what a \
+             double tap answers: none, exit, pull_over or arrival). Off the wheel the \
+             STATE line carries touch_mode alone.",
             json!({}),
             &[],
         ),
@@ -565,6 +590,30 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
                 return Err("pedal needs a positive number of seconds".to_string());
             }
             Ok(Command::Pedal { key, seconds })
+        }
+        "gesture" => {
+            let name = args
+                .get("name")
+                .and_then(Value::as_str)
+                .unwrap_or("")
+                .trim()
+                .to_ascii_lowercase();
+            let gesture = crate::touch::Gesture::from_name(&name).ok_or_else(|| {
+                format!(
+                    "{name:?} is not a gesture this server knows. The names are: {}.",
+                    crate::touch::Gesture::names()
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                )
+            })?;
+            let seconds = match args.get("seconds") {
+                None | Some(Value::Null) => None,
+                Some(value) => match value.as_f64() {
+                    Some(seconds) if seconds > 0.0 => Some(seconds),
+                    _ => return Err("seconds must be a positive number".to_string()),
+                },
+            };
+            Ok(Command::Gesture { gesture, seconds })
         }
         "wait_for" => {
             let seconds = args.get("seconds").and_then(Value::as_f64).unwrap_or(0.0);

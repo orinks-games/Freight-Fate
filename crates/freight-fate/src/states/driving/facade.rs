@@ -90,6 +90,10 @@ impl State for DrivingState {
         self.handle_key_event(ctx, event);
     }
 
+    fn touch_mode(&self) -> crate::touch::TouchMode {
+        crate::touch::TouchMode::Wheel
+    }
+
     fn handle_gesture(&mut self, ctx: &mut GameContext, gesture: Gesture) -> bool {
         self.handle_touch_gesture(ctx, gesture)
     }

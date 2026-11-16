@@ -317,6 +317,9 @@ macro_rules! impl_state_for_text_entry {
             fn captures_text_input(&self) -> bool {
                 <Self as $crate::states::text_entry::TextEntry>::captures_text_input(self)
             }
+            fn touch_mode(&self) -> $crate::touch::TouchMode {
+                $crate::touch::TouchMode::Field
+            }
         }
     };
 }

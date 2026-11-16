@@ -6356,6 +6356,9 @@ msgstr "двойное касание"
 msgid "confirm"
 msgstr "подтвердить"
 
+msgid "a two-finger tap"
+msgstr "касание двумя пальцами"
+
 msgid "a two-finger swipe down"
 msgstr "свайп двумя пальцами вниз"
 
@@ -15454,6 +15457,21 @@ msgstr "Въезжаем в"
 msgid "Passing "
 msgstr "Проезжаем"
 
+msgid "menu"
+msgstr "menu"
+
+msgid "field"
+msgstr ""
+
+msgid "wheel"
+msgstr ""
+
+msgid "practice"
+msgstr ""
+
+msgid "arrival"
+msgstr ""
+
 msgid "miles"
 msgstr "мили"
 
@@ -16232,9 +16250,6 @@ msgstr "Смахивание вверх"
 msgid "Flick down"
 msgstr "Смахивание вниз"
 
-msgid "Two-finger tap"
-msgstr "Касание двумя пальцами"
-
 msgid "Two-finger double tap"
 msgstr "Двойное касание двумя пальцами"
 
@@ -16293,9 +16308,6 @@ msgstr "смахивание вверх"
 msgid "a flick down"
 msgstr "смахивание вниз"
 
-msgid "a two-finger tap"
-msgstr "касание двумя пальцами"
-
 msgid "a two-finger double tap"
 msgstr "двойное касание двумя пальцами"
 
@@ -16335,8 +16347,8 @@ msgstr "смахивание вправо"
 msgid "a still hold for half a second"
 msgstr "неподвижное удержание полсекунды"
 
-msgid "the exit command from the three-finger tap list"
-msgstr "команда выхода из списка касания тремя пальцами"
+msgid "the first row of the three-finger tap list"
+msgstr ""
 
 #. placeholders: {label}
 msgid "{label} from the three-finger tap list"
@@ -18693,9 +18705,6 @@ msgstr "Резервное копирование будет повторять�
 
 msgid "Progress saved."
 msgstr "Прогресс сохранён."
-
-msgid "menu"
-msgstr "menu"
 
 #. placeholders: {city}
 msgid "{city} service area"
@@ -22769,31 +22778,21 @@ msgstr ""
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
-"cruise off, flick up to resume the last speed and flick down to set the "
-"current speed. Turn two fingers right like a key to start the engine, left "
-"to stop it. Hold two fingers for the horn. Turning them cancels it. While "
-"holding a pedal, a second finger's flicks and holds work the same way, and "
-"in automatic its shift flicks say the gear. "
+"cruise off, flick up to turn it on at the last speed you set, or at this "
+"speed the first time. Double tap takes an exit or pulls over when the road "
+"calls for one, and confirms arrival at the gate. Two-finger tap stops "
+"speech. Turn two fingers right like a key to start the engine, and left to "
+"stop it once the truck is stopped. Hold two fingers for the horn. Turning "
+"them cancels it. While holding a pedal, a second finger's flicks and holds "
+"work the same way. "
 msgstr ""
-"Удерживайте один палец неподвижно полсекунды, чтобы выровнять руль. При "
-"выключенном круиз-контроле смахните вверх, чтобы вернуть последнюю "
-"скорость, и вниз, чтобы задать текущую. Поверните два пальца вправо, как "
-"ключ, чтобы завести двигатель, и влево, чтобы заглушить. Удерживайте два "
-"пальца для гудка. Поворот отменяет его. Пока вы держите педаль, смахивания "
-"и удержания вторым пальцем работают так же, а в автоматическом режиме его "
-"смахивания для переключения называют передачу. "
 
 msgid ""
 "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
 "swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command: swipe "
-"to one and double tap to run it. "
+"right tune the radio. A three-finger tap lists every driving command, with "
+"Status first: swipe to one and double tap to run it. "
 msgstr ""
-"Смахивание двумя пальцами вниз ставит на паузу, двумя пальцами вверх "
-"открывает эту справку, двумя пальцами влево и вправо листают сообщения, а "
-"тремя пальцами влево и вправо настраивают радио. Касание тремя пальцами "
-"перечисляет все команды вождения: смахивайте до нужной и коснитесь дважды, "
-"чтобы выполнить её. "
 
 msgid ""
 "Gestures can be moved in Settings, Gameplay, Controls, Touch gestures."
@@ -23364,10 +23363,6 @@ msgstr "Двигатель уже работает."
 
 msgid "Engine already off."
 msgstr "Двигатель уже выключен."
-
-#. placeholders: {gear}
-msgid "{gear}, automatic."
-msgstr "{gear}, автомат."
 
 msgid "Release the accelerator before turning the jake on."
 msgstr "Отпустите газ, прежде чем включать моторный тормоз."
@@ -36625,8 +36620,8 @@ msgstr "Удержание двумя пальцами: гудок."
 msgid "Two-finger turn right: start the engine."
 msgstr "Поворот двумя пальцами вправо: завести двигатель."
 
-msgid "Two-finger turn left: stop the engine."
-msgstr "Поворот двумя пальцами влево: заглушить двигатель."
+msgid "Two-finger turn left: stop the engine, once the truck is stopped."
+msgstr ""
 
 msgid "Second finger, hold left: steer left."
 msgstr "Второй палец, удержание слева: руль влево."
@@ -36714,6 +36709,9 @@ msgstr "Взмах влево"
 msgid "Flick right"
 msgstr "Взмах вправо"
 
+msgid "Two-finger tap"
+msgstr "Касание двумя пальцами"
+
 msgid "Magic tap"
 msgstr "Волшебное касание"
 
@@ -36735,8 +36733,11 @@ msgstr "Провести влево тремя пальцами"
 msgid "Three-finger swipe right"
 msgstr "Провести вправо тремя пальцами"
 
-msgid "Confirm"
-msgstr "Подтвердить"
+msgid "Take an exit, pull over or confirm arrival"
+msgstr ""
+
+msgid "Stop speech"
+msgstr ""
 
 msgid "Change lanes left"
 msgstr "Перестроиться влево"
@@ -41074,6 +41075,9 @@ msgstr "Скачиваем {title}"
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape отменяет, Tab зачитывает ход загрузки."
 
+msgid "lift"
+msgstr ""
+
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"
 msgstr "Средняя полоса  ·  удерж. полосы: {lane_assist}"
@@ -42348,6 +42352,46 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid "the exit command from the three-finger tap list"
+#~ msgstr "команда выхода из списка касания тремя пальцами"
+
+#~ msgid ""
+#~ "Hold one finger still for half a second to straighten the wheel. With "
+#~ "cruise off, flick up to resume the last speed and flick down to set the "
+#~ "current speed. Turn two fingers right like a key to start the engine, left "
+#~ "to stop it. Hold two fingers for the horn. Turning them cancels it. While "
+#~ "holding a pedal, a second finger's flicks and holds work the same way, and "
+#~ "in automatic its shift flicks say the gear. "
+#~ msgstr ""
+#~ "Удерживайте один палец неподвижно полсекунды, чтобы выровнять руль. При "
+#~ "выключенном круиз-контроле смахните вверх, чтобы вернуть последнюю "
+#~ "скорость, и вниз, чтобы задать текущую. Поверните два пальца вправо, как "
+#~ "ключ, чтобы завести двигатель, и влево, чтобы заглушить. Удерживайте два "
+#~ "пальца для гудка. Поворот отменяет его. Пока вы держите педаль, смахивания "
+#~ "и удержания вторым пальцем работают так же, а в автоматическом режиме его "
+#~ "смахивания для переключения называют передачу. "
+
+#~ msgid ""
+#~ "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
+#~ "swipes left and right review messages, and three-finger swipes left and "
+#~ "right tune the radio. A three-finger tap lists every driving command: swipe "
+#~ "to one and double tap to run it. "
+#~ msgstr ""
+#~ "Смахивание двумя пальцами вниз ставит на паузу, двумя пальцами вверх "
+#~ "открывает эту справку, двумя пальцами влево и вправо листают сообщения, а "
+#~ "тремя пальцами влево и вправо настраивают радио. Касание тремя пальцами "
+#~ "перечисляет все команды вождения: смахивайте до нужной и коснитесь дважды, "
+#~ "чтобы выполнить её. "
+
+#~ msgid "{gear}, automatic."
+#~ msgstr "{gear}, автомат."
+
+#~ msgid "Two-finger turn left: stop the engine."
+#~ msgstr "Поворот двумя пальцами влево: заглушить двигатель."
+
+#~ msgid "Confirm"
+#~ msgstr "Подтвердить"
 
 #~ msgid "Ten hours in the sleeper, and your hours are reset."
 #~ msgstr "Десять часов в спальнике, и твоё рабочее время сброшено."

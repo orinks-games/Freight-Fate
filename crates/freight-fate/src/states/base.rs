@@ -233,6 +233,12 @@ pub trait State: AsAny {
 
     fn handle_event(&mut self, _ctx: &mut GameContext, _event: &InputEvent) {}
 
+    /// What kind of screen a touch gesture lands on, which is all the app
+    /// reads to route it (`crate::touch::route`). Most screens are menus.
+    fn touch_mode(&self) -> crate::touch::TouchMode {
+        crate::touch::TouchMode::Menu
+    }
+
     /// A touch gesture this screen answers itself. `false` (every screen but
     /// the drive) has the app press the gesture's key instead.
     fn handle_gesture(&mut self, _ctx: &mut GameContext, _gesture: Gesture) -> bool {

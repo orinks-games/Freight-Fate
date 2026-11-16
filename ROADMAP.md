@@ -1486,6 +1486,27 @@ Everything found before 2026-09-25 moved to
       Settings, Gameplay, Controls, Touch gestures: a second finger while holding a
       pedal (cruise, shifts, parking brake, engine), plus tap for speed,
       swipes for the cruise target, magic tap to pause (2026-09-29).
+- [x] iOS wheel fixes, step 1 of the iPhone gesture plan (2026-11-16):
+      every screen reports a touch mode (`TouchMode` in `ff-core`) and one
+      route table maps each gesture per mode, so a Driving School lesson is
+      the wheel too. With cruise off, flick up turns cruise on and flick
+      down does nothing; a two-finger turn left stops the engine only under
+      `touch_parking_brake_mph`; double tap answers the road (`RoadOffer`:
+      exit, pull-over, arrival); two-finger tap stops speech everywhere and
+      the Status menu is the first row of the three-finger tap list; the
+      brake-hold tap and double tap default to nothing. The agent server's
+      `gesture` tool sends gestures by name, and `status` reports the touch
+      mode and road offer. Nothing was tried on a phone.
+- [ ] (Found along the way) iPhone gesture plan steps 2 to 4: menus that
+      move like VoiceOver (the axis swap, tap reads the row, the scrub, magic
+      tap, three-finger tap), the driving menu regrouped and a manual clutch
+      gesture, and the stroke recogniser moved into `ff-core` with the deep
+      swipe threshold measured on a phone.
+- [ ] (Found along the way) With the brake-hold tap off by default, a touch
+      player's parking brake prompts ("press ... to release the parking
+      brake", the gate's "Set the parking brake") name the Parking brake row
+      of the three-finger tap list. Gas already releases the brake and a
+      deep swipe at a stop sets it; the prompts could say so instead.
 - [ ] (Found along the way) The iOS second-finger gestures (hold a pedal,
       then tap, double tap or swipe with another finger) need a pass on real
       hardware: the Simulator's touch replay lifts both fingers together, so

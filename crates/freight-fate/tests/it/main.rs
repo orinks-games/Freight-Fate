@@ -48,6 +48,7 @@ mod app_speech_ducking;
 mod app_speech_hold;
 mod app_state_stack;
 mod app_touch_gestures;
+mod app_touch_wheel;
 mod audio_backends;
 mod audio_hearken;
 mod audio_loops;

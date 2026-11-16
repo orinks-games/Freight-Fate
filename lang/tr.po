@@ -6237,6 +6237,9 @@ msgstr "çift dokunma"
 msgid "confirm"
 msgstr "onay"
 
+msgid "a two-finger tap"
+msgstr "iki parmakla dokunma"
+
 msgid "a two-finger swipe down"
 msgstr "iki parmakla aşağı kaydırma"
 
@@ -15207,6 +15210,21 @@ msgstr "Girilen yer: "
 msgid "Passing "
 msgstr "Geçilen yer: "
 
+msgid "menu"
+msgstr "menü"
+
+msgid "field"
+msgstr ""
+
+msgid "wheel"
+msgstr ""
+
+msgid "practice"
+msgstr ""
+
+msgid "arrival"
+msgstr ""
+
 msgid "miles"
 msgstr "mil"
 
@@ -15969,9 +15987,6 @@ msgstr "Yukarı fiske"
 msgid "Flick down"
 msgstr "Aşağı fiske"
 
-msgid "Two-finger tap"
-msgstr "İki parmakla dokunma"
-
 msgid "Two-finger double tap"
 msgstr "İki parmakla çift dokunma"
 
@@ -16030,9 +16045,6 @@ msgstr "yukarı fiske"
 msgid "a flick down"
 msgstr "aşağı fiske"
 
-msgid "a two-finger tap"
-msgstr "iki parmakla dokunma"
-
 msgid "a two-finger double tap"
 msgstr "iki parmakla çift dokunma"
 
@@ -16072,8 +16084,8 @@ msgstr "sağa fiske"
 msgid "a still hold for half a second"
 msgstr "yarım saniye kıpırdamadan tutma"
 
-msgid "the exit command from the three-finger tap list"
-msgstr "üç parmakla dokunma listesindeki çıkış komutu"
+msgid "the first row of the three-finger tap list"
+msgstr ""
 
 #. placeholders: {label}
 msgid "{label} from the three-finger tap list"
@@ -18385,9 +18397,6 @@ msgstr "Yedekleme arka planda yeniden denemeye devam edecek."
 
 msgid "Progress saved."
 msgstr "İlerleme kaydedildi."
-
-msgid "menu"
-msgstr "menü"
 
 #. placeholders: {city}
 msgid "{city} service area"
@@ -22242,31 +22251,21 @@ msgstr ""
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
-"cruise off, flick up to resume the last speed and flick down to set the "
-"current speed. Turn two fingers right like a key to start the engine, left "
-"to stop it. Hold two fingers for the horn. Turning them cancels it. While "
-"holding a pedal, a second finger's flicks and holds work the same way, and "
-"in automatic its shift flicks say the gear. "
+"cruise off, flick up to turn it on at the last speed you set, or at this "
+"speed the first time. Double tap takes an exit or pulls over when the road "
+"calls for one, and confirms arrival at the gate. Two-finger tap stops "
+"speech. Turn two fingers right like a key to start the engine, and left to "
+"stop it once the truck is stopped. Hold two fingers for the horn. Turning "
+"them cancels it. While holding a pedal, a second finger's flicks and holds "
+"work the same way. "
 msgstr ""
-"Direksiyonu düzeltmek için bir parmağınızı yarım saniye kıpırdatmadan "
-"tutun. Hız sabitleyici kapalıyken son hıza dönmek için yukarı, şu anki hızı "
-"ayarlamak için aşağı fiske atın. Motoru çalıştırmak için iki parmağınızı "
-"anahtar gibi sağa, durdurmak için sola çevirin. Korna için iki parmağınızı "
-"tutun. Çevirmek kornayı iptal eder. Bir pedalı tutarken ikinci parmağın "
-"fiskeleri ve tutuşları da aynı şekilde çalışır; otomatik viteste vites "
-"fiskeleri vitesi söyler. "
 
 msgid ""
 "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
 "swipes left and right review messages, and three-finger swipes left and "
-"right tune the radio. A three-finger tap lists every driving command: swipe "
-"to one and double tap to run it. "
+"right tune the radio. A three-finger tap lists every driving command, with "
+"Status first: swipe to one and double tap to run it. "
 msgstr ""
-"İki parmakla aşağı kaydırmak duraklatır, iki parmakla yukarı kaydırmak bu "
-"yardımı açar, iki parmakla sola ve sağa kaydırmak mesajlarda gezinir, üç "
-"parmakla sola ve sağa kaydırmak radyo istasyonunu değiştirir. Üç parmakla "
-"dokunmak her sürüş komutunu listeler: birine kaydırın ve çalıştırmak için "
-"iki kez dokunun. "
 
 msgid ""
 "Gestures can be moved in Settings, Gameplay, Controls, Touch gestures."
@@ -22813,10 +22812,6 @@ msgstr "Motor zaten çalışıyor."
 
 msgid "Engine already off."
 msgstr "Motor zaten kapalı."
-
-#. placeholders: {gear}
-msgid "{gear}, automatic."
-msgstr "{gear}, otomatik."
 
 msgid "Release the accelerator before turning the jake on."
 msgstr "Motor frenini açmadan önce gazı bırakın."
@@ -35687,8 +35682,8 @@ msgstr "İki parmakla tutma: korna."
 msgid "Two-finger turn right: start the engine."
 msgstr "İki parmakla sağa çevirme: motoru çalıştır."
 
-msgid "Two-finger turn left: stop the engine."
-msgstr "İki parmakla sola çevirme: motoru durdur."
+msgid "Two-finger turn left: stop the engine, once the truck is stopped."
+msgstr ""
 
 msgid "Second finger, hold left: steer left."
 msgstr "İkinci parmak, sola tut: sola çevir."
@@ -35776,6 +35771,9 @@ msgstr "Sola fiske"
 msgid "Flick right"
 msgstr "Sağa fiske"
 
+msgid "Two-finger tap"
+msgstr "İki parmakla dokunma"
+
 msgid "Magic tap"
 msgstr "Sihirli dokunuş"
 
@@ -35797,8 +35795,11 @@ msgstr "Üç parmakla sola kaydırma"
 msgid "Three-finger swipe right"
 msgstr "Üç parmakla sağa kaydırma"
 
-msgid "Confirm"
-msgstr "Onayla"
+msgid "Take an exit, pull over or confirm arrival"
+msgstr ""
+
+msgid "Stop speech"
+msgstr ""
 
 msgid "Change lanes left"
 msgstr "Sola şerit değiştir"
@@ -40050,6 +40051,9 @@ msgstr "İndiriliyor: {title}"
 msgid "Escape cancels, Tab reads progress."
 msgstr "Escape iptal eder, Tab ilerlemeyi okur."
 
+msgid "lift"
+msgstr ""
+
 #. placeholders: {lane_assist}
 msgid "Middle lane  ·  lane keeping {lane_assist}"
 msgstr "Orta şerit  ·  şerit takibi {lane_assist}"
@@ -41308,6 +41312,46 @@ msgstr ""
 #. The last sentence of the sleep preview, when nothing comes before it.
 msgid "Select again to sleep."
 msgstr ""
+
+#~ msgid "the exit command from the three-finger tap list"
+#~ msgstr "üç parmakla dokunma listesindeki çıkış komutu"
+
+#~ msgid ""
+#~ "Hold one finger still for half a second to straighten the wheel. With "
+#~ "cruise off, flick up to resume the last speed and flick down to set the "
+#~ "current speed. Turn two fingers right like a key to start the engine, left "
+#~ "to stop it. Hold two fingers for the horn. Turning them cancels it. While "
+#~ "holding a pedal, a second finger's flicks and holds work the same way, and "
+#~ "in automatic its shift flicks say the gear. "
+#~ msgstr ""
+#~ "Direksiyonu düzeltmek için bir parmağınızı yarım saniye kıpırdatmadan "
+#~ "tutun. Hız sabitleyici kapalıyken son hıza dönmek için yukarı, şu anki hızı "
+#~ "ayarlamak için aşağı fiske atın. Motoru çalıştırmak için iki parmağınızı "
+#~ "anahtar gibi sağa, durdurmak için sola çevirin. Korna için iki parmağınızı "
+#~ "tutun. Çevirmek kornayı iptal eder. Bir pedalı tutarken ikinci parmağın "
+#~ "fiskeleri ve tutuşları da aynı şekilde çalışır; otomatik viteste vites "
+#~ "fiskeleri vitesi söyler. "
+
+#~ msgid ""
+#~ "Two-finger swipe down pauses, two-finger swipe up is this help, two-finger "
+#~ "swipes left and right review messages, and three-finger swipes left and "
+#~ "right tune the radio. A three-finger tap lists every driving command: swipe "
+#~ "to one and double tap to run it. "
+#~ msgstr ""
+#~ "İki parmakla aşağı kaydırmak duraklatır, iki parmakla yukarı kaydırmak bu "
+#~ "yardımı açar, iki parmakla sola ve sağa kaydırmak mesajlarda gezinir, üç "
+#~ "parmakla sola ve sağa kaydırmak radyo istasyonunu değiştirir. Üç parmakla "
+#~ "dokunmak her sürüş komutunu listeler: birine kaydırın ve çalıştırmak için "
+#~ "iki kez dokunun. "
+
+#~ msgid "{gear}, automatic."
+#~ msgstr "{gear}, otomatik."
+
+#~ msgid "Two-finger turn left: stop the engine."
+#~ msgstr "İki parmakla sola çevirme: motoru durdur."
+
+#~ msgid "Confirm"
+#~ msgstr "Onayla"
 
 #~ msgid "Ten hours in the sleeper, and your hours are reset."
 #~ msgstr "Yatakta on saat, ve çalışma saatlerin sıfırlandı."
