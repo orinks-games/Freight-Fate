@@ -188,11 +188,7 @@ impl TrafficStopState {
             .map(|p| p.detail)
             .unwrap_or_default();
         let mut state = TrafficStopState {
-            menu: MenuCore::new("Traffic stop")
-                .with_intro_help(TRAFFIC_STOP_INTRO_HELP)
-                .with_touch_help(
-                    "Double tap or flick down with two fingers to pull back onto the highway.",
-                ),
+            menu: MenuCore::new("Traffic stop").with_intro_help(TRAFFIC_STOP_INTRO_HELP),
             driving: DriveRef::active(ctx),
             signaled,
             over,
@@ -409,11 +405,7 @@ impl EnforcementStopState {
             None,
         );
         let mut state = EnforcementStopState {
-            menu: MenuCore::new(&params.title)
-                .with_intro_help(ENFORCEMENT_STOP_INTRO_HELP)
-                .with_touch_help(
-                    "Double tap or flick down with two fingers to pull back onto the highway.",
-                ),
+            menu: MenuCore::new(&params.title).with_intro_help(ENFORCEMENT_STOP_INTRO_HELP),
             driving: DriveRef::active(ctx),
             summary: params.summary,
             construction_zone: params.construction_zone,
@@ -660,11 +652,7 @@ impl LicencePulledState {
             }
         };
         let mut state = LicencePulledState {
-            menu: MenuCore::new(&title)
-                .with_intro_help(LICENCE_PULLED_INTRO_HELP)
-                .with_touch_help(
-                    "Double tap or flick down with two fingers to return to the terminal.",
-                ),
+            menu: MenuCore::new(&title).with_intro_help(LICENCE_PULLED_INTRO_HELP),
             driving: DriveRef::active(ctx),
             outcome_text: String::new(),
         };
@@ -730,11 +718,7 @@ impl FelonyStopState {
     pub fn new(ctx: &mut GameContext, driving: &mut DrivingState) -> Self {
         let load_lost = driving.phase == DRIVE_PHASE_DELIVERY && !driving.job.bobtail;
         let mut state = FelonyStopState {
-            menu: MenuCore::new("Felony stop")
-                .with_intro_help(FELONY_INTRO_HELP)
-                .with_touch_help(
-                    "Double tap or flick down with two fingers to continue from the terminal.",
-                ),
+            menu: MenuCore::new("Felony stop").with_intro_help(FELONY_INTRO_HELP),
             load_lost,
             summary: String::new(),
             standing_text: String::new(),

@@ -66,12 +66,7 @@ const RADIO_APP_INTRO_HELP: &str = "Enter on a station tunes it. Escape returns 
 impl RadioAppState {
     pub fn new(driving: DriveRef) -> Self {
         RadioAppState {
-            menu: MenuCore::new("Radio")
-                .with_intro_help(RADIO_APP_INTRO_HELP)
-                .with_touch_help(
-                    "Double tap a station to tune it. Flick down with two fingers to return to \
-                     Driver apps.",
-                ),
+            menu: MenuCore::new("Radio").with_intro_help(RADIO_APP_INTRO_HELP),
             driving,
         }
     }

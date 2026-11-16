@@ -20,9 +20,8 @@ const STOP_DETAIL_INTRO_HELP: &str =
      a line or activates a button. Escape returns to the map.";
 
 const STOP_DETAIL_TOUCH_HELP: &str =
-    "Flick right or left to review each line, and up or down with three fingers to jump to the \
-     first and last. Double tap repeats a line or activates a button. Flick down with two \
-     fingers to return to the map.";
+    "Flick right or left to review each line, and flick up or down with three fingers to jump to \
+     the first and last. Flick down with two fingers to return to the map.";
 
 /// Full details for one upcoming route stop, opened from the Map screen.
 ///
@@ -260,12 +259,7 @@ const MOVE_PLAN_INTRO_HELP: &str = "Use up and down arrows to navigate, Enter to
 impl ConfirmMovePlanState {
     pub fn new(driving: DriveRef, stop: RoadStop) -> Self {
         ConfirmMovePlanState {
-            menu: MenuCore::new("Move planned stop?")
-                .with_intro_help(MOVE_PLAN_INTRO_HELP)
-                .with_touch_help(
-                    "Flick right or left to move and double tap to choose. Flick down with two \
-                     fingers to keep your current planned stop.",
-                ),
+            menu: MenuCore::new("Move planned stop?").with_intro_help(MOVE_PLAN_INTRO_HELP),
             driving,
             stop,
         }

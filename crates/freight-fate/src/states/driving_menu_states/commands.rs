@@ -92,12 +92,7 @@ impl DrivingCommandsState {
     /// The same list built over a drive the caller already shares.
     pub fn with_drive(driving: DriveRef) -> Self {
         DrivingCommandsState {
-            menu: MenuCore::new("Driving commands")
-                .with_intro_help(COMMANDS_INTRO_HELP)
-                .with_touch_help(
-                    "Flick right or left to pick a command. Double tap runs it and returns to \
-                     driving. Flick down with two fingers to return without one.",
-                ),
+            menu: MenuCore::new("Driving commands").with_intro_help(COMMANDS_INTRO_HELP),
             driving,
             copy_text: None,
         }

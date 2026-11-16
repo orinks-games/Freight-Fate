@@ -62,16 +62,10 @@ pub struct LearnSoundsState {
 impl LearnSoundsState {
     pub fn new() -> Self {
         Self {
-            menu: MenuCore::new("Learn game sounds")
-                .with_intro_help(
-                    "Up and Down choose a group of sounds, Enter opens it, Escape goes back. \
+            menu: MenuCore::new("Learn game sounds").with_intro_help(
+                "Up and Down choose a group of sounds, Enter opens it, Escape goes back. \
                  Inside a group, Enter plays a sound and F1 explains it.",
-                )
-                .with_touch_help(
-                    "Flick right or left to choose a group of sounds, and double tap to open it. \
-                     Inside a group, double tap plays a sound and a flick up with two fingers \
-                     explains it.",
-                ),
+            ),
         }
     }
 
@@ -138,18 +132,11 @@ pub struct LearnSoundCategoryState {
 impl LearnSoundCategoryState {
     pub fn new(category: SoundCategory) -> Self {
         Self {
-            menu: MenuCore::new(category.name)
-                .with_intro_help(
-                    "Up and Down choose a sound, Enter plays it, and F1 explains it and when \
+            menu: MenuCore::new(category.name).with_intro_help(
+                "Up and Down choose a sound, Enter plays it, and F1 explains it and when \
                  you hear it. Escape goes back. Moving to another sound or going back \
                  stops a sound that keeps running. A short sound finishes on its own.",
-                )
-                .with_touch_help(
-                    "Flick right or left to choose a sound. Double tap plays it, and a flick up \
-                     with two fingers explains it and when you hear it. Moving to another sound \
-                     or going back stops a sound that keeps running. A short sound finishes on \
-                     its own.",
-                ),
+            ),
             category,
             demo: SoundDemo::new(asset_length_s),
         }

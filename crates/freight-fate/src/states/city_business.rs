@@ -62,15 +62,10 @@ impl Default for BusinessStatusState {
 impl BusinessStatusState {
     pub fn new() -> Self {
         BusinessStatusState {
-            menu: MenuCore::new("Business status")
-                .with_intro_help(
-                    "Enter repeats a line, or buys in when qualified. Escape returns to the \
+            menu: MenuCore::new("Business status").with_intro_help(
+                "Enter repeats a line, or buys in when qualified. Escape returns to the \
                  terminal.",
-                )
-                .with_touch_help(
-                    "Double tap repeats a line, or buys in when qualified. Flick down with two \
-                     fingers to return to the terminal.",
-                ),
+            ),
             return_armed: false,
             move_armed: None,
         }
@@ -519,16 +514,10 @@ impl Default for UpgradeShopState {
 impl UpgradeShopState {
     pub fn new() -> Self {
         UpgradeShopState {
-            menu: MenuCore::new("Upgrades")
-                .with_intro_help(
-                    "Upgrades apply to every tractor you own. Enter buys the next tier, F1 is \
+            menu: MenuCore::new("Upgrades").with_intro_help(
+                "Upgrades apply to every tractor you own. Enter buys the next tier, F1 is \
                  details. Escape returns to the garage.",
-                )
-                .with_touch_help(
-                    "Upgrades apply to every tractor you own. Double tap buys the next tier, and \
-                     a flick up with two fingers gives details. Flick down with two fingers to \
-                     return to the garage.",
-                ),
+            ),
         }
     }
 
@@ -867,16 +856,10 @@ impl Default for TrailerProgramState {
 impl TrailerProgramState {
     pub fn new() -> Self {
         TrailerProgramState {
-            menu: MenuCore::new("Trailers")
-                .with_intro_help(
-                    "Owner-operators start with the dry van program and add specialty programs. \
+            menu: MenuCore::new("Trailers").with_intro_help(
+                "Owner-operators start with the dry van program and add specialty programs. \
                  Own authority buys trailers outright. Escape returns to the garage.",
-                )
-                .with_touch_help(
-                    "Owner-operators start with the dry van program and add specialty programs. \
-                     Own authority buys trailers outright. Flick down with two fingers to return \
-                     to the garage.",
-                ),
+            ),
         }
     }
 
@@ -1083,16 +1066,11 @@ impl Default for EndorsementCourseState {
 impl EndorsementCourseState {
     pub fn new() -> Self {
         EndorsementCourseState {
-            menu: MenuCore::new("Licenses and training")
-                .with_intro_help(
-                    "Enter books a course. Courses take game \
+            menu: MenuCore::new("Licenses and training").with_intro_help(
+                "Enter books a course. Courses take game \
                  time, and a background check runs while you drive. Escape returns to the \
                  terminal.",
-                )
-                .with_touch_help(
-                    "Double tap books a course. Courses take game time, and a background check \
-                     runs while you drive. Flick down with two fingers to return to the terminal.",
-                ),
+            ),
         }
     }
 

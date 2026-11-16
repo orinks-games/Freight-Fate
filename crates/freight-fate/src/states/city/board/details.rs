@@ -75,9 +75,8 @@ const JOB_DETAIL_INTRO_HELP: &str =
      accepts on Accept this dispatch. Escape returns to the dispatch board.";
 
 const JOB_DETAIL_TOUCH_HELP: &str =
-    "Flick right or left to review the lines, and up or down with three fingers to jump to the \
-     ends. Double tap repeats a line, or accepts on Accept this dispatch. Flick down with two \
-     fingers to return to the dispatch board.";
+    "Flick right or left to review the lines, and flick up or down with three fingers to jump to \
+     the ends. Flick down with two fingers to return to the dispatch board.";
 
 pub struct JobDetailState {
     menu: MenuCore<Self>,

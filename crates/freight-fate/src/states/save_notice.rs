@@ -22,8 +22,7 @@ impl SaveModifiedNoticeState {
     pub fn new() -> Self {
         Self {
             menu: MenuCore::new("Save file changed outside the game")
-                .with_intro_help("Enter continues to your career.")
-                .with_touch_help("Double tap to continue to your career."),
+                .with_intro_help("Enter continues to your career."),
         }
     }
 
@@ -91,15 +90,10 @@ pub struct LegacyCareerNoticeState {
 impl LegacyCareerNoticeState {
     pub fn new(driver_name: &str) -> Self {
         Self {
-            menu: MenuCore::new("Career from an earlier version")
-                .with_intro_help(
-                    "This career cannot continue in version 1.9. Escape goes back to \
+            menu: MenuCore::new("Career from an earlier version").with_intro_help(
+                "This career cannot continue in version 1.9. Escape goes back to \
                  the career list.",
-                )
-                .with_touch_help(
-                    "This career cannot continue in version 1.9. Flick down with two fingers to \
-                     go back to the career list.",
-                ),
+            ),
             driver_name: driver_name.to_string(),
         }
     }
@@ -159,8 +153,7 @@ impl DrivingRecordNoticeState {
     pub fn new() -> Self {
         Self {
             menu: MenuCore::new("Your driving record")
-                .with_intro_help("Enter continues to your career.")
-                .with_touch_help("Double tap to continue to your career."),
+                .with_intro_help("Enter continues to your career."),
         }
     }
 
@@ -232,8 +225,7 @@ impl SaveMigrationNoticeState {
     pub fn new() -> Self {
         Self {
             menu: MenuCore::new("Save file updated")
-                .with_intro_help("Enter continues to your career.")
-                .with_touch_help("Double tap to continue to your career."),
+                .with_intro_help("Enter continues to your career."),
         }
     }
 

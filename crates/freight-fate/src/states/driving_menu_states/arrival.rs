@@ -87,12 +87,7 @@ impl ArrivalState {
                 HomeTerminal::new("Terminal", &driving.job.destination, "", "yard")
             });
         let mut state = ArrivalState {
-            menu: MenuCore::new("Delivery complete")
-                .with_intro_help(ARRIVAL_INTRO_HELP)
-                .with_touch_help(
-                    "Flick right or left to review the summary. Double tap repeats the line. \
-                     Flick down with two fingers to continue.",
-                ),
+            menu: MenuCore::new("Delivery complete").with_intro_help(ARRIVAL_INTRO_HELP),
             summary_parts: Vec::new(),
             achievement_messages: Vec::new(),
             new_achievement_names: Vec::new(),

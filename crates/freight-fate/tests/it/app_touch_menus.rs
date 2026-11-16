@@ -4,7 +4,7 @@
 
 use freight_fate::app::testing::TestApp;
 use freight_fate::states::base::{
-    Key, Menu, MenuItem, SimpleMenuState, DEFAULT_INTRO_HELP, TOUCH_INTRO_HELP,
+    Key, MenuItem, SimpleMenuState, DEFAULT_INTRO_HELP, TOUCH_INTRO_HELP,
 };
 use freight_fate::states::main_menu::SettingsCategoryState;
 use freight_fate::states::main_menu_help::HelpState;
@@ -160,25 +160,6 @@ fn no_touch_intro_help_names_a_key() {
         }
         drop(app);
     }
-}
-
-#[test]
-fn the_settings_help_says_flick_on_touch() {
-    let mut app = on_touch();
-    let screen = SettingsCategoryState::new("audio");
-    let touch = with_menu(&app, &screen);
-    assert!(
-        touch.starts_with("Flick right or left to pick a setting."),
-        "{touch}"
-    );
-    app.dispatch_gesture(Gesture::KeyboardConnected);
-    key(&mut app, Key::Space);
-    let keys = with_menu(&app, &screen);
-    assert!(keys.starts_with("Up and Down pick a setting."), "{keys}");
-}
-
-fn with_menu<T: Menu>(app: &TestApp, screen: &T) -> String {
-    screen.menu().intro(&app.ctx)
 }
 
 #[test]

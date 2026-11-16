@@ -276,16 +276,10 @@ impl SettingsCategoryState {
             .map(|(_, title)| *title)
             .unwrap_or("Settings");
         Self {
-            menu: MenuCore::new(title)
-                .with_intro_help(
-                    "Up and Down pick a setting. Right arrow or Enter changes it forward, \
+            menu: MenuCore::new(title).with_intro_help(
+                "Up and Down pick a setting. Right arrow or Enter changes it forward, \
                  Left arrow backward. Escape goes back.",
-                )
-                .with_touch_help(
-                    "Flick right or left to pick a setting. Flick up or double tap to change it \
-                     forward, and flick down to change it back. Flick down with two fingers to go \
-                     back.",
-                ),
+            ),
             category: category.to_string(),
         }
     }

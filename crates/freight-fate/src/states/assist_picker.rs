@@ -48,10 +48,7 @@ impl Default for AssistPickerState {
     fn default() -> Self {
         Self {
             menu: MenuCore::new(Self::TITLE)
-                .with_intro_help("Enter chooses. Escape keeps what you have.")
-                .with_touch_help(
-                    "Double tap chooses. Flick down with two fingers to keep what you have.",
-                ),
+                .with_intro_help("Enter chooses. Escape keeps what you have."),
         }
     }
 }

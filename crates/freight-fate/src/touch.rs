@@ -10,8 +10,8 @@
 //! with it on the kind of screen on top ([`TouchMode`]): at the wheel the
 //! drive runs the command the player's touch bindings give it, menus move
 //! the way VoiceOver does, and every other screen, or a gesture with no
-//! binding, gets the key a keyboard player would press. Nothing here touches UIKit, so the whole mapping is
-//! tested on every platform.
+//! binding, gets the key a keyboard player would press. Nothing here touches
+//! UIKit, so the whole mapping is tested on every platform.
 
 use crate::bindings::Action;
 use crate::states::base::{InputEvent, Key, Mods};
@@ -362,7 +362,7 @@ pub fn route(mode: TouchMode, gesture: Gesture) -> Route {
         G::HoldEnded => Route::Lift,
         _ if mode == TouchMode::Menu => menu_route(gesture),
         // A tap, a magic tap and the message flicks would type a comma, a
-        // space or a full stop into the name.
+        // space or a period into the name.
         G::Tap | G::MagicTap | G::TwoFingerSwipeLeft | G::TwoFingerSwipeRight
             if mode == TouchMode::Field =>
         {

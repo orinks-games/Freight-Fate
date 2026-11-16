@@ -329,10 +329,6 @@ impl PickupFacilityState {
                 .with_intro_help(
                     "Check in, then load cargo with the truck stopped. Escape repeats the \
                      pickup status.",
-                )
-                .with_touch_help(
-                    "Check in, then load cargo with the truck stopped. A flick down with two \
-                     fingers repeats the pickup status.",
                 ),
             job,
             checked_in: opts.checked_in,
@@ -1199,10 +1195,7 @@ impl RouteSelectState {
         }
         RouteSelectState {
             menu: MenuCore::new("Route planning")
-                .with_intro_help("W reads the weather along a route. Enter starts the drive.")
-                .with_touch_help(
-                    "Tap with three fingers for the weather along a route. Double tap starts the drive.",
-                ),
+                .with_intro_help("W reads the weather along a route. Enter starts the drive."),
             job,
             routes,
             opts,

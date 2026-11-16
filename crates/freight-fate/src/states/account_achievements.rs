@@ -49,14 +49,7 @@ fn listed_count(ctx: &GameContext) -> usize {
 impl AccountAchievementsState {
     pub fn new() -> Self {
         Self {
-            menu: MenuCore::new("Account achievements")
-                .with_intro_help(CONTROLS)
-                .with_touch_help(
-                    "Double tap opens a category. Inside one, double tap repeats the achievement \
-                     and a flick down with two fingers returns to the categories. From the \
-                     categories, it returns to Online. Achievements earned in any career on this \
-                     installation.",
-                ),
+            menu: MenuCore::new("Account achievements").with_intro_help(CONTROLS),
             overrides: SortOverrides::default(),
         }
     }

@@ -1514,11 +1514,11 @@ Everything found before 2026-09-25 moved to
 - [ ] (Found along the way) iPhone gesture plan steps 3 and 4: the driving
       menu regrouped and a manual clutch gesture, and the stroke recogniser
       moved into `ff-core` with the deep swipe threshold measured on a phone.
-- [ ] (Found along the way) Menu intro help is spoken only when a menu has
-      no rows (and on job and stop details, which lead with it), so most of
-      the touch intro help, like the keyboard one it sits beside, is never
-      heard. Decide whether the help gesture should read it, or whether it
-      can go.
+- [ ] (Found along the way) Cleanup: menu intro help is spoken only when a
+      menu has no rows, and on job and stop details, which lead with it. The
+      help key and gesture keep reading the row's own help. The keyboard
+      intro strings that are never spoken can be deleted; touch ones were
+      added only where they are heard.
 - [ ] (Found along the way) Keys on menu screens no gesture reaches: the
       message category jumps ([ and ]), the first and last message (Control
       Comma and Period), copying the message in review (Control C), and

@@ -106,14 +106,9 @@ pub struct ManageCareersState {
 impl ManageCareersState {
     pub fn new() -> Self {
         Self {
-            menu: MenuCore::new("Manage careers")
-                .with_intro_help(
-                    "Up and Down pick a career, Enter opens reset and delete, Escape goes back.",
-                )
-                .with_touch_help(
-                    "Flick right or left to pick a career, and double tap to open reset and \
-                     delete. Flick down with two fingers to go back.",
-                ),
+            menu: MenuCore::new("Manage careers").with_intro_help(
+                "Up and Down pick a career, Enter opens reset and delete, Escape goes back.",
+            ),
         }
     }
 }
@@ -202,11 +197,7 @@ impl CareerActionsState {
     pub fn new(path: PathBuf, profile: Profile) -> Self {
         Self {
             menu: MenuCore::new("Career actions")
-                .with_intro_help("Reset and delete both ask for confirmation. Escape goes back.")
-                .with_touch_help(
-                    "Reset and delete both ask for confirmation. Flick down with two fingers to \
-                     go back.",
-                ),
+                .with_intro_help("Reset and delete both ask for confirmation. Escape goes back."),
             path,
             profile,
         }

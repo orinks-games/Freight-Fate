@@ -40,12 +40,7 @@ impl StopPurposeState {
         focus: StopPlanPurpose,
     ) -> Self {
         StopPurposeState {
-            menu: MenuCore::new("Plan a stop")
-                .with_intro_help(STOP_PURPOSE_INTRO_HELP)
-                .with_touch_help(
-                    "Flick right or left to choose what the stop is for, and double tap to plan \
-                     it. Flick down with two fingers to go back to driving.",
-                ),
+            menu: MenuCore::new("Plan a stop").with_intro_help(STOP_PURPOSE_INTRO_HELP),
             driving,
             rows,
             focus,

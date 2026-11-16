@@ -389,12 +389,7 @@ const SCHOOL_INTRO_HELP: &str =
 impl DrivingSchoolState {
     pub fn new() -> Self {
         DrivingSchoolState {
-            menu: MenuCore::new("Driving school")
-                .with_intro_help(SCHOOL_INTRO_HELP)
-                .with_touch_help(
-                    "Lessons run on a practice road where nothing counts: no money, no wear, no \
-                     hours. Flick down with two fingers to return to the terminal.",
-                ),
+            menu: MenuCore::new("Driving school").with_intro_help(SCHOOL_INTRO_HELP),
         }
     }
 

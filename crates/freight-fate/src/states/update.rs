@@ -812,7 +812,7 @@ impl State for UpdateDownloadState {
         if ctx.touch_hints() {
             ctx.say(&format!(
                 "Downloading {}{size}. The game restarts when the download \
-                 finishes. A flick down with two fingers cancels.",
+                 finishes. Flick down with two fingers to cancel.",
                 self.info.title
             ));
         } else {
